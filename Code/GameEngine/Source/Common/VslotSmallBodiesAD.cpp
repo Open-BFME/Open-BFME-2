@@ -33,7 +33,8 @@ class Rva00288CFA
 public:
 	bool rva00288CFA(Int a);
 };
-extern Rva00288CFA *g_rva00260E44Target;
+class ExperienceLevelSystem;
+extern ExperienceLevelSystem *TheExperienceLevelSystem;
 struct Rva00260E44Arg
 {
 	char m_pad00[0x264];
@@ -46,7 +47,7 @@ public:
 };
 bool Rva00260E44::rva00260E44(const Rva00260E44Arg *arg)
 {
-	if (g_rva00260E44Target && g_rva00260E44Target->rva00288CFA(arg->m_264))
+	if (TheExperienceLevelSystem && reinterpret_cast<Rva00288CFA *>(TheExperienceLevelSystem)->rva00288CFA(arg->m_264))
 		return true;
 	return false;
 }

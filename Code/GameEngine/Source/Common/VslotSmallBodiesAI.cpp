@@ -38,7 +38,8 @@ public:
 	int GetExperienceAwardForLevel(ExperienceLevelHandle level) const;
 };
 class Rva00288CFA;
-extern Rva00288CFA *g_00DFECC4;
+class ExperienceLevelSystem;
+extern ExperienceLevelSystem *TheExperienceLevelSystem;
 class Rva0059B14E
 {
 public:
@@ -53,9 +54,9 @@ int Rva0059B14E::rva0059B14E(int value)
 	if (value != 0)
 	{
 		ExperienceLevelHandle level =
-			((ExperienceLevelStore *)g_00DFECC4)->rva00288D88(value, m_experience);
+			((ExperienceLevelStore *)TheExperienceLevelSystem)->rva00288D88(value, m_experience);
 		if (level.m_list != 0)
-			m_award += ((ExperienceLevelStore *)g_00DFECC4)->GetExperienceAwardForLevel(level);
+			m_award += ((ExperienceLevelStore *)TheExperienceLevelSystem)->GetExperienceAwardForLevel(level);
 	}
 	return 1;
 }

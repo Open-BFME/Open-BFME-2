@@ -1,10 +1,10 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?Rva003C45D4Apply@@YGXPAVParameter@@ABVAsciiString@@@Z @0x003C45D4 81B.
 // Script unit helper: getUnitNamed via g_Va009FE16C, nameToKey via
-// TheNameKeyGenerator, level lookup via g_00DFECC4 and rowed 0x0028951F,
+// TheNameKeyGenerator, level lookup via TheExperienceLevelSystem and rowed 0x0028951F,
 // then rowed 0x0039B24F on the +0x264 link with (input 0 true) and clear
 // byte at +0x20. Evidence: chain via 0x0039B24F; rowed callees; globals
-// g_Va009FE16C TheNameKeyGenerator g_00DFECC4; caller 0x003CDBDB; ret 8.
+// g_Va009FE16C TheNameKeyGenerator TheExperienceLevelSystem; caller 0x003CDBDB; ret 8.
 #include "ascii_string.h"
 
 class Parameter;
@@ -35,7 +35,8 @@ class Rva0028951F
 public:
 	const Overridable *rva0028951F(int key);
 };
-extern Rva0028951F *g_00DFECC4;
+class ExperienceLevelSystem;
+extern ExperienceLevelSystem *TheExperienceLevelSystem;
 
 struct Rva0039B24FInput;
 
@@ -59,7 +60,7 @@ void __stdcall Rva003C45D4Apply(Parameter *param, const AsciiString &name)
 	if (!unit)
 		return;
 	int key = TheNameKeyGenerator->nameToKey(name);
-	const Overridable *lvl = g_00DFECC4->rva0028951F(key);
+	const Overridable *lvl = reinterpret_cast<Rva0028951F *>(TheExperienceLevelSystem)->rva0028951F(key);
 	if (!lvl)
 		return;
 	UnitLink264 *link = (UnitLink264 *)unit;

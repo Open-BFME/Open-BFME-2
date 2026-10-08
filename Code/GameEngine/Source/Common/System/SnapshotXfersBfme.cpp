@@ -177,7 +177,8 @@ public:
 	ExperienceScalarTable *FindExperienceScalarTableByName(const AsciiString &name) const;	// 0x00288AF2
 };
 
-extern ExperienceLevelStore *TheExperienceLevelStore;
+class ExperienceLevelSystem;
+extern ExperienceLevelSystem *TheExperienceLevelSystem;
 
 // What the owner's +0x04 points at: only the scalar-table name at +0x9C is read.
 struct Rva0039AE75Source
@@ -487,7 +488,7 @@ Rva0039AE75::Rva0039AE75( Rva0039AE75Owner *owner ) :
 	m_bfmeValue0C( 1 ),
 	m_bfmeTable10( 0 )
 {
-	m_bfmeTable10 = TheExperienceLevelStore->FindExperienceScalarTableByName( m_owner->m_parent->m_scalarTableName );
+	m_bfmeTable10 = reinterpret_cast<ExperienceLevelStore *>(TheExperienceLevelSystem)->FindExperienceScalarTableByName( m_owner->m_parent->m_scalarTableName );
 }
 
 Int Rva0039AE75::indexFor( Int value ) const

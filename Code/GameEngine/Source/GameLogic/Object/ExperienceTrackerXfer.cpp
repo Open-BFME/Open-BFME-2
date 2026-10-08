@@ -162,7 +162,8 @@ struct ExperienceTrackerLevelView
 	char m_unrecovered1C[ 0xFC - 0x1C ];
 	int m_FC;
 };
-extern ExperienceLevelStore *TheExperienceLevelStore;
+class ExperienceLevelSystem;
+extern ExperienceLevelSystem *TheExperienceLevelSystem;
 
 // The base whose destructor the constructor's first EH state unwinds.
 class ExperienceTrackerBaseView
@@ -258,7 +259,7 @@ ExperienceTracker::ExperienceTracker( const ThingTemplate *thingTemplate ) :
 // (score 7, call graph) is the same single call.
 ExperienceLevelHandle ExperienceTracker::rva0039AC0C() const
 {
-	return TheExperienceLevelStore->FindCurrentLevel( this );
+	return reinterpret_cast<ExperienceLevelStore *>(TheExperienceLevelSystem)->FindCurrentLevel( this );
 }
 
 // ?rva0039AC23@ExperienceTracker@@QAEH_N@Z @0x0039AC23 121B: walks the
@@ -270,7 +271,7 @@ ExperienceLevelHandle ExperienceTracker::rva0039AC0C() const
 // counterpart 0xF9FC60 (call graph) has the same loop.
 int ExperienceTracker::rva0039AC23( bool notify )
 {
-	ExperienceLevelList *list = TheExperienceLevelStore->FindExperienceLevelList( this );
+	ExperienceLevelList *list = reinterpret_cast<ExperienceLevelStore *>(TheExperienceLevelSystem)->FindExperienceLevelList( this );
 	if( list == 0 )
 		return 0;
 	int experience = (int)m_10;
@@ -279,7 +280,7 @@ int ExperienceTracker::rva0039AC23( bool notify )
 	while( more )
 	{
 		const ExperienceTrackerLevelView *level = (const ExperienceTrackerLevelView *)
-			((Rva0028951F *)TheExperienceLevelStore)->rva002897A8( list, m_0C );
+			((Rva0028951F *)TheExperienceLevelSystem)->rva002897A8( list, m_0C );
 		if( level == 0 )
 			break;
 		if( experience >= level->m_18 )
@@ -317,7 +318,7 @@ static inline const float &trackerMin( const float &a, const float &b )
 
 float ExperienceTracker::rva0039ADB9( float experience, int rank ) const
 {
-	float required = (float)TheExperienceLevelStore->rva00288CA6( this, rank, 0 );
+	float required = (float)reinterpret_cast<ExperienceLevelStore *>(TheExperienceLevelSystem)->rva00288CA6( this, rank, 0 );
 	return trackerMin( experience, required );
 }
 

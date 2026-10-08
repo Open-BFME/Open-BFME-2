@@ -90,7 +90,8 @@ public:
 	bool rva00288CFA(int value);
 };
 
-extern Rva00288CFA *g_pRva0039ABFF;
+class ExperienceLevelSystem;
+extern ExperienceLevelSystem *TheExperienceLevelSystem;
 
 class ExperienceTracker
 {
@@ -119,7 +120,7 @@ bool Rva00224BC9Owner::check()
 
 bool ExperienceTracker::rva0039ABFF() const
 {
-	return g_pRva0039ABFF->rva00288CFA((int)this);
+	return reinterpret_cast<Rva00288CFA *>(TheExperienceLevelSystem)->rva00288CFA((int)this);
 }
 
 int __stdcall Rva003EFE72(int target, int value)

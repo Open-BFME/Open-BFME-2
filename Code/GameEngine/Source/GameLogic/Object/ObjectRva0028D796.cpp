@@ -2,7 +2,7 @@
 // ?rva0028D796@Rva0028D796@@QAEHXZ @0x0028D796 103B
 // Evidence: leaf between Object::didExit 0x0028D757 and Object::isSelectable 0x0028D7FD;
 // reads this+4 (template) and this+0x264 (tracker); template byte +0x113 bit 4 gate
-// then ExperienceLevelStore::FindExperienceLevelList 0x00288C34 via global g_00DFECC4
+// then ExperienceLevelStore::FindExperienceLevelList 0x00288C34 via global TheExperienceLevelSystem
 // plus Rva00288940Find 0x00288940 stdcall with dead ECX (union trick from
 // ExperienceLevelSystem.cpp) plus float (B/C)*A+A via __ftol2; callers unclaimed
 // so honest address name Rva0028D796.
@@ -37,7 +37,8 @@ class Rva00288CFA : public ExperienceLevelStore
 {
 };
 
-extern Rva00288CFA *g_00DFECC4;
+class ExperienceLevelSystem;
+extern ExperienceLevelSystem *TheExperienceLevelSystem;
 
 extern const void *__stdcall Rva00288940Find(const void *arg);
 
@@ -63,11 +64,11 @@ Int Rva0028D796::rva0028D796()
 	ThingTemplate *tmpl = m_template;
 	Int base = tmpl->m_570;
 	if ((tmpl->m_byte113 & 4) != 0) {
-		ExperienceLevelList *list = g_00DFECC4->FindExperienceLevelList(m_tracker);
+		ExperienceLevelList *list = reinterpret_cast<Rva00288CFA *>(TheExperienceLevelSystem)->FindExperienceLevelList(m_tracker);
 		if (list != 0) {
 			Rva00288940Call find;
 			find.freeCall = Rva00288940Find;
-			const void *found = (g_00DFECC4->*find.memberCall)(list);
+			const void *found = (reinterpret_cast<Rva00288CFA *>(TheExperienceLevelSystem)->*find.memberCall)(list);
 			if (found != 0) {
 				Int b = m_tracker->m_24;
 				Int c = *(const Int *)((const char *)found + 0xFC);

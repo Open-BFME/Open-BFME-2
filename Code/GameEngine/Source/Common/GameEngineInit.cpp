@@ -222,7 +222,7 @@ extern class Rva00425F10 *TheStancesStore;
 extern Rva0022AD10Subsystem *TheFormationAssistant;
 extern class AiOrdersManager *TheAiOrdersManager;
 extern class Rva00421520 *g_00E03158;
-extern class Rva00288CFA *g_00DFECC4;
+extern ExperienceLevelSystem *TheExperienceLevelSystem;
 extern Rva0022AEE4Subsystem *TheDelayedExperienceLevelGrantSystem;
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 extern class Rva002E18C3Lookup *Va00DFF0B0Lookup;
@@ -721,7 +721,7 @@ void GameEngine::init(Int argc, char *argv[])
 		initSubsystem(TheFormationAssistant, "TheFormationAssistant", new Rva0022AD10Subsystem, 0);
 		initSubsystem((reinterpret_cast<Rva0022AD85Subsystem *&>(TheAiOrdersManager)), "TheAiOrdersManager", new Rva0022AD85Subsystem, 0);
 		initSubsystem((reinterpret_cast<Rva0022ADFASubsystem *&>(g_00E03158)), "TheLightPointSystem", new Rva0022ADFASubsystem, (Xfer *)&xferCRC);
-		initSubsystem((reinterpret_cast<ExperienceLevelSystem *&>(g_00DFECC4)), "TheExperienceLevelSystem", new ExperienceLevelSystem, (Xfer *)&xferCRC);
+		initSubsystem((reinterpret_cast<ExperienceLevelSystem *&>(TheExperienceLevelSystem)), "TheExperienceLevelSystem", new ExperienceLevelSystem, (Xfer *)&xferCRC);
 		initSubsystem(TheDelayedExperienceLevelGrantSystem, "TheDelayedExperienceLevelGrantSystem", new Rva0022AEE4Subsystem, 0);
 		initSubsystem((reinterpret_cast<Rva0022AF59Subsystem *&>(g_bfmeAptWindowManager)), "TheAptPlayer", createAptPlayer(), 0);
 		initSubsystem((reinterpret_cast<Rva0022AFCESubsystem *&>(Va00DFF0B0Lookup)), "TheLivingWorldPlayerTemplateStore", new Rva0022AFCESubsystem, (Xfer *)&xferCRC);

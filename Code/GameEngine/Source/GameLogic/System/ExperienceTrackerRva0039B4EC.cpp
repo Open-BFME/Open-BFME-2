@@ -1,7 +1,7 @@
 // cl: /O1 /arch:SSE /DNDEBUG /MD
 //
 // ?rva0039B4EC@ExperienceTracker@@QAE_NH_N0@Z, retail 0x0039B4EC, 92B.
-// Target evidence: for up to `levels` passes, asks TheExperienceLevelStore
+// Target evidence: for up to `levels` passes, asks TheExperienceLevelSystem
 // (0x00289BE0, with this and no out pointer) for the experience to the next level, stops
 // at a non-positive answer, and grants it through the pinned 0x0039B315
 // (float amount, false, false, flag1, flag2); returns whether any pass
@@ -13,7 +13,8 @@ class ExperienceLevelStore
 public:
 	int rva00289BE0(const ExperienceTracker *tracker, int *out);	// 0x00289BE0
 };
-extern ExperienceLevelStore *TheExperienceLevelStore;
+class ExperienceLevelSystem;
+extern ExperienceLevelSystem *TheExperienceLevelSystem;
 
 class ExperienceTracker
 {
@@ -29,7 +30,7 @@ bool ExperienceTracker::rva0039B4EC(int levels, bool flag1, bool flag2)
 	bool any = false;
 	for (int i = 0; i < levels; ++i)
 	{
-		int xp = TheExperienceLevelStore->rva00289BE0(this, 0);
+		int xp = reinterpret_cast<ExperienceLevelStore *>(TheExperienceLevelSystem)->rva00289BE0(this, 0);
 		if (xp <= 0)
 			break;
 		rva0039B315((float)xp, false, false, flag1, flag2);

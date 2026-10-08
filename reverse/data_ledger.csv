@@ -15026,7 +15026,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x009FEC84,16,.data,global,?g_Va00DFEC84@@3IA,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,owned,,1,1
 0x009FEC94,20,.data,global,?g_Va00DFEC94@@3IA,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,provisional,?g_Va00DFEC94@@3IA;?g_pool00286116@@3URva00065964ObjectPool@@A,2,2
 0x009FECA8,28,.data,global,?g_Va00DFECA8@@3IA,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,provisional,?g_Va00DFECA8@@3IA;?g_pool00286136@@3URva00065964ObjectPool@@A,2,2
-0x009FECC4,4,.data,global,?g_00DFECC4@@3PAVRva00288CFA@@A,,unowned,?g_00DFECC4@@3PAVRva00288CFA@@A;?g_00DFECC4@@3PAVRva0028951F@@A;?g_rva00260E44Target@@3PAVRva00288CFA@@A,0,3
+0x009FECC4,4,.data,global,?TheExperienceLevelSystem@@3PAVExperienceLevelSystem@@A,Code/GameEngine/Source/GameLogic/System/DelayedExperienceLevelGrantXfer.cpp,owned,,1,23
 0x009FECC8,1,.data,global,_g_Va00DFECC8,Code/GameEngine/Source/Common/Rva00289ABDReload.cpp,owned,,1,4
 0x009FECC9,3,.data,global,_g_Va00DFECC9,Code/GameEngine/Source/Common/Rva00289ABDReload.cpp,owned,,1,2
 0x009FECCC,4,.data,global,_s_rva007ADFDF,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1

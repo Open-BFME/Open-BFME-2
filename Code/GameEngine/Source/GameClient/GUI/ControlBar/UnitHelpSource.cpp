@@ -7,7 +7,7 @@
 // valid (ExperienceLevelStore::IsValid), else 0.
 //
 // Target facts: the store is the global at 0x00DFECC4 (pinned as
-// g_pRva0039ABFF); the handle is two dwords passed by value, copied with the
+// TheExperienceLevelSystem); the handle is two dwords passed by value, copied with the
 // member-wise copy constructor as in ExperienceLevelSystem.cpp.
 
 typedef int Int;
@@ -35,7 +35,8 @@ public:
 	bool IsValid(ExperienceLevelHandle handle) const;
 	Int GetLevelRank(ExperienceLevelHandle handle) const;
 };
-extern "C" ExperienceLevelStore *g_pRva0039ABFF;
+class ExperienceLevelSystem;
+extern ExperienceLevelSystem *TheExperienceLevelSystem;
 
 class ExperienceTracker
 {
@@ -56,7 +57,7 @@ private:
 Int ComputeObjectRank(const Object *obj)
 {
 	ExperienceLevelHandle handle = obj->getExperienceTracker()->rva0039AC0C();
-	if (!g_pRva0039ABFF->IsValid(handle))
+	if (!reinterpret_cast<ExperienceLevelStore *>(TheExperienceLevelSystem)->IsValid(handle))
 		return 0;
-	return g_pRva0039ABFF->GetLevelRank(handle);
+	return reinterpret_cast<ExperienceLevelStore *>(TheExperienceLevelSystem)->GetLevelRank(handle);
 }

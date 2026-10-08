@@ -33,7 +33,7 @@
 // player+0x738 (WB +0x740), and a 0xD8-byte revival record (pinned ctor
 // 0x0037E289, dtor 0x001EB63C) whose +0x08/+0x0C/+0x10 get the level's
 // required experience and rank twice, or the template's own rank (pinned
-// 0x0033B479) when no level is given or the store (g_00DFECC4) has none.
+// 0x0033B479) when no level is given or the store (TheExperienceLevelSystem) has none.
 //
 // ScriptActions::doCreateUnitRevivalEntryFromDelayedCarryoverHero, retail
 // 0x003CA14C (347B; ret 8), from WorldBuilder's twin (wb 0x0101B0E0; name,
@@ -162,7 +162,8 @@ public:
 	int GetRequiredExperience(ExperienceLevelHandle levelHandle) const;
 	ExperienceLevelHandle rva00288E21(const ThingTemplate *thingTemplate, int level) const;
 };
-extern ExperienceLevelStore *g_00DFECC4;
+class ExperienceLevelSystem;
+extern ExperienceLevelSystem *TheExperienceLevelSystem;
 
 // The 0xD8-byte revival record (WB UnitRevivalEntry) built from a template.
 struct Rva002E2D10Record
@@ -466,11 +467,11 @@ void ScriptActions::doCreateUnitRevivalEntry(const AsciiString &objectTypeName, 
 	if (level == -1) {
 		entry.m_rank = objectType->rva0033B479();
 	} else {
-		ExperienceLevelHandle levelHandle = g_00DFECC4->rva00288E21(objectType, level);
+		ExperienceLevelHandle levelHandle = reinterpret_cast<ExperienceLevelStore *>(TheExperienceLevelSystem)->rva00288E21(objectType, level);
 		if (levelHandle.isValid()) {
-			entry.m_requiredExperience = (float)g_00DFECC4->GetRequiredExperience(levelHandle);
-			entry.m_rank = g_00DFECC4->GetLevelRank(levelHandle);
-			entry.m_levelRank = g_00DFECC4->GetLevelRank(levelHandle);
+			entry.m_requiredExperience = (float)reinterpret_cast<ExperienceLevelStore *>(TheExperienceLevelSystem)->GetRequiredExperience(levelHandle);
+			entry.m_rank = reinterpret_cast<ExperienceLevelStore *>(TheExperienceLevelSystem)->GetLevelRank(levelHandle);
+			entry.m_levelRank = reinterpret_cast<ExperienceLevelStore *>(TheExperienceLevelSystem)->GetLevelRank(levelHandle);
 		} else {
 			entry.m_rank = objectType->rva0033B479();
 		}
