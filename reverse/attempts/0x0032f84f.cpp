@@ -1,3 +1,5 @@
+// ?parseCastleTemplateMaps@SidesList@@QAEXXZ
+// partial score=0.9 date=2026-10-08
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /D_CRTIMP= /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 // stlport
@@ -68,9 +70,22 @@ private:
 	void *m_data;
 };
 
+// The chunk reader's byte source (ZH ChunkInputStream): read, tell,
+// absoluteSeek and eof, no virtual destructor.
+class ChunkInputStream
+{
+public:
+	virtual int read(void *data, int numBytes);
+	virtual unsigned int tell();
+	virtual bool absoluteSeek(unsigned int pos);
+	virtual bool eof();
+};
+
 class DataChunkInput
 {
 public:
+	DataChunkInput(ChunkInputStream *stream);	// 0x00307316
+	~DataChunkInput();					// 0x00306F01
 	int readInt();						// 0x00306E78
 	float readReal();					// 0x00306E56
 	unsigned char readByte();			// 0x00306E9A
@@ -78,6 +93,9 @@ public:
 	AsciiString readAsciiString();		// 0x0030750A
 	Dict readDict();					// 0x00307833
 	bool parse(void *userData);			// 0x00307AC0
+
+private:
+	char m_data[0x28];					// stream, contents, chunk stack, user data
 };
 
 // DataChunkInput's parser unregistration (WB DataChunkInput::unregisterParser),
@@ -132,7 +150,6 @@ class ScriptList
 public:
 	virtual ~ScriptList();
 	void swap(ScriptList *other);		// 0x003B58DF
-	void rva003B693A();					// 0x003B693A, WB discards overridden scripts
 };
 
 class DataChunkOutput
@@ -320,7 +337,6 @@ class TeamsInfoRec
 {
 public:
 	int addTeam(const Dict *dict);		// 0x0032DA4E
-	void rva0032C2C4();					// 0x0032C2C4, WB discards overridden teams
 
 private:
 	char m_data[0x38];
@@ -345,10 +361,12 @@ public:
 	void writeCastleTemplateDataChunk(DataChunkOutput &out, MapObject *pMapObjs, const AsciiString &mapName, Rva002E3A8DHolder *paths);
 	void rva0032E6F4(int key, const BfmePod128 &entry);	// 0x0032E6F4, castle build entry add
 	void rva0032ED75(int key, const _STL::vector<BfmeE8> &path);	// 0x0032ED75, castle path add
-	void discardOverriddenScriptsAndTeams();
+	void parseCastleTemplateMaps();
 
 private:
-	char m_bases[0x3C - 4];
+	char m_bases[0x20 - 4];
+	_STL::list<AsciiString> m_castleTemplateMaps;	// +0x20
+	char m_castleTemplates[0x3C - 0x24];
 	int m_numSides;						// +0x3C
 	char m_sides[0xF44 - 0x40];
 	TeamsInfoRec m_teamrec;				// +0xF44
@@ -710,18 +728,74 @@ void SidesList::writeCastleTemplateDataChunk(DataChunkOutput &out, MapObject *pM
 	out.closeDataChunk();
 }
 
-// SidesList::discardOverriddenScriptsAndTeams, retail 0x0032C991 (53 bytes).
-// Identity (target): WorldBuilder's debug twin wb 0xa867c0 (SidesList.cpp
-// assert 1767, side != NULL) makes the same calls: each side's script list
-// discard 0x003B693A, then the team record's 0x0032C2C4 as a tail call.
-void SidesList::discardOverriddenScriptsAndTeams()
+// The cached file stream (ZH CachedFileInputStream) rowed under its
+// constructor's address: open takes the path by value; close (0x003079ED)
+// keeps an address-era class of its own.
+class Rva00240000 : public ChunkInputStream
 {
-	int numSides = m_numSides;
-	for (int i = 0; i < numSides; ++i) {
-		SidesInfo *side = getSideInfo(i);
-		ScriptList *scripts = &side->m_scripts;
-		if (scripts)
-			scripts->rva003B693A();
+public:
+	Rva00240000() throw();				// 0x00240000
+	~Rva00240000();						// 0x0023F4F0
+	bool rva00308050(AsciiString path);	// 0x00308050, open
+
+private:
+	char m_body[0x20 - 4];
+};
+
+class Rva003079ED { public: void rva003079ED(); };	// close
+
+// The castle build-list and path maps' clear (this +0x24 and +0x30).
+class Rva0032ED61 { public: void rva0032ED61(); };
+
+// The SidesList chunk binding (BfmeDataChunkParserBinding.cpp): its callback
+// is an 8-byte member pointer, its base destructor the inline one above.
+#pragma pointers_to_members(full_generality, multiple_inheritance)
+typedef bool (SidesList::*BfmeSidesListChunkCallback)(DataChunkInput &, DataChunkInfo *);
+
+class BfmeParserBindingVE : public BfmeParserBindingBaseVE
+{
+public:
+	BfmeParserBindingVE(SidesList *owner, BfmeSidesListChunkCallback callback,
+		DataChunkInput *input, const AsciiString &label, const AsciiString &parentLabel);	// 0x000AD73D
+
+	virtual void bfmeSlot0();
+	virtual void bfmeSlot1();
+
+private:
+	SidesList *m_owner;
+	BfmeSidesListChunkCallback m_callback;
+};
+
+// SidesList::parseCastleTemplateMaps, retail 0x0032F84F (439 bytes): each
+// castle template map name loads Bases\<name>\<name>.bse and parses its
+// "CastleTemplates" chunk through parseCastleTemplateDataChunk 0x0032F664.
+// Identity (target): WorldBuilder's debug twin wb 0xa8bbc0 (SidesList.cpp
+// assert 2957, "could not find the file") makes the same calls: the castle
+// map clear, the path built by four concats, the stream open on a by-value
+// copy, the binding, parse with ERROR_CORRUPT_FILE_FORMAT on failure and the
+// stream close. An empty name ends the walk.
+void SidesList::parseCastleTemplateMaps()
+{
+	((Rva0032ED61 *)this)->rva0032ED61();
+	for (_STL::list<AsciiString>::iterator it = m_castleTemplateMaps.begin(); it != m_castleTemplateMaps.end(); ++it) {
+		AsciiString mapName = *it;
+		if (mapName.isEmpty())
+			return;
+		AsciiString path("Bases\\");
+		path.concat(mapName);
+		path.concat("\\");
+		path.concat(mapName);
+		path.concat(".bse");
+		AsciiString fileName = path;
+		Rva00240000 fileStrm;
+		bool fileFound = fileStrm.rva00308050(fileName);
+		if (fileFound) {
+			DataChunkInput file(&fileStrm);
+			BfmeParserBindingVE parser(this, &SidesList::parseCastleTemplateDataChunk, &file,
+				AsciiString("CastleTemplates"), AsciiString::TheEmptyString);
+			if (!file.parse(0))
+				throw ERROR_CORRUPT_FILE_FORMAT;
+			((Rva003079ED *)&fileStrm)->rva003079ED();
+		}
 	}
-	m_teamrec.rva0032C2C4();
 }
