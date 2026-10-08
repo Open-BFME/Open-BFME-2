@@ -43,6 +43,10 @@ public:
 	{
 		m_words[bit >> 5] |= 1U << (bit & 0x1f);
 	}
+	unsigned int word(int i) const
+	{
+		return m_words[i];
+	}
 private:
 	unsigned int m_words[19];
 };
@@ -65,9 +69,62 @@ enum CanAttackResult
 };
 enum CommandSourceType
 {
-	CMD_FROM_PLAYER = 0
+	CMD_FROM_PLAYER = 0,
+	CMD_FROM_AI = 2
+};
+enum Relationship
+{
+	ENEMIES = 0,
+	NEUTRAL = 1,
+	ALLIES = 2
+};
+enum KindOfType
+{
+	KINDOF_NONE = 0
+};
+class Team
+{
+public:
+	Relationship getRelationship(const Team *that) const;
+};
+class Player
+{
+public:
+	Relationship getRelationship(const Team *team) const;
+	unsigned char m_pad000[0x2EC];
+	Team *m_defaultTeam; // +0x2EC
+};
+class PlayerList
+{
+public:
+	Player *getNthPlayer(int i);
+};
+extern PlayerList *ThePlayerList;
+class AIInner
+{
+public:
+	unsigned char m_pad00[0xBC];
+	bool m_flagBC;
+};
+class AI
+{
+public:
+	unsigned char m_pad00[0x18];
+	AIInner *m_inner; // +0x18
+};
+extern AI *TheAI;
+// Disguise state found by Object 0x0028F4BC: player index +0x38, active +0x3C.
+class Rva00373EC6
+{
+public:
+	unsigned char m_pad00[0x38];
+	int m_disguisedPlayerIndex;
+	int m_disguised;
+	bool isDisguised() const { return m_disguised != 0; }
+	int getDisguisedPlayerIndex() const { return m_disguisedPlayerIndex; }
 };
 class ContainModuleInterface;
+class Weapon;
 class AIUpdateInterface;
 class SpawnBehaviorInterface;
 class Object
@@ -80,6 +137,12 @@ public:
 	bool isAbleToAttack() const;
 	SpawnBehaviorInterface *getSpawnBehaviorInterface() const;
 	CanAttackResult getAbleToUseWeaponAgainstTarget(AbleToAttackType, const Object *, const Coord3D *, CommandSourceType) const;
+	Player *getControllingPlayer() const;
+	Rva00373EC6 *rva0028F4BC();
+	bool rva002943B2(const Player *viewer);
+	const Weapon *getCurrentWeapon(WeaponSlotType *slot) const;
+	Relationship getRelationship(const Object *that) const;
+	bool isKindOf(KindOfType kind) const;
 	unsigned char m_pad000[4];
  ThingTemplate *m_template;
  unsigned char m_pad008[0x38-8];
@@ -96,6 +159,12 @@ public:
 	AIUpdateInterface *m_ai; // +0x258
 	unsigned char m_pad25C[0x274-0x25C];
 	Object *m_containedBy; // +0x274
+	unsigned char m_pad278[0x304-0x278];
+	Team *m_team; // +0x304
+	unsigned char m_pad308[0x437-0x308];
+	unsigned char m_scriptStatus; // +0x437
+	unsigned char m_privateStatus; // +0x438
+	unsigned char m_attackImmunity; // +0x439
 };
 static __forceinline void setModelConditionBit(Object *object, int bit)
 {
@@ -127,6 +196,11 @@ public:
 	void rva001E42F2(const int *mask);
 };
 class Weapon;
+class Rva002CA9CA
+{
+public:
+	bool rva002CA9CA(int id, const void *arg);
+};
 class WeaponSet
 {
 public:
@@ -134,6 +208,7 @@ public:
  void updateWeaponSet(const Object *);
  void releaseWeaponLock(WeaponLockType);
 	CanAttackResult getAbleToUseWeaponAgainstTarget(AbleToAttackType, const Object *, const Object *, const Coord3D *, CommandSourceType) const;
+	CanAttackResult getAbleToAttackSpecificObject(AbleToAttackType, const Object *, const Object *, CommandSourceType) const;
 private:
 	bool isAnyWithinTargetPitch(const Object *, const Object *) const;
 	unsigned char m_pad00[4];
@@ -208,7 +283,7 @@ template<int N> class BitFlags;
 template<> class BitFlags<218> { public: bool any() const; private: unsigned m_bits[7]; };
 class WeaponTemplateSet;
 class ThingTemplate { public: const WeaponTemplateSet *findWeaponTemplateSet(const BitFlags<117> &) const;
- char pad0[0x108]; unsigned m_kindOf[4]; // +0x108
+ char pad0[0x108]; unsigned m_kindOf[5]; // +0x108
 };
 class Rva0028B7AELeaGetter { public: void *get() const; };
 class Rva002C9424 { public: Rva002C9424 *rva002C9424(); };
@@ -359,7 +434,8 @@ public:
 	virtual bool isGarrisonable() const; // slot 4
 	CONTAIN_GAP(5) CONTAIN_GAP(6) CONTAIN_GAP(7) CONTAIN_GAP(8) CONTAIN_GAP(9)
 	CONTAIN_GAP(10) CONTAIN_GAP(11) CONTAIN_GAP(12) CONTAIN_GAP(13) CONTAIN_GAP(14)
-	CONTAIN_GAP(15) CONTAIN_GAP(16) CONTAIN_GAP(17) CONTAIN_GAP(18) CONTAIN_GAP(19)
+	CONTAIN_GAP(15) CONTAIN_GAP(16) CONTAIN_GAP(17) CONTAIN_GAP(18)
+	virtual const Player *getApparentControllingPlayer(const Player *observingPlayer) const; // slot 19
 	CONTAIN_GAP(20) CONTAIN_GAP(21) CONTAIN_GAP(22) CONTAIN_GAP(23) CONTAIN_GAP(24)
 	CONTAIN_GAP(25) CONTAIN_GAP(26) CONTAIN_GAP(27) CONTAIN_GAP(28) CONTAIN_GAP(29)
 	CONTAIN_GAP(30) CONTAIN_GAP(31) CONTAIN_GAP(32) CONTAIN_GAP(33) CONTAIN_GAP(34)
@@ -579,4 +655,124 @@ CanAttackResult WeaponSet::getAbleToUseWeaponAgainstTarget(AbleToAttackType atta
 	}
 
 	return ATTACKRESULT_INVALID_SHOT;
+}
+
+// Native 0x002C83FC..0x002C8754: 856B RET 0x10. BFME1 WeaponSet.cpp
+// getAbleToAttackSpecificObject; called by Object::getAbleToAttackSpecificObject
+// 0x0028D051, ends by forwarding to getAbleToUseWeaponAgainstTarget with the
+// victim's position. BFME2 additions: a disguise holder (0x0028F4BC) lets a
+// forced attack or a stealth check through when the victim is disguised as an
+// enemy; a source-side (+0x10C bit 23) rejection forces ENEMIES before the
+// relationship query; a victim flag (+0x113 bit 6) treats it as an enemy while
+// TheAI's inner +0xBC flag is set.
+CanAttackResult WeaponSet::getAbleToAttackSpecificObject(AbleToAttackType attackType,
+	const Object *source, const Object *victim, CommandSourceType commandSource) const
+{
+	if (!source || !victim ||
+		(source->m_privateStatus & 1) || (victim->m_privateStatus & 1) ||
+		(source->m_status & 1) || (victim->m_status & 1) ||
+		victim == source)
+		return ATTACKRESULT_NOT_POSSIBLE;
+
+	if (victim->testStatus((ObjectStatusTypes)0x33))
+		return ATTACKRESULT_NOT_POSSIBLE;
+
+	bool sameOwnerForceAttack = source->getControllingPlayer() == victim->getControllingPlayer() && ((int)attackType & 1);
+
+	int ignoring = 0;
+	if (source->testStatus((ObjectStatusTypes)0x25))
+		ignoring = 1;
+	if (victim->m_attackImmunity & ~ignoring)
+		return ATTACKRESULT_NOT_POSSIBLE;
+
+	const ThingTemplate *victimTemplate = victim->m_template;
+	if (victimTemplate->m_kindOf[1] & 0x400000)
+		return ATTACKRESULT_NOT_POSSIBLE;
+
+	if (victim->testStatus((ObjectStatusTypes)0x3C))
+		return ATTACKRESULT_NOT_POSSIBLE;
+
+	if (victim->testStatus((ObjectStatusTypes)0x1A) && commandSource == CMD_FROM_AI)
+		return ATTACKRESULT_NOT_POSSIBLE;
+
+	bool allowStealthToPreventAttacks = true;
+	if (source->testStatus((ObjectStatusTypes)0x1B) || sameOwnerForceAttack)
+		allowStealthToPreventAttacks = false;
+	bool forced = ((int)attackType & 1) != 0;
+	if (forced && (victimTemplate->m_kindOf[2] & 0x1000000))
+	{
+		Rva00373EC6 *disguise = ((Object *)victim)->rva0028F4BC();
+		if (disguise && disguise->isDisguised())
+			allowStealthToPreventAttacks = false;
+	}
+
+	if (allowStealthToPreventAttacks && ((Object *)victim)->rva002943B2(source->getControllingPlayer()))
+	{
+		if (!(victim->m_template->m_kindOf[2] & 0x1000000))
+			return ATTACKRESULT_NOT_POSSIBLE;
+		Rva00373EC6 *disguise = ((Object *)victim)->rva0028F4BC();
+		if (disguise && disguise->isDisguised())
+		{
+			Player *ourPlayer = source->getControllingPlayer();
+			Player *otherPlayer = ThePlayerList->getNthPlayer(disguise->getDisguisedPlayerIndex());
+			if (ourPlayer && otherPlayer && ourPlayer->getRelationship(otherPlayer->m_defaultTeam) != ENEMIES)
+				return ATTACKRESULT_NOT_POSSIBLE;
+		}
+	}
+
+	bool reject = false;
+	if ((victim->m_template->m_kindOf[1] & 0x800000) && (victim->m_template->m_kindOf[0] & 4))
+	{
+		if ((source->m_template->m_kindOf[4] & 0x1000) && (bool)((source->m_conditionBits.word(9) >> 13) & 1))
+			reject = true;
+		const Weapon *weapon = source->getCurrentWeapon(0);
+		if (weapon && ((Rva002CA9CA *)weapon->m_template)->rva002CA9CA(6, weapon))
+			reject = true;
+	}
+
+	Relationship r = reject ? ENEMIES : source->getRelationship(victim);
+
+	if (source->m_template->m_kindOf[1] & 0x800000)
+	{
+		if (r == ALLIES)
+			return ATTACKRESULT_NOT_POSSIBLE;
+		if (!(victim->m_template->m_kindOf[0] & 0x80))
+			return ATTACKRESULT_NOT_POSSIBLE;
+	}
+
+	if (!((victim->m_template->m_kindOf[1] & 0x40000) && r == NEUTRAL))
+	{
+		if ((victim->m_template->m_kindOf[2] & 0x40000000) && TheAI->m_inner->m_flagBC)
+			r = ENEMIES;
+		if (r != ENEMIES && !forced && !reject && commandSource == CMD_FROM_PLAYER && !(victim->m_scriptStatus & 0x10))
+			return ATTACKRESULT_NOT_POSSIBLE;
+	}
+
+	const Object *victimsContainer = victim->m_containedBy;
+	ContainModuleInterface *containerContain = victimsContainer ? victimsContainer->m_contain : 0;
+	if (victim->testStatus((ObjectStatusTypes)0x3C))
+	{
+		if (!containerContain || source->m_containedBy != victimsContainer ||
+			!victim->testStatus((ObjectStatusTypes)0x25) || !source->testStatus((ObjectStatusTypes)0x25))
+			return ATTACKRESULT_NOT_POSSIBLE;
+	}
+
+	if (!source->isKindOf((KindOfType)0xCE) && !forced)
+	{
+		ContainModuleInterface *victimContain = victim->m_contain;
+		if (victimContain)
+		{
+			const Player *apparent = victimContain->getApparentControllingPlayer(source->getControllingPlayer());
+			if (apparent)
+			{
+				const Team *apparentTeam = apparent->m_defaultTeam;
+				const Team *sourceTeam = source->m_team;
+				if (sourceTeam->getRelationship(apparentTeam) != ENEMIES &&
+					commandSource == CMD_FROM_PLAYER && !(victim->m_scriptStatus & 0x10))
+					return ATTACKRESULT_NOT_POSSIBLE;
+			}
+		}
+	}
+
+	return getAbleToUseWeaponAgainstTarget(attackType, source, victim, &victim->m_position, commandSource);
 }
