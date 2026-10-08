@@ -301,3 +301,13 @@ void Rva006CEC90Tick() {
 #undef tickAssert
 #undef PLAYCUR
 #undef PLAYBASE
+
+// Native6CC150..6CC15D. Initializer6CF369 installs this in pfnMemFreeSize
+// atE17730; pool caller6DB2C3..6DB2CB passes pointer and size, then cleans8B.
+// WB174CEA0 confirms forwarding only the pointer to the unsized callback.
+// The unused size is established by that indirect ABI, not an emission aid.
+// pfnMemFree atE1772C is an unowned four-byte writable slot, initially zero.
+void (__cdecl *g_aptFreeCallback)(void *) = 0;
+void Rva006CC150FreeWithSize(void *block,unsigned int) {
+ g_aptFreeCallback(block);
+}
