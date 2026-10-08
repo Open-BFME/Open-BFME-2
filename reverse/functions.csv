@@ -41204,7 +41204,6 @@ _Rva00020AC0,,0x00020AC0,39,Code/Libraries/Source/WWVegas/WWLib/Rva0084D890CodeP
 ?rva005C43AF@Rva005C436E@@QAEXXZ,,0x005C43AF,26,Code/GameEngine/Source/Common/Rva005C436EDispatch.cpp,matched,chain vslot6 via dispatch enable
 ??_GRva005C436E@@UAEPAXI@Z,,0x005C451B,28,Code/GameEngine/Source/Common/Rva005C436EDispatch.cpp,matched,chain deleting dtor via dtor plus delete; rehomed from FamilyDeletingDtors_muse-03-5C451B.cpp: Rva005C436EDispatch.cpp owns ~Rva005C436E and emits this deleting dtor itself (the family placeholder dtor was a duplicate definition)
 ?rva0039DC9E@Team@@QBEHV?$BitFlags@$0HE@@@0@Z,,0x0039DC9E,75,Code/GameEngine/Source/Common/RTS/TeamRva0039DC9E.cpp,matched,team count via iterate plus flags
-?rva0027C230@Rva0027C230@@QAEPAV1@H@Z,,0x0027C230,75,Code/GameEngine/Source/Common/Rva0027C230Init.cpp,matched,thiscall init int at +0x10 returns this caller 0x00283845
 ??0Rva0027C36A@@QAE@XZ,,0x0027C36A,166,Code/GameEngine/Source/Common/Rva0027C36ACtor.cpp,matched,default ctor Region3D x4 plus 6B x2 plus 19 floats
 ??1Rva002006B0@@QAE@XZ,,0x002006B0,196,Code/GameEngine/Source/GameClient/GUI/Shell/ShellMenuSchemeDtor.cpp,matched,two-list dtor via erase plus StringBase release plus delete
 ?Rva003C4350Do@@YGXABVAsciiString@@0PAVObject@@@Z,,0x003C4350,83,Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003C4350Do.cpp,matched,chain via rva002ADFC7 plus sibling Rva003C43A3Do shape and globals
