@@ -40,11 +40,19 @@ extern GameTextInterface *TheGameText;
 
 enum { MAX_SLOTS = 8 };
 
+class GameState
+{
+public:
+	AsciiString getMapLeafName(const AsciiString &in) const;
+};
+extern GameState *TheGameState;
+
 class MapTransferLoadScreen
 {
 public:
 	virtual void processProgress(Int playerId, Int percentage, AsciiString stateStr);
 	void processTimeout(Int secondsLeft);
+	void setCurrentFilename(AsciiString filename);
 
 private:
 	char m_pad04[0x10 - 0x04];
@@ -91,4 +99,22 @@ void MapTransferLoadScreen::processTimeout(Int secondsLeft)
                     secondsLeft / 60, secondsLeft % 60);
         GadgetStaticTextSetText(m_timeoutText, text);
     }
+}
+
+// ?setCurrentFilename@MapTransferLoadScreen@@QAEXVAsciiString@@@Z @0x00356E8E
+// (198 bytes). Donor: Zero Hour LoadScreen.cpp
+// MapTransferLoadScreen::setCurrentFilename, unchanged. Target evidence: the
+// nullable m_fileNameText (+0xB0), TheGameState (0x00DFF08C) with the pinned
+// GameState::getMapLeafName 0x002DC802, "MapTransfer:CurrentFile" through
+// GameText slot +0x44 into the rowed formatter, and the by-value copy to
+// GadgetStaticTextSetText.
+void MapTransferLoadScreen::setCurrentFilename(AsciiString filename)
+{
+	if (m_fileNameText)
+	{
+		UnicodeString txt;
+		txt.translate(TheGameState->getMapLeafName(filename));
+		txt.format(TheGameText->slot44("MapTransfer:CurrentFile", 0), txt.str());
+		GadgetStaticTextSetText(m_fileNameText, txt);
+	}
 }
