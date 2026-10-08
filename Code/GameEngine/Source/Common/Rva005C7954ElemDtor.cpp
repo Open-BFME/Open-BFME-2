@@ -27,6 +27,14 @@ public:
 	virtual void vslot6();
 };
 
+class BfmeAptWindowManager;
+extern BfmeAptWindowManager *g_bfmeAptWindowManager;
+struct CommandButtonMouseState
+{
+	char m_pad[0x318];
+	int m_button;
+};
+
 class Rva0052413E
 {
 public:
@@ -65,6 +73,7 @@ public:
 	~Rva005C7954Elem();
 	void OnInitialized(const char *path);
 	void OnOverButton(const char *path);
+	void OnPress(const char *path);
 private:
 	Rva005C802B *m_00;
 	Rva005C31FB *m_04;
@@ -75,7 +84,8 @@ private:
 	Rva005242D7 m_34;
 	Rva00524349 m_40;
 	bool m_4C;
-	char _pad4D[7];
+	char _pad4D[3];
+	int m_50;
 	bool m_54;
 	bool m_55;
 };
@@ -92,6 +102,25 @@ void Rva005C7954Elem::OnInitialized(const char *path)
 void Rva005C7954Elem::OnOverButton(const char *path)
 {
 	m_00->vslot2();
+}
+
+// Constructor binds "_OnPress" at 0x005C7E90. Retail reads the player's
+// mouse-button word at +0x318 and dispatches mode 6 through slots 3/5,
+// other modes through slots 4/6. Other mouse buttons do nothing.
+void Rva005C7954Elem::OnPress(const char *path)
+{
+	int button = reinterpret_cast<CommandButtonMouseState *>(g_bfmeAptWindowManager)->m_button;
+	if (button == 0) {
+		if (m_50 == 6)
+			m_00->vslot3();
+		else
+			m_00->vslot4();
+	} else if (button == 2) {
+		if (m_50 == 6)
+			m_00->vslot5();
+		else
+			m_00->vslot6();
+	}
 }
 
 Rva005C7954Elem::~Rva005C7954Elem()
