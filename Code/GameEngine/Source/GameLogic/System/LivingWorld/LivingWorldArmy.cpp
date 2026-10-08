@@ -50,9 +50,15 @@ struct ArmySummaryView {
     _STL::vector<ArmySummaryEntryRefView> entries40;
     int size() const { return entries40.size(); }
 };
+class Rva00318C32Owner { public: int rva00318C32(); };
+class Rva003193EC { public: void rva003198B8(Rva003193EC *); };
+class ArmySummaryEntry { public: void CancelUpgrades(); };
+class Rva004F6093Holder { public: ArmySummaryEntry *entry; };
+class ArmySummary { public: int AddArmyEntry(const Rva004F6093Holder &); };
 class LivingWorldArmy {
 public:
     void UseArmySummary(Rva00319CED *source);
+    void TakeUnitFromArmy_Internal(LivingWorldArmy *source, const Rva004F6093Holder &entry);
     char pad00[0x20];
     int owner20;
     char pad24[0x4C - 0x24];
@@ -79,4 +85,12 @@ void LivingWorldArmy::UseArmySummary(Rva00319CED *source)
             entry->requiredExperience08 = static_cast<float>(reinterpret_cast<ExperienceLevelStore *>(TheExperienceLevelSystem)->GetRequiredExperience(handle));
         entry->sourceC0 = source->source4C;
     }
+}
+
+void LivingWorldArmy::TakeUnitFromArmy_Internal(LivingWorldArmy *source, const Rva004F6093Holder &entry)
+{
+    reinterpret_cast<ArmySummary *>(summary78)->AddArmyEntry(entry);
+    if (reinterpret_cast<Rva00318C32Owner *>(this)->rva00318C32() != reinterpret_cast<Rva00318C32Owner *>(source)->rva00318C32())
+        entry.entry->CancelUpgrades();
+    reinterpret_cast<Rva003193EC *>(this)->rva003198B8(reinterpret_cast<Rva003193EC *>(source));
 }
