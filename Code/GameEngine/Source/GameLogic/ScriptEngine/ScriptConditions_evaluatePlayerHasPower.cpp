@@ -15,7 +15,6 @@
 class Parameter
 {
 public:
-    int getInt() const { return m_int; }
     unsigned char m_beforeInt[8]; int m_int; float m_real; AsciiString m_string;
     unsigned char m_afterString[8];
 };
@@ -61,7 +60,9 @@ bool ScriptConditions::evaluatePlayerHasNOrFewerBuildings(Parameter *pBuildingCo
             count += pPlayer->countBuildings();
         }
     }
-    if (pBuildingCountParm->getInt() >= count) {
+    // Native code reads this view's +0x08 word directly. Other Parameter
+    // views give getInt a different layout, so do not emit that shared name.
+    if (pBuildingCountParm->m_int >= count) {
         return true;
     }
     return false;
