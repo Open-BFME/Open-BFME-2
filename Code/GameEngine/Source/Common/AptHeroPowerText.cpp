@@ -1,8 +1,8 @@
 // cl: /Ireference/shims/bfme2_ascii /MD /EHsc
-// Hero power panel texts. Each builds a UnicodeString through an unrowed
-// formatter and hands it to the rowed bfmeSetText. Both formatters
-// (0x005B2376, 0x005B2446) return a UnicodeString by value through a hidden
-// pointer and are pinned from these REL32 call sites.
+// Hero power panel texts. Each builds a UnicodeString through a formatter
+// and hands it to the rowed bfmeSetText. Both formatters return a
+// UnicodeString by value through a hidden pointer: 0x005B2446 is defined
+// below, 0x005B2376 is still pinned from its REL32 call site.
 //
 // ?Rva005B23D7HeroPowersDescription@@YAXPAXHABVAsciiString@@@Z @0x005B23D7 111B
 //   APT:HeroPowersDescription with the description text
@@ -131,12 +131,27 @@ public:
 	virtual void slot2C() = 0;
 	virtual void slot30() = 0;
 	virtual void slot34() = 0;
-	virtual void slot38() = 0;
+	// ZH's two fetch overloads; MSVC 7.1 lays an overload set out in reverse
+	// declaration order, so the AsciiString one lands at 0x38.
 	virtual UnicodeString fetch(const char *label, bool *exists = 0) = 0;
+	virtual UnicodeString fetch(const AsciiString &label, bool *exists = 0) = 0;
 	virtual const UnicodeString *fetchFormat(const AsciiString &label, int a) = 0;
 };
 
 extern GameTextInterface *TheGameText;
+
+// ?Rva005B2446Describe@@YA?AVUnicodeString@@PAX@Z @0x005B2446 135B: the
+// game text for "CAH:" + the power's +0x10 name + "_Name", or L" " without
+// a power. WorldBuilder's twin 0x0157F670 (strings CAH:, _Name) is unnamed.
+UnicodeString __cdecl Rva005B2446Describe(void *power)
+{
+	if (power == NULL)
+		return UnicodeString((const unsigned short *)L" ");
+	AsciiString label("CAH:");
+	label += *(const AsciiString *)((const char *)power + 0x10);
+	label += "_Name";
+	return TheGameText->fetch(label);
+}
 extern const char *g_00DD3B90[];
 extern const unsigned short g_Va007C9260[];
 
