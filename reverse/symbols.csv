@@ -16523,3 +16523,4 @@ _D3DXVec3TransformCoordArray@24,0x0062AF6E,Native 0x00107A47 REL32 reaches six-b
 ?doTakeGroup@ScriptList@@QAEXPAV1@PAPAUScriptGroupLink@@1@Z,0x003B89C9,callee of ?takeGroups@ScriptList@@QAEXPAV1@PAPAUScriptGroupLink@@1@Z
 ??0Rva005CF27A@@QAE@PAVRva005CF7BF@@HHHHHHHH@Z,0x005CF27A,callee of ??0Rva005CF7BF@@QAE@PAXHHHHHHHH@Z
 ?rva003661FC@Path@@QAEXPAVXfer@@@Z,0x003661FC,Address-named Path member transfer; REL32 at 0x0026820F in AIUpdateInterface::xfer; ECX=[this+0x140] whose allocation is 0x28 and constructor is matched Path::Path at 0x00363DC8; Xfer pointer stack argument; boundary 0x003661FC; ret 4; semantic name not asserted.
+?getSingleLogicalBonePositionOnTurret@Object@@QBE_NW4WhichTurretType@@PBDPAUCoord3D@@PAVMatrix3D@@@Z,0x0028E1AC,LaserUpdate::initLaser native REL32 at 0x00363634; four args turret0/fire-bone/start/output-transform0 match ZH and BFME1 donor; target tests Object drawable+84 and AI+258 then pristine bone and turret transform as donor
