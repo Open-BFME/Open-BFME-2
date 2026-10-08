@@ -86,6 +86,16 @@
 //    0x00DBDCFC; BuildListInfo's name getters are the folded by-value copies
 //    of +4 (0x00564DF2) and +8 (0x000AF1DD). BFME 2 caches the building in
 //    the script engine (0x0020A5FF) under an empty name.
+//  - buildSpecificAITeam 0x004F2464 (1064 bytes, vtable +0x24): BFME 1's
+//    matched body (ZH plus the rva004F13D8 shortcut before
+//    isPossibleToBuildTeam and the two-name findTeam/createInactiveTeam).
+//    BFME 2 also skips required units with a zero count, copies the unit
+//    info's int, string and int (+0x08/+0x0C/+0x14) into each WorkOrder
+//    (+0x1C/+0x20/+0x2C) with the optional flag +0x29, clears the
+//    prototype's unit count (0x0039D761) when its flag +0x31D is set, stamps
+//    the team id (+0x34) into every order after Team 0x0039D889(true), runs
+//    the production script only when it has an action, and marks a
+//    prototype with nothing buildable (+0x31C).
 #include <list>
 #include <vector>
 
@@ -597,6 +607,8 @@ class TeamFactory
 {
 public:
 	Team *findTeamByID(unsigned int id);
+	Team *findTeam(const AsciiString &owner, const AsciiString &name);
+	Team *createInactiveTeam(const AsciiString &owner, const AsciiString &name);
 };
 extern TeamFactory *TheTeamFactory;
 
@@ -669,10 +681,10 @@ struct TCreateUnitsInfo
 {
 	Int minUnits;			// +0x00
 	Int maxUnits;			// +0x04
-	Int m_08;
-	Int m_0C;
+	Int m_08;			// +0x08
+	AsciiString m_bfmeString0C;	// +0x0C
 	AsciiString unitThingName;	// +0x10
-	Int m_14;
+	Int m_14;			// +0x14
 };
 
 class TeamPrototype
@@ -681,6 +693,8 @@ public:
 	Bool evaluateProductionCondition();
 	Int countTeamInstances();
 	const AsciiString &getName() const { return m_name; }
+	Bool getIsSingleton() const { return (m_flags & 1) != 0; }
+	void rva0039D761();		// clears m_numUnitsInfo
 
 	const AsciiString &getOwnerName() const { return m_owner; }
 	const AsciiString &getProductionCondition() const { return m_productionCondition; }
@@ -689,7 +703,8 @@ public:
 	char m_pad000[0x10];
 	AsciiString m_owner;			// +0x10
 	AsciiString m_name;			// +0x14
-	char m_pad018[0x130 - 0x18];
+	Int m_flags;				// +0x18
+	char m_pad01C[0x130 - 0x1C];
 	TCreateUnitsInfo m_unitsInfo[7];	// +0x130
 	Int m_numUnitsInfo;			// +0x1D8
 	Coord3D m_homeLocation;			// +0x1DC
@@ -702,6 +717,9 @@ public:
 	char m_pad220[0x23C - 0x220];
 	AsciiString m_productionCondition;	// +0x23C
 	Bool m_executeActions;			// +0x240
+	char m_pad241[0x31C - 0x241];
+	Bool m_bfme31C;				// +0x31C
+	Bool m_bfme31D;				// +0x31D
 };
 
 template <class OBJCLASS> class DLINK_ITERATOR
@@ -744,7 +762,8 @@ public:
 	Rva0055B156 m_bfme04;			// +0x04
 	char m_pad005[0x30 - 0x05];
 	TeamPrototype *m_proto;			// +0x30
-	char m_pad034[0x5D - 0x34];
+	unsigned int m_id;			// +0x34
+	char m_pad038[0x5D - 0x38];
 	Bool m_active;				// +0x5D
 	Bool m_created;				// +0x5E
 	char m_pad05F[0x110 - 0x5F];
@@ -754,6 +773,7 @@ public:
 	void rva0039D889(Bool flag);
 	void disband();
 	Bool rva0039DFF8();
+	Bool hasAnyObjects(Bool ignoreBuilding);
 	void setActive() { if (!m_active) { m_created = true; m_active = true; } }
 	DLINK_ITERATOR<Object> iterate_TeamMemberList() const;
 	const AsciiString &getOwnerName() const { return m_proto == 0 ? AsciiString::TheEmptyString : m_proto->getOwnerName(); }
@@ -900,6 +920,7 @@ public:
 	void prependTo_TeamReadyQueue(TeamInQueue *team);
 	void removeFrom_TeamReadyQueue(TeamInQueue *team);
 	void prependTo_TeamBuildQueue(TeamInQueue *team);
+	void reverse_TeamBuildQueue();
 
 private:
 	TeamInQueue *m_teamBuildQueue;	// +0x04
@@ -1733,5 +1754,142 @@ void AIPlayer::onStructureProduced(Object *factory, Object *bldg)
 			continue;
 		if (!bldgPlan->isEquivalentTo(bldg->getTemplate()))
 			continue;
+	}
+}
+
+void AIPlayer::buildSpecificAITeam(TeamPrototype *teamProto, Bool priorityBuild)
+{
+	if (teamProto)
+	{
+		if (!m_player->getCanBuildUnits())
+		{
+			AsciiString teamStr = "Can't build team '";
+			teamStr.concat(teamProto->getName());
+			teamStr.concat("' because build units is disabled.");
+			TheScriptEngine->AppendDebugMessage(teamStr, false);
+			return;
+		}
+		if (priorityBuild && teamProto->getIsSingleton())
+		{
+			Team *singletonTeam = TheTeamFactory->findTeam(teamProto->getOwnerName(), teamProto->getName());
+			if (singletonTeam && singletonTeam->hasAnyObjects(false))
+			{
+				AsciiString teamStr = "Unable to build singleton team '";
+				teamStr.concat("' because team already exists.");
+				TheScriptEngine->AppendDebugMessage(teamStr, false);
+				return;
+			}
+		}
+		Bool needMoney;
+		if (!rva004F13D8(teamProto) && !isPossibleToBuildTeam(teamProto, false, needMoney))
+		{
+			if (needMoney)
+			{
+				AsciiString teamStr = "Note - queueing team '";
+				teamStr.concat(teamProto->getName());
+				teamStr.concat("' but there is enough money.");
+				TheScriptEngine->AppendDebugMessage(teamStr, false);
+			}
+			else
+			{
+				AsciiString teamStr = "Unable to build team '";
+				teamStr.concat(teamProto->getName());
+				teamStr.concat("' because required factories/tech don't exist.");
+				TheScriptEngine->AppendDebugMessage(teamStr, false);
+				return;
+			}
+		}
+		const TCreateUnitsInfo *unitInfo = &teamProto->m_unitsInfo[0];
+		WorkOrder *orders = NULL;
+		Int i;
+		for (i = 0; i < teamProto->m_numUnitsInfo; i++)
+		{
+			const ThingTemplate *thing = TheThingFactory->findTemplate(unitInfo[i].unitThingName);
+			if (thing)
+			{
+				int count = unitInfo[i].maxUnits - unitInfo[i].minUnits;
+				if (count > 0)
+				{
+					WorkOrder *order = new WorkOrder;
+					order->m_thing = thing;
+					order->m_factoryID = (ObjectID)0;
+					order->m_numRequired = count;
+					order->m_bfmeFlag29 = true;
+					order->m_bfmeInt1C = unitInfo[i].m_08;
+					order->m_bfmeString20 = unitInfo[i].m_bfmeString0C;
+					order->m_bfmeInt2C = unitInfo[i].m_14;
+					order->m_next = orders;
+					orders = order;
+				}
+			}
+		}
+		for (i = 0; i < teamProto->m_numUnitsInfo; i++)
+		{
+			const ThingTemplate *thing = TheThingFactory->findTemplate(unitInfo[i].unitThingName);
+			if (thing)
+			{
+				int count = unitInfo[i].minUnits;
+				if (count > 0)
+				{
+					WorkOrder *order = new WorkOrder;
+					order->m_thing = thing;
+					order->m_factoryID = (ObjectID)0;
+					order->m_numRequired = count;
+					order->m_bfmeFlag29 = false;
+					order->m_required = true;
+					order->m_bfmeInt1C = unitInfo[i].m_08;
+					order->m_bfmeString20 = unitInfo[i].m_bfmeString0C;
+					order->m_bfmeInt2C = unitInfo[i].m_14;
+					order->m_next = orders;
+					orders = order;
+				}
+			}
+		}
+		if (orders)
+		{
+			if (teamProto->m_bfme31D)
+				teamProto->rva0039D761();
+			TeamInQueue *team = new TeamInQueue;
+			if (priorityBuild)
+			{
+				prependTo_TeamBuildQueue(team);
+				team->m_priorityBuild = true;
+			}
+			else
+			{
+				reverse_TeamBuildQueue();
+				prependTo_TeamBuildQueue(team);
+				reverse_TeamBuildQueue();
+				team->m_priorityBuild = false;
+			}
+			team->m_workOrders = orders;
+			team->m_frameStarted = TheGameLogic->getFrame();
+			team->m_team = TheTeamFactory->createInactiveTeam(teamProto->getOwnerName(), teamProto->getName());
+			AsciiString teamName = teamProto->getName();
+			teamName.concat(" - starting team build.");
+			TheScriptEngine->AppendDebugMessage(teamName, false);
+			m_teamDelay = 0;
+			team->m_team->rva0039D889(true);
+			for (WorkOrder *order = team->m_workOrders; order; order = order->m_next)
+				order->m_bfmeUnsigned24 = team->m_team->m_id;
+			if (team->m_team->getPrototype()->getExecuteActions())
+			{
+				AsciiString scope;
+				const AsciiString &cond = team->m_team->getPrototype()->getProductionCondition();
+				Script *script = TheScriptEngine->rva003573C4(team->m_team->getOwnerName(), cond, &scope);
+				if (script && script->getAction())
+					TheScriptEngine->rva0020D451(scope, script->getAction(), script, cond, (int)team->m_team);
+			}
+		}
+		else
+		{
+			teamProto->m_bfme31C = true;
+			if (TheWritableGlobalData->m_debugAI)
+			{
+				AsciiString teamName = teamProto->getName();
+				teamName.concat(" - contains 0 buildable units.");
+				TheScriptEngine->AppendDebugMessage(teamName, false);
+			}
+		}
 	}
 }
