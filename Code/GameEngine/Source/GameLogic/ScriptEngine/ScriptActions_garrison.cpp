@@ -19,6 +19,7 @@
 //              TEAM_GARRISON_SPECIFIC_BUILDING with the flag fixed to true:
 //              put every free member of one team into the containers of
 //              another team's members, round robin
+//   0x003C4EC3 (479B) ScriptActions::doCreateObject
 //
 // Target facts: Object +0x04 template (kind-of bits at template +0x108),
 // +0x250 contain module, +0x258 AI update (WorldBuilder's debug Object is
@@ -30,6 +31,19 @@
 // player-mask test and the group-enter / aiEnter paths. Kind-of bits 0x76
 // and 0x6D, status 0x26 and the inner container slots 0xA8 / 0x10C carry no
 // established names.
+//
+// doCreateObject. Target facts: the unnamed-unit test compares against
+// AsciiString::TheEmptyString (0x009E0878); the existing object comes from
+// the by-value lookup 0x00358752, and its liveness test reads bit 0 of
+// Object +0x438 (WB +0x445); the team lookup passes true; a missing team
+// posts the two debug messages and returns, with no team creation; the
+// template lookup is 0x002D06CA on TheThingFactory and newObject gets a
+// zeroed 16-byte mask and false; the name lands at Object +0x88 through
+// StringBase::set; the renamed path calls 0x00357960 and the fresh one
+// addObjectToCache with an empty name; the body ends with the 5-byte
+// Object forwarder 0x0028FC18 where BFME1 has its blast-crater block.
+// Donor facts: BFME1 doCreateObject gives the statement order, the messages
+// and transferObjectName for 0x00357960.
 
 #include "ascii_string.h"
 #include <list>
@@ -47,6 +61,7 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
 class Object;
 class Team;
 class Player;
+struct Coord3D;
 enum CommandSourceType { CMD_FROM_SCRIPT = 1 };
 
 class ContainedObjectSource
@@ -143,7 +158,15 @@ private:
 enum ObjectStatusTypes { OBJECT_STATUS_NONE = 0 };
 enum ObjectID { INVALID_ID = 0 };
 
-class Object
+class Thing
+{
+public:
+	virtual ~Thing();
+	void setOrientation(float angle);
+	void setPosition(const Coord3D *pos);
+};
+
+class Object : public Thing
 {
 public:
 	virtual ~Object();
@@ -153,21 +176,28 @@ public:
 	AIUpdateInterface *getAIUpdateInterface() const { return m_ai; }
 	Player *getControllingPlayer() const;
 	bool testStatus(ObjectStatusTypes bit) const;
+	void rva0028FC18();
 
 private:
 	const ThingTemplate *m_template;
 	unsigned char m_pad08[0x74 - 0x08];
 	ObjectID m_id;
-	unsigned char m_pad78[0x250 - 0x78];
+	unsigned char m_pad78[0x88 - 0x78];
+	AsciiString m_name;
+	unsigned char m_pad8C[0x250 - 0x8C];
 	ContainModuleInterface *m_contain;
 	unsigned char m_pad254[4];
 	AIUpdateInterface *m_ai;
 	unsigned char m_pad25C[0x274 - 0x25C];
 	Object *m_containedBy;
+	unsigned char m_pad278[0x438 - 0x278];
+	unsigned char m_privateStatus;
 
 public:
 	ObjectID getID() const { return m_id; }
 	Object *getContainedBy() const { return m_containedBy; }
+	void setName(const AsciiString &name) { m_name = name; }
+	bool isEffectivelyDead() const { return (m_privateStatus & 1) != 0; }
 };
 
 template<class OBJCLASS>
@@ -209,8 +239,31 @@ class ScriptEngine
 public:
 	Team *getTeamNamed(AsciiString name, bool);
 	Object *getUnitNamed(const AsciiString &name);
+	void AppendDebugMessage(const AsciiString &msg, bool flag);
+	bool didUnitExist(const AsciiString &name);
+	void rva00357960(const AsciiString &name, Object *obj); // ZH transferObjectName
+	void addObjectToCache(Object *obj, const AsciiString &name);
 };
 extern ScriptEngine *TheScriptEngine;
+
+struct CreateMask
+{
+	unsigned char m_data[0x10];
+};
+
+class ThingFactory
+{
+public:
+	Object *newObject(const ThingTemplate *tmpl, Team *team, const CreateMask *mask, bool flag);
+};
+extern ThingFactory *TheThingFactory;
+
+// ThingFactory::findTemplate, still rowed under its placeholder name.
+class Rva002D06CA
+{
+public:
+	void *rva002D06CA(const AsciiString *name);
+};
 
 class Rva00358752Opaque
 {
@@ -237,6 +290,8 @@ protected:
 		const AsciiString &buildingName, bool instant);
 	void doUnitGarrisonSpecificBuilding(const AsciiString &unitName,
 		const AsciiString &buildingName, bool instant);
+	void doCreateObject(const AsciiString &objectName, const AsciiString &thingName,
+		const AsciiString &teamName, Coord3D *pos, float angle);
 };
 
 struct ContainTransfer
@@ -388,5 +443,46 @@ void ScriptActions::rva003C6EFC(const AsciiString &teamName, const AsciiString &
 		ContainModuleInterface *contain = rva003C538F(it, ids, obj, !instant);
 		if (contain)
 			putUnitInContain(obj, contain, !instant);
+	}
+}
+
+void ScriptActions::doCreateObject(const AsciiString &objectName, const AsciiString &thingName,
+	const AsciiString &teamName, Coord3D *pos, float angle)
+{
+	Object *pOldObj = 0;
+	if (objectName != AsciiString::TheEmptyString) {
+		pOldObj = ((Rva00358752Opaque *)TheScriptEngine)->lookupUnitByValue(objectName);
+		if (pOldObj && !pOldObj->isEffectivelyDead()) {
+			AsciiString str = "WARNING - Object with name ";
+			str.concat(objectName);
+			str.concat(" already exists. Failed Create.");
+			TheScriptEngine->AppendDebugMessage(str, false);
+			return;
+		}
+	}
+	Team *theTeam = TheScriptEngine->getTeamNamed(teamName, true);
+	if (!theTeam) {
+		TheScriptEngine->AppendDebugMessage("***WARNING - Team not found:***", false);
+		TheScriptEngine->AppendDebugMessage(teamName, true);
+		return;
+	}
+	const ThingTemplate *thingTemplate =
+		(const ThingTemplate *)((Rva002D06CA *)TheThingFactory)->rva002D06CA(&thingName);
+	if (thingTemplate) {
+		CreateMask mask;
+		memset(&mask, 0, sizeof(mask));
+		Object *obj = TheThingFactory->newObject(thingTemplate, theTeam, &mask, false);
+		if (obj) {
+			if (objectName != AsciiString::TheEmptyString) {
+				obj->setName(objectName);
+				if (pOldObj || TheScriptEngine->didUnitExist(objectName))
+					TheScriptEngine->rva00357960(objectName, obj);
+				else
+					TheScriptEngine->addObjectToCache(obj, "");
+			}
+			obj->setOrientation(angle);
+			obj->setPosition(pos);
+			obj->rva0028FC18();
+		}
 	}
 }
