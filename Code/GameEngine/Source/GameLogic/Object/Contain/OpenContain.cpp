@@ -1,6 +1,7 @@
-// cl: /Ireference/shims/zh_outofline /FIzh_ascii.h /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /G7 /arch:SSE /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /DBFME_MODULE_NO_MPO /DZH_EMIT_POOL_GLUE /Ireference/shims/bfmerendobj /Ireference/shims/debugvtable /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/bfmeanimobj /Ireference/shims/indexbuffercount /Ireference/shims/bfmecaps /Ireference/shims/bfmehcanim /Ireference/shims/bfmevector /Ireference/shims/bfmemapper /Ireference/shims/meshmatdesclayout /Ireference/shims/bfmeshader /Ireference/shims/bfmecpudetect /Ireference/shims/bfmepool /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWAudio /Ireference/shims/bfmealloc /Ireference/shims/bfmehashtable /Ireference/shims/bfmelist /Ireference/shims/asciistring_downloadmanager /Ireference/shims/stlp_nodealloc /Ireference/shims/asciistring_thin /ICode/GameEngine/Source/Common /Ireference/shims/w3droadbuffer /Ireference/shims/bfmeterraintracks /ICode/Libraries/Include/Lib
+// cl: /Ireference/shims/zh_outofline /FIzh_ascii.h /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /DBFME_MODULE_NO_MPO /DZH_EMIT_POOL_GLUE /Ireference/shims/bfmerendobj /Ireference/shims/debugvtable /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/bfmeanimobj /Ireference/shims/indexbuffercount /Ireference/shims/bfmecaps /Ireference/shims/bfmehcanim /Ireference/shims/bfmevector /Ireference/shims/bfmemapper /Ireference/shims/meshmatdesclayout /Ireference/shims/bfmeshader /Ireference/shims/bfmecpudetect /Ireference/shims/bfmepool /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWAudio /Ireference/shims/bfmealloc /Ireference/shims/bfmehashtable /Ireference/shims/bfmelist /Ireference/shims/asciistring_downloadmanager /Ireference/shims/stlp_nodealloc /Ireference/shims/asciistring_thin /ICode/GameEngine/Source/Common /Ireference/shims/w3droadbuffer /Ireference/shims/bfmeterraintracks /ICode/Libraries/Include/Lib
 // stlport
-// Ported verbatim from the Generals Zero Hour reference
+// Initially ported verbatim from the Generals Zero Hour reference;
+// loadPostProcess is adapted below to independently verified BFME2 behavior.
 // (GameEngine/Source/GameLogic/Object/Contain/OpenContain.cpp); this unit had no counterpart under Code/.
 /*
 **	Command & Conquer Generals Zero Hour(tm)
@@ -1689,58 +1690,78 @@ void OpenContain::xfer( Xfer *xfer )
 // ------------------------------------------------------------------------------------------------
 /** Load post process */
 // ------------------------------------------------------------------------------------------------
-// ?OpenContain::loadPostProcess present-unmatched
-void OpenContain::loadPostProcess( void )
+// Native 0x00463C6E..0x00463D58 restoration: owner +8, secondary
+// interface +0x20 / slot 44 returns a 16-byte mask, word 1 bit 29.
+// Lists +0x54/+0x74 and Object +0x250/+0x274 are target evidence;
+// the ZH/BFME1 loadPostProcess body supplies purpose and source provenance.
+// The enclosing walk is computed once before the restored-rider loop.
+// Slot 24's trailing zero arguments retain their unknown target meanings.
+class XferException {
+public:
+    XferException(int, const char *, ...);
+    XferException(const XferException &);
+    ~XferException();
+    char *text;
+    int tag;
+};
+template <int N> class Rva00463C6ESlots : public Rva00463C6ESlots<N - 1> {
+public: virtual void gap(char (*)[N]);
+};
+template <> class Rva00463C6ESlots<0> {};
+struct Rva00463C6EMask { unsigned int words[4]; bool test(int i) const { return (words[i / 32] >> (i % 32)) & 1; } };
+class Rva00463C6EStatus : public Rva00463C6ESlots<44> {
+public: virtual Rva00463C6EMask status(int);
+};
+class Rva00463C6EView;
+class Rva00463C6EModule : public Rva00463C6ESlots<1> {
+public: virtual Rva00463C6EView *contain() = 0;
+};
+struct Rva00463C6EObject {
+    char unknown00[0x250];
+    Rva00463C6EModule *module250;
+    char unknown254[0x274 - 0x254];
+    Object *containedBy274;
+};
+class Rva00463C6EView : public Rva00463C6ESlots<24> {
+public:
+    virtual void slot24(Object *, int, int) = 0;
+    void *moduleData;
+    Object *owner;
+    char unknown0C[0x20 - 0xC];
+    Rva00463C6EStatus status20;
+    char unknown24[0x54 - 0x24];
+    _STL::list<int> riders54;
+    char unknown58[0x74 - 0x58];
+    _STL::list<int> restoreIDs74;
+};
+void OpenContain::loadPostProcess()
 {
-	Object *us = getObject();
-
-	// extend base class
-	UpdateModule::loadPostProcess();
-
-	// the containment list should be emtpy at this time
-	if( m_containList.empty() == FALSE )
-	{
-
-		DEBUG_CRASH(( "OpenContain::loadPostProcess - Contain list should be empty before load but is not\n" ));
-		throw SC_INVALID_DATA;
-
-	}  // end if
-
-	// turn the contained id list into actual object pointers in the contain list
-	Object *obj;
-	std::list<ObjectID>::const_iterator idIt;
-	for( idIt = m_xferContainIDList.begin(); idIt != m_xferContainIDList.end(); ++idIt )
-	{
-
-		// find this object
-		obj = TheGameLogic->findObjectByID( *idIt );
-
-		// sanity
-		if( obj == NULL )
-		{
-
-			DEBUG_CRASH(( "OpenContain::loadPostProcess - Unable to find object to put on contain list\n" ));
-			throw SC_INVALID_DATA;
-
-		}  // end if
-
-		// put object on list
-		m_containList.push_back( obj );
-
-		// remove this object from the world if we need to
-		if( isEnclosingContainerFor( obj ) )
-			addOrRemoveObjFromWorld( obj, FALSE );
-
-		// record in the object who we are contained by
-		obj->friend_setContainedBy( us );
-
-	}  // end for, idIt
-
-	// sanity
-	DEBUG_ASSERTCRASH( m_containListSize == m_containList.size(),
-										 ("OpenContain::loadPostProcess - contain list count mismatch\n") );
-
-	// clear the list as we don't need it anymore
-	m_xferContainIDList.clear();
-
-}  // end loadPostProcess
+    Rva00463C6EView *self = reinterpret_cast<Rva00463C6EView *>(this);
+    Object *owner = self->owner;
+    UpdateModule::loadPostProcess();
+    if (!self->riders54.empty())
+        throw XferException(5, 0);
+    bool enclosing = false;
+    Rva00463C6EView *probe = self;
+    do {
+        if (probe->status20.status(0).test(61)) {
+            enclosing = true;
+            break;
+        }
+        Object *object = probe->owner;
+        if (!object) break;
+        Object *outer = reinterpret_cast<Rva00463C6EObject *>(object)->containedBy274;
+        if (!outer) break;
+        Rva00463C6EModule *module = reinterpret_cast<Rva00463C6EObject *>(outer)->module250;
+        if (!module) break;
+        probe = module->contain();
+    } while (probe);
+    for (_STL::list<int>::iterator it = self->restoreIDs74.begin(); it != self->restoreIDs74.end(); ++it) {
+        Object *rider = TheGameLogic->findObjectByID((ObjectID)*it);
+        if (!rider) throw XferException(5, 0);
+        self->riders54.push_back(reinterpret_cast<const int &>(rider));
+        if (enclosing) self->slot24(rider, 0, 0);
+        reinterpret_cast<Rva00463C6EObject *>(rider)->containedBy274 = owner;
+    }
+    self->restoreIDs74.clear();
+}

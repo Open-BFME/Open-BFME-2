@@ -12,7 +12,8 @@ is now separately recovered as clean C++ in the neighboring Garrison xfer home;
 its unchanged receiver and no-argument tail call to `004783D7` are established
 by native bytes and WB `011A1210`. It uses the existing provider spelling from
 `Rva004697E1Gate.cpp`; no new pin or guessed folded class identity was added.
-The downstream OpenContain load body remains unrowed.
+The downstream OpenContain load body is independently recovered at 463C6E;
+its separate evidence record explains the enclosing-container walk.
 
 The first isolated rider-file trial emitted 286 bytes. `/O1 /G7` made the load
 routine exact without forcing a frame on the three existing rider methods.
