@@ -294,6 +294,36 @@ class Rva002D94DD { public: float rva002D94DD(void) const; };
 class PolygonTrigger { public: bool rva002E3A39(const Coord3D &pos); };
 class Object { public: bool isInside(PolygonTrigger *trigger); };
 extern GameLogic *TheGameLogic;
+inline float sqr(float value) { return value * value; }
+
+// class-gate: allow Coord2D retail 0x53854 receives ClosestPointOnLineSegment's Coord2D through a hidden return pointer (exported user ctors and dtor make BFME 2's Coord2D non-POD); the canonical plain Coord2D returns in edx:eax
+class Coord2D
+{
+public:
+    Coord2D() {}
+    Coord2D(const Coord3D &that) : x(that.x), y(that.y) {}
+    Coord2D(const Coord2D &that) : x(that.x), y(that.y) {}
+    ~Coord2D() {}
+    Coord2D &Sub(const Coord3D &that) { x -= that.x; y -= that.y; return *this; }
+    float GetLengthSqrd() const { return x * x + sqr(y); }
+    float x;
+    float y;
+};
+
+// Exported 0x00004C06 (folded with Region2D's ctor) and 0x006B3100.
+struct LineSegment2D {
+    LineSegment2D(const Coord2D &start, const Coord2D &end);
+    Coord2D m_start;
+    Coord2D m_end;
+};
+Coord2D ClosestPointOnLineSegment(const LineSegment2D &segment, const Coord2D &point);
+
+// Corner records at MilesAudioManager +0x3C; 0x53854 scans entries 1..4.
+struct AudioAreaCorner {
+    Coord3D m_pos;
+    bool m_valid;                        // +0x0C
+};
+
 struct AudioTriggerArea {
     PolygonTrigger *m_trigger;
     float m_level;
@@ -620,7 +650,8 @@ public:
 private:
     char at04[0x10 - 0x04];
     AudioSettings *m_audioSettings;      // +0x10 (Zero Hour name)
-    char at14[0x8C - 0x14];
+    char at14[0x3C - 0x14];
+    AudioAreaCorner m_corners[5];        // +0x3C, entries 1..4 used by 0x53854
     float m_at8C;                        // +0x8C, distance occlusion scale
     char at90[0x98 - 0x90];
     Rva00051107AudioRequestList m_audioRequests;    // +0x98
@@ -1271,6 +1302,50 @@ void MilesAudioManager::setOcclusionLevels(PlayingAudioRef &playing, const Coord
     else if (finalOcclusion < m_audioSettings->m_atC0)
         finalOcclusion = 0.0f;
     AIL_set_3D_sample_occlusion(sample3D, finalOcclusion);
+}
+
+// WorldBuilder 0x7A3290: squared 2D distance from pos to the outline of
+// corners 1..4, via the nearest valid corner and its two adjacent edges;
+// +inf when no corner is valid.
+float MilesAudioManager::rva00053854(const Coord3D *pos)
+{
+    int nearest = 5;
+    float best = g_Va00BBDA30;
+    for (int i = 1; i < 5; ++i) {
+        if (m_corners[i].m_valid) {
+            Coord2D delta(*pos);
+            float dist = delta.Sub(m_corners[i].m_pos).GetLengthSqrd();
+            if (dist < best) {
+                nearest = i;
+                best = dist;
+            }
+        }
+    }
+    if (nearest == 5)
+        return g_Va00BBDA30;
+
+    int next = nearest + 1;
+    if (next == 5)
+        next = 1;
+    {
+        LineSegment2D edge(Coord2D(m_corners[nearest].m_pos), Coord2D(m_corners[next].m_pos));
+        Coord2D closest = ClosestPointOnLineSegment(edge, Coord2D(*pos));
+        float dist = closest.Sub(*pos).GetLengthSqrd();
+        if (dist < best)
+            best = dist;
+    }
+
+    int prev = nearest - 1;
+    if (prev < 1)
+        prev = 4;
+    {
+        LineSegment2D edge(Coord2D(m_corners[nearest].m_pos), Coord2D(m_corners[prev].m_pos));
+        Coord2D closest = ClosestPointOnLineSegment(edge, Coord2D(*pos));
+        float dist = closest.Sub(*pos).GetLengthSqrd();
+        if (dist < best)
+            best = dist;
+    }
+    return best;
 }
 
 // WorldBuilder 0x7A13D0 (unnamed, aligned by score 5.0): flags the playing

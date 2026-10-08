@@ -1962,6 +1962,7 @@ address_global	Code/GameEngine/Source/GameNetwork/createServiceHubImpl.cpp	g_Va0
 address_global	Code/GameEngine/Source/GameNetwork/createServiceHubImpl.cpp	g_Va0130A58C	2
 address_global	Code/GameEngine/Source/GameNetwork/createServiceHubImpl.cpp	g_Va0130A58D	2
 address_global	Code/GameEngine/Source/Main/AudioManagerFocusVolume.cpp	g_Va00BBB8D8	2
+address_global	Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp	g_Va00BBDA30	4	allow=76860afc702ba83d37adaa2e73c1a9f603769879
 address_global	Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva0005CA03.cpp	g_Va00DE0878	2
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTreeDrawModuleDataCtor.cpp	g_Va00DBA4E4	2
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTreeDrawModuleDataCtorG7.cpp	g_Va00DBA4E4	2
@@ -6184,6 +6185,7 @@ class_gate_allow	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_appe
 class_gate_allow	Code/GameEngine/Source/GameLogic/Thing/Rva0033BA46Finish.cpp	AsciiString	1
 class_gate_allow	Code/GameEngine/Source/GameNetwork/native_connection_timing_ConnectionManager_getPlayerName.cpp	AsciiString	1
 class_gate_allow	Code/GameEngine/Source/GameNetwork/native_connection_timing_ConnectionManager_getPlayerName.cpp	UnicodeString	1
+class_gate_allow	Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp	Coord2D	1	allow=76860afc702ba83d37adaa2e73c1a9f603769879
 class_gate_allow	Code/GameEngineDevice/Source/MilesAudioDevice/Rva006AD9B0GetAllowAudioReinitialize.cpp	AsciiString	1
 class_gate_allow	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDrawModuleData_parseEmbedPortal_Rva000C39F5.cpp	AsciiString	1
 class_gate_allow	Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DGameWindow_initBorders.cpp	AsciiString	1
@@ -23645,7 +23647,6 @@ pin	reverse/symbols.csv	0x000524EE	1
 pin	reverse/symbols.csv	0x00052662	2
 pin	reverse/symbols.csv	0x00053113	1
 pin	reverse/symbols.csv	0x0005333F	2
-pin	reverse/symbols.csv	0x00053854	1	allow=65ac0b49c203b9e7eb3c26183c5d86212888d5e2
 pin	reverse/symbols.csv	0x00053AFA	1
 pin	reverse/symbols.csv	0x00053D66	1
 pin	reverse/symbols.csv	0x00053DFE	1
@@ -33892,6 +33893,7 @@ pin	reverse/symbols.csv	0x006B25D0	1
 pin	reverse/symbols.csv	0x006B2970	1
 pin	reverse/symbols.csv	0x006B2B40	1
 pin	reverse/symbols.csv	0x006B2B70	1
+pin	reverse/symbols.csv	0x006B3100	1	allow=d76a797221c9380d5ff0c630016da59bed76411f
 pin	reverse/symbols.csv	0x006B4110	1
 pin	reverse/symbols.csv	0x006B5940	1
 pin	reverse/symbols.csv	0x006B6C20	1

@@ -173,6 +173,17 @@ struct Region2D
     float y_max;
 };
 
+// BFME 2 exports ??0LineSegment2D@@QAE@ABVCoord2D@@0@Z at 0x00004C06, the
+// address of Region2D's ctor above: /OPT:ICF folded the two endpoint ctors.
+// This copy reproduces that body and is rowed with it as an ICF alias.
+struct LineSegment2D
+{
+    LineSegment2D(const Coord2D &start, const Coord2D &end);
+
+    Coord2D m_start;
+    Coord2D m_end;
+};
+
 struct Region3D
 {
     Region3D();
@@ -209,6 +220,12 @@ Region2D::Region2D(const Coord2D &lower_left, const Coord2D &upper_right)
     y_min = lower_left.y;
     x_max = upper_right.x;
     y_max = upper_right.y;
+}
+
+LineSegment2D::LineSegment2D(const Coord2D &start, const Coord2D &end)
+{
+    m_start = start;
+    m_end = end;
 }
 
 float Region2D::width() const
