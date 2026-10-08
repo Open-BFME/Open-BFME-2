@@ -1032,7 +1032,6 @@ _Rva0088E1A0ShowAssertCrashDialog,0x0003D880,address,placeholder
 ?rva00051CBA@Rva00051CBA@@QAEHABV1@@Z,0x00051CBA,address,placeholder
 ?rva00051CF1@Rva00051CF1@@QAE_NAAV1@@Z,0x00051CF1,address,placeholder
 ??_GRva00051E4D@@UAEPAXI@Z,0x00051E4D,address,placeholder
-?Rva00051EA9Get@@YAHXZ,0x00051EA9,address,placeholder
 ?refreshPair@Rva00699180Owner@@QAEXHH@Z,0x00051ED6,address,placeholder
 ?rva00051FFE@Rva00699180Owner@@QAEXH@Z,0x00051FFE,address,placeholder
 ?rva00052015@Rva00699180Owner@@QAEXH@Z,0x00052015,address,placeholder

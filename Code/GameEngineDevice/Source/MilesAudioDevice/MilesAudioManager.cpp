@@ -178,6 +178,7 @@ public:
     char at68[0x74 - 0x68];
     int m_portionToPlayNext; // +0x74, the portion advanceNextPlayPortion steps
     MusicSystem m_musicSystem; // +0x78
+    int m_loopCount;         // +0x7C, -12345 loops forever (0x00051E7D)
 };
 
 // Owning AudioEventRTS reference (its refcount base sits at event +0x88);
@@ -826,7 +827,8 @@ private:
     Rva00059FBBMap m_allAudioEventInfo;  // +0xBC
     char atD0[0x678 - 0xD0];
     int m_at678;                         // +0x678, compared with event view types
-    char at67C[0x69C - 0x67C];
+    char at67C[0x698 - 0x67C];
+    unsigned int m_at698;                // +0x698, per-view-type bits processAudioCompletion clears
     unsigned short m_maxAmbientStreams;  // +0x69C
     char at69E[0x6A4 - 0x69E];
     bool m_at6A4;                        // +0x6A4
@@ -1149,6 +1151,38 @@ void MilesAudioManager::transferBytesToPlayBuffer(LoopBuffer &buffer, unsigned i
             }
         }
     } while (!done);
+}
+
+// Retail 0x00051E7D (WorldBuilder twin 0x0079C6F0 names it; BFME 1's
+// StartAudioStream loop-count helper is the semantic donor): the loop count
+// a stream is started or restarted with. Retail takes the event in EDX and
+// reads nothing from ECX, so the fastcall's first register stays unused.
+int __fastcall getAppropriateStreamLoopCount(void *unusedEcx, const AudioEventRTS *event)
+{
+    const AudioEventInfo *info = event->m_info;
+    if (!info)
+        return 1;
+    switch (info->m_atB0) {
+    case 1:
+    case 4:
+    {
+        bool looping = (info->m_control & 1) != 0;
+        return looping ? 1000000 : 1;
+    }
+    case 3:
+        return 1000000;
+    case 0:
+    {
+        int loops = event->m_loopCount;
+        if (loops == -12345)
+            return 1000000;
+        if (loops >= 1)
+            return loops;
+        return 1;
+    }
+    default:
+        return 1;
+    }
 }
 
 class File;
