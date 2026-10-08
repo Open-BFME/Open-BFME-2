@@ -934,7 +934,9 @@ protected:
 	virtual void slot02();
 	virtual void slot03();
 	virtual void slot04();
-	virtual void slot05();
+public:
+	virtual void update();						// +0x14
+protected:
 	virtual void slot06();
 public:
 	virtual void onUnitProduced(Object *factory, Object *unit);	// +0x1C
@@ -951,7 +953,7 @@ protected:
 	virtual void slot15();
 	virtual void checkReadyTeams();					// +0x40
 	virtual void checkQueuedTeams();				// +0x44
-	virtual void slot18();
+	virtual void doTeamBuilding();					// +0x48
 	virtual void doUpgradesAndSkills();				// +0x4C
 	virtual Object *findDozer(const Coord3D *searchPosition);	// +0x50
 	virtual void queueDozer();					// +0x54
@@ -1927,6 +1929,18 @@ void AIPlayer::checkReadyTeams()
 			}
 		}
 	}
+}
+
+// ?update@AIPlayer@@UAEXXZ @0x004F4927 59B
+void AIPlayer::update()
+{
+	if (g_00DFEEF8->rva002A8AB1(m_player))
+		return;
+	checkReadyTeams();
+	checkQueuedTeams();
+	doTeamBuilding();
+	doUpgradesAndSkills();
+	updateBridgeRepair();
 }
 
 void AIPlayer::onUnitProduced(Object *factory, Object *unit)
