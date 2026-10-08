@@ -91,6 +91,8 @@ struct Rva004292F6Template
 {
     char m_pad00[0x110];
     unsigned int m_kind110;
+    char m_pad114;
+    unsigned char m_kind115;
 };
 
 class Object
@@ -102,6 +104,9 @@ public:
     Coord3D m_position;
     char m_pad44[0x74 - 0x44];
     ObjectID m_id;
+    char m_pad78[0x274 - 0x78];
+    Object *m_containedBy274;
+    Drawable *getDrawable() const;
 };
 
 class Drawable
@@ -109,6 +114,7 @@ class Drawable
 public:
 	unsigned char m_pad00[0xFC];
 	Object *m_object;
+	void rva00278C7C(int selected);
 };
 
 class CommandButton
@@ -188,6 +194,7 @@ private:
     int issueCombatDropCommand(const CommandButton *command, int commandType,
                                Drawable *target, const Coord3D *pos);
     int issueMoveToLocationCommand(const Coord3D *pos, Drawable *drawableInWay, int commandType);
+    int createAttackMessage(Drawable *draw, Drawable *other, int commandType);
     char m_pad00[8];
     bool m_teamExists;
 
@@ -285,4 +292,30 @@ int CommandTranslator::issueMoveToLocationCommand(const Coord3D *pos, Drawable *
     if (g_00E032F8)
         ++g_00E032F8->m_moveCount;
     return msgType;
+}
+
+// Donor: GeneralsMD CommandXlat.cpp::createAttackMessage (ba7ddda7).
+// Target 0x004293EE..0x00429471 retains both object guards and the 0x425
+// object-ID message. BFME 2 also redirects the selected-state call through
+// the target's +0x274 object when its template +0x115 bit 0x20 is set.
+// That member's original name and the selected helper's full purpose remain
+// uncertain; the existing getDrawable / rva00278C7C bindings are reused.
+int CommandTranslator::createAttackMessage(Drawable *draw, Drawable *other, int commandType)
+{
+    if (draw->m_object == 0)
+        return 0;
+    if (other->m_object == 0)
+        return 0;
+    if (commandType == 0)
+    {
+        GameMessage *msg = MessageStreamSubsystem->createMessage(0x425);
+        msg->appendObjectIDArgument(other->m_object->m_id);
+        Drawable *target = other;
+        Object *container = other->m_object->m_containedBy274;
+        if (container && (container->m_template->m_kind115 & 0x20) != 0)
+            target = container->getDrawable();
+        if (target)
+            target->rva00278C7C(0);
+    }
+    return 0x425;
 }
