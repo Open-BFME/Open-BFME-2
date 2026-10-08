@@ -52,3 +52,16 @@ class Rva005F69B2 {public:void rva005F69B2();};
 // Constructor binding: _OnQueuedIconSlotTypeRollOver.
 void StrategicHUD::BuildQueueDetailsMovieClip::Impl::QueuedIconSlot::rva005F6AA8(void*) { ((Rva005F69B2*)this)->rva005F69B2(); }
 
+
+// Click binding in ctor5F7B25; native RET4 closes5F6AE8..5F6B0B.
+class Rva00222A8BTarget;
+extern Rva00222A8BTarget *TheRva00222A8BTarget;
+struct QueuedAptModeView { char unknown[0x318]; int mode; };
+class GameWindow { public:void winDrawBorder(); };
+class Rva005F698E { public:void rva005F698E(); };
+void StrategicHUD::BuildQueueDetailsMovieClip::Impl::QueuedIconSlot::rva005F6AE8(void*) {
+ int mode=((QueuedAptModeView*)TheRva00222A8BTarget)->mode;
+ if(mode==0) ((GameWindow*)this)->winDrawBorder();
+ else if(mode==2) ((Rva005F698E*)this)->rva005F698E();
+}
+
