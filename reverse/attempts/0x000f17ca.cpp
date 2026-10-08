@@ -1,6 +1,23 @@
 // ?addNeighborlessEdges@W3DVolumetricShadow@@QAEXHPAUPolyNeighbor@@@Z
-// partial score=0.96 date=2026-10-07
+// partial score=0.96 date=2026-10-08
 // cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc
+// W3DVolumetricShadow silhouette tools.
+//   ?addSilhouetteIndices@W3DVolumetricShadow@@IAEXHFF@Z   @0x000EFDBB  59B
+//   ?addSilhouetteEdge@W3DVolumetricShadow@@IAEXHPAUPolyNeighbor@@0@Z @0x000F1735 149B
+//   ?buildSilhouette@W3DVolumetricShadow@@IAEXHPAVVector3@@@Z @0x000F2D25 422B
+//
+// Target evidence: silhouette index lists at +0x4180 (Short *[160]) with
+// their counts at +0x4400 and the per-mesh index total at +0x4680; mesh
+// records 0x34 bytes from m_geometry (+0x6C) +0x14. buildSilhouette calls
+// W3DShadowGeometryMesh::buildPolygonNormals (0x000F28C3) when the normals
+// are missing, GetPolyNeighbor (0x000F2CFC), GetPolygonIndex (0x000F0FCD),
+// addSilhouetteEdge and addNeighborlessEdges (0x000F17CA, unrowed);
+// addSilhouetteEdge ends in addSilhouetteIndices. addNeighborlessEdges keeps
+// the public mangling of its pin until it is rowed.
+// Donor: ZH/Open-BFME-1 W3DVolumetricShadow.cpp silhouette tools, protected
+// as in the ZH header. BFME 2 differences: the polygon indices come from the
+// out-of-line GetPolygonIndex, and a light-facing polygon's status is
+// assigned POLY_VISIBLE (mov, not or) right after being cleared.
 typedef float Real;
 typedef int Int;
 typedef short Short;
@@ -23,13 +40,14 @@ class Vector3
 {
 public:
 	Vector3(void) {}
-	Vector3(Real x, Real y, Real z) { X = x; Y = y; Z = z; }
+	Vector3(Real x, Real y, Real z);
 	__forceinline Vector3(const Vector3 &v) { X = v.X; Y = v.Y; Z = v.Z; }
 	__forceinline Vector3 &operator=(const Vector3 &v) { X = v.X; Y = v.Y; Z = v.Z; return *this; }
 	static __forceinline Real Dot_Product(const Vector3 &a, const Vector3 &b) { return a.X*b.X + a.Y*b.Y + a.Z*b.Z; }
 	Real X, Y, Z;
 };
-__forceinline Vector3 operator-(const Vector3 &a, const Vector3 &b) { return Vector3(a.X-b.X, a.Y-b.Y, a.Z-b.Z); }
+// Inline component arithmetic avoids emitting unused, conflicting Vector3 COMDAT copies.
+static __forceinline Vector3 ShadowSubtract(const Vector3 &a, const Vector3 &b) { Vector3 result; result.X=a.X-b.X; result.Y=a.Y-b.Y; result.Z=a.Z-b.Z; return result; }
 
 struct NeighborEdge
 {
@@ -87,6 +105,7 @@ class W3DShadowGeometry
 class W3DVolumetricShadow
 {
 public:
+	// Existing public provider mangling retained.
 	void addNeighborlessEdges(Int meshIndex, PolyNeighbor *us );
 protected:
 	void buildSilhouette(Int meshIndex, Vector3 *lightPosWorld);
@@ -106,44 +125,6 @@ void W3DVolumetricShadow::addSilhouetteIndices(Int meshIndex, Short edgeStart, S
 {
 	m_silhouetteIndex[meshIndex][ m_numSilhouetteIndices[meshIndex]++ ] = edgeStart;
 	m_silhouetteIndex[meshIndex][ m_numSilhouetteIndices[meshIndex]++ ] = edgeEnd;
-}
-
-void W3DVolumetricShadow::addNeighborlessEdges(Int meshIndex, PolyNeighbor *us )
-{
-	Short vertexIndexList[ 3 ];
-	Int i, j;
-	Short edgeStart, edgeEnd;
-	Bool addEdge;
-	W3DShadowGeometryMesh *geomMesh = &m_geometry->m_meshList[meshIndex];
-
-	geomMesh->GetPolygonIndex( us->myIndex, vertexIndexList );
-	for( i = 0; i < 3; i++ )
-	{
-		edgeStart = vertexIndexList[ i ];
-		if( i == 2 )
-			edgeEnd = vertexIndexList[ 0 ];
-		else
-			edgeEnd = vertexIndexList[ i + 1 ];
-		addEdge = TRUE;
-		for( j = 0; j < MAX_POLYGON_NEIGHBORS; j++ )
-		{
-			if( us->neighbor[ j ].neighborIndex != NO_NEIGHBOR )
-			{
-				if( (us->neighbor[ j ].neighborEdgeIndex[ 0 ] == edgeStart &&
-						 us->neighbor[ j ].neighborEdgeIndex[ 1 ] == edgeEnd) ||
-						(us->neighbor[ j ].neighborEdgeIndex[ 1 ] == edgeStart &&
-						 us->neighbor[ j ].neighborEdgeIndex[ 0 ] == edgeEnd) )
-				{
-					addEdge = FALSE;
-					break;
-				}
-			}
-		}
-		if( addEdge == TRUE )
-		{
-			addSilhouetteIndices(meshIndex, edgeStart, edgeEnd );
-		}
-	}
 }
 
 void W3DVolumetricShadow::addSilhouetteEdge(Int meshIndex, PolyNeighbor *visible, PolyNeighbor *hidden )
@@ -208,7 +189,7 @@ void W3DVolumetricShadow::buildSilhouette(Int meshIndex, Vector3 *lightPosObject
 		const Vector3& normal=geomMesh->GetPolygonNormal(i);
 		geomMesh->GetPolygonIndex( i, poly );
 		const Vector3& vertex=geomMesh->m_verts[poly[ 0 ]];
-		lightVector= vertex - *lightPosObject;
+		lightVector= ShadowSubtract(vertex,*lightPosObject);
 		if( Vector3::Dot_Product( lightVector, normal ) < 0.0f )
 			polyNeighbor->status = POLY_VISIBLE;
 	}
@@ -251,4 +232,42 @@ void W3DVolumetricShadow::buildSilhouette(Int meshIndex, Vector3 *lightPosObject
 		BitSet( polyNeighbor->status, POLY_PROCESSED );
 	}
 	m_numIndicesPerMesh[meshIndex] = m_numSilhouetteIndices[meshIndex] - meshEdgeStart;
+}
+
+void W3DVolumetricShadow::addNeighborlessEdges(Int meshIndex, PolyNeighbor *us )
+{
+	Short vertexIndexList[ 3 ];
+	Int i, j;
+	Short edgeStart, edgeEnd;
+	Bool addEdge;
+	W3DShadowGeometryMesh *geomMesh = &m_geometry->m_meshList[meshIndex];
+
+	geomMesh->GetPolygonIndex( us->myIndex, vertexIndexList );
+	for( i = 0; i < 3; i++ )
+	{
+		edgeStart = vertexIndexList[ i ];
+		if( i == 2 )
+			edgeEnd = vertexIndexList[ 0 ];
+		else
+			edgeEnd = vertexIndexList[ i + 1 ];
+		addEdge = TRUE;
+		for( j = 0; j < MAX_POLYGON_NEIGHBORS; j++ )
+		{
+			if( us->neighbor[ j ].neighborIndex != NO_NEIGHBOR )
+			{
+				if( (us->neighbor[ j ].neighborEdgeIndex[ 0 ] == edgeStart &&
+						 us->neighbor[ j ].neighborEdgeIndex[ 1 ] == edgeEnd) ||
+						(us->neighbor[ j ].neighborEdgeIndex[ 1 ] == edgeStart &&
+						 us->neighbor[ j ].neighborEdgeIndex[ 0 ] == edgeEnd) )
+				{
+					addEdge = FALSE;
+					break;
+				}
+			}
+		}
+		if( addEdge == TRUE )
+		{
+			addSilhouetteIndices(meshIndex, edgeStart, edgeEnd );
+		}
+	}
 }
