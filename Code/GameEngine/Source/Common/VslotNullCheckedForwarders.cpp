@@ -376,10 +376,10 @@ class Rva004D1616NullTarget
 public:
 	void rva004D1616(Int a0);
 };
-class Rva004CF664NullTarget
+class ConnectionManager
 {
 public:
-	void rva004CF664();
+	void initTransport();
 };
 class Rva004CF113NullTarget
 {
@@ -412,7 +412,7 @@ void Network::ParseUserList(Int a0)
 void Network::InitTransport()
 {
 	if (m_pConMgr)
-		((Rva004CF664NullTarget *)m_pConMgr)->rva004CF664();
+		((ConnectionManager *)m_pConMgr)->initTransport();
 }
 
 // vtable 0x00BF6040#19
