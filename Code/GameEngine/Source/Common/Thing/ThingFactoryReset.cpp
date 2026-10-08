@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG /Ireference/shims/bfme2_ascii /Ireference/shims/subsystem_bfme2
+// cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG /Ireference/shims/bfme2_ascii /Ireference/shims/subsystem_bfme2 /Ireference/shims/iniexception
 /* Copyright 2025 Electronic Arts Inc. SPDX-License-Identifier: GPL-3.0-or-later */
 // Semantic donor: Open-BFME-1 ba7ddda7e8f261163972ddbe23c7e7a12ac5b84f,
 // game/GameEngine/Source/Common/Thing/ThingFactory_reset.cpp, itself from ZH.
@@ -10,6 +10,7 @@
 // at +0x2F0. Each nonnull module's slot 18 returns the cache cleared by the
 // existing 0x000B4AE4 worker. The flag and slot's semantic names remain open.
 #include "ascii_string.h"
+#include "Common/INIException.h"
 typedef bool Bool;
 #include "subsystem_interface.h"
 
@@ -36,12 +37,14 @@ public:
     virtual void slot02(); virtual void slot03();
     virtual void slot04(); virtual void slot05();
     virtual void slot06(); virtual void slot07();
-    virtual void slot08(); virtual void slot09();
+    virtual bool slot08() const; virtual void slot09();
     virtual void slot10(); virtual void slot11();
     virtual void slot12(); virtual void slot13();
     virtual void slot14(); virtual void slot15();
     virtual void slot16(); virtual void slot17();
     virtual Rva000B4BED *slot18() const;
+    char m_pad004[0x86 - 4];
+    bool m_flag86;
 };
 
 struct ModuleInfoRecord { char m_opaque[20]; };
@@ -66,10 +69,12 @@ public:
     AsciiString m_name;
     char m_pad068[0x11F - 0x68];
     unsigned char m_flags11F;
-    char m_pad120[0x2F0 - 0x120];
+    char m_pad120[0x2E4 - 0x120];
+    ModuleInfo m_behaviorModules;
     ModuleInfo m_modules;
     char m_pad2FC[0x484 - 0x2FC];
     ThingTemplate *m_nextTemplate;
+    void resolveNames();
 };
 
 // Existing row 0x00223429: erase by pointer to the four-byte AsciiString.
@@ -86,6 +91,7 @@ class ThingFactory : public SubsystemInterface
 {
 public:
     virtual void reset();
+    virtual void postProcessLoad();
 private:
     ThingTemplate *m_firstTemplate;
     unsigned short m_nextTemplateID, m_unused12;
@@ -124,4 +130,35 @@ void ThingFactory::reset()
             m_templateHashMap.rva00223429(&templateName);
         t = nextT;
     }
+}
+
+// Existing target workers; their semantic class names are not claimed here.
+class Rva0033A920
+{
+public:
+    void rva0033A920(const void *arg);
+};
+void Rva00361439Resolve();
+
+// WB ThingFactory::postProcessLoad: same template traversal, ModuleInfo
+// +0x2E4, containment predicate slot8 and required-status byte +0x86.
+// Retail 0x002CF5FF..0x002CF6B0 retains the full INIException message and
+// initializes the template's +0x520 threat state through existing row 33A920.
+void ThingFactory::postProcessLoad()
+{
+    for (ThingTemplate *t = m_firstTemplate; t; t = t->m_nextTemplate)
+    {
+        t->resolveNames();
+        int count = moduleRecordCount(&t->m_behaviorModules);
+        for (int i = 0; i < count; ++i)
+        {
+            const ModuleData *data = t->m_behaviorModules.getNthData(i);
+            if (data && data->slot08() && !data->m_flag86)
+                throw INIException(3,
+                    "ENTRY MISSING: ObjectStatusOfContained entry required within ContainModule for %s.",
+                    t->m_name.str());
+        }
+        ((Rva0033A920 *)((char *)t + 0x520))->rva0033A920(t);
+    }
+    Rva00361439Resolve();
 }

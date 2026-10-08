@@ -503,44 +503,7 @@ void reportMissingNameInTemplate( AsciiString templateName )
 //-------------------------------------------------------------------------------------------------
 /** Post process phase after loading the database files */
 //-------------------------------------------------------------------------------------------------
-// ?postProcessLoad@ThingFactory@@ present-unmatched
-void ThingFactory::postProcessLoad()
-{
-#ifdef CHECK_THING_NAMES
-	//resetReportFile();
-#endif
-
-	// go through all thing templates
-	for( ThingTemplate *thingTemplate = m_firstTemplate; 
-			 thingTemplate; 
-			 thingTemplate = thingTemplate->friend_getNextTemplate() )
-	{
-
-		// resolve the prerequisite names
-		thingTemplate->resolveNames();
-
-#ifdef CHECK_THING_NAMES
-		if (thingTemplate->getDisplayName().isEmpty())
-		{
-			reportMissingNameInTemplate( thingTemplate->getName() );
-		}
-		else if (wcsstr(thingTemplate->getDisplayName().str(), L"MISSING:"))
-		{
-			AsciiString asciiName;
-			asciiName.translate(thingTemplate->getDisplayName());
-			asciiName.removeLastChar();
-			asciiName = asciiName.str() + 17;
-			reportMissingNameInStringFile( asciiName );
-		}
-#endif
-
-	}  // end for 
-
-#ifdef CHECK_THING_NAMES
-	dumpMissingStringNames();
-	exit(0);
-#endif
-}  // end postProcess
+// BFME2 postProcessLoad is recovered in ThingFactoryReset.cpp.
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
