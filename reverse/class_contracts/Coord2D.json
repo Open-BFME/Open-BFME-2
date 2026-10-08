@@ -22,7 +22,17 @@
   "witness_offsets": [],
   "zh": {
    "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include/Lib/BaseType.h"
-  }
+  },
+  "method_declarations": [
+   {
+    "declaration": "void normalize();",
+    "name": "?normalize@Coord2D@@QAEXXZ",
+    "rva": "0x0000378A",
+    "size": 71,
+    "source": "Code/Libraries/Source/WWVegas/WWMath/coord2d.cpp",
+    "decided_by": "byte-verified owner; native 0x004EFDDC AISkirmishPlayer::computeSuperweaponTarget calls this owner on its eight-byte two-float offset"
+   }
+  ]
  },
  "fields": [
   {

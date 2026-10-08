@@ -79,6 +79,7 @@ public:
 	Bool hasAnyUnits() const { return rva002AB312(); }
 	Bool hasAnyBuildFacility() const { return rva002AB3FA(); }
 	Bool isSkirmishAIPlayer();
+	Int getMpStartIndex() const { return m_mpStartIndex; }
 	Player *getCurrentEnemy() { return (Player *)((Rva002A9BBD *)this)->rva002A9BBD(); }
 
 	unsigned char m_pad00[0x4C];
@@ -87,7 +88,9 @@ public:
 	Int m_playerIndex;			// +0x54
 	unsigned char m_pad58[0x5C - 0x58];
 	PlayerType m_playerType;		// +0x5C
-	unsigned char m_pad60[0x2EC - 0x60];
+	unsigned char m_pad60[0x2E0 - 0x60];
+	Int m_mpStartIndex;			// +0x2E0
+	unsigned char m_pad2E4[0x2EC - 0x2E4];
 	Team *m_defaultTeam;			// +0x2EC
 };
 
@@ -229,6 +232,46 @@ public:
 };
 extern GlobalData *TheWritableGlobalData;
 
+class Overridable
+{
+public:
+	const Overridable *friend_getFinalOverride() const;	// 0x00288609
+};
+
+class SpecialPowerTemplate : public Overridable
+{
+public:
+	const AsciiString &getName() const
+	{
+		return ((const SpecialPowerTemplate *)friend_getFinalOverride())->m_name;
+	}
+private:
+	unsigned char m_pad[0x10];
+	AsciiString m_name;			// +0x10
+};
+
+class TerrainLogic
+{
+public:
+	virtual void tl00(); virtual void tl01(); virtual void tl02();
+	virtual void tl03(); virtual void tl04(); virtual void tl05();
+	virtual Real getGroundHeight(Real x, Real y, Coord3D *normal = NULL) const;	// +0x18
+	virtual void tl07(); virtual void tl08(); virtual void tl09();
+	virtual void tl10(); virtual void tl11(); virtual void tl12();
+	virtual void tl13(); virtual void tl14(); virtual void tl15();
+	virtual void tl16(); virtual void tl17(); virtual void tl18();
+	virtual void tl19(); virtual void tl20(); virtual void tl21();
+	virtual void tl22(); virtual void tl23(); virtual void tl24();
+	virtual void tl25(); virtual void tl26(); virtual void tl27();
+	virtual void tl28(); virtual void tl29(); virtual void tl30();
+	virtual void tl31(); virtual void tl32(); virtual void tl33();
+	virtual void tl34(); virtual void tl35();
+	virtual Waypoint *getClosestWaypointOnPath(const Coord3D *pos, const AsciiString &label);	// +0x90
+};
+extern TerrainLogic *TheTerrainLogic;
+
+Int GetGameLogicRandomValue(int lo, int hi, char *file, int line);
+
 class AIPlayer
 {
 protected:
@@ -278,12 +321,15 @@ protected:
 	Player *m_player;			// +0x0C
 	unsigned char m_pad10[0x34 - 0x10];
 	Coord3D m_baseCenter;			// +0x34
-	unsigned char m_pad40[0x78 - 0x40];
+	unsigned char m_pad40[0x44 - 0x40];
+	Real m_baseRadius;			// +0x44
+	unsigned char m_pad48[0x78 - 0x48];
 };
 
 class AISkirmishPlayer : public AIPlayer
 {
 public:
+	virtual void computeSuperweaponTarget(const SpecialPowerTemplate *power, Coord3D *retPos, Int playerNdx, Real weaponRadius);
 	virtual void update();
 	virtual void onUnitProduced(Object *factory, Object *unit);
 	virtual void buildSpecificAITeam(TeamPrototype *teamProto, Bool priorityBuild);
@@ -531,6 +577,58 @@ void AISkirmishPlayer::acquireEnemy()
 		msg.concat(TheNameKeyGenerator->keyToName(m_currentEnemy->getPlayerNameKey()));
 		TheScriptEngine->AppendDebugMessage(msg, false);
 	}
+}
+
+// ?computeSuperweaponTarget@AISkirmishPlayer@@UAEXPBVSpecialPowerTemplate@@PAUCoord3D@@HM@Z @0x004EFDDC 493B
+// BFME 2 picks the cluster-mine power by template name instead of power type,
+// and AIPlayer's slot returns nothing.
+void AISkirmishPlayer::computeSuperweaponTarget(const SpecialPowerTemplate *power, Coord3D *retPos, Int playerNdx, Real weaponRadius)
+{
+	Region2D bounds;
+	getPlayerStructureBounds(&bounds, playerNdx);
+
+	const AsciiString &powerName = power->getName();
+	if (powerName.compare("SuperweaponClusterMines") == 0)
+	{
+		// hackus brutus - mine the entrances to our base.
+		AsciiString pathLabel;
+		Int mode = GetGameLogicRandomValue(0, 2, "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\AI\\AISkirmishPlayer.cpp", 1136);
+		if (mode==1) {
+				pathLabel.format("%s%d", "Flank", m_player->getMpStartIndex()+1);
+		}	else if (mode==2) {
+				pathLabel.format("%s%d", "Backdoor", m_player->getMpStartIndex()+1);
+		}	else {
+			pathLabel.format("%s%d", "Center", m_player->getMpStartIndex()+1);
+		}
+
+		Coord3D goalPos;
+		goalPos.x = m_baseCenter.x;
+		goalPos.y = m_baseCenter.y;
+		goalPos.z = m_baseCenter.z;
+		Waypoint *way = TheTerrainLogic->getClosestWaypointOnPath( &goalPos, pathLabel );
+		if (way) {
+			goalPos = *way->getLocation();
+		} else {
+			Region2D bounds;
+			getPlayerStructureBounds(&bounds, getMyEnemyPlayerIndex());
+			goalPos.x = bounds.lo.x + bounds.width()/2;
+			goalPos.y = bounds.lo.y + bounds.height()/2;
+		}
+		Coord2D offset;
+		offset.x = goalPos.x-m_baseCenter.x;
+		offset.y = goalPos.y-m_baseCenter.y;
+		offset.normalize();
+		Real dx = offset.x * m_baseRadius;
+		Real dy = offset.y * m_baseRadius;
+		Coord3D *ret = retPos;
+		*ret = m_baseCenter;
+		ret->x += dx;
+		ret->y += dy;
+		ret->z = TheTerrainLogic->getGroundHeight(ret->x, ret->y);
+		return;
+	}
+
+	AIPlayer::computeSuperweaponTarget(power, retPos, playerNdx, weaponRadius);
 }
 
 // ?getAiEnemy@AISkirmishPlayer@@UAEPAVPlayer@@XZ @0x004EFDAB 49B
