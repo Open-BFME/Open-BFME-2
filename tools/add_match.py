@@ -158,6 +158,41 @@ def remove_stash(rva, root):
         )
 
 
+def record_landing(root, name, rva, size, source_rel, notes):
+    """Append the `landed` verdict and report the deferrals this landing may free.
+
+    Without it the log's last word on a landed function stayed whatever the
+    previous attempt wrote -- ChunkLoadClass::Seek landed with five `blocked`
+    rows and nothing after them -- and the rows parked behind it (two motion
+    channel constructors citing "unresolved Seek 6150C0") had no way to learn
+    their wall was gone. Advisory: a verified row is never reverted over this.
+    """
+    import re_log
+
+    log = Path(root) / "reverse" / "re_attempts.log"
+    if not log.exists():
+        return
+    try:
+        evidence = f"add_match verified {source_rel} {size}B"
+        if notes:
+            evidence += f"; {notes}"
+        re_log.append(name, f"0x{rva:08X}", str(size), "landed", evidence, path=log)
+        print(f"add_match: recorded `landed` in reverse/re_attempts.log -- stage it")
+        if log.resolve() != re_log.RE_ATTEMPTS.resolve():
+            return
+        freed = re_log.cites(rva, name)
+    except Exception as error:  # advisory, like the claim release below
+        print(f"add_match: could not record the landing: {error}", file=sys.stderr)
+        return
+    for symbol, at, status, text in freed:
+        print(f"add_match: may unblock {symbol} @ 0x{at:08X} ({status}): {text[:160]}")
+    if freed:
+        print(
+            "add_match: land these, or re-record any that waited on this function "
+            "with blocked-on=0x%08X so the queue serves it as untried" % rva
+        )
+
+
 def add_callee_pins(specs, root, name):
     """Write each --pin NAME=0xRVA through tools/pin_admission.add_pins: its rules,
     the pin_consistency check, then a hatch-register admission of exactly these
@@ -473,6 +508,7 @@ def main():
         )
     print("add_match: verified OK — row is live")
     remove_stash(rva, args.root)
+    record_landing(root, args.name, rva, size, source_rel, args.notes)
     if root == DEFAULT_ROOT.resolve() and os.environ.get("BFME_CLAIMS", "on") != "off":
         # Verification has landed this body; a worker no longer needs its
         # shared work claim. A test-only --root must never touch origin.

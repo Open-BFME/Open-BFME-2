@@ -545,7 +545,10 @@ progress take a fresh candidate, never leaving a nonmatching reconstruction in
 `Code/`. Record the verdict:
 `python3 tools/re_log.py record <symbol> <rva> <size> <status> <evidence>`
 (never hand-edit `reverse/re_attempts.log`); cite the real boundary and
-include `t=<minutes>` and your model.
+include `t=<minutes>` and your model. Walled only by a missing function? Add
+`blocked-on=0x<rva>`: the queue re-serves you as untried once it lands.
+`add_match` records `landed` itself and lists deferrals citing the body it
+landed — stage the log with your row.
 
 **Close, not exact? Bank the body.**
 `partial '<what is wrong>' --stash <your .cpp> --score <0..1>` keeps the
