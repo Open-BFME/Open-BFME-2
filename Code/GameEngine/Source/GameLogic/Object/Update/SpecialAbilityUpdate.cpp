@@ -72,14 +72,36 @@ class BehaviorModule
 {
 public:
 	virtual ~BehaviorModule();
+	Object *getObject() const { return m_object; }
 protected:
 	const ModuleData *m_moduleData; // +0x04
 	Object *m_object; // +0x08
 };
+class Rva0044E9C7
+{
+public:
+	Rva0044E9C7 *rva0044E9C7(int a, unsigned int b, unsigned int c, unsigned int d, unsigned int e, unsigned int f, unsigned int g, unsigned int h, unsigned int i, unsigned int j, unsigned int k, unsigned int l, unsigned int m, unsigned int n, unsigned int o);
+	unsigned int m_bits[19];
+};
+class Rva0028F59A
+{
+public:
+	Rva0028F59A(int a, int bit);
+	unsigned int m_bits[19];
+};
+class Rva001E42F2
+{
+public:
+	void rva001E42F2(const int *mask);
+};
 class SpecialAbilityUpdate : public BehaviorModule
 {
 public:
+	void rva0044EE07();
 	void rva0044EE80();
+private:
+	unsigned char m_pad0C[0x84 - 0x0C];
+	int m_84; // +0x84
 };
 
 class Overridable
@@ -137,6 +159,29 @@ private:
 	char m_pad1[0x40 - 8];
 	ObjectID m_target40;
 };
+
+// Retail 0x0044EE07 (121 bytes): SpecialAbilityUpdate::rva0044EE07, the
+// partner of rva0044EE80 below (same module data +0x18/+0x1C pair). Clears the
+// fourteen ability model conditions (0x60 0x5E 0x29 0x76 0x5F 0x84 0x61..0x63
+// 0x249..0x24B 0x6E 0x6F) on the Object through the rowed mask clear 0x001E42F2
+// with the rowed 0x0044E9C7 mask builder, then, for an untimed module-data
+// condition, clears that one through the one-bit mask ctor 0x0028F59A and
+// zeroes +0x84. Called by 0x004500A3 with the module as this.
+void SpecialAbilityUpdate::rva0044EE07()
+{
+	{
+		Rva0044E9C7 mask;
+		((Rva001E42F2 *)getObject())->rva001E42F2((const int *)mask.rva0044E9C7(0,
+			0x60, 0x5e, 0x29, 0x76, 0x5f, 0x84, 0x61, 0x62, 0x63,
+			0x249, 0x24a, 0x24b, 0x6e, 0x6f));
+	}
+	const SpecialAbilityUpdateModuleData *data = (const SpecialAbilityUpdateModuleData *)m_moduleData;
+	if (data->m_18 != MODELCONDITION_INVALID && data->m_1C == 0)
+	{
+		((Rva001E42F2 *)getObject())->rva001E42F2((const int *)&Rva0028F59A(0, data->m_18));
+		m_84 = 0;
+	}
+}
 
 // Retail 0x0044EE80 (74 bytes): SpecialAbilityUpdate::rva0044EE80, a
 // non-virtual helper called with the module as this by the SpecialAbilityUpdate

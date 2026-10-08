@@ -20314,3 +20314,4 @@ FUN_009a6b28	0x005A6B28	360	no-boundary	Fresh WB NAT::attachSlotList lead is an 
 ?Rva005F56B0Check@@YA_NXZ	0x005F56B0	153	blocked	eax-plus-stack convention needs non-clean code t=10 model=muse-spark
 ?Rva0050AB37Check@@YA_NXZ	0x0050AB37	192	blocked	address-named g_Va00E04584 needs hatch t=5 model=muse-spark
 ?bfmeMakeEYF@@YAPAUBfmeNodeEYF@@PAX0@Z	0x0030DC85	476	blocked	factory stack-slot reuse plus Coord temp needs shape work t=30 model=muse-spark
+?rva00624130@Rva00624130@@QAEXXZ	0x00624130	1376	blocked	deque size-sum order: retail nodes (2,1,0) terms (1,0,2); tried all 6 left-assoc perms, a+(b+c), int casts, end()-begin(), loops, split statements, named locals (1384B); best 7 diffs = existing 0.99 bank; map<int,void*> nonconst find view gives 1364B/280 diffs t=40 model=claude-opus-5-5
