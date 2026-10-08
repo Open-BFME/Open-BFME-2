@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /O1 /EHsc /MD /arch:SSE /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_CRTIMP=
+// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /O1 /EHs /MD /arch:SSE /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_CRTIMP=
 // stlport
 // BuildAssistant.cpp -- BuildAssistant members recovered from WorldBuilder
 // leads (reverse/wb_name_leads.csv): WB's debug build names the function;
@@ -37,6 +37,8 @@
 // VoiceCreated sound.
 
 #include <list>
+#include <vector>
+#include <algorithm>
 #include <string.h>
 #include <math.h>
 #include "ascii_string.h"
@@ -76,6 +78,8 @@ enum KindOfType
 	KINDOF_30 = 30,
 	KINDOF_CLEARED_BY_BUILD = 51,
 	KINDOF_58 = 58,
+	KINDOF_85 = 85,		// ZH's KINDOF_CANNOT_BUILD_NEAR_SUPPLIES role
+	KINDOF_86 = 86,		// ZH's KINDOF_SUPPLY_SOURCE role
 	KINDOF_INERT = 89,
 	KINDOF_104 = 104,
 	KINDOF_149 = 149,
@@ -83,6 +87,7 @@ enum KindOfType
 	KINDOF_NOT_SELLABLE = 154,
 	KINDOF_156 = 156,
 	KINDOF_157 = 157,
+	KINDOF_188 = 188,
 	KINDOF_189 = 189
 };
 
@@ -128,7 +133,9 @@ enum CommandSourceType
 
 enum PathfindLayerEnum
 {
-	LAYER_INVALID = 0
+	LAYER_INVALID = 0,
+	LAYER_GROUND = 1,
+	LAYER_17 = 17			// from here up only KINDOF_189 builds
 };
 
 enum CanMakeType
@@ -141,6 +148,25 @@ enum CanMakeType
 	CANMAKE_PARKING_PLACES_FULL,
 	CANMAKE_MAXED_OUT_FOR_PLAYER,
 	CANMAKE_7						// BFME2: the Player +0x60 check refused
+};
+
+// isLocationLegalToBuild's results. The values are BFME2's; the names are
+// Zero Hour's for the check that returns each, and 9 (the KINDOF_156 range
+// test against the player's points) has no Zero Hour analogue.
+enum LegalBuildCode
+{
+	LBC_OK = 0,
+	LBC_NO_CLEAR_PATH = 2,
+	LBC_TOO_CLOSE_TO_SUPPLIES = 3,
+	LBC_NOT_FLAT_ENOUGH = 5,
+	LBC_RESTRICTED_TERRAIN = 6,
+	LBC_OBJECTS_IN_THE_WAY = 8,
+	LBC_9 = 9
+};
+
+enum CellShroudStatus
+{
+	CELLSHROUD_CLEAR
 };
 
 enum ObjectScriptStatusBit
@@ -174,6 +200,17 @@ enum { MAX_COMMANDS_PER_SET = 32 };
 
 class Player;
 class Object;
+
+struct Region3D
+{
+	Coord3D lo, hi;
+
+	Bool isInRegionNoZ( const Coord3D *query ) const
+	{
+		return (lo.x < query->x) && (query->x < hi.x)
+				&& (lo.y < query->y) && (query->y < hi.y);
+	}
+};
 class Team;
 struct Rva002A7557In;
 
@@ -196,16 +233,31 @@ class GeometryInfo
 {
 public:
 	GeometryInfo(GeometryType type, Bool isSmall, Real height, Real majorRadius, Real minorRadius);
+	GeometryInfo(const GeometryInfo &that);
 	virtual ~GeometryInfo();
 	Real getMajorRadius() const { return m_majorRadius; }
 	Real getBoundingCircleRadius() const { return m_boundingCircleRadius; }
 	Real getMaxHeightAbovePosition() const;
+	void expandFootprint(Real radius);
+	bool bfmeIntersects(const Coord3D &pos, Real angle, const GeometryInfo &other, const Coord3D &otherPos, Real otherAngle) const;
 
 private:
 	unsigned char m_pad04[0x10 - 0x04];
 	Real m_majorRadius;		// +0x10
 	Real m_boundingCircleRadius;	// +0x14
 	unsigned char m_pad18[0x5C - 0x18];
+};
+
+class ModuleData;
+
+// What ThingTemplate::rva0033B427 finds among the template's module data for
+// KINDOF_156 builds: +0x30 is the range isLocationLegalToBuild allows from the
+// owning player's points.
+class Rva0033B427Data
+{
+public:
+	unsigned char m_pad00[0x30];
+	Real m_range;				// +0x30
 };
 
 class ThingTemplate
@@ -219,6 +271,7 @@ public:
 	Real friend_calcVisionRange() const { return m_visionRange; }
 	UnsignedShort getRefundValue() const { return m_refundValue; }
 	Int rva0033A69A(const Player *player, Int a, Int b) const;
+	const ModuleData *rva0033B427(Int unused) const;
 
 private:
 	unsigned char m_pad000[0x64];
@@ -446,6 +499,8 @@ public:
 	virtual void slot122(); virtual void slot123(); virtual void slot124(); virtual void slot125();
 	virtual Object *construct(const ThingTemplate *what, const Coord3D *pos, Real angle, Player *owningPlayer, Bool isRebuild, Int flags);	// +0x1F8
 
+	Bool isPathAvailable(const Coord3D *destination) const;
+	Bool isQuickPathAvailable(const Coord3D *destination) const;
 	__forceinline void aiIdle(CommandSourceType cmdSource) { m_command.aiIdle(cmdSource); }
 	__forceinline void aiMoveToPositionEvenIfSleeping(const Coord3D *pos, CommandSourceType cmdSource) { m_command.aiMoveToPositionEvenIfSleeping(pos, cmdSource); }
 	Bool isMoving() const;
@@ -542,6 +597,7 @@ public:
 	void rva0028B4CE(PathfindLayerEnum layer);
 	Int get45C() const { return m_45C; }
 	const Coord3D *getPosition() const { return &m_position; }
+	Real getOrientation() const { return m_orientation; }
 	Relationship getRelationship(const Object *that) const;
 	ObjectID getID() const { return m_id; }
 	Bool testStatus(ObjectStatusTypes bit) const;
@@ -562,7 +618,8 @@ public:
 private:
 	unsigned char m_pad008[0x38 - 8];
 	Coord3D m_position;			// +0x038
-	unsigned char m_pad044[0x74 - 0x44];
+	Real m_orientation;			// +0x044
+	unsigned char m_pad048[0x74 - 0x48];
 	ObjectID m_id;				// +0x074
 	unsigned char m_pad078[0xA8 - 0x78];
 	GeometryInfo m_geometryInfo;		// +0x0A8
@@ -644,10 +701,14 @@ public:
 	Bool canBuild(const ThingTemplate *tmplate) const;
 	Bool rva002AB87D(const UpgradeTemplate *upgrade) const;
 	Color getPlayerColor() const { return m_color; }
+	Int getPlayerIndex() const { return m_playerIndex; }
+	void rva002AF614(void *points);
 	ScoreKeeper *getScoreKeeper() { return &m_scoreKeeper; }
 	Relationship getRelationship(const Team *that) const;
 
-	unsigned char m_pad000[0x60];
+	unsigned char m_pad000[0x54];
+	Int m_playerIndex;			// +0x054
+	unsigned char m_pad058[0x60 - 0x58];
 	Rva002A7461 m_rva060;			// +0x060
 	unsigned char m_pad061[0x90 - 0x61];
 	Money m_money;				// +0x090
@@ -690,7 +751,8 @@ public:
 	virtual void slot12(); virtual void slot13();
 	virtual Object *buildObjectNow(Object *constructorObject, const ThingTemplate *what, const Coord3D *pos, Real angle, Player *owningPlayer);	// +0x38
 	virtual void slot15();
-	virtual void slot16(); virtual void slot17();
+	virtual LegalBuildCode isLocationLegalToBuild(const Coord3D *worldPos, const ThingTemplate *build, Real angle, UnsignedInt options, Object *builderObject, Player *player);	// +0x40
+	virtual Bool isLocationClearOfObjects(const Coord3D *worldPos, const ThingTemplate *build, Real angle, Object *builderObject, UnsignedInt options, Player *player, Bool flag);	// +0x44
 	virtual Bool rva0039361E(const Coord3D *pos, const ThingTemplate *whatToBuild, Real angle, Object *builder, Player *unused);	// +0x48
 	virtual void addBibs(const Coord3D *worldPos, const ThingTemplate *build);	// +0x4C
 	virtual void slot20(); virtual void slot21(); virtual void slot22(); virtual void slot23();
@@ -698,6 +760,7 @@ public:
 	virtual Bool isPossibleToMakeUnit(Object *builder, const ThingTemplate *whatToBuild, Int revivalIndex) const;	// +0x64
 	virtual void sellObject(Object *obj);	// +0x68
 
+	void iterateFootprint(const ThingTemplate *build, Real buildOrientation, const Coord3D *worldPos, Real sampleResolution, void (*func)(const Coord3D *samplePoint, void *userData), void *userData);
 	Bool isRemovableForConstruction(Object *obj);
 	void clearRemovableForConstruction(const ThingTemplate *whatToBuild, const Coord3D *pos, Real angle);
 	Bool moveObjectsForConstruction(const ThingTemplate *whatToBuild, const Coord3D *pos, Real angle, Player *owningPlayer);
@@ -718,7 +781,11 @@ extern ThingFactory *TheThingFactory;
 class GlobalData
 {
 public:
-	unsigned char m_pad000[0xB94];
+	unsigned char m_pad000[0xA68];
+	Real m_minDistFromEdgeOfMapForBuild;	// +0xA68
+	Real m_supplyBuildBorder;		// +0xA6C
+	Real m_allowedHeightVariationForBuilding;	// +0xA70
+	unsigned char m_padA74[0xB94 - 0xA74];
 	Real m_sellPercentage;			// +0xB94
 };
 extern GlobalData *TheWritableGlobalData;
@@ -755,7 +822,15 @@ public:
 	virtual void t00(); virtual void t01(); virtual void t02(); virtual void t03();
 	virtual void t04(); virtual void t05();
 	virtual Real getGroundHeight(Real x, Real y, Coord3D *normal = 0) const;	// +0x18
+	virtual void t07();
+	virtual void getExtent(Region3D *extent) const;		// +0x20
+	virtual void t09(); virtual void t10(); virtual void t11();
+	virtual void getMaximumPathfindExtent(Region3D *extent) const;	// +0x30
+	virtual void t13(); virtual void t14(); virtual void t15();
+	virtual void t16(); virtual void t17(); virtual void t18();
+	virtual Bool isUnderwater(Real x, Real y, Real *waterZ = NULL, Real *terrainZ = NULL, Int unused = 0);	// +0x4C
 	PathfindLayerEnum getLayerForDestination(Object *obj, const Coord3D *pos);
+	PathfindLayerEnum getHighestLayerForDestination(const Coord3D *pos, Bool onlyHealthyBridges);
 };
 
 extern TerrainLogic *TheTerrainLogic;
@@ -764,6 +839,8 @@ class Pathfinder
 {
 public:
 	void AddObjectToPathfindMap(Object *object);
+	void GetCellType(int pos, void *isValid, void *isBlocked, void *cellType, int layer);
+	void *rva001E4461(int layer, int pos);
 };
 
 class AI
@@ -1696,3 +1773,335 @@ Bool BuildAssistant::moveObjectsForConstruction( const ThingTemplate *whatToBuil
 
 	return !anyUnmovables;
 }
+
+//-------------------------------------------------------------------------------------------------
+/** Passed to checkSampleBuildLocation while iterating a footprint. BFME2 extends Zero Hour's
+	* map region, restriction flag and height range with the template being built, per-sample
+	* water and land counts and position sums, and the builder's player index (target layout,
+	* 0x50 bytes, isLocationLegalToBuild's frame at ebp-0x74). */
+//-------------------------------------------------------------------------------------------------
+struct SampleBuildData
+{
+	const ThingTemplate *build;		// +0x00
+	Bool requireWaterOrLand;		// +0x04
+	Region3D mapRegion;			// +0x08
+	Bool terrainRestricted;			// +0x20
+	Real hiZ;				// +0x24
+	Real loZ;				// +0x28
+	Real waterSamples;			// +0x2C
+	Real landSamples;			// +0x30
+	Coord3D waterSum;			// +0x34
+	Coord3D landSum;			// +0x40
+	Int playerIndex;			// +0x4C
+};
+
+// Zero Hour's Coord3D::add (WB calls it out of line); the canonical Coord3D header has no
+// inline methods, so this TU spells it as a helper.
+inline void addCoord3D( Coord3D *sum, const Coord3D *a )
+{
+	sum->x += a->x;
+	sum->y += a->y;
+	sum->z += a->z;
+}
+
+//-------------------------------------------------------------------------------------------------
+/** This will check the build conditions at the specified sample location point */
+//-------------------------------------------------------------------------------------------------
+static void checkSampleBuildLocation( const Coord3D *samplePoint, void *userData )
+{
+	SampleBuildData *sampleData = (SampleBuildData *)userData;
+	Bool isK188 = sampleData->build->isKindOf( KINDOF_188 ) != 0;
+	Bool isK189 = sampleData->build->isKindOf( KINDOF_189 ) != 0;
+
+	if( sampleData->terrainRestricted && !isK188 )
+		return;
+
+	Bool isValid;
+	Bool isBlocked = FALSE;
+	Int cellType;
+	if( isK189 )
+		TheAI->pathfinder()->GetCellType( (int)samplePoint, &isValid, &isBlocked, &cellType,
+																			TheTerrainLogic->getHighestLayerForDestination( samplePoint, FALSE ) );
+	else
+		TheAI->pathfinder()->GetCellType( (int)samplePoint, &isValid, &isBlocked, &cellType, 1 );
+
+	sampleData->terrainRestricted = FALSE;
+	if( isValid )
+	{
+		if( isBlocked )
+			sampleData->terrainRestricted = TRUE;
+		else
+		{
+			switch( cellType )
+			{
+				case 0:
+					break;
+
+				case 5:
+					break;
+
+				case 4:
+				{
+					ObjectID id = (ObjectID)(Int)TheAI->pathfinder()->rva001E4461(
+						TheTerrainLogic->getHighestLayerForDestination( samplePoint, FALSE ), (int)samplePoint );
+					Object *obj = TheGameLogic->findObjectByID( id );
+					if( obj == NULL || obj->getTemplate()->isKindOf( KINDOF_INERT ) )
+						sampleData->terrainRestricted = TRUE;
+					break;
+				}
+
+				case 2:
+					sampleData->terrainRestricted = TRUE;
+					break;
+
+				case 1:
+				case 7:
+					if( !isK188 )
+						sampleData->terrainRestricted = TRUE;
+					break;
+
+				default:
+					sampleData->terrainRestricted = TRUE;
+					break;
+			}
+		}
+	}
+	else
+		sampleData->terrainRestricted = TRUE;
+
+	Bool isWater = FALSE;
+	if( isK188 )
+	{
+		isWater = TheTerrainLogic->isUnderwater( samplePoint->x, samplePoint->y );
+		if( isWater )
+		{
+			sampleData->waterSamples += 1.0f;
+			addCoord3D( &sampleData->waterSum, samplePoint );
+		}
+		else
+		{
+			sampleData->landSamples += 1.0f;
+			addCoord3D( &sampleData->landSum, samplePoint );
+		}
+	}
+
+	//
+	// record the highest and lowest Z points from all the samples and do not allow
+	// building when the difference between them is too great
+	//
+	if( !isWater )
+	{
+		if( samplePoint->z < sampleData->loZ )
+			sampleData->loZ = samplePoint->z;
+		if( samplePoint->z > sampleData->hiZ )
+			sampleData->hiZ = samplePoint->z;
+	}
+
+	// too close to edge of map?
+	if( TheWritableGlobalData->m_minDistFromEdgeOfMapForBuild > 0.0f )
+	{
+		if( samplePoint->x < sampleData->mapRegion.lo.x + TheWritableGlobalData->m_minDistFromEdgeOfMapForBuild
+				|| samplePoint->x > sampleData->mapRegion.hi.x - TheWritableGlobalData->m_minDistFromEdgeOfMapForBuild
+				|| samplePoint->y < sampleData->mapRegion.lo.y + TheWritableGlobalData->m_minDistFromEdgeOfMapForBuild
+				|| samplePoint->y > sampleData->mapRegion.hi.y - TheWritableGlobalData->m_minDistFromEdgeOfMapForBuild )
+		{
+			sampleData->terrainRestricted = TRUE;
+		}
+	}
+
+}  // end checkSampleBuildLocation
+
+
+#define MAP_XY_FACTOR (10.0f)
+
+// The largest water to land sample ratio (either way) a KINDOF_188 build may
+// straddle. Retail reads it from this unit's .data, not as a literal.
+static Real s_maxWaterLandSampleRatio = 6.0f;
+
+extern PartitionManager *TheShroudManager;
+
+//-------------------------------------------------------------------------------------------------
+/** Query if we can build at this location.  Note that 'build' may be null and is NOT required
+	* to be valid to know if a location is legal to build at.  'builderObject' is used 
+	* for queries that require a pathfind check and should be NULL if not required */
+//-------------------------------------------------------------------------------------------------
+LegalBuildCode BuildAssistant::isLocationLegalToBuild( const Coord3D *worldPos,
+																											 const ThingTemplate *build,
+																											 Real angle,
+																											 UnsignedInt options,
+																											 Object *builderObject,
+																											 Player *player )
+{
+
+	/* You just can't never build off the map, regardless of options.  jba. */
+	Region3D mapExtent;
+	TheTerrainLogic->getMaximumPathfindExtent( &mapExtent );
+	if( !mapExtent.isInRegionNoZ( worldPos ) )
+		return LBC_RESTRICTED_TERRAIN;
+
+	Int playerIndex = -1;
+	if( builderObject && builderObject->getControllingPlayer() )
+		playerIndex = builderObject->getControllingPlayer()->getPlayerIndex();
+
+	Bool flag80 = (options & 0x80) != 0;
+
+	if( options & 0x04 )
+	{
+		UnsignedInt clearOptions = 0x04;
+		if( options & 0x40 )
+			clearOptions |= 0x40;
+		if( options & 0x100 )
+			clearOptions |= 0x100;
+		if( options & 0x200 )
+			clearOptions |= 0x200;
+		if( options & 0x400 )
+			clearOptions |= 0x400;
+		if( !isLocationClearOfObjects( worldPos, build, angle, builderObject, clearOptions, player, flag80 ) )
+			return LBC_OBJECTS_IN_THE_WAY;
+	}
+
+	if( options & 0x20 )
+	{
+		UnsignedInt clearOptions = 0x20;
+		if( options & 0x40 )
+			clearOptions |= 0x40;
+		if( options & 0x200 )
+			clearOptions |= 0x200;
+		if( !isLocationClearOfObjects( worldPos, build, angle, builderObject, clearOptions, player, flag80 ) )
+			return LBC_OBJECTS_IN_THE_WAY;
+	}
+
+	if( build->isKindOf( KINDOF_85 ) && TheWritableGlobalData->m_supplyBuildBorder > 0.0f )
+	{
+		// see if there are any reasonably close by
+		Real range = build->getTemplateGeometryInfo().getMajorRadius() + TheWritableGlobalData->m_supplyBuildBorder * 2;
+		Object *tooClose = ThePartitionManager->getClosestObject( worldPos, range, FROM_CENTER_3D,
+			&Rva0004584D( *(BfmeFixedStorage0004543D *)&Rva00045411BitSet( 0, KINDOF_86 ),
+						  *(BfmeFixedStorage0004543D *)&KINDOFMASK_NONE ) );
+		if( tooClose != NULL )
+		{
+			// yep, see if we would collide with an expanded version
+			GeometryInfo tooCloseGeom = tooClose->getGeometryInfo();
+			tooCloseGeom.expandFootprint( TheWritableGlobalData->m_supplyBuildBorder );
+			if( build->getTemplateGeometryInfo().bfmeIntersects( *worldPos, angle, tooCloseGeom,
+						*tooClose->getPosition(), tooClose->getOrientation() ) )
+				return LBC_TOO_CLOSE_TO_SUPPLIES;
+		}
+	}
+
+	// if clear path is requested check to see if the builder object can get there
+	if( (options & 0x02) && builderObject && builderObject->isKindOf( KINDOF_DOZER )
+			&& TheShroudManager->getShroudStatusForPlayer( playerIndex, worldPos ) == CELLSHROUD_CLEAR )
+	{
+		AIUpdateInterface *ai = builderObject->getAI();
+		if( ai == NULL )
+			return LBC_NO_CLEAR_PATH;
+
+		if( ((options & 0x08) ? ai->isQuickPathAvailable( worldPos ) : ai->isPathAvailable( worldPos )) == FALSE )
+			return LBC_NO_CLEAR_PATH;
+	}
+
+	// check basic terrain restrictions
+	if( options & 0x01 )
+	{
+		// get the terrain extents
+		Region3D terrainExtent;
+		TheTerrainLogic->getExtent( &terrainExtent );
+
+		PathfindLayerEnum layer = TheTerrainLogic->getLayerForDestination( NULL, worldPos );
+		if( layer >= LAYER_17 )
+		{
+			if( !build->isKindOf( KINDOF_189 ) )
+				return LBC_RESTRICTED_TERRAIN;
+		}
+		else if( layer != LAYER_GROUND )
+			return LBC_RESTRICTED_TERRAIN;
+
+		//
+		// check the footprint of where the structure would go to be clear of any non-buildable
+		// tiles and to make sure there isn't a restricted tile and to make sure it's "flat" enough
+		//
+		SampleBuildData sampleData;
+		TheTerrainLogic->getExtent( &sampleData.mapRegion );
+		sampleData.build = build;
+		sampleData.requireWaterOrLand = (options & 0x04) && (options & 0x80);
+		sampleData.playerIndex = playerIndex;
+		sampleData.hiZ = terrainExtent.lo.z;  // note we set hi point to lowest point
+		sampleData.loZ = terrainExtent.hi.z;  // note we set lo point to highest point
+		sampleData.terrainRestricted = FALSE;
+		sampleData.waterSamples = 0.0f;
+		sampleData.landSamples = 0.0f;
+		sampleData.landSum.x = 0.0f;
+		sampleData.landSum.y = 0.0f;
+		sampleData.landSum.z = 0.0f;
+		sampleData.waterSum.x = 0.0f;
+		sampleData.waterSum.y = 0.0f;
+		sampleData.waterSum.z = 0.0f;
+
+		// quick check at triple res.
+		iterateFootprint( build, angle, worldPos, 3 * MAP_XY_FACTOR, checkSampleBuildLocation, &sampleData );
+		if( sampleData.terrainRestricted == TRUE )
+			return LBC_RESTRICTED_TERRAIN;
+		// check if the height across the whole footprint area is too varied (not flat enough)
+		if( sampleData.hiZ - sampleData.loZ > TheWritableGlobalData->m_allowedHeightVariationForBuilding )
+			return LBC_NOT_FLAT_ENOUGH;
+
+		// careful check at full res.
+		sampleData.waterSamples = 0.0f;
+		sampleData.landSamples = 0.0f;
+		sampleData.landSum.x = 0.0f;
+		sampleData.landSum.y = 0.0f;
+		sampleData.landSum.z = 0.0f;
+		sampleData.waterSum.x = 0.0f;
+		sampleData.waterSum.y = 0.0f;
+		sampleData.waterSum.z = 0.0f;
+		iterateFootprint( build, angle, worldPos, MAP_XY_FACTOR, checkSampleBuildLocation, &sampleData );
+		if( sampleData.terrainRestricted == TRUE )
+			return LBC_RESTRICTED_TERRAIN;
+		if( sampleData.hiZ - sampleData.loZ > TheWritableGlobalData->m_allowedHeightVariationForBuilding )
+			return LBC_NOT_FLAT_ENOUGH;
+
+		if( build->isKindOf( KINDOF_188 ) )
+		{
+			// must straddle both water and land, without too much of either
+			if( sampleData.landSamples == 0.0f || sampleData.waterSamples == 0.0f )
+				return LBC_RESTRICTED_TERRAIN;
+			if( _STL::max( sampleData.waterSamples, sampleData.landSamples )
+					/ _STL::min( sampleData.waterSamples, sampleData.landSamples ) > s_maxWaterLandSampleRatio )
+				return LBC_RESTRICTED_TERRAIN;
+		}
+	}
+
+	if( build->isKindOf( KINDOF_156 ) )
+	{
+		const Rva0033B427Data *data = (const Rva0033B427Data *)build->rva0033B427( 0 );
+		if( data )
+		{
+			_STL::vector<Coord3D> points;
+			Player *owner = builderObject->getControllingPlayer();
+			if( owner )
+				owner->rva002AF614( &points );
+
+			for( Coord3D *it = points.begin(); it != points.end(); ++it )
+			{
+				float dx = worldPos->x;
+				float dy = worldPos->y;
+				float dz = worldPos->z;
+				dx -= it->x;
+				dy -= it->y;
+				dz -= it->z;
+				Coord3D delta;
+				delta.x = dx;
+				delta.y = dy;
+				delta.z = dz;
+				if( delta.length() <= data->m_range )
+					return LBC_OK;
+			}
+			return LBC_9;
+		}
+	}
+
+	// we passed all the checks
+	return LBC_OK;
+
+}  // end isLocationLegalToBuild
