@@ -14,10 +14,14 @@ class Rva00406E47 {public: bool rva00406E47(int);};
 struct Rva005B0473View {char opaque[0x68];int field68;};
 class CreateAHeroManager {public: Rva005B0473View *rva00219F36(int,int);};
 extern CreateAHeroManager *TheCreateAHeroManager;
+struct MyHeroBlingRecord {int field00,field04,minimum,maximum,field10;};
+struct MyHeroBlingBlock {MyHeroBlingRecord *first,*last,*capacity;};
+int GetGameClientRandomValue(int,int,char *,int);
 class AptMyHero {
 public:
  virtual void slot00();virtual void slot04();virtual void slot08();virtual void slot0C();virtual void slot10();virtual void slot14();
  void SwitchToPendingHero();
+ void rva005B0923(int);void SetBling(int,int,int);
  Rva005B0473View *rva005B0473();
  void BuildBlingData();
  void rva005B0487();void rva005B1019();void rva005B097F(int);void rva005B0FCD(int);
@@ -28,6 +32,8 @@ private:
  void *holder140;
  CreateAHeroData *pending144;
  bool flag148;
+ char pad149[0x174-0x149];
+ MyHeroBlingBlock blocks174[2];
 };
 void AptMyHero::SwitchToPendingHero(){
  if(pending144 != reinterpret_cast<CreateAHeroData *>(this) && pending144)
@@ -44,3 +50,16 @@ void AptMyHero::SwitchToPendingHero(){
 // typed manager global. Named locals preserve the independently observed
 // read order; the getter and returned view retain address-derived names.
 Rva005B0473View *AptMyHero::rva005B0473(){int b=field10;int a=field0C;return TheCreateAHeroManager->rva00219F36(a,b);}
+
+// WB AptMyHero.cpp line1170 and native005B0923..005B097F prove this
+// unnamed record loop. Retail retains the exact diagnostic path and line1203.
+// The category stays constant while the independent index increments.
+void AptMyHero::rva005B0923(int group){
+ MyHeroBlingBlock &block=blocks174[group];
+ int index=0;
+ for(MyHeroBlingRecord *record=block.first;record!=block.last;++record){
+  int value=GetGameClientRandomValue(record->minimum,record->maximum,"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameClient\\Gui\\GUICallbacks\\Apt\\AptMyHero.cpp",0x4B3);
+  SetBling(group,index++,value);
+ }
+ slot14();
+}
