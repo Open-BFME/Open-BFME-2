@@ -95,7 +95,6 @@ public:
  char pad[0x10]; Rva00084206Track *used,*free;
  Rva00084206Track *bind(Rva00084B18RenderObj*,float,const char*,const char*,const char*);
 };
-// ?bind@Rva00084C05System@@QAEPAVRva00084206Track@@PAVRva00084B18RenderObj@@MPBD11@Z present-unmatched
 Rva00084206Track *Rva00084C05System::bind(Rva00084B18RenderObj *obj,float length,const char *texture,const char *left,const char *right) {
  Rva00084206Track *mod=free;
  if(mod) {
