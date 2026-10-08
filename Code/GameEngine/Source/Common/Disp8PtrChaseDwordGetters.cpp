@@ -179,3 +179,11 @@ void *Rva005FC745PtrChaseField::get() const
 		return fetch();
 	return m_ptr;
 }
+
+// Clean BFME1 9cbfb551 donor structural leads; native instructions independently
+// establish complete RET boundaries and each raw field operation and ABI.
+// Address-owned carriers retain unknown original receiver identity and bounds.
+
+// ?clear@Rva002D2CDCFields@@QAEPAU1@XZ
+struct Rva002D2CDCFields { unsigned char byte0; Rva002D2CDCFields *clear(); };
+Rva002D2CDCFields *Rva002D2CDCFields::clear() { byte0=0; return this; }
