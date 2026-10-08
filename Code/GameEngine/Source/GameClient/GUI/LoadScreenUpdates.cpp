@@ -102,7 +102,7 @@ public:
 class Mouse
 {
 public:
-	void setCursorTooltip( UnicodeString tooltip, int index, const RGBColor *color,
+	void rva001EEA6D( UnicodeString tooltip, int index, const RGBColor *color,
 		float delay );
 };
 
@@ -114,7 +114,9 @@ public:
 	BFME_VSLOT(5) BFME_VSLOT(6) BFME_VSLOT(7) BFME_VSLOT(8) BFME_VSLOT(9)
 	BFME_VSLOT(10) BFME_VSLOT(11) BFME_VSLOT(12) BFME_VSLOT(13) BFME_VSLOT(14)
 	BFME_VSLOT(15)
-	virtual void serviceWindowsOS();  // +0x40
+	BFME_VSLOT(16) BFME_VSLOT(17) BFME_VSLOT(18) BFME_VSLOT(19)
+	BFME_VSLOT(20) BFME_VSLOT(21) BFME_VSLOT(22)
+	virtual void serviceWindowsOS();  // BFME 2 +0x5C
 };
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/GameWindowManager.h
@@ -122,15 +124,17 @@ class GameWindowManager
 {
 public:
 	BFME_VSLOT(0) BFME_VSLOT(1) BFME_VSLOT(2) BFME_VSLOT(3) BFME_VSLOT(4)
-	virtual void update();  // +0x14
+	BFME_VSLOT(5) BFME_VSLOT(6) BFME_VSLOT(7) BFME_VSLOT(8) BFME_VSLOT(9)
+	virtual void update();  // BFME 2 +0x28
 };
 
-// The BFME scripted-UI window manager published at 0x012F19E8.
-class WindowManager
+// BFME 2 Apt window manager at VA 0x00DFE4CC.
+class BfmeAptWindowManager
 {
 public:
 	BFME_VSLOT(0) BFME_VSLOT(1) BFME_VSLOT(2) BFME_VSLOT(3) BFME_VSLOT(4)
-	virtual void update();  // +0x14
+	BFME_VSLOT(5) BFME_VSLOT(6) BFME_VSLOT(7) BFME_VSLOT(8) BFME_VSLOT(9)
+	virtual void update();  // BFME 2 +0x28
 };
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/Display.h
@@ -138,9 +142,10 @@ class Display
 {
 public:
 	BFME_VSLOT(0) BFME_VSLOT(1) BFME_VSLOT(2) BFME_VSLOT(3) BFME_VSLOT(4)
-	virtual void update();  // +0x14
-	BFME_VSLOT(6)
-	virtual void draw();    // +0x1C
+	BFME_VSLOT(5) BFME_VSLOT(6) BFME_VSLOT(7) BFME_VSLOT(8) BFME_VSLOT(9)
+	virtual void update();  // BFME 2 +0x28
+	BFME_VSLOT(11)
+	virtual void draw();    // BFME 2 +0x30
 };
 
 #undef BFME_VSLOT
@@ -151,7 +156,7 @@ extern GameLogic *TheGameLogic;
 extern Mouse *TheMouse;
 extern GameEngine *TheGameEngine;
 extern GameWindowManager *TheWindowManager;
-extern WindowManager *g_rva012F19E8WindowManager;
+extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 extern Display *TheDisplay;
 extern void setFPMode();
 
@@ -217,3 +222,23 @@ void ShellGameLoadScreen::update( int percent )
 }
 
 
+
+// ?update@LoadScreen@@UAEXH@Z retail 0x00355FF9..0x00356066 (109B).
+// Donor: Open-BFME-1 ba7ddda7 LoadScreenUpdates.cpp and readable LoadScreen.cpp.
+// Target: byte +0xC readiness guard, UnicodeString copy 0x00037050,
+// mouse tooltip 0x001EEA6D, globals DFDCA0/DFE710/DFEF1C/DFE4CC/DFE9D8,
+// virtual slots 5C/28/28/28/30, then rowed setFPMode 0x00040EA9.
+// Existing ShellGameLoadScreen wrapper calls this address nonvirtually;
+// target slots are wider than the donor's BFME 1 tables.
+void LoadScreen::update(int)
+{
+	if (m_ready) {
+		TheMouse->rva001EEA6D(UnicodeString::TheEmptyString, -1, 0, 1.0f);
+		TheGameEngine->serviceWindowsOS();
+		TheWindowManager->update();
+		g_bfmeAptWindowManager->update();
+		TheDisplay->update();
+		TheDisplay->draw();
+	}
+	setFPMode();
+}
