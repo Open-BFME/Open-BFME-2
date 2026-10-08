@@ -1,3 +1,4 @@
+// cl: /O1 /G6
 // Disp8 null-adjust getters: __thiscall members with one shape:
 //
 //     mov eax,[ecx+<DISP>] / test eax,eax / je <ELSE> / add eax,<IMM> / ret
@@ -8,7 +9,7 @@
 // global address) is returned. The xor-else form is fourteen bytes, the
 // mov-global-else form seventeen. Identity is not recovered: every name is
 // derived from its address.
-// No // cl: line (defaults match the shape).
+// The donor-supported /G6 also preserves every pre-existing body in this unit.
 #define BFME_DISP8_NULL_ADJUST_GETTER(NAME, DISP, ADJ) \
 	class NAME \
 	{ \
@@ -64,4 +65,18 @@ void *__fastcall Rva00661610Adjust(void *owner)
     if (owner)
         return (char *)owner + 4;
     return 0;
+}
+
+// Native 24E301..24E30E is a complete RET0 leaf after the independently
+// rowed GateProxyBehavior constructor, and is referenced by slot BEF26C of
+// its +0x10 vtable. The constructor independently establishes interface
+// positions +0x10 and +0x14. BF1 9cbfb551fe20 UpdateModule::getUpdate and
+// other inherited-interface getters supply the semantic guide; their
+// identical bytes do not identify this function's original class or name.
+// This one-ECX-input ABI view maps the +0x10 receiver to the +0x14 interface,
+// preserving null for a null complete object, without adding class views.
+void *__fastcall Rva0024E301Adjust(void *baseAt10)
+{
+    char *complete = (char *)baseAt10 - 0x10;
+    return complete ? (char *)baseAt10 + 4 : 0;
 }
