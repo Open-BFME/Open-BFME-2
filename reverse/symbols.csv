@@ -7507,7 +7507,6 @@ name,address,notes
 ?aabtri_check_normal_axis@@YA_NXZ,0x00726240,address read from the retail REL32 in CollisionMath Collide AABox-Tri at 0x00726790
 ?aabtri_compute_contact_normal@@YAXAAVVector3@@@Z,0x007263A0,address read from the retail REL32 in CollisionMath Collide AABox-Tri at 0x00726790
 ?accept@T1Sink_005C8D40@@QAEPAXPAX0@Z,0x001F8A38,sink member callee of ?hand@T1Fwd_005C98A0@@QAEPAXPAXPAVT1Sink_005C8D40@@@Z at retail 0x001F948C read from its REL32 displacement; body unrowed
-?accepts@Rva001DB720Predicate@@QAE_NPAVThingTemplate@@@Z,0x002ABEF1,callee of ?anyTemplateAcceptedBy@Rva001DB720NameList@@QAE_NPAVRva001DB720Predicate@@@Z at retail 0x003769A6 read from its REL32 displacement; body unrowed
 ?accepts@Rva2225E0Filter@@QAE_NPAVObject@@PAVPlayer@@@Z,0x00362437,callee read from the retail REL32 in placed BFME1-donor body ?check@Rva002CDBF0@@QAE_NPAVObject@@@Z (0x004A1475)
 ?add@AIGroup@@QAEXPAVObject@@@Z,0x0036E5F1,REL32 from target Team::getTeamAsAIGroup at 0x003A0FB9 with AIGroup as this and Object* as argument; BFME1 AIGroup::add donor confirms the method identity; target Ghidra boundary 103B
 ?add@MultiIniFieldParse@@QAEXPBUFieldParse@@I@Z,0x0002BC6E,callee of INI initFromINI at 0x2DE78
