@@ -14,6 +14,7 @@ class Drawable;
 class Rva00439E0C;
 class AsciiString;
 class CommandButton;
+class WindowLayout;
 
 struct ObjectIdNode
 {
@@ -75,6 +76,11 @@ private:
 	bool m_flag125;
 	char pad126[0x178 - 0x126];
 	Rva00439E0C *m_manager178;
+	char pad17C[0x1B8 - 0x17C];
+	// Window cleanup 0x00376D49 owns this layout and clears the pending byte.
+	// BFME1's closeWindows supplies its purpose; offsets are native BFME2.
+	WindowLayout *m_background; // +0x1B8
+	bool m_backgroundPending; // +0x1BC
 
 public:
 	bool isInMultiplayerGame();	// 0x00042235
@@ -89,6 +95,7 @@ public:
 	void deselectObject(Object *obj, unsigned int playerMask, bool affectClient);	// 0x0023C9F8
 	void bindObjectAndDrawable(Object *obj, Drawable *draw);	// 0x0023CD4A
 	void rva00376E92(bool first, bool second);	// 0x00376E92
+	void rva00376D49();	// 0x00376D49, window cleanup, donor closeWindows
 	void rva00248558(bool fromSave);	// 0x00248558, verified new-game/load pass
 	unsigned char isGamePaused();	// 0x0023CD97
 	void deleteLoadScreen();	// 0x002423E3
