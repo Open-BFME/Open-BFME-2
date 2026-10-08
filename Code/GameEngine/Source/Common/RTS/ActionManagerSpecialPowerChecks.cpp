@@ -78,9 +78,14 @@ struct Coord3D
 	float z;
 };
 
+enum KindOfType { CAPTURE_FORBIDDEN_KIND = 0x6f };
+enum SpecialPowerType { CAPTURE_POWER = 0x1d };
 class Object : public Thing
 {
 public:
+ bool isKindOf(KindOfType) const;
+ bool hasSpecialPower(SpecialPowerType) const;
+ bool rva002943B2(const Player *);
 	void *rva0028BD17() const;
 	ObjectID getSoleHealingBenefactor() const;
 	bool testStatus(ObjectStatusTypes) const;
@@ -147,6 +152,7 @@ class ActionManager
 {
 public:
 	bool canRepairObject(const Object *, const Object *, CommandSourceType);
+ bool rva0041C79C(const Object *, const Object *, CommandSourceType, class CapturePowerView *);
 	bool canHijackVehicle(const Object *, const Object *, CommandSourceType);
 	bool canGetHealedAt(const Object *, const Object *, CommandSourceType);
 	bool canGetRepairedAt(const Object *, const Object *, CommandSourceType);
@@ -422,4 +428,188 @@ bool ActionManager::canRepairObject(
 	if (benefactor && benefactor != *reinterpret_cast<const ObjectID *>(reinterpret_cast<const char *>(obj) + 0x74))
 		return false;
 	return true;
+}
+
+// BFME1 ba7ddda7 ActionManager::canCaptureBuilding is the semantic guide.
+// BFME2 41C79C..41C96C RET16 receives its module as the fourth argument;
+// its template override +60 filter supersedes the legacy capture restrictions.
+// The local chain is 64 bytes, with seven-dword masks at +8 and +24.
+class BfmeFixedStorage0004543D {
+public:
+ BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &) throw();
+ unsigned words[7];
+};
+struct Rva00045411BitSet {
+ Rva00045411BitSet(int, int);
+ unsigned words[7];
+};
+template<int N> class BitFlags { public: unsigned m_bits[7]; };
+// Native second mask at DFEFA4 is seven clear words. Use the existing
+// default-mask definition; this caller supplies its first verified DIR32 site.
+extern BitFlags<116> KINDOFMASK_NONE;
+class Rva0004584D : public Rva000421C8 {
+public:
+ Rva0004584D(const BfmeFixedStorage0004543D &, const BfmeFixedStorage0004543D &);
+ virtual ~Rva0004584D() {}
+ virtual bool allow(Object *);
+ BfmeFixedStorage0004543D m08, m24;
+};
+class ObjectFilter { public: bool isValid() const; };
+struct Rva2225E0Filter { bool accepts(Object *, Player *); };
+class CapturePowerView {
+public:
+ virtual void slot00() = 0;
+ virtual void slot04() = 0;
+ virtual float getPercentReady() const = 0;
+ virtual void slot0c() = 0;
+ virtual void slot10() = 0;
+ virtual void slot14() = 0;
+ virtual const SpecialPowerTemplate *getSpecialPowerTemplate() const = 0;
+};
+class Team;
+class HasTeam2EC
+{
+public:
+	char m_pad[0x2ec];
+	Team *m_team2ec;
+};
+class VisIface
+{
+public:
+	virtual void d00();
+	virtual void d01();
+	virtual void d02();
+	virtual void d03();
+	virtual bool isGarrisonable() const;
+	virtual void d05();
+	virtual void d06();
+	virtual void d07();
+	virtual void d08();
+	virtual void d09();
+	virtual void d10();
+	virtual void d11();
+	virtual void d12();
+	virtual void d13();
+	virtual void d14();
+	virtual void d15();
+	virtual void d16();
+	virtual void d17();
+	virtual void d18();
+	virtual HasTeam2EC *GetThing(Player *p);
+	virtual void d20();
+	virtual void d21();
+	virtual void d22();
+	virtual void d23();
+	virtual void d24();
+	virtual void d25();
+	virtual void d26();
+	virtual void d27();
+	virtual void d28();
+	virtual void d29();
+	virtual void d30();
+	virtual void d31();
+	virtual void d32();
+	virtual void d33();
+	virtual void d34();
+	virtual void d35();
+	virtual void d36();
+	virtual void d37();
+	virtual void d38();
+	virtual void d39();
+	virtual void d40();
+	virtual void d41();
+	virtual void d42();
+	virtual void d43();
+	virtual void d44();
+	virtual void d45();
+	virtual void d46();
+	virtual void d47();
+	virtual void d48();
+	virtual void d49();
+	virtual void d50();
+	virtual void d51();
+	virtual void d52();
+	virtual void d53();
+	virtual void d54();
+	virtual void d55();
+	virtual void d56();
+	virtual void d57();
+	virtual void d58();
+	virtual void d59();
+	virtual void d60();
+	virtual void d61();
+	virtual void d62();
+	virtual void d63();
+	virtual void d64();
+	virtual void d65();
+	virtual void d66();
+	virtual void d67();
+	virtual void d68();
+	virtual unsigned int CheckActive(int v);
+ virtual void d70();
+ virtual void d71();
+ virtual void d72();
+ virtual int getStealthUnitsContained() const;
+};
+class Team
+{
+public:
+	Relationship getRelationship(const Team *that) const;
+};
+static __declspec(noinline) bool Rva0041B80FCheck(Object *visObj, Object *teamObj);
+static __declspec(noinline) bool Rva0041B80FCheck(Object *visObj, Object *teamObj)
+{
+	VisIface *vis = *reinterpret_cast<VisIface **>(reinterpret_cast<char *>(visObj) + 0x250);
+	if (vis && vis->CheckActive(0) > 0)
+	{
+		HasTeam2EC *h = vis->GetThing(teamObj->getControllingPlayer());
+		if (h)
+		{
+			Team *t1 = h->m_team2ec;
+			Team *t2 = *reinterpret_cast<Team **>(reinterpret_cast<char *>(teamObj) + 0x304);
+			if (t2->getRelationship(t1) != ENEMIES)
+				return true;
+		}
+	}
+	return false;
+}
+
+static unsigned captureWord(const Object *p, int offset) {
+ return *reinterpret_cast<const unsigned *>(reinterpret_cast<const char *>(p) + offset);
+}
+bool ActionManager::rva0041C79C(const Object *obj, const Object *target,
+ CommandSourceType commandSource, CapturePowerView *module)
+{
+ if (!obj || !target) return false;
+ if (!obj->hasSpecialPower(CAPTURE_POWER)) return false;
+ const char *objectTemplate = *reinterpret_cast<const char *const *>(reinterpret_cast<const char *>(target) + 4);
+ if (*reinterpret_cast<const unsigned *>(objectTemplate + 0x110) & 0x20000) return false;
+ if (!(*reinterpret_cast<const unsigned *>(objectTemplate + 0x108) & 0x80)) return false;
+ if (!module) return false;
+ if (module->getPercentReady() < 1.0f) return false;
+ if ((*reinterpret_cast<const unsigned char *>(reinterpret_cast<const char *>(target) + 0x438) & 1) && !((unsigned char)(captureWord(target, 0x110) >> 28) & 1)) return false;
+ const ObjectFilter *filter = reinterpret_cast<const ObjectFilter *>(reinterpret_cast<const char *>(module->getSpecialPowerTemplate()->getFinalOverride()) + 0x60);
+ if (filter->isValid()) {
+  if (!reinterpret_cast<Rva2225E0Filter *>(const_cast<ObjectFilter *>(filter))->accepts(const_cast<Object *>(target), 0)) return false;
+ } else {
+  objectTemplate = *reinterpret_cast<const char *const *>(reinterpret_cast<const char *>(target) + 4);
+  if (!(*reinterpret_cast<const unsigned *>(objectTemplate + 0x10c) & 0x20000)) return false;
+  if (target->isKindOf(CAPTURE_FORBIDDEN_KIND)) return false;
+  Rva0004584D filter(*reinterpret_cast<const BfmeFixedStorage0004543D *>(&Rva00045411BitSet(0, 0x32)), *reinterpret_cast<const BfmeFixedStorage0004543D *>(&KINDOFMASK_NONE));
+  if (!ThePartitionManager->getClosestObject(reinterpret_cast<const Coord3D *>(reinterpret_cast<const char *>(target) + 0x38), 150.0f, 1, &filter)) return false;
+ }
+ if (target->testStatus(OBJECT_STATUS_UNDER_CONSTRUCTION) || target->testStatus(OBJECT_STATUS_SOLD)) return false;
+ if (captureWord(target, 0x80)) return false;
+ if (isObjectShroudedForAction(obj, target, commandSource)) return false;
+ Relationship r = obj->getRelationship(target);
+ if (r != ENEMIES && r == ALLIES) return false;
+ if (const_cast<Object *>(target)->rva002943B2(obj->getControllingPlayer())) return false;
+ VisIface *contain = *reinterpret_cast<VisIface *const *>(reinterpret_cast<const char *>(target) + 0x250);
+ if (contain && contain->isGarrisonable()) {
+  int count = contain->CheckActive(0);
+  int stealth = contain->getStealthUnitsContained();
+  if (count - stealth > 0) return false;
+ }
+ if (Rva0041B80FCheck(const_cast<Object *>(target), const_cast<Object *>(obj))) return false;
+ return true;
 }

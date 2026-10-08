@@ -13,9 +13,9 @@ public:
 	unsigned int m_bits[7];
 };
 
-// placement unverified: no rowed DIR32 site yet; ZH KINDOFMASK_NONE starts clear.
-// The target default storage at RVA 0x009FEFA4 is 28 zero bytes; its
-// placement under this name remains unverified until a rowed DIR32 site uses it.
+// ZH KINDOFMASK_NONE starts clear. Native 41C865 passes DFEFA4 as the
+// capture filter's second mask; the rowed 464B ActionManager check verifies
+// this DIR32 placement at RVA 0x009FEFA4, whose 28 bytes are all zero.
 BitFlags<116> KINDOFMASK_NONE = { { 0, 0, 0, 0, 0, 0, 0 } };
 
 struct ThingTemplate
