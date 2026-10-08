@@ -31,6 +31,11 @@ EXTERN ??1Rva004E6A37@@QAE@XZ:PROC
 EXTERN ??1Rva0055B0CC@@UAE@XZ:PROC
 EXTERN ??1?$map@VAsciiString@@V1@U?$less@VAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@@_STL@@QAE@XZ:PROC
 EXTERN ?apply@Rva003F3F7CDwordImmSetter@@QAEXXZ:PROC
+EXTERN ?apply@Rva00238D97DwordImmSetter@@QAEXXZ:PROC
+EXTERN ?apply@Rva004EDFFFDwordImmSetter@@QAEXXZ:PROC
+EXTERN ?apply@Rva00506B28DwordImmSetter@@QAEXXZ:PROC
+EXTERN ??1Rva00574A8A@@UAE@XZ:PROC
+EXTERN ??1EmissionVelocityInfo@FXParticleSystem@@UAE@XZ:PROC
 
 _TEXT SEGMENT
 ; Unwind@00b7c75e at RVA 0x0077C75E; 22-byte body ends at RET.
@@ -2499,6 +2504,66 @@ PUBLIC ?rva007840fd@@YAXXZ
     and ecx, eax
     jmp ?apply@Rva003F3F7CDwordImmSetter@@QAEXXZ
 ?rva007840fd@@YAXXZ ENDP
+
+; Unwind@00b873e9 at RVA 0x007873E9; 20-byte masked-add funclet tail-jumps to dtor.
+PUBLIC ?rva007873e9@@YAXXZ
+?rva007873e9@@YAXXZ PROC
+    mov ecx, DWORD PTR [ebp-16]
+    mov eax, DWORD PTR [ebp-16]
+    add eax, 0Ch
+    neg ecx
+    sbb ecx, ecx
+    and ecx, eax
+    jmp ??1EmissionVelocityInfo@FXParticleSystem@@UAE@XZ
+?rva007873e9@@YAXXZ ENDP
+
+; Unwind@00b87652 at RVA 0x00787652; 20-byte masked-add funclet tail-jumps to apply.
+PUBLIC ?rva00787652@@YAXXZ
+?rva00787652@@YAXXZ PROC
+    mov ecx, DWORD PTR [ebp-16]
+    mov eax, DWORD PTR [ebp-16]
+    add eax, 4
+    neg ecx
+    sbb ecx, ecx
+    and ecx, eax
+    jmp ?apply@Rva00238D97DwordImmSetter@@QAEXXZ
+?rva00787652@@YAXXZ ENDP
+
+; Unwind@00b87666 at RVA 0x00787666; 20-byte masked-add funclet tail-jumps to apply.
+PUBLIC ?rva00787666@@YAXXZ
+?rva00787666@@YAXXZ PROC
+    mov ecx, DWORD PTR [ebp-16]
+    mov eax, DWORD PTR [ebp-16]
+    add eax, 8
+    neg ecx
+    sbb ecx, ecx
+    and ecx, eax
+    jmp ?apply@Rva004EDFFFDwordImmSetter@@QAEXXZ
+?rva00787666@@YAXXZ ENDP
+
+; Unwind@00b8768e at RVA 0x0078768E; 20-byte masked-add funclet tail-jumps to dtor.
+PUBLIC ?rva0078768e@@YAXXZ
+?rva0078768e@@YAXXZ PROC
+    mov ecx, DWORD PTR [ebp-16]
+    mov eax, DWORD PTR [ebp-16]
+    add eax, 0Ch
+    neg ecx
+    sbb ecx, ecx
+    and ecx, eax
+    jmp ??1Rva00574A8A@@UAE@XZ
+?rva0078768e@@YAXXZ ENDP
+
+; Unwind@00b925e9 at RVA 0x007925E9; 20-byte masked-add funclet tail-jumps to apply.
+PUBLIC ?rva007925e9@@YAXXZ
+?rva007925e9@@YAXXZ PROC
+    mov ecx, DWORD PTR [ebp-16]
+    mov eax, DWORD PTR [ebp-16]
+    add eax, 0Ch
+    neg ecx
+    sbb ecx, ecx
+    and ecx, eax
+    jmp ?apply@Rva00506B28DwordImmSetter@@QAEXXZ
+?rva007925e9@@YAXXZ ENDP
 
 _TEXT ENDS
 END
