@@ -70790,3 +70790,6 @@ $L8020,,0x0079A1DF,11,Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp,match
 ?rva00792ade@@YAXXZ,,0x00792ADE,20,Code/masm_dumps/EHStateCleanupRange38.asm,matched,Ghidra Unwind@00b92ade; masked-add cleanup adds 18h and tail-jumps to 0x002B228D
 ?rva00792af2@@YAXXZ,,0x00792AF2,20,Code/masm_dumps/EHStateCleanupRange38.asm,matched,Ghidra Unwind@00b92af2; masked-add cleanup adds 1Ch and tail-jumps to 0x00238D97
 ?rva00792b06@@YAXXZ,,0x00792B06,20,Code/masm_dumps/EHStateCleanupRange38.asm,matched,Ghidra Unwind@00b92b06; masked-add cleanup adds 20h and tail-jumps to 0x004EE006
+?rva0075F97F@@YAXXZ,,0x0075F97F,22,Code/masm_dumps/EHStateCleanupRange36.asm,matched,Ghidra Unwind@00b5f97f; eh-vector-dtor funclet raw dtor 0057098D count 4 size 4 add 44h callee ??_M 0x629110 retail-bytes-verified
+?rva00764276@@YAXXZ,,0x00764276,22,Code/masm_dumps/EHStateCleanupRange36.asm,matched,Ghidra Unwind@00b64276; eh-vector-dtor funclet raw dtor 004B3FD0 count 4 size 8 add 28h callee ??_M 0x629110 retail-bytes-verified
+?rva0076428C@@YAXXZ,,0x0076428C,22,Code/masm_dumps/EHStateCleanupRange36.asm,matched,Ghidra Unwind@00b6428c; eh-vector-dtor funclet raw dtor 004B3FD0 count 4 size 8 add 48h callee ??_M 0x629110 retail-bytes-verified
