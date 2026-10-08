@@ -5827,7 +5827,6 @@ alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_construct_asciistring.
 alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_construct_game_structs.cpp	?dup_0013623C@@YAXXZ	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_construct_game_structs.cpp	?dup_00382BC3@@YAXXZ	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_construct_game_structs.cpp	?dup_00523DD4@@YAXXZ	1
-alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_construct_game_structs.cpp	?dup_0056EE16@@YAXXZ	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_construct_pod80_rva.cpp	??$_Construct@URva00520211Element@@U1@@_STL@@YAXPAURva00520211Element@@ABU1@@Z	2
 alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types.cpp	?dup_0020596A@@YAXXZ	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types.cpp	?dup_0020D5E6@@YAXXZ	1
@@ -32003,7 +32002,6 @@ pin	reverse/symbols.csv	0x0056F473	2
 pin	reverse/symbols.csv	0x0056F52C	1
 pin	reverse/symbols.csv	0x0056F585	1
 pin	reverse/symbols.csv	0x0056F8A6	1
-pin	reverse/symbols.csv	0x0056F93A	1
 pin	reverse/symbols.csv	0x0056FB0B	1
 pin	reverse/symbols.csv	0x005706D4	1
 pin	reverse/symbols.csv	0x0057179D	2
