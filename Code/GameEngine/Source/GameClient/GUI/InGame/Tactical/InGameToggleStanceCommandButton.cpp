@@ -1,5 +1,5 @@
 // stlport
-// cl: /O1 /MD /G7 /arch:SSE /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
+// cl: /O1 /MD /EHsc /G7 /arch:SSE /Ireference/shims/bfme2_ascii /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
 #include <vector>
 // WB142F640 names StanceToButtonSlot and WB1430D70 names Impl::SetStance.
 // Native helper567807..56783A is51B; dispatch567A6E..567B10 is162B.
@@ -77,4 +77,42 @@ class InGameToggleStanceCommandButton::Impl {public:
 void InGameToggleStanceCommandButton::Impl::onStancesBehaviorStanceChanged(StancesBehavior &,int,int stance) {
  reinterpret_cast<Rva0035B424 *>(button)->rva0035B424(StanceToButtonSlot(button,stance));
  GadgetButtonSetEnabledImage_Rva002C0433(window,button->rva0035B19E());
+}
+
+// Native56786B..567960 245B hidden TreeHintRef result; WB142F400 has
+// the same command-label helpers and help constructor. Native passes four
+// wide strings and one narrow string. The established opaque constructor
+// names all five AsciiString; retain its four-byte reference ABI through
+// explicit representation views without asserting the old encoding names.
+#include "ascii_string.h"
+#include "unicode_string.h"
+class Rva0035B232 {public:const AsciiString *rva0035B232(int);};
+class Rva0035B29E {public:const AsciiString *rva0035B29E(int);};
+class GameTextInterface {public:
+ virtual void v0();virtual void v1();virtual void v2();virtual void v3();
+ virtual void v4();virtual void v5();virtual void v6();virtual void v7();
+ virtual void v8();virtual void v9();virtual void v10();virtual void v11();
+ virtual void v12();virtual void v13();
+ virtual UnicodeString fetch(const AsciiString &,bool *exists=0);
+};
+extern GameTextInterface *TheGameText;
+struct TargetRef00217D4C {virtual void *destroy(unsigned);int references;};
+void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
+struct TreeHintRef00217D4C {
+ TargetRef00217D4C *ptr;
+ TreeHintRef00217D4C(TargetRef00217D4C *p):ptr(p){if(ptr)++ptr->references;}
+ TreeHintRef00217D4C(const TreeHintRef00217D4C &s):ptr(s.ptr){if(ptr)++ptr->references;}
+ ~TreeHintRef00217D4C(){if(ptr)ReleaseTreeHintRef00217D4C(ptr);}
+};
+class Rva0056D3FD:public TargetRef00217D4C {public:
+ Rva0056D3FD(const AsciiString &,const AsciiString &,const AsciiString &,const AsciiString &,const AsciiString &);
+ void *impl;
+};
+class Rva00567960 {public:TreeHintRef00217D4C rva0056786B();void *vptr;CommandButton *button;int stance;};
+TreeHintRef00217D4C Rva00567960::rva0056786B() {
+ int index=StanceToButtonSlot(button,stance);
+ UnicodeString title=TheGameText->fetch(*reinterpret_cast<Rva0035B232 *>(button)->rva0035B232(index));
+ UnicodeString text=TheGameText->fetch(*reinterpret_cast<Rva0035B29E *>(button)->rva0035B29E(index));
+ TreeHintRef00217D4C result(new Rva0056D3FD(*reinterpret_cast<const AsciiString *>(&title),*reinterpret_cast<const AsciiString *>(&UnicodeString::TheEmptyString),*reinterpret_cast<const AsciiString *>(&UnicodeString::TheEmptyString),*reinterpret_cast<const AsciiString *>(&text),AsciiString::TheEmptyString));
+ return result;
 }
