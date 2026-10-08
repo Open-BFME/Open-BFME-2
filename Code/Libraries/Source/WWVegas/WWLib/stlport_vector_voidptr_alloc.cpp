@@ -46,12 +46,40 @@ template <> unsigned int *_STL::vector<unsigned int>::erase(unsigned int *first,
 
 namespace _STL
 {
+// Native 0x000291D0..0x00029328 proves this 344-byte insertion body.
+// Its placement-new/copy-backward/overflow calls and the default-value
+// wrapper at 0x00029350 establish the STLport four-byte pointer algorithm.
+// Preserve the extra discarded inline word immediately before the copy
+// expression: retail's frame is 0x74, not the primary template's 0x70.
+// This word is compiler bookkeeping, not an identified game variable.
+static __forceinline void retainInsertCompilerTemporary() {
+    void *discarded;
+}
+template <> inline vector<void *>::iterator
+vector<void *>::insert(iterator position, void *const &value) {
+    size_type index = position - begin();
+    if (this->_M_finish != this->_M_end_of_storage._M_data) {
+        if (position == end()) {
+            _Construct(this->_M_finish, value);
+            ++this->_M_finish;
+        } else {
+            _Construct(this->_M_finish, *(this->_M_finish - 1));
+            ++this->_M_finish;
+            void *copy = value;
+            retainInsertCompilerTemporary();
+            __copy_backward_ptrs(position, this->_M_finish - 2, this->_M_finish - 1, _TrivialAss());
+            *position = copy;
+        }
+    } else {
+        _M_insert_overflow(position, value, _IsPODType(), 1UL);
+    }
+    return begin() + index;
+}
+
 template <> inline vector<void *, allocator<void *> >::iterator
 vector<void *, allocator<void *> >::insert(iterator position)
 {
-    // The retail wrapper retains one more word than the header's discarded
-    // inline expansion. This slot models that frame, not an original variable.
-    pointer compilerStackSlot;
+    // The specialized callee now supplies the retained inline frame word.
     value_type value = value_type();
     return insert(position, value);
 }
