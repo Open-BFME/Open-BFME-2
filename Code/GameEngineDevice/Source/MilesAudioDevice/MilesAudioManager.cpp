@@ -795,6 +795,8 @@ public:
     void rva0005407E(INI *ini);
     void rva000540A7(INI *ini);
     unsigned char rva00054120(INI *ini);
+    bool rva00061BD2(int unused);
+    void rva0006179C(int opaque);
     void rva00057297(Rva00051107AudioRequest &request);
     bool rva000570C8(AudioEventRTS *event);
     void addUnownedAudioEventInfo(AudioEventInfo *eventInfo);
@@ -1546,6 +1548,42 @@ void MilesAudioManager::init()
     AIL_set_file_callbacks(streamingFileOpen, (MilesFileCloseCallback)Rva000518E0Thunk,
         (MilesFileSeekCallback)rva006963B0ForwardSlot5, (MilesFileReadCallback)rva006963D0ForwardSlot3);
     setMaxAmbientStreams();
+}
+
+// Native61BD2..61C87 RET4 returns the persistent reload flag. The
+// unnamed WB7896D0 lead's debug string says attemptReload, but its unused
+// argument type is unresolved and retained as an opaque DWORD view.
+// Existing INI extent888 and mutex9D4 are measured by matched siblings.
+// Native interface slot16 is a cdecl varargs call consuming one wide
+// string by value; this prefix view does not assert the other UI slots.
+class Rva00061BD2MessageView {
+public:
+#define RELOAD_UI_SLOT(N) virtual void slot##N();
+ RELOAD_UI_SLOT(0) RELOAD_UI_SLOT(1) RELOAD_UI_SLOT(2) RELOAD_UI_SLOT(3)
+ RELOAD_UI_SLOT(4) RELOAD_UI_SLOT(5) RELOAD_UI_SLOT(6) RELOAD_UI_SLOT(7)
+ RELOAD_UI_SLOT(8) RELOAD_UI_SLOT(9) RELOAD_UI_SLOT(10) RELOAD_UI_SLOT(11)
+ RELOAD_UI_SLOT(12) RELOAD_UI_SLOT(13) RELOAD_UI_SLOT(14) RELOAD_UI_SLOT(15)
+#undef RELOAD_UI_SLOT
+ virtual void __cdecl message(UnicodeString text, ...);
+};
+class InGameUI;
+extern InGameUI *TheInGameUI;
+// Descriptive name: the native byteDE1E4C is initially zero and is set
+// only after the manager's rowed audio INI reload reports success.
+bool AudioEventsReloaded;
+
+bool MilesAudioManager::rva00061BD2(int unused)
+{
+ MilesMutexGuard guard(&m_mutex, 0);
+ INI ini;
+ ini.m_at08 = 5;
+ if (rva00054120(&ini)) {
+  AudioEventsReloaded = true;
+  reinterpret_cast<Rva00061BD2MessageView *>(TheInGameUI)->message(
+   UnicodeString((const unsigned short *)L"RIF: AudioEvents reloaded. Resetting audio engine"));
+  rva0006179C(0);
+ }
+ return AudioEventsReloaded;
 }
 
 unsigned char MilesAudioManager::rva00054120(INI *ini)
