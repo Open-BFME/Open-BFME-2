@@ -113,6 +113,9 @@ public:
 	Coord3D m_goalPosition544;
 	unsigned char m_unknown550[4];
 	ObjectID m_id554;
+	unsigned char m_flag558;
+	unsigned char m_unknown559[3];
+	int m_value55C;
 };
 
 class Object
@@ -245,6 +248,7 @@ class AIGiantBirdFollowThruState : public State
 {
 public:
 	virtual StateReturnType update();
+	virtual void onExit(StateExitType status);
 private:
 	unsigned char m_unknown1C[0x24 - 0x1C];
 	int m_counter24;
@@ -286,4 +290,24 @@ StateReturnType AIGiantBirdFollowThruState::update()
 	if (!otherTarget || otherTarget->isDead())
 		return STATE_SUCCESS;
 	return STATE_FAILURE;
+}
+
+// Slot 5 of the same native table, 0x369418..0x3694B2 RET4 (154 bytes).
+// BFME 1's AIGiantBirdFollowThruStateOnExit.cpp confirms the exit purpose;
+// BFME 2 instead uses its rowed object goal refresh and resets AI +558/+55C.
+void AIGiantBirdFollowThruState::onExit(StateExitType status)
+{
+	State::onExit(status);
+	Object *object = getMachineOwner();
+	object->clearModelConditionBit(61);
+	object->clearModelConditionBit(103);
+	object->clearModelConditionBit(72);
+	object->clearModelConditionBit(155);
+	object->rva0028ACEE(object->getPosition(), 1);
+	AIUpdateInterface *ai = object->getAI();
+	if (ai)
+	{
+		ai->m_flag558 = 0;
+		ai->m_value55C = 2;
+	}
 }
