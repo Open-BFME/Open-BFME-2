@@ -73,6 +73,7 @@ private:
  char pad04[0x14]; int m_scrollRate,m_scrollRatePerFrames; bool m_scrollDown;
  char pad21[3]; int m_titleColor,m_positionColor,m_normalColor,m_currentStyle;
  bool m_isFinished; char pad35[3]; int m_framesSinceStarted,m_normalFontHeight;
+ int m_displayWidth,m_displayHeight;
 };
 UnicodeString CreditsManager::getUnicodeString(AsciiString str)
 {
@@ -150,4 +151,24 @@ void INI::parseCredits(INI *ini)
     if (!g_bfmeSinkBOE)
         return;
     ini->initFromINI(g_bfmeSinkBOE, CreditsManager::m_creditsFieldParseTable);
+}
+
+// Retail 0x005B736E..0x005B7426, 184 bytes. The BFME2 virtual entry returns
+// success, supplies the parser callback to INI::load, and uses the measured
+// pointer/float/bool font ABI rather than the donor's by-value/int spelling.
+bool CreditsManager::load()
+{
+    INI ini;
+    ini.load(AsciiString("Data\\INI\\Credits.ini"), INI_LOAD_OVERWRITE, 0, INI::parseCredits);
+
+    if (m_scrollRatePerFrames <= 0)
+        m_scrollRatePerFrames = 1;
+    if (m_scrollRate <= 0)
+        m_scrollRate = 1;
+
+    GameFont *font = TheFontLibrary->getFont(&TheGlobalLanguageData->m_creditsFontName,
+        (float)TheGlobalLanguageData->adjustFontSize(TheGlobalLanguageData->m_creditsFontSize),
+        TheGlobalLanguageData->m_creditsFontBold);
+    m_normalFontHeight = font->height;
+    return true;
 }
