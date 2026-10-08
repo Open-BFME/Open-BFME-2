@@ -1,5 +1,5 @@
-// ?update@AIFlankAttackTactic@@UAEXXZ
-// partial score=0.92 date=2026-10-08
+// ?rva005AA2D9@Rva0015334F@@QAEXPAURva005AA55DRecord@@PBUCoord3D@@1@Z
+// partial score=0.72 date=2026-10-08
 // cl: /O1 /G7 /arch:SSE /MD /GX /DNDEBUG /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii
 // stlport
 //
@@ -31,8 +31,15 @@ struct Coord3DBase
 	float z;
 };
 
-struct Coord3D : public Coord3DBase
-{
+struct Coord3D : public Coord3DBase {
+ Coord3D() {}
+ Coord3D(const Coord3D &) throw();
+ void normalize();
+ void scale(float f) { x*=f; y*=f; z*=f; }
+ void add(const Coord3D *p) { x+=p->x; y+=p->y; z+=p->z; }
+ static void crossProduct(const Coord3D *a,const Coord3D *b,Coord3D *r) {
+ r->x=a->y*b->z-a->z*b->y; r->y=a->z*b->x-a->x*b->z; r->z=a->x*b->y-a->y*b->x;
+ }
 };
 
 class Xfer;
@@ -102,10 +109,9 @@ class Rva0015334F
 {
 public:
 	void rva005AA2D9(Rva005AA55DRecord *record, const Coord3D *from, const Coord3D *to);
+	Coord3D getPivotPoint(Rva005AA55DRecord*,const Coord3D*,const Coord3D*);
 	void xfer(Xfer *xfer);
-	bool done() const { return m_next == m_points.end()-m_points.begin(); }
-Coord3D *next() { int n=m_next++; return &m_points[n]; }
-int m_next;			// +0x00
+	int m_next;			// +0x00
 	_STL::vector<Coord3D> m_points;	// +0x04
 };
 
@@ -148,7 +154,6 @@ public:
 	virtual bool canRun(void *request);
 	virtual void xfer(Xfer *xfer);
 	virtual void run();
-virtual void update();
 private:
 	Rva0015334F *m_route;	// +0x58
 };
@@ -203,10 +208,17 @@ void AIFlankAttackTactic::xfer(Xfer *xfer)
 	m_route->xfer(xfer);
 }
 
-void AIFlankAttackTactic::update() {
- if (!m_running) return;
- if (!rva004ED169() && !m_record->m_18) return;
- if (m_route->done()) { end(true,false); return; }
- rva004ED342(m_route->next());
+float GetGameLogicRandomValueReal(float,float,char*,int);
+int GetGameLogicRandomValue(int,int,char*,int);
+void Rva0015334F::rva005AA2D9(Rva005AA55DRecord *record,const Coord3D *from,const Coord3D *to) {
+ unsigned distance=GetGameLogicRandomValueReal(0.0f,400.0f,"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\SkirmishAI\\AITacticalAI\\AITacticsGenerator\\OffensiveTactics\\AIFlankAttackTactic.cpp",78)+600.0f;
+ Coord3D direction; direction.x=to->x-from->x; direction.y=to->y-from->y; direction.z=to->z-from->z;
+ direction.normalize();
+ Coord3D extended; extended.x=to->x; extended.y=to->y; extended.z=to->z;
+ direction.scale((float)distance); extended.add(&direction);
+ Coord3D pivot=getPivotPoint(record,from,to);
+ Coord3D up; up.x=0.0f; up.y=0.0f; up.z=1.0f;
+ if (GetGameLogicRandomValue(0,1,"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\SkirmishAI\\AITacticalAI\\AITacticsGenerator\\OffensiveTactics\\AIFlankAttackTactic.cpp",91)==1) up.z=-1.0f;
+ Coord3D side; Coord3D::crossProduct(&direction,&up,&side); side.normalize(); side.scale((float)distance); pivot.add(&side);
+ m_points.push_back(*from); m_points.push_back(pivot); m_points.push_back(extended); m_points.push_back(*to);
 }
-
