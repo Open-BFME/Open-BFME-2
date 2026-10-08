@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?Rva0050DE39Init@@YAXXZ @0x0050DE39 597B: observer ControlBar cache init.
-// Evidence: caller 0x0031D201; callees rowed nameToKey 0x00148E1A plus nameToKey_ascii 0x0009FA65 plus format 0x00038150 plus releaseBuffer 0x00036410 plus winGetWindowFromId slot 0xF0; strings ControlBar.wnd Observer/Player/Button/StaticText/WinFlag/Portrait/Cancel; globals g_00E0460C g_00E0462C g_00E0464C g_00E04650 g_00E04654 g_00E04674 g_00E04694 g_00E04698 g_00E0469C g_00E046A0 g_00E046A4 g_00E046A8 g_00E046AC g_00E046B0; neighbour Rva0050E776Send.cpp layout.
+// Evidence: caller 0x0031D201; callees rowed nameToKey 0x00148E1A plus nameToKey_ascii 0x0009FA65 plus format 0x00038150 plus releaseBuffer 0x00036410 plus winGetWindowFromId slot 0xF0; strings ControlBar.wnd Observer/Player/Button/StaticText/WinFlag/Portrait/Cancel; globals g_00E0460C g_00E0462C ObserverPlayerInfoWindow ObserverPlayerListWindow g_00E04654 g_00E04674 g_00E04694 g_00E04698 g_00E0469C g_00E046A0 g_00E046A4 g_00E046A8 g_00E046AC g_00E046B0; neighbour Rva0050E776Send.cpp layout.
 #include "ascii_string.h"
 #include "unicode_string.h"
 extern "C" void *__cdecl memset(void *, int, unsigned int);
@@ -20,6 +20,7 @@ public:
 	void winSetEnabledTextColors(int color, int borderColor);
 	void rva003148A2(UnicodeString tooltip);	// ZH winSetTooltip
 	bool winIsHidden();
+	Int winGetWindowId();
 	int winSetEnabledImage(int index, const Image *image);
 	unsigned char m_pad[8];
 };
@@ -109,8 +110,11 @@ extern GameWindowManager *TheWindowManager;
 
 extern Int g_00E0460C[8];
 extern Int g_00E0462C[8];
-extern GameWindow *g_00E0464C;
-extern GameWindow *g_00E04650;
+// Zero Hour's file statics (VA 0x00E0464C/0x00E04650): only this unit's
+// observer functions touch them, and retail schedules around them as
+// non-aliased statics (0x0050E6E6).
+static GameWindow *ObserverPlayerInfoWindow = NULL;
+static GameWindow *ObserverPlayerListWindow = NULL;
 extern GameWindow *g_00E04654[8];
 extern GameWindow *g_00E04674[8];
 extern Int g_00E04694;
@@ -124,18 +128,18 @@ extern GameWindow *g_00E046B0;
 
 void __cdecl Rva0050DE39Init()
 {
-	g_00E0464C = TheWindowManager->winGetWindowFromId(NULL, TheNameKeyGenerator->nameToKey("ControlBar.wnd:ObserverPlayerInfoWindow"));
-	g_00E04650 = TheWindowManager->winGetWindowFromId(NULL, TheNameKeyGenerator->nameToKey("ControlBar.wnd:ObserverPlayerListWindow"));
+	ObserverPlayerInfoWindow = TheWindowManager->winGetWindowFromId(NULL, TheNameKeyGenerator->nameToKey("ControlBar.wnd:ObserverPlayerInfoWindow"));
+	ObserverPlayerListWindow = TheWindowManager->winGetWindowFromId(NULL, TheNameKeyGenerator->nameToKey("ControlBar.wnd:ObserverPlayerListWindow"));
 	for (Int i = 0; i < 8; ++i) {
 		AsciiString tmp;
 		tmp.format("ControlBar.wnd:ButtonPlayer%d", i);
 		Int key = TheNameKeyGenerator->nameToKey(tmp);
 		g_00E0460C[i] = key;
-		g_00E04654[i] = TheWindowManager->winGetWindowFromId(g_00E04650, key);
+		g_00E04654[i] = TheWindowManager->winGetWindowFromId(ObserverPlayerListWindow, key);
 		tmp.format("ControlBar.wnd:StaticTextPlayer%d", i);
 		Int key2 = TheNameKeyGenerator->nameToKey(tmp);
 		g_00E0462C[i] = key2;
-		g_00E04674[i] = TheWindowManager->winGetWindowFromId(g_00E04650, key2);
+		g_00E04674[i] = TheWindowManager->winGetWindowFromId(ObserverPlayerListWindow, key2);
 	}
 	g_00E046A0 = TheWindowManager->winGetWindowFromId(NULL, TheNameKeyGenerator->nameToKey("ControlBar.wnd:StaticTextNumberOfUnits"));
 	g_00E046A4 = TheWindowManager->winGetWindowFromId(NULL, TheNameKeyGenerator->nameToKey("ControlBar.wnd:StaticTextNumberOfBuildings"));
@@ -252,6 +256,8 @@ class ControlBar
 public:
 	void populateObserverList(void);
 	void populateObserverInfoWindow(void);
+	void setObserverLookAtPlayer(Player *p) { m_observerLookAtPlayer = p; }
+	Player *getObserverLookAtPlayer(void) { return m_observerLookAtPlayer; }
 	unsigned char m_00[0x210];
 	Player *m_observerLookAtPlayer;		// +0x210
 };
@@ -333,13 +339,13 @@ void ControlBar::populateObserverList(void)
 // player name, colour, flag and portrait. Native [50E3E5,50E6A6),705B.
 void ControlBar::populateObserverInfoWindow(void)
 {
-	if (g_00E0464C->winIsHidden())
+	if (ObserverPlayerInfoWindow->winIsHidden())
 		return;
 
 	if (!m_observerLookAtPlayer)
 	{
-		g_00E0464C->winHide(true);
-		g_00E04650->winHide(false);
+		ObserverPlayerInfoWindow->winHide(true);
+		ObserverPlayerListWindow->winHide(false);
 		populateObserverList();
 		return;
 	}
@@ -375,4 +381,51 @@ void ControlBar::populateObserverInfoWindow(void)
 	g_00E046B0->winSetEnabledTextColors(color, 0xFF000000);
 	g_00E04698->winSetEnabledImage(0, m_observerLookAtPlayer->m_playerTemplate->rva001FD1FB());
 	g_00E0469C->winHide(false);
+}
+
+// Zero Hour's ControlBarObserverSystem: the cancel button returns to the
+// player list, a player button opens that player's info window. Handles
+// create (1) and the 0x4006..0x4009 button messages. Native
+// [50E6A6,50E776),208B.
+enum WindowMsgHandledType { MSG_IGNORED, MSG_HANDLED };
+extern ControlBar *TheControlBar;
+void *GadgetButtonGetData(GameWindow *window);
+WindowMsgHandledType ControlBarObserverSystem(GameWindow *window, unsigned int msg, unsigned int mData1, unsigned int mData2)
+{
+	switch (msg)
+	{
+	case 1:
+	case 0x4006:
+	case 0x4007:
+		break;
+	case 0x4008:
+	case 0x4009:
+		{
+			GameWindow *control = (GameWindow *)mData1;
+			Int controlID = control->winGetWindowId();
+			if (controlID == g_00E04694)
+			{
+				TheControlBar->setObserverLookAtPlayer(0);
+				ObserverPlayerInfoWindow->winHide(true);
+				ObserverPlayerListWindow->winHide(false);
+				TheControlBar->populateObserverList();
+			}
+			for (Int i = 0; i < 8; ++i)
+			{
+				if (controlID == g_00E0460C[i])
+				{
+					ObserverPlayerInfoWindow->winHide(false);
+					ObserverPlayerListWindow->winHide(true);
+					TheControlBar->setObserverLookAtPlayer((Player *)GadgetButtonGetData(g_00E04654[i]));
+					if (TheControlBar->getObserverLookAtPlayer())
+						TheControlBar->populateObserverInfoWindow();
+					return MSG_HANDLED;
+				}
+			}
+			break;
+		}
+	default:
+		return MSG_IGNORED;
+	}
+	return MSG_HANDLED;
 }
