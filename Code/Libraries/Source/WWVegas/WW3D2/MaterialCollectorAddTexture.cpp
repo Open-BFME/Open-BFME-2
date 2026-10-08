@@ -42,7 +42,7 @@ class BfmeHandleCX {
 public:
     TextureClass *p;
     BfmeHandleCX() : p(0) {}
-    BfmeHandleCX(TextureClass *texture) : p(texture) {
+    explicit BfmeHandleCX(TextureClass *texture) : p(texture) {
         if (p) ++*reinterpret_cast<unsigned short *>(reinterpret_cast<char *>(p) + 4);
     }
     // The owning handle performs its proven halfword adjustment directly,
@@ -67,6 +67,7 @@ class MaterialCollectorClass {
 public:
     void Add_Texture(const BfmeHandleCX &texture);
     BfmeHandleCX Peek_Texture(int index);
+    int Find_Texture(const BfmeHandleCX &texture);
 private:
     int Find_Texture(TextureClass *texture) const
     {
@@ -102,4 +103,31 @@ void MaterialCollectorClass::Add_Texture(const BfmeHandleCX &texture)
 BfmeHandleCX MaterialCollectorClass::Peek_Texture(int index)
 {
     return BfmeHandleCX(Textures[index].p);
+}
+
+// BFME 1 donor34f59164 Common/Small03hSlotScan.cpp supplies the bounded
+// handle search shape. Native16F520..16F548 lies between the established
+// collector's texture/vertex getters and Find_Vertex_Material16F550; it
+// compares the handle word with table+34 entries up to count+40 and returns
+// the index or -1. Target passes a pointer to the handle word without cleanup;
+// use the existing owning API reference form. BfmeHandleCX is a placeholder.
+int MaterialCollectorClass::Find_Texture(const BfmeHandleCX &texture)
+{
+    int count = Textures.Count();
+    int i = 0;
+    TextureClass *key;
+    BfmeHandleCX *table;
+    if (count > 0)
+    {
+        key = texture.p;
+        table = &Textures[0];
+        do
+        {
+            if (table->p == key)
+                return i;
+            ++i;
+            ++table;
+        } while (i < count);
+    }
+    return -1;
 }
