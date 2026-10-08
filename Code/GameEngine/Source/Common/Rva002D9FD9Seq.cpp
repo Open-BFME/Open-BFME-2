@@ -9,6 +9,13 @@
 // Rva002D9608 so the audio gate resolves; Arg vtable carries 145
 // placeholder slots (placeholder-only vtables start at index 0).
 // Views minimal; exact identities unproven.
+class Xfer;
+class AudioEventRTS
+{
+public:
+ void internalXfer(Xfer *xfer, const void *version);
+};
+
 class Rva002D9608
 {
 public:
@@ -84,7 +91,6 @@ class Rva002D9FD9Owner : public Rva002D9608
 {
 public:
 	void rva002D9FD9(Rva002D9FD9Arg *a);
-	void rva002D9D7C(void *a, void *b);
 };
 
 // ?rva002D9FD9@Rva002D9FD9Owner@@QAEXPAVRva002D9FD9Arg@@@Z
@@ -103,7 +109,7 @@ void Rva002D9FD9Owner::rva002D9FD9(Rva002D9FD9Arg *a)
 	a->v036(&flag);
 	x = m_0C;
 	a->v030(&x);
-	rva002D9D7C(a, &t);
+	((AudioEventRTS *)this)->internalXfer((Xfer *)a, &t);
 	if (flag == 0)
 		return;
 	if (!a->v001())

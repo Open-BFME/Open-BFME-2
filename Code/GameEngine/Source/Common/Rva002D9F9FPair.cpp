@@ -8,6 +8,13 @@
 // Exact identities unproven.
 // Two-byte {1,6} pair lives in the dead arg slot; see body.
 
+class Xfer;
+class AudioEventRTS
+{
+public:
+ void internalXfer(Xfer *xfer, const void *version);
+};
+
 class Rva002D9F9FArg
 {
 public:
@@ -28,7 +35,6 @@ class Rva002D9F9FOwner
 {
 public:
 	void rva002D9F9F(Rva002D9F9FArg *a);
-	void rva002D9D7C(void *a, void *b);
 };
 
 // ?rva002D9F9F@Rva002D9F9FOwner@@QAEXPAVRva002D9F9FArg@@@Z
@@ -41,5 +47,5 @@ void Rva002D9F9FOwner::rva002D9F9F(Rva002D9F9FArg *a)
 	((unsigned char *)&t)[0] = 1;
 	((unsigned char *)&t)[1] = 6;
 	a->v10(&t);
-	rva002D9D7C(a, &t);
+	((AudioEventRTS *)this)->internalXfer((Xfer *)a, &t);
 }

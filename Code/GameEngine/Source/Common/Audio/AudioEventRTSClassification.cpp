@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /MD /GX /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /MD /GX /DNDEBUG /DWIN32 /D_WINDOWS
 //
 // AudioEventRTS sound-class mapper and its positional-audio test.
 //
@@ -21,6 +21,7 @@
 // is the AsciiString at +0x20 tested with the out-of-line isEmpty.
 
 #include "ascii_string.h"
+#include "Common/BfmeAudioEventPrefix136.h"
 
 #define AUDIO_EVENT_RTS_FILE "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\Common\\Audio\\AudioEventRTS.cpp"
 
@@ -149,6 +150,7 @@ public:
 	void generateFilename(void);
 	AsciiString getFilename(void);
 	void generatePlayInfo(void);
+	void internalXfer(Xfer *xfer, const void *version);
 	void rva002DAAD5(void);
 	AsciiString rva002DA867(void);
 
@@ -515,4 +517,222 @@ void AudioEventRTS::generatePlayInfo(void)
 	}
 	else
 		m_portionToPlayNext = PP_Sound;
+}
+
+// Native 0x002D9D7C..0x002D9F9F (547B, RET8). WorldBuilder BD6C40
+// names AudioEventRTS::internalXfer and independently corroborates the calls.
+// Retail serializes the event-info name, owner tag/ID or position, flags and
+// fields gated by version bytes 2..6. The caller 2D9FD9 builds two version
+// bytes (1,6); only the second byte is read here. The existing 0x88-byte
+// BfmeAudioEventPrefix136 view supplies independently verified field offsets.
+// The name getter's old char-pointer declaration is opaque: its result is an
+// AsciiString object, proven here by retail's StringBase copy constructor.
+// Audio-manager slot75 returns an owning four-byte ref; slot103 transfers
+// pool10. These contracts and the temporary's release/unwind are target facts.
+struct Rva002D9D7CRef : OpaqueRefElement4 {
+ // ?Rva002D9D7CRef::~Rva002D9D7CRef present-unmatched
+ ~Rva002D9D7CRef() { if (referent) referent->Release_Ref(); }
+};
+class AudioManager {
+public:
+ virtual void a0();
+ virtual void a1();
+ virtual void a2();
+ virtual void a3();
+ virtual void a4();
+ virtual void a5();
+ virtual void a6();
+ virtual void a7();
+ virtual void a8();
+ virtual void a9();
+ virtual void a10();
+ virtual void a11();
+ virtual void a12();
+ virtual void a13();
+ virtual void a14();
+ virtual void a15();
+ virtual void a16();
+ virtual void a17();
+ virtual void a18();
+ virtual void a19();
+ virtual void a20();
+ virtual void a21();
+ virtual void a22();
+ virtual void a23();
+ virtual void a24();
+ virtual void a25();
+ virtual void a26();
+ virtual void a27();
+ virtual void a28();
+ virtual void a29();
+ virtual void a30();
+ virtual void a31();
+ virtual void a32();
+ virtual void a33();
+ virtual void a34();
+ virtual void a35();
+ virtual void a36();
+ virtual void a37();
+ virtual void a38();
+ virtual void a39();
+ virtual void a40();
+ virtual void a41();
+ virtual void a42();
+ virtual void a43();
+ virtual void a44();
+ virtual void a45();
+ virtual void a46();
+ virtual void a47();
+ virtual void a48();
+ virtual void a49();
+ virtual void a50();
+ virtual void a51();
+ virtual void a52();
+ virtual void a53();
+ virtual void a54();
+ virtual void a55();
+ virtual void a56();
+ virtual void a57();
+ virtual void a58();
+ virtual void a59();
+ virtual void a60();
+ virtual void a61();
+ virtual void a62();
+ virtual void a63();
+ virtual void a64();
+ virtual void a65();
+ virtual void a66();
+ virtual void a67();
+ virtual void a68();
+ virtual void a69();
+ virtual void a70();
+ virtual void a71();
+ virtual void a72();
+ virtual void a73();
+ virtual void a74();
+ virtual Rva002D9D7CRef a75(const AsciiString *name);
+ virtual void a76();
+ virtual void a77();
+ virtual void a78();
+ virtual void a79();
+ virtual void a80();
+ virtual void a81();
+ virtual void a82();
+ virtual void a83();
+ virtual void a84();
+ virtual void a85();
+ virtual void a86();
+ virtual void a87();
+ virtual void a88();
+ virtual void a89();
+ virtual void a90();
+ virtual void a91();
+ virtual void a92();
+ virtual void a93();
+ virtual void a94();
+ virtual void a95();
+ virtual void a96();
+ virtual void a97();
+ virtual void a98();
+ virtual void a99();
+ virtual void a100();
+ virtual void a101();
+ virtual void a102();
+ virtual void a103(Xfer *xfer, BfmePoolRef10 *ref);
+};
+extern AudioManager *TheAudio;
+
+class Rva002D9AC3 { public: const char *rva002D9AC3(); };
+class Xfer {
+public:
+ virtual void x0();
+ virtual bool isLoad();
+ virtual void x2();
+ virtual void x3();
+ virtual void x4();
+ virtual void x5();
+ virtual void x6();
+ virtual void x7();
+ virtual void x8();
+ virtual void x9();
+ virtual void x10();
+ virtual void x11();
+ virtual void x12();
+ virtual void x13();
+ virtual void x14();
+ virtual void x15();
+ virtual void x16();
+ virtual void x17();
+ virtual void x18();
+ virtual void x19();
+ virtual void x20();
+ virtual void x21();
+ virtual void x22();
+ virtual void x23();
+ virtual void coord(BfmeEventPositionView *value);
+ virtual void x25();
+ virtual void x26();
+ virtual void ascii(AsciiString *value);
+ virtual void real(float *value);
+ virtual void x29();
+ virtual void x30();
+ virtual void integer(int *value);
+ virtual void x32();
+ virtual void x33();
+ virtual void x34();
+ virtual void byte(char *value);
+ virtual void boolean(unsigned char *value);
+};
+
+void XferDrawableID(Xfer *xfer, int *id);
+void XferObjectID(Xfer *xfer, ObjectID *id);
+void XferLivingWorldUniqueID(Xfer *xfer, int *id);
+void XferLivingWorldArmyID(Xfer *xfer, int *id);
+void XferLivingWorldPlayerID(Xfer *xfer, int *id);
+class Rva004E075FObj;
+int Rva004E075FGet(Rva004E075FObj *xfer, int value);
+void AudioEventRTS::internalXfer(Xfer *xfer, const void *version)
+{
+ BfmeAudioEventPrefix136 &event = *(BfmeAudioEventPrefix136 *)this;
+ AsciiString name(*(const AsciiString *)((Rva002D9AC3 *)this)->rva002D9AC3());
+ xfer->ascii(&name);
+ if (xfer->isLoad()) {
+  if (name.isEmpty())
+   ((Rva000A8C9B *)&event.m_pool08)->clear();
+  else
+   *(OpaqueRefElement4 *)&event.m_pool08 = TheAudio->a75(&name);
+ }
+ char owner = (char)event.m_int38;
+ xfer->byte(&owner);
+ event.m_int38 = owner;
+ switch (event.m_int38) {
+ case 0: xfer->coord(&event.m_position); break;
+ case 1: XferDrawableID(xfer, &event.m_int34); break;
+ case 2: XferObjectID(xfer, (ObjectID *)&event.m_int34); break;
+ case 3: XferLivingWorldUniqueID(xfer, &event.m_int34); break;
+ case 4: XferLivingWorldArmyID(xfer, &event.m_int34); break;
+ case 5: Rva004E075FGet((Rva004E075FObj *)xfer, (int)&event.m_int34); break;
+ }
+ const unsigned char *v = (const unsigned char *)version;
+ if (v[1] >= 2) xfer->boolean(&event.m_b48);
+ xfer->boolean(&event.m_b49);
+ if (v[1] < 5) { unsigned char obsolete = 0; xfer->boolean(&obsolete); }
+ xfer->boolean(&event.m_b4A);
+ xfer->integer(&event.m_int6C);
+ if (v[1] >= 4) XferLivingWorldPlayerID(xfer, &event.m_int70);
+ xfer->boolean(&event.m_b4C);
+ char logical = (char)event.m_int30;
+ xfer->byte(&logical);
+ event.m_int30 = logical;
+ char portion = (char)event.m_int78;
+ xfer->byte(&portion);
+ event.m_int78 = portion;
+ xfer->ascii(&event.m_string84);
+ xfer->integer(&event.m_int7C);
+ xfer->real(&event.m_f2C);
+ if (v[1] >= 3) xfer->integer(&event.m_int80);
+ if (v[1] >= 6) {
+  xfer->integer(&event.m_int14);
+  TheAudio->a103(xfer, &event.m_pool10);
+ }
 }
