@@ -46,6 +46,7 @@ private:
 public:
     void SetSize(int);
     __declspec(noinline) void rva006D53F0(const char *,va_list);
+    void __cdecl rva006D62C0(const char *,...);
 
 };
 void EAStringC::rva006D53F0(const char *format,va_list args)
@@ -67,4 +68,18 @@ void EAStringC::rva006D53F0(const char *format,va_list args)
     buffer[result]=0;
     SetSize(result);
     data->hash=0;
+}
+
+// The retail assertion identifies this source at line 561. Native varargs
+// use a cdecl member entry with the receiver as the first stack argument.
+void __cdecl EAStringC::rva006D62C0(const char *format,...)
+{
+    if (!format) {
+        g_bfmeAptAssertAtE17734("pStrFormat != NULL","C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\string\\EAString.cpp",561);
+        if(g_bfmeAptBreakOnAssertAtDDC01C) __debugbreak();
+    }
+    va_list args;
+    va_start(args,format);
+    rva006D53F0(format,args);
+    va_end(args);
 }
