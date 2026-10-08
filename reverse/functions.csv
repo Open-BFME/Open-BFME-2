@@ -72035,3 +72035,4 @@ _VP6_GetYUVConfig,,0x001B5C60,1147,Code/Libraries/Source/VP6/GetYUVConfig.cpp,ma
 ?sizeWindowsDefault@ControlBarResizer@@QAEXXZ,,0x001DB7C9,100,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarResizerO1.cpp,matched,
 ?sizeWindowsAlt@ControlBarResizer@@QAEXXZ,,0x001DB82D,253,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarResizerO1.cpp,matched,
 ?rva0025EBB9@Rva0025EB43@@QAEXPBVRva0025E9DE@@@Z,,0x0025EBB9,105,Code/GameEngine/Source/GameClient/View.cpp,matched,
+?rva0058D408@NetPacket@@IAE_NPAVNetCommandRef@@@Z,,0x0058D408,89,Code/GameEngine/Source/GameNetwork/NetPacket.cpp,matched,

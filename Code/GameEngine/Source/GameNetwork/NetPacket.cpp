@@ -428,6 +428,7 @@ public:
 protected:
 	static NetCommandMsg *readWrapperMessage(UnsignedByte *data, Int &readOffset);
 	Bool isRoomForWrapperMessage(NetCommandRef *msg);
+	Bool rva0058D408(NetCommandRef *msg);
 	Bool rva0058D461(NetCommandRef *msg);
 	Bool rva0058D4BA(NetCommandRef *msg);
 	UnsignedByte rva0058D513(NetCommandRef *msg);
@@ -996,6 +997,34 @@ Bool NetPacket::isRoomForWrapperMessage(NetCommandRef *msg)
 	len += sizeof(UnsignedInt);
 	len += cmdMsg->getDataLength();
 	if ((len + m_packetLen) > MAX_PACKET_SIZE) {
+		return false;
+	}
+	return true;
+}
+
+// ?rva0058D408@NetPacket@@IAE_NPAVNetCommandRef@@@Z @0x0058D408 (89B), the
+// sibling just before: type 2, relay 1+1 and player 1+1 as Zero Hour's
+// isRoomForLoadCompleteMessage, then BFME's timestamp 5, plus fixed 1
+// against MAX 0x1DC.
+Bool NetPacket::rva0058D408(NetCommandRef *msg)
+{
+	Int len = 0;
+	NetCommandMsg *cmdMsg = (NetCommandMsg *)(msg->m_msg);
+	if (m_lastCommandType != cmdMsg->m_commandType) {
+		len += sizeof(UnsignedByte) + sizeof(UnsignedByte);
+	}
+	if (m_lastRelay != msg->m_relay) {
+		++len;
+		++len;
+	}
+	if (m_lastPlayerID != cmdMsg->getPlayerID()) {
+		++len;
+		++len;
+	}
+	if (m_lastTimestamp != cmdMsg->m_timestamp) {
+		len += sizeof(UnsignedInt) + sizeof(UnsignedByte);
+	}
+	if ((len + m_packetLen + 1) > MAX_PACKET_SIZE) {
 		return false;
 	}
 	return true;
