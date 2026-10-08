@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // SimpleObjectIterator::insert (WorldBuilder name, SimpleObjectIterator.cpp line 62: deque push_back of the pair); 0x0054B414 (deque clear) is on the same class.
 // stlport
 //
@@ -49,6 +49,7 @@ public:
 class SimpleObjectIterator : public Rva00549C74
 {
 public:
+	SimpleObjectIterator();
 	virtual ~SimpleObjectIterator();
 	virtual int first();
 	virtual int next();
@@ -59,6 +60,9 @@ private:
 	_STL::deque<BfmeTrivialDequeElement8>::iterator m_cursor;
 	_STL::deque<BfmeTrivialDequeElement8> m_deque;
 };
+
+// ?SimpleObjectIterator::SimpleObjectIterator present-unmatched
+SimpleObjectIterator::SimpleObjectIterator() {}
 
 // Native 54B81A..54B850: the deque cleanup at +14 and the base-vtable
 // restoration independently establish the two destructor stages. The named

@@ -17033,3 +17033,4 @@ _D3DXLoadVolumeFromFileInMemory@36,0x0062AF8C,Native1318F0 in-image JMP IAT veri
 ?Rva00136B5E@@YAXPBD0@Z,0x00136B5E,callee of ?rva00417A6B@HouseColorSystem@@QAEXXZ
 ?rva00215B14@PlayerAITypeSet@@QAEXPAVINI@@@Z,0x00215B14,callee of ?Rva00215C38Parse@@YAXPAVINI@@@Z
 ?InitializeFactionVariables@AptStats@@QAEXXZ,0x005DD2D3,callee of ??0AptStats@@QAE@PAX@Z
+??0?$_Deque_base@UBfmeTrivialDequeElement8@@V?$allocator@UBfmeTrivialDequeElement8@@@_STL@@@_STL@@QAE@ABV?$allocator@UBfmeTrivialDequeElement8@@@1@I@Z,0x0054A1B7,SimpleObjectIterator neutral8-byte deque construction; fold-proof=Code/Libraries/Source/WWVegas/WWLib/Rva0054BBB5.cpp
