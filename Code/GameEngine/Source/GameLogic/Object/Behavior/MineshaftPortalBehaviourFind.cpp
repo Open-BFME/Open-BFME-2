@@ -45,3 +45,26 @@ void *Rva00372D3AFind(void *arg)
 	}
 	return 0;
 }
+
+// Native [0x00498725,0x00498798) is a 115B cdecl finder. Its literal
+// identifies GateOpenAndCloseBehavior; retail scans the same +0x244 pointer
+// list and compares virtual slot +0x10 against a function-local cached key.
+// A matched nonnull interface is adjusted by -4 before returning its owner.
+// This offset is independently visible in BFME 2 and is also used by BFME 1
+// BfmeConv1956/1957 at donor ba7ddda7e8f261163972ddbe23c7e7a12ac5b84f.
+// The original function name and complete owner class layout remain unknown.
+void *Rva00498725Find(void *arg)
+{
+	static NameKeyType s_key = TheNameKeyGenerator->nameToKey("GateOpenAndCloseBehavior");
+	Behaviour **p = ((Holder *)arg)->m_list;
+	while (*p) {
+		if ((*p)->getKey() == s_key) {
+			Behaviour *hit = *p;
+			if (hit == 0)
+				return 0;
+			return (char *)hit - 4;
+		}
+		++p;
+	}
+	return 0;
+}
