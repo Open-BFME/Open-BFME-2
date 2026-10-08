@@ -628,3 +628,8 @@ template Rva005334A4Element *_STL::__copy<Rva005334A4Element *,Rva005334A4Elemen
 // native532803 call fixes this target; every relocation now binds through
 // a verified provider rather than a new pin.
 template Rva005334A4Element *_STL::__copy_ptrs<Rva005334A4Element *,Rva005334A4Element *>(Rva005334A4Element *,Rva005334A4Element *,Rva005334A4Element *,const _STL::__false_type &);
+// Complete38B532803..532829 range erase uses the two verified copy providers.
+// Block rebuild533664 passes begin/end for its4B pair vector; its actual
+// typed specialization is a full byte-and-relocation twin of the existing
+// enum-vector erase. This is a real STLport instantiation, not a wrapper.
+template Rva005334A4Element *_STL::vector<Rva005334A4Element>::erase(Rva005334A4Element *,Rva005334A4Element *);
