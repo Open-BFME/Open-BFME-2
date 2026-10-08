@@ -29,7 +29,34 @@
 // _M_find 0x00388F63 (every int-keyed map), make_pair 0x0032C58A, the
 // pair<int, V> constructor 0x0032BFCB it calls, and the pair<const int, V>
 // conversion constructor 0x0032BF4E (same bytes as the pair copy).
+//
+// ?rva0032ED75@SidesList@@QAEXHABV?$vector@UBfmeE8@@...@Z, retail 0x0032ED75,
+// 175 bytes, is the same add for the second map at this+0x30. Its only caller
+// is parseCastleTemplateDataChunk too (REL32 at 0x0032F80C), passing the key
+// and a path it built from a count and that many two-real points through
+// vector<BfmeE8>::push_back 0x00539A2E. The mapped value is a vector of those
+// paths; BfmeE8 is the ledger's spelling of the 8-byte point (the element of
+// _Construct<vector<BfmeE8> > 0x0032B598 and of the pair rows at 0x0032E800).
+//
+// Its three vector destructors carry unwind states in retail (1, 0, -1)
+// because the game's free is a C++-linkage function that may throw: the
+// destructor chain 0x0032E7A3 -> _Destroy 0x003F29F8 -> 0x0007FAB3 -> free
+// 0x00030830 keeps an EH frame of its own. Reaching free through the
+// _STL::free spelling (the Rva000C2980Finish.cpp idiom) reproduces that; the
+// extern "C" import is nothrow under /EHsc and drops the states.
+//
+// Its callees fold onto rows other units own, each byte-verified from this TU
+// against its own address: _M_find 0x00388F63; push_back 0x0032EA3F with its
+// _M_insert_overflow 0x0032E842, __uninitialized_fill_n 0x0032B5EB, _M_clear
+// 0x0032E7E2 and allocate 0x00395928; insert_unique 0x0032EB87 with _M_insert
+// 0x0032EAD6, _M_create_node 0x0032EA7F and the pair _Construct 0x0032E94B;
+// the pair<int, V> constructor 0x0032E81D; the pair<const int, V> copy and
+// conversion constructors 0x0032E800; the destructor chain above. make_pair
+// 0x0032E914 had no row and is this unit's own.
 
+#include <stdlib.h>
+namespace _STL { void __cdecl free(void *block) throw(...); }
+#define free _STL::free
 #include <map>
 
 // Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
@@ -40,20 +67,26 @@ static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
 { return a._M_node != b._M_node; }
 }
 #include <vector>
+#undef free
 
 struct BfmePod128 { ~BfmePod128(); int a[32]; };
+struct BfmeE8 { int a[2]; };
 
 typedef _STL::map<int, _STL::vector<BfmePod128> > IntPod128VectorMap;
+typedef _STL::vector<BfmeE8> E8Vector;
+typedef _STL::map<int, _STL::vector<E8Vector> > IntE8VectorListMap;
 
 class SidesList
 {
 public:
 	virtual ~SidesList();
 	void rva0032E6F4(int key, const BfmePod128 &entry);
+	void rva0032ED75(int key, const E8Vector &path);
 
 private:
 	char m_bases[0x24 - 4];
 	IntPod128VectorMap m_castleBuildLists;	// +0x24
+	IntE8VectorListMap m_castlePaths;	// +0x30
 };
 
 // The entry joins the key's list, creating the list on first use.
@@ -66,5 +99,17 @@ void SidesList::rva0032E6F4(int key, const BfmePod128 &entry)
 		_STL::vector<BfmePod128> list;
 		list.push_back(entry);
 		m_castleBuildLists.insert(_STL::make_pair(key, list));
+	}
+}
+
+void SidesList::rva0032ED75(int key, const E8Vector &path)
+{
+	IntE8VectorListMap::iterator it = m_castlePaths.find(key);
+	if (it != m_castlePaths.end()) {
+		(*it).second.push_back(path);
+	} else {
+		_STL::vector<E8Vector> list;
+		list.push_back(path);
+		m_castlePaths.insert(_STL::make_pair(key, list));
 	}
 }
