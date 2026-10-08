@@ -84,3 +84,56 @@ const Rva0021C5BEItem *Rva0021C5BEFind(const Rva0021C5BEItem *first, const Rva00
 	}
 	return last;
 }
+
+#include "string_base.h"
+struct Rva00523DB7 {
+    int m_00;
+    StringBase<char> m_04;
+};
+int __cdecl Rva00523EFFEqual(const Rva00523DB7 *, const Rva00523DB7 *);
+
+// Target 0x0052408B..0x0052413E: cdecl 179B four-wide find, stride8.
+// The sole native caller0x005243FA passes three pointers and an unused tag.
+// All seven predicates call the independently recovered0x00523EFF;
+// its provider compares int0 and StringBase4 and returns only0 or1.
+// The unsigned-char conversion expresses retail's AL predicate test.
+// The verified21C5BE find above supplies only the loop/remainder guide.
+// ?Rva0052408BFind@@YAPBURva00523DB7@@PBU1@00H@Z
+const Rva00523DB7 *Rva0052408BFind(const Rva00523DB7 *first, const Rva00523DB7 *last, const Rva00523DB7 *val, int tag)
+{
+	(void)tag;
+	const Rva00523DB7 *f = first;
+	const char *e = (const char *)last;
+	int n = (int)((const char *)last - (const char *)first) >> 5;
+	while (n > 0) {
+		if ((unsigned char)Rva00523EFFEqual(f, val))
+			return f;
+		++f;
+		if ((unsigned char)Rva00523EFFEqual(f, val))
+			return f;
+		++f;
+		if ((unsigned char)Rva00523EFFEqual(f, val))
+			return f;
+		++f;
+		if ((unsigned char)Rva00523EFFEqual(f, val))
+			return f;
+		++f;
+		--n;
+	}
+	switch ((int)(e - (const char *)f) >> 3) {
+	case 3:
+		if ((unsigned char)Rva00523EFFEqual(f, val))
+			return f;
+		++f;
+	case 2:
+		if ((unsigned char)Rva00523EFFEqual(f, val) == false) {
+			++f;
+		} else {
+			return f;
+		}
+	case 1:
+		if ((unsigned char)Rva00523EFFEqual(f, val))
+			return f;
+	}
+	return last;
+}
