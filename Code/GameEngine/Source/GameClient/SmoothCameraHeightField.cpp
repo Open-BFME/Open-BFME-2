@@ -34,7 +34,6 @@ public:
  SmoothCameraHeightSamples m_data;
  int m_width,m_height;float m_scale;int m_state;bool m_ready;
 };
-// ?Initialize@SmoothCameraHeightField@@QAEXPBGHHHH@Z present-unmatched
 void SmoothCameraHeightField::Initialize( const R3HeightSample *source, int unused,
 	int sourceWidth, int sourceHeight, int state )
 {
