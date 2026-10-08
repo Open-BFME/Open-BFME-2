@@ -1,114 +1,47 @@
-// ?createMouseoverHint@InGameUI@@UAEXPBVGameMessage@@@Z
-// partial score=0.99 date=2026-10-05
-// ?createMouseoverHint@InGameUI@@UAEXPBVGameMessage@@@Z
-// partial score=0.98 date=2026-10-02
-// cl: /O1 /arch:SSE /EHsc /MD /DNDEBUG /DWIN32 /D_WINDOWS
-// Unmatched reconstruction; 1899 compiled bytes versus 1901 retail bytes.
-// Boundary: VA 0x0069EBE2 through 0x0069F34E; 575 retail instructions.
-// Native body SHA256: 8885bffe9252ec3c5304c5a9359351616d70f40424e52f70147752c3a346cc09.
-// Retail game.dat SHA256: f008b587570bad693981dc7218588c81d192a1e064b0f7f861539c51156a7640.
-// Semantic donor: GeneralsMD InGameUI::createMouseoverHint, BFME1 checkout
-// 10af19f44a89ab7ecc23195bb9a842ceafbc02c9, at inputs/reference/
-// CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source/GameClient/InGameUI.cpp.
-// Donor names and purpose are semantic leads. Target instructions establish
-// the offsets, virtual slot numbers, call destinations, and argument shapes.
-// Rva-labelled classes/helpers preserve uncertain target identities. The
-// TooltipRecord/TooltipBase names describe an inferred 12-byte record ABI.
-// The compare throw() declaration and inner record scope are compiler-shape
-// hypotheses: they remove extra exception states and a Boolean spill.
-// They do not establish the original source spelling or declaration.
+// cl: /Ireference/shims/bfme2_ascii /O1 /arch:SSE /EHsc /MD /DNDEBUG /DWIN32 /D_WINDOWS
+// InGameUI::createMouseoverHint, retail RVA 0x0029EBE2 (1901 bytes; native
+// boundary VA 0x0069EBE2..0x0069F34F).
 //
-// Remaining verification gap (wave3 l12, 2026-10-05): this body compiles to
-// the 1901-byte target extent, and the player-name fallback at native VA
-// 0x0069F003 now emits the target add/jump sequence in EAX. The side-by-side
-// disassembly has no non-relocation instruction differences. Sixteen direct
-// REL32 callees remain unresolved by the current symbol map, so their exact
-// call operands are unproved. Names below are donor-semantic or structural
-// leads, not target identity facts; check callee identity and placement before
-// adding any pins or landing this body.
-// The SEH handler and record vtable addresses are diagnostic mappings; their
-// generated metadata and whole-program linkage have not been verified.
-// Score 0.98 estimates reconstruction readiness, not byte equality.
+// Identity: WorldBuilder's debug body (WB VA 0x00DB1900) carries the same
+// strings and call sequence, and Zero Hour's InGameUI::createMouseoverHint
+// (GeneralsMD/Code/GameEngine/Source/GameClient/InGameUI.cpp) is the semantic
+// donor: mouse-state guard, window walk, disguise handling, warehouse supply
+// feedback, shroud check and the cursor update at the end. The BFME 2 body
+// adds the per-object/per-drawable string overrides, the tooltip record sent
+// to ControlBar::bfmeShowDN and the TheLookAtTranslator test.
 //
-// Recompile through tools/explain_mismatch.py with:
-//   --source reverse/attempts/0x0029ebe2.cpp --rva 0x0029EBE2 --size 1901
-//   selector: ?createMouseoverHint@InGameUI@@UAEXPBVGameMessage@@@Z
-// Resolve calls against their observed targets, not a similarly named thunk.
-//
-// Observed native call destinations (RVA; mangled-name fragments):
-//   0x00037050 ??0?$StringBase@G
-//   0x00036E70 releaseBuffer@?$StringBase@G
-//   0x00036410 releaseBuffer@?$StringBase@D
-//   0x00037150 set@?$StringBase@G
-//   0x00006A7A compare@?$StringBase@G
-//   0x00006A2A concat@?$StringBase@G
-//   0x00038150 format@AsciiString
-//   0x006CB660 format@UnicodeString@@QAAXPBV
-//   0x006CB5D0 format@UnicodeString@@QAAXPBG
-//   0x00629188 __EH_prolog
-//   0x0030F45F winGetStatus@GameWindow
-//   0x003140A4 winGetParent@GameWindow
-//   0x0028AFA9 getControllingPlayer@Object
-//   0x0028B07A isLocallyControlled@Object
-//   0x002A9D89 isLocalPlayer@Player
-//   0x0006F039 isKindOf@Object
-//   0x0030F4EA getArgument@GameMessage
-//   0x00004EDF setFromInt@RGBColor
-//   0x0037B18C isMultiplayer@RecorderClass
-//   0x002A7A29 getNthPlayer@PlayerList
-//   0x007397F0 getShroudStatusForPlayer@PartitionManager
-//   0x001EEA6D rva001EEA6D@Mouse
-//   0x0055A88B getID@Drawable
-//   0x00274C62 Rva00274C62@Drawable
-//   0x002AA231 Rva002AA231@Player
-//   0x002AA245 Rva002AA245@Player
-//   0x002A7DD0 Rva002A7DD0@PlayerList
-//   0x004B031E Rva004B031E@SpecialDisguiseUpdate
-//   0x0028B6D6 Rva0028B6D6@Object
-//   0x0028F4BC Rva0028F4BC@Object
-//   0x0028F2F8 Rva0028F2F8@Object
-//   0x0029137E Rva0029137E@Object
-//   0x0028B026 getIndicatorColor@Object
-//   0x002AD0C6 getRelationship@Player
-//   0x0030F2C7 Rva0030F2C7@RecorderClass
-//   0x0042E8C1 Rva0042E8C1@LookAtTranslator
-//   0x001EEC4B resetTooltipDelay@Mouse
-//   0x0029A5D6 setMouseCursor@InGameUI
-//   0x00405C04 Rva00405C04@TooltipController
-//   0x0042FA63 CanSelectDrawable@@
-//
-// Observed absolute references (VA; symbol/string-name fragments):
-//   0x00DFDCA0 TheMouse
-//   0x00DFEF1C TheWindowManager
-//   0x00DFE77C TheGameClient
-//   0x00DFEEE8 ThePlayerList
-//   0x00DF36A4 TheNameKeyGenerator
-//   0x00DFF0BC TheGameText
-//   0x00DFEA3C TheTacticalView
-//   0x00DFE74C ThePartitionManager
-//   0x00E02290 TheRecorder
-//   0x00E03214 TheLookAtTranslator
-//   0x00DFE758 TheGlobalData
-//   0x00E01CFC TheTooltipController
-//   0x00DFEDF0 TheInGameUI
-//   0x00E0C898 TheEmptyString
-//   0x00BBB5C4 TheNullChr
-//   0x00DFEEC0 key_SpecialDisguiseUpdate
-//   0x00DFEEBC warehouseModuleKey
-//   0x00BFD010 ??_7TooltipRecord
-//   0x00BE5838 ??_7TooltipBase
-//   0x00DFEEC4 ?$S1
-//   0x00B74D69 __ehhandler$
-//   0x00000000 __except_list
-//   0x00BF4EC0 SpecialDisguiseUpdate
-//   0x00BF507C SupplyWarehouseDockUpdate
-//   0x00BFD228 TOOLTIP?3SupplyWarehouse
-//   0x00BFD240 ThingTemplate?3
-//   0x00BFD210 OBJECT?3Prop
-//   0x00BFD21C @_1M@
-//   0x00BBAC1C @_00
-//
-// Additional local diagnostics remain in ignored build/byte-match-0029ebe2/.
+// Target facts: every field offset, vtable slot, global, string and callee
+// address below is read from the retail instructions. Callees use the names
+// the ledger already gives those addresses (address-derived where no name is
+// proven). Strings, Coord3D and PartitionManager come from their canonical
+// headers; the other class views carry only what the body touches; TooltipRecord/TooltipBase name the 12-byte record whose vtables are
+// VA 0x00BFD010 / 0x00BE5838 by its shape, not by evidence of a real name.
+// Banked by earlier seats as reverse/attempts/0x0029ebe2.cpp with every
+// non-call byte equal; this unit binds its calls to the rowed callees.
+
+#include "ascii_string.h"
+#include "unicode_string.h"
+#include "../../../Libraries/Include/Lib/Coord3D.h"
+#include "../Common/PartitionRangeQueryCallView.h"
+
+// Retail tests the display string inline (null buffer or zero length).
+template<> inline bool StringBase<unsigned short>::isEmpty() const { return !m_data || m_data->length==0; }
+// Retail's wide str() takes the buffer pointer, steps it past the 8-byte
+// header in place and falls back to the shared null character only on null.
+template<> inline const unsigned short *StringBase<unsigned short>::str() const
+{
+	static const unsigned short TheNullChr = 0;
+	const unsigned short *result = (const unsigned short *)m_data;
+	if (result)
+		result = (const unsigned short *)((const char *)result + 8);
+	else
+		result = &TheNullChr;
+	return result;
+}
+// The display-name compare runs with the fetched temporary live but stores no
+// unwind state around the call, so this unit sees it as non-throwing.
+template<> int StringBase<unsigned short>::compare(const StringBase<unsigned short> &) const throw();
+
 typedef unsigned short wchar_t;
 typedef unsigned int UnsignedInt;
 enum DrawableID { INVALID_DRAWABLE_ID = 0 };
@@ -117,59 +50,20 @@ enum KindOfType { KINDOF_DISGUISER = 300 };
 enum Relationship { NEUTRAL = 0, ALLIES = 2 };
 enum CellShroudStatus { CELLSHROUD_CLEAR = 0 };
 struct ICoord2D { int x, y; };
-struct Coord3D { float x, y, z; };
 struct RGBColor { float red, green, blue; void setFromInt(int); };
-class AsciiString; class UnicodeString;
-template<class T> class StringBase {
- friend class AsciiString; friend class UnicodeString;
- public:
- void set(const StringBase<T>&);
- void concat(const StringBase<T>&);
- int compare(const StringBase<T>&) const throw();
- private:
- StringBase(const StringBase<T>&);
- void releaseBuffer();
-};
-class AsciiString {
- public:
- AsciiString() : m_buffer(0) {}
- ~AsciiString() { ((StringBase<char>*)this)->releaseBuffer(); }
- void __cdecl format(const char*, ...);
- const char* str() const { return m_buffer ? m_buffer->data : ""; }
- private:
- struct Header { int refs; unsigned short length,capacity; char data[1]; };
- Header* m_buffer;
-};
-class UnicodeString {
- public:
- static const UnicodeString TheEmptyString;
- UnicodeString() : m_buffer(0) {}
- UnicodeString(const UnicodeString& that) { ((StringBase<wchar_t>*)this)->StringBase<wchar_t>::StringBase(*(const StringBase<wchar_t>*)&that); }
- ~UnicodeString() { ((StringBase<wchar_t>*)this)->releaseBuffer(); }
- UnicodeString& operator=(const UnicodeString& that) { ((StringBase<wchar_t>*)this)->set(*(const StringBase<wchar_t>*)&that); return *this; }
- bool isEmpty() const { return !m_buffer || m_buffer->length==0; }
- const wchar_t* str() const { static const wchar_t TheNullChr=0; const wchar_t *result=(const wchar_t*)m_buffer; if (result) result=(const wchar_t*)((const char*)result+8); else result=&TheNullChr; return result; }
- void concat(const UnicodeString& that) { ((StringBase<wchar_t>*)this)->concat(*(const StringBase<wchar_t>*)&that); }
- int compare(const UnicodeString& that) const { return ((const StringBase<wchar_t>*)this)->compare(*(const StringBase<wchar_t>*)&that); }
- void __cdecl format(const wchar_t*,...);
- void __cdecl format(const UnicodeString*,...);
- private:
- struct Header { int refs; unsigned short length,capacity; wchar_t data[1]; };
- Header* m_buffer;
-};
 class Object; class ThingTemplate; class Player; class Team; class Drawable;
 class GameWindow; class ContainModuleInterface; class SpecialDisguiseUpdate; class SupplyWarehouseDockUpdate;
-class DisguiseComponent; class TooltipRecord;
+class TooltipRecord;
 struct MouseIO { ICoord2D pos; };
 class Mouse {
  public:
  enum MouseCursor { ARROW=2, SELECTING=13 };
  void rva001EEA6D(UnicodeString,int=-1,const RGBColor * =0,float=1.0f);
- void resetTooltipDelay();
  const MouseIO* getMouseStatus() const { return &m_io; }
  unsigned char pad[0x4f0c]; MouseIO m_io;
 };
 extern Mouse* TheMouse;
+class Rva001EEC4B { public: void rva001EEC4B(); };
 
 class GameWindow { public:
  virtual void slot00();
@@ -306,13 +200,13 @@ class ThingTemplate { public:
 class Drawable { public:
  Object* getObject() const { return object; }
  DrawableID getID() const;
- bool Rva00274C62(AsciiString&) const;
+ bool rva00274C62(AsciiString*);
  unsigned char pad[0xfc]; Object* object;
 };
 class Player { public:
  Relationship getRelationship(const Team*) const;
- bool Rva002AA231() const;
- bool Rva002AA245() const;
+ bool isPlayerActive() const;
+ bool rva002AA245() const;
  bool isLocalPlayer() const;
  const UnicodeString& getPlayerDisplayName() const { return name; }
  const Team* getDefaultTeam() const { return team; }
@@ -326,10 +220,11 @@ class Player { public:
 class PlayerList { public:
  Player* getLocalPlayer() const { return local; }
  Player* getNthPlayer(int);
- bool Rva002A7DD0();
  unsigned char pad[0x10]; Player* local;
 };
 extern PlayerList* ThePlayerList;
+
+class Rva002A7DD0 { public: int rva002A7DD0(); };
 
 class ContainModuleInterface { public:
  virtual void slot00();
@@ -355,9 +250,10 @@ class ContainModuleInterface { public:
 
 
 };
-class DisguiseComponent { public: unsigned char pad[0x38]; int playerIndex; const ThingTemplate* thingTemplate; };
+class Rva00373EC6 { public: unsigned char pad[0x38]; int playerIndex; const ThingTemplate* thingTemplate; };
 class Module {};
-class SpecialDisguiseUpdate : public Module { public: const ThingTemplate* Rva004B031E() const; };
+class SpecialDisguiseUpdate : public Module {};
+class Rva004B031E { public: void* rva004B031E(); };
 class SupplyWarehouseDockUpdate : public Module { public: unsigned char pad[0x88]; int boxes; int getBoxesStored() const { return boxes; } };
 class Object { public:
  const ThingTemplate* getTemplate() const { return thingTemplate; }
@@ -369,10 +265,10 @@ class Object { public:
  Player* getControllingPlayer() const;
  int getIndicatorColor() const;
  bool isLocallyControlled() const;
- Module* Rva0028B6D6(NameKeyType) const;
- DisguiseComponent* Rva0028F4BC() const;
- const UnicodeString& Rva0028F2F8() const;
- bool Rva0029137E(AsciiString&) const;
+ Module* findModule(NameKeyType) const;
+ Rva00373EC6* rva0028F4BC();
+ void* getDisplayName();
+ bool rva0029137E(AsciiString&);
  unsigned char pad0[4]; const ThingTemplate* thingTemplate;
  unsigned char pad1[0x38-8]; Coord3D position;
  unsigned char pad2[0x74-0x44]; UnsignedInt id;
@@ -501,11 +397,12 @@ class View { public:
 
 };
 extern View* TheTacticalView;
-class PartitionManager { public: CellShroudStatus getShroudStatusForPlayer(int,const Coord3D*) const; };
 extern PartitionManager* ThePartitionManager;
-class RecorderClass { public: bool isMultiplayer(); int Rva0030F2C7(); };
+enum RecorderModeType { RECORDERMODETYPE_RECORD, RECORDERMODETYPE_PLAYBACK };
+class RecorderClass { public: bool isMultiplayer(); RecorderModeType getMode(); };
 extern RecorderClass* TheRecorder;
-class LookAtTranslator { public: bool Rva0042E8C1(); };
+class LookAtTranslator;
+class BfmeOwnVVD { public: unsigned char Rva0042E8C1(); };
 extern LookAtTranslator* TheLookAtTranslator;
 class GlobalData { public:
  unsigned char pad0[0x9b8]; int tooltipFlag;
@@ -518,8 +415,9 @@ class TooltipRecord: public TooltipBase { public:
  virtual ~TooltipRecord() {}
  UnsignedInt objectID,uiContext;
 };
-class TooltipController { public: void Rva00405C04(const TooltipRecord*); };
-extern TooltipController* TheTooltipController;
+struct BfmeMsgDN;
+class ControlBar { public: void bfmeShowDN(BfmeMsgDN*); };
+extern ControlBar* TheControlBar;
 bool CanSelectDrawable(const Drawable*,bool);
 
 class InGameUI { public:
@@ -595,7 +493,9 @@ class InGameUI { public:
  virtual void slot69();
  virtual int getSelectCount() const;
  virtual void createMouseoverHint(const GameMessage*);
-void setMouseCursor(Mouse::MouseCursor);
+protected:
+ void setMouseCursor(Mouse::MouseCursor);
+public:
 unsigned char pad0[0x7f8-4];bool m_isScrolling,m_isSelecting;
 unsigned char pad1[2]; int m_mouseMode,m_mouseModeCursor;DrawableID m_mousedOverDrawableID;
 unsigned char pad2[0x984-0x808];UnsignedInt m_tooltipContext;
@@ -632,17 +532,17 @@ void InGameUI::createMouseoverHint(const GameMessage* msg)
    bool disguised=false;
    if(obj->isKindOf(KINDOF_DISGUISER)) {
     static NameKeyType key_SpecialDisguiseUpdate=TheNameKeyGenerator->nameToKey("SpecialDisguiseUpdate");
-    SpecialDisguiseUpdate* update=(SpecialDisguiseUpdate*)obj->Rva0028B6D6(key_SpecialDisguiseUpdate);
+    SpecialDisguiseUpdate* update=(SpecialDisguiseUpdate*)obj->findModule(key_SpecialDisguiseUpdate);
     if(update) {
      Player* clientPlayer=ThePlayerList->getLocalPlayer();
-     if(player->getRelationship(clientPlayer->getDefaultTeam())!=ALLIES && clientPlayer->Rva002AA231()) {
-      const ThingTemplate* replacement=update->Rva004B031E();
+     if(player->getRelationship(clientPlayer->getDefaultTeam())!=ALLIES && clientPlayer->isPlayerActive()) {
+      const ThingTemplate* replacement=(const ThingTemplate*)((Rva004B031E*)update)->rva004B031E();
       if(replacement) {thingTemplate=replacement;disguised=true;}
      }
     }
    } else {
-    DisguiseComponent* component=obj->Rva0028F4BC();
-    if(component && component->thingTemplate && !ThePlayerList->Rva002A7DD0() &&
+    Rva00373EC6* component=const_cast<Object*>(obj)->rva0028F4BC();
+    if(component && component->thingTemplate && !(unsigned char)((Rva002A7DD0*)ThePlayerList)->rva002A7DD0() &&
        ThePlayerList->getLocalPlayer()->getRelationship(obj->getTeam())==NEUTRAL) {
      player=ThePlayerList->getNthPlayer(component->playerIndex);
      thingTemplate=component->thingTemplate;disguised=true;
@@ -650,10 +550,10 @@ void InGameUI::createMouseoverHint(const GameMessage* msg)
    }
    AsciiString drawKey;
    UnicodeString str;
-   if(disguised) str=thingTemplate->getDisplayName();else str=obj->Rva0028F2F8();
-   if(draw->Rva00274C62(drawKey)) str=TheGameText->fetchAscii(drawKey);
+   if(disguised) str=thingTemplate->getDisplayName();else str=*(const UnicodeString*)const_cast<Object*>(obj)->getDisplayName();
+   if(const_cast<Drawable*>(draw)->rva00274C62(&drawKey)) str=TheGameText->fetchAscii(drawKey);
    AsciiString objectKey;
-   if(obj->Rva0029137E(objectKey)) str=TheGameText->fetchAscii(objectKey);
+   if(const_cast<Object*>(obj)->rva0029137E(objectKey)) str=TheGameText->fetchAscii(objectKey);
    UnicodeString displayName=str;
    if(str.isEmpty()) {
     AsciiString txtTemp;
@@ -662,7 +562,7 @@ void InGameUI::createMouseoverHint(const GameMessage* msg)
    }
    UnicodeString warehouseFeedback;
    static NameKeyType warehouseModuleKey=TheNameKeyGenerator->nameToKey("SupplyWarehouseDockUpdate");
-   SupplyWarehouseDockUpdate* warehouseModule=(SupplyWarehouseDockUpdate*)obj->Rva0028B6D6(warehouseModuleKey);
+   SupplyWarehouseDockUpdate* warehouseModule=(SupplyWarehouseDockUpdate*)obj->findModule(warehouseModuleKey);
    if(warehouseModule) {
     int boxes=warehouseModule->getBoxesStored();
     int value=boxes*TheGlobalData->baseValuePerSupplyBox;
@@ -671,7 +571,7 @@ void InGameUI::createMouseoverHint(const GameMessage* msg)
    }
    if(player) {
     UnicodeString tooltip;
-    if(TheRecorder->isMultiplayer() && player->Rva002AA245())
+    if(TheRecorder->isMultiplayer() && player->rva002AA245())
      tooltip.format(L"%s\n%s",str.str(),player->getPlayerDisplayName().str());
     else tooltip=str;
     int localPlayerIndex=ThePlayerList?ThePlayerList->getLocalPlayer()->getPlayerIndex():0;
@@ -694,14 +594,14 @@ void InGameUI::createMouseoverHint(const GameMessage* msg)
      }
      if(displayName.compare(TheGameText->fetchChars("OBJECT:Prop"))) {
       bool sendOrdinaryTooltip=true;
-      if(TheTooltipController) {
+      if(TheControlBar) {
        const Player* owner=obj->getControllingPlayer();
        if((owner && owner->isLocalPlayer() && (obj->getTemplate()->testByte(1,2) ||
           obj->getTemplate()->testByte(1,1) ||obj->getTemplate()->testByte(1,8) ||
           obj->getTemplate()->testByte(1,4) ||obj->getTemplate()->testByte(0,0x80))) ||
           obj->getTemplate()->testByte(6,4)) {
         { TooltipRecord record(obj->getID(),m_tooltipContext);
-        TheTooltipController->Rva00405C04(&record); }
+        TheControlBar->bfmeShowDN((BfmeMsgDN*)&record); }
         if(!TheGlobalData->tooltipFlag && !warehouseModule)sendOrdinaryTooltip=false;
        }
       }
@@ -711,9 +611,9 @@ void InGameUI::createMouseoverHint(const GameMessage* msg)
    }
   }
  } else m_mousedOverDrawableID=INVALID_DRAWABLE_ID;
- if(oldID!=m_mousedOverDrawableID)TheMouse->resetTooltipDelay();
+ if(oldID!=m_mousedOverDrawableID)((Rva001EEC4B*)TheMouse)->rva001EEC4B();
  if(m_mouseMode==0 && !m_isScrolling && !m_isSelecting && !TheInGameUI->getSelectCount() &&
-    (TheRecorder->Rva0030F2C7()!=1 || TheLookAtTranslator->Rva0042E8C1())) {
+    (TheRecorder->getMode()!=RECORDERMODETYPE_PLAYBACK || ((BfmeOwnVVD*)TheLookAtTranslator)->Rva0042E8C1())) {
   if(m_mousedOverDrawableID!=INVALID_DRAWABLE_ID) {
    Drawable* draw=TheGameClient->findDrawableByID(m_mousedOverDrawableID);
    const Object* obj=draw?draw->getObject():0;
