@@ -55,6 +55,16 @@
 // with the check frame at +0x6C and the attacked centre at +0x70. It guards
 // 0.8 bounding radii short of the warehouse on the side facing the skirmish
 // enemy's structure bounds.
+//
+// AIPlayer::buildUpgrade (850B @0x004F2C14) closes the unit: Zero Hour's
+// body on BFME 2's factory search, which walks every object from
+// TheGameLogic->getFirstObject() through +0x8C and keeps those whose
+// controlling player is m_player instead of following the build list.
+// Status bits 2 and 0x13 are the under-construction and sold tests; the
+// money check is the pinned thiscall UpgradeCenter::rva0026F11A (player,
+// upgrade, no object, no reason); the command set comes from the rowed
+// Rva0031D5F8 lookup on TheControlBar keyed by Object::rva00290E67, and the
+// production interface from Object::rva0028BC58(0), whose slot 3 queues.
 
 typedef bool Bool;
 typedef int Int;
@@ -79,6 +89,7 @@ class NameKeyGenerator
 {
 public:
 	NameKeyType nameToKey(const char *name);
+	const AsciiString &keyToName(NameKeyType key);	// 0x00148C95
 };
 
 extern NameKeyGenerator *TheNameKeyGenerator;
@@ -154,8 +165,28 @@ class ThingTemplate
 {
 public:
 	Int rva0033A69A(const Player *player, Int a, Int b) const;	// 0x0033A69A
-	unsigned char m_pad000[0x108];
+	const AsciiString &getName() const { return m_nameString; }
+	unsigned char m_pad000[0x64];
+	AsciiString m_nameString;		// +0x64
+	unsigned char m_pad068[0x108 - 0x68];
 	unsigned char m_kindOf[0x1C];		// +0x108
+};
+
+enum ObjectStatusTypes
+{
+	OBJECT_STATUS_UNDER_CONSTRUCTION = 2,
+	OBJECT_STATUS_SOLD = 0x13
+};
+
+class UpgradeTemplate;
+
+// Slot 3 of what Object::rva0028BC58(0) returns (ZH's
+// ProductionUpdateInterface::queueUpgrade).
+class ProductionUpdateInterface
+{
+public:
+	virtual void pu00(); virtual void pu01(); virtual void pu02();
+	virtual Bool queueUpgrade(const UpgradeTemplate *upgrade);	// +0x0C
 };
 
 class Object
@@ -165,6 +196,14 @@ public:
 	bool isKindOfSupplySource() const { return (m_template->m_kindOf[10] & 0x40) != 0; }
 	const ThingTemplate *getTemplate() const { return m_template; }
 	Bool isSignificantlyAboveTerrain() const;	// 0x0030ADDC
+	Player *getControllingPlayer() const;	// 0x0028AFA9
+	Bool testStatus(ObjectStatusTypes status) const;	// 0x0004E536
+	const AsciiString *rva00290E67() const;	// 0x00290E67, the command set name
+	void *rva0028BC58(Int filter);	// 0x0028BC58
+	ProductionUpdateInterface *getProductionUpdateInterface()
+	{
+		return (ProductionUpdateInterface *)rva0028BC58(0);
+	}
 	const Coord3D *getPosition() const { return &m_position; }
 	Object *getNextObject() const { return m_next; }
 	Team *getTeam() const { return m_team; }
@@ -272,6 +311,9 @@ class Player
 public:
 	Relationship getRelationship(const Team *team) const;	// 0x002AD0C6
 	Int getPlayerIndex() const { return m_playerIndex; }
+	NameKeyType getPlayerNameKey() const { return m_playerNameKey; }
+	Bool rva002AA8EF(const UpgradeTemplate *upgrade) const;	// 0x002AA8EF, hasUpgradeInProduction
+	Bool rva002AB87D(const UpgradeTemplate *upgrade) const;	// 0x002AB87D, hasUpgradeComplete
 
 	class PlayerTeamList
 	{
@@ -294,7 +336,8 @@ public:
 	};
 	const PlayerTeamList *getPlayerTeams() const { return &m_playerTeamPrototypes; }
 private:
-	unsigned char m_pad[0x54];
+	unsigned char m_pad[0x50];
+	NameKeyType m_playerNameKey;		// +0x50
 	Int m_playerIndex;			// +0x54
 	unsigned char m_pad58[0x32C - 0x58];
 	PlayerTeamList m_playerTeamPrototypes;	// +0x32C
@@ -499,6 +542,7 @@ class ScriptEngine
 {
 public:
 	Player *getSkirmishEnemyPlayer();	// 0x00356F6E
+	void AppendDebugMessage(const AsciiString &msg, Bool shouldPause);	// 0x00205263
 };
 extern ScriptEngine *TheScriptEngine;
 
@@ -543,6 +587,7 @@ public:
 	bool isLocationSafe(const Coord3D *pos, const ThingTemplate *tmpl);
 	Bool isSupplySourceAttacked();	// 0x004F1138
 	void guardSupplyCenter(Team *team, Int minSupplies);
+	void buildUpgrade(const AsciiString &upgrade);
 
 protected:
 	static Int getPlayerSuperweaponValue(Coord3D *center, Int playerNdx, Real radius);
@@ -921,4 +966,157 @@ void AIPlayer::guardSupplyCenter(Team *team, Int minSupplies)
 		location.y -= offset.y * radius;
 		theGroup->groupGuardPosition(&location, GUARDMODE_NORMAL, CMD_FROM_SCRIPT);
 	}
+}
+
+class UpgradeTemplate
+{
+public:
+	Int getUpgradeType() const { return m_type; }
+	const AsciiString &getUpgradeName() const { return m_upgradeName; }
+private:
+	void *m_vptr;
+	Int m_type;				// +0x04
+	AsciiString m_upgradeName;		// +0x08
+};
+
+enum UpgradeType
+{
+	UPGRADE_TYPE_PLAYER,
+	UPGRADE_TYPE_OBJECT
+};
+
+class UpgradeCenter
+{
+public:
+	const UpgradeTemplate *findUpgrade(const AsciiString &name) const;	// 0x0026F26D
+	Bool rva0026F11A(Player *player, const UpgradeTemplate *upgrade,
+		Object *obj, Bool displayReason);	// 0x0026F11A, canAffordUpgrade
+};
+extern UpgradeCenter *TheUpgradeCenter;
+
+class CommandButton
+{
+public:
+	const AsciiString &getName() const { return m_name; }
+	const UpgradeTemplate *getUpgradeTemplate() const { return m_upgradeTemplate; }
+private:
+	unsigned char m_pad00[0x10];
+	AsciiString m_name;			// +0x10
+	unsigned char m_pad14[0x24 - 0x14];
+	const UpgradeTemplate *m_upgradeTemplate;	// +0x24
+};
+
+class CommandSet
+{
+public:
+	const CommandButton *getCommandButton(Int i) const;	// 0x00409EE8
+};
+
+class Rva0031D5F8
+{
+public:
+	void *rva0031D5F8(const AsciiString *key);	// 0x0031D5F8, findCommandSet
+};
+
+class ControlBar : public Rva0031D5F8
+{
+public:
+	const CommandSet *findCommandSet(const AsciiString *name)
+	{
+		return (const CommandSet *)rva0031D5F8(name);
+	}
+};
+extern ControlBar *TheControlBar;
+
+enum { MAX_COMMANDS_PER_SET = 32 };
+
+void AIPlayer::buildUpgrade(const AsciiString &upgrade)
+{
+	const UpgradeTemplate *curUpgrade = TheUpgradeCenter->findUpgrade(upgrade);
+	if (curUpgrade == 0) {
+		AsciiString msg = "Upgrade ";
+		msg.concat(upgrade);
+		msg.concat(" does not exist.  Ignoring request.");
+		TheScriptEngine->AppendDebugMessage(msg, false);
+		return;
+	}
+	if (curUpgrade->getUpgradeType() == UPGRADE_TYPE_OBJECT) {
+		AsciiString msg = "Player build upgrade: Upgrade ";
+		msg.concat(upgrade);
+		msg.concat(" is an object, not a player upgrade.  Ignoring request.");
+		TheScriptEngine->AppendDebugMessage(msg, false);
+		return;
+	}
+	// See if it is in progress.
+	if (m_player->rva002AA8EF(curUpgrade)) {
+		AsciiString msg = TheNameKeyGenerator->keyToName(m_player->getPlayerNameKey());
+		msg.concat(" already has upgrade ");
+		msg.concat(upgrade);
+		msg.concat(" queued.  Ignoring request.");
+		TheScriptEngine->AppendDebugMessage(msg, false);
+		return;
+	}
+	// See if it is in progress.
+	if (m_player->rva002AB87D(curUpgrade)) {
+		AsciiString msg = TheNameKeyGenerator->keyToName(m_player->getPlayerNameKey());
+		msg.concat(" already has upgrade ");
+		msg.concat(upgrade);
+		msg.concat(" completed.  Ignoring request.");
+		TheScriptEngine->AppendDebugMessage(msg, false);
+		return;
+	}
+
+	// No money.
+	if (TheUpgradeCenter->rva0026F11A(m_player, curUpgrade, 0, false) == false) {
+		AsciiString msg = TheNameKeyGenerator->keyToName(m_player->getPlayerNameKey());
+		msg.concat(" lacks money to build upgrade ");
+		msg.concat(upgrade);
+		msg.concat(" at this time.  Ignoring request.");
+		TheScriptEngine->AppendDebugMessage(msg, false);
+		return;
+	}
+	// Find a production queue.
+	for (Object *factory = TheGameLogic->getFirstObject(); factory; factory = factory->getNextObject())
+	{
+		if (factory->getControllingPlayer() != m_player)
+			continue;
+		if (factory->testStatus(OBJECT_STATUS_UNDER_CONSTRUCTION))
+			continue;
+		if (factory->testStatus(OBJECT_STATUS_SOLD))
+			continue;
+		Bool canUpgradeHere = false;
+		const CommandSet *commandSet = TheControlBar->findCommandSet(factory->rva00290E67());
+		if (commandSet == 0) continue;
+		for (Int j = 0; j < MAX_COMMANDS_PER_SET; j++)
+		{
+			//Get the command button.
+			const CommandButton *commandButton = commandSet->getCommandButton(j);
+			if (commandButton == 0) continue;
+			if (((const StringBase<char> &)commandButton->getName()).isEmpty()) continue;
+			if (commandButton->getUpgradeTemplate() == 0) continue;
+			if (commandButton->getUpgradeTemplate()->getUpgradeName() == curUpgrade->getUpgradeName()) {
+				canUpgradeHere = true;
+			}
+		}
+		if (!canUpgradeHere) continue;
+		ProductionUpdateInterface *pu = factory->getProductionUpdateInterface();
+		// If it doesn't produce, continue.
+		if (!pu) continue;
+		// Try to queue it.
+		if (pu->queueUpgrade(curUpgrade)) {
+			AsciiString msg = TheNameKeyGenerator->keyToName(m_player->getPlayerNameKey());
+			msg.concat(" queues ");
+			msg.concat(curUpgrade->getUpgradeName());
+			msg.concat(" at ");
+			msg.concat(factory->getTemplate()->getName());
+			TheScriptEngine->AppendDebugMessage(msg, false);
+			return;
+		}
+	}
+
+	AsciiString msg = TheNameKeyGenerator->keyToName(m_player->getPlayerNameKey());
+	msg.concat(" lacks factory to build upgrade ");
+	msg.concat(upgrade);
+	msg.concat(" at this time.  Ignoring request.");
+	TheScriptEngine->AppendDebugMessage(msg, false);
 }
