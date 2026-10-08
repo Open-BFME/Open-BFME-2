@@ -1,10 +1,14 @@
-// cl: /MD /EHsc
+// cl: /O1 /arch:SSE /G7 /MD /EHsc
+// Identity: newRoad/newBridge allocate this type at 0x002DB1CA; their
+// native field accesses and ZH TerrainRoadType agree on name +4, bridge +8,
+// id +0xC, next +0x10, widths +0x14/+0x18 and texture +0x38. Existing
+// constructor/destructor ownership and all member cleanup bytes are retained.
 // Built from the banked attempt reverse/attempts/0x002db1ca.cpp; fix: the float
 // read through g_Va00BBB8D8 is a compiler literals holding the retail
 // values, not extern globals, which is what gives retail's operand order.
-// ??1Rva002DB311@@UAE@XZ @0x002DB311 318B
+// ??1TerrainRoadType@@UAE@XZ @0x002DB311 318B
 // Evidence: unlock lane; vtable g_00C03E24; callees clear 0x0048BA39 releaseBuffer 0x00036410 TailRecord dtor 0x0010F149 and ??_M CRT; 11 singles + 7 arrays to 0x144.
-// ??0Rva002DB311@@QAE@XZ @0x002DB1CA 327B
+// ??0TerrainRoadType@@QAE@XZ @0x002DB1CA 327B
 // Evidence: unlock lane ctor of same class; vtable 0x00803E24; callees UnicodeString ctor 0x00326BE6 clear TailRecord dtor and ??_L CRT; POD floats/ints incl 1.0f.
 extern const void *const g_00C03E24[];
 
@@ -45,11 +49,11 @@ public:
 private:
 	OpaqueRefCounted *m_ptr;
 };
-class Rva002DB311
+class TerrainRoadType
 {
 public:
-	Rva002DB311();
-	virtual ~Rva002DB311();
+	TerrainRoadType();
+	virtual ~TerrainRoadType();
 	StringBase<char> m_04;
 	unsigned char m_08;
 	char m_pad09[3];
@@ -81,8 +85,8 @@ public:
 	float m_144;
 	int m_148;
 };
-// Rva002DB311::~Rva002DB311: defined in Rva002DB311Dtor.cpp (its row's unit).
-Rva002DB311::Rva002DB311()
+// TerrainRoadType::~TerrainRoadType: defined in Rva002DB311Dtor.cpp (its row's unit).
+TerrainRoadType::TerrainRoadType()
 {
 	float v0 = 0.0f;
 	float v1C = 1.0f;
