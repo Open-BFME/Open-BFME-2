@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /MD /EHsc /Ireference/open-bfme-1/inputs/reference/shims/stringinline /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /MD /EHsc /Ireference/open-bfme-1/inputs/reference/shims/stringinline /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
 //
 // Bodies ported from Open-BFME-1's GameEngineDevice/Source/W3DDevice/GameClien
 // t/Water/W3DWaterTracksTestUpdate.cpp (donor revision
@@ -31,7 +31,8 @@
 // Companion independently probes exact at RVA 007AABA0 / 193 bytes.
 // WaterTracksObj +30/+3C/+68/+74/+B0/+B4 and system +10/+14 are verified by
 // that exact body; field names come from the ZH W3DWaterTracks header.
-#include "StringInline.h"
+#include "ascii_string.h"
+#include "unicode_string.h"
 #include "vector2.h"
 #include <windows.h>
 extern "C" __declspec(dllimport) short __stdcall GetAsyncKeyState(int);
@@ -39,7 +40,16 @@ extern "C" __declspec(dllimport) int __stdcall GetCursorPos(POINT*);
 extern "C" __declspec(dllimport) int __stdcall ScreenToClient(void*,POINT*);
 enum { VK_F5=0x74,VK_F6=0x75,VK_F7=0x76,VK_F8=0x77,VK_DELETE=0x2e,VK_INSERT=0x2d };
 typedef int Int; typedef float Real; typedef bool Bool;
-struct Coord3D { float x,y,z; Coord3D() {} ~Coord3D() {} };
+#include "../../../../../Libraries/Include/Lib/Coord3D.h"
+// Target FF921/FF93C registers two empty static-point destructors. Use the
+// canonical field layout with a separate lifetime view instead of a private
+// Coord3D definition; the nontrivial lifetime is target codegen evidence.
+struct EditorCoord3D : Coord3D {
+ // ?EditorCoord3D::EditorCoord3D present-unmatched
+ EditorCoord3D() {}
+ // ?EditorCoord3D::~EditorCoord3D present-unmatched
+ ~EditorCoord3D() {}
+};
 struct ICoord2D { int x,y; };
 enum waveType
 {
@@ -70,8 +80,14 @@ struct waveInfo
 };
 
 extern waveInfo waveTypeInfo[WaveTypeMax];
-class WaterTracksObj { public: char pad[0x30]; waveType m_type; char pad34[8]; bool m_bound; char pad3d[0x68-0x3d]; int m_initTimeOffset; char pad6c[8]; int m_elapsedMs; char pad78[0xb0-0x78]; WaterTracksObj *m_nextSystem,*m_prevSystem; void init(float,float,Vector2&,Vector2&,char*,int); };
-class WaterTracksRenderSystem { public: char pad[0x10]; WaterTracksObj *m_usedModules,*m_freeModules; WaterTracksObj *bindTrack(waveType); void saveTracks(); void loadTracks(); void reset(); };
+class WaterTracksObj { public: char pad[0x30]; waveType m_type; char pad34[8]; bool m_bound; char pad3d[0x68-0x3d]; int m_initTimeOffset; char pad6c[8]; int m_elapsedMs; char pad78[0xb0-0x78]; WaterTracksObj *m_nextSystem,*m_prevSystem; void init(float,float,Vector2&,Vector2&,char*,int,void *); };
+struct FeNode;
+class WaterTracksRenderSystem { public: char pad[0x10]; WaterTracksObj *m_usedModules,*m_freeModules; char unknown18[0x10]; AsciiString m_file; WaterTracksObj *bindTrack(waveType); void rva000FE188(); void rva000FE8FC(FeNode *); };
+class Rva000FF50D { public: void rva000FF50D(); };
+// Existing opaque pin's integer argument carries the filename reference;
+// native FF F02/F05 passes this+28. Preserve the existing provider spelling.
+class Rva0007E90ECallee { public: void rva000FF5E6(int); };
+
 extern WaterTracksRenderSystem *TheWaterTracksRenderSystem;
 struct BfmeNodeOJ;
 class BfmeThingOJ { public: void bfmeFrontOJ(BfmeNodeOJ*); };
@@ -92,6 +108,9 @@ virtual void slot24();
 virtual void slot28();
 virtual void slot2c();
 virtual void slot30();
+virtual void slot034();
+virtual void slot038();
+virtual void slot03c();
 virtual void __cdecl message(UnicodeString,...);
 };
 class View; extern View *TheTacticalView;
@@ -185,14 +204,20 @@ virtual void slot154();
 virtual void slot158();
 virtual void slot15c();
 virtual void slot160();
+virtual void slot164();
 virtual void screenToTerrain(const ICoord2D*,Coord3D*,bool);
 };
 class Display; extern Display *TheDisplay;
-extern void j_0004a35e();
-struct Rva007ACBD0DisplayCall {};
+class W3DDisplay { public: void rva0004D664(float,float,float,float,float,int); };
+static __forceinline void drawEditorLine(float x1,float y1,float x2,float y2,float width,unsigned long color) {
+ reinterpret_cast<W3DDisplay *>(TheDisplay)->rva0004D664(x1,y1,x2,y2,width,(int)color);
+}
+static __forceinline void unbindEditorTrack(WaterTracksRenderSystem *system,WaterTracksObj *track) {
+ system->rva000FE8FC(reinterpret_cast<FeNode *>(track));
+}
 
 class DX8Wrapper { public: static void Invalidate_Cached_Render_States(); };
-extern char g_rva007A2330Flag;
+class ShaderClass { public: static bool ShaderDirty; };
 extern void *ApplicationHWnd;
 static Bool pauseWaves;
 WaterTracksObj *WaterTracksRenderSystem::bindTrack(waveType type)
@@ -249,4 +274,220 @@ WaterTracksObj *WaterTracksRenderSystem::bindTrack(waveType type)
 	}
 
 	return mod;
+}
+
+// BFME1 9cbfb551fe20 editor donor; native FF8FA..10004D same F5-F8 UI,
+// bound-node list operations and wave-parameter table. Initializer FE379
+// RET28 has an optional pointer argument read through getter30C934; its type
+// is unresolved, and both editor calls pass null. Target uses canonical
+// UTF16 literal formatting and native FE188/FE8FC/save217 providers.
+void TestWaterUpdate(void)
+{
+	static Int doInit=1;
+	static WaterTracksObj *track=NULL,*track2=NULL;
+	static Int trackEditMode=0;
+	static waveType currentWaveType = WaveTypeOcean;
+	POINT	screenPoint;
+	POINT	endPoint;
+	static POINT	mouseAnchor;
+	static Int		haveStart=0;
+	static Int		haveEnd=0;
+	static EditorCoord3D	terrainPointStart,terrainPointEnd;
+
+	static Int trackEditModeReset=1;
+	static Int addPointReset=1;
+	static Int deleteTrackReset=1;
+	static Int saveTracksReset=1;
+	static Int loadTracksReset=1;
+	static Int changeTypeReset=1;
+
+	pauseWaves=FALSE;
+
+	if (doInit)
+	{
+		doInit=0;
+
+	}
+
+	if (GetAsyncKeyState(VK_F5) & 0x8001)
+	{
+		if (trackEditModeReset)
+		{
+			if (trackEditMode)
+			{
+				UnicodeString string;
+				string.format(L"Leaving Water Track Edit Mode");
+				((Rva007ACBD0UI*)TheInGameUI)->message(string);
+			}
+			else
+			{
+				UnicodeString string;
+				string.format(L"Entering Water Track Edit Mode");
+				((Rva007ACBD0UI*)TheInGameUI)->message(string);
+
+				string.format(L"Wave Type: %hs",waveTypeInfo[currentWaveType].m_waveTypeName);
+				((Rva007ACBD0UI*)TheInGameUI)->message(string);
+			}
+
+			trackEditMode ^= 1;
+
+			if (trackEditMode == 0)
+			{
+				haveStart=0;
+				haveEnd=0;
+			}
+			trackEditModeReset=0;
+		}
+	}
+	else
+		trackEditModeReset=1;
+
+	if (trackEditMode)
+	{
+
+		if (GetCursorPos(&screenPoint))
+		{
+			ScreenToClient( ApplicationHWnd, &screenPoint);
+
+			if (GetAsyncKeyState(VK_F6) & 0x8001)
+			{
+				if (addPointReset)
+				{
+					if (!haveStart)
+					{	mouseAnchor=screenPoint;
+						((Rva007ACBD0View*)TheTacticalView)->screenToTerrain( (ICoord2D *)&screenPoint, &terrainPointStart,false);
+						haveStart=1;
+						UnicodeString string;
+						string.format(L"Added Start");
+						((Rva007ACBD0UI*)TheInGameUI)->message(string);
+					}
+					else
+					{
+						endPoint=screenPoint;
+						((Rva007ACBD0View*)TheTacticalView)->screenToTerrain( (ICoord2D *)&screenPoint, &terrainPointEnd,false);
+						haveEnd=1;
+
+						track=TheWaterTracksRenderSystem->bindTrack(currentWaveType);
+						if (track)
+						{
+
+							Vector2 startPoint(terrainPointStart.x,terrainPointStart.y);
+							Vector2 endPoint(terrainPointEnd.x,terrainPointEnd.y);
+							Vector2 midPoint = endPoint - startPoint;
+							Vector2 m_perpDir = midPoint;
+							m_perpDir.Rotate(1.57079632679f);
+							m_perpDir.Normalize();
+							midPoint = startPoint + (midPoint)*0.5f;
+							Vector2 dirMidPoint = midPoint + m_perpDir;
+
+							track->init(waveTypeInfo[currentWaveType].m_finalHeight,waveTypeInfo[currentWaveType].m_finalWidth,Vector2(midPoint.X,midPoint.Y),Vector2(dirMidPoint.X,dirMidPoint.Y),waveTypeInfo[currentWaveType].m_textureName,0,0);
+
+							if (waveTypeInfo[currentWaveType].m_secondWaveTimeOffset)
+							{
+
+								track2=TheWaterTracksRenderSystem->bindTrack(currentWaveType);
+								if (track2)
+								{
+									track2->init(waveTypeInfo[currentWaveType].m_finalHeight,waveTypeInfo[currentWaveType].m_finalWidth,Vector2(midPoint.X,midPoint.Y),Vector2(dirMidPoint.X,dirMidPoint.Y),waveTypeInfo[currentWaveType].m_textureName,waveTypeInfo[currentWaveType].m_secondWaveTimeOffset,0);
+								}
+							}
+
+							UnicodeString string;
+							string.format(L"Added End");
+							((Rva007ACBD0UI*)TheInGameUI)->message(string);
+						}
+						haveStart=0;
+						haveEnd=0;
+					}
+					addPointReset=0;
+				}
+			}
+			else
+				addPointReset=1;
+
+			if (GetAsyncKeyState(VK_DELETE) & 0x8001)
+			{
+				if (deleteTrackReset && track)
+				{	deleteTrackReset=0;
+					unbindEditorTrack(TheWaterTracksRenderSystem,track);
+					if (track2)
+						unbindEditorTrack(TheWaterTracksRenderSystem,track2);
+					haveStart=0;
+					haveEnd=0;
+					track=NULL;
+					track2=NULL;
+				}
+			}
+			else
+				deleteTrackReset=1;
+
+			if (GetAsyncKeyState(VK_INSERT) & 0x8001)
+			{
+				if (changeTypeReset)
+				{	changeTypeReset=0;
+					currentWaveType = (waveType)((Int)currentWaveType + 1);
+					if (currentWaveType > WaveTypeLast)
+						currentWaveType = WaveTypeFirst;
+
+					UnicodeString string;
+					string.format(L"Wave Type: %hs",waveTypeInfo[currentWaveType].m_waveTypeName);
+					((Rva007ACBD0UI*)TheInGameUI)->message(string);
+				}
+			}
+			else
+				changeTypeReset=1;
+
+			if (GetAsyncKeyState(VK_F7) & 0x8001)
+			{
+				if (saveTracksReset)
+				{	saveTracksReset=0;
+					reinterpret_cast<Rva000FF50D *>(TheWaterTracksRenderSystem)->rva000FF50D();
+					haveStart=0;
+					haveEnd=0;
+					track=NULL;
+					track2=NULL;
+					UnicodeString string;
+					string.format(L"Saved Tracks");
+					((Rva007ACBD0UI*)TheInGameUI)->message(string);
+				}
+			}
+			else
+				saveTracksReset=1;
+
+			if (GetAsyncKeyState(VK_F8) & 0x8001)
+			{
+				if (loadTracksReset)
+				{	loadTracksReset=0;
+					TheWaterTracksRenderSystem->rva000FE188();
+					reinterpret_cast<Rva0007E90ECallee *>(TheWaterTracksRenderSystem)->rva000FF5E6((int)&TheWaterTracksRenderSystem->m_file);
+					haveStart=0;
+					haveEnd=0;
+					track=NULL;
+					track2=NULL;
+					UnicodeString string;
+					string.format(L"Loaded Tracks");
+					((Rva007ACBD0UI*)TheInGameUI)->message(string);
+				}
+			}
+			else
+				saveTracksReset=1;
+		};
+
+		if (haveStart && !haveEnd)
+		{
+
+			((Rva007ACBD0View*)TheTacticalView)->screenToTerrain( (ICoord2D *)&screenPoint, &terrainPointEnd,false);
+
+			Real xdiff=terrainPointEnd.x - terrainPointStart.x;
+			Real ydiff=terrainPointEnd.y - terrainPointStart.y;
+			if (sqrt (xdiff * xdiff + ydiff * ydiff) <= waveTypeInfo[currentWaveType].m_finalWidth)
+			{	drawEditorLine(mouseAnchor.x, mouseAnchor.y, screenPoint.x, screenPoint.y,1,0xffccccff);
+				DX8Wrapper::Invalidate_Cached_Render_States();
+				ShaderClass::ShaderDirty=true;
+			}
+
+			pauseWaves=TRUE;
+
+		}
+	}
 }

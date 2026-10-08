@@ -16516,3 +16516,4 @@ _D3DXVec3TransformCoordArray@24,0x0062AF6E,Native 0x00107A47 REL32 reaches six-b
 ??0?$deque@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z,0x006209D0,AssetManagerImpl default-argument constructor callback620D80; four-byte storage fold proven against every existing owner and recursively proven no-exception map initializer; fold-proof=Code/Libraries/Source/WWVegas/WWLib/stlport_deque_sighting_initmap.cpp
 ?TestWaterUpdate@@YAXXZ,0x000FF8FA,callee of ?flush@WaterTracksRenderSystem@@QAEXAAVRenderInfoClass@@@Z
 ?render@WaterTracksObj@@QAEHPAVDX8VertexBufferClass@@HAAVRenderInfoClass@@@Z,0x000FEADB,callee of ?flush@WaterTracksRenderSystem@@QAEXAAVRenderInfoClass@@@Z
+?init@WaterTracksObj@@QAEXMMAAVVector2@@0PADHPAX@Z,0x000FE379,callee of ?TestWaterUpdate@@YAXXZ
