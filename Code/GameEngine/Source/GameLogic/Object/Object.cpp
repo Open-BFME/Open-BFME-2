@@ -38,10 +38,29 @@ public:
 private:
 	unsigned int m_words[(N + 31) / 32];
 };
+// The existing rowed 128-byte copy and STLport OR helpers used by the
+// upgrade-module update sibling (ObjectUpdateUpgradeModules.cpp).
+struct BfmeFixedStorage128
+{
+ BfmeFixedStorage128(const BfmeFixedStorage128 &);
+ unsigned char bytes[128];
+};
+namespace _STL
+{
+ template<unsigned N> struct _Base_bitset;
+ template<> struct _Base_bitset<32>
+ {
+  void _M_do_or(const _Base_bitset<32> &);
+  unsigned long _M_w[32];
+ };
+}
+
 class Player
 {
 public:
 	void rva002AB8FB(Object *obj, bool flag);
+	char m_pad00[0x13C];
+	BfmeFixedStorage128 m_upgradeMask13C;
 };
 class Rva004DF207
 {
@@ -373,3 +392,66 @@ void _bfmeObjectAccessorInlineAnchor(Object *o)
     o->isKindOf((KindOfType)0);
 }
 #pragma inline_depth()
+
+// Native 28D680..28D6EB RET0: copy the Player mask, combine the Object
+// mask, then visit already-upgraded modules and invoke their slot 5.
+// WB CCF320 calls this refreshUpgradeModules (callsite-only score 1);
+// retain the established address-qualified name rather than promote the lead.
+// GameLogicRva0023D68EAndD6FA.cpp supplies Object-list receivers. Mask offsets
+// 13C/284 and the behavior subobject at module+C agree independently with
+// the matched ObjectUpdateUpgradeModules.cpp. Slot 5's precise name is unknown.
+class Rva0028D680Upgrade
+{
+public:
+ virtual bool isAlreadyUpgraded() const = 0;
+ virtual void slot01() = 0;
+ virtual void slot02() = 0;
+ virtual void slot03() = 0;
+ virtual void slot04() = 0;
+ virtual void slot05() = 0;
+};
+class Rva0028D680Behavior
+{
+public:
+ virtual void slot00() = 0;
+ virtual void slot01() = 0;
+ virtual void slot02() = 0;
+ virtual void slot03() = 0;
+ virtual void slot04() = 0;
+ virtual void slot05() = 0;
+ virtual void slot06() = 0;
+ virtual void slot07() = 0;
+ virtual void slot08() = 0;
+ virtual void slot09() = 0;
+ virtual Rva0028D680Upgrade *getUpgrade() = 0;
+};
+class Rva0028D680Module
+{
+public:
+ char m_pad00[0x0C];
+};
+class Rva0028D680
+{
+public:
+ void rva0028D680();
+ char m_pad00[0x244];
+ Rva0028D680Module **m_modules;
+ char m_pad248[0x284 - 0x248];
+ _STL::_Base_bitset<32> m_upgradeMask284;
+};
+
+void Rva0028D680::rva0028D680()
+{
+ Player *player = ((Object *)this)->getControllingPlayer();
+ if (!player)
+  return;
+ BfmeFixedStorage128 upgrades(player->m_upgradeMask13C);
+ ((_STL::_Base_bitset<32> *)&upgrades)->_M_do_or(m_upgradeMask284);
+ for (Rva0028D680Module **m = m_modules; *m; ++m)
+ {
+  Rva0028D680Behavior *behavior = (Rva0028D680Behavior *)((char *)*m + 0x0C);
+  Rva0028D680Upgrade *upgrade = behavior->getUpgrade();
+  if (upgrade && upgrade->isAlreadyUpgraded())
+   upgrade->slot05();
+ }
+}
