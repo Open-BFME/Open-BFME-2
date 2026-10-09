@@ -13518,8 +13518,6 @@ rva009C7380WeightPairs,0x009B84E0
 ??0AITacticDefensive@@QAE@ABVAsciiString@@@Z,0x005DCB0D,tactic base ctor taking the tactic name (SimpleDefense base); REL32 at 0x005AA80A
 ??1AITacticOffensive@@UAE@XZ,0x005DC73C,opaque base dtor; 3 derived dtors tail-call it; identity unproven
 ?checkTarget@AITacticOffensive@@QAEEPAX@Z,0x005DC763,tactic base applicability test; REL32 at 0x005AA656 in the SimpleAttack slot 1
-?isWallBreached@AITacticSiege@@QAE_NXZ,0x005DC93B,Rva005DC87B tactic base test; REL32 at 0x005A9BA3 in the SiegeGates slot 7
-?findWallTarget@AITacticSiege@@QAE_NXZ,0x005DC9C8,Rva005DC87B tactic base: has a target; REL32 at 0x005A9B24 in SiegeGates 0x005A9B20
 ?rva005DCAE5@AITacticSiege@@QAEPAVObject@@XZ,0x005DCAE5,Rva005DC87B tactic base: the target object; REL32 at 0x005A9B2F in SiegeGates 0x005A9B20
 ?rva005DCAF4@AITacticSiege@@QAE_NXZ,0x005DCAF4,Rva005DC87B tactic base test; REL32 at 0x005A9BC0 in the SiegeGates slot 7
 ?xfer@AITacticSiege@@UAEXPAVXfer@@@Z,0x005DC903,Rva005DC87B tactic base xfer (version 1 then the AITactic xfer 0x004EDA8C and the +0x58 ObjectID); REL32 at 0x005A9C14 in the SiegeGates slot 5
