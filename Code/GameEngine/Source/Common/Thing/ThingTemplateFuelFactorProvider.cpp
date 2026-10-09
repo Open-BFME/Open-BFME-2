@@ -96,10 +96,6 @@ public:
 	const void *m_begin;
 	const void *m_end;
 	const void *m_storage;
-	int getCount() const
-	{
-		return ((const char *)m_end - (const char *)m_begin) / 20;
-	}
 	__declspec(noinline) const ModuleData *getNthData(int i) const;
 };
 
@@ -119,15 +115,15 @@ void __cdecl rva0033B677(INI *ini, void * /*instance*/, void *store, const void 
 	const ThingTemplate *parent = (const ThingTemplate *)userData;
 	const ModuleInfo *info = &parent->m_behaviorModuleInfo;
 	int idx = 0;
-	if (info->getCount() > 0) {
+	if (((const char *)info->m_end - (const char *)info->m_begin) / 20 > 0) {
 		do {
 			const ModuleData *d = info->getNthData(idx);
 			if (d->isBodyLike())
 				break;
 			++idx;
-		} while (idx < info->getCount());
+		} while (idx < ((const char *)info->m_end - (const char *)info->m_begin) / 20);
 	}
-	if (idx == info->getCount()) {
+	if (idx == ((const char *)info->m_end - (const char *)info->m_begin) / 20) {
 		rva002f681_fill(&exc, 3, "Can't use FuelFactor without defining Body first");
 		_CxxThrowException(&exc, &__identifier("_TI1?AVINIException@@")); __assume(0);
 	}
