@@ -17079,7 +17079,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x009FEB8C,4,.data,global,?g_00DFEB8C@@3PBVImage@@B,,unowned,,0,1
 0x009FEB90,4,.data,global,?g_00DFEB90@@3PBVImage@@B,,unowned,,0,1
 0x009FEB94,4,.data,global,?g_00DFEB94@@3PBVImage@@B,,unowned,,0,1
-0x009FEB98,4,.data,global,?g_00DFEB98@@3HA,,unowned,,0,1
+0x009FEB98,4,.data,global,?g_00DFEB98@@3HA,Code/GameEngine/Source/GameClient/Drawable_rva00275598.cpp,owned,,1,2
 0x009FEB9C,4,.data,global,_s_rva007ADF06,Code/GameEngine/Source/Common/Rva007AD295ZeroInits.cpp,owned,,1,1
 0x009FEBA0,4,.data,global,_s_rva007ADF18,Code/GameEngine/Source/Common/Rva007AD295ZeroInits.cpp,owned,,1,1
 0x009FEBA4,4,.data,global,_s_rva007ADF2A,Code/GameEngine/Source/Common/Rva007AD295ZeroInits.cpp,owned,,1,1

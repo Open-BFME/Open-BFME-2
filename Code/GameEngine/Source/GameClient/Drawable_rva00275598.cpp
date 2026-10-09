@@ -73,7 +73,7 @@ public:
 };
 class GameClient;
 extern GameClient *TheGameClient;
-extern int g_00DFEB98;
+int g_00DFEB98 = 0; // Native flash interval storage, initialized by 0x007ADEF6.
 class DrawableConditionInterface {public:virtual void replaceModelConditionState(const int *,int,int);};
 class DrawableUpdateModule {
 public:
@@ -151,8 +151,8 @@ public:
 	bool rva0027000E();
 };
 
-struct Rva0027070CGlobal
-{
+class Rva0027070CGlobal
+{ public:
 	unsigned char m_pad00[0x30];
 	RGBColor m_color30;						// +0x30
 	unsigned char m_pad3C[0x48 - 0x3C];
