@@ -1,5 +1,5 @@
-// ?rva005A8405@NAT@@QAEXXZ
-// partial score=0.95 date=2026-10-09
+// ?rva005A89C2@NAT@@QAEXHH@Z
+// partial score=0.985 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // BF1 NAT_update f98983a7d supplies stats-wait semantics; WB14DA930 and
@@ -25,7 +25,7 @@ struct Rva00A063B0Obj;extern Rva00A063B0Obj *g_a063b0;
 bool g_natTransportContextEnabled=false;unsigned g_natStatsWaitStartTick=0;
 struct Rva005A7A96Pair{void *opaque00;unsigned short first,second;};
 struct Rva005A7172:public _STL::vector<int>{~Rva005A7172();};
-class PortNegotiationSchema{public:char pad00[0x18];int state[81];char pad15c[0x738-0x15c];unsigned timeout[8][8];unsigned short tries[8][8];bool rva005DBA9C(bool);bool rva005DBA60(unsigned short);bool rva005DC586(_STL::vector<Rva005A7A96Pair>*);};
+class PortNegotiationSchema{public:char pad00[0x18];int state[81];char pad15c[0x738-0x15c];unsigned timeout[8][8];unsigned short tries[8][8];void negotiationStarted(unsigned short,unsigned short,int,bool);bool rva005DBA9C(bool);bool rva005DBA60(unsigned short);bool rva005DC586(_STL::vector<Rva005A7A96Pair>*);};
 class NAT{public:bool rva005A6709();void rva005A7C9C();void rva005A6CA5();void sendPings();void processUDPPacket();int rva005A879B();void processManglerResponse(unsigned short);bool SetUDPSocketForSlot(unsigned short,unsigned short,void*);void notifyConnectionToTargetFailed();void rva005A74D8();void rva005A7829(int);void rva005A6C90(int);void rva005A831E();void rva005A8405();void rva005A89C2(int,int);void rva005A7974(unsigned short,void*);static unsigned s_probeRetryInterval;static int s_manglerMaxRetryCount;void rva005A7A96(const _STL::vector<Rva005A7A96Pair>*);};
 class Rva005A6732{public:bool rva005A6732()const;};
 class Rva005A6D47 {public:void *vptr;Transport *transport;GameSpyGameSlot **slots;int host,state,local;char pad18[0x10];PortNegotiationSchema schema;int rva005A8F57();};
@@ -71,7 +71,7 @@ __declspec(noinline) bool PortNegotiationSchema::rva005DBA60(unsigned short x){i
 struct Rva005A684FWord{unsigned m_00;unsigned short m_04;};class Rva005A684F{public:unsigned get(unsigned)const;char pad[0x90c];Rva005A684FWord *m_slots[8];};
 class Rva00594E07{public:unsigned short rva00594E07(unsigned short,int);};class Rva0059534A{public:void rva0059534A(unsigned short);};class Rva0059517F{public:bool rva0059517F(unsigned long,unsigned short,unsigned short,unsigned short,bool);};class FirewallHelperClass{public:void flagNeedToRefresh(bool);static void getManglerName(int,char*);};
 extern unsigned long g_00DD35BC;int NAT::s_manglerMaxRetryCount=25;
-struct NatConnectionView{char pad00[8];GameSpyGameSlot **slots;int host,parentState;int local,target;unsigned localIP,cookie;bool sendPort,receivedPort;char pad26[0x92c-0x26];int retries,maxRetries;unsigned short packetID,spareSocket;unsigned manglerRetryTime;int manglerRetries;unsigned short previousSource;bool beenProbed,unknown943;unsigned manglerAddress,nextSendTime;int connectionState,previousState;char pad954[8];unsigned nextPortSendTime,timeoutTime,roundTimeout;};
+struct NatConnectionView{char pad00[8];GameSpyGameSlot **slots;int host,parentState;int local,target;unsigned localIP,cookie;bool sendPort,receivedPort;char pad26[0x92c-0x26];int retries,maxRetries;unsigned short packetID,spareSocket;unsigned manglerRetryTime;int manglerRetries;unsigned short previousSource;bool beenProbed,unknown943;unsigned manglerAddress,nextSendTime;int connectionState,previousState;char pad954[8];unsigned nextPortSendTime,timeoutTime,roundTimeout;unsigned unknown968,nextHostTick;bool active;};
 // BF1 f98983a7d NAT_connectionUpdate.cpp supplies mangler retry/port/probe
 // semantics. Target WB14DAEB0 connectionUpdate and full551B retail control
 // flow supply compact BF2 callbacks and offsets. State IDs4/5 differ from
@@ -181,10 +181,10 @@ void NAT::rva005A8405(){
  NatConnectionView*v=(NatConnectionView*)this;
  unsigned sourcePort=((Rva005A684F*)this)->get(v->local);
  GameSpyGameSlot*local=v->slots[v->local];unsigned fw=*(unsigned*)((char*)local+0x40);GameSpyGameSlot*target=v->slots[v->target];
- if(!validSlots(target,local)){rva005A6C90(5);return;}rva005A6C90(2);
+ if(!target||!local){rva005A6C90(5);return;}rva005A6C90(2);
  if(((Rva005A684F*)this)->m_slots[v->target]->m_00==((Rva005A684F*)this)->m_slots[v->local]->m_00){
   struct Address{unsigned ip;unsigned short port;Address():ip(0),port(0){}};
-  Address address;while((address.ip=0,address.port=0,!SetUDPSocketForSlot(sourcePort,v->target,&address))){++sourcePort;}
+  for(;;){Address address;if(SetUDPSocketForSlot(sourcePort,v->target,&address))break;++sourcePort;}
   rva005A7974(sourcePort,target);return;
  }
  if(fw&&!(fw&1)){
@@ -195,7 +195,19 @@ void NAT::rva005A8405(){
   if(g_a063b0)((Rva005A6A83*)this)->rva005A6A83();
  }else{
   struct Address{unsigned ip;unsigned short port;Address():ip(0),port(0){}};
-  Address address;while((address.ip=0,address.port=0,!SetUDPSocketForSlot(sourcePort,v->target,&address))){++sourcePort;}
+  for(;;){Address address;if(SetUDPSocketForSlot(sourcePort,v->target,&address))break;++sourcePort;}
   rva005A7974(sourcePort,target);v->previousSource=sourcePort;
  }
+}
+
+extern unsigned g_Va00DD35D0;unsigned g_natPortWaitInterval=15000;
+void NAT::rva005A89C2(int target,int cookie){
+ NatConnectionView*v=(NatConnectionView*)this;v->retries=0;v->target=target;v->connectionState=1;v->previousState=1;v->active=true;v->beenProbed=false;v->unknown943=false;v->sendPort=false;v->receivedPort=false;v->cookie=cookie;v->roundTimeout=timeGetTime()+g_Va00DD35D0;
+ GameSpyGameSlot*other=v->slots[v->target];GameSpyGameSlot*local=v->slots[v->local];
+ if(other&&local){
+  ((Rva005A684F*)this)->m_slots[target]->m_00=*(unsigned*)((char*)other+0x38);
+  ((Rva005A6D47*)this)->schema.negotiationStarted(v->local,target,cookie,!rva005A6709());
+  if(!(*(unsigned*)((char*)other+0x40)&8)&&(*(unsigned*)((char*)local+0x40)&8))v->nextSendTime=-1;
+  rva005A8405();v->nextPortSendTime=timeGetTime()+s_probeRetryInterval;v->timeoutTime=timeGetTime()+g_natPortWaitInterval;((Rva005A6D47*)this)->state=1;
+ }else{v->connectionState=5;v->previousState=5;}
 }
