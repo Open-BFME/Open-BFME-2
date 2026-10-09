@@ -12,10 +12,9 @@
 
 typedef bool Bool;
 
-enum ObjectID
-{
-	INVALID_ID = 0
-};
+
+#include "../../Common/GameLogicObjectLookupView.h"
+
 
 enum KindOfType
 {
@@ -36,18 +35,19 @@ struct ThingTemplate
 
 class Object;
 
-class GameLogic
-{
-public:
-	class Object *findObjectByID(ObjectID id);
-};
-
 extern GameLogic *TheGameLogic;
 
+class Rva002CA9CA { public: bool rva002CAD8B(); };
+class Weapon { public: char pad[4]; Rva002CA9CA *template4; };
+enum WeaponSlotType { SLOT_ZERO=0 };
+class WeaponSet { public: Weapon *getWeaponInWeaponSlot(WeaponSlotType slot) const; };
 class Object
 {
 public:
 	Object *rva002931F5(Bool checkProducer);
+	bool rva00293408();
+	bool rva0028C4ED() const;
+	ObjectID rva0028C513() const;
 	Bool rva00293926(KindOfType kind);
 	int rva002933CD();
 	void *rva0029439D();
@@ -62,6 +62,7 @@ private:
 	ObjectID m_producerID;
 	unsigned char m_pad7C[0x274 - 0x7C];
 	Object *m_containedBy;
+	char pad278[0x330-0x278]; WeaponSet m_weapons;
 };
 
 Object *Object::rva002931F5(Bool checkProducer)
@@ -118,4 +119,22 @@ void *Object::rva0029439D()
 	if (related != 0)
 		return related->rva0028C197();
 	return 0;
+}
+
+// Native89 Object predicate: owner relation lookup and six WeaponSet entries330.
+// Native templates call the already owned opaque nugget-query2CAD8B; public purpose unresolved.
+bool Object::rva00293408()
+{
+    if (rva0028C4ED()) {
+        ObjectID id = rva0028C513();
+        if (TheGameLogic->findObjectByID(id)) {
+            int slot=0;
+            WeaponSet *weapons = &m_weapons;
+            do {
+                Weapon *weapon = weapons->getWeaponInWeaponSlot((WeaponSlotType)slot);
+                if (weapon && weapon->template4 && weapon->template4->rva002CAD8B()) return true;
+            } while (++slot<6);
+        }
+    }
+    return false;
 }
