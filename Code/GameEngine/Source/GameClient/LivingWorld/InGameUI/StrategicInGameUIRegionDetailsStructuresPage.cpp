@@ -96,3 +96,20 @@ const Image *__cdecl GetSelectionPortrait(const Rva005D23BBSelection *selection)
 const Image *__cdecl Rva005F0318Get(void *plot) {
     return StrategicInGameUI::GetSelectionPortrait((const Rva005D23BBSelection *)plot);
 }
+
+namespace StrategicInGameUI {
+// WorldBuilder lines 372: &buildPlot == &GetBuildPlot(). Retail's 128-byte
+// RET4 body ignores the asserted reference, updates the two clip images and
+// refreshes the page when this slot is selected. Empty plots use the rowed
+// portrait thunk, rather than the mispaired Observable template.
+void RegionDetailsStructuresPage::Impl::Icon::OnBuildPlotBuildingChanged(LivingWorldBuildPlot &buildPlot) {
+    BuildPlot *plot=getBuildPlot();
+    const Image *image=plot->building ? Rva005F02E0Get(plot->building) : Rva005F0318Get(plot);
+    StructureIconSlot *clip=(StructureIconSlot *)((Rva005E2138 *)this)->rva005E2138();
+    clip->SetImage(image);
+    const Image *typeImage=Rva005F0220Get((Rva005F0220In *)getBuildPlot());
+    clip=(StructureIconSlot *)((Rva005E2138 *)this)->rva005E2138();
+    clip->SetBuildingTypeImage(typeImage);
+    if(owner->selected==index) ((Rva005E261C *)owner)->rva005E261C();
+}
+}
