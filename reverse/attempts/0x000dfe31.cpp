@@ -1,22 +1,29 @@
 // ?drawWaypoints@W3DWaypointBuffer@@QAEXAAVRenderInfoClass@@@Z
-// partial score=0.97 date=2026-10-07
-// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc
+// partial score=0.98 date=2026-10-09
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
 // stlport
-// ?drawWaypoints@W3DWaypointBuffer@@QAEXAAVRenderInfoClass@@@Z, retail 0x000DFE31 (588 bytes).
-// Evidence: HeightMap.cpp calls m_waypointBuffer->drawWaypoints(rinfo); BFME1 donor
-// W3DWaypointBufferDrawWaypoints.cpp (waypoint-mode gate, ambient-only LightEnvironment,
-// RenderInfo copy, 513-entry Vector3 array, WW3D::Render per node, Set_Points + line Render);
-// retail offsets TheInGameUI+0x8b0 waypointMode, Object+0x258 AI, ThingTemplate+0x108 KindOf,
-// AI+0x30 machine, AI+0x194 index, RenderInfo+0x28 light_environment, points 513*12.
+//
+// ?drawWaypoints@W3DWaypointBuffer@@QAEXAAVRenderInfoClass@@@Z
+// retail 0x000DFE31 (588B)
+//
+// W3DWaypointBuffer::drawWaypoints, ported from Open-BFME-1 b03e2952c
+// game/GameEngineDevice/Source/W3DDevice/GameClient/W3DWaypointBufferDrawWaypoints.cpp
+// (BFME 1 retail 0x00746A30; Zero Hour twin W3dWaypointBuffer.cpp, rally-point
+// branch dropped). BFME 2 target facts: the height map render 0x000E2FBD calls
+// it with its RenderInfoClass; TheInGameUI's waypoint flag is +0x8B0 and
+// getAllSelectedDrawables is slot 73; Object's AI is +0x258 and the template's
+// kind-of mask is tested as a byte (+0x10D bit 7, KINDOF_IGNORED_IN_GUI) with
+// no override walk; the goal-path size and position helpers are the rowed
+// 0x00265143 and 0x00346FA5.
 
 #include <list>
-#include "../../../../Libraries/Include/Lib/Coord3D.h"
+#include <bitset>
 
 typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef float Real;
 typedef bool Bool;
-#define NULL 0
+typedef float Real;
+typedef unsigned int UnsignedInt;
+
 #define MAX_DISPLAY_NODES 512
 
 enum KindOfType
@@ -24,62 +31,23 @@ enum KindOfType
 	KINDOF_IGNORED_IN_GUI = 47
 };
 
+#include "../../../../Libraries/Include/Lib/Coord3D.h"
+
 class Vector3
 {
 public:
-	Vector3(void) throw() {}
-	Vector3(float x, float y, float z) throw() { X = x; Y = y; Z = z; }
-	void Set(const Vector3 &that) throw() { X = that.X; Y = that.Y; Z = that.Z; }
+	Vector3(void) {}
+	Vector3(float x, float y, float z) { X = x; Y = y; Z = z; }
+	void Set(const Vector3 &that) { X = that.X; Y = that.Y; Z = that.Z; }
 
 	float X;
 	float Y;
 	float Z;
 };
 
-class Matrix3D
-{
-public:
-	unsigned char m_pad[0x30];
-};
+class Matrix3D;
 
-class BfmeVecHF
-{
-public:
-	float x;
-	float y;
-	float z;
-};
-
-class Gen_0094AC70
-{
-public:
-	void bfmeSetPair(const BfmeVecHF *a, const BfmeVecHF *b);
-
-private:
-	unsigned char m_pad[0x170];
-};
-
-template <typename T>
-class StringBase
-{
-public:
-	void debugIgnoreLeaks();
-
-private:
-	void *m_data;
-};
-
-class LightEnvironmentClass : public Gen_0094AC70
-{
-public:
-	LightEnvironmentClass(void);
-	~LightEnvironmentClass(void) { ((StringBase<unsigned short> *)this)->debugIgnoreLeaks(); }
-	void Pre_Render_Update(const Matrix3D &camera_tm);
-
-private:
-	unsigned char m_tail[0x228 - 0x170];
-};
-
+// upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/rendobj.h
 class RenderObjClass
 {
 public:
@@ -103,10 +71,37 @@ public:
 	unsigned char m_transform[0x30];
 };
 
-class CameraClass : public RenderObjClass
+class CameraClass : public RenderObjClass {};
+
+class SegmentedLineClass : public RenderObjClass
 {
+public:
+	void Set_Points(unsigned int num_points, Vector3 *locs);
 };
 
+// Size 0x228 from LightEnvironmentClassConstructor.cpp (retail 0x0094AAF0).
+class BfmeVecHF;
+class Gen_0094AC70 { public: void bfmeSetPair(const BfmeVecHF *center, const BfmeVecHF *ambient); };
+
+class LightEnvironmentClass
+{
+public:
+	LightEnvironmentClass(void);
+	~LightEnvironmentClass(void);
+	// Rowed as Gen_0094AC70::bfmeSetPair (0x0013F620).
+	void Reset(const Vector3 &object_center, const Vector3 &scene_ambient)
+	{
+		reinterpret_cast<Gen_0094AC70 *>(this)->bfmeSetPair(
+			reinterpret_cast<const BfmeVecHF *>(&object_center), reinterpret_cast<const BfmeVecHF *>(&scene_ambient));
+	}
+	void Pre_Render_Update(const Matrix3D &camera_tm);
+
+private:
+	unsigned char m_unreconstructed_000[0x228];
+};
+
+// BFME 2 RenderInfoClass: 0x148 bytes (ctor 0x00142EE0, dtor 0x00142FE0);
+// the fog colour sits at +0x08 and light_environment at +0x28.
 class RenderInfoClass
 {
 public:
@@ -115,15 +110,14 @@ public:
 
 	CameraClass &Camera;
 	float fog_scale;
-	unsigned char m_pad08[0x28 - 0x08];
+	float FogColor[3];
+	float fog_start;
+	float fog_end;
+	float alphaOverride;
+	float materialPassAlphaOverride;
+	float materialPassEmissiveOverride;
 	LightEnvironmentClass *light_environment;
-	unsigned char m_pad2C[0x148 - 0x2C];
-};
-
-class SegmentedLineClass : public RenderObjClass
-{
-public:
-	void Set_Points(unsigned int num_points, Vector3 *locs);
+	unsigned char m_unreconstructed_2C[0x148 - 0x2C];
 };
 
 class WW3D
@@ -132,10 +126,11 @@ public:
 	static bool Render(RenderObjClass &obj, RenderInfoClass &rinfo);
 };
 
+// upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/Overridable.h
 class Overridable
 {
 public:
-	const Overridable *getFinalOverride(void) const
+	const Overridable *getFinalOverride() const
 	{
 		if (m_nextOverride)
 			return m_nextOverride->getFinalOverride();
@@ -146,24 +141,28 @@ public:
 	Overridable *m_nextOverride;
 };
 
-class ThingTemplate : public Overridable
+// m_kindof: BFME 2 tests the kind-of mask at +0x108 as bytes (bit 47 is
+// +0x10D bit 7), with no override walk from Object.
+class ThingTemplate
 {
 public:
-	__forceinline UnsignedInt isKindOf(KindOfType t) const { return m_kindof[t >> 5] & (1U << (t & 31)); }
+	Bool isKindOf(KindOfType t) const { return (m_kindof[t >> 3] & (1 << (t & 7))) != 0; }
 
-	unsigned char m_unmodelled_08[0x108 - 8];
-	UnsignedInt m_kindof[4];
+	unsigned char m_unreconstructed_000[0x108];
+	unsigned char m_kindof[12];
 };
 
-class Thing
+// Rva0016F770Path is the ledger's address-derived name for the goal-path
+// lookup at 0x0016F770 reached through AIUpdateInterface+0x30 (ZH:
+// getStateMachine()->getGoalPathPosition(index)).
+struct Rva0016F770Coord3D
 {
-public:
-	virtual void slot00(void);
-	__forceinline UnsignedInt isKindOf(KindOfType t) const { return m_template->isKindOf(t); }
-
-	ThingTemplate *m_template;
+	float x;
+	float y;
+	float z;
 };
 
+// BFME 2's goal-path position lookup is rowed as 0x00346FA5.
 class Rva00346FA5
 {
 public:
@@ -173,38 +172,42 @@ public:
 class AIUpdateInterface
 {
 public:
-	virtual void v00(void);
-	int rva00265143();
-	Int friend_getCurrentGoalPathIndex(void) const { return m_currentGoalPathIndex; }
-	Rva00346FA5 *getStateMachine(void) const { return m_stateMachine; }
+	// retail 0x00271AE0 via ILT 0x0000BD84: ZH AIUpdate.cpp body (state id vs
+	// AI_FOLLOW_PATH=6 with INVALID_STATE_ID 999999, then goal-path size / 12).
+	// BFME 2: rowed 0x00265143 (ZH friend_getWaypointGoalPathSize).
+	Int rva00265143();
+	Int friend_getWaypointGoalPathSize() { return rva00265143(); }
+	Int friend_getCurrentGoalPathIndex() const { return m_nextGoalPathIndex; }
+	const Rva0016F770Coord3D *friend_getGoalPathPosition(Int index) const { return (const Rva0016F770Coord3D *)m_stateMachine->rva00346FA5(index); }
 
-private:
-	unsigned char m_pad004[0x30 - 0x04];
+	unsigned char m_unreconstructed_000[0x30];
 	Rva00346FA5 *m_stateMachine;
-	unsigned char m_pad034[0x194 - 0x34];
-	Int m_currentGoalPathIndex;
+	unsigned char m_unreconstructed_034[0x194 - 0x34];
+	Int m_nextGoalPathIndex;
 };
 
-class Object : public Thing
+class Object
 {
 public:
-	const Coord3D *getPosition(void) const { return &m_cachedPos; }
-	AIUpdateInterface *getAI(void) { return m_ai; }
+	const ThingTemplate *getTemplate() const { return m_template; }
+	__forceinline Bool isKindOf(KindOfType t) const { return (m_template->m_kindof[t >> 3] & (1 << (t & 7))) != 0; }
+	const Coord3D *getPosition() const { return &m_cachedPos; }
+	AIUpdateInterface *getAI() { return m_ai; }
 
-	unsigned char m_unmodelled_08[0x38 - 8];
+	void *m_vtable;
+	ThingTemplate *m_template;
+	unsigned char m_unreconstructed_008[0x38 - 0x08];
 	Coord3D m_cachedPos;
-	unsigned char m_unmodelled_44[0x258 - 0x44];
+	unsigned char m_unreconstructed_044[0x258 - 0x44];
 	AIUpdateInterface *m_ai;
 };
 
 class Drawable
 {
 public:
-	Object *getObject(void) { return m_object; }
+	Object *getObject() { return m_object; }
 
-	void *m_vtable;
-	void *m_template;
-	unsigned char m_unmodelled008[0xFC - 0x08];
+	unsigned char m_unreconstructed_000[0xFC];
 	Object *m_object;
 };
 
@@ -214,30 +217,30 @@ typedef DrawableList::const_iterator DrawableListCIt;
 class InGameUI
 {
 public:
-	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
-	virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();
-	virtual void v08(); virtual void v09(); virtual void v10(); virtual void v11();
-	virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15();
-	virtual void v16(); virtual void v17(); virtual void v18(); virtual void v19();
-	virtual void v20(); virtual void v21(); virtual void v22(); virtual void v23();
-	virtual void v24(); virtual void v25(); virtual void v26(); virtual void v27();
-	virtual void v28(); virtual void v29(); virtual void v30(); virtual void v31();
-	virtual void v32(); virtual void v33(); virtual void v34(); virtual void v35();
-	virtual void v36(); virtual void v37(); virtual void v38(); virtual void v39();
-	virtual void v40(); virtual void v41(); virtual void v42(); virtual void v43();
-	virtual void v44(); virtual void v45(); virtual void v46();
-	virtual void setGUICommand(const void *command);
-	virtual const void *getGUICommand(void);
-	virtual void v49(); virtual void v50(); virtual void v51();
-	virtual void v52(); virtual void v53(); virtual void v54(); virtual void v55();
-	virtual void v56(); virtual void v57(); virtual void v58(); virtual void v59();
-	virtual void v60(); virtual void v61(); virtual void v62(); virtual void v63();
-	virtual void v64(); virtual void v65(); virtual void v66(); virtual void v67();
-	virtual void v68(); virtual void v69(); virtual void v70(); virtual void v71();
-	virtual void v72();
-	virtual const DrawableList *getAllSelectedDrawables(void) const;
+#define BFME_UI_SLOT(n) virtual void slot##n() = 0;
+	BFME_UI_SLOT(00) BFME_UI_SLOT(01) BFME_UI_SLOT(02) BFME_UI_SLOT(03)
+	BFME_UI_SLOT(04) BFME_UI_SLOT(05) BFME_UI_SLOT(06) BFME_UI_SLOT(07)
+	BFME_UI_SLOT(08) BFME_UI_SLOT(09) BFME_UI_SLOT(10) BFME_UI_SLOT(11)
+	BFME_UI_SLOT(12) BFME_UI_SLOT(13) BFME_UI_SLOT(14) BFME_UI_SLOT(15)
+	BFME_UI_SLOT(16) BFME_UI_SLOT(17) BFME_UI_SLOT(18) BFME_UI_SLOT(19)
+	BFME_UI_SLOT(20) BFME_UI_SLOT(21) BFME_UI_SLOT(22) BFME_UI_SLOT(23)
+	BFME_UI_SLOT(24) BFME_UI_SLOT(25) BFME_UI_SLOT(26) BFME_UI_SLOT(27)
+	BFME_UI_SLOT(28) BFME_UI_SLOT(29) BFME_UI_SLOT(30) BFME_UI_SLOT(31)
+	BFME_UI_SLOT(32) BFME_UI_SLOT(33) BFME_UI_SLOT(34) BFME_UI_SLOT(35)
+	BFME_UI_SLOT(36) BFME_UI_SLOT(37) BFME_UI_SLOT(38) BFME_UI_SLOT(39)
+	BFME_UI_SLOT(40) BFME_UI_SLOT(41) BFME_UI_SLOT(42) BFME_UI_SLOT(43)
+	BFME_UI_SLOT(44) BFME_UI_SLOT(45) BFME_UI_SLOT(46) BFME_UI_SLOT(47)
+	BFME_UI_SLOT(48) BFME_UI_SLOT(49) BFME_UI_SLOT(50) BFME_UI_SLOT(51)
+	BFME_UI_SLOT(52) BFME_UI_SLOT(53) BFME_UI_SLOT(54) BFME_UI_SLOT(55)
+	BFME_UI_SLOT(56) BFME_UI_SLOT(57) BFME_UI_SLOT(58) BFME_UI_SLOT(59)
+	BFME_UI_SLOT(60) BFME_UI_SLOT(61) BFME_UI_SLOT(62) BFME_UI_SLOT(63)
+	BFME_UI_SLOT(64) BFME_UI_SLOT(65) BFME_UI_SLOT(66) BFME_UI_SLOT(67)
+	BFME_UI_SLOT(68) BFME_UI_SLOT(69) BFME_UI_SLOT(70) BFME_UI_SLOT(71)
+	BFME_UI_SLOT(72)
+	virtual const DrawableList *getAllSelectedDrawables() const = 0;
+#undef BFME_UI_SLOT
 
-	Bool isInWaypointMode(void) const { return m_waypointMode; }
+	Bool isInWaypointMode() const { return m_waypointMode; }
 
 	unsigned char m_pad004[0x8B0 - 0x04];
 	Bool m_waypointMode;
@@ -257,59 +260,49 @@ private:
 
 void W3DWaypointBuffer::drawWaypoints(RenderInfoClass &rinfo)
 {
-	if (TheInGameUI && TheInGameUI->isInWaypointMode())
+	if( TheInGameUI && TheInGameUI->isInWaypointMode() )
 	{
 		LightEnvironmentClass lightEnv;
-		{
-			BfmeVecHF ambient;
-			BfmeVecHF center;
-			ambient.x = 1.0f;
-			ambient.y = 1.0f;
-			ambient.z = 1.0f;
-			center.x = 0.0f;
-			center.y = 0.0f;
-			center.z = 0.0f;
-			lightEnv.bfmeSetPair(&center, &ambient);
-		}
+		lightEnv.Reset(Vector3(0,0,0), Vector3(1.0f,1.0f,1.0f));
 		lightEnv.Pre_Render_Update(rinfo.Camera.Get_Transform());
 		RenderInfoClass localRinfo(rinfo.Camera);
-		localRinfo.light_environment = &lightEnv;
-		Vector3 points[MAX_DISPLAY_NODES + 1];
+		localRinfo.light_environment=&lightEnv;
+		Vector3 points[ MAX_DISPLAY_NODES + 1 ];
 
 		const DrawableList *selected = TheInGameUI->getAllSelectedDrawables();
 		Drawable *draw;
-		for (DrawableListCIt it = selected->begin(); it != selected->end(); ++it)
+		for( DrawableListCIt it = selected->begin(); it != selected->end(); ++it )
 		{
 			draw = *it;
 			Object *obj = draw->getObject();
 			Int numPoints = 1;
-			if (obj && !obj->isKindOf(KINDOF_IGNORED_IN_GUI))
+			if( obj && ! obj->isKindOf( KINDOF_IGNORED_IN_GUI ))
 			{
 				AIUpdateInterface *ai = obj->getAI();
-				Int goalSize = ai ? ai->rva00265143() : 0;
+				Int goalSize = ai ? ai->friend_getWaypointGoalPathSize() : 0;
 				Int gpIdx = ai ? ai->friend_getCurrentGoalPathIndex() : 0;
-				if (ai && gpIdx >= 0 && gpIdx < goalSize)
+				if( ai && gpIdx >= 0 && gpIdx < goalSize )
 				{
 					const Coord3D *pos = obj->getPosition();
-					points[0].Set(Vector3(pos->x, pos->y, pos->z));
+					points[ 0 ].Set( Vector3( pos->x, pos->y, pos->z ) );
 
-					for (int i = gpIdx; i < goalSize; i++)
+					for( int i = gpIdx; i < goalSize; i++ )
 					{
-						const Coord3D *waypoint = (const Coord3D *)ai->getStateMachine()->rva00346FA5(i);
-						if (waypoint)
+						const Rva0016F770Coord3D *waypoint = ai->friend_getGoalPathPosition( i );
+						if( waypoint )
 						{
-							if (numPoints < MAX_DISPLAY_NODES + 1)
+							if( numPoints < MAX_DISPLAY_NODES + 1 )
 							{
-								points[numPoints].Set(Vector3(waypoint->x, waypoint->y, waypoint->z));
+								points[ numPoints ].Set( Vector3( waypoint->x, waypoint->y, waypoint->z ) );
 								numPoints++;
 							}
 
-							m_waypointNodeRobj->Set_Position(Vector3(waypoint->x, waypoint->y, waypoint->z));
-							WW3D::Render(*m_waypointNodeRobj, localRinfo);
+							m_waypointNodeRobj->Set_Position(Vector3(waypoint->x,waypoint->y,waypoint->z));
+							WW3D::Render(*m_waypointNodeRobj,localRinfo);
 						}
 					}
-					m_line->Set_Points(numPoints, points);
-					m_line->Render(localRinfo);
+					m_line->Set_Points( numPoints, points );
+					m_line->Render( localRinfo );
 				}
 			}
 		}
