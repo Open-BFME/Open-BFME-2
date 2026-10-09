@@ -53,6 +53,7 @@ class AptSaveLoad
 {
 public:
 	static void __cdecl AddFriendConfirmationHandler(int button);
+	static GameSpyGameSlot *GetOpponentSlotData();
 	void OnClosed(const char *unused);
 	void Cancel(const char *unused);
 	// Bound as "AptSaveLoad::OnInitialized" and
@@ -197,7 +198,6 @@ struct AptSaveLoadSlot
 };
 
 class GameSpyGameSlot;
-GameSpyGameSlot *Rva00433FF3Get();
 
 class GameSpyInfoInterface;
 extern GameSpyInfoInterface *TheGameSpyInfo;
@@ -220,7 +220,7 @@ void __cdecl AptSaveLoad::AddFriendConfirmationHandler(int button)
 {
 	if (button == 2)
 	{
-		AptSaveLoadSlot *slot = (AptSaveLoadSlot *)Rva00433FF3Get();
+		AptSaveLoadSlot *slot = (AptSaveLoadSlot *)GetOpponentSlotData();
 		if (!slot || !TheGameSpyInfo)
 			return;
 		Rva004178C1(slot->getProfileID(), AsciiString(slot->m_name));

@@ -1,5 +1,5 @@
 // cl: /MD
-// ?Rva00433FF3Get@@YAPAVGameSpyGameSlot@@XZ retail 0x00433FF3 96B.
+// ?GetOpponentSlotData@AptSaveLoad@@SAPAVGameSpyGameSlot@@XZ retail 0x00433FF3 96B.
 // First human GameSpyGameSlot among 8 via TheGameInfo staging room.
 // Evidence: callers 0x00435118 0x0043550D; callees rowed isHuman pin getGameSpySlot.
 class GameSpyInfoInterface;
@@ -43,7 +43,15 @@ public:
 class GameInfo;
 extern GameInfo *TheGameInfo;
 
-GameSpyGameSlot *Rva00433FF3Get()
+// WB12B0A60/483 names AptSaveLoad::GetOpponentSlotData with assertions
+//1833/1834/1845. Its static no-argument ABI, staging-room lookup, local
+//slot exclusion and first-human search agree with the complete native body.
+class AptSaveLoad {
+public:
+	static GameSpyGameSlot *GetOpponentSlotData();
+};
+
+GameSpyGameSlot *AptSaveLoad::GetOpponentSlotData()
 {
 	if (TheGameSpyInfo == 0)
 		return 0;
