@@ -582,6 +582,7 @@ public:
 	virtual void slot13();
 	virtual void setGoalObject(const Object *obj);
 	UnsignedInt getCurrentStateID() const { return m_currentState ? m_currentState->m_id : INVALID_STATE_ID; }
+	inline Bool isInAttackState() const;
 	void setGoalPosition(const Coord3D *pos);
 	Object *getOwner() const { return m_owner; }
 	Object *getGoalObject();
@@ -1733,4 +1734,34 @@ Bool AIFollowPathAsTeamState::computePath()
 
 	critterDesyncLog("CritterDesync: ComputePath34");
 	return AIInternalMoveToState::computePath();
+}
+
+// A state's slot 8, ZH State::isAttack.
+class StateAttackView : public VirtualSlots<8>
+{
+public:
+	virtual Bool isAttack() const;
+};
+
+inline Bool StateMachine::isInAttackState() const
+{
+	return m_currentState ? ((const StateAttackView *)m_currentState)->isAttack() : true;
+}
+
+// AIAttackMoveToState (vtable 0x00C13548, name slot 0x00345CFA) keeps its
+// attack-move machine at +0x54. Retail 0x00340F25, 29 bytes, its slot 9: true
+// while that machine is not in an attack state (no null test, unlike ZH's
+// isAttack).
+class AIAttackMoveToState : public State
+{
+public:
+	virtual Bool rva00340F25() const;
+private:
+	unsigned char m_pad1C[0x54 - 0x1C];
+	StateMachine *m_attackMoveMachine; // +0x54
+};
+
+Bool AIAttackMoveToState::rva00340F25() const
+{
+	return m_attackMoveMachine->isInAttackState() ? false : true;
 }
