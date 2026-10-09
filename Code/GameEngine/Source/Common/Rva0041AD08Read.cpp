@@ -13,7 +13,7 @@ public:
 	virtual void f1();
 	virtual void close();
 	virtual int read(void *buf, int size);
-	virtual void f4();
+	virtual int write(const void *buf, int size);
 	virtual int seek(int offset, int origin);
 };
 
@@ -180,3 +180,29 @@ void __cdecl Rva0041AE00Caller(AsciiString p, Xfer *c)
 {
 	embedInUseMap(p, c);
 }
+
+// Native41AEF8..41AFDA / WB132E990 (GameStateMap.cpp:179..204)
+// establish extractAndSaveMap. The BFME1 donor at874e38488 has the same
+// transfer/write purpose; BFME2 uses FileSystem rather than CRT file IO.
+// Xfer remains in ESI at its two calls from DoXfer; File::write is slot+10.
+static void __cdecl extractAndSaveMap(AsciiString path, Xfer *xfer)
+{
+ char *t=*(char **)(void *)&path;
+ const char *name=t?t+8:"";
+ File *f=TheFileSystem->openFile(name,0x4a,0);
+ if(!f){BfmeFormattedText tmp;bfmeFormatText(&tmp,5,(const char*)0);
+ _CxxThrowException(&tmp,(const _s__ThrowInfo*)&g_guardTargetTypeThrowInfo);__assume(0);}
+ xfer->beginBlock("EmbeddedMap");
+ unsigned int size;
+ xfer->xferUnsignedInt(&size);
+ char *buf=new char[size];
+ if(!buf){BfmeFormattedText tmp;bfmeFormatText(&tmp,5,(const char*)0);
+ _CxxThrowException(&tmp,(const _s__ThrowInfo*)&g_guardTargetTypeThrowInfo);__assume(0);}
+ xfer->xferUser(buf,size);
+ int got=f->write(buf,size);
+ if(got!=size){delete[]buf;BfmeFormattedText tmp;bfmeFormatText(&tmp,5,(const char*)0);
+ _CxxThrowException(&tmp,(const _s__ThrowInfo*)&g_guardTargetTypeThrowInfo);__assume(0);}
+ f->close();xfer->endBlock();delete[]buf;
+}
+// ?Rva0041AEF8Caller@@YAXVAsciiString@@PAVXfer@@@Z present-unmatched
+void Rva0041AEF8Caller(AsciiString path,Xfer*xfer){extractAndSaveMap(path,xfer);}
