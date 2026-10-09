@@ -1,5 +1,5 @@
 // cl: /MD
-// ?rva00426680@Rva00426713@@QAEXXZ @0x00426680 33B evidence: vslot 9 of vtable 0x0083C408 owned by Rva00426713 plus operator delete 0x0002FD60 plus caller none plus prev next share /O1
+// ?rva00426680@Rva00426713@@UAEXXZ @0x00426680 33B evidence: vslot 9 of vtable 0x0083C408 owned by Rva00426713 plus operator delete 0x0002FD60 plus caller none plus prev next share /O1
 extern const void *const g_00C3C408[];
 
 class Inner00426680
@@ -26,7 +26,7 @@ public:
 class Rva00426713 : public Rva00426713Base
 {
 public:
-	void rva00426680();
+	virtual void rva00426680();
 private:
 	const void *m_0C;
 	Inner00426680 *m_10;

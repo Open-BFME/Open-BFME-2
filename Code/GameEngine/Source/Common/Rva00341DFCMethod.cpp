@@ -1,5 +1,5 @@
 // cl: /MD
-// ?rva00341DFC@Rva0033F6DA@@QAEHXZ @0x00341DFC 38B: Rva0033F6DA slot 6.
+// ?rva00341DFC@Rva0033F6DA@@UAEHXZ @0x00341DFC 38B: Rva0033F6DA slot 6.
 // If m_20==0 return -2 else set m_machine+0x38 to 1 then call m_20 slot 0x10 then clear m_machine+0x38 and return result.
 // Precedent State m_machine plus Snapshot slot shape.
 // Vtable 0x00811740 slot 6.
@@ -36,7 +36,7 @@ public:
 class Rva0033F6DA : public State
 {
 public:
-	int rva00341DFC();
+	virtual int rva00341DFC();
 private:
 	M20 *m_20;
 };

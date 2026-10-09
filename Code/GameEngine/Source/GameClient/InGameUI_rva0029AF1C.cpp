@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /O1 /arch:SSE /G7
-// ?rva0029AF1C@InGameUI@@QAEHXZ, RVA 0x0029AF1C, 35 bytes.
+// ?rva0029AF1C@InGameUI@@UAEHXZ, RVA 0x0029AF1C, 35 bytes.
 // Identity: InGameUI class is established by the adjacent table entries for its virtual methods.
 // Structural evidence: retail dispatches through vtable slots 98 and 99.
 
@@ -106,7 +106,7 @@ public:
     virtual int slot97();
     virtual int slot98();
     virtual int slot99();
-    int rva0029AF1C();
+    virtual int rva0029AF1C();
 };
 
 int InGameUI::rva0029AF1C()

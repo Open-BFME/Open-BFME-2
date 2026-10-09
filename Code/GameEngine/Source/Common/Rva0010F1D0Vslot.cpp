@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /EHs /MD
-// ?rva0010F1D0@Rva0010F185@@QAEXXZ, retail 0x0010F1D0, 127 bytes.
+// ?rva0010F1D0@Rva0010F185@@UAEXXZ, retail 0x0010F1D0, 127 bytes.
 // Virtual slot 1 of vtable 0x007CFAB8 for the Rva0010F185 audio entry:
 // lock-guarded AIL stream open with EmptyString fallback. Target for the
 // guard is (*(item+0xC)+0x38) where item is base m_str at +8, filename is
@@ -57,7 +57,7 @@ public:
 class Rva0010F185 : public Rva001164D3
 {
 public:
-	void rva0010F1D0();
+	virtual void rva0010F1D0();
 	void const *m_0C;
 	AsciiString m_s10;
 	void const *m_14;

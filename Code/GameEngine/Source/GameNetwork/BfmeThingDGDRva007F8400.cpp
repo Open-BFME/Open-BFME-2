@@ -209,7 +209,7 @@ public:
 class BfmeThingDGD : public Rva0112B800Base, public Rva0112B7F8Base, public Rva0112B7F0Base
 {
 public:
-	void rva007F8400( unsigned char arg34, int arg35, void *forwarded );
+	virtual void rva007F8400( unsigned char arg34, int arg35, void *forwarded );
 
 	void *m_0c;
 	Rva007F8400Node *m_10;
@@ -225,7 +225,7 @@ public:
 	unsigned char m_35;
 };
 
-// ?rva007F8400@BfmeThingDGD@@QAEXEHPAX@Z
+// ?rva007F8400@BfmeThingDGD@@UAEXEHPAX@Z
 void BfmeThingDGD::rva007F8400( unsigned char arg34, int arg35, void *forwarded )
 {
 	if( m_30 != 0 )

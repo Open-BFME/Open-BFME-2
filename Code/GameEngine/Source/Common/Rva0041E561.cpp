@@ -1,6 +1,6 @@
 // cl: /Ob2 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
-// ?rva0041E561@Rva0041E4A3@@QAEXXZ @0x0041E561 329B: vslot 1 of vtable 0x0083AEA8.
+// ?rva0041E561@Rva0041E4A3@@UAEXXZ @0x0041E561 329B: vslot 1 of vtable 0x0083AEA8.
 // Evidence: this+0xC vector push_back x6 of new ModuleData ctors 0x57379B 0x5734D7
 // 0x5730FF 0x572EC4 0x572DD4 0x572C5A via rowed push_back 0x004DFCB0 and rowed
 // operator new 0x0002FDA0; EH states 0-5 with -1 before each push_back.
@@ -37,7 +37,7 @@ private:
 class Rva0041E4A3 : public GameEngineDeletingBase
 {
 public:
-	void rva0041E561();
+	virtual void rva0041E561();
 private:
 	_STL::vector<const ModuleData *> m_vec;
 };

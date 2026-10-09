@@ -177,7 +177,7 @@ public:
 
     const GameSlot *getConstSlot(Int slotNum) const;
 
-    Bool isSkirmish();
+    virtual Bool isSkirmish();
     Bool isColorTaken(Int colorIdx, Int slotToIgnore) const;
     void setSlotPointer(Int index, GameSlot *slot);
 
@@ -326,7 +326,7 @@ void GameSlot::setMapAvailability(Bool hasMap)
     }
 }
 
-// ?isSkirmish@GameInfo@@QAE_NXZ
+// ?isSkirmish@GameInfo@@UAE_NXZ
 Bool GameInfo::isSkirmish()
 {
     Bool sawAI = false;

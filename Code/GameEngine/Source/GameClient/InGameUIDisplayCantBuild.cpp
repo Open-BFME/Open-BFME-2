@@ -1,7 +1,7 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // stlport
 //
-// ?displayCantBuildMessage@InGameUI@@QAEXW4LegalBuildCode@@@Z,
+// ?displayCantBuildMessage@InGameUI@@UAEXW4LegalBuildCode@@@Z,
 // retail 0x0029C291, 101 bytes. Dedicated TU.
 //
 // ZH reference
@@ -60,12 +60,12 @@ public:
 	virtual void slot14();
 	virtual void message(AsciiString format, ...);
 
-	void displayCantBuildMessage(LegalBuildCode lbc);
+	virtual void displayCantBuildMessage(LegalBuildCode lbc);
 };
 
 extern InGameUI *TheInGameUI;
 
-// ?displayCantBuildMessage@InGameUI@@QAEXW4LegalBuildCode@@@Z
+// ?displayCantBuildMessage@InGameUI@@UAEXW4LegalBuildCode@@@Z
 void InGameUI::displayCantBuildMessage(LegalBuildCode lbc)
 {
 	switch (lbc)

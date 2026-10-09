@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
-// ?rva00214F14@Rva009519B@@QAEXXZ retail 0x00214F14 426 bytes.
+// ?rva00214F14@Rva009519B@@UAEXXZ retail 0x00214F14 426 bytes.
 // Virtual slot 14 (offset 0x38) of vtable 0x007C81A8, class of
 // ??1Rva009519B@@UAE@XZ. Initializes the five AsciiStrings at +0x0C +0x10
 // +0x14 +0x24 +0xAC from globals via rowed StringBase<char>::set 0x000366F0,
@@ -71,7 +71,7 @@ class Rva009519B : public SubsystemInterface
 {
 public:
 	virtual ~Rva009519B();
-	void rva00214F14();
+	virtual void rva00214F14();
 private:
 	AsciiString m_0C;
 	AsciiString m_10;

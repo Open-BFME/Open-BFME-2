@@ -207,7 +207,7 @@ public:
 class Rva00367E26 : public StateMachine
 {
 public:
-	AIGuardMachine *rva003697BB();
+	virtual AIGuardMachine *rva003697BB();
 };
 
 GiantBirdGuardReturnState::GiantBirdGuardReturnState(StateMachine *machine)
