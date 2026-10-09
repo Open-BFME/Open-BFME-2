@@ -1,0 +1,445 @@
+diff --git a/Code/GameEngine/Source/Common/RegionDetailsArmiesClipImplView.h b/Code/GameEngine/Source/Common/RegionDetailsArmiesClipImplView.h
+index 9d76958997..26bf4b9158 100644
+--- a/Code/GameEngine/Source/Common/RegionDetailsArmiesClipImplView.h
++++ b/Code/GameEngine/Source/Common/RegionDetailsArmiesClipImplView.h
+@@ -6,11 +6,23 @@
+ #include "ascii_string.h"
+ #include "unicode_string.h"
+ #include <vector>
++class Rva0052413E {
++public:Rva0052413E();~Rva0052413E();
++private:_STL::vector<AsciiString> names;
++};
++class Rva005241B0 {
++public:Rva005241B0();~Rva005241B0();
++private:_STL::vector<AsciiString> names;
++};
++namespace _STL {template<> vector<Rva005EFD53Element,allocator<Rva005EFD53Element> >::~vector();}
+ // Native callbacks/caches prove level00, string-buffer name04, slots24,
+-// cached Unicode string30, counts34/38 and flags3C/3D/3E. Unobserved08..23
+-// bytes remain opaque; no constructor or ownership is asserted for that span.
++// cached Unicode string30, counts34/38 and flags3C/3D/3E.
++// Native constructor5EF92D proves color08 command-map0C and extern-list18.
++// Their lifetimes agree with destructor5EFB05; slots are owned counted handles.
+ class StrategicHUD::RegionDetailsArmiesMovieClip::Impl {
+  public:
++ Impl(int,const AsciiString&,unsigned);~Impl();
++ void OnRollOverCommandPoints(const char*);void OnRollOutCommandPoints(const char*);void PlayerColor(int,char*,bool);
+  void SetIconSlotCount(int);
+  void ShowArmyName(const UnicodeString &);
+  void HideArmyName();
+@@ -18,9 +30,9 @@ class StrategicHUD::RegionDetailsArmiesMovieClip::Impl {
+  void HideCommandPoints();
+  void Update();
+  private:
+- unsigned m_level; AsciiString m_name; char m_unknown08[0x1C];
++ unsigned m_level; AsciiString m_name; unsigned m_color;Rva0052413E m_commandMaps;Rva005241B0 m_externHandlers;
+  _STL::vector<Rva005EFD53Element,_STL::allocator<Rva005EFD53Element> > slots;
+  UnicodeString m_cached30; int m_a,m_b;
+- bool m_armyNameShown,m_shown,m_3E; char m_unknown3F;
++ bool m_armyNameShown,m_shown,m_3E;
+ };
+ #endif
+diff --git a/Code/GameEngine/Source/Common/Rva005EF424FillN.cpp b/Code/GameEngine/Source/Common/Rva005EF424FillN.cpp
+index 0830dc9c13..95f8a87d47 100644
+--- a/Code/GameEngine/Source/Common/Rva005EF424FillN.cpp
++++ b/Code/GameEngine/Source/Common/Rva005EF424FillN.cpp
+@@ -23,14 +23,8 @@ ForwardIter __uninitialized_fill_n(ForwardIter first, Size n, const T &x, const
+ 	return cur;
+ }
+ 
+-template <class ForwardIter, class Size, class T>
+-ForwardIter uninitialized_fill_n(ForwardIter first, Size n, const T &x)
+-{
+-	__false_type tag;
+-	return __uninitialized_fill_n(first, n, x, tag);
+-}
++
+ 
+ }
+ 
+ template Rva005EFD53Element *_STL::__uninitialized_fill_n(Rva005EFD53Element *, unsigned int, const Rva005EFD53Element &, const _STL::__false_type &);
+-template Rva005EFD53Element *_STL::uninitialized_fill_n(Rva005EFD53Element *, unsigned int, const Rva005EFD53Element &);
+diff --git a/Code/GameEngine/Source/Common/Rva005EFB05Dtor.cpp b/Code/GameEngine/Source/Common/Rva005EFB05Dtor.cpp
+deleted file mode 100644
+index c647deb5e6..0000000000
+--- a/Code/GameEngine/Source/Common/Rva005EFB05Dtor.cpp
++++ /dev/null
+@@ -1,50 +0,0 @@
+-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc /D_CRTIMP=
+-// ??1Rva005EFB05@@QAE@XZ @0x005EFB05 93B: dtor with AsciiString at +0x04 plus Rva0052413E at +0x0C plus Rva005241B0 at +0x18 plus range teardown at +0x24 plus wide release at +0x30.
+-// Evidence: calls rowed narrow 0x00036410 plus rowed dtors 0x0052413E and 0x005241B0 plus rowed 0x005EF8BB plus rowed wide 0x00036E70; callers 0x005EFB65 and 0x005EFD45.
+-#include "ascii_string.h"
+-#include "unicode_string.h"
+-class Rva0052413E
+-{
+-public:
+-	~Rva0052413E();
+-private:
+-	char m_pad[12];
+-};
+-class Rva005241B0
+-{
+-public:
+-	~Rva005241B0();
+-private:
+-	char m_pad[12];
+-};
+-class Rva005EF8BB
+-{
+-public:
+-	void rva005EF8BB();
+-	~Rva005EF8BB();
+-private:
+-	void *m_first;
+-	void *m_last;
+-};
+-// ??1Rva005EF8BB@@QAE@XZ present-unmatched
+-inline Rva005EF8BB::~Rva005EF8BB()
+-{
+-	rva005EF8BB();
+-}
+-class Rva005EFB05
+-{
+-public:
+-	~Rva005EFB05();
+-private:
+-	int m_00;
+-	AsciiString m_04;
+-	int m_08;
+-	Rva0052413E m_0C;
+-	Rva005241B0 m_18;
+-	Rva005EF8BB m_24;
+-	int m_2C;
+-	UnicodeString m_30;
+-};
+-Rva005EFB05::~Rva005EFB05()
+-{
+-}
+diff --git a/Code/GameEngine/Source/Common/Rva005EFD39.cpp b/Code/GameEngine/Source/Common/Rva005EFD39.cpp
+index 2910ad093a..359b854a58 100644
+--- a/Code/GameEngine/Source/Common/Rva005EFD39.cpp
++++ b/Code/GameEngine/Source/Common/Rva005EFD39.cpp
+@@ -1,22 +1,19 @@
+-// cl: /Ireference/shims/bfme2_ascii /MD /EHsc /D_CRTIMP=
+-// ?rva005EFD39@Rva005EFD39@@QAEXXZ @0x005EFD39 26B: clear of Rva005EFB05* at +0.
++// stlport
++// cl: /Ireference/shims/bfme2_ascii /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
++// ?rva005EFD39@Rva005EFD39@@QAEXXZ @0x005EFD39 26B: clear of StrategicHUD::RegionDetailsArmiesMovieClip::Impl* at +0.
+ // Evidence: calls rowed dtor 0x005EFB05 plus rowed operator delete 0x0002FD60; caller 0x005EFDE4 tail-jmp after vtable store plus add ecx 4.
+-class Rva005EFB05
+-{
+-public:
+-	~Rva005EFB05();
+-};
++#include "RegionDetailsArmiesClipImplView.h"
+ void __cdecl operator delete(void *);
+ class Rva005EFD39
+ {
+ public:
+ 	void rva005EFD39();
+ private:
+-	Rva005EFB05 *m_ptr;
++	StrategicHUD::RegionDetailsArmiesMovieClip::Impl *m_ptr;
+ };
+ void Rva005EFD39::rva005EFD39()
+ {
+-	Rva005EFB05 *tmp = m_ptr;
++	StrategicHUD::RegionDetailsArmiesMovieClip::Impl *tmp = m_ptr;
+ 	m_ptr = 0;
+ 	if (tmp != 0)
+ 		delete tmp;
+diff --git a/Code/GameEngine/Source/GameClient/GUI/AptWotrIconSlotCallbacks.cpp b/Code/GameEngine/Source/GameClient/GUI/AptWotrIconSlotCallbacks.cpp
+index 50626434a9..d63efb880f 100644
+--- a/Code/GameEngine/Source/GameClient/GUI/AptWotrIconSlotCallbacks.cpp
++++ b/Code/GameEngine/Source/GameClient/GUI/AptWotrIconSlotCallbacks.cpp
+@@ -1,4 +1,5 @@
+-// cl: /DNDEBUG /MD /Ireference/shims/bfme2_ascii
++// cl: /DNDEBUG /MD /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /D_STLP_USE_STATIC_LIB
++// stlport
+ //
+ // Apt callbacks of the War of the Ring icon slot widgets, bound as member
+ // pointers under "<movie>_On..." names (a movie name plus a fixed suffix)
+@@ -91,37 +92,25 @@ void Rva005EEF2F::OnIconSlotRollOver(const char *unused)
+ 
+ // ---- bound by 0x005EF92D
+ 
+-class Rva005EF92D
+-{
+-public:
+-	void OnRollOverCommandPoints(const char *unused);
+-	void OnRollOutCommandPoints(const char *unused);
+-	void PlayerColor(int query, char *result, bool skip);
+-
+-private:
+-	unsigned char m_pad00[0x08];
+-	unsigned int m_color; // +0x08
+-	unsigned char m_pad0c[0x3E - 0x0C];
+-	bool m_commandPointsRolledOver; // +0x3E
+-};
++#include "../../Common/RegionDetailsArmiesClipImplView.h"
+ 
+ // Retail 0x005EEED4, 7 bytes: bound as "<movie>_OnRollOverCommandPoints"
+ // (0x005EF9D5).
+-void Rva005EF92D::OnRollOverCommandPoints(const char *unused)
++void StrategicHUD::RegionDetailsArmiesMovieClip::Impl::OnRollOverCommandPoints(const char *unused)
+ {
+-	m_commandPointsRolledOver = true;
++	m_3E = true;
+ }
+ 
+ // Retail 0x005EEEDB, 7 bytes: bound as "<movie>_OnRollOutCommandPoints"
+ // (0x005EFA34).
+-void Rva005EF92D::OnRollOutCommandPoints(const char *unused)
++void StrategicHUD::RegionDetailsArmiesMovieClip::Impl::OnRollOutCommandPoints(const char *unused)
+ {
+-	m_commandPointsRolledOver = false;
++	m_3E = false;
+ }
+ 
+ // Retail 0x005EEEE2, 29 bytes: bound as "<movie>_PlayerColor" (0x005EFA93),
+ // an Apt query answering +0x08.
+-void Rva005EF92D::PlayerColor(int query, char *result, bool skip)
++void StrategicHUD::RegionDetailsArmiesMovieClip::Impl::PlayerColor(int query, char *result, bool skip)
+ {
+ 	_snprintf(result, 0xFF, "%u", m_color);
+ }
+diff --git a/Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/ArmyCommandPointsMovieClipConstructor.cpp b/Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/ArmyCommandPointsMovieClipConstructor.cpp
+new file mode 100644
+index 0000000000..0e53f5113f
+--- /dev/null
++++ b/Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/ArmyCommandPointsMovieClipConstructor.cpp
+@@ -0,0 +1,56 @@
++// cl: /O1 /G7 /arch:SSE /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB
++// stlport
++// Native5EF92D..5EFB05 RET12: constructor472B of the canonical
++// RegionDetailsArmiesMovieClip::Impl. WB1616F10 has the same three callback
++// strings and SetArmyNameString/SetCommandPointsString chain; the already
++// named Show/Hide/Update bodies independently prove the caches and flags.
++// Constructor stores prove color08, command-map0C and extern-list18 in the
++// formerly opaque shared span. The existing93B destructor proves ownership.
++// The existing RegistryAsciiPath source guides the string-node construction;
++// the callback descriptor is the target-proven two-word SI binding.
++// Real vector<Rva005EFD53Element> supplies the existing four-byte counted
++// handle array; range-worker5EF5EF accepts an ABI view of the same handles.
++// /EHs preserves native63B vector destruction, including allocator cleanup
++// when range destruction throws. The three library folds recover zero bytes.
++#include "ascii_string.h"
++#include "unicode_string.h"
++#include <stl/_alloc.h>
++#include <vector>
++#include "../../../../Common/RegionDetailsArmiesClipImplView.h"
++struct AsciiStringRef {const AsciiString *m_string;};
++struct AsciiStringPlusString : AsciiStringRef {AsciiStringRef m_second;};
++class Rva000B3F84Pair {public:Rva000B3F84Pair(){} Rva000B3F84Pair *init(const char*);const char *text;int length;};
++struct AsciiStringPlusStringText : AsciiStringPlusString {operator AsciiString();Rva000B3F84Pair m_right;};
++static __forceinline AsciiStringPlusString operator+(const AsciiString&a,const AsciiString&b) {AsciiStringPlusString r;r.m_string=&a;r.m_second.m_string=&b;return r;}
++inline AsciiStringPlusStringText operator+(const AsciiStringPlusString&a,const char*b) {Rva000B3F84Pair p;p.init(b);AsciiStringPlusStringText r;static_cast<AsciiStringPlusString&>(r)=a;r.m_right=p;return r;}
++class AptCommandTarget {};
++struct DelegateDesc {
++ template<class T> DelegateDesc(T*o,void(T::*m)(const char*)):object((AptCommandTarget*)o),method(reinterpret_cast<void(AptCommandTarget::*)(const char*)>(m)){}
++ template<class T> DelegateDesc(T*o,void(T::*m)(int,char*,bool)):object((AptCommandTarget*)o),method(reinterpret_cast<void(AptCommandTarget::*)(const char*)>(m)){}
++ AptCommandTarget *object;void(AptCommandTarget::*method)(const char*);
++};
++class Rva00579E47 {public:Rva00579E47(const DelegateDesc&);void*ptr;};
++class AptCommandMap;class AptExternHandler;struct TargetRef00217D4C;
++void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);
++template<class T> class AptRef:public Rva00579E47 {public:AptRef(const DelegateDesc&desc):Rva00579E47(desc){}~AptRef(){if(ptr)ReleaseTreeHintRef00217D4C((TargetRef00217D4C*)ptr);}};
++class AptCommandMapAdder {public:AptCommandMapAdder();~AptCommandMapAdder();void AddCommandMap(const AsciiString&,AptRef<AptCommandMap>);__forceinline void AddCommandMapDelegate(const AsciiString&n,DelegateDesc d){AddCommandMap(n,d);}char storage[12];};
++class AptExternHandlerAdder {public:__declspec(noinline) AptExternHandlerAdder();~AptExternHandlerAdder();void AddExternHandler(const AsciiString&,int,AptRef<AptExternHandler>);__forceinline void AddExternHandlerDelegate(const AsciiString&n,DelegateDesc d){AddExternHandler(n,0,d);}private:_STL::vector<AsciiString>names;};
++
++
++struct Rva005EF02FOuter;struct Rva005EF096Outer;
++namespace StrategicHUD {void SetArmyNameString(int,Rva005EF02FOuter*,const UnicodeString&);void SetCommandPointsString(int,Rva005EF096Outer*,int,int);}
++StrategicHUD::RegionDetailsArmiesMovieClip::Impl::Impl(int l,const AsciiString&n,unsigned c):m_level(l),m_name(n),m_color(c),m_a(0),m_b(0),m_armyNameShown(false),m_shown(false),m_3E(false){
++ AsciiString prefix;prefix.format("_level%u.",m_level);
++ reinterpret_cast<AptCommandMapAdder*>(&m_commandMaps)->AddCommandMapDelegate(prefix+m_name+"_OnRollOverCommandPoints",DelegateDesc(this,&Impl::OnRollOverCommandPoints));
++ reinterpret_cast<AptCommandMapAdder*>(&m_commandMaps)->AddCommandMapDelegate(prefix+m_name+"_OnRollOutCommandPoints",DelegateDesc(this,&Impl::OnRollOutCommandPoints));
++ reinterpret_cast<AptExternHandlerAdder*>(&m_externHandlers)->AddExternHandlerDelegate(prefix+m_name+"_PlayerColor",DelegateDesc(this,&Impl::PlayerColor));
++ StrategicHUD::SetArmyNameString(m_level,reinterpret_cast<Rva005EF02FOuter*>(&m_name),m_cached30);
++ StrategicHUD::SetCommandPointsString(m_level,reinterpret_cast<Rva005EF096Outer*>(&m_name),m_a,m_b);
++}
++
++
++
++struct Rva005F0647;
++void __cdecl Rva005EF5EFClear(Rva005F0647*,Rva005F0647*);
++namespace _STL {template<> vector<Rva005EFD53Element,allocator<Rva005EFD53Element> >::~vector(){Rva005EF5EFClear(reinterpret_cast<Rva005F0647*>(_M_start),reinterpret_cast<Rva005F0647*>(_M_finish));}}
++StrategicHUD::RegionDetailsArmiesMovieClip::Impl::~Impl(){}
+diff --git a/Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/ArmyCommandPointsRegistrationConstructors.cpp b/Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/ArmyCommandPointsRegistrationConstructors.cpp
+new file mode 100644
+index 0000000000..27b81a003f
+--- /dev/null
++++ b/Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/ArmyCommandPointsRegistrationConstructors.cpp
+@@ -0,0 +1,7 @@
++// cl: /O1 /G7 /arch:SSE /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB
++// stlport
++// Native19B default vector constructors; caller5EF92D proves both12B lists.
++// Definitions stay separate so the caller retains native exception states.
++#include "../../../../Common/RegionDetailsArmiesClipImplView.h"
++Rva0052413E::Rva0052413E(){}
++Rva005241B0::Rva005241B0(){}
+diff --git a/Code/Libraries/Source/WWVegas/WWLib/StlportRegionIconSlotFillInsert.cpp b/Code/Libraries/Source/WWVegas/WWLib/StlportRegionIconSlotFillInsert.cpp
+new file mode 100644
+index 0000000000..3864faff5f
+--- /dev/null
++++ b/Code/Libraries/Source/WWVegas/WWLib/StlportRegionIconSlotFillInsert.cpp
+@@ -0,0 +1,24 @@
++// cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
++// stlport
++// STLport4.5.3 _vector.c is the source for native5EFC30..5EFD39 (265B).
++// Native insertion and resize callers prove the counted handle array and
++// three size words. The shared handle view retains count08/releases base04.
++// The assignment ABI view is the existing4B Rva005EEFD2 owner at5EEFD2.
++// Visible out-of-line wrappers preserve native dead-argument-slot reuse;
++// declarations alone add locals, and inline wrappers add extra tag pushes.
++// Both new typed wrappers are complete byte/relocation twins of the existing
++// copy_backward5EF46B and fill5EF488 owners; they recover zero extra bytes.
++
++
++#include "../../../../GameEngine/Source/Common/RegionIconSlotReferenceView.h"
++class Rva005EEFD2 {public:Rva005EEFD2 &operator=(const Rva005EEFD2&);private:void *m_ptr;};
++#include <vector>
++namespace _STL {
++template<class P,class D>P __copy_backward(P,P,P,const random_access_iterator_tag&,D*);
++
++template<> __declspec(nothrow) void _Construct<Rva005EFD53Element,Rva005EFD53Element>(Rva005EFD53Element*,const Rva005EFD53Element&);
++template<> __declspec(noinline) Rva005EFD53Element *__copy_backward_ptrs<Rva005EFD53Element*,Rva005EFD53Element*>(Rva005EFD53Element*a,Rva005EFD53Element*b,Rva005EFD53Element*c,const __false_type&) {return reinterpret_cast<Rva005EFD53Element*>(__copy_backward<Rva005EEFD2*,int>(reinterpret_cast<Rva005EEFD2*>(a),reinterpret_cast<Rva005EEFD2*>(b),reinterpret_cast<Rva005EEFD2*>(c),random_access_iterator_tag(),(int*)0));}
++template<> __declspec(noinline) void fill<Rva005EFD53Element*,Rva005EFD53Element>(Rva005EFD53Element*a,Rva005EFD53Element*b,const Rva005EFD53Element&c){for(;a!=b;++a)*reinterpret_cast<Rva005EEFD2*>(a)=reinterpret_cast<const Rva005EEFD2&>(c);}
++template<> __declspec(noinline) Rva005EFD53Element *uninitialized_fill_n<Rva005EFD53Element*,unsigned,Rva005EFD53Element>(Rva005EFD53Element*a,unsigned n,const Rva005EFD53Element&c){return __uninitialized_fill_n(a,n,c,__false_type());}
++}
++template void _STL::vector<Rva005EFD53Element>::_M_fill_insert(Rva005EFD53Element*,unsigned,const Rva005EFD53Element&);
+diff --git a/reverse/attempts/0x005efc30.cpp b/reverse/attempts/0x005efc30.cpp
+deleted file mode 100644
+index d58b57a61d..0000000000
+--- a/reverse/attempts/0x005efc30.cpp
++++ /dev/null
+@@ -1,52 +0,0 @@
+-// ?_M_fill_insert@?$vector@URva005EFD53Element@@V?$allocator@URva005EFD53Element@@@_STL@@@_STL@@QAEXPAURva005EFD53Element@@IABU3@@Z
+-// partial score=0.9195 date=2026-10-05
+-// cl: /G7 /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+-// stlport
+-// ?_M_fill_insert@?$vector@URva005EFD53Element@@V?$allocator@URva005EFD53Element@@@_STL@@@_STL@@QAEXPAURva005EFD53Element@@IABU3@@Z @0x005EFC30 265B: vector _M_fill_insert for 4-byte refcounted element.
+-// Evidence: calls rowed uninitialized_fill_n 0x005EF4A5 plus pinned __uninitialized_copy 0x005EF3FE plus rowed copy_backward 0x005EF46B plus rowed fill 0x005EF488 plus rowed overflow 0x005EFB7E plus rowed Release 0x0007DEEF; caller 0x005EFDE9 resize; same shape as STLport _vector.c _M_fill_insert.
+-#include <vector>
+-
+-struct TargetRef00217D4C
+-{
+-	void *m_vtbl;
+-	int references;
+-};
+-void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
+-
+-struct Rva005EEFD2Target
+-{
+-	int m_00;
+-	TargetRef00217D4C m_04;
+-};
+-
+-class Rva005EEFD2
+-{
+-public:
+-	Rva005EEFD2 &operator=(const Rva005EEFD2 &other);
+-private:
+-	Rva005EEFD2Target *m_ptr;
+-};
+-
+-struct Rva005EFD53Element
+-{
+-	Rva005EEFD2Target *m_ptr;
+-	Rva005EFD53Element(const Rva005EFD53Element &other) : m_ptr(other.m_ptr)
+-	{
+-		if (m_ptr != 0)
+-			++m_ptr->m_04.references;
+-	}
+-	~Rva005EFD53Element()
+-	{
+-		if (m_ptr != 0)
+-			ReleaseTreeHintRef00217D4C(&m_ptr->m_04);
+-	}
+-	Rva005EFD53Element &operator=(const Rva005EFD53Element &other);
+-};
+-
+-namespace _STL
+-{
+-template <> __declspec(nothrow) void _Construct<Rva005EFD53Element, Rva005EFD53Element>(Rva005EFD53Element *__p, const Rva005EFD53Element &__val);
+-}
+-
+-template void _STL::vector<Rva005EFD53Element>::_M_fill_insert(
+-	Rva005EFD53Element *, unsigned int, const Rva005EFD53Element &);
+diff --git a/reverse/functions.csv b/reverse/functions.csv
+index 84f83caf76..60cac1a574 100644
+--- a/reverse/functions.csv
++++ b/reverse/functions.csv
+@@ -53634,7 +53634,7 @@ uw_0075c910,,0x0075C910,8,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_str
+ ?setBits@Rva00330CD3ByteView@@QAEXE@Z,,0x00330CD3,10,Code/GameEngine/Source/Common/Bfme5SmallTests.cpp,matched,Whole BFME1 SmallLeafBodies rev5cc75dd O1/Ob1 lead; native true330CD3/10 boundary and byte64 store independently proved; owner and fullclass unknown
+ ??0Rva00360BFEWordView@@QAE@I@Z,,0x00360BFE,8,Code/GameEngine/Source/Common/Bfme5SmallTests.cpp,matched,Whole BFME1 SmallLeafBodies rev5cc75dd O1/Ob1 lead; native Player DoXfer2B1C1B new4 and2B1C28 cleanupstate3 prove constructor lifetime at2B1C2E; sets receiverword0 allones and returns receiver; ignored unsigned ABI word1; original state type unknown; replaces resetBits owner rather than adding a pin
+ ?rva00447A93@Rva00447A93@@QAEXVUnicodeString@@@Z,,0x00447A93,55,Code/GameEngine/Source/Common/Rva00447A93Method.cpp,matched,byvalue UnicodeString set plus release
+-??1Rva005EFB05@@QAE@XZ,,0x005EFB05,93,Code/GameEngine/Source/Common/Rva005EFB05Dtor.cpp,matched,dtor empty body with 5 implicit members via shared AsciiString UnicodeString plus rowed wrappers and range method
++??1Impl@RegionDetailsArmiesMovieClip@StrategicHUD@@QAE@XZ,,0x005EFB05,93,Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/ArmyCommandPointsMovieClipConstructor.cpp,matched,dtor empty body with 5 implicit members via shared AsciiString UnicodeString plus rowed wrappers and range method
+ ??1Rva005D40A6@@UAE@XZ,,0x005D40A6,114,Code/GameEngine/Source/Common/Rva005D40A6Dtor.cpp,matched,dtor via manager free and string releases unblocks two
+ ?write@DataChunkTableOfContents@@QAEXAAVOutputStream@@@Z,,0x0030715D,140,Code/GameEngine/Source/Common/System/DataChunkTableOfContentsRead.cpp,matched,BFME1 1281192f whole DataChunkTableOfContents.cpp donor /O1; native complete RET4 boundary and output caller3076A5 establish CkMp writer role; target count4 next4 name8 idC and canonical string header; stream slot0; all140 bytes verified; wrong unrowed duplicate reader removed from DataChunk.cpp to make this unit link
+ ?setMapSelected@QuickMatchPreferences@@QAEXABVAsciiString@@_N@Z,,0x005DF73F,104,Code/GameEngine/Source/Common/QuickMatchPreferences_setMapSelected.cpp,matched,ZH UserPreferences.cpp at BFME1 6583b3c1ff; target quoted-printable key and literals 1/0 identify setMapSelected; this+4 map and RET8 with known map2031FB and StringBase55F5; sibling isMapSelected5DF458; full104B verified
+@@ -53655,7 +53655,7 @@ __Locale_ctype_create,,0x00022360,1316,Code/Libraries/Source/WWVegas/WWLib/stlpo
+ ?rva002C969D@Weapon@@QAE_NPBXH@Z,,0x002C969D,59,Code/GameEngine/Source/GameLogic/Object/Rva002C96D8Finish.cpp,matched,unlock guarded virtual 0x98 via 0x250 callers 3; row moved home from WeaponIsTooClose.cpp
+ ?Rva0008FC17Create@@YGPAVRva000A1646@@PAX@Z,,0x0008FC17,58,Code/GameEngine/Source/Common/Rva0008FC17Create.cpp,matched,chain lane same 58B new+ctor shape as siblings
+ ?Rva0008F71BCreate@@YGPAVRva000A08D9@@PAX@Z,,0x0008F71B,58,Code/GameEngine/Source/Common/Rva0008F71BCreate.cpp,matched,chain lane same 58B new+ctor shape as siblings
+-??_GRva005EFB05@@QAEPAXI@Z,,0x005EFB62,28,Code/GameEngine/Source/Common/Rva005EFD39.cpp,matched,deleting dtor for Rva005EFB05 via same TU
++??_GImpl@RegionDetailsArmiesMovieClip@StrategicHUD@@QAEPAXI@Z,,0x005EFB62,28,Code/GameEngine/Source/Common/Rva005EFD39.cpp,matched,deleting dtor for Rva005EFB05 via same TU
+ ?rva00581339ResolveIP@@YAIVAsciiString@@@Z,,0x00581339,155,Code/GameEngine/Source/GameNetwork/NetworkUtilResolveIP.cpp,matched,BF1 NetworkUtilResolveIP.cpp donor1281192 unchanged at6583b3c1; native complete155B cdecl AsciiString-by-value resolver proven by four callers and PE imports isdigit inet_addr gethostbyname htonl; canonical one-pointer view and memcpy-intrinsic local reader preserve length+4 signedchar+8 cleanup36410; address-qualified provider weak-aliases existing ResolveIP pin; original spelling remains donor evidence; full bytes exact /O1 /MD /EHsc
+ ?rva00210ECF@Rva00210ECF@@QAEXABUBfmeE8@@@Z,,0x00210ECF,18,Code/GameEngine/Source/Common/Rva00210ECFMethod.cpp,matched,null checked tail jmp forwarder to rowed rva003F9DDA chain
+ ?rva0009B266@Rva0009B266@@QBE?AV?$RefCountPtr@VTextureClass@@@@HHH@Z,,0x0009B266,38,Code/GameEngine/Source/Common/Rva0009B266.cpp,matched,forward to +0x94 provider via rowed Get_Texture same shape as Rva006FD440 bfmeGet
+@@ -55528,7 +55528,7 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
+ ?rva004E6846@Rva004E6846@@QAEXXZ,,0x004E6846,60,Code/GameEngine/Source/Common/Bfme/Rva004E6846Close.cpp,matched,timeout via timeGetTime firing Rva0043DB23 Close
+ ??1Rva004E6A37@@QAE@XZ,,0x004E6A37,23,Code/GameEngine/Source/Common/OwnedPointerResets.cpp,matched,holder dtor via pointee 0x004E6935 and delete abutting clear
+ ??$__uninitialized_fill_n@PAURva005EFD53Element@@IU1@@_STL@@YAPAURva005EFD53Element@@PAU1@IABU1@ABU__false_type@0@@Z,,0x005EF424,37,Code/GameEngine/Source/Common/Rva005EF424FillN.cpp,matched,unlock fill_n stride 4 via pin 0x005F09FF unblocks 0x005EF4A5
+-??$uninitialized_fill_n@PAURva005EFD53Element@@IU1@@_STL@@YAPAURva005EFD53Element@@PAU1@IABU1@@Z,,0x005EF4A5,27,Code/GameEngine/Source/Common/Rva005EF424FillN.cpp,matched,chain wrapper via rowed 0x005EF424 unblocks 0x005EFC30
++??$uninitialized_fill_n@PAURva005EFD53Element@@IU1@@_STL@@YAPAURva005EFD53Element@@PAU1@IABU1@@Z,,0x005EF4A5,27,Code/Libraries/Source/WWVegas/WWLib/StlportRegionIconSlotFillInsert.cpp,matched,chain wrapper via rowed 0x005EF424 unblocks 0x005EFC30
+ ?Rva0022C8FBDestroy@@YGXPAURva0022C8FBElem@@@Z,,0x0022C8FB,28,Code/GameEngine/Source/Common/System/Rva0022C8FBDestroy.cpp,matched,unlock destroy at +4 via pin 0x0022630F then game free
+ ??1Rva005FF912@@UAE@XZ,,0x005FF95C,14,Code/GameEngine/Source/Common/Rva005FF95CDtor.cpp,matched,constructor and destructor vtables reconcile the sole owner; shared battle-prompt class view; native body and provider ABI byte-verified
+ ?forward0@Rva0066F5F0Secondary@@QAEXXZ,,0x0066F5F0,11,Code/GameEngine/Source/GameNetwork/Rva0066F5F0ForwardersFinish.cpp,matched,FESL browser factory secondary-base forwarder slot0; INT3-bounded native 66F5F0/11 reads this+C vptr at raw+4 adjusts ECX+4 tail-jumps slot0; table 0x00CE3F08 installed by landed ctor 66F860 and dtor 66F8D0; donor void/no-arg far-side slot shape is donor assumption
+@@ -58873,9 +58873,9 @@ _io_debug,,0x00333E42,25,Code/Libraries/Source/Lua/luaB_debug.cpp,matched,placed
+ ?OnIconSlotClicked@Rva005EEF2F@@QAEXPBD@Z,,0x005EEE74,52,Code/GameEngine/Source/GameClient/GUI/AptWotrIconSlotCallbacks.cpp,matched,Apt callback bound as <movie>_OnIconSlotClicked (0x005EF725) by the unrowed WOTR icon slot registration 0x005EF669; the bound member pointer is its only reference; method named for the suffix; class name unknown; listener +0x30 vslot 1 or 2 by the Apt +0x318 mode; ctor5EF669 and dtor5EEF2F install sameC787D4/C787D0 vtables and establish shared64-byte owner
+ ?OnIconSlotRollOut@Rva005EEF2F@@QAEXPBD@Z,,0x005EEEA8,22,Code/GameEngine/Source/GameClient/GUI/AptWotrIconSlotCallbacks.cpp,matched,Apt callback bound as <movie>_OnIconSlotRollOut (0x005EF82D) by 0x005EF669; the bound member pointer is its only reference; clears +0x2C and calls listener vslot 3; ctor5EF669 and dtor5EEF2F install sameC787D4/C787D0 vtables and establish shared64-byte owner
+ ?OnIconSlotRollOver@Rva005EEF2F@@QAEXPBD@Z,,0x005EEEBE,22,Code/GameEngine/Source/GameClient/GUI/AptWotrIconSlotCallbacks.cpp,matched,Apt callback bound as <movie>_OnIconSlotRollOver (0x005EF7A8) by 0x005EF669; the bound member pointer is its only reference; sets +0x2C and calls listener vslot 4; ctor5EF669 and dtor5EEF2F install sameC787D4/C787D0 vtables and establish shared64-byte owner
+-?OnRollOverCommandPoints@Rva005EF92D@@QAEXPBD@Z,,0x005EEED4,7,Code/GameEngine/Source/GameClient/GUI/AptWotrIconSlotCallbacks.cpp,matched,Apt callback bound as <movie>_OnRollOverCommandPoints (0x005EF9D5) by the unrowed registration 0x005EF92D; the bound member pointer is its only reference; sets +0x3E
+-?OnRollOutCommandPoints@Rva005EF92D@@QAEXPBD@Z,,0x005EEEDB,7,Code/GameEngine/Source/GameClient/GUI/AptWotrIconSlotCallbacks.cpp,matched,Apt callback bound as <movie>_OnRollOutCommandPoints (0x005EFA34) by 0x005EF92D; the bound member pointer is its only reference; clears +0x3E
+-?PlayerColor@Rva005EF92D@@QAEXHPAD_N@Z,,0x005EEEE2,29,Code/GameEngine/Source/GameClient/GUI/AptWotrIconSlotCallbacks.cpp,matched,Apt query bound as <movie>_PlayerColor (0x005EFA93) by 0x005EF92D; the bound member pointer is its only reference; _snprintf %u of +0x08
++?OnRollOverCommandPoints@Impl@RegionDetailsArmiesMovieClip@StrategicHUD@@QAEXPBD@Z,,0x005EEED4,7,Code/GameEngine/Source/GameClient/GUI/AptWotrIconSlotCallbacks.cpp,matched,Apt callback bound as <movie>_OnRollOverCommandPoints (0x005EF9D5) by the unrowed registration 0x005EF92D; the bound member pointer is its only reference; sets +0x3E
++?OnRollOutCommandPoints@Impl@RegionDetailsArmiesMovieClip@StrategicHUD@@QAEXPBD@Z,,0x005EEEDB,7,Code/GameEngine/Source/GameClient/GUI/AptWotrIconSlotCallbacks.cpp,matched,Apt callback bound as <movie>_OnRollOutCommandPoints (0x005EFA34) by 0x005EF92D; the bound member pointer is its only reference; clears +0x3E
++?PlayerColor@Impl@RegionDetailsArmiesMovieClip@StrategicHUD@@QAEXHPAD_N@Z,,0x005EEEE2,29,Code/GameEngine/Source/GameClient/GUI/AptWotrIconSlotCallbacks.cpp,matched,Apt query bound as <movie>_PlayerColor (0x005EFA93) by 0x005EF92D; the bound member pointer is its only reference; _snprintf %u of +0x08
+ ?OnIconSlotClicked@Rva005F0CC9@@QAEXPBD@Z,,0x005F0473,52,Code/GameEngine/Source/GameClient/GUI/AptWotrIconSlotCallbacks.cpp,matched,Apt callback bound as <movie>_OnIconSlotClicked (0x005F0D7A) by the unrowed registration 0x005F0CC9; the bound member pointer is its only reference; listener +0x14 vslot 1 or 2 by the Apt +0x318 mode
+ ?OnIconSlotRollOut@Rva005F0CC9@@QAEXPBD@Z,,0x005F04A7,20,Code/GameEngine/Source/GameClient/GUI/AptWotrIconSlotCallbacks.cpp,matched,Apt callback bound as <movie>_OnIconSlotRollOut (0x005F0E8B) by 0x005F0CC9; the bound member pointer is its only reference; listener vslot 3
+ ?OnIconSlotRollOver@Rva005F0CC9@@QAEXPBD@Z,,0x005F04BB,20,Code/GameEngine/Source/GameClient/GUI/AptWotrIconSlotCallbacks.cpp,matched,Apt callback bound as <movie>_OnIconSlotRollOver (0x005F0E03) by 0x005F0CC9; the bound member pointer is its only reference; listener vslot 4
+@@ -74086,3 +74086,13 @@ _vp6_xprintf,,0x001C4C90,610,Code/Libraries/Source/VP6/vp6_xprintf.cpp,matched,v
+ ?get@Rva004C54ECByte@@QAEEXZ,,0x004C54EC,4,Code/GameEngine/Source/GameNetwork/Rva0025E5F4RelayCommands.cpp,matched,gen-alias; independent25E5F4 command10 body routes byte1C to local-player comparison and processPlayerLeave; neutral byte payload view preserves unknown original getter spelling; all4 bytes equal existing percentage-byte getter with zero relocations and zero unique bytes
+ ?rva0025E5F4@Rva0025E4CD@@QAEXXZ,,0x0025E5F4,363,Code/GameEngine/Source/GameNetwork/Rva0025E5F4RelayCommands.cpp,matched,ZH Network RelayCommandsToCommandList semantic guide; native25E5F4..25E75F RET0 and WB E96910 corroborate frame+1 and command4/10/11/30 dispatch plus retained duplicate constructGameMessage side effect; targetC/10/3C and vslots43/46/63 establish receiver layout; existing Rva25E970 caller supplies shared neutral owner name; canonical GameLogic prefix and actual CommandList global reused; byte1C and native status-tail accessors fullICF twins; native240866 full961B RET8 and WB ProcessSaveGameCommand prove pointer plus word ABI and purpose; complete363/allcalls verified
+ ??0ChecklistUIImpl@StrategicHUD@@QAE@HABVAsciiString@@@Z,,0x0057B5AA,916,Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicHUDChecklistUIImplConstructor.cpp,matched,Native57B5AA..57B93E RET8 WB14BB620 names ChecklistUIImpl. Native three base views C6F118 C6F0FC C6F0F4 and bound callbacks establish identity independently; field offsets from native stores. Real MI gives eight-byte member pointers and by-value AddCommandMapDelegate preserves sixteen-byte binding copy. Scope-bound final AsciiString before Unicode fetch closes916. O1 G7 SSE EHs also preserves named158B destructor and271B private height helper at its real caller; neutral providers and typed consumers reconciled. No new pins or headers.
++??1?$vector@URva005EFD53Element@@V?$allocator@URva005EFD53Element@@@_STL@@@_STL@@QAE@XZ,,0x005EF8BB,63,Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/ArmyCommandPointsMovieClipConstructor.cpp,matched,gen-alias; Real canonical counted-handle vector destructor; full63 bytes and all relocation targets match existing range teardown owner; target5EF92D EH and5EFB05 destructor establish this member. EHs keeps allocator cleanup state before free. Zero new retail coverage.
++??0?$_STLP_alloc_proxy@PAURva005EFD53Element@@U1@V?$allocator@URva005EFD53Element@@@_STL@@@_STL@@QAE@ABV?$allocator@URva005EFD53Element@@@1@PAURva005EFD53Element@@@Z,,0x0014F3C4,11,Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/ArmyCommandPointsMovieClipConstructor.cpp,matched,gen-alias; Actual allocator proxy used by counted-handle vector header. Complete11B no relocations equals existing PlayerAITypeEntry proxy; pointer field at header8 and native caller independently prove role. Zero coverage.
++??0?$_Vector_base@URva005EFD53Element@@V?$allocator@URva005EFD53Element@@@_STL@@@_STL@@QAE@ABV?$allocator@URva005EFD53Element@@@1@@Z,,0x00211E58,29,Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/ArmyCommandPointsMovieClipConstructor.cpp,matched,gen-alias; Native5EF92D calls empty header ctor on member24; canonical four-byte counted handle stride independently proven by native destroy and resize. Complete29B and every relocation identical to existing BfmeE16 vector-base owner. Zero new coverage.
++??0Rva0052413E@@QAE@XZ,,0x001F81BF,19,Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/ArmyCommandPointsRegistrationConstructors.cpp,matched,gen-alias; Native5EF92D command-map memberC and existing destructor52413E independently establish twelve-byte registration name list. Default vector ctor full19B and relocation equal ObjectCreationList owner. Zero new coverage.
++??0Rva005241B0@@QAE@XZ,,0x001F81BF,19,Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/ArmyCommandPointsRegistrationConstructors.cpp,matched,gen-alias; Native5EF92D extern-handler member18 and existing destructor5241B0 independently establish twelve-byte registration name list. Default vector ctor full19B and relocation equal ObjectCreationList owner. Zero new coverage.
++??0Impl@RegionDetailsArmiesMovieClip@StrategicHUD@@QAE@HABVAsciiString@@I@Z,,0x005EF92D,472,Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/ArmyCommandPointsMovieClipConstructor.cpp,matched,Native5EF92D..5EFB05 RET12 WB1616F10 three callback strings plus named neighbouring Show/Hide/Update prove canonical RegionDetailsArmiesMovieClip Impl. Header span08..23 now constructor-proven color and command/extern lists. Proper SI delegate base and real vector counted handles; native472 and93B lifetime companion exact underEHs; no pins.
++??$__copy_backward_ptrs@PAURva005EFD53Element@@PAU1@@_STL@@YAPAURva005EFD53Element@@PAU1@00ABU__false_type@0@@Z,,0x005EF46B,29,Code/Libraries/Source/WWVegas/WWLib/StlportRegionIconSlotFillInsert.cpp,matched,gen-alias; Native 4-arg typed STLport wrapper used by 5EFC30; complete byte and relocation twin of existing 29B wrapper; actual counted handle storage ABI
++??$fill@PAURva005EFD53Element@@U1@@_STL@@YAXPAURva005EFD53Element@@0ABU1@@Z,,0x005EF488,29,Code/Libraries/Source/WWVegas/WWLib/StlportRegionIconSlotFillInsert.cpp,matched,gen-alias; Typed counted-handle fill wrapper called by 5EFC30; existing assignment owner 5EEFD2; complete byte and relocation twin of 29B fill owner
++?_M_fill_insert@?$vector@URva005EFD53Element@@V?$allocator@URva005EFD53Element@@@_STL@@@_STL@@QAEXPAURva005EFD53Element@@IABU3@@Z,,0x005EFC30,265,Code/Libraries/Source/WWVegas/WWLib/StlportRegionIconSlotFillInsert.cpp,matched,STLport4.5.3 vector insertion into canonical 4B counted handle array; 5EFDE9 resize caller; target count08 retain and base04 release; visible out-of-line wrappers preserve native argument-slot reuse
++??H@YA?AUAsciiStringPlusStringText@@ABUAsciiStringPlusString@@PBD@Z,,0x00109CFD,61,Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/ArmyCommandPointsMovieClipConstructor.cpp,matched,gen-alias; existing two-string concat fold proven by Palantir and stock RegistryAsciiPath; full61 byte and relocation twin; zero new retail bytes
+diff --git a/reverse/re_attempts.log b/reverse/re_attempts.log
+index 0727d6a910..4206782fc7 100644
+--- a/reverse/re_attempts.log
++++ b/reverse/re_attempts.log
+@@ -32551,3 +32551,13 @@ TexturePacker::UpdateResultTexture	0x001711A6	892	blocked	Fresh WB A12EB0 named
+ ??0QueuedIconSlot@Impl@BuildQueueDetailsMovieClip@StrategicHUD@@QAE@PAV123@H@Z	0x005F7B25	1020	partial	t=22 model=gpt-6.1-sol; corrected measured weighted score0.877836 (110 raw differences). NativeGhidra5F7B25..5F7F21 RET8 WB162EB00 names queued ctor. Proper delegate-base inheritance and slot-level Bind emit1020 with no unresolvedcalls; frame98vs9C prefix/number homes remain. Inline concat gives seven16B temporaries. Member/body assignments nodector inline fourth operator Ob2 Oy-/G7/EHs unchanged. No pins or Code edits. score=0.8778362973 stash=reverse/attempts/0x005f7b25.cpp
+ ??0InProgressIconSlot@Impl@BuildQueueDetailsMovieClip@StrategicHUD@@QAE@PAV123@@Z	0x005F775E	967	partial	t=22 model=gpt-6.1-sol; corrected measured weighted score0.908012 (80 raw differences). NativeGhidra5F775E..5F7B25 RET4 WB162D690 eightbindings. Proper delegate-base inheritance and slot-level Bind emit967 frame98 with all callsresolved; prefixlocal vs native deadformalhome and node/bindinghomes differ. Bodyassignment and localmethod variants unchanged. No constructor casts or pins. score=0.9080120464 stash=reverse/attempts/0x005f775e.cpp
+ ??0ChecklistUIImpl@StrategicHUD@@QAE@HABVAsciiString@@@Z	0x0057B5AA	916	landed	add_match verified Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicHUDChecklistUIImplConstructor.cpp 916B; Native57B5AA..57B93E RET8 WB14BB620 names ChecklistUIImpl. Native three base views C6F118 C6F0FC C6F0F4 and bound callbacks establish identity independently; field offsets from native stores. Real MI gives eight-byte member pointers and by-value AddCommandMapDelegate preserves sixteen-byte binding copy. Scope-bound final AsciiString before Unicode fetch closes916. O1 G7 SSE EHs also preserves named158B destructor and271B private height helper at its real caller; neutral providers and typed consumers reconciled. No new pins or headers.
++??1?$vector@URva005EFD53Element@@V?$allocator@URva005EFD53Element@@@_STL@@@_STL@@QAE@XZ	0x005EF8BB	63	landed	add_match verified Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/ArmyCommandPointsMovieClipConstructor.cpp 63B; gen-alias; Real canonical counted-handle vector destructor; full63 bytes and all relocation targets match existing range teardown owner; target5EF92D EH and5EFB05 destructor establish this member. EHs keeps allocator cleanup state before free. Zero new retail coverage.
++??0?$_STLP_alloc_proxy@PAURva005EFD53Element@@U1@V?$allocator@URva005EFD53Element@@@_STL@@@_STL@@QAE@ABV?$allocator@URva005EFD53Element@@@1@PAURva005EFD53Element@@@Z	0x0014F3C4	11	landed	add_match verified Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/ArmyCommandPointsMovieClipConstructor.cpp 11B; gen-alias; Actual allocator proxy used by counted-handle vector header. Complete11B no relocations equals existing PlayerAITypeEntry proxy; pointer field at header8 and native caller independently prove role. Zero coverage.
++??0?$_Vector_base@URva005EFD53Element@@V?$allocator@URva005EFD53Element@@@_STL@@@_STL@@QAE@ABV?$allocator@URva005EFD53Element@@@1@@Z	0x00211E58	29	landed	add_match verified Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/ArmyCommandPointsMovieClipConstructor.cpp 29B; gen-alias; Native5EF92D calls empty header ctor on member24; canonical four-byte counted handle stride independently proven by native destroy and resize. Complete29B and every relocation identical to existing BfmeE16 vector-base owner. Zero new coverage.
++??0Rva0052413E@@QAE@XZ	0x001F81BF	19	landed	add_match verified Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/ArmyCommandPointsRegistrationConstructors.cpp 19B; gen-alias; Native5EF92D command-map memberC and existing destructor52413E independently establish twelve-byte registration name list. Default vector ctor full19B and relocation equal ObjectCreationList owner. Zero new coverage.
++??0Rva005241B0@@QAE@XZ	0x001F81BF	19	landed	add_match verified Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/ArmyCommandPointsRegistrationConstructors.cpp 19B; gen-alias; Native5EF92D extern-handler member18 and existing destructor5241B0 independently establish twelve-byte registration name list. Default vector ctor full19B and relocation equal ObjectCreationList owner. Zero new coverage.
++??0Impl@RegionDetailsArmiesMovieClip@StrategicHUD@@QAE@HABVAsciiString@@I@Z	0x005EF92D	472	landed	add_match verified Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/ArmyCommandPointsMovieClipConstructor.cpp 472B; Native5EF92D..5EFB05 RET12 WB1616F10 three callback strings plus named neighbouring Show/Hide/Update prove canonical RegionDetailsArmiesMovieClip Impl. Header span08..23 now constructor-proven color and command/extern lists. Proper SI delegate base and real vector counted handles; native472 and93B lifetime companion exact underEHs; no pins.
++??$__copy_backward_ptrs@PAURva005EFD53Element@@PAU1@@_STL@@YAPAURva005EFD53Element@@PAU1@00ABU__false_type@0@@Z	0x005EF46B	29	landed	add_match verified Code/Libraries/Source/WWVegas/WWLib/StlportRegionIconSlotFillInsert.cpp 29B; gen-alias; Native 4-arg typed STLport wrapper used by 5EFC30; complete byte and relocation twin of existing 29B wrapper; actual counted handle storage ABI
++??$fill@PAURva005EFD53Element@@U1@@_STL@@YAXPAURva005EFD53Element@@0ABU1@@Z	0x005EF488	29	landed	add_match verified Code/Libraries/Source/WWVegas/WWLib/StlportRegionIconSlotFillInsert.cpp 29B; gen-alias; Typed counted-handle fill wrapper called by 5EFC30; existing assignment owner 5EEFD2; complete byte and relocation twin of 29B fill owner
++?_M_fill_insert@?$vector@URva005EFD53Element@@V?$allocator@URva005EFD53Element@@@_STL@@@_STL@@QAEXPAURva005EFD53Element@@IABU3@@Z	0x005EFC30	265	landed	add_match verified Code/Libraries/Source/WWVegas/WWLib/StlportRegionIconSlotFillInsert.cpp 265B; STLport4.5.3 vector insertion into canonical 4B counted handle array; 5EFDE9 resize caller; target count08 retain and base04 release; visible out-of-line wrappers preserve native argument-slot reuse
++??H@YA?AUAsciiStringPlusStringText@@ABUAsciiStringPlusString@@PBD@Z	0x00109CFD	61	landed	add_match verified Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/ArmyCommandPointsMovieClipConstructor.cpp 61B; gen-alias; existing two-string concat fold proven by Palantir and stock RegistryAsciiPath; full61 byte and relocation twin; zero new retail bytes

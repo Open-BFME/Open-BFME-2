@@ -1,0 +1,11 @@
+{
+  "rvas": [
+    "0x005EF92D",
+    "0x005EFC30"
+  ],
+  "bytes": 737,
+  "verified": "All scoped body/consumer checks plus full74097 body/literal/float/import gate; EH tables exact",
+  "blocked": "Full DIR32 consistency fails four foreign fade globals binding DEC068/DEC1A0/DEC1B0; file claimed by codex-01a12257-root",
+  "restore": "Apply Code portion of support patch; admit native472+265 with existing tool gates; rehome destructors and uninitialized_fill_n; preserve flags and canonical advanced header. Constructor registry default definitions must remain in separate TU. Reconcile ledger deletions explicitly.",
+  "alias_note": "BattlePrompt constructor TU now owns the same two-string concat61 gen-alias at109CFD. Do not add duplicate symbol/row from this snapshot. All aliases contribute zero unique bytes."
+}
