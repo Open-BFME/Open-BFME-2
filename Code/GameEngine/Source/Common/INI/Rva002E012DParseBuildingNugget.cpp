@@ -11,6 +11,13 @@
 // the store already; otherwise appends the released pointer to the store's
 // pointer vector (ICF-folded push_back 0x004DFCB0 under its row spelling).
 // Identities of the nugget and the store stay address-derived.
+#include <stl/_algobase.h>
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+	return a < b ? b : a;
+}
+}
 #include <memory>
 #include <vector>
 #include "ascii_string.h"
