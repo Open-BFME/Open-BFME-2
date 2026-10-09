@@ -1,7 +1,4 @@
-// ?EstimateMaxHeightAlongLine@BaseHeightMapRenderObjClass@@QBEMABUCoord3D@@0@Z
-// partial score=0.979695 date=2026-10-09
 // ?isClearLineOfSight@BaseHeightMapRenderObjClass@@QBE_NABUCoord3D@@0@Z
-// partial score=0.998 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /ICode/Libraries/Include
 // BaseHeightMapRenderObjClass::isClearLineOfSight, retail 0x00066AD1 (920 bytes).
 //
@@ -44,7 +41,7 @@ __forceinline long fast_float2long_round(Real f)
 	return i;
 }
 
-#define REAL_TO_INT_FLOOR(x) (fast_float2long_round((Real)floor(x)))
+#define REAL_TO_INT_FLOOR(x) (fast_float2long_round(fast_float_floor(x)))
 #define __max(a,b) (((a) > (b)) ? (a) : (b))
 
 #define MAP_XY_FACTOR 10.0f
@@ -110,24 +107,25 @@ private:
 class BaseHeightMapRenderObjClass
 {
 public:
-	Real EstimateMaxHeightAlongLine(const Coord3D& pos,const Coord3D& posOther)const;
+	Bool isClearLineOfSight(const Coord3D& pos, const Coord3D& posOther) const;
 
 private:
 	char m_padding00[0x37C0];
 	WorldHeightMap *m_map;
 };
 
-Real BaseHeightMapRenderObjClass::EstimateMaxHeightAlongLine(const Coord3D& pos, const Coord3D& posOther) const
+Bool BaseHeightMapRenderObjClass::isClearLineOfSight(const Coord3D& pos, const Coord3D& posOther) const
 {
 	if (m_map == 0)
-		return 0.0f;
+		return false;	// doh. should not happen.
 
-	Real result=0.0f;
 	const Real MAP_XY_FACTOR_INV = 1.0f / MAP_XY_FACTOR;
 
 	Int borderSize = m_map->getBorderSizeInline();
 	Int start_x = REAL_TO_INT_FLOOR(pos.x * MAP_XY_FACTOR_INV) + borderSize;
-	Int start_y = REAL_TO_INT_FLOOR(pos.y * MAP_XY_FACTOR_INV) + borderSize;
+	// Direct float overload at this conversion preserves the native
+	// pop/fstp order; the other coordinates retain the donor double wrapper.
+	Int start_y = fast_float2long_round((Real)floor(pos.y * MAP_XY_FACTOR_INV)) + borderSize;
 	Int end_x = REAL_TO_INT_FLOOR(posOther.x * MAP_XY_FACTOR_INV) + borderSize;
 	Int end_y = REAL_TO_INT_FLOOR(posOther.y * MAP_XY_FACTOR_INV) + borderSize;
 	Int delta_x = abs(end_x - start_x);			// The difference between the x's
@@ -179,6 +177,13 @@ Real BaseHeightMapRenderObjClass::EstimateMaxHeightAlongLine(const Coord3D& pos,
 		numpixels = delta_y;							// There are more y-values than x-values
 	}
 
+	Real nsInv = 1.0f / numpixels;
+	Real z = pos.z;
+	Real dz = posOther.z - z;
+	Real zinc = dz * nsInv;
+
+	Bool sawGround = false;
+	Bool result = true;
 	const UnsignedShort* data = m_map->getDataPtr();
 	Int xExtent = m_map->getXExtent();
 	Int yExtent = m_map->getYExtent();
@@ -193,6 +198,15 @@ Real BaseHeightMapRenderObjClass::EstimateMaxHeightAlongLine(const Coord3D& pos,
 			break;
 		}
 
+		Int layer = LAYER_GROUND;
+		Coord3D cellCenter;
+		if (TheAI && TheAI->pathfinder() && TheTerrainLogic)
+		{
+			cellCenter.x = (x - borderSize) * MAP_XY_FACTOR + MAP_XY_FACTOR / 2;
+			cellCenter.y = (y - borderSize) * MAP_XY_FACTOR + MAP_XY_FACTOR / 2;
+			cellCenter.z = 0.0f;
+			layer = TheAI->pathfinder()->GetGroundLayer(&cellCenter);
+		}
 
 		Int idx = x + y*xExtent;
 		float height = data[idx];
@@ -201,7 +215,31 @@ Real BaseHeightMapRenderObjClass::EstimateMaxHeightAlongLine(const Coord3D& pos,
 		height = __max(height, data[idx + xExtent + 1]);
 		height *= MAP_HEIGHT_SCALE;
 
-		if(height>result)result=height;
+		if (layer != LAYER_GROUND)
+		{
+			if (sawGround)
+			{
+				Real layerHeight = TheTerrainLogic->getLayerHeight(cellCenter.x, cellCenter.y,
+					(PathfindLayerEnum)layer, 0, true) - 20.0f;
+				if (layerHeight > height)
+					height = layerHeight;
+			}
+		}
+		else
+		{
+			sawGround = true;
+		}
+
+		// if terrainHeight > z, we can't see, so punt.
+		// add a little fudge to account for slop.
+		const Real LOS_FUDGE = 0.5f;
+		if (height > z + LOS_FUDGE)
+		{
+			result = false;
+			break;
+		}
+
+		z += zinc;
 
 		// continue with the maintenance.
 		num += numadd;										// Increase the numerator by the top of the fraction

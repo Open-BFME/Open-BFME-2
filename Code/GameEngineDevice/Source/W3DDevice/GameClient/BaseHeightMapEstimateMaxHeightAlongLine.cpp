@@ -1,16 +1,13 @@
-// ?isClearLineOfSight@BaseHeightMapRenderObjClass@@QBE_NABUCoord3D@@0@Z
-// partial score=0.998 date=2026-10-09
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
-// BaseHeightMapRenderObjClass::isClearLineOfSight, retail 0x00066AD1 (920 bytes).
-//
-// Identity: the existing pin (REL32 read from a placed caller); W3DTerrainLogic::
-// isClearLineOfSight (0x00062C0F) forwards here. Donor: Open-BFME-1 revision
-// 9cbfb551fe20dae985f91f2319d8997287b6a705,
-// game/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapIsClearLineOfSight.cpp
-// (BFME1 0x006C63C0, byte-matched there): the ZH Bresenham walk over m_map with
-// 16-bit samples and the bridge-layer raise. BFME2 target differences: m_map is
-// at +0x37C0, the AI's pathfinder at +0x10, and the cell layer comes from
-// Pathfinder::GetGroundLayer (0x002E9871).
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /ICode/Libraries/Include
+// BaseHeightMapRenderObjClass::EstimateMaxHeightAlongLine, native66E69..670B8.
+// WB7570D0 names the target method and source; height samples at map+37C0
+// use16-bit data, four-corner maxima and0.0390625 scaling. Bounds and
+// Bresenham steps are independently decoded from retail. Const qualification
+// is a structural inference from read-only access, not a donor target fact.
+// Semantic/structural guide: ZH BaseHeightMap.cpp isClearLineOfSight and clean
+// BF1 9cbfb551fe20dae985f91f2319d8997287b6a705 BaseHeightMapIsClearLineOfSight.cpp.
+// BFME2 removes LOS/bridge tests and retains maximum sampled terrain height.
+// x87 fistp is the donor's proven round helper; no lifted instructions.
 typedef int Int;
 typedef float Real;
 typedef bool Bool;
@@ -19,7 +16,7 @@ typedef unsigned short UnsignedShort;
 #include <math.h>
 #include <stdlib.h>
 
-struct Coord3D { Real x, y, z; };
+#include "Lib/Coord3D.h"
 
 enum PathfindLayerEnum
 {
@@ -42,7 +39,7 @@ __forceinline long fast_float2long_round(Real f)
 	return i;
 }
 
-#define REAL_TO_INT_FLOOR(x) (fast_float2long_round((Real)floor(x)))
+#define REAL_TO_INT_FLOOR(x) (fast_float2long_round(fast_float_floor(x)))
 #define __max(a,b) (((a) > (b)) ? (a) : (b))
 
 #define MAP_XY_FACTOR 10.0f
@@ -108,25 +105,28 @@ private:
 class BaseHeightMapRenderObjClass
 {
 public:
-	Bool isClearLineOfSight(const Coord3D& pos, const Coord3D& posOther) const;
+	Real EstimateMaxHeightAlongLine(const Coord3D& pos,const Coord3D& posOther)const;
 
 private:
 	char m_padding00[0x37C0];
 	WorldHeightMap *m_map;
 };
 
-Bool BaseHeightMapRenderObjClass::isClearLineOfSight(const Coord3D& pos, const Coord3D& posOther) const
+Real BaseHeightMapRenderObjClass::EstimateMaxHeightAlongLine(const Coord3D& pos, const Coord3D& posOther) const
 {
 	if (m_map == 0)
-		return false;	// doh. should not happen.
+		return 0.0f;
 
+	Real result=0.0f;
 	const Real MAP_XY_FACTOR_INV = 1.0f / MAP_XY_FACTOR;
 
 	Int borderSize = m_map->getBorderSizeInline();
 	Int start_x = REAL_TO_INT_FLOOR(pos.x * MAP_XY_FACTOR_INV) + borderSize;
-	Int start_y = REAL_TO_INT_FLOOR(pos.y * MAP_XY_FACTOR_INV) + borderSize;
-	Int end_x = REAL_TO_INT_FLOOR(posOther.x * MAP_XY_FACTOR_INV) + borderSize;
-	Int end_y = REAL_TO_INT_FLOOR(posOther.y * MAP_XY_FACTOR_INV) + borderSize;
+	// Native conversion scheduling requires direct float overloads here and
+	// for both endpoints; start_x retains the donor double floor wrapper.
+	Int start_y = fast_float2long_round((Real)floor(pos.y * MAP_XY_FACTOR_INV)) + borderSize;
+	Int end_x = fast_float2long_round((Real)floor(posOther.x * MAP_XY_FACTOR_INV)) + borderSize;
+	Int end_y = fast_float2long_round((Real)floor(posOther.y * MAP_XY_FACTOR_INV)) + borderSize;
 	Int delta_x = abs(end_x - start_x);			// The difference between the x's
 	Int delta_y = abs(end_y - start_y);			// The difference between the y's
 	Int x = start_x;												// Start x off at the first pixel
@@ -176,13 +176,6 @@ Bool BaseHeightMapRenderObjClass::isClearLineOfSight(const Coord3D& pos, const C
 		numpixels = delta_y;							// There are more y-values than x-values
 	}
 
-	Real nsInv = 1.0f / numpixels;
-	Real z = pos.z;
-	Real dz = posOther.z - z;
-	Real zinc = dz * nsInv;
-
-	Bool sawGround = false;
-	Bool result = true;
 	const UnsignedShort* data = m_map->getDataPtr();
 	Int xExtent = m_map->getXExtent();
 	Int yExtent = m_map->getYExtent();
@@ -197,15 +190,6 @@ Bool BaseHeightMapRenderObjClass::isClearLineOfSight(const Coord3D& pos, const C
 			break;
 		}
 
-		Int layer = LAYER_GROUND;
-		Coord3D cellCenter;
-		if (TheAI && TheAI->pathfinder() && TheTerrainLogic)
-		{
-			cellCenter.x = (x - borderSize) * MAP_XY_FACTOR + MAP_XY_FACTOR / 2;
-			cellCenter.y = (y - borderSize) * MAP_XY_FACTOR + MAP_XY_FACTOR / 2;
-			cellCenter.z = 0.0f;
-			layer = TheAI->pathfinder()->GetGroundLayer(&cellCenter);
-		}
 
 		Int idx = x + y*xExtent;
 		float height = data[idx];
@@ -214,31 +198,7 @@ Bool BaseHeightMapRenderObjClass::isClearLineOfSight(const Coord3D& pos, const C
 		height = __max(height, data[idx + xExtent + 1]);
 		height *= MAP_HEIGHT_SCALE;
 
-		if (layer != LAYER_GROUND)
-		{
-			if (sawGround)
-			{
-				Real layerHeight = TheTerrainLogic->getLayerHeight(cellCenter.x, cellCenter.y,
-					(PathfindLayerEnum)layer, 0, true) - 20.0f;
-				if (layerHeight > height)
-					height = layerHeight;
-			}
-		}
-		else
-		{
-			sawGround = true;
-		}
-
-		// if terrainHeight > z, we can't see, so punt.
-		// add a little fudge to account for slop.
-		const Real LOS_FUDGE = 0.5f;
-		if (height > z + LOS_FUDGE)
-		{
-			result = false;
-			break;
-		}
-
-		z += zinc;
+		if(height>result)result=height;
 
 		// continue with the maintenance.
 		num += numadd;										// Increase the numerator by the top of the fraction
