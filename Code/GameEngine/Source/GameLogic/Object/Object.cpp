@@ -8,6 +8,7 @@
 
 #include "ascii_string.h"
 #include "unicode_string.h"
+#include "../../Common/GameLogicObjectLookupView.h"
 
 class BehaviorModule;
 class BodyModuleInterface;
@@ -133,6 +134,7 @@ public:
 	void friend_adjustPowerForPlayer(bool incoming);
 	Object *rva002931F5(bool flag);
 	void *rva0028C197() const;
+	__declspec(noinline) void rva0028C24C();
 	void rva001E42F2(const int *x);
 	void rva001E431E(const int *x);
 	void rva0028CFB2(const int *a, const int *b);
@@ -171,6 +173,8 @@ private:
 	BitFlags<11> m_disabled1C8;		// +0x1C8
 	unsigned char m_pad1CC[0x43C - 0x1CC];	// +0x1CC..0x43C
 	bool m_receivingDifficultyBonus;	// +0x43C
+	unsigned char m_pad43D[0x458 - 0x43D];
+	int m_deadline458;
 };
 
 // Retail 0x0028B595 (89 bytes): unlink this Object from a doubly-linked list
@@ -500,4 +504,16 @@ AsciiString DescribeObject(const Object *obj)
    owner ? obj->getControllingPlayer()->getPlayerDisplayNameText() : (const unsigned short *)L"<unknown>");
  }
  return result;
+}
+
+// Consolidated from Rva0028C24CFinish.cpp. The native24B helper leaves ECX
+// unchanged; the dispatcher below relies on the compiler seeing this body.
+// Keep its established global owner (data ledger RVA9BA4E4), frame40 and
+// deadline458. No inline expansion: retail still calls the separate helper.
+extern int g_Va00DBA4E4;
+extern GameLogic *TheGameLogic;
+
+void Object::rva0028C24C()
+{
+ m_deadline458 = g_Va00DBA4E4 * 10 + TheGameLogic->getFrame();
 }
