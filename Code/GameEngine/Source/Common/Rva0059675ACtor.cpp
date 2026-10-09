@@ -14,7 +14,7 @@ class Rva0059675ABase {public:
 virtual ~Rva0059675ABase() {}};
 class Anim2D;
 struct FadeInTextRender:Rva0059675ABase {
- FadeInTextRender();virtual ~FadeInTextRender();
+ FadeInTextRender();virtual ~FadeInTextRender();virtual void LoadAssets();
  char pad04[0x18];Anim2D *anim;float scale;AsciiString fontName;unsigned color;int delay;unsigned fontSize;unsigned starts[3],ends[3];int width,height;
 };
 FadeInTextRender::FadeInTextRender():anim(0),scale(0.0f),fontName("SachaWynter"),color(0xDCF0FA),delay(g_009BA4E8/4+1),fontSize(14) {
