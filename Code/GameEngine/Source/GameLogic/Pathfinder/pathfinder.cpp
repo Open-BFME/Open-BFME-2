@@ -441,7 +441,7 @@ struct GeometryShape {
     float offsetX,offsetY,offsetZ;
     AsciiString name;
     bool enabled,opaque21;
-    GeometryShape() : type(0),height(1),major(1),minor(1),offsetX(0),offsetY(0),offsetZ(0),enabled(true),opaque21(true) {}
+    __forceinline GeometryShape() : type(0),height(1),major(1),minor(1),offsetX(0),offsetY(0),offsetZ(0),enabled(true),opaque21(true) {}
 };
 class GeometryInfo { public: void rva006BD9C0(GeometryShape &) const; };
 struct ICoord2DBase { int x,y; };
@@ -454,8 +454,8 @@ public:
 class Rva0006E009DwordField { public: int get() const; };
 class Rva0052DB4D { public: bool rva0052DB4D(int); };
 void rva002E79A8(int,unsigned char,int,int,int);
-// The native +1B6 query uses this 12-byte floating scratch first. Later
-// +280 stores integer position at scratch+4 and diameter at scratch+12.
+// Native 0x002F01B6 addresses this 12-byte floating scratch first. Later
+// 0x002F0369 stores integer position at scratch+4 and diameter at scratch+12.
 // The two phases do not overlap; this local union preserves that 20-byte reuse.
 union PathfinderCheckCoordinates {
     Coord3D point;
@@ -1144,3 +1144,11 @@ Bool Pathfinder::CheckDestination(Object *obj,Int cellX,Int cellY,PathfindLayerE
     }
     return true;
 }
+
+// The 59-byte executable gap between the verified split helper ending BCF6
+// and queueForPath at BD31 is a complete constructor ending in RET. Its stores
+// reproduce the GeometryShape initialization in CheckDestination, including
+// the name and two tail flags. The original owner name is unproven; this
+// address-named adapter reuses the independently supported 36-byte shape view.
+struct Rva002EBCF6 : GeometryShape { Rva002EBCF6(); };
+Rva002EBCF6::Rva002EBCF6() {}
