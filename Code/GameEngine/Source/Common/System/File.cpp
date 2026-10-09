@@ -252,6 +252,7 @@ private:
 class MemoryWriteFile : public File
 {
 public:
+	virtual int write(const void *buffer, int bytes);
 	virtual int seek(int bytes, seekMode mode);
 
 private:
@@ -260,6 +261,39 @@ private:
 	int m_pos;
 	int m_capacity;
 };
+
+// Native 0x006021CA..0x00602255 (139B), MemoryWriteFile vftable slot 4.
+// BFME1 575ba2b04743 File.cpp supplies the buffer growth/copy semantic guide;
+// WB 0x016474C0 names write and shows the target's extra failure/empty guards.
+// Keep the already-rowed allocator thunk's opaque word ABI: its current
+// second-argument spelling is const char*, but retail passes capacity there.
+int __cdecl rva00030810(void *, const char *, int);
+int MemoryWriteFile::write(const void *buffer, int bytes)
+{
+	if (bytes < 0)
+		return -1;
+	if (bytes > 0 && !buffer)
+		return -1;
+	if (!buffer)
+		return 0;
+	if (!bytes)
+		return 0;
+	if ((unsigned int)m_pos > (unsigned int)m_size)
+		m_pos = 0;
+	int needed = m_pos + bytes;
+	if ((unsigned int)needed > (unsigned int)m_capacity)
+	{
+		m_capacity = needed * 2 + 0x1000;
+		m_data = (char *)rva00030810(m_data, (const char *)m_capacity, 0);
+	}
+	if (!m_data)
+		return -1;
+	memcpy(m_data + m_pos, buffer, bytes);
+	m_pos += bytes;
+	if ((unsigned int)m_pos > (unsigned int)m_size)
+		m_size = m_pos;
+	return bytes;
+}
 
 // ?read@MemoryReadFile@@UAEHPAXH@Z, retail 0x006020F0, 70 bytes: slot 3 of
 // vtable 0x0087A748. BFME1 donor MemoryReadFile::read (matched there at

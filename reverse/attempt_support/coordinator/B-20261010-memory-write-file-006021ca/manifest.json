@@ -1,0 +1,25 @@
+{
+  "id": "B-20261010-memory-write-file-006021ca",
+  "paths": [
+    "Code/GameEngine/Source/Common/System/File.cpp"
+  ],
+  "recoveries": [
+    {
+      "name": "?write@MemoryWriteFile@@UAEHPBXH@Z",
+      "rva": "0x006021CA",
+      "size": 139,
+      "source": "Code/GameEngine/Source/Common/System/File.cpp",
+      "notes": "BF1 donor575ba2b04743 Common System File.cpp supplies growth-copy-size behavior; WB16474C0 names MemoryWriteFile write at file_memoryfile.cpp186-206. Native6021CA..602255 proves139B slot4 RET8 and target invalid-count/null/empty/overrun/allocation-failure guards. Data14 size18 pos1C capacity20 follow existing matched seek view. Target three-word allocation thunk30810 and memcpy6291A8 retain existing bindings; opaque thunk spelling preserved without claiming its old zlib-purpose prose. Separate empty-buffer and zero-length guards reproduce exact branch arrangement. All139B and relocation bindings exact; all15 existing unit rows still exact; no new pins or assembler.",
+      "replace_rva": ""
+    }
+  ],
+  "proof_command": "python tools/explain_mismatch.py '?write@MemoryWriteFile@@UAEHPBXH@Z' --rva 0x006021CA --size 139 --source Code/GameEngine/Source/Common/System/File.cpp; python build/verify-memory-write-file.py",
+  "proof_log": "proof.log",
+  "dependencies": [],
+  "ledger_delta": "No local ledger edits. One new row in existing source.",
+  "provider_notes": "The 27B rowed allocator thunk rva00030810 retains its existing mangled declaration int(void* const char* int). Native caller passes pointer/capacity/zero words; source casts capacity to that existing opaque second-word spelling and returned int to the data pointer. This does not prove the old provider comment's zlib classification and adds no pin or alias. memcpy uses existing runtime thunk binding. File and MemoryWriteFile are existing unit views; no new class/header is added. Normal whole-source proof retains all15 rows and five imports/two literals.",
+  "seat": "B",
+  "base_commit": "27aae652f10402b4957197a33aea7a0906367517",
+  "claim_owner": "codex-01a12257-recovery",
+  "proof_exit_code": 0
+}
