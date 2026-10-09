@@ -25,10 +25,12 @@ public:
 	virtual void slot40(); virtual void slot44(); virtual void slot48(); virtual void slot4C();
 	virtual void slot50(); virtual void slot54(); virtual void slot58(); virtual void slot5C();
 	virtual void slot60(); virtual void slot64(); virtual void slot68(); virtual void slot6C();
-	virtual void slot70(); virtual void slot74(); virtual void slot78(); virtual int slot7C();
+	virtual void slot70(); virtual void slot74(); virtual void slot78(); virtual unsigned int getFrame();
 };
 
-extern ClientFrameSubsystem *TheGameClient;
+// The real GameClient singleton uses this primary-vtable frame accessor at +0x7C.
+class GameClient;
+extern GameClient *TheGameClient;
 
 struct Rva00563F34Stamp
 {
@@ -56,8 +58,9 @@ void Rva00563F34::rva00563F34()
 	if (m_armed && m_fx)
 	{
 		Rva00563F34Stamp *stamp = m_stamp;
-		int elapsed = TheGameClient->slot7C() - *(int *)((char *)stamp + 0x58);
-		if ((unsigned int)elapsed >= m_window)
+		unsigned int elapsed = reinterpret_cast<ClientFrameSubsystem *>(TheGameClient)->getFrame()
+			- (unsigned int)*(int *)((char *)stamp + 0x58);
+		if (elapsed >= m_window)
 		{
 			char *pos = (char *)stamp;
 			pos += 0x1C;
@@ -124,7 +127,7 @@ void Rva0056405C::rva0056405C()
 	if (m_armed && m_fx)
 	{
 		unsigned int stamp = ((Rva0056405CSystemView *)system())->m_stamp;
-		if ((unsigned int)(TheGameClient->slot7C() - stamp) >= m_window)
+		if (reinterpret_cast<ClientFrameSubsystem *>(TheGameClient)->getFrame() - stamp >= m_window)
 		{
 			Coord3D pos;
 			((Rva001F385A *)system())->rva001F385A(&pos);
