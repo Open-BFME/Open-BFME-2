@@ -41,3 +41,25 @@ BFME_DISP8_SHL_DWORD_GETTER(Rva00169650ShlDwordField, 0x10, 0x04)
 
 BFME_DISP8_SCALED_BITS(Rva00169580ScaledField, 2)
 BFME_DISP8_SCALED_BITS(Rva00169590ScaledField, 1)
+
+// Whole clean BF1 f989 Rva00928F80Accessors.cpp and Rva009239F0Accessors.cpp
+// supply the modular unsigned-field scaling expressions under O2/SSE2/G7.
+// Native independently brackets15AB40..15AB4A and169450..169459 with INT3:
+// both load receiver word10, then scale by8/6 and return EAX with RET0.
+// Original owner, field purpose and signedness remain unknown; unsigned
+// arithmetic preserves the witnessed32bit result without allocation claims.
+// Existing169580/169590 scale siblings establish this home's O2/G7 profile.
+BFME_DISP8_SCALED_BITS(Rva0015AB40ScaledField, 3)
+
+class Rva00169450ScaledField
+{
+public:
+    unsigned scaled() const;
+private:
+    char m_unmodelled0[0x10];
+    unsigned m_word10;
+};
+unsigned Rva00169450ScaledField::scaled() const
+{
+    return m_word10 * 6;
+}
