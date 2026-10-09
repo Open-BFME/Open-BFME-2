@@ -1,17 +1,6 @@
+// ?RenderMessage@InGameNotificationBoxMovieClip@@QAEXPBVCoord2D@@0PAX1@Z
+// partial score=0.973015873015873 date=2026-10-09
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /O1 /Oy /G7 /arch:SSE /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/inputs/reference/shims/sweep /ICode/Libraries/Include/Lib
-// Notification ctor: native4E6C34..4E6F30 RET0 and WB1321690 source43..47.
-// Target stores and the rowed157B destructor establish fields4..51;
-// owned slots40/44 start empty. Lists0C/18/24/30 hold three pointers and
-// have distinct independently verified teardown providers.
-// Rva00524265 ctor below is a complete19B ICF twin of the default name-list
-// constructor, independently verified before using it for the +24 list.
-// Six bindings establish callbacks. WB1323070 names OnInitialized,
-// WB1323380 names ExternMessageWidth and WB13235C0 names RenderMessage.
-// RenderMessage144 is banked: four local-stack offsets still differ. Its
-// independently named native entry remains a declaration and a link
-// blocker. Constructor DIR32 binding needs no new pin. The two float-pair argument types follow retail accesses;
-// pointer types for its two unused words remain structural views.
-// No applicable clean BFME1/ZH donor body at the pinned f98983a7d revision.
 #include "ascii_string.h"
 #include "unicode_string.h"
 #include "Coord2D.h"
@@ -46,26 +35,6 @@ Rva004E6A37 Rva004E6A1D::rva004E6BF6() {
  return Rva004E6A37(transfer);
 }
 
-// ?rva002B54BB@Rva002B54BB@@QAE?AVRva002B4349@@XZ @0x002B54BB (62B): the same ownership transfer on another owner whose
-// consuming holder is Rva002B4349 (rowed destructor 0x002B4349). Target evidence: retail body and the destructor
-// REL32 read byte for byte; names are address-derived.
-class Rva002B4349 {
-public:
- Rva004E6935 *m_ptr;
- Rva002B4349(Rva004E6935 *p=0):m_ptr(p) {}
- Rva002B4349(Rva002B4349 &v) { Rva004E6935 *p=v.m_ptr; v.m_ptr=0; m_ptr=p; }
- ~Rva002B4349();
-};
-class Rva002B54BB {
-public:
- Rva004E6935 *m_ptr;
- Rva002B4349 rva002B54BB();
-};
-Rva002B4349 Rva002B54BB::rva002B54BB() {
- Rva002B4349 transfer(m_ptr);
- m_ptr=0;
- return Rva002B4349(transfer);
-}
 namespace _STL {
  template<class T> class allocator {public:allocator(){}};
  template<class T,class A> class _Vector_base {public:_Vector_base(const A&);protected:T*first,*last,*limit;};
@@ -145,7 +114,7 @@ class InGameNotificationBoxMovieClip:public Rva004E6A9BBase {public:
  virtual unsigned char rva00578522()const;virtual void rva004E6B7D(bool);
  virtual void DoOpen(const UnicodeString&,const Rva002217EA&,int);virtual void DoClose();
  void CloseImmediately();void OnInitialized(unsigned);void OnClosed(unsigned);void rva004E67D0(int);
- void ExternMessageWidth(int,const char*,bool);void RenderMessage(const Coord2D*,const Coord2D*,void*,void*);
+ void MessageWidth(int,const char*,bool);void RenderMessage(const Coord2D*,const Coord2D*,void*,void*);
  int level,state;Rva0052413E commands;Rva005241B0 externs;Rva00524265 renders;Rva005242D7 images;
  float width;Rva004E6A1D pending,active;unsigned timestamp;DisplayString*string;unsigned char flag50,iconVisible;
 };
@@ -156,12 +125,17 @@ InGameNotificationBoxMovieClip::InGameNotificationBoxMovieClip():level(-1),state
  ((AptCommandMapAdder*)&commands)->AddCommandMap(prefix+"_OnOpen",AptRef<AptCommandMap>(DelegateDesc(this,reinterpret_cast<NoticeCommand>(&Rva004E67B3::rva004E67B3))));
  ((AptCommandMapAdder*)&commands)->AddCommandMap(prefix+"_OnClosed",AptRef<AptCommandMap>(DelegateDesc(this,&InGameNotificationBoxMovieClip::OnClosed)));
  ((AptCommandMapAdder*)&commands)->AddCommandMap(prefix+"_OnCloseButtonClicked",AptRef<AptCommandMap>(DelegateDesc(this,reinterpret_cast<NoticeCommand>(&InGameNotificationBoxMovieClip::rva004E67D0))));
- ((AptExternHandlerAdder*)&externs)->AddExternHandler(prefix+"_MessageWidth",0,AptRef<AptExternHandler>(DelegateDesc(this,reinterpret_cast<NoticeCommand>(&InGameNotificationBoxMovieClip::ExternMessageWidth))));
+ ((AptExternHandlerAdder*)&externs)->AddExternHandler(prefix+"_MessageWidth",0,AptRef<AptExternHandler>(DelegateDesc(this,reinterpret_cast<NoticeCommand>(&InGameNotificationBoxMovieClip::MessageWidth))));
  ((AptCustomRenderAdder*)&renders)->AddCustomRender(prefix+"_Message",AptRef<AptCustomRender>(DelegateDesc(this,reinterpret_cast<NoticeCommand>(&InGameNotificationBoxMovieClip::RenderMessage))));
  ((Rva002224FE*)g_bfmeAptWindowManager)->rva002224FE(level);
 }
 void InGameNotificationBoxMovieClip::OnInitialized(unsigned){if(state==0)state=1;}
-void InGameNotificationBoxMovieClip::ExternMessageWidth(int,const char*text,bool){width=(float)atof(text);}
+void InGameNotificationBoxMovieClip::MessageWidth(int,const char*text,bool){width=(float)atof(text);}
 unsigned char InGameNotificationBoxMovieClip::rva00578522()const{return flag50;}
 void InGameNotificationBoxMovieClip::rva004E6B7D(bool value){if(value!=flag50){if(!value)CloseImmediately();flag50=value;}}
-typedef char NotificationFieldsHave84Bytes[sizeof(InGameNotificationBoxMovieClip)==84 ? 1 : -1];
+void InGameNotificationBoxMovieClip::RenderMessage(const Coord2D*position,const Coord2D*size,void*,void*) {
+ if(active.m_ptr){int w,h;((NoticeStringView*)string)->getSize(&w,&h);
+ int x=WWMath::Float_To_Long((float)floor(position->x+(size->x-w+1.0f)*0.5f));
+ int y=WWMath::Float_To_Long((float)floor(position->y+(size->y-h+1.0f)*0.5f));
+ ((NoticeStringView*)string)->draw(x,y);}
+}
