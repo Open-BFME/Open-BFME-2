@@ -11,6 +11,7 @@
 // loop advances packet in its increment expression.
 class ChunkLoadClass;
 class Vector3 { public: float X, Y, Z; };
+class Quaternion { public: float X, Y, Z, W; };
 class BFME2MotionChannel {
 public:
     virtual bool Load(ChunkLoadClass &);
@@ -26,13 +27,13 @@ extern float filtertable[256];
 class BFME2StreamMotionChannel : public BFME2MotionChannel {
 public:
     float Scale;
-    float Initial[3];
-    unsigned int pad24;
+    float Initial[4];
     unsigned char *Data;
 };
 class BFME2Encoding1MotionChannel : public BFME2StreamMotionChannel {
 public:
     void rva001B230A(unsigned int *state, unsigned int from, unsigned int frame, Vector3 *value0, Vector3 *value1);
+    void rva001B2450(unsigned int *state, unsigned int from, unsigned int frame, Quaternion *value0, Quaternion *value1);
 };
 void BFME2Encoding1MotionChannel::rva001B230A(unsigned int *state, unsigned int from, unsigned int frame, Vector3 *value0, Vector3 *value1)
 {
@@ -53,6 +54,47 @@ void BFME2Encoding1MotionChannel::rva001B230A(unsigned int *state, unsigned int 
         unsigned int fi0 = from & 0xF;
         from &= ~0xFu;
         for (int vi = 0; vi < 3; ++vi, packet += 9) {
+            float filter = filtertable[*packet] * Scale;
+            unsigned char *p = packet + 1 + (fi0 >> 1);
+            for (unsigned int fi = fi0; fi < 16; ++fi) {
+                unsigned int f = from + fi;
+                if (f == frame)
+                    ((float *)value0)[vi] = ((float *)&last)[vi];
+                else if (f == frame + 1) {
+                    ((float *)value1)[vi] = ((float *)&last)[vi];
+                    break;
+                }
+                int bit = fi & 1;
+                int factor = bit ? (signed char)*p >> 4 : (signed char)(*p << 4) >> 4;
+                p += bit;
+                ((float *)&last)[vi] += (float)factor * filter;
+            }
+        }
+        from += 16;
+        if (from > frame)
+            value0 = 0;
+    }
+}
+
+void BFME2Encoding1MotionChannel::rva001B2450(unsigned int *state, unsigned int from, unsigned int frame, Quaternion *value0, Quaternion *value1)
+{
+    Quaternion last;
+    if (from > frame) {
+        from = 0;
+        last = *(const Quaternion *)Initial;
+    } else
+        last = *(const Quaternion *)state;
+    unsigned char *packet = Data + (from >> 4) * 36;
+    while (from <= frame + 1) {
+        if (from >= (unsigned int)Count) {
+            if (value0)
+                *value0 = last;
+            *value1 = last;
+            return;
+        }
+        unsigned int fi0 = from & 0xF;
+        from &= ~0xFu;
+        for (int vi = 0; vi < 4; ++vi, packet += 9) {
             float filter = filtertable[*packet] * Scale;
             unsigned char *p = packet + 1 + (fi0 >> 1);
             for (unsigned int fi = fi0; fi < 16; ++fi) {
