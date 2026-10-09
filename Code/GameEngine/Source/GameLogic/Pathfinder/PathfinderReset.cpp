@@ -1,5 +1,8 @@
 // ?rva002F462C@Pathfinder@@QAEXXZ
-// partial score=0.985 date=2026-10-09
+// Native2F462C..2F477E full338; reset role from ZH Pathfinder::reset.
+// Target callers and offsets establish identity only to this unnamed method.
+// Scope each ordered counter reference: the four target stores complete before
+// EDI restoration while the final flag and queue-index stores follow it.
 // cl: /DNDEBUG /MD /O1 /arch:SSE /G7
 // ?rva002F462C@Pathfinder@@QAEXXZ @0x002F462C 338B
 // evidence: unlock callers 0x002F6F06 plus 0x002FEB41 via AI plus 0x10; rowed Pathfinder 0x002F40E7 plus 0x002F370D; Path dtor 0x00364A89; layer reset 0x00366DEC 16 layers; zone reset 0x005335D3
@@ -164,10 +167,10 @@ void Pathfinder::rva002F462C()
 		}
 		m_1C0BC[i] = 0;
 	}
-	m_1D1EC = 0;
-	m_1D1E8 = 0;
-	m_1C9E4 = 0;
-	m_1C9E0 = 0;
+	{volatile int &counter=m_1D1EC;counter=0;}
+	{volatile int &counter=m_1D1E8;counter=0;}
+	{volatile int &counter=m_1C9E4;counter=0;}
+	{volatile int &counter=m_1C9E0;counter=0;}
 	m_38 = false;
 	*(int *)((char *)this + 0x1C1BC) = 0;
 }
