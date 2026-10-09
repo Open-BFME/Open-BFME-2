@@ -1,4 +1,6 @@
 // ?loadGarrisonPoints@GarrisonContain@@IAEXXZ
+// partial score=0.95 date=2026-10-09
+// ?loadGarrisonPoints@GarrisonContain@@IAEXXZ
 // partial score=0.9 date=2026-10-09
 // cl: /Ireference/shims/bfme2_ascii /ICode/Libraries/Include/Lib /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc
 // Retail 0x0047901B, 631B: GarrisonContain::loadGarrisonPoints (name pinned
@@ -104,7 +106,8 @@ void GarrisonContain::loadGarrisonPoints( void )
 {
 	const GarrisonContainModuleData *modData = getGarrisonContainModuleData();
 	Object *structure = getObject();
-	Int i, j;
+	Int i;
+	Int j;
 	Bool gBonesFound = false;
 
 	// initialize all garrison points to the structure position
@@ -117,18 +120,19 @@ void GarrisonContain::loadGarrisonPoints( void )
 
 		// save the original condition state
 		const Rva00045455Flags originalFlags( structure->getDrawable()->m_conditionFlags );
-		Rva00045455Flags clearFlags;
-		Rva00045455Flags setFlags;
+		struct LocalMasks { unsigned int set[19]; unsigned int clear[19]; } masks;
+		memset(masks.clear,0,sizeof(masks.clear));
+		memset(masks.set,0,sizeof(masks.set));
 
 		// pristine
-		clearFlags.clear();
-		setFlags.clear();
-		clearFlags.set( 4 );
-		clearFlags.set( 5 );
-		clearFlags.set( 6 );
-		clearFlags.set( 3 );
-		setFlags.set( 10 );
-		structure->rva0028CFB2( (const int *)&clearFlags, (const int *)&setFlags );
+		memset(masks.clear,0,sizeof(masks.clear));
+		memset(masks.set,0,sizeof(masks.set));
+		masks.clear[4 >> 5] |= 1u << (4 & 31);
+		masks.clear[5 >> 5] |= 1u << (5 & 31);
+		masks.clear[6 >> 5] |= 1u << (6 & 31);
+		masks.clear[3 >> 5] |= 1u << (3 & 31);
+		masks.set[10 >> 5] |= 1u << (10 & 31);
+		structure->rva0028CFB2( (const int *)masks.clear, (const int *)masks.set );
 		count = structure->getMultiLogicalBonePosition( ((Rva00463235 *)this)->rva00463235( 0 ).str(),
 			MAX_GARRISON_POINTS, m_garrisonPoint[ 0 ], 0, true, 0 );
 		m_garrisonPointCount[ 0 ] = count;
@@ -136,13 +140,13 @@ void GarrisonContain::loadGarrisonPoints( void )
 			gBonesFound = true;
 
 		// damaged
-		clearFlags.clear();
-		setFlags.clear();
-		clearFlags.set( 4 );
-		clearFlags.set( 5 );
-		clearFlags.set( 6 );
-		setFlags.set( 3 );
-		structure->rva0028CFB2( (const int *)&clearFlags, (const int *)&setFlags );
+		memset(masks.clear,0,sizeof(masks.clear));
+		memset(masks.set,0,sizeof(masks.set));
+		masks.clear[4 >> 5] |= 1u << (4 & 31);
+		masks.clear[5 >> 5] |= 1u << (5 & 31);
+		masks.clear[6 >> 5] |= 1u << (6 & 31);
+		masks.set[3 >> 5] |= 1u << (3 & 31);
+		structure->rva0028CFB2( (const int *)masks.clear, (const int *)masks.set );
 		count = structure->getMultiLogicalBonePosition( ((Rva00463235 *)this)->rva00463235( 0 ).str(),
 			MAX_GARRISON_POINTS, m_garrisonPoint[ 1 ], 0, true, 0 );
 		m_garrisonPointCount[ 1 ] = count;
@@ -150,13 +154,13 @@ void GarrisonContain::loadGarrisonPoints( void )
 			gBonesFound = true;
 
 		// really damaged
-		clearFlags.clear();
-		setFlags.clear();
-		clearFlags.set( 5 );
-		clearFlags.set( 6 );
-		clearFlags.set( 3 );
-		setFlags.set( 4 );
-		structure->rva0028CFB2( (const int *)&clearFlags, (const int *)&setFlags );
+		memset(masks.clear,0,sizeof(masks.clear));
+		memset(masks.set,0,sizeof(masks.set));
+		masks.clear[5 >> 5] |= 1u << (5 & 31);
+		masks.clear[6 >> 5] |= 1u << (6 & 31);
+		masks.clear[3 >> 5] |= 1u << (3 & 31);
+		masks.set[4 >> 5] |= 1u << (4 & 31);
+		structure->rva0028CFB2( (const int *)masks.clear, (const int *)masks.set );
 		count = structure->getMultiLogicalBonePosition( ((Rva00463235 *)this)->rva00463235( 0 ).str(),
 			MAX_GARRISON_POINTS, m_garrisonPoint[ 2 ], 0, true, 0 );
 		m_garrisonPointCount[ 2 ] = count;
