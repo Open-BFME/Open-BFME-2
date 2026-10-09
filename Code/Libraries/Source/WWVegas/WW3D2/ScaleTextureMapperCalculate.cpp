@@ -16,6 +16,7 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 // Dedicated TU so mapper.cpp keeps its matched bodies; flags are neighbour // cl: plus /G7.
 // Evidence: vtable slot 9 offset 0x24 of 0x007D55D4 class of INI ctor 0x001821A0; gap between Scale copy ctor 0x00182240 and Linear Calculate 0x001822E0; ZH donor GeneralsMD WW3D2 mapper.cpp Scale Calculate.
 
+#include "../../../../../reference/shims/bfme_matrix3d_link/vector4.h"
 #include "rendobj.h"	// the bfmerendobj shim has to win the include guard
 #include "mapper.h"
 #include "ini.h"
