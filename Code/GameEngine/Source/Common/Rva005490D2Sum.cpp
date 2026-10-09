@@ -13,9 +13,14 @@ struct Leaf005490D2 {
 	int field564;
 	int field568;
 };
+#include "../../../Libraries/Include/Lib/Coord2D.h"
+struct FormationKind {char pad[0x78];int kind;};
+struct FormationAIUpdate {int unused;FormationKind*data;};
+struct FormationUnitGate {char pad[0x1f0];FormationAIUpdate*update;};
 struct Mid005490D2 {
 	int unk0;
 	Leaf005490D2 *leaf;
+ char pad8[0x250];FormationUnitGate*gate;char pad25C[0x1b4];int formationId;Coord2D formationOffset;
 };
 struct Rva005490D2 {
 	
@@ -23,6 +28,7 @@ struct Rva005490D2 {
 	Mid005490D2 *array[6];
 	int rva005490AE() const;
 	int rva005490D2() const;
+ void rva005490F1(const Coord2D*origin,int formationId);
 };
 int Rva005490D2::rva005490AE() const
 {
@@ -49,7 +55,7 @@ int Rva005490D2::rva005490D2() const
 }
 
 
-#include "../../../Libraries/Include/Lib/Coord2D.h"
+
 #include <deque>
 // Formation rows are 0x1C: count plus six unit pointers. Width clamp
 // 0x549237 and row stride in the formation builder independently prove this.
@@ -64,6 +70,8 @@ class FormationSquad {
 public:
  FormationSquad();
  void rva00549425(Coord2D*out);
+ void rva00549345(const Coord2D*origin,int formationId);
+
  int rows,width;
  Rva0015A390Bucket rowStorage[10];
  int unitCount;
@@ -108,4 +116,43 @@ int Rva00549493::get()const{return view.size();}
 // uncertainty. Width default is the target AI data field+B4 doubled.
 FormationSquad::FormationSquad():rows(0),width(TheAI->data->widthB4*2),unitCount(0),totalHeight(0),ready(false){
  for(int i=0;i<36;++i)units[i]=0;
+}
+
+// Native5490F1..5491E4 complete243B. Target unit+410 ID and+414
+// local offset plus gate258/1F0/kind78 are independently visible here.
+// A scalar float copy preserves the native SSE loads and both spill homes;
+// the canonical aggregate assignment stores the resulting eight bytes.
+struct FormationPosition:Coord2D {FormationPosition(const Coord2D&rhs){x=rhs.x;y=rhs.y;}};
+void Rva005490D2::rva005490F1(const Coord2D*origin,int formationId){
+ int depth=0;
+ for(int i=0;i<count;++i){
+  int height=array[i]->leaf->field568;
+  FormationSpacingView*data=TheAI->data;
+  FormationPosition position(*origin);position.y+=(depth+height*0.5f)*data->spacingA0;position.x-=array[i]->leaf->field564*data->spacingA4*0.5f;
+  array[i]->formationId=formationId;
+  Mid005490D2*unit=array[i];
+  if(unit->gate&&unit->gate->update&&unit->gate->update->data->kind==0){position.x*=0.5f;position.y*=0.5f;}
+  unit->formationOffset=position;
+  depth+=height;
+ }
+}
+
+// Native549345..54941E complete219B. Scalar origin copying keeps
+// both floats live through the visible integer-only row sum; starting
+// columns before the row clamp preserves native initialization order.
+void FormationSquad::rva00549345(const Coord2D*origin,int formationId){
+ float halfColumn=TheAI->data->spacingA4*0.5f;
+ float height=totalHeight*TheAI->data->spacingA0;
+ int columns=0;
+ if(rows>10)rows=10;
+ for(int i=0;i<rows;++i){
+  FormationSpacingView*data=TheAI->data;
+  Rva005490D2*current=reinterpret_cast<Rva005490D2*>(&rowStorage[i]);
+  FormationPosition position(*origin);
+  position.x-=columns*data->spacingA4;
+  position.x+=halfColumn;
+  position.y+=(height-current->rva005490D2()*data->spacingA0)*0.5f;
+  current->rva005490F1(&position,formationId);
+  columns+=current->rva005490AE();
+ }
 }
