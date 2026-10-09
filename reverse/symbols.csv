@@ -6623,7 +6623,6 @@ name,address,notes
 ?Rva009EEC60_FindAsset@Rva009EEC60Registry@@QAE?AVRva009EBCE0AssetReference@@PBD@Z,0x00621220
 ?Rva009F3F80@@YAXPAUQ3SortElem8@@0UQ3SortCompare@@@Z,0x00626940
 ?Rva009F3FD0@@YAXPAUQ3SortElem8@@0UQ3SortCompare@@@Z,0x00626990
-?Rva00A6BD30FormatOctets@@YAPADPBEPADH@Z,0x0066BD30,address read from the REL32 displacement in DirtySock Y2ProtoMangleHelpers Rva007FFB50AddrText at 0x0066C08F; formats four octets at src+4 with dots into dst when size allows; body not yet converted
 ?Rva00DDD9D0Identity@@3VMatrix3D@@B,0x009DD9D0,value-verified 3x4 identity floats; role-consistent with Matrix3D::Identity; address-derived pin candidate-not-proof
 ?Save@INIClass@@QBEHAAVFileClass@@@Z,0x006165B0,address read from the REL32 displacement at a placed body; stlport 4.5.3
 ?Save_W3D@SubObjectArrayClass@HLodDefClass@@QAE_NAAVChunkSaveClass@@@Z,0x0019B370,address read from the REL32 displacement at a placed body; stlport 4.5.3

@@ -1,0 +1,90 @@
+{
+  "date": "2026-10-09",
+  "target": {
+    "image": "baselines/bfme2/workshop-vanilla-1.06/files/game.dat",
+    "sha256": "f008b587570bad693981dc7218588c81d192a1e064b0f7f861539c51156a7640",
+    "symbol": "_Rva00812690",
+    "rva": "0x0067E590",
+    "instruction_bytes": 1507,
+    "stack_check_data_bytes": 81,
+    "verified_extent": 1588,
+    "source": "Code/Libraries/Source/DirtySock/Y4CommTable.c",
+    "identity_basis": "Existing constructor registers this three-argument cdecl callback. Target packet format, request handling, table scan, expiry, cancellation and retransmission correspond to Madden's named _ProtoAdvtCallback. The existing address-bound symbol is retained; Madden's SDK version is not asserted for BFME2."
+  },
+  "reference": {
+    "game": "Madden NFL 07 PS3, 2006-08-08 debug build",
+    "sdk_version": "4.7.3-custom-090",
+    "archive_url": "https://archive.org/download/debugging-games/DebuggingGames/PlayStation%203/%5BPS3%5D%20Madden%20NFL%2007%20%5B2006-08-08%5D.7z",
+    "archive_sha256": "629ab2f6757d588d27a31e65e1a8676b57d25b12556789c0b516731b102f3db4",
+    "file": "Madden07z.elf",
+    "elf_sha256": "406506a8361481dbf970447cb3d7547936914a9f27ba00e2165af52ffae6d54c",
+    "architecture": "big-endian PPC64 ELF; 32-bit application pointers",
+    "code_symbol": "._ProtoAdvtCallback",
+    "code_address": "0x00D72ED0",
+    "code_size": 1532,
+    "use": "Named machine-code semantic cross-check, not SDK source or a byte-identical donor. No DirtySDK implementation compilation unit or internal callback locals were recovered from DWARF."
+  },
+  "starting_attempt": {
+    "repository": "Open-BFME/Open-BFME-1",
+    "revision": "34f59164f6d1efd413c5fd37f4894ec834c3c0fe",
+    "path": "targets/game/reverse/attempts/0x00812690.cpp",
+    "status": "Unmatched bank, author-estimated score 0.65; not a verified implementation.",
+    "history": "Prior attempts concentrated on receive-guard jumps at +0xBC and +0xC7. The bank also contained multiple independent semantic and control-flow errors."
+  },
+  "target_corrections": [
+    {
+      "fact": "Receive loop rechecks object->socket on every iteration; cleanup runs after leaving the loop, including when the socket is initially null.",
+      "bfme2_offsets": ["+0x47", "+0xBC", "+0xC7", "+0xC9", "+0x406", "+0x40B"],
+      "madden_addresses": ["0xD72F4C", "0xD72FA8", "0xD72FB4", "0xD73268", "0xD732F4"]
+    },
+    {
+      "fact": "Four equality comparisons share the table-scan continuation; preserve BFME2's extra detail-string comparison.",
+      "bfme2_offsets": ["+0x229", "+0x243", "+0x25D", "+0x279", "+0x287"]
+    },
+    {
+      "fact": "Copy received packet+0x108 into entry+0x108, not entry data into packet+8. Store NetTick()+interval*2000+1000 directly into the deadline.",
+      "bfme2_offsets": ["+0x342", "+0x353", "+0x35B", "+0x377"],
+      "madden_addresses": ["0xD73198", "0xD731CC", "0xD731F8"]
+    },
+    {
+      "fact": "IPv4 words use socket-address bytes 4..7, not 0..3.",
+      "bfme2_offsets": ["+0x389", "+0x3B1"],
+      "madden_addresses": ["0xD731FC", "0xD73228"]
+    },
+    {
+      "fact": "An occupied entry expires when address text is empty OR deadline is zero OR now exceeds its unsigned deadline.",
+      "bfme2_offsets": ["+0x43E", "+0x455", "+0x461", "+0x472", "+0x474"],
+      "madden_addresses": ["0xD73324", "0xD73330", "0xD73340", "0xD73344", "0xD73424"]
+    },
+    {
+      "fact": "Cancellation uses the candidate local and advances the link through *cursor; outgoing retransmission tests now > deadline and schedules interval*1000, not interval*2000.",
+      "bfme2_offsets": ["+0x4BB", "+0x4C3", "+0x54F", "+0x55E", "+0x590"],
+      "madden_addresses": ["0xD7344C", "0xD733F0", "0xD73414"]
+    },
+    {
+      "fact": "Receive signature uses a separate three-copy gEA string at VA 0xDD9100. Do not bind it to the sender string at VA 0xDD90F4.",
+      "bfme2_offsets": ["+0x11F", "+0x131", "+0x143"]
+    }
+  ],
+  "donor_differences_not_imported": [
+    "Module offsets differ: BFME2 socket +0x38 versus Madden +0x28; table start +0x28 versus +0x14.",
+    "Madden uses bounded ds_strnzcpy and updates existing entry detail; BFME2 uses strcpy and compares detail when finding an entry.",
+    "Madden uses DirtyMemFree with a memory group; BFME2 calls the existing one-argument allocator free body."
+  ],
+  "linkage_repair": {
+    "rva": "0x0066BD30",
+    "old_symbol": "?Rva00A6BD30FormatOctets@@YAPADPBEPADH@Z",
+    "new_symbol": "_Rva007FF860",
+    "size": 303,
+    "basis": "The callback's call at +0x3E9 reaches the existing dotted IPv4 formatter. Its provider and existing caller now share C linkage with the callback. The old row is renamed and the redundant old pin removed; no duplicate body, alias pin or linker fallback is added."
+  },
+  "validation": {
+    "callback_unit": "tools/add_match.py: 9/9 functions passed normal byte verification",
+    "formatter_unit": "tools/build.py: 29/29 functions passed after C-linkage change",
+    "extent": "Initial 1507-byte admission refused truncation. Corrected to 1588 after the gate independently confirmed matching stack-check data; no gate bypass.",
+    "placement_rescan": "tools/place_bodies.py on both units: 0 additional bodies, 0 pins",
+    "link_preview": "tools/link_check.py: both units link cleanly against existing census 2026-10-07 15:39 at 0e4836ac73, using current objects for changed units. This is not a new full link or runtime test.",
+    "build_reference_revision": "9cbfb551fe20dae985f91f2319d8997287b6a705",
+    "reference_scope": "Built in an isolated checkout at the committed dependency revision; the pre-existing different BFME1 checkout in the primary workspace was preserved. No upstream dependency refresh or full-project baseline claim is made."
+  }
+}

@@ -51,7 +51,7 @@ void *Rva007FDFF0Connect( const char *host, int timeout );  // 0x007FDFF0
 // show that, which is why the earlier declaration here had it as void.
 const char *Rva00804920Update( Rva008042B0Http *http );      // 0x00804920
 char *Rva007FFB50AddrText( unsigned int addr );             // 0x007FFB50
-char *Rva00A6BD30FormatOctets( const unsigned char *src, char *dst, int size ); // 0x00A6BD30
+extern "C" char *Rva007FF860( const unsigned char *src, char *dst, int size ); // 0x00A6BD30
 struct Rva00804440SockAddr;
 void  Rva007FE310SocketHost( Rva00804440SockAddr *host, int hostLen,
 		Rva00804440SockAddr *dest, int destLen );           // 0x007FE310
@@ -1177,7 +1177,7 @@ char *Rva007FFB50AddrText( unsigned int addr )
 	sa[ 5 ] = (char)addrCopy; addrCopy >>= 8;
 	sa[ 4 ] = (char)addrCopy;
 
-	Rva00A6BD30FormatOctets( (const unsigned char *)sa, addrTextBuffer, 20 );
+	Rva007FF860( (const unsigned char *)sa, addrTextBuffer, 20 );
 
 	return addrTextBuffer;
 }
@@ -1194,7 +1194,7 @@ char *Rva007FFB50AddrText( unsigned int addr )
 // zeros but keeps interior ones (205 renders as 205, 10.0.0.1 as itself).
 // The octet is held in a SIGNED int -- the divides are idiv with cdq -- even
 // though it is loaded with movzx and so can never be negative.
-char *Rva00A6BD30FormatOctets( const unsigned char *address, char *destination, int size )
+extern "C" char *Rva007FF860( const unsigned char *address, char *destination, int size )
 {
 	int i;
 	char *writePtr;
