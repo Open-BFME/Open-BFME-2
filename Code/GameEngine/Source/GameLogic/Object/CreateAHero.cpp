@@ -43,7 +43,7 @@ class CreateAHeroHero
 {
 public:
 	void ConstructHeroBlingList(); // WB1082260; native409A76, unconverted455B
-	void RegisterExperienceLevels(); // WB107E870; native408150, unconverted687B
+	Bool RegisterExperienceLevels(); // WB107E870; native408150, unconverted687B; returns AL
 	Int GetBlingCount(Int blingKey) const;			// 0x004079F4
 	Int GetBlingId(Int blingKey, UnsignedInt index) const;	// 0x00407A29
 	// 0x004098BE (WorldBuilder places it in CreateAHeroHero.cpp): takes a
