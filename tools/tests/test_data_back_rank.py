@@ -1,0 +1,217 @@
+"""data_back_rank: link_status parsing, address attribution, ranking, name facts,
+the PROVISIONAL fallback and the COFF symbol scan, on a tiny fixture."""
+import csv
+import gzip
+import io
+import json
+import struct
+import sys
+import tempfile
+import unittest
+from contextlib import redirect_stdout
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+import data_back_rank as dbr  # noqa: E402
+
+EMPTY = "??_C@_00CNPNBAHC@?$AA@"
+NULLCHR = "?TheNullChr@?1??str@AsciiString@@QBEPBDXZ@4DB"
+INVENTED_EMPTY = "?g_Rva0107301CEmptyString@@3QBDB"
+GD_V = "?TheWritableGlobalData@@3PAVGlobalData@@A"
+GD_U = "?TheWritableGlobalData@@3PAUGlobalData@@A"
+GD_X = "?g_Va00600000@@3PAXA"
+
+LEDGER = [
+    ["address", "size", "section", "kind", "name", "source", "status", "names", "defs", "refs"],
+    ["0x00100000", "1", ".rdata", "string", EMPTY, "", "literal", ";".join([EMPTY, NULLCHR, INVENTED_EMPTY]), "1", "10"],
+    ["0x00200000", "4", ".data", "global", GD_V, "Code/G.cpp", "provisional",
+     ";".join([GD_V, GD_U, GD_X, "_TheGameLogic@Code/A.cpp"]), "2", "6"],
+    ["0x00300000", "4", ".data", "global", "?g_one@@3HA", "Code/C.cpp", "owned", "", "1", "3"],
+]
+STATUS_COLS = ["name", "kind", "source", "retail_rva", "size", "linked_rva", "placed", "placement_reason",
+               "self_strict", "closed_strict", "closed_strict_pilot_rule", "pinned_strict", "byte_equal",
+               "hardcoded", "failure_count", "failures"]
+STATUS = [
+    # r1: two data-back hits through the literal (x2) and an unrelated data-fwd
+    ("r1", "real", "Code/S1.cpp", 0x1000, 100, "1", f"data-back:{EMPTY}x2;data-fwd:?g_one@@3HA"),
+    # r2 overlaps r1 by 0x14 bytes; its only failure is the AsciiString TheNullChr
+    ("r2", "real", "Code/S2.cpp", 0x1050, 100, "1", f"data-back:{NULLCHR}"),
+    # r3: a TU-local static, matched only for its own source
+    ("r3", "real", "Code/A.cpp", 0x2000, 40, "1", "data-back:_TheGameLogic"),
+    # r4: the same static name from another TU is not that address
+    ("r4", "real", "Code/B.cpp", 0x3000, 8, "1", "data-back:_TheGameLogic"),
+    ("r5", "real", "Code/S5.cpp", 0x5000, 64, "0", f"data-back:{EMPTY}"),         # not placed
+    ("r6", "gen-alias", "Code/S6.cpp", 0x6000, 64, "1", f"data-back:{EMPTY}"),    # not real
+    # r7 fails through two addresses: under both, sole under neither
+    ("r7", "real", "Code/S7.cpp", 0x4000, 16, "True", f"data-back:{GD_U};data-back:{EMPTY}"),
+    ("r8", "real", "Code/S8.cpp", 0x7000, 32, "1", "data-fwd:?g_one@@3HA"),        # no data-back
+]
+FUNCTIONS = [
+    ["name", "export_rva", "target_rva", "target_size", "source", "status", "notes"],
+    ["r1", "", "0x00001000", "100", "Code/S1.cpp", "matched", ""],
+    ["r7", "", "0x00004000", "16", "Code/S7.cpp", "matched", ""],
+    ["alias", "", "0x00004000", "16", "Code/S9.cpp", "matched", "gen-alias"],
+    ["r3", "", "0x00002000", "40", "Code/A.cpp", "matched", ""],
+]
+
+
+def write_csv(path, rows, delimiter=","):
+    with open(path, "w", newline="", encoding="utf-8") as f:
+        csv.writer(f, delimiter=delimiter, lineterminator="\n").writerows(rows)
+
+
+def coff(symbols):
+    """A minimal i386 COFF object: one .rdata COMDAT section, one .data section and
+    the given (name, section, storage) symbols; long names go to the string table."""
+    nsec = 2
+    header_size = 20 + 40 * nsec
+    table, strings = b"", b""
+    for name, section, storage in symbols:
+        raw = name.encode("latin-1")
+        if len(raw) <= 8:
+            field = raw.ljust(8, b"\0")
+        else:
+            field = struct.pack("<II", 0, 4 + len(strings))
+            strings += raw + b"\0"
+        table += field + struct.pack("<IhHBB", 0, section, 0, storage, 0)
+    head = struct.pack("<HHIIIHH", 0x14C, nsec, 0, header_size, len(symbols), 0, 0)
+    sections = (b".rdata\0\0" + struct.pack("<IIIIIIHHI", 0, 0, 0, 0, 0, 0, 0, 0, 0x40001040)
+                + b".data\0\0\0" + struct.pack("<IIIIIIHHI", 0, 0, 0, 0, 0, 0, 0, 0, 0xC0000040))
+    return head + sections + table + struct.pack("<I", 4 + len(strings)) + strings
+
+
+class Parsing(unittest.TestCase):
+    def test_failures_and_repeats(self):
+        got = dbr.parse_failures(f"data-back:{EMPTY}x3;data-fwd:_gx2;ehx2;shift:code:hardcoded address", {EMPTY})
+        self.assertEqual(got, [("data-back", EMPTY, 3), ("data-fwd", "_g", 2), ("eh", None, 2),
+                               ("shift", "code:hardcoded address", 1)])
+        # a known name that itself ends in x<digits> keeps its spelling
+        self.assertEqual(dbr.parse_failures("data-back:_boxx2", {"_boxx2"}), [("data-back", "_boxx2", 1)])
+
+    def test_unique_bytes(self):
+        self.assertEqual(dbr.unique_bytes([(0, 10), (5, 20), (30, 31), (0, 4)]), 21)
+        self.assertEqual(dbr.unique_bytes([]), 0)
+
+    def test_name_facts(self):
+        self.assertTrue(dbr.invented("?g_Va00BBB8D8@@3MA"))
+        self.assertTrue(dbr.invented("?g_00DFE758@@3PAXA"))
+        self.assertTrue(dbr.invented("?rva00094B08One@@3MB"))
+        self.assertTrue(dbr.invented(INVENTED_EMPTY))
+        self.assertTrue(dbr.invented("??_7Rva007F01B0@@6B@"))         # a vtable of an invented class
+        self.assertFalse(dbr.invented("__real@3f800000"))              # an emitted literal
+        self.assertFalse(dbr.invented(GD_V))
+        self.assertEqual(dbr.split_type(GD_U), ("?TheWritableGlobalData@@", "3PAUGlobalData@@A"))
+        self.assertEqual(dbr.split_type(NULLCHR)[1], "4DB")
+        self.assertEqual(dbr.variant_kind("3PAUGlobalData@@A", "3PAVGlobalData@@A"), "struct/class")
+        self.assertEqual(dbr.variant_kind("3MA", "3MB"), "const")
+        self.assertEqual(dbr.variant_kind("3HA", "3IA"), "type")
+        self.assertEqual(dbr.variant_kind("3PAXA", "3PAURva00DFE758Holder@@A"), "type")
+
+    def test_ledger_statics(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "ledger.csv"
+            write_csv(path, LEDGER)
+            ledger = dbr.load_ledger(path)
+        self.assertIn(("_TheGameLogic", "Code/A.cpp"), ledger[0x200000]["bound"])
+        glob, local = dbr.name_index(ledger)
+        self.assertEqual(dbr.resolve("_TheGameLogic", "Code/A.cpp", glob, local), {0x200000})
+        self.assertEqual(dbr.resolve("_TheGameLogic", "Code/B.cpp", glob, local), set())
+        self.assertEqual(dbr.resolve("?g_one@@3HA", "Code/X.cpp", glob, local), {0x300000})
+
+
+class Ranking(unittest.TestCase):
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        t = Path(self.tmp.name)
+        write_csv(t / "ledger.csv", LEDGER)
+        write_csv(t / "functions.csv", FUNCTIONS)
+        buf = io.StringIO()
+        w = csv.writer(buf, lineterminator="\n")
+        w.writerow(STATUS_COLS)
+        for name, kind, source, rva, size, placed, fails in STATUS:
+            w.writerow([name, kind, source, f"0x{rva:08X}", size, "", placed, "", 0, 0, 0, 0, 0, 0,
+                        fails.count(";") + 1, fails])
+        with gzip.open(t / "link_status-0123456789.csv.gz", "wt", encoding="utf-8", newline="") as f:
+            f.write(buf.getvalue())
+        write_csv(t / "xrefs.tsv", [["rva", "section", "size_bound", "widths", "float", "kinds", "ref_count",
+                                     "callers"],
+                                    ["0x00100000", ".rdata", "1", "", "0", "address", "3", "0x00001000,0x00004000"],
+                                    ["0x00200000", ".data", "4", "4", "0", "read", "1", "0x00004000"]],
+                  delimiter="\t")
+        self.t = t
+
+    def tearDown(self):
+        self.tmp.cleanup()
+
+    def run_tool(self, *extra):
+        t = self.t
+        out = io.StringIO()
+        with redirect_stdout(out):
+            dbr.main(["--ledger", str(t / "ledger.csv"), "--functions", str(t / "functions.csv"),
+                      "--xrefs", str(t / "xrefs.tsv"), "--no-objects", "--json", str(t / "out.json"), *extra])
+        return out.getvalue(), json.loads((t / "out.json").read_text(encoding="utf-8"))
+
+    def test_status_ranking(self):
+        text, report = self.run_tool("--status", str(self.t / "link_status-0123456789.csv.gz"))
+        self.assertEqual(report["mode"], "status")
+        self.assertNotIn("PROVISIONAL", text)
+        self.assertEqual(report["totals"], {"rows": 5, "bytes": 0xB4 + 40 + 8 + 16})
+        first, second = report["addresses"]
+        self.assertEqual(first["address"], "0x00100000")
+        self.assertEqual((first["rows"], first["bytes"]), (3, 0xB4 + 16))     # r1+r2 overlap, r7
+        self.assertEqual((first["sole_rows"], first["sole_bytes"]), (1, 100))  # only r2
+        self.assertEqual(first["other_blockers"], {"data-fwd": 1, "data-back elsewhere": 1})
+        by = {x["symbol"]: x for x in first["names"]}
+        self.assertEqual((by[EMPTY]["rows"], by[NULLCHR]["rows"], by[INVENTED_EMPTY]["rows"]), (2, 1, 0))
+        self.assertTrue(by[INVENTED_EMPTY]["invented"])
+        self.assertEqual(second["address"], "0x00200000")
+        self.assertEqual((second["rows"], second["bytes"], second["sole_bytes"]), (2, 56, 40))
+        by = {(x["symbol"], x["local_source"]): x for x in second["names"]}
+        self.assertEqual(by[(GD_U, None)]["variant"], "struct/class")
+        self.assertEqual(by[("_TheGameLogic", "Code/A.cpp")]["rows"], 1)
+        self.assertEqual(report["unmapped"], {"_TheGameLogic": 1})
+
+    def test_provisional_fallback(self):
+        text, report = self.run_tool("--refs", "xrefs")
+        self.assertTrue(text.startswith("PROVISIONAL"))
+        self.assertEqual(report["mode"], "provisional")
+        got = {a["address"]: (a["rows"], a["bytes"]) for a in report["addresses"]}
+        # single-name, single-definition 0x300000 is no candidate; the gen-alias row is not counted
+        self.assertEqual(got, {"0x00100000": (2, 116), "0x00200000": (1, 16)})
+
+    def test_address_filter(self):
+        text, report = self.run_tool("--status", str(self.t / "link_status-0123456789.csv.gz"),
+                                     "--address", "0x200000")
+        self.assertEqual([a["address"] for a in report["addresses"]], ["0x00200000"])
+        self.assertIn("_TheGameLogic @Code/A.cpp", text)
+
+
+class Objects(unittest.TestCase):
+    def test_symbol_scan_and_cache(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            t = Path(tmp)
+            objs = t / "match"
+            objs.mkdir()
+            (objs / dbr.object_name("Code/A.cpp")).write_bytes(coff([
+                (EMPTY, 1, dbr.EXTERNAL),               # a COMDAT literal definition
+                (GD_V, 2, dbr.EXTERNAL),                # defined
+                ("_TheGameLogic", 2, dbr.STATIC),       # a TU-local static
+                ("?unrelated@@3HA", 0, dbr.EXTERNAL)]))
+            (objs / dbr.object_name("Code/B.cpp")).write_bytes(coff([(GD_V, 0, dbr.EXTERNAL),
+                                                                      (GD_U, 0, dbr.EXTERNAL)]))
+            wanted = frozenset({EMPTY, GD_V, GD_U, "_TheGameLogic"})
+            cache = t / "cache.pkl"
+            got = dbr.object_symbols(objs, {"Code/A.cpp", "Code/B.cpp", "Code/Missing.cpp"}, wanted, cache)
+            self.assertEqual(set(got), {"Code/A.cpp", "Code/B.cpp"})
+            ref, defined, comdat = got["Code/A.cpp"]
+            self.assertEqual((ref, defined, comdat), (frozenset(), frozenset({GD_V, "_TheGameLogic"}),
+                                                      frozenset({EMPTY})))
+            self.assertEqual(got["Code/B.cpp"][0], frozenset({GD_V, GD_U}))
+            users, defs = dbr.name_usage(got)
+            self.assertEqual((users[GD_V], defs[GD_V], users[EMPTY], defs[EMPTY]), (2, 1, 1, 0))
+            self.assertTrue(cache.exists())
+            self.assertEqual(dbr.object_symbols(objs, {"Code/A.cpp", "Code/B.cpp"}, wanted, cache), got)
+
+
+if __name__ == "__main__":
+    unittest.main()
