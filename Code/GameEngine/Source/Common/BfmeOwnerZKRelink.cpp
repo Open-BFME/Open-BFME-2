@@ -77,6 +77,7 @@ public:
 		BfmeHeadZK *fallback, BfmeNodeZK **where);
 	void bfmeMoveZK(BfmeKeyZK *key, BfmeNodeZK **from, BfmeNodeZK **to);
 	void rva003B8383(BfmeNodeZK *node, const StringBase<char> &key);
+	void rva003B844D(BfmeNodeZK *node, const StringBase<char> &key);
 private:
 	unsigned char m_head[0x0C];
 	Rva003B573E m_earlyTable;
@@ -147,4 +148,13 @@ void BfmeOwnerZK::rva003B8383(BfmeNodeZK *node, const StringBase<char> &key)
 	node->m_bfmeIdZK = index;
 	node->m_bfmeKindZK = m_earlyTable.m_records[index].m_references;
 }
+
+void BfmeOwnerZK::rva003B844D(BfmeNodeZK *node, const StringBase<char> &key)
+{
+	int current = node->m_bfmeIdZK;
+	int index = m_table.rva003B81C5(current, key);
+	node->m_bfmeIdZK = index;
+	node->m_bfmeKindZK = m_table.m_records[index].m_references;
+}
+
 
