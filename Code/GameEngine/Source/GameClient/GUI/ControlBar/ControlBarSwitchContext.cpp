@@ -217,7 +217,7 @@ public:
     void showRallyPoint(const Coord3D *);
     void rva0053D355(Object *,bool);
 protected:
-    void populateStructureInventory(void *,int);
+    void populateStructureInventory(Object *,bool);
 public:
     void rva0050DBE6(Object *);
 protected:
@@ -278,12 +278,12 @@ void ControlBar::switchToContext(int context,void *draw)
         break;
     case 2:
         HIDE_PARENTS(false,false,true,true,true,true,true,true);
-        populateStructureInventory(((ContextDrawableView *)incomingDraw)->getObject(),0);
+        populateStructureInventory(((ContextDrawableView *)incomingDraw)->getObject(),false);
         break;
     case 3:
         if (theRadarWindowOverrideSource) ((Rva002D368E *)theRadarWindowOverrideSource)->rva002D368E();
         HIDE_PARENTS(false,false,true,true,true,true,true,true);
-        populateStructureInventory(((ContextDrawableView *)incomingDraw)->getObject(),1);
+        populateStructureInventory(((ContextDrawableView *)incomingDraw)->getObject(),true);
         break;
     case 5:
         HIDE_PARENTS(true,true,true,false,true,true,true,true);

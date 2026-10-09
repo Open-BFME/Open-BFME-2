@@ -185,7 +185,7 @@ public:
 	void rva0053E6E1();
 	void updateContextContestedStructureInventory();
 protected:
-	void populateStructureInventory(void *object, int flag);
+	void populateStructureInventory(Object *building, bool contested);
 public:
 	void switchToContext(int context, void *object);
 	void rva0031D230();
@@ -513,7 +513,7 @@ void ControlBar::updateContextContestedStructureInventory()
 	if (!subject->rva0053EB81SlotD8() || subject->rva0053EB81SlotE0() != localPlayer)
 		return rva0031D230();
 	if (m_80 != subject->rva0053EB81Slot12C())
-		populateStructureInventory(object, 1);
+		populateStructureInventory(object, true);
 }
 
 // Target 0x0053EAEC..0x0053EB80, 149 bytes. The same-name BFME1
@@ -541,7 +541,7 @@ void ControlBar::updateContextStructureInventory()
 
 	Rva0053EB81Subject *contain = object->m_250;
 	if (contain && m_80 != contain->slot69(false))
-		populateStructureInventory(object, 0);
+		populateStructureInventory(object, false);
 rva0053EAECdone:
 	;
 }
@@ -643,11 +643,11 @@ void ControlBar::populateButtonProc(Object *obj, void *userData)
 // ZH's complete ControlBarStructureInventory.cpp is the semantic source.
 // Named WB1123F50 and native53E783..53EAEC establish BFME2's contested
 // branch, 32-window array, contain dispatch, overlay list and callback record.
-// Keep the established void-pointer/int callee binding; only the low byte of
-// the flag is observed by this target, without asserting a historical type.
-void ControlBar::populateStructureInventory(void *objectPointer, int flag)
+// The flag is a bool: retail compares only the byte at [ebp+0xC]
+// (0x0053E7D1, 0x0053E85F, 0x0053E874, 0x0053EA8E) and WB 0x01123F50 reads it
+// with movzx byte; the building is the Object the callers pass.
+void ControlBar::populateStructureInventory(Object *building, bool contested)
 {
-    Object *building = (Object *)objectPointer;
     if (!building) return;
     ((ConstructionResetDispatchView *)overlaySink)->reset();
     ((Rva0053B914 *)this)->rva0053B914();
@@ -657,15 +657,15 @@ void ControlBar::populateStructureInventory(void *objectPointer, int flag)
     if (!contain) return;
 
     const CommandButton *evacuateCommand;
-    if ((unsigned char)flag)
+    if (contested)
         evacuateCommand = findCommandButton("Command_Evacuate_Contested");
     else
         evacuateCommand = findCommandButton("Command_Evacuate");
     setControlCommand(commandWindows[11], evacuateCommand);
     commandWindows[11]->winEnable(false);
     const CommandButton *exitCommand = findCommandButton("Command_StructureExit");
-    int containMax = (unsigned char)flag ? contain->constructionContestedMax() : contain->constructionContainMax();
-    int containCount = (unsigned char)flag ? contain->rva0053EB81Slot12C() : contain->slot69(false);
+    int containMax = contested ? contain->constructionContestedMax() : contain->constructionContainMax();
+    int containCount = contested ? contain->rva0053EB81Slot12C() : contain->slot69(false);
     bool overlay = ((ConstructionOverlayModeView *)TheControlBar)->mode == 1;
     const Image *buttonImage = ((ThingTemplate *)((ConstructionObjectView *)building)->objectTemplate)->getButtonImage();
     _STL::vector<GameWindow *> windows;
@@ -712,6 +712,6 @@ void ControlBar::populateStructureInventory(void *objectPointer, int flag)
     info.buttonIndex = 0;
     info.self = this;
     info.inventoryButtons = commandWindows;
-    contain->constructionIterate(populateButtonProc, &info, ((unsigned char)flag != 0) + 1);
+    contain->constructionIterate(populateButtonProc, &info, contested ? 2 : 1);
     m_80 = containCount;
 }
