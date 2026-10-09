@@ -20,7 +20,7 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 // kept frameless form; TriClass::Compute_Normal below is still parsed with the
 // TU flags and keeps its frame.
 #pragma optimize("y", on)
-#include "vector3.h"
+#include "../../../../../reference/shims/bfme_tri_math/vector3.h"
 #pragma optimize("", on)
 #include "rendobj.h"
 #include "tri.h"

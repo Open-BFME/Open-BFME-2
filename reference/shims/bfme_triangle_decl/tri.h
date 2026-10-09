@@ -1,7 +1,10 @@
 // BFME1 tri.h@34f59164f6d1efd413c5fd37f4894ec834c3c0fe blob 81f613623a35d197e7f5aa2c5d7993a1c043e4e9
-// Preserve every class and other inline. Declare only Point_In_Triangle_2D:
+// Preserve the class layout. Point_In_Triangle_2D is declared out of line:
 // retail has the 704-byte O1 owner at 0x0027EAFC; the O2 copies emitted by
 // aabtree.cpp and meshgeometry.cpp are proven wrong by full retail bytes.
+// Compute_Normal stays inline in both consumers without emitting their wrong
+// optimized COMDATs. Its 223-byte /Oy- owner is tri_compute_normal.cpp.
+// All 67 consumer rows remain exact; no DLL-import reference is emitted.
 /*
 **	Command & Conquer Generals(tm)
 **	Copyright 2025 Electronic Arts Inc.
@@ -69,7 +72,7 @@ public:
 	const Vector3 *	N;
 	const Vector3 *	V[3];
 
-	void Compute_Normal()
+	__declspec(dllimport) __forceinline void Compute_Normal()
 	{
 		assert(N);
 		assert(V[0]);

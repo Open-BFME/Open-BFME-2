@@ -13,6 +13,8 @@ struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #pragma optimize("", on)
 
+#include "../../../../../reference/shims/bfme_vp_math/vector3.h"
+#include "../../../../../reference/shims/bfme_vp_math/vector4.h"
 #include "rendobj.h"	// the bfmerendobj shim has to win the include guard
 #include "vp.h"
 #include "vector2.h"
