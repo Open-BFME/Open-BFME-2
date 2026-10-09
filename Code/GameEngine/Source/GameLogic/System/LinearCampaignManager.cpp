@@ -1,4 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /O1 /G7 /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// stlport
 // WB AF93C0 names LinearCampaignManager::DoXfer (assert1365).
 // Native1EBB73..1EBCC6 is complete339B RET4: Version1/1 and bool current
 // precede load/save of the current campaign name, GameDifficulty and block
@@ -11,6 +12,7 @@
 // Existing clearAD6F4/set575674 own slot replacement; no globals or pins.
 
 #include "ascii_string.h"
+#include <vector>
 // Retail Version stores minimum/current bytes and has an inline constructor;
 // that constructor form also reproduces the independent stack homes in DoXfer.
 struct WallVersion
@@ -76,10 +78,33 @@ public:
  bool valid() const { return pointer!=0; }
 private: Rva001EBAEA *pointer;
 };
+// One 0x24-byte campaign record, rowed under one address name per row: the
+// vector element of push_back 0x001ED549, the destructor 0x001ED0DE and the
+// name constructor 0x001ED0A9; its block parse 0x001ED338 (an initFromINI
+// forward with the record's field table) is rowed under a fourth. The view
+// chains them so one temporary reaches each row as retail's does.
+class Rva001ED03C { public: unsigned char data[0x24]; };
+class Rva001ED0DE : public Rva001ED03C { public: ~Rva001ED0DE(); };
+class Rva001ED0A9 : public Rva001ED0DE { public: Rva001ED0A9(const AsciiString &name); };
+class Rva001ED338 { public: void rva001ED338(void *ini); };
+enum INILoadType { INI_LOAD_INVALID, INI_LOAD_OVERWRITE };
+class INI {
+public: const char *getNextToken(const char *seps = 0);
+ INILoadType getLoadType() const { return loadType; }
+ unsigned char pad00[8]; INILoadType loadType; // +0x08, overwrite for the startup files
+};
+class INIException {
+public: INIException(int code, const char *format, ...);
+ INIException(const INIException &); ~INIException();
+ char *failureMessage; int errorCode;
+};
 class LinearCampaignManager {
 public: void DoXfer(Xfer*);
+ static void parseLinearCampaignIniBlock(INI *ini);
 private: unsigned char prefix00[0x10]; CampaignSlot current;
+ _STL::vector<Rva001ED03C> campaigns; // +0x14
 };
+extern LinearCampaignManager *TheLinearCampaignManager;
 void LinearCampaignManager::DoXfer(Xfer *xfer) {
  WallVersion version(1,1);
  xfer->xferVersion(&version);
@@ -110,5 +135,22 @@ void LinearCampaignManager::DoXfer(Xfer *xfer) {
    xfer->XferSnapshot(current.get());
    xfer->EndBlock();
   }
+ }
+}
+
+// WB AF96F0 names LinearCampaignManager::parseLinearCampaignIniBlock and the
+// retail diagnostic names the 'LinearCampaign' block. Native1ED580..1ED62E:
+// only the startup files may define one (INIException 8); with a manager the
+// next token names a new record that is appended and then parses the rest of
+// the block in place.
+void LinearCampaignManager::parseLinearCampaignIniBlock(INI *ini) {
+ if(ini->getLoadType()!=INI_LOAD_OVERWRITE)
+  throw INIException(8,"Sorry, you cannot define a 'LinearCampaign' block anywhere but the main INI files.");
+ if(TheLinearCampaignManager) {
+  {
+   AsciiString name(ini->getNextToken());
+   TheLinearCampaignManager->campaigns.push_back(Rva001ED0A9(name));
+  }
+  reinterpret_cast<Rva001ED338*>(&TheLinearCampaignManager->campaigns.back())->rva001ED338(ini);
  }
 }
