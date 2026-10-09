@@ -1,5 +1,5 @@
 // cl: /MD
-// ?rva005FBFE5@Rva005FBFE5@@QAEXH@Z @0x005FBFE5 69B
+// ?SetResult@Impl@DynamicAutoResolveMovieClip@StrategicHUD@@QAEXH@Z @0x005FBFE5 69B
 // SetResultState setter: m_04 level m_08 name holder +8 m_20 state.
 // Evidence: chain via rowed 0x0050E9FE AptCall; caller 0x005FC1A1; prev 0x005FBEBA;
 // prefix empty g_Rva0107301CEmptyString else +8; function SetResultState;
@@ -17,10 +17,11 @@ struct Rva005FBFE5Inner
 	char m_name[1];
 };
 
-class Rva005FBFE5
+namespace StrategicHUD { class DynamicAutoResolveMovieClip { public: class Impl; }; }
+class StrategicHUD::DynamicAutoResolveMovieClip::Impl
 {
 public:
-	void rva005FBFE5(int state);
+	void SetResult(int state);
 private:
 	char m_pad00[4];
 	int m_04;
@@ -29,7 +30,7 @@ private:
 	int m_20;
 };
 
-void Rva005FBFE5::rva005FBFE5(int state)
+void StrategicHUD::DynamicAutoResolveMovieClip::Impl::SetResult(int state)
 {
 	if (state == m_20)
 		return;

@@ -473,10 +473,11 @@ class Rva0049CB82LeaField
 public:
 	void *get() const;
 };
-class Rva005D4118
+namespace StrategicHUD { class ChecklistUIItemMovieClip; }
+class StrategicHUD::ChecklistUIItemMovieClip
 {
 public:
-	void rva005D4118();
+	void Flash();
 };
 class Rva0057A35A
 {
@@ -496,11 +497,11 @@ public:
 	void rva0057A37A();
 private:
 	char m_pad00[0x08];
-	Rva005D4118 m_08;
+	StrategicHUD::ChecklistUIItemMovieClip m_08;
 };
 void Rva0057A37A::rva0057A37A()
 {
-	m_08.rva005D4118();
+	m_08.Flash();
 }
 
 // 0x00456A3E: the rowed reset 0x0026549E on the +0x100 member.

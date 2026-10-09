@@ -2377,7 +2377,7 @@ void Rva0060006A::clear()
 // each one has the same function in that slot (vftable addresses from matched vptr
 // stores). Bind them to the rows at those functions.
 #pragma comment(linker, "/alternatename:?f1@Rva00494A97_S1@@UAEXXZ=?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")
-// ?rva0057C339@Rva0057C339@@QAEXABVAsciiString@@ABUTreeHintRef00217D4C@@@Z @ 0x0057C339 91B gap via rowed AptCall TreeHintRef copy.
+// ?LoadContent@Impl@AptLoadMovieFrame@@QAEXABVAsciiString@@ABUTreeHintRef00217D4C@@@Z @ 0x0057C339 91B gap via rowed AptCall TreeHintRef copy.
 // Apt LoadContent loader with TreeHintRef member +0x14 flag +0x18 level +0x0 team +0x4.
 // Evidence: TreeHintRef copy 0x002174A4, Version? no, AptCall 0x0050E9FE, LoadContent literal,
 // empty g_Rva0107301CEmptyString, manager TheRva00222A8BTarget, caller jmp 0x0057C397.
@@ -2390,10 +2390,15 @@ struct TreeHintRef00217D4C
 class Rva00222A8BTarget;
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 int Rva0050E9FEAptCall(Rva00222A8BTarget *target, void *level, const char *prefix, const char *function, const char **a0ptr);
-class Rva0057C339
+class AptLoadMovieFrame
 {
 public:
-    void rva0057C339(const AsciiString &a1, const TreeHintRef00217D4C &a2);
+	class Impl;
+};
+class AptLoadMovieFrame::Impl
+{
+public:
+    void LoadContent(const AsciiString &a1, const TreeHintRef00217D4C &a2);
 private:
     void *m_level;
     char *m_teamData;
@@ -2401,7 +2406,7 @@ private:
     TreeHintRef00217D4C m_hint;
     unsigned char m_flag;
 };
-void Rva0057C339::rva0057C339(const AsciiString &a1, const TreeHintRef00217D4C &a2)
+void AptLoadMovieFrame::Impl::LoadContent(const AsciiString &a1, const TreeHintRef00217D4C &a2)
 {
     m_hint = a2;
     const char *team1;
@@ -2427,11 +2432,11 @@ public:
     void rva0057C394(const AsciiString &a1, const TreeHintRef00217D4C &a2);
 private:
     char m_pad00[4];
-    Rva0057C339 *m_p;
+    AptLoadMovieFrame::Impl *m_p;
 };
 void Rva0057C394::rva0057C394(const AsciiString &a1, const TreeHintRef00217D4C &a2)
 {
-    return m_p->rva0057C339(a1, a2);
+    return m_p->LoadContent(a1, a2);
 }
 // ??1Rva005F329E@@QAE@XZ, retail 0x005F329E, 23 bytes.
 // Opaque scalar dtor deleting owned Rva005F2B22 member via pinned dtor and
