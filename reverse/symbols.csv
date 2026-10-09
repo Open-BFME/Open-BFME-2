@@ -16525,3 +16525,5 @@ _D3DXVec3TransformCoordArray@24,0x0062AF6E,Native 0x00107A47 REL32 reaches six-b
 ?init@AIWall@@QAE_NXZ,0x004EBEB7,NamedWB137B990/405 and full native4EBEB7/148 prove bool AIWall::init with no stack arguments. Requires node vector8 count>1 sorts selects median node4 verifies sequential key50 and stores38/40 before wall-shape helper4EBB58; returns bool. loadWallLibrary4E9C13 invokes it on the same group-wall pointer and erases false results. Full bodies inspected; no original template spelling or helper identity inferred.
 ??1Rva003B761E@@QAE@XZ,0x003B766B,
 ?str@ostrstream@_STL@@QAEPADXZ,0x006027F0,
+?deleteUpgradeList@Player@@QAEXXZ,0x002AA7E6,Player init call 2AF75B; WB C1C3E0 clears upgrade chain +9C and masks BC/13C; ZH Player.cpp2971
+?reset@ScoreKeeper@@QAEXH@Z,0x0039C5FD,Player init score +3BC call; WB FA1460 scoring masks/reset maps/player index; ZH ScoreKeeper.cpp91
