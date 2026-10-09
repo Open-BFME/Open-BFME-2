@@ -125,9 +125,13 @@ public:
 };
 
 class Rva003ED94FDtor { public: ~Rva003ED94FDtor(); void *header; int flags; };
-struct Rva0056A061KeyMap { char opaque[12]; ~Rva0056A061KeyMap(){reinterpret_cast<Rva003ED94FDtor *>(this)->Rva003ED94FDtor::~Rva003ED94FDtor();} };
+class LargeGroupAudioAudioMap;
+// This is the existing empty-vector constructor view at 1F81BF. Its name
+// belongs to the fold owner; the target key-map original type stays opaque.
+class ObjectCreationList {public: ObjectCreationList(); char opaque[12];};
+struct Rva0056A061KeyMap : ObjectCreationList { ~Rva0056A061KeyMap(){reinterpret_cast<Rva003ED94FDtor *>(this)->Rva003ED94FDtor::~Rva003ED94FDtor();} };
 class OpaqueRefCounted { public: void Release_Ref(); };
-struct Rva0056A061Ref { OpaqueRefCounted *value; ~Rva0056A061Ref(){if(value)value->Release_Ref();} };
+struct Rva0056A061Ref { Rva0056A061Ref():value(0){} OpaqueRefCounted *value; ~Rva0056A061Ref(){if(value)value->Release_Ref();} };
 class Rva00569373 {public: void rva00569373(void *);};
 class Rva00569393 {public: void rva005694CD();};
 class Rva00568F04 {public: void rva00568F04(void *);};
@@ -135,6 +139,7 @@ struct BfmeStringRecord00568CE0 { char opaque00[12]; Rva00568F04 *subject; char 
 class LargeGroupAudioSoundKeyPair
 {
 public:
+ LargeGroupAudioSoundKeyPair(LargeGroupAudioAudioMap *owner, const char *name);
  ~LargeGroupAudioSoundKeyPair();
  void rva0056979A(const FloatPair &pos, unsigned short weight);
  void rva005697F7(LargeGroupAudioSubject *subject);
@@ -148,9 +153,9 @@ private:
  Rva00568FE4Multi m_pendingAdds;
  Rva005C8176 *m_grids[4];
  int unknown3C;
- _STL::vector<void *> m_v40;
- _STL::vector<void *> m_v4C;
- _STL::vector<void *> m_v58;
+ _STL::vector<const ModuleData *> m_v40;
+ _STL::vector<const ModuleData *> m_v4C;
+ _STL::vector<const ModuleData *> m_v58;
  int m_totalWeight;
 };
 LargeGroupAudioSoundKeyPair::~LargeGroupAudioSoundKeyPair(){
@@ -303,4 +308,10 @@ void LargeGroupAudioSoundKeyPair::unregisterSubject(LargeGroupAudioSubject *subj
 		if (it != m_pendingAdds.end())
 			m_pendingAdds.erase(it);
 	}
+}
+
+LargeGroupAudioSoundKeyPair::LargeGroupAudioSoundKeyPair(LargeGroupAudioAudioMap *owner, const char *name):m_owner(),unknown3C((int)owner),m_totalWeight(0){
+ for(int i=0;i<4;++i)m_grids[i]=0;
+ m_v4C.reserve(40);m_v40.reserve(40);
+ if(name)m_name.set(name);
 }
