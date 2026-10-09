@@ -73958,3 +73958,5 @@ _VP6_AllocateFragmentInfo,,0x001B9140,396,Code/Libraries/Source/VP6/AllocateFrag
 ?rva003B80B8@Rva003B573E@@QAEHABV?$StringBase@D@@PAH@Z,,0x003B80B8,137,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListSubrecordAddRva003B80B8.cpp,matched,
 ?rva003B8141@Rva003BRefSubrecord@@QAEHABV?$StringBase@D@@@Z,,0x003B8141,132,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListSubrecordAddRva003B8141.cpp,matched,
 ?rva003B7EC2@Rva003B7EC2View@@QAEHH@Z,,0x003B7EC2,132,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListSubrecordAddRva003B7EC2.cpp,matched,
+?Rva002886C2@@YAHPAVObject@@PAX@Z,,0x002886C2,39,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptGlueRva003C1E8C.cpp,matched,
+?Rva003C1E8CSet@@YGXABVAsciiString@@H@Z,,0x003C1E8C,54,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptGlueRva003C1E8C.cpp,matched,
