@@ -17,6 +17,14 @@
 extern float GetGameClientRandomValueReal( float low, float high,
 	char *file, int line );
 
+class Xfer
+{
+public:
+	void Version1();
+};
+class GameClientRandomVariable;
+Xfer &xferRandomVariable( Xfer &xfer, GameClientRandomVariable &var );
+
 class GameClientRandomVariable
 {
 public:
@@ -45,6 +53,9 @@ class CylindricalEmissionVelocityModule
 public:
 	virtual Coord3D getVelocity( int, int );
 
+protected:
+	virtual void xfer( Xfer *xfer );
+
 private:
 	char m_base[0x1c - 4];
 	GameClientRandomVariable m_radial;		///< +0x1C
@@ -61,6 +72,17 @@ Coord3D CylindricalEmissionVelocityModule::getVelocity( int, int )
 	components.x = (float)cos( angle ) * radial;
 	components.y = (float)sin( angle ) * radial;
 	return Coord3D( components.x, components.y, m_normal.getValue() );
+}
+
+// ?xfer@CylindricalEmissionVelocityModule@FXParticleSystem@@MAEXPAVXfer@@@Z
+// retail 0x0055ED34, 43 bytes: slot 3 (offset 0x0C) of the class's vtable
+// 0x0081C8B8 (ICF-shared with five more slot-3 entries): Version1, then
+// both variables through the rowed xferRandomVariable 0x00306183.
+void CylindricalEmissionVelocityModule::xfer( Xfer *xfer )
+{
+	xfer->Version1();
+	xferRandomVariable( *xfer, m_radial );
+	xferRandomVariable( *xfer, m_normal );
 }
 
 }
