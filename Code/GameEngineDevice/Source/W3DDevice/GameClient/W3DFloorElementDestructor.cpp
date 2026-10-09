@@ -58,3 +58,11 @@ Gen_uw_000e5033::~Gen_uw_000e5033() { reinterpret_cast<Rva000E4567 *>(this)->rva
 
 typedef char FloorRowStride[(sizeof(FloorMatrixRow)==16)?1:-1];
 typedef char FloorElementExtent[(sizeof(Gen_uw_000e5033)==0xa0)?1:-1];
+Gen_uw_000e5033::Gen_uw_000e5033() : m_render28(0), m_drawable2c(0), m_3c(0),m_40(0),m_44(0),m_48(0),m_id4c(0), m_active80(false),m_flag81(false),m_flag82(false),m_opacity84(1),m_speed88(0),m_94(0),m_state98(0),m_flag9c(false),m_flag9d(false)
+{
+
+
+
+
+}
+
