@@ -17,16 +17,22 @@ public:
 	~INIException();
 };
 
+struct Rva00504EADCurvePoint { float time,value;unsigned char reserved[8]; };
+
 class Rva00504EADCurve
 {
 public:
 	void set(float time, float value, float inTangent, float outTangent);
+ int size() const { return m_end - m_begin; }
+ unsigned char m_reserved[8];
+ Rva00504EADCurvePoint *m_begin,*m_end;
 };
 
 class Rva00504F09FunctionCurve
 {
 public:
 	void addKey(float time, float value, const float *inTangent, const float *outTangent);
+ void finish();
 
 private:
 	Rva00504EADCurve *m_curve;
@@ -76,4 +82,31 @@ void Rva00504F09FunctionCurve::addKey(float time, float value,
 		m_outTangent.bits = *(const Int *)outTangent;
 	m_lastTime = time;
 	m_lastValue = value;
+}
+
+// Finish: BFME1 donor2f243e26d final-key emission; target174B/WB12CC580
+// proves zero literal and float-tangent ABI. WB repeats missing-out-tangent
+// handling in both size branches; retaining that shape closes EBX epilogue.
+void Rva00504F09FunctionCurve::finish()
+{
+	if (m_firstKey)
+		throw INIException(3, "Function curve does not have any keyframes");
+
+	if (!m_curve->size()) {
+		if (!m_haveInTangent)
+			m_inTangent.value = m_haveOutTangent ? m_outTangent.value : 0.0f;
+	if (!m_haveOutTangent)
+		m_outTangent.bits = m_inTangent.bits;
+
+	} else {
+		Rva00504EADCurvePoint *previous = m_curve->m_end - 1;
+		if (!m_haveInTangent)
+			m_inTangent.value = (m_lastValue - previous->value) / (m_lastTime - previous->time);
+
+	if (!m_haveOutTangent)
+		m_outTangent.bits = m_inTangent.bits;
+
+	}
+
+	m_curve->set(m_lastTime, m_lastValue, m_inTangent.value, m_outTangent.value);
 }
