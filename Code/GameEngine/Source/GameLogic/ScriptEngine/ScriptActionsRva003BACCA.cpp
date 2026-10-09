@@ -60,7 +60,7 @@ public:
 	virtual void s36();
 	virtual void s37();
 	virtual void s38();
-	virtual void s39();
+	virtual void s39(const Coord3D *p);
 	virtual void s40();
 	virtual void s41();
 	virtual void s42();
@@ -307,4 +307,75 @@ void __stdcall Rva003BAAE4(const AsciiString &name,
 	reinterpret_cast<TacticalView *>(TheTacticalView)->s24(
 		&position, marker, (int)(a1 * 1000.0f), 1,
 		a3 * 1000.0f, a4 * 1000.0f);
+}
+
+// Zero Hour ScriptActions::doModCameraMoveToSelection supplies the selected
+// drawable centroid algorithm. Target 0x003BAE04/198B and dispatcher 0x003CAFFF
+// independently establish the free ABI, selection byte +0x43C, next +0x104,
+// first-drawable slot 17 and final-move slot 39. Original BFME2 name unresolved.
+class BFMERopeDrawable
+{
+public:
+    const Coord3D *getPosition() const;
+};
+struct Rva003BAE04Drawable
+{
+    unsigned char pad[0x104];
+    BFMERopeDrawable *next;
+    unsigned char pad108[0x43C - 0x108];
+    bool selected;
+};
+class Rva003BAE04Client
+{
+public:
+    virtual void s00();
+    virtual void s01();
+    virtual void s02();
+    virtual void s03();
+    virtual void s04();
+    virtual void s05();
+    virtual void s06();
+    virtual void s07();
+    virtual void s08();
+    virtual void s09();
+    virtual void s10();
+    virtual void s11();
+    virtual void s12();
+    virtual void s13();
+    virtual void s14();
+    virtual void s15();
+    virtual void s16();
+    virtual BFMERopeDrawable *firstDrawable();
+};
+extern class GameClient *TheGameClient;
+
+void Rva003BAE04()
+{
+    int count = 0;
+    Coord3D destination;
+    destination.x = destination.y = destination.z = 0.0f;
+    for (BFMERopeDrawable *d = reinterpret_cast<Rva003BAE04Client *>(TheGameClient)->firstDrawable();
+        d; d = reinterpret_cast<Rva003BAE04Drawable *>(d)->next)
+    {
+        if (reinterpret_cast<Rva003BAE04Drawable *>(d)->selected)
+        {
+            const Coord3D *position = d->getPosition();
+            Coord3D pos;
+            pos.x = position->x;
+            pos.y = position->y;
+            pos.z = position->z;
+            destination.x += pos.x;
+            destination.y += pos.y;
+            destination.z += pos.z;
+            ++count;
+        }
+    }
+    if (count)
+    {
+        float scale = 1.0f / count;
+        destination.z *= scale;
+        destination.x *= scale;
+        destination.y *= scale;
+        reinterpret_cast<TacticalView *>(TheTacticalView)->s39(&destination);
+    }
 }
