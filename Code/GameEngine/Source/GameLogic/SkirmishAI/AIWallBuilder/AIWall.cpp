@@ -87,7 +87,8 @@ public:
     virtual void slot09(); virtual void slot10(); virtual void slot11();
     virtual void slot12();
     virtual WallPositionValue position();
-    unsigned char unknown04[0xc];
+    unsigned char unknown04[0x8];
+    AsciiString name0c;
     int state10;
     unsigned char unknown14[0x10];
     ObjectID produced24;
@@ -96,6 +97,7 @@ public:
     unsigned key50;
     unsigned getKey() const { return key50; }
     int getState() const { return state10; }
+    void setName(const AsciiString &name) { name0c = name; }
 };
 
 
@@ -192,6 +194,18 @@ class Rva004E9378 { public: bool rva004E9378(); };
 // then dispatches slot7(2); member receiver and no stack arguments are proved.
 class Rva005975C0 { public: void rva005975C0(); };
 
+class Rva004EAC8C { public: void rva004EAC8C(float); };
+// Matched constructor5970ED and complete activate body establish allocation44
+// and the timer at04. This allocation view declares the existing constructor
+// without defining a private vtable or guessing unobserved members.
+class Rva005970ED {
+public:
+    Rva005970ED();
+    unsigned char unknown00[4];
+    float delay04;
+    unsigned char unknown08[0x44-8];
+};
+
 class AIWall
 {
 public:
@@ -199,6 +213,7 @@ public:
 	void buildGate();
 	void updateState(bool left);
 	void update();
+	void activate(void *owner, float delay, const void *orderName);
 private:
 	void *unknown00;
 	WallPositionOrderView *selected04;
@@ -325,4 +340,26 @@ void AIWall::update()
     if (plan->m_08 != 0 &&
         !reinterpret_cast<Rva004E9378 *>(plan)->rva004E9378())
         reinterpret_cast<Rva005975C0 *>(plan)->rva005975C0();
+}
+
+// Named WB137BB30/420 and complete native4EAF18..4EAFBD prove owner18,
+// state34/3C initialization, order float/name updates, slot6 registration,
+// the owned timer constructor and the delay-plus-ten store. Opaque argument
+// spellings retain the independently admitted caller ABI; name is a canonical
+// one-word string reference, not a position argument.
+void AIWall::activate(void *owner, float delay, const void *orderName)
+{
+    m_18 = static_cast<Player *>(owner);
+    state34 = 1;
+    state3c = 1;
+    reinterpret_cast<Rva004EAC8C *>(this)->rva004EAC8C(delay);
+    const AsciiString &name = *static_cast<const AsciiString *>(orderName);
+    selected04->setName(name);
+    _STL::vector<WallPositionOrderView *>::iterator end = orders08.end();
+    for (_STL::vector<WallPositionOrderView *>::iterator p = orders08.begin(); p != end; ++p)
+        (*p)->setName(name);
+    selected04->slot06(m_18, 0);
+    Rva005970ED *plan = new Rva005970ED;
+    m_14 = reinterpret_cast<Rva004EB902Plan *>(plan);
+    plan->delay04 = delay + 10.0f;
 }
