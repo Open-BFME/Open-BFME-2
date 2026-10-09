@@ -653,3 +653,24 @@ unsigned Rva00135DD2Field::get() const
 {
     return m_data ? m_data->m_word8 : 0xffffffffU;
 }
+
+// Whole clean BF1 f989 MoneyGetMonetaryValueChar.cpp O2/SSE2/G7 emits this
+// placement as a back-inserter postfix copy; the wide twin emits it too. No
+// original template specialization or container identity is thereby proved.
+// Native 0x199D0..0x199DB is INT3-bounded: ECX word0 is copied through the
+// first stack pointer, that pointer returns in EAX, and RET8 discards two words.
+// No native call/address xrefs refine the output's hidden-return versus
+// explicit role or the ignored second word. Preserve only the physical ABI,
+// raw32 transfer and unknown owner with this address-owned consumed-prefix view.
+class Rva000199D0Receiver
+{
+public:
+    unsigned int *writeWord(unsigned int *output, unsigned int) const;
+private:
+    unsigned int m_word0;
+};
+unsigned int *Rva000199D0Receiver::writeWord(unsigned int *output, unsigned int) const
+{
+    *output = m_word0;
+    return output;
+}
