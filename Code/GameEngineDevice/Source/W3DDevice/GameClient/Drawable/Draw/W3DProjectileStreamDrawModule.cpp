@@ -60,7 +60,7 @@ class Vector3
 {
 public:
 	Vector3() {}
-	Vector3( float x, float y, float z ) { X = x; Y = y; Z = z; }
+	__declspec(dllimport) __forceinline Vector3( float x, float y, float z ) { X = x; Y = y; Z = z; }
 	Vector3( const Vector3 &v ) { X = v.X; Y = v.Y; Z = v.Z; }
 	Vector3 &operator = ( const Vector3 &v ) { X = v.X; Y = v.Y; Z = v.Z; return *this; }
 	friend __forceinline bool operator != ( const Vector3 &a, const Vector3 &b )
@@ -175,7 +175,7 @@ protected:
 class Drawable
 {
 public:
-	Object *getObject( void ) { return m_object; }
+	__declspec(dllimport) __forceinline Object *getObject( void ) { return m_object; }
 private:
 	char m_unrecovered00[ 0xFC ];
 	Object *m_object;																													///< 0xFC

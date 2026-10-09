@@ -49,6 +49,9 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
  * Functions:                                                              * 
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
+// Reuse the verified particle consumer views; these helpers remain inlined.
+#include "../../../../../reference/shims/bfme_part_emt_inline/vector3.h"
+#include "../../../../../reference/shims/bfme_part_emt_inline/matrix3d.h"
 #include "rendobj.h"
 #include "part_emt.h"
 #include "wwdebug.h"
