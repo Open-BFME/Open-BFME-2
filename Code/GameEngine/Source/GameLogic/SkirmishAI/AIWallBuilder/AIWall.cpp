@@ -25,7 +25,12 @@ namespace _STL { void __cdecl free(void *); }
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 
 class Object;
-class Player { public: void rva002AF614(void *); };
+class Player {
+public:
+    void rva002AF614(void *);
+    unsigned char unknown00[0x54];
+    int index54;
+};
 
 class Rva000421C8
 {
@@ -167,6 +172,7 @@ extern ControlBar *TheControlBar;
 class Object
 {
 public:
+    Player *getControllingPlayer() const;
 	const AsciiString &getCommandSetString() const;	// 0x00290E67
 	void *rva0028BC58(int arg);			// 0x0028BC58
 	bool rva002940B9(const UpgradeTemplate *upgrade);	// 0x002940B9
@@ -217,6 +223,20 @@ public:
     unsigned char unknown08[0x44-8];
 };
 
+// The callback's native stride8 and WB two-word record constructor prove
+// player-index/count storage. Reuse the established structural BfmeE8
+// specialization; this does not assert the original record type spelling.
+struct BfmeE8 {
+    int a, b;
+    // Retail initializes count; the index is assigned before any read.
+    // WB137B560's redundant default index(-1) store is not in this body.
+    BfmeE8() : b(0) {}
+    void setPlayerIndex(int index) { a = index; }
+};
+namespace _STL {
+template <> void vector<BfmeE8, allocator<BfmeE8> >::push_back(const BfmeE8 &);
+}
+
 class AIWall
 {
 public:
@@ -226,13 +246,15 @@ public:
 	void update();
 	void activate(void *owner, float delay, const void *orderName);
 	bool rva004EB7CC(void *owner);
+    static void __cdecl informInstanceOnTriggerEntered(Object *, void *, bool);
 private:
 	void *unknown00;
 	WallPositionOrderView *selected04;
 	_STL::vector<WallPositionOrderView *> orders08;
 	Rva004EB902Plan *m_14;	// +0x14
 	Player *m_18;		// +0x18
-	unsigned char unknown1c[0x18];
+	unsigned char unknown1c[0x0c];
+    _STL::vector<BfmeE8> triggerCounts28;
 	int state34, index38, state3c, index40;
 };
 
@@ -403,4 +425,29 @@ bool AIWall::rva004EB7CC(void *owner)
             return false;
     }
     return true;
+}
+
+// WB137C410 names this static callback and its AIWall.cpp assertion329;
+// native4EBAF7..4EBB58 proves cdecl Object/opaque-wall/bool arguments.
+// Getter28AFA9 and player word54 identify each controlling player's counter.
+void __cdecl AIWall::informInstanceOnTriggerEntered(Object *object, void *context, bool entered)
+{
+    AIWall *wall = static_cast<AIWall *>(context);
+    if (entered) {
+        BfmeE8 *found = 0;
+        _STL::vector<BfmeE8>::iterator end = wall->triggerCounts28.end();
+        for (_STL::vector<BfmeE8>::iterator entry = wall->triggerCounts28.begin(); entry != end; ++entry) {
+            if (entry->a == object->getControllingPlayer()->index54) {
+                found = entry;
+                break;
+            }
+        }
+        if (!found) {
+            BfmeE8 entry;
+            entry.setPlayerIndex(object->getControllingPlayer()->index54);
+            wall->triggerCounts28.push_back(entry);
+            found = &wall->triggerCounts28[wall->triggerCounts28.size()-1];
+        }
+        ++found->b;
+    }
 }
