@@ -40896,7 +40896,7 @@ _Rva00020AC0,,0x00020AC0,39,Code/Libraries/Source/WWVegas/WWLib/Rva0084D890CodeP
 ?rva00536F7D@UserPreferences@@QAEHVAsciiString@@@Z,,0x00536F7D,74,Code/GameEngine/Source/Common/UserPreferencesRva00535CE4.cpp,matched,RegionsLost getter slot18 same TU
 ?rva00536FC7@UserPreferences@@QAEXH@Z,,0x00536FC7,72,Code/GameEngine/Source/Common/UserPreferencesRva00535CE4.cpp,matched,Challenge setter local slot2C same TU
 ?rva005C436E@Rva005C436E@@QAEXH@Z,,0x005C436E,65,Code/GameEngine/Source/Common/Rva005C436EDispatch.cpp,matched,unlock dispatch via find plus adds
-?rva001EDD80@Rva001EDD80@@QAE_NPBURva001EDD80Pair@@0@Z,,0x001EDD80,59,Code/GameEngine/Source/Common/Rva001EDD80Range.cpp,matched,abs range check vs thresh via pinned abs
+?rva001EDD80@Mouse@@QAE_NPBURva001EDD80Pair@@0@Z,,0x001EDD80,59,Code/GameEngine/Source/Common/Rva001EDD80Range.cpp,matched,abs range check vs thresh via pinned abs; receiver proven by TheMouse load at native LookAt translation call 0x0042EBDF; method and pair spellings remain address-derived
 ?find@Rva002E1948Lookup@@QAEPAURva002E1948Entry@@ABVAsciiString@@@Z,,0x002E1948,86,Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva002BA8F1Lookups.cpp,matched,unlock lane vector 1B8 plus1C find
 ?rva0028CBFD@Rva0028CBFD@@QAEXXZ,,0x0028CBFD,127,Code/GameEngine/Source/Common/Rva0028CBFDCleanup.cpp,matched,three array walks via slots 0xC 0x40 0x38 plus slot4
 ?rva005748AD@Rva005748AD@@QAEHHHH@Z,,0x005748AD,5,Code/GameEngine/Source/Common/VtableConstantPredicates.cpp,matched,unnamed vtable slot target; identity not recoverable so address-derived class name; returns Int 0 with three args; exact match
