@@ -83,7 +83,13 @@ protected:
 	// Other imported units retain the Zero Hour crc spelling described above.
 	// Both declarations occupy the same single slot, never an added fifth one.
 #ifdef BFME_SNAPSHOT_NAME_SLOT
+// FX info exports and retail vtable C1BBA0 use the non-const getter at
+// 001F354A. Other consumers retain their established const signature.
+#ifdef BFME_SNAPSHOT_NONCONST_NAME_SLOT
+	virtual const char *GetSnapshotName( void ) = 0;
+#else
 	virtual const char *GetSnapshotName( void ) const = 0;
+#endif
 #else
 	virtual void crc( Xfer *xfer ) = 0;
 #endif
@@ -91,7 +97,13 @@ protected:
 	/** run save, load, or deep CRC check on this data structure, the type depends on the
 	setup of the Xfer pointer */
 #ifdef BFME_SNAPSHOT_CAPITALIZED_SLOTS
+// FX info DoXfer exports take Xfer& (e.g. 0047A69C); it occupies the same
+// slot and has the same one-pointer ABI as the existing pointer surface.
+#ifdef BFME_SNAPSHOT_REFERENCE_XFER
+	virtual void DoXfer( Xfer &xfer ) = 0;
+#else
 	virtual void DoXfer( Xfer *xfer ) = 0;
+#endif
 #else
 	virtual void xfer( Xfer *xfer ) = 0;
 #endif

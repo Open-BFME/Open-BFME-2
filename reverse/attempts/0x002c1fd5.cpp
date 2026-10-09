@@ -1,4 +1,8 @@
 // ?winProcessMouseEvent@GameWindowManager@@UAE?AW4WinInputReturnCode@@W4GameWindowMessage@@PAUICoord2D@@PAX@Z
+// partial score=0.9984743113 date=2026-10-09
+extern "C" void _ReadWriteBarrier();
+#pragma intrinsic(_ReadWriteBarrier)
+// ?winProcessMouseEvent@GameWindowManager@@UAE?AW4WinInputReturnCode@@W4GameWindowMessage@@PAUICoord2D@@PAX@Z
 // partial score=0.9927227074 date=2026-10-08
 // cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG /Ireference/shims/bfme2_ascii
 // Isolated portable trial, from the entire ZH GameWindowManager.cpp reviewed
@@ -279,7 +283,7 @@ WinInputReturnCode GameWindowManager::winProcessMouseEvent( GameWindowMessage ms
 						if( newRegion.lo.y < 0 )
 							newRegion.lo.y = 0;
 						
-						newRegion.hi.x = grabSize.x + newRegion.lo.x;
+						_ReadWriteBarrier();newRegion.hi.x = grabSize.x + newRegion.lo.x;
 						newRegion.hi.y = grabSize.y + newRegion.lo.y;
 						if( newRegion.hi.x > (Int)reinterpret_cast<BfmeMouseDisplayView*>(TheDisplay)->getWidth() )
 							newRegion.hi.x = (Int)reinterpret_cast<BfmeMouseDisplayView*>(TheDisplay)->getWidth();
