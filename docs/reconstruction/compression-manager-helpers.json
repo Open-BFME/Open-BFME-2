@@ -1,0 +1,74 @@
+{
+  "date": "2026-10-09",
+  "donor_revision": "9cbfb551fe20dae985f91f2319d8997287b6a705",
+  "primary_sources": [
+    {
+      "path": "CompressionManager.cpp",
+      "sha256": "95c7462d2fe9fe03c287093e46a064e2877326d0c5506c5f0d7ffc14be698ee5",
+      "url": "https://github.com/electronicarts/CnC_Generals_Zero_Hour/blob/main/GeneralsMD/Code/Libraries/Source/Compression/CompressionManager.cpp"
+    },
+    {
+      "path": "Compression.h",
+      "sha256": "1ef5fa9bfec7a6c7c088acba711cebc642cb0d83b232e06d67e1c1afcfc82e79",
+      "url": "https://github.com/electronicarts/CnC_Generals_Zero_Hour/blob/main/GeneralsMD/Code/Libraries/Source/Compression/Compression.h"
+    },
+    {
+      "path": "LZHCompress/NoxCompress.cpp",
+      "sha256": "5659dc5ef4facba8950c9ea25c16ea008daa2755530bc3409246beb2a9ab1b68",
+      "url": "https://github.com/electronicarts/CnC_Generals_Zero_Hour/blob/main/GeneralsMD/Code/Libraries/Source/Compression/LZHCompress/NoxCompress.cpp"
+    },
+    {
+      "path": "LZHCompress/NoxCompress.h",
+      "sha256": "cf14a50a2d25b3f623b8486bfb7975179256a5a03b825a969d3d958a5c10aa01",
+      "url": "https://github.com/electronicarts/CnC_Generals_Zero_Hour/blob/main/GeneralsMD/Code/Libraries/Source/Compression/LZHCompress/NoxCompress.h"
+    }
+  ],
+  "target_evidence": {
+    "getCompressionNameByType": {
+      "rva": "0x0068A190",
+      "extent": 12,
+      "table_va": "0x00DD9920",
+      "strings": [
+        "No compression",
+        "RefPack"
+      ]
+    },
+    "getDecompressionNameByType": {
+      "rva": "0x0068A1A0",
+      "extent": 12,
+      "table_va": "0x00DD9928",
+      "strings": [
+        "d_None",
+        "d_RefPack"
+      ]
+    },
+    "getMaxCompressedSize": {
+      "rva": "0x0068A2A0",
+      "extent": 113,
+      "code_bytes": 88,
+      "jump_table_bytes": 12,
+      "selector_bytes": 13,
+      "switch": "REFPACK/BTREE/HUFF => len+8; NOXLZH => CalcNewSize(len)+8; ZLIB1..9 => ceil(len*1.1+20); default0",
+      "callee_rvas": [
+        "0x0068A7A0",
+        "0x00629228"
+      ],
+      "ceil_iat_va": "0x00BBA578"
+    },
+    "CalcNewSize": {
+      "rva": "0x0068A7A0",
+      "extent": 5,
+      "tail_target": "0x0068ED50",
+      "target_name": "LZHLCompressorCalcMaxBuf"
+    }
+  },
+  "identity_basis": "Original source bodies; unique target name tables followed by the already identified CompressionManager functions; complete size switch and constants; direct size-helper call and named LZH destination. No direct E8 callers found for the three manager functions. Original enum/type spellings carried from source, not inferred from machine bytes alone.",
+  "verification": {
+    "matched_functions": 18,
+    "sources": 2,
+    "new_unique_bytes": 142,
+    "additional_place_bodies": 0,
+    "new_pins": 0,
+    "link_preview": "2/2 clean against existing census 2026-10-07 15:39 at 0e4836ac73; not a new full link run"
+  }
+}

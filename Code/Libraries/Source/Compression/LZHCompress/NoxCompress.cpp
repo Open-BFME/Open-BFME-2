@@ -59,6 +59,13 @@ __declspec(noinline) unsigned int LZHLCompressorCalcMaxBuf(unsigned int rawSize)
 
 #define BLOCKSIZE 500000
 
+// Original Nox wrapper; BFME2 RVA 0x0068A7A0 tail-calls the named bound
+// implementation at 0x0068ED50. CompressionManager supplies the caller.
+UnsignedInt CalcNewSize(UnsignedInt uncompressedSize)
+{
+	return LZHLCompressorCalcMaxBuf(uncompressedSize);
+}
+
 Bool CompressFile(char *infile, char *outfile)
 {
 	unsigned int rawSize = 0;

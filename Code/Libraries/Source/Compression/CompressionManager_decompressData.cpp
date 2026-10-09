@@ -28,6 +28,7 @@ typedef bool Bool;
 
 extern "C" int __cdecl memcmp(const void *, const void *, unsigned int);
 extern "C" void * __cdecl memcpy(void *, const void *, unsigned int);
+extern "C" __declspec(dllimport) double __cdecl ceil(double);
 #pragma intrinsic(memcpy)
 
 enum CompressionType
@@ -35,6 +36,7 @@ enum CompressionType
 	COMPRESSION_MIN = 0,
 	COMPRESSION_NONE = COMPRESSION_MIN,
 	COMPRESSION_REFPACK,
+	COMPRESSION_MAX = COMPRESSION_REFPACK,
 	COMPRESSION_NOXLZH,
 	COMPRESSION_ZLIB1,
 	COMPRESSION_ZLIB2,
@@ -64,17 +66,40 @@ extern "C" {
 
 Bool DecompressMemory(void *inBufferVoid, Int inSize, void *outBufferVoid, Int &outSize);	// retail 0x0081EB80
 Bool CompressMemory(void *inBufferVoid, Int inSize, void *outBufferVoid, Int &outSize);	// retail 0x0081EDD0
+unsigned int CalcNewSize(unsigned int uncompressedSize);
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression/Compression.h
 class CompressionManager
 {
 public:
+	static const char *getCompressionNameByType(CompressionType compType);
+	static const char *getDecompressionNameByType(CompressionType compType);
+	static Int getMaxCompressedSize(Int uncompressedLen, CompressionType compType);
 	static CompressionType getCompressionType(const void *mem, Int len);	// retail 0x0081E560
 	static Bool isDataCompressed(const void *mem, Int len);
 	static Int getUncompressedSize(const void *mem, Int len);
 	static Int compressData(CompressionType compType, void *src, Int srcLen, void *dest, Int destLen);
 	static Int decompressData(const void *src, Int srcLen, void *dest, Int destLen);
 };
+
+// Original ZH CompressionManager.cpp bodies. BFME2 has the same two-entry
+// tables at VA 0x00DD9920 and 0x00DD9928; each accessor uniquely references
+// its table and immediately precedes the identified getCompressionType.
+const char *CompressionManager::getCompressionNameByType(CompressionType compType)
+{
+	static const char *s_compressionNames[COMPRESSION_MAX+1] = {
+		"No compression", "RefPack"
+	};
+	return s_compressionNames[compType];
+}
+
+const char *CompressionManager::getDecompressionNameByType(CompressionType compType)
+{
+	static const char *s_decompressionNames[COMPRESSION_MAX+1] = {
+		"d_None", "d_RefPack"
+	};
+	return s_decompressionNames[compType];
+}
 
 // ?getCompressionType@CompressionManager@@SA?AW4CompressionType@@PBXH@Z
 CompressionType CompressionManager::getCompressionType( const void *mem, Int len )
@@ -114,6 +139,32 @@ Bool CompressionManager::isDataCompressed( const void *mem, Int len )
 {
 	CompressionType t = getCompressionType(mem, len);
 	return t != COMPRESSION_NONE;
+}
+
+// ZH source switch; BFME2 retains every case, the 1.1/20.0 constants,
+// CalcNewSize wrapper and CRT ceil import. Extent includes both switch tables.
+Int CompressionManager::getMaxCompressedSize(Int uncompressedLen, CompressionType compType)
+{
+	switch (compType)
+	{
+		case COMPRESSION_NOXLZH:
+			return CalcNewSize(uncompressedLen) + 8;
+		case COMPRESSION_BTREE:
+		case COMPRESSION_HUFF:
+		case COMPRESSION_REFPACK:
+			return uncompressedLen + 8;
+		case COMPRESSION_ZLIB1:
+		case COMPRESSION_ZLIB2:
+		case COMPRESSION_ZLIB3:
+		case COMPRESSION_ZLIB4:
+		case COMPRESSION_ZLIB5:
+		case COMPRESSION_ZLIB6:
+		case COMPRESSION_ZLIB7:
+		case COMPRESSION_ZLIB8:
+		case COMPRESSION_ZLIB9:
+			return (Int)(ceil(uncompressedLen * 1.1 + 12 + 8));
+	}
+	return 0;
 }
 
 Int CompressionManager::getUncompressedSize( const void *mem, Int len )
