@@ -14,3 +14,11 @@ Rva006CDD50Iterator __cdecl Rva006CDD90Copy(Rva006CDD50Item *first,Rva006CDD50It
  for(;first!=last;++first){Rva006CDD50Iterator destination=result++;destination.position->name=first->name;destination.position->value=first->value;}
  return result;
 }
+
+// Native6CDD50..6CDD90;6CE966 passes two12B iterator values plus
+// destination-begin pointer. The count-loop copies8B entries backward
+// and returns the pointer one before destination-begin, including empty ranges.
+Rva006CDD50Item *__cdecl Rva006CDD50Copy(Rva006CDD50Iterator first,Rva006CDD50Iterator last,Rva006CDD50Item *result){
+ int count=last.position-first.position; result+=count-1; --last.position;
+ while(count){result->name=last.position->name;result->value=last.position->value;--last.position;--result;--count;} return result;
+}
