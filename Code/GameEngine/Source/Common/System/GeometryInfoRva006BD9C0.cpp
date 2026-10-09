@@ -55,6 +55,19 @@ struct GeometryShape
 	GeometryShape &operator=(const GeometryShape &other);
 };
 
+// STLport 4.5.3's unchanged inline accessors, scoped to this native consumer.
+// Keep the target's stride-36 reads without competing out-of-line copies.
+namespace _STL {
+template<> __declspec(dllimport) __forceinline
+vector<GeometryShape, allocator<GeometryShape> >::size_type
+vector<GeometryShape, allocator<GeometryShape> >::size() const
+{ return size_type(this->_M_finish - this->_M_start); }
+template<> __declspec(dllimport) __forceinline
+vector<GeometryShape, allocator<GeometryShape> >::const_reference
+vector<GeometryShape, allocator<GeometryShape> >::operator[](size_type n) const
+{ return *(begin() + n); }
+}
+
 template <class T>
 static inline const T &bfmeMin(const T &a, const T &b)
 {
