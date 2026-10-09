@@ -5,17 +5,20 @@
 // The callback's native vtableC37064 independently points to3F5BBB at slot0
 // and the already-rowed scalar deleting dtor3F4261 at slot1. Its existing
 // address-derived destructor ownerRva005FED52 is retained and reconciled.
+// Native 5FED52 restores the one-slot abstract base table C1C780. Its
+// destructor is nonvirtual and empty; the derived callback adds deleting slot1.
+// This permits normal stack cleanup to inline away, as in native 3F4AD8.
 // Original method/callback names are unresolved; all offsets are target facts.
 #include <vector>
 struct Rva002BA8F1Listener;
 class Rva005A0B4CList { public: void append(Rva002BA8F1Listener *); };
-class Rva003F498ACallback { public: virtual bool invoke(int) = 0; };
+class Rva003F498ACallback { public: virtual bool invoke(int) = 0; ~Rva003F498ACallback() {} };
 class LivingWorldBattle;
 class Rva005FED52 : public Rva003F498ACallback {
 public:
     explicit Rva005FED52(LivingWorldBattle *battle) : owner(battle) {}
     virtual bool invoke(int);
-    virtual ~Rva005FED52();
+    virtual ~Rva005FED52() {}
 private:
     LivingWorldBattle *owner;
 };
@@ -50,9 +53,16 @@ class LivingWorldBattle {
     int state38;
 public:
     void rva003F498A(Rva003F498ACallback *);
+    void rva003F4AD8();
 };
 void Rva003F498AOuter::rva003F4398() {
     for (unsigned i=0; i<inner.size(); ++i) { Rva003F498AInner *element=&inner[i]; element->rva003F42F7(); }
+}
+void LivingWorldBattle::rva003F4AD8() {
+    for (unsigned i=0; i<sides.size(); ++i) { Rva003F498AOuter *element=&sides[i]; element->rva003F4398(); }
+    if (state38 < 0) reinterpret_cast<Rva003F43D3 *>(this)->rva003F43D3();
+    Rva005FED52 callback(this);
+    rva003F498A(&callback);
 }
 
 void Rva003F498AInner::rva003F42F7() {
