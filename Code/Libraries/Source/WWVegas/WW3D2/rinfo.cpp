@@ -83,11 +83,13 @@ class VisRasterizerClass;
 class BWRenderClass;
 class DummyPtrType;
 
+// Keep the helpers inline in the retail rows without emitting competing
+// external copies. The verified object contains no DLL-import calls for them.
 class RefCountClass
 {
 public:
-	void Add_Ref(void) { NumRefs++; }
-	void Release_Ref(void) { NumRefs--; if (NumRefs == 0) Delete_This(); }
+	__declspec(dllimport) __forceinline void Add_Ref(void) { NumRefs++; }
+	__declspec(dllimport) __forceinline void Release_Ref(void) { NumRefs--; if (NumRefs == 0) Delete_This(); }
 	virtual void Delete_This(void);
 
 private:
@@ -130,7 +132,7 @@ class Vector3
 {
 public:
 	Vector3(void) {}
-	Vector3(float x, float y, float z) : X(x), Y(y), Z(z) {}
+	__declspec(dllimport) __forceinline Vector3(float x, float y, float z) : X(x), Y(y), Z(z) {}
 
 	float X;
 	float Y;
