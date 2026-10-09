@@ -7,19 +7,7 @@
 // mov cl,[esp+0x10]; mov [eax+0x18],cl; ret 0x10. Caller at 0x00359AB8 pushes
 // 0/[ebp+0x18]/[ebp+0x14]/esi with this lea [ebp-0x30]. Identity stays honest
 // Rva ctor (sibling of 0x003598D3 vtable 0x008153DC).
-class Rva0035986C
-{
-public:
-	virtual ~Rva0035986C();
-	Rva0035986C(int a1, bool a2, int a3, bool a4);
-private:
-	int m_04;
-	int m_08;
-	int m_0C;
-	int m_10;
-	int m_14;
-	bool m_18;
-};
+#include "../GameLogic/System/TerrainResourceVisitorView.h"
 Rva0035986C::Rva0035986C(int a1, bool a2, int a3, bool a4)
 {
 	m_04 = a1;
