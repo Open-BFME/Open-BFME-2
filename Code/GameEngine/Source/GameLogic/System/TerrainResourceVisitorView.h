@@ -17,4 +17,13 @@ private:
     int m_04, m_08, m_0C, m_10, m_14;
     bool m_18;
 };
+// Sibling table8153DC: a claim callback forwards both counters by address.
+class Rva003598D3: public Rva0035A97EVisitor {
+public:
+    Rva003598D3(int,int,int,bool);
+    virtual void slot00(int,int);
+private:
+    int m_04, m_08, m_0C, m_10, m_14;
+    bool m_18;
+};
 #endif
