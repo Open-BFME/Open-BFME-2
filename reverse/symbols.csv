@@ -17027,3 +17027,5 @@ _isdigit,0x00629982,Native6F97F0 suffix parser calls PE isdigit import thunk6299
 ?rva001EA0F4@Rva001E46E1@@QAEXPAVObject@@M@Z,0x001EA0F4,callees of AIUpdateInterface::doLocomotor 0x0026A3A0 (direct E8 targets read from retail)
 ?rva0026717B@AIUpdateInterface@@QAEXXZ,0x0026717B,callees of AIUpdateInterface::doLocomotor 0x0026A3A0 (direct E8 targets read from retail)
 ?rva002E9EA7@Pathfinder@@QAE_NPAVObject@@HHW4PathfindLayerEnum@@HEPAH@Z,0x002E9EA7,Native REL32 at 002F585A in Rva002F57E6Query; ECX pathfinder; RET28 Object pointer x y layer radius byte center output word; address-derived ABI only; target body 531B; no semantic name claimed
+??0?$set@IU?$less@I@_STL@@V?$allocator@I@2@@_STL@@QAE@XZ,0x000D3A71,NativePathfinder initialization empty8B set; BF1 uint key semantic lead; full25B byte-and-relocation fold including recursively proven tree constructor; fold-proof=Code/GameEngine/Source/GameLogic/AI/PathfinderConstructor.cpp
+??0PathfindZoneManager@@QAE@XZ,0x00532361,callee of ??0Pathfinder@@QAE@XZ
