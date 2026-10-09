@@ -61,3 +61,15 @@ unsigned Rva002257E9OrValues(unsigned first, unsigned second) {
 void Rva00050E45OrInto(unsigned *destination, const unsigned *source) {
     *destination |= *source;
 }
+
+// Native 5C4B05..5C4B10 is a complete cdecl leaf after the RET at5C4B04
+// and before a distinct AND leaf. It ORs destination word0 (stack4) with
+// the raw word value at stack8; there are no calls or data relocations.
+// Whole clean BF1 f98983a7d3bb405f1a4ba94bb6a2a168062a819d's Common/
+// FlagWordOrHelpers.cpp supplies this read/modify/write expression. Its
+// original callable, flag meanings, pointee owner and return type remain
+// unknown. The donor's void cdecl view claims only the observed word update.
+void Rva005C4B05OrBits(unsigned *destination, unsigned bits)
+{
+    *destination |= bits;
+}
