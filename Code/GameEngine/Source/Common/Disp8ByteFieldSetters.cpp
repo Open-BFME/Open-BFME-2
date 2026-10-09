@@ -94,3 +94,12 @@ BFME_DISP8_BYTE_SETTER(Rva004AD9A6ByteSlot, 0x3C)
 // writes the stack argument's low byte at receiver+0x4C, and ends RET4
 // before the separately rowed 3B23CD byte setter.
 BFME_DISP8_BYTE_SETTER(Rva003B23C3ByteSlot, 0x4C)
+
+// Fresh BF1 f98983a7 convert.cpp / HSVClass setter expressions are source
+// leads only; original class, color meaning and full layout remain unknown.
+// Native534B0E..534B18 follows the preceding function's RET534B0D.
+// Native534B18..534B22 follows the first setter's RET4 at534B15 and ends
+// RET4 at534B1F before the independently rowed534B22 getter. Both copy
+// the stack argument's raw low byte to their own measured receiver offset.
+BFME_DISP8_BYTE_SETTER(Rva00534B0EByteSlot, 0x01)
+BFME_DISP8_BYTE_SETTER(Rva00534B18ByteSlot, 0x02)
