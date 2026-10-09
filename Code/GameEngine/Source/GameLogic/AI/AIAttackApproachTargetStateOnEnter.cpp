@@ -562,9 +562,9 @@ public:
 	virtual StateReturnType updateStateMachine(); // slot 4
 	virtual void slot05();
 	virtual void slot06();
-	virtual void slot07();
+	virtual StateReturnType initDefaultState(); // slot 7
 	virtual StateReturnType setState(UnsignedInt newStateID); // slot 8
-	virtual void slot09();
+	virtual StateMachine *slot09(); // returns a new attack sub-machine (AIAttackSquadState::onEnter)
 	virtual void slot10();
 	virtual void slot11();
 	virtual void slot12();
@@ -858,6 +858,7 @@ private:
 class AIAttackSquadState : public State
 {
 public:
+	virtual StateReturnType onEnter();
 	virtual StateReturnType update();
 	Object *chooseVictim();
 private:
@@ -1520,6 +1521,34 @@ StateReturnType AIAttackPositionFireWeaponState::update()
 	obj->setStatus(OBJECT_STATUS_1B, false);
 	m_att->notifyFired();
 	return STATE_SUCCESS;
+}
+
+// Retail 0x00351951, 162 bytes: slot 4 of the same vtable. ZH builds the
+// sub-machine with newInstance(AIAttackThenIdleStateMachine); BFME 2 asks the
+// owning machine for it (slot 9), then gates the chosen victim as update does.
+StateReturnType AIAttackSquadState::onEnter()
+{
+	Object *owner = getMachineOwner();
+	if (!owner)
+		return STATE_FAILURE;
+
+	m_attackSquadMachine = getMachine()->slot09();
+	AIUpdateInterface *ai = owner->getAI();
+	Object *victim = chooseVictim();
+	Weapon *weapon = owner->getCurrentWeapon();
+	if (weapon && victim && !weapon->isWithinAttackRange((const Object *)owner, victim, 0.0f, 1) &&
+		(!rva00343FB0(owner) || ai->m_3cc))
+		return STATE_FAILURE;
+
+	m_attackSquadMachine->setGoalObject(victim);
+	if (ai)
+	{
+		ai->setCurrentVictim(victim);
+		getMachine()->setGoalObject(victim);
+		ai->rva00262B0F((Int)victim);
+	}
+	m_sawStatus1C = false;
+	return m_attackSquadMachine->initDefaultState();
 }
 
 // Retail 0x003519F3, 466 bytes: slot 6 of vtable 0x00C112C0, whose name slot
