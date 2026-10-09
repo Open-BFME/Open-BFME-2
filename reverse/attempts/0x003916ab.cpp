@@ -1,6 +1,8 @@
 // ?iterateFootprint@BuildAssistant@@QAEXPBVThingTemplate@@MPBUCoord3D@@MP6AX1PAX@Z2@Z
 // partial score=0.98669 date=2026-10-09
 // ?iterateFootprint@BuildAssistant@@QAEXPBVThingTemplate@@MPBUCoord3D@@MP6AX1PAX@Z2@Z
+// partial score=0.98669 date=2026-10-09
+// ?iterateFootprint@BuildAssistant@@QAEXPBVThingTemplate@@MPBUCoord3D@@MP6AX1PAX@Z2@Z
 // partial score=0.99 date=2026-10-08
 // ?iterateFootprint@BuildAssistant@@QAEXPBVThingTemplate@@MPBUCoord3D@@MP6AX1PAX@Z2@Z
 // partial score=0.99 date=2026-10-08
