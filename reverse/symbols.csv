@@ -16974,3 +16974,6 @@ _isalnum,0x00629AF6,msvcr71 isalnum import stub called directly by the URL escap
 ?notifyConnectionToTargetFailed@NAT@@QAEXXZ,0x005A7683,callee of ?rva005A879B@NAT@@QAEHXZ
 ?SetUDPSocketForSlot@NAT@@QAE_NGGPAX@Z,0x005A6DAC,callee of ?processManglerResponse@NAT@@QAEXG@Z
 ??_9@$BA@AE,0x001FF3A9,VC7.1 slot-0 vcall thunk (mov eax [ecx]; jmp [eax]) pushed as a member pointer by the LivingWorldLogic battle start 0x002B89E1; same style as the existing ??_9@$B3AE pin at 0x005CB260
+_D3DXMatrixMultiply@12,0x0062AF26,First named PE import thunk: FF25 IAT00BBA9B4 independently declares d3dx9_27.dll!D3DXMatrixMultiply; native setShroudTex arguments agree with stdcall SDK ABI
+_D3DXMatrixScaling@16,0x0062AF2C,First named PE import thunk: FF25 IAT00BBA9B8 independently declares d3dx9_27.dll!D3DXMatrixScaling; native setShroudTex arguments agree with stdcall SDK ABI
+_D3DXMatrixTranslation@16,0x0062AF32,First named PE import thunk: FF25 IAT00BBA9BC independently declares d3dx9_27.dll!D3DXMatrixTranslation; native setShroudTex arguments agree with stdcall SDK ABI
