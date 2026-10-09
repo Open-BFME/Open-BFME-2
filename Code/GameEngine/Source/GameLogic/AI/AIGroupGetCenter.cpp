@@ -63,6 +63,7 @@ public:
 	const Coord3D *getPosition() const { return &m_position; }
 	AIUpdateInterface *getAIUpdateInterface() { return m_ai; }
 	AIUpdateInterface *getAI() { return m_ai; }
+	UnsignedInt getFormationID() const { return m_formationID; }
 
 private:
 	char m_pad0[4];
@@ -72,6 +73,8 @@ private:
 	char m_pad44[0x1C8 - 0x44];
 	unsigned char m_disabledMask[0x258 - 0x1C8];
 	AIUpdateInterface *m_ai;
+	char m_pad25C[0x410-0x25C];
+	UnsignedInt m_formationID;
 };
 
 class PathNode
@@ -172,6 +175,58 @@ private:
 	Coord3D m_pathStart;				// +0x18
 	Coord3D m_pathEnd;					// +0x24
 };
+
+// ZH getMinMaxAndCenter; native 0036D14F..0036D2C5 provides target
+// layouts; use source divisions so MSVC emits retail reciprocal scaling.
+Bool AIGroup::getMinMaxAndCenter(Coord2D *min, Coord2D *max, Coord3D *center)
+{
+	Int count = 0;
+	min->x = 1e10f;
+	max->x = -1e10f;
+	min->y = 1e10f;
+	max->y = -1e10f;
+	center->x = 0.0f;
+	center->y = 0.0f;
+	center->z = 0.0f;
+
+	std::list<Object *>::iterator i;
+	UnsignedInt id = 0;
+	for (i = m_memberList.begin(); i != m_memberList.end(); ++i) {
+		if ((*i)->isDisabledByHeld()) {
+			continue;
+		}
+		AIUpdateInterface *ai = (*i)->getAIUpdateInterface();
+		if (ai) {
+			const Coord3D *objPos = (*i)->getPosition();
+			center->x += objPos->x;
+			center->y += objPos->y;
+			center->z += objPos->z;
+
+			min->x = min->x > objPos->x ? objPos->x : min->x;
+			max->x = max->x < objPos->x ? objPos->x : max->x;
+			min->y = min->y > objPos->y ? objPos->y : min->y;
+			max->y = max->y < objPos->y ? objPos->y : max->y;
+			UnsignedInt curID = (*i)->getFormationID();
+			if (count == 0) {
+				id = curID;
+			} else {
+				if (id == 0) {
+					id = 0;
+				}
+			}
+
+			count++;
+		}
+	}
+
+	center->x /= count;
+	center->y /= count;
+	center->z /= count;
+	Bool isFormation = (id != 0);
+	if (count < 2)
+		isFormation = false;
+	return isFormation;
+}
 
 Bool AIGroup::getCenter(Coord3D *center)
 {
