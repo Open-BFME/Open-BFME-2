@@ -397,6 +397,8 @@ class View { public:
 
 };
 extern View* TheTacticalView;
+// The two shroud tests read VA00DFE74C, the existing TheShroudManager owner.
+// Retain its established facade call view from FXListDoFXPos.cpp.
 extern PartitionManager* TheShroudManager;
 enum RecorderModeType { RECORDERMODETYPE_RECORD, RECORDERMODETYPE_PLAYBACK };
 class RecorderClass { public: bool isMultiplayer(); RecorderModeType getMode(); };
