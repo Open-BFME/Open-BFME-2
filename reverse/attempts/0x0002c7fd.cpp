@@ -1,7 +1,13 @@
 // ?rva0002C7FD@Rva0002C7FD@@QAEXI@Z
+// partial score=0.9813 date=2026-10-09
+// ?rva0002C7FD@Rva0002C7FD@@QAEXI@Z
 // partial score=0.92 date=2026-10-09
 // cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /O1 /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_STLP_USE_MALLOC /G7
 // stlport
+// Successive local union members reuse the native zero-value/counter home;
+// this records temporary lifetime, not a recovered class or payload type.
+// The full native214B shape now agrees except the two independent MOVs
+// at2C881/2C884 are exchanged. Every direct callee resolves.
 #include <vector>
 #include "ascii_string.h"
 void Rva00030830FreeAllocation(void *);
@@ -50,17 +56,19 @@ void Rva0002C7FD::rva0002C7FD(unsigned int hint) {
   // original container specialization, and introduces no alias pin.
   const unsigned int n=reinterpret_cast<const RvaRehashPrimeProvider*>(this)->_M_next_size(hint);
   if(n>oldCount) {
-   _STL::vector<void*> tmp(n,(void*)0,buckets.get_allocator());
+   union BucketConstructionScratch { void *empty; unsigned int bucket; } scratch;
+   scratch.empty = 0;
+   _STL::vector<void*> tmp(n,scratch.empty,buckets.get_allocator());
    {
-   for(unsigned int b=0;b<oldCount;++b) {
-    Rva0002C7FDNodePrefix *first=static_cast<Rva0002C7FDNodePrefix*>(buckets[b]);
+   for(scratch.bucket=0;scratch.bucket<oldCount;++scratch.bucket) {
+    Rva0002C7FDNodePrefix *first=static_cast<Rva0002C7FDNodePrefix*>(buckets[scratch.bucket]);
     while(first) {
      unsigned int newBucket=bucketForKey(first->key,n);
-     buckets[b]=first->next;
+     buckets[scratch.bucket]=first->next;
      void *&newHead=*(newBucket+tmp.begin());
      first->next=static_cast<Rva0002C7FDNodePrefix*>(newHead);
      newHead=first;
-     first=static_cast<Rva0002C7FDNodePrefix*>(buckets[b]);
+     first=static_cast<Rva0002C7FDNodePrefix*>(buckets[scratch.bucket]);
     }
    }
    buckets.swap(tmp);
