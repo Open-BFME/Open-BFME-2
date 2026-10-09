@@ -17028,3 +17028,5 @@ _D3DXLoadVolumeFromFileInMemory@36,0x0062AF8C,Native1318F0 in-image JMP IAT veri
 ?rva00565106@Glo012F1024Item@@QAEXXZ,0x00565106,callee of ?bfmeEnter@Glo012F1024Item@@QAEXXZ
 ?rva005652F7@Glo012F1024Item@@QAEXXZ,0x005652F7,callee of ?bfmeEnter@Glo012F1024Item@@QAEXXZ
 ?rva004098BE@CreateAHeroHero@@QAE_NABVAsciiString@@_N@Z,0x004098BE,callee of ?rva0021A428@CreateAHeroManager@@QAEXABVCreateAHeroData@@@Z
+?rva00355472@AiOrdersManager@@QAEPAXABUCoord3D@@HPAVGroupOrder@@@Z,0x00355472,callee of ?rva00355664@AiOrdersManager@@QAEXABUCoord3D@@HPAVGroupOrder@@@Z
+?rva00355201@AiOrdersManager@@QAEXHPAXPAVGroupOrder@@@Z,0x00355201,callee of ?rva00355664@AiOrdersManager@@QAEXABUCoord3D@@HPAVGroupOrder@@@Z

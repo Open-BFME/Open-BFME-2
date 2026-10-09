@@ -107,6 +107,8 @@ public: void addOrderToObjectQueues(int,GroupOrder*);
     void registerOrder(int,GroupOrder*);
     int cloneOrderForPatrol(int);
     void rva00355664(const Coord3D&, int, GroupOrder*);
+    void *rva00355472(const Coord3D&, int, GroupOrder*);
+    void rva00355201(int, void*, GroupOrder*);
     void rva003558D6(int, Rva0036E346*, int, const Coord3D&, float, bool);
     void rva00355949(int, Rva0036E346*, const Coord3D&, bool, bool);
     void rva003559B5(int, Rva0036E346*, int);
@@ -204,4 +206,16 @@ void AiOrdersManager::rva003559B5(int mode, Rva0036E346 *holder, int target)
     GroupOrder *order = new AttackObjectGroupOrder(holder, target);
     if (order)
         registerOrder(mode, order);
+}
+
+// Retail 0x00355664 (43 bytes; WB twin 0x00DF8610, callgraph): the MoveTo and
+// MoveToFormation factories' common tail. 0x00355472 (pinned) builds from the
+// order's objects; a non-null result goes with the mode and the order to
+// 0x00355201, which WB also calls as a member (rowed there as the stdcall
+// Rva00355201Apply, whose body ignores ECX).
+void AiOrdersManager::rva00355664(const Coord3D &destination, int mode, GroupOrder *order)
+{
+    void *result = rva00355472(destination, mode, order);
+    if (result)
+        rva00355201(mode, result, order);
 }
