@@ -67,6 +67,10 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
  *   CollisionMath::Collide -- collide an AAB with an OBB                                      *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
+// Reuse the verified native math and indexed-matrix consumer views.
+#include "../../../../../reference/shims/bfme_colmathaabox/wwmath.h"
+#include "../../../../../reference/shims/bfme_colmathaabox/vector3.h"
+#include "../../../../../reference/shims/bfme_matrix3_owner_link/matrix3.h"
 #include "colmath.h"
 #include "obbox.h"
 #include "aabox.h"
@@ -475,7 +479,10 @@ bool CollisionMath::Intersection_Test(const OBBoxClass & box0,const OBBoxClass &
  *=============================================================================================*/
 bool CollisionMath::Intersection_Test(const OBBoxClass & box0,const AABoxClass & box1)
 {
-	OBBoxClass obbox1(box1.Center,box1.Extent);
+	OBBoxClass obbox1;
+	obbox1.Basis.Make_Identity();
+	obbox1.Center = box1.Center;
+	obbox1.Extent = box1.Extent;
 	ObbIntersectionStruct context(box0,obbox1);
 	return intersect_obb_obb(context);
 }
@@ -495,7 +502,10 @@ bool CollisionMath::Intersection_Test(const OBBoxClass & box0,const AABoxClass &
  *=============================================================================================*/
 bool CollisionMath::Intersection_Test(const AABoxClass & box0,const OBBoxClass & box1)
 {
-	OBBoxClass obbox0(box0.Center,box0.Extent);
+	OBBoxClass obbox0;
+	obbox0.Basis.Make_Identity();
+	obbox0.Center = box0.Center;
+	obbox0.Extent = box0.Extent;
 	ObbIntersectionStruct context(obbox0,box1);
 	return intersect_obb_obb(context);
 }
@@ -1383,7 +1393,10 @@ bool CollisionMath::Collide
 	CastResultStruct *		result
 )
 {
-	OBBoxClass obbox1(box1.Center,box1.Extent);
+	OBBoxClass obbox1;
+	obbox1.Basis.Make_Identity();
+	obbox1.Center = box1.Center;
+	obbox1.Extent = box1.Extent;
 	ObbCollisionStruct context(box0,move0,obbox1,move1);
 	return collide_obb_obb(context,result);	
 }
@@ -1410,7 +1423,10 @@ bool CollisionMath::Collide
 	CastResultStruct *		result
 )
 {
-	OBBoxClass obbox0(box0.Center,box0.Extent);
+	OBBoxClass obbox0;
+	obbox0.Basis.Make_Identity();
+	obbox0.Center = box0.Center;
+	obbox0.Extent = box0.Extent;
 	ObbCollisionStruct context(obbox0,move0,box1,move1);
 	return collide_obb_obb(context,result);	
 }
