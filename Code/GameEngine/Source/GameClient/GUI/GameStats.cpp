@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Ob2 /arch:SSE /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /G7 /Ireference/shims/bfme2_ascii /O1 /Ob2 /arch:SSE /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 //
 // GameStats::Row::Init, retail 0x005DE8CD (89B), from the WorldBuilder lead
 // (GameStats.cpp): size the row's cell vector (+4; the one-argument resize
@@ -54,6 +54,7 @@ public:
 	{
 	public:
 		void Init(const char *label, int numCells);
+		bool isDirty() const { return m_dirty != 0; }
 
 	private:
 		UnicodeString m_label;
@@ -138,14 +139,13 @@ public:
     Rva005DE9E3(unsigned int);
     virtual ~Rva005DE9E3();
 protected:
-    GameStats::Row *m_rows;
-    GameStats::Row *m_finish;
-    GameStats::Row *m_capacity;
+    _STL::vector<GameStats::Row> m_rows;
     int m_10;
 };
 class GameStats::Persistent : public Rva005DE9E3 {
 public:
     Persistent(int numCells);
+    void CalculateTotalColumn(float total);
 private:
     int m_14;
 };
@@ -191,4 +191,164 @@ GameStats::Persistent::Persistent(int numCells)
     m_rows[34].Init("STAT:PERSIST_STRATEGIC_REGIONS_LOST", numCells);
     m_rows[35].Init("STAT:PERSIST_STRATEGIC_TERRITORIES_WON", numCells);
     m_rows[36].Init("STAT:PERSIST_STRATEGIC_TERRITORIES_LOST", numCells);
+}
+
+// WB15D5ED0 names CalculateTotalColumn. Retail code5DE100..5DE3EC
+// plus ten DWORD targets and31 compressed switch bytes ends5DE433.
+// Existing table wrappers preserve independently witnessed identities;
+// Casts below carry their common table receiver, rows24B and total column14.
+// Retail excludes row32 from aggregation. The vector view is also required
+// for its native addressing shape; known range-sum definitions before this
+// caller preserve the target x87 stack across calls.
+struct BfmeStringRecord005DDD40 { UnicodeString text; unsigned int word; };
+class Rva005DD822:public BfmeStringRecord005DDD40 {public:Rva005DD822(unsigned int);};
+class Rva005DD8E0:public BfmeStringRecord005DDD40 {public:Rva005DD8E0(float,float);};
+class Rva005DDED5:public BfmeStringRecord005DDD40 {public:Rva005DDED5(unsigned int);};
+class Rva005DDE01 {public:void rva005DDE01(unsigned int,unsigned int,const BfmeStringRecord005DDD40&,bool);};
+
+// ?rva005DDC6B@Rva005DDC6B@@QAEMII@Z, RVA 0x005DDC6B, 58B. Unlock lane: float
+// range-sum method over 8-byte elements; base pointer at +4 has a 4-byte
+// header, elements hold the summed float at +0. Unsigned lo/hi give the jae
+// early-out; do-while with dec/jne; x87 fld return. One caller at 0x005DDE60
+// in 0x005DDE33. Owner unknown so honest address-derived method name. Flags
+// copy the prev neighbour Rva005DD772Ctor.cpp for the SSE float idioms.
+// ?rva005DDCA5@Rva005DDC6B@@QAEMII@Z @0x005DDCA5 64B. Float range-max with
+// init from 0x00BBB8DC, comiss/jbe keep-largest, same stride. Caller 0x005DDE96.
+// ?rva005DDCE5@Rva005DDC6B@@QAEMII@Z @0x005DDCE5 91B. Float range-min over
+// the non-zero entries (FLT_MAX from 0x00BBB8E0 as the empty marker, 0 when
+// nothing qualified or the range is empty), same stride. Caller 0x005DDECC.
+// Structural inference: both zero results reach one shared store, which
+// retail gets by hoisting xorps before the range test; written as a goto to
+// that store.
+
+class Rva005DDC6B
+{
+public:
+	__declspec(noinline) float rva005DDC6B(unsigned lo, unsigned hi);
+	__declspec(noinline) float rva005DDCA5(unsigned lo, unsigned hi);
+	__declspec(noinline) float rva005DDCE5(unsigned lo, unsigned hi);
+private:
+	int m_00;
+	char *m_04;
+};
+
+float Rva005DDC6B::rva005DDC6B(unsigned lo, unsigned hi)
+{
+	float sum = 0.0f;
+	if (lo < hi) {
+		float *p = (float *)(m_04 + lo * 8 + 4);
+		unsigned n = hi - lo;
+		do {
+			sum += *p;
+			p = (float *)((char *)p + 8);
+		} while (--n != 0);
+	}
+	return sum;
+}
+
+float Rva005DDC6B::rva005DDCA5(unsigned lo, unsigned hi)
+{
+	float cur = (-3.4028235e+38f);
+	if (lo < hi) {
+		float *p = (float *)(m_04 + lo * 8 + 4);
+		unsigned n = hi - lo;
+		do {
+			float v = *p;
+			if (v > cur)
+				cur = v;
+			p = (float *)((char *)p + 8);
+		} while (--n != 0);
+	}
+	return cur;
+}
+
+float Rva005DDC6B::rva005DDCE5(unsigned lo, unsigned hi)
+{
+	float best = 3.4028235e+38f;
+	float ret;
+	if (lo < hi) {
+		float *p = (float *)(m_04 + lo * 8 + 4);
+		unsigned n = hi - lo;
+		do {
+			float v = *p;
+			if (v != 0.0f) {
+				if (v < best)
+					best = v;
+			}
+			p = (float *)((char *)p + 8);
+		} while (--n != 0);
+		ret = best;
+		if (ret != 3.4028235e+38f)
+			goto done;
+	}
+	ret = 0.0f;
+done:
+	return ret;
+}
+
+
+// ?rva005DDE33@Rva005DDE33@@QAEMIII@Z, RVA 0x005DDE33, 54B. Chain lane:
+// bounds-checked delegate; count is the byte range at +4/+8 divided by 0x18
+// via push/pop idiv, out of range returns pooled 0.0f BfmeZeroRange, else calls
+// the rowed float range-sum 0x005DDC6B on the indexed 0x18 element head with
+// (lo,hi). 12 callers in 0x005DE100. Owner unknown so honest address-derived
+// method name; element head overlaps the callee layout at +4 by construction.
+// Flags copy the prev neighbour allocate_copy TU (frameless-friendly, no EH).
+// The body mirrors landed sibling Rva005DDE69 (0x005DDE69): count hoisted
+// before the barrier, pointer-cast element access. That form is what schedules
+// the hi push ahead of the imul, which retail 0x005DDE33 also does; the
+// start/finish-local form emits the imul first and is one byte short of exact.
+extern const float BfmeZeroRange;
+extern "C" void _ReadWriteBarrier(void);
+#pragma intrinsic(_ReadWriteBarrier)
+
+class Rva005DDE33
+{
+public:
+	__declspec(noinline) float rva005DDE33(unsigned idx, unsigned lo, unsigned hi);
+private:
+	int m_00;
+	char *m_04;
+	char *m_08;
+};
+
+float Rva005DDE33::rva005DDE33(unsigned idx, unsigned lo, unsigned hi)
+{
+	int count = (m_08 - m_04) / 0x18;
+	_ReadWriteBarrier();
+	if (idx >= (unsigned)count)
+		return BfmeZeroRange;
+	return ((Rva005DDC6B *)(m_04 + idx * 0x18))->rva005DDC6B(lo, hi);
+}
+
+
+class Rva005DDE69 {public:float rva005DDE69(unsigned int,unsigned int,unsigned int);float rva005DDE9F(unsigned int,unsigned int,unsigned int);};
+void GameStats::Persistent::CalculateTotalColumn(float total) {
+ for(int row=0;row<37;++row) {
+  if(!m_rows[row].isDirty())continue;
+  switch(row) {
+  case 11: ((Rva005DDE01*)this)->rva005DDE01(row,m_14,Rva005DDED5((unsigned int)((Rva005DDE33*)this)->rva005DDE33(row,0,m_14)),false); break;
+  case 4:case 5:case 7:case 14:case 15:case 16:case 17:case 18:case 20:case 21:case 24:case 25:case 26:case 28:case 29:case 30:case 31:case 33:case 34:
+   ((Rva005DDE01*)this)->rva005DDE01(row,m_14,Rva005DD822((unsigned int)((Rva005DDE33*)this)->rva005DDE33(row,0,m_14)),false); break;
+  case 9: ((Rva005DDE01*)this)->rva005DDE01(row,m_14,Rva005DDED5((unsigned int)((Rva005DDE69*)this)->rva005DDE69(row,0,m_14)),false);break;
+  case 10: ((Rva005DDE01*)this)->rva005DDE01(row,m_14,Rva005DDED5((unsigned int)((Rva005DDE69*)this)->rva005DDE9F(row,0,m_14)),false);break;
+  case 6: {
+   float wins=(int)((Rva005DDE33*)this)->rva005DDE33(4,0,m_14);
+   float losses=(int)((Rva005DDE33*)this)->rva005DDE33(5,0,m_14);
+   ((Rva005DDE01*)this)->rva005DDE01(row,m_14,Rva005DD8E0((float)wins,(float)losses),false);break;
+  }
+  case 8: {
+   float time=((Rva005DDE33*)this)->rva005DDE33(11,0,m_14);
+   float games=((Rva005DDE33*)this)->rva005DDE33(7,0,m_14);
+   ((Rva005DDE01*)this)->rva005DDE01(row,m_14,Rva005DDED5((unsigned int)(games!=0?time/games:0)),false);break;
+  }
+  case 19: {float killed=((Rva005DDE33*)this)->rva005DDE33(20,0,m_14);float lost=((Rva005DDE33*)this)->rva005DDE33(18,0,m_14);((Rva005DDE01*)this)->rva005DDE01(row,m_14,Rva005DD8E0(killed,lost),false);break;}
+  case 22: {float numerator=(((Rva005DDE33*)this)->rva005DDE33(16,0,m_14)+((Rva005DDE33*)this)->rva005DDE33(20,0,m_14));((Rva005DDE01*)this)->rva005DDE01(row,m_14,Rva005DD8E0(numerator*100.0f,total),false);break;}
+  case 23: {
+   float lost=((Rva005DDE33*)this)->rva005DDE33(18,0,m_14);
+   float built=((Rva005DDE33*)this)->rva005DDE33(17,0,m_14);
+   ((Rva005DDE01*)this)->rva005DDE01(row,m_14,Rva005DD8E0((float)built,(float)lost),false);break;
+  }
+  }
+ }
 }
