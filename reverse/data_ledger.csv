@@ -15766,7 +15766,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x009D0288,1320,.data,global,?AIKindOfNames@@3PAPBDA,Code/GameEngine/Source/GameLogic/AI/AIKindOfFromName.cpp,owned,,1,1
 0x009D07B0,192,.data,global,?g_012A718C@@3PAPBDA,Code/GameEngine/Source/Common/INI/Rva0006AF00FunctionCurveParse_Rva005051da.cpp,owned,,1,1
 0x009D0870,2664,.data,global,?Gen00DD0870@@3UCoord3DBase@@A,Code/GameEngine/Source/Common/Rva00506B74CopyCompare.cpp,owned,,1,7
-0x009D12D8,256,.data,global,?g_00DD12D8@@3HA,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/MapSelectMenu_Rva0050D176.cpp,owned,,1,4
+0x009D12D8,256,.data,global,?g_00DD12D8@@3HA,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/MapSelectMenu.cpp,owned,,1,9
 0x009D13D8,176,.data,global,?g_Va00DD13D8@@3_NA,,unowned,,0,3
 0x009D1488,224,.data,global,?g_00DD1488@@3HA,Code/GameEngine/Source/Common/Rva00513138Listbox.cpp,owned,,1,1
 0x009D1568,320,.data,global,?g_Va00DD1568@@3PAUAptOnlineScreenEntry@@A,,unowned,,0,4
@@ -18991,9 +18991,9 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A045AC,4,.data,global,_s_rva007B368E,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A045B0,4,.data,global,_s_rva007B36D2,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A045B4,16,.data,global,_s_rva007B3716,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
-0x00A045C4,1,.data,global,?mapSelectIsShuttingDown@@3_NA,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/MapSelectMenu.cpp,owned,,1,3
-0x00A045C5,1,.data,global,?mapSelectStartGame@@3_NA,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/MapSelectMenu.cpp,owned,,1,3
-0x00A045C6,34,.data,global,?Rva00E045C6@@3_NA,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/MapSelectMenuInput.cpp,owned,,1,1
+0x00A045C4,1,.data,global,?mapSelectIsShuttingDown@@3_NA,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/MapSelectMenu.cpp,owned,,1,5
+0x00A045C5,1,.data,global,?mapSelectStartGame@@3_NA,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/MapSelectMenu.cpp,owned,,1,5
+0x00A045C6,34,.data,global,_buttonPushed,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/MapSelectMenu.cpp,owned,,1,6
 0x00A045E8,20,.data,global,?g_Va00E045E8@@3IA,Code/GameEngine/Source/Common/GlobalFlagClearers_E045xx.cpp,owned,,1,4
 0x00A045FC,4,.data,global,?g_Va00E045FC@@3IA,Code/GameEngine/Source/Common/GlobalFlagClearers_E045xx.cpp,owned,,1,6
 0x00A04600,4,.data,global,_s_rva007B3740,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1

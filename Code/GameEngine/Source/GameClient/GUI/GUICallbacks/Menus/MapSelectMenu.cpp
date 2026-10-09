@@ -116,7 +116,8 @@ public:
 //-------------------------------------------------------------------------------------------------
 // BFME2 native 0x0050CE92: shared shutdown flag followed by Shell completion.
 // ?shutdownCompleteMapSelectMenu@@YAXPAVWindowLayout@@@Z
-void shutdownCompleteMapSelectMenu( WindowLayout *layout )
+// Native Shutdown and Update call the distinct 25-byte helper out of line.
+__declspec(noinline) void shutdownCompleteMapSelectMenu( WindowLayout *layout )
 {
 
 	mapSelectIsShuttingDown = false;
@@ -638,4 +639,137 @@ void doGameStart()
  TheShell->rva0035BEC7();
  TheShell->rva0035BF4C(true);
  mapSelectIsShuttingDown=true;
+}
+
+WindowMsgHandledType MapSelectMenuInput( GameWindow *window, UnsignedInt msg,
+																				 WindowMsgData mData1, WindowMsgData mData2 )
+{
+
+	switch( msg )
+	{
+
+		// --------------------------------------------------------------------------------------------
+		case GWM_CHAR:
+		{
+			UnsignedByte key = mData1;
+			UnsignedByte state = mData2;
+			if (buttonPushed)
+				break;
+
+			switch( key )
+			{
+
+				// ----------------------------------------------------------------------------------------
+				case KEY_ESC:
+				{
+
+					//
+					// send a simulated selected event to the parent window of the
+					// back/exit button
+					//
+					if( BitTest( state, KEY_STATE_UP ) )
+					{
+						AsciiString buttonName( "MapSelectMenu.wnd:ButtonBack" );
+						NameKeyType buttonID = TheNameKeyGenerator->nameToKey( buttonName );
+						GameWindow *button = ((MapSelectWindowManagerView *)TheWindowManager)->winGetWindowFromId( window, buttonID );
+
+						((MapSelectWindowManagerView *)TheWindowManager)->winSendSystemMsg( window, GBM_SELECTED,
+																								(WindowMsgData)button, buttonID );
+
+					}  // end if
+
+					// don't let key fall through anywhere else
+					return MSG_HANDLED;
+
+				}  // end escape
+
+			}  // end switch( key )
+
+		}  // end char
+
+	}  // end switch( msg )
+
+	return MSG_IGNORED;
+
+}  // end MapSelectMenuInput
+
+class BfmeScriptDiffView
+{
+public:
+	char m_pad[0x1A4C4];
+	int m_diff;
+};
+
+
+extern int g_00DD12D8;
+// g_00DD12D8: matched references place it at VA 0xdd12d8 (zero-filled .bss).
+int g_00DD12D8;
+
+void SetDifficultyRadioButtonMapSelectMenu()
+{
+	AsciiString parentName("MapSelectMenu.wnd:MapSelectMenuParent");
+	NameKeyType parentID = TheNameKeyGenerator->nameToKey(parentName);
+	GameWindow *parent = ((MapSelectWindowManagerView *)TheWindowManager)->winGetWindowFromId(0, parentID);
+	ScriptEngine *se = TheScriptEngine;
+	if (se == 0) {
+		g_00DD12D8 = 0;
+	} else {
+		int diff = ((BfmeScriptDiffView *)se)->m_diff;
+		switch (diff) {
+			case 0: {
+				NameKeyType id = TheNameKeyGenerator->nameToKey(AsciiString("MapSelectMenu.wnd:RadioButtonEasyAI"));
+				GameWindow *win = ((MapSelectWindowManagerView *)TheWindowManager)->winGetWindowFromId(parent, id);
+				GadgetRadioSetSelection(win, false);
+				g_00DD12D8 = 0;
+				break;
+			}
+			case 1: {
+				NameKeyType id = TheNameKeyGenerator->nameToKey(AsciiString("MapSelectMenu.wnd:RadioButtonMediumAI"));
+				GameWindow *win = ((MapSelectWindowManagerView *)TheWindowManager)->winGetWindowFromId(parent, id);
+				GadgetRadioSetSelection(win, false);
+				g_00DD12D8 = 1;
+				break;
+			}
+			case 2: {
+				NameKeyType id = TheNameKeyGenerator->nameToKey(AsciiString("MapSelectMenu.wnd:RadioButtonHardAI"));
+				GameWindow *win = ((MapSelectWindowManagerView *)TheWindowManager)->winGetWindowFromId(parent, id);
+				GadgetRadioSetSelection(win, false);
+				g_00DD12D8 = 2;
+				break;
+			}
+		}
+	}
+}
+
+void MapSelectMenuShutdown( WindowLayout *layout, void *userData )
+{
+	if (!mapSelectStartGame)
+		mapSelectIsShuttingDown = true;
+
+	// if we are shutting down for an immediate pop, skip the animations
+	Bool popImmediate = *(Bool *)userData;
+	if( popImmediate )
+	{
+
+		shutdownCompleteMapSelectMenu( layout );
+		return;
+
+	}  //end if
+
+	if (!mapSelectStartGame)
+		TheShell->reverseAnimatewindow();
+
+}
+
+void MapSelectMenuUpdate( WindowLayout *layout, void *userData )
+{
+
+	if (mapSelectStartGame && TheShell->isAnimFinished())
+		doGameStart();
+
+	// We'll only be successful if we've requested to 
+	if(mapSelectIsShuttingDown && TheShell->isAnimFinished())
+		shutdownCompleteMapSelectMenu(layout);
+
+
 }
