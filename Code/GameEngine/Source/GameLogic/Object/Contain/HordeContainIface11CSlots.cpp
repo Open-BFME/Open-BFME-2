@@ -457,6 +457,7 @@ class Object
 public:
 	Weapon *getCurrentWeapon(WeaponSlotType *slot = 0);	// pinned 0x0028AEBD
 	int getID() const { return m_74; }
+	void setProducer(Object *);
 	__forceinline unsigned int testCondition(int bit) const
 	{
 		return m_conditionWords[bit >> 5] & (1U << (bit & 0x1f));
@@ -537,6 +538,7 @@ class GameLogic
 {
 public:
 	Object *findObjectByID(ObjectID id);
+	void destroyObject(Object *);
 	unsigned char m_pad00[0x40];
 	unsigned int m_frame; // +0x40
 };
@@ -743,7 +745,7 @@ class Rva0046BB38Iface11C : public Rva0046BB38Iface6
 {
 public:
 	virtual int rva0046979B() = 0; virtual void assignSpotToUnit(Object *obj) = 0; virtual void rva00469F2F(Object *obj) = 0; virtual void gap13() = 0;
-	virtual void gap14() = 0; virtual void gap15() = 0; virtual void performReform() = 0; virtual void rva0046FE99(_STL::list<Object *> &out) = 0;
+	virtual void removeMemberFromHorde(Object *obj) = 0; virtual void gap15() = 0; virtual void performReform() = 0; virtual void rva0046FE99(_STL::list<Object *> &out) = 0;
 	virtual void gap18() = 0; virtual Object *rva0046CB2C() = 0; virtual Object *rva0046CC09() = 0; virtual Object *rva0046CBCA() = 0;
 	virtual void *rva004696CD() = 0; virtual bool rva0046CDC9() = 0; virtual void rva004696E5() = 0; virtual bool rva0046CCEF(const ThingTemplate *tmpl) = 0;
 	virtual void rva00472D43(void *thingTemplate) = 0; virtual bool rva0046970D(Object *obj, int a2, const Rva00469851Names *names, bool sameGroup) = 0; virtual void gap28() = 0; virtual void gap29() = 0;
@@ -912,6 +914,7 @@ class HordeContain : public TransportContain, public Rva0046BB38Iface11C
 {
 public:
 	virtual void rva004726DD(Object *target);
+	virtual void removeMemberFromHorde(Object *obj);
 	bool rva00468CB6(Rva00468CB6A *,Object *);
 	void rva00468B24(float value);
 	unsigned char usingMeleeAttack();	// 0x004695DA
@@ -3495,4 +3498,34 @@ void HordeContain::rva004726DD(Object *target)
         if(ai && !rva00468CB6((Rva00468CB6A*)ai,target) && !ai->rva0047306ESlot113())
             ai->m_command.rva0045003E(0,CMD_FROM_AI);
     }
+}
+
+// Exact existing 463D9B tree provider. Its opaque eight-byte value name is
+// kept as an ABI adapter; target caller passes only the object ID address.
+struct Rva00463D9BElement { char bytes[8]; };
+typedef _STL::_Rb_tree<Rva00463D9BElement,Rva00463D9BElement,_STL::_Identity<Rva00463D9BElement>,_STL::less<Rva00463D9BElement>,_STL::allocator<Rva00463D9BElement> > Rva00463D9BTree;
+namespace _STL { template<> unsigned int Rva00463D9BTree::erase(const Rva00463D9BElement &); }
+// Native470717..4707DB, slot14 at +11C. WB supplies removeMemberFromHorde
+// role (name not independently proven); target map17C/set170/list194,
+// producer clear, primary vslot37 draining and final special-unit teardown.
+void HordeContain::removeMemberFromHorde(Object *obj)
+{
+    Rva0046247DPair p;
+    p.m04=0;
+    int id;
+    Rva004693ADArg *arg=(Rva004693ADArg*)obj;
+    if(!((Rva004693AD*)(UpdateModule*)this)->rva004693AD(arg)) {
+        id=obj->getID();
+        m_194.push_front(m_17C[id]);
+    }
+    id=obj->getID();
+    ((Rva00463D9BTree*)&m_17C)->erase(*(const Rva00463D9BElement*)&id);
+    id=obj->getID();
+    m_170.erase(id);
+    slot41(obj,0);
+    obj->setProducer(0);
+    while(((UpdateModule*)this)->rva00470B21()) {}
+    const _STL::list<Object*> *items=((Rva0046247DPair*)((Rva0046247D*)(UpdateModule*)this)->rva0046247D(p))->m04;
+    if(items->empty() && m_170.empty()) TheGameLogic->destroyObject(m_object);
+    checkSpecialUnitDeath(obj);
 }
