@@ -11,6 +11,49 @@
 #include "unicode_string.h"
 extern "C" __declspec(dllimport) int __cdecl _snprintf(char *, unsigned int, const char *, ...);
 
+namespace _STL {
+template<class T> class allocator {public:allocator(){}};
+template<class T,class A> class _Vector_base {
+public: _Vector_base(const A &);
+private:T *start,*finish,*capacity;
+};
+}
+class AptCommandTarget {};
+struct DelegateDesc {
+ template<class T> DelegateDesc(T *o,void(T::*m)(const char*)) : object(o),method(reinterpret_cast<void(AptCommandTarget::*)(const char*)>(m)) {}
+ template<class T> DelegateDesc(T *o,void(T::*m)(int,char*,bool)) : object(o),method(reinterpret_cast<void(AptCommandTarget::*)(const char*)>(m)) {}
+ void *object; void(AptCommandTarget::*method)(const char*);
+};
+class Rva00579E47 {public:Rva00579E47(const DelegateDesc&);private:void *ptr;};
+struct TargetRef00217D4C;
+void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);
+class AptCommandMap {}; class AptExternHandler {};
+template<class T> class AptRef {
+public:
+ AptRef(const DelegateDesc*d){((Rva00579E47*)this)->Rva00579E47::Rva00579E47(*d);}
+ ~AptRef(){if(ptr)ReleaseTreeHintRef00217D4C((TargetRef00217D4C*)ptr);}
+private:T*ptr;
+};
+class AptCommandMapAdder {
+public:AptCommandMapAdder();~AptCommandMapAdder();
+ void AddCommandMap(const AsciiString&,AptRef<AptCommandMap>);
+ __forceinline void bind(const AsciiString&name,DelegateDesc d){AddCommandMap(name,&d);}
+private:char names[12];
+};
+class Rva005241B0 {
+public:Rva005241B0();~Rva005241B0();
+private:_STL::_Vector_base<AsciiString,_STL::allocator<AsciiString> > names;
+};
+class AptExternHandlerAdder {
+public:void AddExternHandler(const AsciiString&,int,AptRef<AptExternHandler>);
+ __forceinline void bind(const AsciiString&name,DelegateDesc d){AddExternHandler(name,0,&d);}
+};
+class Rva005FA874 {
+public:__declspec(noinline) Rva005FA874();~Rva005FA874(){rva005FA874();}void rva005FA874();
+private:void*ptr;
+};
+class Rva0050B5F1 {public:bool rva0050B5F1(int,int);};
+
 class Image;
 class Rva00524306
 {
@@ -23,6 +66,27 @@ private:
 class BfmeAptWindowManager
 {
 public:
+	virtual void slot0();
+	virtual void slot1();
+	virtual void slot2();
+	virtual void slot3();
+	virtual void slot4();
+	virtual void slot5();
+	virtual void slot6();
+	virtual void slot7();
+	virtual void slot8();
+	virtual void slot9();
+	virtual void slot10();
+	virtual void slot11();
+	virtual void slot12();
+	virtual void slot13();
+	virtual void slot14();
+	virtual void slot15();
+	virtual void slot16();
+	virtual void slot17();
+	virtual void slot18();
+	virtual void slot19();
+	virtual int load(AsciiString directory,AsciiString file,int a,int b);
 	void bfmeSetText(const AsciiString &key, const UnicodeString &text, bool usePlaceholder);
 };
 
@@ -59,12 +123,14 @@ public:
 class StrategicVeterancy
 {
 public:
+	class Data;
 	Bool Show();						// 0x005EC1A4, banked near miss
 	void Hide();
 
 private:
 	struct Impl
 	{
+		Impl(StrategicVeterancy *owner, Data *data);
 		void *m_owner;
 		void *m_level;					// +0x04
 		Int m_state;					// +0x08
@@ -73,6 +139,9 @@ private:
 		void OnContinue(const char *path);
 		void ExternFunc(int index, char *buffer, bool lvalue);
 		void OnInitialized(const char *path);
+		Rva005FA874 timer;
+		AptCommandMapAdder maps;
+		Rva005241B0 externs;
 	};
 
 	Impl *m_impl;						// +0x00
@@ -82,6 +151,7 @@ public:
 	{
 	public:
 		class AutoResolve;
+		int size()const{return m_end-m_begin;}
 		void rva005EC296(); // Original name unknown: populates the six labels per row.
 	private:
 		struct Row
@@ -185,3 +255,19 @@ void StrategicVeterancy::Impl::OnInitialized(const char *path)
 	if (m_state == 1)
 		m_state = 2;
 }
+
+StrategicVeterancy::Impl::Impl(StrategicVeterancy *owner, Data *data)
+	:m_owner(owner),m_level((void*)-1),m_state(0),m_numRows(data->size())
+{
+	maps.bind("AptStrategicVeterancy::OnInitialized",DelegateDesc(this,&Impl::OnInitialized));
+	maps.bind("AptStrategicVeterancy::OnFadeOut",DelegateDesc(this,&Impl::OnFadeOut));
+	maps.bind("AptStrategicVeterancy::OnContinue",DelegateDesc(this,&Impl::OnContinue));
+	((AptExternHandlerAdder*)&externs)->bind("StrategicVeterancy::NumRows",DelegateDesc(this,&Impl::ExternFunc));
+	m_level=(void*)g_bfmeAptWindowManager->load("Apt\\","StrategicVeterancy.apt",0,0);
+	((Rva0050B5F1*)&timer)->rva0050B5F1((int)m_level,(int)&AsciiString("StrategicVeterancyTimer"));
+	data->rva005EC296();
+}
+// ?Rva005FA874::Rva005FA874 present-unmatched
+Rva005FA874::Rva005FA874():ptr(0){}
+// ?Rva005241B0::Rva005241B0 present-unmatched
+Rva005241B0::Rva005241B0():names(_STL::allocator<AsciiString>()){}
