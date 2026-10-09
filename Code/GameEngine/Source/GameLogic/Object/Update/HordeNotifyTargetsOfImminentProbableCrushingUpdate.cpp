@@ -1,10 +1,16 @@
-// ?rva004CED4B@Rva004CED4BUpdateInterface@@UAE?AW4UpdateSleepTime@@XZ
-// partial score=0.84 date=2026-10-07
-// cl: /ICode/Libraries/Include /Ireference/shims/bfme2_ascii /Ireference/shims/bfmelist /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /O1 /G7 /arch:SSE /ICode/Libraries/Include /Ireference/shims/bfme2_ascii /Ireference/shims/bfmelist /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 
+// Target identity: WB11E0050 names HordeNotifyTargetsOfImminentProbableCrushingUpdate::update.
+// Native boundary4CED4B..4CEE09, update-interface this at owner+10, data/object at-0C/-08.
+// ABI view stays address-derived: no complete class layout is asserted.
+// Repaired prior bank using target190B and the independently matched list-sort wrapper4CED15;
+// no clean BFME1 or ZH implementation was found. STLport algorithm/provider donor0bef414b.
+// Payloads are Object pointers; existing int-list is only a four-byte storage/node-operation view.
+// Provider slot10C, Object position38/3C/40, data rate08 and notifier+10 are target facts.
 #include <list>
-#include "Lib/Coord3D.h"
+namespace _STL { template<> _List_base<int,allocator<int> >::~_List_base(); }
+class Rva004CEAB7{public:float x,y,z;__forceinline Rva004CEAB7(const Rva004CEAB7&r){x=r.x;y=r.y;z=r.z;} __forceinline ~Rva004CEAB7(){}};
 
 class Object
 {
@@ -28,7 +34,7 @@ public:
 class Rva004CED15Owner
 {
 public:
-	void rva004CED15(float x, float y, float z);
+	void rva004CED15(Rva004CEAB7);
 };
 
 class Rva004CED4BTargetProvider
@@ -110,11 +116,10 @@ public:
 	virtual UpdateSleepTime rva004CED4B();
 };
 
-// ?rva004CED4B@Rva004CED4BUpdateInterface@@UAE?AW4UpdateSleepTime@@XZ present-unmatched
 // Ghidra boundary 0x004CED4B/190. The Horde module factory registration and
 // ctor vtable stores identify this as its +0x10 update interface. The body
 // reads module data/Object at -0x0C/-0x08, gets the target list from Object's
-// returned provider at slot 0x10C, adds the current position from Object+0x38
+// returned provider at slot 0x10C, sorts the list by the current position from Object+0x38
 // through the call target 0x004CED15, then calls the pinned notifier 0x004CE700
 // for each list entry until it returns true. The C++ interface owner and list
 // element spelling are ABI views; only the observed field offsets and calls
@@ -134,22 +139,22 @@ UpdateSleepTime Rva004CED4BUpdateInterface::rva004CED4B()
 	_STL::list<int> targets;
 	reinterpret_cast<Rva004CED4BTargetProvider *>(targetProvider)->fillTargets(&targets);
 	object = *reinterpret_cast<Object *const *>(self - 0x08);
-	const Coord3D *position = reinterpret_cast<const Coord3D *>(reinterpret_cast<const char *>(object) + 0x38);
-	reinterpret_cast<Rva004CED15Owner *>(&targets)->rva004CED15(position->x, position->y, position->z);
+	const Rva004CEAB7 *position = reinterpret_cast<const Rva004CEAB7 *>(reinterpret_cast<const char *>(object) + 0x38);
+	reinterpret_cast<Rva004CED15Owner *>(&targets)->rva004CED15(*position);
 
 	_STL::list<int>::iterator it = targets.begin();
-	_STL::list<int>::iterator end = targets.end();
-	if (it != end) {
+	
+	if (it != targets.end()) {
 		Rva004CE700Notifier *notifier = reinterpret_cast<Rva004CE700Notifier *>(self + 0x10);
 		do {
-			Object *target = reinterpret_cast<Object *>(*it);
+			
 			data = *reinterpret_cast<const ModuleData *const *>(self - 0x0C);
 			rate = reinterpret_cast<const int *>(reinterpret_cast<const char *>(data) + 0x08);
-			if (notifier->rva004CE700(target, rate, reinterpret_cast<UpdateSleepTime *>(&sleep))) {
+			if (notifier->rva004CE700(reinterpret_cast<Object *>(*it), rate, reinterpret_cast<UpdateSleepTime *>(&sleep))) {
 				break;
 			}
 			++it;
-		} while (it != end);
+		} while (it != targets.end());
 	}
 	return static_cast<UpdateSleepTime>(sleep);
 }
