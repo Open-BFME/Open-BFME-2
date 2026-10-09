@@ -70,7 +70,7 @@ struct SlotFields {char pad[0x1ac];int profile;};
 class GameInfo {public:V(0)V(1)V(2)V(3)V(4)V(5)V(6)V(7)V(8)V(9)V(10)virtual void startGame(int);char pad04[0xd];bool inProgress;int getSlotNum(AsciiString)const;};
 class GameSpyGameSlot:public GameSlot {};class GameSpyStagingRoom:public GameInfo {public:GameSpyGameSlot *getGameSpySlot(int);void launchGame();};
 extern GameSpyStagingRoom *TheGameSpyGame;
-class Rva005A6D47 {public:virtual void *destroy(unsigned);void rva005A8F57();void rva005A8ABF(int,const char *);};
+class Rva005A6D47 {public:virtual void *destroy(unsigned);int rva005A8F57();void rva005A8ABF(int,const char *);};
 extern Rva005A6D47 *g_Va00E063F8;
 struct Rva005BA3AD {bool rva005BA3AD();};struct Rva005BA31F {int rva005BA31F();};
 class Rva00222A8BTarget {public:int invoke(void *,const char *,int,const char *,void *,void *,void *,void *);};
