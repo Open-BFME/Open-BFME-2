@@ -103,3 +103,13 @@ BFME_DISP8_BYTE_SETTER(Rva003B23C3ByteSlot, 0x4C)
 // the stack argument's raw low byte to their own measured receiver offset.
 BFME_DISP8_BYTE_SETTER(Rva00534B0EByteSlot, 0x01)
 BFME_DISP8_BYTE_SETTER(Rva00534B18ByteSlot, 0x02)
+
+// Whole clean BF1 f98983a7 GameClient/MessageStream/SelectionXlat.cpp,
+// recompiled O1/x87/G7, supplies this store expression; Shadow and
+// SelectionTranslator names from other placements do not establish the
+// target owner, field purpose, or a bool interpretation.
+// Native complete788AF..788B9 follows rowed GetGameFilePart7882F/128's
+// RET at788AE and precedes rowed getter788B9. It reads the actual stack
+// low byte, writes receiver+5, and ends RET4; no incoming direct/address
+// references were found. Preserve only those raw width/offset/ABI facts.
+BFME_DISP8_BYTE_SETTER(Rva000788AFByteSlot, 0x05)
