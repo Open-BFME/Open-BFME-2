@@ -276,7 +276,8 @@ struct PlayingAudio {
     bool m_at49;                         // +0x49
     bool m_at4A;                         // +0x4A
     bool m_at4B;                         // +0x4B, set by 0x000535A6
-    char at4C[0x4E - 0x4C];
+    char at4C[0x4D - 0x4C];
+    bool m_at4D;                         // +0x4D, raise the event's script flag on release (0x5FDCA)
     bool m_at4E;                         // +0x4E, m_at24 holds a position
 };
 
@@ -3647,4 +3648,155 @@ void MilesAudioManager::selectProvider(bool accelerated)
   }
   if(TheVideoPlayer)TheVideoPlayer->notifyVideoPlayerOfNewProvider(true);
  }
+}
+
+// Retail 0x000552C5 (WorldBuilder twin 0x00791E20 names it; its assert at
+// MilesAudioManager.cpp line 7482 ties the pending track at +0xB48 to the
+// active music system). Releases the view type's pending track, else stops
+// the active system's stream found by 0x5442A: arg zero only flags it
+// (+0x44) while a nonzero arg closes its stream, records the settings' +0x78
+// value at +0x30 and erases it. Defined after 0x5442A: retail schedules the
+// iterator reload ahead of the +0x30 store, which MSVC does only once it has
+// compiled 0x5442A and seen that the returned iterator's address stays put.
+void MilesAudioManager::removeCurrentlyPlayingMusic(int viewType, int arg)
+{
+    for (;;) {
+        MusicSystem activeMusicSystem = m_activeMusicSystem[viewType];
+        if (m_playingMusic[viewType].get()) {
+            ((Rva000A8C9B *)&m_playingMusic[viewType])->clear();
+            continue;
+        }
+        PlayingAudioList::iterator it = rva0005442A(viewType, activeMusicSystem, arg == 0);
+        if (it._M_node == m_playingStreams.end()._M_node)
+            return;
+        PlayingAudioRef playing = *it;
+        playing->m_at45 = false;
+        if (!arg) {
+            playing->at44[0] = 1;
+        } else {
+            playing->at44[0] = 0;
+            ((MilesStreamRef *)&playing->m_at0C)->rva000A8AC0();
+            playing->m_at30 = (float)m_audioSettings->m_at78;
+            reinterpret_cast<OpaqueRefList &>(m_playingStreams).erase(
+                OpaqueRefList::iterator((OpaqueRefList::_Node *)it._M_node));
+        }
+    }
+}
+
+// Retail 0x0005FDCA (WorldBuilder twin 0x00795670 names it; its asserts sit
+// at MilesAudioManager.cpp lines 8207..8276). Accounts for the finished
+// event (music clears its view type's bit at +0x698; sounds drop the 2D or
+// 3D sample count through notifyOf2D/3DSampleCompletion) and raises the script flag named
+// by the event's +0x84 string when the playing audio asks for it (+0x4D).
+// Then, per playing type, stops the Miles handle and under the Miles mutex
+// unmaps it when the map still points at this playing audio and returns a
+// sample to its available list, or (loop buffers) clears the buffer's valid
+// flag under the manager mutex and stops and cleans the buffer. The type
+// becomes 5; a released event with channel volumes goes to 0x5516F.
+// Retail calls the two available-list push_backs separately (ICF folded two
+// instantiations at 0x5548F), so the 3D list pushes through the list<int>
+// view; and it stores no unwind reset before 0x5516F, whose view is nothrow.
+class Rva000A8CC9 { public: void rva000A8CC9(void); };
+class ScriptEngine {
+protected:
+    bool *bfmeFlagForWrite(AsciiString name);   // 0x002088A0
+    friend class MilesAudioManager;
+};
+extern ScriptEngine *TheScriptEngine;
+struct Holder;
+class Rva0005516F { public: void rva0005516F(Holder *holder, int viewType) throw(); };
+
+void MilesAudioManager::releaseMilesHandles(PlayingAudio &playing)
+{
+    if (playing.m_event.get() && playing.m_event->m_info) {
+        switch (playing.m_event->m_info->m_atB0) {
+        case 1:
+            {
+                int viewType = playing.m_event->m_viewType;
+                m_at698 &= ~(1 << viewType);
+            }
+            break;
+        case 2:
+            if (playing.m_type == 0) {
+                if (playing.m_handle)
+                    notifyOf2DSampleCompletion();
+            } else if (playing.m_type == 2) {
+                if (playing.m_handle)
+                    notifyOf3DSampleCompletion();
+            }
+            break;
+        }
+        if (playing.m_at4D)
+            *TheScriptEngine->bfmeFlagForWrite(*(const AsciiString *)((const char *)playing.m_event.get() + 0x84)) = true;
+    }
+    bool released = false;
+    switch (playing.m_type) {
+    case 0:
+        if (playing.m_handle) {
+            AIL_register_EOS_callback((void *)playing.m_handle, 0);
+            AIL_stop_sample((void *)playing.m_handle);
+            AILMutexScope lock;
+            MilesHandleMap::iterator it = m_sampleMap.find(reinterpret_cast<unsigned int &>(playing.m_handle));
+            if (it == m_sampleMap.end())
+                lock.unlock();
+            else if ((*it).second != &playing)
+                lock.unlock();
+            else
+                m_sampleMap.erase(it);
+            m_availableSamples.push_back(reinterpret_cast<void *&>(playing.m_handle));
+            released = true;
+        }
+        break;
+    case 1:
+    case 3:
+        {
+            MilesMutexGuard guard(&m_mutex, 0);
+            m_loopBuffers[playing.m_handle].m_isValid = false;
+        }
+        if (m_loopBuffers[playing.m_handle].m_is3D)
+            AIL_stop_3D_sample(m_loopBuffers[playing.m_handle].m_3DSample);
+        else
+            AIL_stop_sample(m_loopBuffers[playing.m_handle].m_sample);
+        cleanUpLoopBuffer(&m_loopBuffers[playing.m_handle]);
+        released = true;
+        break;
+    case 2:
+        if (playing.m_handle) {
+            AIL_register_3D_EOS_callback((void *)playing.m_handle, 0);
+            AIL_stop_3D_sample((void *)playing.m_handle);
+            AILMutexScope lock;
+            MilesHandleMap::iterator it = m_3DSampleMap.find(reinterpret_cast<unsigned int &>(playing.m_handle));
+            if (it == m_3DSampleMap.end())
+                lock.unlock();
+            else if ((*it).second != &playing)
+                lock.unlock();
+            else
+                m_3DSampleMap.erase(it);
+            reinterpret_cast<_STL::list<int> &>(m_available3DSamples).push_back(playing.m_handle);
+            released = true;
+        }
+        break;
+    case 4:
+        if (*(void **)&playing.m_at0C) {
+            ((Rva000A8B4B *)&playing.m_at0C)->rva000A8B4B(0);
+            ((Rva000A8CC9 *)&playing.m_at0C)->rva000A8CC9();
+            AILMutexScope lock;
+            unsigned int stream = ((Rva000A8A98 *)&playing.m_at0C)->rva000A8A98();
+            MilesHandleMap::iterator it = m_streamMap.find(stream);
+            if (it == m_streamMap.end())
+                lock.unlock();
+            else if ((*it).second != &playing)
+                lock.unlock();
+            else
+                m_streamMap.erase(it);
+            released = true;
+        }
+        break;
+    }
+    playing.m_type = 5;
+    if (released) {
+        AudioEventRTS *event = playing.m_event.get();
+        if (event && event->m_info && !event->m_info->m_channelVolumes.empty())
+            ((Rva0005516F *)this)->rva0005516F((Holder *)&event->m_info, event->m_viewType);
+    }
 }
