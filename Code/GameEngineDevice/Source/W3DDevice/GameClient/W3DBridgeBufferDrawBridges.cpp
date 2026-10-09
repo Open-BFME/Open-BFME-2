@@ -67,7 +67,7 @@ public:
 	virtual void slot1();
 	virtual bool Begin(Int *passCount, Int flags);	// slot 2
 	virtual void Begin_Pass(Int pass);	// slot 3
-	virtual void slot4();
+	virtual void slot4(Int mode);	// slot 4
 	virtual void End_Pass(void);	// slot 5
 	virtual void End(void);	// slot 6
 };
@@ -265,6 +265,11 @@ public:
 
 enum BodyDamageType { BODY_PRISTINE };
 
+// The bridge texture is held as the particle texture loader's handle.
+class BFME2ParticleTextureHandle : public RefCountPtr<TextureClass>
+{
+};
+
 class W3DBridge
 {
 public:
@@ -276,7 +281,13 @@ public:
 	enum BodyDamageType getDamageState(void) { return m_curDamageState; }
 	void setDamageState(enum BodyDamageType state) { m_curDamageState = state; }
 private:
-	char m_pad000[0x104];
+	char m_pad000[0x34];
+	BFME2ParticleTextureHandle m_bridgeTexture;	// +0x34
+	char m_pad038[0xF4 - 0x38];
+	Int m_firstIndex;	// +0xF4
+	Int m_numVertex;	// +0xF8
+	Int m_firstVertex;	// +0xFC
+	Int m_numPolygons;	// +0x100
 	Bool m_visible;	// +0x104
 	char m_pad105[0x10C - 0x105];
 	enum BodyDamageType m_curDamageState;	// +0x10C
