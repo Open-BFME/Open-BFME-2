@@ -28,7 +28,7 @@ class Rva005FE7FA : public Rva005FE750
 {
 public:
 	virtual ~Rva005FE7FA();
-	void rva005FE373(int idx, int w0, int w1, const UnicodeString &text);
+	virtual void rva005FE373(int idx, int w0, int w1, const UnicodeString &text);
 private:
 	int m_34;
 	UnicodeString m_38;

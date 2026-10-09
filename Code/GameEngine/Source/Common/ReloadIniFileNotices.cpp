@@ -78,7 +78,7 @@ bool Rva001E2AD9::rva001E0DB9(int reason)
 class Rva001F092A : public RifStore
 {
 public:
-	bool rva001F04D9(int reason);
+	virtual bool rva001F04D9(int reason);
 };
 
 bool Rva001F092A::rva001F04D9(int reason)
@@ -116,8 +116,8 @@ bool g_Va00DFE0D4;
 class Rva001FDB55 : public RifStore
 {
 public:
-	bool rva001FD5B2();
-	bool rva001FD57A(int reason);
+	virtual bool rva001FD5B2();
+	virtual bool rva001FD57A(int reason);
 };
 
 bool Rva001FDB55::rva001FD57A(int reason)
@@ -156,8 +156,8 @@ bool g_Va00DFE1D8;
 class Rva0022CA95 : public RifStore
 {
 public:
-	bool rva002146E1();
-	bool rva0021494B(int reason);
+	virtual bool rva002146E1();
+	virtual bool rva0021494B(int reason);
 };
 
 bool Rva0022CA95::rva0021494B(int reason)

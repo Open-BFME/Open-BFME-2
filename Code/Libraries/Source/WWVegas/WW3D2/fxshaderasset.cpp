@@ -373,7 +373,7 @@ class Rva00151632
 {
 public:
 	virtual const char *getName() const;
-	void rva00151CD8();
+	virtual void rva00151CD8();
 
 private:
 	unsigned int m_flags;			// +0x04

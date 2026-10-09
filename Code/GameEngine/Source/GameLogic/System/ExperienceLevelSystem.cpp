@@ -519,8 +519,8 @@ public:
 class Rva00289ABD : public Rva00289ABDBase
 {
 public:
-	bool rva00289812(bool *needsRestart);
-	bool rva00289874();
+	virtual bool rva00289812(bool *needsRestart);
+	virtual bool rva00289874();
 private:
 	char m_unmodelled04[0x0C - 0x04];
 	Rva00289371HashTable *m_table0C;

@@ -113,8 +113,8 @@ class Rva0053ED1A : public GameEngineDeletingBase, public Rva005C6D4D
 {
 public:
   void rva0053EF7B();
-  void rva0053EF92();
-  void rva0053EFAE();
+  virtual void rva0053EF92();
+  virtual void rva0053EFAE();
 	void rva0053EFC7(WindowList &list);
 	void rva0053EF2E();
 private:

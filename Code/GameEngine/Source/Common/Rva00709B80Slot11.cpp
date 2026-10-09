@@ -32,7 +32,7 @@ public:
 class Rva00709B80 : public Rva006D6470Owner
 {
 public:
-	void rva00709E00();
+	virtual void rva00709E00();
 private:
 	char m_pad04[0x1C];
 	AptReleaseSlot *m_20;

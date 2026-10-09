@@ -35,7 +35,7 @@ class Rva0055011A
 {
 public:
 	virtual ~Rva0055011A();
-	void rva00550041();
+	virtual void rva00550041();
 private:
 	MutexClass m_04;
 	MutexClass m_0C;

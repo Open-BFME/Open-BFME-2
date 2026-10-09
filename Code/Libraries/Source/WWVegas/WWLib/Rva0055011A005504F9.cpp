@@ -58,7 +58,7 @@ class Rva0055011A
 {
 public:
 	virtual ~Rva0055011A();
-	void rva005504F9(const BfmeNarrowRecord0054FEF1 &rec);
+	virtual void rva005504F9(const BfmeNarrowRecord0054FEF1 &rec);
 private:
 	MutexClass m_04;
 	MutexClass m_0C;
