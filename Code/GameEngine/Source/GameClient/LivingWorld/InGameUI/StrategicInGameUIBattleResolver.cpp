@@ -38,6 +38,7 @@ class StrategicInGameUI::BattleResolver::Impl
 public:
 	virtual void OnLivingWorldAutoResolveBattleCompleted(void *a, void *b, void *c);
  class StartUpStateHandler;
+ class WaitForEndOfAutoResolveBattleStateHandler;
 
 public:
 	char m_pad04[8];
@@ -63,7 +64,7 @@ public:
  virtual ~Rva005CF872();
  virtual void slot1();
  virtual void slot2();
-private: int m_04;
+protected: void *m_04;
 };
 class Rva005E9F3F {
 public: virtual ~Rva005E9F3F();
@@ -75,6 +76,32 @@ public:
  virtual void slot1();
  virtual void slot2();
 };
+// The existing79B constructor and48B destructor own this12B state identity.
+class Rva005CFEDF : public Rva005CF872 {
+public:
+ Rva005CFEDF(void *);
+ virtual ~Rva005CFEDF();
+private: void *m_08;
+};
+class Rva005CFE6EObserver {
+public:
+ virtual void OnLivingWorldAutoResolveBattleCompleted(void *,void *,void *);
+};
+class StrategicInGameUI::BattleResolver::Impl::WaitForEndOfAutoResolveBattleStateHandler
+ : public Rva005CF872, public Rva005CFE6EObserver {
+public:
+ virtual void OnLivingWorldAutoResolveBattleCompleted(void *,void *,void *);
+};
+// WB15B9BC0 names the callback at BattleResolver.cpp984; native5CFE6E..
+// 5CFEC3 is85B RET12, with its virtual pointer at875564. The observer this
+// is the second interface at+8, hence base owner4 is read at this-4. Keep
+// event arguments opaque, consistent with the existing Impl observer body.
+void StrategicInGameUI::BattleResolver::Impl::WaitForEndOfAutoResolveBattleStateHandler::OnLivingWorldAutoResolveBattleCompleted(void *,void *battle,void *)
+{
+ if(battle==static_cast<Impl *>(m_04)->m_veterancyData)
+  static_cast<Impl *>(m_04)->m_state.rva00575674(
+   reinterpret_cast<Object *>(new Rva005CFEDF(m_04)));
+}
 class StrategicInGameUI::BattleResolver::Impl::StartUpStateHandler {
 public:
  virtual void *rvaSlot0(int);

@@ -1,0 +1,25 @@
+{
+  "id": "B-20261010-battle-completed-005cfe6e",
+  "paths": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIBattleResolver.cpp"
+  ],
+  "recoveries": [
+    {
+      "name": "?OnLivingWorldAutoResolveBattleCompleted@WaitForEndOfAutoResolveBattleStateHandler@Impl@BattleResolver@StrategicInGameUI@@UAEXPAX00@Z",
+      "rva": "0x005CFE6E",
+      "size": 85,
+      "source": "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIBattleResolver.cpp",
+      "notes": "WB15B9BC0 names BattleResolver Impl WaitForEndOfAutoResolveBattleStateHandler OnLivingWorldAutoResolveBattleCompleted at BattleResolver.cpp984. Native5CFE6E..5CFEC3 proves85B RET12 and observer virtual entry875564. Second interface adjusts owner access to this-4; compare second opaque event pointer to owner14 then construct12B existing Rva005CFEDF and reset owner1C state holder. All85B whole extent plus EH data exact with rowed constructor5CFAE6 setter575674 and operatornew2FDA0; existing two rows remain exact. No new pins or assembler.",
+      "replace_rva": ""
+    }
+  ],
+  "proof_command": "python build/verify-battle-resolver-completed.py",
+  "proof_log": "proof.log",
+  "dependencies": [],
+  "ledger_delta": "No local ledger edits. One new row in existing source.",
+  "provider_notes": "Keep existing Rva005CFEDF state-constructor identity and existing Rva005CF872 base owner4 layout. Observer interface at8 is evidenced by native callback this and retail vtable pointer. Three event arguments remain opaque as in existing Impl callback. Separate owner reads across allocation match retail.",
+  "seat": "B",
+  "base_commit": "69b164bfd9b1ac6f34a7e92992ff7bdce2b2b41e",
+  "claim_owner": "codex-01a12257-recovery",
+  "proof_exit_code": 0
+}
