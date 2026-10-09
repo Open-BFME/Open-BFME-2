@@ -1,4 +1,4 @@
-// ?rva004C4E93@DarknessSpecialPower@@QAEXPBUCoord3D@@@Z
+// ?rva004C4C99@FreezingRainSpecialPower@@QAEXPBUCoord3D@@@Z
 // partial score=0.95 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS /ICode/Libraries/Include
 // The placement helpers FreezingRainSpecialPower 0x004C4C99 and
