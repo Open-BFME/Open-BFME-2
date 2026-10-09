@@ -35,7 +35,8 @@ public:
 		CELL_DEEP_WATER = 7
 	};
 
-	CellType getType() const { return (CellType)m_type; }
+	// Preserve the native four-bit type read without a competing getter.
+	__declspec(dllimport) __forceinline CellType getType() const { return (CellType)m_type; }
 	void setPinched(Bool pinch) { m_pinched = pinch; }
 	bool SetType_Dirty(int type);
 	void setBit21(Bool on)
