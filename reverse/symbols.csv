@@ -6363,7 +6363,6 @@ name,address,notes
 ?Rva0040E269@@YAXPAVXfer0051FFF5@@PAX@Z,0x0040E269,cdecl spelling of the rowed Xfer vector helper for range feed 0x0051FFF5 (REL32 at 0x00520055/0x0052005F/0x00520069); body rowed as ?Rva0040E269Xfer@@YAPAVXfer@@PAV1@PAV?$vector@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@@Z; address name
 ?Rva0041267F@@YAXXZ,0x0041267F,unrowed 10B (Ghidra FUN_0081267f: two calls); REL32 read at AptMainMenu::ResetResolution 0x00514CD1 with no arguments after the window resize; address name
 ?Rva004128F0GetParam@@YA_NPBD0AAVAsciiString@@@Z,0x004128F0,unrowed 239B cdecl (Ghidra FUN_008128f0) next to the rowed path helpers 0x00412845/0x004128BB; REL32 reads at _OnRowShown 0x0050FB20/0x0050FB82 and _OnRowHidden 0x0050EFA4 with (params and a key string and an AsciiString out) pushed and the bool result tested; address name
-?Rva004178C1@@YAXHABVAsciiString@@@Z,0x004178C1,unrowed 421B cdecl (Ghidra FUN_008178c1; EH; plain ret) taking a GameSpy profile id and a player name (const AsciiString &): asks TheGameSpyInfo (vslot 25 first) to add that player as a buddy; REL32 at 0x00435144 in the APT:AddFriendOnSaveTitle prompt answer 0x00435107; address name
 ?Rva0041AA6FCreateGameResults@@YAPAVGameResultsInterface@@XZ,0x0041AA6F,GameEngine::init 0x0022E2E4 complete 8808B recovery; target from native REL32 at corresponding exact instruction offset; subsystem constructor roles supported by adjacent registration literal and global; address-named types preserve unresolved original identity; see GameEngineInit.cpp and init evidence
 ?Rva00420353CreateVictoryConditions@@YAPAVVictoryConditionsInterface@@XZ,0x00420353,GameEngine::init 0x0022E2E4 complete 8808B recovery; target from native REL32 at corresponding exact instruction offset; subsystem constructor roles supported by adjacent registration literal and global; address-named types preserve unresolved original identity; see GameEngineInit.cpp and init evidence
 ?Rva004318A8Guard@@YA_NXZ,0x004318A8,guard for 0x00431A80 family read from REL32; Ghidra 30B overlaps published 3B fragment at 0x004318C3
@@ -15343,7 +15342,6 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?rva00278341@Rva00278341Host@@QAEXHH@Z,0x00278341,thiscall with 2 ints from 0x2783F6
 ?rva00270276@Rva00270276Host@@QAE_NPAX000HH@Z,0x00270276,thiscall bool with 6 args from 0x276B32
 ?rva0027601B@Rva0027601BHost@@QAEXXZ,0x0027601B,thiscall no args from switch 0x2796D9 case 0
-?rva002779CE@Rva002779CEHost@@QAEXXZ,0x002779CE,thiscall no args from switch 0x2796D9 case 0
 ?rva00273F74@Rva00273F74Host@@QAEXXZ,0x00273F74,thiscall no args from switch 0x2796D9 case 1
 ?rva00275F3F@Rva00275F3FHost@@QAEXXZ,0x00275F3F,thiscall no args from switch 0x2796D9 case 1
 ?rva00273808@Rva00273808Host@@QAEXXZ,0x00273808,thiscall no args from switch 0x2796D9 case 1
