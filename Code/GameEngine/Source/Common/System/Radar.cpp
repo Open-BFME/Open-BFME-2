@@ -504,5 +504,5 @@ alloc:
 // destructor fold at 49B47C; this complete seven-byte body has no own address.
 RadarObject::~RadarObject() {}
 
-// ?RadarObject::loadPostProcess present-unmatched
+// Native C035D0 slot 1 is the shared empty post-load body at B3FD0.
 void RadarObject::loadPostProcess() {}
