@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /Ob1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Oy-
+// cl: /Ireference/shims/bfme2_ascii /Ob1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 //
 // ?GetDisplayName@StrategicInGameUI@@YA?AVUnicodeString@@PAX@Z (WorldBuilder StrategicInGameUI::GetDisplayName; same STRATEGICHUD:HeroArmyName label), retail 0x005c94c8, 258 bytes. Banked partial (score 0.96) closed by tools/permute.py;
 // the body is the banked one up to statement/operand order and local types.
