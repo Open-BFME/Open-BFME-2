@@ -1,5 +1,5 @@
 // cl: /MD
-// ?draw@MovieWindowPlayback@@QAEXXZ @0x00524973 186B
+// ?draw@MovieWindowPlayback@@UAEXXZ @0x00524973 186B
 // Slot 0x30 of vtable 0x00867DFC (class of ??0Rva00524B7A). Guards on
 // +0x24 bit0 and +0x0C null, virtual slot15 result, TheDisplay slot 0x104
 // with int+4 floats+int, then slot8 result to broadcast. Chain of ctor.
@@ -113,10 +113,10 @@ struct InnerLink
 class MovieWindowPlayback
 {
 public:
-	void draw();
+	// Slot 12 of the vftable 0x00C67DFC that the ctor installs: virtual.
+	virtual void draw();
 
 private:
-	void *m_vtable;
 	char m_basePad[8];
 	SlotOwner *m_0C;
 	int m_10;

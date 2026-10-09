@@ -85,7 +85,7 @@ public:
 	virtual void slot22() = 0;
 	virtual void slot23() = 0;
 	virtual void slot24() = 0;
-	virtual void slot25() = 0;
+	virtual void RequestGameOptions(AsciiString str, int, UnsignedInt val);
 	virtual void slot26() = 0;
 	virtual void slot27() = 0;
 	virtual void slot28() = 0;
@@ -126,7 +126,6 @@ public:
 	virtual void slot63() = 0;
 	virtual BfmeNetAddress *slot64() = 0;
 	void Rva004495A2(LANMessage *msg, UnsignedInt val);
-	void RequestGameOptions(AsciiString str, int, UnsignedInt val);
 
 private:
 	UnsignedByte m_beforeLobby[0x41 - 4];

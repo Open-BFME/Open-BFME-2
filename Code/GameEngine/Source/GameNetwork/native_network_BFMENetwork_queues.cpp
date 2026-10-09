@@ -4,9 +4,9 @@
 // (popQueue0 is slot 5, native_network_BFMENetwork_popQueue0.cpp). Ported from
 // the Open-BFME-1 donor game/GameEngine/Source/GameNetwork/native_network.cpp
 // (reference/open-bfme-1 @ 6d943426), compiled /O1:
-//   ?pushQueue0@BFMENetwork@@QAEXPAVBFMENetworkQueueItem@@@Z   retail 0x00559261, 77 bytes
-//   ?pushQueue1@BFMENetwork@@QAEXPAVBFMENetworkQueueItem1@@@Z  retail 0x005592AE, 77 bytes
-//   ?popQueue1@BFMENetwork@@QAE_NPAVBFMENetworkQueueItem1@@@Z  retail 0x00557DFB, 98 bytes
+//   ?pushQueue0@BFMENetwork@@UAEXPAVBFMENetworkQueueItem@@@Z   retail 0x00559261, 77 bytes
+//   ?pushQueue1@BFMENetwork@@UAEXPAVBFMENetworkQueueItem1@@@Z  retail 0x005592AE, 77 bytes
+//   ?popQueue1@BFMENetwork@@UAE_NPAVBFMENetworkQueueItem1@@@Z  retail 0x00557DFB, 98 bytes
 // One BFME 2 repair against the donor: retail's queue push is the out-of-line
 // deque push_back (0x00558F8A for queue 0, 0x00558FBC for queue 1, both
 // rowed), not the donor's inline fast path, so pushBack is declared, not
@@ -361,10 +361,11 @@ public:
 	void init();
 	Bool backendHasLiveHandle();
 	void destroyBackend();
-	void pushQueue0(BFMENetworkQueueItem *item);
-	Bool popQueue0(BFMENetworkQueueItem *item);
-	void pushQueue1(BFMENetworkQueueItem1 *item);
-	Bool popQueue1(BFMENetworkQueueItem1 *item);
+	// Slots 4-7 of the vftable 0x00C6B318 that the ctor installs: virtual.
+	virtual void pushQueue0(BFMENetworkQueueItem *item);
+	virtual Bool popQueue0(BFMENetworkQueueItem *item);
+	virtual void pushQueue1(BFMENetworkQueueItem1 *item);
+	virtual Bool popQueue1(BFMENetworkQueueItem1 *item);
 	BFMENetworkString copyState6C();
 	BFMENetworkString copyState78();
 	BFMENetworkString copyState84();

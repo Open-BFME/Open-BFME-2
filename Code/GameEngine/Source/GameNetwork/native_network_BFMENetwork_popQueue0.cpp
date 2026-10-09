@@ -1,6 +1,6 @@
 // cl: /DNDEBUG /MD /GX
 //
-// ?popQueue0@BFMENetwork@@QAE_NPAVBFMENetworkQueueItem@@@Z
+// ?popQueue0@BFMENetwork@@UAE_NPAVBFMENetworkQueueItem@@@Z
 // retail 0x00557D98, 99 bytes. Dedicated TU ported from the Open-BFME-1
 // donor game/GameEngine/Source/GameNetwork/native_network.cpp (reference/open-bfme-1 @ 6d943426).
 // The donor body does not place at BFME 1's flags; compiled /O1 it is
@@ -380,10 +380,11 @@ public:
 	void init();
 	Bool backendHasLiveHandle();
 	void destroyBackend();
-	void pushQueue0(BFMENetworkQueueItem *item);
-	Bool popQueue0(BFMENetworkQueueItem *item);
-	void pushQueue1(BFMENetworkQueueItem1 *item);
-	Bool popQueue1(BFMENetworkQueueItem1 *item);
+	// Slots 4-7 of the vftable 0x00C6B318 that the ctor installs: virtual.
+	virtual void pushQueue0(BFMENetworkQueueItem *item);
+	virtual Bool popQueue0(BFMENetworkQueueItem *item);
+	virtual void pushQueue1(BFMENetworkQueueItem1 *item);
+	virtual Bool popQueue1(BFMENetworkQueueItem1 *item);
 	BFMENetworkString copyState6C();
 	BFMENetworkString copyState78();
 	BFMENetworkString copyState84();

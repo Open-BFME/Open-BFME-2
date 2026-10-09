@@ -1,9 +1,9 @@
-// ?setUnitArrived@HordeMeleeSwarm@@QAEXH@Z
+// ?setUnitArrived@HordeMeleeSwarm@@UAEXH@Z
 // partial score=0.93 date=2026-09-29
 // cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //
-// ?setUnitArrived@HordeMeleeSwarm@@QAEXH@Z 44B @0x00583CB4: virtual slot 11
+// ?setUnitArrived@HordeMeleeSwarm@@UAEXH@Z 44B @0x00583CB4: virtual slot 11
 // (offset 0x2C) of vtable 0x0086FC80 installed by rowed ctor 0x005843DA.
 // Bounds-checked store of 3 to field +0 of the 28-byte element at the given
 // index in the vector at +8; early-out for negative or out-of-range indices.
@@ -29,7 +29,7 @@ public:
 class HordeMeleeSwarm : public Rva005D6FCC
 {
 public:
-	void setUnitArrived(int i);
+	virtual void setUnitArrived(int i);
 private:
 	_STL::vector<Rva00583CE0Elem> m_vec; // +8
 	bool m_flag; // +0x14

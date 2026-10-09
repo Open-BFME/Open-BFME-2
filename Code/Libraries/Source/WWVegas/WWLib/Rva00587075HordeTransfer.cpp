@@ -1,4 +1,4 @@
-// ?rva00587075@HordeMeleeFormation@@QAEXPAVXfer@@@Z
+// ?rva00587075@HordeMeleeFormation@@UAEXPAVXfer@@@Z
 // cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii
 // stlport
 // Native00587075..00587204,399B, is vtable00C6FD90 slot15. The
@@ -66,7 +66,8 @@ public:
  void *held;
  _STL::vector<BfmeAssignRecord84> entries;
  bool flag;char pad[3];void *other;
- void rva00587075(Xfer *);
+ // Slot 15 of the vftable 0x00C6FD90 that the ctor installs: virtual.
+ virtual void rva00587075(Xfer *);
 };
 void HordeMeleeFormation::rva00587075(Xfer *xfer) {
  XferVersion version(1,1); xfer->xferVersion(version);

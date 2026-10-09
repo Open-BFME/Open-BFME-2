@@ -1,7 +1,7 @@
-// ?rva00584A9B@HordeMeleeSwarm@@QAEXPAVXfer@@@Z
+// ?rva00584A9B@HordeMeleeSwarm@@UAEXPAVXfer@@@Z
 // stlport
 // cl: /Ireference/shims/bfme2_ascii /O1 /arch:SSE /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
-// ?rva00584A9B@HordeMeleeSwarm@@QAEXPAVXfer@@@Z @0x00584A9B 423B
+// ?rva00584A9B@HordeMeleeSwarm@@UAEXPAVXfer@@@Z @0x00584A9B 423B
 // Slot 15 (0x3C) of vtable 0x0086FC80. The WorldBuilder and rowed ctor
 // establish HordeMeleeSwarm (formerly the Rva005843DA view). Xfer with
 // Version(1,1), HordeMeleeSwarm ascii check with throw via _bfmeFormatText,
@@ -130,7 +130,8 @@ public:
 class HordeMeleeSwarm : public Rva005D6FCC
 {
 public:
-	void rva00584A9B(Xfer *xfer);
+	// Slot 15 of the vftable 0x00C6FC80 that the ctor installs: virtual.
+	virtual void rva00584A9B(Xfer *xfer);
 private:
 	_STL::vector<Rva00584A7DEntry> m_vec;
 	bool m_flag;

@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /EHsc /MD
 // stlport
-// ?parse@LibraryMapsParser@@QAE_NAAVDataChunkInput@@PAVDataChunkInfo@@@Z @0x0032D742 153B
+// ?parse@LibraryMapsParser@@UAE_NAAVDataChunkInput@@PAVDataChunkInfo@@@Z @0x0032D742 153B
 // Evidence: vslot slot 1 offset 0x4 of vtable 0x00C0D924 for LibraryMapsParser ctor 0x00329F83; donor open-bfme-1 game/GameEngine/Source/GameLogic/Map/LibraryMapsParserParse.cpp; all callees rowed
 // Retail keeps one unsigned max, RVA 0x00013740 (the vendored STLport row). This unit's
 // flags (/G7) compile a different copy, and retail kept another unit's. This unit-local
@@ -30,10 +30,12 @@ struct BfmeE12 { float x, y, z; };
 class LibraryMapsParser
 {
 public:
-	bool parse(DataChunkInput &file, DataChunkInfo *info);
+	// Slot 1 of the 2-slot vftable 0x00C0D924 that the ctor 0x00329F83
+	// installs: virtual, with the vptr at +0.
+	virtual bool parse(DataChunkInput &file, DataChunkInfo *info);
 
 private:
-	char m_base[0xC];
+	char m_base04[0x8];
 	_STL::vector<AsciiString> *m_lists;
 	int *m_count;
 };
