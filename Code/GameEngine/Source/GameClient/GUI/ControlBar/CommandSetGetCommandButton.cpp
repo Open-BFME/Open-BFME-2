@@ -12,7 +12,9 @@ typedef int Int;
 typedef bool Bool;
 
 #include "ascii_string.h"
-class CommandButton;
+class ThingTemplate;
+class CommandButton { public: const ThingTemplate *rva0035B570() const; };
+class Rva0020AA00Target { public: void notify(int,int); };
 
 class GameLogic
 {
@@ -25,10 +27,11 @@ class CommandSet
 {
 public:
 	const CommandButton *getCommandButton(Int i) const;
+ void rva00409F1B(int,int);
 private:
 	unsigned char m_pad00[0x10];
 	AsciiString m_name; // +0x10
-	const CommandButton *m_command[1]; // +0x14 (slot count not established)
+	const CommandButton *m_command[32]; // +0x14: native asset walker proves32 slots
 };
 
 //-------------------------------------------------------------------------------------------------
@@ -38,4 +41,37 @@ const CommandButton *CommandSet::getCommandButton(Int i) const
 	if (TheGameLogic && TheGameLogic->rva00246F8E(m_name, i, &button))
 		return button;
 	return m_command[i];
+}
+
+// Native104B409F1B/WBc28F60 walks all32 slots, honoring each GameLogic
+// override before loading the fallback. Kinds1/3 forward non-null template
+// assets through existing notify33CF34 (a proven GetAssetList ABI view).
+// Positive lookup-success branch preserves native fallback/success block order.
+void CommandSet::rva00409F1B(int a, int b)
+{
+	for (int i = 0; i < 32; ++i)
+	{
+		const CommandButton *button;
+		const CommandButton *cur;
+		if (TheGameLogic && TheGameLogic->rva00246F8E(m_name,i,&button))
+            cur=button;
+        else {
+            button=m_command[i];cur=button;
+        }
+		if (cur == 0)
+			continue;
+		int kind = *(const int *)((const char *)cur + 0x14);
+		switch (kind)
+		{
+		case 1:
+		case 3:
+			break;
+		default:
+			continue;
+		}
+		const ThingTemplate *tmpl = cur->rva0035B570();
+		if (tmpl == 0)
+			continue;
+		reinterpret_cast<Rva0020AA00Target *>(const_cast<ThingTemplate *>(tmpl))->notify(a, b);
+	}
 }

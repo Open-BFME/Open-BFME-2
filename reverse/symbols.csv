@@ -11561,7 +11561,6 @@ name,address,notes
 ?rva004074CF@Rva0021937DTarget@@QAEXXZ,0x004074CF,final call of the 0x0021937D triple forward: REL32 read there; address already pins a CreateAHeroData file writer name which is not adopted here; owner identity unproven
 ?rva00407E94@Rva0021937DTarget@@QAEXXZ,0x00407E94,first call of the 0x0021937D triple forward: REL32 read there; owner identity unproven
 ?rva004083FF@Rva005B023A@@QAEXH@Z,0x004083FF,address-derived callee of matched slot 0x005B023A; retail REL32 targets 0x004083FF; Ghidra FUN bounds 1082 bytes; thiscall on the caller object one arg ret 4; callee body remains unclaimed; no named identity inferred
-?rva00409F1B@Rva00409F1B@@QAEXHH@Z,0x00409F1B,thiscall (mov esi plus ecx prolog) reached from 0x33C965 with two int args after the 0x31D5F8 lookup hit; RETAIL REL32 at 0x0033CA6B; address-named
 ?rva0040A32F@Rva0040A3F9@@QAEPAVCreateAHeroData@@H@Z,0x0040A32F,unrowed 28B thiscall (Ghidra FUN_0080a32f; ret 4) on the CreateAHeroData pointer vector of Rva0040A3F9Find.cpp: the entry at an index or 0 past the end; called from 0x0043DD5D and 0x004414FF; address name
 ?rva0040C45C@Rva002B3EFAElem@@QAEXXZ,0x0040C45C,thiscall clearing +0xBC after guarded 0x2B2579/0x4E0632/virtual+0x10 chain via globals 0xDFEF10; Ghidra FUN_0080c45c 57B; void ret
 ?rva0040CBD7@Rva0040CBD7Vec@@QAEXPAPAXH@Z,0x0040CBD7,thiscall lookup-or-null on +0x78 vector via rowed 0x40CB3A find and rowed 0x4F6093 copy ctor; out replaces pointer on hit and nulls on miss; Ghidra FUN_0080cbd7 55B
