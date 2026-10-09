@@ -218,11 +218,6 @@ public:
 	int rva0051274F(int msg, unsigned int data1, unsigned int data2);
 };
 
-class Rva00444362
-{
-public:
-	void rva00444362(void *unused);
-};
 
 class Rva00580172
 {
@@ -386,6 +381,7 @@ class LANAPI; extern LANAPI *TheLAN;
 class AptLanLobby
 {
 public:
+	void OnJoinGameBttn(const char *unused);
 	void InitGadgets(const char *name, void *argument, GameWindow *window);
 	void rva00446386(bool enable);
 	void submitNameRva00444760();
@@ -781,7 +777,7 @@ int AptLanLobby::rva00444826(int msg, unsigned int data1, unsigned int data2)
 		break;
 	case 0x4015:
 		if ((GameWindow *)data1 == m_customGamesList && GetValidSelectedGameInfo())
-			reinterpret_cast<Rva00444362 *>(this)->rva00444362((void *)"");
+			OnJoinGameBttn("");
 		break;
 	case 0x4032:
 		submitNameRva00444760();
