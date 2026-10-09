@@ -1,4 +1,6 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// ?updateInternal@AIAttackMeleeEngageState@@AAE?AW4StateReturnType@@XZ
+// partial score=0.97 date=2026-10-09
+// cl: /ICode/GameEngine/Source/Common /ICode/Libraries/Include/Lib /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
 //
 // AIAttackApproachTargetState::onEnter, retail 0x0034CD3A (783 bytes): slot 4
 // of vtable 0x00C12610 (slot-2 name getter "AIAttackApproachTargetState";
@@ -89,9 +91,10 @@
 // (slot 2 isWeaponSlotOkToFire, slot 0 notifyFired); update's three early
 // failures are separate statements in retail.
 
-#include "../../Common/GameLogicObjectLookupView.h"
-#include "../../../../Libraries/Include/Lib/Coord3D.h"
-#include "../../../../Libraries/Include/Lib/Coord2D.h"
+#include "GameLogicObjectLookupView.h"
+#include "Coord3D.h"
+#include "Coord2D.h"
+#include "RTS/XYDistanceCallView.h"
 
 typedef bool Bool;
 typedef float Real;
@@ -132,6 +135,7 @@ enum ObjectStatusTypes
 	OBJECT_STATUS_19 = 0x19,
 	OBJECT_STATUS_1B = 0x1B,
 	OBJECT_STATUS_1C = 0x1C,
+	OBJECT_STATUS_25 = 0x25,
 	OBJECT_STATUS_26 = 0x26,
 	OBJECT_STATUS_32 = 0x32,
 	OBJECT_STATUS_33 = 0x33,
@@ -158,7 +162,9 @@ static __forceinline void critterDesyncLog(const char *text)
 	}
 }
 
-extern "C" float __cdecl fabs(double); // CRT fabs (the /O1 call); x87 result compared as float
+// math.h: its sqrt declaration keeps the x87 result store after the argument
+// pops, and its float fabs overload is the CRT fabs compared as float.
+#include <math.h>
 Real normalizeAngle(Real angle);
 
 #define PATHFIND_CELL_SIZE_F 10.0f
@@ -185,6 +191,7 @@ class Pathfinder
 public:
 	Bool isAttackViewBlockedByObstacle(const Object *obj, const Coord3D *objPos, const Object *target, const Coord3D *targetPos);
 	Bool CanApproachToTarget(Object *obj, const Coord3D *targetPos, Rva002C9B80Owner *weapon, Bool flag);
+	Bool rva002ED313(Object *obj);
 };
 
 class AI
@@ -297,7 +304,7 @@ public:
 	Real getTurretTurnRate(WhichTurretType tur) const;
 	Real getCurLocomotorSpeed() const { return ((const Rva002627E8 *)this)->rva002627E8(); }
 	void setCurrentVictim(const Object *victim);
-	Object *checkForCrateToPickup();
+	void setDesiredSpeed(Real speed);
 	void requestPath(Coord3D *destination, Bool isFinalGoal);
 	void requestAttackPath(ObjectID victimID, const Coord3D *victimPos);
 	void destroyPath();
@@ -399,6 +406,21 @@ public:
 	Int m_playerType; // +0x5C
 };
 
+// Object +0xA8 geometry-shape list (index accessor 0x006BD980, rowed under
+// this name); each shape carries its bounding radius at +0x08.
+struct BfmeShapeE15
+{
+	unsigned char m_pad00[0x08];
+	Real m_boundingRadius; // +0x08
+};
+
+class BfmeObjE15
+{
+public:
+	BfmeShapeE15 *bfmeAtE15(Int index);
+	unsigned char m_pad00[0x10];
+};
+
 class Object : public Thing
 {
 public:
@@ -432,6 +454,8 @@ public:
 	Real GetRelativeAngle(const Coord3D *pos) const;
 	Real getOrientation() const { return m_orientation; }
 	Bool rva002943B2(const Player *player);
+	Object *rva002931F5(Bool flag);
+	void rva00346C53(ObjectStatusTypes bit, Bool set);
 	void rva0028ACDC(const Coord3D *pos);
 	void setStatus(ObjectStatusTypes bit, Bool set);
 	Bool isKindOf(KindOfType t) const;
@@ -445,7 +469,8 @@ public:
 	Real m_orientation; // +0x44
 	unsigned char m_pad048[0x74 - 0x48];
 	Int m_id; // +0x74
-	unsigned char m_pad078[0xB8 - 0x78];
+	unsigned char m_pad078[0xA8 - 0x78];
+	BfmeObjE15 m_geometryShapes; // +0xA8
 	Real m_geometryRadiusB8; // +0xB8
 	unsigned char m_pad0BC[0x1C0 - 0xBC];
 	Real m_1c0; // +0x1C0
@@ -541,43 +566,16 @@ template <> class StateMachineSlots<0>
 {
 };
 
-// A state's ID (+0x04), as StateMachine::getCurrentStateID reads it.
-struct StateIdView
-{
-	unsigned char m_pad00[0x04];
-	UnsignedInt m_id; // +0x04
-};
-
-enum
-{
-	AI_IDLE = 0,
-	AI_ATTACK_OBJECT = 10,
-	AI_PICK_UP_CRATE = 0x27, // ZH's 40, one lower in BFME 2
-	INVALID_STATE_ID = 999999
-};
-
-class StateMachine : public StateMachineSlots<4>
+class StateMachine : public StateMachineSlots<14>
 {
 public:
-	virtual StateReturnType updateStateMachine(); // slot 4
-	virtual void slot05();
-	virtual void slot06();
-	virtual void slot07();
-	virtual StateReturnType setState(UnsignedInt newStateID); // slot 8
-	virtual void slot09();
-	virtual void slot10();
-	virtual void slot11();
-	virtual void slot12();
-	virtual void slot13();
 	virtual void setGoalObject(const Object *obj);
-	UnsignedInt getCurrentStateID() const { return m_currentState ? m_currentState->m_id : INVALID_STATE_ID; }
 	void setGoalPosition(const Coord3D *pos);
 	Object *getOwner() const { return m_owner; }
 	Object *getGoalObject();
 	const Coord3D *getGoalPosition() const { return &m_goalPosition; }
 private:
-	StateIdView *m_currentState; // +0x04
-	unsigned char m_pad08[0x14 - 0x08];
+	unsigned char m_pad04[0x14 - 0x04];
 	Object *m_owner; // +0x14
 	unsigned char m_pad18[0x24 - 0x18];
 	Coord3D m_goalPosition; // +0x24
@@ -853,25 +851,36 @@ private:
 	Bool m_waitOddFrame; // +0x24
 };
 
-// AIAttackSquadState, vtable 0x00C112C0 (name 0x0033F517, xfer 0x003414F6,
-// onEnter 0x00351951, onExit 0x00341557).
-class AIAttackSquadState : public State
-{
-public:
-	virtual StateReturnType update();
-	Object *chooseVictim();
-private:
-	unsigned char m_pad1C[0x20 - 0x1C];
-	StateMachine *m_attackSquadMachine; // +0x20
-	Bool m_sawStatus1C; // +0x24
-};
-
 // The melee engage state's private fire state (constructor 0x0033F483).
-class Rva0033F483
+class Rva0033F483 : public VirtualSlots<4>
 {
 public:
 	Rva0033F483(StateMachine *machine, Int weaponSlot);
-	unsigned char m_pad00[0x28];
+	virtual StateReturnType onEnter();
+	virtual void onExit(Int status);
+	virtual StateReturnType update();
+	unsigned char m_pad04[0x28 - 0x04];
+};
+
+// A resolved target's contain module (Object +0x250), slot 31, and the rider
+// it returns (slot 18), as AIAttackMeleeEngageState::updateInternal calls them.
+class Rva003497E6Rider : public VirtualSlots<18>
+{
+public:
+	virtual Object *slot18(Int, const Coord3D *pos, Real, Int, Int);
+};
+
+class Rva003497E6Contain : public VirtualSlots<31>
+{
+public:
+	virtual Rva003497E6Rider *slot31();
+};
+
+// Thing-template gate 0x0028CECF, pinned under this name.
+class Rva0028CECFOwner
+{
+public:
+	Bool rva0028CECF();
 };
 
 // AIAttackMeleeEngageState, vtable 0x00C12150 (computePath 0x003457AC rowed in
@@ -881,6 +890,7 @@ class AIAttackMeleeEngageState : public AIInternalMoveToState
 public:
 	virtual StateReturnType onEnter();
 private:
+	StateReturnType updateInternal();
 	Rva0033F483 *m_fireState; // +0x4C
 	Int m_50; // +0x50
 	UnsignedInt m_approachTimestamp; // +0x54
@@ -1460,6 +1470,170 @@ StateReturnType AIAttackMeleeEngageState::onEnter()
 	return ret;
 }
 
+// Retail 0x003497E6, 1308 bytes (vtable 0x00C12150's update helper; its CRC
+// literal names it). Ported from Open-BFME-1's
+// AIAttackMeleeEngageState_updateInternal.cpp (retail 0x00178470 there): the
+// fire state, retry frame and flags sit four bytes lower in BFME 2, the
+// status bits are 0x33/0x4B/0x25, the goal update is the 0x0028ACEE
+// /GetGoalPosition pair the onEnter above uses, and the retry delays are five
+// and two LOGICFRAMES_PER_SECOND.
+StateReturnType AIAttackMeleeEngageState::updateInternal()
+{
+	Object *source = getMachineOwner();
+	AIUpdateInterface *ai = source->getAI();
+	Object *victim = getMachineGoalObject();
+	if (!victim || victim->testStatus(OBJECT_STATUS_33))
+		return STATE_FAILURE;
+	if (victim->rva002943B2(source->getControllingPlayer()))
+		return STATE_FAILURE;
+	if (victim->m_438 & 1)
+		return STATE_FAILURE;
+
+	ai->setCurrentVictim(victim);
+	if (source->rva0029493F(victim, 2) && source->getTemplate()->m_5fd &&
+		((Rva0028CECFOwner *)source)->rva0028CECF())
+		return STATE_SUCCESS;
+
+	if (m_retryPending)
+	{
+		if (m_retryFrame >= TheGameLogic->getFrame())
+			return STATE_CONTINUE;
+		m_retryPending = false;
+		return STATE_FAILURE;
+	}
+
+	Bool inRange = false;
+	if (rva00344EB2Gate(source, victim))
+	{
+		inRange = true;
+		Real dist = (Real)sqrt(((Rva000CBA20 *)source)->distSq((const Rva000CBA20Point *)victim->getPosition()));
+		Real sourceRadius = source->m_geometryShapes.bfmeAtE15(0)->m_boundingRadius;
+		BfmeShapeE15 *victimShape = victim->m_geometryShapes.bfmeAtE15(0);
+		Real surfaceGap = dist - (victimShape->m_boundingRadius + (sourceRadius + 10.0f));
+		Real gap = surfaceGap + victim->rva0028AC7D();
+		if (gap < 0.0f)
+			gap = 0.0f;
+
+		Real maxSpeed = 999999.0f;
+		if (source->rva0028AC4E())
+			maxSpeed = ((Rva001E46E1 *)source->rva0028AC4E())->rva001E46E1(source);
+		ai->setDesiredSpeed(gap);
+		Bool closing = gap < maxSpeed;
+		source->setStatus(OBJECT_STATUS_4B, closing);
+		source->rva00346C53(OBJECT_STATUS_4B, closing);
+
+		if (closing && m_50)
+			m_50 = m_fireState->onEnter();
+
+		Object *resolved = victim->rva002931F5(false);
+		if (!m_50)
+		{
+			m_50 = m_fireState->update();
+			if (m_50)
+				m_fireState->onExit(0);
+
+			if ((victim->m_438 & 1) && resolved)
+			{
+				Rva003497E6Contain *contain = (Rva003497E6Contain *)resolved->m_contain;
+				if (contain)
+				{
+					Rva003497E6Rider *rider = contain->slot31();
+					if (rider)
+					{
+						victim = rider->slot18(0, source->getPosition(), 0.0f, 0, 0);
+						if (!victim)
+							return STATE_CONTINUE;
+						ai->rva00262B0F((Int)victim);
+						getMachine()->setGoalObject(victim);
+					}
+				}
+			}
+		}
+	}
+	else
+	{
+		ai->setDesiredSpeed(999999.0f);
+		if (!m_50)
+		{
+			m_fireState->onExit(0);
+			m_50 = -1;
+		}
+		if (source->testStatus(OBJECT_STATUS_4B))
+		{
+			source->rva00346C53(OBJECT_STATUS_4B, false);
+			source->setStatus(OBJECT_STATUS_4B, false);
+		}
+	}
+
+	if (source->testStatus(OBJECT_STATUS_1C) && !inRange)
+		ai->destroyPath();
+
+	Weapon *weapon = source->getCurrentWeapon();
+	if ((gameLogicDebugLevel() > 0 && source->testStatus(OBJECT_STATUS_25) && victim->testStatus(OBJECT_STATUS_25)) ||
+		(!ai->getPath() && weapon))
+		debugTrace("masiwar called by AIAttackMeleeEngageState::updateInternal [1]");
+	if ((source->testStatus(OBJECT_STATUS_25) && victim->testStatus(OBJECT_STATUS_25)) ||
+		(!ai->getPath() && weapon && weapon->isWithinAttackRange((const Object *)source, victim, 0.0f, 1) &&
+			TheAI->pathfinder()->rva002ED313(source)))
+	{
+		Coord3D pos;
+		pos.x = source->getPosition()->x;
+		pos.y = source->getPosition()->y;
+		pos.z = source->getPosition()->z;
+		source->rva0028ACEE(&pos, source->rva0028B511());
+		if (source->GetGoalPosition(&pos))
+		{
+			ai->m_finalPosition = pos;
+			ai->m_3b0 = false;
+		}
+		source->setStatus(OBJECT_STATUS_1C, true);
+		return STATE_SUCCESS;
+	}
+
+	critterDesyncLog("CritterDesync: ComputePath28");
+	if (computePath() == false)
+		return STATE_FAILURE;
+	if (m_retryPending)
+		return STATE_CONTINUE;
+
+	StateReturnType code = AIInternalMoveToState::update();
+	if (inRange)
+	{
+		if (code == STATE_CONTINUE)
+			return STATE_CONTINUE;
+	}
+	else if (code == STATE_CONTINUE)
+	{
+		if (ai->getPath() || m_waitingForPath)
+			return STATE_CONTINUE;
+	}
+
+	Bool canRepath = TheAI->pathfinder()->rva002ED313(source);
+	if (!ai->getPath())
+		canRepath = true;
+	if (weapon && weapon->isWithinAttackRange((const Object *)source, victim, 0.0f, 1) && canRepath)
+	{
+		Coord3D pos;
+		pos.x = source->getPosition()->x;
+		pos.y = source->getPosition()->y;
+		pos.z = source->getPosition()->z;
+		source->rva0028ACEE(&pos, source->rva0028B511());
+		if (source->GetGoalPosition(&pos))
+		{
+			ai->m_finalPosition = pos;
+			ai->m_3b0 = false;
+		}
+		return STATE_SUCCESS;
+	}
+
+	m_retryPending = true;
+	if (m_noEngagementSpot)
+		m_retryFrame = TheGameLogic->getFrame() + LOGICFRAMES_PER_SECOND * 5;
+	else
+		m_retryFrame = TheGameLogic->getFrame() + LOGICFRAMES_PER_SECOND * 2;
+	return STATE_CONTINUE;
+}
+
 StateReturnType AIAttackPositionFireWeaponState::onEnter()
 {
 	Object *obj = getMachineOwner();
@@ -1520,76 +1694,4 @@ StateReturnType AIAttackPositionFireWeaponState::update()
 	obj->setStatus(OBJECT_STATUS_1B, false);
 	m_att->notifyFired();
 	return STATE_SUCCESS;
-}
-
-// Retail 0x003519F3, 466 bytes: slot 6 of vtable 0x00C112C0, whose name slot
-// 0x0033F517 returns "AIAttackSquadState". ZH AIStates.cpp's update gives the
-// skeleton (sub-machine update, sleep folded to CONTINUE, AI_IDLE check, crate
-// pickup, chooseVictim); BFME 2 adds the status 0x1C latch, the goal sync,
-// the approach/range gates and the same-player release.
-StateReturnType AIAttackSquadState::update()
-{
-	if (!m_attackSquadMachine)
-		return STATE_FAILURE;
-
-	StateMachine *machine = getMachine();
-	if (machine->getOwner()->testStatus(OBJECT_STATUS_1C))
-		m_sawStatus1C = true;
-	Object *owner = machine->getOwner();
-	AIUpdateInterface *ai = owner->getAI();
-	Object *goal = machine->getGoalObject();
-	if (goal != m_attackSquadMachine->getGoalObject())
-		m_attackSquadMachine->setGoalObject(goal);
-
-	StateReturnType status = m_attackSquadMachine->updateStateMachine();
-	if (status > STATE_CONTINUE)
-		status = STATE_CONTINUE;
-	if (!m_attackSquadMachine)
-		return STATE_CONTINUE;
-	if (m_attackSquadMachine->getCurrentStateID() != AI_IDLE)
-		return status;
-
-	Weapon *weapon = owner->getCurrentWeapon();
-	if (!weapon)
-		return STATE_FAILURE;
-	if (goal && !(goal->m_438 & 1) &&
-		!TheAI->pathfinder()->CanApproachToTarget(owner, goal->getPosition(), (Rva002C9B80Owner *)weapon, false))
-		return STATE_FAILURE;
-
-	if (owner->testStatus(OBJECT_STATUS_26) && owner->m_containedBy)
-		return STATE_SUCCESS;
-
-	Object *crate = ai->checkForCrateToPickup();
-	if (crate)
-	{
-		m_attackSquadMachine->setGoalObject(crate);
-		m_attackSquadMachine->setState(AI_PICK_UP_CRATE);
-		return STATE_CONTINUE;
-	}
-
-	Object *victim = chooseVictim();
-	if (!victim)
-		return STATE_SUCCESS;
-	if (!owner->testStatus(OBJECT_STATUS_41))
-	{
-		const ThingTemplate *tmpl = victim->getTemplate();
-		if (!(tmpl->m_kindOf[0x06] & 0x80) && !(tmpl->m_kindOf[0x13] & 0x08) && !(tmpl->m_kindOf[0x0B] & 0x40) &&
-			victim->getControllingPlayer() == owner->getControllingPlayer())
-		{
-			ai->rva00262B0F(0);
-			getMachine()->setGoalObject(0);
-			m_attackSquadMachine->setGoalObject(0);
-			return STATE_SUCCESS;
-		}
-	}
-
-	if (!weapon->isWithinAttackRange((const Object *)owner, victim, 0.0f, 1) && (!rva00343FB0(owner) || ai->m_3cc))
-		return STATE_FAILURE;
-
-	m_attackSquadMachine->setGoalObject(victim);
-	ai->setCurrentVictim(victim);
-	getMachine()->setGoalObject(victim);
-	ai->rva00262B0F((Int)victim);
-	m_attackSquadMachine->setState(AI_ATTACK_OBJECT);
-	return STATE_CONTINUE;
 }
