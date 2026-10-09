@@ -19,3 +19,14 @@ void StrategicHUD::RegionDetailsArmiesMovieClip::Impl::SetIconSlotCount(int coun
   }
  } else reinterpret_cast<_STL::vector<Rva005EFDE9Element,_STL::allocator<Rva005EFDE9Element> > *>(v)->resize(count);
 }
+
+class Rva00222A8BTarget;
+extern const char *const g_00C78D64[];
+int __cdecl Rva005252CDInvoke(Rva00222A8BTarget *,void *,const char *,const char *,const int &,const char *const &);
+// Complete75B native5EF4EF..5EF53A. WB1616AD0 names IconSlot::DoSetState.
+// Keep the shared address-derived owner until its whole virtual interface is named.
+void Rva005EEF2F::rva005EF4EF(int state) {
+ if(state==a)return;
+ Rva005252CDInvoke((Rva00222A8BTarget *)g_bfmeAptWindowManager,(void *)owner->level,owner->name.str(),"SetIconSlotState",index,g_00C78D64[state]);
+ a=state;
+}

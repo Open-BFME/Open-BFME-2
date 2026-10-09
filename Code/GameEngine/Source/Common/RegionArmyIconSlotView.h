@@ -131,6 +131,8 @@ struct RegionSlotOwnerView { unsigned level; AsciiString name; };
 #include "RegionDetailsArmiesClipOwnerFwd.h"
 class Rva005EEF2F : public Rva005EEF2FBase0,public Rva005EEF2FBase4 {
  public: Rva005EEF2F(StrategicHUD::RegionDetailsArmiesMovieClip::Impl *,int);
+ // Native75B state entry; name the address until the full virtual interface is reconciled.
+ void rva005EF4EF(int);
  void OnIconSlotClicked(const char *); void OnIconSlotRollOver(const char *); void OnIconSlotRollOut(const char *);
  protected: virtual ~Rva005EEF2F();
  private: RegionSlotOwnerView *owner; int index; AptCommandMapAdder commands; Rva005242D7 images;
