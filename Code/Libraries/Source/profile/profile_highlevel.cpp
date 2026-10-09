@@ -22,35 +22,7 @@ unsigned ProfileId::frameRecordMask;
 char ProfileId::stringBuf[ProfileId::STRING_BUFFER_SIZE];
 unsigned ProfileId::stringBufUnused;
 
-// Retail 0x006C5C60 (314 bytes); this Zero Hour body compiles to 245, not matched yet.
-// ??0ProfileId@@QAE@PBD00HH@Z present-unmatched
-ProfileId::ProfileId(const char *name, const char *descr, const char *unit, int precision, int exp10)
-{
-	m_next = first;
-	first = this;
-	m_name = (char *)ProfileAllocMemory(strlen(name) + 1);
-	strcpy(m_name, name);
-	if (descr)
-	{
-		m_descr = (char *)ProfileAllocMemory(strlen(descr) + 1);
-		strcpy(m_descr, descr);
-	}
-	else
-		m_descr = NULL;
-	if (unit)
-	{
-		m_unit = (char *)ProfileAllocMemory(strlen(unit) + 1);
-		strcpy(m_unit, unit);
-	}
-	else
-		m_unit = NULL;
-	m_precision = precision;
-	m_exp10 = exp10;
-	m_curVal = m_totalVal = 0.;
-	m_recFrameVal = NULL;
-	m_firstFrame = curFrame;
-	m_valueMode = Unknown;
-}
+// ProfileId constructor is recovered in ProfileIdConstructor.cpp (/Oi).
 
 // ?Increment@ProfileId@@QAEXN@Z
 void ProfileId::Increment(double add)
