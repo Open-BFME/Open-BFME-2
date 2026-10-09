@@ -9,6 +9,12 @@
 // caller 0x000603C0.
 #include <list>
 
+// Single-node erase binds the verified native STLport owner at RVA 0x00438539.
+// Retain the callers' out-of-line call without emitting a competing copy.
+namespace _STL {
+template<> list<int>::iterator list<int>::erase(iterator position);
+}
+
 // Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
 namespace _STL {
 template <class T, class Traits>
