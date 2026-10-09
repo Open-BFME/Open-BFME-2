@@ -46,7 +46,11 @@ public:
 	virtual void slot11(); virtual void slot12(); virtual void slot13();
 	virtual void slot14(); virtual void slot15(); virtual void slot16();
 	virtual void slot17();
-	virtual int OnMouseLeftClick(const IRegion2D &region, unsigned modifiers);	// slot 18 (+0x48)
+	// Slot 18 takes the region and the integer argument the base
+	// translateGameMessage fetches for it. int follows ZH, where the mouse
+	// click messages carry TheKeyboard->getModifierFlags() (an Int) after
+	// the region; retail cannot tell int from unsigned here.
+	virtual int OnMouseLeftClick(const IRegion2D &region, int modifiers);	// slot 18 (+0x48)
 };
 
 // The translators behind the behavior (ManualPhaseEnder.cpp's and
@@ -123,7 +127,7 @@ class StrategicInGameUI::PlanRetreatsPhaseBehavior::Impl : public UserInputTrans
 {
 public:
 	virtual GameMessageDisposition translateGameMessage(const GameMessage *msg);
-	virtual int OnMouseLeftClick(const IRegion2D &region, unsigned modifiers);
+	virtual int OnMouseLeftClick(const IRegion2D &region, int modifiers);
 
 private:
 	char m_pad04[0x10 - 0x04];
@@ -155,7 +159,7 @@ GameMessageDisposition StrategicInGameUI::PlanRetreatsPhaseBehavior::Impl::trans
 // changed. The slot's name is the base handler's (WB names the same slot's
 // overrides in the two ResolveBattlesBehavior units OnMouseLeftClick); the
 // second word is unused.
-int StrategicInGameUI::PlanRetreatsPhaseBehavior::Impl::OnMouseLeftClick(const IRegion2D &region, unsigned modifiers)
+int StrategicInGameUI::PlanRetreatsPhaseBehavior::Impl::OnMouseLeftClick(const IRegion2D &region, int modifiers)
 {
 	if (region.hi.x - region.lo.x > 0 || region.hi.y - region.lo.y > 0)
 		return 0;

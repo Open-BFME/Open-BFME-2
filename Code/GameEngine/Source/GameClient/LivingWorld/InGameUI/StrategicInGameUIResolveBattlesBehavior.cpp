@@ -54,7 +54,11 @@ public:
 	virtual void slot11(); virtual void slot12(); virtual void slot13();
 	virtual void slot14(); virtual void slot15(); virtual void slot16();
 	virtual void slot17();
-	virtual int OnMouseLeftClick(const IRegion2D &region, unsigned modifiers);	// slot 18 (+0x48)
+	// Slot 18 takes the region and the integer argument the base
+	// translateGameMessage fetches for it. int follows ZH, where the mouse
+	// click messages carry TheKeyboard->getModifierFlags() (an Int) after
+	// the region; retail cannot tell int from unsigned here.
+	virtual int OnMouseLeftClick(const IRegion2D &region, int modifiers);	// slot 18 (+0x48)
 };
 
 // The translators behind the behavior (ManualPhaseEnder.cpp's and
@@ -96,7 +100,7 @@ public:
 	void rva00576AF3();
  void Update();
  void CreateResolveRegionOwnershipChecklistItems();
- virtual int OnMouseLeftClick(const IRegion2D &region, unsigned modifiers);
+ virtual int OnMouseLeftClick(const IRegion2D &region, int modifiers);
 
 private:
 	char m_pad04[0x20 - 0x04];
@@ -280,7 +284,7 @@ struct ResolveClickView {
 // IRegion2D::width/height (pointer or reference: the codegen is the same).
 // The second word is unused here. Point temporaries end immediately after
 // picking, allowing retail's subsequent allocation reuse.
-int StrategicInGameUI::ResolveBattlesBehavior::Impl::OnMouseLeftClick(const IRegion2D &region, unsigned modifiers) {
+int StrategicInGameUI::ResolveBattlesBehavior::Impl::OnMouseLeftClick(const IRegion2D &region, int modifiers) {
  ResolveClickView *state=(ResolveClickView *)this;
  if(region.hi.x-region.lo.x>0 || region.hi.y-region.lo.y>0) return 0;
  if(!state->battle.p) {
