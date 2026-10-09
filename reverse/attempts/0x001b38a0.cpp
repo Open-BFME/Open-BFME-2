@@ -1,4 +1,6 @@
 // ?Render@LineGroupClass@@QAEXAAVRenderInfoClass@@@Z
+// partial score=0.888839749 date=2026-10-09
+// ?Render@LineGroupClass@@QAEXAAVRenderInfoClass@@@Z
 // partial score=0.8 date=2026-10-07
 // cl: /O2 /arch:SSE -DBFME_WWSTRING_NATIVE_CSTR_ASSIGN -Ireference/shims/wwstring_teardown/bfme -G7 -Ireference/shims/bfmerendobj -DNDEBUG -MD -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDownload -Ireference/open-bfme-1/game/Libraries/Source/Compression -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug -Ireference/shims/sweep -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDownload -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug -Ireference/open-bfme-1/game/Libraries/Source/Compression -Ireference/shims/sweep
 // Banked render: 4371B retail boundary ends at 0x001B49B3.
@@ -357,7 +359,7 @@ extern int IndexBufferExceptionFunc(void);
 #define	VALUE_NAME_RENDER_DEVICE_DEPTH				"RenderDeviceDepth"
 #define	VALUE_NAME_RENDER_DEVICE_WINDOWED			"RenderDeviceWindowed"
 #define	VALUE_NAME_RENDER_DEVICE_TEXTURE_DEPTH		"RenderDeviceTextureDepth"
-const unsigned MAX_TEXTURE_STAGES=8;
+const unsigned MAX_TEXTURE_STAGES=16;
 const unsigned MAX_VERTEX_STREAMS=2;
 const unsigned MAX_VERTEX_SHADER_CONSTANTS=96;
 const unsigned MAX_PIXEL_SHADER_CONSTANTS=8;
@@ -1124,13 +1126,13 @@ WWINLINE void DX8Wrapper::Set_Transform(D3DTRANSFORMSTATETYPE transform,const Ma
 	switch ((int)transform) {
 	case D3DTS_WORLD:
 		render_state.world=m.Transpose();
-		render_state_changed|=(unsigned)WORLD_CHANGED;
 		render_state_changed&=~(unsigned)WORLD_IDENTITY;
+		render_state_changed|=(unsigned)WORLD_CHANGED;
 		break;
 	case D3DTS_VIEW:
 		render_state.view=m.Transpose();
-		render_state_changed|=(unsigned)VIEW_CHANGED;
 		render_state_changed&=~(unsigned)VIEW_IDENTITY;
+		render_state_changed|=(unsigned)VIEW_CHANGED;
 		break;
 	case D3DTS_PROJECTION:
 		{
@@ -1153,13 +1155,13 @@ WWINLINE void DX8Wrapper::Set_Transform(D3DTRANSFORMSTATETYPE transform,const Ma
 	switch ((int)transform) {
 	case D3DTS_WORLD:
 		render_state.world=m2.Transpose();
-		render_state_changed|=(unsigned)WORLD_CHANGED;
 		render_state_changed&=~(unsigned)WORLD_IDENTITY;
+		render_state_changed|=(unsigned)WORLD_CHANGED;
 		break;
 	case D3DTS_VIEW:
 		render_state.view=m2.Transpose();
-		render_state_changed|=(unsigned)VIEW_CHANGED;
 		render_state_changed&=~(unsigned)VIEW_IDENTITY;
+		render_state_changed|=(unsigned)VIEW_CHANGED;
 		break;
 	default:
 		DX8_RECORD_MATRIX_CHANGE();
@@ -1678,7 +1680,7 @@ void	LineGroupClass::Render(RenderInfoClass &rinfo)
 
 		VertexFormatXYZNDUV2 *vb = lock.Get_Formatted_Vertex_Array();
 
-		Vector3 loc, start, end;
+		Vector3 start,end;
 		int point, j;
 		float size = DefaultLineSize;
 		Vector4 diffuse(DefaultLineColor.X, DefaultLineColor.Y, DefaultLineColor.Z, DefaultLineAlpha);		
@@ -1708,7 +1710,7 @@ void	LineGroupClass::Render(RenderInfoClass &rinfo)
 					vb++;
 
 					for (j=0; j<3; j++) {
-						loc.Set(start + size * offset[j]);
+						Vector3 loc=start+size*offset[j];
 						vb->x			= loc.X;
 						vb->y			= loc.Y;
 						vb->z			= loc.Z;
@@ -1721,7 +1723,7 @@ void	LineGroupClass::Render(RenderInfoClass &rinfo)
 			case PRISM:
 					// start cap
 					for (j = 0; j < 3; j++) {
-						loc.Set(start + size * offset[j]);
+						Vector3 loc=start+size*offset[j];
 						vb->x			= loc.X;
 						vb->y			= loc.Y;
 						vb->z			= loc.Z;
@@ -1735,7 +1737,7 @@ void	LineGroupClass::Render(RenderInfoClass &rinfo)
 
 					// end cap 
 					for (j=0; j<3; j++) {
-						loc.Set(end + size * offset[j]);
+						Vector3 loc=end+size*offset[j];
 						vb->x			= loc.X;
 						vb->y			= loc.Y;
 						vb->z			= loc.Z;
