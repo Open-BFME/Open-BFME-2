@@ -18,6 +18,7 @@ struct Rva005F918D {
     unsigned int m_word4;
     unsigned int m_word8;
     UnicodeString m_text0C;
+    Rva005F918D(const Rva005F918DHolder00 &, unsigned int, unsigned int, const UnicodeString &);
     ~Rva005F918D();
     Rva005F918D(const Rva005F918D &other);
 };
@@ -27,3 +28,8 @@ Rva005F918D::~Rva005F918D() {}
 // destructor establishes the native EH state and cleanup, absent in old trials.
 Rva005F918D::Rva005F918D(const Rva005F918D &other)
  : m_holder(other.m_holder), m_word4(other.m_word4), m_word8(other.m_word8), m_text0C(other.m_text0C) {}
+
+// Native005F90F6..005F9141: four input fields construct the same record.
+// Target releases the first holder when the final wide-string copy throws.
+Rva005F918D::Rva005F918D(const Rva005F918DHolder00 &h, unsigned int a, unsigned int b, const UnicodeString &text)
+ : m_holder(h), m_word4(a), m_word8(b), m_text0C(text) {}
