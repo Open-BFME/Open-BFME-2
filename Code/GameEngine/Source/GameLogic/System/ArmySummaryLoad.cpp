@@ -29,6 +29,12 @@ public:
 };
 class Rva0040CB11Entry {public:int key;Rva004F6093Holder value;};
 namespace _STL {
+// Keep the existing entry-destruction providers; this /Oy- caller needs no
+// new out-of-line copies of their /O1 template machinery.
+template<> void _Destroy<Rva0040CB11Entry>(Rva0040CB11Entry*);
+template<> void __destroy_aux<Rva0040CB11Entry*>(Rva0040CB11Entry*,Rva0040CB11Entry*,const __false_type&);
+template<> void __destroy<Rva0040CB11Entry*,Rva0040CB11Entry>(Rva0040CB11Entry*,Rva0040CB11Entry*,Rva0040CB11Entry*);
+template<> void _Destroy<Rva0040CB11Entry*>(Rva0040CB11Entry*,Rva0040CB11Entry*);
 template<> vector<Rva0040CB11Entry>::vector(const vector<Rva0040CB11Entry>&);
 template<class I,class C>void sort(I,I,C);
 template<class T,class A>class list;
