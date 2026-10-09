@@ -1,13 +1,34 @@
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata /ICode/Libraries/Include/Lib
+// stlport
 // ??0Object@@QAE@PBVThingTemplate@@PBUCreateMask@@PAVTeam@@W4ObjectID@@@Z
-// partial score=0.84 date=2026-10-09
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata /ICode/Libraries/Include/Lib
 // Object::Object retail 0x00298EA9 3525 bytes RET 0x14 (four arguments plus
 // the hidden most-derived flag of a class with a virtual base).
+//
+// Reconstructed from the banked attempt (reverse/attempts/0x00298ea9.cpp,
+// Zero Hour Object::Object donor; WorldBuilder twin 0x00CBA4F0). The real
+// STLport list/vector/map headers are required: their allocator temporaries
+// take the dead template slot [ebp+0xB] and the hidden most-derived flag slot
+// is then free for the spilled module cursor, as in retail (the private
+// _STL views placed them in the flag slot and grew the frame). Retail tests
+// the guarding-helper key guard (bit 8) with byte operations because the
+// constant 0x100 is also the defection kind-of test on dword +0x118 (bit 136,
+// read as byte +0x119 bit 0); the same holds for the repulsor 0x2000 test and
+// the firing-tracker data guard (bit 13). The m_249 module-kind query result
+// is held in a local (cmp eax ebx) and the attack-priority team name goes
+// through the prototype getter (receiver before the return slot push).
+// Callees use their ledger spellings: map<int void*> ctor 0x0033C432 with the
+// rowed Rva002913EB clear, bitset<128>::reset 0x0024CA24, protected setID,
+// getNthName returning BFMERetailAsciiString, and GameLogic::rva0023CAD9 /
+// registerObject (declared in the canonical GameLogic view).
 
+#include <list>
+#include <vector>
+#include <map>
 #include "ascii_string.h"
 #define BFME_SNAPSHOT_CAPITALIZED_SLOTS
 #include "Common/Snapshot.h"
 #include "Coord3D.h"
+#include "../../Common/GameLogicObjectLookupView.h"
 
 #pragma intrinsic(memset)
 template <> bool StringBase<char>::isEmpty() const throw();
@@ -18,7 +39,6 @@ class Object;
 class Thing;
 class ModuleData;
 class Module;
-enum ObjectID { INVALID_ID = 0 };
 enum NameKeyType { NAMEKEY_INVALID = 0 };
 enum ModuleType { MODULETYPE_BEHAVIOR = 0 };
 
@@ -35,12 +55,16 @@ public:
 	Overridable *m_nextOverride;				// +0x04
 };
 
+class BFMERetailAsciiString : public AsciiString
+{
+};
+
 struct ModuleInfoEntry { unsigned char m_data[20]; };
 class ModuleInfo
 {
 public:
 	int getCount() const { return m_end - m_begin; }
-	AsciiString getNthName(int i) const;
+	BFMERetailAsciiString getNthName(int i) const;
 	const ModuleData *getNthData(int i) const;
 	ModuleInfoEntry *m_begin;
 	ModuleInfoEntry *m_end;
@@ -54,8 +78,8 @@ public:
 	unsigned char m_pad014[0xA0 - 0x14];
 	unsigned char m_geometryInfo[0x5C];			// +0xA0
 	unsigned char m_0fc[0xC];				// +0xFC
-	unsigned int m_kindOf[4];				// +0x108
-	unsigned char m_pad118[0x2E4 - 0x118];
+	unsigned int m_kindOf[5];				// +0x108
+	unsigned char m_pad11C[0x2E4 - 0x11C];
 	ModuleInfo m_behaviorModuleInfo;			// +0x2E4
 	unsigned char m_pad2EC[0x4AC - 0x2EC];
 	float m_visionRange;					// +0x4AC
@@ -157,6 +181,7 @@ struct ObjectTeamView
 {
 	unsigned char m_pad00[0x30];
 	Rva00291775AsciiField *m_prototype;		// +0x30
+	Rva00291775AsciiField *getPrototype() const { return m_prototype; }
 };
 
 class AIUpdateInterface
@@ -167,16 +192,7 @@ public:
 	const AttackPriorityInfo *m_attackInfo;	// +0x70
 };
 
-struct GameLogicView
-{
-	unsigned char m_pad000[0x40];
-	unsigned int m_frame;					// +0x40
-	unsigned char m_pad044[0x178 - 0x44];
-	class Rva004381B0 *m_178;				// +0x178
-	ObjectID allocateObjectID();
-	void registerObject(Object *obj);
-};
-extern GameLogicView *TheGameLogic;
+extern GameLogic *TheGameLogic;
 class Rva004381B0 { public: void rva004381B0(float value); };
 
 struct AIDataView { unsigned char m_pad[0x64]; bool m_enableRepulsors; };
@@ -247,50 +263,29 @@ class Matrix3D { public: __forceinline Matrix3D() {} Vector4 Row[3]; };
 class Rva002913EB
 {
 public:
-	Rva002913EB();
-	~Rva002913EB();
 	void rva002913EB();
-	unsigned char m_data[0xC];
 };
 class Rva001EAE6FHelper { public: Rva001EAE6FHelper() { clear80(); } Rva001EAE6FHelper *clear80() throw(); unsigned char m_data[0x80]; };
 class WeaponSet { public: WeaponSet(); virtual ~WeaponSet(); unsigned char m_data[0x3C]; };
-class Rva0024CA24Bits { public: Rva0024CA24Bits() { reset(); } Rva0024CA24Bits &reset(); unsigned int m_bits[4]; };
+namespace _STL {
+template <unsigned _Bits> class bitset
+{
+public:
+	bitset() { reset(); }
+	bitset<_Bits> &reset();
+	unsigned long m_words[(_Bits + 31) / 32];
+};
+}
 class Rva0028C58B { public: Rva0028C58B() { rva0028C58B(); } Rva0028C58B *rva0028C58B(); unsigned char m_data[0x14]; };
 class TTriggerInfo { public: TTriggerInfo(); unsigned char m_data[8]; };
 
-namespace _STL {
-template <class T> class allocator { public: allocator() {} };
-template <class T, class A> class _List_base
+struct CameraMarker
 {
-public:
-	_List_base(const A &a);
-	~_List_base();
-	void *m_node;
+	~CameraMarker();
+	CameraMarker *m_next;
+	AsciiString m_name;
 };
-template <class T, class A = allocator<T> > class list : public _List_base<T, A>
-{
-public:
-	__forceinline list(const A &a = A()) : _List_base<T, A>(a) {}
-};
-template <class T, class A> class _Vector_base
-{
-public:
-	_Vector_base(const A &a) throw();
-	~_Vector_base();
-	T *_M_start;
-	T *_M_finish;
-	T *_M_end_of_storage;
-};
-template <class T, class A = allocator<T> > class vector : public _Vector_base<T, A>
-{
-public:
-	__forceinline vector(const A &a = A()) : _Vector_base<T, A>(a) {}
-	void push_back(const T &x);
-};
-}
-
-struct CameraMarker;
-struct BfmePod124;
+struct BfmePod124 { int a[31]; };
 struct CreateMask { BitFlags<117> m_status; };
 class Rva004E04FD { public: Rva004E04FD(); ~Rva004E04FD(); unsigned char m_data[0x18]; };
 
@@ -307,7 +302,9 @@ public:
 	virtual void base070Slot0();
 	virtual ~Object();
 
+protected:
 	void setID(ObjectID id);
+public:
 	void setTeam(Team *team);
 	Module *findModule(NameKeyType key) const;
 	void *rva0028BD92(int kind);
@@ -357,7 +354,7 @@ public:
 	BehaviorModule *m_physics;				// +0x25C
 	void *m_radarData;					// +0x260
 	Rva0039ADF3 *m_experienceTracker;			// +0x264
-	Rva002913EB m_268;					// +0x268
+	_STL::map<int, void *> m_268;				// +0x268
 	Object *m_containedBy;					// +0x274
 	ObjectID m_xferContainedByID;				// +0x278
 	unsigned int m_containedByFrame;			// +0x27C
@@ -371,7 +368,7 @@ public:
 	float m_324;						// +0x324
 	ZeroICoord2D m_328;					// +0x328
 	WeaponSet m_weaponSet;					// +0x330
-	Rva0024CA24Bits m_370;					// +0x370
+	_STL::bitset<128> m_370;				// +0x370
 	int m_380;						// +0x380
 	unsigned char m_384[6];					// +0x384
 	unsigned char m_pad38A[2];
@@ -426,9 +423,9 @@ public:
 
 Object::Object(const ThingTemplate *tt, const CreateMask *mask, Team *team, ObjectID id) :
 	Thing(tt),
-	m_id(INVALID_ID),
-	m_producerID(INVALID_ID),
-	m_builderID(INVALID_ID),
+	m_id(INVALID_OBJECT_ID),
+	m_producerID(INVALID_OBJECT_ID),
+	m_builderID(INVALID_OBJECT_ID),
 	m_80(0),
 	m_drawable(0),
 	m_8c(0),
@@ -459,7 +456,7 @@ Object::Object(const ThingTemplate *tt, const CreateMask *mask, Team *team, Obje
 	m_radarData(0),
 	m_experienceTracker(0),
 	m_containedBy(0),
-	m_xferContainedByID(INVALID_ID),
+	m_xferContainedByID(INVALID_OBJECT_ID),
 	m_containedByFrame(0),
 	m_constructionPercent(-1.0f),
 	m_team(0),
@@ -492,12 +489,12 @@ Object::Object(const ThingTemplate *tt, const CreateMask *mask, Team *team, Obje
 	m_49c(-1),
 	m_4a0(0),
 	m_4b0(false),
-	m_4c0(TheGameLogic ? TheGameLogic->m_frame : 0),
+	m_4c0(TheGameLogic ? TheGameLogic->getFrame() : 0),
 	m_4c4(0),
 	m_4c8(0),
 	m_4cc(0)
 {
-	m_268.rva002913EB();
+	((Rva002913EB *)&m_268)->rva002913EB();
 
 	int i;
 	for (i = 0; i < 11; i++)
@@ -523,8 +520,8 @@ Object::Object(const ThingTemplate *tt, const CreateMask *mask, Team *team, Obje
 
 	AsciiString modName;
 
-	if (id == INVALID_ID)
-		setID(TheGameLogic->allocateObjectID());
+	if (id == INVALID_OBJECT_ID)
+		setID((ObjectID)TheGameLogic->rva0023CAD9());
 	else
 		setID(id);
 
@@ -558,7 +555,7 @@ Object::Object(const ThingTemplate *tt, const CreateMask *mask, Team *team, Obje
 		*curB++ = (BehaviorModule *)m_228;
 	}
 
-	if (!(tt->m_kindOf[0] & 0x40) && !(tt->m_kindOf[3] & 2) && !(((const unsigned char *)tt->m_kindOf)[0x11] & 1))
+	if (!(tt->m_kindOf[0] & 0x40) && !(tt->m_kindOf[3] & 2) && !(tt->m_kindOf[4] & 0x100))
 	{
 		static const NameKeyType defectionModuleDataTagNameKey = TheNameKeyGenerator->nameToKey("ModuleTag_DefectionHelper");
 		static ObjectHelperModuleData defectionModuleData;
@@ -628,7 +625,8 @@ Object::Object(const ThingTemplate *tt, const CreateMask *mask, Team *team, Obje
 	static NameKeyType key_EmotionTrackerUpdate = TheNameKeyGenerator->nameToKey("EmotionTrackerUpdate");
 	m_24c = findModule(key_EmotionTrackerUpdate);
 
-	if (rva0028BD92(0x2a))
+	void *kind2AModule = rva0028BD92(0x2a);
+	if (kind2AModule)
 		m_249 = true;
 
 	AIUpdateInterface *ai = m_ai;
@@ -637,7 +635,7 @@ Object::Object(const ThingTemplate *tt, const CreateMask *mask, Team *team, Obje
 		ai->rva0026DE3B(m_team->m_prototype->m_initialTeamAttitude);
 		if (m_team && m_team->m_prototype && AsciiNotEmpty::test(m_team->m_prototype->get()))
 		{
-			AsciiString name = m_team->m_prototype->get();
+			AsciiString name = m_team->getPrototype()->get();
 			const AttackPriorityInfo *info = TheScriptEngine->getAttackInfo(name);
 			if (info && !((const StringBase<char> *)&info->m_name)->isEmpty())
 				ai->m_attackInfo = info;
@@ -655,10 +653,10 @@ Object::Object(const ThingTemplate *tt, const CreateMask *mask, Team *team, Obje
 	TheRadar->addObject(this);
 	TheGameLogic->registerObject(this);
 
-	m_428 = tt->m_occlusionDelay + TheGameLogic->m_frame;
+	m_428 = tt->m_occlusionDelay + TheGameLogic->getFrame();
 
 	if (g_00DFE758->m_filter.testTemplate(tt, 0, 0))
-		TheGameLogic->m_178->rva004381B0(tt->m_10);
+		((Rva004381B0 *)TheGameLogic->getManager178())->rva004381B0(tt->m_10);
 
 	rva0028DCC4();
 }

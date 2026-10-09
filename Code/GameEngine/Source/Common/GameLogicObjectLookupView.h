@@ -99,6 +99,8 @@ public:
 	int rva0023D08B(int value);	// 0x0023D08B, existing +0x184 forwarder
 	void rva0023D0C2(Object *obj, int handle);	// 0x0023D0C2
 	Object *getFirstObject();	// 0x0023CAD2
+	int rva0023CAD9();	// 0x0023CAD9, next ObjectID for Object::Object 0x00298EA9
+	void registerObject(Object *obj);	// 0x00242AE9, called by Object::Object 0x00298EA9
 	void destroyObject(Object *obj);	// 0x00242C09
 	void sendObjectDestroyed(Object *obj);	// 0x0023CD67, called by Object::~Object 0x00299CE4
 	void rva0023CF8B();	// 0x0023CF8B, called by AptLoadScreen::init 0x0043A5F6
