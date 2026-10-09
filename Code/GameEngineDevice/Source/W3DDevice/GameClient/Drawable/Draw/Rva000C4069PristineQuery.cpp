@@ -2,6 +2,10 @@
 // stlport
 // BF1 clean W3DModelDrawGetPristineBonePositionsForConditionState donor
 // rev9cbfb551 preserves the seven-argument query and missing-bone fallback.
+// The three containing secondary tables belong to Scripted/Quadruped/Supply
+// objects. That proves table association; it does not distinguish an inherited
+// base implementation from a Scripted override. Keep an address-derived
+// owner until the declaring class is independently established.
 // Native C4069..C433A721B independently proves ObjectDrawInterface this+0C,
 // current state at whole14, render object50, drawable-owned bones364,
 // static64-matrix scratch and optional bone-index output. Drawable27274D
@@ -152,18 +156,18 @@ public:
 	virtual void objectDrawSlot00() const = 0;
 	virtual void objectDrawSlot01() const = 0;
 	virtual void objectDrawSlot02() const = 0;
-	virtual Int getPristineBonePositionsForConditionState(const ModelConditionFlags &condition,
+	virtual Int rva000C4069(const ModelConditionFlags &condition,
 		const char *boneNamePrefix, Int startIndex, Coord3D *positions, Matrix3D *transforms,
 		Int maxBones, Int *boneIndices) const = 0;
 };
 
-class W3DModelDraw : public DrawModule, public ObjectDrawInterface
+class Rva000C4069 : public DrawModule, public ObjectDrawInterface
 {
 public:
 	virtual void objectDrawSlot00() const;
 	virtual void objectDrawSlot01() const;
 	virtual void objectDrawSlot02() const;
-	virtual Int getPristineBonePositionsForConditionState(const ModelConditionFlags &condition,
+	virtual Int rva000C4069(const ModelConditionFlags &condition,
 		const char *boneNamePrefix, Int startIndex, Coord3D *positions, Matrix3D *transforms,
 		Int maxBones, Int *boneIndices) const;
 
@@ -179,7 +183,7 @@ public:
 	RenderObjClass *m_renderObject;						///< target +0x50
 };
 
-Int W3DModelDraw::getPristineBonePositionsForConditionState(
+Int Rva000C4069::rva000C4069(
 	const ModelConditionFlags &condition,
 	const char *boneNamePrefix,
 	Int startIndex,
