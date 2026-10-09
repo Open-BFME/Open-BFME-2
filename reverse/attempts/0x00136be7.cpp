@@ -1,5 +1,5 @@
-// ?rva00136E95@@YAXPAVRenderObjClass@@PAURva00136F5BRange@@11@Z
-// partial score=0.99 date=2026-10-09
+// ?SwitchTextureOnMesh@@YAXPAVSwitchMeshView@@ABV?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@1@Z
+// partial score=0.97 date=2026-10-09
 // cl: /O1 /Ob1 /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii
 // stlport
 // Native136BE7..136E95 SwitchTextureOnMesh (WB9B3140 renderasset.cpp90).
