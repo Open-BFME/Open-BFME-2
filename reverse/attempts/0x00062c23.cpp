@@ -1,4 +1,6 @@
 // ?rva00062C23@Rva00062C23Host@@QAEMPBUCoord3D@@0@Z
+// partial score=0.8714285714285714 date=2026-10-09
+// ?rva00062C23@Rva00062C23Host@@QAEMPBUCoord3D@@0@Z
 // partial score=0.705882 date=2026-10-09
 // cl: /O1 /Oy- /DNDEBUG /MD /arch:SSE /ICode/Libraries/Include
 #include "Lib/Coord3D.h"
