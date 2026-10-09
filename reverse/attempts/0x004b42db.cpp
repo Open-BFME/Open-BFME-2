@@ -1,13 +1,18 @@
-// ?update@UpdateModuleInterface@@UAE?AW4UpdateSleepTime@@XZ
-// partial score=0.46 date=2026-10-05
-// cl: /O1 /arch:SSE /DNDEBUG /MD /EHsc
+// ?rva004B42DB@ObjectCreationUpgradeUpdateView@@QAE?AW4UpdateSleepTime@@XZ
+// partial score=0.7 date=2026-10-10
+// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii /ICode/Libraries/Include
 //
-// ?update@UpdateModuleInterface@@UAE?AW4UpdateSleepTime@@XZ, target 0x004B42DB (753 bytes).
+// ?rva004B42DB@ObjectCreationUpgradeUpdateView@@QAE?AW4UpdateSleepTime@@XZ, target 0x004B42DB (753 bytes).
 // Target identity: ObjectCreationUpgrade ctor 0x004B40A6 stores vptr 0x00C57560
 // at object+0x18; its slot 0 is this body. The matched ObjectCreationUpgrade
 // module-data ctor at 0x004B425B establishes the data pointer at owner+0x0C.
 // Donor semantics and interface spelling: reference/open-bfme-1/game/.../
-// ObjectCreationUpgradeUpdate.cpp (pointer 6583b3c1ff21db4a561285717028fdafc780b7db).
+// ObjectCreationUpgradeUpdate.cpp (pointer f98983a7d).
+// New target repairs: special-context rejection returns1; BuildAssistant slot14
+// passes FIVE arguments; fade input/output are unsigned; named existing globals
+// replace the old hard-coded addresses. Context currentView is not substituted
+// into later owner accesses because the special branch returns or applies upgrades.
+// Virtual-view names are structural emitter labels, not additional target types.
 // Target-only offsets and call paths are from BFME2 retail bytes; field labels
 // remain donor-derived where the retail table establishes only an offset.
 
@@ -22,25 +27,8 @@ enum NameKeyType
 	NK_UNKNOWN = 0
 };
 
-struct Coord3D
-{
-	float x;
-	float y;
-	float z;
-
-	void set(const Coord3D *src)
-	{
-		*this = *src;
-	}
-};
-
-class AsciiString
-{
-	void *m_buffer;
-public:
-	bool isEmpty() const;
-};
-
+#include "Lib/Coord3D.h"
+#include "ascii_string.h"
 class Team;
 class Player;
 class Module;
@@ -98,7 +86,7 @@ public:
 	}
 };
 
-class Rva00484869
+class SlaveWatcherBehavior
 {
 public:
 	void rva00484869(int objectID);
@@ -157,7 +145,7 @@ public:
 	virtual bool accept(const ThingTemplate *thing, int objectID, int token);
 };
 
-class Rva00E027B8Factory
+class Rva00A027B8
 {
 public:
 	virtual void slot00();
@@ -175,13 +163,13 @@ public:
 	virtual void slot12();
 	virtual void slot13();
 	virtual Object *createObject(Object *owner, const ThingTemplate *thing,
-		const Coord3D *position, float angle, Team *team, Player *controller);
+		const Coord3D *position, float angle, Player *controller);
 };
 
-class UpdateModuleInterface
+class ObjectCreationUpgradeUpdateView
 {
 public:
-	virtual UpdateSleepTime update() = 0;
+	UpdateSleepTime rva004B42DB();
 };
 
 struct ObjectCreationUpgradeModuleDataView
@@ -199,7 +187,7 @@ struct ObjectCreationUpgradeModuleDataView
 	int m_140;
 	int m_144;
 	int m_148;
-	int m_fadeInMilliseconds;		// +0x14C
+	unsigned m_fadeInMilliseconds;		// +0x14C
 	unsigned char m_specialPath;		// +0x150
 };
 
@@ -213,27 +201,35 @@ struct ObjectCreationUpgradeView
 	bool m_updatePending;			// +0x2C
 };
 
-UpdateSleepTime UpdateModuleInterface::update()
+class GameLogic;
+extern GameLogic *TheGameLogic;
+extern ThingFactory *TheThingFactory;
+extern UpgradeCenter *TheUpgradeCenter;
+extern NameKeyGenerator *TheNameKeyGenerator;
+extern Rva00A027B8 *g_00A027B8;
+extern float g_00DBA500;
+
+UpdateSleepTime ObjectCreationUpgradeUpdateView::rva004B42DB()
 {
 	char *currentView = (char *)this;
 	ObjectCreationUpgradeView *upgrade =
 		(ObjectCreationUpgradeView *)(currentView - 0x18);
 	if (!upgrade->m_updatePending ||
-		*(unsigned int *)(*(unsigned int *)0x00DFE78C + 0x40) <= upgrade->m_nextFrame)
+		*(unsigned int *)((char *)TheGameLogic + 0x40) <= upgrade->m_nextFrame)
 	{
 		return UPDATE_SLEEP_NONE;
 	}
 
-	ObjectCreationUpgradeModuleDataView *data =
+	const ObjectCreationUpgradeModuleDataView *data =
 		*(ObjectCreationUpgradeModuleDataView **)(currentView - 0x0C);
 	if (!data)
 		goto apply_upgrades;
 
-	if (data->m_thingToSpawn.isEmpty())
+	if (((const StringBase<char> &)data->m_thingToSpawn).isEmpty())
 		goto apply_upgrades;
 
 	const ThingTemplate *thingTemplate =
-		((ThingFactory *)*(void **)0x00DFF000)->findTemplate(data->m_thingToSpawn);
+		TheThingFactory->findTemplate(data->m_thingToSpawn);
 
 	if (data->m_specialPath)
 	{
@@ -243,15 +239,17 @@ UpdateSleepTime UpdateModuleInterface::update()
 		if (!context)
 			goto apply_upgrades;
 
-		currentView = (char *)context;
-		int token = context->prepare(-1, 0, (const void *)0x00DE0878, 1);
+		int token = context->prepare(-1, 0, &AsciiString::TheEmptyString, 1);
 		if (context->accept(thingTemplate, -1, token))
 			goto apply_upgrades;
+		return UPDATE_SLEEP_NONE;
 	}
 
 	Object *owner = *(Object **)(currentView - 8);
 	Coord3D position;
-	position.set((const Coord3D *)((const char *)owner + 0x38));
+	position.x = ((const Coord3D *)((const char *)owner + 0x38))->x;
+	position.y = ((const Coord3D *)((const char *)owner + 0x38))->y;
+	position.z = ((const Coord3D *)((const char *)owner + 0x38))->z;
 
 	const float *matrix = (const float *)((const char *)owner + 0x08);
 	Coord3D offset;
@@ -262,43 +260,43 @@ UpdateSleepTime UpdateModuleInterface::update()
 	transformed.x = matrix[1] * offset.y + matrix[2] * offset.z;
 	transformed.x += matrix[0] * offset.x;
 	transformed.x += matrix[3];
-	transformed.y = matrix[5] * offset.y + matrix[4] * offset.x;
+	transformed.y = matrix[4] * offset.x + matrix[5] * offset.y;
 	transformed.y += matrix[6] * offset.z;
 	transformed.y += matrix[7];
 	transformed.z = matrix[8] * offset.x + matrix[9] * offset.y;
 	transformed.z += matrix[10] * offset.z;
 	transformed.z += matrix[11];
-	position.set(&transformed);
+	position = transformed;
 
-	Rva00E027B8Factory *factory =
-		*(Rva00E027B8Factory **)0x00E027B8;
+	owner = *(Object **)(currentView - 8);
+	Rva00A027B8 *factory = g_00A027B8;
 	float ownerAngle = *(const float *)((const char *)owner + 0x44);
 	Player *controller = owner->getControllingPlayer();
 	float angle = data->m_angleOffset + ownerAngle;
-	Team *team = owner->getTeam();
 	Object *spawned = factory->createObject(owner, thingTemplate,
-		&position, angle, team, controller);
+		&position, angle, controller);
 
 	if (spawned)
 	{
 		if (spawned->getDrawable())
 		{
-			int frames = (int)(data->m_fadeInMilliseconds
-				* *(const float *)0x00DBA500);
+			unsigned frames = (unsigned)(data->m_fadeInMilliseconds
+				* g_00DBA500);
 			spawned->getDrawable()->fadeIn(frames);
 		}
 
-		float spawnAngle = *(const float *)((const char *)owner + 0x44);
-		spawnAngle += data->m_angleOffset;
+		owner = *(Object **)(currentView - 8);
+		float spawnAngle = data->m_angleOffset + *(const float *)((const char *)owner + 0x44);
 		*(float *)((char *)spawned + 0x1C0) = spawnAngle;
 		spawned->setPosition(&position);
 
 		static NameKeyType slaveWatcherKey =
-			((NameKeyGenerator *)*(void **)0x00DF36A4)
+			TheNameKeyGenerator
 				->nameToKey("SlaveWatcherBehavior");
+		owner = *(Object **)(currentView - 8);
 		Module *slaveWatcher = owner->findModule(slaveWatcherKey);
 		if (slaveWatcher)
-			((Rva00484869 *)slaveWatcher)->rva00484869(spawned->getID());
+			((SlaveWatcherBehavior *)slaveWatcher)->rva00484869(spawned->getID());
 
 		void **entries = *(void ***)((char *)spawned + 0x244);
 		while (*entries)
@@ -319,22 +317,22 @@ UpdateSleepTime UpdateModuleInterface::update()
 apply_upgrades:
 	{
 		const UpgradeTemplate *upgradeToGrant =
-			((UpgradeCenter *)*(void **)0x00DFEB60)
+			TheUpgradeCenter
 				->findUpgrade(data->m_upgradeToGrant);
 		if (upgradeToGrant)
 		{
-			Object *currentOwner = *(Object **)(currentView - 8);
+			Object *currentOwner = *(Object **)((char *)this - 8);
 			currentOwner->rva00293077(upgradeToGrant);
 		}
 	}
 
 	{
 		const UpgradeTemplate *upgradeToRemove =
-			((UpgradeCenter *)*(void **)0x00DFEB60)
+			TheUpgradeCenter
 				->findUpgrade(data->m_upgradeToRemove);
 		if (upgradeToRemove)
 		{
-			Object *currentOwner = *(Object **)(currentView - 8);
+			Object *currentOwner = *(Object **)((char *)this - 8);
 			currentOwner->rva00290D42(upgradeToRemove);
 		}
 	}
