@@ -23,6 +23,23 @@ class CreateAHeroHero
 public:
 	Int GetBlingCount(Int blingKey) const;			// 0x004079F4
 	Int GetBlingId(Int blingKey, UnsignedInt index) const;	// 0x00407A29
+	// 0x004098BE (WorldBuilder places it in CreateAHeroHero.cpp): takes a
+	// file name and a flag; rva0021A428 hands it "MyHero.dat".
+	Bool rva004098BE(const AsciiString &fileName, Bool flag);
+};
+
+// The same hero object under the names its rowed copy and setter carry:
+// operator= at 0x00409359 and the +4 setter at 0x00406E47.
+class CreateAHeroData
+{
+public:
+	CreateAHeroData &operator=(const CreateAHeroData &that);
+};
+
+class Rva00406E47
+{
+public:
+	Bool rva00406E47(Int value);
 };
 
 // A bling entry starts with its name and description string tags.
@@ -197,13 +214,16 @@ public:
 	void *GetBling(UnsignedInt blingId);			// 0x00219D85
 	const CreateAHeroHero *GetHeroForPlayer(const Player *player);
 	CreateAHeroClass *rva0021B31C(const AsciiString &upgradeName);
+	void rva0021A428(const CreateAHeroData &hero);
 
 private:
 	Int rva00219309() const;				// 0x00219309, required-button count
 
 	unsigned char m_pad04[0xc - 0x4];
 	CreateAHeroHero m_localHero;				// +0x0C, used without a game
-	unsigned char m_pad0D[0x14c - 0xd];
+	unsigned char m_pad0D[0x58 - 0xd];
+	AsciiString m_localHeroName;				// +0x58 (local hero +0x4C)
+	unsigned char m_pad5C[0x14c - 0x5c];
 	std::vector<CreateAHeroClass> m_classes;		// +0x14C
 	unsigned char m_pad158[0x15c - 0x158];
 	std::vector<CreateAHeroBlingEntry> m_blings;		// +0x15C
@@ -464,4 +484,16 @@ CreateAHeroManager::CreateAHeroClass *CreateAHeroManager::rva0021B31C(const Asci
 			return &m_classes[i];
 	}
 	return 0;
+}
+
+// Retail 0x0021A428 (callers AptSkirmish::InitCreateAHeroOnStartGame and the
+// two hero-box Run handlers): copies the hero into the local hero, clears its
+// +4 field through the rowed setter, and when the local hero has a name passes
+// "MyHero.dat" to 0x004098BE.
+void CreateAHeroManager::rva0021A428(const CreateAHeroData &hero)
+{
+	*(CreateAHeroData *)&m_localHero = hero;
+	((Rva00406E47 *)&m_localHero)->rva00406E47(0);
+	if (!((const StringBase<char> *)&m_localHeroName)->isEmpty())
+		m_localHero.rva004098BE(AsciiString("MyHero.dat"), false);
 }
