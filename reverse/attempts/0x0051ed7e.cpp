@@ -1,5 +1,12 @@
 // ?rva0051ED7E@AptTimeLine@@QAEXXZ
-// partial score=0.6 date=2026-10-05
+// partial score=0.94 date=2026-10-09
+// ?rva0051ED7E@AptTimeLine@@QAEXXZ
+// partial score=0.94 date=2026-10-09
+// Fresh compile340B versus native345B; all call sites resolve. Native uses
+// the early shared enable block at51EDF2; compiler places it after the
+// transition callback and retains a different mode1 branch. /O2 emits448B.
+// Matched providers supply current transition/Mouse/private ABI and the
+// nontrivial counted callback copy/destruction; original bank supplied layout.
 // cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /O1 /DNDEBUG /MD /arch:SSE /G7 /EHsc /D_STLP_USE_STATIC_LIB
 // stlport
 //
@@ -184,7 +191,7 @@ extern int g_Va00E048DC;
 class GameLogic
 {
 public:
-	void rva0023D0CD();
+	void TransitionFromLivingWorldTacticalBattle();
 };
 
 extern GameLogic *TheGameLogic;
@@ -214,8 +221,9 @@ extern Rva00222A8BTarget *TheRva00222A8BTarget;
 
 class Mouse
 {
-public:
+private:
 	void commitPendingCursor();
+    friend class AptTimeLine;
 };
 
 extern Mouse *TheMouse;
@@ -223,18 +231,22 @@ extern Mouse *TheMouse;
 // A counted callback holder (Rva00080221Ctor.cpp's view); the unrowed
 // 0x003FE7E6 registers one and answers its id through the pointer, and
 // 0x003FEC05 is the callback registered here (both pinned by address).
+struct TargetRef00217D4C { virtual void *destroy(unsigned flags); int references; };
+void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
 class Rva00211E75
 {
 public:
 	Rva00211E75(const int *arg);
-	~Rva00211E75();
+    Rva00211E75(const Rva00211E75 &other) : m_impl(other.m_impl) { if(m_impl) ++m_impl->references; }
+    ~Rva00211E75() { if(m_impl) ReleaseTreeHintRef00217D4C(m_impl); }
 
 private:
-	void *m_impl;
+	TargetRef00217D4C *m_impl;
 };
 
-bool __cdecl Rva003FE7E6(Rva00211E75 callback, int *id);
-void __cdecl Rva003FEC05();
+class Rva00211E75Callback : public Rva00211E75 { public: Rva00211E75Callback(const int*p) : Rva00211E75(p) {} };
+bool __cdecl Rva003FE7E6(Rva00211E75Callback callback, int *id);
+int __cdecl Rva003FEC05FadeScreenRegionToMapBlack(int,bool);
 
 extern int g_Va00E02EC4;
 
@@ -349,13 +361,13 @@ void AptTimeLine::rva0051ED7E()
 		}
 		else if (!(char)((Rva002B3753 *)g_009FEF10)->rva002B3753())
 		{
-			TheGameLogic->rva0023D0CD();
+			TheGameLogic->TransitionFromLivingWorldTacticalBattle();
 			g_Va00A01E48->m_54 = true;
 			((Rva00222479ByteOneSetter *)TheRva00222A8BTarget)->enable();
 			TheMouse->commitPendingCursor();
 			TheRva00222A8BTarget->rva00222F55(true);
-			int callback = (int)Rva003FEC05;
-			Rva003FE7E6(Rva00211E75(&callback), &g_Va00E02EC4);
+			int callback = (int)Rva003FEC05FadeScreenRegionToMapBlack;
+			Rva003FE7E6(Rva00211E75Callback(&callback), &g_Va00E02EC4);
 			return;
 		}
 		((Rva00222479ByteOneSetter *)TheRva00222A8BTarget)->enable();
@@ -374,4 +386,4 @@ void AptTimeLine::rva0051ED7E()
 }
 
 // Retail's strcpy call lands on the import thunk rowed as ji_00629176.
-#pragma comment(linker, "/alternatename:_strcpy=?ji_00629176@@YAXXZ")
+
