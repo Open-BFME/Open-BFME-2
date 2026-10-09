@@ -124,6 +124,96 @@ public:
 	DX8IndexBufferClass(unsigned index_count, UsageType usage);
 };
 
+// The Xfer virtual declaration follows the already verified E5725 provider.
+// Only Version is stored here; the geometry types are reference parameters.
+class Xfer;
+class AsciiString;
+class UnicodeString;
+class PooledString;
+class Snapshot;
+struct XferUnknown11;
+struct Coord3DBase;
+struct ICoord3D;
+struct Region3D;
+struct IRegion3D;
+struct Coord2D;
+struct ICoord2D;
+struct Region2D;
+struct IRegion2D;
+struct RealRange;
+struct RGBColor;
+struct RGBAColorReal;
+struct RGBAColorInt;
+class Xfer
+{
+public:
+	class Version;
+
+	Xfer();
+	virtual ~Xfer();
+
+	void Version1();
+
+	virtual bool IsLoading() const;
+	virtual bool IsStoring() const;
+	virtual bool IsCRC() const;
+	virtual bool IsLightCRC() const;
+
+	virtual void v5() = 0;
+	virtual void v6() = 0;
+	virtual void v7() = 0;
+
+	virtual void SkipBadBlock(Snapshot &snapshot, unsigned int size);
+	virtual Xfer &XferRawBytes(void *data, unsigned int size);
+	virtual Xfer &operator==(bool &value);
+	virtual Xfer &operator==(char &value);
+	virtual Xfer &operator==(unsigned char &value);
+	virtual Xfer &operator==(short &value);
+	virtual Xfer &operator==(unsigned short &value);
+	virtual Xfer &operator==(int &value);
+	virtual Xfer &operator==(unsigned int &value);
+	virtual Xfer &operator==(__int64 &value);
+	virtual Xfer &operator==(float &value);
+	virtual Xfer &operator==(AsciiString &value);
+	virtual Xfer &operator==(UnicodeString &value);
+	virtual Xfer &operator==(PooledString &value);
+	virtual Xfer &operator==(Coord3DBase &value);
+	virtual Xfer &operator==(ICoord3D &value);
+	virtual Xfer &operator==(Region3D &value);
+	virtual Xfer &operator==(IRegion3D &value);
+	virtual Xfer &operator==(Coord2D &value);
+	virtual Xfer &operator==(ICoord2D &value);
+	virtual Xfer &operator==(Region2D &value);
+	virtual Xfer &operator==(IRegion2D &value);
+	virtual Xfer &operator==(RealRange &value);
+	virtual Xfer &operator==(RGBColor &value);
+	virtual Xfer &operator==(RGBAColorReal &value);
+	virtual Xfer &operator==(RGBAColorInt &value);
+	virtual Xfer &operator==(Snapshot &value);
+	virtual Xfer &operator==(XferUnknown11 &value) = 0;
+	virtual Xfer &operator==(Version &value);
+
+	virtual Xfer &XferEnum(const char *name, void *data, unsigned int size);
+
+	void xferAsciiString(AsciiString *value) { *this == *value; }
+
+protected:
+	virtual void XferData(unsigned int type, void *data, unsigned int size) = 0;
+};
+
+class Xfer::Version
+{
+public:
+	Version(unsigned char current, unsigned char minimum)
+		: m_current(current), m_minimum(minimum) {}
+
+	unsigned char m_current;
+	unsigned char m_minimum;
+};
+
+
+class Rva000E5725 { public: void rva000E5725(Xfer *xfer); };
+
 class Drawable;
 class GameClient;
 extern GameClient *TheGameClient;
@@ -159,6 +249,7 @@ public:
 	void rva000E473F();
 	void allocateFloorBuffers();
 	void rva000E598B();
+	void DoXfer(Xfer *xfer);
 	Gen_uw_000e5033 *addFloor(int id, AsciiString *name, AsciiString *second, bool front, bool flag);
 
 private:
@@ -252,4 +343,51 @@ Gen_uw_000e5033 *W3DFloorBuffer::addFloor(int id, AsciiString *name, AsciiString
     }
     delete floor;
     return 0;
+}
+
+// WB8854D0 names DoXfer; native E6186..E6350 is the complete 458-byte
+// RET4 body. Version 3, loading/store branches, element construction and
+// cleanup, all transferred scalar/matrix fields and list traversal agree.
+// The stack element and its unwind action use the shared verified layout.
+void W3DFloorBuffer::DoXfer(Xfer *xfer)
+{
+    if (xfer->IsLightCRC()) return;
+    Xfer::Version version(3,3);
+    *xfer == version;
+    int count = m_floors.size();
+    *xfer == count;
+    if (xfer->IsLoading()) {
+        rva000E598B();
+        for (int index=0; index<count; ++index) {
+            Gen_uw_000e5033 current;
+            reinterpret_cast<Rva000E5725 *>(&current)->rva000E5725(xfer);
+            Gen_uw_000e5033 *floor = addFloor(current.m_id4c, &current.m_name8c, &current.m_name90, current.m_flag82, current.m_flag81);
+            if (floor) {
+                floor->m_matrix50.rows[0].x = current.m_matrix50.rows[0].x;
+                floor->m_matrix50.rows[0].y = current.m_matrix50.rows[0].y;
+                floor->m_matrix50.rows[0].z = current.m_matrix50.rows[0].z;
+                floor->m_matrix50.rows[0].w = current.m_matrix50.rows[0].w;
+                floor->m_matrix50.rows[1].x = current.m_matrix50.rows[1].x;
+                floor->m_matrix50.rows[1].y = current.m_matrix50.rows[1].y;
+                floor->m_matrix50.rows[1].z = current.m_matrix50.rows[1].z;
+                floor->m_matrix50.rows[1].w = current.m_matrix50.rows[1].w;
+                floor->m_matrix50.rows[2].x = current.m_matrix50.rows[2].x;
+                floor->m_matrix50.rows[2].y = current.m_matrix50.rows[2].y;
+                floor->m_matrix50.rows[2].z = current.m_matrix50.rows[2].z;
+                floor->m_matrix50.rows[2].w = current.m_matrix50.rows[2].w;
+                floor->m_active80 = current.m_active80;
+                floor->m_flag81 = current.m_flag81;
+                floor->m_flag82 = current.m_flag82;
+                floor->m_opacity84 = current.m_opacity84;
+                floor->m_speed88 = current.m_speed88;
+                floor->m_94 = current.m_94;
+                floor->m_state98 = current.m_state98;
+                floor->m_flag9c = current.m_flag9c;
+                floor->m_flag9d = current.m_flag9d;
+            }
+        }
+    } else {
+        for (_STL::list<Gen_uw_000e5033 *>::iterator it=m_floors.begin(); it._M_node != m_floors.end()._M_node; ++it)
+            reinterpret_cast<Rva000E5725 *>(*it)->rva000E5725(xfer);
+    }
 }
