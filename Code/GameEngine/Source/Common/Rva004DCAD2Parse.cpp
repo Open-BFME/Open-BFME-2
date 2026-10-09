@@ -29,12 +29,20 @@ public:
 class Rva004DCAD2 {public: void rva004DCAD2(INI *);};
 class BfmeEmotionName;
 class EmotionNugget;
-class MultiplayerColorDefinition;
+class MultiplayerColorDefinition {public: AsciiString getTooltipName() const throw();};
 class CreateAHeroData;
+// Retail's EmotionSystem template registry is a pointer vector at +0x0C.
+struct EmotionTemplateListView {
+ MultiplayerColorDefinition **first, **last, **limit;
+ unsigned size() const { return last - first; }
+ MultiplayerColorDefinition *operator[](unsigned i) const { return first[i]; }
+};
 class EmotionSystem {
 public:
  EmotionNugget *findNugget(const BfmeEmotionName &);
  void AddEmotionNuggetTemplate(MultiplayerColorDefinition *);
+ unsigned char m_head[0xC];
+ EmotionTemplateListView m_templates;
 };
 class Rva00426612 {public: void rva00426612(CreateAHeroData *);};
 extern EmotionSystem *TheEmotionSystem;
@@ -70,4 +78,19 @@ extern const FieldParse g_00C61310[];
 void Rva004DCAD2::rva004DCAD2(INI *ini)
 {
 	ini->initFromINI(this, g_00C61310);
+}
+
+// BFME1 INI_Emotion.cpp 0bef414 supplies findNugget's name-search loop.
+// WB C948C0 and native 4264F4..426556 independently prove the +0C/+10
+// pointer range, copied name, comparison, cleanup and first matching entry.
+// Existing name-copy provider returns a retained string without allocating;
+// its nonthrowing declaration permits the retail loop without an EH frame.
+// Legacy payload names above are retained ABI spellings, not class recovery.
+EmotionNugget *EmotionSystem::findNugget(const BfmeEmotionName &name)
+{
+ for(unsigned i=0;i<m_templates.size();++i) {
+  if(m_templates[i]->getTooltipName() == reinterpret_cast<const AsciiString &>(name))
+   return reinterpret_cast<EmotionNugget *>(m_templates[i]);
+ }
+ return 0;
 }
