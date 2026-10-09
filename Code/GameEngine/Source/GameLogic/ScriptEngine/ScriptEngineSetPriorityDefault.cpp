@@ -64,9 +64,32 @@ private:
     Parameter *m_parameters[12];
 };
 
+enum KindOfType { KINDOF_FIRST = 0 };
+
+class ThingTemplate
+{
+public:
+    Bool isKindOf(KindOfType kind) const;
+    const ThingTemplate *friend_getNextTemplate() const { return m_nextTemplate; }
+private:
+    char m_unknown[0x484];
+    const ThingTemplate *m_nextTemplate;
+};
+
+class ThingFactory
+{
+public:
+    const ThingTemplate *firstTemplate() const { return m_firstTemplate; }
+private:
+    char m_unknown[0xC];
+    const ThingTemplate *m_firstTemplate;
+};
+extern ThingFactory *TheThingFactory;
+
 class AttackPriorityInfo
 {
 public:
+    void setPriority(const ThingTemplate *thing, Int priority);
     void setDefaultPriority(Int priority) { m_defaultPriority = priority; }
 
 private:
@@ -80,6 +103,8 @@ public:
     AttackPriorityInfo *findAttackInfo(const AsciiString &name, Bool addIfNotFound);
     void AppendDebugMessage(const AsciiString &message, Bool forcePause);
     void setPriorityDefault(ScriptAction *action);
+protected:
+    void setPriorityKind(ScriptAction *action);
 };
 
 void ScriptEngine::setPriorityDefault(ScriptAction *action)
@@ -92,4 +117,27 @@ void ScriptEngine::setPriorityDefault(ScriptAction *action)
         return;
     }
     info->setDefaultPriority(action->getParameter(1)->getInt());
+}
+
+// ZH ScriptEngine.cpp setPriorityKind and BFME 1 f98983a7d donor provide
+// the allocation/template loop. Target accesses and calls establish the
+// factory +C, template next +484, and the kind/setPriority helpers.
+void ScriptEngine::setPriorityKind(ScriptAction *action)
+{
+    AttackPriorityInfo *info = findAttackInfo(action->getParameter(0)->getString(), true);
+    if (info == 0)
+    {
+        BFMERetailAsciiString message("***Error allocating attack priority set - fix or raise limit. ***");
+        AppendDebugMessage(*(const AsciiString *)&message, false);
+        return;
+    }
+    KindOfType kind = (KindOfType)action->getParameter(1)->getInt();
+    Int priority = action->getParameter(2)->getInt();
+    const ThingTemplate *thingTemplate;
+    for (thingTemplate = TheThingFactory->firstTemplate(); thingTemplate;
+         thingTemplate = thingTemplate->friend_getNextTemplate())
+    {
+        if (thingTemplate->isKindOf(kind))
+            info->setPriority(thingTemplate, priority);
+    }
 }
