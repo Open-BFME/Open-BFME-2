@@ -16978,3 +16978,4 @@ _isalnum,0x00629AF6,msvcr71 isalnum import stub called directly by the URL escap
 ?rva0007F0FB@Rva0007F0FBOwner@@QAEXPAVCameraClass@@_N@Z,0x0007F0FB,callee of ?rva0007FD57@Rva0007FD57Owner@@QAE?AURva0008B689Element@@PAVCameraClass@@@Z
 ?processManglerResponse@NAT@@QAEXG@Z,0x005A854C,callee of ?rva005A879B@NAT@@QAEHXZ
 ?notifyConnectionToTargetFailed@NAT@@QAEXXZ,0x005A7683,callee of ?rva005A879B@NAT@@QAEHXZ
+?SetUDPSocketForSlot@NAT@@QAE_NGGPAX@Z,0x005A6DAC,callee of ?processManglerResponse@NAT@@QAEXG@Z

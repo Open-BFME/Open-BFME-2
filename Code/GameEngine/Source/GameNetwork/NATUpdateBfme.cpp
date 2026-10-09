@@ -22,7 +22,7 @@ bool g_natTransportContextEnabled=false;unsigned g_natStatsWaitStartTick=0;
 struct Rva005A7A96Pair{void *opaque00;unsigned short first,second;};
 struct Rva005A7172:public _STL::vector<int>{~Rva005A7172();};
 class PortNegotiationSchema{public:char pad00[0x18];int state[81];char pad15c[0x738-0x15c];unsigned timeout[8][8];unsigned short tries[8][8];bool rva005DBA9C(bool);bool rva005DBA60(unsigned short);bool rva005DC586(_STL::vector<Rva005A7A96Pair>*);};
-class NAT{public:bool rva005A6709();void rva005A7C9C();void rva005A6CA5();void sendPings();void processUDPPacket();int rva005A879B();void processManglerResponse(unsigned short);void notifyConnectionToTargetFailed();void rva005A6C90(int);void rva005A831E();void rva005A7974(unsigned short,void*);static unsigned s_probeRetryInterval;static int s_manglerMaxRetryCount;void rva005A7A96(const _STL::vector<Rva005A7A96Pair>*);};
+class NAT{public:bool rva005A6709();void rva005A7C9C();void rva005A6CA5();void sendPings();void processUDPPacket();int rva005A879B();void processManglerResponse(unsigned short);bool SetUDPSocketForSlot(unsigned short,unsigned short,void*);void notifyConnectionToTargetFailed();void rva005A6C90(int);void rva005A831E();void rva005A7974(unsigned short,void*);static unsigned s_probeRetryInterval;static int s_manglerMaxRetryCount;void rva005A7A96(const _STL::vector<Rva005A7A96Pair>*);};
 class Rva005A6732{public:bool rva005A6732()const;};
 class Rva005A6D47 {public:void *vptr;Transport *transport;GameSpyGameSlot **slots;int host,state,local;char pad18[0x10];PortNegotiationSchema schema;int rva005A8F57();};
 int Rva005A6D47::rva005A8F57(){
@@ -90,3 +90,19 @@ int NAT::rva005A879B(){
 }
 
 __declspec(noinline) unsigned Rva005A684F::get(unsigned index)const{return m_slots[index]?m_slots[index]->m_04:0;}
+
+class GlobalData;extern GlobalData *TheWritableGlobalData;struct GlobalPortDeltaView{char pad[0xa58];short delta;};class Rva005A6A83{public:void rva005A6A83();};
+// BF1 f98983a7d NAT.cpp processManglerResponse is the semantic guide.
+// Target WB14DDD40/native282 add UDP slot binding before PORT notification;
+// source port is spare+1 and simple allocation includes flags10/40.
+void NAT::processManglerResponse(unsigned short mangledPort){
+ NatConnectionView *v=(NatConnectionView*)this;GameSpyGameSlot *target=v->slots[v->target];if(!target){rva005A6C90(5);return;}
+ short delta=((GlobalPortDeltaView*)TheWritableGlobalData)->delta;unsigned short sourcePort=v->spareSocket+1;unsigned short returnPort=0;
+ unsigned fw=*(unsigned*)((char*)v->slots[v->local]+0x40);
+ if(fw&0x10) returnPort=mangledPort+delta;else if(fw&0x40)returnPort=mangledPort+delta;else if(delta==100){returnPort=sourcePort-v->spareSocket+mangledPort+100;}else if(!delta){returnPort=sourcePort;}else{returnPort=(mangledPort/delta+1)*delta+sourcePort%delta;}
+ if(returnPort>65535)returnPort-=65535;if(returnPort<1024)returnPort+=1024;
+ struct Address{unsigned ip;unsigned short port;Address():ip(0),port(0){}} address;v->previousSource=returnPort;
+ if(!SetUDPSocketForSlot(sourcePort,v->target,&address)){((Rva005A6A83*)this)->rva005A6A83();return;}
+ ((Rva005A684F*)this)->m_slots[v->local]->m_04=v->spareSocket+1;rva005A7974(returnPort,target);
+ if(v->receivedPort){rva005A6C90(3);((Rva005A6D47*)this)->transport->setDestAddrToSocket(v->target,((Rva005A684F*)this)->m_slots[v->target]);}
+}
