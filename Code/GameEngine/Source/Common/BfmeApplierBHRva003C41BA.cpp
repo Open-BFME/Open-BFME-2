@@ -68,7 +68,7 @@ class BfmeApplierBH
 {
 public:
 	void rva003C41BA(void *owner, const AsciiString &name, void *arg3);
-	void bfmeApplyBH(void *owner, void *found, BfmeSubBH *sub) throw();
+	bool bfmeApplyBH(void *owner, void *found, BfmeSubBH *sub) throw();
 };
 
 void BfmeApplierBH::rva003C41BA(void *owner, const AsciiString &name, void *arg3)

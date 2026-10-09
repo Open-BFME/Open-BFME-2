@@ -7791,7 +7791,6 @@ name,address,notes
 ?bfmeAppendVFD@BfmeBufVFD@@QAEXPBD@Z,0x0066C760
 ?bfmeAppendVME@BfmeStrVME@@QAEXID@Z,0x00029380
 ?bfmeApplyABG@BfmeK1094@@QAEXPAX0@Z,0x0029725B,callee read from the retail REL32 in placed BFME1-donor body ?bfmeVisitABG@BfmeHostABG@@QAEXPAX0@Z (0x0036E22F)
-?bfmeApplyBH@BfmeApplierBH@@QAEXPAX0PAVBfmeSubBH@@@Z,0x003C069B,address read from the REL32 displacement at a placed body
 ?bfmeApplyBH@BfmeApplierBH@@QAE_NPAX0PAVBfmeSubBH@@@Z,0x003C069B,returns bool per test al at 0x003C4134
 ?bfmeApplyBQ@@YAXXZ,0x0011DC20
 ?bfmeApplyGI@BfmePrimaryGI@@QAEXM@Z,0x000B2F38,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1

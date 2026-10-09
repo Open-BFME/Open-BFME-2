@@ -66,7 +66,7 @@ public:
 class BfmeApplierBH
 {
 public:
-	void bfmeApplyBH(void *owner, void *found, BfmeSubBH *sub) throw();
+	bool bfmeApplyBH(void *owner, void *found, BfmeSubBH *sub) throw();
 
 	void bfmeAddBH(void *owner, const AsciiStringBH &name, BfmeTargetBH *target);
 };
