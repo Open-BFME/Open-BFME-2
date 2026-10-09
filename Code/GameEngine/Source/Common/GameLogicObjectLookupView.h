@@ -4,10 +4,13 @@
 // receiver at +0xB4. The provider's existing accessed prefix is shared here;
 // complete GameLogic and map extents remain unreconstructed. Pointer-only
 // callers do not construct these views or depend on their sizeof.
+// Reference-backed consumers may already have the same ObjectID enum.
+#ifndef _GAME_TYPE_H_
 enum ObjectID
 {
 	INVALID_OBJECT_ID = 0
 };
+#endif
 
 class Object;
 class Drawable;

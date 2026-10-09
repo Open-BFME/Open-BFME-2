@@ -50,7 +50,8 @@
 #define LANPreferences ZHMenuLANPreferences
 #include "Common/UserPreferences.h"
 #undef LANPreferences
-#include "GameLogic/GameLogic.h"
+#include "../../../../Common/GameLogicObjectLookupView.h"
+extern GameLogic *TheGameLogic;
 #include "GameLogic/ScriptEngine.h"
 #include "GameClient/AnimateWindowManager.h"
 #include "GameClient/CampaignManager.h"
@@ -58,8 +59,10 @@
 #include "GameClient/Gadget.h"
 // Bind the existing target-owned Shell pop method spelling in this TU.
 #define pop rva0035BEC7
+#define hide rva0035BF4C
 #include "GameClient/Shell.h"
 #undef pop
+#undef hide
 #include "GameClient/GameWindowManager.h"
 #include "GameClient/GadgetListBox.h"
 #include "GameClient/GadgetComboBox.h"
@@ -609,4 +612,30 @@ void Rva0050CF3CStartHeadless()
  TheLAN->RequestLocations();
  TheLAN->RequestGameCreate(UnicodeString(L""),false);
  TheGameEngine->startHeadlessClients(mapSelectHeadlessCount);
+}
+
+class Rva00203BCDDwordSlot {public:void set(int);};
+struct MapSelectShellStartView {char pad[0x54];bool flag54;};
+// BFME1 menu doGameStart is the semantic donor; BFME2 WB144E0D0 names it.
+// Native50D099..50D136157B is reached by the named MapSelectMenuUpdate.
+// Target adds the headless branch, ScriptEngine difficulty setter and Shell
+// flag54/pop/hide sequence; the original spelling of flag54 is unknown.
+void doGameStart()
+{
+ mapSelectStartGame=false;
+ TheGameLogic->rva00376E92(false,false);
+ ((Rva00203BCDDwordSlot *)TheScriptEngine)->set(g_00DD12D8);
+ if(!showSoloMaps && mapSelectHeadlessCount)
+  Rva0050CF3CStartHeadless();
+ else {
+  InitRandom(0);
+  GameMessage *msg=((MapSelectMessageStreamView *)TheMessageStream)->appendMessage((GameMessage::Type)0x1E);
+  msg->appendIntegerArgument(0);
+  msg->appendIntegerArgument(g_00DD12D8);
+  msg->appendIntegerArgument(0);
+ }
+ ((MapSelectShellStartView *)TheShell)->flag54=true;
+ TheShell->rva0035BEC7();
+ TheShell->rva0035BF4C(true);
+ mapSelectIsShuttingDown=true;
 }
