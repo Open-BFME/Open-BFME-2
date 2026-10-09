@@ -18,13 +18,24 @@ public:
 	Rva0020EAF6View *m_B0;
 };
 
+class Rva003FDEAD {public:void rva003FDD41(int,int,int);};
+class Rva003FDE8C {public:void rva003FDE8C(unsigned char);};
+class Rva003FDE50 {public:void rva003FDE50(unsigned int);};
+struct Position00538D3B {float x,y,z; Position00538D3B(float a,float b,float c):x(a),y(b),z(c){} };
+class Vector3;
+class Rva002BF4F3 {public:bool rva002BF5B0(const Vector3*,Vector3*);};
+class Rva002D3627Host;extern Rva002D3627Host *g_00DFEF18;
+struct Record00538D3B {int unused;float x,y,z;};
 class Rva00538CEF
 {
 public:
 	Rva0020E89C *rva00538CEF();
+	void rva00538D3B(int);
 private:
 	int *m_start;
 	int *m_finish;
+	int unused08;
+	Rva003FDEAD *owner;
 };
 
 Rva0020E89C *Rva00538CEF::rva00538CEF()
@@ -38,4 +49,22 @@ Rva0020E89C *Rva00538CEF::rva00538CEF()
 		}
 	}
 	return 0;
+}
+
+// Native538D3B..538DC1 RET4; receiver538CEF resolves current back element.
+// Target record stride16 and XY4/8; ownerC accepts context/position/flag then visibility and ground position.
+// Rowed neutral providers retain ABI names; behavior follows own retail calls and data flow.
+void Rva00538CEF::rva00538D3B(int flag) {
+ Rva0020E89C *context=rva00538CEF();
+ if(!context) {
+  ((Rva003FDE8C*)owner)->rva003FDE8C(0);
+  ((Rva003FDE50*)owner)->rva003FDE50((unsigned int)((char*)owner+0x18));
+ } else {
+  Record00538D3B *record=(Record00538D3B*)m_finish-1;
+  owner->rva003FDD41((int)&record->x,(int)context,flag);
+  ((Rva003FDE8C*)owner)->rva003FDE8C(1);
+  Position00538D3B point(record->x,record->y,0.0f);
+  ((Rva002BF4F3*)g_00DFEF18)->rva002BF5B0((const Vector3*)&record->x,(Vector3*)&point);
+  ((Rva003FDE50*)owner)->rva003FDE50((unsigned int)&point);
+ }
 }
