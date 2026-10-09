@@ -1,4 +1,6 @@
 // ?rva002612C6@Rva002612C6@@QAE_NPAVObject@@@Z
+// partial score=0.97 date=2026-10-09
+// ?rva002612C6@Rva002612C6@@QAE_NPAVObject@@@Z
 // partial score=0.96 date=2026-10-07
 // ?rva002612C6@Rva002612C6@@QAE_NPAVObject@@@Z
 // partial score=0.94 date=2026-10-07
@@ -20,7 +22,7 @@ class BFMEActionManager
 {
 public:
     bool canEnterObject(const Object *owner, const Object *target,
-        CommandSourceType source, CanEnterType mode, int options, bool *outFlag);
+        CommandSourceType source, CanEnterType mode, bool options, bool *outFlag);
 };
 class ActionManager;
 extern ActionManager *TheActionManager;
@@ -69,7 +71,7 @@ bool Rva002612C6::rva002612C6(Object *candidate)
     if (!contain || !contain->ready())
         return false;
     if (!reinterpret_cast<BFMEActionManager *>(TheActionManager)
-        ->canEnterObject(owner, candidate, CMD_FROM_AI, ENTER_MODE_ZERO, 1, 0))
+        ->canEnterObject(owner, candidate, CMD_FROM_AI, ENTER_MODE_ZERO, true, 0))
         return false;
     if (skipRelationship)
         return true;
