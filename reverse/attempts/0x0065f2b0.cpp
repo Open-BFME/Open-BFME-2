@@ -1,12 +1,15 @@
 // ?buildRva007F27C0@@YGXPAVRva007E8810Message@@PBDPBURva007F27C0User@@H@Z
-// partial score=0.99 date=2026-10-09
+// partial score=0.9926605505 date=2026-10-09
 // ?buildRva007F27C0@@YGXPAVRva007E8810Message@@PBDPBURva007F27C0User@@H@Z
 // Evidence: targets/game/reverse/identity_evidence/007f27c0-rank-request.md
 // cl: /GS
 #include <stdio.h>
 
 typedef __int64 FeslInt64;
-extern const char *const g_feslRankTransactionName;
+
+// Descriptive name for the mutable pointer read at native VA 0x00E0A0AC.
+// Its original name is unknown; the image stores this word in zero-fill data.
+extern const char *FeslRankRequestTransaction;
 
 class Rva007E8AC0
 {
@@ -62,7 +65,7 @@ void __stdcall buildRva007F27C0( Rva007E8810Message *msg, const char *gsid,
 	int i;
 
 	message = msg;
-	txn = g_feslRankTransactionName;
+	txn = FeslRankRequestTransaction;
 	((Rva007E8AC0 *)message)->run();
 	message->m_category = 'rank';
 	message->addString( "TXN", txn );
@@ -101,3 +104,5 @@ void __stdcall buildRva007F27C0( Rva007E8810Message *msg, const char *gsid,
 	}
 	message->addInt( "u.[]", userCount );
 }
+
+const char *FeslRankRequestTransaction;
