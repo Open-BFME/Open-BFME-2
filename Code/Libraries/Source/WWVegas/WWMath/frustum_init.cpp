@@ -13,6 +13,9 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #pragma optimize("", on)
 
 
+// Native frustum consumer helpers remain inline without competing copies.
+#include "../../../../../reference/shims/bfme_part_emt_inline/vector3.h"
+#include "../../../../../reference/shims/bfme_frustum_math_link/matrix3d.h"
 #include "../../../../../reference/shims/bfmecamera/frustum.h"
 
 
