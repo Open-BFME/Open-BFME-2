@@ -547,40 +547,7 @@ void	Render2DClass::Add_Quad( const Vector2 & v0, const Vector2 & v1, const Vect
 /*
 ** Add Tri
 */
-// ?Add_Tri@Render2DClass@@ present-unmatched
-void	Render2DClass::Add_Tri( const Vector2 & v0, const Vector2 & v1, const Vector2 & v2, const Vector2 & uv0, const Vector2 & uv1, const Vector2 & uv2, unsigned long color )
-{
-	int old_vert_count = Vertices.Count();
-
-	// Add the verticies (translated to new coordinates)
-#if 0
-	Vertices.Add( Convert_Vert( v0 ), new_vert_count );
-	Vertices.Add( Convert_Vert( v1 ), new_vert_count );
-	Vertices.Add( Convert_Vert( v2 ), new_vert_count );
-#else
-	Convert_Vert( *Vertices.Uninitialized_Add(), v0 );
-	Convert_Vert( *Vertices.Uninitialized_Add(), v1 );
-	Convert_Vert( *Vertices.Uninitialized_Add(), v2 );
-	
-#endif
-
-	// Add the uv coordinates
-
-	*UVCoordinates.Uninitialized_Add()=uv0;
-	*UVCoordinates.Uninitialized_Add()=uv1;
-	*UVCoordinates.Uninitialized_Add()=uv2;
-
-	// Add the colors
-	*Colors.Uninitialized_Add()=color;
-	*Colors.Uninitialized_Add()=color;
-	*Colors.Uninitialized_Add()=color;
-
-	// Add the faces
-	*Indices.Uninitialized_Add()=old_vert_count + 0;
-	*Indices.Uninitialized_Add()=old_vert_count + 1;
-	*Indices.Uninitialized_Add()=old_vert_count + 2;
-
-}
+// Add_Tri is recovered in Render2DClassAddTri.cpp using the native batch layout.
 
 // ?Add_Line@Render2DClass@@ present-unmatched
 void	Render2DClass::Add_Line( const Vector2 & a, const Vector2 & b, float width, unsigned long color )
