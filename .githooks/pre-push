@@ -181,6 +181,12 @@ PY
         printf '%s\0' "${verify[@]}" | python3 tools/eh_verify.py --sources-from - \
             || fail "exception data differs from retail in outgoing sources (see above)"
     fi
+    # Replayed commits, SHADOW: an outgoing commit with the author, author date and
+    # subject of one already upstream, or adding ledger lines already there verbatim.
+    # Seats re-pushed old commits 3,541 times on 2026-10-06..08, each a duplicate row
+    # every byte gate passes. About a second; reports, never fails the push.
+    python3 tools/replay_check.py --shadow --range "$base" "$local_sha" < /dev/null \
+        || echo "pre-push: replay_check shadow check failed to run (ignored)" >&2
     echo "PRE-PUSH OK (${#verify[@]} outgoing source(s) byte-verified)"
 done <<< "$refs"
 # Publisher rollout (tools/publisher_hook.py; mode in reverse/publisher_mode): shadow submits the landed range as a unit in the background and never fails the push; enforce queues it and refuses (exit 3).
