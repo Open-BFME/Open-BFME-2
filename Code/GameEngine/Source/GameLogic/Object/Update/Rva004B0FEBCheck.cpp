@@ -90,15 +90,18 @@ struct Rva004B0FEBData
 	Rva004DD018 **m_end;
 };
 
-extern void *g_00DFF0F8;
+class AI {public:char pad[0x10];Pathfinder *pathfinder;};
+extern AI *TheAI;
 
-class Rva004B0FEB
+class Rva000421C8 {public:virtual ~Rva000421C8();virtual bool allow(Object*)=0;virtual int getPlayerMask();Rva000421C8 *next;};
+
+class Rva004B0FEB:public Rva000421C8
 {
 public:
-	bool rva004B0FEB(Object *other);
+	virtual bool allow(Object *other);
+	virtual int getPlayerMask();
 
 private:
-	char m_pad00[8];
 	Rva004B0FEBData *m_8;
 	Object *m_c;
 	void *m_10;
@@ -108,7 +111,7 @@ private:
 	volatile unsigned char m_20;
 };
 
-bool Rva004B0FEB::rva004B0FEB(Object *other)
+bool Rva004B0FEB::allow(Object *other)
 {
 	Object *objA = m_c;
 	if (!objA)
@@ -158,7 +161,7 @@ body:
 	if (((RvaFilterHolder10 *)holder)->m_filter.accepts(other, 0))
 		return false;
 
-	Pathfinder *path = *(Pathfinder **)((char *)g_00DFF0F8 + 0x10);
+	Pathfinder *path = TheAI->pathfinder;
 	if (path->IsPointOnWall((int)(void *)&other->m_pos, false))
 		return false;
 
@@ -173,12 +176,12 @@ body:
 	if (it == m_8->m_end)
 		return false;
 
-	path = *(Pathfinder **)((char *)g_00DFF0F8 + 0x10);
+	path = TheAI->pathfinder;
 	if (!path->IsPointOnWall((int)(void *)&m_c->m_pos, false))
 	{
 		if (other->rva0028B511() == 1)
 		{
-			path = *(Pathfinder **)((char *)g_00DFF0F8 + 0x10);
+			path = TheAI->pathfinder;
 			if (!path->IsGroundLineOnly(&m_c->m_pos, &other->m_pos))
 				return false;
 		}
