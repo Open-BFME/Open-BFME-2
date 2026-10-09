@@ -18,7 +18,7 @@ private:
 class Rva00098667Product : public Rva0030AFC4Base
 {
 public:
-	void rva00098565();
+	virtual void rva00098565();
 private:
 	int m_4C;
 	int m_50;

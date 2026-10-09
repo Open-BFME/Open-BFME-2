@@ -91,7 +91,7 @@ struct ListNode
 class Rva001040D5 : public Rva00142960Base
 {
 public:
-	void rva00104956(unsigned int arg);
+	virtual void rva00104956(unsigned int arg);
 private:
 	char m_pad04[0x60 - 0x04];
 	ListNode m_list;

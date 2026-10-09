@@ -9,7 +9,7 @@ class W3DTreeDrawModuleData : public W3DTreeDrawModuleDataBase {
 public:
 	unsigned int m_unused04;
 	AsciiString m_modelName;
-	AsciiString rva000CED14(int dummy);
+	virtual AsciiString rva000CED14(int dummy);
 };
 AsciiString W3DTreeDrawModuleData::rva000CED14(int dummy)
 {

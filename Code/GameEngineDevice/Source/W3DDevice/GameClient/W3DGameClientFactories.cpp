@@ -144,8 +144,8 @@ public:
 	void *rva0004C553();
 	void *rva0004C5C6();
 	void *rva0004C62D();
-	void *rva0004C694();
-	Win32Mouse *rva0004C709();
+	virtual void *rva0004C694();
+	virtual Win32Mouse *rva0004C709();
 	void *rva0004C8DD();
 };
 

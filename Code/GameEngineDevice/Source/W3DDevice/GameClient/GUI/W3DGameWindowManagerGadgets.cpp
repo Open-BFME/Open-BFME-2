@@ -61,14 +61,14 @@ enum { GADGET_CREATE_IMAGE = 0x80 };
 class Rva008FCA3 : public TabWindowManagerView
 {
 public:
-	GameWindow *rva0008FCE3(GadgetCreateView *view, GameFont *font, bool flag);
-	GameWindow *rva0008FD0E(GadgetCreateView *view, StaticTextDataView *data, GameFont *font, bool flag);
-	GameWindow *rva0008FD3D(GadgetCreateView *view, GameFont *font, bool flag);
-	GameWindow *rva0008FD68(GadgetCreateView *view, RadioButtonDataView *data, GameFont *font, bool flag);
-	GameWindow *rva0008FD97(GadgetCreateView *view, TabControlDataView *data, GameFont *font, bool flag);
-	GameWindow *rva0008FE84(GadgetCreateView *view, GameFont *font, bool flag);
-	GameWindow *rva0008FEAF(GadgetCreateView *view, EntryData *data, GameFont *font, bool flag);
-	GameWindow *rva0008FEDE(GadgetCreateView *view, ComboBoxData *data, GameFont *font, bool flag);
+	virtual GameWindow *rva0008FCE3(GadgetCreateView *view, GameFont *font, bool flag);
+	virtual GameWindow *rva0008FD0E(GadgetCreateView *view, StaticTextDataView *data, GameFont *font, bool flag);
+	virtual GameWindow *rva0008FD3D(GadgetCreateView *view, GameFont *font, bool flag);
+	virtual GameWindow *rva0008FD68(GadgetCreateView *view, RadioButtonDataView *data, GameFont *font, bool flag);
+	virtual GameWindow *rva0008FD97(GadgetCreateView *view, TabControlDataView *data, GameFont *font, bool flag);
+	virtual GameWindow *rva0008FE84(GadgetCreateView *view, GameFont *font, bool flag);
+	virtual GameWindow *rva0008FEAF(GadgetCreateView *view, EntryData *data, GameFont *font, bool flag);
+	virtual GameWindow *rva0008FEDE(GadgetCreateView *view, ComboBoxData *data, GameFont *font, bool flag);
 };
 
 // vtable 0x00BC7C90 slot 19
