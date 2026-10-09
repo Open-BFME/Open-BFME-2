@@ -1,12 +1,12 @@
 // ?groupDoSpecialPowerAtObject@AIGroup@@QAEXIPAVObject@@IW4CommandSourceType@@@Z
-// partial score=0.99 date=2026-10-09
-// cl: /O1 /G7 /arch:SSE /Ireference/shims/bfmelist /DNDEBUG /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /O1 /G7 /arch:SSE /ICode/Libraries/Include/Lib /Ireference/shims/bfmelist /DNDEBUG /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //
 // ?groupDoSpecialPowerAtObject@AIGroup@@QAEXIPAVObject@@IW4CommandSourceType@@@Z
 // retail 0x0036E658..0x0036E8EA (658 bytes, EH, RET 0x10).
 //
 // Donor and identity:
+// - Donor revision: f98983a7d3bb405f1a4ba94bb6a2a168062a819d.
 // - The donor is BFME 1's AIGroup::groupDoSpecialPowerAtObject
 //   (reference/open-bfme-1 game/GameEngine/Source/GameLogic/AI/
 //   AIGroup_groupDoSpecialPowerAtObject.cpp).
@@ -32,9 +32,10 @@
 // - The declaration order (list, iterator, best, rank) and the if / else-if
 //   rank test are what give retail's frame slots and reload order.
 // - AIGroupDistanceEntry is the 8-byte {Object *, Real} element. Its list
-//   ctor (0x0035C9A6) and insert (0x0036E30E) are ICF-folded STLport bodies
-//   that need pins under this element name. Its _List_base dtor resolves to
-//   0x004EC395 by its own body.
+//   ctor (0x0035C9A6), insert (0x0036E30E), create-node (0x002DBEDD),
+//   copy (0x0060C9D9) and proxy ctor (0x0014F3C4) are actual instantiated
+//   C++ bodies verified as complete byte-and-relocation ICF twins. The
+//   _List_base dtor resolves to 0x004EC395 by its own body.
 #include <list>
 
 typedef unsigned int UnsignedInt;
@@ -47,14 +48,7 @@ enum CommandSourceType
 	CMD_FROM_PLAYER = 0
 };
 
-// class-gate: allow Coord3D the canonical data-only header cannot declare BFME 2's out-of-line GetLengthEstimate2D (rowed 0x000037D1) that the distance sort calls; same three floats
-struct Coord3D
-{
-	Real x;
-	Real y;
-	Real z;
-	Real GetLengthEstimate2D() const;
-};
+#include "Coord3D.h"
 
 class ExperienceLevelList;
 class ExperienceLevelIterator
@@ -149,6 +143,16 @@ struct AIGroupDistanceEntry
 	Object *m_object;
 	Real m_distance;
 };
+
+
+namespace _STL {
+template<> __declspec(noinline) _List_node<AIGroupDistanceEntry> *list<AIGroupDistanceEntry,allocator<AIGroupDistanceEntry> >::_M_create_node(const AIGroupDistanceEntry &);
+template<> __declspec(noinline) _List_node<AIGroupDistanceEntry> *list<AIGroupDistanceEntry,allocator<AIGroupDistanceEntry> >::_M_create_node(const AIGroupDistanceEntry &x) {
+ _Node *p=this->_M_node.allocate(1);
+ _Construct(&p->_M_data,x);
+ return p;
+}
+}
 
 class AIGroup
 {
