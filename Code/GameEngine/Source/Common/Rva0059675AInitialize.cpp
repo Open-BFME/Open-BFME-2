@@ -16,11 +16,11 @@ class Anim2DTemplate;class Anim2DCollection {public:Anim2DTemplate*findTemplate(
 struct Rva002D752DNode;class Rva002D752D;
 class Anim2D {public:Anim2D(Rva002D752DNode*,Rva002D752D*);unsigned getCurrentFrameHeight() const;char pad[0x34];};
 extern int g_009BA4E8;
-class Rva0059675A {public:
- void initialize();
+class FadeInTextRender {public:
+ void LoadAssets();
  void*head;GameFont*font;char pad08[0x14];Anim2D*anim;float oldScale;AsciiString fontName;unsigned color;int delay;unsigned fontSize;unsigned starts[3],ends[3];int width,height;
 };
-void Rva0059675A::initialize() {
+void FadeInTextRender::LoadAssets() {
  float naturalWidth=(float)((FadeDisplayCalls*)TheDisplay)->width();
  float scale=naturalWidth*0.00125f;scale*=0.75f;
  if(scale!=oldScale){font=0;oldScale=scale;}

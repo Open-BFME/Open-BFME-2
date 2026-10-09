@@ -1,5 +1,5 @@
 // cl: /O1 /DNDEBUG /MD /EHsc
-// ??1Rva0059675A@@UAE@XZ @0x0059675A 89B
+// ??1FadeInTextRender@@UAE@XZ @0x0059675A 89B
 // Dtor with EH frame: vptr store, delete of interface ptr at +0x1c via virtual
 // slot0 plus operator delete, StringBase<char> at +0x24 via releaseBuffer,
 // then base vtable store. Empty body plus delete.
@@ -28,19 +28,19 @@ struct Rva0059675AInner
 {
 	virtual void *slot0(int flag);
 };
-struct Rva0059675A : Rva0059675ABase
+struct FadeInTextRender : Rva0059675ABase
 {
 	char m_pad04[0x18];
 	Rva0059675AInner *m_1c;
 	char m_pad20[0x4];
 	StringBase<char> m_24;
-	virtual ~Rva0059675A();
+	virtual ~FadeInTextRender();
 };
 // ??1Rva0059675ABase@@UAE@XZ present-unmatched
 Rva0059675ABase::~Rva0059675ABase()
 {
 }
-Rva0059675A::~Rva0059675A()
+FadeInTextRender::~FadeInTextRender()
 {
 	void *tmp = m_1c ? m_1c->slot0(0) : 0;
 	::operator delete(tmp);

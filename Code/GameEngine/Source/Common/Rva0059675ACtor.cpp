@@ -13,10 +13,10 @@ class Rva0059675ABase {public:
 // ?Rva0059675ABase::~Rva0059675ABase present-unmatched
 virtual ~Rva0059675ABase() {}};
 class Anim2D;
-struct Rva0059675A:Rva0059675ABase {
- Rva0059675A();virtual ~Rva0059675A();
+struct FadeInTextRender:Rva0059675ABase {
+ FadeInTextRender();virtual ~FadeInTextRender();
  char pad04[0x18];Anim2D *anim;float scale;AsciiString fontName;unsigned color;int delay;unsigned fontSize;unsigned starts[3],ends[3];int width,height;
 };
-Rva0059675A::Rva0059675A():anim(0),scale(0.0f),fontName("SachaWynter"),color(0xDCF0FA),delay(g_009BA4E8/4+1),fontSize(14) {
+FadeInTextRender::FadeInTextRender():anim(0),scale(0.0f),fontName("SachaWynter"),color(0xDCF0FA),delay(g_009BA4E8/4+1),fontSize(14) {
  memset(starts,0,sizeof(starts));memset(ends,0,sizeof(ends));
 }
