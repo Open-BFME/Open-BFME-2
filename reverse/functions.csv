@@ -9911,7 +9911,7 @@ __Locale_numeric_create,,0x00022890,354,Code/Libraries/Source/WWVegas/WWLib/stlp
 ?bfmeApply1040@@YAXPAUBfmeS1040@@H@Z,,0x001B70A0,277,Code/GameEngine/Source/Common/BfmeConv1040.cpp,matched,BFME1 donor with extern-array table repair; b1 0x009A6630
 ?bfmeGo1040B@@YAXPAUBfmeS1040@@H@Z,,0x001B71C0,45,Code/GameEngine/Source/Common/BfmeConv1040.cpp,matched,BFME1 byte-identical donor; b1 0x009A6750
 ?rva00523630@@YGHFF@Z,,0x003EFEA0,18,Code/GameEngine/Source/Common/Rva00523630Cmp.cpp,matched,BFME1 byte-identical donor b1 0x00523630 single ICF pick
-?bfmeGoBNH@BfmeThingBNH@@QAEPAV1@PAX@Z,,0x000EF966,27,Code/GameEngine/Source/Common/BfmeConv499.cpp,matched,BFME1 byte-identical donor; b1 0x006D65B0; ICF pick; callee bfmeDoBNH pinned at 0x132D89 alongside BFME2LoadParticleTexture pin
+??0Rva0006B3F3ScorchTexture@@QAE@H@Z,,0x000EF966,27,Code/GameEngine/Source/Common/BfmeConv499.cpp,matched,Native217B caller6B3F3 and BFME1 f989 BaseHeightMapRva006CB080 establish owning one-pointer temporary constructor role; literal exscorch01.tga and loader132D89 unchanged; argument ignored original name unknown; replace old ordinary-method owner no new alias
 ?bfmeGoVIV@@YGXPAVBfmeMsgVIT@@PAD11111@Z,,0x00656750,173,Code/GameEngine/Source/Common/BfmeConv1378.cpp,matched,BFME1 byte-identical donor; b1 0x007E9760; 7 DIR32 string literals agree
 ?invoke@Rva0088D910Object@@QAEPAV1@H@Z,,0x0003CCA0,21,Code/GameEngine/Source/Common/Rva0088D910VirtualDispatch.cpp,matched,BFME1 donor plus empty-literal repair 0x0107301C to 0x00BBAC1C
 ?invoke@Rva0088D930Object@@QAEPAV1@H@Z,,0x0003CCC0,21,Code/GameEngine/Source/Common/Rva0088D930VirtualDispatch.cpp,matched,BFME1 donor plus literal repair to BBFAA0
