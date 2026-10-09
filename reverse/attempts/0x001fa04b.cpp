@@ -1,6 +1,8 @@
 // ?ParticleSystemDebugDisplay@@YAXPAVDebugDisplayInterface@@PAXPAU_iobuf@@@Z
 // partial score=0.998025 date=2026-10-09
 // ?ParticleSystemDebugDisplay@@YAXPAVDebugDisplayInterface@@PAXPAU_iobuf@@@Z
+// partial score=0.998025 date=2026-10-09
+// ?ParticleSystemDebugDisplay@@YAXPAVDebugDisplayInterface@@PAXPAU_iobuf@@@Z
 // partial score=0.98 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /D_CRTIMP= /D_STLP_USE_MALLOC
 // stlport

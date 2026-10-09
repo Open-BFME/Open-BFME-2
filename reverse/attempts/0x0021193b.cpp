@@ -1,5 +1,7 @@
 // ?rva0021193B@Rva0021193B@@QAEXUICoord2D@@@Z
 // partial score=0.99 date=2026-10-09
+// ?rva0021193B@Rva0021193B@@QAEXUICoord2D@@@Z
+// partial score=0.99 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /EHsc /DNDEBUG /MD /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include
 // ?rva0021193B@Rva0021193B@@QAEXUICoord2D@@@Z
 // Retail 0x0021193B..0x00211C68 (813 bytes). BANKED NEAR MISS (score ~0.99):
