@@ -12,6 +12,8 @@ typedef int Int;
 typedef float Real;
 
 #define NULL 0
+#define BFME_SNAPSHOT_NAME_SLOT
+#include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
 
 struct ICoord2D
 {
@@ -49,24 +51,142 @@ struct RadarRect16
 	int m_0C;
 };
 
+class Object;
+class RadarObject;
+class Team;
+class Player;
+class PlayerList;
+class BfmeMemberRV;
+class Rva00373EC6;
+
+enum Relationship
+{
+	REL_ENEMY = 0,
+	REL_NEUTRAL = 1,
+	REL_ALLY = 2
+};
+
+class Rva0028E58E
+{
+public:
+	int rva0028E58E();
+};
+
+enum RadarPriorityType { RADAR_PRIORITY_INVALID, RADAR_PRIORITY_NOT_ON_RADAR, RADAR_PRIORITY_STRUCTURE, RADAR_PRIORITY_UNIT, RADAR_PRIORITY_LOCAL_UNIT_ONLY };
+int __cdecl rva002D7BFD(int v);
+
+class BfmeThingRV
+{
+public:
+	BfmeMemberRV *bfmePickRV();
+};
+
+class BfmeMemberRV
+{
+public:
+	bool bfmeAskRV();
+	unsigned char m_pad[0x2EC];
+	Team *m_team; // +0x2EC
+};
+
+class PlayerList : public BfmeThingRV
+{
+public:
+	Player *getNthPlayer(int i);
+};
+
+extern PlayerList *ThePlayerList;
+
+class Player
+{
+public:
+	Relationship getRelationship(const Team *t) const;
+	unsigned char m_pad[0x280];
+	int m_280; // +0x280
+};
+
 class Object
 {
 public:
-	char m_pad[0x38];
-	Coord3D m_pos; // +0x38
+	bool isNeutralControlled() const;
+	Player *getControllingPlayer() const;
+	Rva00373EC6 *rva0028F4BC();
+	int getIndicatorColor() const;
+	bool isLocallyControlled() const;
+	unsigned char m_pad0[4];
+	void *m_4;
+	unsigned char m_pad8[0x38-8];
+	Coord3D m_pos; // +0x38, retained for the existing list search
+	unsigned char m_pad44[0x250-0x44];
+	void *m_250;
+	unsigned char m_pad254[0x260-0x254];
+	RadarObject *m_260;
+	unsigned char m_pad264[0x304-0x264];
+	Team *m_304;
 };
 
-class RadarObject
+class Rva00373EC6
 {
 public:
-	virtual void *deleteInstance(int pool);
-	Object *m_object; // +0x04
-	RadarObject *m_next; // +0x08
+	unsigned char m_pad[0x38];
+	int m_38; // +0x38
+	int m_3C; // +0x3C
 };
+
+struct I250Vtbl
+{
+	virtual void _V00();
+	virtual void _V01();
+	virtual void _V02();
+	virtual void _V03();
+	virtual void _V04();
+	virtual void _V05();
+	virtual void _V06();
+	virtual void _V07();
+	virtual void _V08();
+	virtual void _V09();
+	virtual void _V10();
+	virtual void _V11();
+	virtual void _V12();
+	virtual void _V13();
+	virtual void _V14();
+	virtual void _V15();
+	virtual void _V16();
+	virtual void _V17();
+	virtual void _V18();
+	virtual int getV(void *p);
+};
+
+// Native C035D0: deleting destructor, empty post-load, name getter,
+// and the owned RadarObject::xfer. Snapshot contributes the witnessed
+// BBB554 base lifetime; all object/next/color offsets remain 4/8/C.
+class RadarObject : public Snapshot
+{
+public:
+	RadarObject();
+	virtual ~RadarObject();
+	Object *m_object;
+	RadarObject *m_next;
+	int m_color;
+protected:
+	virtual void loadPostProcess();
+	virtual const char *GetSnapshotName() const;
+	virtual void xfer(Xfer *);
+};
+
+// ?RadarObject::RadarObject present-unmatched
+inline RadarObject::RadarObject()
+{
+	m_object=0;
+	m_next=0;
+	m_color=-1;
+}
 
 class Radar
 {
 public:
+	bool isPriorityVisible(RadarPriorityType priority) const;
+	void addObject(Object *object);
 	bool worldToRadar(const Coord3D *world, ICoord2D *radar);
 	bool rva002D782C(const Coord3D *world, Coord2D *radar);
 	Object *searchListForRadarLocationMatch(RadarObject *list, ICoord2D *target);
@@ -77,7 +197,10 @@ public:
 	Bool localPixelToRadar(const ICoord2D *pixel, ICoord2D *radar);
 
 private:
-	unsigned char m_pad[0x24];
+	unsigned char m_pad[0x14];
+	RadarObject *m_head14;
+	RadarObject *m_head18;
+	unsigned char m_pad1C[8];
 	float m_xSample; // +0x24
 	float m_ySample; // +0x28
 	char m_pad2C[0x1430 - 0x2C];
@@ -265,3 +388,120 @@ void Radar::findDrawPositions(Int startX, Int startY, Int width, Int height,
 	lr->x += startX;
 	lr->y += startY;
 }
+
+// ?addObject@Radar@@QAEXPAVObject@@@Z at native 002D7FEC, full 512 bytes.
+// Named WB1108090/1645 and ZH/BF1 Radar::addObject establish its purpose.
+// BF1 donor revision 9cbfb551fe20dae985f91f2319d8997287b6a705 was reviewed
+// and compiled under BF2 settings (no placements). Target evidence fixes
+// the flag words, Object fields 250/260/304, Player color280/team2EC,
+// module38/3C, virtual slot4C, and the two radar lists at14/18.
+// A single current-player variable and direct virtual argument preserve
+// retail evaluation order; sorted insertion follows both donors and retail.
+void Radar::addObject(Object *object)
+{
+	if (object == 0)
+		return;
+	int key = ((Rva0028E58E *)object)->rva0028E58E();
+	if (!isPriorityVisible((RadarPriorityType)key))
+		return;
+	void *t = object->m_4;
+	int flags = *(int *)((char *)t + 0x108);
+	if ((flags & 0x80) != 0)
+	{
+		if ((flags & 0x20000) != 0)
+			goto alloc;
+		if ((*((unsigned char *)t + 0x116) & 0x40) != 0)
+			goto alloc;
+		if ((*((unsigned char *)t + 0x10E) & 4) != 0)
+			goto alloc;
+		if (object->isNeutralControlled())
+			return;
+		BfmeMemberRV *rv = ThePlayerList->bfmePickRV();
+		if (rv == 0)
+			return;
+		if ((int)((Player *)rv)->getRelationship(object->m_304) != 1)
+			goto alloc;
+		return;
+	}
+	else
+	{
+		if ((*((unsigned char *)t + 0x10F) & 0x30) != 0)
+			return;
+	}
+alloc:
+	RadarObject *mod = new RadarObject;
+	mod->m_object = object;
+	Player *alt = object->getControllingPlayer();
+	bool useAlt = true;
+	Rva00373EC6 *r = object->rva0028F4BC();
+	if (r != 0 && r->m_3C != 0)
+	{
+		BfmeMemberRV *rv2 = ThePlayerList->bfmePickRV();
+		if (rv2 != 0)
+		{
+			if ((int)alt->getRelationship(rv2->m_team) != 2)
+			{
+				if (rv2->bfmeAskRV())
+				{
+					alt = ThePlayerList->getNthPlayer(r->m_38);
+					if (alt != 0)
+					{
+						useAlt = false;
+					}
+				}
+			}
+		}
+	}
+	void *iface = object->m_250;
+	if (iface != 0)
+	{
+		alt = (Player *)(void *)((I250Vtbl *)iface)->getV(ThePlayerList->bfmePickRV());
+		if (alt != 0)
+		{
+			useAlt = false;
+		}
+	}
+	if(useAlt || alt==0)
+		mod->m_color=rva002D7BFD(object->getIndicatorColor());
+	else
+		mod->m_color=rva002D7BFD(alt->m_280);
+	object->m_260 = mod;
+	bool local = object->isLocallyControlled();
+	RadarObject **headp;
+	if (local)
+		headp = &m_head18;
+	else
+		headp = &m_head14;
+
+	if (*headp == 0) {
+		*headp=mod;
+	} else {
+		RadarObject *prev=0;
+		int prevKey=0;
+		RadarObject *cur, *next;
+		for(cur=*headp;cur;cur=next) {
+			next=cur->m_next;
+			int currentKey=((Rva0028E58E *)cur->m_object)->rva0028E58E();
+			if((prev==0 || prevKey<key) && currentKey>=key) {
+				if(prev) {
+					mod->m_next=prev->m_next;
+					prev->m_next=mod;
+				} else {
+					mod->m_next=cur;
+					*headp=mod;
+				}
+				break;
+			} else if(next==0) {
+				cur->m_next=mod;
+			}
+			prev=cur;
+			prevKey=currentKey;
+		}
+	}
+}
+
+// ?RadarObject::~RadarObject present-unmatched
+RadarObject::~RadarObject() {}
+
+// ?RadarObject::loadPostProcess present-unmatched
+void RadarObject::loadPostProcess() {}
