@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /Oy- /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
 // stlport
 // W3DTaint::setTaintLevel: WB 0x0082D3C0 names the function and W3DTaint.cpp
 // assertion 330; game.dat 0x00073CC0..0x000740C2 supplies its full boundary.
@@ -212,7 +212,7 @@ public:
 	UnsignedByte m_taintOn;
 };
 
-extern GlobalData *TheGlobalData;
+extern GlobalData *TheWritableGlobalData;
 
 class W3DShroud
 {
@@ -264,9 +264,9 @@ void Rva000729CC::rva00073CC0(int x, int y,
 	if (y >= maxY)
 		return;
 
-	if (TheGlobalData == 0)
+	if (TheWritableGlobalData == 0)
 		return;
-	if (!TheGlobalData->m_taintOn)
+	if (!TheWritableGlobalData->m_taintOn)
 		return;
 
 	if (!textureOnly)
@@ -307,9 +307,9 @@ void Rva000729CC::rva00073CC0(int x, int y,
 		else
 			blueAdjustment = 0.02f;
 
-		red = base + fraction * (TheGlobalData->m_lowRed + redAdjustment);
-		green = base + fraction * (TheGlobalData->m_lowGreen + greenAdjustment);
-		blue = base + fraction * (TheGlobalData->m_lowBlue + blueAdjustment);
+		red = base + fraction * (TheWritableGlobalData->m_lowRed + redAdjustment);
+		green = base + fraction * (TheWritableGlobalData->m_lowGreen + greenAdjustment);
+		blue = base + fraction * (TheWritableGlobalData->m_lowBlue + blueAdjustment);
 	}
 	else if (level > 0x80)
 	{
@@ -337,9 +337,9 @@ void Rva000729CC::rva00073CC0(int x, int y,
 		else
 			blueAdjustment = 0.02f;
 
-		red = base + fraction * (TheGlobalData->m_highRed + redAdjustment);
-		green = base + fraction * (TheGlobalData->m_highGreen + greenAdjustment);
-		blue = base + fraction * (TheGlobalData->m_highBlue + blueAdjustment);
+		red = base + fraction * (TheWritableGlobalData->m_highRed + redAdjustment);
+		green = base + fraction * (TheWritableGlobalData->m_highGreen + greenAdjustment);
+		blue = base + fraction * (TheWritableGlobalData->m_highBlue + blueAdjustment);
 	}
 
  if(TheFireManager) {
