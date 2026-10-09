@@ -1,10 +1,12 @@
 // ?rva0035538C@AiOrdersManager@@QAEPAXABUCoord3D@@HPBV?$list@PAVCreateAHeroData@@V?$allocator@PAVCreateAHeroData@@@_STL@@@_STL@@@Z
 // partial score=0.96 date=2026-10-09
-// cl: /O1 /G7 /arch:SSE /MD /GX /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS
+// ?rva0035538C@AiOrdersManager@@QAEPAXABUCoord3D@@HPBV?$list@PAVCreateAHeroData@@V?$allocator@PAVCreateAHeroData@@@_STL@@@_STL@@@Z
+// partial score=0.96 date=2026-10-09
+// cl: /O1 /G7 /arch:SSE /MD /GX /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /ICode/Libraries/Include /ICode/GameEngine/Source
 // stlport
 #include <list>
 #include <vector>
-#include "../../../../Libraries/Include/Lib/Coord3D.h"
+#include "Lib/Coord3D.h"
 bool Rva00354EB9(const Coord3D *,const Coord3D *);
 enum NameKeyType { NK_NONE=0 };
 class ArmorTemplate; // opaque return identity inherited from existing providers
@@ -24,7 +26,7 @@ class ObjectOrderQueue { public:
 };
 class GroupOrder { public: virtual void slot0(); _STL::vector<unsigned> objects; int id; };
 struct ObjectPatrolView { char pad[0x38]; Coord3D position; char pad44[0x74-0x44]; unsigned id; };
-#include "../../Common/GameLogicObjectLookupView.h"
+#include "Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 class AiOrdersManager { public:
     void *rva0035538C(const Coord3D &,int,const ListHeroPtr *);

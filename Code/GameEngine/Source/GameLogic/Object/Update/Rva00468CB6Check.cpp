@@ -1,6 +1,6 @@
 // cl: /DNDEBUG /MD /EHsc
 //
-// ?Rva00468CB6Check@@YG_NPAVRva00468CB6A@@PAVObject@@@Z, retail 0x00468CB6 91B.
+// ?rva00468CB6@HordeContain@@QAE_NPAVRva00468CB6A@@PAVObject@@@Z, retail 0x00468CB6 91B.
 // Turret goal check: null guards, related via rva002931F5, virtual +0x1BC,
 // goal via TurretStateMachine +0x30, second related compare.
 // Callers 0x471FFA 0x4726DD, prev 0x468A3F, next 0x468E26.
@@ -138,7 +138,11 @@ public:
 	TurretStateMachine *m_30;
 };
 
-bool __stdcall Rva00468CB6Check(Rva00468CB6A *a, Object *b)
+// Both native callers4726DD and471FFA load ECX with primary HordeContain.
+// The body does not consume it; stdcall and thiscall body bytes coincide.
+// Keep one owner with the call-site-proven member ABI rather than an alias.
+class HordeContain { public: bool rva00468CB6(Rva00468CB6A *,Object *); };
+bool HordeContain::rva00468CB6(Rva00468CB6A *a, Object *b)
 {
 	if (a == 0 || b == 0)
 		return false;

@@ -733,7 +733,7 @@ class Rva0046BB38Iface6 : public Rva0046BB38Slots<0>
 {
 public:
 	virtual void rva00472329(const Coord3D *pos, int unused) = 0;
-	virtual void gap1() = 0; virtual void rva00472235() = 0; virtual void rva0046E253() = 0; virtual void rva00472790(bool reposition) = 0; virtual void gap5() = 0;
+	virtual void gap1() = 0; virtual void rva00472235() = 0; virtual void rva0046E253() = 0; virtual void rva00472790(bool reposition) = 0; virtual void rva004726DD(Object *target) = 0;
 	virtual bool rva0046BB38(Object *other) = 0;
 	virtual Coord3D slot7(Object *obj, float *angle) = 0;
 	virtual void rva0046F7C9(Object *obj) = 0;
@@ -907,9 +907,12 @@ public:
 	Rva004598F2Point rva0045992F(int index);
 };
 
+class Rva00468CB6A;
 class HordeContain : public TransportContain, public Rva0046BB38Iface11C
 {
 public:
+	virtual void rva004726DD(Object *target);
+	bool rva00468CB6(Rva00468CB6A *,Object *);
 	void rva00468B24(float value);
 	unsigned char usingMeleeAttack();	// 0x004695DA
 	void rva0046A893(Object *obj);
@@ -3471,4 +3474,25 @@ void HordeContain::performReform()
 
 	while (rva00470B21())
 		;
+}
+
+#include "../../../../Include/GameLogic/ContainmentListView.h"
+
+// Native4726DD..472790 (179B), slot5 of +11C vftable C44C58.
+// The target first updates formation when set170 nonempty, resets target2A0,
+// then copies the containment descriptor via the canonical36AE51 provider.
+// Target AI258, turret-check468CB6 and AI vslot113 gate command45003E.
+// Public method name remains address-derived; all offsets come from retail.
+void HordeContain::rva004726DD(Object *target)
+{
+    if(!m_170.empty()) rva00472790(false);
+    if(m_2A0) rva00468FDC();
+    Rva0046247DPair descriptor;
+    ContainmentList members=((Rva0036AE51ListView*)((Rva0046247D*)(UpdateModule*)this)->rva0046247D(descriptor))->rva0036AE51();
+    for(ContainmentList::const_iterator i=members.begin();i!=members.end();++i) {
+        Object *obj=(Object*)containmentFirstWord(*i);
+        AIUpdateInterface *ai=obj->m_ai;
+        if(ai && !rva00468CB6((Rva00468CB6A*)ai,target) && !ai->rva0047306ESlot113())
+            ai->m_command.rva0045003E(0,CMD_FROM_AI);
+    }
 }
