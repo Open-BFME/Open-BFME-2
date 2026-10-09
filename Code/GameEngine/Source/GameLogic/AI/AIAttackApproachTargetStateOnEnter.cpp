@@ -185,6 +185,29 @@ class Pathfinder
 public:
 	Bool isAttackViewBlockedByObstacle(const Object *obj, const Coord3D *objPos, const Object *target, const Coord3D *targetPos);
 	Bool CanApproachToTarget(Object *obj, const Coord3D *targetPos, Rva002C9B80Owner *weapon, Bool flag);
+	Bool QuickDoesPathExistToStructure(Object *obj, const Coord3D *fromPos, Object *structure, Int flag);
+	Bool QuickDoesPathExist(Object *obj, const Coord3D *fromPos, const Coord3D *toPos, Int flag);
+};
+
+enum NameKeyType
+{
+	NAMEKEY_INVALID = 0
+};
+
+class NameKeyGenerator
+{
+public:
+	NameKeyType nameToKey(const char *name);
+};
+extern NameKeyGenerator *TheNameKeyGenerator;
+
+class Module;
+
+// The SiegeDeploySpecialPower module's rowed bool getter (0x004C5772).
+class Rva004C5772CmpBoolField
+{
+public:
+	Bool get() const;
 };
 
 class PolygonTrigger;
@@ -452,6 +475,10 @@ public:
 	void rva0028ACEE(const Coord3D *pos, Int layer);
 	Bool GetGoalPosition(Coord3D *pos) const;
 	void *rva0029439D();
+	friend class AIAttackMeleeHordeWaitPathState;
+protected:
+	Module *findModule(NameKeyType key) const;
+public:
 	ObjectID getID() const { return (ObjectID)m_id; }
 	Real m_orientation; // +0x44
 	unsigned char m_pad048[0x74 - 0x48];
@@ -881,6 +908,19 @@ private:
 	unsigned char m_pad1C[0x20 - 0x1C];
 	StateMachine *m_attackMachine; // +0x20
 	UnsignedInt m_nextEnemyScanTime; // +0x24
+};
+
+// AIAttackMeleeHordeWaitPathState, vtable 0x00C10FA0 (xfer 0x0034074C rowed
+// in AIStatesXfer.cpp with the same +0x20/+0x24 members).
+class AIAttackMeleeHordeWaitPathState : public State
+{
+public:
+	virtual StateReturnType onEnter();
+	virtual StateReturnType update();
+private:
+	unsigned char m_pad1C[0x20 - 0x1C];
+	UnsignedInt m_waitUntilFrame; // +0x20
+	Int m_bfmeValue24; // +0x24
 };
 
 // AIAttackSquadState, vtable 0x00C112C0 (name 0x0033F517, xfer 0x003414F6,
@@ -1653,6 +1693,42 @@ StateReturnType AIAttackSquadState::update()
 	return STATE_CONTINUE;
 }
 
+// Retail 0x003450DB, 300 bytes: slot 6 of 0x00C10FA0. Succeeds when the goal
+// is gone; until the wait frame passes it continues. A structure goal asks
+// the pathfinder's QuickDoesPathExistToStructure; a goal of kind bit 93 with
+// an active SiegeDeploySpecialPower module counts as reachable. Reachable (or
+// a quick path to its position) fails the wait; otherwise wait one second and
+// two frames more and succeed after the sixth retry.
+StateReturnType AIAttackMeleeHordeWaitPathState::update()
+{
+	Object *owner = getMachineOwner();
+	if (((TurretStateMachine *)getMachine())->rva004D7ADD())
+		return STATE_SUCCESS;
+	Object *goal = getMachineGoalObject();
+	if (!goal)
+		return STATE_SUCCESS;
+	if (m_waitUntilFrame > TheGameLogic->getFrame())
+		return STATE_CONTINUE;
+
+	Bool reachable = false;
+	if (goal->getTemplate()->m_kindOf[0] & 0x80)
+		reachable = TheAI->pathfinder()->QuickDoesPathExistToStructure(owner, owner->getPosition(), goal, 0);
+	if (goal->getTemplate()->m_kindOf[11] & 0x20)
+	{
+		static NameKeyType siegeKey = TheNameKeyGenerator->nameToKey("SiegeDeploySpecialPower");
+		Module *mod = goal->findModule(siegeKey);
+		if (mod && ((Rva004C5772CmpBoolField *)mod)->get())
+			reachable = true;
+	}
+	if (!reachable && TheAI->pathfinder()->QuickDoesPathExist(owner, owner->getPosition(), goal->getPosition(), 0))
+		reachable = true;
+	if (reachable)
+		return STATE_FAILURE;
+
+	m_waitUntilFrame = TheGameLogic->getFrame() + LOGICFRAMES_PER_SECOND + 2;
+	++m_bfmeValue24;
+	return m_bfmeValue24 > 5 ? STATE_SUCCESS : STATE_CONTINUE;
+}
 
 // AI slot 121, the area to guard (ZH AIUpdateInterface::getAreaToGuard).
 class AIAreaGuardView : public VirtualSlots<121>
