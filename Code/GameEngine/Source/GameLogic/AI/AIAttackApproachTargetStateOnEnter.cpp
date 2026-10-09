@@ -2233,3 +2233,46 @@ StateReturnType AIAttackFireWeaponState::update()
 	m_att->notifyFired();
 	return STATE_SUCCESS;
 }
+
+// AIAttackMeleeSquishState::computePath, native 0x003408C4..0x00340A92/462B.
+// Identity: slot17 of vtable C12868; its slot2 returns C128B0 (class name),
+// with matched onEnter34D886, onExit3497C7 and xfer340A92. WB E14C40 carries
+// ComputePath21 and the same owner/goal/containment/radius/requestPath spine.
+// ZH approach computePath supplies the repath/timestamp/comparison purpose;
+// squish victim selection and outward radius displacement are BFME target facts.
+// Cache the normalized scalar components before constructing the scaled offset;
+// that leaves the original escaped vector untouched and eliminates false stores.
+// The first member add followed by a pointer for y/z preserves native addressing.
+struct SquishCoordCopy:Coord3D{ __forceinline SquishCoordCopy(float x_,float y_,float z_){x=x_;y=y_;z=z_;}
+
+ __forceinline SquishCoordCopy(const Coord3D&p){x=p.x;y=p.y;z=p.z;}
+ __forceinline void sub(const Coord3D*p){x-=p->x;y-=p->y;z-=p->z;}
+};
+Bool AIAttackMeleeSquishState::computePath()
+{
+ critterDesyncLog("CritterDesync: ComputePath21");
+ Bool forceRepath=false;
+ AIUpdateInterface*ai=getMachineOwner()->getAI();
+ if(ai->isBlockedAndStuck())return false;
+ if(m_waitingForPath)return true;
+ if(!forceRepath && ai->getPath()==0 && !ai->isWaitingForPath())forceRepath=true;
+ if(!forceRepath && TheGameLogic->getFrame()-m_approachTimestamp<(UnsignedInt)LOGICFRAMES_PER_SECOND)return true;
+ m_approachTimestamp=TheGameLogic->getFrame();
+ if(getMachineGoalObject()){
+  Object*source=getMachineOwner();
+  if(!forceRepath && isSamePosition(source->getPosition(),&m_prevVictimPos,getMachineGoalObject()->getPosition()))return true;
+  Weapon*weapon=source->getCurrentWeapon();if(!weapon)return false;
+  Object*victim=getMachineGoalObject();
+  Rva0029439DView*contain=(Rva0029439DView*)victim->rva0029439D();
+  if(contain){Object*actual=contain->slot68();if(actual)victim=actual;}
+  m_prevVictimPos=*victim->getPosition();
+  if(source->rva0029493F(victim,2)){
+   SquishCoordCopy delta(m_prevVictimPos);delta.sub(source->getPosition());delta.normalize();
+   float scale=2.0f*source->m_geometryRadiusB8;float dx=delta.x,dy=delta.y,dz=delta.z;SquishCoordCopy scaled(dx*scale,dy*scale,dz*scale);
+   m_goalPosition=m_prevVictimPos;
+   m_goalPosition.x+=scaled.x;Coord3D*goal=&m_goalPosition;goal->y+=scaled.y;goal->z+=scaled.z;
+   ai->requestPath(&m_goalPosition,false);m_waitingForPath=ai->isWaitingForPath();return true;
+  }
+ }
+ return false;
+}
