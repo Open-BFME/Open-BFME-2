@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /O2 /Ob2 /G7
+// cl: /DNDEBUG /MD /EHsc /O2 /Ob2 /G7 /arch:SSE
 // BFME SurfaceClass is the one-pointer COM owner established by the matched
 // surface-level accessor and its caller TextureHandleApply.cpp. The query
 // and pixel-size helper retain address-qualified BFME identities. /G7 is
@@ -13,9 +13,10 @@ public:
         unsigned int Width;
         unsigned int Height;
     };
-    void Get_Description(SurfaceDescription &description);
+    __declspec(noinline) void Get_Description(SurfaceDescription &description);
     unsigned int GetSurfaceMemoryUsage() const;
     void DrawPixel(unsigned int x, unsigned int y, unsigned int color);
+    void Rva00116990(float red, float green, float blue);
     void rva00116D10(unsigned int x, unsigned int y, unsigned char alpha);
 private:
     void *surface;
@@ -251,4 +252,63 @@ void SurfaceClass::rva00116D10(unsigned int x, unsigned int y, unsigned char alp
     hr = ((D3DSurface *)surface)->UnlockRect();
     if (hr != 0)
         Log_DX8_ErrorCode((unsigned int)hr);
+}
+
+// Whole retail 0x00116990..0x00116C26 (662B, RET12; queue omitted last6B).
+// BFME 1 874e38488 SurfaceClass_ScaleChannels008FCAB0.cpp clean TintSurface
+// is the primary semantic guide (its original name is a donor fact). Target
+// caller132A6A passes three float factors; existing one-pointer SurfaceClass,
+// COM LockRect/UnlockRect slots and description/pixel-size providers establish
+// the target ABI. DXT endpoints use RGB565; 32-bit colors clamp each source
+// channel to at least127 and preserve the alpha lane.
+// Signed short/int packed stores reproduce retail's scalar SSE conversions.
+// Unsigned destinations make MSVC7.1 lower the same arithmetic to x87/ftol2;
+// signed/unsigned corresponding storage shares the observed bit representation.
+void SurfaceClass::Rva00116990(float red, float green, float blue)
+{
+    if (!surface) return;
+    SurfaceDescription sd;
+    Get_Description(sd);
+    unsigned size = Rva008FC4F0_PixelSize(sd);
+    D3DLockedRect lock;
+    memset(&lock, 0, sizeof(lock));
+    HRESULT result=((D3DSurface *)surface)->LockRect(&lock,0,0);
+    if(result)Log_DX8_ErrorCode((unsigned)result);
+    unsigned char *row = (unsigned char *)lock.pBits;
+    const float rscale=red, gscale=green, bscale=blue;
+    if (sd.Format == 0x31545844 || sd.Format == 0x32545844 ||
+        sd.Format == 0x33545844 || sd.Format == 0x34545844 || sd.Format == 0x35545844) {
+struct Dimensions { unsigned h; int w; };
+        Dimensions d = {sd.Height, (unsigned)lock.Pitch};
+        d.h >>= 2;
+        d.w = (unsigned)d.w >> 3;
+        int width = d.w;
+        unsigned height = d.h;
+        for (unsigned y=height; y>0; --y) {
+            for (int x=0; x<width; ++x) {
+                if (sd.Format == 0x31545844 || (x & 1)) {
+                    short *pixel = (short *)(row + x*8);
+                    short c = pixel[0];
+                    { int r = (unsigned short)c >> 11; int g = (c >> 5)&63; int b = c&31; r = (int)(r*rscale); g = (int)(g*gscale); b = (int)(b*bscale); int color = ((r*64+g)*32+b); pixel[0] = (short)color; }
+                    c = pixel[1];
+                    { int r = (unsigned short)c >> 11; int g = (c >> 5)&63; int b = c&31; r = (int)(r*rscale); g = (int)(g*gscale); b = (int)(b*bscale); int color = ((r*64+g)*32+b); pixel[1] = (short)color; }
+                }
+            }
+            row += lock.Pitch;
+        }
+    } else if (size == 4 && (sd.Format == 21 || sd.Format == 22)) {
+        for (unsigned y=sd.Height; y>0; --y) {
+            for (unsigned x=0; x<sd.Width; ++x) {
+                int c = ((int *)row)[x];
+                int r = (c >> 16)&255, g=(c >> 8)&255, b=c&255;
+                if(r<127) r=127;
+                if(g<127) g=127;
+                if(b<127) b=127;
+                r=(int)(r*rscale); g=(int)(g*gscale); b=(int)(b*bscale); int color=((r*256+g)*256+b); ((int *)row)[x] = color + (c & ~0x00ffffff);
+            }
+            row += lock.Pitch;
+        }
+    }
+    result=((D3DSurface *)surface)->UnlockRect();
+    if(result)Log_DX8_ErrorCode((unsigned)result);
 }
