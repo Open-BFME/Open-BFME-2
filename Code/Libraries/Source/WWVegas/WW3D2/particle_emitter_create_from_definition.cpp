@@ -69,6 +69,7 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #include "part_ldr.h"
 
 
+#define BFME2_PARTICLE_INLINE_ASSIGNMENT
 #include "texture_handle.h"
 
 // Descriptive identity: cached texture lookup or creation at retail RVA 0x132D89.

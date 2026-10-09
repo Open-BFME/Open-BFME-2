@@ -13,6 +13,10 @@ public:
         if (Ptr) Ptr->Add_Ref();
     }
     ~BFME2ParticleTextureHandle() { if (Ptr) Ptr->Release_Ref(); }
+    // Creation inlines this native ownership algorithm; retain one shared class.
+#ifdef BFME2_PARTICLE_INLINE_ASSIGNMENT
+    __declspec(dllimport) __forceinline
+#endif
     BFME2ParticleTextureHandle &operator=(const BFME2ParticleTextureHandle &other) {
         if (other.Ptr) other.Ptr->Add_Ref();
         if (Ptr) Ptr->Release_Ref();
