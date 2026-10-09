@@ -498,6 +498,8 @@ protected:
 	Bool addPlayerLeaveCommand(NetCommandRef *msg);
 	Bool addFrameCommand(NetCommandRef *msg);
 	Bool isAckRepeat(NetCommandRef *msg);
+	Bool isAckBothRepeat(NetCommandRef *msg);
+	Bool isAckStage1Repeat(NetCommandRef *msg);
 	Bool addDisconnectChatCommand(NetCommandRef *msg);
 	Bool addChatCommand(NetCommandRef *msg);
 	Bool rva005936DB(NetCommandRef *msg);
@@ -1244,6 +1246,41 @@ UnsignedByte NetPacket::rva0058D70B(NetCommandRef *msg)
 	}
 	Int total = m_packetLen + len + 12;
 	return total <= MAX_PACKET_SIZE;
+}
+
+// ?isAckBothRepeat@NetPacket@@IAE_NPAVNetCommandRef@@@Z @0x0058D747 (111B).
+// The BFME1 donor's isAckBothRepeat plus BFME's two ack dwords at +0x20/+0x24
+// (+0x24 compared first). Command id and original player go through the pinned
+// ICF getters 0x004D5767/0x004543C6.
+Bool NetPacket::isAckBothRepeat(NetCommandRef *msg)
+{
+	NetAckBothCommandMsg *ack = (NetAckBothCommandMsg *)ncrCommand(msg);
+	NetAckBothCommandMsg *lastAck = (NetAckBothCommandMsg *)ncrCommand(m_lastCommand);
+	if (lastAck->getCommandID() != (ack->getCommandID() - 1)) return false;
+	if (lastAck->getOriginalPlayerID() != ack->getOriginalPlayerID()) return false;
+	if (lastAck->m_24 != ack->m_24) return false;
+	if (lastAck->m_20 != ack->m_20) return false;
+	if (ncrRelay(msg) != ncrRelay(m_lastCommand)) return false;
+	return true;
+}
+
+// ?isAckStage1Repeat@NetPacket@@IAE_NPAVNetCommandRef@@@Z @0x0058D7B6 (112B).
+// Same comparisons as the both-ack arm but nested; retail folds the stage-2
+// twin into this body, so it keeps the stage-1 name.
+Bool NetPacket::isAckStage1Repeat(NetCommandRef *msg)
+{
+	NetAckStage1CommandMsg *ack = (NetAckStage1CommandMsg *)ncrCommand(msg);
+	NetAckStage1CommandMsg *lastAck = (NetAckStage1CommandMsg *)ncrCommand(m_lastCommand);
+	if (lastAck->getCommandID() == (ack->getCommandID() - 1)) {
+		if (lastAck->getOriginalPlayerID() == ack->getOriginalPlayerID()) {
+			if (lastAck->m_24 == ack->m_24) {
+				if (lastAck->m_20 == ack->m_20) {
+					if (ncrRelay(msg) == ncrRelay(m_lastCommand)) return true;
+				}
+			}
+		}
+	}
+	return false;
 }
 
 // ?isRoomForGameSpyStatsAuthKeyMessage@NetPacket@@IAE_NPAVNetCommandRef@@@Z, retail 0x00591DAB, 251 bytes:
