@@ -1,6 +1,8 @@
 // ?exitObjectViaDoor@SupplyCenterProductionExitUpdate@@UAEXPAVObject@@W4ExitDoorType@@@Z
+// partial score=0.9721151 date=2026-10-09
+// ?exitObjectViaDoor@SupplyCenterProductionExitUpdate@@UAEXPAVObject@@W4ExitDoorType@@@Z
 // partial score=0.97 date=2026-10-07
-// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /GX /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /GX /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /I. /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
 // stlport
 /*
 **	Command & Conquer Generals Zero Hour(tm)
@@ -41,13 +43,14 @@
 // stealth grant after the supply truck kick; the exit path goes through the
 // rowed AICommandInterface wrapper 0x0047971C as in QueueProductionExitUpdate.
 
-#include "../../../../../../Libraries/Include/Lib/Coord3D.h"
+#include "Code/Libraries/Include/Lib/Coord3D.h"
 
 typedef bool Bool;
 typedef int Int;
 typedef unsigned int UnsignedInt;
 typedef float Real;
 
+#define __PLACEMENT_VEC_NEW_INLINE
 #include <vector>
 
 class Object;
@@ -65,39 +68,7 @@ enum CommandSourceType
 	CMD_FROM_AI
 };
 
-struct Vector3
-{
-	Real X;
-	Real Y;
-	Real Z;
-
-	Vector3() {}
-	Vector3(const Vector3 &v) { X = v.X; Y = v.Y; Z = v.Z; }
-	Vector3 &operator=(const Vector3 &v) { X = v.X; Y = v.Y; Z = v.Z; return *this; }
-	void Set(Real x, Real y, Real z) { X = x; Y = y; Z = z; }
-};
-
-class Matrix3D
-{
-public:
-	static __forceinline void Transform_Vector(const Matrix3D &A, const Vector3 &in, Vector3 *out)
-	{
-		Vector3 tmp;
-		const Vector3 *v;
-		if (out == &in) {
-			tmp = in;
-			v = &tmp;
-		} else {
-			v = &in;
-		}
-		out->X = (A.Row[0][0] * v->X + A.Row[0][1] * v->Y + A.Row[0][2] * v->Z + A.Row[0][3]);
-		out->Y = (A.Row[1][0] * v->X + A.Row[1][1] * v->Y + A.Row[1][2] * v->Z + A.Row[1][3]);
-		out->Z = (A.Row[2][0] * v->X + A.Row[2][1] * v->Y + A.Row[2][2] * v->Z + A.Row[2][3]);
-	}
-
-	Real Row[3][4];
-};
-
+#include "matrix3d.h"
 class Thing
 {
 public:
@@ -295,7 +266,10 @@ void SupplyCenterProductionExitUpdate::exitObjectViaDoor( Object *newObj, ExitDo
 		p.Z = md->m_naturalRallyPoint.z;
 
 		// transform the point into world space
-		transform->Transform_Vector( *transform, p, &p );
+		Vector3 rallyInput(p);
+ p.X = (( (*transform)[0][2]*rallyInput.Z + (*transform)[0][1]*rallyInput.Y ) + (*transform)[0][0]*rallyInput.X) + (*transform)[0][3];
+ p.Y = (( (*transform)[1][2]*rallyInput.Z + (*transform)[1][1]*rallyInput.Y ) + (*transform)[1][0]*rallyInput.X) + (*transform)[1][3];
+ p.Z = (( (*transform)[2][1]*rallyInput.Y + (*transform)[2][2]*rallyInput.Z ) + (*transform)[2][0]*rallyInput.X) + (*transform)[2][3];
 
 		Rva0035149F exitPath;
 
