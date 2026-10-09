@@ -1,34 +1,19 @@
+// cl: /I. /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
 // ?computePath@AIUpdateInterface@@QAE_NPAVPathfindServicesInterface@@PAUCoord3D@@@Z
-// partial score=0.92 date=2026-10-09
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
-//
-// ?computePath@AIUpdateInterface@@QAE_NPAVPathfindServicesInterface@@PAUCoord3D@@@Z,
-// retail 0x00265E0B (3223 bytes, RET 8). Zero Hour's AIUpdateInterface::computePath
-// with BFME's CritterDesync trace (theLogicRandomLogFile gated by 0x00E03745) as in
-// the Open-BFME-1 attempt for 0x00274E30. BFME 2 layout and branches read from retail.
-//
-// Draft path: Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_computePath.cpp
-// (the includes are relative to it).
-// NEAR (helper bank): compiles to 3215 bytes against retail 3223; 71 instructions
-// differ, 43 ignoring register names. Every remaining difference is register
-// allocation: retail keeps the "NULL" literal in ebx through the TRACEDETAIL
-// region (the m_path ternary is `mov reg,"VALID"; jne; mov reg,ebx`) while cl
-// picks "VALID" for ebx here. That cascades into: `ok` spilled to [esp+0x50]
-// instead of bl in the computeQuickPath3 block, fmt pushed from edi instead of an
-// immediate there, the NEWDETAIL after it not reloading ebx="NULL", the surfaces
-// load before IsValidMovementPositionForObject, patchPath argument loads and the
-// "There is a theNewPath" trace using eax instead of memory operands.
-// Things that mattered (verified): the block-scoped `Object *obj = getObject()`
-// before the Object trace (removes a function-wide zero register), the member-wise
-// originalDestination copy (movss per field), and the position copy through a
-// pointer local for the second isInRegionNoZ (y loaded first).
-// IsLinePassable's row returns Int but callers test al: its real return is bool
-// (the char cast here reproduces `test al,al`); a rename of the row to _N would
-// let this call drop the cast.
-
+// Retail 0x00265E0B..0x00266AA2, 3223 bytes, RET 8.
+// Identity: native CritterDesync computePath traces, owned doPathfind and attack-
+// path callers, plus ZH AIUpdateInterface::computePath semantic structure.
+// WorldBuilder 0x00E43A60 is an unnamed strings twin, not independent name proof.
+// Guide: prior BFME2 bank, BFME1 f98983a7d game/.../AIUpdate.cpp and ZH.
+// All object/module offsets and branch deltas follow the target accesses.
+// Inline getValidSurfaces(), established by the matched attack-path sibling,
+// restores the native NULL literal lifetime through the trace region.
+// Cache original path before owner in patchPath; initialize tryClosest before
+// retry in findPath. These produce native scheduling without new ABI bindings.
+// IsLinePassable's existing Int declaration requires char narrowing for TEST AL.
 #include "ascii_string.h"
-#include "../../../../../Libraries/Include/Lib/Coord3D.h"
-#include "../../../Common/GameLogicObjectLookupView.h"
+#include "Code/Libraries/Include/Lib/Coord3D.h"
+#include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
 
 typedef bool Bool;
 typedef float Real;
@@ -136,6 +121,7 @@ class LocomotorSet
 public:
 	unsigned char m_pad00[0x10];
 	Int m_validSurfaces; // +0x10
+ int getValidSurfaces()const{return m_validSurfaces;}
 	unsigned char m_pad14[0x18 - 0x14];
 	AsciiString m_name; // +0x18
 };
@@ -372,7 +358,7 @@ Bool AIUpdateInterface::computePath(PathfindServicesInterface *pathServices, Coo
 	originalDestination.x = destination->x;
 	originalDestination.y = destination->y;
 	originalDestination.z = destination->z;
-	Int surfaces = m_locomotorSet.m_validSurfaces;
+	Int surfaces = m_locomotorSet.getValidSurfaces();
 	Bool specialLayer = Rva001E3679(getObject()->rva0028B511());
 	if (!m_isFinalGoal && !specialLayer &&
 			(char)TheAI->pathfinder()->IsLinePassable(getObject(), (void *)surfaces, (PathfindLayerEnum)getObject()->rva0028B511(),
@@ -388,18 +374,19 @@ Bool AIUpdateInterface::computePath(PathfindServicesInterface *pathServices, Coo
 
 	Bool tryClosest = true;
 	PathfindLayerEnum destinationLayer = TheTerrainLogic->getLayerForDestination(getObject(), destination);
-	if (!TheAI->pathfinder()->IsValidMovementPositionForObject(destination, destinationLayer, m_locomotorSet.m_validSurfaces, getObject())) {
+	if (!TheAI->pathfinder()->IsValidMovementPositionForObject(destination, destinationLayer, m_locomotorSet.getValidSurfaces(), getObject())) {
 		theNewPath = 0;
 		CRITTER_TRACE("CritterDesync:  theNewPath = NULL;");
 		if (g_00E03745) {
 			CRITTER_NEWDETAIL();
 		}
 	} else if (m_blockedFrames > 0) {
-		theNewPath = pathServices->patchPath(getObject(), m_locomotorSet, m_path, m_blockedFrames > 0);
+		Path *original=m_path; Object *owner=getObject(); theNewPath = pathServices->patchPath(owner, m_locomotorSet, original, m_blockedFrames > 0);
 		CRITTER_TRACENEW("CritterDesync:  m_isBlockedAndStuck check.");
 	} else {
-		Bool retry = false;
+		Bool retry;
 		tryClosest = false;
+		retry = false;
 		theNewPath = pathServices->findPath(getObject(), m_locomotorSet, getObject()->getPosition(), destination, &retry);
 		if (retry)
 			m_retryPath = true;
