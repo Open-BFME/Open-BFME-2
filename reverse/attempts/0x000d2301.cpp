@@ -1,5 +1,7 @@
 // ?rva000D2301@W3DBuffBuffer@@QAEXPAVMeshClass@@PAVRenderObjClass@@HPAU?$_Rb_tree_iterator@PAVTBuff@@U?$_Const_traits@PAVTBuff@@@_STL@@@_STL@@@Z
 // partial score=0.96 date=2026-10-09
+// ?rva000D2301@W3DBuffBuffer@@QAEXPAVMeshClass@@PAVRenderObjClass@@HPAU?$_Rb_tree_iterator@PAVTBuff@@U?$_Const_traits@PAVTBuff@@@_STL@@@_STL@@@Z
+// partial score=0.96 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // NEAR draft (not under Code/): same size as retail (1529 bytes) and every
