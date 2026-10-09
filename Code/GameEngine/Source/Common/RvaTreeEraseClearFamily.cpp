@@ -1539,3 +1539,15 @@ RvaTreeFamilyNode * __cdecl Rva00388C1CFollowChild(RvaTreeFamilyNode *node)
         node = node->m_child;
     return node;
 }
+// BF1 f98983a7 Thing/Rva00137E20ThingNameFilter.cpp supplies an end-value
+// initializer source lead; its registry and iterator identities are unproven
+// here. Native 6F309..6F313 is a complete stdcall ten-byte body between a
+// complete RET4 and a distinct tail jump: clear the output DWORD, return its
+// address in EAX, and pop one stack argument. ECX is unused. No direct/address
+// references were found across the eight image sections. This address-owned
+// primitive output contract does not assert a tree or registry owner.
+unsigned int *__stdcall Rva0006F309ClearWord( unsigned int *output )
+{
+	*output = 0;
+	return output;
+}
