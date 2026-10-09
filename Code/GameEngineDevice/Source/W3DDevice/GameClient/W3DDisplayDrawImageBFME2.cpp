@@ -1,5 +1,3 @@
-// ?drawImage@W3DDisplay@@UAEXPAVImage@@MMMMH@Z
-// partial score=0.99 date=2026-10-06
 // cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE /G7
 // ?drawImage@W3DDisplay@@UAEXPAVImage@@MMMMH@Z @ 0x00044E77 (322B)
 // W3DDisplay::drawImage ported from the BFME1 donor
@@ -108,8 +106,7 @@ void W3DDisplay::drawImage(Image *image, Real x0, Real y0, Real x1, Real y1, Int
 	if (!ready)
 		return;
 
-	unsigned char useSurface = ((const Rva00042FE4 *)image)->test();
-	if (useSurface != 0)
+	if (((const Rva00042FE4 *)image)->test() & 0xFF)
 	{
 		W3DRadarResetSurface source = image->getSurface();
 		W3DRadarResetSurface destination = getBackBufferSurface006e(0);

@@ -134,27 +134,11 @@ public:
 	virtual void drawImage(Image *image, Real x0, Real y0, Real x1, Real y1, Int color);
 };
 
-// ?drawImage@W3DDisplay@@UAEXPAVImage@@MMMMH@Z
-// ?W3DDisplay::drawImage present-unmatched
-void W3DDisplay::drawImage(Image *image, Real x0, Real y0, Real x1, Real y1, Int color)
+// The copy constructor is emitted out of line only when something in this unit copies a surface
+// reference; the drawImage that used to do so now lives in W3DDisplayDrawImageBFME2.cpp, so this
+// stand-in keeps row 0x000425A9 backed by this unit.
+// ?bfmeSurfaceCopyAnchor@@YAXABVW3DRadarResetSurface@@@Z absent-from-retail
+void bfmeSurfaceCopyAnchor(const W3DRadarResetSurface &source)
 {
-	if (!image->ready)
-		return;
-
-	if (image->surfaceState && (image->surfaceState->status & 4))
-	{
-		W3DRadarResetSurface source = image->getSurface();
-		W3DRadarResetSurface destination = getBackBufferSurface(0);
-		BfmeRect sourceRect = { 0, 0, image->width, image->height };
-		BfmeRect destinationRect = { (long)x0, (long)y0, (long)x1, (long)y1 };
-
-		if (!IsRectEmpty(&sourceRect) && !IsRectEmpty(&destinationRect))
-			copySurfaceRects(source, &sourceRect, destination, &destinationRect, 2);
-	}
-	else
-	{
-		beginImageDraw();
-		drawImageCore(image, x0, y0, x1, y1, color);
-		endImageDraw();
-	}
+	W3DRadarResetSurface copy(source);
 }
