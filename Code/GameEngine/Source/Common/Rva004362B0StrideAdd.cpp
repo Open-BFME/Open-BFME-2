@@ -42,3 +42,20 @@ Rva006CFEA0Iterator &Rva006CFEA0Iterator::advance()
     position += 4;
     return *this;
 }
+
+// Whole clean BF1 f989 RenderObjectDrawModuleSlot4_005F6ED0.cpp emits
+// Matrix3's indexed-row helper under O1/SSE2/G7. That donor interpretation
+// does not establish this target's original owner or element type.
+// Native562865..562871 follows RET and precedes a new prologue: first
+// stackword multiplied by12 then added to ECX, returned in EAX with RET4.
+// The address-only projection preserves native32bit modular arithmetic;
+// index signedness, original constness and complete array layout unknown.
+class Rva00562865Receiver
+{
+public:
+    void *address(unsigned int index);
+};
+void *Rva00562865Receiver::address(unsigned int index)
+{
+    return reinterpret_cast<void *>(reinterpret_cast<unsigned int>(this) + index * 12);
+}
