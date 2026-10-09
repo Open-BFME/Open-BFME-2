@@ -265,9 +265,9 @@ public:
 
 class Rva0050EE23;
 int __cdecl rva0050F841(Rva0050EE23 *a, const char *b);
-const char *__cdecl Rva00412845AfterLevel(const char *path);
+namespace AptUtils { const char *__cdecl SkipLevelN(const char *path); }
 bool __cdecl Rva004128F0GetParam(const char *params, const char *key, AsciiString &value);
-int __cdecl Rva004128BBGetLevel(const char *path);
+namespace AptUtils { int __cdecl LevelIndexFromTarget(const char *path); }
 
 class RvaMapView
 {
@@ -279,9 +279,9 @@ public:
 static TreeHintRef0051030C Rva00510D98CreatePage(const AsciiString &type, int level, const AsciiString &name)
 {
 	if (rva0050F841((Rva0050EE23 *)&type, "StatusPage") == 0)
-		return TreeHintRef0051030C(new Rva005105D7(level, AsciiString(Rva00412845AfterLevel(name.str()))));
+		return TreeHintRef0051030C(new Rva005105D7(level, AsciiString(AptUtils::SkipLevelN(name.str()))));
 	if (rva0050F841((Rva0050EE23 *)&type, "TributePage") == 0)
-		return TreeHintRef0051030C(new Rva00510CC3(level, AsciiString(Rva00412845AfterLevel(name.str()))));
+		return TreeHintRef0051030C(new Rva00510CC3(level, AsciiString(AptUtils::SkipLevelN(name.str()))));
 	return TreeHintRef0051030C();
 }
 
@@ -291,7 +291,7 @@ void Rva00510D0C::OnPageLoaded(const char *params)
 	AsciiString name;
 	if (!Rva004128F0GetParam(params, "name", name))
 		return;
-	int level = Rva004128BBGetLevel(name.str());
+	int level = AptUtils::LevelIndexFromTarget(name.str());
 	if (level == m_level)
 	{
 		AsciiString type;

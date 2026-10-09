@@ -293,8 +293,8 @@ extern "C" __declspec(dllimport) int __cdecl isdigit(int c);
 extern "C" __declspec(dllimport) int __cdecl atoi(const char *s);
 
 // BfmePathLeafAfterMarker.cpp's path helpers (pinned).
-const char *__cdecl Rva00412845AfterLevel(const char *path);
-int __cdecl Rva004128BBGetLevel(const char *path);
+namespace AptUtils { const char *__cdecl SkipLevelN(const char *path); }
+namespace AptUtils { int __cdecl LevelIndexFromTarget(const char *path); }
 
 // 0x005FFA60, bound as "<_level%u.><name>_OnSwapButtonClicked": in mode 0,
 // the panel index leading the Apt path (0..1) goes to owner slot 1.
@@ -352,7 +352,7 @@ void StrategicHUD::BattlePromptPlayerPageMovieClip::Impl::OnArmyPanelLoaded(cons
 	{
 		if (m_1c.m_panel.m_ptr != 0 || m_1c.m_factory.m_ptr == 0)
 			return;
-		m_1c.m_panel = m_1c.m_factory->CreateArmyPanel(Rva004128BBGetLevel(path), Rva00412845AfterLevel(path));
+		m_1c.m_panel = m_1c.m_factory->CreateArmyPanel(AptUtils::LevelIndexFromTarget(path), AptUtils::SkipLevelN(path));
 		m_1c.m_factory.clear();
 		return;
 	}
@@ -364,7 +364,7 @@ void StrategicHUD::BattlePromptPlayerPageMovieClip::Impl::OnArmyPanelLoaded(cons
 	Rva005FFBC6 &hero = m_elems[index];
 	if (hero.m_panel.m_ptr != 0 || hero.m_factory.m_ptr == 0)
 		return;
-	hero.m_panel = hero.m_factory->CreateArmyPanel(Rva004128BBGetLevel(path), Rva00412845AfterLevel(path));
+	hero.m_panel = hero.m_factory->CreateArmyPanel(AptUtils::LevelIndexFromTarget(path), AptUtils::SkipLevelN(path));
 	hero.m_factory.clear();
 }
 

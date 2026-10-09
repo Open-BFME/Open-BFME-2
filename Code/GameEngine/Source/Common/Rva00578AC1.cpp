@@ -50,8 +50,8 @@ struct Rva00578A7EAptMode
 };
 
 // BfmePathLeafAfterMarker.cpp's path helpers.
-const char *__cdecl Rva00412845AfterLevel(const char *path);
-int __cdecl Rva004128BBGetLevel(const char *path);
+namespace AptUtils { const char *__cdecl SkipLevelN(const char *path); }
+namespace AptUtils { int __cdecl LevelIndexFromTarget(const char *path); }
 
 // The four sub-movie objects, each built from the loaded movie's level and
 // path by an unrowed constructor pinned by address. Sizes come from the
@@ -470,7 +470,7 @@ void StrategicHUD::Palantir::rva005785CD()
 void StrategicHUD::Palantir::OnCommandUILoaded(const char *name)
 {
 	if (m_commandUI.m_ptr == 0)
-		m_commandUI.rva0057866D(new Rva005D25F2(Rva004128BBGetLevel(name), AsciiString(Rva00412845AfterLevel(name))));
+		m_commandUI.rva0057866D(new Rva005D25F2(AptUtils::LevelIndexFromTarget(name), AsciiString(AptUtils::SkipLevelN(name))));
 }
 
 // Retail 0x005787F8, 11 bytes: bound as "<movie>_OnCommandUIUnloaded".
@@ -483,7 +483,7 @@ void StrategicHUD::Palantir::OnCommandUIUnloaded(const char *name)
 void StrategicHUD::Palantir::OnRegionStatsTrayLoaded(const char *name)
 {
 	if (m_regionStatsTray.m_ptr == 0)
-		m_regionStatsTray.rva005786AA(new Rva005D32D4(Rva004128BBGetLevel(name), AsciiString(Rva00412845AfterLevel(name))));
+		m_regionStatsTray.rva005786AA(new Rva005D32D4(AptUtils::LevelIndexFromTarget(name), AsciiString(AptUtils::SkipLevelN(name))));
 }
 
 // Retail 0x00578897, 11 bytes: bound as
@@ -497,7 +497,7 @@ void StrategicHUD::Palantir::OnRegionStatsTrayUnloaded(const char *name)
 void StrategicHUD::Palantir::OnRegionUILoaded(const char *name)
 {
 	if (m_regionUI.m_ptr == 0)
-		m_regionUI.reset(new Rva005D3731(Rva004128BBGetLevel(name), AsciiString(Rva00412845AfterLevel(name))));
+		m_regionUI.reset(new Rva005D3731(AptUtils::LevelIndexFromTarget(name), AsciiString(AptUtils::SkipLevelN(name))));
 }
 
 // Retail 0x00578936, 11 bytes: bound as "<movie>_OnRegionUIUnloaded".
@@ -512,7 +512,7 @@ void StrategicHUD::Palantir::OnSelectionUILoaded(const char *name)
 {
 	if (m_selectionUI.m_ptr == 0)
 	{
-		m_selectionUI.rva0057873E(new Rva005D3C2B(Rva004128BBGetLevel(name), AsciiString(Rva00412845AfterLevel(name))));
+		m_selectionUI.rva0057873E(new Rva005D3C2B(AptUtils::LevelIndexFromTarget(name), AsciiString(AptUtils::SkipLevelN(name))));
 		if (m_selection)
 			m_selectionUI.m_ptr->rva005D3CA6(m_selection);
 	}

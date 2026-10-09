@@ -21,7 +21,10 @@ const char *__cdecl bfmePathLeafAfterMarker(const char *path)
 	return path;
 }
 
-const char *__cdecl Rva00412845AfterLevel(const char *path)
+// ?SkipLevelN@AptUtils@@YAPBDPBD@Z, retail 0x00412845: WorldBuilder's
+// AptUtils::SkipLevelN (AptUtils.cpp:531), the same "_level" prefix skip.
+namespace AptUtils { const char *__cdecl SkipLevelN(const char *path); }
+const char *__cdecl AptUtils::SkipLevelN(const char *path)
 {
 	if (path == 0)
 		return 0;
@@ -46,7 +49,10 @@ ret_path:
 	return path;
 }
 
-int __cdecl Rva004128BBGetLevel(const char *path)
+// ?LevelIndexFromTarget@AptUtils@@YAHPBD@Z, retail 0x004128BB: WorldBuilder's
+// AptUtils::LevelIndexFromTarget (AptUtils.cpp:656), the same "_level%d" scan.
+namespace AptUtils { int __cdecl LevelIndexFromTarget(const char *path); }
+int __cdecl AptUtils::LevelIndexFromTarget(const char *path)
 {
 	if (path == 0)
 		return -1;

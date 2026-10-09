@@ -34,8 +34,8 @@ public:
 private:
  char m_data[8];
 };
-const char *__cdecl Rva00412845AfterLevel(const char *path);
-int __cdecl Rva004128BBGetLevel(const char *path);
+namespace AptUtils { const char *__cdecl SkipLevelN(const char *path); }
+namespace AptUtils { int __cdecl LevelIndexFromTarget(const char *path); }
 
 // Native 0x0052991E..0x00529A21, RET4: the same toggle-clip allocation
 // and lifetime as CommandUIImpl::OnToggleFlashLoaded. Target-specific
@@ -72,7 +72,7 @@ void Rva0052991E::rva0052991E(const char *path)
 	}
 	if (*(void **)&button->m_toggleFlash)
 		return;
-	button->m_toggleFlash.rva00528FE6((CameraMarker *)new Rva005C3932(Rva004128BBGetLevel(name.str()), AsciiString(Rva00412845AfterLevel(name.str()))));
+	button->m_toggleFlash.rva00528FE6((CameraMarker *)new Rva005C3932(AptUtils::LevelIndexFromTarget(name.str()), AsciiString(AptUtils::SkipLevelN(name.str()))));
 }
 
 // Native 0x005297DD..0x005298E0, RET4; same slot/lifetime as 52991E,
@@ -92,7 +92,7 @@ void Rva0052991E::rva005297DD(const char *path)
 	}
 	if (*(void **)&button->m_subMenu)
 		return;
-	button->m_subMenu.rva00575674((Object *)new Rva005C3F02((void *)Rva004128BBGetLevel(name.str()), (void *)&AsciiString(Rva00412845AfterLevel(name.str()))));
+	button->m_subMenu.rva00575674((Object *)new Rva005C3F02((void *)AptUtils::LevelIndexFromTarget(name.str()), (void *)&AsciiString(AptUtils::SkipLevelN(name.str()))));
 }
 
 // The owning slot lifetime is independently established by constructor529FC5:

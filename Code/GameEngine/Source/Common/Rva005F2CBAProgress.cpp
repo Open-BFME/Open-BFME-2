@@ -70,8 +70,8 @@ public:
 }
 
 // BfmePathLeafAfterMarker.cpp's path helpers.
-const char *__cdecl Rva00412845AfterLevel(const char *path);
-int __cdecl Rva004128BBGetLevel(const char *path);
+namespace AptUtils { const char *__cdecl SkipLevelN(const char *path); }
+namespace AptUtils { int __cdecl LevelIndexFromTarget(const char *path); }
 
 // The scroll bar, built from the loaded movie's level and path by the
 // constructor 0x005D4DA9 (pinned by address); observers join its +4 list
@@ -387,7 +387,7 @@ void StrategicHUD::ArmyDetailsMovieClip::Impl::OnScrollBarLoaded(const char *nam
 	Rva005F2CBAScrollBarHolder *scrollBar = (Rva005F2CBAScrollBarHolder *)&m_scrollBar;
 	if (scrollBar->m_ptr == 0)
 	{
-		((Rva00575674 *)scrollBar)->rva00575674((Object *)new Rva005D4DA9(Rva004128BBGetLevel(name), AsciiString(Rva00412845AfterLevel(name))));
+		((Rva00575674 *)scrollBar)->rva00575674((Object *)new Rva005D4DA9(AptUtils::LevelIndexFromTarget(name), AsciiString(AptUtils::SkipLevelN(name))));
 		((Rva005D49CD *)scrollBar->m_ptr)->rva005D49D5(false);
 		if (m_slotWidth > 0.0f)
 			SetupScrollBar();
@@ -426,7 +426,7 @@ void StrategicHUD::ArmyDetailsMovieClip::Impl::IconSlot::OnLoaded(const char *pa
 	Rva005F2CBAScrollBarHolder *clip = (Rva005F2CBAScrollBarHolder *)&m_clip;
 	if (clip->m_ptr == 0)
 	{
-		((Rva00575674 *)clip)->rva00575674((Object *)new Rva005C31FB(Rva004128BBGetLevel(path), AsciiString(Rva00412845AfterLevel(path))));
+		((Rva00575674 *)clip)->rva00575674((Object *)new Rva005C31FB(AptUtils::LevelIndexFromTarget(path), AsciiString(AptUtils::SkipLevelN(path))));
 		((Rva005F2792 *)this)->rva005F2792();
 	}
 }

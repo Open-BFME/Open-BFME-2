@@ -10,8 +10,8 @@
 extern "C" char *__cdecl strcpy(char *destination, const char *source);
 
 // BfmePathLeafAfterMarker.cpp's path helpers.
-const char *__cdecl Rva00412845AfterLevel(const char *path);
-int __cdecl Rva004128BBGetLevel(const char *path);
+namespace AptUtils { const char *__cdecl SkipLevelN(const char *path); }
+namespace AptUtils { int __cdecl LevelIndexFromTarget(const char *path); }
 
 // The three sub-movie panels; their unrowed constructors take the movie's
 // level and name, pinned by address. The sizes are the allocations'.
@@ -555,13 +555,13 @@ void AptPalantir::rva002D3E84(const char *unused)
 // help box panel for the loaded movie.
 void AptPalantir::OnHelpBoxLoaded(const char *path)
 {
-	((Rva002D38EB *)&m_helpBox)->reset(new Rva00527CCE(Rva004128BBGetLevel(path), AsciiString(Rva00412845AfterLevel(path))));
+	((Rva002D38EB *)&m_helpBox)->reset(new Rva00527CCE(AptUtils::LevelIndexFromTarget(path), AsciiString(AptUtils::SkipLevelN(path))));
 }
 
 // Retail 0x002D3F8A, 160 bytes: "AptPalantir::OnHeroSelectLoaded".
 void AptPalantir::OnHeroSelectLoaded(const char *path)
 {
-	((Rva002D38AE *)&m_heroSelect)->reset(new Rva0052710C(Rva004128BBGetLevel(path), AsciiString(Rva00412845AfterLevel(path)), &m_c0, &m_f8));
+	((Rva002D38AE *)&m_heroSelect)->reset(new Rva0052710C(AptUtils::LevelIndexFromTarget(path), AsciiString(AptUtils::SkipLevelN(path)), &m_c0, &m_f8));
 }
 
 // Retail 0x005281F0, 66 bytes: the call site at 0x002D408D constructs the
@@ -609,7 +609,7 @@ Rva0052AF1C::Rva0052AF1C(void *argument)
 // Retail 0x002D4038, 146 bytes: "AptPalantir::OnPlanningModeUILoaded".
 void AptPalantir::OnPlanningModeUILoaded(const char *path)
 {
-	((Rva002D390E *)&m_planningModeUI)->reset(new Rva00527FA2(Rva004128BBGetLevel(path), AsciiString(Rva00412845AfterLevel(path))));
+	((Rva002D390E *)&m_planningModeUI)->reset(new Rva00527FA2(AptUtils::LevelIndexFromTarget(path), AsciiString(AptUtils::SkipLevelN(path))));
 }
 
 // Retail's strcpy call lands on the import thunk rowed as ji_00629176.

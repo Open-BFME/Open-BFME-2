@@ -11,8 +11,8 @@
 
 bool __cdecl Rva005D2505Get(const char *params, int *out);
 bool __cdecl Rva004128F0GetParam(const char *params, const char *key, AsciiString &out);
-const char *__cdecl Rva00412845AfterLevel(const char *path);
-int __cdecl Rva004128BBGetLevel(const char *path);
+namespace AptUtils { const char *__cdecl SkipLevelN(const char *path); }
+namespace AptUtils { int __cdecl LevelIndexFromTarget(const char *path); }
 
 class Object;
 
@@ -55,6 +55,6 @@ void Rva005D2664::rva005D26B2(const char *params)
 		if (*(void **)elem)
 			return;
 	}
-	elem->rva00575674((Object *)new Rva005D2462(Rva004128BBGetLevel(name.str()), AsciiString(Rva00412845AfterLevel(name.str())), (int)&elem->m_04, (int)&elem->m_08));
+	elem->rva00575674((Object *)new Rva005D2462(AptUtils::LevelIndexFromTarget(name.str()), AsciiString(AptUtils::SkipLevelN(name.str())), (int)&elem->m_04, (int)&elem->m_08));
 }
 

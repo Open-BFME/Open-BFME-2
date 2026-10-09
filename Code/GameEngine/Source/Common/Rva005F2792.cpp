@@ -30,8 +30,8 @@ struct Rva005F2792Info
 	Rva005F2792Name *m_holder;
 };
 
-const char *__cdecl Rva00412845AfterLevel(const char *);
-int __cdecl Rva004128BBGetLevel(const char *);
+namespace AptUtils { const char *__cdecl SkipLevelN(const char *); }
+namespace AptUtils { int __cdecl LevelIndexFromTarget(const char *); }
 class Object;
 class Rva00575674 { public: void rva00575674(Object *); };
 class Rva005C31FB {
@@ -71,7 +71,7 @@ void Rva005F2792::rva005F27F8(const char *path)
 {
     if (m_panel20 == 0) {
         ((Rva00575674 *)&m_panel20)->rva00575674((Object *)new Rva005C31FB(
-            Rva004128BBGetLevel(path), AsciiString(Rva00412845AfterLevel(path))));
+            AptUtils::LevelIndexFromTarget(path), AsciiString(AptUtils::SkipLevelN(path))));
         rva005F2792();
     }
 }
@@ -114,6 +114,6 @@ private:
 void Rva00577A2A::rva00577A2A(const char *path)
 {
     ((Rva00575674 *)&panel14)->rva00575674((Object *)new Rva00528B06(
-        Rva004128BBGetLevel(path), AsciiString(Rva00412845AfterLevel(path))));
+        AptUtils::LevelIndexFromTarget(path), AsciiString(AptUtils::SkipLevelN(path))));
     mid08->dispatch->install(index0C, panel14);
 }

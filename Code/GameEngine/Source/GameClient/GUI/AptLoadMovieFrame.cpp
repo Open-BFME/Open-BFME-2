@@ -13,8 +13,8 @@
 // level, path, the bound-name vector, the content callback, the loaded flag.
 #include "ascii_string.h"
 
-const char *__cdecl Rva00412845AfterLevel(const char *path);
-int __cdecl Rva004128BBGetLevel(const char *path);
+namespace AptUtils { const char *__cdecl SkipLevelN(const char *path); }
+namespace AptUtils { int __cdecl LevelIndexFromTarget(const char *path); }
 
 // Adopt the verified Rva0057C04F constructor delegate/concat pattern.
 // AddCommandMapDelegate gives retail temporary lifetimes; source9cb BFME1
@@ -173,8 +173,8 @@ void AptLoadMovieFrame::Impl::OnContentLoaded(const char *path)
 {
 	if (m_loaded && m_onLoaded.isSet())
 	{
-		AsciiString name(Rva00412845AfterLevel(path));
-		m_onLoaded.invoke(Rva004128BBGetLevel(path), (int)&name);
+		AsciiString name(AptUtils::SkipLevelN(path));
+		m_onLoaded.invoke(AptUtils::LevelIndexFromTarget(path), (int)&name);
 	}
 }
 

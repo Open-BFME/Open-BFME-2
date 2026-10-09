@@ -13,8 +13,8 @@
 #include <list>
 
 // BfmePathLeafAfterMarker.cpp's path helpers.
-const char *__cdecl Rva00412845AfterLevel(const char *path);
-int __cdecl Rva004128BBGetLevel(const char *path);
+namespace AptUtils { const char *__cdecl SkipLevelN(const char *path); }
+namespace AptUtils { int __cdecl LevelIndexFromTarget(const char *path); }
 
 class AnimateWindow;
 class ProcessAnimateWindowSlideFromBottomTimed
@@ -279,7 +279,7 @@ void StrategicHUD::ChecklistUIImpl::OnScrollBarLoaded(const char *name)
 	Rva000AD6F4 *scrollBar = &m_scrollBar;
 	if (scrollBar->m_ptr == 0)
 	{
-		((Rva00575674 *)scrollBar)->rva00575674((Object *)new Rva005D4DA9(Rva004128BBGetLevel(name), AsciiString(Rva00412845AfterLevel(name))));
+		((Rva00575674 *)scrollBar)->rva00575674((Object *)new Rva005D4DA9(AptUtils::LevelIndexFromTarget(name), AsciiString(AptUtils::SkipLevelN(name))));
 		listenTo((Rva005D4DA9 *)scrollBar->m_ptr);
 		rva0057B16D();
 	}
@@ -601,7 +601,7 @@ StrategicHUD::SelectionDetailsUIImpl::SelectionDetailsUIImpl(int level, const As
 void StrategicHUD::SelectionDetailsUIImpl::OnPanelFrameLoaded(const char *name)
 {
 	if (m_panelFrame.m_ptr == 0)
-		m_panelFrame.reset(new Rva005D4FFC(Rva004128BBGetLevel(name), AsciiString(Rva00412845AfterLevel(name))));
+		m_panelFrame.reset(new Rva005D4FFC(AptUtils::LevelIndexFromTarget(name), AsciiString(AptUtils::SkipLevelN(name))));
 }
 
 // Retail 0x0057BA85, 11 bytes: bound as "<movie>_OnPanelFrameUnloaded"

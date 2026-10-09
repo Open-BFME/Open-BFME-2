@@ -137,8 +137,8 @@ void *__cdecl Rva005E2D8AGet(const char *name);
 
 // BfmePathLeafAfterMarker.cpp's path helpers and the pinned Apt parameter
 // reader 0x004128F0.
-const char *__cdecl Rva00412845AfterLevel(const char *path);
-int __cdecl Rva004128BBGetLevel(const char *path);
+namespace AptUtils { const char *__cdecl SkipLevelN(const char *path); }
+namespace AptUtils { int __cdecl LevelIndexFromTarget(const char *path); }
 bool __cdecl Rva004128F0GetParam(const char *path, const char *key, AsciiString &value);
 
 // The rowed TreeHintRef assignment (0x002174A4).
@@ -270,8 +270,8 @@ void StrategicHUD::RegionDetailsMovieClip::Impl::OnPageLoaded(const char *path)
 		return;
 
 	{
-		AsciiString name(Rva00412845AfterLevel(pageName.str()));
-		*(TreeHintRef00217D4C *)&m_pages[slot] = m_owner->CreatePage(slot, Rva004128BBGetLevel(pageName.str()), name);
+		AsciiString name(AptUtils::SkipLevelN(pageName.str()));
+		*(TreeHintRef00217D4C *)&m_pages[slot] = m_owner->CreatePage(slot, AptUtils::LevelIndexFromTarget(pageName.str()), name);
 	}
 	if (slot == m_0C && m_currentPage == -1 && m_selectedTab == -1)
 		m_selectedTab = m_0C;

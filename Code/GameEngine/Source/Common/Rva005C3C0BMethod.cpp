@@ -9,8 +9,8 @@
 #include <stdlib.h>
 
 bool __cdecl Rva004128F0GetParam(const char *params, const char *key, AsciiString &out);
-const char *__cdecl Rva00412845AfterLevel(const char *path);
-int __cdecl Rva004128BBGetLevel(const char *path);
+namespace AptUtils { const char *__cdecl SkipLevelN(const char *path); }
+namespace AptUtils { int __cdecl LevelIndexFromTarget(const char *path); }
 
 class Object;
 
@@ -56,6 +56,6 @@ void Rva005C3C0B::rva005C3C0B(const char *params)
 	AsciiString name;
 	if (!Rva004128F0GetParam(params, "name", name))
 		return;
-	elem->rva00575674((Object *)new Rva005C3975((int)this, Rva004128BBGetLevel(name.str()),
-		AsciiString(Rva00412845AfterLevel(name.str()))));
+	elem->rva00575674((Object *)new Rva005C3975((int)this, AptUtils::LevelIndexFromTarget(name.str()),
+		AsciiString(AptUtils::SkipLevelN(name.str()))));
 }

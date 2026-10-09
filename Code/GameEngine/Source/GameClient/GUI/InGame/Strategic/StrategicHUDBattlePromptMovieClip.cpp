@@ -20,8 +20,8 @@ namespace _STL {
 template<> inline void allocator<BfmeStringRecord005F93E3>::deallocate(BfmeStringRecord005F93E3 *p,size_t) const {if(p)::Rva00030830FreeAllocation(p);}
 template<> void vector<BfmeStringRecord005F93E3>::push_back(const BfmeStringRecord005F93E3 &);
 }
-const char *Rva00412845AfterLevel(const char *);
-int Rva004128BBGetLevel(const char *);
+namespace AptUtils { const char *__cdecl SkipLevelN(const char *); }
+namespace AptUtils { int __cdecl LevelIndexFromTarget(const char *); }
 class Object;
 class Rva00575674 {public: void rva00575674(Object *);};
 class Rva005CB260 {public: void rva005CB260();};
@@ -43,7 +43,7 @@ BfmeStringRecord005F93E3::~BfmeStringRecord005F93E3() {}
 
 void StrategicHUD::BattlePromptMovieClip::Impl::OnAllyTabsLoaded(const char *path){
  if(allyTabs.ptr)return;
- allyTabs.set(new Rva005F8E37(this,Rva004128BBGetLevel(path),AsciiString(Rva00412845AfterLevel(path))));
+ allyTabs.set(new Rva005F8E37(this,AptUtils::LevelIndexFromTarget(path),AsciiString(AptUtils::SkipLevelN(path))));
  int count=allies.size();
  ((StrategicHUD::BattlePromptPlayerTabsMovieClip *)allyTabs.ptr)->SetTabCount(count);
  for(int i=0;i<count;++i){
@@ -56,7 +56,7 @@ void StrategicHUD::BattlePromptMovieClip::Impl::OnAllyTabsLoaded(const char *pat
 
 void StrategicHUD::BattlePromptMovieClip::Impl::OnEnemyTabsLoaded(const char *path){
  if(enemyTabs.ptr)return;
- enemyTabs.set(new Rva005F8E5A(this,Rva004128BBGetLevel(path),AsciiString(Rva00412845AfterLevel(path))));
+ enemyTabs.set(new Rva005F8E5A(this,AptUtils::LevelIndexFromTarget(path),AsciiString(AptUtils::SkipLevelN(path))));
  int count=enemies.size();
  ((StrategicHUD::BattlePromptPlayerTabsMovieClip *)enemyTabs.ptr)->SetTabCount(count);
  for(int i=0;i<count;++i){

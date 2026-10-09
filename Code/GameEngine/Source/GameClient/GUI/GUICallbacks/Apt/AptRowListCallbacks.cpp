@@ -14,8 +14,8 @@ extern "C" __declspec(dllimport) int __cdecl atoi(const char *text);
 // BfmePathLeafAfterMarker.cpp's path helpers, and the unrowed 0x004128F0
 // (239 bytes) next to them that reads one "key=value" parameter, pinned by
 // address.
-const char *__cdecl Rva00412845AfterLevel(const char *path);
-int __cdecl Rva004128BBGetLevel(const char *path);
+namespace AptUtils { const char *__cdecl SkipLevelN(const char *path); }
+namespace AptUtils { int __cdecl LevelIndexFromTarget(const char *path); }
 bool __cdecl Rva004128F0GetParam(const char *params, const char *key, AsciiString &value);
 
 // TheGameLogic's mode at +0x110 (2 in a skirmish).
@@ -394,10 +394,10 @@ void Rva005105D7::OnRowShown(const char *params)
 	AsciiString name;
 	if (!Rva004128F0GetParam(params, "name", name))
 		return;
-	int level = Rva004128BBGetLevel(name.str());
+	int level = AptUtils::LevelIndexFromTarget(name.str());
 	if (level != m_level)
 		return;
-	((Rva00575674 *)movie)->rva00575674((Object *)new Rva0050F909(level, AsciiString(Rva00412845AfterLevel(name.str())), row->m_value0, row->m_value4));
+	((Rva00575674 *)movie)->rva00575674((Object *)new Rva0050F909(level, AsciiString(AptUtils::SkipLevelN(name.str())), row->m_value0, row->m_value4));
 }
 
 static const char *const s_queries[2] = {"NumOfPlayers", "InSkirmish"};

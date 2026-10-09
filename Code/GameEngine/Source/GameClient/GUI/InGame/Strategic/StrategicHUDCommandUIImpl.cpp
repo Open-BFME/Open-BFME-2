@@ -14,8 +14,8 @@
 
 bool __cdecl Rva005D2505Get(const char *params, int *out); // StrategicHUD::ParseButtonSlotIndex in WorldBuilder
 bool __cdecl Rva004128F0GetParam(const char *params, const char *key, AsciiString &value);
-const char *__cdecl Rva00412845AfterLevel(const char *path);
-int __cdecl Rva004128BBGetLevel(const char *path);
+namespace AptUtils { const char *__cdecl SkipLevelN(const char *path); }
+namespace AptUtils { int __cdecl LevelIndexFromTarget(const char *path); }
 
 // The slot's owning holders: reset(new object) deletes the old one (rowed
 // address-named setters; their parameter types are those views').
@@ -157,7 +157,7 @@ void StrategicHUD::CommandUIImpl::OnSubMenuLoaded(const char *path)
 	ButtonSlot &button = m_slots[slot];
 	if (*(void **)&button.m_subMenu)
 		return;
-	button.m_subMenu.rva00575674((Object *)new ButtonSubMenu(this, slot, Rva004128BBGetLevel(name.str()), AsciiString(Rva00412845AfterLevel(name.str()))));
+	button.m_subMenu.rva00575674((Object *)new ButtonSubMenu(this, slot, AptUtils::LevelIndexFromTarget(name.str()), AsciiString(AptUtils::SkipLevelN(name.str()))));
 }
 
 void StrategicHUD::CommandUIImpl::OnToggleFlashLoaded(const char *path)
@@ -174,5 +174,5 @@ void StrategicHUD::CommandUIImpl::OnToggleFlashLoaded(const char *path)
 	}
 	if (*(void **)&button->m_toggleFlash)
 		return;
-	button->m_toggleFlash.rva00528FE6((CameraMarker *)new Rva005C3932(Rva004128BBGetLevel(name.str()), AsciiString(Rva00412845AfterLevel(name.str()))));
+	button->m_toggleFlash.rva00528FE6((CameraMarker *)new Rva005C3932(AptUtils::LevelIndexFromTarget(name.str()), AsciiString(AptUtils::SkipLevelN(name.str()))));
 }

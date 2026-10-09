@@ -23,8 +23,8 @@
 // row gives the pointee; operator new sizes give the object sizes.
 #include "ascii_string.h"
 
-const char *__cdecl Rva00412845AfterLevel(const char *path);
-int __cdecl Rva004128BBGetLevel(const char *path);
+namespace AptUtils { const char *__cdecl SkipLevelN(const char *path); }
+namespace AptUtils { int __cdecl LevelIndexFromTarget(const char *path); }
 
 // Retail 005108EB uses the same loaded-movie construction as the HUD below.
 // Its holder at +24 is the rowed 0050F68A/0050F6AD pair, whose pointee is
@@ -60,7 +60,7 @@ private:
 void Rva005108EB::rva005108EB(const char *name)
 {
 	if (m_24.m_ptr == 0)
-		m_24.rva0050F68A(new Rva0050ED58(Rva004128BBGetLevel(name), AsciiString(Rva00412845AfterLevel(name))));
+		m_24.rva0050F68A(new Rva0050ED58(AptUtils::LevelIndexFromTarget(name), AsciiString(AptUtils::SkipLevelN(name))));
 }
 
 // "string + text", as rowed in RegistryAsciiPath.cpp: the 12-byte node the
@@ -570,7 +570,7 @@ StrategicHUD::HUD::Impl::~Impl()
 void StrategicHUD::HUD::Impl::OnChecklistLoaded(const char *name)
 {
 	if (m_checklist.m_ptr == 0)
-		m_checklist.rva0042D81D(new Rva0057AD6E(Rva004128BBGetLevel(name), AsciiString(Rva00412845AfterLevel(name))));
+		m_checklist.rva0042D81D(new Rva0057AD6E(AptUtils::LevelIndexFromTarget(name), AsciiString(AptUtils::SkipLevelN(name))));
 }
 
 // Retail 0x0042DA77, 11 bytes: bound as "_level%u_OnChecklistUnloaded".
@@ -583,7 +583,7 @@ void StrategicHUD::HUD::Impl::OnChecklistUnloaded(const char *name)
 void StrategicHUD::HUD::Impl::OnEndTurnButtonLoaded(const char *name)
 {
 	if (m_endTurnButton.m_ptr == 0)
-		m_endTurnButton.rva0042D7A3(new Rva005794ED(Rva004128BBGetLevel(name), AsciiString(Rva00412845AfterLevel(name))));
+		m_endTurnButton.rva0042D7A3(new Rva005794ED(AptUtils::LevelIndexFromTarget(name), AsciiString(AptUtils::SkipLevelN(name))));
 }
 
 // Retail 0x0042DB16, 11 bytes: bound as "_level%u_OnEndTurnButtonUnloaded".
@@ -597,7 +597,7 @@ void StrategicHUD::HUD::Impl::OnHelpBoxLoaded(const char *name)
 {
 	if (m_helpBox.m_ptr == 0)
 	{
-		m_helpBox.reset(new Rva00527CCE(Rva004128BBGetLevel(name), AsciiString(Rva00412845AfterLevel(name))));
+		m_helpBox.reset(new Rva00527CCE(AptUtils::LevelIndexFromTarget(name), AsciiString(AptUtils::SkipLevelN(name))));
 		if (m_palantir.m_ptr != 0)
 			((StrategicHUD::Palantir *)m_palantir.m_ptr)->rva005785A2(m_helpBox.m_ptr);
 		if (m_statsDisplay.m_ptr != 0)
@@ -619,14 +619,14 @@ void StrategicHUD::HUD::Impl::OnHelpBoxUnloaded(const char *name)
 void StrategicHUD::HUD::Impl::OnLoadDialogFrameLoaded(const char *name)
 {
 	if (m_loadDialogFrame.m_ptr == 0)
-		((Rva00575674 *)&m_loadDialogFrame)->rva00575674((Object *)new Rva0057C499(Rva004128BBGetLevel(name), AsciiString(Rva00412845AfterLevel(name))));
+		((Rva00575674 *)&m_loadDialogFrame)->rva00575674((Object *)new Rva0057C499(AptUtils::LevelIndexFromTarget(name), AsciiString(AptUtils::SkipLevelN(name))));
 }
 
 // Retail 0x0042DC98, 148 bytes: bound as "_level%u_OnNewTurnIndicatorLoaded".
 void StrategicHUD::HUD::Impl::OnNewTurnIndicatorLoaded(const char *name)
 {
 	if (m_newTurnIndicator.m_ptr == 0)
-		m_newTurnIndicator.rva0042D897(new Rva0057C04F(Rva004128BBGetLevel(name), AsciiString(Rva00412845AfterLevel(name))));
+		m_newTurnIndicator.rva0042D897(new Rva0057C04F(AptUtils::LevelIndexFromTarget(name), AsciiString(AptUtils::SkipLevelN(name))));
 }
 
 // Retail 0x0042DD2C, 11 bytes: bound as "_level%u_OnNewTurnIndicatorUnloaded".
@@ -639,7 +639,7 @@ void StrategicHUD::HUD::Impl::OnNewTurnIndicatorUnloaded(const char *name)
 void StrategicHUD::HUD::Impl::OnRadialMenuStageLoaded(const char *name)
 {
 	if (m_radialMenuStage.m_ptr == 0)
-		m_radialMenuStage.rva0042D729(new Rva00577DE1OwningCell(Rva004128BBGetLevel(name), AsciiString(Rva00412845AfterLevel(name))));
+		m_radialMenuStage.rva0042D729(new Rva00577DE1OwningCell(AptUtils::LevelIndexFromTarget(name), AsciiString(AptUtils::SkipLevelN(name))));
 }
 
 // Retail 0x0042DDCB, 11 bytes: bound as "_level%u_OnRadialMenuStageUnloaded".
@@ -654,7 +654,7 @@ void StrategicHUD::HUD::Impl::OnPalantirLoaded(const char *name)
 {
 	if (m_palantir.m_ptr == 0)
 	{
-		m_palantir.reset(new Rva00578C43(Rva004128BBGetLevel(name), AsciiString(Rva00412845AfterLevel(name))));
+		m_palantir.reset(new Rva00578C43(AptUtils::LevelIndexFromTarget(name), AsciiString(AptUtils::SkipLevelN(name))));
 		if (m_helpBox.m_ptr != 0)
 			((StrategicHUD::Palantir *)m_palantir.m_ptr)->rva005785A2(m_helpBox.m_ptr);
 	}
@@ -670,7 +670,7 @@ void StrategicHUD::HUD::Impl::OnPalantirUnloaded(const char *name)
 void StrategicHUD::HUD::Impl::OnSelectionDetailsLoaded(const char *name)
 {
 	if (m_selectionDetails.m_ptr == 0)
-		m_selectionDetails.reset(new Rva0057BD01(Rva004128BBGetLevel(name), AsciiString(Rva00412845AfterLevel(name))));
+		m_selectionDetails.reset(new Rva0057BD01(AptUtils::LevelIndexFromTarget(name), AsciiString(AptUtils::SkipLevelN(name))));
 }
 
 // Retail 0x0042DF1C, 11 bytes: bound as "_level%u_OnSelectionDetailsUnloaded".
@@ -685,7 +685,7 @@ void StrategicHUD::HUD::Impl::OnStatsDisplayLoaded(const char *name)
 {
 	if (m_statsDisplay.m_ptr == 0)
 	{
-		m_statsDisplay.rva0042D7E0(new StrategicHUD::StatsDisplayImpl(Rva004128BBGetLevel(name), AsciiString(Rva00412845AfterLevel(name))));
+		m_statsDisplay.rva0042D7E0(new StrategicHUD::StatsDisplayImpl(AptUtils::LevelIndexFromTarget(name), AsciiString(AptUtils::SkipLevelN(name))));
 		if (m_helpBox.m_ptr != 0)
 			((Rva005796B3 *)m_statsDisplay.m_ptr)->rva005796B3(m_helpBox.m_ptr);
 	}

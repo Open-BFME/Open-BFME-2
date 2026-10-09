@@ -184,8 +184,8 @@ int __cdecl Rva0052519DFire(void *target, void *level, const char *prefix, const
 
 // BfmePathLeafAfterMarker.cpp's path helpers and the pinned Apt parameter
 // reader 0x004128F0.
-const char *__cdecl Rva00412845AfterLevel(const char *path);
-int __cdecl Rva004128BBGetLevel(const char *path);
+namespace AptUtils { const char *__cdecl SkipLevelN(const char *path); }
+namespace AptUtils { int __cdecl LevelIndexFromTarget(const char *path); }
 bool __cdecl Rva004128F0GetParam(const char *path, const char *key, AsciiString &value);
 
 // TheAudio (0x009FE6E8) viewed by slot: addAudioEvent +0x64.
@@ -379,8 +379,8 @@ void StrategicHUD::DynamicAutoResolveMovieClip::Impl::OnPanelLoaded(const char *
 	AsciiString panelPath;
 	if (!Rva004128F0GetParam(path, "name", panelPath))
 		return;
-	AsciiString leaf(Rva00412845AfterLevel(panelPath.str()));
-	(m_owner->*notify)(index, Rva004128BBGetLevel(panelPath.str()), leaf);
+	AsciiString leaf(AptUtils::SkipLevelN(panelPath.str()));
+	(m_owner->*notify)(index, AptUtils::LevelIndexFromTarget(panelPath.str()), leaf);
 }
 
 void StrategicHUD::DynamicAutoResolveMovieClip::Impl::OnOpen(const char *path)

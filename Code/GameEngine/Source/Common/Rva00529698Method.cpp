@@ -39,8 +39,8 @@ private:
 
 bool __cdecl Rva00529628Get(const char *section, int *out);
 bool __cdecl Rva00528C30Get(const char *section, AsciiString &out);
-const char *__cdecl Rva00412845AfterLevel(const char *s);
-int __cdecl Rva004128BBGetLevel(const char *s);
+namespace AptUtils { const char *__cdecl SkipLevelN(const char *s); }
+namespace AptUtils { int __cdecl LevelIndexFromTarget(const char *s); }
 
 __forceinline const char *GetStr00529698(const AsciiString &s)
 {
@@ -87,5 +87,5 @@ void Rva0052936C::rva00529698(const char *section)
 		if (e->m_holder.m_ptr != 0)
 			return;
 	}
-	e->m_holder.rva00575674((Object *)new Rva005D2462(Rva004128BBGetLevel(GetStr00529698(val)), AsciiString(Rva00412845AfterLevel(GetStr00529698(val))), (int)&e->m_04, (int)&e->m_08));
+	e->m_holder.rva00575674((Object *)new Rva005D2462(AptUtils::LevelIndexFromTarget(GetStr00529698(val)), AsciiString(AptUtils::SkipLevelN(GetStr00529698(val))), (int)&e->m_04, (int)&e->m_08));
 }
