@@ -9,6 +9,7 @@
 // Vector<int> construction uses the existing exact 29B folded base initializer;
 // only the twelve-byte header is accessed through this storage view.
 #include <vector>
+#include <string>
 #include "ascii_string.h"
 #include "unicode_string.h"
 #include "../../Include/GameNetwork/Transport.h"
@@ -67,7 +68,7 @@ __declspec(noinline) bool PortNegotiationSchema::rva005DBA60(unsigned short x){i
 struct Rva005A684FWord{unsigned m_00;unsigned short m_04;};class Rva005A684F{public:unsigned get(unsigned)const;char pad[0x90c];Rva005A684FWord *m_slots[8];};
 class Rva00594E07{public:unsigned short rva00594E07(unsigned short,int);};class Rva0059534A{public:void rva0059534A(unsigned short);};class Rva0059517F{public:bool rva0059517F(unsigned long,unsigned short,unsigned short,unsigned short,bool);};class FirewallHelperClass{public:void flagNeedToRefresh(bool);};
 extern unsigned long g_00DD35BC;int NAT::s_manglerMaxRetryCount=25;
-struct NatConnectionView{char pad00[8];GameSpyGameSlot **slots;char pad0c[8];int local,target;char pad1c[8];bool sendPort,receivedPort;char pad26[0x92c-0x26];int retries,maxRetries;unsigned short packetID,spareSocket;unsigned manglerRetryTime;int manglerRetries;unsigned short previousSource;bool beenProbed,unknown943;unsigned manglerAddress,nextSendTime;int connectionState,previousState;char pad954[8];unsigned nextPortSendTime,timeoutTime,roundTimeout;};
+struct NatConnectionView{char pad00[8];GameSpyGameSlot **slots;int host,parentState;int local,target;unsigned localIP,cookie;bool sendPort,receivedPort;char pad26[0x92c-0x26];int retries,maxRetries;unsigned short packetID,spareSocket;unsigned manglerRetryTime;int manglerRetries;unsigned short previousSource;bool beenProbed,unknown943;unsigned manglerAddress,nextSendTime;int connectionState,previousState;char pad954[8];unsigned nextPortSendTime,timeoutTime,roundTimeout;};
 // BF1 f98983a7d NAT_connectionUpdate.cpp supplies mangler retry/port/probe
 // semantics. Target WB14DAEB0 connectionUpdate and full551B retail control
 // flow supply compact BF2 callbacks and offsets. State IDs4/5 differ from
@@ -120,3 +121,48 @@ bool NAT::SetUDPSocketForSlot(unsigned short port,unsigned short slot,void* addr
  if(result){((UDPDrain*)socket)->~UDPDrain();operator delete(socket);return false;}
  base->transport->RemoveSocketForSlot(slot);base->transport->setSlotSocket(socket,slot,(int*)address);return true;
 }
+struct BfmeOpaqueOwnedRecord492 {
+	BfmeOpaqueOwnedRecord492();
+	~BfmeOpaqueOwnedRecord492();
+	int unknown_00;
+	std::string unknown_04;
+	std::wstring unknown_10;
+	std::string unknown_1c;
+	std::string unknown_28;
+	std::string unknown_34;
+	std::string unknown_40;
+	std::string unknown_4c;
+	std::string unknown_58;
+	std::string unknown_64;
+	std::string unknown_70[8];
+	unsigned int unknown_d0[10];
+	std::string unknown_f8;
+	std::vector<bool> unknown_104;
+	union {
+		struct { int word; } payload_word0;
+		struct { int word; } payload_word1;
+		struct { int word; } payload_word2;
+		struct { bool value; } payload_flag0;
+		struct { bool value; } payload_flag1;
+		struct { int word; } payload_word3;
+		struct { int words[15]; } payload_60;
+		struct { int words[53]; } payload_212a;
+		struct { bool value; } payload_flag2;
+		struct { int words[26]; } payload_104;
+		struct { int words[7]; } payload_28;
+		struct { int first; int second; } payload_8c;
+	};
+};
+
+
+class GameSpyPeerMessageQueueInterface {public:virtual void f0();virtual void f1();virtual void f2();virtual void f3();virtual void f4();virtual void f5();virtual void addRequest(const BfmeOpaqueOwnedRecord492&);};extern GameSpyPeerMessageQueueInterface *TheGameSpyPeerMessageQueue;
+// BF1 f98983a7d CONNFAILED notification purpose; WB14E01D0 and
+// native5A7683..5A7829 prove target callback and request/string offsets.
+// Inlining the null tests preserves the native shared early failure block;
+// the comma is a byte in an independently aligned four-byte stack slot.
+__forceinline bool validSlots(GameSpyGameSlot*a,GameSpyGameSlot*b){if(!a)return false;if(!b)return false;return true;}
+void NAT::notifyConnectionToTargetFailed(){NatConnectionView *v=(NatConnectionView*)this;GameSpyGameSlot *local=v->slots[v->local];GameSpyGameSlot *target=v->slots[v->target];if(!validSlots(local,target)){v->connectionState=5;v->previousState=5;}else{ BfmeOpaqueOwnedRecord492 request;AsciiString options;options.format("CONNFAILED%d %d %X",v->local,v->target,v->cookie);request.unknown_00=13;request.payload_flag0.value=true;request.unknown_34="NAT";
+ __declspec(align(4)) char delimiter;AsciiString names,tmp;tmp.translate(*(UnicodeString*)((char*)v->slots[v->host]+0x30));if(!names.isEmpty()){delimiter=',';((StringBase<char>*)&names)->concat(&delimiter,1);}names+=tmp;
+ tmp.translate(*(UnicodeString*)((char*)v->slots[v->target]+0x30));if(!names.isEmpty()){delimiter=',';((StringBase<char>*)&names)->concat(&delimiter,1);}names+=tmp;
+ request.unknown_04=names.str();request.unknown_40=options.str();TheGameSpyPeerMessageQueue->addRequest(request);
+}}
