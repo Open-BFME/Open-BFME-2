@@ -125,17 +125,9 @@ public:
 		TheAudio->addAudioEvent(&sound);
 	}
 
-	virtual void doFXObj(const Object* primary, const Object* secondary = NULL) const
-	{
-		AudioEventRTS sound(m_soundName);
-		if (primary)
-		{
-			sound.setPlayerIndex(primary->getControllingPlayer()->getPlayerIndex());
-			sound.setPosition(primary->getPosition());
-		}
-
-		TheAudio->addAudioEvent(&sound);
-	}
+	// Defined out of line in SoundFXNuggetSlots.cpp (retail 0x001E012E): the inline ZH
+	// port copy compiled differently and would be a conflicting COMDAT definition.
+	virtual void doFXObj(const Object* primary, const Object* secondary = NULL) const;
 
 
 	static void parse(INI *ini, void *instance, void* /*store*/, const void* /*userData*/)

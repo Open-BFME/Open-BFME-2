@@ -1,5 +1,7 @@
 // ?Rva00136090MeshHold@@YA?AURva00136090MeshHolder@@PAVMeshModelClass@@@Z
 // partial score=0.75 date=2026-10-09
+// ?Rva00136090MeshHold@@YA?AURva00136090MeshHolder@@PAVMeshModelClass@@@Z
+// partial score=0.75 date=2026-10-09
 // cl: /O1 /Ob2 /DNDEBUG /MD /EHsc
 // Native136090..1360EA; BFME1 refcount.h lifetime semantics (rev9cbfb551).
 class MeshModelClass {public:virtual void Delete_This();int refs;

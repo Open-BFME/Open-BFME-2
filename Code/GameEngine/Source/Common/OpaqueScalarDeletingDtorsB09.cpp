@@ -165,6 +165,7 @@ public:
     Rva0051D93(EmitVtableTag *);
     Rva0051D93(const OpaqueRefElement4 &reference, int value30);
     Rva0051D93(const BfmeAudioEventPrefix136 &source);
+    Rva0051D93(const OpaqueRefElement4 &reference, const BfmeEventPositionView &position, int value30);
     __declspec(noinline) virtual ~Rva0051D93();
 };
 
@@ -185,6 +186,13 @@ Rva0051D93::Rva0051D93(const OpaqueRefElement4 &reference, int value30)
 // constructor2D99E3, then the secondary base vptr with a fresh zero count.
 Rva0051D93::Rva0051D93(const BfmeAudioEventPrefix136 &source)
     : BfmeAudioEventPrefix136(source)
+{
+}
+
+// Native568899..5688D2 RET 0xC: the positioned prefix constructor 2D982A, then the same
+// secondary base vptr/counter initialization and derived tables as the siblings above.
+Rva0051D93::Rva0051D93(const OpaqueRefElement4 &reference, const BfmeEventPositionView &position, int value30)
+    : BfmeAudioEventPrefix136(reference, position, value30)
 {
 }
 
