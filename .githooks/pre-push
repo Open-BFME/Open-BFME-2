@@ -12,6 +12,22 @@ fail() {
     exit 1
 }
 
+# shadow_cap CMD...: a backstop for a shadow detector, which bounds itself
+# (tools/shadow_budget.py, $BFME_SHADOW_BUDGET_S, default 10 s): GNU timeout at the
+# budget plus 30 s where it exists (Git Bash, Linux, Wine runners). Windows' own
+# timeout.exe is another program, hence the --version probe; without GNU timeout the
+# command runs uncapped.
+shadow_cap() {
+    local cap=${BFME_SHADOW_BUDGET_S:-10}
+    cap=${cap%%.*}
+    case "$cap" in ''|*[!0-9]*) cap=10 ;; esac
+    if [ "$cap" -gt 0 ] && timeout --version >/dev/null 2>&1; then
+        timeout -k 5 $((10#$cap + 30)) "$@"
+    else
+        "$@"
+    fi
+}
+
 # capture VAR WHAT CMD...: run CMD into a new temp file, store its path in VAR, and fail
 # naming WHAT if CMD fails. `< <(cmd)` drops the producer's exit status, so a crashed
 # delta_sources read as "nothing to verify" and the push went out unverified.
@@ -187,10 +203,12 @@ PY
             || fail "exception data differs from retail in outgoing sources (see above)"
     fi
     # Replayed commits, SHADOW: an outgoing commit with the author, author date and
-    # subject of one already upstream, or adding ledger lines already there verbatim.
-    # Seats re-pushed old commits 3,541 times on 2026-10-06..08, each a duplicate row
-    # every byte gate passes. About a second; reports, never fails the push.
-    python3 tools/replay_check.py --shadow --range "$base" "$local_sha" < /dev/null \
+    # subject of one already upstream (a possible replay), or whose patch-id or added
+    # ledger lines are already there (a replay). Seats re-pushed old commits 3,541 times
+    # on 2026-10-06..08, each a duplicate row every byte gate passes. About a second for
+    # a typical push, ~4 s for 2,000 commits; bounded by $BFME_SHADOW_BUDGET_S (default
+    # 10 s), then shadow_cap. Reports, never fails the push.
+    shadow_cap python3 tools/replay_check.py --shadow --range "$base" "$local_sha" < /dev/null \
         || echo "pre-push: replay_check shadow check failed to run (ignored)" >&2
     echo "PRE-PUSH OK (${#verify[@]} outgoing source(s) byte-verified)"
 done <<< "$refs"

@@ -12,6 +12,22 @@ fail() {
     exit 1
 }
 
+# shadow_cap CMD...: a backstop for a shadow detector, which bounds itself
+# (tools/shadow_budget.py, $BFME_SHADOW_BUDGET_S, default 10 s): GNU timeout at the
+# budget plus 30 s where it exists (Git Bash, Linux, Wine runners). Windows' own
+# timeout.exe is another program, hence the --version probe; without GNU timeout the
+# command runs uncapped.
+shadow_cap() {
+    local cap=${BFME_SHADOW_BUDGET_S:-10}
+    cap=${cap%%.*}
+    case "$cap" in ''|*[!0-9]*) cap=10 ;; esac
+    if [ "$cap" -gt 0 ] && timeout --version >/dev/null 2>&1; then
+        timeout -k 5 $((10#$cap + 30)) "$@"
+    else
+        "$@"
+    fi
+}
+
 # capture VAR WHAT CMD...: run CMD into a new temp file, store its path in VAR, and fail
 # naming WHAT if CMD fails. `< <(cmd)` and `$(cmd)` drop the producer's exit status, so a
 # crashed lister read as an empty list and the hook verified less instead of refusing.
@@ -106,8 +122,9 @@ python3 tools/class_gate.py --staged || fail "new private copy of a class with a
 python3 tools/tu_ownership.py --staged --shadow || echo "pre-commit: tu_ownership shadow check failed to run (ignored)" >&2
 # Invented global names, SHADOW: a new address-named global (g_Va00BBB8D8, g_00DFE758)
 # in an added Code/ line for a retail address reverse/data_ledger.csv already gives a
-# real name. The byte gate masks DIR32, so it cannot see this. Reports, never refuses.
-python3 tools/invented_names.py --staged --shadow || echo "pre-commit: invented_names shadow check failed to run (ignored)" >&2
+# usable name or holds a literal. The byte gate masks DIR32, so it cannot see this.
+# Reports, never refuses; bounded by $BFME_SHADOW_BUDGET_S (default 10 s), then shadow_cap.
+shadow_cap python3 tools/invented_names.py --staged --shadow || echo "pre-commit: invented_names shadow check failed to run (ignored)" >&2
 # In shadow mode the hatch register reports growth without refusing it, and a report
 # printed here scrolls away under the byte-verify output below: 319 pin lines went in
 # unadmitted that way. Its banner is repeated as the hook's last words, on every exit.

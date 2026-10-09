@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Report new address-named globals for retail data that already has a real name (SHADOW).
+"""Report new address-named globals for retail data that already has a usable name (SHADOW).
 
 WHY. The per-function byte gate masks DIR32 (global) relocations, so a body
 matches whatever it calls a global. Agents therefore invent one per address --
@@ -8,24 +8,42 @@ second, third, ninth name for one retail global: reverse/data_ledger.csv binds
 TheWritableGlobalData, g_00DFE758, g_Va009FE758 and six more to 0x009FE758.
 Each extra name is a separate definition the link has to reconcile.
 
-WHAT. Added lines of Code/ C/C++ sources (`git diff -U0`), comments and string
-literals removed. A token is address-invented when it matches
-tools/hatch_counters.py's `address_global` hatch (g_...Va/Rva/DAT_<hex>), the
-bare g_<hex> form, or is an address-invented name (data_ledger.py's rule) the
-data ledger already binds. A token the file already held before the change is
-not new and is skipped; each (file, name) is reported once, at its first added
-line.
+WHAT. Code/ C/C++ sources a change touches. A token is address-invented when it
+matches tools/hatch_counters.py's `address_global` hatch (g_...Va/Rva/DAT_<hex>),
+the bare g_<hex> form, or is an address-invented name (data_ledger.py's rule)
+the data ledger already binds. Candidates come from the added lines; the
+complete old and new file contents are then lexed once each (comments, string
+and character literals removed), and a candidate is new when it is a code
+token of the new file and not of the old one. So a name mentioned only in a
+comment -- even an added line inside an existing /* ... */ -- is not reported,
+and an old comment mentioning a name does not hide a newly declared one. Each
+(file, name) is reported once, at its first use in code.
 
 ADDRESS. A name the data ledger already binds resolves to where it is bound.
 Otherwise its hex run is read as a VA (image base 0x400000; tools/name_globals.py's
 reading of an address >= 0x400000) and then as an RVA -- first for `Rva` names --
 and the first reading that is an exact data-ledger address wins. A name that
-resolves to no ledger address is not reported.
+resolves to no ledger address is counted as unresolved ("not checked"), not
+reported.
 
-REAL NAME. Any other name the ledger binds at that address that is not
-address-invented and not a compiler literal (??_C@, __real@, __xmm@);
-vtables, RTTI and imports count as real. TU-local statics are shown as
-`name (static, file)`.
+WHAT IT IS INSTEAD. The other names the ledger binds at that address, by what
+the source can do with them, first match wins:
+  literal   a compiler literal (??_C@ string, __real@ float, __xmm@): use the
+            literal itself -- 0x007BB8D8 is __real@3f800000, the float 1.0f
+  vtable    a vtable or RTTI symbol (??_7, ??_8, ??_R, __TI, __CT): reached
+            through its class, not an extern name
+  owner     an external, non-invented name: extern it or include its header
+            (imports count: declared by their header)
+Not usable, so never suggested: TU-local statics (name@source in the ledger,
+and function-local statics such as ?TheNullChr@?1??str@...) and provisional
+`bfme` recovered-role guesses (g_bfmeDefaultBU). An address with only those
+is counted, not listed.
+
+COST. tools/shadow_budget.py bounds the run ($BFME_SHADOW_BUDGET_S, default
+10 s, --budget); past it the tool kills its git children, prints "partial:
+budget ... exceeded after N of M file(s)" with what it found and exits 0.
+Each blob is read and lexed once (was: one regex scan of the old blob per
+candidate, 54.7 s for 500 names against a 3.23 MB file).
 
 REPORT ONLY. --shadow (the hook) always exits 0; without it, exit 1 on a finding.
 
@@ -38,13 +56,14 @@ import argparse
 import collections
 import csv
 import re
+import struct
 import subprocess
 import sys
-import time
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from hatch_counters import ADDR_GLOBAL  # noqa: E402  (the address_global hatch)
+from shadow_budget import Budget, BudgetExceeded, exit_on_signals, seconds  # noqa: E402
 
 IMAGE_BASE = 0x400000
 SOURCE_ROOT = "Code/"
@@ -52,11 +71,13 @@ EXTENSIONS = (".cpp", ".c", ".cc", ".cxx", ".h", ".hpp", ".inl")
 PATHSPECS = tuple(f"{SOURCE_ROOT}*{ext}" for ext in EXTENSIONS)
 LEDGER = "reverse/data_ledger.csv"
 SEP = "\x1f"
+GIT = ("git", "-c", "core.quotePath=false")
 
 # Copied from tools/data_ledger.py (which imports the build machinery: too slow
 # for a hook); tools/tests/test_invented_names.py keeps the two identical.
 INVENTED = re.compile(r"(?:^|[a-z_]|Va|Rva|At)(?=[0-9A-F]*[0-9])[0-9A-F]{6,8}(?![0-9A-F])")
 LITERALS = ("??_C@", "__real@", "__xmm@")
+VTABLE_RTTI = ("??_7", "??_8", "??_R", "__TI", "__CT")
 # Rva005F5C77Base0: an address label whose hex run runs on into a word that
 # starts with a hex letter, which INVENTED's end anchor misses
 LABELLED = re.compile(r"(?:Rva|RVA|rva|Va|VA|DAT_)(?=[0-9A-F]{0,7}[0-9])[0-9A-F]{6,8}")
@@ -68,15 +89,15 @@ ENCODED = (re.compile(r"(Rva|RVA|rva|Va|VA|va|DAT_?|g_|At|[a-z_])((?=[0-9A-F]{0,
            re.compile(r"(Rva|RVA|rva|Va|VA|va|DAT_?|g_)((?=[0-9A-Fa-f]{0,7}[0-9])[0-9A-Fa-f]{6,8})"))
 TOKEN = re.compile(r"(?<![A-Za-z0-9_])[A-Za-z_]\w*")
 HEX_RUN = re.compile(r"[0-9A-Fa-f]{6}")
-NON_CODE = re.compile(r'"(?:\\.|[^"\\])*"|\'(?:\\.|[^\'\\])*\'|/\*.*?(?:\*/|$)|//.*$')
-DOC_LINE = re.compile(r"^\s*\*(?:\s|/|$)")      # " * text": inside a block comment
+# what is not code: // comments (a trailing backslash continues them), /* */ comments
+# (an unterminated one runs to the end), string and character literals (an
+# unterminated one ends at its line)
+NON_CODE = re.compile(r'//(?:[^\n\\]|\\.)*|/\*.*?(?:\*/|\Z)|"(?:[^"\\\n]|\\.)*"?|\'(?:[^\'\\\n]|\\.)*\'?', re.S)
+WORD = re.compile(r"[A-Za-z_]\w*|\d\w*")         # numbers too, so 0x00DFE758 is no identifier
+LOCAL_STATIC = re.compile(r"^\?\w+@\?\d")         # ?TheNullChr@?1??str@AsciiString@@QBEPBDXZ@4DB
+GUESS = re.compile(r"^(?:[gs]_)?_?[Bb]fme(?=[A-Z0-9_])")    # a `bfme` recovered-role name
 
-
-def git(*args, binary=False, check=True):
-    got = subprocess.run(["git", "-c", "core.quotePath=false", *args], capture_output=True)
-    if check and got.returncode:
-        raise RuntimeError("git %s: %s" % (" ".join(args[:3]), got.stderr.decode("utf-8", "replace").strip()))
-    return got.stdout if binary else got.stdout.decode("utf-8", "replace")
+Finding = collections.namedtuple("Finding", "sha path line name rva kind shown how")
 
 
 def identifier(symbol):
@@ -90,6 +111,24 @@ def identifier(symbol):
 def invented(name):
     return bool(INVENTED.search(name) or LABELLED.search(name) or ADDR_GLOBAL.search(name)
                 or BARE.search(name))
+
+
+def classify(symbol, source):
+    """What source can do with another name at the address: literal | vtable | owner |
+    static | guess, or None for an address-invented name (no alternative at all)."""
+    if symbol.startswith(LITERALS):
+        return "literal"
+    if invented(identifier(symbol)):
+        return None
+    if symbol.startswith(VTABLE_RTTI):
+        return "vtable"
+    if symbol.startswith("__imp_"):
+        return "owner"
+    if source or LOCAL_STATIC.match(symbol):
+        return "static"
+    if GUESS.match(identifier(symbol)):
+        return "guess"
+    return "owner"
 
 
 # ---------------------------------------------------------------- the data ledger
@@ -135,27 +174,83 @@ class Ledger:
             return [(rva, "decoded" if rva == spelled else "bound") for rva in sorted(self.bound[name])]
         return [] if spelled is None else [(spelled, "decoded")]
 
-    def real_names(self, rva):
+    def instead(self, rva):
+        """(kind, [shown]) of what to use at `rva`: the first of literal, vtable, owner that
+        the ledger has there, or ("unusable", ...) when it holds only TU-local statics and
+        provisional guesses, or (None, []) when it holds no other name at all."""
         canonical, names = self.rows.get(rva, ("", []))
-        out = []
+        by_kind = collections.defaultdict(list)
         for symbol, source in sorted(names, key=lambda n: (n[0] != canonical, n[0], n[1] or "")):
-            if symbol.startswith(LITERALS) or invented(identifier(symbol)):
+            kind = classify(symbol, source)
+            if kind is None:
                 continue
-            shown = display(symbol)
-            if source:
-                shown += " (static, %s)" % source.rsplit("/", 1)[-1]
-            if shown not in out:
-                out.append(shown)
-        return out
+            shown = literal_text(symbol) if kind == "literal" else display(symbol)
+            if kind in ("static", "guess"):
+                kind, shown = "unusable", shown + (" (static, %s)" % source.rsplit("/", 1)[-1] if source
+                                                   else " (static)" if LOCAL_STATIC.match(symbol)
+                                                   else " (provisional guess)")
+            if shown not in by_kind[kind]:
+                by_kind[kind].append(shown)
+        for kind in ("literal", "vtable", "owner", "unusable"):
+            if by_kind[kind]:
+                return kind, by_kind[kind]
+        return None, []
 
 
 def display(symbol):
     vtable = re.match(r"^\?\?_7(\w+(?:@\w+)*)@@6", symbol)
     if vtable:
         return "::".join(reversed(vtable.group(1).split("@"))) + "::`vftable'"
-    if symbol.startswith(("??", "__imp_")):
+    if symbol.startswith(("??", "__imp_", "__TI", "__CT")):
         return symbol
     return identifier(symbol)
+
+
+# MSVC's ??_C@ encoding: ?0..?9 stand for these, ?$XY for byte 16*X+Y (A=0)
+SPECIAL = ",/\\:. \n\t'-"
+
+
+def literal_text(symbol):
+    """`the float literal 1.0f (__real@3f800000)` and the like."""
+    real = re.fullmatch(r"__real@([0-9a-fA-F]{8}|[0-9a-fA-F]{16})", symbol)
+    if real:
+        bits = bytes.fromhex(real.group(1))
+        fmt, suffix, kind = (">f", "f", "float") if len(bits) == 4 else (">d", "", "double")
+        value = struct.unpack(fmt, bits)[0]
+        for digits in range(1, 18):
+            text = "%.*g" % (digits, value)
+            if struct.pack(fmt, float(text)) == bits:
+                break
+        if re.fullmatch(r"-?\d+", text):
+            text += ".0"
+        return f"the {kind} literal {text}{suffix} ({symbol})"
+    string = re.fullmatch(r"\?\?_C@_([01])([0-9]|[A-P]+@)[A-P]+@(.*)@", symbol)
+    if string:
+        wide, length, body = string.group(1) == "1", string.group(2), string.group(3)
+        size = int(length) + 1 if length.isdigit() else int("".join("%x" % (ord(c) - 65) for c in length[:-1]), 16)
+        data, i = bytearray(), 0
+        while i < len(body):
+            c = body[i]
+            if c == "?" and body[i + 1:i + 2] == "$" and i + 3 < len(body):
+                data.append((ord(body[i + 2]) - 65) * 16 + ord(body[i + 3]) - 65)
+                i += 4
+            elif c == "?" and i + 1 < len(body) and body[i + 1].isdigit():
+                data.append(ord(SPECIAL[int(body[i + 1])]))
+                i += 2
+            elif c == "?" and i + 1 < len(body) and body[i + 1].isalpha():
+                data.append((0xE1 if body[i + 1].islower() else 0xC1) + ord(body[i + 1].lower()) - 97)
+                i += 2
+            else:
+                data.append(ord(c) & 0xFF)
+                i += 1
+        whole = len(data) >= size
+        text = data.decode("utf-16-le", "replace") if wide else data.decode("latin-1")
+        text = text[:-1] if whole and text.endswith("\0") else text
+        shown = "".join({"\\": "\\\\", '"': '\\"', "\n": "\\n", "\t": "\\t"}.get(ch, ch) if " " <= ch or ch in "\n\t"
+                        else "\\x%02x" % ord(ch) for ch in text)
+        return (f"the {'wide ' if wide else ''}string literal {'L' if wide else ''}\"{shown}"
+                f"{'' if whole else '...'}\" ({symbol})")
+    return f"a compiler literal ({symbol})"
 
 
 # ---------------------------------------------------------------- the diff
@@ -205,112 +300,172 @@ def _hunk_start(line):
 
 
 def candidates(added, ledger_names):
-    """{name: first line number} of address-invented tokens on added code lines."""
-    out = {}
-    in_block = False
-    for lineno, text in added:
-        if in_block:
-            if "*/" not in text:
-                continue
-            text, in_block = text.split("*/", 1)[1], False
-        elif DOC_LINE.match(text):
+    """Address-invented tokens on the added lines, comments and all: the lexer decides later."""
+    out = set()
+    for _lineno, text in added:
+        if not HEX_RUN.search(text):
             continue
-        for found in NON_CODE.finditer(text):
-            if found.group(0).startswith("/*") and not found.group(0).endswith("*/"):
-                in_block = True
-        code = NON_CODE.sub(" ", text)
-        if not HEX_RUN.search(code):
-            continue
-        for match in TOKEN.finditer(code):
+        for match in TOKEN.finditer(text):
             token = match.group(0)
             if token in out or not HEX_RUN.search(token):
                 continue
             if ADDR_GLOBAL.fullmatch(token) or BARE.fullmatch(token):
-                out[token] = lineno
+                out.add(token)
             elif (INVENTED.search(token) or LABELLED.search(token)) and token in ledger_names():
-                out[token] = lineno     # an address-invented name the ledger already binds to data
+                out.add(token)      # an address-invented name the ledger already binds to data
     return out
 
 
-class Blobs:
-    """Old file contents through one `git cat-file --batch`."""
+def _blank(match):
+    return " " + "\n" * match.group(0).count("\n")
 
-    def __init__(self):
+
+def code_tokens(text):
+    """(text with comments and literals blanked, {identifier holding a 6-hex run: offset of
+    its first use in code})."""
+    code = NON_CODE.sub(_blank, text)
+    first = {}
+    for match in WORD.finditer(code):
+        token = match.group(0)
+        if token[0].isdigit() or token in first or not HEX_RUN.search(token):
+            continue
+        first[token] = match.start()
+    return code, first
+
+
+class Blobs:
+    """File contents through one `git cat-file --batch`, inside the budget."""
+
+    def __init__(self, budget):
+        self.budget = budget
         self.proc = None
 
     def get(self, spec):
+        self.budget.check()
         if self.proc is None:
-            self.proc = subprocess.Popen(["git", "cat-file", "--batch"], stdin=subprocess.PIPE,
-                                         stdout=subprocess.PIPE)
-        self.proc.stdin.write(spec.encode("utf-8") + b"\n")
-        self.proc.stdin.flush()
-        head = self.proc.stdout.readline().split()
-        if len(head) < 3 or head[-1] == b"missing":
-            return ""
-        size = int(head[2])
-        data = self.proc.stdout.read(size)
-        self.proc.stdout.read(1)
+            self.proc = self.budget.popen([*GIT, "cat-file", "--batch"], stdin=subprocess.PIPE,
+                                          stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
+        try:
+            self.proc.stdin.write(spec.encode("utf-8") + b"\n")
+            self.proc.stdin.flush()
+            head = self.proc.stdout.readline().split()
+            if len(head) >= 2 and head[-1] == b"missing":
+                return ""
+            if len(head) < 3:
+                raise OSError("git cat-file --batch ended")
+            size = int(head[2])
+            data = self.proc.stdout.read(size)
+            self.proc.stdout.read(1)
+        except (OSError, ValueError):
+            self.budget.check()
+            raise RuntimeError("git cat-file --batch failed on %s" % spec)
+        if len(data) < size:
+            self.budget.check()
+            raise RuntimeError("git cat-file --batch: short read of %s" % spec)
         return data.decode("utf-8", "replace")
 
     def close(self):
         if self.proc is not None:
-            self.proc.stdin.close()
-            self.proc.wait()
+            try:
+                self.proc.stdin.close()
+            except OSError:
+                pass
+            self.budget.done(self.proc)
 
 
-def findings(commits, ledger_loader, old_rev_of, stats=None):
-    """[(commit, path, line, name, rva, real names, how resolved)]; `stats` (a Counter)
-    also counts the new candidates and those that resolved to a ledger address."""
-    out = []
-    stats = collections.Counter() if stats is None else stats
-    blobs = Blobs()
+class Progress:
+    """What a run has done so far: a budget overrun reports it as it stands."""
+
+    def __init__(self):
+        self.files = self.done = 0
+        self.stats = collections.Counter()
+        self.unresolved = []
+        self.found = []
+
+
+def findings(commits, ledger_loader, specs, budget, progress=None):
+    """[Finding] (also kept in progress.found). `specs(sha, parent, old, new)` gives the
+    (old, new) blob specs of a file; `progress` counts files, new candidates, resolved
+    ones, those with nothing usable instead, and keeps the unresolved names."""
+    progress = progress if progress is not None else Progress()
+    out = progress.found
+    blobs = Blobs(budget)
     ledger = {}
 
     def load():
         if "x" not in ledger:
             ledger["x"] = ledger_loader()
+            budget.check()
         return ledger["x"]
 
     def ledger_names():
         got = load()
         return got.bound if got is not None else {}
 
+    files = [(sha, parent, f) for sha, parent, fs in commits for f in fs
+             if f[1].startswith(SOURCE_ROOT) and f[1].lower().endswith(EXTENSIONS)]
+    progress.files = len(files)
     try:
-        for sha, parent, files in commits:
-            for old, new, added in files:
-                if not new.startswith(SOURCE_ROOT) or not new.lower().endswith(EXTENSIONS):
-                    continue
-                found = candidates(added, ledger_names)
-                if not found:
-                    continue
-                rev = old_rev_of(sha, parent)
-                before = blobs.get(f"{rev}:{old}") if (old and rev) else ""
+        for sha, parent, (old, new, added) in files:
+            budget.check()
+            found = candidates(added, ledger_names)
+            if found and load() is not None:
+                old_spec, new_spec = specs(sha, parent, old, new)
+                code, now = code_tokens(blobs.get(new_spec))
+                before = code_tokens(blobs.get(old_spec))[1] if old_spec else {}
                 led = load()
-                if led is None:
-                    continue
-                for name, lineno in sorted(found.items(), key=lambda kv: kv[1]):
-                    if re.search(r"(?<![A-Za-z0-9_])%s(?![A-Za-z0-9_])" % re.escape(name), before):
-                        continue
-                    stats["new"] += 1
-                    stats["resolved"] += bool(led.resolve(name))
-                    for rva, how in led.resolve(name):
-                        real = led.real_names(rva)
-                        if real:
-                            out.append((sha, new, lineno, name, rva, real, how))
+                fresh = sorted((now[name], name) for name in found if name in now and name not in before)
+                lineno, at = 1, 0
+                for offset, name in fresh:
+                    lineno, at = lineno + code.count("\n", at, offset), offset
+                    progress.stats["new"] += 1
+                    places = led.resolve(name)
+                    progress.stats["resolved"] += bool(places)
+                    if not places:
+                        progress.unresolved.append(name)
+                    for rva, how in places:
+                        kind, shown = led.instead(rva)
+                        if kind == "unusable":
+                            progress.stats["unusable"] += 1
+                        elif kind:
+                            out.append(Finding(sha, new, lineno, name, rva, kind, shown, how))
+            progress.done += 1
     finally:
         blobs.close()
     return out
 
 
-def message(path, lineno, name, rva, real, limit=4):
-    shown = ", ".join(real[:limit]) + (" (+%d more)" % (len(real) - limit) if len(real) > limit else "")
-    return "%s:%d invents %s for 0x%08X; the tree already calls it %s" % (path, lineno, name, rva, shown)
+def message(f, limit=4):
+    shown = ", ".join(f.shown[:limit]) + (" (+%d more)" % (len(f.shown) - limit) if len(f.shown) > limit else "")
+    head = "%s:%d invents %s for 0x%08X" % (f.path, f.line, f.name, f.rva)
+    if f.kind == "literal":
+        return f"{head}, which is {f.shown[0]}: use the literal"
+    if f.kind == "vtable":
+        return f"{head}, which is {shown}: reach it through its class, not an extern name"
+    return f"{head}; the tree already calls it {shown}: extern it or include its header"
+
+
+ADVICE = {
+    "owner": "Use the existing name (extern it, or include the header that declares it) instead of "
+             "inventing one per address.",
+    "literal": "Write the literal itself (1.0f, \"\"): the compiler emits the same reference to its pooled "
+               "constant, and no global is needed.",
+    "vtable": "A vtable or RTTI address is the class's: declare the class with its virtual functions and let "
+              "its constructor store the vtable, instead of naming the address.",
+}
 
 
 # ---------------------------------------------------------------- drivers
 
-def root():
-    return Path(git("rev-parse", "--show-toplevel").strip())
+def git(budget, *args, ok=(0,)):
+    code, out, err = budget.run([*GIT, *args])
+    if code not in ok:
+        raise RuntimeError("git %s: %s" % (" ".join(args[:3]), err.decode("utf-8", "replace").strip()))
+    return out.decode("utf-8", "replace")
+
+
+def root(budget):
+    return Path(git(budget, "rev-parse", "--show-toplevel").strip())
 
 
 def ledger_loader(path):
@@ -319,63 +474,87 @@ def ledger_loader(path):
     return load
 
 
-def staged(ledger_path):
-    text = git("diff", "--cached", "-M", "-U0", "--no-color", "--no-ext-diff", "--no-textconv",
+def staged(budget, ledger_path, progress):
+    text = git(budget, "diff", "--cached", "-M", "-U0", "--no-color", "--no-ext-diff", "--no-textconv",
                "--diff-filter=ACMR", "--", *PATHSPECS)
-    head = "HEAD" if subprocess.run(["git", "rev-parse", "-q", "--verify", "HEAD^{commit}"],
-                                    capture_output=True).returncode == 0 else None
-    return findings(parse_patch(text), ledger_loader(ledger_path), lambda _sha, _parent: head)
+    head = "HEAD" if git(budget, "rev-parse", "-q", "--verify", "HEAD^{commit}", ok=(0, 1)).strip() else None
+
+    def specs(_sha, _parent, old, new):
+        return (f"{head}:{old}" if (old and head) else None), f":{new}"
+    return findings(parse_patch(text), ledger_loader(ledger_path), specs, budget, progress)
 
 
-def log_patch(*rev_args):
-    return parse_patch(git("log", "--no-merges", "-M", "-p", "-U0", "--no-color", "--no-ext-diff",
+def in_history(sha, parent, old, new):
+    return (f"{parent}:{old}" if (old and parent) else None), f"{sha}:{new}"
+
+
+def log_patch(budget, *rev_args):
+    return parse_patch(git(budget, "log", "--no-merges", "-M", "-p", "-U0", "--no-color", "--no-ext-diff",
                            "--no-textconv", "--diff-filter=ACMR", "--format=" + SEP + "%H" + SEP + "%P",
                            *rev_args, "--", *PATHSPECS))
 
 
-def emit(found, shadow, elapsed, examples=None):
-    if not found:
-        return 0
+def emit(found, progress, shadow, elapsed, examples=None, partial=None):
     tag = "invented_names (shadow, never refuses)" if shadow else "invented_names"
-    print(f"{tag}: {len(found)} new address-named global(s) where the data ledger already has a real "
-          f"name ({elapsed:.2f}s)", file=sys.stderr)
-    for _sha, path, lineno, name, rva, real, _how in found[:examples]:
-        print("  " + message(path, lineno, name, rva, real), file=sys.stderr)
-    if examples is not None and len(found) > examples:
-        print(f"  ... and {len(found) - examples} more", file=sys.stderr)
-    print("  Use the existing name (extern it, or include the header that declares it) instead of "
-          "inventing one per address.", file=sys.stderr)
-    return 0 if shadow else 1
+    unresolved = list(dict.fromkeys(progress.unresolved))
+    if not (found or unresolved or partial):
+        return 0
+    say = lambda text: print(text, file=sys.stderr)  # noqa: E731
+    if partial:
+        say(f"{tag}: {partial}")
+    if found:
+        say(f"{tag}: {len(found)} new address-named global(s) for retail data that already has a usable "
+            f"name, or is a literal or vtable ({elapsed:.2f}s)")
+        for f in found[:examples]:
+            say("  " + message(f))
+        if examples is not None and len(found) > examples:
+            say(f"  ... and {len(found) - examples} more")
+        for kind in ("owner", "literal", "vtable"):
+            if any(f.kind == kind for f in found):
+                say("  " + ADVICE[kind])
+    elif not partial:
+        say(f"{tag}: no new address-named global with a usable name instead, but not all were checked "
+            f"({elapsed:.2f}s)")
+    if found and progress.stats["unusable"]:
+        say(f"  ({progress.stats['unusable']} more at addresses whose only other names are TU-local statics "
+            "or provisional guesses: nothing usable to suggest; not listed)")
+    if unresolved:
+        shown = ", ".join(unresolved[:3]) + (" ..." if len(unresolved) > 3 else "")
+        say(f"  not checked: {len(unresolved)} new address-named global(s) whose name spells no data-ledger "
+            f"address ({shown}): unresolved")
+    return 0 if (shadow or partial) else int(bool(found))
 
 
-def backtest(n, ref, ledger_path, examples):
-    t0 = time.time()
-    commits = log_patch("-n", str(n), ref)
-    stats = collections.Counter()
-    found = findings(commits, ledger_loader(ledger_path), lambda _sha, parent: parent, stats)
+def backtest(budget, n, ref, ledger_path, examples):
+    commits = log_patch(budget, "-n", str(n), ref)
+    progress = Progress()
+    found = findings(commits, ledger_loader(ledger_path), in_history, budget, progress)
     revs = [c[0] for c in commits]
     by_commit = collections.OrderedDict()
     for f in found:
-        by_commit.setdefault(f[0], []).append(f)
-    names = collections.Counter(f[3] for f in found)
+        by_commit.setdefault(f.sha, []).append(f)
+    names = collections.Counter(f.name for f in found)
+    kinds = collections.Counter(f.kind for f in found)
     print(f"backtest: {len(revs)} non-merge commit(s) touching {SOURCE_ROOT} C/C++ on {ref} "
           f"({revs[-1][:10] if revs else '-'}..{revs[0][:10] if revs else '-'})")
     print(f"  would report: {len(by_commit)} commit(s) "
           f"({100.0 * len(by_commit) / max(len(revs), 1):.1f}%), {len(found)} finding(s), "
-          f"{len(names)} distinct name(s), {time.time() - t0:.1f}s")
-    print(f"  new address-named tokens added: {stats['new']}; at a data-ledger address: "
-          f"{stats['resolved']}; of those with a real name there: {len(found)}")
+          f"{len(names)} distinct name(s), {budget.elapsed():.1f}s")
+    print(f"  new address-named tokens added: {progress.stats['new']}; at a data-ledger address: "
+          f"{progress.stats['resolved']}; with a usable name instead: {len(found)} (owner {kinds['owner']}, "
+          f"literal {kinds['literal']}, vtable {kinds['vtable']}); only statics or guesses there: "
+          f"{progress.stats['unusable']}")
     # A "bound" finding needed today's ledger binding (which the commit itself may
     # have created); a "decoded" one is found from the name alone, as live.
-    decoded = [f for f in found if f[6] == "decoded"]
-    print(f"  found from the name alone: {len({f[0] for f in decoded})} commit(s), {len(decoded)} "
+    decoded = [f for f in found if f.how == "decoded"]
+    print(f"  found from the name alone: {len({f.sha for f in decoded})} commit(s), {len(decoded)} "
           f"finding(s); only through today's ledger binding: "
-          f"{len({f[0] for f in found if f[6] == 'bound'})} commit(s), {len(found) - len(decoded)} finding(s)")
+          f"{len({f.sha for f in found if f.how == 'bound'})} commit(s), {len(found) - len(decoded)} finding(s)")
     for sha, items in list(by_commit.items())[:examples]:
-        subject = git("log", "-1", "--format=%s", sha).strip()
+        subject = git(budget, "log", "-1", "--format=%s", sha).strip()
         print(f"  {sha[:10]} {subject[:90]}")
-        for _sha, path, lineno, name, rva, real, _how in items[:3]:
-            print("      " + message(path, lineno, name, rva, real))
+        for f in items[:3]:
+            print("      " + message(f))
         if len(items) > 3:
             print(f"      ... and {len(items) - 3} more")
     return 0
@@ -392,25 +571,35 @@ def main(argv=None):
     ap.add_argument("--shadow", action="store_true", help="report, never refuse (exit 0)")
     ap.add_argument("--ledger", help="data ledger (default: %s in the work tree)" % LEDGER)
     ap.add_argument("--examples", type=int, default=20)
+    ap.add_argument("--budget", type=float, default=None,
+                    help="wall-clock seconds (default $BFME_SHADOW_BUDGET_S or 10; 0 = none; "
+                         "--backtest: none unless given)")
     a = ap.parse_args(argv)
-    t0 = time.time()
-    try:
-        ledger_path = a.ledger or str(root() / LEDGER)
-        if a.backtest:
-            return backtest(a.backtest, a.ref, ledger_path, a.examples)
-        if a.staged:
-            found = staged(ledger_path)
-        elif a.commit:
-            found = findings(log_patch("--no-walk", a.commit), ledger_loader(ledger_path),
-                             lambda _sha, parent: parent)
-        else:
-            found = findings(log_patch(f"{a.range[0]}..{a.range[1]}"), ledger_loader(ledger_path),
-                             lambda _sha, parent: parent)
-    except (RuntimeError, OSError, ValueError, csv.Error) as exc:
-        print(f"invented_names: could not run: {exc}", file=sys.stderr)
-        return 0 if a.shadow else 2
-    return emit(found, a.shadow, time.time() - t0, a.examples)
+    limit = (a.budget if a.budget and a.budget > 0 else None) if a.backtest else seconds(a.budget)
+    with Budget(limit) as budget:
+        progress = Progress()
+        partial = None
+        try:
+            ledger_path = a.ledger or str(root(budget) / LEDGER)
+            if a.backtest:
+                return backtest(budget, a.backtest, a.ref, ledger_path, a.examples)
+            if a.staged:
+                staged(budget, ledger_path, progress)
+            elif a.commit:
+                findings(log_patch(budget, "--no-walk", a.commit), ledger_loader(ledger_path),
+                         in_history, budget, progress)
+            else:
+                findings(log_patch(budget, f"{a.range[0]}..{a.range[1]}"), ledger_loader(ledger_path),
+                         in_history, budget, progress)
+        except BudgetExceeded:
+            partial = (f"partial: budget of {budget.limit:g}s exceeded after {progress.done} of "
+                       f"{progress.files if progress.files else '?'} file(s)")
+        except (RuntimeError, OSError, ValueError, csv.Error) as exc:
+            print(f"invented_names: could not run: {exc}", file=sys.stderr)
+            return 0 if a.shadow else 2
+        return emit(progress.found, progress, a.shadow, budget.elapsed(), a.examples, partial)
 
 
 if __name__ == "__main__":
+    exit_on_signals()
     sys.exit(main())

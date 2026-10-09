@@ -1,10 +1,15 @@
-"""invented_names.py: a new address-named global on an added Code/ line is reported when
-reverse/data_ledger.csv already has a real name at its address; literals, invented
-names, comments, names the file already held and other files are not. Report only:
+"""invented_names.py: a new address-named global in a Code/ change is reported when
+reverse/data_ledger.csv already has something usable at its address -- an external
+owner (extern it), a compiler literal (use the literal) or a vtable (reach it through
+its class); TU-local statics and provisional guesses are never suggested. The old and
+new files are lexed whole, so comments (wherever their delimiters are) and strings are
+not code, and names the file already used in code are not new. Unresolved names are
+counted, and a hard wall-clock budget ends a run with a partial report. Report only:
 --shadow always exits 0."""
 import os
 import subprocess
 import sys
+import time
 from pathlib import Path
 
 import pytest
@@ -17,12 +22,13 @@ import invented_names as inv  # noqa: E402
 LEDGER = """\
 address,size,section,kind,name,source,status,names,defs,refs
 0x007BAC1C,656,.rdata,string,??_C@_00CNPNBAHC@?$AA@,,literal,??_C@_00CNPNBAHC@?$AA@;?g_Rva0107301CEmptyString@@3QBDB;?g_bfmeAptDefaultTeamName@@3QBDB,1,10
-0x007BB8D8,4,.rdata,float,__real@3f800000,,literal,?g_007BB8D8@@3MA;?g_Va00BBB8D8@@3MA;__real@3f800000,0,10
+0x007BB8D8,4,.rdata,float,__real@3f800000,,literal,?g_007BB8D8@@3MA;?g_Va00BBB8D8@@3MA;__real@3f800000;_g_bfmeDefaultBU@Code/GameEngine/Source/Common/Bfme/T_009F4FB0.cpp;_kZero@Code/GameEngine/Source/GameLogic/Object/Update/SpyVisionUpdateCtor.cpp,0,10
 0x0081C780,4,.rdata,vtable,??_7Foo@@6B@,,literal,??_7Foo@@6B@;??_7Rva005F5C77Base0@@6B@;??_7Base@NS@@6B@,0,3
 0x0087A630,4,.rdata,vtable,??_7Rva005F5C77Base0@@6B@,,literal,,0,1
 0x009FE758,4,.data,global,?TheWritableGlobalData@@3PAVGlobalData@@A,Code/GameEngine/GameClient.cpp,provisional,?TheWritableGlobalData@@3PAVGlobalData@@A;?g_00DFE758@@3PAXA;?g_Va009FE758@@3PAXA;_TheGameLogic@Code/GameEngine/Other.cpp,2,5
 0x00A02EEC,4,.data,global,?TheGameInfo@@3PAVGameInfo@@A,Code/GameEngine/GameInfo.cpp,owned,,1,3
 0x00A1835C,4,.data,global,?spFrameStack@@3PAXA,Code/Libraries/Apt.cpp,provisional,?g_bfmeFrameStackAtE1835C@@3PAXA;?spFrameStack@@3PAXA,1,4
+0x00A30000,4,.data,global,?g_bfmeGuessName@@3HA,,provisional,?g_bfmeGuessName@@3HA;?g_00E30000@@3HA;_sLocal@Code/x.cpp;?TheNullChr@?1??str@AsciiString@@QBEPBDXZ@4DB,1,2
 """
 SRC = "Code/GameEngine/Source/a.cpp"
 
@@ -53,8 +59,9 @@ class Repo:
         self.write(rel, text)
         self.git("add", "--", rel)
 
-    def run(self, *args):
-        return subprocess.run([sys.executable, str(TOOL), *args], cwd=self.root, capture_output=True, text=True)
+    def run(self, *args, env=None):
+        return subprocess.run([sys.executable, str(TOOL), *args], cwd=self.root, capture_output=True, text=True,
+                              env=env)
 
 
 @pytest.fixture
@@ -66,8 +73,10 @@ def test_new_bare_name_for_a_named_global_is_reported(repo):
     repo.stage(SRC, "// a\nextern void *g_00DFE758;\nint f() { return g_00DFE758 != 0; }\n")
     got = repo.run("--staged")
     assert got.returncode == 1, got.stderr
+    # TheGameLogic is a TU-local static of Other.cpp: not usable here, so not suggested
     assert (f"{SRC}:2 invents g_00DFE758 for 0x009FE758; the tree already calls it "
-            "TheWritableGlobalData, TheGameLogic (static, Other.cpp)") in got.stderr
+            "TheWritableGlobalData: extern it or include its header") in got.stderr
+    assert "TheGameLogic" not in got.stderr
     assert got.stderr.count(" invents ") == 1          # once per (file, name), at its first line
 
 
@@ -88,11 +97,13 @@ def test_va_and_rva_spellings_resolve(repo, name):
 
 
 def test_name_the_ledger_binds_resolves_where_it_is_bound(repo):
-    # 0x0107301C spells no ledger address; the ledger binds the name to 0x007BAC1C
+    # 0x0107301C spells no ledger address; the ledger binds the name to 0x007BAC1C, which
+    # holds the empty string literal (g_bfmeAptDefaultTeamName there is only a guess)
     repo.stage(SRC, "// a\nextern const char *g_Rva0107301CEmptyString;\nint f() { return 0; }\n")
     got = repo.run("--staged")
-    assert ("invents g_Rva0107301CEmptyString for 0x007BAC1C; the tree already calls it "
-            "g_bfmeAptDefaultTeamName") in got.stderr
+    assert ("invents g_Rva0107301CEmptyString for 0x007BAC1C, which is the string literal \"\" "
+            "(??_C@_00CNPNBAHC@?$AA@): use the literal") in got.stderr
+    assert "g_bfmeAptDefaultTeamName" not in got.stderr and "extern" not in got.stderr
 
 
 def test_ledger_bound_invented_name_without_g_prefix(repo):
@@ -101,32 +112,107 @@ def test_ledger_bound_invented_name_without_g_prefix(repo):
     assert "invents g_bfmeFrameStackAtE1835C for 0x00A1835C; the tree already calls it spFrameStack" in got.stderr
 
 
-def test_literals_and_invented_names_are_not_real(repo):
-    # 0x007BB8D8 holds only a float literal and invented names; 0x0087A630 only the
-    # vftable of an address-named class
+def test_a_literal_address_says_use_the_literal(repo):
+    # review: g_Va00BBB8D8 is 0x007BB8D8, __real@3f800000; g_bfmeDefaultBU and kZero there
+    # are TU-local statics, so the advice is the literal 1.0f, never `extern kZero`.
+    # 0x0087A630 holds only the vftable of an address-named class: nothing to report.
     repo.stage(SRC, "// a\nextern float g_Va00BBB8D8;\nextern const void *const g_00C7A630[];\n"
                     "int f() { return 0; }\n")
     got = repo.run("--staged")
-    assert got.returncode == 0 and got.stderr == ""
+    assert got.returncode == 1, got.stderr
+    assert (f"{SRC}:2 invents g_Va00BBB8D8 for 0x007BB8D8, which is the float literal 1.0f "
+            "(__real@3f800000): use the literal") in got.stderr
+    assert "kZero" not in got.stderr and "g_bfmeDefaultBU" not in got.stderr
+    assert "extern it" not in got.stderr and "Write the literal itself" in got.stderr
+    assert "g_00C7A630" not in got.stderr
 
 
-def test_vtables_count_as_real(repo):
+def test_only_statics_and_guesses_is_nothing_to_suggest(repo):
+    # 0x00A30000: a TU-local static, a function-local static and a bfme guess
+    repo.stage(SRC, "// a\nextern int g_00E30000;\nint f() { return g_00E30000; }\n")
+    got = repo.run("--staged")
+    assert got.returncode == 0 and got.stderr == "", got.stderr
+
+
+def test_alternatives_are_classified():
+    assert inv.classify("?TheWritableGlobalData@@3PAVGlobalData@@A", None) == "owner"
+    assert inv.classify("__imp__CreateFileA@28", None) == "owner"
+    assert inv.classify("__real@3f800000", None) == "literal"
+    assert inv.classify("??_C@_00CNPNBAHC@?$AA@", None) == "literal"
+    assert inv.classify("??_7Foo@@6B@", None) == "vtable"
+    assert inv.classify("??_R4Foo@@6B@", None) == "vtable"
+    assert inv.classify("_kZero", "Code/x.cpp") == "static"
+    assert inv.classify("?TheNullChr@?1??str@AsciiString@@QBEPBDXZ@4DB", None) == "static"
+    assert inv.classify("?g_bfmeDefaultBU@@3MA", None) == "guess"
+    assert inv.classify("?g_BfmeRender2DZ@@3MA", None) == "guess"
+    assert inv.classify("?bfmeSetProjectionDepthBias@@YAXM@Z", None) == "guess"
+    assert inv.classify("?g_Va00BBB8D8@@3MA", None) is None
+    assert inv.literal_text("__real@3f000000") == "the float literal 0.5f (__real@3f000000)"
+    assert inv.literal_text("__real@3ff0000000000000") == "the double literal 1.0 (__real@3ff0000000000000)"
+    assert inv.literal_text("??_C@_03KJOFHJLG@abc?$AA@") == 'the string literal "abc" (??_C@_03KJOFHJLG@abc?$AA@)'
+
+
+def test_vtables_are_reached_through_their_class(repo):
     repo.stage(SRC, "// a\nextern const void *const g_00C1C780[];\nint f() { return 0; }\n")
     got = repo.run("--staged")
-    assert ("invents g_00C1C780 for 0x0081C780; the tree already calls it "
-            "Foo::`vftable', NS::Base::`vftable'\n") in got.stderr
+    assert ("invents g_00C1C780 for 0x0081C780, which is Foo::`vftable', NS::Base::`vftable': reach it "
+            "through its class, not an extern name\n") in got.stderr
 
 
 def test_comments_strings_and_unknown_addresses_are_ignored(repo):
     repo.stage(SRC, "// a\n// g_00DFE758 is TheWritableGlobalData\n"
                     "const char *s = \"g_00DFE758\";\n"
                     "/* g_Va00E02EEC\n"
-                    "   g_Va00E02EEC */\n"
                     " * g_00DFE758 inside a doc comment\n"
+                    "   g_Va00E02EEC */\n"
                     "extern int g_00ABCDEF;          // no ledger row there\n"
                     "int f() { return 0; }\n")
     got = repo.run("--staged")
+    assert got.returncode == 0, got.stderr
+    assert " invents " not in got.stderr
+    # an address-named global the ledger cannot place is counted, not passed over
+    assert ("not checked: 1 new address-named global(s) whose name spells no data-ledger address "
+            "(g_00ABCDEF): unresolved") in got.stderr
+
+
+def test_misleading_hex_names_are_counted_unresolved(repo):
+    # review: g_Rva003ADEBF_v8 names a local of the function at 0x003ADEBF, not the data
+    repo.stage(SRC, "// a\nstatic int g_Rva003ADEBF_v8;\nint f() { return g_Rva003ADEBF_v8; }\n")
+    got = repo.run("--staged", "--shadow")
+    assert got.returncode == 0
+    assert "not checked: 1 new address-named global(s)" in got.stderr and "g_Rva003ADEBF_v8" in got.stderr
+
+
+def test_comment_line_added_inside_an_existing_block_comment(repo):
+    # review: the hunk holds only the added line, not the /* that opens its comment
+    repo.stage(SRC, "// a\n/*\n   notes\n*/\nint f() { return 0; }\n")
+    repo.git("commit", "-q", "-m", "notes")
+    repo.stage(SRC, "// a\n/*\n   notes\n   g_00DFE758 is TheWritableGlobalData\n*/\nint f() { return 0; }\n")
+    got = repo.run("--staged")
     assert got.returncode == 0 and got.stderr == "", got.stderr
+
+
+def test_block_comment_state_does_not_leak_across_hunks(repo):
+    # review: an added /* closed by an unchanged line hid a real declaration in a later hunk
+    body = ["int v%d;\n" % i for i in range(30)]
+    body[3] = "int closer; */\n"
+    repo.stage(SRC, "".join(body))
+    repo.git("commit", "-q", "-m", "body")
+    body.insert(3, "/* opened here, closed on the next, unchanged line\n")
+    body.insert(25, "extern void *g_00DFE758;\n")
+    repo.stage(SRC, "".join(body))
+    got = repo.run("--staged")
+    assert f"{SRC}:26 invents g_00DFE758 for 0x009FE758" in got.stderr, got.stderr
+
+
+def test_an_old_comment_does_not_hide_a_new_declaration(repo):
+    # review: the old file mentioned the name in a comment only; the new one declares it
+    repo.stage(SRC, "// a\n// g_00DFE758 was the old name of TheWritableGlobalData\nint f() { return 0; }\n")
+    repo.git("commit", "-q", "-m", "comment")
+    repo.stage(SRC, "// a\n// g_00DFE758 was the old name of TheWritableGlobalData\n"
+                    "extern void *g_00DFE758;\nint f() { return 0; }\n")
+    got = repo.run("--staged")
+    assert f"{SRC}:3 invents g_00DFE758 for 0x009FE758" in got.stderr, got.stderr
 
 
 def test_name_the_file_already_held_is_not_new(repo):
@@ -156,6 +242,22 @@ def test_line_numbers_follow_the_hunk(repo):
     assert f"{SRC}:13 invents g_Va00E02EEC" in got.stderr
 
 
+def test_many_names_in_a_large_file_are_lexed_once(repo):
+    # review: 500 added names against a 3.23 MB file took 54.7 s, one scan of the old
+    # file per name; each file is now lexed once
+    filler = "".join("int filler_%06d = %d; // comment %d\n" % (i, i, i) for i in range(60000))
+    repo.stage(SRC, filler)
+    repo.git("commit", "-q", "-m", "large")
+    added = "".join("extern int g_Va%08X;\n" % (0x00B00000 + 4 * i) for i in range(500))
+    repo.stage(SRC, filler + added + "extern void *g_00DFE758;\n")
+    t0 = time.monotonic()
+    got = repo.run("--staged", "--shadow")
+    assert "partial" not in got.stderr, got.stderr
+    assert "invents g_00DFE758 for 0x009FE758" in got.stderr
+    assert "not checked: 500 new address-named global(s)" in got.stderr
+    assert time.monotonic() - t0 < 10
+
+
 def test_commit_and_range_modes(repo):
     base = repo.git("rev-parse", "HEAD")
     repo.stage("Code/GameEngine/Source/b.cpp", "extern int g_Va00E02EEC;\n")
@@ -174,6 +276,24 @@ def test_commit_and_range_modes(repo):
     assert got.returncode == 0 and got.stderr == ""
 
 
+def test_budget_expiry_exits_0_with_a_partial_report(repo):
+    repo.stage(SRC, "// a\nextern void *g_00DFE758;\n")
+    env = dict(os.environ, BFME_SHADOW_BUDGET_S="0.000001")
+    got = repo.run("--staged", env=env)                       # not --shadow: still exit 0
+    assert got.returncode == 0
+    assert "invented_names: partial: budget of 1e-06s exceeded after 0 of" in got.stderr
+
+
+def test_budget_kills_hanging_git(tmp_path, monkeypatch, capsys):
+    from test_replay_check import assert_all_dead, hanging_git
+    monkeypatch.setattr(inv, "GIT", hanging_git(tmp_path))
+    t0 = time.monotonic()
+    code = inv.main(["--staged", "--ledger", str(tmp_path / "none.csv"), "--budget", "2"])
+    assert code == 0 and time.monotonic() - t0 < 20
+    assert "partial: budget of 2s exceeded after 0 of ? file(s)" in capsys.readouterr().err
+    assert_all_dead(tmp_path)
+
+
 def test_missing_ledger_is_not_an_error(repo):
     repo.git("rm", "-q", "reverse/data_ledger.csv")
     repo.stage(SRC, "// a\nextern void *g_00DFE758;\n")
@@ -187,6 +307,8 @@ def test_regexes_stay_in_step_with_their_owners():
     assert inv.ADDR_GLOBAL is hatch_counters.ADDR_GLOBAL
     assert inv.INVENTED.pattern == data_ledger.INVENTED.pattern
     assert set(inv.LITERALS) <= {prefix for prefix, kind in data_ledger.EMITTED if kind in ("string", "wstring", "float")}
+    assert {p for p in inv.VTABLE_RTTI if p != "??_8"} == {prefix for prefix, kind in data_ledger.EMITTED
+                                                           if kind in ("vtable", "rtti")}
     for symbol in ("?g_Va00BBB8D8@@3MA", "?Foo@Bar@@2HA", "_c_name", "??_7Foo@@6B@"):
         assert inv.identifier(symbol) == data_ledger.identifier(symbol)
 
