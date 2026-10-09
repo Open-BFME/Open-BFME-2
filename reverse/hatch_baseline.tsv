@@ -30943,6 +30943,7 @@ pin	reverse/symbols.csv	0x004DFCE6	1
 pin	reverse/symbols.csv	0x004DFF2C	1
 pin	reverse/symbols.csv	0x004E007A	1
 pin	reverse/symbols.csv	0x004E013B	1
+pin	reverse/symbols.csv	0x004E02B8	1	allow=599ce91f43d96cc07bf315897b30772c887b242a
 pin	reverse/symbols.csv	0x004E02D7	1
 pin	reverse/symbols.csv	0x004E0625	1
 pin	reverse/symbols.csv	0x004E0918	1

@@ -21,6 +21,7 @@
 
 class AIStatCollector;
 class Object;
+class Player;
 
 class Rva0025C061
 {
@@ -166,8 +167,14 @@ private:
 	AIStructureStats *m_08;
 	Rva0025BF8C *m_0C;
 	Rva004E02D7 *m_10;
-	char m_map14[0x18];
+	// Constructor 004E030B establishes a 20-byte map, then Player* at
+	// +28 and the 12-byte listener header at +2C. These methods retain
+	// their existing lookup bindings and access only the map at +14.
+	char m_map14[0x14];
+	Player *m_player28;
+	char m_listeners2C[0x0c];
 };
+typedef char AIStatCollectorNativeSize[(sizeof(AIStatCollector)==0x38)?1:-1];
 
 // Native 004E01E3..004E02B8 (213 bytes); WB names the callgraph twin
 // AIStatCollector::Register. Receiver slots and the template name at
