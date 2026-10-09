@@ -1,8 +1,15 @@
-// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata /O1 /EHsc /MD /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata /Ireference/shims/bfmealloc /O1 /EHsc /MD /arch:SSE /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /D_CRTIMP=
+// stlport
 // LivingWorldRegionManager.cpp -- region-manager members recovered from
 // WorldBuilder leads (reverse/wb_name_leads.csv): WB's debug build names the
 // function and the region overload it calls (0x0020EA58); retail supplies
 // the bytes. The region id lookup is the rowed 0x0020EAF6 accessor.
+
+#include <stdlib.h>
+namespace _STL { void __cdecl free(void *block) throw(...); }
+#define free _STL::free
+#include <vector>
+#undef free
 
 #include "ascii_string.h"
 
@@ -140,28 +147,67 @@ class Rva002105A6;
 class Rva002E2285;
 class LivingWorldRegionBonusRule;
 
-// The rules' holder (the INI block that owns ConcurrentRegionBonus): its
-// rule-list append is rowed with an ObjectCreationNugget parameter; the
-// rules are owned pointers at +0x5C.
-struct RegionBonusRuleList
+// The +0x38 member: an AsciiString-keyed hash table. Its destructor is the
+// per-owner copy at 0x0021030E of the body rowed at 0x001FDEDB (its own EH
+// handler, so /OPT:ICF kept it apart); the class is named for that address.
+struct Rva0021030E
 {
-	LivingWorldRegionBonusRule **m_start;
-	LivingWorldRegionBonusRule **m_finish;
-	LivingWorldRegionBonusRule **m_endOfStorage;
-
-	unsigned int size() const { return m_finish - m_start; }
-	LivingWorldRegionBonusRule *operator[](unsigned int i) const { return m_start[i]; }
+	~Rva0021030E();
+	void *m_unused00;
+	void **m_beginBuckets;
+	void **m_endBuckets;
+	void **m_storageEnd;
+	unsigned int m_numElements;
 };
 
-class Rva0020F77C
+// The +0x4C object, deleted through its rowed non-virtual dtor 0x003EF728.
+class Rva003EF728
+{
+public:
+	~Rva003EF728();
+};
+
+// The +0x2C entries are reached only through their virtual destructor.
+class Rva00210830Entry
+{
+public:
+	virtual ~Rva00210830Entry();
+};
+
+// The rules' holder (the INI block that owns ConcurrentRegionBonus at +0x5C,
+// RegionConqueredSound at +0x50 and RegionEffectsManagerName at +0x54, field
+// table 0x00BE41C0). Its dtor is pinned under the placeholder of its deleting
+// dtor 0x002109F8; the layout is the dtor's (four strings, three vectors, the
+// hash table, the owned +0x4C object, two strings); the +0x20 vector's
+// element type is unproven.
+class Rva002109F8
+{
+public:
+	~Rva002109F8();
+
+protected:
+	AsciiString m_str00;									// +0x00
+	AsciiString m_str04;									// +0x04
+	AsciiString m_str08;									// +0x08
+	AsciiString m_str0C;									// +0x0C
+	unsigned char m_pad10[0x20 - 0x10];
+	_STL::vector<Int> m_vec20;								// +0x20
+	_STL::vector<void *> m_entries;							// +0x2C
+	Rva0021030E m_table;									// +0x38
+	Rva003EF728 *m_owned;									// +0x4C
+	AsciiString m_regionConqueredSound;						// +0x50
+	AsciiString m_regionEffectsManagerName;					// +0x54
+	unsigned char m_pad58[0x5C - 0x58];
+	_STL::vector<LivingWorldRegionBonusRule *> m_rules;		// +0x5C
+};
+
+// The same holder under the placeholder of its rowed rule-list append (whose
+// parameter the ledger spells ObjectCreationNugget).
+class Rva0020F77C : public Rva002109F8
 {
 public:
 	void rva0020F77C(ObjectCreationNugget *rule);			// 0x0020F77C
 	void rva0020F34E(void *owner, Rva002E2285 *player);
-
-private:
-	unsigned char m_pad00[0x5C];
-	RegionBonusRuleList m_rules;					// +0x5C
 };
 
 // The rule's region names (+0x20, a vector<AsciiString> per the ctor and
@@ -325,4 +371,21 @@ void Rva0020F77C::rva0020F34E(void *owner, Rva002E2285 *player)
 			player->rva002E2285(&rule->m_id, bonus);
 		}
 	}
+}
+
+// Rva002109F8::~Rva002109F8, retail 0x00210830 (WB 0x00B53690, unnamed, in
+// LivingWorldRegionManager.cpp): destroys the +0x2C entries through their
+// virtual dtor and the global delete and clears the vector, deletes the owned
+// +0x4C object and every rule (non-virtual dtor 0x002105A6), then the members
+// unwind in reverse order.
+Rva002109F8::~Rva002109F8()
+{
+	for (unsigned int i = 0; i < m_entries.size(); ++i)
+		::delete (Rva00210830Entry *)m_entries[i];
+	m_entries.clear();
+
+	delete m_owned;
+
+	for (unsigned int j = 0; j < m_rules.size(); ++j)
+		delete m_rules[j];
 }
