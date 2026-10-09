@@ -33,7 +33,7 @@ private:
  char gap2444[0x2458-0x2444];std::string text;
 };
 Rva008BD5E::~Rva008BD5E(){
- if(camera2d){camera2d->Release_Ref();camera2d=0;}
+ CameraRef *old2d=camera2d; if(old2d){old2d->Release_Ref();camera2d=0;}
  if(camera3d){camera3d->Release_Ref();camera3d=0;}
  ::delete *reinterpret_cast<ViewOwned235C**>(reinterpret_cast<char*>(this)+0x235c);
 }

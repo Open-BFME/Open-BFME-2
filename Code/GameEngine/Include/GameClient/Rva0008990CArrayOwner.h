@@ -93,6 +93,10 @@ class Rva00086761CameraMove
 public:
  void rva00086761(Rva00089894Point *pLoc);
  void rva0008690A(int value);
+ // Primary vftable BC7568 slot33, target86812/248/RET4; exact name unknown.
+ void rva00086812(int value);
+ // Primary vftable BC7568 slot60, target88F38/190/RET16; exact name unknown.
+ void rva00088F38(float finalPitch, int milliseconds, float easeIn, float easeOut);
  void rva00088EB4(float finalValue, int milliseconds, float easeIn, float easeOut);
  void rva00086CDA();
 private:
