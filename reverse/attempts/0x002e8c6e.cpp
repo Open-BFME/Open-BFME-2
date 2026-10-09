@@ -1,5 +1,5 @@
 // ?AdjustMeleeOffset@Pathfinder@@QAEXPAVObject@@0PAUCoord3D@@@Z
-// partial score=0.75 date=2026-10-09
+// partial score=0.82 date=2026-10-09
 // cl: /O1 /DNDEBUG /MD /arch:SSE /G7 /EHsc /ICode/Libraries/Include/Lib
 // WB D36700 plus native2E8C6E..2E8D74 RET12 establish identity.
 #include "Coord3D.h"
@@ -21,6 +21,11 @@ public:
  void AdjustMeleeOffset(Object *,Object *,Coord3D *);
  void *rva001E3647Pos(int,const Coord3D *);
 };
+struct PathMeleeCoord : Coord3D {
+ PathMeleeCoord(const Coord3D &p) { x=p.x; y=p.y; z=p.z; }
+ void Scale(float scale) { x*=scale; y*=scale; z*=scale; }
+ void Add(const Coord3D &p) { x+=p.x; y+=p.y; z+=p.z; }
+};
 static __forceinline void scale(Coord3D &p,float k) { p.x*=k; p.y*=k; p.z*=k; }
 void Pathfinder::AdjustMeleeOffset(Object *object,Object *target,Coord3D *offset)
 {
@@ -30,10 +35,9 @@ void Pathfinder::AdjustMeleeOffset(Object *object,Object *target,Coord3D *offset
  Coord3D center;
  target->rva0028C2DD(&center);
  for (;i<20;++i) {
-  Coord3D point;
-  point.x=offset->x; point.y=offset->y; point.z=offset->z;
-  scale(point,(float)i);
-  point.x=center.x+point.x; point.y=center.y+point.y; point.z=center.z+point.z;
+  PathMeleeCoord point(*offset);
+  point.Scale((float)i);
+  point.Add(center);
   PathfindCell *cell=(PathfindCell *)rva001E3647Pos(layer,&point);
   if (!cell) return;
   if (target->m_template->kinds[7]&0x10) {
