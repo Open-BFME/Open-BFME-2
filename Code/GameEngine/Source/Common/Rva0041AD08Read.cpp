@@ -116,9 +116,21 @@ static void __cdecl embedPristineMap(AsciiString path, Xfer *xfer)
 	delete[] buf;
 }
 
+// Native41AC98..41AD08 and WB132EDB0 replace a four-character map
+// suffix with .wak, clearing the output if the remaining prefix is not positive.
+// Retail DoXfer41AFDA passes its input reference in ECX and output on stack.
+static void Rva0041AC98(const AsciiString &path,AsciiString &out) {
+ int length=path.getLength()-4;
+ if(length>0) { AsciiString prefix(path,0,length);prefix+=".wak";out=prefix; }
+ else out="";
+}
+
 // ?Rva0041AD08Caller@@YAXVAsciiString@@PAVFile@@@Z present-unmatched (register key kept; the anchor takes the Xfer view)
 void __cdecl Rva0041AD08Caller(AsciiString p, Xfer *c)
 {
+	// Existing source-only private-ABI driver; this is not a retail claim.
+	AsciiString auxiliary;
+	Rva0041AC98(p, auxiliary);
 	embedPristineMap(p, c);
 }
 
