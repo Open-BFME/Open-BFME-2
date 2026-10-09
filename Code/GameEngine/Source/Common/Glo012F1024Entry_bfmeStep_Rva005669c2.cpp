@@ -196,6 +196,23 @@ public:
 	BfmeElem8Str *m_bfmeEnd;
 };
 
+// BFME 2's +0x90 vector holds 16-byte entries (0x005652F7 steps by 0x10).
+struct Rva005652F7Entry
+{
+	int m_first;
+	int m_second;
+	char m_rest[0x10 - 0x08];
+};
+
+class Rva005652F7EntryVector
+{
+public:
+	unsigned int bfmeSize(void) const { return m_bfmeEnd - m_bfmeBegin; }
+
+	Rva005652F7Entry *m_bfmeBegin;
+	Rva005652F7Entry *m_bfmeEnd;
+};
+
 class Glo012F1024Item
 {
 public:
@@ -238,7 +255,7 @@ public:
 	char m_bfmePad80[0x04];
 	BfmeFlag24Vector m_bfmeFlag24;				// +0x84
 	char m_bfmePad8C[0x04];
-	BfmeElem20Vector m_bfmeFlag20;				// +0x90
+	Rva005652F7EntryVector m_bfmeFlag20;			// +0x90
 	char m_bfmePad98[0x04];
 	BfmeFlag16Vector m_bfmeFlag16;				// +0x9C
 	char m_bfmeMiddleB[0xB4 - 0xA4];
@@ -356,6 +373,26 @@ public:
 	void SetPlayerControlOfArmies(void);
 	void MoveArmies(void);
 };
+
+// The manager behind bfmeGoDGH (0x00212183): the caller loads ECX from
+// TheLivingWorldManager and the body hands ECX on to 0x002120C2, which walks
+// this+0x24C, so it is a member here (pinned under a placeholder name).
+class LivingWorldManager
+{
+public:
+	void rva00212183(void *first, void *second);
+};
+extern LivingWorldManager *TheLivingWorldManager;
+
+// Retail 0x005652F7 (77 bytes), bfmeEnter's seventh step: every +0x90 entry
+// goes to the living-world manager by the addresses of its first two words.
+void Glo012F1024Item::rva005652F7(void)
+{
+	for (unsigned int index = 0; index < m_bfmeFlag20.bfmeSize(); index++) {
+		Rva005652F7Entry *entry = &m_bfmeFlag20.m_bfmeBegin[index];
+		TheLivingWorldManager->rva00212183(&entry->m_first, &entry->m_second);
+	}
+}
 
 // ?bfmeEnter@Glo012F1024Item@@QAEXXZ, retail 0x0056696F (72 bytes), the item
 // j_00019eca enters. BFME 2 cut the donor's sixteen-step sequence down to ten
