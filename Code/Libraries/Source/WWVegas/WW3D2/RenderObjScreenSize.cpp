@@ -28,6 +28,9 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #define Matrix4x4 Matrix4
+// Reuse the verified particle translation/vector consumer views.
+#include "../../../../../reference/shims/bfme_part_emt_inline/vector3.h"
+#include "../../../../../reference/shims/bfme_part_emt_inline/matrix3d.h"
 #include "rendobj.h"
 #include "camera.h"
 #include "aabox.h"
@@ -58,7 +61,7 @@ float RenderObjClass::Get_Screen_Size(CameraClass &camera)
 	float height_factor = viewport.Height() / (vpr_max.Y - vpr_min.Y);
 
 	const SphereClass & sphere = Get_Bounding_Sphere();
-	float dist = (sphere.Center - cam).Length();
+	float dist = WWMath::Sqrt((sphere.Center - cam).Length2());
 	float radius = 0.0f;
 	if (dist) {
 		radius = sphere.Radius / dist;
