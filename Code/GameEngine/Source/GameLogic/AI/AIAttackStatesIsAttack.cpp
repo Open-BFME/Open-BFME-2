@@ -92,3 +92,21 @@ Bool AIGuardState::isAttack() const
 	}
 	return TRUE;
 }
+
+// AIFollowPathAsTeamState (vtable 0x00C121E8, name slot 0x00340D6A) keeps a
+// sub-machine at +0x5C. Retail 0x00340E39, 37 bytes, its slot 9: true only
+// while that machine exists and is not in an attack state.
+class AIFollowPathAsTeamState : public State
+{
+public:
+	virtual Bool rva00340E39() const;
+private:
+	unsigned char m_pad04[0x5C - 0x04];
+	StateMachine *m_subMachine; // +0x5C
+};
+Bool AIFollowPathAsTeamState::rva00340E39() const
+{
+	if (m_subMachine && !m_subMachine->isInAttackState())
+		return TRUE;
+	return FALSE;
+}
