@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /O1 /Oy /G7 /arch:SSE
 //
 // ?createPotentialClaimDecal@Impl@PlaceTerrainResourceClaimantFeedback@@QAEXXZ @0x004E65CF 191B
 // Leaf method on the 0x004E669A class (same this, +4/+8/+0xC/+0x1C): builds an
@@ -91,6 +91,17 @@ extern float g_Va00BC28F4;
 // g_Va00BC28F4: matched references place it at VA 0xbc28f4 (retail .rdata value 2.0f).
 float g_Va00BC28F4 = 2.0f;
 
+struct ICoord2D { int x,y; };
+class FeedbackDisplayString {
+public:
+ virtual void s00(); virtual void setText(UnicodeString text);
+ virtual void s08(); virtual void s0C(); virtual void s10(); virtual void s14();
+ virtual void s18(); virtual void s1C(); virtual void s20(); virtual void s24();
+ virtual void setColor(unsigned int color,unsigned int shadow);
+ virtual void s2C(); virtual void s30(); virtual void s34(); virtual void s38();
+ virtual void getSize(int *width,int *height);
+};
+
 class PlaceTerrainResourceClaimantFeedback
 {
 public:
@@ -103,12 +114,12 @@ class PlaceTerrainResourceClaimantFeedback::Impl
 	Rva004E65CFParams *m_04;
 	BFMERopeDrawable *m_08;
 	Rva004E65CFFloatSrc *m_0C;
-	void *m_10;
-	int m_14;
-	int m_18;
+	FeedbackDisplayString *m_10;
+	ICoord2D m_position;
 	Rva00330995 *m_1C;
 public:
 	void createPotentialClaimDecal();
+ void updateStringPos(ICoord2D *position);
 };
 
 void PlaceTerrainResourceClaimantFeedback::Impl::createPotentialClaimDecal()
@@ -138,3 +149,52 @@ void PlaceTerrainResourceClaimantFeedback::Impl::createPotentialClaimDecal()
 }
 // ?g_00DEC2D4@@3PAVRva004E65CFMgr@@A: the global at VA 0xdec2d4 is ?g_00DEC2D4@@3PAVAudioManager0029E159@@A.
 #pragma comment(linker, "/alternatename:?g_00DEC2D4@@3PAVRva004E65CFMgr@@A=?g_00DEC2D4@@3PAVAudioManager0029E159@@A")
+
+class Mouse;
+class TacticalView;
+extern Mouse *TheMouse;
+extern TacticalView *TheTacticalView;
+struct FeedbackMouseView { char pad[0x4F0C]; ICoord2D position; };
+class FeedbackTacticalView {
+public:
+ virtual void s00();
+ virtual void s04();
+ virtual void s08();
+ virtual void s0C();
+ virtual void s10();
+ virtual void s14();
+ virtual void s18();
+ virtual void s1C();
+ virtual void s20();
+ virtual void s24();
+ virtual void s28();
+ virtual void s2C();
+ virtual void s30();
+ virtual void s34();
+ virtual void s38();
+ virtual int width(); virtual void s40(); virtual int height();
+};
+// WB13249A0 independently names updateStringPos. Whole native4E6328..4E63DB
+// RET4: input/mouse position, display-string size, centering and screen clamp.
+// Three scalar clamp locals grouped in this order reproduce retail stack slots;
+// the pointer-select min/max operations retain the native signed comparisons.
+void PlaceTerrainResourceClaimantFeedback::Impl::updateStringPos(ICoord2D *p)
+{
+ if(p) m_position=*p;
+ else m_position=((FeedbackMouseView*)TheMouse)->position;
+ struct ClampBounds { int zero; int maxX; int height; } bounds;
+ m_10->getSize((int*)&p,&bounds.height);
+ bounds.zero=0;
+ m_position.x+=(*(int*)&p)/-2;
+ m_position.y+=-20-bounds.height;
+ bounds.maxX=((FeedbackTacticalView*)TheTacticalView)->width()-(*(int*)&p);
+ int *pp1=(bounds.maxX<m_position.x)?&bounds.maxX:&m_position.x;
+ if(*pp1<0) pp1=&bounds.zero;
+ int v1=*pp1;
+ bounds.zero=0;
+ m_position.x=v1;
+ int t2=((FeedbackTacticalView*)TheTacticalView)->height()-bounds.height;
+ int *pp2=(t2<m_position.y)?&t2:&m_position.y;
+ if(*pp2<0) pp2=&bounds.zero;
+ m_position.y=*pp2;
+}
