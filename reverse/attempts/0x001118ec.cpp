@@ -1,4 +1,6 @@
 // _Rva001118ECResampleRgb555
+// partial score=0.117437722419929 date=2026-10-09
+// _Rva001118ECResampleRgb555
 // partial score=0.117437722419929 date=2026-10-04
 // cl: /O1 /MD
 // Native1118EC-111A05: average factor-square RGBA blocks with half-count
