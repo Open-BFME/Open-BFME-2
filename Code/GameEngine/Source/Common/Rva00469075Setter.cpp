@@ -42,6 +42,6 @@ void Rva00469075::rva00469075(float angle)
 	if (!obj)
 		return;
 	obj->setOrientation(angle);
-	*(bool *)((char *)this + 4) = true;
+	m_04 = true;
 	((UpdateModule *)((char *)this - 0x11C))->setWakeFrame(obj, UPDATE_SLEEP_NONE);
 }
