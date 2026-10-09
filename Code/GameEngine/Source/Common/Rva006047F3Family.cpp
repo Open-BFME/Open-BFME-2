@@ -28,15 +28,17 @@ struct LocalFileSystem {
   virtual bool M831(const char* src);
   virtual void getFileListInDirectory(const char* a1, const char* a2, const char* a3, const char* a4, void* a5, void* a6);
   virtual void _v7();
-  virtual void _v8();
+  virtual void rva00604A8B(const AsciiString &current,const AsciiString &original,const AsciiString &pattern,void *output,void *recurse);
   virtual int Virt24(unsigned short* buf, void* a2);
   virtual int M948(const char* src, void* a2);
   virtual bool createDirectory(const unsigned short* path);
-  virtual void _v12();
+  virtual bool rva006049D8(const char *src);
   virtual void _v13();
   virtual void _v14();
 };
 struct Win32LocalFileSystem : LocalFileSystem {
+  virtual bool rva006049D8(const char *src);
+  virtual void rva00604A8B(const AsciiString &current,const AsciiString &original,const AsciiString &pattern,void *output,void *recurse);
   virtual File* openFile(const unsigned short* filename, int access, void** seekPointer);
   virtual int M7F3(const char* src, void* a2, int a3);
   virtual bool M831(const char* src);
@@ -330,3 +332,23 @@ File* Win32LocalFileSystem::openFile(const unsigned short* filename, int access,
   }
   return file;
 }
+
+bool Win32LocalFileSystem::rva006049D8(const char *src)
+{
+ unsigned short buffer[260];
+ if(!src || !*src) return false;
+ BFME2Utf8ToWide(src,-1,buffer,260);
+ return createDirectory(buffer);
+}
+void Win32LocalFileSystem::rva00604A8B(const AsciiString &current,const AsciiString &original,const AsciiString &pattern,void *output,void *recurse)
+{
+ const char *p=pattern.str();
+ const char *o=original.str();
+ const char *c=current.str();
+ getFileListInDirectory(0,c,o,p,output,recurse);
+}
+
+// Native Win32LocalFileSystem vtable C7A9A8 slots8/12 own these bodies.
+// The existing narrow and wide overloads establish forwarding signatures;
+// the three-string wrapper retains opaque output and recurse argument types.
+// WB16510E0 confirms the three AsciiString reads in reverse order.
