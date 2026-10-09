@@ -1,4 +1,6 @@
 // ?Add_Mesh@DX8TextureCategoryClass@@QAEIAAVVertex_Split_Table@@IIPAVIndexBufferClass@@I@Z
+// partial score=0.9907774893064629 date=2026-10-09
+// ?Add_Mesh@DX8TextureCategoryClass@@QAEIAAVVertex_Split_Table@@IIPAVIndexBufferClass@@I@Z
 // partial score=0.99 date=2026-10-08
 // cl: /O2 /arch:SSE /G7 /DNDEBUG /MD /EHsc
 // Semantic guide: ZH dx8renderer.cpp Add_Mesh. BFME2 target 145620..145A65.
