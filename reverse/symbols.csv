@@ -17012,3 +17012,6 @@ _D3DXMatrixTranslation@16,0x0062AF32,First named PE import thunk: FF25 IAT00BBA9
 ??0Rva005E21EB@@QAE@PAX0ABUPageContext@@@Z,0x005E2C9D,"auto-pin (permute --pins): REL32 call target read from retail in 0x005cc4fb, whose banked body is byte-exact once this call resolves"
 ?rva00276952@Rva002768AC@@QAE_NHH@Z,0x00276952,thiscall two-dword bool query on the Drawable's lazily created 0x310-byte helper (+0x45C); called from 0x002788C7
 ?rva0028D900@Object@@QAE_NPAM0@Z,0x0028D900,Object bool query filling two floats (banked partial body; same spelling); called from Drawable 0x002778E1
+?rva00474519@AODHordeContain@@QAEXPAX@Z,0x00474519,AODHordeContain::initOffsets callees: base init (1 arg; ret 4) and offset rotate (out ptr + by-value Coord2D; ret 0xC); calls read from retail 0x47B6A7 / 0x47B8D3
+?rva00468E98@AODHordeContain@@QAEPAUAODOffset2D@@PAU2@U2@@Z,0x00468E98,AODHordeContain::initOffsets callees: base init (1 arg; ret 4) and offset rotate (out ptr + by-value Coord2D; ret 0xC); calls read from retail 0x47B6A7 / 0x47B8D3
+?reserve@?$vector@URva0047B35EElement@@V?$allocator@URva0047B35EElement@@@_STL@@@_STL@@QAEXI@Z,0x0047B35E,vector reserve (24B elements) called from initOffsets 0x47B6C8
