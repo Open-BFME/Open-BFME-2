@@ -11,6 +11,8 @@
 // Slot 13 (HordeWorkerAIUpdate 0x00C508C8 inherits it); the provider test
 // is inlined.
 
+#include "../../../../Common/GameLogicObjectLookupView.h"
+
 struct Coord3D
 {
 	float x;
@@ -20,7 +22,15 @@ struct Coord3D
 
 enum CommandSourceType
 {
-	CMD_FROM_PLAYER = 0
+	CMD_FROM_PLAYER = 0,
+	CMD_FROM_SCRIPT,
+	CMD_FROM_AI
+};
+
+enum UpdateSleepTime
+{
+	UPDATE_SLEEP_NONE = 1,
+	UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
 };
 
 // The command values are numbered only; the porcupine-formation tables below
@@ -32,6 +42,7 @@ enum AICommandType
 };
 
 class Object;
+class AIUpdateInterface;
 
 struct AICommandParms
 {
@@ -54,7 +65,8 @@ enum ObjectStatusTypes
 class HordeContainInterface
 {
 public:
-	virtual void h000(); virtual void h001(); virtual void h002(); virtual void h003(); virtual void h004();
+	virtual void h000(); virtual void h001(); virtual void h002(); virtual void h003();
+	virtual void refreshFormation(bool value); // slot 4 (+0x10)
 	virtual void slot5(Object *target); // slot 5 (+0x14)
 	virtual void h006(); virtual void h007(); virtual void h008(); virtual void h009();
 	SLOT_GAP10(h, 1)
@@ -62,7 +74,11 @@ public:
 	virtual bool slot23(); // slot 23 (+0x5C)
 	virtual void slot24(); // slot 24 (+0x60)
 	virtual void h025(); virtual void h026(); virtual void h027(); virtual void h028(); virtual void h029();
-	SLOT_GAP10(h, 3) SLOT_GAP10(h, 4) SLOT_GAP10(h, 5)
+	virtual void h030(); virtual void h031(); virtual void h032(); virtual void h033(); virtual void h034();
+	virtual void h035(); virtual void h036();
+	virtual bool slot37(); // slot 37 (+0x94)
+	virtual void h038(); virtual void h039();
+	SLOT_GAP10(h, 4) SLOT_GAP10(h, 5)
 	virtual bool slot60(); // slot 60 (+0xF0)
 };
 
@@ -100,6 +116,8 @@ public:
 	}
 	Rva0028C197Provider *provider() const { return m_250; }
 	BodyModuleView *getBodyModule() const { return m_body; }
+	AIUpdateInterface *getAI() const { return m_ai; }
+	bool isEffectivelyDead() const { return (m_privateStatus & 1) != 0; }
 	Object *object274() const { return m_274; }
 	void *rva0028C197() const;
 	bool testStatus(ObjectStatusTypes bit) const;
@@ -108,8 +126,11 @@ private:
 	char m_unrecovered00[0x250];
 	Rva0028C197Provider *m_250;
 	BodyModuleView *m_body; // +0x254
-	char m_unrecovered258[0x274 - 0x258];
+	AIUpdateInterface *m_ai; // +0x258
+	char m_unrecovered25C[0x274 - 0x25C];
 	Object *m_274;
+	char m_unrecovered278[0x438 - 0x278];
+	unsigned char m_privateStatus; // +0x438
 };
 
 // TheControlBar (0x00E01CFC); +0x28 is the UI-dirty flag other users set.
@@ -131,6 +152,8 @@ public:
 };
 
 extern ActionManager *TheActionManager;
+
+extern GameLogic *TheGameLogic;
 
 class ObjectModule
 {
@@ -156,7 +179,7 @@ class BehaviorModule : public ObjectModule, public BehaviorModuleInterface
 class UpdateModuleInterface
 {
 public:
-	virtual void updateModuleInterfaceAnchor();
+	virtual UpdateSleepTime update();
 };
 
 class UpdateModule : public BehaviorModule, public UpdateModuleInterface
@@ -171,6 +194,7 @@ class AICommandInterface
 {
 public:
 	virtual void aiDoCommand(const AICommandParms *parms) = 0;
+	void aiIdle(CommandSourceType cmdSource);
 };
 
 // Primary vftable 0x008505F8 (HordeAIUpdate's), slot 0 the destructor; the
@@ -188,9 +212,20 @@ protected:
 	virtual void a020(); virtual void a021(); virtual void a022();
 	virtual void bfmePrivateCommand42(Object *obj, CommandSourceType cmdSource); // slot 23 (+0x5C)
 	virtual void a024(); virtual void a025(); virtual void a026(); virtual void a027(); virtual void a028(); virtual void a029();
-	SLOT_GAP10(a, 03) SLOT_GAP10(a, 04) SLOT_GAP10(a, 05) SLOT_GAP10(a, 06)
-	SLOT_GAP10(a, 07) SLOT_GAP10(a, 08) SLOT_GAP10(a, 09) SLOT_GAP10(a, 10) SLOT_GAP10(a, 11)
-	SLOT_GAP10(a, 12) SLOT_GAP10(a, 13)
+	SLOT_GAP10(a, 03)
+	virtual void a040(); virtual void a041(); virtual void a042(); virtual void a043();
+	virtual void privateRepair(Object *obj, CommandSourceType cmdSource); // slot 44 (+0xB0)
+	virtual void a045(); virtual void a046(); virtual void a047(); virtual void a048(); virtual void a049();
+	SLOT_GAP10(a, 05) SLOT_GAP10(a, 06)
+	SLOT_GAP10(a, 07) SLOT_GAP10(a, 08) SLOT_GAP10(a, 09) SLOT_GAP10(a, 10)
+public:
+	virtual bool isIdle() const; // slot 110 (+0x1B8)
+	virtual void a111(); virtual void a112(); virtual void a113(); virtual void a114();
+	virtual void a115(); virtual void a116(); virtual void a117(); virtual void a118(); virtual void a119();
+	virtual void a120(); virtual void a121(); virtual void a122(); virtual void a123(); virtual void a124();
+	virtual void a125(); virtual void a126(); virtual void a127(); virtual void a128(); virtual void a129();
+	SLOT_GAP10(a, 13)
+protected:
 	virtual void a140(); virtual void a141(); virtual void a142(); virtual void a143(); virtual void a144();
 	virtual void a145(); virtual void a146(); virtual void a147();
 	virtual bool isAllowedToRespondToAiCommands(const AICommandParms *parms) const; // slot 148 (+0x250)
@@ -201,16 +236,12 @@ class HordeAIUpdate : public AIUpdateInterface
 protected:
 	virtual void bfmePrivateCommand42(Object *obj, CommandSourceType cmdSource);
 public:
+	virtual UpdateSleepTime update();
 	virtual void aiDoCommand(const AICommandParms *parms);
 	bool commandCancelsPorcupineFormation(const AICommandParms *parms);
 	bool porcupineFormationIgnoresCommand(const AICommandParms *parms);
 protected:
 	virtual void privateMoveToPosition(const Coord3D *pos, float speed, CommandSourceType cmdSource);
-};
-
-enum ObjectID
-{
-	INVALID_ID = 0
 };
 
 // Placeholder owners of two rowed HordeWorkerAIUpdate helpers whose names
@@ -220,6 +251,7 @@ enum ObjectID
 class Rva0049AE5E
 {
 public:
+	void rva0049AE5E();
 	void rva0049ADB7();
 };
 
@@ -247,6 +279,7 @@ class HordeWorkerAIUpdate : public HordeAIUpdate
 {
 public:
 	virtual void aiDoCommand(const AICommandParms *parms);
+	virtual UpdateSleepTime update();
 protected:
 	virtual void bfmePrivateCommand42(Object *obj, CommandSourceType cmdSource);
 private:
@@ -602,6 +635,71 @@ void HordeWorkerAIUpdate::bfmePrivateCommand42(Object *obj, CommandSourceType cm
 			reinterpret_cast<Rva0049B0BFData *>(obj), cmdSource);
 	}
 
-	if (m_3F0 == INVALID_ID)
+	if (m_3F0 == INVALID_OBJECT_ID)
 		HordeAIUpdate::bfmePrivateCommand42(obj, cmdSource);
+}
+
+// ?update@HordeWorkerAIUpdate@@UAE?AW4UpdateSleepTime@@XZ @0x0049AEA4
+// Slot 0 of the UpdateModuleInterface vftable 0x008508BC (this is +0x10).
+// The rowed 0x0049AE5E first drops ObjectIDs whose objects are gone; then a
+// pending repair (+0x3E8 set, target +0x3EC) is issued once the AI is idle,
+// a held repair target (+0x3EC) is released when fully healed or gone, and
+// a remembered slot-23 target (+0x3F0) is handed to HordeAIUpdate's slot
+// 23. Otherwise HordeAIUpdate::update runs.
+UpdateSleepTime HordeWorkerAIUpdate::update()
+{
+	Object *obj = getObject();
+	if (!obj)
+		return UPDATE_SLEEP_FOREVER;
+
+	HordeContainInterface *horde = static_cast<HordeContainInterface *>(obj->rva0028C197());
+	if (!horde)
+		return UPDATE_SLEEP_FOREVER;
+
+	reinterpret_cast<Rva0049AE5E *>(this)->rva0049AE5E();
+
+	if (m_3E8 != INVALID_OBJECT_ID)
+	{
+		Object *target = TheGameLogic->findObjectByID(m_3EC);
+		if (target == 0 || target->isEffectivelyDead())
+		{
+			obj->getAI()->aiIdle(CMD_FROM_AI);
+			m_3E8 = INVALID_OBJECT_ID;
+			return UPDATE_SLEEP_NONE;
+		}
+
+		if (obj->getAI()->isIdle() && !horde->slot37())
+		{
+			Object *repairTarget = TheGameLogic->findObjectByID(m_3EC);
+			if (repairTarget)
+				privateRepair(repairTarget, CMD_FROM_AI);
+			m_3E8 = INVALID_OBJECT_ID;
+			return UPDATE_SLEEP_NONE;
+		}
+
+		return HordeAIUpdate::update();
+	}
+
+	if (m_3EC != INVALID_OBJECT_ID)
+	{
+		Object *target = TheGameLogic->findObjectByID(m_3EC);
+		if (target == 0 || target->isEffectivelyDead()
+			|| target->getBodyModule()->slot5() == 1.0f)
+		{
+			horde->refreshFormation(true);
+			m_3EC = INVALID_OBJECT_ID;
+		}
+		return UPDATE_SLEEP_NONE;
+	}
+
+	if (m_3F0 != INVALID_OBJECT_ID)
+	{
+		Object *target = TheGameLogic->findObjectByID(m_3F0);
+		if (target)
+			HordeAIUpdate::bfmePrivateCommand42(target, CMD_FROM_AI);
+		m_3F0 = INVALID_OBJECT_ID;
+		return UPDATE_SLEEP_NONE;
+	}
+
+	return HordeAIUpdate::update();
 }
