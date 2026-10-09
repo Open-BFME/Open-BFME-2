@@ -1,5 +1,5 @@
 // ?rva004FB7B2@LivingWorldAI@@QAEXXZ
-// partial score=0.983739837 date=2026-10-09
+// partial score=0.983739837 date=2026-10-10
 // cl: /O1 /G7 /arch:SSE /MD /EHsc /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfme2_ascii
 // stlport
 #include <vector>
@@ -35,7 +35,7 @@ enum NameKeyType{NAMEKEY_INVALID=0};class ArmorTemplate;
 class Rva002B6498 {public:ArmorTemplate *rva002B6498(NameKeyType);};
 class Rva002E0A9FElem {public:int rva002E0A9F(void*);};
 class Rva00318F42 {public:bool rva00318F42();};
-class Rva002B4076 {public:void rva002B4076(LivingWorldArmy*,int,LivingWorldArmy*);};
+class Rva002B4076 {public:void rva002B4076(void*,int,void*);};
 class Rva002B2702 {public:void rva002B2702(void*,void*,int);};
 class LivingWorldAI {public:
  void SubmitOrders();void rva004FB7B2();
@@ -75,7 +75,7 @@ void LivingWorldAI::SubmitOrders() {
   if(army && (((Rva00318F42*)army)->rva00318F42() || ((AsciiString*)((char*)army+0x18))->isEmpty()))continue;
   if(orders80[i].words[2]) {
    if(TheLivingWorldLogic->CanMoveArmyMember(army,orders80[i].words[3],owner->rva002E0A9F((void*)orders80[i].words[2])))
-    ((Rva002B4076*)TheLivingWorldLogic)->rva002B4076(army,orders80[i].words[3],(LivingWorldArmy*)owner->rva002E0A9F((void*)orders80[i].words[2]));
+    ((Rva002B4076*)TheLivingWorldLogic)->rva002B4076((void*)army,orders80[i].words[3],(void*)owner->rva002E0A9F((void*)orders80[i].words[2]));
   } else ((Rva002B2702*)TheLivingWorldLogic)->rva002B2702(army,TheLivingWorldLogic->getRegions()->rva0020EAF6(orders80[i].words[4]),1);
  }
 }
@@ -86,7 +86,7 @@ void LivingWorldAI::rva004FB7B2() {
   if(army && (((Rva00318F42*)army)->rva00318F42() || !((AsciiString*)((char*)army+0x18))->isEmpty()))continue;
   if(orders80[i].words[2]) {
    if(TheLivingWorldLogic->CanMoveArmyMember(army,orders80[i].words[3],owner->rva002E0A9F((void*)orders80[i].words[2])))
-    ((Rva002B4076*)TheLivingWorldLogic)->rva002B4076(army,orders80[i].words[3],(LivingWorldArmy*)owner->rva002E0A9F((void*)orders80[i].words[2]));
+    ((Rva002B4076*)TheLivingWorldLogic)->rva002B4076((void*)army,orders80[i].words[3],(void*)owner->rva002E0A9F((void*)orders80[i].words[2]));
   } else ((Rva002B2702*)TheLivingWorldLogic)->rva002B2702(army,TheLivingWorldLogic->getRegions()->rva0020EAF6(orders80[i].words[4]),1);
  }
  ((Rva005B129FVector*)&orders80)->clear();
