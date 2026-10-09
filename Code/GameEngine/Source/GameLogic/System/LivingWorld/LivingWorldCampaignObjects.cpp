@@ -166,6 +166,8 @@ class INI { public:
  void initFromINI(void*,const FieldParse*);
  static void parseAsciiString(INI*,void*,void*,const void*);
  static void parseCoord2D(INI*,void*,void*,const void*);
+ static void parseCoord3D(INI*,void*,void*,const void*);
+ static void dup_002F0F7(INI*,void*,void*,const void*);
  static void parseAsciiStringVector(INI*,void*,void*,const void*);
  static void parseBool(INI*,void*,void*,const void*);
  static void parseReal(INI*,void*,void*,const void*);
@@ -285,4 +287,63 @@ UnicodeString Rva00319CED::rva004E25AF(int id) {
   return *(const UnicodeString*)((char*)hero+8);
  }
  return title;
+}
+
+// Native MoveCamera parser 4E141D/110B, constructor 4E13EB/43B,
+// destructor 4E1416/7B and deleting destructor 4E186D/28B.
+// WB128D8A0 and the complete target body independently establish the parser
+// and its 32-byte temporary; BFME1 9cbfb551fe20 supplies the semantic lead.
+// C618CC has one deleting-destructor slot, followed by the SummaryEvent
+// string. This record has no Snapshot base. Keep its existing address name.
+// Retail's deleting destructor calls the seven-byte destructor out of line;
+// noinline preserves that witnessed call instead of folding its vptr store.
+// Keeping the constructor visible also preserves EDX for the parser's EH
+// state write. Normal C++ throw and the complete EH graph match retail.
+// Table C61940: all 96 bytes, five full strings, callback bindings, offsets,
+// zero user data and null terminator independently verified. The duration
+// callback retains its existing opaque name, not the distinct 338B30 body.
+class Rva004E13EB
+{
+public:
+	Rva004E13EB();
+	__declspec(noinline) virtual ~Rva004E13EB();
+	static const FieldParse m_fieldParseTable[];
+	int m04;
+	float m08;
+	float m0c;
+	float m10;
+	float m14;
+	int m18;
+	unsigned char m1c;
+};
+
+class Rva003A6F70
+{
+	char m_pad[0x20];
+};
+
+class Rva00566547Owner
+{
+public:
+	void append(const Rva003A6F70 &record);
+};
+
+
+Rva004E13EB::Rva004E13EB():m04(0),m08(0.0f),m0c(0.0f),m10(0.0f),m14(0.0f),m18(0),m1c(0) {}
+Rva004E13EB::~Rva004E13EB() {}
+
+const FieldParse Rva004E13EB::m_fieldParseTable[]={
+ {"DelayFromActStart",INI::dup_002F0F7,0,0x04},
+ {"Position",INI::parseCoord3D,0,0x08},
+ {"ViewAngle",INI::parseReal,0,0x14},
+ {"ScrollTime",INI::dup_002F0F7,0,0x18},
+ {"SummaryEvent",INI::parseBool,0,0x1c},
+ {0,0,0,0}
+};
+
+void Rva004E141DParse(INI *ini,void *instance,void*,const void*) {
+ if(!ini || !instance) throw INIException(3,"ParseMoveCameraBlock::Invalid data passed in.");
+ Rva004E13EB record;
+ ini->initFromINI(&record,Rva004E13EB::m_fieldParseTable);
+ ((Rva00566547Owner*)instance)->append((const Rva003A6F70&)record);
 }
