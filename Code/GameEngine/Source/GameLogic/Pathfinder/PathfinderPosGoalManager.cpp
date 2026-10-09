@@ -249,10 +249,13 @@ class NativeContain69 : public NativeSlots<69> { public: virtual unsigned int sl
 class Rva004DD9E3 { public: int rva004DD9E3(int,int,int); Rva004DD843Slot *slot; int category; Object *object; int layer,secondary; };
 enum PathfindLayerEnum { PATHFIND_LAYER_GROUND=0 };
 class Rva002E9D09 { public: int rva002E9D09(Object *,int,int); };
+class Rva002E7E26 { public: int rva002E7E26(Object *,int,int); };
 class Pathfinder {
 public:
     int rva002EED80(const ICoord2DBase *,const ICoord2DBase *,float,int,Rva002E9D09 *);
     int rva002EB7B4(int *,int *,int,int,Rva002E9D09 *);
+    int rva002EB4DF(const ICoord2DBase *,const ICoord2DBase *,float,int,Rva002E7E26 *);
+    int rva002E8773(int *,int *,int,int,Rva002E7E26 *);
     PathfindCell *getCell(PathfindLayerEnum,int,int);
     int rva004DDDA4(const ICoord2DBase *,const ICoord2DBase *,float,int,Rva004DD9E3 *);
     int rva004DDA9A(int *,int *,int,int,Rva004DD9E3 *);
@@ -369,3 +372,36 @@ int Pathfinder::rva002EED80(const ICoord2DBase *center,const ICoord2DBase *diame
  return rva002EB7B4(x,y,4,layer,visitor);
 }
 
+// ?rva002EB4DF@Pathfinder@@QAEHPBUICoord2DBase@@0MHPAVRva002E7E26@@@Z @0x002EB4DF (406B): instruction-for-instruction twin of rva002EED80 above with its own visitor (0x002E7E26) and polygon worker (0x002E8773); same fsincos block.
+int Pathfinder::rva002EB4DF(const ICoord2DBase *center,const ICoord2DBase *diameter,float angle,int layer,Rva002E7E26 *visitor)
+{
+ if (diameter->x==1 && diameter->y==1) {
+   PathfindCell *cell=getCell((PathfindLayerEnum)layer,center->x,center->y);
+   return cell ? visitor->rva002E7E26((Object *)cell,center->x,center->y) : 0;
+ }
+ int x[4],y[4];
+ if (angle!=0.0f) {
+   float sine,cosine;
+   __asm { fld angle
+           fsincos
+           fstp cosine
+           fstp sine }
+   float hx=diameter->x*0.5f,hy=diameter->y*0.5f;
+   float cx=(float)center->x,cy=(float)center->y;
+   x[0]=(int)(cx-hx*cosine+hy*sine);
+   y[0]=(int)(cy-hy*cosine-hx*sine);
+   x[1]=(int)(cx+hx*cosine+hy*sine);
+   y[1]=(int)(cy-hy*cosine+hx*sine);
+   x[2]=(int)(cx+hx*cosine-hy*sine);
+   y[2]=(int)(cy+hy*cosine+hx*sine);
+   x[3]=(int)(cx-hx*cosine-hy*sine);
+   y[3]=(int)(cy+hy*cosine-hx*sine);
+ } else {
+   int hx=diameter->x/2,hy=diameter->y/2;
+   x[0]=x[3]=center->x-hx;
+   y[0]=y[1]=center->y-hy;
+   x[1]=x[2]=center->x+diameter->x-hx-1;
+   y[2]=y[3]=center->y+diameter->y-hy-1;
+ }
+ return rva002E8773(x,y,4,layer,visitor);
+}
