@@ -16,6 +16,8 @@
 // an address name.
 #include <vector>
 #include <set>
+// STLport4.5.3 iterator comparison is its node-pointer comparison.
+// Spell that native comparison here so no competing operator copy is emitted.
 
 typedef bool Bool;
 typedef int Int;
@@ -69,7 +71,7 @@ private:
 
 Bool CastleBehavior::rva003977F6(ObjectTypes *types)
 {
-	for (_STL::set<ObjectID>::const_iterator it = m_8C.begin(); it != m_8C.end(); ++it) {
+	for (_STL::set<ObjectID>::const_iterator it = m_8C.begin(); it._M_node != m_8C.end()._M_node; ++it) {
 		Object *obj = TheGameLogic->findObjectByID(*it);
 		if (obj && types->isInSet(obj->getTemplate()))
 			return true;

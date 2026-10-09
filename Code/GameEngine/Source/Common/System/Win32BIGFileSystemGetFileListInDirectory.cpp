@@ -18,6 +18,8 @@
 // imported strncmp and the rowed no-case AsciiString set insert 0x0002CA26
 // (FilenameList). Debug expansion as in Rva0033BA46Finish.cpp.
 #include <set>
+// STLport4.5.3 iterator comparison is its node-pointer comparison.
+// Spell that native comparison here so no competing operator copy is emitted.
 #include <map>
 #include <string.h>
 #include "ascii_string.h"
@@ -128,7 +130,7 @@ void Win32BIGFileSystem::getFileListInDirectory(const AsciiString &currentDirect
 	if (searchSubdirectories)
 		directoryLength = strlen(directory);
 
-	for (BigDirectoryMap::const_iterator it = m_directories.begin(); it != m_directories.end(); ++it)
+	for (BigDirectoryMap::const_iterator it = m_directories.begin(); it._M_node != m_directories.end()._M_node; ++it)
 	{
 		Bool match;
 		if (directoryLength >= 0)
@@ -144,7 +146,7 @@ void Win32BIGFileSystem::getFileListInDirectory(const AsciiString &currentDirect
 		if (!match)
 			continue;
 
-		for (BigFileNameSet::const_iterator fit = (*it).second.begin(); fit != (*it).second.end(); ++fit)
+		for (BigFileNameSet::const_iterator fit = (*it).second.begin(); fit._M_node != (*it).second.end()._M_node; ++fit)
 		{
 			if (Rva006053D7(*fit, mask))
 			{
