@@ -216,3 +216,29 @@ void SubObjectsUpgrade::upgradeImplementation()
   base->rva004CE4A0();
  }
 }
+
+// Native4B5101..4B5209/264; same ctor/mux slot8 and WB123A2A0 remove effects.
+// Primary base pointer lives only within the guarded block; retaining it through
+// final reset reallocates this/drawable registers and loses9 bytes.
+void SubObjectsUpgrade::upgradeRemovalImplementation()
+{
+ const SubObjectsUpgradeModuleData *data=(const SubObjectsUpgradeModuleData*)m_moduleData;
+ Drawable *drawable=getObject()->getDrawable();
+ float first=0.0f,second=0.0f;
+ if(drawable && (data->m_flag152 || data->m_flag153)) {
+  SubObjectsUpgrade *base=this;
+  bool changed=false,texturesChanged=false;
+  reinterpret_cast<Rva004B4DBF*>(base)->rva004B4DBF(&first,&second);
+  if(data->m_flag152) {
+   changed=base->rva004B4F11(drawable,(void*)&data->m_showSubObjects,first,second);
+   texturesChanged=base->swapTextures(drawable,0);
+  }
+  if(data->m_flag153) {
+   bool showChanged=base->rva004B4EC3(drawable,(void*)&data->m_hideSubObjects,first,second);
+   changed=showChanged || changed;
+  }
+  if(changed) drawable->rva002723ED();
+  if(texturesChanged && data->m_flag150) drawable->rva00272414(&data->m_excludeSubobjects);
+ }
+ rva004CE4A8();
+}
