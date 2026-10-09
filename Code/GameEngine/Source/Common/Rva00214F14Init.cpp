@@ -3,55 +3,60 @@
 // Virtual slot 14 (offset 0x38) of vtable 0x007C81A8, class of
 // ??1Rva009519B@@UAE@XZ. Initializes the five AsciiStrings at +0x0C +0x10
 // +0x14 +0x24 +0xAC from globals via rowed StringBase<char>::set 0x000366F0,
-// float/int/byte defaults from g_00DFE2xx, then Cos/Sin 0x0002FBC0/0x0002FBB0
+// float/int/byte defaults from TheCloudEffectSettings, then Cos/Sin 0x0002FBC0/0x0002FBB0
 // scaled into +0x50/+0x54. Evidence: same five strings as
 // SubsystemDerivedDtors.cpp, callees rowed, no caller.
 #include "ascii_string.h"
 
-extern "C" float RADS_PER_DEGREE;
-extern double g_bfmeFactorBW;
-extern float g_Va00BCF628;
-extern float g_00BC28F8;
-extern float g_00BC7824;
 extern float Cos(float);
 extern float Sin(float);
 
-class Rva00214E02;
-extern Rva00214E02 TheCloudEffectSettings;	// 0x00DFE280, CloudTexture at +0x00
-extern AsciiString g_00DFE284;
-extern AsciiString g_00DFE288;
-extern AsciiString g_00DFE294;
-extern AsciiString g_00DFE314;
-extern float g_00DFE28C;
-extern int g_00DFE290;
-extern float g_00DFE298;
-extern float g_00DFE29C;
-extern float g_00DFE2C0;
-extern float g_00DFE2C4;
-extern unsigned char g_00DFE2C8;
-extern unsigned char g_00DFE2C9;
-extern unsigned char g_00DFE2CA;
-extern float g_00DFE2CC;
-extern float g_00DFE2DC;
-extern float g_00DFE2EC;
-extern int g_00DFE2B8;
-extern int g_00DFE2BC;
-extern int g_00DFE2FC;
-extern int g_00DFE300;
-extern int g_00DFE304;
-extern int g_00DFE308;
-extern int g_00DFE30C;
-extern int g_00DFE310;
+// The constants are retail's .rdata literals, spelled as their values:
+// 0.017453292f (0x00BBB8D0, PI/180 as INI_parseAngleReal.cpp spells it),
+// 0.001f (0x00BC28F8), 0.001 (double, 0x00BC6E68), -0.01f (0x00BC7824) and
+// 0.01f (0x00BCF628).
+static const float RADS_PER_DEGREE = 0.017453292f;
 
 struct Block12
 {
 	int v[3];
 };
-extern Block12 g_00DFE2A0;
-extern Block12 g_00DFE2AC;
-extern Block12 g_00DFE2D0;
-extern Block12 g_00DFE2E0;
-extern Block12 g_00DFE2F0;
+
+// The CloudEffect settings record read here is the working copy at
+// 0x00DFE280; INIBfmeSettingsParsers.cpp's field table (VA 0x00BE5390)
+// names each member and its parser, which gives the types below.
+class Rva00214E02
+{
+public:
+	AsciiString m_cloudTexture;		// +0x00
+	AsciiString m_darkCloudTexture;		// +0x04
+	AsciiString m_alphaTexture;		// +0x08
+	float m_propagateSpeed;			// +0x0C
+	int m_angle;				// +0x10
+	AsciiString m_dissipateTexture;		// +0x14
+	float m_dissipateStartLevel;		// +0x18
+	float m_dissipateSpeed;			// +0x1C
+	Block12 m_darkeningFactor;		// +0x20
+	Block12 m_darkeningFactorRain;		// +0x2C
+	int m_darkeningRate;			// +0x38
+	int m_lighteningRate;			// +0x3C
+	float m_cloudScrollSpeed;		// +0x40
+	float m_dissipateRateScale;		// +0x44
+	unsigned char m_lightningShadows;	// +0x48
+	unsigned char m_jitterLightningLightPosition;	// +0x49
+	unsigned char m_jitterLightningLightIntensity;	// +0x4A
+	float m_lightningChance;		// +0x4C
+	Block12 m_lightningShadowColor;		// +0x50
+	float m_lightningShadowIntensity;	// +0x5C
+	Block12 m_lightningDuration;		// +0x60
+	float m_lightningFrequency;		// +0x6C
+	Block12 m_lightningIntensity;		// +0x70
+	int m_lightningLightPosition1[2];	// +0x7C
+	int m_lightningLightPosition2[2];	// +0x84
+	int m_lightningLightPosition3[2];	// +0x8C
+	AsciiString m_lightningFX;		// +0x94
+};
+extern Rva00214E02 TheCloudEffectSettings;	// 0x00DFE280
 
 class SubsystemInterface
 {
@@ -106,35 +111,35 @@ private:
 
 void Rva009519B::rva00214F14()
 {
-	((StringBase<char> *)&m_0C)->set(*(const StringBase<char> *)&TheCloudEffectSettings);
-	((StringBase<char> *)&m_10)->set(*(const StringBase<char> *)&g_00DFE284);
-	((StringBase<char> *)&m_14)->set(*(const StringBase<char> *)&g_00DFE288);
-	m_18 = g_00BC28F8 * g_00DFE28C;
-	m_1C = (float)g_00DFE290 * RADS_PER_DEGREE;
-	((StringBase<char> *)&m_24)->set(*(const StringBase<char> *)&g_00DFE294);
-	m_28 = g_00DFE298;
-	m_2C = g_00DFE29C * g_bfmeFactorBW;
-	m_30 = g_00DFE2A0;
-	m_3C = g_00DFE2AC;
-	m_48 = g_00DFE2B8;
-	m_4C = g_00DFE2BC;
-	m_58 = g_00DFE2C4;
-	m_5C = g_00DFE2C8;
-	m_90 = g_00DFE2C9;
-	m_91 = g_00DFE2CA;
-	m_60 = g_00DFE2CC;
-	m_64 = g_00DFE2D0;
-	m_70 = g_00DFE2DC;
-	m_74 = g_00DFE2E0;
-	m_80 = g_00DFE2EC;
-	m_84 = g_00DFE2F0;
-	m_94 = g_00DFE2FC;
-	m_98 = g_00DFE300;
-	m_9C = g_00DFE304;
-	m_A0 = g_00DFE308;
-	m_A4 = g_00DFE30C;
-	m_A8 = g_00DFE310;
-	((StringBase<char> *)&m_AC)->set(*(const StringBase<char> *)&g_00DFE314);
-	m_50 = Cos(m_1C) * g_00BC7824 * g_00DFE2C0;
-	m_54 = g_Va00BCF628 * (Sin(m_1C) * g_00DFE2C0);
+	((StringBase<char> *)&m_0C)->set(*(const StringBase<char> *)&TheCloudEffectSettings.m_cloudTexture);
+	((StringBase<char> *)&m_10)->set(*(const StringBase<char> *)&TheCloudEffectSettings.m_darkCloudTexture);
+	((StringBase<char> *)&m_14)->set(*(const StringBase<char> *)&TheCloudEffectSettings.m_alphaTexture);
+	m_18 = 0.001f * TheCloudEffectSettings.m_propagateSpeed;
+	m_1C = (float)TheCloudEffectSettings.m_angle * RADS_PER_DEGREE;
+	((StringBase<char> *)&m_24)->set(*(const StringBase<char> *)&TheCloudEffectSettings.m_dissipateTexture);
+	m_28 = TheCloudEffectSettings.m_dissipateStartLevel;
+	m_2C = TheCloudEffectSettings.m_dissipateSpeed * 0.001;
+	m_30 = TheCloudEffectSettings.m_darkeningFactor;
+	m_3C = TheCloudEffectSettings.m_darkeningFactorRain;
+	m_48 = TheCloudEffectSettings.m_darkeningRate;
+	m_4C = TheCloudEffectSettings.m_lighteningRate;
+	m_58 = TheCloudEffectSettings.m_dissipateRateScale;
+	m_5C = TheCloudEffectSettings.m_lightningShadows;
+	m_90 = TheCloudEffectSettings.m_jitterLightningLightPosition;
+	m_91 = TheCloudEffectSettings.m_jitterLightningLightIntensity;
+	m_60 = TheCloudEffectSettings.m_lightningChance;
+	m_64 = TheCloudEffectSettings.m_lightningShadowColor;
+	m_70 = TheCloudEffectSettings.m_lightningShadowIntensity;
+	m_74 = TheCloudEffectSettings.m_lightningDuration;
+	m_80 = TheCloudEffectSettings.m_lightningFrequency;
+	m_84 = TheCloudEffectSettings.m_lightningIntensity;
+	m_94 = TheCloudEffectSettings.m_lightningLightPosition1[0];
+	m_98 = TheCloudEffectSettings.m_lightningLightPosition1[1];
+	m_9C = TheCloudEffectSettings.m_lightningLightPosition2[0];
+	m_A0 = TheCloudEffectSettings.m_lightningLightPosition2[1];
+	m_A4 = TheCloudEffectSettings.m_lightningLightPosition3[0];
+	m_A8 = TheCloudEffectSettings.m_lightningLightPosition3[1];
+	((StringBase<char> *)&m_AC)->set(*(const StringBase<char> *)&TheCloudEffectSettings.m_lightningFX);
+	m_50 = Cos(m_1C) * -0.01f * TheCloudEffectSettings.m_cloudScrollSpeed;
+	m_54 = 0.01f * (Sin(m_1C) * TheCloudEffectSettings.m_cloudScrollSpeed);
 }

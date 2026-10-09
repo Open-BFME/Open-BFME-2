@@ -887,7 +887,6 @@ address_global	Code/GameEngine/Source/Common/Rva001FF6D7List.cpp	g_Va00DB9440	4
 address_global	Code/GameEngine/Source/Common/Rva001FF703CreateNode.cpp	g_Va00DB9440	1
 address_global	Code/GameEngine/Source/Common/Rva002036B4GlobalCopiers.cpp	g_Va00DFE18C	4
 address_global	Code/GameEngine/Source/Common/Rva00210F96Body.cpp	g_Rva00E02E84	2
-address_global	Code/GameEngine/Source/Common/Rva00214F14Init.cpp	g_Va00BCF628	2
 address_global	Code/GameEngine/Source/Common/Rva00225D38Check.cpp	g_Va00DBA4E4	2
 address_global	Code/GameEngine/Source/Common/Rva0023D30FCall.cpp	g_Rva0023D30FFlag	3
 address_global	Code/GameEngine/Source/Common/Rva0023D339Check.cpp	g_bfmeRva42E8C1Add	2
