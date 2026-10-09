@@ -48,7 +48,16 @@ V(30) V(31) V(32) V(33) V(34) V(35) V(36) V(37) V(38) V(39) V(40)
 virtual void sA4(Object *,int)=0;
 };
 #undef V
-class HordeTransportContain {public:void rva004779F9();};
+class Thing;
+struct Rva0047727EObjectPositionView;
+class HordeTransportContain {
+public:
+    void rva004779F9();
+    void rva0047727E(Thing *object);
+private:
+    unsigned char prefix00[8];
+    Rva0047727EObjectPositionView *m_object;
+};
 void HordeTransportContain::rva004779F9()
 {
     Rva0046247DPair outer;
@@ -71,4 +80,42 @@ void HordeTransportContain::rva004779F9()
             }
         }
     }
+}
+
+#include "../../../../../../Libraries/Include/Lib/Coord3D.h"
+class Thing { public: void setPosition(const Coord3D *position); };
+
+// Whole clean BF1 f98983a7 Object/Contain/HordeContainExitPosition.cpp
+// supplies the copy-and-extract pattern. Native47727E..4772B8 is complete
+// RET4, called at477572 by this subsystem's update. It reads receiver+8,
+// then the float words at pointee14/24/34, and calls genuine Thing::setPosition
+// at30AA80. WB11A00E0 independently carries the same transform-translation
+// extraction and named callee. Original helper name and complete object and
+// matrix layouts remain unknown; these views model only accessed prefixes.
+// The explicit copy preserves the independently observed out-of-line-call
+// preparation, including the temporary source-subobject address calculation.
+struct Rva0047727ETransformView {
+    unsigned char prefix00[12];
+    float x;
+    unsigned char gap10[12];
+    float y;
+    unsigned char gap20[12];
+    float z;
+    __forceinline Rva0047727ETransformView(const Rva0047727ETransformView &other)
+        : x(other.x), y(other.y), z(other.z) {}
+    __forceinline void getTranslation(Coord3D *position) const {
+        position->x=x;
+        position->y=y;
+        position->z=z;
+    }
+};
+struct Rva0047727EObjectPositionView {
+    unsigned char prefix00[8];
+    Rva0047727ETransformView transform;
+};
+void HordeTransportContain::rva0047727E(Thing *object) {
+    Coord3D position;
+    Rva0047727ETransformView transform(m_object->transform);
+    transform.getTranslation(&position);
+    object->setPosition(&position);
 }
