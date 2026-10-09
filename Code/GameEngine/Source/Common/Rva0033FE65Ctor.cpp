@@ -138,15 +138,3 @@ Rva0033FE65::Rva0033FE65(StateMachine *machine, int val) : State(machine, 0x8821
 	m_22 = 5;
 	m_25 = 0;
 }
-
-void Rva0033FE65::xfer(Xfer *xfer)
-{
-	Xfer::Version version(1, 2);
-	*xfer == version;
-	*xfer == m_20;
-	*xfer == m_24;
-	*xfer == m_25;
-	if (version.m_minimum >= 2) {
-		*xfer == m_22;
-	}
-}

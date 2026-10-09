@@ -177,7 +177,7 @@ class AIIdleState : public State
 {
 protected:
 	virtual void xfer( Xfer *xfer );
-	char m_unrecovered04[ 0x2C - 0x04 ];
+	char m_unrecovered04[0x20 - 0x04]; unsigned short m_20, m_22; bool m_24, m_25; char m_unrecovered26[0x2C - 0x26];
 };
 
 // ------------------------------------------------------------------------------------------------
@@ -771,3 +771,16 @@ void GiantBirdGuardReturnState::xfer( Xfer *xfer )
 	*xfer == m_bfmeValue24;
 	*xfer == m_bfmePosition28;
 }  // end xfer
+
+// Native AIIdleState snapshot, vftable RVA 0x00811E08 slot 3.
+void AIIdleState::xfer(Xfer *xfer)
+{
+	Xfer::Version version(1, 2);
+	*xfer == version;
+	*xfer == m_20;
+	*xfer == m_24;
+	*xfer == m_25;
+	if (version.m_minimum >= 2) {
+		*xfer == m_22;
+	}
+}
