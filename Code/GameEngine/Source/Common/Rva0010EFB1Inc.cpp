@@ -11,3 +11,23 @@ long Rva0010EFB1Inc()
 {
 	return InterlockedIncrement(&g_rva0010EFB1Counter);
 }
+
+// Clean BF1 f98983a7 Common/Rva009587C0Increment.cpp is the whole source
+// lead. Native176B50..176B5F/15 is independently INT3-bounded. It passes
+// receiver+8 to the actual InterlockedIncrement import at IAT BBA214, then
+// reads that same word after the call and returns it; it does not return the
+// import's result. Eight-section direct/address scans found no witnesses.
+// The Win32 API establishes a 32-bit long operand, but the original owner and
+// full object size are unknown. This independent accessed-prefix counter
+// view shares only the existing real import declaration, not an owner/layout.
+class Rva00176B50Counter {
+public:
+    long incrementAndRead();
+private:
+    char prefix[8];
+    long count;
+};
+long Rva00176B50Counter::incrementAndRead() {
+    InterlockedIncrement(&count);
+    return count;
+}
