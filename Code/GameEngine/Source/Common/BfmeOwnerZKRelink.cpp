@@ -45,10 +45,14 @@ struct BfmeEntryZK
 	unsigned char m_tail[4];
 };
 
+template<class T> class StringBase;
+
 class Rva003B573E
 {
 public:
 	int rva003B820D(Rva003B573E *other, int index);
+	int rva003B7F46(int index, const StringBase<char> &key);
+	int rva003B81C5(int index, const StringBase<char> &key);
 	unsigned char m_head[0x0C];
 	BfmeEntryZK *m_records;
 };
@@ -72,8 +76,11 @@ public:
 	void bfmeRelinkZK(BfmeKeyZK *key, BfmeHeadZK *list, BfmeNodeZK *node,
 		BfmeHeadZK *fallback, BfmeNodeZK **where);
 	void bfmeMoveZK(BfmeKeyZK *key, BfmeNodeZK **from, BfmeNodeZK **to);
+	void rva003B8383(BfmeNodeZK *node, const StringBase<char> &key);
 private:
-	unsigned char m_head[0x2C];
+	unsigned char m_head[0x0C];
+	Rva003B573E m_earlyTable;
+	unsigned char m_unknown1C[0x10];
 	Rva003B573E m_table;
 };
 
@@ -132,3 +139,12 @@ void ScriptList::takeScripts(ScriptList *source,BfmeNodeZK **from,BfmeNodeZK **t
         slots.pop_back();
     }
 }
+
+void BfmeOwnerZK::rva003B8383(BfmeNodeZK *node, const StringBase<char> &key)
+{
+	int current = node->m_bfmeIdZK;
+	int index = m_earlyTable.rva003B7F46(current, key);
+	node->m_bfmeIdZK = index;
+	node->m_bfmeKindZK = m_earlyTable.m_records[index].m_references;
+}
+
