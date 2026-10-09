@@ -194,3 +194,49 @@ void Rva00306761WordPair::clear()
     word0 = 0;
     word4 = 0;
 }
+
+// Complete native 3B3F6D..3B3F78 follows RET 3B3F6C and precedes a new entry.
+// It clears only raw words +8 and +10, retaining the receiver in EAX; no
+// literal-address or direct-call references establish its original lifetime.
+// Clean BF1 f989 S1ZeroingConstructors.cpp compiled O1/SSE/G6 supplies two
+// indistinguishable zeroing guides. The original owner, field meanings,
+// constructor role and unaccessed prefix/gap remain unknown.
+class Rva003B3F6DZeroView
+{
+public:
+    Rva003B3F6DZeroView *clear();
+private:
+    unsigned char unknown0[8];
+    unsigned int word8;
+    unsigned char unknownC[4];
+    unsigned int word10;
+};
+Rva003B3F6DZeroView *Rva003B3F6DZeroView::clear()
+{
+    word8 = 0;
+    word10 = 0;
+    return this;
+}
+
+// Complete native 4B9C46..4B9C4D follows RET4 at 4B9C43 and precedes 4B9C4D.
+// This distinct entry clears only raw word +8 and returns the receiver.
+// Actual pushes 4BA5A7/4BA5C4/4BA5E2 pass it to owned EH vector constructor
+// iterator 629512 with stride 1C and count 30, supporting its initializer use.
+// Clean BF1 f989 ProductionPrerequisite.cpp, ProductionPrerequisiteAddUnitPrereq.cpp,
+// Team.cpp and TeamTemplateInfoConstructor.cpp compiled O1/SSE/G6 supply
+// indistinguishable constructor guides. Their record names and string fields
+// are donor facts only; original target element and complete layout are unknown.
+// This ordinary operation exposes the consumed prefix without a lifetime claim.
+class Rva004B9C46ZeroView
+{
+public:
+    Rva004B9C46ZeroView *clear();
+private:
+    unsigned char unknown0[8];
+    unsigned int word8;
+};
+Rva004B9C46ZeroView *Rva004B9C46ZeroView::clear()
+{
+    word8 = 0;
+    return this;
+}
