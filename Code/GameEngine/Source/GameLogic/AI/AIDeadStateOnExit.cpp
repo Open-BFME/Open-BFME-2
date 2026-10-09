@@ -104,7 +104,8 @@ public:
 class AI
 {
 public:
-	Pathfinder *pathfinder() { return m_pathfinder; }
+	// Native +0x10 accessor is inlined in the recovered callers.
+	__declspec(dllimport) __forceinline Pathfinder *pathfinder() { return m_pathfinder; }
 private:
 	unsigned char m_pad00[0x10];
 	Pathfinder *m_pathfinder; // +0x10
