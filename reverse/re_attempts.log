@@ -32319,3 +32319,4 @@ _PlaneAddNoise_C	0x001B69C0	475	partial	vp6-spec 001b69c0: the upper clamp is th
 ?Rva003C7A30Do@@YGXPAVParameter@@H@Z	0x003C7A30	195	landed	add_match verified Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_Rva003C7A30Do.cpp 195B
 ?rva003B80B8@Rva003B573E@@QAEHABV?$StringBase@D@@PAH@Z	0x003B80B8	137	landed	add_match verified Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListSubrecordAddRva003B80B8.cpp 137B
 ?rva003B8141@Rva003BRefSubrecord@@QAEHABV?$StringBase@D@@@Z	0x003B8141	132	landed	add_match verified Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListSubrecordAddRva003B8141.cpp 132B
+?rva003B7EC2@Rva003B7EC2View@@QAEHH@Z	0x003B7EC2	132	landed	add_match verified Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListSubrecordAddRva003B7EC2.cpp 132B
