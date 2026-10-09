@@ -1,8 +1,33 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// cl: /O1 /Oy- /G7 /arch:SSE /DNDEBUG /MD /EHsc
 class Rva002104B6 { public: void *rva002104B6(void *); };
 struct Rva0059E647Arg { char unknown00[0x40]; int value40; };
 struct Rva0059E647Entry { bool Check(int); };
-struct Rva0059E647Factory { Rva0059E647Entry *Lookup(int *); };
+class AsciiString;
+class Rva00056F61;
+struct Rva0041534BIter
+{
+    void *m_node;
+    Rva00056F61 *m_table;
+    Rva0041534BIter(void *, Rva00056F61 *);
+};
+class Rva00056F61
+{
+public:
+    Rva0041534BIter rva0041534B(const AsciiString *);
+};
+enum NameKeyType { NAMEKEY_INVALID = 0 };
+class ArmorTemplate;
+class Rva002B6498
+{
+public:
+    ArmorTemplate *rva002B6498(NameKeyType);
+};
+struct Rva0059E647Factory
+{
+    unsigned char unknown00[0x24];
+    Rva00056F61 names;
+    Rva0059E647Entry *Lookup(int *);
+};
 class Rva0022C0CDSubsystem;
 extern Rva0022C0CDSubsystem *TheLivingWorldBuildingTemplateStore;
 struct Rva0059E647World { void Apply(Rva0059E647Entry *,void *,Rva0059E647Arg *); };
@@ -46,4 +71,18 @@ void LivingWorldScenario::OwnershipSet::spawnBuildingsInRegionsForPlayer(Rva0059
             }
         }
     }
+}
+
+// Native 0x002B931C..0x002B9349 RET4 and WB 0x00D7E760 (unnamed).
+// The store's +24 name table maps the four-byte AsciiString handle to a
+// NameKeyType at node+8, then the owned 2B6498 lookup returns its template.
+// Preserve the existing admitted signature; the caller's int* spelling is
+// an opaque four-byte name-handle view, not evidence of an integer lookup.
+Rva0059E647Entry *Rva0059E647Factory::Lookup(int *key)
+{
+    Rva0041534BIter found = names.rva0041534B((const AsciiString *)key);
+    if (!found.m_node)
+        return 0;
+    return (Rva0059E647Entry *)((Rva002B6498 *)this)->rva002B6498(
+        *(NameKeyType *)((char *)found.m_node + 8));
 }
