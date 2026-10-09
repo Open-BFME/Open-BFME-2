@@ -229,3 +229,39 @@ void Rva00200FE3Parse(INI *ini)
 	if (trigger)
 		((Rva00375BFF *)TheAerialPathfinder)->rva00375BFF((unsigned int)trigger, height);
 }
+
+// 0x0040C32B (25B): "AwardSystem" (registration VA 0x00DC1D9C). Skips when
+// the object at 0x00E02F74 is null, else initFromINI it against VA 0x00C39410.
+class Rva0040AAD5;
+extern Rva0040AAD5 *g_00E02F74;
+extern const FieldParse AwardSystemFields[];
+
+void Rva0040C32BParse(INI *ini)
+{
+	if (g_00E02F74)
+		ini->initFromINI(g_00E02F74, AwardSystemFields);
+}
+
+// 0x0040F0F0 (31B): "LivingWorldPlayerArmy" (registration VA 0x00DC1F68).
+// Skips without TheCampaignManager (0x00E02D6C), else initFromINI the entry
+// its rowed member 0x003B93BC returns against VA 0x00C39538.
+struct BfmePod104;
+
+class Rva003B93BC
+{
+public:
+	BfmePod104 *rva003B93BC();
+};
+
+class Rva00E02D6C;
+extern Rva00E02D6C *TheCampaignManager;
+extern const FieldParse LivingWorldPlayerArmyFields[];
+
+void Rva0040F0F0Parse(INI *ini)
+{
+	if (TheCampaignManager)
+	{
+		BfmePod104 *army = ((Rva003B93BC *)TheCampaignManager)->rva003B93BC();
+		ini->initFromINI(army, LivingWorldPlayerArmyFields);
+	}
+}
