@@ -156,7 +156,7 @@ Code/GameEngine/Source/Common/BfmeTwoHundredSixtyNine.cpp,-Od,1,1,region default
 Code/GameEngine/Source/Common/BfmeTwoHundredSixtySeven.cpp,-Od,1,1,region default loses rows
 Code/GameEngine/Source/Common/BfmeTwoHundredSixtySix.cpp,-Od,1,1,region default loses rows
 Code/GameEngine/Source/Common/ConstIntGetters2.cpp,,5,1,region default loses rows
-Code/GameEngine/Source/Common/ConstIntGetters4.cpp,,269,1,region default loses rows
+Code/GameEngine/Source/Common/ConstIntGetters4.cpp,,266,1,region default loses rows
 Code/GameEngine/Source/Common/ConstIntGetters5.cpp,,30,4,region default loses rows
 Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,,72,1,region default loses rows
 Code/GameEngine/Source/Common/Disp8DwordSetters.cpp,,4,3,region default loses rows

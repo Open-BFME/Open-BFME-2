@@ -13,11 +13,15 @@
 #include <vector>
 
 #include "ascii_string.h"
+#define BFME_SNAPSHOT_NAME_SLOT
 #include "Common/Snapshot.h"
 
 class Rva004E3184 : public Snapshot {
 public:
     virtual ~Rva004E3184();
+    virtual void loadPostProcess();
+    virtual const char *GetSnapshotName() const;
+    virtual void xfer(Xfer*);
     Rva004E3184(const Rva004E3184 &o);
 private:
     AsciiString m_04;
@@ -27,19 +31,19 @@ private:
     AsciiString m_14;
     AsciiString m_18;
     AsciiString m_1c;
-    unsigned int m_20;
-    unsigned int m_24;
+    float m_20;
+    float m_24;
     AsciiString m_28;
     AsciiString m_2c;
     AsciiString m_30;
     AsciiString m_34;
     _STL::vector<AsciiString> m_vec38;
-    unsigned int m_44;
-    unsigned int m_48;
-    unsigned int m_4c;
+    float m_44;
+    int m_48;
+    int m_4c;
     AsciiString m_50;
-    unsigned char m_54;
-    unsigned char m_55;
+    bool m_54;
+    bool m_55;
 };
 
 Rva004E3184::Rva004E3184(const Rva004E3184 &o)

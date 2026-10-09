@@ -1,17 +1,42 @@
-// cl: /Ireference/shims/bfme2_ascii /MD /EHsc /DNDEBUG /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/moduledata
+// cl: /O1 /G7 /arch:SSE /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /ICode/Libraries/Include/Lib
+// SpawnArmy: native 88-byte record, named by WB LivingWorldCampaignObjects.cpp
+// constructor 128AFA0 and retail virtual name "SpawnArmy" at 4E30C6.
+// Retain the existing address-class binding used by its verified callers.
+// Native C61F28 has four Snapshot slots: deleting destructor, loadPostProcess,
+// GetSnapshotName and xfer. The real STLport vector supplies the constructor's
+// allocator lifetime; a three-pointer declaration alone emits an extra byte.
+// Constructor 4E30D5/175B, copy 4E2F9F/295B, destructor 4E3184/201B and
+// xfer 4E3991/221B each match their complete retail bodies; all three emitted
+// constructor/destructor exception tables are exact. Target field offsets and
+// defaults are independent of the BFME1 9cbfb551fe20 semantic parser lead.
 // stlport
-// ?DoXfer@Rva004E3184@@UAEXAAVXfer@@@Z @0x004E3991 221B
-// Slot 3 of vtable 0x00861F28 (Rva004E3184 ModuleData). Layout from
-// Rva004E3184CopyCtor. Version 1 3 via Xfer slot 0x28 then members via
-// 0x6C/0x50/0x70/0x90 plus 0x4C via Rva004E12D7Parse plus vector via
-// xferAsciiStringVector plus version-gated +0x18/+0x28/+0x1C.
 #include <memory>
 #include <vector>
-
 #include "ascii_string.h"
+#define BFME_SNAPSHOT_NAME_SLOT
 #include "Common/Snapshot.h"
+class LivingWorldManager;
+struct SpawnManagerCostView{unsigned char opaque[0xf0];float revivalCost;};
+extern LivingWorldManager *TheLivingWorldManager;
+class Rva004E3184:public Snapshot{public:Rva004E3184(int);virtual ~Rva004E3184();
+ Rva004E3184(const Rva004E3184&);
+ virtual void loadPostProcess();
+ virtual const char *GetSnapshotName()const;
+ virtual void xfer(Xfer*);
+ AsciiString m_04,m_08,m_0c,m_10,m_14,m_18,m_1c;
+ float m_20,m_24;
+ AsciiString m_28,m_2c,m_30,m_34;
+ _STL::vector<AsciiString> m_38;
+ float m_44;int m_48,m_4c;AsciiString m_50;bool m_54,m_55;
+};
+Rva004E3184::Rva004E3184(int index):m_20(0.0f),m_24(0.0f),m_2c(AsciiString::TheEmptyString),m_48(1),m_4c(index),m_54(false),m_55(true){
+ if(TheLivingWorldManager) m_44=((const SpawnManagerCostView *)TheLivingWorldManager)->revivalCost;
+ else m_44=5.0f;
+}
 
-
+Rva004E3184::~Rva004E3184() {}
+void Rva004E3184::loadPostProcess() {}
+const char *Rva004E3184::GetSnapshotName()const{return "SpawnArmy";}
 class UnicodeString;
 class PooledString;
 struct XferUnknown11;
@@ -94,49 +119,24 @@ public:
 	unsigned char m_minimum;
 };
 
-#include "../../../Libraries/Include/Lib/Coord2D.h"
-
-class Rva004E3184 : public Snapshot {
-public:
-    virtual ~Rva004E3184();
-    virtual void DoXfer(Xfer &xfer);
-private:
-    AsciiString m_04;
-    AsciiString m_08;
-    AsciiString m_0c;
-    AsciiString m_10;
-    AsciiString m_14;
-    AsciiString m_18;
-    AsciiString m_1c;
-    Coord2D m_20;
-    AsciiString m_28;
-    AsciiString m_2c;
-    AsciiString m_30;
-    AsciiString m_34;
-    _STL::vector<AsciiString> m_vec38;
-    float m_44;
-    unsigned int m_48;
-    unsigned int m_4c;
-    AsciiString m_50;
-    bool m_54;
-    bool m_55;
-};
+#include "Coord2D.h"
 
 void Rva004E12D7Parse(void *a, void *b);
 Xfer *xferAsciiStringVector(Xfer *xfer, _STL::vector<AsciiString> *vec);
 
-void Rva004E3184::DoXfer(Xfer &xfer)
+void Rva004E3184::xfer(Xfer *stream)
 {
+ Xfer &xfer=*stream;
 	Xfer::Version version(1, 3);
 	xfer == version;
 	Rva004E12D7Parse(&xfer, &m_4c);
 	xfer == m_04;
 	xfer == m_08;
-	xfer == m_20;
+	xfer == *(Coord2D *)&m_20;
 	xfer == m_2c;
 	xfer == m_30;
 	xfer == m_34;
-	xferAsciiStringVector(&xfer, &m_vec38);
+	xferAsciiStringVector(&xfer, &m_38);
 	xfer == m_54;
 	xfer == m_50;
 	xfer == m_44;
