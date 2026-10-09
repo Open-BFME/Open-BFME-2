@@ -1,5 +1,9 @@
 // ?remove@Rva00532DF6@@QAE_NGG@Z
-// partial score=0.94 date=2026-10-09
+// Target 0x00532DF6..0x00532ED9: counted ushort link-table removal.
+// Layout from native loads/stores: 4001 bucket heads, free head at 0x3E84;
+// node next/id/count at 0/4/6, inline counted entry or array at 8.
+// Pathfind zone adjacency is a donor-family lead; exact class identity unknown.
+// Advancing through the bucket link itself preserves native bottom-test shape.
 // cl: /O1 /Oy- /G7 /MD /DNDEBUG /EHsc /D_STLP_USE_STATIC_LIB
 // stlport
 #define _STLP_NO_EXCEPTIONS 1
@@ -12,8 +16,8 @@ class Rva00532DF6 {public:bool remove(unsigned short a,unsigned short b);Rva0053
 bool Rva00532DF6::remove(unsigned short a,unsigned short b) {
  if(b<a){unsigned short temp=a;a=b;b=temp;}
  Rva00532DF6Node **p=buckets+(a%4001u);
- while(true){
-  if(!*p)break;
+ goto check;
+body: {
   Rva00532DF6Node*n=*p;
   if(n->id==a){
    if(n->count==1) {
@@ -30,7 +34,9 @@ bool Rva00532DF6::remove(unsigned short a,unsigned short b) {
     return true;
    }
   }
-  p=&n->next;
+  p=&(*p)->next;
  }
+check:
+ if(*p)goto body;
  return false;
 }

@@ -1,26 +1,12 @@
 // cl: /MD
-//
-// ?Rva0053249DLowerBound@@YAPAHPAH0PAG@Z retail 0x0053249D 59B.
-// Binary lower bound over dword array with word key: count from byte delta
-// then halve and compare low word, plain ret.
-// Evidence: retail rdtsc-free EBP frame sar jae loop; callers 0x00532803 0x00532C75 0x00532DF6.
-int * __cdecl Rva0053249DLowerBound(int *first, int *last, unsigned short *value);
-
-int * __cdecl Rva0053249DLowerBound(int *first, int *last, unsigned short *value)
-{
-	int count = ((char *)last - (char *)first) >> 2;
-	if (count <= 0)
-		return first;
-	unsigned short key = *value;
-	while (count > 0) {
-		int half = count >> 1;
-		int *mid = first + half;
-		if ((unsigned short)*mid < key) {
-			first = mid + 1;
-			count -= half + 1;
-		} else {
-			count = half;
-		}
-	}
-	return first;
-}
+// stlport
+// STLport 4.5.3 lower_bound over counted ushort adjacency entries.
+// Target 0x0053249D..0x005324D8: native caller 0x00532DF6 pushes
+// first, last, key reference, empty comparator and distance-type pointer.
+// The prior three-argument address view omitted the two unused template args.
+#define _STLP_NO_EXCEPTIONS 1
+#include <algorithm>
+struct Rva00532DF6Entry {unsigned short id,count;};
+struct Rva00532DF6Less {bool operator()(const Rva00532DF6Entry&a,unsigned short b)const{return a.id<b;}};
+typedef Rva00532DF6Entry *(__cdecl *BoundFunction)(Rva00532DF6Entry*,Rva00532DF6Entry*,const unsigned short&,Rva00532DF6Less,int*);
+BoundFunction Rva0053249DInstantiate=&_STL::__lower_bound<Rva00532DF6Entry*,unsigned short,Rva00532DF6Less,int>;
