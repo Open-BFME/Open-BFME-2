@@ -216,7 +216,7 @@ void AptPlayer::AddOverButtonHandler(const AsciiString &name, AptRef<AptOverButt
 
 class Rva00222947Ref { public: void invoke(int,int,int); private: void *operation; };
 struct AptExternNode { AptExternNode *next; AsciiString key; Rva00222947Ref handle; int context; };
-const char *Rva00412845AfterLevel(const char *);
+namespace AptUtils { const char *SkipLevelN(const char *); }
 class AptExternTable {
 public:
  __declspec(nothrow) __forceinline Rva0041534BIter find(const AsciiString &key) {
@@ -234,7 +234,7 @@ void AptPlayer::SetExtern(const char *name,int value)
 
  Rva0041534BIter found=reinterpret_cast<AptExternTable *>(m_commandMap+0x14)->find(AsciiString(name));
  if(!found.m_node) {
-  found=reinterpret_cast<AptExternTable *>(m_commandMap+0x14)->find(AsciiString(Rva00412845AfterLevel(name)));
+  found=reinterpret_cast<AptExternTable *>(m_commandMap+0x14)->find(AsciiString(AptUtils::SkipLevelN(name)));
   if(!found.m_node) return;
  }
  AptExternNode *node=static_cast<AptExternNode *>(found.m_node);
