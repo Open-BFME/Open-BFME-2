@@ -19,6 +19,9 @@ struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
 #pragma optimize("gsy", on)
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #pragma optimize("", on)
+// Reuse the verified AABox consumer math and vector ownership.
+#include "../../../../../reference/shims/bfme_colmathaabox/wwmath.h"
+#include "../../../../../reference/shims/bfme_colmathaabox/vector3.h"
 #include "rendobj.h"	// the bfmerendobj shim has to win the include guard
 /*
 **	Command & Conquer Generals Zero Hour(tm)
@@ -239,7 +242,7 @@ static inline bool aabtri_separation_test
 	*/
 	float eps = 0.0f;
 	if (lp - leb0 <= 0.0f) {
-		eps = COLLISION_EPSILON * CollisionContext.TestAxis.Length();	// trying to only compute epsilon if I have to
+		eps = COLLISION_EPSILON * WWMath::Sqrt(CollisionContext.TestAxis.Length2());	// trying to only compute epsilon if I have to
 	}
 
 	if (lp - leb0 > -eps) {
