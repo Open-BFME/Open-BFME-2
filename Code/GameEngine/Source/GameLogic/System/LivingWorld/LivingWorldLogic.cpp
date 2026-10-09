@@ -15,6 +15,7 @@ typedef bool Bool;
 #include <vector>
 #include <map>
 #include <list>
+#include <set>
 
 class UnicodeString;
 namespace _STL {
@@ -478,6 +479,18 @@ public:
 	virtual void OnRegionChangedOwnership(LivingWorldRegion *region, Int oldOwnerID, Int newOwnerID) = 0;
 };
 
+// Native player fields read by the unique-player collector. The vector's
+// LivingWorldPlayer type is established by this unit; original field names
+// and the meaning of the +0x3c4 byte remain unknown.
+struct LivingWorldCollectorPlayerView
+{
+ char pad00[0x34];
+ Int key34;
+ char pad38[0x3c4-0x38];
+ unsigned char flag3C4;
+};
+class Rva00072FE6 { public: void rva00072FE6(); };
+
 class LivingWorldLogic : public Rva002BA82BBase00, public Rva002BA82BObserver10, public Rva002BA82BRegionObserver
 {
 public:
@@ -486,6 +499,7 @@ public:
 	// 0x002B6DC4: the upgrades the region's armory offers the entry.
 	const Rva004E0632 *GetArmoryToUpgradeTroop(ArmySummaryEntry *entry, LivingWorldArmy *army, Rva003F287F *region);
 	void ValidatePlayers();
+	void rva002B693F(void *keys);
 	Bool EndTurn();
 	Bool AdvanceTurnPhase();
 	Bool IsCurrentTurnPhaseFinished();
@@ -2232,3 +2246,24 @@ void LivingWorldLogic::rva002BD90D(UnsignedInt flags, Int battle)
 		rva002B89E1(battle);
 	}
 }
+
+// Native 0x002B693F, 103 bytes; WB 0x00D85730 independently preserves this,
+// the player vector at +0x8c, int key at +0x34 and zero flag at +0x3c4.
+// Both builds clear the output int set then insert keys for eligible players.
+// The member's original spelling is unknown. Signed span arithmetic preserves
+// retail's recomputed finish-start count (as in recovered 0x002B69A6).
+void LivingWorldLogic::rva002B693F(void *keys)
+{
+ ((Rva00072FE6 *)keys)->rva00072FE6();
+ int *span = (int *)&m_players;
+ for (UnsignedInt i=0; i < (unsigned)((span[1]-span[0]) >> 2); ++i)
+ {
+  LivingWorldCollectorPlayerView *player=(LivingWorldCollectorPlayerView *)m_players[i];
+  if (player->flag3C4 == 0)
+  {
+   Int key=player->key34;
+   ((_STL::set<Int> *)keys)->insert(key);
+  }
+ }
+}
+
