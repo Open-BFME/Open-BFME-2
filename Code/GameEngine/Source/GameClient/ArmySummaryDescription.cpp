@@ -117,6 +117,49 @@ struct DescriptionDataView {
 struct DescriptionTemplateView { char pad[0x58]; UnicodeString displayName; };
 class Rva0037DCA5 { public: void *rva0040C64A(); };
 void Rva00220DCDInit();
+class ThingTemplate;
+class Player;
+class ObjectFilter {
+public:
+    bool testTemplate(const ThingTemplate *, const Player *, const Player *);
+    int id;
+};
+struct DescriptionTemplateCategories {
+    char pad[12];
+    ObjectFilter namedIndividually;
+    _STL::vector<DescriptionCategory> categories;
+};
+struct DescriptionTemplateName { char pad[0x64]; AsciiString name; };
+StringBase<char> *Rva000BD22FFind(StringBase<char> *,StringBase<char> *,const StringBase<char> &);
+namespace _STL { template<> void vector<AsciiString>::push_back(const AsciiString &); }
+// Native secondary interface: ctor installs BE6A64 at complete-object+4;
+// that table contains 620D1E. This view begins at that interface pointer,
+// so its names/counts are at +4/+10 (complete-object +8/+14).
+// The original method and interface names are unknown; EAX returns full-word 1.
+class Rva00220D1E {
+    unsigned table;
+    _STL::vector<AsciiString> names;
+    _STL::vector<int> counts;
+    int rule;
+public:
+    int rva00220D1E(const ThingTemplate *);
+};
+int Rva00220D1E::rva00220D1E(const ThingTemplate *thing)
+{
+    if(thing) {
+        if(((DescriptionTemplateCategories *)g_00DFE490)->namedIndividually.testTemplate(thing,0,0)) {
+            const AsciiString &name=((const DescriptionTemplateName *)thing)->name;
+            if(Rva000BD22FFind((StringBase<char> *)names.begin(),(StringBase<char> *)names.end(),(const StringBase<char> &)name)==(StringBase<char> *)names.end()) names.push_back(name);
+        } else {
+            int count=((DescriptionTemplateCategories *)g_00DFE490)->categories.size();
+            for(int i=0;i<count;++i) {
+                ObjectFilter *filter=(ObjectFilter *)&((DescriptionTemplateCategories *)g_00DFE490)->categories[i].unknown;
+                if(filter->testTemplate(thing,0,0)) { ++counts[i]; break; }
+            }
+        }
+    }
+    return true;
+}
 static void BuildDescriptionString(UnicodeString *result, Rva00220B04 *items)
 {
     if(!items->m_vec08.empty()) {
@@ -164,4 +207,8 @@ UnicodeString GetArmySummaryDescription(Rva0040CFC7 *army,int rule)
     BuildDescriptionString(&result,&items);
     return result;
 }
+
+
+
+
 
