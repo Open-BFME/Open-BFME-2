@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD
+// cl: /DNDEBUG /MD /Oi-
 // Float getters of one object-module class whose shared worker is the
 // unrowed 356-byte 0x001E46E1 (pinned by address from these call sites; it
 // reads the Object's +0x254 and +0x258 and calls the rowed check at
@@ -30,7 +30,9 @@ struct Rva001E46E1FrameView
 };
 struct Rva001E46E1Data
 {
-	char m_pad00[0x24];
+	char m_pad00[0x18];
+	float m_18;
+	char m_pad1C[0x24-0x1C];
 	float m_24;
 	char m_pad28[0x44 - 0x28];
 	unsigned int m_44;
@@ -50,6 +52,7 @@ class Rva001E46E1
 {
 public:
 	float rva001E46E1(Object *obj);
+	void rva001E546B(Object *obj);
 	float rva001E3F4D(Object *obj,int condition);
 	float rva001E4845(Object *obj);
 	float rva001E488A(Object *obj);
@@ -66,9 +69,13 @@ public:
 	float m_34;
 	char m_pad38[0x40 - 0x38];
 	float m_40;
-	char m_pad44[0x5C - 0x44];
+	char m_pad44[4];
+	float m_48;
+	char m_pad4C[0x5C - 0x4C];
 	float m_5C;
 	unsigned int m_60;
+	char m_pad64[0xA0-0x64];
+	float m_A0,m_A4;
 };
 class Obj254V
 {
@@ -83,20 +90,140 @@ public:
 	virtual void s07();
 	virtual int s08();
 };
+class Rva00368C7A { public: unsigned char rva00368271(); };
 struct Obj258Holder
 {
-	char m_pad[0x1F8];
+	virtual void s00();
+	virtual void s01();
+	virtual void s02();
+	virtual void s03();
+	virtual void s04();
+	virtual void s05();
+	virtual void s06();
+	virtual void s07();
+	virtual void s08();
+	virtual void s09();
+	virtual void s10();
+	virtual void s11();
+	virtual void s12();
+	virtual void s13();
+	virtual void s14();
+	virtual void s15();
+	virtual void s16();
+	virtual void s17();
+	virtual void s18();
+	virtual void s19();
+	virtual void s20();
+	virtual void s21();
+	virtual void s22();
+	virtual void s23();
+	virtual void s24();
+	virtual void s25();
+	virtual void s26();
+	virtual void s27();
+	virtual void s28();
+	virtual void s29();
+	virtual void s30();
+	virtual void s31();
+	virtual void s32();
+	virtual void s33();
+	virtual void s34();
+	virtual void s35();
+	virtual void s36();
+	virtual void s37();
+	virtual void s38();
+	virtual void s39();
+	virtual void s40();
+	virtual void s41();
+	virtual void s42();
+	virtual void s43();
+	virtual void s44();
+	virtual void s45();
+	virtual void s46();
+	virtual void s47();
+	virtual void s48();
+	virtual void s49();
+	virtual void s50();
+	virtual void s51();
+	virtual void s52();
+	virtual void s53();
+	virtual void s54();
+	virtual void s55();
+	virtual void s56();
+	virtual void s57();
+	virtual void s58();
+	virtual void s59();
+	virtual void s60();
+	virtual void s61();
+	virtual void s62();
+	virtual void s63();
+	virtual void s64();
+	virtual void s65();
+	virtual void s66();
+	virtual void s67();
+	virtual void s68();
+	virtual void s69();
+	virtual void s70();
+	virtual void s71();
+	virtual void s72();
+	virtual void s73();
+	virtual void s74();
+	virtual void s75();
+	virtual void s76();
+	virtual void s77();
+	virtual void s78();
+	virtual void s79();
+	virtual void s80();
+	virtual void s81();
+	virtual void s82();
+	virtual void s83();
+	virtual void s84();
+	virtual void s85();
+	virtual void s86();
+	virtual void s87();
+	virtual void s88();
+	virtual void s89();
+	virtual void s90();
+	virtual void s91();
+	virtual void s92();
+	virtual void s93();
+	virtual void s94();
+	virtual void s95();
+	virtual void s96();
+	virtual void s97();
+	virtual Rva00368C7A *query001E546B();
+	char m_pad[0x1F8-4];
 	float m_1F8;
 };
-class Object
+struct Rva001E546BFlags {
+    unsigned m_bits[19];
+    __forceinline unsigned test(unsigned i)const {return m_bits[i>>5] & (1u<<(i&31));}
+    __forceinline void set(unsigned i){m_bits[i>>5]|=1u<<(i&31);}
+    __forceinline void reset(unsigned i){m_bits[i>>5]&=~(1u<<(i&31));}
+};
+class Thing { public: float getHeightAboveTerrainOrWater()const; void setOrientation(float); };
+class Rva0030A92C { public: void rva0030A92C(float); };
+extern "C" double __cdecl sin(double);
+float normalizeAngle(float);
+float GetGameLogicRandomValueReal(float,float,char*,int);
+class Object : public Thing
 {
 public:
 	float rva0028B842() const;
 	bool rva0028C15E(int attr, float *val, int a, int b);
+	void rva0028AE6D();
+	__forceinline int getID()const {return m_id74;}
 	char m_pad00[0x38];
 	float m_38;
 	float m_3C;
-	char m_pad40[0x250 - 0x40];
+	float m_40,m_44;
+	char m_pad48[0x74-0x48];
+	int m_id74;
+	char m_pad78[0xBC-0x78];
+	float m_BC;
+	char m_padC0[0x10C-0xC0];
+	Rva001E546BFlags m_flags10C;
+	char m_pad158[0x250-0x158];
 	void *m_250;
 	Obj254V *m_254;
 	Obj258Holder *m_258;
@@ -233,4 +360,58 @@ float Rva001E46E1::rva001E3F4D(Object *obj,int condition)
     result*=scale;
     if (result > m_24) result=m_24;
     return result;
+}
+
+// BFME1 LocomotorVerticalUpdateRva001B80D0.cpp at 9cbfb551fe20dae985f91f2319d8997287b6a705
+// supplies the vertical bobbing/jitter semantics. Native 0x001E546B..0x001E56DC
+// proves Object BC/74/254/258, AI slot188, template18 and mover48/A0/A4.
+// Target's model-condition bits are 72/103/155 at byte115/118/11F; donor
+// offsets and bit numbers differ. Original class/method names remain unproven.
+void Rva001E46E1::rva001E546B(Object *obj)
+{
+    if(!obj) return;
+    float amplitude=obj->m_BC; amplitude*=0.5f;
+    if(m_data->m_18>1.0f) amplitude=m_data->m_18*amplitude;
+    Obj258Holder *ai=obj->m_258;
+    if(!ai) return;
+    Rva00368C7A *heightView=ai->query001E546B();
+    if(!heightView) return;
+    Obj254V *body=obj->m_254;
+    if(!body) return;
+    float baseline=m_48;
+    float wave=(float)sin((int)(((const Rva001E46E1FrameView*)TheGameLogic)->m_frame+obj->getID())*0.1f);
+    wave*=amplitude;
+    wave*=0.2f;
+    float desired=wave+baseline;
+    float current=obj->getHeightAboveTerrainOrWater();
+    bool outside=desired+amplitude*0.2f>current || desired*1.5f<current;
+    if(heightView->rva00368271() | outside) m_A0+=desired-current;
+    float cap=rva001E3F4D(obj,body->s08());
+    m_A0*=0.25f;
+    if(m_A0>cap) m_A0=cap;
+    else if(m_A0< -cap) m_A0=-cap;
+    if(m_A0>0.3f) {
+        if(obj->m_flags10C.test(72) || !obj->m_flags10C.test(103)) {
+            obj->m_flags10C.reset(72);
+            obj->m_flags10C.set(103);
+            obj->rva0028AE6D();
+        }
+    } else {
+        if(obj->m_flags10C.test(103)) {
+            obj->m_flags10C.reset(103);
+            obj->rva0028AE6D();
+        }
+    }
+    ((Rva0030A92C*)obj)->rva0030A92C(obj->m_40+m_A0);
+    if(obj->m_flags10C.test(155)) {
+        obj->m_flags10C.reset(155);
+        obj->rva0028AE6D();
+    }
+    m_A4+=GetGameLogicRandomValueReal(-0.06283185631036758f,0.06283185631036758f,
+        "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Locomotor.cpp",1831);
+    if(m_A4>0.06283185631036758f) m_A4=0.06283185631036758f;
+    if(m_A4< -0.06283185631036758f) m_A4=-0.06283185631036758f;
+    float angle=obj->m_44+m_A4;
+    float normalized=normalizeAngle(angle);
+    obj->setOrientation(normalized);
 }
