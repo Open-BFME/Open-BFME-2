@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
-// ?rva003B3536@Rva003B3536@@QAEXAAVDataChunkInput@@PAX@Z @0x003B3536 123B
+// ?rva003B3536@Rva003B3536@@QAEXAAVDataChunkInput@@G@Z @0x003B3536 123B
 // DataChunkInput field loader: two readByte bools then readInt then readByte
 // bool then counted-string reader readAsciiString with StringBase set into +0xC.
 // Evidence: unlock lane callees all rowed readByte 0x306E9A readInt 0x306E78
@@ -19,7 +19,7 @@ class Rva003B3536
 {
 public:
 	Rva003B3536(const Rva003B3536 &other);
-	void rva003B3536(DataChunkInput &input, void *info);
+	void rva003B3536(DataChunkInput &input, unsigned short version);
 
 private:
 	bool m_a; // +0
@@ -38,7 +38,7 @@ Rva003B3536::Rva003B3536(const Rva003B3536 &other)
 {
 }
 
-void Rva003B3536::rva003B3536(DataChunkInput &input, void *info)
+void Rva003B3536::rva003B3536(DataChunkInput &input, unsigned short version)
 {
 	m_a = input.readByte() != 0;
 	m_b = input.readByte() != 0;
@@ -46,3 +46,6 @@ void Rva003B3536::rva003B3536(DataChunkInput &input, void *info)
 	m_d = input.readByte() != 0;
 	m_e = input.readAsciiString();
 }
+
+// Version parameter established by native Script reader3B79F1 and parser3B8699.
+// The body ignores the value; 123 bytes and RET8 are unchanged.

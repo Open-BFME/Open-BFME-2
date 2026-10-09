@@ -84,7 +84,15 @@ struct BfmeHeadXZ
 	BfmeNodeXZ *m_bfmeSecond;		// 0x4
 };
 
-void __stdcall bfmeInsertXZ(BfmeHeadXZ *head, BfmeNodeXZ *node, BfmeNodeXZ *after)
+class ScriptList
+{
+public:
+    void addScriptRef(BfmeHeadXZ *head, BfmeNodeXZ *node, BfmeNodeXZ *after);
+};
+
+// WB callsite names ScriptList::addScriptRef; native3B8699 sets ECX=list.
+// This unused receiver gives the same RET12 body as the former stdcall guess.
+void ScriptList::addScriptRef(BfmeHeadXZ *head, BfmeNodeXZ *node, BfmeNodeXZ *after)
 {
 	if (after != 0)
 	{

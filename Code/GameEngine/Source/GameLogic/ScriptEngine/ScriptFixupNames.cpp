@@ -35,9 +35,15 @@ public:
 struct Rva0034F9D0Head;
 struct Rva0034F9D0Node;
 
+struct BfmeNodeXZ { BfmeNodeXZ *m_next; };
+struct BfmeHeadXZ { void *m_first; BfmeNodeXZ *m_second; };
+class Rva003BScriptReference;
+
 class ScriptList
 {
 public:
+    Rva003BScriptReference *rva003B83B1(const StringBase<char> &key);
+    void addScriptRef(BfmeHeadXZ *, BfmeNodeXZ *, BfmeNodeXZ *);
     void addGroupRef(Rva0034F9D0Head *head, Rva0034F9D0Node *node, Rva0034F9D0Node *after);
     char m_prefix[0xC];
     Rva003B573E m_groups;
@@ -169,6 +175,7 @@ class Rva003B37C8 : public BfmeParserBindingBaseVE
     void *b;
 public:
     Rva003B37C8(void *, void *, BfmeParserRegistryVE *, const AsciiString *);
+    bool read(DataChunkInput &file, DataChunkInfo *info);
 };
 
 class Rva003B3485 : public BfmeParserBindingBaseVE
@@ -200,4 +207,34 @@ bool Rva003B3485::read(DataChunkInput &file, DataChunkInfo *info)
     Rva003B37C8 scripts(m_list, &group->m_links, reinterpret_cast<BfmeParserRegistryVE *>(&file), &info->label);
     bool result = file.parse(0);
     return result;
+}
+
+class Script
+{
+public:
+    bool Rva003B79F1(DataChunkInput &file, unsigned short version);
+};
+class Rva003B40B6Holder
+{
+public:
+    void *captureGroup(void *node);
+};
+// WB AA9050 names ScriptDataChunkParser::parse; the parser binding owner
+// keeps its established target token. New dependencies are independently
+// verified bodies; BF1/ZH list parser supplies purpose and append semantics.
+bool Rva003B37C8::read(DataChunkInput &file, DataChunkInfo *info)
+{
+    AsciiString name = file.readAsciiString();
+    fixupScriptName((ScriptList *)a, name);
+    Rva003BScriptReference *node = ((ScriptList *)a)->rva003B83B1(*(const StringBase<char> *)&name);
+    ((Script *)((Rva003B40B6Holder *)a)->captureGroup(node))->Rva003B79F1(file, info->version);
+    BfmeHeadXZ *head = (BfmeHeadXZ *)b;
+    BfmeNodeXZ *last = head->m_second;
+    if (last)
+    {
+        for (BfmeNodeXZ *next = last->m_next; next; next = next->m_next)
+            last = next;
+    }
+    ((ScriptList *)a)->addScriptRef(head, (BfmeNodeXZ *)node, last);
+    return true;
 }

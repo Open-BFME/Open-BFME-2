@@ -148,7 +148,7 @@ struct Rva003B3536
     int value;
     bool c;
     AsciiString name;
-    void rva003B3536(DataChunkInput &file, void *version);
+    void rva003B3536(DataChunkInput &file, unsigned short version);
 };
 class ScriptAction
 {
@@ -159,7 +159,7 @@ public:
 class Script
 {
 public:
-    bool Rva003B79F1(DataChunkInput &file, unsigned int version);
+    bool Rva003B79F1(DataChunkInput &file, unsigned short version);
 private:
     int unknown;
     AsciiString m_strings[3];
@@ -170,7 +170,7 @@ private:
     char m_between[0x40 - 0x2E];
     bool m_currentActive;
 };
-bool Script::Rva003B79F1(DataChunkInput &file, unsigned int version)
+bool Script::Rva003B79F1(DataChunkInput &file, unsigned short version)
 {
     m_strings[0] = file.readAsciiString();
     m_strings[1] = file.readAsciiString();
@@ -183,11 +183,11 @@ bool Script::Rva003B79F1(DataChunkInput &file, unsigned int version)
     m_hard = file.readByte() != 0;
     m_flag = file.readByte() != 0;
     m_subroutine = file.readByte() != 0;
-    if ((unsigned short)version >= 2)
+    if (version >= 2)
         m_delay = file.readInt();
-    if ((unsigned short)version >= 3)
-        m_subrecord.rva003B3536(file, (void *)version);
-    if ((unsigned short)version >= 4)
+    if (version >= 3)
+        m_subrecord.rva003B3536(file, version);
+    if (version >= 4)
     {
         m_mask = ReadScriptPlayerMask_Rva003B5918(file).bits();
     }
