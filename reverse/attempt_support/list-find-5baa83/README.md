@@ -1,0 +1,13 @@
+# STLport list string search ownership and caller
+
+BFME 1 inputs: 575ba2b04743f190f069805fbdc59936123c45da. Shared vendor is STLport 4.5.3; the existing BFME 2 list-find unit and its proven /O1 profile are retained.
+
+Target facts: the complete search is 0x001FD837..0x001FD85E (39 bytes). It reads next at node+0, compares AsciiString at node+8 against the value reference through native 0x000069D6, and writes the found/end node through the iterator output. The complete forwarder at 0x005BAA83..0x005BAAA3 (32 bytes) supplies that output, first/end node values, the string reference, and an empty input-iterator tag reference. Its native direct call at 0x005BB4E4 (within 0x005BB3A1/557) supplies a list sentinel as end, its next as first, a local iterator output and a string reference; afterward it compares the returned iterator's node against the sentinel. These establish a list search and the pointer-sized iterator ABI, independently of donor names.
+
+Source facts: STLport _List_iterator and input_iterator_tag implement this contract. Its const iterator has a trivial same-type copy; the nonconst iterator's user-defined copy accounts for the already recovered 42-byte find forwarder at 0x001FD9C5. The const iterator supplies the native 32-byte forwarding ABI; /O2 instead inlines a 48-byte search. The original spelling/template owner of the 0x005BAA83 forwarder is unknown and remains address-owned.
+
+Repair: retire the four-argument void-return private node search, and rehome the already credited 39 bytes to the actual STLport const-iterator __find emitted in the existing list-find unit. Its nonconst __find, used by the existing 42-byte find, is a whole-body ICF twin: both are 39 bytes and have the sole REL32 at offset 16 to the same AsciiString::compare. The existing nonconst pin keeps exactly its previous name and address and now cites fold proof; no name, address or alias is added. The normal fold gate resolves the complete body and every relocation.
+
+Private receipts: build/reference214/iterator-find5baa83/{variants-proof.json,pin-before.log}. These are discovery evidence; ordinary current body, identity, relocation, fold admission and linking gates are required for the tracked changes.
+
+The unmodified const __find instantiation also emitted an unused const-iterator ++ COMDAT that differed from the existing first copy. A source-local explicit specialization of the genuine __find consumes STLport node links directly and preserves the search algorithm. Its complete body is the same native 39 bytes with the same sole compare REL32; no competing const-iterator increment is emitted. No shared STLport header or compiler profile changes.
