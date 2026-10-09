@@ -25,6 +25,7 @@ class TAiData : public Snapshot
 {
 public:
 	TAiData();
+	TAiData&operator=(const TAiData&other);
 	virtual ~TAiData();
 	virtual const char *GetSnapshotName() const;
 	virtual void xfer( Xfer *xfer );
@@ -60,7 +61,6 @@ private:
 	Bool m_rotateSkirmishBases;
 	Bool m_attackUsesLineOfSight;
 	Bool m_attackIgnoreInsignificantBuildings;
-	unsigned char m_groupAlignment[3];
 	Real m_minDistanceForGroup;
 	Real m_distanceRequiresGroup;
 	Real m_minClumpDensity;
@@ -70,7 +70,6 @@ private:
 	Real m_supplyCenterSafeRadius;
 	Real m_aiDozerBoredRadiusModifier;
 	Bool m_aiCrushesInfantry;
-	unsigned char m_retaliationAlignment[3];
 	Real m_meleeApproachTolerance;
 	Real m_meleeApproachDist;
 	Real m_meleeAcquireLimitDist;
@@ -87,7 +86,6 @@ private:
 	Bool m_forceHordesToLowLOD;
 	Bool m_allowForestFires;
 	Bool m_useFormations;
-	unsigned char m_bfmeBA[2];
 	Real m_altCameraZoomOverride;
 	Real m_altCameraPitchOverride;
 	Real m_maxRetaliateDistance;
@@ -95,19 +93,17 @@ private:
 	Real m_chaseFromBehindLimit;
 	Real m_castleSiegeStandBackDistance;
 	Bool m_useLowLODTrees;
-	unsigned char m_bfmeD5[3];
 	AsciiString m_lowLodTreeName;
 	AsciiString m_lowLodTreeNameNoGrab;
 	AsciiString m_lowLodTreeNameNoHarvest;
 	Real m_lowLodTreeScale;
 	Bool m_disableTrees;
-	unsigned char m_bfmeE9[3];
 	Real m_unknownF0;
 	void *m_sideInfo;
 	void *m_sideBuildLists;
 	void *m_namedLists;
 	TAiData *m_next;
-	char m_unknown104[0x10];
+	unsigned int m_unknown104[4];
 };
 
 TAiData::TAiData() :
@@ -209,3 +205,84 @@ AI::AI():m_nextGroupID(0),m_nextFormationID(0)
  m_aiData=new TAiData;
  m_pathfinder=new Pathfinder;
 }
+
+TAiData&TAiData::operator=(const TAiData&other){
+ m_structureSeconds=other.m_structureSeconds;
+ m_teamSeconds=other.m_teamSeconds;
+ m_resourcesWealthy=other.m_resourcesWealthy;
+ m_resourcesPoor=other.m_resourcesPoor;
+ m_forceIdleFramesCount=other.m_forceIdleFramesCount;
+ m_structuresWealthyMod=other.m_structuresWealthyMod;
+ m_teamWealthyMod=other.m_teamWealthyMod;
+ m_structuresPoorMod=other.m_structuresPoorMod;
+ m_teamPoorMod=other.m_teamPoorMod;
+ m_teamResourcesToBuild=other.m_teamResourcesToBuild;
+ m_guardInnerModifierAI=other.m_guardInnerModifierAI;
+ m_guardOuterModifierAI=other.m_guardOuterModifierAI;
+ m_guardInnerModifierHuman=other.m_guardInnerModifierHuman;
+ m_guardOuterModifierHuman=other.m_guardOuterModifierHuman;
+ m_guardChaseUnitFrames=other.m_guardChaseUnitFrames;
+ m_guardEnemyScanRate=other.m_guardEnemyScanRate;
+ m_guardEnemyReturnScanRate=other.m_guardEnemyReturnScanRate;
+ m_wallHeight=other.m_wallHeight;
+ m_alertRangeModifier=other.m_alertRangeModifier;
+ m_aggressiveRangeModifier=other.m_aggressiveRangeModifier;
+ m_attackPriorityDistanceModifier=other.m_attackPriorityDistanceModifier;
+ m_maxRecruitDistance=other.m_maxRecruitDistance;
+ m_skirmishBaseDefenseExtraDistance=other.m_skirmishBaseDefenseExtraDistance;
+ m_repulsedDistance=other.m_repulsedDistance;
+ m_enableRepulsors=other.m_enableRepulsors;
+ m_forceSkirmishAI=other.m_forceSkirmishAI;
+ m_rotateSkirmishBases=other.m_rotateSkirmishBases;
+ m_attackUsesLineOfSight=other.m_attackUsesLineOfSight;
+ m_attackIgnoreInsignificantBuildings=other.m_attackIgnoreInsignificantBuildings;
+ m_minDistanceForGroup=other.m_minDistanceForGroup;
+ m_distanceRequiresGroup=other.m_distanceRequiresGroup;
+ m_minClumpDensity=other.m_minClumpDensity;
+ m_infantryPathfindDiameter=other.m_infantryPathfindDiameter;
+ m_vehiclePathfindDiameter=other.m_vehiclePathfindDiameter;
+ m_rebuildDelaySeconds=other.m_rebuildDelaySeconds;
+ m_supplyCenterSafeRadius=other.m_supplyCenterSafeRadius;
+ m_aiDozerBoredRadiusModifier=other.m_aiDozerBoredRadiusModifier;
+ m_aiCrushesInfantry=other.m_aiCrushesInfantry;
+ m_meleeApproachTolerance=other.m_meleeApproachTolerance;
+ m_meleeApproachDist=other.m_meleeApproachDist;
+ m_meleeAcquireLimitDist=other.m_meleeAcquireLimitDist;
+ m_wadeWaterDepth=other.m_wadeWaterDepth;
+ m_formationColumnWidth=other.m_formationColumnWidth;
+ m_formationRowDepth=other.m_formationRowDepth;
+ m_formationSquadSpacing=other.m_formationSquadSpacing;
+ m_narrowPassageScale=other.m_narrowPassageScale;
+ m_unknownB0=other.m_unknownB0;
+ m_formationColumns=other.m_formationColumns;
+ m_waitForOthers=other.m_waitForOthers;
+ m_hordesWaitForHordes=other.m_hordesWaitForHordes;
+ m_attackMoveUsesFormations=other.m_attackMoveUsesFormations;
+ m_forceHordesToLowLOD=other.m_forceHordesToLowLOD;
+ m_allowForestFires=other.m_allowForestFires;
+ m_useFormations=other.m_useFormations;
+ m_altCameraZoomOverride=other.m_altCameraZoomOverride;
+ m_altCameraPitchOverride=other.m_altCameraPitchOverride;
+ m_maxRetaliateDistance=other.m_maxRetaliateDistance;
+ m_retaliateFriendsRadius=other.m_retaliateFriendsRadius;
+ m_chaseFromBehindLimit=other.m_chaseFromBehindLimit;
+ m_castleSiegeStandBackDistance=other.m_castleSiegeStandBackDistance;
+ m_useLowLODTrees=other.m_useLowLODTrees;
+ m_lowLodTreeName=other.m_lowLodTreeName;
+ m_lowLodTreeNameNoGrab=other.m_lowLodTreeNameNoGrab;
+ m_lowLodTreeNameNoHarvest=other.m_lowLodTreeNameNoHarvest;
+ m_lowLodTreeScale=other.m_lowLodTreeScale;
+ m_disableTrees=other.m_disableTrees;
+ m_unknownF0=other.m_unknownF0;
+ m_sideInfo=other.m_sideInfo;
+ m_sideBuildLists=other.m_sideBuildLists;
+ m_namedLists=other.m_namedLists;
+ m_next=other.m_next;
+ for(unsigned int i=0;i<4;++i)m_unknown104[i]=other.m_unknown104[i];
+ return *this;
+}
+
+// Native703B assignment at2FD7EF copies named scalar values, three strings,
+// four intrusive links and four opaque final dwords. Padding is skipped.
+// BF1 f989 TAiDataAssign is the semantic guide; BFME2 constructor/native
+// stores prove target offsets and AsciiString usage at DC/E0/E4.
