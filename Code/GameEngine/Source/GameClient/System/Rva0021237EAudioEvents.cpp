@@ -61,6 +61,7 @@ public:
 	void rva0021237E();
 	void rva002123BE();
 	void rva0021246D(Rva0021246DInput *input);
+	void rva002126BB();
 };
 
 void Rva0021237E::rva0021237E()
@@ -91,7 +92,7 @@ struct Rva003EEAB7 { void rva003EEAB7(); };
 class LivingWorldEyeTower { friend struct Rva0021237E; void updateState(); };
 struct Rva002B5073 { bool rva002B5073(int); };
 class LivingWorldLogic; extern LivingWorldLogic *TheLivingWorldLogic;
-class Rva002D3627Host; extern Rva002D3627Host *g_00DFEF18; extern Rva002D3627Host *TheRva002D3627Host;
+class Rva002D3627Host { public: void rva002C004F(const char*); }; extern Rva002D3627Host *g_00DFEF18; extern Rva002D3627Host *TheRva002D3627Host;
 struct SingletonView21123 { char pad14[0x14];int mode; };
 struct RadarWindowOverrideSource {
  virtual void v00();virtual void v04();virtual void v08();virtual void v0C();virtual void v10();virtual void v14();virtual void v18();virtual void v1C();virtual void v20();virtual void v24();virtual void v28();
@@ -183,4 +184,22 @@ void Rva0021237E::rva0021246D(Rva0021246DInput *input)
   message->appendIntegerArgument(((LogicMissionView*)TheLivingWorldLogic)->mission);
   message->appendIntegerArgument(0);
  }
+}
+
+// Beacon cleanup: native 6126BB..612728 (109B).
+// WB B608E0/B609F0 confirms name+4, destructor flag0 and table erasure.
+// CreateBeaconObject independently identifies this+218 as an int-key beacon
+// map. UpdateMapView remains solely an ABI projection of the folded methods.
+struct BeaconCleanupView21126 { virtual void *destroy(unsigned flags); AsciiString name; };
+void Rva0021237E::rva002126BB()
+{
+ UpdateMapView *map=(UpdateMapView*)((char*)this+0x218);
+ for(UpdateMapView::iterator it=map->begin();it!=map->end();++it) {
+  BeaconCleanupView21126 *beacon=(BeaconCleanupView21126*)it->second;
+  if(beacon) {
+   g_00DFEF18->rva002C004F(beacon->name.str());
+   ::operator delete(beacon->destroy(0));
+  }
+ }
+ map->clear();
 }
