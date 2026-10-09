@@ -1,4 +1,6 @@
 // ?rva005593AE@Rva00555BD5StatsQueue@@QAEXVPSPlayerAllStats@@@Z
+// partial score=0.985714 date=2026-10-09
+// ?rva005593AE@Rva00555BD5StatsQueue@@QAEXVPSPlayerAllStats@@@Z
 // partial score=0.96 date=2026-10-08
 // cl: /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/shims/bfmealloc /D_STLP_USE_STATIC_LIB /D_BFME_RETAIL_TREE_INSERT_LAYOUT /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /arch:SSE
 // PersistentStorageThread.cpp -- GameSpy persistent-stats members recovered
@@ -304,6 +306,17 @@ private:
 	Rva003844D7 m_openPlayStats;				// +0x1B0
 	Rva0038454E m_strategicStats;				// +0x340
 };
+
+PSPlayerAllStats::PSPlayerAllStats(Int id)
+	: m_tournamentStats(0), m_openPlayStats(0), m_strategicStats(0)
+{
+	rva00552CB8();
+	m_strategicStats.m_id = id;
+	m_openPlayStats.m_id = id;
+	m_tournamentStats.m_id = id;
+	m_id = id;
+}
+
 
 typedef _STL::map<int, PSPlayerAllStats> PlayerAllStatsMap;
 template <> PSPlayerAllStats &PlayerAllStatsMap::operator[](const int &);

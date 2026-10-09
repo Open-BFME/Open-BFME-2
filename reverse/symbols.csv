@@ -17065,3 +17065,4 @@ _log,0x00629B0E,log double import thunk (gen-import row ji_00629b0e: msvcr71 slo
 ?Rva0012CB67@@YA_NPAU_iobuf@@_N@Z,0x0012CB67,callee of InitializeAssetManager 0x0012CFA0 at its three asset.dat reader sites; binary EALA/102 reader (WB 9D5C30 assetinit.cpp:54); body unrowed
 _exp,0x00629958,exp double import thunk (gen-import row ji_00629958: msvcr71 slot 0x00BBA560 import exp); called by createGaussianVector 0x000780BC
 ??1?$auto_ptr@VRva0052B685Pointee@@@_STL@@QAE@XZ,0x002E3A80,ICF-folded auto_ptr<Rva0052B685Pointee> dtor that the BuildingNugget parser 0x002E012D unwind funclet calls fold-proof=Code/GameEngine/Source/Common/INI/Rva002E012DParseBuildingNugget.cpp
+?DoXfer@BattlePlayer@LivingWorldBattle@@QAEXPAVXfer@@@Z,0x003F5CA9,callee of ?rva003F6672@Rva003F6672@@QAEXPAVXfer@@@Z
