@@ -39,7 +39,7 @@ public:
 template <class T> class AptRef
 {
 public:
-	__forceinline AptRef(const DelegateDesc *desc) { rva00579E47(desc); }
+	__forceinline AptRef(const DelegateDesc &desc) { rva00579E47(&desc); }
 	AptRef &rva00579E47(const DelegateDesc *desc); // 0x00579E47
 	AptRef(const AptRef &that) : m_ptr(that.m_ptr)
 	{
@@ -67,7 +67,7 @@ public:
 
 	__forceinline void AddCommandMapDelegate(const AsciiString &name, DelegateDesc desc)
 	{
-		AddCommandMap(name, &desc);
+		AddCommandMap(name, desc);
 	}
 
 private:
@@ -155,7 +155,6 @@ class Rva005D2EA8:public Rva005D2EA8Base {
 public:
  Rva005D2EA8(int level,const AsciiString &name,const char *stat);
  virtual ~Rva005D2EA8();
- // ?getListener@Rva005D2EA8@@UBEPAVRva005D2EA8Listener@@XZ present-unmatched
  virtual Rva005D2EA8Listener *getListener() const {return m_listener;}
  // ?setListener@Rva005D2EA8@@UAEXPAVRva005D2EA8Listener@@@Z present-unmatched
  virtual void setListener(Rva005D2EA8Listener *listener) {m_listener=listener;}
