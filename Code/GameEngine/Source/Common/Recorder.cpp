@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/sweep /O1 /G7 /MD /EHsc
 // BFME1 donor9cbfb551fe20dae985f91f2319d8997287b6a705:
 // game/GameEngine/Source/Common/System/RecorderStartRecording.cpp and
 // RecorderLogGameStart.cpp. ZH Recorder.cpp supplies their purpose; WB
