@@ -9,6 +9,11 @@
 #include <stdio.h>
 // stlport
 #include <map>
+#include <vector>
+#include <string.h>
+struct BfmePod16 {char bytes[16];};
+namespace _STL {template<> __declspec(noinline) BfmePod16 *vector<BfmePod16>::erase(BfmePod16 *,BfmePod16 *);}
+class Rva005B3751 {public:void rva005B3947();};
 
 class Image;
 class CommandButton
@@ -131,6 +136,7 @@ namespace AptCreateAHero
 class Powers
 {
 public:
+	void rva005B3D50();
 	void MatrixToolTip(const char *path);
 	void PalantirToolTip(const char *path);
 	Rva005B2E09Cell *GetPrereqData(Rva005B2E09Cell *cell);
@@ -148,7 +154,9 @@ private:
 	unsigned char m_pad00[4];
 	Rva005B3676Owner *m_owner;  // +0x04; target owner contains hero at +0x27c
 	std::map<AsciiString, Rva005B2E09Cell> m_powersNameMap;
-	unsigned char m_pad14[0x28 - 0x14];
+	std::vector<BfmePod16> m_groups; // target14..20
+	int m_groupCurrent; //20
+	int m_groupMax; //24
 	Rva005B2E09Cell *m_cells[10]; // +0x28; retail loop advances by four bytes
 	int m_numPowers;             // +0x50
 	unsigned int m_numPalantir;  // +0x54
@@ -350,4 +358,20 @@ static inline const char *Rva005B2F42Pass(const char *value) { return value; }
 int Rva005B2F42Invoke(Rva00222A8BTarget *target, void *owner, const char *name, const int &a, const int &b, const char *const &c)
 {
 	return target->invoke(owner, name, 3, Rva005B2F42Str(Rva00222834Get(a)), (void *)Rva005B2F42Str(Rva00222834Get(b)), (void *)Rva005B2F42Pass(c), 0, 0);
+}
+
+// Native5B3D50..5B3D94,68B; called by BuildPowersData5B4653.
+// WB15746F0 independently proves clearing cells/map/groups and resetting
+// counts. Group stride16 and current/max20/24 are target facts.
+void AptCreateAHero::Powers::rva005B3D50()
+{
+ memset(m_cells,0,sizeof(m_cells));
+ ((Rva005B3751 *)&m_powersNameMap)->rva005B3947();
+ std::vector<BfmePod16> *groups=&m_groups;
+ groups->erase(groups->begin(),groups->end());
+ m_groupCurrent=0;
+ m_numPowers=0;
+ m_groupMax=10;
+ ((Rva005B35E8 *)this)->rva005B35E8();
+ m_numPalantir=0;
 }
