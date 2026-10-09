@@ -1,6 +1,6 @@
 // ?GetRequiredButton@CreateAHeroManager@@QAEPBVCommandButton@@I@Z
-// partial score=0.8 date=2026-10-08
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
+// partial score=0.76 date=2026-10-09
+// cl: /Os /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 // ?GetRequiredButtonCount@CreateAHeroManager@@QAEHXZ @0x00219309 53B. The
 // class is TheCreateAHeroManager's (AptCreateAHeroPowers calls it there), and
 // WorldBuilder's CreateAHeroManager::GetRequiredButton asserts
@@ -28,17 +28,11 @@ public:
 	const CommandButton *getCommandButton(int i) const;
 };
 
-class ControlBar
-{
-public:
-	const CommandSet *findCommandSet(const AsciiString &name);	// 0x0031D5F8 (pinned)
-};
-
 class CreateAHeroManager
 {
 public:
 	int GetRequiredButtonCount();
-	const CommandButton *GetRequiredButton(unsigned int index);
+	const CommandButton *GetRequiredButton(unsigned int buttonIndex);
 	char m_pad[0x1dc];
 	AsciiString m_name;
 };
@@ -58,19 +52,14 @@ int CreateAHeroManager::GetRequiredButtonCount()
 	return (int)i;
 }
 
-// ?GetRequiredButton@CreateAHeroManager@@QAEPBVCommandButton@@I@Z, retail
-// 0x0021933E (50 B), right after GetRequiredButtonCount. Instructions and
-// calls match; only the block order differs: retail places the shared
-// `return 0` right after the first compare (cmp; jb ok; xor eax,eax; pop esi;
-// ret 4) and the null-set test jumps back to it, while cl here (region flags
-// and /O1 alike) puts it after the null test. Tried: early-return, nested
-// if, set != 0 with trailing return 0, braces plus a button local.
-const CommandButton *CreateAHeroManager::GetRequiredButton(unsigned int index)
+// Retail 21933E..219370: unsigned count guard, set lookup at this+1DC,
+// then the existing button accessor. Class and field layout are established
+// by the count sibling above; WorldBuilder's method spelling remains unverified.
+const CommandButton *CreateAHeroManager::GetRequiredButton(unsigned int buttonIndex)
 {
-	if (index >= (unsigned int)GetRequiredButtonCount())
-		return 0;
-	const CommandSet *set = TheControlBar->findCommandSet(m_name);
-	if (set == 0)
-		return 0;
-	return set->getCommandButton(index);
+    CommandSet *p;
+    if (buttonIndex >= (unsigned int)GetRequiredButtonCount() ||
+        (p = (CommandSet *)((Rva0031D5F8 *)(*(BfmeWorldRV **)&TheControlBar))->rva0031D5F8(&m_name)) == 0)
+        return 0;
+    return p->getCommandButton((int)buttonIndex);
 }
