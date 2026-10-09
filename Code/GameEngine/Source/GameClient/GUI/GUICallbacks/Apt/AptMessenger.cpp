@@ -96,10 +96,14 @@ void __cdecl Rva004177D5(int);
 
 typedef int Int;
 
-class Rva005AFEF7List
+// ChatWindowsInGame.cpp owns the recovered query. The allocator is an
+// address-derived ABI view of the native scalar vector, not an original name.
+template<class T> class Rva002444BEAllocator : public _STL::allocator<T> {};
+typedef _STL::vector<int,Rva002444BEAllocator<int> > SelectionIDs;
+class ChatWindowsInGame
 {
 public:
-	void rva005AFEF7(Int a, Int b);		// 0x005AFEF7
+	int rva005AFEF7(SelectionIDs *, _STL::vector<AsciiString> *);
 };
 
 // The rowed 0x00416088 destructor establishes two strings at record+8/+12.
@@ -136,15 +140,16 @@ public:
 
 private:
 	unsigned char m_pad000[0x280];
-	Rva005AFEF7List **m_lists;		// +0x280
+	ChatWindowsInGame **m_lists;		// +0x280
 };
 
 // AptMessenger::GetSelectedPlayers, retail 0x00511C19.
 void AptMessenger::GetSelectedPlayers(Int listIndex, Int a, Int b)
 {
-	Rva005AFEF7List *list = m_lists[listIndex];
+	ChatWindowsInGame *list = m_lists[listIndex];
 	if (list)
-		list->rva005AFEF7(a, b);
+		list->rva005AFEF7(reinterpret_cast<SelectionIDs *>(a),
+			reinterpret_cast<_STL::vector<AsciiString> *>(b));
 }
 
 // Native 0x005AE90F..0x005AE990 RET0; AptMessenger::OnBttn_1 calls this
