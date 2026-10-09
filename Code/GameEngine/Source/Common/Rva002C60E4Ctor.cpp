@@ -15,7 +15,8 @@ class Rva00506B1B
 {
 public:
 	Rva00506B1B();
-	virtual ~Rva00506B1B() {}
+	// Declared only: retail's unwind call lands on the rowed body at 0x00506B28.
+	virtual ~Rva00506B1B();
 	virtual void v1();
 	bool m_04;
 };
