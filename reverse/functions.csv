@@ -40665,7 +40665,7 @@ _Rva00020AC0,,0x00020AC0,39,Code/Libraries/Source/WWVegas/WWLib/Rva0084D890CodeP
 ??1Rva0054D8D8@@QAE@XZ,,0x0054D8D8,128,Code/GameEngine/Source/Common/Rva0054D8D8Dtor.cpp,matched,dtor 3 Unicode 2 lists 3 Ascii EH states 6 to 0 unblocks deleting dtor
 ?rva006E04A0@BfmeAptValue006DCD20@@QBEPAXXZ,,0x006E04A0,88,Code/Libraries/Source/Apt/AptValue/AptValueTypePredicatesBFME2.cpp,matched,type-19 guarded display accessor via rowed get plus isUndefined
 ?rva0054840A@Rva0054840A@@QAEXPAVXfer@@@Z,,0x0054840A,90,Code/GameEngine/Source/GameLogic/ScriptEngine/Rva0054840AXfer.cpp,matched,chain xfer version ObjectID uints list via rowed helpers caller news 0x14
-?Rva0070A6D0Release@@YAXPAX@Z,,0x0070A6D0,101,Code/Libraries/Source/Apt/AptNativeHashBFME2.cpp,matched,AptNativeHash hashitem value Release nulls
+?UnsetAt@AptNativeHash@@SAXPAX@Z,,0x0070A6D0,101,Code/Libraries/Source/Apt/AptNativeHashBFME2.cpp,matched,WB179C170 names UnsetAt; target header asserts205/206 and stack argument prove static cdecl; hash-item type remains opaque and value pointer at+4
 ??0Rva0042499E@@QAE@I@Z,,0x0042499E,107,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva00423a4a_single.cpp,matched,chain ctor via rowed fill dispatch 0x004246EE unblocks 0x00424CB6
 ?rva006E0B80@AptCIH@@QBEHH@Z,,0x006E0B80,103,Code/Libraries/Source/Apt/AptCIHLevel006E0B80.cpp,matched,level-indexed ancestor field via parent chain plus sign-extended code
 ??0Rva0054840A@@QAE@W4ObjectID@@@Z,,0x005482C0,41,Code/GameEngine/Source/GameLogic/ScriptEngine/Rva0054840AXfer.cpp,matched,one-arg ctor ObjectID plus list base plus three uints same 0x14 layout

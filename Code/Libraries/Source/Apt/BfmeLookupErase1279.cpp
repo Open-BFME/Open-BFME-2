@@ -16,6 +16,9 @@ struct AptHashItem;
 class BfmeLookup1279;
 class AptNativeHash
 {
+public:
+    static void UnsetAt(void *pHashItem);
+private:
 // Rowed provider at 0x0070AF90:
 // ?HashFindKey@AptNativeHash@@ABEPAUAptHashItem@@QBVEAStringC@@@Z (private const).
 // Same ABI as the pinned spelling (this in ecx, 4B key address on stack,
@@ -24,7 +27,6 @@ class AptNativeHash
 	friend class BfmeLookup1279;
 };
 EAStringC *Rva0070B4F0GetString(int index);
-void Rva0070A6D0Release(void *p);
 struct BfmeKey1279
 {
 	EAStringC m_key;
@@ -54,7 +56,7 @@ void BfmeLookup1279::bfmeErase1279(BfmeKey1279 &key)
 		void *found = (void *)((const AptNativeHash *)this)->HashFindKey(&skey);
 		if (found != 0) {
 			((EAStringC *)found)->rva006D3470();
-			Rva0070A6D0Release(found);
+			AptNativeHash::UnsetAt(found);
 			return;
 		}
 	}

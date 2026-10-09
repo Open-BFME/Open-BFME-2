@@ -65,6 +65,10 @@ public:
     void Unset__Proto__();
     void UnsetPrototype();
     void DestroyGCPointers();
+    // WorldBuilder names the corresponding header body UnsetAt. Both binaries
+    // pass one stack argument and return with ret, with no instance receiver.
+    // The hash-item parameter remains opaque; its value pointer is proven at +4.
+    static void UnsetAt(void *pHashItem);
     void rva0070A680(int index, AptValue *pValue);
     void rva0070A610(int index, AptValue *pValue);
     AsciiString *rva0070AA40();
@@ -190,7 +194,7 @@ AsciiString *AptNativeHash::rva0070AA40()
     }
     return 0;
 }
-void Rva0070A6D0Release(void *pHashItem)
+void AptNativeHash::UnsetAt(void *pHashItem)
 {
     if (!pHashItem) {
         g_bfmeAptAssertAtE17734("pHashItem != NULL", "c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\AptNativeHash.h", 0xCD);
