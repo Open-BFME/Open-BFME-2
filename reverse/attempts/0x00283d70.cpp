@@ -1,6 +1,8 @@
 // ?rva00283D70@TerrainLogic@@QAEPAVObject@@PBUCoord3D@@@Z
+// partial score=0.9256 date=2026-10-09
+// ?rva00283D70@TerrainLogic@@QAEPAVObject@@PBUCoord3D@@@Z
 // partial score=0.9256 date=2026-10-05
-// cl: /O1 /MD /GX /arch:SSE
+// cl: /O1 /G7 /MD /EHsc /arch:SSE
 #include <string.h>
 
 class Object;
@@ -49,14 +51,8 @@ struct Rva00045411BitSet
 };
 extern unsigned char g_00DFEFA4StoragePrototype[28];
 
-#pragma comment(linker, "/alternatename:?getPlayerMask@Rva000421C8@@UAEHXZ=?Get_File_Handle@FileClass@@UAEPAXXZ")
 
-struct Coord3D
-{
-	float x;
-	float y;
-	float z;
-};
+#include "../../Code/Libraries/Include/Lib/Coord3D.h"
 
 class PartitionManager
 {
@@ -116,16 +112,16 @@ struct Rva001A62D0TerrainQueryResult
 	Rva0027D098 *m_14;
 };
 
-struct Rva00283D70StatusMask
+struct CreateMask
 {
-	Rva00283D70StatusMask() { memset(this, 0, sizeof(*this)); }
+	CreateMask() { memset(this, 0, sizeof(*this)); }
 	unsigned int m_bits[4];
 };
 
 class Object
 {
 public:
-	void bfmeTwoTFB(Rva0027D098 *rec, int flag);	// 0x0029660C
+	void teleportTo(const Coord3D *, bool);	// 0x0029660C
 };
 
 class Player
@@ -146,12 +142,11 @@ extern PlayerList *ThePlayerList;
 class ThingFactory
 {
 public:
-	Object *rva002D0A23(const ThingTemplate *tmpl, Team *team,
-		const Rva00283D70StatusMask &mask, int unused);	// 0x002D0A23
+	Object *newObject(const ThingTemplate *tmpl, Team *team, const CreateMask *, bool);	// 0x002D0A23
 	__forceinline Object *newObject(const ThingTemplate *tmpl, Team *team)
 	{
-		Rva00283D70StatusMask mask;
-		return rva002D0A23(tmpl, team, mask, 0);
+		CreateMask mask;
+		return newObject(tmpl, team, &mask, false);
 	}
 };
 extern ThingFactory *TheThingFactory;
@@ -161,7 +156,7 @@ class TerrainLogic
 public:
 	void queryPointImplAt001A4630(const Coord3D *pos, float radius,
 		Rva001A62D0TerrainQueryResult *out, bool a, bool b);	// 0x0027DCF2
-	void rva00283CE7(int id);	// 0x00283CE7
+	void rva00283CE7(unsigned int id);	// 0x00283CE7
 	Object *rva00283D70(const Coord3D *pos);
 
 
@@ -180,12 +175,11 @@ Object *TerrainLogic::rva00283D70(const Coord3D *pos)
 	if (rec) {
 		const ThingTemplate *tmpl = rec->m_14;
 		if (tmpl) {
-			Rva00283D70StatusMask mask;
 			Team *team = ThePlayerList->m_18->m_2EC;
-			obj = TheThingFactory->rva002D0A23(tmpl, team, mask, 0);
-			obj->bfmeTwoTFB(rec, 0);
+			obj = TheThingFactory->newObject(tmpl, team);
+			obj->teleportTo(reinterpret_cast<const Coord3D *>(rec), false);
 		}
-		int id = rec->m_0C;
+		unsigned int id = rec->m_0C;
 		rec->rva0027D098();
 		TheTerrainLogic->rva00283CE7(id);
 		return obj;
