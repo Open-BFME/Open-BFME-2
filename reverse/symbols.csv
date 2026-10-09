@@ -17072,3 +17072,4 @@ _D3DXCreateTextureFromFileInMemoryEx@60,0x0062AF7A,Named d3dx9_27.dll PE import 
 ?rva00307EDC@@YA_NPAVAsciiString@@PAURva00240000ByteVector@@@Z,0x00307EDC,callee of ?rva00308050@Rva00240000@@QAE_NVAsciiString@@@Z
 ??0Rva005C19B6@@QAE@PAVRva005248D0@@H@Z,0x005C19B6,member constructor called by AptSkirmish::AptSkirmish 0x00522B0E at +0x668 with the Apt window half and its second argument
 ?rva00126433@Rva00126314@@QAEXAAVRenderInfoClass@@ABVMatrix3D@@IPAVVector3@@PAMABVSphereClass@@@Z,0x00126433,callee of ?Render@Rva001684D6@@UAEXAAVRenderInfoClass@@@Z
+?createMountedTemplate@ToggleMountedSpecialAbilityUpdate@@QAEXXZ,0x004ADD8D,Native direct call at 004ADF5D enters complete382B body004ADD8D..004ADF0B; WB1228F20 names ToggleMountedSpecialAbilityUpdate::createMountedTemplate and matching instance factory24F68A ctor4ADAB5 establish owning class; receiver has data4 and owner8; no arguments; return ignored
