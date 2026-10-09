@@ -18,6 +18,7 @@
 class GameEngineDeletingBase
 {
 public:
+	GameEngineDeletingBase();
 	virtual void anchor();
 	virtual ~GameEngineDeletingBase();
 };
@@ -154,9 +155,22 @@ private:
 
 typedef char GenDtorSizeCheck[sizeof(Gen_dtor_00625040) == 0x200 ? 1 : -1];
 
+// Constructor-only storage view for the already pinned 0x00624DB0 callee.
+// The target ledger identifies that callee as AssetManagerImpl; allocation
+// here proves 0x200 bytes and the +0x0C member is destroyed at 0x00625040.
+// Retain the existing address-derived constructor pin, rather than adding an alias.
+class Rva00624DB0
+{
+public:
+	Rva00624DB0();
+private:
+	char m_storage[0x200];
+};
+
 class Rva0061EEE0 : public GameEngineDeletingBase
 {
 public:
+	Rva0061EEE0();
 	virtual ~Rva0061EEE0();
 
 private:
@@ -227,4 +241,11 @@ Gen_dtor_00625040::~Gen_dtor_00625040()
 	::delete m_hashContext;
 	DeleteCriticalSection(&m_lock34);
 	DeleteCriticalSection(&m_lock68);
+}
+
+// Native 0x0061EEE0..0x0061EF5F: base construction has an unwind state,
+// which requires saving this as well as the new-expression allocation.
+Rva0061EEE0::Rva0061EEE0()
+{
+	m_renderObject = reinterpret_cast<Gen_dtor_00625040 *>(new Rva00624DB0);
 }
