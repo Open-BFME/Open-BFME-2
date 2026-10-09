@@ -1,15 +1,18 @@
 // ?populateSpecialPowerShortcut@ControlBar@@IAEXPAVPlayer@@@Z
-// partial score=0.98 date=2026-10-08
-// cl: /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_STLP_USE_MALLOC /D_CRTIMP= /D_STLP_NO_CSTD_FUNCTION_IMPORTS /Ireference/shims/bfme2_ascii
+// partial score=0.994 date=2026-10-09
+// ?populateSpecialPowerShortcut@ControlBar@@IAEXPAVPlayer@@@Z
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_STLP_USE_MALLOC /D_CRTIMP= /D_STLP_NO_CSTD_FUNCTION_IMPORTS /Ireference/shims/bfme2_ascii
 // stlport
 // BFME1 semantic donor: ba7ddda7e8f261163972ddbe23c7e7a12ac5b84f
 // game/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp.
-// WB 0x00C30C60 names the BFME2 method; native boundary 0x0031D85D..0x0031DAF8
-// is 667 bytes. This partial emits 663 bytes: retail holds PlayerTemplate in
-// esi through StringBase::isEmpty then adds 0x140; this shape keeps the field
-// address there early. Real STLport ScienceVec and C++-linkage _STL::free
-// reproduce the science loop and GameMemory call. Three address-derived helper
-// declarations are not admitted pins: 0x0031B210 / 0x0031DAF8 / 0x0035B7D9.
+// WB 0x00C30C60 names the BFME2 method. Target boundary 0x0031D85D..0x0031DAF8
+// is 667 bytes. Current source emits 663 bytes with every callee resolved:
+// 31B210 / 31DAF8 / 35B7D9 now have rowed providers and the 31B641 call is
+// the established ControlBar::setControlCommand owner rather than a new pin.
+// Retail retains the PlayerTemplate base in ESI through StringBase::isEmpty
+// and adds 0x140 afterwards; this source retains the field pointer early.
+// All other 198 normalized instructions and real STLport science-vector cleanup
+// agree. G7 / const template / direct field / pointer getter trials did not change it.
 
 typedef int Int;
 typedef unsigned int UnsignedInt;
@@ -135,12 +138,13 @@ public:
 
 	void rva0031DAF8(void);
 
-protected:
+public:
 	void rva0031B210(void);
+protected:
 	void populateSpecialPowerShortcut(Player *player);
 
 public:
-	void rva0031B641(GameWindow *window, const CommandButton *command);
+	void setControlCommand(GameWindow *window, const CommandButton *command);
 };
 
 extern ControlBar *TheControlBar;
@@ -170,7 +174,7 @@ void ControlBar::populateSpecialPowerShortcut(Player *player)
 	}
 
 	PlayerTemplate *playerTemplate=player->getPlayerTemplate();
-	if (((const StringBase<char> *)&playerTemplate->getSpecialPowerShortcutCommandSet())->isEmpty())
+	if (playerTemplate->getSpecialPowerShortcutCommandSet().isEmpty())
 		return;
 	commandSetName=&playerTemplate->getSpecialPowerShortcutCommandSet();
 	commandSet = (const CommandSet *)((Rva0031D5F8 *)TheControlBar)->rva0031D5F8(commandSetName);
@@ -226,7 +230,7 @@ void ControlBar::populateSpecialPowerShortcut(Player *player)
 		m_specialPowerShortcutButtons[currentButton]->winEnable(true);
 		m_specialPowerShortcutButtonParents[currentButton]->winEnable(true);
 
-		rva0031B641(m_specialPowerShortcutButtons[currentButton], commandButton);
+		setControlCommand(m_specialPowerShortcutButtons[currentButton], commandButton);
 		GadgetButtonSetAltSound(m_specialPowerShortcutButtons[currentButton],
 			AsciiString("GUIGenShortcutClick"));
 		++currentButton;
