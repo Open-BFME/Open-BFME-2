@@ -1,5 +1,5 @@
 // ?addOrResumeAudioEvent@MilesAudioManager@@QAEIPAVAudioEventRTS@@HHHH@Z
-// partial score=0.96 date=2026-10-09
+// partial score=0.975 date=2026-10-09
 // cl: /DBFME_ASCII_DTOR_DECL /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /O1 /G7 /arch:SSE /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 #include <vector>
@@ -11,6 +11,14 @@
 // WorldBuilder786370 multisound identity; native5A451..5A7BE. Previous bank
 // source guides control flow; canonical136B prefix and existing folded owners
 // replace the previous bank's unlanded duplicate copy/setter names.
+struct BfmePod144 { int a[36]; };
+namespace _STL { template<> void vector<BfmePod144>::push_back(const BfmePod144&); }
+struct Rva00050FA0 {
+ Rva00050FA0(const BfmeAudioEventPrefix136&);
+ __forceinline ~Rva00050FA0() {}
+ __forceinline operator const BfmePod144&()const{return *reinterpret_cast<const BfmePod144*>(this);}
+ BfmeAudioEventPrefix136 prefix;float zero88;unsigned char zero8C;char pad8D[3];
+};
 struct AudioEventInfo;
 class Rva0036CA00Str { public:
  Rva0036CA00Str(const Rva0036CA00Str&);
@@ -27,8 +35,9 @@ struct OwnedAudioInfoCopy : Rva0036CA00Str {
  OpaqueRefCounted*get()const{return m_ptr;}
 };
 class BfmeStringTailRecord156 {public: AudioEventInfoRef m_eventInfo;unsigned m_weight;};
-struct AudioEventInfo { char pad0[0x40]; int m_lastSubsoundIndex; unsigned m_priority,m_type,m_control;
+struct AudioEventInfo { virtual ~AudioEventInfo();virtual int getNameKey()const;char pad04[0xc];float defaultPriority;char pad14[8];float defaultVolume;char pad20[0x20]; int m_lastSubsoundIndex; unsigned m_priority,m_type,m_control;
  char pad50[0x3c]; unsigned m_totalSubsoundWeight; char pad90[0x20];int m_audioType;
+ __forceinline bool isTypeFive()const{return m_audioType==5;}
  const _STL::vector<BfmeStringTailRecord156>&getSubsoundVector()const;
 };
 class AudioEventRTS { public:
@@ -60,6 +69,10 @@ class Rva00690FF0Handle:public Rva00691110Handle {public:
 struct Rva00051107AudioRequest {int kind;BfmePoolRef10 event;unsigned field08;Rva00690FF0Handle file;char tail10[8];};
 class Image;
 typedef _STL::map<unsigned,Image*> ResumeHandles;
+union Rva006AD590Slot {int m_asInt;float m_asFloat;};
+class Rva006AD590Entry {public:Rva006AD590Slot*find(int);char opaque[0x1c4];};
+class Rva003EF5DA {public:void rva003EF5DA(float);};
+class View {public:virtual void setAngle(float);};
 class MilesAudioManager {public:
  virtual ~MilesAudioManager();
  virtual void slot1();
@@ -133,7 +146,7 @@ class MilesAudioManager {public:
  void deleteAudioRequest(void*);
  char pad04[0x98-4];_STL::list<Rva00051107AudioRequest*>requests;
  char pad9C[0xd0-0x9c];unsigned m_nextHandle;
- char padD4[0x698-0xd4];unsigned activeViews;
+ char padD4[0xc];_STL::vector<BfmePod144> m_queued[3];char pad104[0x28];Rva006AD590Entry m_priority[3];char pad678[0x698-0x678];unsigned activeViews;
  char pad69C[0x9d4-0x69c];void*mutex;
  char pad9D8[0xa14-0x9d8];_STL::set<AsciiString>mutedNames[3];
  char padA38[0xb6c-0xa38];ResumeHandles resumeHandles;
@@ -250,8 +263,9 @@ unsigned MilesAudioManager::addOrResumeAudioEvent(AudioEventRTS *event,int reque
  }
  if(!event->m_info)return 1;
  if(!reinterpret_cast<Rva001D9A00*>(event->m_info)->rva001D9A00())return 1;
- if(mutedNames[event->m_viewType].count(reinterpret_cast<AudioInfoNames*>(event->m_info)->getAudioName()))return 1;
- if(event->m_info->m_audioType==5)return addResumeOrPushMultisound(event,requestType,resumeHandle,1,allocateHandle,append);
+ int view=event->m_viewType;
+ if(mutedNames[view].count(reinterpret_cast<AudioInfoNames*>(event->m_info)->getAudioName())>0)return 1;
+ if(event->m_info->isTypeFive())return addResumeOrPushMultisound(event,requestType,resumeHandle,1,allocateHandle,append);
  if(event->m_info->m_audioType==3)return rva0005933D(event,allocateHandle);
  if(!slot56(event->getSoundClass()))return 1;
  if(event->m_info->m_audioType==1 && (activeViews&(1<<event->m_viewType)))return 1;
@@ -299,4 +313,40 @@ unsigned MilesAudioManager::addOrResumeAudioEvent(AudioEventRTS *event,int reque
   }
  }
  return handle;
+}
+
+// Native5933D..593CD; WB785B80 queues a copied event wrapper as an ambient
+// stream marker. Original method name remains unknown.
+unsigned MilesAudioManager::rva0005933D(AudioEventRTS *event,int allocateHandle)
+{
+ int view=event->m_viewType;
+ m_queued[view].push_back(Rva00050FA0(*reinterpret_cast<const BfmeAudioEventPrefix136*>(event)));
+ AudioEventRTS *queued=reinterpret_cast<AudioEventRTS*>(&m_queued[view].back());
+ rva000592B8(queued);
+ if(allocateHandle==0)
+  reinterpret_cast<GameMessage*>(queued)->friend_setList(reinterpret_cast<GameMessageList*>(allocateNewHandle()));
+ return queued->m_playingHandle;
+}
+
+// Native592B8..5933D RET4; WB785A70 priority/volume override lookup. The
+// BFME1 AudioManagerAdjustPriorityAndVolume donor establishes the subsystem;
+// native view30, table12C and info defaults10/1C establish BFME2 offsets.
+void MilesAudioManager::rva000592B8(AudioEventRTS*event)
+{
+ int view=event->m_viewType;
+ int key=event->m_info->getNameKey();
+ Rva006AD590Slot *slot=m_priority[view].find(key);
+ if(slot) {
+  reinterpret_cast<Rva003EF5DA*>(event)->rva003EF5DA(slot->m_asFloat);
+  AudioEventInfo *info=event->m_info;
+  float priority=info->defaultPriority;
+  if(priority>0.0f) {
+   float ratio=slot->m_asFloat/priority;
+   float volume=ratio*info->defaultVolume;
+   reinterpret_cast<View*>(event)->View::setAngle(volume);
+  }
+ }else {
+  reinterpret_cast<Rva003EF5DA*>(event)->rva003EF5DA(event->m_info->defaultPriority);
+  reinterpret_cast<View*>(event)->View::setAngle(event->m_info->defaultVolume);
+ }
 }
