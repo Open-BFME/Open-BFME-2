@@ -46,6 +46,7 @@ mode until its false-refusal rate is measured on live traffic
 """
 import argparse
 import collections
+import hashlib
 import os
 import pickle
 import re
@@ -546,6 +547,14 @@ def preview_state(present, rows):
     libraries.update(path for directory in (vc / "lib", vc / "PlatformSDK" / "Lib")
                      for path in directory.glob("*") if path.suffix.lower() == ".lib")
     state = link_census.census_state(present)
+    # HEAD/diff equality misses an edit-and-restore, and untracked new sources.
+    # Source generations also guard the direct source read for address debt.
+    sources = set(link_census._object_sources(rows).values())
+    state["sources"] = link_census.object_stamps(sources)
+    # Windows can coalesce same-length writes into the same stat stamp. Do not
+    # use build's hash cache here: the guard must reread actual source bytes.
+    state["source_contents"] = {str(source): hashlib.sha256(source.read_bytes()).hexdigest()
+                                for source in sources}
     state["retail_and_libraries"] = link_census.object_stamps([build.EXE, *sorted(libraries)])
     return state
 
@@ -646,7 +655,20 @@ def check_current_ledger(index, paths, rows, started):
         if needs_map:
             raise SystemExit(f"link_check: {source or obj.name} touches changed /MAP selection exception(s); "
                              "a new measured census is required: " + ", ".join(sorted(needs_map)))
-        results.append((source, obj, check_object(obj, current, truth, source)))
+        text = None
+        if source is not None:
+            path = ROOT / source
+            content = path.read_bytes()
+            if hashlib.sha256(content).hexdigest() != state["source_contents"].get(str(path)):
+                raise SystemExit(f"link_check: {source} moved before its source audit; no result accepted")
+            text = content.decode("utf-8", errors="replace")
+        # Audit address debt from the proven snapshot, never a mutable path
+        # read between currency checks (an edit-and-restore could hide debt).
+        result = check_object(obj, current, truth, None)
+        if text is not None:
+            import link_debt
+            result["addresses"] = link_debt.addresses(text)
+        results.append((source, obj, result))
     now = source_bytes({source for source in resolved.values() if source})
     require_current_objects(present, sources)
     after = preview_state(present, rows)

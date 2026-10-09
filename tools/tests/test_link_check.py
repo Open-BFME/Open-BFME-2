@@ -133,6 +133,7 @@ def test_staged_and_census_blockers_read_the_census(monkeypatch):
 
 # The optional mode builds transient tables, never a replacement census.
 import copy
+import hashlib
 import time
 import pytest
 import link_census
@@ -158,7 +159,10 @@ def current_preview(monkeypatch, tmp_path):
         return obj
 
     def state(objects, rows):
-        return {**clock, "objects": link_census.object_stamps(objects)}
+        return {**clock, "objects": link_census.object_stamps(objects),
+                "sources": link_census.object_stamps(source_map.values()),
+                "source_contents": {str(source): hashlib.sha256(source.read_bytes()).hexdigest()
+                                    for source in source_map.values()}}
 
     def data_proof():
         calls["data"] += 1
@@ -279,7 +283,7 @@ def test_current_missing_or_stale_provider_refuses_every_result(current_preview,
     assert "LINKS" not in capsys.readouterr().out
 
 
-@pytest.mark.parametrize("part", ["inputs", "tools", "object"])
+@pytest.mark.parametrize("part", ["inputs", "tools", "object", "source", "source-restored"])
 def test_current_moving_inputs_refuse_before_printing_links(current_preview, monkeypatch, capsys, part):
     _, add, run, clock, _, _ = current_preview
     obj = add("new.obj")
@@ -288,6 +292,14 @@ def test_current_moving_inputs_refuse_before_printing_links(current_preview, mon
         result = check(*args)
         if part == "object":
             obj.write_bytes(b"replaced object with other code")
+        elif part.startswith("source"):
+            source = obj.with_suffix(".cpp")
+            before = source.read_bytes()
+            source.write_bytes(b"temporary address-free source")
+            if part == "source-restored":
+                source.write_bytes(before)
+                st = source.stat()
+                C.os.utime(source, ns=(st.st_atime_ns, st.st_mtime_ns + 1000000000))
         else:
             clock[part] = "changed"
         return result
@@ -363,3 +375,48 @@ def test_current_provider_names_must_be_unique(current_preview, monkeypatch, tmp
     present.append(other)
     with pytest.raises(SystemExit, match="object-name collision"):
         run([str(obj)])
+
+
+def test_preview_state_guards_source_generations_and_import_library_inventory(tmp_path, monkeypatch):
+    source = tmp_path / "new.cpp"
+    source.write_bytes(b"original source")
+    libraries = tmp_path / "Vc7/lib"
+    libraries.mkdir(parents=True)
+    monkeypatch.setattr(C, "ROOT", tmp_path)
+    monkeypatch.setattr(C.build, "vc71_root", lambda: tmp_path)
+    monkeypatch.setattr(link_census, "census_state", lambda present: {"objects": {}})
+    monkeypatch.setattr(link_census, "_object_sources", lambda rows: {tmp_path / "new.obj": source})
+    before = C.preview_state([], [])
+    source.write_bytes(b"temporary source")
+    source.write_bytes(b"original source")
+    st = source.stat()
+    C.os.utime(source, ns=(st.st_atime_ns, st.st_mtime_ns + 1000000000))
+    restored = C.preview_state([], [])
+    assert restored["sources"] != before["sources"]
+    (libraries / "new-import.lib").write_bytes(b"new provider")
+    assert C.preview_state([], [])["retail_and_libraries"] != restored["retail_and_libraries"]
+
+
+def test_current_address_audit_uses_proven_bytes_during_edit_and_restore(current_preview, monkeypatch):
+    _, add, run, _, _, _ = current_preview
+    obj = add("new.obj")
+    source = obj.with_suffix(".cpp")
+    original = b"int* f() { return (int*)0x00DFF080; }\n"
+    source.write_bytes(original)
+    stamp = source.stat()
+    check = C.check_object
+    def temporary(*args):
+        source.write_bytes(b"int* f() { return 0; }\n")
+        return check(*args)
+    def restore(sources):
+        source.write_bytes(original)
+        C.os.utime(source, ns=(stamp.st_atime_ns, stamp.st_mtime_ns))
+        return {s: 13 for s in sources}
+    monkeypatch.setattr(C, "check_object", temporary)
+    monkeypatch.setattr(C, "source_bytes", restore)
+    try:
+        result = run([str(obj)])
+    except SystemExit as refused:
+        assert "inputs moved" in str(refused)
+    else:
+        assert result == 1  # debt cannot be hidden by the temporary source
