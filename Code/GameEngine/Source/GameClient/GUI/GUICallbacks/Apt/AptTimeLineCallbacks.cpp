@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
+// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB
 // stlport
 //
 // BFME2's time line (post-game graph) screen Apt callbacks
@@ -84,6 +84,7 @@ class Rva00524306
 {
 public:
 	void rva00524725(const AsciiString &key, const Image *image);
+ void rva00524767(const AsciiString &key,const AsciiString &image);
 };
 
 // One player's row of the time line (0x50 bytes): the color at +0x08 and
@@ -91,7 +92,8 @@ public:
 // the rest is not read here.
 struct AptTimeLinePlayer
 {
-	unsigned char m_pad00[0x8];
+	unsigned char m_pad00[4];
+	UnicodeString m_name; // +0x04
 	int m_color; // +0x08
 	AsciiString m_faction; // +0x0C
 	unsigned char m_pad10[0x50 - 0x10];
@@ -115,6 +117,7 @@ public:
 	void GraphFocus(int index, const char *value, bool set);
 	void PlayerColor(int index, char *value, bool set);
 	void CaHAwardNumber(const char *value);
+ void rva0051FA13();
 
 	// Unrowed 0x0051ED7E (345 bytes), pinned by address.
 	void rva0051ED7E();
@@ -198,3 +201,23 @@ void AptTimeLine::CaHAwardNumber(const char *value)
 
 // Retail's strcpy call lands on the import thunk rowed as ji_00629176.
 #pragma comment(linker, "/alternatename:_strcpy=?ji_00629176@@YAXXZ")
+
+// Complete native51FA13..51FAFC updates each row's name and faction icon;
+// WB's weak CollectAllPlayerData lead names a different larger body, so
+// retain an address spelling. The twelve-byte concatenation node uses an
+// empty default constructor to construct the returned expression in place.
+struct Rva002226E5TextPlusString {
+ Rva002226E5TextPlusString() {}
+ const char *text;int length;const AsciiString *string;
+ operator AsciiString();
+};
+Rva002226E5TextPlusString operator+(const char*,const AsciiString&);
+void AptTimeLine::rva0051FA13() {
+ for(_STL::vector<AptTimeLinePlayer>::iterator row=m_players.begin();row!=m_players.end();++row) {
+  AsciiString key;
+  key.format("TimeLine:PlayerName:%d",row-m_players.begin());
+  g_bfmeAptWindowManager->bfmeSetText(key,row->m_name,false);
+  key.format("TimeLine:PlayerFactionIcon:%d",row-m_players.begin());
+  m_images.rva00524767(key,"AptIcon"+row->m_faction);
+ }
+}
