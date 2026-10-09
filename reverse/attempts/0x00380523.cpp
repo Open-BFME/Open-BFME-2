@@ -1,6 +1,6 @@
-// ?rva003805BB@Rva00380200@@QAE_NM_N@Z
-// partial score=0.99 date=2026-10-09
-// cl: /Ireference/shims/bfme2_ascii /GX- /O1 /MD /arch:SSE /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include
+// ??0Rva00380200@@QAE@XZ
+// partial score=1.0 date=2026-10-09
+// cl: /Ireference/shims/bfme2_ascii /EHsc /O1 /MD /arch:SSE /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include
 // ?rva00380200@Rva00380200@@QAEPAVAsciiString@@XZ @ 0x00380200 (13B): getter returning +4 or AsciiString::TheEmptyString. Callers 0x00380230 0x00380265 push result. Twin of EmptyString fallback pattern.
 // ?rva0038020D@Rva00380200@@QAEXXZ @ 0x0038020D (110B): caches at +0x20 the
 // value the store (0x00DFE0EC, pinned get 0x002000D7) config for level
@@ -104,10 +104,7 @@ public:
 };
 extern class RankInfoStore *TheRankInfoStore;
 
-struct Rva003805BBMultipliers {
- float *begin,*end,*capacity;
- int size()const { return static_cast<int>(end-begin); }
-};
+class ExperienceScalarTable;
 class Rva00380200
 {
 public:
@@ -119,7 +116,7 @@ public:
 	virtual bool isReady();
 private:
 	AsciiString *m_ptr;
-	Rva003805BBMultipliers *m_multipliers;
+	ExperienceScalarTable *m_scalars;
 	float m_0C;
 	float m_10;
 	int m_14;
@@ -129,12 +126,13 @@ private:
 	int m_24;
 	int m_28;
 public:
+	Rva00380200();
+	void rva0038028B();
 	AsciiString *rva00380200();
 	void rva0038020D();
 	void rva00380499(Xfer *xfer);
 	int rva003802DF();
 	int rva00380459(int points);
-	bool rva003805BB(float delta,bool useMultipliers);
 };
 
 AsciiString *Rva00380200::rva00380200()
@@ -239,35 +237,18 @@ bool Rva00380200::rva0038037C(int level)
 // The native BFDC30 table owns setRankLevel at slot1. Keep the established
 // neutral class name; WB supplies the method identity independently.
 
-class GameLogic;
-extern GameLogic *TheGameLogic;
-static __forceinline const float &minimumSciencePoints(const float &cap,const float &candidate)
+class ExperienceScalarTable;
+class ExperienceLevelStore {
+ public: ExperienceScalarTable *FindExperienceScalarTableByName(const AsciiString &)const;
+};
+extern ExperienceLevelStore *TheExperienceLevelStore;
+Rva00380200::Rva00380200()
+ :m_ptr(0),m_scalars(0),m_0C(0),m_10(1),m_14(1),m_18(1),m_1C(0),m_20(0x7FFFFFFF),m_24(0),m_28(0)
 {
- return cap<candidate ? cap : candidate;
-}
-bool Rva00380200::rva003805BB(float delta,bool useMultipliers)
-{
- delta*=m_10;
- if(m_28>0 && m_14>=m_28) return false;
- if(useMultipliers && *reinterpret_cast<const int *>(reinterpret_cast<const char *>(TheGameLogic)+0x114)!=3 && m_multipliers) {
-  int index=m_14-m_18;
-  if(index>=m_multipliers->size()) index=m_multipliers->size()-1;
-  if(index>=0) delta*=m_multipliers->begin[index];
+
+ if(TheExperienceLevelStore) {
+  AsciiString name("PlayerSkillPointsScalarTable");
+  m_scalars=TheExperienceLevelStore->FindExperienceScalarTableByName(name);
  }
- if(delta==0.0f) return false;
- int capLevel=rva003802DF();
- int capPoints=reinterpret_cast<Rva002000D7Store *>(TheRankInfoStore)->get(capLevel)->rva00200157(*rva00380200());
- float candidate=m_0C+delta;
- float cap=static_cast<float>(capPoints);
- bool gained=false;
- float total=minimumSciencePoints(cap,candidate);
- m_0C=total;
- float floored=static_cast<float>(floor(static_cast<double>(total)));
- int integerPoints=fast_float2long_round(floored);
- while(integerPoints>=m_20) {
-  bool changed=rva0038037C(m_14+1);
-  gained|=changed;
-  if(!changed) break;
- }
- return gained;
+ rva0038028B();
 }
