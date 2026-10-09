@@ -1,14 +1,14 @@
-// cl: /DNDEBUG /MD
-// Small float-vector fetch around 0x000BBE29 (93B). A two-argument stdcall:
-// looks a key up through the pinned map probe (0x000BBDDF), zeroes the
-// three-float out-vector and reports false when the probe misses, otherwise
-// stages node floats +0x0C/+0x1C/+0x2C through a stack temporary and block
-// copies them out (rep movsd), reporting true. The probe's map/value types
-// are not established (stlport _M_find at 0x00388F63 works on an int key),
-// so the call goes through a fresh-typed symbols.csv pin and the value view
-// below is layout only. Names are address-derived.
-
-void *__stdcall rva000BBDDF(int key, int flag);
+// stlport
+// cl: /O1 /DNDEBUG /MD /Oy- /G7 /arch:SSE
+// Native BBDDF..BBE29 is a74B thiscall lookup on flagsF4/mapA0.
+// BBE29..BBE86 is its93B float-translation wrapper with the same receiver.
+// The older stdcall declarations omitted the live ECX receiver.
+// The int/int map is only the established key-search storage view: native
+// node payload is a48B matrix followed by the bone index at node44.
+#include <map>
+class Rva000BBDDF {public:void*rva000BBDDF(int,int*)const;bool rva000BBE29(int,struct Vector3*)const;
+ char opaque00[0xA0];_STL::map<int,int> lookup;char opaqueAC[0xF4-0xAC];unsigned char flags;
+};
 
 struct Vector3
 {
@@ -25,8 +25,8 @@ struct Rva000BBDDFNode
 	float m_2C;
 };
 
-// ?rva000BBE29@@YG_NHPAUVector3@@@Z @0x000BBE29 93B
-bool __stdcall rva000BBE29(int key, Vector3 *out)
+// Native BBE29 wrapper returns a byte and preserves the caller receiver.
+bool Rva000BBDDF::rva000BBE29(int key, Vector3 *out)const
 {
 	Rva000BBDDFNode *node = (Rva000BBDDFNode *)rva000BBDDF(key, 0);
 	if (node != 0)
@@ -42,4 +42,14 @@ bool __stdcall rva000BBE29(int key, Vector3 *out)
 	out->y = 0.0f;
 	out->z = 0.0f;
 	return false;
+}
+
+void*Rva000BBDDF::rva000BBDDF(int key,int*index)const{
+ if(!(flags&1)||key==0){if(index)*index=0;return 0;}
+ _STL::map<int,int>::const_iterator it=lookup.find(key);
+ if(it._M_node!=lookup.end()._M_node){
+  if(index)*index=*(const int*)((const char*)it._M_node+0x44);
+  return (char*)it._M_node+0x14;
+ }
+ if(index)*index=0;return 0;
 }
