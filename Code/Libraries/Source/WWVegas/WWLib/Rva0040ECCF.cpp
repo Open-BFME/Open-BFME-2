@@ -41,7 +41,8 @@ struct Rva0040F454Target
 {
 	char m_pad00[8];
 	float m_value;
-	char m_pad0C[0x94 - 0xC];
+	char m_pad0C[0x90 - 0xC];
+	int m_90;
 	int m_94;
 	char m_pad98[0xAC - 0x98];
 	TargetRef00217D4C m_ac;
@@ -236,5 +237,147 @@ void Rva002E2903Player::rva0040F10F(Rva0037EB1D *source)
 		source->rva0037EB1D(army);
 		++army->m_94;
 		list->AddArmyEntry(holder);
+	}
+}
+
+// ?Save@ArmySummarySystem@@QAEXPAVObject@@@Z @0x0040F19D 433B: WorldBuilder twin
+// 0x0108C750 is ArmySummarySystem::Save (ArmySummary.cpp:1533..1601), caller
+// GameLogic::LivingWorldTacticalBattleComplete (REL32 at 0x0023D92F) passes its
+// object list. Gated by the TheGameLogic query 0x002034E9 it hands the region
+// manager's current battle (0x0020E6B7) to 0x0040D43F, then for each listed object
+// (next at +0x8C) owned by a living-world player (+0x3AC != -1) whose template
+// carries KindOf bit 0x80 (byte +0x118 bit 0, the twin's BitFlags test inlined),
+// not flagged at +0x438 bit 0 and with an army id at +0x45C, it news an
+// ArmySummaryEntry, fills it through 0x00291198, marks +0x90 and bumps +0x94 and
+// adds it to that army's summary. Then for each player with a living-world id it
+// retrieves the heroes (UnitRevivalTracker at +0x738) and copies spell points,
+// the +0x13C upgrade mask, the +0x2F0 science list and +0x14 to the
+// LivingWorldPlayer. Offsets are target evidence; method names are the twin's.
+class Object;
+class Player;
+class GameLogic;
+class PlayerList;
+class LivingWorldLogic;
+extern GameLogic *TheGameLogic;
+extern PlayerList *ThePlayerList;
+extern LivingWorldLogic *TheLivingWorldLogic;
+
+class Rva002034E9Host { public: bool rva002034E9(); };
+class Rva003F468D;
+class Rva0020E6B7RegionManager { public: Rva003F468D *rva0020E6B7(); };
+struct Rva0040F19DLivingWorldLogic { char pad00[0xb0]; Rva0020E6B7RegionManager *m_regions; };
+
+struct Rva0040F19DTemplate { char pad00[0x118]; unsigned char m_kindOf118; };
+struct Rva00291198Dest;
+class Rva00291198Host { public: void rva00291198(Rva00291198Dest *dest); };
+
+class Object
+{
+public:
+	Player *getControllingPlayer() const;
+	char pad00[4];
+	Rva0040F19DTemplate *m_template;
+	char pad08[0x8c - 0x8];
+	Object *m_next;
+	char pad90[0x438 - 0x90];
+	unsigned char m_flags438;
+	char pad439[0x45c - 0x439];
+	int m_armyID;
+};
+
+struct BfmeFixedStorage128 { unsigned int m_bits[32]; };
+enum ScienceType {};
+class ArmySummarySystem;
+class UnitRevivalTracker { public: void retrieveHeroesForArmySummary(ArmySummarySystem *system); };
+
+class Player
+{
+public:
+	char pad00[0x14];
+	float m_14;
+	char pad18[0x13c - 0x18];
+	BfmeFixedStorage128 m_upgrades;
+	char pad1BC[0x2f0 - 0x1bc];
+	_STL::vector<ScienceType> m_sciences;
+	char pad2FC[0x3ac - 0x2fc];
+	int m_livingWorldPlayerID;
+	char pad3B0[0x738 - 0x3b0];
+	UnitRevivalTracker m_revivalTracker;
+};
+
+class PlayerList
+{
+public:
+	Player *getNthPlayer(int index);
+	char pad00[0x14];
+	int m_playerCount;
+};
+
+class Rva002E062EDwordSlot { public: void set(int value); };
+class Rva002E15BC { public: void rva002E14E9(const BfmeFixedStorage128 &bits); };
+class Rva002E2578 { public: void rva002E2578(const _STL::vector<ScienceType> &sciences); };
+struct Rva0040F19DLivingWorldPlayer { char pad00[0x1c8]; float m_1C8; };
+class Rva002BA8F1Logic { public: Rva002E2903Player *find(int id, unsigned int *index); };
+
+struct _Rva0040CA61Arg;
+
+class ArmySummarySystem
+{
+public:
+	void Save(Object *objects);
+	void rva0040D43F(Rva003F468D *battle);
+	void *rva0040D008(int key);
+	int ComputePlayerEarnedSpellPoints(_Rva0040CA61Arg *player);
+};
+
+void ArmySummarySystem::Save(Object *objects)
+{
+	if (!reinterpret_cast<Rva002034E9Host *>(TheGameLogic)->rva002034E9())
+		return;
+	if (!objects)
+		return;
+
+	Rva003F468D *battle = reinterpret_cast<Rva0040F19DLivingWorldLogic *>(TheLivingWorldLogic)->m_regions->rva0020E6B7();
+	if (battle)
+		rva0040D43F(battle);
+
+	for (Object *obj = objects; obj; obj = obj->m_next) {
+		if (!obj)
+			continue;
+		Player *player = obj->getControllingPlayer();
+		if (!player || player->m_livingWorldPlayerID == -1)
+			continue;
+		if (!(obj->m_template->m_kindOf118 & 1))
+			continue;
+		if (obj->m_flags438 & 1)
+			continue;
+		int armyID = obj->m_armyID;
+		if (!armyID)
+			continue;
+
+		ArmySummaryEntry *army = new ArmySummaryEntry;
+		Rva004F6093Holder holder(army);
+		reinterpret_cast<Rva00291198Host *>(obj)->rva00291198(reinterpret_cast<Rva00291198Dest *>(army));
+		holder.m_ptr->m_90 = 1;
+		++holder.m_ptr->m_94;
+		ArmySummary *summary = static_cast<ArmySummary *>(rva0040D008(armyID));
+		if (summary)
+			summary->AddArmyEntry(holder);
+	}
+
+	for (int i = 0; i < ThePlayerList->m_playerCount; ++i) {
+		Player *player = ThePlayerList->getNthPlayer(i);
+		if (!player || player->m_livingWorldPlayerID == -1)
+			continue;
+		player->m_revivalTracker.retrieveHeroesForArmySummary(this);
+		int lwID = player->m_livingWorldPlayerID;
+		Rva002E2903Player *lwPlayer = reinterpret_cast<Rva002BA8F1Logic *>(TheLivingWorldLogic)->find(lwID, 0);
+		if (!lwPlayer)
+			continue;
+		reinterpret_cast<Rva002E062EDwordSlot *>(lwPlayer)->set(
+			ComputePlayerEarnedSpellPoints(reinterpret_cast<_Rva0040CA61Arg *>(player)));
+		reinterpret_cast<Rva002E15BC *>(lwPlayer)->rva002E14E9(player->m_upgrades);
+		reinterpret_cast<Rva002E2578 *>(lwPlayer)->rva002E2578(player->m_sciences);
+		reinterpret_cast<Rva0040F19DLivingWorldPlayer *>(lwPlayer)->m_1C8 = player->m_14;
 	}
 }
