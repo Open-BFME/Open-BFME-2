@@ -1,5 +1,5 @@
 // ?setCursorDirection@W3DMouse@@AAEXW4MouseCursor@Mouse@@@Z
-// partial score=0.98 date=2026-10-06
+// Verified native245B; canonical coordinate layout and ordered8B snapshot.
 // cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc
 //
 // ?setCursorDirection@W3DMouse@@AAEXW4MouseCursor@Mouse@@@Z, retail 0x0009910E, 245 bytes.
@@ -22,14 +22,11 @@ typedef bool Bool;
 
 #define M_PI 3.14159265358979323846
 
-struct Coord2D
-{
-	Real x;
-	Real y;
+#include "../../../../Libraries/Include/Lib/Coord2D.h"
 
-	void normalize( void );
-};
-
+static __forceinline void copyScroll(Coord2D &out,const Coord2D &in) {
+    *reinterpret_cast<unsigned __int64 *>(&out)=*reinterpret_cast<const volatile unsigned __int64 *>(&in);
+}
 class InGameUI
 {
 public:
@@ -94,7 +91,7 @@ void W3DMouse::setCursorDirection(MouseCursor cursor)
 	//Check if we have a directional cursor that needs different images for each direction on screen
 	if (m_cursorInfo[cursor].numDirections > 1 && TheInGameUI && TheInGameUI->isScrolling())
 	{
-		offset = TheInGameUI->getScrollAmount();
+		copyScroll(offset, TheInGameUI->getScrollAmount());
 		if (offset.x || offset.y)
 		{
 			offset.normalize();

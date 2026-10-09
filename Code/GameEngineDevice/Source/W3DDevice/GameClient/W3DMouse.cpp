@@ -743,32 +743,6 @@ void W3DMouse::draw(void)
 
 // W3DMouse::setRedrawMode is defined with its retail-matched body in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp (0x0009A04A).
 
-// ?setCursorDirection@W3DMouse@@AAEXW4MouseCursor@Mouse@@@Z present-unmatched
-void W3DMouse::setCursorDirection(MouseCursor cursor)
-{
-	Coord2D offset = {0, 0};
-	//Check if we have a directional cursor that needs different images for each direction
-	if (m_cursorInfo[cursor].numDirections > 1 && TheInGameUI && TheInGameUI->isScrolling())
-	{
-		offset = TheInGameUI->getScrollAmount();
-		if (offset.x || offset.y)
-		{
-			offset.normalize();
-			Real theta = atan2(offset.y, offset.x);
-			theta = fmod(theta+M_PI*2,M_PI*2);
-			Int numDirections=m_cursorInfo[m_currentCursor].numDirections;
-			//Figure out which of our predrawn cursor orientations best matches the
-			//actual cursor direction.  Frame 0 is assumed to point right and continue
-			//clockwise.
-			m_directionFrame=(Int)(theta/(2.0f*M_PI/(Real)numDirections)+0.5f);
-			if (m_directionFrame >= numDirections)
-				m_directionFrame = 0;
-		}
-		else
-		{
-			m_directionFrame=0;
-		}
-	}
-	else
-		m_directionFrame = 0;
-}
+// W3DMouse::setCursorDirection is defined in W3DMouseCursorDirection.cpp
+// with the target cursor layout and InGameUI virtual prefix.
+
