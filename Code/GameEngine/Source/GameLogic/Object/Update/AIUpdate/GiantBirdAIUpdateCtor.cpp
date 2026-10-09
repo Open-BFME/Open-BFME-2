@@ -113,11 +113,19 @@ private:
 };
 
 // The 0x60-byte member at +0x4C8 (ctor 0x00312C95, vtable 0x007C7514).
+// Its destructor is the rowed virtual Rva008B77D one (0x0008B77D); the
+// qualified call binds it directly.
+class Rva008B77D
+{
+public:
+	virtual ~Rva008B77D();
+};
+
 class Rva00312C95
 {
 public:
 	Rva00312C95();
-	~Rva00312C95();
+	~Rva00312C95() { ((Rva008B77D *)this)->Rva008B77D::~Rva008B77D(); }
 private:
 	unsigned char m_pad[0x60];
 };
@@ -189,4 +197,12 @@ GiantBirdAIUpdate::GiantBirdAIUpdate(Thing *thing, const ModuleData *moduleData)
 	zeroCoord(m_560);
 	zeroCoord(m_56C);
 	m_578 = false;
+}
+
+// ??1GiantBirdAIUpdate@@MAE@XZ, retail 0x0036B8E6, 123 bytes: the destructor
+// body (EH): the five vtables are restored, then the +0x4C8 member, the +0x4B4
+// list and the +0x3F0 member are destroyed in reverse construction order and
+// the AIUpdateInterface base destructor (pinned 0x0026E836) runs last.
+GiantBirdAIUpdate::~GiantBirdAIUpdate()
+{
 }

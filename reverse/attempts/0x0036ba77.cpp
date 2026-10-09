@@ -1,94 +1,98 @@
-// ?rva0036BA77@Rva0036BA77@@QAEXPBVWaypoint@@0@Z
-// partial score=0.98 date=2026-10-06
-// cl: /O1 /DNDEBUG /MD /arch:SSE2 /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// ?rva0036BA77@GiantBirdAIUpdate@@QAEXPBVWaypoint@@0@Z
+// partial score=0.98 date=2026-10-09
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /GX /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
-// ?rva0036BA77@Rva0036BA77@@QAEXPBVWaypoint@@0@Z, RVA 0x0036BA77, 184 bytes.
-// Evidence: chain lane caller of rowed Rva003697F9 0x003697F9; vector<Coord3D> local via rowed Vector_base pin + rowed push_back 0x002CE7DC + free 0x00030830; EH prolog; movss via arch:SSE; +0x1f0/+0x540/+0x550 and Waypoint +0xc/+0x10/+0x14/+0x20/+0x4c from retail.
+//
+// ?rva0036BA77@GiantBirdAIUpdate@@QAEXPBVWaypoint@@0@Z, retail 0x0036BA77,
+// 184 bytes (EH, RET 8). Address-derived name: GiantBirdAIUpdate's own
+// follow-path-by-waypoints entry. Target evidence: it copies the float at +0x48
+// of the object at AI +0x1F0 into +0x540 when present, clears the loop flag at
+// +0x550, walks the waypoint chain (location at +0xC, first link at +0x20 while
+// the link count at +0x4C is nonzero) appending each location to a local
+// vector<Coord3D> through the rowed push_back 0x002CE7DC, sets +0x550 when the
+// chain closes back on the first waypoint, then hands the vector, no object, the
+// second waypoint and 0 to the rowed 0x003697F9. Vector element and Waypoint
+// layouts are views of the witnessed offsets only.
 #include <vector>
-
+// A TU-local Coord3D with a member-wise copy (the rowed vector<Coord3D>
+// push_back 0x002CE7DC is built from the same spelling); the canonical header
+// has no copy constructor and would copy through REP MOVS.
 struct Coord3D
 {
-	float x;
-	float y;
-	float z;
-	Coord3D() {}
-	Coord3D(const Coord3D &that) throw();
+	float x, y, z;
+	Coord3D(const Coord3D &o) throw() : x(o.x), y(o.y), z(o.z) {}
 };
+void Rva00030830FreeAllocation(void *);
 
-class Object
-{
-public:
-	char m_pad[4];
-};
+class Object;
 
 class Waypoint
 {
 public:
-	char m_pad0[0x0c];
-	float m_x0c;
-	float m_y10;
-	float m_z14;
+	char m_pad0[0xC];
+	Coord3D m_location; // +0x0C
 	char m_pad18[0x20 - 0x18];
-	const Waypoint *m_next20;
-	char m_pad24[0x4c - 0x24];
-	int m_flag4c;
+	const Waypoint *m_next; // +0x20 (first link)
+	char m_pad24[0x4C - 0x24];
+	int m_numLinks; // +0x4C
 };
 
-struct Rva0035149F
+namespace _STL {
+template<> void vector<Coord3D>::push_back(const Coord3D &);
+template<> inline void allocator<Coord3D>::deallocate(Coord3D *p, size_t) const { if (p) ::Rva00030830FreeAllocation(p); }
+}
+
+class Rva0035149F;
+
+struct Rva1F0Object
 {
-	Coord3D *m_start;
-	Coord3D *m_finish;
-	Coord3D *m_end;
+	char m_pad[0x48];
+	float m_48;
+	float get48() const { return m_48; }
 };
 
 class Rva003697F9
 {
 public:
-	void rva003697F9(const Rva0035149F &path, const Object *obstacle, const Waypoint *goal, int unk);
+	void rva003697F9(const Rva0035149F &path, const Object *object, const Waypoint *goal, int flag);
 };
 
-struct Sub1F0
-{
-	char m_pad[0x48];
-	float m_f48;
-	float getF48() const { return m_f48; }
-};
-
-class Rva0036BA77
+class GiantBirdAIUpdate
 {
 public:
-	void rva0036BA77(const Waypoint *head, const Waypoint *goal);
+	void rva0036BA77(const Waypoint *way, const Waypoint *goal);
 private:
-	char m_pad0[0x1f0];
-	Sub1F0 *m_p1f0;
-	char m_pad1f4[0x540 - 0x1f4];
-	float m_f540;
+	char m_pad[0x1F0];
+	Rva1F0Object *m_1F0;
+	char m_pad1F4[0x540 - 0x1F4];
+	float m_540;
 	char m_pad544[0x550 - 0x544];
-	bool m_b550;
+	bool m_550;
 };
 
-void Rva0036BA77::rva0036BA77(const Waypoint *head, const Waypoint *goal)
+void GiantBirdAIUpdate::rva0036BA77(const Waypoint *way, const Waypoint *goal)
 {
-	if (m_p1f0 != 0)
-		m_f540 = m_p1f0->getF48();
-	m_b550 = false;
+	const int zero = 0;
+	if (m_1F0 != (Rva1F0Object *)zero)
+		m_540 = m_1F0->get48();
+	m_550 = zero != 0;
 	_STL::vector<Coord3D> path;
-	const Waypoint *cur = head;
-	if (cur != 0)
+	if (way != (const Waypoint *)zero)
 	{
-		do
+		const Waypoint *cur = way;
+		for (;;)
 		{
-			Coord3D tmp;
-			tmp.x = cur->m_x0c;
-			tmp.y = cur->m_y10;
-			tmp.z = cur->m_z14;
-			path.push_back(tmp);
-			if (cur->m_flag4c == 0)
-				goto done;
-			cur = cur->m_next20;
-		} while (cur != head);
-		m_b550 = true;
+			Coord3D point = cur->m_location;
+			path.push_back(point);
+			if (cur->m_numLinks == zero)
+				break;
+			cur = cur->m_next;
+			if (cur == way)
+			{
+				m_550 = true;
+				break;
+			}
+		}
+		((Rva003697F9 *)this)->rva003697F9(*(const Rva0035149F *)&path, (const Object *)zero, goal, zero);
 	}
-done:
-	((Rva003697F9 *)this)->rva003697F9(*(const Rva0035149F *)&path, (const Object *)0, goal, 0);
 }
