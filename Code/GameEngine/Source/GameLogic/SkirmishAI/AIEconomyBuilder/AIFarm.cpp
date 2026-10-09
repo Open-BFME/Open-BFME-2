@@ -45,6 +45,69 @@ virtual void slot35();
 virtual Xfer &xferBool(bool *);
 };
 class Player;
+namespace _STL
+{
+template <class T1, class T2> struct pair
+{
+	T1 first;
+	T2 second;
+};
+template <class T> struct hash
+{
+};
+template <class T> struct equal_to
+{
+};
+template <class T> class allocator
+{
+};
+template <class K, class V, class H, class E, class A> class hash_map
+{
+public:
+	unsigned int bucket_count() const;
+};
+}
+
+typedef _STL::hash_map<int, int, _STL::hash<int>, _STL::equal_to<int>, _STL::allocator<_STL::pair<const int, int> > > IntMap;
+
+struct Rva002A8AB1Record
+{
+	char pad00[0x160];
+	char *m_160raw;
+	char pad164[8];
+	int m_16C;
+};
+
+struct Rva002A8B59Data
+{
+	char pad00[0x4C];
+	float m_4C;
+};
+
+class Rva002A8F24
+{
+public:
+	void *rva002A8F24(Player *player);
+	Rva002A8AB1Record *rva002A8AB1(void *key);
+	Rva002A8B59Data *rva002A8B59(void *key);
+};
+extern Rva002A8F24 *g_00DFEEF8;
+
+extern float g_secondsPerLogicFrame;
+
+class Rva002A7389
+{
+public:
+	int get(int v);
+};
+
+class Rva002A7461
+{
+public:
+	int rva002A7461();
+};
+
+
 // PlayerList's matched mask/index consumers independently establish index at +0x54.
 struct FarmPlayerIndexView
 {
@@ -82,7 +145,7 @@ public:
     virtual void slot02();
     virtual void slot03();
     virtual void slot04();
-    virtual void slot05();
+    virtual void updatePriority();
     virtual void slot06();
     virtual void slot07();
     virtual void slot08();
@@ -92,7 +155,8 @@ public:
 
     virtual void DoXfer(Xfer *xfer, Player *owner);
 private:
-    unsigned char unknown04[0x60];
+    float priority;
+    unsigned char unknown08[0x64 - 0x08];
     bool value64;
     unsigned char pad65[3];
     Player *m_owningPlayer;
@@ -113,4 +177,30 @@ void AIFarm::DoXfer(Xfer *xfer, Player *owner)
     xfer->xferInt(&value6c);
     xfer->xferUnsignedInt(&value70);
     reinterpret_cast<Rva00573F03 *>(this)->Rva00573F03::Rva00573F9F(xfer,m_owningPlayer);
+}
+
+// WB 0x01538BD0 names AIFarm::updatePriority and asserts AIFarm.cpp lines 47..60.
+// Retail 0x00596F23..0x00596FF5 establishes slot 5 and the priority float at +4.
+void AIFarm::updatePriority()
+{
+    Rva002A8AB1Record *ai = g_00DFEEF8->rva002A8AB1(m_owningPlayer);
+    if (ai->m_16C > 0)
+    {
+        void *stats = g_00DFEEF8->rva002A8F24(m_owningPlayer);
+        unsigned int count = (*(IntMap **)((char *)stats + 0xc))->bucket_count();
+        if (count < 1)
+            count = 1;
+        Rva002A8B59Data *data = g_00DFEEF8->rva002A8B59(m_owningPlayer);
+        const float base = g_secondsPerLogicFrame * data->m_4C / (float)count;
+        float amount = (float)((Rva002A7389 *)((char *)m_owningPlayer + 0x60))->get(0);
+        float ratio = amount / (float)((Rva002A7461 *)((char *)m_owningPlayer + 0x60))->rva002A7461();
+        // Preserve retail's two multiplies followed by the base increment.
+        float boost = ratio * base;
+        boost *= 10.0f;
+        boost += base;
+        // Retail loads the old priority separately before adding the boost.
+        const volatile float &previous = priority;
+        float next = previous + boost;
+        priority = next < 2000.0f ? next : 2000.0f;
+    }
 }
