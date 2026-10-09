@@ -21,11 +21,15 @@ class Xfer;
 #include "Common/Snapshot.h"
 extern int g_Va00DBA4E4;
 
+class Rva002FE620;
+class Rva002FED8D;
 class Gen0014AE40;
 class TAiData : public Snapshot
 {
 public:
 	TAiData();
+	friend class AI;
+	void addNamedList(Rva002FED8D*);
 	void addFactionBuildList(Gen0014AE40*);
 	TAiData&operator=(const TAiData&other);
 	virtual ~TAiData();
@@ -101,9 +105,9 @@ private:
 	Real m_lowLodTreeScale;
 	Bool m_disableTrees;
 	Real m_unknownF0;
-	void *m_sideInfo;
+	Rva002FE620 *m_sideInfo;
 	Gen0014AE40 *m_sideBuildLists;
-	void *m_namedLists;
+	Rva002FED8D *m_namedLists;
 	TAiData *m_next;
 	unsigned int m_unknown104[4];
 };
@@ -193,6 +197,8 @@ class AI : public SubsystemInterface, public Snapshot
 {
 public:
  AI(); virtual ~AI();
+ void newOverride();
+ __declspec(noinline) void addSideInfo(Rva002FE620*);
  virtual void init(); virtual void reset(); virtual void update();
  virtual void loadPostProcess(); virtual const char *GetSnapshotName()const;
  virtual void xfer(Xfer *);
@@ -311,3 +317,43 @@ void TAiData::addFactionBuildList(Gen0014AE40*incoming){
  }
  incoming->next=m_sideBuildLists;m_sideBuildLists=incoming;
 }
+
+class Rva002FE620{public:Rva002FE620();virtual~Rva002FE620();unsigned char body[0x1B8];Rva002FE620*next;};
+class Rva0014A470{public:Rva0014A470&operator=(const Rva0014A470&);};
+struct Rva002FFC74Record{unsigned char bytes[8];};
+class Rva002FED8D{public:Rva002FED8D(AsciiString);virtual~Rva002FED8D();AsciiString name;unsigned int value;_STL::list<Rva002FFC74Record>tail;Rva002FED8D*next;};
+void AI::newOverride(){
+ TAiData*cur=m_aiData;
+ m_aiData=new TAiData;
+ *m_aiData=*cur;
+ m_aiData->m_sideInfo=0;
+ for(Rva002FE620*info=cur->m_sideInfo;info;info=info->next){
+  Rva002FE620*newInfo=new Rva002FE620;
+  *(Rva0014A470*)newInfo=*(Rva0014A470*)info;
+  newInfo->next=0;
+  addSideInfo(newInfo);
+ }
+ m_aiData->m_sideBuildLists=0;
+ for(Gen0014AE40*build=cur->m_sideBuildLists;build;build=build->next){
+  Gen0014AE40*node=new Gen0014AE40(build->side);
+  node->next=0;
+  if(build->build)node->build=build->build->duplicate();
+  m_aiData->addFactionBuildList(node);
+ }
+ m_aiData->m_namedLists=0;
+ for(Rva002FED8D*named=cur->m_namedLists;named;named=named->next){
+  Rva002FED8D*node=new Rva002FED8D(named->name);
+  node->tail=named->tail;node->value=named->value;
+  m_aiData->addNamedList(node);
+ }
+ m_aiData->m_next=cur;
+}
+
+void AI::addSideInfo(Rva002FE620*info){TAiData*link=m_aiData;Rva002FE620*previous=link->m_sideInfo;info->next=previous;link->m_sideInfo=info;}
+
+inline void TAiData::addNamedList(Rva002FED8D*node){node->next=m_namedLists;m_namedLists=node;}
+
+// BF1f989 AINewOverride.cpp guides the three deep copies and old-data link.
+// Native2FFDC3..2FFF72 RET0 proves allocation114, three-list offsetsF4/F8/FC,
+// side-info1C0/name-list14/side-build10, and every listed constructor/assignment.
+// Existing25B AI addSideInfo provider is reconciled here from its private view.
