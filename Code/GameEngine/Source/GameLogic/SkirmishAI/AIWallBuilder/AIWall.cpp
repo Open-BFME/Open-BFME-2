@@ -186,12 +186,19 @@ public:
 
 class Rva00506FE9Hit { public: void rva0055ADBA(void *); };
 
+// Existing owned predicate4E9378 tests order state10 for 2 or 3.
+class Rva004E9378 { public: bool rva004E9378(); };
+// Existing pin5975C0: complete native23B caller checks helper5973D8's bool,
+// then dispatches slot7(2); member receiver and no stack arguments are proved.
+class Rva005975C0 { public: void rva005975C0(); };
+
 class AIWall
 {
 public:
 	WallPositionValue calcGatePosition();	// 0x004EAFBD: WB names calcGatePosition; hidden value result
 	void buildGate();
 	void updateState(bool left);
+	void update();
 private:
 	void *unknown00;
 	WallPositionOrderView *selected04;
@@ -301,4 +308,21 @@ void AIWall::updateState(bool left)
         break;
     }
     }
+}
+
+// Named WB137BCE0/312 and complete native4EBA96..4EBAF7 prove the two
+// directional updates, unsigned endpoint comparisons and plan dispatch.
+// The native compiler calls the already-owned state predicate out of line.
+void AIWall::update()
+{
+    updateState(true);
+    updateState(false);
+    if (m_14->m_08 == 0 &&
+        ((unsigned)index38 < selected04->getKey() - 1 || state34 == 4) &&
+        ((unsigned)index40 > selected04->getKey() + 1 || state3c == 4))
+        buildGate();
+    Rva004EB902Plan *plan = m_14;
+    if (plan->m_08 != 0 &&
+        !reinterpret_cast<Rva004E9378 *>(plan)->rva004E9378())
+        reinterpret_cast<Rva005975C0 *>(plan)->rva005975C0();
 }
