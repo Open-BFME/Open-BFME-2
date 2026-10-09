@@ -1,5 +1,5 @@
 // ?rva003FA878@Rva003FA835@@QAEXXZ
-// partial score=0.85 date=2026-10-09
+// partial score=0.97 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //
@@ -92,7 +92,8 @@ void Rva003FA835::rva003FA878()
 			m_elapsed = elapsed;
 			Real base = getTemplate()->value;
 			Real amplitude = getTemplate()->amplitude;
-			Real value = base + fabs(cos(elapsed)) * amplitude;
+			elapsed = *reinterpret_cast<volatile Real *>(&elapsed);
+		Real value = base + fabs(cos(elapsed)) * amplitude;
 			rva003FA705(m_target, value);
 		}
 		else
@@ -104,10 +105,12 @@ void Rva003FA835::rva003FA878()
 	else if (m_enabled)
 	{
 		m_elapsed += 0.2f;
-		Real elapsed = _STL::min(1.5707964f, m_elapsed);
+		Real base, amplitude, elapsed;
+		elapsed = _STL::min(1.5707964f, m_elapsed);
 		m_elapsed = elapsed;
-		Real base = getTemplate()->value;
-		Real amplitude = getTemplate()->amplitude;
+		base = getTemplate()->value;
+		amplitude = getTemplate()->amplitude;
+		elapsed = *reinterpret_cast<volatile Real *>(&elapsed);
 		Real value = base + fabs(cos(elapsed)) * amplitude;
 		rva003FA705(m_target, value);
 	}
