@@ -1,6 +1,6 @@
 // ??0Rva005105D7@@QAE@HABVAsciiString@@@Z
-// partial score=0.98 date=2026-10-07
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
+// partial score=0.9878787878787878 date=2026-10-10
+// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
 //
 // Apt callbacks of a list of up to eight row movies (destructor 0x005105D7,
 // so the class keeps the name its rowed deleting destructor gives it). Its
@@ -16,8 +16,8 @@ extern "C" __declspec(dllimport) int __cdecl atoi(const char *text);
 // BfmePathLeafAfterMarker.cpp's path helpers, and the unrowed 0x004128F0
 // (239 bytes) next to them that reads one "key=value" parameter, pinned by
 // address.
-const char *__cdecl Rva00412845AfterLevel(const char *path);
-int __cdecl Rva004128BBGetLevel(const char *path);
+namespace AptUtils { const char *__cdecl SkipLevelN(const char *path); }
+namespace AptUtils { int __cdecl LevelIndexFromTarget(const char *path); }
 bool __cdecl Rva004128F0GetParam(const char *params, const char *key, AsciiString &value);
 
 // TheGameLogic's mode at +0x110 (2 in a skirmish).
@@ -143,6 +143,7 @@ public:
 	}
 };
 
+__forceinline FunctorBinding MakeExternBinding(FunctorTarget*target,FunctorMethod method){FunctorBinding binding(method,target);return binding;}
 class AptCommandMap;
 class AptExternHandler;
 
@@ -191,7 +192,9 @@ private:
 class Rva000B3F84Pair
 {
 public:
-	const char *m_ptr;
+	Rva000B3F84Pair() {}
+ Rva000B3F84Pair*init(const char*);
+ const char *m_ptr;
 	int m_len;
 };
 
@@ -243,12 +246,13 @@ inline AsciiStringPlusString operator+(const AsciiString &left, const AsciiStrin
 }
 
 AsciiStringPlusStringChar operator+(const AsciiStringPlusString &left, char c);
-Rva0050F23E operator+(const AsciiStringPlusStringChar &left, const char *right);
+Rva0050F23E operator+(const AsciiStringPlusStringChar &left, const char *right){Rva000B3F84Pair text;text.init(right);Rva0050F23E result;static_cast<AsciiStringPlusStringChar&>(result)=left;result.m_text=text;return result;}
 AsciiStringCharPlusText operator+(const AsciiStringRefWithChar &left, const char *right);
 
 // Retail folds "two strings + text" into the byte-identical "string and
 // char + text" body at 0x00109CFD (both copy an 8-byte node and append a
 // text reference), so this TU calls it under that body's name.
+inline AsciiStringPlusStringText operator+(const AsciiStringPlusString&left,const char*right){Rva000B3F84Pair text;text.init(right);AsciiStringPlusStringText result;static_cast<AsciiStringPlusString&>(result)=left;result.m_text=text;return result;}
 typedef AsciiStringPlusStringText (*PlusStringText)(const AsciiStringPlusString &left, const char *right);
 typedef AsciiStringCharPlusText (*CharPlusText)(const AsciiStringRefWithChar &left, const char *right);
 
@@ -314,103 +318,8 @@ private:
 
 // Retail 0x0050E823, 102 bytes. Name unknown. Answers the player count or
 // whether this is a skirmish.
-void Rva005105D7::rva0050E823(int which, char *result, bool skip)
-{
-	result[0] = '0';
-	result[1] = 0;
-	switch (which)
-	{
-	case 0:
-		if (!skip)
-			_snprintf(result, 0xFF, "%d", m_count);
-		break;
-	case 1:
-		if (!skip)
-		{
-			AptRowListGameLogic *logic = (AptRowListGameLogic *)TheGameLogic;
-			strcpy(result, logic && logic->m_mode == 2 ? "1" : "0");
-		}
-		break;
-	}
-}
 
-// Retail inlines AsciiString::isEmpty here (the shared header calls it out
-// of line); it reads the string data header {int refCount; unsigned short
-// length; unsigned short capacity;}.
-static inline bool isEmptyText(const AsciiString &text)
-{
-	const char *data = *(const char *const *)&text;
-	return data == 0 || *(const unsigned short *)(data + 4) == 0;
-}
-
-// Retail 0x0050EEDC, 166 bytes: one row for each occupied slot whose
-// player name names a player.
-void Rva005105D7::rva0050EEDC()
-{
-	for (int i = 0; i < 8; ++i)
-	{
-		const GameSlot *slot = TheGameInfo->getConstSlot(i);
-		if (slot == 0 || !slot->isOccupied())
-			continue;
-		AsciiString name = slot->m_playerName;
-		if (isEmptyText(name))
-			continue;
-		Player *player = ThePlayerList->findPlayerWithNameKey(TheNameKeyGenerator->nameToKey(name));
-		if (player == 0)
-			continue;
-		AptRowListRow &row = m_rows[m_count++];
-		row.m_value0 = i;
-		row.m_value4 = (int)player;
-	}
-}
-
-// Retail 0x0050EF82, 122 bytes: "_OnRowHidden" drops the indexed row's
-// movie.
-void Rva005105D7::OnRowHidden(const char *params)
-{
-	AsciiString indexText;
-	if (!Rva004128F0GetParam(params, "index", indexText))
-		return;
-	int index = atoi(indexText.str());
-	if (index < 0 || index > m_count)
-		return;
-	AptRowListRow &row = m_rows[index];
-	Rva000AD6F4 &movie = row.m_movie;
-	movie.clear();
-}
-
-// Retail 0x0050FAF7, 349 bytes: "_OnRowShown" builds the indexed row's
-// movie once, when the shown movie is on this list's level.
-void Rva005105D7::OnRowShown(const char *params)
-{
-	AsciiString indexText;
-	if (!Rva004128F0GetParam(params, "index", indexText))
-		return;
-	int index = atoi(indexText.str());
-	if (index < 0 || index > m_count)
-		return;
-	AptRowListRow *row = &m_rows[index];
-	Rva000AD6F4 *movie = &row->m_movie;
-	if (movie->m_ptr)
-		return;
-	AsciiString name;
-	if (!Rva004128F0GetParam(params, "name", name))
-		return;
-	int level = Rva004128BBGetLevel(name.str());
-	if (level != m_level)
-		return;
-	((Rva00575674 *)movie)->rva00575674((Object *)new Rva0050F909(level, AsciiString(Rva00412845AfterLevel(name.str())), row->m_value0, row->m_value4));
-}
-
-static const char *const s_queries[2] = {"NumOfPlayers", "InSkirmish"};
-
-// Retail 0x005103A3, 528 bytes: binds "_level<n>.<name>_OnRowShown" and
-// "_OnRowHidden" and the "<...>_NumOfPlayers" and "_InSkirmish" queries,
-// then fills the rows. Not yet exact: retail puts the second command's
-// concatenation node 16 bytes deeper and builds the query binding with
-// other registers. It stays here so the vtable, the destructor and the
-// row constructor are emitted.
-// ?Rva005105D7::Rva005105D7 present-unmatched
+static const char*const s_queries[2]={"NumOfPlayers","InSkirmish"};
 #pragma pointers_to_members(full_generality, multiple_inheritance)
 Rva005105D7::Rva005105D7(int level, const AsciiString &name)
 	: Rva0050EA74(level, name),
@@ -420,16 +329,16 @@ Rva005105D7::Rva005105D7(int level, const AsciiString &name)
 	levelName.format("_level%u.", m_level);
 	{
 		FunctorMethod method = reinterpret_cast<FunctorMethod>(&Rva005105D7::OnRowShown);
-		m_commandMaps.AddCommandMap(reinterpret_cast<PlusStringText>(static_cast<CharPlusText>(&operator+))(levelName + m_name, "_OnRowShown"), AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+		m_commandMaps.AddCommandMap((levelName + m_name)+ "_OnRowShown", AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
 	}
 	{
 		FunctorMethod method = reinterpret_cast<FunctorMethod>(&Rva005105D7::OnRowHidden);
-		m_commandMaps.AddCommandMap(reinterpret_cast<PlusStringText>(static_cast<CharPlusText>(&operator+))(levelName + m_name, "_OnRowHidden"), AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+		m_commandMaps.AddCommandMap((levelName + m_name)+ "_OnRowHidden", AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
 	}
 	{
 		int i = 0;
 		FunctorMethod method = reinterpret_cast<FunctorMethod>(&Rva005105D7::rva0050E823);
-		FunctorBinding binding = MakeBinding(method, reinterpret_cast<FunctorTarget *>(this));
+		FunctorBinding binding = MakeExternBinding(reinterpret_cast<FunctorTarget *>(this),method);
 		AsciiStringPlusString prefix = levelName + m_name;
 		for (; i < 2; ++i)
 		{
@@ -439,5 +348,3 @@ Rva005105D7::Rva005105D7(int level, const AsciiString &name)
 	rva0050EEDC();
 }
 
-// Retail's strcpy call lands on the import thunk rowed as ji_00629176.
-#pragma comment(linker, "/alternatename:_strcpy=?ji_00629176@@YAXXZ")
