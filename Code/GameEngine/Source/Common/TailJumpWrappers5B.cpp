@@ -33,6 +33,15 @@
 //   0x002B77AD  0x002B7582  0x0052C9F9 (ECX = TheLivingWorldLogic 0x00DFEF10)
 //   0x003F0DC6  0x003F012F  0x00210D6D
 //   0x006CF1B0  0x006CF040  0x002251E5 (cdecl, caller pops the int)
+//   0x002149A5  0x00214983  0x002937A9 (ECX = TheAttributeModifierStore)
+//   0x003F0189  0x003EFDB3  0x005CB2F0, 0x005CB835 (one pushed argument)
+//   0x005E687F  0x005F6037  0x005CDE0B (ECX = [esi+0x20], null-checked)
+//   0x005F604C  0x005F327A  0x005E6B9E (tail jump with ECX = esi-0xC)
+//   0x00620DA0  0x006208B0  0x0061F09A (ECX = TheQ1Receiver, null-checked)
+//   0x001174D0  0x00174F20  0x00046C7B (cdecl, pushed int)
+//
+// These six have no pin: the names are address-derived and each ABI is
+// the rowed target's, which the call sites agree with.
 //
 // Drawable deriving from Thing at offset 0 is carried from the Zero Hour
 // donor (GameClient/Drawable.h); the unadjusted jump agrees with it.
@@ -943,4 +952,90 @@ void Rva006CF040Tick(unsigned int delay);
 void Rva006CF1B0(int delay)
 {
 	Rva006CF040Tick(delay);
+}
+
+class AttributeModifierStore
+{
+public:
+	void *GetCategoryContainer(int category);
+	void *rva002149A5(int category);
+};
+
+void *AttributeModifierStore::rva002149A5(int category)
+{
+	return GetCategoryContainer(category);
+}
+
+class Rva002E2903Player;
+
+class LivingWorldRegion
+{
+public:
+	int rva003F0189(Rva002E2903Player *player) const;
+
+private:
+	int rva003EFDB3(Rva002E2903Player *player) const;
+};
+
+int LivingWorldRegion::rva003F0189(Rva002E2903Player *player) const
+{
+	return rva003EFDB3(player);
+}
+
+class Rva005F6037ByteChaseField
+{
+public:
+	unsigned char get() const;
+};
+
+class Rva005E687F
+{
+public:
+	unsigned char get() const;
+};
+
+unsigned char Rva005E687F::get() const
+{
+	return ((const Rva005F6037ByteChaseField *)this)->get();
+}
+
+class Rva005F327ARun
+{
+public:
+	void run();
+};
+
+class Rva005F604C
+{
+public:
+	void run();
+};
+
+void Rva005F604C::run()
+{
+	((Rva005F327ARun *)this)->run();
+}
+
+class Gen_009EBB60Target
+{
+public:
+	int bfmeForward();
+};
+
+class Rva00620DA0
+{
+public:
+	int forward();
+};
+
+int Rva00620DA0::forward()
+{
+	return ((Gen_009EBB60Target *)this)->bfmeForward();
+}
+
+void Rva00174F20Set(int value);
+
+void Rva001174D0(int value)
+{
+	Rva00174F20Set(value);
 }
