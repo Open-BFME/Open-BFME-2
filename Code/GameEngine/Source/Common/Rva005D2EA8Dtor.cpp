@@ -39,7 +39,7 @@ public:
 template <class T> class AptRef
 {
 public:
-	AptRef(const DelegateDesc *desc) { rva00579E47(desc); }
+	__forceinline AptRef(const DelegateDesc *desc) { rva00579E47(desc); }
 	AptRef &rva00579E47(const DelegateDesc *desc); // 0x00579E47
 	AptRef(const AptRef &that) : m_ptr(that.m_ptr)
 	{
@@ -174,5 +174,4 @@ Rva005D2EA8::Rva005D2EA8(int level,const AsciiString &name,const char *stat):m_l
 }
 Rva005D2EA8::~Rva005D2EA8() {if(m_listener) m_listener->notify(this);}
 void Rva005D2EA8::rva005D2EF1(const char *) {m_rollOver=false;if(m_listener) m_listener->rollOut(this);}
-// ?rva005D2F07@Rva005D2EA8@@QAEXPBD@Z present-unmatched
 void Rva005D2EA8::rva005D2F07(const char *) {m_rollOver=true;if(m_listener) m_listener->rollOver(this);}
