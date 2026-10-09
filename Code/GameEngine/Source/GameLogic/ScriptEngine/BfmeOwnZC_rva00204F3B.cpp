@@ -30,6 +30,7 @@ class ScriptList
 {
 public:
 	void *rva003B6911(const StringBase<char> &key);
+	void *rva003B68E8(const StringBase<char> &key);
 };
 
 class BfmeOwnZC : public Rva002046C0Owner
@@ -37,6 +38,7 @@ class BfmeOwnZC : public Rva002046C0Owner
 public:
 	ScriptList *rva00204E64(const AsciiString &name);
 	void *bfmeRunZC(BfmeRoomZC name, void *extra);
+	void *rva00204EBB(BfmeRoomZC name, void *extra);
 };
 
 void *BfmeOwnZC::bfmeRunZC(BfmeRoomZC name, void *extra)
@@ -55,3 +57,23 @@ void *BfmeOwnZC::bfmeRunZC(BfmeRoomZC name, void *extra)
 
 // Pin twin of the rowed free-function body at 0x00204E64; only the name moves.
 #pragma comment(linker, "/alternatename:?rva00204E64@BfmeOwnZC@@QAEPAVScriptList@@ABVAsciiString@@@Z=?Rva00204E64Find@@YGPAVScriptList@@ABVAsciiString@@@Z")
+
+// Native 0x00204EBB/128B: the first-subrecord sibling of 204F3B.
+// ScriptEngine enable/disable callers use its result's active byte+C.
+// ZH findGroup guides the purpose; native resolver/list lookup/copy order
+// supplies the target-specific algorithm and by-value string ABI. Receiver
+// spelling remains the existing BfmeOwnZC placeholder, without a second pin.
+void *BfmeOwnZC::rva00204EBB(BfmeRoomZC name, void *extra)
+{
+	AsciiString resolved = resolveName(name.m_name);
+	ScriptList *list = rva00204E64(resolved);
+	void *result;
+	if (list != 0) {
+		result = list->rva003B68E8(*(const StringBase<char> *)&name.m_name);
+		if (result != 0 && extra != 0)
+			((StringBase<char> *)extra)->set(*(const StringBase<char> *)&resolved);
+	} else
+		result = 0;
+	return result;
+}
+
