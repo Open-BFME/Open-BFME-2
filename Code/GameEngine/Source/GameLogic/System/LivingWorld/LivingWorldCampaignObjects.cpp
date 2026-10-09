@@ -23,6 +23,7 @@ class Image;
 class Rva004E3184:public Snapshot{public:Rva004E3184(int);virtual ~Rva004E3184();
  Rva004E3184(const Rva004E3184&);
  const Image *GetButtonImage(int);
+ const Image *GetPortraitImage(int);
  static const FieldParse m_fieldParseTable[];
  virtual void loadPostProcess();
  virtual const char *GetSnapshotName()const;
@@ -231,5 +232,25 @@ const Image *Rva004E3184::GetButtonImage(int id) {
   if(!hero)return missing;
   image=TheMappedImageCollection->findImageByName(TheCreateAHeroManager->GetButtonImageName((const CreateAHeroHero*)hero));
  } else image=TheMappedImageCollection->findImageByName(m_0c);
+ return image?image:missing;
+}
+
+class ThingTemplate { public:const Image *getButtonImage(); };
+
+// Complete native body and associated EH graph verified against retail.
+const Image *Rva004E3184::GetPortraitImage(int id) {
+ static const Image *missing=TheMappedImageCollection->findImageByName(AsciiString("BuildingNoArt"));
+ void *thing=((Rva00319CED*)this)->rva004E23E2();
+ if(!thing)return missing;
+ const Image *image;
+ if(*((unsigned char*)thing+0x11f)&0x40) {
+  Rva002B2579Result *building=((Rva002BA8F1Logic*)TheLivingWorldLogic)->rva002B2579(id);
+  if(!building)return missing;
+  Rva002E2903Player *player=((Rva004E0705*)building)->rva004E0705();
+  if(!player)return missing;
+  void *hero=((Rva002E06B8*)player)->rva002E06EF();
+  if(!hero)return missing;
+  image=TheMappedImageCollection->findImageByName(TheCreateAHeroManager->GetButtonImageName((const CreateAHeroHero*)hero));
+ } else image=((ThingTemplate*)thing)->getButtonImage();
  return image?image:missing;
 }
