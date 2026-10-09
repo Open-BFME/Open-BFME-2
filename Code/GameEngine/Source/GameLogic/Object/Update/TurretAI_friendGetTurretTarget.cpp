@@ -1,7 +1,9 @@
 // cl: /DNDEBUG /MD
 //
-// ?friend_getTurretTarget@TurretAI@@QBE?AW4TurretTargetType@@AAPAVObject@@AAUCoord3D@@@Z,
-// retail 0x004D81F1, 110 bytes. Dedicated TU.
+// TurretAI::friend_getTurretTarget (retail 0x004D81F1, 110 bytes) moved to
+// Code/GameEngine/Source/GameLogic/AI/TurretAIIdleStates.cpp: its caller
+// TurretAIAimTurretState::update 0x004D8EAC only reproduces with the callee
+// defined earlier in the same unit. Its notes below are kept for history.
 // Verbatim BFME2 logic (Zero Hour TurretAI::friend_getTurretTarget without the
 // clearDeadTargets parameter: dead targets always clear). BFME2 layout: state
 // machine at +0x14 with goal ID at +0x20 and goal position at +0x24; target
@@ -90,33 +92,6 @@ class TurretAI
 public:
 	TurretTargetType friend_getTurretTarget(Object *&obj, Coord3D &pos) const;
 };
-
-// ?friend_getTurretTarget@TurretAI@@QBE?AW4TurretTargetType@@AAPAVObject@@AAUCoord3D@@@Z
-TurretTargetType TurretAI::friend_getTurretTarget(Object *&obj, Coord3D &pos) const
-{
-	obj = 0;
-	pos.x = 0.0f;
-	pos.y = 0.0f;
-	pos.z = 0.0f;
-
-	if (m_target == TARGET_OBJECT)
-	{
-		obj = m_machine->getGoalObject();
-		if (obj == 0 || (obj->m_deadFlags & 1))
-		{
-			m_machine->setGoalObject(0);
-			m_target = TARGET_NONE;
-			m_targetWasSetByIdleMood = false;
-		}
-	}
-	else if (m_target == TARGET_POSITION)
-	{
-		obj = 0;
-		pos = m_machine->m_goalPosition;
-	}
-
-	return m_target;
-}
 
 // ?getGoalObject@TurretStateMachine@@QAEPAVObject@@XZ
 // retail 0x004D7726, 15 bytes. TheGameLogic ID lookup of the goal ID at +0x20.

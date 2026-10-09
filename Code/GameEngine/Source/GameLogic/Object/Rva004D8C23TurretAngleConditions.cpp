@@ -1,7 +1,10 @@
 // cl: /DNDEBUG /MD
 //
-// TurretAIAimTurretState::SetModelAngle, retail 0x004D8C23 (258 bytes, stdcall Object* and
-// float, ret 8; single caller 0x004D907B in the TurretAI block).
+// TurretAIAimTurretState::SetModelAngle, retail 0x004D8C23 (258 bytes, Object* and float,
+// ret 8; single caller 0x004D907B in the TurretAI block). The caller,
+// TurretAIAimTurretState::update 0x004D8EAC, loads its own this into ECX
+// before the call (as the WorldBuilder twin does), so this is a thiscall
+// member that does not read this; the body bytes are the same as stdcall.
 // Donor: BFME1 game/GameEngine/Source/GameLogic/Object/
 // Rva0018E210TurretAngleConditions.cpp (open-bfme-1 068db38bb4), same body:
 // clear the four turret-angle model conditions, wrap a negative angle by 2*pi,
@@ -48,7 +51,7 @@ public:
 class TurretAIAimTurretState
 {
 public:
-	static void __stdcall SetModelAngle(Object *object, float angle);
+	void SetModelAngle(Object *object, float angle);
 };
 static __forceinline void clearModelCondition(Object *object, Int bit)
 {
@@ -73,7 +76,7 @@ enum Rva004D8C23TurretAngleCondition
 	BFME_TURRET_ANGLE_180 = 9 * 32 + 20,
 	BFME_TURRET_ANGLE_270 = 9 * 32 + 21
 };
-void __stdcall TurretAIAimTurretState::SetModelAngle(Object *object, float angle)
+void TurretAIAimTurretState::SetModelAngle(Object *object, float angle)
 {
 	clearModelCondition(object, BFME_TURRET_ANGLE_0);
 	clearModelCondition(object, BFME_TURRET_ANGLE_90);
