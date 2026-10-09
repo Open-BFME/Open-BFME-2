@@ -15832,7 +15832,7 @@ _rva0060E7F0,,0x00211245,100,Code/GameEngine/Source/GameLogic/Rva0060E7F0BattleM
 ??0GODupBase@@QAE@XZ,,0x00306782,66,Code/GameEngine/Source/Common/GODupBaseConstructor.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
 ?rva00627AA0Call@@YAXXZ,,0x00548B70,39,Code/GameEngine/Source/Common/Rva00627AA0Call.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
 ??1CDManager@@UAE@XZ,,0x003E5525,62,Code/GameEngine/Source/Common/System/CDManager.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
-?bfmeGoPI@BfmeThingPI@@QAEXPBUBfmeRangePI@@PAX@Z,,0x0002AC90,43,Code/GameEngine/Source/Common/BfmeTwoHundredSixtyNine.cpp,matched,BFME1 donor (donor flags); callees pinned from the retail calls
+?bfmeGoPI@BfmeThingPI@@QAEIPBUBfmeRangePI@@I@Z,,0x0002AC90,43,Code/GameEngine/Source/Common/BfmeTwoHundredSixtyNine.cpp,matched,BFME1 span-wrapper semantic lead; native tokenizer309358 consumes the unsigned EAX search result with a word position and range begin/end; call directly through existing bfmeFind1155 owner instead of the wrong void/pointer alias; Od full43 exact
 ??1RunwayInfo@FlightDeckBehavior@@QAE@XZ,,0x00089851,67,Code/GameEngine/Source/GameLogic/Object/Behavior/FlightDeckBehaviorRunwayInfoDestructor.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
 ??1MouseThreadClass@@UAE@XZ,,0x00098D9E,56,Code/GameEngineDevice/Source/W3DDevice/GameClient/MouseThreadDestructor.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
 ??0Rva003AD070@@QAE@ABV0@@Z,,0x00564BD5,33,Code/GameEngine/Source/Common/Rva003AD070Copy.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls

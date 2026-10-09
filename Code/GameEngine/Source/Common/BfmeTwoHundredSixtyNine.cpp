@@ -1,22 +1,11 @@
 // cl: /Od
-// A run given as a pair of ends passed on as a start and a length, built
-// without optimisation. The callee is pinned by address; nothing here names it.
-
-struct BfmeRangePI
+// BFME1 donor span-wrapper lead; target 2AC90..2ACBB RET8 is called for its unsigned search result.
+// Native tokenizer309358 consumes EAX and supplies an unsigned position; earlier void/pointer ABI was incorrect.
+// The range is the string prefix begin/end, position is an unsigned word.
+struct BfmeRangePI { char *m_bfmeAt;char *m_bfmeEnd; };
+class BfmeS1155 { public: unsigned bfmeFind1155(const char *,unsigned,unsigned); };
+class BfmeThingPI { public: unsigned bfmeGoPI(const BfmeRangePI *,unsigned); };
+unsigned BfmeThingPI::bfmeGoPI(const BfmeRangePI *span,unsigned pos)
 {
-	char *m_bfmeAt;				// 0x0
-	char *m_bfmeEnd;			// 0x4
-};
-
-class BfmeThingPI
-{
-public:
-	void bfmeGoPI(const BfmeRangePI *span, void *what);
-
-	void bfmeDoPI(char *at, void *what, int many);
-};
-
-void BfmeThingPI::bfmeGoPI(const BfmeRangePI *span, void *what)
-{
-	bfmeDoPI(span->m_bfmeAt, what, span->m_bfmeEnd - span->m_bfmeAt);
+ return reinterpret_cast<BfmeS1155 *>(this)->bfmeFind1155(span->m_bfmeAt,pos,span->m_bfmeEnd-span->m_bfmeAt);
 }
