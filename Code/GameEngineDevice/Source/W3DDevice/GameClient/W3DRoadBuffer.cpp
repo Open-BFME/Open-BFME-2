@@ -210,6 +210,7 @@ class RefCountPtr
 {
 public:
 	RefCountPtr() : m_ptr(0) {}
+	RefCountPtr(const RefCountPtr &other);
 	const RefCountPtr &operator=(const RefCountPtr &other);
 	~RefCountPtr() { if (m_ptr) reinterpret_cast<W3DRoadBufferRef18Target *>(m_ptr)->Release_Ref(); }
 private:
@@ -239,7 +240,25 @@ struct BfmeRoadTypeTexturesView
 {
 	RefCountPtr<TextureClass> m_roadTexture;
 	BFME2ParticleTextureHandle m_roadTexture2;
+
+	// Out-of-line by-value copies of the two textures (retail 0x000D6A3F and
+	// 0x000D6A57); drawRoads takes them for the shader passes. Their source
+	// names are unknown.
+	RefCountPtr<TextureClass> rva000D6A3F();
+	RefCountPtr<TextureClass> rva000D6A57();
 };
+
+// ?rva000D6A3F@BfmeRoadTypeTexturesView@@QAE?AV?$RefCountPtr@VTextureClass@@@@XZ
+RefCountPtr<TextureClass> BfmeRoadTypeTexturesView::rva000D6A3F()
+{
+	return m_roadTexture;
+}
+
+// ?rva000D6A57@BfmeRoadTypeTexturesView@@QAE?AV?$RefCountPtr@VTextureClass@@@@XZ
+RefCountPtr<TextureClass> BfmeRoadTypeTexturesView::rva000D6A57()
+{
+	return m_roadTexture2;
+}
 
 // BFME 2 GlobalData +0x49: load the _nrm companion road textures.
 struct BfmeGlobalNrmTexturesView { char m_prefix[0x49]; Bool m_loadNrmTextures; };
