@@ -51,7 +51,9 @@ public:
 	StateReturnType setState(StateID newStateID);
 	StateReturnType resetToDefaultState();
 	void clear();
-	char m_pad00[4];
+	// The machine's vptr (only the derived turret machine's own slots are
+	// declared below; the base's are not modelled here).
+	virtual ~StateMachine();
 	TurretState *m_currentState;
 	char m_pad08[0x3C - 0x08];
 };
@@ -59,9 +61,9 @@ public:
 class TurretStateMachine : public StateMachine
 {
 public:
-	StateReturnType setState(StateID newStateID);
-	StateReturnType resetToDefaultState();
-	void clear();
+	virtual StateReturnType setState(StateID newStateID);	// slot 8
+	virtual StateReturnType resetToDefaultState();		// slot 6
+	virtual void clear();					// slot 5
 	TurretAI *m_turretAI;
 };
 
@@ -89,7 +91,7 @@ StateReturnType TurretStateMachine::resetToDefaultState()
 	return tmp;
 }
 
-// ?clear@TurretStateMachine@@QAEXXZ @0x004D853F 28B
+// ?clear@TurretStateMachine@@UAEXXZ @0x004D853F 28B
 // Retail vtable slot 5 (offset 0x14) of vtable 0x008609C8, class TurretStateMachine.
 // BFME1 donor TurretAI.cpp clear verbatim plus BFME2 deltas (owner +0x3C, notify).
 // Single callee clear 0x004D72C5 rowed in StateMachineGoal.cpp.

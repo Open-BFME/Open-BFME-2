@@ -1,5 +1,5 @@
 // cl: /MD
-// ?rva00493805@SpecialPowerModule@@QAEXXZ @0x00493805 64B: vslot 12 frame-store guard.
+// ?rva00493805@SpecialPowerModule@@UAEXXZ @0x00493805 64B: vslot 12 frame-store guard.
 // Evidence: vtable slot 12 of SpecialPowerModule family; callees testStatus Overridable TheGameLogic.
 class Overridable {
 public:
@@ -37,8 +37,7 @@ struct FrameView00493805 {
 };
 class SpecialPowerModule {
 public:
-	void rva00493805();
-	void *vptr00;
+	virtual void rva00493805();
 	const SpecialPowerModuleData *m_data;
 	Object *m_object;
 	unsigned char pad0C[4];

@@ -26,12 +26,11 @@ class StrategicHUD::StatsDisplayImpl
 {
 public:
 	void SetRowText(int index, const UnicodeString &text);	// 0x00579B17
-	void rva00579D96(float value);
-	void rva00579D3D(int index, int value);
-	void rva00579DF8(int value);
+	virtual void rva00579D96(float value);	// slot 5
+	virtual void rva00579D3D(int index, int value);	// slot 3
+	virtual void rva00579DF8(int value);	// slot 7
 
 private:
-	void *m_vptr;
 	int m_level;
 	char m_name[4];
 	char m_pad0C[0x2C - 0x0C];
