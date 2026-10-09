@@ -1,10 +1,9 @@
-// ?FindIndex@BFME2Encoding0MotionChannel@@QAEHIPAPAH@Z
-// partial score=0.9917 date=2026-10-06
-// ?FindIndex@BFME2Encoding0MotionChannel@@QAEHIPAPAH@Z
-// partial score=0.9953 date=2026-09-29
-// ?FindIndex@BFME2Encoding0MotionChannel@@QAEHIPAPAH@Z
-// partial score=0.9953 date=2026-09-29
 // cl: /O1 /EHsc /DNDEBUG /MD
+// ?FindIndex@BFME2Encoding0MotionChannel@@QAEHIPAPAH@Z @0x001B2EFC 215B
+// Timecode search of the BFME 2 motion channel (encoding 0): cached cursor walk (context holds a
+// cursor over the cached index list) or a binary search over TimeCodes masked with ~0x8000.
+// Layout from the factory/ctor units (Count at +0xC, TimeCodes at +0x14). Codegen: `low` is
+// declared and zeroed ahead of `index`; this fixes which xor operand the compiler copies.
 // ?FindIndex@BFME2Encoding0MotionChannel@@QAEHIPAPAH@Z, retail 0x001B2EFC, 215 bytes.
 // Finish from banked 0.9907 stash: cached index cursor walk plus binary search
 // over TimeCodes masked with ~0x8000. Evidence: RET8 thiscall with context
@@ -22,6 +21,7 @@ public:
 };
 int BFME2Encoding0MotionChannel::FindIndex(unsigned int time, int **context)
 {
+ int low = 0;
  int index;
  if (context && (unsigned int)(index = **context) < (unsigned int)Count) {
   while (index && (TimeCodes[index] & ~0x8000) > time) --index;
@@ -32,7 +32,7 @@ int BFME2Encoding0MotionChannel::FindIndex(unsigned int time, int **context)
   if (time <= (TimeCodes[0] & ~0x8000)) index=0;
   else if (time >= (TimeCodes[Count-1] & ~0x8000)) index=Count-1;
   else {
-   int low=0, high=Count-2;
+   int high=Count-2; low = 0;
    for (;;) {
     index=(low+high)/2;
     if (time < (TimeCodes[index] & ~0x8000)) high=index;
