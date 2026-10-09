@@ -1,6 +1,8 @@
 // ??0Impl@RegionDetailsStructuresMovieClip@StrategicHUD@@QAE@PAV12@HABVAsciiString@@HH@Z
+// partial score=0.9150012470806975 date=2026-10-09
+// ??0Impl@RegionDetailsStructuresMovieClip@StrategicHUD@@QAE@PAV12@HABVAsciiString@@HH@Z
 // partial score=0.7 date=2026-10-06
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
 // BANK NOTE (0x005F141D, 732 B): compiles to 735 B. Logic, calls, strings
 // and EH states match retail; unresolved only for pins still to admit
 // (_Vector_base<Rva005F13E6Element> -> 0x00211E58, IconSlot ctor 0x005F0CC9,
