@@ -123,3 +123,16 @@ void *__fastcall Rva004647F0Adjust( void *baseAt20 )
     char *complete = static_cast<char *>(baseAt20) - 0x20;
     return complete ? static_cast<char *>(baseAt20) + 0x10 : 0;
 }
+
+// Clean BF1 f98983a7 Common/Rva002B9E30Get.cpp is the nullable-pointer
+// source guide, compiled under /O2 /arch:SSE2 /G6. Its class name and
+// original member signature remain unasserted. Native452D78..452D82 is
+// a whole RET0 leaf between the matched452D72 constant-name getter's RET
+// and known452D82 float getter. It tests ECX-0x20 and returns ECX or zero,
+// with no memory read, other input or call. This free fastcall ABI view
+// states that physical projection without claiming inheritance or owner.
+void *__fastcall Rva00452D78Adjust(void *baseAt20)
+{
+    char *complete = static_cast<char *>(baseAt20) - 0x20;
+    return complete ? baseAt20 : 0;
+}
