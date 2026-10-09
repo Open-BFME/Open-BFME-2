@@ -42,7 +42,8 @@ public:
 		CELL_DEEP_WATER = 7
 	};
 
-	CellType getType() const { return (CellType)m_type; }
+	// Keep the native four-bit access inline without a competing getter copy.
+	__declspec(dllimport) __forceinline CellType getType() const { return (CellType)m_type; }
 	bool getPinched() const { return m_pinched; }
 	void setPinched(bool pinch) { m_pinched = pinch; }
 	bool getBit22() const { return m_bit22; }

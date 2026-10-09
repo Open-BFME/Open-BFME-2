@@ -19,7 +19,8 @@ public:
 		CELL_IMPASSABLE = 5
 	};
 
-	CellType getType() const { return (CellType)m_type; }
+	// Keep the native four-bit access inline without a competing getter copy.
+	__declspec(dllimport) __forceinline CellType getType() const { return (CellType)m_type; }
 
 private:
 	char m_pad00[0x0C];
