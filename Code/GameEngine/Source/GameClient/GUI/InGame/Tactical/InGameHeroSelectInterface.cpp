@@ -19,6 +19,7 @@ struct Rva00525951Less
 };
 namespace _STL
 {
+ template<> _List_base<Rva00525119,allocator<Rva00525119> >::~_List_base();
 	template<> void _S_sort(list<Rva00525119, allocator<Rva00525119> > &, Rva00525951Less);
 }
 
@@ -173,6 +174,7 @@ public:
 	{
 	public:
 		void SelectAllHeroes();
+ void SelectNearestBuilder(bool noCamera);
 
  void BuildLocalBuilderList(_STL::list<Rva00525119> *,int);
 		void FlashHeroButton(const AsciiString &templateName, Int frames);
@@ -358,5 +360,85 @@ void InGameHeroSelectInterface::Impl::BuildLocalBuilderList(_STL::list<Rva005251
     }
    } else entry->used=false;
   }
+ }
+}
+
+class Keyboard {public:bool isShift();};extern Keyboard *TheKeyboard;
+class GameClient;
+extern GameClient *TheGameClient;
+class HeroGameClientView {public:
+#define CSLOT(N) virtual void c##N();
+ CSLOT(0) CSLOT(1) CSLOT(2) CSLOT(3) CSLOT(4) CSLOT(5) CSLOT(6) CSLOT(7)
+ CSLOT(8) CSLOT(9) CSLOT(10) CSLOT(11) CSLOT(12) CSLOT(13) CSLOT(14) CSLOT(15)
+ CSLOT(16) CSLOT(17) CSLOT(18) CSLOT(19) CSLOT(20) CSLOT(21) CSLOT(22) CSLOT(23)
+ CSLOT(24) CSLOT(25) CSLOT(26) CSLOT(27) CSLOT(28) CSLOT(29) CSLOT(30)
+#undef CSLOT
+ virtual unsigned int frame();
+};
+struct Rva00525611Node
+{
+	Rva00525611Node *m_next;
+	unsigned char m_pad[8];
+	unsigned char m_flag;
+};
+
+struct Rva00525611Mid
+{
+	unsigned char m_pad[0x14];
+	Rva00525611Node *m_head;
+};
+
+class Rva00525611
+{
+public:
+	unsigned char m_pad[0x10];
+	Rva00525611Mid *m_10;
+	unsigned char m_pad2[0x1da - 0x14];
+	unsigned char m_1da;
+	void rva00525611();
+};
+
+__declspec(noinline) void Rva00525611::rva00525611()
+{
+	for (Rva00525611Node *cur = m_10->m_head->m_next; cur != m_10->m_head; cur = cur->m_next)
+		cur->m_flag = 0;
+	m_1da = 0;
+}
+
+class Rva00524FA7 {public:void rva00524FA7();};
+// WB13C1750 names SelectNearestBuilder; native526F85..52710C is391B.
+// Low-byte noCamera argument, selection-list size, builder-used1DA and
+// deadline1DC, UI slots108/110/124, client7C and view54 are native facts.
+// The reset34B helper is homed here so VC7 sees ECX preserved across it;
+// the list destructor remains an external specialization, matching EH state.
+void InGameHeroSelectInterface::Impl::SelectNearestBuilder(bool noCamera)
+{
+ if(TheKeyboard->isShift())noCamera=true;
+ const SelectedList *selected=reinterpret_cast<BuilderUISelectionView *>(TheInGameUI)->selection();
+ unsigned int count=reinterpret_cast<const _STL::list<Drawable *> *>(selected)->size();
+ if(count>1)reinterpret_cast<Rva00525611 *>(this)->rva00525611();
+ else if(builderUsed && reinterpret_cast<HeroGameClientView *>(TheGameClient)->frame()>=builderDeadline)
+  reinterpret_cast<Rva00525611 *>(this)->rva00525611();
+ _STL::list<Rva00525119> builders;
+ BuildLocalBuilderList(&builders,true);
+ rva00526E8B(&builders);
+ BuilderSelectionData *entry=FindReadyLocalBuilder(&builders);
+ if(!entry && builderUsed) {
+  reinterpret_cast<Rva00525611 *>(this)->rva00525611();
+  entry=FindReadyLocalBuilder(&builders);
+ }
+ if(entry) {
+  Object *builder=TheGameLogic->findObjectByID(entry->id);
+  Drawable *draw=builder->getDrawable();
+  reinterpret_cast<BuilderUISelectionView *>(TheInGameUI)->clearSelection();
+  GameMessage *message=TheMessageStream->createMessage(0x3EB);
+  message->appendBooleanArgument(true);
+  message->appendObjectIDArgument(builder->id);
+  reinterpret_cast<BuilderUISelectionView *>(TheInGameUI)->selectDrawable(draw);
+  if(!noCamera && !IsBuilderOnScreen(builder))
+   TheTacticalView->lookAt(reinterpret_cast<BFMERopeDrawable *>(draw)->getPosition());
+  entry->used=true;
+  builderUsed=true;
+  reinterpret_cast<Rva00524FA7 *>(this)->rva00524FA7();
  }
 }
