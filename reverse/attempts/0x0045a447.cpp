@@ -1,100 +1,84 @@
-// ?rva0045A447@AutoAbilityBehavior@@QAEPAVObject@@PAUBfmeWideResult@@PBURva0045A447Options@@@Z
-// partial score=0.9 date=2026-10-09
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
-//
-// ?rva0045A421@AutoAbilityBehavior@@QAEXPAX@Z, retail 0x0045A421, 38 bytes.
-// Copies the AsciiString at src+0x10 to the member at +0x20 via the pinned
-// AsciiString::operator= at 0x000366F0, then arms wake via the rowed
-// UpdateModule::setWakeFrame at 0x0044DF71 with the Object at +8 and delay 1.
-// Layout follows the rowed dtor ??1AutoAbilityBehavior at 0x0045A37F
-// (AsciiString at +0x20) and the pinned ctor at 0x0045A78F (Object at +8).
-// Callers at 0x0045A726 and 0x0045A785 pass through to this leaf.
-
-class Object;
-
-#include "ascii_string.h"
-
-
-enum UpdateSleepTime
-{
-	UPDATE_SLEEP_NONE = 1
-};
-
-class UpdateModule
-{
-	friend class AutoAbilityBehavior;
-protected:
-	void setWakeFrame(Object *obj, UpdateSleepTime delay);
-};
-
-struct Rva0045A421Src
-{
-	unsigned char m_pad[0x10];
-	AsciiString m_str10;
-};
-
-class AutoAbilityBehavior
-{
-public:
-	void rva0045A421(void *src);
-	Object *rva0045A447(struct BfmeWideResult *result, const struct Rva0045A447Options *options);
-
-private:
-	unsigned char m_pad[8];
-	Object *m_obj8;
-	unsigned char m_mid[0x20 - 0xC];
-	AsciiString m_str20;
-};
-
-void AutoAbilityBehavior::rva0045A421(void *src)
-{
-	Object *obj = m_obj8;
-	Rva0045A421Src *s = (Rva0045A421Src *)src;
-	m_str20 = s->m_str10;
-	((UpdateModule *)this)->setWakeFrame(obj, UPDATE_SLEEP_NONE);
-}
-
-// Native full180 byte body: module data radiusC/self5F; object pos38/body254.
+// ?rva0045A447@AutoAbilityBehavior@@QAEPAVObject@@PAVBfmeWideResult@@PBVCommandButton@@@Z
+// partial score=0.97 date=2026-10-09
+// cl: /Ireference/shims/bfme2_ascii /O1 /G6 /arch:SSE /DNDEBUG /MD /EHsc
+// Reference guide: Open-BFME-1 f98983a7d AutoAbilityBehavior_bfmeCanAutoFire.cpp
+// (clean125B predicate). Target0045A57C/WB117C610 adds module-status mask,
+// target model/status gates, tri-state eligibility and button exclusion mask.
+// Fields below come from native accesses; donor semantics do not establish
+// original BFME2 method names.
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
-#include "../../../Common/PartitionRangeQueryCallView.h"
-class Rva0045A447Body {
-public:
-    virtual void slot0(); virtual void slot4(); virtual void slot8();
-    virtual void slotC(); virtual void slot10(); virtual float query14();
+#include "ascii_string.h"
+extern "C" void _ReadWriteBarrier();
+#pragma intrinsic(_ReadWriteBarrier)
+namespace _STL { template<unsigned int N> class _Base_bitset {
+public: bool _M_is_any() const; unsigned int words[N];
+}; }
+class Rva00331682Holder { public: bool test(const void*) const; };
+class Rva00263546 { public: bool rva00263546(const Rva00263546*) const; };
+class AIUpdateInterface { public: char data00[0x34]; void *active; };
+class BodyModule { public:
+ virtual void slot00(); virtual void slot04(); virtual void slot08();
+ virtual void slot0C(); virtual void slot10(); virtual float slot14();
 };
+class CommandButton;
+enum ObjectStatusTypes { AutoAbilityStatus74=74 };
 class Object {
 public:
-    const Coord3D *getPosition() const { return &position; }
-    Rva0045A447Body *getBody() const { return body; }
-private:
-    char pad0[0x38]; Coord3D position;
-    char pad44[0x254-0x44]; Rva0045A447Body *body;
+ bool rva002922D9(const CommandButton*);
+ int rva0028F4EF();
+ bool testStatus(ObjectStatusTypes) const;
+ char data00[0x38]; Coord3D position;
+ char data44[0x94-0x44]; unsigned int status[4];
+ char dataA4[0x10C-0xA4]; unsigned int model[19];
+ char data158[0x254-0x158]; BodyModule *body;
+ AIUpdateInterface *ai;
 };
-struct Rva0045A447Data {
-    char pad0[0xc]; float radius;
-    char pad10[0x5f-0x10]; bool allowSelf;
+class CommandButton {
+public:
+ bool isReady(const Object*) const;
+ char data00[0x134]; float range;
+ bool flag138;
+ char data139[3]; Rva00263546 exclude;
 };
-struct Rva0045A447Options {
-    char pad0[0x138]; bool queryBody;
+class ControlBar { public: const CommandButton *findCommandButton(const AsciiString&); };
+extern ControlBar *TheControlBar;
+struct AutoAbilityData {
+ char data00[0xC]; float minimumRange;
+ char data10[0x1C-0x10]; _STL::_Base_bitset<4> forbiddenStatus;
+ char data2C[0x5F-0x2C]; bool allowSelf;
 };
-Object *AutoAbilityBehavior::rva0045A447(BfmeWideResult *result, const Rva0045A447Options *options)
+class BfmeWideResult { public: Object *next(); };
+class AutoAbilityBehavior {
+public:
+ bool rva0045A57C();
+ Object *rva0045A447(BfmeWideResult*,const CommandButton*);
+ char data00[4]; const AutoAbilityData *data; Object *object;
+ char data0C[0x20-0xC]; AsciiString command;
+};
+Object *AutoAbilityBehavior::rva0045A447(BfmeWideResult *items,const CommandButton *button)
 {
-    const Rva0045A447Data *data = *(const Rva0045A447Data *const *)((const char *)this+4);
-    Object *owner = m_obj8;
-    Object *candidate;
-    while ((candidate = result->next()) != 0) {
-        if (!data->allowSelf && candidate == owner) continue;
-        if (options && options->queryBody) {
-            Rva0045A447Body *body = candidate->getBody();
-            if (body && body->query14() > 0.8f) continue;
-        }
-        if (data->radius > 0.0f) {
-            Coord3D difference;
-            difference.x = owner->getPosition()->x - candidate->getPosition()->x;
-            difference.y = owner->getPosition()->y - candidate->getPosition()->y;
-            difference.z = owner->getPosition()->z - candidate->getPosition()->z;
-            if (!(data->radius > difference.length())) return candidate;
-        } else return candidate;
-    }
-    return 0;
+ const AutoAbilityData *modData=data;
+ Object *owner=object;
+ Object *candidate;
+ goto nextCandidate;
+ for(;;) {
+  if(!modData->allowSelf && candidate==owner) goto nextCandidate;
+  if(button && button->flag138) {
+   BodyModule *body=candidate->body;
+   if(body && body->slot14()>0.8f) goto nextCandidate;
+  }
+  if(modData->minimumRange>0) {
+   float x=owner->position.x,y=owner->position.y,z=owner->position.z;
+   _ReadWriteBarrier();
+   x-=candidate->position.x;y-=candidate->position.y;z-=candidate->position.z;
+   _ReadWriteBarrier();
+   Coord3D delta;delta.x=x;delta.y=y;delta.z=z;
+   if(delta.length()<modData->minimumRange) goto nextCandidate;
+  }
+  break;
+nextCandidate:
+  candidate=items->next();
+  if(!candidate) return 0;
+ }
+ return candidate;
 }
