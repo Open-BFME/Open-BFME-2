@@ -96,7 +96,9 @@ public:
 	virtual const char *Get_Name() const;					// +0x18
 	virtual void s007(); virtual void s008(); virtual void s009(); virtual void s010();
 	virtual void s011(); virtual void s012(); virtual void s013(); virtual void s014();
-	virtual void s015(); virtual void s016(); virtual void s017(); virtual void s018();
+	virtual void s015();
+	virtual void Remove();									// +0x40
+	virtual void s017(); virtual void s018();
 	virtual void s019(); virtual void s020(); virtual void s021(); virtual void s022();
 	virtual void s023(); virtual void s024(); virtual void s025(); virtual void s026();
 	virtual void s027();
@@ -145,6 +147,13 @@ class Rva003FB640
 public:
 	void rva003FB640();
 };
+
+// Rowed clear 0x003FC7FC (address-named).
+class Rva003FC7FC
+{
+public:
+	void rva003FC7FC();
+};
 RenderObjClass *Rva00137364CreateRenderObj(const char *name, float scale, const Rva0013101E &options);
 
 struct Rva005F17C6S12
@@ -177,12 +186,15 @@ public:
 	void createShadow();
 	void rva003FCCC9(bool visible);
 	void rva003FCDD5(bool enable);
+	void rva003FCD71();
 
 private:
 	unsigned char m_pad04[4];
 	RenderObjClass *m_primaryRObj;		// +0x08
 	Shadow *m_shadow;					// +0x0C
 	Int m_shadowType;					// +0x10
+	RenderObjClass *m_robj14;			// +0x14
+	RenderObjClass *m_robj18;			// +0x18
 };
 
 // LivingWorldVisual::setHouseColor, retail 0x003FB602.
@@ -317,4 +329,36 @@ void LivingWorldVisual::rva003FCDD5(bool enable)
 			reinterpret_cast<Rva003FB640 *>(this)->rva003FB640();
 		}
 	}
+}
+
+// Retail 0x003FCD71: release the shadow (0x003FB640), remove and release the
+// primary render object and the one at +0x14, release the one at +0x18,
+// then tail into the rowed clear 0x003FC7FC. Address name.
+void LivingWorldVisual::rva003FCD71()
+{
+	reinterpret_cast<Rva003FB640 *>(this)->rva003FB640();
+	if (m_primaryRObj)
+	{
+		m_primaryRObj->Remove();
+		if (m_primaryRObj)
+		{
+			m_primaryRObj->Release_Ref();
+			m_primaryRObj = 0;
+		}
+	}
+	if (m_robj14)
+	{
+		m_robj14->Remove();
+		if (m_robj14)
+		{
+			m_robj14->Release_Ref();
+			m_robj14 = 0;
+		}
+	}
+	if (m_robj18)
+	{
+		m_robj18->Release_Ref();
+		m_robj18 = 0;
+	}
+	reinterpret_cast<Rva003FC7FC *>(this)->rva003FC7FC();
 }
