@@ -21,7 +21,7 @@ ROOT = Path(__file__).resolve().parents[2]
 SOURCE = "Code/GameEngine/Source/Common/Unit.cpp"
 STUBS = ("check_case_collisions", "conversion_gate", "link_debt", "class_gate", "tu_ownership",
          "hatch_counters", "code_identity_gate", "data_check", "ledger_guard", "check_csv",
-         "flag_defaults", "pin_consistency", "pin_admission", "header_dependents")
+         "flag_defaults", "flag_delta_sources", "pin_consistency", "pin_admission", "header_dependents")
 # These read their list on stdin; drain it as the real tools do.
 READERS = ("eh_verify", "find_declared_unmatched", "link_check")
 RECORD_BUILD = """import json, sys

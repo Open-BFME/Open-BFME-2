@@ -181,9 +181,13 @@ PY
     mapfile -t edited < "$edited_out"
     rm -f "$edited_out"
 
+    capture flag_delta_out "flag_delta_sources" python3 tools/flag_delta_sources.py --range "$base" "$local_sha"
+    mapfile -t flag_delta < "$flag_delta_out"
+    rm -f "$flag_delta_out"
+
     verify=()
     declare -A seen=()
-    for s in "${delta[@]}" "${edited[@]}" "${name_deps[@]}"; do
+    for s in "${delta[@]}" "${edited[@]}" "${name_deps[@]}" "${flag_delta[@]}"; do
         [ -z "$s" ] && continue
         [ -n "${seen[$s]:-}" ] && continue
         seen["$s"]=1
