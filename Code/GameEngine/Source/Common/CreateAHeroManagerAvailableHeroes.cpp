@@ -1,6 +1,4 @@
-// ?GetAvailableHeroesForFaction@CreateAHeroManager@@QAE_NPAV?$vector@IV?$allocator@I@_STL@@@_STL@@H@Z
-// partial score=0.9 date=2026-10-09
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /arch:SSE /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // CreateAHero.cpp -- CreateAHeroManager forwarding accessors recovered from
 // WorldBuilder leads (reverse/wb_name_leads.csv): WB's debug build names each
@@ -625,7 +623,9 @@ class Rva002196A9 { public: int rva002196A9(unsigned); };
 Bool CreateAHeroManager::GetAvailableHeroesForFaction(std::vector<unsigned int> *result, int faction)
 {
     const unsigned count=m_userHeroes.size();
-    result->clear();
+    // The native clear is the rowed ICF erase 0x0031BD55 shared by every 4-byte element
+    // vector; calling it through the void-pointer view resolves to that body.
+    ((_STL::vector<void *> *)result)->clear();
     for (unsigned i=0;i<count;++i) {
         CreateAHeroData *hero=reinterpret_cast<Rva0040A3F9 *>(&m_userHeroes)->rva0040A32F(i);
         if (!hero) continue;
