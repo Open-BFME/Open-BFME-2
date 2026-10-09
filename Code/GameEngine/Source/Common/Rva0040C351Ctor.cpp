@@ -9,6 +9,8 @@
 // +0xC4 +0xC5. Chain of 0x0037DF2C which this session landed. Callers at
 // 0x003F22B6 0x0040EFBB 0x0040F09B 0x0040F149 0x0040F24D 0x0040F721.
 
+#include "GameLogicObjectLookupView.h"
+
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 extern "C" const void *const vtbl_00BC6F20[];  // folded, 7 classes; via ??_7Rva0007DF07@@6B@
@@ -37,6 +39,7 @@ public:
 	void MarkForUpgrades(const class Rva004E0632 *a);
 	void CancelUpgrades();
 	void ApplyWorldMapUpgrades();
+	Object *rva0040C495(class Player *player, int handle);
 private:
 	MemberAC m_ac;
 	int m_b4;
@@ -262,4 +265,34 @@ void ArmySummaryEntry::ApplyWorldMapUpgrades() {
   }
  }
  m_bc=0;
+}
+
+// Retail 0x0040C495 (54 bytes; WB twin 0x010920D0, callgraph), called once per
+// unit by ArmySummary::LoadArmyEntry (0x0040E534): the base CarryoverUnit
+// creates the object for the player (pinned createSingleObject 0x0037DCE8, the
+// base Rva0037DF2C under its WorldBuilder name), GameLogic's rowed 0x0023D0C2
+// takes it with the handle, and the entry's +0xC0 value goes to the object's
+// +0x460 (WB +0x474).
+extern GameLogic *TheGameLogic;
+class Player;
+class CarryoverUnit
+{
+public:
+	Object *createSingleObject(Player *player);
+};
+
+struct Rva0040C495Object
+{
+	char m_pad[0x460];
+	int m_460;
+};
+
+Object *ArmySummaryEntry::rva0040C495(Player *player, int handle)
+{
+	Object *obj = ((CarryoverUnit *)this)->createSingleObject(player);
+	if (obj) {
+		TheGameLogic->rva0023D0C2(obj, handle);
+		((Rva0040C495Object *)obj)->m_460 = m_c0;
+	}
+	return obj;
 }
