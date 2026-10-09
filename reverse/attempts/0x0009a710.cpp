@@ -1,116 +1,55 @@
 // ??0W3DShadowManager@@QAE@XZ
-// partial score=0.98 date=2026-10-09
-// cl: /DNDEBUG /MD /EHsc /O1 /Oy- /G7 /arch:SSE /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
-// Target evidence: retail 0x0009A383 checks four global pointers in order and
-// calls each manager only when its pointer is non-null. The 91-byte body is
-// byte-verified.
-// Donor evidence: Zero Hour W3DShadow.cpp gives the same aggregate purpose
-// and names its first two checks as volumetric and projected shadow managers.
-// Inference: the target function keeps that owner and appends two checks. The
-// latter helpers retain address-derived names because their owners are unknown.
-
-typedef bool Bool;
-
-class W3DVolumetricShadowManager
-{
-public:
-	Bool ReAcquireResources();
+// partial score=0.99 date=2026-10-09
+// cl: /O1 /MD /EHsc /DNDEBUG /G7 /arch:SSE /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug
+// BF1 clean W3DShadow.cpp 874e38488c semantic lead; target layout/scale
+// and four allocations come from native9A710..9A8D3 and WB777D40.
+struct Coord3D {Coord3D();float x,y,z;};
+#include "../reference/shims/bfme_colmathaabox/wwmath.h"
+#include "../reference/shims/bfme_colmathaabox/vector3.h"
+class Rva000F1A32 {public:Rva000F1A32();private:char body[12];};
+class Rva005D2575 {
+public:Rva005D2575();private:char body[0x1c];
 };
-
-class W3DProjectedShadowManager
-{
-public:
-	Bool ReAcquireResources();
-};
-
-class Rva00108660ResourceManager
-{
- unsigned char opaque[0x274];
-public:
- Rva00108660ResourceManager();
-	Bool ReAcquireResources();
-};
-
-class Rva0007DA23ResourceManager
-{
-public:
-	Bool ReAcquireResources();
-};
-
+class Rva00108DBC {public:Rva00108DBC();private:char body[0x274];};
+class Rva0007C50B {public:Rva0007C50B();private:char body[0x2c];};
+class W3DVolumetricShadowManager;
+class W3DProjectedShadowManager;
+class Rva00108660ResourceManager;
+class Rva0007DA23ResourceManager;
+class AudioManager0029E159;
 extern W3DVolumetricShadowManager *TheW3DVolumetricShadowManager;
-// TheW3DVolumetricShadowManager: matched references place it at VA 0xdebcd8 (zero-filled .bss).
-W3DVolumetricShadowManager * TheW3DVolumetricShadowManager;
 extern W3DProjectedShadowManager *TheW3DProjectedShadowManager;
-// TheW3DProjectedShadowManager: matched references place it at VA 0xdec2cc (zero-filled .bss).
-W3DProjectedShadowManager * TheW3DProjectedShadowManager;
 extern Rva00108660ResourceManager *Rva00DEC2D8Manager;
+extern AudioManager0029E159 *g_00DEC2D4;
 extern Rva0007DA23ResourceManager *Rva00DE1FF8Manager;
-// Rva00DE1FF8Manager: matched references place it at VA 0xde1ff8 (zero-filled .bss).
-Rva0007DA23ResourceManager * Rva00DE1FF8Manager;
-
-struct ShadowLightPoint {
- float x,y,z;
- ShadowLightPoint() {}
-};
-class W3DShadowManager
-{
-public:
- W3DShadowManager();
- Bool ReAcquireResources();
- bool scene; char pad01[3]; unsigned color; unsigned stencil;
- ShadowLightPoint light[1];
-};
-
-Bool W3DShadowManager::ReAcquireResources()
-{
-	Bool result = true;
-	if (TheW3DVolumetricShadowManager && !TheW3DVolumetricShadowManager->ReAcquireResources())
-		result = false;
-	if (TheW3DProjectedShadowManager && !TheW3DProjectedShadowManager->ReAcquireResources())
-		result = false;
-	if (Rva00DEC2D8Manager && !Rva00DEC2D8Manager->ReAcquireResources())
-		result = false;
-	if (Rva00DE1FF8Manager && !Rva00DE1FF8Manager->ReAcquireResources())
-		result = false;
-	return result;
-}
-
-// ?Rva00DEC2D8Manager@@3PAVRva00108660ResourceManager@@A: matched references place it at VA 0xdec2d8; also referenced as ?R2Ptr01306DF0@@3PAVR2GlobalReceiver@@A.
-Rva00108660ResourceManager * Rva00DEC2D8Manager = 0;
-
-#include "wwmath.h"
-#include "vector3.h"
-class GlobalData;
+struct ShadowTerrainLight {float x,y,z;};
+class GlobalData {public:char prefix[0x920];ShadowTerrainLight light[1];};
 extern GlobalData *TheWritableGlobalData;
-struct ShadowGlobalLightView { char pad[0x920]; float x,y,z; };
-class Rva000F1A32 { char opaque[0xC]; public: Rva000F1A32(); };
-class ShadowProjectedConstructorView {
- int field0,field4,field8,fieldC,field10,field14,field18;
-public: __declspec(noinline) ShadowProjectedConstructorView();
+class W3DGameClientShadowShim {
+public:void setLightPosition(int,float,float,float);
 };
-ShadowProjectedConstructorView::ShadowProjectedConstructorView()
-{
- field0=0;field4=0;field8=0;fieldC=0;field10=0;field14=0;field18=0;
-}
-class Rva0007C50B { char opaque[0x2C]; public: Rva0007C50B(); };
-extern class ProjectedShadowManager *TheProjectedShadowManager;
-class W3DGameClientShadowShim { public: void setLightPosition(int,float,float,float); };
-W3DShadowManager::W3DShadowManager()
-{
- color=0x7FA0A0A0;
- scene=false;
- stencil=0;
- ShadowGlobalLightView *g=(ShadowGlobalLightView*)TheWritableGlobalData;
- Vector3 ray(0.0f-g->x,0.0f-g->y,0.0f-g->z);
- ray.Normalize();
- Vector3 scaled=ray*10000000.0f;
- ShadowLightPoint *out=light;
- out->x=scaled.X;out->y=scaled.Y;out->z=scaled.Z;
+class W3DShadowManager {
+public:W3DShadowManager();
+private:
+ bool m_isShadowScene;char padding[3];unsigned m_shadowColor;
+ int m_stencilShadowMask;Coord3D m_lightPos[1];
+};
+W3DShadowManager::W3DShadowManager() {
+ m_shadowColor=0x7fa0a0a0;
+ m_isShadowScene=false;
+ m_stencilShadowMask=0;
+ Vector3 lightRay(-TheWritableGlobalData->light[0].x,
+ -TheWritableGlobalData->light[0].y,-TheWritableGlobalData->light[0].z);
+ lightRay.Normalize();
+ Vector3 scaled=lightRay*10000000.0f;
+ Coord3D *out=&m_lightPos[0];out->x=scaled.X;out->y=scaled.Y;out->z=scaled.Z;
+ // Existing ledger provider names are retained; the physical targets,
+ // not the historical class spellings, identify each submanager here.
  TheW3DVolumetricShadowManager=(W3DVolumetricShadowManager*)new Rva000F1A32;
- TheW3DProjectedShadowManager=(W3DProjectedShadowManager*)new ShadowProjectedConstructorView;
- Rva00108660ResourceManager *v2=new Rva00108660ResourceManager;
- Rva00DEC2D8Manager=v2;
- TheProjectedShadowManager=(ProjectedShadowManager*)v2;
+ TheW3DProjectedShadowManager=(W3DProjectedShadowManager*)new Rva005D2575;
+ Rva00108DBC *projected=new Rva00108DBC;
+ Rva00DEC2D8Manager=(Rva00108660ResourceManager*)projected;
+ g_00DEC2D4=(AudioManager0029E159*)projected;
  Rva00DE1FF8Manager=(Rva0007DA23ResourceManager*)new Rva0007C50B;
- ((W3DGameClientShadowShim*)this)->setLightPosition(0,light[0].x,light[0].y,light[0].z);
+ ((W3DGameClientShadowShim*)this)->setLightPosition(0,m_lightPos[0].x,m_lightPos[0].y,m_lightPos[0].z);
 }
