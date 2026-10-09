@@ -16996,3 +16996,5 @@ _D3DXMatrixTranslation@16,0x0062AF32,First named PE import thunk: FF25 IAT00BBA9
 _isdigit,0x00629982,Native6F97F0 suffix parser calls PE isdigit import thunk629982 repeatedly; named import ji_00629982 independently identifies msvcr71 isdigit
 ?rva0030E67C@Rva0030E961@@QAEMMM@Z,0x0030E67C,callee of ?setZoomToDefault@W3DView@@QAEXXZ
 ??1DrawableRefSlot@@QAE@XZ,0x0010F149,ICF-folded dtor of Drawable's 3x8-byte ref slot (Release_Ref tail jump) passed to ??_L by the Drawable ctor 0x002797BD fold-proof=Code/GameEngine/Source/GameClient/DrawableConstructor.cpp
+?rva00053A1F@MilesAudioManager@@QAEMPAX@Z,0x00053A1F,callee of ?rva00059AD0@MilesAudioManager@@QAEMPAXH@Z
+?rva0005910F@GlobalVolumeData@MilesAudioManager@@QAEMPAVAudioEventRTS@@@Z,0x0005910F,callee of ?rva00059AD0@MilesAudioManager@@QAEMPAXH@Z
