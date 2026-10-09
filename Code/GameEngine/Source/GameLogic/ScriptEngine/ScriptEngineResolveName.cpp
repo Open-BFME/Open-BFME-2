@@ -153,3 +153,13 @@ void Rva0032AFD4::rva0032AFD4(char *out, int start, int length)
 	start -= firstLen;
 	memcpy(out, m_second->str() + start, length);
 }
+
+// BFME1 f98983a7d3 AsciiStringCoordMap provides the cleanup pattern;
+// native 32B067..32B070 forwards one pointer to the narrow string dtor.
+// Its original name, enclosing value type and reachability are unknown.
+#pragma inline_depth(0)
+void __cdecl rva0032B067Cleanup(AsciiString *value)
+{
+	value->AsciiString::~AsciiString();
+}
+#pragma inline_depth()
