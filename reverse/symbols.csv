@@ -6214,7 +6214,6 @@ name,address,notes
 ?Rva003249D2@@YAXPAVGameWindow@@_N@Z,0x003249D2,retail helper called by GadgetListBoxSetBottomVisibleEntry after displayPos update; two stack arguments window and updateSlider=1; relation to BFME1 adjustDisplay is inferred
 ?Rva00324E92Input@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z,0x00324E92,input func pushed at 0x003251E4 for winSetInputFunc
 ?Rva003285D4Input@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z,0x003285D4,"gadget input callback (cdecl window, msg, data1, data2) slot 1 of gadget vtable 0x00BC7DC8 calls (REL32 at 0x000A498F); identity not recovered"
-?Rva00328700@@YAHPAVGameWindow@@@Z,0x00328700,"cdecl helper taking a window, called by push-button window slot 5 0x000A495E (REL32 at 0x000A495F); identity not recovered"
 ?Rva00330995SetTexture@@QAEXPAX@Z,0x00330995,decal texture applier in createRadiusDecal 0x331459 (thiscall on the slot-8-created RadiusDecal with the texture pointer); true method name not recovered
 ?Rva003320C7Find@@YA?AURva003320C7Iterator@@U1@0ABQAX@Z,0x0029B694,Native3320E7 copies two four-byte node iterators plus element address and hidden iterator-result cell to complete rowed29B694/42; external cdecl aggregate ABI alternate binds existing ObjectID-spelled provider without private STL helper copies; original element purpose unknown
 ?Rva003332FEWorker@@YAHHHHPAD@Z,0x003332FE,REL32 worker decoded from target call bytes of same-shape tag-combine member; identity unproven
@@ -17061,3 +17060,4 @@ _D3DXCreateTextureFromFileInMemoryEx@60,0x0062AF7A,Named d3dx9_27.dll PE import 
 ??0Rva005EF92D@@QAE@IPBXH@Z,0x005EF92D,callee of ??0Rva005EFDDB@@QAE@IPBXH@Z
 ??0Impl@RegionDetailsArmiesPage@StrategicInGameUI@@QAE@PAX00ABUPageContext@@@Z,0x005E1FF7,callee of ??0Rva005E1FBC@@QAE@PAX0ABUPageContext@@@Z
 ??0Impl@RegionDetailsTerritoryPage@StrategicInGameUI@@QAE@IABVAsciiString@@PAX@Z,0x005E3753,callee of ??0Rva005E362F@@QAE@PAX00@Z
+?Rva00328354Update@@YAXPAVGameWindow@@@Z,0x00328354,Native direct REL32 at328723 and WB1122410 matched callee1122270 prove cached progress helper; address-derived spelling agrees with N3 verified163B source GadgetButtonSetText.cpp; no second owner

@@ -54,7 +54,7 @@ void Rva00328518(GameWindow *,int);
 void Rva00327D86Update(GameWindow *,bool);
 void GadgetButtonSetAltSound(GameWindow *,AsciiString);
 void commandButtonTooltip(GameWindow *,WinInstanceData *,unsigned int);
-int Rva00328700(GameWindow *);
+void Rva00328700(GameWindow *);
 class Rva0053DAD0
 {
 public:

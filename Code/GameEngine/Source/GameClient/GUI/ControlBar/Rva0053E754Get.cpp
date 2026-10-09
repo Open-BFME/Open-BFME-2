@@ -1,31 +1,21 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
-// ?Rva0053E754Get@@YGPAVObject@@H@Z @0x0053E754 47B
-// Free __stdcall lookup: scan 32-entry table at g_00E05E20 for id then GameLogic findObjectByID. Evidence: rowed findObjectByID 0x00049DC5; global TheGameLogic; caller 0x00328700; neighbour ControlBarUpdateConstruction pattern.
+// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// Native53E754..53E783 RET4; the330B button callback328700 passes this=TheControlBar
+// and a GameWindow stack argument. The previous free stdcall signature omitted
+// that witnessed receiver. Retail ignores this and scans the32 global window/ID
+// pairs before calling the canonical GameLogic provider. Name remains neutral.
 class Object;
-enum ObjectID
-{
-	INVALID_OBJECT_ID = 0
-};
-class GameLogic
-{
-public:
-	Object *findObjectByID(ObjectID id);
-};
+class GameWindow;
+enum ObjectID { INVALID_OBJECT_ID=0 };
+class GameLogic {public:Object *findObjectByID(ObjectID);};
 extern GameLogic *TheGameLogic;
-struct Rva0053E754Entry
-{
-	int m_id;
-	int m_mapped;
-};
+struct Rva0053E754Entry { GameWindow *m_window; int m_mapped; };
 extern Rva0053E754Entry g_00E05E20[32];
-Object * __stdcall Rva0053E754Get(int id)
+class ControlBar {public:Object *rva0053E754(GameWindow *);};
+Object *ControlBar::rva0053E754(GameWindow *window)
 {
-	int mapped = 0;
-	for (int i = 0; i < 0x20; ++i) {
-		if (g_00E05E20[i].m_id == id) {
-			mapped = g_00E05E20[i].m_mapped;
-			break;
-		}
-	}
-	return TheGameLogic->findObjectByID((ObjectID)mapped);
+ int mapped=0;
+ for(int i=0;i<32;++i) {
+  if(g_00E05E20[i].m_window==window) { mapped=g_00E05E20[i].m_mapped;break; }
+ }
+ return TheGameLogic->findObjectByID((ObjectID)mapped);
 }

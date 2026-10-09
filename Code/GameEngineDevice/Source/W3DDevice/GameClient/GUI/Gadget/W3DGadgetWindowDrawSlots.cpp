@@ -540,7 +540,7 @@ Int Rva000A3143Window::draw(WinInstanceData *instData)
 // Slot 5 of the push-button tables 0x00BC9204, 0x00BC9230 and 0x00BC7DC8
 // (0x000A495E): hands the window to 0x00328700 and answers 1 instead of
 // calling the +0x1F0 callback. Modelled on the class of the first two.
-int Rva00328700(GameWindow *window);
+void Rva00328700(GameWindow *window);
 
 class Rva000A495EWindow : public Rva000A6007Window
 {

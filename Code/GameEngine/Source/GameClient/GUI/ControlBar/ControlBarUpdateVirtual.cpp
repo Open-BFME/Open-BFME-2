@@ -28,7 +28,7 @@ class Rva000B3FD0Nop { public: void noop(); };
 class BfmeMemberRV;
 class BfmeThingRV { public: BfmeMemberRV *bfmePickRV(); };
 void *GadgetButtonGetData(GameWindow *);
-int Rva00328700(GameWindow *);
+void Rva00328700(GameWindow *);
 struct ControlBarDrawableView { char unknown00[0xFC]; void *object; };
 struct ControlBarFlashButtonView { char unknown00[0xF8]; int flashCount; };
 #define SLOT(n) virtual void unknown##n()=0;
