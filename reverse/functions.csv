@@ -40188,7 +40188,7 @@ _Rva00020AC0,,0x00020AC0,39,Code/Libraries/Source/WWVegas/WWLib/Rva0084D890CodeP
 ?rva004FF582@Rva004FF582@@QAEXPAURva004FF582Node@@@Z,,0x004FF582,53,Code/GameEngine/Source/Common/Rva004FF582.cpp,matched,chain lane tree free recurses child destroys member frees node
 ?Rva002E0E7CReinsert@@YAXPAPAX0PAX1@Z,,0x002E0E7C,33,Code/GameEngine/Source/Common/Rva002E08A2Insert.cpp,matched,array resort sweep via insert four args caller 0x002E180D
 ?rva005E7D39@Rva005E7D39@@QAEPAXPAX@Z,,0x005E7D39,57,Code/GameEngine/Source/Common/Bfme/Rva005E7D39Erase.cpp,matched,vector erase via rowed Forward and Destroy
-?Rva0027D1A4Forward@@YGXPAXMH@Z,,0x0027D1A4,34,Code/GameEngine/Source/Common/Rva0027D1A4Forward.cpp,matched,null-guarded global 0x009FF080 slot16 with float caller 0x4C3B6C
+?rva0027D1A4@TerrainLogic@@QAEXPBUCoord3D@@MH@Z,,0x0027D1A4,34,Code/GameEngine/Source/Common/Rva0027D1A4Forward.cpp,matched,null-guarded global 0x009FF080 slot16 with float caller 0x4C3B6C
 ?rva002E52FC@OptionPreferences@@QAEXH@Z,,0x002E52FC,127,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_setStaticGameLOD.cpp,matched,Set StaticGameLOD from LOD table or erase via rowed map ops
 ?rva004FF729@Rva004FF582@@QAEXXZ,,0x004FF729,41,Code/GameEngine/Source/Common/Rva004FF582.cpp,matched,chain lane list clear frees via 0x004FF582 then reinits sentinel
 ?rva0029B132@Rva0029B132@@QAEPAV1@XZ,,0x0029B132,56,Code/GameEngine/Source/GameClient/Rva0029B132Init.cpp,matched,unlocks 0x002A0F19 zero plus 1.0f 0xBBB8D8 plus 0x20
@@ -48903,7 +48903,7 @@ _rva006D9D70Comparator,,0x006D9D70,203,Code/Libraries/Source/Apt/AptValue/Rva006
 ?rva0030D428@Rva0030D4F2@@QAEHXZ,,0x0030D428,26,Code/GameEngine/Source/GameClient/Rva0030D4F2Getter.cpp,matched,Dict getter twin g_00DBDC74 caller 0x00282752
 ?Rva0037BA97Init@@YA?AUTriple12@@PBUPair8@@H@Z,,0x0037BA97,43,Code/GameEngine/Source/Common/System/Rva0037BA97Finish.cpp,matched,struct-return Triple12 builder from Pair8 plus int; exact 43B
 ?rva0037F51A@Rva0037F51A@@QAEAAV1@ABV1@@Z,,0x0037F51A,55,Code/GameEngine/Source/Common/Rva0037F51A.cpp,matched,same 0x20 layout as 0x0037F4EA; callers 0x0037F551 0x0037F950
-?Rva001117B4IsPow2@@YGEH@Z,,0x001117B4,47,Code/GameEngine/Source/Common/Rva001117B4Finish.cpp,matched,power-of-two test 1..64 with shared true block
+?hasRGBDataForWidth@TileData@@QAE_NH@Z,,0x001117B4,47,Code/GameEngine/Source/Common/Rva001117B4Finish.cpp,matched,power-of-two test 1..64 with shared true block
 ?rva004ED471@Rva004ED471@@QAEXPAVModelNodeClass@HLodClass@@PBV23@PBXI_N@Z,,0x004ED471,189,Code/Libraries/Source/WWVegas/WW3D2/Rva004ED471Finish.cpp,matched,HLod ModelNode vector overflow via empty allocator temp
 ??1Rva00425F10@@UAE@XZ,,0x004260A3,59,Code/GameEngine/Source/GameClient/GUI/FontLibraryInit.cpp,matched,
 ??_GRva00425F10@@UAEPAXI@Z,,0x0042619C,28,Code/GameEngine/Source/GameClient/GUI/FontLibraryInit.cpp,matched,
@@ -67246,7 +67246,7 @@ _Rva008504C0,,0x00023650,159,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleC
 ?rva002796D9@Rva002796D9Host@@QAEXH@Z,,0x002796D9,114,Code/GameEngine/Source/Common/Rva002796D9.cpp,matched,switch dispatcher over mode
 ?rva0027930F@Rva0027930FHost@@QAEXH@Z,,0x0027930F,69,Code/GameEngine/Source/Common/Rva0027930F.cpp,matched,copy-ctor tmp plus flag call and state replace
 ?rva0027F13C@Rva0027F13CHost@@QAEHHHM@Z,,0x0027F13C,53,Code/GameEngine/Source/Common/Rva0027F13C.cpp,matched,float forward with stack buf
-?rva0027F28E@@YGXHMH@Z,,0x0027F28E,36,Code/GameEngine/Source/Common/Rva0027F28E.cpp,matched,float forward with coalesced copy-local and Oy-
+?rva0027F28E@TerrainLogic@@QAEXPBUCoord3D@@MH@Z,,0x0027F28E,36,Code/GameEngine/Source/Common/Rva0027F28E.cpp,matched,float forward with coalesced copy-local and Oy-
 ?rva0028B749@Rva0028B749Host@@QAEXHM@Z,,0x0028B749,36,Code/GameEngine/Source/Common/Rva0028B749.cpp,matched,gated player float forward
 ?rva0028BAC0@Rva0028BAC0Host@@QAEXXZ,,0x0028BAC0,132,Code/GameEngine/Source/Common/Rva0028BAC0.cpp,matched,manager cascade with single twin notify
 ?rva00298AAD@Object@@QAEXPAVTeam@@@Z,,0x00298AAD,55,Code/GameEngine/Source/GameLogic/Object/ObjectRva00298AAD.cpp,matched,Object 55B team-change gate via status 0x3E plus pinned hook
@@ -72139,3 +72139,6 @@ _VP6_GetYUVConfig,,0x001B5C60,1147,Code/Libraries/Source/VP6/GetYUVConfig.cpp,ma
 ?preRender@ScreenHilightFilter@@UAE_NAA_NAAW4CustomScenePassModes@@@Z,,0x000FAAC5,370,Code/GameEngineDevice/Source/W3DDevice/GameClient/ScreenHilightFilterPreRender.cpp,matched,slot 2 of ScreenHilightFilter vftable 0x007CF31C; gaussian kernel rebuild at +0x18 then back buffer StretchRect into surface pair +0x30 when TheWritableGlobalData+0xD34 else render target +0x2C cleared
 ?getIndicesNVertices@W3DBridge@@QAEXPAGPAUVertexFormatXYZNDUV1@@PAH2PAV?$RefMultiListIterator@VRenderObjClass@@@@@Z,,0x000DF11E,1038,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBridgeGetModelVerticesFixed.cpp,matched,ZH getIndicesNVertices less the overflow returns; span count floored with CRT floor plus x87 fistp; getModelIndices 0x000DE5D2 pinned from the three thiscall sites
 ?GetWallHeight@Pathfinder@@QAEMW4PathfindLayerEnum@@PBUCoord3D@@PAU3@@Z,,0x002EF68C,636,Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp,matched,WB D3ED70 name/callgraph; retail layer/ramp/bridge ABI and four corner probes; ZH Bridge height semantics; existing nontrivial coordinate parameter; explicit result if/else closes max tail
+?Rva0005CC28Xfer@@YAPAVXfer@@PAV1@PAV?$map@VAsciiString@@MU?$less@VAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@M@_STL@@@3@@_STL@@@Z,,0x0005CC28,281,Code/Libraries/Source/xfer/Rva0005CC28XferAsciiStringRealMap.cpp,matched,Xfer of a map<AsciiString Real> (twin of the rowed Rva00470222Xfer; WB 7B4B70): version 1 then the std::map count then a save walk via the pair copy 466EA7 or load that throws XferException Map must be empty on load; EH; full 281B exact (helper-agent work reviewed)
+?rva0057B383@Rva0057AD26@@QAEXXZ,,0x0057B383,278,Code/GameEngine/Source/GameClient/GUI/ChecklistItemRva0057B383.cpp,matched,StrategicHUD checklist item removal (WB 14BAFB0 DeleteItem) on the item class of the rowed DoSelect 57AD26: holder release 57A418 / list<int>::erase 438539 / scroll refresh 57B16D; EH; full 278B exact (helper-agent work reviewed)
+?rva000AED2E@Rva000AED2EWorldHeightMapView@@QAEPAEHHHHHH@Z,,0x000AED2E,428,Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapRva000AED2E.cpp,matched,BFME2 six-argument getPointerToTileData (WB 7722C0): direct pitch copy when unblended else rawTile into the shared _s_buffer plus blendTile and the extra blend; TileData::hasRGBDataForWidth 1117B4 respelled from a free stdcall; keeps its pinned spelling; full 428B exact (helper-agent work reviewed)

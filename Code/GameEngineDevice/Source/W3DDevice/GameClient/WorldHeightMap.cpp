@@ -2248,7 +2248,9 @@ AsciiString WorldHeightMap::getTerrainNameAt(Real x, Real y)
 }	
 
 
-static UnsignedByte s_buffer[DATA_LEN_BYTES];
+// The ledger names this buffer _s_buffer (0x009E81C8); the six-argument
+// getPointerToTileData in WorldHeightMapRva000AED2E.cpp shares it.
+extern "C" { UnsignedByte s_buffer[DATA_LEN_BYTES]; }
 static UnsignedByte s_blendBuffer[DATA_LEN_BYTES];
 
 // ?getPointerToTileData@WorldHeightMap@@ present-unmatched
