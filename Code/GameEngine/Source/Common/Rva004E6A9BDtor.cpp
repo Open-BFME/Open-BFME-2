@@ -3,10 +3,10 @@
 // Non-virtual dtor of Rva004E6A9B. Notifies via globals then clears holders.
 class Rva00222A8BTarget;
 extern Rva00222A8BTarget *TheRva00222A8BTarget;
-class Rva00224B7DTarget
+class AptPlayer
 {
 public:
-    bool method(int v);
+    bool RemoveLevel(int v);
 };
 class DisplayStringManager
 {
@@ -72,7 +72,7 @@ public:
 Rva004E6A9B::~Rva004E6A9B()
 {
     if (TheRva00222A8BTarget)
-        ((Rva00224B7DTarget *)TheRva00222A8BTarget)->method(m04);
+        ((AptPlayer *)TheRva00222A8BTarget)->RemoveLevel(m04);
     if (TheDisplayStringManager)
         TheDisplayStringManager->v15(m4C);
 }

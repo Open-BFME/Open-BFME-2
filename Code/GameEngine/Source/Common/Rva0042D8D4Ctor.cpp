@@ -4,7 +4,7 @@
 // "Apt\\" and "StrategicHUD.apt" plus two zero args. Caller at 0x0023A16C proves shape.
 // ??1Rva0042D8D4@@QAE@XZ @ 0x0042D480 19B: when the Apt window manager
 // g_bfmeAptWindowManager (the same global as TheRva00222A8BTarget, VA
-// 0x00DFE4CC) is set, its pinned ?method@Rva00224B7DTarget@@QAE_NH@Z 0x00224B7D
+// 0x00DFE4CC) is set, its pinned ?RemoveLevel@AptPlayer@@QAE_NH@Z 0x00224B7D
 // is called with the handle m_0, as in Rva005EC09BDtor.cpp. Callers: the
 // Rva0023A128 destructor 0x00239D7A (member at +0x14) and its ctor's unwind.
 #include "ascii_string.h"
@@ -36,10 +36,10 @@ public:
 extern Rva00222A8BTarget *TheRva00222A8BTarget;
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
-class Rva00224B7DTarget
+class AptPlayer
 {
 public:
-	bool method(int value);
+	bool RemoveLevel(int value);
 };
 class Rva0042D8D4
 {
@@ -56,5 +56,5 @@ Rva0042D8D4::Rva0042D8D4()
 Rva0042D8D4::~Rva0042D8D4()
 {
 	if (g_bfmeAptWindowManager)
-		((Rva00224B7DTarget *)g_bfmeAptWindowManager)->method(m_0);
+		((AptPlayer *)g_bfmeAptWindowManager)->RemoveLevel(m_0);
 }

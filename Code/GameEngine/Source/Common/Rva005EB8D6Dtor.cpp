@@ -1,13 +1,13 @@
 // cl: /O1 /MD /EHsc /arch:SSE /G7
 // ??1Rva005EB8D6@@QAE@XZ, RVA 0x005EB8D6, 127 bytes.
 // Address-based destructor; member offsets and destruction order follow retail accesses. The Apt-manager base relationship is inferred from the call target and the existing manager global declaration.
-class Rva00224B7DTarget
+class AptPlayer
 {
 public:
-	bool method(int value);
+	bool RemoveLevel(int value);
 };
 class AsciiString;
-class BfmeAptWindowManager : public Rva00224B7DTarget
+class BfmeAptWindowManager : public AptPlayer
 {
 public:
 	void rva00225375(const AsciiString &, const AsciiString &, bool);
@@ -61,5 +61,5 @@ public:
 Rva005EB8D6::~Rva005EB8D6()
 {
 	if (g_bfmeAptWindowManager != 0)
-		g_bfmeAptWindowManager->method(m_status);
+		g_bfmeAptWindowManager->RemoveLevel(m_status);
 }

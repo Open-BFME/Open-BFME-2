@@ -22,10 +22,10 @@ extern void *TheRva00222A8BOwner;
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 
-class Rva00224B7DTarget
+class AptPlayer
 {
 public:
-	bool method(int v);
+	bool RemoveLevel(int v);
 };
 
 void __cdecl Rva00380705Free();
@@ -45,7 +45,7 @@ void Rva0038072AClear()
 	}
 	if (TheRva00222A8BOwner != (void *)-1)
 	{
-		((Rva00224B7DTarget *)g_bfmeAptWindowManager)->method((int)TheRva00222A8BOwner);
+		((AptPlayer *)g_bfmeAptWindowManager)->RemoveLevel((int)TheRva00222A8BOwner);
 		TheRva00222A8BOwner = (void *)-1;
 	}
 	Rva00380705Free();

@@ -10220,7 +10220,6 @@ name,address,notes
 ?maxAbove@BfmeObjEB@@QBEMXZ,0x006BD7C0
 ?measure@BfmeSlot1173@@QAEXPAVRva007F5010Player@@@Z,0x0066E5F0
 ?mergeState@AptDisplayList@@QAEXPAVAptPseudoDisplayList@@PAVAptNativeHash@@_N@Z,0x006F9410,native jumpToFrame REL32 display24 receiver and pseudo-oldHash-forward args; donor mergeState; native921B supplier unrowed
-?method@Rva00224B7DTarget@@QAE_NH@Z,0x00224B7D,REL32 callee decoded from target call bytes of wrapper 0x00224BC9; Apt-global method identity unproven
 ?method@Rva002E2D10Sub@@QAEHH@Z,0x002E2D10,REL32 callee decoded from target call bytes of same-shape wide-adjust wrapper; identity unproven
 ?method@Rva0040D280Sub@@QAEXPAVObject@@H@Z,0x0040D280,opaque thiscall-view alias; same body as rowed stdcall Rva0040D280Set; identity unproven
 ?method@Rva0040D380Sub@@QAEHH@Z,0x0040D380,REL32 callee decoded from target call bytes of same-shape wide-adjust wrapper; identity unproven

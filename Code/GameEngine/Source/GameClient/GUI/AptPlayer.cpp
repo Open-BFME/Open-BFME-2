@@ -146,6 +146,7 @@ public:
  bool ShowLevel(int index);
  bool UnloadLevel(int index);
  bool HideLevel(int index);
+ bool RemoveLevel(int index);
  void GetExtern(const char *name,char *out);
  const Image *FindRenderImage(const char *targetName,const char *parameters);
 	void PopFocus(AptFocusTarget *target);
@@ -490,4 +491,18 @@ bool AptPlayer::HideLevel(int index)
  if(TheMouse) TheMouse->rva001EEA6D(UnicodeString::TheEmptyString,0,0,1.0f);
  if(!(entry->m_flags&2)) return false;
  return UnloadLevel(index);
+}
+
+class Rva000427195 { public: int rva00223429(const AsciiString *); };
+class Rva0022494F { public: void rva0022494F(); };
+// WB B94410 AptPlayer.cpp1118..1121 names RemoveLevel; native24B7D..24BC9.
+bool AptPlayer::RemoveLevel(int index)
+{
+ if(static_cast<unsigned>(index)>=14) return false;
+ Rva00062908Host::Slot *entry=&m_levelData[index];
+ if(entry->m_c==-1) return false;
+ if(entry->m_flags&2) UnloadLevel(index);
+ reinterpret_cast<Rva000427195 *>(m_pad05c)->rva00223429(&entry->m_s0);
+ reinterpret_cast<Rva0022494F *>(entry)->rva0022494F();
+ return true;
 }
