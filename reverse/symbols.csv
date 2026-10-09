@@ -8490,7 +8490,6 @@ name,address,notes
 ?bfmeSmallVLW@@YAPAXI@Z,0x000279A0
 ?bfmeSortAVJX@@YAXPAUBfmeElemVJX@@0UBfmeCmpVJX@@@Z,0x00626990
 ?bfmeSortBVJX@@YAXPAUBfmeElemVJX@@0UBfmeCmpVJX@@@Z,0x00626940
-?bfmeStartCW@BfmeHostCW@@QAEXXZ,0x0020453C,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?bfmeStep1035@BfmeA1035@@QAEXD@Z,0x000B6F6D,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?bfmeStep1_250@@YAXPAX@Z,0x006A4EC0,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?bfmeStep2_250@@YAXPAX@Z,0x006A41C0,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
@@ -10583,7 +10582,6 @@ name,address,notes
 ?release@Gen0002857E@@QAEXXZ,0x0010ECE4,retail callee at +0x1E of the BFME1-donor Rva00691040Handle::operator= (0x000A8A43)
 ?release@Mem00887940@@QAEXXZ,0x00036410,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?release@Rva00036E70Releaser@@QAEXXZ,0x00036E70,opaque alias: same body as rowed StringBase wide releaseBuffer; callee of string-release dtor 0x004E58ED
-?release@Rva0020453CHolderBase@@QAEXXZ,0x0020453C,retail REL32 from ~ScriptEngine 0x20A31E; called on the debug-window holder held at 0xDFE154 right after its inline dtor stores vtable 0xBE39F4; clears +4 when +4 and +8 are set
 ?release@Rva0033B1CDNarrow@@QAEXXZ,0x00036410,opaque alias: same body as rowed narrow StringBase releaseBuffer; first phase of step 0x0033B1CD
 ?release@Rva0033B1CDWide@@QAEXXZ,0x00036E70,opaque alias: same body as rowed wide StringBase releaseBuffer; second phase of step 0x0033B1CD
 ?release@Rva0048C200String@@QAEXXZ,0x00036410,callee of 0Rva0048C200Owner (0x00201998) at the site its BFME1 donor calls it; may be an ICF alias

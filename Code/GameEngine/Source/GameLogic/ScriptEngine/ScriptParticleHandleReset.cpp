@@ -3,6 +3,8 @@
 // and installs vtable7E39F4. Reset destroys the flagged particle if present,
 // then zerosID. Original receiver/method names unresolved. Semantic source
 // lead: ZH ScriptEngine particle editor cleanup; target callback layout and
+// Existing neutral HolderBase name is adopted from its owned11B destructor
+// and71B caller so those consumers resolve this provider directly.
 // by-value12B handle are BF2 facts, independently established by owned
 // ParticleSystemManager find111 and ParticleSystemHandle destructor55.
 class ParticleSystem {public:void destroy();};
@@ -18,17 +20,17 @@ public:
  BfmeParticleSystemHandle *previous,*next;
 };
 enum ParticleSystemID { INVALID_PARTICLE_SYSTEM_ID=0 };
-class Rva0020453C;
+class Rva0020453CHolderBase;
 class ParticleSystemManager {
- friend class Rva0020453C;
+ friend class Rva0020453CHolderBase;
  BfmeParticleSystemHandle findParticleSystemByID(ParticleSystemID);
 };
 extern ParticleSystemManager *TheParticleSystemManager;
-class Rva0020453C {
-public:void reset();
+class Rva0020453CHolderBase {
+public:void release();
 private:unsigned int unknown00;ParticleSystemID id;bool destroyOnReset;
 };
-void Rva0020453C::reset(){
+void Rva0020453CHolderBase::release(){
  if(id!=INVALID_PARTICLE_SYSTEM_ID && destroyOnReset){
   BfmeParticleSystemHandle handle=TheParticleSystemManager->findParticleSystemByID(id);
   if(handle){
