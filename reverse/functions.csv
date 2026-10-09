@@ -5306,7 +5306,7 @@ _Rva008143A0,,0x006802A0,38,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,mat
 ?bfmeGoCGD@BfmeThingCGD@@QAEXXZ,,0x0075A490,41,Code/GameEngine/Source/Common/BfmeConv597.cpp,matched,
 ?bfmeGoBZC@BfmeThingBZC@@QAEXPAUBfmeSrcBZC@@H@Z,,0x0066EDE0,36,Code/GameEngine/Source/Common/BfmeConv558.cpp,matched,
 ?bfmeGoBVA@BfmeThingBVA@@QAEPAV1@PAV1@@Z,,0x002CFB29,35,Code/GameEngine/Source/Common/BfmeConv536.cpp,matched,
-?bfmeGo998C@BfmeC998@@QAEXH@Z,,0x0016AB90,44,Code/GameEngine/Source/Common/BfmeConv998.cpp,matched,
+?bfmeGo998C@BfmeC998@@QAEHH@Z,,0x0016AB90,44,Code/GameEngine/Source/Common/BfmeConv998.cpp,matched,
 ?bfmeGoOV@@YAXPAX000@Z,,0x00029EB0,38,Code/GameEngine/Source/Common/BfmeTwoHundredFiftySeven.cpp,matched,
 ?bfmeGoPL@BfmeThingPL@@QAEXPAD@Z,,0x0002B3B0,43,Code/GameEngine/Source/Common/BfmeTwoHundredSeventyTwo.cpp,matched,
 ?bfmeSwapQH@@YAXPAH0@Z,,0x00025A80,70,Code/GameEngine/Source/Common/BfmeTwoHundredNinetyTwo.cpp,matched,
