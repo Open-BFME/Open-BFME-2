@@ -25,3 +25,12 @@ void INI::parseDurationReal(INI *ini, void *instance, void *store, const void *u
 	(void)instance;
 	(void)userData;
 }
+
+// BFME1 f989 GameCommon.h ConvertDurationFromMsecsToFrames is the
+// reference expression. Retail uses the established mutable duration
+// factor above: 00203521..0020352C/11 after RET203520, one stack float,
+// fld factor / fmul argument / RET0, ST0 result. Original name unknown.
+float rva00203521(float value)
+{
+    return g_parseDurationMsecScale * value;
+}

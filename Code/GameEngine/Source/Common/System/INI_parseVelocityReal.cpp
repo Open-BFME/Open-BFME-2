@@ -32,3 +32,12 @@ void INI::parseVelocityReal(INI *ini, void * /*instance*/, void *store, const vo
 	float val = ini->scanReal(ini->getNextToken(0));
 	*(float *)store = g_secondsPerLogicFrame * val;
 }
+
+// BFME1 f989 GameCommon.h ConvertVelocityInSecsToFrames is the
+// reference expression. BFME2 uses the existing mutable factor above.
+// Native 001E347D..001E3488/11 follows RET at001E347C: fld factor,
+// fmul stack float, RET0, x87 ST0 result. Original helper name unknown.
+float rva001e347d(float value)
+{
+    return g_secondsPerLogicFrame * value;
+}
