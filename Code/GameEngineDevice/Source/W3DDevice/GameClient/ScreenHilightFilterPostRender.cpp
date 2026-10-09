@@ -1,4 +1,14 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
+//
+// ScreenHilightFilter::set, retail 0x000FB10B..0x000FB2C1 (438B), is slot 5
+// of the same vftable. The clean BFME 1 donor at revision
+// f98983a7d3bb405f1a4ba94bb6a2a168062a819d (game/GameEngineDevice/Source/
+// W3DDevice/GameClient/ScreenHilightFilterSet.cpp) establishes the material,
+// opaque shader, two empty textures and depth-state setup. BFME 2 uses the
+// matched ScreenBWFilter helpers and texture-reference ABI; every body byte
+// and relocation agrees. This partial class view retains the donor's spelling.
+// Set_Hilight_Render_State keeps this inlined setup separate from postRender's
+// existing out-of-line Set_DX8_Render_State calls.
 //
 // ScreenHilightFilter::postRender, slot 3 of its vftable (0x007CF31C, after
 // the rowed preRender 0x000FAAC5). Zero Hour's postRender contract with
@@ -51,7 +61,9 @@ struct IDirect3DDevice8
 	S(03) S(04) S(05) S(06) S(07) S(08) S(09) S(10) S(11) S(12) S(13) S(14) S(15) S(16) S(17)
 	S(18) S(19) S(20) S(21) S(22) S(23) S(24) S(25) S(26) S(27) S(28) S(29) S(30) S(31) S(32)
 	S(33) S(34) S(35) S(36) S(37) S(38) S(39) S(40) S(41) S(42) S(43) S(44) S(45) S(46) S(47)
-	S(48) S(49) S(50) S(51) S(52) S(53) S(54) S(55) S(56) S(57) S(58) S(59) S(60) S(61) S(62)
+	S(48) S(49) S(50) S(51) S(52) S(53) S(54) S(55) S(56)
+	virtual long __stdcall SetRenderState(unsigned long state, unsigned long value) = 0; // 57
+	S(58) S(59) S(60) S(61) S(62)
 	S(63) S(64)
 	virtual long __stdcall SetTexture(unsigned stage, IDirect3DBaseTexture8 *texture) = 0;	// 65
 	S(66) S(67) S(68)
@@ -71,6 +83,79 @@ struct IDirect3DDevice8
 extern unsigned number_of_DX8_calls;
 extern unsigned g_fvfShader;
 
+class StringClass
+{
+public:
+	StringClass(int initial_len = 0, bool hint_temporary = false);
+	__forceinline ~StringClass() { Free_String(); }
+private:
+	void Free_String();
+	char *m_Buffer;
+};
+
+class VertexMaterialClass
+{
+public:
+	enum PresetType
+	{
+		PRELIT_DIFFUSE = 0
+	};
+	virtual void Delete_This();
+	static VertexMaterialClass *Get_Preset(PresetType type);
+	void Add_Ref() { NumRefs++; }
+	void Release_Ref()
+	{
+		NumRefs--;
+		if (NumRefs == 0)
+			Delete_This();
+	}
+	int NumRefs;
+};
+extern VertexMaterialClass *ScreenMaterial;
+
+class ShaderClass
+{
+public:
+	static ShaderClass _PresetOpaqueShader;
+	unsigned int ShaderBits;
+protected:
+	friend class DX8Wrapper;
+	static bool ShaderDirty;
+private:
+	unsigned int m_bits[2];
+};
+
+class TextureBaseClass
+{
+public:
+	void Release_Ref();
+};
+
+struct BFME2TextureResource;
+struct BFME2TextureRef
+{
+	BFME2TextureRef(BFME2TextureResource *texture) : Ptr(texture) {}
+	~BFME2TextureRef()
+	{
+		if (Ptr)
+			((TextureBaseClass *)Ptr)->Release_Ref();
+	}
+	BFME2TextureResource *Ptr;
+};
+void BFME2Set_Texture(unsigned stage, const BFME2TextureRef &texture);
+
+class WW3D
+{
+public:
+	static bool Is_Snapshot_Activated() { return SnapshotActivated; }
+private:
+	static bool SnapshotActivated;
+};
+
+struct RenderStateStruct
+{
+	ShaderClass shader;
+};
 class DX8Wrapper
 {
 public:
@@ -80,6 +165,41 @@ public:
 	static void Set_DX8_Render_State(unsigned long state, unsigned value);
 	static void Set_DX8_Texture_Stage_State(unsigned stage, unsigned long state, unsigned value);
 	static void Apply_Render_State_Changes();
+
+	static void Get_DX8_Render_State_Value_Name(StringClass &name, unsigned long state, unsigned int value);
+	static __forceinline void Set_Material(VertexMaterialClass *material)
+	{
+		if (material)
+			material->Add_Ref();
+		if (ScreenMaterial)
+			ScreenMaterial->Release_Ref();
+		ScreenMaterial = material;
+		render_state_changed |= 0x4000;
+	}
+
+	static __forceinline void Set_Shader(const ShaderClass &shader)
+	{
+		if (!ShaderClass::ShaderDirty && shader.ShaderBits == render_state.shader.ShaderBits)
+			return;
+		render_state.shader.ShaderBits = shader.ShaderBits;
+		render_state_changed |= 0x8000;
+		StringClass str;
+	}
+
+	static __forceinline void Set_Hilight_Render_State(unsigned long state, unsigned value)
+	{
+		if (RenderStates[state] == value)
+			return;
+		if (WW3D::Is_Snapshot_Activated())
+		{
+			StringClass value_name(0, true);
+			Get_DX8_Render_State_Value_Name(value_name, state, value);
+		}
+		RenderStates[state] = value;
+		_Get_D3D_Device8()->SetRenderState(state, value);
+		number_of_DX8_calls++;
+		render_state_changes++;
+	}
 
 	static __forceinline void Set_DX8_Sampler_State(unsigned stage, unsigned type, unsigned value)
 	{
@@ -121,6 +241,10 @@ protected:
 	static unsigned texture_changes;
 	static unsigned texture_stage_state_changes;
 	static Vector4 Pixel_Shader_Constants[8];
+	static unsigned RenderStates[256];
+	static unsigned render_state_changed;
+	static unsigned render_state_changes;
+	static RenderStateStruct render_state;
 };
 
 class W3DShaderManager
@@ -154,6 +278,8 @@ struct BfmeHilightGlobalDataView
 	bool m_D34;
 };
 
+enum FilterModes { FM_NULL_MODE = 0 };
+
 class ScreenHilightFilter
 {
 public:
@@ -162,7 +288,9 @@ public:
 	virtual bool preRender(bool &skipRender, int &scenePassMode);
 	virtual bool postRender(int mode, Coord2D &scrollDelta, bool &doExtraRender, Coord2D *viewportSize);
 	virtual void slot10();
-	virtual int set(int mode);
+protected:
+	virtual int set(FilterModes mode);
+public:
 	virtual void reset();
 private:
 	unsigned m_pixelShader;	// +0x04
@@ -188,7 +316,7 @@ bool ScreenHilightFilter::postRender(int mode, Coord2D &scrollDelta, bool &doExt
 		m_14 = false;
 		return true;
 	}
-	if (!set(mode))
+	if (!set((FilterModes)mode))
 		return false;
 	if (TheWritableGlobalData && ((BfmeHilightGlobalDataView *)TheWritableGlobalData)->m_D34) {
 		DX8Wrapper::Set_Render_Target(m_renderTarget, false);
@@ -241,5 +369,24 @@ bool ScreenHilightFilter::postRender(int mode, Coord2D &scrollDelta, bool &doExt
 	number_of_DX8_calls++;
 	W3DShaderManager::drawViewport(-1, true, (const Vector2 *)viewportSize);
 	reset();
+	return true;
+}
+
+// ?set@ScreenHilightFilter@@MAEHW4FilterModes@@@Z @0x000FB10B
+int ScreenHilightFilter::set(FilterModes mode)
+{
+	if (mode > FM_NULL_MODE)
+	{
+		VertexMaterialClass *vmat = VertexMaterialClass::Get_Preset(VertexMaterialClass::PRELIT_DIFFUSE);
+		DX8Wrapper::Set_Material(vmat);
+		if (vmat) vmat->Release_Ref();
+		DX8Wrapper::Set_Shader(ShaderClass::_PresetOpaqueShader);
+		BFME2Set_Texture(0, 0);
+		BFME2Set_Texture(1, 0);
+		DX8Wrapper::Apply_Render_State_Changes();
+		DX8Wrapper::Set_Hilight_Render_State(23, 8);
+		DX8Wrapper::Set_Hilight_Render_State(14, 0);
+		DX8Wrapper::Apply_Render_State_Changes();
+	}
 	return true;
 }
