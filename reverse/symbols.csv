@@ -11706,7 +11706,6 @@ name,address,notes
 ?rva0042682B@Rva004266A1@@QAEXHE@Z,0x0042682B,void member (int uchar); call-site pushes (index-1 0/1); callee body stores low byte at struct+5; sibling rowed QAEEH family proves class Rva004266A1
 ?rva00426914@Rva004266A1@@QAEXHE@Z,0x00426914,void member (int uchar); call-site pushes (index-1 0/1); callee body stores low byte at struct+6; sibling rowed QAEEH family proves class Rva004266A1
 ?rva0042D068@Rva0042CBB6@@QAEXXZ,0x0042D068,unrowed 1024B (Ghidra FUN_0082d068); REL32 call from GameClient::update 0x0023BF07 with ECX=g_00E03210 which the Rva0042CBB6 ctor stores; no arguments; address name
-?rva0042F213@BfmeOwnVVD@@QAEXXZ,0x0042F213,unrowed 1958B (Ghidra FUN_0082f213); REL32 call from GameClient::update 0x0023BEFC with ECX=g_bfmeSingletonVVD (0x00E03214) and no arguments; address name
 ?rva0042FB60@@YAXHPADHPBD@Z,0x0042FB60,cdecl-4 called from 0x006049D8; identity unproven
 ?rva00431978@Rva00431978@@QAE_NPAUICoord2D@@@Z,0x00431978,bool return proven by caller test al at 0x00431C10 twin of int row
 ?rva00432AA2@Rva0043283C@@QAEXXZ,0x00432AA2,unrowed 35B thiscall (Ghidra; plain ret) on the click-through handler g_Va00E032C8 (Rva0043283CDtor.cpp's singleton): picks an entry from its +0x68/+0x158 tables via rowed Rva00432931Pick and emits it via rowed 0x004328D8; tail of the global Apt callback OnClickThroughPress 0x004127D3; address name
@@ -17065,3 +17064,4 @@ _log,0x00629B0E,log double import thunk (gen-import row ji_00629b0e: msvcr71 slo
 ?rva0025D358@BfmeStrVM0@@QAEXVUnicodeString@@MMHHH@Z,0x0025D358,UnicodeString spelling of the rowed W3DDisplay text setter ?rva0025D358@BfmeStrVM0@@QAEXV?$StringBase@G@@MMHHH@Z (same body; caller 0x00356AC1 passes a UnicodeString copy built by the StringBase<G> copy ctor 0x00037050)
 ?Rva0012CB67@@YA_NPAU_iobuf@@_N@Z,0x0012CB67,callee of InitializeAssetManager 0x0012CFA0 at its three asset.dat reader sites; binary EALA/102 reader (WB 9D5C30 assetinit.cpp:54); body unrowed
 _exp,0x00629958,exp double import thunk (gen-import row ji_00629958: msvcr71 slot 0x00BBA560 import exp); called by createGaussianVector 0x000780BC
+??1?$auto_ptr@VRva0052B685Pointee@@@_STL@@QAE@XZ,0x002E3A80,ICF-folded auto_ptr<Rva0052B685Pointee> dtor that the BuildingNugget parser 0x002E012D unwind funclet calls fold-proof=Code/GameEngine/Source/Common/INI/Rva002E012DParseBuildingNugget.cpp
