@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /Ob1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Oy-
+// cl: /Ireference/shims/bfme2_ascii /Ob1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // ?rva0020EDD5@Rva0020EDD5@@QAE?AVUnicodeString@@H@Z @0x0020EDD5 84B
 // Honest-address __thiscall returning UnicodeString selected by int index:
 // switch 1/2/3 fetches Ascii labels at *(this+8)+8/+4/+12 via TheGameText
