@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /MD /EHsc /Ireference/shims/bfme2_ascii /D_CRTIMP=
+// cl: /O1 /Oy- /G7 /MD /EHsc /Ireference/shims/bfme2_ascii /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // Target evidence: WB DA2310 names appendDisplayCommandPointBonus in
 // LivingWorldBuildingTemplate.cpp; retail 2DFD9F..2DFE36 is 151 bytes.
 // Kind +2C == 3 selects IncreaseCommandPoints. Its nugget contributes +0C
@@ -11,6 +11,8 @@
 // reproduce the helper's lack of EH; the formatter retains both EH states.
 // No corresponding clean BF1 ba7ddda or ZH building-template donor found.
 // Identity and accessed offsets come from target debug and native evidence.
+// stlport
+#include <algorithm>
 #include "ascii_string.h"
 #include "unicode_string.h"
 class BuildingNuggetView
@@ -64,4 +66,27 @@ void LivingWorldBuildingTemplate::appendDisplayCommandPointBonus(UnicodeString &
         text.format(&text, nugget->commandPoints);
         description += text;
     }
+}
+
+// Native 0x002DFA43..0x002DFA7A RET4, called by OwnershipSet's building loop
+// and the existing template-store export helpers. The original predicate name
+// is unknown; retain the existing admitted Rva0059E647Entry::Check spelling.
+// Empty key ranges at +3C/+40 accept every key; otherwise search four-byte keys.
+struct Rva0059E647Entry
+{
+    unsigned char unknown00[0x3c];
+    int *begin;
+    int *end;
+    bool Check(int key);
+};
+bool Rva0059E647Entry::Check(int key)
+{
+    // Retail observes the range again after the empty-range branch.
+    if (*(int *volatile *)&begin == *(int *volatile *)&end)
+        return true;
+    int value = key;
+    // Preserve retail's independent load and store of the outgoing search key.
+    *(volatile int *)&key = value;
+    int *last = end;
+    return _STL::find(begin, last, key) != last;
 }
