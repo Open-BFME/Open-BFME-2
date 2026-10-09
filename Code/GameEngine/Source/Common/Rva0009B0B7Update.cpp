@@ -1,8 +1,8 @@
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD
 //
-// ?rva0009B0B7@Rva0008FF3E@@UAEXXZ, retail 0x0009B0B7..0x0009B254 (413 bytes).
-// Slot 27 (+0x6C) of the vtable 0x007C7DC8 that the rowed constructor
-// 0x0008FF3E stores. A per-frame update: nothing while the game is paused,
+// ?rva0009B0B7@Rva0009D55BProduct@@UAEXXZ, retail 0x0009B0B7..0x0009B254 (413 bytes).
+// Slot 27 (+0x6C) of the vtable 0x007C89C8 that the rowed constructor
+// 0x0009D55B stores. A per-frame update: nothing while the game is paused,
 // then the rowed pause-gated step 0x002C021A, then by the state at +0x14:
 //  - 2: the +0x198 fade value rises by g_00DE5E00 up to 1; past 1, once
 //    TheTransitionHandler reports finished, slots 19 (1, 1), 10 (0) and 33
@@ -53,7 +53,7 @@ extern float g_00DE5E44;
 extern float g_00DB4AA8;
 
 
-class Rva0008FF3E
+class Rva0009D55BProduct
 {
 public:
 	virtual void v00();
@@ -103,7 +103,7 @@ private:
 	float m_fade198;        // +0x198
 };
 
-void Rva0008FF3E::rva0009B0B7()
+void Rva0009D55BProduct::rva0009B0B7()
 {
 	if (TheGameLogic->isGamePaused())
 		return;

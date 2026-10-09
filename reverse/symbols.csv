@@ -11932,7 +11932,6 @@ name,address,notes
 ?rva004ED372@Rva004ECECD@@QAEXPBUCoord3D@@@Z,0x004ED372,const Coord3D spelling of the AITactic point member pinned as rva004ED372(void *); REL32 at 0x005AB714 in ReturnTheRing 0x005AB6DC
 ?rva004ED748@Rva004ECECD@@QAEXHH@Z,0x004ED748,AITactic stop/finish member (two ints); REL32 at 0x005AA691 in the SimpleAttack slot 7
 ?rva004EE540@Rva004EE540@@QAEXXZ,0x004EE540,already rowed tidy for hand insert 0x004EE6D0
-?rva004EEE38@Rva004EF2FAPrimary@@QAEXH@Z,0x004EEE38,address-derived callee of matched slot 0x004EF2FA; retail REL32 targets 0x004EEE38; Ghidra FUN bounds 513 bytes; thiscall on the complete object (this-4) one arg ret 4; callee body remains unclaimed; no named identity inferred
 ?rva004F03AF@BfmeNode_00161220@@QAEXPAPAU1@@Z,0x004F03AF,Native4F0490 in complete Ghidra4F0479/32 passes node ECX and head-pointer stack argument to rowed linked4F03AF/48; existing observed-prefix node ABI declaration alternates to verified TeamInQueue provider; original wrapper owner unknown
 ?rva004F03EF@Rva004F040F@@QAEXPAX@Z,0x004F03EF,second name for the body rowed as ?prependTo_TeamBuildQueue@AIPlayer@@QAEXPAVTeamInQueue@@@Z; both landed independently and one definition was dropped when the solo fork was squashed onto upstream
 ?rva004F0479@Rva004F040F@@QAEXPAX@Z,0x004F0479,second name for the body rowed as ?removeFrom_TeamReadyQueue@AIPlayer@@QAEXPAVTeamInQueue@@@Z; both landed independently and one definition was dropped when the solo fork was squashed onto upstream
@@ -15119,7 +15118,6 @@ _Rva001117E3Downsample,0x001117E3,callee of ?updateMips@TileData@@QAEXXZ
 ?rva000EB40F@Rva000EC9C6@@QAEXXZ,0x000EB40F,callee of ?rva000EC9C6@Rva000EC9C6@@QAEXH@Z
 ?rva000EB6BB@Rva000EC9C6@@QAEXXZ,0x000EB6BB,callee of ?rva000EC9C6@Rva000EC9C6@@QAEXH@Z
 ?rva000EBFD1@Rva000EC9C6@@QAEXXZ,0x000EBFD1,callee of ?rva000EC9C6@Rva000EC9C6@@QAEXH@Z
-?rva000E663B@Rva000EC9C6@@QAEXH@Z,0x000E663B,callee of ?rva000EC9C6@Rva000EC9C6@@QAEXH@Z
 ?rva000E153A@Rva000E15D1@@QAEXXZ,0x000E153A,callee of ?rva000E15D1@Rva000E15D1@@QAEXXZ
 ?rva00115044@Rva00115044El@@QAEXPAURva000E15D1Rec@@HHE@Z,0x00115044,callee of ?rva000E15D1@Rva000E15D1@@QAEXXZ
 ?rva000D3DCF@W3DBibBuffer@@IAEXXZ,0x000D3DCF,callee of ?renderBibs@W3DBibBuffer@@QAEXXZ
@@ -17032,3 +17030,4 @@ _D3DXLoadVolumeFromFileInMemory@36,0x0062AF8C,Native1318F0 in-image JMP IAT veri
 ?push_back@?$vector@W4Rva004FD8B8RegionID@@V?$allocator@W4Rva004FD8B8RegionID@@@_STL@@@_STL@@QAEXABW4Rva004FD8B8RegionID@@@Z,0x002E01C6,Default-start region ID four-byte ABI view; original enum spelling unknown; fold-proof=Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldScenario.cpp
 ?push_back@?$vector@PBVTeamVictoryCondition@LivingWorldScenario@@V?$allocator@PBVTeamVictoryCondition@LivingWorldScenario@@@_STL@@@_STL@@QAEXABQBVTeamVictoryCondition@LivingWorldScenario@@@Z,0x004DFCB0,Native Scenario team-victory pointer insertion; fold-proof=Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldScenario.cpp
 ?Rva00284AC6TryPosition@@YA_NPBUCoord3D@@MMPBUFindPositionOptions@@PAU1@@Z,0x00284AC6,Ghidra780B function 284AC6..284DD2 RET0; FindPositionAround 285202 direct REL32 calls pass center dist angle options result; WB aligned helper corroborates same five stack inputs; address-derived callee name
+??0?$_Vector_base@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@QAE@ABV?$allocator@PBVModuleData@@@1@@Z,0x00211E58,ICF-folded empty vector base ctor (same 29B as rowed BfmeE16); vector<const ModuleData*> member of the per-turn stats record in collectEndOfTurnStats 4EEE38 fold-proof=Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva004EEE38CollectTurnStats.cpp
