@@ -1,12 +1,12 @@
 // ?rva00053A1F@MilesAudioManager@@QAEMPAX@Z
-// partial score=0.9765818656 date=2026-10-09
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /EHsc /MD /Op
+// partial score=0.9765818656229615 date=2026-10-09
+// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /ICode/Libraries/Include/Lib /O1 /G7 /arch:SSE /EHsc /MD /Op
 // Native53A1F..53AFA/219B RET4; receiver listener position18..20,
 // event position provider2DA1CC, global flag8 and distance fields94/98.
 // BF1 f989 Rva006AE150ScaledValue establishes the same scaled-volume
 // purpose; target spatial branch is an independent BFME2 extension.
-#include "../../Code/GameEngine/Include/Common/BfmeAudioEventPrefix136.h"
-#include "../../Code/Libraries/Include/Lib/Coord3D.h"
+#include "Common/BfmeAudioEventPrefix136.h"
+#include "Coord3D.h"
 struct PositionalAudioInfo {
  char at00[0x48];unsigned int m_type;
  char at4C[0x94-0x4C];float m_maxDistance;float m_minDistance;
