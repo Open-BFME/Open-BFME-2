@@ -1525,3 +1525,17 @@ Rva004132EF *Rva004132EF::reset()
     scalarC = 1.0f;
     return this;
 }
+
+// BFME1 f98983a7 Player.cpp/ThingTemplate.cpp emit this source lead from
+// STLport4.5.3 _tree.h under O1/SSE/G7 for several different value types.
+// Native388C1C..388C2C is independently bounded by the preceding and own
+// RET instructions. It takes one cdecl node pointer and follows word+C
+// until null; the eight-section direct/address-reference audit found no
+// owner witness. Original tree/value identity and maximum ordering remain
+// unasserted. Reuse this family's unchanged accessed-prefix node view.
+RvaTreeFamilyNode * __cdecl Rva00388C1CFollowChild(RvaTreeFamilyNode *node)
+{
+    while (node->m_child)
+        node = node->m_child;
+    return node;
+}
