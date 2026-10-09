@@ -72,6 +72,7 @@ private:
 		void OnFadeOut(const char *path);
 		void OnContinue(const char *path);
 		void ExternFunc(int index, char *buffer, bool lvalue);
+		void OnInitialized(const char *path);
 	};
 
 	Impl *m_impl;						// +0x00
@@ -175,4 +176,12 @@ void StrategicVeterancy::Impl::ExternFunc(int index, char *buffer, bool lvalue)
 {
 	if (index == 0 && !lvalue)
 		_snprintf(buffer, 255, "%d", m_numRows);
+}
+
+// WB15E9FA0 names this member and confirms the guarded 1->2 transition.
+// Constructor5EC64E binds it at the exact 42D493 ICF owner body.
+void StrategicVeterancy::Impl::OnInitialized(const char *path)
+{
+	if (m_state == 1)
+		m_state = 2;
 }
