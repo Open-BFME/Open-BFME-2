@@ -29,6 +29,10 @@
 //   0x0057E6D8  0x0057E6C1  0x0043DCD0
 //   0x003FACE4  0x003FAC3F  0x00213AB6
 //   0x004FCA0C  0x004FC9CE  0x0052BAE9
+//   0x001116E2  0x00111319  W3DAptAux::PostDraw 0x000A907B
+//   0x002B77AD  0x002B7582  0x0052C9F9 (ECX = TheLivingWorldLogic 0x00DFEF10)
+//   0x003F0DC6  0x003F012F  0x00210D6D
+//   0x006CF1B0  0x006CF040  0x002251E5 (cdecl, caller pops the int)
 //
 // Drawable deriving from Thing at offset 0 is carried from the Zero Hour
 // donor (GameClient/Drawable.h); the unadjusted jump agrees with it.
@@ -886,4 +890,57 @@ public:
 Res004FCA0C *Sub0052BAC1::Rva004FCA0C(Rva0020E89C *key)
 {
 	return (Res004FCA0C *)((Rva004FC9CE *)this)->rva004FC9CE(*(const Rva0059E2FD *)key);
+}
+
+class BfmeHub982
+{
+public:
+	void bfmeBegin982C();
+	void rva001116E2();
+};
+
+void BfmeHub982::rva001116E2()
+{
+	bfmeBegin982C();
+}
+
+class LivingWorldLogic
+{
+public:
+	void AwardOwnershipSetsToPlayers();
+};
+
+class Rva0059E647World
+{
+public:
+	void rva002B77AD();
+};
+
+void Rva0059E647World::rva002B77AD()
+{
+	((LivingWorldLogic *)this)->AwardOwnershipSetsToPlayers();
+}
+
+class Rva003F012F
+{
+public:
+	void rva003F012F();
+};
+
+class Rva00210D6DElem
+{
+public:
+	void rva003F0DC6();
+};
+
+void Rva00210D6DElem::rva003F0DC6()
+{
+	((Rva003F012F *)this)->rva003F012F();
+}
+
+void Rva006CF040Tick(unsigned int delay);
+
+void Rva006CF1B0(int delay)
+{
+	Rva006CF040Tick(delay);
 }

@@ -8434,7 +8434,6 @@ name,address,notes
 ?bfmeRunVJF@BfmeMsgVJF@@QAEXXZ,0x00655B50
 ?bfmeRunXT@BfmeHostXT@@QAEXXZ,0x004590C5,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?bfmeRunZC@BfmeOwnZC@@QAEXVBfmeRoomZC@@PAX@Z,0x00204F3B,callee of bfmeCallZC (0x00357130) at the site its BFME1 donor calls it; may be an ICF alias
-?bfmeRun_009A75E0@@YAXXZ,0x001B8040
 ?bfmeRva000387C0@@YA_NXZ,0x000387C0,placeholder name: 12-byte accessor returning the byte at theDebug+0x9F57; BFME_DX8_Thread_Lock at 0x0011F520 calls it before its timeout crash report; identity not recovered
 ?bfmeRva0011F3C0@@YAXXZ,0x0011F3C0,address-derived optional-callback helper; the BFME2ScopedRenderEvent destructor thunk at 0x00117DA0 tail-jumps here and the 12-byte body is independently bounded
 ?bfmeRva00161350@@YAPAUBfmeRva00161350Elem@@PAU1@00ABUBfmeRva00161350Tag@@PAH@Z,0x00161350,placeholder name: STLport-style random-access copy helper (first; last; result; tag; distance*) that HTreeClass::Free at 0x00166510 calls to erase its +0x1C member; element type and identity not recovered
@@ -10768,7 +10767,6 @@ name,address,notes
 ?run@Rva005E589ERun@@QAEXXZ,0x005E589E,REL32 callee decoded from target call bytes of same-shape helper-member step; identity unproven
 ?run@Rva005E6A9DRun@@QAEXXZ,0x005E6A9D,REL32 callee decoded from target call bytes of same-shape helper-member step; identity unproven
 ?run@Rva005E6AD8Run@@QAEXXZ,0x005E6AD8,REL32 callee decoded from target call bytes of same-shape helper-member step; identity unproven
-?run@Rva005F327ARun@@QAEXXZ,0x005F327A,REL32 callee decoded from target call bytes of helper-member step 0x005E5554; identity unproven
 ?run@Rva007E8AC0@@QAEXXZ,0x00655B50
 ?run@Rva007EB6C0Cleanup@@QAEXXZ,0x00658650,shared cleanup of the VptrCleanup ??_G bodies; rowed ??1BfmeDirtyBase lives here
 ?run@Rva007FA650Cleanup@@QAEXXZ,0x00666BA0
@@ -13206,7 +13204,6 @@ _openwithcontrol,0x0074B490
 _peerCreateStagingRoomWithSocketA,0x0069A190,
 _peerJoinStagingRoomA,0x0069A130,GameSpy SDK C export peerJoinStagingRoomA (ANSI; PeerThread.cpp maps peerJoinStagingRoom to it as the BFME 2 SDK header does): PeerThread.cpp declares the sweep Peer.h with C linkage, and Thread_Function 0x0038EDD7 / doQuickMatch 0x0038E684 call this body where the Zero Hour source calls peerJoinStagingRoom
 _peerShutdown,0x00699A10,
-_peerStateChanged,0x00699460,GameSpy SDK C export peerStateChanged: PeerThread.cpp declares the sweep Peer.h with C linkage, and Thread_Function 0x0038EDD7 / doQuickMatch 0x0038E684 call this body where the Zero Hour source calls peerStateChanged
 _piAddListingGamesCallback,0x0069F320,
 _piCallAutoMatchRateCallback,0x0069EE40,
 _piClearRoomPlayers,0x006A4970,
@@ -13757,7 +13754,6 @@ rva009C7380WeightPairs,0x009B84E0
 ?rva003F812C@Rva003F812CObject@@QAEXXZ,0x003F812C,direct call from 0x0052C9F9 with ECX=object at this+0x20; Ghidra boundary 31; address-derived method, identity and semantics unknown
 ?rva0052C161@Rva0052C036@@QAEXXZ,0x0052C161,direct same-this call from 0x0052C9F9; Ghidra boundary 117; address-derived method, identity and semantics unknown
 ?rva0052C45E@Rva0052C036@@QAEXXZ,0x0052C45E,direct same-this call from 0x0052C9F9; Ghidra boundary 717; address-derived method, identity and semantics unknown
-?rva002B77AD@Rva0059E647World@@QAEXXZ,0x002B77AD,called by 0x0052C9F9 with ECX loaded from existing world pointer at VA 0x00DFEF10; Ghidra boundary 5 thunk; address-derived method, identity and semantics unknown
 ??0Rva005CCDDD@@QAE@XZ,0x005CCD94,direct base-constructor callee of 0x00575406; writes vtable 0x00C74F44, whose slot-0 deleting dtor at 0x005CCF2B is rowed; base association inferred and original class identity unknown
 ?rva005CCB73@Rva005CCB73@@QAEXPAX@Z,0x005CCB73,direct second-argument callee of 0x00575406; 7-byte thunk loads this+8 then tail-jumps to 0x005CCACA; parameter purpose unknown
 ?rva0047778B@Rva0047778B@@QAEXXZ,0x0047778B,callee of ?onDie@HordeTransportContain@@UAEXPBVDamageInfo@@@Z
@@ -14977,7 +14973,6 @@ _Rva001117E3Downsample,0x001117E3,callee of ?updateMips@TileData@@QAEXXZ
 ?rva0020A586@ScriptEngine@@QAEXPAX0@Z,0x0020A586,Caller walkNamed at 0x0020A775 passes the ECX this pointer plus record and array-entry pointers; callee pops eight bytes and its result is ignored. ScriptEngine owner follows the pinned caller; helper semantics remain unresolved.
 ?sendDisconnectChat@ConnectionManager@@QAEXVUnicodeString@@@Z,0x004D187B,REL32 target read from byte-exact wrapper 0x0025E2E3; target callee copies a UnicodeString into a command object and dispatches it; name/signature are donor-derived and match the local helper declaration.
 ?rva002235F3@Rva002235F3@@QAEPAXPBX@Z,0x002235F3,REL32 destination observed at 0x002239B2 and 0x002239E2; thiscall with one pointer argument and writable pointer result inferred from both callers; body is not claimed
-?rva004D0E8B@ConnectionManager@@QAEXXZ,0x004D0E8B,REL32 target read at 0x0025E23D; target Ghidra boundary is 8B; body pushes zero and calls existing pinned 0x004D00BB then returns; ECX is Network+0x0C; ConnectionManager ownership follows target TU map and caller layout; helper operation remains unresolved.
 ?rva00211505@Rva00211505@@QAEXXZ,0x00211505,REL32 call and tail jump observed in target 0x00211570; address-derived names only
 ?rva003F92DA@Rva003F92DA@@QAEXXZ,0x003F92DA,REL32 call and tail jump observed in target 0x00211570; address-derived names only
 ?rva001E7053@Rva001E7053@@QAEXHHMM@Z,0x001E7053,x87 twin forward targets of 0x1E7C2B/0x1E9045; thiscall (int;int;float;float) caller-side fiction; true types unproven (address-derived)
@@ -15123,7 +15118,6 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?rva003667D4@PathfindLayer@@QAEXXZ,0x003667D4,callee of ?rva00366DEC@PathfindLayer@@QAEXXZ
 ?Rva00219B9E@@YGPAXH@Z,0x00219B9E,free lookup used by the 0x0021BE2x run with one stack arg; pointer return null-checked
 ?rva003EF1B8@Rva003EF1B8Host@@QAEXXZ,0x003EF1B8,singleton-gated notify used by 0x0020F795; this from [0x00DFE1C8]+0x268 with no args
-?rva003F0DC6@Rva00210D6DElem@@QAEXXZ,0x003F0DC6,element runner used by 0x00210D6D over the +0x2c vector with no args
 ?rva003F3F27@Rva0020F795Elem2@@QAEXXZ,0x003F3F27,inner-vector entry runner used by the second loop of 0x0020F795; this=entry with no args
 ?rva002191FE@Rva002191FEHost@@QAEPAXXZ,0x002191FE,address-derived member callee of dump-range-7 0x0021DE75 with result passthrough and no args; body unrowed; Ghidra FUN_006191fe 59B; matched ??4 row at same address is different signature
 ?rva0021DAA8@Rva0021DE75Table@@QAEPAXPAX0@Z,0x0021DAA8,address-derived member callee of dump-range-7 0x0021DE75 with this+0x54 passthrough and two void* args; body unrowed; Ghidra FUN_0061daa8 141B
@@ -15132,7 +15126,6 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?Rva00629512ConstructN@@YGXPAXHH00@Z,0x00629512,stdcall vector-construct helper (ghidra eh_vector_constructor_iterator): constructs count objects of stride at ptr via pushed thiscall ctor with EH rollback via pushed dtor; retail pushes (this+0xC
 ?rva00222E29@Rva00222A8BTarget@@QAEXH@Z,0x00222E29,slot refresh thiscall taking the loop index; called 14x over the +0xF0 stride-0x28 entries in 0x2251E5; reads this+0xCC+idx*0x28 so its own layout view is pending with its body
 ?Rva004114EFStatic@@YAXXZ,0x004114EF,static-call alias to rowed member ?rva004114EF@Rva004114EF@@QAEXXZ: 0x2251E5 calls it bare with no this setup
-?Rva006CF1B0@@YAXH@Z,0x006CF1B0,cdecl notify taking the throttled delay; 5B thunk forwarding to 0xACF040; caller cleans (pop ecx) in 0x2251E5
 ?rva00224F6C@Rva00222A8BTarget@@QAEXXZ,0x00224F6C,tail thiscall ending 0x2251E5 (pops+jmp); 633B EH body unrowed; address-derived method name pending its recovery
 ?rva00286926@Rva00286926Host@@QAEXHHHHH@Z,0x00286926,thiscall with 5 ints from 0x287519 nested loops
 ?rva00278341@Rva00278341Host@@QAEXHH@Z,0x00278341,thiscall with 2 ints from 0x2783F6
@@ -15542,7 +15535,6 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ?rva00357130@ScriptEngine@@QAEPAVScript@@ABVAsciiString@@PAV3@@Z,0x00357130,TheScriptEngine script lookup by name with an out string; REL32 at 0x003C0B8C in doTeamStartSequentialScript (result tested and stored as the sequential script's script)
 ?appendSequentialScript@ScriptEngine@@QAEXPBVSequentialScript@@@Z,0x00207557,WB ScriptEngine::appendSequentialScript (callgraph pair 0x00B3EBB0); REL32 at 0x003C0C0E in doTeamStartSequentialScript
 ?groupIdle@AIGroup@@QAEXW4CommandSourceType@@@Z,0x0036FC23,WB AIGroup::groupIdle (callgraph pair 0x00EE6DE0); REL32 at 0x003C0BB9 with CMD_FROM_SCRIPT in doTeamStartSequentialScript
-?rva001116E2@BfmeHub982@@QAEXXZ,0x001116E2,"unrowed thiscall on the Apt renderer (jump to 0x00111319); retail REL32 in W3DAptAux::PostDraw 0x000A907B; identity unproven"
 ?rva00208BCD@ScriptEngine@@QAEXABVAsciiString@@V2@@Z,0x00208BCD,ScriptEngine team-reference setter by name (reference then by-value name); REL32 at 0x003C20EE; WB 0x00B373C0 unnamed
 ?rva00208B2C@ScriptEngine@@QAEXABVAsciiString@@PAVTeam@@@Z,0x00208B2C,ScriptEngine team-reference setter to a team (reference then Team*); REL32 at 0x003C2118; WB 0x00B37210 unnamed
 ?rva002ACEDF@Player@@QAEXPBVThingTemplate@@@Z,0x002ACEDF,Player member taking a ThingTemplate; REL32 at 0x003C60D4 for each KindOf-7 template of the player side
