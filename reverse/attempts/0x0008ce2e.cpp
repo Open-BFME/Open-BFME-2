@@ -1,5 +1,5 @@
 // ?rva0008CE2E@W3DView@@QAEIPAUCoord2D@@@Z
-// partial score=0.8391274551868803 date=2026-10-09
+// partial score=0.8621259893949921 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /MD /EHsc /Oy-
 // Native 8CE2E..8D134. Reference W3DView::scrollBy establishes scrolling purpose;
 // target adds ray-normalized scrolling and unsigned boundary-mask return.
@@ -193,7 +193,7 @@ unsigned W3DView::rva0008CE2E(Coord2D *delta){
   Vector3 unusedStart,unusedEnd;camera->Device_To_World_Space(start,&unusedStart);camera->Device_To_World_Space(end,&unusedEnd);
   Coord3D pos=position;
   Vector2 side(-world.X,-world.Y),forward(world.Y,-world.X);
-  float scale=settings.scrollScale()*zoom*0.25f;
+  float scale=settings.scrollScale()*(zoom*0.25f);
   Coord3D displacement;
   displacement.x=(delta->x*forward.X+delta->y*side.X)*scale;
   displacement.y=(delta->x*forward.Y*aspect+delta->y*side.Y)*scale;
