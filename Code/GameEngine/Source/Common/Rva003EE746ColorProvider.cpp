@@ -4,6 +4,7 @@
 // BFDF68 observer slots RET12/12/8/8; C363C8 overrides only slot0.
 // C363B8 provider has scalar destructor and pure colour; C363C0 implements colour.
 // Provider scalar destructor C66C calls the folded 7C51E derived destructor.
+// RegionObject FieldParse+1C and destructor3EF14A independently prove the second string.
 // cl: /O1 /MD /EHsc /arch:SSE /Ireference/shims/bfme2_ascii
 struct Rva003EE746Color {Rva003EE746Color(float r,float g,float b):red(r),green(g),blue(b){} float red,green,blue;};
 struct Rva003EE746Region {char pad[0x13c];int id0,id1;};
@@ -38,13 +39,13 @@ class INI; struct FieldParse;
 class LivingWorldRegionEffectsManager:public S3RegionObserverBase {public:
  LivingWorldRegionEffectsManager(const AsciiString&); static const FieldParse s_parseTable[];
  virtual void rva003EF13E(int,int,int); void SyncRegion(int);
- int u4;Rva004E2E58 map8;int u14;AsciiString name18;int u1c;
+ int u4;Rva004E2E58 map8;int u14;AsciiString name18;AsciiString regionObject1c;
  S3ColorGroup group20,group2c,group38;
  int selector44;Rva003EE711*active48;Rva003EE746ColorProvider provider4c;bool flag54;
 };
 // ??0LivingWorldRegionEffectsManager@@QAE@ABVAsciiString@@@Z
 LivingWorldRegionEffectsManager::LivingWorldRegionEffectsManager(const AsciiString&n)
- :u4(0),u14(0),name18(n),u1c(0),group20(1,1,1),group2c(1,1,1),group38(0.95f,0.95f,0.95f),selector44(0),provider4c(&selector44),flag54(true){active48=&provider4c;}
+ :u4(0),u14(0),name18(n),regionObject1c(),group20(1,1,1),group2c(1,1,1),group38(0.95f,0.95f,0.95f),selector44(0),provider4c(&selector44),flag54(true){active48=&provider4c;}
 typedef char S3RegionRecordSize[sizeof(LivingWorldRegionEffectsManager)==88?1:-1];
 
 // ?rva003EF13E@LivingWorldRegionEffectsManager@@UAEXHHH@Z
@@ -76,7 +77,7 @@ const FieldParse LivingWorldRegionEffectsManager::s_parseTable[] = {
 class Rva003EF34AOwner {public:int fwd(int result,int value);};
 struct S3RegionEntry;struct S3RegionInsertResult;
 class Rva003EF328 {public:void insert(S3RegionInsertResult &,const S3RegionEntry &);char pad[12];Rva003EF34AOwner table;};
-// Canonical subsystem pointer: GameEngine::init supplies the exact store name.
+// Named subsystem pointer: GameEngine::init supplies the exact store name.
 Rva003EF328 *TheLivingWorldRegionEffectsManagerStore;
 struct S3RegionInsertResult {void*node;void*table;bool inserted;};
 struct S3RegionEntry {AsciiString name;LivingWorldRegionEffectsManager*manager;S3RegionEntry(const AsciiString&n,LivingWorldRegionEffectsManager*m):name(n),manager(m){}};
