@@ -1,0 +1,40 @@
+{
+  "id": "A-normal-accessor-identity-54-fbe1437085",
+  "seat": "A",
+  "kind": "exact-existing-ledger-repair",
+  "base_commit": "fbe1437085b359ed046df49af016d736ef1aca24",
+  "paths": [
+    "Code/GameEngine/Source/Common/BfmeConv998.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/mesh_get_vert_normals.cpp",
+    "Code/Libraries/Source/WWVegas/WW3D2/MeshGeometryGetVertexNormalArray.cpp",
+    "reverse/symbols.csv"
+  ],
+  "recoveries": [
+    {
+      "name": "?Get_Vertex_Normal_Array@MeshGeometryClass@@QAEPBVVector3@@_N@Z",
+      "rva": "0x0016AB90",
+      "size": 44,
+      "source": "Code/Libraries/Source/WWVegas/WW3D2/MeshGeometryGetVertexNormalArray.cpp",
+      "notes": "Existing44B normal validation wrapper identity repair; WB A0CF10 and ZH MeshGeometry donor; target allocator16AAE0 and virtual normal callback16CFC0 establish bool-format ABI and Vector3 result; Flags18; no new coverage",
+      "replace_rva": "0x0016AB90",
+      "new_retail_bytes": 0
+    },
+    {
+      "name": "?queryZero@Rva00143A90ProviderHolder@@QBEPBVVector3@@XZ",
+      "rva": "0x00143A90",
+      "size": 10,
+      "source": "Code/Libraries/Source/WWVegas/WW3D2/MeshGeometryGetVertexNormalArray.cpp",
+      "notes": "Existing10B wrapper type repair; complete143A90..143A9A moves word0 receiver and passes false to typed16AB90 accessor; preserves normals pointer in EAX; enclosing original holder name unknown; no new coverage",
+      "replace_rva": "0x00143A90",
+      "new_retail_bytes": 0
+    }
+  ],
+  "proof_command": "py -3 tools/build.py Code/Libraries/Source/WWVegas/WW3D2/MeshGeometryGetVertexNormalArray.cpp Code/Libraries/Source/WWVegas/WW3D2/mesh_get_vert_normals.cpp",
+  "proof_log": "scoped-proof.log",
+  "claim_owner": "codex-549c-root",
+  "dependencies": [],
+  "new_retail_bytes": 0,
+  "ledger_delta": "ledger_delta.patch",
+  "pin_delta": "pin_delta.patch",
+  "integration_note": "Two already matched rows renamed/rehome: no new recovery credit. Empty rows.csv intentional. Apply explicit ledger/pin deltas; pin delta only removes old int allocator alias. No worker commit/push; coordinator owns integration. Prior old-history handoff contains the10B wrapper under raw-int signature, which this repair supersedes."
+}

@@ -51,7 +51,3 @@ Vector3 *MeshGeometryClass::get_vert_normals(bool alternate_format)
 	}
 	return VertexNorm->Get_Array();
 }
-
-// Callers elsewhere reach bodies in this unit through other spellings; retail's
-// call sites in their matched rows land on these addresses (same ABI). Bind them.
-#pragma comment(linker, "/alternatename:?bfmeConv998@BfmeC998@@QAEHH@Z=?get_vert_normals@MeshGeometryClass@@IAEPAVVector3@@_N@Z")
