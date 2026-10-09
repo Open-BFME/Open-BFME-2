@@ -123,6 +123,7 @@ class vector
 public:
 	typedef _Tp *pointer;
 	typedef _Tp *iterator;
+	void push_back(const _Tp &);
 
 	iterator erase(iterator __first, iterator __last)
 	{
@@ -136,6 +137,29 @@ protected:
 	_Tp *_M_start;
 	_Tp *_M_finish;
 	_Tp *_M_end_of_storage;
+};
+
+}
+
+namespace _STL
+{
+
+template <class _Key>
+struct less
+{
+};
+
+template <class _T1, class _T2>
+struct pair
+{
+};
+
+template <class _Key, class _Tp, class _Compare = less<_Key>,
+	class _Alloc = allocator<pair<const _Key, _Tp> > >
+class map
+{
+public:
+	_Tp &operator[](const _Key &);
 };
 
 }
@@ -294,6 +318,49 @@ public:
 private:
 	unsigned char m_targetObservedStorage[40];
 };
+
+// Target 0x0007A706 allocates an 8-byte record, stores the owner at +0 and
+// NameKeyGenerator::nameToKey("(NULL)") at +4, then appends its address to
+// this helper's unsigned-keyed vector map using owner+4 as the key. It stores
+// the record address back at owner+0x2E8. The method name and owner type come
+// from the BFME1 donor pin; the record layout and accesses above are target
+// evidence.
+struct Rva0007A706Record
+{
+	unsigned int owner;
+	unsigned int nameKey;
+};
+
+typedef _STL::vector<unsigned int> Rva0007A706Vector;
+typedef _STL::map<unsigned int, Rva0007A706Vector> Rva0007A706Map;
+
+// Interface only: the body calls the existing NameKeyGenerator overload and
+// does not use its object layout.
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+
+class NameKeyGenerator
+{
+public:
+	NameKeyType nameToKey(const char *name);
+};
+
+extern NameKeyGenerator *TheNameKeyGenerator;
+
+void BfmeHelperYS::bfmeAttachYS(Gen_00755E70 *owner)
+{
+	Rva0007A706Record *record = (Rva0007A706Record *)::operator new(sizeof(Rva0007A706Record));
+	Gen_00755E70 *ownerForStore = owner;
+	record->owner = (unsigned int)ownerForStore;
+	NameKeyGenerator *keyGenerator = TheNameKeyGenerator;
+	unsigned int recordValue = (unsigned int)record;
+	record->nameKey = keyGenerator->nameToKey("(NULL)");
+	*(unsigned int *)&owner = *(unsigned int *)((char *)ownerForStore + 4);
+	(*(Rva0007A706Map *)this)[*(unsigned int *)&owner].push_back(recordValue);
+	*(unsigned int *)((char *)ownerForStore + 0x2E8) = (unsigned int)record;
+}
 
 class Gen_00755E70
 {
