@@ -17034,3 +17034,4 @@ _D3DXLoadVolumeFromFileInMemory@36,0x0062AF8C,Native1318F0 in-image JMP IAT veri
 ??0GameSpyConfig@@QAE@VAsciiString@@@Z,0x0054E8DC,callee of ?create@GameSpyConfigInterface@@SAPAV1@VAsciiString@@@Z
 ?searchHotKey@Rva00E01E28Owner@@QAE?AVAsciiString@@ABVUnicodeString@@@Z,0x00358B9E,REL32 callee of W3DDisplayString 0x0010631E (hot key text lookup on [0x00E01E28] with getText(); Zero Hour HotKeyManager::searchHotKey shape); unrowed
 ?Draw_Sentence@Render2DSentenceClass@@QAEXHHHH@Z,0x00155B00,REL32 callee of W3DDisplayString::draw 0x001064A9/0x001064ED/0x00106548: four-colour Draw_Sentence on the 0x14/0xD8 renderers (Zero Hour draws one colour)
+?doTesselatedUpdate@W3DTerrainBackground@@QAEXABUIRegion2D@@PAVWorldHeightMap@@_N@Z,0x001149EB,WorldBuilder W3DTerrainBackground::doTesselatedUpdate (callgraph 2.0); called by 0x00115791 with (IRegion2D&,+0x5C map,false)
