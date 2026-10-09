@@ -54,7 +54,7 @@ void XferLivingWorldBuildPlotID(Xfer*,void*);
 void Rva004E12D7Parse(void*,void*);
 void XferLivingWorldPlayerID(Xfer*,int*);
 class BfmeSelectionState{public:bool isSelectionLocked()const;};
-class Rva002BBA45{public:unsigned char rva002BBA45(Xfer*);};
+class Rva002BBA45{public:unsigned int rva002BBA45(Xfer*);};
 class Rva002BB5DD{public:void rva002BB5DD(Xfer*);};
 class Rva002B7C74{public:void rva002B7C74();};
 class Glo012F1028Type{public:void rva002B7D03();};

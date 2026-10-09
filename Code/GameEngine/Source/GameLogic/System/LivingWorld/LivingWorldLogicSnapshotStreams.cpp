@@ -45,9 +45,9 @@ virtual void s35();
 virtual void xferBool(bool*);
 virtual void s37();
 };
-class LivingWorldLogic{public:void rva002BB2B7(Xfer*);};
+class LivingWorldLogic{public:void rva002BB2B7(Xfer*);void rva002B83E5();};extern LivingWorldLogic*TheLivingWorldLogic;
 class Rva002B22AFArg;
-class Rva002B22AF{public:void rva002B22AF(Rva002B22AFArg*);};
+class Rva002B22AF{public:Rva002B22AF():zeroC(0),zero10(0){}void rva002B22AF(Rva002B22AFArg*);char pad[8];int id;int zeroC,zero10,tail14;};
 struct RecVec{Rva002B22AF**begin,**end,**cap;};
 class Rva002BB49C{public:void rva002BB49C(Xfer*,RecVec*);};
 class Rva002B8BFE{public:void rva002B8BFE(Xfer*);};
@@ -62,4 +62,35 @@ void Rva002BB5DD::rva002BB5DD(Xfer*xfer){
  ((Rva002BB49C*)this)->rva002BB49C(xfer,&first);
  ((Rva002BB49C*)this)->rva002BB49C(xfer,&second);
  if(!xfer->IsCRC() && v.current>=2)((Rva002B8BFE*)this)->rva002B8BFE(xfer);
+}
+
+void*operator new(unsigned int);
+class ModuleData;
+namespace _STL{template<class T>class allocator;template<class T,class A>class vector{public:void push_back(const T&);};}
+typedef _STL::vector<const ModuleData*,_STL::allocator<const ModuleData*> > ModuleVec;
+class LivingWorldManager;
+class Coord2D;
+
+// Owned CreateBeaconObject identifies id8 and coordinate prefix0.
+// Keeping the separate stored pointer before transfer gives native EBX
+// lifetime and the EBP-C temporary; direct pointer-reference casts reload it.
+class LivingWorldManager{public:void CreateBeaconObject(int,const Coord2D*,int);};
+extern LivingWorldManager*TheLivingWorldManager;
+// Native2BBA45..2BBB18 RET4 returns the version widened in EAX.
+class Rva002BBA45{public:virtual void slot0();virtual void reset();unsigned int rva002BBA45(Xfer*);char pad[0xBC-4];RecVec records;char gap[4];RecVec first,second;};
+unsigned int Rva002BBA45::rva002BBA45(Xfer*xfer){
+ Version v(1,3);xfer->xferVersion(&v);reset();TheLivingWorldLogic->rva002B83E5();
+ ((LivingWorldLogic*)this)->rva002BB2B7(xfer);
+ int count;xfer->xferInt(&count);
+ for(int i=0;i<count;++i){
+  Rva002B22AF*record=new Rva002B22AF;
+  const ModuleData* stored=(const ModuleData*)record;
+  record->rva002B22AF((Rva002B22AFArg*)xfer);
+  ((ModuleVec*)&records)->push_back(stored);
+  TheLivingWorldManager->CreateBeaconObject(record->id,(const Coord2D*)record,2);
+ }
+ ((Rva002BB49C*)this)->rva002BB49C(xfer,&first);
+ ((Rva002BB49C*)this)->rva002BB49C(xfer,&second);
+ if(v.current>=2)((Rva002B8BFE*)this)->rva002B8BFE(xfer);
+ return v.current;
 }
