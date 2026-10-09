@@ -62,5 +62,8 @@ struct Elem36
 };
 
 typedef _STL::vector<Elem36, _STL::allocator<Elem36> > Elem36Vector;
+// _Construct<Elem36> is the pinned copy construct at 0x001610F0: declare it so this unit calls it
+// rather than emitting the only other copy of that name.
+namespace _STL { template <> void _Construct<Elem36, Elem36>(Elem36 *__p, const Elem36 &__val); }
 
 template _STL::vector<Elem36>::iterator _STL::vector<Elem36>::insert(Elem36 *, const Elem36 &);

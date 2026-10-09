@@ -76,6 +76,9 @@ bool operator==(const BfmeStringTailRecord144 &x, const BfmeStringTailRecord144 
 // AsciiString destructor from this historical copy/code-generation view.
 struct BfmeStringTailRecord156 { int a[38]; AsciiString s; ~BfmeStringTailRecord156(); };
 inline bool operator==(const BfmeStringTailRecord156 &x, const BfmeStringTailRecord156 &y) { return x.s == y.s; }
+// _Construct<BfmeStringTailRecord156> is the rowed copy construct at 0x004CC095: declare it so this
+// unit calls it rather than emitting the only other copy of that name.
+namespace _STL { template <> void _Construct<BfmeStringTailRecord156, BfmeStringTailRecord156>(BfmeStringTailRecord156 *__p, const BfmeStringTailRecord156 &__val); }
 struct BfmeStringTailRecord180 { int a[44]; AsciiString s; };
 inline bool operator==(const BfmeStringTailRecord180 &x, const BfmeStringTailRecord180 &y) { return x.s == y.s; }
 namespace _STL {

@@ -42,6 +42,9 @@ class BuddyRequest
 struct BfmePod840 { int a[210]; };
 struct BfmePod872 { int a[218]; };
 struct BfmePod900 { int a[225]; };
+// _Construct<BfmePod900> is the rowed non-trivial copy construct at 0x004CB8DE: declare it so this
+// unit calls it rather than emitting its own trivial copy (as stlport_pod_vector_bodies.cpp does).
+namespace _STL { template <> __declspec(nothrow) void _Construct<BfmePod900, BfmePod900>(BfmePod900 *__p, const BfmePod900 &__val); }
 // Only allocation is established for this 132-byte element.
 template class _STL::allocator<BfmePod132>;
 template class _STL::allocator<BfmePod156>;
