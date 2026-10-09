@@ -364,6 +364,16 @@ template <class T> struct Rva00337AA8Buf
 // an empty hook and the name getter at337AA2. The constructor3379FD and
 // WB LuaScriptEngine dtor support identity; the address-derived type retains
 // compatibility with the already-owned deleting dtor337C70.
+enum ParticleSystemID { ParticleSystemIDUnknown = 0 };
+class Rva003371B1;
+struct BfmeOpaqueRecord156;
+namespace _STL {
+template<> ParticleSystemID *vector<ParticleSystemID>::erase(ParticleSystemID *,ParticleSystemID *);
+template<> Rva003371B1 *vector<Rva003371B1>::erase(Rva003371B1 *,Rva003371B1 *);
+template<> BfmeOpaqueRecord156 *vector<BfmeOpaqueRecord156>::erase(BfmeOpaqueRecord156 *,BfmeOpaqueRecord156 *);
+}
+class Rva00335C88 {public:void *rva00335C88(void *,void *);};
+struct Rva00337RangeView { void *start,*finish,*limit; };
 class Rva00337AA8 : public SubsystemInterface
 {
 public:
@@ -378,12 +388,13 @@ private:
 	void *m_lua10;
 	char m_pad14[0xA0 - 0x14];
 	Rva00337AA8Buf<void> m_bufA0;
-	char m_padA4[0xB0 - 0xA4];
+	char m_padA4[0xAC - 0xA4];
+	bool m_flagAC; char m_padAD[3];
 	Rva003378D0 m_vecB0;
 	Rva00337AA8Buf<void> m_bufBC;
 	char m_padC0[0xC8 - 0xC0];
 	// C8 is explicitly released by the dtor body; BC/A0 are automatic.
-	void *m_bufC8;
+	void *m_bufC8; void *m_endCC, *m_limitD0;
 };
 Rva00337AA8::~Rva00337AA8()
 {
@@ -398,4 +409,21 @@ Rva00337AA8::~Rva00337AA8()
 		m_lua10 = 0;
 	}
  if(m_bufC8) free(m_bufC8);
+}
+
+// Native337C8C..337CEA vslot9 resets Lua0C and four vector ranges.
+// Element spellings of A0/BC are borrowed from the already-owned full
+// erase providers; target proves 4/156-byte widths and the same range ABI.
+void Rva00337AA8::reset()
+{
+ if(m_lua0C) { lua_close(m_lua0C); m_lua0C=0; }
+ _STL::vector<ParticleSystemID> *a=(_STL::vector<ParticleSystemID>*)&m_bufA0;
+ a->erase(a->begin(),a->end());
+ _STL::vector<Rva003371B1> *b=(_STL::vector<Rva003371B1>*)&m_vecB0;
+ b->erase(b->begin(),b->end());
+ m_flagAC=false; // target byteAC after clearing B0
+ _STL::vector<BfmeOpaqueRecord156> *c=(_STL::vector<BfmeOpaqueRecord156>*)&m_bufBC;
+ c->erase(c->begin(),c->end());
+ Rva00337RangeView *d=(Rva00337RangeView*)&m_bufC8;
+ ((Rva00335C88*)d)->rva00335C88(d->start,d->finish);
 }
