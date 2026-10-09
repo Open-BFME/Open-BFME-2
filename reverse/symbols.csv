@@ -17048,3 +17048,4 @@ _log,0x00629B0E,log double import thunk (gen-import row ji_00629b0e: msvcr71 slo
 ??1Rva00524306@@QAE@XZ,0x004F87B7,priority-queue dtor (jumps to 0x4F81FC) used by LivingWorldAutoResolveBattle::chooseTargets 0x004F971E; ctor pin ??0Rva00524306 at 0x1F81BF
 ??1Rva004F6943@@QAE@XZ,0x005F8F96,unwind-funclet dtor of chooseTargets 0x004F971E (same family as the existing pin ??1Rva004F6966)
 ??1Rva004F692B@@QAE@XZ,0x005F8F96,unwind-funclet dtor of chooseTargets 0x004F971E (same family as the existing pin ??1Rva004F6966)
+?Flush@WW3D@@SAXAAVRenderInfoClass@@@Z,0x001173F0,WW3D::Flush(RenderInfoClass&) as in ZH ww3d.cpp; retail callers push the render info and pop it (the ledger's rva001173f0 is a no-argument placeholder spelling); caller the living-world scene Customized_Render 0x0009C9DE
