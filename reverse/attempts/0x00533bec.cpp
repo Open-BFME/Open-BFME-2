@@ -1,4 +1,6 @@
 // ?Update@PathfindZoneManager@@QAEXPAPAVPathfindCell@@PAVPathfindLayer@@ABUIRegion2D@@@Z
+// partial score=0.96 date=2026-10-09
+// ?Update@PathfindZoneManager@@QAEXPAPAVPathfindCell@@PAVPathfindLayer@@ABUIRegion2D@@@Z
 // partial score=0.96 date=2026-10-08
 // cl: /O1 /G7 /MD
 // WB12D3020 and12D3290 name PathfindZoneManager::DoXfer and Block::DoXfer
