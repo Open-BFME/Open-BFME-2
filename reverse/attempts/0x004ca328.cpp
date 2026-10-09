@@ -1,8 +1,8 @@
 // ?rva004CA328@AnimationSoundClientBehavior@@QAEXXZ
 // partial score=0.94 date=2026-10-09
-// cl: /O1 /G7 /arch:SSE /MD /EHsc /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include
+// cl: /O1 /G7 /arch:SSE /MD /EHsc /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /ICode/Libraries/Include/Lib
 #include "Common/BfmeAudioEventPrefix136.h"
-#include "../../../Code/Libraries/Include/Lib/Coord3D.h"
+#include "Coord3D.h"
 enum DrawableID { INVALID_DRAWABLE_ID=0 };
 struct Rva0042526Member {unsigned words[19];Rva0042526Member() throw();};
 struct AudioKeyRef {void*p;__forceinline AudioKeyRef():p(0){} __forceinline ~AudioKeyRef(){if(p)((OpaqueRefCounted*)p)->Release_Ref();}};
