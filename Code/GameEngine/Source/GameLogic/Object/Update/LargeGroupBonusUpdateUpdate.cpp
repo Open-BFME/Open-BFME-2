@@ -1,4 +1,5 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// stlport
 #include "../../../Common/RTS/XYDistanceCallView.h"
 //
 // ?update@LargeGroupBonusUpdate@@UAE?AW4UpdateSleepTime@@XZ, retail
@@ -18,6 +19,7 @@
 // Object::removeAttributeModifierFromPool).
 
 #include "ascii_string.h"
+#include <vector>
 
 typedef bool Bool;
 typedef unsigned int UnsignedInt;
@@ -105,9 +107,15 @@ struct ObjectKindBytes
 	};
 };
 
+class Drawable {
+public:
+ void rva002724FD(const AsciiString &, int, int, float, float);
+ void rva002723ED();
+};
 class Object
 {
 public:
+ Drawable *getDrawable() const;
 	Player *getControllingPlayer() const;				// 0x0028AFA9
 	void *rva0028C197() const;				// 0x0028C197
 	Bool addAttributeModifierToPool(const AsciiString &name, int duration);
@@ -236,7 +244,7 @@ struct LargeGroupBonusUpdateModuleData
 	Real m_radius;					// +0x14
 	unsigned char m_pad18[0x1C - 0x18];
 	Real m_nearDistance;				// +0x1C
-	unsigned char m_pad20[0x2C - 0x20];
+	_STL::vector<AsciiString> m_flagSubObjectNames;
 	AsciiString m_modifierName;			// +0x2C
 };
 
@@ -268,6 +276,7 @@ class LargeGroupBonusUpdate : public UpdateModule, public LargeGroupBonusTrailin
 {
 public:
 	virtual UpdateSleepTime update();
+ void notify(int value);
 private:
 	const LargeGroupBonusUpdateModuleData *getLargeGroupBonusUpdateModuleData() const
 	{
@@ -333,4 +342,18 @@ UpdateSleepTime LargeGroupBonusUpdate::update()
 		return UPDATE_SLEEP_FOREVER;
 	obj->rva0028C197();
 	return everyFrame ? (UpdateSleepTime)data->m_delay : UPDATE_SLEEP_NONE;
+}
+
+// BF1 f98983a7 LargeGroupBonusUpdateNotify.cpp supplies the loop purpose;
+// native49015C and WB11DC2A0 independently establish the BFME2 Drawable
+// getter and two scalar-zero float arguments.
+void LargeGroupBonusUpdate::notify(int value)
+{
+ const LargeGroupBonusUpdateModuleData *data = getLargeGroupBonusUpdateModuleData();
+ if (data->m_flagSubObjectNames.empty()) return;
+ Drawable *drawable = m_object->getDrawable();
+ if (!drawable || !m_object) return;
+ for (_STL::vector<AsciiString>::const_iterator it = data->m_flagSubObjectNames.begin(); it != data->m_flagSubObjectNames.end(); ++it)
+  drawable->rva002724FD(*it, value, 0, 0.0f, 0.0f);
+ drawable->rva002723ED();
 }
