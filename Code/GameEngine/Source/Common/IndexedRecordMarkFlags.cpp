@@ -75,3 +75,19 @@ void Rva003B3EEAOwner::rva003B3EEA()
 		while (index != -1);
 	}
 }
+
+// Whole BF1 f98983a7d3 Common/Rva000BE720Arr.cpp supplies the clean
+// this-based indexing guide; its two owner names share one placed body.
+// Native300015..300021 is complete afterRET300014 and before a fresh
+// entry300021: multiply stackword4 by20, add incomingECX, RET4. Only
+// these32-bit address bits are established, not an original owner, element
+// identity, signed index, payload, declaration, or complete array extent.
+// ?elementAddressBits@Rva00300015@@QBEII@Z
+struct Rva00300015
+{
+    unsigned int elementAddressBits(unsigned int index) const;
+};
+unsigned int Rva00300015::elementAddressBits(unsigned int index) const
+{
+    return reinterpret_cast<unsigned int>(this) + index * 20u;
+}
