@@ -1,4 +1,7 @@
-// cl: /MD /EHsc
+// cl: /MD /EHsc /D_CRTIMP= /Ireference/shims/bfmelist /Ireference/shims/bfmealloc
+// stlport
+#define _STLP_USE_STATIC_LIB 1
+#include <list>
 // Cursor-slot render helper: release (0x000E473F, 93B) plus reinit
 // (0x000E479C, 234B). Both take the DX8 device mutex around their work.
 // The reinit drops any live vertex/index buffers through the release body,
@@ -66,8 +69,6 @@ struct CursorTextureSlot : public BfmeResetTextureRef
 
 struct Rva00131DFC : public CursorTextureSlot
 {
-	char m_pad04[0x0E - 0x04];
-	bool m_ready0E; // absolute +0x22: a 4-aligned 0xE tail cannot precede it
 	void rva00131DFC(void *a, void *b, void *c, void *d, int e, int f);
 };
 
@@ -114,11 +115,16 @@ public:
 	DX8IndexBufferClass(unsigned index_count, UsageType usage);
 };
 
+// Call-only views of the verified element cleanup and destructor providers.
+class Gen_uw_000e5033 { public: ~Gen_uw_000e5033(); };
+class Rva000E4567 { public: void rva000E4567(); };
+
 class W3DFloorBuffer
 {
 public:
 	void rva000E473F();
 	void allocateFloorBuffers();
+	void rva000E598B();
 
 private:
 	char m_pad00[4];
@@ -126,7 +132,10 @@ private:
 	DX8IndexBufferClass *m_ib;
 	int m_0C;
 	int m_10;
-	Rva00131DFC m_slot;
+	CursorTextureSlot m_slot;
+	_STL::list<Gen_uw_000e5033 *> m_floors;
+	int m_numFloors;
+	bool m_ready20, m_flag21, m_ready22;
 };
 
 // ?rva000E473F@W3DFloorBuffer@@QAEXXZ @0x000E473F 93B
@@ -156,10 +165,26 @@ void W3DFloorBuffer::allocateFloorBuffers()
 	m_ib = new DX8IndexBufferClass(0x7534, DX8IndexBufferClass::USAGE_DYNAMIC);
 	m_0C = 0;
 	m_10 = 0;
-	m_slot.rva00131DFC((void *)1, (void *)1, (void *)0x15, (void *)1, 1, 0);
+	static_cast<Rva00131DFC *>(&m_slot)->rva00131DFC((void *)1, (void *)1, (void *)0x15, (void *)1, 1, 0);
 	if (m_slot.pointer != 0)
 	{
 		m_slot.Get_Surface_Level().DrawPixel(0, 0, 0x7F7FFF);
 	}
-	m_slot.m_ready0E = true;
+	m_ready22 = true;
+}
+
+// Native E598B..E59D3 and WB 8841B0 prove the pointer list at +18,
+// element cleanup before delete, and the final +10/+1C resets. Adapted from
+// Open-BFME-1 6c1e0b51 W3DFloorBuffer_rva006F9050.cpp's reset semantics.
+// The emitted pointer-list clear is proved against the complete 39-byte
+// retail list<int> owner, including its free call, by the normal byte gate.
+void W3DFloorBuffer::rva000E598B()
+{
+    for (_STL::list<Gen_uw_000e5033 *>::iterator it = m_floors.begin(); it._M_node != m_floors.end()._M_node; ++it) {
+        reinterpret_cast<Rva000E4567 *>(*it)->rva000E4567();
+        delete *it;
+    }
+    m_floors.clear();
+    m_10 = 0;
+    m_numFloors = 0;
 }
