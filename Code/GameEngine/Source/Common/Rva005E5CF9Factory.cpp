@@ -167,3 +167,26 @@ RvaF1Handle Rva005CEB03::rva005CEB03(unsigned int argument)
 {
 	return RvaF1Handle(new Rva005E93FF(argument, &m_context));
 }
+
+// ?rva005FB243@Rva005FB243@@QAE?AURvaF1Handle@@HH@Z, retail 0x005FB243 (87B): the same factory shape with two
+// opaque int arguments and the rowed constructor Rva005FF13A (0x005FF0F6); its context argument is receiver+8.
+// Target evidence: retail body and the constructor's REL32 read byte for byte; names are address-derived.
+struct Rva005FEF11Input;
+// class-gate: allow Rva005FF13A proved codegen view: opaque 0x28-byte storage view of the shared BattlePromptArmyPanelView.h class, which needs STLport flags this unit lacks (only its constructor is called)
+class Rva005FF13A
+{
+	char m_pad[0x28];
+public:
+	Rva005FF13A(int first, int second, const Rva005FEF11Input **context);
+};
+struct Rva005FB243
+{
+	char m_prefix[8];
+	Rva005E5CF9In m_context;
+	RvaF1Handle rva005FB243(int first, int second);
+};
+
+RvaF1Handle Rva005FB243::rva005FB243(int first, int second)
+{
+	return RvaF1Handle(new Rva005FF13A(first, second, (const Rva005FEF11Input **)&m_context));
+}
