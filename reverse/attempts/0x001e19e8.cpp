@@ -1,4 +1,6 @@
 // ?call@Rva001E19E8CallView@@QBEXPBUCoord3D@@PBVMatrix3D@@PBVObject@@2@Z
+// partial score=0.884135 date=2026-10-09
+// ?call@Rva001E19E8CallView@@QBEXPBUCoord3D@@PBVMatrix3D@@PBVObject@@2@Z
 // partial score=0.8 date=2026-10-09
 // cl: /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /ICode/Libraries/Include /DNDEBUG /MD /EHsc /Oi-
 #include "Lib/Coord3D.h"
@@ -57,6 +59,7 @@ static __forceinline const Coord3D *objectPos(const Object*p){return (const Coor
 static __forceinline bool boneTransform(const Object*p,const AsciiString&name,Matrix3D&m){return ((const Thing*)p)->getDrawable()->rva00272835((int)name.str(),(int)&m);}
 void adjustVector(Coord3D*,const Matrix3D*);
 static __forceinline int roundDelay(float f){int n;__asm { fld f } __asm { fistp n } return n;}
+static __forceinline void rotateParticleY(Matrix3D&m,const float&s,float c){m.Rotate_Y(s,c);}
 void Rva001E19E8CallView::call(const Coord3D*primary,const Matrix3D*mtx,const Object*thingToAttachTo,const Object*secondary)const {
  Vector3 localOffset=*(const Vector3*)&offset;
  if(mtx)adjustVector((Coord3D*)&localOffset,mtx);
@@ -83,9 +86,9 @@ void Rva001E19E8CallView::call(const Coord3D*primary,const Matrix3D*mtx,const Ob
     Matrix3D orientation=*mtx;
     if(aimSecondary&&secondary){
      const Coord3D*sp=objectPos(secondary);
-     Vector3 delta(-newPos.x,-newPos.y,-newPos.z);delta+=*(const Vector3*)sp;
+     Vector3 delta=Vector3(-newPos.x,-newPos.y,-newPos.z)+Vector3(sp->x,sp->y,sp->z);
      float len=WWMath::Sqrt(delta.X*delta.X+delta.Y*delta.Y);delta.Z+=10.0f;float angleToTarget=(float)atan2((double)delta.Z,(double)len);float a=1.5707963267948966f-angleToTarget;
-     float s=sin(a),c=cos(a);Matrix3D rotation(true);rotation.Rotate_Y(s,c);orientation.postMul(rotation);
+     float s;Matrix3D rotation(true);rotateParticleY(rotation,s,(s=(float)sin(a),(float)cos(a)));orientation.postMul(rotation);
     }
     sys->setLocalTransform(&orientation);
    }
