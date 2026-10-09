@@ -79,7 +79,7 @@ static Bool showSoloMaps = true;
 Bool mapSelectIsShuttingDown = false;
 Bool mapSelectStartGame = false;
 static Bool buttonPushed = false;
-extern int g_00DD12D8; // Shared difficulty storage defined by the radio-button helper.
+static GameDifficulty s_AIDiff = DIFFICULTY_NORMAL; // Retail VA DD12D8 stores 1.
 
 
 class BFMERetailScriptEngineView
@@ -401,15 +401,15 @@ WindowMsgHandledType MapSelectMenuSystem( GameWindow *window, UnsignedInt msg,
 			}  // end else if
 			else if( controlID == radioButtonEasyAI)
 			{
-				g_00DD12D8 = DIFFICULTY_EASY;
+				s_AIDiff = DIFFICULTY_EASY;
 			}
 			else if( controlID == radioButtonMediumAI)
 			{
-				g_00DD12D8 = DIFFICULTY_NORMAL;
+				s_AIDiff = DIFFICULTY_NORMAL;
 			}
 			else if( controlID == radioButtonHardAI)
 			{
-				g_00DD12D8 = DIFFICULTY_HARD;
+				s_AIDiff = DIFFICULTY_HARD;
 			}
 			break;
 
@@ -625,14 +625,14 @@ void doGameStart()
 {
  mapSelectStartGame=false;
  TheGameLogic->rva00376E92(false,false);
- ((Rva00203BCDDwordSlot *)TheScriptEngine)->set(g_00DD12D8);
+ ((Rva00203BCDDwordSlot *)TheScriptEngine)->set(s_AIDiff);
  if(!showSoloMaps && mapSelectHeadlessCount)
   Rva0050CF3CStartHeadless();
  else {
   InitRandom(0);
   GameMessage *msg=((MapSelectMessageStreamView *)TheMessageStream)->appendMessage((GameMessage::Type)0x1E);
   msg->appendIntegerArgument(0);
-  msg->appendIntegerArgument(g_00DD12D8);
+  msg->appendIntegerArgument(s_AIDiff);
   msg->appendIntegerArgument(0);
  }
  ((MapSelectShellStartView *)TheShell)->flag54=true;
@@ -701,9 +701,9 @@ public:
 };
 
 
-extern int g_00DD12D8;
-// g_00DD12D8: matched references place it at VA 0xdd12d8 (zero-filled .bss).
-int g_00DD12D8;
+
+
+
 
 void SetDifficultyRadioButtonMapSelectMenu()
 {
@@ -712,7 +712,7 @@ void SetDifficultyRadioButtonMapSelectMenu()
 	GameWindow *parent = ((MapSelectWindowManagerView *)TheWindowManager)->winGetWindowFromId(0, parentID);
 	ScriptEngine *se = TheScriptEngine;
 	if (se == 0) {
-		g_00DD12D8 = 0;
+		s_AIDiff = DIFFICULTY_EASY;
 	} else {
 		int diff = ((BfmeScriptDiffView *)se)->m_diff;
 		switch (diff) {
@@ -720,21 +720,21 @@ void SetDifficultyRadioButtonMapSelectMenu()
 				NameKeyType id = TheNameKeyGenerator->nameToKey(AsciiString("MapSelectMenu.wnd:RadioButtonEasyAI"));
 				GameWindow *win = ((MapSelectWindowManagerView *)TheWindowManager)->winGetWindowFromId(parent, id);
 				GadgetRadioSetSelection(win, false);
-				g_00DD12D8 = 0;
+				s_AIDiff = DIFFICULTY_EASY;
 				break;
 			}
 			case 1: {
 				NameKeyType id = TheNameKeyGenerator->nameToKey(AsciiString("MapSelectMenu.wnd:RadioButtonMediumAI"));
 				GameWindow *win = ((MapSelectWindowManagerView *)TheWindowManager)->winGetWindowFromId(parent, id);
 				GadgetRadioSetSelection(win, false);
-				g_00DD12D8 = 1;
+				s_AIDiff = DIFFICULTY_NORMAL;
 				break;
 			}
 			case 2: {
 				NameKeyType id = TheNameKeyGenerator->nameToKey(AsciiString("MapSelectMenu.wnd:RadioButtonHardAI"));
 				GameWindow *win = ((MapSelectWindowManagerView *)TheWindowManager)->winGetWindowFromId(parent, id);
 				GadgetRadioSetSelection(win, false);
-				g_00DD12D8 = 2;
+				s_AIDiff = DIFFICULTY_HARD;
 				break;
 			}
 		}

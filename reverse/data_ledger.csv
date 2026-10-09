@@ -15766,7 +15766,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x009D0288,1320,.data,global,?AIKindOfNames@@3PAPBDA,Code/GameEngine/Source/GameLogic/AI/AIKindOfFromName.cpp,owned,,1,1
 0x009D07B0,192,.data,global,?g_012A718C@@3PAPBDA,Code/GameEngine/Source/Common/INI/Rva0006AF00FunctionCurveParse_Rva005051da.cpp,owned,,1,1
 0x009D0870,2664,.data,global,?Gen00DD0870@@3UCoord3DBase@@A,Code/GameEngine/Source/Common/Rva00506B74CopyCompare.cpp,owned,,1,7
-0x009D12D8,256,.data,global,?g_00DD12D8@@3HA,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/MapSelectMenu.cpp,owned,,1,9
+0x009D12D8,256,.data,global,_s_AIDiff,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/MapSelectMenu.cpp,owned,,1,9
 0x009D13D8,176,.data,global,?g_Va00DD13D8@@3_NA,,unowned,,0,3
 0x009D1488,224,.data,global,?g_00DD1488@@3HA,Code/GameEngine/Source/Common/Rva00513138Listbox.cpp,owned,,1,1
 0x009D1568,320,.data,global,?g_Va00DD1568@@3PAUAptOnlineScreenEntry@@A,,unowned,,0,4
