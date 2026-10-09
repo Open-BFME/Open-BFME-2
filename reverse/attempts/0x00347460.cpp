@@ -1,6 +1,6 @@
 // ?update@AIInternalMoveToState@@UAE?AW4StateReturnType@@XZ
-// partial score=0.995 date=2026-10-07
-// cl: /O1 /DNDEBUG /MD /G7
+// partial score=0.998 date=2026-10-09
+// cl: /O1 /DNDEBUG /MD /G7 /arch:SSE
 //
 // Derived AI state onExit overrides chaining to the rowed
 // AIInternalMoveToState::onExit 0x003473A4, transferred from Zero Hour
@@ -598,10 +598,7 @@ public:
 protected:
 	Bool m_isMoveTo; // +0x4C
 };
-void AIMoveToState::onExit(StateExitType status)
-{
-	AIInternalMoveToState::onExit(status);
-}
+
 class AIAttackMoveToState : public AIMoveToState
 {
 public:
@@ -615,11 +612,7 @@ private:
 	Coord3D m_bfmeGoalPosition60; // +0x60
 	ObjectID m_bfmeGoalObjectID6C; // +0x6C
 };
-void AIAttackMoveToState::onExit(StateExitType status)
-{
-	m_attackMoveMachine->setState(AI_IDLE);
-	AIMoveToState::onExit(status);
-}
+
 class AIFollowWaypointPathState : public AIInternalMoveToState
 {
 public:
@@ -637,15 +630,7 @@ protected:
 	Bool m_moveAsGroup; // +0x65
 	Bool m_isFollowWaypointPathState; // +0x66
 };
-void AIFollowWaypointPathState::onExit(StateExitType status)
-{
-	AIInternalMoveToState::onExit(status);
 
-	// turn off precision-z-pos when we exit, just in case.
-	AIUpdateInterface *ai = getMachineOwner()->getAI();
-	if (ai && ai->getCurLocomotor())
-		ai->getCurLocomotor()->setUsePreciseZPos(false);
-}
 class AIAttackFollowWaypointPathState : public AIFollowWaypointPathState
 {
 public:
@@ -655,17 +640,7 @@ public:
 private:
 	StateMachine *m_attackFollowMachine; // +0x68
 };
-StateReturnType AIAttackFollowWaypointPathState::onEnter()
-{
-	m_attackFollowMachine->clear();
-	m_attackFollowMachine->setState(AI_IDLE);
-	return AIFollowWaypointPathState::onEnter();
-}
-void AIAttackFollowWaypointPathState::onExit(StateExitType status)
-{
-	m_attackFollowMachine->setState(AI_IDLE);
-	AIFollowWaypointPathState::onExit(status);
-}
+
 extern unsigned char g_00E03745;
 extern void *g_00DFEFF0;
 struct FprintfTarget
@@ -683,68 +658,6 @@ static __forceinline void critterDesyncLog(const char *text)
 	}
 }
 
-StateReturnType AIAttackFollowWaypointPathState::update()
-{
-	Object *owner = m_machine->getOwner();
-	AIUpdateInterface *ai = owner->getAI();
-
-	Bool forceRetarget = false;
-	Bool shouldRepath = false;
-	Object *victim = 0;
-
-	if (!m_attackFollowMachine->isInIdleState())
-	{
-		ai->setLocomotorGoalNone();
-
-		clearModelConditionBit(owner, 61);
-		clearModelConditionBit(owner, 156);
-
-		m_attackFollowMachine->updateStateMachine();
-
-		if (m_attackFollowMachine == 0 || !m_attackFollowMachine->isInIdleState())
-			return STATE_CONTINUE;
-
-		forceRetarget = true;
-		shouldRepath = true;
-	}
-
-	if (m_attackFollowMachine->isInIdleState())
-	{
-		Object *crate = ai->checkForCrateToPickup();
-		if (crate != 0)
-		{
-			m_attackFollowMachine->setGoalObject(crate);
-			m_attackFollowMachine->setState(0x27);
-			return STATE_CONTINUE;
-		}
-
-		victim = ai->getNextMoodTarget(!forceRetarget, false);
-		if (victim != 0)
-		{
-			m_attackFollowMachine->setGoalObject(victim);
-			m_attackFollowMachine->setState(0x0a);
-			ai->m_flag3C7 = true;
-			return STATE_CONTINUE;
-		}
-	}
-
-	if (shouldRepath)
-	{
-		computeGoal(m_moveAsGroup);
-
-		if (g_00E03745)
-		{
-			FprintfTarget *log = (FprintfTarget *)g_00DFEFF0;
-			if (log != 0)
-				fprintf(log, "CritterDesync: ComputePath38");
-		}
-
-		computePath();
-	}
-
-	return AIFollowWaypointPathState::update();
-}
-
 class AIFollowWaypointPathStateAndEvacuate : public AIFollowWaypointPathState
 {
 public:
@@ -752,297 +665,6 @@ public:
 	virtual void onExit(StateExitType status);
 	virtual StateReturnType update();
 };
-StateReturnType AIFollowWaypointPathStateAndEvacuate::onEnter()
-{
-	Rva0033FA64Do((const Object0033FA64 *)getMachineOwner());
-	return AIFollowWaypointPathState::onEnter();
-}
-void AIFollowWaypointPathStateAndEvacuate::onExit(StateExitType status)
-{
-	AIFollowWaypointPathState::onExit(status);
-	Rva0033FA79Do((const Object0033FA79 *)getMachineOwner());
-}
-StateReturnType AIFollowWaypointPathStateAndEvacuate::update()
-{
-	StateReturnType status = AIFollowWaypointPathState::update();
-	Object *owner = getMachineOwner();
-	if (owner->getAI()->getPath() != 0)
-	{
-		Rva003642DFResult end = owner->getAI()->getPath()->rva003642DF(owner->getBfmeRealB8());
-		if (!TheAI->pathfinder()->IsBuildRestrictedCell(&end.m_pos, false, false, 1))
-			status = STATE_SUCCESS;
-	}
-	if (status == STATE_SUCCESS)
-		rva003532BF(owner, getMachine(), false);
-	return status;
-}
-
-StateReturnType AIFollowWaypointPathState::update()
-{
-	if (m_framesSleeping > 0)
-	{
-		m_framesSleeping--;
-		return STATE_CONTINUE;
-	}
-	Object *obj = getMachineOwner();
-	AIUpdateInterface *ai = obj->getAI();
-
-	getMachine()->setGoalPosition(m_currentWaypoint->getLocation());
-
-	UnsignedInt adjustment = ai->getMoodMatrixActionAdjustment(MM_Action_Move);
-	if (m_isFollowWaypointPathState && (adjustment & MAA_Action_To_AttackMove))
-	{
-		if (m_moveAsGroup)
-			ai->aiAttackFollowWaypointPathAsTeam(m_currentWaypoint, NO_MAX_SHOTS_LIMIT, CMD_FROM_AI);
-		else
-			ai->aiAttackFollowWaypointPath(m_currentWaypoint, NO_MAX_SHOTS_LIMIT, CMD_FROM_AI);
-	}
-
-	if (m_appendGoalPosition)
-	{
-		Path *thePath = ai->getPath();
-		if (!ai->isWaitingForPath() && ai->getPath())
-		{
-			thePath->rva002655E3(&m_goalPosition, LAYER_GROUND, 0x7FFFFFFF);
-			m_appendGoalPosition = false;
-		}
-	}
-	if (m_moveAsGroup && m_currentWaypoint != obj->getTeam()->getCurrentWaypoint())
-	{
-		m_priorWaypoint = m_currentWaypoint;
-		m_currentWaypoint = obj->getTeam()->getCurrentWaypoint();
-		if (m_currentWaypoint == 0)
-			return STATE_SUCCESS;
-		computeGoal(false);
-		if (getAdjustsDestination() && ai->isDoingGroundMovement())
-		{
-			if (!TheAI->pathfinder()->adjustDestination(obj, ai->getLocomotorSet(), &m_goalPosition, 0))
-				return STATE_FAILURE;
-		}
-		ai->rva00262ACE();
-		critterDesyncLog("CritterDesync: ComputePath36");
-		computePath();
-		if (getAdjustsDestination())
-			obj->rva0028ACEE((int)&m_goalPosition, m_goalLayer);
-	}
-
-	StateReturnType status = AIInternalMoveToState::update();
-
-	if (m_moveAsGroup)
-	{
-		if (obj->getControllingPlayer()->isSkirmishAIPlayer())
-		{
-			Team *team = obj->getTeam();
-			AIGroup *group = TheAI->createGroup();
-			team->getTeamAsAIGroup(group);
-
-			Coord3D pos;
-			group->getCenter(&pos);
-
-			pos.x -= m_goalPosition.x;
-			pos.y -= m_goalPosition.y;
-			pos.z = 0;
-
-			Int numInGroup = ((Rva0036E346 *)group)->rva0036E346();
-			if (pos.length() <= (numInGroup * TheAI->getAiData()->m_skirmishGroupFudgeValue))
-				status = STATE_SUCCESS;
-		}
-	}
-
-	if (status != STATE_CONTINUE)
-	{
-		m_currentWaypoint = getNextWaypoint();
-
-		Object *obj = getMachineOwner();
-		AIUpdateInterface *ai = obj->getAI();
-		if (m_priorWaypoint)
-			ai->setPriorWaypointID(m_priorWaypoint->getID());
-		if (m_currentWaypoint)
-			ai->setCurrentWaypointID(m_currentWaypoint->getID());
-
-		if (m_currentWaypoint == 0)
-		{
-			ai->setCompletedWaypoint(m_priorWaypoint);
-			return STATE_SUCCESS;
-		}
-		if (m_moveAsGroup)
-			obj->getTeam()->setCurrentWaypoint(m_currentWaypoint);
-
-		computeGoal(false);
-		if (getAdjustsDestination() && ai->isDoingGroundMovement())
-		{
-			if (!TheAI->pathfinder()->adjustDestination(obj, ai->getLocomotorSet(), &m_goalPosition, 0))
-				return STATE_FAILURE;
-		}
-		ai->rva00262ACE();
-		critterDesyncLog("CritterDesync: ComputePath37");
-		computePath();
-		if (getAdjustsDestination())
-			obj->rva0028ACEE((int)&m_goalPosition, m_goalLayer);
-
-		return STATE_CONTINUE;
-	}
-	return status;
-}
-
-StateReturnType AIAttackMoveToState::update()
-{
-	Object *owner = getMachineOwner();
-	AIUpdateInterface *ai = owner->getAI();
-
-	Bool forceRetargetThisFrame = false;
-	Bool shouldRepathThisFrame = false;
-
-	if (!m_attackMoveMachine->isInIdleState())
-	{
-		Object *goalObj = getMachine()->getGoalObject();
-		if (goalObj && goalObj != m_attackMoveMachine->getGoalObject())
-			m_attackMoveMachine->setGoalObject(goalObj);
-		m_attackMoveMachine->updateStateMachine();
-
-		if (m_attackMoveMachine == 0 || !m_attackMoveMachine->isInIdleState())
-			return STATE_CONTINUE;
-		forceRetargetThisFrame = true;
-		shouldRepathThisFrame = true;
-		ai->friend_setLastCommandSource(m_commandSrc);
-	}
-
-	if (m_attackMoveMachine->isInIdleState())
-	{
-		Object *crate = ai->checkForCrateToPickup();
-		if (crate)
-		{
-			m_attackMoveMachine->setGoalObject(crate);
-			m_attackMoveMachine->setState(AI_PICK_UP_CRATE);
-			return STATE_CONTINUE;
-		}
-
-		Object *nextObjectToAttack = ai->getNextMoodTarget(!forceRetargetThisFrame, false);
-		if (nextObjectToAttack != 0)
-		{
-			ai->rva00262AEA();
-			m_attackMoveMachine->setGoalObject(nextObjectToAttack);
-			m_attackMoveMachine->setState(AI_ATTACK_OBJECT);
-			ai->friend_setLastCommandSource(CMD_FROM_AI);
-			ai->m_flag3C7 = true;
-			return STATE_CONTINUE;
-		}
-	}
-
-	const Coord3D *machinePos = getMachine()->getGoalPosition();
-	Coord3D machineGoal;
-	machineGoal.x = machinePos->x;
-	machineGoal.y = machinePos->y;
-	machineGoal.z = machinePos->z;
-	ObjectID goalID = m_bfmeGoalObjectID6C;
-	Object *goalObj = TheGameLogic->findObjectByID(goalID);
-	const Coord3D *goalPos;
-	if (goalObj)
-		goalPos = goalObj->getPosition();
-	else if (goalID != INVALID_OBJECT_ID)
-		return STATE_SUCCESS;
-	else
-		goalPos = &m_bfmeGoalPosition60;
-	Coord3D delta = *goalPos;
-	delta.x -= machineGoal.x;
-	delta.y -= machineGoal.y;
-	delta.z -= machineGoal.z;
-	if (delta.GetLengthEstimate() > 5.0f)
-	{
-		if (goalObj)
-			getMachine()->setGoalObject(goalObj);
-		else
-			getMachine()->setGoalPosition(&m_bfmeGoalPosition60);
-		shouldRepathThisFrame = true;
-	}
-
-	if (m_frameToSleepUntil > TheGameLogic->getFrame())
-		return STATE_CONTINUE;
-	else if (m_frameToSleepUntil == TheGameLogic->getFrame())
-		shouldRepathThisFrame = true;
-
-	if (shouldRepathThisFrame)
-	{
-		AIMoveToState::onEnter();
-		forceRepath();
-	}
-
-	StateReturnType ret = AIMoveToState::update();
-	if (ret != STATE_CONTINUE)
-	{
-		if (m_retryCount < 1)
-			return ret;
-		Real dx = owner->getPosition()->x - m_pathGoalPosition.x;
-		Real dy = owner->getPosition()->y - m_pathGoalPosition.y;
-		Real distSqr = dx * dx + dy * dy;
-		if (distSqr < 80.0f * 80.0f)
-			return ret;
-
-		ret = STATE_CONTINUE;
-		m_retryCount--;
-		m_frameToSleepUntil = TheGameLogic->getFrame() + 3 * LOGICFRAMES_PER_SECOND;
-	}
-	return ret;
-}
-
-StateReturnType AIMoveToState::update()
-{
-	AIUpdateInterface *ai = getMachineOwner()->getAI();
-
-	UnsignedInt adjustment = ai->getMoodMatrixActionAdjustment(MM_Action_Move);
-	if (m_isMoveTo && (adjustment & MAA_Action_To_AttackMove))
-		ai->aiAttackMoveToPosition(&m_goalPosition, NO_MAX_SHOTS_LIMIT, CMD_FROM_AI);
-
-	Object *goalObj = getMachine()->getGoalObject();
-	Object *obj = getMachineOwner();
-	if (goalObj)
-	{
-		m_goalPosition = *goalObj->getPosition();
-		Bool isMissile = obj->isKindOf(KINDOF_PROJECTILE);
-		if (isMissile)
-		{
-			Real halfHeight = getMachine()->getGoalObject()->getGeometryInfo().getMaxHeightAbovePosition() / 2.0f;
-			m_goalPosition.z += halfHeight;
-			Real zDelta = m_goalPosition.z - obj->getPosition()->z;
-			if (zDelta > 0)
-				m_goalPosition.z += zDelta;
-		}
-		if (isMissile && !goalObj->isKindOf(KINDOF_IMMOBILE))
-		{
-			const Coord3D *objPos = obj->getPosition();
-			Coord3D ourPos;
-			ourPos.x = objPos->x;
-			ourPos.y = objPos->y;
-			ourPos.z = objPos->z;
-			Coord3D delta;
-			delta.x = m_goalPosition.x - ourPos.x;
-			delta.y = m_goalPosition.y - ourPos.y;
-			delta.z = m_goalPosition.z - ourPos.z;
-			Real mySpeed = obj->rva0028AC7D();
-			Real goalSpeed = goalObj->rva0028AC7D();
-			if (mySpeed < 5.0f)
-				mySpeed = 5.0f;
-			Real leadDistance = (0.5 * delta.length()) * goalSpeed / mySpeed;
-			Coord3D dir;
-			goalObj->getUnitDirectionVector3D(dir);
-			m_goalPosition.x += dir.x * leadDistance;
-			m_goalPosition.y += dir.y * leadDistance;
-			m_goalPosition.z += dir.z * leadDistance;
-		}
-	}
-	else
-	{
-		if (obj->isKindOf(KINDOF_PROJECTILE))
-		{
-			m_goalPosition = *getMachine()->getGoalPosition();
-			Real zDelta = m_goalPosition.z - obj->getPosition()->z;
-			if (zDelta > 0)
-				m_goalPosition.z += zDelta;
-		}
-	}
-
-	return AIInternalMoveToState::update();
-}
 
 // ?isSamePosition@@YA_NPBUCoord3D@@00@Z present-unmatched
 // AIStates.cpp's static helper (rowed at 0x0033FA8E from the computePath
