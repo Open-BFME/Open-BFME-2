@@ -99,10 +99,16 @@ static const FieldParse GameSpyColorFieldParse[] =
 
 };
 
-// INI::parseOnlineChatColorDefinition is not carried over from the BFME1
-// donor: its body has no masked retail match here, the only BSim pairing
-// (0x0035ABC0) is a different function, and the retail string xrefs hold
-// no OnlineChatColor block keyword.
+// The "OnlineChatColors" block parser, Zero Hour's body unchanged: the
+// block-parse registration at VA 0x00DB918C binds that token to 0x001EF471,
+// which hands GameSpyColor (VA 0x00DB9198) and this table (VA 0x00BE0428)
+// to INI::initFromINI. Ghidra never started a function there (it is
+// reached only through the registration), so no BSim pairing found it.
+void INI::parseOnlineChatColorDefinition( INI* ini )
+{
+	// parse the ini definition
+	ini->initFromINI( GameSpyColor, GameSpyColorFieldParse );
+}
 
 
 Color GameSpyColor[GSCOLOR_MAX] =

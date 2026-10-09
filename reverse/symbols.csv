@@ -17032,3 +17032,5 @@ _D3DXLoadVolumeFromFileInMemory@36,0x0062AF8C,Native1318F0 in-image JMP IAT veri
 ?rva00142170@BfmeSceneVector@@QAEXPAPAUGen_00943CF0_Node@@PAUSceneCollectCell@@IHHHHHHH@Z,0x00142170,native 142330 caller passes output list node array quarter-count rectangle and three subdivision coordinates; recursive target RET40 name unknown
 ??0LivingWorldCampaign@@QAE@ABVAsciiString@@@Z,0x0052CF0F,callee of ?ParseLivingWorldCampaignBlock@LivingWorldCampaign@@SAXPAVINI@@@Z
 ?rva0052C0C8@LivingWorldCampaign@@QAEXXZ,0x0052C0C8,callee of ?ParseLivingWorldCampaignBlock@LivingWorldCampaign@@SAXPAVINI@@@Z
+?Rva00136B5E@@YAXPBD0@Z,0x00136B5E,callee of ?rva00417A6B@HouseColorSystem@@QAEXXZ
+?rva00215B14@PlayerAITypeSet@@QAEXPAVINI@@@Z,0x00215B14,callee of ?Rva00215C38Parse@@YAXPAVINI@@@Z

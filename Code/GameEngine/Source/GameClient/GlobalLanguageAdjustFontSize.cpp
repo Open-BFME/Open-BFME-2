@@ -51,3 +51,29 @@ Int GlobalLanguage::adjustFontSize(Int theFontSize)
 	Real size = theFontSize;
 	return REAL_TO_INT_FLOOR(size * ratio);
 }
+
+// INI::parseLanguageDefinition, retail 0x001EA3F4 (25 bytes): the "Language"
+// block parser (registration VA 0x00DB8F98 binds the token to 0x001EA3F4,
+// reached only through it, so Ghidra never started a function there). The
+// BFME1 donor body (GlobalLanguage.cpp) unchanged: skip without
+// TheGlobalLanguageData (0x00DFDC84), else initFromINI it against the field
+// table at VA 0x00BDEAA0.
+struct FieldParse;
+
+class INI
+{
+public:
+	void initFromINI(void *what, const FieldParse *parseTable);
+	static void parseLanguageDefinition(INI *ini);
+};
+
+extern GlobalLanguage *TheGlobalLanguageData;
+extern const FieldParse TheGlobalLanguageDataFieldParseTable[];
+
+void INI::parseLanguageDefinition(INI *ini)
+{
+	if (!TheGlobalLanguageData)
+		return;
+	// parse the ini weapon definition
+	ini->initFromINI(TheGlobalLanguageData, TheGlobalLanguageDataFieldParseTable);
+}
