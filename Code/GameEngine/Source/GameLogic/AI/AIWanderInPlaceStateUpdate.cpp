@@ -1,11 +1,16 @@
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD
 //
-// AIWanderInPlaceState::update, retail 0x0034F3EB (282 bytes): slot 6 of the
-// AIWanderInPlaceState vtable 0x00C12AC8 (slot 5 is the rowed onExit
-// 0x0034A364, slot 3 the rowed xfer 0x003411BD), right after the state's
-// onEnter 0x0034F2F7 in retail.
+// AIWanderInPlaceState::onEnter, retail 0x0034F2F7 (244 bytes), and
+// AIWanderInPlaceState::update, retail 0x0034F3EB (282 bytes): slots 4 and 6
+// of the AIWanderInPlaceState vtable 0x00C12AC8 (slot 5 is the rowed onExit
+// 0x0034A364, slot 3 the rowed xfer 0x003411BD), adjacent in retail.
 //
-// Donor: Zero Hour AIStates.cpp AIWanderInPlaceState::update. Target facts:
+// Donor: Zero Hour AIStates.cpp AIWanderInPlaceState::onEnter/update. onEnter
+// records the origin, picks the wander locomotor set (AI vslot 142), offsets
+// the goal by random cells (AIStates.cpp lines 10700/10701), clears the timer
+// (+0x5C) and sets the wait frames (+0x58) to 10 + (id & 7) before the base
+// onEnter; retail clears the timer before the goal copy (the store sits ahead
+// of the second conversion). Target facts for update:
 // the base update and onEnter are the pinned AIInternalMoveToState bodies
 // (0x00347460, 0x0034C146); a CAN_BE_REPULSED owner (template kind byte +0x10D
 // bit 5) counts its timer (+0x5C) down and, at zero, reloads it from +0x58 and
@@ -171,6 +176,27 @@ private:
 	Int m_waitFrames; // +0x58
 	Int m_timer; // +0x5C
 };
+
+StateReturnType AIWanderInPlaceState::onEnter()
+{
+	m_origin = *getMachineOwner()->getPosition();
+	AIUpdateInterface *ai = getMachineOwner()->getAI();
+	if (ai)
+		ai->chooseLocomotorSet(LOCOMOTORSET_WANDER);
+	Int delta = 3;
+	if (ai->getCurLocomotor())
+		delta = REAL_TO_INT_FLOOR((ai->getCurLocomotor()->getWanderAboutPointRadius() / PATHFIND_CELL_SIZE_F) + 0.5f);
+	Coord3D offset;
+	offset.x = GameLogicRandomValueAt(-delta, delta, 10700) * PATHFIND_CELL_SIZE;
+	offset.y = GameLogicRandomValueAt(-delta, delta, 10701) * PATHFIND_CELL_SIZE;
+	m_timer = 0;
+	m_goalPosition = m_origin;
+	m_goalPosition.x += offset.x;
+	m_goalPosition.y += offset.y;
+	m_waitFrames = 10 + (getMachineOwner()->getID() & 0x7);
+	StateReturnType ret = AIInternalMoveToState::onEnter();
+	return ret;
+}
 
 StateReturnType AIWanderInPlaceState::update()
 {
