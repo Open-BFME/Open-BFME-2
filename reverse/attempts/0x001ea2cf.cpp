@@ -1,11 +1,10 @@
-// ?rva001EA2CF@Rva001EA2CFLocomotorDefinition@@QAEXPAVINI@@PAVThingTemplate@@@Z
-// partial score=0.991 date=2026-10-06
-// ?rva001EA2CF@Rva001EA2CFLocomotorDefinition@@QAEXPAVINI@@PAVThingTemplate@@@Z
-// partial score=0.991 date=2026-10-05
-// ?rva001EA2CF@Rva001EA2CFLocomotorDefinition@@QAEXPAVINI@@PAVThingTemplate@@@Z
-// partial score=0.6637 date=2026-10-05
-// ?rva001EA2CF@Rva001EA2CFLocomotorDefinition@@QAEXPAVINI@@PAVThingTemplate@@@Z
-// partial score=0.6637 date=2026-10-04
+// ?setLocomotorAndBaseSpeed@LocomotorSet@@QAEXPAVINI@@@Z
+// partial score=0.99 date=2026-10-09
+// NEAR draft (natural WB-shaped body; WB 0x00AF2420 LocomotorSet::setLocomotorAndBaseSpeed).
+// 224B vs 223B: registers and code all match; only the stack packing differs:
+// cl gives the dead INI* home [ebp+8] to the spilled locomotor template and a
+// fresh slot to the set key where retail puts the key at [ebp+8] and packs the
+// template with the 8-byte INIException at [ebp-8]. Strings fixed (tab in both).
 // cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /arch:SSE /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
 // stlport
 #include <map>
@@ -67,22 +66,18 @@ public: LocomotorTemplate *findLocomotorTemplate(const AsciiString &);
 };
 extern LocomotorStore *TheLocomotorStore;
 extern const char *TheLocomotorSetNames[];
-#include "../reference/shims/iniexception/Common/INIException.h"
+#include "../../reference/shims/iniexception/Common/INIException.h"
 class Rva001EA2CFLocomotorDefinition {
 public: void rva001EA2CF(INI *ini, ThingTemplate *instance);
 private: char unknown00[0x18]; AsciiString name; AsciiString setName; float speed;
 };
 void Rva001EA2CFLocomotorDefinition::rva001EA2CF(INI *ini, ThingTemplate *instance) {
  AIUpdateModuleData *self=instance->friend_getAIModuleInfo();
- if (!self) throw INIException(3,"Attempted to specify a locomotor for object %s without an AIUpdate block.",instance->getName().str());
- const char *token=setName.str();
- INI *current=ini;
- LocomotorSetType &set=reinterpret_cast<LocomotorSetType &>(ini);
- set=(LocomotorSetType)current->scanIndexList(token,TheLocomotorSetNames);
- const LocomotorTemplate *volatile loco=TheLocomotorStore->findLocomotorTemplate(name);
+ if (!self) throw INIException(3,"Attempted to specify a locomotor for object %s without an AIUpdate	block.",instance->getName().str());
+ LocomotorSetType set=(LocomotorSetType)ini->scanIndexList(setName.str(),TheLocomotorSetNames);
+ const LocomotorTemplate *loco=TheLocomotorStore->findLocomotorTemplate(name);
  if (!self->templates[set].empty()) {
-  current=reinterpret_cast<INI *>(current->getLoadType());
-  if ((int)current!=2 && (int)current!=4)
+  if (ini->getLoadType()!=2 && ini->getLoadType()!=4)
    throw INIException(3,"re-specifying a LocomotorSet	is no longer allowed");
  }
  instance->rva0033E17D(set,loco);

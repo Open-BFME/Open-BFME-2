@@ -11627,7 +11627,6 @@ name,address,notes
 ?rva00397756@Rva00397756@@QAEXPAUIdRange@@H@Z,0x00397756,GameLogic-outer method (ecx=this-0xc style callers) sweeping one IdRange; free 59B body banked as partial (56/59 scheduler delta); called 4x from rva00397791 0x00397791
 ?rva00397CC9@Rva0039834C@@QAEPAXABURva0039627D@@@Z,0x00397CC9,twin member for tree insert mov ecx edi ICF with free row
 ?rva00397F45@Rva00397F45@@QAE_NPAVPlayer@@H@Z,0x00397F45,thiscall bool(Player*,int); module-gate callee of dump-range-18 0x003BE2DB on the pool-key module with the controlling player
-?rva003980BF@Rva003980BF@@QAEPAXPAXHH@Z,0x003980BF,thiscall (ptr,-2,0) returning pointer; module callee of dump-range-18 0x003BE38B feeding the 0x00208968/0x0020A5FF emits
 ?rva0039815B@CastleBehavior@@QAEPAVObject@@PAVThingTemplate@@PBUCoord3D@@H@Z,0x0039815B,"CastleBehavior member (ret 0xC): builds the template at the given position with a 0/1 mode int; REL32 at 0x003C681F in ScriptActions::rva003C66F1 with ECX the castle module (findModule on the 0x003955DA key)"
 ?rva00399C6C@Rva00399C6C@@QAEXHH@Z,0x00399C6C,thiscall void(int,int); module writer callee of dump-range-18 0x003BE2DB with (flag,0)
 ?rva0039ABFF@ExperienceTracker@@QBE_NXZ,0x0039ABFF,"ExperienceTracker bool member with no arguments (forwards to a 0x00DFECC4 member); REL32 callee of VeterancyCrateCollide::isValidToExecute 0x004BCEF0 at 0x004BCF4E where Zero Hour asks canGainExpForLevel; address-named"
@@ -15062,7 +15061,6 @@ rva009C7380WeightPairs,0x009B84E0
 ??0Rva0057621A@@QAE@PAVRva00575D45@@H@Z,0x0057621A,callee of ??0Rva00575D45@@QAE@PAXH@Z
 ??0Rva00576DF1@@QAE@PAVRva00576B5E@@H@Z,0x00576DF1,callee of ??0Rva00576B5E@@QAE@PAXH@Z
 ??0Rva005776A7@@QAE@PAVRva005772BF@@H@Z,0x005776A7,callee of ??0Rva005772BF@@QAE@PAXH@Z
-?rva001EC859@Rva001EC859@@QAEPAXHH@Z,0x001EC859,Address-derived direct callees read from retail REL32 displacements; semantic identity unresolved.
 ?rva001EC8C0@Rva001EC8C0@@QAE_NHHH@Z,0x001EC8C0,Address-derived direct callees read from retail REL32 displacements; semantic identity unresolved.
 ?rva002AE9B8@Rva002AE9B8@@QAEXHH@Z,0x002AE9B8,Address-derived direct callees of player-mask actions at 0x003BB29D; 0x003BB35B; and 0x003BB41A; target identity unresolved.
 ?rva002ABD93@Rva002ABD93@@QAEXHH@Z,0x002ABD93,Address-derived direct callees of player-mask actions at 0x003BB29D; 0x003BB35B; and 0x003BB41A; target identity unresolved.
@@ -16498,7 +16496,6 @@ _D3DXVec3TransformCoordArray@24,0x0062AF6E,Native 0x00107A47 REL32 reaches six-b
 ?rva0026FFF7@Rva0026FFF7@@QAE_NXZ,0x0026FFF7,thiscall spelling read from the callee body (ECX save / hidden result or AL / EAX use / struct by value); callers 0x0059C010 and 0x00276BA9
 ?rva002747B8@Rva002747B8@@QAEXURGBColor@@@Z,0x002747B8,thiscall spelling read from the callee body (ECX save / hidden result or AL / EAX use / struct by value); callers 0x0059C010 and 0x00276BA9
 ?Rva0013682BCreateRenderObj@@YAPAVRenderObjClass@@PBDMABVRva0013101E@@AAV?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@22@Z,0x0013682B,callee of ?Rva00137364CreateRenderObj@@YAPAVRenderObjClass@@PBDMABVRva0013101E@@@Z
-?rva002775C9@Drawable@@QAEXPAUCoord3D@@@Z,0x002775C9,Drawable method filling an anchor position (object +0x250 helper slot +0x22C else position plus template height +0x538 and geometry height); thiscall with one pointer argument read from the retail call in drawVeterancy 0x00277DB4; only a gen dump names the address
 ?Rva00516F21InvokeFold@@YAXPAVRva00222A8BTarget@@PAXPBD2@Z,0x00516F21,second of the two 44-byte load-screen wrappers (WB 145E110 / 145E140) that ICF folded onto the placeholder-named 516F21; AptOnline update 51805B keeps two separate call sequences which cl emits only for distinct callees
 _D3DXCreateVolumeTextureFromFileInMemoryEx@64,0x0062AF98,Native 1319AC call targets in-image JMP IAT00BBA9FC; PE import d3dx9_27.dll D3DXCreateVolumeTextureFromFileInMemoryEx; stdcall16args proven stack; no existing owner name
 _D3DXCreateCubeTextureFromFileInMemoryEx@56,0x0062AF9E,Native 131A45 call targets in-image JMP IAT00BBA9F8; PE import d3dx9_27.dll D3DXCreateCubeTextureFromFileInMemoryEx; stdcall14args proven stack; no existing owner name
@@ -16799,3 +16796,4 @@ _D3DXLoadVolumeFromFileInMemory@36,0x0062AF8C,Native1318F0 in-image JMP IAT veri
 ??4Rva00153729@@QAEAAU0@ABU0@@Z,0x001539BC,compiler-generated copy assignment of an address-named record view whose code is the retail body at 0x001539BC; that body is rowed only under an address-derived name; every tree copy of this name equals it (1 copies); the kept caller definitions reach it by REL32 there (2 code-identity keys); fold-proof=Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterBinderInit.cpp
 ??4Rva00151DAB@@QAEAAV0@ABV0@@Z,0x00151E30,compiler-generated copy assignment of an address-named record view whose code is the retail body at 0x00151E30; that body is rowed only under an address-derived name; every tree copy of this name equals it (1 copies); the kept caller definitions reach it by REL32 there (1 code-identity keys); fold-proof=Code/Libraries/Source/WWVegas/WW3D2/fxshadersetup.cpp
 ?rva00467AB8@Rva00467AB8@@QAEXPAVObject@@@Z,0x00467AB8,callee of ?rva00477365@Rva00477432Outer@@QAEXPAVObject@@@Z
+?createSingleObject@CarryoverUnit@@QAEPAVObject@@PAVPlayer@@@Z,0x0037DCE8,CarryoverUnit::createSingleObject per WB F5D930; caller campaign carryover spawn 1EC859
