@@ -3,6 +3,14 @@
 
 #include <fstream>
 
+// The verified narrow_ifstream owner supplies these native seek operations.
+namespace _STL {
+template <> bool basic_filebuf<char, char_traits<char> >::_M_seek_init(bool);
+template <> basic_filebuf<char, char_traits<char> >::pos_type
+basic_filebuf<char, char_traits<char> >::seekpos(pos_type, ios_base::openmode);
+}
+
+
 // STLport 4.5.3 src/fstream.cpp: the page size the mmap path rounds to,
 // .data VA 0x00DA6CC8, retail initial value 4096.
 size_t _STL::_Filebuf_base::_M_page_size = 4096;

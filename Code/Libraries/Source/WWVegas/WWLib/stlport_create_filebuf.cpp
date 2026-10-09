@@ -30,6 +30,14 @@
 #include <stdio_streambuf>
 #include "aligned_buffer.h"
 
+// Retail's generic-widening init is owned by stlport_basic_ios_init.cpp.
+// Leave this specialization declared so this unit does not emit a different copy.
+namespace _STL {
+template <> void basic_ios<char, char_traits<char> >::init(
+    basic_streambuf<char, char_traits<char> > *);
+}
+
+
 #ifndef _STLP_USE_NAMESPACES
 # define cin _STLP_cin
 # define cout _STLP_cout
