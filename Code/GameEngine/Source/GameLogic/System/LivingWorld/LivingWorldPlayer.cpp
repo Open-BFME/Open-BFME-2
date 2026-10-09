@@ -86,6 +86,18 @@ private: char unknown00[0x38]; int listCount; int unknown3C; int numColors;
 };
 extern MultiplayerSettings *TheMultiplayerSettings;
 
+// WBDE4E00 names FindArmyWithHero and asserts KINDOF_HERO at line787.
+// Native2E1257 tests that flag at template113 and searches summary pairs40,
+// stride8, through the existing integer-returning indexed getter. Its result
+// is a pointer in this caller; the hero entry key lives atC0. Original template
+// qualifiers and entry type names remain unknown, so retain opaque views.
+class Rva0040CB2CIndexedField { public: int get(int) const; };
+struct PlayerHeroEntryView { char unknown00[0xC0]; int heroKey; };
+struct PlayerHeroPairView { int first,second; };
+struct PlayerHeroSummaryView { char unknown00[0x40]; _STL::vector<PlayerHeroPairView> entries; };
+struct PlayerHeroArmyView { char unknown00[0x78]; PlayerHeroSummaryView *summary; };
+struct PlayerHeroTemplateView { char unknown00[0x113]; unsigned char flags; };
+
 class LivingWorldPlayer
 {
 public:
@@ -93,6 +105,7 @@ public:
 
 	void OnUnitDequeued(Rva00319CED *unit);
 	void SetColorIndex(Int color);
+	void *FindArmyWithHero(void *thing, int key);
 	void **RemoveArmy(void **&iter);
 	bool rva002E12F3(int key);
 	bool rva002E0B30();
@@ -193,4 +206,20 @@ void LivingWorldPlayer::SetColorIndex(Int color)
   m_color190=definition->rgbAt04;
   m_color19C=definition->rgbAt30;
  }
+}
+
+// Native2E1257..2E12F3 RET8,156B; no borrowed callee types or new pins.
+void *LivingWorldPlayer::FindArmyWithHero(void *thing, int key)
+{
+ if(!(((PlayerHeroTemplateView*)thing)->flags & 4))return 0;
+ for(unsigned i=0;i<m_armyVec.size();++i) {
+  PlayerHeroArmyView *army=(PlayerHeroArmyView*)m_armyVec[i];
+  PlayerHeroSummaryView *summary=army->summary;
+  if(!summary)continue;
+  for(int j=0;j<(int)summary->entries.size();++j) {
+   PlayerHeroEntryView *entry=(PlayerHeroEntryView*)((Rva0040CB2CIndexedField*)summary)->get(j);
+   if(entry->heroKey==key)return army;
+  }
+ }
+ return 0;
 }
