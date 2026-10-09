@@ -1,5 +1,7 @@
 // ?rva00501875@Rva00501875Owner@@QAEHH@Z
 // partial score=0.99 date=2026-10-09
+// ?rva00501875@Rva00501875Owner@@QAEHH@Z
+// partial score=0.99 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // NEAR (helper draft): every byte matches; only three call targets differ.
