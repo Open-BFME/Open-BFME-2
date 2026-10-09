@@ -156,10 +156,12 @@ void Rva0056D2BD::rva0056D2BD(Int a0)
 	m_08->rva0056CA31(a0);
 }
 
-class Rva0056CCE2
+struct FloatPair;
+class InGameCommandButtonHelp { public: class Impl; };
+class InGameCommandButtonHelp::Impl
 {
 public:
-	void rva0056CCE2(Int a0, Int a1);
+	void Render(const FloatPair &position, const FloatPair &size);
 };
 class Rva0056D2C5
 {
@@ -167,11 +169,12 @@ public:
 	void rva0056D2C5(Int a0, Int a1);
 private:
 	char m_pad00[0x08];
-	Rva0056CCE2 *m_08;
+	InGameCommandButtonHelp::Impl *m_08;
 };
 void Rva0056D2C5::rva0056D2C5(Int a0, Int a1)
 {
-	m_08->rva0056CCE2(a0, a1);
+	m_08->Render(*reinterpret_cast<const FloatPair *>(a0),
+		*reinterpret_cast<const FloatPair *>(a1));
 }
 
 class Rva005757F9
