@@ -1,5 +1,4 @@
 // ?checkValid@BfmeItemE63@@QAE_NXZ
-// partial score=0.97 date=2026-10-09
 // cl: /DNDEBUG /MD /EHsc /O1 /arch:SSE /G7
 // Native 397B89..397BD9; callers use this+14 pending ObjectID. The BFME1
 // CastleBehaviorIsPendingObjectUnavailable.cpp at donor874e38488 supplies
@@ -13,6 +12,7 @@ class Object
 public:
  char pad00[0x110];
  unsigned int m_110;
+ __forceinline unsigned char bit110() const { return (unsigned char)(m_110 >> 30); }
  unsigned int m_114;
  char pad118[0x124-0x118];
  unsigned int m_124;
@@ -33,5 +33,7 @@ bool BfmeItemE63::checkValid()
  if (((unsigned char)(object->m_124 >> 27) & 1) ||
      ((unsigned char)(object->m_124 >> 26) & 1) ||
      ((unsigned char)(object->m_114 >> 5) & 1)) return true;
- return ((unsigned char)(object->m_110 >> 30) & 1) != 0;
+ unsigned char bit = object->bit110();
+ bit &= 1;
+ return bit;
 }
