@@ -12,6 +12,7 @@
 // layers at +0x60 and the final manager-like subobject at +0x460.
 #include <vector>
 #include <new>
+#include "../../Common/GameLogicObjectLookupView.h"
 typedef bool Bool;
 typedef int Int;
 enum PathfindLayerEnum
@@ -473,6 +474,7 @@ struct PathCollisionInfo {
     char gap1C[4];
     PathCollisionNode *goals;
     PathCollisionNode *reservations;
+    ObjectID fallbackID; // Native/WB fallback lookup when +20 list is empty.
 };
 struct PathCollisionCell { PathCollisionInfo *info; };
 // Native bridge list links at +4; height and containment use existing
@@ -538,6 +540,7 @@ public:
     int _GetOverlapUnits(Object *,const Coord3D *,int *);
     int GetOverlapGoalUnits(Object *,const Coord3D *,int *);
     int CountOverlapHordeGoalUnits(Object *,const Coord3D *);
+    int _GetAdjacentUnits(Object *,const Coord3D *,int *);
     Bool rva002E9BE5(const Coord3D *,const Coord3D *,float,unsigned,Coord3D *);
     Bool rva002F3392(PathNode *,PathNode *,unsigned,Coord3D *,Coord3D *,Coord3D *);
     void SetDebugPath(Rva002EDEABArg *);
@@ -2218,6 +2221,49 @@ int Pathfinder::CountOverlapHordeGoalUnits(Object *object,const Coord3D *positio
       if(node->object==object) continue;
       if(node->object->container==object->container) ++count;
       else count+=2;
+     }
+    }
+   }
+  }
+ }
+ return count;
+}
+
+
+// WB D3B920 / native2F133C..2F14F9: perimeter query, up to16 unique IDs.
+extern GameLogic *TheGameLogic;
+int Pathfinder::_GetAdjacentUnits(Object *object,const Coord3D *position,int *out)
+{
+ ICoord2D cell;
+ int below,above;
+ int layers[2];
+ Rva002EBC14Cell(&cell,object,position);
+ Rva002EBCD6Split(object,&below,&above);
+ layers[0]=object->rva0028B511();
+ int numLayers=1;
+ if (!(unsigned char)Rva002E6E6CGet(layers[0]) && reinterpret_cast<PathfinderOverlapTerrainView *>(TheTerrainLogic)->objectInteractsWithBridgeLayer(object,layers[0])) {
+  layers[1]=1; numLayers=2;
+ }
+ int count=0;
+ ++g_Va00DFECD0;
+ object->rva002E6B89();
+ for(int x=cell.x-below-1;x<cell.x+above+1;++x) {
+  int step=(x==cell.x-below-1 || x==cell.x+above)?1:below+above+1;
+  for(int y=cell.y-below-1;y<cell.y+above+1;y+=step) {
+   for(int k=0;k<numLayers;++k) {
+    PathCollisionCell *c=reinterpret_cast<PathCollisionCell *>(getCell((PathfindLayerEnum)layers[k],x,y));
+    if(c && c->info) {
+     for(PathCollisionNode *node=c->info->goals;node;node=node->next) {
+      if(node->object->rva002E6B89()) continue;
+      out[count++]=node->object->getID();
+      if(count==16) return count;
+     }
+     if(!c->info->goals) {
+      Object *fallback=TheGameLogic->findObjectByID((ObjectID)(c->info?c->info->fallbackID:0));
+      if(fallback && !fallback->rva002E6B89()) {
+       out[count++]=fallback->getID();
+       if(count==16) return count;
+      }
      }
     }
    }
