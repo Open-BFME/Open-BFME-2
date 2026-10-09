@@ -233,8 +233,28 @@ unsigned long	CRC::Memory( unsigned char *data, unsigned long length, unsigned l
 	return (crc ^ 0xFFFFFFFF); 						// invert new CRC and return it
 }
 
+// Native 615B50..615B5F is an INT3-bracketed wrapper around the actual
+// CRC::String619B00 provider: receiver text pointer+C and initial CRC zero.
+// BF1 f989 ini.cpp/INIClass_Put_String.cpp emit the same wrapper for both
+// INIEntry::Index_ID and INISection::Index_ID. Those donor names do not settle
+// the target receiver identity; this accessed prefix keeps it address-owned.
+class Rva00615B50Text
+{
+public:
+    unsigned long crc() const;
+private:
+    unsigned char m_unknown00[0x0C];
+    const char *m_text;
+};
+
+unsigned long Rva00615B50Text::crc() const
+{
+    return CRC::String(m_text, 0);
+}
+
 // ?CRC::String present-unmatched
-unsigned long	CRC::String( const char *string, unsigned long crc)
+// Native 615B50 calls this real 619B00 provider out of line.
+__declspec(noinline) unsigned long	CRC::String( const char *string, unsigned long crc)
 {
  	crc ^= 0xFFFFFFFF;									// invert previous CRC
 	while ( *string )	{
