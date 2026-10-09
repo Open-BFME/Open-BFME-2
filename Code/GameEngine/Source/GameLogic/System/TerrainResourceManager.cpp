@@ -21,17 +21,22 @@ __forceinline int cellInteger(float value)
  return result;
 }
 
+struct CellClaimant { int player; unsigned int object; };
+struct ResourceCell { CellClaimant *first,*last,*capacity; int state; };
 struct Rva003598A5Obj { virtual void f(int,int); };
 class TerrainResourceManager {
 public:
     void rva003598A5(int,int,int,void *);
     void rva0035997F(int,int,int,void *);
     float rva00359A0C(float,float,float,bool,int);
+    unsigned int getCellClaimant(int,int,int);
 private:
     char pad00[0x1c];
     float originX1C, originY20;
-    char pad24[0x18];
+    char pad24[0x10];
+    int width34,height38;
     float cell3C;
+    ResourceCell *cells40;
 };
 void TerrainResourceManager::rva003598A5(int low,int high,int y,void *visitor)
 {
@@ -75,4 +80,25 @@ float TerrainResourceManager::rva00359A0C(float x,float y,float radius,bool flag
  Rva0035986C visitor((int)this,flag,player,false);
  rva0035997F(cellX,cellY,cellRadius,&visitor);
  return reinterpret_cast<const Rva00359835*>(&visitor)->rva00359835();
+}
+
+// Native359902..35997F: range/initialized guards and state2 player search,
+// state3 first claimant with empty-cell reset. WB E608E0 names getCellClaimant
+// and has the same cell states and record roles. Return representation is inferred.
+unsigned int TerrainResourceManager::getCellClaimant(int x,int y,int player)
+{
+ if(x<0 || x>=width34 || y<0 || y>=height38 || !cells40) return 0;
+ ResourceCell& cell=cells40[y*width34+x];
+ switch(cell.state) {
+ case 0: case 1: return 0;
+ case 2:
+   if(player==-1) return 0;
+   for(CellClaimant *i=cell.first;i!=cell.last;++i)
+      if(i->player==player) return i->object;
+   return 0;
+ case 3:
+   if((unsigned int)(cell.last-cell.first)<1) {cell.state=0;return 0;}
+   return cell.first->object;
+ default:return 0;
+ }
 }
