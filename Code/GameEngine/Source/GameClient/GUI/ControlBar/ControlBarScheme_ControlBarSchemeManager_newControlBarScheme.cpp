@@ -289,3 +289,32 @@ static void animSlideRight( ControlBarSchemeAnimation *anim )
 
 }
 
+
+// INI::parseControlBarSchemeDefinition, retail 0x001DB68C (113 bytes): the
+// "ControlBarScheme" block parser (registration VA 0x00DB8C80 binds the token
+// to 0x001DB68C; reached only through it, so Ghidra never started a function
+// there). The Open-BFME-1 donor body (ControlBarScheme.cpp) with one BFME 2
+// delta read off retail: the scheme manager hangs off TheControlBar
+// (0x00E01CFC) at +0x44, not BFME 1's +0x30. Retail sets the name through
+// StringBase<char>::set (0x000055F5), passes it by value to
+// newControlBarScheme (0x0032053E) and fills the result from the field table
+// at VA 0x00C0CD88.
+void INI::parseControlBarSchemeDefinition( INI *ini )
+{
+	AsciiString name;
+	name.set( ini->getNextToken() );
+
+	struct RetailControlBar
+	{
+		char m_unknown00[ 0x44 ];
+		ControlBarSchemeManager *m_schemeManager;	// 0x44
+	};
+	ControlBarSchemeManager *manager =
+		reinterpret_cast<RetailControlBar *>( TheControlBar )->m_schemeManager;
+
+	if( manager )
+	{
+		ControlBarScheme *scheme = manager->newControlBarScheme( name );
+		ini->initFromINI( scheme, ControlBarSchemeManager::m_controlBarSchemeFieldParseTable );
+	}
+}
