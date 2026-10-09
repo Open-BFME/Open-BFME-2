@@ -29,10 +29,13 @@ public:
 	~AsciiString() { releaseBuffer(); }
 	AsciiString &operator=(const AsciiString &other);
 };
+// Declared, not defined inline: retail's calls land on the rowed releaseBuffer
+// body at 0x00036410, and an inline body here was the tree's only copy of this
+// name, so every caller bound to it instead of to that row.
 class BFMERetailAsciiString : public AsciiString
 {
 public:
-    ~BFMERetailAsciiString() {}
+    ~BFMERetailAsciiString();
 };
 class Snapshot
 {

@@ -1147,7 +1147,6 @@ Code/GameEngine/Source/Common/Thing/Rva001FA440Ctor.cpp	??0Rva001FA440@@QAE@XZ	?
 Code/GameEngine/Source/Common/Thing/Rva001FA54DForward.cpp	?rva001FA54D@Rva001FA54D@@QAEXPAX0@Z	?accept@T1Sink_005C8D40@@QAEPAXPAX0@Z	0x001F8A38	unowned
 Code/GameEngine/Source/Common/Thing/Rva002D0C71Ctor.cpp	??0Rva002D0C71@@QAE@XZ	??0?$hashtable@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@W4NameKeyType@@U?$hash@W4NameKeyType@@@rts@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@2@U?$equal_to@W4NameKeyType@@@Rva002D0C71Twin@@V?$allocator@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@2@@_STL@@QAE@IABU?$hash@W4NameKeyType@@@rts@@ABU?$equal_to@W4NameKeyType@@@Rva002D0C71Twin@@ABV?$allocator@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@1@@Z	0x002D0B5A	wrong
 Code/GameEngine/Source/Common/Thing/Rva002D0E14Ctor.cpp	??0Rva002D0E14@@QAE@XZ	?rva00212858@Rva000427195@@QAEXI@Z	0x00212858	unowned
-Code/GameEngine/Source/Common/Thing/Rva0033B5B8Finish.cpp	?Rva0033B5B8Build@@YAXPAVModuleInfo@@W4ModuleType@@HH@Z	??1BFMERetailAsciiString@@QAE@XZ	0x00036410	wrong
 Code/GameEngine/Source/Common/Thing/Rva0040AEE3CopyCtor.cpp	??4Rva0040AEE3@@QAEAAV0@ABV0@@Z	??4?$vector@HV?$allocator@H@_STL@@@_STL@@QAEAAV01@ABV01@@Z	0x0021C21B	divergent
 Code/GameEngine/Source/Common/Thing/Rva0040AEE3CopyPtrs.cpp	??$__copy_ptrs@PAVRva0040AEE3@@PAV1@@_STL@@YAPAVRva0040AEE3@@PAV1@00U__false_type@0@@Z	??$__copy@PAVRva0040AEE3@@PAV1@H@_STL@@YAPAVRva0040AEE3@@PAV1@00ABUrandom_access_iterator_tag@0@PAH@Z	0x0040B218	wrong
 Code/GameEngine/Source/Common/Thing/Rva006D0F20Release.cpp	?release@Rva006D0F20@@QAEXXZ	?teardown@Rva006D0280@@QAEXXZ	0x006D0280	unowned
@@ -1627,7 +1626,6 @@ Code/GameEngine/Source/GameClient/System/ImageCollectionDeletingDtor.cpp	??_GIma
 Code/GameEngine/Source/GameClient/System/ImageCollectionLoad.cpp	?load@ImageCollection@@QAEXH@Z	?loadDirectory@INI@@QAEXVAsciiString@@_NW4INILoadType@@PAVXfer@@H@Z	0x0002E63B	unowned
 Code/GameEngine/Source/GameClient/System/ParticleSystemMake001FCBD7.cpp	?Make001FCBD7@@YAPAVParticleSystem@@XZ	??0ParticleSystem@@QAE@PBVParticleSystemTemplate@FXParticleSystem@@W4ParticleSystemID@@_N@Z	0x001FC701	unowned
 Code/GameEngine/Source/GameClient/System/ParticleSystemMake001FCBD7.cpp	?Make001FCBD7@@YAPAVParticleSystem@@XZ	_$E3	0x007B759C	wrong
-Code/GameEngine/Source/GameClient/System/Rva00204C21.cpp	?rva00204C21@Rva00204C21@@QAEXPBD@Z	??1BFMERetailAsciiString@@QAE@XZ	0x00036410	wrong
 Code/GameEngine/Source/GameClient/System/Rva00204C21.cpp	?rva00204C21@Rva00204C21@@QAEXPBD@Z	?bfmeStopCW@ParticleSystemManager@@QAEXABVBFMERetailAsciiString@@@Z	0x001F9EAF	unowned
 Code/GameEngine/Source/GameClient/System/Rva00204C21.cpp	?rva00204C21@Rva00204C21@@QAEXPBD@Z	?release@Rva0020453CHolderBase@@QAEXXZ	0x0020453C	unowned
 Code/GameEngine/Source/GameClient/Terrain/TerrainRoads_Rva00062E72.cpp	?getBridgeModelNameBroken@TerrainRoadType@@QAE?AVAsciiString@@XZ	??0AsciiString@@QAE@ABV0@@Z	0x000365F0	divergent
@@ -1909,7 +1907,6 @@ Code/GameEngine/Source/GameLogic/Object/Rva000647D4Xfer.cpp	?xfer@Rva000647D4@@M
 Code/GameEngine/Source/GameLogic/Object/Rva000796CBPairInit.cpp	??0Rva000796CBPair@@QAE@PBHABV?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@Z	??0?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@QAE@ABV01@@Z	0x002CFAB9	divergent
 Code/GameEngine/Source/GameLogic/Object/Rva001F092ACtor.cpp	??_GRva001F092A@@UAEPAXI@Z	??1Rva001F092A@@UAE@XZ	0x001F0996	unowned
 Code/GameEngine/Source/GameLogic/Object/Rva0028D86F.cpp	?rva0028D86F@Rva0028D86F@@QAEXABU?$_Base_bitset@$03@_STL@@@Z	?updateWeaponSet@WeaponSet@@QAEXPBVObject@@@Z	0x002C8C97	unowned
-Code/GameEngine/Source/GameLogic/Object/Rva00290EFEGetGhostObject.cpp	?getGhostObject@Rva00290EFE@@QAEPAXXZ	??1BFMERetailAsciiString@@QAE@XZ	0x00036410	wrong
 Code/GameEngine/Source/GameLogic/Object/Rva00355A09Create.cpp	?rva00355A09@Rva003559B5Host@@QAEXHPAVRva0036E346@@H@Z	?Attach@Rva003559B5Host@@QAEXHPAURva003559B5Val@@@Z	0x003558A3	unowned
 Code/GameEngine/Source/GameLogic/Object/Rva00355A09Create.cpp	?rva00355A5D@Rva003559B5Host@@QAEXHPAVRva0036E346@@H@Z	?Attach@Rva003559B5Host@@QAEXHPAURva003559B5Val@@@Z	0x003558A3	unowned
 Code/GameEngine/Source/GameLogic/Object/Rva0036105BCopyCtor.cpp	??4Rva0036105B@@QAEAAV0@ABV0@@Z	??4?$vector@IV?$allocator@I@_STL@@@_STL@@QAEAAV01@ABV01@@Z	0x0026F4F4	divergent
@@ -2201,7 +2198,6 @@ Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineEvaluateCounter.cpp	?s
 Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineFlagsAndCounters_Rva00209405.cpp	?setFlag@ScriptEngine@@IAEXPAVScriptAction@@_N@Z	?bfmeFlagForWrite@ScriptEngine@@IAEPA_NVAsciiString@@@Z	0x002088A0	unowned
 Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineGetTeamNamed.cpp	?getTeamNamed@ScriptEngine@@QAEPAVTeam@@VAsciiString@@_N@Z	?countTeamInstances@TeamPrototype@@QAEHXZ	0x0039D954	unowned
 Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva00357A03.cpp	?rva00357A03@ScriptEngine@@QAEXHW4ScienceType@@@Z	?erase@?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QAEPAW4ScienceType@@PAW43@@Z	0x0025BF5D	wrong
-Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineSetPriorityDefault.cpp	?setPriorityDefault@ScriptEngine@@QAEXPAVScriptAction@@@Z	??1BFMERetailAsciiString@@QAE@XZ	0x00036410	wrong
 Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineSetTimer.cpp	?setTimer@ScriptEngine@@IAEXPAVScriptAction@@_N1@Z	?bfmeCounter@ScriptEngine@@IAEPAUScriptCounter@@VAsciiString@@@Z	0x0020874B	unowned
 Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_appendMessage_Rva00341350AdjustVariableForwarder.cpp	?_adjustVariable@@YAXABVAsciiString@@H_N1@Z	?startsWith@AsciiString@@QBE_NABV1@@Z	0x00035FB0	wrong
 Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_dtor.cpp	??1ScriptEngine@@UAE@XZ	??1Rva00205AF8Record@@QAE@XZ	0x00205AF8	unowned
