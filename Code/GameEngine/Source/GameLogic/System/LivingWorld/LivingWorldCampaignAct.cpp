@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii /D_CRTIMP=
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii /D_CRTIMP= /Ireference/shims/iniexception
 // Native 566BF6..566D7B (389B), named act parser 566D83 and its WB
 // twin 1438E40 establish the 184B act record and constructor relationship.
 // Existing destructor 56616B independently supplies the 16 member cleanup
@@ -35,9 +35,11 @@ struct Rva00565931Element;
 struct Rva005658FEElement;
 struct Rva00565997Element;
 class Rva00564B1A; class Rva00565898{public:Rva00564B1A *rva00565898(Rva00564B1A*,Rva00564B1A*);__forceinline void clear(){rva00565898(begin,end);} Rva00564B1A *begin,*end,*capacity;}; class Rva00566695;class Rva00566B81Vector{public:Rva00566695 *EraseRange(Rva00566695*,Rva00566695*);__forceinline void clear(){EraseRange(begin,end);} Rva00566695 *begin,*end,*capacity;};
+struct FieldParse;
 class Rva0056616B {
 public:
  Rva0056616B(const AsciiString&);
+ static const FieldParse m_fieldParseTable[];
  virtual ~Rva0056616B();
 AsciiString m_04;
 Rva0052CB26 m_08;
@@ -71,3 +73,60 @@ reinterpret_cast<_STL::vector<Rva00565997Element,_STL::allocator<Rva00565997Elem
 }
 
 Rva0056616B::~Rva0056616B() {}
+
+// Complete native act parser 566D83/232B and its 256-byte field table
+// C6CD50. Target and WB establish the act name, 184-byte record, constructor
+// and append relationship. BFME1 9cbfb551fe20 supplies the semantic lead;
+// its different record layout and callback addresses are not imported.
+// Every table string, callback, member offset, zero userdata and null
+// terminator is independently checked against retail. Callback providers
+// all use the registered four-argument ABI, with no casts or extra pins.
+struct FieldParse;
+class INI { public: const char *getNextToken(const char *seps=0); void initFromINI(void*,const FieldParse*);
+ static void parseAsciiStringVectorAppend(INI*,void*,void*,const void*);
+ static void parseAsciiString(INI*,void*,void*,const void*);
+ static void parseBool(INI*,void*,void*,const void*);
+};
+#include "Common/INIException.h"
+struct Rva0052D801Record;
+class Rva0052D83B { public:void rva0052D83B(const Rva0052D801Record &); };
+void ParseEnableRegion(INI*,void*,void*,const void*);
+void ParseForceBattle(INI*,void*,void*,const void*);
+void Rva004E324DParse(INI*,void*,void*,const void*);
+void Rva004E1BFCParse(INI*,void*,void*,const void*);
+void Rva004E17EBParse(INI*,void*,void*,const void*);
+void Rva004E141DParse(INI*,void*,void*,const void*);
+void SplineCameraParseINIBlock(INI*,void*,void*,const void*);
+void ParseWorldTextBlock(INI*,void*,void*,const void*);
+void ParseAudioEventBlock(INI*,void*,void*,const void*);
+void Rva004E1A33Parse(INI*,void*,void*,const void*);
+void ParseEyeTowerPointData(INI*,void*,void*,const void*);
+void Rva004E1C7BParse(INI*,void*,void*,const void*);
+struct FieldParse { const char *name; void (*parse)(INI*,void*,void*,const void*); const void *userData; int offset; };
+const FieldParse Rva0056616B::m_fieldParseTable[]={
+ {"EnableRegion",ParseEnableRegion,0,0},
+ {"ForceBattle",ParseForceBattle,0,0},
+ {"SpawnArmy",Rva004E324DParse,0,0},
+ {"MoveArmy",Rva004E1BFCParse,0,0},
+ {"SpawnBuilding",Rva004E17EBParse,0,0},
+ {"CallActSubroutine",INI::parseAsciiStringVectorAppend,0,0x44},
+ {"JumpToAct",INI::parseAsciiString,0,0x50},
+ {"MoveCamera",Rva004E141DParse,0,0},
+ {"SplineCamera",SplineCameraParseINIBlock,0,0},
+ {"WorldText",ParseWorldTextBlock,0,0},
+ {"AudioEvent",ParseAudioEventBlock,0,0},
+ {"EndAct",INI::parseBool,0,0xb4},
+ {"UpdateAnimObject",Rva004E1A33Parse,0,0},
+ {"EyeTowerPoints",ParseEyeTowerPointData,0,0},
+ {"SetPlayerControlOfArmy",Rva004E1C7BParse,0,0},
+ {0,0,0,0}
+};
+
+void ParseLivingWorldCampaignAct(INI *ini,void *instance,void*,const void*) {
+ if(!ini || !instance) throw INIException(3,"ParseLivingWorldCampaignAct::Invalid data passed in.");
+ AsciiString name(ini->getNextToken());
+ if(!name.getLength()) throw INIException(3,"ParseLivingWorldCampaignAct::No act name specified.");
+ Rva0056616B record(name);
+ ini->initFromINI(&record,Rva0056616B::m_fieldParseTable);
+ ((Rva0052D83B*)instance)->rva0052D83B((const Rva0052D801Record&)record);
+}
