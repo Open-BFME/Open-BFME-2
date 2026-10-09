@@ -1,5 +1,3 @@
-// ?rva000ECF79@W3DTreeBuffer@@QAEXIURva000ECF79Coord@@MPBVMatrix3D@@MPBURva000ECF79Data@@HABVAsciiString@@3@Z
-// partial score=0.99 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/inputs/reference/shims/stringinline
 // W3DTreeBuffer::addTree, retail 0x000ECF79 (1284 bytes). Donor: Open-BFME-1
 // W3DTreeBufferRva000ECF79AddTree.cpp (BFME1 0x00736B60); BFME2 layout read from
@@ -32,9 +30,12 @@ struct Rva000ECF79Tree {
 };
 extern float GetGameClientRandomValueReal(float,float,char*,int);
 extern int GetGameClientRandomValue(int,int,char*,int);
+// The x component reads through a volatile alias: it keeps retail's load order
+// (position first, then the center) for the first lane, as in the BFME1 shrub twin.
 static inline void translateBounds(Vector3 &center, const Vector3 &position)
 {
- center.X=position.X+center.X;
+ const volatile float &x=position.X;
+ center.X+=x;
  center.Y=position.Y+center.Y;
  center.Z=position.Z+center.Z;
 }
