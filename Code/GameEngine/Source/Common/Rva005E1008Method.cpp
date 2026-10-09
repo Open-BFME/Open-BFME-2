@@ -15,6 +15,8 @@ class Rva005E1008
 {
 public:
 	void rva005E1008(float v);
+	void rva005E105E();
+	void rva005E0E99(bool);
 private:
 	char m_pad00[8];
 	void *m_level08;
@@ -22,7 +24,8 @@ private:
 	char m_pad10[0x3C - 0x10];
 	float m_float3C;
 	bool m_flag40;
-	char m_pad41[2];
+	bool m_enabled41;
+	char m_pad42;
 	bool m_flag43;
 };
 
@@ -37,4 +40,35 @@ void Rva005E1008::rva005E1008(float v)
 		m_flag43 = true;
 	}
 	m_float3C = v;
+}
+
+// Native005E105E..005E10A8 clears timer-overlay flag43, after the
+// existing Apt boolean call when initialized40. Same observed sibling layout.
+void Rva005E1008::rva005E105E()
+{
+ if(m_flag43) {
+  if(m_flag40) {
+   bool flag=false;
+   const char *prefix=m_inner0C ? m_inner0C->m_name : "";
+   Rva005277D9Fire((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager),m_level08,prefix,"ShowTimerOverlay",&flag);
+  }
+  m_flag43=false;
+ }
+}
+
+// Native005E0E99..005E0EE1: initialized40 guards Enable dispatch;
+// requested bool is passed by address and saved before updating cached41.
+extern "C" void _ReadWriteBarrier();
+#pragma intrinsic(_ReadWriteBarrier)
+void Rva005E1008::rva005E0E99(bool enabled)
+{
+ bool saved=enabled;
+ _ReadWriteBarrier();
+ if(saved!=m_enabled41) {
+  if(m_flag40) {
+   const char *prefix=m_inner0C ? m_inner0C->m_name : "";
+   Rva005277D9Fire((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager),m_level08,prefix,"Enable",&enabled);
+  }
+  m_enabled41=saved;
+ }
 }
