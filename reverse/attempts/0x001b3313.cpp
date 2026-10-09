@@ -1,58 +1,94 @@
-// ?Evaluate_Quaternion@BFME2Encoding0MotionChannel@@QAEXMPAMPAPAH@Z
-// partial score=0.4375 date=2026-09-08
-// ?Evaluate_Quaternion@BFME2Encoding0MotionChannel@@QAEXMPAMPAPAH@Z
-// Compiler probe: selective volatile stack-time reads force addressability;
-// original source volatility is unproven. This bank is not executable progress.
-// cl: /O1 /arch:SSE /EHsc /DNDEBUG /MD
-class Quaternion { public: float X, Y, Z, W; };
-void BFME2_Nlerp(Quaternion &res,const Quaternion &p,const Quaternion &q,float alpha);
-class BFME2Encoding0MotionChannel {
+// ?UnknownSlot5@BFME2Encoding0MotionChannel@@UAEXMPAVQuaternion@@PAPAE@Z
+// partial score=0.6 date=2026-10-09
+// cl: /O1 /G7 /arch:SSE /EHsc /DNDEBUG /MD
+// BFME1 9cbfb551fe20 motchan.cpp TimeCodedMotionChannel Get_Vector and
+// Get_QuatVector supply sample selection/interpolation. BFME2 factory and
+// load bodies independently prove vtable slots3..5 and timecode14/samples18.
+// Target has ushort timecodes and per-call cursor instead of donor cached
+// dword packets. The existing banked FindIndex helper is the same native
+// search inlined by these three entries; caller-native boundaries prove it.
+class Vector3 { public: float X,Y,Z; };
+class Quaternion { public: float X,Y,Z,W; };
+void BFME2_Nlerp(Quaternion&,const Quaternion&,const Quaternion&,float);
+class ChunkLoadClass;
+class BFME2MotionChannel {
 public:
- void *VTable;
- int Type, Pivot, Count, Components;
- unsigned short *TimeCodes;
- float *Samples;
- __forceinline int FindIndex(unsigned int time, int **context)
-    {    volatile unsigned int *time_ptr=&time;
-
-    int index;
-    if (context && (unsigned int)(index = **context) < (unsigned int)Count) {
-        while (index && (TimeCodes[index] & ~0x8000) > *time_ptr) --index;
-        while (index < Count-1 && (TimeCodes[index+1] & ~0x8000) <= time) ++index;
-        **context=index; ++*context;
-        return index;
-        } else {
-            if (*time_ptr <= (TimeCodes[0] & ~0x8000)) index=0;
-            else if (time >= (TimeCodes[Count-1] & ~0x8000)) index=Count-1;
-            else {
-                int low=0, high=Count-2;
-                for (;;) {
-                    index=(low+high)/2;
-                    if (*time_ptr < (TimeCodes[index] & ~0x8000)) high=index;
-                    else if (time >= (TimeCodes[index+1] & ~0x8000)) {
-                        if (low ^ index) low=index; else ++low;
-                    } else break;
-                }
-            }
-        }
-    if (context) { **context=index; ++*context; }
-        return index;
-    }
- void Evaluate_Quaternion(float time, float *output, int **context);
+ virtual bool Load(ChunkLoadClass&);virtual ~BFME2MotionChannel();virtual int UnknownSlot2();
+ virtual void UnknownSlot3(float,float*,unsigned char**);
+ virtual void UnknownSlot4(float,Vector3*,unsigned char**);
+ virtual void UnknownSlot5(float,Quaternion*,unsigned char**);virtual int UnknownSlot6();
+ int Type,Pivot,Count,Components;
 };
-void BFME2Encoding0MotionChannel::Evaluate_Quaternion(float time, float *output, int **context)
+class BFME2Encoding0MotionChannel : public BFME2MotionChannel {
+public:
+ unsigned short *TimeCodes;float *Samples;
+ // ?BFME2Encoding0MotionChannel::FindIndex present-unmatched
+ __forceinline int FindIndex(unsigned,int**);
+ virtual void UnknownSlot3(float,float*,unsigned char**);
+ virtual void UnknownSlot4(float,Vector3*,unsigned char**);
+ virtual void UnknownSlot5(float,Quaternion*,unsigned char**);
+};
+__forceinline int BFME2Encoding0MotionChannel::FindIndex(unsigned int time, int **context)
 {
-    int index=FindIndex((unsigned int)(int)time,context);
-    Quaternion *result=reinterpret_cast<Quaternion *>(output);
-    if (index == Count-1 || (TimeCodes[index+1] & 0x8000)) {
-        Quaternion *frame=reinterpret_cast<Quaternion *>(Samples+index*Components);
-        result->X=frame->X; result->Y=frame->Y; result->Z=frame->Z; result->W=frame->W;
-    } else {
-        float t0=(float)(TimeCodes[index] & ~0x8000);
-        float t1=(float)(TimeCodes[index+1] & ~0x8000);
-        float factor=(time-t0)/(t1-t0);
-        float *frame1=Samples+index*Components;
-        float *frame2=frame1+Components;
-        BFME2_Nlerp(*result,*reinterpret_cast<Quaternion *>(frame1),*reinterpret_cast<Quaternion *>(frame2),factor);
-    }
+ int index;
+ if (context && (unsigned int)(index = **context) < (unsigned int)Count) {
+  while (index && (TimeCodes[index] & ~0x8000) > time) --index;
+  while (index < Count-1 && (TimeCodes[index+1] & ~0x8000) <= time) ++index;
+  **context=index; ++*context;
+  return index;
+ } else {
+  if (time <= (TimeCodes[0] & ~0x8000)) index=0;
+  else if (time >= (TimeCodes[Count-1] & ~0x8000)) index=Count-1;
+  else {
+   int low=0, high=Count-2;
+   for (;;) {
+    index=(low+high)/2;
+    if (time < (TimeCodes[index] & ~0x8000)) high=index;
+    else if (time >= (TimeCodes[index+1] & ~0x8000)) {
+     int diff = index ^ low; if (diff) low=index; else ++low;
+    } else break;
+   }
+  }
+ }
+ if (context) { **context=index; ++*context; }
+ return index;
+}
+
+static __forceinline float lerpMotion(float a,float b,float t){return (b-a)*t+a;}
+void BFME2Encoding0MotionChannel::UnknownSlot3(float frame,float *value,unsigned char **cursor)
+{
+ int index=FindIndex((unsigned int)frame,reinterpret_cast<int**>(cursor));
+ if(index==Count-1 || (TimeCodes[index+1]&0x8000)) {
+  *value=Samples[index*Components];return;
+ }
+ float t0=float(TimeCodes[index]&~0x8000),t1=float(TimeCodes[index+1]&~0x8000);
+ float ratio=(frame-t0)/(t1-t0);
+ float *samples=Samples+index*Components;
+ *value=lerpMotion(samples[0],samples[Components],ratio);
+}
+void BFME2Encoding0MotionChannel::UnknownSlot4(float frame,Vector3 *value,unsigned char **cursor)
+{
+ int index=FindIndex((unsigned int)frame,reinterpret_cast<int**>(cursor));
+ if(index==Count-1 || (TimeCodes[index+1]&0x8000)) {
+  float *samples=Samples+index*Components;
+  value->X=samples[0];value->Y=samples[1];value->Z=samples[2];return;
+ }
+ float t0=float(TimeCodes[index]&~0x8000),t1=float(TimeCodes[index+1]&~0x8000);
+ float ratio=(frame-t0)/(t1-t0);
+ float *samples=Samples+index*Components;
+ value->X=lerpMotion(samples[0],samples[Components],ratio);
+ value->Y=lerpMotion(samples[1],samples[Components+1],ratio);
+ value->Z=lerpMotion(samples[2],samples[Components+2],ratio);
+}
+void BFME2Encoding0MotionChannel::UnknownSlot5(float frame,Quaternion *value,unsigned char **cursor)
+{
+ int index=FindIndex((unsigned int)frame,reinterpret_cast<int**>(cursor));
+ if(index==Count-1 || (TimeCodes[index+1]&0x8000)) {
+  float *samples=Samples+index*Components;
+  value->X=samples[0];value->Y=samples[1];value->Z=samples[2];value->W=samples[3];return;
+ }
+ float t0=float(TimeCodes[index]&~0x8000),t1=float(TimeCodes[index+1]&~0x8000);
+ float ratio=(frame-t0)/(t1-t0);
+ float *samples=Samples+index*Components;
+ BFME2_Nlerp(*value,*reinterpret_cast<Quaternion*>(samples),*reinterpret_cast<Quaternion*>(samples+Components),ratio);
 }
