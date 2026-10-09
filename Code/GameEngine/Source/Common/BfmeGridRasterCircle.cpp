@@ -71,11 +71,53 @@ struct Region3D
 	Coord3D hi;
 };
 
+// Target6C1680 and6C0F50 transfer schema: version min/current bytes;
+// raw slot9 version10 region22 float28 unsigned30 int31 byte34.
+// GridXferView is an explicit ABI view; unused slots remain unidentified.
+struct GridXferVersion {unsigned char minimum,current;GridXferVersion(unsigned char lo,unsigned char hi):minimum(lo),current(hi){}};
+class GridXferView {
+public:
+ virtual ~GridXferView();
+ virtual bool isLoading()const;virtual bool isStoring()const;virtual bool isCRC()const;virtual bool isLightCRC()const;
+virtual void slot5();
+virtual void slot6();
+virtual void slot7();
+virtual void slot8();
+virtual void raw(void*,unsigned);
+virtual void version(GridXferVersion*);
+virtual void slot11();
+virtual void slot12();
+virtual void slot13();
+virtual void slot14();
+virtual void slot15();
+virtual void slot16();
+virtual void slot17();
+virtual void slot18();
+virtual void slot19();
+virtual void slot20();
+virtual void slot21();
+virtual void region(Region3D*);
+virtual void slot23();
+virtual void slot24();
+virtual void slot25();
+virtual void slot26();
+virtual void slot27();
+virtual void real(float*);
+virtual void slot29();
+virtual void uintValue(unsigned*);
+virtual void intValue(int*);
+virtual void slot32();
+virtual void slot33();
+virtual void byteValue(unsigned char*);
+};
+unsigned __cdecl ComputeCRC(const unsigned char*,unsigned,unsigned);
+class Rva006C0DA0 {public:void rva006C0DA0();};
 class BfmeCellFC
 {
 public:
 	BfmeCellFC();
 	~BfmeCellFC();
+ __declspec(noinline) void rva006C1680(GridXferView*);
 
 	unsigned char m_bfmeKind;				// +0x00
 	unsigned char m_bfmeGap[3];				// +0x01
@@ -100,6 +142,7 @@ class Gen_008812D0
 {
 public:
 	Gen_008812D0();
+ void rva006C0F50(GridXferView*);
 	void bfmeConfigure(Region3D region, Real cellSize);
 	void bfmeGetCellRange(BfmeCellFC **first, BfmeCellFC **last,
 		int x1, int x2, int y);
@@ -423,4 +466,45 @@ int Gen_008812D0::rva006C0890(Real worldY) const
 int Gen_008812D0::rva006C08C0(Real distance) const
 {
 	return bfmeFloatToLongFC(bfmeFloatCeilFC(distance * m_bfmeCellSizeInv));
+}
+
+// Ghidra6C1680..6C16CF RET4; cell0 kind4 value8 mode proven by rowed
+// constructor6C0BA0/paint6C15E0. Version2 adds mode; raw4 preserves value bits.
+void BfmeCellFC::rva006C1680(GridXferView *xfer) {
+ GridXferVersion version(1,2);
+ xfer->version(&version);
+ xfer->byteValue(&m_bfmeKind);
+ xfer->raw(&m_bfmeValue,4);
+ if(version.current>=2) xfer->intValue(&m_bfmeExtra);
+}
+// Ghidra6C0F50..6C114C RET4. BF1 taintmanager_impl grid layout and
+// ZH snapshot transfer convention are reference guides; this target schema
+// is established by slots/offsets/calls. Light CRC sums kind1B/value4B
+// through rowed ComputeCRC3EC8F7. Loading allocates width*height12B cells
+// then calls existing visitor refresh6C0DA0. Full508 hot and EH exact.
+// Native direct call6C1680 in each iteration proves the noinline boundary.
+void Gen_008812D0::rva006C0F50(GridXferView*xfer){
+ if(!xfer->isLightCRC()) {
+  GridXferVersion version(1,1);xfer->version(&version);
+  xfer->region(&m_bfmeRegion);
+  xfer->real(&m_bfmeCellSize);xfer->real(&m_bfmeCellSizeInv);
+  xfer->intValue(&m_bfmeWidth);xfer->intValue(&m_bfmeHeight);
+  unsigned checksum=0;xfer->uintValue(&checksum);
+  if(xfer->isLoading()) {
+   delete[] m_bfmeCells;
+   m_bfmeCells=new BfmeCellFC[m_bfmeWidth*m_bfmeHeight];
+  }
+  BfmeCellFC*cell=m_bfmeCells;
+  for(unsigned y=0;y<(unsigned)m_bfmeHeight;++y)
+   for(unsigned x=0;x<(unsigned)m_bfmeWidth;++x,++cell) cell->rva006C1680(xfer);
+ } else {
+  BfmeCellFC*cell=m_bfmeCells;unsigned checksum=0;
+  for(unsigned y=0;y<(unsigned)m_bfmeHeight;++y)
+   for(unsigned x=0;x<(unsigned)m_bfmeWidth;++x,++cell) {
+    checksum+=ComputeCRC(&cell->m_bfmeKind,1,0);
+    checksum+=ComputeCRC((const unsigned char*)&cell->m_bfmeValue,4,0);
+   }
+  xfer->uintValue(&checksum);
+ }
+ if(xfer->isLoading()) ((Rva006C0DA0*)this)->rva006C0DA0();
 }
