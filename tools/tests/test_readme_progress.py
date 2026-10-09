@@ -221,3 +221,42 @@ def test_main_measures_names_and_persists_them(tmp_path, monkeypatch):
     state = json.loads(path.read_text())
     assert state["declared_names"] == 200 and state["readable_names"] == 142
     assert ">71.00%<" in (tmp_path / "docs/progress.svg").read_text()
+
+
+def receipt(self_strict=2_000, closed=1_000, text=8_000, authoritative=True):
+    return {"tool": "link_cycle", "commit": "9193fd824711fe616f8ac6ee2b9f8fad405f3e3f",
+            "date_utc": "2026-10-09 07:57:15", "authoritative": authoritative,
+            "series": {"retail_text_bytes": text, "credit_unique_bytes": closed,
+                       "real": {"placed_self_strict": {"unique_bytes": self_strict}}}}
+
+
+def test_strict_link_reads_the_committed_receipt(tmp_path):
+    assert daily.strict_link(tmp_path) is None
+    path = tmp_path / daily.RECEIPT
+    path.parent.mkdir(parents=True)
+    path.write_text(json.dumps(receipt()), encoding="utf-8")
+    assert daily.strict_link(tmp_path) == {"date": "2026-10-09", "commit": "9193fd8247", "authoritative": True,
+                                           "self_strict": 2_000, "closed_strict": 1_000, "text": 8_000}
+    path.write_text(json.dumps(receipt(self_strict=500, closed=1_000)), encoding="utf-8")
+    with pytest.raises(ValueError):
+        daily.strict_link(tmp_path)
+
+
+def test_strict_line_sits_beside_linking_never_instead(tmp_path):
+    path = tmp_path / daily.RECEIPT
+    path.parent.mkdir(parents=True)
+    path.write_text(json.dumps(receipt()), encoding="utf-8")
+    current = {**sample(), "strict": daily.strict_link(tmp_path)}
+    line = "Strict link check (2026-10-09 at 9193fd8247): 25.00% self-strict, 12.50% fully linked, of retail .text"
+    lines = daily.announcement(current, None)["embeds"][0]["description"].split("\n")
+    assert "**Linking: 10.00%**" in lines and lines[-3:] == [line, "", f"[What each bar measures, with charts: README]({daily.README})"]
+    svg = daily.render(current)
+    assert line in svg and ">10.00%<" in svg and 'height="388"' in svg
+    assert 'height="366"' in daily.render(sample())
+
+
+def test_strict_line_flags_a_receipt_that_is_not_authoritative(tmp_path):
+    path = tmp_path / daily.RECEIPT
+    path.parent.mkdir(parents=True)
+    path.write_text(json.dumps(receipt(authoritative=False)), encoding="utf-8")
+    assert daily.strict_line({"strict": daily.strict_link(tmp_path)}).endswith("(not authoritative)")

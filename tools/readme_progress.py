@@ -26,6 +26,16 @@ When the census measuring Linking changed its rules since the last post (the
 history row's `rules`), the two percentages measure different things: the
 Linking bar then shows "rules changed" and the previous figure with its rules,
 never an arrow.
+
+Under the bars, a line gives the strict link check from the committed
+link_cycle receipt (reverse/link_cycle/receipt.json, stored by
+tools/progress_v2.py --store-receipt): the tree linked at the original's
+addresses with every reference checked. Self-strict counts placed code whose
+own references land where retail's do; fully linked (closed-strict) also needs
+everything it reaches to be right. Both are shares of retail .text, as the
+receipt counts them, with the receipt's date and commit. It sits beside the
+census's Linking bar, never in place of it: the census asks whether each file
+links on its own, the receipt whether the program links at retail addresses.
 """
 import argparse
 import json
@@ -38,6 +48,7 @@ import name_metric
 import progress
 
 STATE = "docs/discord-progress.json"
+RECEIPT = "reverse/link_cycle/receipt.json"
 EXE = "the original game.dat (v1.06)"
 TITLE = "BFME 2"
 README = "https://github.com/Open-BFME/Open-BFME-2#readme"
@@ -77,6 +88,38 @@ def measures(current):
     if (readable is None) != (names is None) or (names is not None and not 0 <= readable <= names):
         raise ValueError("Invalid readable-names count")
     return {"matched": (matched, total), "cpp": (cpp, game), "linked": (linked, linked_game), "names": (readable, names)}
+
+
+def strict_link(root=None):
+    """The committed link_cycle receipt's strict figures, or None without one:
+    {date, commit, authoritative, self_strict, closed_strict, text} (bytes, with
+    retail .text as `text`)."""
+    path = (root or progress.ROOT) / RECEIPT
+    try:
+        receipt = json.loads(path.read_text(encoding="utf-8"))
+        series = receipt["series"]
+        strict = {"date": str(receipt["date_utc"])[:10], "commit": str(receipt["commit"])[:10],
+                  "authoritative": receipt.get("authoritative") is True,
+                  "self_strict": int(series["real"]["placed_self_strict"]["unique_bytes"]),
+                  "closed_strict": int(series["credit_unique_bytes"]),
+                  "text": int(series["retail_text_bytes"])}
+    except (OSError, ValueError, KeyError, TypeError):
+        return None
+    if not 0 <= strict["closed_strict"] <= strict["self_strict"] <= strict["text"]:
+        raise ValueError(f"{RECEIPT}: strict link figures out of order")
+    return strict
+
+
+def strict_line(current):
+    """`Strict link check (2026-10-09 at 9193fd8247): 25.78% self-strict, 13.09% fully linked,
+    of retail .text`; None without a receipt."""
+    strict = current.get("strict")
+    if not strict:
+        return None
+    share = lambda key: f"{progress.percent(strict[key], strict['text']):.2f}%"  # noqa: E731
+    return (f"Strict link check ({strict['date']} at {strict['commit']}): {share('self_strict')} self-strict, "
+            f"{share('closed_strict')} fully linked, of retail .text"
+            + ("" if strict["authoritative"] else " (not authoritative)"))
 
 
 def measured(current):
@@ -126,7 +169,8 @@ def arrow(delta):
 
 def render(current, previous=None):
     rows = measures(current)
-    height = 70 + 74 * len(ROWS)
+    strict = strict_line(current)
+    height = 70 + 74 * len(ROWS) + (22 if strict else 0)
     body = []
     for index, (key, label, what) in enumerate(ROWS):
         value, denominator = rows[key]
@@ -150,6 +194,9 @@ def render(current, previous=None):
     <rect class="track" x="28" y="{y + 10}" width="824" height="14" rx="7"/>
     <rect x="28" y="{y + 10}" width="{width:.2f}" height="14" rx="7" fill="{CARD_FILL[key]}"/>
     <text x="28" y="{y + 44}" class="muted" font-size="12.5">{text}</text>
+''')
+    if strict:
+        body.append(f'''    <text x="28" y="{64 + 74 * len(ROWS) - 4}" class="muted" font-size="12.5">{strict}</text>
 ''')
     (matched, total), (cpp, game), (linked, linked_game) = rows["matched"], rows["cpp"], rows["linked"]
     linking = f"{progress.percent(linked, linked_game):.2f}% linking" if linked is not None else "linking not measured"
@@ -206,6 +253,9 @@ def announcement(current, previous):
                   + ("  (rules changed)" if changed else f"  {arrow(delta)}" if delta is not None else ""),
                   blocks(value, denominator, BLOCK[key]),
                   detail(current, key, value, denominator, what) + (rule_note(previous, changed) if changed else "")]
+    strict = strict_line(current)
+    if strict:
+        lines += ["", strict]
     lines += ["", f"[What each bar measures, with charts: README]({README})"]
     return {"allowed_mentions": {"parse": []},
             "embeds": [{"title": f"{TITLE} {DOT} Rebuild progress", "color": 0x2EA043,
@@ -260,6 +310,7 @@ def main():
                "linked": int(census["linked_bytes"]) if census else None,
                "linked_authored": int(census["linked_authored"]) if census and census.get("linked_authored") else None,
                "linked_game_code": int(census["game_code"]) if census and census.get("game_code") else None,
+               "strict": strict_link(),
                **{lane: split[lane] for lane in ("authored", "vendored", "generated", "library")}}
     output = progress.ROOT / "docs" / "progress.svg"
     output.write_text(render(current, previous_state()), encoding="utf-8", newline="\n")
