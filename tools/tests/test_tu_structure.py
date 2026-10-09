@@ -322,7 +322,7 @@ def test_validate_scores_rows_landed_since_a_revision(tmp_path):
 def test_fingerprint_detects_a_changed_input(tmp_path):
     (tmp_path / "reverse").mkdir()
     zh = tmp_path / "reference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code"
-    zh.mkdir(parents=True)
+    (zh / "GameEngine").mkdir(parents=True)
     (tmp_path / "reverse/functions.csv").write_text(HEADER + row("?f@A@@QAEXXZ", 0x1000, 16, "Code/X/A.cpp"),
                                                     newline="\n")
     assert tu_map.main(["--root", str(tmp_path), "--check-fresh"]) == 1      # never written
@@ -334,6 +334,108 @@ def test_fingerprint_detects_a_changed_input(tmp_path):
     p.write_text(p.read_text() + row("?g@A@@QAEXXZ", 0x1010, 16, "Code/X/A.cpp"))
     assert tu_map.main(["--root", str(tmp_path), "--check-fresh"]) == 1
     assert tu_map.check_fresh(tu_map.Layout(tmp_path)) == ["reverse/functions.csv"]
+
+
+# ---------------------------------------------------------------- review round 2 (2026-10-09)
+ZH_REL = "reference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code"
+
+
+def test_fingerprint_tracks_the_zh_tree(tmp_path):
+    root, sub = tmp_path / "root", tmp_path / "root/reference/open-bfme-1"
+    zh = root / ZH_REL
+    (zh / "GameEngine").mkdir(parents=True)
+    (zh / "GameEngine/A.cpp").write_text("void A::f()\n{\n}\n", newline="\n")
+    (root / "reverse").mkdir()
+    (root / "reverse/functions.csv").write_text(HEADER + row("?f@A@@QAEXXZ", 0x1000, 16, "Code/X/A.cpp"))
+    for args in (("init", "-q"), ("config", "user.name", "t"), ("config", "user.email", "t@t"),
+                 ("add", "-A"), ("commit", "-qm", "zh")):
+        git(sub, *args)                                   # the submodule: a clean checkout
+    commit = subprocess.run(["git", "rev-parse", "HEAD"], cwd=sub, capture_output=True, text=True).stdout.strip()
+    assert tu_map.main(["--root", str(root)]) == 0
+    text = (root / "reverse/tu_map.inputs.sha256").read_text()
+    assert f"  {tu_map.ZH_KEY}\n" in text and "\ngit:" in text and f"commit {commit}" in text
+    assert tu_map.check_fresh(tu_map.Layout(root)) == []
+    (zh / "GameEngine/A.cpp").write_text("void A::f()\n{\n}\nvoid A::g()\n{\n}\n", newline="\n")
+    assert tu_map.check_fresh(tu_map.Layout(root)) == [tu_map.ZH_KEY]        # dirty
+    git(sub, "commit", "-qam", "zh2")
+    assert tu_map.check_fresh(tu_map.Layout(root)) == [tu_map.ZH_KEY]        # another tree
+    # a worktree's copy through --zh is hashed, and equals the submodule when its files do
+    copy = tmp_path / "copy"
+    (copy / "GameEngine").mkdir(parents=True)
+    (copy / "GameEngine/A.cpp").write_bytes((zh / "GameEngine/A.cpp").read_bytes().replace(b"\n", b"\r\n"))
+    assert tu_map.main(["--root", str(root), "--zh", str(copy)]) == 0
+    assert "\nsha256:" in (root / "reverse/tu_map.inputs.sha256").read_text()
+    assert tu_map.check_fresh(tu_map.Layout(root)) == []                     # the submodule, same files
+    (copy / "GameEngine/B.cpp").write_text("void B::f()\n{\n}\n")
+    assert tu_map.check_fresh(tu_map.Layout(root, copy)) == [tu_map.ZH_KEY]
+
+
+def test_zh_must_be_a_generalsmd_code_tree(tmp_path, capsys):
+    (tmp_path / "reverse").mkdir()
+    (tmp_path / "reverse/functions.csv").write_text(HEADER)
+    assert tu_map.main(["--root", str(tmp_path), "--zh", str(TOOLS / "tu_map.py")]) == 2
+    assert tu_map.main(["--root", str(tmp_path), "--zh", str(tmp_path)]) == 2
+    assert "not a ZH GeneralsMD/Code tree" in capsys.readouterr().err
+    assert not (tmp_path / "reverse/tu_map.csv").exists()
+
+
+def test_zh_definition_needs_balanced_parameters_and_a_body():
+    text = ("void Foo::bar( int a )\n{\n"
+            "Base::f(a,\n\tb);\n"                                          # a call at column 0, two lines
+            "}\n"
+            "BezierSegment BezierSegment::s_bezBasisMatrix( -1, 3, -3, 1,\n\t3, -6, 3, 0 );\n"   # data
+            "const Matrix3x3 Matrix3x3::RotateX90\n(\n\t1, 0, 0\n);\n"     # data, `(` on the next line
+            "Foo::Foo( int a ) : Base( a ), m_s( \")\" )\n{\n}\n"          # initializer list
+            "int Foo::get( void ) const\n{\n}\n"
+            "void Foo::risky( void ) throw( int )\n{\n}\n"
+            "char Foo::paren( char c = '(' )\n{\n}\n"                      # parentheses in literals
+            "void Foo::declared( void );\n")
+    assert list(tu_map.zh_definitions(text)) == [
+        ("Foo", "bar"), ("Foo", "Foo"), ("Foo", "get"), ("Foo", "risky"), ("Foo", "paren")]
+
+
+@pytest.fixture
+def stale_map(tmp_path, monkeypatch):
+    """A map written before contradicted approvals were demoted: 0x1040 approved for
+    StateMachine.cpp while retail's __FILE__ string there names TurretAI.cpp."""
+    sm, ta = "Code/GameEngine/Source/Common/StateMachine.cpp", "Code/GameEngine/Source/GameLogic/AI/TurretAI.cpp"
+    git(tmp_path, "init", "-q")
+    git(tmp_path, "config", "user.name", "t")
+    git(tmp_path, "config", "user.email", "t@t")
+    (tmp_path / "reverse").mkdir()
+    (tmp_path / "reverse/functions.csv").write_text(HEADER + row("?z@Far@@QAEXXZ", 0x9000, 16, "Code/X/Far.cpp"))
+    (tmp_path / "reverse/tu_map.csv").write_text(
+        "rva,size,kind,tu,confidence,by,evidence,source\n"
+        f"0x00001000,64,code,{sm},approved,Z,Z={sm},\n"
+        f"0x00001040,64,code,{sm},approved,N,F={ta},\n"
+        f"0x00001080,64,code-unledgered,{sm},approved,C,C=0x00001040..0x000010C0,\n"
+        f"0x000010C0,64,code,{sm},approved,Z,Z={sm},\n")
+    (tmp_path / ta).parent.mkdir(parents=True)
+    (tmp_path / ta).write_text("//\n")
+    git(tmp_path, "add", "-A")
+    git(tmp_path, "commit", "-qm", "base")
+    monkeypatch.setattr(tu_ownership, "ROOT", tmp_path)
+    monkeypatch.setattr(tu_ownership, "LAYOUT", tu_map.Layout(tmp_path))
+    monkeypatch.setattr(tu_ownership, "_FP", None)
+    monkeypatch.setenv("REPAIR_ROOT", str(tmp_path))
+    import importlib
+    import repair_queue
+    return tmp_path, importlib.reload(repair_queue)
+
+
+def test_dest_and_ownership_share_one_approval_verdict(stale_map):
+    repo, rq = stale_map
+    led = repo / "reverse/functions.csv"
+    base = led.read_text()
+    for rva in (0x1000, 0x1040, 0x1048, 0x1080, 0x10C0):
+        got = rq.dest_tu(rva)
+        if got["dest"]:                                   # where dest routes a row, ownership lets it land
+            led.write_text(base + row("?n@New@@QAEXXZ", rva, 4, got["dest"]))
+            assert staged(repo) == set(), (hex(rva), got)
+        led.write_text(base + row("?n@New@@QAEXXZ", rva, 4, "Code/X/Elsewhere.cpp"))
+        assert (staged(repo) == {"A3"}) == got["basis"].startswith("approved TU"), (hex(rva), got)
+        led.write_text(base)
+    assert rq.dest_tu(0x1040)["dest"].endswith("AI/TurretAI.cpp")
 
 
 # ---------------------------------------------------------------- skeleton

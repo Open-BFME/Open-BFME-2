@@ -515,14 +515,15 @@ def dest_tu(rva):
     tu_map, m, index = tu_routes()
     t = tu_map.tu_at(m, rva, index)
     own = tu_map.anchors(t["evidence"]) if t else {}
-    # What tu_ownership A3 holds a new row to -- unless an F/Z/S anchor of the address or
-    # of the rows its C evidence rests on names another TU (a map built before contradicted
-    # approvals were demoted can still carry one, and then a merged cluster's file is not
-    # created over the file retail's own __FILE__ string names).
+    # What tu_ownership A2/A3 hold a row to (the same predicate): an approved TU no F/Z/S
+    # anchor of the address, or of the rows its C evidence rests on, disputes. A map built
+    # before contradicted approvals were demoted can still carry one, and then a merged
+    # cluster's file is not created over the file retail's own __FILE__ string names.
+    tu = tu_map.approved_tu(m, t)
+    if tu:
+        made = "" if (ROOT / tu).exists() else "; the file does not exist yet: create it"
+        return {"dest": tu, "basis": f"approved TU in tu_map.csv (by {t['by']}{made})"}
     dispute = tu_map.disputed(m, t) if t and t["confidence"] == "approved" else None
-    if t and t["confidence"] == "approved" and not dispute:
-        made = "" if (ROOT / t["tu"]).exists() else "; the file does not exist yet: create it"
-        return {"dest": t["tu"], "basis": f"approved TU in tu_map.csv (by {t['by']}{made})"}
     state = "no TU" if not t else (t["confidence"] or "no TU") + (f" {t['tu']}" if t["tu"] else "")
     if dispute:
         state += f", contradicted by {dispute}"

@@ -13,8 +13,8 @@ Signals, strongest first (one letter each in the `by` and `evidence` columns):
   F  the function references a `__FILE__` string naming a .cpp (assert/debug
      paths survive in retail); the string IS the TU.
   Z  `Class::method(` is defined in that file of the Zero Hour reference (an
-     out-of-line definition at file scope; a call such as `Base::f(x);` in a
-     body is not one).
+     out-of-line definition at file scope: balanced parameters, then a body
+     `{`; a call such as `Base::f(x);` or a data initializer is not one).
   S  every ZH definition of `Class::` sits in one .cpp: the class's site.
   N  naming convention `<dir>/<Class>.cpp` (ModuleData suffix stripped); used
      only inside the address cluster an F/Z/S anchor or a run of N rows forms.
@@ -82,10 +82,10 @@ Confidence:
 The output is a pure function of the ledger, ghidra_functions.csv,
 string_xrefs.tsv, data_xrefs.tsv and the ZH tree: rerunning on unchanged inputs
 writes the same bytes. Never edit tu_map.csv by hand; regenerate it. Writing it
-also writes `tu_map.inputs.sha256` (sha256sum format, line endings normalised):
-the hashes of those inputs (the ZH tree excepted; the submodule pointer pins
-it), of this tool and of the map, which `--check-fresh` compares in a fraction
-of a second.
+also writes `tu_map.inputs.sha256` (sha256sum-like, line endings normalised):
+the hashes of those inputs, of this tool and of the map, and the ZH tree's
+identity -- its git tree id (and commit) in a clean default checkout, else a
+hash of its .cpp files -- which `--check-fresh` compares in about a second.
 
 Usage:
   python3 tools/tu_map.py                write tu_map.csv (+ fingerprint), print a summary
@@ -96,7 +96,8 @@ Usage:
                                          landed since REV at addresses a map built from REV's
                                          ledger routed
   python3 tools/tu_map.py --dir PREFIX   summary for one directory's rows
-  --zh DIR                               the ZH Code/ tree (default: the Open-BFME-1 submodule's)
+  --zh DIR                               the ZH GeneralsMD/Code tree (default: the Open-BFME-1
+                                         submodule's); must hold GameEngine/
 """
 import argparse
 import bisect
@@ -138,8 +139,17 @@ class Layout:
             self.zh = self.root / ("reference/open-bfme-1/inputs/reference/"
                                    "CnC_Generals_Zero_Hour/GeneralsMD/Code")
             self.image = self.root / "baselines/bfme2/workshop-vanilla-1.06/files/game.dat"
+        self.zh_custom = bool(zh)
         if zh:
             self.zh = Path(zh)
+
+    def zh_problem(self):
+        """Why self.zh is not a ZH GeneralsMD/Code tree, or None."""
+        if not self.zh.is_dir():
+            return f"no ZH tree at {self.zh} (initialise the submodule or pass --zh GeneralsMD/Code)"
+        if not (self.zh / "GameEngine").is_dir():
+            return f"{self.zh} is not a ZH GeneralsMD/Code tree (no GameEngine/ in it)"
+        return None
 
     def path(self, name):
         return self.root / self.reverse / name
@@ -166,11 +176,10 @@ COMDAT = re.compile(r"^\?\?_[GE]|^\?friend_new|^\?\?[01]\w*ModuleData@@")
 # Comments and literals, so a commented-out or quoted `X::y(` is never read as code.
 CPP_NOISE = re.compile(r"//[^\n]*|/\*.*?\*/|\"(?:\\.|[^\"\\\n])*\"|'(?:\\.|[^'\\\n])*'", re.S)
 # An out-of-line definition opens at file scope: column 0, no statement keyword, no
-# assignment or call before `Class::method`, then `(` on that line or the next (the
-# parameter text is group 3; one that ends the statement with `;` is a call or a
-# declaration, never a definition).
-ZH_DEF = re.compile(r"^(?!(?:return|else|if|while|for|do|switch|case|delete|new|throw|goto)\b)(?=[A-Za-z_])"
-                    r"[^;(){}=\n]*?\b([A-Za-z_]\w*)\s*::\s*(~?[A-Za-z_]\w*)\s*(\(.*)?$")
+# assignment or call before `Class::method`, then its `(` (on that line or a later one).
+ZH_HEAD = re.compile(r"^(?!(?:return|else|if|while|for|do|switch|case|delete|new|throw|goto)\b)(?=[A-Za-z_])"
+                     r"[^;(){}=\n]*?\b([A-Za-z_]\w*)\s*::\s*(~?[A-Za-z_]\w*)(?=\s*(?:\(|$))")
+PUNCT = re.compile(r"[(){};]")
 
 
 def demangle(name):
@@ -183,23 +192,43 @@ def demangle(name):
     return None, name
 
 
+def _blank(m):
+    """A comment becomes spaces (its line breaks kept); a literal keeps its quotes, not its text."""
+    text = m.group(0)
+    if text[0] in "\"'":
+        return text[0] + " " * (len(text) - 2) + text[-1]
+    return re.sub(r"[^\n]", " ", text)
+
+
 def zh_definitions(text):
-    """(class, method) of each out-of-line definition in one ZH .cpp, in file order."""
-    clean = CPP_NOISE.sub(lambda m: m.group(0) if m.group(0)[0] in "\"'" else re.sub(r"[^\n]", " ", m.group(0)),
-                          text)
-    raws, lines = text.split("\n"), clean.split("\n")
-    for i, (raw, line) in enumerate(zip(raws, lines)):
-        if raw.startswith("/"):            # `/*static*/ void X::f(` -- a leading comment, not an indent
-            line = line.lstrip()
-        m = ZH_DEF.match(line)
+    """(class, method) of each out-of-line definition in one ZH .cpp, in file order.
+
+    A definition is a ZH_HEAD head, a balanced parameter list and then -- past `const`,
+    `throw(...)` or a constructor's initializer list -- a body `{`. A `;` first makes it
+    a call (`Base::f(` over several lines), a declaration or a data initializer
+    (`BezierSegment::s_bezBasisMatrix( ... );`); a `}` first, a fragment."""
+    code = CPP_NOISE.sub(_blank, text)     # same length and line breaks as `text`
+    at = 0
+    for raw, line in zip(text.split("\n"), code.split("\n")):
+        start, at = at, at + len(line) + 1
+        lead = len(line) - len(line.lstrip()) if raw.startswith("/") else 0   # `/*static*/ void X::f(`
+        m = ZH_HEAD.match(line[lead:])
         if not m:
             continue
-        params = m.group(3)
-        if params is None:                 # `void Matrix3D::Transform_Min_Max_AABox` / `(` ...
-            after = lines[i + 1].strip() if i + 1 < len(lines) else ""
-            params = after if after.startswith("(") else None
-        if params is not None and not params.rstrip().endswith(";"):
-            yield m.group(1), m.group(2)
+        i = start + lead + m.end()
+        while i < len(code) and code[i].isspace():
+            i += 1
+        if i >= len(code) or code[i] != "(":
+            continue
+        depth = 0
+        for tok in PUNCT.finditer(code, i):
+            c = tok.group()
+            if c in "()":
+                depth += 1 if c == "(" else -1
+            else:                          # the first brace or `;` decides, inside parentheses or not
+                if c == "{" and depth == 0:
+                    yield m.group(1), m.group(2)
+                break
 
 
 class Paths:
@@ -313,6 +342,15 @@ def disputed(m, t):
                 if int(x, 16) not in seen:
                     seen.add(int(x, 16))
                     todo.extend(q for q in m.get(int(x, 16), ()) if q["kind"].startswith("code"))
+    return None
+
+
+def approved_tu(m, t):
+    """The file a row at the address of `t` (a tu_at answer from load() map `m`) belongs in,
+    or None: t's TU when t is approved and no F/Z/S anchor disputes it. The one predicate
+    tu_ownership (A2/A3) holds a row to and repair_queue dest routes a new row by."""
+    if t and t["confidence"] == "approved" and t["tu"] and not disputed(m, t):
+        return t["tu"]
     return None
 
 
@@ -700,11 +738,56 @@ def _digest(path):
         return "missing"
 
 
-def fingerprint(layout):
-    """sha256sum-format lines for the map's inputs, this tool and the map itself."""
-    files = [layout.path(n) for n in FINGERPRINTED] + [Path(__file__).resolve(), layout.out]
-    out = []
-    for p in files:
+ZH_KEY = "zh:GeneralsMD/Code"
+
+
+def _git(cwd, *args):
+    # a hook's GIT_DIR/GIT_INDEX_FILE would point every call at the outer repository
+    env = {k: v for k, v in os.environ.items()
+           if k not in ("GIT_DIR", "GIT_WORK_TREE", "GIT_INDEX_FILE", "GIT_COMMON_DIR", "GIT_PREFIX")}
+    try:
+        got = subprocess.run(["git", *args], cwd=cwd, capture_output=True, text=True, env=env)
+    except OSError:
+        return None
+    return got.stdout.strip() if got.returncode == 0 else None
+
+
+def zh_identity(layout, kind=None):
+    """(digest, note) of the ZH tree the map reads. `git:<tree id>` -- content-addressed, so
+    equal wherever the same files are checked out -- for the default tree in a clean checkout
+    (untracked files count as dirt), noting the commit; else, or for a custom --zh, or when
+    `kind` is "sha256", `sha256:` over the relative path and CRLF-normalised bytes of every
+    .cpp zh_index reads. `kind` "git" tries the tree id for a custom --zh too."""
+    zh = layout.zh
+    if not zh.is_dir():
+        return "missing", "no ZH tree"
+    commit = _git(zh, "rev-parse", "HEAD")
+    if commit and kind != "sha256" and (kind == "git" or not layout.zh_custom):
+        tree = _git(zh, "rev-parse", "HEAD:./")
+        if tree and _git(zh, "--no-optional-locks", "status", "--porcelain", "--untracked-files=all", "--", ".") == "":
+            return f"git:{tree}", f"commit {commit}"
+    h = hashlib.sha256()
+    for dp, dn, fn in sorted(os.walk(zh)):
+        dn.sort()
+        for f in sorted(fn):
+            if f.lower().endswith(".cpp"):
+                p = Path(dp) / f
+                h.update(p.relative_to(zh).as_posix().encode() + b"\0")
+                h.update(p.read_bytes().replace(b"\r\n", b"\n") + b"\0")
+    why = "custom --zh" if layout.zh_custom else "dirty or untracked checkout"
+    return f"sha256:{h.hexdigest()}", (f"commit {commit}, " if commit else "") + why
+
+
+def fingerprint(layout, zh_kind=None):
+    """sha256sum-like lines for the map's inputs (the ZH tree's as zh_identity), this tool
+    and the map itself; `#` lines are notes, never compared."""
+    out = ["# inputs of tu_map.csv as tools/tu_map.py wrote it; `tu_map.py --check-fresh` compares them"]
+    for p in [layout.path(n) for n in FINGERPRINTED]:
+        out.append(f"{_digest(p)}  {p.resolve().relative_to(layout.root.resolve()).as_posix()}")
+    digest, note = zh_identity(layout, zh_kind)
+    out.append(f"{digest}  {ZH_KEY}")
+    out.append(f"# {ZH_KEY}: {note}")
+    for p in (Path(__file__).resolve(), layout.out):
         try:
             name = p.resolve().relative_to(layout.root.resolve()).as_posix()
         except ValueError:
@@ -713,16 +796,21 @@ def fingerprint(layout):
     return "\n".join(out) + "\n"
 
 
+def _parse_fingerprint(text):
+    return {name: digest for digest, _, name in (line.partition("  ") for line in text.splitlines()
+                                                 if not line.startswith("#")) if name}
+
+
 def check_fresh(layout):
-    """[] when tu_map.csv was written from the current inputs, else the files that changed
-    (or the missing fingerprint's own name)."""
+    """[] when tu_map.csv was written from the current inputs, else the inputs that changed
+    (or the missing fingerprint's own name). The ZH tree is identified the way it was
+    recorded (git tree id or content hash), so a worktree's --zh copy and the submodule
+    compare equal when their files are."""
     have = layout.fingerprint.read_text(encoding="utf-8") if layout.fingerprint.exists() else ""
     if not have.strip():
         return [layout.fingerprint.relative_to(layout.root).as_posix()]
-
-    def parse(text):
-        return {name: digest for digest, _, name in (line.partition("  ") for line in text.splitlines()) if name}
-    old, new = parse(have), parse(fingerprint(layout))
+    old = _parse_fingerprint(have)
+    new = _parse_fingerprint(fingerprint(layout, old.get(ZH_KEY, "").partition(":")[0] or None))
     return [name for name in new if old.get(name) != new[name]]
 
 
@@ -826,9 +914,9 @@ def main(argv=None):
                   f"{', '.join(stale)}); run python3 tools/tu_map.py", file=sys.stderr)
             return 1
         return 0
-    if not layout.zh.exists():
-        print(f"tu_map: no ZH tree at {layout.zh} (initialise the submodule or pass --zh); "
-              "Z and S evidence would be empty", file=sys.stderr)
+    problem = layout.zh_problem()
+    if problem:
+        print(f"tu_map: {problem}; Z and S evidence would be empty", file=sys.stderr)
         return 2
     if a.validate:
         return report_validation(layout, a.validate)

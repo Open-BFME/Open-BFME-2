@@ -14,7 +14,9 @@ Rules (each finding carries its rule id):
                      functions have rows too), the row of the known body it lies
                      inside, or for an address in no known body, contiguity with its
                      approved brackets when the retail image shows the address starts
-                     right after the body below it (tu_map.tu_at; padding has none).
+                     right after the body below it (tu_map.tu_at; padding has none) --
+                     unless an F/Z/S anchor disputes it (tu_map.approved_tu, the same
+                     predicate `repair_queue.py dest` routes by).
   A4  second body    a staged source gains an out-of-line `Class::method(`
                      definition while every matched ledger row of that symbol is
                      owned by another file (two definitions of one retail function;
@@ -131,10 +133,11 @@ def check_ledger(base, new, d, tumap):
                                   f"owned by {owners[0]['source']}"))
                 continue
         t = tu_map.tu_at(tumap, r["rva"], index)     # no map row: the body it is in, else C on boundary evidence
-        if t and t["confidence"] == "approved" and r["source"].lower() != t["tu"].lower():
+        tu = tu_map.approved_tu(tumap, t)             # the predicate repair_queue dest routes by
+        if tu and r["source"].lower() != tu.lower():
             rule = "A2" if prior else "A3"
             out.append((rule, f"0x{r['rva']:08X} {r['name']}: {'moved' if prior else 'added'} to {r['source']}; "
-                              f"approved TU is {t['tu']} ({t['by']})"))
+                              f"approved TU is {tu} ({t['by']})"))
     return out
 
 
