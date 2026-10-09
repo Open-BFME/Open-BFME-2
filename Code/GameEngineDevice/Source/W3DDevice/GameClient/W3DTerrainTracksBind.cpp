@@ -71,6 +71,20 @@ public:
  virtual int boneIndex(const char*);
  virtual const TrackMatrix &boneTransform(TrackMatrix &,int);
 };
+class TextureClass { public: void Release_Ref(); };
+template<class T> class RefCountPtr {
+public:
+ T *ptr;
+ const RefCountPtr &operator=(const RefCountPtr &);
+};
+// The one-pointer texture value returned by the established particle loader.
+// A derived member names its implicit assignment through the base provider;
+// W3DSnowManager::updateIniSettings independently uses this same view/shape.
+class BFME2ParticleTextureHandle : public RefCountPtr<TextureClass> {
+public:
+ ~BFME2ParticleTextureHandle() { if(ptr) ptr->Release_Ref(); }
+};
+extern BFME2ParticleTextureHandle BFME2LoadParticleTexture(const char *,int,int);
 struct TrackEdge {
  float endpointPositions[6], endpointUVs[4]; int timeAdded; float alpha;
 };
@@ -78,9 +92,9 @@ class Rva00084206Track {
 public:
  Rva00084206Track();
  char pad0[8]; TrackVector endpoints[2]; char pad20[0xc];
- void *texture; int activeEdgeCount, totalEdgesAdded; void *owner;
+ BFME2ParticleTextureHandle texture; int activeEdgeCount, totalEdgesAdded; void *owner;
  TrackEdge edges[100]; TrackVector lastAnchor;
- int bottomIndex, topIndex; bool haveAnchor, bound; char pad1312[0xe];
+ int bottomIndex, topIndex; bool haveAnchor, bound; char pad1312[2]; float width,length; char pad131c[4];
  Rva00084206Track *next,*prev;
  void init(float,float,const char*);
 };
@@ -292,4 +306,15 @@ void Rva00084C05System::update() {
   }
   mod = nextMod;
  }
+}
+
+// Native84206..84271 ret12 at8426E: reset83CB2; width/length+1314/+1318;
+// cached texture loader132D89 and rowed RefCountPtr assignment424D0, followed
+// by temporary Release_Ref61ED10. Layout/calls are native facts; donor track
+// initialization supplies semantics. Derived one-pointer member and return
+// preserve the observed assignment receiver/cursor lifetime without a cast.
+void Rva00084206Track::init(float w,float l,const char *name) {
+ ((Rva00083CB2 *)this)->rva00083CB2();
+ width=w; length=l;
+ texture=BFME2LoadParticleTexture(name,0,0);
 }
