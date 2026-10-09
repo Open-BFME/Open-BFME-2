@@ -60,12 +60,15 @@ public:
 	void rva000A7E9E(const Rva000A7E9EInput &input);
 	void rva000A80A8(struct Rva000A80A8Item *item, int treeDetached);
 	void rva000A8127(struct Rva000A80A8Item *item);
+	void freeUnusedSamples();
 
 private:
 	unsigned char m_pad00[0x20];
 	Rva000A7E9ETree m_tree;
-	unsigned char m_pad2C[0x10];
+	unsigned char m_pad2C[0x0C];
+	unsigned int m_activeBytes;
 	unsigned int m_count;
+	unsigned int m_budget;
 };
 
 void Rva000A7E9E::rva000A7E9E(const Rva000A7E9EInput &input)
@@ -159,4 +162,39 @@ void Rva000A7E9E::rva000A8127(Rva000A80A8Item *item)
 	} else {
 		rva000A80A8(item, 1);
 	}
+}
+
+// Retail 0x000A81BE, 131B: WB AudioFileCache::freeUnusedSamples identifies
+// this loop. Native tests active bytes+38 against budget+40, selects the
+// unused tree leftmost key name at node+14, erases through 0x383380, then
+// finds the filename bucket through 0x56F61. Its entry size+30 is removed
+// from unused bytes+3C before the existing delete helper 0xA80A8(entry,1).
+// No key comparison occurs here: the less-based tree view uses the existing
+// verified erase instantiation and the same header/count/value layout.
+class Rva00056F61 {
+public:
+ __declspec(nothrow) void *rva00056F61(const AsciiString *key);
+};
+struct AudioCacheHashNode {
+ AudioCacheHashNode *m_next;
+ AsciiString m_name;
+ Rva000A80A8Item *m_item;
+};
+typedef _STL::set<TreeKey00242F5E,_STL::less<TreeKey00242F5E>,_STL::allocator<TreeKey00242F5E> > AudioUnusedTree;
+// ?freeUnusedSamples@Rva000A7E9E@@QAEXXZ 0x000A81BE 131B
+void Rva000A7E9E::freeUnusedSamples()
+{
+ while (m_activeBytes > m_budget) {
+  if (m_tree.empty()) break;
+  AudioUnusedTree *tree = (AudioUnusedTree *)&m_tree;
+  AudioUnusedTree::iterator first = tree->begin();
+  AsciiString name(first->m_name);
+  tree->erase(first);
+  AudioCacheHashNode *node = (AudioCacheHashNode *)((Rva00056F61 *)this)->rva00056F61(&name);
+  if (node) {
+   register unsigned int amount = node->m_item->m_amount;
+   m_count -= amount;
+   rva000A80A8(node->m_item,1);
+  }
+ }
 }

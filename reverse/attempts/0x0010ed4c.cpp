@@ -1,57 +1,84 @@
-// ??0Rva0010ED4C@@QAE@HABVAsciiString@@@Z
-// partial score=0.95 date=2026-09-30
-// ??0Rva0010ED4C@@QAE@HABVAsciiString@@@Z
-// partial score=0.95 date=2026-09-30
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
-// ??0Rva0010ED4C@@QAE@HABVAsciiString@@@Z at 0x0010ED4C (118B).
-// Ctor with AsciiString at +0 via pinned StringBase copy 0x365F0, int at +4,
-// 0x24-byte memset at +8, zeros at +0x2C/+0x30/+0x34/+0x38/+0x3C and byte at +0x40,
-// plus two Rva0040F9D events at +0x44/+0x4C as (1 0 0 0). Evidence: retail push
-// [ebp+0xC] + call 0x365F0, mov [esi+4] from [ebp+8], EH 0/1 around 0x40F64 x2,
-// memset via E8 to 0x6291AE. Callers at 0x000A8028 0x000A85E9.
+// ??0Gen0002857E@@QAE@PAVRva000A7E9E@@ABVAsciiString@@@Z
+// partial score=0.88135593220339 date=2026-10-09
+// cl: /O1 /arch:SSE /G7 /MD /EHsc /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include
+// ?handle@Gen0002857E@@QAEXXZ at 0x0010ECBD (39B).
+// Mutex-guarded increment of the counter at +0x34 via MilesMutexGuard over owner mutex at +0x50.
+// Evidence: BFME1 donor game/GameEngine/Source/Common/Gen0002857EHandle.cpp; retail pushes 0 and [eax+0x50] into ctor 0x0004120E and calls dtor 0x0004122F; LINK BONUS caller in Rva00690FF0Handle.cpp.
+
 #include "ascii_string.h"
-
-class Rva0040F9D
+#include "Common/Rva00041004Lock.h"
+#include <string.h>
+class __declspec(novtable) Rva0040F9D : public Rva0040EDB {
+public:
+ Rva0040F9D(int,int,const char*,void*);
+ virtual ~Rva0040F9D() {}
+};
+class MilesMutexGuard
 {
 public:
-	virtual ~Rva0040F9D();
-	Rva0040F9D(int a1, int a2, char const *a3, void *a4);
+	MilesMutexGuard(void *m, int x);
+	~MilesMutexGuard();
 private:
-	void *m_handle;
+	void *m_mutex;
+	bool m_flag;
 };
 
-extern "C" void *memset(void *dst, int val, unsigned size);
+class Gen0002857E;
 
-class Rva0010ED4C
+// Retail 0x10ED1F passes the owner at entry+4 and the complete entry pointer
+// to the verified manager helper at 0xA8127. Both owner views put the mutex
+// at +0x50; the helper's entry view reads +0x30/+0x38/+0x44.
+struct Rva000A80A8Item;
+
+class Rva000A7E9E
 {
 public:
-	Rva0010ED4C(int a1, const AsciiString &a2);
-private:
-	AsciiString m_00;
-	int m_04;
-	char m_08[0x24];
-	int m_2C;
-	int m_30;
-	int m_34;
-	int m_38;
-	int m_3C;
-	unsigned char m_40;
-	Rva0040F9D m_44;
-	Rva0040F9D m_4C;
+	char m_pad[0x50];
+	void *m_mutex;
+	void rva000A8127(Rva000A80A8Item *entry);
 };
 
-// ??0Rva0010ED4C@@QAE@HABVAsciiString@@@Z present-unmatched
-Rva0010ED4C::Rva0010ED4C(int a1, const AsciiString &a2)
-	: m_00(a2)
-	, m_04(a1)
-	, m_2C(0)
-	, m_30(0)
-	, m_34(0)
-	, m_38(0)
-	, m_3C(0)
-	, m_40(0)
-	, m_44(1, 0, 0, 0)
-	, m_4C(1, 0, 0, 0)
+class Gen0002857E
 {
-	memset(m_08, 0, 0x24);
+public:
+	Gen0002857E(Rva000A7E9E *,const AsciiString &);
+	void handle();
+	void release();
+private:
+	AsciiString m_name;
+	Rva000A7E9E *m_owner;
+	unsigned int m_waveInfo[9];
+	void *m_data;
+	unsigned int m_size;
+	// volatile so the read-modify-write is not strength-reduced to `inc`.
+	volatile int m_count;
+	unsigned int m_lastReleaseTime;
+	int m_priority;
+	bool m_allocated;
+	Rva0040F9D m_ready;
+	Rva0040F9D m_failed;
+};
+
+void Gen0002857E::handle()
+{
+	MilesMutexGuard guard(m_owner->m_mutex, 0);
+	m_count = m_count + 1;
 }
+
+extern "C" __declspec(dllimport) unsigned int __stdcall AIL_ms_count(void);
+
+void Gen0002857E::release()
+{
+	void *mutex = m_owner->m_mutex;
+	MilesMutexGuard guard(mutex, 0);
+	m_count -= 1;
+	if (m_count == 0)
+	{
+		m_lastReleaseTime = AIL_ms_count();
+		m_owner->rva000A8127(reinterpret_cast<Rva000A80A8Item *>(this));
+	}
+}
+
+Gen0002857E::Gen0002857E(Rva000A7E9E *owner,const AsciiString &name)
+ :m_name(name),m_owner(owner),m_data(0),m_size(0),m_count(0),m_lastReleaseTime(0),m_priority(0),m_allocated(false),m_ready(1,0,0,0),m_failed(1,0,0,0)
+{ memset(m_waveInfo,0,sizeof(m_waveInfo)); }
