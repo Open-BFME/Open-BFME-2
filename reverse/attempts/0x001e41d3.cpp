@@ -1,33 +1,22 @@
-// ?rva001E41D3@Rva001E41D3@@QAEXPAM@Z
-// partial score=0.9 date=2026-10-01
+// ?rva001E41D3@Rva001E41D3@@QAE?AURva001E41D3Result@@XZ
+// partial score=0.85 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /MD
-//
-// ?rva001E41D3@Rva001E41D3@@QAEXPAM@Z @0x001E41D3 39B
-// __thiscall void(float*): copies 3 floats from this+0x68+0xc/0x1c/0x2c to out[0..2].
-// Evidence: caller 0x001E7F12 in 0x001E7ECA; neighbours Rva001E4194Get / Disp32DwordFieldGetters.
-struct Rva001E41D3Inner
-{
-	char _00[0x0c];
-	float m_0c;
-	char _10[0x0c];
-	float m_1c;
-	char _20[0x0c];
-	float m_2c;
+// Native1E41D3..1E41FA and WB AF0DB0 establish12B result and hidden
+// return-storage construction bit; this corrects the old void/out bank.
+// Matrix68 row-translation floats at74/84/94 are target facts. Original
+// result class/PODity and constructor form are unresolved structural views.
+// This35B value-return trial restores LEA68 but retains first x87 copy
+// and reversed XMM load allocation. Never a matched claim.
+struct Rva001E41D3Result {
+ float x,y,z;
+ Rva001E41D3Result(float a,float b,float c):x(a),y(b),z(c){}
 };
-class Rva001E41D3
-{
-public:
-	void rva001E41D3(float *out);
-	char _00[0x68];
-	Rva001E41D3Inner m_68;
+struct Rva001E41D3Matrix {
+ float m[3][4];
+ __forceinline Rva001E41D3Result get(){return Rva001E41D3Result(m[0][3],m[1][3],m[2][3]);}
 };
-// ?rva001E41D3@Rva001E41D3@@QAEXPAM@Z present-unmatched
-void Rva001E41D3::rva001E41D3(float *out)
-{
-	float a = m_68.m_0c;
-	float b = m_68.m_1c;
-	float c = m_68.m_2c;
-	out[0] = a;
-	out[1] = b;
-	out[2] = c;
-}
+class Rva001E41D3 {
+ char prefix[0x68];Rva001E41D3Matrix matrix;
+public:Rva001E41D3Result rva001E41D3();
+};
+Rva001E41D3Result Rva001E41D3::rva001E41D3(){return matrix.get();}
