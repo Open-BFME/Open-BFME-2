@@ -311,7 +311,8 @@ public:
 	unsigned char m_00[0xAF4];
 	bool m_allowExitOutOfMovies;	// +0xAF4
 };
-extern GlobalData *TheGlobalData;
+// Native VA 0x00DFE758 is the existing writable-global-data pointer storage.
+extern GlobalData *TheWritableGlobalData;
 
 extern unsigned int g_rva00E02FC0Bits;
 bool Rva00437EDCGet();
@@ -431,7 +432,7 @@ checkView:
 			if (m_mode == 1)
 			{
 				if (returnCode != WIN_INPUT_USED && key == KEY_ESC && (state & KEY_STATE_UP) &&
-					TheDisplay->isMoviePlaying() && TheGlobalData->m_allowExitOutOfMovies == true)
+					TheDisplay->isMoviePlaying() && TheWritableGlobalData->m_allowExitOutOfMovies == true)
 				{
 					TheDisplay->stopMovie();
 					returnCode = WIN_INPUT_USED;
