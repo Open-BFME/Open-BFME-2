@@ -40,7 +40,7 @@ public:
 	virtual void s18();
 	virtual void s19();
 	virtual void s20();
-	virtual void s21();
+	virtual void s21(const Coord3D *p);
 	virtual void s22();
 	virtual void s023(const Rva003BACCAPoint &p);
 	virtual void s24(const Coord3D *position, CameraMarker *marker,
@@ -66,9 +66,9 @@ public:
 	virtual void s42();
 	virtual void s43();
 	virtual void s44();
-	virtual void s45();
-	virtual void s46();
-	virtual void s47();
+	virtual bool s45(int mode);
+	virtual void s46(const Coord3D *p, int mode);
+	virtual bool s47(int filter);
 	virtual void s48();
 	virtual void s49();
 	virtual void s50();
@@ -451,4 +451,43 @@ void __stdcall Rva003BAA46(Parameter *p, bool snap, float play)
         reinterpret_cast<TacticalView *>(TheTacticalView)->s100(play);
         reinterpret_cast<TacticalView *>(TheTacticalView)->s99(0, 0.0f);
     }
+}
+
+// ZH doCameraMotionBlurJump is the semantic/control-flow guide. Native
+// 0x003BB7FE..0x003BB898/RET8 separately proves slot34 lookup and slots
+// 47/45/46/21 with filter2, saturate8 or alpha7, and fallback filter0.
+void __stdcall Rva003BB7FESet(int waypoint, bool saturate)
+{
+    char *way = reinterpret_cast<Rva003BB05FTerrain<int> *>(TheTerrainLogic)->s34(waypoint);
+    if (!way)
+        return;
+    bool passed = false;
+    Coord3D pos;
+    pos.x = reinterpret_cast<Rva003BAAE4TerrainPosition *>(way)->position.x;
+    pos.y = reinterpret_cast<Rva003BAAE4TerrainPosition *>(way)->position.y;
+    pos.z = reinterpret_cast<Rva003BAAE4TerrainPosition *>(way)->position.z;
+    if (reinterpret_cast<TacticalView *>(TheTacticalView)->s47(2))
+    {
+        passed = true;
+        if (saturate)
+        {
+            if (!reinterpret_cast<TacticalView *>(TheTacticalView)->s45(8))
+            {
+                reinterpret_cast<TacticalView *>(TheTacticalView)->s47(0);
+                passed = false;
+            }
+        }
+        else
+        {
+            if (!reinterpret_cast<TacticalView *>(TheTacticalView)->s45(7))
+            {
+                reinterpret_cast<TacticalView *>(TheTacticalView)->s47(0);
+                passed = false;
+            }
+        }
+        if (passed)
+            reinterpret_cast<TacticalView *>(TheTacticalView)->s46(&pos, 0);
+    }
+    if (!passed)
+        reinterpret_cast<TacticalView *>(TheTacticalView)->s21(&pos);
 }
