@@ -38,15 +38,34 @@ public:
 
 class EAStringC
 {
-    void *data;
 public:
-    EAStringC(){clear();}
+    class StringDataC
+    {
+    public:
+        unsigned short m_uRefCount;
+        unsigned short m_uSize;
+        unsigned short m_uMaxSize;
+        unsigned short m_uHash;
+    };
+private:
+    StringDataC *data;
+public:
+    EAStringC();
     EAStringC &clear();
     EAStringC &operator=(const EAStringC&);
     ~EAStringC();
     EAStringC &Rva006D4F00Append(const EAStringC &other);
     const char *rva00620090() const;
 };
+extern EAStringC::StringDataC g_eaEmptyStringData;
+// Native callers invoke this 16-byte constructor at 0x006D2F90, folded with
+// clear; it roots the string at the empty singleton (RVA 0x009DC020 / VA
+// 0x00DDC020) and takes one reference. Keep the native call boundary.
+__declspec(noinline) inline EAStringC::EAStringC()
+{
+    data = &g_eaEmptyStringData;
+    ++data->m_uRefCount;
+}
 
 class Rva006CD650
 {

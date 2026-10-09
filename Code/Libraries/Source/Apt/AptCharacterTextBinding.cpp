@@ -13,8 +13,15 @@ extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char*,const char*,int);
 extern int g_bfmeAptBreakOnAssertAtDDC01C;
 class EAStringC {
 public:
- void *data;
- EAStringC(){clear();}
+ class StringDataC {
+ public:
+  unsigned short m_uRefCount;
+  unsigned short m_uSize;
+  unsigned short m_uMaxSize;
+  unsigned short m_uHash;
+ };
+ StringDataC *data;
+ EAStringC();
  EAStringC(const char*);
  ~EAStringC();
  EAStringC &clear();
@@ -23,6 +30,15 @@ public:
  const char*rva00620090()const;
  bool rva006D30D0(const EAStringC*)const;
 };
+extern EAStringC::StringDataC g_eaEmptyStringData;
+// Native callers invoke this 16-byte constructor at 0x006D2F90, folded with
+// clear; it roots the string at the empty singleton (RVA 0x009DC020 / VA
+// 0x00DDC020) and takes one reference. Keep the native call boundary.
+__declspec(noinline) inline EAStringC::EAStringC()
+{
+ data = &g_eaEmptyStringData;
+ ++data->m_uRefCount;
+}
 class AptValue {
 public:
  bool isUndefined()const;
