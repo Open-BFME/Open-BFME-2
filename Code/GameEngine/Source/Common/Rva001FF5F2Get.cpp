@@ -1,5 +1,8 @@
 // cl: /Ireference/shims/bfme2_ascii /Oy- /MD /EHsc
-// ?Rva001FF5F2Get@@YG?AVAsciiString@@W4NameKeyType@@@Z @0x001FF5F2 51B: free function returning AsciiString from NameKey; -1 -> AsciiString::TheEmptyString else keyToName pin 0x00148C95 via rowed StringBase copy ctor 0x000365F0. Evidence: ret 8 hidden-pointer shape callers 0x00306232 0x0037BE15 0x004F31B6.
+// Native callers306273 and37C0B7 load TheScienceStore intoECX; the donor
+// ScienceStore::getInternalNameForScience supports the unused receiver.
+// The neutral method preserves the established key enum and51B body.
+// RET8 accounts for the hidden return pointer and key, not a free ABI.
 enum NameKeyType
 {
 	NAMEKEY_INVALID = -1
@@ -15,7 +18,9 @@ public:
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-AsciiString __stdcall Rva001FF5F2Get(NameKeyType key)
+class ScienceStore {public:AsciiString rva001FF5F2(NameKeyType);};
+
+AsciiString ScienceStore::rva001FF5F2(NameKeyType key)
 {
 	if (key == NAMEKEY_INVALID)
 		return AsciiString::TheEmptyString;

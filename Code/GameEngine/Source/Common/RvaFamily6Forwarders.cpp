@@ -5,11 +5,12 @@
 // destructor for the EH-state init retail shows; the destructor is scaffolding
 // (empty, unpinned) and the helpers are opaque address-named pins. Holder,
 // member and helper identities are unproven.
+// All current consumer views and helper56BABF hold a single counted pointer.
+// The37BE15 caller proves the30FA44 result is a four-byte AsciiString;
+// other helpers retain their own opaque counted-handle semantics.
 struct RvaF6Ret
 {
 	int m_00;
-	int m_04;
-	int m_08;
 	~RvaF6Ret();
 };
 
