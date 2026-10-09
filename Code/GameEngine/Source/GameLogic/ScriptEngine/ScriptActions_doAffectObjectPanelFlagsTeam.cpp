@@ -148,3 +148,85 @@ void ScriptActions::doSetCounterToThreatFinderThreat(const AsciiString &counterN
 		TheScriptEngine->AppendDebugMessage(msg, false);
 	}
 }
+
+// Zero Hour and BFME1 9cbfb551 ScriptActions.cpp establish the seven flag
+// actions. BFME1's clean unit was compiled under BFME2 settings as a lead.
+// Native3C4C07..3C4D5C and WBFFA7A0 independently add propagation of the
+// Indestructible flag through horde members. The retail object fields are
+// contain+250 / body+254 / AI+258, with recruitable at AI+3BE.
+// The containment accessor returns a pointer at slot31. Slot70 fills an
+// eight-byte non-POD result: its second word points at a one-word list with
+// next/previous/object nodes. The first result word and original return type
+// remain opaque; retail performs no cleanup of it. These views express only
+// the observed native ABI and list traversal, not a recovered class contract.
+extern const char *TheObjectFlagsNames[];
+enum ObjectScriptStatusBit {OBJECT_STATUS_SCRIPT_DISABLED=1,OBJECT_STATUS_SCRIPT_UNPOWERED=2,OBJECT_STATUS_SCRIPT_UNSELLABLE=4,OBJECT_STATUS_SCRIPT_TARGETABLE=16};
+class Object {public:void setScriptStatus(ObjectScriptStatusBit,bool);bool isSelectable()const;void setSelectable(bool);};
+struct PanelFlagNode {PanelFlagNode *next,*prev;Object *object;};
+struct PanelFlagList {PanelFlagNode *sentinel;};
+struct PanelFlagListResult {PanelFlagListResult();void *unused;PanelFlagList *list;};
+class PanelFlagContainView {public:
+#define V(n) virtual void pad##n();
+ V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7) V(8) V(9)
+ V(10) V(11) V(12) V(13) V(14) V(15) V(16) V(17) V(18) V(19)
+ V(20) V(21) V(22) V(23) V(24) V(25) V(26) V(27) V(28) V(29) V(30)
+ virtual void *hordeView();V(32)
+ V(33)
+ V(34) V(35) V(36) V(37) V(38) V(39) V(40) V(41) V(42) V(43)
+ V(44) V(45) V(46) V(47) V(48) V(49) V(50) V(51) V(52) V(53)
+ V(54) V(55) V(56) V(57) V(58) V(59) V(60) V(61) V(62) V(63)
+ V(64) V(65) V(66) V(67) V(68) V(69)
+#undef V
+ virtual PanelFlagListResult members();
+};
+// Separate ABI views: the body setter is slot33; containment uses slots31/70.
+class PanelFlagBodyView {public:
+#define V(n) virtual void pad##n();
+ V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7) V(8) V(9)
+ V(10) V(11) V(12) V(13) V(14) V(15) V(16) V(17) V(18) V(19)
+ V(20) V(21) V(22) V(23) V(24) V(25) V(26) V(27) V(28) V(29)
+ V(30) V(31) V(32)
+#undef V
+ virtual void setIndestructible(bool);
+};
+struct PanelFlagRecruit {char unknown[0x3be];bool recruitable;};
+struct PanelFlagObjectView {char unknown[0x250];PanelFlagContainView *contain;PanelFlagBodyView *body;PanelFlagRecruit *ai;};
+void ScriptActions::changeObjectPanelFlagForSingleObject(Object *obj,
+	const AsciiString &flagToChange, bool newVal)
+{
+	bool propagate = false;
+	if (flagToChange.compare(TheObjectFlagsNames[0]) == 0) {
+		obj->setScriptStatus(OBJECT_STATUS_SCRIPT_DISABLED, !newVal);
+	} else if (flagToChange.compare(TheObjectFlagsNames[1]) == 0) {
+		obj->setScriptStatus(OBJECT_STATUS_SCRIPT_UNPOWERED, !newVal);
+	} else if (flagToChange.compare(TheObjectFlagsNames[2]) == 0) {
+		PanelFlagBodyView *body = ((PanelFlagObjectView *)obj)->body;
+		if (body)
+			body->setIndestructible(newVal);
+		propagate = true;
+	} else if (flagToChange.compare(TheObjectFlagsNames[3]) == 0) {
+		obj->setScriptStatus(OBJECT_STATUS_SCRIPT_UNSELLABLE, newVal);
+	} else if (flagToChange.compare(TheObjectFlagsNames[4]) == 0) {
+		if (obj->isSelectable() != newVal)
+			obj->setSelectable(newVal);
+	} else if (flagToChange.compare(TheObjectFlagsNames[5]) == 0) {
+		if (((PanelFlagObjectView *)obj)->ai)
+			((PanelFlagObjectView *)obj)->ai->recruitable = newVal;
+	} else if (flagToChange.compare(TheObjectFlagsNames[6]) == 0) {
+		obj->setScriptStatus(OBJECT_STATUS_SCRIPT_TARGETABLE, newVal);
+	} else {
+		return;
+	}
+	if (propagate) {
+		PanelFlagObjectView *view = (PanelFlagObjectView *)obj;
+		PanelFlagContainView *contain = view->contain;
+		if (contain && contain->hordeView()) {
+			PanelFlagListResult members = view->contain->members();
+			for (PanelFlagNode *node = members.list->sentinel->next;
+				node != members.list->sentinel; node = node->next) {
+				if (node->object)
+					changeObjectPanelFlagForSingleObject(node->object, flagToChange, newVal);
+			}
+		}
+	}
+}
