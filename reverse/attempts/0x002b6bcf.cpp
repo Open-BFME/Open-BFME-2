@@ -1,4 +1,6 @@
 // ?CanMoveArmyMembers_internal@LivingWorldLogic@@QAE_NPAULivingWorldArmy@@ABV?$vector@HV?$allocator@H@_STL@@@_STL@@0PAH@Z
+// partial score=0.95 date=2026-10-09
+// ?CanMoveArmyMembers_internal@LivingWorldLogic@@QAE_NPAULivingWorldArmy@@ABV?$vector@HV?$allocator@H@_STL@@@_STL@@0PAH@Z
 // partial score=0.8 date=2026-10-08
 // cl: /O1 /DNDEBUG /MD /EHs /arch:SSE /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
@@ -78,7 +80,7 @@ struct Rva002B5334ArmySet : public Rva002B5334Base, public Rva002B5334ArmyList
 {
 };
 
-#include "../../../../../Libraries/Include/Lib/Coord2D.h"
+#include "../Code/Libraries/Include/Lib/Coord2D.h"
 
 class LivingWorldRegionManager
 {
@@ -933,13 +935,14 @@ Bool LivingWorldLogic::CanMoveArmyMember_internal(LivingWorldArmy *army, ArmySum
 }
 
 // ?CanMoveArmyMembers_internal@LivingWorldLogic@@QAE_NPAULivingWorldArmy@@ABV?$vector@HV?$allocator@H@_STL@@@_STL@@0PAH@Z present-unmatched
+__forceinline const ArmySummaryEntryRef &BorrowEntryHolder(const ArmySummaryEntryRef &entry) { return entry; }
 Bool LivingWorldLogic::CanMoveArmyMembers_internal(LivingWorldArmy *army, const _STL::vector<Int> &entryIDs, LivingWorldArmy *target, Int *commandPoints)
 {
 	*commandPoints = 0;
 	Int count = entryIDs.size();
 	for (Int i = 0; i < count; ++i)
 	{
-		ArmySummaryEntryRef entry(static_cast<const ArmySummaryEntryRef &>(army->m_summary->GetEntry(entryIDs[i])));
+		ArmySummaryEntryRef entry(BorrowEntryHolder(army->m_summary->GetEntry(entryIDs[i])));
 		if (entry.m_entry == 0)
 			continue;
 		if (!CanMoveArmyMember_internal(army, entry.m_entry, target, false))
@@ -1686,3 +1689,4 @@ void LivingWorldLogic::PrepareBattleForLoading(LivingWorldBattle *battle)
 		}
 	}
 }
+
