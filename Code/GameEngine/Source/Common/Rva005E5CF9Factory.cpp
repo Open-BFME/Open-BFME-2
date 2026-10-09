@@ -190,3 +190,24 @@ RvaF1Handle Rva005FB243::rva005FB243(int first, int second)
 {
 	return RvaF1Handle(new Rva005FF13A(first, second, (const Rva005FEF11Input **)&m_context));
 }
+
+// ?rva00574AD9@Rva00574AD9@@QAE?AURvaF1Handle@@PAX@Z, retail 0x00574AD9 (84B): sibling of rva005CEA92 above with a
+// 0x20-byte object built by the rowed constructor Rva005CC37C (0x005CC3C0) from the explicit pointer and receiver+8.
+// class-gate: allow Rva005CC37C proved codegen view: opaque 0x20-byte storage view; only the constructor is called
+class Rva005CC37C
+{
+	char m_pad[0x20];
+public:
+	Rva005CC37C(void *argument, struct Rva005CC3C0In *context);
+};
+struct Rva00574AD9
+{
+	char m_prefix[8];
+	Rva005E5CF9In m_context;
+	RvaF1Handle rva00574AD9(void *argument);
+};
+
+RvaF1Handle Rva00574AD9::rva00574AD9(void *argument)
+{
+	return RvaF1Handle(new Rva005CC37C(argument, (struct Rva005CC3C0In *)&m_context));
+}
