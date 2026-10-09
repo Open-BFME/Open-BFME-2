@@ -10,7 +10,7 @@
 // earns nothing. The attacker can earn when its template has kind 3, not
 // kind 7, and not both kinds 10 and 179; failing that, when the object from
 // rva002931F5(false) has kind 3; failing that, when it has kind 90; and in
-// the first two cases not when the 0x004A1828 interface's slot 0x20 says
+// every case not when the 0x004A1828 interface's slot 0x20 says
 // so. Damage to its own units earns nothing; otherwise the tracker value
 // (+0x264) scaled by the damage argument, when positive, is accumulated and
 // handed to 0x003805BB with true. Kind indices are read off the tested bits.
