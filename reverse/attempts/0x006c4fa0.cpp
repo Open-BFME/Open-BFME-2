@@ -1,5 +1,5 @@
 // ?Rva006C4FA0Get@@YAHPAPAXI@Z
-// partial score=0.97 date=2026-10-09
+// partial score=0.9602 date=2026-10-09
 // cl: /DNDEBUG /MD
 // ?initDbghelp@Rva006C4CD0Helper@@QAEXXZ
 // retail 0x006C4CD0, 124 bytes. Dedicated TU.
