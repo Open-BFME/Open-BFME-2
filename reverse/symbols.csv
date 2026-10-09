@@ -4266,7 +4266,6 @@ name,address,notes
 ??1Rva0037BBED@@UAE@XZ,0x0037BBED,"destructor the scalar deleting destructor 0x0037BD48 calls (REL32 at 0x0037BD4B; vtable 0x00C18828#0); opaque address name"
 ??1Rva0037DEE4@@UAE@XZ,0x0037DEE4,"destructor the scalar deleting destructor 0x001EB815 calls (REL32 at 0x001EB818; vtable 0x00BDF158#0); opaque address name"
 ??1Rva0037DF2C@@UAE@XZ,0x0037DEE4,ICF twin of pinned ??1Rva0037DEE4 at same address; base dtor called by ??1Rva0040C351 0x0040C39E whose rowed ctor calls base ??0Rva0037DF2C
-??1Rva00380459Dtor@@QAE@XZ,0x00380459,REL32 callee decoded from target call bytes of adjustor dtor 0x002A9ECA; identity unproven
 ??1Rva00382FA7@@UAE@XZ,0x00400A7F,dtor installs its own vftable 0x00C193C8 (bytes at +21) and is the REL32 callee of the slot-0 ??_G at 0x003830CE
 ??1Rva0038465B@@QAE@XZ,0x0038465B,address-derived 5-byte forwarding thunk reached by unwind cleanup 0x0078228F; retail E9 at this address targets rowed body 0x00383EB2; class identity unproven
 ??1Rva00385B78SavedMap@@QAE@XZ,0x00383EB2,native loadSavedIgnoreList100 56B clear/free dtor at call385BBE; complete rowed provider independently verified; address-derived consumed tree view and hidden-return ABI
@@ -11434,7 +11433,6 @@ name,address,notes
 ?rva0037E915@Rva0037E915@@QAEPAXH@Z,0x0037E915,callee of ?rva0049CCF0@Rva0049CCF0@@QAEXH@Z
 ?rva0037EEB9@Rva0037F32F@@QAEXPBVThingTemplate@@@Z,0x0037EEB9,"member (ret 4) of the object at Player +0x738 taking a ThingTemplate, the removal twin of rva0037F32F: BuildableHeroListUpgrade::upgradeRemovalImplementation 0x004B8484 feeds it each listed hero template"
 ?rva0037F32F@Rva0037F32F@@QAEXPBVThingTemplate@@PAVPlayer@@@Z,0x0037F32F,"member (EH, ret 8) of the object at Player +0x738 taking a ThingTemplate and the Player; BuildableHeroListUpgrade::upgradeImplementation 0x004B837F feeds it each listed hero template"
-?rva00380459@Rva00380459@@QAEXH@Z,0x00380459,tail jmp target of 8B forwarder 0x002A9ECA (ret 4); original name unknown
 ?rva00381618@@YAXPAVGameWindow@@H@Z,0x00381618,cdecl 2-arg callee of 0x5AFC21 (batched caller cleanup; pushes m_C then m_4); SEH function body; signature unproven
 ?rva00390533@Rva00390533@@QAE_NXZ,0x00390533,TU-local flag-pair check (bit31 of +0x118 or bit8 of +0x114); RETAIL REL32 in 0x341C54 targets 0x390533
 ?rva00392092@Rva00392092Target@@QAEXXZ,0x00392092,"method a vtable-slot forwarder tail-jumps to (ret 0); opaque address name"

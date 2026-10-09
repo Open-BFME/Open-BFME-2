@@ -56,3 +56,22 @@ void __stdcall Rva003BC626Set(const AsciiString &name, int val)
 		}
 	} while (mask != 0);
 }
+
+// Native3BC67A full77B shares the player-mask loop above. Native2A9ECA
+// adds8 to Player and tail-calls the owned64B points-to-rank converter380459,
+// passing the supplied integer and consuming EAX. The old destructor claim
+// for this8B provider was false. Original action name remains unresolved.
+enum GameDifficulty { DIFFICULTY_EASY, DIFFICULTY_NORMAL, DIFFICULTY_HARD, DIFFICULTY_COUNT };
+class AIPlayer {public:void setAIDifficulty(GameDifficulty);};
+class Rva002A9ECA {public:int rva002A9ECA(int);};
+void __stdcall Rva003BC67ASet(const AsciiString &name,int value) {
+ int mask=TheScriptEngine->rva00357475(name,0);
+ if(mask==0)return;
+ do {
+  Player *player=ThePlayerList->getEachPlayerFromMask(mask);
+  if(player) {
+   int difficulty=reinterpret_cast<Rva002A9ECA *>(player)->rva002A9ECA(value);
+   reinterpret_cast<AIPlayer *>(player)->setAIDifficulty(static_cast<GameDifficulty>(difficulty));
+  }
+ }while(mask!=0);
+}

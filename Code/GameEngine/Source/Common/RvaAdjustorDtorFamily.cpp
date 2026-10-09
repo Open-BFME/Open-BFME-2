@@ -1,12 +1,13 @@
 // cl: /MD
 //
-// Eight empty non-virtual dtors (8B each) of one shape: add ecx, N then
+// Seven empty non-virtual dtors plus one corrected integer forwarder (8B each) of one shape: add ecx, N then
 // tail-jump the teardown of the member at +N. No vtable install, no other
 // teardown, no null-this guard (member teardown, not an MI base).
 // 0x0022630F (+4 -> 0x002DFAD1, opaque pin; row keeps the peer pin name,
 //   called by the scalar deleting dtor 0x00229487),
 // 0x0023863E (+4 -> matched ~VersionBlockParserInner 0x002385FF),
-// 0x002A9ECA (+8 -> 0x00380459, opaque pin),
+// 0x002A9ECA (+8 -> owned int-to-int64B member380459): NOT a destructor.
+// Caller3BC67A passes int and consumes returned int; native callee RET4.
 // 0x002B0B8E (+4 -> 0x002B0B32, opaque alias pin; same body as the matched
 //   STLport vector dtor row),
 // 0x0042581E (+8 -> 0x00425756, opaque alias pin; same body as the matched
@@ -17,7 +18,7 @@
 //   STLport rb-tree dtor row; row keeps the peer pin name).
 // Member/owner identities unproven except where the peer pins and the three
 // matched callee rows say otherwise; new names are address-derived.
-// One ledger row per dtor.
+// One ledger row per method. The integer-forwarder correction is caller-proven.
 
 class VersionBlockParserInner
 {
@@ -51,21 +52,8 @@ private:
 	VersionBlockParserInner m_inner;
 };
 
-class Rva00380459Dtor
-{
-public:
-	~Rva00380459Dtor();
-};
-
-class Rva002A9ECA
-{
-public:
-	~Rva002A9ECA();
-
-private:
-	char m_pad[8];
-	Rva00380459Dtor m_inner;
-};
+class Rva00380200 {public:int rva00380459(int);};
+class Rva002A9ECA {public:int rva002A9ECA(int);};
 
 class Rva002B0B32Dtor
 {
@@ -155,8 +143,9 @@ Rva0023863E::~Rva0023863E()
 {
 }
 
-Rva002A9ECA::~Rva002A9ECA()
+int Rva002A9ECA::rva002A9ECA(int points)
 {
+ return reinterpret_cast<Rva00380200 *>(reinterpret_cast<char *>(this)+8)->rva00380459(points);
 }
 
 Rva002B0B8E::~Rva002B0B8E()
