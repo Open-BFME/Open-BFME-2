@@ -1,34 +1,35 @@
-// ??1W3DProjectileStreamDraw@@UAE@XZ
-// partial score=0.95 date=2026-10-04
-// ??1W3DProjectileStreamDraw@@UAE@XZ
-// partial score=0.95 date=2026-09-26
-// ??1W3DProjectileStreamDraw@@UAE@XZ
-// partial score=0.95 date=2026-09-26
 // cl: /O1 /DNDEBUG /MD /EHsc
 //
 // ??1W3DProjectileStreamDraw@@UAE@XZ, retail 0x000D146B, 142 bytes.
+// Native D146B..D14F9 has no derived table reset; novtable retains that
+// observed compiler shape. DrawModule inline empty dtor restores BC9690
+// before its existing protected DrawableModule dtor49B47C, as independently
+// recovered in W3DLaserDrawDestructor.cpp. No new pin or type alias.
 // Dtor completing the W3DProjectileStreamDraw file-unit (ctor rowed at
 // 0xD1370, pool key at 0xD140A, deleting dtor unclaimed at 0xD144F slot 0
-// of vtable 0x7CE010).
+// of vtable 0x00BCE010).
 //
 // Donor: Zero Hour W3DProjectileStreamDraw.cpp dtor (loop over m_allLines
 // with Peek_Scene at +0x48, Remove_Render_Object via W3DDisplay::m_3DScene,
 // REF_PTR_RELEASE, then texture Release_Ref). BFME2 layout from ctor TU:
-// Rva000B19A1 base size 0xC (vtable 0x7C9690), texture at +0x0C, 0x14 lines
+// DrawModule base size 0xC (vtable 0x00BC9690), texture at +0x0C, 0x14 lines
 // at +0x10, count at +0x60. Base dtor folded at 0x49B47C (twin pin
 // ??1Rva000B19A1). Texture Release_Ref rowed at 0x61ED10.
 
 class Thing;
 class ModuleData;
 
-class Rva000B19A1
+class DrawableModule
 {
-public:
-	virtual ~Rva000B19A1();
-
 protected:
-	void *m_unk04;
-	int m_unk08;
+ virtual ~DrawableModule();
+ void *m_moduleData;
+ void *m_drawable;
+};
+class DrawModule : public DrawableModule
+{
+protected:
+ virtual ~DrawModule() {}
 };
 
 class TextureBaseClass
@@ -91,7 +92,7 @@ private:
 	int m_refCount;
 };
 
-class SceneClass
+class RTS3DScene
 {
 public:
 	virtual void v00();
@@ -103,10 +104,10 @@ public:
 class W3DDisplay
 {
 public:
-	static SceneClass *m_3DScene;
+	static RTS3DScene *m_3DScene;
 };
 
-class W3DProjectileStreamDraw : public Rva000B19A1
+class __declspec(novtable) W3DProjectileStreamDraw : public DrawModule
 {
 public:
 	virtual ~W3DProjectileStreamDraw();
