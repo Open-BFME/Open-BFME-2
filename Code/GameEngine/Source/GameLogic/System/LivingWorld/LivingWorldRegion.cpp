@@ -44,6 +44,7 @@ class LivingWorldRegion;
 struct LivingWorldBuildPlot
 {
 	LivingWorldBuildPlot(Int id, LivingWorldRegion *region, const Coord2D &position);
+    Bool IsOccupied() const { return m_building != 0; }
     Bool HasBuilding() const { return m_building != 0 && !m_hidden; }
 
 	unsigned char m_pad00[0x18];
@@ -117,6 +118,8 @@ public:
 	Bool CanSpawnUnitWithinCPLimit(Rva00319CED *unit) const;
 	LivingWorldBuilding *GetBuildingByIndex(Int index) const;
 	Int rva003F05CE();
+	void *rva003F0588();
+	Int rva003F1053();
 	Int rva003F0614(CreateAHeroData *key) const;
     LivingWorldBuildPlot *rva003F088C(Int key) const;
 
@@ -465,4 +468,24 @@ CreateAHeroData *Rva003F1093::rva003F083A(void *key)
             return reinterpret_cast<CreateAHeroData *>(plots[i]);
     }
     return 0;
+}
+
+// ?LivingWorldRegion::rva003F0588 present-unmatched
+// Native3F0588..3F05CE and WB103FFE0 scan the established build-plot vector
+// at170, returning the first plot with no building at20. Original name unknown.
+void *LivingWorldRegion::rva003F0588()
+{
+ for(UnsignedInt i=0;i<m_buildPlots.size();++i)
+  if(!m_buildPlots[i]->IsOccupied()) return m_buildPlots[i];
+ return 0;
+}
+
+// ?LivingWorldRegion::rva003F1053 present-unmatched
+// Native3F1053..3F1093 and WB1040630 count plots with a null building20.
+Int LivingWorldRegion::rva003F1053()
+{
+ Int count=0;
+ for(UnsignedInt i=0;i<m_buildPlots.size();++i)
+  if(!m_buildPlots[i]->IsOccupied()) ++count;
+ return count;
 }
