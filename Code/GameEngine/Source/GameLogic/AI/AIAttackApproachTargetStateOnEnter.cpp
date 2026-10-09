@@ -1812,6 +1812,91 @@ Bool AIFollowPathAsTeamState::computePath()
 	return AIInternalMoveToState::computePath();
 }
 
+// Retail 0x0034E3A5, 528 bytes: slot 4 of AIFollowPathAsTeamState (vtable
+// 0x00C121E8). Zero Hour's AIFollowPathState::onEnter with BFME 2's team
+// additions: the +0x5C helper is reset (slots 5 and 8), the AI's last command
+// source (slot 143) is remembered at +0x58 and its +0x1A0 at +0x60, and path
+// points already behind the owner are skipped (a negative dot product of
+// owner-to-point and point-to-next) before the CritterDesync 44/45/46 traces.
+// The register pairs of that dot product follow the order the two Coord2D are
+// filled (fromOwner first); /G7 then hoists the next-point loads.
+StateReturnType AIFollowPathAsTeamState::onEnter()
+{
+	Object *obj = getMachineOwner();
+	AIUpdateInterface *ai = obj->getAI();
+	m_index = 0;
+	if (m_5c)
+	{
+		m_5c->rva0034E3CESlot5();
+		m_5c->rva0034E3D8Slot8(0);
+	}
+	m_lastCommandSource = ai->slot143();
+	m_64 = false;
+	m_57 = false;
+	const Coord3D *pos = (const Coord3D *)ai->m_goalPath->rva00346FA5(m_index);
+	if (pos == 0)
+		return STATE_FAILURE;
+	m_60 = ai->m_1a0;
+	m_goalPosition = *pos;
+	const Coord3D *nextPos = (const Coord3D *)ai->m_goalPath->rva00346FA5(m_index + 1);
+	m_adjustFinal = true;
+	while (nextPos)
+	{
+		const Coord3D *goal = &m_goalPosition;
+		Coord2D fromOwner;
+		fromOwner.x = goal->x;
+		fromOwner.y = goal->y;
+		Coord2D toNext;
+		toNext.x = nextPos->x;
+		toNext.y = nextPos->y;
+		fromOwner.x -= obj->getPosition()->x;
+		fromOwner.y -= obj->getPosition()->y;
+		toNext.x -= goal->x;
+		toNext.y -= goal->y;
+		if (!(toNext.x * fromOwner.x + toNext.y * fromOwner.y < 0.0f))
+			break;
+		m_index++;
+		m_goalPosition = *nextPos;
+		nextPos = (const Coord3D *)ai->m_goalPath->rva00346FA5(m_index + 1);
+	}
+	ai->m_currentGoalPathIndex = m_index;
+
+	if (g_00E03745)
+	{
+		void *log = theLogicRandomLogFile;
+		if (log != 0)
+			fprintf(log, "CritterDesync: setAdjustDestination(nextPos=%s) 44", nextPos ? "VALID" : "NULL");
+	}
+	setAdjustsDestination(nextPos != 0);
+	m_adjustFinal = true;
+	StateReturnType ret = AIInternalMoveToState::onEnter();
+	if (nextPos)
+	{
+		Coord2D delta;
+		delta.x = nextPos->x - pos->x;
+		delta.y = nextPos->y - pos->y;
+		Real offset = delta.length();
+		const Coord3D *followingPos = (const Coord3D *)ai->m_goalPath->rva00346FA5(m_index + 2);
+		if (followingPos)
+			offset += 4 * PATHFIND_CELL_SIZE_F;
+		ai->setPathExtraDistance(offset);
+		critterDesyncLog("CritterDesync: setAdjustDestination(FALSE) 45");
+		setAdjustsDestination(false);
+	}
+	else
+	{
+		if (g_00E03745)
+		{
+			void *log = theLogicRandomLogFile;
+			if (log != 0)
+				fprintf(log, "CritterDesync: setAdjustDestination(m_adjustFinal=%s) 46", m_adjustFinal ? "TRUE" : "FALSE");
+		}
+		setAdjustsDestination(m_adjustFinal);
+		ai->setPathExtraDistance(0.0f);
+	}
+	return ret;
+}
+
 // A state's slot 8, ZH State::isAttack.
 class StateAttackView : public VirtualSlots<8>
 {
