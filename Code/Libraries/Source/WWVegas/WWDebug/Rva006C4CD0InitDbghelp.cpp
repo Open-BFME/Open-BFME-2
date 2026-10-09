@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD
+// cl: /DNDEBUG /MD /Oi-
 // ?initDbghelp@Rva006C4CD0Helper@@QAEXXZ
 // retail 0x006C4CD0, 124 bytes. Dedicated TU.
 //
@@ -152,4 +152,69 @@ bool Rva006C4CD0Helper::getSymbolName(unsigned long addr, char *buf, unsigned lo
 		return true;
 	}
 	return false;
+}
+
+// Retail 0x006C50D0..0x006C52F2, 546B whole CDECL formatter.
+// Four arguments (address array, unsigned count, output pointer, capacity)
+// and pointer-distance return come from the retail stack accesses. The name
+// stays address-derived. ZH Common/System/StackDump.cpp GetFunctionDetails
+// and debug/debug_stack.cpp supply the DbgHelp symbol/line semantic guide;
+// the target-specific multi-address loop, exact formats and buffer rules
+// are independently visible in retail. BFME 1 reference revision 874e38488.
+// In particular the hex fallback advances output without decrementing the
+// remaining capacity, and symbol/line copies exclude NUL: retain that target
+// behavior. Import verification proves bounded copies use strncpy. /Oi-
+// keeps imported strncpy while only strlen/strcpy are explicitly intrinsic.
+extern "C" __declspec(dllimport) int __cdecl sprintf(char *, const char *, ...);
+
+extern "C" unsigned int __cdecl strlen(const char *);
+extern "C" char *__cdecl strcpy(char *,const char *);
+#pragma intrinsic(strlen, strcpy)
+struct DbgLineInfo {
+ unsigned long size; void *key; unsigned long line; const char *filename; unsigned long address;
+};
+unsigned int Rva006C50D0Describe(const unsigned long *addresses, unsigned int count, char *buffer, unsigned int capacity)
+{
+ char *current=buffer;
+ *buffer=0;
+ --capacity;
+ void *process=GetCurrentProcess();
+ if(!g_rva006C4CD0Object.m_hLib) g_rva006C4CD0Object.initDbghelp();
+ if(!g_rva006C4CD0Object.m_flag && g_rva006C4CD0Object.m_symInitialize) {
+  if(((int(__stdcall*)(void*,const char*,int))g_rva006C4CD0Object.m_symInitialize)(process,0,1))
+   g_rva006C4CD0Object.m_flag=1;
+ }
+ if(g_rva006C4CD0Object.m_flag) {
+ for(unsigned int i=0;i<count;++i) {
+  unsigned long address=addresses[i];
+  if(i>0 && capacity>0) { *current++=' '; --capacity; }
+  DbgSymbolInfo symbol;
+  symbol.m_sizeOfStruct=sizeof(symbol);
+  symbol.m_maxNameLength=512;
+  unsigned long displacement=0;
+  if(g_rva006C4CD0Object.m_symGetSymFromAddr &&
+    ((int(__stdcall*)(void*,unsigned long,unsigned long*,DbgSymbolInfo*))g_rva006C4CD0Object.m_symGetSymFromAddr)(process,address,&displacement,&symbol)) {
+   char text[512];
+   sprintf(text,"%hs() + %d",symbol.m_name,displacement);
+   unsigned int length=strlen(text);
+   if(capacity>length) { strncpy(current,text,length); current+=length;capacity-=length; }
+   if(g_rva006C4CD0Object.m_symGetLineFromAddr) {
+    DbgLineInfo line;
+    line.size=sizeof(line);
+    if(((int(__stdcall*)(void*,unsigned long,unsigned long*,DbgLineInfo*))g_rva006C4CD0Object.m_symGetLineFromAddr)(process,address,&displacement,&line)) {
+     sprintf(text," \"%hs\", line %d",line.filename,line.line);
+     length=strlen(text);
+     if(capacity>length) { strncpy(current,text,length);current+=length;capacity-=length; }
+    }
+   }
+  } else if(capacity>=10) {
+   char textHex[32];
+   sprintf(textHex,"0x%08x",address);
+   unsigned int length=strlen(textHex);
+   strcpy(current,textHex);
+   current+=length;
+  }
+ }
+ }
+ return current-buffer;
 }
