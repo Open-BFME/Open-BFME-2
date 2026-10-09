@@ -20,6 +20,7 @@ class Rva00109DCF
 {
 public:
 	void rva00109DCF();
+	void rva00108E28();
 private:
 	char m_pad[0x24C];
 	Rva00108AD8 *m_24C;
@@ -45,4 +46,15 @@ void Rva00109DCF::rva00109DCF()
 			p254->Release();
 		m_254 = 0;
 	}
+}
+
+// BF1 f989/575 W3DProjectedShadow.cpp's light-position invalidator is the
+// semantic guide. Native108E28..108E33 followsRET108E27 and precedes the
+// independently rowed extrema helper108E33. Caller9A491 supplies manager
+// globalDEC2D8. This existing manager view already owns native109DCF and
+// its exactsame24C pointer/callee108AD8; reuse it without another private
+// class, original-name assertion, offset shim, cast, or alias/pin.
+void Rva00109DCF::rva00108E28()
+{
+    m_24C->rva00108AD8();
 }
