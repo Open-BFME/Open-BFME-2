@@ -22,10 +22,12 @@ symbols.csv, per ADDED line (an edited line counts as added):
     `fold-proof=<source>` is admitted onto a named address only when
       - the pinned name resolves nowhere else: no address the byte gate's
         symbol map gives it (gen-alias twins and baselined alias rows
-        included), and no proposed row of any kind or pin that names it, is
-        anything but that body or a thunk straight to it. Retail then has ONE
-        body for both names; a byte-identical twin it did not fold is not a
-        fold;
+        included), no proposed row of any kind that records a body for it --
+        under its name, or naming it in object-symbol= or dup-of= (the
+        ?dup_<rva>@@YAXXZ gen-alias convention, alias and placeholder rows)
+        -- and no pin that names it, is anything but that body or a thunk
+        straight to it. Retail then has ONE body for both names; a
+        byte-identical twin it did not fold is not a fold;
       - that matched ledger source's object defines the name, and its body,
         compiled and REL32-resolved exactly as the byte gate resolves a row,
         reproduces retail's whole body at the address: the extent of a ledger
@@ -48,8 +50,9 @@ symbols.csv, per ADDED line (an edited line counts as added):
     is still refused, and a name nothing compiles cannot be proven. Write such
     pins with `--add NAME ADDRESS --notes "... fold-proof=<source>"`. The
     identity holds in the other order too (fold_pin_conflicts): an added row
-    or pin that gives a fold-pinned name another address is refused unless
-    the same change retires the fold pin.
+    (one recording the name's body through object-symbol= included) or pin
+    that gives a fold-pinned name another address is refused unless the same
+    change retires the fold pin.
 There is no count limit: bulk generators add thousands of legitimate pins in
 one commit, and every one of them is judged by the rules above.
 
@@ -187,8 +190,10 @@ def fold_proof_problems(pin, rva, rows, symbol_map, pins=()):
 
     identity  -- the name resolves nowhere else. Every address the byte gate's
                  symbol map gives it (build.load_symbol_map keeps gen-alias
-                 twins and baselined alias rows), and every proposed row of any
-                 kind or pin that names it, must be rva itself or an
+                 twins and baselined alias rows), every proposed row of any
+                 kind that records a body for it (row_names: its name, or
+                 object-symbol=/dup-of= in the notes, as a ?dup_<rva> row
+                 does) and every pin that names it, must be rva itself or an
                  incremental-link thunk straight to it. A name with a body of
                  its own elsewhere is a byte-identical twin retail did NOT
                  fold, and the extra candidate would let a caller of the owner
@@ -278,15 +283,38 @@ def _compile_unit(source, proof):
     return []
 
 
+# The ways a ledger row names the function whose body it records besides its
+# `name` column. object-symbol= is the symbol the row's bytes are read from
+# (build.ledger_object_symbol): a ?dup_<rva>@@YAXXZ gen-alias row, an alias
+# row, a placeholder row or a TU spelling all record that symbol's body at
+# their address. dup-of= names the original a second copy duplicates.
+ROW_NAME_RE = re.compile(r"(?:^|;)\s*(?:object-symbol|dup-of)=([^;]+)")
+
+
+def row_names(row):
+    """Every name `row` records a body for: its own name and each name its notes
+    bind its bytes to. The byte gate's symbol map (build.load_symbol_map) reads
+    `name` alone, so ?dup_005f69c4@@YAXXZ with
+    object-symbol=?friend_setList@GameMessage@@... is, to it, no address of
+    friend_setList -- though it is that name's compiled body, matched at
+    0x005F69C4."""
+    names = {row.get("name")}
+    names.update(m.group(1).strip() for m in ROW_NAME_RE.finditer(row.get("notes") or ""))
+    names.discard(None)
+    names.discard("")
+    return names
+
+
 def resolved_addresses(name, rows, pins, symbol_map):
     """Every address `name` already has: its candidates in the byte gate's
     symbol map (build.load_symbol_map keeps gen-alias twins and baselined alias
     rows, and adds each body's incremental-link thunks), every proposed ledger
-    row that names it -- of any kind, a superset of the rows that map keeps --
-    and every proposed pin."""
+    row that records a body for it (row_names: its name or object-symbol= /
+    dup-of= in its notes, of any kind and status -- a superset of the rows that
+    map keeps) and every proposed pin."""
     found = set(symbol_map.get(name, ()))
     for row in rows:
-        if row.get("name") != name:
+        if name not in row_names(row):
             continue
         try:
             found.add(int(row["target_rva"], 16))
@@ -505,9 +533,11 @@ def fold_pin_conflicts(pins, rows, added_pins, added_rows):
     """The identity proof in the other order. A fold pin -- a real name stacked
     by fold-proof= on an address that carries another real name -- holds only
     while its name has no body elsewhere, so an added row or pin that gives
-    such a name another address is refused unless the same change retires the
-    fold pin. Otherwise landing View::setAngle's own row after a setAngle fold
-    pin onto its twin would rebuild what admission refuses."""
+    such a name another address -- a row under the name, or one recording its
+    body through object-symbol= or dup-of= (row_names) -- is refused unless the
+    same change retires the fold pin. Otherwise landing View::setAngle's own
+    row (or a ?dup_<rva> row compiled from it) after a setAngle fold pin onto
+    its twin would rebuild what admission refuses."""
     names_at = names_by_address(rows, pins)
     folds = {}
     for pin in pins:
@@ -520,19 +550,25 @@ def fold_pin_conflicts(pins, rows, added_pins, added_rows):
         if not is_placeholder(pin["name"], at) and any(
                 n != pin["name"] and not is_placeholder(n, at) for n in names_at.get(at, ())):
             folds.setdefault(pin["name"], set()).add(at)
-    claims = ([(LEDGER, "row", r.get("name"), r.get("target_rva")) for r in added_rows]
-              + [(PINS, "pin", p.get("name"), p.get("address")) for p in added_pins])
+    # A row gives a body to every name it records one for (row_names), so a
+    # ?dup_<rva> row whose object-symbol= is the fold-pinned name is a body of
+    # that name elsewhere just as a row under the name itself is.
+    claims = ([(LEDGER, "row", r.get("name"), row_names(r), r.get("target_rva"))
+               for r in added_rows]
+              + [(PINS, "pin", p.get("name"), {p.get("name")}, p.get("address"))
+                 for p in added_pins])
     problems = []
-    for path, kind, name, address in claims:
-        if name not in folds:
-            continue
-        try:
-            address = int(address, 16)
-        except (TypeError, ValueError):
-            continue
-        fold_at = next((a for a in sorted(folds[name]) if not _enters(address, a)), None)
-        if fold_at is not None:
-            problems.append(f"{path}: {name} @0x{address:08X}: {name} is fold-pinned at "
+    for path, kind, label, names, address in claims:
+        for name in sorted(n for n in names if n in folds):
+            try:
+                at = int(address, 16)
+            except (TypeError, ValueError):
+                break
+            fold_at = next((a for a in sorted(folds[name]) if not _enters(at, a)), None)
+            if fold_at is None:
+                continue
+            via = "" if name == label else f" (recording {name}'s body)"
+            problems.append(f"{path}: {label} @0x{at:08X}{via}: {name} is fold-pinned at "
                             f"0x{fold_at:08X}; a {kind} giving it a body elsewhere means retail "
                             "did not fold it there (retire the fold pin in the same change)")
     return problems

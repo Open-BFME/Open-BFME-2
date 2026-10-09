@@ -10,8 +10,10 @@ ICF itself decides a fold by, for the pinned name and every callee its proof
 places:
 
 - identity: the name has no body elsewhere. An address of its own -- any
-  ledger row naming it (gen-alias twins and alias rows included), a pin, or a
-  candidate in the byte gate's symbol map -- means retail did NOT fold it.
+  ledger row recording its body (under its name, gen-alias twins and alias
+  rows included, or naming it in object-symbol=/dup-of= as a ?dup_<rva> row
+  does), a pin, or a candidate in the byte gate's symbol map -- means retail
+  did NOT fold it.
 - bytes: the name's body compiled from that source, with any same-type callee
   instantiation proven at the address retail calls, is retail's whole body.
 - relocations: the byte compare copies every DIR32 slot from retail, so each
@@ -20,14 +22,18 @@ places:
 
 The two holes an adversarial review found in the first port are pinned here
 (money_put's constructor onto money_get's; View::setAngle onto its unfolded
-twin SegLineRendererClass::Set_Merge_Abort_Factor), next to genuine folds that
-must still be admitted.
+twin SegLineRendererClass::Set_Merge_Abort_Factor), and the third a later
+review found in the landed rule (a name whose body only a ?dup_<rva> row's
+object-symbol= records), next to genuine folds that must still be admitted --
+synthetic, and on the live ledger.
 """
 import csv
 import importlib
+import shutil
 import struct
 import sys
 from pathlib import Path
+from types import SimpleNamespace
 
 import pytest
 
@@ -294,6 +300,79 @@ def test_a_thunk_into_another_body_is_an_address_of_its_own(fold):
     write_pins(fold, [(NEW_PB, f"0x{thunk:08X}", "pinned thunk")])
     problems = judge(fold, PROOF)
     assert problems and "already has its own address 0x00001100" in problems[0]
+
+
+# --- hole 3: a row recording the name's body under another name --------------------
+#
+# The ledger records a ZH-proven twin as ?dup_<rva>@@YAXXZ with the real name only in
+# object-symbol= (?dup_005f69c4@@YAXXZ holds ?friend_setList@GameMessage@@...'s body
+# at 0x005F69C4). resolved_addresses() and the symbol map read row['name'] alone, so
+# friend_setList was admitted onto ParticleEmitterDefClass::Set_User_Type at
+# 0x0065D790, friend_setNext@Upgrade onto 0x00665620 past ?dup_005f69ce, and
+# setGameWindow@AnimateWindow onto 0x00665650 past ?dup_0033f8ca.
+
+DUP_VIEW = f"?dup_{VIEW:08x}@@YAXXZ"
+
+
+def dup_fixture(fold, row_name, notes, row_at=VIEW):
+    """setAngle's body recorded at row_at under row_name; its twin rowed as
+    Set_Merge_Abort_Factor at SEGLINE; the pin stacks setAngle on SEGLINE."""
+    fold.memory[SEGLINE] = SETTER
+    fold.memory[VIEW] = SETTER
+    fold.row(MERGE_ABORT, SEGLINE, len(SETTER))
+    fold.row(row_name, row_at, len(SETTER), notes)
+    fold.obj.write_bytes(coff(
+        [(".text", TEXT, SETTER, []), (".text", TEXT, SETTER, [])],
+        [(".text", 0, 1, 0, 3, 1), (SET_ANGLE, 0, 1, 0x20, 2, 0),
+         (".text", 0, 2, 0, 3, 1), (MERGE_ABORT, 0, 2, 0x20, 2, 0)]))
+    return judge(fold, PROOF, address=SEGLINE, name=SET_ANGLE)
+
+
+@pytest.mark.parametrize("row_name, notes", [
+    (DUP_VIEW, f"gen-alias;object-symbol={SET_ANGLE};C++ alias"),   # the reported rows' shape
+    (DUP_VIEW, f"object-symbol={SET_ANGLE}"),                       # zh_sweep dup_, no gen-alias
+    (DUP_VIEW, f"dup-of={SET_ANGLE};object-symbol={SET_ANGLE};second retail copy"),
+    (DUP_VIEW, f"dup-of={SET_ANGLE}"),
+    ("??1Rva00003800@@QAE@XZ", f"object-symbol={SET_ANGLE}"),      # address-derived placeholder
+    ("?setAngle@OtherView@@UAEXM@Z", f"object-symbol={SET_ANGLE}"),  # an alias row
+    (DUP_VIEW, f"gen-alias; object-symbol={SET_ANGLE}"),            # a spaced token
+], ids=["dup-gen-alias", "dup", "dup-of-and-object-symbol", "dup-of", "placeholder",
+        "alias-row", "spaced-token"])
+def test_a_row_recording_the_names_body_elsewhere_is_not_a_fold(fold, row_name, notes):
+    problems = dup_fixture(fold, row_name, notes)
+    assert problems and f"{SET_ANGLE} already has its own address 0x{VIEW:08X}" in problems[0]
+
+
+def test_a_dup_row_recording_another_function_is_no_address_of_the_name(fold):
+    # Control: a ?dup_ row elsewhere records only what its object-symbol names.
+    assert dup_fixture(fold, DUP_VIEW, "gen-alias;object-symbol=?setAngle@OtherView@@UAEXM@Z") == []
+
+
+def test_a_dup_row_recording_the_name_at_the_fold_address_is_the_same_body(fold):
+    # The name's body recorded at the very address it folds onto is one body.
+    assert dup_fixture(fold, f"?dup_{SEGLINE:08x}@@YAXXZ",
+                       f"gen-alias;object-symbol={SET_ANGLE}", row_at=SEGLINE) == []
+
+
+def test_a_dup_row_recording_a_chain_callee_elsewhere_is_refused(fold):
+    # The callee the proof has to place (vector<A*>'s overflow helper) has its
+    # body recorded at 0x4800 by a ?dup_ row: retail did not fold it onto HELPER.
+    write_object(fold)
+    fold.memory[0x4800] = OV
+    fold.row("?dup_00004800@@YAXXZ", 0x4800, len(OV), f"gen-alias;object-symbol={NEW_OV}")
+    problems = judge(fold, PROOF)
+    assert problems and f"{NEW_OV} already has its own address 0x00004800" in problems[0]
+
+
+def test_row_names_reads_every_recording_convention():
+    admission = importlib.import_module("pin_admission")
+    row = {"name": "?dup_005f69c4@@YAXXZ",
+           "notes": "gen-alias;object-symbol=?a@@YAXXZ;dup-of=?b@@YAXXZ;C++ alias"}
+    assert admission.row_names(row) == {"?dup_005f69c4@@YAXXZ", "?a@@YAXXZ", "?b@@YAXXZ"}
+    assert admission.row_names({"name": "?c@@YAXXZ", "notes": ""}) == {"?c@@YAXXZ"}
+    # A mention inside prose is no binding, as build.ledger_object_symbol reads it.
+    assert admission.row_names({"name": "?c@@YAXXZ",
+                                "notes": "see object-symbol=?d@@YAXXZ"}) == {"?c@@YAXXZ"}
 
 
 # --- hole 1: relocations, not just bytes --------------------------------------------
@@ -601,6 +680,20 @@ def test_a_pin_elsewhere_for_a_fold_pinned_name_is_refused(fold):
     assert problems and f"{NEW_PB} is fold-pinned at 0x{OWNER:08X}" in problems[-1]
 
 
+def test_a_dup_row_elsewhere_recording_a_fold_pinned_name_is_refused(fold):
+    row = {**fold.rows[0], "name": "?dup_00004800@@YAXXZ", "target_rva": "0x00004800",
+           "notes": f"gen-alias;object-symbol={NEW_PB};C++ alias"}
+    problems = fold.admission.judge([FOLD_PIN], [FOLD_PIN], fold.rows, fold.rows + [row])
+    assert problems and (f"?dup_00004800@@YAXXZ @0x00004800 (recording {NEW_PB}'s body): "
+                         f"{NEW_PB} is fold-pinned at 0x{OWNER:08X}") in problems[0]
+
+
+def test_a_dup_row_at_the_fold_address_passes(fold):
+    row = {**fold.rows[0], "name": f"?dup_{OWNER:08x}@@YAXXZ",
+           "notes": f"gen-alias;object-symbol={NEW_PB}"}
+    assert fold.admission.judge([FOLD_PIN], [FOLD_PIN], fold.rows, fold.rows + [row]) == []
+
+
 def test_retiring_the_fold_pin_with_the_row_passes(fold):
     row = {**fold.rows[0], "name": NEW_PB, "target_rva": "0x00004800"}
     assert fold.admission.judge([FOLD_PIN], [], fold.rows, fold.rows + [row]) == []
@@ -626,3 +719,158 @@ def test_add_route_refuses_a_pin_elsewhere_for_a_fold_pinned_name(add_route):
     problems = add_route.admission.add_pins([(NEW_PB, "0x4800")], "callee")
     assert problems and f"{NEW_PB} is fold-pinned at 0x{OWNER:08X}" in problems[0]
     assert (add_route.tmp / "reverse" / "symbols.csv").read_bytes() == before
+
+
+# --- the live ledger -----------------------------------------------------------------
+#
+# The review's three reproductions (judge(pins, pins + [pin], rows, rows) returned []
+# for each before row_names) and the genuine folds that must stay admitted, judged on
+# the committed ledger. Identity needs only the ledger and the retail image; the full
+# proof also needs the toolchain and current objects, and is skipped rather than
+# compiled.
+
+LIVE_REPROS = [
+    # (name, address pinned onto, fold-proof source, where a ?dup_ row records its body)
+    ("?friend_setList@GameMessage@@QAEXPAVGameMessageList@@@Z", 0x0065D790,
+     "Code/GameEngine/Source/Common/MessageStream.cpp", 0x005F69C4),
+    ("?friend_setNext@Upgrade@@QAEXPAV1@@Z", 0x00665620,
+     "Code/GameEngine/Source/Common/RTS/Player.cpp", 0x005F69CE),
+    ("?setGameWindow@AnimateWindow@@QAEXPAVGameWindow@@@Z", 0x00665650,
+     "Code/GameEngine/Source/GameClient/GUI/AnimateWindowManager.cpp", 0x0033F8CA),
+]
+
+TACTIC = "Code/GameEngine/Source/Common/Rva00506B74Tactic.cpp"
+SPT_PUSH_BACK = ("?push_back@?$vector@PBVSpecialPowerTemplate@@V?$allocator@PBVSpecialPower"
+                 "Template@@@_STL@@@_STL@@QAEXABQBVSpecialPowerTemplate@@@Z")
+LIVE_FOLDS = [
+    # (id, name, address, fold-proof source; None: the committed pin's fold-proof=).
+    # The eight fold pins c389f5f9f2..115ea4b6af added...
+    ("erase<WeaponTemplate*>",
+     "?erase@?$vector@PAVWeaponTemplate@@V?$allocator@PAVWeaponTemplate@@@_STL@@@_STL@@"
+     "QAEPAPAVWeaponTemplate@@PAPAV3@@Z", 0x001FF51F, None),
+    ("push_back<WeaponTemplate*>",
+     "?push_back@?$vector@PAVWeaponTemplate@@V?$allocator@PAVWeaponTemplate@@@_STL@@@_STL@@"
+     "QAEXABQAVWeaponTemplate@@@Z", 0x004DFCB0, None),
+    ("_List_base<ObjectSellInfo*>::clear",
+     "?clear@?$_List_base@PAVObjectSellInfo@@V?$allocator@PAVObjectSellInfo@@@_STL@@@_STL@@"
+     "QAEXXZ", 0x0023DAA5, None),
+    ("list<ObjectSellInfo*>::push_back",
+     "?push_back@?$list@PAVObjectSellInfo@@V?$allocator@PAVObjectSellInfo@@@_STL@@@_STL@@"
+     "QAEXABQAVObjectSellInfo@@@Z", 0x0005548F, None),
+    ("push_back<const SpecialPowerTemplate*>", SPT_PUSH_BACK, 0x004DFCB0, None),
+    ("AptCommandMapAdder()", "??0AptCommandMapAdder@@QAE@XZ", 0x001F81BF, None),
+    ("AsciiStringPlusString+", "??H@YA?AUAsciiStringPlusStringText@@ABUAsciiStringPlusString@@"
+     "PBD@Z", 0x00109CFD, None),
+    ("AptTimerAdder()", "??0AptTimerAdder@@QAE@XZ", 0x001F81BF, None),
+    # ...and e2a906a1f2's live proofs: push_back<T*> at 0x004DFCB0 through its
+    # unaddressed _M_insert_overflow, and the _Vector_base ctor at 0x00211E58.
+    ("push_back<Rva005ADA40*>",
+     "?push_back@?$vector@PAVRva005ADA40@@V?$allocator@PAVRva005ADA40@@@_STL@@@_STL@@"
+     "QAEXABQAVRva005ADA40@@@Z", 0x004DFCB0, TACTIC),
+    ("_Vector_base<Rva005ADA40*>()",
+     "??0?$_Vector_base@PAVRva005ADA40@@V?$allocator@PAVRva005ADA40@@@_STL@@@_STL@@"
+     "QAE@ABV?$allocator@PAVRva005ADA40@@@1@@Z", 0x00211E58, TACTIC),
+]
+# The one of the eight that is not admitted today, before or after row_names: not by
+# identity, which holds, but by bytes. 1b148e3c8d declared max<unsigned int> out of
+# line in inihelp.cpp, its fold-proof source, so its unaddressed callee
+# _M_insert_overflow<const SpecialPowerTemplate*> now compiles to 146 bytes against
+# the 140-byte ledger body at 0x002DFCF6. The proof is stale, not the fold.
+STALE_PROOF = {SPT_PUSH_BACK: pytest.mark.xfail(strict=False, reason=(
+    "fold-proof source inihelp.cpp changed in 1b148e3c8d: its callee compiles to 146 "
+    "bytes, the ledger body at 0x002DFCF6 is 140"))}
+
+
+def live_folds(marks=None):
+    return [pytest.param(name, address, source, id=ident,
+                         marks=(marks or {}).get(name, ()))
+            for ident, name, address, source in LIVE_FOLDS]
+
+
+@pytest.fixture(scope="module")
+def live():
+    build = importlib.import_module("build")
+    admission = importlib.import_module("pin_admission")
+    if not build.EXE.exists() or not build.FUNCTIONS.exists():
+        pytest.skip("live ledger or retail image unavailable")
+    admission.image_layout.cache_clear()
+    if hasattr(build, "_ledger_bodies"):
+        build._ledger_bodies.cache_clear()
+    return SimpleNamespace(build=build, admission=admission,
+                           rows=build.load_all_function_rows(),
+                           pins=admission.csv_rows(build.SYMBOLS.read_text(encoding="utf-8")),
+                           symbol_map=build.load_symbol_map())
+
+
+def live_pin(live, name, address, source):
+    """The committed pin and its proof source; skip once the ledger moved on."""
+    pin = next((p for p in live.pins
+                if p["name"] == name and int(p["address"], 16) == address), None)
+    if pin is None:
+        pytest.skip(f"{name} is no longer pinned at 0x{address:08X}")
+    if source is None:
+        match = live.admission.FOLD_PROOF_RE.search(pin.get("notes") or "")
+        if match is None:
+            pytest.skip(f"{name}'s pin no longer carries fold-proof=")
+        source = match.group(1)
+    return pin, source
+
+
+@pytest.mark.parametrize("name, address, source, recorded", LIVE_REPROS,
+                         ids=["friend_setList", "friend_setNext", "setGameWindow"])
+def test_live_name_recorded_by_a_dup_row_is_not_folded(live, monkeypatch, name, address,
+                                                        source, recorded):
+    admission = live.admission
+    # Its own pins set aside (friend_setList is also pinned at 0x005F69C4 since
+    # 70b1f9d906): the ?dup_ row's object-symbol= alone must refuse it.
+    pins = [p for p in live.pins if p["name"] != name]
+    if not any(name in admission.row_names(r) and int(r["target_rva"], 16) == recorded
+               for r in live.rows):
+        pytest.skip(f"the ledger no longer records {name}'s body at 0x{recorded:08X}")
+    if not any(n != name and not admission.is_placeholder(n, address)
+               for n in admission.names_by_address(live.rows, pins).get(address, ())):
+        pytest.skip(f"0x{address:08X} no longer carries another real name")
+    symbol_map = {k: v for k, v in live.symbol_map.items() if k != name}
+    monkeypatch.setattr(live.build, "load_symbol_map", lambda: symbol_map)
+    pin = {"name": name, "address": f"0x{address:08X}",
+           "notes": "review reproduction; fold-proof=" + source}
+    problems = admission.judge(pins, pins + [pin], live.rows, live.rows)
+    assert problems and f"{name} already has its own address 0x{recorded:08X}" in problems[0]
+
+
+@pytest.mark.parametrize("name, address, source", live_folds())
+def test_live_genuine_fold_has_no_body_elsewhere(live, name, address, source):
+    live_pin(live, name, address, source)
+    assert live.admission.identity_problems(name, address, live.rows, live.pins,
+                                            live.symbol_map) == []
+
+
+@pytest.mark.parametrize("name, address, source", live_folds(STALE_PROOF))
+def test_live_genuine_fold_is_admitted(live, monkeypatch, name, address, source):
+    build, admission = live.build, live.admission
+    if shutil.which("wine") is None:
+        pytest.skip("wine not installed")
+    try:
+        build.vc71_root()
+    except SystemExit:
+        pytest.skip("MSVC 7.1 toolchain not present")
+    compile_rows = build.compile_rows
+
+    def current_only(rows, sources, **kw):
+        stale = [s for s in sources if s.suffix.lower() != build.LIB_SUFFIX
+                 and not build.compile_is_current(s, build.obj_path(s))]
+        if stale:
+            pytest.skip(f"{stale[0].relative_to(build.ROOT)} is not compiled current; "
+                        "the test does not compile")
+        return compile_rows(rows, sources, **kw)
+
+    monkeypatch.setattr(build, "compile_rows", current_only)
+    pin, source = live_pin(live, name, address, source)
+    if admission.is_placeholder(name, address):
+        # An address-derived name is admitted without a proof; run the proof itself.
+        proof = {"name": name, "address": pin["address"], "notes": "fold-proof=" + source}
+        assert admission.fold_proof_problems(proof, address, live.rows,
+                                             lambda: live.symbol_map, live.pins) == []
+    else:
+        rest = [p for p in live.pins if p is not pin]
+        assert admission.judge(rest, live.pins, live.rows, live.rows) == []
