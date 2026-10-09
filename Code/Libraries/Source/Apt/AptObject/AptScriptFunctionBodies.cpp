@@ -170,6 +170,28 @@ AptScriptFunctionBase::AptScriptFunctionBase(AptVirtualFunctionTable_Indices eTy
     }
 }
 
+// Native709A10..709B78 is the three-argument clone overload: ret12 and
+// the original function reads at+28/+14/+10 establish its distinct ABI.
+// WB179ABF0 supplies the class/constructor name and clone semantics; native
+// CIH+5C and both hash-pointer reference-count transfers establish layout.
+// It inherits the original creator scope without CreatingNestedFunction(),
+// and copies both prototype pointers instead of allocating a prototype.
+AptScriptFunctionBase::AptScriptFunctionBase(AptVirtualFunctionTable_Indices eType, AptScriptFunctionBase *pOrigFunc, AptCIH *pCurCIH)
+ : AptObject(eType),mpCIH(pCurCIH),mpParentAnim(0),mnFrameStackReserve(0)
+{
+    CHECK_AT(spRegBlockBase, "spRegBlockBase", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptObject\\AptScriptFunction.cpp", 0x131);
+    CHECK_AT(pOrigFunc, "pOrigFunc", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptObject\\AptScriptFunction.cpp", 0x132);
+    mpCreatorScope=pOrigFunc->mpCreatorScope;
+    if(pCurCIH->isCIH())mpParentAnim=mpCIH->GetRootAnimation();
+    else mpParentAnim=_AptGetAnimationAtLevel(0);
+    if(mpCreatorScope)mpCreatorScope->AddRef();
+    mpCIH->AddRef();
+    mpParentAnim->AddRef();
+    mpParentAnim->IncZombieCount();
+    mNativeHash.SetPrototype(pOrigFunc->mNativeHash.mpPrototype);
+    mNativeHash.Set__Proto__(pOrigFunc->mNativeHash.mp__proto__);
+}
+
 #undef CHECK_AT
 #pragma comment(linker, "/alternatename:??0AptPrototype@@QAE@XZ=??0Rva006DE1A0@@QAE@XZ")
 #pragma comment(linker, "/alternatename:?isCIH@AptValue@@QBE_N_N@Z=?isCIH@BfmeAptValue006DCD20@@QBEH_N@Z")

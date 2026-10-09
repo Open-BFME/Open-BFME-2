@@ -142,6 +142,7 @@ public:
     static void *PushStaticData();
 protected:
     AptScriptFunctionBase(AptVirtualFunctionTable_Indices, AptScriptFunctionBase *, AptCIH *, bool);
+    AptScriptFunctionBase(AptVirtualFunctionTable_Indices, AptScriptFunctionBase *, AptCIH *);
     static AptFrameStack *spFrameStack;
     virtual void CreatingNestedFunction();
     virtual ~AptScriptFunctionBase();
