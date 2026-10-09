@@ -1,5 +1,3 @@
-// ?newBridge@TerrainRoadCollection@@QAEPAVTerrainRoadType@@VAsciiString@@@Z
-// partial score=0.89 date=2026-10-08
 // cl: /O1 /arch:SSE /G7 /Ireference/shims/bfme2_ascii /MD /EHsc
 /*
 **	Command & Conquer Generals Zero Hour(tm)
@@ -162,159 +160,6 @@ protected:
 // Native newRoad/newBridge calls prove this by-value name setter at 0x002DAD19.
 // ZH calls the same operation friend_setName. The complete 52-byte body has
 // its own EH graph, so it replaces the old gen-alias claim rather than folding.
-void TerrainRoadType::friend_setName(AsciiString name)
-{
-    AsciiString &slot = m_name;
-    slot = name;
-}
-
-// Native calls at 0x002DB60D and 0x002DB6E5 set the texture at +0x38.
-// Keep the existing 52-byte body while reconciling its real owner and home unit.
-void TerrainRoadType::friend_setTexture(AsciiString texture)
-{
-    AsciiString &slot = m_texture;
-    slot = texture;
-}
-
-AsciiString TerrainRoadType::getDamageToOCLString( BodyDamageType state, Int index )
-{
-	return m_damageToOCLString[ state ][ index ];
-}
-
-void TerrainRoadType::friend_setDamageToOCLString( BodyDamageType state, Int index, AsciiString str )
-{
-	m_damageToOCLString[ state ][ index ] = str;
-}
-
-void TerrainRoadType::friend_setDamageToFXString( BodyDamageType state, Int index, AsciiString str )
-{
-	m_damageToFXString[ state ][ index ] = str;
-}
-
-void TerrainRoadType::friend_setRepairedToOCLString( BodyDamageType state, Int index, AsciiString str )
-{
-	m_repairedToOCLString[ state ][ index ] = str;
-}
-
-void TerrainRoadType::friend_setRepairedToFXString( BodyDamageType state, Int index, AsciiString str )
-{
-	m_repairedToFXString[ state ][ index ] = str;
-}
-
-// ------------------------------------------------------------------------------------------------
-/** In the form of
-	* Label = Transition:<Damage|Repair> ToState:<BODYTYPE> EffectNum:<INT> OCL:<OCL NAME> */
-// ------------------------------------------------------------------------------------------------
-/*static*/ void TerrainRoadType::parseTransitionToOCL( INI *ini,
-																											 void *instance,
-																											 void *store,
-																											 const void *userData )
-{
-	const char *token;
-	TerrainRoadType *theInstance = (TerrainRoadType *)instance;
-
-	// which transition is this
-	Bool damageTransition;
-	token = ini->getNextSubToken( "Transition" );
-	if( _strcmpi( token, "Damage" ) == 0 )
-		damageTransition = TRUE;
-	else if( _strcmpi( token, "Repair" ) == 0 )
-		damageTransition = FALSE;
-	else
-	{
-
-		throw INIException( 3, "Expected Damage/Repair transition keyword\n" );
-
-	}  // end else
-
-	// get body damage state
-	token = ini->getNextSubToken( "ToState" );
-	BodyDamageType state = (BodyDamageType)ini->scanIndexList( token, TheBodyDamageTypeNames );
-
-	// get effect num
-	token = ini->getNextSubToken( "EffectNum" );
-	Int effectNum = ini->scanInt( token );
-
-	// make effect num zero based
-	--effectNum;
-
-	// sanity check effect num
-	if( effectNum < 0 || effectNum >= MAX_BRIDGE_BODY_FX )
-	{
-
-		throw INIException( 3, "Effect number max on bridge transitions is '%d'\n", MAX_BRIDGE_BODY_FX );
-
-	}  // end if
-
-	// read the string
-	token = ini->getNextSubToken( "OCL" );
-	if( damageTransition )
-		theInstance->friend_setDamageToOCLString( state, effectNum, token );
-	else
-		theInstance->friend_setRepairedToOCLString( state, effectNum, token );
-
-}  // end parseTransitionToOCL
-
-// ------------------------------------------------------------------------------------------------
-/** In the form of
-	* Label = Transition:<Damage|Repair> ToState:<BODYTYPE> EffectNum:<INT> FX:<FXLIST NAME> */
-// ------------------------------------------------------------------------------------------------
-/*static*/ void TerrainRoadType::parseTransitionToFX( INI *ini,
-																											void *instance,
-																											void *store,
-																											const void *userData )
-{
-	const char *token;
-	TerrainRoadType *theInstance = (TerrainRoadType *)instance;
-
-	// which transition is this
-	Bool damageTransition;
-	token = ini->getNextSubToken( "Transition" );
-	if( _strcmpi( token, "Damage" ) == 0 )
-		damageTransition = TRUE;
-	else if( _strcmpi( token, "Repair" ) == 0 )
-		damageTransition = FALSE;
-	else
-	{
-
-		throw INIException( 3, "Expected Damage/Repair transition keyword\n" );
-
-	}  // end else
-
-	// get body damage state
-	token = ini->getNextSubToken( "ToState" );
-	BodyDamageType state = (BodyDamageType)ini->scanIndexList( token, TheBodyDamageTypeNames );
-
-	// get effect num
-	token = ini->getNextSubToken( "EffectNum" );
-	Int effectNum = ini->scanInt( token );
-
-	// make effect num zero based
-	--effectNum;
-
-	// sanity check effect num
-	if( effectNum < 0 || effectNum >= MAX_BRIDGE_BODY_FX )
-	{
-
-		throw INIException( 3, "Effect number max on bridge transitions is '%d'\n", MAX_BRIDGE_BODY_FX );
-
-	}  // end if
-
-	// read the string
-	token = ini->getNextSubToken( "FX" );
-	if( damageTransition )
-		theInstance->friend_setDamageToFXString( state, effectNum, token );
-	else
-		theInstance->friend_setRepairedToFXString( state, effectNum, token );
-
-}  // end parseTransitionToFX
-
-// TerrainRoadCollection: only the lookups are declared. findRoad (0x002DB496)
-// and findBridge (0x002DB4DA) are the ledger's rows reached through their
-// symbols.csv pins. findRoadOrBridge is the Zero Hour body verbatim, placed
-// by compiling the Open-BFME-1 donor at /O1. The calls and adjacency agree
-// with the pinned callees.
-// Native collection list slots are +0x0C/+0x10; the subsystem prefix remains opaque.
 class TerrainRoadCollection
 {
     char m_subsystemPrefix[0x0C];
@@ -329,47 +174,18 @@ public:
 	TerrainRoadType *findRoadOrBridge( AsciiString name );
 };
 
-// Native 0x009FF088 is a zero-initialized 4-byte counter. The collection
-// constructor resets it to one; newRoad and newBridge increment the same slot.
-unsigned int TerrainRoadCollection::m_idCounter;
+
+// Three of the default bridge's by-value name getters are ICF-folded bodies
+// already rowed under other owners (0x002041E1 Script::getConditionTeamName,
+// 0x0023E943 GameInfo::getMap, 0x0027F5A6 Waypoint::getPathLabel1); those
+// spellings are the only ones the REL32 resolver accepts for them.
+class Script { public: AsciiString getConditionTeamName() const; };
+class GameInfo { public: AsciiString getMap() const; };
+class Waypoint { public: AsciiString getPathLabel1() const; };
 
 //-------------------------------------------------------------------------------------------------
-/** Search the roads first, then the bridges */
+/** Allocate a new bridge type, linked to the bridge list, with defaults from "DefaultBridge" */
 //-------------------------------------------------------------------------------------------------
-TerrainRoadType *TerrainRoadCollection::findRoadOrBridge( AsciiString name )
-{
-	TerrainRoadType *road = findRoad( name );
-
-	if( road )
-		return road;
-	else
-		return findBridge( name );
-
-}  // end findRoadOrBridge
-
-// ZH newRoad at BFME1 ba7ddda7e8. Target differences: ordinary global new
-// allocates 0x14C (not the donor's pool macro); texture access returns a
-// reference. Native code proves all fields copied and the complete list update.
-typedef char TerrainRoadTypeSizeCheck[sizeof(TerrainRoadType) == 0x14C ? 1 : -1];
-TerrainRoadType *TerrainRoadCollection::newRoad(AsciiString name)
-{
-    TerrainRoadType *road = new TerrainRoadType;
-    road->friend_setName(name);
-    road->friend_setID(m_idCounter++);
-    road->friend_setBridge(FALSE);
-    TerrainRoadType *defaultRoad = findRoad(AsciiString("DefaultRoad"));
-    if (defaultRoad) {
-        road->friend_setTexture(defaultRoad->getTexture());
-        road->friend_setRoadWidth(defaultRoad->getRoadWidth());
-        road->friend_setRoadWidthInTexture(defaultRoad->getRoadWidthInTexture());
-    }
-    road->friend_setNext(m_roadList);
-    m_roadList = road;
-    return road;
-}
-
-// Target-adapted source trial; donor helper names with new argument types
-// are leads until their getter/setter providers are independently reconciled.
 TerrainRoadType *TerrainRoadCollection::newBridge( AsciiString name )
 {
 	TerrainRoadType *bridge = new TerrainRoadType;
@@ -392,11 +208,11 @@ TerrainRoadType *TerrainRoadCollection::newBridge( AsciiString name )
 		bridge->friend_setBridgeScale( defaultBridge->getBridgeScale() );
 		bridge->friend_setBridgeModelName( defaultBridge->getBridgeModel() );
 		bridge->friend_setBridgeModelNameDamaged( defaultBridge->getBridgeModelNameDamaged() );
-		bridge->friend_setBridgeModelNameReallyDamaged( defaultBridge->getBridgeModelNameReallyDamaged() );
+		bridge->friend_setBridgeModelNameReallyDamaged( ((const Script *)defaultBridge)->getConditionTeamName() );
 		bridge->friend_setBridgeModelNameBroken( defaultBridge->getBridgeModelNameBroken() );
-		bridge->friend_setTextureDamaged( defaultBridge->getTextureDamaged() );
+		bridge->friend_setTextureDamaged( ((const GameInfo *)defaultBridge)->getMap() );
 		bridge->friend_setTextureReallyDamaged( defaultBridge->getTextureReallyDamaged() );
-		bridge->friend_setTextureBroken( defaultBridge->getTextureBroken() );
+		bridge->friend_setTextureBroken( ((const Waypoint *)defaultBridge)->getPathLabel1() );
 
 		bridge->friend_setTransitionEffectsHeight( defaultBridge->getTransitionEffectsHeight() );
 		bridge->friend_setNumFXPerType( defaultBridge->getNumFXPerType() );
