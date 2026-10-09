@@ -1,4 +1,6 @@
 // ?writeCacheINI@MapCache@@AAEX_N@Z
+// partial score=0.990295 date=2026-10-09
+// ?writeCacheINI@MapCache@@AAEX_N@Z
 // partial score=0.99 date=2026-10-09
 // ?writeCacheINI@MapCache@@AAEX_N@Z
 // partial score=0.99 date=2026-10-09
