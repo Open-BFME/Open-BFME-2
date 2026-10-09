@@ -16539,3 +16539,4 @@ _D3DXCreateVolumeTextureFromFileInMemoryEx@64,0x0062AF98,Native 1319AC call targ
 _D3DXCreateCubeTextureFromFileInMemoryEx@56,0x0062AF9E,Native 131A45 call targets in-image JMP IAT00BBA9F8; PE import d3dx9_27.dll D3DXCreateCubeTextureFromFileInMemoryEx; stdcall14args proven stack; no existing owner name
 _D3DXCreateVolumeTexture@36,0x0062AF92,Native13185E in-image JMP IAT verified PE d3dx9_27.dll D3DXCreateVolumeTexture with stdcall9args
 _D3DXLoadVolumeFromFileInMemory@36,0x0062AF8C,Native1318F0 in-image JMP IAT verified PE d3dx9_27.dll D3DXLoadVolumeFromFileInMemory with stdcall9args
+?loadTrigger@AIGateUpdate@@QAEXXZ,0x004B0AAA,Native173B update at4B0C6C calls4B0AAA with primaryAIGate receiver; WB122F280 namesAIGateUpdate loadTrigger and native381B boundary through4B0C27 allocates/registers PolygonTrigger; no existing address owner
