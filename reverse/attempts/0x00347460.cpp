@@ -1,6 +1,6 @@
 // ?update@AIInternalMoveToState@@UAE?AW4StateReturnType@@XZ
 // partial score=0.998 date=2026-10-09
-// cl: /O1 /DNDEBUG /MD /G7 /arch:SSE
+// cl: /O1 /DNDEBUG /MD /G7 /arch:SSE /ICode/GameEngine/Source/Common
 //
 // Derived AI state onExit overrides chaining to the rowed
 // AIInternalMoveToState::onExit 0x003473A4, transferred from Zero Hour
@@ -149,7 +149,7 @@ public:
 template <> class AIDeadStateAISlots<0>
 {
 };
-#include "../../Common/GameLogicObjectLookupView.h"
+#include "GameLogicObjectLookupView.h"
 typedef int Int;
 typedef unsigned int UnsignedInt;
 // class-gate: allow Coord3D the canonical data-only header cannot declare BFME 2's out-of-line length (rowed 0x00003571) and GetLengthEstimate (rowed 0x00003ACE) that the updates below call; same three floats
