@@ -1,4 +1,5 @@
-// cl: /EHsc
+// cl: /Ireference/shims/bfme2_ascii /O1 /Ob2 /G7 /arch:SSE /DNDEBUG /MD /EHsc
+#include "ascii_string.h"
 // ?clone@Rva003AE43F@@QBEPAV1@XZ @0x003AE408 55B
 // ?clone@Rva003AEB9C@@QBEPAV1@XZ @0x003AEB65 55B
 // ?clone@Rva003AECE6@@QBEPAV1@XZ @0x003AECE6 88B
@@ -126,14 +127,15 @@ public:
 	virtual ~Rva003AF50D();
 };
 
-class Intermediate3AE94E : public Rva003AF50D
+class ParticleModule005F2CA0 : public Rva003AF50D
 {
 public:
-	__forceinline Intermediate3AE94E( const Intermediate3AE94E &other )
+    ParticleModule005F2CA0(void *, void *);
+	__forceinline ParticleModule005F2CA0( const ParticleModule005F2CA0 &other )
 		: Rva003AF50D( other )
 	{
 	}
-	virtual ~Intermediate3AE94E();
+	virtual ~ParticleModule005F2CA0();
 };
 
 namespace FXParticleSystem
@@ -141,23 +143,28 @@ namespace FXParticleSystem
 class GpuDrawModuleInfo
 {
 public:
+    __declspec(noinline) GpuDrawModuleInfo();
 	GpuDrawModuleInfo( const GpuDrawModuleInfo &other );
 	virtual ~GpuDrawModuleInfo();
 
 private:
-	char m_pad[ 0x14 - 4 ];
+public:
+    int frames, framesPerRow;
+    AsciiString detail;
+    float speed;
 };
 }
 
-class Rva003AE94E : public Intermediate3AE94E, public FXParticleSystem::GpuDrawModuleInfo
+class Rva003AE94E : public ParticleModule005F2CA0, public FXParticleSystem::GpuDrawModuleInfo
 {
 public:
 	Rva003AE94E( const Rva003AE94E &other );
+    Rva003AE94E(void *, void *);
 	virtual ~Rva003AE94E();
 };
 
 Rva003AE94E::Rva003AE94E( const Rva003AE94E &other )
-	: Intermediate3AE94E( other )
+	: ParticleModule005F2CA0( other )
 	, FXParticleSystem::GpuDrawModuleInfo( (const FXParticleSystem::GpuDrawModuleInfo &)other )
 {
 }
@@ -179,3 +186,14 @@ Rva003AE928 *Rva003AE928::clone() const
 {
 	return new Rva003AE928( *this );
 }
+
+struct GpuInput3CAF {char unknown00[12];int frames,framesPerRow;AsciiString detail;float speed;};
+Rva003AE94E::Rva003AE94E(void *first,void *second):ParticleModule005F2CA0(first,second),FXParticleSystem::GpuDrawModuleInfo(){
+ const GpuInput3CAF &input=*(const GpuInput3CAF *)second;
+ frames=input.frames;
+ framesPerRow=input.framesPerRow;
+ detail=input.detail;
+ speed=input.speed;
+}
+
+FXParticleSystem::GpuDrawModuleInfo::GpuDrawModuleInfo():frames(1),framesPerRow(1){speed=1.0f;}
