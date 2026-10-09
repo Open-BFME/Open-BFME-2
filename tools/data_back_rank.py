@@ -602,11 +602,15 @@ def refs_from_status(path, ledger, kind, references_of=None):
 def datum_starts(body, target, relocs, size):
     """[(symbol, retail datum start)] per DIR32 reference inside a row's first `size`
     bytes: the retail dword less the object's in-place addend, so a reference to
-    symbol+4 names the datum at symbol (tools/data_ledger.py's derivation)."""
+    symbol+4 names the datum at symbol (tools/data_ledger.py's derivation). None
+    when a reference starting in the row has an operand the row or the available
+    bytes do not hold whole: partial evidence never settles a symbol."""
     out = []
     for offset, kind, symbol in relocs:
-        if kind != DIR32 or offset + 4 > min(size, len(body), len(target)):
+        if kind != DIR32 or offset >= size:
             continue
+        if offset + 4 > min(size, len(body), len(target)):
+            return None  # an operand the row or the bytes do not hold whole: no complete evidence
         out.append((symbol, (struct.unpack_from("<I", target, offset)[0] - struct.unpack_from("<I", body, offset)[0]
                              - IMAGE_BASE) & 0xFFFFFFFF))
     return out

@@ -534,3 +534,14 @@ def test_partial_object_evidence_never_settles_a_symbol(tmp_path, monkeypatch):
     assert references_of({"name": "?f@@YAXXZ", "retail_rva": "0x00001000", "size": "20"}) is None
     monkeypatch.setattr(build, "read_object_symbol_bytes", lambda path, symbol, size: (b"\0" * size, [(0, 6, "_g")]))
     assert references_of({"name": "?f@@YAXXZ", "retail_rva": "0x00001000", "size": "20"}) is not None
+
+
+def test_an_operand_crossing_the_row_end_gives_no_evidence():
+    """Review round 4: DIR32 references at 0 and 18 in a 20-byte row; the second
+    operand crosses the row end. It used to be skipped silently, so the first one
+    alone settled the symbol; now the row gives no evidence."""
+    body, target = b"\0" * 24, b"\0" * 20
+    assert dbr.datum_starts(body, target, [(0, dbr.DIR32, "_g"), (18, dbr.DIR32, "_g")], 20) is None
+    assert dbr.datum_starts(b"\0" * 20, target, [(0, dbr.DIR32, "_g"), (18, dbr.DIR32, "_g")], 20) is None
+    assert dbr.datum_starts(body, target, [(0, dbr.DIR32, "_g"), (16, dbr.DIR32, "_g")], 20) is not None
+    assert dbr.datum_starts(body, target, [(0, dbr.DIR32, "_g"), (20, dbr.DIR32, "_g")], 20) is not None  # past the row
