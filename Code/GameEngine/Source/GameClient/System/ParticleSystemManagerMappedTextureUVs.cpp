@@ -85,10 +85,21 @@ class Rva00409FFA;
 typedef _STL::hash_map<AsciiString, Rva00409FFA *, rts::hash<AsciiString>,
 	_STL::equal_to<AsciiString> > ParticleTemplateMap;
 
+// BFME1 ba7ddda7 supplies the parent-search algorithm. Target findTemplate
+// proves map +88; the native comparison reads SlaveSystemName at template +68.
+// This view asserts only the observed prefix, not a complete class size.
+class ParticleSystemTemplate
+{
+public:
+	char m_prefix[0x68];
+	AsciiString m_slaveSystemName;
+};
+
 class ParticleSystemManager
 {
 public:
 	virtual void rva001F9F66();
+	ParticleSystemTemplate *findParentTemplate(const AsciiString &name, int parentNum) const;
 private:
 	char m_pad04[0x88 - 0x04];
 	ParticleTemplateMap m_templateMap; // +0x88
@@ -112,4 +123,23 @@ void ParticleSystemManager::rva001F9F66()
 			}
 		}
 	}
+}
+
+// Native 0x001F9F08..0x001F9F66, ret8 at 1F9F5F. Lookup compares the
+// requested name against each template's slave name, selecting the numbered
+// parent. The map is traversed without modifying it; a nonconst cursor names
+// the already established ICF providers 427195/411084, as rva001F9F66 does.
+ParticleSystemTemplate *ParticleSystemManager::findParentTemplate(const AsciiString &name, int parentNum) const
+{
+	if (((const StringBase<char> *)&name)->isEmpty())
+		return 0;
+	ParticleTemplateMap &templates = const_cast<ParticleTemplateMap &>(m_templateMap);
+	ParticleTemplateMap::iterator begin(templates.begin()), end(templates.end());
+	for (; begin != end; ++begin)
+	{
+		ParticleSystemTemplate *tmpl = (ParticleSystemTemplate *)(*begin).second;
+		if (name.compare(tmpl->m_slaveSystemName) == 0 && !parentNum--)
+			return tmpl;
+	}
+	return 0;
 }
