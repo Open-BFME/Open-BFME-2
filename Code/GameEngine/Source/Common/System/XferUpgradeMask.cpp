@@ -6,14 +6,13 @@
 // game/GameEngine/Source/Common/System/XferUpgradeMask.cpp.
 // Native storage is 1024 bits, template name/index/next are +8/+38/+64.
 // Inline bit operations fix the previous bank's Xfer/bitset register swaps.
-// Remaining wall: count comparison uses SI=0 instead of immediate zero,
-// shifting the load suffix by one byte. Two getter calls are unresolved.
-// getFirstTemplate is a provisional descriptive declaration, not an admitted
-// original name or pin. Native calls 001DB0A8, a folded four-byte +C getter;
-// UpgradeCenterFindUpgradeByKey independently establishes list head at +C.
+// Declaring the zero loop index before comparing count restores immediate0.
+// Native001DB0A8 is a folded four-byte +C getter, shared by unrelated classes.
+// Address-derived name records only its pointer-return ABI in this consumer;
+// no original UpgradeCenter getter name is asserted. UpgradeCenterFindUpgradeByKey
+// independently establishes list head at +C; retail REL32 calls corroborate it.
 // Formatter uses the real bfmeFormatText symbol and 8-byte result ABI.
-// No new pin, ledger row, or live Code source is asserted by this bank.
-// ?rva003064CB@@YAXPAVXfer@@PAVRva00291440@@@Z present-unmatched
+// All350 instruction bytes match; compiler trailing INT3 also matches native.
 #include "ascii_string.h"
 #include <cstring>
 
@@ -105,7 +104,7 @@ class UpgradeCenter
 {
 public:
 	const UpgradeTemplate *findUpgrade(const AsciiString &name) const;
-	const UpgradeTemplate *getFirstTemplate() const;
+	const UpgradeTemplate *rva001DB0A8() const;
 };
 
 extern "C" UpgradeCenter *TheUpgradeCenter;
@@ -133,7 +132,7 @@ void __cdecl rva003064CB(Xfer *xfer, Rva00291440 *bits)
 	if (x->IsStoring()) {
 		AsciiString tmp;
 		unsigned int count = 0;
-		const UpgradeTemplate *t = TheUpgradeCenter->getFirstTemplate();
+		const UpgradeTemplate *t = TheUpgradeCenter->rva001DB0A8();
 		while (t) {
 			unsigned int bit = t->m_bitIndex;
 			if (b->testBit(bit))
@@ -141,7 +140,7 @@ void __cdecl rva003064CB(Xfer *xfer, Rva00291440 *bits)
 			t = t->m_next;
 		}
 		*x == *reinterpret_cast<unsigned short*>(&count);
-		t = TheUpgradeCenter->getFirstTemplate();
+		t = TheUpgradeCenter->rva001DB0A8();
 		while (t) {
 			unsigned int bit = t->m_bitIndex;
 			if (b->testBit(bit)) {
@@ -155,8 +154,8 @@ void __cdecl rva003064CB(Xfer *xfer, Rva00291440 *bits)
 		unsigned short count;
 		*x == count;
 		memset(b, 0, 0x80);
-		if (count > 0) {
-			unsigned short i = 0;
+		unsigned short i=0;
+		if (count > i) {
 			do {
 				*x == tmp;
 				const UpgradeTemplate *up = TheUpgradeCenter->findUpgrade(tmp);
