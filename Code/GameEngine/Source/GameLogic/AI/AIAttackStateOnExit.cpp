@@ -58,7 +58,7 @@ public:
 	void rva0028AE6D();
 	void rva0028BC4D();
 	void setStatus(ObjectStatusTypes status, bool set);
-	AIUpdateInterface *getAI() { return m_ai; }
+	static __forceinline AIUpdateInterface *getAI(const Object *object) { return object->m_ai; }
 	__forceinline void clearModelConditionState(unsigned int mc)
 	{
 		if (m_modelConditionFlags.test(mc) != 0)
@@ -124,7 +124,7 @@ void AIAttackState::onExit(StateExitType status)
 	obj->clearModelConditionState(1 * 32 + 7);
 	obj->rva0028BC4D();
 
-	AIUpdateInterface *ai = obj->getAI();
+	AIUpdateInterface *ai = Object::getAI(obj);
 	if (ai)
 	{
 		ai->setCurrentVictim(0);

@@ -46,7 +46,7 @@ class Object
 {
 public:
 	void rva0028AE6D();
-	AIUpdateInterface *getAI() { return m_ai; }
+	static __forceinline AIUpdateInterface *getAI(const Object *object) { return object->m_ai; }
 	__forceinline void clearModelConditionState(unsigned int mc)
 	{
 		if (m_modelConditionFlags.test(mc) != 0)
@@ -103,6 +103,6 @@ void AIWanderState::onExit(StateExitType status)
 	if (obj)
 	{
 		obj->clearModelConditionState(4 * 32 + 2);
-		obj->getAI()->rva0034A323Slot142(0);
+		Object::getAI(obj)->rva0034A323Slot142(0);
 	}
 }
