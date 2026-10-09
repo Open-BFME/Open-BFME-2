@@ -250,3 +250,21 @@ __declspec(noinline) long forceRva00958E30(Rva00958E30 *self, _bstr_t arg)
 {
 	return self->invoke(arg);
 }
+
+// Native176C50..176C70 is a complete32B thiscall receiver-return initializer.
+// It clears rawword0 before testing the full32-bit argument, reports E_POINTER
+// through the already rowed COM error provider on nonzero, and returns this.
+// BF1 f989 UnclaimedComHelpers is the semantic guide; original class, field
+// purpose and constructor identity are unknown. No incomingrefs or overlaps.
+
+extern void __stdcall _com_issue_error(long error);
+// Address-owned consumed raw32 word0 prefix; original class and constructor identity unknown.
+class Rva00176C50Word {
+ unsigned long value0;
+public: Rva00176C50Word *initialize(unsigned long argument);
+};
+Rva00176C50Word *Rva00176C50Word::initialize(unsigned long argument) {
+ value0=0;
+ if(argument != 0) _com_issue_error(0x80004003L);
+ return this;
+}
