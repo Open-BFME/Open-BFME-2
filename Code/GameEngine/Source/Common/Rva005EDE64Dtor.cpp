@@ -82,7 +82,6 @@ struct AsciiStringPlusStringText:AsciiStringPlusString {
 static __forceinline AsciiStringPlusString operator+(const AsciiString&a,const AsciiString&b){
  AsciiStringPlusString r;r.string=&a;r.second.string=&b;return r;
 }
-// ?operator+(AsciiStringPlusString,text) present-unmatched
 inline AsciiStringPlusStringText operator+(const AsciiStringPlusString&left,const char*right){
  Rva000B3F84Pair text;text.init(right);
  AsciiStringPlusStringText r;static_cast<AsciiStringPlusString&>(r)=left;r.text=text;return r;
