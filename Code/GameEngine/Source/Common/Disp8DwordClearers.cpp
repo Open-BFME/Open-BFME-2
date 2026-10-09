@@ -113,3 +113,22 @@ unsigned int Rva002C8E52WordField::take()
     m_word4 = 0;
     return previous;
 }
+
+// Complete native 2E6C8D..2E6C94 follows the preceding member's final RET
+// and precedes a distinct word setter. It loads the receiver's pointer at
+// +0 and clears the pointee's raw word at +8; no original owner is proven.
+// The whole clean BF1 f98983a7d3bb405f1a4ba94bb6a2a168062a819d
+// GameLogic/Pathfinder/PathfindPrependCells.cpp supplies
+// PathfindCell::clearParentCellForPrepend's expression as a source lead.
+// Its class, parent-cell name and pointer meaning remain donor facts only.
+struct Rva002E6C8DWordNode {
+    char unknown0[8];
+    unsigned int word8;
+};
+class Rva002E6C8DWordChase {
+public:
+    void clear();
+private:
+    Rva002E6C8DWordNode *node;
+};
+void Rva002E6C8DWordChase::clear() { node->word8 = 0; }
