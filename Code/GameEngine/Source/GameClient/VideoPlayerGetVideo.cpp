@@ -48,10 +48,12 @@ inline int compareVideoNames(const AsciiString &left, const AsciiString &right)
     return selfLength - thatLength;
 }
 
+class VideoStreamInterface;
 class VideoPlayer
 {
 public:
 	virtual const Video *getVideo(AsciiString movieTitle);
+    virtual VideoStreamInterface *rva006894D0(AsciiString title, unsigned int argument);
     virtual SubtitleManager *getSubTitleMgrForVideo(const AsciiString &title);
 };
 
@@ -173,4 +175,15 @@ SubtitleManager *VideoPlayer::getSubTitleMgrForVideo(const AsciiString &title)
 	BfmeAwakenLog *report = TheBfmeAwakenDebug->slot6C(0, 0, 0);
 	report->slot38("VideoPlayer::getSubTitleMgrForVideo should not FAIL!")->slot4C(1);
 	return 0;
+}
+// Clean BF1 f989 Rva0081C7B0.cpp supplies a default video-opening lead.
+// Target6894D0..6894DE is independently complete between INT3 padding;
+// primary VideoPlayer tableCE4918 slot17 points here, while derived table
+// BC7EBC slot12 points to the already rowed concrete opening method9151D.
+// Native releases the by-value narrow string at stack+4 through36410 and
+// returns zero with RET8. The remaining raw32bit argument is unused and
+// its original meaning/type and original method name remain unknown.
+VideoStreamInterface *VideoPlayer::rva006894D0(AsciiString title, unsigned int argument)
+{
+    return 0;
 }
