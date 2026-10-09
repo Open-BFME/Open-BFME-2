@@ -564,6 +564,8 @@ class GiantBirdGuardOuterState : public State
 {
 public:
 	GiantBirdGuardOuterState(StateMachine *machine);
+	virtual StateReturnType onEnter();
+	Rva00369FDFGuardMachine *getGuardMachine() { return (Rva00369FDFGuardMachine *)getMachine(); }
 private:
 	unsigned char m_pad1C[0x20 - 0x1C];
 	Rva00367F19ExitConditions m_exitConditions; // +0x20
@@ -574,6 +576,8 @@ class GiantBirdGuardAttackAggressorState : public State
 {
 public:
 	GiantBirdGuardAttackAggressorState(StateMachine *machine);
+	virtual StateReturnType onEnter();
+	Rva00369FDFGuardMachine *getGuardMachine() { return (Rva00369FDFGuardMachine *)getMachine(); }
 private:
 	unsigned char m_pad1C[0x20 - 0x1C];
 	Rva00367F19ExitConditions m_exitConditions; // +0x20
@@ -1084,4 +1088,103 @@ StateReturnType AIGuardOuterState::update()
 fallback:
  if(getGuardMachine()->lookForInnerTarget()) {State *self=this;self->onExit(EXIT_NORMAL);return self->onEnter();}
  return result;
+}
+
+// BF1 f98983a7d guard attack-aggressor onEnter guide; target GiantBird
+// name slot C177C8 and entry C177D0; native minimum chase duration is 8.0.
+StateReturnType GiantBirdGuardAttackAggressorState::onEnter( void )
+{
+	if (m_bfmeRestart)
+	{
+		m_bfmeRestart = false;
+		return onEnter();
+	}
+	Object *obj = getMachineOwner();
+	ObjectID nemID = INVALID_ID;
+
+	if (obj->getBodyModule() && obj->getBodyModule()->getLastDamageInfo()->in.m_sourceID) {
+		nemID = obj->getBodyModule()->getLastDamageInfo()->in.m_sourceID;
+		getGuardMachine()->setNemesisID(nemID);
+	}
+
+	GameLogic *logic = TheGameLogic;
+	Object *nemesis = logic->findObjectByID(getGuardMachine()->getNemesisID());
+	if (nemesis == NULL) 
+	{
+		return STATE_SUCCESS;
+	}
+
+	m_exitConditions.m_attackGiveUpFrame = (UnsignedInt)(logic->getFrame() + ((8.0f > (Real)TheAI->getAiData()->m_guardChaseUnitFrames) ? 8.0f : (Real)TheAI->getAiData()->m_guardChaseUnitFrames));
+	m_exitConditions.m_conditionsToConsider = (ExitConditions::ATTACK_ExitIfExpiredDuration | 
+																						 ExitConditions::ATTACK_ExitIfNoUnitFound);
+
+	m_attackState = new AIAttackState(getMachine(), true, true, false, &m_exitConditions);
+	m_attackState->getMachine()->setGoalObject(nemesis);
+
+	StateReturnType returnVal = m_attackState->onEnter();
+	if (returnVal == STATE_CONTINUE) {
+		return STATE_CONTINUE;
+	}
+
+	// if we had no one to attack, we were successful, so go to the next state.
+	return STATE_SUCCESS;
+}
+
+// Native C176A8 slot4 is GiantBirdGuardOuterState::onEnter; same guide
+// as named guard sibling, with native 8.0 minimum chase duration.
+StateReturnType GiantBirdGuardOuterState::onEnter( void )
+{
+	if (getGuardMachine()->getGuardMode() == GUARDMODE_GUARD_WITHOUT_PURSUIT)
+	{
+		// "patrol" mode does not follow targets outside the guard area.
+		return STATE_SUCCESS;
+	}
+
+	Rva00369FDFGuardMachine *guard = getGuardMachine();
+	Object* targetToGuard = guard->findTargetToGuardByID();
+	Team* teamToGuard = guard->findTeamToGuardByID();
+	Coord3D pos;
+	if (targetToGuard)
+		pos = *targetToGuard->getPosition();
+	else if (teamToGuard)
+		teamToGuard->rva0039E5B9(&pos);
+	else
+		pos = *getGuardMachine()->getPositionToGuard();
+
+	Rva00369FDFGuardMachine *machine = getGuardMachine();
+	Object* nemesis = TheGameLogic->findObjectByID(machine->getNemesisID()) ;
+	if (nemesis == NULL) 
+	{
+		return STATE_SUCCESS;
+	}
+	Object *obj = machine->getOwner();
+
+	Real range = TheAI->getAdjustedVisionRangeForObject(obj, AI_VISIONFACTOR_OWNERTYPE | AI_VISIONFACTOR_MOOD);
+
+	const PolygonTrigger *area = getGuardMachine()->getAreaToGuard();
+	if (area) 
+	{
+		if (getGuardMachine()->hasBfmeAreaCenter())
+			pos = *getGuardMachine()->getBfmeAreaCenter();
+		else
+			area->getCenterPoint(&pos);
+	}
+	m_exitConditions.m_center = pos;
+	m_exitConditions.m_radiusSqr = range * range;
+	m_exitConditions.m_attackGiveUpFrame = (UnsignedInt)(TheGameLogic->getFrame() + ((8.0f > (Real)TheAI->getAiData()->m_guardChaseUnitFrames) ? 8.0f : (Real)TheAI->getAiData()->m_guardChaseUnitFrames));
+	m_exitConditions.m_conditionsToConsider = (ExitConditions::ATTACK_ExitIfExpiredDuration | 
+																								ExitConditions::ATTACK_ExitIfOutsideRadius | 
+																								ExitConditions::ATTACK_ExitIfNoUnitFound);
+
+	m_attackState = new AIAttackState(getMachine(), false, true, false, &m_exitConditions);
+
+	m_attackState->getMachine()->setGoalObject(nemesis);
+
+	StateReturnType returnVal = m_attackState->onEnter();
+	if (returnVal == STATE_CONTINUE) {
+		return STATE_CONTINUE;
+	}
+
+	// if we had no one to attack, we were successful, so go to the next state.
+	return STATE_SUCCESS;
 }
