@@ -1,4 +1,19 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Oy- /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /Oy- /DNDEBUG /MD /EHsc
+//
+// CreateMovieClip identity: WorldBuilder 0x016262D0 names this method in
+// StrategicInGameUIArmyHeroIcon.cpp (assertion 53: !m_clip.IsBound()).
+// Native 0x005F43B4..0x005F4455 is 161B, RET8 including its hidden result.
+// Receiver is the virtual base at icon+0x14. Owner at icon+4 supplies ID+0x54;
+// hero at icon+8 supplies templateName+4 and level+0x90; holder is icon+0x0C.
+// Allocate the proven 0x1C hero clip through its existing constructor, attach
+// using the existing reference setter, populate portrait/type/level and return
+// an owning reference (+4 count). HeroClipReference is a TU-scoped ABI view of
+// that result, not a recovered original type name. The allocation-only clip
+// declaration records its native extent; provider TU defines its inheritance.
+// Keep clip snapshots before lookups: lookup may replace the holder. Retail
+// uses these snapshots for each image setter. Ordinary new supplies EH state0.
+// No donor implementation for this living-world method at BFME1 0bef414b52;
+// WB/retail and already matched providers establish this reconstruction.
 //
 // StrategicInGameUI::ArmyHeroIcon (WorldBuilder
 // StrategicInGameUIArmyHeroIcon.cpp names DoUpdate; the name is not
@@ -33,12 +48,42 @@ public:
 };
 
 class ArmyHeroIconMovieClip;
+class Image;
+class AptMovieClipFrame;
+struct TargetRef00217D4C { void *vtable; int references; };
+void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
+struct Rva002BED91 { TargetRef00217D4C *m_ptr; void set(TargetRef00217D4C *); };
+class HeroClipReference {
+public:
+ __forceinline HeroClipReference(ArmyHeroIconMovieClip *p) : m_ptr(p) {
+  if(p) ++((TargetRef00217D4C *)p)->references;
+ }
+ __forceinline HeroClipReference(const HeroClipReference &r) : m_ptr(r.m_ptr) {
+  if(m_ptr) ++((TargetRef00217D4C *)m_ptr)->references;
+ }
+ ~HeroClipReference() { if(m_ptr) ReleaseTreeHintRef00217D4C((TargetRef00217D4C *)m_ptr); }
+private: ArmyHeroIconMovieClip *m_ptr;
+};
+struct HeroOwnerView { char pad[0x54]; int playerID; };
+struct StrategicButtonImageView;
+struct Rva005F01D6In;
+const Image *__cdecl Rva005F01D6Get(Rva005F01D6In *);
+namespace StrategicInGameUI {
+const Image *GetButtonImage(const StrategicButtonImageView *,int);
+}
+namespace StrategicHUD {
+class ArmyMemberIconMovieClip { public: void rva005FC9E0(const Image *); };
+class ArmyHeroIconMovieClip { public: ArmyHeroIconMovieClip(AptMovieClipFrame *); private: char storage[0x1c]; };
+}
+class Rva005FC9F0 { public: void rva005FC9E8(const Image *); void rva005FC9F0(int); };
 
 struct Rva005F42FFHero
 {
 	char m_pad00[0x04];
 	AsciiString m_templateName; // +0x04
-	char m_pad08[0xB8 - 0x08];
+	char m_pad08[0x90 - 0x08];
+ int m_level; // +0x90
+ char m_pad94[0xB8 - 0x94];
 	int m_flagB8; // +0xB8
 	char m_padBC[0xC4 - 0xBC];
 	unsigned char m_byteC4; // +0xC4
@@ -75,6 +120,7 @@ class Rva005F41AF
 {
 public:
 	virtual void DoUpdate();
+ virtual HeroClipReference CreateMovieClip(AptMovieClipFrame *);
 	void rva005F41AF();
 };
 
@@ -83,9 +129,10 @@ class ArmyHeroIcon : public virtual Rva005F41AF
 {
 public:
 	virtual void DoUpdate();
+ virtual HeroClipReference CreateMovieClip(AptMovieClipFrame *);
 
 private:
-	int m_04; // +0x04
+	HeroOwnerView *m_owner; // +0x04
 	Rva005F42FFHero *m_hero; // +0x08
 	ArmyHeroIconMovieClip *m_clip; // +0x0C
 	int m_10; // +0x10
@@ -110,4 +157,15 @@ void StrategicInGameUI::ArmyHeroIcon::DoUpdate()
 		return;
 	int tooltip = tmpl->m_tooltip;
 	TheMouse->rva001EEA6D(StrategicInGameUI::GetTooltipText(tooltip), -1, 0, 1.0f);
+}
+
+HeroClipReference StrategicInGameUI::ArmyHeroIcon::CreateMovieClip(AptMovieClipFrame *frame) {
+ ((Rva002BED91 *)&m_clip)->set((TargetRef00217D4C *)new StrategicHUD::ArmyHeroIconMovieClip(frame));
+ int playerID=m_owner->playerID;
+ ArmyHeroIconMovieClip *portrait=m_clip;
+ ((StrategicHUD::ArmyMemberIconMovieClip *)portrait)->rva005FC9E0(GetButtonImage((const StrategicButtonImageView *)m_hero,playerID));
+ ArmyHeroIconMovieClip *typeClip=m_clip;
+ ((Rva005FC9F0 *)typeClip)->rva005FC9E8(Rva005F01D6Get((Rva005F01D6In *)m_hero));
+ ((Rva005FC9F0 *)m_clip)->rva005FC9F0(m_hero->m_level);
+ return HeroClipReference(m_clip);
 }
