@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /O1 /Oy- /G7 /arch:SSE /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
 //
 // ?rva00372DFA@MineshaftPortalBehaviour@@QAEPAVWaypoint@@PBUCoord3D@@@Z,
 // retail 0x00372DFA..0x00372ED3 (217B), thiscall ret 4.
@@ -17,7 +17,15 @@
 // into a local before the new. The string literal is at 0x00817D9C; the
 // labels copy AsciiString::TheEmptyString (0x009E0878). Field names stay
 // address-derived.
+// stlport
 #include "ascii_string.h"
+#include <map>
+#include <vector>
+enum ObjectID { INVALID_OBJECT_ID = 0 };
+namespace _STL {
+template<> __declspec(dllimport) __forceinline
+bool less<int>::operator()(const int& a,const int& b) const { return a < b; }
+}
 
 struct Coord3D;
 
@@ -27,7 +35,9 @@ public:
 	Waypoint(unsigned int id, AsciiString name, const Coord3D *pLoc, AsciiString label1,
 		AsciiString label2, AsciiString label3, bool biDirectional, int bfmeType, AsciiString bfmeName);
 
-	unsigned char m_pad00[0x48];
+	unsigned char m_pad00[4];
+	ObjectID id;
+	unsigned char m_pad08[0x48 - 8];
 	unsigned char m_48;		// +0x48
 	unsigned char m_pad49[0xA8 - 0x49];
 	unsigned char m_A8;		// +0xA8
@@ -72,4 +82,50 @@ Waypoint *MineshaftPortalBehaviour::rva00372DFA(const Coord3D *pos)
 	wp->m_A9 = data->m_119;
 	wp->m_48 = 0;
 	return wp;
+}
+
+// MineshaftPortalNetworkManager::addWaypoint, retail 00373871..003738F6,
+// 133 bytes, RET8. WB F3E6E0 names it in MineshaftPortalBehaviour.cpp:
+// the player's index (+54) selects the manager's map (+10); a missing
+// network gets a sixteen-byte Rva0037307F (rowed 23-byte constructor).
+// Append the waypoint's ObjectID (+4) to its vector header (+0), then
+// set its dirty byte (+C). The constructor's older BfmeE16 element view
+// proves the header and flag, not element identity. This caller appends
+// an ObjectID through the existing ObjectID-specialized push_back pin.
+// The neutral constructor name is retained; no original network-record
+// class name is asserted. WB F3CD30 and native caller 373A03 corroborate
+// the manager/waypoint/player roles. Native signed-key searches and the
+// complete map helper bodies establish the container ABI independently.
+class Rva0037307F {
+public:
+    Rva0037307F() throw();
+    std::vector<ObjectID> ids;
+    bool changed;
+};
+class Player {
+public:
+    char unknown00[0x54];
+    int index;
+};
+class MineshaftPortalNetworkManager {
+public:
+    void addWaypoint(Waypoint *waypoint, Player *player);
+private:
+    char unknown00[0x10];
+    std::map<int, Rva0037307F *> networks;
+};
+void MineshaftPortalNetworkManager::addWaypoint(Waypoint *waypoint, Player *player)
+{
+    int key = player->index;
+    std::map<int, Rva0037307F *>::iterator it = networks.find(key);
+    if (it == networks.end()) {
+        Rva0037307F *network = new Rva0037307F;
+        int insertionKey = player->index;
+        networks[insertionKey] = network;
+        int lookupKey = player->index;
+        it = networks.find(lookupKey);
+    }
+    ObjectID id = waypoint->id;
+    it->second->ids.push_back(id);
+    it->second->changed = true;
 }
