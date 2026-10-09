@@ -2,6 +2,8 @@
 // stlport
 #define Matrix4x4 Matrix4
 #define __PLACEMENT_VEC_NEW_INLINE
+#include "unicode_string.h"
+#define UNICODESTRING_H
 #include "GameClient/GameWindowGlobal.h"
 #include "GameClient/GameWindow.h"
 #include "GameClient/GameWindowManager.h"
@@ -104,4 +106,209 @@ WindowMsgHandledType IMECandidateWindowSystem(GameWindow *window,UnsignedInt msg
   default: return MSG_IGNORED;
  }
  return MSG_HANDLED;
+}
+
+// Native TextArea739B independently calls these text and input prefixes.
+// Prefixes describe only dispatched slots; no object or vtable is emitted.
+// Neither prefix is constructed; window and string value types use the
+// existing shared GUI headers.
+class ImeCandidateDisplayPrefix {
+public:
+ virtual void unused00() = 0;
+ virtual void setText(UnicodeString);
+ virtual void unused08() = 0;
+ virtual void unused0C() = 0;
+ virtual void unused10() = 0;
+ virtual void unused14() = 0;
+ virtual void setFont(GameFont *);
+ virtual void unused1C() = 0;
+ virtual void unused20() = 0;
+ virtual void unused24() = 0;
+ virtual void setTextColor(Color,Color);
+ virtual void unused2C() = 0;
+ virtual void unused30() = 0;
+ virtual void unused34() = 0;
+ virtual void draw(Int,Int,Int,Int);
+ virtual void unused3C() = 0;
+ virtual Int getWidth(Int=-1);
+ virtual void unused44() = 0;
+ virtual void unused48() = 0;
+ virtual void unused4C() = 0;
+ virtual void setClipRegion(IRegion2D *);
+};
+inline ImeCandidateDisplayPrefix *candidateDisplay(){return reinterpret_cast<ImeCandidateDisplayPrefix *>(Dstring);}
+class ImeCandidateInputPrefix {
+public:
+ virtual void unused00() = 0;
+ virtual void unused04() = 0;
+ virtual void unused08() = 0;
+ virtual void unused0C() = 0;
+ virtual void unused10() = 0;
+ virtual void unused14() = 0;
+ virtual void unused18() = 0;
+ virtual void unused1C() = 0;
+ virtual void unused20() = 0;
+ virtual void unused24() = 0;
+ virtual void unused28() = 0;
+ virtual void unused2C() = 0;
+ virtual void unused30() = 0;
+ virtual void unused34() = 0;
+ virtual void unused38() = 0;
+ virtual void unused3C() = 0;
+ virtual void unused40() = 0;
+ virtual void unused44() = 0;
+ virtual void unused48() = 0;
+ virtual void unused4C() = 0;
+ virtual void unused50() = 0;
+ virtual void unused54() = 0;
+ virtual void unused58() = 0;
+ virtual void unused5C() = 0;
+ virtual Int getIndexBase() = 0;
+ virtual Int getCandidateCount() = 0;
+ virtual UnicodeString *getCandidate(Int) = 0;
+ virtual Int getSelectedCandidateIndex() = 0;
+ virtual Int getCandidatePageSize() = 0;
+ virtual Int getCandidatePageStart() = 0;
+};
+extern Int IMECandidateWindowLineSpacing;
+// Native FunctionLexicon DBC9A4 pairs nameC0289C with427936. Complete
+// native427936..427C19 is739B; native frame FF6CAD56 and pointer-format
+// call6CB5D0 replace the BFME1 donor color and by-value format overload.
+// Both lifecycle and drawing use this file's Dstring atVAE031F8.
+void IMECandidateTextAreaDraw( GameWindow *window, WinInstanceData *instData )
+{
+	// set up for rendering
+	ICoord2D origin, size, start, end;
+	Color		textColor,
+					textBorder,
+					textSelectColor,
+					textSelectBorder;
+	IRegion2D textRegion;
+	Color black = GameMakeColor( 0, 0, 0, 255 );
+
+	// get window position and size
+	window->winGetScreenPosition( &origin.x, &origin.y );
+	window->winGetSize( &size.x, &size.y );
+
+	// get a nice region from the positions
+	textRegion.lo.x = origin.x;
+	textRegion.lo.y = origin.y;
+	textRegion.hi.x = origin.x + size.x;
+	textRegion.hi.y = origin.y + size.y;
+
+	// get the right colors for drawing
+	if( BitTest( window->winGetStatus(), WIN_STATUS_ENABLED ) == 0 )
+	{
+
+		textSelectColor		= window->winGetDisabledTextColor();
+		textSelectBorder	= window->winGetDisabledTextBorderColor();
+		textColor		= window->winGetDisabledTextColor();
+		textBorder	= window->winGetDisabledTextBorderColor();
+
+	}  // end if, disabled
+	else if( BitTest( instData->getState(), WIN_STATE_HILITED ) )
+	{
+
+		textColor		= window->winGetEnabledTextColor();
+		textBorder	= window->winGetEnabledTextBorderColor();
+		textSelectColor		= window->winGetHiliteTextColor();
+		textSelectBorder	= window->winGetHiliteTextBorderColor();
+
+	}  // end else if, hilited
+	else
+	{
+
+		textSelectColor		= window->winGetHiliteTextColor();
+		textSelectBorder	= window->winGetHiliteTextBorderColor();
+		textColor		= window->winGetEnabledTextColor();
+		textBorder	= window->winGetEnabledTextBorderColor();
+
+	}  // end else, just enabled
+
+	{
+		Real borderWidth = 1.0f;
+
+		start.x = origin.x;
+		start.y = origin.y;
+		end.x = start.x + size.x;
+		end.y = start.y + size.y;
+		TheWindowManager->winOpenRect( GameMakeColor( 0x6C, 0xAD, 0x56, 0xFF ), borderWidth,
+									   start.x, start.y, end.x, end.y );
+		TheWindowManager->winFillRect( black, 0,
+									   start.x + 1, start.y + 1, end.x - 1, end.y - 1 );
+	}
+
+	if ( Dstring == 0 )
+	{
+		return;
+	}
+
+	ImeCandidateInputPrefix *ime = (ImeCandidateInputPrefix*)window->winGetUserData();
+
+	if ( ime == 0 )
+	{
+		return;
+	}
+
+	GameFont *font = window->winGetFont();
+	Int height;
+
+	// set the font
+	candidateDisplay()->setFont( font );
+
+	// cacl line height
+	height = font->height + IMECandidateWindowLineSpacing;
+
+	// set the clip region
+	candidateDisplay()->setClipRegion( &textRegion );
+
+	Int first = ime->getCandidatePageStart();
+	Int total = ime->getCandidateCount();
+	Int pageSize = ime->getCandidatePageSize();
+	Int selected = ime->getSelectedCandidateIndex();
+
+	Int count = pageSize;
+
+	if ( count + first > total )
+	{
+		count = total - first;
+	}
+
+	selected = selected - first;
+	UnicodeString number;
+
+	// calulate the widest number text
+	Int width;
+	candidateDisplay()->setText( UnicodeString( L"00:" ) );
+	width = candidateDisplay()->getWidth();
+
+	// calc y start pos
+	Int y = origin.y;
+	Int leftEdge = origin.x + 10 + width;
+
+	for ( Int i = 0; i < count; i++, y += height )
+	{
+		UnicodeString *candidate = ime->getCandidate( first + i );
+		Int tcolor;
+
+		if ( i == selected )
+		{
+			tcolor = textSelectColor;
+		}
+		else
+		{
+			tcolor = textColor;
+		}
+
+		// draw number tab first
+		number.format( L"%d:", i + ime->getIndexBase() );
+		candidateDisplay()->setText( number );
+		width = candidateDisplay()->getWidth();
+		candidateDisplay()->setTextColor( tcolor, black );
+		candidateDisplay()->draw( leftEdge - width, y, 1, 1 );
+
+		// draw candidate
+		candidateDisplay()->setText( *candidate );
+		candidateDisplay()->draw( leftEdge, y, 1, 1 );
+	}
 }
