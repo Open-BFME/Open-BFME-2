@@ -776,6 +776,16 @@ LIVE_FOLDS = [
 # line in inihelp.cpp, its fold-proof source, so its unaddressed callee
 # _M_insert_overflow<const SpecialPowerTemplate*> now compiles to 146 bytes against
 # the 140-byte ledger body at 0x002DFCF6. The proof is stale, not the fold.
+# No hatch-free inihelp.cpp arrangement restores it (scratch compiles, 2026-10-09):
+# MSVC 7.1 /O1 /arch:SSE /G7 emits every referenced inline function as a COMDAT
+# even where it inlines all calls, so any visible max<unsigned int> body -- the
+# STLport template, an inline or __forceinline specialization -- inlines into a
+# 140-byte overflow but also emits a cmovb 16-byte max that loses to retail's
+# 17-byte 0x00013740. Declaring the specialization anywhere in the unit (end
+# of file included: instantiation is at end of TU) or `extern template` stops
+# the inlining (146); declaring push_back<const SpecialPowerTemplate*> instead
+# changes iniParseSpecialPowerTemplateVector's frame (93 bytes, not 92). Only
+# #pragma optimize (a counted hatch) yields retail's max.
 STALE_PROOF = {SPT_PUSH_BACK: pytest.mark.xfail(strict=False, reason=(
     "fold-proof source inihelp.cpp changed in 1b148e3c8d: its callee compiles to 146 "
     "bytes, the ledger body at 0x002DFCF6 is 140"))}
