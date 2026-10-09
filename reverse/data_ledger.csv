@@ -16788,7 +16788,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x009FD8D4,16,.data,global,?tmp_points@?4??Render_Line@ParticleBufferClass@@IAEXAAVRenderInfoClass@@@Z@4V?$SimpleDynVecClass@VVector3@@@@A,Code/Libraries/Source/WWVegas/WW3D2/particle_buffer_render_line.cpp,owned,,1,30
 0x009FD8E4,80,.data,global,?g_Va00DFD8E4@@3IA,Code/GameEngine/Source/Common/GlobalFlagClearers_DFxx.cpp,provisional,?$S4@?4??Render_Line@ParticleBufferClass@@IAEXAAVRenderInfoClass@@@Z@4IA@Code/Libraries/Source/WWVegas/WW3D2/particle_buffer_render_line.cpp;?g_Va00DFD8E4@@3IA,2,12
 0x009FD934,8,.data,global,?g_Va00DFD934@@3IA,Code/GameEngine/Source/Common/GlobalFlagClearers_DFxx.cpp,owned,,1,2
-0x009FD93C,4,.data,global,?TheSubsystemLegend@@3PAVSubsystemLegend@@A,,unowned,,0,1
+0x009FD93C,4,.data,global,?TheSubsystemLegend@@3PAVSubsystemLegend@@A,Code/Libraries/Source/subsystem/SubsystemInterface.cpp,owned,,1,2
 0x009FD940,272,.data,global,?TheSubsystemList@@3PAVSubsystemInterfaceList@@A,Code/Libraries/Source/subsystem/SubsystemInterface.cpp,owned,,1,103
 0x009FDA50,4,.data,global,?g_0134C7D8@@3HA,Code/GameEngine/Source/Common/Rva009A5800Forward.cpp,owned,,1,3
 0x009FDA54,4,.data,global,?G00DFDA54@@3HA,Code/GameEngine/Source/Common/ConstGlobalGetters2.cpp,provisional,?G00DFDA54@@3HA;?g_bfmeAllocGlobal@@3PAVBfmeAllocGlobal@@A,1,4
