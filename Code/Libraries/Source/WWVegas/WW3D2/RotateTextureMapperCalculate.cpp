@@ -16,6 +16,12 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 // Dedicated TU so mapper.cpp keeps its matched bodies; flags are neighbour // cl: plus /G7.
 // Evidence: vtable slot 9 offset 0x24 of 0x007D560C class of INI ctor 0x001826D0; gap between Reset 0x001827E0 and Sine ctor 0x001829A0; ZH donor GeneralsMD WW3D2 mapper.cpp Rotate Calculate.
 
+// Retain native inline CRT adapters without competing external copies.
+#pragma push_macro("inline")
+#define inline __declspec(dllimport) __forceinline
+#include <math.h>
+#pragma pop_macro("inline")
+#include "../../../../../reference/shims/bfme_matrix3d_link/vector4.h"
 #include "rendobj.h"	// the bfmerendobj shim has to win the include guard
 #include "mapper.h"
 #include "ini.h"

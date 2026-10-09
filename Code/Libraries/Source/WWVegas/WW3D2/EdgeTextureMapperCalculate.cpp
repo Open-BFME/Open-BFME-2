@@ -16,6 +16,11 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 // Dedicated TU so mapper.cpp keeps its matched bodies; flags are neighbour // cl: plus /G7.
 // Evidence: vtable slot 9 offset 0x24 of 0x007D5738 class of INI ctor 0x00183410; gap between Reset 0x00183520 and WSEnv ctor 0x00183620; ZH donor GeneralsMD WW3D2 mapper.cpp Edge Calculate with Init expanded to direct stores.
 
+// Retain native inline CRT adapters without competing external copies.
+#pragma push_macro("inline")
+#define inline __declspec(dllimport) __forceinline
+#include <math.h>
+#pragma pop_macro("inline")
 #include "rendobj.h"	// the bfmerendobj shim has to win the include guard
 #include "mapper.h"
 #include "ini.h"
@@ -34,7 +39,7 @@ void EdgeMapperClass::Calculate_Texture_Matrix(Matrix4 &tex_matrix)
 	LastUsedSyncTime=now;
 
 	VOffset+=delta*VSpeed;
-	VOffset-=WWMath::Floor(VOffset);
+	VOffset-=floorf(VOffset);
 	float vo = VOffset;
 
 	// takes the Z component and
