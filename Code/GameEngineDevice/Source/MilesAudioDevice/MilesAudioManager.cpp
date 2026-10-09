@@ -338,7 +338,11 @@ typedef _STL::list<Rva00051107AudioRequest *> Rva00051107AudioRequestList;
 struct Rva00051B89Hash {
     unsigned int operator()(const Rva00051107AudioRequest *req) const
     {
-        return req ? req->m_at08 : 0;
+        // Retail's pointer-key hash keeps zero from the null key itself.
+        unsigned int handle = reinterpret_cast<unsigned int>(req);
+        if (req)
+            handle = req->m_at08;
+        return handle;
     }
     // The same hash over the rowed Rva00051B89Keyed view (0x00056FD9).
     unsigned int operator()(const struct Rva00051B89Keyed *req) const
