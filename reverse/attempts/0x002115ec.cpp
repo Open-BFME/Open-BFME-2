@@ -1,4 +1,6 @@
 // ?rva002115EC@Rva002115EC@@QAEXXZ
+// partial score=0.991499 date=2026-10-09
+// ?rva002115EC@Rva002115EC@@QAEXXZ
 // partial score=0.97 date=2026-10-09
 // ?rva002115EC@Rva002115EC@@QAEXXZ
 // partial score=0.97 date=2026-10-09
@@ -146,7 +148,7 @@ struct Vec3 {
  float x,y,z;
 };
 class RvaSmartPtr12 { public:
- RvaSmartPtr12(const RvaSmartPtr12 &);
+ RvaSmartPtr12(const RvaSmartPtr12 &)throw();
  void rva0004CBC0() throw();
 };
 class BfmeParticleSystemHandle {
@@ -198,12 +200,14 @@ void Rva002115EC::rva002115EC() {
  Vec3 position;
  for(i=0;i<(unsigned)(end244-begin240);++i) {
   _ReadWriteBarrier();
-  if(!begin240[i]->rva0021122A()) {
+  Rva0021122A **items240=begin240;
+  if(!items240[i]->rva0021122A()) {
    ParticleSystemTemplate *definition=TheParticleSystemManager->findTemplate(AsciiString(template130.str()));
    if(definition) {
     BfmeParticleSystemHandle handle=TheParticleSystemManager->createParticleSystem((const ParticleSystemTemplate *)definition,true);
     if(handle) {
-     ((Rva003F936EHost *)begin240[i])->rva003FB793(&position);
+     Rva0021122A **positions240=begin240;
+     ((Rva003F936EHost *)positions240[i])->rva003FB793(&position);
      ((Rva001F3899Slot *)handle.operator->())->set(*(const Rva001F3899Arg *)&position);
      handle.operator->()->rva001F465E((void *)1);
      ((Rva001F3852ByteOneSetter *)handle.operator->())->enable();
@@ -214,17 +218,20 @@ void Rva002115EC::rva002115EC() {
  }
  for(i=0;i<(unsigned)(end238-begin234);++i) {
   _ReadWriteBarrier();
-  if(!begin234[i]->rva0021122A()) {
+  Rva0021122A **items234=begin234;
+  if(!items234[i]->rva0021122A()) {
    ParticleSystemTemplate *definition=TheParticleSystemManager->findTemplate(AsciiString(template16C.str()));
    if(definition) {
     BfmeParticleSystemHandle handle=TheParticleSystemManager->createParticleSystem((const ParticleSystemTemplate *)definition,true);
     if(handle) {
-     ((Rva003F936EHost *)begin234[i])->rva003FB793(&position);
+     Rva0021122A **positions234=begin234;
+     ((Rva003F936EHost *)positions234[i])->rva003FB793(&position);
      ((Rva001F3899Slot *)handle.operator->())->set(*(const Rva001F3899Arg *)&position);
      handle.operator->()->rva001F465E((void *)1);
      ((Rva001F3852ByteOneSetter *)handle.operator->())->enable();
      _ReadWriteBarrier();
-     ((Rva003FC7FC *)begin234[i])->rva003FC7C7(*(const RvaSmartPtr12 *)&handle);
+     Rva0021122A **final234=begin234;
+     ((Rva003FC7FC *)final234[i])->rva003FC7C7(*(const RvaSmartPtr12 *)&handle);
     }
    }
   }
