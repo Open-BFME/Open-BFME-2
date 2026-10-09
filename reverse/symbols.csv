@@ -2997,7 +2997,6 @@ name,address,notes
 ??1?$vector@VRva004F6093Holder@@V?$allocator@VRva004F6093Holder@@@_STL@@@_STL@@QAE@XZ,0x002B703F,alias pin: retail REL32 at 0x0040EE75 in 0x0040ED4F targets the rowed Rva0040DC56Element vector dtor; Rva0040ECCF.cpp suppresses its own copy with extern template
 ??1AABTreeBuilderClass@@QAE@XZ,0x00199270,AABTreeBuilderClass destructor call target; exact 5-byte ILT thunk at this RVA jumps to matched AABTreeBuilderClass::Reset body at 0x00198B70
 ??1AIAttackState@@UAE@XZ,0x0034B178,dtor installs its own vftable 0x00C13B78 (bytes at ++19) and is the REL32 callee of the slot-0 ??_G at 0x0034F73C
-??1AIFollowWaypointPathExactState@@UAE@XZ,0x00368793,AIFollowWaypointPathExactState destructor thunk called by scalar deleting destructor at 0x00346CFE
 ??1AIGateUpdate@@UAE@XZ,0x004B0802,"dtor called by audited wrapper RVA 0x004B0926; retail slot 4 -> RVA 0x004B087C uses class-name string ""AIGateUpdate"""
 ??1AIGroup@@MAE@XZ,0x0036E564,destructor called by the scalar deleting destructor 0x0036E8EA (slot 0 of vtable 0x00C17D00 whose unique slot-2 name getter returns AIGroup); the body re-stores vtable 0x00C17D00
 ??1AISpecialPowerUpdateModuleData@@UAE@XZ,0x004B300F,dtor called by audited wrapper RVA 0x004B2FF3; retail registration AISpecialPowerUpdate -> data factory RVA 0x0024FD76 -> ctor RVA 0x004B2FCD; primary vptr store RVA 0x004B2FD9
@@ -3133,7 +3132,6 @@ name,address,notes
 ??1CDEArraySlot@@QAE@XZ,0x0069E440,CDE array-slot dtor folds with the DX8_Assert empty body; pushed as ehvec element-dtor by initializeArray 0x73A402
 ??1CDownload@@QAE@XZ,0x006C9730,address read from the REL32 displacement at a placed body
 ??1CacheStraw@@UAE@XZ,0x006159A0,address read from the retail REL32 in INIClass::Load(Straw&) at 0x00617B10
-??1CallHelpOnDamage@@UAE@XZ,0x004BB4D1,"dtor called by audited wrapper RVA 0x004BB4B5; retail slot 4 -> RVA 0x004BB470 uses class-name string ""CallHelpOnDamage"""
 ??1CallHelpOnDamageModuleData@@UAE@XZ,0x004BB517,ICF twin of dup_004bb517 row at this address; retail ??_G at 0x004BB4FB calls it; resolves the deleter TU out-of-line
 ??1CameraMarker@@QAE@XZ,0x0029D7C2,callee of clear (0x0025F30D) at the site its BFME1 donor calls it; may be an ICF alias
 ??1CameraMarkerVec@@QAE@XZ,0x0048D003,FlammableUpdateModuleData dtor at 0x48D075 calls this on its +0x28 CameraMarker vector member (lea ecx [esi+0x28] plus direct call); the rowed _Destroy at 0x48CE25 proves CameraMarker elements and the dup_ vector-dtor row lives at this address
@@ -3884,7 +3882,6 @@ name,address,notes
 ??1LaserUpdateModuleData@@UAE@XZ,0x003631E8,dtor called by audited wrapper RVA 0x003631CC; retail registration LaserUpdate -> data factory RVA 0x0024D55A -> ctor RVA 0x00363147; primary vptr store RVA 0x0036314E
 ??1LaserUpdateModuleDataMember4@@QAE@XZ,0x00036410,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ??1LaserUpdateModuleDataMember8@@QAE@XZ,0x00036410,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
-??1LevelGrantSpecialPower@@UAE@XZ,0x004C2C76,"dtor called by audited wrapper RVA 0x004C2C5A; retail slot 4 -> RVA 0x004C2BC1 uses class-name string ""LevelGrantSpecialPower"""
 ??1LightEnvironmentClass@@QAE@XZ,0x0069E440,empty LightEnvironmentClass destructor called on MeshClass+0xCC by the MeshClass destructor 0x0014A5B0 (BFME1 donor names the same call 0x0094A880); ICF-folded empty body
 ??1LightPoint@@QAE@XZ,0x00425801,LightPoint destructor thunk called by Rva00425B75Delete at 0x00425B80
 ??1LightningDrawModuleTemplate@FXParticleSystem@@UAE@XZ,0x003A6201,BFME2 export; the module template destructor every category folds onto - three vtable stores walked back through the bases
@@ -3962,7 +3959,6 @@ name,address,notes
 ??1RadiusDecal@@QAE@XZ,0x00330DD6
 ??1RealTimeStatsPreferences@@UAE@XZ,0x00535776,ICF twin of rowed Rva00535776 dtor via RealTime construction at 0x0043C612
 ??1RebuildHoleBehaviorModuleData@@UAE@XZ,0x0048334A,dtor called by audited wrapper RVA 0x0048332E; retail registration RebuildHoleBehavior -> data factory RVA 0x0024C433 -> ctor RVA 0x0048323E; primary vptr store RVA 0x00483250
-??1RebuildHoleExposeDie@@UAE@XZ,0x004867F9,"dtor called by audited wrapper RVA 0x004867DD; retail slot 4 -> RVA 0x00486792 uses class-name string ""RebuildHoleExposeDie"""
 ??1RefCountClass@@MAE@XZ,0x00072892,WWLib refcount.h protected virtual dtor: the 7-byte body stores vftable 0x007C650C (slot0 0x0006CE57 delete-this through slot 1 = Delete_This, slot1 0x00072899 scalar deleting dtor that re-stores it = ~RefCountClass), the two-virtual RefCountClass layout; called by the part_buf.cpp/meshgeometry.cpp unwind funclets for their RefCountClass bases
 ??1RefCountClass@@UAE@XZ,0x00072892,public-virtual spelling (MaterialPassClassCtorThunk.cpp view) of the RefCountClass destructor pinned here as ??1RefCountClass@@MAE@XZ; its unwind funclet destroys the RefCountClass base by jumping here
 ??1RefPtr@@QAE@XZ,0x0007B724,TU-private view (Rva0015b110Cluster.cpp) of the refcounted pointer whose release-at-zero destructor is rowed as ??1Rva00087A93; the unwind funclet 0x0076724B destroys the returned temporary by jumping here; original class name unknown
@@ -3970,7 +3966,6 @@ name,address,notes
 ??1RenderObjectUpdateModuleTemplate@FXParticleSystem@@UAE@XZ,0x003A6201,BFME2 export; the module template destructor every category folds onto - three vtable stores walked back through the bases
 ??1ReplaceObjectUpdateModuleData@@UAE@XZ,0x004B2C9A,dtor called by audited wrapper RVA 0x004B2E5D; retail registration ReplaceObjectUpdate -> data factory RVA 0x0024FCEA -> ctor RVA 0x004B2AC4; primary vptr store RVA 0x004B2AD8
 ??1ReplenishUnitsBehavior@@UAE@XZ,0x00484161,"dtor called by audited wrapper RVA 0x004842C1; retail slot 4 -> RVA 0x00484187 uses class-name string ""ReplenishUnitsBehavior"""
-??1RiderChangeContain@@UAE@XZ,0x0047E51B,"dtor called by audited wrapper RVA 0x0047E4FF; retail slot 4 -> RVA 0x0047E2E0 uses class-name string ""RiderChangeContain"""
 ??1RiderChangeContainModuleData@@UAE@XZ,0x0047EB36,dtor called by audited wrapper RVA 0x0047EB1A; retail registration RiderChangeContain -> data factory RVA 0x0024BD63 -> ctor RVA 0x0047EABC; primary vptr store RVA 0x0047EAEB
 ??1RoadSegment@@QAE@XZ,0x000D44B4,address read from the REL32 displacement at a placed body
 ??1RoadType@@QAE@XZ,0x000D4F4F,element dtor pushed by the RoadType vector deleting dtor 0x000D6988 that W3DRoadBuffer::freeRoadBuffers (0x000D7753) calls for delete[] m_roadTypes; BFME 2 layout not reconstructed
@@ -3988,7 +3983,6 @@ name,address,notes
 ??1Rva00034C90Lock@@QAE@XZ,0x000317C0,TU-private view (Rva00034C90Finish.cpp) of the counted critical-section guard whose release - drop the use count at +0x18 then LeaveCriticalSection - is rowed as ?rva000317c0@Rva000317C0; the unwind funclet 0x0075CC40 destroys the guard by jumping here; original class name unknown
 ??1Rva00039D6AFlatBase@@UAE@XZ,0x00464692,callee of 1Rva00220240FlatDtor (0x00466B45) at the site its BFME1 donor calls it; may be an ICF alias
 ??1Rva000411BC@@UAE@XZ,0x000411BC,"destructor the scalar deleting destructor 0x000411A0 calls (REL32 at 0x000411A3; vtable 0x00BC16C4#2); opaque address name"
-??1Rva000416E7@@UAE@XZ,0x000416E7,"destructor the scalar deleting destructor 0x000416CB calls (REL32 at 0x000416CE; vtable 0x00BC2420#0); opaque address name"
 ??1Rva0004208C@@UAE@XZ,0x0004208C,"destructor of the Win32GameEngine slot 28 product (a lone jmp to base dtor 0x00243BA0); REL32 in its scalar deleting destructor 0x00042073"
 ??1Rva00042100@@UAE@XZ,0x00042100,"destructor of the Win32GameEngine slot 31 product (a lone jmp to base dtor 0x00256E96); REL32 in its scalar deleting destructor 0x000420E7"
 ??1Rva00059068Tree@@QAE@XZ,0x00059068,faction-set tree teardown dtor for the Rva007B6880Thunks.cpp thunks (0x007B6B41/0x007B6D1D/0x007B6D27/0x007B6E72/0x007B6E7C); jmp stub to the rowed FactionSetTree dtor 0x000589BE
@@ -3999,7 +3993,6 @@ name,address,notes
 ??1Rva000851F3@@UAE@XZ,0x0008523A,independently verified complete7B base cleanup installs actual BC745C then RET; same covered range no new byte credit
 ??1Rva00089894ArrayElement@@QAE@XZ,0x0004F82B,independently verified complete8B callback adjusts element+C and directly tail-calls canonical StringBase releaseBuffer36410; alias copy not historical ICF
 ??1Rva0009A200@@QAE@XZ,0x001076E9,non-virtual dtor called directly by scalar deleting dtor 0x0009A200; owning class unproven
-??1Rva000A43C8@@UAE@XZ,0x000A43C8,"destructor the scalar deleting destructor 0x0008FFC4 calls (REL32 at 0x0008FFC7; vtable 0x00BC7DC8#0); opaque address name"
 ??1Rva000AB0D4@@UAE@XZ,0x000AB0D4,"destructor the scalar deleting destructor 0x000AB0B8 calls (REL32 at 0x000AB0BB; vtable 0x00BC9468#0); opaque address name"
 ??1Rva000AD71D@@QAE@XZ,0x000AD71D,pointee destructor called by the owning-pointer reset 0x000AF146 (byte-exact modulo relocs in OwnedPointerResets.cpp); identity unproven; address-derived name
 ??1Rva000C24EA@@QAE@XZ,0x000796BC,Record default string-member destructor trial emits full15B including free30830; existing folded pair destructor provider fully reverified; record layout from C24EA assignment; no Locomotor type asserted
@@ -4007,7 +4000,6 @@ name,address,notes
 ??1Rva000C6D44ListProxy74@@QAE@XZ,0x002FECBC,opaque 4B list-proxy dtor ABI for Pod248 dtor 0xC6D44; retail E8 at 0xC6DE3 with ecx=esi+0x74 targets 0x2FECBC; STLport single-header-ptr base so +0x74 ends at +0x78 with no overlap
 ??1Rva000C6D44Slot12@@QAE@XZ,0x0007FAB3,opaque 12B three-pointer slot dtor for Pod248 array +0xAC; retail ehvec 0x629110 size 0xC count 6 callback VA 0x47FAB3 at 0xC6D8F; per-slot copy via 0xBC3C4 vector60 assign (primary ledger RVA 0xBC3C4) proves vector-like shape; generic free-first-ptr ICF bytes not basic_string identity
 ??1Rva000C79C9@@UAE@XZ,0x000C79C9,opaque MI base dtor (SEH); 2 derived MI dtors tail-call it; identity unproven
-??1Rva000D089D@@UAE@XZ,0x000D089D,"destructor the scalar deleting destructor 0x00079111 calls (REL32 at 0x00079114; vtable 0x00BC6870#0); opaque address name"
 ??1Rva000D1BA6@@UAE@XZ,0x000D1BA6,opaque dtor; call target of retail scalar-deleting-dtor at 0xD208D (28B flag-test shape); Ghidra function start; identity unproven; address-derived name
 ??1Rva000D1E88@@UAE@XZ,0x000D1E88,opaque dtor; call target of retail scalar-deleting-dtor at 0xD1E6C (28B flag-test shape); Ghidra function start; identity unproven; address-derived name
 ??1Rva000DC51D@@UAE@XZ,0x000DC51D,opaque SEH dtor (mov-eax-cookie prologue); called by scalar-deleting-dtor at 0x665F7; identity unproven, address-derived name
@@ -4044,7 +4036,6 @@ name,address,notes
 ??1Rva00109C7F@@UAE@XZ,0x00109C7F,opaque dtor; call target of retail scalar-deleting-dtor at 0x109C63 (28B flag-test shape); Ghidra function start; identity unproven; address-derived name
 ??1Rva0010C785@@UAE@XZ,0x0010C785,opaque dtor; call target of retail scalar-deleting-dtor at 0x10C825 (28B flag-test shape); Ghidra function start; identity unproven; address-derived name
 ??1Rva0010EFCD@@UAE@XZ,0x0010EFCD,"destructor the scalar deleting destructor 0x0010EFD4 calls (REL32 at 0x0010EFD7; vtable 0x00BCFAA4#0); opaque address name"
-??1Rva0010F00C@@UAE@XZ,0x0010F00C,"destructor the scalar deleting destructor 0x0010EFF0 calls (REL32 at 0x0010EFF3; vtable 0x00BCFA64#0); opaque address name"
 ??1Rva0010F0C4@@UAE@XZ,0x0010F0C4,opaque dtor; call target of retail scalar-deleting-dtor at 0x10F6EE (28B flag-test shape); Ghidra function start; identity unproven; address-derived name
 ??1Rva0010F7EE@@UAE@XZ,0x0010F7EE,opaque dtor; call target of retail scalar-deleting-dtor at 0x10F7D2 (28B flag-test shape); Ghidra function start; identity unproven; address-derived name
 ??1Rva0010F83E@@UAE@XZ,0x0010F83E,opaque dtor; call target of retail scalar-deleting-dtor at 0x10F822 (28B flag-test shape); Ghidra function start; identity unproven; address-derived name
@@ -4142,7 +4133,6 @@ name,address,notes
 ??1Rva0020DF0B@@UAE@XZ,0x0020DF0B,"destructor the scalar deleting destructor 0x0020E1E1 calls (REL32 at 0x0020E1E4; vtable 0x00BE40A0#0); opaque address name"
 ??1Rva002109F8@@QAE@XZ,0x00210830,non-virtual dtor called directly by scalar deleting dtor 0x002109F8; owning class unproven
 ??1Rva00210CF1@@QAE@XZ,0x003FA14B,non-virtual dtor called directly by scalar deleting dtor 0x00210CF1; owning class unproven
-??1Rva0021113D@@UAE@XZ,0x0021113D,"destructor the scalar deleting destructor 0x00211121 calls (REL32 at 0x00211124; vtable 0x00BE5118#0); opaque address name"
 ??1Rva00214405@@UAE@XZ,0x00214405,"destructor the scalar deleting destructor 0x002146B8 calls (REL32 at 0x002146BB; vtable 0x00BE5234#0); opaque address name"
 ??1Rva002146F7@@QAE@XZ,0x004043FF,non-virtual dtor called directly by scalar deleting dtor 0x002146F7; owning class unproven
 ??1Rva00216BF5@@UAE@XZ,0x00216BF5,"destructor the scalar deleting destructor 0x00216DA0 calls (REL32 at 0x00216DA3; vtable 0x00BE59E4#0); opaque address name"
@@ -4154,7 +4144,6 @@ name,address,notes
 ??1Rva00222061@@UAE@XZ,0x00221FFA,dtor installs its own vftable 0x00BE6C3C (bytes at ++19) and is the REL32 callee of the slot-0 ??_G at 0x002220C0
 ??1Rva00224A90@@UAE@XZ,0x00224A90,opaque SEH dtor (mov-eax-cookie prologue); tail-called by single-inheritance dtor at 0x628FD; identity unproven, address-derived name
 ??1Rva00224CDC@@UAE@XZ,0x00224D4B,sole REL32 callee of the slot-0 ??_G at 0x00224D2F in vftable 0x00BE6EE8; body starts right after that ??_G
-??1Rva00225A50@@UAE@XZ,0x00225A50,"destructor the scalar deleting destructor 0x00226317 calls (REL32 at 0x0022631A; vtable 0x00BE70B0#0); opaque address name"
 ??1Rva00225B63@@QAE@XZ,0x001B5207,non-virtual dtor called directly by scalar deleting dtor 0x00225B63; owning class unproven
 ??1Rva00229487@@QAE@XZ,0x0022630F,non-virtual dtor called directly by scalar deleting dtor 0x00229487; owning class unproven
 ??1Rva0022CA74@@MAE@XZ,0x00200280,dtor installs its own vftable 0x00BE2704 (bytes at ++21) and is the REL32 callee of the slot-0 ??_G at 0x0020030F
@@ -4173,7 +4162,6 @@ name,address,notes
 ??1Rva00240831Dtor@@QAE@XZ,0x00240831,ICF alias of WorkerAIUpdateModuleData dtor for list clear 0x00243119
 ??1Rva00243BA0@@UAE@XZ,0x00243BA0,"destructor the scalar deleting destructor 0x00246213 calls (REL32 at 0x00246216; vtable 0x00BEE130#0); opaque address name"
 ??1Rva00254024@@QAE@XZ,0x00254024,destructor called by the thunk-reached scalar deleting dtor 0x00254008 (REL32 at +4 of its 28B delete-flag wrapper; body is a 5B tail jmp to 0x00498798); identity unproven; address-derived name
-??1Rva002563CE@@UAE@XZ,0x002563CE,"destructor the scalar deleting destructor 0x002563B2 calls (REL32 at 0x002563B5; vtable 0x00BF3AC0#0); opaque address name"
 ??1Rva00256461Member@@QAE@XZ,0x00256461,opaque member dtor at +0x4C in Rva00465124Base dtor 0x00257481; EH body freeing its buffer
 ??1Rva00256B94@@UAE@XZ,0x00256B94,"destructor the scalar deleting destructor 0x00256B78 calls (REL32 at 0x00256B7B; vtable 0x00BF3E30#0); opaque address name"
 ??1Rva00256E96@@UAE@XZ,0x00256E96,"destructor the scalar deleting destructor 0x002571DD calls (REL32 at 0x002571E0; vtable 0x00BF3FEC#0); opaque address name"
@@ -4229,7 +4217,6 @@ name,address,notes
 ??1Rva002D6C1C@@UAE@XZ,0x002D6C1C,"destructor the scalar deleting destructor 0x002D724B calls (REL32 at 0x002D724E; vtable 0x00C0331C#0); opaque address name"
 ??1Rva002D79B0_inner@@QAE@XZ,0x00255A42,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ??1Rva002DAB18@@UAE@XZ,0x002DAB6C,dtor installs its own vftable 0x00C03910 (bytes at ++23) and is the REL32 callee of the slot-0 ??_G at 0x002DABBB
-??1Rva002DB8BA@@UAE@XZ,0x002DB8BA,"destructor the scalar deleting destructor 0x000EF981 calls (REL32 at 0x000EF984; vtable 0x00BCEEF0#9); opaque address name"
 ??1Rva002DE58D@@UAE@XZ,0x002DE58D,"destructor the scalar deleting destructor 0x002DF2DA calls (REL32 at 0x002DF2DD; vtable 0x00C0402C#0); opaque address name"
 ??1Rva002DFAD1Dtor@@QAE@XZ,0x002DFAD1,REL32 callee decoded from target call bytes of adjustor dtor 0x0022630F; identity unproven
 ??1Rva002DFC30@@QAE@XZ,0x0029D7C2,Rva _Destroy element teardown; stride-0xC range destroy at 0x331FF1 calls it per element; address rowed as ??1CameraMarker whose identical bytes serve this teardown (ICF)
@@ -4344,7 +4331,6 @@ name,address,notes
 ??1Rva003A9329Vec@@UAE@XZ,0x003A9397,"destructor the vector deleting destructor 0x003A9329 calls and hands to the eh vector destructor iterator (DIR32 at 0x003A9338); opaque address name"
 ??1Rva003A9397@@UAE@XZ,0x003A9397,"destructor the vector deleting destructor 0x003A85CC calls and hands to the eh vector destructor iterator (DIR32 at 0x003A85DB); opaque address name"
 ??1Rva003A93D4Vec@@UAE@XZ,0x003A9397,"destructor the vector deleting destructor 0x003A93D4 calls and hands to the eh vector destructor iterator (DIR32 at 0x003A93E3); opaque address name"
-??1Rva003A972D@@UAE@XZ,0x003A972D,"destructor the scalar deleting destructor 0x003AEF18 calls (REL32 at 0x003AEF1B; vtable 0x00C1D5E8#0); opaque address name"
 ??1Rva003A9A8B@@UAE@XZ,0x003A9A8B,"destructor the vector deleting destructor 0x003A9B97 calls and hands to the eh vector destructor iterator (DIR32 at 0x003A9BA6); opaque address name"
 ??1Rva003A9C39@@UAE@XZ,0x003A9C39,"destructor the vector deleting destructor 0x003A9CF8 calls and hands to the eh vector destructor iterator (DIR32 at 0x003A9D07); opaque address name"
 ??1Rva003A9D43@@UAE@XZ,0x003A9D43,"destructor the vector deleting destructor 0x003A9DDE calls and hands to the eh vector destructor iterator (DIR32 at 0x003A9DED); opaque address name"
@@ -4360,12 +4346,6 @@ name,address,notes
 ??1Rva003AB946Vec@@UAE@XZ,0x003AB86E,"destructor the vector deleting destructor 0x003AB946 calls and hands to the eh vector destructor iterator (DIR32 at 0x003AB955); opaque address name"
 ??1Rva003ABC0B@@UAE@XZ,0x003ABC0B,"destructor the scalar deleting destructor 0x003AEFF6 calls (REL32 at 0x003AEFF9; vtable 0x00C1D654#0); opaque address name"
 ??1Rva003ABC21@@UAE@XZ,0x003ABC21,"destructor the scalar deleting destructor 0x003AF10B calls (REL32 at 0x003AF10E; vtable 0x00C1D708#0); opaque address name"
-??1Rva003ACB6F@@UAE@XZ,0x003ACB6F,"destructor the scalar deleting destructor 0x003AD3F7 calls (REL32 at 0x003AD3FA; vtable 0x00C1C578#0); opaque address name"
-??1Rva003ACB74@@UAE@XZ,0x003ACB74,"destructor the scalar deleting destructor 0x003AD413 calls (REL32 at 0x003AD416; vtable 0x00C1CF18#0); opaque address name"
-??1Rva003ACED6@@UAE@XZ,0x003ACED6,"destructor the scalar deleting destructor 0x003ACEBA calls (REL32 at 0x003ACEBD; vtable 0x00C1CD14#0); opaque address name"
-??1Rva003ACEF7@@UAE@XZ,0x003ACEF7,"destructor the scalar deleting destructor 0x003ACEDB calls (REL32 at 0x003ACEDE; vtable 0x00C1C4C8#0); opaque address name"
-??1Rva003AD273@@UAE@XZ,0x003AD273,"destructor the scalar deleting destructor 0x003AD257 calls (REL32 at 0x003AD25A; vtable 0x00C1CC28#0); opaque address name"
-??1Rva003AD2AE@@UAE@XZ,0x003AD2AE,"destructor the scalar deleting destructor 0x003AD42F calls (REL32 at 0x003AD432; vtable 0x00C1D00C#0); opaque address name"
 ??1Rva003B00D6@@UAE@XZ,0x003B00D6,opaque SEH dtor (mov-eax-cookie prologue, vptr 0xC1D8F0); tail-called by single-inheritance dtor at 0x3B0152; identity unproven, address-derived name
 ??1Rva003B0344@@UAE@XZ,0x003B0344,opaque SEH dtor (mov-eax-cookie prologue); tail-called by single-inheritance dtor at 0x3B0401; identity unproven, address-derived name
 ??1Rva003B1F65@@UAE@XZ,0x003B1F65,opaque SEH base dtor; 5 derived dtors tail-call it; identity unproven
@@ -4392,7 +4372,6 @@ name,address,notes
 ??1Rva003F8E20@@UAE@XZ,0x003F8E20,"destructor the scalar deleting destructor 0x003F901B calls (REL32 at 0x003F901E; vtable 0x00C3731C#0); opaque address name"
 ??1Rva003F9D08@@UAE@XZ,0x003F9D08,"destructor the scalar deleting destructor 0x003F9DBE calls (REL32 at 0x003F9DC1; vtable 0x00C375F0#0); opaque address name"
 ??1Rva003FCE38@@UAE@XZ,0x003FCE38,opaque SEH dtor (mov-eax-cookie prologue); tail-called by single-inheritance dtor at 0x5C4B1B (plus 3 SEH base-callers); identity unproven, address-derived name
-??1Rva003FDC41@@UAE@XZ,0x003FDC41,"destructor the scalar deleting destructor 0x003FDC25 calls (REL32 at 0x003FDC28; vtable 0x00C37C68#0); opaque address name"
 ??1Rva003FE58A@@UAE@XZ,0x003FE58A,"destructor the scalar deleting destructor 0x003FE5F3 calls (REL32 at 0x003FE5F6; vtable 0x00C37E48#0); opaque address name"
 ??1Rva00402F28Item@@QAE@XZ,0x00402F23,address read from the REL32 displacement at byte-matched body 0x00402C4E
 ??1Rva00404781@@QAE@XZ,0x000B3FD0,empty dtor folded at shared 1B ret proven by vector ctor dtor push at 0056C266
@@ -4454,13 +4433,10 @@ name,address,notes
 ??1Rva00470A0@@UAE@XZ,0x00470A0,opaque SEH dtor (mov-eax-cookie prologue); called by scalar-deleting-dtor at 0x4818E; identity unproven, address-derived name
 ??1Rva0047A724@@UAE@XZ,0x0047A724,"destructor the scalar deleting destructor 0x0025361E calls (REL32 at 0x00253621; vtable 0x00C465F8#0); opaque address name"
 ??1Rva004816F4Entry@@QAE@XZ,0x0048130E,native DestinationTemplate cleanup; full53B verified8B filter/string entry destructor; scoped address views not original names
-??1Rva004851A8@@UAE@XZ,0x004851A8,"destructor the scalar deleting destructor 0x002549A5 calls (REL32 at 0x002549A8; vtable 0x00C5956C#0); opaque address name"
-??1Rva00488D3B@@UAE@XZ,0x00488D3B,opaque dtor called by the scalar deleting dtor at 0x00488D1F (vtable 0x00C4B510#0); identity unproven; address-derived name
 ??1Rva00488D5C@@UAE@XZ,0x00488D5C,opaque dtor called by the scalar deleting dtor at 0x00488D40 (vtable 0x00C4B5C8#0); identity unproven; address-derived name
 ??1Rva0048BA39StringElement@@QAE@XZ,0x0048BA39,Native4-byte narrow-string element cleanup ABI view; 3769EC directcall reaches existing5B AsciiString/StringBase cleanup tail to36410; address-view name is not an original class identity; link alias binds actual rowed AsciiString destructor
 ??1Rva00490350Base@@UAE@XZ,0x00355C77,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ??1Rva00490470@@UAE@XZ,0x00355D66,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
-??1Rva004905B0@@UAE@XZ,0x004905B0,"destructor the scalar deleting destructor 0x00254418 calls (REL32 at 0x0025441B; vtable 0x00C4B6C8#0); opaque address name"
 ??1Rva004907C0@@UAE@XZ,0x004907C0,pre-rename spelling of ArrowStormUpdate::~ArrowStormUpdate (row renamed in 1aaa8fd05); called by the deleting dtor 0x00490A58 in ModuleUpdateDtors2.cpp
 ??1Rva00493DEF@@UAE@XZ,0x00493DEF,opaque MI base dtor (SEH, 3 vptrs incl shared 0xBEFCF8 secondary); 20 derived MI dtors tail-call it; identity unproven
 ??1Rva00494A97@@UAE@XZ,0x00494A97,opaque MI dtor (39B: 4+ vptr stores); called by scalar-deleting-dtor at 0x494B9E; identity unproven, address-derived name
@@ -4472,9 +4448,6 @@ name,address,notes
 ??1Rva004AF17D@@QAE@XZ,0x004AF17D,destructor called by the vtable-referenced scalar deleting dtor 0x004AF161 (REL32 at +4 of its 28B delete-flag wrapper); identity unproven; address-derived name
 ??1Rva004BAEC8@@QAE@XZ,0x004BAEC8,destructor called by the vtable-referenced scalar deleting dtor 0x004BAF11 (REL32 at +4 of its 28B delete-flag wrapper); identity unproven; address-derived name
 ??1Rva004BF951@@UAE@XZ,0x004BF951,opaque MI base dtor (SEH); 7 derived MI dtors tail-call it; identity unproven
-??1Rva004C1B7B@@UAE@XZ,0x004C1B7B,opaque dtor called by the scalar deleting dtor at 0x004C182F (vtable 0x00C5BC48#0); identity unproven; address-derived name
-??1Rva004C6CC1@@UAE@XZ,0x004C6CC1,opaque dtor called by the scalar deleting dtor at 0x004AD538 (vtable 0x00C5F778#0); identity unproven; address-derived name
-??1Rva004C70A8@@UAE@XZ,0x004C70A8,"destructor the scalar deleting destructor 0x00254B56 calls (REL32 at 0x00254B59; vtable 0x00C5CA44#0); opaque address name"
 ??1Rva004CE36@@UAE@XZ,0x004CE36,opaque SEH dtor (mov-eax-cookie prologue, start inferred from prologue shape); called by scalar-deleting-dtor at 0x4CF47; identity unproven, address-derived name
 ??1Rva004D2344@@QAE@XZ,0x004D2344,destructor called by the unreferenced scalar deleting dtor 0x0025DEE5 (REL32 at +4 of its 28B delete-flag wrapper); identity unproven; address-derived name
 ??1Rva004D759C@@UAE@XZ,0x004D759C,opaque MI base dtor (SEH, vptrs incl shared patterns, list walk); 20 derived MI dtors tail-call it; identity unproven
@@ -4525,7 +4498,6 @@ name,address,notes
 ??1Rva00506B1B@@UAE@XZ,0x00506B28,"Rva0059A85C dtor at 0x0059A45C calls this base dtor through ECX=this; the body at this address is mov DWORD PTR [ecx],0x00C63F9C; ret -- the base vtable store -- the same 7 bytes the ledger verifies for ?apply@Rva00506B28DwordImmSetter@@QAEXXZ, so the two names share one ICF address"
 ??1Rva0050B2A@@UAE@XZ,0x0050B2A,opaque SEH dtor (mov-eax-cookie prologue); called by scalar-deleting-dtor at 0x50C31; identity unproven, address-derived name
 ??1Rva0050FDDC@@UAE@XZ,0x0050FDDC,opaque dtor called by the scalar deleting dtor at 0x0051062D (vtable 0x00C655BC#0); identity unproven; address-derived name
-??1Rva00510665@@UAE@XZ,0x00510665,opaque dtor called by the scalar deleting dtor at 0x00510649 (vtable 0x00C655C4#0); identity unproven; address-derived name
 ??1Rva005109D@@UAE@XZ,0x005109D,opaque neg-sbb dtor head (mov eax,ecx/neg/lea edx+sbb); called by scalar-deleting-dtor at 0x510B3; identity unproven, address-derived name
 ??1Rva00510D0C@@UAE@XZ,0x00510D0C,opaque dtor called by the scalar deleting dtor at 0x00511031 (vtable 0x00C6568C#0); identity unproven; address-derived name
 ??1Rva005125ED@@UAE@XZ,0x005125ED,opaque dtor called by the scalar deleting dtor at 0x0051265C (vtable 0x00C659A0#0); identity unproven; address-derived name
@@ -4537,7 +4509,6 @@ name,address,notes
 ??1Rva0051D93@@UAE@XZ,0x0051D93,opaque lea+vptr dtor head (lea eax,[ecx+0x88], vptr 0xBC5318); called by scalar-deleting-dtor at 0x51DB0; identity unproven, address-derived name
 ??1Rva00520211Element@@QAE@XZ,0x0051FB52,target destroy loop 0x5200F4 calls this once per 0x50-byte element; the body releases nested fields and storage but Rva00520211Element remains opaque
 ??1Rva005204EF@@UAE@XZ,0x005204EF,opaque dtor called by the scalar deleting dtor at 0x005206E2 (vtable 0x00C675DC#0); identity unproven; address-derived name
-??1Rva0052163E@@UAE@XZ,0x0052163E,opaque dtor called by the scalar deleting dtor at 0x00444067 (vtable 0x00C3DFA8#0 0x00C67840#0); identity unproven; address-derived name
 ??1Rva00521977@@UAE@XZ,0x00521977,opaque dtor called by the scalar deleting dtor at 0x00521CE3 (vtable 0x00C67910#0); identity unproven; address-derived name
 ??1Rva00523EC0Marker@@QAE@XZ,0x0029D7C2,member dtor for the Rva007B6880Thunks.cpp thunk 0x00523EC0; identical bytes serve this teardown (ICF; rowed as ??1CameraMarker)
 ??1Rva00524415@@QAE@XZ,0x00601AE9,"address read from the retail REL32 at 0x00601C41 in the INI helper destructor 0x00601BF3; destroys the +4 member built by the rowed Rva00524415 constructor (vector storage plus vector<AsciiString> at +0xC)"
@@ -4594,12 +4565,9 @@ name,address,notes
 ??1Rva0057605D@@UAE@XZ,0x00575E9C,dtor installs its own vftable 0x00C6E6A0 (bytes at ++23) and is the REL32 callee of the slot-0 ??_G at 0x005760B1
 ??1Rva005764F9@@UAE@XZ,0x005764F9,opaque dtor called by the scalar deleting dtor at 0x005767A4 (vtable 0x00C6E78C#0); identity unproven; address-derived name
 ??1Rva00576591@@UAE@XZ,0x00576591,opaque dtor called by the scalar deleting dtor at 0x005767C0 (vtable 0x00C6E798#0); identity unproven; address-derived name
-??1Rva00576803@@UAE@XZ,0x00576803,opaque dtor called by the scalar deleting dtor at 0x005767E7 (vtable 0x00C6E7A4#0); identity unproven; address-derived name
-??1Rva0057682F@@UAE@XZ,0x0057682F,opaque dtor called by the scalar deleting dtor at 0x00576813 (vtable 0x00C6E7B0#0); identity unproven; address-derived name
 ??1Rva00576B5E@@UAE@XZ,0x00576B5E,opaque dtor called by the scalar deleting dtor at 0x00576BC1 (vtable 0x00C6E7D4#0); identity unproven; address-derived name
 ??1Rva00576FCE@@UAE@XZ,0x00576FCE,opaque dtor called by the scalar deleting dtor at 0x005E5A66 (vtable 0x00C6E3E8#0 0x00C6E620#0 0x00C6E8A8#0 0x00C77D90#0); identity unproven; address-derived name
 ??1Rva00577010@@QAE@XZ,0x00577010,member destructor at +0x8 called by the destructor 0x00575D45 (byte-exact modulo relocs in MemberBaseDtorsB01.cpp); identity unproven; address-derived name
-??1Rva005770F2@@UAE@XZ,0x005770F2,opaque dtor called by the scalar deleting dtor at 0x005770D6 (vtable 0x00C6E884#0); identity unproven; address-derived name
 ??1Rva005770F7@@UAE@XZ,0x005770F7,opaque dtor called by the scalar deleting dtor at 0x00577356 (vtable 0x00C6E8F8#1); identity unproven; address-derived name
 ??1Rva005772BF@@UAE@XZ,0x005772BF,opaque dtor called by the scalar deleting dtor at 0x00577372 (vtable 0x00C6E960#0); identity unproven; address-derived name
 ??1Rva00577838@@UAE@XZ,0x00577838,opaque dtor called by the scalar deleting dtor at 0x00577891 (vtable 0x00C6E978#0); identity unproven; address-derived name
@@ -4658,7 +4626,6 @@ name,address,notes
 ??1Rva005CC788Obj@@QAE@XZ,0x005CC788,REL32 callee decoded from target call bytes of negative-adjust body 0x005CEC55; identity unproven
 ??1Rva005CCDDD@@UAE@XZ,0x005CCDDD,opaque dtor called by the scalar deleting dtor at 0x005CCF2B (vtable 0x00C74F44#0); identity unproven; address-derived name
 ??1Rva005CD0FEElem@@QAE@XZ,0x005CD0FE,element destructor called by the guarded-delete clear helper; address from its retail REL32 call and a Ghidra function start
-??1Rva005CD3A5@@UAE@XZ,0x005CD3A5,opaque dtor called by the scalar deleting dtor at 0x0057569A (vtable 0x00C6E5F0#0 0x00C74F68#0 0x00C74F84#0 0x00C74FA0#0 0x00C74FBC#0 0x00C74FD8#0); identity unproven; address-derived name
 ??1Rva005CD9C0@@QAE@XZ,0x005CD9C0,destructor called by the vtable-referenced scalar deleting dtor 0x005CDB6C (REL32 at +4 of its 35B delete-flag wrapper that also resets the vbase vptr at +0x20); identity unproven; address-derived name
 ??1Rva005CDA3D@@UAE@XZ,0x005CDA3D,opaque dtor called by the scalar deleting dtor at 0x005CDB43 (vtable 0x00C75038#0); identity unproven; address-derived name
 ??1Rva005CDCEE@@QAE@XZ,0x005CDCEE,destructor called by the vtable-referenced scalar deleting dtor 0x005CDF49 (REL32 at +4 of its 35B delete-flag wrapper that also resets the vbase vptr at +0x28); identity unproven; address-derived name
@@ -4753,7 +4720,6 @@ name,address,notes
 ??1Rva005F2F80Elem@@QAE@XZ,0x005F2F80,element destructor called by the guarded-delete clear helper; address from its retail REL32 call and a Ghidra function start
 ??1Rva005F3FFC@@QAE@XZ,0x005F3FFC,pointee destructor called by the owning-pointer reset 0x005F4096 (byte-exact modulo relocs in OwnedPointerResets.cpp); identity unproven; address-derived name
 ??1Rva005F4179@@UAE@XZ,0x005F4179,opaque dtor called by the scalar deleting dtor at 0x005F41B7 (vtable 0x00C79448#0); identity unproven; address-derived name
-??1Rva005F4EE8@@UAE@XZ,0x005F4EE8,opaque dtor called by the scalar deleting dtor at 0x005F4ECC (vtable 0x00C794E4#0); identity unproven; address-derived name
 ??1Rva005F501E@@QAE@XZ,0x005F501E,pointee destructor called by the owning-pointer reset 0x005F50B9 (byte-exact modulo relocs in OwnedPointerResets.cpp); identity unproven; address-derived name
 ??1Rva005F54DA@@QAE@XZ,0x005F54DA,pointee destructor called by the owning-pointer reset 0x005F55FA (byte-exact modulo relocs in OwnedPointerResets.cpp); identity unproven; address-derived name
 ??1Rva005F566A@@UAE@XZ,0x005F566A,opaque dtor called by the scalar deleting dtor at 0x005F5678 (vtable 0x00C7953C#0); identity unproven; address-derived name
@@ -4852,7 +4818,6 @@ name,address,notes
 ??1Rva006F3960@@UAE@XZ,0x006F3990,"complete dtor call target of scalar deleting dtor 0x006F3960; body unrowed"
 ??1Rva006F7540@@QAE@XZ,0x006F7540,"Rva006F7540 destructor spelling of the rowed 0x006F7540 empty-array assert; needed as the SEH unwind action of 0x006F76B0; body rowed under the address-derived method name"
 ??1Rva006F7BD@@UAE@XZ,0x006F7BD,opaque SEH dtor (mov-eax-cookie prologue); called by scalar-deleting-dtor at 0x6FB2F; identity unproven, address-derived name
-??1Rva006F7DC0@@UAE@XZ,0x006F7DF0,"complete dtor call target of scalar deleting dtor 0x006F7DC0; body unrowed"
 ??1Rva006F8460Base@@UAE@XZ,0x006F8460,TU-private base view (Rva006F8DA0Cluster.cpp) of the class rowed as ??1Rva006F8460: the unwind funclet 0x007AA110 of the rowed parent destroys the base by jumping here; original class name unknown
 ??1Rva006F84C0@@UAE@XZ,0x006F8460,twin of rowed ??1Rva006F8460 for pooled deleting dtor 0x006F84C0 size 0x1C
 ??1Rva006F84F0@@QAE@XZ,0x006F84F0,"member dtor of the sub-object at +0x24 destroyed by Rva006ED150 dtor 0x006ED150; seat 1 recovery target; address-derived name"
@@ -4875,7 +4840,6 @@ name,address,notes
 ??1Rva0073E3F0Dtor@@UAE@XZ,0x0073E3F0,address-derived class dtor called by the 30B scalar deleting destructor at 0x007396E0; address read from that body REL32; class identity unproven so the model is named for the call target
 ??1Rva0073EE55@@UAE@XZ,0x0073EE55,opaque SEH dtor (mov-eax-cookie prologue); called by scalar-deleting-dtor at 0xA87F3; identity unproven, address-derived name
 ??1Rva0073EF24@@UAE@XZ,0x0073EF24,opaque dtor called by the scalar deleting dtor at 0x0073EF08 (vtable 0x00CF1538#2); identity unproven; address-derived name
-??1Rva00740555@@UAE@XZ,0x00740555,"destructor the scalar deleting destructor 0x001042CF calls (REL32 at 0x001042D2; vtable 0x00BC8900#1); opaque address name"
 ??1Rva0074104C@@UAE@XZ,0x0074104C,opaque dtor called by the scalar deleting dtor at 0x007410D0 (vtable 0x00CF1648#0); identity unproven; address-derived name
 ??1Rva00751EF@@UAE@XZ,0x00751EF,opaque SEH dtor (mov-eax-cookie prologue); called by scalar-deleting-dtor at 0x75279; identity unproven, address-derived name
 ??1Rva0075A080Dtor@@UAE@XZ,0x0075A080,address-derived class dtor called by the 30B scalar deleting destructor at 0x007581C0; address read from that body REL32; class identity unproven so the model is named for the call target
