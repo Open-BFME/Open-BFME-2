@@ -621,7 +621,7 @@ class Rva005E67FE
 {
 public:
 	Rva005E67FE(void *held);
-	virtual ~Rva005E67FE() {}
+	virtual ~Rva005E67FE();
 
 	void *m_field04;
 };
@@ -630,6 +630,10 @@ Rva005E67FE::Rva005E67FE(void *held)
 {
 	m_field04 = held;
 }
+
+// Native5E6810 resets only this holder base vptr. Canonical provider for
+// the owning wrapper cleanups; rehomes the old integer-setter row (zero gain).
+Rva005E67FE::~Rva005E67FE() {}
 
 // ----------------- vptr + converted int from +0x74 (retail 0x005DCC4B)
 // B2 body-address name: the single member takes arg+0x74, not arg+0x04, so

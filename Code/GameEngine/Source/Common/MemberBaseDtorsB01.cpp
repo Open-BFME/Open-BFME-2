@@ -93,10 +93,11 @@ private:
 	void *m_value;
 };
 
-class Rva005E6810
+class Rva005E67FE
 {
 public:
-	virtual ~Rva005E6810();
+	virtual ~Rva005E67FE();
+	void *m_field04;
 };
 
 class Rva005CF363
@@ -401,13 +402,12 @@ Rva00577FA7::~Rva00577FA7()
 {
 }
 
-class Rva005CF7BF : public Rva005E6810
+class Rva005CF7BF : public Rva005E67FE
 {
 public:
 	virtual ~Rva005CF7BF();
 
 private:
-	char m_unmodelled_04[0x4];
 	Rva005CF363 m_member;	// +0x8
 };
 
