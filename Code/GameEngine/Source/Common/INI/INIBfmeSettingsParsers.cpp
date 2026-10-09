@@ -66,18 +66,58 @@ struct S12
 // 0x0030AE42 reads), field table VA 0x00C08708, manager TheFireManager
 // (0x00DFF4B4). The copy is Rva0030ADED's implicit operator= (0x0030ADED,
 // 85B): two AsciiString sets, then the plain members.
+struct RGBColor
+{
+	RGBColor(float r, float g, float b) : red(r), green(g), blue(b) {}
+
+	float red;
+	float green;
+	float blue;
+};
+
+// The client random variable (rowed setRange 0x002341E7); its inline
+// default constructor zeroes all three words. No user-declared copy here, so
+// the settings copy keeps its inline 12-byte moves.
+class GameClientRandomVariable
+{
+public:
+	enum DistributionType { CONSTANT, UNIFORM };
+
+	GameClientRandomVariable() { m_type = CONSTANT; m_low = 0.0f; m_high = 0.0f; }
+	void setRange(float low, float high, DistributionType type = UNIFORM);
+
+private:
+	DistributionType m_type;
+	float m_low;
+	float m_high;
+};
+
 class Rva0030ADED
 {
 public:
+	Rva0030ADED();
+
 	AsciiString m_00;
 	AsciiString m_04;
-	S12 m_08;
-	S12 m_14;
-	unsigned char m_20;
-	S12 m_24;
-	S12 m_30;
-	int m_3C;
+	RGBColor m_08;
+	RGBColor m_14;
+	bool m_20;
+	GameClientRandomVariable m_24;
+	GameClientRandomVariable m_30;
+	float m_3C;
 };
+
+// 0x0030AEB6 (217B): the defaults, constructed into both settings globals by
+// retail's initializers at 0x007AE79E/0x007AE7B4.
+Rva0030ADED::Rva0030ADED() :
+	m_08(0.2f, 0.2f, 0.2f),
+	m_14(0.8f, 0.7f, 0.6f),
+	m_20(false),
+	m_3C(0.95f)
+{
+	m_24.setRange(30.0f, 90.0f);
+	m_30.setRange(5.0f, 20.0f);
+}
 
 class FireManager
 {
