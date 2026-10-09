@@ -38,7 +38,7 @@ struct Foo00549DCB;
 struct BfmeCopyRecord8
 {
 	Foo00549DCB *a;
-	float b;
+	union {float b;unsigned b_bits;};
 	BfmeCopyRecord8() {}
 	BfmeCopyRecord8(const BfmeCopyRecord8 &o) : a(o.a), b(o.b) {}
  // Native linear-insert copies read the float before the iterator setup.
@@ -119,3 +119,25 @@ template<> void _STL::__linear_insert<CopyRecord8Iterator,BfmeCopyRecord8,BfmeCo
 template void _STL::__linear_insert<CopyRecord8Iterator,BfmeCopyRecord8,BfmeCopyRecord8KeyAscending>(CopyRecord8Iterator,CopyRecord8Iterator,BfmeCopyRecord8,BfmeCopyRecord8KeyAscending);
 
 template void _STL::__linear_insert<CopyRecord8Iterator,BfmeCopyRecord8,BfmeCopyRecord8KeyDescending>(CopyRecord8Iterator,CopyRecord8Iterator,BfmeCopyRecord8,BfmeCopyRecord8KeyDescending);
+
+// Native heap assignment copies both words unchanged. The union word view
+// retains float semantics in other members and exposes this bitwise copy.
+// These actual STLport template definitions are full byte/relocation twins of
+// the neutral heap providers; they give existing template callers a definition.
+__forceinline BfmeCopyRecord8 *read_key_heap_cursor(const CopyRecord8Iterator &it){return *reinterpret_cast<BfmeCopyRecord8 *const volatile *>(&it._M_cur);}
+template<> void _STL::__push_heap<CopyRecord8Iterator,int,BfmeCopyRecord8,BfmeCopyRecord8KeyAscending>(CopyRecord8Iterator first,int hole,int top,BfmeCopyRecord8 value,BfmeCopyRecord8KeyAscending comp){
+ int parent=(hole-1)/2;
+ while(hole>top && comp(*(first+parent)._M_cur,value)){
+  *(first+hole)=*(first+parent);hole=parent;parent=(hole-1)/2;
+ }
+ BfmeCopyRecord8 *dest=read_key_heap_cursor(first+hole);
+ dest->a=static_cast<const volatile BfmeCopyRecord8 &>(value).a;dest->b_bits=value.b_bits;
+}
+template<> void _STL::__push_heap<CopyRecord8Iterator,int,BfmeCopyRecord8,BfmeCopyRecord8KeyDescending>(CopyRecord8Iterator first,int hole,int top,BfmeCopyRecord8 value,BfmeCopyRecord8KeyDescending comp){
+ int parent=(hole-1)/2;
+ while(hole>top && comp(*(first+parent)._M_cur,value)){
+  *(first+hole)=*(first+parent);hole=parent;parent=(hole-1)/2;
+ }
+ BfmeCopyRecord8 *dest=read_key_heap_cursor(first+hole);
+ dest->a=static_cast<const volatile BfmeCopyRecord8 &>(value).a;dest->b_bits=value.b_bits;
+}
