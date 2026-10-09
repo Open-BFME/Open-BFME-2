@@ -164,12 +164,15 @@ public:
 	unsigned rva005EE3B0(Object *source, bool allies);
 	unsigned rva005EE5D7(Object *source, bool allies, _STL::vector<Object *> *found);
 	bool rva005EE816(void *source, const Coord3D *pos);
+	bool rva005EE8DD(const Coord3D *pos,Object *source);
+	void rva005EE317(Coord3D *out);
 private:
 	char m_pad00[8];
 	Rva0035B2C3 *m_power;	// +0x08
 	char m_pad0C[0x14 - 0x0C];
 	float m_radius;		// +0x14
-	char m_pad18[0x1A - 0x18];
+	char m_unknown18;
+	bool m_allowSearch19;
 	bool m_1A;		// +0x1A
 	char m_pad1B[0x1C - 0x1B];
 	Coord3D m_target;	// +0x1C
@@ -266,3 +269,47 @@ bool Rva005EE816::rva005EE816(void *source, const Coord3D *pos)
 // The base filter's slot 2 is the trivial virtual retail shares across 68
 // vftable slots (0x0036CC7A); bind the declaration to that row.
 #pragma comment(linker, "/alternatename:?getPlayerMask@Rva000421C8@@UAEHXZ=?Get_File_Handle@FileClass@@UAEPAXXZ")
+
+// WB13B0750 and native5EE8DD..5EE9CE prove the stored target1C and
+// search flag19. WB13B0680 saves a member receiver for direction creation.
+// Scalar coordinate constructors preserve the native batch of three
+// multiplies followed by three adds; block-copy temporaries leave12 extra
+// stack bytes and lose the retail scheduling. All241 bytes verified.
+bool Rva005EE816::rva005EE8DD(const Coord3D *pos,Object *source)
+{
+    bool result=false;
+    if(rva005EE816(source,pos)) {
+        result=true;
+        m_target=*pos;
+    } else if(m_allowSearch19) {
+        Coord3D direction;
+        rva005EE317(&direction);
+        for(float distance=15.0f;distance<=150.0f&&!result;distance+=15.0f) {
+            Coord3D step(direction.x,direction.y,direction.z);
+            step.scale(distance);
+            Coord3D candidate(pos->x,pos->y,pos->z);
+            candidate.add(&step);
+            if(rva005EE816(source,&candidate)) {
+                result=true;
+                m_target=candidate;
+            }
+        }
+    }
+    return result;
+}
+
+// Actual thiscall member emitted as a byte-and-relocation twin of the
+// already rowed125-byte stdcall view. Keeping the definition after its
+// caller preserves the native ECX receiver setup. No additional byte gain.
+void Rva005EE816::rva005EE317(Coord3D *out)
+{
+	Coord3D tmp;
+	tmp.x = GetGameLogicRandomValueReal(-1.0f, 1.0f, (char *)"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\SkirmishAI\\AISpecialPowers\\AISPecialPowerTargetAoE.cpp", 150);
+	tmp.y = GetGameLogicRandomValueReal(-1.0f, 1.0f, (char *)"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\SkirmishAI\\AISpecialPowers\\AISPecialPowerTargetAoE.cpp", 151);
+	tmp.z = 0.0f;
+	tmp.normalize();
+	out->x = tmp.x;
+	out->y = tmp.y;
+	out->z = tmp.z;
+}
+
