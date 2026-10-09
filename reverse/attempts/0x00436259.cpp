@@ -1,331 +1,300 @@
 // ??0AptSaveLoad@@QAE@PAX@Z
-// partial score=0.9 date=2026-10-09
-// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmelist /Ireference/shims/bfmealloc /O1 /DNDEBUG /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// partial score=0.98 date=2026-10-09
+// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Source/Common /DNDEBUG /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /O1 /G6 /arch:SSE
 // stlport
-// Target evidence: vptr pair 0x00C3CDC8/0x00C3CDC4 at this/+0x218, AptSaveLoad
-// strings and neighboring callbacks, pending kind at +0x28, and the fields
-// read through +0x2AC. The opaque address-derived type keeps the owner name
-// unclaimed. The two-base/string prefix follows the independently matched
-// BFME2 _bfme_AptGameWindow destructor; BFME1 AptSaveLoad dtor is a semantic
-// and control-flow donor, with target-specific pending and replay branches.
+//
+// AptSaveLoad::AptSaveLoad, retail 0x00436259 (1192 bytes).
+//
+// Identity (target evidence): WorldBuilder names the body
+// AptSaveLoad::AptSaveLoad; it builds the Apt window base (0x0051268C),
+// installs the vftables 0x00C3CDC8/0x00C3CDC4, records whether the game was
+// paused, and for the first instance (0x00E032E0) binds the
+// "AptSaveLoad::..." commands to the rowed handlers, registers its extern
+// queries (names at 0x00DC8A20) with the Apt player, binds the InitGadgets
+// screen reference, pauses the game and shows the background when no movie
+// is playing. The binding idiom is the matched AptScoreScreen,
+// AptOnlineLogin and AptStrategicPlayerStatus constructors'.
+
+#include <vector>
 #include <list>
-#include "../reference/shims/bfme2_ascii/ascii_string.h"
-#include "../reference/shims/bfme2_ascii/unicode_string.h"
+#include "unicode_string.h"
+#include "ascii_string.h"
+#include "GameLogicObjectLookupView.h"
 
 class GameWindow
 {
-public:
-	GameWindow();
 protected:
 	virtual ~GameWindow();
 private:
-	unsigned char m_opaque[0x218 - 4];
+	unsigned char m_pad004[0x218 - 4];
+};
+
+class __multiple_inheritance FunctorTarget;
+typedef void (FunctorTarget::*FunctorMethod)(void);
+
+struct FunctorBinding
+{
+	FunctorBinding(FunctorMethod method, FunctorTarget *target) : m_target(target), m_method(method) {}
+	FunctorTarget *m_target;
+	unsigned int m_pad;
+	FunctorMethod m_method;
+};
+
+class FunctorWrapperHead
+{
+public:
+	void *m_vtbl;
+	int m_refCount; // +0x04
+};
+
+class Rva0057BC63FunctorHolder
+{
+public:
+	Rva0057BC63FunctorHolder(const FunctorBinding &binding);
+	Rva0057BC63FunctorHolder(const Rva0057BC63FunctorHolder &other) : m_ptr(other.m_ptr)
+	{
+		if (m_ptr)
+			++m_ptr->m_refCount;
+	}
+	FunctorWrapperHead *m_ptr;
+};
+
+__forceinline FunctorBinding MakeBinding(FunctorMethod method, FunctorTarget *target)
+{
+	FunctorBinding binding(method, target);
+	return binding;
+}
+
+struct TargetRef00217D4C;
+void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *ref);
+
+template <class T> class AptRef : public Rva0057BC63FunctorHolder
+{
+public:
+	AptRef(const FunctorBinding &binding) : Rva0057BC63FunctorHolder(binding) {}
+	~AptRef()
+	{
+		if (m_ptr)
+			ReleaseTreeHintRef00217D4C((TargetRef00217D4C *)m_ptr);
+	}
+};
+
+class AptCommandMap;
+class AptExternHandler;
+class AptOverButtonHandler;
+
+class AptCommandMapAdder
+{
+public:
+	void AddCommandMap(const AsciiString &name, AptRef<AptCommandMap> map);
+private:
+	_STL::vector<AsciiString> m_names;
+};
+
+class AptExternHandlerAdder
+{
+public:
+	void AddExternHandler(const AsciiString &name, int arg, AptRef<AptExternHandler> handler);
+private:
+	_STL::vector<AsciiString> m_names;
+};
+
+class AptOverButtonHandlerAdder
+{
+public:
+	void AddOverButtonHandler(const AsciiString &name, AptRef<AptOverButtonHandler> handler);
+private:
+	_STL::vector<AsciiString> m_names;
+};
+
+// The image binder at +0x40 of the Apt window half (0x00524306 family):
+// window name to image name.
+class Rva00524306
+{
+public:
+	void rva00524767(const AsciiString &name, const AsciiString &image);
+private:
+	_STL::vector<AsciiString> m_names;
 };
 
 class Rva005248D0
 {
 public:
 	virtual ~Rva005248D0();
+	AptCommandMapAdder m_commandMaps; // +0x04
+	AptExternHandlerAdder m_externHandlers; // +0x10
+	AptOverButtonHandlerAdder m_overButtonHandlers; // +0x1C
 private:
-	unsigned char m_opaque[0x58 - 4];
+	unsigned char m_pad028[0x40 - 0x28];
+public:
+	Rva00524306 m_imageAdder; // +0x40
+private:
+	unsigned char m_pad04C[0x58 - 0x4C];
 };
 
 class _bfme_AptGameWindow : public GameWindow, public Rva005248D0
 {
 public:
-	_bfme_AptGameWindow(void *);
+	_bfme_AptGameWindow(void *context);
 	virtual ~_bfme_AptGameWindow();
 private:
-	AsciiString m_filename270;
+	AsciiString m_filename; // +0x270
+	int m_274;
+	char m_278;
 };
 
-struct BfmeSubobject0022CE19
-{
-	virtual ~BfmeSubobject0022CE19();
-	unsigned char m_pad004[0x20];
-	int m_kind;
-	unsigned char m_opaque028[0xDE4 - 0x24];
-	BfmeSubobject0022CE19(const BfmeSubobject0022CE19 &);
-};
 
-struct TreeHintOpaque0043671B
-{
-	UnicodeString m_text;
-	BfmeSubobject0022CE19 m_subobject;
-	unsigned int m_wordDEC;
-	unsigned int m_wordDF0;
-	TreeHintOpaque0043671B(const TreeHintOpaque0043671B &);
-	~TreeHintOpaque0043671B();
-};
+extern GameLogic *TheGameLogic;
 
-class Rva002244CA
+class AptScreenInitGadgets;
+void _bfme_setAptScreenRef(const AsciiString &name, AptRef<AptScreenInitGadgets> ref);
+
+class AptPlayer
 {
 public:
-	int rva002244CA(const AsciiString *name);
+	void AddExternHandler(const AsciiString &name, int arg, AptRef<AptExternHandler> handler);
 };
+
+extern AptPlayer *TheAptPlayer;
 
 class Rva00222A8BTarget
 {
 public:
-	void rva00222F55(bool showBackground);
-	void rva002233A6(int);
-	virtual void slot00();
-	virtual void slot04();
-	virtual void slot08();
-	virtual void slot0C();
-	virtual void slot10();
-	virtual void slot14();
-	virtual void slot18();
-	virtual void slot1C();
-	virtual void slot20();
-	virtual void slot24();
-	virtual void slot28();
+	void rva002233A6(int show);
+	unsigned char m_pad000[0x31C];
+	int m_31C; // +0x31C, nonzero while a movie plays
 };
 
-class GameLogic
+extern Rva00222A8BTarget *TheRva00222A8BTarget;
+
+extern int g_Va00E032E0; // the first save/load screen
+
+// The extern query enumeration's cursor (0x00435CFE starts it,
+// 0x00435B4F compares, 0x0043611F advances, 0x0043549A maps to an index).
+class Rva00435CFE
 {
 public:
-	unsigned char isGamePaused();
-	void rva0023CD9E(bool paused, int mode, bool affectInput);
-	void rva00376E92(bool showScore, bool unknown);
+	void rva00435CFE(unsigned short start);
+	int m_0;
+	int m_4;
 };
 
-class GameState
+class Gen_0056E190
 {
 public:
-	int rva002DE3C1(TreeHintOpaque0043671B info);
+	explicit Gen_0056E190(int hash) { m_4 = hash; }
+	~Gen_0056E190() {}
+	bool bfmeDiffers(const Gen_0056E190 &other) const;
+	int m_0;
+	int m_4;
 };
 
-class RecorderClass
+class Rva00435B82
 {
 public:
-	bool playbackFile(UnicodeString name);
+	Rva00435B82 *rva0043611F(Rva00435B82 *previous);
+	int m_0;
+	int m_4;
 };
 
-class Shell
+int Rva0043549AHook(int a, int b);
+
+// The extern queries' names (0x00DC8A20).
+static const char *s_externNames[] = { "SaveLoadMode", "GameTypes", "CurrentGameType" };
+
+struct TreeHintOpaque0043671B
+{
+	void *m_0;
+	void *m_4;
+};
+
+class GameWindow;
+
+class AptSaveLoad : public _bfme_AptGameWindow
 {
 public:
-	void hide(bool doHide);
-	bool rva0035BD5D();
-	void rva0035C7CF(bool runInit);
-};
-
-class GameEngineView
-{
-public:
-	virtual void slot00();
-	virtual void slot04();
-	virtual void slot08();
-	virtual void slot0C();
-	virtual void slot10();
-	virtual void slot14();
-	virtual void slot18();
-	virtual void slot1C();
-	virtual void slot20();
-	virtual void slot24();
-};
-
-class GameWindowManagerView
-{
-public:
-	virtual void slot00();
-	virtual void slot04();
-	virtual void slot08();
-	virtual void slot0C();
-	virtual void slot10();
-	virtual void slot14();
-	virtual void slot18();
-	virtual void slot1C();
-	virtual void slot20();
-	virtual void slot24();
-	virtual void slot28();
-};
-
-class AudioManagerView
-{
-public:
-	virtual void slot00(); virtual void slot04(); virtual void slot08(); virtual void slot0C();
-	virtual void slot10(); virtual void slot14(); virtual void slot18(); virtual void slot1C();
-	virtual void slot20(); virtual void slot24(); virtual void slot28(); virtual void slot2C();
-	virtual void slot30(); virtual void slot34(); virtual void slot38(); virtual void slot3C();
-	virtual void slot40(); virtual void slot44(); virtual void slot48(); virtual void slot4C();
-	virtual void slot50(); virtual void slot54(); virtual void slot58(); virtual void slot5C();
-	virtual void slot60(); virtual void slot64(); virtual void slot68(); virtual void slot6C();
-	virtual void slot70(); virtual void slot74(); virtual void slot78(); virtual void slot7C();
-	virtual void slot80(); virtual void slot84(); virtual void slot88();
-	virtual void slot8C(int a, int b, int c);
-};
-
-class RvaLogicHolder
-{
-public:
-	void rva002B2E77(int value);
-};
-
-void Rva0051AF0BEnable(int value);
-void Rva005210ECEnable(bool value);
-void _bfme_closeAptScreen(const AsciiString &name);
-
-
-// Complete native436259..4366FF and named WB12AB350/2908 establish this
-// save/load screen constructor. Existing base, list and callback binder
-// providers guide the C++ representation; no new address pin is asserted.
-class __multiple_inheritance FunctorTarget;
-typedef void (FunctorTarget::*FunctorMethod)(void);
-struct FunctorBinding {
-    FunctorBinding(FunctorMethod method, FunctorTarget *target) : m_target(target), m_method(method) {}
-    FunctorTarget *m_target; unsigned int m_pad; FunctorMethod m_method;
-};
-__forceinline FunctorBinding MakeBinding(FunctorMethod method, FunctorTarget *target) {
-    FunctorBinding binding(method,target); return binding;
-}
-struct FunctorWrapperHead { void *m_vtbl; int m_refCount; };
-class Rva0057BC63FunctorHolder {
-public:
-    Rva0057BC63FunctorHolder(const FunctorBinding &);
-    Rva0057BC63FunctorHolder(const Rva0057BC63FunctorHolder &other) : m_ptr(other.m_ptr) {
-        if(m_ptr) ++m_ptr->m_refCount;
-    }
-    FunctorWrapperHead *m_ptr;
-};
-struct TargetRef00217D4C;
-void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
-template<class T> class AptRef : public Rva0057BC63FunctorHolder {
-public:
-    AptRef(FunctorBinding binding) : Rva0057BC63FunctorHolder(binding) {}
-    ~AptRef();
-};
-class AptCommandMap; class AptExternHandler; class AptScreenInitGadgets;
-class AptCommandMapAdder { public: void AddCommandMap(const AsciiString &, AptRef<AptCommandMap>); };
-class AptPlayer {
-public:
-    void AddExternHandler(const AsciiString &, int, AptRef<AptExternHandler>);
-    void rva002233A6(bool);
-    unsigned char unknown00[0x31c];
-    int background31c;
-};
-extern AptPlayer *TheAptPlayer;
-extern GameLogic *TheGameLogic;
-extern int g_Va00E032E0;
-extern const char *const saveLoadExternNames[3];
-void _bfme_setAptScreenRef(const AsciiString &, AptRef<AptScreenInitGadgets>);
-class Gen_0056E190 {
-public: bool bfmeDiffers(const Gen_0056E190 &) const;
-    Gen_0056E190() {}
-    Gen_0056E190(unsigned int initial) : value04(initial) {}
-    unsigned int unknown00, value04;
-};
-class Rva00435CFE { public: void rva00435CFE(unsigned short); };
-class Rva00435B82 { public: Rva00435B82 *rva0043611F(Rva00435B82 *); };
-int Rva0043549AHook(int,int);
-
-class __multiple_inheritance AptSaveLoad : public _bfme_AptGameWindow {
-public:
-    AptSaveLoad(void *);
-    virtual ~AptSaveLoad();
-    void rva00433DF1(const char *);
-    void OnClosed(const char *);
-    void Load(const char *);
-    void rva0043566A(const char *);
-    void Delete(const char *);
-    void Cancel(const char *);
-    void ConfirmationOk(const char *);
-    void Externs(int,char *,bool);
-    void InitGadgets(const char *,void *,GameWindow *);
+	AptSaveLoad(void *context);
+	virtual ~AptSaveLoad();
+	void rva00433DF1(const char *unused); // "OnInitialized" and "ConfirmationCancel"
+	void OnClosed(const char *unused);
+	void Load(const char *unused);
+	void Save(const char *unused);
+	void Delete(const char *unused);
+	void Cancel(const char *unused);
+	void ConfirmationOk(const char *unused);
+	void Externs(int query, char *value, bool set);
+	void InitGadgets(const char *name, void *argument, GameWindow *window);
 private:
-    unsigned char pad274[8];
-    int state27c;
-    TreeHintOpaque0043671B *pending280;
-    unsigned char paused284;
-    unsigned char pad285[3];
-    void *gameList288, *autoSaveList28c, *fileName290;
-    int word294,word298;
-    bool flag29c,flag29d;
-    int mode2a0;
-    bool background2a4;
-    unsigned char pad2a5[3];
-    int word2a8;
-    _STL::list<TreeHintOpaque0043671B> entries2ac;
+	int m_27C;
+	int m_280;
+	unsigned char m_wasPaused; // +0x284
+	int m_288;
+	int m_28C;
+	int m_290;
+	int m_294;
+	int m_298;
+	bool m_29C;
+	bool m_29D;
+	int m_2A0;
+	bool m_2A4;
+	int m_2A8;
+	_STL::list<TreeHintOpaque0043671B> m_2AC;
 };
 
+#pragma pointers_to_members(full_generality, multiple_inheritance)
 AptSaveLoad::AptSaveLoad(void *context)
- : _bfme_AptGameWindow(context),state27c(0),pending280(0),paused284(TheGameLogic->isGamePaused()),
-   gameList288(0),autoSaveList28c(0),fileName290(0),word294(0),word298(0),flag29c(false),flag29d(true),
-   mode2a0(0),background2a4(false),word2a8(0)
+	: _bfme_AptGameWindow(context),
+	  m_27C(0),
+	  m_280(0),
+	  m_wasPaused(TheGameLogic->isGamePaused()),
+	  m_288(0),
+	  m_28C(0),
+	  m_290(0),
+	  m_294(0),
+	  m_298(0),
+	  m_29C(false),
+	  m_29D(true),
+	  m_2A0(0),
+	  m_2A4(false),
+	  m_2A8(0)
 {
-    if(!g_Va00E032E0) {
-        g_Va00E032E0=(int)this;
-        {
-            FunctorMethod method=reinterpret_cast<FunctorMethod>(&AptSaveLoad::rva00433DF1);
-            AsciiString name("AptSaveLoad::OnInitialized");
-            reinterpret_cast<AptCommandMapAdder *>(reinterpret_cast<char *>(this)+0x21c)->AddCommandMap(
-                name,AptRef<AptCommandMap>(FunctorBinding(method,reinterpret_cast<FunctorTarget *>(this))));
-        }
-        {
-            FunctorMethod method=reinterpret_cast<FunctorMethod>(&AptSaveLoad::OnClosed);
-            AsciiString name("AptSaveLoad::OnClosed");
-            reinterpret_cast<AptCommandMapAdder *>(reinterpret_cast<char *>(this)+0x21c)->AddCommandMap(
-                name,AptRef<AptCommandMap>(FunctorBinding(method,reinterpret_cast<FunctorTarget *>(this))));
-        }
-        {
-            FunctorMethod method=reinterpret_cast<FunctorMethod>(&AptSaveLoad::Load);
-            AsciiString name("AptSaveLoad::Load");
-            reinterpret_cast<AptCommandMapAdder *>(reinterpret_cast<char *>(this)+0x21c)->AddCommandMap(
-                name,AptRef<AptCommandMap>(FunctorBinding(method,reinterpret_cast<FunctorTarget *>(this))));
-        }
-        {
-            FunctorMethod method=reinterpret_cast<FunctorMethod>(&AptSaveLoad::rva0043566A);
-            AsciiString name("AptSaveLoad::Save");
-            reinterpret_cast<AptCommandMapAdder *>(reinterpret_cast<char *>(this)+0x21c)->AddCommandMap(
-                name,AptRef<AptCommandMap>(FunctorBinding(method,reinterpret_cast<FunctorTarget *>(this))));
-        }
-        {
-            FunctorMethod method=reinterpret_cast<FunctorMethod>(&AptSaveLoad::Delete);
-            AsciiString name("AptSaveLoad::Delete");
-            reinterpret_cast<AptCommandMapAdder *>(reinterpret_cast<char *>(this)+0x21c)->AddCommandMap(
-                name,AptRef<AptCommandMap>(FunctorBinding(method,reinterpret_cast<FunctorTarget *>(this))));
-        }
-        {
-            FunctorMethod method=reinterpret_cast<FunctorMethod>(&AptSaveLoad::Cancel);
-            AsciiString name("AptSaveLoad::Cancel");
-            reinterpret_cast<AptCommandMapAdder *>(reinterpret_cast<char *>(this)+0x21c)->AddCommandMap(
-                name,AptRef<AptCommandMap>(FunctorBinding(method,reinterpret_cast<FunctorTarget *>(this))));
-        }
-        {
-            FunctorMethod method=reinterpret_cast<FunctorMethod>(&AptSaveLoad::ConfirmationOk);
-            AsciiString name("AptSaveLoad::ConfirmationOk");
-            reinterpret_cast<AptCommandMapAdder *>(reinterpret_cast<char *>(this)+0x21c)->AddCommandMap(
-                name,AptRef<AptCommandMap>(FunctorBinding(method,reinterpret_cast<FunctorTarget *>(this))));
-        }
-        {
-            FunctorMethod method=reinterpret_cast<FunctorMethod>(&AptSaveLoad::rva00433DF1);
-            AsciiString name("AptSaveLoad::ConfirmationCancel");
-            reinterpret_cast<AptCommandMapAdder *>(reinterpret_cast<char *>(this)+0x21c)->AddCommandMap(
-                name,AptRef<AptCommandMap>(FunctorBinding(method,reinterpret_cast<FunctorTarget *>(this))));
-        }
-        Gen_0056E190 index;
-        reinterpret_cast<Rva00435CFE *>(&index)->rva00435CFE(0);
-        Gen_0056E190 end(0x3a76d6c6);
-        for(;;) {
-            if(!index.bfmeDiffers(end)) break;
-            {
-            FunctorMethod method=reinterpret_cast<FunctorMethod>(&AptSaveLoad::Externs);
-            AsciiString name(saveLoadExternNames[(short)Rva0043549AHook(index.value04,index.value04)]);
-            TheAptPlayer->AddExternHandler(name,(short)Rva0043549AHook(index.value04,index.value04),
-                AptRef<AptExternHandler>(FunctorBinding(method,reinterpret_cast<FunctorTarget *>(this))));
-            }
-            Gen_0056E190 old;
-            reinterpret_cast<Rva00435B82 *>(&index)->rva0043611F(reinterpret_cast<Rva00435B82 *>(&old));
-        }
-        {
-            FunctorMethod method=reinterpret_cast<FunctorMethod>(&AptSaveLoad::InitGadgets);
-            AsciiString name("AptSaveLoad::InitGadgets");
-            _bfme_setAptScreenRef(name,AptRef<AptScreenInitGadgets>(FunctorBinding(method,reinterpret_cast<FunctorTarget *>(this))));
-        }
-        TheGameLogic->rva0023CD9E(true,2,true);
-        background2a4=TheAptPlayer->background31c==0;
-        if(background2a4) reinterpret_cast<Rva00222A8BTarget *>(TheAptPlayer)->rva002233A6(1);
-    }
+	if (g_Va00E032E0 != 0)
+		return;
+	g_Va00E032E0 = (int)this;
+#define BIND_COMMAND(handler, label) \
+	{ \
+		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptSaveLoad::handler); \
+		AsciiString name(label); \
+		m_commandMaps.AddCommandMap(name, AptRef<AptCommandMap>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this)))); \
+	}
+	BIND_COMMAND(rva00433DF1, "AptSaveLoad::OnInitialized")
+	BIND_COMMAND(OnClosed, "AptSaveLoad::OnClosed")
+	BIND_COMMAND(Load, "AptSaveLoad::Load")
+	BIND_COMMAND(Save, "AptSaveLoad::Save")
+	BIND_COMMAND(Delete, "AptSaveLoad::Delete")
+	BIND_COMMAND(Cancel, "AptSaveLoad::Cancel")
+	BIND_COMMAND(ConfirmationOk, "AptSaveLoad::ConfirmationOk")
+	BIND_COMMAND(rva00433DF1, "AptSaveLoad::ConfirmationCancel")
+#undef BIND_COMMAND
+	{
+		Rva00435CFE query;
+		query.rva00435CFE(0);
+		Rva00435B82 previous;
+		for (; ((const Gen_0056E190 *)&query)->bfmeDiffers(Gen_0056E190(0x3a76d6c6)); ((Rva00435B82 *)&query)->rva0043611F(&previous))
+		{
+			FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptSaveLoad::Externs);
+			AsciiString name(s_externNames[(short)Rva0043549AHook(query.m_4, query.m_4)]);
+			TheAptPlayer->AddExternHandler(name, (short)Rva0043549AHook(query.m_4, query.m_4),
+				AptRef<AptExternHandler>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+		}
+	}
+	{
+		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptSaveLoad::InitGadgets);
+		AsciiString name("AptSaveLoad::InitGadgets");
+		_bfme_setAptScreenRef(name, AptRef<AptScreenInitGadgets>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
+	}
+	TheGameLogic->rva0023CD9E(true, 2, true);
+	m_2A4 = TheRva00222A8BTarget->m_31C == 0;
+	if (m_2A4)
+		TheRva00222A8BTarget->rva002233A6(1);
 }
-
-template<class T> AptRef<T>::~AptRef() { if(m_ptr) ReleaseTreeHintRef00217D4C((TargetRef00217D4C *)m_ptr); }
