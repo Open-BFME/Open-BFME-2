@@ -12,12 +12,20 @@ struct TransportAddress
     unsigned int ip;
     unsigned short port;
 };
+struct NetPacketAddress
+{
+    unsigned int ip;
+    unsigned short port;
+    unsigned short padding;
+};
 class GameSlot
 {
 public:
     bool isHuman() const;
     unsigned char m_prefix[0x30];
     UnicodeString m_name;
+    unsigned char m_pad34[4];
+    NetPacketAddress m_address;
 };
 class GameInfo
 {
@@ -31,7 +39,7 @@ public:
     unsigned char m_prefix[0xA54];
     unsigned int m_forcedPort;
 };
-extern GlobalData *TheGlobalData;
+extern GlobalData *TheWritableGlobalData;
 class PortNegotiationSchema
 {
 public:
@@ -59,7 +67,9 @@ private:
     unsigned char m_pad29[0x8E4 - 0x29];
     bool m_myConnections[8];
     unsigned int m_8ec;
-    unsigned char m_pad8f0[0x958 - 0x8F0];
+    unsigned char m_pad8f0[0x90C - 0x8F0];
+    NetPacketAddress *m_addresses[8];
+    unsigned char m_pad92c[0x958 - 0x92C];
     unsigned short m_startingPortNumber;
     unsigned char m_pad95a[0x968 - 0x95A];
     unsigned int m_timeoutTime;
@@ -80,13 +90,13 @@ void NAT::attachSlotList(GameInfo *gameInfo, int localSlot, unsigned int localIP
     else
         m_hostSlot = 8;
     m_transport = new Transport;
-    if (TheGlobalData->m_forcedPort > 0)
-        m_startingPortNumber = (unsigned short)TheGlobalData->m_forcedPort;
+    if (TheWritableGlobalData->m_forcedPort > 0)
+        m_startingPortNumber = (unsigned short)TheWritableGlobalData->m_forcedPort;
     else
         m_startingPortNumber = (unsigned short)(8088 + ((timeGetTime() / 1000) % 20000));
     generatePortNumbers(m_slotList, localSlot);
-    if (TheGlobalData->m_forcedPort != 0) {
-        unsigned short port = (unsigned short)TheGlobalData->m_forcedPort;
+    if (TheWritableGlobalData->m_forcedPort != 0) {
+        unsigned short port = (unsigned short)TheWritableGlobalData->m_forcedPort;
         unsigned int ip = m_localIP;
         TransportAddress address = {ip, port};
         m_transport->init(&address);
@@ -104,4 +114,31 @@ void NAT::attachSlotList(GameInfo *gameInfo, int localSlot, unsigned int localIP
     }
     m_myConnections[localSlot] = true;
     m_timeoutTime = timeGetTime() + timeout;
+}
+
+// BFME 1 NAT_generatePortNumbers.cpp at 9cbfb551 supplies port assignment;
+// complete WB 0x014DB9D0 and native 0x005A678E add the two-word address cache.
+void NAT::generatePortNumbers(GameSlot **slotList, int localSlot)
+{
+    for (int i = 0; i < 8; ++i) {
+        if (slotList[i]) {
+            if (i == localSlot && TheWritableGlobalData->m_forcedPort != 0) {
+                NetPacketAddress address = slotList[i]->m_address;
+                address.port = (unsigned short)TheWritableGlobalData->m_forcedPort;
+                slotList[i]->m_address = address;
+                if (!m_addresses[i])
+                    m_addresses[i] = new NetPacketAddress(address);
+                else
+                    *m_addresses[i] = address;
+            } else {
+                NetPacketAddress address = slotList[i]->m_address;
+                address.port = (unsigned short)(m_startingPortNumber + i);
+                slotList[i]->m_address = address;
+                if (!m_addresses[i])
+                    m_addresses[i] = new NetPacketAddress(address);
+                else
+                    *m_addresses[i] = address;
+            }
+        }
+    }
 }
