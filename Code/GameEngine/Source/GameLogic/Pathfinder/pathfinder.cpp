@@ -54,10 +54,12 @@ struct PathfinderTemplateView {
     __forceinline const char *name() const { return nameBuffer ? nameBuffer+8 : ""; }
 };
 enum Relationship { ENEMIES=0, NEUTRAL=1, ALLIES=2 };
+enum ObjectStatusTypes { QuickStatus49=49 };
 class Object
 {
 public:
 	Player *getControllingPlayer() const;
+ Bool testStatus(ObjectStatusTypes) const;
 	Relationship getRelationship(const Object *) const;
     int rva0028B511() const;
     bool rva002E6B89();
@@ -164,7 +166,8 @@ public:
   else m_pathInfo->parentWaypoint=0;
  }
 	void rva0052DAE9(Bool open);
-	Int getXIndex() const { return m_pathInfo->position.x; }
+	unsigned short quickZone()const {return (unsigned short)word8;}
+ Int getXIndex() const { return m_pathInfo->position.x; }
 	Int getYIndex() const { return m_pathInfo->position.y; }
 	// 0x0052DD75 (unrowed): an angle for the cell from a facing, a count and
 	// a weight (unnamed).
@@ -535,6 +538,9 @@ struct PathfinderOpenQueue {PathfindCell **first,**last;Bool empty()const{return
 class Pathfinder
 {
 public:
+ Bool QuickDoesPathExist(Object *,const Coord3D *,const Coord3D *,Int);
+ Bool IsValidMovementPositionForObject(const Coord3D *,Int,Int,const Object *);
+ Bool rva002F4115(Object *,Int,Int,LocomotorSet *);
  PathfindCell *rva002F068F();
     Path *GetAircraftPath(const Object *,const Coord3D *);
     int _GetOverlapUnits(Object *,const Coord3D *,int *);
@@ -2272,3 +2278,60 @@ int Pathfinder::_GetAdjacentUnits(Object *object,const Coord3D *position,int *ou
  return count;
 }
 
+
+// Native2F477E..2F4ABF RET16 full835. ZH clientSafeQuickDoesPathExist
+// supplies terrain-zone reachability; BFME2-specific object status, template
+// priority, surface override, complete diagnostics and waypoint-zone fallback
+// are reconstructed independently from this target. Caller ABI/pin retained.
+struct Rva002CECAETarget;
+void Rva002CECAEAppend(Rva002CECAETarget *,const char *,...);
+class Rva0028B984ByteField {public:unsigned char get()const;};
+class Rva002E99F9Sub460 {public:unsigned short rva0053241F(void *,unsigned short);unsigned short rva00531FD4(void *,unsigned short);};
+Bool Pathfinder::QuickDoesPathExist(Object *obj,const Coord3D *from,const Coord3D *to,Int overrideSet)
+{
+ if(g_00E03745 && g_00DFEFF0) Rva002CECAEAppend((Rva002CECAETarget *)g_00DFEFF0,
+  "\t\t  Pathfinder::QuickDoesPathExist() called with: obj=%s(%d), from=%g,%g,%g, to=%g,%g,%g",
+  ((const AsciiString *)((const char *)obj->m_template+0x64))->str(),obj->getID(),from->x,from->y,from->z,to->x,to->y,to->z);
+ if(obj->testStatus(QuickStatus49)) {
+  if(g_00E03745 && g_00DFEFF0)Rva002CECAEAppend((Rva002CECAETarget *)g_00DFEFF0,"\t\t  Pathfinder::QuickDoesPathExist() Failure 1");return false;
+ }
+ if(((Rva0028B984ByteField *)obj)->get()==1) {
+  if(g_00E03745 && g_00DFEFF0)Rva002CECAEAppend((Rva002CECAETarget *)g_00DFEFF0,"\t\t  Pathfinder::QuickDoesPathExist() Success 1");return true;
+ }
+ LocomotorSet *set;
+ char *ai=obj->m_258;
+if(!overrideSet && !ai) {if(g_00E03745 && g_00DFEFF0)Rva002CECAEAppend((Rva002CECAETarget *)g_00DFEFF0,"\t\t  Pathfinder::QuickDoesPathExist() Failure 2");return false;} if(overrideSet)set=(LocomotorSet *)overrideSet;else set=(LocomotorSet *)(ai+0x1CC);
+ if(!(set->getValidSurfaces()&0x8F)) {
+  if(g_00E03745 && g_00DFEFF0)Rva002CECAEAppend((Rva002CECAETarget *)g_00DFEFF0,"\t\t  Pathfinder::QuickDoesPathExist() Failure 3");return false;
+ }
+ PathfindLayerEnum destinationLayer=TheTerrainLogic->getLayerForDestination(obj,to);
+ PathfindLayerEnum fromLayer=TheTerrainLogic->getLayerForDestination(obj,from);
+ PathfindCell *parent=rva002E8BF8(fromLayer,from);
+ PathfindCell *goal=rva002E8BF8(destinationLayer,to);
+ if(goal->getType()==2) {
+  if(g_00E03745 && g_00DFEFF0)Rva002CECAEAppend((Rva002CECAETarget *)g_00DFEFF0,"\t\t  Pathfinder::QuickDoesPathExist() Failure 4");return false;
+ }
+ Bool terrain=false;Int priority=obj->m_template->priority;Bool flag=obj->m_template->flag;
+ Rva002E8BCF info((const Rva002E8BCFSrc *)set,!flag,priority-1,obj->rva0028AFBB());
+ Rva002E99F9Sub460 *zones=(Rva002E99F9Sub460 *)&m_zoneManager;
+ Int zone1=zones->rva0053241F(&info,parent->quickZone());
+ if(parent->getType()==4)terrain=true;
+ Int zone2=zones->rva0053241F(&info,goal->quickZone());
+ if(goal->getType()==4)terrain=true;
+ if(terrain) {
+  zone1=zones->rva00531FD4(&info,parent->quickZone());
+  zone1=zones->rva0053241F(&info,(unsigned short)zone1);
+  zone1=zones->rva00531FD4(&info,(unsigned short)zone1);
+  zone2=zones->rva00531FD4(&info,goal->quickZone());
+  zone2=zones->rva0053241F(&info,(unsigned short)zone2);
+  zone2=zones->rva00531FD4(&info,(unsigned short)zone2);
+ }
+ if(!IsValidMovementPositionForObject(to,destinationLayer,set->getValidSurfaces(),obj)) {
+  if(g_00E03745 && g_00DFEFF0)Rva002CECAEAppend((Rva002CECAETarget *)g_00DFEFF0,"\t\t  Pathfinder::QuickDoesPathExist() Failure 5");return false;
+ }
+ if(zone1==zone2) {
+  if(g_00E03745 && g_00DFEFF0)Rva002CECAEAppend((Rva002CECAETarget *)g_00DFEFF0,"\t\t  Pathfinder::QuickDoesPathExist() Success 2");return true;
+ }
+ if(g_00E03745 && g_00DFEFF0)Rva002CECAEAppend((Rva002CECAETarget *)g_00DFEFF0,"\t\t  Pathfinder::QuickDoesPathExist() Default Exit");
+ return rva002F4115(obj,zone1,zone2,(LocomotorSet *)overrideSet);
+}
