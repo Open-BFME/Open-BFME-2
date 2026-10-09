@@ -17075,3 +17075,4 @@ _D3DXCreateTextureFromFileInMemoryEx@60,0x0062AF7A,Named d3dx9_27.dll PE import 
 ?rva003FD849@Rva003FD849@@QAEXXZ,0x003FD849,callee of ?rva00211505@Rva00211505@@QAEXXZ
 ?Rva004236F5@@YAXAAUMiniList00421E1C@@VRva00421A16@@@Z,0x004236F5,callee of ?rva00423D2F@Rva00423D2FOwner@@QAEXVRva00421A16@@@Z
 ?rva003F855D@Rva0056AC26Owner@@QAE?AVUnicodeString@@XZ,0x003F855D,callee of ??0Rva0056AC26@@QAE@PAVRva0056AC26Owner@@@Z
+?rva005BBDAC@Rva005BB5F6@@QAEXAAUBfmeOpaqueOwnedRecord492@@@Z,0x005BBDAC,Native5BBF4D calls this request-map builder at5BBDAC; complete boundary5BBDAC..5BBF15 RET4. WB callgraph and banked361B C++ confirm vector<bool> at request+104; selected ladder/player maps; native mask25 partition and MapMetaData sort; address-derived owner/method; original identity unproven.
