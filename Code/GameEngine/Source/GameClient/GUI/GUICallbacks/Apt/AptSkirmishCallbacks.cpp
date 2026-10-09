@@ -132,6 +132,7 @@ public:
 	virtual bool MPOwnerValidatGameInfo(GameInfo *gameInfo);
 
 	bool InitTheGame();
+	void MpOwnerGetLocalPlayerName(UnicodeString *);
 	void OnInitialized(const char *unused);
 	// Bound under both "AptSkirmish::Back" and "AptSkirmish::Exit" (one
 	// body or two folded), so it keeps its address.
@@ -725,4 +726,12 @@ int AptSkirmish::OnUpdateData() {
  }
  reinterpret_cast<AptMpGameSetup*>((char*)this+0x288)->OnUpdate();
  return 1;
+}
+
+// WB1466C00 names this output callback. Retail521720..521741 RET4 and the
+// separately rowed OnInitialized at521741 establish its33B boundary. The
+// first game slot has a UnicodeString at+30; assignment calls rowed37150.
+void AptSkirmish::MpOwnerGetLocalPlayerName(UnicodeString *out) {
+ if(TheSkirmishGameInfo)
+  reinterpret_cast<StringBase<unsigned short>*>(out)->set(*reinterpret_cast<StringBase<unsigned short>*>((char*)TheSkirmishGameInfo->getSlot(0)+0x30));
 }
