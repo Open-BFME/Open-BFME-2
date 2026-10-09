@@ -9358,7 +9358,6 @@ name,address,notes
 ?findPrototype@Rva0039FE6COwner@@QAEPAVTeamPrototype@@ABVAsciiString@@0@Z,0x0039FE6C,address read from the retail REL32 at 0x00358643 in getTeamNamed 0x003584E9
 ?findRoad@TerrainRoadCollection@@QAEPAVTerrainRoadType@@VAsciiString@@@Z,0x002DB496,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?findScienceInfo@ScienceStore@@ABEPBVScienceInfo@@W4ScienceType@@@Z,0x001FF3AD,ZH ScienceStore::findScienceInfo (private const): linear scan with null-guarded getFinalOverride hop (pin 0x1E35DF) + m_science@+0x10 compare; 0.98 bank serves isValidScience landing; name follows ZH Science.h
-?findServerByID@PeerThreadClass@@QAEPAU_SBServer@@H@Z,0x003896BD,Thread_Function 0x0038EDD7 join-staging and extended-info arms call it on this with the request id and use the result as the SBServer
 ?findSingleBone@@YA_NPAVRenderObjClass@@ABVAsciiString@@AAVMatrix3D@@AAH@Z,0x000B6B4F,static W3DModelDraw helper; doSingleBoneName (0x000BD2BF) calls it at +0x4F and +0xB8; body unrowed
 ?findSingleSubObj@@YA_NPAVRenderObjClass@@ABVAsciiString@@AAVMatrix3D@@AAH@Z,0x000B6BF0,static W3DModelDraw helper; doSingleBoneName (0x000BD2BF) calls it at +0x10E and +0x175; body unrowed
 ?findSlot@ObjectLookupMap@@QAEPAPAVObject@@PAH@Z,0x0041F4E5,GameLogic lookup map slot finder; sole caller addObjectToLookupTable 0x242AC2
