@@ -1,6 +1,9 @@
-// ??RRva005E4300Cmp@@QBE_NHH@Z
-// partial score=0.9 date=2026-10-10
 // cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /MD /DNDEBUG /EHs-c-
+// Native005E4300..005E4389 low-byte comparator of selected hero keys;
+// groupB8 signed order with zero priority then the native118B fallback.
+// Its three private bodies are reconstructed from target; original template
+// and record class names remain unknown. Public char describes the observed
+// AL zero/one ABI without claiming the original C++ return spelling.
 #include "ascii_string.h"
 class ThingFactory;
 extern ThingFactory *TheThingFactory;
@@ -40,26 +43,19 @@ static __declspec(noinline) bool Rva005E3FE6(const Rva005E4300Entry *a,const Rva
 }
 class Rva005E4300Cmp {
 public:
- bool operator()(int,int) const;
+ char operator()(int,int) const;
 private: Rva005E4300Context *m_context;
 };
-bool Rva005E4300Cmp::operator()(int keyA,int keyB) const
+char Rva005E4300Cmp::operator()(int keyA,int keyB) const
 {
  const Rva005E4300Entry *a=(const Rva005E4300Entry *)m_context->index->get(keyA);
  if(a->name.compare(m_context->selectedName)==0)return true;
  int rawB=m_context->index->get(keyB);
  const AsciiString *selected=&m_context->selectedName;
  const Rva005E4300Entry *b=(const Rva005E4300Entry *)rawB;
- int groupA, groupB;
  if(b->name.compare(*selected)==0)goto no;
-  groupA=a->group; groupB=b->group;
-  if(groupA==groupB)goto equal;
-  if(groupA==0)return true;
-  if(groupB!=0)goto rank;
- no:
-  return false;
- rank:
-  return groupA<groupB;
- equal:
- return StrategicInGameUI::Rva005E3FE6(a,b,keyA,keyB);
+ {int ga=a->group,gb=b->group;
+ if(ga!=gb) {if(ga==0)return true; if(gb==0)goto no; return ga<gb;}
+ return StrategicInGameUI::Rva005E3FE6(a,b,keyA,keyB);}
+ no:return false;
 }
