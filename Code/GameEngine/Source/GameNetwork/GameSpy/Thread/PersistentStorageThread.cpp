@@ -1887,6 +1887,8 @@ class Rva00559D0CRankWeights
 {
 public:
 	Int rva00559D0C(const Rva00553E47StatsCore *stats) const;
+	Int rva00559DA0(const Rva00553E47StatsCore *stats, unsigned char key) const;
+	Int rva00559E48(const Rva00553E47StatsCore *stats) const;
 private:
 	unsigned char m_00[0x2C];
 	float m_winWeight;
@@ -1906,6 +1908,27 @@ Int Rva00559D0CRankWeights::rva00559D0C(const Rva00553E47StatsCore *stats) const
 		losses += (unsigned short)it->second;
 	Int rank = (Int)((float)losses * m_lossWeight + (float)winPoints);
 	return _STL::max(rank, 0);
+}
+
+// Index of the key (0..5) with the highest rank; ties keep the lower index
+// except key 0, which is evaluated last but seeds the comparison. The per-key
+// rank 0x00559DA0 (168B) is pinned: its inline-lookup frame is not reproduced.
+// Native [559E48,559EDC),148B.
+Int Rva00559D0CRankWeights::rva00559E48(const Rva00553E47StatsCore *stats) const
+{
+	Int r1 = rva00559DA0(stats, 1);
+	Int r2 = rva00559DA0(stats, 2);
+	Int r3 = rva00559DA0(stats, 3);
+	Int r4 = rva00559DA0(stats, 4);
+	Int r5 = rva00559DA0(stats, 5);
+	Int best = rva00559DA0(stats, 0);
+	Int index = 0;
+	if (r1 > best) { best = r1; index = 1; }
+	if (r2 > best) { best = r2; index = 2; }
+	if (r3 > best) { best = r3; index = 3; }
+	if (r4 > best) { best = r4; index = 4; }
+	if (r5 > best) { best = r5; index = 5; }
+	return index;
 }
 
 // Native 557AC2/557B04,66B each: static GHTTP ladders retain the same
