@@ -1,5 +1,5 @@
 // ?rva003E8B47@ScriptConditions@@IAE_NPAVParameter@@0@Z
-// partial score=0.9 date=2026-10-09
+// partial score=0.96 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /Ireference/shims/moduledata /DNDEBUG /MD /EHsc
 //
 // BFME2 player-wide team walk conditions. The count conditions resolve a player from a
@@ -362,9 +362,9 @@ Bool ScriptConditions::rva003E85E0(Parameter *playerParm, Parameter *countParm, 
 			Team *team = iter.cur();
 			if (!team)
 				continue;
-			for (DLINK_ITERATOR<Object> iter2 = team->iterate_TeamMemberList(); !iter2.done(); iter2.advance())
+			Object *obj;
+			for (DLINK_ITERATOR<Object> iter2 = team->iterate_TeamMemberList(); (obj = iter2.cur()) != 0; iter2.advance())
 			{
-				Object *obj = iter2.cur();
 				if (!obj)
 					continue;
 				if (obj->getTemplate()->isKindOf(KINDOF_90) && obj->getExperienceTracker() != 0
@@ -391,9 +391,9 @@ Bool ScriptConditions::rva003E8AA9(Parameter *playerParm)
 			Team *team = iter.cur();
 			if (!team)
 				continue;
-			for (DLINK_ITERATOR<Object> iter2 = team->iterate_TeamMemberList(); !iter2.done(); iter2.advance())
+			Object *obj;
+			for (DLINK_ITERATOR<Object> iter2 = team->iterate_TeamMemberList(); (obj = iter2.cur()) != 0; iter2.advance())
 			{
-				Object *obj = iter2.cur();
 				if (!obj)
 					continue;
 				if (obj->testStatus((ObjectStatusTypes)0x41))
@@ -418,9 +418,9 @@ Bool ScriptConditions::evaluateSkirmishUnownedFactionUnitComparison(Parameter *p
 			Team *team = iter.cur();
 			if (!team)
 				continue;
-			for (DLINK_ITERATOR<Object> iter2 = team->iterate_TeamMemberList(); !iter2.done(); iter2.advance())
+			Object *obj;
+			for (DLINK_ITERATOR<Object> iter2 = team->iterate_TeamMemberList(); (obj = iter2.cur()) != 0; iter2.advance())
 			{
-				Object *obj = iter2.cur();
 				if (obj->isDisabledByType(DISABLED_UNMANNED))
 					count++;
 			}
@@ -591,17 +591,16 @@ Bool ScriptConditions::rva003E8B47(Parameter *playerParm, Parameter *templatePar
 			Team *team = iter.cur();
 			if (!team)
 				continue;
-			for (DLINK_ITERATOR<Object> iter2 = team->iterate_TeamMemberList(); !iter2.done(); iter2.advance())
+			Object *obj;
+			for (DLINK_ITERATOR<Object> iter2 = team->iterate_TeamMemberList(); (obj = iter2.cur()) != 0; iter2.advance())
 			{
-				Object *obj = iter2.cur();
-				if (!obj)
+				if (!obj->getTemplate()->isEquivalentTo(thingTemplate))
 					continue;
-				if (obj->getTemplate()->isEquivalentTo(thingTemplate))
-				{
-					Rva0028C197Module *module = (Rva0028C197Module *)obj->rva0028C197();
-					if (module && module->slot59())
-						return true;
-				}
+				Rva0028C197Module *module = (Rva0028C197Module *)obj->rva0028C197();
+				if (!module)
+					continue;
+				if (module->slot59())
+					return true;
 			}
 		}
 	}
@@ -628,17 +627,16 @@ Bool ScriptConditions::rva003E8C24(Parameter *playerParm, Parameter *templatePar
 			Team *team = iter.cur();
 			if (!team)
 				continue;
-			for (DLINK_ITERATOR<Object> iter2 = team->iterate_TeamMemberList(); !iter2.done(); iter2.advance())
+			Object *obj;
+			for (DLINK_ITERATOR<Object> iter2 = team->iterate_TeamMemberList(); (obj = iter2.cur()) != 0; iter2.advance())
 			{
-				Object *obj = iter2.cur();
-				if (!obj)
+				if (!obj->getTemplate()->isEquivalentTo(thingTemplate))
 					continue;
-				if (obj->getTemplate()->isEquivalentTo(thingTemplate))
-				{
-					void *record = obj->rva0028BD92(0x27);
-					if (record && ((Rva0028BD92Flag *)((char *)record + 0x20))->answers())
-						return true;
-				}
+				void *record = obj->rva0028BD92(0x27);
+				if (!record)
+					continue;
+				if (((Rva0028BD92Flag *)((char *)record + 0x20))->answers())
+					return true;
 			}
 		}
 	}

@@ -296,7 +296,7 @@ protected:
 	bool rva003E3F59(Parameter *, Parameter *, Parameter *);
 	bool rva003E9062(Parameter *, Parameter *);
 	bool rva003E719C(Condition *, Parameter *, Parameter *, Parameter *, Parameter *);
-	bool rva003E782D(Condition *, Parameter *, Parameter *);
+	bool evaluateSkirmishPlayerHasUnitsInArea(Condition *, Parameter *, Parameter *);
 	bool rva003E4565(Parameter *, Parameter *);
 	bool rva003E8E23(Parameter *, Parameter *, Parameter *, Parameter *);
 	bool rva003E59B0(Parameter *, Parameter *, Parameter *, bool);
@@ -583,7 +583,7 @@ bool ScriptConditions::evaluateConditionHelper(Condition *c)
 	case 95:
 		return this->evaluateSkirmishNamedAreaExists(c->getParameter(0), c->getParameter(1));
 	case 96:
-		return this->rva003E782D(c, c->getParameter(0), c->getParameter(1));
+		return this->evaluateSkirmishPlayerHasUnitsInArea(c, c->getParameter(0), c->getParameter(1));
 	case 97:
 		return this->evaluateSkirmishPlayerHasBeenAttackedByPlayer(c->getParameter(0), c->getParameter(1));
 	case 98:
