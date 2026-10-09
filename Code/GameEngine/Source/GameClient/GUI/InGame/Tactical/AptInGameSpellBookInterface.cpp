@@ -7,9 +7,25 @@ class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 extern const char *g_00C68508[];
 int __cdecl Rva005252CDInvoke(Rva00222A8BTarget *,void *,const char *,const char *,const int &,const char *const &);
+namespace AptUtils { AsciiString DotPath2SlashPath(const char *); }
+struct DelegateDesc;
+struct SpellOverButtonDesc { void *receiver;int slotNum; };
+class Rva0052A7C1 {public:Rva0052A7C1 &rva0052A7C1(const DelegateDesc *);private:void *ptr;};
+class AptOverButtonHandler {public:void *vtable;int refCount;};
+struct TargetRef00217D4C;
+void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
+template<class T> class AptRef {
+public:
+ AptRef(const SpellOverButtonDesc *desc) {((Rva0052A7C1 *)this)->rva0052A7C1((const DelegateDesc *)desc);}
+ AptRef(const AptRef &other):ptr(other.ptr){if(ptr)++ptr->refCount;}
+ ~AptRef(){if(ptr)ReleaseTreeHintRef00217D4C((TargetRef00217D4C *)ptr);}
+private:T *ptr;
+};
+class AptPlayer {public:void AddOverButtonHandler(const AsciiString &,AptRef<AptOverButtonHandler>);};
 class AptInGameSpellBookInterface {
 public: class Impl {
  public: void SetButtonState(int slotNum,int state);
+ void OnClipLoaded(const char *params);
  static AsciiString GetButtonImageTargetName(int slotNum);
  private:
  struct ButtonSlot { int unknown0;int state;char unknown8[12]; };
@@ -22,4 +38,17 @@ AsciiString AptInGameSpellBookInterface::Impl::GetButtonImageTargetName(int slot
  AsciiString result;
  result.format("InGameSpellBookSpell%dImage",slotNum+1);
  return result;
+}
+// WB013C5600 and native244B52AC3C..52AD30: clip name plus24 hover handlers.
+// The descriptor stores receiver/index and constructs the by-value reference in place.
+void AptInGameSpellBookInterface::Impl::OnClipLoaded(const char *params) {
+ m_clipName=params;
+ AsciiString prefix;
+ prefix.format("Palantir/%s/Spell%%d/",AptUtils::DotPath2SlashPath(m_clipName.str()).str());
+ for(int i=0;i<24;++i) {
+  AsciiString path;
+  path.format(prefix.str(),i+1);
+  SpellOverButtonDesc descriptor={this,i};
+  ((AptPlayer *)g_bfmeAptWindowManager)->AddOverButtonHandler(path,&descriptor);
+ }
 }
