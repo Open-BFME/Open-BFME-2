@@ -1,6 +1,8 @@
 // ?ClassifyBridgeCells@PathfindLayer@@QAEXXZ
+// partial score=0.9607950388065909 date=2026-10-09
+// ?ClassifyBridgeCells@PathfindLayer@@QAEXXZ
 // partial score=0.95 date=2026-10-08
-// cl: /Ireference/shims/bfme2_ascii /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc
+// cl: /ICode/Libraries/Include /Ireference/shims/bfme2_ascii /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc
 // Reference: Open-BFME-1 968ca36c3265b295297e6aed45a6bd89ffe59c40,
 // game/GameEngine/Source/GameLogic/AI/PathfindLayerResetFull.cpp.
 // Target identity: the adjacent verified PathfindLayer::getCell and
@@ -9,8 +11,8 @@
 // -1 and +30 is retained. The original name of this 66-byte wrapper and its
 // 105-byte allocation-clear helper remain unknown.
 
-#include "../Code/Libraries/Include/Lib/Coord3D.h"
-#include "../Code/Libraries/Include/Lib/Coord2D.h"
+#include "Lib/Coord3D.h"
+#include "Lib/Coord2D.h"
 #include <math.h>
 
 void __cdecl operator delete(void *pointer);
@@ -250,8 +252,8 @@ class Bridge {public: bool isPointOnBridge(const Coord3D*);bool isCellOnSide(con
 enum PathfindLayerEnum {LAYER_GROUND=1};
 class Pathfinder {public: PathfindCell *getCell(PathfindLayerEnum,int,int);};
 class PathfindZoneManager {public: void MarkDirty(int,int);};
-extern void *g_00DFF0F8;
-struct PathfindAIView {unsigned char prefix[16];Pathfinder *pathfinder;};
+struct AI;extern AI *TheAI;
+struct AI {unsigned char prefix[16];Pathfinder *pathfinder;};
 class TerrainLogic {public:
  virtual void slot0();virtual void slot1();virtual void slot2();virtual void slot3();virtual void slot4();virtual void slot5();virtual void slot6();
  virtual float slot7(float,float,bool,Coord3D*,bool);
@@ -303,9 +305,9 @@ void PathfindLayer::ClassifyBridgeCells()
      if(m_bridge->isCellEntryPoint(&region,&height)) {
       cell->SetType_Dirty(0);
       reinterpret_cast<Rva00366500*>(cell)->rva0036652D(1);
-      PathfindCell *ground=static_cast<PathfindAIView*>(g_00DFF0F8)->pathfinder->getCell(LAYER_GROUND,worldX,worldY);
+      PathfindCell *ground=TheAI->pathfinder->getCell(LAYER_GROUND,worldX,worldY);
       if(reinterpret_cast<Rva00366500*>(ground)->rva0036652D((cell->m_flags>>4)&0x3f))
-       reinterpret_cast<PathfindZoneManager*>(reinterpret_cast<char*>(static_cast<PathfindAIView*>(g_00DFF0F8)->pathfinder)+0x460)->MarkDirty(worldX,worldY);
+       reinterpret_cast<PathfindZoneManager*>(reinterpret_cast<char*>(TheAI->pathfinder)+0x460)->MarkDirty(worldX,worldY);
      }
     }
    }
@@ -313,9 +315,9 @@ void PathfindLayer::ClassifyBridgeCells()
    if((cell->m_flags&15)!=5 && ((cell->m_flags>>10)&0x3f)!=1) {
     float height=TheTerrainLogic->slot7(center.x,center.y,true,0,true)+10.0f;
     if(height>m_bridge->getBridgeHeight(&center,0)) {
-     PathfindCell *ground=static_cast<PathfindAIView*>(g_00DFF0F8)->pathfinder->getCell(LAYER_GROUND,worldX,worldY);
+     PathfindCell *ground=TheAI->pathfinder->getCell(LAYER_GROUND,worldX,worldY);
      if((ground->m_flags&15)!=4 && ground->SetType_Dirty(6))
-      reinterpret_cast<PathfindZoneManager*>(reinterpret_cast<char*>(static_cast<PathfindAIView*>(g_00DFF0F8)->pathfinder)+0x460)->MarkDirty(worldX,worldY);
+      reinterpret_cast<PathfindZoneManager*>(reinterpret_cast<char*>(TheAI->pathfinder)+0x460)->MarkDirty(worldX,worldY);
     }
    }
   }
@@ -334,9 +336,9 @@ void PathfindLayer::ClassifyBridgeCells()
   for(int x=0;x<m_width;++x)for(int y=0;y<m_height;++y) {
    PathfindCell *cell=&m_layerCells[x][y];
    if(static_cast<unsigned char>(Rva002E6E6CGet((cell->m_flags>>10)&0x3f))) {
-    PathfindCell *ground=static_cast<PathfindAIView*>(g_00DFF0F8)->pathfinder->getCell(LAYER_GROUND,x+m_xOrigin,y+m_yOrigin);
+    PathfindCell *ground=TheAI->pathfinder->getCell(LAYER_GROUND,x+m_xOrigin,y+m_yOrigin);
     if(ground && reinterpret_cast<Rva00366500*>(ground)->rva0036652D(0))
-      reinterpret_cast<PathfindZoneManager*>(reinterpret_cast<char*>(static_cast<PathfindAIView*>(g_00DFF0F8)->pathfinder)+0x460)->MarkDirty(x+m_xOrigin,y+m_yOrigin);
+      reinterpret_cast<PathfindZoneManager*>(reinterpret_cast<char*>(TheAI->pathfinder)+0x460)->MarkDirty(x+m_xOrigin,y+m_yOrigin);
    }
    cell->SetType_Dirty(6);
   }
