@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/open-bfme-1/inputs/reference/shims/stringinline
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/open-bfme-1/inputs/reference/shims/stringinline
 // stlport
 //
 // Bodies ported from Open-BFME-1's GameEngine/Source/Common/BfmeConv1292.cpp
@@ -12,6 +12,7 @@
 
 #define _STLP_NO_EXCEPTIONS 1
 #include <hash_map>
+#include <map>
 
 #include "StringInline.h"
 
@@ -98,7 +99,7 @@ void bfmeLoadSJA(void *slot, void *p, char *out)
 }
 
 class Rva00410C42 { public: ~Rva00410C42(); };
-class Rva0041090E { public: ~Rva0041090E(); };
+class Rva0041090E { public: ~Rva0041090E(); void rva00410A14(); };
 void __cdecl dup_00410c7b();
 
 class Rva004110B4Tree { public: ~Rva004110B4Tree(); };
@@ -167,4 +168,90 @@ void Rva00411336(void *slot, void *owner, char *out)
         else
             ++it;
     }
+}
+
+class GameWindow;
+class GameWindowManager {
+public:
+ virtual void slot00();
+ virtual void slot01();
+ virtual void slot02();
+ virtual void slot03();
+ virtual void slot04();
+ virtual void slot05();
+ virtual void slot06();
+ virtual void slot07();
+ virtual void slot08();
+ virtual void slot09();
+ virtual void slot10();
+ virtual void slot11();
+ virtual void slot12();
+ virtual void slot13();
+ virtual void slot14();
+ virtual void slot15();
+ virtual void slot16();
+ virtual void slot17();
+ virtual void slot18();
+ virtual void slot19();
+ virtual void slot20();
+ virtual void slot21();
+ virtual void slot22();
+ virtual void slot23();
+ virtual void slot24();
+ virtual void slot25();
+ virtual void slot26();
+ virtual void slot27();
+ virtual void slot28();
+ virtual void slot29();
+ virtual void slot30();
+ virtual void slot31();
+ virtual void slot32();
+ virtual void slot33();
+ virtual void slot34();
+ virtual void destroyWindow(GameWindow*);
+};
+extern GameWindowManager *TheWindowManager;
+extern unsigned g_Va00E03020;
+class BfmeAptWindowManager;
+extern BfmeAptWindowManager *g_bfmeAptWindowManager;
+class Rva002246B1 {public:int rva002246B1(const AsciiString*);};
+class Rva00224455 {public:int rva00224455(const AsciiString*);};
+void _bfme_closeAptScreen(const AsciiString&);
+// Structural RE label for the pointer released during Apt shutdown; original
+// global/type names remain unknown. Native stores and initial data establish
+// a single pointer at RVA00A02FC8, not a function pin or a fixed-address read.
+class AptShutdownReceiverView {public:virtual void *slot00(int);};
+AptShutdownReceiverView *AptShutdownReceiverInstance=0;
+
+// Complete native00411B52..00411E80 and WB01092E70 establish this shutdown.
+// The owned E03020 map header and clear provider's StringBase<char> key
+// destruction establish a string-keyed map; node+14 and WindowManager
+// slot35 establish window values. The folded empty constructor alone does
+// not establish its key type.
+// Twelve custom renders and two commands are removed in native literal order.
+void Rva00411B52() {
+ typedef _STL::map<AsciiString,GameWindow*> Windows;
+ Windows *windows=(Windows*)&g_Va00E03020;
+ for(Windows::iterator it=windows->begin();it!=windows->end();++it)
+  TheWindowManager->destroyWindow(it->second);
+ ((Rva0041090E*)windows)->rva00410A14();
+ ::operator delete(AptShutdownReceiverInstance?AptShutdownReceiverInstance->slot00(0):0);
+ AptShutdownReceiverInstance=0;
+ if(g_bfmeAptWindowManager) {
+  {AsciiString name("GameWindow");((Rva002246B1*)g_bfmeAptWindowManager)->rva002246B1(&name);}
+  {AsciiString name("HorzSlider");((Rva002246B1*)g_bfmeAptWindowManager)->rva002246B1(&name);}
+  {AsciiString name("ComboBox");((Rva002246B1*)g_bfmeAptWindowManager)->rva002246B1(&name);}
+  {AsciiString name("ImageComboBox");((Rva002246B1*)g_bfmeAptWindowManager)->rva002246B1(&name);}
+  {AsciiString name("CheckBox");((Rva002246B1*)g_bfmeAptWindowManager)->rva002246B1(&name);}
+  {AsciiString name("TextEntry");((Rva002246B1*)g_bfmeAptWindowManager)->rva002246B1(&name);}
+  {AsciiString name("ListBox");((Rva002246B1*)g_bfmeAptWindowManager)->rva002246B1(&name);}
+  {AsciiString name("PushButton");((Rva002246B1*)g_bfmeAptWindowManager)->rva002246B1(&name);}
+  {AsciiString name("BinkMovie");((Rva002246B1*)g_bfmeAptWindowManager)->rva002246B1(&name);}
+  {AsciiString name("LivingWorldMap");((Rva002246B1*)g_bfmeAptWindowManager)->rva002246B1(&name);}
+  {AsciiString name("View3D");((Rva002246B1*)g_bfmeAptWindowManager)->rva002246B1(&name);}
+  {AsciiString name("ColorPicker");((Rva002246B1*)g_bfmeAptWindowManager)->rva002246B1(&name);}
+  {AsciiString name("DisableComponents");((Rva00224455*)g_bfmeAptWindowManager)->rva00224455(&name);}
+  {AsciiString name("EnableComponents");((Rva00224455*)g_bfmeAptWindowManager)->rva00224455(&name);}
+ }
+ {AsciiString name("BinkMovieInit");_bfme_closeAptScreen(name);}
 }
