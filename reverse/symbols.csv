@@ -17064,3 +17064,4 @@ _D3DXCreateTextureFromFileInMemoryEx@60,0x0062AF7A,Named d3dx9_27.dll PE import 
 ?rva0022274A@AptPlayer@@QAEXXZ,0x0022274A,
 ?rva002E7E26@Rva002E7E26@@QAEHPAVObject@@HH@Z,0x002E7E26,callee of ?rva002EB4DF@Pathfinder@@QAEHPBUICoord2DBase@@0MHPAVRva002E7E26@@@Z
 ?rva002E8773@Pathfinder@@QAEHPAH0HHPAVRva002E7E26@@@Z,0x002E8773,callee of ?rva002EB4DF@Pathfinder@@QAEHPBUICoord2DBase@@0MHPAVRva002E7E26@@@Z
+??0SubTitleWindow@@QAE@PAVGameFont@@MMHHHH@Z,0x00260865,callee of ?rva00051353@MilesAudioManager@@QAEXABVUnicodeString@@@Z
