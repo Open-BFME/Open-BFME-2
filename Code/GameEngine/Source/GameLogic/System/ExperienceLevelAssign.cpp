@@ -1,5 +1,3 @@
-// ?rva00289902@Rva00289902@@QAEAAV1@ABV1@@Z
-// partial score=0.95 date=2026-10-05
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ?rva00289902@Rva00289902@@QAEAAV1@ABV1@@Z @ 0x00289902 443B
@@ -9,8 +7,6 @@
 #include "ascii_string.h"
 #include <vector>
 
-extern "C" void _ReadWriteBarrier(void);
-#pragma intrinsic(_ReadWriteBarrier)
 
 class RadiusDecalTemplate
 {
@@ -34,6 +30,7 @@ public:
 struct CameraMarkerVec
 {
 	CameraMarker *erase(CameraMarker *first, CameraMarker *last);
+	void clear() { erase(m_start, m_finish); }
 
 	CameraMarker *m_start;
 	CameraMarker *m_finish;
@@ -97,7 +94,6 @@ private:
 	int m_104;
 };
 
-// ?rva00289902@Rva00289902@@QAEAAV1@ABV1@@Z present-unmatched
 Rva00289902 &Rva00289902::rva00289902(const Rva00289902 &other)
 {
 	unsigned int i;
@@ -125,14 +121,13 @@ Rva00289902 &Rva00289902::rva00289902(const Rva00289902 &other)
 	m_101 = other.m_101;
 	m_102 = other.m_102;
 	m_104 = other.m_104;
-	_ReadWriteBarrier();
-	m_vec30.erase(m_vec30.begin(), m_vec30.end());
+	m_vec30.clear();
 	for (i = 0; i < other.m_vec30.size(); ++i)
 		m_vec30.push_back(other.m_vec30[i]);
-	m_vec4C.erase(m_vec4C.begin(), m_vec4C.end());
+	m_vec4C.clear();
 	for (i = 0; i < other.m_vec4C.size(); ++i)
 		((_STL::vector<const ModuleData *> *)&m_vec4C)->push_back(*(const ModuleData * const *)&other.m_vec4C[i]);
-	m_vec3C.erase(m_vec3C.m_start, m_vec3C.m_finish);
+	m_vec3C.clear();
 	for (i = 0; i < ((const _STL::vector<Rva002898ACElement> *)&other.m_vec3C)->size(); ++i)
 		((_STL::vector<Rva002898ACElement> *)&m_vec3C)->push_back((*(const _STL::vector<Rva002898ACElement> *)&other.m_vec3C)[i]);
 	return *this;
