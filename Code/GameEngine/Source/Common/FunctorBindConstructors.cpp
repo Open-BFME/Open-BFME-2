@@ -60,3 +60,28 @@ private:
 };
 Rva0050DA20FunctorBind::Rva0050DA20FunctorBind( FunctorMethod method, FunctorTarget *target )
 	: m_target( target ), m_method( method ) {}
+// Reference guide: Open-BFME-1 f98983a7d3bb405f1a4ba94bb6a2a168062a819d
+// Common/Rva00192120FunctorInvoker.cpp expresses the member binding dispatch.
+// Its void/no-argument prototype is not adopted: native registration ABB87
+// supplies callback306EDC which forwards two pointer words through slot1 and
+// returns AL. Table BC9584 slot1 targets the complete AD770..AD77B entry.
+// Native AD73D stores object+0C and the {code+10 delta+14} member binding.
+// This access prefix asserts only those fields and the observed byte return;
+// original parser subclass/target names and the preceding12 bytes remain unknown.
+class __multiple_inheritance Rva000AD770Target;
+typedef unsigned char (Rva000AD770Target::*Rva000AD770Method)(void *, void *);
+
+class Rva000AD770Binding
+{
+public:
+    unsigned char invoke(void *first, void *second);
+private:
+    unsigned char m_unmodelled_00[0x0C];
+    Rva000AD770Target *m_target;
+    Rva000AD770Method m_method;
+};
+
+unsigned char Rva000AD770Binding::invoke(void *first, void *second)
+{
+    return (m_target->*m_method)(first, second);
+}
