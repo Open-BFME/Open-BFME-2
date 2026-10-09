@@ -35,11 +35,7 @@ public:
 class Rva002BA8F1Logic;
 class Object;
 
-class Rva0020E90FView
-{
-public:
-	Rva0020E89C *rva0020E90F(int index);
-};
+class Rva0020E90FView;
 
 class Rva0020EAF6View
 {
