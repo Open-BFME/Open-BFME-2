@@ -140,10 +140,13 @@ struct MouseIO
 	int leftState;     // +0x18
 };
 
+struct Rva001EDD80Pair;
+
 class Mouse
 {
 public:
 	void rva001EDFF7(float *region) const;
+	bool rva001EDD80(const Rva001EDD80Pair *anchor, const Rva001EDD80Pair *pos);
 	const MouseIO *getMouseStatus() { return &m_currMouse; }
 
 	char m_pad00[0x4F0C];
@@ -154,12 +157,6 @@ struct Rva001EDD80Pair
 {
 	int x;
 	int y;
-};
-
-class Rva001EDD80
-{
-public:
-	bool rva001EDD80(const Rva001EDD80Pair *anchor, const Rva001EDD80Pair *pos);
 };
 
 class GlobalData
@@ -341,7 +338,7 @@ GameMessageDisposition BfmeOwnVVD::translateGameMessage(const GameMessage *msg)
 		if (m_rmbPending && !m_isScrolling)
 		{
 			ICoord2D pos = msg->getArgument(0)->pixel;
-			if (((Rva001EDD80 *)TheMouse)->rva001EDD80((const Rva001EDD80Pair *)&m_anchor, (const Rva001EDD80Pair *)&pos))
+			if (TheMouse->rva001EDD80((const Rva001EDD80Pair *)&m_anchor, (const Rva001EDD80Pair *)&pos))
 				rva0042E75F(1);
 		}
 
