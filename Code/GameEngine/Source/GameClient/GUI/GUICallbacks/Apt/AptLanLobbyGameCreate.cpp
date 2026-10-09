@@ -94,9 +94,9 @@ public:
 	void rva004443E7();
 	void rva00444E69(int unused);
 	void rva00444E8A();
-	int rva0044522D(int msg, unsigned char key, int flags);
+	virtual int rva0044522D(int msg, unsigned char key, int flags);
 	void OnGameCreate();
-	void rva004442DB();
+	virtual void rva004442DB();
 	void OnGameJoin();
 
 private:
@@ -106,7 +106,7 @@ private:
 public:
 
 private:
-	char m_pad274[0x274];
+	char m_pad274[0x274 - 4];
 	void *m_274Owner; // +0x274
 	char m_pad278[0x288 - 0x278];
 	Member004443E7 m_mem288; // +0x288

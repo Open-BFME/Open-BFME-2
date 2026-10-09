@@ -24,7 +24,7 @@ extern class LANAPI *TheLAN;
 class AptLanLobby
 {
 public:
-	unsigned char MPOwnerValidatGameInfo(int a);
+	virtual unsigned char MPOwnerValidatGameInfo(int a);
 };
 
 unsigned char AptLanLobby::MPOwnerValidatGameInfo(int a)

@@ -374,7 +374,7 @@ public:
 	void rva00514BA1();
 	void rva00514BB5();
 	void rva00514DC0(int button);
-	int rva00514950(int msg, int p1, int p2);
+	virtual int rva00514950(int msg, int p1, int p2);
 	void rva00514F2E();
 	void rva00514FE9();
 	void rva005158A7();
@@ -383,7 +383,7 @@ public:
 	void rva00515633();
 
 private:
-	unsigned char m_pad000[0x274];
+	unsigned char m_pad04[0x274 - 4];
 	void *m_274; // +0x274, the screen's Apt movie level
 	unsigned char m_pad278[0x27C - 0x278];
 	bool m_initialized; // +0x27C

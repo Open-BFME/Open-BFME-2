@@ -385,14 +385,14 @@ public:
 	void InitGadgets(const char *name, void *argument, GameWindow *window);
 	void rva00446386(bool enable);
 	void submitNameRva00444760();
-	void rva00446772();
+	virtual void rva00446772();
 	void rva0044469C();
 	void rva00445E3E(LANGameInfo *games);
 	bool InitTheLan();
-	int OnUpdateData();
+	virtual int OnUpdateData();
 	int GetValidSelectedGameInfo();
 	void rva004443E7();
-	int rva00444826(int msg, unsigned int data1, unsigned int data2);
+	virtual int rva00444826(int msg, unsigned int data1, unsigned int data2);
 
 	// Unrowed 0x004457BC (1006 bytes; rebuilds the games list box), pinned by
 	// address.
@@ -408,7 +408,7 @@ public:
 	void OnCreateGameBttn(const char *unused);
 
 private:
-	unsigned char m_pad000[0x274];
+	unsigned char m_pad04[0x274 - 4];
 	void *m_owner; // +0x274
 	unsigned char m_pad278[0x288 - 0x278];
 	Rva004421E1 m_panel; // +0x288

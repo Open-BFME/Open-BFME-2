@@ -271,7 +271,7 @@ public:
     void rva00570C64();
     void rva00570D36();
     void rva00571129();
-    int rva0057166C(void *,unsigned int,void *,void *);
+    virtual int rva0057166C(void *,unsigned int,void *,void *);
     void rva0057179D(bool);
     void rva005700A0();
     void rva005709D1(AsciiString &,AsciiString &);
@@ -280,7 +280,7 @@ public:
     void rva0056FEA8();
     void InitGadgets(const char *,void *,GameWindow *);
 private:
-    unsigned char pad00[0x58]; AptOnlineLoginOwner *owner;
+    unsigned char m_pad04[0x58 - 4]; AptOnlineLoginOwner *owner;
     unsigned char pad5c[8]; SkirmishFindMap loginPreferences;
     unsigned char pad70[0xA4-0x70];
     GameWindow *email;
