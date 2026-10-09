@@ -4,6 +4,14 @@
 // was ?rva004185AA@Rva004185AA@@QAEMH@Z @0x004185AA 58B floor lookup over map<int,float> at +0xc via rowed lower_bound 0x00382A92 and rowed decrement 0x000242C0 default BfmeZeroRange caller 0x0059AF30
 #include <map>
 
+// Native signed comparison is already inline in the recovered operation.
+// Keep its external owner in stlport_list_int.cpp at RVA0x00626F90.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+bool less<int>::operator()(const int &left, const int &right) const
+{ return left < right; }
+}
+
 extern const float BfmeZeroRange; // ?BfmeZeroRange@@3MB
 
 class LivingWorldAutoResolveBodyTemplate
