@@ -132,3 +132,22 @@ private:
     Rva002E6C8DWordNode *node;
 };
 void Rva002E6C8DWordChase::clear() { node->word8 = 0; }
+
+// Whole native 405A1C..405A25 is bracketed by the predecessor's RET at
+// 405A1B and the next constructor's entry at 405A25. It loads the receiver's
+// pointer at +0, clears that pointee's raw DWORD, and returns the raw word +4.
+// Clean BF1 f98983a7d3bb405f1a4ba94bb6a2a168062a819d Common/
+// R2SmallMemberOps.cpp, compiled O1/SSE2/G6, supplies the pointer-clear/return
+// expression. Donor Rva004C1280::run and its result pointer type are source
+// facts only: target receiver, field meanings and complete layout are unknown.
+class Rva00405A1CWordClearResult {
+public:
+    unsigned int clear();
+private:
+    unsigned int *target;
+    unsigned int result;
+};
+unsigned int Rva00405A1CWordClearResult::clear() {
+    *target = 0;
+    return result;
+}
