@@ -68,7 +68,8 @@ public:
 	const ThingTemplate *getTemplate() const { return m_template; }
 	ObjectID getID() const { return m_id; }
 	Object *getContainedBy() const { return m_containedBy; }
-	ContainModuleInterface *getContain() const { return m_contain; }
+	// Keep the native +0x250 load inline; omit the competing legacy getter.
+	__declspec(dllimport) __forceinline ContainModuleInterface *getContain() const { return m_contain; }
 	Relationship getRelationship(const Object *that) const;
 	bool rva002931BA();
 private:

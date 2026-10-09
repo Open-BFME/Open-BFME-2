@@ -150,7 +150,8 @@ public:
 class Object
 {
 public:
-	ContainModuleInterface *getContain() const { return m_contain; }
+	// Keep the native +0x250 load inline; omit the competing legacy getter.
+	__declspec(dllimport) __forceinline ContainModuleInterface *getContain() const { return m_contain; }
 	AIUpdateInterface *getAI() const { return m_ai; }
 	void *m_vtable;
 	const ThingTemplate *m_template;

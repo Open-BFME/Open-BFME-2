@@ -95,7 +95,8 @@ class Object
 {
 public:
 	void kill(DamageType damageType, DeathType deathType);	// 0x002984D4
-	ContainModuleInterface *getContain() const { return m_contain; }
+	// Keep the native +0x250 load inline; omit the competing legacy getter.
+	__declspec(dllimport) __forceinline ContainModuleInterface *getContain() const { return m_contain; }
 	void *getBodyModule() const { return m_body; }
 private:
 	unsigned char m_pad000[0x250];

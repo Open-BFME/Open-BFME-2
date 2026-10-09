@@ -149,7 +149,8 @@ class Object
 public:
 	Player *getControllingPlayer() const;
 	void setSpecialModelConditionState( ModelConditionFlagType type, unsigned int frames );
-	ContainModuleInterface *getContain() const { return m_contain; }
+	// Keep the native +0x250 load inline; omit the competing legacy getter.
+	__declspec(dllimport) __forceinline ContainModuleInterface *getContain() const { return m_contain; }
 	unsigned char m_pad00[0x88];
 	AsciiString m_name;
 	unsigned char m_pad8C[0x250 - 0x8C];
