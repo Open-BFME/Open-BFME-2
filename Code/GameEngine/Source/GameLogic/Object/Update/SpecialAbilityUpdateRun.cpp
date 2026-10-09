@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /MD /GX /DNDEBUG /I. /Ireference/shims/bfme2_ascii
+// cl: /O1 /arch:SSE /MD /GX /DNDEBUG /I. /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include
 // BFME1 semantic donor: revision 9cbfb551; clean SpecialAbilityUpdate_update.cpp
 // supplies the phase machine. Target 0x00451FA2..0x004522F0 proves this+0x10
 // update receiver; native destructor/interface slots and neighboring bodies prove
@@ -10,6 +10,8 @@
 // WB 0x010E39D0 and 0x010E8210 corroborate their control flow; original names remain
 // inferred from the donor, so the target rows retain address-derived spellings.
 #include "ascii_string.h"
+#include "Common/BfmeAudioEventPrefix136.h"
+#include "Code/GameEngine/Source/Common/PartitionRangeQueryCallView.h"
 #include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
 #include "Code/Libraries/Include/Lib/Coord3D.h"
 enum UpdateSleepTime { UPDATE_SLEEP_NONE=1,UPDATE_SLEEP_FOREVER=0x3fffffff };
@@ -51,12 +53,19 @@ virtual void aiGap140();
 virtual void aiGap141();
 virtual void aiGap142();
 virtual int getLastCommandSource();};
+enum Relationship{ENEMIES,NEUTRAL,ALLIES};
+struct RGBColor {float red,green,blue;void setFromInt(int);};
+class Drawable {public:void saturateRGB(RGBColor&,float);void rva00278C7C(int);};
+class Thing {public:Drawable *getDrawable() const;};
+class GeometryInfo {public:bool bfmeIntersects(const Coord3D&,float,const GeometryInfo&,const Coord3D&,float) const;};
 class Player;enum ModelConditionFlagType{MODELCONDITION_INVALID=-1};
 class Object {public:Player *getControllingPlayer() const;void setSpecialModelConditionState(ModelConditionFlagType,unsigned);
+ float rva00263763(const void*) const;float rva002C97E8(const Coord3D*,const Coord3D*) const;
+ Relationship getRelationship(const Object*) const;int getIndicatorColor() const;
  void removeAttributeModifierFromPool(const AsciiString &);
  char m_pad00[4]; unsigned char *m_data;
  char m_pad08[0x38-8];Coord3D m_position;
- char m_pad44[0x74-0x44];ObjectID m_id;char m_pad78[8];ObjectID m_specialOwner;char m_pad84[0x110-0x84];unsigned int m_modelWord1;
+ float m_angle;char m_pad48[0x74-0x48];ObjectID m_id;char m_pad78[8];ObjectID m_specialOwner;char m_pad84[0xA8-0x84];GeometryInfo m_geometry;char m_padA9[0x110-0xA9];unsigned int m_modelWord1;
  char m_pad114[0x258-0x114];AIUpdateInterface *m_ai;
  char m_pad25C[0x304-0x25C];void *m_team;
  char m_pad308[0x438-0x308];unsigned int m_deadFlags;
@@ -67,7 +76,7 @@ class Overridable {public:const Overridable*friend_getFinalOverride() const;char
 struct SpecialAbilityUpdateModuleData {
  char pad00[0x38];Overridable *m_specialPower;
  char pad3C[0x48-0x3C];AsciiString m_modifier;
- char pad4C[0x78-0x4C];unsigned m_persistenceFrames;char pad7C[0xA0-0x7C];int m_minPause,m_maxPause;char padA8[0xAE-0xA8];bool m_alwaysValidate;char padAF[0xB4-0xAF];bool m_removeModifierOnAbort;bool m_continueOnAbort;
+ float m_startRange,m_abortRange;char pad54[0x74-0x54];unsigned m_preparationFrames;unsigned m_persistenceFrames;char pad7C[0xA0-0x7C];int m_minPause,m_maxPause;char padA8[0xAE-0xA8];bool m_alwaysValidate;bool m_doCaptureFX;char padB0[0xB4-0xB0];bool m_removeModifierOnAbort;bool m_continueOnAbort;
  char padB6[0xC6-0xB6];bool m_ignoreFacing;
 };
 class Rva0044E7A8 {public:bool rva0044E7A8(int);};
@@ -136,6 +145,7 @@ class Rva0044E655 {public:bool rva0044E655();bool rva0044E689();
 };
 bool Rva0044E655::rva0044E689(){if(m_object->m_ai==0)return false;return m_7E==0||m_7F==0;}
 class Rva00451EAC {public:void rva00451EAC();};
+struct AbilityObjectNode {AbilityObjectNode *next,*previous;ObjectID id;};
 class SpecialAbilityUpdate;
 class AbilityPrimary {public:virtual void v00();const SpecialAbilityUpdateModuleData *m_data;Object *m_object;};
 class AbilityOther {public:virtual void v00();};
@@ -167,12 +177,12 @@ virtual void onExit(bool,bool);
  virtual void startUnpacking();
  virtual UpdateSleepTime update();
  protected: void validateSpecialObjects();void endPreparation(); public: void rva0044EE80();
- protected: bool isWithinStartAbilityRange(); public:
- void rva00451EAC(); bool rva0044F679();void rva0044F6D0();
+ protected: bool isWithinAbilityAbortRange() const;bool isWithinStartAbilityRange(); public:
+ protected: bool initLaser(Object*,Object*);public:void rva00451EAC(); bool rva0044F679();void rva0044F6D0();
  UpdateSleepTime rva0044F881();
  char pad20[4];int m_useCount;char pad28[4];unsigned m_expiryFrame;int m_packingState;
  char pad34[0x3C-0x34];unsigned m_prepFrames;int m_targetID;Coord3D m_targetPos;
- char pad50[0x60-0x50];int m_persistenceCount;char pad64[0x74-0x64];bool m_active;
+ char pad50[0x60-0x50];int m_persistenceCount;AbilityObjectNode *m_specialObjects;char pad68[0x70-0x68];float m_captureFlashPhase;bool m_active;
  char pad75[0x80-0x75];bool m_withinStartAbilityRange;char pad81[2];bool m_approached;
  unsigned m_effectFrame;
 };
@@ -280,4 +290,77 @@ UpdateSleepTime SpecialAbilityUpdate::rva0044F881()
    if(!d->m_minPause && !d->m_maxPause)return UPDATE_SLEEP_FOREVER;
  }
  return UPDATE_SLEEP_NONE;
+}
+
+
+class Rva000421C8 {public:Rva000421C8():m_next(0){}virtual ~Rva000421C8(){}virtual bool allow(Object*)=0;virtual int getPlayerMask();Rva000421C8 *m_next;};
+class BfmeFixedStorage0004543D {public:char data[28];};
+struct Rva00045411BitSet {Rva00045411BitSet(int,int) throw();unsigned bits[7];};
+class Rva0004584D:public Rva000421C8 {public:Rva0004584D(const BfmeFixedStorage0004543D&,const BfmeFixedStorage0004543D&) throw();virtual bool allow(Object*);BfmeFixedStorage0004543D a,b;};
+// Existing provider ThingIsAnyKindOf.cpp owns this seven-word zero mask.
+// The template argument retains its established target ABI spelling.
+template<int N>class BitFlags {public:unsigned m_bits[7];};
+extern BitFlags<116> KINDOFMASK_NONE;
+extern PartitionManager *ThePartitionManager;
+class GlobalData {public:char pad00[0xB54];float m_selectionFlashSaturation;};extern GlobalData *TheWritableGlobalData;
+struct AbilityMiscAudio {char pad00[0x20];OpaqueRefElement4 m_timerTick;};
+class AbilityAudioEvents:public RunSlots<25>{public:virtual int addAudioEvent(BfmeAudioEventPrefix136*)=0;};
+template<int N>class AbilityMiscSlots:public AbilityMiscSlots<N-1>{public:virtual void gapMisc(char(*)[N])=0;};
+template<>class AbilityMiscSlots<0>:public AbilityAudioEvents{};
+class AudioManager:public AbilityMiscSlots<52>{public:virtual AbilityMiscAudio *getMiscAudio()=0;};
+extern AudioManager *TheAudio;
+class Rva002D9531 {public:void rva002D9531(int);};
+// Primary virtual slot +0x40 at 0x0044FC52..0x0044FEB6 (612B); same
+// continuePreparation identity and first two cases as ZH SpecialAbilityUpdate.cpp.
+// Native capture FX adds the closest kind50 drawable flash within150 units.
+// WB10E3DB0 supplies the corresponding phase/target/audio flow; offsets below
+// are native, including capture phase70, ModuleData AF/74 and saturation B54.
+// The abort callee is independently established at44F4F7; its real C++ bank
+// retains an opening SSE codegen wall and is not compiled in this unit.
+bool SpecialAbilityUpdate::continuePreparation()
+{
+ const SpecialAbilityUpdateModuleData *d=m_data;
+ const Overridable *power=d->m_specialPower;
+ if(d->m_abortRange<10000000.0f && !isWithinAbilityAbortRange())return false;
+ int type=power->friend_getFinalOverride()->m_type;
+ if(type==0x15){
+  Object *target=TheGameLogic->findObjectByID((ObjectID)m_targetID);
+  if(!target)return false;
+  Relationship r=m_object->getRelationship(target);
+  if(r==ALLIES)return false;
+  for(AbilityObjectNode *it=m_specialObjects->next;it!=m_specialObjects;it=it->next){
+   Object *special=TheGameLogic->findObjectByID(it->id);
+   if(special && !initLaser(special,target))return false;
+  }
+ }else if(type==0x1D || type==0x1A){
+  Object *target=TheGameLogic->findObjectByID((ObjectID)m_targetID);
+  if(!target)return false;
+  Relationship r=m_object->getRelationship(target);
+  if(r==ALLIES)return false;
+  if(d->m_doCaptureFX){
+   Drawable *draw=((Thing*)target)->getDrawable();
+   if(draw){
+    bool lastPhase=(int(m_captureFlashPhase)&1)!=0;
+    unsigned denom=d->m_preparationFrames<1?1:d->m_preparationFrames;
+    float denominator=float(denom);
+    float increment=1.0f-(float(m_prepFrames)/denominator);
+    m_captureFlashPhase+=increment/3.0f;
+    bool thisPhase=(int(m_captureFlashPhase)&1)!=0;
+    if(lastPhase&&!thisPhase){
+     RGBColor houseColor;
+     houseColor.setFromInt(m_object->getIndicatorColor());
+     draw->saturateRGB(houseColor,TheWritableGlobalData->m_selectionFlashSaturation);
+     draw->rva00278C7C((int)&houseColor);
+     Rva0004584D filter(*(const BfmeFixedStorage0004543D*)&Rva00045411BitSet(0,0x32),*(const BfmeFixedStorage0004543D*)&KINDOFMASK_NONE);
+     const Coord3D *position=&m_object->m_position;
+     Object *nearby=ThePartitionManager->getClosestObject(position,150.0f,1,&filter);
+     if(nearby){Drawable *nearDraw=((Thing*)nearby)->getDrawable();if(nearDraw)nearDraw->rva00278C7C((int)&houseColor);}
+     BfmeAudioEventPrefix136 sound(TheAudio->getMiscAudio()->m_timerTick,0);
+     ((Rva002D9531*)&sound)->rva002D9531(m_targetID);
+     TheAudio->addAudioEvent(&sound);
+    }
+   }
+  }
+ }
+ return true;
 }

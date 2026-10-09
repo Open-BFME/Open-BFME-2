@@ -29071,3 +29071,4 @@ ArmyPlacer_later_band_family	0x00380014	492	mapped	V5 stale-verdict audit: Famil
 FUN_006f6f90	0x002F6F90	341	converted	stale_verdicts backfill: address-named deferral; same-size real-source matched row at this RVA (?rva002F6F90@Rva002F6F90Context@@QAE_NIH@Z)
 ?rva0037F6EA@Rva0037F51A@@QAEXHH@Z	0x0037F6EA	53	converted	stale_verdicts backfill: address-named deferral; same-size real-source matched row at this RVA (?rva0037F6EA@Rva0037F4EA@@QAEXPAXH@Z)
 ?update@Rva0037F87A@@QAEXH@Z	0x0037F87A	50	converted	stale_verdicts backfill: address-named deferral; same-size real-source matched row at this RVA (?rva0037F87A@Rva0037F4EA@@QAEXPAX@Z)
+?continuePreparation@SpecialAbilityUpdate@@UAE_NXZ	0x0044FC52	612	landed	add_match verified Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdateRun.cpp 612B; ZH continuePreparation spine and native slot40 identify body; target capture flashing nearest kind50 helper and audio flow; native offsets and callees audited
