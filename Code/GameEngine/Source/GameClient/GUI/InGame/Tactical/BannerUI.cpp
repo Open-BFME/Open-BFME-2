@@ -154,3 +154,32 @@ void BannerUI::init() {
  if(g_00DFE32C)
   m_windowIndex=((BannerWindowLoader*)g_bfmeAptWindowManager)->loadWindow("Apt\\","BannerUI.apt",0,0);
 }
+
+// The banner records (28 bytes; rowed vector push_back 0x00216BB9 and the
+// slot-keyed find/erase in RemoveBanner) and the collector CreateBanner runs
+// over them: slot i keeps the first banner holding it (rowed 0x00215E6F,
+// still address-named). STLport's for_each over the two is retail 0x00215EF7
+// (43 bytes; the collector has a constructor, so it is returned through the
+// hidden pointer).
+struct BfmePod28 { int a[7]; };
+
+namespace _STL {
+// STLport 4.5.3 for_each (stl/_algo.h).
+template <class _InputIter, class _Function>
+_Function for_each(_InputIter __first, _InputIter __last, _Function __f) {
+	for ( ; __first != __last; ++__first)
+		__f(*__first);
+	return __f;
+}
+}
+
+class Rva00215E6F
+{
+public:
+	Rva00215E6F() { for (BfmePod28 **slot = m_slots; slot != m_slots + 2; ++slot) *slot = 0; }
+	void rva00215E6F(unsigned int *banner);
+	void operator()(BfmePod28 &banner) { rva00215E6F((unsigned int *)&banner); }
+	BfmePod28 *m_slots[2];
+};
+
+template Rva00215E6F _STL::for_each<BfmePod28 *, Rva00215E6F>(BfmePod28 *, BfmePod28 *, Rva00215E6F);
