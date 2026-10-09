@@ -1,50 +1,270 @@
-// ?rva00237AB1@GlobalData@@SAXPAVINI@@@Z
-// partial score=0.9 date=2026-10-10
-// cl: /O1 /G7 /arch:SSE /MD /EHsc /Ireference/shims/bfme2_ascii /Ireference/shims/subsystem_bfme2
-// BF1 f989 GlobalDataParseDefinition.cpp semantic donor; native237AB1..237CFC RET establishes588B parser ABI,1254B object and fieldsC/98/1240..1250. Mode5 is observed, original enum/name unknown. The static table spelling is carried from donor, not a target name fact.
+// ?parseGameDataDefinition@GlobalData@@SAXPAVINI@@@Z
+// partial score=0.96 date=2026-10-10
+// ?parseGameDataDefinition@GlobalData@@SAXPAVINI@@@Z
+// partial score=0.96 date=2026-10-09
+// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/subsystem_bfme2 /O1 /G7 /EHsc /MD /arch:SSE /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
+// stlport
+// GlobalData.cpp -- GlobalData members recovered from WorldBuilder leads
+// (reverse/wb_name_leads.csv): WB's debug build names the function; retail
+// supplies the bytes. Zero Hour's newOverride also copies the current data
+// into the new override; BFME2's retail body only constructs a fresh
+// GlobalData (0x1254 bytes, ctor 0x0023631C) and links it in front of the
+// chain through m_next at +0x1250 (target evidence).
+
 #include "ascii_string.h"
 #include "unicode_string.h"
+#include <vector>
+
 typedef bool Bool;
+// Canonical BFME2 subsystem layout: flag4 and name8,12B total.
 #include "subsystem_interface.h"
-#include <wchar.h>
-extern "C" __declspec(dllimport) int __stdcall SHGetSpecialFolderPathW(void *,unsigned short *,int,int);
-extern "C" __declspec(dllimport) int __stdcall CreateDirectoryW(const unsigned short *,void *);
-struct FieldParse;
-class INI {public: int getLoadType() const {return *(const int*)((const char*)this+8);} void initFromINI(void*,const FieldParse*);};
-class GlobalData:public SubsystemInterface {public:
- GlobalData();virtual ~GlobalData();virtual void init();virtual void reset();virtual void update();virtual bool vslot04(int);virtual int vslot06();
- static GlobalData *newOverride();void applyOptionPreferences();static void rva00237AB1(INI*);
- static const FieldParse s_GlobalDataFieldParseTable[];
- AsciiString fieldC;char unknown10[0x98-0x10];float flag98;char unknown9C[0x1240-0x9C];
- AsciiString userDataDir;UnicodeString userDataDirUnicode;AsciiString picturePath;AsciiString userDataLeafName;GlobalData *next;
+namespace _STL { template<> vector<AsciiString>::~vector(); }
+class Rva00360D26Member { unsigned handle; public: ~Rva00360D26Member(); };
+class Rva002362B4 { char words[32]; public: ~Rva002362B4(); };
+class Version { char words[48]; public: ~Version(); };
+struct Rva004216D3Coord { float x,y,z; ~Rva004216D3Coord() {} };
+struct GlobalDataLightingView { Rva004216D3Coord ambient,diffuse,position; };
+
+
+extern "C" __declspec(dllimport) int __stdcall SHGetSpecialFolderPathW(void *owner, unsigned short *path, int folder, int create);
+extern "C" __declspec(dllimport) int __stdcall CreateDirectoryW(const unsigned short *path, void *security);
+
+// TheGameText's vslot 15 (0x3C) looks a label up by its text.
+class GameTextInterface
+{
+public:
+	virtual ~GameTextInterface() {}
+	virtual void slot01() = 0; virtual void slot02() = 0; virtual void slot03() = 0;
+	virtual void slot04() = 0; virtual void slot05() = 0; virtual void slot06() = 0;
+	virtual void slot07() = 0; virtual void slot08() = 0; virtual void slot09() = 0;
+	virtual void slot10() = 0; virtual void slot11() = 0; virtual void slot12() = 0;
+	virtual void slot13() = 0;
+	virtual UnicodeString fetchLabel(const AsciiString &label, bool *exists = 0) = 0;
+	virtual UnicodeString fetch(const char *label, bool *exists = 0) = 0;
 };
+extern GameTextInterface *TheGameText;
+
+class GlobalData:public SubsystemInterface {
+public:
+ GlobalData();
+ virtual ~GlobalData();
+ virtual void init();
+ virtual void reset();
+ virtual void update();
+ virtual bool vslot04(int);
+ virtual int vslot06();
+ static GlobalData *newOverride();
+ static void parseGameDataDefinition(class INI*);
+ void applyOptionPreferences();
+ AsciiString getPicturePath() const;
+private: static GlobalData *m_theOriginal;
+ AsciiString m_000C;
+ AsciiString m_0010;
+ AsciiString m_0014;
+ AsciiString m_0018;
+ char unknown001C[0x70];
+ AsciiString m_008C;
+ char unknown0090[8];float m_0098;char unknown009C[0x80];
+ AsciiString m_011C;
+ char unknown0120[0x8];
+ AsciiString m_0128;
+ char unknown012C[0x14];
+ GlobalDataLightingView m_0140[18];
+ GlobalDataLightingView m_03C8[18];
+ GlobalDataLightingView m_0650[18];
+ char unknown08D8[0x48];
+ Rva004216D3Coord m_0920[3];
+ char unknown0944[0x98];
+ AsciiString m_09DC;
+ AsciiString m_09E0;
+ char unknown09E4[0xC];
+ AsciiString m_09F0;
+ AsciiString m_09F4;
+ char unknown09F8[0x4];
+ AsciiString m_09FC;
+ AsciiString m_0A00;
+ char unknown0A04[0x4];
+ AsciiString m_0A08;
+ AsciiString m_0A0C;
+ char unknown0A10[0x4];
+ AsciiString m_0A14;
+ AsciiString m_0A18;
+ char unknown0A1C[0x4];
+ AsciiString m_0A20;
+ AsciiString m_0A24;
+ char unknown0A28[0x4];
+ AsciiString m_0A2C;
+ AsciiString m_0A30;
+ char unknown0A34[0x4];
+ AsciiString m_0A38;
+ AsciiString m_0A3C;
+ char unknown0A40[0x78];
+ AsciiString m_0AB8;
+ AsciiString m_0ABC;
+ AsciiString m_0AC0;
+ char unknown0AC4[0xC];
+ void * m_weaponBonusSet;
+ char unknown0AD4[0x18];
+ AsciiString m_0AEC;
+ char unknown0AF0[0x18];
+ Version m_0B08;
+ char unknown0B38[0x6C];
+ AsciiString m_0BA4;
+ _STL::vector<AsciiString> m_0BA8;
+ char unknown0BB4[0xA0];
+ _STL::vector<AsciiString> m_0C54;
+ char unknown0C60[0xA4];
+ AsciiString m_0D04;
+ AsciiString m_0D08;
+ char unknown0D0C[0x24];
+ AsciiString m_0D30;
+ char unknown0D34[0x4];
+ AsciiString m_0D38;
+ AsciiString m_0D3C;
+ char unknown0D40[0xC];
+ AsciiString m_0D4C;
+ char unknown0D50[0x160];
+ Rva00360D26Member m_0EB0;
+ Rva00360D26Member m_0EB4;
+ Rva00360D26Member m_0EB8;
+ Rva00360D26Member m_0EBC;
+ Rva00360D26Member m_0EC0;
+ char unknown0EC4[0x230];
+ _STL::vector<AsciiString> m_10F4;
+ char unknown1100[0x14];
+ Rva002362B4 m_1114;
+ char unknown1134[0x4];
+ Rva002362B4 m_1138;
+ char unknown1158[0x10];
+ Rva00360D26Member m_1168;
+ char unknown116C[0xD4];
+ AsciiString m_1240;
+ UnicodeString m_1244;
+ AsciiString m_picturePath;
+ AsciiString m_124C;
+ GlobalData *m_next;
+};
+
+// TheWritableGlobalData, VA 0x00DFE758.
 extern GlobalData *TheWritableGlobalData;
+
+// GlobalData::newOverride, retail 0x00237A6B.
+GlobalData *GlobalData::newOverride()
+{
+	GlobalData *override = new GlobalData;
+	override->m_next = TheWritableGlobalData;
+	TheWritableGlobalData = override;
+	return override;
+}
+
+// GlobalData::getPicturePath, retail 0x0023611A: the folder the create-a-hero
+// screen saves pictures to. The first call makes it, the user's My Pictures
+// (CSIDL_MYPICTURES, 0x27) plus the localised "APPDATA:PictureFolder", and
+// records it in TheWritableGlobalData.
+AsciiString GlobalData::getPicturePath() const
+{
+	if (((const StringBase<char> *)&m_picturePath)->isEmpty() && TheGameText)
+	{
+		unsigned short path[260];
+		if (SHGetSpecialFolderPathW(0, path, 0x27, 1))
+		{
+			UnicodeString folder = TheGameText->fetch("APPDATA:PictureFolder");
+			if (path[wcslen(path) - 1] != L'\\')
+				wcscat(path, L"\\");
+			wcscat(path, folder.str());
+			wcscat(path, L"\\");
+			CreateDirectoryW(path, 0);
+			TheWritableGlobalData->m_picturePath = UnicodeString(path);
+		}
+	}
+	return m_picturePath;
+}
+
+// BFME1 donor2f243e26 GlobalDataDestructor.cpp supplies the cleanup purpose;
+// WBBA5220 independently names the target destructor. Native2376CC..237A6B,
+// 927B, has54 member cleanup states plus the12B subsystem base. Native array
+// callbacks atB3FD0 are empty; the36B lighting shape is established separately
+// by setTimeOfDay and ZH GlobalData::TerrainLighting. Unknown fields retain
+// offset names and padding. No explicit member-destructor calls or vptr stores.
+GlobalData *GlobalData::m_theOriginal=0;
+GlobalData::~GlobalData()
+{
+ if(m_weaponBonusSet) ::operator delete(m_weaponBonusSet);
+ m_weaponBonusSet=0;
+ if(m_theOriginal==this) { m_theOriginal=0;TheWritableGlobalData=0; }
+}
+
+// Primary tableBED1C4 slot9 independently identifies reset. Native52B
+// uses global delete so the virtual destructor receives flag0, then memory
+// is released by the existing global operator delete.
+void GlobalData::reset()
+{
+ while(TheWritableGlobalData!=m_theOriginal) {
+  GlobalData *next=TheWritableGlobalData->m_next;
+  ::delete TheWritableGlobalData;
+  TheWritableGlobalData=next;
+ }
+}
+
+// Table BED1C4: reload notice slot4 and literal-preserving table getter slot6.
+// Slots1 and10 are empty; original names of slots4/6 remain unknown.
+
+class InGameUI { public:
+ virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
+ virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();
+ virtual void v08(); virtual void v09(); virtual void v10(); virtual void v11();
+ virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15();
+ virtual void message(UnicodeString format,...);
+};
+extern InGameUI *TheInGameUI;
+bool GlobalData::vslot04(int reason)
+{
+ if(loadIniFilesFromLegend()) {
+  if(TheInGameUI) TheInGameUI->message(UnicodeString(L"RIF: GameData reloaded (changes are effective immediately)"));
+  return true;
+ }
+ return false;
+}
+
+int GlobalData::vslot06() { return 0x00BE8520; }
+void GlobalData::init() {}
+void GlobalData::update() {}
+
+struct FieldParse;
+class INI {public:int getLoadType()const{return loadType;} void initFromINI(void*,const FieldParse*);char head[8];int loadType;};
 UnicodeString getUserDataLeafName();
-void GlobalData::rva00237AB1(INI *ini) {
- bool flag=false;
+static __forceinline bool emptyLeaf(const UnicodeString& leaf){const void* data=*(const void* const*)&leaf;return !data||*(const unsigned short*)((const char*)data+4)==0;}
+void GlobalData::parseGameDataDefinition(INI *ini) {
  if(TheWritableGlobalData) {
-  if(ini->getLoadType()==5) {
-   AsciiString saved=TheWritableGlobalData->fieldC;
-   if(TheWritableGlobalData->flag98!=0.0f)flag=true;
-   ini->initFromINI(TheWritableGlobalData,s_GlobalDataFieldParseTable);
-   TheWritableGlobalData->fieldC=saved;
-   TheWritableGlobalData->flag98=(float)flag;
+  if(ini->getLoadType()==5){
+   AsciiString name=TheWritableGlobalData->m_000C;
+   bool enabled=false;
+   if(TheWritableGlobalData->m_0098!=0.0f)enabled=true;
+   ini->initFromINI(TheWritableGlobalData,(const FieldParse*)TheWritableGlobalData->GlobalData::vslot06());
+   TheWritableGlobalData->m_000C=name;
+   TheWritableGlobalData->m_0098=(float)enabled;
    TheWritableGlobalData->applyOptionPreferences();
    return;
   }
   if(ini->getLoadType()!=3 && ini->getLoadType()==2)TheWritableGlobalData->newOverride();
- } else TheWritableGlobalData=new GlobalData;
- ini->initFromINI(TheWritableGlobalData,s_GlobalDataFieldParseTable);
- TheWritableGlobalData->userDataDir.clear();TheWritableGlobalData->userDataDirUnicode.clear();TheWritableGlobalData->picturePath.clear();
+ } else {
+  TheWritableGlobalData=new GlobalData;
+ }
+ ini->initFromINI(TheWritableGlobalData,(const FieldParse*)TheWritableGlobalData->GlobalData::vslot06());
+ ((StringBase<char>*)&TheWritableGlobalData->m_1240)->clear();
+ TheWritableGlobalData->m_1244.clear();
+ ((StringBase<char>*)&TheWritableGlobalData->m_picturePath)->clear();
  UnicodeString leaf=getUserDataLeafName();
- if(leaf.isEmpty())leaf.translate(TheWritableGlobalData->userDataLeafName);
- else TheWritableGlobalData->userDataLeafName.translate(leaf);
+ if(emptyLeaf(leaf))leaf.translate(TheWritableGlobalData->m_124C);
+ else TheWritableGlobalData->m_124C.translate(leaf);
  unsigned short path[260];
- if(SHGetSpecialFolderPathW(0,path,0x1A,1)) {
+ if(SHGetSpecialFolderPathW(0,path,0x1a,1)) {
   if(path[wcslen(path)-1]!=L'\\')wcscat(path,L"\\");
-  wcscat(path,leaf.str());wcscat(path,L"\\");CreateDirectoryW(path,0);
-  TheWritableGlobalData->userDataDirUnicode=path;
-  TheWritableGlobalData->userDataDir.translate(path);
+  wcscat(path,leaf.str());
+  wcscat(path,L"\\");
+  CreateDirectoryW(path,0);
+  TheWritableGlobalData->m_1244.set(path);
+  TheWritableGlobalData->m_1240.translate(path);
  }
  TheWritableGlobalData->applyOptionPreferences();
 }
