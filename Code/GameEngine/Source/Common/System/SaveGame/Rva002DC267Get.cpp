@@ -111,6 +111,22 @@ bool Rva002DCCFB::rva002DCCFB(UnicodeString filename)
 	return result;
 }
 
+// ?getMapLeafName@GameState@@QBE?AVAsciiString@@ABV2@@Z @0x002DC802 49B:
+// Native member callers preserve the GameState receiver at 0x002DC8CF
+// and load TheGameState (VA 0x00DFF08C) at 0x00356EB3 before calling.
+// reverseFind('\\') at 0x00035930 selects the substring constructor at
+// 0x00037BA0 or copy constructor at 0x000365F0. RET 8 cleans the hidden
+// return buffer and input reference; the body reads no receiver fields.
+class GameState { public: AsciiString getMapLeafName(const AsciiString &in) const; };
+
+AsciiString GameState::getMapLeafName(const AsciiString &in) const
+{
+	const char *slash = ((const StringBase<char> &)in).reverseFind('\\');
+	if (slash)
+		return AsciiString(slash + 1);
+	return in;
+}
+
 // ?doesWideFileExist@BFME2FileSystemFacade@@QAE_NPBG@Z @0x0060068A 11B
 // Facade ignores this and forwards wide path via TheArchiveFileSystem
 // (VA 0x00A06E5C, mangled ?TheArchiveFileSystem@@3PAVArchiveFileSystem@@A)

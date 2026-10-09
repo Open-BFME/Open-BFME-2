@@ -773,27 +773,6 @@ Bool GameState::isInSaveDirectory(const AsciiString& path) const
 }
 
 // ------------------------------------------------------------------------------------------------
-// ?getMapLeafName@GameState@@ present-unmatched
-AsciiString GameState::getMapLeafName(const AsciiString& in) const
-{
-	char* p = strrchr(in.str(), '\\');
-	if (p)
-	{
-		//
-		// p points to the last '\' (if found), however, if a '\' was found there better
-		// be another character beyond it, otherwise the map filename would actually
-		// be a *directory*  Just move to the first character beyond it so we are looking
-		// at the name only
-		//
-		++p;
-		DEBUG_ASSERTCRASH( p != NULL && *p != 0, ("GameState::xfer - Illegal map name encountered\n") );
-		return p;
-	}
-	else
-	{
-		return in;
-	}
-}
 
 // ------------------------------------------------------------------------------------------------
 static const char* findLastBackslashInRangeInclusive(const char* start, const char* end)
