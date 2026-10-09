@@ -1,5 +1,5 @@
 // ?doSpecialPowerAtLocation@DevastateSpecialPower@@UAEXPBUCoord3D@@I@Z
-// partial score=0.98 date=2026-10-09
+// partial score=0.996 date=2026-10-09
 // cl: /Ireference/shims/bfme2_ascii /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc
 // Retail 0x004C82E5, 472B: DevastateSpecialPower::doSpecialPowerAtLocation,
 // entered through the SpecialPowerModuleInterface at +0x10 (module data
@@ -189,6 +189,8 @@ public:
 	virtual void doSpecialPowerAtLocation( const Coord3D *loc, UnsignedInt commandOptions );
 };
 
+static __forceinline UnsignedInt devastateMoneyAmount(Real value) {return (UnsignedInt)value;}
+
 class DevastateSpecialPower : public SpecialPowerModule
 {
 public:
@@ -242,7 +244,8 @@ void DevastateSpecialPower::doSpecialPowerAtLocation( const Coord3D *target, Uns
 
 	TheTerrainLogic->m_queryScratch = 0.0f;
 
-	player->m_money.rva003B0D7C( (UnsignedInt)devastateMin( data->m_bountyCap, money ), &player->m_3BC, true );
+	typedef void (Rva003B0D7C::*UnsignedDeposit)(UnsignedInt,Rva0039B7AD*,bool);
+	(player->m_money.*reinterpret_cast<UnsignedDeposit>(&Rva003B0D7C::rva003B0D7C))( (UnsignedInt)devastateMin(data->m_bountyCap,money), &player->m_3BC,true);
 
 	if( !( (const StringBase<char> &)data->m_weaponName ).isEmpty() )
 	{
