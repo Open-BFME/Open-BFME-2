@@ -14,6 +14,7 @@ const char *__cdecl SkipLevelN(const char *);
 int __cdecl LevelIndexFromTarget(const char *);
 }
 class Rva000AD6F4 { public: void clear(); };
+class Rva00528309 { public: void rva005283E3(); };
 class Object;
 class Rva00575674 {
 public:
@@ -42,6 +43,7 @@ public:
   void OnFadeInComplete(const char *params);
   void OnFadeOutComplete(const char *params);
   void OnLoaded(const char *params);
+  void OnUnloaded(const char *params);
  private:
   char m_prefix[0x14];
   int m_state;
@@ -121,4 +123,11 @@ void AptInGameSideCommandBar::Impl::OnLoaded(const char *params)
 {
  m_prefixString = params;
  m_state = 1;
+}
+
+// Constructor 005288C4 binds 005285E7 to the Unloaded callback.
+// Entire eight-byte body calls the already rowed 5283E3 cleanup then ret4.
+void AptInGameSideCommandBar::Impl::OnUnloaded(const char *)
+{
+ ((Rva00528309 *)this)->rva005283E3();
 }
