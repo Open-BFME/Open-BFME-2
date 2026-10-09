@@ -604,3 +604,14 @@ void PalantirOptionsButtonReceiver::setEnabled(bool value) {
   enabled=value;
  }
 }
+struct PalantirObjectivesButtonReceiver {
+ char unknown0[0x14];void *level;AsciiString name;char unknown1c[0x22];bool rolledOver;bool enabled;
+ void setEnabled(bool value);
+};
+void PalantirObjectivesButtonReceiver::setEnabled(bool value) {
+ if(value!=enabled) {
+  if(!value && rolledOver)((StrategicHUD::Palantir *)((char *)this-0x18))->rva00578B4C(0);
+  Rva005277D9Fire(TheRva00222A8BTarget,level,name.str(),"EnableObjectivesButton",&value);
+  enabled=value;
+ }
+}
