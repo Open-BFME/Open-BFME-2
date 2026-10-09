@@ -1,5 +1,5 @@
 // ?isClearLineOfSight@BaseHeightMapRenderObjClass@@QBE_NABUCoord3D@@0@Z
-// partial score=0.997 date=2026-10-09
+// partial score=0.998 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // BaseHeightMapRenderObjClass::isClearLineOfSight, retail 0x00066AD1 (920 bytes).
 //
@@ -42,7 +42,7 @@ __forceinline long fast_float2long_round(Real f)
 	return i;
 }
 
-#define REAL_TO_INT_FLOOR(x) (fast_float2long_round(fast_float_floor(x)))
+#define REAL_TO_INT_FLOOR(x) (fast_float2long_round((Real)floor(x)))
 #define __max(a,b) (((a) > (b)) ? (a) : (b))
 
 #define MAP_XY_FACTOR 10.0f
