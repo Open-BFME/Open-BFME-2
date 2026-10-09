@@ -1,6 +1,7 @@
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD
 //
-// Four adjacent AI move-state onEnter overrides, retail 0x0034C994-0x0034CBAB.
+// AI move-state overrides: four adjacent onEnter bodies, retail
+// 0x0034C994-0x0034CBAB, and the update/onExit bodies 0x00347B3D-0x00347C38.
 //
 // Donors: Zero Hour AIStates.cpp AIMoveOutOfTheWayState::onEnter (0x0034C994,
 // CritterDesync string 6), AIMoveAndTightenState::onEnter (0x0034C9ED, string
@@ -26,6 +27,11 @@ typedef unsigned int UnsignedInt;
 enum StateReturnType
 {
 	STATE_FAILURE = -2
+};
+
+enum StateExitType
+{
+	EXIT_NORMAL = 0
 };
 
 enum LocomotorSetType
@@ -83,11 +89,14 @@ public:
 	virtual Bool chooseLocomotorSet(LocomotorSetType wst);
 
 	Path *getPath() { return m_path; }
+	Bool isWaitingForPath() const { return m_waitingForPath; }
 	void requestApproachPath(Coord3D *destination);
 	void requestSafePath(ObjectID repulsor);
 private:
 	char m_pad004[0x140 - 0x04];
 	Path *m_path; // +0x140
+	char m_pad144[0x3B1 - 0x144];
+	Bool m_waitingForPath; // +0x3B1
 };
 
 class ModelConditionFlags
@@ -100,6 +109,10 @@ public:
 	void set(Int bit)
 	{
 		m_words[bit >> 5] |= 1U << (bit & 0x1f);
+	}
+	void clear(Int bit)
+	{
+		m_words[bit >> 5] &= ~(1U << (bit & 0x1f));
 	}
 private:
 	UnsignedInt m_words[19];
@@ -118,6 +131,14 @@ public:
 		if (m_conditionBits.test(bit) == 0)
 		{
 			m_conditionBits.set(bit);
+			rva0028AE6D();
+		}
+	}
+	__forceinline void clearModelConditionState(Int bit)
+	{
+		if (m_conditionBits.test(bit) != 0)
+		{
+			m_conditionBits.clear(bit);
 			rva0028AE6D();
 		}
 	}
@@ -158,6 +179,8 @@ public:
 	virtual void slot02();
 	virtual void slot03();
 	virtual StateReturnType onEnter();
+	virtual void onExit(StateExitType status);
+	virtual StateReturnType update();
 protected:
 	StateMachine *getMachine() const { return m_machine; }
 	Object *getMachineOwner() const { return m_machine->getOwner(); }
@@ -171,6 +194,8 @@ class AIInternalMoveToState : public State
 {
 public:
 	virtual StateReturnType onEnter();
+	virtual void onExit(StateExitType status);
+	virtual StateReturnType update();
 protected:
 	void setAdjustsDestination(Bool b) { m_adjustsDestination = b; }
 	unsigned char m_pad1C[0x20 - 0x1C];
@@ -198,6 +223,7 @@ class Rva003428AF : public AIInternalMoveToState
 {
 public:
 	virtual StateReturnType onEnter();
+	virtual StateReturnType update();
 protected:
 	Int m_okToRepathTimes; // +0x4C
 	Bool m_checkForPath; // +0x50
@@ -207,6 +233,8 @@ class AIMoveAwayFromRepulsorsState : public AIInternalMoveToState
 {
 public:
 	virtual StateReturnType onEnter();
+	virtual void onExit(StateExitType status);
+	virtual StateReturnType update();
 protected:
 	Int m_okToRepathTimes; // +0x4C
 	Bool m_checkForPath; // +0x50
@@ -278,4 +306,48 @@ StateReturnType AIMoveAwayFromRepulsorsState::onEnter()
 	obj->rva0028AD32();
 	ai->requestSafePath(enemy->getID());
 	return AIInternalMoveToState::onEnter();
+}
+
+StateReturnType Rva003428AF::update()
+{
+	if (m_checkForPath)
+	{
+		Object *obj = getMachineOwner();
+		AIUpdateInterface *ai = obj->getAI();
+		Path *thePath = ai->getPath();
+		if (thePath && !ai->isWaitingForPath())
+		{
+			m_goalPosition = *thePath->getLastNode()->getPosition();
+			critterDesyncLog("CritterDesync: setAdjustDestination(FALSE) 10");
+			setAdjustsDestination(false);
+			m_checkForPath = false;
+		}
+	}
+	return AIInternalMoveToState::update();
+}
+
+void AIMoveAwayFromRepulsorsState::onExit(StateExitType status)
+{
+	AIInternalMoveToState::onExit(status);
+	Object *obj = getMachineOwner();
+	if (obj)
+		obj->clearModelConditionState(MODELCONDITION_PANICKING);
+}
+
+StateReturnType AIMoveAwayFromRepulsorsState::update()
+{
+	if (m_checkForPath)
+	{
+		Object *obj = getMachineOwner();
+		AIUpdateInterface *ai = obj->getAI();
+		Path *thePath = ai->getPath();
+		if (thePath && !ai->isWaitingForPath())
+		{
+			m_goalPosition = *thePath->getLastNode()->getPosition();
+			critterDesyncLog("CritterDesync: setAdjustDestination(FALSE) 12");
+			setAdjustsDestination(false);
+			m_checkForPath = false;
+		}
+	}
+	return AIInternalMoveToState::update();
 }
