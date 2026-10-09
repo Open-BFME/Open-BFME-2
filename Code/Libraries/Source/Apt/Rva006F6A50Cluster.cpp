@@ -23,6 +23,7 @@ class AptCIH
 public:
 	virtual void v0();
 	bool rva006E24E0();
+	bool rva006E24E0() const;
 	void rva006E2560(int arg);
 	void rva006E2D60();
 	void rva006E1C40(void *a, void *b);
@@ -91,6 +92,7 @@ public:
 	virtual void v2();
 	bool isUndefined() const;
 	void setGCRootCount(unsigned int n);
+	int rva006E02B0() const;
 	unsigned int m_flags;
 };
 
@@ -421,6 +423,64 @@ void AptDisplayList::rva006F79B0(void *arg1, void *arg2)
 		}
 		node = node->m_next;
 	}
+}
+
+// Target 0x006F7330 is a 112-byte cdecl callback. Its retail bytes test the
+// rowed AptCIH predicate before changing render state, push the colour and
+// vertex stacks, pass this+0x24 to the rowed 1209 helper, conditionally pass
+// this+0x48 to the address-derived 0x006E1260 helper, and then call the
+// address-derived 0x006E15C0 renderer with (context, 0, flags). The matching
+// WorldBuilder body labels that renderer AptCIH::render and uses +0x28/+0x4C;
+// this callback's target offsets and cdecl argument order follow game.dat.
+// The callback's original source name remains unproven, so it stays RVA-based.
+class AptRenderingContext
+{
+public:
+	void pushColourTransform();
+	void pushVertexMatrix();
+	void popVertexMatrix();
+	void popColourTransform();
+};
+
+struct BfmeS1209;
+class BfmeA1209
+{
+public:
+	void bfmeOp1209(const BfmeS1209 *value);
+};
+
+class BfmeThingDXH
+{
+public:
+	void bfmeGoDXH(void *value);
+};
+
+class Rva006E1260
+{
+public:
+	void call(void *value);
+};
+
+class Rva006E15C0
+{
+public:
+	void call(void *context, void *zero, int flags);
+};
+
+void __cdecl rva006F7330(AptRenderingContext *context, AptCIH *item, int flags)
+{
+	if (!((const AptCIH *)item)->rva006E24E0())
+		return;
+
+	context->pushColourTransform();
+	((BfmeA1209 *)context)->bfmeOp1209((const BfmeS1209 *)((const char *)item + 0x24));
+	context->pushVertexMatrix();
+	if ((char)((const BfmeAptValue006DCD20 *)item)->rva006E02B0())
+		((Rva006E1260 *)item)->call(*(void **)((char *)item + 0x48));
+	((BfmeThingDXH *)context)->bfmeGoDXH((char *)item + 0x0c);
+	((Rva006E15C0 *)item)->call(context, 0, flags);
+	context->popVertexMatrix();
+	context->popColourTransform();
 }
 
 class Rva006F7540
