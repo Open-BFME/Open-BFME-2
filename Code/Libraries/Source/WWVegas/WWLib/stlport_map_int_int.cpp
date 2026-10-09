@@ -20,6 +20,9 @@ typedef _STL::_Rb_tree<int, _STL::pair<const int, int>, _STL::_Select1st<_STL::p
 // Suppress this speed-profile copy so callers select the verified provider.
 namespace _STL {
 template <> void IntMapTree::_M_erase(_Rb_tree_node<pair<const int, int> > *);
+// Native clone owner is the verified 30B body at 0x0053444F.
+// This speed-profile unit emits a different allocation/cleanup shape.
+template <> IntMapTree::_Link_type IntMapTree::_M_clone_node(IntMapTree::_Link_type);
 }
 
 // The historical int-map spelling of erase at 0x61F8A0 reaches the existing
