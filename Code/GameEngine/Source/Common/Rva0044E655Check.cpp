@@ -58,11 +58,3 @@ bool Rva0044E655::rva0044E655()
 	return true;
 }
 
-// ?rva0044E689@Rva0044E655@@QAE_NXZ, retail 0x0044E689 (30B): false without an AI slot
-// on the +0x08 Object; otherwise true unless both +0x7E and +0x7F are set.
-bool Rva0044E655::rva0044E689()
-{
-	if (m_obj08->m_ai258 == 0)
-		return false;
-	return m_7E == 0 || m_7F == 0;
-}
