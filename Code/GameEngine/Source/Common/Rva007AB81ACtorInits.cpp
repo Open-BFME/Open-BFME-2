@@ -55,10 +55,10 @@ public:
 	Rva0030ADED();
 };
 
-class Rva002150CE
+class Rva00214E02
 {
 public:
-	Rva002150CE *rva002150CE();
+	Rva00214E02();
 };
 
 class Rva005CB35A
@@ -131,7 +131,6 @@ extern unsigned g_Va00DEDC80;
 extern unsigned g_Va00DEE5D8;
 extern unsigned int g_Va009F6F30;
 extern unsigned g_Va00DFE180;
-class Rva00214E02;
 extern Rva0030ADED TheFireSettings;			// 0x00DFF4F8 (Rva007B6880Thunks.cpp)
 extern Rva0030ADED TheFireSettingsSaved;		// 0x00DFF4B8
 extern Rva00214E02 TheCloudEffectSettings;		// 0x00DFE280 (Rva007B6880Thunks.cpp)
@@ -240,17 +239,17 @@ void Rva007AB81ACtorInits::rva007AD7DD()
 	atexit( rva007B75E2 );
 }
 
-// ?rva007AD9BC@Rva007AB81ACtorInits@@SAXXZ @ 0x007AD9BC (22B): ?rva002150CE@Rva002150CE@@QAEPAV1@XZ on TheCloudEffectSettingsSaved (VA 0x00DFE1E8), atexit(0x007B763C)
+// ?rva007AD9BC@Rva007AB81ACtorInits@@SAXXZ @ 0x007AD9BC (22B): ??0Rva00214E02@@QAE@XZ on TheCloudEffectSettingsSaved (VA 0x00DFE1E8), atexit(0x007B763C)
 void Rva007AB81ACtorInits::rva007AD9BC()
 {
-	( (Rva002150CE *)&TheCloudEffectSettingsSaved )->rva002150CE();
+	( &TheCloudEffectSettingsSaved )->Rva00214E02::Rva00214E02();
 	atexit( rva007B763C );
 }
 
-// ?rva007AD9D2@Rva007AB81ACtorInits@@SAXXZ @ 0x007AD9D2 (22B): ?rva002150CE@Rva002150CE@@QAEPAV1@XZ on TheCloudEffectSettings (VA 0x00DFE280), atexit(0x007B7632)
+// ?rva007AD9D2@Rva007AB81ACtorInits@@SAXXZ @ 0x007AD9D2 (22B): ??0Rva00214E02@@QAE@XZ on TheCloudEffectSettings (VA 0x00DFE280), atexit(0x007B7632)
 void Rva007AB81ACtorInits::rva007AD9D2()
 {
-	( (Rva002150CE *)&TheCloudEffectSettings )->rva002150CE();
+	( &TheCloudEffectSettings )->Rva00214E02::Rva00214E02();
 	atexit( rva007B7632 );
 }
 

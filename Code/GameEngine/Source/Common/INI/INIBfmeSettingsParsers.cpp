@@ -167,6 +167,8 @@ void Rva0030AFFBParse(INI *ini)
 class Rva00214E02
 {
 public:
+	Rva00214E02();
+
 	AsciiString m_00;
 	AsciiString m_04;
 	AsciiString m_08;
@@ -187,9 +189,9 @@ public:
 	int m_4C;
 	S12 m_50;
 	int m_5C;
-	S12 m_60;
+	GameClientRandomVariable m_60;
 	int m_6C;
-	S12 m_70;
+	GameClientRandomVariable m_70;
 	int m_7C;
 	int m_80;
 	int m_84;
@@ -198,6 +200,14 @@ public:
 	int m_90;
 	AsciiString m_94;
 };
+
+// 0x002150CE (51B): the defaults, constructed into both settings globals by
+// retail's initializers at 0x007AD9BC/0x007AD9D2. Only the five strings and
+// the two client random variables (LightningDuration +0x60,
+// LightningIntensity +0x70) have constructors; their inline ones zero them.
+Rva00214E02::Rva00214E02()
+{
+}
 
 class Rva0027070CGlobal
 {
