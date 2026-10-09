@@ -1,4 +1,6 @@
 // ?rva005DE926@Rva005DE5B5@@QAEXXZ
+// partial score=0.9 date=2026-10-09
+// ?rva005DE926@Rva005DE5B5@@QAEXXZ
 // partial score=0.9 date=2026-10-06
 // ?rva005DE926@Rva005DE5B5@@QAEXXZ
 // partial score=0.9 date=2026-10-04
@@ -34,6 +36,8 @@ namespace _STL {
 template <> void _Construct<BfmeStringRecord005DDD40, BfmeStringRecord005DDD40>(BfmeStringRecord005DDD40 *, const BfmeStringRecord005DDD40 &);
 }
 
+class Rva005DE7D1Vector { public: void resize(unsigned); };
+
 class Rva005DE5B5
 {
 public:
@@ -51,6 +55,6 @@ void Rva005DE5B5::rva005DE926()
 	BfmeStringRecord005DDD40 *last = m_04.end();
 	unsigned int count = m_04.size();
 	m_04.erase(m_04.begin(), m_04.end());
-	m_04.resize(count);
+	reinterpret_cast<Rva005DE7D1Vector *>(&m_04)->resize(count);
 	m_14 = 0;
 }
