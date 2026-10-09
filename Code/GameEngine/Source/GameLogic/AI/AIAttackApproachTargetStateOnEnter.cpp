@@ -64,6 +64,13 @@
 // requestApproachPath, with the 'masiwar' debug traces gated on TheGameLogic
 // +0x1B4. The machine pointer is a local there (retail reuses it after
 // findObjectByID).
+//
+// AIAttackMeleeSquishState (vtable 0x00C12868): onEnter 0x0034D886 (261
+// bytes, CritterDesync 33/22) needs template byte +0x5FD, no status 0x44 or
+// AI +0x3CC, a live goal without the physics flag pair and the owner's crush
+// test (Object::rva0029493F, 2) before it paths, then sets status 0x1C. Its
+// FAILURE and SUCCESS returns trail the body in that order, which only the
+// nested form below reproduces.
 
 #include "../../Common/GameLogicObjectLookupView.h"
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
@@ -90,6 +97,7 @@ enum WeaponSlotType
 };
 enum ObjectStatusTypes
 {
+	OBJECT_STATUS_1C = 0x1C,
 	OBJECT_STATUS_26 = 0x26,
 	OBJECT_STATUS_33 = 0x33,
 	OBJECT_STATUS_44 = 0x44
@@ -275,6 +283,8 @@ public:
 	unsigned char m_kindOf[8]; // +0x108
 	unsigned char m_pad110[0x122 - 0x110];
 	unsigned char m_122; // +0x122
+	unsigned char m_pad123[0x5FD - 0x123];
+	Bool m_5fd; // +0x5FD
 };
 
 class Thing
@@ -341,10 +351,14 @@ public:
 	Real rva0028AC7D() const;
 	Bool rva002943B2(const Player *player);
 	void rva0028ACDC(const Coord3D *pos);
+	void setStatus(ObjectStatusTypes bit, Bool set);
+	void *rva0029439D();
 	ObjectID getID() const { return (ObjectID)m_id; }
 	unsigned char m_pad044[0x74 - 0x44];
 	Int m_id; // +0x74
-	unsigned char m_pad078[0x249 - 0x78];
+	unsigned char m_pad078[0xB8 - 0x78];
+	Real m_geometryRadiusB8; // +0xB8
+	unsigned char m_pad0BC[0x249 - 0xBC];
 	Bool m_249; // +0x249
 	unsigned char m_pad24A[0x258 - 0x24A];
 	AIUpdateInterface *m_ai; // +0x258
@@ -577,6 +591,39 @@ static __forceinline void debugTrace(const char *text)
 	if (log != 0)
 		fprintf(log, text);
 }
+
+template <int N> class VirtualSlots : public VirtualSlots<N - 1>
+{
+public:
+	virtual void gap(char (*)[N]);
+};
+template <> class VirtualSlots<0>
+{
+};
+
+// The object behind Object::rva0029439D; its slot 68 yields the object a
+// melee squish should really target.
+class Rva0029439DView : public VirtualSlots<68>
+{
+public:
+	virtual Object *slot68();
+};
+
+// AIAttackMeleeSquishState, vtable 0x00C12868 (rowed xfer 0x00340A92, onExit
+// 0x003497C7).
+class AIAttackMeleeSquishState : public AIInternalMoveToState
+{
+public:
+	virtual StateReturnType onEnter();
+protected:
+	virtual Bool computePath();
+private:
+	UnsignedInt m_approachTimestamp; // +0x4C
+	Coord3D m_prevVictimPos; // +0x50
+	Int m_cellX; // +0x5C
+	Int m_cellY; // +0x60
+	Bool m_64; // +0x64
+};
 
 // Physics flag-pair check (0x00390533), pinned under this name.
 class Rva00390533
@@ -1051,4 +1098,34 @@ Bool AIAttackFireDuringApproachState::computePath()
 		return true;
 	}
 	return false;
+}
+
+StateReturnType AIAttackMeleeSquishState::onEnter()
+{
+	StateMachine *machine = getMachine();
+	Object *source = machine->getOwner();
+	if (!source->testStatus(OBJECT_STATUS_44) && !source->m_ai->m_3cc && source->getTemplate()->m_5fd)
+	{
+		if (!((TurretStateMachine *)machine)->rva004D7ADD())
+		{
+			critterDesyncLog("CritterDesync: setAdjustDestination(FALSE) 33");
+			setAdjustsDestination(false);
+			m_approachTimestamp = 0;
+			Object *victim = getMachineGoalObject();
+			if (victim && !(victim->m_physics && ((Rva00390533 *)victim->m_physics)->rva00390533()))
+			{
+				if (!source->rva0029493F(victim, 2))
+					return STATE_SUCCESS;
+				m_prevVictimPos = *victim->getPosition();
+				source->m_ai->destroyPath();
+				critterDesyncLog("CritterDesync: ComputePath22");
+				if (computePath() == false)
+					return STATE_SUCCESS;
+				source->setStatus(OBJECT_STATUS_1C, true);
+				return AIInternalMoveToState::onEnter();
+			}
+		}
+		return STATE_FAILURE;
+	}
+	return STATE_SUCCESS;
 }
