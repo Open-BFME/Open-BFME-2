@@ -1,8 +1,8 @@
-// cl: /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/subsystem_bfme2 /Ireference/shims/bfme2_ascii /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 //
 // ??1Rva0037381C@@UAE@XZ @0x0037381C (85B).
-// Dtor for MI class with GameEngineDeletingBase primary (size 0xC) and empty
+// Dtor for MI class with SubsystemInterface primary (size 0xC) and empty
 // secondary at +0xC, Tree00372FF4 map at +0x10. Calls rowed values-delete
 // 0x003734C0 then member and base dtors with EH states 2/1. Caller of 3734C0.
 // Vtables 0x00C17E14/0x00C17E04 via gate, base reset to g_00BBB554.
@@ -14,13 +14,9 @@ typedef _STL::_Rb_tree<float, TreeValue00372FF4, _STL::_Select1st<TreeValue00372
 
 extern const void *const g_00BBB554[];
 
-class GameEngineDeletingBase
-{
-public:
-	virtual ~GameEngineDeletingBase();
-private:
-	char m_pad[0xC - 4];
-};
+// Retail base vtable BD77A0 and destructor 1B4E74 prove the canonical 12-byte subsystem base.
+typedef bool Bool;
+#include "subsystem_interface.h"
 
 class Rva003734C0
 {
@@ -34,7 +30,7 @@ public:
 	virtual ~Rva0037381CSecond() {}
 };
 
-class Rva0037381C : public GameEngineDeletingBase, public Rva0037381CSecond
+class Rva0037381C : public SubsystemInterface, public Rva0037381CSecond
 {
 public:
 	virtual ~Rva0037381C();

@@ -1,16 +1,16 @@
-// cl: /Ireference/shims/bfme2_ascii /EHsc /D_STLP_NO_EXCEPTIONS /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
+// cl: /Ireference/shims/subsystem_bfme2 /Ireference/shims/bfme2_ascii /EHsc /D_STLP_NO_EXCEPTIONS /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
 // stlport
 // ??1GlobalLanguage@@UAE@XZ retail 0x001EABAB 446 bytes.
 // GlobalLanguage destructor: vtable 0x007DEFC8 then list at +0x138 via rowed
 // List_base dtor 0x001EA97D then 28 string members via rowed releaseBuffer
-// 0x00036410 then base GameEngineDeletingBase dtor 0x001B4E74. Layout from
+// 0x00036410 then base SubsystemInterface dtor 0x001B4E74. Layout from
 // retail offsets: 5 AsciiStrings at +0xC-0x1C then 23 FontDescs at
 // +0x20-0x128 (AsciiString at +0) then Real at +0x134 then list at +0x138.
 // Identity: vtable followed by Language string plus same class as rowed
 // adjustFontSize 0x001EA40D plus initSubsystem<GlobalLanguage> literal
 // 0x00DFDC84 plus callers feeding getFont. ZH donor GlobalLanguage.h plus
 // BFME1 GlobalLanguage.cpp field table; BFME2 adds members so retail offsets
-// rule. Base size 0xC from GameEngineDeletingBaseDtor.cpp row.
+// rule. Base size 0xC and destructor are owned by subsystem/SubsystemInterface.cpp.
 #include <stl/_alloc.h>
 namespace _STL { template <> void __malloc_alloc<0>::deallocate(void *, size_t); }
 #include <list>
@@ -45,16 +45,11 @@ template <> __forceinline void allocator<_List_node< ::Rva001EA443 > >::dealloca
 #pragma optimize("", on)
 }
 
-class GameEngineDeletingBase
-{
-public:
-	virtual ~GameEngineDeletingBase();
-private:
-	char m_pad04[4];
-	AsciiString m_member08;
-};
+// Retail base vtable BD77A0 and destructor 1B4E74 prove the canonical 12-byte subsystem base.
+typedef bool Bool;
+#include "subsystem_interface.h"
 
-class GlobalLanguage : public GameEngineDeletingBase
+class GlobalLanguage : public SubsystemInterface
 {
 public:
 	virtual ~GlobalLanguage();

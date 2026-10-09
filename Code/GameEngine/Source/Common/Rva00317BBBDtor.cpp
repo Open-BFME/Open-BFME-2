@@ -1,22 +1,18 @@
-// cl: /EHsc
+// cl: /Ireference/shims/subsystem_bfme2 /Ireference/shims/bfme2_ascii /EHsc
 // ??1Rva00317BBB@@UAE@XZ @0x00317BBB 93B: virtual dtor draining the intrusive list at +0xC node by node through virtual slot 0 with arg 0 plus global operator delete, then base 0x001B4E74. Evidence: vtable 0x0080C62C store plus deleting-dtor caller 0x00317C18 plus rowed operator delete 0x0002FD60; node slot-0 identity unproven so TU-local ListNode facade.
 class AsciiStringMember {
 public:
   ~AsciiStringMember();
 };
-class GameEngineDeletingBase {
-public:
-  virtual ~GameEngineDeletingBase();
-private:
-  char m_pad04[4];
-  AsciiStringMember m_member08;
-};
+// Retail base vtable BD77A0 and destructor 1B4E74 prove the canonical 12-byte subsystem base.
+typedef bool Bool;
+#include "subsystem_interface.h"
 struct ListNode {
   virtual void *destroy(int flags);
   char m_pad04[0x1C];
   ListNode *m_next;
 };
-class Rva00317BBB : public GameEngineDeletingBase {
+class Rva00317BBB : public SubsystemInterface {
 public:
   virtual ~Rva00317BBB();
 private:

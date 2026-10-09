@@ -1,11 +1,11 @@
-// cl: /O1 /DNDEBUG /MD /arch:SSE /EHsc /Ireference/shims/moduledata
+// cl: /Ireference/shims/subsystem_bfme2 /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /arch:SSE /EHsc /Ireference/shims/moduledata
 //
 // ??1Radar@@UAE@XZ, retail 0x002D7CED, 98 bytes. Radar destructor (MI:
-// primary Snapshot, second GameEngineDeletingBase). Evidence: two vptr
+// primary Snapshot, second SubsystemInterface). Evidence: two vptr
 // stores (0xC0363C at +0, 0xC03604 at +4) per Radar_reset.cpp comment on
 // the ctor near 0x002D7CF0; calls rowed ?deleteListResources@Radar@@IAEXXZ;
 // destroys m_events[64] at +0x2C via ??_M (size 0x50 count 0x40, element
-// dtor at 0x002D7CE0); calls rowed ??1GameEngineDeletingBase@@UAE@XZ
+// dtor at 0x002D7CE0); calls rowed ??1SubsystemInterface@@UAE@XZ
 // on +4 slice; final inline Snapshot store (??_7Snapshot, 0x00BBB554). Neighbour TUs
 // Radar_reset.cpp / Radar_deleteListResources.cpp give +0x14/+0x18 lists,
 // +0xD flag, +0x2C events, +0x142C trailer layout.
@@ -13,11 +13,9 @@
 #include "Common/Snapshot.h"
 
 
-class GameEngineDeletingBase
-{
-public:
-	virtual ~GameEngineDeletingBase();
-};
+// Retail base vtable BD77A0 and destructor 1B4E74 prove the canonical 12-byte subsystem base.
+typedef bool Bool;
+#include "subsystem_interface.h"
 
 class RadarEventRef
 {
@@ -34,14 +32,14 @@ private:
 	RadarEventRef *m_ref; // +0x4C
 };
 
-class Radar : public Snapshot, public GameEngineDeletingBase
+class Radar : public Snapshot, public SubsystemInterface
 {
 protected:
 	void deleteListResources();
 public:
 	virtual ~Radar();
 private:
-	char m_pad08[0x2C - 0x8];
+	char m_pad10[0x2C - 0x10];
 public:
 	RadarEvent m_events[64]; // +0x2C
 private:

@@ -1,4 +1,4 @@
-// cl: /Ob2 /EHsc /MD
+// cl: /Ireference/shims/subsystem_bfme2 /Ireference/shims/bfme2_ascii /Ob2 /EHsc /MD
 //
 // ??1Rva00418298@@UAE@XZ @0x00418298 59B.
 // Dtor storing vtable g_00BE76D0 then member +0xc and base.
@@ -10,15 +10,11 @@ public:
 	~Rva0022DB29();
 };
 
-class GameEngineDeletingBase
-{
-public:
-	virtual ~GameEngineDeletingBase();
-private:
-	char m_pad04[0xC - 4];
-};
+// Retail base vtable BD77A0 and destructor 1B4E74 prove the canonical 12-byte subsystem base.
+typedef bool Bool;
+#include "subsystem_interface.h"
 
-class Rva00418298 : public GameEngineDeletingBase
+class Rva00418298 : public SubsystemInterface
 {
 public:
 	virtual ~Rva00418298();

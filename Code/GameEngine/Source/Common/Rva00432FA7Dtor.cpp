@@ -1,14 +1,10 @@
-// cl: /MD
+// cl: /Ireference/shims/subsystem_bfme2 /Ireference/shims/bfme2_ascii /MD
 // ??1Rva00432FA7@@UAE@XZ @0x00432FEF 54B: virtual dtor with two-list cleanup.
-// Evidence: vtable 0x0083CA30 slot0 ??_G 0x0043312E; ctor 0x00432FA7 same vtable; tail-jmp to rowed ??1GameEngineDeletingBase@@UAE@XZ 0x001B4E74; callers 0x00433131.
+// Evidence: vtable 0x0083CA30 slot0 ??_G 0x0043312E; ctor 0x00432FA7 same vtable; tail-jmp to rowed ??1SubsystemInterface@@UAE@XZ 0x001B4E74; callers 0x00433131.
 
-class GameEngineDeletingBase
-{
-public:
-	virtual ~GameEngineDeletingBase();
-private:
-	char m_pad[8];
-};
+// Retail base vtable BD77A0 and destructor 1B4E74 prove the canonical 12-byte subsystem base.
+typedef bool Bool;
+#include "subsystem_interface.h"
 
 struct Rva00432FA7Node
 {
@@ -17,7 +13,7 @@ struct Rva00432FA7Node
 	int m_18;
 };
 
-class Rva00432FA7 : public GameEngineDeletingBase
+class Rva00432FA7 : public SubsystemInterface
 {
 	Rva00432FA7Node *m_0C;
 	int m_10;
