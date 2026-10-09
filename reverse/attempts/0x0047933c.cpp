@@ -1,14 +1,15 @@
 // ?removeInvalidObjectsFromGarrisonPoints@GarrisonContain@@IAEXXZ
-// partial score=0.97 date=2026-10-08
+// partial score=0.97 date=2026-10-09
 // ?removeInvalidObjectsFromGarrisonPoints@GarrisonContain@@IAEXXZ
-// partial score=0.97 date=2026-10-08
-// 0x0047933C removeInvalidObjectsFromGarrisonPoints, 89 bytes: 7 diffs, point
-// pointer and occupant swap edi/esi (retail point edi, obj esi). The ObjectID
-// local fixes this=ebx (without it this/point/obj rotate, 18 diffs). Tried:
-// do-while/for/while, pointer walk, function-scope locals, nested/continue
-// ifs, inline/forceinline weapon predicate, duplicated remove arm, flags.
-// cl: /O1 /arch:SSE /G7 /MD /DNDEBUG
-enum ObjectID { INVALID_ID = 0 };
+// cl: /ICode/GameEngine/Source/Common /O1 /arch:SSE /G7 /MD /DNDEBUG
+// Target47933C..479395: argless40-slot sweep, skips when count420 is zero.
+// Slot array100/stride14 and ObjectID lookup49DC5, weapon28AEBD,
+// template+4/get2C9400, removal477E82 are independently native evidence.
+// Method purpose agrees with GarrisonContain donor; original wrong three-arg
+// attemptBestFirePointPosition identity is retired. Unknown root100 is opaque,
+// replacing the old invented B0..B8 bases. Use canonical GameLogic header.
+// Full89B and all calls resolve; seven register bytes still swap point/object
+// ESI/EDI. Whole-check helper scope also unchanged. No Code edit or new pin.
 enum WeaponSlotType { PRIMARY_WEAPON = 0 };
 class Object;
 class Rva002C9400ByteField { public: unsigned char get() const; };
@@ -25,11 +26,7 @@ class Object
 public:
     const Weapon *getCurrentWeapon(WeaponSlotType *slot) const;
 };
-class GameLogic
-{
-public:
-    Object *findObjectByID(ObjectID id);
-};
+#include "GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 
 struct GarrisonPointData
@@ -41,31 +38,14 @@ struct GarrisonPointData
     void *effect;
 };
 
-class B0 { public: virtual void b0(); int pad4; void *object; };
-class B1 { public: virtual void b1(); };
-class B2 { public: virtual void b2(); private: unsigned char pad[12]; };
-class B3 { public: virtual void b3(); };
-class B4 { public: virtual void b4(); };
-class B5 { public: virtual void b5(); };
-class B6 { public: virtual void b6(); };
-class B7 { public: virtual void b7(); };
-class B8 { public: virtual void b8(); private: unsigned char pad[0xC8 - 4]; };
-
-class OpenContain : public B0, public B1, public B2, public B3, public B4,
-    public B5, public B6, public B7, public B8
-{
-public:
-    virtual ~OpenContain();
-};
-
-class GarrisonContain : public OpenContain
+class GarrisonContain
 {
 protected:
     void removeObjectFromGarrisonPoint(Object *obj, int pointIndex);
     void removeInvalidObjectsFromGarrisonPoints();
     static bool removable(Object *obj) { const Weapon *weapon = obj->getCurrentWeapon(0); return weapon && weapon->getTemplate()->get(); }
 private:
-    unsigned char m_padFC100[0x100 - 0xFC];
+    unsigned char prefix100[0x100];
     GarrisonPointData m_garrisonPointData[40];
     int m_garrisonPointsInUse;
 };
