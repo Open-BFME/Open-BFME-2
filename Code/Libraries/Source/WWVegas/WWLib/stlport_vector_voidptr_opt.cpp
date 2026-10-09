@@ -30,3 +30,9 @@ template class _STL::vector<void *, _STL::allocator<void *> >;
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
 #pragma comment(linker, "/alternatename:?erase@Glo012F1028EntryList@@QAEPAPAVGlo012F1028Entry@@PAPAV2@0@Z=?erase@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEPAPAXPAPAX0@Z")
 #pragma comment(linker, "/alternatename:?erase@RvaVector@@QAEPAPAXPAPAX0@Z=?erase@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAEPAPAXPAPAX0@Z")
+
+// The shell's owned screen pointers use the same verified POD pointer-vector
+// algorithms. The shell destructor establishes deletion through the screen
+// interface; pins require whole-body and every-relocation fold proof here.
+struct AptOnlineSubScreen;
+template class _STL::vector<AptOnlineSubScreen *, _STL::allocator<AptOnlineSubScreen *> >;

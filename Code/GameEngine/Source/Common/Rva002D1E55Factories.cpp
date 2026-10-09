@@ -120,17 +120,17 @@ Rva004E4A45 *__stdcall Rva002D1FEBCreate(void *context)
 	return new Rva004E4A45(context);
 }
 
-class Rva0051795C
+class Rva005173F8
 {
 public:
-	Rva0051795C(void *context);
+	Rva005173F8(void *context);
 private:
 	char m_pad[0x2BC];
 };
 
-Rva0051795C *__stdcall Rva002D2025Create(void *context)
+Rva005173F8 *__stdcall Rva002D2025Create(void *context)
 {
-	return new Rva0051795C(context);
+	return new Rva005173F8(context);
 }
 
 class Rva0051A78E
