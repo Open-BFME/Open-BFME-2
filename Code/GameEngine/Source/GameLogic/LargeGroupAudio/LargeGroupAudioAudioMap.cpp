@@ -135,12 +135,19 @@ private:
 
 class LargeGroupAudioAudioMap;
 
+class LargeGroupAudioSoundKeyPair;
+// Native 56A378 consumes one by-value pointer word (RET4). The carrier is
+// an ABI view: its callee reuses the dead pointer home for a count and flag.
+struct Rva0056A378Source {
+ union { const LargeGroupAudioSoundKeyPair *source; int count; struct { char pad[3]; bool ok; } result; };
+};
+
 class LargeGroupAudioSoundKeyPair
 {
 public:
 	LargeGroupAudioSoundKeyPair(LargeGroupAudioAudioMap *owner, const char *name);	// 0x00569FB3
 	~LargeGroupAudioSoundKeyPair();	// 0x0056A061
-	void rva0056A378(const LargeGroupAudioSoundKeyPair &other);	// 0x0056A378
+	void rva0056A378(Rva0056A378Source other);	// 0x0056A378
 	void rva00569BBC(Xfer *xfer, VersionPair *version);	// 0x00569BBC
 private:
 	char m_storage[0x68];
@@ -303,7 +310,9 @@ void LargeGroupAudioAudioMap::rva003EE3FE(const LargeGroupAudioAudioMap &other)
 	{
 		LargeGroupAudioSoundKeyPair *pair = new LargeGroupAudioSoundKeyPair(this, NULL);
 		m_soundKeyPairs.push_back(pair);
-		pair->rva0056A378(**src);
+		// The vector cell is exactly the four-byte source-pointer ABI word.
+		// Passing that POD word directly also preserves retail's iterator register.
+		pair->rva0056A378(*reinterpret_cast<const Rva0056A378Source *>(src));
 	}
 }
 

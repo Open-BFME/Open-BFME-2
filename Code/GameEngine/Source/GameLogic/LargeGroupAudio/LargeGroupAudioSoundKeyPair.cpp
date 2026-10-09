@@ -136,11 +136,24 @@ class Rva00569373 {public: void rva00569373(void *);};
 class Rva00569393 {public: void rva005694CD();};
 class Rva00568F04 {public: void rva00568F04(void *);};
 struct BfmeStringRecord00568CE0 { char opaque00[12]; Rva00568F04 *subject; char opaque10[4]; ~BfmeStringRecord00568CE0(); };
+class LargeGroupAudioSoundKeyPair;
+// Retail passes one source pointer (RET4), keeps it in EDI, and reuses its
+// dead argument home for the four-grid counter and then the output flag at
+// byte3. This four-byte carrier models that observed ABI and storage reuse;
+// it does not claim the original source-language argument type.
+struct Rva0056A378Source {
+ union { const LargeGroupAudioSoundKeyPair *source; int count; struct { char pad[3]; bool ok; } result; };
+};
+class LargeGroupAudioKeyMap {public: LargeGroupAudioKeyMap &operator=(const LargeGroupAudioKeyMap &);};
+struct OpaqueRefElement4 { void *m_referent; OpaqueRefElement4 &operator=(const OpaqueRefElement4 &);};
+class Rva005C8565 {public: void rva005C8565();};
+struct Rva00569F0CVec { void *m_begin,*m_end,*m_pad; void rva00569F0C(void *,void *,bool *);};
 class LargeGroupAudioSoundKeyPair
 {
 public:
  LargeGroupAudioSoundKeyPair(LargeGroupAudioAudioMap *owner, const char *name);
  ~LargeGroupAudioSoundKeyPair();
+ void rva0056A378(Rva0056A378Source arg);
  void rva0056979A(const FloatPair &pos, unsigned short weight);
  void rva005697F7(LargeGroupAudioSubject *subject);
  void unregisterSubject(LargeGroupAudioSubject *subject);
@@ -314,4 +327,23 @@ LargeGroupAudioSoundKeyPair::LargeGroupAudioSoundKeyPair(LargeGroupAudioAudioMap
  for(int i=0;i<4;++i)m_grids[i]=0;
  m_v4C.reserve(40);m_v40.reserve(40);
  if(name)m_name.set(name);
+}
+
+void LargeGroupAudioSoundKeyPair::rva0056A378(Rva0056A378Source arg)
+{
+ const LargeGroupAudioSoundKeyPair *other=arg.source;
+ if(other==this)return;
+ Rva005C8565 **slot=reinterpret_cast<Rva005C8565 **>(m_grids);
+ arg.count=4;
+ do {
+  Rva005C8565 *s=*slot;
+  if(s){s->rva005C8565(); ::operator delete(s); *slot=0;}
+  ++slot;
+ }while(--arg.count);
+ reinterpret_cast<LargeGroupAudioKeyMap *>(this)->operator=(*reinterpret_cast<const LargeGroupAudioKeyMap *>(other));
+ *reinterpret_cast<OpaqueRefElement4 *>(&m_owner)=*reinterpret_cast<const OpaqueRefElement4 *>(&other->m_owner);
+ m_name.set(other->m_name);
+ Rva00569F0CVec *v=reinterpret_cast<Rva00569F0CVec *>(&m_subjects);
+ v->rva00569F0C(const_cast<BfmeStringRecord00568CE0 *>(other->m_subjects.begin()),const_cast<BfmeStringRecord00568CE0 *>(other->m_subjects.end()),&arg.result.ok);
+ for(BfmeStringRecord00568CE0 *e=reinterpret_cast<BfmeStringRecord00568CE0 *>(v->m_begin);e!=m_subjects.end();++e)e->subject=0;
 }
