@@ -7,24 +7,26 @@
 // Grouped float member24..2C and type qualifier are codegen views of the
 // observed stores, not recovered target declarations; untouched handle08 opaque.
 
-class Rva0010EFCD
+class Rva00051E4D
 {
 public:
-    Rva0010EFCD() : m_refCount(0) {}
-    virtual ~Rva0010EFCD();
+    Rva00051E4D() : m_refCount(0) {}
+    virtual ~Rva00051E4D(){}
 private:
     volatile long m_refCount;
 };
 
 class BfmeStringTailRecord156 {public:~BfmeStringTailRecord156();private:void *ptr;};
 class PlayingAudioUnknown0C:public BfmeStringTailRecord156 {public:PlayingAudioUnknown0C();private:int unknown4;};
-class BfmePoolRef10 {public:BfmePoolRef10():ptr(0){}~BfmePoolRef10();private:void *ptr;};
+class OpaqueRefCounted {public:void Release_Ref();};
+struct BfmePoolHolder88 {char unknown00[0x88];OpaqueRefCounted ref;};
+class BfmePoolRef10 {public:BfmePoolRef10():ptr(0){}~BfmePoolRef10(){if(ptr)ptr->ref.Release_Ref();}private:BfmePoolHolder88 *ptr;};
 // Native PlayingAudio dtor releases file20 through A8A37; WorldBuilder names
 // the rowed AudioFileContainer dtor there, independent of its folded zero ctor.
 class AudioFileContainer {public:AudioFileContainer();~AudioFileContainer();private:void *ptr;};
 
 struct PlayingAudioTriple {float a,b,c;PlayingAudioTriple():a(0.f),b(0.f),c(0.f){}};
-class PlayingAudio : public Rva0010EFCD
+struct PlayingAudio : public Rva00051E4D
 {
 public:
     PlayingAudio();
@@ -57,7 +59,7 @@ private:
 };
 
 PlayingAudio::PlayingAudio() :
-    Rva0010EFCD(),
+    Rva00051E4D(),
     m_stream(),
     m_type(5),
     m_status(1),
@@ -82,4 +84,13 @@ PlayingAudio::PlayingAudio() :
     m_b4e(false),
     m_b4f(false)
 {
+}
+
+// NativeA8E0A..A8E79 verified111B relocated from the opaque dtor owner;
+// native BC5128 counted-base vtable slot0 binds Rva00051E4D deleting29B.
+class AudioManager;
+extern AudioManager *TheAudio;
+class MilesAudioManager {public:void onPlayingAudioDeleted(PlayingAudio&);};
+PlayingAudio::~PlayingAudio(){
+ if(TheAudio)((MilesAudioManager*)TheAudio)->onPlayingAudioDeleted(*this);
 }
