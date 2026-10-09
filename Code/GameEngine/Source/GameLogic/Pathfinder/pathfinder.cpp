@@ -175,6 +175,13 @@ struct Rva002E7B29Info;
 class TerrainLogic
 {
 public:
+	virtual void slot00();
+	virtual void slot04();
+	virtual void slot08();
+	virtual void slot0C();
+	virtual void slot10();
+	virtual void slot14();
+	virtual float getGroundHeight(float x, float y, Coord3D *normal);
 	PathfindLayerEnum getLayerForDestination(Object *obj, const Coord3D *pos);
 };
 extern TerrainLogic *TheTerrainLogic;
@@ -391,9 +398,30 @@ struct PathCollisionInfo {
     PathCollisionNode *reservations;
 };
 struct PathCollisionCell { PathCollisionInfo *info; };
+// Native bridge list links at +4; height and containment use existing
+// independently admitted Bridge providers from the terrain-logic family.
+class Bridge {
+public:
+    bool isPointOnBridge(const Coord3D *pos);
+    float getBridgeHeight(const Coord3D *pos, Coord3D *normal);
+    void *m_00;
+    Bridge *m_next;
+};
+struct Rva002ED236Pos {
+    float x, y, z;
+    Rva002ED236Pos(const Coord3D &c) { x = c.x; y = c.y; z = c.z; }
+    ~Rva002ED236Pos() {}
+};
+int Rva002E6E8AGet(int layer);
+class Rva002E7482 { public: float rva002E7482(int layer); };
+
 class Pathfinder
 {
 public:
+	float GetWallHeight(PathfindLayerEnum layer, const Coord3D *pos, Coord3D *normal);
+	void *rva001E3647Pos(int layer, const Coord3D *pos);
+	bool IsPointOnRamp(const Coord3D *pos);
+	PathfindLayerEnum rva002ED236(Object *obj, Rva002ED236Pos pos);
 	void SetBridgeStateRepaired(PathfindLayerEnum layer, Bool repaired);
 	void ForceMapRecalculation();
 	void Rva0052F2EC();
@@ -440,12 +468,15 @@ protected:
 private:
 	char m_pad000[0x10];
 	int m_unknown10;
-	char m_pad014[0x4c];
+	char m_pad014[0x5c - 0x14];
+	Bridge *m_bridges;
 	PathfindLayer m_layers[16];
 	PathfindZoneManager m_zoneManager;
 	char m_pad461[0x1BEB6 - 0x461];
 	Bool m_1BEB6;		// +0x1BEB6: paths get a facing hint from the goal cell
-	char m_pad1BEB7[0x1C1CC - 0x1BEB7];
+	char m_pad1BEB7[5];
+	float m_wallLayerHeights[48];
+	char m_pad1BF7C[0x1C1CC - 0x1BF7C];
 	_STL::vector<Rva002F35AFHop> m_1C1CC;	// +0x1C1CC
 };
 
@@ -901,4 +932,67 @@ int Pathfinder::CalcExtraCosts(Object *object,PathfindCell *oldCell,Rva002EBC7FP
         }
     }
     return cost;
+}
+
+// WorldBuilder names this body GetWallHeight (WB 0x00D3ED70). ZH supplies
+// the Bridge height/containment semantics, while retail establishes the
+// layer selection, ramp handling, four cell-corner probes and ABI.
+// Native 0x002EF68C, 636 bytes; bridge head +0x5C, height[layer] +0x1BE78.
+float Pathfinder::GetWallHeight(PathfindLayerEnum layer, const Coord3D *pos, Coord3D *normal)
+{
+    PathfindCell *cell = static_cast<PathfindCell *>(rva001E3647Pos(layer, pos));
+    if (cell && layer != PATHFIND_LAYER_GROUND && cell->getLayer() != layer) {
+        PathfindLayerEnum actual = static_cast<PathfindLayerEnum>(cell->getLayer());
+        if (actual == 16) {
+            if (IsPointOnRamp(pos)) layer = actual;
+        } else layer = actual;
+    }
+    if (layer == PATHFIND_LAYER_GROUND)
+        return TheTerrainLogic->getGroundHeight(pos->x, pos->y, normal);
+    if (static_cast<unsigned char>(Rva002E6E8AGet(layer))) {
+        float height = m_wallLayerHeights[layer - 17];
+        if (normal) {
+            normal->x = 0.0f;
+            normal->y = 0.0f;
+            normal->z = 1.0f;
+        }
+        return height;
+    }
+    if (layer == 16) {
+        for (Bridge *bridge = m_bridges; bridge; bridge = bridge->m_next) {
+            if (bridge->isPointOnBridge(pos)) {
+                PathfindLayerEnum wallLayer = rva002ED236(0, *pos);
+                float height = bridge->getBridgeHeight(pos, normal);
+                float result;
+                if (static_cast<unsigned char>(Rva002E6E8AGet(wallLayer))) {
+                    result = reinterpret_cast<Rva002E7482 *>(this)->rva002E7482(wallLayer) > height
+                        ? reinterpret_cast<Rva002E7482 *>(this)->rva002E7482(wallLayer) : height;
+                } else result = height;
+                return result;
+            }
+        }
+        Coord3D corner0 = *pos;
+        corner0.x -= 10.0f;
+        corner0.y -= 10.0f;
+        Coord3D corner1 = corner0;
+        corner1.x += 20.0f;
+        Coord3D corner2 = corner1;
+        corner2.y += 20.0f;
+        Coord3D corner3 = corner0;
+        corner3.y += 20.0f;
+        for (Bridge *bridge = m_bridges; bridge; bridge = bridge->m_next) {
+            if (bridge->isPointOnBridge(&corner0) || bridge->isPointOnBridge(&corner1) ||
+                bridge->isPointOnBridge(&corner2) || bridge->isPointOnBridge(&corner3)) {
+                PathfindLayerEnum wallLayer = rva002ED236(0, *pos);
+                float height = bridge->getBridgeHeight(pos, normal);
+                float result;
+                if (static_cast<unsigned char>(Rva002E6E8AGet(wallLayer))) {
+                    result = reinterpret_cast<Rva002E7482 *>(this)->rva002E7482(wallLayer) > height
+                        ? reinterpret_cast<Rva002E7482 *>(this)->rva002E7482(wallLayer) : height;
+                } else result = height;
+                return result;
+            }
+        }
+    }
+    return pos->z;
 }
