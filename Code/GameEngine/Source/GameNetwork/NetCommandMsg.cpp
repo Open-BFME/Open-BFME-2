@@ -6,13 +6,6 @@
 
 #include "GameNetwork/NetCommandMsg.h"
 
-// BFME 1 b63e008232 moved this declaration out of the shared ZH header.
-// Preserve BFME 2's established 28-byte empty-string body at 0x0028F940.
-AsciiString NetCommandMsg::getContentsAsAsciiString()
-{
-	return AsciiString::TheEmptyString;
-}
-
 class BfmeNetGameMessageArgument
 {
 public:
