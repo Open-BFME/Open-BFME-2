@@ -156,7 +156,6 @@ public:
  Rva005D2EA8(int level,const AsciiString &name,const char *stat);
  virtual ~Rva005D2EA8();
  virtual Rva005D2EA8Listener *getListener() const {return m_listener;}
- // ?setListener@Rva005D2EA8@@UAEXPAVRva005D2EA8Listener@@@Z present-unmatched
  virtual void setListener(Rva005D2EA8Listener *listener) {m_listener=listener;}
  // ?getRollOver@Rva005D2EA8@@UBE_NXZ present-unmatched
  virtual bool getRollOver() const {return m_rollOver;}
