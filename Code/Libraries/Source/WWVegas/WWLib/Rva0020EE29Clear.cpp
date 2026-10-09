@@ -126,32 +126,8 @@ struct Rva00DFE1C8Host
 class LivingWorldManager;
 extern LivingWorldManager *TheLivingWorldManager;
 
-// ?rva0020F9F6@Rva0020EE29@@QAEPAXPAX00@Z present-unmatched
-void *Rva0020EE29::rva0020F9F6(void *a1, void *a2, void *filter)
-{
-	Rva0020EE29Inner *inner = m_inner;
-	unsigned i = 0;
-	if (!inner)
-		return 0;
-	if (((Rva00DFE1C8Host *)TheLivingWorldManager)->m_268 == (int)i)
-		return 0;
-	if (filter != 0) {
-		if (rva0020F91D(filter, a1, a2))
-			return filter;
-		for (i = 0; i < (unsigned)(((char *)inner->m_end - (char *)inner->m_begin) >> 2); ++i) {
-			if (inner->m_begin[i] == filter)
-				continue;
-			if (rva0020F91D(inner->m_begin[i], a1, a2))
-				return inner->m_begin[i];
-		}
-		return 0;
-	}
-	for (i = 0; i < (unsigned)(((char *)inner->m_end - (char *)inner->m_begin) >> 2); ++i) {
-		if (rva0020F91D(inner->m_begin[i], a1, a2))
-			return inner->m_begin[i];
-	}
-	return 0;
-}
+// The complete 190B ray search is owned by LivingWorldCandidateRaySearch.cpp.
+// Keep its declaration above for this unit's already verified callers.
 
 // ?OnTurnEnding@LivingWorldRegionManager@@UAEXHH@Z @0x0020FB41 74B
 // Resets the +0xC/+0x10 state and runs every entry of the inner pointer
