@@ -17015,3 +17015,4 @@ _D3DXLoadVolumeFromFileInMemory@36,0x0062AF8C,Native1318F0 in-image JMP IAT veri
 ?rva004211A0@Rva004211A0Host@@QAE_NPBURva004211A0Key@@PBVOverridable@@@Z,0x004211A0,REL32 call at 0x002A9EEF in Player::rva002A9ED9 with ECX = the 0x00E03158 manager and args (player +0x318 record; special power template); returns the gate bool (ret 8). Spelling matches the existing banked attempt for 0x004211A0.
 ??0Rva005D40A6@@QAE@PAXABVAsciiString@@PBURva005D4433FontDesc@@@Z,0x005D4433,callee of ??0Item@ChecklistUIImpl@StrategicHUD@@QAE@PAV12@UChecklistIteratorView@@HPAXABVAsciiString@@@Z
 ?rva0020F3E8@LivingWorldRegionCampaign@@QAEXPAVLivingWorldRegionManager@@@Z,0x0020F3E8,callee of ?StartNewCampaign@LivingWorldCampaignManager@@QAEXH@Z
+?loadTexture@RoadType@@QAEXVAsciiString@@H@Z,0x000D6ABB,REL32 callee of W3DRoadBuffer::allocateRoadBuffers 0x000D78CF (ZH m_roadTypes[i].loadTexture(texture id) with ecx=m_roadTypes+i*0x24); body follows TRoadPt copy ctor 0x000D6A72

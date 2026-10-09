@@ -3040,20 +3040,51 @@ void W3DRoadBuffer::freeRoadBuffers(void)
 //=============================================================================
 /** Allocates the index and vertex buffers. */
 //=============================================================================
-// ?allocateRoadBuffers@W3DRoadBuffer@@IAEXXZ present-unmatched
+// ?allocateRoadBuffers@W3DRoadBuffer@@IAEXXZ
+// BFME 2 keeps TerrainRoadCollection's road list at +0x0C and a road type's
+// texture name at +0x38 (see TerrainRoads.cpp); the Zero Hour header here
+// carries the older offsets, so allocateRoadBuffers reads them through views.
+struct BfmeTerrainRoadListView { char m_prefix[0x0C]; TerrainRoadType *m_roadList; };
+struct BfmeTerrainRoadTextureView { char m_prefix[0x38]; AsciiString m_texture; };
+// BFME 2 GlobalData holds the road limits at +0x98C..+0x998.
+struct BfmeGlobalRoadLimitsView
+{
+	char m_prefix[0x98C];
+	Int m_maxRoadSegments;
+	Int m_maxRoadVertex;
+	Int m_maxRoadIndex;
+	Int m_maxRoadTypes;
+};
+#define BFME_ROAD_LIMITS (reinterpret_cast<const BfmeGlobalRoadLimitsView *>(TheGlobalData))
+
+// The +0x18 holder creates its texture through 0x00131DFC (width, height,
+// format, mip levels, ...) and hands out its top surface level by value; the
+// value's destructor is 0x00176CB0 and SurfaceClass::DrawPixel takes the
+// value itself as this.
+struct Rva00131DFC { void rva00131DFC(void *, void *, void *, void *, int, int); };
+class W3DRadarResetSurface
+{
+public:
+	void *m_surface;
+	~W3DRadarResetSurface();
+	void DrawPixel(unsigned int x, unsigned int y, unsigned int color)
+	{ reinterpret_cast<SurfaceClass *>(this)->DrawPixel(x, y, color); }
+};
+struct CursorTextureSlot { void *Ptr; W3DRadarResetSurface Get_Surface_Level(); };
+
+// Retail 0x000D77AE: the Zero Hour body under the DX8 device lock, without
+// the test assets; BFME 2 then creates a 1x1 A8R8G8B8 texture in the +0x18
+// holder and paints its single texel.
 void W3DRoadBuffer::allocateRoadBuffers(void)
 {
+	BFMEDX8DeviceLock lock;
 	Int i = 0;
 
 	// save data for max limits
-	m_maxRoadSegments = TheGlobalData->m_maxRoadSegments;
-	m_maxRoadVertex = TheGlobalData->m_maxRoadVertex;
-	m_maxRoadIndex = TheGlobalData->m_maxRoadIndex;
-	m_maxRoadTypes = TheGlobalData->m_maxRoadTypes;
-
-#ifdef LOAD_TEST_ASSETS
-	m_maxRoadTypes+=4;
-#endif
+	m_maxRoadSegments = BFME_ROAD_LIMITS->m_maxRoadSegments;
+	m_maxRoadVertex = BFME_ROAD_LIMITS->m_maxRoadVertex;
+	m_maxRoadIndex = BFME_ROAD_LIMITS->m_maxRoadIndex;
+	m_maxRoadTypes = BFME_ROAD_LIMITS->m_maxRoadTypes;
 
 	m_curNumRoadVertices=0;
 	m_curNumRoadIndices=0;
@@ -3063,22 +3094,23 @@ void W3DRoadBuffer::allocateRoadBuffers(void)
 	// load roads from INI
 	TerrainRoadType *road;
 	i = 0;
-	for( road = TheTerrainRoads->firstRoad(); road; road = TheTerrainRoads->nextRoad( road ) )
+	for( road = reinterpret_cast<BfmeTerrainRoadListView *>(TheTerrainRoads)->m_roadList; road; road = TheTerrainRoads->nextRoad( road ) )
 	{
 
 		// get a path to the texture file
 		if( i < m_maxRoadTypes )
 		{
 			Int id = road->getID();
-			m_roadTypes[ i++ ].loadTexture( road->getTexture(), id );
+			m_roadTypes[ i++ ].loadTexture( reinterpret_cast<BfmeTerrainRoadTextureView *>(road)->m_texture, id );
 
 		}  // end if
 
 	}  // end for road
 
-#ifdef LOAD_TEST_ASSETS
-	m_curOpenRoad = i;
-#endif
+	CursorTextureSlot *holder = reinterpret_cast<CursorTextureSlot *>(&m_ref18);
+	reinterpret_cast<Rva00131DFC *>(holder)->rva00131DFC((void *)1, (void *)1, (void *)0x15, (void *)1, 1, 0);
+	if (holder->Ptr)
+		holder->Get_Surface_Level().DrawPixel(0, 0, 0x7f7fff);
 
 	m_initialized = true;
 
