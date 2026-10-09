@@ -13,7 +13,7 @@
 // 0x000424D0 into +0x20/+0x24) and 0x000E190E (releases both via the rowed
 // Release_Ref 0x0061ED10). Interface method names are inferred from the
 // FX parameters the members feed ("RenderingMode", "BaseTexture",
-// "NormalTexture"); the dispatcher's argument types are not established.
+// "NormalTexture"); the callback handle argument is a proven owning four-byte slot.
 // The dtor 0x000E19A3 clears the singleton and erases "Terrain" (0x001532E1).
 // Sub-binder dispatchers ("Cloud" 0x000E2A81, "Weather" 0x000E2CA7; the
 // "Shroud", "Taint" and "Map" ones 0x000E236D/0x000E25DE/0x000E2DFD share the
@@ -108,18 +108,48 @@ struct TargetRef00217D4C
 };
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
 
-struct TreeHintRef00217D4C
+class __multiple_inheritance FunctorTarget;
+typedef void (FunctorTarget::*FunctorMethod)(void);
+struct FunctorBinding
+{
+ FunctorBinding(FunctorMethod method,FunctorTarget *target):m_target(target),m_method(method) {}
+ FunctorTarget *m_target;
+ unsigned int m_unmodelled04;
+ FunctorMethod m_method;
+};
+class Rva0057BC63FunctorHolder
+{
+public:
+ Rva0057BC63FunctorHolder(const FunctorBinding &binding);
+ void *m_ptr;
+};
+class Rva00080221
+{
+public:
+ Rva00080221(const int *callback);
+
+ void *m_ptr;
+};
+
+struct TreeHintRef00217D4C : public Rva00080221
 {
 	explicit TreeHintRef00217D4C(const Rva000E19A3Callback *callback);
+ __forceinline TreeHintRef00217D4C(Rva000E19A3Callback callback) : Rva00080221((const int *)&callback) {}
+
+
 	TreeHintRef00217D4C(const TreeHintRef00217D4C &other);
 	~TreeHintRef00217D4C()
 	{
 		if (m_ptr)
-			ReleaseTreeHintRef00217D4C(m_ptr);
+			ReleaseTreeHintRef00217D4C((TargetRef00217D4C*)m_ptr);
 	}
-	TargetRef00217D4C *m_ptr;
+
 };
 
+struct MemberTreeHintRef00217D4C : public Rva0057BC63FunctorHolder {
+ __forceinline MemberTreeHintRef00217D4C(FunctorBinding binding):Rva0057BC63FunctorHolder(binding){}
+ ~MemberTreeHintRef00217D4C(){if(m_ptr)ReleaseTreeHintRef00217D4C((TargetRef00217D4C*)m_ptr);}
+};
 class FXShaderParameterBinder
 {
 public:
@@ -332,3 +362,39 @@ void Rva000E2CA7Binder::ResolveBindings(const char *name, const char *handle, FX
 	}
 }
 
+
+// Native E1F42..E20DF RET12,413B. The native table BCE51C and registered
+// Terrain namespace establish dispatcher identity. Five prefix branches
+// use the suffix at parsed+48; seven leaf branches bind four static and
+// three member callbacks. Both existing constructor providers produce a
+// one-word owning callback handle (53B at80221;59B at57BC63), and the
+// existing207B AddBinding copies that word and releases it through7DEEF.
+// MemberTreeHintRef is an ABI view of that same incoming handle slot; the
+// method cast changes its compile-time construction type without changing
+// the verified thiscall/by-value ownership contract. The two base views
+// choose the actual constructors directly, preserving native stack storage
+// and the four-word FunctorBinding copy without intermediate handle copies.
+// No new provider name or pin is introduced. Target member-pointer words
+// and callbacks are independently established by this native body.
+void Rva000E227FMacroTexture(ID3DXEffect *,const char *);
+void Rva000E20DFIsMacroTextureStrechedToMapSize(ID3DXEffect *,const char *);
+void Rva000E222FResourceTexture(ID3DXEffect *,const char *);
+void Rva000E213CIsResourceTextureEnabled(ID3DXEffect *,const char *);
+void Rva000E19A3::ResolveBindings(const char *name,const char *handle,FXShaderParameterBinder *registry)
+{
+ Rva001530E9Path path;
+ Rva001530E9Parse(name,&path);
+ int (__cdecl *compare)(const char *,const char *)=_strcmpi;
+ if(compare(path.m_name,"Shroud")==0) m_08.ResolveBindings(path.m_rest,handle,registry);
+ else if(compare(path.m_name,"Taint")==0) m_0C.ResolveBindings(path.m_rest,handle,registry);
+ else if(compare(path.m_name,"Cloud")==0) m_10.ResolveBindings(path.m_rest,handle,registry);
+ else if(compare(path.m_name,"Weather")==0) m_14.ResolveBindings(path.m_rest,handle,registry);
+ else if(compare(path.m_name,"Map")==0) m_18.ResolveBindings(path.m_rest,handle,registry);
+ else if(compare(path.m_name,"BaseTexture")==0) (registry->*reinterpret_cast<void(FXShaderParameterBinder::*)(MemberTreeHintRef00217D4C,const char*)>(&FXShaderParameterBinder::AddBinding))(FunctorBinding(reinterpret_cast<FunctorMethod>(&Rva000E19A3::Rva000E214DBaseTexture),reinterpret_cast<FunctorTarget *>(this)),handle);
+ else if(compare(path.m_name,"NormalTexture")==0) (registry->*reinterpret_cast<void(FXShaderParameterBinder::*)(MemberTreeHintRef00217D4C,const char*)>(&FXShaderParameterBinder::AddBinding))(FunctorBinding(reinterpret_cast<FunctorMethod>(&Rva000E19A3::Rva000E21BENormalTexture),reinterpret_cast<FunctorTarget *>(this)),handle);
+ else if(compare(path.m_name,"MacroTexture")==0) registry->AddBinding(Rva000E227FMacroTexture,handle);
+ else if(compare(path.m_name,"IsMacroTextureStrechedToMapSize")==0) registry->AddBinding(Rva000E20DFIsMacroTextureStrechedToMapSize,handle);
+ else if(compare(path.m_name,"RenderingMode")==0) (registry->*reinterpret_cast<void(FXShaderParameterBinder::*)(MemberTreeHintRef00217D4C,const char*)>(&FXShaderParameterBinder::AddBinding))(FunctorBinding(reinterpret_cast<FunctorMethod>(&Rva000E19A3::Rva000E2110RenderingMode),reinterpret_cast<FunctorTarget *>(this)),handle);
+ else if(compare(path.m_name,"ResourceTexture")==0) registry->AddBinding(Rva000E222FResourceTexture,handle);
+ else if(compare(path.m_name,"IsResourceTextureEnabled")==0) registry->AddBinding(Rva000E213CIsResourceTextureEnabled,handle);
+}
