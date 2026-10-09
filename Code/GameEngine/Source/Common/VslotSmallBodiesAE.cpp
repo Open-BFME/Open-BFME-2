@@ -287,11 +287,11 @@ void Rva005AFA0E::rva005AFA0E(Int a, Int b)
 
 // 0x005AFCEC (eight tables): the pinned 0x005AFCB4(1) when the argument
 // equals +0x04.
+class ChatWindowsInGame { public: bool rva005AFCB4(bool); };
 class Rva005AFCEC
 {
 public:
 	void rva005AFCEC(Int a);
-	void rva005AFCB4(Int a);
 private:
 	Int m_00;
 	Int m_04;
@@ -299,7 +299,7 @@ private:
 void Rva005AFCEC::rva005AFCEC(Int a)
 {
 	if (a == m_04)
-		rva005AFCB4(1);
+		reinterpret_cast<ChatWindowsInGame *>(this)->rva005AFCB4(true);
 }
 
 // 0x005B023A: sets +0x150 and runs the pinned 0x004083FF(0).

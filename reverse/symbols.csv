@@ -12099,7 +12099,6 @@ name,address,notes
 ?rva005AEA3E@AptMessenger@@QAEXXZ,0x005AEA3E,unrowed thiscall (Ghidra FUN_009AEA3E; plain ret) on the messenger screen; REL32 read in the AptMessenger::OnBttn_0/OnBttn_1 callbacks (0x005AEF16/0x005AEF32) with ECX=this; address name
 ?rva005AFC21@Rva005B000C@@QAEXPAVGameWindow@@@Z,0x005AFC21,unrowed 43B thiscall (Ghidra FUN_009afc21; ret 4) on the chat helper taking its chat list window; REL32 read at AptMpChat::InitGadgets 0x0057FE18 with ECX = the panel +0x64; address name
 ?rva005AFC4C@Rva005B000C@@QAEXPAVGameWindow@@@Z,0x005AFC4C,unrowed 70B thiscall (Ghidra FUN_009afc4c; ret 4) on the chat helper taking its player list window; REL32 read at AptMpChat::InitGadgets 0x0057FE38 with ECX = the panel +0x64; address name
-?rva005AFCB4@Rva005AFCEC@@QAEXH@Z,0x005AFCB4,address-derived callee of matched slot 0x005AFCEC; retail REL32 targets 0x005AFCB4; Ghidra FUN bounds 56 bytes; thiscall on the caller object one arg ret 4; callee body remains unclaimed; no named identity inferred
 ?rva005B09D8@@YAXPAD0PAXABURva004ED3A2Tag@@@Z,0x005B09D8,cdecl helper of the F47 cursor-compaction wrapper 0x004ED3A2; takes (dst, cursor, p, (char*)&p+3); name unknown
 ?rva005B09D8@@YAXPAX000@Z,0x005B09D8,cdecl 4-arg callee of 0x004ED3A2 read from its REL32 displacement; body unrowed
 ?rva005B09D8_i@@YAHHHHPAD@Z,0x005B09D8,cdecl 4-arg int-returning call-spelling alias for the pinned cursor helper (caller passes a2 m_4 a1 and (char*)&a1+3); same address as existing pin

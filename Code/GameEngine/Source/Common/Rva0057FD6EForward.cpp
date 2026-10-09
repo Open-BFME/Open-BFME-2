@@ -12,15 +12,11 @@ public:
 	bool rva005AFD2E();
 };
 
-class Rva005AFCEC
-{
-public:
-	void rva005AFCB4(int arg);
-};
 
 class ChatWindowsInGame
 {
 public:
+    bool rva005AFCB4(bool);
 	bool rva005B00C8(int arg0, unsigned int arg1, unsigned int arg2);
 };
 
@@ -69,7 +65,7 @@ bool Rva0057FD6E::rva0057FDA1()
 void Rva0057FD6E::rva0057FDB0(bool arg)
 {
 	if (m_64 != 0) {
-		reinterpret_cast<Rva005AFCEC *>(m_64)->rva005AFCB4(*reinterpret_cast<int *>(&arg));
+		reinterpret_cast<ChatWindowsInGame *>(m_64)->rva005AFCB4(arg);
 	}
 }
 

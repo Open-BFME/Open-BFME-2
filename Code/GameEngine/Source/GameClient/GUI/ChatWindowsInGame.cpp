@@ -38,6 +38,7 @@ public:
     virtual bool PopulatePlayerList();
     virtual bool slot10(const UnicodeString &,SelectionIDs &);
     virtual void slot14(const AsciiString &);
+    bool rva005AFCB4(bool);
     bool rva005B00C8(int,unsigned int,unsigned int);
     void rva005B000C();
     int rva005AFEF7(SelectionIDs *,_STL::vector<AsciiString> *);
@@ -46,7 +47,7 @@ public:
     GameWindow *entry08;
     GameWindow *chat0C;
     GameWindow *playerList10;
-    int unknown14, lastX18, lastY1C, repeats20;
+    int refreshTime14, lastX18, lastY1C, repeats20;
 };
 int ChatWindowsInGame::rva005AFDC5(int user,const UnicodeString &name,const UnicodeString &team,int color)
 {
@@ -243,4 +244,22 @@ bool ChatWindowsInGame::rva005B00C8(int message,unsigned int window,unsigned int
         break;
     }
     return false;
+}
+
+extern "C" __declspec(dllimport) unsigned long __stdcall timeGetTime();
+// Native5AFCB4..5AFCEC RET4 bool; WB1518930 unnamed confirms the signed
+// tick comparison, force flag and virtual refresh. Existing window attachment
+// clears time14. Refresh only with window10 and force or now>time14+5000.
+// Vtable87287C binds the called slot0C to named PopulatePlayerList.
+// All56 bytes, bool argument and result, signed branch and import exact.
+bool ChatWindowsInGame::rva005AFCB4(bool force)
+{
+    if(!playerList10) return false;
+    int now=timeGetTime();
+    bool result=false;
+    if(force || now>refreshTime14+5000) {
+        refreshTime14=now;
+        result=PopulatePlayerList();
+    }
+    return result;
 }

@@ -149,13 +149,6 @@ public:
 	virtual void rva00511620(int tab, int unused);
 };
 
-// The rowed tab slot 0x005AFCB4's class.
-class Rva005AFCEC
-{
-public:
-	void rva005AFCB4(int value);
-};
-
 // The messenger instance (Rva00511730Save.cpp's g_Va00E046B8).
 struct Rva00511730State;
 extern Rva00511730State *g_Va00E046B8;
@@ -196,7 +189,7 @@ public:
 // A tab's chat entry; its recovered 0x005B000C sends the typed line, pinned
 // by address.
 // Call-only view of the query/send receiver now owned in ChatWindowsInGame.cpp.
-class ChatWindowsInGame { public: void rva005B000C(); bool rva005B00C8(int,unsigned int,unsigned int); };
+class ChatWindowsInGame { public: void rva005B000C(); bool rva005B00C8(int,unsigned int,unsigned int); bool rva005AFCB4(bool); };
 class Rva005B000C
 {
 public:
@@ -508,7 +501,7 @@ int AptMessenger::rva00511E6D()
 	for (int i = 0; i < 2; ++i)
 	{
 		if (m_entries[i])
-			((Rva005AFCEC *)m_entries[i])->rva005AFCB4(0);
+			reinterpret_cast<ChatWindowsInGame *>(m_entries[i])->rva005AFCB4(false);
 	}
 	if (m_29c)
 	{
