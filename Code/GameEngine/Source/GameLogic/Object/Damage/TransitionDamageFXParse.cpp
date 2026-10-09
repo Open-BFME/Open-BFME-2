@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /DBFME_MODULE_NO_MPO /MD /EHsc /Ireference/open-bfme-1/reference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad
+// cl: /ICode/Libraries/Include/Lib /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /DBFME_MODULE_NO_MPO /MD /EHsc /Ireference/open-bfme-1/reference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad
 // ?parseFXLocInfo@@YAXPAVINI@@PAXPAUFXLocInfo@@@Z, retail 0x004B9917, 319 bytes.
 // TransitionDamageFX parseFXLocInfo helper plus its three callers
 // (parseFXList/parseObjectCreationList/parseParticleSystem). Donor is BFME1
@@ -25,12 +25,7 @@ template <typename T> struct BfmeStringData;
 #include "ascii_string.h"
 
 
-struct Coord3D
-{
-	Real x;
-	Real y;
-	Real z;
-};
+#include "Coord3D.h"
 
 typedef char FXDamageLocType;
 enum
@@ -181,4 +176,67 @@ void TransitionDamageFXModuleData::parseParticleSystem(INI *ini, void *instance,
 	}
 
 	INI::parseParticleSystemTemplate(ini, instance, store, &info->particleSysTemplate);
+}
+
+// Native 004B9C4D..004B9D86 is the complete 313B getLocalEffectPos helper:
+// Ghidra boundary and WB12472F0 call graph/source-path/line339 corroborate
+// the algorithm. Native EDI holds the location prefix, ESI the result, and
+// [EBP+8] the Drawable. The ordinary emission anchor reproduces this private
+// compiler convention; it has no independent target body or progress claim.
+// BFME1 f98983a7d3bb405f1a4ba94bb6a2a168062a819d supplies the readable
+// TransitionDamageFXRva002520B0 algorithm. The O1/SSE2/G7 source trial placed
+// 313B; target evidence separately proves offsets00/04/08/0C, 12B coordinates,
+// the two existing named callees, full target file-path string, and array32
+// callbacks at47A6A9/B3FD0. The original location/point typedefs are unknown.
+// A scoped lifetime adapter preserves the canonical coordinate data header;
+// its empty constructor/destructor are independently verified ICF twins.
+#include "Coord3D.h"
+#include "ascii_string.h"
+
+// The target's 32-element array uses nontrivial, empty coordinate lifetimes.
+// Keep the canonical three-float data layout and express those lifetimes in
+// a scoped adapter; this does not assert a new original target point type.
+struct Rva004B9C4DPoint : Coord3D {
+    Rva004B9C4DPoint() {}
+    ~Rva004B9C4DPoint() {}
+    // ??0Rva004B9C4DPoint@@QAE@ABU0@@Z absent-from-retail
+    Rva004B9C4DPoint(const Rva004B9C4DPoint &other) {
+        x=other.x; y=other.y; z=other.z;
+    }
+};
+class Matrix3D;
+class Drawable {
+public:
+    int getPristineBonePositions(const char *, int, Coord3D *, Matrix3D *, int, int) const;
+};
+int GetGameLogicRandomValue(int, int, char *, int);
+struct Rva004B9C4DLoc {
+    char field00;
+    AsciiString field04;
+    bool field08;
+    Rva004B9C4DPoint field0C;
+};
+static __declspec(noinline) Rva004B9C4DPoint rva004B9C4D(
+    const Rva004B9C4DLoc *loc, Drawable *draw)
+{
+    if (loc->field00==0 && draw) {
+        if (!loc->field08) {
+            Rva004B9C4DPoint pos;
+            int count=draw->getPristineBonePositions(loc->field04.str(),0,&pos,0,1,0);
+            if (count==0) return loc->field0C;
+            return pos;
+        } else {
+            Rva004B9C4DPoint positions[32];
+            int count=draw->getPristineBonePositions(loc->field04.str(),1,positions,0,32,0);
+            if (count==0) return loc->field0C;
+            int pick=GetGameLogicRandomValue(0,count-1,
+                "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Damage\\TransitionDamageFX.cpp",339);
+            return positions[pick];
+        }
+    }
+    return loc->field0C;
+}
+// ?emitRva004B9C4D absent-from-retail
+Rva004B9C4DPoint emitRva004B9C4D(const Rva004B9C4DLoc *loc,Drawable *draw) {
+    return rva004B9C4D(loc,draw);
 }
