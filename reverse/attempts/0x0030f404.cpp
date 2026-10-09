@@ -1,7 +1,11 @@
 // ??0Rva0030F42E@@QAE@H@Z
-// partial score=0.9 date=2026-09-27
-// ??0Rva0030F42E@@QAE@H@Z
-// partial score=0.90 date=2026-09-27
+// partial score=1.0 date=2026-10-09
+// Exact42B code only; NOT ready to land. Native C09834 owns dtor30F443,
+// setter30F3BF and unprovided virtual30F2CB; current dtor TU emits only
+// its slot0 table and the setter remains a different neutral class/QAE.
+// Reconcile all providers and consumers before a constructor row.
+// The non-polymorphic16B base is a source/ABI inference supported by
+// target call-before-vtable order. Constructor arg stays opaque32-bit.
 // cl: /O1 /arch:SSE /MD /DNDEBUG
 //
 // ??0Rva0030F42E@@QAE@H@Z retail 0x0030F404 42 bytes.
@@ -22,17 +26,12 @@ public:
 	Rva00330757Member();
 };
 
-class Rva0030F42E
+class Rva0030F42E:public Rva00330757Member
 {
 public:
-	virtual void dummy();
-	Rva00330757Member m_member04;
-	int m_14;
-	float m_18;
-	bool m_1C;
-	Rva0030F42E(int arg);
+ virtual ~Rva0030F42E();
+ virtual void rva0030F3BF(float);
+ int m_14;float m_18;bool m_1C;
+ Rva0030F42E(int arg);
 };
-
-Rva0030F42E::Rva0030F42E(int arg) : m_member04(), m_14(arg), m_18(0), m_1C(false)
-{
-}
+Rva0030F42E::Rva0030F42E(int arg):Rva00330757Member(),m_14(arg),m_18(0),m_1C(false){}
