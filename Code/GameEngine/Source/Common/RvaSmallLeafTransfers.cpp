@@ -500,6 +500,35 @@ Rva005D5816 *Rva005D5816::writeBits(unsigned int word,unsigned char byte)
     return this;
 }
 
+
+// Clean BF1 f989 FXList.cpp O1/SSE2/G7 emits several hash-iterator names
+// at this one placement, so no donor container identity is asserted.
+// Native2B554B..2B5558 follows RET and precedes a new prologue; it takes
+// stackarg4 as an output pointer, clears its first dword, writes ECX to
+// its second dword, returns that output pointer in EAX, and pops4 bytes.
+// Original owner, pointer meanings and hidden-return versus explicit-output
+// source role remain unknown. This address-owned projection models only
+// the witnessed eight output bytes and physical receiver/argument ABI.
+// Native size-profile code joins the existing size-optimized leaf region;
+// no new compiler override or pragma is introduced.
+class Rva002B554BReceiver;
+struct Rva002B554BOutput
+{
+    unsigned int zero;
+    Rva002B554BReceiver *receiver;
+};
+class Rva002B554BReceiver
+{
+public:
+    Rva002B554BOutput *writeOutput(Rva002B554BOutput *output);
+};
+Rva002B554BOutput *Rva002B554BReceiver::writeOutput(Rva002B554BOutput *output)
+{
+    output->zero = 0;
+    output->receiver = this;
+    return output;
+}
+
 #pragma optimize("",on)
 
 // Whole clean BFME 1 donor Rva00872950.cpp, GameNetwork/GameSpy,
