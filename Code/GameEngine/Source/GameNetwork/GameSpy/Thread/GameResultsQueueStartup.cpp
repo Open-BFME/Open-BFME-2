@@ -1,25 +1,33 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /O1 /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /ICode/GameEngine/Source/Common
+// stlport
 //
-// TheGameResultsQueue's factory, constructor and startThreads, the Zero Hour
-// GameResultsThread.cpp bodies (createNewGameResultsInterface, the
-// GameResultsQueue constructor and GameResultsQueue::startThreads):
+// TheGameResultsQueue, the Zero Hour GameResultsThread.cpp queue bodies
+// (createNewGameResultsInterface, the GameResultsQueue constructor and its
+// startThreads, add/getRequest, add/getResponse, areGameResultsBeingSent):
 //   ?Rva0041AA6FCreateGameResults@@YAPAVGameResultsInterface@@XZ  0x0041AA6F  53B
 //   ??0Rva0041A644@@QAE@XZ                                       0x0041A754 135B
 //   ?startThreads@Rva0041A644@@UAEXXZ                            0x00419F88 135B
+//   ?addRequest@Rva0041A644@@...                                 0x0041ABCC  74B
+//   ?getRequest@Rva0041A644@@...                                 0x0041AAA4  98B
+//   ?addResponse@Rva0041A644@@...                                0x0041AC16  74B
+//   ?getResponse@Rva0041A644@@...                                0x0041AB06  98B
+//   ?areGameResultsBeingSent@Rva0041A644@@UAE_NXZ                0x00419D52  74B
 //
 // Target evidence: GameEngine::init (GameEngineInit.cpp) registers the
 // factory's result as "TheGameResultsQueue". The factory news 0x84 bytes and
 // runs 0x0041A754, which builds a SubsystemInterface (0x001B4E63) and installs
 // vtable 0x00C3AD70. That vtable's slots 14-21 are Zero Hour's GameResults
-// order: startThreads 0x00419F88, endThreads 0x0041A00F, then six more queue
-// bodies (0x00419D2A ... 0x00419D52); slot 0 is the rowed deleting dtor
-// ??_GRva0041A644 (0x0041A7DB), whose class name is kept here so the two
-// agree. Offsets come from the retail constructor, destructor 0x0041A644 and
-// endThreads: request/response mutexes +0x0C/+0x14, queues +0x1C/+0x44,
-// counts +0x6C/+0x70, worker thread +0x74, thread mutex +0x78 and the held
-// thread lock +0x80. BFME's startThreads locks that mutex (new LockClass,
-// handed to the +0x80 holder's set 0x000998EA) before starting the 0x54-byte
-// worker 0x00419CFB, which Zero Hour does not.
+// order: startThreads 0x00419F88, endThreads 0x0041A00F, areThreadsRunning
+// 0x00419D2A, addRequest 0x0041ABCC, getRequest 0x0041AAA4, addResponse
+// 0x0041AC16, getResponse 0x0041AB06, areGameResultsBeingSent 0x00419D52;
+// slot 0 is the rowed deleting dtor ??_GRva0041A644 (0x0041A7DB), whose
+// class name is kept here so the two agree. Offsets come from these bodies
+// and destructor 0x0041A644: request/response mutexes +0x0C/+0x14, queues
+// +0x1C/+0x44, counts +0x6C/+0x70, worker thread +0x74, thread mutex +0x78
+// and the held thread lock +0x80. BFME's startThreads locks that mutex (new
+// LockClass, handed to the +0x80 holder's set 0x000998EA) before starting
+// the 0x54-byte worker 0x00419CFB, which Zero Hour does not. The get
+// methods try-lock (time 0) and test the lock's failed flag at +4.
 //
 // Names are address-derived: the decorated createNewGameResultsInterface and
 // GameResultsQueue names are rowed or pinned at 0x00551B28/0x00551A94, a
@@ -28,11 +36,10 @@
 // The queue members are declared views. Retail's constructor calls the
 // queue ctors rowed as queue<BfmePod28> 0x0041A6D0 and queue<BfmePod16>
 // 0x0041A6E5; the destructor frees them through the rowed
-// deque<BfmeNarrowRecord0041A5D2>/<...0041A617> dtors, so the 28- and
-// 16-byte element types carry two placeholder names in the ledger. The
-// constructor's call names are used here.
-void *__cdecl operator new(unsigned int size);
-void __cdecl operator delete(void *p);
+// deque<BfmeNarrowRecord0041A5D2>/<...0041A617> dtors, and the push and pop
+// helpers are rowed on further address-named views, so the 28- and 16-byte
+// records carry several placeholder names in the ledger. Each call here uses
+// the name its callee is rowed under.
 
 class SubsystemInterface
 {
@@ -58,6 +65,12 @@ private:
 	int m_08;
 };
 
+// The request and response records (assignments 0x0041A7F7, 0x0041A820).
+#include "BfmeNarrowRecord0041A5D2.h"
+#include "BfmeNarrowRecord0041A617.h"
+struct BfmePod28;
+struct BfmePod16;
+
 // Vtable 0x00C3AD08: slots 14-21 are pure.
 class GameResultsInterface : public SubsystemInterface
 {
@@ -66,10 +79,10 @@ public:
 	virtual void startThreads() = 0;
 	virtual void endThreads() = 0;
 	virtual bool areThreadsRunning() = 0;
-	virtual void addRequest(const void *request) = 0;
-	virtual bool getRequest(void *request) = 0;
-	virtual void addResponse(const void *response) = 0;
-	virtual bool getResponse(void *response) = 0;
+	virtual void addRequest(const BfmeNarrowRecord0041A5D2 &request) = 0;
+	virtual bool getRequest(BfmeNarrowRecord0041A5D2 &request) = 0;
+	virtual void addResponse(const BfmePod16 &response) = 0;
+	virtual bool getResponse(BfmeNarrowRecord0041A617 &response) = 0;
 	virtual bool areGameResultsBeingSent() = 0;
 };
 
@@ -84,10 +97,11 @@ public:
 	public:
 		LockClass(MutexClass &mutex, int time = -1);	// 0x00613A70
 		~LockClass();					// 0x00613AC0
+		bool Failed() { return m_failed; }
 
 	private:
 		MutexClass &m_mutex;
-		int m_failed;
+		bool m_failed;
 	};
 
 private:
@@ -122,23 +136,54 @@ private:
 	char m_storage[0x54 - 4];
 };
 
-struct BfmePod28;
-struct BfmePod16;
 namespace _STL
 {
 template <class T> class allocator;
-template <class T, class A> class deque;
+template <class T, class A> class deque
+{
+public:
+	void push_back(const T &value);
+};
+
+// STLport queue over its deque: the start and finish iterators' current
+// pointers are the first word of each (+0x00, +0x10).
 template <class T, class C = deque<T, allocator<T> > >
 class queue
 {
 public:
 	queue();
 	~queue();
+	bool empty() const { return m_finishCur == m_startCur; }
+	void push(const T &value) { reinterpret_cast<C *>(this)->push_back(value); }
+	void *frontCur() const { return m_startCur; }
 
 private:
-	char m_storage[0x28];
+	void *m_startCur;
+	void *m_startIterator[3];
+	void *m_finishCur;
+	void *m_finishIterator[3];
+	void **m_map;
+	unsigned int m_mapSize;
 };
 }
+
+// The request deque's push_back and both pop_front paths are rowed on
+// address-named views of the same storage.
+class Rva0041A96D
+{
+public:
+	void rva0041AB68(const BfmeNarrowRecord0041A5D2 &request);	// 0x0041AB68
+};
+class Rva0041A3C4
+{
+public:
+	void rva0041A486();	// 0x0041A486, request pop_front
+};
+class Rva0041A3F7
+{
+public:
+	void rva0041A4A7();	// 0x0041A4A7, response pop_front
+};
 
 class Rva0041A644 : public GameResultsInterface
 {
@@ -149,10 +194,10 @@ public:
 	virtual void startThreads();
 	virtual void endThreads();
 	virtual bool areThreadsRunning();
-	virtual void addRequest(const void *request);
-	virtual bool getRequest(void *request);
-	virtual void addResponse(const void *response);
-	virtual bool getResponse(void *response);
+	virtual void addRequest(const BfmeNarrowRecord0041A5D2 &request);
+	virtual bool getRequest(BfmeNarrowRecord0041A5D2 &request);
+	virtual void addResponse(const BfmePod16 &response);
+	virtual bool getResponse(BfmeNarrowRecord0041A617 &response);
 	virtual bool areGameResultsBeingSent();
 
 private:
@@ -188,4 +233,50 @@ void Rva0041A644::startThreads()
 		m_workerThreads[i] = new Rva00419CFB(&m_threadMutex);
 		m_workerThreads[i]->Execute();
 	}
+}
+
+void Rva0041A644::addRequest(const BfmeNarrowRecord0041A5D2 &request)
+{
+	MutexClass::LockClass m(m_requestMutex);
+	++m_requestCount;
+	reinterpret_cast<Rva0041A96D *>(&m_requests)->rva0041AB68(request);
+}
+
+bool Rva0041A644::getRequest(BfmeNarrowRecord0041A5D2 &request)
+{
+	MutexClass::LockClass m(m_requestMutex, 0);
+	if (m.Failed())
+		return false;
+	if (m_requests.empty())
+		return false;
+	request = *static_cast<BfmeNarrowRecord0041A5D2 *>(m_requests.frontCur());
+	reinterpret_cast<Rva0041A3C4 *>(&m_requests)->rva0041A486();
+	return true;
+}
+
+void Rva0041A644::addResponse(const BfmePod16 &response)
+{
+	MutexClass::LockClass m(m_responseMutex);
+	++m_responseCount;
+	m_responses.push(response);
+}
+
+bool Rva0041A644::getResponse(BfmeNarrowRecord0041A617 &response)
+{
+	MutexClass::LockClass m(m_responseMutex, 0);
+	if (m.Failed())
+		return false;
+	if (m_responses.empty())
+		return false;
+	response = *static_cast<BfmeNarrowRecord0041A617 *>(m_responses.frontCur());
+	reinterpret_cast<Rva0041A3F7 *>(&m_responses)->rva0041A4A7();
+	return true;
+}
+
+bool Rva0041A644::areGameResultsBeingSent()
+{
+	MutexClass::LockClass m(m_requestMutex, 0);
+	if (m.Failed())
+		return true;
+	return m_requestCount > 0;
 }
