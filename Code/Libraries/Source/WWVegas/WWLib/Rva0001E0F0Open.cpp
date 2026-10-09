@@ -24,16 +24,3 @@ void Rva0001E0F0Owner::open(const char *filename, int mode)
         setstate(_STL::ios_base::failbit);
 }
 
-// BFME1 874e38488c, Rva0084AF80Open.cpp (161487ee32): the same open tail.
-// Native 0x0001E2D0..0x0001E321, RET8, with filebuf +0x0c and base +0x24.
-// wchar_t supplies that layout; native character type and owner name are unknown.
-struct Rva0001E2D0Owner : _STL::basic_fstream<wchar_t, _STL::char_traits<wchar_t> >
-{
-    void open(const char *filename, int mode);
-};
-
-void Rva0001E2D0Owner::open(const char *filename, int mode)
-{
-    if (!rdbuf()->open(filename, (_STL::ios_base::openmode)mode, 0x80))
-        setstate(_STL::ios_base::failbit);
-}
