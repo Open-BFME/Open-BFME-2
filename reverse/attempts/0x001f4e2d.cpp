@@ -1,14 +1,12 @@
 // ?rva001F4E2D@Rva001F4E2D@@QAE_NXZ
-// partial score=0.93 date=2026-10-01
-// ?rva001F4E2D@Rva001F4E2D@@QAE_NXZ
-// partial score=0.93 date=2026-10-01
-// cl: /O1 /MD
+// partial score=0.96 date=2026-10-09
+// cl: /O1 /G7 /arch:SSE /MD
 // ?rva001F4E2D@Rva001F4E2D@@QAE_NXZ, retail 0x001F4E2D, 85 bytes.
 // Branch on ParticleSystem+8 value selecting helper at +0x94 vs +0x98
 // via virtual slot +0x10 with int arg. Guard dword at +0x8C, source at +0x3C.
 // Evidence: unlock lane, 6 callers, pin ?Make001FCBD7@@YAPAVParticleSystem@@XZ,
 // prev/next /O1 RGBColor getters, ret bool no args.
-// ?rva001F4E2D@Rva001F4E2D@@QAE_NXZ present-unmatched
+
 class ParticleSystem
 {
 public:
@@ -41,38 +39,21 @@ private:
 };
 bool Rva001F4E2D::rva001F4E2D()
 {
+	ParticleSystem *ps; int v;
 	if (m_flag8C != 0)
-		return false;
-	ParticleSystem *ps = m_ps;
+		goto failed;
+	ps = m_ps;
 	if (ps == 0)
 		ps = Make001FCBD7();
-	int v = ps->m_val;
-	Rva001F4E2DHelper *h;
-	if (v > 0)
-	{
-		if (v > 2)
-		{
-			if (v > 4)
-			{
-				if (v > 6)
-				{
-					if (v == 7)
-						h = m_h98;
-					else
-						return true;
-				}
-				else
-					h = m_h94;
-			}
-			else
-				h = m_h98;
-		}
-		else
-			h = m_h94;
+	v = ps->m_val;
+	switch(v) {
+	case 3: case 4: case 7:
+		{ Rva001F4E2DHelper *h=m_h98; if(h) return h->check(v); }
+failed:
+		return false;
+	case 1: case 2: case 5: case 6:
+		{ Rva001F4E2DHelper *h=m_h94; if(h) return h->check(v); }
+		goto failed;
+	default: return true;
 	}
-	else
-		return true;
-	if (h != 0)
-		return h->check(v);
-	return false;
 }
