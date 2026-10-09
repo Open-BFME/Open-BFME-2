@@ -27,7 +27,8 @@ struct Rva00174753Allocation { void *pointer; ~Rva00174753Allocation(){if(pointe
 struct Rva00174753ReleaseView { virtual void *releaseInstance(unsigned)=0; };
 class FXShaderParameterSourceNamespaceSAS;
 extern FXShaderParameterSourceNamespaceSAS *g_00DF36B4;
-extern Rva00174753ReleaseView *g_gapFillerAuxiliarySource;
+// Native 9FCEB8 starts at zero; preparation and cleanup share this provider.
+Rva00174753ReleaseView *g_gapFillerAuxiliarySource = 0;
 class Rva00DF6F94GapFillerContext {
  _STL::vector<BfmeAssignRecord32> records;
  _STL::vector<BfmeAssignRecord32> active;
