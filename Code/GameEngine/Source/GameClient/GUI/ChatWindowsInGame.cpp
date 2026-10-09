@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /O1 /G7 /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC
+// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /O1 /G7 /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC
 // stlport
 // ChatWindowsInGame player-list row insertion, retail5AFDC5..5AFE3F.
 // WB1518C40 is unnamed; named PopulatePlayerList WB1514620 calls this
@@ -32,6 +32,7 @@ void Rva00325388Send(GameWindow *,int,int,int);
 template<> bool StringBase<unsigned short>::isEmpty() const;
 class ChatWindowsInGame {
 public:
+    bool PopulatePlayerList();
     int rva005AFEF7(SelectionIDs *,_STL::vector<AsciiString> *);
     int rva005AFDC5(int,const UnicodeString &,const UnicodeString &,int);
     char unknown00[0x10];
@@ -77,4 +78,86 @@ int ChatWindowsInGame::rva005AFEF7(SelectionIDs *numbers,_STL::vector<AsciiStrin
         }
     }
     return count;
+}
+
+int GadgetListBoxGetNumColumns(GameWindow *);
+void GadgetListBoxSetColumnWidths(GameWindow *,int,int *);
+int GadgetListBoxGetTopVisibleEntry(GameWindow *);
+void GadgetListBoxReset(GameWindow *);
+void GadgetListBoxSetTopVisibleEntry(GameWindow *,int);
+void Rva00326F9BSet(GameWindow *,const int **);
+class GameSlot { public:
+    bool isHuman() const;
+    char unknown00[0xc]; int color0C;
+    char unknown10[0xc]; int team1C;
+    char unknown20[0x10]; UnicodeString name30;
+};
+class GameInfo { public: GameSlot *getSlot(int); };
+extern GameInfo *TheGameInfo;
+class GameSpyGameSlot { public: char unknown00[0x1ac]; int profile1AC; };
+class GameSpyStagingRoom { public: GameSpyGameSlot *getGameSpySlot(int); };
+extern GameSpyStagingRoom *TheGameSpyGame;
+class MultiplayerColorDefinition { public: char unknown00[0x10]; int color10; };
+class MultiplayerSettings { public: MultiplayerColorDefinition *getColor(int); };
+extern MultiplayerSettings *TheMultiplayerSettings;
+class GameTextInterface { public:
+#define TEXT_SLOT(N) virtual void slot##N();
+    TEXT_SLOT(00) TEXT_SLOT(01) TEXT_SLOT(02) TEXT_SLOT(03) TEXT_SLOT(04)
+    TEXT_SLOT(05) TEXT_SLOT(06) TEXT_SLOT(07) TEXT_SLOT(08) TEXT_SLOT(09)
+    TEXT_SLOT(10) TEXT_SLOT(11) TEXT_SLOT(12) TEXT_SLOT(13)
+#undef TEXT_SLOT
+    virtual UnicodeString fetch(const char *,bool * = 0);
+    virtual UnicodeString fetch(const AsciiString &,bool * = 0);
+    virtual void slot16();
+    virtual const UnicodeString *slot17(const char *,bool *);
+};
+extern GameTextInterface *TheGameText;
+
+namespace _STL {
+template<> int *find(int *,int *,const int &);
+}
+// Named WB1514620 / ChatWindowsInGame.cpp72..91 and both localized labels
+// identify the native5AFA3C..5AFC21 RET0 bool refresh. Native establishes
+// slot color0C/team1C/name30, online profile1AC and window10. Keep selected
+// IDs across rebuilding the eight human slots, then restore selected rows
+// and top-visible position. Vslots3C/44 and all providers come from target
+// evidence; the existing scalar-vector ABI view preserves unknown allocator
+// identity. /EHs retains both vector cleanup states and the free wrapper.
+// All485 bytes and EH states verified; explicit find result matches the
+// native reload of end after the search call.
+bool ChatWindowsInGame::PopulatePlayerList()
+{
+    GameWindow *list=playerList10;
+    if(!list) return false;
+    if(GadgetListBoxGetNumColumns(list)==1) {
+        int widths[4]={1,1,49,49};
+        GadgetListBoxSetColumnWidths(list,3,widths);
+    }
+    SelectionIDs oldIDs;
+    rva005AFEF7(&oldIDs,0);
+    int top=GadgetListBoxGetTopVisibleEntry(list);
+    GadgetListBoxReset(list);
+    SelectionIDs newRows;
+    for(int i=0;i<8;++i) {
+        GameSlot *slot=TheGameInfo->getSlot(i);
+        if(!slot || !slot->isHuman()) continue;
+        UnicodeString team;
+        int number=slot->team1C;
+        if(number>=0) team.format(TheGameText->slot17("APT:CurrentTeam",0),number);
+        else team=TheGameText->fetch("APT:CurrentTeamNone",0);
+        int color=TheMultiplayerSettings->getColor(slot->color0C)->color10;
+        int user=i;
+        if(TheGameSpyGame) {
+            GameSpyGameSlot *online=TheGameSpyGame->getGameSpySlot(i);
+            if(online) user=online->profile1AC;
+        }
+        int row=rva005AFDC5(user,slot->name30,team,color);
+        int *found=_STL::find(oldIDs.begin(),oldIDs.end(),user);
+        if(found!=oldIDs.end())
+            reinterpret_cast<_STL::vector<const ModuleData *> *>(&newRows)->push_back(
+                reinterpret_cast<const ModuleData *const &>(row));
+    }
+    Rva00326F9BSet(list,reinterpret_cast<const int **>(&newRows));
+    GadgetListBoxSetTopVisibleEntry(list,top);
+    return true;
 }
