@@ -1,6 +1,8 @@
 // ?ProcessOnlineGameResults@StatsReporter@@SAXPAVPlayer@@@Z
+// partial score=0.995706 date=2026-10-09
+// ?ProcessOnlineGameResults@StatsReporter@@SAXPAVPlayer@@@Z
 // partial score=0.9957 date=2026-10-09
-// cl: /DNDEBUG /MD /EHs /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /D_STLP_USE_STATIC_LIB /D_BFME_RETAIL_TREE_INSERT_LAYOUT
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHs /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /D_STLP_USE_STATIC_LIB /D_BFME_RETAIL_TREE_INSERT_LAYOUT
 #include "ascii_string.h"
 #include <new>
 // stlport
