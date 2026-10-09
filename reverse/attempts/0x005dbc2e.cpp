@@ -1,79 +1,61 @@
 // ?isRetryConnectingOverLimit@PortNegotiationSchema@@QAE_NGG@Z
-// partial score=0.92 date=2026-10-08
-// cl: /O1 /EHsc /MD /arch:SSE
-// PortNegotiationSchema.cpp -- schema members recovered from WorldBuilder
-// leads (reverse/wb_name_leads.csv): WB's debug build names the function;
-// retail supplies the bytes. A valid slot (below 8) first resets the schema
-// (0x005DB9E4, unnamed), then records the slot list at +0x8B8 and the slot
-// at +0x14.
-
-typedef unsigned short UnsignedShort;
-typedef int Int;
-
-enum { MAX_PORT_SLOTS = 8 };
-
-class GameSlot { public: bool isHuman() const; };
+// partial score=0.9 date=2026-10-09
+// cl: /DNDEBUG /MD /O1
+// ?isConnectionDone@PortNegotiationSchema@@QAE_NGG@Z retail 0x005DBBC1 109B
+// ?isRetryConnectingOverLimit@PortNegotiationSchema@@QAE_NGG@Z retail 0x005DBC2E 120B
+// Both take an ordered pair of distinct slot indices below 8 and read the 8x8
+// state grid at +0x18 (index second + first * 8). Names are the debug build's
+// PortNegotiationSchema members (wb-lead, callgraph score 2); the pair scan and
+// offsets (+0x18 state ints, +0x838 retry words, +0x8B8 slot pointers) are
+// retail's. Same class and callee isHuman 0x003FF0F1 as the neighbours.
+class GameSlot
+{
+public:
+	bool isHuman() const;
+};
 
 class PortNegotiationSchema
 {
+	char m_pad0[0x18];
+	int m_state[64];
+	char m_pad1[0x838 - 0x118];
+	unsigned short m_retries[64];
+	GameSlot **m_slots;
 public:
-	void attachSlotList(void *slotList, UnsignedShort slot);
-	bool isRetryConnectingOverLimit(UnsignedShort slot1, UnsignedShort slot2);
-
-private:
-	void rva005DB9E4();			// 0x005DB9E4
-
-	unsigned char m_pad000[0x14];
-	UnsignedShort m_slot;			// +0x014
-	unsigned char m_pad016[2];
-	Int m_tableA[MAX_PORT_SLOTS][MAX_PORT_SLOTS];	// +0x018
-	Int m_tableB[MAX_PORT_SLOTS][MAX_PORT_SLOTS];	// +0x118
-	unsigned char m_pad218[0x718 - 0x218];
-	Int m_perSlot[MAX_PORT_SLOTS];		// +0x718
-	Int m_tableC[MAX_PORT_SLOTS][MAX_PORT_SLOTS];	// +0x738
-	UnsignedShort m_tableD[MAX_PORT_SLOTS][MAX_PORT_SLOTS];	// +0x838
-	void *m_slotList;			// +0x8B8
+	bool isConnectionDone(unsigned short first, unsigned short second);
+	bool isRetryConnectingOverLimit(unsigned short first, unsigned short second);
 };
 
-// Retail 0x005DB9E4: clear the schema.
-void PortNegotiationSchema::rva005DB9E4()
+bool PortNegotiationSchema::isConnectionDone(unsigned short first, unsigned short second)
 {
-	for (Int i = 0; i < MAX_PORT_SLOTS; ++i)
-	{
-		for (Int j = 0; j < MAX_PORT_SLOTS; ++j)
-		{
-			m_tableA[i][j] = 0;
-			m_tableB[i][j] = 0;
-			m_tableC[i][j] = 0;
-			m_tableD[i][j] = 0;
-		}
-		m_perSlot[i] = 0;
+	if (first >= 8)
+		return false;
+	if (second >= 8)
+		return false;
+	if (first == second)
+		return false;
+	GameSlot *a = m_slots[first];
+	if (a && a->isHuman()) {
+		GameSlot *b = m_slots[second];
+		if (b && b->isHuman() && m_state[second + first * 8] != 3)
+			return false;
 	}
-	m_slotList = 0;
-	m_slot = MAX_PORT_SLOTS;
+	return true;
 }
 
-// PortNegotiationSchema::attachSlotList, retail 0x005DBA3D.
-void PortNegotiationSchema::attachSlotList(void *slotList, UnsignedShort slot)
+bool PortNegotiationSchema::isRetryConnectingOverLimit(unsigned short first, unsigned short second)
 {
-	if (slot < 8)
-	{
-		rva005DB9E4();
-		m_slotList = slotList;
-		m_slot = slot;
+	if (first >= 8)
+		return false;
+	if (second >= 8)
+		return false;
+	if (first == second)
+		return false;
+	GameSlot *a = m_slots[first];
+	if (a && a->isHuman()) {
+		GameSlot *b = m_slots[second];
+		if (b && b->isHuman() && m_state[second + first * 8] == 4 && m_retries[second + first * 8] >= 5)
+			return true;
 	}
-}
-
-// WB 15C7E70 names this method; retail 5DBC2E..5DBCA6 verifies the
-// human-slot guards, negotiation state 4 and unsigned retry limit 5.
-bool PortNegotiationSchema::isRetryConnectingOverLimit(UnsignedShort slot1, UnsignedShort slot2)
-{
-    if (slot1 >= MAX_PORT_SLOTS) return false;
-    if (slot2 >= MAX_PORT_SLOTS) return false;
-    if (slot1 == slot2) return false;
-    if (((GameSlot **)m_slotList)[slot1] && ((GameSlot **)m_slotList)[slot1]->isHuman() &&
-        ((GameSlot **)m_slotList)[slot2] && ((GameSlot **)m_slotList)[slot2]->isHuman() &&
-        m_tableA[slot1][slot2] == 4 && m_tableD[slot1][slot2] >= 5)
-        return true;
-    return false;
+	return false;
 }

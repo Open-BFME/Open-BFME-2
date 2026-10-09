@@ -1,45 +1,61 @@
-// ?rva005DBBC1@Rva005DBBC1@@QAE_NGG@Z
-// partial score=0.95 date=2026-10-01
-// ?rva005DBBC1@Rva005DBBC1@@QAE_NGG@Z
-// partial score=0.95 date=2026-10-01
-// cl: /O1 /G7 /DNDEBUG /MD
-// ?rva005DBBC1@Rva005DBBC1@@QAE_NGG@Z 0x005DBBC1 109B
-// Bounds-checked ally/human check: slots at +0x8b8 via GameSlot::isHuman, 8x8 rel at +0x18 == 3.
-// Evidence: callers 0x005A6CFD 0x005A6F4A 0x005A7032 0x005A70B7; callee 0x003FF0F1 GameSlot::isHuman rowed.
+// ?isConnectionDone@PortNegotiationSchema@@QAE_NGG@Z
+// partial score=0.9 date=2026-10-09
+// cl: /DNDEBUG /MD /O1
+// ?isConnectionDone@PortNegotiationSchema@@QAE_NGG@Z retail 0x005DBBC1 109B
+// ?isRetryConnectingOverLimit@PortNegotiationSchema@@QAE_NGG@Z retail 0x005DBC2E 120B
+// Both take an ordered pair of distinct slot indices below 8 and read the 8x8
+// state grid at +0x18 (index second + first * 8). Names are the debug build's
+// PortNegotiationSchema members (wb-lead, callgraph score 2); the pair scan and
+// offsets (+0x18 state ints, +0x838 retry words, +0x8B8 slot pointers) are
+// retail's. Same class and callee isHuman 0x003FF0F1 as the neighbours.
 class GameSlot
 {
 public:
 	bool isHuman() const;
 };
 
-class Rva005DBBC1
+class PortNegotiationSchema
 {
 	char m_pad0[0x18];
-	int m_rel[64];
-	char m_pad1[0x8b8 - 0x18 - 64 * 4];
+	int m_state[64];
+	char m_pad1[0x838 - 0x118];
+	unsigned short m_retries[64];
 	GameSlot **m_slots;
 public:
-	bool rva005DBBC1(unsigned short a, unsigned short b);
+	bool isConnectionDone(unsigned short first, unsigned short second);
+	bool isRetryConnectingOverLimit(unsigned short first, unsigned short second);
 };
 
-// ?rva005DBBC1@Rva005DBBC1@@QAE_NGG@Z present-unmatched
-bool Rva005DBBC1::rva005DBBC1(unsigned short a, unsigned short b)
+bool PortNegotiationSchema::isConnectionDone(unsigned short first, unsigned short second)
 {
-	if (a >= 8)
+	if (first >= 8)
 		return false;
-	if (b >= 8)
+	if (second >= 8)
 		return false;
-	if (a == b)
+	if (first == second)
 		return false;
-	GameSlot *s1 = m_slots[a];
-	if (s1 != 0 && s1->isHuman())
-	{
-		GameSlot *s2 = m_slots[b];
-		if (s2 != 0 && s2->isHuman())
-		{
-			if (m_rel[b + a * 8] != 3)
-				return false;
-		}
+	GameSlot *a = m_slots[first];
+	if (a && a->isHuman()) {
+		GameSlot *b = m_slots[second];
+		if (b && b->isHuman() && m_state[second + first * 8] != 3)
+			return false;
 	}
 	return true;
+}
+
+bool PortNegotiationSchema::isRetryConnectingOverLimit(unsigned short first, unsigned short second)
+{
+	if (first >= 8)
+		return false;
+	if (second >= 8)
+		return false;
+	if (first == second)
+		return false;
+	GameSlot *a = m_slots[first];
+	if (a && a->isHuman()) {
+		GameSlot *b = m_slots[second];
+		if (b && b->isHuman() && m_state[second + first * 8] == 4 && m_retries[second + first * 8] >= 5)
+			return true;
+	}
+	return false;
 }
