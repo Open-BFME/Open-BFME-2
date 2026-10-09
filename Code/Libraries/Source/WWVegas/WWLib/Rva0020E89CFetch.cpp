@@ -64,11 +64,14 @@ UnicodeString Rva005C95ECGet(Rva0020E89C *obj)
 	return obj->rva0020E89C();
 }
 
-// ?Rva005C95CAGet@@YA?AVUnicodeString@@XZ @0x005C95CA 34B
+// ?Rva005C95CAGet@@YA?AVUnicodeString@@PBVRva005E2338Elem@@@Z @0x005C95CA 34B
 // Free fetch of STRATEGICHUD:BuildPlotName via TheGameText slot 0x3C.
 // Callers at 0x0056BC86 and 0x005E24A9 pass hidden temp.
 
-UnicodeString Rva005C95CAGet()
+class Rva005E2338Elem;
+// Native callers56BC3D/5E2460 pass an unused element pointer after the hidden
+// UnicodeString result. WB156C400 names GetDisplayName and confirms cdecl.
+UnicodeString Rva005C95CAGet(const Rva005E2338Elem *)
 {
 	return TheGameText->fetch("STRATEGICHUD:BuildPlotName");
 }
