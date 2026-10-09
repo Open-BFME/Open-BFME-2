@@ -1,5 +1,5 @@
 // ?createGaussianVector@W3DShaderManager@@SAXPAXPAUBfmeGaussianParams@@@Z
-// partial score=0.0 date=2026-10-09
+// partial score=0.97 date=2026-10-09
 // cl: /O1 /arch:SSE /DNDEBUG /MD /EHsc
 // Native000780BC..00078246 full394B; WB007D3920 createGaussianVector.
 // Semantic guide WB W3DShaderManager.cpp1529 plus retail float constants/loops.
@@ -41,23 +41,28 @@ public: static void createGaussianVector(void *,BfmeGaussianParams *);
 };
 void W3DShaderManager::createGaussianVector(void *kernel,BfmeGaussianParams *params)
 {
- BfmeGaussianParams p=*params;
- int taps=p.taps,components=p.components;
+ int taps=params->taps,components=params->components;
+ struct Pair {float coefficient,amplitude;} pair[2];
+ float amp0=params->amplitude0,amp1=params->amplitude1;
+ pair[0].coefficient=params->coefficient0;
+ pair[1].coefficient=params->coefficient1;
  float scale=15.0f/(float)taps;
  if(scale>1.0f) scale=(1.0f-scale)*0.5f+scale;
- struct Pair {float coefficient,amplitude;} pair[2]={
-  {p.coefficient0,scale*p.amplitude0},{p.coefficient1,scale*p.amplitude1}};
+ pair[0].amplitude=scale*amp0;
+ pair[1].amplitude=scale*amp1;
  float center=((float)taps-1.0f)*0.5f;
  GaussianKernelView *out=static_cast<GaussianKernelView *>(kernel);
  out->clear();
+ GaussianSample sample;
+ sample.y=0.0f;
  for(int i=0;i<taps;++i) {
-  GaussianSample sample={(float)i-center-0.1f,0.0f,0.0f};
+  sample.x=(float)i-center-0.1f;sample.z=0.0f;
   float norm=sample.x*sample.x/(center*center);
   for(int j=0;j<components;++j)
-   sample.z=(float)(sample.z+pair[j].amplitude*(1.0/exp((double)norm*pair[j].coefficient)));
+   sample.z=(float)(sample.z+pair[j].amplitude*(1.0f/exp(norm*pair[j].coefficient)));
   if(sample.z>0.01f) out->append(sample);
  }
- GaussianSample zero={0.0f,0.0f,0.0f};
+ sample.x=0.0f;sample.y=0.0f;sample.z=0.0f;
  int padding=(int)(4-out->size()%4)%4;
- for(int n=0;n<padding;++n) out->append(zero);
+ for(int n=0;n<padding;++n) out->append(sample);
 }
