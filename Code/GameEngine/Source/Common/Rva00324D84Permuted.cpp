@@ -1,5 +1,7 @@
-// ?addImageEntry@@YAHPBVImage@@HHHPAVGameWindow@@HH@Z
-// partial score=0.95 date=2026-10-08
+// cl: /O1 /G7 /DNDEBUG /MD
+//
+// ?addImageEntry@@YAHPBVImage@@HHHPAVGameWindow@@HH@Z, retail 0x00324d84, 270 bytes. Banked partial (score 0.95) closed by tools/permute.py;
+// the body is the banked one up to statement/operand order and local types.
 // Caller map of GadgetListBoxSystem 0x325FBF (retail, read 2026-10-08; BFME1 donor
 // GadgetListBox.cpp:1247, ZH GadgetListBox.cpp:1267). Messages above 0x4017 use a
 // jump table at 0x726BBE (msg - 0x4018, 10 entries).
@@ -20,7 +22,6 @@
 //   row, memcpy rows down, endPos/insertPos -= n, fix selections, Update(win,-n,1)),
 //   GET_SELECTION, SET_UP_BUTTON +0x1c, SET_DOWN_BUTTON +0x20, SET_SLIDER +0x24,
 //   SET_BOTTOM (displayPos from row height), SET_ITEM_DATA / GET_ITEM_DATA (+0x10).
-// cl: /O1 /G7 /DNDEBUG /MD
 typedef int Int;
 typedef short Short;
 typedef int Color;

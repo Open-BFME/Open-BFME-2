@@ -1,6 +1,7 @@
-// ?rva000EB0E6@W3DTreeBuffer@@QAEXH@Z
-// partial score=1.0 date=2026-10-07
 // cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc
+//
+// ?rva000EB0E6@W3DTreeBuffer@@QAEXH@Z, retail 0x000eb0e6, 311 bytes. Banked partial (score 1.0) closed by tools/permute.py;
+// the body is the banked one up to statement/operand order and local types.
 // BFME W3DTreeBuffer indexed tree removal, retail 0x00733FD0 (341 bytes).
 // The neighboring 0x00734790 update path passes its tree index here through
 // ILT 0x0001512C.  Records are 0xE8 bytes and the count/dirty fields are at
@@ -62,7 +63,6 @@ private:
 	UnsignedByte m_anythingChanged;
 };
 
-// ?rva000EB0E6@W3DTreeBuffer@@QAEXH@Z
 void W3DTreeBuffer::rva000EB0E6(const Int index)
 {
 	if (index < m_numTrees) {

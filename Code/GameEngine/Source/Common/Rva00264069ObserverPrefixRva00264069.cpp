@@ -1,5 +1,7 @@
-// ?refresh@Rva00264069ObserverPrefix@@QAEXXZ
-// partial score=0.98 date=2026-10-07
+// cl: /O1 /G7 /arch:SSE /Oy- /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_CRTIMP= /ICode/Libraries/Source/WWVegas/WWLib
+//
+// ?refresh@Rva00264069ObserverPrefix@@QAEXXZ, retail 0x00264069, 194 bytes. Banked partial (score 0.98) closed by tools/permute.py;
+// the body is the banked one up to statement/operand order and local types.
 // Native 264069..26412B complete RET. Accepted runtime caller 26A05D.
 // Target proves receiver+8 object pointer and cached 76B/16B headers at
 // +290/+2DC, object headers +10C/+94, GameLogic frame word +40, rowed
@@ -7,7 +9,6 @@
 // Borrowed prefix names avoid asserting the original observer/field identities.
 // 194B compiled; sole unresolved REL32 is unlanded 33605B. No new pin/global.
 // Banked only: that dependency's ctor/dtor aliases and invoke are not linkable.
-// cl: /O1 /G7 /arch:SSE /Oy- /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_CRTIMP= /ICode/Libraries/Source/WWVegas/WWLib
 // stlport
 #include "Object872.h"
 class Rva00264069ObjectPrefix {public: char pad00[0x94]; BfmeObject872Header tag94; char padA4[0x10c-0xa4]; WeaponTemplateSetHead weapons10C;};

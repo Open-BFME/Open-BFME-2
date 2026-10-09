@@ -1,6 +1,7 @@
-// ?rva000E0322@Rva000E0322@@QAEXI@Z
-// partial score=1.0 date=2026-10-08
 // cl: /O1 /G7 /MD /EHs- /EHc-
+//
+// ?rva000E0322@Rva000E0322@@QAEXI@Z, retail 0x000e0322, 187 bytes. Banked partial (score 1.0) closed by tools/permute.py;
+// the body is the banked one up to statement/operand order and local types.
 // ?Rva000E007DEqual@@YGHPBURva000E007DPair@@0@Z recurring, retail 0x000E007D, 32B.
 // Equality on two-int pairs via two dword compares returning int 0/1.
 // Callers 0x000E01DD (tests al) 0x000E02D1. Honest free-function name.

@@ -1,6 +1,7 @@
-// ?CalcPlayerRemap@Impl@StrategicConflictResults@@QAEXXZ
-// partial score=1.0 date=2026-10-08
 // cl: /O1 /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_STLP_USE_MALLOC /D_BFME_RETAIL_TREE_INSERT_LAYOUT
+//
+// ?CalcPlayerRemap@Impl@StrategicConflictResults@@QAEXXZ, retail 0x005ebcce, 241 bytes. Banked partial (score 1.0) closed by tools/permute.py;
+// the body is the banked one up to statement/operand order and local types.
 // stlport
 // WB15E8D20 names StrategicConflictResults::Impl::CalcPlayerRemap in
 // GameClient/Gui/InGame/Strategic/StrategicConflictResults.cpp.

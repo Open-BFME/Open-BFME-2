@@ -1,6 +1,7 @@
-// ??0ExperienceTrackerAutoResolve@@QAE@PAVLivingWorldAutoResolveUnit@@ABVRva004F6093Holder@@@Z
-// partial score=0.99 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /MD /EHsc
+//
+// ??0ExperienceTrackerAutoResolve@@QAE@PAVLivingWorldAutoResolveUnit@@ABVRva004F6093Holder@@@Z, retail 0x005db08f, 113 bytes. Banked partial (score 0.99) closed by tools/permute.py;
+// the body is the banked one up to statement/operand order and local types.
 // Native5DB08F..5DB100 RET8. WB15C58B0 names the class and base ctor.
 // This is a trial of the real hierarchy; destructor/vtable ownership must
 // be reconciled with the existing neutral providers before landing.

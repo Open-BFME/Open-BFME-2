@@ -1,6 +1,7 @@
-// ?parseModelConditionFlags@@YAXPAVINI@@PAVWeaponTemplateSetHead@@1@Z
-// partial score=1.0 date=2026-10-08
 // cl: /O1 /G7 /arch:SSE /MD /EHsc /Oi-
+//
+// ?parseModelConditionFlags@@YAXPAVINI@@PAVWeaponTemplateSetHead@@1@Z, retail 0x000b62d4, 157 bytes. Banked partial (score 1.0) closed by tools/permute.py;
+// the body is the banked one up to statement/operand order and local types.
 // Banked exact157B shape, native B62D4..B6371. Reference semantic guide:
 // Open-BFME-1@34f59164f6d1efd413c5fd37f4894ec834c3c0fe
 // game/GameEngine/Source/Common/parseModelConditionFlags.cpp.

@@ -1,6 +1,7 @@
-// ?updateView@Rva000677CAHost@@QAEX_NHHHH@Z
-// partial score=1.0 date=2026-10-08
 // cl: /O1 /Oy- /DNDEBUG /MD /arch:SSE /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC
+//
+// ?updateView@Rva000677CAHost@@QAEX_NHHHH@Z, retail 0x0006dc8e, 195 bytes. Banked partial (score 1.0) closed by tools/permute.py;
+// the body is the banked one up to statement/operand order and local types.
 // stlport
 #include <vector>
 struct Rva0006DC8EDimensions {char opaque00[8]; int width; int height;};
