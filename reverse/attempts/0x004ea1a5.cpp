@@ -1,6 +1,10 @@
 // ?rva004EA1A5@Rva004EA1A5@@QAEXPAX@Z
+// partial score=0.95 date=2026-10-09
+// WB13828D0 AIEconomyBuilder::UnRegister; native4EA1A5..4EA262 RET4.
+// Legacy CreateAHeroData type only supplies the existing search ABI; farm identity differs.
+// ?rva004EA1A5@Rva004EA1A5@@QAEXPAX@Z
 // partial score=0.95 date=2026-10-04
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /GX /arch:SSE /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /GX /arch:SSE /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /ICode/GameEngine/Source/GameLogic/SkirmishAI/AIEconomyBuilder
 // stlport
 // ?rva004EA1A5@Rva004EA1A5@@QAEXPAX@Z retail 0x004EA1A5 191B: chain calls landed 0x0055ADBA plus testStatus and float checks plus hero find erase; evidence callees rowed plus globals g_00E04494 g_00E04498
 #include <vector>
@@ -51,8 +55,7 @@ public:
 	int m_6C;
 };
 
-extern void *g_00E04494;
-extern void *g_00E04498;
+#include "AIEconomyBuilderFarmLibrary.h"
 
 class Rva004EA1A5
 {
@@ -79,14 +82,15 @@ void Rva004EA1A5::rva004EA1A5(void *x)
 		return;
 	if (0.0f > obj->m_280)
 		--self->m_18;
-	void **beg = (void **)g_00E04494;
-	void **end = (void **)g_00E04498;
+	void **beg = (void **)AIEconomyBuilder::m_farmList.first;
+	void **end = (void **)AIEconomyBuilder::m_farmList.finish;
 	if (beg == end)
 		return;
 	for (void **p = beg; p != end; ++p) {
 		CreateAHeroData *t = (CreateAHeroData *)*p;
 		*(CreateAHeroData **)&x = t;
-		if (t->m_64 != 0) {
+		if (t->m_64 == 0) continue;
+        {
 			if (t->m_68 != *(int *)((char *)self + 0x14))
 				continue;
 			if (t->m_24 != obj->m_74)
