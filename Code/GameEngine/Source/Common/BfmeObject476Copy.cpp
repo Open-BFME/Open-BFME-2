@@ -16,13 +16,85 @@
 #include "unicode_string.h"
 class Rva001E3624 {public: virtual ~Rva001E3624(); Rva001E3624(const Rva001E3624 &); char data[12]; };
 struct S3Handicap { int words[4]; };
-class NestedInlineBase {public:
- // ?NestedInlineBase::~NestedInlineBase present-unmatched
- virtual ~NestedInlineBase() {}};
-struct S3Money : NestedInlineBase { int words[2];
+class AsciiString;
+class UnicodeString;
+class PooledString;
+struct XferUnknown11;
+class Coord3DBase;
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class Coord2D;
+class ICoord2D;
+class Region2D;
+class IRegion2D;
+class RealRange;
+class RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+class Snapshot;
+class Thing;
+class ModuleData;
+class Object;
+class DamageInfo;
+class Xfer
+{
+public:
+	class Version;
+	Xfer();
+	virtual ~Xfer();
+	void Version1();
+	virtual bool IsLoading() const;
+	virtual bool IsStoring() const;
+	virtual bool IsCRC() const;
+	virtual bool IsLightCRC() const;
+	virtual void v5() = 0;
+	virtual void v6() = 0;
+	virtual void v7() = 0;
+	virtual void SkipBadBlock(Snapshot &snapshot, unsigned int size);
+	virtual Xfer &XferRawBytes(void *data, unsigned int size);
+	virtual Xfer &operator==(bool &value);
+	virtual Xfer &operator==(char &value);
+	virtual Xfer &operator==(unsigned char &value);
+	virtual Xfer &operator==(short &value);
+	virtual Xfer &operator==(unsigned short &value);
+	virtual Xfer &operator==(int &value);
+	virtual Xfer &operator==(unsigned int &value);
+	virtual Xfer &operator==(__int64 &value);
+	virtual Xfer &operator==(float &value);
+	virtual Xfer &operator==(AsciiString &value);
+	virtual Xfer &operator==(UnicodeString &value);
+	virtual Xfer &operator==(PooledString &value);
+	virtual Xfer &operator==(Coord3DBase &value);
+	virtual Xfer &operator==(ICoord3D &value);
+	virtual Xfer &operator==(Region3D &value);
+	virtual Xfer &operator==(IRegion3D &value);
+	virtual Xfer &operator==(Coord2D &value);
+	virtual Xfer &operator==(ICoord2D &value);
+	virtual Xfer &operator==(Region2D &value);
+	virtual Xfer &operator==(IRegion2D &value);
+	virtual Xfer &operator==(RealRange &value);
+	virtual Xfer &operator==(RGBColor &value);
+	virtual Xfer &operator==(RGBAColorReal &value);
+	virtual Xfer &operator==(RGBAColorInt &value);
+	virtual Xfer &operator==(Snapshot &value);
+	virtual Xfer &operator==(XferUnknown11 &value) = 0;
+	virtual Xfer &operator==(Version &value);
+	virtual Xfer &XferEnum(const char *name, void *data, unsigned int size);
+protected:
+	virtual void XferData(unsigned int type, void *data, unsigned int size) = 0;
+};
+
+#define BFME_SNAPSHOT_NAME_SLOT
+#include "../../../../reference/shims/moduledata/Common/Snapshot.h"
+class S3Money : public Snapshot { public: int words[2];
  // ?S3Money::S3Money present-unmatched
- __forceinline S3Money(const S3Money &r) {words[0]=r.words[0];words[1]=r.words[1];}
- };
+ __forceinline S3Money(const S3Money&r){words[0]=r.words[0];words[1]=r.words[1];}
+ virtual ~S3Money() {}
+ virtual void loadPostProcess();
+ virtual const char* GetSnapshotName()const;
+ virtual void xfer(Xfer*);
+};
 struct S3Coord { float x,y,z; };
 struct Rva004216D3Coord : Coord3D {
  Rva004216D3Coord(const Rva004216D3Coord &r) {x=r.x;y=r.y;z=r.z;}
@@ -97,3 +169,7 @@ BfmeObject476 *S3CopyConstruct476(void *where,const BfmeObject476 &src) { return
 typedef char BfmeObject476Extent[sizeof(BfmeObject476)==476?1:-1];
 
 BfmeObject476::~BfmeObject476() {}
+
+void S3Money::loadPostProcess() {}
+const char *S3Money::GetSnapshotName() const {return "Money";}
+void S3Money::xfer(Xfer *xfer) {xfer->Version1();*xfer == *(unsigned int*)&words[0];}
