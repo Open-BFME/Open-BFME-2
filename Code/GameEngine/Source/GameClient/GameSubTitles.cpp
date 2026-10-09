@@ -269,6 +269,8 @@ private:
  bool rva002602DA();
  void rva0025FCE8(Int,Int,Int);
  void rva0025FBBC(unsigned*,unsigned,Int);
+ void rva002606E6();
+ void rva0025FE30(float,float,float,float,Int,Int);
  void *mainText, *font;
  _STL::vector<SubtitleRecord> records;
  int state, field18, wait, field20, count, opacity, color, field30;
@@ -353,5 +355,23 @@ void BfmeItemKA::rva0025FCE8(Int mode,Int from,Int to) {
   // Reuse the donor WWMath primitive; the draw algorithm remains C++.
   Int y=WWMath::Float_To_Long((float)floor((float)product+start+0.5f));
   lines[(displayed+i)%count]->position((Int)((float)(field30>>1)+(float)storage[0]),y,1,1);
+ }
+}
+
+struct Rva002606AFElem;
+class Rva002606AF {public:Rva002606AFElem *erase(Rva002606AFElem*);};
+static __forceinline const float &subtitleMax(const float &a,const float &b){return a>b?a:b;}
+// Target record first word is copied by StringBase<G> ctor37050; word4 is color.
+// Canonical UnicodeString copy gives the same base lifetime without a private view.
+void BfmeItemKA::rva002606E6() {
+ if(baseline>0.0f || !records.empty()) {
+  baseline-=field48;
+  baseline=subtitleMax(0.0f,baseline);
+  if(baseline==0.0f && !records.empty()) {
+   lines[displayed%count]->setText(*(const UnicodeString*)records.begin());
+   values[displayed%count]=records.begin()->b;
+   ((Rva002606AF*)&records)->erase((Rva002606AFElem*)records.begin());
+   ++displayed;baseline=(float)field30;
+  }
  }
 }
