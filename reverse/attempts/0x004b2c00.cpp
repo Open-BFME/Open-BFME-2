@@ -1,66 +1,8 @@
 // ?rva004B2C00@ReplaceObjectUpdate@@QAEXPAVObject@@PAVRva004B2A9D@@@Z
-// partial score=0.8 date=2026-10-04
-// cl: /O1 /MD /GX /arch:SSE
-//
-// ReplaceObjectUpdate.cpp (the unit 0x004B2A9D's random-range assert names).
-//
-//   0x004B2D28  slot 17 of ReplaceObjectUpdate's vftable 0x00C56BB0 (slot 0 the
-//               deleting dtor 0x004B2A44): after SpecialAbilityUpdate's slot
-//               17 (0x0045108D), for each non-null entry of the module data's
-//               +0xC8..+0xCC array, walk the alive objects within the data's
-//               +0xD4 radius of the +0x44 point that pass 0x002614DF for the
-//               object and 0x002614EC for the entry and the controlling
-//               player, and hand each whose +0x274 object is null or passes
-//               0x0028C197 to 0x004B2C00 with the entry
-//
-// The filters are BFME2's partition filter chain (the view
-// AIStructureCreepTactic.cpp documents).
-
-class Object;
+// partial score=0.742011199809365 date=2026-10-09
+// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /MD /EHsc /arch:SSE /ICode/Libraries/Include
 class Player;
-
-class Rva000421C8
-{
-public:
-	Rva000421C8() : m_next(0) {}
-	virtual ~Rva000421C8() {}
-	virtual bool allow(Object *obj) = 0;
-	virtual int getPlayerMask();
-	Rva000421C8 *link(Rva000421C8 *next);	// 0x00625790
-	Rva000421C8 *m_next;
-};
-
-// vftable 0x00BFAD10, allow 0x0026119D: not effectively dead.
-class Rva0026119DFilter : public Rva000421C8
-{
-public:
-	virtual bool allow(Object *obj);
-};
-
-// vftable 0x00C07190, allow 0x002614DF: +0x08 an object.
-class Rva002614DFFilter : public Rva000421C8
-{
-public:
-	Rva002614DFFilter(const Object *obj) : m_obj(obj) {}
-	virtual bool allow(Object *obj);
-	const Object *m_obj;
-};
-
-// vftable 0x00BCECF0, allow 0x002614EC: +0x08 what to compare, +0x0C a
-// player, +0x10 whether a hit allows.
-class Rva002614ECFilter : public Rva000421C8
-{
-public:
-	Rva002614ECFilter(const void *what, Player *player, bool match)
-		: m_what(what), m_player(player), m_match(match) {}
-	virtual bool allow(Object *obj);
-	const void *m_what;
-	Player *m_player;
-	bool m_match;
-};
-
-#pragma comment(linker, "/alternatename:?getPlayerMask@Rva000421C8@@UAEHXZ=?Get_File_Handle@FileClass@@UAEPAXXZ")
-
+class Object;
 struct Coord3D
 {
 	float x;
@@ -68,7 +10,7 @@ struct Coord3D
 	float z;
 };
 
-#include "../../reference/shims/bfme2_ascii/ascii_string.h"
+#include "ascii_string.h"
 
 enum ObjectID
 {
@@ -168,26 +110,11 @@ public:
 	static void doFXObj(const FXList *fx, const Object *primary, const Object *secondary);	// 0x000B2235
 };
 
-struct BfmeWideResult
-{
-	Object *next() throw();	// 0x00045623
-	~BfmeWideResult();	// 0x0004AA28
-	void *m_value;
-};
-
-class PartitionManager
-{
-public:
-	BfmeWideResult iterateObjectsInRange(const Coord3D *pos, float radius, int distCalc,
-		Rva000421C8 *filters, int order);	// 0x00625610
-};
-extern PartitionManager *ThePartitionManager;
-
 // A replacement entry: 0x004B2A9D picks one of its template names at random.
 class Rva004B2A9D
 {
 public:
-	const AsciiString *rva004B2A9D();	// 0x004B2A9D
+	int *rva004B2A9D();	// 0x004B2A9D
 };
 
 class ReplaceObjectUpdateModuleData
@@ -227,22 +154,15 @@ private:
 	Coord3D m_44;		// +0x44
 };
 
-void ReplaceObjectUpdate::rva004B2A60(Object *obj)
-{
-	DamageInfo info;
-	info.m_24 = true;
-	info.m_sourceID = getObject()->getID();
-	obj->attemptDamage(&info);
-	TheGameLogic->destroyObject(obj);
-}
 void ReplaceObjectUpdate::rva004B2C00(Object *obj, Rva004B2A9D *entry)
 {
-	const ThingTemplate *tmpl = TheThingFactory->findTemplate(*entry->rva004B2A9D());
+	const ReplaceObjectUpdateModuleData *data=getReplaceObjectData();
+ const ThingTemplate *tmpl = TheThingFactory->findTemplate(*(const AsciiString*)entry->rva004B2A9D());
 	Object *self = getObject();
 	Object *created = g_00A027B8->rva00A027B8Create(self, tmpl, obj->getPosition(), obj->getOrientation(), ThePlayerList->m_18);
 	if (created) {
-		FXList::doFXObj(getReplaceObjectData()->m_D8, created, 0);
-		if (getReplaceObjectData()->m_DC) {
+		FXList::doFXObj(data->m_D8, created, 0);
+		if (data->m_DC) {
 			AIUpdateInterface *ai = created->m_258;
 			if (ai)
 				ai->m_20.rva0047ED64(getObject(), (CommandSourceType)2);
