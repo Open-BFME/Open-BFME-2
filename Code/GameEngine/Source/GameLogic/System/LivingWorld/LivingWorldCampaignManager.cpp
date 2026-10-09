@@ -5,6 +5,7 @@
 // bytes. The name lookup (0x003B8E2B, unnamed in WB) returns -1 for an
 // unknown campaign.
 #include "ascii_string.h"
+#include "../../../Common/GameLogicObjectLookupView.h"
 
 typedef int Int;
 
@@ -22,6 +23,8 @@ class GlobalData
 public:
 	char m_pad[0x86];
 	unsigned char m_86;
+	char m_pad87[0x8C - 0x87];
+	AsciiString m_8C;
 };
 
 extern GlobalData *TheWritableGlobalData;
@@ -30,6 +33,7 @@ class Rva0052C036
 {
 public:
 	bool rva0052C036();
+	bool rva0052C9F9();
 };
 
 class Rva0052BFE1 : public Rva0052C036
@@ -40,7 +44,52 @@ public:
 	void *rva0052BFE1(Int a, Int b);				// 0x0052BFE1
 	unsigned char opaque_00[4];
 	AsciiString m_name04;
+	unsigned char opaque_08[0x4D - 0x08];
+	unsigned char m_4D;
 };
+
+// The campaign's 15-byte const getter 0x0052BAB2 (rowed under an int return)
+// supplies the name SelectCampaign takes.
+class Rva0052BAB2
+{
+public:
+	int rva0052BAB2() const;
+};
+
+class LivingWorldRegionManager;
+
+class LivingWorldRegionCampaign
+{
+public:
+	void rva0020F3E8(LivingWorldRegionManager *regionManager);	// 0x0020F3E8
+};
+
+class LivingWorldRegionManager
+{
+public:
+	void SelectCampaign(const StringBase<char> &campaignName);
+	unsigned char m_pad00[8];
+	LivingWorldRegionCampaign *m_activeCampaign;	// +0x08 (WB GetActiveCampaign)
+};
+
+class LivingWorldLogic
+{
+public:
+	unsigned char m_pad00[0xB0];
+	LivingWorldRegionManager *m_regionManager;	// +0xB0
+};
+
+extern LivingWorldLogic *TheLivingWorldLogic;
+
+class LivingWorldManager
+{
+public:
+	void rva00210F96();
+};
+
+extern LivingWorldManager *TheLivingWorldManager;
+
+extern GameLogic *TheGameLogic;
 
 // STLport vector view: three pointers, inline size() and operator[].
 template <class T> class CampaignVectorView
@@ -72,7 +121,8 @@ private:
 	unsigned char m_pad00[0x10];
 	Int m_campaignIndex;					// +0x10 (WB assert name)
 	CampaignVectorView<Rva0052BFE1 *> m_campaignVector;	// +0x14
-	unsigned char m_pad20[0x2D - 0x20];
+	unsigned char m_pad20[0x2C - 0x20];
+	unsigned char m_2C;
 	unsigned char m_2D;
 };
 
@@ -82,6 +132,38 @@ void LivingWorldCampaignManager::StartNewCampaign(const AsciiString &campaignNam
 	Int index = rva003B8E2B(campaignName);
 	if (index != -1)
 		StartNewCampaign(index);
+}
+
+// LivingWorldCampaignManager::StartNewCampaign(Int), retail 0x003B8C06 (166
+// bytes): WB 0x01031960 names it (asserts at :214 and :229). An index in range
+// becomes current; the region manager selects that campaign by name, and when
+// one is active the living-world manager (0x00210F96) and the campaign
+// (0x0020F3E8, given the region manager) take it up. WB's following
+// DebugValidateRegionINIData is debug-only. After GameLogic's 0x0023D033, a
+// set flag at GlobalData+0x86 or a non-empty +0x8C string copies the
+// campaign's +0x4D byte to +0x2C and runs its 0x0052C9F9.
+void LivingWorldCampaignManager::StartNewCampaign(Int campaignIndex)
+{
+	if (campaignIndex < 0 || (UnsignedInt)campaignIndex >= m_campaignVector.size())
+		return;
+	m_campaignIndex = campaignIndex;
+	LivingWorldRegionManager *regionManager = TheLivingWorldLogic->m_regionManager;
+	if (regionManager)
+	{
+		const Rva0052BAB2 *named = reinterpret_cast<const Rva0052BAB2 *>(m_campaignVector[m_campaignIndex]);
+		regionManager->SelectCampaign(*reinterpret_cast<const StringBase<char> *>(named->rva0052BAB2()));
+		if (regionManager->m_activeCampaign)
+		{
+			TheLivingWorldManager->rva00210F96();
+			regionManager->m_activeCampaign->rva0020F3E8(regionManager);
+		}
+	}
+	TheGameLogic->rva0023D033();
+	if (TheWritableGlobalData->m_86 == 0
+		&& reinterpret_cast<const StringBase<char> *>(&TheWritableGlobalData->m_8C)->isEmpty())
+		return;
+	m_2C = m_campaignVector[m_campaignIndex]->m_4D;
+	m_campaignVector[m_campaignIndex]->rva0052C9F9();
 }
 
 // ?rva003B8CAC@LivingWorldCampaignManager@@QAE_NXZ, retail 0x003B8CAC (52 bytes).
