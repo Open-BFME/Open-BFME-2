@@ -174,6 +174,8 @@ public:
 	void releaseSlot(W3DVertexBufferSlot *vbSlot);
 	void releaseSlot(W3DIndexBufferSlot *ibSlot);
 	void freeAllSlots(void);
+	~W3DBufferManager(void);
+	void freeAllBuffers(void);
 
 protected:
 
@@ -238,6 +240,12 @@ void W3DBufferManager::freeAllSlots(void)
 		}
 		m_W3DIndexBufferSlots[j]=NULL;
 	}
+}
+
+W3DBufferManager::~W3DBufferManager(void)
+{
+	freeAllSlots();
+	freeAllBuffers();
 }
 
 /**Reserves space inside a vertex buffer.  If no space is available,

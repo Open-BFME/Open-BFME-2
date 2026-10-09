@@ -157,63 +157,6 @@ W3DBufferManager::W3DBufferManager(void)
 	}
 }
 
-W3DBufferManager::~W3DBufferManager(void)
-{
-	freeAllSlots();
-	freeAllBuffers();
-}
-
-// byte-exact reconstruction: Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DBufferManager_Slots.cpp
-// ?freeAllSlots@W3DBufferManager@@ present-unmatched
-void W3DBufferManager::freeAllSlots(void)
-{
-	Int i,j;
-
-	for (i=0; i<MAX_FVF; i++)
-	{
-		for (j=0; j<MAX_VB_SIZES; j++)
-		{
-			//Release all slots allocated for each size
-			W3DVertexBufferSlot *vbSlot = m_W3DVertexBufferSlots[i][j];
-			while (vbSlot)
-			{
-				if (vbSlot->m_prevSameVB)
-					vbSlot->m_prevSameVB->m_nextSameVB=vbSlot->m_nextSameVB;
-				else
-					vbSlot->m_VB->m_usedSlots=NULL;
-
-				if (vbSlot->m_nextSameVB)
-					vbSlot->m_nextSameVB->m_prevSameVB=vbSlot->m_prevSameVB;
-				vbSlot=vbSlot->m_nextSameSize;
-				m_numEmptySlotsAllocated--;
-			}
-			m_W3DVertexBufferSlots[i][j]=NULL;
-		}
-	}
-
-	for (j=0; j<MAX_IB_SIZES; j++)
-	{
-		//Release all slots allocated for each size
-		W3DIndexBufferSlot *ibSlot = m_W3DIndexBufferSlots[j];
-		while (ibSlot)
-		{
-			if (ibSlot->m_prevSameIB)
-				ibSlot->m_prevSameIB->m_nextSameIB=ibSlot->m_nextSameIB;
-			else
-				ibSlot->m_IB->m_usedSlots=NULL;
-
-			if (ibSlot->m_nextSameIB)
-				ibSlot->m_nextSameIB->m_prevSameIB=ibSlot->m_prevSameIB;
-			ibSlot=ibSlot->m_nextSameSize;
-			m_numEmptyIndexSlotsAllocated--;
-		}
-		m_W3DIndexBufferSlots[j]=NULL;
-	}
-
-	DEBUG_ASSERTCRASH(m_numEmptySlotsAllocated==0, ("Failed to free all empty vertex buffer slots"));
-	DEBUG_ASSERTCRASH(m_numEmptyIndexSlotsAllocated==0, ("Failed to free all empty index buffer slots"));
-}
-
 void W3DBufferManager::freeAllBuffers(void)
 {
 	struct BFMEBufferManagerView
