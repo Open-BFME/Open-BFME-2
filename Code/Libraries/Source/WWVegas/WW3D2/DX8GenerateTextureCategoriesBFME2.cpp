@@ -1,7 +1,10 @@
-// ?Generate_Texture_Categories@DX8FVFCategoryContainer@@IAEXAAVVertex_Split_Table@@I@Z
-// partial score=0.998424607 date=2026-10-09
 // cl: /O2 /arch:SSE /G7 /DNDEBUG /MD /EHsc
-// Semantic guide: ZH dx8renderer.cpp Add_Mesh. BFME2 target 145620..145A65.
+// ZH dx8renderer.cpp Generate_Texture_Categories at BFME1 9cbfb551fe20
+// supplies allocation/pass/material/texture/shader semantic structure. Native
+//146BA0..146EB4 RET8 independently proves the full788B body (queue785 misses
+//the return). Target model/material descriptor layouts follow established rows.
+//Binding the shader getter result then copy-initializing preserves native homes;
+//a named descriptor pointer also reproduces the target base/index SIB order.
 #include <new>
 class MultiListObjectClass { public: virtual ~MultiListObjectClass(); void *ListNode; };
 class GenericMultiListClass {
@@ -64,7 +67,7 @@ public:
  ShaderClass Peek_Shader(unsigned,unsigned);
  VertexMaterialClass *Peek_Material(unsigned index,unsigned pass) {
   
-  if(model->Has_Material_Array(pass)) return model->Peek_Material(model->Get_Polygon_Array()[index][0],pass);
+  MeshMatDescClass *desc=model->descriptor; if(desc->Has_Material_Array(pass)) return model->Peek_Material(model->Get_Polygon_Array()[index][0],pass);
   return model->Peek_Single_Material(pass);
  }
 };
