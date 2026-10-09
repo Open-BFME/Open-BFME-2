@@ -434,3 +434,29 @@ void IngameNoticeDisplay::rva004E59F4()
         reinterpret_cast<Rva004E59AE **>(const_cast<ModuleData **>(groups.end())),
         reinterpret_cast<NoticeObservedMember>(&Rva004E5B0A::rva004E59DB));
 }
+
+// BF1 f989 MemFunForEachInstantiations.cpp compiled O2/x87/G7 emits
+// three indistinguishable member-call adapters. That supplies the expression,
+// not a target template name, element identity or original result type.
+// Native 4E58BA..4E58C5 is a separate complete entry after RET 4E58B9:
+// receiver word 0 is called with stack word 4 moved into ECX, no pushed
+// arguments or receiver adjustment, followed by this wrapper's RET 4.
+// No literal-address or direct-call references identify the callback target.
+// These independent address-owned views describe only that consumed ABI.
+// The single-inheritance declaration selects its witnessed one-word method
+// representation; no original inheritance or complete object layout is claimed.
+// A void observation ignores any physical callback result, whose type is unknown.
+class __single_inheritance Rva004E58BATarget;
+typedef void (Rva004E58BATarget::*Rva004E58BAMethod)();
+class Rva004E58BAHolder
+{
+public:
+    void invoke(Rva004E58BATarget *target);
+private:
+    Rva004E58BAMethod method;
+};
+
+void Rva004E58BAHolder::invoke(Rva004E58BATarget *target)
+{
+    (target->*method)();
+}
