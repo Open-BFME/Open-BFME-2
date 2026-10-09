@@ -54,7 +54,7 @@ struct GameSpySlotView
 	int m_ping; // +0x1BC
 };
 
-enum SlotState { SLOT_PLAYER=6 };
+enum SlotState { SLOT_PLAYER = 6 };
 // Retail passes a zero DWORD and zero port WORD to GameSlot::setState.
 struct GameSlotConnectInfo
 {
@@ -69,29 +69,29 @@ class GameSlot
 public:
 	virtual void reset();
 	unsigned char encodeHero() const;
-	bool isPlayer(AsciiString name) const;        // rowed 0x003FFEF5
+	bool isPlayer(AsciiString name) const;		// rowed 0x003FFEF5
 	void rva003FF5F2(const AsciiString &clanID); // rowed 0x003FF5F2
-	void setMapAvailability(bool available);      // rowed 0x003FF8A0
+	void setMapAvailability(bool available);	  // rowed 0x003FF8A0
 	void setPlayerTemplate(int playerTemplate);   // rowed 0x00400E33
 	bool isAI() const;
-    void setState(SlotState,UnicodeString,const GameSlotConnectInfo *);
-    bool isHuman() const;                         // rowed 0x003FF0F1
+	void setState(SlotState, UnicodeString, const GameSlotConnectInfo *);
+	bool isHuman() const;						 // rowed 0x003FF0F1
 	// Slot 6 (+0x18): the GameSpy view of the slot; its +0x1BC is the local
 	// player's own ping.
 	virtual void v01(); virtual void v02(); virtual void v03();
 	virtual void v04(); virtual void v05(); virtual GameSpySlotView *gameSpySlot();
 
-	int m_state;                // +0x04
+	int m_state;				// +0x04
 	unsigned char m_pad08[0x0C - 0x08];
-	int m_color;                // +0x0C
+	int m_color;				// +0x0C
 
-	int m_startPos;             // +0x10, StartPos sends this one
-	int m_startPos14;           // +0x14, written with it
+	int m_startPos;			 // +0x10, StartPos sends this one
+	int m_startPos14;		   // +0x14, written with it
 	unsigned char m_pad18[0x1C - 0x18];
-	int m_teamNumber;           // +0x1C
-	int m_handicap;             // +0x20
+	int m_teamNumber;		   // +0x1C
+	int m_handicap;			 // +0x20
 	unsigned char m_pad24[0x30 - 0x24];
-	UnicodeString m_name;       // +0x30
+	UnicodeString m_name;	   // +0x30
 };
 
 // The current staging room's game info. Target facts: getSlot (rowed
@@ -117,17 +117,23 @@ public:
 	virtual void adjustSlotsForMap();
 
 	GameSlot *getSlot(int index);
-    int getSlotNum(AsciiString) const;
-	void setMap(AsciiString mapName);    // rowed 0x00400126
+	int getSlotNum(AsciiString) const;
+	void setMap(AsciiString mapName);	// rowed 0x00400126
 
 	unsigned char m_pad04[0x14 - 0x04];
-	unsigned int m_14;                   // +0x14, the buddy invite's second field
+	unsigned int m_14;				   // +0x14, the buddy invite's second field
 	unsigned char m_pad18[0x5C - 0x18];
-	unsigned int m_5c;                   // +0x5C, the buddy invite's last field
-	int m_rules[10];                     // +0x60, saved as "Rules"
-	void setMapCRC(unsigned int crc);    // rowed 0x00400E9F
+	unsigned int m_5c;				   // +0x5C, the buddy invite's last field
+	int m_rules[10];					 // +0x60, saved as "Rules"
+	void rva003FF1A7(int);
+	void setMapCRC(unsigned int crc);	// rowed 0x00400E9F
 	void setMapSize(unsigned int size);  // rowed 0x00400F5A
 };
+
+class Rva0022C4DF { public: UnicodeString rva0022C4DF() const; };
+class Rva003821E2 { public: void assign(UnicodeString); };
+class Rva0059F322AsciiField { public: AsciiString get() const; };
+class Rva0059F2EB { public: void rva0059F2EB(AsciiString); };
 
 class GameSpyGameSlot : public GameSlot
 {
@@ -137,6 +143,9 @@ class GameSpyStagingRoom : public GameInfo
 {
 public:
 	GameSpyGameSlot *getGameSpySlot(int index); // rowed 0x004FDA3D
+	// RequestJoinGame copies this WORD between complete staging-room objects.
+	unsigned char m_pad88[0x1008 - 0x88];
+	unsigned short m_1008; // purpose remains unknown
 };
 
 // TheGameSpyGame 0x00A02324.
@@ -150,7 +159,7 @@ class MapMetaData
 public:
 	unsigned char m_pad00[0x28];
 	unsigned int m_filesize; // +0x28
-	unsigned int m_CRC;      // +0x2C
+	unsigned int m_CRC;	  // +0x2C
 };
 
 bool operator<(const AsciiString &left, const AsciiString &right);
@@ -173,7 +182,9 @@ public:
 	V(20) V(21) V(22) V(23) V(24) V(25) V(26) V(27) V(28)
 	virtual AsciiString getLocalName() = 0; // slot 29 (+0x74)
 	V(30) V(31) V(32) V(33) V(34) V(35) V(36) V(37) V(38) V(39)
-	V(40) V(41) V(42) V(43) V(44) V(45) V(46) V(47) V(48) V(49)
+	V(40) V(41) V(42) V(43) V(44) V(45) V(46) V(47) V(48)
+	// RequestJoinGame passes the selected room ID through slot 49 (+0xC4).
+	virtual void gs49(int);
 	V(50)
 	virtual bool amIHost() = 0;
 	V(52)
@@ -221,8 +232,9 @@ struct PeerRequest
 	unsigned int unknown_d0[10];
 	std::string unknown_f8;
 	std::vector<bool> unknown_104;
-	bool isStagingRoom; // +0x118
-	unsigned char m_tail[0x1EC - 0x119];
+	// Request type 11 uses the DWORD; kick and option requests use its flag.
+	union { bool isStagingRoom; int gameID; }; // +0x118
+	unsigned char m_tail[0x1EC - 0x11C];
 };
 
 // TheGameSpyPeerMessageQueue 0x00A02340: addRequest is virtual slot 6.
@@ -358,7 +370,7 @@ class Rva005A6D47
 {
 public:
 	unsigned char m_pad00[0x10];
-	int m_10;                       // +0x10, zero when idle
+	int m_10;					   // +0x10, zero when idle
 	unsigned char m_pad14[0x28 - 0x14];
 	PortNegotiationSchema m_schema; // +0x28
 };
@@ -369,7 +381,7 @@ class AptConnectionScreen
 {
 public:
 	void RedrawGrid(const char *);
-    static int GetPingImageEnum(Elem005DB98E *ping); // rowed 0x005DB37C
+	static int GetPingImageEnum(Elem005DB98E *ping); // rowed 0x005DB37C
 };
 
 int Rva005DB335Get(int ping); // rowed 0x005DB335
@@ -404,29 +416,29 @@ protected:
 class MpOwner
 {
 public:
-	virtual ~MpOwner();                                                       // 0
-	virtual bool rva0059EBDE() = 0;                                           // 1
-	virtual void rva0059EBFE() = 0;                                           // 2
-	virtual bool MpOwnerOnReadyChecked(bool ready) = 0;                       // 3
-	virtual bool MpOwnerSelectColor(GameSlot *slot, int color) = 0;           // 4
-	virtual bool MpOwnerSelectHandicap(GameSlot *slot, int handicap) = 0;     // 5
-	virtual bool MpOwnerSelectHero(GameSlot *slot) = 0;                       // 6
-	virtual bool MpOwnerSelectMap(const AsciiString &mapName) = 0;            // 7
-	virtual void MpOwnerSelectStrategicScenario() = 0;                        // 8
+	virtual ~MpOwner();													   // 0
+	virtual bool rva0059EBDE() = 0;										   // 1
+	virtual void rva0059EBFE() = 0;										   // 2
+	virtual bool MpOwnerOnReadyChecked(bool ready) = 0;					   // 3
+	virtual bool MpOwnerSelectColor(GameSlot *slot, int color) = 0;		   // 4
+	virtual bool MpOwnerSelectHandicap(GameSlot *slot, int handicap) = 0;	 // 5
+	virtual bool MpOwnerSelectHero(GameSlot *slot) = 0;					   // 6
+	virtual bool MpOwnerSelectMap(const AsciiString &mapName) = 0;			// 7
+	virtual void MpOwnerSelectStrategicScenario() = 0;						// 8
 	virtual bool MpOwnerSelectPlayer(GameSlot *slot, int state, int unused) = 0; // 9
 	virtual bool MpOwnerSelectPlayerTemplate(GameSlot *slot, int playerTemplate) = 0; // 10
 	virtual bool MpOwnerSelectStartPosition(GameSlot *slot, int startPos) = 0; // 11
-	virtual bool MpOwnerSelectTeam(GameSlot *slot, int team) = 0;             // 12
+	virtual bool MpOwnerSelectTeam(GameSlot *slot, int team) = 0;			 // 12
 	virtual bool MpOwnerSetClanID(GameSlot *slot, const UnicodeString &clanID) = 0; // 13
-	virtual void MpOwnerGetLocalPlayerName(UnicodeString &name) = 0;          // 14
-	virtual void rva005A1D32() = 0;                                           // 15
-	virtual void rva005A1C87(bool open) = 0;                                  // 16
+	virtual void MpOwnerGetLocalPlayerName(UnicodeString &name) = 0;		  // 14
+	virtual void rva005A1D32() = 0;										   // 15
+	virtual void rva005A1C87(bool open) = 0;								  // 16
 	virtual void MpOwnerPrintMessage(const UnicodeString &text, int kind) = 0; // 17
-	virtual void v18() = 0;                                                   // 18
-	virtual void MpOwnerUpdatePlayerTooltip() = 0;                            // 19
-	virtual void *v20() = 0;                                                  // 20
-	virtual int v21() = 0;                                                    // 21
-	virtual bool rva0059EC50() = 0;                                           // 22
+	virtual void v18() = 0;												   // 18
+	virtual void MpOwnerUpdatePlayerTooltip() = 0;							// 19
+	virtual void *v20() = 0;												  // 20
+	virtual int v21() = 0;													// 21
+	virtual bool rva0059EC50() = 0;										   // 22
 
 private:
 	unsigned char m_pad04[0x0C - 0x04];
@@ -452,8 +464,8 @@ public:
 	virtual bool MpOwnerSelectHandicap(GameSlot *slot, int handicap);
 	virtual bool MpOwnerSelectHero(GameSlot *slot);
 	virtual bool MpOwnerSelectMap(const AsciiString &mapName);
-	virtual bool MpOwnerSelectPlayer(GameSlot *slot,int state,int unused);
-    virtual bool MpOwnerSelectPlayerTemplate(GameSlot *slot, int playerTemplate);
+	virtual bool MpOwnerSelectPlayer(GameSlot *slot, int state, int unused);
+	virtual bool MpOwnerSelectPlayerTemplate(GameSlot *slot, int playerTemplate);
 	virtual bool MpOwnerSelectStartPosition(GameSlot *slot, int startPos);
 	virtual bool MpOwnerSelectTeam(GameSlot *slot, int team);
 	virtual bool MpOwnerSetClanID(GameSlot *slot, const UnicodeString &clanID);
@@ -467,6 +479,8 @@ public:
 	virtual bool rva0059EF49();
 	virtual bool rva005A6697();
 
+	GameSpyStagingRoom *GetGameToJoin();
+	bool RequestJoinGame(const char *password);
 	void OpenConnectionScreen(bool open);
 	// FillBuddyInviteGameInfo 0x0059FB4F is banked: reverse/attempts/0x0059fb4f.cpp.
 	// UpdatePings 0x0059ED8B is banked: reverse/attempts/0x0059ed8b.cpp.
@@ -497,12 +511,14 @@ private:
 	bool m_popUp; // +0x4A0
 	unsigned char m_pad4a1[0x4A4 - 0x4A1];
 	unsigned int m_4a4; // +0x4A4, passed first to the invite record
-	unsigned char m_pad4a8[0x4B0 - 0x4A8];
+	int m_4a8;
+	unsigned char m_pad4ac[0x4B0 - 0x4AC];
 	int m_4b0; // +0x4B0
-	unsigned char m_pad4b4[0x4BC - 0x4B4];
+	unsigned char m_pad4b4[0x4B8 - 0x4B4];
+	int m_gameToJoinID;
 	int m_connectingCount; // +0x4BC, open requests of the connecting pop-up
 	unsigned char m_pad4c0[0x4D4 - 0x4C0];
-    AptConnectionScreen *m_connectionGrid;
+	AptConnectionScreen *m_connectionGrid; // +0x4D4
 	bool m_connectionsScreen; // +0x4D8
 };
 
@@ -1055,5 +1071,35 @@ bool AptOnlineCustomMatch::MpOwnerSelectPlayer(GameSlot *slot, int state, int)
 		return false;
 	if (m_connectionGrid)
 		m_connectionGrid->RedrawGrid(0);
+	return true;
+}
+
+// Retail 0x005A2C77..0x005A2DB7, 320 bytes, ret 4. WorldBuilder
+// 0x014F0720 names RequestJoinGame and asserts roomToJoin at line 2647.
+// The existing matched getters and setters prove the string-by-value ABI;
+// their address-derived owner names retain uncertainty about those fields.
+// Native bytes prove the selected ID at +0x4B8, copied room WORD at +0x1008,
+// peer request type 11, and the transition to state 11 with pending marker -1.
+bool AptOnlineCustomMatch::RequestJoinGame(const char *password)
+{
+	GameSpyStagingRoom *room = GetGameToJoin();
+	if (!room)
+		return false;
+	TheGameSpyInfo->gs49(m_gameToJoinID);
+	((Rva003821E2 *)TheGameSpyGame)->assign(
+		((Rva0022C4DF *)room)->rva0022C4DF());
+	((Rva0059F2EB *)TheGameSpyGame)->rva0059F2EB(
+		((Rva0059F322AsciiField *)room)->get());
+	TheGameSpyGame->m_1008 = room->m_1008;
+	TheGameSpyGame->rva003FF1A7(room->m_5c);
+	PeerRequest req;
+	req.peerRequestType = 11;
+	req.unknown_10 = ((Rva0022C4DF *)room)->rva0022C4DF().str();
+	req.gameID = m_gameToJoinID;
+	req.unknown_1c = password;
+	TheGameSpyPeerMessageQueue->addRequest(req);
+	m_state = 11;
+	m_4a8 = -1;
+	m_popUp = true;
 	return true;
 }
