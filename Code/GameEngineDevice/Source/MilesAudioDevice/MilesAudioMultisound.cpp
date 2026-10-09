@@ -30,7 +30,7 @@ struct OwnedAudioInfoCopy : Rva0036CA00Str {
  OpaqueRefCounted*get()const{return m_ptr;}
 };
 class BfmeStringTailRecord156 {public: AudioEventInfoRef m_eventInfo;unsigned m_weight;};
-struct AudioEventInfo { char pad0[0x40]; int m_lastSubsoundIndex; unsigned m_priority,m_type,m_control;
+struct AudioEventInfo { virtual ~AudioEventInfo();virtual int getNameKey()const;char pad04[0xc];float defaultPriority;char pad14[8];float defaultVolume;char pad20[0x20]; int m_lastSubsoundIndex; unsigned m_priority,m_type,m_control;
  char pad50[0x3c]; unsigned m_totalSubsoundWeight;
  const _STL::vector<BfmeStringTailRecord156>&getSubsoundVector()const;
 };
@@ -43,6 +43,10 @@ inline AudioEventRTS *multisoundTarget(const BfmePoolRef10& ref) {
 }
 class GameMessageList;
 class GameMessage {public:void friend_setList(GameMessageList*);};
+union Rva006AD590Slot {int m_asInt;float m_asFloat;};
+class Rva006AD590Entry {public:Rva006AD590Slot*find(int);char opaque[0x1c4];};
+class Rva003EF5DA {public:void rva003EF5DA(float);};
+class View {public:virtual void setAngle(float);};
 class MilesAudioManager {public:
  int addResumeOrPushMultisound(AudioEventRTS*,int,int,int,int,int);
  BfmePoolRef10 rva0005286A(AudioEventRTS*,int);
@@ -52,7 +56,7 @@ class MilesAudioManager {public:
  unsigned rva0005933D(AudioEventRTS*,int);
  void rva000592B8(AudioEventRTS*);
  unsigned allocateNewHandle(){return m_nextHandle++;}
- char pad0[0xd0];unsigned m_nextHandle;char padD4[0xc];_STL::vector<BfmePod144> m_queued[3];
+ char pad0[0xd0];unsigned m_nextHandle;char padD4[0xc];_STL::vector<BfmePod144> m_queued[3];char pad104[0x28];Rva006AD590Entry m_priority[3];
 };
 class Rva002D9C2F {public:OpaqueRefElement4&rva002D9C2F(const OpaqueRefElement4&);};
 class Rva002D9AD4 {public:BfmePoolRef10&rva002D9AD4(const BfmePoolRef10&);};
@@ -164,4 +168,27 @@ unsigned MilesAudioManager::rva0005933D(AudioEventRTS *event,int allocateHandle)
  if(allocateHandle==0)
   reinterpret_cast<GameMessage*>(queued)->friend_setList(reinterpret_cast<GameMessageList*>(allocateNewHandle()));
  return queued->m_playingHandle;
+}
+
+// Native592B8..5933D RET4; WB785A70 priority/volume override lookup. The
+// BFME1 AudioManagerAdjustPriorityAndVolume donor establishes the subsystem;
+// native view30, table12C and info defaults10/1C establish BFME2 offsets.
+void MilesAudioManager::rva000592B8(AudioEventRTS*event)
+{
+ int view=event->m_viewType;
+ int key=event->m_info->getNameKey();
+ Rva006AD590Slot *slot=m_priority[view].find(key);
+ if(slot) {
+  reinterpret_cast<Rva003EF5DA*>(event)->rva003EF5DA(slot->m_asFloat);
+  AudioEventInfo *info=event->m_info;
+  float priority=info->defaultPriority;
+  if(priority>0.0f) {
+   float ratio=slot->m_asFloat/priority;
+   float volume=ratio*info->defaultVolume;
+   reinterpret_cast<View*>(event)->View::setAngle(volume);
+  }
+ }else {
+  reinterpret_cast<Rva003EF5DA*>(event)->rva003EF5DA(event->m_info->defaultPriority);
+  reinterpret_cast<View*>(event)->View::setAngle(event->m_info->defaultVolume);
+ }
 }
