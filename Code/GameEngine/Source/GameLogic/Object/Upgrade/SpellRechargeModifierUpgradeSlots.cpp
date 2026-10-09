@@ -105,6 +105,7 @@ public:
 	virtual void rva004B5F9F();
 	virtual void rva004B5E46();
 	virtual void rva004B5DDC();
+	void rva004B5EC4(Player *oldPlayer, Player *newPlayer);
 private:
 	bool m_20; // +0x20
 };
@@ -140,4 +141,25 @@ void SpellRechargeModifierUpgrade::rva004B5DDC()
 		slot9(1);
 	}
 	m_20 = true;
+}
+
+// Retail vslot9 of primary table C583B0; target this is primary (data+4).
+// This handler transfers one recharge-modifier contribution between players,
+// then marks the upgrade executed through the +10 mux slot9. The counter,
+// clamped float vector and setters are established by the three matched
+// siblings above; original handler spelling is not independently proven.
+void SpellRechargeModifierUpgrade::rva004B5EC4(Player *oldPlayer, Player *newPlayer)
+{
+    const SpellRechargeModifierUpgradeModuleData *data = m_moduleData;
+    if (oldPlayer)
+    {
+        ((Rva002AA0C6DwordCounter *)oldPlayer)->dec();
+        applyModifier(oldPlayer, data);
+    }
+    if (newPlayer)
+    {
+        ((Rva002AA0BFDwordCounter *)newPlayer)->inc();
+        applyModifier(newPlayer, data);
+    }
+    slot9(1);
 }
