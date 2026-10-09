@@ -1,5 +1,7 @@
 // ??4CreateAHeroData@@QAEAAV0@ABV0@@Z
-// partial score=0.97 date=2026-10-01
+// partial score=0.97 date=2026-10-09
+// ??4CreateAHeroData@@QAEAAV0@ABV0@@Z
+// Trial: preserve existing setter definitions before the caller so cl observes ECX.
 // cl: /Ireference/shims/bfme2_ascii /O1 /Ob2 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??4CreateAHeroData@@QAEAAV0@ABV0@@Z @0x00409359 254B
@@ -32,11 +34,98 @@ struct BfmeHeroElement005C39DE {
     BfmeHeroElement005C39DE();
     BfmeHeroElement005C39DE &operator=(const BfmeHeroElement005C39DE &);
 };
-class Rva00407A6A { public: bool rva00407A6A(const UnicodeString &arg); };
-class Rva00406EFD { public: bool rva00406EFD(int v); bool rva00407004(int v); };
-class Rva00406F12 { public: bool rva00406F12(int v); };
-class Rva00406F27 { public: bool rva00406F27(int v); };
-class Rva00406F3C { public: bool rva00406F3C(int v); };
+// ?rva00406EFD@Rva00406EFD@@QAE_NH@Z @0x00406EFD 21B: conditional setter comparing stack arg with +0x10 and setting bit 2 at +0x38. Caller 0x00407012 passes 0. Owner unknown so honest-address name.
+// ?rva00407004@Rva00406EFD@@QAE_NH@Z @0x00407004 28B: when the argument
+// differs from +0x0C, stores it, calls rva00406EFD(0) and ORs 0xEF into the
+// flags at +0x38 (cl narrows the dword OR to a byte); returns true. Caller
+// 0x0040937F. Retail keeps this in ecx across the rva00406EFD call, which cl
+// only does when that callee was compiled earlier in the same TU.
+class Rva00406EFD
+{
+	int m_00[3];
+	int m_0c;
+	int m_10;
+	int m_14[9];
+	int m_38;
+public:
+	bool rva00406EFD(int v);
+	bool rva00407004(int v);
+};
+bool Rva00406EFD::rva00406EFD(int v)
+{
+	if (v != m_10) {
+		m_38 |= 2;
+		m_10 = v;
+	}
+	return true;
+}
+bool Rva00406EFD::rva00407004(int v)
+{
+	if (v != m_0c) {
+		m_0c = v;
+		rva00406EFD(0);
+		m_38 |= 0xEF;
+	}
+	return true;
+}
+
+// ?rva00406F12@Rva00406F12@@QAE_NH@Z @0x00406F12 21B: conditional setter comparing +0x2C and setting bit 8 at +0x38. Sibling of 0x00406EFD. Owner unknown so honest-address name.
+class Rva00406F12
+{
+	int m_00[11];
+	int m_2C;
+	int m_30[2];
+	int m_38;
+public:
+	bool rva00406F12(int v);
+};
+bool Rva00406F12::rva00406F12(int v)
+{
+	if (m_2C != v) {
+		m_38 |= 8;
+		m_2C = v;
+	}
+	return true;
+}
+
+// ?rva00406F27@Rva00406F27@@QAE_NH@Z @0x00406F27 21B: conditional setter comparing +0x30 and setting bit 8 at +0x38. Sibling of 0x00406F12. Owner unknown so honest-address name.
+class Rva00406F27
+{
+	int m_00[12];
+	int m_30;
+	int m_34;
+	int m_38;
+public:
+	bool rva00406F27(int v);
+};
+bool Rva00406F27::rva00406F27(int v)
+{
+	if (m_30 != v) {
+		m_38 |= 8;
+		m_30 = v;
+	}
+	return true;
+}
+
+// ?rva00406F3C@Rva00406F3C@@QAE_NH@Z @0x00406F3C 21B: conditional setter comparing +0x34 and setting bit 8 at +0x38. Sibling of 0x00406F27. Owner unknown so honest-address name.
+class Rva00406F3C
+{
+	int m_00[13];
+	int m_34;
+	int m_38;
+public:
+	bool rva00406F3C(int v);
+};
+bool Rva00406F3C::rva00406F3C(int v)
+{
+	if (m_34 != v) {
+		m_38 |= 8;
+		m_34 = v;
+	}
+	return true;
+}
+
+class Rva00407A6A {public:bool rva00407A6A(const UnicodeString &);};
 class CreateAHeroData : public Snapshot {
     unsigned int word04;
     UnicodeString text08;
