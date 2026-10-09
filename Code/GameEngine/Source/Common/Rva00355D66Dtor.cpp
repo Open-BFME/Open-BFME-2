@@ -184,15 +184,33 @@ public:
 	virtual void d55(); virtual void d56(); virtual void d57(); virtual void d58(); virtual void d59();
 	virtual void d60(); virtual void d61(); virtual void d62(); virtual void d63(); virtual void d64();
 	virtual void d65(); virtual void d66(); virtual void d67(); virtual void slot68();
+	virtual void d69(); virtual void d70(); virtual void d71();
+	virtual void slot72(AsciiString name, int flags);
+	unsigned char m_pad04[0x10C - 0x04];
+	bool m_10c; // +0x10C
 };
 
 extern DisplayManager *TheDisplay;
+
+class AudioManager
+{
+public:
+	virtual void a00(); virtual void a01(); virtual void a02(); virtual void a03(); virtual void a04();
+	virtual void a05(); virtual void a06(); virtual void a07(); virtual void a08(); virtual void a09();
+	virtual void slot10();
+	virtual void a11(); virtual void a12(); virtual void a13(); virtual void a14(); virtual void a15();
+	virtual void a16(); virtual void a17(); virtual void a18(); virtual void a19();
+	virtual void slot20(int which);
+};
+
+extern AudioManager *TheAudio;
 
 class Rva003563A7 : public Rva00355D66
 {
 public:
 	Rva003563A7(const StringBase<char> &name);
 	virtual ~Rva003563A7();
+	void rva00356B16(int unused); // vtable slot 2 (slot 1 is the shared empty RET 4 at 0x0047A69C)
 	void rva00355EE1();
 private:
 	bool m_pad10;
@@ -212,6 +230,22 @@ Rva003563A7::Rva003563A7(const StringBase<char> &name)
 	: m_pad10(false),
 	  m_str(reinterpret_cast<const AsciiString &>(name))
 {
+}
+
+// Retail 0x00356B16, 98 bytes: slot 2 of vtable 0x00814ED4 (RET 4, argument
+// unused). Nothing without a name; otherwise hands TheDisplay's slot 72 a copy
+// of the +0x14 name with flags 0x800014 (slot 68 in the destructor and in
+// rva00355EE1 undoes it), sets the display's +0x10C byte, then TheAudio
+// (0x00DFE6E8) slot 20 with 2 and slot 10.
+void Rva003563A7::rva00356B16(int)
+{
+	if (((const StringBase<char> *)&m_str)->isEmpty())
+		return;
+	if (TheDisplay)
+		TheDisplay->slot72(m_str, 0x800014);
+	TheDisplay->m_10c = true;
+	TheAudio->slot20(2);
+	TheAudio->slot10();
 }
 
 void Rva003563A7::rva00355EE1()
