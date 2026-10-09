@@ -102,7 +102,7 @@ struct Rva005B2E09Cell
 	int m_index0c;                    // +0x0c; UpdatePalantirButtons adds required count
 	int m_powerIndex;                 // +0x10; AddMyPower stores the page count
 	bool m_owned;                    // +0x14
-	unsigned int m_word18;           // +0x18; opaque native tail
+	int m_word18;           // +0x18; opaque native tail
 };
 
 // The prerequisite search over the page's grid (rowed 0x005B2E09, an
@@ -599,5 +599,40 @@ void AptCreateAHero::Powers::rva005B455D(bool active)
  if (m_changed) {
    UpdateAvailablePowerIcons();
    UpdatePalantirButtons();
+ }
+}
+
+class BfmeAptWindowManager {public:void bfmeSetText(const AsciiString&,const UnicodeString&,bool);};
+class GameTextInterface
+{
+public:
+ virtual void slot00();virtual void slot04();virtual void slot08();virtual void slot0C();virtual void slot10();virtual void slot14();
+ virtual void slot18();virtual void slot1C();virtual void slot20();virtual void slot24();virtual void slot28();virtual void slot2C();
+ virtual void slot30();virtual void slot34();
+ virtual UnicodeString fetch(const char *label,bool *exists=0);
+ virtual UnicodeString fetch(const AsciiString &label,bool *exists=0);
+};
+extern GameTextInterface *TheGameText;
+// Native writable seven-entry label table DD3A9C: zero followed by the six
+// availability/error labels. Its original name is unknown.
+const char *g_00DD3A9C[]={0,"TOOLTIP:CAH_IS_AVAILABLE","TOOLTIP:CAH_NEEDS_PREREQ","TOOLTIP:CAH_LEVEL_TOO_LOW","TOOLTIP:CAH_IS_SELECTED","TOOLTIP:CAH_PALANTIR_FULL","TOOLTIP:CAH_POWER_BOOK_FULL"};
+void Rva0043DB23(Rva00222A8BTarget*,void*,const char*);
+// Native250B constructor-registered OnPowerSelect callback; WB1574C40
+// supplies the method lead. Keep the established address spelling.
+void AptCreateAHero::Powers::rva005B314B(const char *path)
+{
+ int row,column;
+ if (sscanf(path,"%d,%d",&row,&column)!=2) return;
+ Rva005B2E09Cell *cell=(Rva005B2E09Cell*)((Rva005B2DDF*)this)->rva005B2DDF(row-1,column-1);
+ if (!cell) return;
+ switch (cell->m_word18) {
+ case 1:m_groupCurrent=cell;break;
+ case 2:case 3:case 5:case 6:
+ {
+   const char *label=g_00DD3A9C[cell->m_word18];
+   {AsciiString key("APT:HeroPowersError");
+   g_bfmeAptWindowManager->bfmeSetText(key,TheGameText->fetch(label),false);}
+   Rva0043DB23((Rva00222A8BTarget*)g_bfmeAptWindowManager,m_owner->m_aptOwner,"ShowPowerErrorMessage");
+ }break;
  }
 }
