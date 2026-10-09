@@ -1,108 +1,49 @@
 // ?rva006CE660@Rva006CE660Vec@@QAEXH@Z
-// partial score=0.68 date=2026-10-04
-// cl: /O1 /MD
-// ?rva006CE660@@YAXH@Z @ 0x006CE660 (251B).
-//
-// Address-derived Apt value-vector growth, next to the rowed
-// ?Rva006CE630@@QAEPAXI@Z (0x006CE630) and using the same 8-byte element
-// layout the matched Rva006CD5A0Copy (0x006CD5A0) pins: EAStringC at +0 and
-// int at +4, so an element is `lea [eax + ecx*8]` indexed by element count.
-//
-// Class layout, all reads proven by the body:
-//   +0x00 m_count   (int)   -- element index high; used as the *8 stride
-//   +0x04 m_size    (int)   -- current capacity, compared against the request
-//   +0x08 m_first   (elem*) -- first element pointer, stored to the old buffer
-//   +0x0C m_last    (elem*) -- one-past-end, i.e. the begin()+size pointer
-//
-// Retail:
-//   if (want <= m_size) return;                       // no growth needed
-//   if (want <= 1)   { m_size = want; return; }       // clamp-only tail
-//   n = want + 1;                                        // growth is want+1
-//   newFirst = Rva00893B30ResizeItems(0, 0, n)          // rowed, 3 cdecl args
-//   // two temporaries, both EAStringC, built in-place 12 bytes each and
-//   // passed by hidden return pointer to the unknown 0x006CDE00
-//   first = m_first; oldLast = m_last;
-//   Rva006CDE00(&tmpA, &tmpB, newFirst + n, oldLast, newFirst);
-//   m_size = want;
-//   if (oldLast != &m_last) Rva00893B30ResizeItems(oldLast, 0, 0);
-//   m_first = newFirst;
-//   newLast = newFirst + m_count;
-//   tmpA.rva006D3030(tmpB);                             // rowed operator=
-//   newLast->m_name = tmpA.m_pData;                     // +4 of the tail elem
-//   tmpA.~EAStringC();                                  // rowed 0x006D3010
-//
-// The SEH tricycle here is the same 3-push form as 0x006CCA50
-// (push -1 / push scope 0x00BA8248 / push fs:[0]) and this body DOES balance
-// it, so it is a balanced frame rather than 0x006CCA50's handler-restored one.
-//
-// 0x006CDE00 is UNROWED: called with a hidden return pointer and two 12-byte
-// temporaries, so it is an out-parameter pair constructor. It is declared
-// address-derived here; identity is not proven. The two temporaries are
-// initialised by three dword stores each from (newFirst+n, oldLast, newFirst),
-// which is an EAStringC-shaped pair rather than plain text.
-//
-// Identity is address-derived throughout; the element layout and the
-// rowed callees come from the matched neighbours cited above.
-
-class EAStringC
-{
-public:
-	EAStringC &operator=(const EAStringC &other);
-	~EAStringC();
-	void *m_pData;
+// partial score=0.9317 date=2026-10-09
+// cl: /O2 /MD /EHsc
+// Semantic guide: rowed Rva006CD5A0Copy; native6CE890 passes two
+// 8-byte entry pointers and a 12-byte output iterator by value. The hidden
+// result is a 12-byte iterator. EAStringC assignment and int-at4 are target
+// facts; original entry/container identities are unresolved. Native extent
+// 6CDD90..6CDDF8 includes the complete return; old97B boundary cut inside
+// the last iterator-field store. Byte104 is RET, followed by8 INT3 bytes.
+class EAStringC {public:void clear();~EAStringC();EAStringC &operator=(const EAStringC &);void *data;};
+struct Rva006CDD50Item {EAStringC name;int value;};
+// Same release range-check expression as target Apt.cpp PlaybackIterator;
+// WB1750B80 is empty even in debug. Keeping it preserves loop shape.
+inline void iteratorRangeCheck(bool,const char*){}
+struct Rva006CDD50Iterator {Rva006CDD50Item *position,*begin,*end;
+ bool operator!=(const Rva006CDD50Iterator &other){iteratorRangeCheck(begin==other.begin && end==other.end,"Iterators are not in same range");return position!=other.position;}
+ Rva006CDD50Iterator operator++(int){Rva006CDD50Iterator old=*this;++position;return old;}
 };
+Rva006CDD50Iterator __cdecl Rva006CDD90Copy(Rva006CDD50Item *first,Rva006CDD50Item *last,Rva006CDD50Iterator result){
+ for(;first!=last;++first){Rva006CDD50Iterator destination=result++;destination.position->name=first->name;destination.position->value=first->value;}
+ return result;
+}
 
-struct Rva006CD5A0Elem
-{
-	EAStringC m_name;
-	int m_value;
-};
+// Native6CDD50..6CDD90;6CE966 passes two12B iterator values plus
+// destination-begin pointer. The count-loop copies8B entries backward
+// and returns the pointer one before destination-begin, including empty ranges.
+Rva006CDD50Item *__cdecl Rva006CDD50Copy(Rva006CDD50Iterator first,Rva006CDD50Iterator last,Rva006CDD50Item *result){
+ int count=last.position-first.position; result+=count-1; --last.position;
+ while(count){result->name=last.position->name;result->value=last.position->value;--last.position;--result;--count;} return result;
+}
 
-struct Rva00892640Item
-{
-	int m_pad;
-};
+Rva006CDD50Item *__cdecl Rva006CDE00Copy(Rva006CDD50Iterator first,Rva006CDD50Iterator last,Rva006CDD50Item *result){
+ for(;;){if(!(first!=last))break;Rva006CDD50Item *destination=result++;Rva006CDD50Iterator source=first++;destination->name=source.position->name;destination->value=source.position->value;}return result;
+}
 
-// Rowed allocator: 0x006CDBF0 is ?Rva00893B30ResizeItems@@YAPAURva00892640Item@@PAU1@HH@Z
-void *__cdecl Rva00893B30ResizeItems(Rva00892640Item *first,
-	Rva00892640Item *last, int newSize);
-
-// Address-derived out-parameter pair constructor (unknown callee). Retail
-// passes the hidden return pointer first, then two 12-byte temporaries.
-void __cdecl rva006CDE00(EAStringC *outA, EAStringC *outB,
-	Rva006CD5A0Elem *end, Rva006CD5A0Elem *oldLast, void *newFirst);
-
-class Rva006CE660Vec
-{
-public:
-	void rva006CE660(int want);
-	int m_count;                                        // +0x00 stride *8
-	int m_size;                                         // +0x04 capacity
-	Rva006CD5A0Elem *m_first;                           // +0x08
-	Rva006CD5A0Elem *m_last;                            // +0x0C
-};
-
-void Rva006CE660Vec::rva006CE660(int want)
-{
-	if (want <= m_size)
-		return;
-	if (want <= 1) {
-		m_size = want;
-		return;
-	}
-
-	int n = want + 1;
-	Rva006CD5A0Elem *newFirst = (Rva006CD5A0Elem *)
-		Rva00893B30ResizeItems(0, 0, n);
-	Rva006CD5A0Elem *oldLast = m_last;
-	EAStringC tmpA;
-	EAStringC tmpB;
-	rva006CDE00(&tmpA, &tmpB, newFirst + n, oldLast, newFirst);
-	m_size = want;
-	if (oldLast != m_last)
-		Rva00893B30ResizeItems((Rva00892640Item *)oldLast, 0, 0);
-	m_first = newFirst;
-	Rva006CD5A0Elem *newLast = newFirst + m_count;
-	tmpA = tmpB;
-	newLast->m_name.m_pData = tmpA.m_pData;
+// Corrected growth model. BF1 Rva00893CE0ContainerResize.cpp is the
+// semantic guide; inline storage at+0C is two8B entries, not a last pointer.
+class AptValueNameEntry {public:EAStringC name;int value;AptValueNameEntry(){name.clear();value=0;}};
+AptValueNameEntry *__cdecl Rva006CDBF0Resize(AptValueNameEntry *,int,int);
+class Rva006CE660Vec {public:void rva006CE660(int);int count,capacity;AptValueNameEntry *data;AptValueNameEntry inlineItems[2];};
+void Rva006CE660Vec::rva006CE660(int want){
+ if(want<=capacity)return;if(want<=1){capacity=want;return;}
+ AptValueNameEntry *newData=Rva006CDBF0Resize(0,0,want+1);
+ Rva006CDD50Item *begin=reinterpret_cast<Rva006CDD50Item *>(data),*end=begin+count;
+ Rva006CDD50Iterator first={begin,begin,end},last={end,begin,end};
+ Rva006CDE00Copy(first,last,reinterpret_cast<Rva006CDD50Item *>(newData));
+ capacity=want;if(data!=inlineItems)Rva006CDBF0Resize(data,0,0);
+ data=newData;data[count]=AptValueNameEntry();
 }
