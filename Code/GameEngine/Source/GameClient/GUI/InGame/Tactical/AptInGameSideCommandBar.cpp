@@ -13,7 +13,13 @@ namespace AptUtils {
 const char *__cdecl SkipLevelN(const char *);
 int __cdecl LevelIndexFromTarget(const char *);
 }
-class Rva000AD6F4 { public: void clear(); };
+class Rva000AD6F4 {
+public:
+ Rva000AD6F4(): m_ptr(0) {}
+ ~Rva000AD6F4() { clear(); }
+ void clear();
+ void *m_ptr;
+};
 class Rva00528309 { public: void rva005283E3(); };
 class Object;
 class Rva00575674 {
@@ -32,6 +38,25 @@ private:
  AsciiString m_name;
  bool m_flag0C;
 };
+struct TargetRef00217D4C;
+void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
+struct SideBarUpdaterRef {
+ SideBarUpdaterRef():m_ptr(0){}
+ ~SideBarUpdaterRef() { if(m_ptr) ReleaseTreeHintRef00217D4C((TargetRef00217D4C *)m_ptr); }
+ void *m_ptr;
+};
+// The template is a source storage view, not an original retail type claim.
+// Native57B528281..5282BA destroys counted updater4 then owning frame0.
+template<class FrameHolder, class UpdaterHolder> struct SideBarButtonSlot {
+ SideBarButtonSlot():m_key(-1){}
+ ~SideBarButtonSlot(){}
+ FrameHolder m_button;
+ UpdaterHolder m_updater;
+ int m_key;
+};
+template struct SideBarButtonSlot<Rva000AD6F4, SideBarUpdaterRef>;
+typedef SideBarButtonSlot<Rva000AD6F4, SideBarUpdaterRef> SideBarSlot;
+
 class AptInGameSideCommandBar {
 public:
  class Impl {
@@ -50,7 +75,7 @@ public:
   AsciiString m_prefixString; // +18, assigned by loaded callback
   unsigned m_selectedObject; // +1c, measured in Impl::Update
   unsigned m_displayedObject; // +20 as measured in Impl::Update
-  Rva00575674 m_buttons[15];
+  SideBarSlot m_buttons[15];
   int m_count;
  };
  void Update();
@@ -64,7 +89,7 @@ void AptInGameSideCommandBar::Impl::OnButtonFrameLoaded(const char *params)
  if (!Rva004128F0GetParam(params, "index", indexText)) return;
  int index = atoi(indexText.str());
  if (index < 0 || index > 15) return;
- Rva00575674 *slot = &m_buttons[index];
+ Rva00575674 *slot = (Rva00575674 *)&m_buttons[index];
  if (slot->m_button) return;
  AsciiString name;
  if (!Rva004128F0GetParam(params, "name", name)) return;
