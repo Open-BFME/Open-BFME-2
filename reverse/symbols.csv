@@ -17070,3 +17070,4 @@ _D3DXCreateTextureFromFileInMemoryEx@60,0x0062AF7A,Named d3dx9_27.dll PE import 
 ?Rva006DDCE0@@YAPAVAptValue@@PAV1@H@Z,0x006DDCE0,native AptValue callback registered by _constructBuiltInObjects 0x006DE8E0 (only used as a function pointer)
 ?queueClipEvents@AptCIH@@QAE_NHHH@Z,0x006E2010,AptCIH::queueClipEvents (WB AptInput.cpp name; returns bool: xor al al path and the caller 0x006FB120 stores al); respells the placeholder dispatch pin
 ?rva006E24D0@AptCIH@@QAEHXZ,0x006E24D0,int spelling of the rowed AptCIH forward 0x006E24D0: the caller 0x006FB120 tests eax after the call
+?rva00319EF9@LivingWorldArmy@@QAEXPAV1@H@Z,0x00319EF9,callee of ?rva002B3DE4@@YAXPAVLivingWorldArmy@@H0@Z

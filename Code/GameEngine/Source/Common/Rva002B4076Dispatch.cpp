@@ -1,5 +1,3 @@
-// ?rva00319EF9@LivingWorldArmy@@QAEXPAV1@H@Z
-// partial score=0.99 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /MD /EHsc
 // Native319EF9 Take-unit adapter and2B3DE4/2B4076 dispatch pair.
 // WB131AA30 calls2B4076 after CanMoveArmyMember; native pointer+20 owner,
@@ -16,24 +14,12 @@ public:
  ~Rva004F6093Holder() { if(entry)ReleaseTreeHintRef00217D4C(&entry->ref); }
 };
 struct ArmySummaryEntryRef { Rva004F6093Holder holder; };
-struct Rva0040DD3ARef {
- ArmySummaryEntry *value;
- Rva0040DD3ARef(ArmySummaryEntry *p):value(p){if(value)++value->ref.references;}
- Rva0040DD3ARef(const Rva0040DD3ARef &x):value(x.value){if(value)++value->ref.references;}
- ~Rva0040DD3ARef(){if(value)ReleaseTreeHintRef00217D4C(&value->ref);}
-};
-class ArmySummary { public: ArmySummaryEntryRef GetEntry(int); Rva0040DD3ARef rva0040E672(int); };
+class ArmySummary { public: ArmySummaryEntryRef GetEntry(int); };
 class LivingWorldArmy {
 public:
- void TakeUnitFromArmy_Internal(LivingWorldArmy *,const Rva004F6093Holder &);
  void rva00319EF9(LivingWorldArmy *source,int key);
  char pad00[0x20]; int owner20; char pad24[0x78-0x24]; ArmySummary *summary78;
 };
-void LivingWorldArmy::rva00319EF9(LivingWorldArmy *source,int key) {
- LivingWorldArmy *from=source;
- Rva0040DD3ARef entry=from->summary78->rva0040E672(key);
- TakeUnitFromArmy_Internal(from,*(const Rva004F6093Holder *)&entry);
-}
 static __declspec(noinline) void rva002B3DE4(LivingWorldArmy *source,int key,LivingWorldArmy *target) {
  ArmySummaryEntryRef entry=source->summary78->GetEntry(key);
  if(entry.holder.entry) {
