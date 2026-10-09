@@ -1,9 +1,9 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /O1 /DNDEBUG /MD /EHsc
 //
-// Two +0x04 list walkers sharing one owner (list head at +0x04, node
+// Three +0x04 list walkers sharing one owner (list head at +0x04, node
 // next at +0x00, payload at +0x08), landed as a homogeneous batch.
-// (A third sibling, 0x0036E474, lives in Rva0036E474Sweep.cpp while its
-// EH try-shape is worked out.)
+// The owner's real class name remains unknown; the raw member-list
+// ABI is established independently by each retail walk.
 //
 // ?rva0036DC46@Rva0036ListOwner@@QAEXH@Z @0x0036DC46 41B
 // Walks the list and calls the g_00A027B8 slot26 virtual on each node's
@@ -18,6 +18,26 @@
 
 typedef unsigned int UnsignedInt;
 #define NULL 0
+
+// Native36E474..36E4C7 RET4 consumes a one-word callback reference.
+// Native AL test proves a byte-result ABI; Object payloads are established
+// by sibling36D6B4. Ref invoke57CC15 has the same complete46B/relocations
+// as the old void/int functor owner. The actual template/type name is unknown.
+// Guarded intrusive release uses the rowed fastcall7DEEF helper. Early-null
+// return lets MSVC place the parameter cleanup inside the native live arm.
+class Object;
+struct TargetRef00217D4C;
+void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);
+class FunctorNotSet {public: FunctorNotSet(); virtual ~FunctorNotSet(); private: char pad[8];};
+class Rva0036E474Op {public: virtual ~Rva0036E474Op(); virtual unsigned char invoke(Object*);};
+class Rva0036E474Ref {
+public:
+ unsigned char invoke(Object*) const;
+ Rva0036E474Ref(const Rva0036E474Ref&); // caller-side copying is not recovered here
+ ~Rva0036E474Ref() {if(m_op) ReleaseTreeHintRef00217D4C((TargetRef00217D4C*)m_op);}
+ Rva0036E474Op* m_op;
+};
+unsigned char Rva0036E474Ref::invoke(Object*obj) const {Rva0036E474Op*op=m_op;if(!op)throw FunctorNotSet();return op->invoke(obj);}
 
 template <int N> class VSlots : public VSlots<N - 1>
 {
@@ -92,6 +112,7 @@ struct RvaListNode
 class Rva0036ListOwner
 {
 public:
+	void rva0036E474(Rva0036E474Ref ref);
 	void rva0036DC46(int unused);
 	void rva0036D6B4();
 
@@ -125,4 +146,12 @@ void Rva0036ListOwner::rva0036D6B4()
 				r->slotD0();
 		}
 	}
+}
+
+void Rva0036ListOwner::rva0036E474(Rva0036E474Ref ref) {
+ if(!ref.m_op)return; {
+  for(RvaListNode*node=m_head->m_next;node!=m_head;node=node->m_next) {
+   if(!ref.invoke((Object*)node->m_payload))break;
+  }
+ }
 }
