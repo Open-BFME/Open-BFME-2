@@ -22,10 +22,10 @@ public:
 	int rva00223429(const AsciiString *key);
 };
 
-class Rva00062908Host
+class AptPlayer
 {
 public:
-	bool rva00222481(int index);
+	bool UnloadLevel(int index);
 };
 
 class Rva0022494F
@@ -66,7 +66,7 @@ bool Rva00224B7DTarget::method(int index)
 	if (entry.m_c == -1)
 		return false;
 	if ((entry.m_24 & 2) != 0)
-		((Rva00062908Host *)this)->rva00222481(index);
+		((AptPlayer *)this)->UnloadLevel(index);
 	m_map_view.rva00223429((const AsciiString *)&entry.m_a);
 	entry.rva0022494F();
 	return true;

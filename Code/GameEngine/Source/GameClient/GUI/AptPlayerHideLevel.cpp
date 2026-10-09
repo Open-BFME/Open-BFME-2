@@ -12,6 +12,7 @@
 #include "ascii_string.h"
 #include "unicode_string.h"
 
+class AptPlayer { public: bool UnloadLevel(int); };
 struct RGBColor;
 
 class Mouse
@@ -31,7 +32,6 @@ class Rva00222A8BTarget
 {
 public:
 	bool rva0022277D(int level);
-	bool UnloadLevel(int level);		// 0x00222481
 
 private:
 	unsigned char m_pad[0xCC];
@@ -47,7 +47,7 @@ bool Rva00222A8BTarget::rva0022277D(int level)
 		TheMouse->rva001EEA6D(UnicodeString::TheEmptyString, 0, 0, 1.0f);
 	if ((entry->m_flags & 2) == 0)
 		return false;
-	return UnloadLevel(level);
+	return reinterpret_cast<AptPlayer *>(this)->UnloadLevel(level);
 }
 
 class Rva000427195
@@ -96,7 +96,7 @@ bool Rva00224B7DTarget::method(int level)
 	if (entry->m_movie == -1)
 		return false;
 	if (entry->m_flags & 2)
-		((Rva00222A8BTarget *)this)->UnloadLevel(level);
+		reinterpret_cast<AptPlayer *>(this)->UnloadLevel(level);
 	m_levelNames.rva00223429((const AsciiString *)entry);
 	((Rva0022494F *)entry)->rva0022494F();
 	return true;

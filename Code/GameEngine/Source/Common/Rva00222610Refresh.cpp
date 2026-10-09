@@ -5,6 +5,7 @@
 
 #include "ascii_string.h"
 
+class AptPlayer { public: bool UnloadLevel(int); };
 class Rva00062908Host
 {
 public:
@@ -19,7 +20,6 @@ public:
 	virtual void s08();
 	virtual void s09();
 	virtual void s10();
-	bool rva00222481(int index);
 	void rva00222610();
 
 private:
@@ -47,7 +47,7 @@ void Rva00062908Host::rva00222610()
 	{
 		if (m_slots[i].m_flags & 2)
 		{
-			rva00222481(i);
+			reinterpret_cast<AptPlayer *>(this)->UnloadLevel(i);
 			m_slots[i].m_flags |= 1;
 		}
 	}

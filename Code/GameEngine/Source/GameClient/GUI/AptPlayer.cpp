@@ -1,9 +1,11 @@
 // cl: /O1 /G7 /GX /MD /arch:SSE /DNDEBUG /Ireference/shims/bfme2_ascii /D_STLP_USE_STATIC_LIB /D_CRTIMP=
 // stlport
 #define strchr _stlport_hides_strchr
+#define sprintf _stlport_hides_sprintf
 #include <utility>
 #include "ascii_string.h"
 #undef strchr
+#undef sprintf
 struct TargetRef00217D4C { virtual void *destroy(unsigned); int references; };
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
 struct TreeHintRef00222C5A {
@@ -142,6 +144,7 @@ class AptPlayer
 public:
  static int GetLevelIndex(GameWindow *window);
  bool ShowLevel(int index);
+ bool UnloadLevel(int index);
  void GetExtern(const char *name,char *out);
  const Image *FindRenderImage(const char *targetName,const char *parameters);
 	void PopFocus(AptFocusTarget *target);
@@ -453,5 +456,23 @@ bool AptPlayer::ShowLevel(int index)
  if(entry.m_flags&2) return false;
  entry.m_flags|=1;
  m_levelsDirty=true;
+ return true;
+}
+
+extern "C" __declspec(dllimport) int __cdecl sprintf(char *,const char *,...);
+#pragma function(sprintf)
+void Rva006CC600(const char *,char *);
+void Rva00411E80(int);
+// WB AptPlayer::UnloadLevel; native22481..224DE is the existing93-byte owner.
+bool AptPlayer::UnloadLevel(int index)
+{
+ if(static_cast<unsigned>(index)>=14) return false;
+ Rva00062908Host::Slot &entry=m_levelData[index];
+ if(!(entry.m_flags&2)) return false;
+ char key[32];
+ sprintf(key,"_level%d",index);
+ Rva006CC600("",key);
+ entry.m_flags&=0xF5;
+ Rva00411E80(index);
  return true;
 }

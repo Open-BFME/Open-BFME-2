@@ -1,6 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /EHsc /MD
 // ?rva0022274A@Rva00062908Host@@QAEXXZ @0x0022274A 51B
-// ?rva00222481@Rva00062908Host@@QAE_NH@Z @0x00222481 93B
 // ?rva0022277D@Rva00222A8BTarget@@QAE_NH@Z @0x0022277D 98B
 // Target evidence: this+0xF0 bit 1 conditionally gates the rowed member call
 // at 0x00222481. Three address-derived helpers follow, then the pointer global
@@ -8,6 +7,7 @@
 // g_bfmeAptWindowManager view is provisional; this body proves only the
 // nonzero check and reset, not the global's semantic identity.
 
+class AptPlayer { public: bool UnloadLevel(int); };
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 
@@ -44,7 +44,6 @@ protected:
 	Slot m_slots[14];
 
 public:
-	bool rva00222481(int index);
 	void rva0022274A();
 };
 
@@ -53,21 +52,6 @@ class Rva00222A8BTarget : public Rva00062908Host
 public:
 	bool rva0022277D(int index);
 };
-
-bool Rva00062908Host::rva00222481(int index)
-{
-	if ((unsigned int)index >= 14)
-		return false;
-	Slot &slot = m_slots[index];
-	if ((slot.m_flags & 2) == 0)
-		return false;
-	char key[32];
-	sprintf(key, "_level%d", index);
-	Rva006CC600("", key);
-	slot.m_flags &= 0xF5;
-	Rva00411E80(index);
-	return true;
-}
 
 bool Rva00222A8BTarget::rva0022277D(int index)
 {
@@ -81,7 +65,7 @@ bool Rva00222A8BTarget::rva0022277D(int index)
 		TheMouse->rva001EEA6D(UnicodeString::TheEmptyString, 0, 0, 1.0f);
 	if ((slot.m_flags & 2) == 0)
 		return false;
-	return rva00222481(index);
+	return reinterpret_cast<AptPlayer *>(this)->UnloadLevel(index);
 }
 
 void Rva00062908Host::rva0022274A()
@@ -89,7 +73,7 @@ void Rva00062908Host::rva0022274A()
 	if (g_bfmeAptWindowManager == 0)
 		return;
 	if ((m_slots[0].m_flags & 2) != 0)
-		rva00222481(0);
+		reinterpret_cast<AptPlayer *>(this)->UnloadLevel(0);
 	Rva006CFAB0(1);
 	Rva00411B52();
 	reinterpret_cast<unsigned int &>(g_bfmeAptWindowManager) &= 0;
