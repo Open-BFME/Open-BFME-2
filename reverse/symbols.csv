@@ -17060,3 +17060,4 @@ _D3DXCreateTextureFromFileInMemoryEx@60,0x0062AF7A,Named d3dx9_27.dll PE import 
 ?Rva00328354Update@@YAXPAVGameWindow@@@Z,0x00328354,Native direct REL32 at328723 and WB1122410 matched callee1122270 prove cached progress helper; address-derived spelling agrees with N3 verified163B source GadgetButtonSetText.cpp; no second owner
 ?allocateGrids@LargeGroupAudioSoundKeyPair@@QAEXXZ,0x00569ABD,callee of ?rva00569BBC@LargeGroupAudioSoundKeyPair@@QAEXPAVXfer@@PAUVersionPair@@@Z
 ?rva005C81D8@Rva005C81D8@@QAEXPAVRva005C8176@@00@Z,0x005C81D8,callee of ?allocateGrids@LargeGroupAudioSoundKeyPair@@QAEXXZ
+?rva00223BF6@Rva00223BF6@@QAEXPAURadialClockResult@@PBD1@Z,0x00223BF6,
