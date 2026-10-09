@@ -10253,7 +10253,7 @@ _luaK_jump,,0x00752690,166,Code/Libraries/Source/Lua/lcode.c,matched,BFME1 byte-
 ?bfmeGo1045B@BfmeB1045@@QAEXXZ,,0x0066CDE0,53,Code/GameEngine/Source/Common/BfmeConv1045.cpp,matched,BFME1 byte-identical donor; b1 0x00800A00
 ?bfme5MakeObj18@@YAPAUBfme5Obj18@@XZ,,0x006617F0,52,Code/GameEngine/Source/Common/Bfme5FactoryStubs.cpp,matched,BFME1 byte-identical donor; b1 0x007F4D50
 ?bfmeExtend@Gen_00470870@@QAEXHHHH@Z,,0x0059668D,51,Code/GameEngine/Source/Common/Bfme5SeventyOne.cpp,matched,BFME1 byte-identical donor; b1 0x00470870
-?bfmeCtorEOE@BfmeThingEOE@@QAEPAU1@XZ,,0x00302C81,27,Code/GameEngine/Source/Common/BfmeConv881.cpp,matched,BFME1 byte-identical donor; b1 0x000C0B60
+??0MapPlayers@@QAE@XZ,,0x00302C81,27,Code/GameEngine/Source/GameClient/MapMetaDataDefault.cpp,matched,BFME1 semantic donor 6c1e0b51; target ctor3031D3 invokes eight 20B PlayerPosition records at member54; vector ctor callbacks302805 and22D920 agree with copy303374; rename opaque existing owner
 ?next@BfmeWideResult@@QAEPAVObject@@XZ,,0x00045623,25,Code/GameEngine/Source/Common/BfmeConv881.cpp,matched,BFME1 byte-identical donor b1 0x000C44D0; renamed from ?bfmeGoEOF@BfmeThingEOF to the range-query handle name 43 matched callers reference (pin 0x00045623; iterateObjectsInRange 0x00625610 returns the handle)
 ?abs_randwc@@YAKK@Z,,0x006B89E0,65,Code/GameEngine/Source/Common/Bfme5NinetyTwoRandom.cpp,matched,BFME1 byte-identical donor; b1 0x00879140; caller-proven by fillRandom008747F0 (Rva008747F0RandomFill.cpp)
 ?squash@Rva0084E030Buffer@@QAEXXZ,,0x00021290,52,Code/GameEngine/Source/Common/U2CStringScans.cpp,matched,BFME1 byte-identical donor; b1 0x0084E030

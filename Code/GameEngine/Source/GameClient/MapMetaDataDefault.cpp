@@ -1,5 +1,3 @@
-// ??0MapMetaData@@QAE@XZ
-// partial score=0.94 date=2026-10-09
 // cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // BFME1 MapMetaData_ctor.cpp at6c1e0b51 semantic donor. Native3031D3..30328D
@@ -30,9 +28,3 @@ class MapMetaData {public:MapMetaData();~MapMetaData();
  UnicodeString cachedDisplayName,cachedDescription;
 };
 typedef char VerifyMapMetadata256[(sizeof(MapMetaData)==256)?1:-1];
-MapMetaData::MapMetaData():numPlayers(0),isMultiplayer(0),isScenarioMP(0),isOfficial(0),filesize(0),crc(0),wordF4(0)
-{
- extent.lo.x=0.0f;extent.lo.y=0.0f;extent.lo.z=0.0f;
- extent.hi.x=0.0f;extent.hi.y=0.0f;extent.hi.z=0.0f;
- timestampHi=0;timestampLo=0;
-}

@@ -1,23 +1,8 @@
-// A ctor through an init helper and a queue pop.
+// The range-query result cursor; array ctor302C81 now lives in MapMetaDataDefault.cpp.
 //
 // BFME1 byte-identical donor (reference/open-bfme-1
 // Code/GameEngine/Source/Common/BfmeConv881.cpp); trimmed to the two T1
 // bodies the sweep places.
-
-struct BfmeThingEOE
-{
-	BfmeThingEOE *bfmeCtorEOE();
-};
-
-void __stdcall bfmeInitEOE(BfmeThingEOE *o, int a, int b, void (*ca)(), void (*cb)());
-extern "C" void bfmeCbEOEa();
-extern "C" void bfmeCbEOEb();
-
-BfmeThingEOE *BfmeThingEOE::bfmeCtorEOE()
-{
-	bfmeInitEOE(this, 0x14, 8, bfmeCbEOEa, bfmeCbEOEb);
-	return this;
-}
 
 struct BfmeQueueEOF
 {
@@ -50,6 +35,3 @@ Object *BfmeWideResult::next()
 	return v;
 }
 
-// Retail's call sites in this unit's matched rows land on bodies rowed under
-// other spellings at the same addresses (same ABI). Bind the spellings used here.
-#pragma comment(linker, "/alternatename:?bfmeInitEOE@@YGXPAUBfmeThingEOE@@HHP6AXXZ1@Z=??_L@YGXPAXIHP6EX0@Z1@Z")
