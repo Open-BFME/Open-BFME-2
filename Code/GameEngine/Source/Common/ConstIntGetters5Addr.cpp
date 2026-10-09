@@ -341,13 +341,6 @@ int Rva0035C959Get(void)
 	return 0x00c162a0;
 }
 
-// ?Rva0039009BGet@@YAHXZ @ 0x0039009b (6B): returns 0x00790095.
-// Follows a mov plus ret tail. No direct callers. Opaque
-// address-derived name.
-int Rva0039009BGet(void)
-{
-	return 0x00790095;
-}
 
 
 

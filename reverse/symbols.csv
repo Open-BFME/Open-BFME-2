@@ -11223,7 +11223,6 @@ name,address,notes
 ?rva00298AE4@Object@@QAEXPAVTeam@@@Z,0x00298AE4,Object member taking a Team (reads team->getControllingPlayer); REL32 at 0x005ABCE8 in the StructureCreep slot 2 with the controller's +0x2EC team
 ?rva0029A12B@Object@@QAEXXZ,0x0029A12B,Address identity from RespawnBody call4C1494; unchanged owner Object after status62 test; native29A12B..29A205 RET
 ?rva0029B967@InGameUI@@IAEXPAVDrawable@@@Z,0x0029B967,selectDrawable target0x002A3805; ret4; accesses argument Object pointer+FC and selected list+20; native receiver unchanged
-?rva0029F954@InGameUI@@QAEXPAVObject@@PBDPBHM@Z,0x0029F954,InGameUI thiscall helper (object; event-name literal; address of an InGameUI word; float) called by the byte-verified hero-event members 0x002A123F/0x002A1261/0x002A1283 read from their REL32 displacements; name unknown; unrowed Ghidra FUN_0069f954 350B
 ?rva002A123F@InGameUI@@QAEXPAVObject@@@Z,0x002A123F,"InGameUI member (ret 4): passes the Object, the ""HeroInitialSpawn"" literal 0x00BFD330, &+0x9D0 and the float +0x9D4 to 0x0029F954; called on TheInGameUI by AnnounceBirthAndDeathBehavior::onCreate 0x004851AD"
 ?rva002A1283@InGameUI@@QAEXPAVObject@@@Z,0x002A1283,"InGameUI member (ret 4): passes the Object, the ""HeroDeath"" literal 0x00BFD350, &+0x9E0 and the float +0x9E4 to 0x0029F954; called on TheInGameUI by AnnounceBirthAndDeathBehavior::onDie 0x004851C7"
 ?rva002A7548@Rva002A7389@@QAEHH@Z,0x002A7548,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
@@ -13504,7 +13503,6 @@ rva009C7380WeightPairs,0x009B84E0
 ?rva00211FA8@Rva00DFE1C8Host@@QAEXXZ,0x00211FA8,unrowed thiscall on the 0x00DFE1C8 singleton (WB 0x00B5EA30); REL32 at 0x0023DA2B in LivingWorldTacticalBattleComplete
 ?rva00376E92@GameLogic@@QAEXHH@Z,0x00376E92,unrowed GameLogic thiscall (WB 0x00F4BF60) called with (1 0) at 0x0023DA38; argument types inferred
 ?TransitionFromLivingWorldTacticalBattle@GameLogic@@QAEXXZ,0x0023D0CD,WB GameLogic::TransitionFromLivingWorldTacticalBattle (WB 0x00D0E230); REL32 at 0x0023DA3F in LivingWorldTacticalBattleComplete
-?postInitAISpecialPower@AISpecialPowerUpdate@@AAEXXZ,0x004B303F,no-argument member called by AISpecialPowerUpdate::xfer 0x004B3352 on load when the bool at +0x21 is set or the version is below 3; identity not recovered
 ?UpdateRuleGadget@AptMpGameRules@@QAEXH@Z,0x0057E5B5,unrowed 181B thiscall (Ghidra FUN_0097e5b5; ret 4) on the lobby rules member refreshing one rule; REL32 read at 0x0057E6CA in the ten-rule loop 0x0057E6C1; address name
 ?PopulateMyClans@AptMpClans@@QAEXABVUnicodeString@@@Z,0x0057F7AC,unrowed 372B thiscall (Ghidra FUN_0097f7ac; ret 4) on the lobby clans member taking a UnicodeString reference; REL32 read at AptMpClans::InitGadgets 0x0057FA0B with the empty string; address name
 ?getClosestPointOnLand@Pathfinder@@QAE_NPBUCoord3D@@PAVObject@@PAU2@@Z,0x002EE7EE,address read from the REL32 displacement at 0x0026B587 in command 0x52 handler 0x0026B567 with ecx = TheAI+0x10 (the pathfinder) and the owner position + owner + an out Coord3D; body unrowed
@@ -15927,7 +15925,6 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ?rva00363930@Path@@QAE_NPAUCoord3D@@_N@Z,0x00363930,Direct native REL32 in Path splice0x00365DF0 takes Coord3D pointer and boolean then tests AL; WB0x00F1CF00 DoAdvanceAlongPath corroborates operation; address-derived provider spelling retains unresolved name
 ?build@AIBuildableStructure@@QAE_NPAVPlayer@@@Z,0x00573C7C,WB 0x1506950 names AIBuildableStructure::build; paired target 0x00573C7C RET4; direct base-build REL32 from AIBuildableWallSegment::build at target 0x00596DAC; pointer argument passes through unchanged; body remains unrowed
 ?rva004DDA9A@Pathfinder@@QAEHPAH0HHPAVRva004DD9E3@@@Z,0x004DDA9A,
-?rva005EBDBF@Rva005EB8D6@@QAE_NPAX@Z,0x005EBDBF,Native caller5EC017 directly calls worker with owning impl and opaque battle pointer then tests AL; constructor5EB9F2 and destructor5EB8D6 prove implementation owner; worker stores/dereferences argument at+0C; WB SetCurrentBattle lead retains address-derived spelling
 ?rva000B49A1@RevivalExperienceView@@QBEHXZ,0x000B49A1,native37E983 constructor edge; BFME1 UnitRevivalTracker experience-level getter semantics; complete7B getter2C->C no relocations fold-proof=Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp
 ?UpdateCommandSet@CreateAHeroHero@@QAE_NH@Z,0x00407705,callee of ?productionSystemNewObject@UnitRevivalTracker@@QAEPAVObject@@IPBUCoord3D@@@Z
 ?rva0031DB83@Rva000427195@@QAEPAPAXABVAsciiString@@@Z,0x0031DB83,callee of ?rva0031E8D5@ControlBar@@QAEPAVRva00409FFA@@ABVAsciiString@@H@Z

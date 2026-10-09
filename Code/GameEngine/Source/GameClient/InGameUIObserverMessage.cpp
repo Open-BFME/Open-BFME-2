@@ -44,6 +44,7 @@ public:
 };
 class Rva005CB260;
 class CreateAHeroHero;
+class Object;
 class InGameNotificationBoxMovieClip {
 public: void rva004E6F30(const UnicodeString &, const Rva002217EA &, int, bool, int);
 };
@@ -51,6 +52,7 @@ class InGameUI
 {
 public:
     void notifyHeroEarnedAward(CreateAHeroHero *, int);
+    void rva0029F954(Object *obj, const char *typeName, const int *label, float seconds);
     Rva005CB260 *rva000CF155()
     {
         return this ? reinterpret_cast<Rva005CB260 *>(m_notificationInterface) : 0;
@@ -93,7 +95,25 @@ class ScriptEngine;
 extern ScriptEngine *TheScriptEngine;
 struct AwardScriptEngineView { char pad[0x1a104]; int suppressed; };
 class Player { public: bool isLocalPlayer() const; };
-class Object { public: Player *getControllingPlayer() const; };
+// The KindOf bit set at +0x108; notifyOfHeroSpawnEvent tests bit 90 (0x5A).
+class ThingTemplate
+{
+public:
+ bool isKindOf90() const { return (m_kindOf[90 >> 3] & (1 << (90 & 7))) != 0; }
+private:
+ unsigned char m_pad000[0x108];
+ unsigned char m_kindOf[0x20];
+};
+class Object
+{
+public:
+ Player *getControllingPlayer() const;
+ void *getDisplayName();
+ ThingTemplate *getTemplate() const { return m_template; }
+private:
+ void *m_vtable;
+ ThingTemplate *m_template;
+};
 class Rva004076EE { public: Object *rva004076EE(); };
 struct HeroAwardNameView { char pad[8]; UnicodeString name; };
 struct BfmePod40;
@@ -123,4 +143,36 @@ void InGameUI::notifyHeroEarnedAward(CreateAHeroHero *hero, int key)
  data.rva0010670B(image);
  InGameNotificationBoxMovieClip *movie=awardMovie;
  movie->rva004E6F30(text,data,(int)(awardSeconds*1000.0f),0,0);
+}
+
+// Target evidence for 0x0029F954 (350 bytes ret 0x10): WB 0x00DC46B0 names
+// it InGameUI::notifyOfHeroSpawnEvent (InGameUI.cpp asserts 8874..8897);
+// the pinned placeholder spelling is the one its matched hero-event callers
+// 0x002A123F/0x002A1261/0x002A1283 use. Their third argument is the address
+// of an InGameUI AsciiString message label (+0x9D0/+0x9D8/+0x9E0) that
+// retail passes straight to GameText slot 0x38 (the AsciiString fetch); the
+// fourth is its duration in seconds, converted on the x87 like
+// notifyHeroEarnedAward (this unit's no-SSE codegen). Only a hero (template
+// KindOf bit 90) of the local player notifies: the fetched label formatted
+// with the object's display name goes to the +0x9CC notification movie with
+// the type's record carrying getButtonImage of the template and object.
+const Image *getButtonImage(ThingTemplate *tmpl, Object *obj);
+void InGameUI::rva0029F954(Object *obj, const char *typeName, const int *label, float seconds)
+{
+ if (!obj->getTemplate()->isKindOf90() || !obj->getControllingPlayer()->isLocalPlayer())
+  return;
+ InGameNotificationType *type = FindInGameNotificationType(AsciiString(typeName));
+ if (!type)
+  return;
+ bool exists;
+ UnicodeString format = TheGameText->fetchAscii(*(const AsciiString *)label, &exists);
+ if (!exists)
+  return;
+ ThingTemplate *tmpl = obj->getTemplate();
+ UnicodeString text;
+ text.format(format.str(), ((UnicodeString *)obj->getDisplayName())->str());
+ Rva002217EA data = type->rva00221ABB();
+ data.rva0010670B(getButtonImage(tmpl, obj));
+ InGameNotificationBoxMovieClip *movie = awardMovie;
+ movie->rva004E6F30(text, data, (int)(seconds * 1000.0f), 0, 0);
 }
