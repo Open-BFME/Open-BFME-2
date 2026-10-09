@@ -61,6 +61,10 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 
+// Reuse the verified native math and indexed-matrix consumer views.
+#include "../../../../../reference/shims/bfme_colmathaabox/wwmath.h"
+#include "../../../../../reference/shims/bfme_colmathaabox/vector3.h"
+#include "../../../../../reference/shims/bfme_matrix3_owner_link/matrix3.h"
 #include "obbox.h"
 #include "matrix3.h"
 #include "vector3.h"
@@ -254,7 +258,7 @@ void OBBoxClass::Init_From_Box_Points(Vector3 * points,int num)
 #endif
 	Vector3::Cross_Product(axis0,axis1,&axis2);
 
-	Basis = Matrix3x3(axis0,axis1,axis2);
+	Basis.Set(axis0,axis1,axis2);
 
 	/*
 	** Center is the average of all of the points
