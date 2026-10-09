@@ -12,6 +12,13 @@
 // value type below is a plain name pointer. Names are descriptive; no retail
 // spellings are known.
 
+#include <stl/_algobase.h>
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+	return a < b ? b : a;
+}
+}
 #include <vector>
 
 struct EnvironmentNameEntry

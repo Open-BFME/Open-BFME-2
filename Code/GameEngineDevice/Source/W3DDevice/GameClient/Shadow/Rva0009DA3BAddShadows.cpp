@@ -16,6 +16,13 @@
 // one the 0x0009D9BD/0x0009DA28 rows name and the method name is
 // address-derived.
 #include "ascii_string.h"
+#include <stl/_algobase.h>
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+	return a < b ? b : a;
+}
+}
 #include <vector>
 
 class RenderObjClass
