@@ -114,20 +114,26 @@ public:
     float radius,value;
     unsigned int frame;
 };
-class AITargetChooser { public: void xfer(Xfer *); };
+class Rva002C589B;
+class AITargetChooser { public: void xfer(Xfer *); void rva00505911(); Rva002C589B *getBestTarget(); };
 class Rva00506909
 {
 public:
     void xfer(Xfer *);
     void rva005059A1(Team *);
     void rva00505A56(Team *);
+    void rva005069B4();
+    bool rva005069CE(struct Rva00506909Request*,void*);
 };
 class Rva002C5FE8 { public: void rva002C60A9(unsigned int); };
 
+class Rva00506A52 { public: void rva00506AFA(); };
 class TacticalAI
 {
 public:
     void DoXfer(Xfer *);
+    void updateInterestZones();
+    void rva002C6779();
     void rva002C64D0(const Coord3DBase *, int);
     __declspec(noinline) void Register(Team *);
     __declspec(noinline) void UnRegister(Team *);
@@ -136,7 +142,9 @@ private:
     Player *player;
     AITargetChooser *chooser;
     Rva00506909 *generator;
-    char gap14[0x20-0x14];
+    Rva002C589B *target;
+    Rva002C589B *fallback;
+    Rva00506A52 *tail;
     _STL::vector<Rva002C5EF0 *> interestZones;
 };
 void TacticalAI::DoXfer(Xfer *xfer)
@@ -217,4 +225,18 @@ void TacticalAI::rva002C64D0(const Coord3DBase *position, int id)
         if(id!=-1) zone->id=id;
         interestZones.push_back(zone);
     }
+}
+
+// Native73B RET0 and WB E88F20 ordered callgraph use the established
+// TacticalAI chooser/generator fields. The final dispatcher1C is independent
+// of whether a request is chosen. Original update-method name unresolved.
+void TacticalAI::rva002C6779() {
+ updateInterestZones();
+ if(chooser) chooser->rva00505911();
+ generator->rva005069B4();
+ Rva002C589B *request;
+ if(chooser) target=request=chooser->getBestTarget();
+ else request=fallback;
+ if(request) generator->rva005069CE((Rva00506909Request*)request,player);
+ tail->rva00506AFA();
 }
