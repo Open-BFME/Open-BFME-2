@@ -57,7 +57,19 @@ BFME_LITERAL_NAME_GETTER(Rva002B30D3Named, "DelayedCameraEventModule")
 BFME_LITERAL_NAME_GETTER(Rva002B596CNamed, "DelayedWorldTextEventModule")
 BFME_LITERAL_NAME_GETTER(Rva002B9641Named, "LivingWorldLogic")
 BFME_LITERAL_NAME_GETTER(Rva002BAE89Named, "DelayedSplineCameraEventModule")
-BFME_LITERAL_NAME_GETTER(Rva002D767CNamed, "RadarObject")
+// Slot 2 of native RadarObject table VA C035D0 returns this literal.
+// The canonical BFME2 Snapshot interface names this slot GetSnapshotName;
+// WB 1107320 and the adjacent RadarObject constructor establish its owner.
+class RadarObject
+{
+protected:
+	virtual const char *GetSnapshotName() const;
+};
+
+const char *RadarObject::GetSnapshotName() const
+{
+	return "RadarObject";
+}
 BFME_LITERAL_NAME_GETTER(Rva002DAB5ENamed, "TerrainVisual")
 BFME_LITERAL_NAME_GETTER(Rva002DE57FNamed, "GameState")
 BFME_LITERAL_NAME_GETTER(Rva002F21EBNamed, "Pathfinder")
