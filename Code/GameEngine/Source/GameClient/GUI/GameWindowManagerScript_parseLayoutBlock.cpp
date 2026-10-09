@@ -245,3 +245,44 @@ LayoutScriptParse layoutScriptTable[] = {
     {"LAYOUTCLASS", parseLayoutClassRva003172E9},
     {NULL, NULL}
 };
+
+// WindowLayoutInfo::load: native 31742C..3174CB (159B), WB 13A7380.
+// Semantic donor: BFME1 f98983a7 WindowLayoutInfoLoad.cpp; BFME2 uses
+// StringBase::find and the window-script slot 31. The existing measured
+// 0x24-byte callback/name prefix owns the filename at +0x24. WinCreate
+// takes a const string pointer and an observed layout view (native 223263).
+extern "C" __declspec(dllimport) int __cdecl _strcmpi(const char *, const char *);
+class WindowLayoutInfo;
+class GameWindow;
+struct AptLayoutInfoView;
+class AptPlayer { public: GameWindow *WinCreate(const AsciiString *, AptLayoutInfoView *); };
+class BfmeAptWindowManager;
+extern BfmeAptWindowManager *g_bfmeAptWindowManager;
+class GameWindowManager {
+public:
+#define SLOT(n) virtual void slot##n();
+ SLOT(00) SLOT(01) SLOT(02) SLOT(03) SLOT(04) SLOT(05) SLOT(06) SLOT(07) SLOT(08) SLOT(09)
+ SLOT(10) SLOT(11) SLOT(12) SLOT(13) SLOT(14) SLOT(15) SLOT(16) SLOT(17) SLOT(18) SLOT(19)
+ SLOT(20) SLOT(21) SLOT(22) SLOT(23) SLOT(24) SLOT(25) SLOT(26) SLOT(27) SLOT(28) SLOT(29) SLOT(30)
+#undef SLOT
+ virtual GameWindow *winCreateFromScript(AsciiString, WindowLayoutInfo *, void *);
+};
+extern GameWindowManager *TheWindowManager;
+class WindowLayoutInfo {
+public:
+ bool load(AsciiString filename);
+ BfmeLayoutInfoPrefix m_layoutPrefix;
+ AsciiString m_filename;
+};
+bool WindowLayoutInfo::load(AsciiString filename) {
+ if (filename.isEmpty()) return false;
+ const char *extension=filename.find('.');
+ GameWindow *result;
+ if (extension && _strcmpi(extension,".apt")==0)
+  result=reinterpret_cast<AptPlayer *>(g_bfmeAptWindowManager)->WinCreate(&filename,reinterpret_cast<AptLayoutInfoView *>(this));
+ else
+  result=TheWindowManager->winCreateFromScript(filename,this,0);
+ if (!result) return false;
+ m_filename=filename;
+ return true;
+}
