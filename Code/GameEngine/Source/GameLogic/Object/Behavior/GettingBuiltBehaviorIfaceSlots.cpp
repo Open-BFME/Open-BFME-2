@@ -11,6 +11,9 @@
 #include <math.h>
 
 class Object;
+enum Relationship { RELATION_UNKNOWN = 0 };
+enum DamageType { DAMAGE_UNKNOWN = 0 };
+enum DeathType { DEATH_UNKNOWN = 0 };
 class ModuleData;
 class Player;
 class Rva0039B795;
@@ -53,6 +56,7 @@ public:
 	{
 		return m_words[bit >> 5] & (1U << (bit & 0x1f));
 	}
+	void set(int bit) { m_words[bit >> 5] |= (1U << (bit & 0x1f)); }
 	void clear(int bit)
 	{
 		m_words[bit >> 5] &= ~(1U << (bit & 0x1f));
@@ -94,6 +98,8 @@ public:
 	virtual void rva00454501Slot5() = 0;
 };
 
+class Rva004541ABAI : public Rva00454430Slots<110> { public: virtual bool queryBuilder() = 0; };
+
 class Object
 {
 public:
@@ -102,6 +108,9 @@ public:
 	void rva0028AE6D();
 	void *rva0028BD17() const;
 	void setStatus(ObjectStatusTypes bit, bool set);
+	Relationship getRelationship(const Object *) const;
+	void kill(DamageType, DeathType);
+	void rva0028AFE7(Object *);
 	Player *getControllingPlayer() const;
 
 	unsigned char m_pad000[0x04];
@@ -109,13 +118,15 @@ public:
 	unsigned char m_pad008[0x74 - 0x08];
 	int m_74; // +0x74 (ID)
 	int m_78; // +0x78 (an Object ID)
-	unsigned char m_pad07C[0x94 - 0x7C];
+	int m_7c; // native builder ID
+	unsigned char m_pad080[0x94 - 0x80];
 	unsigned int m_94; // +0x94
 	unsigned char m_pad098[0x10C - 0x98];
 	Rva0010CBits m_conditionBits; // +0x10C
 	unsigned char m_pad158[0x254 - 0x158];
 	Rva0045342FBody *m_254; // +0x254
-	unsigned char m_pad258[0x438 - 0x258];
+	Rva004541ABAI *m_ai258;
+	unsigned char m_pad25C[0x438 - 0x25C];
 	unsigned char m_438; // +0x438
 };
 
@@ -259,7 +270,7 @@ public:
 	virtual bool rva004533B2();
 	void rva0045318B();
 private:
-	void rva004541AB();
+	bool rva004541AB();
 	bool rva00453124();
 	static GettingBuiltBehaviorInterface *interfaceOf(Object *obj)
 	{
@@ -544,4 +555,50 @@ void GettingBuiltBehavior::rva0045318B()
 	m_38 = count;
 	Rva003B0D7C *money = (Rva003B0D7C *)((char *)player + 0x90);
 	money->rva003B0CB3((unsigned int)count, (Rva0039B795 *)((char *)player + 0x3BC), true);
+}
+
+// Native 4541AB..45427E returns AL even though the existing primary-slot
+// caller discards it. The 453124 call uses this+8 as an Object pointer for
+// CastleMemberBehavior lookup; its older opaque donor view calls it an int.
+// BFME1 GettingBuiltBehaviorCompletion corroborates builder ID +7C and
+// builder AI checks; this target helper additionally kills/detaches builders.
+bool GettingBuiltBehavior::rva004541AB()
+{
+ Object *object = m_object;
+ if (!m_30 && !rva00453124())
+ {
+  Object *builder = TheGameLogic->findObjectByID((ObjectID)object->m_7c);
+  if (!builder || builder->getRelationship(object) == 2) return false;
+  if (!builder->m_conditionBits.test(252))
+  {
+   builder->m_conditionBits.set(252);
+   builder->rva0028AE6D();
+  }
+  builder->kill((DamageType)8, (DeathType)0x16);
+ }
+ else
+ {
+  int id = object->m_7c;
+  Object *builder = TheGameLogic->findObjectByID((ObjectID)id);
+  if (!builder || id == object->m_74) m_30 = false;
+  else
+  {
+   Rva004541ABAI *ai = builder->m_ai258;
+   if (ai && ai->queryBuilder())
+   {
+   if (m_3C)
+   {
+    if (!builder->m_conditionBits.test(252))
+    {
+     builder->m_conditionBits.set(252);
+     builder->rva0028AE6D();
+    }
+    builder->kill((DamageType)8, (DeathType)0x16);
+   }
+   object->rva0028AFE7(0);
+   m_30 = false;
+   }
+  }
+ }
+ return true;
 }
