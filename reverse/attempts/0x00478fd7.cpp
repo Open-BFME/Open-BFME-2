@@ -1,56 +1,45 @@
-// ?rva00478FD7@Rva00478FD7@@QAEXXZ
-// partial score=0.91 date=2026-10-01
-// cl: /O1 /MD
-// ?rva00478FD7@Rva00478FD7@@QAEXXZ @0x00478FD7 68B
-// GarrisonContain-adjacent update: if flag at [this+4]+0xA0 set, fetch pair via rowed 0x0046247D then setPosition each list node to [this+8]+0x38.
-// Evidence: callers 0x004796FA in 0x00479643; callees rowed 0x0046247D CondPair plus Thing setPosition 0x0030AA80; prev 0x0047860D GarrisonContain dtor.
-struct Rva0046247DPair
-{
-	void *first;
-	void *second;
-};
-class Rva0046247D
-{
+// ?rva00478FD7@GarrisonContain@@QAEXXZ
+// partial score=0.86 date=2026-10-09
+// cl: /O1 /Oy- /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// stlport
+#include <list>
+// Target helpers00478BE0/00478FD7: WB11A4120/11A6EE0 and the
+// GarrisonContain update caller00479643 establish the subsystem and purpose.
+// ZH GarrisonContain healing/move loops are the semantic guide. The target
+// uses its verified pair view0046247D with no owner destructor in either body.
+#include "../../../../../Libraries/Include/Lib/Coord3D.h"
+class Object;
+class Thing { public: void setPosition(const Coord3D*); };
+struct ChildNode { ChildNode *next,*prev; Object *object; };
+typedef _STL::list<Object*> ChildList;
+struct Rva0046247DPair { void *first; ChildList *second; };
+class Rva0046247D { public: void rva0046247D(Rva0046247DPair&); };
+struct ChildHealData { char data00[0x98]; bool heal; char pad99[3]; float healFrames; bool move; };
+struct GarrisonOwnerPosition { char data00[0x38]; Coord3D position; };
+class GarrisonContain {
 public:
-	void rva0046247D(Rva0046247DPair &result);
-};
-struct Coord3D
-{
-	float x;
-	float y;
-	float z;
-};
-class Thing
-{
+ void rva00478BE0();
+ void rva00478FD7();
+protected: void healSingleObject(Object*,float);
 public:
-	void setPosition(const Coord3D *pos);
+ char data00[4]; ChildHealData *data; GarrisonOwnerPosition *object;
 };
-class Rva00478FD7 : public Rva0046247D
+void GarrisonContain::rva00478BE0()
 {
-public:
-	void rva00478FD7();
-private:
-	char m_pad0[4];
-	void *m_unk4;
-	void *m_unk8;
-};
-// ?rva00478FD7@Rva00478FD7@@QAEXXZ present-unmatched
-void Rva00478FD7::rva00478FD7()
+ const ChildHealData *modData=data;
+ if(!modData->heal) return;
+ Rva0046247DPair contained;
+ ((Rva0046247D*)this)->rva0046247D(contained);
+ const ChildList &list=*contained.second;
+ for(ChildList::const_iterator it=list.begin();it!=list.end();++it)
+  healSingleObject(*it,modData->healFrames);
+}
+void GarrisonContain::rva00478FD7()
 {
-	if (*(unsigned char *)(*(char **)((char *)this + 4) + 0xA0) == 0)
-		return;
-	Rva0046247DPair tmp;
-	rva0046247D(tmp);
-	void **second = (void **)tmp.second;
-	void *cur = *(void **)*second;
-	if (cur != *second)
-	{
-		do
-		{
-			Coord3D *pos = (Coord3D *)(*(char **)((char *)this + 8) + 0x38);
-			Thing *thing = *(Thing **)((char *)cur + 8);
-			thing->setPosition(pos);
-			cur = *(void **)cur;
-		} while (cur != *second);
-	}
+ if(!data->move) return;
+ Rva0046247DPair contained;
+ ((Rva0046247D*)this)->rva0046247D(contained);
+ const ChildList &list=*contained.second;
+ for(ChildList::const_iterator it=list.begin();it!=list.end();++it)
+  ((Thing*)*it)->setPosition(&object->position);
 }
