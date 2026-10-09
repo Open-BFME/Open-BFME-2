@@ -10,7 +10,9 @@ public:
 private:
     Vector3 Row[3];
 };
-__forceinline void Matrix3x3::Rotate_Z(float s, float c) {
+void Matrix3x3::Rotate_Z(float theta) {
+    float s = sinf(theta);
+    float c = cosf(theta);
     float tmp1, tmp2;
     tmp1 = Row[0][0]; tmp2 = Row[0][1];
     Row[0][0] = (float)(c * tmp1 + s * tmp2);
@@ -22,4 +24,3 @@ __forceinline void Matrix3x3::Rotate_Z(float s, float c) {
     Row[2][0] = (float)(c * tmp1 + s * tmp2);
     Row[2][1] = (float)(-s * tmp1 + c * tmp2);
 }
-void Matrix3x3::Rotate_Z(float theta) { Rotate_Z(sinf(theta),cosf(theta)); }
