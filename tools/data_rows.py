@@ -34,10 +34,10 @@ Verification (build.py, per source and in the full gate), per row:
             symbols.csv pins; an ILT stub counts for its body). A function
             target takes only a code address and a data target only a data
             address. A pin is read for the target's kind (pin_readings): for
-            a function, as an RVA when that lands in code (pin_admission's
-            form), else as a legacy VA when that lands in code; for data, as
-            whichever reading lands in data, and a pin with two such readings
-            places nothing. DIR32 holds the target's VA, DIR32NB its RVA.
+            a function, only as an RVA that lands in code (pin_admission's
+            form); for data, as whichever reading lands in data, and a pin
+            with two such readings places nothing. DIR32 holds the target's
+            VA, DIR32NB its RVA.
             A relocation to a TU-local symbol cannot be placed and fails.
             uninitialised (.bss / COMMON): retail holds zeros over the extent.
             Each symbol is checked alone at its own address: MSVC 7.1 lays a
@@ -134,13 +134,14 @@ def pin_readings(value, sections, function=None):
     """({VA}, None) a symbols.csv pin address stands for as a function (True),
     as data (False) or as either (None), or (set(), why) when it is ambiguous.
 
-    A function's address is code. pin_admission admits a pin only as an
-    in-image RVA in code, so a pin whose RVA reading lands in code is that RVA
-    and never its VA reading: 0x00401010 is RVA 0x00401010, never VA 0x00401010
-    (7,192 pins had both readings in retail .text on 2026-10-09). Only when the
-    RVA reading is not code does a VA reading that lands in code stand for the
-    function: a legacy VA pin, ??1Rva0033DDA1E4@@QAE@XZ at 0x0088BA39 (RVA
-    0x0048BA39; its RVA reading is .rdata).
+    A function's address is code, and a function pin is an RVA: pin_admission
+    admits a pin only as an in-image RVA in code. So a function resolves by the
+    RVA reading alone, when it lands in code: 0x00401010 is RVA 0x00401010,
+    never VA 0x00401010 (7,192 pins had both readings in retail .text on
+    2026-10-09). A VA reading that lands in code proves nothing: the data pin
+    _bfmeVftSF at 0x00816778 has one (RVA 0x00416778). A function pin written
+    as a VA is rewritten to its RVA on evidence (tools/legacy_va_pins.py), not
+    guessed here.
     Data pins were written as RVAs or as VAs (link_cycle.pin_matches), so
     whichever reading lands in data counts; when both do, the pin is ambiguous
     and places nothing (fail closed)."""
@@ -151,8 +152,7 @@ def pin_readings(value, sections, function=None):
         data, why = pin_readings(value, sections, False)
         return code | data, why
     if function:
-        code = [va for _, va, kind in kinds if kind == "code"]
-        return set(code[:1]), None  # the RVA reading first: never both
+        return ({IMAGE_BASE + value} if kinds[0][2] == "code" else set()), None
     data = [(how, va) for how, va, kind in kinds if kind == "data"]
     if len(data) > 1:
         return set(), (f"pin 0x{value:08X} is ambiguous: as an RVA and as a VA it is data, "

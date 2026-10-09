@@ -317,16 +317,48 @@ LEGACY = [(".text", BASE + 0x1000, BASE + 0x10000, CODE), (".rdata", BASE + 0x40
           (".data", BASE + 0x402000, BASE + 0x403000, DATA)]
 
 
-def test_a_legacy_va_function_pin_stands_for_its_code_when_its_rva_reading_is_not(tmp_path, monkeypatch):
-    resolve = resolver(tmp_path, monkeypatch, ["??1X@@QAE@XZ,0x00401010"], LEGACY)
-    assert resolve("??1X@@QAE@XZ", True) == {0x00401010}         # VA 0x00401010 = RVA 0x1010, .text
-    assert resolve("??1X@@QAE@XZ", False) == {BASE + 0x401010}   # as data it is the .rdata RVA
+def test_a_legacy_va_function_pin_resolves_by_rva_once_migrated(tmp_path, monkeypatch):
+    """A function pin is an RVA: the VA spelling places nothing until
+    tools/legacy_va_pins.py rewrites it on a matched row's evidence."""
+    import legacy_va_pins
+    name, legacy = "??1X@@QAE@XZ", "0x00401010"  # VA 0x00401010 = RVA 0x1010, .text; as an RVA, .rdata
     img = make_pe([(".text", 0x1000, 0xF000, b"\xc3"), (".rdata", 0x400000, 0x2000, b""),
                    (".data", 0x402000, 0x1000, struct.pack("<I", 0x00401010))])
     compiled(tmp_path, monkeypatch, [(".data", 0xC0300040, bytes(4), 4, [(0, 1)])],
-             [("?fp@@3P6AXXZA", 0, 1), ("??1X@@QAE@XZ", 0, 0, FUNCTION)])
-    ok, message = verify(img, row("?fp@@3P6AXXZA", "0x00802000"), resolve)  # a pointer to the dtor
+             [("?fp@@3P6AXXZA", 0, 1), (name, 0, 0, FUNCTION)])
+    entry = row("?fp@@3P6AXXZA", "0x00802000")  # a pointer to the dtor
+    resolve = resolver(tmp_path, monkeypatch, [f"{name},{legacy}"], LEGACY)
+    assert resolve(name, True) == set()
+    assert not verify(img, entry, resolve)[0]
+    rows = [{"name": name, "target_rva": "0x00001010", "notes": ""}]
+    rewrites, unresolved = legacy_va_pins.plan([(name, legacy)], rows, LEGACY)
+    assert [(n, old, new) for n, old, new, _ in rewrites] == [(name, legacy, "0x00001010")] and not unresolved
+    migrated = legacy_va_pins.apply(f"name,address,notes\n{name},{legacy},dtor, folded\n", rewrites)
+    assert migrated == f"name,address,notes\n{name},0x00001010,dtor, folded\n"
+    resolve = resolver(tmp_path, monkeypatch, [f"{name},0x00001010"], LEGACY)
+    assert resolve(name, True) == {BASE + 0x1010}
+    ok, message = verify(img, entry, resolve)
     assert ok, message
+
+
+# the retail layout: .text RVA 0x1000-0x7B9CE2, .rdata from 0x7BA000, .data from 0x9A4000
+RETAIL_LIKE = [(".text", BASE + 0x1000, BASE + 0x7B9CE2, CODE), (".rdata", BASE + 0x7BA000, BASE + 0x9A3783, RDATA),
+               (".data", BASE + 0x9A4000, BASE + 0xA23314, DATA)]
+
+
+def test_a_data_pin_whose_va_reading_lands_in_code_is_no_function_address(tmp_path, monkeypatch):
+    """Review of e8198c4fe8: `_bfmeVftSF,0x00816778` is a data pin (as an RVA,
+    .rdata at 0x00C16778). Its VA reading, RVA 0x00416778, is in .text, which
+    proves nothing; a function-typed relocation to it is refused."""
+    resolve = resolver(tmp_path, monkeypatch, ["_bfmeVftSF,0x00816778"], RETAIL_LIKE)
+    assert resolve("_bfmeVftSF", True) == set() and resolve("_bfmeVftSF", False) == {BASE + 0x816778}
+    img = make_pe([(".text", 0x1000, 0x7B8CE2, b"\xc3"), (".rdata", 0x7BA000, 0x1E9783, b""),
+                   (".data", 0x9A4000, 0x7F314, struct.pack("<I", 0x00816778))])
+    compiled(tmp_path, monkeypatch, [(".data", 0xC0300040, bytes(4), 4, [(0, 1)])],
+             [("?fp@@3P6AXXZA", 0, 1), ("_bfmeVftSF", 0, 0, FUNCTION)],
+             'extern "C" void bfmeVftSF();\nvoid (*fp)() = &bfmeVftSF;\n')
+    ok, message = verify(img, row("?fp@@3P6AXXZA", "0x00DA4000"), resolve)
+    assert not ok and "no retail address in the ledgers (as code)" in message
 
 
 def test_a_function_takes_only_a_code_home_and_data_only_a_data_home(tmp_path, monkeypatch):
