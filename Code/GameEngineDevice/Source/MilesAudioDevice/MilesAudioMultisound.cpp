@@ -6,6 +6,14 @@
 // WorldBuilder786370 multisound identity; native5A451..5A7BE. Previous bank
 // source guides control flow; canonical136B prefix and existing folded owners
 // replace the previous bank's unlanded duplicate copy/setter names.
+struct BfmePod144 { int a[36]; };
+namespace _STL { template<> void vector<BfmePod144>::push_back(const BfmePod144&); }
+struct Rva00050FA0 {
+ Rva00050FA0(const BfmeAudioEventPrefix136&);
+ __forceinline ~Rva00050FA0() {}
+ __forceinline operator const BfmePod144&()const{return *reinterpret_cast<const BfmePod144*>(this);}
+ BfmeAudioEventPrefix136 prefix;float zero88;unsigned char zero8C;char pad8D[3];
+};
 struct AudioEventInfo;
 class Rva0036CA00Str { public:
  Rva0036CA00Str(const Rva0036CA00Str&);
@@ -27,7 +35,7 @@ struct AudioEventInfo { char pad0[0x40]; int m_lastSubsoundIndex; unsigned m_pri
  const _STL::vector<BfmeStringTailRecord156>&getSubsoundVector()const;
 };
 class AudioEventRTS { public:
- char pad0[8];AudioEventInfo *m_info;unsigned m_playingHandle;AudioEventRTS*m_multiSoundParent;int m_eventsBeforeReplay;
+ char pad0[8];AudioEventInfo *m_info;unsigned m_playingHandle;AudioEventRTS*m_multiSoundParent;int m_eventsBeforeReplay;char pad18[0x18];int m_viewType;
  const AudioEventInfo*getAudioEventInfo()const{return m_info;}
 };
 inline AudioEventRTS *multisoundTarget(const BfmePoolRef10& ref) {
@@ -41,8 +49,10 @@ class MilesAudioManager {public:
  int pushMusicEventInternal(AudioEventRTS*,int,int,int);
  unsigned addOrResumeAudioEvent(AudioEventRTS*,int,int,int,int);
  void mapLogicalHandleToPhysicalHandle(unsigned,unsigned);
+ unsigned rva0005933D(AudioEventRTS*,int);
+ void rva000592B8(AudioEventRTS*);
  unsigned allocateNewHandle(){return m_nextHandle++;}
- char pad0[0xd0];unsigned m_nextHandle;
+ char pad0[0xd0];unsigned m_nextHandle;char padD4[0xc];_STL::vector<BfmePod144> m_queued[3];
 };
 class Rva002D9C2F {public:OpaqueRefElement4&rva002D9C2F(const OpaqueRefElement4&);};
 class Rva002D9AD4 {public:BfmePoolRef10&rva002D9AD4(const BfmePoolRef10&);};
@@ -141,4 +151,17 @@ int MilesAudioManager::addResumeOrPushMultisound(AudioEventRTS *event, int reque
             return handle;
         return result;
     }
+}
+
+// Native5933D..593CD; WB785B80 queues a copied event wrapper as an ambient
+// stream marker. Original method name remains unknown.
+unsigned MilesAudioManager::rva0005933D(AudioEventRTS *event,int allocateHandle)
+{
+ int view=event->m_viewType;
+ m_queued[view].push_back(Rva00050FA0(*reinterpret_cast<const BfmeAudioEventPrefix136*>(event)));
+ AudioEventRTS *queued=reinterpret_cast<AudioEventRTS*>(&m_queued[view].back());
+ rva000592B8(queued);
+ if(allocateHandle==0)
+  reinterpret_cast<GameMessage*>(queued)->friend_setList(reinterpret_cast<GameMessageList*>(allocateNewHandle()));
+ return queued->m_playingHandle;
 }
