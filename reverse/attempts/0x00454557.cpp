@@ -1,5 +1,7 @@
 // ?xfer@GettingBuiltBehavior@@MAEXPAVXfer@@@Z
 // partial score=0.95 date=2026-10-09
+// ?xfer@GettingBuiltBehavior@@MAEXPAVXfer@@@Z
+// partial score=0.95 date=2026-10-09
 // cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc
 // Retail 0x00454557, 551B: GettingBuiltBehavior::xfer.
 // Version (1, 9) through Xfer slot 0x28, the UpdateModule base xfer
