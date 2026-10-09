@@ -40,7 +40,8 @@ enum ModuleParseMode
 class ThingTemplate
 {
 public:
-	const AsciiString &getName(void) const { return m_nameString; }
+	// Native +0x64 name access is already inlined in these callers.
+	__declspec(dllimport) __forceinline const AsciiString &getName(void) const { return m_nameString; }
 
 protected:
 	static void __cdecl parseRemoveModule(INI *ini, void *instance, void *store, const void *userData);
