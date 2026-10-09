@@ -27,7 +27,31 @@ struct Rva004FA1F3Entries {
  ~Rva004FA1F3Entries() {reinterpret_cast<EntryVector*>(this)->EntryVector::~EntryVector();}
 };
 class ArmySummary {public: void GetEntries(EntryVector &);};
-class Rva004FA168Storage;
+
+struct TargetRef00217D4C {virtual void *destroy(unsigned); int references;};
+void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
+struct Rva004F87BCElement {
+ TargetRef00217D4C *m_ptr;
+ Rva004F87BCElement(TargetRef00217D4C *p):m_ptr(p) {if(p) ++p->references;}
+ Rva004F87BCElement(const Rva004F87BCElement &p):m_ptr(p.m_ptr) {if(m_ptr) ++m_ptr->references;}
+ ~Rva004F87BCElement() {if(m_ptr) ReleaseTreeHintRef00217D4C(m_ptr);}
+};
+typedef _STL::vector<Rva004F87BCElement> UnitVector;
+
+class Rva004F7DF9Vector {public: void reserve(unsigned);};
+struct Rva005F8FCC {void *rva005F8FCC(unsigned);};
+struct Rva004F9635Rec;
+class LivingWorldAutoResolveUnit {
+public:
+ LivingWorldAutoResolveUnit(const Rva0040DC56Element &,unsigned,ArmySummary *);
+ virtual void *rvaDestroy(unsigned);
+ int references;
+ char unknown08[0x24];
+ void *thing;
+ unsigned unknown30;
+};
+class Rva004FA168Storage {public: Rva004F87BCElement *start,*finish,*capacity;};
+
 class Rva004FA168Map {
 public: Rva004FA168Storage &subscript(const int &);
 private: unsigned header,count,unknown8;
@@ -40,6 +64,7 @@ struct Rva004FA1F3Player {
 class LivingWorldAutoResolveBattle {
 public:
  void buildReinforcementMaps();
+ void rva004F9635(Rva004F9635Rec *);
  void rva004F9658(Rva004FA168Storage &,EntryVector &,ArmySummary *,unsigned,bool);
  _STL::vector<Rva004FA1F3Player> players;
  char unknown0C[0x18];
@@ -60,4 +85,26 @@ void LivingWorldAutoResolveBattle::buildReinforcementMaps()
    rva004F9658(*units,*reinterpret_cast<EntryVector *>(&entries),army,i,true);
   }
  }
+}
+
+// Native4F9658..4F971E198B: reserve for army entry count; retain each
+// newly constructed52B auto-resolve unit through the stock owning-pointer
+// push_back; release the temporary before rejecting a null thingTemplate2C.
+// Decrement finish only in the rejection branch then destroy its reference
+// slot with the existing34B provider5F8FCC. Sort via canonical thiscall35B.
+// WB debug helper12EB1B0 agrees with the named builder and unit constructor.
+void LivingWorldAutoResolveBattle::rva004F9658(Rva004FA168Storage &units,EntryVector &entries,ArmySummary *army,unsigned player,bool flag)
+{
+ reinterpret_cast<Rva004F7DF9Vector *>(&units)->reserve(unsigned(units.finish-units.start)+entries.size());
+ EntryVector::iterator position=entries.begin();
+ EntryVector::iterator lastEntry=entries.end();
+ for(;position!=lastEntry;++position) {
+  { Rva004F87BCElement unit(reinterpret_cast<TargetRef00217D4C *>(new LivingWorldAutoResolveUnit(*position,player,army)));
+  reinterpret_cast<UnitVector *>(&units)->push_back(unit); }
+  if(!reinterpret_cast<LivingWorldAutoResolveUnit *>((units.finish-1)->m_ptr)->thing) {
+   Rva004F87BCElement *last=--units.finish;
+   reinterpret_cast<Rva005F8FCC *>(last)->rva005F8FCC(0);
+  }
+ }
+ rva004F9635(reinterpret_cast<Rva004F9635Rec *>(&units));
 }
