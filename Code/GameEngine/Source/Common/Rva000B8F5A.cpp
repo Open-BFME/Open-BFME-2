@@ -6,7 +6,7 @@
 // via AsciiString::operator= (the operator= inline schedules the member-add
 // ahead of the argument push where a direct set call does not).
 // Class and member names are address-derived. Probe 0xB82F9 is verified;
-// sibling 0xB83A7 is banked with one source-pointer register mismatch.
+// sibling 0xB83A7 follows the record110 string through the same counted probe.
 
 #include "ascii_string.h"
 template<> bool StringBase<char>::isEmpty() const;
@@ -55,6 +55,7 @@ public:
 	void rva000BFD9F();
 	int rva000C144A();
 	int rva000B82F9();
+	int rva000B83A7();
 	void *rva000C14BD(int i);
 
 private:
@@ -287,6 +288,25 @@ int Rva000B8F5A::rva000B82F9()
         AsciiString name;
         if(!reinterpret_cast<const StringBase<char> *>(&m_name254)->isEmpty()) name=m_name254;
         else name=(*reinterpret_cast<ProbeStateB83A7 **>((char *)this-8))->name10C;
+        ProbeHandleB83A7 *handle=provider->find(name.str(),false);
+        if(handle) { result=handle->probe(); if(!result) handle->Release_Ref(); }
+    }
+    return result;
+}
+
+// ?rva000B83A7@Rva000B8F5A@@QAEHXZ
+// Retail B83A7..B8440 uses the same secondary receiver and probe slots as
+// B82F9 but always selects state+110. Reassigning the typed address view
+// preserves the native source pointer in ESI. The result role is unproven.
+int Rva000B8F5A::rva000B83A7()
+{
+    ProbeProviderB83A7 *provider=reinterpret_cast<ProbeOuterB83A7 *>((char *)this-12)->get();
+    int result=0;
+    if(provider) {
+        AsciiString name;
+        const ProbeStateB83A7 *state = reinterpret_cast<const ProbeStateB83A7 *>(this);
+        state = *reinterpret_cast<ProbeStateB83A7 *const *>((const char *)state - 8);
+        name = state->name110;
         ProbeHandleB83A7 *handle=provider->find(name.str(),false);
         if(handle) { result=handle->probe(); if(!result) handle->Release_Ref(); }
     }
