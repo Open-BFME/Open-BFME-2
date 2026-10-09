@@ -229,59 +229,11 @@ void MapObject::validate(void)
 
 // MapObject::verifyValidUniqueID is defined with its retail-matched body in Code/GameEngineDevice/Source/W3DDevice/GameClient/MapObject_verifyValidUniqueIDMethodThunk_Rva0030E0AA.cpp (0x0030E0AA).
 
-// ?fastAssignAllUniqueIDs@MapObject@@ present-unmatched
-void MapObject::fastAssignAllUniqueIDs(void)
-{
-	// here's what we do. Take all of them, push them onto a stack. Then, pop each one, setting its id.
-	// should be much faster than what we currently do.
-
-	MapObject *pMapObj = getFirstMapObject();
-
-	std::stack<MapObject*> objStack;
-	Int actualNumObjects = 0;
-	
-	while (pMapObj) {
-		++actualNumObjects;
-		objStack.push(pMapObj);
-		pMapObj = pMapObj->getNext();
-	}
-
-	Int indexOfThisObject = 0;
-	while (actualNumObjects) {
-		MapObject *obj = objStack.top();
-		
-
-		const char* thingName;
-		if (obj->getThingTemplate()) {
-			thingName = obj->getThingTemplate()->getName().str();
-		} else if (obj->isWaypoint()) {
-			thingName = obj->getWaypointName().str();
-		} else {
-			thingName = obj->getName().str();
-		}
-		const char* pName = thingName;
-
-		while (*thingName) {
-			if ((*thingName) == '/') {
-				pName = thingName + 1;
-			}
-			++thingName;
-		}
-
-		AsciiString newID;
-		if (obj->isWaypoint()) {
-			newID.format("%s", pName);
-		} else {
-			newID.format("%s %d", pName, indexOfThisObject);
-		}
-
-		obj->getProperties()->setAsciiString(TheKey_uniqueID, newID);
-		objStack.pop();
-	
-		++indexOfThisObject;
-		--actualNumObjects;
-	}
-}
+// MapObject::fastAssignAllUniqueIDs is defined with its retail-matched body in Code/GameEngineDevice/Source/W3DDevice/GameClient/MapObject_fastAssignAllUniqueIDs_Rva0030E390.cpp (0x0030E390).
+// Its std::stack<MapObject*> draft used to instantiate the deque node allocator
+// rowed from this unit (0x0030E390's retail body uses a folded 4-byte deque); the
+// member is kept emitted here explicitly.
+template void std::_Deque_base<MapObject *, std::allocator<MapObject *> >::_M_create_nodes(MapObject ***, MapObject ***);
 
 
 
