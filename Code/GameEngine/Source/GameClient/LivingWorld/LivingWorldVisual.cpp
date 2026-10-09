@@ -120,7 +120,8 @@ public:
 	virtual void s087(); virtual void s088(); virtual void s089(); virtual void s090();
 	virtual void s091(); virtual void s092(); virtual void s093(); virtual void s094();
 	virtual void s095(); virtual void s096(); virtual void s097(); virtual void s098();
-	virtual void s099(); virtual void s100();
+	virtual void s099();
+	virtual int Is_Hidden() const;							// +0x190
 	virtual void Set_Hidden(int onoff);						// +0x194
 	virtual void s102(); virtual void s103(); virtual void s104(); virtual void s105();
 	virtual void s106(); virtual void s107(); virtual void s108(); virtual void s109();
@@ -137,6 +138,13 @@ private:
 };
 
 RenderObjClass *Create_Render_Obj(const char *name);
+
+// Rowed shadow release 0x003FB640 (address-named; WB 0x0106F720).
+class Rva003FB640
+{
+public:
+	void rva003FB640();
+};
 RenderObjClass *Rva00137364CreateRenderObj(const char *name, float scale, const Rva0013101E &options);
 
 struct Rva005F17C6S12
@@ -167,6 +175,8 @@ public:
 	RenderObjClass *createRenderObject(const AsciiString &modelName, const AsciiStringVector &subObjectNames,
 		Int shadowType, const Int *houseColor);
 	void createShadow();
+	void rva003FCCC9(bool visible);
+	void rva003FCDD5(bool enable);
 
 private:
 	unsigned char m_pad04[4];
@@ -263,5 +273,48 @@ void LivingWorldVisual::createShadow()
 		m_shadow = TheW3DShadowManager->addShadow(m_primaryRObj, &shadowInfo, 0);
 		if (m_shadow)
 			m_shadow->enableShadowRender(true);
+	}
+}
+
+// Retail 0x003FCCC9 (WB 0x010721D0, unnamed; it calls createShadow on this):
+// shown, create the shadow once; hidden, release it through 0x003FB640;
+// then hide or show the primary render object (slot +0x194), read once into
+// a local as WB does. Address name.
+void LivingWorldVisual::rva003FCCC9(bool visible)
+{
+	if (visible)
+	{
+		if (m_shadow == 0)
+			createShadow();
+	}
+	else
+	{
+		reinterpret_cast<Rva003FB640 *>(this)->rva003FB640();
+	}
+	RenderObjClass *robj = m_primaryRObj;
+	if (robj)
+		robj->Set_Hidden(!visible);
+}
+
+// Retail 0x003FCDD5 (WB 0x0106F540, unnamed): with a shadow type set, create
+// the shadow when enabling and the primary render object is not hidden
+// (slot +0x190), release it through 0x003FB640 when disabling. Address name.
+void LivingWorldVisual::rva003FCDD5(bool enable)
+{
+	if (m_shadowType)
+	{
+		if (enable)
+		{
+			if (m_shadow == 0)
+			{
+				RenderObjClass *robj = m_primaryRObj;
+				if (robj && !robj->Is_Hidden())
+					createShadow();
+			}
+		}
+		else
+		{
+			reinterpret_cast<Rva003FB640 *>(this)->rva003FB640();
+		}
 	}
 }
