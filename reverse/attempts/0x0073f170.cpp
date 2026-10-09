@@ -1,3 +1,5 @@
+// ?rva0073F170@AsyncServiceQueue@@QAE?AVRva0036CA00Str@@PAUListNode0073EFFC@@@Z
+// partial score=0.9740932642487047 date=2026-10-09
 // cl: /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /DBFME_MODULE_NO_MPO /DZH_EMIT_POOL_GLUE /Ireference/shims/bfmerendobj /Ireference/shims/debugvtable /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/bfmeanimobj /Ireference/shims/indexbuffercount /Ireference/shims/bfmecaps /Ireference/shims/bfmehcanim /Ireference/shims/bfmevector /Ireference/shims/bfmemapper /Ireference/shims/meshmatdesclayout /Ireference/shims/bfmeshader /Ireference/shims/bfmecpudetect /Ireference/shims/bfmepool /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWAudio /Ireference/shims/bfmealloc /Ireference/shims/bfmehashtable /Ireference/shims/bfmelist /Ireference/shims/asciistring_downloadmanager /Ireference/shims/stlp_nodealloc /Ireference/shims/asciistring_thin /ICode/GameEngine/Source/Common /Ireference/shims/w3droadbuffer /Ireference/shims/bfmeterraintracks /ICode/Libraries/Include/Lib
 /*
 ** Copyright 2025 Electronic Arts Inc.
@@ -80,7 +82,7 @@ void Rva0073EECA::set(TargetNestedHandleData *other) {
     }
 }
 
-// Canonical list iterator erase @0x0073EFFC 42B: unlinks the
+// ?EraseTargetListNode0073EFFC@@YGXPAPAXPAUListNode0073EFFC@@@Z @0x0073EFFC 42B: unlinks the
 // node, destroys its 12B value via the rowed ??1, frees it, stores next.
 // Callers: 0x0073F026, list erase paths 0x0073F170/0x0073F231.
 extern "C" void __cdecl free(void *p);
@@ -139,10 +141,9 @@ class Rva0040F9D {public:bool set();bool reset();char bytes[8];};
 class Rva0073EE21 {public:Rva0073EE21();char bytes[16];};
 struct OpaqueRefElement4 {void *item;OpaqueRefElement4 &operator=(const OpaqueRefElement4&);};
 class AsyncServiceQueue {
- public:
- TargetListAt0073EEE0::iterator enqueue(Rva0036CA00Str item);
-
- int active,count; TargetListAt0073EEE0 queued; char mutex[8];Rva0040F9D available;TargetListAt0073EEE0 secondary;Rva0040F9D completed;Rva0040F9D drained;
+ public: TargetListAt0073EEE0::iterator enqueue(Rva0036CA00Str item);
+ Rva0036CA00Str rva0073F170(ListNode0073EFFC *node);
+ int active,count; TargetListAt0073EEE0 queued; char mutex[8];Rva0040F9D available;
 };
 TargetListAt0073EEE0::iterator AsyncServiceQueue::enqueue(Rva0036CA00Str item) {
  MilesMutexGuard guard(mutex,0);
@@ -159,7 +160,14 @@ TargetListAt0073EEE0::iterator AsyncServiceQueue::enqueue(Rva0036CA00Str item) {
  return last;
 }
 
-
-
-// The same owning12B list already has the complete22B native pop_front.
-template void _STL::list<Rva0073EEE0ListValue>::pop_front();
+// Native73F170..73F231 returns an owning reference after removing one
+// uncancelled list node under mutex0C; reset event14 when the list empties.
+Rva0036CA00Str AsyncServiceQueue::rva0073F170(ListNode0073EFFC *node) {
+ MilesMutexGuard guard(mutex,0);
+ if(node->m_value.unknown_04) return Rva0036CA00Str();
+ Rva0036CA00Str item(node->m_value.helperManagedPointer);
+ queued.erase(TargetListAt0073EEE0::iterator((_STL::_List_node<Rva0073EEE0ListValue>*)node));
+ --count;
+ if(queued.empty())available.reset();
+ return item;
+}
