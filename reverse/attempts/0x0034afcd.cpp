@@ -1,4 +1,6 @@
 // ?update@AIAttackPositionFireWeaponState@@UAE?AW4StateReturnType@@XZ
+// partial score=0.91 date=2026-10-09
+// ?update@AIAttackPositionFireWeaponState@@UAE?AW4StateReturnType@@XZ
 // partial score=0.9 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /ICode/Libraries/Include
 // Native34AFCD..34B08A (189B); WB E21A70 callgraph+debug literal independently
@@ -56,7 +58,7 @@ StateReturnType AIAttackPositionFireWeaponState::update()
  WeaponStatus status;
  const Weapon *weapon=obj->getCurrentWeapon(&slot);
  if (!weapon || obj->isEffectivelyDead() || obj->testStatus(STATUS_BIT_82))
-  goto fail;
+  return STATE_FAILURE;
  if (needsPreFire) {
   needsPreFire=false;
   obj->setStatus(IS_FIRING,true);
@@ -66,14 +68,13 @@ StateReturnType AIAttackPositionFireWeaponState::update()
  }
  status=weapon->getStatus();
  if (status==PRE_ATTACK) return STATE_CONTINUE;
- if (status!=READY_TO_FIRE) goto fail;
- if (!fireInterface || fireInterface->canFire(slot)) goto fire;
-fail:
- return STATE_FAILURE;
-fire:
+ if (status!=READY_TO_FIRE || (fireInterface && !fireInterface->canFire(slot)))
+  return STATE_FAILURE;
+ else {
  obj->rva0028FC8F();
  obj->fireCurrentWeapon(&machine->goalPosition);
  obj->setStatus(STATUS_BIT_27,false);
  fireInterface->fired();
  return STATE_SUCCESS;
+ }
 }
