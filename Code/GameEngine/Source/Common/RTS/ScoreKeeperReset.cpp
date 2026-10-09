@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/moduledata /O1 /G7 /arch:SSE /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // BFME1 ScoreKeeperReset9cbfb551 donor: scoring masks, counts, map sweep.
 // Native39C5FD..39C7A5 differs with20 players, two further count arrays,
@@ -31,6 +31,7 @@ class Rva0039C190 { public:
 class ScoreKeeper {
 public:
  void reset(int);
+ void addObjectDestroyed(const class Object*);
  void unhookAllScoredKillTrackers();
  void*vtable;
  int moneyEarned,moneySpent;
@@ -75,4 +76,55 @@ void ScoreKeeper::reset(int playerIdx){
  field328.clear();
  unhookAllScoredKillTrackers();
  field108=0;field10C=0;field110=false;
+}
+
+
+#include "../GameLogicObjectLookupView.h"
+#include "../ScoredKillTrackerView.h"
+class Player {public:char pad[0x54];int index;int getPlayerIndex()const{return index;}};
+class Image;class ImageSubscriptMap{public:Image*&operator[](const unsigned&);};
+template<int N> class BitFlags {public:unsigned words[7];bool testSetAndClear(const BitFlags&,const BitFlags&)const;};
+// ?BitFlags<116>::testSetAndClear present-unmatched
+// Visible existing66B COMDAT makes MSVC cache the two template queries
+// without replacing the object register; its bytes are verified separately.
+template<> __declspec(noinline) inline bool BitFlags<116>::testSetAndClear(const BitFlags&set,const BitFlags&clear)const{
+ for(unsigned i=0;i<7;i++){if(clear.words[i]&words[i])return false;if((set.words[i]&words[i])!=set.words[i])return false;}return true;
+}
+typedef BitFlags<116> KindOfMaskType;extern KindOfMaskType KINDOFMASK_NONE;
+class ThingTemplate {public:char pad[0x108];KindOfMaskType kind;};
+enum ObjectStatusTypes{OBJECT_STATUS_UNDER_CONSTRUCTION=0x4C};
+class Object {public:void*vtable;const ThingTemplate*m_template;char pad08[0x38-8];Coord3D position;
+ bool testStatus(ObjectStatusTypes)const;Player*getControllingPlayer()const;
+ const ThingTemplate*getTemplate()const{return m_template;}
+ const Coord3D*getPosition()const{return &position;}
+};
+class Rva2225E0Filter {public:bool accepts(Object*,Player*);};
+class GlobalData {public:char pad[0x1168];Rva2225E0Filter filter;};extern GlobalData*TheWritableGlobalData;
+extern GameLogic*TheGameLogic;
+// ZH addObjectDestroyed supplies category and per-player count semantics.
+// Native39CDF0..39CF1D301B independently adds completion gating, the
+// second totals and tracked-kill predicate/position notifications.
+void ScoreKeeper::addObjectDestroyed(const Object*o){
+ if(!TheGameLogic->isScoringEnabled())return;
+ if(o->testStatus(OBJECT_STATUS_UNDER_CONSTRUCTION))return;
+ int playerIdx=o->getControllingPlayer()->getPlayerIndex();
+ 
+ bool addToCount=false;
+ if(o->getTemplate()->kind.testSetAndClear(*(const KindOfMaskType*)&scoringBuildingMask,KINDOFMASK_NONE)){
+  if(field110){++buildingsDestroyed[playerIdx];++counts118[playerIdx];addToCount=true;}
+ }else if(o->getTemplate()->kind.testSetAndClear(*(const KindOfMaskType*)&scoringBuildingDestroyMask,KINDOFMASK_NONE)){
+  if(field110){++buildingsDestroyed[playerIdx];++counts118[playerIdx];addToCount=true;}
+ }else if(TheWritableGlobalData->filter.accepts((Object*)o,0)){
+  if(field110){++unitsDestroyed[playerIdx];++counts170[playerIdx];addToCount=true;}
+ }
+ if(addToCount){
+  
+  int existingCount=0;
+  ScoreCountMap::iterator it=objectsDestroyed[playerIdx].find((unsigned)o->getTemplate());
+  if(it._M_node!=objectsDestroyed[playerIdx].end()._M_node)existingCount=(int)it->second;
+  ((ImageSubscriptMap*)&objectsDestroyed[playerIdx])->operator[]((unsigned)o->getTemplate())=(Image*)(existingCount+1);
+  for(unsigned*tracker=trackedKills.begin(),*end=trackedKills.end();tracker!=end;++tracker){
+   if(((ScoredKillTracker*)*tracker)->rva0055A892(o))((ScoredKillTracker*)*tracker)->friend_addTrackedKill(o->getPosition());
+  }
+ }
 }
