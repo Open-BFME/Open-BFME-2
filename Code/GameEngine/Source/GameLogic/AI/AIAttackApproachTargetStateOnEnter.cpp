@@ -176,6 +176,8 @@ public:
 	Real m_aggressiveRangeModifier; // +0x50
 	unsigned char m_pad54[0x8C - 0x54];
 	Bool m_aiCrushesInfantry; // +0x8C
+	unsigned char m_pad8D[0x94 - 0x8D];
+	Real m_94; // +0x94 (the squish retarget range)
 };
 
 class Rva002C9B80Owner;
@@ -212,12 +214,14 @@ public:
 
 class PolygonTrigger;
 class AttackPriorityInfo;
+class PartitionFilter;
 
 class AI
 {
 public:
 	static Bool rva002FE193(Object *owner, Object *nemesis);
 	Object *rva002FF8DD(const PolygonTrigger *area, Object *owner, const AttackPriorityInfo *info);
+	Object *findClosestEnemy(const Object *me, Real range, UnsignedInt qualifiers, const AttackPriorityInfo *info, PartitionFilter *optionalFilter, Int extra);
 	Pathfinder *pathfinder() { return m_pathfinder; }
 	const TAiData *getAiData() { return m_aiData; }
 	unsigned char m_pad00[0x10];
@@ -795,6 +799,7 @@ public:
 protected:
 	virtual Bool computePath();
 private:
+	StateReturnType rva0034D98B();
 	UnsignedInt m_approachTimestamp; // +0x4C
 	Coord3D m_prevVictimPos; // +0x50
 	Int m_cellX; // +0x5C
@@ -1467,6 +1472,111 @@ StateReturnType AIAttackMeleeSquishState::onEnter()
 		return STATE_FAILURE;
 	}
 	return STATE_SUCCESS;
+}
+
+// Thing-template gate 0x0028CECF (pinned under this name).
+class Rva0028CECFOwner
+{
+public:
+	Bool rva0028CECF();
+};
+
+// The owner's contain module (+0x250) slot 31 and the object it returns,
+// whose slot 85 says whether the victim may be squished from inside.
+class SquishRiderView : public VirtualSlots<85>
+{
+public:
+	virtual Bool slot85(Object *victim);
+};
+
+class SquishContainView : public VirtualSlots<31>
+{
+public:
+	virtual SquishRiderView *slot31();
+};
+
+// Retail 0x0034D98B, 629 bytes: the body of AIAttackMeleeSquishState's slot 6
+// (0x0034DC00 is a 5-byte jump here). Path extra distance 50 while chasing;
+// a contained owner whose rider accepts the victim stops (AI slot 136). A gone
+// or dead victim (status 0x32, Object +0x438 bit 0) lets an armed squisher
+// (+0x64) retarget the closest enemy in TAiData +0x94 it can crush
+// (CritterDesync 23); otherwise the crush test, status 0x33 / stealth gates
+// and CritterDesync 24/25 path to the victim, chasing its position when the
+// template has kind byte +0x11A bit 7. Status 0x1C mirrors 0x0028CECF.
+// Codegen: the retarget branch comes first in source; cl sinks that
+// return-terminated then-block to the end of the function, and the merged
+// FAILURE / SUCCESS blocks stay at their last source occurrence (the
+// ComputePath24 test and the rider stop), as retail lays them out. The named
+// Bool for the 0x1C status is what keeps retail's EBP frame.
+StateReturnType AIAttackMeleeSquishState::rva0034D98B()
+{
+	Object *obj = getMachineOwner();
+	AIUpdateInterface *ai = obj->getAI();
+	ai->setPathExtraDistance(50.0f);
+	Object *victim = getMachineGoalObject();
+	if (obj->m_contain && !((Rva0028CECFOwner *)obj)->rva0028CECF())
+	{
+		SquishRiderView *rider = ((SquishContainView *)obj->m_contain)->slot31();
+		if (rider && rider->slot85(victim))
+		{
+			ai->slot136();
+			return STATE_SUCCESS;
+		}
+	}
+
+	if (((TurretStateMachine *)getMachine())->rva004D7ADD() ||
+		(victim && ((victim->m_438 & 1) || victim->testStatus(OBJECT_STATUS_32))))
+	{
+		ai->setPathExtraDistance(0.0f);
+		if (m_64 && ((Rva0028CECFOwner *)obj)->rva0028CECF())
+		{
+			m_64 = false;
+			const AttackPriorityInfo *info = ai->m_attackInfo;
+			Object *enemy = TheAI->findClosestEnemy(obj, TheAI->getAiData()->m_94, 2, info, 0, 0);
+			if (enemy && obj->rva0029493F(enemy, 2))
+			{
+				getMachine()->setGoalObject(enemy);
+				critterDesyncLog("CritterDesync: ComputePath23");
+				if (!computePath())
+					return STATE_FAILURE;
+				m_64 = true;
+			}
+		}
+		return AIInternalMoveToState::update();
+	}
+
+	StateReturnType status = STATE_FAILURE;
+	if (victim)
+	{
+		if (!obj->rva0029493F(victim, 2))
+			return STATE_SUCCESS;
+		if (victim->testStatus(OBJECT_STATUS_33) || victim->rva002943B2(obj->getControllingPlayer()))
+			return STATE_FAILURE;
+		ai->setCurrentVictim(victim);
+		critterDesyncLog("CritterDesync: ComputePath24");
+		if (!computePath())
+			return STATE_FAILURE;
+		status = AIInternalMoveToState::update();
+		if (status != STATE_CONTINUE)
+		{
+			if (victim->m_438 & 1)
+				return STATE_SUCCESS;
+			if (!(obj->getTemplate()->m_kindOf[0x12] & 0x80))
+				return STATE_SUCCESS;
+			m_goalPosition = *victim->getPosition();
+			obj->getAI()->destroyPath();
+			critterDesyncLog("CritterDesync: ComputePath25");
+			if (computePath())
+			{
+				obj->setStatus(OBJECT_STATUS_1C, true);
+				return AIInternalMoveToState::onEnter();
+			}
+			return STATE_SUCCESS;
+		}
+	}
+	Bool squishing = ((Rva0028CECFOwner *)obj)->rva0028CECF();
+	obj->setStatus(OBJECT_STATUS_1C, squishing);
+	return status;
 }
 
 StateReturnType AIAttackMeleeEngageState::onEnter()
