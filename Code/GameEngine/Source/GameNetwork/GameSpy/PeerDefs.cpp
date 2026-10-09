@@ -126,6 +126,8 @@ TreeHintOpaque0043671B *Rva004360B3(AsciiString key);
 class PlayerInfo
 {
 public:
+	PlayerInfo();
+	PlayerInfo(const PlayerInfo &);
 	AsciiString m_name;
 	AsciiString m_locale;
 	AsciiString m_clan;
@@ -222,10 +224,10 @@ public:
 	virtual void s15(void);
 	virtual void s16(void);
 	virtual void s17(void);
-	virtual void s18(void);
-	virtual void s19(void);
+	virtual BuddyInfoMap *getBuddyMap();
+	virtual BuddyInfoMap *getBuddyRequestMap();
 	virtual void s1A(void);
-	virtual void s1B(void);
+	virtual Bool isBuddy(Int);
 	virtual void s1C(void);
 	virtual void s1D(void);
 	virtual void s1E(void);
@@ -399,12 +401,16 @@ public:
 	virtual Rva0038454E rvaSlot3CStrategicStats(Int id);
 };
 
+class BuddyRequest {public:int type,id;char payload[0x2B0];};
+
 class GameSpyBuddyMessageQueueInterface
 {
 public:
 	virtual ~GameSpyBuddyMessageQueueInterface();
 	virtual void startThread(void);
 	virtual void endThread(void);
+	virtual void slot03();virtual void slot04();virtual void slot05();
+	virtual void addRequest(const BuddyRequest&);
 };
 
 class PingerInterface
@@ -480,10 +486,13 @@ void Rva00556FB8(const PSPlayerStats &stats);
 void Rva003B3371Call(Int hook);		// SignalUIInteraction
 void Rva00415EF8Close(void);		// deleteNotificationBox
 
+struct Rva00382D39Input;
+
 class GameSpyInfo
 {
 public:
 	GameSpyInfo();			// 0x00385FE1
+	void rva00382D39(Rva00382D39Input*,AsciiString);
 	// Virtual slots follow the retail vtable at 0x00C19300 so that virtual
 	// self-calls encode the right slot offsets; unnamed slots are placeholders.
 	virtual ~GameSpyInfo();
@@ -560,7 +569,7 @@ public:
 	virtual void slot71(void);
 	virtual void slot72(void);
 	virtual void slot73(void);
-	virtual void slot74(void);
+	virtual void rva003871F6(Int id);
 	virtual void addToSavedIgnoreList(Int profileID, AsciiString nick);
 	virtual void removeFromSavedIgnoreList(Int profileID);
 	virtual Bool isSavedIgnored(Int profileID);
@@ -1586,4 +1595,55 @@ void SendStatsToOtherPlayers(GameInfo *game)
             TheGameSpyPeerMessageQueue->addRequest(req);
         }
     }
+}
+
+// Native382D39..382E2F: input pointer plus by-value old nickname; construct
+// the owned52B PlayerInfo, copy three strings/ten observed source words,
+// and forward through the established updatePlayerInfo slot4C. The input
+// record's original name is unresolved; offsets are independent target facts.
+struct Rva00382D39Input {
+ char unknown00[0x10];const char *name;char unknown14[0x20];const char *clan;
+ char unknown38[0x10C-0x38];int field10C,field110,field114,field118,field11C,field120,field124,field128,field12C;
+ char unknown130[0x33C-0x130];int field33C,field340,field344;
+};
+void GameSpyInfo::rva00382D39(Rva00382D39Input *source,AsciiString oldNick)
+{
+ PlayerInfo player;
+ player.m_name.set(source->name);
+ player.m_locale.set(source->name);
+ player.m_profileID=source->field10C;
+ player.m_flags=source->field11C;
+ player.m_wins=source->field110;
+ player.m_losses=source->field114;
+ player.m_clan.set(source->clan);
+ player.m_rankPoints=source->field124;
+ player.m_desync=source->field128;
+ player.m_preorder=source->field12C;
+ player.m_dc=source->field344;
+ player.m_side=source->field33C;
+ player.m_unk24=source->field340;
+ updatePlayerInfo(player,oldNick);
+}
+
+// The existing erase owner has an opaque address-derived key type. Only a
+// declaration is used here; native785CBA consumers pass the four-byte key
+// by reference, and no Element layout is asserted or instantiated here.
+struct Rva00385CBAElement;
+typedef _STL::_Rb_tree<Rva00385CBAElement,Rva00385CBAElement,_STL::_Identity<Rva00385CBAElement>,_STL::less<Rva00385CBAElement>,_STL::allocator<Rva00385CBAElement> > Rva00385CBATree;
+namespace _STL {template<> unsigned int Rva00385CBATree::erase(const Rva00385CBAElement&);}
+void GameSpyInfo::rva003871F6(Int id)
+{
+ const Int profileID=id;
+ if(profileID<=0)return;
+ Bool buddy=TheGameSpyInfo->isBuddy(profileID);
+ BuddyRequest request;
+ request.id=profileID;
+ if(buddy){request.type=6;TheGameSpyBuddyMessageQueue->addRequest(request);}
+ else{
+  request.type=8;TheGameSpyBuddyMessageQueue->addRequest(request);
+  Rva00385CBATree *pending=(Rva00385CBATree*)TheGameSpyInfo->getBuddyRequestMap();
+  pending->erase((const Rva00385CBAElement&)id);
+ }
+ Rva00385CBATree *map=(Rva00385CBATree*)(buddy?TheGameSpyInfo->getBuddyMap():TheGameSpyInfo->getBuddyRequestMap());
+ map->erase((const Rva00385CBAElement&)id);
 }
