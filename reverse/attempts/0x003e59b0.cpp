@@ -1,251 +1,54 @@
-// ?rva003E59B0@ScriptConditions@@QAE_NPAVParameter@@00_N@Z
-// partial score=0.85 date=2026-10-04
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /GX /arch:SSE
-//
-// ?rva003E5CB1@ScriptConditions@@QAE_NPAVParameter@@0@Z, retail 0x003E5CB1,
-// 228 bytes (caller 0x003EB385 in the condition dispatcher 0x003EA9AF). A
-// BFME2 script condition: false unless the named unit exists and the
-// player parameter resolves to no player; then whether a path exists from
-// the unit to the closest kind-120 object (within 1000000) that passes the
-// player filter for that (null) player.
-//
-// 0x003E83AF (caller 0x003EB3AB) is the team twin: the team's first member
-// (0x0039E8EB) and the closest such object to the team's centre
-// (0x0039E5B9).
-//
-// The filters are BFME2's partition filter chain (the view
-// AIStructureCreepTactic.cpp documents): a vptr, the +0x04 link to the next
-// filter (PartitionFilter::link 0x00625790), then each filter's members;
-// address-derived names after the out-of-line ctor, else after allow
-// (slot 1).
-#include "ascii_string.h"
+// ?rva003E59B0@ScriptConditions@@QAE_NPBVAsciiString@@0PAVParameter@@_N@Z
+// partial score=0.93 date=2026-10-09
+// BANK for ?rva003E59B0@ScriptConditions@@QAE_NPBVAsciiString@@0PAVParameter@@_N@Z
+// (retail 0x003E59B0, 313 bytes, RET 0x10). Add to
+// Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_Rva003E6ED0.cpp
+// (the team twin) with Object gaining getPosition (+0x38), didEnter 0x0028D718
+// and didExit 0x0028D757, and the class declaration of the method; needs /O1
+// (the host file's default flags give 412 bytes), so a separate /O1 unit with
+// the same views is the likely home. Under /O1 it compiles to 314 bytes with
+// the same instructions except: retail keeps the unit in ESI and spills it to
+// the dead unitName argument slot (castle reuses ESI, the CastleBehavior stays
+// in EDI across the area loop), and the shared return-false block sits at the
+// castle-null test rather than the unit-null test.
 
-class Object;
-class Player;
-
-class Rva000421C8
+// ScriptConditions::rva003E59B0, retail 0x003E59B0, 313 bytes (RET 0x10): the
+// unit form of the castle area test below -- the named unit against the named
+// castle or, with no castle name and a player parameter naming no player, the
+// closest KindOf-120 object to the unit through the same filter chain; the
+// unit's didEnter / didExit against the castle's areas 1..7.
+bool ScriptConditions::rva003E59B0(const AsciiString *unitName, const AsciiString *castleName,
+	Parameter *playerParm, bool entered)
 {
-public:
-	Rva000421C8() : m_next(0) {}
-	virtual ~Rva000421C8() {}
-	virtual bool allow(Object *obj) = 0;
-	virtual int getPlayerMask();
-	Rva000421C8 *link(Rva000421C8 *next);	// 0x00625790
-	Rva000421C8 *m_next;
-};
-
-// A KindOfMaskType as the mask filters copy it (0x0004543D).
-class BfmeFixedStorage0004543D
-{
-public:
-	BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &other) throw();
-private:
-	unsigned char m_bytes[28];
-};
-
-// vftable 0x00BC2908, allow 0x002610DE: accept what has every kind of the
-// first mask and none of the second (ZH's PartitionFilterAcceptByKindOf).
-class Rva0004584D : public Rva000421C8
-{
-public:
-	Rva0004584D(const BfmeFixedStorage0004543D &a, const BfmeFixedStorage0004543D &b);
-	virtual bool allow(Object *obj);
-	BfmeFixedStorage0004543D m_08;
-	BfmeFixedStorage0004543D m_24;
-};
-
-// The base filter's slot 2 is the trivial virtual retail shares across many
-// vftable slots (0x0036CC7A); bind the declaration to that row.
-#pragma comment(linker, "/alternatename:?getPlayerMask@Rva000421C8@@UAEHXZ=?Get_File_Handle@FileClass@@UAEPAXXZ")
-
-struct Rva00045411BitSet
-{
-	Rva00045411BitSet(int unused, int bit);	// 0x00045411
-	unsigned int m_bits[7];
-};
-extern unsigned char g_00DFEFA4StoragePrototype[28];
-
-// vftable 0x00BFAD28, allow 0x0026137E, slot 2 0x00261368: +0x08 a
-// player, +0x0C whether a hit allows.
-class Rva0026137EFilter : public Rva000421C8
-{
-public:
-	Rva0026137EFilter(Player *player, bool match) : m_player(player), m_match(match) {}
-	virtual bool allow(Object *obj);
-	virtual int getPlayerMask();
-	Player *m_player;
-	bool m_match;
-};
-
-struct Coord3D
-{
-	float x;
-	float y;
-	float z;
-};
-
-class PolygonTrigger;
-
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0
-};
-
-class Module;
-
-class Object
-{
-public:
-	Module *findModule(NameKeyType key) const;		// 0x0028B6D6
-	bool didEnter(PolygonTrigger *trigger);			// 0x0028D718
-	bool didExit(PolygonTrigger *trigger);			// 0x0028D757
-	char m_pad000[0x38];
-	Coord3D m_pos;		// +0x38
-};
-
-class Parameter
-{
-public:
-	unsigned char m_beforeInt[8];
-	int m_int;
-	float m_real;
-	AsciiString m_string;	// +0x10
-};
-
-class Module
-{
-};
-
-class CastleBehavior : public Module
-{
-public:
-	static NameKeyType rva003955DA();				// 0x003955DA
-	PolygonTrigger *rva00395E53(unsigned int index) const;		// 0x00395E53
-};
-
-class Team
-{
-public:
-	Object *rva0039E8EB();			// 0x0039E8EB
-	void rva0039E5B9(Coord3D *center);	// 0x0039E5B9
-};
-
-class ScriptEngine
-{
-public:
-	Team *getTeamNamed(AsciiString name, bool exact);			// 0x003584E9
-	Object *getUnitNamed(Parameter *parameter);				// 0x003588E7
-	int rva00357475(const AsciiString &name, bool *found);			// 0x00357475
-};
-extern ScriptEngine *TheScriptEngine;
-
-class PlayerList
-{
-public:
-	Player *getPlayerFromMask(int mask);	// 0x002A7B91
-};
-extern PlayerList *ThePlayerList;
-
-class PartitionManager
-{
-public:
-	Object *getClosestObject(const Coord3D *pos, float maxDist, int dc,
-		Rva000421C8 *filters);	// 0x00625360
-};
-extern PartitionManager *ThePartitionManager;
-
-class Pathfinder
-{
-public:
-	bool rva002F477E(Object *obj, const Coord3D *from, const Coord3D *to, int flags);
-};
-
-class AI
-{
-public:
-	Pathfinder *pathfinder() { return m_pathfinder; }
-	char m_pad00[0x10];
-	Pathfinder *m_pathfinder;	// +0x10
-};
-extern AI *TheAI;
-
-class ScriptConditions
-{
-public:
-	bool rva003E5CB1(Parameter *unitParm, Parameter *playerParm);
-	bool rva003E83AF(Parameter *teamParm, Parameter *playerParm);
-	bool rva003E59B0(Parameter *unitParm, Parameter *castleParm, Parameter *playerParm, bool entered);
-};
-
-bool ScriptConditions::rva003E59B0(Parameter *unitParm, Parameter *castleParm, Parameter *playerParm, bool entered)
-{
-	Object *obj = TheScriptEngine->getUnitNamed(unitParm);
-	if (obj == 0)
+	Object *obj = TheScriptEngine->getUnitNamed(*unitName);
+	if (!obj)
 		return false;
 	Object *castle;
-	if (castleParm != 0) {
-		castle = TheScriptEngine->getUnitNamed(castleParm);
+	if (castleName) {
+		castle = TheScriptEngine->getUnitNamed(*castleName);
 	} else {
-		if (playerParm == 0)
+		if (!playerParm)
 			return false;
-		Player *player = ThePlayerList->getPlayerFromMask(TheScriptEngine->rva00357475(playerParm->m_string, 0));
-		if (player != 0)
+		Player *player = ThePlayerList->getPlayerFromMask(TheScriptEngine->rva00357475(playerParm->getString(), 0));
+		if (player)
 			return false;
-		castle = ThePartitionManager->getClosestObject(&obj->m_pos, 1000000.0f, 0,
-			Rva0004584D(*(BfmeFixedStorage0004543D *)&Rva00045411BitSet(0, 120),
-				*(BfmeFixedStorage0004543D *)g_00DFEFA4StoragePrototype).link(&Rva0026137EFilter(player, true)));
+		castle = ThePartitionManager->getClosestObject(obj->getPosition(), REALLY_FAR, 0,
+			Rva0004584D(BfmeFixedStorage0004543D(0, 0x78), *(const BfmeFixedStorage0004543D *)g_00DFEFA4StoragePrototype)
+				.link(&Rva0026137EFilter(player, true)));
 	}
-	if (castle == 0)
+	if (!castle)
 		return false;
-	CastleBehavior *behavior = (CastleBehavior *)castle->findModule(CastleBehavior::rva003955DA());
-	if (behavior == 0)
+	CastleBehavior *behavior = (CastleBehavior *)castle->findModule(CastleBehavior::rva0003955DA());
+	if (!behavior)
 		return false;
 	int i = 0;
 	do {
 		++i;
-		PolygonTrigger *trigger = behavior->rva00395E53(i);
-		if (trigger == 0)
-			break;
-		if (entered ? obj->didEnter(trigger) : obj->didExit(trigger))
+		PolygonTrigger *area = behavior->rva00395E53(i);
+		if (!area)
+			return false;
+		if (entered ? obj->didEnter(area) : obj->didExit(area))
 			return true;
 	} while (i < 7);
 	return false;
-}
-
-
-bool ScriptConditions::rva003E5CB1(Parameter *unitParm, Parameter *playerParm)
-{
-	Object *obj = TheScriptEngine->getUnitNamed(unitParm);
-	if (obj == 0)
-		return false;
-	Player *player = ThePlayerList->getPlayerFromMask(TheScriptEngine->rva00357475(playerParm->m_string, 0));
-	if (player != 0)
-		return false;
-	Object *found = ThePartitionManager->getClosestObject(&obj->m_pos, 1000000.0f, 0,
-		Rva0004584D(*(BfmeFixedStorage0004543D *)&Rva00045411BitSet(0, 120),
-			*(BfmeFixedStorage0004543D *)g_00DFEFA4StoragePrototype).link(&Rva0026137EFilter(player, true)));
-	if (found == 0)
-		return false;
-	return TheAI->pathfinder()->rva002F477E(obj, &obj->m_pos, &found->m_pos, 0);
-}
-
-bool ScriptConditions::rva003E83AF(Parameter *teamParm, Parameter *playerParm)
-{
-	Team *team = TheScriptEngine->getTeamNamed(teamParm->m_string, false);
-	if (team == 0)
-		return false;
-	Object *obj = team->rva0039E8EB();
-	if (obj == 0)
-		return false;
-	Player *player = ThePlayerList->getPlayerFromMask(TheScriptEngine->rva00357475(playerParm->m_string, 0));
-	if (player != 0)
-		return false;
-	Coord3D center;
-	team->rva0039E5B9(&center);
-	Object *found = ThePartitionManager->getClosestObject(&center, 1000000.0f, 0,
-		Rva0004584D(*(BfmeFixedStorage0004543D *)&Rva00045411BitSet(0, 120),
-			*(BfmeFixedStorage0004543D *)g_00DFEFA4StoragePrototype).link(&Rva0026137EFilter(player, true)));
-	if (found == 0)
-		return false;
-	return TheAI->pathfinder()->rva002F477E(obj, &obj->m_pos, &found->m_pos, 0);
 }
