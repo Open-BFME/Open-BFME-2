@@ -381,6 +381,7 @@ class PathfindLayer
 {
 public:
 	bool setDestroyed(bool destroyed);
+    __declspec(noinline) void rva000B3FD0();
 private:
 	char m_pad[0x40];
 };
@@ -1152,3 +1153,10 @@ Bool Pathfinder::CheckDestination(Object *obj,Int cellX,Int cellY,PathfindLayerE
 // address-named adapter reuses the independently supported 36-byte shape view.
 struct Rva002EBCF6 : GeometryShape { Rva002EBCF6(); };
 Rva002EBCF6::Rva002EBCF6() {}
+
+// The native debug draw call sites push coord/float/duration/12-byte color;
+// the layer reset call supplies only ECX. Both release bodies fold to the
+// existing single RET at B3FD0. Separate full C++ providers preserve their ABIs.
+struct PathfinderDebugColor { float red,green,blue; };
+__declspec(noinline) void Rva000B3FD0PathDebug(const Coord3D *,float,Int,PathfinderDebugColor) {}
+__declspec(noinline) void PathfindLayer::rva000B3FD0() {}
