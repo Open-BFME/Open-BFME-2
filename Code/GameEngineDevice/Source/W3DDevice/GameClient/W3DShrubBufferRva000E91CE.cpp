@@ -103,7 +103,10 @@ public:
 
 private:
 	unsigned char prefix[0x5c0];
-	short areaPartition[(0x1958 - 0x5c0) / 2];
+	// Native DoXferE96B4 and WB898B00 clear2500 shorts; the following
+	// four-float bounds at1948 are transferred separately atE9A8A.
+	short areaPartition[2500];
+	float bounds1948[4];
 	Rva000E91CETree trees[2000];
 	int numTrees;
 	unsigned char gap4[2];
