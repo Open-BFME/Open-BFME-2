@@ -1,6 +1,8 @@
 // ?rva0039380F@BuildAssistant@@UAE_NPAVRva0039205C@@PAVObject@@PBUCoord3D@@2I@Z
+// partial score=0.8828 date=2026-10-09
+// ?rva0039380F@BuildAssistant@@UAE_NPAVRva0039205C@@PAVObject@@PBUCoord3D@@2I@Z
 // partial score=0.87755 date=2026-10-09
-// cl: /I. /G7 /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /O1 /EHs /MD /arch:SSE /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_CRTIMP=
+// cl: /I. /G7 /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /O1 /EHs /MD /arch:SSE /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_CRTIMP= /Oy- /Op
 // stlport
 // Bank of 39380F..3940B8 (2217B). Reference: WB F9C000,3555B call graph and native vtable C1A088 slot20.
 // Target establishes module vslots, result offsets, geometry C8, GlobalData A94 and placements/cost calls.
@@ -1511,12 +1513,12 @@ public:
 Real normalizeAngle(Real angle);
 Bool BuildAssistant::rva0039380F(Rva0039205C *out, Object *builder, const Coord3D *start, const Coord3D *end, UnsignedInt key)
 {
- if (!builder || !start || !end) return false;
+ if ((builder == 0) || !start || !end) return false;
  if (!builder->getTemplate()->isKindOfByte(KINDOF_156)) return false;
  Rva0039380FModule *module=(Rva0039380FModule*)((Rva00293330*)builder)->rva00293330(key);
  if (!module) return false;
  const ThingTemplate *hubTemplate=module->getHub();
- if (!hubTemplate) return false;
+ if ((hubTemplate == 0)) return false;
  Object *nearObject;
  nearObject=ThePartitionManager->getClosestObject(end,20.f,FROM_BOUNDINGSPHERE_3D,
   Rva00260E2AFilter(builder->getControllingPlayer()).link(&Rva0004584D(
@@ -1628,7 +1630,7 @@ Bool BuildAssistant::rva0039380F(Rva0039205C *out, Object *builder, const Coord3
   out->setPos(index,&current);out->rva00392129(index,angle);out->rva0039215F(index,hubTemplate->getName());
   Bool blocked=!points.empty();
   for (_STL::vector<Coord3D>::iterator i=points.begin();i!=points.end();++i) {
-   Coord3D diff={current.x-i->x,current.y-i->y,current.z-i->z};
+   const Coord3D diff={current.x-i->x,current.y-i->y,current.z-i->z};
    if (diff.length() <= range) {blocked=false;break;}
   }
   if (blocked) code=9;
