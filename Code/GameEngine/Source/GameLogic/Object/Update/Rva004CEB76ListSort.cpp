@@ -9,6 +9,12 @@
 // retaining that declaration preserves the native potentially-throwing cleanup and exact EH state.
 // Comparator float-copy scheduling is target evidence; x/y/z names are carried from its sibling view.
 #include <list>
+// Reuse the existing stlport_list_int_o1.cpp iterator comparison contract.
+namespace _STL {
+template <class T, class Traits>
+static inline bool operator!=(const _List_iterator<T, Traits>& a,const _List_iterator<T, Traits>& b){return a._M_node!=b._M_node;}
+}
+
 namespace _STL { template<> _List_base<int,allocator<int> >::~_List_base(); }
 class Rva004CEAB7{public:__forceinline ~Rva004CEAB7(){} __forceinline Rva004CEAB7(const Rva004CEAB7&r):x(r.x),y(r.y),z(r.z){}bool rva004CEAB7(void*,void*);float x,y,z;};
 struct Rva004CEB14List{void *head;};
