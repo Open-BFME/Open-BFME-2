@@ -22,7 +22,7 @@
 //     upgrade checks pass), rounded up.
 //   - When the player's filter (+0x1C8) is valid and accepts this object, the
 //     income is scaled by a per-count percentage. The count comes from
-//     Player::iterateObjects with callback 0x00482002, which is unrowed and
+//     Player::iterateObjects with callback 0x00482002 (defined above update), which is unrowed and
 //     declared here only. The percentage is entry count of the +0x1CC int
 //     table, or the last entry less 2% per extra count, clamped at zero.
 //   - The amount is paid through the rowed money member at player +0x90
@@ -148,9 +148,12 @@ public:
 	void rva0039B315(Real amount, Bool a, Bool b, Bool c, Bool d);
 };
 
+enum ObjectStatusTypes { OBJECT_STATUS_TYPES_ANY };
+
 class Object
 {
 public:
+	Bool testStatus(ObjectStatusTypes bit) const;
 	Player *getControllingPlayer() const;
 	Bool rva0028C15E(Int type, Real *value, Int a, Int b);
 	char unknown000[0x38];
@@ -206,7 +209,21 @@ struct TerrainResourceCountData
 	Rva2225E0Filter *filter;
 	Int count;
 };
-Int terrainResourceCountObject(Object *obj, void *userData);
+// ?Rva00482002CountMatching@@YAHPAVObject@@PAX@Z, retail 0x00482002..0x0048202F
+// (45 bytes), cdecl: the Player::iterateObjects callback the update below passes
+// by address. A live object (status 2 clear, rowed Object::testStatus) that the
+// player data's filter accepts (rowed 0x00362437) bumps the count; it always
+// answers 1 to keep iterating. No WorldBuilder twin; the name is address-derived.
+Int Rva00482002CountMatching(Object *obj, void *userData)
+{
+	if (!obj->testStatus((ObjectStatusTypes)2))
+	{
+		TerrainResourceCountData *data = (TerrainResourceCountData *)userData;
+		if (data->filter->accepts(obj, 0))
+			++data->count;
+	}
+	return 1;
+}
 
 class TRB_DeepBase
 {
@@ -272,7 +289,7 @@ UpdateSleepTime TerrainResourceBehavior::update()
 		{
 			data.filter = reinterpret_cast<Rva2225E0Filter *>(filter);
 			data.count = 0;
-			player->iterateObjects(terrainResourceCountObject, &data);
+			player->iterateObjects(Rva00482002CountMatching, &data);
 			const TerrainResourceIntVector &percents = player->m_data->m_percents;
 			Int numPercents = percents.size();
 			if (data.count < numPercents)
