@@ -17170,3 +17170,6 @@ _VP6_ReadTokens,0x001BC3D0,callee of _VP6_DecodeBlock
 ?Load_Texture@@YA?AVBFME2ParticleTextureHandle@@AAVChunkLoadClass@@@Z,0x00132FFB,Counted texture handle loader; native chunk dispatch and hidden-return callers at 18AE72 and 18AEF8; shared ownership view verified across full caller and loader bodies
 ?loadImage@Rva0013107A@@QAEXXZ,0x0013154B,Native full 13154B..131821 and PostLoad same-receiver dispatch plus three adjacent rowed loaders establish neutral owner and no-arg thiscall; descriptive 2D image loader; provider unrowed
 _D3DXGetImageInfoFromFileInMemory@12,0x0062AFA4,PostLoad native REL32 targets complete six-byte FF25 thunk to IAT00BBA9F4; PE d3dx9_27.dll D3DXGetImageInfoFromFileInMemory; three stdcall arguments
+?loadAuxImage@Rva0013107A@@QAE_NXZ,0x00131378,Whole native 131378..13154B and WB separate color/alpha loader; same owner fields and receiver as rowed loaders; AL boolean return and RET0 prove bool member ABI; provider remains unrowed
+_D3DXCheckTextureRequirements@28,0x0062AF86,Native 2D loader calls complete six-byte JMP-IAT thunks; independent PE d3dx9_27.dll named imports; native stack establishes 7 and 15 stdcall arguments
+_D3DXCreateTextureFromFileInMemoryEx@60,0x0062AF7A,Native 2D loader calls complete six-byte JMP-IAT thunks; independent PE d3dx9_27.dll named imports; native stack establishes 7 and 15 stdcall arguments

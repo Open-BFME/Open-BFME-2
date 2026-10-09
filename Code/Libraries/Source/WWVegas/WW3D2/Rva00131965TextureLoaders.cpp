@@ -26,12 +26,14 @@ struct TextureCOM9 {
  virtual void slot3()=0;virtual void slot4()=0;virtual void slot5()=0;virtual void slot6()=0;virtual void slot7()=0;virtual void slot8()=0;virtual void slot9()=0;virtual void slot10()=0;virtual void slot11()=0;virtual void slot12()=0;virtual unsigned __stdcall GetLevelCount()=0;virtual void slot14()=0;virtual void slot15()=0;virtual void slot16()=0;
  virtual long __stdcall GetLevelDesc(unsigned,void*)=0;
  virtual long __stdcall GetVolumeLevel(unsigned,VolumeCOM9**)=0;
+ virtual long __stdcall LockRect(unsigned,void*,const void*,unsigned)=0;
+ virtual long __stdcall UnlockRect(unsigned)=0;
 };
 extern "C" long __stdcall D3DXCreateVolumeTextureFromFileInMemoryEx(void*,const void*,unsigned,unsigned,unsigned,unsigned,unsigned,unsigned,int,int,unsigned,unsigned,unsigned,void*,void*,TextureCOM9**);
 extern "C" long __stdcall D3DXCreateCubeTextureFromFileInMemoryEx(void*,const void*,unsigned,unsigned,unsigned,unsigned,int,int,unsigned,unsigned,unsigned,void*,void*,TextureCOM9**);
 class Rva0013107A {
 public:
- void loadImage();void postLoad(const char *);void loadVolume();void loadCube();void loadVolumeSlices();
+ bool loadAuxImage();void loadImage();void postLoad(const char *);void loadVolume();void loadCube();void loadVolumeSlices();
 private:
  char head[8];TextureCOM9*m_resource;int m_type;char gap[4];char*m_source;unsigned m_size;char gap1[4];char*m_alpha;char gap24[4];unsigned m_width,m_height,m_depth,m_sliceWidth,m_sliceHeight,m_originalDepth;int m_imageMode;unsigned m_mipLevels;int m_preference;int m_format;int m_ready,m_loading;
 };
@@ -148,4 +150,67 @@ void Rva0013107A::postLoad(const char*name) {
   W3DRadarResetSurface(surface).DrawPixel(0,0,0xffff00ff);
   surface->Release();
  }
+}
+
+// Native 0x0013154B..0x00131821 (726 bytes), WB Load2DTexture lead.
+// The same-receiver PostLoad dispatch and adjacent rowed loaders establish
+// the neutral owner. The packed TGA header and reverse-row 24/32-bit upload,
+// DDS mip skip, D3D9 slots, and base-interface ownership follow retail.
+// Error-first creation and the bounded even-ratio loop preserve native block
+// placement. The separate-alpha provider returns bool; its complete retail
+// body proves that ABI although its result is unused by this caller.
+extern "C" long __stdcall D3DXCheckTextureRequirements(void*,unsigned*,unsigned*,unsigned*,unsigned,int*,int);
+extern "C" long __stdcall D3DXCreateTexture(void*,unsigned,unsigned,unsigned,unsigned,int,int,TextureCOM9**);
+extern "C" long __stdcall D3DXCreateTextureFromFileInMemoryEx(void*,const void*,unsigned,unsigned,unsigned,unsigned,unsigned,int,int,unsigned,unsigned,unsigned,void*,void*,TextureCOM9**);
+extern "C" void *__cdecl memcpy(void*,const void*,unsigned);
+struct TextureLockedRect {int pitch;unsigned char *bits;};
+#pragma pack(push,1)
+struct TextureTgaHeader {unsigned char id,colorMap,type;char rest[9];short width,height;unsigned char bits,flags;};
+#pragma pack(pop)
+void Rva0013107A::loadImage() {
+ TextureDeviceLock lock;TextureCOM9 *texture=0;bool loaded=false;
+ if(m_alpha){loadAuxImage();}
+ else {
+  const TextureTgaHeader *header=(const TextureTgaHeader*)m_source;
+  if(m_imageMode==2 && header->type==2 && header->id==0 && header->colorMap==0 && (header->bits==24||header->bits==32) && header->width%4==0 && !(header->flags&0xf0)){
+   int format=header->bits==24?22:21;
+   if(D3DXCheckTextureRequirements(DX8Wrapper::D3DDevice,&m_width,&m_height,0,0,&format,1)>=0 && m_width==(int)header->width && m_height==(int)header->height && format==(header->bits==24?22:21)) {
+    if(D3DXCreateTexture(DX8Wrapper::D3DDevice,header->width,header->height,m_mipLevels,0,format,1,&texture)<0)texture=0;
+    else {
+     TextureLockedRect rect;
+     if(texture->LockRect(0,&rect,0,0x800)>=0){
+      unsigned char *dst=rect.bits+(header->height-1)*rect.pitch;
+      const unsigned char *src=(const unsigned char*)m_source+18;
+      if(header->bits==24){
+       for(int y=header->height;y>0;--y){
+        unsigned char *d=dst;const unsigned char*p=src;
+        for(int x=header->width/4;x>0;--x){
+         d[0]=p[0];d[1]=p[1];d[2]=p[2];d[4]=p[3];d[5]=p[4];d[6]=p[5];d[8]=p[6];d[9]=p[7];d[10]=p[8];d[12]=p[9];d[13]=p[10];d[14]=p[11];p+=12;d+=16;
+        }
+        dst-=rect.pitch;src+=header->width*3;
+       }
+      } else {
+       int stride=header->width*4;
+       for(int y=header->height;y>0;--y){memcpy(dst,src,stride);src+=stride;dst-=rect.pitch;}
+      }
+      texture->UnlockRect(0);
+     }
+     if(m_mipLevels!=1)D3DXFilterTexture(texture,0,0,5);
+     loaded=true;
+    }
+   }
+  }
+  if(!loaded) {
+   int skip=0;
+   if(m_imageMode==4){
+    int ratio=m_sliceWidth/m_width;
+    if(ratio>1 && m_width*ratio==m_sliceWidth && m_height*ratio==m_sliceHeight){
+     while(ratio>1 && !(ratio&1)){ratio>>=1;++skip;}
+     if(ratio!=1)skip=0;
+    }
+   }
+   if(D3DXCreateTextureFromFileInMemoryEx(DX8Wrapper::D3DDevice,m_source,m_size,m_width,m_height,m_mipLevels,0,m_format,1,-1,((skip&31)<<26)|5,0,0,0,&texture)<0)texture=0;
+  }
+ }
+ if(texture){TextureSurfaceDesc desc;texture->GetLevelDesc(0,&desc);m_format=desc.format;texture->QueryInterface(TextureBaseInterfaceID,reinterpret_cast<void **>(&m_resource));texture->Release();texture=0;}
 }
