@@ -96,21 +96,24 @@ public:
 	virtual Object *getClosestSlave( const Coord3D *pos );
 };
 
+// BuildAssistant.cpp declares eight UnsignedInt KindOf words at +0x108 (0x20 bytes); this byte view preserves the call site's mask indexing.
+class ThingTemplate
+{
+public:
+	unsigned char m_pre108[0x108];
+	unsigned char m_kindOfBytes[0x20];
+};
+
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Object.h
 class Object
 {
 public:
+	unsigned char m_pre000[4];
+	const ThingTemplate *m_template004;
+
 	Bool isEffectivelyDead() const
 	{
 		return (*(const unsigned char *)((const char *)this + 0x438) & 1) != 0;
-	}
-
-	// BFME2 tests KindOf inline on the template's bitset at +0x108.
-	__forceinline Bool isKindOf( KindOfType kind ) const
-	{
-		const unsigned char *bits =
-			*(const unsigned char *const *)((const char *)this + 4) + 0x108;
-		return (bits[kind >> 3] & (1 << (kind & 7))) != 0;
 	}
 
 	Bool testStatus( ObjectStatusTypes bit ) const;
@@ -211,14 +214,14 @@ CanAttackResult ActionManager::getCanAttackObject( const Object *obj,
 		return ATTACKRESULT_NOT_POSSIBLE;
 
 	CanAttackResult result;
-	if (obj->isKindOf(KINDOF_STRUCTURE))
+	if ((obj->m_template004->m_kindOfBytes[KINDOF_STRUCTURE >> 3] & (1 << (KINDOF_STRUCTURE & 7))) != 0)
 	{
 		result = bfmeGetCanAttackContained(obj, objectToAttack, commandSource, attackType);
 		if (result != ATTACKRESULT_NOT_POSSIBLE)
 			return result;
 	}
 
-	if (obj->isKindOf(KINDOF_SPAWNS_ARE_THE_WEAPONS))
+	if ((obj->m_template004->m_kindOfBytes[KINDOF_SPAWNS_ARE_THE_WEAPONS >> 3] & (1 << (KINDOF_SPAWNS_ARE_THE_WEAPONS & 7))) != 0)
 	{
 		SpawnBehaviorInterface *spawnInterface = obj->getSpawnBehaviorInterface();
 		if (spawnInterface)
