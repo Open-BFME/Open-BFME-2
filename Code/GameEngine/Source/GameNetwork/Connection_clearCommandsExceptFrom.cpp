@@ -12,8 +12,8 @@ public:
 class NetCommandRef
 {
 public:
-	NetCommandMsg *getCommand() { return m_msg; }
-	NetCommandRef *getNext() { return m_next; }
+	__declspec(dllimport) __forceinline NetCommandMsg *getCommand() { return m_msg; }
+	__declspec(dllimport) __forceinline NetCommandRef *getNext() { return m_next; }
 	~NetCommandRef();
 
 	NetCommandMsg *m_msg;

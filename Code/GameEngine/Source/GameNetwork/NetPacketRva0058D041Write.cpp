@@ -31,8 +31,8 @@ public:
 class NetCommandRef
 {
 public:
-	NetCommandMsg *getCommand() { return m_msg; }
-	UnsignedByte getRelay() const { return m_relay; }
+	__declspec(dllimport) __forceinline NetCommandMsg *getCommand() { return m_msg; }
+	__declspec(dllimport) __forceinline UnsignedByte getRelay() const { return m_relay; }
 	NetCommandMsg *m_msg;
 	NetCommandRef *m_next;
 	NetCommandRef *m_prev;
