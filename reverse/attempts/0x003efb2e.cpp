@@ -1,5 +1,5 @@
-// ?FindShortestPath@LivingWorldPathFinder@@QAEHPAVLivingWorldSearchCallback@@HHHPAV?$vector@W4ObjectID@@V?$allocator@W4ObjectID@@@_STL@@@_STL@@H@Z
-// partial score=0.9296945084 date=2026-10-09
+// ?Pathfind@LivingWorldPathFinder@@QAE_NPAVLivingWorldSearchCallback@@HPAV?$vector@W4ObjectID@@V?$allocator@W4ObjectID@@@_STL@@@_STL@@PAHH@Z
+// partial score=0.8541795666 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
 // stlport
 // BFME1 donor9cbfb551 LivingWorldPathFinder.cpp guides the open/closed queues,
