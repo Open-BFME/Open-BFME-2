@@ -351,11 +351,13 @@ Rva002D252B::Rva002D252B(EmitVtableTag *)
 {
 }
 
+// Base destructor7B is rowed from RadarWindowOverrideCreatePing.cpp.
+// Keep this identical inline view so scalar29 expands the vtable restore.
 class Rva002D3556
 {
 public:
 	Rva002D3556(EmitVtableTag *);
-	virtual ~Rva002D3556();
+	virtual ~Rva002D3556() {}
 	virtual void rva002D3D2A() = 0;
 	virtual void rva002D4AEF(float, float) = 0;
 	virtual void rva002D4BA5() = 0;
@@ -364,12 +366,6 @@ public:
 
 // ?<Rva002D3556::Rva002D3556> absent-from-retail
 Rva002D3556::Rva002D3556(EmitVtableTag *)
-{
-}
-
-// ??1Rva002D3556@@UAE@XZ @0x002D3354 7B: the empty dtor, restoring the vtable;
-// the deleting dtor still expands it inline.
-Rva002D3556::~Rva002D3556()
 {
 }
 

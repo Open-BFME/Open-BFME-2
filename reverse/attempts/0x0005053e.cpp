@@ -1,9 +1,25 @@
 // ?draw@W3DRadar@@QAEXHHHHH@Z
-// partial score=1.0 date=2026-10-09
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/moduledata
-// Native5053E..50A60 RET20. BF1 f989 W3DRadar::draw / ZH guide; target
-// independently supplies five-arg alpha, dirty-overlay and display clipping.
+// partial score=1.0 date=2026-10-10
+// ?draw@W3DRadar@@QAEXHHHHH@Z
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/moduledata /Ireference/shims/subsystem_bfme2 /Ireference/shims/bfme2_ascii
+// Native [0x0005053E,0x00050A60),1314B, RET20. BFME1 W3DRadar::draw
+// at f98983a7d3bb405f1a4ba94bb6a2a168062a819d and GeneralsMD W3DRadar.cpp
+// guide the aspect bars, overlay refresh, texture layers and view-box order.
+// Target evidence supplies alpha argument5, clipping and dirty-overlay checks,
+// exact fields14/18/1434..1498/14D4..14DF, and view slots64/73. Existing Radar
+// ctor/dtor at2D87B9/2D7CED prove Snapshot + twelve-byte SubsystemInterface.
+// Its existing BFME2 subsystem header is used unchanged.
+// Direct callee interfaces are target facts, not inferred from byte matching:
+// 50125..5053E RET12 receives list/texture-slot/colour under Radar ECX;
+// 4E5A2..4E704 RET20 walks64 events of stride50 at+2C and projects pings;
+// 4DBD5..4DDBF RET20 projects the four view corners and forwards to2D55D2.
+// The last two take the same origin/dimensions/unused-colour stack arguments.
+// Reconstruction banks preserve their implementations and remaining codegen
+// blockers; their direct in-image pins add no recovered callee bytes.
 #include "Common/Snapshot.h"
+// stlport
+typedef bool Bool;
+#include "subsystem_interface.h"
 struct ICoord2D{int x,y;};
 struct Coord3D{float x,y,z;};
 struct Region3D{Coord3D lo,hi;float width()const{return hi.x-lo.x;}float height()const{return hi.y-lo.y;}};
@@ -171,13 +187,12 @@ virtual void slot29();
 virtual void slot30();
 virtual unsigned getFrame();
 };extern GameClient*TheGameClient;
-class SubsystemInterface{public:virtual~SubsystemInterface();virtual void draw(int,int,int,int)=0;};
 class Radar:public Snapshot,public SubsystemInterface{public:void findDrawPositions(int,int,int,int,ICoord2D*,ICoord2D*);void rva0004F515(int,int,int,int);};extern Radar*TheRadar;
 class W3DRadar:public Radar{public:void draw(int,int,int,int,int);
 void rva00050125(const RadarObject*,const CursorTextureSlot*,int);
 void rva0004E5A2(int,int,int,int,int);
 void reconstructViewBox();void drawViewBox(int,int,int,int,int);
-char pad08[0x14-8];RadarObject*list1;RadarObject*list2;
+char pad10[0x14-0x10];RadarObject*list1;RadarObject*list2;
 char pad1c[0x1434-0x1c];Region3D extent;
 float clipRect[4];bool clip;char pad145d[0x1464-0x145d];bool dirty;char pad1465[3];
 int terrainFormat;Image*terrain;CursorTextureSlot terrainTex,altTerrainTex;
