@@ -1,4 +1,6 @@
 // ?buildCastleStructure@CastleBehavior@@QAEPAVObject@@PAVBuildListInfo@@_N@Z
+// partial score=0.86 date=2026-10-09
+// ?buildCastleStructure@CastleBehavior@@QAEPAVObject@@PAVBuildListInfo@@_N@Z
 // partial score=0.85 date=2026-10-08
 // Native 00396311..00396722, 1041B; WB ebc8c0 names CastleBehavior::buildCastleStructure.
 // Semantic matrix lead: Open-BFME-1 ba7ddda7e8f261163972ddbe23c7e7a12ac5b84f WWMath matrix3d.h Transform_Vector.
@@ -13,7 +15,7 @@
 #include "Code/Libraries/Include/Lib/Coord3D.h"
 template<class T> inline T& field(void* p,int n) { return *(T*)((char*)p+n); }
 class BuildListInfo { public: float angle() const { return *(const float*)((const char*)this+0x20); } AsciiString rva000AF1DD() const; };
-class ThingTemplate;
+class ThingTemplate { public: bool kind10A() const { return *((const unsigned char*)this+0x10a)&2; } };
 class ThingFactory { public: const ThingTemplate* findTemplate(const AsciiString&); };
 extern ThingFactory* TheThingFactory;
 class Player;
@@ -63,7 +65,8 @@ extern ScriptEngine* TheScriptEngine;
 extern int g_009BA4E8;
 float normalizeAngle(float);
 class Rva003955AFData { public: int query(int,int,float,int,int); };
-class CastleBehavior { public: Object* getOwner() const { return *(Object*const*)((const char*)this+8); } Object* buildCastleStructure(BuildListInfo*,bool); };
+class CastleBehavior { public: Object* getOwner() const { return *(Object*const*)((const char*)this+8); }
+ void* getData() const { return *(void*const*)((const char*)this+4); } Object* buildCastleStructure(BuildListInfo*,bool); };
 Object* CastleBehavior::buildCastleStructure(BuildListInfo* record,bool instant) {
  Object* created=0;
  void* data=field<void*>(this,4);
@@ -83,10 +86,10 @@ Object* CastleBehavior::buildCastleStructure(BuildListInfo* record,bool instant)
  pos.x=p.X; pos.y=p.Y; pos.z=p.Z;
  float angle=owner->orientation(); angle+=record->angle();
  angle=normalizeAngle(angle);
- if(!(field<unsigned char>((void*)type,0x10a)&2) && field<Rva003955AFData*>(this,4)->query((int)&pos,(int)type,angle,5,(int)getOwner())) return 0;
+ if(!(type->kind10A()) && ((Rva003955AFData*)getData())->query((int)&pos,(int)type,angle,5,(int)getOwner())) return 0;
  created=((CastleFactoryView*)((char*)this+0x20))->create(getOwner(),type,&pos,angle,player,instant);
  if(created) {
-  if((field<unsigned char>((void*)type,0x10a)&2) && field<bool>(data,0x75) && getOwner()) {
+  if((type->kind10A()) && field<bool>(data,0x75) && getOwner()) {
    CastleBodyView* from=getOwner()->body();
    CastleBodyView* to=created->body();
    if(from && to) {
