@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/sweep /O1 /G7 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/sweep /O1 /G7 /MD /EHsc /ICode/GameEngine/Source/Common
 // BFME1 donor9cbfb551fe20dae985f91f2319d8997287b6a705:
 // game/GameEngine/Source/Common/System/RecorderStartRecording.cpp and
 // RecorderLogGameStart.cpp. ZH Recorder.cpp supplies their purpose; WB
@@ -79,11 +79,12 @@ public:
 virtual void slot0();virtual void slot1();virtual void slot2();virtual void slot3();virtual void slot4();virtual void slot5();virtual void slot6();virtual void slot7();virtual void slot8();virtual void reset();
  char pad004[0x10-4];FILE*m_file;UnicodeString m_fileName;int field0018;int m_mode;int field0020;
  GameInfo m_gameInfo;char padGameInfo[0xe60-0x24-sizeof(GameInfo)];int field0e60,field0e64;char padE68[8];bool m_doingAnalysis;char padE71[3];int m_gameMode;
+public:void stopRecording();
 protected:
  void writeToFile(GameMessage*);
  void appendNextCommand();
  void updateRecord();
- void stopRecording();
+
  void logGameStart(AsciiString);
  void startRecording(int difficulty,int gameMode,int rankPoints,int maxFPS);
 };
@@ -401,3 +402,33 @@ void RecorderClass::appendNextCommand()
     ::delete parser;
 }
 
+
+// BFME1 Recorder_updateRecord.cpp donor; WB F55FF0 Recorder.cpp callgraph.
+// BFME2 excludes game modes4/7 and requires native GameLogic114==3.
+// The mode stored by this body is RecorderE74; the target stop routine
+// handles the log/close/reset sequence that BFME1 wrote inline.
+void RecorderClass::updateRecord()
+{
+ bool needFlush=false;
+ static int lastFrame=-1;
+ for(GameMessage*message=TheCommandList->first;message;message=message->m_next){
+  if(message->getType()==GameMessage::MSG_NEW_GAME){
+   int gameMode=message->getArgument(0)->integer;
+   if(gameMode==4||gameMode==7||TheGameLogic->m_114!=3)return;
+   if(gameMode!=1&&gameMode!=5)return;
+   m_gameMode=message->getArgument(0)->integer;
+   lastFrame=0;
+   int difficulty=1;
+   if(message->getArgumentCount()>=2)difficulty=message->getArgument(1)->integer;
+   int rankPoints=0;
+   if(message->getArgumentCount()>=3)rankPoints=message->getArgument(2)->integer;
+   int maxFPS=0;
+   if(message->getArgumentCount()>=4)maxFPS=message->getArgument(3)->integer;
+   startRecording(difficulty,m_gameMode,rankPoints,maxFPS);
+  }else if(message->getType()==GameMessage::MSG_CLEAR_GAME_DATA){
+   if(m_file){lastFrame=-1;writeToFile(message);stopRecording();}
+   m_fileName.clear();
+  }else if(m_file&&message->getType()>GameMessage::MSG_BEGIN_NETWORK_MESSAGES&&message->getType()<GameMessage::MSG_END_NETWORK_MESSAGES){writeToFile(message);needFlush=true;}
+ }
+ if(needFlush)fflush(m_file);
+}
