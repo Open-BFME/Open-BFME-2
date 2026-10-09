@@ -16977,3 +16977,4 @@ _isalnum,0x00629AF6,msvcr71 isalnum import stub called directly by the URL escap
 _D3DXMatrixMultiply@12,0x0062AF26,First named PE import thunk: FF25 IAT00BBA9B4 independently declares d3dx9_27.dll!D3DXMatrixMultiply; native setShroudTex arguments agree with stdcall SDK ABI
 _D3DXMatrixScaling@16,0x0062AF2C,First named PE import thunk: FF25 IAT00BBA9B8 independently declares d3dx9_27.dll!D3DXMatrixScaling; native setShroudTex arguments agree with stdcall SDK ABI
 _D3DXMatrixTranslation@16,0x0062AF32,First named PE import thunk: FF25 IAT00BBA9BC independently declares d3dx9_27.dll!D3DXMatrixTranslation; native setShroudTex arguments agree with stdcall SDK ABI
+?drawHiliteBar@@YAXPBVImage@@00HHHH@Z,0x000A273F,ZH drawHiliteBar three-image BFME2 variant; native caller A283D at A29D1 passes bar geometry in the TU-private ABI; complete 254B retail span and image tiling plus clipping slots A8/B0 establish identity

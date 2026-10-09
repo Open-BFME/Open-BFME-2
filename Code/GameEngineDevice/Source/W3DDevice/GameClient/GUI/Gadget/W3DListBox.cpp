@@ -1,4 +1,4 @@
-// cl: /FIzh_ascii.h /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /Ireference/shims/bfme2gwm /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/open-bfme-1/reference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main
+// cl: /O1 /G7 /arch:SSE /FIzh_ascii.h /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /Ireference/shims/bfme2gwm /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/open-bfme-1/reference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main
 // stlport
 #define Matrix4x4 Matrix4  // BFME renamed it
 #define __PLACEMENT_VEC_NEW_INLINE  // always.h/GameMemory.h define array placement-new themselves
@@ -61,7 +61,24 @@
 #include "GameClient/GameWindowManager.h"
 #include "GameClient/GadgetListBox.h"
 #include "W3DDevice/GameClient/W3DGadget.h"
-#include "W3DDevice/GameClient/W3DDisplay.h"
+
+
+class Display
+{
+public:
+	virtual void pad00(); virtual void pad01(); virtual void pad02(); virtual void pad03(); virtual void pad04(); virtual void pad05();
+	virtual void pad06(); virtual void pad07(); virtual void pad08(); virtual void pad09(); virtual void pad10(); virtual void pad11();
+	virtual void pad12(); virtual void pad13(); virtual void pad14(); virtual void pad15(); virtual void pad16(); virtual void pad17();
+	virtual void pad18(); virtual void pad19(); virtual void pad20(); virtual void pad21(); virtual void pad22(); virtual void pad23();
+	virtual void pad24(); virtual void pad25(); virtual void pad26(); virtual void pad27(); virtual void pad28(); virtual void pad29();
+	virtual void pad30(); virtual void pad31(); virtual void pad32(); virtual void pad33(); virtual void pad34(); virtual void pad35();
+	virtual void pad36(); virtual void pad37(); virtual void pad38(); virtual void pad39(); virtual void pad40(); virtual void pad41();
+	virtual void setClipRegion(IRegion2D *region);
+	virtual Bool isClippingEnabled();
+	virtual void enableClipping(Bool onoff);
+};
+extern Display *TheDisplay;
+
 
 #undef GadgetListBoxGetEnabledSelectedItemColor
 
@@ -94,19 +111,35 @@ public:
 	virtual void unused05();
 	virtual void setFont(GameFont *font);
 	virtual GameFont *getFont();
-	virtual void unused08();
+	virtual void setWordWrap(Int width);
 	virtual void unused09();
 	virtual void setTextColor(Color color, Color border);
 	virtual void unused11();
 	virtual void unused12();
 	virtual void unused13();
 	virtual void draw(Int x, Int y, Int color, Int border);
+ virtual void getSize(Int *width,Int *height);
+ virtual void unused16();virtual void unused17();virtual void unused18();virtual void unused19();
+ virtual void setClipRegion(IRegion2D *region);
 };
 
-struct BfmeListboxData
-{
-	unsigned char m_unreconstructed_000[0x24];
-	GameWindow *slider;
+// Target-observed list and cell fields; ZH names are semantic provenance.
+struct BfmeListEntryCell {
+ Int cellType,alignment;Color color;void *data,*userData;Int width,height;
+};
+struct BfmeListEntryRow {
+ Int listHeight,height;BfmeListEntryCell *cell;Int unreconstructed_0c;
+};
+struct BfmeListboxData {
+ Short listLength,columns;Int *columnWidthPercentage;
+ Bool autoScroll,autoPurge,scrollBar,multiSelect;
+ unsigned char unreconstructed_0c[4];Bool hideSelection;
+ unsigned char unreconstructed_11;Bool useAlternate,hasAlternate;
+ Int *columnWidth;BfmeListEntryRow *listData;
+ GameWindow *upButton,*downButton,*slider;
+ Int totalHeight;Short endPos,insertPos;
+ Int alternatePos,selectPos;Int *selections;
+ Short displayHeight;UnsignedInt doubleClickTime;Short displayPos;
 };
 
 inline const Image *bfmeListEnabledImage(GameWindow *window)
@@ -165,112 +198,69 @@ static const Image *(*s_bfmeKeepListHiliteImage)(GameWindow *) = GadgetListBoxGe
 // drawHiliteBar ==============================================================
 /** Draw image for the hilite bar */
 //=============================================================================
-static void drawHiliteBar( const Image *left, const Image *right, 
-													 const Image *center, const Image *smallCenter, 
-													 Int startX, Int startY,
-													 Int endX, Int endY )
+static void drawHiliteBar(const Image *left, const Image *right,
+	const Image *center,
+	Int startX, Int startY,
+	Int endX, Int endY)
 {
-	ICoord2D barWindowSize;  // end point of bar from window origin
-	Int xOffset = 0, yOffset = 0;  // incase we want this functionality later
+	ICoord2D barWindowSize;
+	Int xOffset = 0, yOffset = 0;
 	ICoord2D start, end;
 	Int i;
 	IRegion2D clipRegion;
 
-
-
 	barWindowSize.x = endX - startX;
 	barWindowSize.y = endY - startY;
 
-	//
-	// the bar window size will always be at least big enough to accomodate
-	// the left and right ends
-	//
-	if( barWindowSize.x < left->getImageWidth() + right->getImageWidth() )
+	if (barWindowSize.x < left->getImageWidth() + right->getImageWidth())
 		barWindowSize.x = left->getImageWidth() + right->getImageWidth();
 
-	// get image sizes for the ends
 	ICoord2D leftSize, rightSize;
 	leftSize.x = left->getImageWidth();
 	leftSize.y = left->getImageHeight();
 	rightSize.x = right->getImageWidth();
 	rightSize.y = right->getImageHeight();
 
-	// get two key points used in the end drawing
 	ICoord2D leftEnd, rightStart;
 	leftEnd.x = startX + leftSize.x + xOffset;
 	leftEnd.y = startY + barWindowSize.y + yOffset;
 	rightStart.x = startX + barWindowSize.x - rightSize.x + xOffset;
 	rightStart.y = startY + yOffset;
 
-	// draw the center repeating bar
 	Int centerWidth, pieces;
 
-	// get width we have to draw our repeating center in
 	centerWidth = rightStart.x - leftEnd.x;
 
-	// how many whole repeating pieces will fit in that width
 	pieces = centerWidth / center->getImageWidth();
 
-
-
-	// draw the pieces
 	start.x = leftEnd.x;
 	start.y = startY + yOffset;
 	end.y = start.y + barWindowSize.y;
-	for( i = 0; i < pieces; i++ )
+	for (i = 0; i < pieces; i++)
 	{
-
 		end.x = start.x + center->getImageWidth();
-		TheWindowManager->winDrawImage( center, 
-																		start.x, start.y,
-																		end.x, end.y );
+		TheWindowManager->winDrawImage(center,
+			start.x, start.y,
+			end.x, end.y);
 		start.x += center->getImageWidth();
+	}
 
-	}  // end for i
-
-	//
-	// how many small repeating pieces will fit in the gap from where the
-	// center repeating bar stopped and the right image, draw them
-	// and overlapping underneath where the right end will go
-	//
-		// set the text clip region to the outline of the listbox
 	clipRegion.lo.x = leftEnd.x;
 	clipRegion.lo.y = startY + yOffset;
 	clipRegion.hi.x = leftEnd.x + centerWidth;
 	clipRegion.hi.y = start.y + barWindowSize.y;
 	TheDisplay->setClipRegion(&clipRegion);
-	centerWidth = rightStart.x - start.x;
-	if( centerWidth )
-	{
-
-		pieces = centerWidth / smallCenter->getImageWidth() + 1;
-		end.y = start.y + barWindowSize.y;
-		for( i = 0; i < pieces; i++ )
-		{
-
-			end.x = start.x + smallCenter->getImageWidth();
-			TheWindowManager->winDrawImage( smallCenter,
-																			start.x, start.y,
-																			end.x, end.y );
-			start.x += smallCenter->getImageWidth();
-
-		}  // end for i
-
-	}  // end if
 	TheDisplay->enableClipping(FALSE);
-	// draw left end
 	start.x = startX + xOffset;
 	start.y = startY + yOffset;
 	end = leftEnd;
 	TheWindowManager->winDrawImage(left, start.x, start.y, end.x, end.y);
 
-	// draw right end
 	start = rightStart;
 	end.x = start.x + rightSize.x;
 	end.y = start.y + barWindowSize.y;
 	TheWindowManager->winDrawImage(right, start.x, start.y, end.x, end.y);
-
-}  // end drawHiliteBar
+}
 
 // drawListBoxText ============================================================
 /** Draw the text for a listbox */
@@ -280,7 +270,7 @@ static void drawListBoxText( GameWindow *window, WinInstanceData *instData,
 													 Bool useImages )
 {
 	Int drawY;
-	ListboxData *list = (ListboxData *)window->winGetUserData();
+	BfmeListboxData *list = (BfmeListboxData *)window->winGetUserData();
 	Int i;
 	Bool selected;
 	Int listLineHeight;
@@ -344,12 +334,13 @@ static void drawListBoxText( GameWindow *window, WinInstanceData *instData,
 		}
 		else
 		{
-			if( i == list->selectPos )
-				selected = TRUE;
+			if(list->useAlternate && list->hasAlternate) {
+                if(i==list->alternatePos)selected=TRUE;
+            }else if(i==list->selectPos)selected=TRUE;
 		}
 
 		// this item is selected, draw the selection color or image
-		if( selected )
+		if( selected && !list->hideSelection )
 		{
 			
 			if( useImages )
@@ -359,28 +350,28 @@ static void drawListBoxText( GameWindow *window, WinInstanceData *instData,
 				if( BitTest( window->winGetStatus(), WIN_STATUS_ENABLED ) == FALSE )
 				{
 
-					left				= GadgetListBoxGetDisabledSelectedItemImageLeft( window );
-					right				= GadgetListBoxGetDisabledSelectedItemImageRight( window );
-					center			= GadgetListBoxGetDisabledSelectedItemImageCenter( window );
-					smallCenter = GadgetListBoxGetDisabledSelectedItemImageSmallCenter( window );
+					left				= *(const Image **)((const char *)window + 0xc0);
+					right				= *(const Image **)((const char *)window + 0xcc);
+					center			= *(const Image **)((const char *)window + 0xd8);
+					smallCenter = *(const Image **)((const char *)window + 0xe4);
 
 				}  // end if
 				else if( BitTest( instData->getState(), WIN_STATE_HILITED ) )
 				{
 
-					left				= GadgetListBoxGetHiliteSelectedItemImageLeft( window );
-					right				= GadgetListBoxGetHiliteSelectedItemImageRight( window );
-					center			= GadgetListBoxGetHiliteSelectedItemImageCenter( window );
-					smallCenter = GadgetListBoxGetHiliteSelectedItemImageSmallCenter( window );
+					left				= *(const Image **)((const char *)window + 0x12c);
+					right				= *(const Image **)((const char *)window + 0x138);
+					center			= *(const Image **)((const char *)window + 0x144);
+					smallCenter = *(const Image **)((const char *)window + 0x150);
 				
 				}  // end else if
 				else
 				{
 
-					left				= GadgetListBoxGetEnabledSelectedItemImageLeft( window );
-					right				= GadgetListBoxGetEnabledSelectedItemImageRight( window );
-					center			= GadgetListBoxGetEnabledSelectedItemImageCenter( window );
-					smallCenter = GadgetListBoxGetEnabledSelectedItemImageSmallCenter( window );
+					left				= *(const Image **)((const char *)window + 0x54);
+					right				= *(const Image **)((const char *)window + 0x60);
+					center			= *(const Image **)((const char *)window + 0x6c);
+					smallCenter = *(const Image **)((const char *)window + 0x78);
 
 				}  // end else
 
@@ -401,7 +392,9 @@ static void drawListBoxText( GameWindow *window, WinInstanceData *instData,
 					start.y = clipRegion.lo.y;
 
 				if( left && right && center && smallCenter )
-					drawHiliteBar( left, right, center, smallCenter, start.x + 1, start.y, end.x , end.y );
+					drawHiliteBar( left, right, center, start.x + 1, start.y, end.x , end.y );
+                else if(center)
+                  TheWindowManager->winDrawImage(center,start.x+1,start.y,end.x,end.y);
 
 			}  // end if, use images
 			else
@@ -411,18 +404,18 @@ static void drawListBoxText( GameWindow *window, WinInstanceData *instData,
 
 				if( BitTest( window->winGetStatus(), WIN_STATUS_ENABLED ) == FALSE )
 				{
-					selectColor  = GadgetListBoxGetDisabledSelectedItemColor( window );
-					selectBorder = GadgetListBoxGetDisabledSelectedItemBorderColor( window );
+					selectColor  = *(const Color *)((const char *)window + 0xc4);
+					selectBorder = *(const Color *)((const char *)window + 0xc8);
 				}  // end if, disabled
 				else if( BitTest( instData->getState(), WIN_STATE_HILITED ) )
 				{
-					selectColor  = GadgetListBoxGetHiliteSelectedItemColor( window );
-					selectBorder = GadgetListBoxGetHiliteSelectedItemBorderColor( window );
+					selectColor  = *(const Color *)((const char *)window + 0x130);
+					selectBorder = *(const Color *)((const char *)window + 0x134);
 				}  // end else if, hilited
 				else
 				{
-					selectColor  = GadgetListBoxGetEnabledSelectedItemColor( window );
-					selectBorder = GadgetListBoxGetEnabledSelectedItemBorderColor( window );
+					selectColor  = *(const Color *)((const char *)window + 0x58);
+					selectBorder = *(const Color *)((const char *)window + 0x5c);
 				}  // end else, enabled
 
 				// draw border
@@ -477,9 +470,9 @@ static void drawListBoxText( GameWindow *window, WinInstanceData *instData,
 
 		
 		Color dropColor = TheWindowManager->winMakeColor( 0, 0, 0, 255 );
-		DisplayString *string;
+		BfmeListDisplayString *string;
 
-		ListEntryCell *cells = list->listData[i].cell;
+		BfmeListEntryCell *cells = list->listData[i].cell;
 		Int columnX = x;
 		IRegion2D columnRegion;
 		if( cells )
@@ -489,12 +482,14 @@ static void drawListBoxText( GameWindow *window, WinInstanceData *instData,
 			{
 				// setup the Clip Region size
 
-				columnRegion.lo.x = columnX;
+				Int cellColumnWidth;
+                columnRegion.lo.x = columnX;
 				columnRegion.lo.y = drawY;
 				if(list->columns == 1 && list->slider && list->slider->winIsHidden())
-					columnRegion.hi.x = columnX + width-3;
+					cellColumnWidth=width-3;
 				else
-					columnRegion.hi.x = columnX + list->columnWidth[j];
+					cellColumnWidth=list->columnWidth[j];
+                columnRegion.hi.x=columnX+cellColumnWidth;
 				columnRegion.hi.y = drawY + list->listData[i].height;
 				if(columnRegion.lo.y < clipRegion.lo.y )
 					columnRegion.lo.y = clipRegion.lo.y;
@@ -505,37 +500,23 @@ static void drawListBoxText( GameWindow *window, WinInstanceData *instData,
 				if(cells[j].cellType == LISTBOX_TEXT)
 				{
 					textColor = cells[j].color;
-					string = (DisplayString *)cells[j].data;
+					string = (BfmeListDisplayString *)cells[j].data;
 					if( BitTest( window->winGetStatus(), WIN_STATUS_ONE_LINE ) == TRUE )
-					{
-						string->setWordWrap(0);
-						// make sure the font of the text is the same as the windows
-						if( string->getFont() != window->winGetFont() )
-							string->setFont( window->winGetFont() );
-
-						// draw this text after setting the clip region for it
-						string->setClipRegion( &columnRegion );
-						string->draw( columnX + TEXT_X_OFFSET,
-													drawY,
-													textColor,
-													dropColor );
-									
-					}
-					else
-					{
-					
-						// make sure the font of the text is the same as the windows
-						if( string->getFont() != window->winGetFont() )
-							string->setFont( window->winGetFont() );
-
-						// set clip region and draw
-						string->setClipRegion( &columnRegion );
-						string->draw( columnX + TEXT_X_OFFSET,
-													drawY,
-													textColor,
-													dropColor );
-					}//else
-				}// if
+                      string->setWordWrap(0);
+                    if(string->getFont()!=window->winGetFont())string->setFont(window->winGetFont());
+                    string->setClipRegion(&columnRegion);
+                    string->setTextColor(textColor,dropColor);
+                    Int textWidth,textHeight;
+                    string->getSize(&textWidth,&textHeight);
+                    Int textX=TEXT_X_OFFSET;
+                    switch(cells[j].alignment) {
+                    case 1:textX=cellColumnWidth-textWidth-TEXT_X_OFFSET;if(textX<0)textX=TEXT_X_OFFSET;break;
+                    case 2:textX=(cellColumnWidth-textWidth)/2;if(textX<0)textX=TEXT_X_OFFSET;break;
+                    }
+                    Int textY=(list->listData[i].height-textHeight+1)/2;
+                    if(textY<0)textY=0;
+                    string->draw(columnX+textX,drawY+textY,1,1);
+                }// if
 				else if(cells[j].cellType == LISTBOX_IMAGE && cells[j].data)
 				{
 					Int width, height;
@@ -559,11 +540,11 @@ static void drawListBoxText( GameWindow *window, WinInstanceData *instData,
 					else
 						offsetY = drawY;
 
-					offsetY++;
+					
 					if(offsetX <x+1)
 						offsetX = x+1;
 					TheDisplay->setClipRegion( &columnRegion );					
-					TheWindowManager->winDrawImage( (const Image *)cells[j].data, 
+					if(columnRegion.lo.y<columnRegion.hi.y)TheWindowManager->winDrawImage( (const Image *)cells[j].data, 
 																offsetX, offsetY,
 																offsetX + width, offsetY + height,cells[j].color );
 
