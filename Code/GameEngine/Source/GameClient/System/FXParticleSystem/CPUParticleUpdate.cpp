@@ -156,37 +156,8 @@ private:
     ParticleAngleModuleView *angleModule;
 };
 
-bool CPUParticle::update()
-{
-    reinterpret_cast<Rva001FA795 *>(&modules)->rva001FA795();
-    if (orientWithMovement && angleModule)
-    {
-        Coord2D direction;
-        direction.x = x - previousX;
-        direction.y = y - previousY;
-        if (direction.y < 1.1920929e-7f && direction.y > -1.1920929e-7f)
-        {
-            angleModule->setAngle(direction.x > 0.0f ? 6.2831855f : 3.1415927f);
-        }
-        else
-        {
-            float length = direction.length();
-            if (length < 1.1920929e-7f)
-            {
-                angleModule->setAngle(3.1415927f);
-            }
-            else
-            {
-                float angle = ACos(direction.y / length);
-                angleModule->setAngle(direction.x > 0.0f
-                    ? angle + 3.1415927f : 3.1415927f - angle);
-            }
-        }
-    }
-    if (lifetimeLeft && --lifetimeLeft == 0)
-        return false;
-    return !reinterpret_cast<Rva001F4E2D *>(this)->rva001F4E2D();
-}
+// CPUParticle::update is provided by FXParticleSystem.cpp.
+// Keep this split unit for the independently recovered transfer below.
 
 // Native 1FAA8D..1FAB1E (145B), WB B0D800: light-CRC early return,
 // base/module transfers, particle state at88/48/54/58, slave handle78 ID+A8.
