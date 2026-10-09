@@ -409,7 +409,6 @@ const Image *AptPlayer::FindRenderImage(const char *targetName,const char *param
 class Rva00468520;
 class Rva0022402A { public: Rva00468520 &rva0022402A(const AsciiString &); };
 struct AptExternMappedValue { AptRef<AptExternHandler> handler; int context; };
-// ?AddExternHandler@AptPlayer@@QAEXABVAsciiString@@HV?$AptRef@VAptExternHandler@@@@@Z present-unmatched
 void AptPlayer::AddExternHandler(const AsciiString &name,int context,AptRef<AptExternHandler> handler)
 {
  if(!handler.m_ptr) return;
