@@ -1,5 +1,5 @@
 // cl: /MD /EHsc
-// ?rva005F7559@Rva005F6AB0@@QAEXH@Z retail 0x005F7559 85 bytes.
+// ?DoSetState@QueuedIconSlot@Impl@BuildQueueDetailsMovieClip@StrategicHUD@@UAEXH@Z retail 0x005F7559 85 bytes.
 // Evidence: vslot 9 offset 0x24 of vtable 0x00879828 class Rva005F6AB0; cached index at +0x14 vs array at 0x00C78D64; owner at +0x1c with level at +4 and team at +8 with name at +8 plus empty fallback g_Rva0107301CEmptyString 0x007BAC1C; rowed Rva005252CDInvoke 0x005252CD with SetQueuedIconSlotState plus TheRva00222A8BTarget 0x009FE4CC; int at +0x20.
 class Rva00222A8BTarget
 {
@@ -25,19 +25,22 @@ struct Rva005F7559Owner
 	Rva005F7559Team *m_team08;
 };
 
-class Rva005F6AB0
+namespace StrategicHUD { class BuildQueueDetailsMovieClip { public: class Impl { public: class QueuedIconSlot; }; }; }
+class StrategicHUD::BuildQueueDetailsMovieClip::Impl::QueuedIconSlot
 {
 public:
-	void rva005F7559(int index);
+	// Slot 9 of the class's vftable 0x00C79828, as WB's twin is of the
+	// table WB's QueuedIconSlot ctor installs: virtual.
+	virtual void DoSetState(int index);
 private:
-	char m_pad00[0x14];
+	char m_pad04[0x10];
 	int m_14;
 	char m_pad18[4];
 	Rva005F7559Owner *m_owner1C;
 	int m_20;
 };
 
-void Rva005F6AB0::rva005F7559(int index)
+void StrategicHUD::BuildQueueDetailsMovieClip::Impl::QueuedIconSlot::DoSetState(int index)
 {
 	if (index == m_14)
 		return;

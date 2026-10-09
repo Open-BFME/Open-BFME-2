@@ -11,10 +11,11 @@ public:
     virtual ~Rva005F6A58();
 };
 
-class Rva005F6AB0
+namespace StrategicHUD { class BuildQueueDetailsMovieClip { public: class Impl { public: class QueuedIconSlot; }; }; }
+class StrategicHUD::BuildQueueDetailsMovieClip::Impl::QueuedIconSlot
 {
 public:
-    virtual ~Rva005F6AB0();
+    virtual ~QueuedIconSlot();
 };
 
 class Rva0052413E
@@ -52,7 +53,7 @@ public:
 
 struct Rva005F74BA
 {
-    Rva005F6AB0 *m_ptr;
+    StrategicHUD::BuildQueueDetailsMovieClip::Impl::QueuedIconSlot *m_ptr;
     ~Rva005F74BA();
 };
 
