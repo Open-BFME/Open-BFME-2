@@ -1,5 +1,3 @@
-// ?rva000C445D@Rva000C445D@@QAEXABVAsciiString@@_N1MM@Z
-// partial score=1.0 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /D_STLP_NO_EXCEPTIONS /D_STLP_USE_STATIC_LIB
 // stlport
 // BF1 clean SubObjectVisibility00775C70 donor rev9cbfb551.
