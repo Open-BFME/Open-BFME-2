@@ -4344,7 +4344,6 @@ name,address,notes
 ??1Rva003ED94FDtor@@QAE@XZ,0x003ED94F,dtor at 0x003ED94F (target of thunk 0x007B7810)
 ??1Rva003EE1BE@@UAE@XZ,0x003EE1BE,"destructor the scalar deleting destructor 0x003EE3E2 calls (REL32 at 0x003EE3E5; vtable 0x00C3613C#0); opaque address name"
 ??1Rva003EF36E@@UAE@XZ,0x003EF36E,"destructor the scalar deleting destructor 0x003EF44B calls (REL32 at 0x003EF44E; vtable 0x00C363D8#0); opaque address name"
-??1Rva003F332E@@UAE@XZ,0x003F332E,"destructor the scalar deleting destructor 0x003F36EC calls (REL32 at 0x003F36EF; vtable 0x00C36FA4#0); opaque address name"
 ??1Rva003F610FElement@@QAE@XZ,0x003F535B,target Destroy loop 0x3F592A calls this once for each 0x30-byte element; boundary 0x3F535B/60 performs element cleanup but the full application layout is not established
 ??1Rva003F61C6Record@@QAE@XZ,0x003F535B,Native258Bfill3F61C6 directcall or fullgenericdispatch provider; separatelyrowed fullbody; scoped48Bnontrivial vector element ABI no originalapplicationtypename claimed
 ??1Rva003F64B2Element@@QAE@XZ,0x003F535B,Native124B outerctor consumed scopedABI; fullprovider60B independentlyverified; caller196B3F6D35 proves record28 and temporaryownership; applicationnames unproved
