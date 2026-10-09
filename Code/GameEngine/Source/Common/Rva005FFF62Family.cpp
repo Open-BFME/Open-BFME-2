@@ -72,3 +72,26 @@ void Rva0060005A::rva0060005A(int idx, bool flag)
 {
   return m_member->Set(idx, flag);
 }
+
+// Native 005FFFC1..00600052: swap two 12-byte panel records' trailing
+// words after firing SlideHeroArmyPanel twice. The original stack indices
+// are each passed by address; the other argument points at the opposite
+// record's trailing word. A matching shape alone does not establish the
+// containing class or the unobserved first eight record bytes.
+int __cdecl Rva00525235Fire(void *, void *, const char *, const char *, int *, int *);
+struct Rva005FFFC1 {
+ void *word0;
+ void *level;
+ AsciiString prefix;
+ void Swap(int firstIndex, int secondIndex);
+};
+void Rva005FFFC1::Swap(int firstIndex, int secondIndex) {
+ if (firstIndex == secondIndex) return;
+ int *first = reinterpret_cast<int *>(reinterpret_cast<char *>(this) + (firstIndex + 3) * 12);
+ int *second = reinterpret_cast<int *>(reinterpret_cast<char *>(this) + (secondIndex + 3) * 12);
+ Rva00525235Fire(g_bfmeAptWindowManager, level, prefix.str(), "SlideHeroArmyPanel", &firstIndex, second + 2);
+ Rva00525235Fire(g_bfmeAptWindowManager, level, prefix.str(), "SlideHeroArmyPanel", &secondIndex, first + 2);
+ int saved = first[2];
+ first[2] = second[2];
+ second[2] = saved;
+}
