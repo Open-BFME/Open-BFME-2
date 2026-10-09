@@ -10,11 +10,16 @@
 // 16-bit samples and the bridge-layer raise. BFME2 target differences: m_map is
 // at +0x37C0, the AI's pathfinder at +0x10, and the cell layer comes from
 // Pathfinder::GetGroundLayer (0x002E9871).
+// Linking repair follows donor dc69c74c54 at f98983a7d3; keep BFME2's
+// established offsets and the native mixed floor-conversion boundaries.
 typedef int Int;
 typedef float Real;
 typedef bool Bool;
 typedef unsigned short UnsignedShort;
 
+// VC7's inline floorf implementation is used only within this unit.
+// Give it internal linkage while retaining the header's exact float boundary.
+extern "C" { static float __cdecl floorf(float); }
 #include <math.h>
 #include <stdlib.h>
 
@@ -26,7 +31,7 @@ enum PathfindLayerEnum
 };
 
 // BFME's REAL_TO_INT_FLOOR: CRT floor() then the engine's x87 round.
-__forceinline Real fast_float_floor(Real f)
+static __forceinline Real fast_float_floor(Real f)
 {
 	return (Real)floor((double)f);
 }
@@ -58,9 +63,6 @@ public:
 class AI
 {
 public:
-	Pathfinder *pathfinder(void) { return m_pathfinder; }
-
-private:
 	unsigned char m_pad00[0x10];
 	Pathfinder *m_pathfinder;
 };
@@ -89,12 +91,6 @@ extern TerrainLogic *TheTerrainLogic;
 class WorldHeightMap
 {
 public:
-	Int getXExtent(void) { return m_width; }
-	Int getYExtent(void) { return m_height; }
-	Int getBorderSizeInline(void) const { return m_borderSize; }
-	UnsignedShort *getDataPtr(void) { return m_data; }
-
-private:
 	char m_padding00[8];
 	Int m_width;
 	Int m_height;
@@ -121,7 +117,7 @@ Bool BaseHeightMapRenderObjClass::isClearLineOfSight(const Coord3D& pos, const C
 
 	const Real MAP_XY_FACTOR_INV = 1.0f / MAP_XY_FACTOR;
 
-	Int borderSize = m_map->getBorderSizeInline();
+	Int borderSize = m_map->m_borderSize;
 	Int start_x = REAL_TO_INT_FLOOR(pos.x * MAP_XY_FACTOR_INV) + borderSize;
 	// Direct float overload at this conversion preserves the native
 	// pop/fstp order; the other coordinates retain the donor double wrapper.
@@ -184,9 +180,9 @@ Bool BaseHeightMapRenderObjClass::isClearLineOfSight(const Coord3D& pos, const C
 
 	Bool sawGround = false;
 	Bool result = true;
-	const UnsignedShort* data = m_map->getDataPtr();
-	Int xExtent = m_map->getXExtent();
-	Int yExtent = m_map->getYExtent();
+	const UnsignedShort* data = m_map->m_data;
+	Int xExtent = m_map->m_width;
+	Int yExtent = m_map->m_height;
 	for (Int curpixel = 0; curpixel < numpixels; curpixel++)
 	{
 		if (x < 0 ||
@@ -200,12 +196,12 @@ Bool BaseHeightMapRenderObjClass::isClearLineOfSight(const Coord3D& pos, const C
 
 		Int layer = LAYER_GROUND;
 		Coord3D cellCenter;
-		if (TheAI && TheAI->pathfinder() && TheTerrainLogic)
+		if (TheAI && TheAI->m_pathfinder && TheTerrainLogic)
 		{
 			cellCenter.x = (x - borderSize) * MAP_XY_FACTOR + MAP_XY_FACTOR / 2;
 			cellCenter.y = (y - borderSize) * MAP_XY_FACTOR + MAP_XY_FACTOR / 2;
 			cellCenter.z = 0.0f;
-			layer = TheAI->pathfinder()->GetGroundLayer(&cellCenter);
+			layer = TheAI->m_pathfinder->GetGroundLayer(&cellCenter);
 		}
 
 		Int idx = x + y*xExtent;
