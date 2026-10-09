@@ -30,3 +30,30 @@
 	}
 
 BFME_DISP8_WORDCHASE_ZERO_GETTER(Rva0023DB58WordChaseField, 0x0C)
+
+// Native 2E6CB0..2E6CB7 and 2E6CB7..2E6CBE are independently complete
+// RET0 leaves after the RET4 at 2E6CAD and before the distinct initializer
+// at 2E6CBE. Each zero-extends an unsigned 16-bit pointee field, at +0x12
+// or +0x10. BF1 9cbfb551fe20 PathfindCell_costSoFar.cpp guides the field
+// access; its PathfindCell names are not established target identities.
+class Rva002E6CB0PointeeValue
+{
+public:
+    unsigned int getBits() const;
+    void *holder;
+};
+unsigned int Rva002E6CB0PointeeValue::getBits() const
+{
+    return *(const unsigned short *)((const char *)holder + 0x12);
+}
+
+class Rva002E6CB7PointeeValue
+{
+public:
+    unsigned int getBits() const;
+    void *holder;
+};
+unsigned int Rva002E6CB7PointeeValue::getBits() const
+{
+    return *(const unsigned short *)((const char *)holder + 0x10);
+}

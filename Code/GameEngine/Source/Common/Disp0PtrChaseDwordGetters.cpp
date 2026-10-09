@@ -149,3 +149,31 @@ int Rva0042D69DPtrChaseField::get() const
 		return q->get();
 	return 0;
 }
+
+// Native 2E6C18..2E6C1D and 2E6C1D..2E6C23 are complete RET0 leaves
+// between the existing 2E6C0E getter and the independent 2E6C23 body.
+// BF1 9cbfb551fe20 Rva002FEE90SiegeDockSearch.cpp's indirect result
+// accessors supply a source guide. Retail independently proves the first
+// receiver word is a pointer and selects pointee words 0 and 4; the original
+// owner, names, and whether the returned words are pointers remain unknown.
+class Rva002E6C18PointeeValue
+{
+public:
+    unsigned int getBits() const;
+    void *holder;
+};
+unsigned int Rva002E6C18PointeeValue::getBits() const
+{
+    return *(const unsigned int *)holder;
+}
+
+class Rva002E6C1DPointeeValue
+{
+public:
+    unsigned int getBits() const;
+    void *holder;
+};
+unsigned int Rva002E6C1DPointeeValue::getBits() const
+{
+    return *(const unsigned int *)((const char *)holder + 4);
+}
