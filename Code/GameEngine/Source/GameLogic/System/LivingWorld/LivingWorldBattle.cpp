@@ -91,6 +91,9 @@ public:
 
 struct Rva003F5397Slot;
 
+class Rva003F4A46Comparator { public: virtual bool compare(LivingWorldArmy*,LivingWorldArmy*) = 0; };
+struct Rva003F4A46ComparatorHandle { Rva003F4A46Comparator* value; };
+
 class LivingWorldBattle
 {
 public:
@@ -104,6 +107,7 @@ public:
 		std::vector<BattleArmyRecord>m_records; // +0x10
 		int counters[5]; // +0x1C
 	};
+	void rva003F4A46(Int side, Int playerIndex, Rva003F4A46ComparatorHandle* compare);
 	void rva003F5397(Int a0, Int a1, Int a2, Int a3);
  void RemoveArmy(LivingWorldArmy*);
  void ComputeBattleResultsForPlayersAfterAutoBattle(Rva003F4E07Results*);
@@ -316,4 +320,21 @@ Xfer *Rva003F5729Xfer(Xfer*xfer, std::vector<Rva0040E3EE>*vec)
   }
  }
  return xfer;
+}
+
+// Native 3F4A46..3F4ABB RET12 independently proves side stride28 and
+// player stride48, pointer-vector+4, slot0 two-army predicate through a
+// one-pointer handle, and SwapArmies on false. Original method/type names
+// remain uncertain; this is a selection-style pairwise army ordering pass.
+void LivingWorldBattle::rva003F4A46(Int side, Int playerIndex, Rva003F4A46ComparatorHandle* compare)
+{
+ BattlePlayer* player=&m_table18[side].m_players[playerIndex];
+ Int count=(Int)player->m_armies.size();
+ for(Int first=0;first<count;++first) {
+  for(Int second=first+1;second<count;++second) {
+   LivingWorldArmy* a=player->m_armies[first];
+   LivingWorldArmy* b=player->m_armies[second];
+   if(!compare->value->compare(a,b)) player->SwapArmies(first,second);
+  }
+ }
 }
