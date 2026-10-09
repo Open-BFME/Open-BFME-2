@@ -73,3 +73,37 @@ Rva0056AC82::Rva0056AC82(Rva0056AC26Owner *owner,void *second,void *third):Rva00
 // this-8 adjustment. Existing constructor bank named the entry address
 // instead; real source now shares the already recovered destructor owner.
 // TheLivingWorldLogic is independently named by the data ledger at9FEF10.
+
+class LivingWorldPendingBattle;
+class PendingBattleVisitor { public:virtual bool Visit(LivingWorldPendingBattle *)=0; };
+class Rva003F409F { public:void rva003F409F(bool); };
+class Rva0056ACAEVisitor:public PendingBattleVisitor {
+public:
+ // ?Rva0056ACAEVisitor::Rva0056ACAEVisitor present-unmatched
+ Rva0056ACAEVisitor(LivingWorldPendingBattle *p):selected(p){}
+ // ?Rva0056ACAEVisitor::~Rva0056ACAEVisitor present-unmatched
+ ~Rva0056ACAEVisitor(){}
+ virtual bool Visit(LivingWorldPendingBattle *p);
+ LivingWorldPendingBattle *selected;
+};
+bool Rva0056ACAEVisitor::Visit(LivingWorldPendingBattle *p){
+ reinterpret_cast<Rva003F409F *>(p)->rva003F409F(p==selected);return true;
+}
+class LivingWorldRegionManager {public:void EnumeratePendingBattles(PendingBattleVisitor &) const;};
+struct RegistryWorldView {char prefix[0xB0];LivingWorldRegionManager *regions;};
+class Rva0056ACC5:public Rva0056AC26 {
+public:virtual ~Rva0056ACC5();
+ Rva0056ACC5(Rva0056AC26Owner *,LivingWorldPendingBattle *);
+ LivingWorldPendingBattle *selected14;bool flag18;
+};
+Rva0056ACC5::Rva0056ACC5(Rva0056AC26Owner *owner,LivingWorldPendingBattle *selected):Rva0056AC26(owner),selected14(selected),flag18(false){
+ Rva0056ACAEVisitor visit(selected);
+ reinterpret_cast<RegistryWorldView *>(TheLivingWorldLogic)->regions->EnumeratePendingBattles(visit);
+}
+
+// Native C6D0FC points rowed scalar DT56AF2F, establishing Rva0056ACC5
+// constructor ownership. C6D0BC is the one-slot pending-battle visitor
+// table: its callback56ACAE compares pointer argument with capture+4 and
+// calls owned setter3F409F; constructor sets selection14/flag18 then
+// enumerates named managerB0 via existing43B EnumeratePendingBattles.
+// Temporary nonvirtual destructor lifetime preserves native EH state1.
