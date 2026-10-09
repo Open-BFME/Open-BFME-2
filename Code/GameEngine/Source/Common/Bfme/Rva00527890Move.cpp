@@ -1,5 +1,5 @@
 // cl: /MD
-// ?rva00527890@Rva00527890@@QAEXH@Z @ 0x00527890 (77B): guarded Move fire via rowed 0x005277D9 with bool v==1 and prefix from +8 else empty. Evidence: callees rowed 0x005277D9; strings Move empty fallback g_Rva0107301CEmptyString; global TheRva00222A8BTarget; guard m_10 vs arg; caller 0x002D66FD.
+// ?Move@InGameHelpBoxMovieClip@@QAEXH@Z (WorldBuilder InGameHelpBoxMovieClip::Move; the same "Move" Apt call) @ 0x00527890 (77B): guarded Move fire via rowed 0x005277D9 with bool v==1 and prefix from +8 else empty. Evidence: callees rowed 0x005277D9; strings Move empty fallback g_Rva0107301CEmptyString; global TheRva00222A8BTarget; guard m_10 vs arg; caller 0x002D66FD.
 class Rva00222A8BTarget;
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 void __cdecl Rva005277D9Fire(Rva00222A8BTarget *target, void *level, const char *prefix, const char *function, bool *flagPtr);
@@ -14,10 +14,10 @@ struct Rva00527890Inner
 	char m_pad8[8];
 	char m_name[1];
 };
-class Rva00527890
+class InGameHelpBoxMovieClip
 {
 public:
-	void rva00527890(int v);
+	void Move(int v);
 	void rva005278DD();
 private:
 	char m_pad00[4];
@@ -28,7 +28,7 @@ private:
 	char m_pad14[0x1C - 0x14];
 	Rva002BED91 m_clear1C;
 };
-void Rva00527890::rva00527890(int v)
+void InGameHelpBoxMovieClip::Move(int v)
 {
 	if (v == m_10)
 		return;
@@ -37,7 +37,7 @@ void Rva00527890::rva00527890(int v)
 	Rva005277D9Fire((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), m_level04, prefix, "Move", &flag);
 	m_10 = v;
 }
-void Rva00527890::rva005278DD()
+void InGameHelpBoxMovieClip::rva005278DD()
 {
 	if (m_state0C == 3 || m_state0C == 4)
 	{

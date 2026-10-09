@@ -5,11 +5,6 @@ extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 int __cdecl Rva00527925Fire(void *target, void *level, const char *prefix, const char *function, const float *val);
 int __cdecl Rva00524EF4AptCall(Rva00222A8BTarget *t, void *a1, const char *a2, const char *a3);
 
-class Rva00527890
-{
-public:
-	void rva005278DD();
-};
 
 class Rva005CB260
 {
@@ -50,6 +45,7 @@ class InGameHelpBoxMovieClip
 {
 public:
 	void Update();
+	void rva005278DD();
 private:
 	char m_pad00[4];
 	void *m_level04;
@@ -68,7 +64,7 @@ void InGameHelpBoxMovieClip::Update()
 	case 4:
 		if (--m_count14 > 0)
 			return;
-		((Rva00527890 *)this)->rva005278DD();
+		rva005278DD();
 		return;
 	case 2:
 	{
