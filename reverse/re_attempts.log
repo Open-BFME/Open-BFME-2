@@ -32465,3 +32465,5 @@ Rva003BBCB3Set	0x003BBCB3	31	blocked	TheAudio slot wrapper: vtbl loaded into edx
 ?Rva001007D5Hold@@YA?AURva001007D5Holder@@PAVRva001007D5Model@@@Z	0x001007D5	90	landed	add_match verified Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMeshHolderHold.cpp 90B
 ?rva0073CC60@Gen_008F7CD0@@QAEXPAUFloatRect0073CE30@@HI@Z	0x0073CC60	96	landed	add_match verified Code/GameEngine/Source/Common/RTS/Rva0073CE30.cpp 96B
 ?rva004E00D9@Rva004E02D7Owner@@QAEXXZ	0x004E00D9	98	landed	add_match verified Code/GameEngine/Source/GameLogic/Object/Rva004E00D9.cpp 98B
+?Rva003C57A9Do@@YGXPAVParameter@@ABVAsciiString@@@Z	0x003C57A9	124	landed	add_match verified Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_Rva003C57A9Do.cpp 124B
+?Rva003C58C9Do@@YGXPAVParameter@@ABVAsciiString@@H@Z	0x003C58C9	161	landed	add_match verified Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_Rva003C57A9Do.cpp 161B
