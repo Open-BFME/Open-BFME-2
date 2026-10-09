@@ -41,7 +41,10 @@
 // of vtable 0x00C12678): the same body for the BFME 2 position-approach
 // variant -- no victim branch, the weapon range test against the machine's
 // goal position, owner position at +0x4C, timestamp +0x58, wait frame +0x5C
-// and wait flag +0x62. The goal pointer is read before the timestamp store
+// and wait flag +0x62; its computePath 0x00340546 (221 bytes, slot 17,
+// ComputePath10/20) is the goal-position half of Zero Hour's with the waiting
+// byte refreshed from the AI after requestAttackPath. The goal pointer is read
+// before the timestamp store
 // (retail keeps the negated frame rate in ECX across the argument pushes).
 //
 // AIAttackPursueTargetState (vtable 0x00C12730): onEnter 0x0034D345 (349
@@ -222,6 +225,7 @@ public:
 	Real getCurLocomotorSpeed() const { return ((const Rva002627E8 *)this)->rva002627E8(); }
 	void setCurrentVictim(const Object *victim);
 	void requestPath(Coord3D *destination, Bool isFinalGoal);
+	void requestAttackPath(ObjectID victimID, const Coord3D *victimPos);
 	void *getPath() const { return m_path; }
 	Bool isWaitingForPath() const { return m_waitingForPath; }
 	Bool isBlockedAndStuck() const { return m_blockedFrames > 0; }
@@ -489,6 +493,8 @@ class AIAttackApproachTargetState00C12678 : public AIInternalMoveToState
 {
 public:
 	virtual StateReturnType onEnter();
+protected:
+	virtual Bool computePath();
 private:
 	Coord3D m_ownerPosition; // +0x4C
 	Int m_approachTimestamp; // +0x58
@@ -873,4 +879,30 @@ Bool AIAttackPursueTargetState::computePath()
 		return true;
 	}
 	return false;
+}
+
+Bool AIAttackApproachTargetState00C12678::computePath()
+{
+	critterDesyncLog("CritterDesync: ComputePath10");
+	Bool forceRepath = false;
+	if (getMachineOwner()->rva002907A1() == false)
+		return false;
+	AIUpdateInterface *ai = getMachineOwner()->getAI();
+	if (m_waitingForPath)
+		return true;
+	if (!forceRepath && ai->getPath() == 0 && !ai->isWaitingForPath())
+		forceRepath = true;
+	if (!forceRepath && TheGameLogic->getFrame() - m_approachTimestamp < (UnsignedInt)LOGICFRAMES_PER_SECOND)
+		return true;
+	m_approachTimestamp = TheGameLogic->getFrame();
+
+	critterDesyncLog("CritterDesync: setAdjustDestination(TRUE) 20");
+	setAdjustsDestination(true);
+	m_stopIfInRange = false;
+	m_goalPosition = *getMachineGoalPosition();
+	if (!forceRepath)
+		return true;
+	ai->requestAttackPath(INVALID_OBJECT_ID, &m_goalPosition);
+	m_waitingForPath = ai->isWaitingForPath();
+	return true;
 }
