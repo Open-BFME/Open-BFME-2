@@ -68,3 +68,13 @@ float *__fastcall Rva00432E4EInitialize(float *output)
     *output = 50.0f;
     return output;
 }
+
+// BF1 f98983a7d3 WW3D2/animobj.cpp supplies only the clean float-store
+// source shape (fresh /O2 /arch:SSE2 /G6 donor sweep). Its animation method
+// is already owned at target1A5440 and is not the identity of this body.
+// Native39D470..39D481 copies the raw argument word to ECX+120 with MOVSS,
+// takes one four-byte stack argument and returns with RET4. Independent
+// RET4 at39D46D precedes it; the next byte setter starts at39D481.
+// Float is the source ABI used for this bit-preserving store; original
+// owner, field meaning and bounds beyond the accessed word are unresolved.
+BFME_DISP32_FLOAT_SETTER(Rva0039D470FloatField, 0x120)
