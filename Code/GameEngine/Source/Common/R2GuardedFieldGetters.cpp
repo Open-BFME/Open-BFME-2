@@ -86,3 +86,22 @@ unsigned Rva00050E0ENullArg::getBits(Rva00050E0ERawWord *value) const
 {
     return value==0 ? 0 : value->word8;
 }
+
+// Clean BF1 f98983a7 Rva009004A0RenderObjectFactory.cpp supplies the
+// nullable first-pointer conditional as a source lead, not c_str identity.
+// Native50D60..50D6C follows the rowed50D53 RET50D5F and has one RET50D6B;
+// the next independent body begins50D6C. It returns receiverword0 or the
+// established global object at DE0878. Keep its canonical declaration and
+// expose only an opaque address: owner, payload and original prototype are
+// unrecovered. The donor's literal fallback does not prove a target string.
+#include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
+class Rva00050D60Pointer
+{
+public:
+    const void *getPointer() const;
+    const void *value;
+};
+const void *Rva00050D60Pointer::getPointer() const
+{
+    return value ? value : &AsciiString::TheEmptyString;
+}
