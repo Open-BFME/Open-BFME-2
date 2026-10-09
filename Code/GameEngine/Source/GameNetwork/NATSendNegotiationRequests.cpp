@@ -11,10 +11,15 @@
 // Request, queue and NAT layout follow the sibling Rva005A8666BoxNat.cpp
 // (NAT::rva005A7974, the "PORT" request); WorldBuilder twin 0x014E30C0 is
 // unnamed (string lead) and agrees on the flow.
+// This parser imports strtok; keep the CRT declaration read under
+// /D_CRTIMP= separate from the measured IAT declaration below.
+#define strtok strtok_unimported
 #include "ascii_string.h"
+#include "../../Include/GameNetwork/Transport.h"
 #include "unicode_string.h"
 #include <string>
 #include <vector>
+#undef strtok
 
 struct PeerRequest
 {
@@ -69,7 +74,11 @@ int Rva005A671DNext();	// 0x005A671D next negotiation cookie
 class PortNegotiationSchema
 {
 public:
-	void negotiationStarted(unsigned short a, unsigned short b, int cookie, bool started);	// 0x005DBF8C
+	void negotiationStarted(unsigned short a, unsigned short b, int cookie, bool started);
+    int getActionID(unsigned short,unsigned short);
+    bool receivedAPong(unsigned short,unsigned short,int);
+    void *peekPing(unsigned short,unsigned short);
+    bool setPingStats(unsigned short,unsigned short,float,float,float);	// 0x005DBF8C
 };
 
 struct Rva005A7A96Slot
@@ -88,7 +97,7 @@ struct Rva005A7A96Pair
 struct NAT
 {
 	int m_0;
-	void *m_04;
+	Transport *m_04;
 	Rva005A7A96Slot **m_8;	// slot list
 	int m_hostSlot;
     int m_mode;
@@ -101,7 +110,7 @@ struct NAT
 	char pad29[0x8E4 - 0x29];
 	unsigned char m_8E4[8];	// per-slot gate
     int m_8ec[8];
-    void *m_addresses[8];
+    NetPacketAddress *m_addresses[8];
     char m_pad92c[0x94c-0x92c];
     int m_state94c;
     int m_state950;
@@ -114,6 +123,7 @@ struct NAT
     void rva005A74D8();
     void rva005A7C9C();
     void processUDPPacket();
+    void setConnectionState(int,int,int,int);
 };
 
 void NAT::rva005A7A96(const std::vector<Rva005A7A96Pair> *pairs)
@@ -203,4 +213,73 @@ void NAT::rva005A7C9C() {
   req.unknown_40=options.str();req.unknown_04=name.str();g_00A02340->f6(&req);
  }
  m_nextHostUpdate=now+s_hostUpdateInterval;
+}
+
+extern "C" __declspec(dllimport) int __cdecl sscanf(const char *,const char *,...);
+extern "C" __declspec(dllimport) char *__cdecl strtok(char *,const char *);
+struct NetPacketAddress { unsigned ip;unsigned short port; };
+#pragma pack(push,1)
+// Canonical Transport ring witness: same40E stride and field offsets;
+// this local representation accesses the packet storage, not a second class view.
+struct NATReceivedMessage {
+ unsigned crc;char data[0x400];unsigned length;unsigned ip;unsigned short port;
+};
+#pragma pack(pop)
+typedef char NativeNATPacketStride[sizeof(NATReceivedMessage)==0x40e?1:-1];
+// WB NAT::processUDPPacket identity, target5A7EDC..5A831E1090B.
+// BFME1 NAT/PortNegotiationSchema supplies probe/pong/ping semantics;
+// BFME2's canonical Transport layout supplies the measured128-slot ring.
+__forceinline NATReceivedMessage *natPacket(Transport *transport,int index) {return reinterpret_cast<NATReceivedMessage *>(reinterpret_cast<char *>(transport)+0x20700)+index;}
+__forceinline unsigned natLength(Transport *transport,int index) {return natPacket(transport,index)->length;}
+__forceinline char *natData(Transport *transport,int index) {return natPacket(transport,index)->data;}
+__forceinline unsigned natAddress(Transport *transport,int index) {return natPacket(transport,index)->ip;}
+__forceinline unsigned short natPort(Transport *transport,int index) {return natPacket(transport,index)->port;}
+__forceinline void natClear(Transport *transport,int index) {natPacket(transport,index)->length=0;}
+void NAT::processUDPPacket() {
+ for(int i=0;i<128;++i) {
+  if(natLength(m_04,i)>0) {
+   char *ptr=natData(m_04,i);
+   if(!memcmp(ptr,"PROBE",strlen("PROBE"))) {
+    if(m_targetSlot<0 || m_targetSlot>=8) { natClear(m_04,i);return; }
+    int target,cookie;
+    sscanf(ptr+strlen("PROBE"),"%d %X",&target,&cookie);
+    if(m_mode==1 && target==m_targetSlot && cookie==m_cookie) {
+     m_state950=4;
+     bool changed=false;
+     { NetPacketAddress *address=m_addresses[m_targetSlot];unsigned incomingIP=natAddress(m_04,i);if(incomingIP!=address->ip) {address->ip=incomingIP;changed=true;} }
+     { NetPacketAddress *address=m_addresses[m_targetSlot];unsigned short incomingPort=natPort(m_04,i);if(incomingPort!=address->port) {address->port=incomingPort;m_970=false;changed=true;} }
+     if(changed)m_04->setDestAddrToSocket(m_targetSlot,m_addresses[m_targetSlot]);
+     rva005A74D8();setConnectionState(m_targetSlot,m_localSlot,m_cookie,4);
+    }
+   } else if(!memcmp(ptr,"PONG",strlen("PONG"))) {
+    int source,cookie,stamp;
+    if(sscanf(ptr+strlen("PONG"),"%d %X %X",&source,&cookie,&stamp)==3 && source>=0 && source<8 && source!=m_localSlot && m_8 && m_8[source] && ((GameSlot *)m_8[source])->isHuman()) {
+     if(cookie==m_schema.getActionID(m_localSlot,source)) {
+      m_schema.receivedAPong(m_localSlot,source,stamp);m_schema.peekPing(m_localSlot,source);
+     }
+    }
+   } else if(!memcmp(ptr,"PING",strlen("PING"))) {
+    char *token=strtok(ptr+strlen("PING")," ");
+    int source,cookie,stamp;
+    if(token && sscanf(token,"%d",&source)==1) {
+     token=strtok(0," ");
+     if(token && sscanf(token,"%X",&cookie)==1) {
+      token=strtok(0," ");
+      if(token && sscanf(token,"%X",&stamp)==1 && source>=0 && source<8 && source!=m_localSlot && m_8 && m_8[source] && ((GameSlot *)m_8[source])->isHuman() && cookie==m_schema.getActionID(source,m_localSlot)) {
+       AsciiString reply;
+       reply.format("PONG%d %X %X",m_localSlot,m_schema.getActionID(source,m_localSlot),stamp);
+       m_04->queueSend(m_addresses[source],(const unsigned char *)reply.str(),reply.getLength()+1);
+       for(token=strtok(0," ");token;token=strtok(0," ")) {
+        int other,latency;
+        if(sscanf(token,"%X",&other)!=1)break;
+        token=strtok(0," ");if(!token || sscanf(token,"%X",&latency)!=1)break;
+        m_schema.setPingStats(source,other,(float)latency,1.0f,1.0f);
+       }
+      }
+     }
+    }
+   }
+  }
+  natClear(m_04,i);
+ }
 }
