@@ -10,13 +10,6 @@
 // constant. Kept in a fresh TU to avoid contending with hot getter files.
 // No // cl: line (defaults match the frameless 6-byte shape).
 
-// ?Rva00020E6BGet@@YAHXZ @ 0x00020e6b (6B): returns 0x00bbac1c.
-// Conditional-skip target (test / jne +5). Opaque address-derived name.
-int Rva00020E6BGet(void)
-{
-	return 0x00bbac1c;
-}
-
 // ?Rva001EF348Get@@YAHXZ @ 0x001ef348 (6B): returns 0x00c18f40.
 // Follows padding plus leave / ret. Opaque address-derived name.
 int Rva001EF348Get(void)

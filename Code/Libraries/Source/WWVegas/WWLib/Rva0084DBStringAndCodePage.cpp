@@ -8,7 +8,13 @@ struct Rva0084DBText
     const char *text;
 };
 
-const char *Rva0084DBC0GetText(const Rva0084DBText *owner)
+// Native 0x20E60..0x20E71 is INT3-bracketed: the cdecl argument supplies a
+// pointer whose field at +0x14 is returned when nonnull; the other path returns
+// StringBase<char>::str TheNullChr at VA 0xBBAC1C. The old 0x20E6B row was
+// an interior suffix with no independent call or address xrefs, now retracted.
+// BF1 f989 StringAndCodePage emits twins; retain an address-owned function name
+// and the existing consumed-prefix view without asserting the original class.
+const char *Rva00020E60GetText(const Rva0084DBText *owner)
 {
     const char *text = owner->text;
     return text ? text : "";

@@ -35441,7 +35441,6 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ?Rva003F29AD_FillRange@@YAPAVLivingWorldRegionConnection@@PAV1@IABV1@@Z,,0x003F29AD,37,Code/GameEngine/Source/Common/System/LivingWorldRegionConnectionHelpers.cpp,matched,uninitialized fill loop through rowed _Construct
 ?Rva00565A24_ScrapStorage@ConnectionVec@@QAEXXZ,,0x00565A24,30,Code/GameEngine/Source/Common/System/LivingWorldRegionConnectionHelpers.cpp,matched,destroy range plus pinned free; grow callee
 ?write@LadderPreferences@@UAE_NXZ,,0x005E0026,340,Code/GameEngine/Source/GameNetwork/GameSpy/OnlinePreferences.cpp,matched,LadderPreferences write over BFME1 donor shape: clears prefs then rebuilds up to 5 entries from the LadderPrefMap through rowed copy plus QP encoders plus format plus slot-ref store then forwards to UserPreferences write
-?Rva00020E6BGet@@YAHXZ,,0x00020E6B,6,Code/GameEngine/Source/Common/ConstIntGetters8Addr.cpp,matched,B8-6 const-int returner batch; cold slice
 ?Rva000310ACGet@@YAHXZ,,0x000310AC,6,Code/GameEngine/Source/Common/ConstIntGetters8.cpp,matched,B8-6 const-int returner batch; cold slice
 ?Rva0011F519Get@@YAHXZ,,0x0011F519,6,Code/GameEngine/Source/Common/ConstIntGetters8.cpp,matched,B8-6 const-int returner batch; cold slice
 ?Rva0018123CGet@@YAHXZ,,0x0018123C,6,Code/GameEngine/Source/Common/ConstIntGetters8.cpp,matched,B8-6 const-int returner batch; cold slice
@@ -73450,3 +73449,4 @@ uw_0075c4b0,,0x0075C4B0,14,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_of
 ?rva002B7B71@Rva002B7B71@@QAEXXZ,,0x002B7B71,74,Code/GameEngine/Source/Common/Rva002B7B71DeleteAll.cpp,matched,owned-pointer list teardown: slot-0 deleteInstance(0) into operator delete 0x2FD60 per element then rowed vector<void*>::erase 0x31BD55; vector offset from lea; owner class unproven
 ?rva003B9132@Rva003B9132@@QAEXXZ,,0x003B9132,71,Code/GameEngine/Source/Common/Rva002B7B71DeleteAll.cpp,matched,owned-pointer list teardown: slot-0 deleteInstance(0) into operator delete 0x2FD60 per element then rowed vector<void*>::erase 0x31BD55; vector offset from lea; owner class unproven
 ?rva003F2106@Rva003F2106@@QAEXXZ,,0x003F2106,74,Code/GameEngine/Source/Common/Rva002B7B71DeleteAll.cpp,matched,owned-pointer list teardown: slot-0 deleteInstance(0) into operator delete 0x2FD60 per element then rowed vector<void*>::erase 0x31BD55; vector offset from lea; owner class unproven
+?Rva00020E60GetText@@YAPBDPBURva0084DBText@@@Z,,0x00020E60,17,Code/Libraries/Source/WWVegas/WWLib/Rva0084DBStringAndCodePage.cpp,matched,
