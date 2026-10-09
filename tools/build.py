@@ -2210,23 +2210,11 @@ def compile_function(row, symbol_map, output):
     resolved, unresolved, covered = resolve(lib_member)
     masked = lib_member
     if lib_member:
-        # A masked REL32 site is proven, not merely hidden, when the member's
-        # own call (addend 0) names a callee whose own ledger row starts exactly
-        # where retail's displacement lands. Count such a site as concrete, so a
-        # short CRT body whose only call goes to its rowed sibling is evidence; a
-        # call landing anywhere else, or naming a callee with no row, stays
-        # masked. The test is the row's target_rva, never symbol_map: that list
-        # also holds every symbols.csv pin and every build_call_thunks() hit,
-        # and in this non-incremental image a "thunk" is some OTHER code that
-        # jumps to the body (see ledger_entry_points).
-        entries = ledger_entry_points()
-        for offset, rtype, sym_name in relocs:
-            if (rtype != 0x0014 or offset + 4 > target_size
-                    or compiled[offset : offset + 4] != b"\0\0\0\0"):
-                continue
-            lands = (target_rva + offset + 4 + struct.unpack_from("<i", target, offset)[0]) & 0xFFFFFFFF
-            if lands in entries.get(sym_name, ()):
-                covered[offset : offset + 4] = b"\0" * 4
+        # A masked site whose four bytes retail proves (proven_rel32_sites)
+        # counts as concrete, so a short CRT body whose only call goes to its
+        # rowed sibling is evidence. Every other site stays masked.
+        for offset in proven_rel32_sites(target_rva, target, compiled, relocs):
+            covered[offset : offset + 4] = b"\0" * 4
     if gen_alias and not lib_member and bytes(resolved) != target:
         alt_resolved, alt_unresolved, alt_covered = resolve(True)
         # The mask is admitted only where it hides a call to a TWIN of the
@@ -2261,24 +2249,81 @@ IMAGE_BASE = 0x400000
 
 @functools.lru_cache(maxsize=1)
 def ledger_entry_points():
-    """Each name's own row addresses: where the ledger itself places that body.
+    """name -> the start of the one matched ledger row that IS that name's body.
 
-    Deliberately narrower than load_symbol_map. No symbols.csv pin: a pin is
-    an unproven candidate. No build_call_thunks() address: BFME2 was linked
-    without incremental linking (tools/allowed_symbols.py), so every E9 that
-    scan finds is other code jumping to the body -- a separately rowed
-    forwarder (_lua_pushcclosure 0x00747640 for _luaV_Cclosure), the jmp
-    inside a body (0x00629BB4, in __security_check_cookie, for
-    _report_failure), or a stray E9 byte. A call landing on any of those
-    reaches a different function, which proves nothing about the callee's
-    name. An alias row counts on load_symbol_map's own terms.
+    This is what a lib-member REL32 credit may land on, and nothing else is.
+    It is deliberately narrower than load_symbol_map, which is a resolver's
+    candidate list and holds things that are not the callee:
+
+    - a symbols.csv pin is an unproven candidate, not a row;
+    - a build_call_thunks() address is other code: BFME2 was linked without
+      incremental linking (tools/allowed_symbols.py), so every E9 that scan
+      finds is a separately rowed forwarder (_lua_pushcclosure 0x00747640 for
+      _luaV_Cclosure), the jmp inside a body (0x00629BB4, in
+      __security_check_cookie, for _report_failure) or a stray E9 byte;
+    - an alias row (object-symbol= naming another symbol) binds the name to
+      bytes the gate verified under a DIFFERENT symbol, and a reviewed one
+      is excused from the alias check, not turned into the callee's body;
+    - a gen-alias row is an ICF-twin claim whose own call sites may have
+      passed only by masking, and a gen-dump row claims no identity at all.
+
+    A name carried by more than one row has no single row, so it maps to
+    nothing; so does a row whose status is not `matched`.
     """
-    entries = {}
+    named = {}
     for row in load_all_function_rows():
-        if is_alias_row(row) and not gate_baselined("alias-row", row):
+        named.setdefault(row["name"], []).append(row)
+    entries = {}
+    for name, rows in named.items():
+        if len(rows) != 1:
             continue
-        entries.setdefault(row["name"], set()).add(int(row["target_rva"], 16))
+        row = rows[0]
+        if (row["status"] != "matched"
+                or ledger_object_symbol(row).strip() != name
+                or "gen-alias" in notes_tokens(row)
+                or is_scaffold_row(row)):
+            continue
+        entries[name] = int(row["target_rva"], 16)
     return entries
+
+
+def proven_rel32_sites(target_rva, target, member, relocs):
+    """Offsets of a lib member's masked relocation sites that retail proves.
+
+    A site is proven only when all of these hold, and is otherwise left
+    masked:
+
+    - it is the member's own IMAGE_REL_I386_REL32 -- no other relocation
+      type is ever credited, a DIR32 least of all: its four bytes are an
+      absolute address, not a displacement;
+    - its addend is 0 (the member's four bytes are zero), so the linker
+      writes exactly the named symbol's address and nothing past it;
+    - it lies wholly inside the row, and no other relocation touches any of
+      its four bytes;
+    - retail's displacement lands exactly on ledger_entry_points()[symbol],
+      the start of the one matched ledger row that IS the symbol the
+      relocation names.
+
+    Retail's bytes there are then exactly what linking the member against
+    the ledger would write, which is what makes them evidence.
+    """
+    entries = ledger_entry_points()
+    size = len(target)
+    spans = [(offset, offset + RELOC_WIDTH.get(rtype, 4)) for offset, rtype, _ in relocs]
+    proven = []
+    for index, (offset, rtype, sym_name) in enumerate(relocs):
+        if rtype != REL32 or offset < 0 or offset + 4 > size:
+            continue
+        if bytes(member[offset : offset + 4]) != b"\0\0\0\0":
+            continue
+        if any(start < offset + 4 and offset < end
+               for other, (start, end) in enumerate(spans) if other != index):
+            continue
+        entry = entries.get(sym_name)
+        lands = (target_rva + offset + 4 + struct.unpack_from("<i", target, offset)[0]) & 0xFFFFFFFF
+        if entry is not None and lands == entry:
+            proven.append(offset)
+    return proven
 
 
 @functools.lru_cache(maxsize=1)
