@@ -1,31 +1,11 @@
 // cl: /O1 /DNDEBUG /MD /arch:SSE
-//
-// ?rva002E3A39@Rva002E3A39Owner@@QAEXPBX@Z @0x002E3A39 46B: float-pair
-// forward (thiscall, 1 ptr arg, void). Copies two floats from the arg into
-// an 8-byte ebp pair, then invokes pinned cdecl 0x0030B7C2 with (this+8,
-// &pair). Honest address-derived names; pair/callee identities unproven.
-
-struct Rva002E3A39Pair
-{
-	float a;
-	float b;
-};
-
-class Rva002E3A39Owner
-{
-public:
-	void rva002E3A39(const void *p);
-};
-
-// Row 0x0030B7C2 spelling (returns bool over typed point/shape views).
-bool __cdecl rva0030B7C2(const struct Rva0030B7C2Point *a, class Rva0030B719Shape *b);
-
-// ?rva002E3A39@Rva002E3A39Owner@@QAEXPBX@Z
-void Rva002E3A39Owner::rva002E3A39(const void *p)
-{
-	Rva002E3A39Pair t;
-	const float *f = (const float *)p;
-	t.a = f[0];
-	t.b = f[1];
-	rva0030B7C2((const Rva0030B7C2Point *)&t, (Rva0030B719Shape *)((char *)this + 8));
-}
+// Native callers2E3AA8/1019DA/101CF6 test AL after this call.
+// WB ABA730 returns the planar query result. Rename the prior void owner
+// to the existing PolygonTrigger pointer-view spelling; no extra identity.
+// Layout x/y is native-measured; helper30B7C2 is the rowed bool provider.
+#include "../../../Libraries/Include/Lib/Coord3D.h"
+struct Rva0030B7C2Point { float x,y; };
+class Rva0030B719Shape;
+bool rva0030B7C2(const Rva0030B7C2Point*,Rva0030B719Shape*);
+class PolygonTrigger {public:bool rva002E3A39(const Coord3D&);};
+bool PolygonTrigger::rva002E3A39(const Coord3D&p){Rva0030B7C2Point point;point.x=p.x;point.y=p.y;return rva0030B7C2(&point,(Rva0030B719Shape*)((char*)this+8));}
