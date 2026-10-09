@@ -8846,7 +8846,6 @@ name,address,notes
 ?cellCallback@Rva002F18D4Info@@QAEHPAVPathfindCell@@0HH@Z,0x002F18D4,callback read from retail REL32 at 0x002F2004 in the cell line walk 0x002F1F3F (byte-exact modulo relocs in PathfinderCellLineWalks.cpp): called with (previous cell current cell x y); owner identity unproven
 ?cellCallback@Rva002F1BD5Info@@QAEHPAVPathfindCell@@0HH@Z,0x002F1BD5,callback read from retail REL32 at 0x002F2104 in the cell line walk 0x002F203F (byte-exact modulo relocs in PathfinderCellLineWalks.cpp): called with (previous cell current cell x y); owner identity unproven
 ?cellCallback@Rva002F3F7DInfo@@QAEHPAVPathfindCell@@0HH@Z,0x002F3F7D,callback read from retail REL32 at 0x002F4456 in the cell line walk 0x002F4391 (byte-exact modulo relocs in PathfinderCellLineWalks.cpp): called with (previous cell current cell x y); owner identity unproven
-?cellCallback@Rva002F4491Info@@QAEHPAVPathfindCell@@0HH@Z,0x002F4491,callback read from retail REL32 at 0x002F6AA8 in the cell line walk 0x002F69E3 (byte-exact modulo relocs in PathfinderCellLineWalks.cpp): called with (previous cell current cell x y); owner identity unproven
 ?cellCallback@Rva002F4D8BInfo@@QAEHPAVPathfindCell@@0HH@Z,0x002F4D8B,callback read from retail REL32 at 0x002F6CE7 in the cell line walk 0x002F6C22 (byte-exact modulo relocs in PathfinderCellLineWalks.cpp): called with (previous cell current cell x y); owner identity unproven
 ?cellCallback@Rva002F5925Info@@QAEHPAVPathfindCell@@0HH@Z,0x002F5925,callback read from retail REL32 at 0x002F6BE7 in the cell line walk 0x002F6B22 (byte-exact modulo relocs in PathfinderCellLineWalks.cpp): called with (previous cell current cell x y); owner identity unproven
 ?cellCallback@Rva002F600CInfo@@QAEHPAVPathfindCell@@0HH@Z,0x002F600C,callback read from retail REL32 at 0x002F6DE7 in the cell line walk 0x002F6D22 (byte-exact modulo relocs in PathfinderCellLineWalks.cpp): called with (previous cell current cell x y); owner identity unproven
@@ -10565,7 +10564,6 @@ name,address,notes
 ?playAttackVoiceResponse@AIUpdateInterface@@IAEXPBUCoord3D@@@Z,0x0026B2FB,address read from the REL32 displacement in privateAttackArea 0x0026C1CE; inference: the position overload beside playAttackVoiceResponse(Object*) 0x0026B25A
 ?playMoveVoiceResponse@AIUpdateInterface@@IAEXPBUCoord3D@@@Z,0x0026B403,address read from the REL32 displacement at 0x0026B6A8 in command 0x01 handler 0x0026B637 (and its siblings 0x0026B6B2 0x0026B86A); the body posts voice message 0x7E7
 ?playMoveVoiceResponse@BFMEMoveVoiceAI@@QAEXPBUCoord3D@@@Z,0x0026B403,callee of ?privateFollowWaypointPathAsTeamExact@AIUpdateInterface@@MAE at retail 0x0026BA33 read from its REL32 displacement; body unrowed
-?playbackFile@RecorderClass@@QAE_NVUnicodeString@@@Z,0x0037D1E6,GameEngine::init 0x0022E2E4 complete 8808B recovery; target from native REL32 at corresponding exact instruction offset; subsystem constructor roles supported by adjacent registration literal and global; address-named types preserve unresolved original identity; see GameEngineInit.cpp and init evidence
 ?playerHasPrereqsForScience@ScienceStore@@QBE_NPBVRva0043D3A8@@W4ScienceType@@@Z,0x001FF47D,callee of the byte-verified Player::hasPrereqsForScience 0x002A9EAC on TheScienceStore with the player science-holder base read from its REL32 displacement; Zero Hour call; body opens with findScienceInfo; unrowed Ghidra FUN_005ff47d 86B
 ?pointInTrigger@PolygonTrigger@@QAE_NABVICoord3D@@@Z,0x002E3A13,target direct call from evaluateNamedInsideArea candidate 0x003E5EFF with trigger as this and local integer XYZ vector by const reference; BFME1 donor confirms point-in-trigger semantics
 ?pop@FreelistPool@@QAEPAXXZ,0x002393E2,TU spelling of the freelist pop folded at this address; resolves the Rva0029FB3BMember init TU call
@@ -11209,7 +11207,6 @@ name,address,notes
 ?rva0020EA58@Rva0020EA58@@QAE_NPAXH@Z,0x0020EA58,placeholder bool(void*;int) callee of dump 0x20F27E; REL32 read
 ?rva0020ED51@@YGXPAXHH@Z,0x0020ED51,stdcall 3-arg worker called by Rva0020F2F1/09 forwarder twins (callee cleanup, no ecx); REL32 read from placed 0x0020F2F1 body
 ?rva0020F0D3@Rva0020F0D3Target@@QAEXXZ,0x0020F0D3,"method a vtable-slot forwarder tail-jumps to (ret 0); opaque address name"
-?rva0020F483@Rva0020EE29@@QAEXXZ,0x0020F483,Rva0020EE29 member used by 0x002102CA with this passthrough and no args
 ?rva0020F569@Rva00210347@@QAEPAXABU?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@Z,0x0020F569,thiscall twin of rowed stdcall alloc via call-site mov ecx esi at 0x00210347
 ?rva0020F5B3@Rva0020EE29Inner@@QAEXXZ,0x0020F5B3,inner tail-target of 0x002102CA with this=inner and no args
 ?rva0020F685@Rva0020FB41Outer@@QAEXXZ,0x0020F685,call-site 0x0020FB48 in Rva0020FB41::rva0020FB41 (0x0020FB41) via lea ecx,[esi-4] with no stack args; Ghidra FUN_0060f685 141B
@@ -15057,7 +15054,6 @@ rva009C7380WeightPairs,0x009B84E0
 ?rva002AA223@Player@@QBE_NXZ,0x002AA223,callee of ?rva00489F7D@DozerAIUpdate@@UAEXPBVThingTemplate@@PAVPlayer@@PBUCoord3D@@M@Z
 ?clearRemovableForConstruction@BuildAssistant@@QAEXPBVThingTemplate@@PBUCoord3D@@M@Z,0x003940B8,callee of ?rva0048A15A@DozerAIUpdate@@UAEXXZ
 ?moveObjectsForConstruction@BuildAssistant@@QAE_NPBVThingTemplate@@PBUCoord3D@@MPAVPlayer@@@Z,0x00394FA7,callee of ?rva0048A15A@DozerAIUpdate@@UAEXXZ
-?rva0028449F@TerrainLogic@@QAEXPBUCoord3D@@ABVGeometryInfo@@M@Z,0x0028449F,callee of ?rva0048A15A@DozerAIUpdate@@UAEXXZ
 ?rva004D41B3@DisconnectManager@@QAEXHPAVConnectionManager@@@Z,0x004D41B3,callee of ?rva004D4637@DisconnectManager@@QAEXPAVNetCommandMsg@@PAVConnectionManager@@@Z
 ?rva0005407E@MilesAudioManager@@QAEXPAVINI@@@Z,0x0005407E,Target callsites 0x54206 and 0x54214 from 0x541DB set ECX=this and pass INI*; address-derived helper names; helper identity remains unresolved
 ?rva000540A7@MilesAudioManager@@QAEXPAVINI@@@Z,0x000540A7,Target callsites 0x54206 and 0x54214 from 0x541DB set ECX=this and pass INI*; address-derived helper names; helper identity remains unresolved
