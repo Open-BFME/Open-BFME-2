@@ -52,3 +52,11 @@ void AptInGameSpellBookInterface::Impl::OnClipLoaded(const char *params) {
   ((AptPlayer *)g_bfmeAptWindowManager)->AddOverButtonHandler(path,&descriptor);
  }
 }
+// WB013C5DC0 and native89B52A804..52A85D RET8. The one-based index is
+// a const-reference temporary; retail reuses the dead slotNum argument for it.
+void AptInGameSpellBookInterface::Impl::SetButtonState(int slotNum,int state) {
+ ButtonSlot &slot=m_slots[slotNum];
+ if(slot.state==state)return;
+ Rva005252CDInvoke((Rva00222A8BTarget *)g_bfmeAptWindowManager,m_level,m_clipName.str(),"SetButtonState",slotNum+1,g_00C68508[state]);
+ slot.state=state;
+}
