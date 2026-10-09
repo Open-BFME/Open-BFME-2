@@ -538,11 +538,9 @@ public:
 	Rva0040A3F9 *rva0021F797();
 };
 
-// The canonical data-ledger symbol at RVA 0x009FE344 is TheHeroManager.
-// GameEngine::init registers this same target object under the subsystem name
-// TheCreateAHeroManager; its pointer type here is inferred from target calls.
-class Rva0021A54A;
-extern Rva0021A54A *TheHeroManager;
+// The data ledger and GameEngine::init name RVA9FE344 TheCreateAHeroManager.
+// The existing retail calls establish this manager view.
+extern CreateAHeroManager *TheCreateAHeroManager;
 
 // These are the target's direct helpers from 0x005218AF. Ghidra bounds
 // 0x0044C2C6 at 270 bytes; this caller pushes no arguments and the target
@@ -666,7 +664,7 @@ void AptSkirmish::InitCreateAHeroOnStartGame()
 		return;
 
 	rva0044C2C6();
-	CreateAHeroManager *heroManager = (CreateAHeroManager *)TheHeroManager;
+	CreateAHeroManager *heroManager = (CreateAHeroManager *)TheCreateAHeroManager;
 	if (heroManager == 0)
 		return;
 
@@ -682,7 +680,7 @@ void AptSkirmish::InitCreateAHeroOnStartGame()
 			continue;
 
 		if (i == 0)
-			((Rva005B5B0CMgr *)TheHeroManager)->UseSub(hero);
+			((Rva005B5B0CMgr *)TheCreateAHeroManager)->UseSub(hero);
 		slot->rva0037AD8D(*hero);
 	}
 }
