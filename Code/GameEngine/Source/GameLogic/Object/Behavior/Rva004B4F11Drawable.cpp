@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
-// ?Rva004B4F11@@YG_NPAVDrawable@@PAXMM@Z @0x004B4F11 86B: drawable conditional broadcast.
+// ?rva004B4F11@SubObjectsUpgrade@@QAE_NPAVDrawable@@PAXMM@Z @0x004B4F11 86B: drawable conditional broadcast.
 // Iterates AsciiString range at +0xC, calls rowed 0x00278689 with (elem,0,1);
 // if false calls rowed 0x002724FD with (elem,0,1,-c,d) where c at +0x10
 // d at +0x14 via rowed Drawable this at +0x8. Returns true if second call ran.
@@ -13,7 +13,10 @@ public:
 	void rva002724FD(const AsciiString &a, int b, int c, float d, float e);
 };
 
-bool __stdcall Rva004B4F11(Drawable *drawable, void *range, float c, float d)
+class SubObjectsUpgrade { public: bool rva004B4F11(Drawable*,void*,float,float); };
+// Native callers4B5088/4B50A9 and4B5183/4B51BE pass primary receiver in ECX.
+// Receiver is unused in the leaf; preserved native RET16 and full bytes.
+bool SubObjectsUpgrade::rva004B4F11(Drawable *drawable, void *range, float c, float d)
 {
 	AsciiString *cur = *(AsciiString **)range;
 	bool ret = false;

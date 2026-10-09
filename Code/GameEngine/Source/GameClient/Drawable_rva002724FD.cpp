@@ -11,6 +11,8 @@
 extern class GameLogic *TheGameLogic;
 
 class AsciiString;
+namespace _STL { template<class T> class allocator; template<class T,class A> class vector; }
+typedef _STL::vector<AsciiString,_STL::allocator<AsciiString> > SubObjectExclusionList;
 
 class BfmeObjectDrawForRva2724FD
 {
@@ -66,7 +68,7 @@ class Drawable
 {
 public:
 	void rva002724FD(const AsciiString &a, int b, int c, float d, float e);
-	void rva00272414(int arg);
+	void rva00272414(const SubObjectExclusionList *arg);
 	void rva002723ED();
 };
 
@@ -82,7 +84,7 @@ void Drawable::rva002724FD(const AsciiString &a, int b, int c, float d, float e)
 	}
 }
 
-// ?rva00272414@Drawable@@QAEXH@Z — RVA 0x00272414, 118B.
+// ?rva00272414@Drawable@@QAEXPBV?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@@Z — RVA 0x00272414, 118B.
 // Gated broadcaster: when byte +0x3AA is set and the TheGameLogic object's
 // 0x00200084 predicate holds, require the +0xFC Thing to be any-kind-of the
 // (0,0x78,0xB5) bitset; then walk the +0x14C draw modules via slot 0xA8 and
@@ -132,7 +134,7 @@ public:
 	virtual void slot60() = 0; virtual void slot64() = 0;
 	virtual void slot68() = 0; virtual void slot6C() = 0;
 	virtual void slot70() = 0; virtual void slot74() = 0;
-	virtual void rva00272414Target(int arg) = 0;
+	virtual void rva00272414Target(const SubObjectExclusionList *arg) = 0;
 };
 
 class BfmeDrawModuleForRva272414
@@ -162,7 +164,7 @@ public:
 	virtual BfmeObjectDrawForRva272414 *getObjectDrawInterface() = 0;
 };
 
-void Drawable::rva00272414(int arg)
+void Drawable::rva00272414(const SubObjectExclusionList *arg)
 {
 	if (*(unsigned char *)((unsigned char *)this + 0x3AA) == 0)
 		return;
@@ -249,3 +251,7 @@ void Drawable::rva002723ED()
 // Other units call this body (pinned at its address) under the spelling(s)
 // below, with the same calling convention and stack arguments; bind them.
 #pragma comment(linker, "/alternatename:?rva002724FD@Drawable@@QAEXABVAsciiString@@EHMM@Z=?rva002724FD@Drawable@@QAEXABVAsciiString@@HHMM@Z")
+
+// Native SubObjectsUpgrade caller4B50F0 pass &moduleData130.
+// This pointer is borrowed and forwarded unchanged to draw-interface slot30;
+// correcting the previous integer declaration preserves all118 bytes and RET4.
