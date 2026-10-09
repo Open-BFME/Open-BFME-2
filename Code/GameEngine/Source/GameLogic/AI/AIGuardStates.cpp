@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /ICode/Libraries/Include/Lib
 //
 // AIGuard state bodies ported from Zero Hour's GameEngine/Source/GameLogic/AI/
 // AIGuard.cpp (GeneralsMD tree vendored under reference/open-bfme-1/inputs/
@@ -114,16 +114,8 @@ enum StateReturnType
 	STATE_SUCCESS = -1,
 	STATE_FAILURE = -2
 };
-struct Coord3D
-{
-	Real x, y, z;
-	void zero()
-	{
-		x = 0.0f;
-		y = 0.0f;
-		z = 0.0f;
-	}
-};
+#include "Coord3D.h"
+static __forceinline void guardZero(Coord3D &p){p.x=0.0f;p.y=0.0f;p.z=0.0f;}
 class Object;
 class AIUpdateInterface;
 class Rva0030B719Shape
@@ -332,6 +324,7 @@ public:
 	virtual void onExit(StateExitType status);
 	virtual StateReturnType update();
 	StateMachine *getMachine() const { return m_machine; }
+ Object *getMachineGoalObject()const{return m_machine->getGoalObject();}
 protected:
 	Object *getMachineOwner() const { return m_machine->getOwner(); }
 	unsigned char m_pad04[0x18 - 0x04];
@@ -353,7 +346,7 @@ public:
 	};
 	ExitConditions() : m_attackGiveUpFrame(0), m_conditionsToConsider(0), m_radiusSqr(0.0f)
 	{
-		m_center.zero();
+		guardZero(m_center);
 	}
 	virtual Bool shouldExit(const StateMachine *machine) const;
 	int m_conditionsToConsider; // +0x04 (state +0x24)
@@ -438,6 +431,7 @@ class AIGuardOuterState : public State
 {
 public:
 	AIGuardOuterState(StateMachine *machine);
+ virtual StateReturnType update();
 	virtual StateReturnType onEnter();
 	virtual void onExit(StateExitType status);
 private:
@@ -558,7 +552,7 @@ public:
 	};
 	Rva00367F19ExitConditions() : m_attackGiveUpFrame(0), m_conditionsToConsider(0), m_radiusSqr(0.0f)
 	{
-		m_center.zero();
+		guardZero(m_center);
 	}
 	virtual Bool shouldExit(const StateMachine *machine) const;
 	int m_conditionsToConsider; // +0x04
@@ -1059,4 +1053,35 @@ StateReturnType Rva0036A3E9GuardInnerState::onEnter(void)
 		return STATE_CONTINUE;
 	}
 	return STATE_SUCCESS;
+}
+
+// BF1 f98983a7d AIGuardOuterState_update_Bfme is the semantic guide;
+// full target543B5A..543CC4 proves all layout offsets and float evaluation.
+StateReturnType AIGuardOuterState::update()
+{
+ if(m_bfme40) {m_bfme40=false;State *self=this;return self->onEnter();}
+ if(!m_attackState)return STATE_SUCCESS;
+ AIGuardMachine *machine=getGuardMachine();
+ Object *target=machine->findTargetToGuardByID();
+ Team *team=machine->findTeamToGuardByID();
+ if(target)m_exitConditions.m_center=*target->getPosition();
+ else if(team)team->rva0039E5B9(&m_exitConditions.m_center);
+ StateReturnType result=m_attackState->update();
+ Object *goal=m_attackState->getMachineGoalObject();
+ Object *owner=getMachineOwner();
+ if(!goal)goto fallback;
+ if(owner->rva0028B511()!=1 && !AI::rva002FE193(owner,goal))return STATE_SUCCESS;
+ if(!goal->testBfme438Bit0()) {
+  Coord3D delta;
+  delta.x=m_exitConditions.m_center.x-goal->getPosition()->x;
+  delta.y=m_exitConditions.m_center.y-goal->getPosition()->y;
+  delta.z=m_exitConditions.m_center.z-goal->getPosition()->z;
+  Real radius=AIGuardMachine::getStdGuardRange(getMachineOwner());
+  if(delta.z*delta.z+delta.y*delta.y+delta.x*delta.x<=radius*radius)
+   m_exitConditions.m_attackGiveUpFrame=TheAI->getAiData()->m_guardChaseUnitFrames+TheGameLogic->getFrame();
+  return result;
+ }
+fallback:
+ if(getGuardMachine()->lookForInnerTarget()) {State *self=this;self->onExit(EXIT_NORMAL);return self->onEnter();}
+ return result;
 }
