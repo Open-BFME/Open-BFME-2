@@ -24,6 +24,7 @@ struct BfmeE16 { float x,y,z,w; };
 class Rva00330757Member {
 public:
     Rva00330757Member() throw();
+    ~Rva00330757Member() {}
 private:
     _STL::vector<BfmeE16> m_items;
     int m_flags;
@@ -82,3 +83,22 @@ SidesList::SidesList() : m_numSides(0),m_numSkirmishSides(0),m_cleared(true)
 
 // The auxiliary record constructor is the typed twin of the rowed 32C19D.
 Rva001976F0::Rva001976F0() {}
+
+// Retail posts the slot-zero member callback with the complete SidesList owner.
+class Rva00281A15Listener { public: virtual void notify(void *); };
+class SidesListNotifier {
+public:
+    void post(void (Rva00281A15Listener::*callback)(void *), void *owner);
+public:
+    struct Post { void (Rva00281A15Listener::*callback)(void *); void *owner; };
+    void dispatch(const Post *);
+};
+void SidesListNotifier::post(void (Rva00281A15Listener::*callback)(void *), void *owner)
+{
+    Post p; p.callback=callback; p.owner=owner; dispatch(&p);
+}
+// ?SidesList::~SidesList present-unmatched
+SidesList::~SidesList()
+{
+    reinterpret_cast<SidesListNotifier *>(static_cast<Rva00330757Member *>(this))->post(&Rva00281A15Listener::notify, this);
+}
