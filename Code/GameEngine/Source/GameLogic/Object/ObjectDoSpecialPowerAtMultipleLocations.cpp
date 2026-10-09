@@ -59,7 +59,6 @@ public:
 		const Coord3D *locations, Int locCount, UnsignedInt commandOptions, Bool forced);
 	SpecialPowerModuleInterface *getSpecialPowerModule(const SpecialPowerTemplate *spTemplate) const;
 	void rva0028C4B6();
-	Bool isDisabled() const { return m_disabledMask.any(); }
 
 private:
 	unsigned char m_pad00[0x1C8];
@@ -69,7 +68,7 @@ private:
 void Object::doSpecialPowerAtMultipleLocations(const SpecialPowerTemplate *spTemplate,
 	const Coord3D *locations, Int locCount, UnsignedInt commandOptions, Bool forced)
 {
-	if (isDisabled())
+	if (m_disabledMask.any())
 		return;
 	if (!forced && !TheSpecialPowerStore->canUseSpecialPower(this, spTemplate))
 		return;
