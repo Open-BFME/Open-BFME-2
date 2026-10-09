@@ -1,5 +1,5 @@
-// ?rva006C2510@GeneralAllocatorDebug@@QAEIPADHPAPAD@Z
-// partial score=0.98 date=2026-10-09
+// ?rva006C26F0@GeneralAllocatorDebug@@QAEXTGeneralAllocatorMetricBlockArg@@_N@Z
+// partial score=0.93 date=2026-10-09
 // ?rva006C1F60@Rva006C1F60@@QAEHI@Z @ 0x006C1F60 113B chain of 0x00030DF0
 // Release. AddRef at +0x4e4 Release guarded float clamp via __ftol2 returning
 // clamped int. Evidence: calls AddRef 0x00030DD0 Release 0x00030DF0 __ftol2
@@ -123,12 +123,20 @@ private:
 
 class Rva006C1850 { public: bool rva006C1850(unsigned int, void **); };
 
-unsigned int __stdcall Rva006C1FE0(char *base, int length, char **bodyOut);
+union GeneralAllocatorMetricBlockArg { GeneralAllocatorChunk *block; unsigned int size; };
+
+struct GeneralAllocatorMetricCounters
+{
+ unsigned __int64 currentCount, totalAllocCount, peakCount;
+ unsigned __int64 currentBytes, totalAllocBytes, peakBytes;
+ unsigned __int64 totalFreeCount, totalFreeBytes;
+};
+extern "C" __declspec(dllimport) unsigned int __stdcall GetTickCount(void);
 
 class GeneralAllocatorDebug : public EA::Allocator::GeneralAllocator
 {
 public:
-	unsigned int rva006C1FE0(char *base, int length, char **bodyOut);
+	void rva006C26F0(GeneralAllocatorMetricBlockArg arg, bool allocation);
 	unsigned int rva006C2510(char *block, int mode, char **outBody);
 	void *rva006C2010Run6(void *block, unsigned int size, unsigned short kind, void *dst, unsigned int capacity, unsigned int *outLen);
 	void rva006C2AA0(unsigned char fillFree, unsigned char fillDelayedFree,
@@ -136,12 +144,6 @@ public:
 	void *rva006C25F0Run6(void *runBlock, int kind, int zero3, int zero2,
 		unsigned int *outLen, int zero1);
 private:
- static __forceinline unsigned int trailerSize(char *base, unsigned int length, char **bodyOut)
- {
-  unsigned short bodySize=*(unsigned short *)(base+length-2);
-  if(bodyOut)*bodyOut=base+length-2-bodySize;
-  return bodySize+2;
- }
 	unsigned int getDebugDataSize(char *data)
 	{
 		unsigned int sizeField = ((GeneralAllocatorChunk *)(data - 8))->m_size;
@@ -176,6 +178,13 @@ private:
 	unsigned int m_delayedFreeTotal; // +0x540
 	unsigned int m_544;
 	GeneralAllocatorChunk m_delayedFree; // +0x548
+ unsigned char m_pad558[8];
+ bool m_metricsEnabled; // +0x560
+ unsigned char m_pad561[7];
+ unsigned __int64 m_allocRequests; // +0x568
+ GeneralAllocatorMetricCounters m_metrics[4]; // +0x570..0x66F
+ unsigned int m_lastAllocation; // +0x670
+ unsigned int m_lastFree; // +0x674
 };
 
 void GeneralAllocatorDebug::rva006C2AA0(unsigned char fillFree, unsigned char fillDelayedFree,
@@ -315,39 +324,49 @@ int Rva006C1F60::rva006C1DC0(unsigned int block) {
 success:return 1;
 }
 
-// Native 006C2510..006C25E6: debug trailer length under the allocator lock,
-// inline trailer or optional hash entry according to +67C/+680/+684.
-unsigned int GeneralAllocatorDebug::rva006C2510(char *block, int mode, char **outBody)
+// Native 006C26F0..006C2A96 (934B): allocation request counter and four
+// 64-bit accounting records, gated by +560. All layout names are structural
+// inferences from target accesses; original method/field names are unknown.
+void GeneralAllocatorDebug::rva006C26F0(GeneralAllocatorMetricBlockArg arg, bool allocation)
 {
- Rva00030DD0Lock *lock=m_lock;
- if(lock)Rva00030DD0AddRef(lock);
- unsigned int result=0;
- int gate=mode;
- if(mode==2)gate=*(int *)((char *)this+0x67C);
- if(!gate) {
-  unsigned int h=*((unsigned int *)block-1);
-  unsigned int size;
-  if(!(h&2))size=(h&0x7FFFFFF8)+4;
-  else size=h&0x7FFFFFF8;
-  result=trailerSize(block,size-8,outBody);
- } else if(*(bool *)((char *)this+0x680)) {
-  void *out=0;
-  if(((Rva006C1850*)((char *)this+0x684))->rva006C1850((unsigned int)block,&out)&&out) {
-   char *bytes=*(char **)out;
-   unsigned short len=*(unsigned short *)bytes;
-   if(len)result=rva006C1FE0(bytes+2,len-2,outBody);
+ if(allocation) ++m_allocRequests;
+ if(m_metricsEnabled && arg.block) {
+  GeneralAllocatorChunk *block=arg.block;
+  unsigned int flags=block->m_size;
+  unsigned int prev=(flags&2)?block->m_prevSize:0;
+  unsigned int footprint=(block->m_size&0x7FFFFFF8)+prev;
+  arg.size=flags&0x7FFFFFF8;
+  if(!(block->m_size&2))arg.size+=4;
+  unsigned int overhead=prev+8;
+  unsigned int debugSize=rva006C2510((char *)block+8,0,0);
+  arg.size-=debugSize+8;
+  if(allocation) {
+   m_lastAllocation=GetTickCount()/1000;
+   ++m_metrics[0].currentCount;
+   ++m_metrics[0].totalAllocCount;
+   m_metrics[0].currentBytes+=footprint;
+   m_metrics[0].totalAllocBytes+=footprint;
+   if(m_metrics[0].peakCount<m_metrics[0].currentCount)m_metrics[0].peakCount=m_metrics[0].currentCount;
+   if(m_metrics[0].peakBytes<m_metrics[0].currentBytes)m_metrics[0].peakBytes=m_metrics[0].currentBytes;
+   m_metrics[1].currentBytes+=overhead;
+   m_metrics[1].totalAllocBytes+=overhead;
+   m_metrics[2].currentBytes+=debugSize;
+   m_metrics[2].totalAllocBytes+=debugSize;
+   m_metrics[3].currentBytes+=arg.size;
+   m_metrics[3].totalAllocBytes+=arg.size;
+   if(m_metrics[3].peakBytes<m_metrics[3].currentBytes)m_metrics[3].peakBytes=m_metrics[3].currentBytes;
+  } else {
+   m_lastFree=GetTickCount()/1000;
+   --m_metrics[0].currentCount;
+   m_metrics[0].currentBytes-=footprint;
+   ++m_metrics[0].totalFreeCount;
+   m_metrics[0].totalFreeBytes+=footprint;
+   m_metrics[1].currentBytes-=overhead;
+   m_metrics[1].totalFreeBytes+=overhead;
+   m_metrics[2].currentBytes-=debugSize;
+   m_metrics[2].totalFreeBytes+=debugSize;
+   m_metrics[3].currentBytes-=arg.size;
+   m_metrics[3].totalFreeBytes+=arg.size;
   }
  }
- if(lock)Rva00030DF0Release(lock);
- return result;
-}
-
-// The native 006C2510 caller supplies this for the otherwise this-unused
-// 006C1FE0 trailer reader; this typed ABI form is a full byte/relocation twin
-// of the existing stdcall reader, not new unique retail bytes.
-unsigned int GeneralAllocatorDebug::rva006C1FE0(char *base, int length, char **bodyOut)
-{
- unsigned short bodySize=*(unsigned short *)(base+length-2);
- if(bodyOut)*bodyOut=base+length-2-bodySize;
- return bodySize+2;
 }
