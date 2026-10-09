@@ -1,54 +1,40 @@
-// ?rva002C986B@Object@@QBEXPAUCoord3D@@PBU2@@Z
-// partial score=0.9 date=2026-10-01
-// cl: /O1 /arch:SSE /DNDEBUG /MD /EHs-c-
-// ?rva002C986B@Object@@QBEXPAUCoord3D@@PBU2@@Z @0x002C986B 119B
-// Object planar scaled-repulsion: delta via rowed 0x0026382B, len via rowed Coord3D::length,
-// radius at +0xB8 (Object geometry per ObjectRva002C97E8 sibling); zero when len <= radius
-// else out = delta * (len - radius) / len. Evidence: callers 0x002CAEE2; prev/next TUs share
-// +0x38 position and +0xB8 majorRadius layout and /O1 /arch:SSE flags.
-struct Coord3D
-{
-	float x;
-	float y;
-	float z;
-	float length() const;
-};
-
-class Object
-{
+// ?rva002C986B@Object@@QBEPAUCoord3D@@PAU2@PBU2@@Z
+// partial score=0.6721008403361344 date=2026-10-09
+// cl: /I. /O1 /G7 /arch:SSE /DNDEBUG /MD
+// Target evidence: 00265514..00265596/130 and002C986B..002C98E2/119 RET8.
+// Native planar workers2654FC/26382B and canonical length3571 are owned.
+// Object radiusB8 and boundary shrink factor (distance-radii)/distance are native.
+// WB BB5F00 unnamed130; BB6180 Object::Get2DBorderVectorTo119.
+// WB return-construction flags establish by-value coordinate return. The explicit
+// out pointer below is an ABI view of its hidden return buffer, not a claim about
+// the original C++ prototype. Canonical trivial Coord3D return instead copies via
+// MOVSD; member copy and scalar results still have different SSE register order.
+// Shared432 scalar-order trials plus O2/O1/Op variants:130 best.877162837;
+// corresponding119.672100840. No Code edit, no pins, no recovery asserted.
+#include "Code/Libraries/Include/Lib/Coord3D.h"
+class Object {
 public:
-	void rva002C986B(Coord3D *out, const Coord3D *pos) const;
-	void rva0026382B(Coord3D *out, const Coord3D *pos) const;
-
-private:
-	char m_pad00[0x38];
-	Coord3D m_position; // +0x38
-	char m_pad44[0xB8 - 0x38 - 12];
-	float m_majorRadius; // +0xB8
+ Coord3D *getPlanarDirectionTo(Coord3D*,const Object*)const;
+ void Get2DCenterVectorTo(Coord3D*,const Coord3D*)const;
+ Coord3D *rva00265514(Coord3D*,const Object*)const;
+ Coord3D *rva002C986B(Coord3D*,const Coord3D*)const;
+ char pad[0xb8];float radius;
 };
-
-// ?rva002C986B@Object@@QBEXPAUCoord3D@@PBU2@@Z present-unmatched
-void Object::rva002C986B(Coord3D *out, const Coord3D *pos) const
-{
-	Coord3D delta;
-	rva0026382B(&delta, pos);
-	float len = delta.length();
-	float rad = m_majorRadius;
-	float f;
-	float ox;
-	float oy;
-	float oz;
-	if (rad >= len) {
-		ox = 0.0f;
-		oy = 0.0f;
-		oz = 0.0f;
-	} else {
-		f = (len - rad) / len;
-		oz = delta.z * f;
-		oy = delta.y * f;
-		ox = f * delta.x;
-	}
-	out->x = ox;
-	out->y = oy;
-	out->z = oz;
+Coord3D *Object::rva00265514(Coord3D *out,const Object *that)const {
+ Coord3D dir;getPlanarDirectionTo(&dir,that);
+ float dist=dir.length();float radiusSum=that->radius+radius;
+ float x,y,z;
+ if(radiusSum>=dist){x=0.0f;y=0.0f;z=0.0f;}
+ else {float scale=(dist-radiusSum)/dist;y=dir.y*scale;z=dir.z*scale;x=dir.x*scale;}
+ out->x=x;out->y=y;out->z=z;
+ return out;
+}
+Coord3D *Object::rva002C986B(Coord3D *out,const Coord3D *pos)const {
+ Coord3D dir;Get2DCenterVectorTo(&dir,pos);
+ float dist=dir.length();
+ float x,y,z;
+ if(radius>=dist){x=0.0f;y=0.0f;z=0.0f;}
+ else {float scale=(dist-radius)/dist;y=dir.y*scale;z=dir.z*scale;x=dir.x*scale;}
+ out->x=x;out->y=y;out->z=z;
+ return out;
 }
