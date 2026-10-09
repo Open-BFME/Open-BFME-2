@@ -1,7 +1,3 @@
-// ?exitObjectViaDoor@SupplyCenterProductionExitUpdate@@UAEXPAVObject@@W4ExitDoorType@@@Z
-// partial score=0.9721151 date=2026-10-09
-// ?exitObjectViaDoor@SupplyCenterProductionExitUpdate@@UAEXPAVObject@@W4ExitDoorType@@@Z
-// partial score=0.97 date=2026-10-07
 // cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /GX /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /I. /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
 // stlport
 /*
@@ -69,6 +65,12 @@ enum CommandSourceType
 };
 
 #include "matrix3d.h"
+static __forceinline void supplyTransform(const Matrix3D&A,const Vector3&in,Vector3*out) {
+ Vector3 tmp;Vector3*v; if(out==&in){tmp=in;v=&tmp;}else v=(Vector3*)&in;
+ out->X=A[0][0]*v->X+A[0][1]*v->Y+A[0][2]*v->Z+A[0][3];
+ out->Y=((A[1][0]*v->X+A[1][1]*v->Y)+A[1][2]*v->Z)+A[1][3];
+ out->Z=A[2][0]*v->X+A[2][1]*v->Y+A[2][2]*v->Z+A[2][3];
+}
 class Thing
 {
 public:
@@ -241,7 +243,7 @@ void SupplyCenterProductionExitUpdate::exitObjectViaDoor( Object *newObj, ExitDo
 		// and translate for building location via a transform call
 		//
 		loc.Set( md->m_unitCreatePoint.x, md->m_unitCreatePoint.y, md->m_unitCreatePoint.z );
-		transform->Transform_Vector( *transform, loc, &loc );
+		supplyTransform(*transform,loc,&loc);
 
 		// make sure the point is on the terrain
 		loc.Z = TheTerrainLogic ? TheTerrainLogic->getGroundHeight( loc.X, loc.Y ) : 0.0f;
@@ -268,7 +270,8 @@ void SupplyCenterProductionExitUpdate::exitObjectViaDoor( Object *newObj, ExitDo
 		// transform the point into world space
 		Vector3 rallyInput(p);
  p.X = (( (*transform)[0][2]*rallyInput.Z + (*transform)[0][1]*rallyInput.Y ) + (*transform)[0][0]*rallyInput.X) + (*transform)[0][3];
- p.Y = (( (*transform)[1][2]*rallyInput.Z + (*transform)[1][1]*rallyInput.Y ) + (*transform)[1][0]*rallyInput.X) + (*transform)[1][3];
+ // Native rally transform observes the X coefficient before its sum is rescheduled.
+ p.Y=((*(const volatile float *)&(*transform)[1][0]*rallyInput.X+(*transform)[1][2]*rallyInput.Z)+(*transform)[1][1]*rallyInput.Y)+(*transform)[1][3];
  p.Z = (( (*transform)[2][1]*rallyInput.Y + (*transform)[2][2]*rallyInput.Z ) + (*transform)[2][0]*rallyInput.X) + (*transform)[2][3];
 
 		Rva0035149F exitPath;
@@ -295,22 +298,3 @@ void SupplyCenterProductionExitUpdate::exitObjectViaDoor( Object *newObj, ExitDo
 	}
 }
 
-//-------------------------------------------------------------------------------------------------
-Bool SupplyCenterProductionExitUpdate::getExitPosition( Coord3D& exitPosition ) const
-{
-	const Object *obj = getObject();
-	if (!obj)
-		return false;
-
-	const Matrix3D *transform = obj->getTransformMatrix();
-
-	const SupplyCenterProductionExitUpdateModuleData *md = getSupplyCenterProductionExitUpdateModuleData();
-
-	Vector3 loc;
-	loc.Set( md->m_unitCreatePoint.x, md->m_unitCreatePoint.y, md->m_unitCreatePoint.z );
-	transform->Transform_Vector( *transform, loc, &loc );
-
-	exitPosition = *(const Coord3D *)&loc;
-
-	return true;
-}
