@@ -1,68 +1,60 @@
-// ?rva000551C2@Rva000551C2@@QAEXH@Z
-// partial score=0.92 date=2026-09-30
-// ?rva000551C2@Rva000551C2@@QAEXH@Z
-// partial score=0.92 date=2026-09-30
-// cl: /O1 /MD /EHsc
-// ?rva000551C2@Rva000551C2@@QAEXH@Z @0x000551C2 106B. Guarded single-entry erase
-// of first BfmePod8 with a[0]==key then set dirty flag. Evidence: chain via
-// 0x0004120E ctor and 0x0004122F dtor rows plus 0x00054B3F vector erase row;
-// offsets +0x9d4 mutex +0xb54 vector +0x6aa flag from retail immediates.
-struct BfmePod8
+// ?rva000551C2@MilesAudioManager@@QAEXH@Z
+// partial score=0.85 date=2026-10-09
+// cl: /DNDEBUG /MD /EHsc
+// ?rva000551C2@MilesAudioManager@@QAEXH@Z @0x000551C2 106B
+// Guarded removal of the vector<BfmePod8> entry at +0xB54 whose first word equals
+// the argument: the mutex zone at +0x9D4 is held, the first match is erased through
+// the rowed vector<BfmePod8>::erase 0x00054B3F and the flag at +0x6AA is raised.
+// Layout is the one MilesAudioManagerRva0005710F.cpp proves for the same members.
+// A minimal vector view: the rowed erase 0x00054B3F is the STLport vector<BfmePod8>::erase.
+namespace _STL {
+template <class T> class allocator {};
+template <class T, class A = allocator<T> > class vector
 {
-	int a[2];
+public:
+    T *begin() { return m_start; }
+    T *end() { return m_finish; }
+    T *erase(T *position);
+private:
+    T *m_start;
+    T *m_finish;
+    T *m_end_of_storage;
 };
-
-namespace _STL
-{
-	template <class T> class allocator
-	{
-	};
-	template <class T, class A = allocator<T> > class vector
-	{
-	public:
-		T *begin() { return _M_start; }
-		T *end() { return _M_finish; }
-		T *erase(T *p);
-		T *_M_start;
-		T *_M_finish;
-		T *_M_end;
-	};
 }
+
+struct BfmePod8 { int a[2]; };
 
 class MilesMutexGuard
 {
 public:
-	MilesMutexGuard(void *m, int x);
-	~MilesMutexGuard();
+    MilesMutexGuard(void *mutex, int defer);
+    ~MilesMutexGuard();
 private:
-	void *m_mutex;
-	bool m_flag;
+    void *m_mutex;
+    bool m_held;
 };
 
-class Rva000551C2
+class MilesAudioManager
 {
 public:
-	void rva000551C2(int key);
+    void rva000551C2(int key);
 private:
-	char m_pad0[0x6aa];
-	bool m_dirty; // +0x6aa
-	char m_pad1[0x329];
-	int m_mutexObj; // +0x9d4 passed by address
-	char m_pad2[0x17c];
-	_STL::vector<BfmePod8> m_vec; // +0xb54
+    char m_pad0[0x6aa];
+    bool m_flag6AA;
+    char m_pad6AB[0x9D4 - 0x6AB];
+    int m_mutex9D4;
+    char m_pad9D8[0xB54 - 0x9D8];
+    _STL::vector<BfmePod8> m_vecB54;
 };
 
-// ?rva000551C2@Rva000551C2@@QAEXH@Z present-unmatched
-void Rva000551C2::rva000551C2(int key)
+void MilesAudioManager::rva000551C2(int key)
 {
-	MilesMutexGuard guard(&m_mutexObj, 0);
-	for (BfmePod8 *it = m_vec.begin(); it != m_vec.end(); ++it)
-	{
-		if (it->a[0] == key)
-		{
-			m_vec.erase(it);
-			m_dirty = true;
-			break;
-		}
-	}
+    MilesMutexGuard guard(&m_mutex9D4, 0);
+    for (BfmePod8 *it = m_vecB54.begin(); it != m_vecB54.end(); ++it) {
+        if (it->a[0] == key) {
+            m_vecB54.erase(it);
+            m_flag6AA = true;
+            break;
+        }
+    }
 }
