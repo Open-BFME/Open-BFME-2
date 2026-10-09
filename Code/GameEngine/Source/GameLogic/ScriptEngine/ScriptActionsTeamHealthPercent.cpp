@@ -1,10 +1,11 @@
-// ?Rva003C301DDo@@YGXPAVParameter@@0@Z
-// partial score=0.97 date=2026-10-05
+// BFME1 f98983a7d ScriptActions_doTeamSetHealth.cpp supplies health clamp,
+// min/max reference templates and member traversal. Native 0x003C301D/188B
+// independently proves direct ScriptEngine lookup, Object body+254 and body
+// slots21/23 with float/bool1. Original free action spelling remains unknown.
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /GX /arch:SSE
-// ?Rva003C301DDo@@YGXPAVParameter@@0@Z @0x003C301D 188B: team float-clamped body module via getTeamNamed iterate. Evidence: rowed getTeamNamed 0x3584E9 iterate 0x263864 advance 0x263526 StringBase copy 0x365F0 kF7C; caller 0x003CE3E8; ret 0x8 stdcall.
+// ?Rva003C301DDo@@YGXPAVParameter@@0@Z @0x003C301D 188B: team float-clamped body module via getTeamNamed iterate. Evidence: rowed getTeamNamed 0x3584E9 iterate 0x263864 advance 0x263526 StringBase copy 0x365F0; retail100.0 literal; caller 0x003CE3E8; ret 0x8 stdcall.
 #include "ascii_string.h"
 
-extern "C" float kF7C;
 
 class Object;
 class Team;
@@ -19,16 +20,6 @@ public:
 	void advance();
 	bool done() const { return m_cur == 0; }
 	OBJCLASS *cur() const { return m_cur; }
-};
-
-template<class OBJCLASS>
-class Rva001705A0DlinkIterator
-{
-private:
-	OBJCLASS *m_cur;
-	unsigned char m_targetAbiState[20];
-public:
-	void advance();
 };
 
 class BodyModule
@@ -59,10 +50,10 @@ class ScriptEngine
 public:
 	Team *getTeamNamed(AsciiString name, bool exact);
 };
-extern ScriptEngine *g_Va009FE16C;
+extern ScriptEngine *TheScriptEngine;
 
-inline const float &FloatMinRef(const float &a, const float &b) { return (b > a) ? a : b; }
-inline const float &FloatMaxRef(const float &a, const float &b) { return (b > a) ? b : a; }
+inline const float &FloatMinRef(const float &a, const float &b) { return a < b ? a : b; }
+inline const float &FloatMaxRef(const float &a, const float &b) { return a > b ? a : b; }
 
 class Parameter
 {
@@ -76,17 +67,17 @@ public:
 
 void __stdcall Rva003C301DDo(Parameter *teamParm, Parameter *floatParm)
 {
-	Team *team = g_Va009FE16C->getTeamNamed((AsciiString &)teamParm->getString(), false);
+	Team *team = TheScriptEngine->getTeamNamed((AsciiString &)teamParm->getString(), false);
 	if (team == 0)
 		return;
 	float a = floatParm->m_real;
-	float v1 = FloatMinRef(a, kF7C);
-	float v2 = FloatMaxRef(v1, 0.0f);
-	for (DLINK_ITERATOR<Object> it = team->iterate_TeamMemberList(); !it.done(); ((Rva001705A0DlinkIterator<Object> *)&it)->advance()) {
+	a = FloatMinRef(a, 100.0f);
+	a = FloatMaxRef(0.0f, a);
+	for (DLINK_ITERATOR<Object> it = team->iterate_TeamMemberList(); !it.done(); it.advance()) {
 		BodyModule *body = it.cur()->m_body;
 		if (body == 0)
 			continue;
-		body->b21(v2, 1);
+		body->b21(a, 1);
 		body->b23();
 	}
 }
