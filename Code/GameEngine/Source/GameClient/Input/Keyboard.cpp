@@ -82,6 +82,10 @@ public:
 enum
 {
 	KEY_STATE_NONE = 0x0000,
+	KEY_STATE_LCONTROL = 0x0004,
+	KEY_STATE_RCONTROL = 0x0008,
+	KEY_STATE_LALT = 0x0040,
+	KEY_STATE_RALT = 0x0080,
 	KEY_STATE_LSHIFT = 0x0010,
 	KEY_STATE_RSHIFT = 0x0020,
 	KEY_STATE_SHIFT2 = 0x0400
@@ -96,6 +100,8 @@ public:
 	virtual ~Keyboard();
 
 	bool isShift();
+	bool isCtrl();
+	bool isAlt();
 
 protected:
 	unsigned short m_modifiers;									// +0x0C
@@ -128,4 +134,23 @@ bool Keyboard::isShift()
 	if (((modifiers & (KEY_STATE_LSHIFT | KEY_STATE_RSHIFT)) != 0) || ((modifiers & KEY_STATE_SHIFT2) != 0))
 		return true;
 	return false;
+}
+
+// ZH Keyboard.cpp isCtrl/isAlt guide; native232696..2326AE independently
+// tests the left/right modifier bits at0C, with the same two-exit Bool ABI
+// as the rowed isShift sibling. WB E9B1A0/E9B1D0 confirm the two word masks.
+// The names are inferred from established Keyboard identity and modifier role.
+bool Keyboard::isCtrl()
+{
+ unsigned short modifiers=m_modifiers;
+ if ((modifiers & KEY_STATE_LCONTROL) || (modifiers & KEY_STATE_RCONTROL))
+  return true;
+ return false;
+}
+bool Keyboard::isAlt()
+{
+ unsigned short modifiers=m_modifiers;
+ if ((modifiers & KEY_STATE_LALT) || (modifiers & KEY_STATE_RALT))
+  return true;
+ return false;
 }
