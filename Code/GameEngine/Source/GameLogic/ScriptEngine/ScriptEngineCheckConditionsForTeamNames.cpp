@@ -72,10 +72,10 @@ private:
 
 class Script
 {
+	friend class ScriptEngine; // Retail reads this view's +0x30 field inline.
 public:
 	Int getDelayEvalSeconds() const { return m_delay; }
 	void setFrameToEvaluate(UnsignedInt f) { m_frame = f; }
-	OrCondition *getOrCondition() const { return m_or; }
 private:
 	char m_pad0[0x20];
 	Int m_delay;
@@ -157,7 +157,7 @@ void ScriptEngine::checkConditionsForTeamNames(Script *pScript, const AsciiStrin
 		pScript->setFrameToEvaluate(0);
 	}
 
-	for (OrCondition *pOr = pScript->getOrCondition(); pOr; pOr = pOr->getNextOrCondition()) {
+	for (OrCondition *pOr = pScript->m_or; pOr; pOr = pOr->getNextOrCondition()) {
 		for (Condition *pCond = pOr->getFirstAndCondition(); pCond; pCond = pCond->getNext()) {
 			for (Int i = 0; i < pCond->getNumParameters(); ++i) {
 				if (((ScriptAction *)pCond)->getParameter(i)->getParameterType() != Parameter::TEAM)

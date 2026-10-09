@@ -32,7 +32,7 @@ private:
 class Player
 {
 public:
-    int getPlayerIndex() const { return m_playerIndex; }
+    __declspec(dllimport) __forceinline int getPlayerIndex() const { return m_playerIndex; }
 private:
     unsigned char m_pad00[0x54];
     int m_playerIndex; // +0x54
