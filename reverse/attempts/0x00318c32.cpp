@@ -1,4 +1,6 @@
 // ?rva00318C32@Rva00318C79Owner@@QAEPAVRva00318C32Ret@@XZ
+// partial score=0.95 date=2026-10-09
+// ?rva00318C32@Rva00318C79Owner@@QAEPAVRva00318C32Ret@@XZ
 // partial score=0.9 date=2026-10-05
 // cl: /O1 /DNDEBUG /MD /arch:SSE
 // ?rva00318C32@Rva00318C79Owner@@QAEPAVRva00318C32Ret@@XZ @0x00318C32 71B.
@@ -6,8 +8,7 @@
 // Rva0020EE29::rva0020FAEA 0x0020FAEA via g_009FEF10->+0xB0 with the void* at
 // +0x8C; stores the result back to +0x8C and returns it for the wrapper
 // 0x00318C79. Evidence: 4 matched callers; movss/xorps need /arch:SSE.
-// Row 0x0020FAEA declares void return but the body uses eax as a pointer
-// (inner finder result); declared here as returning void* for honest codegen.
+// The shared 0x0020FAEA provider now returns void* with all 87 bytes exact.
 class Rva00318C32Ret
 {
 public:
@@ -28,7 +29,8 @@ public:
 	Rva0020EE29 *m_B0;
 };
 
-extern Rva002BA8F1Logic *g_009FEF10;
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 
 class Rva00318C79Owner
 {
@@ -45,12 +47,9 @@ private:
 // ?rva00318C32@Rva00318C79Owner@@QAEPAVRva00318C32Ret@@XZ present-unmatched
 Rva00318C32Ret *Rva00318C79Owner::rva00318C32()
 {
-	float v[3];
-	v[0] = m_44;
-	Rva002BA8F1Logic *g = g_009FEF10;
-	v[1] = m_48;
-	v[2] = 0.0f;
-	Rva00318C32Ret *r = (Rva00318C32Ret *)g->m_B0->rva0020FAEA(v, m_8C);
-	m_8C = r;
-	return r;
+float v[3]; v[0]=m_44;
+ Rva0020EE29 *manager = reinterpret_cast<Rva002BA8F1Logic *>(TheLivingWorldLogic)->m_B0;
+ v[1]=m_48; v[2]=0.0f;
+ m_8C=manager->rva0020FAEA(v,m_8C);
+ return (Rva00318C32Ret *)m_8C;
 }
