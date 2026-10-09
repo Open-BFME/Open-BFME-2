@@ -1,5 +1,7 @@
 // ?rva00459E05@SiegeDockingBehavior@@AAEXXZ
 // partial score=0.99 date=2026-10-09
+// ?rva00459E05@SiegeDockingBehavior@@AAEXXZ
+// partial score=0.99 date=2026-10-09
 // cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
 // stlport
 // Retail 0x00459E05, 554B: SiegeDockingBehavior::rva00459E05 (name pinned:
