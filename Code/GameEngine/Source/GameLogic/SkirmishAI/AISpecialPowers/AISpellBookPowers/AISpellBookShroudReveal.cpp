@@ -1,4 +1,4 @@
-// cl: /MD /GX
+// cl: /MD /GX /Ireference/shims/bfme2_ascii
 //
 // AISpellBookShroudReveal.cpp (the unit retail's random-range asserts name,
 // 0x00C75EF0).
@@ -12,6 +12,8 @@
 //
 // The filters are BFME2's partition filter chain (the view
 // AIStructureCreepTactic.cpp documents).
+
+#include "ascii_string.h"
 
 class Object;
 class Player;
@@ -78,8 +80,11 @@ class Waypoint
 {
 public:
 	const Coord3D *getLocation() const { return &m_location; }
-	char m_pad00[0x0C];
+	unsigned int m_unknown00, m_id04;
+	StringBase<char> m_name08;
 	Coord3D m_location;	// +0x0C
+	unsigned int m_unknown18;
+	Waypoint *m_next1c;
 };
 
 class TerrainLogic
@@ -93,7 +98,7 @@ public:
 	virtual void s20(); virtual void s21(); virtual void s22(); virtual void s23();
 	virtual void s24(); virtual void s25(); virtual void s26(); virtual void s27();
 	virtual void s28(); virtual void s29(); virtual void s30(); virtual void s31();
-	virtual void s32(); virtual void s33(); virtual void s34();
+	virtual void s32(); virtual Waypoint *firstWaypoint(); virtual void s34();
 	virtual Waypoint *getWaypointByID(int waypointID);
 };
 extern TerrainLogic *TheTerrainLogic;
@@ -176,4 +181,17 @@ bool Rva005EE816::rva005D7FA6(Object *source)
 		}
 	}
 	return false;
+}
+
+// Native RVA 0x005D7E45..0x005D7E98, 83B; the preceding destructor ends
+// exactly at this entry. The clean inline lookup in the verified initializer
+// Rva005D7E98WaypointStarts.cpp is the C++ guide. Retail independently proves
+// the first-waypoint slot 33, name +8, next +0x1C and by-value key cleanup.
+// The original standalone function name remains unproved.
+Waypoint *Rva005D7E45FindWaypoint(AsciiString key)
+{
+	Waypoint *p = TheTerrainLogic->firstWaypoint();
+	for (; p; p = p->m_next1c)
+		if (p->m_name08.compare(*(const StringBase<char> *)&key) == 0) break;
+	return p;
 }
