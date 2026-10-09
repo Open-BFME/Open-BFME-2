@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /Oi- /Oy-
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /Oi-
 // Real C++ for the complete retail script writer and its private mask helper.
 // Target identity: WriteScriptListDataChunk calls 0x003B5994 with the writer,
 // list and first-script handle. That body calls the mask writer at 0x003B372D.
@@ -144,6 +144,7 @@ static __declspec(noinline) BfmeFixedStorage002CF0F0 ReadScriptPlayerMask_Rva003
 }
 struct Rva003B3536
 {
+    Rva003B3536() : a(false), b(false), value(0), c(true) {}
     bool a, b;
     int value;
     bool c;
@@ -156,25 +157,37 @@ public:
     static bool ParseActionDataChunk(DataChunkInput &, DataChunkInfo *, void *);
     static bool ParseActionFalseDataChunk(DataChunkInput &, DataChunkInfo *, void *);
 };
-class Script
+#define BFME_SNAPSHOT_NAME_SLOT
+#include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
+class Script : public Snapshot
 {
 public:
+    Script();
     bool Rva003B79F1(DataChunkInput &file, unsigned short version);
+protected:
+    virtual ~Script();
+    virtual void loadPostProcess();
+    virtual const char *GetSnapshotName() const;
+    virtual void xfer(Xfer *);
 private:
-    int unknown;
-    AsciiString m_strings[3];
+    AsciiString m_text0, m_text1, m_text2;
     Rva003B3536 m_subrecord;
     int m_delay;
-    unsigned int m_mask;
+    BfmeFixedStorage002CF0F0 m_mask;
     bool m_active, m_easy, m_subroutine, m_normal, m_hard, m_flag;
-    char m_between[0x40 - 0x2E];
-    bool m_currentActive;
+    OrCondition *m_condition;
+    ScriptAction *m_actions[2];
+    int m_frame;
+    bool m_currentActive, m_otherFlag;
+    AsciiString m_runtimeName44;
+    float m_conditionTime, m_currentTime;
+    int m_conditionExecutedCount;
 };
 bool Script::Rva003B79F1(DataChunkInput &file, unsigned short version)
 {
-    m_strings[0] = file.readAsciiString();
-    m_strings[1] = file.readAsciiString();
-    m_strings[2] = file.readAsciiString();
+    m_text0 = file.readAsciiString();
+    m_text1 = file.readAsciiString();
+    m_text2 = file.readAsciiString();
     bool on = file.readByte() != 0;
     m_currentActive = on;
     m_active = on;
@@ -189,10 +202,10 @@ bool Script::Rva003B79F1(DataChunkInput &file, unsigned short version)
         m_subrecord.rva003B3536(file, version);
     if (version >= 4)
     {
-        m_mask = ReadScriptPlayerMask_Rva003B5918(file).bits();
+        *(unsigned int *)&m_mask = ReadScriptPlayerMask_Rva003B5918(file).bits();
     }
     else
-        m_mask = ScriptAllPlayersMask();
+        *(unsigned int *)&m_mask = ScriptAllPlayersMask();
     file.registerParser(AsciiString("OrCondition"), AsciiString("Script"),
         (BfmeScriptParserCallback)&OrCondition::ParseOrConditionDataChunk, 0);
     file.registerParser(AsciiString("ScriptAction"), AsciiString("Script"),
@@ -200,4 +213,19 @@ bool Script::Rva003B79F1(DataChunkInput &file, unsigned short version)
     file.registerParser(AsciiString("ScriptActionFalse"), AsciiString("Script"),
         (BfmeScriptParserCallback)&ScriptAction::ParseActionFalseDataChunk, 0);
     return file.parse(this);
+}
+
+// ZH Script default initialization supplies semantics; target adds player
+// mask24 and the measured12B subrecord10. Native destructor3B35B1 calls
+// string cleanup on44; timer field meanings follow the ZH lead. Snapshot identity:
+// vtable81F424 slot2 returns the native literal "Script" at81F434.
+Script::Script()
+    : m_subrecord(), m_delay(0),
+      m_mask(*(const BfmeFixedStorage002CF0F0 *)&ScriptAllPlayersMask()),
+      m_active(true), m_easy(true), m_subroutine(false),
+      m_normal(true), m_hard(true), m_flag(true),
+      m_condition(0), m_frame(0), m_currentActive(true), m_otherFlag(false),
+      m_conditionTime(0.0f), m_currentTime(0.0f), m_conditionExecutedCount(0)
+{
+    for (int i = 0; i < 8; ++i) ((unsigned char *)m_actions)[i] = 0;
 }
