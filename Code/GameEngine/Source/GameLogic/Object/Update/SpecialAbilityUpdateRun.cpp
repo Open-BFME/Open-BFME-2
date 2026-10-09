@@ -55,11 +55,16 @@ virtual void aiGap142();
 virtual int getLastCommandSource();};
 enum Relationship{ENEMIES,NEUTRAL,ALLIES};
 struct RGBColor {float red,green,blue;void setFromInt(int);};
-class Drawable {public:void saturateRGB(RGBColor&,float);void rva00278C7C(int);};
+enum NameKeyType{NAMEKEY_INVALID=0};class ClientUpdateModule;
+class NameKeyGenerator {public:NameKeyType nameToKey(const char*);};extern NameKeyGenerator *TheNameKeyGenerator;
+class Drawable {public:ClientUpdateModule *findClientUpdateModule(NameKeyType);void saturateRGB(RGBColor&,float);void rva00278C7C(int);};
 class Thing {public:Drawable *getDrawable() const;};
+class Matrix3D;
+struct Rva0087DC00Vec{int x,y,z;};class Rva0087DC00{public:void get(Rva0087DC00Vec*);};
 class GeometryInfo {public:bool bfmeIntersects(const Coord3D&,float,const GeometryInfo&,const Coord3D&,float) const;};
 class Player;enum ModelConditionFlagType{MODELCONDITION_INVALID=-1};
 class Object {public:Player *getControllingPlayer() const;void setSpecialModelConditionState(ModelConditionFlagType,unsigned);
+ bool getSingleLogicalBonePosition(const char*,Coord3D*,Matrix3D*) const;
  float rva00263763(const void*) const;float rva002C97E8(const Coord3D*,const Coord3D*) const;
  Relationship getRelationship(const Object*) const;int getIndicatorColor() const;
  void removeAttributeModifierFromPool(const AsciiString &);
@@ -75,7 +80,7 @@ extern GameLogic *TheGameLogic;
 class Overridable {public:const Overridable*friend_getFinalOverride() const;char m_pad00[0x1C];int m_type;};
 struct SpecialAbilityUpdateModuleData {
  char pad00[0x38];Overridable *m_specialPower;
- char pad3C[0x48-0x3C];AsciiString m_modifier;
+ char pad3C[0x44-0x3C];AsciiString m_attachBone;AsciiString m_modifier;
  float m_startRange,m_abortRange;char pad54[0x74-0x54];unsigned m_preparationFrames;unsigned m_persistenceFrames;char pad7C[0xA0-0x7C];int m_minPause,m_maxPause;char padA8[0xAE-0xA8];bool m_alwaysValidate;bool m_doCaptureFX;char padB0[0xB4-0xB0];bool m_removeModifierOnAbort;bool m_continueOnAbort;
  char padB6[0xC6-0xB6];bool m_ignoreFacing;
 };
@@ -144,7 +149,7 @@ class Rva0044E655 {public:bool rva0044E655();bool rva0044E689();
  char pad00[8];Object *m_object;char pad0C[0x7E-0xC];unsigned char m_7E,m_7F;
 };
 bool Rva0044E655::rva0044E689(){if(m_object->m_ai==0)return false;return m_7E==0||m_7F==0;}
-class Rva00451EAC {public:void rva00451EAC();};
+class Rva00451EAC {public:void rva0044F72E();void rva00451EAC();};
 struct AbilityObjectNode {AbilityObjectNode *next,*previous;ObjectID id;};
 class SpecialAbilityUpdate;
 class AbilityPrimary {public:virtual void v00();const SpecialAbilityUpdateModuleData *m_data;Object *m_object;};
@@ -178,7 +183,7 @@ virtual void onExit(bool,bool);
  virtual UpdateSleepTime update();
  protected: void validateSpecialObjects();void endPreparation(); public: void rva0044EE80();
  protected: bool isWithinAbilityAbortRange() const;bool isWithinStartAbilityRange(); public:
- protected: bool initLaser(Object*,Object*);public:void rva00451EAC(); bool rva0044F679();void rva0044F6D0();
+ protected: Object *getObject() const{return m_object;}bool initLaser(Object*,Object*);public:void rva0044F72E();void rva00451EAC(); bool rva0044F679();void rva0044F6D0();
  UpdateSleepTime rva0044F881();
  char pad20[4];int m_useCount;char pad28[4];unsigned m_expiryFrame;int m_packingState;
  char pad34[0x3C-0x34];unsigned m_prepFrames;int m_targetID;Coord3D m_targetPos;
@@ -362,5 +367,36 @@ bool SpecialAbilityUpdate::continuePreparation()
    }
   }
  }
+ return true;
+}
+
+class LaserUpdate{public:void initLaser(const Object*,const Coord3D*,const Coord3D*,int);};
+// ZH SpecialAbilityUpdate::initLaser supplies the bone/geometry/laser flow;
+// WB10E3BF0 and game.dat44FB28..44FC52 (RET8) establish target ABI and fields.
+// Target LaserUpdate::initLaser has the existing four-argument ABI and receives
+// null target plus world-space start/end; target geometry center is copied by
+// the already rowed 26B Rva0087DC00::get. Class/type spelling of that opaque
+// provider is preserved; it does not assert an original geometry method name.
+bool SpecialAbilityUpdate::initLaser(Object *specialObject,Object *target)
+{
+ const SpecialAbilityUpdateModuleData *d=m_data;
+ static NameKeyType key_LaserUpdate=TheNameKeyGenerator->nameToKey("LaserUpdate");
+ Drawable *draw=((Thing*)specialObject)->getDrawable();
+ if(!draw){rva0044F72E();return false;}
+ LaserUpdate *update=(LaserUpdate*)draw->findClientUpdateModule(key_LaserUpdate);
+ if(!update){rva0044F72E();return false;}
+ Coord3D startPos;
+ if(!getObject()->getSingleLogicalBonePosition(d->m_attachBone.str(),&startPos,0)){
+  const Coord3D *position=&m_object->m_position;
+  startPos.x=position->x;startPos.y=position->y;startPos.z=position->z;
+ }
+ Coord3D endPos;
+ if(target){
+  ((Rva0087DC00*)&target->m_geometry)->get((Rva0087DC00Vec*)&endPos);
+  endPos.x=target->m_position.x+endPos.x;
+  endPos.y=target->m_position.y+endPos.y;
+  endPos.z=target->m_position.z+endPos.z;
+ }else endPos=startPos;
+ update->initLaser(0,&startPos,&endPos,0);
  return true;
 }
