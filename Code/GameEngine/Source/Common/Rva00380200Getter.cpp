@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /GX- /O1
+// cl: /Ireference/shims/bfme2_ascii /GX- /O1 /MD /arch:SSE /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include
 // ?rva00380200@Rva00380200@@QAEPAVAsciiString@@XZ @ 0x00380200 (13B): getter returning +4 or AsciiString::TheEmptyString. Callers 0x00380230 0x00380265 push result. Twin of EmptyString fallback pattern.
 // ?rva0038020D@Rva00380200@@QAEXXZ @ 0x0038020D (110B): caches at +0x20 the
 // value the store (0x00DFE0EC, pinned get 0x002000D7) config for level
@@ -9,6 +9,7 @@
 // rva00380200 call, which cl only does when that getter was compiled earlier
 // in the same TU; the TU is /O1 so the getter is called rather than inlined.
 #include "ascii_string.h"
+#include "Lib/BaseType.h"
 
 class PooledString;
 struct XferUnknown11;
@@ -103,7 +104,14 @@ extern class RankInfoStore *TheRankInfoStore;
 
 class Rva00380200
 {
-	int m_00;
+public:
+	virtual void slot0();
+	virtual bool rva0038037C(int level);
+	virtual void slot2();
+	virtual void resetRank();
+	virtual void onRank(Rva002000D7Config *rank);
+	virtual bool isReady();
+private:
 	AsciiString *m_ptr;
 	char m_pad08[4];
 	float m_0C;
@@ -194,3 +202,32 @@ int Rva00380200::rva00380459(int points)
  }
  return 0;
 }
+
+class Rva003B0FC6SarAvgField { public: int get()const; };
+bool Rva00380200::rva0038037C(int level)
+{
+ if(level<1) level=1;
+ else if(level>reinterpret_cast<Rva003B0FC6SarAvgField *>(TheRankInfoStore)->get())
+  level=reinterpret_cast<Rva003B0FC6SarAvgField *>(TheRankInfoStore)->get();
+ int limit=rva003802DF();
+ level = level>limit ? limit : level;
+ if(level==m_14) return false;
+ if(level<m_14) resetRank();
+ for(int i=m_14+1;i<=level;++i) {
+  Rva002000D7Config *rank=reinterpret_cast<Rva002000D7Store *>(TheRankInfoStore)->get(i);
+  if(rank) {
+   int required=rank->rva00200157(*rva00380200());
+   m_1C+=rank->rankCost34;
+   if(m_1C<0) m_1C=0;
+   if(fast_float2long_round((float)floor(m_0C))<required)
+    m_0C=(float)required;
+   onRank(rank);
+  }
+ }
+ m_14=level;
+ rva0038020D();
+ return true;
+}
+
+// The native BFDC30 table owns setRankLevel at slot1. Keep the established
+// neutral class name; WB supplies the method identity independently.
