@@ -22,10 +22,21 @@ private:
 
 // Target-only view: the initializer at 0x0037F90F reads the identifier
 // from +0x12c of each input. Its original type and name are unknown.
+// Native 0x0037F985 walks 24-byte adjacent-region entries; only the id at +8
+// is interpreted. The original connection type remains unknown.
+struct ArmyPlacerAdjacentLink {
+    unsigned char opaque_00[8];
+    int regionId;
+    unsigned char opaque_0c[12];
+};
+
 struct Rva0037F90FInput
 {
 	unsigned char opaque_00[0x12c];
 	int field_12c;
+	unsigned char opaque_130[0x78];
+	ArmyPlacerAdjacentLink *first; // native vector begin at +0x1a8
+	ArmyPlacerAdjacentLink *last;  // native vector end at +0x1ac
 };
 
 // The existing 0x0037F51A provider copies this same 0x20-byte record
