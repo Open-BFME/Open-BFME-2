@@ -17,11 +17,15 @@ Real GetGameClientRandomValueReal(Real lo, Real hi, char *file, Int line);	// 0x
 // Retail's __FILE__ for this unit; the call sites pass their original line.
 #define CREATEAHEROHERO_FILE "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\CreateAHeroHero.cpp"
 
+#include "ascii_string.h"
+
 class CreateAHeroManager
 {
 public:
 	unsigned char m_pad00[0x1c0];
 	Real m_rollChance;			// +0x1C0, percent
+	unsigned char m_pad1C4[0x1dc - 0x1c4];
+	AsciiString m_baseCommandSetName;	// +0x1DC
 };
 
 extern CreateAHeroManager *TheCreateAHeroManager;
@@ -82,7 +86,6 @@ void Rva005200C5Add(void *, ScienceType);
 // BfmeHeroElement005C39DE): the button name, its experience level and a
 // third word. SetButtonForLevel 0x0040737F stores one into the fifteen at
 // +0x80.
-#include "ascii_string.h"
 struct BfmeHeroElement005C39DE
 {
 	AsciiString text;
@@ -126,16 +129,47 @@ public:
 	unsigned char m_pad34[0x44 - 0x34];
 	const SpecialPowerTemplate *m_power;
 };
+// The command set UpdateCommandSet builds, rowed under the address names
+// its reset (0x00409F83, WB CommandSet::ResetCommandSet) and button setter
+// (0x00409FA0, WB CommandSet::SetCommandButton; the ledger spells the button
+// argument as an int) carry; ControlBar's 0x0031E8D5 returns it.
+class Rva00409FFA
+{
+public:
+	void rva00409F83();								// 0x00409F83
+	void rva00409FA0(Int button, Int index);		// 0x00409FA0
+};
+class CommandSet
+{
+public:
+	const CommandButton *getCommandButton(Int index) const;	// 0x00409EE8
+};
+// ControlBar's command-set lookup by name (0x0031D5F8), rowed under its
+// address-named class.
+class Rva0031D5F8
+{
+public:
+	void *rva0031D5F8(const AsciiString *name);		// 0x0031D5F8
+};
 class ControlBar
 {
 public:
 	const CommandButton *findCommandButton(const AsciiString &);
+	Rva00409FFA *rva0031E8D5(const AsciiString &name, Int create);	// 0x0031E8D5
+
+	unsigned char m_pad00[0x28];
+	Bool m_commandSetsChanged;		// +0x28
 };
 extern ControlBar *TheControlBar;
 class Object
 {
 public:
 	const AsciiString &rva00292330(const AsciiString &);
+
+	unsigned char m_pad00[0x88];
+	AsciiString m_templateName;			// +0x88
+	unsigned char m_pad8C[0x41c - 0x8c];
+	AsciiString m_commandSetStringOverride;	// +0x41C
 };
 class Rva004076EE { public: Object *rva004076EE(); };
 class ExperienceLevelStore
@@ -168,13 +202,16 @@ public:
 	void UpdateAwardEarnedFlags();
 	Bool AddCommandButtonLevel(UnsignedInt index, const AsciiString &source,
 		const AsciiString &name, const AsciiString &experience);
+	Bool UpdateCommandSet(UnsignedInt rank);
 
 private:
 	Bool rva004079D5(Int blingKey, CreateAHeroBlingNode **found) const;	// 0x004079D5
 
 	unsigned char m_pad00[0x38];
 	UnsignedInt m_state38;
-	unsigned char m_pad3C[0x5C - 0x3C];
+	unsigned char m_pad3C[0x4C - 0x3C];
+	AsciiString m_className;				// +0x4C
+	unsigned char m_pad50[0x5C - 0x50];
 	_STL::vector<bool> m_awardEarnedFlags; // +0x5C
 	Bool m_flag70, m_updateAwards; // +0x70, +0x71
 	unsigned char m_pad72[2];
@@ -301,4 +338,60 @@ Bool CreateAHeroHero::AddCommandButtonLevel(UnsignedInt index, const AsciiString
 		return true;
 	}
 	return false;
+}
+
+// CreateAHeroHero::UpdateCommandSet, retail 0x00407705 (WorldBuilder
+// 0x0107DDF0, CreateAHeroHero.cpp lines 740..792; wb-name-unverified):
+// names the hero object's command set after its template, the hero class and
+// the rank, rebuilds it from the manager's base set, then lays each level
+// button into its slot (a later level only while below the rank) and the
+// attack-move button into slot 16.
+Bool CreateAHeroHero::UpdateCommandSet(UnsignedInt rank)
+{
+	Object *object = ((Rva004076EE *)this)->rva004076EE();
+	if (!object)
+		return false;
+
+	AsciiString commandSetName;
+	commandSetName.format("CommandSet_%s_%s_rank_%d", object->m_templateName.str(), m_className.str(), rank);
+	object->m_commandSetStringOverride = commandSetName;
+	Rva00409FFA *commandSet = TheControlBar->rva0031E8D5(commandSetName, 1);
+	commandSet->rva00409F83();
+
+	const CommandSet *baseSet = (const CommandSet *)((Rva0031D5F8 *)TheControlBar)->rva0031D5F8(
+		&TheCreateAHeroManager->m_baseCommandSetName);
+	if (baseSet)
+	{
+		for (UnsignedInt i = 0; i < 32; ++i)
+		{
+			const CommandButton *button = baseSet->getCommandButton(i);
+			if (button)
+				commandSet->rva00409FA0((Int)button, i);
+		}
+	}
+
+	for (UnsignedInt slot = 0; slot < 32; ++slot)
+	{
+		Bool found = false;
+		for (Int i = 0; !((const StringBase<char> *)&m_buttons[i].text)->isEmpty(); ++i)
+		{
+			UnsignedInt buttonSlot = m_buttons[i].word8;
+			if (buttonSlot != slot)
+				continue;
+			if (found && m_buttons[i].word4 >= rank)
+				continue;
+			const CommandButton *button = TheControlBar->findCommandButton(m_buttons[i].text);
+			if (!button)
+				continue;
+			found = true;
+			commandSet->rva00409FA0((Int)button, buttonSlot);
+		}
+	}
+
+	AsciiString attackMove("Command_AttackMove");
+	const CommandButton *button = TheControlBar->findCommandButton(attackMove);
+	if (button)
+		commandSet->rva00409FA0((Int)button, 0x10);
+	TheControlBar->m_commandSetsChanged = true;
+	return true;
 }
