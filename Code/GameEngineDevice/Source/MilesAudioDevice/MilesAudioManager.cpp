@@ -778,6 +778,7 @@ struct BfmePod8 {
 class Rva00056CF8 {
 public:
     void rva00057B74(void);
+    unsigned int rva0005B633(const AsciiString &key);
     ~Rva00056CF8();
 private:
     char opaque[0x10];
@@ -919,6 +920,8 @@ public:
     void rva0005A92A(int key, Rva0005A084Vector *output);
     void rva0005B137(void);
     void recalculateMicrophone(void);
+    void rva0005BE59(void *slot, float value, void *index);
+    void rva0005E377(const AsciiString &key, int viewType);
     void rva0005DAFC(int viewType);
     int rva0005A7BE(AudioEventRTS *event, int arg1);
     void rva0005AF92(AudioEventInfo *info);
@@ -3683,6 +3686,17 @@ bool MilesAudioManager::rva0005623E(int key, void **result, int flags)
     if (flags)
         reinterpret_cast<PlayingAudioRef *>(flags)->set(playing.get());
     return found;
+}
+
+// Retail 0x0005E377 (address-derived): under the mutex, erases the key from
+// the view type's +0x1B8 member of its GlobalVolumeData record, then hands the
+// key and view type to the unrowed 0x5BE59 (pinned, typed void* there) with
+// the -1.0 value.
+void MilesAudioManager::rva0005E377(const AsciiString &key, int viewType)
+{
+    MilesMutexGuard guard(&m_mutex, 0);
+    reinterpret_cast<GlobalVolumeData *>(m_volumeData[viewType])->m_at1B8.rva0005B633(key);
+    rva0005BE59(const_cast<AsciiString *>(&key), -1.0f, reinterpret_cast<void *>(viewType));
 }
 
 class Rva0005C892 { public: void rva0005C892(void); };
