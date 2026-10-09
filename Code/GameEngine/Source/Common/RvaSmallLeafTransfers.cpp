@@ -629,3 +629,27 @@ unsigned __int64 Rva0066E460::readWord8() const
 {
     return m_word8;
 }
+
+// Whole clean BF1 f989 Rva008FE900NullableField.cpp under O2/SSE2/G7
+// supplies the nullable-word guide. Native135DD2..135DE0 starts immediately
+// after the complete Camera::Apply RET at135DD1, ends at its own RET, and
+// is followed by a distinct body. It loads receiver word0, returns pointed
+// word8 when nonnull, otherwise returns FFFFFFFF in EAX with RET0.
+// No original receiver, pointee, field purpose, sentinel meaning, signedness
+// or constness is asserted; this consumed-prefix view preserves raw32 bits.
+struct Rva00135DD2Inner
+{
+    char m_unmodelled0[8];
+    unsigned m_word8;
+};
+class Rva00135DD2Field
+{
+public:
+    unsigned get() const;
+private:
+    const Rva00135DD2Inner *m_data;
+};
+unsigned Rva00135DD2Field::get() const
+{
+    return m_data ? m_data->m_word8 : 0xffffffffU;
+}
