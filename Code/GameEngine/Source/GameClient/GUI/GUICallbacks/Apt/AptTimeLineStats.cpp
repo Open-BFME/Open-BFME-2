@@ -180,9 +180,9 @@ extern BitFlags<116> KINDOFMASK_NONE;
 // The full44B constructor only clears 28 bytes and sets one bit. Native
 // static initialization has no unwind state at this call: it cannot throw.
 struct Rva00045411BitSet {unsigned words[7];Rva00045411BitSet(int,int) throw();};
-class Rva004EE35D {public:int rva004EE35D(const BitFlags<116>&,const BitFlags<116>&);};
-class Rva004EE3AB {public:int rva004EE3AB(const BitFlags<116>&,const BitFlags<116>&);};
-class Rva004EE3F9 {public:int rva004EE3F9(const BitFlags<116>&,const BitFlags<116>&);};
+class Rva004EE35D {public:int rva004EE35D(const Rva00045411BitSet&,const Rva00045411BitSet&);};
+class Rva004EE3AB {public:int rva004EE3AB(const Rva00045411BitSet&,const Rva00045411BitSet&);};
+class Rva004EE3F9 {public:int rva004EE3F9(const Rva00045411BitSet&,const Rva00045411BitSet&);};
 class Rva004EE447 {public:int rva004EE447();};
 class Rva004EE485 {public:int rva005BE20B();};
 class Rva004EE4C3 {public:int rva004EE4C3();};
@@ -203,16 +203,16 @@ void AptTimeLineStats::CollectPlayerData(int playerIndex,LivingWorldPlayer *play
  LivingWorldScoreKeeper *score=&player->score;
  ++numPlayers;
  static const Rva00045411BitSet structures(0,7);
- const BitFlags<116>&structureKinds=reinterpret_cast<const BitFlags<116>&>(structures);
+ const Rva00045411BitSet&structureKinds=structures;
  for(int stat=0;stat<27;++stat) {
   switch(stat) {
   case 0: reinterpret_cast<Rva005DDE01*>(receiver)->rva005DDE01(0,playerIndex,Rva005DDED5(score->rva004EE037()),true);break;
   case 1: reinterpret_cast<Rva005DDE01*>(receiver)->rva005DDE01(1,playerIndex,Rva005DDED5(score->rva004EE016()),true);break;
   case 2: reinterpret_cast<Rva005DDE01*>(receiver)->rva005DDE01(2,playerIndex,Rva005DD822(score->rva004EE043()+1),true);break;
-  case 3: reinterpret_cast<Rva005DDE01*>(receiver)->rva005DDE01(3,playerIndex,Rva005DD822(reinterpret_cast<Rva004EE35D*>(score)->rva004EE35D(structureKinds,KINDOFMASK_NONE)),true);break;
-  case 4: reinterpret_cast<Rva005DDE01*>(receiver)->rva005DDE01(4,playerIndex,Rva005DD822(reinterpret_cast<Rva004EE3AB*>(score)->rva004EE3AB(structureKinds,KINDOFMASK_NONE)),true);break;
+  case 3: reinterpret_cast<Rva005DDE01*>(receiver)->rva005DDE01(3,playerIndex,Rva005DD822(reinterpret_cast<Rva004EE35D*>(score)->rva004EE35D(structureKinds,reinterpret_cast<const Rva00045411BitSet&>(KINDOFMASK_NONE))),true);break;
+  case 4: reinterpret_cast<Rva005DDE01*>(receiver)->rva005DDE01(4,playerIndex,Rva005DD822(reinterpret_cast<Rva004EE3AB*>(score)->rva004EE3AB(structureKinds,reinterpret_cast<const Rva00045411BitSet&>(KINDOFMASK_NONE))),true);break;
   case 5: reinterpret_cast<Rva005DDE01*>(receiver)->rva005DDE01(5,playerIndex,Rva005DD822(score->words[0x94/4]),true);break;
-  case 6: reinterpret_cast<Rva005DDE01*>(receiver)->rva005DDE01(6,playerIndex,Rva005DD822(reinterpret_cast<Rva004EE3F9*>(score)->rva004EE3F9(structureKinds,KINDOFMASK_NONE)),true);break;
+  case 6: reinterpret_cast<Rva005DDE01*>(receiver)->rva005DDE01(6,playerIndex,Rva005DD822(reinterpret_cast<Rva004EE3F9*>(score)->rva004EE3F9(structureKinds,reinterpret_cast<const Rva00045411BitSet&>(KINDOFMASK_NONE))),true);break;
   case 7: reinterpret_cast<Rva005DDE01*>(receiver)->rva005DDE01(7,playerIndex,Rva005DD822(score->words[0x98/4]),true);break;
   case 8: reinterpret_cast<Rva005DDE01*>(receiver)->rva005DDE01(8,playerIndex,Rva005DD822(score->GetBuildingsOfTypeBuilt(1)),true);break;
   case 9: reinterpret_cast<Rva005DDE01*>(receiver)->rva005DDE01(9,playerIndex,Rva005DD822(score->GetBuildingsOfTypeBuilt(3)),true);break;
@@ -261,8 +261,8 @@ class Rva0039B709 {public:unsigned rva0039B6EE();unsigned rva0039B709();int rva0
 // filter. The full39BDB8 selection worker and23B39BE95 wrapper are verified.
 class Rva002618A2 {public:unsigned words[7];Rva002618A2*rva002618FA(int,int,int,int,int,int);};
 class Rva0039BDB8 {public:void rva0039BE95(const BitFlags<69>*,UnicodeString*);};
-class Rva0039BF0B {public:int rva0039BF0B(const BitFlags<116>&,const BitFlags<116>&);};
-class Rva0039BF39 {public:int rva0039BF39(const BitFlags<116>&,const BitFlags<116>&);};
+class Rva0039BF0B {public:int rva0039BF0B(const Rva00045411BitSet&,const Rva00045411BitSet&);};
+class Rva0039BF39 {public:int rva0039BF39(const Rva00045411BitSet&,const Rva00045411BitSet&);};
 class Rva005DD772:public BfmeStringRecord005DDD40 {public:Rva005DD772(const UnicodeString&,float);};
 // VC7.1 reverses the two overload slots: AsciiString fetch is38, char fetch3C.
 // Retail calls3C with GUI:None and a hidden four-byte UnicodeString result.
@@ -335,7 +335,7 @@ void AptTimeLineStats::CollectPlayerData(int playerIndex,Player*player) {
    reinterpret_cast<Rva005DDE01*>(receiver)->rva005DDE01(19,playerIndex,Rva005DD8E0(created,lost),true);break;
   }
   case 20: reinterpret_cast<Rva005DDE01*>(receiver)->rva005DDE01(20,playerIndex,Rva005DDED5(reinterpret_cast<Rva0039B709*>(score)->rva0039B709()),true);break;
-  case 22: reinterpret_cast<Rva005DDE01*>(receiver)->rva005DDE01(22,playerIndex,Rva005DD822(reinterpret_cast<Rva0039BF0B*>(score)->rva0039BF0B(reinterpret_cast<const BitFlags<116>&>(Rva00045411BitSet(0,90)),reinterpret_cast<const BitFlags<116>&>(Rva00045411BitSet(0,179)))),true);break;
-  case 23: reinterpret_cast<Rva005DDE01*>(receiver)->rva005DDE01(23,playerIndex,Rva005DD822(reinterpret_cast<Rva0039BF39*>(score)->rva0039BF39(reinterpret_cast<const BitFlags<116>&>(Rva00045411BitSet(0,90)),reinterpret_cast<const BitFlags<116>&>(Rva00045411BitSet(0,179)))),true);break;
+  case 22: reinterpret_cast<Rva005DDE01*>(receiver)->rva005DDE01(22,playerIndex,Rva005DD822(reinterpret_cast<Rva0039BF0B*>(score)->rva0039BF0B(reinterpret_cast<const Rva00045411BitSet&>(Rva00045411BitSet(0,90)),reinterpret_cast<const Rva00045411BitSet&>(Rva00045411BitSet(0,179)))),true);break;
+  case 23: reinterpret_cast<Rva005DDE01*>(receiver)->rva005DDE01(23,playerIndex,Rva005DD822(reinterpret_cast<Rva0039BF39*>(score)->rva0039BF39(reinterpret_cast<const Rva00045411BitSet&>(Rva00045411BitSet(0,90)),reinterpret_cast<const Rva00045411BitSet&>(Rva00045411BitSet(0,179)))),true);break;
  }
 }

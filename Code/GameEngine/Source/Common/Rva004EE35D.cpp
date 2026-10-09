@@ -1,5 +1,8 @@
 // cl: /MD
-// ?rva004EE35D@Rva004EE35D@@QAEHABV?$BitFlags@$0HE@@@0@Z, retail 0x004EE35D, 78 bytes.
+// Native online reporter5C062E constructs the rowed seven-word224-bit
+// mask before these calls. Reconcile the argument view with its constructor;
+// the legacy filter helper ABI is retained through layout-preserving casts.
+// ?rva004EE35D@Rva004EE35D@@QAEHABURva00045411BitSet@@0@Z, retail 0x004EE35D, 78 bytes.
 // RB-tree sum with BitFlags filter: like LivingWorldScoreKeeper::rva004EE33B but tree at
 // +0xB4, sums +0x14 where +0x10 obj non-null and its +0x108 flags pass
 // testSetAndClear. Evidence: rowed 0x0030A146 0x00024250; prev/next /O1 /MD;
@@ -12,6 +15,8 @@ public:
 private:
 	unsigned m_words[7];
 };
+
+struct Rva00045411BitSet { unsigned m_words[7]; };
 
 namespace _STL
 {
@@ -44,19 +49,19 @@ struct Rva004EE35DNode : _STL::_Rb_tree_node_base
 class Rva004EE35D
 {
 public:
-	int rva004EE35D(const BitFlags<116> &mustBeSet, const BitFlags<116> &mustBeClear);
+	int rva004EE35D(const Rva00045411BitSet &mustBeSet, const Rva00045411BitSet &mustBeClear);
 private:
 	char m_pad[0xB4];
 	_STL::_Rb_tree_node_base *m_B4;
 };
 
-int Rva004EE35D::rva004EE35D(const BitFlags<116> &mustBeSet, const BitFlags<116> &mustBeClear)
+int Rva004EE35D::rva004EE35D(const Rva00045411BitSet &mustBeSet, const Rva00045411BitSet &mustBeClear)
 {
 	_STL::_Rb_tree_node_base *node = m_B4->_M_left;
 	int sum = 0;
 	while (node != m_B4) {
 		Rva004EE35DNode *n = (Rva004EE35DNode *)node;
-		if (n->m_10 && n->m_10->m_flags.testSetAndClear(mustBeSet, mustBeClear))
+		if (n->m_10 && n->m_10->m_flags.testSetAndClear(reinterpret_cast<const BitFlags<116>&>(mustBeSet), reinterpret_cast<const BitFlags<116>&>(mustBeClear)))
 			sum += n->m_14;
 		node = _STL::_Rb_global<bool>::_M_increment(node);
 	}

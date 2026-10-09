@@ -1,5 +1,8 @@
 // cl: /O1 /DNDEBUG /MD /EHsc
-// ?rva0039BF0B@Rva0039BF0B@@QAEHABV?$BitFlags@$0HE@@@0@Z @0x0039BF0B 23B.
+// Native online reporter5C062E constructs the rowed seven-word224-bit
+// mask before these calls. Reconcile the argument view with its constructor;
+// the legacy filter helper ABI is retained through layout-preserving casts.
+// ?rva0039BF0B@Rva0039BF0B@@QAEHABURva00045411BitSet@@0@Z @0x0039BF0B 23B.
 // ScoreKeeper single-map wrapper: forwards two BitFlags<116> masks plus the
 // ObjectCountMap at +0x1F0 to the rowed free helper 0x0039BEC3
 // (Rva0039BEC3Count, __stdcall, ret 0xC) and returns its total. Wrapper is
@@ -45,17 +48,17 @@ int __stdcall Rva0039BEC3Count(const BitFlags<116> &mustBeSet, const BitFlags<11
 class Rva0039BF0B
 {
 public:
-	int rva0039BF0B(const BitFlags<116> &mustBeSet, const BitFlags<116> &mustBeClear);
+	int rva0039BF0B(const Rva00045411BitSet &mustBeSet, const Rva00045411BitSet &mustBeClear);
 private:
 	char m_pad[0x1F0];
 	ObjectCountMap m_map;
 };
 
-int Rva0039BF0B::rva0039BF0B(const BitFlags<116> &mustBeSet, const BitFlags<116> &mustBeClear)
+int Rva0039BF0B::rva0039BF0B(const Rva00045411BitSet &mustBeSet, const Rva00045411BitSet &mustBeClear)
 {
 	const ObjectCountMap *map = &m_map;
 	const ObjectCountMap *self_map = &this->m_map;
-	return Rva0039BEC3Count(mustBeSet, mustBeClear, map ? map : self_map);
+	return Rva0039BEC3Count(reinterpret_cast<const BitFlags<116>&>(mustBeSet), reinterpret_cast<const BitFlags<116>&>(mustBeClear), map ? map : self_map);
 }
 
 class Rva0039BF22
@@ -74,22 +77,22 @@ int Rva0039BF22::rva0039BF22(const Rva00045411BitSet &mustBeSet, const Rva000454
 	return Rva0039BEC3Count(reinterpret_cast<const BitFlags<116>&>(mustBeSet), reinterpret_cast<const BitFlags<116>&>(mustBeClear), map ? map : self_map);
 }
 
-// ?rva0039BF39@Rva0039BF39@@QAEHABV?$BitFlags@$0HE@@@0@Z @0x0039BF39 23B: the sibling
+// ?rva0039BF39@Rva0039BF39@@QAEHABURva00045411BitSet@@0@Z @0x0039BF39 23B: the sibling
 // forwarder for the map at +0x2EC, same recipe.
 class Rva0039BF39
 {
 public:
-	int rva0039BF39(const BitFlags<116> &mustBeSet, const BitFlags<116> &mustBeClear);
+	int rva0039BF39(const Rva00045411BitSet &mustBeSet, const Rva00045411BitSet &mustBeClear);
 private:
 	char m_pad[0x2EC];
 	ObjectCountMap m_map;
 };
 
-int Rva0039BF39::rva0039BF39(const BitFlags<116> &mustBeSet, const BitFlags<116> &mustBeClear)
+int Rva0039BF39::rva0039BF39(const Rva00045411BitSet &mustBeSet, const Rva00045411BitSet &mustBeClear)
 {
 	const ObjectCountMap *map = &m_map;
 	const ObjectCountMap *self_map = &this->m_map;
-	return Rva0039BEC3Count(mustBeSet, mustBeClear, map ? map : self_map);
+	return Rva0039BEC3Count(reinterpret_cast<const BitFlags<116>&>(mustBeSet), reinterpret_cast<const BitFlags<116>&>(mustBeClear), map ? map : self_map);
 }
 
 // ?rva0039BF50@Rva0039BF50@@QAEHABURva00045411BitSet@@0@Z @0x0039BF50 23B: the sibling
