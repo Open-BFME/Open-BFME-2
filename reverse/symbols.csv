@@ -3043,7 +3043,6 @@ name,address,notes
 ??1BFMETextureHandleHonestCopy@@QAE@XZ,0x0017098D,TU-private view (part_buf.cpp) of the same texture reference; its unwind funclets destroy it through the ICF-folded release-if-non-null body at this address
 ??1BannerCarrierUpdateModuleData@@UAE@XZ,0x00497056,dtor called by audited wrapper RVA 0x004976AE; retail registration BannerCarrierUpdate -> data factory RVA 0x0024E1AB -> ctor RVA 0x00496FA5; primary vptr store RVA 0x00496FB7
 ??1BezierProjectileBehavior@@UAE@XZ,0x0045BF6E,"dtor called by audited wrapper RVA 0x0045C959; retail slot 4 -> RVA 0x0045BFD9 uses class-name string ""BezierProjectileBehavior"""
-??1BfmeAptValue006DCD20@@UAE@XZ,0x006D6340,TU-private base view (Rva006CBDE0Ctor.cpp / Rva006FC1D0Ctor.cpp) of the Apt value base whose complete destructor is the tail jump at this address (already pinned for the deleting destructors 0x006CD620 and 0x006D71B0): the unwind funclets 0x007A8030 and 0x007AA290 of the rowed constructors destroy the base by jumping here; original class name unknown
 ??1BfmeAssignRecord28@@QAE@XZ,0x00111B25,callee REL32 read by locate.py from a unique masked-byte placement emitted by stlport_asciistring_record_bodies.cpp
 ??1BfmeAssignRecord52@@QAE@XZ,0x002B707E,callee REL32 read by locate.py from a unique masked-byte placement emitted by stlport_asciistring_record_bodies.cpp
 ??1BfmeAudioEventPrefix136@@UAE@XZ,0x002D9A43,Native136-byte alias of rowed common-prefix virtual destructor128; call sites2AA9C2 and3141BC destroy136-byte locals; header linker alias binds existing provider and no duplicate body is claimed
@@ -4585,9 +4584,7 @@ name,address,notes
 ??1Rva0056D76B@@QAE@XZ,0x0056D76B,opaque member dtor called on the +0x258 member by dtor 0x005C9659; identity unproven; address-derived name
 ??1Rva0056D915@@UAE@XZ,0x0056D915,opaque dtor called by the scalar deleting dtor at 0x0056DC2A (vtable 0x00C6DB40#0); identity unproven; address-derived name
 ??1Rva0057417E@@QAE@XZ,0x0057417E,pointee destructor called by the owning-pointer reset 0x0042C1DF (byte-exact modulo relocs in OwnedPointerResets.cpp); identity unproven; address-derived name
-??1Rva00574338@@UAE@XZ,0x00574338,opaque dtor called by the scalar deleting dtor at 0x00574693 (vtable 0x00C6E39C#0); identity unproven; address-derived name
 ??1Rva005746AF@@UAE@XZ,0x005746D2,dtor installs its own vftable 0x00C6E3B0 (bytes at ++19) and is the REL32 callee of the slot-0 ??_G at 0x00574B68
-??1Rva005747DA@@UAE@XZ,0x00574BA0,sole REL32 callee of the slot-0 ??_G at 0x00574B84 in vftable 0x00C6E3CC; body starts right after that ??_G
 ??1Rva00574C1B@@UAE@XZ,0x00574C1B,opaque dtor called by the scalar deleting dtor at 0x00574E4E (vtable 0x00C6E4A4#0); identity unproven; address-derived name
 ??1Rva00574CC1@@UAE@XZ,0x00574CC1,opaque dtor called by the scalar deleting dtor at 0x00574E86 (vtable 0x00C6E528#1); identity unproven; address-derived name
 ??1Rva00575125@@UAE@XZ,0x00574C6E,dtor installs its own vftable 0x00C6E4C4 (bytes at ++23) and is the REL32 callee of the slot-0 ??_G at 0x00574E6A
@@ -4658,8 +4655,6 @@ name,address,notes
 ??1Rva005C9D30@@QAE@XZ,0x001F9025,tail-jump target of ??1Sub005CD540Outer@@QAE@XZ at retail 0x001FA95A read from its jmp displacement; body unrowed
 ??1Rva005CB4E6Elem@@QAE@XZ,0x005CB4E6,element destructor called by the guarded-delete clear helper; address from its retail REL32 call and a Ghidra function start
 ??1Rva005CC37C@@UAE@XZ,0x005CC37C,opaque dtor called by the scalar deleting dtor at 0x005CC44C (vtable 0x00C74E38#0); identity unproven; address-derived name
-??1Rva005CC656@@UAE@XZ,0x005CC656,opaque dtor called by the scalar deleting dtor at 0x005CC63A (vtable 0x00C74E70#0); identity unproven; address-derived name
-??1Rva005CC677@@UAE@XZ,0x005CC677,opaque dtor called by the scalar deleting dtor at 0x005CC65B (vtable 0x00C74E8C#0); identity unproven; address-derived name
 ??1Rva005CC788Obj@@QAE@XZ,0x005CC788,REL32 callee decoded from target call bytes of negative-adjust body 0x005CEC55; identity unproven
 ??1Rva005CCDDD@@UAE@XZ,0x005CCDDD,opaque dtor called by the scalar deleting dtor at 0x005CCF2B (vtable 0x00C74F44#0); identity unproven; address-derived name
 ??1Rva005CD0FEElem@@QAE@XZ,0x005CD0FE,element destructor called by the guarded-delete clear helper; address from its retail REL32 call and a Ghidra function start
@@ -4695,7 +4690,6 @@ name,address,notes
 ??1Rva005D1129Pointer@@QAE@XZ,0x005EC4AF,REL32 at +0x0A in 0x005D1129 with ECX=this+8; 7B Ghidra body loads [ecx] then tail-jumps to 0x005EC46F; address-derived member-dtor view; exact wrapper identity remains unknown
 ??1Rva005D1210@@QAE@XZ,0x005D1210,pointee destructor called by the owning-pointer reset 0x005D127C (byte-exact modulo relocs in OwnedPointerResets.cpp); identity unproven; address-derived name
 ??1Rva005D12E3@@UAE@XZ,0x005D12E3,opaque dtor called by the scalar deleting dtor at 0x005D1319 (vtable 0x00C755B4#0); identity unproven; address-derived name
-??1Rva005D13BD@@UAE@XZ,0x005D13BD,opaque dtor called by the scalar deleting dtor at 0x005D13A1 (vtable 0x00C755C0#0); identity unproven; address-derived name
 ??1Rva005D1ADE@@UAE@XZ,0x005D1ADE,opaque dtor called by the scalar deleting dtor at 0x005D1B85 (vtable 0x00C75694#0); identity unproven; address-derived name
 ??1Rva005D1D38@@UAE@XZ,0x005D1D38,opaque dtor called by the scalar deleting dtor at 0x005D1DAF (vtable 0x00C75734#0); identity unproven; address-derived name
 ??1Rva005D2015@@UAE@XZ,0x005D2015,opaque dtor called by the scalar deleting dtor at 0x005D204F (vtable 0x00C75778#4); identity unproven; address-derived name
@@ -4744,7 +4738,6 @@ name,address,notes
 ??1Rva005E9F7B@@UAE@XZ,0x005E9F7B,opaque dtor called by the scalar deleting dtor at 0x005EA68B (vtable 0x00C75374#0 0x00C77AD8#0 0x00C781B8#0); identity unproven; address-derived name
 ??1Rva005E9FC1@@UAE@XZ,0x005EA224,sole REL32 callee of the slot-0 ??_G at 0x005EA208 in vftable 0x00C78114; body starts right after that ??_G
 ??1Rva005EA2AB@@QAE@XZ,0x005EA2AB,destructor called by the vtable-referenced scalar deleting dtor 0x005EA28F (REL32 at +4 of its 28B delete-flag wrapper); identity unproven; address-derived name
-??1Rva005EA85A@@UAE@XZ,0x005EA85A,opaque dtor called by the scalar deleting dtor at 0x005EA83E (vtable 0x00C781DC#0); identity unproven; address-derived name
 ??1Rva005EB095@@QAE@XZ,0x005EB095,destructor called by the vtable-referenced scalar deleting dtor 0x005EB079 (REL32 at +4 of its 28B delete-flag wrapper); identity unproven; address-derived name
 ??1Rva005EB2E7@@QAE@XZ,0x005EB2E7,pointee destructor called by the owning-pointer reset 0x005EB430 (byte-exact modulo relocs in OwnedPointerResets.cpp) and directly by scalar deleting dtor 0x005EB35D (118B body); identity unproven; address-derived name
 ??1Rva005EB753@@UAE@XZ,0x005EB753,opaque dtor called by the scalar deleting dtor at 0x005EB761 (vtable 0x00C7823C#0); identity unproven; address-derived name
@@ -6347,7 +6340,6 @@ name,address,notes
 ?Rva004EE1E2UninitCopy@@YAPAUElem003AF8C0@@PAU1@00ABU__false_type@_STL@@@Z,0x004EE1E2,hand insert 0x004EE6D0 uninit-copy helper
 ?Rva004EE20BFillN@@YAPAUElem003AF8C0@@PAU1@IABU1@ABU__false_type@_STL@@@Z,0x004EE20B,hand insert 0x004EE6D0 fill_n helper
 ?Rva004EE9E9@@YAXPAVXfer0051FFF5@@PAX@Z,0x004EE9E9,cdecl out-param helper of range feed 0x0051FFF5 (REL32 at 0x0052004B); Ghidra 245B unrecovered; address name
-?Rva004FCA0C@Sub0052BAC1@@QAEPAURes004FCA0C@@PAVRva0020E89C@@@Z,0x004FCA0C,thiscall second-stage lookup of range dispatch 0x0052BAC1 (REL32 at 0x0052BAE9) on this+0x1C with the 0x0020EAF6 pointer; answers holder with +0x12C int; Ghidra body unrecovered; address name
 ?Rva00500BA6Opaque@@YGPAXABVRva00500500@@@Z,0x00500BA6,opaque-pointer ABI twin of rowed108B node factory; native clone call501071; same92B value at node+10
 ?Rva00506CF5@@YA?AUCoord3D@@PAXPAU1@@Z,0x00506CF5,cdecl Coord3D-by-value helper (hidden return then owner and the +0x18 point); REL32 at 0x00507181 in the Rva00506B74 ctor
 ?Rva0050EC24@@YAXXZ,0x0050EC24,unrowed 251B cdecl (Ghidra FUN_0090ec24; plain ret); REL32 read at AptPalantir::OnBttnObjectives 0x002D30E1 (no arguments and no ECX setup); address name
@@ -11987,7 +11979,6 @@ name,address,notes
 ?rva0057DFFB@Rva0057E3DB@@QAEXH@Z,0x0057DFFB,unrowed 65B thiscall (Ghidra FUN_0097dffb; ret 4; switches on its +0x1C mode) on the MpGameSetup +0x60 member; the panel update 0x00443FC1 passes 0; address name
 ?rva0057DFFB@Rva0057E3DB@@QAE_NH@Z,0x0057DFFB,finish 0x0043A0C1 uses al return for m_D0
 ?rva0057E058@Rva0057E3DB@@QAEXXZ,0x0057E058,unrowed 499B thiscall (Ghidra FUN_0097e058; plain ret) on the MpGameSetup +0x60 member; called from 0x0043FA8D and the panel update 0x00443FA3/0x00443FF7; address name
-?rva0057E6D8@Rva0057EE5C@@QAEXXZ,0x0057E6D8,unrowed 5B jump to 0x0057E6C1 on the MpGameSetup panel +0xD0 member; called from OnTabSelect 0x0043DCD0 for the rules tab; address name
 ?rva0057E707@Rva0057EE5C@@QAE_NIII@Z,0x0057E707,unrowed 114B thiscall (Ghidra FUN_0097e707; ret 0xC; tested as al) on the MpGameSetup panel's +0xD0 member; REL32 read at the panel message handler 0x00442D1C with ECX=this+0xD0; address name
 ?rva0057EA0F@Rva0057EE5C@@QAEXXZ,0x0057EA0F,unrowed 158B thiscall (Ghidra FUN_0097ea0f; plain ret) on the LAN lobby MpGameSetup panel +0xD0 member (base destroyed by ??1Rva0057EE5C); called from 0x0043DB77; address name
 ?rva0057ED2B@AptMpGameRules@@QAEXXZ,0x0057ED2B,unrowed 92B thiscall (Ghidra FUN_0097ed2b) on the lobby rules member; REL32 read at AptMpGameRules::InitGadgets 0x0057F09E; address name
@@ -12481,7 +12472,6 @@ name,address,notes
 ?setPlayerIndex@BfmeAudioEventPrefix136@@QAEXH@Z,0x0033F15D,AudioEventRTS player-index setter used by the script force-selection dispatch (0x003C5AB8) and 42 other audio-event sites; pushes the local-player index before addAudioEvent
 ?setPlayerIndex@NetDestroyPlayerCommandMsg@@QAEXI@Z,0x00318B09,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
 ?setPlayerIndex@Rva004D57AE@@QAEXI@Z,0x00318B09,ICF twin of Set_Y_Translation via DestroyPlayer setter call 0x0058DE5B
-?setPosition@Drawable@@QAEXPBUCoord3D@@@Z,0x002710E7,read from the REL32 at 0x0004C86B in the placed W3DGameClient::createRayEffectByTemplate (0x0004C7F0); 5-byte ILT thunk to the matched Thing::setPosition body 0x0030AA80
 ?setPosition@Mouse@@UAEXHH@Z,0x001EDE4C,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
 ?setPosition@RadiusDecal@@QAEXABUCoord3D@@@Z,0x00330DFD,BFME1 RadiusDecal::setPosition matched 33B; adjacent to matched clear@0x330DBA on the same m_curRadiusCursor object (+0x88C); null-checks the +4 shadow pointer like BFME1
 ?setPrep@Dict@@AAEPAUDictPair@1@W4NameKeyType@@W4DataType@1@@Z,0x0031369D,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
@@ -13744,7 +13734,6 @@ rva009C7380WeightPairs,0x009B84E0
 ??0WaterTransparencySetting@@QAE@XZ,0x00200D80,ZH INI::parseWaterTransparencyDefinition 0x00200EE4: REL32 at 0x00200F2A and 0x00200F5C right after operator new(0x5C); the ctor names its own "WaterTransparency" literal 0x00BE2BA8
 ??4WaterTransparencySetting@@QAEAAV0@ABV0@@Z,0x00200CB1,ZH parseWaterTransparencyDefinition *wtOverride = *wt: REL32 at 0x00200F71 between the g_00E01EA8 raise and drop; ledger spelling there: ??4Rva00200CB1@@QAEAAV0@ABV0@@Z
 ?rva004DFF2C@Rva004E00BAOwner@@QAEXPAVObject@@@Z,0x004DFF2C,called by 0x004E00BA after push_back with the same receiver and Object pointer; address-derived name and unresolved identity
-?rva00596074@Rva00596074@@QAEXXZ,0x00596074,5-byte thunk at 0x00596074 jumps to matched 0x0025C010; called by 0x004DF95D with field+4 in ECX; placeholder name preserves the entry address
 ?canTransferSuppliesAt@ActionManager@@QAE_NPBVObject@@0@Z,0x0041BCA1,callee of ?computeRelativeCost@@YAMPAVObject@@0PAM@Z
 ?rva00598431@Rva00598149@@QAEXH@Z,0x00598431,callee of ?rva004EC30E@Rva002A8AB1Record@@QAEXPAVObject@@@Z
 ??0Rva0022167C@@QAE@ABVAsciiString@@@Z,0x00221635,StatsDisplay 0x00579C52 calls 0x00221635 with a temporary AsciiString(StatsDisplay) and its vtable 0x00C6ED9C slot0 is the deleting dtor 0x00579CB8 whose dtor 0x00579731 calls 0x0022167C without a vptr reset so the base dtor is virtual; same bodies as the Rva00221635 pin and the rowed ??1Rva0022167C@@QAE@XZ
@@ -13803,7 +13792,6 @@ rva009C7380WeightPairs,0x009B84E0
 ?rva004FBED6@Rva004FBED6Call@@QAEPAXXZ,0x004FBED6,address-derived helper names; direct rel32 call targets of 0x00576ACB; Ghidra extents are 184 B at 0x004FBED6 and 123 B at 0x005768CB; helper semantics and interface names unproven
 ?rva005768CB@Rva005768CBCall@@QAEXPAX@Z,0x005768CB,address-derived helper names; direct rel32 call targets of 0x00576ACB; Ghidra extents are 184 B at 0x004FBED6 and 123 B at 0x005768CB; helper semantics and interface names unproven
 ?rva005D2A53@Rva005D2A53Call@@QAEXXZ,0x005D2A53,address-derived thiscall callee; direct rel32 target of 0x005785CD; observed function-shaped entry at 0x005D2A53 ending in ret at 0x005D2B2E; semantics and original name unproven
-?rva005C6CC7@Rva005C6CC7Call@@QAEXXZ,0x005C6CC7,address-derived void helper; direct call target of 0x00577E43; 5-byte thunk tail-jumps to rowed reset method 0x005C6C89; caller purpose remains unknown
 ?rva0031D230@ControlBar@@QAEXXZ,0x0031D230,direct tail call from 0x0053E4B1 on the same ControlBar this when Object status bit 2 is clear; Ghidra boundary 968; address-derived fallback method, purpose unknown
 ??0Rva005D12E3@@QAE@XZ,0x005D1296,callee of ??0Rva00576591@@QAE@PAX@Z
 ?Rva00598A3D@AIUnitBuilder@@QAEXXZ,0x00598A3D,callee of ?Rva00598D7A@AIUnitBuilder@@QAEXXZ
@@ -15063,7 +15051,6 @@ _Rva001117E3Downsample,0x001117E3,callee of ?updateMips@TileData@@QAEXXZ
 ?rva00240E18@GameLogic@@QAEX_N@Z,0x00240E18,GameLogic::init 0x243EE7 callee
 ?rva0032D554@SidesList@@QAEXXZ,0x0032D554,GameLogic::init 0x243EE7 callee
 ?rva0032F84F@SidesList@@QAEXXZ,0x0032F84F,GameLogic::init 0x243EE7 callee
-?rva0035AA3E@Rva00359E13@@QAEXXZ,0x0035AA3E,GameLogic::init 0x243EE7 callee
 ??0Rva0004224C@@QAE@XZ,0x0004224C,GameLogic::reset 0x2442A4 callee (FP-mode guard ctor / StatsCollector dtor folded with AsciiString release)
 ??1Rva0048BA39StatsCollector@@QAE@XZ,0x0048BA39,GameLogic::reset 0x2442A4 callee (FP-mode guard ctor / StatsCollector dtor folded with AsciiString release)
 ?update@FireWeaponUpdate@@UAE?AW4UpdateSleepTime@@XZ,0x0048BEE8,"FireWeaponUpdate::update: slot 0 of the +0x10 UpdateModuleInterface vftable 0x00C4C18C stored by ctor row 0x0048C0C5; called directly by OilSpillUpdate::update 0x0048C30E (base call; this the +0x10 subobject); body banked partial"
@@ -15113,7 +15100,6 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?Set_Lighting_Environment@MeshClass@@QAEXPAVLightEnvironmentClass@@@Z,0x0014BB20,REL32 callee of retail MeshClass::Render 0x0014BB90; body offsets agree with Render's use (LightEnvironment +0xC8 with copy +0xCC; method vector +0x13C/+0x140; task takes a RefCountPtr by value and the method stack by const reference)
 ?Add_Rendering_Task@Rva00DF6F94GapFillerContext@@QAEXV?$RefCountPtr@VMeshClass@@@@ABV?$vector@V?$RefCountPtr@VRenderingMethod@FXShader@@@@V?$allocator@V?$RefCountPtr@VRenderingMethod@FXShader@@@@@_STL@@@_STL@@@Z,0x00174AAD,REL32 callee of retail MeshClass::Render 0x0014BB90; body offsets agree with Render's use (LightEnvironment +0xC8 with copy +0xCC; method vector +0x13C/+0x140; task takes a RefCountPtr by value and the method stack by const reference)
 ??0Rva0074104C@@QAE@XZ,0x00740FD9,callee of ?makeRva0074104C@@YAPAVRva0074104C@@XZ
-?rva003FACE4@Rva003FAC83@@QAEXXZ,0x003FACE4,Fresh caller 0x00213AB6 passes map-node +8 as ECX to thiscall target; Ghidra boundary is a 5-byte thunk. Address-derived helper; exact operation and payload meaning unresolved.
 ?rva003FACE9@Rva003FAC83@@QAEXPAX@Z,0x003FACE9,Fresh caller 0x00213AFC passes map-node +8 as ECX and forwards one pointer argument; callee cleans 4 bytes. Ghidra boundary is 66 bytes. Address-derived helper; payload meaning unresolved.
 ?rva003FAD2B@Rva003FAC83@@QAEXXZ,0x003FAD2B,Fresh caller 0x00213B44 passes map-node +8 as ECX to thiscall target with no stack arguments; Ghidra boundary is 31 bytes. Address-derived helper; operation unresolved.
 ?rva003FAD9A@Rva003FAC83@@QAEXXZ,0x003FAD9A,Fresh caller 0x00213BBE passes map-node +8 as ECX to thiscall target with no stack arguments; Ghidra boundary is 9 bytes. Address-derived helper; operation unresolved.
