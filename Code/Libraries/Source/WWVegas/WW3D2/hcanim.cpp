@@ -329,7 +329,7 @@ WWINLINE void TimeCodedMotionChannelClass::Get_QuatVector(float32 frame, Quatern
 
 // The adaptive-delta filter table, owned by AdaptiveDeltaMotionChannelFinish.cpp
 // (retail 0x00DB67D8).
-extern float filtertable[256];
+extern float bfme2AdaptiveDeltaFilterTable[256];
 
 // Decoded values for two consecutive frames of an N-float adaptive-delta
 // channel. The caller owns it and starts Frame at 0x0FFFFFFF, an index no
@@ -416,7 +416,7 @@ void AdaptiveDeltaMotionChannelClass::decompress(uint32 src_idx, float *srcdata,
 			int fi = src_idx & 0xF;
 			uint32 frame = src_idx;
 			do {
-			float filter = filtertable[*pPacket] * Scale;	// decompression filter
+			float filter = bfme2AdaptiveDeltaFilterTable[*pPacket] * Scale;	// decompression filter
 			pPacket++;
 
 			// data is grouped in sets of 16 nybbles

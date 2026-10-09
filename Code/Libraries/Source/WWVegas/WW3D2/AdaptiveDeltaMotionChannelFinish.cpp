@@ -13,7 +13,8 @@
 // `jl` back-edge. See the comments at each site.
 // cl: /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /DNDEBUG /MD /EHsc
 #include "wwmath.h"
-static float filtertable[256] = { 0.00000001f, 0.0000001f, 0.000001f, 0.00001f, 0.0001f, 0.001f, 0.01f, 0.1f, 1.0f, 10.0f, 100.0f, 1000.0f, 10000.0f, 100000.0f, 1000000.0f, 10000000.0f };
+// Address-owned storage at 0x00DB67D8; the original global name is unknown.
+float bfme2AdaptiveDeltaFilterTable[256] = { 0.00000001f, 0.0000001f, 0.000001f, 0.00001f, 0.0001f, 0.001f, 0.01f, 0.1f, 1.0f, 10.0f, 100.0f, 1000.0f, 10000.0f, 100000.0f, 1000000.0f, 10000000.0f };
 static bool table_valid = false;
 class AdaptiveDeltaMotionChannelClass {
 public:
@@ -44,14 +45,14 @@ AdaptiveDeltaMotionChannelClass::AdaptiveDeltaMotionChannelClass()
     volatile char *const flag = (volatile char *)&table_valid;
     if (0 == *flag) {
         float ratio = 0.0f;
-        // Retail walks edx from filtertable+16 up to filtertable+256 and closes
+        // Retail walks edx from table+16 up to table+256 and closes
         // the loop with a SIGNED `jl` back-edge (0x195FD8, 7c cb). Comparing two
         // POINTERS makes MSVC emit the unsigned `jb` (72 cb) instead, which was
         // the last mismatching byte in this body; comparing the same two values
         // as int keeps the identical `cmp edx,0xDB6BD8` and yields the signed
         // form retail has.
-        float *const end = filtertable + 256;
-        float *entry = filtertable + 16;
+        float *const end = bfme2AdaptiveDeltaFilterTable + 256;
+        float *entry = bfme2AdaptiveDeltaFilterTable + 16;
         do {
             *entry = 1.0f - WWMath::Sin(DEG_TO_RADF(0.375f * ratio));
             ratio += 1.0f;
