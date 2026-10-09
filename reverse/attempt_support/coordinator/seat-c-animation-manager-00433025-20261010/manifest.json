@@ -1,0 +1,28 @@
+{
+  "id": "seat-c-animation-manager-00433025-20261010",
+  "seat": "C",
+  "base_commit": "91519e490fda7d55539144b184100732ad86323d",
+  "paths": [
+    "Code/GameEngine/Source/GameClient/AnimationSoundModuleManager.cpp"
+  ],
+  "recoveries": [
+    {
+      "name": "?rva00433025@AnimationSoundModuleManager@@QAEXXZ",
+      "rva": "0x00433025",
+      "size": 201,
+      "source": "Code/GameEngine/Source/GameClient/AnimationSoundModuleManager.cpp",
+      "notes": "Native433025..4330EE complete201B; WB12BDFC0 AnimationSoundModuleManager.cpp source context; BF1@575ba2b intrusive-list semantic guide; target listener delta/cached20/listends0C-18 and node14/18; canonical Coord3D inline algebra; existing audio/settings/update providers; original method name unasserted; full201 bytes exact",
+      "replace_rva": null
+    }
+  ],
+  "new_retail_bytes": 201,
+  "proof_command": "python tools/explain_mismatch.py \"?rva00433025@AnimationSoundModuleManager@@QAEXXZ\" --rva 0x00433025 --size 201 --source Code/GameEngine/Source/GameClient/AnimationSoundModuleManager.cpp",
+  "proof_log": "scoped-proof.txt",
+  "claim_owner": "codex-104a-01a12257",
+  "worker_root": "C:\\Users\\franz\\.codex\\worktrees\\recovery-preserved\\openbfme2",
+  "dependencies": [],
+  "claims": [
+    "0x00433025",
+    "file:Code/GameEngine/Source/GameClient/AnimationSoundModuleManager.cpp"
+  ]
+}
