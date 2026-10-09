@@ -1,4 +1,4 @@
-// cl: /GX-
+// cl: /GX- /O1 /G7 /arch:SSE /Ob2
 // Cold-slice global dword getters without vtable carriage (twin-free TU).
 //
 // Same shape as GlobalGetterSingles.cpp (mov eax,[mem] / ret, 6B) but kept in
@@ -447,3 +447,136 @@ public: float getValue(int index);
 private: float *values;
 };
 float Rva00380517Array::getValue(int index) { return values[index]; }
+
+// TerrainLogic water-update view at secondary this+4. BF1 donor 874e38488
+// TerrainLogicUpdate.cpp supplies the water-transition algorithm; target 285B
+// fixes flag 0x40, records 0x64/count 0x564 and visual slot 17. Keep it beside the
+// established rate getter so ordinary /Ob2 inlining reuses its single data
+// owner and introduces no address-global declaration or alias.
+#include "GameLogicObjectLookupView.h"
+typedef bool Bool;
+typedef float Real;
+typedef int Int;
+extern GameLogic *TheGameLogic;
+#define TRUE true
+#define FALSE false
+
+struct WaterHandle;
+struct TerrainWaterDispatch {
+ virtual void slot0();
+ virtual void slot1();
+ virtual void slot2();
+ virtual void slot3();
+ virtual void slot4();
+ virtual void slot5();
+ virtual void slot6();
+ virtual void slot7();
+ virtual void slot8();
+ virtual void slot9();
+ virtual void slot10();
+ virtual void slot11();
+ virtual void slot12();
+ virtual void slot13();
+ virtual void slot14();
+ virtual void slot15();
+ virtual void slot16();
+ virtual void slot17();
+ virtual void slot18();
+ virtual void slot19();
+ virtual void slot20();
+ virtual void slot21();
+ virtual void slot22();
+ virtual void slot23();
+ virtual void slot24();
+ virtual void slot25();
+ virtual void slot26();
+ virtual void slot27();
+ virtual void slot28();
+ virtual void slot29();
+ virtual void slot30();
+ virtual void setWaterHeight(const WaterHandle *,Real,Real,Bool);
+};
+class TerrainVisual {
+public:
+ virtual void slot0();
+ virtual void slot1();
+ virtual void slot2();
+ virtual void slot3();
+ virtual void slot4();
+ virtual void slot5();
+ virtual void slot6();
+ virtual void slot7();
+ virtual void slot8();
+ virtual void slot9();
+ virtual void slot10();
+ virtual void slot11();
+ virtual void slot12();
+ virtual void slot13();
+ virtual void slot14();
+ virtual void slot15();
+ virtual void slot16();
+ virtual void update();
+};
+extern TerrainVisual *TheTerrainVisual;
+class Rva0027CD63 {
+public:
+ void rva0027CD63();
+ char pad00[0x40];
+ Bool m_bridgeDamageStatesChanged;
+ char pad41[0x64 - 0x41];
+ struct DynamicWaterEntry {
+  const WaterHandle *waterTable;
+  Real changePerFrame, targetHeight, damageAmount, currentHeight;
+ } m_waterToUpdate[64];
+ Int m_numWaterToUpdate;
+};
+void Rva0027CD63::rva0027CD63( void )
+{
+	m_bridgeDamageStatesChanged = false;
+
+	if( m_numWaterToUpdate )
+	{
+		const WaterHandle *water;
+		Real changePerFrame, damageAmount, targetHeight, currentHeight;
+		Bool finalTransition,
+				 doDamageThisFrame = (TheGameLogic->getFrame() % Rva004B879DGet()) == 0;
+
+		for( Int i = m_numWaterToUpdate - 1; i >= 0; --i )
+		{
+			water = m_waterToUpdate[ i ].waterTable;
+			changePerFrame = m_waterToUpdate[ i ].changePerFrame;
+			targetHeight = m_waterToUpdate[ i ].targetHeight;
+			damageAmount = m_waterToUpdate[ i ].damageAmount;
+			currentHeight = m_waterToUpdate[ i ].currentHeight;
+
+			finalTransition = FALSE;
+			if( changePerFrame > 0 )
+			{
+				if( currentHeight + changePerFrame >= targetHeight )
+					finalTransition = TRUE;
+			}
+			else
+			{
+				if( currentHeight + changePerFrame <= targetHeight )
+					finalTransition = TRUE;
+			}
+
+			if( finalTransition == TRUE )
+			{
+				reinterpret_cast<TerrainWaterDispatch *>((char *)this - 4)->setWaterHeight( water, targetHeight, damageAmount, TRUE );
+				for( Int j = i; j < m_numWaterToUpdate; j++ )
+					m_waterToUpdate[ i ] = m_waterToUpdate[ j ];
+				m_numWaterToUpdate -= 1;
+			}
+			else
+			{
+				if( doDamageThisFrame == FALSE )
+					damageAmount = 0.0f;
+				currentHeight += changePerFrame;
+				m_waterToUpdate[ i ].currentHeight = currentHeight;
+				reinterpret_cast<TerrainWaterDispatch *>((char *)this - 4)->setWaterHeight( water, currentHeight, damageAmount, FALSE );
+			}
+		}
+	}
+	TheTerrainVisual->update();
+}
