@@ -32,6 +32,7 @@ public:
 	void addNamedList(Rva002FED8D*);
 	void addFactionBuildList(Gen0014AE40*);
 	TAiData&operator=(const TAiData&other);
+ TAiData *next()const{return m_next;}
 	virtual ~TAiData();
 	virtual const char *GetSnapshotName() const;
 	virtual void xfer( Xfer *xfer );
@@ -190,9 +191,11 @@ TAiData::TAiData() :
 #include "subsystem_interface.h"
 #include <list>
 class AIGroup;
+namespace _STL {template<> _List_base<AIGroup *,allocator<AIGroup *> >::~_List_base();}
 // Full target new-expression extent1D200 is proven by the167B AI caller;
 // construction implementation is the separately rowed Pathfinder ctor.
-class Pathfinder {public: Pathfinder(); char storage[0x1D200];};
+class PathfindServicesInterface {public: virtual void slot0()=0;virtual void slot1()=0;virtual void slot2()=0;virtual void slot3()=0;virtual void slot4()=0;virtual void slot5()=0;virtual void slot6()=0;};
+class Pathfinder:public PathfindServicesInterface,public Snapshot {public: Pathfinder();virtual ~Pathfinder();virtual void slot0();virtual void slot1();virtual void slot2();virtual void slot3();virtual void slot4();virtual void slot5();virtual void slot6();virtual void loadPostProcess();virtual const char *GetSnapshotName()const;virtual void xfer(Xfer*);char storage[0x1D200-8];};
 class AI : public SubsystemInterface, public Snapshot
 {
 public:
@@ -357,3 +360,18 @@ inline void TAiData::addNamedList(Rva002FED8D*node){node->next=m_namedLists;m_na
 // Native2FFDC3..2FFF72 RET0 proves allocation114, three-list offsetsF4/F8/FC,
 // side-info1C0/name-list14/side-build10, and every listed constructor/assignment.
 // Existing25B AI addSideInfo provider is reconciled here from its private view.
+
+// Native2FEBB7..2FEC4A RET0; namedAI vtables and constructor identify owner.
+// BF1 AI destructor supplies the pointer deletion semantics. The native
+// EH state1 before list cleanup requires an out-of-line list destructor:
+// its definition in this TU would prove it nonthrowing and erase that store.
+AI::~AI()
+{
+ if(m_pathfinder)::delete m_pathfinder;
+ m_pathfinder=0;
+ while(m_aiData) {
+  TAiData *current=m_aiData;
+  m_aiData=m_aiData->next();
+  ::delete current;
+ }
+}
