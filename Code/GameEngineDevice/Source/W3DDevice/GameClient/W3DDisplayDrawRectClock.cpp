@@ -1,7 +1,8 @@
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
 //
 // ?drawRectClock@W3DDisplay@@UAEXMMMMMI@Z, retail 0x00045B45..0x000463B5 (2160 bytes)
-// thiscall RET 0x18.
+// ?drawRemainingRectClock@W3DDisplay@@UAEXMMMMMI@Z, retail 0x000463B5..0x000465CE (537 bytes)
+// Both thiscall RET 0x18.
 //
 // Identity: W3DDisplay vtable slot +0xEC (absolute reference at 0x007C3D6C),
 // next to the rowed drawOpenRect (+0xE0, 0x00044A1A) and the fill-rect slot
@@ -11,14 +12,45 @@
 // Add_Quad(rect, color) 0x000428C7 for Add_Rect and the pinned Add_Tri
 // 0x00045708; as in drawOpenRect the Reset/Render calls are gone. WB twin
 // 0x00971AF0 (vtable evidence) is unnamed.
+//
+// drawRemainingRectClock is not Zero Hour's four-quadrant version: BFME draws
+// a triangle fan from the top centre, clockwise over the remaining fraction,
+// with ceil(max(halfWidth, halfHeight) * remaining * 4) segments. Its shape is
+// carried from Open-BFME-1's exact BFME 1 body (lotrbfme.exe 0x006ECA80,
+// W3DDisplayDrawRemainingRectClock.cpp, slot +0xCC there); BFME 2's own
+// evidence is the +0xF0 slot after drawRectClock, the same Render2D +0x168 /
+// +0x48 texturing flag, the pinned Add_Tri, the _sin/_cos thunks and
+// __imp__ceil, and the 0/100/0.01/2pi/4.0 constants. WB twin 0x00971EC0
+// (vtable evidence, 3355 bytes) is unnamed.
 typedef unsigned int UnsignedInt;
 typedef float Real;
 typedef int Int;
 
+extern "C" double __cdecl sin(double x);
+extern "C" double __cdecl cos(double x);
+extern "C" __declspec(dllimport) double __cdecl ceil(double x);
+
+#define WWMATH_TWO_PI 6.283185307f
+
+// WWMath's x87 float-to-long (fld/fistp, current rounding mode).
+class WWMath
+{
+public:
+	static __forceinline long Float_To_Long(float f)
+	{
+		long retval;
+		__asm fld dword ptr [f]
+		__asm fistp dword ptr [retval]
+		return retval;
+	}
+};
+
 class Vector2
 {
 public:
+	Vector2() {}
 	Vector2(float x, float y) : X(x), Y(y) {}
+	Vector2 &operator=(const Vector2 &v) { X = v.X; Y = v.Y; return *this; }
 	float X;
 	float Y;
 };
@@ -67,6 +99,8 @@ public:
 	W3DDISPLAY_SLOT(56) W3DDISPLAY_SLOT(57) W3DDISPLAY_SLOT(58)
 	// +0xEC (retail 0x00045B45).
 	virtual void drawRectClock(Real startX, Real startY, Real width, Real height, Real percent, UnsignedInt color);
+	// +0xF0 (retail 0x000463B5).
+	virtual void drawRemainingRectClock(Real startX, Real startY, Real width, Real height, Real percent, UnsignedInt color);
 
 private:
 	char m_pad004[0x168 - 0x004];
@@ -222,5 +256,53 @@ void W3DDisplay::drawRectClock(Real startX, Real startY, Real width, Real height
 													Vector2(startX + width/2 + (width/2 * percentDraw), startY ),
 													Vector2(0,0),Vector2(0,0),Vector2(0,0),color);
 		}
+	}
+}
+
+void W3DDisplay::drawRemainingRectClock(Real startX, Real startY, Real width, Real height, Real percent, UnsignedInt color)
+{
+	if (percent < 0.0f)
+		percent = 0.0f;
+	else if (percent > 100.0f)
+		percent = 100.0f;
+
+	Real halfWidth = width * 0.5f;
+	Real halfHeight = height * 0.5f;
+	Real centerX = halfWidth + startX;
+	Real centerY = halfHeight + startY;
+	Vector2 prev(0.0f, -halfHeight);
+	m_2DRender->Enable_Texturing(false);
+	percent = 1.0f - (0.01f * percent);
+	Real sweep = percent * WWMATH_TWO_PI;
+	Real radius = (halfWidth > halfHeight) ? halfWidth : halfHeight;
+	Int segments = WWMath::Float_To_Long(ceil(radius * percent * 4.0f));
+	Real step = sweep / (Real)segments;
+	Real angle = 0.0f;
+
+	if (segments > 0)
+	{
+		Vector2 uv2(0, 0);
+		Vector2 uv1(0, 0);
+		Vector2 uv0(0, 0);
+		Vector2 center(centerX, centerY);
+
+		Int i = segments;
+		do
+		{
+			angle += step;
+			Vector2 cur;
+			if (angle > 0.0f && angle < WWMATH_TWO_PI)
+			{
+				cur.X = -(sin(angle) * halfWidth);
+				cur.Y = -(cos(angle) * halfHeight);
+			}
+			else
+			{
+				cur.X = 0.0f;
+				cur.Y = -halfHeight;
+			}
+			m_2DRender->Add_Tri(center, Vector2(centerX + prev.X, centerY + prev.Y), Vector2(centerX + cur.X, centerY + cur.Y), uv0, uv1, uv2, color);
+			prev = cur;
+		} while (--i);
 	}
 }
