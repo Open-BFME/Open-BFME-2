@@ -91,6 +91,8 @@ const AsciiString AsciiString::TheEmptyString;
 struct Rva002000D7Config
 {
 	int rva00200157(const AsciiString &name);
+	char unknown00[0x34];
+	int rankCost34;
 };
 class Rva002000D7Store
 {
@@ -116,6 +118,8 @@ public:
 	AsciiString *rva00380200();
 	void rva0038020D();
 	void rva00380499(Xfer *xfer);
+	int rva003802DF();
+	int rva00380459(int points);
 };
 
 AsciiString *Rva00380200::rva00380200()
@@ -179,4 +183,14 @@ void Rva0058AE53::rva0058AE53(Xfer *xfer)
         *xfer == m_18;
         *xfer == m_0C;
     }
+}
+
+int Rva00380200::rva00380459(int points)
+{
+ int total=0;
+ for(int level=1;level<rva003802DF();++level) {
+  total += reinterpret_cast<Rva002000D7Store *>(TheRankInfoStore)->get(level)->rankCost34;
+  if(total>=points) return level;
+ }
+ return 0;
 }
