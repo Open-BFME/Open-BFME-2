@@ -101,3 +101,33 @@ void Rva00211589::rva002129B4()
 	rva00212761();
 	rva002110DF(0);
 }
+
+// ?rva00211505@Rva00211505@@QAEXXZ @0x00211505 60B
+// Twin of Rva00211589::rva00211589 above on another owner with the same +0x24c/+0x250 pointer array: calls the
+// observed element target 0x003FD849 on each entry (reloading the bounds each pass). Target evidence: retail body and
+// REL32 read byte for byte; class and element names are address-derived.
+class Rva003FD849
+{
+public:
+	void rva003FD849();
+};
+
+class Rva00211505
+{
+	char m_pad[0x24c];
+	Rva003FD849 **m_begin;
+	Rva003FD849 **m_end;
+
+public:
+	void rva00211505();
+};
+
+void Rva00211505::rva00211505()
+{
+	unsigned int i;
+	for (i = 0; i < (unsigned int)(m_end - m_begin); ++i)
+	{
+		_ReadWriteBarrier();
+		m_begin[i]->rva003FD849();
+	}
+}
