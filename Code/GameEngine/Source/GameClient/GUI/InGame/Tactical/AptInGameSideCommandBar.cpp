@@ -57,10 +57,42 @@ template<class FrameHolder, class UpdaterHolder> struct SideBarButtonSlot {
 template struct SideBarButtonSlot<Rva000AD6F4, SideBarUpdaterRef>;
 typedef SideBarButtonSlot<Rva000AD6F4, SideBarUpdaterRef> SideBarSlot;
 
+class AptCommandTarget {};
+struct DelegateDesc {
+ template<class T> DelegateDesc(T *object, void(T::*method)(const char *))
+ : m_object((AptCommandTarget *)object), m_method(reinterpret_cast<void(AptCommandTarget::*)(const char *)>(method)) {}
+ AptCommandTarget *m_object;
+ void(AptCommandTarget::*m_method)(const char *);
+};
+class Rva00579E47 {
+public:
+ Rva00579E47(const DelegateDesc &);
+private:
+ void *m_ptr;
+};
+class AptCommandMap { public: void *m_vtbl; int m_refCount; };
+template<class T> class AptRef {
+public:
+ AptRef(const DelegateDesc *desc) { ((Rva00579E47 *)this)->Rva00579E47::Rva00579E47(*desc); }
+ AptRef(const AptRef &that):m_ptr(that.m_ptr) { if(m_ptr) ++m_ptr->m_refCount; }
+ ~AptRef() { if(m_ptr) ReleaseTreeHintRef00217D4C((TargetRef00217D4C *)m_ptr); }
+private:
+ T *m_ptr;
+};
+class AptCommandMapAdder {
+public:
+ AptCommandMapAdder();
+ ~AptCommandMapAdder();
+ void AddCommandMap(const AsciiString &, AptRef<AptCommandMap>);
+ __forceinline void AddCommandMapDelegate(const AsciiString &name, DelegateDesc desc) { AddCommandMap(name, &desc); }
+private:
+ char m_names[12];
+};
 class AptInGameSideCommandBar {
 public:
  class Impl {
  public:
+  Impl(AptInGameSideCommandBar *owner, int levelIndex);
   void Update();
   void OnButtonFrameLoaded(const char *params);
   void OnButtonFrameUnloaded(const char *params);
@@ -70,7 +102,9 @@ public:
   void OnLoaded(const char *params);
   void OnUnloaded(const char *params);
  private:
-  char m_prefix[0x14];
+  AptInGameSideCommandBar *m_owner;
+  int m_level;
+  AptCommandMapAdder m_maps;
   int m_state;
   AsciiString m_prefixString; // +18, assigned by loaded callback
   unsigned m_selectedObject; // +1c, measured in Impl::Update
@@ -155,4 +189,19 @@ void AptInGameSideCommandBar::Impl::OnLoaded(const char *params)
 void AptInGameSideCommandBar::Impl::OnUnloaded(const char *)
 {
  ((Rva00528309 *)this)->rva005283E3();
+}
+
+// WB013C6FC0 names this Impl constructor and its levelIndex assertions.
+// Native511B5288C4..528AC3 RET8 owner0/level4/maps8, state14, string18,
+// selected1C/displayed20, fifteen12B slots24, countD8. Six bindings agree.
+AptInGameSideCommandBar::Impl::Impl(AptInGameSideCommandBar *owner, int levelIndex)
+ : m_owner(owner), m_level(levelIndex), m_state(0),
+   m_selectedObject(0), m_displayedObject(0), m_count(0)
+{
+ m_maps.AddCommandMapDelegate(AsciiString("OnAptInGameSideCommandBarLoaded"), DelegateDesc(this, &Impl::OnLoaded));
+ m_maps.AddCommandMapDelegate(AsciiString("OnAptInGameSideCommandBarUnloaded"), DelegateDesc(this, &Impl::OnUnloaded));
+ m_maps.AddCommandMapDelegate(AsciiString("OnAptInGameSideCommandBarFadeInComplete"), DelegateDesc(this, &Impl::OnFadeInComplete));
+ m_maps.AddCommandMapDelegate(AsciiString("OnAptInGameSideCommandBarFadeOutComplete"), DelegateDesc(this, &Impl::OnFadeOutComplete));
+ m_maps.AddCommandMapDelegate(AsciiString("OnAptInGameSideCommandBarButtonFrameLoaded"), DelegateDesc(this, &Impl::OnButtonFrameLoaded));
+ m_maps.AddCommandMapDelegate(AsciiString("OnAptInGameSideCommandBarButtonFrameUnloaded"), DelegateDesc(this, &Impl::OnButtonFrameUnloaded));
 }
