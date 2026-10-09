@@ -1,6 +1,8 @@
 // ?onEnter@AIAttackPositionAimAtTargetState@@UAE?AW4StateReturnType@@XZ
-// partial score=0.85 date=2026-10-09
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// partial score=0.8732703916 date=2026-10-09
+// ?rva0034A570@AIAttackPositionAimAtTargetState@@QAE?AW4StateReturnType@@_N@Z
+// partial score=0.97 date=2026-10-09
+// cl: /I. /O1 /Oy- /G7 /arch:SSE /DNDEBUG /MD /EHsc
 //
 // AIAttackApproachTargetState::onEnter, retail 0x0034CD3A (783 bytes): slot 4
 // of vtable 0x00C12610 (slot-2 name getter "AIAttackApproachTargetState";
@@ -91,8 +93,8 @@
 // (slot 2 isWeaponSlotOkToFire, slot 0 notifyFired); update's three early
 // failures are separate statements in retail.
 
-#include "../../Common/GameLogicObjectLookupView.h"
-#include "../../../../Libraries/Include/Lib/Coord3D.h"
+#include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
+#include "Code/Libraries/Include/Lib/Coord3D.h"
 
 typedef bool Bool;
 typedef float Real;
@@ -1511,15 +1513,14 @@ StateReturnType AIAttackPositionAimAtTargetState::rva0034A570(Bool firstFrame)
 		return STATE_CONTINUE;
 	if (fabs(relAngle) < aimDelta || fabs(relAngle) < turnRate * 0.5f)
 		return STATE_SUCCESS;
-	if (!(source->m_1c8 & 8))
-		return STATE_CONTINUE;
-	Weapon *current = source->getCurrentWeapon();
-	const Coord3D *targetPos = getMachineGoalPosition();
-	if (current && current->isWithinAttackRange(source, (void *)targetPos, 0.0f, 1))
-		return STATE_CONTINUE;
-	return STATE_FAILURE;
-}
 
+ if(source->m_1c8&8) {
+  Weapon *current=source->getCurrentWeapon();
+  const Coord3D *targetPos=getMachineGoalPosition();
+  if(!current || !current->isWithinAttackRange(source,(void*)targetPos,0.0f,1)) return STATE_FAILURE;
+ }
+ return STATE_CONTINUE;
+}
 StateReturnType AIAttackPositionAimAtTargetState::onEnter()
 {
 	Object *source = getMachineOwner();
@@ -1531,7 +1532,7 @@ StateReturnType AIAttackPositionAimAtTargetState::onEnter()
 	m_canTurnInPlace = curLoco ? ((Rva001E3F08 *)curLoco)->rva001E3F08((Rva001E3F08Arg *)source) == 0.0f : false;
 	source->rva0028CDB6();
 
-	Bool inFiringRange;
+	char inFiringRange;
 	Object *containedBy = source->m_containedBy;
 	if (containedBy)
 	{
@@ -1543,7 +1544,7 @@ StateReturnType AIAttackPositionAimAtTargetState::onEnter()
 	{
 		if (!weapon)
 			return STATE_FAILURE;
-		inFiringRange = weapon->isWithinAttackRange(source, (void *)targetPos, 0.0f, 1) != 0;
+		inFiringRange = weapon->isWithinAttackRange(source, (void *)targetPos, 0.0f, 1);
 	}
 
 	WhichTurretType tur = sourceAI->getWhichTurretForCurWeapon();
@@ -1563,3 +1564,4 @@ StateReturnType AIAttackPositionAimAtTargetState::onEnter()
 	source->setStatus(OBJECT_STATUS_19, true);
 	return rva0034A570(true);
 }
+

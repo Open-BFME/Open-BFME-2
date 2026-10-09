@@ -1,6 +1,8 @@
 // ?onEnter@AIAttackMeleeApproachState@@UAE?AW4StateReturnType@@XZ
+// partial score=0.9828689271 date=2026-10-09
+// ?onEnter@AIAttackMeleeApproachState@@UAE?AW4StateReturnType@@XZ
 // partial score=0.98 date=2026-10-09
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// cl: /ICode/Libraries/Include/Lib /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
 //
 // ?onEnter@AIAttackMeleeApproachState@@UAE?AW4StateReturnType@@XZ retail
 // 0x0034D5B7 (719 bytes). Slot 4 of vtable 0x00C12800, whose slot-2 name
@@ -20,7 +22,7 @@
 // fails; then CritterDesync 19 computePath (slot 17) and the
 // AIInternalMoveToState onEnter with CritterDesync 32 restoring the flag.
 
-#include "../../../../Libraries/Include/Lib/Coord3D.h"
+#include "Coord3D.h"
 
 typedef bool Bool;
 typedef float Real;
