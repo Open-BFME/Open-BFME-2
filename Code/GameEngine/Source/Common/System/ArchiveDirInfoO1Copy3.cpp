@@ -2,15 +2,16 @@
 //
 // ??0Rva00382BF0@@QAE@ABU0@@Z, retail 0x00382BF0, 61 bytes.
 // Copy ctor with AsciiString at +0 via pinned StringBase<D> copy then
-// Open2Rec4F1120 at +4 via its rowed copy. Identity from unlock (makes
-// 0x0038353A ready) and caller 0x00383556.
+// PlayerInfo at +4 via its rowed copy. Identity from unlock (makes
+// 0x0038353A ready) and caller 0x00383556; the record is
+// pair<const AsciiString PlayerInfo> (the PlayerInfoMap node value).
 #include "ascii_string.h"
 
 
-class Open2Rec4F1120
+class PlayerInfo
 {
 public:
-	Open2Rec4F1120(const Open2Rec4F1120 &other);
+	PlayerInfo(const PlayerInfo &other);
 
 private:
 	AsciiString m_00;
@@ -31,7 +32,7 @@ private:
 struct Rva00382BF0
 {
 	AsciiString m_00;
-	Open2Rec4F1120 m_04;
+	PlayerInfo m_04;
 
 	Rva00382BF0(const Rva00382BF0 &other);
 };

@@ -4,7 +4,7 @@
 // Retail 0x001EF90E 146B:
 // ?rva001EF90E@Rva001EF90E@@QAEXVAsciiString@@HVUnicodeString@@HH@Z
 // Chain from 0x001EF5BD: GetMap virtual 0x54 returns RecMap for find and
-// end check. On found copies Open2Rec from node+0x14 and calls Bar virtual
+// end check. On found copies the PlayerInfo from node+0x14 and calls Bar virtual
 // 0xFC with (rec wide int int). Second arg at +0xC unused proving 5-arg
 // shape with ret 0x14. Dummy virtuals pad GetMap to 21 and Bar to 63.
 //
@@ -41,7 +41,7 @@ struct AsciiComparator
 	bool operator()(AsciiString s1, AsciiString s2) const;
 };
 
-class Open2Rec4F1120
+class PlayerInfo
 {
 public:
 	AsciiString m_at00;
@@ -59,7 +59,7 @@ public:
 	int m_at30;
 };
 
-typedef _STL::map<AsciiString, Open2Rec4F1120, AsciiComparator> Rec4F1120Map;
+typedef _STL::map<AsciiString, PlayerInfo, AsciiComparator> PlayerInfoMap;
 
 class Rva001EF90E
 {
@@ -70,7 +70,7 @@ public:
 	virtual void D12(); virtual void D13(); virtual void D14(); virtual void D15();
 	virtual void D16(); virtual void D17(); virtual void D18(); virtual void D19();
 	virtual void D20();
-	virtual Rec4F1120Map *GetMap();
+	virtual PlayerInfoMap *GetMap();
 	virtual void D22(); virtual void D23(); virtual void D24(); virtual void D25();
 	virtual void D26(); virtual void D27(); virtual void D28(); virtual void D29();
 	virtual void D30(); virtual void D31(); virtual void D32(); virtual void D33();
@@ -82,15 +82,15 @@ public:
 	virtual void D54(); virtual void D55(); virtual void D56(); virtual void D57();
 	virtual void D58(); virtual void D59(); virtual void D60(); virtual void D61();
 	virtual void D62();
-	virtual void Bar(Open2Rec4F1120 rec, UnicodeString msg, int a, int b);
+	virtual void Bar(PlayerInfo rec, UnicodeString msg, int a, int b);
 	void rva001EF90E(AsciiString key, int dummy, UnicodeString msg, int a, int b);
 };
 
 void Rva001EF90E::rva001EF90E(AsciiString key, int dummy, UnicodeString msg, int a, int b)
 {
-	Rec4F1120Map *m1 = GetMap();
-	Rec4F1120Map::iterator it = m1->find(key);
-	Rec4F1120Map *m2 = GetMap();
+	PlayerInfoMap *m1 = GetMap();
+	PlayerInfoMap::iterator it = m1->find(key);
+	PlayerInfoMap *m2 = GetMap();
 	if (it != m2->end()) {
 		Bar(it->second, msg, a, b);
 	}

@@ -9,7 +9,7 @@
 //   pair(const AsciiString &, const T &), 57 bytes, twins of 0x002027B1
 //   (stlport_rb_tree_hint_asciistring_pair.cpp):
 //     0x00303D6B  T = MapMetaData        (copy ctor 0x003039E8, MapMetaDataCopy.cpp)
-//     0x003829AC  T = Open2Rec4F1120     (copy ctor 0x001EF485, Open2Records.cpp)
+//     0x003829AC  T = PlayerInfo         (copy ctor 0x001EF485, Open2Records.cpp)
 //     0x004106C1  T = Rva0045EF90Object  (copy ctor 0x004104FE, Rva0045EF90CopyConstructor.cpp)
 //     0x00216296  T = Gen_003A8BE0       (copy ctor 0x0021613D, BfmeThreeStringCopyWH.cpp)
 //   pair(const pair &), 61 bytes, twins of 0x002A1538
@@ -30,11 +30,11 @@ public:
 	~MapMetaData();
 };
 
-class Open2Rec4F1120
+class PlayerInfo
 {
 public:
-	Open2Rec4F1120(const Open2Rec4F1120 &other);
-	~Open2Rec4F1120();
+	PlayerInfo(const PlayerInfo &other);
+	~PlayerInfo();
 };
 
 class Rva0045EF90Object
@@ -52,7 +52,7 @@ public:
 };
 
 template _STL::pair<const AsciiString, MapMetaData>::pair(const AsciiString &, const MapMetaData &);
-template _STL::pair<const AsciiString, Open2Rec4F1120>::pair(const AsciiString &, const Open2Rec4F1120 &);
+template _STL::pair<const AsciiString, PlayerInfo>::pair(const AsciiString &, const PlayerInfo &);
 template _STL::pair<const AsciiString, Rva0045EF90Object>::pair(const AsciiString &, const Rva0045EF90Object &);
 template _STL::pair<const AsciiString, Gen_003A8BE0>::pair(const AsciiString &, const Gen_003A8BE0 &);
 template _STL::pair<const AsciiString, Rva0045EF90Object>::pair(const _STL::pair<const AsciiString, Rva0045EF90Object> &);

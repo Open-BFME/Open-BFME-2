@@ -127,11 +127,17 @@ Open2Rec439370::Open2Rec439370( const Open2Rec439370 &other )
 }
 
 // -------------------------------------------------------------------------
-// 0x004F1120 -- 158 bytes, ctor
-class Open2Rec4F1120
+// 0x004F1120 -- 158 bytes, ctor (BFME 1 address; BFME 2 0x001EF485, 137 bytes)
+// GameSpy PlayerInfo copy constructor: the GameSpyInfo virtual at 0x00382D39
+// and AptOnlineQuickMatch::OnMatched (0x005BAF35) copy a PlayerInfo local
+// through it into the by-value argument of GameSpyInfo::updatePlayerInfo
+// (vtable slot 0x4C; row 0x00386EF8 takes VPlayerInfo@@ by value), and the
+// pair<const AsciiString PlayerInfo> constructors 0x003829AC and 0x00382BF0
+// copy the mapped value through it.
+class PlayerInfo
 {
 public:
-	Open2Rec4F1120( const Open2Rec4F1120 &other );
+	PlayerInfo( const PlayerInfo &other );
 	AsciiString m_at00;
 	AsciiString m_at04;
 	AsciiString m_at08;
@@ -147,9 +153,9 @@ public:
 	int m_at30;
 };
 
-// @??0Open2Rec4F1120@@QAE@ABV0@@Z 0x004F1120
+// @??0PlayerInfo@@QAE@ABV0@@Z 0x004F1120
 #pragma optimize("s", on)
-inline Open2Rec4F1120::Open2Rec4F1120( const Open2Rec4F1120 &other )
+inline PlayerInfo::PlayerInfo( const PlayerInfo &other )
 	: m_at00( other.m_at00 ), m_at04( other.m_at04 ), m_at08( other.m_at08 ), m_at0c( other.m_at0c ), m_at10( other.m_at10 ), m_at14( other.m_at14 ), m_at18( other.m_at18 ), m_at1c( other.m_at1c ), m_at20( other.m_at20 ), m_at24( other.m_at24 ), m_at28( other.m_at28 ), m_at2c( other.m_at2c ), m_at30( other.m_at30 )
 {
 }
@@ -306,13 +312,13 @@ Open2Rec81C6B0::Open2Rec81C6B0( const Open2Rec81C6B0 &other )
 {
 }
 
-// Open2Rec4F1120's copy constructor is a header inline elsewhere: other units emit
+// PlayerInfo's copy constructor is a header inline elsewhere: other units emit
 // select-any copies, so a strong definition here was a duplicate in the linked build. This
 // anchor only makes this unit emit its copy for the ledger row; it is not retail code.
 #pragma inline_depth(0)
-// ?bfmeEmitOpen2Records@@YAXPAVOpen2Rec4F1120@@ABV1@@Z present-unmatched
-void bfmeEmitOpen2Records(Open2Rec4F1120 *p, const Open2Rec4F1120 &q)
+// ?bfmeEmitOpen2Records@@YAXPAVPlayerInfo@@ABV1@@Z present-unmatched
+void bfmeEmitOpen2Records(PlayerInfo *p, const PlayerInfo &q)
 {
-	p->Open2Rec4F1120::Open2Rec4F1120(q);
+	p->PlayerInfo::PlayerInfo(q);
 }
 #pragma inline_depth()
