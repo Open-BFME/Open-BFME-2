@@ -1,7 +1,13 @@
 // ?getNextMoodTarget@AIUpdateInterface@@QAEPAVObject@@_N0@Z
+// partial score=0.9675795433295147 date=2026-10-09
+// ?getNextMoodTarget@AIUpdateInterface@@QAEPAVObject@@_N0@Z
 // partial score=0.97 date=2026-10-09
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /I.
 //
+// Status-mask correction: matched TransportContainOnContaining slot44 returns four
+// uint32 words; native getNextMoodTarget tests word0 through hidden return buffer.
+// This fixes frame30; remaining buffer/filter/delta stack packing and late
+// attack-priority load/EBX horde mask still differ. No Code edit retained.
 // BANK for ?getNextMoodTarget@AIUpdateInterface@@QAEPAVObject@@_N0@Z, retail
 // 0x00268EB8 (1710 bytes). Intended home: a new
 // Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_getNextMoodTarget.cpp
@@ -13,8 +19,8 @@
 // player-type select, and retail holds the 0x2000 kind mask in EBX for the
 // closing tests.
 
-#include "../../../Common/GameLogicObjectLookupView.h"
-#include "../../../../../Libraries/Include/Lib/Coord3D.h"
+#include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
+#include "Code/Libraries/Include/Lib/Coord3D.h"
 
 typedef bool Bool;
 typedef float Real;
@@ -166,7 +172,7 @@ public:
 struct ObjectStatusBitsView
 {
 	ObjectStatusBitsView();
-	UnsignedInt m_bits;
+	UnsignedInt m_bits[4];
 };
 
 class ContainRiderView
@@ -416,7 +422,7 @@ Object *AIUpdateInterface::getNextMoodTarget(Bool calledByAI, Bool calledDuringI
 			Object *container = obj->m_containedBy;
 			if (!container)
 				return 0;
-			if (!testBit(container->m_contain->slot44(obj).m_bits, 1))
+			if (!testBit(container->m_contain->slot44(obj).m_bits[0], 1))
 				return 0;
 		}
 	}
