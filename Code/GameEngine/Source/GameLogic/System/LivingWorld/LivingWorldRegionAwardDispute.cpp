@@ -24,12 +24,17 @@ extern LivingWorldLogic* TheLivingWorldLogic;
 class GameSlot { public: unsigned char opaque[0x4c]; int playerId; };
 class GameInfo { public: const GameSlot* getConstSlot(int) const; };
 extern GameInfo* TheGameInfo;
+// The local player lookup (rowed 0x002B2B66) and the dispute's flag setter
+// (rowed 0x004FBDB0), viewed under their row spellings.
+class Rva002B2B66 { public: int rva002B2B66(); };
+class Rva004FBDB0 { public: void rva004FBDB0(bool flag); };
 class RegionAwardDispute {
     unsigned char opaque[8];
     _STL::vector<Rva002E2903Player*> records;
 public:
     int rva004FBE7A();
     int GetResolvableBy();
+    void rva004FC0AD(const Rva002E2903Player *player);
 };
 int RegionAwardDispute::rva004FBE7A() {
     int result = 0;
@@ -56,4 +61,15 @@ int RegionAwardDispute::GetResolvableBy() {
         return id;
     }
     return -1;
+}
+
+// ?rva004FC0AD@RegionAwardDispute@@QAEXPBVRva002E2903Player@@@Z, retail
+// 0x004FC0AD..0x004FC0ED (64 bytes, RET 4): adds a disputant (the pinned
+// pointer-vector push_back fold; the argument is copied to a temporary of
+// the element type first) and tells the dispute (rowed 0x004FBDB0) whether
+// the local player (rowed 0x002B2B66) is now the one who resolves it.
+void RegionAwardDispute::rva004FC0AD(const Rva002E2903Player *player) {
+    records.push_back((Rva002E2903Player *)player);
+    int local = reinterpret_cast<Rva002B2B66 *>(TheLivingWorldLogic)->rva002B2B66();
+    reinterpret_cast<Rva004FBDB0 *>(this)->rva004FBDB0(local == GetResolvableBy());
 }

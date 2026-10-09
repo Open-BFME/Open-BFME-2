@@ -26,10 +26,11 @@ void Rva004FBC02::rva004FBC02(const Rva004FBC02Src *src)
 	m_24 = 1;
 }
 
-// ?rva004FBDB0@Rva004FBDB0@@QAEXH@Z 0x004FBDB0 28: forwards int arg to slot-12
+// ?rva004FBDB0@Rva004FBDB0@@QAEX_N@Z 0x004FBDB0 28: forwards its flag to slot-12
 // virtual on the object looked up by this+0x18 key in the global map at 0x009FE1C8
 // via rowed Rva002120A4::rva002120A4; returns on miss. Evidence: callers 0x004FBFF4
-// 0x004FC0E2 0x004FC0AD pass 0/1 int; callees rowed; global name in use.
+// and 0x004FC0E2 (in 0x004FC0AD) pass 0/1; the latter pushes a sete result
+// without widening it, so the argument is a bool; callees rowed.
 
 enum NameKeyType
 {
@@ -53,7 +54,7 @@ public:
 	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
 	virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();
 	virtual void v08(); virtual void v09(); virtual void v10(); virtual void v11();
-	virtual void slot12(int arg);
+	virtual void slot12(bool arg);
 };
 
 class Rva004FBDB0
@@ -62,10 +63,10 @@ private:
 	char m_pad[0x18];
 	NameKeyType m_key;
 public:
-	void rva004FBDB0(int arg);
+	void rva004FBDB0(bool arg);
 };
 
-void Rva004FBDB0::rva004FBDB0(int arg)
+void Rva004FBDB0::rva004FBDB0(bool arg)
 {
 	int found = ((Rva002120A4 *)TheLivingWorldManager)->rva002120A4(m_key);
 	if (found == 0)
