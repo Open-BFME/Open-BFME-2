@@ -1,6 +1,6 @@
 // ?Rva00506CF5@@YA?AUCoord3D@@PAXPAU1@@Z
 // partial score=0.989418 date=2026-10-09
-// cl: /O1 /Oy- /G7 /arch:SSE /MD /GX /DNDEBUG /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii /Ireference/shims/bfme2_vector3 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib
+// cl: /O1 /Oy- /G7 /arch:SSE /MD /GX /DNDEBUG /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii /Ireference/shims/bfme2_vector3 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
 // stlport
 //
 // The skirmish-AI object behind vtable 0x00863FAC, newed by 0x004EC430 in the
@@ -260,6 +260,143 @@ private:
 	Coord3D m_28;
 };
 
+// ??0AIBaseBuilder@@QAE@PAX@Z
+AIBaseBuilder::AIBaseBuilder(void *owner)
+	: m_08(owner)
+{
+	m_18.set(&Gen00DD0870);
+	m_24 = false;
+	m_28.set(&Gen00DD0870);
+	m_28 = Rva00506CF5(m_08, &m_18);
+}
+
+// ??1AIBaseBuilder@@UAE@XZ
+AIBaseBuilder::~AIBaseBuilder()
+{
+	v2();
+}
+
+// Slot 1 (0x00506BDC).
+void AIBaseBuilder::v1()
+{
+	for (Rva005ADA40 **it = m_0C.begin(), **end = m_0C.end(); it != end; ++it)
+		reinterpret_cast<AIBase *>(*it)->rva005ADC63();
+}
+
+// Slot 2 (0x005071A1): free every element, then empty the vector.
+void AIBaseBuilder::v2()
+{
+	for (Rva005ADA40 **it = m_0C.begin(), **end = m_0C.end(); it != end; ++it)
+		delete reinterpret_cast<AIBase *>(*it);
+	m_0C.clear();
+}
+
+void AIBaseBuilder::rva00506B96(const Coord3D *point)
+{
+	if (!m_24)
+		m_18 = *point;
+}
+
+Rva005AD9C0Hit *AIBaseBuilder::rva00506BF7(void *arg)
+{
+	Rva005ADA40 **end = m_0C.end();
+	for (Rva005ADA40 **it = m_0C.begin(); it != end; ++it) {
+		Rva005AD9C0Hit *hit = reinterpret_cast<AIBase *>(*it)->rva005AD9C0((char *)arg + 0xC);
+		if (hit) {
+			hit->v3(arg);
+			return hit;
+		}
+	}
+	return 0;
+}
+
+bool AIBaseBuilder::rva00506C39(void *arg)
+{
+	for (Rva005ADA40 **it = m_0C.begin(), **end = m_0C.end(); it != end; ++it) {
+		if (reinterpret_cast<AIBase *>(*it)->rva005AD9C0(arg))
+			return true;
+	}
+	return false;
+}
+
+Rva005ADA40 *AIBaseBuilder::rva00506C64(unsigned int index)
+{
+	if (index < m_0C.size())
+		return m_0C[index];
+	return 0;
+}
+
+void AIBaseBuilder::postInit()
+{
+	if (!m_24) {
+		if (rva00506B74(&m_28))
+			rva0050722A(&m_28);
+	}
+	m_24 = true;
+}
+
+// 0x00506FE9: collect the owned elements' hits for the object's template name
+// (its rebuild template when it is a rebuild hole), then rescale and re-run
+// every hit that belongs to this object.
+void AIBaseBuilder::notifyBuildingDestroyed(Object *obj)
+{
+	_STL::vector<Rva00506FE9Hit *> hits;
+	AsciiString name;
+	RebuildHoleBehaviorInterface *rebuild = RebuildHoleBehavior::getRebuildHoleBehaviorInterfaceFromObject(obj);
+	if (rebuild)
+		name = ((Rva00506FE9RebuildView *)rebuild)->getRebuildTemplate()->m_name;
+	else
+		name = ((Rva00506FE9ObjectView *)obj)->m_template->m_name;
+	Rva005ADA40 **end = m_0C.end();
+	for (Rva005ADA40 **it = m_0C.begin(); it != end; ++it)
+		reinterpret_cast<AIBase *>(*it)->rva005AD99C(name, &hits);
+	if (!hits.empty()) {
+		Rva002A8B59Data *data = g_00DFEEF8->rva002A8B59(m_08);
+		for (Rva00506FE9Hit **h = hits.begin(); h != hits.end(); ++h) {
+			Rva00506FE9Hit *hit = *h;
+			if (hit->m_24 == ((Rva00506FE9ObjectView *)obj)->m_id) {
+				hit->rva0055ADBA(m_08);
+				float v = hit->m_04;
+				hit->m_04 = data->m_88 * v;
+				hit->v6(m_08, 0);
+			}
+		}
+	}
+}
+
+// 0x005073D6: save/load. Version 2 added the +0x28 point; on load the owned
+// elements are rebuilt (0x2C bytes each, ctor 0x005AD9FF) before each one
+// transfers itself (0x005AE0AD).
+void AIBaseBuilder::DoXfer(Xfer *xfer)
+{
+	Xfer::Version version(1, 2);
+	*xfer == version;
+	*xfer == m_18;
+	*xfer == m_24;
+	if (version.m_minimum >= 2)
+		*xfer == m_28;
+	unsigned int count = m_0C.size();
+	*xfer == count;
+	if (xfer->IsLoading()) {
+		if (!m_0C.empty()) {
+			for (Rva005ADA40 **it = m_0C.begin(), **end = m_0C.end(); it != end; ++it)
+				delete reinterpret_cast<AIBase *>(*it);
+			m_0C.clear();
+		}
+		for (unsigned int i = 0; i < count; ++i) {
+			Rva005ADA40 *element = reinterpret_cast<Rva005ADA40 *>(new AIBase(i, m_08));
+			m_0C.push_back(element);
+		}
+	}
+	Rva005ADA40 **end = m_0C.end();
+	for (Rva005ADA40 **it = m_0C.begin(); it != end; ++it)
+		reinterpret_cast<AIBase *>(*it)->DoXfer(xfer);
+}
+
+// 0x00506CC3: the waypoint with this name, walking TheTerrainLogic's list from
+// its first-waypoint virtual (+0x84) along the +0x1C links and comparing the
+// +0x08 name through AsciiString::compare (0x000069D6). Eight callers in the
+// script-engine range (0x0023FDBD..) plus two in this cluster.
 class Waypoint
 {
 public:
@@ -292,7 +429,50 @@ public:
 
 extern TerrainLogic *TheTerrainLogic;
 
+Waypoint *Rva00506CC3FindWaypoint(const AsciiString &name)
+{
+	for (Waypoint *way = TheTerrainLogic->getFirstWaypoint(); way; way = way->getNext()) {
+		if (way->getName() == name)
+			return way;
+	}
+	return 0;
+}
 
+float ACos(float x);
+float normalizeAngle(float angle);
+
+struct Rva0050722AExtent
+{
+	Coord3DBase lo;
+	Coord3DBase hi;
+};
+
+// 0x0050722A: add an element facing from the point towards the map centre.
+void AIBaseBuilder::rva0050722A(Coord3D *point)
+{
+	Rva0050722AExtent extent;
+	TheTerrainLogic->getExtent((Region3D *)&extent);
+	Vector3 dir;
+	dir.Set((extent.hi.x - extent.lo.x) * 0.5f, (extent.hi.y - extent.lo.y) * 0.5f, 0.0f);
+	Vector3 pos;
+	pos.Set(point->x, point->y, 0.0f);
+	dir -= pos;
+	dir.Normalize();
+	Vector3 xAxis;
+	xAxis.Set(1.0f, 0.0f, 0.0f);
+	float angle = ACos(WWMath::Clamp(Vector3::Dot_Product(dir, xAxis), -1.0f, 1.0f));
+	if (Vector3::Cross_Product_Z(dir, xAxis) > 0.0f)
+		angle *= -1.0f;
+	angle = normalizeAngle(angle - 1.5707964f);
+	unsigned int index = m_0C.empty() ? 0 : m_0C.size();
+	Rva005ADA40 *element = reinterpret_cast<Rva005ADA40 *>(new AIBase(index, m_08));
+	m_0C.push_back(element);
+	reinterpret_cast<AIBase *>(element)->loadBestFitTemplate(point, angle, index != 0);
+}
+
+// Native00506CF5..00506FE9 selects player-start waypoint in skirmish
+// or the closest start to a campaign army position. Existing helpers and
+// callers support role; address spelling preserves unknown original name.
 Waypoint *Rva00506CC3FindWaypoint(const AsciiString &);
 struct Rva00506C82Arg {char pad[0x50];int key;};
 class GameSlot {public:char pad[0x10];int start;};
@@ -305,7 +485,7 @@ class Rva003F468D;
 class Rva0020E6B7RegionManager {public:Rva003F468D*rva0020E6B7();};
 struct TacticWorldView {char pad[0xb0];Rva0020E6B7RegionManager*manager;};
 struct TacticBattleParticipantView {char pad[0x14];int army;};
-class Rva003F468D {public:TacticBattleParticipantView*rva003F4D09();};
+class LivingWorldBattle {public:void *rva003F4D09();};
 class Rva0040D701ArmySummary {public:bool rva0040CCC6(int,Coord3D*,Coord3D*,bool);};
 class Rva002BA8F1Logic {public:void rva002B323C(_STL::vector<Rva0040D701ArmySummary*>*,int);};
 Coord3D Rva00506CF5(void *owner,Coord3D *point) {
@@ -329,7 +509,7 @@ Coord3D Rva00506CF5(void *owner,Coord3D *point) {
    if((*it)->rva0040CCC6(armyID,&position,&other,false))found=true;
   }
   if(found){
-   TacticBattleParticipantView*p=((TacticWorldView*)TheLivingWorldLogic)->manager->rva0020E6B7()->rva003F4D09();
+   TacticBattleParticipantView*p=(TacticBattleParticipantView*)((LivingWorldBattle*)((TacticWorldView*)TheLivingWorldLogic)->manager->rva0020E6B7())->rva003F4D09();
    bool skipFirst=p&&((TacticPlayerView*)owner)->getArmyID()!=p->army;
    for(int i=skipFirst?1:0;i<8;++i){
     AsciiString name;name.format("Player_%d_Start",i+1);
