@@ -17050,3 +17050,5 @@ _log,0x00629B0E,log double import thunk (gen-import row ji_00629b0e: msvcr71 slo
 ??1Rva004F692B@@QAE@XZ,0x005F8F96,unwind-funclet dtor of chooseTargets 0x004F971E (same family as the existing pin ??1Rva004F6966)
 ?Flush@WW3D@@SAXAAVRenderInfoClass@@@Z,0x001173F0,WW3D::Flush(RenderInfoClass&) as in ZH ww3d.cpp; retail callers push the render info and pop it (the ledger's rva001173f0 is a no-argument placeholder spelling); caller the living-world scene Customized_Render 0x0009C9DE
 ?CheckChangeLayers@Pathfinder@@QAEXPAVPathfindCell@@PAVObject@@@Z,0x002F4E54,WB D4DD50 independently names CheckChangeLayers; native2F4E54..2F5022 RET8 and cost2F5C7A caller prove Pathfinder receiver/cell/Object ABI; first in-image code pin with no prior address owner. Body remains banked separately; pin is a supported callee placement not a recovered row.
+?doDrawModule@W3DModelDraw@@UAEXPBVMatrix3D@@@Z,0x000C7BC4,callee of ?doDrawModule@W3DTankDraw@@UAEXPBVMatrix3D@@@Z
+?updateTreadObjects@W3DTankDraw@@IAEXXZ,0x000CE16A,callee of ?doDrawModule@W3DTankDraw@@UAEXPBVMatrix3D@@@Z
