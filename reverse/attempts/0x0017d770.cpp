@@ -1,4 +1,6 @@
 // ?rva00916CD0@PointGroupClass@@QAEXPAEHH@Z
+// partial score=0.957461887 date=2026-10-09
+// ?rva00916CD0@PointGroupClass@@QAEXPAEHH@Z
 // partial score=0.9575 date=2026-10-06
 // ?rva00916CD0@PointGroupClass@@QAEXPAEHH@Z
 // partial score=0.9574619 date=2026-10-05
