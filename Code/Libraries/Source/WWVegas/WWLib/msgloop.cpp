@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfmerendobj /DNDEBUG /MD /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/sweep
-// Ported verbatim from the Generals Zero Hour reference
+// Based on the Generals Zero Hour reference
 // (Libraries/Source/WWVegas/WWLib/msgloop.cpp); this unit had no counterpart under Code/.
 // The compiler-generated vector constructor iterator (??_H) takes the
 // optimization state of the first function that needs it. Retail links one
@@ -50,7 +50,6 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
  *   Add_Modeless_Dialog -- Adds a modeless dialog box to the message handler.                 *
  *   Remove_Accelerator -- Removes an accelerator from the message processor.                  *
  *   Remove_Modeless_Dialog -- Removes the dialog box from the message tracking handler.       *
- *   Windows_Message_Handler -- Handles windows message.                                       *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include	"always.h"
@@ -89,84 +88,12 @@ static DynamicVectorClass<AcceleratorTracker> _Accelerators;
 bool (*Message_Intercept_Handler)(MSG &msg) = NULL;
 
 
-/***********************************************************************************************
- * Windows_Message_Handler -- Handles windows message.                                         *
- *                                                                                             *
- *    This routine will take all messages that have accumulated in the message queue and       *
- *    dispatch them to their respective recipients. When the message queue has been emptied,   *
- *    then this routine will return. By using this routine, it is possible to have the main    *
- *    program run in the main thread and yet still have it behave like a normal program as     *
- *    far as message handling is concerned. To achieve this, this routine must be called on    *
- *    a semi-frequent basis (a few times a second is plenty).                                  *
- *                                                                                             *
- * INPUT:   none                                                                               *
- *                                                                                             *
- * OUTPUT:  none                                                                               *
- *                                                                                             *
- * WARNINGS:   none                                                                            *
- *                                                                                             *
- * HISTORY:                                                                                    *
- *   05/17/1997 JLB : Created.                                                                 *
- *=============================================================================================*/
-void Windows_Message_Handler(void)
-{
-	MSG msg;
-
-	/*
-	**	Process windows messages until the message queue is exhuasted.
-	*/
-	while (PeekMessage(&msg, NULL, 0, 0, PM_NOREMOVE)) {
-		if (!GetMessage( &msg, NULL, 0, 0 )) {
-			return;
-		}
-
-		/*
-		**	Pass the message through any loaded accelerators. If the message
-		**	was processed by an accelerator, then it doesn't need to be
-		**	processed by the normal message handling procedure.
-		*/
-		bool processed = false;
-		for (int aindex = 0; aindex < _Accelerators.Count(); aindex++) {
-			if (_Accelerators[aindex].Window) {
-				if (TranslateAccelerator(_Accelerators[aindex].Window, _Accelerators[aindex].Accelerator, &msg)) {
-					processed = true;
-				}
-			}
-			break;
-		}
-		if (processed) continue;
-
-		/*
-		**	Pass the windows message through any modeless dialogs that may
-		**	be active. If one of the dialogs processes the message, then
-		**	it must not be processed by the normal window message handler.
-		*/
-		for (int index = 0; index < _ModelessDialogs.Count(); index++) {
-			if (IsDialogMessage(_ModelessDialogs[index], &msg)) {
-				processed = true;
-				break;
-			}
-		}
-		if (processed) continue;
-
-		/*
-		**	If the message was not handled by any normal intercept handlers, then
-		**	submit the message to a custom message handler if one has been provided.
-		*/
-		if (Message_Intercept_Handler != NULL) {
-			processed = Message_Intercept_Handler(msg);
-		}
-		if (processed) continue;
-
-		/*
-		**	If the message makes it to this point, then it must be a normal message. Process
-		**	it in the normal fashion. The message will appear in the window message handler
-		**	for the window that it was directed to.
-		*/
-		TranslateMessage(&msg);
-		DispatchMessage(&msg);
-	}
-}
+// BF1 repair 5782d03fdce4f95c5ca7ebec57f2b7ae815fddc1, reviewed at
+// f98983a7d3bb405f1a4ba94bb6a2a168062a819d, removes the unverified
+// WWLib Windows_Message_Handler. BFME2 independently imports neither
+// IsDialogMessageA nor TranslateAcceleratorA; no ledger row or source
+// caller uses this donor-only loop. Its removal preserves the existing
+// DynamicVectorClass deletion body and its matched native behavior.
 
 
 /***********************************************************************************************
