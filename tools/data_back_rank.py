@@ -6,11 +6,19 @@ reaches is reached through more than one linked address: the tree links two
 globals (two names, or two copies of one) where retail has one. One bad
 reference fails every row touching that address, so this tool counts the
 failures per retail address, not per symbol. Symbols map to addresses through
-reverse/data_ledger.csv (`name`, `names`). A TU-local static is matched only
-for rows of its own source and never globally: one written name@source, and a
-single-name row's name when the ledger proves it static -- the name is written
-name@source elsewhere, or several sources own single-name rows of it (an
-external name has one owner set). An owner source alone proves nothing.
+reverse/data_ledger.csv (`name`, `names`), each binding (one name at one
+address) scoped on its own evidence, never by another binding's spelling:
+  static   name@source in `names` (tools/data_ledger.py read it as a TU-local
+           symbol of that object), or a single-name `owned` row whose name has
+           storage class STATIC in its owner's object: matched only for rows
+           of that source
+  global   a bare name in `names` (read as non-local), a single-name
+           `provisional` or `unowned` row (data_ledger binds a local only as
+           `owned`), a compiler-emitted literal no object defines STATIC, or an
+           `owned` row whose owner's object defines it EXTERNAL
+  unknown  an `owned` row whose owner object is missing (--no-objects, not
+           built) or does not define it: matched only for its owner's rows; a
+           row of another source reports it as `scope unknown`, never mapped.
 
 With link_cycle's per-row output (`--status link_status.csv`, plain or .gz,
 e.g. the link_status-<sha10>.csv.gz asset of the link-cycle-artifacts
@@ -20,11 +28,15 @@ refused), each address is ranked by the distinct retail bytes of placed rows
 `sole` is the part whose only failures are data-back through this address: the
 rows a fix here alone would make self-strict. A row failing through several
 proven addresses counts under each. A data-back symbol that resolves to
-several addresses, or whose `xN` repeat suffix reads two ways that both
-resolve (`_gx2`: `_gx2` once or `_g` twice), is AMBIGUOUS: listed apart with
-its candidate addresses and counted at none, unless --disambiguate finds
-exactly one candidate among the row's own retail references (base
-relocations inside its retail extent).
+several addresses, whose `xN` repeat suffix reads two ways that both resolve
+(`_gx2`: `_gx2` once or `_g` twice), or whose only bindings for this row are
+of unknown scope, is QUARANTINED: listed apart (`ambiguous`, with a reason and
+its candidate addresses) and counted at none. --disambiguate settles the
+first two kinds from the row's compiled object: every DIR32 reference to the
+symbol in the row's body, its retail target less the reference's in-place
+addend (so an interior reference B+4 is the datum at B), must name the same
+single candidate. row_unresolved(flags_of[i]) is true for a row with any
+unmapped or quarantined data-back symbol.
 
 Without one the ranking is PROVISIONAL: every address with several names or
 several definitions, by the distinct bytes of matched `real` rows that
@@ -40,6 +52,7 @@ refs, the rows' other blocker classes (status mode), and every name with
          defines it; defs counts the non-COMDAT definitions among them
   inv    address-invented (g_Va.., g_00.., g_Rva.., rva.., a Rva<hex> class)
   @src   a TU-local static of that source
+  scope? a binding of unknown scope (no owner object read)
   var    one qualified name spelled with several type encodings: `base` is the
          ledger's name (else the most used), the others are labelled by how
          they differ from it: struct/class (U vs V), const (cv or
@@ -87,7 +100,11 @@ STATUS_COLUMNS = ("name", "kind", "source", "retail_rva", "size", "linked_rva", 
                   "self_strict", "closed_strict", "closed_strict_pilot_rule", "pinned_strict", "byte_equal",
                   "hardcoded", "failure_count", "failures")
 GEN_KINDS = ("gen-funclet", "gen-import", "gen-alias")
-EXTERNAL, STATIC, COMDAT = 2, 3, 0x1000
+EXTERNAL, STATIC, COMDAT = 2, 3, 0x1000      # COFF storage classes; section flag
+DIR32 = 0x0006
+OBJECT_SCAN = "v2: ref, defined, comdat, static"   # object_symbols cache layout
+# flags_of[i]: why a row's data-back symbol is counted at no address
+UNMAPPED, AMBIGUOUS, SCOPE_UNKNOWN = "unmapped", "ambiguous", "scope unknown"
 
 
 # ---------------------------------------------------------------- names
@@ -155,7 +172,9 @@ def open_text(path):
 
 
 def load_ledger(path=LEDGER):
-    """{address: row}; row['bound'] = [(symbol, local source or None)]."""
+    """{address: row}; row['bound'] = [(symbol, local source or None)] as written,
+    row['unknown'] = {symbol: owner source} of bindings whose scope is unproven (set
+    by scope_bindings; until then every single-name `owned` binding is unknown)."""
     out = {}
     with open_text(path) as handle:
         for row in csv.DictReader(handle):
@@ -168,45 +187,78 @@ def load_ledger(path=LEDGER):
             row["refs"] = int(row["refs"] or 0)
             row["size"] = int(row["size"] or 0)
             out[int(row["address"], 16)] = row
-    scope_statics(out)
-    return out
+    return scope_bindings(out, None)
 
 
-def scope_statics(ledger):
-    """Bind a single-name row's name as (name, owner source) where the ledger proves
-    it TU-local. tools/data_ledger.py writes name@source only in a several-name row's
-    `names`; a single-name row keeps only its name, and an owner source does not tell
-    a static from an external defined once. Proof: the name is written name@source
-    somewhere, or single-name rows of it are owned by several sources (an external
-    name's owner set is one for all its rows, so distinct owners are TU-local copies)."""
-    statics = {s for row in ledger.values() for s, src in row["bound"] if src is not None}
-    single = [row for row in ledger.values() if not row["names"] and row["status"] == "owned" and row["source"]]
-    owners = collections.defaultdict(set)
-    for row in single:
-        owners[row["name"]].add(row["source"])
-    for row in single:
-        if row["name"] in statics or len(owners[row["name"]]) > 1:
-            row["bound"] = [(row["name"], row["source"])]
+def scope_bindings(ledger, objsyms):
+    """Scope each binding on its own evidence (module doc): a single-name `owned`
+    row's name by its storage class in its owner's object (`objsyms` from
+    object_symbols; None: no objects read); a compiler-emitted literal is global
+    unless some object defines that name STATIC. Every other binding is scoped as
+    tools/data_ledger.py wrote it."""
+    statics = set()
+    for parts in (objsyms or {}).values():
+        statics |= parts[3]
+    for row in ledger.values():
+        row["unknown"] = {}
+        if row["names"]:
+            continue
+        name = row["name"]
+        if row["status"] == "literal":
+            row["bound"] = [(name, None)]
+            if name in statics:
+                row["unknown"][name] = None
+            continue
+        if row["status"] != "owned" or not row["source"]:
+            row["bound"] = [(name, None)]            # data_ledger binds a TU-local only as `owned`
+            continue
+        parts = (objsyms or {}).get(row["source"])
+        if parts is not None and name in parts[3]:
+            row["bound"] = [(name, row["source"])]
+        elif parts is not None and name in parts[1] | parts[2]:
+            row["bound"] = [(name, None)]
+        else:
+            row["bound"] = [(name, None)]
+            row["unknown"][name] = row["source"]
     return ledger
 
 
 def name_index(ledger):
-    """({symbol: {address}}, {(symbol, source): {address}}): a name bound without a
-    source answers every row, a TU-local static only rows of its own source."""
-    glob, local = collections.defaultdict(set), collections.defaultdict(set)
+    """({symbol: {address}}, {(symbol, source): {address}}, {symbol: {address}}):
+    a global binding answers every row, a static only rows of its own source, an
+    unknown-scope binding only its owner's rows (and is listed in the third map)."""
+    glob, local, unknown = (collections.defaultdict(set) for _ in range(3))
     for address, row in ledger.items():
         for symbol, source in row["bound"]:
-            if source is None:
+            if symbol in row["unknown"]:
+                unknown[symbol].add(address)
+                if row["unknown"][symbol]:
+                    local[(symbol, row["unknown"][symbol])].add(address)
+            elif source is None:
                 glob[symbol].add(address)
             else:
                 local[(symbol, source)].add(address)
-    return glob, local
+    return glob, local, unknown
 
 
-def resolve(symbol, source, glob, local):
-    """Every ledger address `symbol` can mean in a row of `source`: its own static
-    first, else the global name (several addresses: ambiguous)."""
-    return local.get((symbol, source)) or glob.get(symbol) or set()
+def resolve(symbol, source, index):
+    """(addresses, unsure) `symbol` can mean in a row of `source`: the source's own
+    binding first, else every global one; `unsure` when a binding of unknown scope
+    owned elsewhere could also be it (its addresses are then among the candidates)."""
+    glob, local, unknown = index
+    mine = local.get((symbol, source))
+    if mine:
+        return set(mine), False
+    others = unknown.get(symbol, set())
+    return set(glob.get(symbol, ())) | others, bool(others)
+
+
+def row_unresolved(flags):
+    """True when a row (its flags_of entry) has a data-back symbol counted at no
+    address: UNMAPPED (no ledger binding), AMBIGUOUS (several candidates, or a repeat
+    suffix that reads two ways) or SCOPE_UNKNOWN (only bindings of unproven scope
+    owned by another source). Such a row is never clear and never `sole`."""
+    return bool(flags)
 
 
 def row_kind(notes):
@@ -272,14 +324,18 @@ def unique_bytes(spans):
 
 
 # ---------------------------------------------------------------- objects
-def object_name(source):
-    """tools/build.py obj_path's file name for a repo-relative source."""
+def object_name(source, member=None):
+    """tools/build.py obj_path's file name for a repo-relative source (and a .lib's
+    archive member)."""
     stem = "_".join(Path(source).with_suffix("").parts)
+    if member is not None:
+        stem += "_" + re.split(r"[\\/]", member)[-1].removesuffix(".obj")
     return "".join(("^" + c.lower()) if c.isupper() else c for c in stem) + ".obj"
 
 
 def coff_symbols(path):
-    """(referenced, defined non-COMDAT, defined COMDAT) symbol names of a COFF object."""
+    """(referenced, defined non-COMDAT, defined COMDAT, defined with storage class
+    STATIC and never EXTERNAL) symbol names of a COFF object."""
     with open(path, "rb") as handle:
         head = handle.read(20)
         if len(head) < 20:
@@ -296,7 +352,7 @@ def coff_symbols(path):
             return None
         size = struct.unpack_from("<I", table, nsym * 18)[0]
         strings = table[nsym * 18:] + handle.read(max(0, size - 4))
-    ref, defined, comdat = set(), set(), set()
+    ref, defined, comdat, static, external = set(), set(), set(), set(), set()
     i = 0
     while i < nsym:
         entry = table[i * 18:i * 18 + 18]
@@ -308,6 +364,7 @@ def coff_symbols(path):
             else:
                 name = entry[:8].rstrip(b"\0")
             name = name.decode("latin-1")
+            (external if storage == EXTERNAL else static).add(name)
             if section <= 0:
                 ref.add(name)
             elif 0 < section <= len(flags) and flags[section - 1] & COMDAT:
@@ -315,13 +372,13 @@ def coff_symbols(path):
             else:
                 defined.add(name)
         i += 1 + entry[17]
-    return ref, defined, comdat
+    return ref, defined, comdat, static - external
 
 
 def object_symbols(objects, sources, wanted, cache=CACHE):
-    """{source: (referenced, defined, comdat)} restricted to `wanted`, for every
-    source with an object under `objects`; cached against (mtime, size)."""
-    digest = hashlib.sha256("\n".join(sorted(wanted)).encode("utf-8", "replace")).hexdigest()
+    """{source: (referenced, defined, comdat, static)} restricted to `wanted`, for
+    every source with an object under `objects`; cached against (mtime, size)."""
+    digest = hashlib.sha256("\n".join([OBJECT_SCAN] + sorted(wanted)).encode("utf-8", "replace")).hexdigest()
     store = {}
     if cache and Path(cache).exists():
         try:
@@ -366,18 +423,19 @@ def check_status_header(fields, path):
             f"link_status-<sha10>.csv.gz release asset.")
 
 
-def refs_from_status(path, ledger, kind, targets_of=None):
+def refs_from_status(path, ledger, kind, references_of=None):
     """Placed rows failing data-back, read from link_cycle's link_status.csv:
     (hits {address: {"rows": {i}, "names": {symbol or (symbol, source): {i}}}},
      rows [(rva, size, name, source)], back_of [{proven address}],
-     flags_of [{"unmapped", "ambiguous"}], other_of [{other failure class}],
-     unmapped Counter{symbol: rows}, ambiguous {(symbol, reason, candidates): {i}},
-     totals). A symbol counts at an address only when it resolves to that one
-    address; `targets_of(rva, size)` -> retail target rvas referenced inside a row
-    (--disambiguate) settles an ambiguous one when exactly one candidate is among
-    them."""
-    glob, local = name_index(ledger)
-    bases = sorted(ledger)
+     flags_of [{UNMAPPED, AMBIGUOUS, SCOPE_UNKNOWN}] (row_unresolved),
+     other_of [{other failure class}], unmapped Counter{symbol: rows},
+     ambiguous {(symbol, reason, candidates): {i}}, totals). A symbol counts at an
+    address only when it resolves to that one address. `references_of(rec)` ->
+    [(symbol, retail datum start)] of the row's DIR32 references, or None
+    (--disambiguate, object_references) settles a symbol with several candidates
+    or a two-way repeat suffix only when every reference to it names the same
+    single candidate; a binding of unknown scope is never settled."""
+    index = name_index(ledger)
     hits = collections.defaultdict(lambda: {"rows": set(), "names": collections.defaultdict(set)})
     rows, back_of, flags_of, other_of = [], [], [], []
     unmapped = collections.Counter()
@@ -392,7 +450,7 @@ def refs_from_status(path, ledger, kind, targets_of=None):
             if rec["placed"].strip().lower() not in ("1", "true"):
                 continue
             source = rec["source"]
-            fails = parse_failures(rec["failures"], lambda s: bool(resolve(s, source, glob, local)))
+            fails = parse_failures(rec["failures"], lambda s: bool(resolve(s, source, index)[0]))
             backs = [readings for c, readings in fails if c == "data-back" and readings[0][0]]
             if not backs:
                 continue
@@ -400,26 +458,33 @@ def refs_from_status(path, ledger, kind, targets_of=None):
             rva, size = int(rec["retail_rva"], 16), int(rec["size"])
             rows.append((rva, size, rec["name"], source))
             proven, flags = set(), set()
+            refs = None
             for readings in sorted(backs):
                 label = readings[0][0]               # the token's literal spelling when it reads two ways
-                found = collections.defaultdict(list)
+                found, unsure = collections.defaultdict(list), False
                 for symbol, _n in readings:
-                    for address in resolve(symbol, source, glob, local):
+                    addresses, doubt = resolve(symbol, source, index)
+                    unsure |= doubt
+                    for address in addresses:
                         found[address].append(symbol)
                 if not found:
                     unmapped[label] += 1
-                    flags.add("unmapped")
+                    flags.add(UNMAPPED)
                     continue
-                reason = "repeat suffix" if len(readings) > 1 else "several addresses" if len(found) > 1 else None
-                if reason and targets_of is not None:
-                    seen = {owner(ledger, bases, set(found), t) for t in targets_of(rva, size)} - {None}
-                    if len(seen) == 1:
-                        found = {a: found[a] for a in seen}
+                reason = ("scope unknown" if unsure else "repeat suffix" if len(readings) > 1
+                          else "several addresses" if len(found) > 1 else None)
+                if reason and not unsure and references_of is not None:
+                    if refs is None:
+                        refs = references_of(rec) or []
+                    names = {symbol for symbol, _n in readings}
+                    starts = {start for symbol, start in refs if symbol in names}
+                    if len(starts) == 1 and starts <= set(found):
+                        found = {a: found[a] for a in starts}
                         reason = None
                         settled += 1
                 if reason:
                     ambiguous[(label, reason, tuple(sorted(found)))].add(i)
-                    flags.add("ambiguous")
+                    flags.add(SCOPE_UNKNOWN if unsure else AMBIGUOUS)
                     continue
                 for address, symbols in found.items():
                     hits[address]["rows"].add(i)
@@ -431,9 +496,52 @@ def refs_from_status(path, ledger, kind, targets_of=None):
             flags_of.append(flags)
             other_of.append({c for c, _r in fails if c != "data-back"})
     totals = {"rows": len(rows), "bytes": unique_bytes([(r[0], r[0] + r[1]) for r in rows]),
-              "ambiguous_rows": sum(1 for f in flags_of if "ambiguous" in f),
-              "unmapped_rows": sum(1 for f in flags_of if "unmapped" in f), "disambiguated": settled}
+              "ambiguous_rows": sum(1 for f in flags_of if AMBIGUOUS in f),
+              "scope_unknown_rows": sum(1 for f in flags_of if SCOPE_UNKNOWN in f),
+              "unmapped_rows": sum(1 for f in flags_of if UNMAPPED in f), "disambiguated": settled}
     return hits, rows, back_of, flags_of, other_of, unmapped, ambiguous, totals
+
+
+def datum_starts(body, target, relocs, size):
+    """[(symbol, retail datum start)] per DIR32 reference inside a row's first `size`
+    bytes: the retail dword less the object's in-place addend, so a reference to
+    symbol+4 names the datum at symbol (tools/data_ledger.py's derivation)."""
+    out = []
+    for offset, kind, symbol in relocs:
+        if kind != DIR32 or offset + 4 > min(size, len(body), len(target)):
+            continue
+        out.append((symbol, (struct.unpack_from("<I", target, offset)[0] - struct.unpack_from("<I", body, offset)[0]
+                             - IMAGE_BASE) & 0xFFFFFFFF))
+    return out
+
+
+def object_references(functions, objects):
+    """references_of(rec) for refs_from_status: datum_starts of a link_status row's
+    body in its compiled object under `objects` (its functions.csv row gives the
+    object symbol and a .lib member) against retail's bytes; None when the row,
+    object or symbol is unavailable."""
+    sys.path.insert(0, str(ROOT / "tools"))
+    import build  # noqa: E402  (retail game.dat, COFF reader)
+    ledger_rows = {}
+    with open_text(functions) as handle:
+        for row in csv.DictReader(handle):
+            if row.get("status") == "matched" and (row.get("target_rva") or "").startswith("0x"):
+                ledger_rows.setdefault((row["name"], int(row["target_rva"], 16)), row)
+
+    def references_of(rec):
+        rva, size = int(rec["retail_rva"], 16), int(rec["size"])
+        row = ledger_rows.get((rec["name"], rva))
+        if row is None:
+            return None
+        try:
+            member = build.ledger_member(row) if row["source"].lower().endswith(".lib") else None
+            path = Path(objects) / object_name(row["source"], member)
+            body, relocs = build.read_object_symbol_bytes(path, build.ledger_object_symbol(row), size)
+            target = build.read_target_bytes(rva, size)
+        except (OSError, ValueError, SystemExit):
+            return None
+        return datum_starts(body, target, relocs, size)
+    return references_of
 
 
 def text_relocations():
@@ -445,17 +553,6 @@ def text_relocations():
     sites, _info = boot_image.all_sites(retail)
     tstart, tsize, _raw = retail.secs[".text"]
     return [(site, retail.u32(site) - IMAGE_BASE) for site in sites if tstart <= site < tstart + tsize]
-
-
-def reloc_targets(pairs):
-    """targets_of(rva, size) -> {target rva} of the (site, target) pairs inside [rva, rva + size)."""
-    pairs = sorted(pairs)
-    sites = [site for site, _t in pairs]
-
-    def targets_of(rva, size):
-        lo, hi = bisect.bisect_left(sites, rva), bisect.bisect_left(sites, rva + size)
-        return {target for _site, target in pairs[lo:hi]}
-    return targets_of
 
 
 def refs_from_relocs(ledger, rows, candidates):
@@ -541,7 +638,7 @@ def refs_from_xrefs(ledger, rows, candidates, path=XREFS):
 def name_usage(objsyms):
     """(Counter{name: sources using it}, Counter{name: sources defining it non-COMDAT})."""
     users, defs = collections.Counter(), collections.Counter()
-    for ref, defined, comdat in (objsyms or {}).values():
+    for ref, defined, comdat, _static in (objsyms or {}).values():
         users.update(ref | defined | comdat)
         defs.update(defined)
     return users, defs
@@ -582,6 +679,7 @@ def describe(address, row, rows, ids, by_name, usage, other=None, sole=None):
     for symbol, source in row["bound"]:
         mine = picked[(symbol, source)]
         entry = {"symbol": symbol, "local_source": source, "invented": invented(symbol),
+                 "scope": "unknown" if symbol in row["unknown"] else "static" if source else "global",
                  "variant": label.get(symbol, ""),
                  "files": 1 if source else (users[symbol] if users is not None else None),
                  "defs": None if source or defs is None else defs[symbol],
@@ -612,11 +710,14 @@ def render(report, top, list_files=0, out=None):
         t = report["totals"]
         print(f"data-back: {t['rows']:,} placed {report['kind']} rows, {t['bytes']:,} distinct bytes "
               f"({report['status']}); {t['ambiguous_rows']:,} rows with an ambiguous symbol, "
-              f"{t['unmapped_rows']:,} with an unmapped one"
-              + (f"; {t['disambiguated']:,} symbols settled by retail references" if report.get("disambiguate")
+              f"{t['scope_unknown_rows']:,} with one of unknown scope, {t['unmapped_rows']:,} with an unmapped one"
+              + (f"; {t['disambiguated']:,} symbols settled by their references" if report.get("disambiguate")
                  else ""), file=out)
     if report.get("objects") is None:
         print("files: no objects read (--objects DIR)", file=out)
+    if report["mode"] == "status" and report.get("scope_unknown"):
+        print(f"scope: {report['scope_unknown']:,} single-name bindings of unknown scope (no owner object), "
+              f"matched only for their owner's rows", file=out)
     print(f"{'#':>3} {'address':10} {'sec':6} {'kind':7} {'names':>5} {'defs':>4} {'refs':>5} {'rows':>5} "
           f"{'bytes':>9} {'sole':>8} {'inv':>3} {'var':>3}  canonical [other blockers]", file=out)
     shown = report["addresses"][:top]
@@ -638,7 +739,7 @@ def render(report, top, list_files=0, out=None):
         print(f"  {'files':>5} {'defs':>4} {'rows':>5} {'bytes':>9}  {'flags':18} name", file=out)
         for x in sorted(a["names"], key=lambda x: (-x["bytes"], -(x["files"] or 0), x["symbol"])):
             flags = " ".join(f for f in ("inv" if x["invented"] else "", x["variant"] and "var:" + x["variant"],
-                                         "static" if x["local_source"] else "") if f)
+                                         {"static": "static", "unknown": "scope?"}.get(x["scope"], "")) if f)
             name = x["symbol"] + (f" @{x['local_source']}" if x["local_source"] else "")
             files = "-" if x["files"] is None else x["files"]
             defs = "-" if x["defs"] is None else x["defs"]
@@ -651,8 +752,8 @@ def render(report, top, list_files=0, out=None):
             print("  other blockers (rows): " + ", ".join(f"{k} {v}" for k, v in a["other_blockers"].items()),
                   file=out)
     if report.get("ambiguous"):
-        print(f"\nambiguous data-back symbols, counted at no address ({len(report['ambiguous'])}; "
-              f"--disambiguate tries the rows' retail references):", file=out)
+        print(f"\nquarantined data-back symbols, counted at no address ({len(report['ambiguous'])}; "
+              f"--disambiguate tries each row's own references):", file=out)
         print(f"  {'rows':>5} {'bytes':>9}  {'reason':17} symbol: candidates", file=out)
         for x in report["ambiguous"][:top]:
             more = len(x["candidates"]) - 6
@@ -671,13 +772,15 @@ def build_report(args):
         wanted = frozenset(s for row in ledger.values() for s, src in row["bound"] if src is None)
         with open_text(args.functions) as handle:
             sources = {r["source"] for r in csv.DictReader(handle)}
+        sources |= {row["source"] for row in ledger.values() if row["source"]}
         objsyms = object_symbols(args.objects, sources, wanted, None if args.no_cache else args.cache)
+    scope_bindings(ledger, objsyms)
     usage = name_usage(objsyms) if objsyms is not None else (None, None)
     entries = []
     if args.status:
-        targets_of = reloc_targets(text_relocations()) if args.disambiguate else None
+        references_of = object_references(args.functions, args.objects) if args.disambiguate else None
         hits, rows, back_of, flags_of, other_of, unmapped, ambiguous, totals = refs_from_status(
-            args.status, ledger, args.kind, targets_of)
+            args.status, ledger, args.kind, references_of)
         for address, hit in hits.items():
             ids = hit["rows"]
             other = collections.Counter()
@@ -686,7 +789,7 @@ def build_report(args):
                 if back_of[i] - {address}:
                     other["data-back elsewhere"] += 1
                 other.update("data-back " + f for f in flags_of[i])
-            sole = {i for i in ids if back_of[i] == {address} and not flags_of[i] and not other_of[i]}
+            sole = {i for i in ids if back_of[i] == {address} and not row_unresolved(flags_of[i]) and not other_of[i]}
             entries.append(describe(address, ledger[address], rows, ids, hit["names"], usage, other, sole))
         quarantined = [{"symbol": symbol, "reason": reason, "candidates": [f"0x{a:08X}" for a in candidates],
                         "rows": len(ids), "bytes": span_bytes(rows, ids)}
@@ -725,6 +828,7 @@ def build_report(args):
                 x["sources"] = [x["local_source"]] if x["local_source"] else sorted(
                     src for src, parts in objsyms.items() if any(x["symbol"] in part for part in parts))
     report["objects"] = None if objsyms is None else {"dir": str(args.objects), "sources": len(objsyms)}
+    report["scope_unknown"] = sum(len(row["unknown"]) for row in ledger.values())
     report["addresses"] = entries
     return report
 
@@ -733,8 +837,8 @@ def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     ap.add_argument("--status", help="link_cycle link_status.csv (plain or .gz); omit for the PROVISIONAL ranking")
     ap.add_argument("--disambiguate", action="store_true",
-                    help="with --status: count an ambiguous symbol at the one candidate address the row's retail "
-                         "code references (retail base relocations; game.dat)")
+                    help="with --status: count an ambiguous symbol at a candidate address when every reference "
+                         "to it in the row's compiled object (retail target less addend) names that one address")
     ap.add_argument("--refs", choices=("relocs", "xrefs"), default="relocs", help="PROVISIONAL reference source")
     ap.add_argument("--kind", default="real", help="row kind counted: real (default), gen-alias, ..., all")
     ap.add_argument("--top", type=int, default=20)
@@ -747,12 +851,14 @@ def main(argv=None):
     ap.add_argument("--functions", default=str(FUNCTIONS))
     ap.add_argument("--xrefs", default=str(XREFS))
     ap.add_argument("--objects", default=str(OBJECTS), help="compiled objects, tools/build.py naming")
-    ap.add_argument("--no-objects", action="store_true", help="skip the per-name file counts")
+    ap.add_argument("--no-objects", action="store_true",
+                    help="skip the object scan: no per-name file counts, and every single-name `owned` binding "
+                         "is of unknown scope")
     ap.add_argument("--cache", default=str(CACHE))
     ap.add_argument("--no-cache", action="store_true")
     args = ap.parse_args(argv)
-    if args.disambiguate and not args.status:
-        ap.error("--disambiguate needs --status")
+    if args.disambiguate and (not args.status or args.no_objects):
+        ap.error("--disambiguate needs --status and reads the rows' objects (not with --no-objects)")
     report = build_report(args)
     render(report, len(report["addresses"]) if args.address else args.top, args.list_files)
     if args.json:

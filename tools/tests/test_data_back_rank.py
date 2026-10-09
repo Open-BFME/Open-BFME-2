@@ -115,10 +115,16 @@ class Parsing(unittest.TestCase):
             write_csv(path, LEDGER)
             ledger = dbr.load_ledger(path)
         self.assertIn(("_TheGameLogic", "Code/A.cpp"), ledger[0x200000]["bound"])
-        glob, local = dbr.name_index(ledger)
-        self.assertEqual(dbr.resolve("_TheGameLogic", "Code/A.cpp", glob, local), {0x200000})
-        self.assertEqual(dbr.resolve("_TheGameLogic", "Code/B.cpp", glob, local), set())
-        self.assertEqual(dbr.resolve("?g_one@@3HA", "Code/X.cpp", glob, local), {0x300000})
+        index = dbr.name_index(ledger)
+        self.assertEqual(dbr.resolve("_TheGameLogic", "Code/A.cpp", index), ({0x200000}, False))
+        self.assertEqual(dbr.resolve("_TheGameLogic", "Code/B.cpp", index), (set(), False))
+        # a single-name owned row with no object read is of unknown scope: sure only for its owner
+        self.assertEqual(dbr.resolve("?g_one@@3HA", "Code/X.cpp", index), ({0x300000}, True))
+        self.assertEqual(dbr.resolve("?g_one@@3HA", "Code/C.cpp", index), ({0x300000}, False))
+        # its owner's object defines it EXTERNAL: global
+        dbr.scope_bindings(ledger, {"Code/C.cpp": (frozenset(), frozenset({"?g_one@@3HA"}), frozenset(),
+                                                   frozenset())})
+        self.assertEqual(dbr.resolve("?g_one@@3HA", "Code/X.cpp", dbr.name_index(ledger)), ({0x300000}, False))
 
 
 class Ranking(unittest.TestCase):
@@ -158,7 +164,7 @@ class Ranking(unittest.TestCase):
         self.assertEqual(report["mode"], "status")
         self.assertNotIn("PROVISIONAL", text)
         self.assertEqual(report["totals"], {"rows": 5, "bytes": 0xB4 + 40 + 8 + 16, "ambiguous_rows": 0,
-                                            "unmapped_rows": 1, "disambiguated": 0})
+                                            "scope_unknown_rows": 0, "unmapped_rows": 1, "disambiguated": 0})
         self.assertEqual(report["ambiguous"], [])
         first, second = report["addresses"]
         self.assertEqual(first["address"], "0x00100000")
@@ -204,7 +210,8 @@ def status_csv(path, rows, cols=STATUS_COLS):
 
 
 class ReviewFixes(unittest.TestCase):
-    """One regression per finding of the review of 514ebfa15b; each fails on that code."""
+    """One regression per finding of the reviews of 514ebfa15b and 2e88417974; each
+    fails on the code it was found in."""
 
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
@@ -214,18 +221,26 @@ class ReviewFixes(unittest.TestCase):
     def tearDown(self):
         self.tmp.cleanup()
 
-    def run_status(self, ledger, status, *extra):
+    def run_status(self, ledger, status, *extra, objects=None):
+        """main --status over a ledger fixture; `objects` {source: [(name, section,
+        storage)]} writes COFF objects to scan (None: --no-objects)."""
         write_csv(self.t / "ledger.csv", [LEDGER_HEAD] + ledger)
         status_csv(self.t / "status.csv", status)
+        if objects is None:
+            scan = ["--no-objects"]
+        else:
+            objs = self.t / "match"
+            objs.mkdir(exist_ok=True)
+            for source, symbols in objects.items():
+                (objs / dbr.object_name(source)).write_bytes(coff(symbols))
+            scan = ["--objects", str(objs), "--no-cache"]
         with redirect_stdout(io.StringIO()):
             dbr.main(["--ledger", str(self.t / "ledger.csv"), "--functions", str(self.t / "functions.csv"),
-                      "--status", str(self.t / "status.csv"), "--no-objects", "--json", str(self.t / "out.json"),
-                      *extra])
+                      "--status", str(self.t / "status.csv"), "--json", str(self.t / "out.json"), *scan, *extra])
         return json.loads((self.t / "out.json").read_text(encoding="utf-8"))
 
     def test_singleton_statics_keep_their_scope(self):
-        # P1: a single-name row's static is matched from its own source only, and a
-        # name the ledger proves static (several owners; name@source elsewhere) never globally
+        # P1: a single-name row's static is matched from its own source only
         ledger = [
             ["0x00400000", "52", ".rdata", "global", "_s_vtable", "Code/V1.cpp", "owned", "", "1", "1"],
             ["0x00400100", "52", ".rdata", "global", "_s_vtable", "Code/V2.cpp", "owned", "", "1", "1"],
@@ -241,12 +256,55 @@ class ReviewFixes(unittest.TestCase):
             ("v1", "Code/V1.cpp", 0x8100, 30, "data-back:_s_vtable"),
             ("u2", "Code/Unrelated.cpp", 0x8200, 20, "data-back:_s_only"),
             ("u3", "Code/Unrelated.cpp", 0x8300, 10, "data-back:?g_one@@3HA"),   # an external: any source
-        ])
+        ], objects={"Code/V1.cpp": [("_s_vtable", 2, dbr.STATIC)], "Code/V2.cpp": [("_s_vtable", 2, dbr.STATIC)],
+                    "Code/V4.cpp": [("_s_only", 2, dbr.STATIC)], "Code/C.cpp": [("?g_one@@3HA", 2, dbr.EXTERNAL)]})
         got = {a["address"]: (a["rows"], a["bytes"]) for a in report["addresses"]}
         self.assertEqual(got, {"0x00400000": (1, 30), "0x00400500": (1, 10)})
         self.assertEqual(report["unmapped"], {"_s_vtable": 1, "_s_only": 1})
         first = next(a for a in report["addresses"] if a["address"] == "0x00400000")
         self.assertEqual([(x["symbol"], x["local_source"]) for x in first["names"]], [("_s_vtable", "Code/V1.cpp")])
+
+    def test_unique_singleton_static_is_not_global(self):
+        # round 2, P1: a static named once in the ledger, so no other row's spelling
+        # proves it; its owner's object (storage class STATIC) does
+        ledger = [["0x007C4F10", "476", ".rdata", "global", "_s_environmentNames", "Code/Env.cpp", "owned", "",
+                   "1", "3"]]
+        report = self.run_status(ledger, [
+            ("u", "Code/Unrelated.cpp", 0x8000, 50, "data-back:_s_environmentNames"),
+            ("e", "Code/Env.cpp", 0x8100, 30, "data-back:_s_environmentNames"),
+        ], objects={"Code/Env.cpp": [("_s_environmentNames", 2, dbr.STATIC)]})
+        got = {a["address"]: (a["rows"], a["bytes"]) for a in report["addresses"]}
+        self.assertEqual(got, {"0x007C4F10": (1, 30)})
+        self.assertEqual(report["unmapped"], {"_s_environmentNames": 1})
+        self.assertEqual(report["addresses"][0]["names"][0]["scope"], "static")
+
+    def test_external_is_not_lost_to_a_same_named_static(self):
+        # round 2, P1: another TU's static spelled `_shared` does not make the
+        # external `_shared` (EXTERNAL in its owner's object) TU-local
+        ledger = [["0x00400000", "4", ".data", "global", "_shared", "Code/Def.cpp", "owned", "", "1", "2"],
+                  ["0x00400100", "4", ".data", "global", "?g_y@@3HA", "Code/Other.cpp", "provisional",
+                   "?g_y@@3HA;_shared@Code/Other.cpp", "1", "2"]]
+        report = self.run_status(ledger, [
+            ("u", "Code/User.cpp", 0x8000, 40, "data-back:_shared"),
+            ("o", "Code/Other.cpp", 0x8100, 20, "data-back:_shared"),
+        ], objects={"Code/Def.cpp": [("_shared", 2, dbr.EXTERNAL)], "Code/Other.cpp": [("_shared", 2, dbr.STATIC)]})
+        got = {a["address"]: (a["rows"], a["bytes"]) for a in report["addresses"]}
+        self.assertEqual(got, {"0x00400000": (1, 40), "0x00400100": (1, 20)})
+        self.assertEqual(report["unmapped"], {})
+
+    def test_binding_without_an_object_is_of_unknown_scope(self):
+        # round 2, P1: no owner object, no proof either way: its owner's rows map, others are quarantined
+        ledger = [["0x00400000", "4", ".data", "global", "_s_maybe", "Code/NoObj.cpp", "owned", "", "1", "2"]]
+        report = self.run_status(ledger, [
+            ("u", "Code/Unrelated.cpp", 0x8000, 40, "data-back:_s_maybe"),
+            ("n", "Code/NoObj.cpp", 0x8100, 20, "data-back:_s_maybe"),
+        ], objects={})
+        got = {a["address"]: (a["rows"], a["bytes"]) for a in report["addresses"]}
+        self.assertEqual(got, {"0x00400000": (1, 20)})
+        self.assertEqual(report["ambiguous"], [{"symbol": "_s_maybe", "reason": "scope unknown",
+                                                "candidates": ["0x00400000"], "rows": 1, "bytes": 40}])
+        self.assertEqual((report["totals"]["scope_unknown_rows"], report["unmapped"]), (1, {}))
+        self.assertEqual(report["addresses"][0]["names"][0]["scope"], "unknown")
 
     def test_ambiguous_symbol_is_quarantined(self):
         # P1: a symbol with several ledger addresses counts at none of them
@@ -256,7 +314,7 @@ class ReviewFixes(unittest.TestCase):
         report = self.run_status(ledger, [
             ("r", "Code/S.cpp", 0x8000, 100, f"data-back:{FLOAT};data-back:?g_one@@3HA"),
             ("q", "Code/Q.cpp", 0x9000, 40, f"data-back:{FLOAT}"),
-        ])
+        ], objects={"Code/C.cpp": [("?g_one@@3HA", 2, dbr.EXTERNAL)]})
         self.assertEqual([a["address"] for a in report["addresses"]], ["0x00400500"])
         one = report["addresses"][0]
         self.assertEqual((one["rows"], one["bytes"], one["sole_rows"]), (1, 100, 0))
@@ -265,23 +323,56 @@ class ReviewFixes(unittest.TestCase):
                                                 "candidates": floats, "rows": 2, "bytes": 140}])
         self.assertEqual(report["totals"]["ambiguous_rows"], 2)
 
-    def test_retail_reference_settles_an_ambiguous_symbol(self):
-        # ... unless the row's own retail references reach exactly one candidate
+    def test_references_settle_an_ambiguous_symbol(self):
+        # ... unless every reference to it in the row's object names one candidate
         floats = [0x7F9000 + 0x100 * k for k in range(3)]
         ledger = {a: {"bound": [(FLOAT, None)], "names": "", "size": 8, "kind": "float", "status": "literal",
-                      "source": "", "name": FLOAT} for a in floats}
+                      "source": "", "name": FLOAT, "unknown": {}} for a in floats}
         path = self.t / "status.csv"
         status_csv(path, [("r", "Code/S.cpp", 0x8000, 100, f"data-back:{FLOAT}"),
                           ("q", "Code/Q.cpp", 0x9000, 40, f"data-back:{FLOAT}")])
-        targets = dbr.reloc_targets([(0x8010, floats[1]), (0x8020, 0x123456),            # r: one candidate
-                                     (0x9004, floats[0]), (0x9008, floats[2]),           # q: two
-                                     (0x8064, floats[0])])                                # past r's end
-        self.assertEqual(targets(0x8000, 100), {floats[1], 0x123456})
-        hits, _rows, back_of, flags_of, *_rest, ambiguous, totals = dbr.refs_from_status(path, ledger, "real", targets)
+        refs = {"r": [(FLOAT, floats[1]), ("?other@@3MA", floats[0])],   # another symbol's reference is not its
+                "q": [(FLOAT, floats[0]), (FLOAT, floats[2])]}           # two references, two candidates
+        hits, _rows, back_of, flags_of, *_rest, ambiguous, totals = dbr.refs_from_status(
+            path, ledger, "real", lambda rec: refs[rec["name"]])
         self.assertEqual({a: h["rows"] for a, h in hits.items()}, {floats[1]: {0}})
-        self.assertEqual((back_of, flags_of), ([{floats[1]}, set()], [set(), {"ambiguous"}]))
+        self.assertEqual((back_of, flags_of), ([{floats[1]}, set()], [set(), {dbr.AMBIGUOUS}]))
         self.assertEqual(dict(ambiguous), {(FLOAT, "several addresses", tuple(floats)): {1}})
         self.assertEqual(totals["disambiguated"], 1)
+        self.assertEqual([dbr.row_unresolved(f) for f in flags_of], [False, True])
+
+    def test_disambiguation_needs_every_reference_at_its_datum(self):
+        # round 2, P1: references at A and B+4 (an interior reference to the datum at B)
+        # leave the symbol ambiguous; A and A+4 settle it at A. The retail target alone
+        # cannot tell B+4 from a neighbour of B, the reference's addend can.
+        vtable, a, b, base = "??_7Foo@@6B@", 0x7F0000, 0x7F0100, dbr.IMAGE_BASE
+        ledger = {x: {"bound": [(vtable, None)], "names": "", "size": 52, "kind": "vtable", "status": "literal",
+                      "source": "", "name": vtable, "unknown": {}} for x in (a, b)}
+        path = self.t / "status.csv"
+        status_csv(path, [("r", "Code/R.cpp", 0x8000, 100, f"data-back:{vtable}"),
+                          ("p", "Code/P.cpp", 0x9000, 100, f"data-back:{vtable}")])
+        relocs = [(0x10, 6, vtable), (0x20, 6, vtable)]                  # IMAGE_REL_I386_DIR32
+        body = bytearray(100)
+        struct.pack_into("<I", body, 0x20, 4)                             # in-place addend: vtable+4
+        target = {"r": bytearray(100), "p": bytearray(100)}
+        for name, second in (("r", b), ("p", a)):
+            struct.pack_into("<I", target[name], 0x10, a + base)
+            struct.pack_into("<I", target[name], 0x20, second + 4 + base)
+
+        def references(*args):
+            if len(args) == 2:          # 2e88417974's targets_of(rva, size): retail targets alone
+                return {a, b + 4} if args[0] == 0x8000 else {a, a + 4}
+            name = args[0]["name"]
+            return dbr.datum_starts(bytes(body), bytes(target[name]), relocs, 100)
+
+        hits, _rows, back_of, flags_of, *_rest, ambiguous, totals = dbr.refs_from_status(
+            path, ledger, "real", references)
+        self.assertEqual({x: h["rows"] for x, h in hits.items()}, {a: {1}})
+        self.assertEqual((back_of, flags_of), ([set(), {a}], [{"ambiguous"}, set()]))
+        self.assertEqual(dict(ambiguous), {(vtable, "several addresses", (a, b)): {0}})
+        self.assertEqual(totals["disambiguated"], 1)
+        self.assertEqual(dbr.datum_starts(bytes(body), bytes(target["r"]), relocs, 100), [(vtable, a), (vtable, b)])
+        self.assertTrue(dbr.row_unresolved(flags_of[0]))
 
     def test_wrong_input_schema_is_refused(self):
         # P2: the census's reverse/link_status.csv (per file) is not link_cycle's per-row table
@@ -344,9 +435,9 @@ class Objects(unittest.TestCase):
             cache = t / "cache.pkl"
             got = dbr.object_symbols(objs, {"Code/A.cpp", "Code/B.cpp", "Code/Missing.cpp"}, wanted, cache)
             self.assertEqual(set(got), {"Code/A.cpp", "Code/B.cpp"})
-            ref, defined, comdat = got["Code/A.cpp"]
-            self.assertEqual((ref, defined, comdat), (frozenset(), frozenset({GD_V, "_TheGameLogic"}),
-                                                      frozenset({EMPTY})))
+            ref, defined, comdat, static = got["Code/A.cpp"]
+            self.assertEqual((ref, defined, comdat, static), (frozenset(), frozenset({GD_V, "_TheGameLogic"}),
+                                                              frozenset({EMPTY}), frozenset({"_TheGameLogic"})))
             self.assertEqual(got["Code/B.cpp"][0], frozenset({GD_V, GD_U}))
             users, defs = dbr.name_usage(got)
             self.assertEqual((users[GD_V], defs[GD_V], users[EMPTY], defs[EMPTY]), (2, 1, 1, 0))
