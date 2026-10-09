@@ -52,3 +52,25 @@ Rva0056DE10DwordField *Rva0056DE10DwordField::copyField(const Rva0056DE10DwordFi
     value = other->value;
     return this;
 }
+
+// Clean BF1 f98983a7 S3RefCountedCopies.cpp/S3VariantCtors.cpp emit the
+// source lead under O1/SSE/G7 with several constructor owner spellings.
+// Target56DE1F..56DE2B follows the prior complete copy leaf and endsRET4
+// before a new prologue. It writes raw argument bits to receiverword4
+// and returns the receiver. Two rdata pointers at7C77C4 and7F63D4 witness
+// the entry; original owner and constructor-versus-method role remain
+// unknown. The independent accessed-prefix view does not alias the prior
+// copy owner or infer pointer/refcount semantics from donor class names.
+class Rva0056DE1FDwordField
+{
+public:
+    Rva0056DE1FDwordField *storeField(unsigned bits);
+private:
+    unsigned char unknown[4];
+    unsigned value;
+};
+Rva0056DE1FDwordField *Rva0056DE1FDwordField::storeField(unsigned bits)
+{
+    value = bits;
+    return this;
+}
