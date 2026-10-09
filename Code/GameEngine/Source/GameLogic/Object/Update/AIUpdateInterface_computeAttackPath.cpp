@@ -160,7 +160,7 @@ class WeaponTemplate { public: Bool isContactWeapon()const; };
 class Weapon { public:
  Bool isWithinAttackRange(const Object*,const Object*,float,int)const;
  unsigned int pad; WeaponTemplate *templ;
- void computeApproachTarget(const Object*,const Object*,const Coord3D*,float,Coord3D&) const;
+ Bool computeApproachTarget(const Object*,const Object*,const Coord3D*,float,Coord3D&) const;
 };
 class Rva002C9B80Owner { public: Bool isWithinAttackRange(Object*,const Coord3D*,Object*,const Coord3D*,float,Bool); };
 // updateLastNode, rowed under its address name.
