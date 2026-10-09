@@ -15811,7 +15811,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x009D31F4,968,.data,global,?m_sourcePortPool@FirewallHelperClass@@0HA,Code/GameEngine/Source/GameNetwork/FirewallHelperDetection.cpp,provisional,?g_00DD31F4@@3IA;?m_sourcePortPool@FirewallHelperClass@@0HA,1,4
 0x009D35BC,8,.data,global,?g_00DD35BC@@3KA,,unowned,,0,1
 0x009D35C4,4,.data,global,?g_00DD35C4@@3HA,,unowned,,0,1
-0x009D35C8,1480,.data,global,?g_rva005A6CA5Limit@@3HA,,unowned,,0,1
+0x009D35C8,8,.data,global,?g_rva005A6CA5Limit@@3HA,,unowned,,0,1
+0x009D35D0,1472,.data,global,?g_Va00DD35D0@@3IA,Code/GameEngine/Source/GameNetwork/PortNegotiationSchema.cpp,owned,,1,1
 0x009D3B90,48,.data,global,?g_00DD3B90@@3PAPBDA,,unowned,,0,1
 0x009D3BC0,4,.data,global,?g_00DD3BC0@@3PBDB,,unowned,,0,1
 0x009D3BC4,184,.data,global,?g_00DD3BC4@@3PBDB,,unowned,,0,1
