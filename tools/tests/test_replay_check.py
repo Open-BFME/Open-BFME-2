@@ -1,7 +1,7 @@
 """replay_check.py: an outgoing commit that may repeat work already upstream is reported,
 informationally -- a possible replay of an upstream commit with the same author, author
 date and subject (compare them), and ledger lines its own diff adds that are already
-upstream (remove the duplicate rows); fresh work, a moved row and a clean push are not.
+upstream (check the tip for duplicate rows); fresh work, a moved row and a clean push are not.
 Nothing it prints tells anyone to drop or rebase away a commit. What it does not check
 is counted, and a hard wall-clock budget ends it with a partial report, killing only
 its direct git children and leaving no thread behind. Report only: --shadow always
@@ -94,8 +94,8 @@ def test_replayed_commit_is_reported(repo):
     assert got.returncode == 1, got.stderr
     assert "1 of 2 outgoing commit(s) may repeat work already upstream" in got.stderr
     assert (f"{replay[:10]} Recover counted allocator lock wrapper  [possible replay of {repo.original[:10]} "
-            "(same author/date/subject); 1/1 added ledger line(s) already upstream: remove the duplicate "
-            "rows]") in got.stderr
+            "(same author/date/subject); 1/1 added ledger line(s) already upstream: check the tip for "
+            "duplicate rows]") in got.stderr
     assert fresh[:10] not in got.stderr
 
 
@@ -141,9 +141,9 @@ def test_one_duplicate_row_beside_a_fresh_one(repo):
     tip = repo.commit("Recover c", author=T0 + DAY, committer=T0 + DAY)
     got = repo.check(repo.upstream, tip)
     assert got.returncode == 1
-    assert f"{tip[:10]} Recover c  [1/2 added ledger line(s) already upstream: remove the duplicate rows]" \
+    assert f"{tip[:10]} Recover c  [1/2 added ledger line(s) already upstream: check the tip for duplicate rows]" \
         in got.stderr
-    assert "remove those ledger lines from the commits named above" in got.stderr
+    assert "remove only an extra copy" in got.stderr
     assert "possible replay of" not in got.stderr
 
 
@@ -153,7 +153,7 @@ def test_twin_with_a_fresh_file_and_a_duplicate_row(repo):
     tip = repo.commit("Recover counted allocator lock wrapper", author=T0 + 3600, committer=T0 + DAY)
     got = repo.check(repo.upstream, tip)
     assert (f"[possible replay of {repo.original[:10]} (same author/date/subject); 1/1 added ledger line(s) "
-            "already upstream: remove the duplicate rows]") in got.stderr
+            "already upstream: check the tip for duplicate rows]") in got.stderr
 
 
 def test_mode_change_beside_a_duplicate_row(repo):
@@ -168,9 +168,9 @@ def test_mode_change_beside_a_duplicate_row(repo):
     tip = repo.git("rev-parse", "HEAD")
     assert "100644 100755" in repo.git("diff-tree", "-r", "--raw", tip)
     got = repo.check(base, tip)
-    assert (f"{tip[:10]} Make run.sh executable  [1/1 added ledger line(s) already upstream: remove the "
-            "duplicate rows]") in got.stderr
-    assert "the rest of each commit is unaffected" in got.stderr
+    assert (f"{tip[:10]} Make run.sh executable  [1/1 added ledger line(s) already upstream: check the tip "
+            "for duplicate rows]") in got.stderr
+    assert "remove only an extra copy" in got.stderr
 
 
 def test_force_pushed_twin_is_judged_on_its_own_diff(repo):
@@ -186,8 +186,8 @@ def test_force_pushed_twin_is_judged_on_its_own_diff(repo):
     got = repo.check(base, tip)
     # its own diff removes row X and adds row B again; only the duplicate row is reported
     assert (f"{tip[:10]} Recover counted allocator lock wrapper  [possible replay of {repo.original[:10]} "
-            "(same author/date/subject); 1/1 added ledger line(s) already upstream: remove the duplicate "
-            "rows]") in got.stderr
+            "(same author/date/subject); 1/1 added ledger line(s) already upstream: check the tip for "
+            "duplicate rows]") in got.stderr
 
 
 def test_moved_row_is_not_reported(repo):
@@ -390,3 +390,22 @@ def test_children_are_kept_from_starting_others():
     env = shadow_budget.child_env()
     assert env["GIT_TERMINAL_PROMPT"] == "0" and env["GIT_PAGER"] == "cat"
     assert not [n for n in dir(shadow_budget) if "job" in n.lower() or "tree" in n.lower()]
+
+
+def test_a_row_deleted_and_restored_within_the_push_is_never_called_a_duplicate(repo):
+    # review round 4: upstream holds [A, B]; the push deletes B, restores B, then appends a
+    # second A. B occurs once at the tip, so telling the restoring commit to remove it
+    # would lose the row: the advice only ever asks to check the tip for an extra copy
+    repo.ledger(ROW_A)
+    repo.commit("Drop B", author=T0 + DAY, committer=T0 + DAY)
+    repo.ledger(ROW_A, ROW_B)
+    restore = repo.commit("Restore B", author=T0 + DAY + 60, committer=T0 + DAY + 60)
+    repo.ledger(ROW_A, ROW_B, ROW_A)
+    tip = repo.commit("Append A again", author=T0 + DAY + 120, committer=T0 + DAY + 120)
+    got = repo.check(repo.upstream, tip)
+    assert "remove the duplicate rows" not in got.stderr
+    assert "remove those ledger lines" not in got.stderr
+    if restore[:10] in got.stderr:
+        assert f"{restore[:10]} Restore B  [1/1 added ledger line(s) already upstream: check the tip for " \
+               "duplicate rows]" in got.stderr
+    assert "remove only an extra copy" in got.stderr or tip[:10] not in got.stderr

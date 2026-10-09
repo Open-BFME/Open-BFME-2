@@ -20,7 +20,8 @@ SIGNATURES, per outgoing (non-merge) commit, both informational:
   ledger    lines its own diff adds to reverse/functions.csv or
             reverse/symbols.csv (net of lines it removes, so a moved row is
             not counted) that already exist verbatim in the remote tip's copy:
-            "remove the duplicate rows".
+            "check the tip for duplicate rows" (a row deleted and restored
+            within the push is not a duplicate, so nothing here says remove).
 A shadow detector does not tell anyone to discard a commit: proving that a
 whole commit is already upstream (modes, force-pushed parents, files restored
 to an earlier state) is more than it can do safely, so it never claims it.
@@ -303,7 +304,7 @@ def verdicts(r):
             why.append(f"possible replay of {same[0][:10]}{more} (same author/date/subject"
                        + (f"; upstream reverted it in {revert[:10]})" if revert else ")"))
         if hits:
-            why.append(f"{hits}/{total} added ledger line(s) already upstream: remove the duplicate rows")
+            why.append(f"{hits}/{total} added ledger line(s) already upstream: check the tip for duplicate rows")
         out.append(Verdict(commit, hits, total, why))
     return out
 
@@ -334,8 +335,9 @@ def gaps(r):
 
 
 ADVICE = {
-    "duplicate": "Duplicate rows are already verified upstream: remove those ledger lines from the commits "
-                 "named above; the rest of each commit is unaffected.",
+    "duplicate": "A line the push adds is already in the upstream ledger. That is a duplicate only if the "
+                 "pushed tip holds it twice (a row deleted and restored within the push is not): check with "
+                 "git show TIP:reverse/functions.csv | grep -cxF 'LINE' and remove only an extra copy.",
     "possible": "A possible replay matches an upstream commit's author, date and subject. A rebased or "
                 "cherry-picked copy keeps those, and so do a re-land after a revert and an amended commit: "
                 "compare them (git diff UPSTREAM_SHA SHA) before deciding anything.",
@@ -377,7 +379,7 @@ def report(git, base, tip, shadow, examples=10, slack_hours=6.0, max_days=30.0, 
             say(f"  ... and {len(found) - examples} more")
         if loose:
             say(f"  the push also adds {loose} ledger line(s) already upstream verbatim in commits not "
-                f"attributed one by one (past --attribute {r.attribute}): remove the duplicate rows")
+                f"attributed one by one (past --attribute {r.attribute}): check the tip for duplicate rows")
     elif not partial:
         say(f"{tag}: no repeated work found in {len(r.outgoing)} outgoing commit(s), but not all of it was "
             f"checked ({budget.elapsed():.2f}s)")
