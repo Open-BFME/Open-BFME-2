@@ -33,3 +33,26 @@ class Rva002B4076 { public: void rva002B4076(LivingWorldArmy *,int,LivingWorldAr
 void Rva002B4076::rva002B4076(LivingWorldArmy *source,int key,LivingWorldArmy *target) {
  rva002B3DE4(source,key,target);
 }
+
+struct Rva002B3E50Range { int *first,*finish,*limit; };
+static __declspec(noinline) void rva002B3E50(Rva002B3E50Range *range,LivingWorldArmy *source,LivingWorldArmy *target) {
+ int *end=range->finish;
+ for(int *i=range->first;i!=end;++i)rva002B3DE4(source,*i,target);
+}
+class Rva002B2FCBElem { public: virtual void notify(int,int,int,int); };
+class Rva002B6194List {
+public:
+ void forEach(void(Rva002B2FCBElem::*)(int,int,int,int),int,int,int,int);
+};
+class Rva002B6D85 {
+public:
+ void rva002B6D85(LivingWorldArmy *source,Rva002B3E50Range *first,LivingWorldArmy *target,Rva002B3E50Range *second);
+private:
+ char pad[0x7C];
+ Rva002B6194List listeners;
+};
+void Rva002B6D85::rva002B6D85(LivingWorldArmy *source,Rva002B3E50Range *first,LivingWorldArmy *target,Rva002B3E50Range *second) {
+ listeners.forEach(&Rva002B2FCBElem::notify,(int)source,(int)first,(int)target,(int)second);
+ rva002B3E50(first,source,target);
+ rva002B3E50(second,target,source);
+}
