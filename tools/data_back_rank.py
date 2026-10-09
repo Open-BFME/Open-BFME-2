@@ -64,10 +64,12 @@ read-only data retail's /OPT:ICF folded, which the /OPT:NOICF link keeps as
 several datums whatever the tree does. Without --folds it is `exp?` where
 retail's export table (reverse/exports.csv) names the address twice or more:
 export-proven, the linked datums unverified. With --folds (link_cycle's
-data_fold_list.csv) it is the measured verdict: `export` or `icf` when excused,
-`exp!` for an export-proven address the rule refused (a mutable or unequal
-datum, a stub; the verdict says which). The data-fold summary counts the rows
-failing only data-back at excused addresses: what the shadow series
+data_fold_list.csv) it is the measured verdict: `export` when excused (at a
+datum start: when every reference inside it is), `exp!` for an export-proven
+address the rule refused (a mutable, unequal or unfoldable datum, a stub; the
+verdict says which), `icf?` for an ICF candidate (counted, never excused). The
+data-fold summary counts the referenced addresses excused (one per CSV row) and
+the rows failing only data-back at them: what the shadow series
 placed_self_strict_data_fold can gain over placed_self_strict, at most.
 
   python3 tools/data_back_rank.py --status build/link_status-<sha10>.csv.gz [--disambiguate]
@@ -288,17 +290,29 @@ def load_export_folds(path=EXPORTS):
 
 
 def load_fold_list(path):
-    """{retail address: (rule or "", verdict)} from link_cycle's data_fold_list.csv:
-    the verdict at each referenced address, and at each datum start no reference
-    names exactly."""
-    exact, starts = {}, {}
+    """link_cycle's data_fold_list.csv: {"exact": {referenced retail address: (rule
+    or "", verdict)}, "starts": {datum start: [referenced addresses inside it]}}.
+    The referenced addresses (one CSV row each) are the canonical set; a datum start
+    only points at them."""
+    exact, starts = {}, collections.defaultdict(set)
     with open_text(path) as handle:
         for row in csv.DictReader(handle):
-            verdict = (row["rule"], row["verdict"])
-            exact[int(row["retail_rva"], 16)] = verdict
+            address = int(row["retail_rva"], 16)
+            exact[address] = (row["rule"], row["verdict"])
             for start in filter(None, row["retail_start"].split(";")):
-                starts.setdefault(int(start, 16), verdict)
-    return {**starts, **exact}
+                starts[int(start, 16)].add(address)
+    return {"exact": exact, "starts": {s: sorted(a) for s, a in starts.items()}}
+
+
+def fold_verdict(address, folds):
+    """(rule or "", verdict) at a ledger address: over its own row and the rows of
+    the references inside the datum starting there; excused only when all are."""
+    refs = sorted(({address} if address in folds["exact"] else set()) | set(folds["starts"].get(address, ())))
+    if not refs:
+        return "", "not a data-back address"
+    verdicts = [folds["exact"][a] for a in refs]
+    refused = [w for r, w in verdicts if r != "export"]
+    return ("", refused[0]) if refused else ("export", verdicts[0][1])
 
 
 def fold_of(address, export_folds, fold_list):
@@ -306,32 +320,35 @@ def fold_of(address, export_folds, fold_list):
     names = len(export_folds.get(address, ()))
     if fold_list is None:
         return {"export_names": names, "rule": None, "verdict": None, "label": "exp?" if names else ""}
-    rule, verdict = fold_list.get(address, ("", "not a data-back address"))
-    return {"export_names": names, "rule": rule or None, "verdict": verdict,
-            "label": rule or ("exp!" if names else "")}
+    rule, verdict = fold_verdict(address, fold_list)
+    label = rule or ("icf?" if verdict == "icf candidate" else "exp!" if names else "")
+    return {"export_names": names, "rule": rule or None, "verdict": verdict, "label": label}
 
 
 def fold_report(entries, export_folds, fold_list, rows=None, back_of=None, other_of=None):
-    """The data-fold summary: the addresses data-fold-1 excuses (measured, or export-
-    proven candidates without --folds), those ranked here, their rows and the rows
-    failing only data-back at them (status mode)."""
+    """The data-fold summary: the addresses data-fold-1 excuses (measured: the
+    referenced addresses, one per data_fold_list.csv row; else the export-proven
+    candidates), the ledger addresses ranked here they cover, their rows and the
+    rows failing only data-back at them (status mode)."""
     if fold_list is None:
-        rules = {"export": set(export_folds)}
+        canonical = covered = set(export_folds)
         source = "reverse/exports.csv: export-proven, linked datums unverified"
     else:
-        rules = {"export": {a for a, (r, _) in fold_list.items() if r == "export"}}
-        rules["export+icf"] = rules["export"] | {a for a, (r, _) in fold_list.items() if r == "icf"}
+        canonical = {a for a, (r, _) in fold_list["exact"].items() if r == "export"}
+        covered = {a for a in set(fold_list["exact"]) | set(fold_list["starts"])
+                   if fold_verdict(a, fold_list)[0] == "export"}
         source = "link_cycle data_fold_list.csv"
     out = {"rule": "data-fold-1", "source": source, "export_fold_addresses": len(export_folds)}
-    for name, excused in rules.items():
-        part = {"addresses": len(excused),
-                "ranked": [e["address"] for e in entries if int(e["address"], 16) in excused]}
-        if rows is not None:
-            hit = {i for i, b in enumerate(back_of) if b & excused}
-            clear = {i for i in hit if None not in back_of[i] and back_of[i] <= excused and not other_of[i]}
-            part.update(rows=len(hit), bytes=span_bytes(rows, hit), clear_rows=len(clear),
-                        clear_bytes=span_bytes(rows, clear))
-        out[name] = part
+    if fold_list is not None:
+        out["icf_candidates"] = sum(1 for _, w in fold_list["exact"].values() if w == "icf candidate")
+    part = {"addresses": len(canonical),
+            "ranked": [e["address"] for e in entries if int(e["address"], 16) in covered]}
+    if rows is not None:
+        hit = {i for i, b in enumerate(back_of) if b & covered}
+        clear = {i for i in hit if None not in back_of[i] and back_of[i] <= covered and not other_of[i]}
+        part.update(rows=len(hit), bytes=span_bytes(rows, hit), clear_rows=len(clear),
+                    clear_bytes=span_bytes(rows, clear))
+    out["export"] = part
     return out
 
 
@@ -800,6 +817,9 @@ def render(report, top, list_files=0, out=None):
             line += (f"; {part['rows']:,} rows {part['bytes']:,} bytes fail data-back there, "
                      f"{part['clear_rows']:,} rows {part['clear_bytes']:,} bytes nowhere else")
         print(line, file=out)
+    if "icf_candidates" in fold:
+        print(f"data-fold-1: {fold['icf_candidates']} ICF candidates (no export proof: counted, never excused)",
+              file=out)
     print(f"{'#':>3} {'address':10} {'sec':6} {'kind':7} {'names':>5} {'defs':>4} {'refs':>5} {'rows':>5} "
           f"{'bytes':>9} {'sole':>8} {'inv':>3} {'var':>3} {'fold':6} canonical [other blockers]", file=out)
     shown = report["addresses"][:top]

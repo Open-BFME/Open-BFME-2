@@ -868,7 +868,12 @@ def test_text_digests_ignore_the_hosts_line_endings(tmp_path):
 
 # ---- shadow rule data-fold-1: export-proven read-only data folds ---------------------------
 LIT, NULLCHR = "??_C@_00CNPNBAHC@?$AA@", "?TheNullChr@?1??str@?$StringBase@D@@QBEPBDXZ@4DB"
-RO, RW = 0x40300040, 0xC0300040                                        # .rdata / .data section flags
+RO, RW = 0x40300040, 0xC0300040                                        # object .rdata / .data section flags
+# image section characteristics: the linked image's, and retail's (whose .text and .rdata headers say writable)
+IMG_TEXT, IMG_RDATA, IMG_DATA = 0x60000020, 0x40000040, 0xC0000040
+LINKED = [(".text", 0x1000, 0x1000, IMG_TEXT), (".rdata", 0x3000, 0x1000, IMG_RDATA)]
+RETAIL = [(".text", 0x1000, 0x1000, 0xE0000020), (".rdata", 0x3000, 0x1000, 0xC0000040),
+          (".data", 0x4000, 0x1000, IMG_DATA)]
 
 
 def _fold_shift(I, sites):
@@ -879,20 +884,19 @@ def _fold_shift(I, sites):
     return _shifted(I, S)
 
 
-def _fold_measure(units, mapped, objs, I, R, starts, export):
-    m = lc.Measure(units, [], mapped, I, R, {".text": (0x1000, 0x1000), ".rdata": (0x3000, 0x1000)},
-                   {}, {}, {}, objs, starts)
-    m.rsecs = lc.SectionList([(".text", 0x1000, 0x1000), (".rdata", 0x3000, 0x1000), (".data", 0x4000, 0x1000)])
+def _fold_measure(units, mapped, objs, I, R, starts, export, linked=LINKED):
+    m = lc.Measure(units, [], mapped, I, R, lc.SectionList(linked), {}, {}, {}, objs, starts)
+    m.rsecs = lc.SectionList(RETAIL)
     m.folds = {0x3100: sorted([NULLCHR, "?IS_DEFAULT@?$ModuleTag@$00@@2_NB"])} if export else {}
     return m
 
 
-def _fold_link(null_flags=RO | lc.COMDAT, null_byte=0, export=True, table_moves=True):
+def _fold_link(null_flags=RO | lc.COMDAT, null_byte=0, export=True, table_moves=True, null_sel=2, linked=LINKED):
     """One row at 0x1000 referencing, as retail's 0x3100 (where retail's ICF folded
     them), the "" literal (linked 0x3000) and TheNullChr (0x3010), each a one-byte
-    section of its own, and a string table (0x3020; retail 0x3200) whose pointer
-    reaches the literal. Retail's export table names 0x3100 twice when `export`.
-    Returns (measure after run(), its records, a shifted link)."""
+    COMDAT (selection `any`) of its own, and a string table (0x3020; retail 0x3200)
+    whose pointer reaches the literal. Retail's export table names 0x3100 twice
+    when `export`. Returns (measure after run(), its records, a shifted link)."""
     I, R = bytearray(0x6000), bytearray(0x6000)
     code = b"\xb8\0\0\0\0\xb9\0\0\0\0\x68\0\0\0\0\xc3"             # mov eax,lit; mov ecx,null; push table
     _put(I, 0x1000, code)
@@ -906,6 +910,7 @@ def _fold_link(null_flags=RO | lc.COMDAT, null_byte=0, export=True, table_moves=
     secs = [_sec(1, ".text", 16, relocs=[(1, 1, lc.DIR32), (6, 2, lc.DIR32), (11, 3, lc.DIR32)]),
             _sec(2, ".rdata", 1), _sec(3, ".rdata", 1), _sec(4, ".rdata", 4, relocs=[(0, 1, lc.DIR32)])]
     secs[1].flags, secs[2].flags, secs[3].flags = RO | lc.COMDAT, null_flags, RO
+    secs[1].sel, secs[2].sel = 2, null_sel
     o = (secs, {0: _sym(0, "?f@@YAXXZ", 1), 1: _sym(1, LIT, 2, cls=lc.STATIC),
                 2: _sym(2, NULLCHR, 3, cls=lc.STATIC), 3: _sym(3, "_table", 4, cls=lc.STATIC)}, b"")
     objs = FakeObjs({"a.obj": o})
@@ -916,7 +921,7 @@ def _fold_link(null_flags=RO | lc.COMDAT, null_byte=0, export=True, table_moves=
     mapped = ({"?f@@YAXXZ": 0x1000}, {}, [(0x1000, "?f@@YAXXZ", "a.obj"), (0x3000, LIT, "a.obj"),
                                           (0x3010, NULLCHR, "a.obj"), (0x3020, "_table", "a.obj")],
               {"?f@@YAXXZ": "a.obj"})
-    m = _fold_measure([u], mapped, objs, I, R, {0x1000: 16}, export)
+    m = _fold_measure([u], mapped, objs, I, R, {0x1000: 16}, export, linked)
     recs = m.run()
     return m, recs, _fold_shift(I, [0x1001, 0x1006, 0x100B] + ([0x3020] if table_moves else []))
 
@@ -945,49 +950,106 @@ def test_data_fold_excuses_an_export_proven_read_only_fold():
     m, recs, sh = _fold_link()
     rec = recs[0]
     assert rec["fails"] == [f"data-back:{LIT}", f"data-back:{NULLCHR}", f"data-ptr-back:{LIT}"]
-    pub = _published(m, recs, sh)
+    pub, shadow = _shadow(m, recs, sh)
     assert ("unit", 0) not in pub["closed"]
     assert m.fold_verdict(0x3100) == ("export", "export-proven")
-    shadow = lc.fold_closures(m, recs, pub["ok"], pub["edges"], pub["hard"], sh, m.ledger_starts)
-    for tag in ("data_fold", "data_fold_icf"):
-        left, closed, excused = shadow[tag]
-        assert not left[id(rec)] and ("unit", 0) in closed, tag
-        assert excused == {"rows": 2, "twins": 0, "datums": 1}, tag
+    assert list(shadow) == ["data_fold"]                                        # no series excuses on ICF alone
+    left, closed, excused = shadow["data_fold"]
+    assert not left[id(rec)] and ("unit", 0) in closed
+    assert excused == {"rows": 2, "twins": 0, "datums": 1}
+
+
+def _shadow(m, recs, sh):
+    pub = _published(m, recs, sh)
+    return pub, lc.fold_closures(m, recs, pub["ok"], pub["edges"], pub["hard"], sh, m.ledger_starts)
+
+
+def _assert_refused(m, recs, sh, why):
+    """The verdict at 0x3100 is `why`, and the row keeps both data-back failures and
+    stays out of every shadow closure."""
+    assert m.fold_verdict(0x3100) == (None, why)
+    _, shadow = _shadow(m, recs, sh)
+    for left, closed, excused in shadow.values():
+        assert left[id(recs[0])][f"data-back:{LIT}"] == 1 and left[id(recs[0])][f"data-back:{NULLCHR}"] == 1
+        assert ("unit", 0) not in closed and excused == {"rows": 0, "twins": 0, "datums": 0}
 
 
 def test_data_fold_refuses_a_mutable_or_unequal_datum():
     """A writable datum (.data) or one whose bytes differ from retail's is no fold
-    ICF could make: its data-back stays, in every series."""
-    for kw, why in (({"null_flags": RW | lc.COMDAT}, "mutable datum"),
-                    ({"null_byte": 1}, "datum fails data-content")):
-        m, recs, sh = _fold_link(**kw)
-        assert m.fold_verdict(0x3100) == (None, why), kw
-        pub = _published(m, recs, sh)
-        shadow = lc.fold_closures(m, recs, pub["ok"], pub["edges"], pub["hard"], sh, m.ledger_starts)
-        for tag in ("data_fold", "data_fold_icf"):
-            left, closed, excused = shadow[tag]
-            assert left[id(recs[0])][f"data-back:{LIT}"] == 1 and left[id(recs[0])][f"data-back:{NULLCHR}"] == 1
-            assert ("unit", 0) not in closed and excused == {"rows": 0, "twins": 0, "datums": 0}, (kw, tag)
+    ICF could make: its data-back stays."""
+    _assert_refused(*_fold_link(null_flags=RW | lc.COMDAT), "mutable datum")
+    _assert_refused(*_fold_link(null_byte=1), "datum fails data-content")
 
 
-def test_data_fold_needs_export_proof_unless_every_datum_is_a_whole_read_only_comdat():
-    m, recs, sh = _fold_link(export=False)
-    assert m.fold_verdict(0x3100) == ("icf", "whole read-only COMDATs")
-    pub = _published(m, recs, sh)
-    shadow = lc.fold_closures(m, recs, pub["ok"], pub["edges"], pub["hard"], sh, m.ledger_starts)
-    assert shadow["data_fold"][0][id(recs[0])][f"data-back:{LIT}"] == 1        # export rule: not proven
-    assert not shadow["data_fold_icf"][0][id(recs[0])]                          # the code proves it
-    assert ("unit", 0) in shadow["data_fold_icf"][1] and ("unit", 0) not in shadow["data_fold"][1]
-    m, recs, sh = _fold_link(export=False, null_flags=RO)                        # not a COMDAT: nothing proves it
-    assert m.fold_verdict(0x3100) == (None, "not export-proven")
-    m, recs, sh = _fold_link(null_flags=RO)                                      # export-proven: the export rule
-    assert m.fold_verdict(0x3100) == ("export", "export-proven")
-    m.rsecs = lc.SectionList([(".text", 0x1000, 0x1000), (".data", 0x3000, 0x1000)])
+def test_data_fold_refuses_an_export_proven_address_whose_duplicate_cannot_fold():
+    """Review of 4f081d09cb: retail's export aliases prove retail shared the address,
+    not that this tree's duplicate can fold. /OPT:ICF folds only whole COMDATs of a
+    foldable selection with one section kind: a plain .rdata section, an
+    associative COMDAT or another alignment is refused, export proof or not."""
+    _assert_refused(*_fold_link(null_flags=RO), "not a whole foldable COMDAT")                # not a COMDAT
+    _assert_refused(*_fold_link(null_sel=5), "not a whole foldable COMDAT")                   # associative
+    _assert_refused(*_fold_link(null_flags=(RO & ~0x00F00000) | 0x00500000 | lc.COMDAT),     # ALIGN_16
+                    "datums differ in section name or characteristics")
+
+
+def test_data_fold_reads_the_linked_and_retail_section_permissions():
+    """Review of 4f081d09cb: the object section said read-only, but the linked image
+    put TheNullChr in a writable .data; and a retail extent outside .rdata. Both
+    refused. Retail's .rdata header carries MEM_WRITE (0xC0000040), so retail is
+    read by its section name over the datum's whole extent."""
+    writable = [(".text", 0x1000, 0x1000, IMG_TEXT), (".rdata", 0x3000, 0x10, IMG_RDATA),
+                (".data", 0x3010, 0x10, IMG_DATA), (".rdata", 0x3020, 0xFE0, IMG_RDATA)]
+    _assert_refused(*_fold_link(linked=writable), "linked datum not in read-only data")
+    m, recs, sh = _fold_link()
+    m.rsecs = lc.SectionList([(".text", 0x1000, 0x1000, 0xE0000020), (".rdata", 0x3000, 0x100, 0xC0000040),
+                              (".data", 0x3100, 0x1000, IMG_DATA)])
     m.fold_memo.clear()
-    assert m.fold_verdict(0x3100) == (None, "retail start not in .rdata")
-    m.rsecs = None                                                               # no retail sections: no fold
+    _assert_refused(m, recs, sh, "retail extent not in .rdata")
+    m.rsecs = lc.SectionList([(".rdata", 0x3000, 0x1000)])                       # no characteristics: no proof
+    m.fold_memo.clear()
+    assert m.fold_verdict(0x3100) == (None, "retail extent not in .rdata")
+    m.rsecs = None
     m.fold_memo.clear()
     assert m.fold_verdict(0x3100)[0] is None
+
+
+def test_data_fold_without_export_proof_is_only_an_icf_candidate():
+    """Review of 4f081d09cb: whole read-only COMDATs alone are no proof that retail
+    folded the address (grouping, selection, the targets' identities): counted as
+    an ICF candidate, excused by no series."""
+    m, recs, sh = _fold_link(export=False)
+    _assert_refused(m, recs, sh, "icf candidate")
+    s = lc.fold_summary(m, {"data_fold": {}})
+    assert (s["excused_addresses"], s["icf_candidate_addresses"]) == (0, 1)
+    assert s["refused_addresses"] == {"icf candidate": 1}
+
+
+def test_data_fold_needs_one_relocation_target_identity():
+    """Review of 4f081d09cb: two vtable-like datums with one relocation layout whose
+    code pointers reach two linked functions (both standing for retail's one) were
+    certified; one identity is required, not one layout."""
+    def verdict(second):
+        I, R = bytearray(0x6000), bytearray(0x6000)
+        _put(I, 0x3000, struct.pack("<I", B + 0x1800))
+        _put(I, 0x3010, struct.pack("<I", B + second))
+        _put(R, 0x3100, struct.pack("<I", B + 0x1900))
+        secs = [_sec(1, ".rdata", 4, relocs=[(0, 2, lc.DIR32)]), _sec(2, ".rdata", 4, relocs=[(0, 3, lc.DIR32)])]
+        for s in secs:
+            s.flags, s.sel = RO | lc.COMDAT, 2
+        syms = {0: _sym(0, "??_7A@@6B@", 1, cls=lc.STATIC), 1: _sym(1, "??_7B@@6B@", 2, cls=lc.STATIC),
+                2: _sym(2, "?f@@YAXXZ", 0), 3: _sym(3, "?g@@YAXXZ", 0)}
+        o = (secs, syms, b"")
+        m = _fold_measure([], ({}, {}, [(0x3000, "??_7A@@6B@", "a.obj"), (0x3010, "??_7B@@6B@", "a.obj")], {}),
+                          FakeObjs({"a.obj": o}), I, R, {}, True)
+        m.items = [(0x1800, 0x1810, 0x1900, ("unit", 1)), (0x1880, 0x1890, 0x1900, ("unit", 2))]
+        m.istarts = [t[0] for t in m.items]
+        m.discover([(0x3000, 0x3100, "??_7A@@6B@", syms[0], o, 0, "addr"),
+                    (0x3010, 0x3100, "??_7B@@6B@", syms[1], o, 0, "addr")])
+        m.judge_datums()
+        assert all(not n["fails"] for n in m.dnodes.values())               # each pointer is retail's target
+        return m.fold_verdict(0x3100)
+    assert verdict(0x1880) == (None, "relocation targets differ")
+    assert verdict(0x1800) == ("export", "export-proven")                    # negative control: one identity
 
 
 def test_data_fold_leaves_the_published_series_unchanged():
@@ -1006,7 +1068,7 @@ def test_data_fold_leaves_the_published_series_unchanged():
     assert before["shift"]["failed"] == {}                                      # the table's failure is shadow-only
     left, closed, _ = shadow["data_fold"]
     assert not left[id(recs[0])] and ("unit", 0) not in closed                  # self-strict, not closed: shift
-    assert summary["excused_addresses"] == {"export": 1, "icf": 0} and summary["data_back_addresses"] == 1
+    assert summary["excused_addresses"] == 1 and summary["data_back_addresses"] == 1
 
 
 def test_data_fold_certifies_a_twin_rejected_only_by_a_fold():
@@ -1021,6 +1083,7 @@ def test_data_fold_certifies_a_twin_rejected_only_by_a_fold():
     sa = [_sec(1, ".text", 11, relocs=[(1, 1, lc.DIR32), (6, 2, lc.REL32)]), _sec(2, ".rdata", 1)]
     sb = [_sec(1, ".text", 6, relocs=[(1, 1, lc.DIR32)]), _sec(2, ".rdata", 1)]
     sa[1].flags = sb[1].flags = RO | lc.COMDAT
+    sa[1].sel = sb[1].sel = 2
     oa = (sa, {0: _sym(0, "?f@@YAXXZ", 1), 1: _sym(1, NULLCHR, 2, cls=lc.STATIC), 2: _sym(2, "?copy@@YAXXZ", 0)}, b"")
     ob = (sb, {0: _sym(0, "?copy@@YAXXZ", 1), 1: _sym(1, LIT, 2, cls=lc.STATIC)}, b"")
     objs = FakeObjs({"b.obj": ob})
@@ -1050,8 +1113,9 @@ def test_data_fold_list_and_summary(tmp_path):
     shadow = lc.fold_closures(m, recs, pub["ok"], pub["edges"], pub["hard"], sh, m.ledger_starts)
     s = lc.fold_summary(m, {tag: x[2] for tag, x in shadow.items()})
     assert s["rule"] == "data-fold-1" and lc.SHADOW_RULES == ["data-fold-1"]
-    assert s["series"] == {"data_fold": ["export"], "data_fold_icf": ["export", "icf"]}
+    assert s["series"] == {"data_fold": ["export"]}
     assert (s["export_fold_addresses"], s["data_back_addresses"], s["refused_addresses"]) == (1, 1, {})
+    assert (s["excused_addresses"], s["icf_candidate_addresses"]) == (1, 0)
     assert s["export_folds"] == {"0x00003100": "export"}
     assert s["references_excused"]["data_fold"] == {"rows": 2, "twins": 0, "datums": 1}
     lc.write_data_folds(tmp_path / "data_fold_list.csv", m)

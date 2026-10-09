@@ -79,14 +79,17 @@ fixes of research 29, 31 and the round-2 review:
      (its export table names 0x7BAC1C 28 times, TheNullChr and 27 IS_DEFAULT
      bools; the "" literal is there too); this link is /OPT:NOICF, so there a
      reference fails `data-back` whatever the tree does. That failure at retail
-     address A is excused when every linked address reaching A reaches a datum, all of one
-     retail start, size and relocation layout, each read-only initialized data
-     with no failure of its own (bytes equal retail's, every relocation at
-     retail's target), retail's start in .rdata, and either retail's export table
-     names that start twice or more (rule `export`) or every datum is a whole
-     read-only COMDAT section (rule `icf`, proven by the code alone). Series
-     placed_{self,closed}_strict_data_fold admit `export`, ..._data_fold_icf both;
-     series.data_fold counts the addresses and references excused.
+     address A is excused (Measure.fold_verdict) only when every linked address
+     reaching A reaches a datum, all of one retail start, size and relocation
+     layout; retail's extent is in .rdata; each datum is read-only initialized
+     data in its object and in the linked image over its whole extent, a whole
+     COMDAT section of a foldable selection, all of one section name and
+     characteristics; none fails on its own (bytes equal retail's, every
+     relocation at retail's target) and all relocations reach the same linked
+     targets; and retail's export table names that start twice or more.
+     Without the export proof the address is an ICF candidate: counted, never
+     excused. Series placed_{self,closed}_strict_data_fold; series.data_fold
+     counts the addresses and references excused and the candidates.
 
   python3 tools/link_cycle.py [--build] [--max-iter 6] [--shift-base 0x10000000]
   python3 tools/link_cycle.py --snapshot HEAD --build [--reuse-quarantine --reuse-stubs]
@@ -131,12 +134,14 @@ ABSOLUTE = {"__except_list": 0}          # exsup.asm: __except_list equ 0 (an FS
 TOOL_FILES = ("link_cycle.py", "link_census.py", "build.py")
 COMDAT, EXTERNAL, STATIC, WEAK = 0x1000, 2, 3, 105
 REL32, DIR32 = 0x14, 6
-INIT_DATA, MEM_WRITE = 0x40, 0x80000000
+CNT_CODE, INIT_DATA, MEM_EXECUTE, MEM_WRITE = 0x20, 0x40, 0x20000000, 0x80000000
+# COMDAT selections /OPT:ICF folds on their own: not 5 (associative), which goes with its parent
+FOLDABLE_SEL = (1, 2, 3, 4, 6)
 # Shadow rules: series published beside rules=link-cycle-2's, never in its credit.
 # data-fold-1 (Measure.fold_verdict): a data-back failure at a retail address
 # retail's ICF folded read-only data into is excused.
 SHADOW_RULES = ["data-fold-1"]
-FOLD_SERIES = (("data_fold", frozenset({"export"})), ("data_fold_icf", frozenset({"export", "icf"})))
+FOLD_SERIES = (("data_fold", frozenset({"export"})),)
 
 
 # ---------------------------------------------------------------- COFF
@@ -1191,7 +1196,9 @@ class Measure:
         kept as references (judged once every reference is known)."""
         start, rstart, size = key
         node = {"name": name, "fails": [], "edges": set(), "refs": [], "rels": [], "masked": set(),
-                "flags": None if sec is None else sec.flags,           # None: COMMON (.bss)
+                # data-fold-1 (shadow): the object section; flags None is COMMON (.bss)
+                "flags": None if sec is None else sec.flags, "sel": None if sec is None else sec.sel,
+                "secname": None if sec is None else sec.name,
                 "whole": sec is not None and value == 0 and size == sec.size}
         if size <= 0 or rstart < 0 or rstart + size > len(self.R) or start < 0 or start + size > len(self.I):
             node["fails"].append(f"data-extent:{name}")
@@ -1431,22 +1438,46 @@ class Measure:
 
     # ---- shadow rule data-fold-1: read after run(); never a link-cycle-2 verdict or credit
     def fold_verdict(self, rt):
-        """("export" | "icf" | None, why): may a data-back failure at retail address rt
-        be excused as a read-only data fold? Retail was linked /OPT:ICF, which folds
-        byte-identical read-only COMDATs into one address; this link is /OPT:NOICF and
+        """("export" | None, why): may a data-back failure at retail address rt be
+        excused as a read-only data fold? Retail was linked /OPT:ICF, which folds
+        identical read-only COMDATs into one address; this link is /OPT:NOICF and
         keeps every copy, so such an address is reached through several linked datums
-        whatever the tree does. A fold needs every linked address reaching rt to reach
-        a datum (no stub, import or unmapped name), all of one retail start, size and
-        relocation layout, each in read-only initialized data (no MEM_WRITE, not
-        COMMON) with no failure of its own (bytes equal retail's over its extent,
-        every relocation at retail's target), and retail's start in .rdata. Then
-        "export": retail's export table names that start twice or more (export_folds);
-        "icf": not export-proven, but every datum is a whole read-only COMDAT section,
-        the unit /OPT:ICF folds. Judged once every reference is discovered and every
-        datum judged."""
+        whatever the tree does. Excused ("export") only when all of these hold:
+          - every linked address reaching rt reaches a datum (no stub, import or
+            unmapped name), all of one retail start, size and relocation layout;
+          - retail's datum extent lies in one retail .rdata section, initialized
+            data, not executable (retail's .rdata and .text headers both carry
+            MEM_WRITE, 0xC0000040 and 0xE0000020, so the name says read-only);
+          - each datum's object section is read-only initialized data (not
+            COMMON), and its whole extent in the linked image lies in a section
+            that is initialized data, neither writable nor executable;
+          - each datum is a whole COMDAT section of a selection /OPT:ICF folds
+            (FOLDABLE_SEL: not associative), all of one section name and
+            characteristics, alignment included;
+          - no datum fails on its own (bytes equal retail's over its extent, every
+            relocation at retail's target) and every relocation of every datum
+            reaches the same linked target: one identity, not only one layout;
+          - retail's export table names the start twice or more (export_folds):
+            retail itself folded the address.
+        An address meeting all but the export proof is an "icf candidate": counted,
+        never excused. Judged once every reference is discovered and every datum
+        judged."""
         if rt not in self.fold_memo:
             self.fold_memo[rt] = self._fold_verdict(rt)
         return self.fold_memo[rt]
+
+    @staticmethod
+    def ro_extent(secs, a, size, retail=False):
+        """[a, a+size) lies inside one section of `secs` (a SectionList with
+        characteristics) that is initialized data and not executable; a retail one
+        must be .rdata (its headers say writable), a linked one not writable."""
+        s = secs.section_at(a) if hasattr(secs, "section_at") else None
+        if s is None or s[3] is None or size <= 0 or a + size > s[1] + s[2]:
+            return False
+        name, _, _, chars = s
+        if chars & (MEM_EXECUTE | CNT_CODE) or not chars & INIT_DATA:
+            return False
+        return name == ".rdata" if retail else not chars & MEM_WRITE
 
     def _fold_verdict(self, rt):
         linked = self.back.get(rt)
@@ -1461,23 +1492,30 @@ class Measure:
             nodes.append((kind[1], self.dnodes[kind[1]]))
         if len({key[1] for key, _ in nodes}) != 1:
             return None, "several retail starts"
-        start = nodes[0][0][1]
-        if self.rsecs is None or self.rsecs.name_at(start) != ".rdata":
-            return None, "retail start not in .rdata"
         if len({(key[2], tuple(sorted(n["rels"]))) for key, n in nodes}) != 1:
             return None, "datums differ in size or relocations"
-        for _, n in nodes:
+        start, size = nodes[0][0][1], nodes[0][0][2]
+        if not self.ro_extent(self.rsecs, start, size, retail=True):
+            return None, "retail extent not in .rdata"
+        for key, n in nodes:
             f = n.get("flags")
-            if f is None or f & MEM_WRITE or not f & INIT_DATA:
+            if f is None or f & (MEM_WRITE | MEM_EXECUTE | CNT_CODE) or not f & INIT_DATA:
                 return None, "mutable datum"
+            if not self.ro_extent(self.isecs, key[0], key[2]):
+                return None, "linked datum not in read-only data"
+        for _, n in nodes:
+            if not (n["flags"] & COMDAT and n.get("sel") in FOLDABLE_SEL and n.get("whole")):
+                return None, "not a whole foldable COMDAT"
+        if len({(n.get("secname"), n["flags"]) for _, n in nodes}) != 1:
+            return None, "datums differ in section name or characteristics"
         for _, n in nodes:
             if n["fails"]:
                 return None, "datum fails " + n["fails"][0].split(":")[0]
+        if len({tuple(u32(self.I, key[0] + fo) for fo, _, _ in sorted(n["rels"])) for key, n in nodes}) != 1:
+            return None, "relocation targets differ"
         if start in self.folds:
             return "export", "export-proven"
-        if all(n["flags"] & COMDAT and n.get("whole") for _, n in nodes):
-            return "icf", "whole read-only COMDATs"
-        return None, "not export-proven"
+        return None, "icf candidate"
 
     def fold_excused(self, ref, allow):
         """data-fold-1 with the rules in `allow` excuses this reference's data-back
@@ -1971,22 +2009,30 @@ def load_pins():
 
 class SectionList(dict):
     """{name: (rva, size)} of an image's sections (the first of a repeated name),
-    keeping every section for address lookups: link.exe can emit two .data."""
+    keeping every section for address lookups: link.exe can emit two .data.
+    Entries are (name, rva, size[, characteristics]); `all` keeps (name, rva,
+    size), `chars` the characteristics (None when not given)."""
     def __init__(self, entries):
         super().__init__()
-        self.all = list(entries)
+        entries = [tuple(e) for e in entries]
+        self.all = [e[:3] for e in entries]
+        self.chars = [e[3] if len(e) > 3 else None for e in entries]
         for n, a, z in self.all:
             self.setdefault(n, (a, z))
 
     def name_at(self, a):
         return next((n for n, s, z in self.all if s <= a < s + max(z, 1)), "outside")
 
+    def section_at(self, a):
+        """(name, rva, size, characteristics or None) of the section holding a, or None."""
+        return next(((n, s, z, c) for (n, s, z), c in zip(self.all, self.chars) if s <= a < s + max(z, 1)), None)
+
 
 def pe_view(path):
     import pefile
     pe = pefile.PE(str(path), fast_load=True)
-    secs = SectionList((s.Name.rstrip(b"\0").decode("latin-1"), s.VirtualAddress, s.Misc_VirtualSize)
-                       for s in pe.sections)
+    secs = SectionList((s.Name.rstrip(b"\0").decode("latin-1"), s.VirtualAddress, s.Misc_VirtualSize,
+                        s.Characteristics) for s in pe.sections)
     pe.parse_data_directories(directories=[pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_IMPORT"]])
     imps = {}
     for dll in getattr(pe, "DIRECTORY_ENTRY_IMPORT", []):
@@ -2345,14 +2391,16 @@ def fold_closures(m, recs, ok, edges, hard, sh, ledger_starts):
 def fold_summary(m, excused):
     """series.data_fold: every retail address reached through several linked addresses
     (data-back's), by its data-fold-1 verdict; the references each shadow series
-    excuses; the verdict at each export-proven fold address."""
+    excuses; the verdict at each export-proven fold address. ICF candidates (all
+    but the export proof) are counted, never excused."""
     back = sorted(a for a, ls in m.back.items() if len(ls) > 1)
     verdicts = [m.fold_verdict(rt) for rt in back]
     return {"rule": SHADOW_RULES[0],
             "series": {tag: sorted(allow) for tag, allow in FOLD_SERIES},
             "export_fold_addresses": len(m.folds),
             "data_back_addresses": len(back),
-            "excused_addresses": {r: sum(1 for v in verdicts if v[0] == r) for r in ("export", "icf")},
+            "excused_addresses": sum(1 for r, _ in verdicts if r == "export"),
+            "icf_candidate_addresses": sum(1 for r, w in verdicts if r is None and w == "icf candidate"),
             "refused_addresses": dict(sorted(collections.Counter(w for r, w in verdicts if r is None).items())),
             "references_excused": excused,
             "export_folds": {"0x%08X" % a: m.fold_verdict(a)[0] or m.fold_verdict(a)[1] for a in sorted(m.folds)}}

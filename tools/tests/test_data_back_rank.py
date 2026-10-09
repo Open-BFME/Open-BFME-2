@@ -211,22 +211,34 @@ class Ranking(unittest.TestCase):
         self.assertEqual(fold["export"], {"addresses": 1, "ranked": ["0x00100000"], "rows": 3,
                                           "bytes": 0xB4 + 16, "clear_rows": 1, "clear_bytes": 100})
         self.assertIn("data-fold-1 export: 1 addresses", text)
-        write_csv(t / "data_fold_list.csv", [["retail_rva", "retail_start", "export_names", "linked", "symbols",
-                                              "rule", "verdict"],
+        head = ["retail_rva", "retail_start", "export_names", "linked", "symbols", "rule", "verdict"]
+        write_csv(t / "data_fold_list.csv", [head,
                                              ["0x00100000", "0x00100000", "2", "0x00500000:1;0x00500010:1",
                                               f"{EMPTY};{NULLCHR}", "", "mutable datum"],
                                              ["0x00200000", "0x00200000", "0", "0x00600000:4;0x00600010:4",
-                                              GD_V, "icf", "whole read-only COMDATs"]])
+                                              GD_V, "", "icf candidate"]])
         text, report = self.run_tool("--status", status, "--exports", str(t / "exports.csv"),
                                      "--folds", str(t / "data_fold_list.csv"))
         by = {a["address"]: a["fold"] for a in report["addresses"]}
         self.assertEqual(by["0x00100000"], {"export_names": 2, "rule": None, "verdict": "mutable datum",
                                             "label": "exp!"})               # export-proven, refused
-        self.assertEqual(by["0x00200000"]["label"], "icf")
+        self.assertEqual(by["0x00200000"]["label"], "icf?")                # counted, never excused
         fold = report["data_fold"]
-        self.assertEqual(fold["export"]["addresses"], 0)
-        self.assertEqual((fold["export+icf"]["ranked"], fold["export+icf"]["clear_rows"]), (["0x00200000"], 1))
+        self.assertEqual((fold["export"]["addresses"], fold["export"]["ranked"], fold["icf_candidates"]), (0, [], 1))
         self.assertIn("not excused (mutable datum)", text)
+        # review of 4f081d09cb: one row for a reference at 0x100001 inside the datum starting
+        # at 0x100000 is ONE excused address (the reference), not two (it and its start)
+        write_csv(t / "data_fold_list.csv", [head,
+                                             ["0x00100001", "0x00100000", "2", "0x00500001:1;0x00500011:1",
+                                              f"{EMPTY};{NULLCHR}", "export", "export-proven"]])
+        text, report = self.run_tool("--status", status, "--exports", str(t / "exports.csv"),
+                                     "--folds", str(t / "data_fold_list.csv"))
+        by = {a["address"]: a["fold"] for a in report["addresses"]}
+        self.assertEqual(by["0x00100000"]["label"], "export")              # through its start
+        part = report["data_fold"]["export"]
+        self.assertEqual((part["addresses"], part["ranked"], part["rows"], part["clear_rows"]),
+                         (1, ["0x00100000"], 3, 1))
+        self.assertIn("data-fold-1 export: 1 addresses", text)
 
     def test_address_filter(self):
         text, report = self.run_tool("--status", str(self.t / "link_status-0123456789.csv.gz"),
