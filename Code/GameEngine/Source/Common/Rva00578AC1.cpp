@@ -360,8 +360,8 @@ class StrategicHUD::Palantir : public PalantirBase0, public PalantirButton<0>, p
 public:
 	Palantir(int level, const AsciiString &name);
 	virtual ~Palantir();
-	void rva00578AC1(void *arg);
-	void rva00578B4C(void *arg);
+	__declspec(noinline) void rva00578AC1(void *arg);
+	__declspec(noinline) void rva00578B4C(void *arg);
 
 	void OnCommandUILoaded(const char *name);
 	void OnCommandUIUnloaded(const char *name);
@@ -577,4 +577,30 @@ StrategicHUD::Palantir *StrategicHUD::Palantir::rva005785BE()
 	if (m_regionUI.m_ptr != 0 && m_regionStatsTray.m_ptr != 0)
 		ready = this;
 	return ready;
+}
+
+// WB names DoSetOptionsButtonEnabled / DoSetObjectivesButtonEnabled on
+// StrategicHUD::Palantir. These retail entries receive its secondary interfaces
+// at owner+4 and owner+18 respectively (vtable slots C6EAF0+14 / C6EAD8+14).
+// Explicit receiver views preserve that ABI without changing the owner's vtable.
+
+// Existing rowed bool wrapper is visible for its read-only argument behavior.
+class Rva00222A8BTarget {public:int rva00222B19(void *,const char *,const char *,int,const char *,void *,void *,void *,void *);};
+char ** __cdecl Rva004E678BGet(char **,bool);
+__declspec(noinline) void __cdecl Rva005277D9Fire(Rva00222A8BTarget *target,void *level,const char *prefix,const char *function,bool *flagPtr) {
+ char *value;
+ char *val=*Rva004E678BGet((char **)&value,*flagPtr);
+ target->rva00222B19(level,prefix,function,1,val,0,0,0,0);
+}
+
+struct PalantirOptionsButtonReceiver {
+ char unknown0[0x28];void *level;AsciiString name;char unknown30[0x20];bool rolledOver;bool enabled;
+ void setEnabled(bool value);
+};
+void PalantirOptionsButtonReceiver::setEnabled(bool value) {
+ if(value!=enabled) {
+  if(!value && rolledOver)((StrategicHUD::Palantir *)((char *)this-4))->rva00578AC1(0);
+  Rva005277D9Fire(TheRva00222A8BTarget,level,name.str(),"EnableOptionsButton",&value);
+  enabled=value;
+ }
 }
