@@ -28,6 +28,91 @@ bool less<int>::operator()(const int& a,const int& b) const { return a < b; }
 }
 
 struct Coord3D;
+class UnicodeString;
+class PooledString;
+struct XferUnknown11;
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class Coord2D;
+class ICoord2D;
+class Region2D;
+class IRegion2D;
+class RealRange;
+class RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+class Snapshot;
+
+class Xfer
+{
+public:
+	class Version;
+
+	virtual ~Xfer();
+
+	virtual bool IsLoading() const;
+	virtual bool IsStoring() const;
+	virtual bool IsCRC() const;
+	virtual bool IsLightCRC() const;
+
+	virtual void v5() = 0;
+	virtual void v6() = 0;
+	virtual void v7() = 0;
+
+	virtual void SkipBadBlock(Snapshot &snapshot, unsigned int size);
+	virtual Xfer &XferRawBytes(void *data, unsigned int size);
+	virtual Xfer &operator==(bool &value);
+	virtual Xfer &operator==(char &value);
+	virtual Xfer &operator==(unsigned char &value);
+	virtual Xfer &operator==(short &value);
+	virtual Xfer &operator==(unsigned short &value);
+	virtual Xfer &operator==(int &value);
+	virtual Xfer &operator==(unsigned int &value);
+	virtual Xfer &operator==(__int64 &value);
+	virtual Xfer &operator==(float &value);
+	virtual Xfer &operator==(AsciiString &value);
+	virtual Xfer &operator==(UnicodeString &value);
+	virtual Xfer &operator==(PooledString &value);
+	virtual Xfer &operator==(Coord3D &value);
+	virtual Xfer &operator==(ICoord3D &value);
+	virtual Xfer &operator==(Region3D &value);
+	virtual Xfer &operator==(IRegion3D &value);
+	virtual Xfer &operator==(Coord2D &value);
+	virtual Xfer &operator==(ICoord2D &value);
+	virtual Xfer &operator==(Region2D &value);
+	virtual Xfer &operator==(IRegion2D &value);
+	virtual Xfer &operator==(RealRange &value);
+	virtual Xfer &operator==(RGBColor &value);
+	virtual Xfer &operator==(RGBAColorReal &value);
+	virtual Xfer &operator==(RGBAColorInt &value);
+	virtual Xfer &operator==(Snapshot &value);
+	virtual Xfer &operator==(XferUnknown11 &value) = 0;
+	virtual Xfer &operator==(Version &value);
+};
+
+class Xfer::Version
+{
+public:
+	Version(unsigned char current, unsigned char minimum)
+		: m_current(current), m_minimum(minimum) {}
+
+	unsigned char m_current;
+	unsigned char m_minimum;
+};
+
+
+class Player;
+class Object { public: Player *getControllingPlayer() const; };
+class UpdateModule { public: void xfer(Xfer *xfer); };
+typedef int WaypointID;
+const WaypointID INVALID_WAYPOINT_ID = 0x7FFFFFFF;
+void XferWaypointID(Xfer *xfer, WaypointID *value);
+void XferObjectID(Xfer *xfer, ObjectID *value);
+class TerrainLogic;
+extern TerrainLogic *TheTerrainLogic;
+extern void *g_Va00E01EDC;
+
 
 class Waypoint
 {
@@ -36,7 +121,8 @@ public:
 		AsciiString label2, AsciiString label3, bool biDirectional, int bfmeType, AsciiString bfmeName);
 
 	unsigned char m_pad00[4];
-	ObjectID id;
+	int id;
+    __forceinline int getID() const { return id; }
 	unsigned char m_pad08[0x48 - 8];
 	unsigned char m_48;		// +0x48
 	unsigned char m_pad49[0xA8 - 0x49];
@@ -64,11 +150,17 @@ class MineshaftPortalBehaviour
 {
 public:
 	Waypoint *rva00372DFA(const Coord3D *pos);
+    void rva00373A0F(Xfer *xfer);
 
 private:
 	void *m_vtbl;
 	const MineshaftPortalBehaviourModuleData *m_moduleData;	// +0x04
 	Rva00372DFAObject *m_object;				// +0x08
+    unsigned char m_pad0C[0x28 - 0x0C];
+    std::vector<ObjectID> m_pending;
+    Waypoint *m_waypoint;
+    bool m_registered;
+    bool m_39;
 };
 
 Waypoint *MineshaftPortalBehaviour::rva00372DFA(const Coord3D *pos)
@@ -125,7 +217,63 @@ void MineshaftPortalNetworkManager::addWaypoint(Waypoint *waypoint, Player *play
         int lookupKey = player->index;
         it = networks.find(lookupKey);
     }
-    ObjectID id = waypoint->id;
+    ObjectID id = (ObjectID)waypoint->id;
     it->second->ids.push_back(id);
     it->second->changed = true;
+}
+
+// DoXfer role named by WB F3D290 (MineshaftPortalBehaviour.cpp:231..267).
+// Native373A0F..373B54 RET4: UpdateModule transfer, light-CRC bypass,
+// version1/1; resolve and register the loaded waypoint or save its id;
+// transfer bytes38/39 and pending ObjectIDs at28. Original access and
+// virtual declaration are not asserted by this neutral method label.
+void MineshaftPortalBehaviour::rva00373A0F(Xfer *xfer)
+{
+    ((UpdateModule *)this)->xfer(xfer);
+    if (xfer->IsLightCRC())
+        return;
+    Xfer::Version version(1, 1);
+    *xfer == version;
+    if (xfer->IsLoading()) {
+        WaypointID id;
+        XferWaypointID(xfer, &id);
+        struct TerrainWaypointView {
+            virtual void slot0(); virtual void slot1(); virtual void slot2();
+            virtual void slot3(); virtual void slot4(); virtual void slot5();
+            virtual void slot6(); virtual void slot7(); virtual void slot8();
+            virtual void slot9(); virtual void slot10(); virtual void slot11();
+            virtual void slot12(); virtual void slot13(); virtual void slot14();
+            virtual void slot15(); virtual void slot16(); virtual void slot17();
+            virtual void slot18(); virtual void slot19(); virtual void slot20();
+            virtual void slot21(); virtual void slot22(); virtual void slot23();
+            virtual void slot24(); virtual void slot25(); virtual void slot26();
+            virtual void slot27(); virtual void slot28(); virtual void slot29();
+            virtual void slot30(); virtual void slot31(); virtual void slot32();
+            virtual void slot33(); virtual void slot34();
+            virtual Waypoint *findWaypoint(WaypointID id);
+        };
+        m_waypoint = id == INVALID_WAYPOINT_ID ? 0 : ((TerrainWaypointView *)TheTerrainLogic)->findWaypoint(id);
+        if (m_waypoint)
+            ((MineshaftPortalNetworkManager *)g_Va00E01EDC)->addWaypoint(m_waypoint, ((Object *)m_object)->getControllingPlayer());
+    } else {
+        WaypointID id = m_waypoint ? m_waypoint->getID() : INVALID_WAYPOINT_ID;
+        XferWaypointID(xfer, &id);
+    }
+    *xfer == m_registered;
+    *xfer == m_39;
+    unsigned int count = m_pending.size();
+    *xfer == count;
+    if (xfer->IsStoring()) {
+        std::vector<ObjectID>::const_iterator end = m_pending.end();
+        for (std::vector<ObjectID>::const_iterator it = m_pending.begin(); it != end; ++it) {
+            ObjectID id = *it;
+            XferObjectID(xfer, &id);
+        }
+    } else if (xfer->IsLoading()) {
+        for (unsigned int i = 0; i < count; ++i) {
+            ObjectID id = INVALID_OBJECT_ID;
+            XferObjectID(xfer, &id);
+            m_pending.push_back(id);
+        }
+    }
 }
