@@ -162,7 +162,6 @@ public:
  void rva005D2F07(const char *);
 private: Rva005D2EA8Listener *m_listener; bool m_rollOver; AptCommandMapAdder m_0C;
 };
-// ??0Rva005D2EA8@@QAE@HABVAsciiString@@PBD@Z present-unmatched
 Rva005D2EA8::Rva005D2EA8(int level,const AsciiString &name,const char *stat):m_listener(0),m_rollOver(false)
 {
  AsciiString prefix; prefix.format("_level%u.",level);
