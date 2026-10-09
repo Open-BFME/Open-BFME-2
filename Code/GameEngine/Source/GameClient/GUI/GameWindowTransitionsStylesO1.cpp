@@ -84,6 +84,14 @@
 #include "GameClient/Controlbar.h"
 #include "../../../../../reference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib/string_base.h"
 
+// Visible genuine lifetime body: owned UnicodeString5B804E is exactly the
+// five-byte tailcall to wide releaseBuffer. This permits the compiler to
+// inline cleanup instead of relying on the legacy destructor pin at36E70.
+inline UnicodeString::~UnicodeString()
+{
+ ((StringBase<WideChar>*)this)->~StringBase<WideChar>();
+}
+
 // BFME stores ControlBar::m_genArrow at this offset. The ZH header places it
 // at +0x2fc, so this transition keeps the corrected view local to its one
 // direct field read.
@@ -410,15 +418,17 @@ struct BfmeCountUpTransitionFields
 typedef char BfmeCountUpTransitionStringWidth[
 		(sizeof(UnicodeString) == 4) ? 1 : -1];
 
-// newDisplayString is vtable slot 9 (+0x24) in BFME, not the slot 6 (+0x18) the
-// vendored manager puts it at.
+// Native BFME2 init35FDCA reads newDisplayString through slot14 (+38).
+// BF1 used slot9 (+24); the vendored ZH manager has another layout.
 class BfmeTransitionDisplayStringManager
 {
 public:
 	virtual void slot00(); virtual void slot01(); virtual void slot02();
 	virtual void slot03(); virtual void slot04(); virtual void slot05();
 	virtual void slot06(); virtual void slot07(); virtual void slot08();
-	virtual DisplayString *newDisplayString();		///< vtable +0x24
+	virtual void slot09(); virtual void slot10(); virtual void slot11();
+	virtual void slot12(); virtual void slot13();
+	virtual DisplayString *newDisplayString();		///< target vtable +0x38
 };
 
 // getLength inlines to a 16-bit read of the length in the string header at
@@ -545,3 +555,26 @@ void ReverseSoundTransition::update( Int frame )
 
 
   // end drawStaticTextText
+
+// Direct BF1 f989 clean init; target WB F11D80 corroborates the calls.
+// ?init@TextTypeTransition@@UAEXPAVGameWindow@@@Z
+void TextTypeTransition::init( GameWindow *win )
+{
+	BfmeTextTypeTransitionFields *self = (BfmeTextTypeTransitionFields *)this;
+
+	if(win)
+	{
+		self->m_win = win;
+		self->m_win->winGetSize(&self->m_size.x, &self->m_size.y);
+		self->m_win->winGetScreenPosition(&self->m_pos.x, &self->m_pos.y );
+	}
+	self->m_isForward = FALSE;
+	update(self->m_startFrame);
+	self->m_isFinished = FALSE;
+	self->m_isForward = TRUE;
+	self->m_dStr = ((BfmeTransitionDisplayStringManager *)TheDisplayStringManager)->newDisplayString();
+	self->m_fullText = GadgetStaticTextGetText(self->m_win);		
+	Int length = ((const BfmeTransitionUnicodeString *)&self->m_fullText)->getLength();
+	self->m_frameLength = length < self->m_endFrame ? length : self->m_endFrame;
+}
+
