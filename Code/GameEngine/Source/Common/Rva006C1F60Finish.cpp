@@ -11,7 +11,7 @@ class Rva006C1F60
 {
 public:
 	int rva006C1F60(unsigned int v);
-	bool rva006C1DC0(unsigned int block);
+	int rva006C1DC0(unsigned int block);
 private:
 	unsigned char m_pad0[0x4e4];
 	Rva00030DD0Lock *m_lock;
@@ -263,7 +263,7 @@ void *GeneralAllocatorDebug::rva006C25F0Run6(void *block,int kind,int a3,int a4,
  Rva00030DD0Lock *lock=m_lock;
  if(lock)Rva00030DD0AddRef(lock);
  void *result=0;
- if(((Rva006C1F60*)this)->rva006C1DC0((unsigned int)block)) {
+ if((unsigned char)((Rva006C1F60*)this)->rva006C1DC0((unsigned int)block)) {
   int gate=mode;
   if(mode==2) {
    if((unsigned short)kind==0xB) goto edit;
@@ -287,4 +287,18 @@ edit:
  }
  if(lock)Rva00030DF0Release(lock);
  return result;
+}
+
+// 0x006C1DC0..0x006C1E14: native full-EAX 0/1 result, RET4,
+// conditional hash membership with target offsets 530/680/684/68C.
+// Callers explicitly preserve its low-byte result as native does.
+struct Rva006C1DC0Node { unsigned int key; void *value; Rva006C1DC0Node *next; };
+int Rva006C1F60::rva006C1DC0(unsigned int block) {
+ if(!*(bool *)((char *)this+0x680)||*(int *)((char *)this+0x530))goto success;
+ {Rva006C1DC0Node **buckets=*(Rva006C1DC0Node ***)((char *)this+0x684);
+ if(buckets){Rva006C1DC0Node *node=buckets[(block>>3)%*(unsigned int *)((char *)this+0x68C)];
+ while(node){if(node->key==block)goto success;node=node->next;}}
+ }
+ return 0;
+success:return 1;
 }

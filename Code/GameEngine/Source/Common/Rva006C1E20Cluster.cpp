@@ -9,11 +9,11 @@
 // Retail tests only the LOW BYTE of the second argument and splits on it:
 //   arg2 & 0xFF != 0 -> rva006C1DC0(arg1)          (one stack arg, ret 4)
 //   otherwise          -> rva00032830(arg1, 0)      (two stack args, ret 8)
-// Both callees return bool; retail keeps the result in al, parks it in bl so
+// The hash helper returns full-EAX 0/1; retail keeps the result in al, parks it in bl so
 // the guard destructor can run, and returns it in al. 0x00032830 is the rowed
 // GeneralAllocator::rva00032830(block, addressType) ValidateAddress-like (it
 // reads +0x4E4 and ends `ret 8`), so this is the address-validity test on that
-// allocator. 0x006C1DC0 is unrowed and address-derived; it reads +0x680,
+// allocator. 0x006C1DC0 is rowed and address-derived; it reads +0x680,
 // +0x684 and +0x68C of this same class and hashes arg1 against a bucket array,
 // so it is a secondary validator, but its identity is NOT proven.
 //
@@ -62,7 +62,7 @@ class Rva006C1F60 : public EA::Allocator::GeneralAllocator
 {
 public:
 	bool rva006C1E20(const void *block, int addressType);
-	bool rva006C1DC0(unsigned int block);
+	int rva006C1DC0(unsigned int block);
 
 private:
 	unsigned char m_pad0[0x4E4];
@@ -75,7 +75,12 @@ bool Rva006C1F60::rva006C1E20(const void *block, int addressType)
 	unsigned char *tag = (unsigned char *)&addressType;
 	bool result;
 	if (*tag != 0)
-		result = rva006C1DC0((unsigned int)block);
+	{
+		// The owned helper returns full EAX 0/1; native preserves only AL.
+		union { int integer; bool low; } value;
+		value.integer = rva006C1DC0((unsigned int)block);
+		result = value.low;
+	}
 	else
 		result = rva00032830(block, 0);
 	return result;
