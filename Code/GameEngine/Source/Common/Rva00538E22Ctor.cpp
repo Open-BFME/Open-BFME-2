@@ -15,6 +15,58 @@ struct Rva00538E43Coord : Coord2D
 		{ x = other.x; y = other.y; }
 };
 
+struct Rva00538CB4Input
+{
+	virtual void slot00() = 0;
+	virtual void slot04() = 0;
+	virtual void slot08() = 0;
+	virtual void slot0C() = 0;
+	virtual void slot10() = 0;
+	virtual void slot14() = 0;
+	virtual void slot18() = 0;
+	virtual void slot1C() = 0;
+	virtual void slot20() = 0;
+	virtual void slot24() = 0;
+	virtual void slot28(bool *flags) = 0;
+	virtual void slot2C() = 0;
+	virtual void slot30() = 0;
+	virtual void slot34() = 0;
+	virtual void slot38() = 0;
+	virtual void slot3C() = 0;
+	virtual void slot40() = 0;
+	virtual void slot44() = 0;
+	virtual void slot48() = 0;
+	virtual void slot4C() = 0;
+	virtual void slot50(void *out) = 0;
+};
+
+struct Rva003EFE82Obj;
+int __cdecl Rva003EFE82Get(Rva003EFE82Obj *object, void *out);
+
+// The return record vtable at VA C0C7D0 names ArmyMoveCommand through
+// slot2 at318B7D. Its cleanup at7978D9 tail-calls Snapshot dtor49B47C.
+// Field accesses establish coordinates at4/8 and a signed tag atC;
+// their higher-level roles are not established.
+struct Rva00538E43Pair
+{
+	float x, y;
+	Rva00538E43Pair() : x(0), y(0) {}
+	Rva00538E43Pair(const Rva00538E43Pair &that) : x(that.x), y(that.y) {}
+	~Rva00538E43Pair() {}
+};
+struct Rva00538E43Result : Snapshot
+{
+	Rva00538E43Pair position;
+	int tag;
+	Rva00538E43Result() : position(), tag(-1) {}
+	Rva00538E43Result(const Rva00538E43Result &that) : Snapshot(that), position(that.position), tag(that.tag) {}
+	virtual ~Rva00538E43Result() {}
+	virtual void loadPostProcess() {}
+	// ?Rva00538E43Result::GetSnapshotName present-unmatched
+	virtual const char *GetSnapshotName() const { return "ArmyMoveCommand"; }
+	virtual void xfer(Xfer *xfer);
+};
+
 struct BfmeE16
 {
 	float x;
@@ -123,4 +175,17 @@ void Rva00538E22::rva00538F10(const _STL::vector<BfmeE16> &source, int value)
 		}
 		rva00538D3B(value);
 	}
+}
+
+// Rehomed from the isolated 0x538CB4 ABI view. The vtable at C0C7D0
+// and matching field offsets tie that transfer method to this result.
+void Rva00538E43Result::xfer(Xfer *stream)
+{
+	Rva00538CB4Input *input = reinterpret_cast<Rva00538CB4Input *>(stream);
+	bool flags[2];
+	flags[0] = 1;
+	flags[1] = 1;
+	input->slot28(flags);
+	input->slot50(&position);
+	Rva003EFE82Get((Rva003EFE82Obj *)input, &tag);
 }
