@@ -402,3 +402,46 @@ AsciiString W3DScriptedModelDraw::rva000C2E3A(const AsciiString &modelName)
 	}
 	return name;
 }
+
+// ZH W3DModelDraw.cpp parseBoneNameKey is the semantic guide; WB925020
+// and retail C2BD1 independently prove the token/registration/key path.
+#include <vector>
+class INI {
+public:
+ const char *getNextToken(const char *separators = 0);
+ static void Rva000C2C5FParseBoneRecord(INI *, void *, void *, const void *);
+};
+class Rva000C2AA4 {
+public: void rva000C2AA4(const AsciiString &);
+private: char unmodelled[0x78]; AsciiString *begin; AsciiString *end; void *storage;
+};
+enum NameKeyType { NAMEKEY_INVALID = 0 };
+class NameKeyGenerator {
+public: NameKeyType nameToKey(const char *);
+};
+extern NameKeyGenerator *TheNameKeyGenerator;
+static __declspec(noinline) void parseBoneNameKey(INI *ini, void *instance, void *store, const void *)
+{
+ Rva000C2AA4 *self = static_cast<Rva000C2AA4 *>(instance);
+ NameKeyType *key = static_cast<NameKeyType *>(store);
+ AsciiString tmp(ini->getNextToken());
+ tmp.toLower();
+ if (self) self->rva000C2AA4(tmp);
+ if (tmp.isEmpty() || tmp.isNone()) *key = NAMEKEY_INVALID;
+ else *key = TheNameKeyGenerator->nameToKey(((const StringBase<char> *)&tmp)->str());
+}
+struct BfmePod24 { int a[6]; };
+struct Rva000C2C5FRecord {
+ int key, at04; float at08, at0C; int at10, at14;
+ Rva000C2C5FRecord() : key(0), at04(0), at08(0.0f), at0C(0.0f), at10(0), at14(0) {}
+};
+struct Rva000C2C5FOwner {
+ char unmodelled[0xD0]; _STL::vector<BfmePod24> records;
+};
+void INI::Rva000C2C5FParseBoneRecord(INI *ini, void *instance, void *, const void *userData)
+{
+ Rva000C2C5FRecord record;
+ parseBoneNameKey(ini, instance, &record.key, userData);
+ static_cast<Rva000C2C5FOwner *>(instance)->records.push_back(
+  reinterpret_cast<const BfmePod24 &>(record));
+}
