@@ -30,6 +30,7 @@ class Rva00082A53
 	float m_val30;
 public:
 	Rva00082A53(int a1, int a2, int a3, float a4, int *a5, int a6);
+ unsigned short rva00082E33(int x, int y);
 };
 
 Rva00082A53::Rva00082A53(int a1, int a2, int a3, float a4, int *a5, int a6)
@@ -46,4 +47,35 @@ Rva00082A53::Rva00082A53(int a1, int a2, int a3, float a4, int *a5, int a6)
 	int n = m_dim10 * m_dim14;
 	((BfmeWordVec *)&m_vec04)->resize((unsigned int)n, (unsigned short)0xFFFF);
 	((_STL::vector<BfmePod44, _STL::allocator<BfmePod44> > *)&m_vec18)->reserve((unsigned int)a6);
+}
+
+// Target82E33..82EB8 and WB740340 establish cached vertex lookup/append.
+// Existing constructor proves cells04/dim10/records18/origin24/spacing30.
+// Original nested class name remains a donor lead; neutral owner retained.
+class Rva0008026B
+{
+public:
+    void rva0008026B(BfmePod44 *record);
+};
+
+typedef _STL::vector<BfmePod44, _STL::allocator<BfmePod44> > BfmePod44Vector;
+
+unsigned short Rva00082A53::rva00082E33(int x, int y)
+{
+    int index = y * m_dim10 + x;
+    unsigned short *cells = *(unsigned short **)((char *)this + 4);
+    unsigned short *cell = cells + index;
+    register unsigned short old_value = *cell;
+    if (old_value != 0xFFFF) return old_value;
+    {
+        char **vec = (char **)((char *)this + 0x18);
+        *cell = (unsigned short)(((int)vec[1] - (int)vec[0]) / 44);
+        ((BfmePod44Vector *)((char *)this + 0x18))->resize(((int)vec[1] - (int)vec[0]) / 44 + 1);
+        BfmePod44 *record = (BfmePod44 *)((char *)*(char **)((char *)this + 0x1C) - 44);
+        *(float *)((char *)record + 0) = (float)x * m_val30 + *(float *)((char *)this + 0x24);
+        *(float *)((char *)record + 4) = (float)y * m_val30 + *(float *)((char *)this + 0x28);
+        record->a[2] = m_data2C;
+        ((Rva0008026B *)m_unk00)->rva0008026B(record);
+    }
+    return *cell;
 }
