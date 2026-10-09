@@ -4,6 +4,16 @@
 // Ctor: vector<BfmeE16> at +0 plus int at +0xc. Calls rowed _Vector_base ctor 0x00211E58 then stores arg.
 // Evidence: retail lea [ebp+0xb] allocator temp plus mov [esi+0xc] plus ret 4 plus returns this.
 #include <vector>
+#define BFME_SNAPSHOT_NAME_SLOT
+#include "../../../../reference/shims/moduledata/Common/Snapshot.h"
+#include "../../../Libraries/Include/Lib/Coord2D.h"
+
+struct Rva00538E43Coord : Coord2D
+{
+	Rva00538E43Coord() { x = 0; y = 0; }
+	Rva00538E43Coord(const Rva00538E43Coord &other)
+		{ x = other.x; y = other.y; }
+};
 
 struct BfmeE16
 {
@@ -13,10 +23,18 @@ struct BfmeE16
 	float w;
 };
 
-class Rva00318B5C
+class Rva00318B5C : public Snapshot
 {
-	public:
-	char m_body[0x10];
+public:
+	Rva00318B5C() { command = -1; }
+	Rva00318B5C(const Rva00318B5C &other)
+		: coordinate(other.coordinate) { command = other.command; }
+	virtual ~Rva00318B5C() {}
+	virtual void loadPostProcess() {}
+	virtual const char *GetSnapshotName() const;
+	virtual void xfer(Xfer *);
+	Rva00538E43Coord coordinate;
+	int command;
 };
 
 struct Rva00319F5A
@@ -43,7 +61,24 @@ struct Rva00538E22
 	void rva00538ED1(int value);
 	void rva00538F10(const _STL::vector<BfmeE16> &source, int value);
 	void rva00538D3B(int value);
+	Rva00318B5C rva00538E43();
 };
+
+// WorldBuilder names LivingWorldArmyMoveQueue::PopFront. Native 538E43
+// returns a 16-byte ArmyMoveCommand through the hidden result argument.
+// The shared vtable 80C7D0 has the canonical Snapshot deleting destructor,
+// empty post-load, ArmyMoveCommand name getter and xfer slots. The target
+// copies two floats and a command word before erasing the first record.
+Rva00318B5C Rva00538E22::rva00538E43()
+{
+	if (m_vec.empty())
+		return Rva00318B5C();
+	_STL::vector<Elem003AF9E0> &records =
+		*reinterpret_cast<_STL::vector<Elem003AF9E0> *>(&m_vec);
+	Rva00318B5C result = *reinterpret_cast<Rva00318B5C *>(records.begin());
+	records.erase(records.begin());
+	return result;
+}
 
 Rva00538E22::Rva00538E22(int v) : m_vec(), m_val(v)
 {

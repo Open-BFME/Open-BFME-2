@@ -1,0 +1,45 @@
+{
+  "id": "D-army-queue-pop-538e43-20261009T2320",
+  "seat": "D",
+  "base_commit": "39907989332c884ac74a647b20019615027220eb",
+  "paths": [
+    "Code/GameEngine/Source/Common/Rva00538E22Ctor.cpp"
+  ],
+  "recoveries": [
+    {
+      "name": "?rva00538E43@Rva00538E22@@QAE?AVRva00318B5C@@XZ",
+      "rva": "0x00538E43",
+      "size": 142,
+      "source": "Code/GameEngine/Source/Common/Rva00538E22Ctor.cpp",
+      "notes": "WB LivingWorldArmyMoveQueue::PopFront; native hidden16-byte ArmyMoveCommand return; existing Rva00318B5C vtable80C7D0; canonical Snapshot base and embedded two-float coordinate; erase538DEA; complete142B exact",
+      "replace_rva": ""
+    }
+  ],
+  "proof_command": [
+    [
+      "C:\\Users\\franz\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+      "tools/explain_mismatch.py",
+      "?rva00538E43@Rva00538E22@@QAE?AVRva00318B5C@@XZ",
+      "--rva",
+      "0x00538E43",
+      "--size",
+      "142",
+      "--source",
+      "Code/GameEngine/Source/Common/Rva00538E22Ctor.cpp"
+    ],
+    [
+      "C:\\Users\\franz\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+      "tools/build.py",
+      "Code/GameEngine/Source/Common/Rva00538E22Ctor.cpp"
+    ]
+  ],
+  "proof_log": "proof.log",
+  "claim_owner": "codex-01a12257-root",
+  "dependencies": [],
+  "temporary_ledger": false,
+  "integration_requirements": [
+    "Normal EH and identity gates must pass",
+    "Reconcile record virtual provider declarations if required; do not bypass or invent aliases"
+  ],
+  "link_status": "not-proven"
+}
