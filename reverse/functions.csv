@@ -12467,7 +12467,7 @@ _Rva009C2620Vp6FilterDiag4,,0x001D2F20,776,Code/GameEngine/Source/Common/BfmeCon
 ?bfmeAllocABD@BfmeHostABD@@QAEHPBDPAX11@Z,,0x00666F40,149,Code/GameEngine/Source/Common/BfmeHostABD_bfmeAllocABD.cpp,matched,BFME1 byte-identical donor; callees resolve via ledger
 ?insert@Rva00889BF0Context@@QAEXIPAX0@Z,,0x00038CC0,160,Code/Libraries/Source/WWVegas/WWDebug/Rva00889BF0EntryInsert.cpp,matched,BFME1 byte-identical donor; DebugReAllocMemory rowed
 ?go@Rva00802A90Owner@@QAE_NPAURva00802A90Query@@HH@Z,,0x0066EBC0,160,Code/GameEngine/Source/GameNetwork/Rva00802A90FeslBrowserQuery.cpp,matched,BFME1 byte-identical donor; notify pin added
-?bfmeSetZH@BfmeObjZH@@QAEXPBUBfmeVecZH@@PBVBFMERetailAsciiString@@@Z,,0x006BFB20,165,Code/GameEngine/Source/Common/BfmeObjZHSetZH.cpp,matched,BFME1 byte-identical donor; StringBase-ctor and overflow pins added
+?bfmeSetZH@BfmeObjZH@@QAEXPBUBfmeVecZH@@PBVAsciiString@@@Z,,0x006BFB20,165,Code/GameEngine/Source/Common/BfmeObjZHSetZH.cpp,matched,BFME1 byte-identical donor; StringBase-ctor and overflow pins added
 ?resize@BfmeVec60@@QAEXIUBfmeElem60@@@Z,,0x006BFCB0,118,Code/GameEngine/Source/Common/Rva00880260Resize.cpp,matched,BFME1 byte-identical donor; erase release insert pins added
 ??0_bstr_t@@QAE@PBD@Z,,0x00176CD0,129,Code/GameEngine/Source/GameNetwork/WOLBrowser/Bstr_t_ctor.cpp,matched,BFME1 byte-identical donor; COM helper pins added
 ?bfmeRFindV41@@YGHPADII@Z,,0x00027740,240,Code/GameEngine/Source/Common/BfmeConv1483.cpp,matched,BFME1 byte-identical donor

@@ -1,57 +1,20 @@
-// ?bfmeSetZH@BfmeObjZH@@QAEXPBUBfmeVecZH@@PBVBFMERetailAsciiString@@@Z
-// Retail stores a 16-byte ZH element in the vector at +0x38.
-
+// cl: /Ireference/shims/bfme2_ascii
 #include <string.h>
+#define BFME_ASCII_DTOR_DECL
+#include "ascii_string.h"
+inline void *operator new(unsigned int, void *where) { return where; }
 
-inline void *operator new(unsigned int, void *where)
-{
-	return where;
-}
-
-class BFMERetailAsciiString
-{
-public:
-	BFMERetailAsciiString(const char *text) throw();
-	void releaseBuffer() throw();
-	void *m_data;
-};
-
-class BfmeObjZH;
-struct BfmeElemCD;
-
-template <typename T> class StringBase
-{
-public:
-	StringBase() : m_data(0) {}
-	void set(const StringBase &other);
-	void set(const T *text, int length);
-
-private:
-	void releaseBuffer();
-	friend struct BfmeElemCD;
-	friend class BfmeObjZH;
-
-private:
-	void *m_data;
-private:
-	StringBase(const StringBase &other);
-	friend class BFMERetailAsciiString;
-	friend class BfmeElemCD;
-	friend class BfmeFalseCD;
-	friend class BfmeObjZH;
-	friend class BfmeVecCD;
-	friend class BfmeVecZH;
-};
-
-// LINK-COMDAT: StringBase<char> default ctor kept as /O1 (and [eax],0) from
-// ModuleDataCtor.cpp; this TU needs default flags for its bfmeSetZH row, which
-// inlines the ctor as mov. Specialize only the member under "s" so our emitted
-// copy matches the kept one while inlined uses keep default flags.
-#pragma optimize("s", on)
-template<> StringBase<char>::StringBase() : m_data(0) {}
-#pragma optimize("", on)
-
-
+// Native 006BFB20..006BFBC5 stores a 16-byte element in the vector at +38.
+// Its three scalar words and the string at +0C are copied separately;
+// the temporary string is released only on the normal exit, with no EH
+// cleanup. Keep that explicit lifetime using the shared AsciiString contract.
+// clear() is its existing canonical releaseBuffer36410 contract. The normal
+// exit releases the buffer before ending this manually constructed storage;
+// a declared destructor keeps the native deleting-dtor COMDAT contract.
+// BfmeObjZH/BfmeElemCD remain the existing opaque donor views, not recovered
+// original target class names. BFME1 ee4ca97eb0ae removed this same family
+// of private StringBase aliases; its canonical dependency is reconciled here
+// against the verified BFME2 providers, not adopted as an address/name proof.
 struct BfmeVecZH
 {
 	float x;
@@ -68,7 +31,8 @@ struct BfmeElemCD
 	float x;
 	float y;
 	float z;
-	StringBase<char> name;
+	// Aligned storage for the explicitly constructed canonical string.
+	unsigned int nameStorage;
 };
 
 class BfmeVecCD
@@ -88,7 +52,7 @@ class BfmeObjZH
 {
 public:
 	void bfmeSetZH(const BfmeVecZH *value,
-		const BFMERetailAsciiString *name);
+		const AsciiString *name);
 
 private:
 	unsigned char m_pad[0x38];
@@ -98,22 +62,28 @@ private:
 };
 
 void BfmeObjZH::bfmeSetZH(const BfmeVecZH *value,
-	const BFMERetailAsciiString *name)
+	const AsciiString *name)
 {
 	BfmeElemCD local;
+	AsciiString &localName = *new (&local.nameStorage) AsciiString;
 	BfmeObjZH *owner = this;
 	volatile const BfmeVecZH *vector = value;
 	local.x = vector->x;
 	local.y = vector->y;
 	local.z = vector->z;
-	local.name.set(reinterpret_cast<const StringBase<char> &>(*name));
+	localName = *name;
 
 	BfmeVecCD *values = &owner->m_values;
 	BfmeElemCD *position = values->m_finish;
 	if (position != values->m_end)
 	{
 		if (position != 0)
-			new (position) BfmeElemCD(local);
+		{
+			position->x = local.x;
+			position->y = local.y;
+			position->z = local.z;
+			reinterpret_cast<AsciiString *>(&position->nameStorage)->AsciiString::AsciiString(localName);
+		}
 		++values->m_finish;
 	}
 	else
@@ -122,7 +92,7 @@ void BfmeObjZH::bfmeSetZH(const BfmeVecZH *value,
 		values->overflow(position, local, tag, 1, true);
 	}
 
-	local.name.releaseBuffer();
+	localName.clear();
 }
 
 class INI
@@ -146,7 +116,8 @@ void bfmeApplyEB(BfmeObjEB *object);
 // scratch string, so release it explicitly on the normal exit.
 void Rva006BFBD0Parse(INI *ini, void *, void *store, const void *)
 {
-	BFMERetailAsciiString name("");
+	unsigned int nameStorage;
+	AsciiString &name = *new (&nameStorage) AsciiString("");
 	BfmeVecZH value;
 	value.x = ini->scanReal(ini->getNextSubToken("X"));
 	value.y = ini->scanReal(ini->getNextSubToken("Y"));
@@ -154,12 +125,12 @@ void Rva006BFBD0Parse(INI *ini, void *, void *store, const void *)
 
 	const char *token = ini->getNextTokenOrNull(0);
 	if (token != 0)
-		((StringBase<char> *)&name)->set(token, strlen(token));
+		reinterpret_cast<StringBase<char> *>(&name)->set(token, (int)strlen(token));
 
 	BfmeObjZH *object = (BfmeObjZH *)store;
 	object->bfmeSetZH(&value, &name);
 	if (object->m_maximum.z < value.z)
 		object->m_maximum = value;
 	bfmeApplyEB((BfmeObjEB *)object);
-	name.releaseBuffer();
+	name.clear();
 }
