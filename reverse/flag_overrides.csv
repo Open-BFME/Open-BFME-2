@@ -262,7 +262,6 @@ Code/GameEngine/Source/Common/Rva0087F9C0Flag.cpp,-O2 -G6,1,1,region default los
 Code/GameEngine/Source/Common/Rva0087FA50UpdateFlags.cpp,-O2 -G6,1,1,region default loses rows
 Code/GameEngine/Source/Common/Rva00880D10CircleBoxTest.cpp,,2,2,region default loses rows
 Code/GameEngine/Source/Common/Rva00880D90SphereOverlap.cpp,,1,1,region default loses rows
-Code/GameEngine/Source/Common/Rva009F40E0Recursive.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/Common/Rva009F4130WideQuery.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/Common/Rva009F66F0.cpp,-O2,2,1,region default loses rows
 Code/GameEngine/Source/Common/Rva00E08D3CString.cpp,-G7 -arch:SSE,2,1,region default loses rows
@@ -728,6 +727,7 @@ Code/Libraries/Source/assetmanager/Q1ReceiverDrain.cpp,-O2 -G6 -arch:SSE,1,1,reg
 Code/Libraries/Source/assetmanager/Rva0061FFA0.cpp,-O2 -G6,3,1,region default loses rows
 Code/Libraries/Source/assetmanager/Rva0061FFD0Cluster.cpp,,1,1,region default loses rows
 Code/Libraries/Source/assetmanager/assetmanager_impl.cpp,,17,6,region default loses rows
+Code/Libraries/Source/partitionmanager/partitionmanager_impl.cpp,-O2 -G6,2,2,region default loses rows
 Code/Libraries/Source/profile/profile.cpp,,12,1,region default loses rows
 Code/Libraries/Source/profile/profile_highlevel.cpp,,17,2,region default loses rows
 Code/stlport/BasicStringNarrowSizeCtor.cpp,-Od,1,1,region default loses rows
