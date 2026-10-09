@@ -1,4 +1,5 @@
-// cl: /O1 /EHsc /MD /arch:SSE
+// cl: /O1 /G7 /EHsc /MD /arch:SSE /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
+// stlport
 // LivingWorldPlayer.cpp -- LivingWorldPlayer members recovered from
 // WorldBuilder leads (reverse/wb_name_leads.csv): WB's debug build names the
 // function; retail supplies the bytes. The player's queued command points at
@@ -12,21 +13,22 @@
 
 typedef int Int;
 
+#include <vector>
+
 namespace _STL
 {
-	template <class T> class allocator {};
-
-	template <class T, class A = allocator<T> > class vector
-	{
-	public:
-		T *erase(T *position);		// 0x001FF51F
-
-	private:
-		T *m_start;
-		T *m_finish;
-		T *m_endOfStorage;
-	};
+	// Keep the already verified pointer-vector erase provider out of line.
+	template <> void **vector<void *>::erase(void **position);
 }
+
+// Native2E12F3..2E134C and WBDE4FC0 prove the216-byte stride and
+// the key atAC. The remaining fields and the original method name are unknown.
+struct LivingWorldPlayerRecordView
+{
+	char unknown00[0xAC];
+	int key;
+	char unknownB0[0xD8 - 0xB0];
+};
 
 struct LivingWorldArmy
 {
@@ -55,9 +57,12 @@ public:
 
 	void OnUnitDequeued(Rva00319CED *unit);
 	void **RemoveArmy(void **&iter);
+	bool rva002E12F3(int key);
 
 private:
-	unsigned char m_pad000[0x1b8];
+	unsigned char m_pad000[0x1a8];
+	_STL::vector<LivingWorldPlayerRecordView> m_records;
+	unsigned char m_pad1B4[4];
 	ArmyVec m_armyVec;			// +0x1B8
 	unsigned char m_pad1C4[0x298 - 0x1c4];
 	Int m_queuedCommandPoints;		// +0x298
@@ -76,4 +81,16 @@ void **LivingWorldPlayer::RemoveArmy(void **&iter)
 {
 	TheGameLogic->rva0023D007(((LivingWorldArmy *)*iter)->m_id);
 	return m_armyVec.erase(iter);
+}
+
+// Full89-byte RET4 body, with no relocations. The unsigned loop index and
+// STLport size calculation retain retail's signed pointer-range division.
+bool LivingWorldPlayer::rva002E12F3(int key)
+{
+	for (unsigned int i = 0; i < m_records.size(); ++i)
+	{
+		if (m_records[i].key == key)
+			return true;
+	}
+	return false;
 }
