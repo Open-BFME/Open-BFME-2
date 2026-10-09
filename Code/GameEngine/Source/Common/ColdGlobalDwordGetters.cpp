@@ -517,7 +517,11 @@ public:
  virtual void slot16();
  virtual void update();
 };
-extern TerrainVisual *TheTerrainVisual;
+// Retail 0x0027CE71 loads VA 0x00DFF080 then calls vslot +0x44.
+// Use the existing storage owner; TheTerrainVisual in other units denotes
+// the distinct campaign-manager global at VA 0x00DFDC8C.
+class G00DFF080Obj;
+extern G00DFF080Obj *g_00DFF080;
 class Rva0027CD63 {
 public:
  void rva0027CD63();
@@ -578,5 +582,5 @@ void Rva0027CD63::rva0027CD63( void )
 			}
 		}
 	}
-	TheTerrainVisual->update();
+	reinterpret_cast<TerrainVisual *>(g_00DFF080)->update();
 }
