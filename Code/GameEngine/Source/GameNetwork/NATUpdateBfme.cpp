@@ -23,7 +23,7 @@ bool g_natTransportContextEnabled=false;unsigned g_natStatsWaitStartTick=0;
 struct Rva005A7A96Pair{void *opaque00;unsigned short first,second;};
 struct Rva005A7172:public _STL::vector<int>{~Rva005A7172();};
 class PortNegotiationSchema{public:char pad00[0x18];int state[81];char pad15c[0x738-0x15c];unsigned timeout[8][8];unsigned short tries[8][8];bool rva005DBA9C(bool);bool rva005DBA60(unsigned short);bool rva005DC586(_STL::vector<Rva005A7A96Pair>*);};
-class NAT{public:bool rva005A6709();void rva005A7C9C();void rva005A6CA5();void sendPings();void processUDPPacket();int rva005A879B();void processManglerResponse(unsigned short);bool SetUDPSocketForSlot(unsigned short,unsigned short,void*);void notifyConnectionToTargetFailed();void rva005A74D8();void rva005A7829(int);void rva005A6C90(int);void rva005A831E();void rva005A7974(unsigned short,void*);static unsigned s_probeRetryInterval;static int s_manglerMaxRetryCount;void rva005A7A96(const _STL::vector<Rva005A7A96Pair>*);};
+class NAT{public:void findMyMangledPort();bool rva005A6709();void rva005A7C9C();void rva005A6CA5();void sendPings();void processUDPPacket();int rva005A879B();void processManglerResponse(unsigned short);bool SetUDPSocketForSlot(unsigned short,unsigned short,void*);void notifyConnectionToTargetFailed();void rva005A74D8();void rva005A7829(int);void rva005A6C90(int);void rva005A831E();void rva005A7974(unsigned short,void*);static unsigned s_probeRetryInterval;static int s_manglerMaxRetryCount;void rva005A7A96(const _STL::vector<Rva005A7A96Pair>*);};
 class Rva005A6732{public:bool rva005A6732()const;};
 class Rva005A6D47 {public:void *vptr;Transport *transport;GameSpyGameSlot **slots;int host,state,local;char pad18[0x10];PortNegotiationSchema schema;int rva005A8F57();};
 int Rva005A6D47::rva005A8F57(){
@@ -66,7 +66,7 @@ bool PortNegotiationSchema::rva005DC586(_STL::vector<Rva005A7A96Pair>*pairs){
 __declspec(noinline) bool PortNegotiationSchema::rva005DBA60(unsigned short x){if(x<8){for(int i=0;i<8;++i){if(i!=x&&state[i+x*8]==2)return true;if(state[x+i*8]==2)return true;}}return false;}
 
 struct Rva005A684FWord{unsigned m_00;unsigned short m_04;};class Rva005A684F{public:unsigned get(unsigned)const;char pad[0x90c];Rva005A684FWord *m_slots[8];};
-class Rva00594E07{public:unsigned short rva00594E07(unsigned short,int);};class Rva0059534A{public:void rva0059534A(unsigned short);};class Rva0059517F{public:bool rva0059517F(unsigned long,unsigned short,unsigned short,unsigned short,bool);};class FirewallHelperClass{public:void flagNeedToRefresh(bool);};
+class Rva00594E07{public:unsigned short rva00594E07(unsigned short,int);};class Rva0059534A{public:void rva0059534A(unsigned short);};class Rva0059517F{public:bool rva0059517F(unsigned long,unsigned short,unsigned short,unsigned short,bool);};class FirewallHelperClass{public:static void getManglerName(int,char*);void flagNeedToRefresh(bool);};
 extern unsigned long g_00DD35BC;int NAT::s_manglerMaxRetryCount=25;
 struct NatConnectionView{char pad00[8];GameSpyGameSlot **slots;int host,parentState;int local,target;unsigned localIP,cookie;bool sendPort,receivedPort;char pad26[0x92c-0x26];int retries,maxRetries;unsigned short packetID,spareSocket;unsigned manglerRetryTime;int manglerRetries;unsigned short previousSource;bool beenProbed,unknown943;unsigned manglerAddress,nextSendTime;int connectionState,previousState;char pad954[8];unsigned nextPortSendTime,timeoutTime,roundTimeout;};
 // BF1 f98983a7d NAT_connectionUpdate.cpp supplies mangler retry/port/probe
@@ -170,4 +170,55 @@ void NAT::rva005A7829(int hostIndex){
  NatConnectionView*v=(NatConnectionView*)this;GameSpyGameSlot*local=v->slots[v->local];GameSpyGameSlot*host=v->slots[v->host];if(!local||!host)return;
  BfmeOpaqueOwnedRecord492 request;AsciiString options,name;name.translate(*(UnicodeString*)((char*)local+0x30));options.format("NATINITED%d %d %s",v->local,hostIndex,name.str());request.unknown_00=13;request.payload_flag0.value=true;request.unknown_34="NAT";
  AsciiString hostName;hostName.translate(*(UnicodeString*)((char*)v->slots[v->host]+0x30));request.unknown_04=hostName.str();request.unknown_40=options.str();TheGameSpyPeerMessageQueue->addRequest(request);
+}
+
+extern "C" __declspec(dllimport) unsigned long __stdcall htonl(unsigned long);
+struct hostent { char *name; char **aliases; short addrtype,length; char **addr_list; };
+extern "C" __declspec(dllimport) hostent *__stdcall gethostbyname(const char *);
+struct UDPBindValues { unsigned long address; unsigned short port; };
+// BF1 NAT.cpp at9cbfb551 supplies the mangled-source-port semantic lead.
+// Target WB14DD120 names findMyMangledPort and retail5A8405..5A854C
+// proves all327B, slot flags40, source/target14/18 and UDP retry loops.
+// WB reloads the local slot after the target guard; preserve both lookups
+// so the compiler keeps retail's local-slot null test. The eight-byte
+// endpoint object is shared with the verified socket binder.
+void NAT::findMyMangledPort() {
+ NatConnectionView *v=(NatConnectionView*)this;
+ unsigned int sourcePort=((const Rva005A684F *)this)->get(v->local);
+ unsigned int flags=*(unsigned*)((char*)v->slots[v->local]+0x40);
+ GameSpyGameSlot *targetSlot=v->slots[v->target];
+ if (!targetSlot) { rva005A6C90(5); return; }
+ GameSpyGameSlot *localSlot=v->slots[v->local];
+ if (!localSlot) { rva005A6C90(5); return; }
+ rva005A6C90(2);
+ if (((Rva005A684F*)this)->m_slots[v->target]->m_00 == ((Rva005A684F*)this)->m_slots[v->local]->m_00) {
+  for (;;) {
+   UDPBindValues values;
+   values.address=0; values.port=0;
+   if (SetUDPSocketForSlot(sourcePort,(unsigned short)v->target,(int *)&values)) break;
+   ++sourcePort;
+  }
+  rva005A7974((unsigned short)sourcePort,targetSlot);
+  return;
+ }
+ if (flags && !(flags&1)) {
+  char name[256];
+  FirewallHelperClass::getManglerName(1,name);
+  hostent *host=gethostbyname(name);
+  if (!host) { rva005A7974((unsigned short)sourcePort,targetSlot); return; }
+  memcpy(&v->manglerAddress,host->addr_list[0],4);
+  v->manglerAddress=htonl(v->manglerAddress);
+  v->manglerRetryTime=timeGetTime()+g_00DD35BC;
+  v->manglerRetries=0;
+  if(g_a063b0) ((Rva005A6A83 *)this)->rva005A6A83();
+ } else {
+  for (;;) {
+   UDPBindValues values;
+   values.address=0; values.port=0;
+   if (SetUDPSocketForSlot(sourcePort,(unsigned short)v->target,(int *)&values)) break;
+   ++sourcePort;
+  }
+  rva005A7974((unsigned short)sourcePort,targetSlot);
+  v->previousSource=(unsigned short)sourcePort;
+ }
 }
