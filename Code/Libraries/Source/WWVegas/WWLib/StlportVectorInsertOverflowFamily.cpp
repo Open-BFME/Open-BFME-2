@@ -98,7 +98,7 @@ struct Rva005E2B0EElement { char m_pad[4]; public: Rva005E2B0EElement(const Rva0
 // 36-byte element; push_back 0x005EB44A.
 struct GeometryShape { char m_pad[36]; public: GeometryShape(const GeometryShape &); ~GeometryShape(); };
 // 4-byte element; push_back 0x005EFD53.
-struct Rva005EFD53Element { char m_pad[4]; public: Rva005EFD53Element(const Rva005EFD53Element &); ~Rva005EFD53Element(); };
+#include "../../../../GameEngine/Source/Common/RegionIconSlotReferenceView.h"
 // 4-byte element; push_back 0x005F13E6.
 struct Rva005F13E6Element { char m_pad[4]; public: Rva005F13E6Element(const Rva005F13E6Element &); ~Rva005F13E6Element(); };
 // 4-byte element; push_back 0x005FA197.

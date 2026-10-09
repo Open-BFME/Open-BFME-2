@@ -1,4 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /MD /EHsc
+// stlport
 // Apt panel state toggles: each calls the panel's Apt function through the
 // rowed Rva005FB5E6AptCall wrapper. The arguments are TheRva00222A8BTarget,
 // the panel's level and name fields, the function and "_show" or "_hide".
@@ -97,30 +98,7 @@ void StrategicHUD::ChecklistUIImpl::DoHideTimeRemaining()
 	}
 }
 
-namespace StrategicHUD {
-class RegionDetailsArmiesMovieClip
-{
-public:
-	class Impl;
-};
-}
-
-class StrategicHUD::RegionDetailsArmiesMovieClip::Impl
-{
-public:
-	void ShowCommandPoints(int a, int b);
-	void HideCommandPoints();
-	void Update();
-private:
-	unsigned int m_level;		// +0x00
-	StringBase<char> m_name;	// +0x04
-	char m_pad08[0x2C];
-	int m_a;					// +0x34
-	int m_b;					// +0x38
-	char m_pad3C;
-	bool m_shown;				// +0x3D
-	bool m_3E;					// +0x3E
-};
+#include "RegionDetailsArmiesClipImplView.h"
 
 void StrategicHUD::RegionDetailsArmiesMovieClip::Impl::ShowCommandPoints(int a, int b)
 {

@@ -7,20 +7,7 @@
 // as Rva004F6352AllocateCopy.cpp. Prior ObjectID pin at this RVA was a false
 // identity: ObjectID emits the 31B trivial copy, retail calls the 38B ctor copy.
 
-struct Rva005EFD53Shared
-{
-	char m_pad[8];
-	long m_refs;
-};
-
-struct Rva005EFD53Element
-{
-	Rva005EFD53Shared *m_ptr;
-
-public:
-	Rva005EFD53Element(const Rva005EFD53Element &that);
-	~Rva005EFD53Element();
-};
+#include "RegionIconSlotReferenceView.h"
 
 namespace _STL
 {
@@ -97,5 +84,5 @@ void _STL::_Construct<Rva005EFD53Element, Rva005EFD53Element>(Rva005EFD53Element
 		return;
 	p->m_ptr = x.m_ptr;
 	if (p->m_ptr)
-		++p->m_ptr->m_refs;
+		++p->m_ptr->m_refCount;
 }

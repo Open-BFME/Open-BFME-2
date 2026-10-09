@@ -11,21 +11,7 @@
 // target names stay address-derived.
 #include <memory>
 
-struct Rva005EFD53Target
-{
-	int m_pad[2];
-	int m_refCount; // +0x08
-};
-
-struct Rva005EFD53Element
-{
-	Rva005EFD53Element(const Rva005EFD53Element &other) : m_ptr(other.m_ptr)
-	{
-		if (m_ptr)
-			++m_ptr->m_refCount;
-	}
-	Rva005EFD53Target *m_ptr;
-};
+#include "RegionIconSlotReferenceView.h"
 
 namespace _STL
 {

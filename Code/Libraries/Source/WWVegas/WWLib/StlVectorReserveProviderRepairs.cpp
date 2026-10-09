@@ -9,7 +9,7 @@
 // ReserveAccess exposes protected helpers without changing their mangling.
 // This is an identity/dependency repair, not additional recovered bytes.
 struct Rva002B9062Element { char data[4]; };
-struct Rva005EFD53Element { char data[4]; };
+#include "../../../../GameEngine/Source/Common/RegionIconSlotReferenceView.h"
 struct Rva005334A4Element { char data[4]; };
 class ProductionPrerequisite { public: struct PrereqUnitRec { char data[12]; }; };
 namespace _STL {

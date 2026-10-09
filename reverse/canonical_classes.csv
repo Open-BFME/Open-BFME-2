@@ -85,3 +85,6 @@ Rva0020F27EHost,Code/GameEngine/Source/Common/RegionCenterPointDispatchView.h,na
 Rva005EEF2F,Code/GameEngine/Source/Common/RegionArmyIconSlotView.h,native64B icon slot proven by ctor5EF669 factory5EFE87 callbacksEEE74/EEEA8/EEEBE and dtorEEF2F same two vtables
 ScoredKillTracker,Code/GameEngine/Source/Common/ScoredKillTrackerView.h,native110B ctor134B copy and78B dtor with four table83A08C slots establish44B layout; ctor and all existing providers adopt and byte-verify; scalar0C meaning unknown
 ScoredKillEvaAnnouncer,Code/GameEngine/Source/Common/ScoredKillEvaAnnouncerView.h,native247B update and134B transfer share48B consumed prefix and four table83A09C slots; original slots0..2 names and full extent unasserted
+Rva005EFD53Element,Code/GameEngine/Source/Common/RegionIconSlotReferenceView.h,four-byte owning reference with count08 proven by Construct5F09FF and factory5EFE87; reconciles six provider views
+Rva005EFDE9Element,Code/GameEngine/Source/Common/RegionIconSlotResizeView.h,four-byte value-fill ABI retained by resize5EFDE9 and null-wrapper5EFE6E
+StrategicHUD::RegionDetailsArmiesMovieClip::Impl,Code/GameEngine/Source/Common/RegionDetailsArmiesClipImplView.h,shared clip fields proven by slot-count5EFE87 show/hide name and command points; opaque08..23 preserved

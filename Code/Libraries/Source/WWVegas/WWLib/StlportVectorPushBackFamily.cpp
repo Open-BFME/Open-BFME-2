@@ -150,7 +150,7 @@ struct Rva005E1E9BElement { int a[1]; };
 struct Rva005E71C6Ref { int a[1]; };
 struct Rva005E2B0EElement { int a[1]; };
 struct GeometryShape { int a[9]; };
-struct Rva005EFD53Element { int a[1]; };
+#include "../../../../GameEngine/Source/Common/RegionIconSlotReferenceView.h"
 struct Rva005F13E6Element { int a[1]; };
 struct Rva005FA197Element { int a[1]; };
 struct Rva005FA1CEElement { int a[1]; };

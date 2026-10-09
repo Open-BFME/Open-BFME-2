@@ -128,7 +128,7 @@ class Rva005EEE74Listener {
 };
 // Borrowed prefix reached by constructor only; no complete outer layout claimed.
 struct RegionSlotOwnerView { unsigned level; AsciiString name; };
-namespace StrategicHUD { class RegionDetailsArmiesMovieClip { public: class Impl; }; }
+#include "RegionDetailsArmiesClipOwnerFwd.h"
 class Rva005EEF2F : public Rva005EEF2FBase0,public Rva005EEF2FBase4 {
  public: Rva005EEF2F(StrategicHUD::RegionDetailsArmiesMovieClip::Impl *,int);
  void OnIconSlotClicked(const char *); void OnIconSlotRollOver(const char *); void OnIconSlotRollOut(const char *);

@@ -4,13 +4,7 @@
 // so no local _Construct definition can inline into this loop. Element
 // stride is 4 via the dummy body below; _Construct is declared only
 // and resolves through the pin at 0x005F09FF. Unblocks 0x005EF4A5.
-struct Rva005EFD53Element
-{
-	char _m[4];
-
-public:
-	Rva005EFD53Element(const Rva005EFD53Element &that);
-};
+#include "RegionIconSlotReferenceView.h"
 
 namespace _STL
 {
