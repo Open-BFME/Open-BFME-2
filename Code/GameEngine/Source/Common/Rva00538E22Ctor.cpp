@@ -67,7 +67,7 @@ struct Rva00538E43Result : Snapshot
 {
 	Rva00538E43Pair position;
 	int tag;
-	Rva00538E43Result() : position(), tag(-1) {}
+	Rva00538E43Result();
 	Rva00538E43Result(const Rva00318E4ACoord &point, int value);
 	Rva00538E43Result(const Rva00538E43Result &that) : Snapshot(that), position(that.position), tag(that.tag) {}
 	virtual ~Rva00538E43Result() {}
@@ -222,8 +222,8 @@ private:
 void Rva003FE1DBOwner::rva003FE1DB()
 {
  if (m_queue.hasRecords()) {
-  Rva00538E43Result front = m_queue.rva00538E43();
-  memcpy(&m_position, &front.position, sizeof(m_position));
+  Rva00318B5C front = m_queue.rva00538E43();
+  memcpy(&m_position, &front.coordinate, sizeof(m_position));
  } else {
   m_active = 0;
  }
@@ -285,3 +285,7 @@ void LivingWorldArmyIcon::continueMoving(Coord2D *out)
 	if (d.length() < 1.0f)
 		((Rva003FE1DBOwner *)this)->rva003FE1DB();
 }
+
+// Retain the independently verified default constructor after the queue pop
+// was reconciled to the upstream record view.
+Rva00538E43Result::Rva00538E43Result() : position(), tag(-1) {}
