@@ -1,7 +1,10 @@
 // cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common/System
 // A small parser binding built as a virtual base plus three derived fields.
-// Keeping the base constructor inline reproduces retail's two vtable stores
-// around the parser-registration call.
+// The derived constructor calls the base constructor out of line, and retail
+// lands that call on the rowed DataChunkParser constructor at 0x000ABB87, so
+// the base constructor is declared here, not given an inline body: an inline
+// body made this unit emit the only tree copy of the name, which every other
+// caller then bound to instead of that row.
 // Parameter types (identity_evidence/parser_binding_ctor_001920c0.md): the
 // retail caller 0x0019B030 passes a by-value 8-byte SidesList member callback,
 // and binding vtable 0x0109BFD4 is the one the SidesList loaders 0x0019EC80
@@ -27,12 +30,7 @@ class BfmeParserBindingBaseVE
 {
 public:
 	BfmeParserBindingBaseVE(BfmeParserRegistryVE *registry,
-		void *label, void *parentLabel)
-		: m_registry(registry)
-	{
-		m_token = registry->bfmeRegister(
-			label, parentLabel, bfmeChunkParserVE, this);
-	}
+		void *label, void *parentLabel);
 
 	virtual void bfmeSlot0(void);
 	virtual void bfmeSlot1(void);
