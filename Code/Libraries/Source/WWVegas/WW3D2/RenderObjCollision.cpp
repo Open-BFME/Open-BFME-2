@@ -81,3 +81,7 @@ void RenderObjClass::Update_Sub_Object_Bits(void)
 		Container->Update_Sub_Object_Bits();
 	}
 }
+
+// This ordinary member-address datum only emits the existing inline method.
+// It is absent from retail; neither the datum nor any invented caller is rowed.
+void (RenderObjClass::*bfmeRenderObjLodMember)(int) = &RenderObjClass::Set_Sub_Objects_Match_LOD;
