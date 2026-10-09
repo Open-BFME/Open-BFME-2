@@ -61,7 +61,7 @@
 ; fail the same way; the explicit type is what parses. EXTERN's own body is
 ; otherwise unaffected.
 
-EXTRN ?rva006C25F0@GeneralAllocatorDebug@@QAEPAXPAXHHHHPAX@Z:NEAR
+EXTRN ?rva006C25F0Run6@GeneralAllocatorDebug@@QAEPAXPAXHHHPAIH@Z:NEAR
 EXTRN ?rva00030E20Fill@@YAEPAXIE@Z:NEAR
 EXTRN ?rva006C2FB0Report@GeneralAllocatorDebug@@QAEXPBDPAX@Z:NEAR
 EXTRN ?rva006C30C0@GeneralAllocatorDebug@@QAEXPAX@Z:NEAR
@@ -83,15 +83,15 @@ public ?rva006C3180@GeneralAllocatorDebug@@QAEXPAUGeneralAllocatorDebugBlock@@@Z
     je      L_cleanup
 
     push    edi
-    push    0                                ; seventh stack arg
+    push    0                                ; sixth stack arg (mode)
     lea     eax, [esp + 14h]                ; &outLen: this frame's dead
-    push    eax                             ;   incoming-argument slot
-    push    0                                ; fifth stack arg
+    push    eax                             ;   incoming-argument slot, fifth arg
     push    0                                ; fourth stack arg
+    push    0                                ; third stack arg
     push    0Bh                              ; kind
     lea     edi, [ebp + 8]                  ; block + 8, the guard run origin
     push    edi
-    call    ?rva006C25F0@GeneralAllocatorDebug@@QAEPAXPAXHHHHPAX@Z
+    call    ?rva006C25F0Run6@GeneralAllocatorDebug@@QAEPAXPAXHHHPAIH@Z
     test    eax, eax
     je      L_pop_edi
 

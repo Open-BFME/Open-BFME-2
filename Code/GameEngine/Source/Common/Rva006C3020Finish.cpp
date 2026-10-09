@@ -56,11 +56,9 @@ public:
 	// therefore the FIFTH declared argument, and that is what puts its frame slot
 	// at [esp+0x18] for the read-back after the call.
 	//
-	// This is the SIX-argument call spelling, distinct from the seven-argument
-	// ?rva006C25F0 the rowed MASM sibling at 0x006C3180 uses: that body pushes a
-	// seventh zero ahead of the out length, so the two callers of this one builder
-	// genuinely pass different arities and need different names. Both are pinned at
-	// 0x006C25F0, and symbols.csv is additive per name, so both resolve.
+	// Both this caller and the MASM sibling at 0x006C3180 push six
+	// arguments. The now-rowed provider's native RET18 and argument accesses
+	// confirm this declaration; the old seven-argument claim was incorrect.
 	void *rva006C25F0Run6(void *runBlock, int kind, int zero3, int zero2,
 	                      unsigned int *outLen, int zero1);
 
