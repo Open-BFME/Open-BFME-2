@@ -1,6 +1,8 @@
 // ?rva00287552@FireLogicSystem@@QAEXPAURva00287C21Other@@H@Z
+// partial score=0.96 date=2026-10-09
+// ?rva00287552@FireLogicSystem@@QAEXPAURva00287C21Other@@H@Z
 // partial score=0.96 date=2026-10-08
-// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /GX /ICode/Libraries/Include
+// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /GX /ICode/Libraries/Include /I.
 //
 // FireLogicSystem's registration of a placed object (0x00286373): the id is
 // filed in the grid cell under its world position and the cell takes the
@@ -63,7 +65,7 @@ extern Rva00065964ObjectPool g_pool00286136;
 extern Rva00065964ObjectPool g_pool00286116;
 void Rva00286116Free(void *node);
 
-#include "../../Common/GameLogicObjectLookupView.h"
+#include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 
 class ThingTemplate;
@@ -237,7 +239,7 @@ public:
 private:
 	char m_pad[8];
 };
-#include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
+#include "reference/shims/moduledata/Common/Snapshot.h"
 
 // A material entry (0x18 bytes): the array constructor zeroes all six
 // dwords (0x00286297) and the destructor releases the string at +4
