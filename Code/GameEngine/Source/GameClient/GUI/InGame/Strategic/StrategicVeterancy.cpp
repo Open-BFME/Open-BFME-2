@@ -9,6 +9,7 @@
 
 #include "ascii_string.h"
 #include "unicode_string.h"
+extern "C" __declspec(dllimport) int __cdecl _snprintf(char *, unsigned int, const char *, ...);
 
 class Image;
 class Rva00524306
@@ -70,6 +71,7 @@ private:
 		Int m_numRows;					// +0x0C
 		void OnFadeOut(const char *path);
 		void OnContinue(const char *path);
+		void ExternFunc(int index, char *buffer, bool lvalue);
 	};
 
 	Impl *m_impl;						// +0x00
@@ -165,4 +167,12 @@ void StrategicVeterancy::Impl::OnFadeOut(const char *path)
 void StrategicVeterancy::Impl::OnContinue(const char *path)
 {
 	m_state = 5;
+}
+
+// Native5EC10A..5EC135, RET12. Constructor binding and WB15EA070
+// name this ExternFunc, serving StrategicVeterancy::NumRows.
+void StrategicVeterancy::Impl::ExternFunc(int index, char *buffer, bool lvalue)
+{
+	if (index == 0 && !lvalue)
+		_snprintf(buffer, 255, "%d", m_numRows);
 }
