@@ -170,6 +170,7 @@ public:
     virtual void rva005B2B6D(const char *);
     void rva000D1407(const char *, void *, GameWindow *);
     void rva005B314B(const char *);
+    void UpdateAvailablePowerIcons();
     void rva005B2703(const char *);
     void rva005B271E(const char *);
     void rva005B278D(const char *);
@@ -192,7 +193,7 @@ private:
 
 	std::map<AsciiString, Rva005B2E09Cell> m_powersNameMap;
 	std::vector<BfmePod16> m_groups; // target14..20
-	int m_groupCurrent; //20
+	Rva005B2E09Cell *m_groupCurrent; //20; selected cell pointer
 	int m_groupMax; //24
 	Rva005B2E09Cell *m_cells[10]; // +0x28; retail loop advances by four bytes
 	int m_numPowers;             // +0x50
@@ -566,4 +567,37 @@ AptCreateAHero::Powers::~Powers()
     _bfme_closeAptScreen(AsciiString("CahPowers::Powers::InitGadgets"));
     ((Rva00223A94 *)g_bfmeAptWindowManager)->rva00223A94(&AsciiString("Cah::CurSpellImage"));
     m_groupCurrent = 0;
+}
+
+class Rva004072D2 {public: bool rva004072D2(int);};
+// Native virtual slot2 C72F3C+8, 5B455D..5B4610; WB1574990.
+// The current selection is a cell pointer; 24 is the requested retained count.
+void AptCreateAHero::Powers::rva005B455D(bool active)
+{
+ if (!active) return;
+ if (m_groupCurrent) {
+   AddMyPower(m_groupCurrent,true);
+   m_groupCurrent=0;
+ } else if ((unsigned)m_groupMax < 10) {
+   while ((unsigned)m_numPowers > (unsigned)m_groupMax) {
+     --m_numPowers;
+     Rva005B2E09Cell *cell=m_cells[m_numPowers];
+     if (cell) {
+       cell->m_index0c=-1;
+       cell->m_powerIndex=-1;
+       cell->m_owned=false;
+       m_cells[m_numPowers]=0;
+       ((Rva004072D2*)&m_owner->m_hero)->rva004072D2(m_numPowers);
+       if (!FindPrereq(cell)) --m_numPalantir;
+     }
+   }
+   m_owner->m_hero.slot14();
+   ((Rva005B35E8*)this)->rva005B35E8();
+   m_groupMax=10;
+   m_changed=true;
+ }
+ if (m_changed) {
+   UpdateAvailablePowerIcons();
+   UpdatePalantirButtons();
+ }
 }
