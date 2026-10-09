@@ -22,10 +22,10 @@ void *BfmeThing937C::bfmeGo937C()
 	return m_bfmeP;
 }
 
-class BfmeSub937B
+class Rva0013107A
 {
 public:
-	void bfmeCall937B(void *r);
+	void PostLoad(const char *name);
 };
 
 class BfmeThing937B
@@ -34,18 +34,18 @@ public:
 	virtual void *bfmeVirt937B();
 	void bfmeGo937B();
 	char m_bfmePad[0x10];
-	BfmeSub937B *m_bfmeSub;
+	Rva0013107A *m_bfmeSub;
 };
 
 // ?bfmeGo937B@BfmeThing937B@@QAEXXZ, retail 0x00132129 (18B).
 //
 // Virtual slot 0 plus the +0x14 sub call (vptr + pad seat the member). The
-// callee resolves through the ledger pin at 0x00131E6E; the free-function
+// callee is the recovered texture PostLoad at 0x00131E6E; the free-function
 // twin name there is eliminated by the thiscall read of ecx.
 void BfmeThing937B::bfmeGo937B()
 {
 	void *r = bfmeVirt937B();
-	m_bfmeSub->bfmeCall937B(r);
+	m_bfmeSub->PostLoad(static_cast<const char *>(r));
 }
 
 // Retail's call sites in this unit's matched rows land on bodies rowed under

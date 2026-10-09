@@ -22,7 +22,7 @@ struct TextureCOM9 {
  virtual long __stdcall QueryInterface(const TextureGUID &,void**)=0;
  virtual unsigned long __stdcall AddRef()=0;
  virtual unsigned long __stdcall Release()=0;
- virtual void slot3()=0;virtual void slot4()=0;virtual void slot5()=0;virtual void slot6()=0;virtual void slot7()=0;virtual void slot8()=0;virtual void slot9()=0;virtual void slot10()=0;virtual void slot11()=0;virtual void slot12()=0;virtual void slot13()=0;virtual void slot14()=0;virtual void slot15()=0;virtual void slot16()=0;
+ virtual void slot3()=0;virtual void slot4()=0;virtual void slot5()=0;virtual void slot6()=0;virtual void slot7()=0;virtual void slot8()=0;virtual void slot9()=0;virtual void slot10()=0;virtual void slot11()=0;virtual void slot12()=0;virtual unsigned __stdcall GetLevelCount()=0;virtual void slot14()=0;virtual void slot15()=0;virtual void slot16()=0;
  virtual long __stdcall GetLevelDesc(unsigned,void*)=0;
  virtual long __stdcall GetVolumeLevel(unsigned,VolumeCOM9**)=0;
 };
@@ -30,9 +30,9 @@ extern "C" long __stdcall D3DXCreateVolumeTextureFromFileInMemoryEx(void*,const 
 extern "C" long __stdcall D3DXCreateCubeTextureFromFileInMemoryEx(void*,const void*,unsigned,unsigned,unsigned,unsigned,int,int,unsigned,unsigned,unsigned,void*,void*,TextureCOM9**);
 class Rva0013107A {
 public:
- void loadVolume();void loadCube();void loadVolumeSlices();
+ void loadImage();void PostLoad(const char *name);void loadVolume();void loadCube();void loadVolumeSlices();
 private:
- char head[8];void*m_resource;char gap[8];const void*m_source;unsigned m_size;char gap1[0xc];unsigned m_width,m_height,m_depth,m_sliceWidth,m_sliceHeight;char gap2[8];unsigned m_mipLevels;char gap3[4];int m_format;
+ char head[8];void*m_resource;int m_type;char gap10[4];unsigned char *m_source;unsigned m_size;char gap1C[4];unsigned char *m_secondBuffer;char gap24[4];unsigned m_width,m_height,m_depth,m_sliceWidth,m_sliceHeight,m_originalDepth;int m_imageMode;unsigned m_mipLevels;int m_reductionMode;int m_format;int m_pool,m_usage;
 };
 void Rva0013107A::loadVolume() {
  TextureDeviceLock lock;TextureCOM9 *texture=0;
@@ -78,3 +78,74 @@ void Rva0013107A::loadVolumeSlices() {
 // Slice loader: target324B plus exact EH; source/destination D3DBOX layouts
 // are target-verified. The two handle fields retain native volume then texture
 // stack ordering. right=left+sliceWidth preserves the native single multiply.
+
+// BFME 1 f98983a7d Rva0090C2F0InnerLoad.cpp gives reduction, buffer
+// ownership and missing-texture workflow. WB9D11C0 identifies PostLoad.
+// BFME2 native adds ResourceType/volume-strip inference and named loaders.
+void __cdecl operator delete[](void *);
+extern "C" __declspec(dllimport) char *__cdecl strrchr(const char *,int);
+extern "C" __declspec(dllimport) int __cdecl _strnicmp(const char *,const char *,unsigned);
+struct TextureImageInfo {unsigned width,height,depth,mips,format,type,fileFormat;};
+extern "C" long __stdcall D3DXGetImageInfoFromFileInMemory(const void *,unsigned,TextureImageInfo *);
+int Rva00117C00Get();
+class BfmeResetTextureBackend {public:void CreateTexture(int,int,int,int,int,int,int);};
+class SurfaceResource {public:virtual void s0();virtual void s1();virtual unsigned __stdcall Release();};
+struct TexturePostLoadCOM9 {
+ virtual void s0();virtual void s1();virtual void s2();virtual void s3();virtual void s4();virtual void s5();virtual void s6();virtual void s7();virtual void s8();virtual void s9();virtual void s10();virtual void s11();virtual void s12();
+ virtual unsigned __stdcall GetLevelCount();
+ virtual void s14();virtual void s15();virtual void s16();virtual void s17();
+ virtual long __stdcall GetSurfaceLevel(unsigned,SurfaceResource **);
+};
+class SurfaceClass {public:void DrawPixel(unsigned,unsigned,unsigned);};
+class W3DRadarResetSurface {public:W3DRadarResetSurface(SurfaceResource *);~W3DRadarResetSurface();SurfaceResource *surface;
+ __forceinline void DrawPixel(unsigned x,unsigned y,unsigned color){reinterpret_cast<SurfaceClass *>(this)->DrawPixel(x,y,color);}
+};
+void Log_DX8_ErrorCode(unsigned);
+void Rva0013107A::PostLoad(const char *name){
+ if(m_source){
+  m_resource=0;
+  TextureImageInfo info;
+  if(D3DXGetImageInfoFromFileInMemory(m_source,m_size,&info)>=0){
+   m_width=info.width;m_sliceWidth=info.width;
+   m_height=info.height;m_sliceHeight=info.height;
+   m_depth=info.depth;m_originalDepth=info.depth;
+   m_imageMode=info.fileFormat;
+   if(info.type==4)m_type=1;else if(info.type==5)m_type=2;else m_type=0;
+   bool volumeStrip=false;
+   if(m_type==0){
+    const char *dot=strrchr(name,'.');
+    if(dot && dot-4>name && _strnicmp(dot-4,"_vol",4)==0 && m_width>m_height && m_width%m_height==0){
+     volumeStrip=true;m_type=1;m_depth=m_width/m_height;m_originalDepth=m_depth;
+     m_width=m_height;m_sliceWidth=m_width;m_mipLevels=1;
+    }
+   }
+   int reduction=Rva00117C00Get();
+   if(m_reductionMode<2){
+    if(m_reductionMode>=1){if(m_width>512 || m_height>512)--reduction;else goto load;}
+    if(reduction>1 && _strnicmp(name,"livingmap",9)==0)reduction=1;
+    while(reduction>0){
+     --reduction;
+     if(m_width<=32 || m_height<=32 || (m_type==1 && m_depth<=32))break;
+     m_width>>=1;m_height>>=1;if(m_type==1)m_depth>>=1;
+    }
+   }
+load:
+   if(m_type==0)loadImage();
+   else if(m_type==1){if(volumeStrip)loadVolumeSlices();else loadVolume();}
+   else if(m_type==2)loadCube();
+  }
+  m_pool=1;m_usage=0;
+  delete[] m_source;m_source=0;
+  if(m_secondBuffer){delete[] m_secondBuffer;m_secondBuffer=0;}
+  if(m_resource){TextureDeviceLock lock;m_mipLevels=reinterpret_cast<TexturePostLoadCOM9 *>(m_resource)->GetLevelCount();return;}
+ }
+ TextureDeviceLock lock;
+ reinterpret_cast<BfmeResetTextureBackend *>(this)->CreateTexture(1,1,0x15,1,1,0,0);
+ if(m_resource){
+  SurfaceResource *surface=0;
+  long result=reinterpret_cast<TexturePostLoadCOM9 *>(m_resource)->GetSurfaceLevel(0,&surface);
+  if(result)Log_DX8_ErrorCode(result);
+  W3DRadarResetSurface(surface).DrawPixel(0,0,0xffff00ff);
+  surface->Release();
+ }
+}
