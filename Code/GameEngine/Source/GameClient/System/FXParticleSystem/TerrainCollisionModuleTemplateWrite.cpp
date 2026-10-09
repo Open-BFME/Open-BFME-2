@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
 // stlport
-// ?rva0056499B@TerrainCollisionModuleTemplate@FXParticleSystem@@QAEXPAVFile@@I@Z @0x0056499B 285B chain lane writeINI.
+// ?rva0056499B@TerrainCollisionModuleTemplate@FXParticleSystem@@UAEXPAVFile@@I@Z @0x0056499B 285B chain lane writeINI.
 // Evidence: vslot 3 of TerrainCollisionModuleTemplate; calls rowed WriteHeader 0x00564284 then ostringstream then HeightOffset 0x001F8B5F EventFX 0x001F82EE Orient/PerParticle/Kill 0x001F8384 then str/Write/free then footer 0x003AFC6B; members +0x8 +0x9 +0x10 AsciiString +0x14 S001F87D5 +0x20.
 // Pattern from GpuDrawModuleTemplate::rva00563D3F 0x00563D3F.
 // The emitted unsigned max copy must match retail RVA 0x00013740.
@@ -96,9 +96,9 @@ void LifeEventModuleTemplate::writeINI(File &file, unsigned int flags) const
 
 class TerrainCollisionModuleTemplate {
 public:
-	void rva0056499B(File *file, unsigned int flags);
+	virtual void rva0056499B(File *file, unsigned int flags);
 private:
-	char m_pad0[8];
+	char m_pad04[8 - 4];
 	bool m_perParticle;
 	bool m_killAfterEvent;
 	char m_padA[6];

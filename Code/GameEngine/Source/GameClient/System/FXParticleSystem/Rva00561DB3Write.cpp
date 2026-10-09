@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
 // stlport
-// ?rva00561DB3@LightningDrawModuleTemplate@FXParticleSystem@@QAEXPAVFile@@I@Z @0x00561DB3 340B chain lane writeINI via WriteHeader.
+// ?rva00561DB3@LightningDrawModuleTemplate@FXParticleSystem@@UAEXPAVFile@@I@Z @0x00561DB3 340B chain lane writeINI via WriteHeader.
 // Evidence: vslot 3 of LightningDrawModuleTemplate 0x0081BD90; calls rowed WriteHeader 0x0055C9A0 then ostringstream then rowed IsZero 0x001F3744 gated OffsetX/Y/Z 0x001F8B5F then rowed t4IsZero 0x0055D3D9 gated MultiChance 0x003A5D34 then TileTexture 0x001F89C3 then rowed str plus FileWrite plus free plus footer; same shape as GpuDrawModuleTemplate rva00563D3F.
 // The emitted unsigned max copy must match retail RVA 0x00013740.
 // Define it for speed, then restore this unit's flags for its own bodies.
@@ -68,9 +68,9 @@ namespace FXParticleSystem {
 
 class LightningDrawModuleTemplate {
 public:
-    void rva00561DB3(File *file, unsigned int flags);
+    virtual void rva00561DB3(File *file, unsigned int flags);
 private:
-    char m_pad[12];
+    char m_pad04[12 - 4];
     S001F87D5 m_offsetX;
     S001F87D5 m_offsetY;
     S001F87D5 m_offsetZ;

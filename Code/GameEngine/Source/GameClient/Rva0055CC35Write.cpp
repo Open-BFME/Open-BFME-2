@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfmealloc /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
 // stlport
-// ?rva0055CC35@PointEmissionVolumeModuleTemplate@FXParticleSystem@@QAEXPAVFile@@I@Z at 0x0055CC35 size 186
+// ?rva0055CC35@PointEmissionVolumeModuleTemplate@FXParticleSystem@@UAEXPAVFile@@I@Z at 0x0055CC35 size 186
 // Evidence: chain via just-landed 0x003AFC6B; vslot 3 of PointEmissionVolumeModuleTemplate; calls rowed WriteHeader 0x0055CB5D then rowed bool-line 0x001F89C3 IsHollow then rowed str then rowed Write 0x001F458B then rowed 0x003AFC6B; member bool at +0xC.
 // The emitted unsigned max copy must match retail RVA 0x00013740.
 // Define it for speed, then restore this unit's flags for its own bodies.
@@ -44,9 +44,9 @@ namespace FXParticleSystem {
 
 class PointEmissionVolumeModuleTemplate {
 public:
-	void rva0055CC35(File *file, unsigned int flags);
+	virtual void rva0055CC35(File *file, unsigned int flags);
 private:
-	char m_pad[12];
+	char m_pad04[12 - 4];
 	bool m_isHollow;
 };
 

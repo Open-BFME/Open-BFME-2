@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
 // stlport
-// ?rva0055E39E@LightningEmissionModuleTemplate@FXParticleSystem@@QAEXPAVFile@@I@Z @0x0055E39E 582B chain lane writeINI via WriteHeader.
+// ?rva0055E39E@LightningEmissionModuleTemplate@FXParticleSystem@@UAEXPAVFile@@I@Z @0x0055E39E 582B chain lane writeINI via WriteHeader.
 // Evidence: vslot 3 of LightningEmissionModuleTemplate 0x0081BBB0 and 0x0081C154; calls rowed WriteHeader 0x0055CB5D then ostringstream then rowed RGB IsZero 0x0055CCEF gated StartPoint EndPoint via rowed Vec Write 0x001F89E2 then 9x rowed IsZero 0x001F3744 gated Amplitude Frequency Phase via rowed 0x001F8B5F then rowed str plus FileWrite 0x001F458B plus free plus footer 0x003AFC6B; same shape as Ortho plus RGB head.
 // The emitted unsigned max copy must match retail RVA 0x00013740.
 // Define it for speed, then restore this unit's flags for its own bodies.
@@ -74,9 +74,9 @@ namespace FXParticleSystem {
 
 class LightningEmissionModuleTemplate {
 public:
-    void rva0055E39E(File *file, unsigned int flags);
+    virtual void rva0055E39E(File *file, unsigned int flags);
 private:
-    char m_pad[16];
+    char m_pad04[16 - 4];
     Vec001F8810 m_startPoint;
     Vec001F8810 m_endPoint;
     S001F87D5 m_amplitude1;

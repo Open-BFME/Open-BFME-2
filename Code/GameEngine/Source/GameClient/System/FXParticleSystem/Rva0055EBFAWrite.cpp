@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
 // stlport
-// ?rva0055EBFA@CylindricalEmissionVelocityModuleTemplate@FXParticleSystem@@QAEXPAVFile@@I@Z @0x0055EBFA 237B chain lane writeINI via WriteVelocityHeader.
+// ?rva0055EBFA@CylindricalEmissionVelocityModuleTemplate@FXParticleSystem@@UAEXPAVFile@@I@Z @0x0055EBFA 237B chain lane writeINI via WriteVelocityHeader.
 // Evidence: vslot 3 of CylindricalEmissionVelocityModuleTemplate 0x0081BC70 and 0x0081C058; calls rowed WriteVelocityHeader 0x0055E891 then ostringstream then rowed IsZero 0x001F3744 gated Radial Normal via rowed 0x001F8B5F then rowed str plus FileWrite 0x001F458B plus free plus footer 0x003AFC6B; same shape as Spherical Rva0055EAAD.
 // The emitted unsigned max copy must match retail RVA 0x00013740.
 // Define it for speed, then restore this unit's flags for its own bodies.
@@ -57,9 +57,9 @@ namespace FXParticleSystem {
 
 class CylindricalEmissionVelocityModuleTemplate {
 public:
-    void rva0055EBFA(File *file, unsigned int flags);
+    virtual void rva0055EBFA(File *file, unsigned int flags);
 private:
-    char m_pad[12];
+    char m_pad04[12 - 4];
     S001F87D5 m_radial;
     S001F87D5 m_normal;
 };

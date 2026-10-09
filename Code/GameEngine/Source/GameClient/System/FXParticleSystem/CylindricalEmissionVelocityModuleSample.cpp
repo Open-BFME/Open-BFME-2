@@ -1,5 +1,5 @@
 // cl: /DNDEBUG /MD
-// ?getVelocity@CylindricalEmissionVelocityModule@FXParticleSystem@@QAE?AUCoord3D@2@HH@Z
+// ?getVelocity@CylindricalEmissionVelocityModule@FXParticleSystem@@UAE?AUCoord3D@2@HH@Z
 // retail 0x0055EB84, 118 bytes.
 //
 // Ported from the Open-BFME-1 donor
@@ -43,10 +43,10 @@ struct Coord3D
 class CylindricalEmissionVelocityModule
 {
 public:
-	Coord3D getVelocity( int, int );
+	virtual Coord3D getVelocity( int, int );
 
 private:
-	char m_base[ 0x1c ];
+	char m_base[0x1c - 4];
 	GameClientRandomVariable m_radial;		///< +0x1C
 	GameClientRandomVariable m_normal;		///< +0x28
 };

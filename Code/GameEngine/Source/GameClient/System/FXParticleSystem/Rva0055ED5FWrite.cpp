@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
 // stlport
-// ?rva0055ED5F@OutwardEmissionVelocityModuleTemplate@FXParticleSystem@@QAEXPAVFile@@I@Z @0x0055ED5F 237B chain lane writeINI via WriteVelocityHeader.
+// ?rva0055ED5F@OutwardEmissionVelocityModuleTemplate@FXParticleSystem@@UAEXPAVFile@@I@Z @0x0055ED5F 237B chain lane writeINI via WriteVelocityHeader.
 // Evidence: vslot 3 of OutwardEmissionVelocityModuleTemplate 0x0081BCA0 and 0x0081C07C; calls rowed WriteVelocityHeader 0x0055E891 then ostringstream then rowed IsZero 0x001F3744 gated Speed OtherSpeed via rowed 0x001F8B5F then rowed str plus FileWrite 0x001F458B plus free plus footer 0x003AFC6B; same shape as Cylindrical Rva0055EBFA.
 // The emitted unsigned max copy must match retail RVA 0x00013740.
 // Define it for speed, then restore this unit's flags for its own bodies.
@@ -57,9 +57,9 @@ namespace FXParticleSystem {
 
 class OutwardEmissionVelocityModuleTemplate {
 public:
-    void rva0055ED5F(File *file, unsigned int flags);
+    virtual void rva0055ED5F(File *file, unsigned int flags);
 private:
-    char m_pad[12];
+    char m_pad04[12 - 4];
     S001F87D5 m_speed;
     S001F87D5 m_otherSpeed;
 };
