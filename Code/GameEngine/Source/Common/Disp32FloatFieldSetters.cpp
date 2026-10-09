@@ -52,3 +52,19 @@ void Rva0030F2BAFloatField::set(float value)
 {
     m_value=value;
 }
+
+// BF1 f98983a7d3 GameLogic/Object/Body/InactiveBodyCtorThunk.cpp is the
+// clean store-and-return source guide, compiled at /O1 /arch:SSE2 /G6.
+// Its InactiveBody identity and 1.0f initializer are not target facts.
+// Native432E4E..432E5D follows the complete jump/lookup tables of432B18:
+// seven DWORD targets at432E22 and sixteen byte selectors at432E3E,
+// bounded by CMP 0xF. Known independent432E5D follows its own RET.
+// The body writes ECX+0 from actual BD5E50=00004842 (50.0f), returns
+// the same pointer in EAX and takes no stack arguments. No calls or
+// image address references establish its original owner/constructor role.
+// This free fastcall view states only the observed float output contract.
+float *__fastcall Rva00432E4EInitialize(float *output)
+{
+    *output = 50.0f;
+    return output;
+}
