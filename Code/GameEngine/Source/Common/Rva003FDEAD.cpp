@@ -57,7 +57,8 @@ public:
 
 struct Rva003FDEADRefBlock
 {
-	char m_pad[0x18];
+	char m_pad[0x10];
+	OpaqueRefElement4 ref10, ref14;
 	OpaqueRefElement4 ref18, ref1c, ref20;
 	OpaqueRefElement4 m_ref;
 };
@@ -78,6 +79,8 @@ class Rva003FDEAD
 	Rva003FDEADParam38 *m_p38;
 public:
 	void rva003FDEAD();
+	void rva003FDD41(int unused0,int unused1,int enabled);
+	void rva003FDDAC();
 	void rva003FDF1B();
 	void rva003FDF8B();
 	void rva003FDFFB();
@@ -122,4 +125,27 @@ void Rva003FDEAD::rva003FDFFB()
 	Rva003FDEADRefBlock *block=m_p14;
 	OwnerAudioEvent003FDF1B event(block->ref18,m_p38->id);
 	reinterpret_cast<Rva003FDEADAudioView *>(TheAudio)->addAudioEvent(event.get());
+}
+
+// Native 3FDD41..3FDDAC: unused first two dword args and nonzero third
+// gate the same receiver14 reference block at14; RET12 proves stack ABI.
+void Rva003FDEAD::rva003FDD41(int,int,int enabled)
+{
+ if (enabled && m_p14->ref14.referent && m_p38) {
+  Rva003FDEADRefBlock *block=m_p14;
+  OwnerAudioEvent003FDF1B event(block->ref14,m_p38->id);
+  reinterpret_cast<Rva003FDEADAudioView *>(TheAudio)->addAudioEvent(event.get());
+ }
+}
+class Rva005391A9 {public:void rva005391A9();};
+// Native 3FDDAC..3FDE1A: reference10 audio followed unconditionally by
+// existing5391A9 on the same receiver, including the failed-guard path.
+void Rva003FDEAD::rva003FDDAC()
+{
+ if (m_p14->ref10.referent && m_p38) {
+  Rva003FDEADRefBlock *block=m_p14;
+  OwnerAudioEvent003FDF1B event(block->ref10,m_p38->id);
+  reinterpret_cast<Rva003FDEADAudioView *>(TheAudio)->addAudioEvent(event.get());
+ }
+ reinterpret_cast<Rva005391A9 *>(this)->rva005391A9();
 }
