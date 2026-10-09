@@ -148,59 +148,8 @@ void W3DDebrisDraw::setFullyObscuredByShroud(Bool fullyObscured)
 }
 
 //-------------------------------------------------------------------------------------------------
-//-------------------------------------------------------------------------------------------------
-// ?setModelName@W3DDebrisDraw@@UAEXVAsciiString@@HW4ShadowType@@@Z present-unmatched
-void W3DDebrisDraw::setModelName(AsciiString name, Color color, ShadowType t)
-{
-  if (m_renderObject == NULL && !name.isEmpty())
-	{
-		Matrix3D transform;
-		BfmeShadowTypeInfo shadowInfo;
-		Int hexColor = 0;
-		if (color != 0)
-			hexColor = color | 0xFF000000;
-		m_renderObject = Create_Render_Obj(name.str(), getDrawable()->getScale(), hexColor);
-		DEBUG_ASSERTCRASH(m_renderObject, ("Debris model %s not found!\n",name.str()));
-		if (m_renderObject)
-		{
-			reinterpret_cast<BfmeSceneView *>(W3DDisplay::m_3DScene)->addRenderObject(m_renderObject);
-
-			reinterpret_cast<BfmeRenderObjectView *>(m_renderObject)->setUserData(
-				reinterpret_cast<unsigned char *>(getDrawable()) + 0x240, false);
-			
-			///@todo: Change back to identity once we figure out why objects show up at 0,0,0
-			/// OBJECT_PILE
-//			transform.Set(Vector3(0,0,9999));
-			transform.Set(Vector3(0,0,0));
-			reinterpret_cast<BfmeRenderObjectView *>(m_renderObject)->setTransform(transform);
-		}
-		
-		if (t != SHADOW_NONE)
-		{
-			shadowInfo.m_unmodelled9c = 20.0f;
-			shadowInfo.m_unmodelleda0 = false;
-			shadowInfo.m_type = t;
-			shadowInfo.m_sizeX=0;
-			shadowInfo.m_sizeY=0;
-			shadowInfo.m_unmodelled98 = 0.0f;
-			m_shadow = TheW3DShadowManager->addShadow(m_renderObject,
-				reinterpret_cast<Shadow::ShadowTypeInfo *>(&shadowInfo));
-		}
-		else
-		{
-			if (TheW3DShadowManager && m_shadow)
-			{	
-				TheW3DShadowManager->removeShadow(m_shadow);
-				m_shadow = NULL;
-			}
-		}
-
-		// save the model name and color
-		m_modelName = name;
-		m_modelColor = color;
-
-	}
-}
+// W3DDebrisDraw::setModelName (0x000B1EEB) is recovered byte-exact in
+// W3DDebrisDrawSetModelName.cpp; the BFME 1-shaped draft that stood here is gone.
 
 //-------------------------------------------------------------------------------------------------
 void W3DDebrisDraw::setAnimNames(AsciiString initial, AsciiString flying, AsciiString final, const FXList* finalFX)

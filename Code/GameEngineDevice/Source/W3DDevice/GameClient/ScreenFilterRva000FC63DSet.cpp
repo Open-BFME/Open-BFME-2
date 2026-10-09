@@ -1,0 +1,254 @@
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD
+//
+// ?set@Rva000FC63DFilter@@MAEHW4FilterModes@@@Z, retail 0x000FC63D..0x000FC8B4
+// (631B), thiscall ret 4; slot 5 (set) of the screen filter vtable at
+// VA 0x00BCF3C8 (the entry at 0x007CF3DC).
+//
+// A BFME 2 screen filter's set: clears TheWritableGlobalData +0xD34, notes
+// whether the logic frame advanced (file static last frame), and while its
+// file-static counter runs steps a time-of-day swap -- on entry (fade
+// direction negative, not yet swapped) it restores the remembered time of
+// day (+0x0C) through GlobalData::setTimeOfDay 0x002352BC and the game
+// client's slot 30, then counts down by three per frame to drop the view
+// filter (mode 0 / filter 0), or counts up to 30 to raise view filter mode 15
+// / filter 7 and switch to time of day 4 remembering the old one. With a
+// filter mode the fade value is stepped as Zero Hour's ScreenBWFilter::set
+// does (the frame counter only advances on a new logic frame), then the
+// quad state is set: the PRELIT_DIFFUSE preset material (rowed Get_Preset
+// 0x0013D230, swapped into ScreenMaterial with the material-changed bit),
+// ShaderClass::_PresetOpaqueShader (rowed Set_Shader 0x000662E5), the
+// filter's texture (+0x08) on stage 0 (rowed BFME2Set_Texture 0x0011F4B0),
+// Apply_Render_State_Changes 0x0011D930, ZFUNC ALWAYS and ZWRITEENABLE off
+// (rowed Set_DX8_Render_State 0x0006615F), Apply_Render_State_Changes.
+// The fade statics (0x009EC1B0..0x009EC1C4) and the swap counter
+// (0x009B5B88) are the ledger's address-named globals; class and method
+// names stay address-derived.
+
+typedef int Int;
+typedef float Real;
+typedef bool Bool;
+typedef unsigned int UnsignedInt;
+
+enum FilterModes
+{
+	FM_NULL_MODE = 0
+};
+
+enum TimeOfDay
+{
+	TIME_OF_DAY_INVALID = 0
+};
+
+enum FilterTypes
+{
+	FT_NULL_FILTER = 0
+};
+
+class GlobalData
+{
+public:
+	Bool setTimeOfDay(TimeOfDay tod);
+
+	unsigned char m_pad000[0x134];
+	TimeOfDay m_timeOfDay;			// +0x134
+	unsigned char m_pad138[0xD34 - 0x138];
+	Bool m_D34;				// +0xD34
+};
+extern GlobalData *TheWritableGlobalData;
+
+#include "../../../../GameEngine/Source/Common/GameLogicObjectLookupView.h"
+extern GameLogic *TheGameLogic;
+
+#define PAD_VIRTUALS10(p) \
+	virtual void p##0(); virtual void p##1(); virtual void p##2(); virtual void p##3(); virtual void p##4(); \
+	virtual void p##5(); virtual void p##6(); virtual void p##7(); virtual void p##8(); virtual void p##9();
+
+class GameClient
+{
+public:
+	PAD_VIRTUALS10(s0) PAD_VIRTUALS10(s1) PAD_VIRTUALS10(s2)
+	virtual void setTimeOfDay(TimeOfDay tod);	// slot 30
+};
+extern GameClient *TheGameClient;
+
+class View
+{
+public:
+	PAD_VIRTUALS10(s0) PAD_VIRTUALS10(s1) PAD_VIRTUALS10(s2) PAD_VIRTUALS10(s3)
+	virtual void s40(); virtual void s41(); virtual void s42(); virtual void s43(); virtual void s44();
+	virtual void setViewFilterMode(FilterModes mode);	// slot 45 (+0xB4)
+	virtual void s46();
+	virtual void setViewFilter(FilterTypes filter);	// slot 47 (+0xBC)
+};
+extern View *TheTacticalView;
+
+class VertexMaterialClass
+{
+public:
+	enum PresetType
+	{
+		PRELIT_DIFFUSE = 0
+	};
+	virtual void Delete_This();
+	static VertexMaterialClass *Get_Preset(PresetType type);
+	void Add_Ref() { NumRefs++; }
+	void Release_Ref()
+	{
+		NumRefs--;
+		if (NumRefs == 0)
+			Delete_This();
+	}
+	Int NumRefs;
+};
+extern VertexMaterialClass *ScreenMaterial;
+
+class ShaderClass
+{
+public:
+	static ShaderClass _PresetOpaqueShader;
+private:
+	unsigned int m_bits[3];
+};
+
+struct BFME2TextureResource;
+struct BFME2TextureRef
+{
+	BFME2TextureResource *Ptr;
+};
+void BFME2Set_Texture(unsigned stage, const BFME2TextureRef &texture);
+
+class DX8Wrapper
+{
+public:
+	static void Set_Shader(const ShaderClass &shader);
+	static void Apply_Render_State_Changes();
+	static void Set_DX8_Render_State(unsigned long state, unsigned int value);
+	static __forceinline void Set_Material(VertexMaterialClass *material)
+	{
+		if (material)
+			material->Add_Ref();
+		if (ScreenMaterial)
+			ScreenMaterial->Release_Ref();
+		ScreenMaterial = material;
+		render_state_changed |= 0x4000;
+	}
+private:
+	static unsigned int render_state_changed;
+};
+
+#define REF_PTR_RELEASE(x) { if (x) x->Release_Ref(); x = 0; }
+
+extern Int g_00DEC1BC;		// current fade frame
+extern Int g_00DEC1B4;		// fade direction
+extern Int g_00DEC1B8;		// fade frames
+extern unsigned char g_00DEC1C4;	// time of day swapped
+extern Int g_00DB5B88;		// swap counter
+extern Real g_Va00DEC1B0;	// current fade value
+extern UnsignedInt g_Va00DEC1C0;	// last logic frame
+
+class Rva000FC63DFilter
+{
+protected:
+	virtual Int set(FilterModes mode);
+
+private:
+	unsigned char m_pad04[0x08 - 0x04];
+	BFME2TextureRef m_texture;		// +0x08
+	TimeOfDay m_savedTimeOfDay;		// +0x0C
+};
+
+Int Rva000FC63DFilter::set(FilterModes mode)
+{
+	TheWritableGlobalData->m_D34 = false;
+	Bool newFrame = false;
+	UnsignedInt frame = TheGameLogic->getFrame();
+	if (g_Va00DEC1C0 != frame)
+	{
+		newFrame = true;
+		g_Va00DEC1C0 = frame;
+	}
+	if (g_00DB5B88 != 0 && newFrame)
+	{
+		if (g_00DEC1B4 < 0 && !g_00DEC1C4)
+		{
+			g_00DEC1C4 = true;
+			g_00DB5B88 = 30;
+			TheWritableGlobalData->setTimeOfDay(m_savedTimeOfDay);
+			TheGameClient->setTimeOfDay(m_savedTimeOfDay);
+		}
+		if (g_00DEC1C4)
+		{
+			g_00DB5B88 -= 3;
+			if (g_00DB5B88 < 1)
+			{
+				g_00DEC1C4 = false;
+				g_00DB5B88 = 0;
+				TheTacticalView->setViewFilterMode(FM_NULL_MODE);
+				TheTacticalView->setViewFilter(FT_NULL_FILTER);
+			}
+		}
+		else
+		{
+			g_00DB5B88 += 3;
+			if (g_00DB5B88 >= 30)
+			{
+				g_00DEC1C4 = true;
+				TheTacticalView->setViewFilterMode((FilterModes)15);
+				TheTacticalView->setViewFilter((FilterTypes)7);
+				m_savedTimeOfDay = TheWritableGlobalData->m_timeOfDay;
+				TheWritableGlobalData->setTimeOfDay((TimeOfDay)4);
+				TheGameClient->setTimeOfDay((TimeOfDay)4);
+			}
+		}
+	}
+
+	if (mode > FM_NULL_MODE)
+	{
+		if (g_00DEC1B4 > 0)
+		{
+			if (newFrame)
+				g_00DEC1BC++;
+			Int fade = g_00DEC1BC;
+			if (fade < g_00DEC1B8)
+			{
+				g_Va00DEC1B0 = (Real)fade / (Real)g_00DEC1B8;
+			}
+			else
+			{
+				g_00DEC1BC = 0;
+				g_Va00DEC1B0 = 1.0f;
+				g_00DEC1B4 = 0;
+			}
+		}
+		else if (g_00DEC1B4 < 0)
+		{
+			if (newFrame)
+				g_00DEC1BC++;
+			Int fade = g_00DEC1BC;
+			if (fade < g_00DEC1B8)
+			{
+				g_Va00DEC1B0 = 1.0f - (Real)fade / (Real)g_00DEC1B8;
+			}
+			else
+			{
+				g_Va00DEC1B0 = 0.0f;
+				TheTacticalView->setViewFilterMode(FM_NULL_MODE);
+				TheTacticalView->setViewFilter(FT_NULL_FILTER);
+				g_00DEC1BC = 0;
+				g_00DEC1B4 = 0;
+			}
+		}
+
+		VertexMaterialClass *vmat = VertexMaterialClass::Get_Preset(VertexMaterialClass::PRELIT_DIFFUSE);
+		DX8Wrapper::Set_Material(vmat);
+		REF_PTR_RELEASE(vmat);
+		DX8Wrapper::Set_Shader(ShaderClass::_PresetOpaqueShader);
+		BFME2Set_Texture(0, m_texture);
+		DX8Wrapper::Apply_Render_State_Changes();
+		DX8Wrapper::Set_DX8_Render_State(23, 8);	// D3DRS_ZFUNC, D3DCMP_ALWAYS
+		DX8Wrapper::Set_DX8_Render_State(14, 0);	// D3DRS_ZWRITEENABLE, FALSE
+		DX8Wrapper::Apply_Render_State_Changes();
+		return true;
+	}
+	return false;
+}
