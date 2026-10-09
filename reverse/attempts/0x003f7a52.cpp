@@ -1,4 +1,6 @@
 // ?GetFinalBonuses@LivingWorldAutoResolveBattleBonus@@QAEXPAM00@Z
+// partial score=0.9840425532 date=2026-10-09
+// ?GetFinalBonuses@LivingWorldAutoResolveBattleBonus@@QAEXPAM00@Z
 // partial score=0.9787234043 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /EHsc /MD /D_STLP_USE_STATIC_LIB
 // stlport
@@ -150,8 +152,8 @@ void LivingWorldAutoResolveBattleBonus::GetFinalBonuses(float *weapon, float *ar
     *weapon = one;
     *armor = one;
     *experience = one;
-    NativeBeginTable *table = reinterpret_cast<NativeBeginTable *>((char *)this + 8);
-    for (NativeBeginTable::iterator iter = table->begin(); iter != table->end();
+    
+    for (NativeBeginTable::iterator iter = reinterpret_cast<NativeBeginTable *>((char *)this + 8)->begin(); iter != reinterpret_cast<NativeBeginTable *>((char *)this + 8)->end();
         ((Rva000411084 *)&iter)->next())
     {
         BonusHashNodeView *node = (BonusHashNodeView *)iter._M_cur;
