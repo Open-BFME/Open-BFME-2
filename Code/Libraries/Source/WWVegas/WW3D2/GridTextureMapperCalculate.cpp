@@ -25,8 +25,9 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 // expanding its call into direct assignments prematurely rounds UV products.
 // The bfmemapper shim supplies the constructor-verified +4 grid layout shift.
 
+#include "../../../../../reference/shims/bfme_matrix3d_link/vector4.h"
 #include "rendobj.h"	// the bfmerendobj shim has to win the include guard
-#include "mapper.h"
+#include "../../../../../reference/shims/bfme_grid_mapper_link/mapper.h"
 #include "ini.h"
 #include "ww3d.h"
 #include "meshmatdesc.h"
@@ -53,7 +54,7 @@ inline void GridTextureMapperClass::update_temporal_state()
 	Remainder = Remainder % MSPerFrame;
 }
 
-inline void GridTextureMapperClass::calculate_uv_offset(float * u_offset, float * v_offset)
+__declspec(dllimport) __forceinline void GridTextureMapperClass::calculate_uv_offset(float * u_offset, float * v_offset)
 {
 	unsigned int row_mask = ~(0xFFFFFFFF << GridWidthLog2);
 	unsigned int col_mask = row_mask << GridWidthLog2;
