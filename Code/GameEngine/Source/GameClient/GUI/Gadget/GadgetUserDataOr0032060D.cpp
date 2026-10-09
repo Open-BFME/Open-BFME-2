@@ -59,3 +59,17 @@ unsigned int Rva000A211D::get() const
 {
     return static_cast<Rva000A211DData *>(window->winGetUserData())->word08;
 }
+
+// Clean BF1 f989 Rva00548CE0Set.cpp is a guide for the window-data store.
+// Native 56DCA4..56DCB2 follows RET4 and ends its own RET0. The stack4
+// GameWindow argument calls actual winGetUserData@5C4ACD, then writes byte
+// +0x12 to 1 without a null guard. Payload identity and flag meaning unknown.
+struct Rva0056DCA4Data
+{
+    unsigned char unknown00[0x12];
+    unsigned char byte12;
+};
+void __cdecl rva0056dca4(GameWindow *window)
+{
+    static_cast<Rva0056DCA4Data *>(window->winGetUserData())->byte12 = 1;
+}
