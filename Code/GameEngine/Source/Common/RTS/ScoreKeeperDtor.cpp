@@ -56,3 +56,14 @@ ScoreKeeper::~ScoreKeeper()
 {
 	unhookAllScoredKillTrackers();
 }
+
+// Keep the native24-byte map header allocation distinct from the older
+// unsigned-pair base binding at30087C. Original allocator spelling unknown.
+template<class T> class Rva0039CAE1Allocator : public _STL::allocator<T> {
+public:
+ template<class U> struct rebind {typedef Rva0039CAE1Allocator<U> other;};
+ Rva0039CAE1Allocator() throw() {}
+ Rva0039CAE1Allocator(const Rva0039CAE1Allocator&) throw() {}
+ template<class U> Rva0039CAE1Allocator(const Rva0039CAE1Allocator<U>&) throw() {}
+};
+template _STL::map<unsigned,void*,_STL::less<unsigned>,Rva0039CAE1Allocator<_STL::pair<const unsigned,void*> > >::map();
