@@ -340,6 +340,11 @@ struct Rva00051B89Hash {
     {
         return req ? req->m_at08 : 0;
     }
+    // The same hash over the rowed Rva00051B89Keyed view (0x00056FD9).
+    unsigned int operator()(const struct Rva00051B89Keyed *req) const
+    {
+        return (*this)(reinterpret_cast<const Rva00051107AudioRequest *>(req));
+    }
 };
 
 struct Rva00050E1CEqualTo {
@@ -1631,6 +1636,50 @@ bool MilesAudioManager::rva00061BD2(int unused)
   rva0006179C(0);
  }
  return AudioEventsReloaded;
+}
+
+// The pending-request set's erase(iterator) is the rowed hashtable
+// instantiation over Rva00051B89Keyed pointers (0x00054C44); the same set
+// layout and hasher, reached through that type.
+typedef _STL::hash_set<Rva00051B89Keyed *, Rva00051B89Hash, _STL::equal_to<Rva00051B89Keyed *> >
+    Rva00051B89KeyedSet;
+
+// Retail 0x00056FD9: drops the queued audio requests of the view types in
+// viewMask (all of them for 7; a request without an event counts as view
+// type 3, kept unless the mask is 7) from the request list and the pending
+// request set, deleting each one.
+void MilesAudioManager::rva00056FD9(unsigned int viewMask)
+{
+    Rva00051107AudioRequestList::iterator it = m_audioRequests.begin();
+    while (it != m_audioRequests.end()) {
+        Rva00051107AudioRequest *request = *it;
+        int viewType = 3;
+        if (request->m_pendingEvent.get())
+            viewType = request->m_pendingEvent->m_viewType;
+        if (viewMask == 7 || (viewType != 3 && (viewMask & (1 << viewType)))) {
+            it = m_audioRequests.erase(it);
+            deleteAudioRequest(request);
+        } else {
+            ++it;
+        }
+    }
+    Rva00051107AudioRequestSet::iterator pending;
+    pending = m_requestSet.begin();
+    while (pending != m_requestSet.end()) {
+        Rva00051107AudioRequest *request = *pending;
+        int viewType = 3;
+        if (request->m_pendingEvent.get())
+            viewType = request->m_pendingEvent->m_viewType;
+        if (viewMask == 7 || (viewType != 3 && (viewMask & (1 << viewType)))) {
+            Rva00051107AudioRequestSet::iterator doomed = pending;
+            ++pending;
+            reinterpret_cast<Rva00051B89KeyedSet &>(m_requestSet).erase(
+                reinterpret_cast<Rva00051B89KeyedSet::iterator &>(doomed));
+            deleteAudioRequest(request);
+        } else {
+            ++pending;
+        }
+    }
 }
 
 // The CRT clock, imported (this unit builds with /D_CRTIMP=).
