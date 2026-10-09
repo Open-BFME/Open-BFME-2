@@ -111,3 +111,9 @@ bool ScoredKillTracker::rva0055A892(const Object*o){
  Player*owner=0;if(m_playerIndex>=0)owner=ThePlayerList->getNthPlayer(m_playerIndex);
  return ((Rva2225E0Filter*)&m_filter)->accepts((Object*)o,owner);
 }
+
+// Native55A8E2/55A8F2/55A904 reject configuration changes while hooked.
+// Scalar/filter assignments and each RET4 independently prove these ABIs.
+void ScoredKillTracker::rva0055A8E2(unsigned value){if(!m_keeper)m_lifetime=value;}
+void ScoredKillTracker::rva0055A8F2(const Rva00360D26Member &filter){if(!m_keeper)m_filter=filter;}
+void ScoredKillTracker::rva0055A904(unsigned value){if(!m_keeper)m_value0c=value;}

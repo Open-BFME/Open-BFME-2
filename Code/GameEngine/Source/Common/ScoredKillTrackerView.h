@@ -36,6 +36,9 @@ public:
  // applies the indexed ObjectFilter at8 with the tracked owner at14.
  // Its original method name remains unknown. Nonvirtual; layout unchanged.
  bool rva0055A892(const class Object *);
+ void rva0055A8E2(unsigned);
+ void rva0055A8F2(const Rva00360D26Member &);
+ void rva0055A904(unsigned);
  void rva0055A91A();
  void hookToKeeper(Rva0039BCF8 *);
  void friend_addTrackedKill(const Coord3D *);
