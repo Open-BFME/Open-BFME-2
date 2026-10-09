@@ -8,12 +8,16 @@
 // 0x0065D070. That body is ICF-folded with CollisionTestClass(CastResultStruct
 // *, int), which stores the same three fields; the record type is not
 // recovered, so it keeps an honest address name and the constructor is bound
-// by an alias pin. The records are never read in .text; each service's seven
+// by an alias pin. Native rank/UpdateStats65F2B0 reads the +4 name pointer; each service's seven
 // to twenty records are one owning unit's file-scope objects, unrecovered.
 
 struct Rva007B55E0TxnName
 {
 	Rva007B55E0TxnName( const char *type, const char *name );
+    // ?Rva007B55E0TxnName::Rva007B55E0TxnName present-unmatched
+    // A no-op default construction keeps native zero-filled storage intact;
+    // the existing explicit initialization below supplies the two pointers.
+    Rva007B55E0TxnName() {}
 
 	const char *m_type;
 	const char *m_name;
@@ -64,7 +68,9 @@ extern Rva007B55E0TxnName g_Va00E0A0CC;
 extern Rva007B55E0TxnName g_Va00E0A060;
 extern Rva007B55E0TxnName g_Va00E0A06C;
 extern Rva007B55E0TxnName g_Va00E0A078;
-extern Rva007B55E0TxnName g_Va00E0A0A8;
+// Native zero-filled12B rank/UpdateStats record; rva007B5AA0 owns its
+// explicit type/name setup. The rank request shares this same provider.
+Rva007B55E0TxnName TheRankUpdateStatsTransaction;
 extern Rva007B55E0TxnName g_Va00E0A084;
 extern Rva007B55E0TxnName g_Va00E0A0D8;
 extern Rva007B55E0TxnName g_Va00E0A09C;
@@ -413,7 +419,7 @@ void Rva007B55E0TxnInits::rva007B5A80()
 void Rva007B55E0TxnInits::rva007B5AA0()
 {
 	const char *type = g_Va00DD80EC;
-	g_Va00E0A0A8.Rva007B55E0TxnName::Rva007B55E0TxnName( type, "UpdateStats" );
+	TheRankUpdateStatsTransaction.Rva007B55E0TxnName::Rva007B55E0TxnName( type, "UpdateStats" );
 }
 
 // ?rva007B5AC0@Rva007B55E0TxnInits@@SAXXZ @ 0x007B5AC0 (22B): rank/GetStats

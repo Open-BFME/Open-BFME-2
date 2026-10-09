@@ -8,6 +8,11 @@ class Rva007E8810Message
 {
 public:
 	FeslInt64 getInt64( const char *key, FeslInt64 defaultValue );
+ void addString(const char *key, const char *value);
+ void addInt(const char *key, int value);
+ void addInt64(const char *key, FeslInt64 value);
+ char m_head[0x1C];
+ unsigned int m_category;
 };
 
 class BfmeThingRF
@@ -138,4 +143,104 @@ bool Rva007F2350StatsCursor::rva007F24A0(Rva007F2350StatsRecord *record)
 	((BfmeThingUPB *)m_msg)->bfmeGoUPB((void *)name, record->m_addStat, (void *)0xff);
  ++m_state;
  return true;
+}
+
+// BF1 f98983a7d clean RankRequest donor. Native65F2B0..65F4D1/RET16,
+// rank category and11 field formats establish behavior; original target
+// type/function names remain unknown. User24/stat16/header16 are native.
+// The adjacent65ED20/65EE40/65EF90 statistics readers above already prove
+// this SDK cluster's /O2 blend /GS configuration. Reuse that established
+// configuration; four inline scalar getters preserve native SIB register
+// selection. The named12B UpdateStats record is independently initialized
+// by7B5AA0. Its data owner and request are verified together.
+class Rva007E8AC0 {public:void run();};
+struct Rva007F27C0Stat
+{
+	int userType;
+	const char *key;
+	float value;
+	const char *text;
+};
+
+struct Rva007F27C0UserHeader
+{
+	FeslInt64 owner;
+	int ownerType;
+	unsigned char field0C[ 4 ];
+};
+
+struct Rva007F27C0UserData
+{
+	int statCount;
+	Rva007F27C0Stat *stats;
+ __forceinline int GetType(int index)const{return stats[index].userType;}
+ __forceinline const char * GetKey(int index)const{return stats[index].key;}
+ __forceinline float GetValue(int index)const{return stats[index].value;}
+ __forceinline const char * GetText(int index)const{return stats[index].text;}
+};
+
+struct Rva007F27C0User
+{
+	Rva007F27C0UserHeader header;
+	Rva007F27C0UserData data;
+};
+
+// Existing target UpdateStats transaction record: pointer field at +4.
+struct Rva007B55E0TxnName
+{
+    Rva007B55E0TxnName(const char *type, const char *name);
+    const char *m_type;
+    const char *m_name;
+    int m_reserved;
+};
+extern Rva007B55E0TxnName TheRankUpdateStatsTransaction;
+
+void __stdcall buildRva007F27C0( Rva007E8810Message *msg, const char *gsid,
+	const Rva007F27C0User *users, int userCount )
+{
+	register Rva007E8810Message *message;
+	register const char *txn;
+	char name[ 0x40 ];
+	char value[ 0x40 ];
+	int i;
+
+	message = msg;
+	txn = *(&TheRankUpdateStatsTransaction.m_name);
+	((Rva007E8AC0 *)message)->run();
+	message->m_category = 'rank';
+	message->addString( "TXN", txn );
+	message->addString( "gsid", gsid );
+	for( i = 0; i < userCount; ++i )
+	{
+		const Rva007F27C0UserData *data = &users[ i ].data;
+		Rva007F27C0UserHeader header = users[ i ].header;
+
+		if( header.owner )
+		{
+			sprintf( name, "u.%d.o", i );
+			message->addInt64( name, header.owner );
+			sprintf( name, "u.%d.ot", i );
+			message->addInt( name, header.ownerType );
+		}
+
+		{
+			int j;
+			for( j = 0; j < data->statCount; ++j )
+			{
+				sprintf( name, "u.%d.s.%d.ut", i, j );
+				message->addInt( name, data->GetType(j) );
+				sprintf( name, "u.%d.s.%d.k", i, j );
+				message->addString( name, data->GetKey(j) );
+				sprintf( name, "u.%d.s.%d.v", i, j );
+				sprintf( value, "%.4f", data->GetValue(j) );
+				message->addString( name, value );
+				sprintf( name, "u.%d.s.%d.t", i, j );
+				message->addString( name, data->GetText(j) );
+			}
+		}
+
+		sprintf( name, "u.%d.s.[]", i );
+		message->addInt( name, data->statCount );
+	}
+	message->addInt( "u.[]", userCount );
 }

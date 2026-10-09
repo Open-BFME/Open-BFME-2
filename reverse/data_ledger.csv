@@ -21316,7 +21316,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A0A094,8,.data,global,?g_Rva0130A678@@3QBDB,Code/GameEngine/Source/GameNetwork/V2FeslAriesRecords.cpp,owned,,1,1
 0x00A0A09C,4,.data,global,?g_Va00E0A09C@@3URva007B55E0TxnName@@A,,unowned,,0,1
 0x00A0A0A0,8,.data,global,?g_Rva0130A684@@3QBDB,Code/GameEngine/Source/GameNetwork/V2FeslAriesRecords.cpp,owned,,1,1
-0x00A0A0A8,12,.data,global,?g_Va00E0A0A8@@3URva007B55E0TxnName@@A,,unowned,,0,1
+0x00A0A0A8,12,.data,global,?TheRankUpdateStatsTransaction@@3URva007B55E0TxnName@@A,Code/GameEngine/Source/GameNetwork/Rva007B55E0TxnNameInits.cpp,owned,,1,2
 0x00A0A0B4,12,.data,global,?g_Va00E0A0B4@@3URva007B55E0TxnName@@A,,unowned,,0,1
 0x00A0A0C0,4,.data,global,?g_Va00E0A0C0@@3URva007B55E0TxnName@@A,,unowned,,0,1
 0x00A0A0C4,8,.data,global,?g_bfme0130A6A8@@3PAXA,Code/GameEngine/Source/Common/Rva007F2C10RankSerialize.cpp,owned,,1,1
