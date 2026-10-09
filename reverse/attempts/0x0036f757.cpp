@@ -1,4 +1,6 @@
 // ?groupScatter@AIGroup@@QAEXW4CommandSourceType@@@Z
+// partial score=0.8950822553 date=2026-10-09
+// ?groupScatter@AIGroup@@QAEXW4CommandSourceType@@@Z
 // partial score=0.9 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /ICode/Libraries/Include/Lib
 // stlport
