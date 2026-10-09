@@ -1,4 +1,6 @@
 // ?rva0060147B@Rva0060126D@@QAEAAV?$_Rb_tree@URva00600A40Element@@U1@U?$_Identity@URva00600A40Element@@@_STL@@U?$less@URva00600A40Element@@@3@V?$allocator@URva00600A40Element@@@3@@_STL@@PBD@Z
+// partial score=0.97 date=2026-10-09
+// ?rva0060147B@Rva0060126D@@QAEAAV?$_Rb_tree@URva00600A40Element@@U1@U?$_Identity@URva00600A40Element@@@_STL@@U?$less@URva00600A40Element@@@3@V?$allocator@URva00600A40Element@@@3@@_STL@@PBD@Z
 // partial score=0.9 date=2026-10-07
 // Native 0x0060147B-0x00601522 167B: strcmp lookup; intern missing key
 // through 0x006054AF at VA 0x00E06E60; construct empty nested tree;
@@ -14,7 +16,7 @@ class AsciiString;
 class Rva006007A5 { public: ~Rva006007A5(); };
 void * __cdecl operator new(unsigned int,void *p) { return p; }
 namespace _STL {
-template<class K,class C,class A> class set { public: set(); };
+template<class K,class C,class A> class set { public: set(); __forceinline ~set() { reinterpret_cast<Rva006007A5 *>(this)->~Rva006007A5(); } private: void *header; int count; char comparator; char pad[3]; };
 template<class T> struct _Identity {};
 template<class T> struct less {};
 template<class T> class allocator {};
@@ -61,11 +63,12 @@ struct Rva0060126D {
  NativeNestedTree &rva0060147B(const char *name);
 };
 __forceinline const Rva00600F9CElement &KeepPair(const Rva00600F9CElement &v) { return v; }
+__forceinline const NativeNestedTree &HeaderView(const _STL::set<AsciiString,_STL::less<AsciiString>,_STL::allocator<AsciiString> > &v) { return reinterpret_cast<const NativeNestedTree &>(v); }
 NativeNestedTree &Rva0060126D::rva0060147B(const char *name) {
  void *node=reinterpret_cast<const FindTree *>(this)->_M_find<const char *>(name);
  if (node==header) {
   name=(const char *)reinterpret_cast<Rva006054AF *>(0x00E06E60)->rva006054AF(name);
-  node=rva006013B7(Rva00600F9CElement(KeepPair(Rva00600F5B(name,NativeNestedTree())))).first;
+  node=rva006013B7(Rva00600F9CElement(KeepPair(Rva00600F5B(name,HeaderView(_STL::set<AsciiString,_STL::less<AsciiString>,_STL::allocator<AsciiString> >()))))).first;
  }
  return *reinterpret_cast<NativeNestedTree *>((char *)node+0x14);
 }
