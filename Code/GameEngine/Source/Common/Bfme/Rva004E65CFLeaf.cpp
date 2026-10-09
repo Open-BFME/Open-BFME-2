@@ -57,6 +57,8 @@ struct Rva004E65CFFloatSrc
 {
 	char m_pad00[8];
 	float m_f08;
+ char m_pad0C[8];
+ bool m_flag14;
 };
 
 class BFMERopeDrawable
@@ -119,6 +121,7 @@ class PlaceTerrainResourceClaimantFeedback::Impl
 	Rva00330995 *m_1C;
 public:
 	void createPotentialClaimDecal();
+ float rva004E6295();
  void updateStringPos(ICoord2D *position);
 };
 
@@ -151,9 +154,9 @@ void PlaceTerrainResourceClaimantFeedback::Impl::createPotentialClaimDecal()
 #pragma comment(linker, "/alternatename:?g_00DEC2D4@@3PAVRva004E65CFMgr@@A=?g_00DEC2D4@@3PAVAudioManager0029E159@@A")
 
 class Mouse;
-class TacticalView;
+class View;
 extern Mouse *TheMouse;
-extern TacticalView *TheTacticalView;
+extern View *TheTacticalView;
 struct FeedbackMouseView { char pad[0x4F0C]; ICoord2D position; };
 class FeedbackTacticalView {
 public:
@@ -197,4 +200,29 @@ void PlaceTerrainResourceClaimantFeedback::Impl::updateStringPos(ICoord2D *p)
  int *pp2=(t2<m_position.y)?&t2:&m_position.y;
  if(*pp2<0) pp2=&bounds.zero;
  m_position.y=*pp2;
+}
+
+class GameLogic;
+class PlayerList;
+extern GameLogic *TheGameLogic;
+extern PlayerList *ThePlayerList;
+struct FeedbackPlayerIndexView { char pad[0x54]; int index; };
+class Rva00359A0C { public: float rva00359A0C(float x, float y, float radius, bool flag, int playerIndex); };
+// WB1324880 and retail4E6295..4E630C: local player INDEX is an int,
+// not the pointer view in the prior bank. The final claim-fraction helper
+// at359A0C consumes five arguments and ends RET20; original name unknown.
+float PlaceTerrainResourceClaimantFeedback::Impl::rva004E6295()
+{
+ GameLogic *logic=TheGameLogic;
+ if(logic) {
+  Rva00359A0C *view=*(Rva00359A0C **)((char*)logic+0x170);
+  if(view) {
+   FeedbackPlayerIndexView *player=*(FeedbackPlayerIndexView **)((char*)ThePlayerList+0x10);
+   int index=player ? player->index : 0;
+   Rva004E65CFFloatSrc *data=m_0C;
+   const Coord3D *position=m_08->getPosition();
+   return view->rva00359A0C(position->x,m_08->getPosition()->y,data->m_f08,data->m_flag14,index);
+  }
+ }
+ return 0.0f;
 }
