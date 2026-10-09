@@ -39,6 +39,7 @@ public:
   void OnButtonFrameLoaded(const char *params);
   void OnButtonFrameUnloaded(const char *params);
   void HideButtons(int);
+  void OnFadeInComplete(const char *params);
  private:
   char m_prefix[0x14];
   int m_state;
@@ -84,4 +85,14 @@ void AptInGameSideCommandBar::Impl::OnButtonFrameUnloaded(const char *params)
  if (index < 0 || index > 15) return;
  HideButtons(index);
  ((Rva000AD6F4 *)&m_buttons[index])->clear();
+}
+
+// Constructor 005288C4 binds 00528240 to
+// OnAptInGameSideCommandBarFadeInComplete. The entire 16-byte body ends
+// in ret4 immediately before 00528250. The spelling describes the binding;
+// it is not a recovered WB method name. The unused string argument follows
+// the same registered callback ABI as the two frame callbacks.
+void AptInGameSideCommandBar::Impl::OnFadeInComplete(const char *)
+{
+ if (m_state == 2) m_state = 3;
 }
