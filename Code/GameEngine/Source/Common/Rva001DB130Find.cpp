@@ -36,3 +36,28 @@ Rva001DB130Node *Rva001DB130::find(int v)
 	} while (p);
 	return 0;
 }
+
+// Clean BF1 f98983a7d3bb405f1a4ba94bb6a2a168062a819d
+// Common/Rva001DB120Advance.cpp guides this cursor advance, not its identity.
+// Native 4DE53C..4DE549 follows the previous RET and has two own RET0 exits:
+// receiver word0 null => return; otherwise replace it with node word+0x10.
+// Reuse the existing accessed node prefix; the cursor owner's original class
+// is unknown and is kept separate from the existing find owner's declaration.
+// The donor's zero-instruction compiler barrier preserves the early null RET;
+// it is a compiler-shape guide, not an asserted retail memory fence.
+extern "C" void _ReadWriteBarrier(void);
+#pragma intrinsic(_ReadWriteBarrier)
+struct Rva004DE53C
+{
+    Rva001DB130Node *cursor;
+    void advance();
+};
+void Rva004DE53C::advance()
+{
+    Rva001DB130Node *current = cursor;
+    if (!current) {
+        _ReadWriteBarrier();
+        return;
+    }
+    cursor = current->m_10;
+}
