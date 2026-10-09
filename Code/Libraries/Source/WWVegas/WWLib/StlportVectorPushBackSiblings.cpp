@@ -50,3 +50,10 @@ template void _STL::vector<BfmeVectorRecord002AF478>::push_back(const BfmeVector
 template void _STL::vector<Rva004F6352>::push_back(const Rva004F6352 &);
 template void _STL::vector<BfmeStringRecord005EC43C>::push_back(const BfmeStringRecord005EC43C &);
 template void _STL::vector<Rva003371B1>::push_back(const Rva003371B1 &);
+
+// The sixth sibling, vector<Object *>::push_back at 0x001F211B (58 bytes), calls the unrowed growth
+// body at 0x001F2155, pinned as the _M_insert_overflow specialization; its fast path stores the
+// four-byte slot directly.
+class Object;
+template <> void _STL::vector<Object *>::_M_insert_overflow(Object **, Object * const &, const _STL::__true_type &, unsigned, bool);
+template void _STL::vector<Object *>::push_back(Object * const &);
