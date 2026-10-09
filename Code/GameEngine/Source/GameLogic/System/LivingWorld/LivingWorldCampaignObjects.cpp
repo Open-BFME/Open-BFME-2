@@ -19,8 +19,10 @@ class LivingWorldManager;
 struct SpawnManagerCostView{unsigned char opaque[0xf0];float revivalCost;};
 extern LivingWorldManager *TheLivingWorldManager;
 struct FieldParse;
+class Image;
 class Rva004E3184:public Snapshot{public:Rva004E3184(int);virtual ~Rva004E3184();
  Rva004E3184(const Rva004E3184&);
+ const Image *GetButtonImage(int);
  static const FieldParse m_fieldParseTable[];
  virtual void loadPostProcess();
  virtual const char *GetSnapshotName()const;
@@ -200,4 +202,34 @@ void Rva004E324DParse(INI *ini,void *instance,void*,const void*) {
  Rva004E3184 record(((Rva002B3171BumpCounter*)TheLivingWorldLogic)->bump());
  ini->initFromINI(&record,Rva004E3184::m_fieldParseTable);
  ((Rva00566AB7*)instance)->rva00566AB7((const BfmePod88&)record);
+}
+
+class ImageCollection { public:const Image *findImageByName(const AsciiString&); };
+extern ImageCollection *TheMappedImageCollection;
+class CreateAHeroHero;
+class CreateAHeroManager { public:const AsciiString &GetButtonImageName(const CreateAHeroHero*); };
+extern CreateAHeroManager *TheCreateAHeroManager;
+class Rva00319CED { public:void *rva004E23E2(); };
+struct Rva002B2579Result;
+class Rva002BA8F1Logic { public:Rva002B2579Result *rva002B2579(int); };
+class Rva002E2903Player;
+class Rva004E0705 { public:Rva002E2903Player *rva004E0705(); };
+class Rva002E06B8 { public:void *rva002E06EF(); };
+
+// Complete native body and associated EH graph verified against retail.
+const Image *Rva004E3184::GetButtonImage(int id) {
+ static const Image *missing=TheMappedImageCollection->findImageByName(AsciiString("BuildingNoArt"));
+ void *thing=((Rva00319CED*)this)->rva004E23E2();
+ if(!thing)return missing;
+ const Image *image;
+ if(*((unsigned char*)thing+0x11f)&0x40) {
+  Rva002B2579Result *building=((Rva002BA8F1Logic*)TheLivingWorldLogic)->rva002B2579(id);
+  if(!building)return missing;
+  Rva002E2903Player *player=((Rva004E0705*)building)->rva004E0705();
+  if(!player)return missing;
+  void *hero=((Rva002E06B8*)player)->rva002E06EF();
+  if(!hero)return missing;
+  image=TheMappedImageCollection->findImageByName(TheCreateAHeroManager->GetButtonImageName((const CreateAHeroHero*)hero));
+ } else image=TheMappedImageCollection->findImageByName(m_0c);
+ return image?image:missing;
 }

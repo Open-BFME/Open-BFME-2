@@ -18925,7 +18925,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A0441C,4,.data,global,_s_rva007B2FE0,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A04420,4,.data,global,_s_rva007B300A,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A04424,20,.data,global,?g_Va00E04424@@3IA,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,provisional,?g_00E04424@@3VRva002B7250@@A;?g_00E04424@@3VRva004E0918@@A;?g_Va00E04424@@3IA,2,5
-0x00A04438,8,.data,global,?g_Va00E04438@@3IA,Code/GameEngine/Source/Common/GlobalFlagClearers_E044xx.cpp,owned,,1,2
+0x00A04438,8,.data,global,?$S1@?1??GetButtonImage@Rva004E3184@@QAEPBVImage@@H@Z@4IA,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignObjects.cpp,owned,,1,2
 0x00A04440,4,.data,global,?g_Va00E04440@@3IA,Code/GameEngine/Source/Common/GlobalFlagClearers_E044xx.cpp,owned,,1,2
 0x00A04444,4,.data,global,?g_Va00E04444@@3IA,,unowned,,0,1
 0x00A04448,4,.data,global,?g_Va00E04448@@3IA,,unowned,,0,1
@@ -20031,3 +20031,4 @@ address,size,section,kind,name,source,status,names,defs,refs
 0xFFC00000,0,,global,__except_list,,unowned,,0,10573
 0xFFC5D005,0,,global,??1MoveHint@@QAE@XZ,,unowned,,0,2
 0x008616C0,304,.rdata,global,?m_fieldParseTable@Rva004E3184@@2QBUFieldParse@@B,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignObjects.cpp,owned,,1,1
+0x00A04434,4,.data,global,?missing@?1??GetButtonImage@Rva004E3184@@QAEPBVImage@@H@Z@4PBV3@B,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignObjects.cpp,owned,,1,3
