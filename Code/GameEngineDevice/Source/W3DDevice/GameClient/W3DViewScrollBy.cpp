@@ -1,12 +1,26 @@
-// ?rva0008CE2E@W3DView@@QAEIPAUCoord2D@@@Z
-// partial score=0.8621259893949921 date=2026-10-09
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /MD /EHsc /Oy-
-// Native 8CE2E..8D134. Reference W3DView::scrollBy establishes scrolling purpose;
+// ?rva0008CE2E@W3DView@@QAEIPAVCoord2D@@@Z
+// cl: /ICode/Libraries/Include/Lib /DNDEBUG /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /MD /EHsc /Oy-
+// Native8CE2E..8D134; WB992220 confirms the algorithm and MathCoord3D
+// operators. Reference W3DView::scrollBy establishes the scrolling purpose;
+// BFME1 revision874e38488c7dcf8cf3343452e8e5371bb3a0e64c reviewed.
+// Target member offsets and its boundary-mask return come from native bytes.
+// Canonical Coord3D plus field-copy wrapper keep the target value shape.
+// Exposing the independently verified inline length body restores readonly
+// knowledge. Ending screen/ray-start lifetime after normalization reuses the
+// displacement slots and closes the six offsets with retail's64-byte frame.
+// Reference W3DView::scrollBy establishes scrolling purpose;
 // target adds ray-normalized scrolling and unsigned boundary-mask return.
 #include "vector3.h"
 #include "vector2.h"
-struct Coord2D{float x,y;};struct ICoord2D{int x,y;};
-struct Coord3D{Coord3D(){} Coord3D(const Coord3D &v){x=v.x;y=v.y;z=v.z;} float x,y,z;float length()const;};
+#include "Coord2D.h"
+struct ICoord2D{int x,y;};
+#include "W3DViewScrollMath.h"
+struct BfmeScrollCoordinates : public Coord3D {
+ BfmeScrollCoordinates(){}
+ BfmeScrollCoordinates(const Coord3D &v){x=v.x;y=v.y;z=v.z;}
+ BfmeScrollCoordinates(float xx,float yy,float zz){x=xx;y=yy;z=zz;}
+ BfmeScrollCoordinates& operator+=(const Coord3D&d){x+=d.x;y+=d.y;z+=d.z;return *this;}
+};
 class CameraClass{public:void Device_To_World_Space(const Vector2&,Vector3*);};
 class Rva0008CE2ESettings {public:virtual void v0();virtual void v1();virtual void v2();virtual void v3();virtual float scrollScale();};
 class BaseHeightMapRenderObjClass {public:
@@ -187,18 +201,16 @@ unsigned W3DView::rva0008CE2E(Coord2D *delta){
   Vector2 start;start.X=(float)(getWidth()/2);start.Y=(float)(getHeight()/2);
   float aspect=(float)(getWidth()/getHeight());
   Vector2 end(start.X+delta->x*250.0f,start.Y+delta->y*aspect*250.0f);
-  ICoord2D screen;screen.x=(int)start.X;screen.y=(int)start.Y;
-  Vector3 world,worldEnd;getPickRay(&screen,&world,&worldEnd);
-  world=worldEnd-world;world.Z=0;world.Normalize();
+  Vector3 world;
+  {ICoord2D screen;Vector3 rayStart;screen.x=(int)start.X;screen.y=(int)start.Y;
+   getPickRay(&screen,&rayStart,&world);world=world-rayStart;}
+  world.Z=0;world.Normalize();
   Vector3 unusedStart,unusedEnd;camera->Device_To_World_Space(start,&unusedStart);camera->Device_To_World_Space(end,&unusedEnd);
-  Coord3D pos=position;
+  BfmeScrollCoordinates pos=position;
   Vector2 side(-world.X,-world.Y),forward(world.Y,-world.X);
   float scale=settings.scrollScale()*(zoom*0.25f);
-  Coord3D displacement;
-  displacement.x=(delta->x*forward.X+delta->y*side.X)*scale;
-  displacement.y=(delta->x*forward.Y*aspect+delta->y*side.Y)*scale;
-  displacement.z=0;
-  travelled+=displacement.length();pos.x+=displacement.x;pos.y+=displacement.y;
+  BfmeScrollCoordinates displacement((delta->x*forward.X+delta->y*side.X)*scale,(delta->x*forward.Y*aspect+delta->y*side.Y)*scale,0);
+  travelled+=displacement.length();pos+=displacement;
   if(constrain)rva000860AF(&pos);
   position=pos;
   if(loX>pos.x)bounds=1;if(pos.x>hiX)bounds|=2;
