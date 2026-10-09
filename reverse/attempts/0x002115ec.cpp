@@ -1,5 +1,7 @@
 // ?rva002115EC@Rva002115EC@@QAEXXZ
 // partial score=0.97 date=2026-10-09
+// ?rva002115EC@Rva002115EC@@QAEXXZ
+// partial score=0.97 date=2026-10-09
 // cl: /O1 /Ob2 /arch:SSE /G7 /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
 // ?rva00211494@Rva00211494@@QAEXXZ, RVA 0x00211494, 113 bytes.
 // Two back-to-back vectors of object pointers at +0x234/+0x240; each element
