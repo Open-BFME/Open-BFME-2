@@ -1,6 +1,7 @@
-// ?rva001B2210@BFME2Encoding1MotionChannel@@QAEXPAIIIPAM1@Z
-// partial score=0.992 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /Oy-
+//
+// ?rva001B2210@BFME2Encoding1MotionChannel@@QAEXPAIIIPAM1@Z, retail 0x001b2210, 250 bytes. Banked partial (score 0.992) closed by tools/permute.py;
+// the body is the banked one up to statement/operand order and local types.
 // BFME 2 stream motion channel encoding 1: nibble adaptive-delta decoders, called from the
 // slot 3/4/5 evaluators (BFME2StreamMotionChannelEvaluate.cpp). The decoder continues from a
 // cached state (first value record, frame) to `frame` and writes the values at `frame` and
@@ -53,16 +54,16 @@ void BFME2Encoding1MotionChannel::rva001B2210(unsigned int *state,unsigned int f
  unsigned char *packet=Data+(from>>4)*9;
  while(from<=frame+1){
   if(from>=(unsigned)Count){if(value0)*(ScalarValue*)value0=last;*(ScalarValue*)value1=last;return;}
-  float filter=BFME2StreamMotionTables::filtertable[*packet]*Scale;
   unsigned fi0=from&0xF; from&=~0xFu;
+  float filter=BFME2StreamMotionTables::filtertable[*packet]*Scale;
   unsigned char *p=packet+1+(fi0>>1);
   for(unsigned fi=fi0;fi<16;++fi){
-   unsigned f=from+fi;
+   unsigned f=fi + from;
    if(f==frame)*value0=last.x;
    else if(f==frame+1){*value1=last.x;break;}
    int bit=fi&1;
    int factor=bit?(signed char)*p>>4:(signed char)(*p<<4)>>4;
-   p+=bit;
+   p = p + (bit);
    last.x+=(float)factor*filter;
   }
   from+=16;packet+=9;
