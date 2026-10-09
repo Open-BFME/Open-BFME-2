@@ -68,6 +68,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
 import build  # noqa: E402
 import link_census as census  # noqa: E402
+import pin_admission  # noqa: E402
 
 OUT = ROOT / "build" / "allowed_symbols"
 TIERS = ROOT / "reverse" / "name_tiers.csv"
@@ -419,7 +420,49 @@ class Identity:
                         truth.ledger = {**truth.ledger, **bindings}
                     v = truth._judge(t, {**sym, "value": 0}, raw, resolved, size)
                     self._certified[key] = {"retail": "retail", "wrong": "bytes"}.get(v, "unknown")
+                    if v == "unknown" and self.certify_fold_receipt(path, name, t):
+                        self._certified[key] = "retail"
         return self._certified[key]
+
+    def certify_fold_receipt(self, path, name, t):
+        """Reuse admission's recursive proof only for its actual kept definitions.
+
+        A proof from another object cannot certify the copy link.exe keeps.
+        The same restriction applies to each new callee the proof places;
+        a matching parent must not conceal a divergent kept overflow helper.
+        """
+        if not hasattr(self, "_fold_pins"):
+            self._fold_pins = collections.defaultdict(list)
+            with build.SYMBOLS.open(encoding="utf-8", newline="") as handle:
+                for pin in csv.DictReader(handle):
+                    if pin_admission.FOLD_PROOF_RE.search(pin.get("notes") or ""):
+                        self._fold_pins[pin["name"]].append(pin)
+        for pin in self._fold_pins.get(name, ()):
+            try:
+                if t not in census.RetailTruth._rvas(int(pin["address"], 16)):
+                    continue
+                match = pin_admission.FOLD_PROOF_RE.search(pin["notes"])
+                source = match.group(1)
+                expected = build.row_object({"source": source, "notes": ""})
+                if Path(path).resolve() != expected.resolve():
+                    continue
+                receipt = {}
+                problems = pin_admission.fold_proof_problems(
+                    pin, t, self.rows, build.load_symbol_map,
+                    self._fold_pins[name], receipt=receipt)
+                if problems or receipt.get("bindings", {}).get(name) != t:
+                    continue
+                output = Path(receipt["output"]).resolve()
+                if (output != Path(path).resolve()
+                        or output.read_bytes() != self.obj(path).data):
+                    continue
+                if all(self.kept(callee)[0] is not None
+                       and Path(self.kept(callee)[0]).resolve() == output
+                       for callee in receipt["bindings"]):
+                    return True
+            except (OSError, ValueError, KeyError, SystemExit):
+                continue
+        return False
 
     def kept(self, name):
         """The definition link.exe keeps for `name`: the first exclusive one, else

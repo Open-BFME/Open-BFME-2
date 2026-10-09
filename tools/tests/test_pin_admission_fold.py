@@ -105,6 +105,107 @@ def test_proven_template_fold_is_admitted(fold):
     assert judge(fold, "vector<A*> push_back fold; " + PROOF) == []
 
 
+def shadow_identity(fold, monkeypatch, *, helper_kept=None):
+    """Actual RetailTruth plus admission proof over the synthetic COFF graph."""
+    import collections
+    import allowed_symbols as allowed
+
+    monkeypatch.setattr(allowed, "build", fold.build)
+    write_pins(fold, [(NEW_PB, f"0x{OWNER:08X}", PROOF)])
+    truth = allowed.census.RetailTruth.__new__(allowed.census.RetailTruth)
+    truth.ledger = {OLD_PB: {OWNER}, OLD_OV: {HELPER}}
+    truth.pinned = {NEW_PB: {OWNER}}
+    truth.import_routes, truth.import_thunks, truth.slots = {}, {}, {}
+    truth.shared, truth.sections = set(), []
+    truth._read = fold.read
+    ident = allowed.Identity.__new__(allowed.Identity)
+    ident.rows, ident.truth = fold.rows, truth
+    ident._objcache, ident._certified, ident._extents = {}, {}, {}
+    ident._local_data_cache = {}
+    ident._rows_by_object = collections.defaultdict(list)
+    ident.extent = lambda target, size=None: len(PB)
+    ident.defs = {NEW_PB: [(str(fold.obj), "parent", len(PB), False)],
+                  NEW_OV: [(str(helper_kept or fold.obj), "helper", len(OV), False)]}
+    return ident
+
+
+def test_shadow_certifies_recursively_proven_fold(fold, monkeypatch):
+    write_object(fold)
+    ident = shadow_identity(fold, monkeypatch)
+    assert ident.certify(str(fold.obj), NEW_PB, OWNER) == "retail"
+    # Recursive placements stay scoped to the receipt, never global pins.
+    assert NEW_OV not in ident.truth.ledger and NEW_OV not in ident.truth.pinned
+
+
+def test_shadow_refuses_wrong_helper_behind_matching_parent(fold, monkeypatch):
+    write_object(fold, ov=OV[:5] + b"\x48" + OV[6:])
+    ident = shadow_identity(fold, monkeypatch)
+    assert ident.certify(str(fold.obj), NEW_PB, OWNER) == "unknown"
+
+
+def test_shadow_refuses_proof_for_unselected_helper_copy(fold, monkeypatch, tmp_path):
+    write_object(fold)
+    ident = shadow_identity(fold, monkeypatch, helper_kept=tmp_path / "foreign.obj")
+    assert ident.certify(str(fold.obj), NEW_PB, OWNER) == "unknown"
+
+
+def test_shadow_refuses_proof_for_unselected_parent_copy(fold, monkeypatch, tmp_path):
+    write_object(fold)
+    ident = shadow_identity(fold, monkeypatch)
+    foreign = tmp_path / "foreign.obj"
+    foreign.write_bytes(fold.obj.read_bytes())
+    assert ident.certify(str(foreign), NEW_PB, OWNER) == "unknown"
+
+
+def test_shadow_still_refuses_nonmatching_parent(fold, monkeypatch):
+    write_object(fold, pb=PB[:3] + b"\x50" + PB[4:])
+    ident = shadow_identity(fold, monkeypatch)
+    assert ident.certify(str(fold.obj), NEW_PB, OWNER) == "bytes"
+
+
+def test_shadow_refuses_fold_name_with_an_independent_address(fold, monkeypatch):
+    write_object(fold)
+    fold.row(NEW_PB, 0x3000, len(PB))
+    ident = shadow_identity(fold, monkeypatch)
+    assert ident.certify(str(fold.obj), NEW_PB, OWNER) == "unknown"
+
+
+def test_shadow_does_not_trust_a_pin_without_a_proof(fold, monkeypatch):
+    write_object(fold)
+    ident = shadow_identity(fold, monkeypatch)
+    write_pins(fold, [(NEW_PB, f"0x{OWNER:08X}", "unproved fold")])
+    assert ident.certify(str(fold.obj), NEW_PB, OWNER) == "unknown"
+
+
+def test_shadow_refuses_an_object_changed_during_proof(fold, monkeypatch):
+    write_object(fold)
+    ident = shadow_identity(fold, monkeypatch)
+    original = fold.admission.fold_proof_problems
+
+    def change_after_proof(*args, **kwargs):
+        problems = original(*args, **kwargs)
+        assert not problems
+        fold.obj.write_bytes(fold.obj.read_bytes() + b"\0")
+        return problems
+
+    monkeypatch.setattr(fold.admission, "fold_proof_problems", change_after_proof)
+    assert ident.certify(str(fold.obj), NEW_PB, OWNER) == "unknown"
+
+
+def test_recursive_receipt_is_complete_only_on_success(fold):
+    write_object(fold)
+    receipt = {}
+    pin = {"name": NEW_PB, "address": f"0x{OWNER:08X}", "notes": PROOF}
+    problems = fold.admission.fold_proof_problems(
+        pin, OWNER, fold.rows, fold.build.load_symbol_map, [pin], receipt=receipt)
+    assert not problems
+    assert receipt == {"output": fold.obj, "bindings": {NEW_PB: OWNER, NEW_OV: HELPER}}
+    write_object(fold, ov=OV[:5] + b"\x48" + OV[6:])
+    problems = fold.admission.fold_proof_problems(
+        pin, OWNER, fold.rows, fold.build.load_symbol_map, [pin], receipt=receipt)
+    assert problems and receipt == {}
+
+
 def test_fold_without_proof_token_is_still_refused(fold):
     write_object(fold)
     problems = judge(fold, "vector<A*> push_back fold")

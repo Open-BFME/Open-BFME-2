@@ -180,7 +180,7 @@ def fold_prover(rows, pins=()):
     return lambda pin, rva: fold_proof_problems(pin, rva, rows, symbol_map, pins)
 
 
-def fold_proof_problems(pin, rva, rows, symbol_map, pins=()):
+def fold_proof_problems(pin, rva, rows, symbol_map, pins=(), receipt=None):
     """Why `pin` is NOT proven to be an ICF fold onto rva ([] = proven).
 
     /OPT:ICF gives two COMDATs one body only when their bytes AND their
@@ -221,7 +221,11 @@ def fold_proof_problems(pin, rva, rows, symbol_map, pins=()):
                  relocations) at the address retail's call names before it
                  resolves the call.
 
-    symbol_map() returns the byte gate's symbol map."""
+    symbol_map() returns the byte gate's symbol map. When supplied, receipt is
+    cleared first and receives the defining object and every recursively proven
+    code binding only after the complete proof succeeds."""
+    if receipt is not None:
+        receipt.clear()
     match = FOLD_PROOF_RE.search(pin.get("notes") or "")
     if not match:
         return ["notes carry no fold-proof=<ledger source> naming a unit whose object "
@@ -267,7 +271,11 @@ def fold_proof_problems(pin, rva, rows, symbol_map, pins=()):
                     for o, t, _ in relocs if o < len(compiled))
     if len(compiled) - relocated < build.MIN_LIB_CONCRETE:
         return [f"only {len(compiled) - relocated} non-relocation bytes; too few to prove a fold"]
-    return _prove_body(name, rva, proof, 0)
+    problems = _prove_body(name, rva, proof, 0)
+    if not problems and receipt is not None:
+        # Publish only a complete proof, never provisional recursive bindings.
+        receipt.update(output=output, bindings=dict(proof["proven"]))
+    return problems
 
 
 def _compile_unit(source, proof):
