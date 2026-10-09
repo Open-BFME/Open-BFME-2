@@ -1,26 +1,23 @@
 // ?rva00349611@Rva00349611@@QAE?AW4StateReturnType@@XZ
+// partial score=0.9949666234300356 date=2026-10-09
+// ?rva00349611@Rva00349611@@QAE?AW4StateReturnType@@XZ
 // partial score=0.93 date=2026-10-09
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD
+// cl: /O1 /ICode/Libraries/Include/Lib /G7 /arch:SSE /DNDEBUG /MD
 //
-// ?rva00349611@Rva00349611@@QAE?AW4StateReturnType@@XZ retail
-// 0x00349611..0x003497C2 (433 bytes thiscall no args; returns the
-// StateReturnType its only caller the slot thunk 0x003497C2 forwards with
-// a jmp). An AI attack-approach updateInternal in the shape of Zero Hour's
-// AIAttackApproachTargetState::updateInternal and of the matched sibling
-// AIAttackPursueTargetState::updateInternal 0x0034939E: on a destroyed goal
-// (TurretStateMachine 0x004D7ADD) it notifies the AI (vtable +0x240) and
-// clears the victim; else it clears owner status 0x1C and for a live goal
-// that is not status 0x33 and passes 0x002943B2 either switches the machine
-// (vtable +0x20 state 0xE9) when the owner answers 0x0029493F (victim 2)
-// and 0x0028CECF or succeeds in weapon range (0x002CB933) when the
-// pathfinder check 0x002ED313 holds or the AI +0x140 is clear; otherwise it
-// sets the victim and with +0x140 clear copies the victim position to the
-// goal (+0x50) and succeeds inside the AI data +0x90 plus +0x94 of the 2D
-// distance; then the CritterDesync ComputePath20 log and computePath
-// (vtable +0x44) and AIInternalMoveToState::update 0x00347460. The pinned
-// void spelling cannot return the state; the class name stays address-derived.
-#include "../../../../Libraries/Include/Lib/Coord3D.h"
+// Target identity: C12800 vtable slot6 thunk 003497C2 forwards to this complete
+// 00349611..003497C2 433-byte body; slot2 getter 00342AD0 returns C12848,
+// proving the owner AIAttackMeleeApproachState. Method spelling remains neutral.
+// The base goal is +20 and derived previous-victim position is +50, supported
+// by the owner's matched neighbours and retail reads/writes, not donor layout.
+// ZH AIAttackApproachTargetState::updateInternal guides purpose/control flow;
+// target victim/status/weapon/pathfinder spine and +90/+94 distance thresholds
+// are independently read from retail. Copy/sub into scalar XYZ then constructing
+// the 2D local restores all native coordinate and AIData load scheduling.
+// Complete body/calls exact except FLD94/FADD90 vs native FLD90/FADD94.
+// No pin or retail method-name claim; source is banked evidence only.
+#include "Coord3D.h"
 
+struct ApproachCoordCopy:Coord3D{__forceinline ApproachCoordCopy(float X,float Y,float Z){x=X;y=Y;z=Z;} __forceinline ApproachCoordCopy(const Coord3D&p){x=p.x;y=p.y;z=p.z;} __forceinline void sub(const Coord3D*p){x-=p->x;y-=p->y;z-=p->z;}};
 typedef bool Bool;
 typedef float Real;
 
@@ -90,7 +87,7 @@ public:
 	Bool rva0029493F(Object *victim, int mode);
 	const Weapon *getCurrentWeapon(WeaponSlotType *slot) const;
 	const Coord3D *getPosition() const { return &m_position; }
-	AIUpdateInterface *getAI() const { return m_ai; }
+	AIUpdateInterface *getObservedAI() const { return m_ai; }
 
 	unsigned char m_pad00[0x38];
 	Coord3D m_position; // +0x38
@@ -174,20 +171,27 @@ public:
 	virtual StateReturnType update();
 	virtual Bool computePath();
 
-	unsigned char m_pad1C[0x50 - 0x1C];
-	Coord3D m_goalPosition; // +0x50
+	unsigned char m_pad1C[4];
+	Coord3D m_goalPosition; // +0x20
+	unsigned char m_pad2C[0x48-0x2C];
+	Bool m_adjustsDestination; // +0x48
+	Bool m_waitingForPath; // +0x49
+	unsigned char m_pad4A[2];
 };
 
 class Rva00349611 : public AIInternalMoveToState
 {
 public:
 	StateReturnType rva00349611();
+	int m_lastRepathFrame; // +0x4C
+	Coord3D m_prevVictimPos; // +0x50
+	int m_cellX,m_cellY; // +0x5C,+0x60
 };
 
 StateReturnType Rva00349611::rva00349611()
 {
 	Object *source = m_machine->m_owner;
-	AIUpdateInterface *ai = source->getAI();
+	AIUpdateInterface *ai = source->getObservedAI();
 	if (m_machine->rva004D7ADD())
 	{
 		ai->notifyVictimIsDead();
@@ -221,11 +225,9 @@ StateReturnType Rva00349611::rva00349611()
 		ai->setCurrentVictim(victim);
 		if (ai->m_140 == 0)
 		{
-			Coord3D *goal = &m_goalPosition;
+			Coord3D *goal = &m_prevVictimPos;
 			*goal = *victim->getPosition();
-			Coord3D delta = { source->getPosition()->x - goal->x, source->getPosition()->y - goal->y, 0.0f };
-			const Rva00349611AIData *data = TheAI->m_aiData;
-			if (delta.length() < data->m_90 + data->m_94)
+			ApproachCoordCopy raw(*source->getPosition());raw.sub(goal);float dx=raw.x,dy=raw.y;const Rva00349611AIData*data=TheAI->m_aiData;ApproachCoordCopy delta(dx,dy,0.0f);if (delta.length() < data->m_90 + data->m_94)
 				return STATE_SUCCESS;
 		}
 		if (g_00E03745)
