@@ -1,19 +1,14 @@
-// ?rva00344EB2@@YA_NPAVObject@@PAVThing@@@Z
-// partial score=0.7 date=2026-10-06
-// cl: /O1 /arch:SSE /DNDEBUG /MD
+// cl: /ICode/Libraries/Include/Lib /O1 /G7 /arch:SSE /DNDEBUG /MD
 // ?rva00344EB2@@YA_NPAVObject@@PAVThing@@@Z @0x00344EB2 165B.
+// Native 00344EB2..00344F57 is a cdecl predicate with two object pointers.
+// No donor name is asserted: this address-derived name preserves uncertainty.
 // Cdecl range-gate predicate (bool): rejects a null candidate, a flagged
 // (+0x438 bit) candidate, or a failed status/flag-resolution pair (rowed
 // testStatus plus double rowed rva002931F5 whose second result replaces the
 // candidate), then dots the candidate-to-anchor delta against the rowed
 // getUnitDirectionVector2D and requires a non-negative projection plus the
 // rowed holder-entry ratio check.
-struct Coord3D
-{
-	float x;
-	float y;
-	float z;
-};
+#include "Coord3D.h"
 
 struct Rva0028AC4EEntry;
 class Rva001E46E1;
@@ -31,9 +26,8 @@ public:
 	const struct Rva0028AC4EEntry *rva0028AC4E() const;
 
 	char m_pad00[0x38];
-	float m_38;
-	float m_3C;
-	char m_pad40[0x438 - 0x40];
+	Coord3D position;
+	char m_pad44[0x438 - 0x44];
 	unsigned char m_438;
 };
 
@@ -49,10 +43,11 @@ public:
 	bool rva001E543F(Object *obj);
 };
 
-bool rva00344EB2(Object *a, Thing *b)
+// Preserve the established PAV ABI while the local parameter view sequences
+// its read ahead of the two ordered position reads.
+bool rva00344EB2Gate(Object *, Thing *);
+bool rva00344EB2Gate(Object *volatile a, Thing *b)
 {
-	volatile char framePad[4];
-	(void)framePad;
 	if (b == 0)
 		return false;
 	if ((b->m_438 & 1) != 0)
@@ -61,10 +56,14 @@ bool rva00344EB2(Object *a, Thing *b)
 		if (b->rva002931F5(false) != 0)
 			b = (Thing *)b->rva002931F5(false);
 	}
-	float dx = b->m_38 - a->m_38;
-	float dy = b->m_3C - a->m_3C;
+	Object *anchor=a;
+const volatile Coord3D& point=b->position;
+float x=point.x;float y=point.y;
+Coord3D delta;delta.x=x-anchor->position.x;delta.y=y-anchor->position.y;
 	const Coord3D *dir = b->getUnitDirectionVector2D();
-	float dot = dir->x * dx + dir->y * dy;
+	const volatile Coord3D& direction=*dir;
+float vx=direction.x;float vy=direction.y;
+float dot = vx * delta.x + vy * delta.y;
 	if (0.0f > dot)
 		return false;
 	const Rva0028AC4EEntry *entry = b->rva0028AC4E();
