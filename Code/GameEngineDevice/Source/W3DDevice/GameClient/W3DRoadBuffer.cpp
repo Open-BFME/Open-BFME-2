@@ -272,20 +272,9 @@ void RoadType::loadTexture(AsciiString path, Int ID)
 //=============================================================================
 /** Nulls index & vertex data. */
 //=============================================================================
-RoadSegment::RoadSegment(void) :
-m_curveRadius(0.0f),
-m_type(SEGMENT),
-m_scale(1.0f),
-m_widthInTexture(1.0f),
-m_uniqueID(0),
-m_visible(false),
-m_numVertex(0),
-m_vb(NULL),
-m_numIndex(0),
-m_ib(NULL),
-m_bounds(Vector3(0.0f, 0.0f, 0.0f), 1.0f)
-{
-}
+// RoadSegment::RoadSegment (retail 0x000D6C35) is BFME 2's all-zero
+// constructor, which needs BFME 2's self-zeroing TRoadPt; it is compiled in
+// RoadSegmentCtor.cpp and reached from here through its ledger row.
 
 //=============================================================================
 // RoadSegment destructor
@@ -1543,12 +1532,68 @@ void W3DRoadBuffer::addMapObject(RoadSegment *pRoad, Bool updateTheCounts)
 //=============================================================================
 /** Loads the roads from the map objects. */
 //=============================================================================
-// ?addMapObjects@W3DRoadBuffer@@IAEXXZ present-unmatched
+// BFME 2 MapObject: next +0x04, name +0x14, flags +0x20; the location getter
+// is out of line (0x0030D631) and the list head is read through the holder
+// at retail [0x00E00940]. The Zero Hour MapObject header here has the older
+// layout, so addMapObjects walks the list through this view.
+class BfmeRetBWF { public: Real x, y, z; };
+struct Rva0030D631 { BfmeRetBWF *rva0030D631(); };
+class BfmeRoadMapObjectView
+{
+public:
+	BfmeRoadMapObjectView *getNext() { return m_nextMapObject; }
+	const BfmeRetBWF *getLocation() { return ((Rva0030D631 *)this)->rva0030D631(); }
+	// MapObject keeps its flags at +0x20 in both layouts.
+	Bool getFlag(Int flag) { return reinterpret_cast<const MapObject *>(this)->getFlag(flag); }
+	const AsciiString &getName() const { return m_objectName; }
+private:
+	char m_pad00[4];
+	BfmeRoadMapObjectView *m_nextMapObject;	// +0x04
+	char m_pad08[0x14 - 0x08];
+	AsciiString m_objectName;	// +0x14
+	char m_pad18[0x20 - 0x18];
+	Int m_flags;	// +0x20
+};
+class MapObjectListHolder;
+extern MapObjectListHolder *BfmeTheMapObjectListHolder;	// retail [0x00E00940]
+
+// BFME 2 registers each road's name with the asset registry when one exists
+// (retail [0x00E099F8]): the AssetList shape and callees as in
+// T1Base005F3750Ctor.cpp (set ctor 0x000D3A71, operator<< 0x0006C950,
+// registry call 0x0061F010, tree dtor 0x0006BF2A).
+struct Rva001408C0Target;
+typedef Rva001408C0Target *Rva001408C0Key;
+typedef _STL::set<
+    Rva001408C0Key,
+    _STL::less<Rva001408C0Key>,
+    _STL::allocator<Rva001408C0Key> > Rva001408C0Set;
+
+class AssetList {
+public:
+    AssetList()
+        : m_treeLayoutPad(0),
+          m_changed(true) {
+    }
+
+    AssetList &operator<<(const AsciiString &name);
+
+private:
+    Rva001408C0Set m_prototypes;
+    unsigned int m_treeLayoutPad;
+    bool m_changed;
+};
+extern void Rva009EBAC0(int value);
+class Rva009EB960;
+extern Rva009EB960 *Rva0134FAA0;
+
+// Retail 0x000DD47D: the Zero Hour body behind an m_initialized check.
+// ?addMapObjects@W3DRoadBuffer@@IAEXXZ
 void W3DRoadBuffer::addMapObjects()
 {
-	MapObject *pMapObj;
-	MapObject *pMapObj2;
-	for (pMapObj = MapObject::getFirstMapObject(); pMapObj; pMapObj = pMapObj->getNext()) {
+	if (!m_initialized) return;
+	BfmeRoadMapObjectView *pMapObj;
+	BfmeRoadMapObjectView *pMapObj2;
+	for (pMapObj = *reinterpret_cast<BfmeRoadMapObjectView **>(BfmeTheMapObjectListHolder); pMapObj; pMapObj = pMapObj->getNext()) {
 		if (m_numRoads >= m_maxRoadSegments) {
 			break;
 		}
@@ -1560,8 +1605,10 @@ void W3DRoadBuffer::addMapObjects()
 			if (pMapObj2==NULL) break;
 			if (!pMapObj2->getFlag(FLAG_ROAD_POINT2)) continue;
 			Vector2 loc1, loc2;
-			loc1.Set(pMapObj->getLocation()->x, pMapObj->getLocation()->y);
-			loc2.Set(pMapObj2->getLocation()->x, pMapObj2->getLocation()->y);
+			Real y1 = pMapObj->getLocation()->y;
+			loc1.Set(pMapObj->getLocation()->x, y1);
+			Real y2 = pMapObj2->getLocation()->y;
+			loc2.Set(pMapObj2->getLocation()->x, y2);
 			if (loc1.X==loc2.X && loc1.Y==loc2.Y) {
 				loc2.X += 0.25;
 			}
@@ -1578,6 +1625,11 @@ void W3DRoadBuffer::addMapObjects()
 				curRoad.m_uniqueID = road->getID();
 				found = TRUE;
 			}  // end if
+			if (Rva0134FAA0 != 0) {
+				AssetList assets;
+				assets << pMapObj->getName();
+				Rva009EBAC0((int)&assets);
+			}
 			curRoad.m_pt1.loc = loc1;
 			curRoad.m_pt1.isAngled = pMapObj->getFlag(FLAG_ROAD_CORNER_ANGLED);
 			curRoad.m_pt1.isJoin = pMapObj->getFlag(FLAG_ROAD_JOIN);
