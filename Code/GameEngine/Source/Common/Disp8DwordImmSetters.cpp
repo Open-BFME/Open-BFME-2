@@ -70,3 +70,21 @@ void Rva00395583DwordImmSetter::apply()
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
 #pragma comment(linker, "/alternatename:?state1@Rva002E2903Player@@QAEXXZ=?apply@Rva002E066DDwordImmSetter@@QAEXXZ")
 #pragma comment(linker, "/alternatename:?state2@Rva002E2903Player@@QAEXXZ=?apply@Rva002E0675DwordImmSetter@@QAEXXZ")
+
+// Whole clean BF1 f98983a7 Player.cpp supplies a SpecialPowerReadyTimerType
+// clear source lead via the actual shims/player/Common/Player.h definition.
+// Its timer/template meanings are donor facts. Native2A9871..2A9879/8
+// follows a complete RET4 and endsRET before the next leaf: word4 becomes
+// allones then word0 becomes zero. Eight-section call/address scans found
+// no entry witness. Original owner and full object size remain unknown; this
+// independent raw two-word accessed-prefix reset uses unchanged homeflags.
+struct Rva002A9871Pair
+{
+    unsigned word0, word4;
+    void reset();
+};
+void Rva002A9871Pair::reset()
+{
+    word4 = ~0u;
+    word0 = 0;
+}
