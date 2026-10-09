@@ -958,12 +958,13 @@ public:
     void rva0005AA72(PlayingAudioRef &playing);
 
 private:
-    // Rowed at 0x00053352 and pinned at 0x000604A3 (OpenDevice.cpp's name).
+    // Provider teardown at 0x00053352 and selection at 0x000604A3.
     void unselectProvider(void);
-    void setHardwareAccelerated(bool accelerated);
+    void selectProvider(bool accelerated);
 public:
     unsigned int getProviderIndex(const AsciiString &providerName) const;
-private:
+    void init3DSamplePools();
+    void createListener();
 protected:
     virtual void loadPostProcess(void);
 private:
@@ -991,7 +992,8 @@ private:
     unsigned short m_maxAmbientStreams;  // +0x69C
     char at69E[0x6A4 - 0x69E];
     bool m_at6A4;                        // +0x6A4
-    char at6A5[0x6A7 - 0x6A5];
+    char at6A5;
+    bool m_forceHeadphones;             // +0x6A6, provider speaker override
     bool m_at6A7;                        // +0x6A7, read by 0x52F4C and 0x53AFA
     char at6A8[0x6AA - 0x6A8];
     bool m_at6AA;                        // +0x6AA, retest areas on every call (0x55C5D)
@@ -3048,7 +3050,7 @@ void MilesAudioManager::rva000606CE(bool accelerated)
         rva0005452B();
         unselectProvider();
     }
-    setHardwareAccelerated(accelerated);
+    selectProvider(accelerated);
     if (m_selectedProvider != (unsigned int)-1) {
         internalSetReverbRoomType(m_atBE4);
         slot10();
@@ -3529,4 +3531,116 @@ unsigned int MilesAudioManager::getProviderIndex(const AsciiString &providerName
             return i;
     }
     return 0xffffffff;
+}
+
+// Native COM dispatch: IDirectSound::GetSpeakerConfig at slot 8 uses
+// stdcall with the receiver on the stack, unlike the engine interfaces.
+class MilesProviderDirectSound {
+public:
+ virtual void __stdcall slot0(); virtual void __stdcall slot1();
+ virtual void __stdcall slot2(); virtual void __stdcall slot3();
+ virtual void __stdcall slot4(); virtual void __stdcall slot5();
+ virtual void __stdcall slot6(); virtual void __stdcall slot7();
+ virtual long __stdcall GetSpeakerConfig(unsigned long *config);
+};
+extern "C" __declspec(dllimport) void __stdcall AIL_get_DirectSound_info(void *,MilesProviderDirectSound **,void *);
+extern "C" __declspec(dllimport) int __stdcall AIL_open_3D_provider(void *);
+extern "C" __declspec(dllimport) void __stdcall AIL_set_3D_rolloff_factor(void *,float);
+extern "C" __declspec(dllimport) void __stdcall AIL_set_3D_speaker_type(void *,int);
+class VideoPlayerInterface {
+public:
+ virtual ~VideoPlayerInterface();
+ virtual void slot1();
+ virtual void slot2();
+ virtual void slot3();
+ virtual void slot4();
+ virtual void slot5();
+ virtual void slot6();
+ virtual void slot7();
+ virtual void slot8();
+ virtual void slot9();
+ virtual void slot10();
+ virtual void slot11();
+ virtual void slot12();
+ virtual void slot13();
+ virtual void slot14();
+ virtual void slot15();
+ virtual void slot16();
+ virtual void slot17();
+ virtual void slot18();
+ virtual void slot19();
+ virtual void slot20();
+ virtual void slot21();
+ virtual void slot22();
+ virtual void slot23();
+ virtual void slot24();
+ virtual void slot25();
+ virtual void notifyVideoPlayerOfNewProvider(bool selected);
+};
+extern VideoPlayerInterface *TheVideoPlayer;
+
+// Source guide: Zero Hour MilesAudioManager.cpp::selectProvider at the
+// verified Open-BFME-1 pointer 0bef414b52a39a3ab1ec98dca60d8a214de4260e.
+// WB 0x79CCB0 names this method; native callers pass a bool EAX3 preference.
+// Retail 0x604A3..0x606CE includes the complete eight-entry switch table.
+// Cases 0/2/4 share its default target. The remaining targets map DirectSound
+// configurations 1/3/5/6/7 to Miles speaker types 1/3/2/4/5 respectively.
+// TheVideoPlayer is the existing data-ledger global at VA 0xE0ABA8;
+// native dispatch and the reference interface agree on callback slot 26.
+void MilesAudioManager::selectProvider(bool accelerated)
+{
+ if(!slot56(4))return;
+ if(m_selectedProvider<m_providerCount) {
+  rva00060309();
+  unselectProvider();
+ }
+ MilesProviderDirectSound *directSound=0;
+ AIL_get_DirectSound_info(0,&directSound,0);
+ if(directSound) {
+  unsigned long configuration;
+  directSound->GetSpeakerConfig(&configuration);
+  switch((unsigned char)configuration) {
+  case 0:case 2:case 4:m_selectedSpeakerType=0;break;
+  case 1:m_selectedSpeakerType=1;break;
+  case 3:m_selectedSpeakerType=3;break;
+  case 5:m_selectedSpeakerType=2;break;
+  case 6:m_selectedSpeakerType=4;break;
+  case 7:m_selectedSpeakerType=5;break;
+  default:m_selectedSpeakerType=0;break;
+  }
+ }else m_selectedSpeakerType=0;
+ bool success=false;
+ bool setSpeaker=false;
+ unsigned provider=0xffffffff;
+ if(accelerated) {
+  provider=getProviderIndex(AsciiString("Creative Labs EAX 3 (TM)"));
+  if(provider!=0xffffffff) {
+   success=AIL_open_3D_provider(m_provider3D[provider].id)==0;
+   if(success)setSpeaker=false;
+  }
+ }
+ if(!success) {
+  if(shouldUseDolbyProvider()) {
+   provider=getProviderIndex(AsciiString("Dolby Surround"));
+   if(provider!=0xffffffff)success=AIL_open_3D_provider(m_provider3D[provider].id)==0;
+   if(success)setSpeaker=true;
+  }
+  if(!success) {
+   m_selectedProvider=0xffffffff;
+   provider=getProviderIndex(AsciiString("Miles Fast 2D Positional Audio"));
+   success=AIL_open_3D_provider(m_provider3D[provider].id)==0;
+   if(success)setSpeaker=true;
+  }
+ }
+ if(success) {
+  m_selectedProvider=provider;
+  AIL_set_3D_rolloff_factor(m_provider3D[provider].id,0.0f);
+  init3DSamplePools();
+  createListener();
+  if(setSpeaker) {
+   if(m_forceHeadphones)AIL_set_3D_speaker_type(m_provider3D[provider].id,1);
+   else AIL_set_3D_speaker_type(m_provider3D[provider].id,m_selectedSpeakerType);
+  }
+  if(TheVideoPlayer)TheVideoPlayer->notifyVideoPlayerOfNewProvider(true);
+ }
 }

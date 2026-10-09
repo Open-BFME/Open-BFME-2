@@ -11,8 +11,8 @@
 // at 0xA8903 from the driver. Its constructor stores the driver at +0x34;
 // holder 0x53D66 replaces its pointer and destroys/deletes the old object.
 // Address-derived types express only that evidence, not original class names.
-// buildProviderList/setHardwareAccelerated names follow the donor; provider
-// enumeration and the UseEAX3-fed call corroborate their roles in the target.
+// buildProviderList follows the donor; WB names selectProvider and its
+// recovered bool ABI agrees with this UseEAX3-fed native call.
 
 typedef bool Bool;
 typedef __int64 Time64;
@@ -116,7 +116,7 @@ virtual void v58();
  void openDevice();
 private:
  void buildProviderList();
- void setHardwareAccelerated(Bool accelerated);
+ void selectProvider(Bool accelerated);
  void initSamplePools();
 protected:
  void initDelayFilter();
@@ -138,7 +138,7 @@ void MilesAudioManager::openDevice() {
  AIL_quick_handles(&m_digitalHandle,0,0);
  if(retval) buildProviderList(); else setOn(0,0x1f);
  OptionPreferences prefs;
- setHardwareAccelerated(prefs.getUseEAX3());
+ selectProvider(prefs.getUseEAX3());
  initSamplePools();
  refreshCachedVariables();
  m_device.assign(new Rva000A8903AudioDevice(m_digitalHandle));

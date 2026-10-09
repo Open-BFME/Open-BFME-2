@@ -12546,7 +12546,6 @@ name,address,notes
 ?setGridTransform@WaterRenderObjClass@@QAEXPBVMatrix3D@@@Z,0x003F7E74
 ?setGroup@BfmeRankTransitionHandler@@QAEXVAsciiString@@H@Z,0x001DC252,callee of ?rva00565170@@YAHH_N@Z at retail 0x003FEBCF read from its REL32 displacement; body sets the group at +0x38 of the transition handler; body unrowed
 ?setGroup@GameWindowTransitionsHandler@@QAEXVAsciiString@@_N@Z,0x001DC252,callee of ?parchmentMapFadeLoadGame@@YAHH_N@Z at retail 0x002B51BA read from its REL32 displacement; GameWindowTransitionsHandler spelling of the same 0x001DC252 setGroup body pinned as ?setGroup@BfmeRankTransitionHandler@@QAEXVAsciiString@@H@Z; body unrowed
-?setHardwareAccelerated@MilesAudioManager@@AAEX_N@Z,0x000604A3,Donor-derived helper identity; target openDevice passes verified UseEAX3 result; target helper consults isOn and selected provider then hardware capabilities
 ?setHidden@W3DModelDraw@@UAEX_N@Z,0x000B6F6D,slot 16 of the W3DModelDraw-family vtable 0x00BCBFC0 (beside the BFME1-sweep opaque ?bfmeStep1035 pin); REL32 base call from W3DTankDraw::setHidden 0x000CE130 and W3DTruckDraw::setHidden 0x000CC788 (slot 16 of their vtables) as in Zero Hour
 ?setHiddenControlBar@ControlBar@@IAEXXZ,0x0031AE01,callee of ?switchControlBarStage@ControlBar@@QAEXW4ControlBarStages@@@Z at retail 0x0031B99A read from its REL32 displacement; ICF alias onto ?rva0031AE01@ControlBar@@QAEXXZ (matched)
 ?setHpState@Rva008022A0Owner@@QAEXH@Z,0x0066E530
