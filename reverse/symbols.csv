@@ -16527,3 +16527,8 @@ _D3DXVec3TransformCoordArray@24,0x0062AF6E,Native 0x00107A47 REL32 reaches six-b
 ?str@ostrstream@_STL@@QAEPADXZ,0x006027F0,
 ?deleteUpgradeList@Player@@QAEXXZ,0x002AA7E6,Player init call 2AF75B; WB C1C3E0 clears upgrade chain +9C and masks BC/13C; ZH Player.cpp2971
 ?reset@ScoreKeeper@@QAEXH@Z,0x0039C5FD,Player init score +3BC call; WB FA1460 scoring masks/reset maps/player index; ZH ScoreKeeper.cpp91
+?erase@?$vector@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@QAEPAPBVModuleData@@PAPBV3@0@Z,0x0031BD55,fold-proof=Code/GameEngine/Source/Common/Thing/ModuleFactory.cpp ICF twin of the rowed voidptr range erase; REL32 from DefendHomeTerritory 0x0059C010
+?rva00500659@Rva0059CFAACallee@@QAE?AV?$vector@HV?$allocator@H@_STL@@@_STL@@HPAH0@Z,0x00500659,thiscall spelling read from the callee body (ECX save / hidden result or AL / EAX use / struct by value); callers 0x0059C010 and 0x00276BA9
+?rva004FFB00@Rva0059CFAACallee@@QAEPAURva004FFB00Hero@@HPAH0@Z,0x004FFB00,thiscall spelling read from the callee body (ECX save / hidden result or AL / EAX use / struct by value); callers 0x0059C010 and 0x00276BA9
+?rva0026FFF7@Rva0026FFF7@@QAE_NXZ,0x0026FFF7,thiscall spelling read from the callee body (ECX save / hidden result or AL / EAX use / struct by value); callers 0x0059C010 and 0x00276BA9
+?rva002747B8@Rva002747B8@@QAEXURGBColor@@@Z,0x002747B8,thiscall spelling read from the callee body (ECX save / hidden result or AL / EAX use / struct by value); callers 0x0059C010 and 0x00276BA9
