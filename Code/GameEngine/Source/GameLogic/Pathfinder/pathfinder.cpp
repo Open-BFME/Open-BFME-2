@@ -1158,5 +1158,5 @@ Rva002EBCF6::Rva002EBCF6() {}
 // the layer reset call supplies only ECX. Both release bodies fold to the
 // existing single RET at B3FD0. Separate full C++ providers preserve their ABIs.
 struct PathfinderDebugColor { float red,green,blue; };
-__declspec(noinline) void Rva000B3FD0PathDebug(const Coord3D *,float,Int,PathfinderDebugColor) {}
-__declspec(noinline) void PathfindLayer::rva000B3FD0() {}
+void Rva000B3FD0PathDebug(const Coord3D *,float,Int,PathfinderDebugColor);
+
