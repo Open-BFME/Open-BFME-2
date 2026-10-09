@@ -34,7 +34,8 @@ struct Rva001E46E1Data
 	float m_24;
 	char m_pad28[0x44 - 0x28];
 	unsigned int m_44;
-	char m_pad48[8];
+	float m_48;
+	float m_4C;
 	unsigned int m_50;
 	char m_pad54[0xEC - 0x54];
 	unsigned char m_ec;
@@ -49,6 +50,7 @@ class Rva001E46E1
 {
 public:
 	float rva001E46E1(Object *obj);
+	float rva001E3F4D(Object *obj,int condition);
 	float rva001E4845(Object *obj);
 	float rva001E488A(Object *obj);
 	bool rva001E543F(Object *obj);
@@ -56,7 +58,8 @@ public:
 	void rva001E53D8(float limit, Object *obj);
 	void *m_00;
 	const Rva001E46E1Data *m_data;
-	char m_pad08[0x28 - 8];
+	char m_pad08[0x24 - 8];
+	float m_24;
 	float m_28;
 	float m_2c;
 	float m_30;
@@ -211,4 +214,23 @@ float Rva001E46E1::rva001E46E1(Object *obj)
 	}
 done2c:
 	return f;
+}
+
+// Target 0x001E3F4D..0x001E3FAD (RET8). Native caller 0x001E558A uses
+// this same locomotor receiver and the object's body-condition result.
+// BFME1 LocomotorRva001B5A30.cpp at 9cbfb551fe20dae985f91f2319d8997287b6a705
+// establishes the lift-limit role; target offsets/calls above establish the
+// local layout. Original method name remains unknown. Keeping the square
+// in each branch reproduces retail's shared square then memory multiplies.
+float Rva001E46E1::rva001E3F4D(Object *obj,int condition)
+{
+    float scale=obj->m_258->m_1F8;
+    float result;
+    if (condition < TheWritableGlobalData->m_b3c)
+        result=(g_secondsPerLogicFrame*g_secondsPerLogicFrame)*m_data->m_48;
+    else
+        result=(g_secondsPerLogicFrame*g_secondsPerLogicFrame)*m_data->m_4C;
+    result*=scale;
+    if (result > m_24) result=m_24;
+    return result;
 }
