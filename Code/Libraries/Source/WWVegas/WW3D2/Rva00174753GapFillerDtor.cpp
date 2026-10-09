@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /EHsc /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP=
+// cl: /O1 /Ireference/shims/bfmealloc /EHsc /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP=
 // stlport
 // Native gap-filler context cleanup family. Existing DX8Wrapper::Shutdown
 // 125DC0 and deleting destructor11CC10 independently call174753; constructor
@@ -11,8 +11,17 @@
 // g_gapFillerAuxiliarySource is a provisional symbol for the unowned DFCEB8
 // pointer; its source identity and concrete dynamic type remain unresolved.
 // The release view establishes only native slot0(flags0)->pointer ABI.
-// The existing allocator declaration preserves the retail EH-state2 store.
+// Constructor 17414B proves the final member is another 12-byte storage
+// header, not just its first pointer: its nonthrowing out-of-line constructor
+// is the 19-byte 1F81BF fold. STLport vector-base destruction releases start24
+// through the existing throwing 30830 provider and preserves EH state2.
+// Both emitted constructor folds have complete byte-and-relocation proof.
+// The original context and auxiliary identities remain address-derived.
+void __cdecl Rva00030830FreeAllocation(void *);
+#include <cstdlib>
+#define free Rva00030830FreeAllocation
 #include <vector>
+#undef free
 struct Rva00087A93 { void *m_data; };
 struct BfmeAssignRecord32 {
  BfmeAssignRecord32(const BfmeAssignRecord32 &);
@@ -23,9 +32,11 @@ struct BfmeAssignRecord32 {
 struct Rva00174350MeshView { char opaque00[0x310]; unsigned *slot310; };
 void __cdecl Rva00030830FreeAllocation(void *);
 void __cdecl operator delete(void *);
-struct Rva00174753Allocation { void *pointer; ~Rva00174753Allocation(){if(pointer)Rva00030830FreeAllocation(pointer);} };
+struct Rva00174753Allocation : private _STL::_Vector_base<int,_STL::allocator<int> > { __declspec(noinline) Rva00174753Allocation() throw(); ~Rva00174753Allocation() {} };
+Rva00174753Allocation::Rva00174753Allocation() throw() : _STL::_Vector_base<int,_STL::allocator<int> >(_STL::allocator<int>()) {}
 struct Rva00174753ReleaseView { virtual void *releaseInstance(unsigned)=0; };
-class FXShaderParameterSourceNamespaceSAS;
+class FXShaderParameterSourceNamespaceSAS {public: FXShaderParameterSourceNamespaceSAS(); char opaque00[0xD8];};
+class Rva0018BEC7 {public: Rva0018BEC7();char opaque00[12];};
 extern FXShaderParameterSourceNamespaceSAS *g_00DF36B4;
 // Native 9FCEB8 starts at zero; preparation and cleanup share this provider.
 Rva00174753ReleaseView *g_gapFillerAuxiliarySource = 0;
@@ -35,6 +46,7 @@ class Rva00DF6F94GapFillerContext {
  _STL::vector<BfmeAssignRecord32> pending;
  Rva00174753Allocation allocation;
 public:
+ Rva00DF6F94GapFillerContext();
  ~Rva00DF6F94GapFillerContext();
  void rva00174350();
  void rva0017437D();
@@ -58,3 +70,5 @@ Rva00DF6F94GapFillerContext::~Rva00DF6F94GapFillerContext(){
  operator delete(g_gapFillerAuxiliarySource?g_gapFillerAuxiliarySource->releaseInstance(0):0);
  g_gapFillerAuxiliarySource=0;
 }
+
+Rva00DF6F94GapFillerContext::Rva00DF6F94GapFillerContext(){g_00DF36B4=new FXShaderParameterSourceNamespaceSAS;g_gapFillerAuxiliarySource=reinterpret_cast<Rva00174753ReleaseView *>(new Rva0018BEC7);}
