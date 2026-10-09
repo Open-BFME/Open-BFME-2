@@ -1,6 +1,8 @@
 // ??1Rva005173F8@@UAE@XZ
-// partial score=0.94 date=2026-10-08
-// cl: /O1 /G7 /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC
+// Exact225B after /EHs keeps game-free unwind and a local vector reference
+// at erase reuses EDI for end/start. Prior bank supplied layout and donor lead;
+// these two changes are established by current native bytes and EH verification.
+// cl: /O1 /G7 /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC
 // stlport
 // WB AptOnlineShell::~AptOnlineShell at 0x0145BAD0 supplies the identity
 // lead and member order. Retail 0x005173F8 independently proves the two
@@ -33,6 +35,12 @@ struct Rva00416088 {
     ~Rva00416088();
 };
 
+struct Rva0051719B {
+    unsigned int state;
+    Rva00416088 record;
+    ~Rva0051719B() {}
+};
+
 struct AptOnlineSubScreen {
     virtual void *deleteInstance(int flags);
     virtual void v1();
@@ -56,8 +64,7 @@ private:
     AsciiString m_pendingScreen;
     AptOnlineSubScreen *m_currentScreen;
     AsciiString m_currentName;
-    unsigned int m_inviteState;
-    Rva00416088 m_invite;
+    Rva0051719B m_invite;
 };
 
 Rva005173F8::~Rva005173F8()
@@ -68,7 +75,8 @@ Rva005173F8::~Rva005173F8()
         if (screen) allocation = screen->deleteInstance(0);
         ::operator delete(allocation);
     }
-    m_screens.erase(m_screens.begin(), m_screens.end());
+    _STL::vector<void *> &screens = m_screens;
+    screens.erase(screens.begin(), screens.end());
     if (g_Va00E04904 == (int)this) {
         TearDownGameSpy();
         g_Rva00E02EEC = 0;
