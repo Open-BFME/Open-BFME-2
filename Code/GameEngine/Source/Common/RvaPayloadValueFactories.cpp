@@ -257,3 +257,32 @@ Rva005CDCC2Payload::Rva005CDCC2Payload(int scalar,
  : first(input), value(scalar)
 {
 }
+
+// WB15FF5F0 names this DetailsPanelFactoryFactory::CreatePanelFactory (line779).
+// Native5E5C15..5E5C63 is78B RET8 and ends at the next rowed value factory.
+// Slot0 receives the context and a hidden nontrivial one-pointer result.
+// Returning its local result copies the pointer and increments count+4;
+// local cleanup uses the existing fastcall reference release7DEEF. Native
+// EH guard flags and the reused context/result stack slot are compiler output.
+// PanelFactoryResultView describes this ABI; the original smart-pointer and
+// pointed-to factory type are not asserted. No vtable or alias pin is emitted.
+struct TargetRef00217D4C { void *vtable; int refs; };
+void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
+class PanelFactoryResultView {
+public:
+ PanelFactoryResultView(const PanelFactoryResultView &other):pointer(other.pointer) {if(pointer)++pointer->refs;}
+ ~PanelFactoryResultView(){if(pointer)ReleaseTreeHintRef00217D4C(pointer);}
+private:
+ TargetRef00217D4C *pointer;
+};
+class StrategicInGameUI {
+public: class PlanningPhaseArmySelection {
+public: class DetailsPanelFactoryFactory {
+public:
+ virtual PanelFactoryResultView Clone(void *context);
+ PanelFactoryResultView CreatePanelFactory(void *context);
+};};};
+PanelFactoryResultView StrategicInGameUI::PlanningPhaseArmySelection::DetailsPanelFactoryFactory::CreatePanelFactory(void *context) {
+ PanelFactoryResultView result=Clone(context);
+ return result;
+}
