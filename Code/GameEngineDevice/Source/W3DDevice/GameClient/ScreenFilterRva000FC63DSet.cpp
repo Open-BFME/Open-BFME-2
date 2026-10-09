@@ -1,5 +1,15 @@
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD
 //
+// reset is slot 6 of this vftable (0x007CF3E0 -> 0x000FC8B4).
+// Native 0x000FC8B4..0x000FC903 is the complete 79B no-argument body,
+// ending in Invalidate_Cached_Render_States before the next shutdown.
+// BFME 1 f98983a7 game/GameEngineDevice/Source/W3DDevice/GameClient/
+// ScreenFilterResets.cpp supplies the texture-first reset pattern.
+// BFME 2's matched Rva007D85C0 slot-6 and Rva007D6B70 reset units establish
+// the cached-texture Release/null update and the D3D9 slots/counters.
+// This body clears stage 0 before the pixel shader; all bytes and relocations
+// agree. The class remains the existing neutral address-derived owner.
+//
 // ?set@Rva000FC63DFilter@@MAEHW4FilterModes@@@Z, retail 0x000FC63D..0x000FC8B4
 // (631B), thiscall ret 4; slot 5 (set) of the screen filter vtable at
 // VA 0x00BCF3C8 (the entry at 0x007CF3DC).
@@ -117,9 +127,66 @@ struct BFME2TextureRef
 };
 void BFME2Set_Texture(unsigned stage, const BFME2TextureRef &texture);
 
+struct IDirect3DBaseTexture8
+{
+	virtual long __stdcall QueryInterface(const void *, void **) = 0;
+	virtual unsigned long __stdcall AddRef() = 0;
+	virtual unsigned long __stdcall Release() = 0;
+};
+
+struct IDirect3DDevice8
+{
+	virtual long __stdcall QueryInterface(const void *, void **) = 0;
+	virtual unsigned long __stdcall AddRef() = 0;
+	virtual unsigned long __stdcall Release() = 0;
+#define S(n) virtual void __stdcall slot##n() = 0;
+	S(03) S(04) S(05) S(06) S(07) S(08) S(09) S(10) S(11) S(12) S(13) S(14) S(15) S(16) S(17)
+	S(18) S(19) S(20) S(21) S(22) S(23) S(24) S(25) S(26) S(27) S(28) S(29) S(30) S(31) S(32)
+	S(33) S(34) S(35) S(36) S(37) S(38) S(39) S(40) S(41) S(42) S(43) S(44) S(45) S(46) S(47)
+	S(48) S(49) S(50) S(51) S(52) S(53) S(54) S(55) S(56)
+	virtual long __stdcall SetRenderState(unsigned long state, unsigned long value) = 0; // 57
+	S(58) S(59) S(60) S(61) S(62)
+	S(63) S(64)
+	virtual long __stdcall SetTexture(unsigned stage, IDirect3DBaseTexture8 *texture) = 0;	// 65
+	S(66) S(67) S(68)
+	virtual long __stdcall SetSamplerState(unsigned sampler, unsigned type, unsigned value) = 0;	// 69
+	S(70) S(71) S(72) S(73) S(74) S(75) S(76) S(77) S(78) S(79) S(80) S(81) S(82) S(83) S(84)
+	S(85) S(86)
+	virtual long __stdcall SetVertexDeclaration(unsigned decl) = 0;	// 87
+	S(88) S(89) S(90) S(91)
+	virtual long __stdcall SetVertexShader(unsigned shader) = 0;	// 92
+	S(93) S(94) S(95) S(96) S(97) S(98) S(99) S(100) S(101) S(102) S(103) S(104) S(105) S(106)
+	virtual long __stdcall SetPixelShader(unsigned shader) = 0;	// 107
+	S(108)
+	virtual long __stdcall SetPixelShaderConstantF(unsigned reg, const void *data, unsigned count) = 0;	// 109
+#undef S
+};
+
+extern unsigned number_of_DX8_calls;
+
 class DX8Wrapper
 {
 public:
+	static IDirect3DDevice8 *_Get_D3D_Device8() { return D3DDevice; }
+	static void Invalidate_Cached_Render_States();
+	static __forceinline void Set_DX8_Texture(unsigned stage, IDirect3DBaseTexture8 *texture)
+	{
+		if (stage >= 16) {
+			_Get_D3D_Device8()->SetTexture(stage, texture);
+			number_of_DX8_calls++;
+			return;
+		}
+		if (Textures[stage] == texture)
+			return;
+		if (Textures[stage])
+			Textures[stage]->Release();
+		Textures[stage] = texture;
+		if (Textures[stage])
+			Textures[stage]->AddRef();
+		_Get_D3D_Device8()->SetTexture(stage, texture);
+		number_of_DX8_calls++;
+		texture_changes++;
+	}
 	static void Set_Shader(const ShaderClass &shader);
 	static void Apply_Render_State_Changes();
 	static void Set_DX8_Render_State(unsigned long state, unsigned int value);
@@ -132,8 +199,11 @@ public:
 		ScreenMaterial = material;
 		render_state_changed |= 0x4000;
 	}
-private:
+protected:
 	static unsigned int render_state_changed;
+	static IDirect3DDevice8 *D3DDevice;
+	static IDirect3DBaseTexture8 *Textures[16];
+	static unsigned texture_changes;
 };
 
 #define REF_PTR_RELEASE(x) { if (x) x->Release_Ref(); x = 0; }
@@ -148,8 +218,15 @@ extern UnsignedInt g_Va00DEC1C0;	// last logic frame
 
 class Rva000FC63DFilter
 {
+public:
+	virtual int slot00();
+	virtual int slot01();
+	virtual bool slot02();
+	virtual bool slot03();
+	virtual bool slot04(int);
 protected:
 	virtual Int set(FilterModes mode);
+	virtual void reset();
 
 private:
 	unsigned char m_pad04[0x08 - 0x04];
@@ -251,4 +328,13 @@ Int Rva000FC63DFilter::set(FilterModes mode)
 		return true;
 	}
 	return false;
+}
+
+// ?reset@Rva000FC63DFilter@@MAEXXZ @0x000FC8B4
+void Rva000FC63DFilter::reset()
+{
+	DX8Wrapper::Set_DX8_Texture(0, 0);
+	DX8Wrapper::_Get_D3D_Device8()->SetPixelShader(0);
+	++number_of_DX8_calls;
+	DX8Wrapper::Invalidate_Cached_Render_States();
 }
