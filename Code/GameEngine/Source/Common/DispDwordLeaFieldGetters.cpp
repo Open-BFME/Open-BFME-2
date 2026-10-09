@@ -161,3 +161,11 @@ BFME_DISP32_LEA_GETTER(Rva0066D480LeaGetter, 0x170)
 // after a complete jump thunk at 0x004CEF01 and before the rowed pair-copy
 // body at 0x004CEF0D. Original receiver and addressed member type are unknown.
 BFME_DISP32_LEA_GETTER(Rva004CEF06LeaGetter, 0x1E4)
+
+// Clean BF1 f98983a7d3 AIUpdate.cpp's getLocomotorSet source supplies an
+// interior-address expression, not a target class or member identity.
+// Native 1F496E..1F4975 is a complete ECX+0x1B4/RET0 leaf immediately
+// after the independent jump at 1F4969 and before the rowed 1F4975 getter.
+// Retail establishes the displacement; the original owner and pointee
+// type remain unknown. The neighbouring LEA leaves are already rowed.
+BFME_DISP32_LEA_GETTER(Rva001F496ELeaGetter, 0x1B4)
