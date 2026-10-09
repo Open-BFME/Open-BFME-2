@@ -1,4 +1,4 @@
-// cl: /EHsc /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
+// cl: /Ob2 /Ireference/shims/bfmealloc /EHsc /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
 //
 // BFME2's create-a-hero powers page, AptCreateAHero::Powers (WorldBuilder:
 // Code/GameEngine/Source/GameClient/Gui/GUICallbacks/Apt/AptCreateAHeroPowers.cpp).
@@ -8,13 +8,20 @@
 #include "unicode_string.h"
 #include <stdio.h>
 // stlport
+#include <stdlib.h>
+// Retail uses the throwing allocation releaser during container teardown;
+// unlike CRT free this preserves the destructor's native EH states.
+void Rva00030830FreeAllocation(void *);
+#define free Rva00030830FreeAllocation
 #include <map>
 #include <vector>
+#undef free
 #include <string.h>
 struct BfmePod16 {char bytes[16];};
 namespace _STL {template<> __declspec(noinline) BfmePod16 *vector<BfmePod16>::erase(BfmePod16 *,BfmePod16 *);}
 class Rva005B3751 {public:void rva005B3947();};
 
+class GameWindow;
 class Image;
 class CommandButton
 {
@@ -95,6 +102,7 @@ struct Rva005B2E09Cell
 	int m_index0c;                    // +0x0c; UpdatePalantirButtons adds required count
 	int m_powerIndex;                 // +0x10; AddMyPower stores the page count
 	bool m_owned;                    // +0x14
+	unsigned int m_word18;           // +0x18; opaque native tail
 };
 
 // The prerequisite search over the page's grid (rowed 0x005B2E09, an
@@ -131,11 +139,42 @@ private:
 };
 UnicodeString Rva005B2376Describe(void *power, const AsciiString &unused, const AsciiString &fallback);
 
-namespace AptCreateAHero
-{
-class Powers
+// Native base vtable C72B74 and derived vtable C72F3C have eight slots.
+// The base retains only its vptr and the holder pointer at +4; its original
+// name is unknown. Target lifecycle bodies prove the empty base teardown.
+class Rva005B414FBase
 {
 public:
+    Rva005B414FBase(Rva005B3676Owner *owner) : m_owner(owner) {}
+    virtual ~Rva005B414FBase() {}
+    virtual void rva000B3FD0_1();
+    virtual void rva005B455D(bool);
+    virtual void rva005B486D();
+    virtual void rva000B3FD0_4();
+    virtual int rva005748AD_5(int, int, int);
+    virtual int rva005748AD_6(int, int, int);
+    virtual void rva005B2B6D(const char *);
+protected:
+    Rva005B3676Owner *m_owner;
+};
+
+namespace AptCreateAHero
+{
+class Powers : public Rva005B414FBase
+{
+public:
+    Powers(Rva005B3676Owner *);
+    virtual ~Powers();
+    virtual void rva005B455D(bool);
+    virtual void rva005B486D();
+    virtual void rva005B2B6D(const char *);
+    void rva000D1407(const char *, void *, GameWindow *);
+    void rva005B314B(const char *);
+    void rva005B2703(const char *);
+    void rva005B271E(const char *);
+    void rva005B278D(const char *);
+    void MyPowerToolTip(const char *);
+    void rva005B2951(int, char *, bool);
 	void rva005B3D50();
 	void MatrixToolTip(const char *path);
 	void PalantirToolTip(const char *path);
@@ -151,8 +190,6 @@ private:
 		return (Rva005B2E09Cell *)((Rva005B2DDF *)this)->rva005B2E09(cell);
 	}
 
-	unsigned char m_pad00[4];
-	Rva005B3676Owner *m_owner;  // +0x04; target owner contains hero at +0x27c
 	std::map<AsciiString, Rva005B2E09Cell> m_powersNameMap;
 	std::vector<BfmePod16> m_groups; // target14..20
 	int m_groupCurrent; //20
@@ -161,8 +198,11 @@ private:
 	int m_numPowers;             // +0x50
 	unsigned int m_numPalantir;  // +0x54
 	bool m_changed;             // +0x58
-	char m_pad59[0x68 - 0x59];
-	UnicodeString m_name;       // +0x68
+	bool m_flag59;
+	char m_pad5a[2];
+	std::vector<unsigned short> m_rows; // +0x5c; seven entries initially
+	UnicodeString m_name;              // +0x68
+	int m_word6c, m_word70;             // selected column/row
 };
 }
 
@@ -374,4 +414,156 @@ void AptCreateAHero::Powers::rva005B3D50()
  m_groupMax=10;
  ((Rva005B35E8 *)this)->rva005B35E8();
  m_numPalantir=0;
+}
+
+class __single_inheritance AptDelegateTarget;
+typedef void (AptDelegateTarget::*AptDelegateMethod)(void);
+
+struct DelegateDesc
+{
+	template <class T, class M> DelegateDesc(T *object, M method)
+		: m_object(reinterpret_cast<AptDelegateTarget *>(object))
+		, m_method(reinterpret_cast<AptDelegateMethod>(method))
+	{
+	}
+
+	AptDelegateTarget *m_object;
+	AptDelegateMethod m_method;
+};
+
+template <class T, class M> __forceinline DelegateDesc MakeDelegate(T *object, M method)
+{
+	DelegateDesc desc(object, method);
+	return desc;
+}
+
+class Rva00579E47
+{
+public:
+	Rva00579E47(const DelegateDesc &desc);
+	Rva00579E47(const Rva00579E47 &other);
+	~Rva00579E47();
+
+private:
+	void *m_ptr;
+};
+
+template <class T> class AptRef : public Rva00579E47
+{
+public:
+	AptRef(const DelegateDesc &desc) : Rva00579E47(desc) {}
+};
+
+class AptExternHandler;
+
+class AptExternHandlerAdder
+{
+public:
+	void AddExternHandler(const AsciiString &name, int arg, AptRef<AptExternHandler> handler);
+};
+
+
+class AptScreenInitGadgets;
+class AptCommandMap;
+class AptCommandMapAdder {public:void AddCommandMap(const AsciiString &,AptRef<AptCommandMap>);};
+void _bfme_setAptScreenRef(const AsciiString&,AptRef<AptScreenInitGadgets>);
+class Rva005B2725 {public:void Run(int);};
+// Native 5B414F..5B4541 (1010B): member initialization followed by Apt
+// registrations. WorldBuilder's Powers constructor supplies the class lead;
+// retail literals, member addresses and callback targets establish the ABI.
+AptCreateAHero::Powers::Powers(Rva005B3676Owner *holder)
+    : Rva005B414FBase(holder), m_groupCurrent(0), m_groupMax(10),
+      m_numPowers(0), m_numPalantir(0), m_changed(false), m_flag59(false),
+      m_rows(7), m_word6c(0), m_word70(0)
+{
+ memset(m_cells,0,sizeof(m_cells));
+ {AsciiString name("CahPowers::InitGadgets");_bfme_setAptScreenRef(name,AptRef<AptScreenInitGadgets>(MakeDelegate(this,&Powers::rva000D1407)));}
+
+{AsciiString name("AptCreateAHero::OnPowerSelect");((AptCommandMapAdder*)((char*)holder+0x21c))->AddCommandMap(name,AptRef<AptCommandMap>(MakeDelegate(this,&Powers::rva005B314B)));}
+{AsciiString name("AptCreateAHero::OnMyPowerSelect");((AptCommandMapAdder*)((char*)holder+0x21c))->AddCommandMap(name,AptRef<AptCommandMap>(MakeDelegate(this,&Powers::rva005B2703)));}
+{AsciiString name("AptCreateAHero::PowersIconsUpdate");((AptCommandMapAdder*)((char*)holder+0x21c))->AddCommandMap(name,AptRef<AptCommandMap>(MakeDelegate(this,&Powers::rva005B271E)));}
+{AsciiString name("AptCreateAHero::OnPowerSelectionComplete");((AptCommandMapAdder*)((char*)holder+0x21c))->AddCommandMap(name,AptRef<AptCommandMap>(MakeDelegate((Rva005B2725*)this,&Rva005B2725::Run)));}
+{AsciiString name("AptCreateAHero::OnResetBttn");((AptCommandMapAdder*)((char*)holder+0x21c))->AddCommandMap(name,AptRef<AptCommandMap>(MakeDelegate(this,&Powers::rva005B278D)));}
+{AsciiString name("AptCreateAHero::PalantirToolTip");((AptCommandMapAdder*)((char*)holder+0x21c))->AddCommandMap(name,AptRef<AptCommandMap>(MakeDelegate(this,&Powers::PalantirToolTip)));}
+{AsciiString name("AptCreateAHero::MatrixToolTip");((AptCommandMapAdder*)((char*)holder+0x21c))->AddCommandMap(name,AptRef<AptCommandMap>(MakeDelegate(this,&Powers::MatrixToolTip)));}
+{AsciiString name("AptCreateAHero::MyPowerToolTip");((AptCommandMapAdder*)((char*)holder+0x21c))->AddCommandMap(name,AptRef<AptCommandMap>(MakeDelegate(this,&Powers::MyPowerToolTip)));}
+
+{AsciiString name("NumPowerRows");((AptExternHandlerAdder*)((char*)holder+0x228))->AddExternHandler(name,0,AptRef<AptExternHandler>(MakeDelegate(this,&Powers::rva005B2951)));}
+{AsciiString name("DisablePowerInstructions");((AptExternHandlerAdder*)((char*)holder+0x228))->AddExternHandler(name,1,AptRef<AptExternHandler>(MakeDelegate(this,&Powers::rva005B2951)));}
+{AsciiString name("CurrentPowerIndex");((AptExternHandlerAdder*)((char*)holder+0x228))->AddExternHandler(name,2,AptRef<AptExternHandler>(MakeDelegate(this,&Powers::rva005B2951)));}
+{AsciiString name("NumCurrentPowers");((AptExternHandlerAdder*)((char*)holder+0x228))->AddExternHandler(name,3,AptRef<AptExternHandler>(MakeDelegate(this,&Powers::rva005B2951)));}
+}
+
+// Native callbacks registered by the constructor. Their original method
+// names remain unknown; retain the address-derived spellings.
+void AptCreateAHero::Powers::rva005B2703(const char *value)
+{
+    int n = atoi(value);
+    if (n == m_numPowers)
+        m_groupMax = n - 1;
+}
+
+void AptCreateAHero::Powers::rva005B271E(const char *)
+{
+    m_changed = true;
+}
+
+void AptCreateAHero::Powers::rva005B278D(const char *)
+{
+    m_groupMax = 0;
+}
+
+// Native callback 5B2951..5B2A37 (230B); WB1576FC0 query/set signature.
+// The inventory's 11B entry ends inside its switch prologue; the complete
+// body ends at RET12. The registered properties establish each selector.
+static bool powersQuerySeen;
+void AptCreateAHero::Powers::rva005B2951(int query, char *value, bool set)
+{
+    switch (query)
+    {
+    case 0:
+        if (!set)
+            sprintf(value, "%d", m_groups.size());
+        break;
+    case 1:
+        if (!set)
+        {
+            strcpy(value, powersQuerySeen ? "1" : "0");
+            powersQuerySeen = true;
+        }
+        break;
+    case 2:
+        if (set)
+        {
+            sscanf(value, "%d %d", &m_word70, &m_word6c);
+            --m_word6c;
+            --m_word70;
+        }
+        else
+        {
+            strcpy(value, "-1");
+            if ((unsigned)m_word6c < 4 && (unsigned)m_word70 < m_groups.size())
+            {
+                Rva005B2E09Cell *cell = *(Rva005B2E09Cell **)
+                    (m_groups[m_word70].bytes + 4 * m_word6c);
+                if (cell)
+                    sprintf(value, "%d", cell->m_powerIndex + 1);
+            }
+        }
+        break;
+    case 3:
+        if (!set)
+            sprintf(value, "%d", m_numPowers);
+        break;
+    }
+}
+
+void _bfme_closeAptScreen(const AsciiString &);
+// Native 5B3D94..5B3E59 (197B): close the observed Apt registration,
+// release its image name, then destroy string/vector/map members in order.
+AptCreateAHero::Powers::~Powers()
+{
+    _bfme_closeAptScreen(AsciiString("CahPowers::Powers::InitGadgets"));
+    ((Rva00223A94 *)g_bfmeAptWindowManager)->rva00223A94(&AsciiString("Cah::CurSpellImage"));
+    m_groupCurrent = 0;
 }
