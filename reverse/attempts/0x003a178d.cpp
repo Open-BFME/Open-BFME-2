@@ -1,4 +1,6 @@
 // ?rva003A178D@Team@@QAEHPAVObjectTypes@@HPAV1@@Z
+// partial score=0.97113 date=2026-10-09
+// ?rva003A178D@Team@@QAEHPAVObjectTypes@@HPAV1@@Z
 // partial score=0.97113 date=2026-10-08
 // cl: /O1 /G7 /arch:SSE /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /Ireference/shims/bfmealloc /Ireference/shims/moduledata
 // stlport

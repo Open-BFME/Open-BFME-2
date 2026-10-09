@@ -1,9 +1,11 @@
-// ?rva0039C09C@Rva0039C09C@@QAEXXZ
+// ?unhookAllScoredKillTrackers@ScoreKeeper@@QAEXXZ
+// partial score=0.9 date=2026-10-09
+// ?unhookAllScoredKillTrackers@ScoreKeeper@@QAEXXZ
 // partial score=0.93 date=2026-10-06
-// cl: /O1 /DNDEBUG /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/moduledata /I. /O1 /DNDEBUG /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //
-// ?rva0039C09C@Rva0039C09C@@QAEXXZ @0x0039C09C 88B
+// ?unhookAllScoredKillTrackers@ScoreKeeper@@QAEXXZ @0x0039C09C 88B
 // Evidence: LINK BONUS via 0x0039C2B5; rowed _free at 0x00030830 releases the copied buffer. The allocator name is redirected only while including the TU-scoped STLport allocator header, using existing target name Rva00030830FreeAllocation. retail calls rowed vector<unsigned> copy 0x002CFAB9
 // plus rowed Rva0055A91A::rva0055A91A 0x0055A91A plus rowed _free 0x00030830 plus __EH_prolog;
 // member vector at +0x304 (4B elements reused as Rva0055A91A pointers); neighbours
@@ -16,34 +18,30 @@ void Rva00030830FreeAllocation(void *);
 #include <vector>
 #undef free
 
-class Rva0055A91A
+#include "Code/GameEngine/Source/Common/ScoredKillTrackerView.h"
+template _STL::vector<unsigned>::vector(const _STL::vector<unsigned>&);
+class ScoreKeeper
 {
 public:
-	void rva0055A91A();
-};
-
-class Rva0039C09C
-{
-public:
-	void rva0039C09C();
+	void unhookAllScoredKillTrackers();
 private:
 	char m_pad[0x304];
 	std::vector<unsigned int> m_vec;
 };
 
-// ?rva0039C09C@Rva0039C09C@@QAEXXZ present-unmatched
-void Rva0039C09C::rva0039C09C()
+// ?unhookAllScoredKillTrackers@ScoreKeeper@@QAEXXZ present-unmatched
+void ScoreKeeper::unhookAllScoredKillTrackers()
 {
-	std::vector<unsigned int> tmp(m_vec);
-	unsigned int *begin = tmp.begin();
-	unsigned int *end = tmp.end();
-	if (end != begin)
+	const std::vector<unsigned int> tmp(m_vec);
+	const unsigned int *begin = tmp.begin();
+	
+	if (tmp.end() != begin)
 	{
-		unsigned int *it = begin;
+		const unsigned int *it = begin;
 		do
 		{
-			((Rva0055A91A *)*it)->rva0055A91A();
+			((ScoredKillTracker *)*it)->rva0055A91A();
 			it++;
-		} while (it != end);
+		} while (it != tmp.end());
 	}
 }
