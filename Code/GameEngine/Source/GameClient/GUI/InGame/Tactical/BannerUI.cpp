@@ -128,7 +128,7 @@ public:
  int CreateBanner(int bannerID);
  void OnAptMovieInitialized(const char *path);
  void OnBannerButton(int slot);
- void OnBttnBanner(const char *path);
+ void rva00216735(const char *path);
 private:
  unsigned char m_pad00[0x0C];
  Rva00056F61 m_types;
@@ -430,6 +430,9 @@ void BannerUI::OnAptMovieInitialized(const char *path)
 // "AptBannerUI::OnBttnBanner", retail 0x00216735 (26 bytes), which passes it
 // atoi of the command path. Entry 0x002166BB is proven by that command's
 // call and 0x00216735 by the constructor's DIR32; both end at their RET 4.
+// The command keeps an address-derived name: its WB counterpart 0x00B6ED40
+// is unnamed, and the same constructor binds "AptBannerUI::OnInitialized" to
+// OnAptMovieInitialized, so a command string does not give the method name.
 // The banner in the pressed slot (the rowed slot lookup 0x00216245, still
 // spelled on an address-named owner) is acted on once: in state 0 the
 // message 0x45E carries its banner id; in state 2 the script engine gets the
@@ -489,7 +492,7 @@ void BannerUI::OnBannerButton(int slot)
 	}
 }
 
-void BannerUI::OnBttnBanner(const char *path)
+void BannerUI::rva00216735(const char *path)
 {
 	OnBannerButton(atoi(path));
 }
