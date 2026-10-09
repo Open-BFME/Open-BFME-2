@@ -100,3 +100,14 @@ DisabledMaskType Rva004DF8C2::getDisabledTypesToProcess() const
 {
 	return DisabledMaskType(DisabledMaskType::kInit, 3, 8);
 }
+
+// Native 004DF983..004DF98B is a separate eight-byte cdecl accessor:
+// one stack pointer argument, EAX = argument + 0x38, plain RET. It follows
+// the three-byte 004DF980 getter and precedes the 004DF98B loop. The
+// AIStatCollector constructor passes its address to its +0x10 helper.
+// Original callback and pointee names are unresolved; no object layout
+// beyond this accessed offset is asserted.
+void *Rva004DF983Get(void *object)
+{
+    return static_cast<char *>(object) + 0x38;
+}
