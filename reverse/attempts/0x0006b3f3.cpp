@@ -1,4 +1,6 @@
 // ?rva0006B3F3@Rva00067878@@QAEXXZ
+// partial score=0.9869571288926128 date=2026-10-10
+// ?rva0006B3F3@Rva00067878@@QAEXXZ
 // partial score=0.9869571288926128 date=2026-10-09
 // ?rva0006B3F3@Rva00067878@@QAEXXZ
 // partial score=0.91 date=2026-09-29
@@ -42,7 +44,7 @@ private:
 class BfmeThingBNH
 {
 public:
-	BfmeThingBNH *bfmeGoBNH(void *what) throw();
+	BfmeThingBNH *bfmeGoBNH(void *what) ;
 };
 
 class TextureBaseClass
@@ -59,7 +61,7 @@ template<class T>
 class RefCountPtr
 {
 public:
-	RefCountPtr(int kind);
+	__declspec(noinline) RefCountPtr(int kind);
 	T *Referent;
 	~RefCountPtr()
 	{
@@ -68,6 +70,9 @@ public:
 	}
 	const RefCountPtr &operator=(const RefCountPtr &other);
 };
+
+void bfmeDoBNH(BfmeThingBNH*,void*,int,int);
+template<> RefCountPtr<TextureClass>::RefCountPtr(int kind){bfmeDoBNH((BfmeThingBNH*)this,(void*)"exscorch01.tga",0,0);}
 
 class BfmeScorchTextureHandle:public RefCountPtr<TextureClass>
 {
