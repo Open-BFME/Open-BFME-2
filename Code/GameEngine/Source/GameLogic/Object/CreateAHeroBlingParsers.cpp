@@ -90,10 +90,17 @@ void Rva0021ECB2Parse(INI *ini)
  reinterpret_cast<Rva0021EA74*>(TheCreateAHeroManager)->rva0021EA74(binder);
 }
 
-struct BfmeStringRecord002199C8 {
- AsciiString text0,text1,text2;unsigned word;
+// The owned cleanup21A0C2 is the three-string prefix. A scalar word
+// after that prefix needs no cleanup; inherit it to call the real provider
+// rather than the old masked destructor alias.
+struct Rva0021A0C2 {
+ AsciiString text0,text1,text2;
+ ~Rva0021A0C2();
+};
+struct BfmeStringRecord002199C8:public Rva0021A0C2 {
+ unsigned word;
  BfmeStringRecord002199C8(unsigned,const AsciiString&,const AsciiString&,const AsciiString&);
- ~BfmeStringRecord002199C8();
+
 };
 class UpgradeTemplate;
 class UpgradeCenter {public:const UpgradeTemplate *findUpgrade(const AsciiString&)const;};
