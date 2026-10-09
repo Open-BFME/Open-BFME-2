@@ -141,6 +141,7 @@ class AptPlayer
 {
 public:
  static int GetLevelIndex(GameWindow *window);
+ void GetExtern(const char *name,char *out);
  const Image *FindRenderImage(const char *targetName,const char *parameters);
 	void PopFocus(AptFocusTarget *target);
  void SetExtern(const char *name,int value);
@@ -417,4 +418,29 @@ void AptPlayer::AddExternHandler(const AsciiString &name,int context,AptRef<AptE
  if(oldHandler.m_ptr) return;
  entry.handler=handler;
  entry.context=context;
+}
+
+extern "C" char *__cdecl _mbscpy(char *,const char *);
+void AptPlayer::GetExtern(const char *name,char *out)
+{
+ if(!name || !out) return;
+ *out=0;
+ if(*name=='?') {
+  ++name;
+  Rva0041534BIter found=reinterpret_cast<AptExternTable *>(m_commandMap+0x14)->find(AsciiString(AptUtils::SkipLevelN(name)));
+  if(found.m_node) _mbscpy(out,"extern");
+  else {
+   void *commandNode=reinterpret_cast<AptExternTable *>(m_commandMap)->find(AsciiString(name)).m_node;
+   if(commandNode) _mbscpy(out,"fscommand");
+   else _mbscpy(out,"0");
+  }
+  return;
+ }
+ Rva0041534BIter found=reinterpret_cast<AptExternTable *>(m_commandMap+0x14)->find(AsciiString(name));
+ if(!found.m_node) {
+  found=reinterpret_cast<AptExternTable *>(m_commandMap+0x14)->find(AsciiString(AptUtils::SkipLevelN(name)));
+  if(!found.m_node) return;
+ }
+ AptExternNode *node=static_cast<AptExternNode *>(found.m_node);
+ node->handle.invoke(node->context,reinterpret_cast<int>(out),0);
 }
