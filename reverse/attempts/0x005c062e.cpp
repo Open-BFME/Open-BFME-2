@@ -1,4 +1,6 @@
 // ?ProcessOnlineGameResults@StatsReporter@@SAXPAVPlayer@@@Z
+// partial score=0.9986520360241784 date=2026-10-09
+// ?ProcessOnlineGameResults@StatsReporter@@SAXPAVPlayer@@@Z
 // partial score=0.995706 date=2026-10-09
 // ?ProcessOnlineGameResults@StatsReporter@@SAXPAVPlayer@@@Z
 // partial score=0.9957 date=2026-10-09
@@ -364,7 +366,7 @@ void StatsReporter::ProcessOnlineGameResults(Player*player){
  core->m_mapsdc_0[(unsigned char)faction]+=(float)reinterpret_cast<Rva004EE3F9*>(s)->rva004EE3F9(reinterpret_cast<const Rva00045411BitSet&>(g_defaultStorage009FEFA4),Rva00045411BitSet(0,7));
  core->m_mapsdc_1[(unsigned char)faction]+=(float)reinterpret_cast<Rva004EE3AB*>(s)->rva004EE3AB(reinterpret_cast<const Rva00045411BitSet&>(g_defaultStorage009FEFA4),Rva00045411BitSet(0,7));
  float seconds=(float)s->rva004EE043();_STL::vector<unsigned>times=s->v40;int sum=0;for(int i=0;i!=(int)times.size();++i)sum+=times[i];float elapsed=seconds-(float)(int)sum;
- float&totalSeconds=strategic.m_map154[(unsigned char)faction];seconds+=totalSeconds;totalSeconds=seconds;strategic.m_map160[(unsigned char)faction]=maxRef(elapsed,strategic.m_map160[(unsigned char)faction]);
+ float&totalSeconds=strategic.m_map154[(unsigned char)faction];totalSeconds+=*(const volatile float*)&seconds;strategic.m_map160[(unsigned char)faction]=maxRef(elapsed,strategic.m_map160[(unsigned char)faction]);
  strategic.m_map1b4[(unsigned char)faction]+=s->getD8();strategic.m_map1c0[(unsigned char)faction]+=s->getDC();
  {float&sumMap=strategic.m_map1cc[(unsigned char)faction];int combined=s->valueE0+s->valueE4;const unsigned char key=(unsigned char)faction;sumMap+=(float)combined;strategic.m_map1d8[key]+=(float)s->valueE8;}strategic.m_map1e4[(unsigned char)faction]+=(float)s->valueEC;strategic.m_map1fc[(unsigned char)faction]+=(float)s->valueF0;strategic.m_map1f0[(unsigned char)faction]+=(float)s->v34.size();
  }
