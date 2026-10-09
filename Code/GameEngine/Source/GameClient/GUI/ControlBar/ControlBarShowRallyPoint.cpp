@@ -28,13 +28,11 @@ public:
 	void *rva002D06CA(const AsciiString *name);
 };
 
-class Rva002CF21B
+class ThingFactory
 {
 public:
-	void *rva002CF21B(void *tmplate, int a, int b);
+	void *newDrawable(void *tmplate, int a, int b);	// 0x002CF21B
 };
-
-class ThingFactory;
 extern ThingFactory *TheThingFactory;
 
 class Rva0055A88BDwordField
@@ -124,7 +122,7 @@ void ControlBar::showRallyPoint(const Coord3D *loc)
 				AsciiString markerName("RallyPointMarker");
 				ttn = (const void *)((Rva002D06CA *)TheThingFactory)->rva002D06CA(&markerName);
 			}
-			marker = (Drawable *)((Rva002CF21B *)TheThingFactory)->rva002CF21B((void *)ttn, 0, -1);
+			marker = (Drawable *)TheThingFactory->newDrawable((void *)ttn, 0, -1);
 			if (marker)
 			{
 				((DrawableWithStatus *)marker)->m_status |= 0x10;

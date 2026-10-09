@@ -1,10 +1,13 @@
 // cl: /MD
-// ?rva002CF21B@Rva002CF21B@@QAEHPAXHH@Z @0x002CF21B 99B.
+// ?newDrawable@ThingFactory@@QAEPAXPAXHH@Z @0x002CF21B 99B.
 // Manager dispatch: null arg returns 0, else virtual slot 0x70 on the global
 // at 0x009FE77C with 3 args, then walk the pointer array at result+0x154;
 // per element Sleep(0) if byte at 0x009FF004 set, virtual slot 0x40 then
 // slot 0, ret 12. Callers pass global 0x009FF000 in ecx with 3 stack args.
-// Unblocks 9 free functions, none ready yet.
+// Unblocks 9 free functions, none ready yet. WB 0x00A95DB0 is
+// ThingFactory::newDrawable: the same TheGameClient slot 0x70 create, the
+// Sleep(0) spin on the same flag and the slot 0x40 call per element; retail
+// takes three arguments (ret 12) where Zero Hour's takes two.
 extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long ms);
 class ClientFrameSubsystem; extern class GameClient *TheGameClient;
 
@@ -76,12 +79,12 @@ struct Mgr
 	virtual Result *v28(int a1, int a2, int a3);
 };
 
-struct Rva002CF21B
+struct ThingFactory
 {
-	void *rva002CF21B(void *a1, int a2, int a3);
+	void *newDrawable(void *a1, int a2, int a3);
 };
 
-void *Rva002CF21B::rva002CF21B(void *a1, int a2, int a3)
+void *ThingFactory::newDrawable(void *a1, int a2, int a3)
 {
 	if (a1 == 0)
 		return 0;

@@ -732,15 +732,36 @@ struct Rva0057708FInner
 	char m_pad00[0x14];
 	Rva0057702E m_14;
 };
-class Rva0057708F
+// StrategicInGameUI::PlanRetreatsPhaseBehavior::Impl::Selection::DeselectThis,
+// retail 0x0057708F: slot 5 of the selection's vftable 0x00C6E858 (installed
+// at +0 by its destructor 0x00576F48 and constructor 0x005774E3; nothing
+// calls it directly). WB's twin table 0x01F4871C holds WB 0x014CE670,
+// DeselectThis, in slot 5 beside the same HeroArmySelectionHandler slots 0
+// and 1. It clears the owning Impl's +0x14 selection holder.
+namespace StrategicInGameUI
+{
+class PlanRetreatsPhaseBehavior
 {
 public:
-	void rva0057708F();
-private:
-	char m_pad00[0x14];
-	Rva0057708FInner *m_14;
+	class Impl;
 };
-void Rva0057708F::rva0057708F()
+}
+class StrategicInGameUI::PlanRetreatsPhaseBehavior::Impl
+{
+public:
+	class Selection;
+};
+class StrategicInGameUI::PlanRetreatsPhaseBehavior::Impl::Selection
+{
+public:
+	virtual void slot00(); virtual void slot01(); virtual void slot02();
+	virtual void slot03(); virtual void slot04();
+	virtual void DeselectThis();	// slot 5
+private:
+	char m_pad04[0x14 - 0x04];
+	Rva0057708FInner *m_14;	// the owning Impl
+};
+void StrategicInGameUI::PlanRetreatsPhaseBehavior::Impl::Selection::DeselectThis()
 {
 	m_14->m_14.rva0057702E();
 }

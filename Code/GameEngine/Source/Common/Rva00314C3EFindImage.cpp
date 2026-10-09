@@ -1,13 +1,16 @@
 // cl: /Ireference/shims/bfme2_ascii /Oy- /DNDEBUG /MD /GX /Oi-
 //
-// ?Rva00314C3E@Rva008FCA3@@UAEPBVImage@@PBD@Z, retail 0x00314C3E, 85 bytes.
+// ?winFindImage@GameWindowManager@@UAEPBVImage@@PBD@Z, retail 0x00314C3E, 85 bytes.
 // Virtual slot 71 (offset 0x11C) of vtable 0x007C7C90 (class of rowed
 // ??1Rva008FCA3 at 0x0008FCA3 with ??_G at 0x0008FF22). Returns null when
 // TheMappedImageCollection (0x009FF078) is null, else looks up the name in
 // that collection through rowed StringBase<char> ctor 0x00037BA0, rowed
 // findImageByName 0x002D92F6 and pinned StringBase dtor 0x00036410 with EH
 // states 0/-1. Shape follows INI::parseMappedImage (same three callees
-// plus null-collection guard). Honest address name: slot index is the proof.
+// plus null-collection guard). WB names it GameWindowManager::winFindImage
+// (WB 0x013A2AC0, GameWindowGlobal.cpp, matched by the same vtable slot); Zero
+// Hour's GameWindowManager declares the same virtual, and the rowed
+// GameWindowManager::winDestroyAll fills slot 36 of this table.
 class Image;
 
 #include "ascii_string.h"
@@ -21,7 +24,7 @@ public:
 
 extern ImageCollection *TheMappedImageCollection;
 
-class Rva008FCA3
+class GameWindowManager
 {
 public:
 	virtual void slot00() = 0;
@@ -95,10 +98,10 @@ public:
 	virtual void slot68() = 0;
 	virtual void slot69() = 0;
 	virtual void slot70() = 0;
-	virtual const Image *Rva00314C3E(const char *name) = 0;
+	virtual const Image *winFindImage(const char *name) = 0;	// slot 71
 };
 
-const Image *Rva008FCA3::Rva00314C3E(const char *name)
+const Image *GameWindowManager::winFindImage(const char *name)
 {
 	if (TheMappedImageCollection != 0)
 	{

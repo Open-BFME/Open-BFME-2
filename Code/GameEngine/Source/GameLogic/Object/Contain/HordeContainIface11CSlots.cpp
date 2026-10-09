@@ -603,11 +603,6 @@ private:
 	char m_pad[0x17C];
 	_STL::map<int, int> m_map;
 };
-class Rva004695DA
-{
-public:
-	unsigned char rva004695DA();
-};
 // The 8-byte record slot 137 hands back by value.
 class Rva002390CB
 {
@@ -916,6 +911,7 @@ class HordeContain : public TransportContain, public Rva0046BB38Iface11C
 {
 public:
 	void rva00468B24(float value);
+	unsigned char usingMeleeAttack();	// 0x004695DA
 	void rva0046A893(Object *obj);
 	void checkSpecialUnitDeath(Object *obj);
 	void *rva0046AF12();
@@ -3079,12 +3075,12 @@ void HordeContain::startMeleeAttack(Object *target)
 }
 
 // ?rva00472329@HordeContain@@UAEXPBUCoord3D@@H@Z @0x00472329: slot 0 (second
-// argument unread); unless the pinned 0x004695DA holds, every contained Object
+// argument unread); unless usingMeleeAttack (0x004695DA) holds, every contained Object
 // with an AI whose +0x17C entry names a +0x188 record whose key is in the
 // module data's +0x1B8 map is ordered to attack the position (CMD_FROM_AI).
 void HordeContain::rva00472329(const Coord3D *pos, int)
 {
-	if (((Rva004695DA *)(UpdateModule *)this)->rva004695DA())
+	if (usingMeleeAttack())
 		return;
 	Rva0046247DPair p;
 	((Rva0046247D *)(UpdateModule *)this)->rva0046247D(p);
@@ -3114,7 +3110,7 @@ void HordeContain::rva00472329(const Coord3D *pos, int)
 // attack the closest enemy within its vision range.
 void HordeContain::rva00472235()
 {
-	if (((Rva004695DA *)(UpdateModule *)this)->rva004695DA())
+	if (usingMeleeAttack())
 		return;
 	if (m_170.size() != 0)
 		rva00472790(0);

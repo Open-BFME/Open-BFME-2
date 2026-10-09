@@ -26,12 +26,12 @@ class Drawable;
 
 int GetGameLogicRandomValue(int lo, int hi, char *file, int line);
 
-class Rva002CF21B
+class ThingFactory
 {
 public:
-	void *rva002CF21B(void *tmplate, int status, int random);
+	void *newDrawable(void *tmplate, int status, int random);
 };
-extern Rva002CF21B *g_00DFF000;
+extern ThingFactory *TheThingFactory;
 
 struct BfmeDelayedLuaEventList
 {
@@ -64,7 +64,7 @@ void GameLogic::rva0023FABE(Object *obj)
 	int status = 0;
 	if (obj->testStatus(OBJECT_STATUS_0x37))
 		status = 0x20;
-	Drawable *draw = (Drawable *)g_00DFF000->rva002CF21B((void *)obj->getTemplate(), status, random);
+	Drawable *draw = (Drawable *)TheThingFactory->newDrawable((void *)obj->getTemplate(), status, random);
 	bindObjectAndDrawable(obj, draw);
 	BfmeDelayedLuaEventList events;
 	reinterpret_cast<BfmeObjectEventDispatch *>(TheLuaScriptEngine)->rva003360D2(0xC, obj, &events);
