@@ -581,6 +581,9 @@ class AIMoveToStateSA : public AIInternalMoveToState
 public:
 	virtual StateReturnType onEnter();
 	virtual StateReturnType update();
+	Bool rva00344249(Coord3D *goal, Object *owner);
+protected:
+	virtual Bool computePath();
 private:
 	unsigned int m_bfmeFrame4C; // +0x4C
 	Bool m_bfmeFlag50; // +0x50
@@ -647,9 +650,12 @@ StateReturnType AIGoingIdleState::onEnter()
 	return STATE_FAILURE;
 }
 
+class Rva002C9B80Owner;
+
 class Pathfinder
 {
 public:
+	Bool CanApproachToTarget(Object *obj, const Coord3D *targetPos, Rva002C9B80Owner *weapon, Bool flag);
 	Bool adjustDestination(Object *obj, const LocomotorSet &locomotorSet,
 		Coord3D *dest, const Coord3D *groupDest);
 	Bool adjustToPossibleDestination(Object *obj, const LocomotorSet &locomotorSet,
@@ -818,4 +824,48 @@ Bool AIAttackMeleeEngageState::computePath()
 		return true;
 	}
 	return false;
+}
+
+extern const int g_009BA4E4; // LOGICFRAMES_PER_SECOND
+
+// Retail 0x00347959, 248 bytes: slot 17 of 0x00C11F00. Refreshes the goal
+// position (the goal object's, through the pinned Object 0x0028C2DD, or the
+// machine's); when the pinned CanApproachToTarget refuses it and the member
+// 0x00344249 cannot pull it in, waits ten seconds (+0x50/+0x4C) with AI slot
+// 136 stopping a moving unit. A reachable goal object gets the pinned
+// adjustToPossibleDestination/adjustDestination pair; then the base.
+Bool AIMoveToStateSA::computePath()
+{
+	if (m_waitingForPath)
+		return true;
+
+	if (getMachine()->getGoalObject())
+	{
+		Object *goal = getMachine()->getGoalObject();
+		m_goalPosition = *goal->getPosition();
+		goal->rva0028C2DD(&m_goalPosition);
+	}
+	else
+		m_goalPosition = *getMachine()->getGoalPosition();
+
+	Object *owner = getMachineOwner();
+	if (!TheAI->pathfinder()->CanApproachToTarget(owner, &m_goalPosition, 0, false))
+	{
+		if (!rva00344249(&m_goalPosition, owner))
+		{
+			m_bfmeFlag50 = true;
+			m_bfmeFrame4C = TheGameLogic->getFrame() + g_009BA4E4 * 10;
+			AIUpdateInterface *ai = owner->getAI();
+			if (ai && ai->isMoving())
+				ai->rva0034C988Slot136();
+			return true;
+		}
+	}
+	else if (getMachine()->getGoalObject() && owner->getAI())
+	{
+		AIUpdateInterface *ai = owner->getAI();
+		TheAI->pathfinder()->adjustToPossibleDestination(owner, ai->m_locomotorSet, &m_goalPosition);
+		TheAI->pathfinder()->adjustDestination(owner, ai->m_locomotorSet, &m_goalPosition, 0);
+	}
+	return AIInternalMoveToState::computePath();
 }
