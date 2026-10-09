@@ -30,6 +30,7 @@ class Rva002B4C09
 public:
 	bool rva002B3621();
 	bool rva002B4C09();
+	void rva002B6875();
 private:
 	char m_pad0[0xF4];
 	int m_f4; // +0xF4
@@ -56,4 +57,23 @@ bool Rva002B4C09::rva002B4C09()
 		}
 	}
 	return false;
+}
+
+class Rva002BED91Holder { public: void rva002BED91(); };
+class Rva002B5BBA { public: void rva002B5BBA(); };
+// Native 2B6875..2B68AA: complete 53B target gate and table tail dispatch.
+// The same-TU probe proves EDX survives; its true result returns immediately.
+// Slot +160 and table +154 are proved by this unit's two existing bodies.
+// The two existing pins retain their opaque owner/frame identity; no name is added.
+void Rva002B4C09::rva002B6875()
+{
+	Rva002B3621Target **slot = &m_160target;
+	if (*slot != 0) {
+		if (rva002B3621())
+			return;
+		((Rva002BED91Holder *)slot)->rva002BED91();
+	}
+	void **pp = &m_vecBegin;
+	if (*pp != pp[1])
+		return ((Rva002B5BBA *)this)->rva002B5BBA();
 }
