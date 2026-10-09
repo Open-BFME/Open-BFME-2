@@ -1,7 +1,7 @@
-// cl: /Ireference/shims/bfme2_ascii /EHsc
+// cl: /Ireference/shims/bfme2_ascii_common /FIzh_ascii.h /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /DBFME_MODULE_NO_MPO /DZH_EMIT_POOL_GLUE /Ireference/shims/bfmerendobj /Ireference/shims/debugvtable /Ireference/shims/gametext_fetch14 /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/bfmeanimobj /Ireference/shims/indexbuffercount /Ireference/shims/bfmecaps /Ireference/shims/bfmehcanim /Ireference/shims/bfmevector /Ireference/shims/bfmemapper /Ireference/shims/meshmatdesclayout /Ireference/shims/bfmeshader /Ireference/shims/bfmecpudetect /Ireference/shims/bfmepool /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWAudio /Ireference/shims/bfmealloc /Ireference/shims/bfmehashtable /Ireference/shims/bfmelist /Ireference/shims/asciistring_downloadmanager /Ireference/shims/stlp_nodealloc /Ireference/shims/asciistring_thin /ICode/GameEngine/Source/Common /Ireference/shims/w3droadbuffer /Ireference/shims/bfmeterraintracks /ICode/Libraries/Include/Lib
 // stlport
 //
-// Retail 0x005E06E5 (312B): DownloadManager::OnStatusUpdate.
+// Retail 0x005E06E5 (219B): DownloadManager::OnStatusUpdate.
 //
 // Shard: the served DownloadManager.cpp is a ZH-verbatim port that already
 // carries the rowed CDownload ctor, so the BFME2-diverged transcription lives
@@ -23,12 +23,14 @@
 // char ctor 0x37BA0, StringBase char set 0x55F5, StringBase wchar set
 // 0x37150, wide releaseBuffer 0x36E70, AsciiString dtor 0x36410).
 
+#include "PreRTS.h"
+
 typedef unsigned short wchar_t;
-typedef long HRESULT;
-#define S_OK 0
+
 
 #include "ascii_string.h"
-#include "unicode_string.h"
+
+#include "GameNetwork/DownloadManager.h"
 
 
 
@@ -60,45 +62,6 @@ public:
 };
 
 extern GameTextInterface *TheGameText;
-
-enum DownloadStatus
-{
-	DOWNLOADSTATUS_NONE = 0,
-	DOWNLOADSTATUS_GO = 1,
-	DOWNLOADSTATUS_CONNECTING = 2,
-	DOWNLOADSTATUS_LOGGINGIN = 3,
-	DOWNLOADSTATUS_FINDINGFILE = 4,
-	DOWNLOADSTATUS_QUERYINGRESUME = 5,
-	DOWNLOADSTATUS_DOWNLOADING = 6,
-	DOWNLOADSTATUS_DISCONNECTING = 7,
-	DOWNLOADSTATUS_FINISHING = 8,
-	DOWNLOADSTATUS_DONE = 0
-};
-
-enum DownloadEvent
-{
-	DOWNLOADEVENT_NOSUCHSERVER = 1,
-	DOWNLOADEVENT_COULDNOTCONNECT = 2,
-	DOWNLOADEVENT_LOGINFAILED = 3,
-	DOWNLOADEVENT_NOSUCHFILE = 4,
-	DOWNLOADEVENT_LOCALFILEOPENFAILED = 5,
-	DOWNLOADEVENT_TCPERROR = 6,
-	DOWNLOADEVENT_DISCONNECTERROR = 7
-};
-
-class DownloadManager
-{
-public:
-	virtual HRESULT OnStatusUpdate(int status);
-	virtual HRESULT OnError(int error);
-
-private:
-	unsigned char m_unknown00[8];
-	bool m_wasError; // +0x0C
-	unsigned char m_unknown0D[3];
-	UnicodeString m_errorString; // +0x10
-	UnicodeString m_statusString; // +0x14
-};
 
 // ?OnStatusUpdate@DownloadManager@@UAEJH@Z
 HRESULT DownloadManager::OnStatusUpdate(int status)
@@ -136,7 +99,7 @@ HRESULT DownloadManager::OnStatusUpdate(int status)
 }
 
 // ?OnError@DownloadManager@@UAEJH@Z
-// Retail 0x005E0628 (187B): same fetch idiom over m_errorString at +0x10
+// Retail 0x005E0628 (189B): same fetch idiom over m_errorString at +0x10
 // with the m_wasError byte at +0x0C. The DOWNLOADEVENT enum
 // (NOSUCHSERVER=1 .. DISCONNECTERROR=7) compiles to a dec/je chain, and the
 // m_wasError store rides between the AsciiString call setup (push+lea hoist
@@ -172,3 +135,13 @@ HRESULT DownloadManager::OnError(int error)
 	m_errorString = TheGameText->fetch(s);
 	return S_OK;
 }
+
+// Clean BF1 f98983a7d3 DownloadManager.cpp and existing BFME2 definition agree.
+// Complete native5E048B..5E0492, registration at3F17C, rowed ctor5E08AB
+// prove the shared CDownload pointer8 and no-argument HRESULT slot0 call.
+// Adopt the real shared DownloadManager declaration in this existing callback
+// home instead of creating a new source outside the witnessed census.
+// Existing status/error bodies remain independently verified at219/189 bytes.
+// The established bfme2_ascii_common adapter keeps the canonical UnicodeString
+// provider in the genuine shared declaration; no legacy unresolved set alias.
+HRESULT DownloadManager::update(void) { return m_download->PumpMessages(); }

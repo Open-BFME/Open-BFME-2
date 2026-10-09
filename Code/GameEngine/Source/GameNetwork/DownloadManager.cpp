@@ -111,11 +111,8 @@ void DownloadManager::reset( void )
 {
 }
 
-// ?update@DownloadManager@@ present-unmatched
-HRESULT DownloadManager::update( void )
-{
-	return m_download->PumpMessages();
-}
+// DownloadManager::update is defined and rowed in DownloadManagerOnStatusUpdate.cpp.
+// Shared declaration and the CDownload pointer contract are unchanged.
 
 HRESULT DownloadManager::downloadFile( AsciiString server, AsciiString username, AsciiString password, AsciiString file, AsciiString localfile, AsciiString regkey, Bool tryResume )
 {
