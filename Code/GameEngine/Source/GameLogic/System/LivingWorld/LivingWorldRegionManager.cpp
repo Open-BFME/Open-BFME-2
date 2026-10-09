@@ -24,6 +24,8 @@ class Rva0020E89C
 public:
 	unsigned char m_pad00[0xab];
 	bool m_hasUiPopupPoint;				// +0xAB
+	unsigned char m_padAC[0x13C - 0xAC];
+	Int m_id;							// +0x13C, the region id
 
 	// Stores the reinforcement settings (+0x158 name, +0x14C..+0x154,
 	// flags +0x1A0/+0x1A1); unrowed and unnamed in WB.
@@ -54,6 +56,7 @@ public:
 	void SetRegionReinforcements(Int regionID, const AsciiString &name, Int a, Int b, Int c, Bool d, Bool e);
 
 private:
+	friend class LivingWorldRegionBonusRule;
 	Rva0020E89C *rva0020EAF6(Int regionID);				// 0x0020EAF6
 
 	unsigned char m_pad00[0x14];
@@ -151,6 +154,17 @@ struct RegionBonusRuleRegionList
 	Bool empty() const { return m_start == m_finish; }
 };
 
+// The ids of those regions (+0x2C), resolved when the rule is parsed.
+struct RegionBonusRuleRegionIDList
+{
+	Int *m_start;
+	Int *m_finish;
+	Int *m_endOfStorage;
+
+	unsigned int size() const { return m_finish - m_start; }
+	Int operator[](unsigned int i) const { return m_start[i]; }
+};
+
 class Rva002105A6
 {
 public:
@@ -160,13 +174,36 @@ public:
 	Int m_id;								// +0x00
 	unsigned char m_pad04[0x20 - 0x04];
 	RegionBonusRuleRegionList m_regions;	// +0x20
-	unsigned char m_pad2C[0x58 - 0x2C];
+	RegionBonusRuleRegionIDList m_regionIDs;	// +0x2C
+	unsigned char m_pad38[0x58 - 0x38];
 };
 
-class LivingWorldRegionBonusRule
+// The player the rule is tested for, rowed under 0x002E0BC0's placeholder
+// owner: the region-owner test there and the player id at +0x14.
+class Rva002E071E
+{
+public:
+	int rva002E0BC0(Int regionID);			// 0x002E0BC0
+
+	unsigned char m_pad00[0x14];
+	Int m_id;								// +0x14
+};
+
+class LivingWorldLogic
+{
+public:
+	unsigned char m_pad00[0xB0];
+	LivingWorldRegionManager *m_regionManager;	// +0xB0
+};
+extern LivingWorldLogic *TheLivingWorldLogic;
+
+// The rule is the record built above; its ctor and dtor are rowed under the
+// record's placeholder name.
+class LivingWorldRegionBonusRule : public Rva002105A6
 {
 public:
 	static void ParseINI(INI *ini, void *instance, void *store, const void *userData);
+	Bool IsRuleSatisfied(Rva002E071E *player, float *fraction);
 
 private:
 	static Int getNextRuleID() { return ++s_ruleCount; }
@@ -188,4 +225,34 @@ void LivingWorldRegionBonusRule::ParseINI(INI *ini, void *instance, void *store,
 	{
 		delete rule;
 	}
+}
+
+// LivingWorldRegionBonusRule::IsRuleSatisfied, retail 0x0020F143 (WB
+// 0x00B547A0, LivingWorldRegionManager.cpp:465 names it): false for a rule
+// with no regions or when one of its regions is missing (WB asserts) or fails
+// the player's rowed test 0x002E0BC0; else true when the player holds at
+// least one, with the held fraction stored through the optional pointer.
+Bool LivingWorldRegionBonusRule::IsRuleSatisfied(Rva002E071E *player, float *fraction)
+{
+	if (m_regionIDs.size() == 0)
+		return false;
+
+	Int held = 0;
+	for (unsigned int i = 0; i < m_regionIDs.size(); ++i)
+	{
+		Rva0020E89C *region = TheLivingWorldLogic->m_regionManager->rva0020EAF6(m_regionIDs[i]);
+		if (region == 0)
+			return false;
+		const Int &regionID = region->m_id;
+		if (!(unsigned char)player->rva002E0BC0(regionID))
+			return false;
+		if (player->m_id == regionID)
+			++held;
+	}
+
+	if (held == 0)
+		return false;
+	if (fraction)
+		*fraction = (float)held / (float)m_regionIDs.size();
+	return true;
 }
