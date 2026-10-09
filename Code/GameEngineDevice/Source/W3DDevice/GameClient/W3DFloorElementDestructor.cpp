@@ -123,7 +123,7 @@ public:
     int refs;
     __forceinline void release() { if (--refs==0) destroy(); }
 };
-class Rva00016EE40 { public: void **rva00016EE40(void **,int); };
+#include "../../../../Libraries/Source/WWVegas/WW3D2/MaterialTextureGetterView.h"
 class FloorMaterialDispatch { public: virtual void destroy(); int refs; char rest[0x28]; int textures; __forceinline void release() { if (--refs==0) destroy(); } };
 class FloorDisplayDispatch { public:
 virtual void slot00();
@@ -173,8 +173,8 @@ struct FloorMeshView { char prefix[0xc4]; FloorModelView *model; };
 // Target differs at mesh28, matrix50, name8C/90 and normal-map lookup.
 // Dispatch views describe only directly witnessed call slots, not class identity.
 // Globals use the data ledger owners: TheDisplay and TheWritableGlobalData.
-// Material texture getter uses the existing hidden-out pointer binding via an
-// ABI-compatible by-value handle signature; that temporary owns its cleanup.
+// Material texture getter returns the shared owning handle by value; its
+// four-byte texture pointer is consumed through the existing holder assignment.
 bool Gen_uw_000e5033::load()
 {
     reinterpret_cast<BfmeResetTextureRef *>(&m_texture20)->clear();
@@ -209,9 +209,7 @@ bool Gen_uw_000e5033::load()
         FloorMaterialDispatch *info=static_cast<FloorRenderDispatch *>(m_render28)->material();
         if (info) {
             if (info->textures>0) {
-                typedef BFME2ParticleTextureHandle (Rva00016EE40::*GetTexture)(int);
-                GetTexture getTexture=reinterpret_cast<GetTexture>(&Rva00016EE40::rva00016EE40);
-                reinterpret_cast<CursorTextureSlot *>(&m_texture20)->operator=((reinterpret_cast<Rva00016EE40 *>(info)->*getTexture)(0));
+                reinterpret_cast<CursorTextureSlot *>(&m_texture20)->operator=(reinterpret_cast<const BFME2ParticleTextureHandle &>(reinterpret_cast<Rva00016EE40 *>(info)->getTexture(0)));
             }
             info->release();
         }

@@ -10900,7 +10900,6 @@ name,address,notes
 ?rva000055F5@Rva000055F5Target@@QAEXH@Z,0x000055F5,"method a vtable-slot forwarder tail-jumps to (ret 4); opaque address name"
 ?rva00007670@Rva00007670@@QAEXXZ,0x00007670,twin of rowed _S_uninitialize locale SAXXZ at same address proven by caller 0x007B685A 10B mov ecx plus jmp; body ignores ecx so static and thiscall spellings share bytes
 ?rva000117D89@@YAXPAX0@Z,0x117D89,rva000E509B name resolve: address read from the REL32 at 0x000E536E in 0x000E509B; fresh address-derived cdecl name (out, in) filling the verify string slot
-?rva00016EE40@Rva00016EE40@@QAEPAPAXPAPAXH@Z,0x16EE40,rva000E509B table fetch: address read from the REL32 at 0x000E52CF in 0x000E509B; fresh address-derived name (out, index) returning the out-pointer for the 37B array RefCount bump body
 ?rva000190ABTransform@@YGHH@Z,0x00090FE0,callee read from the retail REL32 in placed BFME1-donor body ?isBelowTransformed@Rva007E4AA0Threshold@@QBE_NH@Z (0x0009116F)
 ?rva00028200@@YAXXZ,0x00028200,"Reversed find-first-not-in-set core called by rva00029ee0 0x0029EE0; address-derived name"
 ?rva0002C0F5@INI@@QAEXAAVAsciiString@@@Z,0x0002C0F5,thiscall (AsciiString &filename) ret 4 called by INI single-block load 0x0002DD38 once 0x0002C2C7 accepts the line; structural name (original not recovered); body unrowed (re_attempts blocked)
