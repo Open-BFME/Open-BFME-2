@@ -16993,3 +16993,4 @@ _D3DXMatrixTranslation@16,0x0062AF32,First named PE import thunk: FF25 IAT00BBA9
 ?rva005A6732@NAT@@QBE_NXZ,0x005A6732,NAT members called on this (ecx=esi) from NAT::processGlobalMessage 0x005A8ABF: 0x5A7829 (ret 4) with the NATHOST cookie; 0x5A89C2 (ret 8) with the NEGO peer slot and value; 0x5A6732 (rowed as Rva005A6732; bool const) as the NEGO gate; boundaries from Ghidra (331/253 B)
 ??1NuggetCreated@@QAE@XZ,0x001F22A3,callee of ?create@GenericObjectCreationNugget@@UBEXPBVObject@@0I@Z
 ?reallyCreate@GenericObjectCreationNugget@@QBE?AUNuggetCreated@@PBUCoord3D@@PBVMatrix3D@@MPBVObject@@I@Z,0x001F1634,callee of ?create@GenericObjectCreationNugget@@UBEXPBVObject@@0I@Z
+??0Rva0006F9D6@@QAE@XZ,0x0006F9D6,ctor called by W3DDisplay init 0x46A50 on a new 0x11C-byte scene object (Set_Ambient slot 0x18); class identity unproven
