@@ -3137,7 +3137,6 @@ name,address,notes
 ??1ClearanceTestingSlowDeathBehaviorModuleDataMember@@QAE@XZ,0x00050B2A,callee of 1GhostObject (0x00305B5E) at the site its BFME1 donor calls it; may be an ICF alias
 ??1CloudBreakSpecialPowerModuleData@@UAE@XZ,0x004C47F3,dtor called by audited wrapper RVA 0x004C47D7; retail registration CloudBreakSpecialPower -> data factory RVA 0x00251E58 -> ctor RVA 0x004C479A; primary vptr store RVA 0x004C47AA
 ??1CollideModule@@UAE@XZ,0x004BB68E,twin of rowed Rva004BB68E dtor for FireWeaponCollide dtor at 0xBB6A7
-??1Condition@@MAE@XZ,0x003B4230,dtor installs its own vftable 0x00C1F3F8 (bytes at ++11) and is the REL32 callee of the slot-0 ??_G at 0x003B4A78
 ??1ControlBarScheme@@QAE@XZ,0x0032002C,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ??1ControlBarSchemeAnimation@@QAE@XZ,0x0031F831,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ??1ControlBarSchemeImage@@QAE@XZ,0x002004FD,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
@@ -4930,7 +4929,6 @@ name,address,notes
 ??1SalvageCrateCollideModuleData@@UAE@XZ,0x002563EF,dtor called by audited wrapper RVA 0x002563D3; retail registration SalvageCrateCollide -> data factory RVA 0x00255BD2 -> ctor RVA 0x00255B7E; primary vptr store RVA 0x00255BA3
 ??1ScaleTextureMapperClass@@UAE@XZ,0x00724510,WW3D2 ScaleTextureMapperClass destructor: like the TextureMapperClass destructor pinned here its empty body leaves only the final RefCountClass vptr store (vftable 0x007C650C) and ICF folds it onto these 7 bytes; the LinearOffsetTextureMapperClass(INIClass) constructor unwind funclet 0x007684C0 destroys its ScaleTextureMapperClass base by jumping here
 ??1Script@@MAE@XZ,0x003B35B1,destructor called by the scalar deleting destructor 0x003B41F8 (slot 0 of vtable 0x00C1F424 whose unique slot-2 name getter returns Script); the body re-stores vtable 0x00C1F424
-??1ScriptAction@@UAE@XZ,0x003B43CC,dtor installs its own vftable 0x00C1F3FC (bytes at +11) and is the REL32 callee of the slot-0 ??_G at 0x003B53F7
 ??1ScriptList@@UAE@XZ,0x003B774B,retail REL32 from SidesInfo destructor 0x32D4F2; ScriptList member teardown
 ??1ScriptListBase@@QAE@XZ,0x003B4071,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ??1ScriptListElementName@@QAE@XZ,0x00577998,shared 8B string tail teardown of ScriptList subrecord elements AsciiString at +8 via rowed 0x36410; called per element from the 0x3B678A and 0x3B713E destroy loops
