@@ -1,103 +1,59 @@
-// ?rva0030E67C@Rva0030E7D0@@QBEMMM@Z
-// partial score=0.94 date=2026-10-05
-// cl: /O1 /G7 /arch:SSE /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source
-// stlport
-// ??0Rva0030E7D0@@QAE@XZ @0x0030E7D0 46B ctor vector BfmeE16 at +0 via rowed Vector_base 0x00211E58 zeroes +0xC +0x10 +0x18 and byte +0x1C float +0x14 from g_Va00BBB8D8 evidence callers 0x0008BA61 neighbours ParabolicEase and StlportVectorFill
-#include <vector>
-
-struct BfmeE16
-{
-	float x;
-	float y;
-	float z;
-	float w;
-};
-
-extern float g_Va00BBB8D8;
-extern const float BfmeZeroRange;
-extern float g_Va00BC2428;
-
+// ?rva0030E67C@Rva0030E961@@QAEMMM@Z
+// partial score=0.9922045575 date=2026-10-09
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Oy-
+// BFME1 Rva0045A000ScalarField.cpp clean source at2f243e26d supplies the
+// flat-grid sampler. Native30E67C..30E7D0 340B independently proves layout
+// vector0, widthC, height10, scale14, state18, ready1C; WB EAD110 agrees.
+// Native uses FISTP after floor rather than the truncating SSE cast. The
+// two-instruction donor x87 conversion is confined to that codegen blocker.
 extern "C" __declspec(dllimport) double __cdecl floor(double);
-
-static __forceinline long fast_float2long_round(float f)
+__forceinline int CameraFieldFloatToInt(float value){int result;__asm{fld value
+ fistp result}return result;}
+class Rva0030E961 {public:float rva0030E67C(float,float);float*m_data;float*finish,*end;int m_width,m_height;float m_scale;int m_state;bool m_ready;};
+float Rva0030E961::rva0030E67C( float x, float y )
 {
-	long i;
-	__asm {
-		fld [f]
-		fistp [i]
-	}
-	return i;
-}
+	if( !m_ready )
+		return 0.0f;
 
-class Rva0030E7D0
-{
-public:
-	Rva0030E7D0();
-	float rva0030E67C(float x, float y) const;
-private:
-	_STL::vector<BfmeE16> m_vec00;
-	int m_0C;
-	int m_10;
-	float m_14;
-	int m_18;
-	bool m_1C;
-};
+	float scale = 1.0f / m_scale;
+	float offset = (float)m_state * 10.0f;
+	register float scaledX = (x + offset) * scale;
+	register float scaledY = (y + offset) * scale;
+	float xFloor = (float)floor( (double)scaledX );
+	register int xIndex = CameraFieldFloatToInt( xFloor );
+	float yFloor = (float)floor( (double)scaledY );
+	register int yIndex = CameraFieldFloatToInt( yFloor );
+	float xFraction = scaledX - (float)xIndex;
+	float yFraction = scaledY - (float)yIndex;
 
-Rva0030E7D0::Rva0030E7D0()
-	: m_vec00()
-{
-	m_14 = g_Va00BBB8D8;
-	m_0C = 0;
-	m_10 = 0;
-	m_18 = 0;
-	m_1C = false;
-}
+	if( xIndex < 0 )
+		xIndex = 0;
+	if( yIndex < 0 )
+		yIndex = 0;
 
-// ?rva0030E67C@Rva0030E7D0@@QBEMMM@Z present-unmatched
-float Rva0030E7D0::rva0030E67C(float x, float y) const
-{
-	if (!m_1C)
-		return BfmeZeroRange;
-	float base = (float)m_18 * g_Va00BC2428;
-	float scale = g_Va00BBB8D8 / m_14;
-	x = base + x;
-	y = base + y;
-	x *= scale;
-	y *= scale;
-	float fx0 = (float)floor((double)x);
-	int ix = fast_float2long_round(fx0);
-	float fy0 = (float)floor((double)y);
-	int iy = fast_float2long_round(fy0);
-	float fx = x - (float)ix;
-	float fy = y - (float)iy;
-	if (ix < 0)
-		ix = 0;
-	if (iy < 0)
-		iy = 0;
-	int h = m_10;
-	int w = m_0C;
-	if (ix > w - 1)
-		ix = w - 1;
-	if (iy > h - 1)
-		iy = h - 1;
-	const float *data = (const float *)m_vec00.begin();
-	if (ix > w - 2)
-		return data[ix + iy * w];
-	if (iy > h - 2)
-		return data[ix + iy * w];
-	int idx = ix + iy * w;
-	float a00 = data[idx];
-	float abr = data[w + idx + 1];
-	float r;
-	if (fy > fx)
+	if( xIndex > m_width - 1 )
+		xIndex = m_width - 1;
+	if( yIndex > m_height - 1 )
+		yIndex = m_height - 1;
+	if( xIndex > m_width - 2 || yIndex > m_height - 2 )
+		return m_data[ yIndex * m_width + xIndex ];
+
+	int index = yIndex * m_width + xIndex;
+	float p0 = m_data[ index ];
+	float p2 = m_data[ index + m_width + 1 ];
+	if( yFraction > xFraction )
 	{
-		float a01 = data[idx + w];
-		r = a01 + (a00 - a01) * (1.0f - fy) + (abr - a01) * fx;
+		float p3 = m_data[ index + m_width ];
+		float height = (1.0f - yFraction) * (p0 - p3) +
+			xFraction * (p2 - p3);
+		height = height + p3;
+		volatile float result=height;return result;
 	}
-	else
 	{
-		float a10 = data[idx + 1];
-		r = a10 + (a00 - a10) * (1.0f - fx) + (abr - a10) * fy;
+		float p1 = m_data[ index + 1 ];
+		float height = (1.0f - xFraction) * (p0 - p1) +
+			yFraction * (p2 - p1);
+		height = height + p1;
+		volatile float result=height;return result;
 	}
-	return r;
 }

@@ -1,23 +1,29 @@
-// ?update@W3DView@@UAEXXZ
-// partial score=0.850341695 date=2026-10-09
+// ?update@W3DView@@UAE_NXZ
+// partial score=0.8854845531 date=2026-10-09
 // ?update@W3DView@@UAEXXZ
 // partial score=0.8209180045876036 date=2026-10-09
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC
+// cl: /ICode/Libraries/Include/Lib /ICode/GameEngine/Source/Common /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC
 // BFME W3DView::update, retail 0x007446A0.
 // Constructor 0x00745B10 installs SubsystemInterface table 0x01121764 at +0xFC. Slot 5 reaches this body through ILT 0x00007F31.
 #include <math.h>
 #include <vector>
 // stlport
-struct Coord3D { float x,y,z; };
-struct Coord2D { float x,y; Coord2D &operator=(const Coord2D &o) { x=o.x; y=o.y; return *this; } };
+#include "Coord3D.h"
+#include "Coord2D.h"
+#include "GameLogicObjectLookupView.h"
+struct CameraCoordinates:Coord3D{CameraCoordinates(){}CameraCoordinates(const Coord3D&p){x=p.x;y=p.y;z=p.z;}};
 class RenderObjClass;
 template<class T> class RefMultiListIterator;
 class RTS3DScene { public: RefMultiListIterator<RenderObjClass>* createLightsIterator(); void destroyLightsIterator(RefMultiListIterator<RenderObjClass>*); };
 class W3DDisplay { public: static RTS3DScene *m_3DScene; };
 class CameraClass { public: virtual void Delete_This(); int refs; void Add_Ref(){++refs;} void Release_Ref(){if(--refs==0)Delete_This();} protected: void Update_Frustum() const; public: void *Get_Frustum() const { Update_Frustum(); return (char*)this+0x100; } };
-template<class T> class RefCountPtr {T *pointer;public:RefCountPtr():pointer(0){} RefCountPtr(const RefCountPtr &p):pointer(p.pointer){if(pointer)pointer->Add_Ref();} ~RefCountPtr(){if(pointer)pointer->Release_Ref();} bool isNull()const{return pointer==0;}};
-RefCountPtr<CameraClass> Rva000897C8(CameraClass*);
-class Rva0007BB79Owner {public:void rva0007D9B5(CameraClass*);RefCountPtr<CameraClass> rva0007BB79();};
+struct Rva0008B689Element{CameraClass*pointer;Rva0008B689Element():pointer(0){}Rva0008B689Element(const Rva0008B689Element&p):pointer(p.pointer){if(pointer)pointer->Add_Ref();}~Rva0008B689Element(){if(pointer)pointer->Release_Ref();}bool isNull()const{return !pointer;}};
+namespace _STL{template<>void vector<Rva0008B689Element>::push_back(const Rva0008B689Element&);}
+class Rva0008B470:private _STL::_Vector_base<int,_STL::allocator<int> > {typedef _STL::_Vector_base<int,_STL::allocator<int> > Base;public:__forceinline Rva0008B470(const _STL::allocator<int>&a=_STL::allocator<int>()):Base(a){}~Rva0008B470();void push_back(const Rva0008B689Element&p){reinterpret_cast<std::vector<Rva0008B689Element>*>(this)->push_back(p);}};
+Rva0008B689Element Rva000897C8(CameraClass*);
+class Rva0007BB79Owner{public:Rva0008B689Element rva0007BB79();};
+class Rva0007D9B5Host{public:void rva0007D9B5(int);};
+class Rva0006ED29{public:void rva0006ED29(void*);};
 extern Rva0007BB79Owner *TheWaterRenderObj;
 class BFMERopeDrawable { public: const Coord3D *getPosition() const; };
 class Object { char gap[0x38]; public: Coord3D m_position; };
@@ -25,7 +31,7 @@ class ScriptEngine;
 class Rva00203B08 {public:bool rva0020424FF();};
 class Rva00203ACEByteField {public:unsigned char get()const;};
 extern ScriptEngine *TheScriptEngine;
-class Rva0045A000 { public: float sample(float,float); char data[0x1c]; };
+class Rva0030E961 {public:float rva0030E67C(float,float);float*data,*finish,*end;int width,height;float scale;int state;bool ready;};
 class PolygonTrigger { public: bool rva002E3A39(const Coord3D&); };
 class CameraShakeSystemClass;class Rva00065E21{public:bool rva00065E21();};
 extern CameraShakeSystemClass CameraShakerSystem;
@@ -36,7 +42,26 @@ class WW3D { public: static unsigned int Get_Frame_Time() { return SyncTime - Pr
 // defined in GameLogic/Map/TerrainLogic.cpp. This TU only null-tests it.
 class TerrainLogic;
 extern TerrainLogic *TheTerrainLogic;
-float getHeightAroundPos(float,float);
+class GlobalData;extern GlobalData*TheWritableGlobalData;
+class HeightTerrainView{public:virtual void v0();virtual void v1();virtual void v2();virtual void v3();virtual void v4();virtual void v5();virtual float getGroundHeight(float,float,Coord3D*normal=0);};
+struct HeightGlobalView{char gap[0xdd8];float sampleSize;};
+static float getHeightAroundPos(float x, float y)
+{
+    float center = reinterpret_cast<HeightTerrainView*>(TheTerrainLogic)->getGroundHeight(x, y);
+    float lowPlus = reinterpret_cast<HeightTerrainView*>(TheTerrainLogic)->getGroundHeight(
+        x - reinterpret_cast<HeightGlobalView*>(TheWritableGlobalData)->sampleSize, y + reinterpret_cast<HeightGlobalView*>(TheWritableGlobalData)->sampleSize);
+    float highPlus = reinterpret_cast<HeightTerrainView*>(TheTerrainLogic)->getGroundHeight(
+        x + reinterpret_cast<HeightGlobalView*>(TheWritableGlobalData)->sampleSize, y + reinterpret_cast<HeightGlobalView*>(TheWritableGlobalData)->sampleSize);
+    float plus = highPlus > lowPlus ? highPlus : lowPlus;
+    float lowMinus = reinterpret_cast<HeightTerrainView*>(TheTerrainLogic)->getGroundHeight(
+        x - reinterpret_cast<HeightGlobalView*>(TheWritableGlobalData)->sampleSize, y - reinterpret_cast<HeightGlobalView*>(TheWritableGlobalData)->sampleSize);
+    float highMinus = reinterpret_cast<HeightTerrainView*>(TheTerrainLogic)->getGroundHeight(
+        x + reinterpret_cast<HeightGlobalView*>(TheWritableGlobalData)->sampleSize, y - reinterpret_cast<HeightGlobalView*>(TheWritableGlobalData)->sampleSize);
+    float minus = highMinus > lowMinus ? highMinus : lowMinus;
+    float corners = minus > plus ? minus : plus;
+    return center > corners ? center : corners;
+}
+
 class Drawable;
 void drawDrawable(Drawable *,void*);
 class GlobalData {public:
@@ -48,13 +73,6 @@ class GlobalData {public:
  char gapde4[0xea6-0xde4];bool field0ed0,field0ed1;
 };
 extern GlobalData *TheWritableGlobalData;
-class GameLogic { public:
-Object *findObjectByID(int); unsigned char isGamePaused();
- char gap0000[272];
- int field010c; // +0x10c
- char gap0110[17];
- bool field011d; // +0x11d
-};
 extern GameLogic *TheGameLogic;
 class BaseHeightMapRenderObjClass { public:
  virtual void slot000();
@@ -191,7 +209,7 @@ class BaseHeightMapRenderObjClass { public:
  virtual void slot20c();
  virtual void slot210();
  virtual void slot214();
- virtual void updateCenter(std::vector<RefCountPtr<CameraClass> >&,RefMultiListIterator<RenderObjClass>*);
+ virtual void updateCenter(std::vector<Rva0008B689Element >&,RefMultiListIterator<RenderObjClass>*);
  virtual void target220();
  virtual void slot220();
  virtual void slot224();
@@ -231,6 +249,7 @@ class GameClient { public: virtual void target00();virtual void target04();virtu
 };
 extern GameClient *TheGameClient;
 class InGameUI { public:
+ virtual void targetExtraSlot0();
  virtual void slot000();
  virtual void slot004();
  virtual void slot008();
@@ -300,13 +319,13 @@ class CameraSettings007446A0 { public:
 };
 class AIData007446A0 { public:
 
- char gap0000[188];
+ char gap0000[192];
  float field00bc; // +0xbc
  float field00c0; // +0xc0
 };
 class AI { public:
 
- char gap0000[20];
+ char gap0000[24];
  AIData007446A0 * field0014; // +0x14
 };
 extern AI *TheAI;
@@ -519,15 +538,17 @@ public:
  char gap240d[28];
  bool m_isCameraSlaved; // +0x2429
  char gap242a[30];
- Rva0045A000 field2448; // +0x2448
- bool field2464; // +0x2464
- char gap2465[71];
+ Rva0030E961 field2448; // +0x2448
+ char gap2465[68];
  PolygonTrigger * field24ac; // +0x24ac
  bool field24b0; // +0x24b0
  char gap24b1[7];
  CameraSettings007446A0 field24b8; // +0x24b8
 };
 
+extern "C" void _ReadWriteBarrier();
+#pragma intrinsic(_ReadWriteBarrier)
+static __forceinline void CameraMemoryBarrier(){_ReadWriteBarrier();}
 inline float square(float x) { return x*x; }
 inline const float &minimum(const float &a,const float &b) { return a<b?a:b; }
 void W3DView::update()
@@ -536,18 +557,18 @@ void W3DView::update()
     bool didScriptedMovement = false;
     if (TheTerrainRenderObject && TheTerrainRenderObject->field3009) {
         RefMultiListIterator<RenderObjClass>* it=W3DDisplay::m_3DScene->createLightsIterator();
-        std::vector<RefCountPtr<CameraClass> > cameras;
+        Rva0008B470 cameras;
         cameras.push_back(Rva000897C8(m_3DCamera));
-        if(TheWaterRenderObj){TheWaterRenderObj->rva0007D9B5(m_3DCamera);RefCountPtr<CameraClass> extra=TheWaterRenderObj->rva0007BB79();if(!extra.isNull())cameras.push_back(extra);}
-        TheTerrainRenderObject->updateCenter(cameras,it);
-        if(it) W3DDisplay::m_3DScene->destroyLightsIterator(it);
+        if(TheWaterRenderObj){reinterpret_cast<Rva0007D9B5Host*>(TheWaterRenderObj)->rva0007D9B5((int)m_3DCamera);Rva0008B689Element extra=TheWaterRenderObj->rva0007BB79();if(!extra.isNull())cameras.push_back(extra);}
+        TheTerrainRenderObject->updateCenter(*reinterpret_cast<std::vector<Rva0008B689Element>*>(&cameras),it);
+        if(it) reinterpret_cast<Rva0006ED29*>(W3DDisplay::m_3DScene)->rva0006ED29(it);
     }
     int cameraLock=getCameraLock();
     if(cameraLock==0) FollowFactor007446A0=-1.0f;
     if(cameraLock!=0) {
         field2354=0;
         slot06c(0);
-        Object* cameraLockObj=TheGameLogic->findObjectByID(cameraLock);
+        Object* cameraLockObj=TheGameLogic->findObjectByID((ObjectID)cameraLock);
         bool loseLock=false;
         if(cameraLockObj==0) loseLock=true;
         BFMERopeDrawable *drawable=TheGameClient->slot02c(getCameraLockDrawable());
@@ -555,18 +576,18 @@ void W3DView::update()
             slot19c();
             FollowFactor007446A0=-1.0f;
         } else {
-            if(FollowFactor007446A0<0) FollowFactor007446A0=0.05f;
+            if(0.0f>FollowFactor007446A0) FollowFactor007446A0=0.05f;
             else {
                 FollowFactor007446A0+=0.05f;
-                if(FollowFactor007446A0>1.0f) FollowFactor007446A0=1.0f;
+                if(1.0f<FollowFactor007446A0) FollowFactor007446A0=1.0f;
             }
             Coord3D objpos; objpos.x=cameraLockObj->m_position.x; objpos.y=cameraLockObj->m_position.y; objpos.z=cameraLockObj->m_position.z;
             if(drawable) objpos=*drawable->getPosition();
-            Coord3D curpos; curpos.x=m_pos.x; curpos.y=m_pos.y; curpos.z=m_pos.z;
+            CameraCoordinates curpos(m_pos);
             float snapThreshSqr=square(TheWritableGlobalData->m_partitionCellSize);
             float distx=curpos.x-objpos.x;
             float disty=curpos.y-objpos.y;
-            float curDistSqr=distx*distx; curDistSqr=disty*disty+curDistSqr;
+            float curDistSqr=disty*disty+distx*distx;
             if(m_snapImmediate) { curpos.x=objpos.x; curpos.y=objpos.y; }
             else {
                 float dx=objpos.x-curpos.x;
@@ -574,12 +595,10 @@ void W3DView::update()
                 if(m_lockType==1) {
                     if(curDistSqr>=snapThreshSqr) {
                         float ratio=(1.0f-snapThreshSqr/curDistSqr)*TheWritableGlobalData->field0e64;
-                        curpos.x+=dx*ratio; curpos.y+=dy*ratio;
+                        curpos.x+=dx*ratio; curpos.y+=dy*ratio;CameraMemoryBarrier();
                     } else {
                         float ratio=0.01f*m_lockDist;
-                        float dx=objpos.x-curpos.x;
-                        float dy=objpos.y-curpos.y;
-                        curpos.x+=dx*ratio; curpos.y+=dy*ratio;
+                        curpos.x+=dx*ratio; curpos.y+=dy*ratio;CameraMemoryBarrier();
                     }
                 } else { curpos.x+=dx*FollowFactor007446A0; curpos.y+=dy*FollowFactor007446A0; }
             }
@@ -593,7 +612,7 @@ void W3DView::update()
             recalcCamera=true;
         }
     }
-    if(!(reinterpret_cast<Rva00203B08*>(TheScriptEngine)->rva0020424FF()) && !TheGameLogic->isGamePaused() && !TheGameLogic->field011d) {
+    if(!(reinterpret_cast<Rva00203B08*>(TheScriptEngine)->rva0020424FF()) && !TheGameLogic->isGamePaused() && !TheGameLogic->getFlag125()) {
         if(updateCameraMovements()) { recalcCamera=true; didScriptedMovement=true; }
     } else {
         if(field2354 || m_doingMoveCameraOnWaypointPath || field0204 || m_doingZoomCamera || m_doingScriptedCameraLock || field027c)
@@ -601,7 +620,7 @@ void W3DView::update()
     }
     if(m_shakeIntensity>0.01f) {
         m_shakeOffset.x=m_shakeIntensity*m_shakeAngleCos;
-        m_shakeOffset.y=m_shakeIntensity*m_shakeAngleSin;
+        m_shakeOffset.y=m_shakeAngleSin*m_shakeIntensity;
         if(!TheWritableGlobalData->field0ed0 || TheWritableGlobalData->field0ed1) {
             m_shakeIntensity*=0.75f;
             m_shakeAngleCos=-m_shakeAngleCos;
@@ -612,8 +631,8 @@ void W3DView::update()
     if((*reinterpret_cast<Rva00065E21 **>(&CameraShakerSystem))->rva00065E21()) recalcCamera=true;
     if(field2354!=2 && field2354!=3 && field2354!=4) {
         if(!getCameraLockDrawable() && !getCameraLock()) {
-            if(field2464) {
-                float height=field2448.sample(m_pos.x,m_pos.y);
+            if(field2448.ready) {
+                float height=field2448.rva0030E67C(m_pos.x,m_pos.y);
                 if(TheInGameUI->isScrolling() && !didScriptedMovement) {
                     if(height>700.0f) height=700.0f;
                     if(height!=m_groundLevel) { m_groundLevel=height; m_cameraConstraintValid=false; }
@@ -623,12 +642,12 @@ void W3DView::update()
             m_currentHeightAboveGround=m_cameraOffset.z*m_zoom-m_terrainHeightUnderCamera;
             if(TheTerrainLogic && TheWritableGlobalData && TheInGameUI && m_okToAdjustHeight && !TheGameLogic->isGamePaused()) {
                 float desiredZoom=(m_heightAboveGround+m_terrainHeightUnderCamera)/m_cameraOffset.z;
-                if(didScriptedMovement || (TheGameLogic->field010c==3 && TheWritableGlobalData->field0c0d)) {
+                if(didScriptedMovement || (TheGameLogic->m_110==3 && TheWritableGlobalData->field0c0d)) {
                     m_heightAboveGround=m_currentHeightAboveGround;
                     desiredZoom=m_zoom;
                 }
                 if(TheInGameUI->isScrolling()) {
-                    if(sqrt(square(m_scrollAmount.y)+square(m_scrollAmount.x))<m_scrollAmountCutoff ||
+                    if(m_scrollAmount.length()<m_scrollAmountCutoff ||
                         field24b8.slot000()>m_currentHeightAboveGround || (TheWritableGlobalData->m_enforceMaxCameraHeight && field24b8.slot004()<m_currentHeightAboveGround)) {
                         float zoomAdj=(desiredZoom-m_zoom)*TheWritableGlobalData->m_cameraAdjustSpeed;
                         if(fabs(zoomAdj)>=0.0001) { m_zoom+=zoomAdj; recalcCamera=true; }
@@ -647,9 +666,8 @@ void W3DView::update()
             const Coord3D *pos;
             if(drawable) pos=drawable->getPosition();
             else {
-                Object *obj=TheGameLogic->findObjectByID(getCameraLock());
-                if(!obj) goto heightDone;
-                pos=&obj->m_position;
+                Object *obj=TheGameLogic->findObjectByID((ObjectID)getCameraLock());
+                pos=obj?&obj->m_position:0;
             }
             if(pos) {
                 float height=field0068>0.0f?field0068:TheWritableGlobalData->field0e58;
