@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
 //
 // reset is slot 6 of this vftable (0x007CF3E0 -> 0x000FC8B4).
 // Native 0x000FC8B4..0x000FC903 is the complete 79B no-argument body,
@@ -30,9 +30,9 @@
 // filter's texture (+0x08) on stage 0 (rowed BFME2Set_Texture 0x0011F4B0),
 // Apply_Render_State_Changes 0x0011D930, ZFUNC ALWAYS and ZWRITEENABLE off
 // (rowed Set_DX8_Render_State 0x0006615F), Apply_Render_State_Changes.
-// The fade statics (0x009EC1B0..0x009EC1C4) and the swap counter
-// (0x009B5B88) are the ledger's address-named globals; class and method
-// names stay address-derived.
+// The normalized fade value has a byte-verified neutral role name below.
+// The remaining frame/direction/swap statics retain their ledger names;
+// class and method names stay address-derived.
 
 typedef int Int;
 typedef float Real;
@@ -101,7 +101,6 @@ public:
 	};
 	virtual void Delete_This();
 	static VertexMaterialClass *Get_Preset(PresetType type);
-	void Add_Ref() { NumRefs++; }
 	void Release_Ref()
 	{
 		NumRefs--;
@@ -121,12 +120,29 @@ public:
 	ShaderClass(unsigned value) : bits(value) {}
 	static __forceinline void Force_Dirty() { ShaderDirty = true; }
 protected:
+	friend class DX8Wrapper;
 	static bool ShaderDirty;
 };
 
+class TextureBaseClass { public: void Release_Ref(); };
+class StringClass {
+public:
+ StringClass(int initial_len = 0, bool hint_temporary = false);
+ __forceinline ~StringClass() { Free_String(); }
+private:
+ void Free_String();
+ char *m_Buffer;
+};
+class WW3D {
+public: static bool Is_Snapshot_Activated() { return SnapshotActivated; }
+private: static bool SnapshotActivated;
+};
+struct RenderStateStruct { ShaderClass shader; };
 struct BFME2TextureResource;
 struct BFME2TextureRef
 {
+ BFME2TextureRef() : Ptr(0) {}
+ ~BFME2TextureRef() { if (Ptr) ((TextureBaseClass *)Ptr)->Release_Ref(); }
 	BFME2TextureResource *Ptr;
 };
 void BFME2Set_Texture(unsigned stage, const BFME2TextureRef &texture);
@@ -196,18 +212,32 @@ public:
 		texture_changes++;
 	}
 	static void Set_Shader(const ShaderClass &shader);
+ static void Get_DX8_Render_State_Value_Name(StringClass &, unsigned long, unsigned int);
+ static __forceinline void Set_Dot3_Shader(const ShaderClass &shader) {
+  if (!ShaderClass::ShaderDirty && shader.bits == render_state.shader.bits) return;
+  render_state.shader.bits = shader.bits;
+  render_state_changed |= 0x8000;
+  StringClass str;
+ }
+ static __forceinline void Set_Dot3_Render_State(unsigned long state, unsigned value) {
+  if (RenderStates[state] == value) return;
+  if (WW3D::Is_Snapshot_Activated()) {
+   StringClass value_name(0, true);
+   Get_DX8_Render_State_Value_Name(value_name, state, value);
+  }
+  RenderStates[state] = value;
+  _Get_D3D_Device8()->SetRenderState(state, value);
+  number_of_DX8_calls++;
+  render_state_changes++;
+ }
+
 	static void Apply_Render_State_Changes();
 	static void Set_DX8_Render_State(unsigned long state, unsigned int value);
-	static __forceinline void Set_Material(VertexMaterialClass *material)
-	{
-		if (material)
-			material->Add_Ref();
-		if (ScreenMaterial)
-			ScreenMaterial->Release_Ref();
-		ScreenMaterial = material;
-		render_state_changed |= 0x4000;
-	}
+	static __forceinline void Mark_Material_Changed() { render_state_changed |= 0x4000; }
 protected:
+	static unsigned RenderStates[256];
+	static unsigned render_state_changes;
+	static RenderStateStruct render_state;
 	static unsigned int render_state_changed;
 	static IDirect3DDevice8 *D3DDevice;
 	static IDirect3DBaseTexture8 *Textures[16];
@@ -222,7 +252,11 @@ extern Int g_00DEC1B4;		// fade direction
 extern Int g_00DEC1B8;		// fade frames
 extern unsigned char g_00DEC1C4;	// time of day swapped
 extern Int g_00DB5B88;		// swap counter
-extern Real g_Va00DEC1B0;	// current fade value
+// Shared transition fade scalar: native setup writes normalized progress and
+// DOT3 postRender converts (1 - progress) to alpha. The neutral role name
+// preserves uncertainty about the original identifier. Retail stores 0.0f
+// initially; data_rows verifies this source's complete four-byte definition.
+Real BfmeScreenTransitionFadeValue = 0.0f;
 extern UnsignedInt g_Va00DEC1C0;	// last logic frame
 
 class Rva000FC63DFilter
@@ -297,12 +331,12 @@ Int Rva000FC63DFilter::set(FilterModes mode)
 			Int fade = g_00DEC1BC;
 			if (fade < g_00DEC1B8)
 			{
-				g_Va00DEC1B0 = (Real)fade / (Real)g_00DEC1B8;
+				BfmeScreenTransitionFadeValue = (Real)fade / (Real)g_00DEC1B8;
 			}
 			else
 			{
 				g_00DEC1BC = 0;
-				g_Va00DEC1B0 = 1.0f;
+				BfmeScreenTransitionFadeValue = 1.0f;
 				g_00DEC1B4 = 0;
 			}
 		}
@@ -313,11 +347,11 @@ Int Rva000FC63DFilter::set(FilterModes mode)
 			Int fade = g_00DEC1BC;
 			if (fade < g_00DEC1B8)
 			{
-				g_Va00DEC1B0 = 1.0f - (Real)fade / (Real)g_00DEC1B8;
+				BfmeScreenTransitionFadeValue = 1.0f - (Real)fade / (Real)g_00DEC1B8;
 			}
 			else
 			{
-				g_Va00DEC1B0 = 0.0f;
+				BfmeScreenTransitionFadeValue = 0.0f;
 				TheTacticalView->setViewFilterMode(FM_NULL_MODE);
 				TheTacticalView->setViewFilter(FT_NULL_FILTER);
 				g_00DEC1BC = 0;
@@ -326,7 +360,10 @@ Int Rva000FC63DFilter::set(FilterModes mode)
 		}
 
 		VertexMaterialClass *vmat = VertexMaterialClass::Get_Preset(VertexMaterialClass::PRELIT_DIFFUSE);
-		DX8Wrapper::Set_Material(vmat);
+		if (vmat) ++vmat->NumRefs;
+		if (ScreenMaterial) ScreenMaterial->Release_Ref();
+		ScreenMaterial = vmat;
+		DX8Wrapper::Mark_Material_Changed();
 		REF_PTR_RELEASE(vmat);
 		DX8Wrapper::Set_Shader(ShaderClass::_PresetOpaqueShader);
 		BFME2Set_Texture(0, m_texture);
@@ -385,7 +422,6 @@ extern View *TheTacticalView;
 #define BfmeDeviceGlobal ((BfmeDevice *)DX8Wrapper::_Get_D3D_Device8())
 
 
-/* ShaderClass::_PresetAlphaShader is declared below. */
 
 class BfmeTacticalView
 {
@@ -487,7 +523,7 @@ Bool Rva000FCF54Filter::postRender(FilterModes mode, Coord2D &scrollDelta,
 	v[3].u = (1.0f / displaySize->x) * (Real)xpos;
 	v[3].v = (1.0f / displaySize->y) * (Real)ypos;
 	unsigned int currentFade =
-		((Int)((1.0f - g_Va00DEC1B0) * 255.0f) << 24) |
+		((Int)((1.0f - BfmeScreenTransitionFadeValue) * 255.0f) << 24) |
 		0x00ffffff;
 	v[0].color = currentFade;
 	v[1].color = currentFade;
@@ -529,4 +565,45 @@ Bool Rva000FCF54Filter::postRender(FilterModes mode, Coord2D &scrollDelta,
 		sizeof(Vertex));
 	reset();
 	return true;
+}
+
+// ?set@Rva000FCF54Filter@@MAEHW4FilterModes@@@Z @0x000FD257
+// Native 0x000FD257..0x000FD4A5 is the complete 590B RET4 body.
+// It is slot 5 of the same vftable as the verified DOT3 postRender:
+// base 0x007CF3F4, entry 0x007CF408. Original owner remains unknown.
+// BFME 1 f98983a7 ScreenFilterRva007D31C0Set.cpp supplies the shared
+// fade ladder and material/shader/empty-texture/depth-state setup.
+Int Rva000FCF54Filter::set(FilterModes mode) {
+ if (mode > FM_NULL_MODE) {
+  if (g_00DEC1B4 > 0) {
+   Int fade = ++g_00DEC1BC;
+   if (fade < g_00DEC1B8)
+    BfmeScreenTransitionFadeValue = (Real)fade / (Real)g_00DEC1B8;
+   else { BfmeScreenTransitionFadeValue = 1; g_00DEC1BC=0; g_00DEC1B4=0; }
+  } else if (g_00DEC1B4 < 0) {
+   Int fade = ++g_00DEC1BC;
+   if (fade < g_00DEC1B8)
+    BfmeScreenTransitionFadeValue = 1 - (Real)fade / (Real)g_00DEC1B8;
+   else {
+    BfmeScreenTransitionFadeValue=0;
+    TheTacticalView->setViewFilterMode(FM_NULL_MODE);
+    TheTacticalView->setViewFilter(FT_NULL_FILTER);
+    g_00DEC1BC=0; g_00DEC1B4=0;
+   }
+  }
+  VertexMaterialClass *vmat = VertexMaterialClass::Get_Preset(VertexMaterialClass::PRELIT_DIFFUSE);
+  if (vmat) ++vmat->NumRefs;
+  if (ScreenMaterial) ScreenMaterial->Release_Ref();
+  ScreenMaterial = vmat;
+  DX8Wrapper::Mark_Material_Changed();
+  REF_PTR_RELEASE(vmat);
+  DX8Wrapper::Set_Dot3_Shader(ShaderClass::_PresetOpaqueShader);
+  { BFME2TextureRef texture; BFME2Set_Texture(0, texture); }
+  DX8Wrapper::Apply_Render_State_Changes();
+  DX8Wrapper::Set_Dot3_Render_State(23,8);
+  DX8Wrapper::Set_Dot3_Render_State(14,0);
+  DX8Wrapper::Apply_Render_State_Changes();
+  return true;
+ }
+ return false;
 }
