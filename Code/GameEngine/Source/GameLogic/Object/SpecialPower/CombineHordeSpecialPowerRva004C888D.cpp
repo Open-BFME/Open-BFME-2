@@ -160,7 +160,6 @@ class Object
 public:
 	Player *getControllingPlayer() const;	// 0x0028AFA9
 	void *rva0028C197() const;		// 0x0028C197
-	bool isDisabled() const { return m_disabledMask.any(); }
 	const Coord3D *getPosition() const { return &m_pos; }
 	AIUpdateInterface *getAIUpdateInterface() const { return m_ai; }
 	unsigned char m_pad000[0x38];
@@ -229,7 +228,7 @@ private:
 void CombineHordeSpecialPower::rva004C888D(unsigned int)
 {
 	Object *object = m_object;
-	if (object->isDisabled())
+	if (object->m_disabledMask.any())
 		return;
 	rva004C888DSlot15(1.0f);
 
