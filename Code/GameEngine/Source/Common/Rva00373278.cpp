@@ -7,6 +7,13 @@
 // rowed Rb_tree _M_find 0x00388F63 plus empty plus size>1 via sbb/neg.
 // Evidence: this+0x10 map plus caller 0x002F7265 plus rowed callee.
 #include <map>
+
+// Keep STLport4.5.3's integer comparison inline without a competing copy.
+namespace _STL {
+template<> __declspec(dllimport) __forceinline
+bool less<int>::operator()(const int& a,const int& b) const
+{ return a < b; }
+}
 #include <vector>
 
 class MineshaftPortalNetworkManager

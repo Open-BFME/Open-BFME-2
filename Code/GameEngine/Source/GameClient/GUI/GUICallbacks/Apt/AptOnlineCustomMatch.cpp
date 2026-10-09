@@ -12,6 +12,13 @@
 #include "unicode_string.h"
 #include <map>
 
+// Keep STLport4.5.3's integer comparison inline without a competing copy.
+namespace _STL {
+template<> __declspec(dllimport) __forceinline
+bool less<int>::operator()(const int& a,const int& b) const
+{ return a < b; }
+}
+
 typedef int Int;
 
 class GameSpyStagingRoom;
