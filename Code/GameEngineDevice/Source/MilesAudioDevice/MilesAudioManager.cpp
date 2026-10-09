@@ -166,6 +166,30 @@ struct AudioEventInfo {
     _STL::vector<AudioEventChannelVolume> m_channelVolumes;  // +0xB8
 };
 
+// Owning AudioEventRTS reference (its refcount base sits at event +0x88);
+// the ledger's established name: copy constructor rowed at 0x00051950,
+// destructor at 0x000519AB and assignment at 0x00051971.
+class AudioEventRTS;
+struct BfmePoolHolder88;
+
+class BfmePoolRef10 {
+public:
+    BfmePoolRef10() : m_ptr(0) {}
+    // Retail 0x00051950 (rowed in stlport_stringtailrecord144_dtor.cpp; same
+    // bytes here). Out of line in retail but visible to this unit, so cl knows
+    // the copy keeps no pointer to itself: checkForNaturalSoundCompletion then
+    // holds the waiting event in esi and drops its release null test.
+    __declspec(noinline) BfmePoolRef10(const BfmePoolRef10 &other) : m_ptr(other.m_ptr) { if (m_ptr) reinterpret_cast<OpaqueRefCounted *>(reinterpret_cast<char *>(m_ptr) + 0x88)->Add_Ref(); }
+    ~BfmePoolRef10() { if (m_ptr) reinterpret_cast<OpaqueRefCounted *>(reinterpret_cast<char *>(m_ptr) + 0x88)->Release_Ref(); }
+    AudioEventRTS *operator->(void) const { return m_ptr; }
+    AudioEventRTS *get(void) const { return m_ptr; }
+    BfmePoolRef10 &operator=(const BfmePoolRef10 &other);
+    void rva00053D26(BfmePoolHolder88 *p);  // assign from a raw event (0x00053D26)
+    void rva000519BD(void);                 // release then null (0x000519BD)
+private:
+    AudioEventRTS *m_ptr;
+};
+
 class AudioEventRTS {
 public:
     bool isPositionalAudio(void) const;
@@ -182,10 +206,17 @@ public:
     // loop-buffer refill's decay test reads through it.
     const AudioEventInfo *getAudioEventInfo(void) const { return m_info; }
     AsciiString getFilename(void);
+    // WorldBuilder names; both are inline in retail.
+    void decrementNumberOfEventsNeedingToBeDoneBeforeReplaying(void) { --m_at14; }
+    void setNumberOfTimesToPlayMusicOrMultisound(int times) { m_loopCount = times; }
+    // The +0x84 name checkForNaturalSoundCompletion tests.
+    const AsciiString &getAt84(void) const { return *reinterpret_cast<const AsciiString *>(m_at84); }
     char at00[0x08];
     AudioEventInfo *m_info;  // +0x08 (owning ref in WB)
     int m_playingHandle;     // +0x0C, copied into a requeued loop's request
-    char at10[0x30 - 0x10];
+    AudioEventRTS *m_at10;   // +0x10, owning reference to the event waiting on this one (0x002D9AD4 sets it)
+    int m_at14;              // +0x14, events still to finish before that one replays
+    char at18[0x30 - 0x18];
     int m_viewType;          // +0x30
     char at34[0x38 - 0x34];
     int m_ownerType;         // +0x38, 2 when object-owned (getObjectID's test)
@@ -200,22 +231,8 @@ public:
     int m_portionToPlayNext; // +0x74, the portion advanceNextPlayPortion steps
     MusicSystem m_musicSystem; // +0x78
     int m_loopCount;         // +0x7C, -12345 loops forever (0x00051E7D)
-};
-
-// Owning AudioEventRTS reference (its refcount base sits at event +0x88);
-// the ledger's established name, assignment rowed at 0x00051971.
-struct BfmePoolHolder88;
-
-class BfmePoolRef10 {
-public:
-    ~BfmePoolRef10() { if (m_ptr) reinterpret_cast<OpaqueRefCounted *>(reinterpret_cast<char *>(m_ptr) + 0x88)->Release_Ref(); }
-    AudioEventRTS *operator->(void) const { return m_ptr; }
-    AudioEventRTS *get(void) const { return m_ptr; }
-    BfmePoolRef10 &operator=(const BfmePoolRef10 &other);
-    void rva00053D26(BfmePoolHolder88 *p);  // assign from a raw event (0x00053D26)
-    void rva000519BD(void);                 // release then null (0x000519BD)
-private:
-    AudioEventRTS *m_ptr;
+    int m_at80;              // +0x80, holds against a stop request (0x000562CF adds one)
+    char m_at84[4];          // +0x84, an AsciiString (see getAt84)
 };
 
 // Open audio file the holder below points at. WorldBuilder names its getters
@@ -289,9 +306,11 @@ struct PlayingAudio {
     int m_at38;                          // +0x38, area index 0x55C5D starts from
     float m_at3C;                        // +0x3C, extra volume handed to a requeued loop
     float m_at40;                        // +0x40, cleared once that volume is handed on
-    char at44[0x45 - 0x44];
+    bool m_at44;                         // +0x44, tested with +0x46 by checkForNaturalSoundCompletion
     bool m_at45;                         // +0x45, set when a pushed track resumes
-    char at46[0x49 - 0x46];
+    bool m_at46;                         // +0x46
+    char at47;
+    bool m_at48;                         // +0x48, overrides +0x44/+0x46 in that test
     bool m_at49;                         // +0x49
     bool m_at4A;                         // +0x4A
     bool m_at4B;                         // +0x4B, set by 0x000535A6
@@ -338,6 +357,19 @@ public:
 private:
     OpaqueRefCounted *asRefCounted(void) const { return reinterpret_cast<OpaqueRefCounted *>(m_ptr); }
     PlayingAudio *m_ptr;
+};
+
+// WorldBuilder's free comparison (inline in retail): same referent.
+inline bool operator==(const PlayingAudioRef &left, const PlayingAudioRef &right)
+{
+    return left.get() == right.get();
+}
+
+// Assignment of the event's +0x10 reference, rowed at 0x002D9AD4 under an
+// address-derived owner.
+class Rva002D9AD4 {
+public:
+    BfmePoolRef10 &rva002D9AD4(const BfmePoolRef10 &other);
 };
 
 // Retail 0x00051914, which ICF shares with AudioEventInfoRef's constructor;
@@ -987,6 +1019,8 @@ public:
     void cleanUpLoopBuffer(LoopBuffer *buffer);
     // WorldBuilder name (retail 0x0005DD40).
     void checkForNaturalSoundCompletion(PlayingAudioRef &playing);
+    // WorldBuilder name (retail 0x0005D734, pinned).
+    unsigned int addOrResumeAudioEvent(AudioEventRTS *event, int a, int b, int c, int d);
     // WorldBuilder name; restarts, requeues or retires a finished sound.
     void processAudioCompletion(PlayingAudioRef &completedAudio);
     // WorldBuilder name; maps, configures and starts a stream.
@@ -1399,6 +1433,97 @@ static int __fastcall getAppropriateStreamLoopCount(void *unusedEcx, const Audio
     default:
         return 1;
     }
+}
+
+// Retail 0x0005DD40 (WorldBuilder twin 0x0079B840 names it from its asserts
+// at lines 10100..10113): once a sound or stream stops on its own it checks
+// that it is still tracked (a stream or music track among the playing
+// streams or on its music stack or pending push/pop slot; a 2D or 3D sound
+// among the playing sounds) and that a paused or resumed track was not
+// merely parked; then the event waiting on this one (+0x10) is detached and
+// counted down and once nothing else holds it back it is replayed through
+// addOrResumeAudioEvent (0x0005D734) with its play count spent; otherwise a
+// script-named event (+0x84) marks its playing audio (+0x4D). WorldBuilder
+// only reports multisounds (type 3) and unknown types.
+void MilesAudioManager::checkForNaturalSoundCompletion(PlayingAudioRef &playing)
+{
+    if (playing->m_event->getAt84().isEmpty() && playing->m_event->m_at10 == 0)
+        return;
+    if (playing->m_event->m_at4C)
+        return;
+
+    bool foundPlaying = false;
+    bool foundOnStack = false;
+    bool foundPending = false;
+    PlayingAudioList::iterator it;
+    PlayingAudioList::iterator end;
+    int viewType;
+    int type = playing->m_event->getAudioEventInfo()->m_atB0;
+    switch (type) {
+    case 0:
+    case 1:
+    case 4:
+        it = m_playingStreams.begin();
+        end = m_playingStreams.end();
+        while (!foundPlaying && it != end) {
+            foundPlaying = (*it == playing);
+            ++it;
+        }
+        if (type == 0) {
+            viewType = playing->m_event->m_viewType;
+            MusicSystem musicSystem = playing->m_event->m_musicSystem;
+            MusicStack::iterator stackIt = m_musicStack[viewType][musicSystem].begin();
+            MusicStack::iterator stackEnd = m_musicStack[viewType][musicSystem].end();
+            while (!foundOnStack && stackIt != stackEnd) {
+                foundOnStack = (reinterpret_cast<PlayingAudioRef &>(*stackIt) == playing);
+                ++stackIt;
+            }
+            foundPending = (m_playingMusic[viewType] == playing);
+        }
+        if (!foundPlaying && !foundPending && !foundOnStack)
+            return;
+        break;
+    case 2:
+        it = m_playingSounds.begin();
+        end = m_playingSounds.end();
+        while (!foundPlaying && it != end) {
+            foundPlaying = (*it == playing);
+            ++it;
+        }
+        it = m_playing3DSounds.begin();
+        end = m_playing3DSounds.end();
+        while (!foundPlaying && it != end) {
+            foundPlaying = (*it == playing);
+            ++it;
+        }
+        if (!foundPlaying && !foundPending && !foundOnStack)
+            return;
+        break;
+    default:
+        return;
+    }
+
+    if ((playing->m_at44 || playing->m_at46) && !playing->m_at48 && !foundPending && !foundOnStack)
+        return;
+
+    if (playing->m_event->m_at10 != 0) {
+        BfmePoolRef10 waiting(reinterpret_cast<const BfmePoolRef10 &>(playing->m_event->m_at10));
+        reinterpret_cast<Rva002D9AD4 *>(playing->m_event.get())->rva002D9AD4(BfmePoolRef10());
+        waiting->decrementNumberOfEventsNeedingToBeDoneBeforeReplaying();
+        if (waiting->m_at14 <= 0) {
+            if (waiting->m_loopCount != -12345 && waiting->m_loopCount > 0)
+                waiting->setNumberOfTimesToPlayMusicOrMultisound(waiting->m_loopCount - 1);
+            if (waiting->m_loopCount == -12345 || waiting->m_loopCount > 0) {
+                int how = 0;
+                if (foundOnStack)
+                    how = 2;
+                addOrResumeAudioEvent(waiting.get(), how, 1, 1, 0);
+                return;
+            }
+        }
+    }
+    if (!playing->m_event->getAt84().isEmpty())
+        playing->m_at4D = true;
 }
 
 // Retail 0x0005DF9D (WorldBuilder twin 0x0079C1D0, names from its asserts):
@@ -3762,7 +3887,7 @@ PlayingAudioList::iterator MilesAudioManager::rva0005442A(int viewType, int musi
             continue;
         if (event->m_musicSystem != musicSystem)
             continue;
-        if (playing->at44[0]) {
+        if (playing->m_at44) {
             if (!filter)
                 found = it;
             continue;
@@ -3921,9 +4046,9 @@ void MilesAudioManager::removeCurrentlyPlayingMusic(int viewType, int arg)
         PlayingAudioRef playing = *it;
         playing->m_at45 = false;
         if (!arg) {
-            playing->at44[0] = 1;
+            playing->m_at44 = 1;
         } else {
-            playing->at44[0] = 0;
+            playing->m_at44 = 0;
             ((MilesStreamRef *)&playing->m_at0C)->rva000A8AC0();
             playing->m_at30 = (float)m_audioSettings->m_at78;
             reinterpret_cast<OpaqueRefList &>(m_playingStreams).erase(

@@ -1,34 +1,28 @@
 // ?rva0005FA3C@MilesAudioManager@@QAEXI@Z
-// partial score=0.86 date=2026-10-09
-// NEAR bank for retail 0x0005FA3C (910 bytes) ?rva0005FA3C@MilesAudioManager@@QAEXI@Z
-// Body for MilesAudioManager.cpp (defined after processRequest; e.g. before
-// releaseMilesHandles). Needs in the unit:
-//  - AudioEventRTS: int m_at80 at +0x80 (hold count; 0x000562CF adds one)
-//  - BfmeStringTailRecord144: int m_at80 at +0x80 and bool m_at8C at +0x8C
-//  - the 0x00055951 lookup defined in-unit before this body (so cl knows the
-//    find's hidden return slot does not escape; then the request-set part
-//    keeps the node in ecx as retail does) -- verified exact in-unit with
-//    the unit's /EHsc flags
-//  - the visible inline PlayingAudioRef::operator= (same as for 0x00055FCA)
-// Blocker: loop 1 (streams) releases its PlayingAudioRef copy after
-// processAudioCompletion(playing) from esi without reload; cl does that only
-// when processAudioCompletion and every callee it hands the reference to are
-// already compiled in the unit: startNextLoop and rva00059CE6 moved above it
-// and checkForNaturalSoundCompletion (0x0005DD40, unrowed, banked partial)
-// defined above it. With a dummy 0x5DD40 body above processAudioCompletion
-// the only remaining diff is loop 1's found-block placement (retail sinks it
-// after loop 2; an if(count<=0){...}else return; form gets that layout but
-// then cl enregisters the handle in edi). blocked-on=0x0005DD40
-// Retail 0x0005FA3C (910 bytes; WorldBuilder twin 0x00792D90 logs it as
-// "Processing stop handle request"): the stop request for one playing
-// handle (processRequest case 1). Handles below 5 are never live. Each
-// match drops one hold (+0x80) and stops only once none is left: a stream
-// is flagged (+0x4C) and completed unless its info defers that (bit 0x10)
-// a 2D or 3D sound is flagged; then per view type a queued event is flagged
-// (+0x8C) the active music stream reference is cleared and a stacked
-// track is erased from its music stack; a pending request found in the
-// request set through 0x00055951 is erased and deleted and so is every
-// queued play request (type 0) for the handle.
+// partial score=0.91 date=2026-10-09
+// ?rva0005FA3C@MilesAudioManager@@QAEXI@Z
+// NEAR bank score=0.91 date=2026-10-09 (helper mam5, claude-opus-5-5)
+// Insert into build/scratch_agents/mam5/MilesAudioManager.cpp (which already
+// defines checkForNaturalSoundCompletion 0x5DD40 above processAudioCompletion
+// and the in-class noinline BfmePoolRef10 copy ctor) before
+// "// Retail 0x0005FDCA"; it also needs BfmeStringTailRecord144 m_at80 (+0x80)
+// and m_at8C (+0x8C) and 0x00055951 defined in-unit (mk.py rec144=1 move55951=1).
+// Findings this round:
+//  - With the real 0x5DD40 body in the unit the stream loop already releases
+//    its copy straight from esi; moving startNextLoop/rva00059CE6 above
+//    processAudioCompletion is NOT needed (identical output either way).
+//    deleteAudioRequest (0x527C7) in-unit changes nothing.
+//  - This body (early-return form) differs only in where loop 1's found block
+//    sits: cl places it right after loop 1 with jle; retail places it after
+//    loop 2's body with jg to the release+return block (shared with loop 2).
+//  - WorldBuilder's shape (if (count <= 0) { ...; break; } else return;) in
+//    loop 1 gives retail's block layout (jg) but then cl enregisters handle
+//    in edi from the entry (mov edi,[ebp+8]; cmp edi,5) swaps loop 1's
+//    iterator/ref registers and CSEs &playing->m_event (score 0.90).
+//    Tried: break inside/after the if; no else; per-loop iterators;
+//    iterator declared before the handle test; post-increment; direct-init
+//    copy; == operand order; WB-shaped music slot / request list / loops 2-3;
+//    all leave handle in edi.
 void MilesAudioManager::rva0005FA3C(unsigned int handle)
 {
     if (handle < 5)
