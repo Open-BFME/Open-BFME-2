@@ -1,10 +1,15 @@
 // ?setCameraTransform@W3DView@@AAEXXZ
-// partial score=0.8544709066123826 date=2026-10-09
-// ?setCameraTransform@W3DView@@AAEXXZ
-// partial score=0.7963344591043144 date=2026-10-09
 // cl: /ICode/Libraries/Include/Lib /O1 /G7 /arch:SSE /DNDEBUG /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC
 // stlport
-// WB9886F0 names setCameraTransform; native8BE6B..8C224 supplies all BFME2 additions.
+// Native8BE6B..8C224 953B; WB9886F0 independently names setCameraTransform.
+// Clean BFME1 camera-transform donor at2f243e26d supplies the guide;
+// native bytes establish the target layouts, counted-camera return ABI,
+// terrain slot218, settings and all extra passes. Larger builder/constraints
+// are independently recovered providers. Existing integer Vector_base ctor
+// is used as a three-pointer storage ABI view, with the real owning63B dtor.
+// Scoped volatile stores express the retail x-clamp then y-clamp write order.
+// Private unmodified float far-scale retains native FMUL dword precision;
+// literal double promotion otherwise emits FMUL qword. No new alias pins.
 #define _STLP_NO_EXCEPTIONS 1
 #include <vector>
 #define _OPERATOR_NEW_DEFINED_
@@ -12,6 +17,8 @@
 #include "Coord3D.h"
 struct CameraPoint:public Coord3D {__forceinline CameraPoint(const Coord3D&p){x=p.x;y=p.y;z=p.z;}};
 static __forceinline float cameraClamp(float x,float low,float high){return low>x?low:(x>high?high:x);}
+// Internal scale is initialized once and never modified or exposed.
+static float CameraFarScale=1800.f;
 class CameraClass {public:
  virtual void v000();
  virtual void v001();
@@ -40,7 +47,7 @@ class CameraClass {public:
 };
 struct Rva0008B689Element {CameraClass *pointer; Rva0008B689Element():pointer(0){} __forceinline Rva0008B689Element(const Rva0008B689Element&p):pointer(p.pointer){if(pointer)pointer->Add_Ref();} ~Rva0008B689Element(){if(pointer)pointer->Release_Ref();}bool isNull()const{return pointer==0;}};
 namespace _STL {template<> void vector<Rva0008B689Element>::push_back(const Rva0008B689Element&);}
-struct Rva0008B470 {Rva0008B689Element *start,*finish,*end;__forceinline Rva0008B470(const std::allocator<Rva0008B689Element>&a=std::allocator<Rva0008B689Element>()):start(0),finish(0),end(0){}~Rva0008B470();__forceinline void push_back(const Rva0008B689Element&p){reinterpret_cast<std::vector<Rva0008B689Element>*>(this)->push_back(p);}};
+class Rva0008B470:private _STL::_Vector_base<int,_STL::allocator<int> > {typedef _STL::_Vector_base<int,_STL::allocator<int> > Base;public:__forceinline Rva0008B470(const _STL::allocator<int>&a=_STL::allocator<int>()):Base(a){}~Rva0008B470();void push_back(const Rva0008B689Element&p){reinterpret_cast<std::vector<Rva0008B689Element>*>(this)->push_back(p);}};
 Rva0008B689Element Rva000897C8(CameraClass*);
 class Rva0007D9B5Host{public:void rva0007D9B5(int);};
 class Rva0007BB79Owner{public:Rva0008B689Element rva0007BB79();};
@@ -219,9 +226,9 @@ class W3DView{void *vtable;char pad4[8];Coord3D position;char pad18[0x44-0x18];b
 };
 void W3DView::setCameraTransform(){
  moved=true;Matrix3D transform(1);
- camera->Set_Clip_Planes(10.0f,1800.0f*(double)TheWritableGlobalData->clipMultiplier);
+ camera->Set_Clip_Planes(10.0f,(double)TheWritableGlobalData->clipMultiplier*CameraFarScale);
  if(!valid){buildCameraTransform(&transform);camera->Set_Transform(transform);calcCameraConstraints();}
- if(valid && constrain){CameraPoint pos(position);float x=cameraClamp(pos.x,loX,hiX);float y=cameraClamp(pos.y,loY,hiY);pos.x=x;pos.y=y;position=pos;}
+ if(valid && constrain){CameraPoint pos(position);static_cast<volatile float&>(pos.x)=cameraClamp(pos.x,loX,hiX);static_cast<volatile float&>(pos.y)=cameraClamp(pos.y,loY,hiY);position=pos;}
  if(TheWritableGlobalData->debug)camera->Set_View_Plane(TheWritableGlobalData->debugFov,-1.0f);else camera->Set_View_Plane(fov,-1.0f);
  buildCameraTransform(&transform);
  if(mode==4)camera->Set_View_Plane(modeFov,-1.0f);
