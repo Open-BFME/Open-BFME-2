@@ -98,6 +98,8 @@ public:
 	void rva0023D0C2(Object *obj, int handle);	// 0x0023D0C2
 	Object *getFirstObject();	// 0x0023CAD2
 	void destroyObject(Object *obj);	// 0x00242C09
+	void sendObjectDestroyed(Object *obj);	// 0x0023CD67, called by Object::~Object 0x00299CE4
+	void rva0023CF8B();	// 0x0023CF8B, called by AptLoadScreen::init 0x0043A5F6
 	void deselectObject(Object *obj, unsigned int playerMask, bool affectClient);	// 0x0023C9F8
 	void bindObjectAndDrawable(Object *obj, Drawable *draw);	// 0x0023CD4A
 	void rva00376E92(bool first, bool second);	// 0x00376E92
