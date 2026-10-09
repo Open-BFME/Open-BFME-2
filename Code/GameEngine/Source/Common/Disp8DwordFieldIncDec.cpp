@@ -41,7 +41,22 @@
 		--m_counter; \
 	}
 
-BFME_DISP8_DWORD_INC(Rva002D76B7DwordCounter, 0x08)
+// WB1107620 RadarMarker::AddReference increments its +8 reference count.
+// Native smart-pointer assignment4C9B8F calls this four-byte body before
+// the adjacent RadarMarker::DeleteReference body2D76BB.
+class RadarMarker
+{
+public:
+	void AddReference();
+private:
+	char m_opaque00[8];
+	int m_refCount;
+};
+
+void RadarMarker::AddReference()
+{
+	++m_refCount;
+}
 BFME_DISP8_DWORD_INC(Rva0028A807DwordCounter, 0x24)
 BFME_DISP8_DWORD_INC(Rva0028A80BDwordCounter, 0x2C)
 BFME_DISP8_DWORD_INC(Rva0028A80FDwordCounter, 0x28)

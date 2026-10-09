@@ -7,10 +7,10 @@
 // the pointer. Sole caller at 0x004C9D43 sets the RadarMarkerClientUpdate
 // smart member at +0x0C. Shape matches rowed RefCountPtr<TextureClass>
 // assignment at 0x000424D0 with an added self-check.
-class Rva002D76B7DwordCounter
+class RadarMarker
 {
 public:
-	void inc();
+	void AddReference();
 };
 
 class Rva002D76BB
@@ -40,7 +40,7 @@ Rva004C9B8F &Rva004C9B8F::operator=(const Rva004C9B8F &other)
 	if (this == &other)
 		return *this;
 	if (other.m_ptr != 0)
-		reinterpret_cast<Rva002D76B7DwordCounter *>(other.m_ptr)->inc();
+		reinterpret_cast<RadarMarker *>(other.m_ptr)->AddReference();
 	if (m_ptr != 0)
 		reinterpret_cast<Rva002D76BB *>(m_ptr)->release();
 	m_ptr = other.m_ptr;
