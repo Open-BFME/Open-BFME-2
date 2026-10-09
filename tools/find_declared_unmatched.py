@@ -27,11 +27,13 @@ SIGNATURE_TOKEN_RE = re.compile(
 )
 
 
-def is_declaration(text, after_open_paren):
-    """A semicolon after the complete parameter list, before a body, is a prototype.
+def is_declaration_or_call(text, after_open_paren):
+    """Exclude prototypes and calls with an enclosing expression parenthesis.
 
     Keep ambiguous/incomplete signatures as definition candidates: this only
-    excludes a declaration when its terminating semicolon is actually seen.
+    excludes a prototype when its terminating semicolon is actually seen.
+    A closing parenthesis beyond the balanced parameter list belongs to an
+    enclosing expression, such as a wrapped if condition, never a definition.
     """
     depth = 1
     for match in SIGNATURE_TOKEN_RE.finditer(text, after_open_paren):
@@ -41,7 +43,7 @@ def is_declaration(text, after_open_paren):
         elif token == ")" and depth:
             depth -= 1
         elif depth == 0:
-            if token == ";":
+            if token in (";", ")"):
                 return True
             if token == "{":
                 return False
@@ -247,7 +249,7 @@ def find_defined_functions(text: str):
         # Inspect the complete signature: prototypes can span lines, and a
         # definition's first line can end with a semicolon inside a comment.
         match = definition_pattern.match(line)
-        if match and is_declaration(normalized, line_offset + match.end()):
+        if match and is_declaration_or_call(normalized, line_offset + match.end()):
             match = None
             symbol_comment = None
         # A call wrapped across lines -- `Bar::call(a,` inside a body -- ends in

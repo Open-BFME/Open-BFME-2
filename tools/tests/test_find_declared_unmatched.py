@@ -83,3 +83,48 @@ void Worker::run() { perform(); }
     BASECLASS::Read(buffer, size);
 """
     assert find_defined_functions(source) == {("Worker", "run", None)}
+
+
+@pytest.mark.parametrize("newline", ["\n", "\r\n", "\r\r\n"])
+def test_qualified_call_in_wrapped_condition_is_not_a_definition(newline):
+    source = """void Worker::run()
+{
+    if (ready ||
+        _STL::find(begin, end, true) == end) {
+        perform();
+    }
+}
+"""
+    assert find_defined_functions(source.replace("\n", newline)) == {
+        ("Worker", "run", None)
+    }
+
+
+def test_nested_wrapped_call_and_suffix_parentheses_are_distinguished():
+    source = '''namespace Work {
+    void Worker::run(int n = make_value(1, 2)) throw(/* ) */)
+    {
+        if (ready && (
+            Helper::check(make_value(1, 2), ")") /* ) */)) {
+            perform();
+        }
+    }
+}
+'''
+    assert find_defined_functions(source) == {("Work::Worker", "run", None)}
+
+
+def test_constructor_initializers_and_indented_definitions_remain_visible():
+    source = """namespace Work {
+    Worker::Worker(int n)
+        : Base(make_value(n)), value(n)
+    {
+    }
+    void Worker::unclaimed(int n)
+    {
+    }
+}
+"""
+    assert find_defined_functions(source) == {
+        ("Work::Worker", "Worker", None), ("Work::Worker", "unclaimed", None)
+    }
