@@ -28,6 +28,8 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+// Native matrix consumer helpers retain their verified inline operations.
+#include "../../../../../reference/shims/bfme_matrix3d_consumer_link/matrix3d.h"
 #include "rendobj.h"
 #include "matrix3d.h"
 
