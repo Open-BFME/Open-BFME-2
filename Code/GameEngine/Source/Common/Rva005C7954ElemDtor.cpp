@@ -1,5 +1,7 @@
 // cl: /Ireference/shims/bfme2_ascii /EHsc /MD
-// ??1Rva005C7954Elem@@QAE@XZ @0x005C7954 213B: non-virtual dtor with twin AptCall hides plus 5 member dtors.
+// ??1Impl@InGameCommandButtonMovieClip@@QAE@XZ @0x005C7954 213B (WorldBuilder
+// InGameCommandButtonMovieClip::Impl::~Impl; the same SetAutoAbilityOverlayState
+// and SetFlashEffectState _hide calls): non-virtual dtor with twin AptCall hides plus 5 member dtors.
 // Evidence: callers 0x005C7C88 deleting dtor plus 0x005C7CAD clear in OpaqueScalarDeletingDtors.cpp; callees rowed 0x005FB5E6 AptCall plus 0x005C3209 plus 4 vector dtors plus releaseBuffer 0x00036410; strings SetAutoAbilityOverlayState SetFlashEffectState _hide plus g_Rva0107301CEmptyString plus TheRva00222A8BTarget; neighbour Rva005C7A29Overlay.cpp layout +08 +0C +4C +54 +55.
 #include "ascii_string.h"
 
@@ -67,10 +69,15 @@ private:
 	char m_pad[0xC];
 };
 
-class Rva005C7954Elem
+class InGameCommandButtonMovieClip
 {
 public:
-	~Rva005C7954Elem();
+	class Impl;
+};
+class InGameCommandButtonMovieClip::Impl
+{
+public:
+	~Impl();
 	void OnInitialized(const char *path);
 	void OnOverButton(const char *path);
 	void OnPress(const char *path);
@@ -92,14 +99,14 @@ private:
 
 // Constructor 0x005C7D4A binds this callback to "_OnInitialized";
 // retail 0x005C78C9..0x005C78D0 writes the initialized flag and returns 4.
-void Rva005C7954Elem::OnInitialized(const char *path)
+void InGameCommandButtonMovieClip::Impl::OnInitialized(const char *path)
 {
 	m_4C = true;
 }
 
 // Bound by the constructor to the over-button handler. The body ends at
 // 0x005C7917; the following getter is a separate, already-owned body.
-void Rva005C7954Elem::OnOverButton(const char *path)
+void InGameCommandButtonMovieClip::Impl::OnOverButton(const char *path)
 {
 	m_00->vslot2();
 }
@@ -107,7 +114,7 @@ void Rva005C7954Elem::OnOverButton(const char *path)
 // Constructor binds "_OnPress" at 0x005C7E90. Retail reads the player's
 // mouse-button word at +0x318 and dispatches mode 6 through slots 3/5,
 // other modes through slots 4/6. Other mouse buttons do nothing.
-void Rva005C7954Elem::OnPress(const char *path)
+void InGameCommandButtonMovieClip::Impl::OnPress(const char *path)
 {
 	int button = reinterpret_cast<CommandButtonMouseState *>(g_bfmeAptWindowManager)->m_button;
 	if (button == 0) {
@@ -123,7 +130,7 @@ void Rva005C7954Elem::OnPress(const char *path)
 	}
 }
 
-Rva005C7954Elem::~Rva005C7954Elem()
+InGameCommandButtonMovieClip::Impl::~Impl()
 {
 	if (m_4C) {
 		if (m_54) {

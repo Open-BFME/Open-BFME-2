@@ -4,6 +4,14 @@
 // Same function, same address: bind the header spelling here.
 #pragma comment(linker, "/alternatename:??1Rva00B6CF1@@QAE@XZ=??1Rva00B6CF1@@UAE@XZ")
 
+// InGameCommandButtonMovieClip::Impl (WorldBuilder name of its destructor
+// 0x005C7954), whose holder clear 0x005C7CA1 deletes it below.
+class InGameCommandButtonMovieClip
+{
+public:
+	class Impl;
+};
+
 //
 // Emitted scalar deleting destructors (28B flag-test shape) for unclaimed
 // destructors found by sweeping the image for the
@@ -1439,7 +1447,7 @@ public:
 	void clear();
 
 private:
-	class Rva005C7954Elem *m_elem;
+	InGameCommandButtonMovieClip::Impl *m_elem;
 	int m_pad04;
 };
 
@@ -2295,15 +2303,15 @@ void Rva005C3EE8::clear()
 	delete doomed;
 }
 
-class Rva005C7954Elem
+class InGameCommandButtonMovieClip::Impl
 {
 public:
-	~Rva005C7954Elem();
+	~Impl();
 };
 
 void Rva005C7CA1::clear()
 {
-	Rva005C7954Elem *doomed = m_elem;
+	InGameCommandButtonMovieClip::Impl *doomed = m_elem;
 	m_elem = 0;
 	delete doomed;
 }

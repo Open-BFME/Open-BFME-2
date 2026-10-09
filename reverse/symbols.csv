@@ -4702,7 +4702,6 @@ name,address,notes
 ??1Rva005C67C0@@QAE@XZ,0x001F8167,001F9025 second-base destructor call at001F9043; existing Rva005C9D30 chain donor6583b3c1 structure; original class name unknown
 ??1Rva005C6C7B@@UAE@XZ,0x005C6C7B,opaque dtor called by the scalar deleting dtor at 0x005C6D80 (vtable 0x00C74918#0); identity unproven; address-derived name
 ??1Rva005C6D4D@@UAE@XZ,0x005C6C7B,twin of pinned ??1Rva005C6C7B same secondary base as ctor pin ??0Rva005C6D4D for Rva0053ED1A dtor
-??1Rva005C7954Elem@@QAE@XZ,0x005C7954,element destructor called by the guarded-delete clear helper; address from its retail REL32 call and a Ghidra function start
 ??1Rva005C847BRecord@@QAE@XZ,0x005C8FBD
 ??1Rva005C8494Dtor@@QAE@XZ,0x005C8494,REL32 callee decoded from target call bytes of adjustor dtor 0x005C8565; identity unproven
 ??1Rva005C8565@@QAE@XZ,0x005C8565,destructor called by the unreferenced scalar deleting dtor 0x005686D9 (REL32 at +4 of its 28B delete-flag wrapper); identity unproven; address-derived name
