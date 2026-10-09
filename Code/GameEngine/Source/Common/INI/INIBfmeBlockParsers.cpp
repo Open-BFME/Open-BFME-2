@@ -18,6 +18,9 @@ struct FieldParse;
 class INI
 {
 public:
+	const char *getNextToken(const char *seps);
+	const char *getNextSubToken(const char *expected);
+	float scanReal(const char *token);
 	void initFromINI(void *what, const FieldParse *parseTable);
 };
 
@@ -145,4 +148,84 @@ void Rva00417A94Parse(INI *ini)
 		ini->initFromINI(TheHouseColorSystem, HouseColorFields);
 		TheHouseColorSystem->rva00417A6B();
 	}
+}
+
+// 0x00289265 (136B): "ExperienceScalarTable" (registration VA 0x00DBB898).
+// Skips without TheExperienceLevelSystem (0x00DFECC4), else reads the table
+// name with getNextToken(0), news a 0x10-byte table through its rowed
+// constructor 0x00288BBA, initFromINI's it against VA 0x00BFB820 and hands
+// it to the system through the rowed forwarder 0x00289218 (the same
+// forwarder LivingWorldCampaign's parser uses).
+class ModuleData;
+
+class Rva00289218
+{
+public:
+	void rva00289218(const ModuleData *data);
+};
+
+class Rva00288BBA
+{
+public:
+	Rva00288BBA(const AsciiString &name);
+
+private:
+	char m_unreconstructed_00[0x10];
+};
+
+class ExperienceLevelSystem;
+extern ExperienceLevelSystem *TheExperienceLevelSystem;
+extern const FieldParse ExperienceScalarTableFields[];
+
+void Rva00289265Parse(INI *ini)
+{
+	if (TheExperienceLevelSystem == 0)
+		return;
+
+	AsciiString name(ini->getNextToken(0));
+	Rva00288BBA *table = new Rva00288BBA(name);
+	ini->initFromINI(table, ExperienceScalarTableFields);
+	((Rva00289218 *)TheExperienceLevelSystem)->rva00289218((const ModuleData *)table);
+}
+
+// 0x00200FE3 (129B): "AerialPathfindNoFlyZone" (registration VA 0x00DB9558).
+// Reads "TriggerArea" and looks the area up through TheTerrainLogic's
+// virtual at +0x9C (by const reference), reads "Height" with scanReal, and
+// when the area exists hands it and the height to TheAerialPathfinder through
+// the rowed 0x00375BFF (unsigned int, float).
+class PolygonTrigger;
+
+class TerrainLogic
+{
+public:
+	virtual void slot00(); virtual void slot01(); virtual void slot02(); virtual void slot03();
+	virtual void slot04(); virtual void slot05(); virtual void slot06(); virtual void slot07();
+	virtual void slot08(); virtual void slot09(); virtual void slot10(); virtual void slot11();
+	virtual void slot12(); virtual void slot13(); virtual void slot14(); virtual void slot15();
+	virtual void slot16(); virtual void slot17(); virtual void slot18(); virtual void slot19();
+	virtual void slot20(); virtual void slot21(); virtual void slot22(); virtual void slot23();
+	virtual void slot24(); virtual void slot25(); virtual void slot26(); virtual void slot27();
+	virtual void slot28(); virtual void slot29(); virtual void slot30(); virtual void slot31();
+	virtual void slot32(); virtual void slot33(); virtual void slot34(); virtual void slot35();
+	virtual void slot36(); virtual void slot37(); virtual void slot38();
+	virtual PolygonTrigger *slot39(const AsciiString &name);
+};
+
+class Rva00375BFF
+{
+public:
+	void rva00375BFF(unsigned int key, float value);
+};
+
+class AerialPathfinder;
+extern TerrainLogic *TheTerrainLogic;
+extern AerialPathfinder *TheAerialPathfinder;
+
+void Rva00200FE3Parse(INI *ini)
+{
+	AsciiString name(ini->getNextSubToken("TriggerArea"));
+	PolygonTrigger *trigger = TheTerrainLogic->slot39(name);
+	float height = ini->scanReal(ini->getNextSubToken("Height"));
+	if (trigger)
+		((Rva00375BFF *)TheAerialPathfinder)->rva00375BFF((unsigned int)trigger, height);
 }
