@@ -42,7 +42,7 @@ public:
 	virtual void slot10() = 0;
 	virtual void slot14() = 0;
 	virtual void setFont(GameFont *font) = 0;
-	virtual void slot1C() = 0;
+	virtual GameFont *getFont() = 0;
 	virtual void slot20() = 0;
 	virtual void slot24() = 0;
 	virtual void setColors(Color color, Color dropColor) = 0;
@@ -97,6 +97,7 @@ public:
 	void setFont(const AsciiString &fontName, Int pointSize, Bool bold);
 	void drawName(Int x, Int y, Color color, Color dropColor);
 	void drawTime(Int x, Int y, Color color, Color dropColor);
+	Real getHeight() const;
 
 protected:
 	virtual ~SuperweaponInfo();
@@ -148,3 +149,16 @@ void SuperweaponInfo::drawTime(Int x, Int y, Color color, Color dropColor)
 }
 
 // SuperweaponInfo::~SuperweaponInfo: defined in InGameUI.cpp (its unit).
+
+// Readable BF1 f989 InGameUI.cpp supplies SuperweaponInfo::getHeight.
+// Native29A5CA..29A5D6 follows RET16 at29A5C7; caller2A0664 passes the
+// same ESI as rowed drawName29A541/drawTime29A585 and adds the result to y.
+// Native DisplayString tables BCF900/C15338 slot1C both select30F45F,
+// the font pointer getter at+8. Native W3DFontLibraryLoadFontData902A6
+// independently stores font height at+10. Keep the forward GameFont type
+// and read that proven signed word without adding another private class view.
+// ?getHeight@SuperweaponInfo@@QBEMXZ
+Real SuperweaponInfo::getHeight() const
+{
+    return reinterpret_cast<const Int *>(m_nameDisplayString->getFont())[4];
+}

@@ -352,11 +352,7 @@ inline SuperweaponInfo::~SuperweaponInfo()
 
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
-// ?SuperweaponInfo::getHeight present-unmatched
-Real SuperweaponInfo::getHeight() const
-{
-	return m_nameDisplayString->getFont()->height;
-}
+// SuperweaponInfo::getHeight: defined in SuperweaponInfo.cpp (its row's unit).
 
 // ------------------------------------------------------------------------------------------------
 /** CRC */
