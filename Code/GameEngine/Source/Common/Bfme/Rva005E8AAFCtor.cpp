@@ -75,6 +75,31 @@ public:
 	void rva005F88CE(const Rva005F888CRef &ref);
 };
 
+// Complete physical view of the rowed 0x38-byte button from005F8D5C:
+// counted prefix8, holder20 and record base28. No original class name inferred.
+class AsciiString;
+class Rva005E12D1 {
+public:
+ Rva005E12D1(void*, const AsciiString&, void*);
+ virtual ~Rva005E12D1();
+private: char m_pad[0x10];
+};
+class Rva005F8CB0Base0 {
+public:
+ Rva005F8CB0Base0():m_04(0) {}
+ virtual ~Rva005F8CB0Base0() {}
+ int m_04;
+};
+class Rva005F8CB0 : public Rva005F8CB0Base0, public Rva005E12D1, public Rva005E8908 {
+public:
+ Rva005F8CB0(void*,const Rva005E8908&);
+ virtual ~Rva005F8CB0();
+};
+struct Rva005F8CB0Ref {
+ Rva005F8CB0Ref(Rva005F8CB0* p):m_object(p) { if(p) ++p->Rva005F8CB0Base0::m_04; }
+ ~Rva005F8CB0Ref();
+ Rva005F8CB0 *m_object;
+};
 class Rva005E8AAF : public Rva0007DF07
 {
 public:
@@ -82,6 +107,7 @@ public:
 	__forceinline Rva005E8AAF(const Rva005E8AAF &other) : m_08(other.m_08) {}
 	virtual ~Rva005E8AAF();
 	virtual Rva005F888CRef rva005E8A31() const;
+ virtual Rva005F8CB0Ref rva005E89DD(void*);
 
 private:
 	Rva005E8908 m_08;				// +0x08
@@ -110,4 +136,11 @@ void rva005E8ADF(Rva005F86FE *list, const Rva005E8908 &value)
 {
 	Rva005E8AAFHandle record(new Rva005E8AAF(value));
 	reinterpret_cast<Rva005F8427 *>(list)->rva005F88CE(record.m_object);
+}
+
+// VtableC77F5C slot2 =005E89DD. Creates the rowed button from this
+// record at+8 and the frame argument; hidden 4B handle increments count+4.
+Rva005F8CB0Ref Rva005E8AAF::rva005E89DD(void *frame)
+{
+	return Rva005F8CB0Ref(new Rva005F8CB0(frame, m_08));
 }

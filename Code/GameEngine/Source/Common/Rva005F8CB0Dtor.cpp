@@ -33,7 +33,6 @@ class Rva005F8CB0Base0
 public:
 	Rva005F8CB0Base0() : m_04(0) {}
 	virtual ~Rva005F8CB0Base0() {}
-private:
 	int m_04;
 };
 
@@ -50,8 +49,9 @@ Rva005F8CB0::~Rva005F8CB0()
 
 // Retail 005F8D5C..005F8DE7 (139B) identifies this as a constructor,
 // not the earlier proposed ScriptList parser. The record copy occurs
-// before final vptr installation, proving a third base rather than the
-// member originally inferred from the destructor alone. Image +24 is
+// before final vptr installation, supporting a third base rather than the
+// member originally inferred from the destructor alone. The base choice is
+// reconstruction evidence, not a recovered original declaration. Image +24 is
 // the record's +8 field, independently forwarded to the rowed image setter.
 Rva005F8CB0::Rva005F8CB0(void *frame, const Rva005E8908 &value)
 	: Rva005F8CB0Base0(),
