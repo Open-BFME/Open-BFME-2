@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata /DNDEBUG /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Op
+// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata /DNDEBUG /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Op /Os
 // stlport
 // ZH donor: GeneralsMD ScriptConditions.cpp evaluateTeamStateIs and
 // evaluateTeamStateIsNot. Target evidence: the evaluateCondition jump table
@@ -1491,6 +1491,26 @@ public:
 };
 
 static TransportStatus *s_transportStatuses;
+
+// Retail 0x003E3C66..0x003E3C89 (35 bytes, ret): load this head at
+// VA 0x00E02E00, call virtual slot zero with deleting-destructor flags zero,
+// pass its returned storage to operator delete at 0x0002FD60, then clear it.
+// evaluateUnitHasEmptied independently identifies the same head and 0x14-byte
+// TransportStatus nodes. This view describes the consumed slot ABI; the
+// original cleanup function's name is not established.
+class Rva003E3C66StatusSlot
+{
+public:
+	virtual void *destroy(unsigned int flags) throw();
+};
+
+void Rva003E3C66TransportCleanup()
+{
+	Rva003E3C66StatusSlot *status = reinterpret_cast<Rva003E3C66StatusSlot *>(s_transportStatuses);
+	void *storage = status ? status->destroy(0) : 0;
+	::operator delete(storage);
+	s_transportStatuses = 0;
+}
 
 bool ScriptConditions::evaluateUnitHasEmptied(Parameter *pUnitParm)
 {
