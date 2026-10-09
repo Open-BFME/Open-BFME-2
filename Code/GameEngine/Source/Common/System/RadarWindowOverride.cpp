@@ -1,9 +1,13 @@
+// cl: /Ireference/shims/bfme2_ascii
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // Radar window override accessors, retail 0x002D35CF (7B) and 0x002D35D6 (16B).
 // Split into a dedicated TU so RadarNewMap.cpp keeps its matched newMap:
 // defining these in the same unit lets MSVC see the callee and changes the
 // caller's register save set (docs/matching.md pattern five).
+
+// Alert movie playback uses the canonical four-byte string handle.
+#include "ascii_string.h"
 
 class GameWindow
 {
@@ -275,4 +279,34 @@ void RadarWindowOverrideSource::rva002D4240(bool immediate)
 	}
 
 	m_inner->m_window->winHide(immediate);
+}
+
+// Retail 0x002D4341 95B; WB F481A0 names Palantir::PlayAlertMovie.
+// The existing predicate provider is visible here so MSVC preserves ECX
+// through its body; a separately declared predicate added two reloads.
+class Rva005C96A9 {
+public:
+ virtual void v0();virtual void v1();virtual void v2();virtual void v3();virtual void v4();
+ virtual void v5();virtual void v6();virtual void v7();virtual void v8();virtual void stop();
+ void rva00524D01(const AsciiString &,int);
+};
+struct AlertInner {
+ char unknown00[0x60]; unsigned char flags;
+ char unknown61[0x17]; Rva005C96A9 *playback;
+ char unknown7C[0xD0]; int value14C;bool hidden150;
+};
+class BfmeSinkBLD {
+public:
+ void bfmeDoBLD(void *,int);
+private:
+ char unknown00[0x10]; AlertInner *inner;
+};
+void BfmeSinkBLD::bfmeDoBLD(void *name,int value) {
+ RadarWindowOverrideSource *owner=reinterpret_cast<RadarWindowOverrideSource *>(this);
+ if(!owner->hasOverrideWindow())return;
+ inner->hidden150=!owner->hasOverrideWindow();
+ inner->value14C=value;
+ if(!owner->hasOverrideWindow())owner->rva002D4240(false);
+ inner->playback->stop();
+ inner->playback->rva00524D01(*reinterpret_cast<const AsciiString *>(name),64);
 }
