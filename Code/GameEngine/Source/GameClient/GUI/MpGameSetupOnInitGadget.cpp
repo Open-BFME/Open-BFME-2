@@ -53,6 +53,7 @@ namespace _STL
 class AptMpGameSetup
 {
 public:
+	static void PlayerTooltip(GameWindow *window, WinInstanceData *data, unsigned int flags);
 	void InitGadgets(const char *name, void *argument, GameWindow *window);
 
 private:
@@ -91,7 +92,7 @@ void AptMpGameSetup::InitGadgets(const char *name, void *, GameWindow *window)
 	{
 		GadgetComboBoxReset(window);
 		m_player[index] = window;
-		GadgetComboBoxGetListBox(window)->winSetTooltipFunc((GameWinTooltipFunc)0x83df71);
+		GadgetComboBoxGetListBox(window)->winSetTooltipFunc(&AptMpGameSetup::PlayerTooltip);
 	}
 	else if (strcmp(leaf, "PlayerTemplate") == 0)
 	{
