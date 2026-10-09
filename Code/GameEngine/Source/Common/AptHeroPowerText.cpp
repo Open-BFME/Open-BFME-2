@@ -484,7 +484,7 @@ void Rva0057E3DB::rva0057C7BA(int type)
 // rowed invoke on the owner the rowed Rva00222547Get resolves for this
 // window. The number buffer reuses the index parameter's slot, as in retail.
 class GameWindow;
-GameWindow *Rva00222547Get(GameWindow *window);
+class AptPlayer { public: static int GetLevelIndex(GameWindow *window); };
 extern const char *g_00C3D700[];
 
 class Rva0043C8E4
@@ -497,7 +497,7 @@ void Rva0043C8E4::rva0043C8E4(int index, int state)
 {
 	char number[4];
 	sprintf(number, "%d", index + 1);
-	TheRva00222A8BTarget->invoke(Rva00222547Get((GameWindow *)this), "SetSpellButtonState", 2, number, (void *)g_00C3D700[state], 0, 0, 0);
+	TheRva00222A8BTarget->invoke(reinterpret_cast<void *>(AptPlayer::GetLevelIndex((GameWindow *)this)), "SetSpellButtonState", 2, number, (void *)g_00C3D700[state], 0, 0, 0);
 }
 
 // ??1Rva00582FC1@@UAE@XZ @0x00582FC1 84B (the existing pin's name): the file

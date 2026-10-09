@@ -79,6 +79,7 @@ TreeHintRef002BF0D6 &Rva002BFC59::rva002BFC59(const AsciiString &key)
 typedef bool Bool;
 
 class AptFocusTarget;
+class GameWindow;
 
 // STLport vector<AptFocusTarget *> view.
 class AptFocusStack
@@ -135,6 +136,7 @@ struct AptLevelOverrideNode {void *next; AsciiString key; int index;};
 class AptPlayer
 {
 public:
+ static int GetLevelIndex(GameWindow *window);
 	void PopFocus(AptFocusTarget *target);
  void SetExtern(const char *name,int value);
  void rva00223E4B(const char *name,char *value);
@@ -296,4 +298,65 @@ void AptPlayer::rva00223E4B(const char *name,char *value)
    node->handle.invoke(node->context,(int)value,0);
   }
  }
+}
+
+// WorldBuilder B958E0 names the static level-index query. Native
+// 222547..222597 returns -1, 14, or the integer at reply+274.
+typedef unsigned int UnsignedInt;
+typedef unsigned int WindowMsgData;
+
+enum WindowMsgHandledType
+{
+	MSG_IGNORED,
+	MSG_HANDLED
+};
+
+class GameWindow
+{
+public:
+	GameWindow *winGetParent();
+};
+
+class GameWindowManager
+{
+public:
+#define V(n) virtual void pad##n() = 0;
+	V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7)
+	V(8) V(9) V(10) V(11) V(12) V(13) V(14) V(15)
+	V(16) V(17) V(18) V(19) V(20) V(21) V(22) V(23)
+	V(24) V(25) V(26) V(27) V(28) V(29) V(30) V(31)
+	V(32) V(33) V(34) V(35) V(36) V(37) V(38) V(39)
+	virtual void windowHiding(GameWindow *window) = 0;
+	V(41) V(42) V(43) V(44) V(45) V(46) V(47)
+	virtual GameWindow *winGetFocus() = 0;
+	virtual int winSetFocus(GameWindow *window) = 0;
+	V(50) V(51) V(52) V(53) V(54) V(55)
+	V(56) V(57)
+#undef V
+	virtual WindowMsgHandledType winSendSystemMsg(GameWindow *window, UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2) = 0;
+};
+
+extern GameWindowManager *TheWindowManager;
+
+struct Rva00222547Out
+{
+	char m_pad[0x274];
+	int m_result;
+};
+
+int AptPlayer::GetLevelIndex(GameWindow *w)
+{
+	if (w == 0)
+		return -1;
+	Rva00222547Out *out = 0;
+	for (;;)
+	{
+		if (w == 0)
+			return 14;
+		TheWindowManager->winSendSystemMsg(w, 29, 2000, (WindowMsgData)&out);
+		w = w->winGetParent();
+		if (out == 0)
+			continue;
+		return out->m_result;
+	}
 }

@@ -47,7 +47,7 @@ public:
 	char m_pad[1];
 };
 
-GameWindow *Rva00222547Get(GameWindow *w);
+class AptPlayer { public: static int GetLevelIndex(GameWindow *window); };
 
 class Rva00222A8BTarget
 {
@@ -80,7 +80,7 @@ void Rva0043D3DA::rva0043C7C9(int unused)
 	}
 	if (m_closed)
 		return;
-	(*(Rva00222A8BTarget **)&g_bfmeAptWindowManager)->invoke(Rva00222547Get((GameWindow *)this), "Close", 0, 0, 0, 0, 0, 0);
+	(*(Rva00222A8BTarget **)&g_bfmeAptWindowManager)->invoke(reinterpret_cast<void *>(AptPlayer::GetLevelIndex((GameWindow *)this)), "Close", 0, 0, 0, 0, 0, 0);
 	m_closed = true;
 	if (!m_bgHidden) {
 		(*(Rva00222A8BTarget **)&g_bfmeAptWindowManager)->rva00222F55(false);

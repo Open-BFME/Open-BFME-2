@@ -748,7 +748,7 @@ public:
 // The screen's Apt movie (rowed 0x00222547) and the window manager's
 // ActionScript call 0x00222A8B.
 class GameWindow;
-GameWindow *Rva00222547Get(GameWindow *window);
+class AptPlayer { public: static int GetLevelIndex(GameWindow *window); };
 
 class Rva00222A8BTarget
 {
@@ -780,7 +780,7 @@ void AptSpellStore::rva0043CD3C()
 	int mode = Rva0043C933Get();
 	if (mode != m_2a4)
 	{
-		((Rva00222A8BTarget *)g_bfmeAptWindowManager)->invoke(Rva00222547Get((GameWindow *)this), "SetLayout", 1,
+		((Rva00222A8BTarget *)g_bfmeAptWindowManager)->invoke(reinterpret_cast<void *>(AptPlayer::GetLevelIndex((GameWindow *)this)), "SetLayout", 1,
 			mode == 2 ? "_multiplayer" : mode == 0 ? "_campaignGood" : "_campaignEvil", 0, 0, 0, 0);
 		m_2a4 = mode;
 		return;
@@ -789,7 +789,7 @@ void AptSpellStore::rva0043CD3C()
 	bool selected = m_hovered >= 0;
 	if (selected != m_358)
 	{
-		((Rva00222A8BTarget *)g_bfmeAptWindowManager)->invoke(Rva00222547Get((GameWindow *)this), "ShowSpellHelpText", 1,
+		((Rva00222A8BTarget *)g_bfmeAptWindowManager)->invoke(reinterpret_cast<void *>(AptPlayer::GetLevelIndex((GameWindow *)this)), "ShowSpellHelpText", 1,
 			selected ? "_on" : "_off", 0, 0, 0, 0);
 		m_358 = selected;
 	}

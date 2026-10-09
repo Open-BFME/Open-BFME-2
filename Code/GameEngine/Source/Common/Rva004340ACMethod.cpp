@@ -5,7 +5,7 @@
 class Rva00222A8BTarget;
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 class GameWindow;
-GameWindow *Rva00222547Get(GameWindow *w);
+class AptPlayer { public: static int GetLevelIndex(GameWindow *window); };
 int __cdecl Rva002D3409Invoke(Rva00222A8BTarget *target, void *owner, const char *name, const char *const &a);
 
 struct AptSaveLoadPending
@@ -46,7 +46,7 @@ void AptSaveLoad::rva004340AC()
 	const char *loadVal = deleteVal;
 	if (m_mode == 0x10 && pending && pending->m_kind == 6 && pending->m_de4 == 0)
 		loadVal = zero;
-	GameWindow *w = Rva00222547Get((GameWindow *)this);
-	Rva002D3409Invoke((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), w, "LoadButtonEnable", loadVal);
-	Rva002D3409Invoke((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), w, "DeleteButtonEnable", deleteVal);
+	int level = AptPlayer::GetLevelIndex((GameWindow *)this);
+	Rva002D3409Invoke((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), reinterpret_cast<void *>(level), "LoadButtonEnable", loadVal);
+	Rva002D3409Invoke((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), reinterpret_cast<void *>(level), "DeleteButtonEnable", deleteVal);
 }

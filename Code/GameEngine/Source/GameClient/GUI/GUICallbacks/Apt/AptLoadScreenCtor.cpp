@@ -117,6 +117,7 @@ public:
 class AptPlayer : public AptLoadScreenSlots<19>
 {
 public:
+	static int GetLevelIndex(GameWindow *window);
 	virtual void slot19(Int value);				// +0x4C
 	void AddExternHandler(const AsciiString &name, Int arg, AptRef<AptExternHandler> handler);	// 0x0022445D
 };
@@ -130,7 +131,7 @@ extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 #define TheAptPlayer ((AptPlayer *)g_bfmeAptWindowManager)
 
 // The level index of a window (WorldBuilder AptPlayer::GetLevelIndex).
-GameWindow *Rva00222547Get(GameWindow *window);
+
 
 class WindowLayout
 {
@@ -232,7 +233,7 @@ AptLoadScreen::AptLoadScreen(void *owner)
 	if (!win)
 		return;
 	m_win = win;
-	m_level = (Int)Rva00222547Get(win);
+	m_level = AptPlayer::GetLevelIndex(win);
 	TheAptPlayer->slot19(0);
 
 	if (!TheSkirmishGameInfo && !TheGameSpyInfo)

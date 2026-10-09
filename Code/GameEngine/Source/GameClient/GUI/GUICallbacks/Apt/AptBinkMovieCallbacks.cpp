@@ -8,9 +8,8 @@
 
 class GameWindow;
 
-// Rva00222547Get.cpp's 0x00222547: the window whose Apt movie this one
-// plays in.
-GameWindow *Rva00222547Get(GameWindow *window);
+// Native 0x00222547 returns the integer Apt movie level for this window.
+class AptPlayer { public: static int GetLevelIndex(GameWindow *window); };
 
 class Rva00222A8BTarget
 {
@@ -41,7 +40,7 @@ void __cdecl _CallOnLastFrame(GameWindow *window)
 {
 	if (!window)
 		return;
-	GameWindow *movie = Rva00222547Get(window);
-	TheRva00222A8BTarget->invoke(movie, ((AptBinkMovieWindow *)window)->m_onLastFrame.str(), 1,
+	int level = AptPlayer::GetLevelIndex(window);
+	TheRva00222A8BTarget->invoke(reinterpret_cast<void *>(level), ((AptBinkMovieWindow *)window)->m_onLastFrame.str(), 1,
 		((Rva0056D653AsciiField *)window)->get().str(), 0, 0, 0, 0);
 }
