@@ -1,5 +1,5 @@
 // ?getTriangleIntersection@W3DTerrainBackground@@QAEXPAVVector3@@HHHHABV2@11@Z
-// partial score=0.85 date=2026-10-09
+// partial score=0.99 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
 // Native [0011319A,00113399),511B, RET32. W3DTerrainBackground::
 // getTriangleIntersection (WorldBuilder name, "Bad index" assert in
@@ -106,8 +106,13 @@ void W3DTerrainBackground::getTriangleIntersection(Vector3 *heights, int x, int 
 	Vector3 start;
 	Vector3 end;
 	for (int i = 0; i <= width; i++) {
-		for (int j = 0; j <= height; j++) {
-			int cellX = x + i;
+		int j = 0;
+		if (j <= height) {
+			start.Z = maxZ + 1.0f;
+			int column = x + i;
+			end.Z = minZ - 1.0f;
+			do {
+			int cellX = column;
 			if (cellX >= maxX)
 				cellX = maxX;
 			int cellY = y + j;
@@ -121,10 +126,8 @@ void W3DTerrainBackground::getTriangleIntersection(Vector3 *heights, int x, int 
 			float yPos = (m_yOrigin + cellY) * 10.0f - border;
 			start.X = xPos;
 			start.Y = yPos;
-			start.Z = maxZ + 1.0f;
 			end.X = xPos;
 			end.Y = yPos;
-			end.Z = minZ - 1.0f;
 			LineSegClass ray(start, end);
 			result.ComputeContactPoint = true;
 			RayCollisionTestClass raytest(ray, &result, 2, false, false);
@@ -135,6 +138,7 @@ void W3DTerrainBackground::getTriangleIntersection(Vector3 *heights, int x, int 
 				else if (m_mode == 1)
 					heights[idx].X = z;
 			}
+			} while (++j <= height);
 		}
 	}
 }
