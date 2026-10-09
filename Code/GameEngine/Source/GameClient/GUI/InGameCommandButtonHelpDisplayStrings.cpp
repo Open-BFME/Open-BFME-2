@@ -60,10 +60,17 @@ __declspec(noinline) static void Rva0056C790(DisplayString *str,const Rva0043FC2
  GameFont *f=TheFontLibrary->getFont(&font->m_00,(float)font->m_04*factor,font->m_08);
  str->slot10(font->m_0C,0);str->slot9(true);str->setFont(f);
 }
+class Rva0056D3FD;
+class Image{public:char pad[0x24];int width,height;};
+class ImageCollection{public:const Image*findImageByName(const AsciiString&);};
+extern ImageCollection *TheMappedImageCollection;
+struct AsciiStringPlusString {const AsciiString *first,*second;operator AsciiString();};
+static __forceinline AsciiStringPlusString operator+(const AsciiString&a,const AsciiString&b){AsciiStringPlusString p={&a,&b};return p;}
 class InGameCommandButtonHelp {public: class Impl;};
 class InGameCommandButtonHelp::Impl {public:
- char pad[0x1C]; DisplayString *s1,*s2,*s3,*s4,*s5;
+ Rva0056D3FD *owner;UnicodeString name,title,description,cost;unsigned short key;char pad16[2];int width;DisplayString *s1,*s2,*s3,*s4,*s5;const Image *icon30,*icon34;
  void SetupDisplayStrings();
+ Impl(Rva0056D3FD*,const UnicodeString&,const UnicodeString&,const UnicodeString&,const UnicodeString&,const AsciiString&);
 };
 void InGameCommandButtonHelp::Impl::SetupDisplayStrings() {
  Rva0056C790(s1,&((Rva0029F8B8*)TheInGameUI)->rva0029F8B8());
@@ -142,4 +149,49 @@ int InGameSimpleHelp::Impl::rva0053973F(int width){
  if(!title.isEmpty()) {titleString->setText(title);int textHeight;titleString->getSize(&textWidth,&textHeight);total=textHeight;}
  if(!text.isEmpty()) {textString->setText(text);int textHeight;textString->getSize(&textWidth,&textHeight);total+=textHeight;}
  return total;
+}
+
+// Native56C89B..56C996: target strip-and-select-shortcut helper has EBX
+// string input and AX key result. It removes ampersand markers while selecting
+// the first following alphanumeric key through measured iswalnum/towupper.
+// Native56D438..56D5BD RET24 is the56B help implementation constructor,
+// connected to the rowed outer98B factory and owner56C996 destructor.
+// Four37050 calls prove wide-string inputs; the fifth is narrow image suffix.
+// Original constructor spelling is inferred from these owner/call facts.
+// The implicit AsciiStringPlusString conversion preserves the native single
+// returned temporary and prefix lifetime; explicit casts introduce a copy.
+extern "C" __declspec(dllimport) int __cdecl iswalnum(unsigned short);
+extern "C" __declspec(dllimport) unsigned short __cdecl towupper(unsigned short);
+__declspec(noinline) static unsigned short Rva0056C89B(UnicodeString &str){
+ int length=str.getLength();
+ struct Header {int count;unsigned short length,capacity;unsigned short data[1];};
+ const Header *header=*(const Header *const*)&str;
+ int i=0;bool found=false;
+ for(;i!=length;++i)if(str.getCharAt(i)=='&'){found=true;break;}
+ if(!found)return 0;
+ unsigned short key=0;
+ UnicodeString out(UnicodeString(header?header->data:(const unsigned short*)L""),0,i);
+ for(;i<length;++i){
+  unsigned short c=str.getCharAt(i);
+  if(c=='&'){
+   if(++i>=length)break;
+   c=str.getCharAt(i);
+   if(!key&&iswalnum(c))key=towupper(c);
+  }
+  out.concat(&c,1);
+ }
+ str.swap(out);
+ return key;
+}
+InGameCommandButtonHelp::Impl::Impl(Rva0056D3FD *o,const UnicodeString&n,const UnicodeString&t,const UnicodeString&d,const UnicodeString&c,const AsciiString&r):owner(o),name(n),title(t),description(d),cost(c),key(0),width(0){
+ s1=TheDisplayStringManager->newDisplayString();s2=TheDisplayStringManager->newDisplayString();s3=TheDisplayStringManager->newDisplayString();s4=TheDisplayStringManager->newDisplayString();s5=TheDisplayStringManager->newDisplayString();
+ icon30=TheMappedImageCollection->findImageByName(AsciiString("Resource_Icon"));
+ icon34=0;
+ key=Rva0056C89B(name);
+ if(icon30&&(icon30->width<=0||icon30->height<=0))icon30=0;
+ if(!r.isEmpty()){
+  icon34=TheMappedImageCollection->findImageByName(AsciiString("ResourceBar_")+r);
+  if(icon34&&(icon34->width<=0||icon34->height<=0))icon34=0;
+ }
+ SetupDisplayStrings();
 }

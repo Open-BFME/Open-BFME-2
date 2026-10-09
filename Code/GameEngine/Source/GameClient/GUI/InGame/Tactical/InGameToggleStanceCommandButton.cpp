@@ -106,7 +106,7 @@ struct TreeHintRef00217D4C {
  ~TreeHintRef00217D4C(){if(ptr)ReleaseTreeHintRef00217D4C(ptr);}
 };
 class Rva0056D3FD:public TargetRef00217D4C {public:
- Rva0056D3FD(const AsciiString &,const AsciiString &,const AsciiString &,const AsciiString &,const AsciiString &);
+ Rva0056D3FD(const UnicodeString &,const UnicodeString &,const UnicodeString &,const UnicodeString &,const AsciiString &);
  void *impl;
 };
 class Rva00567960 {public:TreeHintRef00217D4C rva0056786B();void *vptr;CommandButton *button;int stance;};
@@ -114,6 +114,6 @@ TreeHintRef00217D4C Rva00567960::rva0056786B() {
  int index=StanceToButtonSlot(button,stance);
  UnicodeString title=TheGameText->fetch(*reinterpret_cast<Rva0035B232 *>(button)->rva0035B232(index));
  UnicodeString text=TheGameText->fetch(*reinterpret_cast<Rva0035B29E *>(button)->rva0035B29E(index));
- TreeHintRef00217D4C result(new Rva0056D3FD(*reinterpret_cast<const AsciiString *>(&title),*reinterpret_cast<const AsciiString *>(&UnicodeString::TheEmptyString),*reinterpret_cast<const AsciiString *>(&UnicodeString::TheEmptyString),*reinterpret_cast<const AsciiString *>(&text),AsciiString::TheEmptyString));
+ TreeHintRef00217D4C result(new Rva0056D3FD(title,UnicodeString::TheEmptyString,UnicodeString::TheEmptyString,text,AsciiString::TheEmptyString));
  return result;
 }
