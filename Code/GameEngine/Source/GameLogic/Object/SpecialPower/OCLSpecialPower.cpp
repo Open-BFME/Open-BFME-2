@@ -101,23 +101,8 @@ OCLSpecialPower::OCLSpecialPower( Thing *thing, const ModuleData *moduleData )
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
-// ?findOCL@OCLSpecialPower@@IBEPBVObjectCreationList@@XZ present-unmatched
-const ObjectCreationList* OCLSpecialPower::findOCL() const
-{
-	const OCLSpecialPowerModuleData* d = getOCLSpecialPowerModuleData();
-	const Player* controller = getObject()->getControllingPlayer();
-	if (controller != NULL)
-	{
-		for (std::vector<OCLSpecialPowerModuleData::Upgrades>::const_iterator it = d->m_upgradeOCL.begin(); 
-					it != d->m_upgradeOCL.end();
-					++it)
-		{
-			if (controller->hasScience(it->m_science))
-				return it->m_ocl;
-		}
-	}
-	return d->m_defaultOCL;
-}
+// Implemented in OCLSpecialPowerFindOCL.cpp with the BFME2 ABI.
+
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
@@ -214,21 +199,8 @@ void OCLSpecialPower::doSpecialPowerAtObject( Object *obj, UnsignedInt commandOp
 }  
 
 // ------------------------------------------------------------------------------------------------
-// ?doSpecialPower@OCLSpecialPower@@UAEXI@Z present-unmatched
-void OCLSpecialPower::doSpecialPower( UnsignedInt commandOptions )
-{
-	if (getObject()->isDisabled())
-		return;
+// Implemented in OCLSpecialPowerFindOCL.cpp with the BFME2 ABI.
 
-	Coord3D creationCoord;
-	creationCoord.set( getObject()->getPosition() );
-	
-	// call the base class action cause we are *EXTENDING* functionality
-	SpecialPowerModule::doSpecialPowerAtLocation( &creationCoord, INVALID_ANGLE, commandOptions );
-
-	const ObjectCreationList* ocl = findOCL();
-	ObjectCreationList::create( ocl, getObject(), &creationCoord, &creationCoord, false );
-}
 
 // ------------------------------------------------------------------------------------------------
 // ?getReferenceThingTemplate@OCLSpecialPower@@UBEPBVThingTemplate@@XZ present-unmatched
