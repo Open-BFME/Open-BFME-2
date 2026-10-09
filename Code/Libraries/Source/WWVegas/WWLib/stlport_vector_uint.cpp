@@ -29,3 +29,11 @@ namespace _STL {
 template <> vector<unsigned int>::vector(const vector<unsigned int> &);
 }
 template class _STL::vector<unsigned int, _STL::allocator<unsigned int> >;
+
+// Hashtable constructors across the tree call _Vector_base<void *>(const
+// allocator &) out of line for their bucket vector, and retail lands every one
+// of those calls on 0x00025100, this unit's /Od vector(const allocator &) body:
+// the /Od base constructor is the same 55 bytes and the link folded them. The
+// optimised copies other units emit (29/37 bytes) are not retail's, so this
+// unit emits the /Od one for the row beside vector(const allocator &).
+template _STL::_Vector_base<void *, _STL::allocator<void *> >::_Vector_base(const _STL::allocator<void *> &);
