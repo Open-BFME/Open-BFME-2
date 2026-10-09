@@ -195,3 +195,48 @@ memset(unknown70,0,sizeof(unknown70));}
 // Default constructor: target [1FEB8B,1FEEA3) is 792B through RET.
 // Same aggregate as the copied476-byte record. The additional16-byte member
 // ctor3B0E5D has its own24-byte RET boundary before3B0E75.
+
+// WB-named PlayerTemplate parser uses this actual class lifetime spelling.
+// Its476-byte target view is identical to the earlier neutral vector element.
+class PlayerTemplate : Rva001E3624 {
+public:
+ PlayerTemplate();
+ virtual ~PlayerTemplate();
+ int unknown10;
+ UnicodeString unknown14;
+ AsciiString unknown18;
+ S3Handicap unknown1c;
+ S3Money unknown2c;
+ S3Coord unknown38;
+ AsciiString unknown44;
+ AsciiString unknown48[10];
+ Rva004216D3Coord unknown70[10];
+ _STL::vector<AsciiString> unknowne8;
+ Rva001FD42B unknownf4;
+ Rva000427195 unknown100;
+ Rva001FD458 unknown114;
+ _STL::vector<ScienceType> unknown120,unknown12c;
+ AsciiString unknown138,unknown13c,unknown140,unknown144;
+ int unknown148;
+ AsciiString unknown14c;
+ bool unknown150,unknown151;
+ Rva003B0E5DRecord unknown154;
+ AsciiString unknown164,unknown168,unknown16c,unknown170,unknown174,unknown178,unknown17c;
+ _STL::vector<AsciiString> unknown180,unknown18c,unknown198;
+ Rva0010F149Handle unknown1a4,unknown1a8,unknown1ac;
+ AsciiString unknown1b0,unknown1b4,unknown1b8;
+ bool unknown1bc;
+ AsciiString unknown1c0,unknown1c4;
+ Rva00360D26Member unknown1c8;
+ _STL::vector<unsigned int> unknown1cc;
+ AsciiString unknown1d8;
+};
+PlayerTemplate::PlayerTemplate():unknown10(0),unknown148(0),unknown150(false),unknown151(false),unknown1bc(false) {
+unknown18="";unknown44="";unknown138="";unknown13c="";unknown140="";unknown144="";unknown14c="";
+unknown38.x=unknown38.y=unknown38.z=0;
+unknown17c="";unknown164="";unknown168="";unknown16c="";unknown170="";unknown174="";unknown178="";unknown17c="";
+unknown180.clear();unknown1b0="";unknown1b4="";unknown1b8="";
+((Rva003623E5Member*)&unknown1c8)->initFromStorages(g_009FEFA4,g_009FEFA4);
+memset(unknown70,0,sizeof(unknown70));}
+
+PlayerTemplate::~PlayerTemplate() {}
