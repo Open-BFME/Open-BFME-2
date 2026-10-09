@@ -1,3 +1,5 @@
+// ?dumpCommandHistory@RecorderClass@@IAEXPAVCommandDumpFile0037BE15@@I@Z
+// partial score=0.9920927781 date=2026-10-09
 // cl: /Ireference/shims/bfme2_ascii /Ireference/shims/sweep /O1 /G7 /MD /EHsc /ICode/GameEngine/Source/Common
 // BFME1 donor9cbfb551fe20dae985f91f2319d8997287b6a705:
 // game/GameEngine/Source/Common/System/RecorderStartRecording.cpp and
@@ -74,6 +76,7 @@ class Debug {public:
 virtual void p0();virtual void p1();virtual void p2();virtual void p3();virtual void p4();virtual void p5();virtual void p6();virtual void p7();virtual void p8();virtual void p9();virtual void p10();virtual void p11();virtual void p12();virtual void p13();virtual Debug&operator<<(const char*);virtual void p15();virtual void p16();virtual void p17();virtual void p18();virtual bool CrashDone(int);virtual void p20();virtual void p21();virtual void p22();virtual void p23();virtual void SkipNext();virtual void p25();virtual void p26();virtual Debug&CrashBegin(const char*,int,int);};
 extern Debug *theDebug;void _bfme_debugRecordCallsite(int);
 class GameMessage;
+class CommandDumpFile0037BE15;
 class RecorderClass {
 public:
 virtual void slot0();virtual void slot1();virtual void slot2();virtual void slot3();virtual void slot4();virtual void slot5();virtual void slot6();virtual void slot7();virtual void slot8();virtual void reset();
@@ -81,6 +84,7 @@ virtual void slot0();virtual void slot1();virtual void slot2();virtual void slot
  GameInfo m_gameInfo;char padGameInfo[0xe60-0x24-sizeof(GameInfo)];int field0e60,field0e64;char padE68[8];bool m_doingAnalysis;char padE71[3];int m_gameMode;
 public:void stopRecording();
 protected:
+ void dumpCommandHistory(CommandDumpFile0037BE15*,unsigned);
  void writeToFile(GameMessage*);
  void appendNextCommand();
  void updateRecord();
@@ -277,7 +281,8 @@ bool Rva0037BBED::rva0037CBB6(Rva0037B5DF&header) {
 // appendNextCommand. WB F5A490 names appendNextCommand; writeToFile's stream
 // schema, constructors, native message getters and writeArgument corroborate it.
 // Target: FILE10, frame40, parser16B, message24B, analysisE70, game modeE74.
-union GameMessageArgumentType {int integer;char payload[16];};
+struct Coord0037BE15{float x,y,z;};struct Region0037BE15{int x1,y1,x2,y2;};
+union GameMessageArgumentType {int integer;char payload[16];unsigned timestamp;float real;bool boolean;unsigned short character;Coord0037BE15 coord;struct{int x,y;}pixel;Region0037BE15 region;};
 enum GameMessageArgumentDataType {ARG_INT,ARG_REAL,ARG_BOOL,ARG_OBJECT,ARG_DRAWABLE,ARG_TEAM,ARG_COORD,ARG_PIXEL,ARG_REGION,ARG_TIME,ARG_CHAR,ARG_UNKNOWN};
 class GameMessage {public:
  enum Type{MSG_CLEAR_GAME_DATA=0x1d,MSG_NEW_GAME=0x1e,MSG_BEGIN_NETWORK_MESSAGES=0x3e8,MSG_END_NETWORK_MESSAGES=0x7cf};
@@ -431,4 +436,133 @@ void RecorderClass::updateRecord()
   }else if(m_file&&message->getType()>GameMessage::MSG_BEGIN_NETWORK_MESSAGES&&message->getType()<GameMessage::MSG_END_NETWORK_MESSAGES){writeToFile(message);needFlush=true;}
  }
  if(needFlush)fflush(m_file);
+}
+// Command-history donor at9cbfb551 game/.../RecorderDumpCommandHistory.cpp;
+// target WB F562A0 shares all message-format strings. Native37BE15 has
+// two argument slots (RET8), player limit20, message-list head+C, player
+// fields34/38/4C, ThingTemplate name64 and default team2EC. The target
+// has eleven argument cases and the additional message458 power parameter.
+class PlayerTemplate {public:AsciiString getName() const;};
+class Team;enum Relationship{REL_INVALID=-1};
+class Player {public:Relationship getRelationship(const Team*)const;};
+class PlayerList {public:Player*getNthPlayer(int);};extern PlayerList*ThePlayerList;
+class ThingTemplate {public:char pad[0x64];AsciiString name;};
+class Thing {public:void* vtable;ThingTemplate* m_template;const ThingTemplate*getTemplate()const{return m_template;}};
+class Object:public Thing {public:Player*getControllingPlayer()const;};
+extern GameLogic*TheGameLogic;
+class ThingFactory;extern ThingFactory*TheThingFactory;
+struct Rva002CF1FBNode {char pad[0x64];AsciiString name;};
+struct Rva002CF1FB {Rva002CF1FBNode*rva002CF1FB(unsigned short);};
+class Overridable {public:const Overridable*friend_getFinalOverride()const;};
+class SpecialPowerTemplate:public Overridable {public:char pad0[0x10];AsciiString name;const AsciiString&getName()const{return ((const SpecialPowerTemplate*)friend_getFinalOverride())->name;} };
+class SpecialPowerStore {public:const SpecialPowerTemplate*findSpecialPowerTemplateByID(unsigned);};extern SpecialPowerStore*TheSpecialPowerStore;
+enum NameKeyType {NAMEKEY_INVALID=-1};
+class ScienceStore {public:AsciiString rva001FF5F2(NameKeyType);};extern ScienceStore*TheScienceStore;
+// The four-byte counted result at native local2C is an AsciiString.
+// This neutral name is the already-rowed forwarder's hidden-return type.
+struct RvaF6Ret {AsciiString value;};
+class Rva003113DD {public:RvaF6Ret method();};
+class CommandDumpFile0037BE15 {public:virtual void s0();virtual void s1();virtual void s2();virtual void s3();virtual int write(const void*,int);};
+class Drawable0037BE15:public Thing {};
+class Client0037BE15 {public:virtual void s0();virtual void s1();virtual void s2();virtual void s3();virtual void s4();virtual void s5();virtual void s6();virtual void s7();virtual void s8();virtual void s9();virtual void s10();virtual void s11();virtual void s12();virtual void s13();virtual void s14();virtual void s15();virtual Drawable0037BE15*find(int);};
+class GameClient;extern GameClient*TheGameClient;
+class Rva00A00958Obj;extern Rva00A00958Obj*g_Rva00A00958;
+extern unsigned char g_Rva00A02D86,g_Rva00A02D87;
+extern const char*TheRelationshipNames[];
+template<class T>__forceinline T&field0037BE15(const void*p,int offset){return*(T*)((char*)p+offset);}
+template<class T>__forceinline T read0037BE15(const void*p,int offset){return*(const T*)((const char*)p+offset);}
+__forceinline void write0037BE15(CommandDumpFile0037BE15*file,const AsciiString&text){file->write(text.str(),text.getLength());}
+// The returned name uses the established counted-string handle and +8 payload.
+// Updating the handle before the null arm retains EAX through the two other
+// heading arguments as retail does; the ternary str() shape allocates EDX.
+__forceinline const char* templateStr0037BE15(const AsciiString &s)
+{
+ const char *p=*(const char* const*)&s;
+ if(p) p+=8;
+ else p="";
+ return p;
+}
+void RecorderClass::dumpCommandHistory(CommandDumpFile0037BE15* file,unsigned maxFrame)
+{
+ if (!file) return;
+ AsciiString text;
+ for (unsigned playerIndex=1;playerIndex<20;++playerIndex) {
+  bool first=true;
+  for (GameMessage* message=read0037BE15<GameMessage*>(g_Rva00A00958,12);message;message=read0037BE15<GameMessage*>(message,4)) {
+   if (read0037BE15<unsigned>(message,0x14)!=playerIndex) continue;
+   Player* player=ThePlayerList->getNthPlayer(playerIndex);
+   if (first) {
+    first=false;
+    if (!player) text.format("\n\n========================================================\nPlayer Index: %d NOT FOUND! This could be bad...\n=========================================================\n",playerIndex);
+    else text.format("\n\n========================================================\nPlayer Index: %d, Name: %S(%s), Template: %s \n=========================================================\n",playerIndex,field0037BE15<UnicodeString>(player,0x38).str(),field0037BE15<AsciiString>(player,0x4c).str(),read0037BE15<PlayerTemplate*>(player,0x34)?templateStr0037BE15(read0037BE15<PlayerTemplate*>(player,0x34)->getName()):"NULL");
+    write0037BE15(file,text);
+   }
+   if ((read0037BE15<int>(message,0x10)!=0x44a || (!g_Rva00A02D86 && !g_Rva00A02D87 && NET_CRC_INTERVAL!=1)) && read0037BE15<int>(message,0x10)!=0x447 && read0037BE15<int>(message,0x10)>1000 && read0037BE15<int>(message,0x10)<1999) {
+   unsigned frame=message->getArgument(read0037BE15<unsigned char>(message,0x18)-1)->timestamp;
+   if (frame>maxFrame) break;
+   RvaF6Ret name=((Rva003113DD*)message)->method();
+   text.format("\nFrame:%d, %s(%d):\n",frame,name.value.str(),read0037BE15<int>(message,0x10));
+   write0037BE15(file,text);
+   bool string=false;
+   for (int i=0;i<read0037BE15<unsigned char>(message,0x18)-1;++i) {
+    if (string && message->getArgumentDataType(i)!=ARG_CHAR) {
+     text.format("\n"); write0037BE15(file,text); string=false;
+    }
+    switch(message->getArgumentDataType(i)) {
+    case ARG_INT:
+     if (read0037BE15<int>(message,0x10)==0x414) {
+      if (i==0) text.format("    %02d: Integer:%d (PlayerIndex)",i,message->getArgument(i)->integer);
+      else if (i==1) text.format("    %02d: Integer:%d (Science:%s)",i,message->getArgument(i)->integer,TheScienceStore->rva001FF5F2((NameKeyType)message->getArgument(i)->integer).str());
+     } else if (i==0 && read0037BE15<int>(message,0x10)==0x419) {
+      const Rva002CF1FBNode* thing=((Rva002CF1FB*)TheThingFactory)->rva002CF1FB((unsigned short)message->getArgument(i)->integer);
+      text.format("    %02d: Integer:%d (ThingTemplate:%s)",i,message->getArgument(i)->integer,thing?thing->name.str():"UNKNOWN");
+     } else if (i==0 && (read0037BE15<int>(message,0x10)==0x411 || read0037BE15<int>(message,0x10)==0x412 || read0037BE15<int>(message,0x10)==0x410 || read0037BE15<int>(message,0x10)==0x456)) {
+      unsigned id=message->getArgument(0)->integer;
+      const SpecialPowerTemplate* power=TheSpecialPowerStore->findSpecialPowerTemplateByID(id);
+      if (power) text.format("    %02d: Integer:%d (SpecialPower=%s)",i,id,power->getName().str());
+     } else if (read0037BE15<int>(message,0x10)==0x458) {
+      unsigned id=message->getArgument(i)->integer;
+      const SpecialPowerTemplate* power=TheSpecialPowerStore->findSpecialPowerTemplateByID(id);
+      if(power) text.format("    %02d: Integer:%d (SpecialPower=%s)\t\tActual Param Integer:%d",i,read0037BE15<int>(power->friend_getFinalOverride(),0x1c),power->getName().str(),id);
+     } else text.format("    %02d: Integer:%d",i,message->getArgument(i)->integer);
+     break;
+    case ARG_REAL: text.format("    %02d: Real:%f, %%g(%g), %%x(%08x)",i,message->getArgument(i)->real,message->getArgument(i)->real,message->getArgument(i)->real); break;
+    case ARG_BOOL: text.format("    %02d: Bool:%s",i,message->getArgument(i)->boolean?"TRUE":"FALSE"); break;
+    case ARG_OBJECT: {
+     int id=message->getArgument(i)->integer;
+     Object* object=TheGameLogic->findObjectByID((ObjectID)id);
+     if (object) {
+      int rel=player?player->getRelationship(read0037BE15<Team*>(object->getControllingPlayer(),0x2ec)):-1;
+      text.format("    %02d: Object:%s(%d) Relationship:%s",i,object->getTemplate()->name.str(),id,rel>=0?TheRelationshipNames[rel]:"N/A");
+     } else text.format("    %02d: Object:INVALID(%d)",i,id);
+     break;
+    }
+    case ARG_DRAWABLE: {
+     int id=message->getArgument(i)->integer;
+     Drawable0037BE15* drawable=((Client0037BE15*)TheGameClient)->find(id);
+     if (drawable) text.format("    %02d: Drawable:%s(%d)",i,drawable->getTemplate()->name.str(),id);
+     else text.format("    %02d: Drawable:INVALID",i);
+     break;
+    }
+    case ARG_TEAM: text.format("    %02d: TeamID:%d",i,message->getArgument(i)->integer); break;
+    case ARG_COORD: {
+     const GameMessageArgumentType* a=message->getArgument(i);
+     float x=a->coord.x; float y=a->coord.y; float z=a->coord.z;
+     text.format("    %02d: Coord3D: (x:%f,y:%f,z:%f), %%g(%g,%g,%g), %%x(%08x,%08x,%08x)",i,x,y,z,x,y,z,x,y,z); break;
+    }
+    case ARG_PIXEL: text.format("    %02d: Pixel: (x:%d,y:%d)",i,message->getArgument(i)->pixel.x,message->getArgument(i)->pixel.y); break;
+    case ARG_REGION: { Region0037BE15 a=message->getArgument(i)->region; text.format("    %02d: Pixel Region: (x:%d,y:%d) to (x:%d,y:%d)",i,a.x1,a.y1,a.x2,a.y2); break; }
+    case ARG_TIME: text.format("    %02d: TimeStamp:%d",i,message->getArgument(i)->timestamp); break;
+    case ARG_CHAR: {
+     if (!string) text.format("    %02d: String:%C",i,message->getArgument(i)->character);
+     else text.format("%C",message->getArgument(i)->character);
+     string=true; break; }
+    default: text.format("    %02d: UNKNOWN ARGUMENT TYPE:%d",i,message->getArgumentDataType(i)); break;
+    }
+    if (!string) ((StringBase<char>*)&text)->concat("\n");
+    write0037BE15(file,text);
+   }
+   }
+  }
+ }
 }
