@@ -12029,7 +12029,6 @@ name,address,notes
 ?rva0053808A@Rva0053805DBase@@QAEXXZ,0x0053808A,"base broadcast (list at +8) that slot 0x0030C244 runs first"
 ?rva00538099@Rva0053805DBase@@QAEXXZ,0x00538099,"base broadcast (list at +8, ??_9@$BM@AE) that slots 0x0030C29E and 0x0030C2B6 both run first"
 ?rva005392EC@Rva003FE402Host@@QAEXXZ,0x005392EC,"member vtable slot 0x003FE402 tail-jumps to; opaque address name"
-?rva005394F0@Rva005394F0@@QAEXHH@Z,0x005394F0,address-derived callee of matched slot 0x00539611; retail jmp rel32 targets 0x005394F0; Ghidra FUN bounds 289 bytes; thiscall on the +0x08 object 2 arg(s) ret 8; callee body remains unclaimed; no named identity inferred
 ?rva0053973F@Rva0053973F@@QAEXH@Z,0x0053973F,address-derived callee of matched slot 0x005397D3; retail jmp rel32 targets 0x0053973F; Ghidra FUN bounds 148 bytes; thiscall on the +0x08 object 1 arg(s) ret 4; callee body remains unclaimed; no named identity inferred
 ?rva00539A65@ControlBar@@QAEHPAXHH@Z,0x00539A65,Native REL32 at43D2EF in390B screen destructor calls5774B Ghidra539A65 body; ECX is established TheControlBar global; pointer and literal1/0 stack words with ret12 and EAX scalar witnessed; address-derived ABI view original method and pointer payload unknown
 ?rva0053EF2E@Rva0053ED1A@@QAEXXZ,0x0053EF2E,address-derived member scaffolding for Rva0053ED1A 0x0053EF7B tail dispatch; range-27 target, used only as a call target
@@ -15352,7 +15351,6 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?rva00278341@Rva00278341Host@@QAEXHH@Z,0x00278341,thiscall with 2 ints from 0x2783F6
 ?rva00270276@Rva00270276Host@@QAE_NPAX000HH@Z,0x00270276,thiscall bool with 6 args from 0x276B32
 ?rva0027601B@Rva0027601BHost@@QAEXXZ,0x0027601B,thiscall no args from switch 0x2796D9 case 0
-?rva00277C42@Rva00277C42Host@@QAEXXZ,0x00277C42,thiscall no args from switch 0x2796D9 case 0
 ?rva002779CE@Rva002779CEHost@@QAEXXZ,0x002779CE,thiscall no args from switch 0x2796D9 case 0
 ?rva00273F74@Rva00273F74Host@@QAEXXZ,0x00273F74,thiscall no args from switch 0x2796D9 case 1
 ?rva00275F3F@Rva00275F3FHost@@QAEXXZ,0x00275F3F,thiscall no args from switch 0x2796D9 case 1
@@ -15435,7 +15433,6 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?rva00318FA1@Rva00318FA1MainOwner@@QAEHXZ,0x00318FA1,banked wheel resolver reused by gate 0x003195C9; address from its REL32 displacement
 ?rva00318C32@Rva00318C32Owner@@QAEHXZ,0x00318C32,banked float handoff reused by gate 0x003195C9; address from its REL32 displacement
 ?rva003190BB@Rva003190BBOwner@@QAE_NPAH@Z,0x003190BB,banked wheel fallback reused by gate 0x003195C9; address from its REL32 displacement
-?rva00538F6B@Rva00538F6B@@QAEXPAX000@Z,0x00538F6B,unrowed four-pointer worker on the +0x90 subobject in gate 0x003195C9; callee read from its REL32 displacement; address name
 ?rva00318B83Free@@YGPBUTWheelInfo@@PAX@Z,0x00318B83,callee-cleanup free-form entry to the 17B getter taking the pushed arg without this (stale ecx at gate 0x00319831); same address as rowed getWheelInfo
 ?rva00538ED1@Rva00538ED1@@QAEXXZ,0x00538ED1,unrowed dense-wheel worker reading owner from stale stack slot in gate 0x00319831 (declared taking only this); callee read from its REL32 displacement; address name
 ?rva003197B7@Rva003195C9Owner@@QAEXXZ,0x003197B7,banked dense-wheel copier reused by handoff 0x00319AA0; address from its REL32 displacement
