@@ -25,7 +25,7 @@ extern GameTextInterface *TheGameText;
 // CreateAHeroData's bling value get/set pair, rowed under this owner.
 class Rva00407E28 {public: int rva00407E28(int id);bool rva00407DE0(int id,int value);};
 class CreateAHeroHero;
-class Rva00223AC4 {public: Image *rva00223AC4(const char *,const char *);};
+class AptPlayer {public: const Image *FindRenderImage(const char *,const char *);};
 class Rva002239B2 {public: void rva002239E2(const AsciiString &,const Image *);};
 // AptMyHero's base: vtable 0x00C38D88's five slots, the rowed assignment
 // and destructor, and the fields the screen reads.
@@ -168,7 +168,7 @@ bool AptMyHero::rva005B0725(){
  const Image *image=image138;
  if(!image){AsciiString name("HPGandalf");image=TheMappedImageCollection->findImageByName(name);}
  const char *key="Cah::Portrait";
- if(reinterpret_cast<Rva00223AC4 *>(g_bfmeAptWindowManager)->rva00223AC4(key,0)==image)return false;
+ if(reinterpret_cast<AptPlayer *>(g_bfmeAptWindowManager)->FindRenderImage(key,0)==image)return false;
  AsciiString name(key);
  reinterpret_cast<Rva002239B2 *>(g_bfmeAptWindowManager)->rva002239E2(name,image);
  return true;

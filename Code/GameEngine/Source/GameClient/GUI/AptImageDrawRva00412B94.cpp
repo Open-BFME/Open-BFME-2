@@ -7,13 +7,13 @@
 #include "../../../../Libraries/Include/Lib/Coord2D.h"
 
 class Image;
-class AptPlayer;
-extern AptPlayer *TheAptPlayer;
-class Rva00223AC4
+
+class AptPlayer
 {
 public:
-    Image *rva00223AC4(const char *path, const char *parameters);
+    const Image *FindRenderImage(const char *path, const char *parameters);
 };
+extern AptPlayer *TheAptPlayer;
 int Rva00412AF3(const char *parameters);
 
 class Display;
@@ -28,12 +28,11 @@ public:
 void Rva00412B94(const Coord2D *origin, const Coord2D *size,
                  const char *path, const char *parameters)
 {
-    Image *image = reinterpret_cast<Rva00223AC4 *>(TheAptPlayer)
-        ->rva00223AC4(path, parameters);
+    const Image *image = TheAptPlayer->FindRenderImage(path, parameters);
     if (image)
     {
         reinterpret_cast<W3DDisplay *>(TheDisplay)->rva0004D6B3(
-            image, origin->x, origin->y, size->x + origin->x,
+            const_cast<Image *>(image), origin->x, origin->y, size->x + origin->x,
             size->y + origin->y, -1, Rva00412AF3(parameters));
     }
 }

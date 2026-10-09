@@ -1,7 +1,9 @@
 // cl: /O1 /G7 /GX /MD /arch:SSE /DNDEBUG /Ireference/shims/bfme2_ascii /D_STLP_USE_STATIC_LIB /D_CRTIMP=
 // stlport
+#define strchr _stlport_hides_strchr
 #include <utility>
 #include "ascii_string.h"
+#undef strchr
 struct TargetRef00217D4C { virtual void *destroy(unsigned); int references; };
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
 struct TreeHintRef00222C5A {
@@ -80,6 +82,7 @@ typedef bool Bool;
 
 class AptFocusTarget;
 class GameWindow;
+class Image;
 
 // STLport vector<AptFocusTarget *> view.
 class AptFocusStack
@@ -137,6 +140,7 @@ class AptPlayer
 {
 public:
  static int GetLevelIndex(GameWindow *window);
+ const Image *FindRenderImage(const char *targetName,const char *parameters);
 	void PopFocus(AptFocusTarget *target);
  void SetExtern(const char *name,int value);
  void rva00223E4B(const char *name,char *value);
@@ -359,4 +363,40 @@ int AptPlayer::GetLevelIndex(GameWindow *w)
 			continue;
 		return out->m_result;
 	}
+}
+
+bool Rva004128F0GetParam(const char *,const char *,AsciiString &);
+extern "C" __declspec(dllimport) char *__cdecl strchr(const char *,int);
+class ImageCollection { public: const Image *findImageByName(const AsciiString &); };
+extern ImageCollection *TheMappedImageCollection;
+struct AptImageNode { void *next; AsciiString key; const Image *image; };
+// WB B92F00 names the resolver. Native223AC4..223BF6 proves image map90
+// and the temporary truncation before ~ (or its preceding slash).
+const Image *AptPlayer::FindRenderImage(const char *targetName,const char *parameters)
+{
+ AsciiString imageName;
+ if(parameters) Rva004128F0GetParam(parameters,"_imageMap",imageName);
+ else imageName=targetName;
+ if(!imageName.isEmpty()) {
+  AptImageNode *node=static_cast<AptImageNode *>(reinterpret_cast<Rva00056F61 *>(m_pad05c+0x34)->find(imageName).m_node);
+  if(node) return node->image;
+  if(TheMappedImageCollection) {
+   const Image *image=TheMappedImageCollection->findImageByName(imageName);
+   if(image) return image;
+  }
+ }
+ targetName=AptUtils::SkipLevelN(targetName);
+ if(!*targetName) return 0;
+ Rva0041534BIter it=reinterpret_cast<Rva00056F61 *>(m_pad05c+0x34)->find(AsciiString(targetName));
+ if(!it.m_node) {
+  char *delimiter=strchr(targetName,'~');
+  if(!delimiter) return 0;
+  if(delimiter[-1]=='/') --delimiter;
+  char saved=*delimiter;
+  *delimiter=0;
+  it=reinterpret_cast<Rva00056F61 *>(m_pad05c+0x34)->find(AsciiString(targetName));
+  *delimiter=saved;
+  if(!it.m_node) return 0;
+ }
+ return static_cast<AptImageNode *>(it.m_node)->image;
 }
