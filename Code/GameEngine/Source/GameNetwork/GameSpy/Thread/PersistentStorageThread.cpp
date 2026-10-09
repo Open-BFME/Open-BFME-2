@@ -1554,6 +1554,8 @@ class Rva00557996 : public Gen_00654130
 public:
 	void rva00557996(int ladder);
 	void rva00557A33(int profileID);
+    void rva00557AC2();
+    void rva00557B04();
 };
 
 void Rva00557996::rva00557996(int ladder)
@@ -1904,4 +1906,25 @@ Int Rva00559D0CRankWeights::rva00559D0C(const Rva00553E47StatsCore *stats) const
 		losses += (unsigned short)it->second;
 	Int rank = (Int)((float)losses * m_lossWeight + (float)winPoints);
 	return _STL::max(rank, 0);
+}
+
+// Native 557AC2/557B04,66B each: static GHTTP ladders retain the same
+// 12-byte owner payload and pending-request map as557996/557A33.
+int __cdecl rva0055794C(int, int, int, int, int, void *);
+void Rva00557996::rva00557AC2() {
+    int request=ghttpGetA("http://gamestats.gamespy.com/lotrbme2/display.html", 0, rva0055794C, this);
+    if(request) {
+        Rva00557996Request *data=new Rva00557996Request;
+        data->owner=this;
+        m_values[request]=(int)data;
+    }
+}
+int __cdecl rva00557971(int, int, int, int, int, void *);
+void Rva00557996::rva00557B04() {
+    int request=ghttpGetA("http://gamestats.gamespy.com/lotrbme2/IsClanWarsEnabled.asp", 0, rva00557971, this);
+    if(request) {
+        Rva00557996Request *data=new Rva00557996Request;
+        data->owner=this;
+        m_values[request]=(int)data;
+    }
 }
