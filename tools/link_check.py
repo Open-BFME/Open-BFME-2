@@ -34,6 +34,7 @@ recompiles every stale ledger object and replaces its census definitions).
   python3 tools/link_check.py --staged                  # the units staged for commit
   python3 tools/link_check.py --refresh SOURCE          # recompile stale objects first
   python3 tools/link_check.py --refresh --current-ledger SOURCE  # include newer matched units
+  python3 tools/link_check.py --prepare-current SOURCE [...]   # explicit safe provider witnesses
 
 The pre-commit hook runs the admission form on the units a commit adds, with
 their list on stdin (Windows caps a command line at 32,767 characters). It
@@ -62,6 +63,8 @@ import link_census  # noqa: E402
 
 INDEX = link_census.OUT / "link_index.pkl"
 COMMON_SCHEMA = 1
+PREPARE_LIMIT = 32
+DECODER_PATH = re.compile(r"(?i)vp6|vp60|vp62|on2|winamp|libvpshared|ffdshow|mfnode")
 
 
 def source_bytes(sources=None):
@@ -687,6 +690,132 @@ def check_current_ledger(index, paths, rows, started):
     return 0 if all(clean) else 1
 
 
+def preparation_sources(paths, rows):
+    """Explicit, owned, tracked/staged Code units; filter protected paths first.
+
+    Neither donors nor decoder sources belong to this maintenance mode. Resolve
+    symlinks before ownership/containment checks, without reading source bytes.
+    """
+    owned = set(link_census._object_sources(rows).values())
+    found = []
+    for argument in paths:
+        if DECODER_PATH.search(str(argument)):
+            raise SystemExit(f"link_check: protected decoder source cannot be prepared: {argument}")
+        path = Path(argument)
+        source = (path if path.is_absolute() else ROOT / path).resolve()
+        if DECODER_PATH.search(source.as_posix()):
+            raise SystemExit(f"link_check: protected decoder source cannot be prepared: {argument}")
+        try:
+            relative = source.relative_to(ROOT.resolve())
+        except ValueError:
+            raise SystemExit(f"link_check: source escapes this worktree: {argument}")
+        if (relative.parts[:1] != ("Code",) or source.suffix.lower() not in (".c", ".cpp", ".asm")
+                or source not in owned or not source.is_file()):
+            raise SystemExit(f"link_check: not an owned current Code provider: {argument}")
+        _git("ls-files", "--error-unmatch", "--", relative.as_posix(), check=True)
+        if source not in found:
+            found.append(source)
+    if not found or len(found) > PREPARE_LIMIT:
+        raise SystemExit(f"link_check: --prepare-current needs 1..{PREPARE_LIMIT} explicit owned sources; "
+                         "never expands to the whole ledger")
+    # Ordinary build selectors are substrings. Refuse any ambiguous selection
+    # before a normal gate can read or compile a different provider.
+    names = [source.relative_to(ROOT).as_posix() for source in found]
+    extra = [row["source"] for row in rows if any(name in row["source"] or name in row["name"] for name in names)
+             and ROOT / row["source"] not in found]
+    candidates = list(owned) + list((ROOT / "Code").rglob("*.cpp"))
+    extra += [str(source) for source in candidates if source not in found
+              and any(name in source.as_posix() for name in names)]
+    if extra:
+        raise SystemExit("link_check: ambiguous source selectors would reach other units: " + ", ".join(extra[:5]))
+    return found
+
+
+def preparation_header_state(sources):
+    """Capture actual include inventories and header generations, metadata only.
+
+    Inventories watch newly shadowing files. Generation stamps also watch edits
+    to existing headers, including anchored relative shim/reference includes.
+    Strict object currency remains the authority; this creates no new receipt.
+    """
+    cache, commands = {}, {}
+    for source in sources:
+        command, env = build.compiler_command(source, build.obj_path(source))
+        inventory = build.search_inventory(source, command, env, inventory_cache=cache)
+        commands[str(source)] = (build._cmd_fingerprint(command, env), inventory)
+    roots = {Path(root) for root in cache}
+    roots.update([ROOT / "reference" / "shims", ROOT / "vendor", build.BFME1_ROOT / "game"])
+    headers = set()
+    tops = {ROOT.resolve(), build.BFME1_ROOT.resolve()}
+    for root in roots:
+        for directory, dirs, files in os.walk(root):
+            if Path(directory).resolve() == root.resolve() and root.resolve() in tops:
+                dirs[:] = [name for name in dirs if name not in build._UNWATCHED_ROOT_DIRS]
+            dirs[:] = [name for name in dirs if name.lower() not in build._UNWATCHED_GENERATED_DIRS]
+            # Source additions are handled by code_inventory; this walk reads
+            # no source/header content, protected paths included.
+            headers.update(Path(directory) / name for name in files
+                           if not name.lower().endswith((".cpp", ".c", ".asm")))
+    return commands, link_census.object_stamps(headers)
+
+
+def preparation_state(sources):
+    """Guard only the explicit safe source content, plus global input state."""
+    state = link_census.census_state([])
+    # Metadata only: include new/untracked/staged units without reading any
+    # decoder content, and detect edits outside the requested units.
+    state["code_inventory"] = link_census.object_stamps(
+        path for path in (ROOT / "Code").rglob("*")
+        if path.suffix.lower() in (".c", ".cpp", ".asm", ".h", ".hpp", ".inc") and path.is_file())
+    state["sources"] = link_census.object_stamps(sources)
+    state["source_contents"] = {str(source): hashlib.sha256(source.read_bytes()).hexdigest()
+                                for source in sources}
+    state["includes"] = preparation_header_state(sources)
+    state["retail"] = link_census.object_stamps([build.EXE])
+    return state
+
+
+def prepare_current(paths):
+    """Compile a bounded explicit set with strict receipts, then ordinary gates.
+
+    Uncacheable inputs remain refused; this writes no fresh-census exception,
+    index or status. Normal gates must reuse the same strict-current objects.
+    """
+    rows = link_census.ledger()
+    sources = preparation_sources(paths, rows)
+    names = [source.relative_to(ROOT).as_posix() for source in sources]
+    selected = [row for row in rows if row["source"] in names]
+    # The same ordinary preflight as build.main, before freezing its inputs.
+    build.ensure_case_shims()
+    build.ensure_reference_current()
+    state = preparation_state(sources)
+    print(f"link_check: preparing {len(sources)} explicit safe provider(s), no extra sources")
+    outputs = build.compile_rows(selected, sources, strict=True)
+    objects = [build.obj_path(source) for source in sources]
+    if (set(outputs) != set(sources) or len(set(objects)) != len(objects)
+            or any(outputs.get(source) != build.obj_path(source) for source in sources)):
+        raise SystemExit("link_check: prepared object mapping differs from the explicit providers")
+    for source, obj in zip(sources, objects):
+        if not link_census.object_current(source, obj, allow_fresh=False):
+            raise SystemExit(f"link_check: {source.relative_to(ROOT)} has no strict reusable compiler receipt; "
+                             "uncacheable inputs are not prepared by this mode")
+    if preparation_state(sources) != state:
+        raise SystemExit("link_check: preparation inputs moved while compiling; no witnesses accepted")
+    stamps = link_census.object_stamps(objects)
+    # These are the unmodified ordinary source/body/data/ref gates. Their
+    # non-strict compile phase must see the newly strict receipts and reuse
+    # exactly these objects; a recompile is a refusal, never a fresh witness.
+    build.main(names)
+    for source, obj in zip(sources, objects):
+        if not link_census.object_current(source, obj, allow_fresh=False):
+            raise SystemExit(f"link_check: prepared receipt went stale during normal gates: {source}")
+    if preparation_state(sources) != state or link_census.object_stamps(objects) != stamps:
+        raise SystemExit("link_check: preparation inputs or verified objects moved; no witnesses accepted")
+    print(f"link_check: {len(sources)} explicit providers byte-verified with strict reusable receipts; "
+          "census/index/status unchanged, LINK closure not yet checked")
+    return 0
+
+
 def main(argv=None):
     argv = sys.argv[1:] if argv is None else argv
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
@@ -694,6 +823,9 @@ def main(argv=None):
     ap.add_argument("--staged", action="store_true", help="check the C/C++ units staged for commit")
     ap.add_argument("--refresh", action="store_true",
                     help="first recompile every stale ledger object and replace its census definitions")
+    ap.add_argument("--prepare-current", action="store_true",
+                    help="prepare 1..32 explicit owned safe Code sources with strict reusable receipts and "
+                         "normal byte gates; excludes decoder/donor sources and never expands the ledger")
     ap.add_argument("--current-ledger", action="store_true",
                     help="with --refresh: reread all receipt-current matched providers in memory, including "
                          "units absent from the census; refuses missing/stale providers, never compiles the "
@@ -712,6 +844,9 @@ def main(argv=None):
     ap.add_argument("--shadow", action="store_true",
                     help="with --new-variants: report, never refuse (the pre-commit hook, until promoted)")
     args = ap.parse_args(argv)
+    if args.prepare_current and (args.refresh or args.current_ledger or args.census_only or args.new_variants
+                                 or args.shadow or args.staged_peers):
+        ap.error("--prepare-current cannot combine with preview/admission modes")
     if args.current_ledger and (not args.refresh or args.census_only or args.new_variants):
         ap.error("--current-ledger requires --refresh and cannot combine with --census-only or --new-variants")
     if args.shadow and not args.new_variants:
@@ -719,6 +854,8 @@ def main(argv=None):
     if args.paths_from:
         args.paths += read_path_list(args.paths_from)
     paths = staged() if args.staged else args.paths
+    if args.prepare_current:
+        return prepare_current(paths)
     if args.new_variants:
         if not paths:
             return 0

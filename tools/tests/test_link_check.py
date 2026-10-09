@@ -420,3 +420,244 @@ def test_current_address_audit_uses_proven_bytes_during_edit_and_restore(current
         assert "inputs moved" in str(refused)
     else:
         assert result == 1  # debt cannot be hidden by the temporary source
+
+
+@pytest.fixture
+def preparation(monkeypatch, tmp_path):
+    monkeypatch.setattr(C, "ROOT", tmp_path)
+    rows, owned, calls = [], {}, []
+    clock = {"inputs": "fixed", "tools": "fixed"}
+    def add(name="safe.cpp", function=True):
+        source = tmp_path / "Code" / name
+        source.parent.mkdir(parents=True, exist_ok=True)
+        source.write_bytes(b"unsigned f() { return 0; }\n")
+        obj = tmp_path / "cache" / (name.replace("/", "_") + ".obj")
+        owned[obj] = source
+        if function:
+            rows.append({"source": source.relative_to(tmp_path).as_posix(), "name": "f"})
+        return source, obj
+    def compile(rows_arg, sources, **kwargs):
+        assert kwargs == {"strict": True}
+        calls.append(("compile", list(rows_arg), list(sources)))
+        result = {}
+        for source in sources:
+            obj = next(obj for obj, owner in owned.items() if owner == source)
+            obj.parent.mkdir(parents=True, exist_ok=True)
+            obj.write_bytes(b"strict compiler output")
+            result[source] = obj
+        return result
+    def normal(names):
+        calls.append(("normal", list(names)))
+    def forbidden(*args, **kwargs):
+        raise AssertionError("preparation must not touch census/index/status")
+    monkeypatch.setattr(link_census, "ledger", lambda: rows)
+    monkeypatch.setattr(link_census, "_object_sources", lambda _: owned)
+    monkeypatch.setattr(link_census, "census_state", lambda _: dict(clock))
+    monkeypatch.setattr(link_census, "object_current", lambda source, obj, **kw: not kw["allow_fresh"])
+    monkeypatch.setattr(C.build, "obj_path", lambda source: next(o for o, s in owned.items() if s == source))
+    monkeypatch.setattr(C.build, "compile_rows", compile)
+    monkeypatch.setattr(C.build, "main", normal)
+    monkeypatch.setattr(C.build, "ensure_case_shims", lambda: None)
+    monkeypatch.setattr(C.build, "ensure_reference_current", lambda: None)
+    monkeypatch.setattr(C.build, "EXE", tmp_path / "game.dat")
+    monkeypatch.setattr(C.build, "BFME1_ROOT", tmp_path / "reference" / "open-bfme-1")
+    monkeypatch.setattr(C.build, "compiler_command", lambda s, o: (["cl", str(s)], {}))
+    def inventory(s, command, env, *, inventory_cache):
+        inventory_cache[str(tmp_path / "include")] = "fixed"
+        return "fixed"
+    monkeypatch.setattr(C.build, "search_inventory", inventory)
+    monkeypatch.setattr(C, "_git", lambda *a, **kw: "tracked")
+    monkeypatch.setattr(C, "load_index", forbidden)
+    monkeypatch.setattr(C, "write_index", forbidden)
+    monkeypatch.setattr(link_census, "record", forbidden)
+    return add, rows, owned, calls, clock
+
+
+def test_prepare_explicit_only_same_object_ordinary_gates(preparation, capsys):
+    add, rows, _, calls, _ = preparation
+    source, obj = add()
+    other, _ = add("other.cpp")
+    assert C.main(["--prepare-current", str(source), str(source)]) == 0
+    assert calls == [("compile", [rows[0]], [source]), ("normal", ["Code/safe.cpp"])]
+    assert obj.read_bytes() == b"strict compiler output"
+    assert not C.build.obj_path(other).exists()
+    assert "LINK closure not yet checked" in capsys.readouterr().out
+
+
+def test_prepare_data_only_provider_runs_ordinary_data_gates(preparation):
+    add, _, _, calls, _ = preparation
+    source, _ = add(function=False)
+    assert C.prepare_current([source]) == 0
+    assert calls == [("compile", [], [source]), ("normal", ["Code/safe.cpp"])]
+
+
+@pytest.mark.parametrize("path", ["reference/open-bfme-1/safe.cpp", "../other/Code/safe.cpp",
+                                  "Code/not-owned.cpp", "Code/safe.obj"])
+def test_prepare_refuses_foreign_missing_unowned_inputs(preparation, path):
+    _, rows, _, calls, _ = preparation
+    with pytest.raises(SystemExit, match="escapes|not an owned"):
+        C.preparation_sources([path], rows)
+    assert calls == []
+
+
+@pytest.mark.parametrize("path", ["Code/VP6/safe.cpp", "Code/On2/safe.cpp", "Code/winamp/safe.cpp",
+                                  "Code/ffdshow/safe.cpp", "Code/MFNode/safe.cpp",
+                                  "reference/open-bfme-1/game/VP60/safe.cpp"])
+def test_prepare_protected_paths_refuse_before_resolution_or_content(preparation, monkeypatch, path):
+    _, rows, _, calls, _ = preparation
+    def forbidden(*a, **kw):
+        raise AssertionError("protected path was inspected")
+    monkeypatch.setattr(Path, "resolve", forbidden)
+    monkeypatch.setattr(Path, "read_bytes", forbidden)
+    with pytest.raises(SystemExit, match="protected decoder"):
+        C.preparation_sources([path], rows)
+    assert calls == []
+
+
+def test_prepare_untracked_input_refuses_before_compile(preparation, monkeypatch):
+    add, rows, _, calls, _ = preparation
+    source, _ = add()
+    def untracked(*args, **kwargs):
+        raise SystemExit("not tracked")
+    monkeypatch.setattr(C, "_git", untracked)
+    with pytest.raises(SystemExit, match="not tracked"):
+        C.preparation_sources([source], rows)
+    assert calls == []
+
+
+@pytest.mark.parametrize("count", [0, 33])
+def test_prepare_bounded_explicit_selection(preparation, count):
+    add, rows, _, calls, _ = preparation
+    sources = [add(f"source{i}.cpp")[0] for i in range(count)]
+    with pytest.raises(SystemExit, match="needs 1..32 explicit"):
+        C.prepare_current(sources)
+    assert calls == []
+
+
+def test_prepare_selector_cannot_expand_into_other_units(preparation):
+    add, rows, _, calls, _ = preparation
+    source, _ = add()
+    rows.append({"source": "Code/other.cpp", "name": "Code/safe.cppFake"})
+    with pytest.raises(SystemExit, match="ambiguous source selectors"):
+        C.prepare_current([source])
+    assert calls == []
+
+
+@pytest.mark.parametrize("phase", ["compile", "normal"])
+def test_prepare_uncacheable_or_stale_receipt_never_uses_fresh_fallback(preparation, monkeypatch, phase):
+    add, _, _, calls, _ = preparation
+    source, _ = add()
+    checks = []
+    def current(s, o, **kw):
+        assert kw == {"allow_fresh": False}
+        checks.append(1)
+        return phase == "normal" and len(checks) == 1
+    monkeypatch.setattr(link_census, "object_current", current)
+    with pytest.raises(SystemExit, match="no strict reusable|went stale"):
+        C.prepare_current([source])
+    assert len(calls) == (1 if phase == "compile" else 2)
+
+
+@pytest.mark.parametrize("change", ["head", "tool", "source", "new-untracked", "other-unit",
+                                   "header", "anchored-header", "include-root"])
+def test_prepare_input_movement_refuses_before_normal_gates(preparation, monkeypatch, change):
+    add, _, _, calls, clock = preparation
+    source, _ = add()
+    other, _ = add("other.cpp")
+    compile = C.build.compile_rows
+    def moved(*a, **kw):
+        result = compile(*a, **kw)
+        if change in ("head", "tool"):
+            clock["inputs" if change == "head" else "tools"] = "moved"
+        elif change == "new-untracked":
+            (C.ROOT / "Code" / "new.cpp").write_bytes(b"new provider")
+        elif change in ("header", "anchored-header"):
+            path = C.ROOT / ("include" if change == "header" else "reference/shims") / "new.h"
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_bytes(b"changed header")
+        elif change == "include-root":
+            monkeypatch.setattr(C.build, "search_inventory", lambda *a, **kw: "changed roots")
+        else:
+            (source if change == "source" else other).write_bytes(b"changed provider")
+        return result
+    monkeypatch.setattr(C.build, "compile_rows", moved)
+    with pytest.raises(SystemExit, match="inputs moved while compiling"):
+        C.prepare_current([source])
+    assert len(calls) == 1
+
+
+@pytest.mark.parametrize("change", ["source", "object", "new-header"])
+def test_prepare_ordinary_gates_must_reuse_same_guarded_object(preparation, monkeypatch, change):
+    add, _, _, _, _ = preparation
+    source, obj = add()
+    normal = C.build.main
+    def moved(names):
+        normal(names)
+        if change == "new-header":
+            (C.ROOT / "Code" / "untracked.h").write_bytes(b"new header")
+        else:
+            (source if change == "source" else obj).write_bytes(b"different verified generation")
+    monkeypatch.setattr(C.build, "main", moved)
+    with pytest.raises(SystemExit, match="inputs or verified objects moved"):
+        C.prepare_current([source])
+
+
+def test_prepare_normal_gate_failure_cannot_report_prepared(preparation, monkeypatch, capsys):
+    add, _, _, _, _ = preparation
+    source, _ = add()
+    def refuse(names):
+        raise SystemExit(1)
+    monkeypatch.setattr(C.build, "main", refuse)
+    with pytest.raises(SystemExit) as failed:
+        C.prepare_current([source])
+    assert failed.value.code == 1
+    assert "providers byte-verified" not in capsys.readouterr().out
+
+
+@pytest.mark.parametrize("flags", [[], ["--refresh"], ["--current-ledger"], ["--census-only"],
+                                   ["--new-variants"], ["--shadow"], ["--staged-peers"]])
+def test_prepare_requires_paths_and_cannot_mix_admission_modes(preparation, flags):
+    with pytest.raises(SystemExit):
+        C.main(["--prepare-current", *flags])
+
+
+@pytest.mark.parametrize("destination", ["outside", "protected"])
+def test_prepare_symlink_cannot_escape_or_hide_protected_target(preparation, monkeypatch, destination):
+    add, rows, _, calls, _ = preparation
+    source, _ = add()
+    target = (C.ROOT.parent / "outside.cpp" if destination == "outside"
+              else C.ROOT / "Code/VP6/hidden.cpp")
+    original = Path.resolve
+    monkeypatch.setattr(Path, "resolve", lambda p: target if p == source else original(p))
+    with pytest.raises(SystemExit, match="escapes|protected decoder"):
+        C.preparation_sources([source], rows)
+    assert calls == []
+
+
+def test_prepare_source_path_prefix_cannot_select_another_provider(preparation):
+    add, rows, _, calls, _ = preparation
+    source, _ = add()
+    add("safe.cpp-sibling.cpp")
+    with pytest.raises(SystemExit, match="ambiguous source selectors"):
+        C.prepare_current([source])
+    assert calls == []
+
+
+@pytest.mark.parametrize("mapping", ["missing", "foreign", "extra"])
+def test_prepare_requires_exact_canonical_object_mapping(preparation, monkeypatch, mapping):
+    add, _, _, calls, _ = preparation
+    source, _ = add()
+    compile = C.build.compile_rows
+    def wrong(*args, **kwargs):
+        result = compile(*args, **kwargs)
+        if mapping == "missing":
+            return {}
+        if mapping == "foreign":
+            result[source] = C.ROOT / "foreign.obj"
+        else:
+            result[C.ROOT / "Code/extra.cpp"] = C.ROOT / "extra.obj"
+        return result
+    monkeypatch.setattr(C.build, "compile_rows", wrong)
+    with pytest.raises(SystemExit, match="object mapping differs"):
+        C.prepare_current([source])
+    assert len(calls) == 1
