@@ -97,9 +97,16 @@ namespace _STL { template <> __declspec(nothrow) void _Construct<BfmePod172, Bfm
 struct BfmePod180 { int a[45]; };
 inline bool operator==(const BfmePod180 &x, const BfmePod180 &y) { return x.a[0] == y.a[0]; }
 inline bool operator<(const BfmePod180 &x, const BfmePod180 &y) { return x.a[0] < y.a[0]; }
-struct BfmePod216 { int a[54]; };
-inline bool operator==(const BfmePod216 &x, const BfmePod216 &y) { return x.a[0] == y.a[0]; }
-inline bool operator<(const BfmePod216 &x, const BfmePod216 &y) { return x.a[0] < y.a[0]; }
+// The 216-byte element is CreateAHeroManager::CreateAHeroSubClass: its vector
+// is CreateAHeroClass +0x14 (parseCreateAHeroSubClass push_back, CreateAHeroClass
+// copy 0x0021F876); this unit keeps only its 216-byte footprint.
+class CreateAHeroManager
+{
+public:
+    class CreateAHeroSubClass { public: int a[54]; };
+};
+inline bool operator==(const CreateAHeroManager::CreateAHeroSubClass &x, const CreateAHeroManager::CreateAHeroSubClass &y) { return x.a[0] == y.a[0]; }
+inline bool operator<(const CreateAHeroManager::CreateAHeroSubClass &x, const CreateAHeroManager::CreateAHeroSubClass &y) { return x.a[0] < y.a[0]; }
 struct BfmePod248 { int a[62]; };
 inline bool operator==(const BfmePod248 &x, const BfmePod248 &y) { return x.a[0] == y.a[0]; }
 inline bool operator<(const BfmePod248 &x, const BfmePod248 &y) { return x.a[0] < y.a[0]; }
@@ -215,7 +222,7 @@ template class _STL::vector<BfmePod148, _STL::allocator<BfmePod148 > >;
 template class _STL::vector<BfmePod160, _STL::allocator<BfmePod160 > >;
 template class _STL::vector<BfmePod172, _STL::allocator<BfmePod172 > >;
 template class _STL::vector<BfmePod180, _STL::allocator<BfmePod180 > >;
-template class _STL::vector<BfmePod216, _STL::allocator<BfmePod216 > >;
+template class _STL::vector<CreateAHeroManager::CreateAHeroSubClass, _STL::allocator<CreateAHeroManager::CreateAHeroSubClass > >;
 template class _STL::vector<BfmePod248, _STL::allocator<BfmePod248 > >;
 template class _STL::vector<BfmePod252, _STL::allocator<BfmePod252 > >;
 // Only allocation and plain assignment are claimed for this size-only view.

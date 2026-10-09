@@ -153,12 +153,16 @@ template _STL::vector<BfmeStringHeadRecord184>::~vector();
 struct Made002CC5E1DamageScalar { public: ~Made002CC5E1DamageScalar(); };
 template _STL::vector<Made002CC5E1DamageScalar>::~vector();
 
-// ??1?$vector@UBfmePod216@@V?$allocator@UBfmePod216@@@_STL@@@_STL@@QAE@XZ @0x0021F7A7 63B.
+// ??1?$vector@VCreateAHeroSubClass@CreateAHeroManager@@V?$allocator@VCreateAHeroSubClass@CreateAHeroManager@@@_STL@@@_STL@@QAE@XZ @0x0021F7A7 63B.
 // Same 63B Destroy-plus-free shape: destroys the range through the rowed
 // _Destroy at 0x0021F466 then frees via 0x30830; caller at 0x0021F90E in 0x0021F8F3.
-// Element is the 216-byte pod in StlportVectorGrowthFootprints.cpp.
-struct BfmePod216 { public: ~BfmePod216(); };
-template _STL::vector<BfmePod216>::~vector();
+// Element is CreateAHeroManager::CreateAHeroSubClass (216 bytes; dtor 0x0021E50F).
+class CreateAHeroManager
+{
+public:
+    class CreateAHeroSubClass { public: ~CreateAHeroSubClass(); };
+};
+template _STL::vector<CreateAHeroManager::CreateAHeroSubClass>::~vector();
 
 // The following ~vector bodies share the 63B Destroy-plus-free shape under
 // /O1 /GX. Each was placed as a masked-byte twin of the rowed instantiations

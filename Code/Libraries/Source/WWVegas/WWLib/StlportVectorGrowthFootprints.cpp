@@ -71,8 +71,13 @@ struct BfmeStringRecord00404BF3 { char m_pad[24]; public: BfmeStringRecord00404B
 struct BfmeNarrowRecord00427F75 { char m_pad[24]; public: BfmeNarrowRecord00427F75(const BfmeNarrowRecord00427F75 &); ~BfmeNarrowRecord00427F75(); };
 // 128-byte element; layout owner stlport_pod_vector_bodies.cpp.
 struct BfmePod128 { char m_pad[128]; public: BfmePod128(const BfmePod128 &); ~BfmePod128(); };
-// 216-byte element; layout owner stlport_pod_vector_bodies.cpp.
-struct BfmePod216 { char m_pad[216]; public: BfmePod216(const BfmePod216 &); ~BfmePod216(); };
+// 216-byte element CreateAHeroManager::CreateAHeroSubClass; layout owner
+// CreateAHero.cpp (ctor 0x0021E793), dtor 0x0021E50F, copy 0x0021E85A.
+class CreateAHeroManager
+{
+public:
+    class CreateAHeroSubClass { char m_pad[216]; public: CreateAHeroSubClass(const CreateAHeroSubClass &); ~CreateAHeroSubClass(); };
+};
 // 248-byte element; layout owner stlport_pod_vector_bodies.cpp.
 struct BfmePod248 { char m_pad[248]; public: BfmePod248(const BfmePod248 &); ~BfmePod248(); };
 // 252-byte element; layout owner stlport_pod_vector_bodies.cpp.
@@ -115,7 +120,7 @@ template <> void _Construct<BfmeStringRecord0040360E, BfmeStringRecord0040360E>(
 template <> void _Construct<BfmeStringRecord00404BF3, BfmeStringRecord00404BF3>(BfmeStringRecord00404BF3 *, const BfmeStringRecord00404BF3 &);
 template <> void _Construct<BfmeNarrowRecord00427F75, BfmeNarrowRecord00427F75>(BfmeNarrowRecord00427F75 *, const BfmeNarrowRecord00427F75 &);
 template <> void _Construct<BfmePod128, BfmePod128>(BfmePod128 *, const BfmePod128 &);
-template <> void _Construct<BfmePod216, BfmePod216>(BfmePod216 *, const BfmePod216 &);
+template <> void _Construct<CreateAHeroManager::CreateAHeroSubClass, CreateAHeroManager::CreateAHeroSubClass>(CreateAHeroManager::CreateAHeroSubClass *, const CreateAHeroManager::CreateAHeroSubClass &);
 template <> void _Construct<BfmePod248, BfmePod248>(BfmePod248 *, const BfmePod248 &);
 template <> void _Construct<BfmePod252, BfmePod252>(BfmePod252 *, const BfmePod252 &);
 template <> void _Construct<BfmeStringRecord00204A30, BfmeStringRecord00204A30>(BfmeStringRecord00204A30 *, const BfmeStringRecord00204A30 &);
@@ -201,8 +206,8 @@ template void _STL::vector<BfmePod248>::_M_insert_overflow(
 template void _STL::vector<BfmeStringRecord00204A30>::_M_insert_overflow(
     BfmeStringRecord00204A30 *, const BfmeStringRecord00204A30 &, const _STL::__false_type &, unsigned int, bool);
 // Retail 0x0021F95B.
-template void _STL::vector<BfmePod216>::_M_insert_overflow(
-    BfmePod216 *, const BfmePod216 &, const _STL::__false_type &, unsigned int, bool);
+template void _STL::vector<CreateAHeroManager::CreateAHeroSubClass>::_M_insert_overflow(
+    CreateAHeroManager::CreateAHeroSubClass *, const CreateAHeroManager::CreateAHeroSubClass &, const _STL::__false_type &, unsigned int, bool);
 // Retail 0x0032C3ED.
 template void _STL::vector<BfmePod128>::_M_insert_overflow(
     BfmePod128 *, const BfmePod128 &, const _STL::__false_type &, unsigned int, bool);
