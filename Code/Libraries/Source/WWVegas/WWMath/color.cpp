@@ -75,13 +75,11 @@ RGBColor &RGBColor::operator=(const RGBColor &that)
     return *this;
 }
 
-static const float setFromIntScale = 1.0f / 255.0f;
-
 inline void RGBColor::setFromInt(int color)
 {
-    red = (float)((color >> 16) & 0xFF) * setFromIntScale;
-    green = (float)((color >> 8) & 0xFF) * setFromIntScale;
-    blue = (float)(color & 0xFF) * setFromIntScale;
+    red = (float)((color >> 16) & 0xFF) * (1.0f / 255.0f);
+    green = (float)((color >> 8) & 0xFF) * (1.0f / 255.0f);
+    blue = (float)(color & 0xFF) * (1.0f / 255.0f);
 }
 
 bool operator==(const RGBColor &left, const RGBColor &right)
