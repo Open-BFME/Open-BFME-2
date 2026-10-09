@@ -40,6 +40,31 @@ void Rva0054CBEFTarget::method(int arg)
 	m_impl->rva0054C99A(arg);
 }
 
+// 0x0054CBF7, 8 B: the same holder's other forwarder, loading the +0x04
+// object and tail-jumping to its rowed transition flush 0x0054CA4A. The
+// caller 0x0038076D runs it each update on both message-box singletons
+// (g_Va00E032FC and AptStrategicMessageBox::s_instance).
+class Rva0054CFB8Target
+{
+public:
+	void rva0054CA4A();				// 0x0054CA4A
+};
+
+class Rva0054CBF7Target
+{
+public:
+	void method();
+
+private:
+	void *m_00;
+	Rva0054CFB8Target *m_impl;			// +0x04
+};
+
+void Rva0054CBF7Target::method()
+{
+	m_impl->rva0054CA4A();
+}
+
 class Rva0057417E
 {
 public:

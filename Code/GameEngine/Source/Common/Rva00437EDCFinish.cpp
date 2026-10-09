@@ -72,7 +72,14 @@ class Rva0054D222Prompt {
 public: bool prompt(int,const UnicodeString &,const UnicodeString &,TreeHintRef00217D4C);
 private: bool configure(int,const UnicodeString &,const UnicodeString &);
  friend class Rva0054D3E1Prompt;
+ friend class Rva0054D438Prompt;
  unsigned m_level00; AsciiString m_movie04; char m_pad08[0xc]; int m_previous14; int m_state18; TreeHintRef00217D4C m_callback;
+ TreeHintRef00217D4C m_callback20;
+};
+// The two-callback prompt the child04 forwarder 0x0054D4CD calls (pinned
+// name); retail runs it on the same object as Rva0054D222Prompt.
+class Rva0054D438Prompt : public Rva0054D222Prompt {
+public: bool prompt(int,const UnicodeString &,const UnicodeString &,TreeHintRef00217D4C,TreeHintRef00217D4C);
 };
 class Rva0054D3E1Prompt {
 public: bool prompt(int,const UnicodeString &,const UnicodeString &,TreeHintRef00217D4C);
@@ -114,6 +121,22 @@ bool Rva0054D222Prompt::prompt(int kind, const UnicodeString &title,
   TreeHintRef00217D4C &destination = m_callback;
   destination = callback;
   return true;
+ }
+ return false;
+}
+
+// Native [54D438,54D4B1)121B thiscall RET20, ending at the deleting dtor
+// 54D4B1: the one-callback prompt 54D222 gets a copy of the first callback;
+// when it accepts, the second goes to callback20. Retail returns false on
+// both paths.
+bool Rva0054D438Prompt::prompt(int kind, const UnicodeString &title,
+ const UnicodeString &message, TreeHintRef00217D4C callback,
+ TreeHintRef00217D4C callback2)
+{
+ if (Rva0054D222Prompt::prompt(kind, title, message, callback))
+  {
+  TreeHintRef00217D4C &destination = m_callback20;
+  destination = callback2;
  }
  return false;
 }
