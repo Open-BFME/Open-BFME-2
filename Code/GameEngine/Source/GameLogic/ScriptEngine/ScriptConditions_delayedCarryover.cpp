@@ -11,6 +11,7 @@
 
 #include "ascii_string.h"
 #include <vector>
+#include "../System/ArmySummary.h"
 
 enum ObjectID { INVALID_ID = 0 };
 
@@ -87,7 +88,6 @@ class Rva0040D701ArmySummary
 public:
 	bool SpawnOneDelayedCarryoverUnitIntoUnitRevivalTracker(ObjectTypes *types);
 	ObjectID SpawnOneDelayedCarryoverUnit(ObjectTypes *types);
-	bool HasDelayedCarryoverUnitOfTypes(ObjectTypes *types);
 };
 
 class Rva002BA8F1Logic
@@ -130,7 +130,7 @@ bool ScriptConditions::evaluateHasDelayedCarryoverUnitOfType(const AsciiString &
 		_STL::vector<Rva0040D701ArmySummary *>::iterator it = armies.begin();
 		_STL::vector<Rva0040D701ArmySummary *>::iterator end = armies.end();
 		for (; it != end; ++it) {
-			if ((*it)->HasDelayedCarryoverUnitOfTypes(types))
+			if (reinterpret_cast<ArmySummary*>(*it)->HasDelayedCarryoverUnitOfTypes(types))
 				return true;
 		}
 	}
