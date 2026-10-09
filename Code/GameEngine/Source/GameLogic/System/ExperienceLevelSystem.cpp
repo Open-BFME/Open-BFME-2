@@ -184,8 +184,12 @@ class Rva002894A2
 {
 public:
     virtual ~Rva002894A2();
+    Rva002894A2();
     Rva002894A2(const Rva002894A2 &);
-    char pad04[12];
+    Rva002894A2 *next04;
+    bool override08;
+    char pad09[3];
+    int overrideIndex0C;
     AsciiString name10;
     int key14, required18, award1C, index20;
     _STL::vector<AsciiString> targets24, attributes30;
@@ -199,12 +203,14 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 Int SplitUpgrades(void *, const AsciiString &);
 Int SplitString(_STL::vector<AsciiString> &, const AsciiString &);
 
+class INI;
 class ExperienceLevelStore
 {
 public:
     bool CreateNewExpLevel(const AsciiString &, const AsciiString &, const AsciiString &, const AsciiString &, const AsciiString &);
     void rva0028A1AA(void *, const BfmePod264 *);
     void rva002891DB(const Rva002894A2 *);
+    static void friend_parseExperienceLevelDefinition(INI *);
 	Int GetLevelRank(ExperienceLevelHandle levelHandle) const;
 	Int GetRequiredExperience(ExperienceLevelHandle levelHandle) const;
 	Int GetExperienceAwardForLevel(ExperienceLevelHandle levelHandle) const;
@@ -218,7 +224,7 @@ public:
 private:
 	unsigned char m_pad00[0xc];
 	NameKeyGenerator::KeyToBucketMap *m_levelLists;	// +0x0C
-	unsigned char m_pad10[0x14 - 0x10];
+	NameKeyGenerator::KeyToBucketMap *m_reloadLevelLists;
 	ExperienceScalarTableVector m_scalarTables;	// +0x14
 	ExperienceScalarTable *m_defaultScalarTable;	// +0x20
 };
@@ -450,5 +456,173 @@ void ExperienceLevelStore::rva002891DB(const Rva002894A2 *level)
     if (found.node) {
         _STL::_S_sort(*reinterpret_cast<_STL::list<crateCreationEntry> *>((char *)found.node + 8), _STL::less<crateCreationEntry>());
         ((Rva0028881C *)((char *)this + 0x28))->rva002889BB();
+    }
+}
+
+//
+// INI reload slots of the ExperienceLevels store (vftable 0x00BFB8F4, class
+// Rva00289ABD; its constructor is 0x00289ABD):
+//
+//   slot 4, 0x00289812  clear the table at +0x10 (0x00289371) and the
+//                       "needs restart" byte, then, when the shared slot 2
+//                       (0x001B5384) reports a reload, put "RIF:
+//                       ExperienceLevels reloaded..." on screen through
+//                       TheInGameUI (slot 16, cdecl), latch the "reloaded"
+//                       byte and +0x24, and pass a pending restart out
+//                       through the argument; answer the latch.
+//   slot 5, 0x00289874  once after a reload latched its byte: swap the
+//                       tables at +0x0C and +0x10, clear the tree at +0x28
+//                       (0x002889BB), clear the table now at +0x10, and
+//                       answer true.
+//
+// Both bytes (VA 0x00DFECC8 "reloaded", 0x00DFECC9 "needs restart") are
+// file-static: slot 4 loads +0x10 before it stores the restart byte and tests
+// that byte before its two stores, which MSVC 7.1 schedules that way only for
+// a static it can prove `this` does not alias. All their other readers and
+// writers (0x00289874 and the parse body around 0x0028A429) sit beside these
+// slots. Names are address-derived; the byte meanings are inferred from
+// their uses.
+
+#include "unicode_string.h"
+
+class InGameUI
+{
+public:
+	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
+	virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();
+	virtual void v08(); virtual void v09(); virtual void v10(); virtual void v11();
+	virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15();
+	virtual void message(UnicodeString format, ...);
+};
+extern InGameUI *TheInGameUI;	// VA 0x00DFEDF0
+
+// g_Va00DFECC8: VA 0x00DFECC8 (.bss); retail initial byte 00.
+static bool g_Va00DFECC8;
+// g_Va00DFECC9: VA 0x00DFECC9 (.bss); retail initial byte 00.
+static bool g_Va00DFECC9;
+
+class Rva00289371HashTable
+{
+public:
+	void clear();	// 0x00289371
+};
+
+
+class Rva00289ABDBase
+{
+public:
+	virtual void v00();
+	virtual void v01();
+	virtual bool rva001B5384Slot2();
+};
+
+class Rva00289ABD : public Rva00289ABDBase
+{
+public:
+	bool rva00289812(bool *needsRestart);
+	bool rva00289874();
+private:
+	char m_unmodelled04[0x0C - 0x04];
+	Rva00289371HashTable *m_table0C;
+	Rva00289371HashTable *m_table10;
+	char m_unmodelled14[0x24 - 0x14];
+	bool m_reloaded24;
+	char m_unmodelled25[0x28 - 0x25];
+	Rva0028881C m_tree28;
+};
+
+bool Rva00289ABD::rva00289812(bool *needsRestart)
+{
+	g_Va00DFECC9 = false;
+	m_table10->clear();
+	if (rva001B5384Slot2())
+	{
+		TheInGameUI->message(UnicodeString(L"RIF: ExperienceLevels reloaded. All units will need to be refreshed."));
+		g_Va00DFECC8 = true;
+		m_reloaded24 = true;
+		if (g_Va00DFECC9)
+			*needsRestart = true;
+	}
+	return g_Va00DFECC8;
+}
+
+bool Rva00289ABD::rva00289874()
+{
+	if (g_Va00DFECC8)
+	{
+		Rva00289371HashTable *old = m_table0C;
+		m_table0C = m_table10;
+		m_tree28.rva002889BB();
+		m_table10 = old;
+		old->clear();
+		g_Va00DFECC8 = false;
+		return true;
+	}
+	return false;
+}
+
+class INI {
+public:
+    const char *getNextToken(const char * = 0);
+    void initFromINI(void *, const struct FieldParse *);
+    char pad00[8];
+    int loadType08;
+    int getLoadType() const { return loadType08; }
+};
+class INIException {
+public:
+    INIException(int, const char *, ...);
+    INIException(const INIException &);
+    ~INIException();
+    char *message;
+    int argumentCount;
+};
+class ExperienceLevelSystem;
+extern ExperienceLevelSystem *TheExperienceLevelSystem;
+void *operator new(unsigned int);
+void operator delete(void *);
+struct Rva00289FBCRecord { Rva00289FBCRecord &operator=(const Rva00289FBCRecord &); };
+// Native and WB both pass this ExperienceLevel FieldParse table. Its
+// contents remain retail data; this code establishes only the table address,
+// not a recovered data definition.
+extern "C" const char g_00BFBAC0[];
+static const FieldParse *const experienceLevelFieldParse = reinterpret_cast<const FieldParse *>(g_00BFBAC0);
+// WB 0x00BEBDE0 names this callback. BFME1 874e3848 parser at 0x00382460
+// supplies the source guide; BFME2 native evidence establishes the 0x108
+// layout, +0x0C override index, name key and additional load-type-5 reload
+// path. The rehomed reload methods above share the original file-static
+// restart flag with this parser. All479 bytes and three EH actions exact.
+void ExperienceLevelStore::friend_parseExperienceLevelDefinition(INI *ini)
+{
+    if (!TheExperienceLevelSystem) return;
+    AsciiString name(ini->getNextToken(0));
+    if (ini->getLoadType() == 2) {
+        Rva002894A2 *existing = (Rva002894A2 *)((Rva0028951F *)TheExperienceLevelSystem)->rva0028951F(TheNameKeyGenerator->nameToKey(name));
+        if (!existing) throw INIException(3, "Experience Level %s not found in map.ini", name.str());
+        Rva002894A2 *created = new Rva002894A2;
+        if (existing->next04)
+            existing = (Rva002894A2 *)((Overridable *)existing->next04)->friend_getFinalOverride();
+        reinterpret_cast<Rva00289FBCRecord *>(created)->operator=(reinterpret_cast<const Rva00289FBCRecord &>(*existing));
+        existing->next04 = created;
+        created->override08 = true;
+        ini->initFromINI(created, experienceLevelFieldParse);
+        ((ExperienceLevelStore *)TheExperienceLevelSystem)->rva002891DB(created);
+    } else {
+        Rva002894A2 level;
+        level.name10 = name;
+        level.key14 = TheNameKeyGenerator->nameToKey(name);
+        ini->initFromINI(&level, experienceLevelFieldParse);
+        if (ini->loadType08 != 5) {
+            ((ExperienceLevelStore *)TheExperienceLevelSystem)->rva0028A1AA(((ExperienceLevelStore *)TheExperienceLevelSystem)->m_levelLists, (const BfmePod264 *)&level);
+            ((Rva0028881C *)((char *)TheExperienceLevelSystem + 0x28))->rva002889BB();
+        } else {
+            Rva002894A2 *existing = (Rva002894A2 *)((Rva0028951F *)TheExperienceLevelSystem)->rva0028951F(TheNameKeyGenerator->nameToKey(name));
+            if (existing) {
+                existing->overrideIndex0C = 1;
+                if (existing->override08) g_Va00DFECC9 = true;
+            }
+            level.overrideIndex0C = 0;
+            ((ExperienceLevelStore *)TheExperienceLevelSystem)->rva0028A1AA(((ExperienceLevelStore *)TheExperienceLevelSystem)->m_reloadLevelLists, (const BfmePod264 *)&level);
+        }
     }
 }
