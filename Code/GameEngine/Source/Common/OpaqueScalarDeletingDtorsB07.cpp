@@ -323,9 +323,13 @@ Rva003B0344::Rva003B0344(EmitVtableTag *tag) : Rva003B00D6(tag)
 // owner's two base subobjects. Retail 0x003B923B destroys vector +0x20,
 // frees buffer +0x14, restores Snapshot +0xC and calls the existing
 // subsystem-base destructor at 0x001B4E74. The owner's name is unknown.
+// The constructor is declared like the destructor: the subsystem-base
+// constructor is the rowed 0x001B4E63 body, so this unit must not emit its
+// own inline copy for the vtable-emitting constructor below.
 class GameEngineDeletingBase
 {
 public:
+    GameEngineDeletingBase();
     virtual ~GameEngineDeletingBase();
 private:
     char unmodelled04[8];
