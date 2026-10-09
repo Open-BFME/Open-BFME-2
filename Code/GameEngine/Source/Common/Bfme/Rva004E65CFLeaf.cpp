@@ -231,7 +231,7 @@ class PlayerList;
 extern GameLogic *TheGameLogic;
 extern PlayerList *ThePlayerList;
 struct FeedbackPlayerIndexView { char pad[0x54]; int index; };
-class Rva00359A0C { public: float rva00359A0C(float x, float y, float radius, bool flag, int playerIndex); };
+class TerrainResourceManager { public: float rva00359A0C(float x, float y, float radius, bool flag, int playerIndex); };
 // WB1324880 and retail4E6295..4E630C: local player INDEX is an int,
 // not the pointer view in the prior bank. The final claim-fraction helper
 // at359A0C consumes five arguments and ends RET20; original name unknown.
@@ -239,7 +239,7 @@ float PlaceTerrainResourceClaimantFeedback::Impl::rva004E6295()
 {
  GameLogic *logic=TheGameLogic;
  if(logic) {
-  Rva00359A0C *view=*(Rva00359A0C **)((char*)logic+0x170);
+  TerrainResourceManager *view=*(TerrainResourceManager **)((char*)logic+0x170);
   if(view) {
    FeedbackPlayerIndexView *player=*(FeedbackPlayerIndexView **)((char*)ThePlayerList+0x10);
    int index=player ? player->index : 0;
