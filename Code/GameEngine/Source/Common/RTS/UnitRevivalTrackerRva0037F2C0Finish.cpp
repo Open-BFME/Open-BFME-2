@@ -1,6 +1,13 @@
-// cl: /Ireference/shims/bfme2_ascii /ICode/Libraries/Source/WWVegas/WWLib /O1 /Ob1 /EHsc /DNDEBUG /MD /arch:SSE /G7
+// cl: /Ireference/shims/bfme2_ascii /ICode/Libraries/Source/WWVegas/WWLib /O1 /Ob1 /EHsc /DNDEBUG /MD /arch:SSE /G7 /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva0037F2C0@Rva0037F2C0@@QAEHPAVObject@@_N@Z @0x0037F2C0 111B via UnitRevivalTracker vector at +4, UnitRevivalEntry from Object, size-1 return
+#include <stl/_algobase.h>
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+	return a < b ? b : a;
+}
+}
 #include <vector>
 
 class Object;
