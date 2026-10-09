@@ -139,11 +139,12 @@ virtual int load(AsciiString,AsciiString,int,int);
 class Rva002224FE {public:bool rva002224FE(int);};
 class Rva004E67B3 {public:void rva004E67B3(unsigned);};
 class Rva002217EA;
-class Rva004E6A9BBase {public:virtual unsigned char rva00578522()const;virtual void rva004E6B7D(bool);virtual void DoOpen(const UnicodeString&,const Rva002217EA&,int);virtual void DoClose();~Rva004E6A9BBase(){}};
+class Rva004E6A9BBase {public:virtual unsigned char rva00578522()const;virtual void rva004E6B7D(bool);virtual void rva004E725F(const UnicodeString&,const Rva002217EA&,int);virtual void DoClose();~Rva004E6A9BBase(){}};
 class InGameNotificationBoxMovieClip:public Rva004E6A9BBase {public:
  InGameNotificationBoxMovieClip();
  virtual unsigned char rva00578522()const;virtual void rva004E6B7D(bool);
- virtual void DoOpen(const UnicodeString&,const Rva002217EA&,int);virtual void DoClose();
+ virtual void rva004E725F(const UnicodeString&,const Rva002217EA&,int);virtual void DoClose();
+ void rva004E6F30(const UnicodeString&,const Rva002217EA&,int,bool,int);
  void CloseImmediately();void OnInitialized(unsigned);void OnClosed(unsigned);void rva004E67D0(int);
  void ExternMessageWidth(int,const char*,bool);void RenderMessage(const Coord2D*,const Coord2D*,void*,void*);
  int level,state;Rva0052413E commands;Rva005241B0 externs;Rva00524265 renders;Rva005242D7 images;
@@ -165,3 +166,7 @@ void InGameNotificationBoxMovieClip::ExternMessageWidth(int,const char*text,bool
 unsigned char InGameNotificationBoxMovieClip::rva00578522()const{return flag50;}
 void InGameNotificationBoxMovieClip::rva004E6B7D(bool value){if(value!=flag50){if(!value)CloseImmediately();flag50=value;}}
 typedef char NotificationFieldsHave84Bytes[sizeof(InGameNotificationBoxMovieClip)==84 ? 1 : -1];
+
+// Vtable862440 slot2 and WB1322EB0 forward three args to Open1322140;
+// native4E725F..4E7277 RET12 proves exact24B. Original wrapper name unproven.
+void InGameNotificationBoxMovieClip::rva004E725F(const UnicodeString&message,const Rva002217EA&spec,int timeout){rva004E6F30(message,spec,timeout,false,0);}
