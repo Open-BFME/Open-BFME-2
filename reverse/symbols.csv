@@ -17028,3 +17028,4 @@ _log,0x00629B0E,log double import thunk (gen-import row ji_00629b0e: msvcr71 slo
 ?unhookAllScoredKillTrackers@ScoreKeeper@@QAEXXZ,0x0039C09C,callee of ?reset@ScoreKeeper@@QAEXH@Z
 ?rva000B4B23@Rva000B4B23@@QAEPAXABVModelConditionFlags@@@Z,0x000B4B23,callee of ?getPristineBonePositionsForConditionState@W3DModelDraw@@UBEHABVModelConditionFlags@@PBDHPAUCoord3D@@PAVMatrix3D@@HPAH@Z
 ??0WorldHeightMap@@QAE@PAVChunkInputStream@@HHH@Z,0x000B0C38,0x120F0-byte height map ctor (vptr 0xBC967C; RET16) built by W3DTerrainLogic::loadMap 0x00063153 from the stream plus terrain +0x54/+0x58/+0x5C (ZH NEW WorldHeightMap(pStrm...))
+?rva00113DE0@W3DTerrainBackground@@QAEXPAGPAVVector3@@HHH0AAH@Z,0x00113DE0,recursive tile index filler (ZH fillVBRecursive analogue; 7 args ib;heights;x;y;width;ndx;curIndex) called twice by doTesselatedUpdate 0x001149EB (count then fill) and by calcBlendHeight 0x00115A5B
