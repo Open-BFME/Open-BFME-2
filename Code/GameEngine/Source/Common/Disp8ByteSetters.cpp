@@ -55,3 +55,20 @@ void Rva00388869PairClearer::clear()
     m_at51 = 0;
     m_at50 = 0;
 }
+
+// Whole clean BF1 f98983a7 Rva0069DE50ByteClear.cpp supplies the byte-zero
+// store plus receiver-return source expression. Native54B6E..54B75 is a
+// separate seven-byte leaf after rowed54B3F/47 RET4at54B6B and before
+// rowed54B75 list insertion. Only byte8=0 and EAX=receiver are observed;
+// owner, constructor/reset purpose and complete allocation size are unknown.
+struct Rva00054B6EByteField
+{
+    unsigned char unmodelledPrefix[8];
+    unsigned char byte8;
+    Rva00054B6EByteField *clear();
+};
+Rva00054B6EByteField *Rva00054B6EByteField::clear()
+{
+    byte8 = 0;
+    return this;
+}
