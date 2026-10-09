@@ -1,3 +1,5 @@
+// ??1Palantir@StrategicHUD@@UAE@XZ
+// partial score=1.0 date=2026-10-09
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva00578AC1@Palantir@StrategicHUD@@QAEXPAX@Z, retail 0x00578AC1, 24 bytes.
 // Clears byte at +0x54 then broadcasts callback 0x005CB265 with arg this+4 over list at +8 via forEach 0x00578A60.
@@ -91,10 +93,6 @@ public:
 
 	unsigned char m_pad[0x34];
 };
-
-// Verified visibility providers, called by the primary interface slot11.
-class Rva005D37F1 { public: void rva005D37F1(bool); };
-class Rva005D3287 { public: void rva005D3287(bool); };
 
 // The owning pointers at +0x44..+0x50, viewed through their rowed resets
 // and clears.
@@ -304,11 +302,13 @@ public:
 	virtual void base0();
 };
 
-class Rva00578C2E : public Rva004FAC6BBase0
+class Rva00578C0E { public: virtual ~Rva00578C0E(); };
+
+class __declspec(novtable) Rva00578C2E : public Rva004FAC6BBase0
 {
 public:
 	Rva00578C2E() throw();
-	virtual ~Rva00578C2E() {}
+	virtual ~Rva00578C2E() { ((Rva00578C0E *)this)->Rva00578C0E::~Rva00578C0E(); }
 
 	Rva00578A60List m_listeners; // +0x04
 };
@@ -319,10 +319,10 @@ public:
 	virtual ~PalantirButton() {}
 };
 
-class __declspec(novtable) PalantirBase0
+class PalantirBase0
 {
 public:
-	virtual ~PalantirBase0();
+	virtual ~PalantirBase0() {}
 };
 
 // Owning holders with their rowed clears as destructors.
@@ -383,7 +383,6 @@ public:
 	void rva005785A2(void *selection);
 	void rva005785CD();
 	Palantir *rva005785BE();
-	void rva0057864E(bool visible);
 
 private:
 	int m_level; // +0x2C
@@ -621,11 +620,9 @@ void PalantirObjectivesButtonReceiver::setEnabled(bool value) {
  }
 }
 
-// Native 0057864E..0057866D (31B), primary vtable C6EB08 slot11.
-// Passes the same boolean first to the +4C region UI then +48 stats tray;
-// both provider signatures and member offsets are independently rowed.
-void StrategicHUD::Palantir::rva0057864E(bool visible)
+// ??1Palantir@StrategicHUD@@UAE@XZ present-unmatched
+StrategicHUD::Palantir::~Palantir()
 {
- ((Rva005D37F1 *)m_regionUI.m_ptr)->rva005D37F1(visible);
- ((Rva005D3287 *)m_regionStatsTray.m_ptr)->rva005D3287(visible);
+ PalantirButton<1>::m_listeners.forEach(&Rva00578A60Listener::notify, static_cast<PalantirButton<1> *>(this));
+ PalantirButton<0>::m_listeners.forEach(&Rva00578A60Listener::notify, static_cast<PalantirButton<0> *>(this));
 }
