@@ -30,6 +30,9 @@ class AptCIH
 public:
     unsigned char prefix[0x4c];
     void *member4C;
+    char unknown50[8];
+    signed int depth:17;
+    unsigned int unknownDepth17:15;
     void rva006E1DD0(void *);
 };
 
@@ -202,4 +205,13 @@ Rva006EB4B0::Rva006EB4B0(AptValue *fontValue,float sizeValue,int colorValue,int 
   else if(s->nameEquals("right"))align=1;
   else align=3;
  }else align=3;
+}
+
+// Native C6F0..C72A: signed17-bit depth at CIH+58 biased by0x4000.
+// WB1782970 confirms the same operation with its independent +5C layout.
+// Callback identity remains address-derived; no inferred original name.
+extern AptValue *gpUndefinedValue;
+AptValue *Rva006EC6F0Depth(AptValue *context,int unusedArgumentCount){
+ if(context->isCIH(false))return AptInteger::Create(context->c_cih(false)->depth-0x4000);
+ return gpUndefinedValue;
 }
