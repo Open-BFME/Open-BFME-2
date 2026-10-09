@@ -1,6 +1,8 @@
 // ??0Gen0002857E@@QAE@PAVRva000A7E9E@@ABVAsciiString@@@Z
+// partial score=0.9 date=2026-10-10
+// ??0Gen0002857E@@QAE@PAVRva000A7E9E@@ABVAsciiString@@@Z
 // partial score=0.88135593220339 date=2026-10-09
-// cl: /O1 /arch:SSE /G7 /MD /EHsc /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include
+// cl: /O1 /Oi- /MD /EHsc /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include
 // ?handle@Gen0002857E@@QAEXXZ at 0x0010ECBD (39B).
 // Mutex-guarded increment of the counter at +0x34 via MilesMutexGuard over owner mutex at +0x50.
 // Evidence: BFME1 donor game/GameEngine/Source/Common/Gen0002857EHandle.cpp; retail pushes 0 and [eax+0x50] into ctor 0x0004120E and calls dtor 0x0004122F; LINK BONUS caller in Rva00690FF0Handle.cpp.

@@ -103,7 +103,7 @@ public:
 class LaserDrawInterface
 {
 public:
-	virtual void bfmeLaserDrawInterfaceSlot(void);
+	virtual Real getLaserTemplateWidth() const = 0;
 };
 
 class ShaderClass
@@ -295,6 +295,7 @@ class W3DLaserDraw : public DrawModule, public LaserDrawInterface
 public:
 	W3DLaserDraw(Thing *thing, const ModuleData *moduleData);
 	virtual void doDrawModule(const Matrix3D *transform);
+	virtual Real getLaserTemplateWidth() const;
 
 protected:
 	virtual ~W3DLaserDraw(void);
@@ -398,4 +399,14 @@ W3DLaserDraw::W3DLaserDraw( Thing *thing, const ModuleData* moduleData ) :
 
 	} //end segment loop
 
+}
+
+// Native C9353..C9360 is the sole LaserDrawInterface slot at secondary
+// vtable BCB9DC, installed at primary object+C by the rowed constructor.
+// The secondary receiver reaches moduleData at receiver-8; the OuterBeamWidth
+// INI field is moduleData+14. BFME1 f98983a7d supplies the name and half-width
+// semantics; native BC26F0 supplies the exact 0.5f constant.
+Real W3DLaserDraw::getLaserTemplateWidth() const
+{
+	return m_moduleData->m_outerBeamWidth * 0.5f;
 }
