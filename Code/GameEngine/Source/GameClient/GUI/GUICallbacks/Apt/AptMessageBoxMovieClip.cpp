@@ -53,6 +53,21 @@ protected:
 // object; Show passes its own this.
 class Rva0054C99AImpl : public Rva0054CFB8Target { public: void rva0054C99A(int); };
 class Rva00432AEB { public: int rva00432AEB(int); };
+class Rva0057CC15Ref { public: void invoke(int); };
+// The Apt delegates the box ctor 0x0054CC35 binds by name (retail literals
+// "_OnButtonOk".."_OnHidden", in this address order); WB names the four
+// button handlers AptMessageBoxMovieClip::Impl::OnButton*.
+class AptMessageBoxMovieClip { public: class Impl; };
+class AptMessageBoxMovieClip::Impl : public Rva0054CFB8Target {
+public:
+ void OnButtonOk(const char *);
+ void OnButtonCancel(const char *);
+ void OnButtonYes(const char *);
+ void OnButtonNo(const char *);
+ void OnShowing(const char *);
+ void OnShown(const char *);
+ void OnHiding(const char *);
+};
 extern int g_Va00E032C8;
 class Rva00222A8BTarget;
 int __cdecl Rva0054C83FAptCall(Rva00222A8BTarget *, void *, const char *, const char *, const char **, bool *);
@@ -142,4 +157,57 @@ void Rva0054CFB8Target::method(int kind, const UnicodeString &title,
  m_long28 = message.getLength() > 0x100;
  if (g_bfmeAptWindowManager && !g_bfmeAptWindowManager->m_flag312)
   rva0054CA4A();
+}
+
+// Native [54C898,54C941) seven thiscall RET4 delegates. A button press ends
+// the box (previous14 0, state18 5 = none) and passes its button index to
+// the callback1C functor; the window events pass theirs to callback20.
+void AptMessageBoxMovieClip::Impl::OnButtonOk(const char *)
+{
+ m_state18 = 5;
+ m_previous14 = 0;
+ if (m_callback1C.m_ptr)
+  ((Rva0057CC15Ref *)&m_callback1C)->invoke(0);
+}
+
+void AptMessageBoxMovieClip::Impl::OnButtonCancel(const char *)
+{
+ m_previous14 = 0;
+ m_state18 = 5;
+ if (m_callback1C.m_ptr)
+  ((Rva0057CC15Ref *)&m_callback1C)->invoke(1);
+}
+
+void AptMessageBoxMovieClip::Impl::OnButtonYes(const char *)
+{
+ m_previous14 = 0;
+ m_state18 = 5;
+ if (m_callback1C.m_ptr)
+  ((Rva0057CC15Ref *)&m_callback1C)->invoke(2);
+}
+
+void AptMessageBoxMovieClip::Impl::OnButtonNo(const char *)
+{
+ m_previous14 = 0;
+ m_state18 = 5;
+ if (m_callback1C.m_ptr)
+  ((Rva0057CC15Ref *)&m_callback1C)->invoke(3);
+}
+
+void AptMessageBoxMovieClip::Impl::OnShowing(const char *)
+{
+ if (m_callback20.m_ptr)
+  ((Rva0057CC15Ref *)&m_callback20)->invoke(0);
+}
+
+void AptMessageBoxMovieClip::Impl::OnShown(const char *)
+{
+ if (m_callback20.m_ptr)
+  ((Rva0057CC15Ref *)&m_callback20)->invoke(1);
+}
+
+void AptMessageBoxMovieClip::Impl::OnHiding(const char *)
+{
+ if (m_callback20.m_ptr)
+  ((Rva0057CC15Ref *)&m_callback20)->invoke(2);
 }
