@@ -110,3 +110,21 @@ void LivingWorldScenario::TeamVictoryCondition::QueryRegionsAndNumbers(
     if (*maxOut < requiredRegionCount)
         *maxOut = requiredRegionCount;
 }
+
+// Native 4FC8B3..4FC8D6, RET4. Scenario::ParseINI 4FD94E passes the
+// newly constructed scenario to this receiver. WB130EA40 confirms pointer
+// ownership at +1C. Retail globally deletes the previous pointer: virtual
+// destructor slot0 receives flag0, followed by operator delete even if null.
+// Both view names and replaceScenario describe the consumed role only;
+// the original owner class and method spelling remain unidentified.
+class ScenarioOwnedObjectView { public: virtual ~ScenarioOwnedObjectView(); };
+class ScenarioOwnerView {
+    unsigned char unknown[0x1C];
+    ScenarioOwnedObjectView *owned;
+public:
+    void replaceScenario(ScenarioOwnedObjectView *);
+};
+void ScenarioOwnerView::replaceScenario(ScenarioOwnedObjectView *scenario) {
+    ::delete owned;
+    owned = scenario;
+}
