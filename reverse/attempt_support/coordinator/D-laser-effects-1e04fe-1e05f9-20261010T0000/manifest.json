@@ -1,0 +1,54 @@
+{
+  "id": "D-laser-effects-1e04fe-1e05f9-20261010T0000",
+  "seat": "D",
+  "base_commit": "5b4f64952d151a092cfe5c2ac65adeb923e11659",
+  "paths": [
+    "Code/GameEngine/Source/GameClient/LaserFXNuggetEffects.cpp"
+  ],
+  "recoveries": [
+    {
+      "name": "?doFXPos@LaserFXNugget@@UBEXPBUCoord3D@@PBVMatrix3D@@M0@Z",
+      "rva": "0x001E04FE",
+      "size": 251,
+      "source": "Code/GameEngine/Source/GameClient/LaserFXNuggetEffects.cpp",
+      "notes": "BFME1 clean LaserFXNuggetEffects.cpp575ba2b semantic donor; WB AD51C0; nativeBDD7B8 slot1; target base148 fallback150; existing providers; whole251B RET16 exact",
+      "replace_rva": ""
+    },
+    {
+      "name": "?doFXObj@LaserFXNugget@@UBEXPBVObject@@0@Z",
+      "rva": "0x001E05F9",
+      "size": 283,
+      "source": "Code/GameEngine/Source/GameClient/LaserFXNuggetEffects.cpp",
+      "notes": "BFME1 clean LaserFXNuggetEffects.cpp575ba2b semantic donor; WB AD4FD0; nativeBDD7B8 slot2; nonvirtual drawable getter5508E2 existing pin; target position38 and fallback150; whole283B RET8 exact",
+      "replace_rva": ""
+    }
+  ],
+  "proof_command": [
+    [
+      "C:\\Users\\franz\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+      "tools/explain_mismatch.py",
+      "?doFXPos@LaserFXNugget@@UBEXPBUCoord3D@@PBVMatrix3D@@M0@Z",
+      "--rva",
+      "0x001E04FE",
+      "--size",
+      "251",
+      "--source",
+      "Code/GameEngine/Source/GameClient/LaserFXNuggetEffects.cpp"
+    ],
+    [
+      "C:\\Users\\franz\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+      "tools/explain_mismatch.py",
+      "?doFXObj@LaserFXNugget@@UBEXPBVObject@@0@Z",
+      "--rva",
+      "0x001E05F9",
+      "--size",
+      "283",
+      "--source",
+      "Code/GameEngine/Source/GameClient/LaserFXNuggetEffects.cpp"
+    ]
+  ],
+  "proof_log": "proof.log",
+  "claim_owner": "codex-01a12257-root",
+  "dependencies": [],
+  "temporary_ledger": false
+}
