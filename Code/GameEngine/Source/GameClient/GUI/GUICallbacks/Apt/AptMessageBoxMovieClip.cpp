@@ -17,7 +17,7 @@
 struct TargetRef00217D4C { virtual void *destroy(unsigned flags); int references; };
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
 struct TreeHintRef00217D4C {
- TreeHintRef00217D4C &operator=(const TreeHintRef00217D4C &);
+ __declspec(noinline) TreeHintRef00217D4C &operator=(const TreeHintRef00217D4C &other) {if(this!=&other){if(other.m_ptr)++other.m_ptr->references;if(m_ptr)ReleaseTreeHintRef00217D4C(m_ptr);m_ptr=other.m_ptr;}return *this;}
  TargetRef00217D4C *m_ptr;
  // ?TreeHintRef00217D4C::TreeHintRef00217D4C present-unmatched
  TreeHintRef00217D4C() : m_ptr(0) {}
@@ -275,7 +275,7 @@ void AptMessageBoxMovieClip::Impl::OnHiding(const char *)
 // box ctor called from 0x0054D286: level00, movie04, the command-map list at
 // 08, no pending transition, state18 5 (no box), empty callbacks, no
 // deadline; then binds the eight delegates as "_level%u." + movie + "_OnX".
-// OnHidden 0x0054CBB0 is pinned, not rowed.
+// OnHidden0x0054CBB0 is recovered below under its constructor-bound name.
 Rva0054CFB8Target::Rva0054CFB8Target(int level, const AsciiString &movie)
  : m_level00(level), m_movie04(movie), m_previous14(0), m_state18(5),
    m_deadline24((unsigned)-1), m_long28(false), m_29(false)
@@ -292,4 +292,40 @@ Rva0054CFB8Target::Rva0054CFB8Target(int level, const AsciiString &movie)
  m_commands08.AddCommandMapDelegate(prefix + m_movie04 + "_OnShown", DelegateDesc(impl, &Impl::OnShown));
  m_commands08.AddCommandMapDelegate(prefix + m_movie04 + "_OnHiding", DelegateDesc(impl, &Impl::OnHiding));
  m_commands08.AddCommandMapDelegate(prefix + m_movie04 + "_OnHidden", DelegateDesc(impl, &Impl::OnHidden));
+}
+
+// Native176B [54C99A,54CA4A), EH+RET4. Existing level/movie/state
+// view is independently proven by899B constructor and370B Show. Visible
+// exact43B noinline handle assignment preserves source ownership knowledge;
+// construct empty BEFORE binding its destination reference to reproduce
+// native LEA/PUSH scheduling. Input uses only its low byte, retained from
+// existing int ABI view. All named callers continue to use this sole owner.
+void Rva0054C99AImpl::rva0054C99A(int arg) {
+ if(m_state18!=5) {
+  m_state18=5;
+  {const TreeHintRef00217D4C empty;
+   TreeHintRef00217D4C&pending=m_callback1C;
+   pending=empty;}
+  m_deadline24=~0u;
+  if(m_previous14!=0 && m_previous14!=3)m_previous14=3;
+  if((unsigned char)arg) {
+   m_29=true;
+   if(m_callback20.m_ptr) {
+    ((Rva0057CC15Ref*)&m_callback20)->invoke(2);
+    ((Rva0057CC15Ref*)&m_callback20)->invoke(3);
+    m_callback20=TreeHintRef00217D4C();
+   }
+  }
+  if(g_bfmeAptWindowManager && !g_bfmeAptWindowManager->m_flag312)rva0054CA4A();
+ }
+}
+
+// Constructor binds63B native callback54CBB0 by _OnHidden; its complete
+// unused word argument is the same const-char-pointer ABI as the other seven
+// registered callbacks. Rehome the existing63B row; no new byte credit.
+void AptMessageBoxMovieClip::Impl::OnHidden(const char*unused) {
+ if(m_callback20.m_ptr) {
+  ((Rva0057CC15Ref*)&m_callback20)->invoke(3);
+  m_callback20=TreeHintRef00217D4C();
+ }
 }
