@@ -1,8 +1,6 @@
-// ?rva005EEBF6@Rva005EEA20@@QAEXPAVRva005EE9CE@@PAVObject@@M@Z
-// partial score=0.93 date=2026-10-05
 // ?rva005EEBF6@Rva005EEA20@@QAEXPAURva005EE9CE@@PAVObject@@M@Z
-// partial score=0.96 date=2026-10-04
-// cl: /O1 /MD /GX /arch:SSE
+// partial score=0.98 date=2026-10-09
+// cl: /O1 /G7 /MD /GX /arch:SSE
 // ?Rva005EE317@@YGXPAVCoord3D@@@Z @ 0x005EE317 125B
 // Random XY direction in AISPecialPowerTargetAoE.cpp (__FILE__ at 0x00878708
 // line 150-151): GetGameLogicRandomValueReal(-1.0f at 0x007BB9AC, 1.0f) twice
@@ -21,20 +19,6 @@ public:
 	float y;
 	float z;
 };
-
-float __cdecl GetGameLogicRandomValueReal(float lo, float hi, char *file, int line);
-
-void __stdcall Rva005EE317(Coord3D *out)
-{
-	Coord3D tmp;
-	tmp.x = GetGameLogicRandomValueReal(-1.0f, 1.0f, (char *)"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\SkirmishAI\\AISpecialPowers\\AISPecialPowerTargetAoE.cpp", 150);
-	tmp.y = GetGameLogicRandomValueReal(-1.0f, 1.0f, (char *)"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\SkirmishAI\\AISpecialPowers\\AISPecialPowerTargetAoE.cpp", 151);
-	tmp.z = 0.0f;
-	tmp.normalize();
-	out->x = tmp.x;
-	out->y = tmp.y;
-	out->z = tmp.z;
-}
 
 // BFME2's partition filters (the view AIStructureCreepTactic.cpp documents):
 // a vptr, the +0x04 link to the next filter, then each filter's own members.
@@ -113,45 +97,6 @@ public:
 };
 extern PartitionManager *ThePartitionManager;
 
-class Rva0035B2C3
-{
-public:
-	bool rva0035B2C3(void *source, int a, const Coord3D *pos, int b);
-};
-
-// The AoE special-power target picker (0x005EE8DD walks candidate points
-// round the target and keeps the first this accepts).
-class Rva005EE816
-{
-public:
-	bool rva005EE816(void *source, const Coord3D *pos);
-private:
-	char m_pad00[8];
-	Rva0035B2C3 *m_power;	// +0x08
-	char m_pad0C[0x1A - 0x0C];
-	bool m_1A;		// +0x1A
-};
-
-bool Rva005EE816::rva005EE816(void *source, const Coord3D *pos)
-{
-	if (m_power->rva0035B2C3(source, 0, pos, 0)) {
-		bool check = m_1A;
-		if (check) {
-			BfmeWideResult hits = ThePartitionManager->iterateObjectsInRange(pos, 150.0f, 0,
-			Rva0026119DFilter().link(&Rva0004584D(*(BfmeFixedStorage0004543D *)&Rva00045411BitSet(0, 7),
-				*(BfmeFixedStorage0004543D *)g_00DFEFA4StoragePrototype)), 1);
-			if (hits.next() != 0)
-				return false;
-		}
-		return true;
-	}
-	return false;
-}
-
-// The base filter's slot 2 is the trivial virtual retail shares across 68
-// vftable slots (0x0036CC7A); bind the declaration to that row.
-#pragma comment(linker, "/alternatename:?getPlayerMask@Rva000421C8@@UAEHXZ=?Get_File_Handle@FileClass@@UAEPAXXZ")
-
 enum Relationship
 {
 	ENEMIES,
@@ -163,8 +108,8 @@ enum Relationship
 struct Rva005EEBF6Template
 {
 	char m_pad000[0x108];
-	unsigned char m_108;	// +0x108
-	char m_pad109[0x113 - 0x109];
+	union { unsigned int m_108; unsigned char m_low108; };	// +0x108
+	char m_pad109[0x113 - 0x10C];
 	unsigned char m_113;	// +0x113
 };
 
@@ -373,10 +318,9 @@ void Rva005EEA20::rva005EEBF6(Rva005EE9CE *tally, Object *source, float radius)
 	BfmeWideResult hits = ThePartitionManager->iterateObjectsInRange(source->getPosition(), radius, 0,
 		Rva0026119DFilter().link(&Rva00261409Filter(source->getControllingPlayer(), true, 6)), 0);
 	for (Object *obj = hits.next(); obj; obj = hits.next()) {
-		Rva005EEBF6Template *tmpl = obj->m_04;
-		if (tmpl->m_108 & 0x80)
+		if (obj->m_04->m_108 & 0x80)
 			continue;
-		if (!(tmpl->m_108 & 0x08) && !(tmpl->m_113 & 0x04))
+		if (!(obj->m_04->m_low108 & 0x08) && !(obj->m_04->m_113 & 0x04))
 			continue;
 		if (source->getRelationship(obj) == ENEMIES) {
 			tally->m_08++;
