@@ -1,8 +1,10 @@
 // ??0AIGroup@@QAE@XZ
+// partial score=0.95 date=2026-10-09
+// ??0AIGroup@@QAE@XZ
 // partial score=0.95 date=2026-09-30
 // ??0AIGroup@@QAE@XZ
 // partial score=0.95 date=2026-09-30
-// cl: /O1 /EHs /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc /Ireference/shims/bfmelist /arch:SSE
+// cl: /O1 /EHs /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc /Ireference/shims/bfmelist /arch:SSE /G7 /I.
 // stlport
 //
 // ??0AIGroup@@QAE@XZ, retail 0x0036E4C7, 151 bytes.
@@ -25,34 +27,34 @@ private:
 	UnsignedInt m_nextGroupID;
 };
 
-extern AI *g_Va009FF0F8;
-extern float g_Va00BC2428;
-extern const void *const g_00C17D00[];
+extern AI *TheAI;
+
+
 
 struct BfmeE16
 {
 	float x, y, z, w;
 };
 
-class EmptyBase
-{
-public:
-	EmptyBase() {}
-	~EmptyBase();
-};
+#define BFME_SNAPSHOT_NAME_SLOT
+#include "reference/shims/moduledata/Common/Snapshot.h"
 
-class AIGroup : public EmptyBase
+class AIGroup : public Snapshot
 {
 public:
 	AIGroup();
+ virtual ~AIGroup();
+ virtual void loadPostProcess();
+ virtual const char *GetSnapshotName() const;
+ virtual void xfer(Xfer *);
 
 private:
-	const void *m_vtable;
+	
 	_STL::list<int> m_memberList;
 	float m_08;
 	bool m_0C;
 	UnsignedInt m_id;
-	int m_14;
+	void *m_14;
 	float m_18;
 	float m_1C;
 	float m_20;
@@ -63,10 +65,10 @@ private:
 };
 
 // ??0AIGroup@@QAE@XZ present-unmatched
-AIGroup::AIGroup() : EmptyBase(), m_vtable(g_00C17D00)
+AIGroup::AIGroup()
 {
 	m_14 = 0;
-	float tmp24 = g_Va00BC2428;
+	float tmp24 = 140.0f;
 	m_18 = 0.0f;
 	m_1C = 0.0f;
 	m_20 = 0.0f;
@@ -75,6 +77,6 @@ AIGroup::AIGroup() : EmptyBase(), m_vtable(g_00C17D00)
 	m_2C = 0.0f;
 	m_08 = 0.0f;
 	m_0C = false;
-	m_id = g_Va009FF0F8->getNextGroupID();
+	m_id = TheAI->getNextGroupID();
 	m_memberList.clear();
 }
