@@ -17081,3 +17081,6 @@ _isalnum,0x00629AF6,msvcr71 isalnum import stub called directly by the URL escap
 ?rva001DB0A8@UpgradeCenter@@QBEPBVUpgradeTemplate@@XZ,0x001DB0A8,Address-derived ABI only; native306505/306544 REL32 targets;4B mov eax [ecx+C] RET; UpgradeCenter head+C corroborated by findUpgrade26F26D donor/target data accesses; unrelated FX getters sharefold; original method name unproven
 ?PromptAddFriend@AptSaveLoad@@SA_NXZ,0x004354F3,WB12AD250 names static AptSaveLoad::PromptAddFriend; complete375B native4354F3..43566A returns AL bool and GetOpponentSlotData/profilemap miss prompts named AddFriendConfirmationHandler; native435CCC direct call testsAL; original name target-debug independently proven
 ?rva00517CC9@Rva00517048@@QAEXABVBuddyInviteGameInfo@@@Z,0x00517CC9,Unrowed471B RET4 real body517CC9..517EA0; HandleBuddyResponses416C69 forwards24B BuddyInviteGameInfo by const reference; ECX globalE04904 is the same receiver as rowed517048; native loads profile from argument plus0; address-derived spelling; no thunk or other owner
+?rva005A8F57@Rva005A6D47@@QAEXXZ,0x005A8F57,callee of ?rva005BB5F6@Rva005BB5F6@@QAEXXZ
+?rva005A8ABF@Rva005A6D47@@QAEXHPBD@Z,0x005A8ABF,callee of ?rva005BB5F6@Rva005BB5F6@@QAEXXZ
+?rva005BAF35@Rva005BB5F6@@QAEXABVPeerResponse@@@Z,0x005BAF35,callee of ?rva005BB5F6@Rva005BB5F6@@QAEXXZ
