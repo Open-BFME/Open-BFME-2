@@ -32,3 +32,13 @@ void Rva0040C598::rva0040C5B1(const int *src)
 unsigned Rva002257F2AndValues(unsigned first, unsigned second) {
     return first & second;
 }
+
+// Whole BF1 f98983a7d3 Common/S1BitwiseAndPrimitives.cpp supplies the bit-AND
+// expression, with FlagWordOrHelpers.cpp supplying the pointer/value shape.
+// Retail005C4B10..005C4B1B independently proves stackword4 points to a raw32
+// word ANDed in place with stackword8, then RET0. The adjacent OR11 ends at
+// this start; a fresh receiver-vptr initializer follows. Original owner,
+// declaration and signedness remain unknown; only raw bits are asserted.
+void Rva005C4B10AndInto(unsigned *destination, unsigned mask) {
+    *destination &= mask;
+}
