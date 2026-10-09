@@ -1,10 +1,13 @@
-// ?createGaussianVector@W3DShaderManager@@SAXPAXPAUBfmeGaussianParams@@@Z
-// partial score=0.97 date=2026-10-09
 // cl: /O1 /arch:SSE /DNDEBUG /MD /EHsc
 // Native000780BC..00078246 full394B; WB007D3920 createGaussianVector.
 // Semantic guide WB W3DShaderManager.cpp1529 plus retail float constants/loops.
 // Signature already pinned from verified ScreenHilightFilter/Rva007D85C0 callers.
-// Uncompiled: current pinned reference versus immutable checkout blocks compiler.
+// Continues the bank from2f243e26d work, then0bef and f989 reference inputs.
+// Keep sample.y initialization inside the positive-count branch and declare
+// the iterator outside it; a guarded do/while preserves native zero in XMM1,
+// sample.x in XMM0 and the first initialization after the branch.
+// Store the normalization temporary before zeroing sample.z. The original
+// straight for-loop and reversed stores were the final33/4-byte differences.
 // Two coefficient/amplitude pairs at params8/C and10/14; components0 and taps4.
 // Kernel contains raw12B (offset,zero,weight) samples, padded to a multiple of4.
 // Existing Gen_p12pod erase2A133B and PrereqUnitRec push_back2DF89B independently
@@ -54,13 +57,17 @@ void W3DShaderManager::createGaussianVector(void *kernel,BfmeGaussianParams *par
  GaussianKernelView *out=static_cast<GaussianKernelView *>(kernel);
  out->clear();
  GaussianSample sample;
+ int i=0;
+ if(taps>0) {
  sample.y=0.0f;
- for(int i=0;i<taps;++i) {
-  sample.x=(float)i-center-0.1f;sample.z=0.0f;
+ do {
+  sample.x=(float)i-center-0.1f;
   float norm=sample.x*sample.x/(center*center);
+  sample.z=0.0f;
   for(int j=0;j<components;++j)
    sample.z=(float)(sample.z+pair[j].amplitude*(1.0f/exp(norm*pair[j].coefficient)));
   if(sample.z>0.01f) out->append(sample);
+ } while(++i<taps);
  }
  sample.x=0.0f;sample.y=0.0f;sample.z=0.0f;
  int padding=(int)(4-out->size()%4)%4;
