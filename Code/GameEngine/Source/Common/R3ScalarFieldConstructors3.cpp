@@ -159,3 +159,26 @@ Rva002223C7Fields *Rva002223C7Fields::initialize(float value, unsigned int word)
     m_04 = word;
     return this;
 }
+
+// Whole BF1 f989 AptPalantirRva00594740.cpp's record initializer is the
+// O1/SSE2/G7 source lead, not an original target owner/constructor proof.
+// Native528B22..528B37 independently follows RET8 and precedes a new
+// pointer-loading body: rawword0=2, rawword4=0, single-precision-lane bits8
+// cleared with XORPS/MOVSS, then receiver returned in EAX with RET.
+// Field purposes, original declared types and complete owner/lifetime
+// remain unknown; donor float representation preserves the witnessed zero.
+class Rva00528B22Fields
+{
+public:
+    Rva00528B22Fields *initialize();
+    unsigned int m_00;
+    unsigned int m_04;
+    float m_08;
+};
+Rva00528B22Fields *Rva00528B22Fields::initialize()
+{
+    m_00 = 2;
+    m_04 = 0;
+    m_08 = 0.0f;
+    return this;
+}
