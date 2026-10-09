@@ -1,16 +1,10 @@
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
 // Native28D4E0..28D611305B: return the drawable matrix's translation,
 // with terrain-layer height/normal handling and contained-object delegation.
-// Caller275C82/275CC0 and target vslot190 prove a Coord3D value return plus
-// one optional normal pointer. Layout, flags and ABI are target witnesses;
+// BF1 DrawableUpdateDrawable plus native275C79..275C82 prove two explicit
+// coordinate pointers and returned output address; normal is optional. Layout, flags and ABI are target witnesses;
 // the original public method spelling is unresolved.
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
-// Twelve-byte target return view, sharing the canonical coordinates;
-// native returns copy each float. No original return-type name is asserted.
-struct Rva0028D4E0Value:Coord3D {
- Rva0028D4E0Value(){}
- Rva0028D4E0Value(const Rva0028D4E0Value &v){x=v.x;y=v.y;z=v.z;}
-};
 static __forceinline bool visualGroundBit(unsigned v){return(v>>6)&1;}
 class Matrix3D;
 struct VisualMatrixTranslation {float values[3][4];};
@@ -50,31 +44,31 @@ public:
  V(90) V(91) V(92) V(93) V(94) V(95) V(96) V(97) V(98) V(99)
 
 #undef V
- virtual Rva0028D4E0Value rva0028D4E0(Coord3D *normal);
+ virtual const Coord3D *rva0028D4E0(Coord3D *output,Coord3D *normal);
 private:
  char pad04[0x84-4];Drawable *m_drawable84;
  char pad88[0x94-0x88];unsigned m_status94;
  char pad98[0x250-0x98];VisualContain *m_contain250;
  char pad254[0x40c-0x254];PathfindLayerEnum m_layer40C;
 };
-Rva0028D4E0Value Object::rva0028D4E0(Coord3D *normal) {
+const Coord3D *Object::rva0028D4E0(Coord3D *output,Coord3D *normal) {
  VisualContain *contain=m_contain250;
  if(contain) {
   Object *other=contain->resolveObject();
-  if(other)return other->rva0028D4E0(normal);
+  if(other){other->rva0028D4E0(output,normal);return output;}
  }
  if(m_drawable84) {
   const VisualMatrixTranslation *matrix=reinterpret_cast<const VisualMatrixTranslation *>(m_drawable84->getTransformMatrix());
-  Rva0028D4E0Value original;
+  Coord3D original;
   original.x=matrix->values[0][3];original.y=matrix->values[1][3];original.z=matrix->values[2][3];
-  Rva0028D4E0Value position;position.x=original.x;position.y=original.y;position.z=original.z;
+  Coord3D position;position.x=original.x;position.y=original.y;position.z=original.z;
   if(visualGroundBit(m_status94)) {
    PathfindLayerEnum layer=TheTerrainLogic->getLayerForDestination(this,&position);
    position.z=TheTerrainLogic->getLayerHeight(position.x,position.y,layer,normal,true);
   }else if(normal)TheTerrainLogic->getLayerHeight(original.x,original.y,m_layer40C,normal,true);
-  return position;
+  output->x=position.x;output->y=position.y;output->z=position.z;return output;
  }
  if(normal) {normal->x=0.0f;normal->y=0.0f;normal->z=1.0f;}
- Rva0028D4E0Value position;position.x=position.y=position.z=0.0f;
- return position;
+ Coord3D position;position.x=position.y=position.z=0.0f;
+ output->x=position.x;output->y=position.y;output->z=position.z;return output;
 }

@@ -102,54 +102,7 @@ void TintEnvelope::rva002719A7(float first, float second)
 	m_40 = second;
 }
 
-typedef float Real;
-typedef unsigned int UnsignedInt;
-#define MAX(a,b) (((a) > (b)) ? (a) : (b))
-const Real FADE_RATE_EPSILON = 0.001f;
-
-void TintEnvelope::setDecayFrames( UnsignedInt frames )
-{
-	TintEnvelope *self = this;
-
-	Real recipFrames = ( -1.0f ) / (Real)MAX(1,frames);
-	self->m_decayRate.Set( self->m_peakColor );
-	Vector3 rateScale; rateScale.Set(recipFrames, recipFrames, recipFrames);
-	self->m_decayRate.Scale(rateScale);
-}
-
-void TintEnvelope::play(const RGBColor *peak, UnsignedInt atackFrames, UnsignedInt decayFrames, UnsignedInt sustainAtPeak )    
-{
-	TintEnvelope *self = this;
-
-	Vector3 peakColor; peakColor.Set(peak->red, peak->green, peak->blue);
-	self->m_peakColor = peakColor;
-
-	setAttackFrames( atackFrames );
-	setDecayFrames( decayFrames );
-
-	self->m_envState = ENVELOPE_STATE_ATTACK;
-	self->m_sustainCounter = sustainAtPeak;
-	self->m_affect = true;
-
-	Vector3 delta;
-	Vector3::Subtract(self->m_currentColor, self->m_peakColor, &delta);
-
-	if ( delta.Length() <= FADE_RATE_EPSILON ) // we are practically already at this color
-		self->m_envState = ENVELOPE_STATE_SUSTAIN;
-
-}
-
-void TintEnvelope::setAttackFrames(UnsignedInt frames) 
-{
-	TintEnvelope *self = this;
-
-	Real recipFrames = 1.0f / (Real)MAX(1,frames);
-	self->m_attackRate.Set( self->m_currentColor );
-	Vector3::Subtract( self->m_peakColor, self->m_attackRate, &self->m_attackRate);
-	Vector3 rateScale; rateScale.Set(recipFrames, recipFrames, recipFrames);
-	self->m_attackRate.Scale(rateScale);
-}
-
+const float FADE_RATE_EPSILON=0.001f;
 void TintEnvelope::update()
 {
 	switch (m_envState)
