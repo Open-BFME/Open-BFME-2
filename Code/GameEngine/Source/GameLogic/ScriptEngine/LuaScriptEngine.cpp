@@ -361,7 +361,8 @@ template <class T> struct Rva00337AA8Buf
 	}
 };
 // Retail C0E390 has the fourteen canonical subsystem slots, followed by
-// an empty hook and the name getter at337AA2. The constructor3379FD and
+// an empty hook, the name getter at337AA2 and the Version1 Xfer
+// callback at306A9B (same RET4 ABI as the owned free DoXfer worker). The constructor3379FD and
 // WB LuaScriptEngine dtor support identity; the address-derived type retains
 // compatibility with the already-owned deleting dtor337C70.
 enum ParticleSystemID { ParticleSystemIDUnknown = 0 };
@@ -382,7 +383,7 @@ public:
  virtual void reset();
  virtual void update() {}
  virtual void slot14() {}
- virtual const char *slot15();
+ virtual const char *slot15(); virtual void rva00306A9B(Xfer *);
 private:
 	void *m_lua0C;
 	void *m_lua10;
