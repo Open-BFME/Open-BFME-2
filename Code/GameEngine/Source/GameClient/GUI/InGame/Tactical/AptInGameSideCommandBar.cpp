@@ -40,10 +40,12 @@ public:
   void OnButtonFrameUnloaded(const char *params);
   void HideButtons(int);
   void OnFadeInComplete(const char *params);
+  void OnFadeOutComplete(const char *params);
  private:
   char m_prefix[0x14];
   int m_state;
-  char m_middle[0xc];
+  char m_middle[8];
+  unsigned m_displayedObject; // +20 as measured in Impl::Update
   Rva00575674 m_buttons[15];
   int m_count;
  };
@@ -95,4 +97,16 @@ void AptInGameSideCommandBar::Impl::OnButtonFrameUnloaded(const char *params)
 void AptInGameSideCommandBar::Impl::OnFadeInComplete(const char *)
 {
  if (m_state == 2) m_state = 3;
+}
+
+// Constructor 005288C4 binds 00528250 to
+// OnAptInGameSideCommandBarFadeOutComplete; all 20 bytes end at 00528264.
+// With state4, forget the displayed object at +20 and return to state1.
+// As above, the method spelling describes the callback binding.
+void AptInGameSideCommandBar::Impl::OnFadeOutComplete(const char *)
+{
+ if (m_state == 4) {
+  m_displayedObject = 0;
+  m_state = 1;
+ }
 }
