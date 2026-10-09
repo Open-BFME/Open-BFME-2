@@ -1,7 +1,8 @@
-// ?Rva0012CB67@@YA_NPAU_iobuf@@_N@Z
-// partial score=0.98 date=2026-10-09
-// stlport
 // cl: /O1 /Oy- /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
+// stlport
+// ?Rva0012CB67@@YA_NPAU_iobuf@@_N@Z @0x0012CB67 1081B
+// Codegen: the FXSH case must precede the TEXT case in source; MSVC 7.1 then
+// merges the shared pop-ecx tails into the earlier (texture) copy as retail does.
 #undef _CRTIMP
 #define _CRTIMP __declspec(dllimport)
 #include <stdio.h>
@@ -68,9 +69,9 @@ bool Rva0012CB67(_iobuf *file,bool skipTextures)
     switch(header.assetKind){
     case 0x414E494D: Register_Aggregate_Prototype(assetName,asset.firstOffset,nameLen);break;
     case 0x41474752: Rva00180C6FCreate(assetName,asset.firstOffset,nameLen);break;
+    case 0x46585348: Rva001516C1RegisterPrototype(assetName);break;
     case 0x544558: if(skipTextures)break;TextureAsset::Register(assetName);break;
     case 0x424F58: Rva001809EACreate(assetName,asset.firstOffset,nameLen);break;
-    case 0x46585348: Rva001516C1RegisterPrototype(assetName);break;
     case 0x50415254: Rva001806D8Create(assetName,asset.firstOffset,nameLen);break;
     case 0x4D455348: Rva001804CBCreate(assetName,asset.firstOffset,nameLen);break;
     case 0x484C4F44: Rva001800B2Create(assetName,asset.firstOffset,nameLen);break;
@@ -110,3 +111,4 @@ bool Rva0012CB67(_iobuf *file,bool skipTextures)
  }
  return counts.groupCount==0 && counts.parentCount==0;
 }
+
