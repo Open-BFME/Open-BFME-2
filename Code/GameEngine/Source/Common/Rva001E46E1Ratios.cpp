@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /Oi-
+// cl: /O1 /G7 /arch:SSE /ICode/Libraries/Include /DNDEBUG /MD /Oi-
 // Float getters of one object-module class whose shared worker is the
 // unrowed 356-byte 0x001E46E1 (pinned by address from these call sites; it
 // reads the Object's +0x254 and +0x258 and calls the rowed check at
@@ -14,6 +14,7 @@
 //               clamp it to [0, worker]
 // Retail compares with fcompi, which MSVC 7.1 emits only under /arch:SSE.
 // Class and member names are unknown, hence address-derived.
+#include "Lib/Coord3D.h"
 class Object;
 class GameLogic;
 extern GameLogic *TheGameLogic;
@@ -52,6 +53,7 @@ class Rva001E46E1
 {
 public:
 	float rva001E46E1(Object *obj);
+    bool rva001E5F1D(Object*,const Coord3D*,float*);
 	void rva001E546B(Object *obj);
 	float rva001E3F4D(Object *obj,int condition);
 	float rva001E4845(Object *obj);
@@ -210,6 +212,9 @@ class Object : public Thing
 {
 public:
 	float rva0028B842() const;
+    int rva0028B511() const;
+    void rva001E431E(const int*);
+    void rva001E42F2(const int*);
 	bool rva0028C15E(int attr, float *val, int a, int b);
 	void rva0028AE6D();
 	__forceinline int getID()const {return m_id74;}
@@ -256,7 +261,7 @@ public:
 	virtual void s16();
 	virtual void s17();
 	virtual void s18();
-	virtual bool s19(float x, float y, int a, int b, unsigned char *out);
+	virtual bool s19(float x, float y, float *a, float *b, unsigned char *out);
 };
 class Rva001E468F
 {
@@ -414,4 +419,45 @@ void Rva001E46E1::rva001E546B(Object *obj)
     float angle=obj->m_44+m_A4;
     float normalized=normalizeAngle(angle);
     obj->setOrientation(normalized);
+}
+
+class Rva001E4912 { public:
+    Rva001E4912 *rva001E4912(int,unsigned,unsigned);
+    unsigned m_bits[19];
+};
+class AI;
+extern AI *TheAI;
+struct Rva001E5F1DData { char pad[0x98]; float m_98; };
+struct Rva001E5F1DAI { char pad[0x18]; const Rva001E5F1DData *m_data; };
+
+// Native callers 0x001E7F5C/0x001E7FA5 set ECX to the locomotor and
+// pass an Object, copied three-float position, and float output. RET12 proves
+// the stack shape; this is unused in the body. Terrain slot4C supplies the
+// height pair; TheAI data+98 is only a target-observed threshold, not a
+// recovered field name. Bits239/240 are Object word7 at +128.
+// Scope both 4C-byte masks separately so MSVC reuses their stack storage.
+bool Rva001E46E1::rva001E5F1D(Object *obj,const Coord3D *pos,float *ground)
+{
+    float height=0.0f;
+    if(obj->rva0028B511()==1 && TheTerrainLogic->s19(pos->x,pos->y,&height,ground,0)) {
+        const float &limit=((Rva001E5F1DAI*)TheAI)->m_data->m_98;
+        float depth=height-*ground;
+        if(depth>limit*0.25f) {
+            if(depth>limit) {
+                Rva001E4912 flags;
+                obj->rva001E431E((const int*)flags.rva001E4912(0,240,239));
+            } else {
+                if(obj->m_flags10C.test(240) || !obj->m_flags10C.test(239)) {
+                    obj->m_flags10C.reset(240);
+                    obj->m_flags10C.set(239);
+                    obj->rva0028AE6D();
+                }
+            }
+            return true;
+        }
+    }
+    { Rva001E4912 flags;
+    obj->rva001E42F2((const int*)flags.rva001E4912(0,240,239));
+    }
+    return false;
 }
