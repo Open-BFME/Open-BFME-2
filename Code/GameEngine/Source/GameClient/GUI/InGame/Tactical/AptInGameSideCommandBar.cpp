@@ -1,18 +1,69 @@
-// cl: /O1 /MD
-// Impl::Update is recovered in AptInGameSideCommandBarUpdate.cpp.
-class AptInGameSideCommandBar
-{
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
+// WorldBuilder 013C8490 names Impl::OnButtonFrameLoaded; retail
+// 005283F8..00528545 parses index/name and binds the movie in its slot.
+// Native constructor 005288C4 initializes fifteen 12-byte slots at +24;
+// this callback retains retail's inclusive index check (0 through 15).
+// The callback reads state +14, constructs the existing sixteen-byte
+// Rva005C31FB level/name view, and assigns through rowed 00575674.
+// No original identity is claimed for the address-derived movie class.
+#include "ascii_string.h"
+#include <stdlib.h>
+bool __cdecl Rva004128F0GetParam(const char *, const char *, AsciiString &);
+namespace AptUtils {
+const char *__cdecl SkipLevelN(const char *);
+int __cdecl LevelIndexFromTarget(const char *);
+}
+class Object;
+class Rva00575674 {
 public:
-    class Impl { public: void Update(); };
-    void Update();
-private:
-    Impl *impl;
+ void rva00575674(Object *);
+ void *m_button;
+ void *m_updater;
+ int m_key;
 };
+class Rva005C31FB {
+public:
+ virtual ~Rva005C31FB();
+ Rva005C31FB(int, const AsciiString &);
+private:
+ int m_level;
+ AsciiString m_name;
+ bool m_flag0C;
+};
+class AptInGameSideCommandBar {
+public:
+ class Impl {
+ public:
+  void Update();
+  void OnButtonFrameLoaded(const char *params);
+ private:
+  char m_prefix[0x14];
+  int m_state;
+  char m_middle[0xc];
+  Rva00575674 m_buttons[15];
+  int m_count;
+ };
+ void Update();
+private:
+ Impl *impl;
+};
+void AptInGameSideCommandBar::Impl::OnButtonFrameLoaded(const char *params)
+{
+ if (!m_state) return;
+ AsciiString indexText;
+ if (!Rva004128F0GetParam(params, "index", indexText)) return;
+ int index = atoi(indexText.str());
+ if (index < 0 || index > 15) return;
+ Rva00575674 *slot = &m_buttons[index];
+ if (slot->m_button) return;
+ AsciiString name;
+ if (!Rva004128F0GetParam(params, "name", name)) return;
+ slot->rva00575674((Object *)new Rva005C31FB(
+  AptUtils::LevelIndexFromTarget(name.str()),
+  AsciiString(AptUtils::SkipLevelN(name.str()))));
+}
 
 // Native 005288BD..005288C4 delegates through the owner pointer at +0.
 // The public Update identity follows the proven Impl::Update tail call;
 // WorldBuilder does not retain this seven-byte wrapper as a named body.
-void AptInGameSideCommandBar::Update()
-{
-    impl->Update();
-}
+void AptInGameSideCommandBar::Update() { impl->Update(); }
