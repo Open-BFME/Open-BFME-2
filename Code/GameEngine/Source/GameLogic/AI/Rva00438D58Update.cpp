@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /DNDEBUG /MD /EHsc
+// cl: /O1 /G7 /ICode/GameEngine/Source/Common /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /DNDEBUG /MD /EHsc
 //
 // ?Rva00438D58Update@@YGXPAVObject@@@Z, retail 0x00438D58, 197 bytes.
 // Free __stdcall taking Object: Drawable via Thing::getDrawable, gates via
@@ -46,6 +46,7 @@ class Drawable
 {
 public:
 	Rva002390CB rva00374389();
+	Rva002390CB rva003743A2();
 };
 
 class Rva002D9531
@@ -95,4 +96,36 @@ void __stdcall Rva00438D58Update(Object *obj)
 noAudio:
 	obj->setStatus((ObjectStatusTypes)0x5f, zero);
 	obj->setStatus((ObjectStatusTypes)0x60, zero);
+}
+
+// Native438C6C..438D58/236B. Existing sibling supplies the event lifetime
+// structure; native RET16 establishes four stdcall arguments. Deadline at
+// payload+8 and statuses5F/60 are target facts; function identity stays neutral.
+#include "GameLogicObjectLookupView.h"
+extern GameLogic *TheGameLogic;
+extern void __stdcall Rva004381C4Iterate(const Object *);
+struct UpdateFrameView { char pad[8]; unsigned frame; };
+void __stdcall Rva00438C6CUpdate(Object *obj, void *payload, int duration, bool flag)
+{
+ Rva004381C4Iterate(obj);
+ UpdateFrameView *data=(UpdateFrameView*)payload;
+ unsigned deadline=TheGameLogic->getFrame()+duration;
+ if (deadline>data->frame) data->frame=deadline;
+ bool zero=false;
+ Drawable *draw=obj->getDrawable();
+ if(draw==(Drawable*)(int)zero)goto noSound;
+ if((unsigned char)obj->rva002933CD()!=(unsigned char)zero)goto noSound;
+ {
+  Rva002390CB tmp=draw->rva003743A2();
+  if(tmp.m_04.referent!=(OpaqueRefCounted*)(int)zero)
+  {
+   BfmeAudioEventPrefix136 evt(tmp.m_04,zero);
+   setObjectID(evt,obj->getID());
+   TheAudio->addAudioEvent(&evt);
+  }
+ }
+noSound:
+ obj->setStatus((ObjectStatusTypes)0x60,zero);
+ obj->setStatus((ObjectStatusTypes)0x5f,zero);
+ if (flag) obj->setStatus((ObjectStatusTypes)0x5f,true); else obj->setStatus((ObjectStatusTypes)0x60,true);
 }
