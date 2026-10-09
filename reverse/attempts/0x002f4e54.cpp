@@ -1,19 +1,6 @@
 // ?CheckChangeLayers@Pathfinder@@QAEXPAVPathfindCell@@PAVObject@@@Z
-// partial score=0.9 date=2026-10-08
-// Banked near match only: Pathfinder::CheckChangeLayers, game.dat 0x002F4E54..0x002F5022.
-// Name and two-pointer thiscall ABI: WB 0x00D4DD50, Pathfinder/pathfinder.cpp:7056.
-// Reference semantic lead: BFME1 ba7ddda7e8f261163972ddbe23c7e7a12ac5b84f,
-// game/GameEngine/Source/GameLogic/AI/AIPathfind.cpp checkChangeLayers:5359.
-// The selected donor method is clean C++; its TU also contains unrelated historical dumps.
-// BFME2 adds the waypoint-link branch; its layout, helper calls, costs and branches
-// are established independently by native bytes and the WB body.
-// This snapshot retains the existing Pathfinder TU for reproducible compilation context.
-// Emits 462 bytes but swaps EBX/EDI for parent and coordinate; the prolog and
-// coordinate stores are scheduled differently. Every call-site offset agrees.
-// Aggregate-coordinate-copy variant emits 464 bytes with native register choices,
-// but adds mov ebx,eax after the coordinate stores. Neither variant is a match.
-// No game source or ledger row was changed. Existing TU asm below is unrelated.
-// cl: /ICode/Libraries/Include /O1 /DNDEBUG /MD /arch:SSE /G7 /EHsc /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// partial score=0.9382 date=2026-10-09
+// cl: /ICode/Libraries/Include /O1 /DNDEBUG /MD /arch:SSE /G7 /EHsc /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc
 // stlport
 // wb-lead 2.000 callgraph: Pathfinder::SetBridgeStateRepaired at 0x002E7205.
 // Identity evidence: the GeneralsMD AIPathfind.cpp implementation
@@ -55,14 +42,36 @@ public:
 	char m_pad00[0x5c];
 	Int m_playerType;		// +0x5C (1: computer)
 };
+// Relationship order is established by the rowed Object::getRelationship.
+class AIUpdateInterface;
+struct PathfinderTemplateView {
+    char pad[0x64];
+    char *nameBuffer;
+    char pad68[0x108-0x68];
+    unsigned char kinds[24];
+    __forceinline bool hasKind(int bit) const { return (kinds[bit/8] & (1<<(bit%8)))!=0; }
+    __forceinline const char *name() const { return nameBuffer ? nameBuffer+8 : ""; }
+};
+enum Relationship { ENEMIES=0, NEUTRAL=1, ALLIES=2 };
 class Object
 {
 public:
 	Player *getControllingPlayer() const;
-	char m_pad00[0x44];
+	Relationship getRelationship(const Object *) const;
+	bool IsAtGoalPosition() const;
+	bool rva0028AFBB() const;
+	float GetGoalAngle() const;
+    __forceinline int getID() const { return *(const int *)((const char *)this+0x74); }
+	AIUpdateInterface *getAI() const { return reinterpret_cast<AIUpdateInterface *>(m_258); }
+	void *m_vtable;
+	PathfinderTemplateView *m_template;
+	char m_pad08[0x38-8];
+	float position[3];
 	float m_orientation;				// +0x44
 	char m_pad48[0x258 - 0x48];
 	char *m_258;						// +0x258 (WorldBuilder +0x260: CanApproachToTarget's gate)
+	char m_pad25C[0x274-0x25C];
+	Object *container;
 };
 #include "Lib/Coord3D.h"
 class Thing
@@ -90,6 +99,8 @@ private:
 	char m_pad[0x28];
 };
 
+struct PathfinderCostCellInfo { Int x,y; };
+void ji_00629952();
 class PathfindCell
 {
 public:
@@ -104,6 +115,8 @@ public:
 
 	void rva0052DAE9(Bool open);
 	void SetParentCell(int *);
+	Int getXIndex() const { return m_pathInfo->x; }
+	Int getYIndex() const { return m_pathInfo->y; }
 	// 0x0052DD75 (unrowed): an angle for the cell from a facing, a count and
 	// a weight (unnamed).
 	float rva0052DD75(float facing, Int count, float weight);
@@ -111,7 +124,8 @@ public:
 	Int getLayer() const { return (m_info & 0x3f0) >> 4; }
 
 private:
-	char m_pad00[0xc];
+	PathfinderCostCellInfo *m_pathInfo;
+	char m_pad04[8];
 	unsigned int m_info;			// +0x0C
 };
 
@@ -179,9 +193,22 @@ private:
 
 struct Rva002E7B29Info;
 
+template<int N> class PathfinderNativeSlots : public PathfinderNativeSlots<N-1> { public: virtual void unusedSlot(PathfinderNativeSlots<N> *); };
+template<> class PathfinderNativeSlots<0> {};
+class TerrainLogicCheckDestination : public PathfinderNativeSlots<50> { public: virtual bool slotC8(const Coord3D *); };
+class PathfinderContain28 : public PathfinderNativeSlots<28> { public: virtual int slot70(); };
+class PathfinderContain31 : public PathfinderNativeSlots<31> { public: virtual void *slot7C(); };
+class PathfinderContain69 : public PathfinderNativeSlots<69> { public: virtual unsigned int slot114(int); };
 class TerrainLogic
 {
 public:
+	virtual void slot00();
+	virtual void slot04();
+	virtual void slot08();
+	virtual void slot0C();
+	virtual void slot10();
+	virtual void slot14();
+	virtual float getGroundHeight(float x, float y, Coord3D *normal);
 	PathfindLayerEnum getLayerForDestination(Object *obj, const Coord3D *pos);
 };
 extern TerrainLogic *TheTerrainLogic;
@@ -337,8 +364,7 @@ public:
 struct Rva002F35AFHop
 {
 	Int m_zone;
-	Int m_x;
-	Int m_y;
+	PathfinderCostCellInfo m_position;
 };
 // The 0x14-byte hierarchical path (rowed constructor 0x005348AD); 0x00534557
 // adds a cell and 0x00534AAE finishes it (WorldBuilder: computeOrderMap).
@@ -362,6 +388,7 @@ class PathfindLayer
 {
 public:
 	bool setDestroyed(bool destroyed);
+    __declspec(noinline) void rva000B3FD0();
 private:
 	char m_pad[0x40];
 };
@@ -373,6 +400,79 @@ public:
 	void rva005314C6(Int x, Int y, unsigned char flag);
 };
 
+
+struct Rva002EBC7FPair { int x,y; };
+void *rva002EBC7F(void *,void *,Rva002EBC7FPair *,int);
+#include <math.h>
+class Rva001E46E1 { public: float rva001E46E1(Object *); };
+class AIUpdateInterface {
+public:
+    bool isAircraftThatAdjustsDestination() const;
+    int rva0026417F(bool);
+    char gap[0x1f0];
+    Rva001E46E1 *locomotor;
+};
+// Native 0x002EC0A2 reads Object nodes at cell-info +0x14, +0x20 and +0x24.
+// The list-role labels below describe the three observed conflict passes;
+// their original member spellings are not established. Nodes link at +0 and
+// carry Object* at +8; native Object position/AI/container are +0x38/+0x258/+0x274.
+struct PathCollisionNode { PathCollisionNode *next; void *word4; Object *object; };
+struct PathCollisionInfo {
+    int x,y;
+    char gap08[0x14-8];
+    PathCollisionNode *occupants;
+    char gap18[8];
+    PathCollisionNode *goals;
+    PathCollisionNode *reservations;
+};
+struct PathCollisionCell { PathCollisionInfo *info; };
+// Native bridge list links at +4; height and containment use existing
+// independently admitted Bridge providers from the terrain-logic family.
+class Bridge {
+public:
+    bool isPointOnBridge(const Coord3D *pos);
+    float getBridgeHeight(const Coord3D *pos, Coord3D *normal);
+    void *m_00;
+    Bridge *m_next;
+};
+struct Rva002ED236Pos {
+    float x, y, z;
+    Rva002ED236Pos(const Coord3D &c) { x = c.x; y = c.y; z = c.z; }
+    ~Rva002ED236Pos() {}
+};
+int Rva002E6E8AGet(int layer);
+class Rva002E7482 { public: float rva002E7482(int layer); };
+
+#include "ascii_string.h"
+struct GeometryShape {
+    int type; float height,major,minor;
+    float offsetX,offsetY,offsetZ;
+    AsciiString name;
+    bool enabled,opaque21;
+    __forceinline GeometryShape() : type(0),height(1),major(1),minor(1),offsetX(0),offsetY(0),offsetZ(0),enabled(true),opaque21(true) {}
+};
+class GeometryInfo { public: void rva006BD9C0(GeometryShape &) const; };
+struct ICoord2DBase { int x,y; };
+class Rva002E9D09 { public: int rva002E9D09(Object *,int,int); };
+class Rva002E7C99 {
+public:
+    void *rva002E7C99(int,int,int,unsigned char,int,unsigned char,int);
+    char fields[28];
+};
+class Rva0006E009DwordField { public: int get() const; };
+class Rva0052DB4D { public: bool rva0052DB4D(int); };
+void rva002E79A8(int,unsigned char,int,int,int);
+// Native 0x002F01B6 addresses this 12-byte floating scratch first. Later
+// 0x002F0369 stores integer position at scratch+4 and diameter at scratch+12.
+// The two phases do not overlap; this local union preserves that 20-byte reuse.
+union PathfinderCheckCoordinates {
+    Coord3D point;
+    struct IntegerLayout { int reserved; ICoord2DBase position,size; } cells;
+};
+struct PathfinderLogFile;
+extern "C" int __cdecl fprintf(PathfinderLogFile *,const char *,...);
+extern unsigned char g_00E03745;
+extern void *g_00DFEFF0;
 
 struct In002E6BA1 { int x,y; };
 struct ICoord2D { int x,y; };
@@ -407,9 +507,18 @@ struct PathChangeCellView {
     int word8;
     unsigned int flags;
 };
+
 class Pathfinder
 {
 public:
+	void CheckChangeLayers(PathfindCell *,Object *);
+	Int rva002F0A72(PathfindCell *,PathfindCell *);
+	float GetWallHeight(PathfindLayerEnum layer, const Coord3D *pos, Coord3D *normal);
+	void *rva001E3647Pos(int layer, const Coord3D *pos);
+	bool IsPointOnRamp(const Coord3D *pos);
+	PathfindLayerEnum rva002ED236(Object *obj, Rva002ED236Pos pos);
+	Bool CheckDestination(Object *,Int,Int,PathfindLayerEnum,Int,Bool,Int *,Bool);
+    Int rva002EED80(const ICoord2DBase *,const ICoord2DBase *,float,int,Rva002E9D09 *);
 	void SetBridgeStateRepaired(PathfindLayerEnum layer, Bool repaired);
 	void ForceMapRecalculation();
 	void Rva0052F2EC();
@@ -424,8 +533,8 @@ public:
 	Bool IsGroundPathPassable(const Coord3D *startWorld,
 		PathfindLayerEnum layer, const Coord3D *endWorld, Int pathDiameter);
 	void AddToOpenList(PathfindCell *cell);
-	void CheckChangeLayers(PathfindCell *parent,Object *object);
-	void *rva001E3647Pos(int,const Coord3D *);
+	int CalcExtraCosts(Object *,PathfindCell *,Rva002EBC7FPair *,int,int,bool);
+	int CalcCollisionFreeExtraCosts(Object *,PathfindCell *,Rva002EBC7FPair *,PathfindLayerEnum,int,int,bool);
 	PathfindCell *getCell(PathfindLayerEnum layer, Int x, Int y);	// 0x002E6D62
 	Bool IsValidMovementTerrain(PathfindLayerEnum layer, const Locomotor *locomotor, const Coord3D *pos);
 	Int AdjustGroundPathPosition(const Coord3D &source, Coord3D &destination);
@@ -456,12 +565,17 @@ protected:
 private:
 	char m_pad000[0x10];
 	int m_unknown10;
-	char m_pad014[0x4c];
+	char m_pad014[0x10];
+    Int m_extentLowX,m_extentLowY,m_extentHighX,m_extentHighY;
+    char m_pad034[0x5c-0x34];
+	Bridge *m_bridges;
 	PathfindLayer m_layers[16];
 	PathfindZoneManager m_zoneManager;
 	char m_pad461[0x1BEB6 - 0x461];
 	Bool m_1BEB6;		// +0x1BEB6: paths get a facing hint from the goal cell
-	char m_pad1BEB7[0x1C1CC - 0x1BEB7];
+	char m_pad1BEB7[5];
+	float m_wallLayerHeights[48];
+	char m_pad1BF7C[0x1C1CC - 0x1BF7C];
 	_STL::vector<Rva002F35AFHop> m_1C1CC;	// +0x1C1CC
 };
 
@@ -713,8 +827,8 @@ Rva005348AD *Pathfinder::MakeHierarchicalPathPassable(void *, Rva002E6C79 *path,
 		{
 			Rva002F35AFHop hop;
 			hop.m_zone = (cell ? cell->m_0C : 0)->m_04;
-			hop.m_x = node->next()->m_00->x;
-			hop.m_y = node->next()->m_00->y;
+			hop.m_position.x = node->next()->m_00->x;
+			hop.m_position.y = node->next()->m_00->y;
 			m_1C1CC.push_back(hop);
 		}
 	}
@@ -783,15 +897,352 @@ Bool Pathfinder::CanApproachToTarget(Object *obj, const Coord3D *targetPos,
 	return false;
 }
 
+// Retail 0x002EC0A2..0x002EC3CE (812 bytes), exact /O1 /G7 /arch:SSE.
+// Identity: WB 0x00D32F30, Pathfinder/pathfinder.cpp assertions 772..851;
+// its name, three conflict passes, arrival-time comparison and seven-argument
+// thiscall agree with native. The named BFME1 and GeneralsMD AIPathfind source
+// has no corresponding method; this is reconstruction from native and WB.
+// Layouts and helper bindings above are proved by native loads/call sites,
+// independently of WB's debug-only assertions and shifted Object offsets.
+// Standard math.h supplies sqrt's compiler declaration; a bare extern makes
+// the two x87 result stores interleave with stack cleanup instead of retail.
+int Pathfinder::CalcCollisionFreeExtraCosts(Object *object,PathfindCell *parent,Rva002EBC7FPair *destination,PathfindLayerEnum layer,int lower,int upper,bool ignoreReservations)
+{
+    Rva002EBC7FPair oldMin,oldMax;
+    if (parent) {
+        PathCollisionInfo *info=reinterpret_cast<PathCollisionCell *>(parent)->info;
+        oldMin.x=info->x-lower; oldMin.y=info->y-lower;
+        oldMax.x=info->x+upper; oldMax.y=info->y+upper;
+    }
+    Rva002EBC7FPair minimum,maximum;
+    minimum.x=destination->x-lower; minimum.y=destination->y-lower;
+    maximum.x=destination->x+upper; maximum.y=destination->y+upper;
+    float ourArrival=-1.0f;
+    int cost=0;
+    for (int x=minimum.x;x<maximum.x;++x) {
+        for (int y=minimum.y;y<maximum.y;++y) {
+            if (parent && x>=oldMin.x && x<oldMax.x && y>=oldMin.y && y<oldMax.y) continue;
+            PathCollisionCell *cell=reinterpret_cast<PathCollisionCell *>(getCell(layer,x,y));
+            if (!cell || !cell->info) continue;
+            for (PathCollisionNode *node=cell->info->occupants;node;node=node->next) {
+                Object *other=node->object;
+                if (other==object || other->container==object) continue;
+                bool enemies=object->getRelationship(other)==ENEMIES;
+                if (!object->getAI() || !other->getAI()) continue;
+                if (static_cast<unsigned>(object->getAI()->rva0026417F(enemies))>static_cast<unsigned>(other->getAI()->rva0026417F(enemies))) continue;
+                if (other->IsAtGoalPosition()) return -1;
+                if (object->getAI()->locomotor && other->getAI()->locomotor) {
+                    Coord3D target;
+                    rva002EBC7F(&target,object,destination,1);
+                    if (ourArrival<0.0f) {
+                        float dx=object->position[0]-target.x;
+                        float dy=object->position[1]-target.y;
+                        Rva001E46E1 *locomotor=object->getAI()->locomotor;
+                        float distance=static_cast<float>(sqrt(dy*dy+dx*dx));
+                        ourArrival=distance/locomotor->rva001E46E1(object);
+                    }
+                    float dx=other->position[0]-target.x;
+                    float dy=other->position[1]-target.y;
+                    Rva001E46E1 *locomotor=other->getAI()->locomotor;
+                    float distance=static_cast<float>(sqrt(dy*dy+dx*dx));
+                    float otherArrival=distance/locomotor->rva001E46E1(other);
+                    if (otherArrival<ourArrival) cost+=4;
+                } else cost+=8;
+            }
+            for (PathCollisionNode *node=cell->info->goals;node;node=node->next) {
+                Object *other=node->object;
+                if (other==object || other->container==object) continue;
+                bool enemies=object->getRelationship(other)==ENEMIES;
+                if (!object->getAI() || !other->getAI()) continue;
+                if (static_cast<unsigned>(object->getAI()->rva0026417F(enemies))<=static_cast<unsigned>(other->getAI()->rva0026417F(enemies))) return -1;
+            }
+            if (!ignoreReservations) {
+                for (PathCollisionNode *node=cell->info->reservations;node;node=node->next) {
+                    Object *other=node->object;
+                    if (other==object) continue;
+                    bool enemies=object->getRelationship(other)==ENEMIES;
+                    if (!object->getAI() || !other->getAI()) continue;
+                    if (static_cast<unsigned>(object->getAI()->rva0026417F(enemies))<=static_cast<unsigned>(other->getAI()->rva0026417F(enemies))) return -1;
+                }
+            }
+        }
+    }
+    return cost;
+}
+
+// Retail 0x002EBE54..0x002EC0A2 (590 bytes), exact /O1 /G7 /arch:SSE.
+// WB 0x00D32350 names Pathfinder::CalcExtraCosts and asserts oldCell at line635.
+// Six-argument ABI, destination bounds, old-cell layer, enemy filtering,
+// priority and shifted 4/8 movement costs are established independently by
+// native bytes. WB's old-cell overlap expression has mutually exclusive y
+// comparisons and is dead; retail emits no overlap exclusion or old bounds.
+// No same-named BFME1/GeneralsMD donor method was found. Reconstructed from
+// native/WB using the independently verified CalcCollisionFreeExtraCosts
+// layouts, priority bool ABI and standard math declaration above.
+int Pathfinder::CalcExtraCosts(Object *object,PathfindCell *oldCell,Rva002EBC7FPair *destination,int lower,int upper,bool ignoreEnemies)
+{
+    if (!oldCell) return 0;
+    Rva002EBC7FPair minimum,maximum;
+    minimum.x=destination->x-lower; minimum.y=destination->y-lower;
+    maximum.x=destination->x+upper; maximum.y=destination->y+upper;
+    // The completed radius parameters become the shift and accumulated cost
+    // for this stage (native dead homes +0x18 and +0x14). References retain
+    // meaningful stage names without losing the verified storage lifetime.
+    int &reduction=upper;
+    reduction=0;
+    if (lower>=4) reduction=2;
+    else if (lower>1) reduction=1;
+    float ourArrival=-1.0f;
+    int &cost=lower;
+    cost=0;
+    for (int x=minimum.x;x<maximum.x;++x) {
+        for (int y=minimum.y;y<maximum.y;++y) {
+            PathCollisionCell *cell=reinterpret_cast<PathCollisionCell *>(getCell(static_cast<PathfindLayerEnum>(oldCell->getLayer()),x,y));
+            if (!cell || !cell->info) continue;
+            for (PathCollisionNode *node=cell->info->occupants;node;node=node->next) {
+                Object *other=node->object;
+                if (other==object || other->container==object) continue;
+                bool enemies=object->getRelationship(other)==ENEMIES;
+                if (enemies && ignoreEnemies) continue;
+                if (!object->getAI() || !other->getAI()) continue;
+                if (static_cast<unsigned>(object->getAI()->rva0026417F(enemies))>static_cast<unsigned>(other->getAI()->rva0026417F(enemies))) continue;
+                int amount;
+                if (other->IsAtGoalPosition() || !object->getAI()->locomotor || !other->getAI()->locomotor) amount=8;
+                else {
+                    Coord3D target;
+                    rva002EBC7F(&target,object,destination,1);
+                    if (ourArrival<0.0f) {
+                        float dx=object->position[0]-target.x;
+                        float dy=object->position[1]-target.y;
+                        Rva001E46E1 *locomotor=object->getAI()->locomotor;
+                        float distance=static_cast<float>(sqrt(dy*dy+dx*dx));
+                        ourArrival=distance/locomotor->rva001E46E1(object);
+                    }
+                    float dx=other->position[0]-target.x;
+                    float dy=other->position[1]-target.y;
+                    Rva001E46E1 *locomotor=other->getAI()->locomotor;
+                    float distance=static_cast<float>(sqrt(dy*dy+dx*dx));
+                    float otherArrival=distance/locomotor->rva001E46E1(other);
+                    if (!(otherArrival<ourArrival)) continue;
+                    amount=4;
+                }
+                cost+=amount>>reduction;
+            }
+        }
+    }
+    return cost;
+}
+
+// WorldBuilder names this body GetWallHeight (WB 0x00D3ED70). ZH supplies
+// the Bridge height/containment semantics, while retail establishes the
+// layer selection, ramp handling, four cell-corner probes and ABI.
+// Native 0x002EF68C, 636 bytes; bridge head +0x5C, height[layer] +0x1BE78.
+float Pathfinder::GetWallHeight(PathfindLayerEnum layer, const Coord3D *pos, Coord3D *normal)
+{
+    PathfindCell *cell = static_cast<PathfindCell *>(rva001E3647Pos(layer, pos));
+    if (cell && layer != PATHFIND_LAYER_GROUND && cell->getLayer() != layer) {
+        PathfindLayerEnum actual = static_cast<PathfindLayerEnum>(cell->getLayer());
+        if (actual == 16) {
+            if (IsPointOnRamp(pos)) layer = actual;
+        } else layer = actual;
+    }
+    if (layer == PATHFIND_LAYER_GROUND)
+        return TheTerrainLogic->getGroundHeight(pos->x, pos->y, normal);
+    if (static_cast<unsigned char>(Rva002E6E8AGet(layer))) {
+        float height = m_wallLayerHeights[layer - 17];
+        if (normal) {
+            normal->x = 0.0f;
+            normal->y = 0.0f;
+            normal->z = 1.0f;
+        }
+        return height;
+    }
+    if (layer == 16) {
+        for (Bridge *bridge = m_bridges; bridge; bridge = bridge->m_next) {
+            if (bridge->isPointOnBridge(pos)) {
+                PathfindLayerEnum wallLayer = rva002ED236(0, *pos);
+                float height = bridge->getBridgeHeight(pos, normal);
+                float result;
+                if (static_cast<unsigned char>(Rva002E6E8AGet(wallLayer))) {
+                    result = reinterpret_cast<Rva002E7482 *>(this)->rva002E7482(wallLayer) > height
+                        ? reinterpret_cast<Rva002E7482 *>(this)->rva002E7482(wallLayer) : height;
+                } else result = height;
+                return result;
+            }
+        }
+        Coord3D corner0 = *pos;
+        corner0.x -= 10.0f;
+        corner0.y -= 10.0f;
+        Coord3D corner1 = corner0;
+        corner1.x += 20.0f;
+        Coord3D corner2 = corner1;
+        corner2.y += 20.0f;
+        Coord3D corner3 = corner0;
+        corner3.y += 20.0f;
+        for (Bridge *bridge = m_bridges; bridge; bridge = bridge->m_next) {
+            if (bridge->isPointOnBridge(&corner0) || bridge->isPointOnBridge(&corner1) ||
+                bridge->isPointOnBridge(&corner2) || bridge->isPointOnBridge(&corner3)) {
+                PathfindLayerEnum wallLayer = rva002ED236(0, *pos);
+                float height = bridge->getBridgeHeight(pos, normal);
+                float result;
+                if (static_cast<unsigned char>(Rva002E6E8AGet(wallLayer))) {
+                    result = reinterpret_cast<Rva002E7482 *>(this)->rva002E7482(wallLayer) > height
+                        ? reinterpret_cast<Rva002E7482 *>(this)->rva002E7482(wallLayer) : height;
+                } else result = height;
+                return result;
+            }
+        }
+    }
+    return pos->z;
+}
+
+// CheckDestination identity is established by the native diagnostic strings;
+// Zero Hour checkDestination supplies the cell iteration purpose. BFME2 adds
+// horde/narrow-passage radius overrides and a geometry-aware rectangle query.
+// Template kind bytes, human extent, AI and containment accesses are retail facts.
+Bool Pathfinder::CheckDestination(Object *obj,Int cellX,Int cellY,PathfindLayerEnum layer,
+    Int radius,Bool center,Int *out,Bool flag)
+{
+    PathfinderCheckCoordinates coordinates;
+    if (g_00E03745 && g_00DFEFF0) {
+        fprintf((PathfinderLogFile *)g_00DFEFF0,
+            "          Pathfinder::CheckDestination called with: obj=%s(%d), cell=%d,%d, layer=%d, iRadius=%d, centerInCell=%s",
+            obj->m_template->name(), obj->getID(), cellX,cellY,layer,radius,center?"TRUE":"FALSE");
+    }
+    if (obj->m_template->hasKind(109)) {
+        if (g_00E03745 && g_00DFEFF0) fprintf((PathfinderLogFile *)g_00DFEFF0,"          horde");
+        if (layer==PATHFIND_LAYER_GROUND && !flag) {
+            if (g_00E03745 && g_00DFEFF0) fprintf((PathfinderLogFile *)g_00DFEFF0,"          layer is LAYER_GROUND");
+            rva002E79A8((int)&coordinates.point,1,cellX,cellY,1);
+            if (((TerrainLogicCheckDestination *)TheTerrainLogic)->slotC8(&coordinates.point)) {
+                if (g_00E03745 && g_00DFEFF0) fprintf((PathfinderLogFile *)g_00DFEFF0,"          narrow passage area");
+                radius=1; center=true;
+            }
+        } else {
+            if (g_00E03745 && g_00DFEFF0) fprintf((PathfinderLogFile *)g_00DFEFF0,"          layer != LAYER_GROUND, layer=%d",layer);
+            radius=1; center=true;
+        }
+    }
+    if (obj->m_template->hasKind(90) && obj->m_template->hasKind(8) && layer!=PATHFIND_LAYER_GROUND) {
+        radius=1; center=false;
+    }
+    Int upper=radius;
+    if (center) ++upper;
+    if (obj->rva0028AFBB()) {
+        if (g_00E03745 && g_00DFEFF0) fprintf((PathfinderLogFile *)g_00DFEFF0,"          human controlled");
+        if (cellX-radius<m_extentLowX || cellX+upper>m_extentHighX || cellY-radius<m_extentLowY || cellY+upper>m_extentHighY) {
+            if (g_00E03745 && g_00DFEFF0) fprintf((PathfinderLogFile *)g_00DFEFF0,"            returning false");
+            return false;
+        }
+    }
+    Bool aircraft=false;
+    Int ignored=0, objectId=0;
+    const LocomotorSet *locomotors=0;
+    if (obj->getAI()) {
+        if (g_00E03745 && g_00DFEFF0) fprintf((PathfinderLogFile *)g_00DFEFF0,"          I have an AI");
+        ignored=((const Rva0006E009DwordField *)obj->getAI())->get();
+        aircraft=obj->getAI()->isAircraftThatAdjustsDestination();
+        objectId=obj->getID();
+        locomotors=(const LocomotorSet *)((char *)obj->getAI()+0x1cc);
+    }
+    *out=0;
+    Rva002E7C99 info;
+    info.rva002E7C99((int)this,(int)obj,(int)out,0,ignored,flag,(int)locomotors);
+    if (!aircraft && obj->m_template->hasKind(186)) {
+        ICoord2DBase &position=coordinates.cells.position;
+        position.x=cellX;position.y=cellY;
+        GeometryShape shape;
+        ((const GeometryInfo *)((char *)obj+0xa8))->rva006BD9C0(shape);
+        ICoord2DBase &size=coordinates.cells.size;
+        size.x=(int)((shape.major*2.0f+4.0f)*0.1f);
+        size.y=(int)((shape.minor*2.0f+4.0f)*0.1f);
+        void *contain=*(void **)((char *)obj+0x250);
+        if (contain && ((PathfinderContain31 *)contain)->slot7C()) {
+            Int count=((PathfinderContain28 *)contain)->slot70();
+            if (count>0) {
+                float fraction=(float)((PathfinderContain69 *)contain)->slot114(0)/count;
+                size.x=(int)((size.x-2.0f)*fraction+2.0f);
+                size.y=(int)((size.y-2.0f)*fraction+2.0f);
+            }
+        }
+        return !rva002EED80(&position,&size,obj->GetGoalAngle(),layer,(Rva002E9D09 *)&info);
+    }
+    if (g_00E03745 && g_00DFEFF0) {
+        fprintf((PathfinderLogFile *)g_00DFEFF0,"          BEGIN cell iteration (deep innards), i from %d to %d, j from %d to %d",
+            cellX-radius,cellX+upper,cellY-radius,cellY+upper);
+    }
+    for (Int i=cellX-radius;i<cellX+upper;++i) {
+        for (Int j=cellY-radius;j<cellY+upper;++j) {
+            PathfindCell *cell=getCell(layer,i,j);
+            if (!cell) {
+                if (g_00E03745 && g_00DFEFF0) fprintf((PathfinderLogFile *)g_00DFEFF0,"          OFF THE MAP, return false: i=%d, j=%d",i,j);
+                return false;
+            }
+            if (aircraft) {
+                if (((Rva0052DB4D *)cell)->rva0052DB4D(objectId)) {
+                    if (g_00E03745 && g_00DFEFF0) fprintf((PathfinderLogFile *)g_00DFEFF0,"          checkForAircraft=TRUE, return false: i=%d, j=%d",i,j);
+                    return false;
+                }
+            } else if (((Rva002E9D09 *)&info)->rva002E9D09((Object *)cell,0,0)) return false;
+        }
+    }
+    return true;
+}
+
+// The 59-byte executable gap between the verified split helper ending BCF6
+// and queueForPath at BD31 is a complete constructor ending in RET. Its stores
+// reproduce the GeometryShape initialization in CheckDestination, including
+// the name and two tail flags. The original owner name is unproven; this
+// address-named adapter reuses the independently supported 36-byte shape view.
+struct Rva002EBCF6 : GeometryShape { Rva002EBCF6(); };
+Rva002EBCF6::Rva002EBCF6() {}
+
+// The native debug draw call sites push coord/float/duration/12-byte color;
+// the layer reset call supplies only ECX. Both release bodies fold to the
+// existing single RET at B3FD0. Separate full C++ providers preserve their ABIs.
+struct PathfinderDebugColor { float red,green,blue; };
+void Rva000B3FD0PathDebug(const Coord3D *,float,Int,PathfinderDebugColor);
+
+
+
+// Retail 2F0A72..2F0B4D: search cost through the hierarchical waypoint list.
+// Native callers 2FA3F1/2FAD13 establish Pathfinder receiver and cell ABI.
+// Info +0 begins with x/y; native vector +1C1CC contains 12B (zone,position).
+// ZH costToGoal supplies the grid-cost purpose; WB D642F0 shows the unsigned
+// accumulator expression and coordinate copy. No donor name is claimed.
+Int Pathfinder::rva002F0A72(PathfindCell *cell, PathfindCell *goal)
+{
+    unsigned int cost = 0;
+    Int x = cell->getXIndex(), y = cell->getYIndex();
+    for (_STL::vector<Rva002F35AFHop>::iterator it = m_1C1CC.end();
+         it != m_1C1CC.begin(); --it)
+    {
+        PathfinderCostCellInfo point = (it - 1)->m_position;
+        Int nx = point.x, ny = point.y;
+        Int dx = reinterpret_cast<Int(__cdecl *)(Int)>(ji_00629952)(x - nx);
+        Int dy = reinterpret_cast<Int(__cdecl *)(Int)>(ji_00629952)(y - ny);
+        if (dx > dy)
+            cost = (cost + 14 * dy) + (cost + 10 * (dx - dy));
+        else
+            cost = (cost + 14 * dx) + (cost + 10 * (dy - dx));
+        cost += 1400;
+        x = nx;
+        y = ny;
+    }
+    Int dx = reinterpret_cast<Int(__cdecl *)(Int)>(ji_00629952)(x - goal->getXIndex());
+    Int dy = reinterpret_cast<Int(__cdecl *)(Int)>(ji_00629952)(y - goal->getYIndex());
+    if (dx > dy)
+        return 14 * dy + cost + 10 * (dx - dy);
+    return 14 * dx + cost + 10 * (dy - dx);
+}
+
 void Pathfinder::CheckChangeLayers(PathfindCell *parent,Object *object)
 {
     PathChangeCellView *from=reinterpret_cast<PathChangeCellView *>(parent);
     int connection=(from->flags>>10)&63;
     In002E6BA1 coord;
     if (connection) {
-        int x=from->info->x;
-        coord.x=x;
-        coord.y=from->info->y;
+        int x=from->info->x;int y=from->info->y;coord.x=x;coord.y=y;
         PathfindCell *cell;
         if (static_cast<unsigned char>(Rva002E6E6CGet(connection))) cell=getCell(PATHFIND_LAYER_GROUND,x,coord.y);
         else cell=getCell(static_cast<PathfindLayerEnum>(connection),x,coord.y);
