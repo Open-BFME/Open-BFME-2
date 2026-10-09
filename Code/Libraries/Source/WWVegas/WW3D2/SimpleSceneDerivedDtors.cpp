@@ -11,15 +11,23 @@
 class SimpleSceneClass
 {
 public:
+	SimpleSceneClass();
 	virtual ~SimpleSceneClass();
 };
 
 class Rva0006EE6F : public SimpleSceneClass
 {
 public:
+	Rva0006EE6F();
 	virtual ~Rva0006EE6F();
 };
 
 Rva0006EE6F::~Rva0006EE6F()
 {
 }
+
+// Target6EE5D..6EE6F calls the now-recovered SimpleScene constructor142960,
+// then installs the same BC6310 table as this opaque derived destructor.
+// Only the inherited constructor call and virtual prefix are modeled here;
+// neither sizeof the derived allocation nor a semantic class name is asserted.
+Rva0006EE6F::Rva0006EE6F() {}
