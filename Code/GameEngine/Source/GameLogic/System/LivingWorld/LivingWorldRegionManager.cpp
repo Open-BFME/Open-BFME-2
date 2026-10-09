@@ -661,3 +661,24 @@ void LivingWorldBattle::rva003F4A46(int side,int player,Rva0020E20C *const &comp
   }
  }
 }
+
+
+// Native BE4334 slot0 compares the signed byte spans at army+78/+40..44,
+// each rounded down to eight bytes; its body20E6FB..20E72A RET8 is47B.
+// The byte-vector view is read-only and does not identify the owning element
+// type. The inline summary getter preserves retail evaluation order.
+struct CompareRecord { int a,b; };
+struct CompareSummary { char pad00[0x40]; _STL::vector<char> entries; };
+struct CompareArmy { char pad00[0x78]; CompareSummary *summary; CompareSummary *getSummary() const { return summary; } };
+class Rva0020E205:public Rva0020E20C {
+public:
+ virtual bool Compare(void *,void *);
+ virtual ~Rva0020E205() {}
+ virtual bool Visit(Rva003F409F *);
+};
+bool Rva0020E205::Compare(void *first,void *second)
+{
+ int leftBytes=static_cast<CompareArmy *>(first)->getSummary()->entries.size() & ~7;
+ int rightBytes=static_cast<CompareArmy *>(second)->getSummary()->entries.size() & ~7;
+ return leftBytes>rightBytes;
+}
