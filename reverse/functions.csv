@@ -47121,7 +47121,6 @@ _Rva006FD040,,0x006FD040,26,Code/Libraries/Source/WWVegas/WWLib/Rva006FD040Sibli
 ?rva007062F0@AptBasePtrStack@@QAEPAVBfmeAptValue006DCD20@@XZ,,0x007062F0,53,Code/Libraries/Source/Apt/Rva007062F0Siblings.cpp,matched,AptBasePtrStack top getter line 0x10A from rva006DE160 0x6DE160 recipe
 ?rva006F2C20@Rva006F2C20@@UAEXXZ,,0x006F2C20,45,Code/GameEngine/Source/Common/Rva006F2C20Siblings.cpp,matched,slot13 mark tail-jmp member +0x20 from rva0070DF80 0x70DF80 recipe
 ?Get_Texture@Rva0013EF40Category@@QAE?AUBFME2TextureRef@@H@Z,,0x0013EF40,35,Code/Libraries/Source/WWVegas/WW3D2/Rva0013EF40Siblings.cpp,matched,texture array +8 smart-ref getter from BFME2TextureCategory 0x143400 recipe
-?rva00149280@Rva00149280Class@@QBEXAAVVector3@@@Z,,0x00149280,33,Code/Libraries/Source/WWVegas/WW3D2/Rva00149280Siblings.cpp,matched,spot-direction vector getter member +0x314 from Get_Spot_Direction 0x11C730 recipe
 ?rva006F2C50@Rva006F2C50@@UAEXXZ,,0x006F2C50,30,Code/GameEngine/Source/Common/Rva006F2C50Siblings.cpp,matched,slot11 release clear member +0x20 from Rva0070DF60 0x70DF60 recipe
 ?Reset_Line@Rva00743060Class@@QAEXXZ,,0x00743060,22,Code/Libraries/Source/WWVegas/WW3D2/Rva00743060Siblings.cpp,matched,sync-time plus UV reset offsets +0x2C from Reset_Line 0x191260 recipe
 ?Rva006F12F0Free@@YAXPAXH@Z,,0x006F12F0,22,Code/GameEngine/Source/Common/Rva006F12F0Siblings.cpp,matched,chain pool free forwarder from Rva006D8680Free 0x6D8680 recipe
