@@ -6,7 +6,8 @@
 // (Rva0008F6E1Create.cpp).  Every entry here is referenced from a function
 // pointer table in .rdata/.data and has no direct caller.  Each class is
 // named after its constructor address (pinned) and carries only its size;
-// identities are not recovered.
+// identities are not recovered except AptLanLobby, whose complete constructor
+// and native callback registrations now establish the existing6C4-byte view.
 //
 //   factory     size   ctor
 //   0x002D1E55  0x27C  0x0051268C
@@ -80,17 +81,17 @@ Rva004E8B38 *__stdcall Rva002D1F3DCreate(void *context)
 	return new Rva004E8B38(context);
 }
 
-class Rva00445EE3
+class AptLanLobby
 {
 public:
-	Rva00445EE3(void *context);
+	AptLanLobby(void *context);
 private:
 	char m_pad[0x6C4];
 };
 
-Rva00445EE3 *__stdcall Rva002D1F77Create(void *context)
+AptLanLobby *__stdcall Rva002D1F77Create(void *context)
 {
-	return new Rva00445EE3(context);
+	return new AptLanLobby(context);
 }
 
 class Rva00516211
