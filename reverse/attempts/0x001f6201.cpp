@@ -1,8 +1,11 @@
 // ?rva001F6201@Rva001F6201@@QAEXXZ
+// partial score=0.95 date=2026-10-09
+// cl: /O1 /MD /arch:SSE2 /EHs
+// Isolated from the whole FX TU trial; original whole-file context in Code/GameEngine/Source/GameClient/FXParticleSystem.cpp.
+// ?rva001F6201@Rva001F6201@@QAEXXZ
 // partial score=0.95 date=2026-10-01
 // ?rva001F6201@Rva001F6201@@QAEXXZ
 // partial score=0.95 date=2026-10-01
-// cl: /O1 /MD /arch:SSE /EHs
 // ?rva001F6201@Rva001F6201@@QAEXXZ 0x001F6201 142B
 // Evidence: chain from 0x001F5B0A findParticleSystemByID; early-out on ID 0 at +0x84; handle via operator-> with Make001FCBD7 fallback stores owner at +0x19C; RvaSmartPtr12 assign at +0x78; redundant ID assert throws via bfmeFormatText tag 5 plus _CxxThrowException.
 
@@ -58,16 +61,15 @@ class ParticleSystemManager
 
 extern ParticleSystemManager *TheParticleSystemManager;
 
-struct BfmeFormattedText
-{
-	char *text;
-	int tag;
+// The native ThrowInfo at VA 0x00CFFD18 names this actual 8-byte type.
+// Its ctor, copy ctor and destructor are already verified ledger providers.
+class XferException {
+public:
+ XferException(int, const char *, ...);
+ XferException(const XferException &);
+ ~XferException();
+ char *text; int tag;
 };
-
-extern "C" BfmeFormattedText *__cdecl bfmeFormatText(BfmeFormattedText *result, int tag, const char *format, ...);
-extern int g_guardTargetTypeThrowInfo;
-struct _s__ThrowInfo;
-extern "C" void __stdcall _CxxThrowException(void *pExceptionObject, const _s__ThrowInfo *pThrowInfo);
 
 class Rva001F6201
 {
@@ -88,9 +90,6 @@ void Rva001F6201::rva001F6201()
 	m_smart = *(const RvaSmartPtr12 *)&h;
 	if (m_id == INVALID_PARTICLE_SYSTEM_ID)
 	{
-		BfmeFormattedText tmp;
-		bfmeFormatText(&tmp, 5, 0);
-		_CxxThrowException(&tmp, (const _s__ThrowInfo *)&g_guardTargetTypeThrowInfo);
-		__assume(0);
+		throw XferException(5, 0);
 	}
 }
