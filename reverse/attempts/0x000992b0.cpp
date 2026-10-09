@@ -1,4 +1,6 @@
 // ?draw@W3DMouse@@UAEXXZ
+// partial score=0.99 date=2026-10-09
+// ?draw@W3DMouse@@UAEXXZ
 // partial score=0.99 date=2026-10-06
 // cl: /O1 /arch:SSE /G7 /DNDEBUG /Ireference/shims/bfme2_ascii /MD /EHsc
 //
@@ -411,7 +413,7 @@ private:
 };
 
 float __cdecl Rva000930C0( float lhs, float rhs );
-void Rva00118660Call( void *scene, void *camera );
+bool Rva00118660Call( void *scene, void *camera );
 void PixelScreenToW3DLogicalScreen( Int x, Int y, Real *screenX, Real *screenY, Int screenWidth, Int screenHeight );
 
 class Mouse
