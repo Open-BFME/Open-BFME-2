@@ -90,3 +90,31 @@ bool Rva0059E647Entry::Check(int key)
     int *last = end;
     return _STL::find(begin, last, key) != last;
 }
+
+
+#include <hash_map>
+class GameWindow;
+class WindowVideo;
+// Declaration view of the existing native provider's empty hash functor.
+// No WindowVideoManager object is sized or accessed in this unit.
+class WindowVideoManager {
+public: struct hashConstGameWindowPtr {
+ unsigned int operator()(const GameWindow *) const;
+};
+};
+typedef _STL::pair<const GameWindow *const,WindowVideo *> NativeBeginPair;
+typedef _STL::hashtable<NativeBeginPair,const GameWindow *,
+ WindowVideoManager::hashConstGameWindowPtr,_STL::_Select1st<NativeBeginPair>,
+ _STL::equal_to<const GameWindow *>,_STL::allocator<NativeBeginPair> > NativeBeginTable;
+namespace _STL { template<> NativeBeginTable::iterator NativeBeginTable::begin(); }
+class LivingWorldBuildingTemplateStore {
+public: const LivingWorldBuildingTemplate *getEmergencyBackupTemplateForBadLoads();
+private: char unknown00[0x10]; char tablePrefix[0x14];
+};
+// The 68-byte native begin provider reads only the shared bucket/node prefix,
+// never its key or mapped payload. This call does not identify the store's
+// original specialization. Native node+8 is the embedded fallback template.
+const LivingWorldBuildingTemplate *LivingWorldBuildingTemplateStore::getEmergencyBackupTemplateForBadLoads() {
+ NativeBeginTable::iterator first=reinterpret_cast<NativeBeginTable*>(tablePrefix)->begin();
+ return reinterpret_cast<const LivingWorldBuildingTemplate*>((char*)first._M_cur+8);
+}
