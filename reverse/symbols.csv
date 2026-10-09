@@ -4147,7 +4147,6 @@ name,address,notes
 ??1Rva0022DCDA@@QAE@XZ,0x0022DCDA,member destructor at +0xC called by the destructor 0x00414166 (byte-exact modulo relocs in MemberBaseDtorsB01.cpp); identity unproven; address-derived name
 ??1Rva0022DE6B@@MAE@XZ,0x00414166,dtor installs its own vftable 0x00BE7698 (bytes at ++19) and is the REL32 callee of the slot-0 ??_G at 0x0022DE8C
 ??1Rva0022E0E5@@UAE@XZ,0x001B4D16,dtor installs its own vftable 0x00BD7678 (bytes at ++20) and is the REL32 callee of the slot-0 ??_G at 0x001B4D63
-??1Rva002376CC@@UAE@XZ,0x002376CC,"destructor the scalar deleting destructor 0x00237CFD calls (REL32 at 0x00237D00; vtable 0x00BED1C4#0); opaque address name"
 ??1Rva0023903B@@QAE@XZ,0x0042C1B7,non-virtual dtor called directly by scalar deleting dtor 0x0023903B; owning class unproven
 ??1Rva00239D7A@@QAE@XZ,0x00239D7A,pointee destructor called by the owning-pointer reset 0x0023A039 (byte-exact modulo relocs in OwnedPointerResets.cpp); identity unproven; address-derived name
 ??1Rva00239E64@@QAE@XZ,0x00239D7A,non-virtual dtor called directly by scalar deleting dtor 0x00239E64; owning class unproven

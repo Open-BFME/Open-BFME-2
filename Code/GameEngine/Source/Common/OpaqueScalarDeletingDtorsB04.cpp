@@ -269,19 +269,6 @@ Rva00413A24::Rva00413A24(EmitVtableTag *)
 {
 }
 
-class Rva002376CC
-{
-public:
-	Rva002376CC(EmitVtableTag *);
-public:
-	virtual ~Rva002376CC();
-};
-
-// ?<Rva002376CC::Rva002376CC> absent-from-retail
-Rva002376CC::Rva002376CC(EmitVtableTag *)
-{
-}
-
 class Rva0023AE08Base0 { public: virtual ~Rva0023AE08Base0(); private: char m_unmodelled[0x8]; };
 // Secondary base at +0xC: the this-adjusting deleting-destructor thunk
 // (sub ecx, 0xC) at 0x0023B270 in its vtable is target evidence for it.

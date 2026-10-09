@@ -210,23 +210,6 @@ bool Rva002CCD56::rva002CAE34(int reason)
 	return g_Va00DFEFE0;
 }
 
-class Rva002376CC : public RifStore
-{
-public:
-	bool rva0023624A(int reason);
-};
-
-bool Rva002376CC::rva0023624A(int reason)
-{
-	if (rva001B5384Slot2())
-	{
-		if (TheInGameUI)
-			TheInGameUI->message(UnicodeString(L"RIF: GameData reloaded (changes are effective immediately)"));
-		return true;
-	}
-	return false;
-}
-
 bool Rva002CCD56::rva002CAE6C()
 {
 	if (g_Va00DFEFE0)

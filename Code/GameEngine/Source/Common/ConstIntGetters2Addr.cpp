@@ -269,15 +269,6 @@ int Rva000A52A8Get(void)
 	return 0x0048F78F;
 }
 
-// ?Rva002376C6Get@@YAHXZ @ 0x002376C6 (6B): returns 0x00BE8520.
-// Follows a leave/ret (prev C9-C3), carried by 1 .rdata slot (0x7ED1DC)
-// in the 0x4B3FD0 vtable family, no direct callers, no branch sources.
-// Opaque address-derived name.
-int Rva002376C6Get(void)
-{
-	return 0x00BE8520;
-}
-
 // ?Rva00285745Get@@YAHXZ @ 0x00285745 (6B): returns 0x00BFB6C8.
 // Follows a pop/ret (prev 5E-C3), carried by 1 .rdata slot (0x7FB6F8)
 // in the 0x4B3FD0 vtable family, no direct callers, no branch sources.
