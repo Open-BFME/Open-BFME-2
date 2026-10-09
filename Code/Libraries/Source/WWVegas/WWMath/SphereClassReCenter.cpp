@@ -35,12 +35,12 @@ public:
     float X, Y, Z;
     __forceinline Vector3(void) {}
     __forceinline Vector3(const Vector3& v) { X=v.X; Y=v.Y; Z=v.Z; }
-    __forceinline Vector3(float x, float y, float z) { X=x; Y=y; Z=z; }
+    __declspec(dllimport) __forceinline Vector3(float x, float y, float z) { X=x; Y=y; Z=z; }
     __forceinline Vector3& operator=(const Vector3& v) { X=v.X; Y=v.Y; Z=v.Z; return *this; }
-    __forceinline float Length() const { return WWMath::Sqrt(Length2()); }
+    __declspec(dllimport) __forceinline float Length() const { return WWMath::Sqrt(Length2()); }
     __forceinline float Length2() const { return X*X + Y*Y + Z*Z; }
 };
-__forceinline Vector3 operator-(const Vector3& a, const Vector3& b) {
+__declspec(dllimport) __forceinline Vector3 operator-(const Vector3& a, const Vector3& b) {
     return Vector3(a.X-b.X, a.Y-b.Y, a.Z-b.Z);
 }
 #pragma optimize("", on)
