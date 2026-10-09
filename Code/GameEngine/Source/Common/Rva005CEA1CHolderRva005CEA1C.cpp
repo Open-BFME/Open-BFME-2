@@ -1,9 +1,10 @@
-// ?rva005CEA1C@Rva005CEA1CHolder@@QAEXXZ
-// partial score=0.8 date=2026-10-08
 // cl: /DNDEBUG /MD /EHsc
-// ?rva005CEA1C@Rva005CEA1CHolder@@QAEXXZ @0x005CEA1C 25B: release the Coord2D at
+//
+// ?rva005CEA1C@Rva005CEA1CHolder@@QAEXXZ, retail 0x005cea1c, 25 bytes. Banked partial (score 0.8) closed by tools/permute.py;
+// the body is the banked one up to statement/operand order and local types.
 // +0x04 through its dtor, then tail-dispatch virtual slot 1 of the object at +0x1C
 // when it is set.
+// class-gate: allow Coord2D the body only calls the destructor through a held pointer; the banked view is byte-exact
 class Coord2D
 {
 public:
@@ -31,7 +32,6 @@ private:
 	Rva005CEA1CTarget *m_target;
 };
 
-// ?rva005CEA1C@Rva005CEA1CHolder@@QAEXXZ @0x005CEA1C
 void Rva005CEA1CHolder::rva005CEA1C()
 {
 	m_point->~Coord2D();

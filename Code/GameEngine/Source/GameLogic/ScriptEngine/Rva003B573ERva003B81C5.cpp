@@ -1,15 +1,13 @@
-// ?rva003B81C5@Rva003B573E@@QAEHHABV?$StringBase@D@@@Z
-// partial score=0.944444 date=2026-10-07
+// cl: /O1 /arch:SSE /G7 /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+//
+// ?rva003B81C5@Rva003B573E@@QAEHHABV?$StringBase@D@@@Z, retail 0x003b81c5, 72 bytes. Banked partial (score 0.944444) closed by tools/permute.py;
+// the body is the banked one up to statement/operand order and local types.
 // Fresh BFME1 1399ad37 BfmeConv1700 lead: native CMP/MOV/JE loads original index for failed lookup; return index is required.
 // Byte-exact 72B with the existing callee pin; no C++ provider yet for 3B7C47, so linking is incomplete.
-// ?rva003B81C5@Rva003B573E@@QAEHHABV?$StringBase@D@@@Z
-// partial score=0.97 date=2026-10-07
-// cl: /O1 /arch:SSE /G7 /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 #include <vector>
 #include "ascii_string.h"
 
-// ?rva003B81C5@Rva003B573E@@QAEHHABV?$StringBase@D@@@Z @0x003B81C5 72B
 // Same class and record model as ScriptListSubrecordRemove.cpp; target search
 // uses the supplied key, then transfers one linked node and removes its source.
 struct Rva003B675BRecord

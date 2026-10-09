@@ -203,6 +203,7 @@ template void _STL::_Construct<BfmeStringRecord005DDD40,BfmeStringRecord005DDD40
 // Complete retail record copy at0x00415F34.
 struct BfmeStringRecord00415F34 {
     unsigned int word0, word1; AsciiString text0; unsigned int word2; AsciiString text1; UnicodeString text2;
+    BfmeStringRecord00415F34();
     BfmeStringRecord00415F34(const BfmeStringRecord00415F34 &o);
 };
 BfmeStringRecord00415F34::BfmeStringRecord00415F34(const BfmeStringRecord00415F34 &o) : word0(o.word0), word1(o.word1), text0(o.text0), word2(o.word2), text1(o.text1), text2(o.text2) {}
@@ -413,3 +414,12 @@ void rva0021A859(INI *ini, void * /*instance*/, void *store, const void * /*user
 		}
 	}
 }
+
+// Native415F26..415F34 follows a complete RET and precedes this record
+// copy ctor. Its empty-state writes8/10/14 agree with the independently
+// verified AsciiString/AsciiString/UnicodeString member layout above;
+// raw words0/4/C are left uninitialized. Clean BF1 9cb WOLBuddyResponses
+// supplies the empty-ctor expression; its BuddyMessage application name
+// remains donor provenance rather than an established target identity.
+// ??0BfmeStringRecord00415F34@@QAE@XZ
+BfmeStringRecord00415F34::BfmeStringRecord00415F34() {}

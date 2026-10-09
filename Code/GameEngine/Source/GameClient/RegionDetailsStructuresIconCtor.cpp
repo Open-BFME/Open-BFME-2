@@ -1,5 +1,3 @@
-// ??0Icon@Impl@RegionDetailsStructuresPage@StrategicInGameUI@@QAE@AAV123@H@Z
-// partial score=1.0 date=2026-10-09
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /arch:SSE
 // WorldBuilder StrategicInGameUIRegionDetailsStructuresPage.cpp:261..285 names
 // Icon::Update and supplies the construction-progress/hover-tooltip purpose.
@@ -70,53 +68,12 @@ private:
  Impl *owner; int index; Rva005F8F96 help; bool hovered;
  BuildPlot *getBuildPlot() { return owner->region->plots[index]; }
 };
-void RegionDetailsStructuresPage::Impl::Icon::Update() {
- StructureIconSlot *clip=(StructureIconSlot *)((Rva005E2138 *)this)->rva005E2138();
- BuildPlot *plot=getBuildPlot();
- if (plot->constructing && plot->building) {
-  int total=plot->building->definition->totalBuildTime;
-  int remaining=((Rva004FC21AOwner *)plot)->rva004FC207();
-  clip->ShowProgress(total,remaining);
- } else {
-  clip->HideProgress();
- }
- if (hovered) {
-  Structure *building=getBuildPlot()->building;
-  if (building) {
-   StructureTemplate *definition=building->definition;
-   TheMouse->rva001EEA6D(GetTooltipText(definition->getType()),-1,0,1.0f);
-  }
- }
-}
 }
 // Retail 0x005F0318 is a five-byte cdecl tail call, not the Observable
 // addObserver body suggested by the WorldBuilder call-site pairing. Both
 // this page's constructor and building-change callback use it when the plot
 // is empty; it forwards the plot's selection view to the rowed portrait query.
-class Image;
-struct Rva005D23BBSelection;
 namespace StrategicInGameUI {
-const Image *__cdecl GetSelectionPortrait(const Rva005D23BBSelection *selection);
-}
-const Image *__cdecl Rva005F0318Get(void *plot) {
-    return StrategicInGameUI::GetSelectionPortrait((const Rva005D23BBSelection *)plot);
-}
-
-namespace StrategicInGameUI {
-// WorldBuilder lines 372: &buildPlot == &GetBuildPlot(). Retail's 128-byte
-// RET4 body ignores the asserted reference, updates the two clip images and
-// refreshes the page when this slot is selected. Empty plots use the rowed
-// portrait thunk, rather than the mispaired Observable template.
-void RegionDetailsStructuresPage::Impl::Icon::OnBuildPlotBuildingChanged(LivingWorldBuildPlot &buildPlot) {
-    BuildPlot *plot=getBuildPlot();
-    const Image *image=plot->building ? Rva005F02E0Get(plot->building) : Rva005F0318Get(plot);
-    StructureIconSlot *clip=(StructureIconSlot *)((Rva005E2138 *)this)->rva005E2138();
-    clip->SetImage(image);
-    const Image *typeImage=Rva005F0220Get((Rva005F0220In *)getBuildPlot());
-    clip=(StructureIconSlot *)((Rva005E2138 *)this)->rva005E2138();
-    clip->SetBuildingTypeImage(typeImage);
-    if(owner->selected==index) ((Rva005E261C *)owner)->rva005E261C();
-}
 }
 
 namespace StrategicInGameUI {
