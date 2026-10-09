@@ -1,4 +1,4 @@
-// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /O1 /G7 /arch:SSE /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport
 //
 // STLport's sort over a deque of 8-byte records ordered by the float at +4,
@@ -41,6 +41,10 @@ struct BfmeCopyRecord8
 	float b;
 	BfmeCopyRecord8() {}
 	BfmeCopyRecord8(const BfmeCopyRecord8 &o) : a(o.a), b(o.b) {}
+ // Native linear-insert copies read the float before the iterator setup.
+ // This overload models that copy read order only; ordinary copies retain
+ // their existing constructor and all original source qualifiers are unknown.
+ BfmeCopyRecord8(const volatile BfmeCopyRecord8 &o){float fb=o.b;Foo00549DCB *pa=o.a;a=pa;b=fb;}
 };
 
 struct BfmeCopyRecord8Cmp
@@ -68,6 +72,9 @@ struct BfmeCopyRecord8CmpKey : Rva00549DCB
 	__forceinline bool operator()(const BfmeCopyRecord8 &x, const BfmeCopyRecord8 &y) const { return rva00549DCB(x.a, y.a); }
 };
 
+struct BfmeCopyRecord8KeyAscending { bool operator()(const BfmeCopyRecord8 &,const BfmeCopyRecord8 &)const; };
+struct BfmeCopyRecord8KeyDescending { bool operator()(const BfmeCopyRecord8 &,const BfmeCopyRecord8 &)const; };
+
 typedef _STL::_Deque_iterator<BfmeCopyRecord8, _STL::_Nonconst_traits<BfmeCopyRecord8> > CopyRecord8Iterator;
 
 template void _STL::__introsort_loop<CopyRecord8Iterator, BfmeCopyRecord8, int, BfmeCopyRecord8Cmp>(
@@ -91,3 +98,24 @@ template void _STL::__unguarded_insertion_sort<CopyRecord8Iterator, BfmeCopyReco
 
 template void _STL::sort<CopyRecord8Iterator, BfmeCopyRecord8Cmp>(CopyRecord8Iterator, CopyRecord8Iterator, BfmeCopyRecord8Cmp);
 template void _STL::sort<CopyRecord8Iterator, BfmeCopyRecord8CmpDescending>(CopyRecord8Iterator, CopyRecord8Iterator, BfmeCopyRecord8CmpDescending);
+
+// BF1 f98983a7 STLport _algo.c linear-insert guide; native141B boundaries
+// and all three resolved callees prove the conditional backward-copy flow.
+// Existing out-of-line key comparator ABI retains the native return temporary.
+template<> void _STL::__linear_insert<CopyRecord8Iterator,BfmeCopyRecord8,BfmeCopyRecord8KeyAscending>(CopyRecord8Iterator first,CopyRecord8Iterator last,BfmeCopyRecord8 value,BfmeCopyRecord8KeyAscending comp){
+ if(comp(value,*first)){
+  volatile CopyRecord8Iterator result=_STL::copy_backward(first,last,last+1);
+  *first=value;
+ }else _STL::__unguarded_linear_insert(last,static_cast<const volatile BfmeCopyRecord8 &>(value),comp);
+}
+template<> void _STL::__linear_insert<CopyRecord8Iterator,BfmeCopyRecord8,BfmeCopyRecord8KeyDescending>(CopyRecord8Iterator first,CopyRecord8Iterator last,BfmeCopyRecord8 value,BfmeCopyRecord8KeyDescending comp){
+ if(comp(value,*first)){
+  volatile CopyRecord8Iterator result=_STL::copy_backward(first,last,last+1);
+  *first=value;
+ }else _STL::__unguarded_linear_insert(last,static_cast<const volatile BfmeCopyRecord8 &>(value),comp);
+}
+
+
+template void _STL::__linear_insert<CopyRecord8Iterator,BfmeCopyRecord8,BfmeCopyRecord8KeyAscending>(CopyRecord8Iterator,CopyRecord8Iterator,BfmeCopyRecord8,BfmeCopyRecord8KeyAscending);
+
+template void _STL::__linear_insert<CopyRecord8Iterator,BfmeCopyRecord8,BfmeCopyRecord8KeyDescending>(CopyRecord8Iterator,CopyRecord8Iterator,BfmeCopyRecord8,BfmeCopyRecord8KeyDescending);
