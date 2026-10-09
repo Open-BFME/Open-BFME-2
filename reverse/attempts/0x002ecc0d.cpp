@@ -1,6 +1,8 @@
 // ?rva002ECC0D@Pathfinder@@QAE_NPAVObject@@PBUCoord3D@@@Z
+// partial score=0.9317013464 date=2026-10-09
+// ?rva002ECC0D@Pathfinder@@QAE_NPAVObject@@PBUCoord3D@@@Z
 // partial score=0.93 date=2026-10-09
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// cl: /ICode/Libraries/Include /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
 // NEAR draft for Code/GameEngine/Source/GameLogic/AI/PathfinderRva002ECC0D.cpp
 // (relative include assumes that path).
 // ?rva002ECC0D@Pathfinder@@QAE_NPAVObject@@PBUCoord3D@@@Z retail 0x002ECC0D
@@ -12,7 +14,7 @@
 // Remaining diff: retail keeps the outer offset i in ebx and the inner j in
 // the dead obj argument slot with the outer loop entered by jmp-to-test;
 // cl here swaps the two (i in memory j in ebx) and guards the outer loop.
-#include "../../../../Libraries/Include/Lib/Coord3D.h"
+#include "Lib/Coord3D.h"
 
 typedef int Int;
 typedef unsigned int UnsignedInt;
@@ -156,7 +158,7 @@ Bool Pathfinder::rva002ECC0D(Object *obj, const Coord3D *pos)
 		Int start = -info.radius;
 		for (Int i = start; i < info.radius; i++)
 		{
-			Int j = start;
+			volatile Int j = start;
 			if (j < info.radius)
 			{
 				Int x = info.cell.x + i;
@@ -173,8 +175,8 @@ Bool Pathfinder::rva002ECC0D(Object *obj, const Coord3D *pos)
 		}
 	}
 
-	info.m_11 = false;
 	info.m_14 = (obj->getTemplate()->m_kindOf110 & 0x4000000) ? 1 : 0x10;
+	info.m_11 = false;
 	info.m_18 = obj->getAI() ? obj->getAI()->getIgnoredObstacleID() : INVALID_ID;
 	if (!checkForMovement(obj, info))
 		return false;
