@@ -60,8 +60,11 @@ public:
 // One banner on screen, the vector's 28-byte record (rowed push_back
 // 0x00216BB9 and the slot-keyed find/erase in RemoveBanner): its slot, the
 // army banner id it shows, and the banner type entry it was created from.
-// CreateBanner builds it with +0x14 at -1 and the rest cleared, as WB's
-// inline constructor plus assignments does.
+// CreateBanner builds it with +0x14 at -1 and the rest cleared (see
+// clearBannerRecord). BfmePod28 is the shared neutral spelling of 28-byte
+// records, and its default constructor is retail's 0x00583AE2
+// (HordeMeleeSwarmXfer.cpp), so this view declares none: at /O1 an inline
+// one here is emitted as a conflicting ??0BfmePod28@@QAE@XZ COMDAT.
 struct BfmePod28
 {
 	unsigned int slot;			// +0x00
@@ -71,7 +74,6 @@ struct BfmePod28
 	int unknown10;
 	int unknown14;
 	bool unknown18;
-	BfmePod28() : bannerID(0), typeEntry(0), unknown0C(0), unknown10(0), unknown14(0), unknown18(false) {}
 };
 
 namespace _STL {
@@ -255,9 +257,22 @@ public:
 
 template Rva00215E6F _STL::for_each<BfmePod28 *, Rva00215E6F>(BfmePod28 *, BfmePod28 *, Rva00215E6F);
 
+// WB's record constructor clears every field before CreateBanner assigns
+// the ones it sets; retail keeps the stores that survive, in that order.
+static inline void clearBannerRecord(BfmePod28 &banner)
+{
+	banner.bannerID = 0;
+	banner.typeEntry = 0;
+	banner.unknown0C = 0;
+	banner.unknown10 = 0;
+	banner.unknown14 = 0;
+	banner.unknown18 = false;
+}
+
 int BannerUI::CreateBanner(int bannerID)
 {
 	BfmePod28 banner;
+	clearBannerRecord(banner);
 	banner.bannerID = bannerID;
 	banner.unknown0C = 0;
 	banner.unknown10 = 0;
