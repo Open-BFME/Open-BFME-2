@@ -64,6 +64,48 @@ void Rva000D20D6::rva000D20D6()
 	rva000D20D6_slot9();
 }
 
+// Target 5CCAB3..5CCACA RET leaf beside 5CCA98 on the same receiver: a
+// nonnull word4 answers through the slot-10 (+0x28) vcall thunk 001F34BA,
+// reached by a pointer to virtual member as the retail direct call requires.
+// 5CCB4C..5CCB54 forwards the +8 holder to it by tail jump; its caller
+// 0057544B tests AL. Owner and slot identities unknown (address names).
+class Rva005CCAB3Target
+{
+public:
+	virtual void slot0();
+	virtual void slot1();
+	virtual void slot2();
+	virtual void slot3();
+	virtual void slot4();
+	virtual void slot5();
+	virtual void slot6();
+	virtual void slot7();
+	virtual void slot8();
+	virtual void slot9();
+	virtual bool query();
+};
+
+struct Rva005CCAB3Holder {
+    unsigned char prefix00[4];
+    Rva005CCAB3Target *target;
+    bool query();
+};
+bool Rva005CCAB3Holder::query() {
+    bool (Rva005CCAB3Target::*method)()=&Rva005CCAB3Target::query;
+    return target && (target->*method)();
+}
+
+class Rva005CCB4CCall {
+public:
+    bool rva005CCB4C();
+private:
+    unsigned char prefix00[8];
+    Rva005CCAB3Holder *holder;
+};
+bool Rva005CCB4CCall::rva005CCB4C() {
+    return holder->query();
+}
+
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
 #pragma comment(linker, "/alternatename:?rva001FF3A9@Rva001FF3A9@@QAEXABUTreeHintRef00217D4C@@@Z=?rva001FF3A9@Rva001FF3A9@@UAEXXZ")
