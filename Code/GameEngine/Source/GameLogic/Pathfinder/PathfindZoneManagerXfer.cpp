@@ -99,8 +99,6 @@ class PathfindCell;
 class PathfindLayer {public: char unknown00[0x2C]; unsigned short zone; char unknown2E[0x40-0x2E]; unsigned short getZone()const{return zone;} };
 bool Rva001E3679(int);
 class Rva005335B0 {public: void rva005335B0(unsigned short,unsigned short);};
-// Existing four-byte vector erase ABI view; no application element identity claimed.
-class Rva0014921EVector {public: void erase(int*,int*); int *first,*last,*limit;};
 class BooleanBitmapSet {public: void SetBit(int); unsigned numBitsDiv32; int *bits; unsigned *summary; unsigned cursor,bit;};
 class Rva00532DF6 {public: bool remove(unsigned short,unsigned short); bool add(unsigned short,unsigned short);};
 class Rva00532330 {public: bool rva00532330(unsigned short*,unsigned short*);};
@@ -532,8 +530,9 @@ void PathfindZoneManager::rva00532FEA(Block *block,PathfindCell **map,const IReg
 // creation including special layer links and selectively incremental borders.
 // Manager/cell offsets and layer stride64 come from target access instructions.
 void PathfindZoneManager::rva00533664(Block *block,PathfindCell **map,PathfindLayer *layers,const IRegion2D& bounds,bool incremental) {
- Rva0014921EVector *entries=(Rva0014921EVector*)block->vector38;
- entries->erase(entries->first,entries->last);
+ // The native block-pair vector now has its verified typed erase below.
+ _STL::vector<Rva005334A4Element> *entries=(_STL::vector<Rva005334A4Element>*)block->vector38;
+ entries->erase(entries->begin(),entries->end());
  {
  int x,y;
  for(x=bounds.lo.x;x<=bounds.hi.x;++x) {
