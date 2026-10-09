@@ -1,5 +1,7 @@
 // ?addModifierToPool@AttributeModifierPoolUpdate@@QAE_NABVAsciiString@@H@Z
-// partial score=0.85 date=2026-10-08
+// partial score=0.85 date=2026-10-09
+// BFME1 0bef414b applyAttributeModifier is the semantic/structural donor.
+// Native403E72..40426D RET8 and WB E916C0 independently name addModifierToPool.
 // cl: /O1 /EHsc /MD /arch:SSE /G7 /Ireference/shims/bfme2_ascii
 // stlport
 // Target 0040351C..0040360E; WB E90720 identifies the named FieldParse
@@ -40,23 +42,6 @@ private:
     char m_pad[0xCC];
     DelayedModifierUpgrade *m_upgrade;
 };
-void AttributeModifierContainer::parseDelayedUpgradeTemplate(INI *ini, void *instance, void *, const void *)
-{
-    const char *token = ini->getNextToken(0);
-    if (!TheUpgradeCenter) return;
-    AttributeModifierContainer *me = (AttributeModifierContainer *)instance;
-    me->m_upgrade = new DelayedModifierUpgrade;
-    me->m_upgrade->upgrade = TheUpgradeCenter->findUpgrade(AsciiString(token));
-    token = ini->getNextTokenOrNull(ini->getSepsColon());
-    if (token && strcmp(token, "Delay") == 0) {
-        token = ini->getNextToken(0);
-        if (token) {
-            unsigned value = ini->scanUnsignedInt(token);
-            me->m_upgrade->delay = (unsigned short)ceil(g_parseDurationMsecScale * (float)value);
-        }
-    }
-}
-
 // Pool removal, native 00403744..00403927. The original method spelling is
 // not named by WB E92370; preserve an address name instead of the prior
 // remove-by-symmetry pin. BFME1 applyAttributeModifier/update at 34f59164 are
@@ -161,46 +146,6 @@ private:
     unsigned categoryFrames[15];
     int counts[15];
 };
-void AttributeModifierPoolUpdate::rva00403744(const AsciiString &name)
-{
-    int index = TheAttributeModifierStore->rva00214713(TheNameKeyGenerator->nameToKey(name.str()));
-    if (index < 0) return;
-    for (Rva00297360Element *entry = modifiers.begin(); entry != modifiers.end(); ++entry) {
-        if (entry->index != index) continue;
-        modifiers.erase(entry);
-        int flags[19];
-        TheAttributeModifierStore->rva00214801(flags,index);
-        ((Rva001E42F2 *)object)->rva001E42F2(flags);
-        float value = 0;
-        TheAttributeModifierStore->getModifier(index,(void *)14,&value,0);
-        if (value > 0) {
-            ModifierBodyInterfaceView *body = object->body;
-            if (body && body->getHealth() > 0) {
-                float multiplier = 1;
-                if (rva00403448(15,&multiplier,0,1))
-                    body->setMaxHealth(body->getMaxHealth() - value*multiplier,1);
-                else
-                    body->setMaxHealth(body->getMaxHealth() - value,1);
-            }
-        }
-        value=0;
-        TheAttributeModifierStore->getModifier(index,(void *)15,&value,0);
-        if (value > 0) {
-            ModifierBodyInterfaceView *body = object->body;
-            if (body && body->getHealth() > 0)
-                body->setMaxHealth(body->getMaxHealth()/value,1);
-        }
-        const FXList *fx = (const FXList *)TheAttributeModifierStore->getEndFX(index,(Object *)object);
-        if (fx) FXList::doFXObj(fx,(Object *)object,0);
-        ModifierCategoryView *category=(ModifierCategoryView *)TheAttributeModifierStore->GetCategoryContainer(index);
-        if (category) --counts[category->index];
-        float dirty=0;
-        TheAttributeModifierStore->getModifier(index,(void *)20,&dirty,0);
-        if (dirty > 0) ((Object *)object)->makeDirty();
-        break;
-    }
-}
-
 inline const int &modifierMax(const int &a,const int &b) { return a<b?b:a; }
 bool AttributeModifierPoolUpdate::addModifierToPool(const AsciiString &name,int duration)
 {
@@ -212,7 +157,8 @@ bool AttributeModifierPoolUpdate::addModifierToPool(const AsciiString &name,int 
     unsigned frame=((ModifierFrameView *)TheGameLogic)->frame;
     
     if(duration<0) duration=category->duration;
-    unsigned length=_STL::max(0,duration);
+    int zero=0;
+    unsigned length=modifierMax(zero,duration);
     unsigned expiration=length?frame+length:0x3fffffff;
     ModifierPendingNames pending;
     if(category->exclusive) {
