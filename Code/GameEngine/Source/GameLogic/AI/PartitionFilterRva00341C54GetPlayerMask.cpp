@@ -42,6 +42,8 @@ extern PlayerList *ThePlayerList;	// VA 0x00DFEEE8
 class Rva000421C8
 {
 public:
+	// Native C122F0 reserves slot 0 for destruction; allow/mask are slots 1/2.
+	virtual ~Rva000421C8();
 	virtual bool allow(Object *obj) = 0;
 private:
 	int m_04;
