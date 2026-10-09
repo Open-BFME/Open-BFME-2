@@ -1,4 +1,5 @@
-// cl: /O1 /G7 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /O1 /G7 /MD /EHsc
+// stlport
 // WB1370CA0 names AIBuilder::DoXfer; native4EC1D9..4EC276 is157B RET4.
 // Native (rather than WB's older version) transfers Version1/5, unsigned158
 // at v2 and bool154 at v5. It serializes components140/4/B4/E4 unconditionally,
@@ -9,7 +10,12 @@
 // or member semantics are inferred. The new economy/wall/string providers
 // unlock these calls without speculative callee pins.
 #include "../../Common/GameLogicObjectLookupView.h"
-class AsciiString;
+#include "ascii_string.h"
+#include <vector>
+class UpgradeTemplate;
+class UpgradeCenter;
+class Object;
+extern "C" UpgradeCenter *TheUpgradeCenter;
 // Retail Version stores minimum/current bytes and has an inline constructor;
 // that constructor form also reproduces the independent stack homes in DoXfer.
 struct WallVersion
@@ -57,7 +63,6 @@ virtual Xfer &xferBool(bool *);
 
 
 namespace _STL {
-template <class T> class allocator {};
 template <class T, class A> class _List_base
 {
 public:
@@ -92,6 +97,7 @@ class Rva0059761B {public: void rva0059761B(void*);};
 class Player
 {
 public:
+    bool rva002AB87D(const UpgradeTemplate *) const;
     unsigned char prefix00[0x94];
     unsigned int money94;
 };
@@ -115,10 +121,22 @@ struct Rva002A8AB1Record
     unsigned char gap164[8];
     int difficulty16c;
 };
+class UpgradeCenter
+{
+public:
+    const UpgradeTemplate *findUpgrade(const AsciiString &) const;
+};
+class Rva005C4AD1LeaField
+{
+public:
+    void *get() const;
+};
 class Rva002A8F24
 {
 public:
     void *rva002A8F24(Player *);
+    void rva002A8F56(Object *);
+    void rva002A9365(Object *);
     Rva002A8AB1Record *rva002A8AB1(void *);
 };
 extern GameLogic *TheGameLogic;
@@ -150,6 +168,16 @@ public:
     unsigned char gap284[0x1b4];
     unsigned char flags438;
 };
+void __cdecl Rva00030830FreeAllocation(void *);
+namespace _STL
+{
+template <> inline void allocator<Object *>::deallocate(Object **p, unsigned int)
+const
+{
+    if (p)
+        Rva00030830FreeAllocation(p);
+}
+}
 class Rva00599534 {public: void rva00599534(int);};
 class Rva00598149 {public: void rva00598149(void *);};
 void *Rva00486687Find(void *);
@@ -175,7 +203,7 @@ struct AIBuilderOrderNode
     AIBuilderOrder *order;
 };
 class AIBuilder {
-public: void DoXfer(Xfer*); void moneySaverUpdate();
+public: void DoXfer(Xfer*); void moneySaverUpdate(); void rva004ECA01();
     void unRegisterProducedObject(Object *);
     void notifyDozerDead(Rva005996FFArg *);
     void rva004EC51F();
@@ -291,4 +319,48 @@ void AIBuilder::rva004EC51F()
     reinterpret_cast<AIBuilderResetView *>(reinterpret_cast<unsigned char *>(this) + 0xe4)->reset();
     reinterpret_cast<AIBuilderResetView *>(reinterpret_cast<unsigned char *>(this) + 0x108)->reset();
     reinterpret_cast<AIBuilderResetView *>(reinterpret_cast<unsigned char *>(this) + 4)->reset();
+}
+
+// Target evidence: the native update body calls this helper with the AIBuilder
+// receiver; it looks up the literal Upgrade_RingHero (0x0086294C), compares the
+// owner’s completed-upgrade result with +0x154, and only on a change scans the
+// object-ID range returned through the rowed +0x08 field getter. Retail filters
+// template bit 0x4, object byte +0x94 bit 0, and flags +0x438 bit 0 before the
+// two rowed manager calls. The helper name and the meaning of object byte +0x94
+// remain unresolved.
+void AIBuilder::rva004ECA01()
+{
+    bool enabled = owner00->rva002AB87D(
+        TheUpgradeCenter->findUpgrade(AsciiString("Upgrade_RingHero")));
+    if (enabled == flag154)
+        return;
+    flag154 = enabled;
+
+    void *stats = g_00DFEEF8->rva002A8F24(owner00);
+    Rva005C4AD1LeaField *idsField = *(Rva005C4AD1LeaField **)((unsigned char *)stats + 8);
+    _STL::vector<ObjectID> *ids = (_STL::vector<ObjectID> *)idsField->get();
+    _STL::vector<Object *, _STL::allocator<Object *> > changed;
+    _STL::vector<ObjectID>::iterator it = ids->begin();
+    if (it != ids->end())
+    {
+        do
+        {
+            Object *object = TheGameLogic->findObjectByID(*it);
+            if (object && (object->template04->kindOf120 & 4) &&
+                !(*(unsigned char *)((unsigned char *)object + 0x94) & 1) &&
+                !(object->flags438 & 1))
+                changed.push_back(object);
+            ++it;
+        } while (it != ids->end());
+    }
+    if (changed.begin() != changed.end())
+    {
+        _STL::vector<Object *, _STL::allocator<Object *> >::iterator changedIt = changed.begin();
+        do
+        {
+            g_00DFEEF8->rva002A8F56(*changedIt);
+            g_00DFEEF8->rva002A9365(*changedIt);
+            ++changedIt;
+        } while (changedIt != changed.end());
+    }
 }
