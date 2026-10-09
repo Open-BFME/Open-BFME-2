@@ -123,6 +123,8 @@ struct NAT
     void rva005A74D8();
     void rva005A7C9C();
     void processUDPPacket();
+    void rva005A73DE(Rva005A7A96Slot*);
+    void rva005A831E();
     void setConnectionState(int,int,int,int);
 };
 
@@ -282,4 +284,19 @@ void NAT::processUDPPacket() {
   }
   natClear(m_04,i);
  }
+}
+
+// Native5A73DE..5A74D8: announce the peer's PROBE through the same492-byte
+// request and queue used by the verified connection/host notifications.
+// String translation accesses the selected slot name30; type13 and flag118
+// are target facts. The original member name remains unresolved.
+void NAT::rva005A73DE(Rva005A7A96Slot *slot) {
+ PeerRequest request;
+ AsciiString options;
+ options.format("PROBED%d %X",m_localSlot,m_cookie);
+ request.unknown_00=13;request.payload_flag0.value=true;request.unknown_34="NAT/";
+ AsciiString name;
+ name.translate(slot->m_name);
+ request.unknown_04=name.str();request.unknown_40=options.str();
+ g_00A02340->f6(&request);
 }
