@@ -19,6 +19,20 @@ public:
 	unsigned int m_bits[19];
 };
 
+extern "C" void *memset(void *dst, int value, unsigned int size);
+class RvaDockClearMask
+{
+public:
+	RvaDockClearMask() { memset(this, 0, sizeof(*this)); }
+	void set(int bit) { m_words[bit >> 5] |= 1U << (bit & 31); }
+	unsigned int m_words[19];
+};
+class Rva001E42F2
+{
+public:
+	void rva001E42F2(const int *mask);
+};
+
 class Object
 {
 public:
@@ -50,6 +64,9 @@ public:
 	}
 };
 
+#include "../../../../Common/GameLogicObjectLookupView.h"
+extern GameLogic *TheGameLogic;
+
 class DockUpdate
 {
 public:
@@ -62,16 +79,16 @@ public:
 	virtual void dockSlot06();
 	virtual void dockSlot07();
 	virtual void dockSlot08();
-	virtual void dockSlot09();
-	virtual void dockSlot10();
+	virtual void onEnterReached(Object *docker);
+	virtual void onDockReached(Object *docker);
 	virtual void onExitReached(Object *docker);
 	virtual void dockSlot12();
-	virtual void dockSlot13();
+	virtual void cancelDock(Object *docker);
 	virtual bool isDockOpen();
 	virtual void dockSlot15();
 	virtual void dockSlot16();
-	virtual void dockSlot17();
 	virtual void setDockCrippled(bool setting);
+	void rva00589AFF(int index);
 
 private:
 	unsigned char m_pre04[0x24];	// interface vptr at +0x0, count at +0x28
@@ -136,4 +153,59 @@ void DockUpdate::onExitReached(Object *docker)
 		m_activeDocker = 0;
 	else
 		isDockOpen();
+}
+
+// ?onEnterReached@DockUpdate@@UAEXPAVObject@@@Z
+// Zero Hour donor at f98983a7 supplies entering-state semantics. Native
+// 0x00589DDD..0x00589E77 proves 0x54 cleared and 0x52/0x51 set on both
+// objects and removes the matching approach owner through full this-0x20.
+void DockUpdate::onEnterReached(Object *docker)
+{
+	Object *me = *(Object **)((char *)this - 0x18);
+	me->rva0028CFB2((const int *)&Rva0028F59A(0, 0x54),
+		(const int *)Rva001E4912().rva001E4912(0, 0x52, 0x51));
+	docker->rva0028CFB2((const int *)&Rva0028F59A(0, 0x54),
+		(const int *)Rva001E4912().rva001E4912(0, 0x52, 0x51));
+	m_dockerInside = true;
+	int dockerID = docker->m_id;
+	for (int i = 0; i < m_approachPositionOwners.size(); ++i)
+	{
+		if (m_approachPositionOwners[i] == dockerID)
+		{
+			((DockUpdate *)((char *)this - 0x20))->rva00589AFF(i);
+			return;
+		}
+	}
+}
+
+// ?cancelDock@DockUpdate@@UAEXPAVObject@@@Z
+// Zero Hour donor at f98983a7 supplies cancellation semantics. Native
+// 0x00589E77..0x00589F09 independently proves approach-owner removal
+// and active-ID lookup before clearing this state and condition bits
+// 0x54/0x52/0x53/0x51. The canonical GameLogic ObjectID call is retained.
+void DockUpdate::cancelDock(Object *docker)
+{
+	int dockerID = docker->m_id;
+	for (int i = 0; i < m_approachPositionOwners.size(); ++i)
+	{
+		if (m_approachPositionOwners[i] == dockerID)
+		{
+			((DockUpdate *)((char *)this - 0x20))->rva00589AFF(i);
+			break;
+		}
+	}
+	if (m_activeDocker == dockerID)
+	{
+		Object *dockingObject = TheGameLogic->findObjectByID((ObjectID)m_activeDocker);
+		m_activeDocker = 0;
+		m_dockerInside = false;
+		RvaDockClearMask clear;
+		clear.set(0x54);
+		clear.set(0x52);
+		clear.set(0x53);
+		clear.set(0x51);
+		((Rva001E42F2 *)*(Object **)((char *)this - 0x18))->rva001E42F2((const int *)&clear);
+		if (dockingObject)
+			((Rva001E42F2 *)dockingObject)->rva001E42F2((const int *)&clear);
+	}
 }
