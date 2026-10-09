@@ -1,41 +1,44 @@
 // cl: /MD
-// ?rva0042D7A3@Rva0042D7A3@@QAEXPAVRva005794ED@@@Z @0x0042D7A3 35B: set holder at +0 clearing old via dtor plus delete.
+// ?rva0042D7A3@Rva0042D7A3@@QAEXPAVEndTurnButtonImpl@StrategicHUD@@@Z @0x0042D7A3 35B: set holder at +0 clearing old via dtor plus delete.
 // Evidence: calls rowed dtor 0x005794ED plus rowed delete 0x0002FD60; caller 0x0042DAF0; prev Rva0042D71ACond.
-class Rva005794ED
+namespace StrategicHUD
+{
+class EndTurnButtonImpl
 {
 public:
-	virtual ~Rva005794ED();
+	virtual ~EndTurnButtonImpl();
 };
+}
 
 class Rva0042D7A3
 {
 public:
-	void rva0042D7A3(Rva005794ED *newPtr);
+	void rva0042D7A3(StrategicHUD::EndTurnButtonImpl *newPtr);
 	void rva0042D7C6();
 private:
-	Rva005794ED *m_00;
+	StrategicHUD::EndTurnButtonImpl *m_00;
 };
 
 void operator delete(void *p);
 
-void Rva0042D7A3::rva0042D7A3(Rva005794ED *newPtr)
+void Rva0042D7A3::rva0042D7A3(StrategicHUD::EndTurnButtonImpl *newPtr)
 {
-	Rva005794ED *old = m_00;
+	StrategicHUD::EndTurnButtonImpl *old = m_00;
 	if (newPtr == old)
 		return;
 	m_00 = newPtr;
 	if (old == 0)
 		return;
-	old->Rva005794ED::~Rva005794ED();
+	old->StrategicHUD::EndTurnButtonImpl::~EndTurnButtonImpl();
 	operator delete(old);
 }
 
 void Rva0042D7A3::rva0042D7C6()
 {
-	Rva005794ED *old = m_00;
+	StrategicHUD::EndTurnButtonImpl *old = m_00;
 	m_00 = 0;
 	if (old == 0)
 		return;
-	old->Rva005794ED::~Rva005794ED();
+	old->StrategicHUD::EndTurnButtonImpl::~EndTurnButtonImpl();
 	operator delete(old);
 }

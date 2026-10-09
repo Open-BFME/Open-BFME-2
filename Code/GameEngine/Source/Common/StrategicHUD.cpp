@@ -117,14 +117,17 @@ private:
 	unsigned char m_pad[0x58];
 };
 
-class Rva005794ED
+namespace StrategicHUD
+{
+class EndTurnButtonImpl
 {
 public:
-	Rva005794ED(int level, const AsciiString &name); // 0x00579575
+	EndTurnButtonImpl(int level, const AsciiString &name); // 0x00579575
 
 private:
 	unsigned char m_pad[0x20];
 };
+}
 
 // The stats display: constructor 0x00579E82.
 namespace StrategicHUD
@@ -298,10 +301,10 @@ class Rva0042D7A3
 public:
 	Rva0042D7A3() : m_ptr(0) {}
 	~Rva0042D7A3() { rva0042D7C6(); }
-	void rva0042D7A3(Rva005794ED *p);
+	void rva0042D7A3(StrategicHUD::EndTurnButtonImpl *p);
 	void rva0042D7C6();
 
-	Rva005794ED *m_ptr;
+	StrategicHUD::EndTurnButtonImpl *m_ptr;
 };
 
 class Rva0042D7E0
@@ -583,7 +586,7 @@ void StrategicHUD::HUD::Impl::OnChecklistUnloaded(const char *name)
 void StrategicHUD::HUD::Impl::OnEndTurnButtonLoaded(const char *name)
 {
 	if (m_endTurnButton.m_ptr == 0)
-		m_endTurnButton.rva0042D7A3(new Rva005794ED(AptUtils::LevelIndexFromTarget(name), AsciiString(AptUtils::SkipLevelN(name))));
+		m_endTurnButton.rva0042D7A3(new StrategicHUD::EndTurnButtonImpl(AptUtils::LevelIndexFromTarget(name), AsciiString(AptUtils::SkipLevelN(name))));
 }
 
 // Retail 0x0042DB16, 11 bytes: bound as "_level%u_OnEndTurnButtonUnloaded".

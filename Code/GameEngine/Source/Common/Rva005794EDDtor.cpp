@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
-// ??1Rva005794ED@@UAE@XZ @0x005794ED 85B: virtual dtor with AsciiString at +8 plus Rva0052413E at +0xC plus TargetRef at +0x18.
+// ??1EndTurnButtonImpl@StrategicHUD@@UAE@XZ @0x005794ED 85B: virtual dtor with AsciiString at +8 plus Rva0052413E at +0xC plus TargetRef at +0x18.
 // Evidence: deleting-dtor callers 0x0042D4EB 0x0042D7A3 0x0042D7C6 plus rowed Release 0x0007DEEF plus rowed 0x0052413E plus rowed releaseBuffer 0x00036410 plus vtables 0x00C6ECBC 0x00C6EE28; prev Rva004FAC6BCtor.
 #include "ascii_string.h"
 
@@ -148,12 +148,17 @@ struct Rva005794EDHolder18 : BfmeA1042N
 	__forceinline ~Rva005794EDHolder18() { if (m_ptr) ReleaseTreeHintRef00217D4C(m_ptr); }
 };
 
-class Rva005794ED : public Rva005794EDBase
+// StrategicHUD::EndTurnButtonImpl per WorldBuilder, which names its slots
+// DoSetEnabled, DoPlayAlertFlash and DoHaltAlertFlash; retail fires the same
+// "SetState"/"_disabled", "PlayAlertFlash" and "HaltAlertFlash" literals.
+namespace StrategicHUD
+{
+class EndTurnButtonImpl : public Rva005794EDBase
 {
 public:
-	Rva005794ED(int level, const AsciiString &name);
-	virtual ~Rva005794ED();
-	virtual void rva00579435(bool newState);
+	EndTurnButtonImpl(int level, const AsciiString &name);
+	virtual ~EndTurnButtonImpl();
+	virtual void DoSetEnabled(bool newState);
 	virtual void DoPlayAlertFlash();
 	virtual void DoHaltAlertFlash();
 	void OnClicked(const char *path);
@@ -164,22 +169,23 @@ private:
 	Rva005794EDHolder18 m_18;
 	bool m_1C;
 };
+}
 
-Rva005794ED::Rva005794ED(int level, const AsciiString &name)
+StrategicHUD::EndTurnButtonImpl::EndTurnButtonImpl(int level, const AsciiString &name)
 	: m_04(level), m_08(name), m_1C(true)
 {
 	AsciiString prefix;
 	prefix.format("_level%u.", m_04);
-	m_0C.AddCommandMapDelegate(prefix + m_08 + "_OnClicked", DelegateDesc(this, &Rva005794ED::OnClicked));
+	m_0C.AddCommandMapDelegate(prefix + m_08 + "_OnClicked", DelegateDesc(this, &StrategicHUD::EndTurnButtonImpl::OnClicked));
 }
 
-void Rva005794ED::OnClicked(const char *path)
+void StrategicHUD::EndTurnButtonImpl::OnClicked(const char *path)
 {
 	if (m_18.m_ptr != 0)
 		m_18.bfmeGo1042D();
 }
 
-Rva005794ED::~Rva005794ED()
+StrategicHUD::EndTurnButtonImpl::~EndTurnButtonImpl()
 {
 }
 
@@ -195,7 +201,7 @@ static __forceinline const char *Rva005794EDGetStr(const AsciiString &s)
 	return t ? t + 8 : g_Rva0107301CEmptyString;
 }
 
-void Rva005794ED::rva00579435(bool newState)
+void StrategicHUD::EndTurnButtonImpl::DoSetEnabled(bool newState)
 {
 	if (newState == m_1C)
 		return;
@@ -208,12 +214,12 @@ void Rva005794ED::rva00579435(bool newState)
 // Vtable 0x0086ECBC slots 2 and 3: WorldBuilder
 // StrategicHUD::EndTurnButtonImpl::DoPlayAlertFlash / DoHaltAlertFlash
 // (retail strings "PlayAlertFlash" / "HaltAlertFlash").
-void Rva005794ED::DoPlayAlertFlash()
+void StrategicHUD::EndTurnButtonImpl::DoPlayAlertFlash()
 {
 	Rva00524EF4AptCall(TheRva00222A8BTarget, (void *)m_04, Rva005794EDGetStr(m_08), "PlayAlertFlash");
 }
 
-void Rva005794ED::DoHaltAlertFlash()
+void StrategicHUD::EndTurnButtonImpl::DoHaltAlertFlash()
 {
 	Rva00524EF4AptCall(TheRva00222A8BTarget, (void *)m_04, Rva005794EDGetStr(m_08), "HaltAlertFlash");
 }
