@@ -1,5 +1,3 @@
-// ?rva00136E95@@YAXPAVRenderObjClass@@PAURva00136F5BRange@@11@Z
-// partial score=0.99 date=2026-10-09
 // cl: /O1 /Ob1 /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii
 // stlport
 // Native136BE7..136E95 SwitchTextureOnMesh (WB9B3140 renderasset.cpp90).
@@ -21,7 +19,11 @@ class FXShaderSetup{public:char prefix[12];_STL::vector<Rva0007BB16Record> param
 class MeshModelClass{public:virtual void Delete_This();int refs;char unknown08[0x8C];Rva0010E482 *description;void rva001716E0UnregisterMeshModel();void Replace_Texture(const RefCountPtr<TextureClass>&,const RefCountPtr<TextureClass>&);void Release_Ref(){--refs;if(refs==0)Delete_This();}};
 struct Rva00136090MeshHolder{MeshModelClass *pointer;__forceinline ~Rva00136090MeshHolder(){if(pointer)pointer->Release_Ref();}};
 Rva00136090MeshHolder Rva00136090MeshHold(MeshModelClass *);
-class MaterialInfoClass{public:virtual void Delete_This();int refs;char unknown08[0x1C];RefCountPtr<TextureClass> *textures;int unknown28,unknown2C,count;RefCountPtr<TextureClass> Peek_Texture(int);void Replace_Texture(int i,const RefCountPtr<TextureClass>&t){textures[i]=t;}void Release_Ref(){--refs;if(refs==0)Delete_This();}};
+// Native materials texture vector starts20: vptr20 items24 count30.
+// Reference WWLib VectorClass/DynamicVectorClass fixes those offsets;
+// the vector subscript inline closes receiver-before-argument evaluation.
+class SwitchTextureVector{public:virtual ~SwitchTextureVector();RefCountPtr<TextureClass> *items;int maximum;bool valid,allocated;short pad;int count,growth;__forceinline RefCountPtr<TextureClass>&operator[](int i){return items[i];}};
+class MaterialInfoClass{public:virtual void Delete_This();int refs;char unknown08[0x18];SwitchTextureVector textures;RefCountPtr<TextureClass> Peek_Texture(int);void Replace_Texture(int i,const RefCountPtr<TextureClass>&t){textures[i]=t;}void Release_Ref(){--refs;if(refs==0)Delete_This();}};
 class BFME2ParticleTextureHandle{public:TextureClass *p;~BFME2ParticleTextureHandle(){if(p)p->Release_Ref();}};
 BFME2ParticleTextureHandle BFME2LoadParticleTexture(const char *,int,int);
 void BFME_DX8_Thread_Lock();bool BFME_DX8_Thread_Assert();
@@ -141,7 +143,7 @@ static void SwitchTextureOnMesh(SwitchMeshView *mesh,const SwitchStrings &oldNam
  }else{
   MaterialInfoClass *materials=mesh->Get_Material_Info();
   if(materials){
-   for(int index=0;index<materials->count;++index){
+   for(int index=0;index<materials->textures.count;++index){
     RefCountPtr<TextureClass> texture=materials->Peek_Texture(index);unsigned i=0;
     for(;i<oldNames.size();++i)if(reinterpret_cast<const StringBase<char>*>(&oldNames[i])->compareNoCase(texture.p?texture.p->Get_Name():0)==0)break;
     if(i<oldNames.size()||oldNames.empty()){
