@@ -39,6 +39,7 @@
 //    VA 0x00E01E74 (.bss) for the duration.
 
 #include "ascii_string.h"
+#include "../../../../Libraries/Include/Lib/Coord3D.h"
 
 class AsciiString;
 class UnicodeString;
@@ -153,7 +154,7 @@ private:
 class SnapshotBase
 {
 protected:
-	virtual void v00();
+	virtual ~SnapshotBase();
 	virtual void v01();
 	virtual void v02();
 	virtual void xfer( Xfer *xfer );
@@ -328,16 +329,50 @@ public:
 	float z;
 };
 
+// Retail ctor 0x000D1AF3 builds the slot array through rowed vector_constructor_iterator
+// (0x1423) with the 3-byte folded empty ctor VA 0x87A6A9 (Region2D shares it; stride 0x10).
+class Region2D
+{
+public:
+	Region2D();
+	float x_min;
+	float y_min;
+	float x_max;
+	float y_max;
+};
+// Source argument views: +0x441 flag, float getter 0x000788D3 (+0x200), position getter
+// 0x002763E6 (rowed under the address-derived BFMERopeDrawable name).
+class Rva000788D3FloatField
+{
+public:
+	float get() const;
+};
+class BFMERopeDrawable
+{
+public:
+	const Coord3D *getPosition() const;
+};
+extern int g_012F801C;	// 0x009EBC38 (live-instance counter bumped by the ctor)
+struct TBuffSource
+{
+	char m_pad[ 0x441 ];
+	unsigned char m_flag441;
+};
+
 class TBuff : public SnapshotBase
 {
+public:
+	TBuff( const TBuffSource *source, Int value );
 protected:
 	virtual void xfer( Xfer *xfer );
 private:
 	Int m_bfmeValue04;																												///< 0x04
 	UnsignedInt m_bfmeRaw08;																									///< 0x08, 4 raw bytes
 	Real m_bfmeReal0C;																												///< 0x0C
-	char m_unrecovered10[ 0x44 - 0x10 ];
+	char m_bfmeByte10;																												///< 0x10
+	Region2D m_bfmeSlots14[ 3 ];																							///< 0x14, three 16-byte slots
 	Bool m_bfmeFlag44;																												///< 0x44
+	char m_bfmeByte45;																												///< 0x45
 	Coord3DBase m_bfmePosition48;																							///< 0x48
 	Real m_bfmeReal54;																												///< 0x54
 };
@@ -527,3 +562,26 @@ void BuffManager::xfer( Xfer *xfer )
 	}
 	g_Va00E01E74 = 0;
 }  // end xfer
+
+// ------------------------------------------------------------------------------------------------
+/** Retail 0x000D1AF3 (173 bytes, RET 8): value and zeroed state, then, when a source is
+ *  given, its +0x441 flag, float field (0x788D3) and position (0x2763E6). */
+// ------------------------------------------------------------------------------------------------
+TBuff::TBuff( const TBuffSource *source, Int value )
+	: m_bfmeValue04( value ), m_bfmeRaw08( 0 ), m_bfmeReal0C( 0.0f ), m_bfmeByte10( 0 )
+{
+	m_bfmeFlag44 = false;
+	m_bfmeByte45 = 0;
+	Coord3DBase *position = &m_bfmePosition48;
+	position->x = 0.0f;
+	position->y = 0.0f;
+	position->z = 0.0f;
+	m_bfmeReal54 = 1.0f;
+	if( source )
+	{
+		reinterpret_cast<unsigned char &>( m_bfmeFlag44 ) = source->m_flag441;
+		m_bfmeReal54 = ((const Rva000788D3FloatField *)source)->get();
+		*position = *(const Coord3DBase *)((const BFMERopeDrawable *)source)->getPosition();
+	}
+	++g_012F801C;
+}
