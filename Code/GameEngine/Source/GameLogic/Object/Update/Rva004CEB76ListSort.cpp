@@ -10,7 +10,7 @@
 // Comparator float-copy scheduling is target evidence; x/y/z names are carried from its sibling view.
 #include <list>
 namespace _STL { template<> _List_base<int,allocator<int> >::~_List_base(); }
-class Rva004CEAB7{public:__forceinline Rva004CEAB7(const Rva004CEAB7&r):x(r.x),y(r.y),z(r.z){}bool rva004CEAB7(void*,void*);float x,y,z;};
+class Rva004CEAB7{public:__forceinline ~Rva004CEAB7(){} __forceinline Rva004CEAB7(const Rva004CEAB7&r):x(r.x),y(r.y),z(r.z){}bool rva004CEAB7(void*,void*);float x,y,z;};
 struct Rva004CEB14List{void *head;};
 void Rva004CEB14(Rva004CEB14List&,Rva004CEB14List&,Rva004CEAB7);
 void Rva004CEB76(Rva004CEB14List&storage,Rva004CEAB7 comp){
@@ -30,3 +30,6 @@ void Rva004CEB76(Rva004CEB14List&storage,Rva004CEAB7 comp){
   list.swap(counter[fill-1]);
  }
 }
+
+class Rva004CED15Owner{public:void rva004CED15(Rva004CEAB7);};
+void Rva004CED15Owner::rva004CED15(Rva004CEAB7 comp){Rva004CEB76(*(Rva004CEB14List*)this,comp);}
