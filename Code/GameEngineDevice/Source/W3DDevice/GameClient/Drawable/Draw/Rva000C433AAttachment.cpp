@@ -1,5 +1,3 @@
-// ?rva000C433A@Rva000C433A@@QAEXPAVRenderObjClass@@PBD_NI@Z
-// partial score=1.0 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /MD /EHsc /D_CRTIMP= /D_STLP_NO_EXCEPTIONS /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /Ireference/shims/bfmealloc
 // stlport
 // Native C433A..C445D291B independently establishes RenderObj references,
