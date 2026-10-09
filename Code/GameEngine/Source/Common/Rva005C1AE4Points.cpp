@@ -67,3 +67,23 @@ void Rva005C1A36::rva005C1ABA(const UnicodeString &name)
 	m_held->v1(this);
 	rva005DD48C();
 }
+
+// Native5C1B2D..5C1BDE, complete177B cdecl hidden UnicodeString return.
+// WB1592B10 and SIDE: key prove faction-label lookup with wide dash fallback.
+// Canonical strings reproduce hidden-return construction flag and four EH
+// lifetime states; fetch uses witnessed virtual slot38. Original name unknown.
+class GameTextInterface {public:
+#define V(n) virtual void s##n();
+V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7) V(8) V(9) V(10) V(11) V(12) V(13)
+#undef V
+virtual UnicodeString fetch(const AsciiString&,bool*);
+};
+extern GameTextInterface *TheGameText;
+UnicodeString Rva005C1B2D(const AsciiString &faction){
+ UnicodeString result((const unsigned short*)L"-");
+ if(!((const StringBase<char>*)&faction)->isEmpty()){
+  AsciiString label("SIDE:");label+=faction;
+  result=TheGameText->fetch(label,0);
+ }
+ return result;
+}
