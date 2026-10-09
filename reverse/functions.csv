@@ -43063,7 +43063,7 @@ _io_write,,0x0074ABA0,320,Code/Libraries/Source/Lua/liolib_bfme1.c,matched,Lua 4
 ?clone@Rva003AF329@@QBEPAV1@XZ,,0x003AF2F2,55,Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AF329Clone.cpp,matched,vslot2 of 0x0081CFD4 EH new 0x34 plus rowed copy
 ??0Rva003AF3D3@@QAE@ABV0@@Z,,0x003AF3D3,38,Code/GameEngine/Source/GameClient/System/FXParticleSystem/ParticleModuleTemplateCopyCtors.cpp,matched,unlock via base 0x3AF3F9 vtbls g_00C1CFF8 g_00C1C078 g_00C1CFE8
 ?clone@Rva003AF3D3@@QBEPAV1@XZ,,0x003AF39C,55,Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AF3D3Clone.cpp,matched,vslot2 of 0x0081CFF8 EH new 0x34 plus rowed copy
-?rva006D0790@Rva006D0790@@QAEPAV1@PAURva006D0280@@PAX@Z,,0x006D0790,70,Code/GameEngine/Source/Common/Rva006D0790Init.cpp,matched,list init plus Rva006D0280 acquire-release via chain allocator
+??0Rva006D0790@@QAE@VRva006D07E0Key@@PAX@Z,,0x006D0790,70,Code/GameEngine/Source/Common/Rva006D0790Init.cpp,matched,list init plus Rva006D0280 acquire-release via chain allocator; native6D1DCE16B allocation and counted argument prove constructor ABI. Renamed provider owner; bytes unchanged
 ?rva0044E655@Rva0044E655@@QAE_NXZ,,0x0044E655,52,Code/GameEngine/Source/Common/Rva0044E655Check.cpp,matched,unlock lane callers 0x0045224C 0x00452269 AI slot 0x1b8 isIdle
 ?rva0044E9C7@Rva0044E9C7@@QAEPAV1@HIIIIIIIIIIIIII@Z,,0x0044E9C7,300,Code/GameEngine/Source/Common/Rva0044E9C7Init.cpp,matched,unlock lane caller 0x0044EE41 fifteen args first unused
 ?rva00285672@Rva00285672@@QBE_NABV1@@Z,,0x00285672,42,Code/GameEngine/Source/Common/Rva00285672Compare.cpp,matched,lexicographic two-dword less via caller context and signed jumps
