@@ -11,6 +11,7 @@
 
 class Rva00594DC0;
 struct NetPacketAddress;
+struct TransportAddress;
 
 struct Rva004D4A80Slot
 {
@@ -32,6 +33,7 @@ public:
 	void Rva004D5496(void);
 	void clearBuffer_Rva004D4A59(void);
 	bool rva004D53B5(void *addr);
+	bool init(const TransportAddress *address);
 	void setSlotSocket(void *obj, unsigned short index, int *vals);
 	void setDestAddrToSocket(int index, void *address);
 	bool doRecv(Rva00594DC0 *receiver);
