@@ -17015,3 +17015,4 @@ _D3DXMatrixTranslation@16,0x0062AF32,First named PE import thunk: FF25 IAT00BBA9
 ?reserve@?$vector@URva0047B35EElement@@V?$allocator@URva0047B35EElement@@@_STL@@@_STL@@QAEXI@Z,0x0047B35E,vector reserve (24B elements) called from initOffsets 0x47B6C8
 ?rva0045479A@GettingBuiltBehavior@@QAEXXZ,0x0045479A,callee of ?update@GettingBuiltBehaviorUpdateReceiver@@QAE?AW4UpdateSleepTime@@XZ
 ?rva000A8C2B@Rva000A8C2B@@QAEXPAVXfer@@PAURva0010FFA2Packet@@@Z,0x000A8C2B,thiscall spelling of the placeholder-rowed A8C2B (retail calls it with ecx = playing+0x0C; the body ignores ecx); caller the MilesAudioManager stream xfer 0x0005B256
+?rva0028C149@Object@@QAE_NHPAMPBVAsciiString@@@Z,0x0028C149,same rowed 0x0028C149 (?rva0028C149@Object@@QAE_NHPAMH@Z) seen from Armor::adjustDamage 0x001D90A1; which passes the address of a local AsciiString (damage-type name) as the third argument (lea eax;[ebp+0xc]; push eax); 0x00508120 passes null

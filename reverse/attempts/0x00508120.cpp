@@ -17,7 +17,26 @@
 #include <math.h>
 #include <list>
 #include <vector>
-#include "../../../Include/GameLogic/ContainmentListView.h"
+// ContainmentListView.h (inlined for the bank)
+#include <list>
+struct Rva0036ADF9Element {
+    int rawWords[1];
+    bool operator<(const Rva0036ADF9Element &) const;
+    bool operator==(const Rva0036ADF9Element &) const;
+};
+typedef _STL::list<Rva0036ADF9Element> ContainmentList;
+// Consumers read the first dword as an object pointer or identifier. Preserve
+// its bits without treating the opaque element as a different C++ object type.
+inline const int &containmentFirstWord(const Rva0036ADF9Element &element)
+{
+    return element.rawWords[0];
+}
+class Rva0036AE51ListView {
+public:
+    void *a;
+    ContainmentList *b;
+    ContainmentList rva0036AE51();
+};
 struct Coord3D
 {
  float x, y, z;
