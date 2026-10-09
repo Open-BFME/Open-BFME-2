@@ -209,6 +209,7 @@ class Rva007DB820
 public:
 	int shutdown();
 	Int set(FilterModes mode);
+	Int init();
 
 private:
 	void *m_vptr;
@@ -281,4 +282,16 @@ Int Rva007DB820::set(FilterModes mode) {
   return true;
  }
  return false;
+}
+
+// Native 0x000F839B..0x000F83A9 is the whole slot-0 init, 14B RET0.
+// Unlike BFME 1's full shader/texture initializer, BFME 2 clears the
+// existing +04 COM field and this fade group's frame, then returns failure.
+// The next body is the independently matched slot-2 preRender. The same
+// vftable and shutdown establish the receiver and the +04 field.
+Int Rva007DB820::init()
+{
+	m_04 = 0;
+	BfmeFilterFadeCurrentFrame = 0;
+	return 0;
 }
