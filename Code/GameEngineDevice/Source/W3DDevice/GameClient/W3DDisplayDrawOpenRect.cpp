@@ -32,6 +32,9 @@ public:
 	float Bottom;
 };
 
+class Render2DClass;
+static __forceinline void setRender2DTexturing(Render2DClass *render, bool onoff);
+
 class Render2DClass
 {
 public:
@@ -40,11 +43,12 @@ public:
 private:
 	char m_pad00[0x48];
 	bool m_texturing;					// +0x48
+	friend void setRender2DTexturing(Render2DClass *render, bool onoff);
 };
 
 static __forceinline void setRender2DTexturing(Render2DClass *render, bool onoff)
 {
-	*(bool *)((char *)render + 0x48) = onoff;
+	render->m_texturing = onoff;
 }
 
 #define W3DDISPLAY_SLOT(n) virtual void slot##n();
