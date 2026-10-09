@@ -920,6 +920,7 @@ public:
     void rva0005A92A(int key, Rva0005A084Vector *output);
     void rva0005B137(void);
     void recalculateMicrophone(void);
+    bool rva0005538C(void);
     void rva0005BE59(void *slot, float value, void *index);
     void rva0005E377(const AsciiString &key, int viewType);
     void rva0005DAFC(int viewType);
@@ -3697,6 +3698,27 @@ void MilesAudioManager::rva0005E377(const AsciiString &key, int viewType)
     MilesMutexGuard guard(&m_mutex, 0);
     reinterpret_cast<GlobalVolumeData *>(m_volumeData[viewType])->m_at1B8.rva0005B633(key);
     rva0005BE59(const_cast<AsciiString *>(&key), -1.0f, reinterpret_cast<void *>(viewType));
+}
+
+// Retail 0x0005538C (address-derived): under the mutex, whether any view type
+// has a music stream playing for its active system or music queued on an
+// inactive system's stack.
+bool MilesAudioManager::rva0005538C(void)
+{
+    MilesMutexGuard guard(&m_mutex, 0);
+    int *active = reinterpret_cast<int *>(m_activeMusicSystem);
+    for (int view = 0; view < 3; ++view, ++active) {
+        for (int system = 0; system < 2; ++system) {
+            if (system == *active) {
+                PlayingAudioList::iterator it = rva000544CB(view, system, 1);
+                if (it != m_playingStreams.end())
+                    return true;
+            } else if (!m_musicStack[view][system].empty()) {
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 class Rva0005C892 { public: void rva0005C892(void); };

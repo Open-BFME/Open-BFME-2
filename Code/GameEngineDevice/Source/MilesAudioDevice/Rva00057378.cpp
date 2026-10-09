@@ -46,6 +46,8 @@ public:
     void unmapPhysicalHandle(unsigned int handle);
     bool rva000562FA(int key, BfmeEventPositionView *output);
     bool rva00057492(unsigned int key, BfmeEventPositionView *output);
+    bool rva000572DC(unsigned int key);
+    bool rva0005623E(int key, void **output, int flags);
 private:
     char at00[0x104];
     MilesKeyAliases aliases;
@@ -178,6 +180,23 @@ bool MilesAudioManager::rva00057492(unsigned int key, BfmeEventPositionView *out
         return rva000562FA(key, output);
     do {
         if (rva000562FA(it->second, output))
+            return true;
+        ++it;
+    } while (it != aliases.end() && it->first == key);
+    return false;
+}
+
+// Native 000572DC..00057378, RET4. Same alias table and guard as 00057378;
+// true when the lookup 0x5623E accepts the handle itself (no alias) or any
+// equal-key alias.
+bool MilesAudioManager::rva000572DC(unsigned int key)
+{
+    MilesMutexGuard guard(&mutex, 0);
+    MilesKeyAliases::iterator it = aliases.find(key);
+    if (it == aliases.end())
+        return rva0005623E(key, 0, 0);
+    do {
+        if (rva0005623E(it->second, 0, 0))
             return true;
         ++it;
     } while (it != aliases.end() && it->first == key);
