@@ -6,6 +6,7 @@
 template <class T, int N> class AutoPoolClass {};
 #define WWDEBUG_SAY(x)
 #define WWDEBUG_WARNING(x)
+#define WWASSERT(x) ((void)0)
 #include "multilist.h"
 #include "refcount.h"
 #include "vector3.h"
@@ -151,3 +152,51 @@ protected:
 // vector18/count1C/level24 initialization and 141F90/142060 call sequence.
 typedef char SceneCtorTargetSize[(sizeof(SimpleSceneClass)==0x108)?1:-1];
 SimpleSceneClass::SimpleSceneClass() : SceneClass(), m_104(1) {}
+
+#define SCENE_H
+#define RINFO_H
+class LightEnvironmentClass;
+// Partial target prefix only. Native reads camera0 and light_environment28;
+// donor has1C, so the twelve intervening bytes remain unnamed.
+class RenderInfoClass {
+public:
+    CameraClass &Camera;
+    unsigned char reserved[0x28-4];
+    LightEnvironmentClass *light_environment;
+};
+#include <stddef.h>
+typedef char SceneRenderInfoLightOffset[(offsetof(RenderInfoClass,light_environment)==0x28)?1:-1];
+#include "camera.h"
+#include "dx8wrapper.h"
+#include "light.h"
+#include "lightenvironment.h"
+typedef RefMultiListIterator<RenderObjClass> SceneRenderIterator;
+class BfmeVecHF;
+class Gen_0094AC70 { public: void bfmeSetPair(const BfmeVecHF*,const BfmeVecHF*); };
+
+
+void SimpleSceneClass::Customized_Render(RenderInfoClass &rinfo)
+{
+    Visibility_Check(&rinfo.Camera);
+    SceneRenderIterator it(&list_74);
+    for(; !it.Is_Done(); it.Next()) it.Peek_Obj()->On_Frame_Update();
+    DX8Wrapper::Set_Light(0,0);
+    DX8Wrapper::Set_Light(1,0);
+    DX8Wrapper::Set_Light(2,0);
+    DX8Wrapper::Set_Light(3,0);
+    if(!rinfo.light_environment) {
+        static LightEnvironmentClass lenv;
+        // Reset13F620 is already rowed under its BFME1 opaque owner spelling.
+        // WB confirms Reset role; target ABI takes two borrowed three-float pointers.
+        Vector3 origin(0,0,0);
+        ((Gen_0094AC70*)&lenv)->bfmeSetPair((const BfmeVecHF*)&origin,(const BfmeVecHF*)&AmbientLight);
+        for(it.First(&list_8c); !it.Is_Done(); it.Next())
+            lenv.Add_Light(*(LightClass*)it.Peek_Obj());
+        lenv.Pre_Render_Update(rinfo.Camera.Get_Transform());
+        rinfo.light_environment=&lenv;
+    }
+    for(it.First(&list_ec); !it.Is_Done(); it.Next()) {
+        RenderObjClass *robj=it.Peek_Obj();
+        if(robj->Is_Really_Visible()) robj->Render(rinfo);
+    }
+}
