@@ -1,0 +1,25 @@
+{
+  "id": "B-20261010-terrain-scorch-fx-001e0915",
+  "paths": [
+    "Code/GameEngine/Source/GameClient/TerrainScorchFXNuggetDoFXPos.cpp"
+  ],
+  "recoveries": [
+    {
+      "name": "?doFXPos@TerrainScorchFXNugget@@UBEXPBUCoord3D@@PBVMatrix3D@@M0@Z",
+      "rva": "0x001E0915",
+      "size": 80,
+      "source": "Code/GameEngine/Source/GameClient/TerrainScorchFXNuggetDoFXPos.cpp",
+      "notes": "BF1 donor575ba2b04743 FXList.cpp and ZH FXList.cpp supply scorch-if-primary semantic guide; target WBAD60B0 names method at FXList.cpp1248. Native1E0915..1E0965 proves80B const virtual four-argument ABI and type148/radius14C/range150-154. Table7DD828 slot1 points to native body at7DD82C. Target random-range fields replace donor constants; direct random provider23404A is already matched; GameClient addScorch slot58 with real Scorches enum from ZH GameType.h. Complete80B and full native source-path literal verified exact on first trial; no EH; no pins or assembly.",
+      "replace_rva": ""
+    }
+  ],
+  "proof_command": "python tools/explain_mismatch.py '?doFXPos@TerrainScorchFXNugget@@UBEXPBUCoord3D@@PBVMatrix3D@@M0@Z' --rva 0x001E0915 --size 80 --source Code/GameEngine/Source/GameClient/TerrainScorchFXNuggetDoFXPos.cpp; python build/verify-terrain-scorch-fx.py",
+  "proof_log": "proof.log",
+  "dependencies": [],
+  "ledger_delta": "No local ledger edits. One new row and source.",
+  "provider_notes": "TheGameClient is an existing named global. Direct GetGameClientRandomValue23404A36B already matched. Native virtual slot58 corresponds to GameClient addScorch; the concrete W3DGameClient implementation4C7A872B is matched. New source emits only the proposed80B body. Coord3D is forward-declared without a new private definition; Matrix3D likewise opaque. Donor Scorches enum0..4 comes from ZH Common/GameType.h.",
+  "seat": "B",
+  "base_commit": "27aae652f10402b4957197a33aea7a0906367517",
+  "claim_owner": "codex-01a12257-recovery",
+  "proof_exit_code": 0
+}
