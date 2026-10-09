@@ -1,8 +1,10 @@
-// ??0Rva00260865@@QAE@PAVGameFont@@MMHHHH@Z
+// ??0SubTitleWindow@@QAE@PAVGameFont@@MMHHHH@Z
+// partial score=0.9659198556774068 date=2026-10-09
+// ??0SubTitleWindow@@QAE@PAVGameFont@@MMHHHH@Z
 // partial score=0.9659198557 date=2026-10-09
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /arch:SSE /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
 // stlport
-// ??0Rva00260865@@QAE@PAVGameFont@@MMHHHH@Z @0x00260865 471B ctor with DisplayString arrays and layout floats via TheDisplayStringManager slot 0x38 and global vector push. Evidence: callers 0x00047F79 0x00051353 new 0x6c then forward font and floats, dtor 0x00260A3C frees array and manager slots, Rva0029B816Ctor pattern for newDisplayString plus temp UnicodeString.
+// ??0SubTitleWindow@@QAE@PAVGameFont@@MMHHHH@Z @0x00260865 471B ctor with DisplayString arrays and layout floats via TheDisplayStringManager slot 0x38 and global vector push. Evidence: callers 0x00047F79 0x00051353 new 0x6c then forward font and floats, dtor 0x00260A3C frees array and manager slots, Rva0029B816Ctor pattern for newDisplayString plus temp UnicodeString.
 #include "unicode_string.h"
 #include <vector>
 
@@ -59,10 +61,10 @@ extern DisplayStringManager *TheDisplayStringManager;
 class BfmeItemKA;
 extern BfmeItemKA **g_bfmeBegKA;
 
-class Rva00260865
+class SubTitleWindow
 {
 public:
-	Rva00260865(GameFont *font, float f2, float f3, int i4, int count, int i6, int i7);
+	SubTitleWindow(GameFont *font, float f2, float f3, int i4, int count, int i6, int i7);
 private:
 	DisplayString *m_00;
 	GameFont *m_04;
@@ -92,7 +94,7 @@ private:
 };
 
 
-Rva00260865::Rva00260865(GameFont *font, float f2, float f3, int i4, int count, int i6, int i7)
+SubTitleWindow::SubTitleWindow(GameFont *font, float f2, float f3, int i4, int count, int i6, int i7)
 	: m_00(0)
 	, m_04(font)
 	, m_vec()
