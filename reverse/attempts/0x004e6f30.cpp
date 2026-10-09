@@ -1,25 +1,38 @@
-// ?Open@InGameNotificationBoxMovieClip@@QAEXABVUnicodeString@@ABVInGameNotificationType@@H_NH@Z
-// partial score=0.98 date=2026-10-09
-// cl: /O1 /Ob1 /G7 /arch:SSE /MD /EHsc /Ireference/shims/bfme2_ascii
+// ?rva004E6F30@InGameNotificationBoxMovieClip@@QAEXABVUnicodeString@@ABVRva002217EA@@H_NH@Z
+// partial score=0.9891416309012876 date=2026-10-09
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /O1 /Oy /G7 /arch:SSE /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/inputs/reference/shims/sweep /ICode/Libraries/Include/Lib /ICode/GameEngine/Include
+// Notification ctor: native4E6C34..4E6F30 RET0 and WB1321690 source43..47.
+// Target stores and the rowed157B destructor establish fields4..51;
+// owned slots40/44 start empty. Lists0C/18/24/30 hold three pointers and
+// have distinct independently verified teardown providers.
+// Rva00524265 ctor below is a complete19B ICF twin of the default name-list
+// constructor, independently verified before using it for the +24 list.
+// Six bindings establish callbacks. WB1323070 names OnInitialized,
+// WB1323380 names ExternMessageWidth and WB13235C0 names RenderMessage.
+// RenderMessage144 is banked: four local-stack offsets still differ. Its
+// independently named native entry remains a declaration and a link
+// blocker. Constructor DIR32 binding needs no new pin. The two float-pair argument types follow retail accesses;
+// pointer types for its two unused words remain structural views.
+// No applicable clean BFME1/ZH donor body at the pinned f98983a7d revision.
+#include "ascii_string.h"
+#include "unicode_string.h"
+#include "Coord2D.h"
+#include "wwmath.h"
+struct OpaqueRefCounted;
+struct OpaqueRefElement4{OpaqueRefCounted*referent;OpaqueRefElement4():referent(0){}OpaqueRefElement4&operator=(const OpaqueRefElement4&);};
+#include <stdlib.h>
 // Notification-box ownership transfer: native004E6BF6..004E6C34 RET4;
 // WorldBuilder013238A0 returns a consuming holder through a hidden result.
 // Rva004E6A1D clear and Rva004E6A37 destructor/assignment establish the
 // existing owner spellings. Copy empties its source before publishing the
 // pointer; the returned holder has the independently rowed destructor.
 // The original method name is unproven; preserve a neutral address name.
-#include "unicode_string.h"
-void *__cdecl operator new(unsigned int) throw();
-class OpaqueRefCounted;
-struct OpaqueRefElement4 {
- OpaqueRefCounted *referent;
- OpaqueRefElement4():referent(0) {}
- ~OpaqueRefElement4();
- OpaqueRefElement4 &operator=(const OpaqueRefElement4 &);
-};
-class Rva004E6935 {
- public:
- UnicodeString text; int value04; OpaqueRefElement4 ref; UnicodeString label;
- int value10,value14,value18; bool value1C; char unknown1D[3]; int location;
+class Image;
+struct NoticeSound:OpaqueRefElement4{NoticeSound(){referent=0;}NoticeSound&operator=(const OpaqueRefElement4&o){OpaqueRefElement4::operator=(o);return *this;}};
+struct Rva004E6935 {
+ UnicodeString text;const Image*icon;OpaqueRefElement4 sound;UnicodeString fontName;
+ void*font;unsigned color;int timeout;bool show;char pad1D[3];int context;
+ Rva004E6935(){}
  ~Rva004E6935();
 };
 class Rva004E6A37 {
@@ -33,8 +46,9 @@ public:
 class Rva004E6A1D {
 public:
  Rva004E6935 *m_ptr;
- Rva004E6A1D(Rva004E6935 *p):m_ptr(p) {}
- ~Rva004E6A1D() {clear();}
+ Rva004E6A1D(Rva004E6935*p=0):m_ptr(p){}
+ Rva004E6935*operator->(){return m_ptr;}
+ ~Rva004E6A1D(){clear();}
  void clear();
  Rva004E6A37 rva004E6BF6();
 };
@@ -44,26 +58,128 @@ Rva004E6A37 Rva004E6A1D::rva004E6BF6() {
  return Rva004E6A37(transfer);
 }
 
-class InGameNotificationType;
-class Rva0047A6A9SelfField { public: const UnicodeString &get() const; };
-class Rva005C4AD1LeaField {public: void *get() const;};
-class Rva0030F45FDwordField {public: int get() const;private: char pad[8];int value;};
-class Rva001DB0A8DwordField {public: int get() const;private: char pad[12];int value;};
-class Rva001DB09DDwordField {public: int get() const;};
-class InGameNotificationBoxMovieClip {
- public: void Open(const UnicodeString &,const InGameNotificationType &,int,bool,int);
- private: char pad00[0x40];Rva004E6A37 holder40;char pad44[12];bool enabled50;
-};
-void InGameNotificationBoxMovieClip::Open(const UnicodeString &label,const InGameNotificationType &kind,int value,bool flag,int location) {
- if(!enabled50) return;
- Rva004E6A1D owner(new Rva004E6935);
- Rva004E6935 *record=owner.m_ptr;
- record->text=reinterpret_cast<const Rva0047A6A9SelfField *>(&kind)->get();
- record->ref=*static_cast<const OpaqueRefElement4 *>(reinterpret_cast<const Rva005C4AD1LeaField *>(&kind)->get());
- record->value04=reinterpret_cast<const Rva0030F45FDwordField *>(&kind)->get();
- record->label=label;
- record->value10=reinterpret_cast<const Rva001DB0A8DwordField *>(&kind)->get();
- record->value14=reinterpret_cast<const Rva001DB09DDwordField *>(&kind)->get();
- record->value18=value; record->value1C=flag; record->location=location;
- holder40=Rva004E6A37(owner.rva004E6BF6());
+namespace _STL {
+ template<class T> class allocator {public:allocator(){}};
+ template<class T,class A> class _Vector_base {public:_Vector_base(const A&);protected:T*first,*last,*limit;};
 }
+class Rva0052413E {public:Rva0052413E();~Rva0052413E();char data[12];};
+class Rva005241B0 {public:Rva005241B0();~Rva005241B0();char data[12];};
+class Rva005242D7 {public:Rva005242D7();~Rva005242D7();char data[12];};
+class Rva00524265 {public:Rva00524265();~Rva00524265();private:_STL::_Vector_base<AsciiString,_STL::allocator<AsciiString> > names;};
+Rva00524265::Rva00524265():names(_STL::allocator<AsciiString>()){}
+struct AsciiStringRef{const AsciiString*string;};
+struct Rva000B3F84Pair{const char*string;int length;};
+struct AsciiStringPlusText:AsciiStringRef{Rva000B3F84Pair text;operator AsciiString();};
+AsciiStringPlusText operator+(const AsciiString&,const char*);
+class __single_inheritance InGameNotificationBoxMovieClip;
+typedef void(InGameNotificationBoxMovieClip::*NoticeCommand)(unsigned);
+struct DelegateDesc{DelegateDesc(InGameNotificationBoxMovieClip*p,NoticeCommand m):object(p),method(m){} InGameNotificationBoxMovieClip*object;NoticeCommand method;};
+class Rva00579E47 {public:Rva00579E47(const DelegateDesc&);Rva00579E47(const Rva00579E47&);~Rva00579E47();void*ptr;};
+template<class T> class AptRef:public Rva00579E47{public:AptRef(DelegateDesc d):Rva00579E47(d){}};
+class AptCommandMap;class AptExternHandler;class AptCustomRender;
+class AptCommandMapAdder {public:void AddCommandMap(const AsciiString&,AptRef<AptCommandMap>);};
+class AptExternHandlerAdder {public:void AddExternHandler(const AsciiString&,int,AptRef<AptExternHandler>);};
+class AptCustomRenderAdder {public:void AddCustomRender(const AsciiString&,AptRef<AptCustomRender>);};
+class DisplayString;
+class NoticeStringView{public:
+ virtual void s00();virtual void s04();virtual void s08();virtual void s0C();virtual void s10();virtual void s14();
+ virtual void s18();virtual void s1C();virtual void s20();virtual void s24();virtual void s28();virtual void s2C();
+ virtual void s30();virtual void draw(int,int);virtual void s38();virtual void getSize(int*,int*);
+};
+class DisplayStringManager;extern DisplayStringManager*TheDisplayStringManager;
+class NoticeStringManagerView {public:
+virtual void s00();
+virtual void s04();
+virtual void s08();
+virtual void s0C();
+virtual void s10();
+virtual void s14();
+virtual void s18();
+virtual void s1C();
+virtual void s20();
+virtual void s24();
+virtual void s28();
+virtual void s2C();
+virtual void s30();
+virtual void s34();
+virtual DisplayString*newString();
+};
+class BfmeAptWindowManager;extern BfmeAptWindowManager*g_bfmeAptWindowManager;
+class NoticeAptManagerView {public:
+virtual void s00();
+virtual void s04();
+virtual void s08();
+virtual void s0C();
+virtual void s10();
+virtual void s14();
+virtual void s18();
+virtual void s1C();
+virtual void s20();
+virtual void s24();
+virtual void s28();
+virtual void s2C();
+virtual void s30();
+virtual void s34();
+virtual void s38();
+virtual void s3C();
+virtual void s40();
+virtual void s44();
+virtual void s48();
+virtual void s4C();
+virtual int load(AsciiString,AsciiString,int,int);
+};
+class Rva002224FE {public:bool rva002224FE(int);};
+class Rva004E67B3 {public:void rva004E67B3(unsigned);};
+class Rva002217EA {public:
+ __declspec(noinline) const UnicodeString&rva0047A6A9()const{return text;}
+ __declspec(noinline) const OpaqueRefElement4&rva005C4AD1()const{return sound;}
+ __declspec(noinline) const Image*rva0030F45F()const{return image;}
+ __declspec(noinline) void*rva001DB0A8()const{return font;}
+ __declspec(noinline) unsigned rva001DB09D()const{return color;}
+ UnicodeString text;OpaqueRefElement4 sound;const Image*image;void*font;unsigned color;
+};
+class Rva004E6A9BBase {public:virtual unsigned char rva00578522()const;virtual void rva004E6B7D(bool);virtual void DoOpen(const UnicodeString&,const Rva002217EA&,int);virtual void DoClose();~Rva004E6A9BBase(){}};
+class InGameNotificationBoxMovieClip:public Rva004E6A9BBase {public:
+ InGameNotificationBoxMovieClip();
+ virtual unsigned char rva00578522()const;virtual void rva004E6B7D(bool);
+ virtual void DoOpen(const UnicodeString&,const Rva002217EA&,int);virtual void DoClose();
+ void rva004E6F30(const UnicodeString&,const Rva002217EA&,int,bool,int);
+ void CloseImmediately();void OnInitialized(unsigned);void OnClosed(unsigned);void rva004E67D0(int);
+ void ExternMessageWidth(int,const char*,bool);void RenderMessage(const Coord2D*,const Coord2D*,void*,void*);
+ int level,state;Rva0052413E commands;Rva005241B0 externs;Rva00524265 renders;Rva005242D7 images;
+ float width;Rva004E6A1D pending,active;unsigned timestamp;DisplayString*string;unsigned char flag50,iconVisible;
+};
+InGameNotificationBoxMovieClip::InGameNotificationBoxMovieClip():level(-1),state(0),width(0.0f),timestamp(0),string(((NoticeStringManagerView*)TheDisplayStringManager)->newString()),flag50(0),iconVisible(1) {
+ level=((NoticeAptManagerView*)g_bfmeAptWindowManager)->load(AsciiString("Apt\\"),AsciiString("InGameNotificationBox.apt"),0,0);
+ AsciiString prefix;prefix.format("_level%u",level);
+ ((AptCommandMapAdder*)&commands)->AddCommandMap(prefix+"_OnInitialized",AptRef<AptCommandMap>(DelegateDesc(this,&InGameNotificationBoxMovieClip::OnInitialized)));
+ ((AptCommandMapAdder*)&commands)->AddCommandMap(prefix+"_OnOpen",AptRef<AptCommandMap>(DelegateDesc(this,reinterpret_cast<NoticeCommand>(&Rva004E67B3::rva004E67B3))));
+ ((AptCommandMapAdder*)&commands)->AddCommandMap(prefix+"_OnClosed",AptRef<AptCommandMap>(DelegateDesc(this,&InGameNotificationBoxMovieClip::OnClosed)));
+ ((AptCommandMapAdder*)&commands)->AddCommandMap(prefix+"_OnCloseButtonClicked",AptRef<AptCommandMap>(DelegateDesc(this,reinterpret_cast<NoticeCommand>(&InGameNotificationBoxMovieClip::rva004E67D0))));
+ ((AptExternHandlerAdder*)&externs)->AddExternHandler(prefix+"_MessageWidth",0,AptRef<AptExternHandler>(DelegateDesc(this,reinterpret_cast<NoticeCommand>(&InGameNotificationBoxMovieClip::ExternMessageWidth))));
+ ((AptCustomRenderAdder*)&renders)->AddCustomRender(prefix+"_Message",AptRef<AptCustomRender>(DelegateDesc(this,reinterpret_cast<NoticeCommand>(&InGameNotificationBoxMovieClip::RenderMessage))));
+ ((Rva002224FE*)g_bfmeAptWindowManager)->rva002224FE(level);
+}
+void InGameNotificationBoxMovieClip::OnInitialized(unsigned){if(state==0)state=1;}
+void InGameNotificationBoxMovieClip::ExternMessageWidth(int,const char*text,bool){width=(float)atof(text);}
+unsigned char InGameNotificationBoxMovieClip::rva00578522()const{return flag50;}
+void InGameNotificationBoxMovieClip::rva004E6B7D(bool value){if(value!=flag50){if(!value)CloseImmediately();flag50=value;}}
+typedef char NotificationFieldsHave84Bytes[sizeof(InGameNotificationBoxMovieClip)==84 ? 1 : -1];
+
+static __forceinline Rva004E6A37&noticeHold(const Rva004E6A37&v){return const_cast<Rva004E6A37&>(v);}
+// WB1322140 Open and native233B establish descriptor36 and consuming assignment.
+// Native vtable862440 slot2 + WB1322EB0 are the three-argument forwarding entry.
+void InGameNotificationBoxMovieClip::rva004E6F30(const UnicodeString&message,const Rva002217EA&spec,int timeout,bool show,int location){
+ if(!flag50)return;
+ Rva004E6A1D value(new Rva004E6935);
+ Rva004E6935*descriptor=value.operator->();
+ descriptor->text=spec.rva0047A6A9();
+ descriptor->sound=spec.rva005C4AD1();
+ descriptor->icon=spec.rva0030F45F();
+ descriptor->fontName=message;
+ descriptor->font=spec.rva001DB0A8();
+ descriptor->color=spec.rva001DB09D();
+ descriptor->timeout=timeout;descriptor->show=show;descriptor->context=location;
+ ((Rva004E6A37*)&pending)->operator=(noticeHold(value.rva004E6BF6()));
+}
+void InGameNotificationBoxMovieClip::DoOpen(const UnicodeString&message,const Rva002217EA&spec,int timeout){rva004E6F30(message,spec,timeout,false,0);}
