@@ -231,7 +231,7 @@ virtual void slot45();
 virtual void slot46();
 virtual void slot47();
 virtual void slot48();
-virtual void slot49();
+virtual int winSetFocus(GameWindow *);
 virtual void slot50();
 virtual void slot51();
 virtual void slot52();
@@ -441,3 +441,78 @@ WindowMsgHandledType MapSelectMenuSystem( GameWindow *window, UnsignedInt msg,
 	return MSG_HANDLED;
 
 }  // end MapSelectMenuSystem
+
+// BFME1 6c1e0b51 menu donor with target window slots and Unicode format ABI.
+// Native callback table VA DBCBB0 pairs MapSelectMenuInit (C024E8) with90D2EF.
+// Whole native50D2EF..50D5DF752B and WB144DB40 establish headless entries,
+// focus +1F4 clear, animations and system/user radio controls.
+class Rva0035C194 {public:bool rva0035C194(bool,bool);};
+void SetDifficultyRadioButtonMapSelectMenu();
+void MapSelectMenuInit( WindowLayout *layout, void *userData )
+{
+	showSoloMaps = true;
+	buttonPushed = false;
+	mapSelectIsShuttingDown = false;
+	mapSelectStartGame = false;
+	((Rva0035C194 *)TheShell)->rva0035C194(true, false);
+	// show menu
+	// Open-BFME5: BFME made WindowLayout::hide virtual -- retail reaches it here
+	// through vtable slot 0x10 (`mov eax,[ecx]` / `call [eax+0x10]`) where the
+	// Zero Hour header declares it an ordinary member. Same drift and same
+	// TU-local shim as NetworkDirectConnect.cpp; see BfmeVirtualHideLayout above.
+	((BfmeVirtualHideLayout *)layout)->hide( FALSE );
+
+	OptionPreferences pref;
+	Bool usesSystemMapDir = pref.usesSystemMapDir();
+
+	// get the listbox window
+	AsciiString listString( "MapSelectMenu.wnd:ListboxMap" );
+	NameKeyType mapListID = TheNameKeyGenerator->nameToKey( listString );
+	mapList = ((MapSelectWindowManagerView *)TheWindowManager)->winGetWindowFromId( NULL, mapListID );
+	if( mapList )
+	{
+		if (TheMapCache)
+			TheMapCache->updateCache();
+		Rva00304BCDPopulate( mapList, usesSystemMapDir, !showSoloMaps, AsciiString::TheEmptyString );
+	}
+
+	GameWindow *headlessCount = ((MapSelectWindowManagerView *)TheWindowManager)->winGetWindowFromId( NULL,
+		TheNameKeyGenerator->nameToKey( "MapSelectMenu.wnd:HeadlessCount" ) );
+	GadgetComboBoxAddEntry( headlessCount, UnicodeString( L"---" ), -1 );
+	for( Int i = 1; i < 8; ++i )
+	{
+		UnicodeString countText;
+		countText.format( L"%i", i );
+		GadgetComboBoxAddEntry( headlessCount, countText, -1 );
+	}
+	GadgetComboBoxSetSelectedPos( headlessCount, 0 );
+
+	// set keyboard focus to main parent
+	AsciiString parentName( "MapSelectMenu.wnd:MapSelectMenuParent" );
+	NameKeyType parentID = TheNameKeyGenerator->nameToKey( parentName );
+	GameWindow *parent = ((MapSelectWindowManagerView *)TheWindowManager)->winGetWindowFromId( NULL, parentID );
+	((MapSelectWindowManagerView *)TheWindowManager)->winSetFocus( parent );
+	if( parent )
+		((BfmeMenuParentView *)parent)->m_fieldAt1F4 = NULL;
+
+	NameKeyType buttonBackID = TheNameKeyGenerator->nameToKey( AsciiString("MapSelectMenu.wnd:ButtonBack") );
+	GameWindow *buttonBack = ((MapSelectWindowManagerView *)TheWindowManager)->winGetWindowFromId( NULL, buttonBackID );
+	
+	NameKeyType buttonOKID = TheNameKeyGenerator->nameToKey( AsciiString("MapSelectMenu.wnd:ButtonOK") );
+	GameWindow *buttonOK = ((MapSelectWindowManagerView *)TheWindowManager)->winGetWindowFromId( NULL, buttonOKID );
+
+
+	TheShell->registerWithAnimateManager(buttonBack, WIN_ANIMATION_SLIDE_RIGHT, TRUE,0);
+	TheShell->registerWithAnimateManager(buttonOK, WIN_ANIMATION_SLIDE_LEFT, TRUE, 0);
+
+	SetDifficultyRadioButtonMapSelectMenu();
+
+	radioButtonSystemMapsID = TheNameKeyGenerator->nameToKey( "MapSelectMenu.wnd:RadioButtonSystemMaps" );
+	radioButtonUserMapsID = TheNameKeyGenerator->nameToKey( "MapSelectMenu.wnd:RadioButtonUserMaps" );
+	GameWindow *radioButtonSystemMaps = ((MapSelectWindowManagerView *)TheWindowManager)->winGetWindowFromId( parent, radioButtonSystemMapsID );
+	GameWindow *radioButtonUserMaps = ((MapSelectWindowManagerView *)TheWindowManager)->winGetWindowFromId( parent, radioButtonUserMapsID );
+	if (usesSystemMapDir)
+		GadgetRadioSetSelection( radioButtonSystemMaps, FALSE );
+	else
+		GadgetRadioSetSelection( radioButtonUserMaps, FALSE );
+}  // end MapSelectMenuInit
