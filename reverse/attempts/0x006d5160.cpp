@@ -1,36 +1,10 @@
-// ?Rva006D5160Plus@@YA?AVEAStringC@@PBDABV1@@Z
-// partial score=0.97 date=2026-10-05
-// ?Rva006D5160Plus@@YA?AVEAStringC@@PBDABV1@@Z
-// partial score=0.99 date=2026-10-05
-// ?Rva006D5160Plus@@YA?AVEAStringC@@PBDABV1@@Z
-// partial score=0.99 date=2026-10-05
-// partial score=0.99 date=2026-10-05
-// ?Rva006D5160Plus@@YA?AVEAStringC@@PBDABV1@@Z
-// cl: /O2 /DNDEBUG /MD /EHsc
-// ?Rva006D5160Plus@@YA?AVEAStringC@@PBDABV1@@Z, retail 0x006D5160 (306B).
-// Free PBD-plus-string concat returning by value: empty string builds via PBD
-// ctor, empty text copies the string, otherwise a reserve-ctor temp gathers
-// text then string via intrinsic memcpy plus terminator, then SetSize plus
-// hash-zero plus copy to the hidden result. After Rva006D50A0Append;
-// same /O2 /DNDEBUG /MD. Honest address name; PBD-first free overload.
-// The SEH frame (push -1 / push 0x00BA87B1 / fs:0 chain) comes from /EHsc
-// unwinding the EAStringC temporaries, the same idiom the Rva006C1F60 bodies
-// prove for a local with a destructor.
-//
-// Writing the concat size INLINE (oldSize + len) instead of through a named
-// local is what selects retail's register plan: with the named local VC7 ties
-// ebx to the strlen cursor and ebp to the total, the transpose of retail's
-// ebp=len/ebx=total, which desynchronises the prologue through the whole tail.
-// Inlining it makes the prologue, both early-return arms, the strlen loop and
-// both memcpys byte-identical (260/306). The residue is the destructor tail:
-// retail keeps the temp's data in edi across the return-slot copy ctor and
-// reuses it for FreeData, VC7 reloads [esp+0x10] instead. Using the data
-// pointer through a named `data` local forces a stack slot (sub esp,0x10) and
-// costs more than it buys; /O1 collapses the body.
-#pragma intrinsic(memcpy)
-#pragma intrinsic(strlen)
+// ?rva006D5160@@YA?AVEAStringC@@PBDABV1@@Z
+// partial score=0.9605569764 date=2026-10-09
+// cl: /O2 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 extern "C" void *__cdecl memcpy(void *dst, const void *src, unsigned int count);
-extern "C" unsigned int __cdecl strlen(const char *str);
+#pragma intrinsic(memcpy)
+extern "C" unsigned int __cdecl strlen(const char*);
+#pragma intrinsic(strlen)
 
 class EAStringC
 {
@@ -49,34 +23,30 @@ public:
 	StringDataC *m_pData;
 
 	EAStringC(const EAStringC &other);
-	// Retail inlines this ctor at the call site (result->m_pData = 0, then
-	// Assign), so it is defined here rather than roved from EAStringCRefCount.cpp.
-	EAStringC(const char *text) : m_pData(0) { Assign(text); }
 	EAStringC(unsigned int nSize);
-	// Scalar release: FreeData only. Retail keeps this inline, so the temp's
-	// tail calls 0x006D2EB0 directly rather than the out-of-line dtor wrapper.
-	~EAStringC() { FreeData(m_pData); }
-	void Assign(const char *text);
+ EAStringC(const char* text) {m_pData=0; Assign(text);}
+ void Assign(const char* text);
+	~EAStringC()
+	{
+		FreeData(m_pData);
+	}
 	void SetSize(int size);
+	
 };
 
-// ?Rva006D5160Plus@@YA?AVEAStringC@@PBDABV1@@Z present-unmatched
-EAStringC Rva006D5160Plus(const char *text, const EAStringC &str)
+EAStringC rva006D5160(const char *left, const EAStringC &right)
 {
-	unsigned int oldSize = str.m_pData->m_uSize;
-	if (oldSize == 0) {
-		return EAStringC(text);
-	}
-	unsigned int len = strlen(text);
-	if (len == 0) {
-		return EAStringC(str);
-	}
-	EAStringC tmp(oldSize + len);
-	char *dst = (char *)tmp.m_pData + 8;
-	memcpy(dst, text, len);
-	memcpy(dst + len, (char *)str.m_pData + 8, oldSize);
-	dst[oldSize + len] = 0;
-	tmp.SetSize((int)(oldSize + len));
-	tmp.m_pData->m_uHash = 0;
-	return tmp;
+ unsigned int size=right.m_pData->m_uSize;
+ if(!size)return EAStringC(left);
+ unsigned int otherSize=strlen(left);
+ if(!otherSize)return right;
+ unsigned int total=otherSize+size;
+ EAStringC result(total);
+ char *text=(char*)result.m_pData+8;
+ memcpy(text,left,otherSize);
+ memcpy(text+otherSize,(char*)right.m_pData+8,size);
+ text[otherSize+size]=0;
+ result.SetSize(total);
+ result.m_pData->m_uHash=0;
+ return result;
 }
