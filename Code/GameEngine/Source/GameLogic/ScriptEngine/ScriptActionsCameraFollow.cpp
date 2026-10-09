@@ -1,11 +1,10 @@
-// ?Rva003BC1B2Do@@YGXPAVParameter@@_NM@Z
-// partial score=0.9 date=2026-09-30
-// ?Rva003BC1B2Do@@YGXPAVParameter@@_NM@Z
-// partial score=0.90 date=2026-09-30
-// cl: /O1
-// ?Rva003BC1B2Do@@YGXPAVParameter@@_NM@Z @0x003BC1B2 124B: script action recentering view on named unit with gatherer count and zoom.
-// Evidence: rowed getUnitNamed 0x003588E7 via g_Va009FE16C then TheTacticalView slot 0x184 with +0x74 then rowed getDesiredGatherers 0x005508E2 then rowed get 0x0055A88B then slots 0x19c 0x188 0x18c; stdcall ret 12 with bool plus float; caller 0x003CC8D3 in dispatch.
-// ?Rva003BC1B2Do@@YGXPAVParameter@@_NM@Z present-unmatched
+// cl: /O1 /MD /EHsc /DNDEBUG
+// ZH doCameraFollowNamed supplies lock/snap/follow semantics. Retail3BC1B2
+// adds Drawable ID through neutral getter55A88B and a float play argument.
+// Its dispatcher at3CC8D3 and RET12 prove Parameter*, Bool, float free ABI.
+// Getter5508E2 is Thing::getDrawable, not the folded BuildListInfo getter.
+// Nested arguments and a direct cast of canonical TheTacticalView retain
+// native vtableEDI and global THIS reload across the getter calls.
 class Parameter;
 
 class Object
@@ -15,10 +14,11 @@ public:
 	int m_74;
 };
 
-class BuildListInfo
+class Drawable;
+class Thing
 {
 public:
-	int getDesiredGatherers();
+	Drawable *getDrawable() const;
 };
 
 class Rva0055A88BDwordField
@@ -33,9 +33,9 @@ public:
 	Object *getUnitNamed(Parameter *param);
 };
 
-extern ScriptEngine *g_Va009FE16C;
+extern ScriptEngine *TheScriptEngine;
 
-class TacticalView
+class ScriptActionsFollowView
 {
 public:
 	virtual void s000(); virtual void s001(); virtual void s002(); virtual void s003(); virtual void s004();
@@ -65,18 +65,17 @@ public:
 	virtual void s103(int v);
 };
 
-extern TacticalView *TheTacticalView;
+class View;
+extern View *TheTacticalView;
 
 void __stdcall Rva003BC1B2Do(Parameter *p, bool flag, float v)
 {
-	Object *obj = g_Va009FE16C->getUnitNamed(p);
+	Object *obj = TheScriptEngine->getUnitNamed(p);
 	if (obj == 0)
 		return;
-	TheTacticalView->s097(obj->m_74);
-	int tmp = ((BuildListInfo *)obj)->getDesiredGatherers();
-	int val = ((Rva0055A88BDwordField *)tmp)->get();
-	TheTacticalView->s103(val);
+	reinterpret_cast<ScriptActionsFollowView *>(TheTacticalView)->s097(obj->m_74);
+	reinterpret_cast<ScriptActionsFollowView *>(TheTacticalView)->s103(((Rva0055A88BDwordField *)((Thing *)obj)->getDrawable())->get());
 	if (flag)
-		TheTacticalView->s098();
-	TheTacticalView->s099(1, v);
+		reinterpret_cast<ScriptActionsFollowView *>(TheTacticalView)->s098();
+	reinterpret_cast<ScriptActionsFollowView *>(TheTacticalView)->s099(1, v);
 }
