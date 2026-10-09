@@ -23,6 +23,7 @@ template<class T> class allocator;
 template<class T, class A> class list {
 public:
 	void push_back(const T &);
+	void pop_back();
 };
 }
 typedef _STL::list<Rva005CD018Obj *,
@@ -68,8 +69,9 @@ public:
  // WB15B3410 proves the listener/text/importance/check/age operations.
  virtual void destroy(); virtual void bindListener(void*); virtual void unused2();
  virtual void setText(void*); virtual void unused4(); virtual void setImportance(int);
- virtual void unused6(); virtual void setCheck(bool); virtual void unused8(); virtual void age();
+ virtual void unused6(); virtual void setCheck(bool); virtual void unused8(); virtual void age(); virtual bool selected();
 };
+class Rva005CC9F8 { public: void rva005CC9F8(); ChecklistUIItemNative *get() const { return m_ptr; } ChecklistUIItemNative *m_ptr; };
 class Rva005CC9CB { public: Rva005CC9CB *rva005CC9CB(Rva005CC9CB*); };
 namespace StrategicInGameUI
 {
@@ -86,10 +88,11 @@ class ChecklistItem::Impl
 {
 public:
 	void rva005CCA0B(const Rva005D1A87Ref &);
- virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3();
+ void rva005CCA57();
+ virtual void slot0(ChecklistUIItemNative*); virtual void slot1(); virtual void slot2(); virtual void slot3(ChecklistUIItemNative*);
  virtual void slot4(); virtual void slot5(); virtual void slot6(); virtual void updateNative();
  ChecklistUIItemNative *uiItem;
- char text[4]; int importance; char unknown10[0x11]; bool checked; bool noAge;
+ char text[4]; int importance; char unknown10[0x11]; bool checked; bool noAge; bool notifyDetach;
 };
 
 struct ChecklistItemRef
@@ -114,6 +117,7 @@ class Checklist::Impl
 public:
 	void AddItem(const ChecklistItemRef &newItem, ChecklistItem::Impl *itemImpl);
  void Update();
+ void rva005CCFD1();
 private:
 	ChecklistUIFactory *m_factory;
 	Rva005D1A87UI *m_ui; // native +4
@@ -226,4 +230,51 @@ void StrategicInGameUI::ChecklistItem::Impl::rva005CCA0B(const Rva005D1A87Ref &i
  (uiItem->*&ChecklistUIItemNative::setImportance)(importance);
  (uiItem->*&ChecklistUIItemNative::setCheck)(checked);
  if(!noAge) (uiItem->*&ChecklistUIItemNative::age)();
+}
+
+// Native5CCA57..5CCA98 RET: when the counted UI item at+4 is bound,
+// optionally notify slot3 (flag+23), notify slot0 when the item's slot10
+// query holds, unbind its listener (slot1 thunk) and release the reference
+// through rowed 5CC9F8. Taking the reference holder's inline accessor keeps
+// native's EDI receiver / ESI holder registers; a direct member read swaps them.
+void StrategicInGameUI::ChecklistItem::Impl::rva005CCA57()
+{
+ Rva005CC9F8 &ref=*reinterpret_cast<Rva005CC9F8*>(&uiItem);
+ if(ref.get()) {
+  if(notifyDetach) slot3(ref.get());
+  if((ref.get()->*&ChecklistUIItemNative::selected)()) slot0(ref.get());
+  (ref.get()->*&ChecklistUIItemNative::bindListener)(0);
+  ref.rva005CC9F8();
+ }
+}
+
+// Native5CCFD1..5CCFF3 RET: drain the record list at+8 from the back,
+// detaching each record's item implementation (+0xC) before the rowed
+// pop_back 5CCEBE (an ICF-shared list body, hence its element name).
+// Native rereads the list head in the body; a head view taken per pass
+// (not one hoisted reference) keeps that reload.
+struct Rva005F8F96;
+typedef _STL::list<Rva005F8F96, _STL::allocator<Rva005F8F96> > Rva005CCFD1ListView;
+struct Rva005CCFD1ListHead { ChecklistNode *node; bool empty() const { return node->next==node; } ChecklistNode *back() const { return node->prev; } };
+void StrategicInGameUI::Checklist::Impl::rva005CCFD1()
+{
+ while( !reinterpret_cast<Rva005CCFD1ListHead*>(m_records)->empty() ) {
+  Rva005CCFD1ListHead &list=*reinterpret_cast<Rva005CCFD1ListHead*>(m_records);
+  list.back()->impl->rva005CCA57();
+  reinterpret_cast<Rva005CCFD1ListView*>(&list)->pop_back();
+ }
+}
+
+// Native5CD010..5CD018 forwards the implementation pointer at+4 to the
+// list drain above; caller 576D43. Address-derived receiver, as 5CCEB6.
+class Rva005CD010
+{
+public:
+ void rva005CD010();
+ void *unknown00;
+ StrategicInGameUI::Checklist::Impl *implementation;
+};
+void Rva005CD010::rva005CD010()
+{
+ implementation->rva005CCFD1();
 }
