@@ -24,3 +24,21 @@ void Rva00333366Advance(unsigned char **slot, int count)
 {
     *slot += count * 20;
 }
+
+// f989 BF1 OnlineShellShutdown.cpp O2/x87/G6 emits an iterator-advance lead.
+// Native6CFEA0..6CFEA6 is independently complete after INT3 padding and
+// before more padding: it advances receiver's raw address slot by4 and
+// returns that receiver. Original container/element/owner identity remains
+// unknown; this prefix view transfers only the witnessed byte stride.
+class Rva006CFEA0Iterator
+{
+public:
+    Rva006CFEA0Iterator &advance();
+private:
+    unsigned char *position;
+};
+Rva006CFEA0Iterator &Rva006CFEA0Iterator::advance()
+{
+    position += 4;
+    return *this;
+}
