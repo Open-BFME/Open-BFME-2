@@ -175,14 +175,18 @@ class ControlBar
 {
 public:
 	void updateConstructionTextDisplay(Object *obj);
-    void rva0053E4F1(Object *);
+protected:
+    void populateUnderConstruction(Object *);
+public:
     void rva0031B641(GameWindow *, const CommandButton *);
     const CommandButton *findCommandButton(const AsciiString &);
     void showRallyPoint(const Coord3D *);
 	void rva0053E4B1();
 	void rva0053E6E1();
 	void updateContextContestedStructureInventory();
-	void rva0053E783(void *object, int flag);
+protected:
+	void populateStructureInventory(void *object, int flag);
+public:
 	void switchToContext(int context, void *object);
 	void rva0031D230();
 
@@ -509,7 +513,7 @@ void ControlBar::updateContextContestedStructureInventory()
 	if (!subject->rva0053EB81SlotD8() || subject->rva0053EB81SlotE0() != localPlayer)
 		return rva0031D230();
 	if (m_80 != subject->rva0053EB81Slot12C())
-		rva0053E783(object, 1);
+		populateStructureInventory(object, 1);
 }
 
 // Target 0x0053EAEC..0x0053EB80, 149 bytes. The same-name BFME1
@@ -537,7 +541,7 @@ void ControlBar::updateContextStructureInventory()
 
 	Rva0053EB81Subject *contain = object->m_250;
 	if (contain && m_80 != contain->slot69(false))
-		rva0053E783(object, 0);
+		populateStructureInventory(object, 0);
 rva0053EAECdone:
 	;
 }
@@ -549,7 +553,7 @@ rva0053EAECdone:
 // Address-derived bindings retain unresolved target names and access levels.
 // The real STLport vector owns the temporary window list; its existing
 // pointer-vector push provider is reused through a storage/ABI view.
-void ControlBar::rva0053E4F1(Object *objectUnderConstruction)
+void ControlBar::populateUnderConstruction(Object *objectUnderConstruction)
 {
     if (!objectUnderConstruction) {
         if (theRadarWindowOverrideSource)
@@ -641,7 +645,7 @@ void ControlBar::populateButtonProc(Object *obj, void *userData)
 // branch, 32-window array, contain dispatch, overlay list and callback record.
 // Keep the established void-pointer/int callee binding; only the low byte of
 // the flag is observed by this target, without asserting a historical type.
-void ControlBar::rva0053E783(void *objectPointer, int flag)
+void ControlBar::populateStructureInventory(void *objectPointer, int flag)
 {
     Object *building = (Object *)objectPointer;
     if (!building) return;

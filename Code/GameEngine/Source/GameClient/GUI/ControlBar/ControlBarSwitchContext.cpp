@@ -216,9 +216,13 @@ public:
     void switchToContext(int,void *);
     void showRallyPoint(const Coord3D *);
     void rva0053D355(Object *,bool);
-    void rva0053E783(void *,int);
+protected:
+    void populateStructureInventory(void *,int);
+public:
     void rva0050DBE6(Object *);
-    void rva0053E4F1(Object *);
+protected:
+    void populateUnderConstruction(Object *);
+public:
     void rva0053E34A(int);
 protected:
     void populateMultiSelect();
@@ -274,12 +278,12 @@ void ControlBar::switchToContext(int context,void *draw)
         break;
     case 2:
         HIDE_PARENTS(false,false,true,true,true,true,true,true);
-        rva0053E783(((ContextDrawableView *)incomingDraw)->getObject(),0);
+        populateStructureInventory(((ContextDrawableView *)incomingDraw)->getObject(),0);
         break;
     case 3:
         if (theRadarWindowOverrideSource) ((Rva002D368E *)theRadarWindowOverrideSource)->rva002D368E();
         HIDE_PARENTS(false,false,true,true,true,true,true,true);
-        rva0053E783(((ContextDrawableView *)incomingDraw)->getObject(),1);
+        populateStructureInventory(((ContextDrawableView *)incomingDraw)->getObject(),1);
         break;
     case 5:
         HIDE_PARENTS(true,true,true,false,true,true,true,true);
@@ -287,7 +291,7 @@ void ControlBar::switchToContext(int context,void *draw)
         break;
     case 6:
         HIDE_PARENTS(true,false,true,true,true,true,true,true);
-        rva0053E4F1(((ContextDrawableView *)incomingDraw)->getObject());
+        populateUnderConstruction(((ContextDrawableView *)incomingDraw)->getObject());
         break;
     case 10:
         HIDE_PARENTS(true,true,true,true,true,false,true,true);
