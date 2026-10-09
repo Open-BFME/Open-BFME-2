@@ -1,3 +1,5 @@
+// ?rva0056B8D7@LivingWorldArmyIconSubObject@@QAE_NXZ
+// partial score=0.85 date=2026-10-10
 // cl: /MD
 // ?rva0056B89F@LivingWorldArmyIconSubObject@@QAEEXZ @0x0056B89F 56B: predicate over +0xbc index and +0xac inner (+0x58 mask +0x5e flag) with +0xc0 flag, tail-jmps to Rva005C41C9::rva005C4B26. Evidence: caller 0x0056BA07 passes result to Rva005C4B56::rva005C4B96(E), tail target pin ?rva005C4B26@Rva005C41C9@@QAEEXZ, neighbour Rva0056B8F4 // cl: /O1 /Oy- /MD and Rva005C4180Refresh v17 shape.
 struct Inner0056B89F
@@ -62,6 +64,7 @@ private:
 public:
 	unsigned char rva0056B89F();
 	int rva0056B88A();
+	bool rva0056B8D7();
 	void rva0056B984(Visitor0056B984 *visitor);
 	void rva0056B993(Visitor0056B984 *visitor);
 };
@@ -73,6 +76,15 @@ int LivingWorldArmyIconSubObject::rva0056B88A()
 	if (record)
 		return record->m_54;
 	return -1;
+}
+
+// @0x0056B8D7 29B, vtable slot 13: true unless the +0xC4 object exists and
+// its slot 10 answers true.
+bool LivingWorldArmyIconSubObject::rva0056B8D7()
+{
+	if (m_c4.m_ptr)
+		return !m_c4.m_ptr->s10();
+	return true;
 }
 
 // @0x0056B984 15B and @0x0056B993 15B, vtable slots 2 and 1.
