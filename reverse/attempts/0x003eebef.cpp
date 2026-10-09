@@ -1,6 +1,8 @@
 // ?rva003EEBEF@Rva003EEBEF@@QAEXH@Z
+// partial score=0.9375333885972184 date=2026-10-09
+// ?rva003EEBEF@Rva003EEBEF@@QAEXH@Z
 // partial score=0.95 date=2026-10-06
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD
+// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /MD
 // ?rva003EEBEF@Rva003EEBEF@@QAEXH@Z 0x003EEBEF 116B
 // Evidence: finish from stash 0.93; gate on holder+0x2c then loop over 0x14-stride array calling rowed 0x0020EAF6 and rowed 0x003EE84A; prev 0x003EEBC4 next 0x003EEE64 same TU.
 typedef int Int;
@@ -23,7 +25,8 @@ public:
 	char m_pad00[0xB0];
 	Rva0020EAF6View *m_B0;
 };
-extern Rva002BA8F1Logic *g_009FEF10;
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 struct Rva003EEBEFElem
 {
 	char m_pad00[4];
@@ -50,8 +53,10 @@ public:
 // ?rva003EEBEF@Rva003EEBEF@@QAEXH@Z present-unmatched
 void Rva003EEBEF::rva003EEBEF(Int p)
 {
-	Rva0020E90FView *holder = g_009FEF10->m_B0->m_holder;
-	char *gate = holder ? (char *)holder + 0x2c : 0;
+	Rva0020E90FView *holder = ((Rva002BA8F1Logic*)TheLivingWorldLogic)->m_B0->m_holder;
+	void *gate;
+	if(holder) gate=(char*)holder+0x2c;
+	else gate=0;
 	if (gate == 0)
 		return;
 	Rva003EEBEFArg *arg = (Rva003EEBEFArg *)p;
@@ -62,7 +67,7 @@ void Rva003EEBEF::rva003EEBEF(Int p)
 	int remaining = count;
 	do {
 		int index = *(int *)(offset + (unsigned int)arg->m_begin + 4);
-		Rva0020E89C *found = g_009FEF10->m_B0->rva0020EAF6(index);
+		Rva0020E89C *found = ((Rva002BA8F1Logic*)TheLivingWorldLogic)->m_B0->rva0020EAF6(index);
 		((Rva003EE84A *)this)->rva003EE84A((Int)found, (Int)((char *)arg->m_begin + offset + 8));
 		offset += 0x14;
 		--remaining;
