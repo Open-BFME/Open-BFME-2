@@ -1,6 +1,8 @@
 // ?writeCacheINI@MapCache@@AAEX_N@Z
 // partial score=0.99 date=2026-10-09
 // ?writeCacheINI@MapCache@@AAEX_N@Z
+// partial score=0.99 date=2026-10-09
+// ?writeCacheINI@MapCache@@AAEX_N@Z
 // partial score=0.99 date=2026-10-08
 // cl: /Ireference/shims/bfme2_ascii /O1 /Ob2 /EHsc /MD /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
