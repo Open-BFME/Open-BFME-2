@@ -53,7 +53,6 @@ public:
 		unsigned int commandOptions, bool forceUsable);
 	SpecialPowerModuleInterface *getSpecialPowerModule(const SpecialPowerTemplate *specialPowerTemplate) const;
 	void rva0028C4B6();
-	bool isDisabled() const { return m_disabledMask.any(); }
 
 private:
 	unsigned char m_pad000[0x1C8];
@@ -62,7 +61,7 @@ private:
 
 void Object::doSpecialPowerAtLocation(const SpecialPowerTemplate *specialPowerTemplate, const Coord3D *loc, unsigned int commandOptions, bool forceUsable)
 {
-	if (isDisabled())
+	if (m_disabledMask.any())
 		return;
 	if (!forceUsable && !TheSpecialPowerStore->canUseSpecialPower(this, specialPowerTemplate))
 		return;
