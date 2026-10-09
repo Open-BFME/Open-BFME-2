@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
 //
 // ??1FakePathfindPortalBehaviour@@UAE@XZ, retail 0x004619F2, 84 bytes
 // (pinned; rowed deleting wrapper 0x00461C03). Stores
@@ -9,12 +9,22 @@
 // +0x20 interface. The +0x14..+0x1F words sit in the third base so the
 // fourth and fifth vptrs land at +0x20/+0x24 (base layout as in
 // Rva0024A797Derived.cpp; members after +0x28 follow the rowed ctor).
+#include "ascii_string.h"
+#include "../../../../../Libraries/Include/Lib/Coord3D.h"
+class Waypoint { public:
+ Waypoint(unsigned,AsciiString,const Coord3D*,AsciiString,AsciiString,AsciiString,bool,int,AsciiString);
+ virtual ~Waypoint();
+ char pad04[0xA8-4];bool flagA8,flagA9;char padAA[6];unsigned ownerID;char padB4[0xC0-0xB4];
+};
+struct FakePortalDataView { char pad[0x118];bool flag118,flag119; };
+struct FakePortalOwnerView { char pad[0x74];unsigned id; };
 class Rva0024A797
 {
 public:
 	virtual ~Rva0024A797();
-private:
-	char m_pad04[8];
+protected:
+ const FakePortalDataView *m_data;
+ FakePortalOwnerView *m_owner;
 };
 
 class MiBase1
@@ -52,6 +62,7 @@ public:
 	virtual ~FakePathfindPortalBehaviour();
 	void rva0046183B();
 	void rva004618D4();
+ Waypoint *rva00461A46(const Coord3D *point);
 private:
 	char m_28[8];
 	bool m_30;
@@ -103,3 +114,37 @@ void FakePathfindPortalBehaviour::rva004618D4()
 // each one has the same function in that slot (vftable addresses from matched vptr
 // stores). Bind them to the rows at those functions.
 #pragma comment(linker, "/alternatename:?f4@FakePathfindPortalBehaviour_B4@@UAEXXZ=??1Coord2D@@QAE@XZ")
+
+class Rva002E6ECA { public: virtual void *destroy(unsigned); int get() const; };
+typedef Rva002E6ECA Rva0046183BWaypoint;
+void FakePathfindPortalBehaviour::rva0046183B()
+{
+ if(m_30) {
+  Rva0046183BWaypoint **p=(Rva0046183BWaypoint**)m_28;
+  for(int i=0;i<2;++i,++p) {
+   Rva0046183BWaypoint *wp=*p;
+   if(wp) {
+    if((unsigned char)wp->get()) (*reinterpret_cast<Rva004618D4AI**>(&TheAI))->m_p10->rva002E9042(wp);
+    ::operator delete(*p ? (*p)->destroy(0) : 0);
+    *p=0;
+   }
+  }
+  reinterpret_cast<Rva004618D4Caller*>((*reinterpret_cast<Rva004618D4AI**>(&TheAI))->m_p10)->rva002E7023();
+  m_30=false;
+ }
+}
+
+// Native461A46..461B1B RET4 allocatesC0 and calls proven Waypoint ctor282212.
+// Five by-value strings and argument order come from that ctor provider;
+// target fake-name literal and ownerB0/flagsA8/A9 establish this factory's role.
+Waypoint *FakePathfindPortalBehaviour::rva00461A46(const Coord3D *point)
+{
+ const FakePortalDataView *data=m_data;
+ Waypoint *wp=new Waypoint(0x7ffffffe,AsciiString("#fakepathfindportal_wp"),point,
+  AsciiString::TheEmptyString,AsciiString::TheEmptyString,AsciiString::TheEmptyString,
+  false,7,AsciiString::TheEmptyString);
+ wp->ownerID=m_owner->id;
+ wp->flagA8=data->flag118;
+ wp->flagA9=data->flag119;
+ return wp;
+}
