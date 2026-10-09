@@ -1,0 +1,40 @@
+{
+  "id": "D-threat-calculation-3ecfbc-20261009T2350",
+  "seat": "D",
+  "base_commit": "39907989332c884ac74a647b20019615027220eb",
+  "paths": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/ThreatFinderGetThreatForPlayer.cpp"
+  ],
+  "recoveries": [
+    {
+      "name": "?calculateThreatLevel@ThreatFinder@@QAEXXZ",
+      "rva": "0x003ECFBC",
+      "size": 236,
+      "source": "Code/GameEngine/Source/GameLogic/Object/Update/ThreatFinderGetThreatForPlayer.cpp",
+      "notes": "WB ThreatFinder::calculateThreatLevel266 native3ECFBC..3ED0A8; twenty44B records; canonical range-query ABI; full-expression alive filter; masks3/90 and optional7; controlling-player index54; whole236B EH RET0 exact",
+      "replace_rva": ""
+    }
+  ],
+  "proof_command": [
+    [
+      "C:\\Users\\franz\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+      "tools/explain_mismatch.py",
+      "?calculateThreatLevel@ThreatFinder@@QAEXXZ",
+      "--rva",
+      "0x003ECFBC",
+      "--size",
+      "236",
+      "--source",
+      "Code/GameEngine/Source/GameLogic/Object/Update/ThreatFinderGetThreatForPlayer.cpp"
+    ],
+    [
+      "C:\\Users\\franz\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+      "tools/build.py",
+      "Code/GameEngine/Source/GameLogic/Object/Update/ThreatFinderGetThreatForPlayer.cpp"
+    ]
+  ],
+  "proof_log": "proof.log",
+  "claim_owner": "codex-01a12257-root",
+  "dependencies": [],
+  "temporary_ledger": false
+}
