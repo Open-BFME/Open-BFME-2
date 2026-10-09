@@ -90,12 +90,30 @@ struct NAT
 	int m_0;
 	void *m_04;
 	Rva005A7A96Slot **m_8;	// slot list
-	char pad0C[0x28 - 0x0C];
+	int m_hostSlot;
+    int m_mode;
+    int m_localSlot;
+    int m_targetSlot;
+    int m_unknown1c;
+    int m_cookie;
+    int m_unknown24;
 	PortNegotiationSchema m_schema;	// +0x28
 	char pad29[0x8E4 - 0x29];
 	unsigned char m_8E4[8];	// per-slot gate
+    int m_8ec[8];
+    void *m_addresses[8];
+    char m_pad92c[0x94c-0x92c];
+    int m_state94c;
+    int m_state950;
+    char m_pad954[0x96c-0x954];
+    unsigned m_nextHostUpdate;
+    bool m_970;
+    static unsigned s_hostUpdateInterval;
 
 	void rva005A7A96(const std::vector<Rva005A7A96Pair> *pairs);
+    void rva005A74D8();
+    void rva005A7C9C();
+    void processUDPPacket();
 };
 
 void NAT::rva005A7A96(const std::vector<Rva005A7A96Pair> *pairs)
@@ -128,3 +146,34 @@ void NAT::rva005A7A96(const std::vector<Rva005A7A96Pair> *pairs)
 		g_00A02340->f6(&req);
 	}
 }
+
+__forceinline void natAppendChar(AsciiString &s,char c) {
+ ((StringBase<char> *)&s)->concat(&c,1);
+}
+// Reference family: BFME1 nat.cpp notifyUsersOfConnectionDone (9cbfb551fe20).
+// Target574D8..57683 carries both endpoint indices and the action cookie,
+// selects the host and optional target names, and uses the492-byte PeerRequest.
+// These target fields are witnessed by this body; original member name unknown.
+void NAT::rva005A74D8() {
+ Rva005A7A96Slot *local=m_8[m_localSlot];
+ Rva005A7A96Slot *target=m_8[m_targetSlot];
+ if(!local) { m_state94c=5;m_state950=5;return; }
+ if(!target) { m_state94c=5;m_state950=5;return; }
+ {
+ PeerRequest req;
+ AsciiString options;
+ options.format("CONNDONE%d %d %X",m_targetSlot,m_localSlot,m_cookie);
+ req.unknown_00=0xd;req.payload_flag0.value=true;req.unknown_34="NAT";
+ AsciiString names,hostName;
+ hostName.translate(m_8[m_hostSlot]->m_name);
+ if(!names.isEmpty())natAppendChar(names,',');
+ names.concat(hostName);
+ if(m_targetSlot!=m_hostSlot) {
+  hostName.translate(m_8[m_targetSlot]->m_name);
+  if(!names.isEmpty())natAppendChar(names,',');
+  names.concat(hostName);
+ }
+ req.unknown_04=names.str();req.unknown_40=options.str();g_00A02340->f6(&req);
+}
+}
+
