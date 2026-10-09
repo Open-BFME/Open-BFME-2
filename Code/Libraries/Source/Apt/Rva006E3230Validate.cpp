@@ -89,6 +89,7 @@ public:
     void rva006E39A0();
     void rva006E3740(AptValue *pContext, AptValue *pA, AptValue *pB, int iD, int iE);
     void rva006E4B80(void *pArg1, AptCIH *pCIH, int iArg3, int iArg4);
+    void rva006E4C70(void *pArg1, AptCIH *pCIH, int iArg3, int iArg4);
 };
 void AptActionQueueC::rva006E3230(Rva006E3230Action *pCur)
 {
@@ -239,6 +240,42 @@ void AptActionQueueC::rva006E4B80(void *pArg1, AptCIH *pCIH, int iArg3, int iArg
         ((Rva006E4B80Slot *)m_pEnd)->field8 = iArg4;
         ((Rva006E4B80Slot *)m_pEnd)->field4 = iArg3;
         m_pEnd = pNext;
+        return;
+    }
+    Rva006CC110Log(4, "!!!!!!!!!!!!! AptAnimationPoolData:  Dequeue is full !!!!!!!!");
+}
+
+// AptActionQueueC::rva006E4C70 @0x006E4C70 224B.
+// Front-insert twin of rva006E4B80: same type-1 payload, but the current
+// cursor steps back one element (wrapping to the last pool slot) and the
+// Dequeue-full test compares it against m_pEnd; the cursor is stored before
+// the isSpriteInstBase check. Assert line 0x682 in
+// AptAnimation.cpp. Evidence: shared strings and stride with rva006E4B80.
+void AptActionQueueC::rva006E4C70(void *pArg1, AptCIH *pCIH, int iArg3, int iArg4)
+{
+    if (!((const Rva006DBB60ShrNAndField *)pCIH)->get()) {
+        g_bfmeAptAssertAtE17734("pCIH->getIsDefined()", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptAnimation.cpp", 0x682);
+        if (g_bfmeAptBreakOnAssertAtDDC01C)
+            __debugbreak();
+    }
+    Rva006E3230Action *pPrev = m_pCurrent - 1;
+    if (pPrev < m_aActionPool)
+        pPrev = &m_aActionPool[m_iActionPoolSize] - 1;
+    rva006E3230(pPrev);
+    if (pPrev != m_pEnd) {
+        m_pCurrent = pPrev;
+        if (!((const Rva006CFCD0 *)pCIH)->isSpriteInstBase()) {
+            g_bfmeAptAssertAtE17734("isSpriteInstBase()", "c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\AptCIH.h", 0x7d);
+            if (g_bfmeAptBreakOnAssertAtDDC01C)
+                __debugbreak();
+        }
+        ((Rva006E4B80Slot *)m_pCurrent)->fieldC = pCIH->m_pAt4C->m_val28;
+        ((Rva006E4B80Slot *)m_pCurrent)->eActionType = 1;
+        ((Rva006E4B80Slot *)m_pCurrent)->field10 = pArg1;
+        ((Rva006E4B80Slot *)m_pCurrent)->field14 = pCIH;
+        pCIH->AddRef();
+        ((Rva006E4B80Slot *)m_pCurrent)->field8 = iArg4;
+        ((Rva006E4B80Slot *)m_pCurrent)->field4 = iArg3;
         return;
     }
     Rva006CC110Log(4, "!!!!!!!!!!!!! AptAnimationPoolData:  Dequeue is full !!!!!!!!");
