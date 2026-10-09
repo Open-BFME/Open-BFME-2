@@ -16998,3 +16998,4 @@ _isdigit,0x00629982,Native6F97F0 suffix parser calls PE isdigit import thunk6299
 ??1DrawableRefSlot@@QAE@XZ,0x0010F149,ICF-folded dtor of Drawable's 3x8-byte ref slot (Release_Ref tail jump) passed to ??_L by the Drawable ctor 0x002797BD fold-proof=Code/GameEngine/Source/GameClient/DrawableConstructor.cpp
 ?rva00053A1F@MilesAudioManager@@QAEMPAX@Z,0x00053A1F,callee of ?rva00059AD0@MilesAudioManager@@QAEMPAXH@Z
 ?rva0005910F@GlobalVolumeData@MilesAudioManager@@QAEMPAVAudioEventRTS@@@Z,0x0005910F,callee of ?rva00059AD0@MilesAudioManager@@QAEMPAXH@Z
+?rva000835D0@RenderableRiverArea@@QAEXXZ,0x000835D0,432-byte void thiscall rebuilding the river area rendering method (reads the +0x40 holder through 30BBA9 like createTexture); caller the by-value rendering-method getter 0x00083A50
