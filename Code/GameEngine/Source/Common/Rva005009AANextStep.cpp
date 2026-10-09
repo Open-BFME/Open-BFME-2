@@ -57,3 +57,56 @@ int __cdecl rva005009AA(int from, int to)
 	}
 	return from;
 }
+
+// Native00502381..0050243F (190B), WB01300010: clear output army records,
+// scan the receiver's player buckets and append matching IDs whose distance
+// from the supplied key is <= limit. The third argument is const int*, as
+// proved by its unchanged PUSH into the rowed _M_find(const int&) worker.
+// Receiver map4, bucket records at node28/2C, record id0 and pointer10 are
+// target evidence. Record20 has an empty12B tree at4 and an uninitialized
+// opaque last word; its original names and element meanings remain open.
+// Use the already-owned tree destructor solely as an empty-tree destruction
+// view, without assigning Locomotor semantics to the record. Its constructor
+// is the rowed int/pointer-map25B provider. Vector55B push and51B erase are
+// declared under their existing record spelling, preserving providers.
+// The existing global declaration above is reused, not newly pinned.
+#include <vector>
+enum LocomotorSetType { LOCOMOTORSET_INVALID=-1 };
+class LocomotorTemplate;
+typedef _STL::vector<const LocomotorTemplate*> NativeVector;
+typedef _STL::_Rb_tree<LocomotorSetType,_STL::pair<const LocomotorSetType,NativeVector>,_STL::_Select1st<_STL::pair<const LocomotorSetType,NativeVector> >,_STL::less<LocomotorSetType>,_STL::allocator<_STL::pair<const LocomotorSetType,NativeVector> > > NativeTree;
+namespace _STL { template<> NativeTree::~_Rb_tree(); }
+typedef _STL::map<int,void*> MapPtr;
+namespace _STL { template<> MapPtr::map(); }
+struct Rva00501E3FElement {
+ int id; char map[12]; void *opaque;
+ __forceinline Rva00501E3FElement(){reinterpret_cast<MapPtr*>(map)->MapPtr::map();}
+ __forceinline ~Rva00501E3FElement(){reinterpret_cast<NativeTree*>(map)->NativeTree::~_Rb_tree();}
+};
+namespace _STL {
+ template<> vector<Rva00501E3FElement>::iterator vector<Rva00501E3FElement>::erase(iterator,iterator);
+ template<> void vector<Rva00501E3FElement>::push_back(const Rva00501E3FElement &);
+}
+typedef _STL::vector<Rva00501E3FElement> RecordVector;
+struct QueryBucket {char prefix[20]; RecordVector records;char tail[12];};
+typedef _STL::multimap<int,QueryBucket> QueryMap;
+typedef _STL::map<int,int> IntMap;
+struct Rva00502381 {char prefix[4]; QueryMap values;void rva00502381(int,int,const int*,RecordVector*);};
+void Rva00502381::rva00502381(int who,int limit,const int*key,RecordVector*out){
+ IntMap*global=reinterpret_cast<IntMap*>(&g_Va00E04544);
+ IntMap::iterator found=global->find(*key);
+ out->erase(out->begin(),out->end());
+ for(QueryMap::iterator it=values.begin();it!=values.end();++it) {
+  if(who==it->first) {
+   for(RecordVector::iterator r=it->second.records.begin();r!=it->second.records.end();++r) {
+    int current=*reinterpret_cast<int*>(r->opaque);
+    IntMap*inner=reinterpret_cast<IntMap*>(reinterpret_cast<char*>(&found->second)+12);
+    if(inner->find(current)->second<=limit) {
+     Rva00501E3FElement temp;
+     temp.id=r->id;
+     out->push_back(temp);
+    }
+   }
+  }
+ }
+}
