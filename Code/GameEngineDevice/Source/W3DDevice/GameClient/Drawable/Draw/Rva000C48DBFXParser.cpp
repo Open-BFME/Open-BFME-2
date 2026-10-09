@@ -1,5 +1,3 @@
-// ?rva000C48DB@@YAXPAX000@Z
-// partial score=1.0 date=2026-10-09
 // cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // Clean BF1 FXEventParser007764E0.cpp donor at9cbfb551, adapted to target
