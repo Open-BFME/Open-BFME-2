@@ -47,6 +47,7 @@ class GameWindow
 {
 public:
 	int winEnable(bool enable);
+	int winGetWindowId(void);
 };
 
 void GadgetButtonSetText(GameWindow *g, UnicodeString text);
@@ -353,4 +354,52 @@ void InGameUI::updateIdleWorker(void)
 
 	if((idleCount <= 0 && m_idleWorkerWin) || !getInputEnabled())
 		hideIdleWorkerLayout();
+}
+
+// ?IdleWorkerSystem@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z
+// retail 0x0029B0A9, 137 bytes; the function lexicon binds it to the name
+// "IdleWorkerSystem". Zero Hour's InGameUI.cpp body unchanged: input focus
+// is declined and falls through to the button check, whose static key is
+// "IdleWorker.wnd:ButtonSelectNextIdleWorker"; selectNextIdleWorker is the
+// rowed slot 107 above.
+enum WindowMsgHandledType { MSG_IGNORED, MSG_HANDLED };
+typedef unsigned int UnsignedInt;
+typedef UnsignedInt WindowMsgData;
+typedef bool Bool;
+enum { GWM_INPUT_FOCUS = 0x17, GBM_SELECTED = 0x4008 };
+#define NAMEKEY(x) TheNameKeyGenerator->nameToKey(x)
+
+WindowMsgHandledType IdleWorkerSystem( GameWindow *window, UnsignedInt msg,
+																				WindowMsgData mData1, WindowMsgData mData2 )
+{
+	switch( msg )
+	{
+		//---------------------------------------------------------------------------------------------
+		case GWM_INPUT_FOCUS:
+		{
+			// if we're givin the opportunity to take the keyboard focus we must say we don't want it
+			if( mData1 == true )
+				*(Bool *)mData2 = false;
+		}
+		//---------------------------------------------------------------------------------------------
+		case GBM_SELECTED:
+		{
+			GameWindow *control = (GameWindow *)mData1;
+			static NameKeyType buttonSelectID = NAMEKEY( "IdleWorker.wnd:ButtonSelectNextIdleWorker" );
+			if (control && control->winGetWindowId() == buttonSelectID)
+			{
+				TheInGameUI->selectNextIdleWorker( );
+			}
+			break;
+
+		}  // end button selected
+
+		//---------------------------------------------------------------------------------------------
+		default:
+			return MSG_IGNORED;
+
+	}  // end switch( msg )
+
+	return MSG_HANDLED;
+
 }
