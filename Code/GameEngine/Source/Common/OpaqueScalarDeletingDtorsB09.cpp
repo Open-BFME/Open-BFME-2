@@ -385,34 +385,6 @@ Rva006ED6F::Rva006ED6F(EmitVtableTag *)
 {
 }
 
-class Rva006F7BDBase0
-{
-public:
-	virtual ~Rva006F7BDBase0();
-private:
-	char m_unmodelled[0x104];
-};
-
-// Secondary base at +0x108: the this-adjusting deleting-destructor thunk
-// (sub ecx, 0x108) at 0x0006F796 in its vtable is target evidence for it.
-class Rva006F7BDBase108
-{
-public:
-	virtual ~Rva006F7BDBase108();
-};
-class Rva006F7BD : public Rva006F7BDBase0, public Rva006F7BDBase108
-{
-public:
-	Rva006F7BD(EmitVtableTag *);
-public:
-	virtual ~Rva006F7BD();
-};
-
-// ?<Rva006F7BD::Rva006F7BD> absent-from-retail
-Rva006F7BD::Rva006F7BD(EmitVtableTag *)
-{
-}
-
 class Rva007C454Base0
 {
 public:
