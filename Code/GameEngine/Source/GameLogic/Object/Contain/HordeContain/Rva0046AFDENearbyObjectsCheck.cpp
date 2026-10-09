@@ -27,7 +27,7 @@ public:
 };
 class Pathfinder {
 public:
-    int rva002EC9E1(Object *, const Coord3D *, int *);
+    int GetOverlapGoalUnits(Object *, const Coord3D *, int *);
 };
 class AI {
 public:
@@ -49,7 +49,7 @@ bool Rva0046AFDEReceiver::rva0046AFDE(Object *target)
     Object *self = owner;
     Pathfinder *pathfinder = TheAI->pathfinder;
     int nearby[16];
-    int count = pathfinder->rva002EC9E1(target, &target->position, nearby);
+    int count = pathfinder->GetOverlapGoalUnits(target, &target->position, nearby);
     for (int i = 0; i < count; ++i) {
         ObjectID id = (ObjectID)nearby[i];
         if (id == self->id)

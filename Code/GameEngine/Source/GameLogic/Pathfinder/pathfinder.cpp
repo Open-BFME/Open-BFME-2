@@ -535,6 +535,7 @@ public:
  PathfindCell *rva002F068F();
     Path *GetAircraftPath(const Object *,const Coord3D *);
     int _GetOverlapUnits(Object *,const Coord3D *,int *);
+    int GetOverlapGoalUnits(Object *,const Coord3D *,int *);
     Bool rva002E9BE5(const Coord3D *,const Coord3D *,float,unsigned,Coord3D *);
     Bool rva002F3392(PathNode *,PathNode *,unsigned,Coord3D *,Coord3D *,Coord3D *);
     void SetDebugPath(Rva002EDEABArg *);
@@ -2156,4 +2157,37 @@ __declspec(noinline) void __cdecl Rva002EBCD6Split(void *p, int *outHalf, int *o
 	int h = v / 2;
 	*outHalf = h;
 	*outRest = v - h;
+}
+
+// WB D3B2A0 / native2EC9E1..2ECAFF: list+14, unique IDs, capacity16.
+int Pathfinder::GetOverlapGoalUnits(Object *object,const Coord3D *position,int *out)
+{
+ ICoord2D cell;
+ int below,above;
+ int layers[2];
+ Rva002EBC14Cell(&cell,object,position);
+ Rva002EBCD6Split(object,&below,&above);
+ layers[0]=object->rva0028B511();
+ int numLayers=1;
+ if (!(unsigned char)Rva002E6E6CGet(layers[0]) && reinterpret_cast<PathfinderOverlapTerrainView *>(TheTerrainLogic)->objectInteractsWithBridgeLayer(object,layers[0])) {
+  layers[1]=1; numLayers=2;
+ }
+ int count=0;
+ ++g_Va00DFECD0;
+ object->rva002E6B89();
+ for(int x=cell.x-below;x<cell.x+above;++x) {
+  for(int y=cell.y-below;y<cell.y+above;++y) {
+   for(int k=0;k<numLayers;++k) {
+    PathCollisionCell *c=reinterpret_cast<PathCollisionCell *>(getCell((PathfindLayerEnum)layers[k],x,y));
+    if(c && c->info) {
+     for(PathCollisionNode *node=c->info->occupants;node;node=node->next) {
+      if(node->object->rva002E6B89()) continue;
+      out[count++]=node->object->getID();
+      if(count==16) return count;
+     }
+    }
+   }
+  }
+ }
+ return count;
 }
