@@ -24,5 +24,5 @@ Rva004B0FEB::Rva004B0FEB(EmotionTrackerUpdate *m):module(m),cached(0),tested(fal
  allyCount=((Rva00739830 *)TheShroudManager)->rva00739830((const BfmePointFD *)&object->pos,1,allies);}
 }
 
-Rva000421C8::~Rva000421C8() {}
+inline Rva000421C8::~Rva000421C8() {}
 int Rva004B0FEB::getPlayerMask(){if(object && player)return ThePlayerList->getPlayersWithRelationship(player->getPlayerIndex(),4,false);return 0;}
