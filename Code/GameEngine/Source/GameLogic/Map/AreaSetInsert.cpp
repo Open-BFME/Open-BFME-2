@@ -62,3 +62,23 @@ void Rva0028343D::rva0028343D(int id, WaterHandleRef area) {
     entries.push_back(reinterpret_cast<const Rva00308E2CElement &>(Rva0030C95C(id, reinterpret_cast<const AreaRefValueView &>(area))));
     listeners.forEach(&Rva00281A33Listener::notify, this, reinterpret_cast<int>(reinterpret_cast<const AreaRefValueView &>(area).pointer));
 }
+
+// Native30912A..3091B1 has the same complete135B insertion and listener
+// sequence. StandingWaterAreasDataChunkParserParse.cpp and OldPolygonTrigger
+// independently establish its owned StandingWaterRef argument. Use that
+// existing method spelling so its consumers retain their verified binding.
+
+class Rva00308E63;
+class StandingWaterRef {
+public:
+    StandingWaterRef(const StandingWaterRef &other) : m_ptr(other.m_ptr) { if (m_ptr) ++reinterpret_cast<AreaRetainedObjectView *>(m_ptr)->references; }
+    ~StandingWaterRef() { if (m_ptr) ReleaseTreeHintRef00217D4C(reinterpret_cast<TargetRef00217D4C *>(m_ptr)); }
+    Rva00308E63 *m_ptr;
+};
+class Rva0030912A : public AreaSetInsertStorage { public: void rva0030912A(int, StandingWaterRef); };
+void Rva0030912A::rva0030912A(int id, StandingWaterRef area) {
+    if (id >= nextID) nextID = id + 1;
+    entries.push_back(reinterpret_cast<const Rva00308E2CElement &>(Rva0030C95C(id, reinterpret_cast<const AreaRefValueView &>(area))));
+    listeners.forEach(&Rva00281A33Listener::notify, this, reinterpret_cast<int>(area.m_ptr));
+}
+
