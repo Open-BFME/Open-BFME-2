@@ -77,6 +77,39 @@ void Rva006FD340Object::rva006FD340(char *text, void *arg2)
 	rva007097B0(arg2);
 }
 
+extern "C" int __cdecl isalnum(int c);
+extern "C" int __cdecl sprintf(char *buffer, const char *format, ...);
+
+// ?rva006FD4C0@@YAXPAVEAStringC@@@Z @0x006FD4C0 (233B). URL-escapes a string
+// in place: ASCII letters and digits are copied, every other byte becomes
+// "%X" of its value. The local is pre-sized to three times the source length
+// through the BfmeStrVKK view and appended one piece at a time.
+void __cdecl rva006FD4C0(EAStringC *pString)
+{
+	char cHex[6] = "";
+	char cText[2] = "";
+	EAStringC result;
+	((BfmeStrVKK *)&result)->bfmeTruncVKK(pString->rva006D3750() * 3);
+	const char *p = pString->rva00620090();
+	cText[1] = 0;
+	unsigned char c = *p++;
+	while (c != 0)
+	{
+		if (c < 0x80 && isalnum(c))
+		{
+			cText[0] = c;
+			result.Rva006D50A0Append(cText);
+		}
+		else
+		{
+			sprintf(cHex, "%%%X", c);
+			result.Rva006D50A0Append(cHex);
+		}
+		c = *p++;
+	}
+	*pString = result;
+}
+
 // ?rva006FD630@@YAXPAVEAStringC@@@Z @0x006FD630 (199B). Decodes URL escapes
 // from a string's buffer into a local, then assigns it back: '+' becomes a
 // space, '%XX' becomes the hex byte through rva006FD5B0, and a trailing '%'
