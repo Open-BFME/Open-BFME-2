@@ -1308,56 +1308,7 @@ void ConnectionManager::sendLocalGameMessage(GameMessage *msg, UnsignedInt frame
 	netmsg->detach();
 }
 
-/**
- * This is a NetCommandMsg that originated on the local computer. Send this to everyone specified
- * in the relay field.  Commands sent in this way go through the packet router.
- */
-// ?sendLocalCommand@ConnectionManager@@ present-unmatched
-void ConnectionManager::sendLocalCommand(NetCommandMsg *msg, UnsignedByte relay /* = 0xff by default*/) {
-	if (CommandRequiresDirectSend(msg) || (m_packetRouterSlot < 0) || (m_packetRouterSlot >= MAX_SLOTS) || (m_connections[m_packetRouterSlot] == NULL)) {
-		sendLocalCommandDirect(msg, relay);
-		return;
-	}
-	msg->attach();
-
-	DEBUG_LOG(("ConnectionManager::sendLocalCommand - sending net command %d of type %s\n", msg->getID(),
-		GetAsciiNetCommandType(msg->getNetCommandType()).str()));
-
-	if (relay & (1 << m_localSlot)) {
-		DEBUG_LOG(("ConnectionManager::sendLocalCommand - adding net command of type %s to player %d for frame %d\n", GetAsciiNetCommandType(msg->getNetCommandType()).str(), msg->getPlayerID(), msg->getExecutionFrame()));
-		m_frameData[m_localSlot]->addNetCommandMsg(msg);
-	}
-
-	// Send the packet to everyone else
-	if (m_localSlot == m_packetRouterSlot) {
-		// I am the packet router, I need to send this packet to everyone individually.
-		for (Int i = 0; i < MAX_SLOTS; ++i) {
-			// Send it to all open connections.
-			if (((m_connections[i] != NULL) && (m_connections[i]->isQuitting() == FALSE)) && (relay & (1 << i))) {
-				// Set the relay mask to only go to this player so he knows not to relay it to anyone else.
-				UnsignedByte temprelay = 1 << i;
-				m_connections[i]->sendNetCommandMsg(msg, temprelay); // This will create a new copy of netmsg for this connection.
-			}
-		}
-	} else {
-		// Send the command to everyone else via the packet router.
-		UnsignedByte temprelay = relay & ~(1 << m_localSlot);	// Tell the packet router to relay the message to everyone but myself.
-														// Hopefully the packet router is smart enough to not send it
-														// to slots that are not in the game.
-
-		m_connections[m_packetRouterSlot]->sendNetCommandMsg(msg, temprelay); // This will create a new copy of netmsg for this connection.
-
-		if (CommandRequiresAck(msg)) {
-			NetCommandRef *ref = m_pendingCommands->addMessage(msg);
-			//DEBUG_LOG(("ConnectionManager::sendLocalCommand - added command %d to pending commands list.\n", msg->getID()));
-			if (ref != NULL) {
-				ref->setRelay(temprelay);
-			}
-		}
-	}
-
-	msg->detach(); // detach from the command msg.
-}
+// sendLocalCommand is implemented by ConnectionManager_processAck.cpp.
 
 /**
  * This is a NetCommandMsg that originated on the local computer.  Send this to everyone specified
