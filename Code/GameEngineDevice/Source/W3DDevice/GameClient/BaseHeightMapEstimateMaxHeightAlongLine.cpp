@@ -13,6 +13,9 @@ typedef float Real;
 typedef bool Bool;
 typedef unsigned short UnsignedShort;
 
+// Linking repair follows BF1 dc69c74c54/f989 and the verified BFME2 LOS sibling.
+// Retain the VC7 float boundary with a TU-local inline CRT wrapper.
+extern "C" { static float __cdecl floorf(float); }
 #include <math.h>
 #include <stdlib.h>
 
@@ -24,7 +27,7 @@ enum PathfindLayerEnum
 };
 
 // BFME's REAL_TO_INT_FLOOR: CRT floor() then the engine's x87 round.
-__forceinline Real fast_float_floor(Real f)
+static __forceinline Real fast_float_floor(Real f)
 {
 	return (Real)floor((double)f);
 }
@@ -87,12 +90,6 @@ extern TerrainLogic *TheTerrainLogic;
 class WorldHeightMap
 {
 public:
-	Int getXExtent(void) { return m_width; }
-	Int getYExtent(void) { return m_height; }
-	Int getBorderSizeInline(void) const { return m_borderSize; }
-	UnsignedShort *getDataPtr(void) { return m_data; }
-
-private:
 	char m_padding00[8];
 	Int m_width;
 	Int m_height;
@@ -120,7 +117,7 @@ Real BaseHeightMapRenderObjClass::EstimateMaxHeightAlongLine(const Coord3D& pos,
 	Real result=0.0f;
 	const Real MAP_XY_FACTOR_INV = 1.0f / MAP_XY_FACTOR;
 
-	Int borderSize = m_map->getBorderSizeInline();
+	Int borderSize = m_map->m_borderSize;
 	Int start_x = REAL_TO_INT_FLOOR(pos.x * MAP_XY_FACTOR_INV) + borderSize;
 	// Native conversion scheduling requires direct float overloads here and
 	// for both endpoints; start_x retains the donor double floor wrapper.
@@ -176,9 +173,9 @@ Real BaseHeightMapRenderObjClass::EstimateMaxHeightAlongLine(const Coord3D& pos,
 		numpixels = delta_y;							// There are more y-values than x-values
 	}
 
-	const UnsignedShort* data = m_map->getDataPtr();
-	Int xExtent = m_map->getXExtent();
-	Int yExtent = m_map->getYExtent();
+	const UnsignedShort* data = m_map->m_data;
+	Int xExtent = m_map->m_width;
+	Int yExtent = m_map->m_height;
 	for (Int curpixel = 0; curpixel < numpixels; curpixel++)
 	{
 		if (x < 0 ||

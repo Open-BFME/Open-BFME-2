@@ -9,6 +9,9 @@
 // samples ask the WorldHeightMap's clamped lookup 0x0006653B, and the
 // smoothed slopes are scaled by MAP_HEIGHT_SCALE before the cross product
 // with a 2*MAP_XY_FACTOR run.  Layout as in BaseHeightMapCellQueries.cpp.
+// Linking repair follows BF1 dc69c74c54/f989 and the verified BFME2 LOS sibling.
+// Retain the VC7 float boundary with a TU-local inline CRT wrapper.
+extern "C" { static float __cdecl floorf(float); }
 #include <math.h>
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
@@ -19,7 +22,7 @@ typedef unsigned short UnsignedShort;
 #define MAP_XY_FACTOR 10.0f
 #define MAP_HEIGHT_SCALE (MAP_XY_FACTOR / 256.0f)
 
-__forceinline Real fast_float_floor(Real f)
+static __forceinline Real fast_float_floor(Real f)
 {
 	return floorf(f);
 }
@@ -90,12 +93,6 @@ public:
 class WorldHeightMap
 {
 public:
-	Int getXExtent() const { return m_width; }
-	Int getYExtent() const { return m_height; }
-	Int getBorderSizeInline() const { return m_borderSize; }
-	UnsignedShort *getDataPtr() const { return m_data; }
-
-private:
 	char m_unknown00[8];
 	Int m_width;	// +0x08
 	Int m_height;	// +0x0C
@@ -140,11 +137,11 @@ Real BaseHeightMapRenderObjClass::getHeightMapHeight(Real x, Real y, Coord3D *no
 	float fx = xdiv - ixf;
 	float fy = ydiv - iyf;
 
-	Int ix = REAL_TO_INT_FLOOR(ixf) + m_map->getBorderSizeInline();
-	Int iy = REAL_TO_INT_FLOOR(iyf) + m_map->getBorderSizeInline();
-	Int xExtent = m_map->getXExtent();
+	Int ix = REAL_TO_INT_FLOOR(ixf) + m_map->m_borderSize;
+	Int iy = REAL_TO_INT_FLOOR(iyf) + m_map->m_borderSize;
+	Int xExtent = m_map->m_width;
 
-	if (ix > (xExtent - 3) || iy > (m_map->getYExtent() - 3) || iy < 1 || ix < 1)
+	if (ix > (xExtent - 3) || iy > (m_map->m_height - 3) || iy < 1 || ix < 1)
 	{
 		if (normal)
 		{
@@ -155,7 +152,7 @@ Real BaseHeightMapRenderObjClass::getHeightMapHeight(Real x, Real y, Coord3D *no
 		return ((Rva0006653B *)m_map)->rva0006653B(ix, iy) * MAP_HEIGHT_SCALE;
 	}
 
-	const UnsignedShort *data = m_map->getDataPtr();
+	const UnsignedShort *data = m_map->m_data;
 	int idx = ix + iy * xExtent;
 	float p0 = data[idx];
 	float p2 = data[idx + xExtent + 1];
