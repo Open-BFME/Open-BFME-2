@@ -49,6 +49,7 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
  * Functions:                                                              * 
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
+#include "../../../../../reference/shims/bfme_particle_definition/vector3.h"
 #include "shader.h"
 #include "rendobj.h"	// the bfmerendobj shim has to win the include guard
 #include "part_emt.h"
