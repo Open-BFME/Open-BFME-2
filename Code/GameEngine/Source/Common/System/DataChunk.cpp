@@ -18,15 +18,19 @@ struct InputChunk
 	unsigned int m_dataLeft;		// +0x18
 };
 
+class ChunkInputStream;
+
 class DataChunkInput
 {
 public:
 	unsigned short getChunkVersion();
 	unsigned int getChunkDataSizeLeft();
+	bool atEndOfFile();
 	void clearChunkStack();
 
 private:
-	unsigned char m_pre[0x1C];
+	ChunkInputStream *m_file;
+	unsigned char m_pre[0x18];
 	InputChunk *m_chunkStack;	// +0x1C
 };
 
@@ -208,3 +212,13 @@ unsigned int DataChunkInput::getChunkDataSizeLeft()
 		return 0;
 	return m_chunkStack->m_dataLeft;
 }
+
+// Genuine donor inline normalization keeps native callers inline and emits
+// the exact 13-byte COMDAT, compatible with the legacy owner copy.
+inline bool DataChunkInput::atEndOfFile()
+{
+	return m_file->eof() ? true : false;
+}
+// Ordinary member-address datum emits the real method; no retail data
+// address or original global identity is claimed for this datum.
+bool (DataChunkInput::*DataChunkInputEofMethod)() = &DataChunkInput::atEndOfFile;

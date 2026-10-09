@@ -302,7 +302,7 @@ public:
 	// Retail 0x00306E2E (18B): atEndOfChunk via dataLeft<=0 (null=>true).
 	// ZH donor DataChunk.cpp atEndOfChunk verbatim. Caller 0x000AD07F.
 	Bool atEndOfChunk(void);
-	Bool atEndOfFile(void) { return m_file->eof(); }
+	Bool atEndOfFile(void) { return m_file->eof() ? true : false; }
 
 	Bool parse(void *userData);
 	void clearChunkStack();
