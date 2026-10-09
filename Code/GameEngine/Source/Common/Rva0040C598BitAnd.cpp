@@ -23,3 +23,12 @@ void Rva0040C598::rva0040C5B1(const int *src)
 	for (int i = 0; i < 32; ++i)
 		m_bits[i] &= ~src[i];
 }
+
+// Whole clean BF1 f98983a7d3 Common/S1BitwiseAndPrimitives.cpp is the source
+// guide. Native2257F2..2257FB follows the complete OR9 leaf2257E9 and ends
+// RET before a new prologue. It returns stackword4 AND stackword8 as raw32;
+// ECX is unused, and the caller owns stack cleanup. Original owner, declaration
+// and signedness remain unknown; this cdecl behavior view asserts no donor name.
+unsigned Rva002257F2AndValues(unsigned first, unsigned second) {
+    return first & second;
+}
