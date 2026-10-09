@@ -29,14 +29,14 @@ class Debug
         unsigned inputAlloc;
     };
 
-    unsigned char m_pad[0x0C];
+    unsigned char m_pad[0x0C - 4];	// after the vptr
     IOFactoryListEntry *firstIOFactory;
 
 public:
-    int GetInput(char *, int, bool *);
+    virtual int GetInput(char *, int, bool *);	// slot 38
 };
 
-// ?GetInput@Debug@@QAEHPADHPA_N@Z
+// ?GetInput@Debug@@UAEHPADHPA_N@Z
 int Debug::GetInput(char *buf, int maxchar, bool *hasInput)
 {
     for (IOFactoryListEntry *cur=firstIOFactory;cur;cur=cur->next)

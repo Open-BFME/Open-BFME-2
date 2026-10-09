@@ -29,16 +29,16 @@ class Debug
         unsigned inputAlloc;
     };
 
-    char m_prefix[0x0C];
+    char m_prefix[0x0C - 4];	// after the vptr
     IOFactoryListEntry *firstIOFactory;
 
     bool ExecCommand(const char *, const char *);
 
 public:
-    void Update(void);
+    virtual void Update(void);	// slot 37
 };
 
-// ?Update@Debug@@QAEXXZ
+// ?Update@Debug@@UAEXXZ
 void Debug::Update(void)
 {
     for (IOFactoryListEntry *cur=firstIOFactory;cur;cur=cur->next)
