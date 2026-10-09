@@ -16957,7 +16957,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x009FE478,12,.data,global,?g_Va00DFE478@@3IA,Code/GameEngine/Source/Common/GlobalFlagClearers_DFE4xx.cpp,owned,,1,2
 0x009FE484,8,.data,global,?g_Va00DFE484@@3IA,Code/GameEngine/Source/Common/GlobalFlagClearers_DFxx.cpp,owned,,1,4
 0x009FE48C,4,.data,global,_s_rva007ADB01,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
-0x009FE490,12,.data,global,?g_00DFE490@@3PAXA,Code/GameEngine/Source/GameLogic/Object/Rva00220B04Ctor.cpp,provisional,?g_00DFE490@@3PAXA;?g_00DFE490@@3VRva00575674@@A;?g_Va00DFE490@@3IA,1,6
+0x009FE490,12,.data,global,?g_00DFE490@@3PAXA,Code/GameEngine/Source/GameClient/ArmySummaryDescription.cpp,provisional,?g_00DFE490@@3PAXA;?g_00DFE490@@3VRva00575674@@A;?g_Va00DFE490@@3IA,1,6
 0x009FE49C,12,.data,global,?g_Va00DFE49C@@3IA,,unowned,,0,1
 0x009FE4A8,4,.data,global,?g_Va00DFE4A8@@3IA,Code/GameEngine/Source/Common/GlobalFlagClearers_DFxx.cpp,owned,,1,2
 0x009FE4AC,12,.data,global,?g_Va00DFE4AC@@3IA,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,provisional,?g_Va00DFE4AC@@3IA;?s_map@?1??Rva002213D9Get@@YAPAV?$map@HPAXU?$less@H@_STL@@V?$allocator@U?$pair@$$CBHPAX@_STL@@@2@@_STL@@XZ@4V23@A@Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_ptr_init_002213D9.cpp,2,3
