@@ -1,7 +1,3 @@
-// ?triggerRevival@RespawnUpdate@@QAEXPAVObject@@@Z
-// partial score=0.99 date=2026-10-09
-// ?triggerRevival@RespawnUpdate@@QAEXPAVObject@@@Z
-// partial score=0.99 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG /I.
 // WB RespawnUpdate::triggerRevival and native 4AF79C..4AF92F.
 // BF1 RespawnUpdate rule/condition helpers (9cbfb551) guide semantics;
@@ -197,7 +193,6 @@ class BodyModuleInterface { public:
 class PlayerList {public:__forceinline Player *getLocalPlayer() const{return local;}char pad[0x10];Player *local;};
 extern PlayerList *ThePlayerList;
 class ControlBar {public:char pad[0x28];bool dirty;};extern ControlBar *TheControlBar;
-// ?triggerRevival@RespawnUpdate@@QAEXPAVObject@@@Z present-unmatched
 void RespawnUpdate::triggerRevival(Object *at) {
  Object *obj=m_object;
  const RespawnUpdateModuleData *data=m_moduleData;
@@ -216,8 +211,10 @@ void RespawnUpdate::triggerRevival(Object *at) {
   FXList::doFXObj(data->m_reviveFX,obj,0);
   if(TheInGameUI) TheInGameUI->rva002A1261(obj);
  }
+ // Native loads the default health before clearing the two rule counters.
+ static const float one=1.0f;
  RespawnRule rule;
- float health=1.0f;rule.cost=0;rule.time=0;
+ float health=*(const volatile float *)&one;rule.cost=0;rule.time=0;
  m_2C=4;
  rule.level=(unsigned)obj->m_experienceTracker->m_level;rule.health=health;rule.autoSpawn=false;
  RespawnRuleNode *found=(RespawnRuleNode*)data->m_rules.find(rule.level);
