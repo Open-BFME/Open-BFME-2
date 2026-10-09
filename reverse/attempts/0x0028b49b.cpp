@@ -1,6 +1,6 @@
-// ?rva0028B49B@Object@@QAEXPAPAV1@0@Z
-// partial score=0.85 date=2026-10-05
-// cl: /O1 /DNDEBUG /MD /EHsc
+// ?appendToList@Object@@QAEXPAPAV1@0@Z
+// partial score=0.85 date=2026-10-09
+// cl: /DNDEBUG /MD /EHsc
 
 // ?isInList@Object@@QBE_NPAPAV1@@Z, retail 0x0028B47C (31 bytes).
 // Object::isInList checks the intrusive list links at +0x8C/+0x90.
@@ -8,9 +8,9 @@
 // *pListHead == this`, and the sole retail caller GameLogic::friend_awakenUpdateModule
 // (0x0024297F) passes &GameLogic+0xAC as pListHead with this=obj.
 //
-// The next two bodies follow isInList in retail as prependToList and
-// setLayer do in Zero Hour's Object.cpp; both changed shape in BFME, so the
-// names stay address-derived.
+// 0x0028B4CE follows isInList and BFME's two-list prepend 0x0028B49B in
+// retail as setLayer does in Zero Hour's Object.cpp; its body changed shape
+// in BFME, so the name stays address-derived.
 
 typedef bool Bool;
 
@@ -51,7 +51,7 @@ class Object
 {
 public:
 	Bool isInList(Object **pListHead) const;
-	void rva0028B49B(Object **pListTail, Object **pListHead);
+	void appendToList(Object **pListHead, Object **pListTail);
 	void rva0028B4CE(PathfindLayerEnum layer);
 
 private:
@@ -70,20 +70,22 @@ Bool Object::isInList(Object **pListHead) const
 	return result;
 }
 
-// ?rva0028B49B@Object@@QAEXPAPAV1@0@Z, retail 0x0028B49B (51B): Zero Hour's
-// prependToList (clear +0x8C, link +0x90 to the old head, back-link the old
-// head's +0x8C) with BFME's extra list-tail out-parameter, filled when the
-// list was empty. Its unlink twin is the rowed 0x0028B595.
-void Object::rva0028B49B(Object **pListTail, Object **pListHead)
+// ?appendToList@Object@@QAEXPAPAV1@0@Z, retail 0x0028B49B (51B): BFME's
+// head/tail form of Zero Hour's Object::prependToList. Its only retail caller
+// GameLogic::registerObject (0x00242AE9) passes &GameLogic+0xAC / +0xB0; the
+// new object is linked after the old tail and becomes the head of an empty list.
+void Object::appendToList(Object **pListHead, Object **pListTail)
 {
-	Object *head = *pListHead;
+	Object *tail = *pListTail;
 	m_next = 0;
-	m_prev = head;
-	if (head)
-		head->m_next = this;
-	if (*pListTail == 0)
-		*pListTail = this;
-	*pListHead = this;
+	Object *&prev = m_prev;
+	prev = tail;
+	if (prev)
+		prev->m_next = this;
+
+	if (*pListHead == 0)
+		*pListHead = this;
+	*pListTail = this;
 }
 
 // ?rva0028B4CE@Object@@QAEXW4PathfindLayerEnum@@@Z, retail 0x0028B4CE (67B):
