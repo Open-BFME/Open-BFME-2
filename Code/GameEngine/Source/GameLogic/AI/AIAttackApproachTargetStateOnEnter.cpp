@@ -187,10 +187,14 @@ public:
 	Bool CanApproachToTarget(Object *obj, const Coord3D *targetPos, Rva002C9B80Owner *weapon, Bool flag);
 };
 
+class PolygonTrigger;
+class AttackPriorityInfo;
+
 class AI
 {
 public:
 	static Bool rva002FE193(Object *owner, Object *nemesis);
+	Object *rva002FF8DD(const PolygonTrigger *area, Object *owner, const AttackPriorityInfo *info);
 	Pathfinder *pathfinder() { return m_pathfinder; }
 	const TAiData *getAiData() { return m_aiData; }
 	unsigned char m_pad00[0x10];
@@ -317,7 +321,11 @@ private:
 public:
 	class Rva00346FA5 *m_goalPath; // +0x30
 private:
-	unsigned char m_pad034[0x140 - 0x34];
+	unsigned char m_pad034[0x70 - 0x34];
+public:
+	const AttackPriorityInfo *m_attackInfo; // +0x70
+private:
+	unsigned char m_pad074[0x140 - 0x74];
 	void *m_path; // +0x140
 	unsigned char m_pad144[0x16C - 0x144];
 public:
@@ -432,6 +440,8 @@ public:
 	Real GetRelativeAngle(const Coord3D *pos) const;
 	Real getOrientation() const { return m_orientation; }
 	Bool rva002943B2(const Player *player);
+	Bool isOutOfAmmo() const;
+	Object *adjustVictim(Object *owner, Int flag, Int extra);
 	void rva0028ACDC(const Coord3D *pos);
 	void setStatus(ObjectStatusTypes bit, Bool set);
 	Bool isKindOf(KindOfType t) const;
@@ -581,6 +591,9 @@ private:
 	Object *m_owner; // +0x14
 	unsigned char m_pad18[0x24 - 0x18];
 	Coord3D m_goalPosition; // +0x24
+	unsigned char m_pad30[0x38 - 0x30];
+public:
+	Bool m_locked; // +0x38 (ZH lock()/unlock() without the debug owner string)
 };
 
 // StateMachine::isGoalObjectDestroyed (0x004D7ADD), rowed under this name.
@@ -851,6 +864,18 @@ private:
 	Int m_1c; // +0x1C
 	AttackStateHost *m_att; // +0x20
 	Bool m_waitOddFrame; // +0x24
+};
+
+// AIAttackAreaState, vtable 0x00C11900 (isAttack 0x003422EF rowed in
+// AIAttackStatesIsAttack.cpp, onExit 0x0034234C in AIStatesMoreExits.cpp).
+class AIAttackAreaState : public State
+{
+public:
+	virtual StateReturnType update();
+private:
+	unsigned char m_pad1C[0x20 - 0x1C];
+	StateMachine *m_attackMachine; // +0x20
+	UnsignedInt m_nextEnemyScanTime; // +0x24
 };
 
 // AIAttackSquadState, vtable 0x00C112C0 (name 0x0033F517, xfer 0x003414F6,
@@ -1621,4 +1646,46 @@ StateReturnType AIAttackSquadState::update()
 	ai->rva00262B0F((Int)victim);
 	m_attackSquadMachine->setState(AI_ATTACK_OBJECT);
 	return STATE_CONTINUE;
+}
+
+
+// AI slot 121, the area to guard (ZH AIUpdateInterface::getAreaToGuard).
+class AIAreaGuardView : public VirtualSlots<121>
+{
+public:
+	virtual const PolygonTrigger *getAreaToGuard() const;
+};
+
+// Retail 0x0034680D, 232 bytes: slot 6 of 0x00C11900. ZH
+// AIAttackAreaState::update with the scan rate LOGICFRAMES_PER_SECOND, the
+// enemy search as AI 0x002FF8DD (area, owner, the AI's +0x70 attack info),
+// the pinned Object::adjustVictim for victims with template kind bit
+// +0x115/0x20, and the machine lock written as its +0x38 byte.
+StateReturnType AIAttackAreaState::update()
+{
+	UnsignedInt now = TheGameLogic->getFrame();
+	if (now >= m_nextEnemyScanTime)
+	{
+		Object *owner = getMachineOwner();
+		if (owner->isOutOfAmmo() && !owner->isKindOfProjectile())
+			return STATE_FAILURE;
+		m_nextEnemyScanTime = now + LOGICFRAMES_PER_SECOND;
+		AIUpdateInterface *ai = owner->getAI();
+		if (((AIAreaGuardView *)ai)->getAreaToGuard() == 0)
+			return STATE_FAILURE;
+		Object *victim = TheAI->rva002FF8DD(((AIAreaGuardView *)ai)->getAreaToGuard(), owner, ai->m_attackInfo);
+		if (victim && (victim->getTemplate()->m_kindOf[0x0D] & 0x20))
+			victim = victim->adjustVictim(owner, 1, 0);
+		m_attackMachine->setGoalObject(victim);
+		if (m_attackMachine->getCurrentStateID() == AI_IDLE && victim)
+			m_attackMachine->setState(AI_ATTACK_OBJECT);
+		if (!victim)
+			return STATE_SUCCESS;
+	}
+	getMachine()->m_locked = true;
+	StateReturnType status = m_attackMachine->updateStateMachine();
+	if (status > STATE_CONTINUE)
+		status = STATE_CONTINUE;
+	getMachine()->m_locked = false;
+	return status;
 }
