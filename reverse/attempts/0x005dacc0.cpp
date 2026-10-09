@@ -1,6 +1,10 @@
 // ?rva005DACC0@Rva005DAC85@@QAEXXZ
-// partial score=0.92 date=2026-10-05
-// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmelist /Os /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /arch:SSE
+// partial score=0.94 date=2026-10-09
+// ?rva005DACC0@Rva005DAC85@@QAEXXZ
+// Revised bank: native005DACC0..005DADD1; WB AIBuildableUnit::updatePriority is a strong lead.
+// Existing address-view harness retained until its full class contract is reconciled.
+// Correct unordered clamp behavior: x>m keeps m; all other cases choose x.
+// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmelist /O1 /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /arch:SSE
 // stlport
 // ?rva005DACC0@Rva005DAC85@@QAEXXZ @0x005DACC0 273B evidence: vtable slot5 of 0x008765F8 class Rva005DAC85 via dtor row; layout from base Rva0055B0CC plus m_40; callees rowed rva002A8F24 bucket_count rva002D06CA get rva002A7461 plus pin rva002A8AB1 plus virtual slot2; globals VA 0xDFEEF8 0xDFF000 0xBBB8D8 0xBC3EE8 0xC765F0
 #include "ascii_string.h"
@@ -46,11 +50,11 @@ class Rva002D06CA
 public:
 	void *rva002D06CA(const AsciiString *key);
 };
-extern Rva002D06CA *g_009FF000;
+extern Rva002D06CA *TheThingFactory;
 
-extern float g_Va00BBB8D8;
-extern float g_00BC3EE8;
-extern float g_00C765F0;
+
+
+
 
 class Rva002A7389
 {
@@ -122,7 +126,7 @@ void Rva005DAC85::rva005DACC0()
 	IntMap *map = *(IntMap **)((char *)g_00DFEEF8->rva002A8F24((Player *)m_40) + 0xC);
 	if (map->bucket_count() < 2)
 		return;
-	void *found = g_009FF000->rva002D06CA((const AsciiString *)&m_0C);
+	void *found = TheThingFactory->rva002D06CA((const AsciiString *)&m_0C);
 	if ((*(unsigned char *)((char *)found + 0x11F) & 0x80) != 0)
 		return;
 	if ((*(unsigned char *)((char *)found + 0x113) & 4) != 0)
@@ -134,12 +138,10 @@ void Rva005DAC85::rva005DACC0()
 	float v = rec->m_160->arrA[rec->m_16C] - div;
 	v *= rec->m_160->arrB[rec->m_16C];
 	float sum = slot2() + v;
-	float cap = rec->m_160->arrA[3];
-	float m = sum >= cap ? sum : cap;
-	float x = g_Va00BBB8D8 - div;
-	x *= g_00BC3EE8;
-	x += g_00C765F0;
-	if (x < m)
-		m = x;
+	float m = (double)sum >= (double)rec->m_160->arrA[3] ? sum : rec->m_160->arrA[3];
+	float x = 1.0f - div;
+	x *= 300.0f;
+	x += 1800.0f;
+	m = x > m ? m : x;
 	m_18 = m;
 }
