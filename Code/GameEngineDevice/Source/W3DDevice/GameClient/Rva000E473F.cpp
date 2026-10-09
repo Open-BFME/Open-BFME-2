@@ -1,7 +1,16 @@
-// cl: /MD /EHsc /D_CRTIMP= /Ireference/shims/bfmelist /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc /D_CRTIMP= /Ireference/shims/bfmelist /Ireference/shims/bfmealloc
 // stlport
 #define _STLP_USE_STATIC_LIB 1
 #include <list>
+#include "W3DFloorElement.h"
+// Use the same direct node comparison as the canonical list<int> provider;
+// keep its unused iterator-base wrapper out of this object's definitions.
+namespace _STL {
+template <class T, class Traits>
+static inline bool operator!=(const _List_iterator<T, Traits>& a,
+                              const _List_iterator<T, Traits>& b)
+{ return a._M_node != b._M_node; }
+}
 // Cursor-slot render helper: release (0x000E473F, 93B) plus reinit
 // (0x000E479C, 234B). Both take the DX8 device mutex around their work.
 // The reinit drops any live vertex/index buffers through the release body,
@@ -115,9 +124,34 @@ public:
 	DX8IndexBufferClass(unsigned index_count, UsageType usage);
 };
 
-// Call-only views of the verified element cleanup and destructor providers.
-class Gen_uw_000e5033 { public: ~Gen_uw_000e5033(); };
-class Rva000E4567 { public: void rva000E4567(); };
+class Drawable;
+class GameClient;
+extern GameClient *TheGameClient;
+class FloorClientSlots {
+public:
+    virtual void slot00();
+    virtual void slot04();
+    virtual void slot08();
+    virtual void slot0C();
+    virtual void slot10();
+    virtual void slot14();
+    virtual void slot18();
+    virtual void slot1C();
+    virtual void slot20();
+    virtual void slot24();
+    virtual void slot28();
+    virtual void slot2C();
+    virtual void slot30();
+    virtual void slot34();
+    virtual void slot38();
+    virtual void slot3C();
+    virtual Drawable *findDrawable(int id);
+};
+class Rva000E5EC1;
+class Rva000E5F60 { public: Rva000E5EC1 *rva000E5F60(int, StringBase<char>); };
+class Rva000E440D { public: bool rva000E440D(); };
+class Rva000E459F { public: void rva000E46DA(Drawable *, const AsciiString &, const AsciiString &, bool, bool); };
+
 
 class W3DFloorBuffer
 {
@@ -125,6 +159,7 @@ public:
 	void rva000E473F();
 	void allocateFloorBuffers();
 	void rva000E598B();
+	Gen_uw_000e5033 *addFloor(int id, AsciiString *name, AsciiString *second, bool front, bool flag);
 
 private:
 	char m_pad00[4];
@@ -187,4 +222,34 @@ void W3DFloorBuffer::rva000E598B()
     m_floors.clear();
     m_10 = 0;
     m_numFloors = 0;
+}
+
+// WB8844D0 identifies addFloor; native E6005..E6135 proves the entire
+// 304-byte body, the five stack arguments, 0xA0 allocation and list order.
+// Element constructor/destructor and both list folds are independently verified.
+Gen_uw_000e5033 *W3DFloorBuffer::addFloor(int id, AsciiString *name, AsciiString *second, bool front, bool flag)
+{
+    Drawable *drawable = TheGameClient ? reinterpret_cast<FloorClientSlots *>(TheGameClient)->findDrawable(id) : 0;
+    if (m_numFloors >= 450 || !drawable || !m_ready20) return 0;
+    // The existing lookup owns a four-byte by-value StringBase<char>.
+    // AsciiString owns the same storage and invokes its verified copy/cleanup;
+    // use its accessible value interface for this ABI-equivalent member call.
+    typedef Gen_uw_000e5033 *(Rva000E5F60::*AsciiLookup)(int, AsciiString);
+    AsciiLookup lookup = reinterpret_cast<AsciiLookup>(&Rva000E5F60::rva000E5F60);
+    Gen_uw_000e5033 *floor = (reinterpret_cast<Rva000E5F60 *>(this)->*lookup)(id, *name);
+    if (floor) {
+        if (!reinterpret_cast<Rva000E440D *>(floor)->rva000E440D()) return 0;
+        reinterpret_cast<Rva000E459F *>(floor)->rva000E46DA(drawable,*name,*second,front,flag);
+        return floor;
+    }
+    floor = new Gen_uw_000e5033;
+    reinterpret_cast<Rva000E459F *>(floor)->rva000E46DA(drawable,*name,*second,front,flag);
+    if (floor->load()) {
+        if (front) m_floors.push_front(floor); else m_floors.push_back(floor);
+        m_numFloors = m_floors.size();
+        m_ready22 = true;
+        return floor;
+    }
+    delete floor;
+    return 0;
 }

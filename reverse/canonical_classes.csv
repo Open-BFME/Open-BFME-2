@@ -94,3 +94,4 @@ Rva0030C95C,Code/GameEngine/Source/GameLogic/Map/AreaSetEntryView.h,native 30C95
 Rva00351570Src,Code/GameEngine/Include/GameLogic/BfmeAICommandParameterView.h,existing header; contract class_contracts/Rva00351570Src.json; 1/1 sampled units adopt
 Rva00351570,Code/GameEngine/Include/GameLogic/BfmeStoredAICommandView.h,existing header; contract class_contracts/Rva00351570.json; 1/1 sampled units adopt
 Rva0010EDC2,Code/GameEngine/Include/Common/Rva0010EDC2Resource.h,native 10ED4C/10EDC2 and scalar A7797 prove the consumed resource fields; exact two-state EH graph; original class identity unknown
+Gen_uw_000e5033,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFloorElement.h,existing header; contract class_contracts/Gen_uw_000e5033.json; 2/2 sampled units adopt
