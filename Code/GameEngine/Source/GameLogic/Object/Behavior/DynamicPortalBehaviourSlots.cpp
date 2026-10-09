@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD
+// cl: /O1 /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 // stlport
 //
 // Two DynamicPortalBehaviour overrides that run its pinned private member
@@ -52,7 +52,7 @@ public:
 	virtual void rva00461284(int a1) = 0;
 };
 
-struct Iface10 { virtual void f10(); unsigned char m_pad[4]; };
+struct Iface10 : public Rva00461284Slots<10> { virtual void rva0046129A() = 0; unsigned char m_pad[4]; };
 struct Iface18 { virtual void f18(); };
 struct Iface1C { virtual void f1C(); };
 
@@ -65,12 +65,15 @@ public:
 
 class UpgradeModule : public BehaviorModule, public BehaviorModuleInterface, public Iface10, public Iface18, public Iface1C, public Rva0046132FIface
 {
+public:
+    void rva004CE4A0();
 };
 
 class DynamicPortalBehaviour : public UpgradeModule
 {
 public:
 	virtual void rva00461284(int a1);
+	virtual void rva0046129A();
 	virtual void rva0046132F();
 private:
 	void rva00461257();
@@ -132,4 +135,79 @@ int Rva00460872::rva00460872()
 	BfmeObject872Header local(*(const BfmeObject872Header *)(m_source + 0x94));
 	unsigned char selected = (unsigned char)((*(const unsigned int *)((const char *)&local + 4) >> 7) & 1);
 	return selected ? 0x1E : 0x14;
+}
+
+#include "ascii_string.h"
+class Drawable;
+class Thing
+{
+public:
+    Drawable *getDrawable() const;
+};
+class Object
+{
+public:
+    void *rva0028BCF4() const;
+    char pad00[0x74];
+    unsigned id;
+    char pad78[0x258 - 0x78];
+    void *ai;
+};
+class Rva00272C42
+{
+public:
+    void rva00272C42(const char *text);
+};
+class Pathfinder
+{
+public:
+    void RemoveObjectFromPathfindMap(Object *);
+    void AddObjectToPathfindMap(Object *);
+};
+class AI
+{
+public:
+    char pad[0x10];
+    Pathfinder *pathfinder;
+};
+extern AI *TheAI;
+struct Rva0046129AData
+{
+    char pad[0x138];
+    AsciiString name;
+};
+class Rva0046129AExit
+{
+public:
+    virtual void f0() = 0;
+    virtual void f1() = 0;
+    virtual void set(unsigned id) = 0;
+};
+// +10 mux slot10 of native DynamicPortalBehaviour table. Upgrade apply,
+// optional Drawable string forwarding, remove/add in TheAI's pathfinder,
+// then primary helper460F90 and optional exit-interface slot8 with Object id.
+// The string+138 and Object id74/AI258 are target facts. No reference donor
+// establishes the original override spelling or forwarded string semantics.
+void DynamicPortalBehaviour::rva0046129A()
+{
+    rva004CE4A0();
+    Object *object = m_object;
+    Drawable *drawable = ((const Thing *)object)->getDrawable();
+    if (drawable)
+    {
+        const Rva0046129AData *data = (const Rva0046129AData *)m_moduleData;
+        if (data->name.getLength() > 0)
+        {
+            ((Rva00272C42 *)drawable)->rva00272C42(data->name.str());
+            TheAI->pathfinder->RemoveObjectFromPathfindMap(object);
+            TheAI->pathfinder->AddObjectToPathfindMap(object);
+        }
+    }
+    ((Rva00460F90 *)this)->rva00460F90();
+    if (object->ai)
+    {
+        Rva0046129AExit *exit = (Rva0046129AExit *)object->rva0028BCF4();
+        if (exit)
+            exit->set(object->id);
+    }
 }
