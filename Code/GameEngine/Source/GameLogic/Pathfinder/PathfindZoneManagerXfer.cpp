@@ -92,8 +92,13 @@ public:
 };
 
 class PathfindCell;
+class PathfindLayer {public: char unknown00[0x2C]; unsigned short zone; char unknown2E[0x40-0x2E]; unsigned short getZone()const{return zone;} };
+bool Rva001E3679(int);
+class Rva005335B0 {public: void rva005335B0(unsigned short,unsigned short);};
+// Existing four-byte vector erase ABI view; no application element identity claimed.
+class Rva0014921EVector {public: void erase(int*,int*); int *first,*last,*limit;};
 class BooleanBitmapSet {public: void SetBit(int); unsigned numBitsDiv32; int *bits; unsigned *summary; unsigned cursor,bit;};
-class Rva00532DF6 {public: bool remove(unsigned short,unsigned short);};
+class Rva00532DF6 {public: bool remove(unsigned short,unsigned short); bool add(unsigned short,unsigned short);};
 class Rva00532330 {public: bool rva00532330(unsigned short*,unsigned short*);};
 
 class PathfindZoneManager : public Rva00531E14
@@ -123,6 +128,7 @@ public:
 
  unsigned char rva005316E0(unsigned short first,unsigned short second);
  void rva00532FEA(Block *,PathfindCell **,const IRegion2D&);
+ void rva00533664(Block *,PathfindCell **,PathfindLayer *,const IRegion2D&,bool);
 	// Accessed layout only. Cell storage's full element count is unproven.
 	char unknown0C[0x1B594 - 0xC];
 	Rva00531A44 unions[8][7], finalUnion;
@@ -408,6 +414,9 @@ public:
  unsigned type:4,id:6,secondary:6,unknown16:1,flag17:1,flag18:1,kind:2,unknown21:1,flag22:1,unknown23:9;
  }; };
  unsigned short getZone() const { return zone; }
+ // Integer-promoted access matches native address selection in link creation.
+ int getZoneInt()const{return zone;}
+
  unsigned char get17() const { return (unsigned char)flag17; }
  unsigned char get18() const { return (unsigned char)flag18; }
  unsigned char get22() const { return (unsigned char)flag22; }
@@ -506,6 +515,83 @@ void PathfindZoneManager::rva00532FEA(Block *block,PathfindCell **map,const IReg
   for(x=bounds.lo.x;x<=bounds.hi.x;++x) {
    if(rva005316E0(map[x][bounds.hi.y].getZone(),map[x][bounds.hi.y+1].getZone())) {
     if(((Rva00532DF6*)((char*)this+0x1770C))->remove(map[x][bounds.hi.y].getZone(),map[x][bounds.hi.y+1].getZone())) {
+     changed.SetBit(map[x][bounds.hi.y].getZone());changed.SetBit(map[x][bounds.hi.y+1].getZone());
+    }
+   }
+  }
+ }
+}
+
+// Native 0x00533664..0x00533AF9 and WB0x012D12B0 establish block link
+// creation including special layer links and selectively incremental borders.
+// Manager/cell offsets and layer stride64 come from target access instructions.
+void PathfindZoneManager::rva00533664(Block *block,PathfindCell **map,PathfindLayer *layers,const IRegion2D& bounds,bool incremental) {
+ Rva0014921EVector *entries=(Rva0014921EVector*)block->vector38;
+ entries->erase(entries->first,entries->last);
+ {
+ int x,y;
+ for(x=bounds.lo.x;x<=bounds.hi.x;++x) {
+  for(y=bounds.lo.y;y<=bounds.hi.y;++y) {
+   PathfindCell *cell=&map[x][y];
+   if(x<bounds.hi.x) {
+    unsigned short next=map[x+1][y].getZoneInt();
+    if(rva005316E0(map[x][y].getZoneInt(),next)) {
+     if(((Rva00532DF6*)((char*)this+0x1770C))->add(map[x][y].getZoneInt(),next)) {
+      changed.SetBit(map[x][y].getZoneInt());changed.SetBit(map[x+1][y].getZoneInt());
+     }
+    }
+   }
+   if(y<bounds.hi.y && rva005316E0(map[x][y].getZoneInt(),map[x][y+1].getZoneInt())) {
+    if(((Rva00532DF6*)((char*)this+0x1770C))->add(map[x][y].getZoneInt(),map[x][y+1].getZoneInt())) {
+     changed.SetBit(map[x][y].getZoneInt());changed.SetBit(map[x][y+1].getZoneInt());
+    }
+   }
+   unsigned secondary=cell->secondary;
+   if(Rva001E3679(secondary) && cell->type==0) {
+    unsigned short goal=layers[secondary].getZone();
+    ((Rva005335B0*)block)->rva005335B0(cell->getZone(),goal);
+    if(((Rva00532DF6*)((char*)this+0x1770C))->add(cell->getZone(),goal)) {
+     changed.SetBit(cell->getZone());changed.SetBit(goal);
+    }
+   }
+  }
+ }
+ }
+ if(bounds.lo.x>extent.lo.x && incremental) {
+  int y;
+  for(y=bounds.lo.y;y<=bounds.hi.y;++y) {
+   if(rva005316E0(map[bounds.lo.x][y].getZone(),map[bounds.lo.x-1][y].getZone())) {
+    if(((Rva00532DF6*)((char*)this+0x1770C))->add(map[bounds.lo.x][y].getZone(),map[bounds.lo.x-1][y].getZone())) {
+     changed.SetBit(map[bounds.lo.x][y].getZone());changed.SetBit(map[bounds.lo.x-1][y].getZone());
+    }
+   }
+  }
+ }
+ if(bounds.hi.x<extent.hi.x) {
+  int y;
+  for(y=bounds.lo.y;y<=bounds.hi.y;++y) {
+   if(rva005316E0(map[bounds.hi.x][y].getZone(),map[bounds.hi.x+1][y].getZone())) {
+    if(((Rva00532DF6*)((char*)this+0x1770C))->add(map[bounds.hi.x][y].getZone(),map[bounds.hi.x+1][y].getZone())) {
+     changed.SetBit(map[bounds.hi.x][y].getZone());changed.SetBit(map[bounds.hi.x+1][y].getZone());
+    }
+   }
+  }
+ }
+ if(bounds.lo.y>extent.lo.y && incremental) {
+  int x;
+  for(x=bounds.lo.x;x<=bounds.hi.x;++x) {
+   if(rva005316E0(map[x][bounds.lo.y].getZone(),map[x][bounds.lo.y-1].getZone())) {
+    if(((Rva00532DF6*)((char*)this+0x1770C))->add(map[x][bounds.lo.y].getZone(),map[x][bounds.lo.y-1].getZone())) {
+     changed.SetBit(map[x][bounds.lo.y].getZone());changed.SetBit(map[x][bounds.lo.y-1].getZone());
+    }
+   }
+  }
+ }
+ if(bounds.hi.y<extent.hi.y) {
+  int x;
+  for(x=bounds.lo.x;x<=bounds.hi.x;++x) {
+   if(rva005316E0(map[x][bounds.hi.y].getZone(),map[x][bounds.hi.y+1].getZone())) {
+    if(((Rva00532DF6*)((char*)this+0x1770C))->add(map[x][bounds.hi.y].getZone(),map[x][bounds.hi.y+1].getZone())) {
      changed.SetBit(map[x][bounds.hi.y].getZone());changed.SetBit(map[x][bounds.hi.y+1].getZone());
     }
    }
