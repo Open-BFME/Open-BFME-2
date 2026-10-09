@@ -16877,7 +16877,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x009FE1AC,28,.data,global,?g_00DFE1AC@@3V?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@A,,unowned,?g_00DFE1AC@@3IA;?g_00DFE1AC@@3V?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@A;?g_Va00DFE1AC@@3IA;?g_moduleDataList0020DFFB@@3V?$vector@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@A,0,8
 0x009FE1C8,4,.data,global,?TheLivingWorldManager@@3PAVLivingWorldManager@@A,Code/GameEngine/Source/GameLogic/Object/Rva003FD7CEParse.cpp,provisional,?Rva00DFE1C8@@3PAXA;?TheLivingWorldManager@@3PAVLivingWorldManager@@A;?g_009FE1C8@@3PAVRva0021294A@@A;?g_00DFE1C8@@3PAURva00DFE1C8Host@@A;?g_00DFE1C8@@3PAVRva00DFE1C8Host@@A,1,57
 0x009FE1CC,8,.data,global,_s_rva007AD929,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
-0x009FE1D4,4,.data,global,?TheAttributeModifierStore@@3PAVAttributeModifierStore@@A,,unowned,?TheAttributeModifierStore@@3PAVAttributeModifierStore@@A;?TheAttributeModifierStore@@3PAVRva0022B46BSubsystem@@A,0,9
+0x009FE1D4,4,.data,global,?TheAttributeModifierStore@@3PAVAttributeModifierStore@@A,Code/GameEngine/Source/GameLogic/System/AttributeModifierStore.cpp,provisional,?TheAttributeModifierStore@@3PAVAttributeModifierStore@@A;?TheAttributeModifierStore@@3PAVRva0022B46BSubsystem@@A,1,18
 0x009FE1D8,4,.data,global,?g_Va00DFE1D8@@3_NA,Code/GameEngine/Source/Common/ReloadIniFileNotices.cpp,owned,,1,4
 0x009FE1DC,8,.data,global,_s_rva007AD97D,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x009FE1E4,4,.data,global,?g_00DFE1E4@@3PAVRva0027070CGlobal@@A,Code/GameEngine/Source/GameClient/Rva0027070C.cpp,owned,,1,12
