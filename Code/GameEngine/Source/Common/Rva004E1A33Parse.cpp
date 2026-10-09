@@ -1,5 +1,5 @@
 // cl: /O1 /arch:SSE /G7 /MD /EHsc
-// ?Rva004E1A33Parse@@YAXPAVINI@@PAX@Z @0x004E1A33 134B
+// ?Rva004E1A33Parse@@YAXPAVINI@@PAX1PBX@Z @0x004E1A33 134B
 // ParseAnimObjectUpdate proc: throws INIException 3 on null ini or instance with retail literal then builds
 // Rva004E1A04 record inline then INI::initFromINI with table g_00C61D84 then push_back 0x005666BA.
 // Evidence: table slot 0x0086CE14 neighbour UpdateAnimObject plus string ParseAnimObjectUpdate plus dtor
@@ -51,8 +51,8 @@ public:
 	void rva005666BA(const Rva00566575Element &e);
 };
 
-// ?Rva004E1A33Parse@@YAXPAVINI@@PAX@Z
-void Rva004E1A33Parse(INI *ini, void *instance)
+// ?Rva004E1A33Parse@@YAXPAVINI@@PAX1PBX@Z
+void Rva004E1A33Parse(INI *ini, void *instance, void *, const void *)
 {
 	if (ini && instance)
 	{
@@ -67,3 +67,7 @@ void Rva004E1A33Parse(INI *ini, void *instance)
 		__assume(0);
 	}
 }
+
+// Native C6CD50 FieldParse registration uses the four-argument callback ABI.
+// Preserve the witnessed body and existing address binding; both trailing
+// parameters are unused. No function-pointer cast or alternate callee pin.
