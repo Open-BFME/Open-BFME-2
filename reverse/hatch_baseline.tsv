@@ -27375,7 +27375,6 @@ pin	reverse/symbols.csv	0x002D2C34	1
 pin	reverse/symbols.csv	0x002D2DF6	1
 pin	reverse/symbols.csv	0x002D3354	1
 pin	reverse/symbols.csv	0x002D335B	1
-pin	reverse/symbols.csv	0x002D3489	1
 pin	reverse/symbols.csv	0x002D35CF	1
 pin	reverse/symbols.csv	0x002D35D6	1
 pin	reverse/symbols.csv	0x002D3627	2
@@ -36498,9 +36497,6 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva002BB6D7.cpp	"t
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva002BFA86.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva002BFA86.cpp	"s",off	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva002BFA86.cpp	"t",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva002D3978.cpp	"",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva002D3978.cpp	"s",off	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva002D3978.cpp	"t",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva002F0D35.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva002F0D35.cpp	"s",off	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva002F0D35.cpp	"t",on	1
