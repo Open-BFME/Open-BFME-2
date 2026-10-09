@@ -35,3 +35,12 @@ Rva0008B689Element Rva0007BB79Owner::rva0007BB79(){
  if(!TheWritableGlobalData->reflections)return Rva0008B689Element();
  return Rva0008B689Element(camera);
 }
+
+// Native7FD57..7FD89 RET8, camera raw argument refreshes owner before
+// copying the counted camera handle at FC. WB744500 agrees on both operations.
+class Rva0007F0FBOwner{public:void rva0007F0FB(CameraClass*,bool);};
+class Rva0007FD57Owner{char gap[0xfc];Rva0008B689Element camera;public:Rva0008B689Element rva0007FD57(CameraClass*);};
+Rva0008B689Element Rva0007FD57Owner::rva0007FD57(CameraClass*p){
+ if(p)reinterpret_cast<Rva0007F0FBOwner*>(this)->rva0007F0FB(p,true);
+ return camera;
+}

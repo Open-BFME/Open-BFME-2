@@ -16976,3 +16976,4 @@ _isalnum,0x00629AF6,msvcr71 isalnum import stub called directly by the URL escap
 ?rva005DC586@PortNegotiationSchema@@QAE_NPAV?$vector@URva005A7A96Pair@@V?$allocator@URva005A7A96Pair@@@_STL@@@_STL@@@Z,0x005DC586,callee of ?rva005A8F57@Rva005A6D47@@QAEHXZ
 ?rva0008AAD4@W3DView@@AAEXXZ,0x0008AAD4,callee of ?updateCameraMovements@W3DView@@QAE_NXZ
 ?rva00102F83@Rva00102F83Owner@@QAEXPAVRva0010274F@@@Z,0x00102F83,callee of ?buildCameraTransform@W3DView@@AAEXPAVMatrix3D@@@Z
+?rva0007F0FB@Rva0007F0FBOwner@@QAEXPAVCameraClass@@_N@Z,0x0007F0FB,callee of ?rva0007FD57@Rva0007FD57Owner@@QAE?AURva0008B689Element@@PAVCameraClass@@@Z
