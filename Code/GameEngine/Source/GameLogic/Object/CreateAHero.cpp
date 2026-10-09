@@ -149,6 +149,7 @@ public:
 	INI();							// 0x0002CDB0
 	~INI();							// 0x0002CE5B
 	void loadFile(AsciiString filename, INILoadType loadType, Xfer *pXfer);	// 0x0002DC75
+	static void parseAsciiStringVectorAppend(INI *, void *, void *, const void *);
 	void initFromINI(void *what, const FieldParse *parseTable);	// 0x0002DE78
 
 private:
@@ -233,6 +234,7 @@ public:
 	const AsciiString &GetBlingDescTag(Int blingKey, const CreateAHeroHero *hero, UnsignedInt index);
 	const AsciiString &GetBlingUpgradeName(Int blingKey, const CreateAHeroHero *hero, UnsignedInt index);
 	Bool FindBlingByUpgradeName(const AsciiString &upgradeName, Int *index, Int *blingId);
+	static void parseHeroBlingUpgrades(INI *, void *, void *, const void *);
 	void *GetBling(UnsignedInt blingId);			// 0x00219D85
 	const CreateAHeroHero *GetHeroForPlayer(const Player *player);
 	CreateAHeroClass *rva0021B31C(const AsciiString &upgradeName);
@@ -572,5 +574,47 @@ void CreateAHeroManager::CreateAHeroSubClass::AddBling(Int blingKey, UnsignedInt
     if (std::find(ids.begin(), finish, index) == finish) {
         ids.push_back(index);
         Rva0021E673Sort(&ids);
+    }
+}
+
+// Native substring builder and conversion use the same12-byte view ABI.
+struct Rva000B6AF5Rec { void *p; int a; int b; };
+struct Rva000B6AA9Rec {
+    operator AsciiString();
+    AsciiString *m_string; int m_start; int m_len;
+};
+Rva000B6AF5Rec *__cdecl Rva000B6AF5Build(Rva000B6AF5Rec *, void **, int);
+
+// Retail expands its nullable character accessor. The shared string header
+// now calls an out-of-line accessor; this view keeps the proven one-pointer
+// string layout and character data at buffer+8 without changing that header.
+inline char BlingFirstChar(const AsciiString &string)
+{
+    const char *buffer=*reinterpret_cast<const char *const *>(&string);
+    return buffer ? buffer[8] : 0;
+}
+
+// WB B801A0 names this FieldParse callback; native21EE37..21EF66 RET0
+// parses the upgrade list and recognizes the leading default marker '@'.
+// Its three EH states own the list, the current upgrade and the substring
+// conversion result. Retail's builder and converter have a12-byte view ABI.
+void CreateAHeroManager::parseHeroBlingUpgrades(INI *ini, void *instance, void *, const void *)
+{
+    std::vector<AsciiString> upgrades;
+    INI::parseAsciiStringVectorAppend(ini,0,&upgrades,0);
+    CreateAHeroSubClass *subClass=static_cast<CreateAHeroSubClass *>(instance);
+    for (unsigned i=0;i<upgrades.size();++i) {
+        int index=0;
+        int blingId=0;
+        AsciiString upgrade=upgrades[i];
+        bool makeDefault=false;
+        if (upgrade.getLength()>1 && BlingFirstChar(upgrade)=='@') {
+            makeDefault=true;
+            Rva000B6AF5Rec view;
+            upgrade=*reinterpret_cast<Rva000B6AA9Rec *>(
+                Rva000B6AF5Build(&view,reinterpret_cast<void **>(&upgrade),upgrade.getLength()-1));
+        }
+        if (TheCreateAHeroManager->FindBlingByUpgradeName(upgrade,&index,&blingId))
+            subClass->AddBling(blingId,index,makeDefault);
     }
 }
