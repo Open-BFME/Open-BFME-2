@@ -54,6 +54,16 @@ struct GameSpySlotView
 	int m_ping; // +0x1BC
 };
 
+enum SlotState { SLOT_PLAYER=6 };
+// Retail passes a zero DWORD and zero port WORD to GameSlot::setState.
+struct GameSlotConnectInfo
+{
+	GameSlotConnectInfo() : nat(0), port(0) {}
+	unsigned int nat;
+	unsigned short port;
+};
+class NAT { public: void processPlayerLeave(int); };
+
 class GameSlot
 {
 public:
@@ -63,7 +73,9 @@ public:
 	void rva003FF5F2(const AsciiString &clanID); // rowed 0x003FF5F2
 	void setMapAvailability(bool available);      // rowed 0x003FF8A0
 	void setPlayerTemplate(int playerTemplate);   // rowed 0x00400E33
-	bool isHuman() const;                         // rowed 0x003FF0F1
+	bool isAI() const;
+    void setState(SlotState,UnicodeString,const GameSlotConnectInfo *);
+    bool isHuman() const;                         // rowed 0x003FF0F1
 	// Slot 6 (+0x18): the GameSpy view of the slot; its +0x1BC is the local
 	// player's own ping.
 	virtual void v01(); virtual void v02(); virtual void v03();
@@ -105,6 +117,7 @@ public:
 	virtual void adjustSlotsForMap();
 
 	GameSlot *getSlot(int index);
+    int getSlotNum(AsciiString) const;
 	void setMap(AsciiString mapName);    // rowed 0x00400126
 
 	unsigned char m_pad04[0x14 - 0x04];
@@ -355,7 +368,8 @@ extern Rva005A6D47 *g_Va00E063F8;
 class AptConnectionScreen
 {
 public:
-	static int GetPingImageEnum(Elem005DB98E *ping); // rowed 0x005DB37C
+	void RedrawGrid(const char *);
+    static int GetPingImageEnum(Elem005DB98E *ping); // rowed 0x005DB37C
 };
 
 int Rva005DB335Get(int ping); // rowed 0x005DB335
@@ -438,7 +452,8 @@ public:
 	virtual bool MpOwnerSelectHandicap(GameSlot *slot, int handicap);
 	virtual bool MpOwnerSelectHero(GameSlot *slot);
 	virtual bool MpOwnerSelectMap(const AsciiString &mapName);
-	virtual bool MpOwnerSelectPlayerTemplate(GameSlot *slot, int playerTemplate);
+	virtual bool MpOwnerSelectPlayer(GameSlot *slot,int state,int unused);
+    virtual bool MpOwnerSelectPlayerTemplate(GameSlot *slot, int playerTemplate);
 	virtual bool MpOwnerSelectStartPosition(GameSlot *slot, int startPos);
 	virtual bool MpOwnerSelectTeam(GameSlot *slot, int team);
 	virtual bool MpOwnerSetClanID(GameSlot *slot, const UnicodeString &clanID);
@@ -486,7 +501,8 @@ private:
 	int m_4b0; // +0x4B0
 	unsigned char m_pad4b4[0x4BC - 0x4B4];
 	int m_connectingCount; // +0x4BC, open requests of the connecting pop-up
-	unsigned char m_pad4c0[0x4D8 - 0x4C0];
+	unsigned char m_pad4c0[0x4D4 - 0x4C0];
+    AptConnectionScreen *m_connectionGrid;
 	bool m_connectionsScreen; // +0x4D8
 };
 
@@ -986,4 +1002,58 @@ void AptOnlineCustomMatch::InitGadgets()
 	m_498 = 0;
 	m_createDialog = 0;
 	((Rva0052493F *)this)->rva0052493F();
+}
+
+// Retail 0x005A168D..0x005A186B, 478 bytes, MpOwner vftable slot 9.
+// WorldBuilder 0x014EA540 names this callback and asserts GameSpy state at
+// AptOnlineCustomMatch.cpp:1134/1136. Retail supplies the slot state at +4,
+// name at +0x30 and the connection grid at MpOwner-relative +0x474.
+// A human slot is kicked before resetting its connection information;
+// changing whether a nonhuman slot is AI invalidates the room's acceptance.
+// Retail redraws the grid inside the kick branch and again on success.
+bool AptOnlineCustomMatch::MpOwnerSelectPlayer(GameSlot *slot, int state, int)
+{
+	if (!TheGameSpyInfo)
+		return false;
+	GameSpyStagingRoom *room = TheGameSpyInfo->getCurrentStagingRoom();
+	if (!room)
+		return false;
+	if (slot->m_state == SLOT_PLAYER)
+	{
+		PeerRequest req;
+		req.peerRequestType = 0xD;
+		req.isStagingRoom = true;
+		AsciiString name;
+		name.translate(slot->m_name);
+		req.nick = name.str();
+		req.id = "KICK/";
+		req.options = "true";
+		TheGameSpyPeerMessageQueue->addRequest(req);
+		if (g_Va00E063F8)
+		{
+			int index = room->getSlotNum(name);
+			if (index >= 0)
+				((NAT *)g_Va00E063F8)->processPlayerLeave(index);
+		}
+		slot->setState((SlotState)state, UnicodeString::TheEmptyString,
+			&GameSlotConnectInfo());
+		room->resetAccepted();
+		TheGameSpyInfo->setGameOptions();
+		if (m_connectionGrid)
+			m_connectionGrid->RedrawGrid(0);
+	}
+	else if (slot->m_state != state)
+	{
+		bool oldAI = slot->isAI();
+		slot->setState((SlotState)state, UnicodeString::TheEmptyString,
+			&GameSlotConnectInfo());
+		if (oldAI ^ slot->isAI())
+			room->resetAccepted();
+		TheGameSpyInfo->setGameOptions();
+	}
+	else
+		return false;
+	if (m_connectionGrid)
+		m_connectionGrid->RedrawGrid(0);
+	return true;
 }
