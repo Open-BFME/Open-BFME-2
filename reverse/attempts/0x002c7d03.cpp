@@ -1,6 +1,8 @@
 // ?chooseBestWeaponForTarget@WeaponSet@@QAE_NPBVObject@@0W4WeaponChoiceCriteria@@W4CommandSourceType@@@Z
 // partial score=0.99 date=2026-10-09
 // ?chooseBestWeaponForTarget@WeaponSet@@QAE_NPBVObject@@0W4WeaponChoiceCriteria@@W4CommandSourceType@@@Z
+// Resumed O2 target reconstruction; donor semantics and native layout documented below.
+// ?chooseBestWeaponForTarget@WeaponSet@@QAE_NPBVObject@@0W4WeaponChoiceCriteria@@W4CommandSourceType@@@Z
 // partial score=0.99 date=2026-10-08
 // cl: /O1 /Oy /G7 /arch:SSE /DNDEBUG /MD
 //
@@ -161,53 +163,7 @@ private:
  unsigned char m_pad36[6];
 	ObjectID m_ownerID; // +0x3C
 };
-bool WeaponSet::setWeaponLock(WeaponSlotType weaponSlot, WeaponLockType lockType)
-{
-	Object *owner = TheGameLogic->findObjectByID(m_ownerID);
-	if (lockType != NOT_LOCKED && m_weapons[weaponSlot] != 0)
-	{
-		if (lockType == LOCKED_PERMANENTLY)
-		{
-			m_curWeaponLockedStatus = lockType;
-			m_curWeapon = weaponSlot;
-		}
-		else if (lockType == LOCKED_TEMPORARILY && m_curWeaponLockedStatus != LOCKED_PERMANENTLY)
-		{
-			m_curWeaponLockedStatus = lockType;
-			m_curWeapon = weaponSlot;
-		}
-		if (owner)
-		{
-			Rva000B6253 mask;
-			((Rva001E42F2 *)owner)->rva001E42F2((const int *)mask.rva000B6253(0, 0x90, 0x91, 0x92, 0x93, 0x94));
-		}
-		switch (m_curWeapon)
-		{
-		case 0:
-			if (owner)
-				setModelConditionBit(owner, 0x90);
-			break;
-		case 1:
-			if (owner)
-				setModelConditionBit(owner, 0x91);
-			break;
-		case 2:
-			if (owner)
-				setModelConditionBit(owner, 0x92);
-			break;
-		case 3:
-			if (owner)
-				setModelConditionBit(owner, 0x93);
-			break;
-		case 4:
-			if (owner)
-				setModelConditionBit(owner, 0x94);
-			break;
-		}
-		return true;
-	}
-	return false;
-}
+
 
 // Native 0x002C8C97..0x002C8E39: 418B RET4. WB WeaponSet.cpp553/576
 // proves the operation; native offsets below are supported by ctor60 and
@@ -261,37 +217,7 @@ class WeaponTemplateSet { public:
  BitFlags<218> m_victimKindOf[6]; ModelConditionFlags m_conditions194[6]; bool m_sharedReload,m_sharedLock; char pad35E[2];
  WeaponChoiceCriteria m_defaultCriteria; bool m_364;
 };
-void WeaponSet::updateWeaponSet(const Object *obj)
-{
- ThingTemplate *templ=obj->m_template;
- const WeaponTemplateSet *set=templ->findWeaponTemplateSet(*(const BitFlags<117> *)((const Rva0028B7AELeaGetter *)obj)->get());
- if(set && set!=m_set) {
-   SavedWeaponState state[6];
-   SavedWeaponState *saved=0;
-   if(m_set && m_set->m_sharedReload && set->m_sharedReload) {
-     saved=state;
-     for(int i=5;i>=0;--i) if(m_weapons[i]) ((Rva002C943B *)&state[i])->rva002C943B((const Rva002C943BSrc *)m_weapons[i]);
-   }
-   if(!set->m_sharedLock) { releaseWeaponLock(LOCKED_PERMANENTLY); m_curWeapon=PRIMARY_WEAPON; }
-   m_filled=0; m_anti=0; m_damage=0; m_pitch=false; m_hasDamage=false;
-   for(int i=5;i>=0;--i) {
-     if(m_weapons[i]) { ::operator delete(m_weapons[i]->nativeSlot0(0)); m_weapons[i]=0; }
-     if(set->m_weapons[i]) {
-       const WeaponTemplate *weaponTemplate=TheWeaponStore->Rva002CADBE(set->m_weapons[i]->m_key);
-       if(weaponTemplate) {
-         m_weapons[i]=TheWeaponStore->allocateNewWeapon(weaponTemplate,(WeaponSlotType)i);
-         m_weapons[i]->m_ownerID=obj->m_id;
-         m_weapons[i]->rva002CE226(obj,saved);
-         m_filled|=1u<<i; m_anti|=m_weapons[i]->m_template->m_anti;
-         m_damage|=1u<<m_weapons[i]->m_template->m_damageType;
-         if(m_weapons[i]->m_pitch) m_pitch=true;
-         if(m_weapons[i]->m_template->m_damage) m_hasDamage=true;
-       }
-     }
-   }
-   m_set=set; m_ownerID=obj->m_id;
- }
-}
+
 
 // Native 0x002C8B9B..0x002C8C06: 107B RET4. Zero Hour WeaponSet.cpp
 // releaseWeaponLock (PERMANENTLY always clears, TEMPORARILY only a temporary
@@ -307,26 +233,7 @@ static __forceinline void clearSlotConditions(Object *owner)
 		((Rva001E42F2 *)owner)->rva001E42F2((const int *)mask.rva000B6253(0, 0x90, 0x91, 0x92, 0x93, 0x94));
 	}
 }
-void WeaponSet::releaseWeaponLock(WeaponLockType lockType)
-{
-	Object *owner = TheGameLogic->findObjectByID(m_ownerID);
-	if (m_curWeaponLockedStatus != NOT_LOCKED)
-	{
-		if (lockType == LOCKED_PERMANENTLY)
-		{
-			m_curWeaponLockedStatus = NOT_LOCKED;
-			clearSlotConditions(owner);
-		}
-		else if (lockType == LOCKED_TEMPORARILY)
-		{
-			if (m_curWeaponLockedStatus == LOCKED_TEMPORARILY)
-			{
-				m_curWeaponLockedStatus = NOT_LOCKED;
-				clearSlotConditions(owner);
-			}
-		}
-	}
-}
+
 
 // Native 0x002C787F..0x002C7907: 136B. BFME1 WeaponSet.cpp file-static
 // getVictimAntiMask, kind-of bits read straight off the template's words at
@@ -439,174 +346,7 @@ public:
 // a weapon template flag (+0x170) disables a slot against an object victim;
 // immobile shooters without an AI target (+0x1F0) reject targets outside the
 // weapon's +0x2C angle; passengers are queried with the Object entry point.
-CanAttackResult WeaponSet::getAbleToUseWeaponAgainstTarget(AbleToAttackType attackType,
-	const Object *source, const Object *victim, const Coord3D *pos,
-	CommandSourceType commandSource) const
-{
-	int targetAntiMask;
-	if (victim)
-	{
-		targetAntiMask = getVictimAntiMask(victim);
-		pos = &victim->m_position;
-	}
-	else
-	{
-		targetAntiMask = 2;
-	}
 
-	const Object *containedBy = source->m_containedBy;
-	ContainModuleInterface *contain = containedBy ? containedBy->m_contain : 0;
-
-	if (source->testStatus((ObjectStatusTypes)0x25) && !((int)attackType & 8))
-	{
-		if (!containedBy)
-			return ATTACKRESULT_INVALID_SHOT;
-		if (contain)
-		{
-			Object *owner = 0;
-			if (contain->getFiringOwner(source, &owner))
-			{
-				if (!owner)
-					return ATTACKRESULT_NOT_POSSIBLE;
-				if (owner != victim
-					&& owner->rva002931F5(false) != ((Object *)victim)->rva002931F5(false))
-					return ATTACKRESULT_NOT_POSSIBLE;
-			}
-		}
-	}
-
-	char withinAttackRange = false;
-	bool hasAWeaponInRange = false;
-	bool hasAWeapon = false;
-	for (int slot = 0; slot < 6; ++slot)
-	{
-		Weapon *weapon = m_weapons[slot];
-		if (weapon)
-		{
-			hasAWeapon = true;
-			if ((m_anti & targetAntiMask) == 0)
-				continue;
-			if (victim && weapon->m_template->m_noVictimAttack)
-				continue;
-
-			if (source->testStatus((ObjectStatusTypes)0x25))
-				withinAttackRange = true;
-			else if (contain && contain->isGarrisonable())
-			{
-				Coord3D targetPos;
-				targetPos.x = pos->x;
-				targetPos.y = pos->y;
-				targetPos.z = pos->z;
-				Coord3D goalPos;
-				if (!(source->m_template->m_kindOf[3] & 0x2000)
-					&& contain->calcBestGarrisonPosition(&goalPos, &targetPos))
-					withinAttackRange = ((Rva002C9B80Owner *)weapon)->rva002CB2D1((Object *)source, &goalPos, victim, &targetPos);
-				else if (victim)
-					withinAttackRange = weapon->isWithinAttackRange(source, victim, 0.0f, 1);
-			}
-			else
-				withinAttackRange = victim
-					? weapon->isWithinAttackRange(source, victim, 0.0f, 1)
-					: weapon->isWithinAttackRange((Object *)source, (void *)pos, 0.0f, 1);
-
-			if (withinAttackRange)
-			{
-				if (source->m_template->m_kindOf[0] & 4)
-				{
-					AIUpdateInterface *ai = source->m_ai;
-					if (!ai || !ai->m_1F0)
-					{
-						float angle = weapon->m_template->m_minTargetAngle;
-						if (angle > 0.0f && pos)
-						{
-							if (fabs(source->GetRelativeAngle(pos)) > angle)
-								withinAttackRange = false;
-						}
-					}
-				}
-				if (withinAttackRange)
-				{
-					hasAWeaponInRange = true;
-					break;
-				}
-			}
-		}
-	}
-
-	if ((source->m_template->m_kindOf[0] & 4)
-		|| (source->m_template->m_kindOf[2] & 0x100000)
-		|| (containedBy && !(containedBy->m_template->m_kindOf[3] & 0x2000))
-		|| (source->m_ai && source->m_ai->m_1F0
-			&& source->m_ai->m_1F0->rva001E4845((Object *)source) <= 0.0f))
-	{
-		if (hasAWeapon && !hasAWeaponInRange && attackType != ATTACK_TUNNEL_NETWORK_GUARD)
-			return ATTACKRESULT_INVALID_SHOT;
-	}
-
-	CanAttackResult okResult = withinAttackRange ? ATTACKRESULT_POSSIBLE : ATTACKRESULT_POSSIBLE_AFTER_MOVING;
-
-	if ((m_anti & targetAntiMask) == 0)
-		return ATTACKRESULT_INVALID_SHOT;
-
-	if (!victim)
-		return okResult;
-
-	if (!isAnyWithinTargetPitch(source, victim))
-		return ATTACKRESULT_INVALID_SHOT;
-
-	int first, last;
-	if (m_curWeaponLockedStatus)
-	{
-		first = m_curWeapon;
-		last = m_curWeapon;
-	}
-	else
-	{
-		first = 5;
-		last = PRIMARY_WEAPON;
-	}
-
-	for (int i = first; i >= last; --i)
-	{
-		Weapon *weapon = m_weapons[i];
-		if (weapon && weapon->rva002CCED3(source, victim))
-		{
-			const BitFlags<218> &mask = m_set->m_victimKindOf[i];
-			if (!mask.any() || ((const Thing *)victim)->isAnyKindOf(*(const BitFlags<69> *)&mask))
-				return okResult;
-		}
-	}
-
-	ContainModuleInterface *passengerContain = source->m_contain;
-	if (passengerContain && passengerContain->isPassengerAllowedToFire())
-	{
-		ContainedItemsPair items;
-		passengerContain->getContainedItemsList(items);
-		for (ContainedItemsNode *it = items.m_items->m_node->m_next; it != items.m_items->m_node; it = it->m_next)
-		{
-			Object *passenger = it->m_data;
-			if (passenger->isAbleToAttack())
-			{
-				CanAttackResult result = passenger->getAbleToUseWeaponAgainstTarget(attackType, victim, pos, commandSource);
-				if (result == ATTACKRESULT_POSSIBLE || result == ATTACKRESULT_POSSIBLE_AFTER_MOVING)
-					return result;
-			}
-		}
-	}
-
-	SpawnBehaviorInterface *spawnInterface = source->getSpawnBehaviorInterface();
-	if (spawnInterface
-		&& spawnInterface->getCanAnySlavesUseWeaponAgainstTarget(attackType, victim, pos, commandSource) == ATTACKRESULT_POSSIBLE)
-	{
-		if ((source->m_template->m_kindOf[0] & 4)
-			&& (source->m_template->m_kindOf[2] & 0x100000)
-			&& okResult == ATTACKRESULT_POSSIBLE_AFTER_MOVING)
-			okResult = ATTACKRESULT_POSSIBLE;
-		return okResult;
-	}
-
-	return ATTACKRESULT_INVALID_SHOT;
-}
 
 class Rva002C9400ByteField
 {
