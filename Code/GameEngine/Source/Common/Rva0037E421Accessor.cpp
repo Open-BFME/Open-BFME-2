@@ -6,14 +6,18 @@
 // Unlock lane; landing unblocks 11 functions. No donor; recipe follows
 // Rva00219B9EAccessor signed-idiv precedent with /O1 keeping idiv.
 // Honest-address name: owner unknown so Rva0037E421 class, void* return, int index.
-struct Elem216 { char m_pad00[0x98]; int m_98; char m_pad9C[0xA4 - 0x9C]; int m_a4; char m_padA8[0xCC - 0xA8]; float m_cc; char m_padD0[0xD8 - 0xD0]; };
+class Player; class Object; class Image;
+class UnitRevivalEntry { public: void *getThingTemplate(); int revivalEntryCalcTimeToBuild(const Player *player, Object *producer); int revivalEntryCalcCostToBuild(const Player *player, Object *producer); const Image *calcButtonImage(const Player *player); 
+char m_pad00[0x98]; int m_98; char m_pad9C[0xA4-0x9C]; int m_a4; char m_padA8[0xCC-0xA8]; float m_cc; char m_padD0[0xD8-0xD0];
+};
+typedef UnitRevivalEntry Elem216;
 struct Vec216 { Elem216 *m_start; Elem216 *m_finish; Elem216 *m_end; };
 static __forceinline unsigned VecSize(Vec216 *v) { return v->m_finish - v->m_start; }
 static __forceinline Elem216 &VecAt(Vec216 *v, int i) { return v->m_start[i]; }
 class Player;
 class Object;
 class Image;
-class UnitRevivalEntry { public: void *getThingTemplate(); int revivalEntryCalcTimeToBuild(const Player *player, Object *producer); int revivalEntryCalcCostToBuild(const Player *player, Object *producer); const Image *calcButtonImage(const Player *player); };
+
 class Rva0037E421 {
     int m_00;
     Vec216 m_vec;
@@ -118,6 +122,7 @@ public:
     Player *m_10;
     int rva0037E6E8(void *extra, void *object);
     int rva0037E649(int index, Object *object);
+    float rva0037E898(int index, int *cost, Object *object);
 };
 int Rva0037E6E8::rva0037E6E8(void *extra, void *object)
 {
@@ -201,3 +206,21 @@ int Rva0037E6E8::rva0037E649(int index, Object *object)
     }
     return ((UnitRevivalEntry *)entry)->revivalEntryCalcCostToBuild(m_10, object);
 }
+
+#include "GameLogicObjectLookupView.h"
+extern GameLogic *TheGameLogic;
+// Native37E898..37E915: unrecruited entries report cost and completed
+// progress; active entries use elapsed/start divided by revival time.
+float Rva0037E6E8::rva0037E898(int index, int *cost, Object *object) {
+ Elem216 *entry = static_cast<Elem216 *>(rva0037E421(index));
+ if (entry) {
+  if (entry->m_98 == -1) {
+   if (cost) *cost = reinterpret_cast<UnitRevivalEntry *>(entry)->revivalEntryCalcCostToBuild(m_10, object);
+   return 1.0f;
+  }
+  int time = reinterpret_cast<UnitRevivalEntry *>(entry)->revivalEntryCalcTimeToBuild(m_10, object);
+  if (time > 0) return ((float)TheGameLogic->getFrame() - entry->m_98) / time;
+ }
+ return 0.0f;
+}
+
