@@ -1,95 +1,172 @@
-// ?rva003F7A52@Rva003F7A52@@QAEXPAM00@Z
-// partial score=0.9671 date=2026-10-06
-// ?rva003F7A52@Rva003F7A52@@QAEXPAM00@Z
-// partial score=0.94 date=2026-10-03
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /arch:SSE
-// ?rva003F7A52@Rva003F7A52@@QAEXPAM00@Z, retail 0x003F7A52 (188B).
-// Evidence: chain lane; callees begin 0x427195 first-pin alias, rva003F751A 0x3F751A, next 0x411084; float init g_Va00BBB8D8; hashtable at +8 floats at +0x20.
+// ?GetFinalBonuses@LivingWorldAutoResolveBattleBonus@@QAEXPAM00@Z
+// partial score=0.9787234043 date=2026-10-09
+// cl: /O1 /G7 /arch:SSE /EHsc /MD /D_STLP_USE_STATIC_LIB
+// stlport
+//
+// LivingWorldAutoResolveBattleBonus.cpp -- the auto-resolve battle bonus
+// table's INI parser at its WorldBuilder home (WB 0x01047450,
+// LivingWorldAutoResolveBattleBonusTable::iniAppendBonusToTable).
+//
+// Target facts (retail 0x003F777F, 298 bytes, a cdecl field-parse proc): the
+// entry's MinCount comes first; Weapon, Armor and Experience bonuses (1.0
+// unless given) are read as percentages through the rowed 0x0002EE10 (scanReal
+// scaled by 0.01, rowed under an opaque INI name); an unknown keyword throws
+// INIException(5) and a MinCount already in the table throws INIException(3)
+// after the rowed insert 0x003F775C reports no insertion. The table is the
+// rowed set wrapper Rva003F775C over 16-byte entries ordered by MinCount
+// (stlport_rb_tree_insert_003f75ec.cpp); the entry is built in place. The
+// keyword compares import msvcr71 _strcmpi.
 
-extern float g_Va00BBB8D8;
+#include <string.h>
+#include <set>
+
+class INI
+{
+public:
+	const char *getNextToken(const char *seps = 0);			// 0x0002DF97
+	const char *getNextTokenOrNull(const char *seps = 0);	// 0x0002DEED
+	int scanInt(const char *token);							// 0x0002ECCF
+	float dup_002EE10(const char *token);					// 0x0002EE10, percent to real
+
+	unsigned char m_pad000[0x420];
+	const char *m_sepsColon;								// +0x420
+};
+
+class INIException
+{
+public:
+	INIException(int argCount, const char *format, ...);	// 0x0002F681
+	INIException(const INIException &that);
+	char *mFailureMessage;
+	int mErrorCode;
+};
+
+// One bonus entry: the rowed tree's 16-byte value, keyed by MinCount.
+struct Rva003F75ECValue
+{
+	int minCount;
+	float weaponBonus;
+	float armorBonus;
+	float experienceBonus;
+};
+
+class Rva003F775C
+{
+public:
+	typedef _STL::_Rb_tree_iterator<Rva003F75ECValue, _STL::_Const_traits<Rva003F75ECValue> > iterator;
+	_STL::pair<iterator, bool> insert(const Rva003F75ECValue &entry);	// 0x003F775C
+};
+
+class LivingWorldAutoResolveBattleBonusTable
+{
+public:
+	static void iniAppendBonusToTable(INI *ini, void *instance, void *store, const void *userData);
+};
+
+// LivingWorldAutoResolveBattleBonusTable::iniAppendBonusToTable, retail
+// 0x003F777F.
+void LivingWorldAutoResolveBattleBonusTable::iniAppendBonusToTable(INI *ini, void *instance, void *store, const void *userData)
+{
+	Rva003F75ECValue entry;
+	entry.minCount = ini->scanInt(ini->getNextToken());
+	entry.weaponBonus = 1.0f;
+	entry.armorBonus = 1.0f;
+	entry.experienceBonus = 1.0f;
+
+	for (const char *token = ini->getNextTokenOrNull(ini->m_sepsColon); token; token = ini->getNextTokenOrNull(ini->m_sepsColon))
+	{
+		if (_strcmpi("Weapon", token) == 0)
+			entry.weaponBonus = ini->dup_002EE10(ini->getNextToken(ini->m_sepsColon));
+		else if (_strcmpi("Armor", token) == 0)
+			entry.armorBonus = ini->dup_002EE10(ini->getNextToken(ini->m_sepsColon));
+		else if (_strcmpi("Experience", token) == 0)
+			entry.experienceBonus = ini->dup_002EE10(ini->getNextToken(ini->m_sepsColon));
+		else
+			throw INIException(5, "Unknown Living World Autio Resolve Battle Bonus type %s", token);
+	}
+
+	bool inserted;
+	{
+		_STL::pair<Rva003F775C::iterator, bool> result = ((Rva003F775C *)store)->insert(entry);
+		inserted = result.second;
+	}
+	if (!inserted)
+		throw INIException(3, "Duplicate MinCount entries of %d in Living World auto resolve battle bonus table", entry.minCount);
+}
+
+#include <hash_map>
+class GameWindow;
+class WindowVideo;
+// Declaration view of the existing native provider's empty hash functor.
+// No WindowVideoManager object is sized or accessed in this unit.
+class WindowVideoManager {
+public: struct hashConstGameWindowPtr {
+ unsigned int operator()(const GameWindow *) const;
+};
+};
+typedef _STL::pair<const GameWindow *const,WindowVideo *> NativeBeginPair;
+typedef _STL::hashtable<NativeBeginPair,const GameWindow *,
+ WindowVideoManager::hashConstGameWindowPtr,_STL::_Select1st<NativeBeginPair>,
+ _STL::equal_to<const GameWindow *>,_STL::allocator<NativeBeginPair> > NativeBeginTable;
+namespace _STL { template<> NativeBeginTable::iterator NativeBeginTable::begin(); }
+
 
 class Rva000411084
 {
 public:
-	void *next();
-	void *m_current;
-	void *m_owner;
+    void *next();
 };
-
-class Rva000427195
-{
-public:
-	void *first(Rva000411084 *iter);
-	void *m_unused00;
-	void **m_beginBuckets;
-	void **m_endBuckets;
-};
-
 struct Rva003F751ANode
 {
-	int m_00;
-	void *m_04;
-	void *m_08;
-	void *m_0C;
-	int m_10;
-	float m_14;
-	float m_18;
-	float m_1C;
+    int opaque00;
+    void *opaque04, *opaque08, *opaque0C;
+    int minCount;
+    float weapon, armor, experience;
 };
-
 class Rva003F751A
 {
 public:
-	Rva003F751ANode *rva003F751A(const int *key);
-private:
-	void *m_header;
+    Rva003F751ANode *rva003F751A(const int *key);
+    Rva003F751ANode *header;
 };
-
-struct Rva003F7A52HtNode
+struct BonusHashNodeView
 {
-	void *m_next;
-	int m_04;
-	Rva003F751A *m_tree;
-	int m_key;
+    void *next;
+    void *name;
+    Rva003F751A *table;
+    int minCount;
 };
-
-class Rva003F7A52
+class LivingWorldAutoResolveBattleBonus
 {
 public:
-	void rva003F7A52(float *a, float *b, float *c);
+    void GetFinalBonuses(float *weapon, float *armor, float *experience);
 private:
-	char m_00[8];
-	Rva000427195 m_table;
-	char m_14[12];
-	float m_20;
-	float m_24;
-	float m_28;
+    unsigned char opaque00[0x20];
+    float m_weapon, m_armor, m_experience;
 };
-
-// ?rva003F7A52@Rva003F7A52@@QAEXPAM00@Z present-unmatched
-void Rva003F7A52::rva003F7A52(float *a, float *b, float *c)
+void LivingWorldAutoResolveBattleBonus::GetFinalBonuses(float *weapon, float *armor, float *experience)
 {
-	float init = g_Va00BBB8D8;
-	*a = init;
-	*b = init;
-	*c = init;
-	Rva000411084 iter;
-	m_table.first(&iter);
-	while (iter.m_current != 0)
-	{
-		Rva003F7A52HtNode *node = (Rva003F7A52HtNode *)iter.m_current;
-		int key = node->m_key;
-		Rva003F751A *tree = node->m_tree;
-		Rva003F751ANode *found = tree->rva003F751A(&key);
-		if (found != *(Rva003F751ANode **)tree)
-		{
-			*a *= found->m_14;
-			*b *= found->m_18;
-			*c *= found->m_1C;
-		}
-		iter.next();
-	}
-	*a *= m_20;
-	*b *= m_24;
-	*c *= m_28;
+    float one = 1.0f;
+    *weapon = one;
+    *armor = one;
+    *experience = one;
+    NativeBeginTable *table = reinterpret_cast<NativeBeginTable *>((char *)this + 8);
+    for (NativeBeginTable::iterator iter = table->begin(); iter != table->end();
+        ((Rva000411084 *)&iter)->next())
+    {
+        BonusHashNodeView *node = (BonusHashNodeView *)iter._M_cur;
+        Rva003F75ECValue key;
+        key.minCount = node->minCount;
+        Rva003F751A *bonuses = node->table;
+        Rva003F751ANode *found = bonuses->rva003F751A(&key.minCount);
+        if (found != bonuses->header)
+        {
+            *weapon *= found->weapon;
+            *armor *= found->armor;
+            *experience *= found->experience;
+        }
+    }
+    *weapon *= m_weapon;
+    *armor *= m_armor;
+    *experience *= m_experience;
 }
