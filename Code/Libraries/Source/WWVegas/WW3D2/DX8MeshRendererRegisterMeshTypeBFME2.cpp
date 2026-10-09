@@ -2,7 +2,9 @@
 // ZH dx8renderer.cpp Register_Mesh_Type semantic source. Native145C30..145E88
 // proves flag18, skin-links50, polygon list9C, renderer vector8 and skin-list18.
 // BFME2 omits ZH registered-mesh global bookkeeping. The native skin constructor
-// adds opaque E8 and F8 state around the visible count/list; no semantics guessed.
+// zeros both E8/EC counters and F8 state around the visible list. The native
+// Skin Render148520 compares E8 with rendered vertices, proving the visible
+// vertex count there; EC remains opaque. Its constructor zeros both fields.
 #include "multilist.h"
 #include "simplevec.h"
 class DX8PolygonRendererClass;
@@ -31,7 +33,7 @@ private:
 };
 class DX8SkinFVFCategoryContainer:public DX8FVFCategoryContainer {
 public:
- __forceinline DX8SkinFVFCategoryContainer(bool sorting):DX8FVFCategoryContainer(0x112,sorting),rva_e8(0),VisibleVertexCount(0),VisibleSkinHead(0),VisibleSkinTail(0),rva_f8(false){}
+ __forceinline DX8SkinFVFCategoryContainer(bool sorting):DX8FVFCategoryContainer(0x112,sorting),VisibleVertexCount(0),rva_ec(0),VisibleSkinHead(0),VisibleSkinTail(0),rva_f8(false){}
  virtual ~DX8SkinFVFCategoryContainer();
  virtual void Render();
  virtual void Add_Mesh(MeshModelClass*);
@@ -40,7 +42,7 @@ public:
  virtual void Add_Delayed_Visible_Material_Pass(MaterialPassClass*,MeshClass*);
  virtual void Render_Delayed_Procedural_Material_Passes();
 private:
- void *rva_e8; unsigned VisibleVertexCount; MeshClass *VisibleSkinHead,*VisibleSkinTail; bool rva_f8;
+ unsigned VisibleVertexCount,rva_ec; MeshClass *VisibleSkinHead,*VisibleSkinTail; bool rva_f8;
 };
 typedef MultiListClass<DX8FVFCategoryContainer> FVFCategoryList;
 typedef MultiListIterator<DX8FVFCategoryContainer> FVFCategoryListIterator;
