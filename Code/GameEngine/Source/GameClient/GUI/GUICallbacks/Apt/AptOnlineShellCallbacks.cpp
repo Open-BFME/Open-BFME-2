@@ -45,6 +45,7 @@ struct AptOnlineInvite
 class AptOnline
 {
 public:
+	void OnInitialized(const char *unused);
 	void Options(const char *unused);
 	void ShellExit(const char *unused);
 	// Bound without a name as the answer to the "APT:BuddyInviteJoiningText"
@@ -56,6 +57,13 @@ private:
 	unsigned char m_pad000[0x298];
 	AptOnlineInvite m_invite; // +0x298
 };
+
+// The shell constructor 0x0051795C binds "AptOnline::OnInitialized" to
+// 0x0047A69C. Retail folds this complete RET4 with other empty callbacks;
+// its binding establishes the name and one unused argument independently.
+void AptOnline::OnInitialized(const char *unused)
+{
+}
 
 // Retail 0x00516EC0, 19 bytes: "AptOnline::Options".
 void AptOnline::Options(const char *unused)
