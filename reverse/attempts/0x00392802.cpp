@@ -1,12 +1,11 @@
 // ?getPortTransform@BuildAssistant@@QAE_NPBUCoord3D@@PBVThingTemplate@@MPAMPAU2@@Z
-// partial score=0.96 date=2026-10-08
-// Banked candidate for BuildAssistant::getPortTransform (0x00392802, 725 bytes), 717 bytes compiled.
-// Insert into Code/GameEngine/Source/Common/System/BuildAssistant.cpp: declare in class BuildAssistant
-//   Bool getPortTransform(const Coord3D *worldPos, const ThingTemplate *build, Real angle, Real *outAngle, Coord3D *outPos);
-// and place this after the s_maxWaterLandSampleRatio block (s_portAngleOffset must be defined just
-// before s_maxWaterLandSampleRatio: retail .data 0xDC0854 = 0x3FC90FDB, then 6.0f at 0xDC0858).
-// The comparisons use !(x > 0.0f) to match retail's comiss reg,0 / jbe form.
+// partial score=0.96 date=2026-10-09
+// Bank fragment: insert after checkSampleBuildLocation in current BuildAssistant.cpp.
+// Shared declarations, target layout and original source provenance are in that home TU.
+#define MAP_XY_FACTOR (10.0f)
 
+// The largest water to land sample ratio (either way) a KINDOF_188 build may
+// straddle. Retail reads it from this unit's .data, not as a literal.
 static Real s_portAngleOffset = PI / 2;
 
 double __cdecl Rva000422A0Atan2( float y, float x );
@@ -62,9 +61,16 @@ Bool BuildAssistant::getPortTransform( const Coord3D *worldPos, const ThingTempl
 
 	// MISMATCH: retail loads landSum.xyz into registers and multiplies by the reciprocal
 	// register (7 xmm live); ours folds mulss [mem] into a copied reciprocal (8 bytes short).
-	divideCoord3D( &sampleData.landSum, sampleData.landSamples );
-	divideCoord3D( &sampleData.waterSum, sampleData.waterSamples );
-
+{Real inv=1.0f/sampleData.landSamples;
+sampleData.landSum.x=*(const volatile Real*)&sampleData.landSum.x*inv;
+sampleData.landSum.y=*(const volatile Real*)&sampleData.landSum.y*inv;
+sampleData.landSum.z=*(const volatile Real*)&sampleData.landSum.z*inv;
+}
+{Real inv=1.0f/sampleData.waterSamples;
+sampleData.waterSum.x=sampleData.waterSum.x*inv;
+sampleData.waterSum.y=*(const volatile Real*)&sampleData.waterSum.y*inv;
+sampleData.waterSum.z=*(const volatile Real*)&sampleData.waterSum.z*inv;
+}
 	Coord3D dir;
 	dir.x = sampleData.waterSum.x - sampleData.landSum.x;
 	dir.y = sampleData.waterSum.y - sampleData.landSum.y;
@@ -93,3 +99,4 @@ Bool BuildAssistant::getPortTransform( const Coord3D *worldPos, const ThingTempl
 	return TRUE;
 
 }  // end getPortTransform
+
