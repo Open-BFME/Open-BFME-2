@@ -166,7 +166,7 @@ WindowMsgHandledType PassMessagesToParentSystem( GameWindow *window, UnsignedInt
 	GameWindow *parent = window->winGetParent();
 
 	if( parent )
-		return TheWindowManager->winSendSystemMsg( parent, msg, mData1, mData2 );
+		return ((BfmeWindowManagerSendView *)TheWindowManager)->winSendSystemMsg( parent, msg, mData1, mData2 );
 	
 	return MSG_IGNORED;
 
