@@ -1,14 +1,12 @@
-// ?rva0050ACE0@Made002CC971@@QAEXPAURva0050ACE0Arg@@PBVCoord3D@@@Z
-// partial score=0.85 date=2026-10-02
-// cl: /O1 /DNDEBUG /MD /EHsc
-// ?rva0050ACE0@Made002CC971@@QAEXPAXPBUCoord3D@@@Z, retail 0x0050ACE0, 183 bytes.
+// ?rva0050ACE0@Made002CC971@@QAEXPAURva0050ACE0Arg@@PBUCoord3D@@@Z
+// Native 0x0050ACE0..0x0050AD97 (183B), vtable 00864B00 slot6.
+// WB 010A7EA0 independently confirms lazy SlaveWatcherBehavior key and
+// slave object lookup followed by weapon unlock and AI position command.
+// Function-local static key preserves observed EH initialization state.
+// cl: /O1 /DNDEBUG /MD /EHsc /ICode/Libraries/Include /ICode/GameEngine/Source
+// Address-derived method/class identity retained from existing constructor.
 // Made002CC971 vtable slot 6: slave attack order via TheGameLogic findObjectByID, SlaveWatcherBehavior findModule, NetWrapperCommandMsg getDataLength, second findObjectByID, setWeaponLock, AICommandInterface aiAttackPosition.
 // Layout: base Rva00507823 0x128 per Made002CC971Ctor; Object+0x258 AI holder with AICommandInterface at +0x20; Player index at +0x54; globals TheGameLogic TheNameKeyGenerator g_Va00E04594 g_00E04590. Evidence: vslot packet slot 6 plus string SlaveWatcherBehavior plus unblocks none listed.
-enum ObjectID
-{
-	OBJECTID_INVALID = 0
-};
-
 enum NameKeyType
 {
 	NAMEKEY_INVALID = 0
@@ -31,13 +29,8 @@ enum CommandSourceType
 	COMMANDSOURCE_AI = 2
 };
 
-class Coord3D
-{
-public:
-	float x;
-	float y;
-	float z;
-};
+#include "Lib/Coord3D.h"
+#include "../../Common/GameLogicObjectLookupView.h"
 
 class Module
 {
@@ -72,20 +65,14 @@ public:
 
 class Object
 {
-protected:
-	const class Module *findModule(NameKeyType key) const;
+public:
+	class Module *findModule(NameKeyType key) const;
 public:
 	char m_pad258[0x258];
 	Object258Holder *m_258;
 	const Player *getControllingPlayer() const;
 	bool setWeaponLock(WeaponSlotType slot, WeaponLockType lock);
 	friend class Made002CC971;
-};
-
-class GameLogic
-{
-public:
-	Object *findObjectByID(ObjectID id);
 };
 
 class NameKeyGenerator
@@ -96,14 +83,6 @@ public:
 
 extern GameLogic *TheGameLogic;
 extern NameKeyGenerator *TheNameKeyGenerator;
-extern unsigned int g_Va00E04594;
-extern int g_00E04590;
-
-struct Rva0050ACE0Guard
-{
-	Rva0050ACE0Guard() { }
-	~Rva0050ACE0Guard() { }
-};
 
 class Rva00507823
 {
@@ -126,18 +105,14 @@ public:
 	void rva0050ACE0(Rva0050ACE0Arg *arg, const Coord3D *pos);
 };
 
-// ?rva0050ACE0@Made002CC971@@QAEXPAURva0050ACE0Arg@@PBVCoord3D@@@Z present-unmatched
+// ?rva0050ACE0@Made002CC971@@QAEXPAURva0050ACE0Arg@@PBUCoord3D@@@Z
 void Made002CC971::rva0050ACE0(Rva0050ACE0Arg *arg, const Coord3D *pos)
 {
 	Object *obj = TheGameLogic->findObjectByID(arg->m_id);
 	if (obj == 0)
 		return;
-	if ((g_Va00E04594 & 1) == 0)
-	{
-		g_Va00E04594 |= 1;
-		g_00E04590 = TheNameKeyGenerator->nameToKey("SlaveWatcherBehavior");
-	}
-	const Module *mod = obj->findModule((NameKeyType)g_00E04590);
+	static const NameKeyType key = TheNameKeyGenerator->nameToKey("SlaveWatcherBehavior");
+	const Module *mod = obj->findModule(key);
 	if (mod == 0)
 		return;
 	if (obj->m_258 == 0)
