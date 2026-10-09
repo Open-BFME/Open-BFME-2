@@ -1,6 +1,6 @@
 // ?cameraModFinalZoom@W3DView@@UAEXMMM@Z
-// partial score=0.976 date=2026-10-05
-// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc
+// partial score=0.98 date=2026-10-09
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
 // Ported from Open-BFME-1 6583b3c1ff21db4a561285717028fdafc780b7db.
 // cameraModFinalZoom is target W3DView vftable VA 0x00BC756C slot 30.
 // Retail 0x000865DB..0x00086702 is 295 bytes ending in RET 12.
