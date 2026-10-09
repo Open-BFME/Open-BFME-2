@@ -16972,8 +16972,9 @@ _isalnum,0x00629AF6,msvcr71 isalnum import stub called directly by the URL escap
 ?rva005BAF35@Rva005BB5F6@@QAEXABVPeerResponse@@@Z,0x005BAF35,callee of ?rva005BB5F6@Rva005BB5F6@@QAEXXZ
 ?rva0028E8FD@Object@@QAEXPAUCoord3D@@@Z,0x0028E8FD,Native404B Ghidra Object boundary28E8FD..28EA91 RET4; notifier4CE700 passes its12B coordinate local; WB11E0BA0 same call then Coord3D scale and planar length; output ABI and velocity projection role are target facts; original provider name unproved
 ?update@BezierProjectileBehavior@@UAE?AW4UpdateSleepTime@@XZ,0x0045C226,WB1181E80 names BezierProjectileBehavior update; native MissileUpdate4A7B48 passes its UpdateModuleInterface at owner10 to this entry and returns its sleep result; target Bezier constructor and module-name ownership independently agree
-?rva005A879B@NAT@@QAEXXZ,0x005A879B,callee of ?rva005A8F57@Rva005A6D47@@QAEHXZ
 ?rva005DC586@PortNegotiationSchema@@QAE_NPAV?$vector@URva005A7A96Pair@@V?$allocator@URva005A7A96Pair@@@_STL@@@_STL@@@Z,0x005DC586,callee of ?rva005A8F57@Rva005A6D47@@QAEHXZ
 ?rva0008AAD4@W3DView@@AAEXXZ,0x0008AAD4,callee of ?updateCameraMovements@W3DView@@QAE_NXZ
 ?rva00102F83@Rva00102F83Owner@@QAEXPAVRva0010274F@@@Z,0x00102F83,callee of ?buildCameraTransform@W3DView@@AAEXPAVMatrix3D@@@Z
 ?rva0007F0FB@Rva0007F0FBOwner@@QAEXPAVCameraClass@@_N@Z,0x0007F0FB,callee of ?rva0007FD57@Rva0007FD57Owner@@QAE?AURva0008B689Element@@PAVCameraClass@@@Z
+?processManglerResponse@NAT@@QAEXG@Z,0x005A854C,callee of ?rva005A879B@NAT@@QAEHXZ
+?notifyConnectionToTargetFailed@NAT@@QAEXXZ,0x005A7683,callee of ?rva005A879B@NAT@@QAEHXZ

@@ -9,6 +9,7 @@
 // Vector<int> construction uses the existing exact 29B folded base initializer;
 // only the twelve-byte header is accessed through this storage view.
 #include <vector>
+#include "ascii_string.h"
 #include "unicode_string.h"
 #include "../../Include/GameNetwork/Transport.h"
 extern "C" __declspec(dllimport) unsigned long __stdcall timeGetTime();
@@ -21,7 +22,7 @@ bool g_natTransportContextEnabled=false;unsigned g_natStatsWaitStartTick=0;
 struct Rva005A7A96Pair{void *opaque00;unsigned short first,second;};
 struct Rva005A7172:public _STL::vector<int>{~Rva005A7172();};
 class PortNegotiationSchema{public:char pad00[0x18];int state[81];char pad15c[0x738-0x15c];unsigned timeout[8][8];unsigned short tries[8][8];bool rva005DBA9C(bool);bool rva005DBA60(unsigned short);bool rva005DC586(_STL::vector<Rva005A7A96Pair>*);};
-class NAT{public:bool rva005A6709();void rva005A7C9C();void rva005A6CA5();void sendPings();void processUDPPacket();void rva005A879B();void rva005A7A96(const _STL::vector<Rva005A7A96Pair>*);};
+class NAT{public:bool rva005A6709();void rva005A7C9C();void rva005A6CA5();void sendPings();void processUDPPacket();int rva005A879B();void processManglerResponse(unsigned short);void notifyConnectionToTargetFailed();void rva005A6C90(int);void rva005A831E();void rva005A7974(unsigned short,void*);static unsigned s_probeRetryInterval;static int s_manglerMaxRetryCount;void rva005A7A96(const _STL::vector<Rva005A7A96Pair>*);};
 class Rva005A6732{public:bool rva005A6732()const;};
 class Rva005A6D47 {public:void *vptr;Transport *transport;GameSpyGameSlot **slots;int host,state,local;char pad18[0x10];PortNegotiationSchema schema;int rva005A8F57();};
 int Rva005A6D47::rva005A8F57(){
@@ -62,3 +63,30 @@ bool PortNegotiationSchema::rva005DC586(_STL::vector<Rva005A7A96Pair>*pairs){
 }
 
 __declspec(noinline) bool PortNegotiationSchema::rva005DBA60(unsigned short x){if(x<8){for(int i=0;i<8;++i){if(i!=x&&state[i+x*8]==2)return true;if(state[x+i*8]==2)return true;}}return false;}
+
+struct Rva005A684FWord{unsigned m_00;unsigned short m_04;};class Rva005A684F{public:unsigned get(unsigned)const;char pad[0x90c];Rva005A684FWord *m_slots[8];};
+class Rva00594E07{public:unsigned short rva00594E07(unsigned short,int);};class Rva0059534A{public:void rva0059534A(unsigned short);};class Rva0059517F{public:bool rva0059517F(unsigned long,unsigned short,unsigned short,unsigned short,bool);};class FirewallHelperClass{public:void flagNeedToRefresh(bool);};
+extern unsigned long g_00DD35BC;int NAT::s_manglerMaxRetryCount=25;
+struct NatConnectionView{char pad00[8];GameSpyGameSlot **slots;char pad0c[8];int local,target;char pad1c[8];bool sendPort,receivedPort;char pad26[0x92c-0x26];int retries,maxRetries;unsigned short packetID,spareSocket;unsigned manglerRetryTime;int manglerRetries;unsigned short previousSource;bool beenProbed,unknown943;unsigned manglerAddress,nextSendTime;int connectionState,previousState;char pad954[8];unsigned nextPortSendTime,timeoutTime,roundTimeout;};
+// BF1 f98983a7d NAT_connectionUpdate.cpp supplies mangler retry/port/probe
+// semantics. Target WB14DAEB0 connectionUpdate and full551B retail control
+// flow supply compact BF2 callbacks and offsets. State IDs4/5 differ from
+// BF1. Retry maximum25 at9D35C0 is proven native initialized data.
+int NAT::rva005A879B(){
+ NatConnectionView *v=(NatConnectionView*)this;
+ if(v->target<0||v->target>=8){v->connectionState=4;return 4;}
+ GameSpyGameSlot *target=v->slots[v->target];
+ if(!v->beenProbed&&timeGetTime()>=v->nextPortSendTime){AsciiString name;name.translate(*(UnicodeString*)((char*)target+0x30));if(v->sendPort){rva005A7974(((Rva005A684F*)this)->get(v->local),target);v->nextPortSendTime=timeGetTime()+s_probeRetryInterval;}}
+ if(v->connectionState==2){
+  if(!v->sendPort){unsigned short mangled;if(g_a063b0&&(mangled=((Rva00594E07*)g_a063b0)->rva00594E07(v->packetID,0))!=0){processManglerResponse(mangled);((Rva0059534A*)g_a063b0)->rva0059534A(v->spareSocket);v->spareSocket=0;}
+   else if(timeGetTime()>=v->manglerRetryTime){if(++v->manglerRetries>s_manglerMaxRetryCount)rva005A7974(((Rva005A684F*)this)->get(v->local),target);else{if(g_a063b0)((Rva0059517F*)g_a063b0)->rva0059517F(v->manglerAddress,v->spareSocket,v->packetID,4321,false);v->manglerRetryTime=timeGetTime()+g_00DD35BC;}}
+  }
+  if(!v->receivedPort){if(timeGetTime()>v->timeoutTime){rva005A6C90(5);notifyConnectionToTargetFailed();}}
+  if(v->receivedPort&&v->sendPort)rva005A6C90(3);
+ }else if(v->connectionState==3){if(v->nextSendTime!=-1&&v->nextSendTime<=timeGetTime()){if(v->retries>v->maxRetries){rva005A6C90(5);notifyConnectionToTargetFailed();}else{rva005A831E();++v->retries;}}}
+ if(timeGetTime()>v->roundTimeout&&v->connectionState!=4&&v->connectionState!=5){rva005A6C90(5);notifyConnectionToTargetFailed();}
+ if(v->previousState!=4)((FirewallHelperClass*)g_a063b0)->flagNeedToRefresh(true);
+ return v->connectionState;
+}
+
+__declspec(noinline) unsigned Rva005A684F::get(unsigned index)const{return m_slots[index]?m_slots[index]->m_04:0;}
