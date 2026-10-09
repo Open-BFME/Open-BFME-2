@@ -15,6 +15,8 @@
 //               plan and hand it on (slot 6). The scan is BFME2's partition
 //               filter chain (the view AIStructureCreepTactic.cpp documents).
 #include "ascii_string.h"
+#include "../../../Common/GameLogicObjectLookupView.h"
+extern GameLogic *TheGameLogic;
 #include <vector>
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 
@@ -81,13 +83,19 @@ class WallPositionOrderView {
 public:
     virtual void slot00(); virtual void slot01(); virtual void slot02();
     virtual void slot03(); virtual void slot04(); virtual void slot05();
-    virtual void slot06(); virtual void slot07(); virtual void slot08();
+    virtual void slot06(Player *, int); virtual void slot07(int); virtual void slot08();
     virtual void slot09(); virtual void slot10(); virtual void slot11();
     virtual void slot12();
     virtual WallPositionValue position();
-    unsigned char unknown04[0x4c];
+    unsigned char unknown04[0xc];
+    int state10;
+    unsigned char unknown14[0x10];
+    ObjectID produced24;
+    unsigned char unknown28[0x24];
+    int startNode4c;
     unsigned key50;
     unsigned getKey() const { return key50; }
+    int getState() const { return state10; }
 };
 
 
@@ -176,17 +184,22 @@ public:
 	const CommandButton *m_30;	// +0x30 the button
 };
 
+class Rva00506FE9Hit { public: void rva0055ADBA(void *); };
+
 class AIWall
 {
 public:
 	WallPositionValue calcGatePosition();	// 0x004EAFBD: WB names calcGatePosition; hidden value result
 	void buildGate();
+	void updateState(bool left);
 private:
 	void *unknown00;
 	WallPositionOrderView *selected04;
 	_STL::vector<WallPositionOrderView *> orders08;
 	Rva004EB902Plan *m_14;	// +0x14
 	Player *m_18;		// +0x18
+	unsigned char unknown1c[0x18];
+	int state34, index38, state3c, index40;
 };
 
 void AIWall::buildGate()
@@ -244,4 +257,48 @@ WallPositionValue AIWall::calcGatePosition()
     position += orders08[otherIndex]->position();
     position *= 0.5f;
     return position;
+}
+
+// Native4EB405..4EB51C and named WB137BFD0/988 establish both directional
+// state machines, the current/completed order checks and the next-node handoff.
+// Native object offsets (+0x74 ID and +0x280 completion) differ from the WB
+// layout and are proved by the complete target body. Only accessed order fields
+// and virtual slots6/7 are specified; no vtable definition is emitted.
+void AIWall::updateState(bool left)
+{
+    int &state = left ? state34 : state3c;
+    int &index = left ? index38 : index40;
+    switch (state) {
+    case 1:
+        if (selected04->getState() == 1)
+            state = 2;
+        else if (selected04->getState() == 3)
+            state = 4;
+        break;
+    case 2: {
+        WallPositionOrderView *current = index < 0 ? selected04 : orders08[index];
+        if (current->getState() == 3)
+            state = 4;
+        else if (current->getState() != 0) {
+            Object *built = TheGameLogic->findObjectByID(current->produced24);
+            if (built) {
+                if (built->m_280 == -1.0f) {
+                    current->slot07(2);
+                    if (left) --index; else ++index;
+                    if (index >= 0 && (unsigned)index < orders08.size()) {
+                        WallPositionOrderView *next = orders08[index];
+                        next->startNode4c = built->getID();
+                        next->slot06(m_18, 0);
+                    } else {
+                        state = 4;
+                    }
+                }
+            } else {
+                reinterpret_cast<Rva00506FE9Hit *>(current)->rva0055ADBA(m_18);
+                current->slot06(m_18, 0);
+            }
+        }
+        break;
+    }
+    }
 }
