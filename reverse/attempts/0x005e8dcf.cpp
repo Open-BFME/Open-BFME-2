@@ -1,7 +1,5 @@
 // ??0Rva005E8DCF@@QAE@PAXPAURva005E8DCFIn@@@Z
 // partial score=0.985 date=2026-10-10
-// ??0Rva005E8DCF@@QAE@PAXPAURva005E8DCFIn@@@Z
-// partial score=0.985 date=2026-10-10
 // cl: /Ireference/shims/bfme2_ascii /O1 /arch:SSE /G7 /Ob2 /DNDEBUG /EHsc /MD
 #include "ascii_string.h"
 class Image;
@@ -44,5 +42,5 @@ Rva005E8DCF::Rva005E8DCF(void* a, Rva005E8DCFIn* p)
  : Ui149Base(), Rva005E12D1(a, AsciiString("button"), p->m_00), Ui149Fields(p)
 {
  const Image *image=((Rva005E16B9*)((Rva005E8DB5*)this)->rva005E8DB5())->rva005E16B9();
- ((Rva005E1158*)this)->rva005E1158(image);
+ ((Rva005E1158*)(Rva005E12D1*)this)->rva005E1158(image);
 }
