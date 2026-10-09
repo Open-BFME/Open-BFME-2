@@ -1,4 +1,6 @@
-// ??0Rva005CF4A8Helper@@QAE@PAURva005CF22CBig@@H@Z
+// ??0Rva005CEF2F@@QAE@PAURva005CF22CBig@@H@Z
+// partial score=0.9443093203093204 date=2026-10-09
+// ??0Rva005CEF2F@@QAE@PAURva005CF22CBig@@H@Z
 // partial score=0.773 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /Oy- /MD /EHs /DNDEBUG /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
@@ -96,10 +98,10 @@ struct Rva005CF37DCommandUI {
 };
 struct Rva002BA8F1Listener;
 class Rva005A0B4CList { public: void append(Rva002BA8F1Listener *); };
-class Rva005CF37DBase0 {
+class Rva005CE8F5 {
 public:
-    Rva005CF37DBase0(Rva005CF22CBig *b) : m_owner(b) {}
-    virtual ~Rva005CF37DBase0() {}
+    Rva005CE8F5(Rva005CF22CBig *b) : m_owner(b) {}
+    virtual ~Rva005CE8F5() {}
     Rva005CF22CBig *m_owner;
 };
 // Existing one-vptr observer-base view: its emitted vtable is retail C3702C.
@@ -108,7 +110,7 @@ public:
     Rva00575E4EBase2() {}
     virtual ~Rva00575E4EBase2() {}
 };
-class Rva005CF37DHelper : public Rva005CF37DBase0, public Rva00575E4EBase2
+class Rva005CF37DHelper : public Rva005CE8F5, public Rva00575E4EBase2
 {
 public:
     Rva005CF37DHelper(Rva005CF22CBig *b, int x);
@@ -121,7 +123,7 @@ private:
 // proves this constructor and its16B allocation. Primary/secondary vptrs at
 // +0/+8; owner+4 and army+0C; WB is an unnamed StrategicInGameUI lead.
 Rva005CF37DHelper::Rva005CF37DHelper(Rva005CF22CBig *b, int x)
-    : Rva005CF37DBase0(b), m_army(x)
+    : Rva005CE8F5(b), m_army(x)
 {
     ((Rva00319B0AOwner *)m_army)->rva00319B0A();
     void *view = m_owner->m_view10;
@@ -204,8 +206,9 @@ class Rva005CEA51 {public:
  void rva005CE7EA();
  Rva005E8F50 *pointer;
 };
-class Rva005CF4A8Helper: public Rva005CF37DBase0,public Rva00575E4EBase2 {
-public:Rva005CF4A8Helper(Rva005CF22CBig*,int);virtual ~Rva005CF4A8Helper();
+class Rva0023A128Link {public:Rva0023A128Link(){}~Rva0023A128Link(){}virtual void rva00239B94(int);virtual void v01(int);};
+class Rva005CEF2F: public Rva005CE8F5,public Rva0023A128Link {
+public:Rva005CEF2F(Rva005CF22CBig*,int);virtual ~Rva005CEF2F();
  int selection;Rva005CEA51 secondary;
 };
 class Rva005CF703Owner
@@ -219,11 +222,11 @@ private:
 
 void Rva005CF703Owner::rva005CF703(int x)
 {
-	Rva005CF4A8Helper *h = new Rva005CF4A8Helper(m_a, x);
+	Rva005CEF2F *h = new Rva005CEF2F(m_a, x);
 	m_a->m_sub.rva00575674(h);
 }
 
-Rva005CF4A8Helper::Rva005CF4A8Helper(Rva005CF22CBig*b,int value):Rva005CF37DBase0(b),selection(value) {
+Rva005CEF2F::Rva005CEF2F(Rva005CF22CBig*b,int value):Rva005CE8F5(b),selection(value) {
  ((Rva004FC275*)selection)->rva004FC299();
  void *view=m_owner->m_view10;
  Rva005CF37DPortrait *portrait=(Rva005CF37DPortrait*)((Rva0042D703PtrChaseField*)view)->get();
@@ -261,5 +264,5 @@ Rva005CF4A8Helper::Rva005CF4A8Helper(Rva005CF22CBig*b,int value):Rva005CF37DBase
    }
   }
  }
- ((Rva005A0B4CList*)((char*)selection+8))->append((Rva002BA8F1Listener*)static_cast<Rva00575E4EBase2*>(this));
+ ((Rva005A0B4CList*)((char*)selection+8))->append((Rva002BA8F1Listener*)static_cast<Rva0023A128Link*>(this));
 }
