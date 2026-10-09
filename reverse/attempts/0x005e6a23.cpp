@@ -1,5 +1,5 @@
-// ?Rva005E6CA1@StrategicInGameUI@@YA?AUHeroDetailsPair@@PAUHeroDetailsContext@@@Z
-// partial score=0.98 date=2026-10-09
+// ?Rva005E6A23@StrategicInGameUI@@YA?AUTreeHintRef00217D4C@@PBUHeroDetailsEntry@@@Z
+// partial score=0.97 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
 // ??1Rva005E6D0D@@QAE@XZ retail 0x005E6D0D 103B
 // Non-virtual dtor of a polymorphic class: own vptr C77E4C; under EH state 1
