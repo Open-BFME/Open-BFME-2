@@ -1,14 +1,52 @@
 // cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /ICode/Libraries/Include/Lib
 // BFME1 donor: Open-BFME-1 824b1048d7 at 0x0040BC50; same random modulo-three selector, three input pairs and 1000.0 fallback.
 // Adapted to target fields +0x94..+0xA8 and the spherical helper at 0x002152BD.
+// The helper (BFME1 BfmeFillBC spherical direction) is rebuilt from retail: cos of the
+// second angle comes first, the first angle gains PI/2, and its sine is taken twice.
+#include <math.h>
 #include "Coord3D.h"
 
 class WWMath
 {
 public:
     static float Random_Float(void);
+    static float __fastcall Inv_Sqrt(float value);
 };
-void Rva002152BDCompute(float *out, float a, float b);
+
+struct Rva002152BDVector
+{
+    float X, Y, Z;
+    float Length2() const
+    {
+        return X * X + Y * Y + Z * Z;
+    }
+};
+
+void Rva002152BDCompute(float *out, float a, float b)
+{
+    Rva002152BDVector direction;
+    float theta = b * 0.017453292f;
+    float cosTheta = (float)cos((double)theta);
+    float phi = a * 0.017453292f + 1.57079637f;
+    direction.X = -((float)sin((double)phi) * cosTheta);
+    float sinTheta = (float)sin((double)theta);
+    direction.Y = -((float)sin((double)phi) * sinTheta);
+    direction.Z = -(float)cos((double)phi);
+    float lengthSquared = direction.Length2();
+    if (lengthSquared != 0.0f)
+    {
+        float inverseLength = WWMath::Inv_Sqrt(lengthSquared);
+        direction.X *= inverseLength;
+        direction.Y *= inverseLength;
+        direction.Z *= inverseLength;
+    }
+    direction.X *= 10000.0f;
+    direction.Y *= 10000.0f;
+    direction.Z *= 10000.0f;
+    out[0] = direction.X;
+    out[1] = direction.Y;
+    out[2] = direction.Z;
+}
 
 class Rva002153C7
 {
