@@ -3268,7 +3268,6 @@ name,address,notes
 ??1Gen_008AC620@@UAE@XZ,0x006ED150
 ??1Gen_dtor_0034dd90@@UAE@XZ,0x00357CD9,callee of resetOwnedObject (0x00357E4C) at the site its BFME1 donor calls it; may be an ICF alias
 ??1Gen_dtor_0040ba10@@UAE@XZ,0x0009519B,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
-??1Gen_dtor_00625040@@QAE@XZ,0x00625040
 ??1Gen_dtor_007e8e70@@UAE@XZ,0x00655780
 ??1Gen_dtor_007f4880@@UAE@XZ,0x00666BA0
 ??1Gen_dtor_007f6d20@@UAE@XZ,0x0066C730
