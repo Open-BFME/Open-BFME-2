@@ -1,5 +1,5 @@
 // cl: /MD
-// ?rva005D4AD0@Rva005D4AD0@@QAEXM@Z @0x005D4AD0 79B: float page-size setter via rowed Fire 0x00527925 with SetPageSize plus EmptyString fallback. Evidence: ucomiss float at +0x18 plus rowed Fire callees plus TheRva00222A8BTarget 0x009FE4CC plus g_Rva0107301CEmptyString 0x007BAC1C plus SetPageSize literal plus unblocks 0x005D4BAE caller 0x005D4BB9 sibling 0x005D4B1F.
+// ?SetPageSize@Impl@AptScrollBar@@QAEXM@Z @0x005D4AD0 79B: float page-size setter via rowed Fire 0x00527925 with SetPageSize plus EmptyString fallback. Evidence: ucomiss float at +0x18 plus rowed Fire callees plus TheRva00222A8BTarget 0x009FE4CC plus g_Rva0107301CEmptyString 0x007BAC1C plus SetPageSize literal plus unblocks 0x005D4BAE caller 0x005D4BB9 sibling 0x005D4B1F.
 class Rva00222A8BTarget;
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 
@@ -11,10 +11,17 @@ struct Rva005D4AD0Team
 	char m_name[1];
 };
 
-class Rva005D4AD0
+// AptScrollBar::Impl::SetPageSize (WorldBuilder name): it fires the same "SetPageSize"
+// literal on a change, as the rowed AptScrollBar::Impl::SetVisible does.
+class AptScrollBar
 {
 public:
-	void rva005D4AD0(float v);
+	class Impl;
+};
+class AptScrollBar::Impl
+{
+public:
+	void SetPageSize(float v);
 private:
 	char m_pad00[4];
 	void *m_level04;
@@ -23,7 +30,7 @@ private:
 	float m_float18;
 };
 
-void Rva005D4AD0::rva005D4AD0(float v)
+void AptScrollBar::Impl::SetPageSize(float v)
 {
 	if (v != m_float18) {
 		const char *team = m_team08 ? m_team08->m_name : "";

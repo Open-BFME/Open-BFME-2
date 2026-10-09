@@ -90,7 +90,7 @@ class Rva005FF5EE { public: void rva005FF5EE(const UnicodeString &); };
 struct Rva005D2355In;
 const Image *Rva005F031DGet(Rva005D2355In *);
 const Image *Rva005F01C7Get(int);
-UnicodeString Rva005C94C8Get(void *);
+namespace StrategicInGameUI { UnicodeString GetDisplayName(void *); }
 struct CounterWords { void *vptr; int counts[8]; };
 Rva005FEF65::Rva005FEF65(int a,int b,const Rva005FEF11Input **source)
  : m_08((int)this,a,b), m_input14(*source), m_selected24(7)
@@ -113,5 +113,5 @@ Rva005FEF65::Rva005FEF65(int a,int b,const Rva005FEF11Input **source)
         }
     }
     }
-    ((Rva005FF5EE *)&m_08)->rva005FF5EE(Rva005C94C8Get((void *)m_input14));
+    ((Rva005FF5EE *)&m_08)->rva005FF5EE(StrategicInGameUI::GetDisplayName((void *)m_input14));
 }

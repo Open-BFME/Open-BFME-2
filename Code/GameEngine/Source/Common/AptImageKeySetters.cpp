@@ -40,7 +40,7 @@ class Rva00222A8BTarget;
 extern Rva00222A8BTarget *TheRva00222A8BTarget;
 
 UnicodeString __cdecl Rva005F6B74Format(int quantity);
-UnicodeString __cdecl Rva005F6BD4Format(int turns);
+namespace StrategicHUD { UnicodeString __cdecl FormatNumTurnsString(int turns); }
 UnicodeString __cdecl Rva005F6C8EFormat(int unused, int turns);
 
 class GameTextInterface
@@ -489,7 +489,10 @@ UnicodeString __cdecl Rva005F6B74Format(int quantity)
 	return tmp;
 }
 
-UnicodeString __cdecl Rva005F6BD4Format(int turns)
+// StrategicHUD::FormatNumTurnsString (WorldBuilder name,
+// StrategicHUDBuildQueueDetailsMovieClip.cpp): the same
+// STRATEGICHUD:ConstructionOneTurnRemaining/ConstructionTurnsRemaining labels.
+UnicodeString __cdecl StrategicHUD::FormatNumTurnsString(int turns)
 {
 	UnicodeString tmp;
 	if (turns != 1) {
@@ -528,7 +531,7 @@ void StrategicHUD::BuildQueueDetailsMovieClip::Impl::QueuedIconSlot::SetNumTurns
 {
 	AsciiString key;
 	key.format("APT:_level%u.%s_QueuedIconSlotTurnsRemaining%d", m_owner->m_level, m_owner->m_name.str(), m_index);
-	((BfmeAptWindowManager *)TheRva00222A8BTarget)->bfmeSetText(key, Rva005F6BD4Format(turns), true);
+	((BfmeAptWindowManager *)TheRva00222A8BTarget)->bfmeSetText(key, StrategicHUD::FormatNumTurnsString(turns), true);
 }
 
 // ?Rva005F6C8EFormat@@YA?AVUnicodeString@@HH@Z @0x005F6C8E 26B: forwards the
@@ -536,7 +539,7 @@ void StrategicHUD::BuildQueueDetailsMovieClip::Impl::QueuedIconSlot::SetNumTurns
 UnicodeString __cdecl Rva005F6C8EFormat(int unused, int turns)
 {
 	(void)unused;
-	return Rva005F6BD4Format(turns);
+	return StrategicHUD::FormatNumTurnsString(turns);
 }
 
 // StrategicHUD::StatsDisplayImpl::SetRowText @0x00579B17 106B (WorldBuilder

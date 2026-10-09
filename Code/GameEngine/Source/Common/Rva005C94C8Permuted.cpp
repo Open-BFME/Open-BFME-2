@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /Ob1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Oy-
 //
-// ?Rva005C94C8Get@@YA?AVUnicodeString@@PAX@Z, retail 0x005c94c8, 258 bytes. Banked partial (score 0.96) closed by tools/permute.py;
+// ?GetDisplayName@StrategicInGameUI@@YA?AVUnicodeString@@PAX@Z (WorldBuilder StrategicInGameUI::GetDisplayName; same STRATEGICHUD:HeroArmyName label), retail 0x005c94c8, 258 bytes. Banked partial (score 0.96) closed by tools/permute.py;
 // the body is the banked one up to statement/operand order and local types.
 // Hero army display name: empty key or missing payload falls back to the
 // parent label at +0x78/+0x64 via TheGameText Ascii slot 0x38, else formats
@@ -63,7 +63,8 @@ struct Rva005C94C8Payload
 	UnicodeString m_text;
 };
 
-UnicodeString Rva005C94C8Get(void *objPtr)
+namespace StrategicInGameUI { UnicodeString GetDisplayName(void *objPtr); }
+UnicodeString StrategicInGameUI::GetDisplayName(void *objPtr)
 {
 	Rva005C94C8Obj *obj = (Rva005C94C8Obj *)objPtr;
 	if (((const StringBase<char> &)obj->m_key).isEmpty()) {

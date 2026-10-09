@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
-// ?Rva0041AD08Read@@YAXVAsciiString@@PAVFile@@@Z, retail 0x0041AD08, 248 bytes.
+// ?embedPristineMap@@YAXVAsciiString@@PAVFile@@@Z (WorldBuilder name), retail 0x0041AD08, 248 bytes.
 // Evidence: unlock lane, callers at 0x0041B35F/0x0041B3CA in 0x0041AFDA, callee openFile 0x00600C34,
 // _bfmeFormatText 0x0060C36E, new[] 0x0002FDE0, delete[] 0x0002FD80, releaseBuffer 0x00036410,
 // EmptyString g_Rva0107301CEmptyString, TheFileSystem, PristineMap literal, guard throw info.
@@ -73,7 +73,7 @@ extern "C" void __stdcall _CxxThrowException(void *pExceptionObject, const _s__T
 void *__cdecl operator new[](unsigned int size);
 void __cdecl operator delete[](void *p);
 
-static void __cdecl Rva0041AD08Read(AsciiString path, File *ctx)
+static void __cdecl embedPristineMap(AsciiString path, File *ctx)
 {
 	char *t = *(char **)(void *)&path;
 	const char *name = t ? t + 8 : "";
@@ -115,12 +115,12 @@ static void __cdecl Rva0041AD08Read(AsciiString path, File *ctx)
 // ?Rva0041AD08Caller@@YAXVAsciiString@@PAVFile@@@Z present-unmatched
 void __cdecl Rva0041AD08Caller(AsciiString p, File *c)
 {
-	Rva0041AD08Read(p, c);
+	embedPristineMap(p, c);
 }
 
-// ?Rva0041AE00Read@@YAXVAsciiString@@PAVFile@@@Z, retail 0x0041AE00, 248 bytes:
+// ?embedInUseMap@@YAXVAsciiString@@PAVFile@@@Z (WorldBuilder name), retail 0x0041AE00, 248 bytes:
 // the same read for the "InUseMap" entry (callers 0x0041B3DA, 0x0041B435).
-static void __cdecl Rva0041AE00Read(AsciiString path, File *ctx)
+static void __cdecl embedInUseMap(AsciiString path, File *ctx)
 {
 	char *t = *(char **)(void *)&path;
 	const char *name = t ? t + 8 : "";
@@ -162,5 +162,5 @@ static void __cdecl Rva0041AE00Read(AsciiString path, File *ctx)
 // ?Rva0041AE00Caller@@YAXVAsciiString@@PAVFile@@@Z present-unmatched
 void __cdecl Rva0041AE00Caller(AsciiString p, File *c)
 {
-	Rva0041AE00Read(p, c);
+	embedInUseMap(p, c);
 }

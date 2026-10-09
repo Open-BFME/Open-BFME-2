@@ -6470,7 +6470,6 @@ name,address,notes
 ?Rva005D303AFormat@@YA?AVUnicodeString@@HH@Z,0x005D303A,by-value UnicodeString formatter ("%d/%d" via 0x00C380FC) returning hidden retptr at [ebp+8]; read from REL32 at 0x005D3113 in rva005D30EE 0x005D30EE; Ghidra 99B
 ?Rva005E4817Forward@@YAXHHHHPA_N@Z,0x005E4817,5-arg cdecl for 0x005E49FD tmp-last; address-derived pin
 ?Rva005F0C39Destroy@@YAXPAURva005F0647@@0PA_N@Z,0x005F0C39,3-arg call site 0x005EF5FD passes bool out-param
-?Rva005F6BD4Format@@YA?AVUnicodeString@@H@Z,0x005F6BD4,cdecl UnicodeString-by-value formatter (Ghidra FUN_009f6bd4; 186B; EH; hidden return pointer; fetches a game-text label through the global at VA 0x00DFF0BC slot 0x3C) callee of ?rva005F70DA@Rva005F6FCC@@QAEXH@Z at retail 0x005F711D and of ?Rva005F6C8EFormat@@YA?AVUnicodeString@@HH@Z at retail 0x005F6C9C read from their REL32 displacements; body unrowed
 ?Rva005F8A0C@@YA?AU__m128@@HHH@Z,0x005F8A0C,banked partial 0x005F8A0C: 3-int __m128 search QED called from 0x005F8A7E; identity unproven
 ?Rva006016C9Init@@YAXXZ,0x006016C9,"address read from the retail REL32 at 0x00601BE9 in the INI helper constructor 0x00601BBC; once-only ctype-style table init (guard byte 0x00E06E50), no arguments"
 ?Rva00601797Copy5@@YAPAURva00601A3AElement@@PBU1@0PAU1@ABUrandom_access_iterator_tag@_STL@@PAH@Z,0x00601797,Native dispatcher60186F pushes five cdecl arguments; complete rowed50B601797 consumes only first three and calls rowed29B6016AC; opaque12B record view; payload unknown
