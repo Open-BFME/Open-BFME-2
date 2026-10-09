@@ -41,3 +41,25 @@ void Rva001D96FF::rva001D96FF(int mask)
 {
 	m_flags4C |= mask;
 }
+
+// BF1 f98983a7d3 WW3D2/w3d_util_convert_shader.cpp and shader.h are the clean
+// clear-and-shift expression guide, compiled /O1 /x87 /G7 in discovery.
+// Retail65F73..65F85 lies after rowed65F66 RET4 and before rowed65F85.
+// It reads/writes raw receiverword0, clears bit3, ORs the full stackword
+// shifted left3, and RET4. All eight image sections contain no direct or
+// literal reference to this entry. Shader/DepthMask names and enum limits
+// are donor facts; the original concrete owner, result and complete layout
+// are not proved by this leaf. The address-owned consumed-word view below
+// preserves the complete observed operation for every raw32 input, without
+// re-declaring ShaderClass or altering its independently unresolved copies.
+class Rva00065F73Word
+{
+public:
+    void set(unsigned int value);
+private:
+    unsigned int word0;
+};
+void Rva00065F73Word::set(unsigned int value)
+{
+    word0 = (word0 & ~8u) | (value << 3);
+}
