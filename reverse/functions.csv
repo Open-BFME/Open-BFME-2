@@ -40679,7 +40679,7 @@ _Rva00020AC0,,0x00020AC0,39,Code/Libraries/Source/WWVegas/WWLib/Rva0084D890CodeP
 ?rva0035721A@ScriptEngine@@QAE_NHABVAsciiString@@_NH@Z,,0x0035721A,98,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva0035721A.cpp,matched,lists1A2B8 like 3571B8
 ?rva0035727C@ScriptEngine@@QAE_NHABVAsciiString@@_NH@Z,,0x0035727C,98,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva0035727C.cpp,matched,lists1A308 like 3571B8
 ?rva003572DE@ScriptEngine@@QAE_NHABVAsciiString@@_NH@Z,,0x003572DE,98,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva003572DE.cpp,matched,lists1A358 like 3571B8
-?rva00357340@ScriptEngine@@QAEXPAXPAVCoord3D@@@Z,,0x00357340,132,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva00357340.cpp,matched,list1A498 isEmpty CRC Coord normalize
+?rva00357340@ScriptEngine@@QAEXPAXPAUCoord3D@@@Z,,0x00357340,132,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva00357340.cpp,matched,list1A498 isEmpty CRC Coord normalize
 ?rva00357C1F@ScriptEngine@@QAEXPAX0@Z,,0x00357C1F,75,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva00357C1F.cpp,matched,chain via 357340 Coord temp
 ??4Rva001DE727@@QAEAAV0@ABV0@@Z,,0x001DE727,85,Code/Libraries/Source/WWVegas/WWLib/Rva001DE727Assign.cpp,matched,assign via tree and int vector
 ?rva005816A3@LANAPI@@QAEXPAULANMessage@@PBUBfmeNetAddress@@@Z,,0x005816A3,64,Code/GameEngine/Source/GameNetwork/LANAPIRva005816A3.cpp,matched,chain via BfmeNetAddress compare plus slot0 plus slot44

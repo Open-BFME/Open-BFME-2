@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
-// ?rva00357340@ScriptEngine@@QAEXPAXPAVCoord3D@@@Z, retail 0x00357340 132B unlock.
+// ?rva00357340@ScriptEngine@@QAEXPAXPAUCoord3D@@@Z, retail 0x00357340 132B unlock.
 // Evidence: list at +0x1A498 from ScriptEngine_dtor; StringBase isEmpty rowed
 // 0x00001E2F; CRC Rva003ECA13Get 0x3ECA13; Coord3D normalize rowed 0x000035B6;
 // three movsd block copy plus subss trio needs /arch:SSE.
@@ -13,18 +13,8 @@
 
 unsigned long __cdecl Rva003ECA13Get(const AsciiString &s);
 
-struct Coord3DBase
-{
-	float x;
-	float y;
-	float z;
-};
+#include "../../../../Libraries/Include/Lib/Coord3D.h"
 
-class Coord3D : public Coord3DBase
-{
-public:
-	void normalize();
-};
 
 struct Rva00357340Entry
 {

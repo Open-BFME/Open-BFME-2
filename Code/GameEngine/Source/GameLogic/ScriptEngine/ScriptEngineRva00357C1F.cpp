@@ -2,18 +2,8 @@
 // ?rva00357C1F@ScriptEngine@@QAEXPAX0@Z, retail 0x00357C1F 75B chain.
 // Evidence: calls ScriptEngine 0x00357340 just landed; EBP frame with 12B
 // Coord3D temp; movss x/y spill and restore needs /arch:SSE.
-struct Coord3DBase
-{
-	float x;
-	float y;
-	float z;
-};
+#include "../../../../Libraries/Include/Lib/Coord3D.h"
 
-class Coord3D : public Coord3DBase
-{
-public:
-	void normalize();
-};
 
 struct Vec2XY
 {
