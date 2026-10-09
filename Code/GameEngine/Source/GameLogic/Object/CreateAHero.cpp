@@ -42,6 +42,8 @@ template SignedBlingTree::_Link_type SignedBlingTree::_M_find<int>(const int &) 
 class CreateAHeroHero
 {
 public:
+	void ConstructHeroBlingList(); // WB1082260; native409A76, unconverted455B
+	void RegisterExperienceLevels(); // WB107E870; native408150, unconverted687B
 	Int GetBlingCount(Int blingKey) const;			// 0x004079F4
 	Int GetBlingId(Int blingKey, UnsignedInt index) const;	// 0x00407A29
 	// 0x004098BE (WorldBuilder places it in CreateAHeroHero.cpp): takes a
@@ -54,6 +56,7 @@ public:
 class CreateAHeroData
 {
 public:
+	void rva00408A55(); // Existing refresh spelling on this data prefix.
 	CreateAHeroData &operator=(const CreateAHeroData &that);
 };
 
@@ -174,6 +177,8 @@ extern int g_Va00DFE348;
 class Player
 {
 public:
+	Bool isLocalPlayer() const;
+	void rva002ADAC3(const class UpgradeTemplate *, Int);
 	NameKeyType getPlayerNameKey() const { return m_playerNameKey; }
 
 private:
@@ -239,6 +244,7 @@ public:
 	const CreateAHeroHero *GetHeroForPlayer(const Player *player);
 	CreateAHeroClass *rva0021B31C(const AsciiString &upgradeName);
 	void rva0021A428(const CreateAHeroData &hero);
+	void BindHeroToObjectAndUpdate(class Object *);
 
 private:
 	Int rva00219309() const;				// 0x00219309, required-button count
@@ -272,6 +278,7 @@ private:
 	AsciiString m_examineSelfAnimName;			// +0x1CC
 	unsigned char m_pad1D0[0x1dc - 0x1d0];
 	AsciiString m_commandSetName;				// +0x1DC
+	CreateAHeroHero *m_boundHero;				// +0x1E0
 };
 
 // The manager's global: GameEngine::init registers the subsystem under the
@@ -616,5 +623,96 @@ void CreateAHeroManager::parseHeroBlingUpgrades(INI *ini, void *instance, void *
         }
         if (TheCreateAHeroManager->FindBlingByUpgradeName(upgrade,&index,&blingId))
             subClass->AddBling(blingId,index,makeDefault);
+    }
+}
+
+// Native21B474..21B5D6 and WB B7D7B0 establish the binding operation.
+// The virtual interfaces below retain slot names where original names are
+// unresolved: hero slot10 consumes update mask2FF; a behavior subobject at0C
+// returns the power interface from slot20, whose slot54 result WB asserts.
+// The Object prefix witnesses its ID74 and null-terminated module list244.
+class HeroUpdateInterfaceView {
+public:
+    virtual void slot00(); virtual void slot04(); virtual void slot08(); virtual void slot0c();
+    virtual void slot10(unsigned);
+};
+class HeroPowerStateView { public:
+ virtual void slot00();
+ virtual void slot04();
+ virtual void slot08();
+ virtual void slot0c();
+ virtual void slot10();
+ virtual void slot14();
+ virtual void slot18();
+ virtual void slot1c();
+ virtual void slot20();
+ virtual void slot24();
+ virtual void slot28();
+ virtual void slot2c();
+ virtual void slot30();
+ virtual void slot34();
+ virtual void slot38();
+ virtual void slot3c();
+ virtual void slot40();
+ virtual void slot44();
+ virtual void slot48();
+ virtual void slot4c();
+ virtual void slot50();
+ virtual bool slot54();
+};
+class HeroBehaviorInterfaceView { public:
+ virtual void slot00();
+ virtual void slot04();
+ virtual void slot08();
+ virtual void slot0c();
+ virtual void slot10();
+ virtual void slot14();
+ virtual void slot18();
+ virtual void slot1c();
+ virtual HeroPowerStateView *slot20();
+};
+
+class Object {
+public:
+    Player *getControllingPlayer() const;
+    unsigned char prefix[0x74]; unsigned id;
+    unsigned char middle[0x244-0x78]; void **modules;
+};
+void CreateAHeroManager::BindHeroToObjectAndUpdate(Object *object)
+{
+    if (!object) return;
+    Player *controlling=0;
+    CreateAHeroHero *hero;
+    bool local;
+    if (TheGameInfo) {
+        Player *player=object->getControllingPlayer();
+        GameSlot *slot=0;
+        for (unsigned i=0;!slot && i<8;++i) {
+            AsciiString name=TheGameInfo->getSlot(i)->getPlayerName();
+            NameKeyType key=TheNameKeyGenerator->nameToKey(name);
+            if (player->getPlayerNameKey()==key) slot=TheGameInfo->getSlot(i);
+        }
+        if (!slot) hero=0; else hero=const_cast<CreateAHeroHero *>(slot->getHero());
+        local=player->isLocalPlayer() && hero;
+        controlling=player;
+    } else {
+        hero=&m_localHero;
+        local=true;
+    }
+    if (hero) {
+        hero->ConstructHeroBlingList();
+        reinterpret_cast<CreateAHeroData *>(hero)->rva00408A55();
+        reinterpret_cast<Rva00406E47 *>(hero)->rva00406E47(object->id);
+        hero->RegisterExperienceLevels();
+        reinterpret_cast<HeroUpdateInterfaceView *>(hero)->slot10(0x2ff);
+        if (controlling) {
+            const UpgradeTemplate *upgrade=TheUpgradeCenter->findUpgrade(m_canBuildUpgradeName);
+            controlling->rva002ADAC3(upgrade,1);
+        }
+        if (local) m_boundHero=hero;
+        for (void **module=object->modules;*module;++module) {
+            HeroPowerStateView *power=reinterpret_cast<HeroBehaviorInterfaceView *>(static_cast<char *>(*module)+0x0c)->slot20();
+            if (power) power->slot54();
+        }
     }
 }
