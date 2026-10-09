@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /O1 /arch:SSE /EHsc /Ireference/shims/bfme2_ascii /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 //
 // LargeGroupAudioSoundKeyPair subject bookkeeping (retail 0x00568920..0x00569863).
@@ -23,7 +23,19 @@
 // constructor alone does not). WorldBuilder's 0x005697F7 stores the getKeys()
 // result in a local before the overlap test; spelling it that way gives
 // retail's register assignment (subject in ESI, THIS in EDI).
+// The owning AudioMap destroys each key pair through 0x0056A061. Its
+// WorldBuilder twin confirms the destructor identity; the native cleanup
+// sequence independently establishes members at 0/C/10/14/20/40/4C/58.
+// The first twelve bytes remain an opaque owning container: its destructor
+// is the existing 0x003ED94F provider. Automatic member destruction preserves
+// all eight retail EH states, including the throwing allocation free.
+void __cdecl Rva00030830FreeAllocation(void *);
+#include <cstdlib>
+#define free Rva00030830FreeAllocation
 #include <set>
+#include <vector>
+#undef free
+#include "ascii_string.h"
 
 class ModuleData;
 
@@ -112,20 +124,41 @@ public:
 	virtual const Rva003CDDB0Range *getKeys() = 0;
 };
 
+class Rva003ED94FDtor { public: ~Rva003ED94FDtor(); void *header; int flags; };
+struct Rva0056A061KeyMap { char opaque[12]; ~Rva0056A061KeyMap(){reinterpret_cast<Rva003ED94FDtor *>(this)->Rva003ED94FDtor::~Rva003ED94FDtor();} };
+class OpaqueRefCounted { public: void Release_Ref(); };
+struct Rva0056A061Ref { OpaqueRefCounted *value; ~Rva0056A061Ref(){if(value)value->Release_Ref();} };
+class Rva00569373 {public: void rva00569373(void *);};
+class Rva00569393 {public: void rva005694CD();};
+class Rva00568F04 {public: void rva00568F04(void *);};
+struct BfmeStringRecord00568CE0 { char opaque00[12]; Rva00568F04 *subject; char opaque10[4]; ~BfmeStringRecord00568CE0(); };
 class LargeGroupAudioSoundKeyPair
 {
 public:
-	void rva0056979A(const FloatPair &pos, unsigned short weight);
-	void rva005697F7(LargeGroupAudioSubject *subject);
-	void unregisterSubject(LargeGroupAudioSubject *subject);
-	void updateSubject(LargeGroupAudioSubject *subject);
+ ~LargeGroupAudioSoundKeyPair();
+ void rva0056979A(const FloatPair &pos, unsigned short weight);
+ void rva005697F7(LargeGroupAudioSubject *subject);
+ void unregisterSubject(LargeGroupAudioSubject *subject);
+ void updateSubject(LargeGroupAudioSubject *subject);
 private:
-	unsigned char m_pad00[0x20];
-	Rva00568FE4Multi m_pendingAdds;		// +0x20
-	Rva005C8176 *m_grids[4];			// +0x2C
-	unsigned char m_pad3C[0x64 - 0x3C];
-	int m_totalWeight;					// +0x64
+ Rva0056A061KeyMap m_keys;
+ Rva0056A061Ref m_owner;
+ AsciiString m_name;
+ _STL::vector<BfmeStringRecord00568CE0> m_subjects;
+ Rva00568FE4Multi m_pendingAdds;
+ Rva005C8176 *m_grids[4];
+ int unknown3C;
+ _STL::vector<void *> m_v40;
+ _STL::vector<void *> m_v4C;
+ _STL::vector<void *> m_v58;
+ int m_totalWeight;
 };
+LargeGroupAudioSoundKeyPair::~LargeGroupAudioSoundKeyPair(){
+ reinterpret_cast<Rva00569373 *>(this)->rva00569373((void *)1);
+ _STL::vector<BfmeStringRecord00568CE0> *v=&m_subjects;
+ for(BfmeStringRecord00568CE0 *it=v->begin();it!=m_subjects.end();++it){if(it->subject)it->subject->rva00568F04(this);}
+ reinterpret_cast<Rva00569393 *>(this)->rva005694CD();
+}
 
 bool Rva00568920::rva00568920() const
 {
