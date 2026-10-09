@@ -177,3 +177,30 @@ void NAT::rva005A74D8() {
 }
 }
 
+extern "C" __declspec(dllimport) unsigned long __stdcall timeGetTime();
+class GameSlot { public: bool isHuman() const; };
+// Native data9D35D4 is4000, referenced only by this host-update loop.
+// Its original symbol name is unknown; this label describes its role.
+unsigned NAT::s_hostUpdateInterval=4000;
+// Reference NAT notification purpose with BFME2 per-slot status payloads.
+// Target5A7C9C..5A7EDC,576B; named notifyNATHostSlot by WB family.
+void NAT::rva005A7C9C() {
+ if(m_localSlot!=m_hostSlot)return;
+ unsigned now=timeGetTime();
+ if(m_nextHostUpdate>now)return;
+ AsciiString hostName,name,options;
+ PeerRequest req;
+ hostName.translate(m_8[m_localSlot]->m_name);
+ if(hostName.getLength()==0)return;
+ for(int i=0;i<8;++i) {
+  if(m_8E4[i])continue;
+  if(!m_8 || !m_8[i] || !((GameSlot *)m_8[i])->isHuman())continue;
+  if(m_8[i]->m_name.getLength()<=0 || !m_8ec[i])continue;
+  name.translate(m_8[i]->m_name);
+  if(name.getLength()==0)continue;
+  options.format("NATHOST%d %d %s",m_localSlot,m_8ec[i],hostName.str());
+  req.unknown_00=0xd;req.payload_flag0.value=true;req.unknown_34="NAT/";
+  req.unknown_40=options.str();req.unknown_04=name.str();g_00A02340->f6(&req);
+ }
+ m_nextHostUpdate=now+s_hostUpdateInterval;
+}
