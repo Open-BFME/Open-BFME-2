@@ -61,6 +61,22 @@ inline const T &max(const T &a, const T &b)
 	return a > b ? a : b;
 }
 
+// Complete native unsigned-minimum leaf 9FDD5..9FDE5, immediately before
+// this unit's unsigned maximum. The previous body ends with RET4 at9FDD2;
+// an image-wide direct/conditional-jump audit finds no entry into this leaf
+// from that body. It reads the two stack referents, compares unsigned words,
+// and returns the first address only for a strictly smaller value.
+// Clean BF1 f98983a7d3bb405f1a4ba94bb6a2a168062a819d's whole
+// PoisonedBehavior_startPoisonedEffects.cpp supplies minimum(a,b)'s expression;
+// the isolated /O1 /arch:SSE2 /G6 trial emits exactly these16 unrelocated bytes.
+// This pointer ABI view does not identify the original callable, pointer-vs-
+// reference signature, pointee owner or a DataChunkTableOfContents association.
+const UnsignedInt *Rva0009FDD5SelectUnsignedAddress(const UnsignedInt *first,
+    const UnsignedInt *second)
+{
+    return *first < *second ? first : second;
+}
+
 void DataChunkTableOfContents::read(ChunkInputStream &s)
 {
 	Int count, i;
