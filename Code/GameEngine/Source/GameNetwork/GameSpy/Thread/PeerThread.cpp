@@ -528,19 +528,7 @@ void PeerThreadClass::clearPlayerStats(RoomType roomType)
 	}
 }
 
-// ?pushStatsToRoom@PeerThreadClass@@ present-unmatched
-void PeerThreadClass::pushStatsToRoom(PEER peer)
-{
-	DEBUG_LOG(("PeerThreadClass::pushStatsToRoom(): stats are %s=%s,%s=%s,%s=%s,%s=%s,%s=%s,%s=%s\n",
-		s_keys[0], s_values[0],
-		s_keys[1], s_values[1],
-		s_keys[2], s_values[2],
-		s_keys[3], s_values[3],
-		s_keys[4], s_values[4],
-		s_keys[5], s_values[5]));
-	peerSetRoomKeys(peer, GroupRoom, m_loginName.c_str(), 6, s_keys, s_values);
-	peerSetRoomKeys(peer, StagingRoom, m_loginName.c_str(), 6, s_keys, s_values);
-}
+
 
 void getRoomKeysCallback(PEER peer, PEERBool success, RoomType roomType, const char *nick, int num, char **keys, char **values, void *param);
 extern "C" void peerGetRoomKeysA(PEER, RoomType, const char *, int, const char **, void *, void *, int);
