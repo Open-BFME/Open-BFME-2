@@ -173,6 +173,7 @@ class GameSubTitle : public SubtitleEntry
 public:
 	static Int getXFromAlignment(Int alignment, Int base, Int unused, Real low, Real high);
 	virtual ~GameSubTitle();
+ void rva0025FCBA(GameFont *font);
 	GameSubTitle(GameFont *font, const UnicodeString &text,
 		UnsignedInt color, Int style, Int alignment, Int line,
 		Int startFrame, Int endFrame);
@@ -374,4 +375,13 @@ void BfmeItemKA::rva002606E6() {
    ++displayed;baseline=(float)field30;
   }
  }
+}
+
+// WB vtable lead DA68B0 and native25FCBA..25FCE8: existing GameSubTitle
+// constructor establishes array24/count30; DisplayString slot6 is setFont.
+// Preserve an address-derived method name and nonvirtual ABI view; target
+// vtable slot ownership is evidence, not a new declaration of the whole table.
+void GameSubTitle::rva0025FCBA(GameFont *font) {
+ for(Int i=0;i<m_displayStringCount;++i)
+  if(m_displayStrings[i])m_displayStrings[i]->setFont(font);
 }
