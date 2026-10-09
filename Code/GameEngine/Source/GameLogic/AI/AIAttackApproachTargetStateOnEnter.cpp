@@ -54,6 +54,16 @@
 // +0x249, CritterDesync 27/13 and 12/26, the AI blocked-frames count +0x16C,
 // path +0x140 and waiting byte +0x3B1, and the static isSamePosition and
 // canPursue register helpers of this unit.
+//
+// AIAttackFireDuringApproachState (vtable 0x00C12798, BFME only; layout from
+// the rowed xfer 0x0034081A): onEnter 0x0034D4A2 (277 bytes, CritterDesync
+// 28/16/29) remembers the victim ID +0x64 and its position +0x50 and fails on
+// the victim physics flag pair (pinned 0x00390533); computePath 0x00350497
+// (468 bytes, ComputePath15) refinds the victim by ID, then asks the
+// pathfinder's engagement-spot search (pinned 0x002F23A6) and
+// requestApproachPath, with the 'masiwar' debug traces gated on TheGameLogic
+// +0x1B4. The machine pointer is a local there (retail reuses it after
+// findObjectByID).
 
 #include "../../Common/GameLogicObjectLookupView.h"
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
@@ -226,6 +236,8 @@ public:
 	void setCurrentVictim(const Object *victim);
 	void requestPath(Coord3D *destination, Bool isFinalGoal);
 	void requestAttackPath(ObjectID victimID, const Coord3D *victimPos);
+	void destroyPath();
+	void requestApproachPath(Coord3D *destination);
 	void *getPath() const { return m_path; }
 	Bool isWaitingForPath() const { return m_waitingForPath; }
 	Bool isBlockedAndStuck() const { return m_blockedFrames > 0; }
@@ -237,7 +249,10 @@ private:
 	void *m_path; // +0x140
 	unsigned char m_pad144[0x16C - 0x144];
 	Int m_blockedFrames; // +0x16C
-	unsigned char m_pad170[0x1F0 - 0x170];
+	unsigned char m_pad170[0x1CC - 0x170];
+public:
+	unsigned char m_locomotorSet[0x1F0 - 0x1CC]; // +0x1CC
+private:
 	Locomotor *m_curLocomotor; // +0x1F0
 	unsigned char m_pad1F4[0x3B1 - 0x1F4];
 	Bool m_waitingForPath; // +0x3B1
@@ -325,6 +340,8 @@ public:
 	Bool rva0029493F(Object *other, Int test);
 	Real rva0028AC7D() const;
 	Bool rva002943B2(const Player *player);
+	void rva0028ACDC(const Coord3D *pos);
+	ObjectID getID() const { return (ObjectID)m_id; }
 	unsigned char m_pad044[0x74 - 0x44];
 	Int m_id; // +0x74
 	unsigned char m_pad078[0x249 - 0x78];
@@ -520,6 +537,52 @@ private:
 	Bool m_stopIfInRange; // +0x5E
 	Bool m_isInitialApproach; // +0x5F
 	Bool m_isForceAttacking; // +0x60
+};
+
+// AIAttackFireDuringApproachState, vtable 0x00C12798 (rowed xfer 0x0034081A).
+class AIAttackFireDuringApproachState : public AIInternalMoveToState
+{
+public:
+	virtual StateReturnType onEnter();
+protected:
+	virtual Bool computePath();
+private:
+	UnsignedInt m_approachTimestamp; // +0x4C
+	Coord3D m_prevVictimPos; // +0x50
+	Int m_cellX; // +0x5C
+	Int m_cellY; // +0x60
+	ObjectID m_victimID; // +0x64
+	Bool m_68; // +0x68
+};
+
+// The pathfinder's melee engagement-spot search (0x002F23A6), pinned under
+// this name.
+class Rva002F23A6
+{
+public:
+	Bool rva002F23A6(Object *source, int weapon, int locomotorSet, Coord3D *goalPos,
+		Object *victim);
+};
+
+// TheGameLogic's BFME debug level (+0x1B4), private padding in the shared
+// GameLogic view.
+static __forceinline Int gameLogicDebugLevel()
+{
+	return *(const Int *)((const char *)TheGameLogic + 0x1B4);
+}
+
+static __forceinline void debugTrace(const char *text)
+{
+	void *log = theLogicRandomLogFile;
+	if (log != 0)
+		fprintf(log, text);
+}
+
+// Physics flag-pair check (0x00390533), pinned under this name.
+class Rva00390533
+{
+public:
+	Bool rva00390533();
 };
 
 Bool Rva0034311ECheck(Object *obj);
@@ -905,4 +968,87 @@ Bool AIAttackApproachTargetState00C12678::computePath()
 	ai->requestAttackPath(INVALID_OBJECT_ID, &m_goalPosition);
 	m_waitingForPath = ai->isWaitingForPath();
 	return true;
+}
+
+StateReturnType AIAttackFireDuringApproachState::onEnter()
+{
+	Object *source = getMachineOwner();
+	if (((TurretStateMachine *)getMachine())->rva004D7ADD())
+		return STATE_FAILURE;
+
+	critterDesyncLog("CritterDesync: setAdjustDestination(FALSE) 28");
+	setAdjustsDestination(false);
+	m_approachTimestamp = 0;
+	Object *victim = getMachineGoalObject();
+	if (victim)
+	{
+		m_victimID = victim->getID();
+		if (victim->m_physics && ((Rva00390533 *)victim->m_physics)->rva00390533())
+			return STATE_FAILURE;
+		Weapon *weapon = source->getCurrentWeapon();
+		if (!weapon)
+			return STATE_FAILURE;
+		if (weapon->isWithinAttackRange((const Object *)source, victim, 0.0f, 1))
+			return STATE_SUCCESS;
+
+		m_prevVictimPos = *victim->getPosition();
+		source->m_ai->destroyPath();
+		critterDesyncLog("CritterDesync: ComputePath16");
+		if (computePath() == false)
+			return STATE_SUCCESS;
+		StateReturnType ret = AIInternalMoveToState::onEnter();
+		critterDesyncLog("CritterDesync: setAdjustDestination(TRUE) 29");
+		setAdjustsDestination(true);
+		return ret;
+	}
+	return STATE_FAILURE;
+}
+
+Bool AIAttackFireDuringApproachState::computePath()
+{
+	critterDesyncLog("CritterDesync: ComputePath15");
+	Bool forceRepath = false;
+	StateMachine *machine = getMachine();
+	AIUpdateInterface *ai = machine->getOwner()->getAI();
+	if (ai->isBlockedAndStuck())
+		return false;
+	if (m_waitingForPath && ai->isWaitingForPath())
+		return true;
+	if (!forceRepath && ai->getPath() == 0 && !ai->isWaitingForPath())
+		forceRepath = true;
+	if (!forceRepath && TheGameLogic->getFrame() - m_approachTimestamp < (UnsignedInt)LOGICFRAMES_PER_SECOND)
+		return true;
+	m_approachTimestamp = TheGameLogic->getFrame();
+
+	Object *victim = TheGameLogic->findObjectByID(m_victimID);
+	if (victim)
+	{
+		Object *source = machine->getOwner();
+		if (!forceRepath && isSamePosition(source->getPosition(), &m_prevVictimPos, victim->getPosition()))
+			return true;
+		Weapon *weapon = source->getCurrentWeapon();
+		if (!weapon)
+			return false;
+		m_prevVictimPos = *victim->getPosition();
+		if (gameLogicDebugLevel() > 0 && !forceRepath)
+			debugTrace("masiwar called by AIAttackFireDuringApproachState::computePath [1]");
+		if (!forceRepath && ((Rva002C9B80Owner *)weapon)->isWithinAttackRange(source, &m_goalPosition,
+				victim, &m_prevVictimPos, 0.0f, true))
+			return true;
+		m_goalPosition = m_prevVictimPos;
+		if (gameLogicDebugLevel() > 0)
+		{
+			void *log = theLogicRandomLogFile;
+			if (log != 0)
+				fprintf(log, "AIAttackFireDuringApproachState::computePath will call FindMeleeEngagmentLocation with m_goalPosition=%f,%f",
+					(double)m_goalPosition.x, (double)m_goalPosition.y);
+		}
+		((Rva002F23A6 *)TheAI->pathfinder())->rva002F23A6(source, (int)weapon,
+			(int)&ai->m_locomotorSet, &m_goalPosition, victim);
+		source->rva0028ACDC(&m_goalPosition);
+		ai->requestApproachPath(&m_goalPosition);
+		m_waitingForPath = ai->isWaitingForPath();
+		return true;
+	}
+	return false;
 }
