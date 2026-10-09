@@ -2484,7 +2484,6 @@ alternatename	Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp	_vtbl_00BC6
 alternatename	Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp	_vtbl_00BC745C	1
 alternatename	Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp	_vtbl_00BCEFA0	1
 alternatename	Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp	_vtbl_00BCF7E8	1
-alternatename	Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp	_vtbl_00BDBA74	1
 alternatename	Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp	_vtbl_00BE2B78	1
 alternatename	Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp	_vtbl_00BE3990	1
 alternatename	Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp	_vtbl_00BE714C	1
@@ -3095,7 +3094,6 @@ alternatename	Code/GameEngine/Source/Common/Rva00589079Derived.cpp	?s02@Rva00482
 alternatename	Code/GameEngine/Source/Common/Rva0058A0F4Derived.cpp	?f1@Rva0058A0F4_M1@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva0058A0F4Derived.cpp	?fe@Rva0058A0F4_E1@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva0058A0F4Dtor.cpp	?f20@Rva0058A0F4_B20@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/Common/Rva00595D0BFirewall.cpp	?g_00C70A2C@@3QBQBXB	1
 alternatename	Code/GameEngine/Source/Common/Rva00595E46Firewall.cpp	??1OptionPreferences@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/Rva00595F80Firewall.cpp	??1OptionPreferences@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/Rva0059675ADtor.cpp	??1?$StringBase@D@@QAE@XZ	1
