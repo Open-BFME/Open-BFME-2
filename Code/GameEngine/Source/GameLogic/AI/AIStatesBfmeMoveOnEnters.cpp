@@ -8,8 +8,10 @@
 // 7) and AIMoveAwayFromRepulsorsState::onEnter (0x0034CAF6, string 11, slot 4
 // of the vtable at 0x00C12538 that the constructor 0x00342892 installs);
 // BFME1's Rva00173B90State_onEnter.cpp for 0x0034CA53 (string 9, slot 4 of
-// the vtable at 0x00C12580 installed by the constructor 0x003428AF, so its
-// class takes that constructor row's placeholder name). BFME2 target facts:
+// the vtable at 0x00C12580 installed by the constructor 0x003428AF).
+// Names: each constructor passes zlib.crc32 of its ZH-style debug name, so
+// 0x00342892 0xD5F5D4FA is "AIMoveAwayFromRepulsors" and 0x003428AF
+// 0xE3F474A1 is "AIMoveAwayPanicState" (BFME1's class name for it). BFME2 target facts:
 // each setAdjustsDestination writes its CritterDesync log line first; the
 // pathfinder's removeGoal is the owner's 0x0028AD32; the panicking model
 // condition is bit 77 (word +0x114 of the bits at +0x10C, then 0x0028AE6D);
@@ -219,7 +221,7 @@ protected:
 	Bool m_checkForPath; // +0x50
 };
 
-class Rva003428AF : public AIInternalMoveToState
+class AIMoveAwayPanicState : public AIInternalMoveToState
 {
 public:
 	virtual StateReturnType onEnter();
@@ -270,7 +272,7 @@ StateReturnType AIMoveAndTightenState::onEnter()
 	return AIInternalMoveToState::onEnter();
 }
 
-StateReturnType Rva003428AF::onEnter()
+StateReturnType AIMoveAwayPanicState::onEnter()
 {
 	critterDesyncLog("CritterDesync: setAdjustDestination(FALSE) 9");
 	setAdjustsDestination(false);
@@ -308,7 +310,7 @@ StateReturnType AIMoveAwayFromRepulsorsState::onEnter()
 	return AIInternalMoveToState::onEnter();
 }
 
-StateReturnType Rva003428AF::update()
+StateReturnType AIMoveAwayPanicState::update()
 {
 	if (m_checkForPath)
 	{
