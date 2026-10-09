@@ -3,7 +3,8 @@
 // AITNGuardReturnState::onEnter ported from Zero Hour's AITNGuard.cpp.
 // Target evidence: slot 4 of retail vtable 0xC6A1F0 at 0x005465E5.
 // The local noinline helper preserves the banked caller's register allocation;
-// its body is not claimed here. Retail call targets are pinned in symbols.csv.
+// Its target 0x00545F80 (129B) keeps the end iterator in EDI across lookups;
+// caching end reproduces that lifetime and both bodies byte-match.
 typedef unsigned int UnsignedInt;
 typedef float Real;
 #define NULL 0
@@ -112,7 +113,6 @@ extern GameLogic *TheGameLogic;
 int GetGameLogicRandomValue(int low, int high, char *file, int line);
 #define AITNGUARD_FILE "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\AI\\AITNGuard.cpp"
 
-// ?findBestTunnel@@YAPAVObject@@PAVPlayer@@PBUCoord3D@@@Z present-unmatched
 static __declspec(noinline) Object *findBestTunnel(Player *ownerPlayer, const Coord3D *pos)
 {
 	if (!ownerPlayer) return NULL; // should never happen, but hey.  jba.
@@ -120,7 +120,8 @@ static __declspec(noinline) Object *findBestTunnel(Player *ownerPlayer, const Co
 	Object *bestTunnel = NULL;
 	Real bestDistSqr = 0;
 	const ObjectIDList *allTunnels = tunnels->getContainerList();
-	for( ObjectIDList::const_iterator iter = allTunnels->begin(); iter != allTunnels->end(); iter++ ) {
+	ObjectIDList::const_iterator end = allTunnels->end();
+	for( ObjectIDList::const_iterator iter = allTunnels->begin(); iter != end; iter++ ) {
 		// For each ID, look it up and change its team.  We all get captured together.
 		Object *currentTunnel = TheGameLogic->findObjectByID( *iter );
 		if( currentTunnel ) {
