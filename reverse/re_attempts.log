@@ -32551,3 +32551,6 @@ TexturePacker::UpdateResultTexture	0x001711A6	892	blocked	Fresh WB A12EB0 named 
 ?rva005FB243@Rva005FB243@@QAE?AURvaF1Handle@@HH@Z	0x005FB243	87	landed	add_match verified Code/GameEngine/Source/Common/Rva005E5CF9Factory.cpp 87B
 ?rva00574AD9@Rva00574AD9@@QAE?AURvaF1Handle@@PAX@Z	0x00574AD9	84	landed	add_match verified Code/GameEngine/Source/Common/Rva005E5CF9Factory.cpp 84B
 ?rva00567F3D@Rva00567F3D@@QAE?AURvaF1Handle@@H@Z	0x00567F3D	84	landed	add_match verified Code/GameEngine/Source/Common/Rva005E5CF9Factory.cpp 84B
+?rva005E9761@Rva005E9761@@QAE?AURvaF1Handle@@II@Z	0x005E9761	87	landed	add_match verified Code/GameEngine/Source/Common/Rva005E5CF9Factory.cpp 87B
+?rva005E97D5@Rva005E97D5@@QAE?AURvaF1Handle@@II@Z	0x005E97D5	87	landed	add_match verified Code/GameEngine/Source/Common/Rva005E5CF9Factory.cpp 87B
+?rva005E9849@Rva005E9849@@QAE?AURvaF1Handle@@II@Z	0x005E9849	87	landed	add_match verified Code/GameEngine/Source/Common/Rva005E5CF9Factory.cpp 87B

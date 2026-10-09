@@ -232,3 +232,58 @@ RvaF1Handle Rva00567F3D::rva00567F3D(int argument)
 {
 	return RvaF1Handle(new Rva00567960(argument, (const struct Rva00567CCDInfo *)&m_context));
 }
+
+// Three more factories of the same family at 0x005E9761, 0x005E97D5 and 0x005E9849 (ret 0xC): two opaque words and
+// receiver+8 forwarded to rowed-by-address constructors 0x005FB14E (0x24-byte object), 0x005FB30A and 0x005FB4DF
+// (0x20-byte objects). Target evidence: retail bodies and constructor REL32s read byte for byte; constructor
+// identities and argument meanings are unresolved and the names are address-derived.
+// class-gate: allow Rva005FB14E proved codegen view: opaque storage view of a constructor-only callee
+class Rva005FB14E
+{
+	char m_pad[0x24];
+public:
+	Rva005FB14E(unsigned int first, unsigned int second, void *context);
+};
+class Rva005FB30A
+{
+	char m_pad[0x20];
+public:
+	Rva005FB30A(unsigned int first, unsigned int second, void *context);
+};
+class Rva005FB4DF
+{
+	char m_pad[0x20];
+public:
+	Rva005FB4DF(unsigned int first, unsigned int second, void *context);
+};
+struct Rva005E9761
+{
+	char m_prefix[8];
+	Rva005E5CF9In m_context;
+	RvaF1Handle rva005E9761(unsigned int first, unsigned int second);
+};
+struct Rva005E97D5
+{
+	char m_prefix[8];
+	Rva005E5CF9In m_context;
+	RvaF1Handle rva005E97D5(unsigned int first, unsigned int second);
+};
+struct Rva005E9849
+{
+	char m_prefix[8];
+	Rva005E5CF9In m_context;
+	RvaF1Handle rva005E9849(unsigned int first, unsigned int second);
+};
+
+RvaF1Handle Rva005E9761::rva005E9761(unsigned int first, unsigned int second)
+{
+	return RvaF1Handle(new Rva005FB14E(first, second, &m_context));
+}
+RvaF1Handle Rva005E97D5::rva005E97D5(unsigned int first, unsigned int second)
+{
+	return RvaF1Handle(new Rva005FB30A(first, second, &m_context));
+}
+RvaF1Handle Rva005E9849::rva005E9849(unsigned int first, unsigned int second)
+{
+	return RvaF1Handle(new Rva005FB4DF(first, second, &m_context));
+}

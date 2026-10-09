@@ -74089,3 +74089,6 @@ _vp6_xprintf,,0x001C4C90,610,Code/Libraries/Source/VP6/vp6_xprintf.cpp,matched,v
 ?rva005FB243@Rva005FB243@@QAE?AURvaF1Handle@@HH@Z,,0x005FB243,87,Code/GameEngine/Source/Common/Rva005E5CF9Factory.cpp,matched,
 ?rva00574AD9@Rva00574AD9@@QAE?AURvaF1Handle@@PAX@Z,,0x00574AD9,84,Code/GameEngine/Source/Common/Rva005E5CF9Factory.cpp,matched,
 ?rva00567F3D@Rva00567F3D@@QAE?AURvaF1Handle@@H@Z,,0x00567F3D,84,Code/GameEngine/Source/Common/Rva005E5CF9Factory.cpp,matched,
+?rva005E9761@Rva005E9761@@QAE?AURvaF1Handle@@II@Z,,0x005E9761,87,Code/GameEngine/Source/Common/Rva005E5CF9Factory.cpp,matched,
+?rva005E97D5@Rva005E97D5@@QAE?AURvaF1Handle@@II@Z,,0x005E97D5,87,Code/GameEngine/Source/Common/Rva005E5CF9Factory.cpp,matched,
+?rva005E9849@Rva005E9849@@QAE?AURvaF1Handle@@II@Z,,0x005E9849,87,Code/GameEngine/Source/Common/Rva005E5CF9Factory.cpp,matched,
