@@ -213,3 +213,22 @@ void *Rva00564C4CArray::at(unsigned index) const
 	return elements + index;
 }
 #pragma optimize("", on)
+
+// BFME1 9cbfb551 whole PAVectorEraseRangeFamily003AF.cpp supplies the source
+// lead in the clean named Common O2/x87/G6 min5 sweep. Sixteen donor vector
+// names place here, so none establishes an original template or owner.
+// Native6BE260..6BE26E is independently INT3-bounded: it reads receiver word0,
+// shifts the unsigned stack index by4, adds the two words and pops4 bytes.
+// No calls, globals, literals or witnessed direct/address references choose
+// an element type or original receiver. This accessed-word projection keeps
+// the 32-bit address arithmetic without claiming a container or full layout.
+struct Rva006BE260
+{
+    unsigned int addressBits;
+    unsigned int elementAddressBits(unsigned int index) const;
+};
+
+unsigned int Rva006BE260::elementAddressBits(unsigned int index) const
+{
+    return addressBits + (index << 4);
+}
