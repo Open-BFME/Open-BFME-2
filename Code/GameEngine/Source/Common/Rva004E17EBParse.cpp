@@ -1,5 +1,5 @@
 // cl: /O1 /arch:SSE /G7 /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /MD /GX
-// ?Rva004E17EBParse@@YAXPAVINI@@PAX@Z @0x004E17EB 129B
+// ?Rva004E17EBParse@@YAXPAVINI@@PAX1PBX@Z @0x004E17EB 129B
 // ParseSpawnBuilding proc: throws INIException 3 on null ini or instance with retail literal then builds
 // Rva004E179A record inline then INI::initFromINI with table g_00C61BE0 then append 0x0056653F.
 // Evidence: table slot 0x0086CD94 neighbour SpawnBuilding plus string ParseSpawnBuilding plus vtable
@@ -51,8 +51,8 @@ public:
 	void append(const Rva0052BE33 &record);
 };
 
-// ?Rva004E17EBParse@@YAXPAVINI@@PAX@Z
-void Rva004E17EBParse(INI *ini, void *instance)
+// ?Rva004E17EBParse@@YAXPAVINI@@PAX1PBX@Z
+void Rva004E17EBParse(INI *ini, void *instance, void *, const void *)
 {
 	if (ini && instance)
 	{
@@ -67,3 +67,7 @@ void Rva004E17EBParse(INI *ini, void *instance)
 		__assume(0);
 	}
 }
+
+// Native C6CD50 FieldParse registration uses the four-argument callback ABI.
+// Preserve the witnessed body and existing address binding; both trailing
+// parameters are unused. No function-pointer cast or alternate callee pin.
