@@ -80,6 +80,44 @@ def test_icf_alias_group_survives_dedup(tmp_path):
     assert (before, after) == (2, 2)
 
 
+def test_named_gen_alias_can_share_its_verified_owner_range():
+    """SpawnArmy's genuine Snapshot getter was mistaken for a placeholder."""
+    src = "Code/GameEngine/Source/Common/Rva004E3184Ctor.cpp"
+    raw = (HEADER + "\n"
+           + f"?Rva004E30C6Get@@YAHXZ,,0x004E30C6,6,{src},matched,opaque owner\n"
+           + f"?GetSnapshotName@Rva004E3184@@UBEPBDXZ,,0x004E30C6,6,{src},matched,gen-alias; complete byte and string relocation twin\n").encode()
+    problems = []
+    check_csv.check_functions(raw, problems, {src}, b"name,target_rva,reason\n")
+    assert problems == []
+
+
+@pytest.mark.parametrize("name,source,notes", [
+    ("?d_004E30C6@@YAXXZ", "Code/gen_asm/body.asm", "gen-dump"),
+    ("?dup_004E30C6@@YAHXZ", "Code/Common/alias.cpp", "gen-alias; twin"),
+    ("??1Gen_uw_004E30C6@@QAE@XZ", "Code/gen_small/uw.cpp", "gen-alias"),
+    ("??1Gen_uw_004E30C6@@QAE@XZ", "Code/Common/uw.cpp", "gen-alias"),
+    ("?f@@YAXXZ", "Code/gen_asm/body.asm", "gen-alias"),
+    ("?f@@YAXXZ", "Code/Common/f.cpp", "gen-alias documentation only"),
+])
+def test_synthetic_alias_or_dump_still_yields_to_real_owner(name, source, notes):
+    raw = (HEADER + "\n"
+           + f"?owner@@YAXXZ,,0x004E30C6,6,{source},matched,real owner\n"
+           + f"{name},,0x004E30C6,6,{source},matched,{notes}\n").encode()
+    problems = []
+    check_csv.check_functions(raw, problems, {source}, b"name,target_rva,reason\n")
+    assert any("exactly one is a gen-* placeholder" in p for p in problems)
+
+
+def test_named_gen_alias_with_different_extent_still_fails():
+    src = "Code/Common/f.cpp"
+    raw = (HEADER + "\n"
+           + f"?owner@@YAXXZ,,0x004E30C6,6,{src},matched,owner\n"
+           + f"?named@@YAXXZ,,0x004E30C6,5,{src},matched,gen-alias\n").encode()
+    problems = []
+    check_csv.check_functions(raw, problems, {src}, b"name,target_rva,reason\n")
+    assert any("different sizes" in p for p in problems)
+
+
 def test_check_csv_flags_a_resurrected_row(tmp_path, monkeypatch):
     """A branch that forked before a delete re-adds the row with no conflict,
     because git's union driver cannot express a deletion."""

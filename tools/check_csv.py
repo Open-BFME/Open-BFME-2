@@ -38,6 +38,23 @@ FUNCTIONS_HEADER = "name,export_rva,target_rva,target_size,source,status,notes"
 SYMBOLS_HEADER = "name,address,notes"
 
 
+def placeholder_row(name, source, notes):
+    """Distinguish generated scaffolding from a byte-verified named ICF twin.
+
+    gen-alias is also the verifier's exact marker for relocation twins. A real
+    method emitting its own body can carry it; the marker alone does not make
+    that method a generated identity. Synthetic aliases still yield to owners.
+    Full-byte verification independently validates every claimed twin.
+    """
+    notes = notes.lstrip()
+    if not notes.startswith("gen-"):
+        return False
+    if notes.split(";", 1)[0].strip() != "gen-alias":
+        return True
+    return (source.replace("\\", "/").startswith(("Code/gen_asm/", "Code/gen_small/"))
+            or re.match(r"^(?:\??(?:dup_|d_[0-9a-fA-F]|Gen_)|\?\?[01]Gen_)", name) is not None)
+
+
 def check_lf_ledger(raw, label, problems, *, allow_empty=False):
     """Require canonical LF framing for one union-merged ledger."""
     if allow_empty and not raw:
@@ -215,7 +232,7 @@ def check_functions(raw, problems, sources_ok, deleted_raw=None):
         seen_exact.add(key)
 
         rva = int(target_rva, 16)
-        gen_row = _notes.lstrip().startswith("gen-")
+        gen_row = placeholder_row(name, source, _notes)
         if rva in by_rva and by_rva[rva][0] != name:
             prev_name, prev_size, prev_gen = by_rva[rva]
             if prev_size != size:
