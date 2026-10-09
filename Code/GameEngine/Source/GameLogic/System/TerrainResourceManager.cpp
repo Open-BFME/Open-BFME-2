@@ -21,6 +21,19 @@ __forceinline int cellInteger(float value)
  return result;
 }
 
+#include "../../../../Libraries/Include/Lib/Coord3D.h"
+class Pathfinder {public: void GetCellType(int,void*,void*,void*,int);};
+class AI {public: char pad00[0x10]; Pathfinder *pathfinder10;};
+class TerrainLogic;
+extern AI *TheAI;
+extern TerrainLogic *TheTerrainLogic;
+class Rva00359C06Listener {
+public: virtual void slot00(); virtual void notify(void*,int,int);
+};
+class Rva00359C06List {
+public: void forEach(void (Rva00359C06Listener::*)(void*,int,int),void*,int,int);
+};
+
 struct CellClaimant { int player; unsigned int object; };
 struct ResourceCell { CellClaimant *first,*last,*capacity; int state; };
 struct Rva003598A5Obj { virtual void f(int,int); };
@@ -30,6 +43,9 @@ public:
     void rva0035997F(int,int,int,void *);
     float rva00359A0C(float,float,float,bool,int);
     unsigned int getCellClaimant(int,int,int);
+    void updateMapConstantCells();
+    // ?TerrainResourceManager::getCellSize present-unmatched
+    float getCellSize() const { return cell3C; }
 private:
     char pad00[0x1c];
     float originX1C, originY20;
@@ -100,5 +116,32 @@ unsigned int TerrainResourceManager::getCellClaimant(int x,int y,int player)
    if((unsigned int)(cell.last-cell.first)<1) {cell.state=0;return 0;}
    return cell.first->object;
  default:return 0;
+ }
+}
+
+// WB E60440 names updateMapConstantCells; native359C31..359D42 RET.
+// Native centers cells without the world origin and writes constant state1
+// for unavailable or eligible pathfinder types, then broadcasts list+4 slot1.
+// Inline cell-size accessor preserves the retail SSE multiplication order.
+void TerrainResourceManager::updateMapConstantCells()
+{
+ if(!cells40 || !TheTerrainLogic) return;
+ for(int y=0;y<height38;++y) {
+   for(int x=0;x<width34;++x) {
+     Coord3D point;
+     point.x=(x+0.5f)*getCellSize();
+     point.y=(y+0.5f)*getCellSize();
+     point.z=0;
+     bool found=false,other=false;
+     int type=2;
+     TheAI->pathfinder10->GetCellType((int)&point,&found,&other,&type,1);
+     if(!found || type==1 || type==7 || type==2 || type==5) {
+       ResourceCell& cell=cells40[y*width34+x];
+       if(cell.state!=1) {
+         cell.state=1;
+         reinterpret_cast<Rva00359C06List*>((char*)this+4)->forEach(&Rva00359C06Listener::notify,this,x,y);
+       }
+     }
+   }
  }
 }
