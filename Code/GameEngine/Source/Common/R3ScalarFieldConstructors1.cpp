@@ -79,3 +79,23 @@ Rva00309DF6Fields *Rva00309DF6Fields::initialize()
     m_21 = 0;
     return this;
 }
+
+// BF1 f98983a7 Audio/GameAudio.cpp supplies the clean source lead.
+// Complete native 0x00054EB0..0x00054EBE follows RET4 at 0x00054EAD
+// and ends at its own RET before the next entry. It returns the receiver,
+// clears word0 and writes SSE zero bits at offset4. The donor pair and
+// AsciiString identity are unproven; float zero is a source-guided spelling
+// of the witnessed store. Preserve this as an explicit address initializer.
+struct Rva00054EB0Fields
+{
+    unsigned int word0;
+    float scalar4;
+    Rva00054EB0Fields *initialize();
+};
+
+Rva00054EB0Fields *Rva00054EB0Fields::initialize()
+{
+    word0 = 0;
+    scalar4 = 0.0f;
+    return this;
+}
