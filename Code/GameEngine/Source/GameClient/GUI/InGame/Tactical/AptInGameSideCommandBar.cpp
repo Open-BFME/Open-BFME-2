@@ -58,12 +58,15 @@ template struct SideBarButtonSlot<Rva000AD6F4, SideBarUpdaterRef>;
 typedef SideBarButtonSlot<Rva000AD6F4, SideBarUpdaterRef> SideBarSlot;
 
 class AptCommandTarget {};
-struct DelegateDesc {
- template<class T> DelegateDesc(T *object, void(T::*method)(const char *))
+// Unit-local eight-byte object/method view, not a competing DelegateDesc body.
+// The external constructor reads these two words; retain its existing ABI.
+struct SideBarDelegateDesc {
+ template<class T> SideBarDelegateDesc(T *object, void(T::*method)(const char *))
  : m_object((AptCommandTarget *)object), m_method(reinterpret_cast<void(AptCommandTarget::*)(const char *)>(method)) {}
  AptCommandTarget *m_object;
  void(AptCommandTarget::*m_method)(const char *);
 };
+struct DelegateDesc;
 class Rva00579E47 {
 public:
  Rva00579E47(const DelegateDesc &);
@@ -73,7 +76,7 @@ private:
 class AptCommandMap { public: void *m_vtbl; int m_refCount; };
 template<class T> class AptRef {
 public:
- AptRef(const DelegateDesc *desc) { ((Rva00579E47 *)this)->Rva00579E47::Rva00579E47(*desc); }
+ AptRef(const SideBarDelegateDesc *desc) { ((Rva00579E47 *)this)->Rva00579E47::Rva00579E47(*(const DelegateDesc *)desc); }
  AptRef(const AptRef &that):m_ptr(that.m_ptr) { if(m_ptr) ++m_ptr->m_refCount; }
  ~AptRef() { if(m_ptr) ReleaseTreeHintRef00217D4C((TargetRef00217D4C *)m_ptr); }
 private:
@@ -84,7 +87,7 @@ public:
  AptCommandMapAdder();
  ~AptCommandMapAdder();
  void AddCommandMap(const AsciiString &, AptRef<AptCommandMap>);
- __forceinline void AddCommandMapDelegate(const AsciiString &name, DelegateDesc desc) { AddCommandMap(name, &desc); }
+ __forceinline void AddSideBarCommandMapDelegate(const AsciiString &name, SideBarDelegateDesc desc) { AddCommandMap(name, &desc); }
 private:
  char m_names[12];
 };
@@ -199,12 +202,12 @@ AptInGameSideCommandBar::Impl::Impl(AptInGameSideCommandBar *owner, int levelInd
  : m_owner(owner), m_level(levelIndex), m_state(0),
    m_selectedObject(0), m_displayedObject(0), m_count(0)
 {
- m_maps.AddCommandMapDelegate(AsciiString("OnAptInGameSideCommandBarLoaded"), DelegateDesc(this, &Impl::OnLoaded));
- m_maps.AddCommandMapDelegate(AsciiString("OnAptInGameSideCommandBarUnloaded"), DelegateDesc(this, &Impl::OnUnloaded));
- m_maps.AddCommandMapDelegate(AsciiString("OnAptInGameSideCommandBarFadeInComplete"), DelegateDesc(this, &Impl::OnFadeInComplete));
- m_maps.AddCommandMapDelegate(AsciiString("OnAptInGameSideCommandBarFadeOutComplete"), DelegateDesc(this, &Impl::OnFadeOutComplete));
- m_maps.AddCommandMapDelegate(AsciiString("OnAptInGameSideCommandBarButtonFrameLoaded"), DelegateDesc(this, &Impl::OnButtonFrameLoaded));
- m_maps.AddCommandMapDelegate(AsciiString("OnAptInGameSideCommandBarButtonFrameUnloaded"), DelegateDesc(this, &Impl::OnButtonFrameUnloaded));
+ m_maps.AddSideBarCommandMapDelegate(AsciiString("OnAptInGameSideCommandBarLoaded"), SideBarDelegateDesc(this, &Impl::OnLoaded));
+ m_maps.AddSideBarCommandMapDelegate(AsciiString("OnAptInGameSideCommandBarUnloaded"), SideBarDelegateDesc(this, &Impl::OnUnloaded));
+ m_maps.AddSideBarCommandMapDelegate(AsciiString("OnAptInGameSideCommandBarFadeInComplete"), SideBarDelegateDesc(this, &Impl::OnFadeInComplete));
+ m_maps.AddSideBarCommandMapDelegate(AsciiString("OnAptInGameSideCommandBarFadeOutComplete"), SideBarDelegateDesc(this, &Impl::OnFadeOutComplete));
+ m_maps.AddSideBarCommandMapDelegate(AsciiString("OnAptInGameSideCommandBarButtonFrameLoaded"), SideBarDelegateDesc(this, &Impl::OnButtonFrameLoaded));
+ m_maps.AddSideBarCommandMapDelegate(AsciiString("OnAptInGameSideCommandBarButtonFrameUnloaded"), SideBarDelegateDesc(this, &Impl::OnButtonFrameUnloaded));
 }
 
 // Complete native79B5282BA..528309 destroys fifteen slots24, string18,
