@@ -38,9 +38,10 @@ struct HordeContainSlot
 class HordeContain
 {
 public:
-	void rva00472CA9(Object *obj);
+	// Slot 32 of HordeContain's vftable 0x00C45050 (inherited unchanged by
+	// HorseHordeContain and AODHordeContain): virtual, with the vptr at +0.
+	virtual void rva00472CA9(Object *obj);
 private:
-	unsigned char m_pad0[4];
 	Rva00469294 *m_4;
 	unsigned char m_pad2[0x17C - 0x8];
 	_STL::map<int, int> m_map;

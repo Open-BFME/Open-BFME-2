@@ -20,12 +20,14 @@ public:
 	void InitGadgets(const char *name, void *argument, GameWindow *window);
 	void Quit(const char *unused);
 	void OnBttnEnterText(const char *unused);
-	int rva00513449(int message, unsigned int wParam, unsigned int lParam);
+	// Slot 2 of the screen's vftable 0x00C65B6C (ctor 0x00513558, dtor
+	// 0x00512E49): virtual, with the vptr at +0.
+	virtual int rva00513449(int message, unsigned int wParam, unsigned int lParam);
 	void PlayerColor(int slot, char *result, bool skip);
 	void rva005130E2(UnicodeString text);
 
 private:
-	unsigned char m_pad000[0x27C];
+	unsigned char m_pad004[0x278];
 	GameWindow *m_chatBox;
 	GameWindow *m_chatEntry;
 	unsigned char m_pad284[0x285 - 0x284];

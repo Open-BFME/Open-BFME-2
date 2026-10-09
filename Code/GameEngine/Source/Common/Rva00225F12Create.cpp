@@ -1,5 +1,6 @@
 // cl: /DNDEBUG /MD /EHsc
-// ?rva00225F12@GameEngine@@QAEPAVMessageStream@@XZ @0x00225F12 50B vslot 30
+// ?createMessageStream@GameEngine@@MAEPAVMessageStream@@XZ @0x00225F12 50B vslot 30
+// (Zero Hour's protected virtual GameEngine::createMessageStream factory)
 // factory returning new MessageStream via rowed operator new 0x0002FDA0 plus
 // rowed ctor 0x0030F697 with EH prolog. Evidence: vslot 30 of GameEngine and
 // Win32GameEngine vtables; no callers; same this forwarded.
@@ -18,10 +19,11 @@ private:
 class GameEngine
 {
 public:
-	MessageStream *rva00225F12(void);
+protected:
+	virtual MessageStream *createMessageStream(void);
 };
 
-MessageStream *GameEngine::rva00225F12(void)
+MessageStream *GameEngine::createMessageStream(void)
 {
 	return new MessageStream;
 }

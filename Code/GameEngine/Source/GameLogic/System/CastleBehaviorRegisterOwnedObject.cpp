@@ -63,7 +63,7 @@ inline ObjectID objectID(Object* object) { return field<ObjectID>(object,0x74); 
 class BuildListInfo;
 class ThingTemplate;
 class PolygonTrigger;
-class CastleBehavior { public: void rva0039865E(PolygonTrigger*); Object* buildCastleStructure(BuildListInfo*,bool); void* GetArmyIDFromClosestObject(); Object* createOwnedObject(void*); void rva003993F2(bool); void teleportStragglersFromWallToGround(bool); void registerOwnedObject(Object*); bool checkForAutoPack(); bool checkForInstantUnPack(); void rva00397B03(ObjectStatusTypes,bool); void DoXfer(Xfer*); void rva00399370(); void rva0039792B(); void initiateUnpack(bool,const ThingTemplate*); };
+class CastleBehavior { public: void rva0039865E(PolygonTrigger*); Object* buildCastleStructure(BuildListInfo*,bool); void* GetArmyIDFromClosestObject(); Object* createOwnedObject(void*); void rva003993F2(bool); void teleportStragglersFromWallToGround(bool); void registerOwnedObject(Object*); bool checkForAutoPack(); bool checkForInstantUnPack(); void rva00397B03(ObjectStatusTypes,bool); virtual void DoXfer(Xfer*); void rva00399370(); void rva0039792B(); void initiateUnpack(bool,const ThingTemplate*); };
 void CastleBehavior::registerOwnedObject(Object* object) {
  void* data=field<void*>(this,4);
  Object* owner=field<Object*>(this,8);
