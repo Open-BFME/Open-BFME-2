@@ -134,7 +134,18 @@ struct BfmeStringRecord00466E64 { int a[3]; };
 struct Rva00475F2AElement { int a[1]; };
 struct Rva004C3F09Element { int a[2]; };
 struct Rva004E3E5AElement { int a[8]; };
-struct Rva004F87BCElement { int a[1]; };
+// The native24B placement copy87A5C copies the pointer and increments
+// pointee refs4; native198B insertion4F9658 retains then releases its
+// temporary with7DEEF. Keep this4B owning element consistent with that
+// independently verified consumer rather than the old size-only view.
+struct TargetRef00217D4C {virtual void *destroy(unsigned); int references;};
+void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
+struct Rva004F87BCElement {
+ TargetRef00217D4C *m_ptr;
+ Rva004F87BCElement(TargetRef00217D4C *p):m_ptr(p) {if(p) ++p->references;}
+ Rva004F87BCElement(const Rva004F87BCElement &p):m_ptr(p.m_ptr) {if(m_ptr) ++m_ptr->references;}
+ ~Rva004F87BCElement() {if(m_ptr) ReleaseTreeHintRef00217D4C(m_ptr);}
+};
 struct Rva004F8D92Element { int a[1]; };
 struct Rva004F9018Element { int a[3]; };
 struct Rva004F93B0Element { int a[2]; };

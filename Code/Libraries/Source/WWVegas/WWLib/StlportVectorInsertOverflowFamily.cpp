@@ -76,7 +76,28 @@ struct Rva00475F2AElement { char m_pad[4]; public: Rva00475F2AElement(const Rva0
 // 8-byte element; push_back 0x004C3F09.
 struct Rva004C3F09Element { char m_pad[8]; public: Rva004C3F09Element(const Rva004C3F09Element &); ~Rva004C3F09Element(); };
 // 4-byte element; push_back 0x004F87BC.
-struct Rva004F87BCElement { char m_pad[4]; public: Rva004F87BCElement(const Rva004F87BCElement &); ~Rva004F87BCElement(); };
+// The native24B placement copy87A5C copies the pointer and increments
+// pointee refs4; native198B insertion4F9658 retains then releases its
+// temporary with7DEEF. Keep this4B owning element consistent with that
+// independently verified consumer rather than the old size-only view.
+struct TargetRef00217D4C {virtual void *destroy(unsigned); int references;};
+void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
+struct Rva004F87BCElement {
+ TargetRef00217D4C *m_ptr;
+ Rva004F87BCElement(TargetRef00217D4C *p):m_ptr(p) {if(p) ++p->references;}
+ Rva004F87BCElement(const Rva004F87BCElement &p):m_ptr(p.m_ptr) {if(m_ptr) ++m_ptr->references;}
+ ~Rva004F87BCElement() {if(m_ptr) ReleaseTreeHintRef00217D4C(m_ptr);}
+};
+// Native27B range destruction4F72ED calls the existing34B reference-slot
+// deleting cleanup with flags0 for every4B slot. The tag is unused; its
+// cdecl spelling leaves stack cleanup to the caller just as retail does.
+struct Rva005F8FCC {void *rva005F8FCC(unsigned);};
+namespace _STL {
+template<> void __destroy_aux<Rva004F87BCElement *>(Rva004F87BCElement *first,Rva004F87BCElement *last,const __false_type &)
+{
+ for(;first!=last;++first) reinterpret_cast<Rva005F8FCC *>(first)->rva005F8FCC(0);
+}
+}
 // 4-byte element; push_back 0x004F8D92.
 struct Rva004F8D92Element { char m_pad[4]; public: Rva004F8D92Element(const Rva004F8D92Element &); ~Rva004F8D92Element(); };
 // 12-byte element; push_back 0x004F9018.
