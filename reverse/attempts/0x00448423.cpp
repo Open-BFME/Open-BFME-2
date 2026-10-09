@@ -1,4 +1,6 @@
 // ?Rva00448423@@YA_NPAVLANGameInfo@@PADH@Z
+// partial score=0.966 date=2026-10-09
+// ?Rva00448423@@YA_NPAVLANGameInfo@@PADH@Z
 // partial score=0.96967 date=2026-10-08
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /O1 /EHsc /G7
 //
@@ -267,7 +269,7 @@ bool Rva00448423(LANGameInfo *game,char *data,int size)
                 connect.ip=ip; connect.port=port;
                 slot->setState(SLOT_PLAYER,name,&connect);
             }
-            char flags;
+            unsigned char flags;
             LAN_READ(Rva0044799ACopy1(cursor,&flags,limit));
             bool accept=(flags&1)!=0, hasMap=((flags>>1)&1)!=0;
             if(accept) slot->accepted=true; else slot->unAccept();
