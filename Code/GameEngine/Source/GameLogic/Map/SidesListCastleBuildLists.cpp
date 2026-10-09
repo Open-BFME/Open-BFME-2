@@ -72,6 +72,13 @@ static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
 struct BfmePod128 { ~BfmePod128(); int a[32]; };
 struct BfmeE8 { int a[2]; };
 
+class BuildListInfo { public: BuildListInfo &operator=(const BuildListInfo &); };
+class PolygonalArea {
+public:
+    virtual void slot0();
+    virtual void rva005CB260Slot1(const BfmeE8 &point);
+    __declspec(noinline) void rva005CB260(const BfmeE8 &point);
+};
 typedef _STL::map<int, _STL::vector<BfmePod128> > IntPod128VectorMap;
 typedef _STL::vector<BfmeE8> E8Vector;
 typedef _STL::map<int, _STL::vector<E8Vector> > IntE8VectorListMap;
@@ -82,6 +89,8 @@ public:
 	virtual ~SidesList();
 	void rva0032E6F4(int key, const BfmePod128 &entry);
 	void rva0032ED75(int key, const E8Vector &path);
+    bool rva0032BD25(int key, int index, BuildListInfo *out);
+    bool rva0032BD64(int key, int index, PolygonalArea *out);
 
 private:
 	char m_bases[0x24 - 4];
@@ -112,4 +121,43 @@ void SidesList::rva0032ED75(int key, const E8Vector &path)
 		list.push_back(path);
 		m_castlePaths.insert(_STL::make_pair(key, list));
 	}
+}
+
+// Native5CB260 is the ICF slot1 forwarder. WB AB8950 addBoundaryPoint
+// forwards its point argument through slot1; the remaining WB instructions
+// are debug assertions. Target32BD64 calls this forwarder with one 8B point.
+void PolygonalArea::rva005CB260(const BfmeE8 &point)
+{
+    rva005CB260Slot1(point);
+}
+
+// Native32BD25..32BD64 RET12; WB A8B610 binds the same signed-key lookup,
+// signed index bound and BuildListInfo assignment. BfmePod128 is the existing
+// ledger spelling of the 0x80B BuildListInfo record; no payload identity inferred.
+bool SidesList::rva0032BD25(int key, int index, BuildListInfo *out)
+{
+    IntPod128VectorMap::iterator it=m_castleBuildLists.find(key);
+    if (it._M_node == m_castleBuildLists.end()._M_node) return false;
+    int count=it->second.size();
+    if(index>=count) return false;
+    *out=*reinterpret_cast<const BuildListInfo *>(&it->second[index]);
+    return true;
+}
+
+// Native32BD64..32BDD6 RET12; WB A8B6B0 binds the castle path lookup and
+// PolygonalArea boundary-point loop. The 12B vector and 8B point strides
+// are target facts already used by the parser and path-map insertion.
+bool SidesList::rva0032BD64(int key, int index, PolygonalArea *out)
+{
+    if(!out) return false;
+    IntE8VectorListMap::iterator it=m_castlePaths.find(key);
+    if(it._M_node==m_castlePaths.end()._M_node) return false;
+    int count=it->second.size();
+    if(index>=count) return false;
+    E8Vector &path=it->second[index];
+    int points=path.size();
+    if(!points) return false;
+    for(E8Vector::iterator p=path.begin();p!=path.end();++p)
+        out->rva005CB260(*p);
+    return true;
 }

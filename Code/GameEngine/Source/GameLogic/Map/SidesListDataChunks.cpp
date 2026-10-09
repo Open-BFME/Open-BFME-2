@@ -45,6 +45,7 @@ extern const StaticNameKey TheKey_objectIsABase;		// VA 0x00DBDD0C
 extern const StaticNameKey TheKey_objectBaseName;		// VA 0x00DBDD14
 extern const StaticNameKey TheKey_objectBasePriority;	// VA 0x00DBDD84
 extern const StaticNameKey TheKey_objectBasePhase;		// VA 0x00DBDD8C
+extern const StaticNameKey TheKey_playerAIType;
 extern const StaticNameKey TheKey_playerName;			// VA 0x00DBDE24
 extern const StaticNameKey TheKey_teamOwner;			// VA 0x00DBD9FC
 extern const StaticNameKey TheKey_teamLibraryMapName;	// VA 0x00DBDC1C
@@ -439,6 +440,7 @@ public:
 	bool rva0032F0AA(DataChunkInput &file, void *info);	// 0x0032F0AA, the "Teams" callback
 	void discardOverriddenScriptsAndTeams();
 	void addMusicScriptReference();
+	void rva0032FC70(int sideIndex, LibraryMapCache *cache);
 	void rva0032E474(SidesInfo *side, ScriptList *scripts, TeamsInfoRec *teams);
 	void linkLibraryMaps(int sideIndex, LibraryMapCache *cache, const _STL::vector<AsciiString> &libraryMaps,
 		AsciiStringNoCaseSet &visited, ScriptList *scripts, TeamsInfoRec *teams);
@@ -1195,4 +1197,40 @@ void SidesList::addMusicScriptReference()
     maps.push_back(name);
     linkLibraryMaps(neutral, &cache, maps, visited, &scripts, &teams);
     rva0032E474(neutralSide, &scripts, &teams);
+}
+
+// Native 32FC70..32FD8E RET8; WB A86890 independently binds SidesList,
+// PlayerAITypeSet::get and the two linkLibraryMaps calls. Native key DBDE9C
+// spells playerAIType; the record vector at PlayerAITypeSet+C has stride 16,
+// a name at +0 and library map names at +4. Original method name unknown.
+struct PlayerAITypeRecord {
+    AsciiString m_name;
+    _STL::vector<AsciiString> m_libraryMaps;
+};
+class PlayerAITypeSet {
+public:
+    int rva00215479(const AsciiString &name);
+    const PlayerAITypeRecord *get(int i) const { return &m_types[i]; }
+private:
+    char m_prefix[0xC];
+    _STL::vector<PlayerAITypeRecord> m_types;
+};
+extern PlayerAITypeSet *ThePlayerAITypeSet;
+
+void SidesList::rva0032FC70(int sideIndex, LibraryMapCache *cache)
+{
+    SidesInfo *side = getSideInfo(sideIndex);
+    AsciiStringNoCaseSet visited;
+    ScriptList scripts;
+    TeamsInfoRec teams;
+    bool exists;
+    AsciiString aiType = side->m_dict.getAsciiString(TheKey_playerAIType, &exists);
+    if (exists) {
+        int index = ThePlayerAITypeSet->rva00215479(aiType);
+        if (index != -1)
+            linkLibraryMaps(sideIndex, cache, ThePlayerAITypeSet->get(index)->m_libraryMaps,
+                visited, &scripts, &teams);
+    }
+    linkLibraryMaps(sideIndex, cache, side->m_libraryMaps, visited, &scripts, &teams);
+    rva0032E474(side, &scripts, &teams);
 }
