@@ -1,7 +1,6 @@
 // ?parseVolumeSliderMultiplier@AudioEventInfo@@SAXPAVINI@@PAX1PBX@Z
-// partial score=0.98 date=2026-10-07
 // cl: /O1 /arch:SSE /G7 /Oy- /DNDEBUG /MD /EHs-c- /Oi-
-// ?parseVolumeSliderMultiplier@AudioEventInfo@@SAXPAVINI@@PAX1PBX@Z, retail 0x001D9E91, 208 bytes.
+// ?parseVolumeSliderMultiplier@AudioEventInfo@@SAXPAVINI@@PAX1PBX@Z, retail 0x001D9E91, 209 bytes (complete epilogue; prior queue extent 208 truncated final RET byte).
 // BFME1 donor reference/open-bfme-1/game/GameEngine/Source/Common/INI/AudioEventInfoParseVolumeSliderMultiplier.cpp
 // proves class AudioEventInfo and verb parseVolumeSliderMultiplier plus Slider/Multiplier token flow,
 // 8-byte {int slider, float multiplier} entry with -1/1.0 defaults and vector push_back.
@@ -70,6 +69,7 @@ public:
 // ?parseVolumeSliderMultiplier@AudioEventInfo@@SAXPAVINI@@PAX1PBX@Z
 void AudioEventInfo::parseVolumeSliderMultiplier(INI *ini, void *, void *store, const void *)
 {
+	{
 	BfmeE8 entry;
 	entry.m_slider = -1;
 	entry.m_multiplier = 1.0f;
@@ -88,6 +88,7 @@ void AudioEventInfo::parseVolumeSliderMultiplier(INI *ini, void *, void *store, 
 		goto multiplier_error;
 	}
 	goto slider_error;
+	}
 
 slider_error:
 	{
