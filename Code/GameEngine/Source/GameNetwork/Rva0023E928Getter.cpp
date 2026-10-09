@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /Oy- /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ?rva0023E928@Rva0023E928@@QBE?AVUnicodeString@@XZ @0x0023E928 (27B):
 // RVO UnicodeString getter copying the member at +0x24 through the rowed
 // wide StringBase copy ctor at 0x37050 into the hidden return pointer.

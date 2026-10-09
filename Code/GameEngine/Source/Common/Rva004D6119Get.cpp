@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /Oy- /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // ?rva004D6119@Rva004D6119@@QBE?AVUnicodeString@@XZ @0x004D6119 (27B):
 // Value-returning wide-string getter, same shape as PlayerTemplate::getDisplayName
 // @0x00449B8F (27B) and GlobalData::rva002360FC @0x002360FC (30B, 3B larger for
