@@ -130,7 +130,7 @@ class InGameUI { public: Rva005CB260 *rva000CF155(); };
 class Rva005CB265 { public: virtual int rva005CB265(); };
 class Rva0054CBEFTarget { public: void method(int); };
 extern InGameUI *TheInGameUI;
-extern int g_Va00E05FAC;
+class AptStrategicMessageBox {private: static AptStrategicMessageBox *s_instance; friend class GameLogic;};
 
 extern ControlBar *TheControlBar;
 extern NameKeyGenerator *TheNameKeyGenerator;
@@ -151,8 +151,8 @@ void GameLogic::rva00376D49(void)
 	TheControlBar->rva0031AD8F();
 	TheControlBar->hideSpecialPowerShortcut();
     ((Rva005CB265*)TheInGameUI->rva000CF155())->Rva005CB265::rva005CB265();
-    if (g_Va00E05FAC)
-        ((Rva0054CBEFTarget*)g_Va00E05FAC)->method(1);
+    if ((int)AptStrategicMessageBox::s_instance)
+        ((Rva0054CBEFTarget*)(int)AptStrategicMessageBox::s_instance)->method(1);
 	if (g_Va00A04908)
 	{
 		Rva00518262Enable();

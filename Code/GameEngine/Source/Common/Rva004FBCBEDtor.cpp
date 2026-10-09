@@ -2,7 +2,7 @@
 //
 // ??1Rva004FBCBE@@UAE@XZ 0x004FBCBE 96B: virtual dtor with two wide strings at
 // +8/+0x0C plus flag at +0x25 gating a pinned target call through global
-// g_Va00E05FAC (row says int but code uses its value as the receiver, noted).
+// (int)AptStrategicMessageBox::s_instance (row says int but code uses its value as the receiver, noted).
 // Vtable entry 0x00C634E4 then base 0x00BC6F20 with no base call; callers are
 // the deleting dtor at 0x004FBD1E and a tail-jmp from ??1Rva004FF2C0. Boundary
 // from int3 padding; byte verification decides.
@@ -14,7 +14,7 @@ public:
 	void method(int arg);
 };
 
-extern int g_Va00E05FAC;
+class AptStrategicMessageBox {private: static AptStrategicMessageBox *s_instance; friend class Rva004FBCBE;};
 
 extern const void *const g_00BC6F20[];
 
@@ -45,8 +45,8 @@ private:
 Rva004FBCBE::~Rva004FBCBE()
 {
 	if (m_25) {
-		if (g_Va00E05FAC != 0) {
-			((Rva0054CBEFTarget *)(void *)g_Va00E05FAC)->method(1);
+		if ((int)AptStrategicMessageBox::s_instance != 0) {
+			((Rva0054CBEFTarget *)(void *)(int)AptStrategicMessageBox::s_instance)->method(1);
 		}
 	}
 }

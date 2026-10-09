@@ -165,16 +165,16 @@ int Rva00376D1DGet(void)
 	return g_Va00A04908;
 }
 
-extern int g_Va00E05FAC;
-// g_Va00E05FAC: matched references place it at VA 0xe05fac (zero-filled .bss).
-int g_Va00E05FAC;
+class AptStrategicMessageBox {private: static AptStrategicMessageBox *s_instance; friend int Rva00376D23Get(void);};
+// (int)AptStrategicMessageBox::s_instance: matched references place it at VA 0xe05fac (zero-filled .bss).
+
 
 // ?Rva00376D23Get@@YAHXZ @ 0x00376d23 (6B) over 0x00E05FAC.
 // Follows a ret (prev C3), no .rdata vtable slot, no direct callers,
 // no branch sources. Opaque address-derived name.
 int Rva00376D23Get(void)
 {
-	return g_Va00E05FAC;
+	return (int)AptStrategicMessageBox::s_instance;
 }
 
 extern int g_Va00E032FC;

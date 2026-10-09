@@ -7,7 +7,7 @@
 // Each stores its vtable; when its flag byte (+0x10, +0x08 and +0x0C respectively) is set and the global
 // at VA 0x00E05FAC is non-null, calls the pinned Rva0054CBEFTarget::method
 // 0x0054CBEF on it with 0 (the same gated call, with 1, as the rowed
-// ??1Rva004FBCBE, whose g_Va00E05FAC spelling is reused); then the inline
+// ??1Rva004FBCBE, whose (int)AptStrategicMessageBox::s_instance spelling is reused); then the inline
 // base dtor resets to 0x00C75290 (Rva005CF872, as in Rva005CFDA6Dtor.cpp).
 // Identities unproven; address-derived names.
 
@@ -17,7 +17,7 @@ public:
 	void method(int arg);
 };
 
-extern int g_Va00E05FAC;
+class AptStrategicMessageBox {private: static AptStrategicMessageBox *s_instance; friend class Rva005CF9FF; friend class Rva005CFA43; friend class Rva005CFA87;};
 
 class Rva005CF872
 {
@@ -44,8 +44,8 @@ private:
 
 Rva005CF9FF::~Rva005CF9FF()
 {
-	if (m_flag && g_Va00E05FAC != 0)
-		((Rva0054CBEFTarget *)(void *)g_Va00E05FAC)->method(0);
+	if (m_flag && (int)AptStrategicMessageBox::s_instance != 0)
+		((Rva0054CBEFTarget *)(void *)(int)AptStrategicMessageBox::s_instance)->method(0);
 }
 
 class Rva005CFA43 : public Rva005CF872
@@ -60,8 +60,8 @@ private:
 
 Rva005CFA43::~Rva005CFA43()
 {
-	if (m_flag && g_Va00E05FAC != 0)
-		((Rva0054CBEFTarget *)(void *)g_Va00E05FAC)->method(0);
+	if (m_flag && (int)AptStrategicMessageBox::s_instance != 0)
+		((Rva0054CBEFTarget *)(void *)(int)AptStrategicMessageBox::s_instance)->method(0);
 }
 
 class Rva005CFA87 : public Rva005CF872
@@ -77,7 +77,7 @@ private:
 
 Rva005CFA87::~Rva005CFA87()
 {
-	if (m_flag && g_Va00E05FAC != 0)
-		((Rva0054CBEFTarget *)(void *)g_Va00E05FAC)->method(0);
+	if (m_flag && (int)AptStrategicMessageBox::s_instance != 0)
+		((Rva0054CBEFTarget *)(void *)(int)AptStrategicMessageBox::s_instance)->method(0);
 }
 

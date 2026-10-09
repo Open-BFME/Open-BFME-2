@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 // ?bfmeShowDisconnectScreen@@YAXXZ @0x00512DE1 104B: show DisconnectScreen.apt unless up.
-// Target evidence: g_Va00A048CC jne ret then g_Va00E05FAC int-as-receiver method 0x0054CBEF then Rva004E400DEnable Rva004E855CClose Rva0051B11CEnable then TheInGameUI slot 0x178 with 1 then TheWindowManager slot 0x80 with DisconnectScreen.apt then slot 0 with 0; caller turnOnScreen 0x004D4179.
+// Target evidence: g_Va00A048CC jne ret then (int)AptStrategicMessageBox::s_instance int-as-receiver method 0x0054CBEF then Rva004E400DEnable Rva004E855CClose Rva0051B11CEnable then TheInGameUI slot 0x178 with 1 then TheWindowManager slot 0x80 with DisconnectScreen.apt then slot 0 with 0; caller turnOnScreen 0x004D4179.
 #include "ascii_string.h"
 
 class Rva0054CBEFTarget
@@ -8,7 +8,7 @@ class Rva0054CBEFTarget
 public:
 	void method(int arg);
 };
-extern int g_Va00E05FAC;
+class AptStrategicMessageBox {private: static AptStrategicMessageBox *s_instance; friend void __cdecl bfmeShowDisconnectScreen(void);};
 
 void Rva004E400DEnable();
 void Rva004E855CClose();
@@ -67,8 +67,8 @@ void __cdecl bfmeShowDisconnectScreen(void)
 {
 	if (g_Va00A048CC != 0)
 		return;
-	if (g_Va00E05FAC != 0)
-		((Rva0054CBEFTarget *)(void *)g_Va00E05FAC)->method(0);
+	if ((int)AptStrategicMessageBox::s_instance != 0)
+		((Rva0054CBEFTarget *)(void *)(int)AptStrategicMessageBox::s_instance)->method(0);
 	Rva004E400DEnable();
 	Rva004E855CClose();
 	Rva0051B11CEnable();

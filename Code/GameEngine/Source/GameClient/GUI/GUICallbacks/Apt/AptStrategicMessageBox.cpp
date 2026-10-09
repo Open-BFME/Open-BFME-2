@@ -28,9 +28,10 @@ public:
 	static void rva0054C729();
 
 private:
+    static AptStrategicMessageBox *s_instance;
 };
 
-extern int g_Va00E05FAC;
+AptStrategicMessageBox *AptStrategicMessageBox::s_instance;
 
 // Address-derived view of the virtual entry called by the singleton release
 // body. Its original method identity remains unresolved.
@@ -44,13 +45,13 @@ public:
 AptStrategicMessageBox::AptStrategicMessageBox()
 	: Rva0054D2CF(13, "StrategicMessageBox")
 {
-	g_Va00E05FAC = (int)this;
+	s_instance = this;
 }
 
 // AptStrategicMessageBox::CreateSingleton, retail 0x0054C7C7.
 void AptStrategicMessageBox::CreateSingleton()
 {
-	g_Va00E05FAC = (int)new AptStrategicMessageBox;
+	s_instance = new AptStrategicMessageBox;
 }
 
 // ?rva0054C729@AptStrategicMessageBox@@SAXXZ, retail 0x0054C729. Target
@@ -60,8 +61,8 @@ void AptStrategicMessageBox::CreateSingleton()
 // name remains unresolved.
 void AptStrategicMessageBox::rva0054C729()
 {
-	void *released = g_Va00E05FAC
-		? ((Rva0054C729Vtable *)(void *)g_Va00E05FAC)->rva0054C729VtableSlot0(0)
+	void *released = s_instance
+		? ((Rva0054C729Vtable *)(void *)s_instance)->rva0054C729VtableSlot0(0)
 		: 0;
 	::operator delete(released);
 }
