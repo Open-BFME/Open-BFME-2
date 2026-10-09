@@ -137,6 +137,7 @@ class AptPlayer
 public:
 	void PopFocus(AptFocusTarget *target);
  void SetExtern(const char *name,int value);
+ void rva00223E4B(const char *name,char *value);
 // Native vtable BE6E80 has AddLevel at +50 (entry 20). Earlier slots
  // are declaration-only positions; their original names and hierarchy remain unknown.
 #define APT_PLAYER_SLOT(n) virtual void aptPlayerSlot##n();
@@ -266,4 +267,33 @@ int AptPlayer::AddLevel(AsciiString directory,AsciiString file,bool show,int par
   m_levelData[level].m_flags|=1;
  }
  return level;
+}
+
+extern "C" char *__cdecl strcpy(char *,const char *);
+// Native223E4B..223F4B: query prefixes return extern/fscommand/0;
+// normal lookup resolves map20 then SkipLevelN and invokes node8 with
+// contextC, output buffer, and zero. Original query method name unproven.
+void AptPlayer::rva00223E4B(const char *name,char *value)
+{
+ if(!name || !value) return;
+ value[0]=0;
+ if(name[0]=='?') {
+  ++name;
+  Rva0041534BIter found=reinterpret_cast<AptExternTable *>(m_commandMap+0x14)->find(AsciiString(AptUtils::SkipLevelN(name)));
+  if(found.m_node) strcpy(value,"extern");
+  else {
+   Rva0041534BIter command=reinterpret_cast<AptExternTable *>(m_commandMap)->find(AsciiString(name));
+   if(command.m_node) strcpy(value,"fscommand");
+   else strcpy(value,"0");
+  }
+ } else {
+  Rva0041534BIter found=reinterpret_cast<AptExternTable *>(m_commandMap+0x14)->find(AsciiString(name));
+  if(!found.m_node) {
+   found=reinterpret_cast<AptExternTable *>(m_commandMap+0x14)->find(AsciiString(AptUtils::SkipLevelN(name)));
+  }
+  if(found.m_node) {
+   AptExternNode *node=static_cast<AptExternNode *>(found.m_node);
+   node->handle.invoke(node->context,(int)value,0);
+  }
+ }
 }
