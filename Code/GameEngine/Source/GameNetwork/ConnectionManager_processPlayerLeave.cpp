@@ -142,7 +142,6 @@ private:
 	FrameDataManager *m_frameData[MAX_SLOTS];
 };
 
-// ?isPlayerConnected@ConnectionManager@@QAE_NH@Z present-unmatched
 Bool ConnectionManager::isPlayerConnected(Int playerID)
 {
 	return playerID == m_localSlot ||
