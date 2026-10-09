@@ -10,6 +10,7 @@
 // buffer at +0x48 rather than +0x50, so the reduced model below is laid out by
 // BFME 2's own offsets.  /G7 is the unit's tell.
 
+#include "../../../../../reference/shims/bfme_mesh_refcount_link/refcount.h"
 #include "refcount.h"
 #include "vector3.h"
 #include "vector4.h"
