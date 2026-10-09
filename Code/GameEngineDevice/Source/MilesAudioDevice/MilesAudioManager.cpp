@@ -147,6 +147,7 @@ struct AudioEventChannelVolume {
 // prep3DSample passes +0x94 as AIL_set_3D_sample_distances' max distance and
 // +0x98 (non-global sounds) as its min distance.
 struct AudioEventInfo {
+    int getVolumeSlider(void);
     char at00[0x08];
     AsciiString m_audioName;                 // +0x08
     char at0C[0x44 - 0x0C];
@@ -555,6 +556,26 @@ struct AudioAreaCorner {
     bool m_valid;                        // +0x0C
 };
 
+// The same five corners as recalculateMicrophone's local (rowed: element
+// ctor 0x00051CA2 with the folded empty dtor; array ctor 0x00052751) and the
+// rowed five-corner comparison 0x00051CF1.
+class Rva00051CA2 {
+public:
+    Rva00051CA2();
+    ~Rva00051CA2();
+private:
+    float x, y, z;
+    bool active;
+};
+class Rva0005276C {
+public:
+    Rva0005276C();
+    ~Rva0005276C() {}
+private:
+    Rva00051CA2 slots[5];
+};
+class Rva00051CF1 { public: bool rva00051CF1(Rva00051CF1 &other); };
+
 struct AudioTriggerArea {
     PolygonTrigger *m_trigger;
     float m_level;
@@ -579,7 +600,13 @@ struct Rva0005BA08InfoRef;
 // setOcclusionLevels divides the listener distance by +0x30 when it is within
 // +0x34 (squared); the 0x5213E volume update reads +0x1C..+0x2C.
 struct MicrophoneSettings {
-    char at00[0x1C];
+    float m_at00;                        // +0x00, fraction past the far limit
+    float m_at04;                        // +0x04, squared-distance scale
+    float m_at08;                        // +0x08, numerator between the limits
+    float m_at0C;                        // +0x0C, near squared limit
+    float m_at10;                        // +0x10, numerator past the far limit
+    float m_at14;                        // +0x14, far squared limit
+    float m_at18;                        // +0x18, pull toward corner 0
     float m_at1C;                        // +0x1C, attenuation start distance
     float m_at20;                        // +0x20, squared distance below which nothing attenuates
     float m_at24;                        // +0x24, attenuation end distance
@@ -587,7 +614,10 @@ struct MicrophoneSettings {
     float m_at2C;                        // +0x2C, maximum attenuation
     float m_at30;                        // +0x30
     float m_at34;                        // +0x34
-    char at38[0x48 - 0x38];
+    float m_at38;                        // +0x38, outer corner distance
+    float m_at3C;                        // +0x3C, outer squared limit
+    float m_at40;                        // +0x40, inner corner distance
+    float m_at44;                        // +0x44, inner squared limit
 };
 
 struct AudioSettings {
@@ -619,6 +649,7 @@ struct AudioSettings {
 
 extern "C" __declspec(dllimport) void __stdcall AIL_set_3D_sample_distances(void *sample, float maxDistance, float minDistance);
 extern "C" __declspec(dllimport) void __stdcall AIL_set_3D_position(void *sample, float x, float y, float z);
+extern "C" __declspec(dllimport) void __stdcall AIL_set_3D_orientation(void *obj, float xFace, float yFace, float zFace, float xUp, float yUp, float zUp);
 extern "C" __declspec(dllimport) void __stdcall AIL_set_3D_sample_volume(void *sample, float volume);
 extern "C" __declspec(dllimport) void __stdcall AIL_set_sample_reverb_levels(void *sample, float dry, float wet);
 extern "C" __declspec(dllimport) void __stdcall AIL_set_3D_sample_effects_level(void *sample3D, float level);
@@ -869,8 +900,9 @@ public:
     // Slot 98 (+0x188, retail vftable entry 0x007C5738).
     virtual void onAudioLODChanged(void);
     virtual void slot99(); virtual void slot100();
-    virtual void slot101(); virtual void slot102(); virtual void slot103(); virtual void slot104(); virtual void slot105();
-    virtual void slot106();
+    virtual void slot101(); virtual void slot102(); virtual void slot103(); virtual void slot104();
+    virtual void slot105(Coord3D *cameraPos);
+    virtual void slot106(Rva0005276C *corners);
     virtual bool rva000516EF(const Coord3D *pos);
     virtual void slot108(); virtual void slot109();
     // Slot 110 (+0x1B8), the first call init() makes.
@@ -886,7 +918,7 @@ public:
     void rva000562A2(int key, const void *value);
     void rva0005A92A(int key, Rva0005A084Vector *output);
     void rva0005B137(void);
-    void rva00052B53(void);
+    void recalculateMicrophone(void);
     void rva0005DAFC(int viewType);
     int rva0005A7BE(AudioEventRTS *event, int arg1);
     void rva0005AF92(AudioEventInfo *info);
@@ -920,6 +952,7 @@ public:
         void reset(void);
         void rva00052048(int index);
         void rva00052015(int arg);
+        float rva0005910F(AudioEventRTS *event);
         void refreshAll(void);
         // Distance attenuation of +0x94 (WB 0x77A260, unnamed) from the
         // per-view microphone settings and the camera-to-microphone offset.
@@ -1047,7 +1080,10 @@ protected:
     virtual void loadPostProcess(void);
 private:
     AudioSettings *m_audioSettings;      // +0x10 (Zero Hour name)
-    char at14[0x3C - 0x14];
+    char at14[0x18 - 0x14];
+    Coord3D m_micPos;                    // +0x18, Miles listener position
+    Coord3D m_micDir;                    // +0x24, Miles listener facing
+    Coord3D m_cameraPos;                 // +0x30, camera at the last recalculation
     AudioAreaCorner m_corners[5];        // +0x3C, entries 1..4 used by 0x53854
     float m_at8C;                        // +0x8C, distance occlusion scale
     char at90[0x94 - 0x90];
@@ -1088,7 +1124,9 @@ private:
     unsigned int m_providerCount;        // +0x9CC
     unsigned int m_selectedProvider;     // +0x9D0, -1 when none
     void *m_mutex;                       // +0x9D4
-    char at9D8[0x9E8 - 0x9D8];
+    char at9D8[0x9E0 - 0x9D8];
+    void *m_listener;                    // +0x9E0 (Zero Hour name), unselectProvider closes it
+    char at9E4[0x9E8 - 0x9E4];
     MilesFileTextMap m_fileText;         // +0x9E8
     _STL::vector<UnicodeString> m_pendingFileText;  // +0x9FC
     _STL::vector<AsciiString> m_unknownFileNames;   // +0xA08
@@ -3659,7 +3697,7 @@ void MilesAudioManager::rva0005DAFC(int viewType)
         m_at678 = viewType;
         at6A5 = 1;
         internalSetReverbRoomType(m_atBE4);
-        rva00052B53();
+        recalculateMicrophone();
         reinterpret_cast<Rva0005C892 *>(this)->rva0005C892();
     }
 }
@@ -3687,6 +3725,22 @@ bool MilesAudioManager::rva00053606(Rva00051107AudioRequest *req)
     if (req->m_file.isOpen() && !reinterpret_cast<Rva00050DBD *>(&req->m_file)->rva00050DBD())
         return false;
     return true;
+}
+
+// Retail 0x0005910F (address-derived): the volume of the float table at +0xC8
+// for an event, indexed by its info's volume slider, whether it is positional
+// (or a type 3 info), and two flags: the name is not tracked in +0xA0, and the
+// info has no channel volumes.
+float MilesAudioManager::GlobalVolumeData::rva0005910F(AudioEventRTS *event)
+{
+    int positional = event->isPositionalAudio() || event->getAudioEventInfo()->m_atB0 == 3 ? 1 : 0;
+    int flags = 0;
+    if (m_names.size() == 0 || m_names.find(reinterpret_cast<AudioEventInfoVirtuals *>(const_cast<AudioEventInfo *>(event->getAudioEventInfo()))->slot1()) == m_names.end())
+        flags = 1;
+    AudioEventInfo *info = const_cast<AudioEventInfo *>(event->getAudioEventInfo());
+    if (info->m_channelVolumes.empty())
+        flags |= 2;
+    return reinterpret_cast<float *>(reinterpret_cast<char *>(this) + 0xC8)[flags + (positional + info->getVolumeSlider() * 2) * 4];
 }
 
 extern "C" __declspec(dllimport) void __stdcall AIL_resume_3D_sample(void *sample3D);
