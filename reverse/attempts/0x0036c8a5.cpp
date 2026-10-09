@@ -1,4 +1,4 @@
-// ?rva0036C8A5@Rva0036C6AFState@@QAEXPAUCoord3D@@PA_N_N@Z
+// ?rva0036C8A5@Rva0036C6AFState@@QAE?AUFollowPosition@@PA_N_N@Z
 // partial score=0.9594732853353543 date=2026-10-10
 // cl: /O1 /arch:SSE /G7 /Oy- /DNDEBUG /MD /ICode/Libraries/Include/Lib /I.
 // Native 00368C7A..00368D12, 152B, RET12. The receiver's object at +08
@@ -145,34 +145,21 @@ class Object{public:void rva0028AE6D();char pad0[0x38];Coord3D position;char pad
 class StateMachine{public:void setGoalPosition(const Coord3D*,float);char pad0[0x14];Object*owner;};
 class FollowTerrain:public FollowSlots<6>{public:virtual float height(float,float,Coord3D*)=0;};class TerrainLogic;extern TerrainLogic*TheTerrainLogic;
 enum StateReturnType{STATE_CONTINUE=0,STATE_FAILURE=-2};
-class Rva0036C6AFState:public FollowSlots<4>{public:virtual StateReturnType rva0036C6AF();void rva0036C8A5(Coord3D*,bool*,bool);bool rva0036CA3B(const Coord3D*,float);char pad4[0x18-4];StateMachine*machine;char pad1c[4];bool enabled;char pad21[3];int counter;};
-StateReturnType Rva0036C6AFState::rva0036C6AF(){
- counter=0;Object*owner=machine->owner;owner->clear(155);FollowAI*ai=owner->ai;if(!ai)return STATE_FAILURE;ai->follow=true;if(owner->status&1)return STATE_FAILURE;
- ai->chooseLocomotorSet(0);Rva00368C7AMetrics*locomotor=ai->metrics;if(!locomotor)return STATE_FAILURE;
- Coord3D goal;bool result=false;rva0036C8A5(&goal,&result,enabled);float desired=goal.z+locomotor->value48;
- float ground=((FollowTerrain*)TheTerrainLogic)->height(goal.x,goal.y,0);float minimum=ground+locomotor->value48*1.25f;
- if(desired>minimum){desired=goal.z+locomotor->value48*0.25f;if(!(desired>minimum))desired=minimum;}goal.z=desired;
- if(ai->mode!=2){goal.z=ground+locomotor->value48;goal.x=(goal.x+owner->position.x)*0.5f;goal.y=(goal.y+owner->position.y)*0.5f;}
- machine->setGoalPosition(&goal,3.4028234663852886e+38f);
- if(!result&&!ai->test(3))((Rva00368C7A*)ai)->rva003681F2(&goal,g_00E01EC0,0,true);else((Rva00368C7A*)ai)->rva003681F2(&goal,g_00E01EC4,0,true);
- ((Rva0036748E*)ai)->rva0036C897(false);if(!ai->success)return STATE_FAILURE;
- if(ai->test(6)&&ai->victim!=INVALID_OBJECT_ID){Object*target=TheGameLogic->findObjectByID(ai->victim);if(target)target->set(72);}
- return STATE_CONTINUE;
-}
-
+struct FollowPosition;
+class Rva0036C6AFState:public FollowSlots<4>{public:virtual StateReturnType rva0036C6AF();FollowPosition rva0036C8A5(bool*,bool);bool rva0036CA3B(const Coord3D*,float);char pad4[0x18-4];StateMachine*machine;char pad1c[4];bool enabled;char pad21[3];int counter;};
 // Native36C8A5..36CA39 RET12; donor entry provides purpose and caller ABI, no clean BF1 helper found.
 struct FollowSamplingData{char pad0[0x74];float limit,step,slope;};
 struct FollowAIData{char pad0[4];FollowSamplingData*data;};
 struct FollowFacing{char pad0[8];float x;char padc[12];float y;char pad1c[12];float z;};
-struct FollowPosition:public Coord3D{__forceinline FollowPosition(float xx,float yy,float zz){x=xx;y=yy;z=zz;}__forceinline FollowPosition operator*(float f)const{return FollowPosition(x*f,y*f,z*f);}__forceinline FollowPosition operator+(const FollowPosition&r)const{return FollowPosition(x+r.x,y+r.y,z+r.z);}};
-void Rva0036C6AFState::rva0036C8A5(Coord3D*out,bool*shortGoal,bool longer){
+struct FollowPosition:public Coord3D{__forceinline FollowPosition(const FollowPosition&r){x=r.x;y=r.y;z=r.z;}__forceinline FollowPosition(float xx,float yy,float zz){x=xx;y=yy;z=zz;}__forceinline FollowPosition operator*(float f)const{return FollowPosition(x*f,y*f,z*f);}__forceinline FollowPosition operator+(const FollowPosition&r)const{return FollowPosition(x+r.x,y+r.y,z+r.z);}};
+FollowPosition Rva0036C6AFState::rva0036C8A5(bool*shortGoal,bool longer){
  Object*owner=machine->owner;FollowAI*ai=owner->ai;FollowPosition best(owner->position.x,owner->position.y,owner->position.z);float reached=0.0f;
- if(!ai){out->x=best.x;out->y=best.y;out->z=best.z;return;} {FollowSamplingData*data=((FollowAIData*)ai)->data;float height=owner->position.z;FollowFacing*transform=(FollowFacing*)owner;FollowPosition direction(transform->x,transform->y,transform->z);float fx=direction.x,fy=direction.y;float limit=data->limit,step=data->step,slope=data->slope;if(longer)limit*=2.0f;
+ if(!ai)return best; {FollowSamplingData*data=((FollowAIData*)ai)->data;float height=owner->position.z;FollowFacing*transform=(FollowFacing*)owner;FollowPosition direction(transform->x,transform->y,transform->z);float fx=direction.x,fy=direction.y;float limit=data->limit,step=data->step,slope=data->slope;if(longer)limit*=2.0f;
   for(float distance=step;distance<=limit;distance+=step){
    FollowPosition candidate=FollowPosition(owner->position.x,owner->position.y,owner->position.z)+FollowPosition(distance*fx,distance*fy,direction.z*distance);
    if(!rva0036CA3B(&candidate,height+distance*slope))break;best=candidate;reached=distance;
   }
   if(limit*0.5f>reached)*shortGoal=true;else *shortGoal=false;
  }
- out->x=best.x;out->y=best.y;out->z=best.z;
+ return best;
 }
