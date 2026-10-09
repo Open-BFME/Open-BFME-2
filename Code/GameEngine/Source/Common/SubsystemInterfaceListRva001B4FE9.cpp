@@ -1,4 +1,4 @@
-// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /O1 /G7 /arch:SSE /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva001B4FE9@SubsystemInterfaceList@@QAEXXZ RVA 0x001B4FE9 47B
 // Evidence: leaf lane pin SubsystemInterfaceList::rva001B4FE9; caller
@@ -18,15 +18,20 @@ public:
 	virtual void vf6();
 	virtual void vf7();
 	virtual void vf8();
+ virtual void vf9();
 };
+
+struct SubsystemEntry8 {SubsystemInterface *object;unsigned extra;};
 
 class SubsystemInterfaceList
 {
 public:
 	void rva001B4FE9();
+ void rva001B4F6D();
 
 private:
-	unsigned char m_pad[0x18]; // +0 unknown, vector at +0x18
+	_STL::vector<SubsystemEntry8> m_primary;
+ _STL::vector<void*> m_pending;
 	_STL::vector<void *> m_vec; // +0x18
 };
 
@@ -39,4 +44,10 @@ void SubsystemInterfaceList::rva001B4FE9()
 	}
 	_STL::vector<void *> &v = m_vec;
 	v.erase(v.begin(), v.end());
+}
+
+void SubsystemInterfaceList::rva001B4F6D()
+{
+ for(_STL::vector<SubsystemEntry8>::reverse_iterator i=m_primary.rbegin();i!=m_primary.rend();++i)
+  i->object->vf9();
 }
