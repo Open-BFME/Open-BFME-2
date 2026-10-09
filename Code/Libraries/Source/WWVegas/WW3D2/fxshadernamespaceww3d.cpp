@@ -65,10 +65,14 @@ public:
 
 class FXShaderParameterSourceNamespaceWW3D {
 public:
+    void Rva0018BDA0OpacityOverride(ID3DXEffect *effect, D3DXHANDLE handle);
     class SourceNamespace_Fog : public FXShaderParameterSourceNamespace_Struct {
     public:
         virtual void ResolveBindings(const char *name, const char *handle, FXShaderParameterBinder *registry);
     };
+private:
+    unsigned char m_unknown[8];
+    float m_opacityOverride;
 };
 
 struct Rva001530E9Path {
@@ -109,6 +113,22 @@ protected:
 // initial .data value is zero; this provider lets those consumers link.
 float g_Va00DEDA28 = 0.0f;
 extern float g_Va00DEDA2C;
+extern bool ShaderOverbrightEnabled;
+
+// WorldBuilder ResolveBindings names the IsRenderingOverbright and
+// OpacityOverride paths; retail installs these callbacks at 18BD89/18BDA0.
+// The global is the existing ShaderClassApply owner at 9B5F84. The bound
+// callback takes this in ECX, reads float +8 and uses ID3DXEffect slot 30.
+void Rva0018BD89IsRenderingOverbright(ID3DXEffect *effect, D3DXHANDLE handle)
+{
+    effect->SetBool(handle, ShaderOverbrightEnabled);
+}
+
+void FXShaderParameterSourceNamespaceWW3D::Rva0018BDA0OpacityOverride(
+    ID3DXEffect *effect, D3DXHANDLE handle)
+{
+    effect->SetFloat(handle, m_opacityOverride);
+}
 
 void Rva0018BDB8FogIsEnabled(ID3DXEffect *effect, D3DXHANDLE handle)
 {
