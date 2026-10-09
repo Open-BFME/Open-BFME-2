@@ -98,9 +98,13 @@ public:
 };
 
 // Its destructor is 0x00490470, which ~Gen_00491580 (0x00491620) ends by calling.
+// Its constructor is declared like the destructor: retail's call from the
+// Gen_00491580 constructor lands on the rowed 24-byte body at 0x00355D4E, so
+// this unit must not emit an implicit inline copy of its own.
 class Rva00490470 : public Rva00490350Base
 {
 public:
+	Rva00490470(void);
 	virtual ~Rva00490470(void);
 };
 

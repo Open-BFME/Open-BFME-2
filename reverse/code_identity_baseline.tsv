@@ -132,7 +132,6 @@ Code/GameEngine/Source/Common/BfmeThing928FOne.cpp	?bfmeOne928F@BfmeThing928F@@Q
 Code/GameEngine/Source/Common/BfmeThingCDEDestructor.cpp	?bfmeCheckABI@BfmeThingCDE@@QAE_NXZ	?d_008f7990@BfmeThingCDE@@QAEXXZ	0x00739F50	unowned
 Code/GameEngine/Source/Common/BfmeThingCDEDestructor.cpp	?bfmeDtorCDE@BfmeThingCDE@@QAEXXZ	?d_008f7990@BfmeThingCDE@@QAEXXZ	0x00739F50	unowned
 Code/GameEngine/Source/Common/BfmeThreeHundredSix.cpp	?bfmeInsertQX@BfmeThingQX@@QAEPAU1@IIE@Z	?bfmeDoInsertQX@BfmeThingQX@@QAEXPADIE@Z	0x00029530	unowned
-Code/GameEngine/Source/Common/BfmeTwoStringVX.cpp	??0Gen_00491580@@QAE@ABVAsciiStringVX@@0@Z	??0Rva00490470@@QAE@XZ	0x00355D4E	wrong
 Code/GameEngine/Source/Common/BfmeWideResultForward.cpp	?bfmeForwardWideB@BfmeWideForwardB@@QAE?AUBfmeWideResult@@HHHH@Z	?bfmeMakeWideResult@BfmeWideResultSource@@QAE?AUBfmeWideResult@@HHHHHH@Z	0x00628770	unowned
 Code/GameEngine/Source/Common/BfmeWideResultForward.cpp	?forward009F29A0@BfmeWideForward009F29A0@@QAE?AUBfmeWideResult@@HHH@Z	?bfmeMakeWideResult@BfmeWideResultSource@@QAE?AUBfmeWideResult@@HHHHHH@Z	0x00628770	unowned
 Code/GameEngine/Source/Common/BigChainBaseDtorsO1.cpp	??1Rva005C9D30@@QAE@XZ	??1Rva005C67C0@@QAE@XZ	0x001F8167	unowned
@@ -702,7 +701,6 @@ Code/GameEngine/Source/Common/Rva00318C79Wrap.cpp	?rva00318C79@Rva00318C79Owner@
 Code/GameEngine/Source/Common/Rva0032FEF5Loop.cpp	?rva0032FEF5@Rva0032FEF5@@QAEXXZ	?resize@?$vector@V?$vector@URva0019D850Value@@V?$allocator@URva0019D850Value@@@_STL@@@_STL@@V?$allocator@V?$vector@URva0019D850Value@@V?$allocator@URva0019D850Value@@@_STL@@@_STL@@@2@@_STL@@QAEXIABV?$vector@URva0019D850Value@@V?$allocator@URva0019D850Value@@@_STL@@@2@@Z	0x0032FC70	unowned
 Code/GameEngine/Source/Common/Rva003413B2Unlock.cpp	?rva003413B2@Rva003413B2@@QAE_NXZ	?rva0028DB3C@Object@@QAEXXZ	0x0028DB3C	unowned
 Code/GameEngine/Source/Common/Rva003529B0Clone.cpp	??0Rva003529B0@@QAE@PBV0@@Z	??0Rva003525E0Pair@@QAE@ABV0@@Z	0x003B3FCD	unowned
-Code/GameEngine/Source/Common/Rva0035615DCtor.cpp	??0Rva0035615D@@QAE@ABVAsciiString@@ABVRva0036CA00Str@@1_N@Z	??0Rva00490470@@QAE@XZ	0x00355D4E	wrong
 Code/GameEngine/Source/Common/Rva00356413Method.cpp	?rva00356413@Rva00355F3E@@UAEXH@Z	?update@LoadScreen@@UAEXH@Z	0x00355FF9	unowned
 Code/GameEngine/Source/Common/Rva00362DBDCtor.cpp	??0Rva00362DBD@@QAE@H@Z	??0Rva00362D6C@@QAE@XZ	0x00362D25	unowned
 Code/GameEngine/Source/Common/Rva00368004Getter.cpp	?rva0036A75C@Rva00368004@@QAEHXZ	?rva0039E5B9@Team@@QAEXPAUCoord3D@@@Z	0x0039E5B9	unowned
@@ -745,7 +743,6 @@ Code/GameEngine/Source/Common/Rva00429093Voice.cpp	?rva00429093@Rva00429093@@QAE
 Code/GameEngine/Source/Common/Rva00429112Voice.cpp	?rva00429112@Rva00429112@@QAEHPAUArg@@H@Z	?pickAndPlayUnitVoiceResponse@@YAXPBVDrawableList@@W4Type@GameMessage@@PAVPickAndPlayInfo@@@Z	0x004DAAFD	unowned
 Code/GameEngine/Source/Common/Rva004340ACMethod.cpp	?rva004340AC@AptSaveLoad@@QAEXXZ	?rva00433F7F@AptSaveLoad@@QAEHXZ	0x00433F7F	unowned
 Code/GameEngine/Source/Common/Rva0043A0C1Progress.cpp	?rva0043A0C1@Rva0043A0C1@@QAEXH@Z	?update@LoadScreen@@UAEXH@Z	0x00355FF9	unowned
-Code/GameEngine/Source/Common/Rva0043A278Ctor.cpp	??0Rva0043A278@@QAE@XZ	??0Rva00490470@@QAE@XZ	0x00355D4E	wrong
 Code/GameEngine/Source/Common/Rva0043DABD.cpp	??0Rva0043DABD@@QAE@PAUTargetRef00217D4C@@@Z	??0Rva0057EE5C@@QAE@PAUTargetRef00217D4C@@@Z	0x0057EDB2	unowned
 Code/GameEngine/Source/Common/Rva00450B90PointerPartition.cpp	??$__partition@PAPAURva00450B90Item@@VRva00450B90Predicate@@@_STL@@YAPAPAURva00450B90Item@@PAPAU1@0VRva00450B90Predicate@@ABUbidirectional_iterator_tag@0@@Z	??RRva00450B90Predicate@@QBE_NPBURva00450B90Item@@@Z	0x00300021	wrong
 Code/GameEngine/Source/Common/Rva00453B06ObjListPush.cpp	?push_back@?$list@PAVRva00453B06Obj@@V?$allocator@PAVRva00453B06Obj@@@_STL@@@_STL@@QAEXABQAVRva00453B06Obj@@@Z	?insert@?$list@PAVRva00453B06Obj@@V?$allocator@PAVRva00453B06Obj@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVRva00453B06Obj@@U?$_Nonconst_traits@PAVRva00453B06Obj@@@_STL@@@2@U32@ABQAVRva00453B06Obj@@@Z	0x00453AB8	wrong
