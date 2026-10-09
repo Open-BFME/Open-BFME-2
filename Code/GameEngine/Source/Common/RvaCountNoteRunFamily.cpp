@@ -56,10 +56,16 @@ public:
 	void note(int value);
 };
 
+struct InsertRet003EF264;
 class Rva003EF264Sub
 {
 public:
-	void run(int a, int b);
+    InsertRet003EF264 *run(int resultAddress, int keyAddress);
+    void *unused;
+    void **buckets;
+    void **bucketEnd;
+    void **storageEnd;
+    unsigned count;
 };
 
 struct InsertRet0052B737
@@ -294,6 +300,59 @@ InsertRet0052B737 *Rva0052B737Sub::run(int resultAddress, int keyAddress)
         } while(cur!=0);
     }
     void *node=((_STL::Rva0052B6D9Provider*)this)->_M_new_node(*(const _STL::Rva0052B6D9Pair*)key);
+    *(void**)node=head;
+    buckets[bucket]=node;
+    ++count;
+    return result->set(node,this,1);
+}
+
+// Native 003EF264..003EF2E0: target insertion entry constructed by
+// region parser003EF467 is (AsciiString, manager pointer). Calls223149,
+// 69D6 and003EF066 prove hashing, string comparison and node creation.
+// Existing node provider has an address-derived nominal STL ABI view;
+// use it only for the observed copied 8B entry, preserving its uncertainty.
+struct InsertRet003EF264
+{
+    void *node;
+    void *owner;
+    unsigned char inserted;
+    InsertRet003EF264 *set(void *n, void *o, unsigned char i)
+    {
+        node = n;
+        owner = o;
+        inserted = i;
+        return this;
+    }
+};
+struct Rva003EF066Element { char bytes[1]; bool operator<(const Rva003EF066Element&) const; bool operator==(const Rva003EF066Element&) const; };
+namespace _STL {
+template<> struct hash<Rva003EF066Element> { unsigned operator()(const Rva003EF066Element&) const; };
+typedef pair<int const, Rva003EF066Element> Rva003EF066Pair;
+template<> class hashtable<Rva003EF066Pair, int, hash<int>, _Select1st<Rva003EF066Pair>, equal_to<int>, allocator<Rva003EF066Pair> >
+{
+friend class ::Rva003EF264Sub;
+    _Hashtable_node<Rva003EF066Pair> *_M_new_node(const Rva003EF066Pair &value);
+};
+typedef hashtable<Rva003EF066Pair, int, hash<int>, _Select1st<Rva003EF066Pair>, equal_to<int>, allocator<Rva003EF066Pair> > Rva003EF066Provider;
+}
+
+InsertRet003EF264 *Rva003EF264Sub::run(int resultAddress, int keyAddress)
+{
+    InsertRet003EF264 *result=(InsertRet003EF264*)resultAddress;
+    const void *key=(const void*)keyAddress;
+    int bucket=((Rva000427195*)this)->bucketIndex((const AsciiString*)key);
+    void *head=buckets[bucket];
+    void *cur=head;
+    if(cur!=0)
+    {
+        do
+        {
+            if(((const StringBase<char>*)((const char*)cur+4))->compare(*(const StringBase<char>*)key)==0)
+                return result->set(cur,this,0);
+            cur=*(void**)cur;
+        } while(cur!=0);
+    }
+    void *node=((_STL::Rva003EF066Provider*)this)->_M_new_node(*(const _STL::Rva003EF066Pair*)key);
     *(void**)node=head;
     buckets[bucket]=node;
     ++count;
