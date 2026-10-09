@@ -1,4 +1,5 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
+// stlport
 //
 // ?rva0045A748@AutoAbilityBehavior@@QAEXPAX_N@Z, retail 0x0045A748, 71 bytes.
 // If src is null or its string at +0x10 differs from the member at +0x20,
@@ -48,6 +49,7 @@ class AutoAbilityBehavior
 {
 public:
 	void rva0045A748(void *src, bool flag);
+	void rva0045A8C2(Object *source, Object *target, const struct Rva0045A8C2Options *options);
 	void rva0045A413();
 	void rva0045A421(void *src);
 
@@ -67,4 +69,44 @@ void AutoAbilityBehavior::rva0045A748(void *src, bool flag)
 	}
 	rva0045A413();
 	((UpdateModule *)this)->setWakeFrame(m_obj8, UPDATE_SLEEP_FOREVER);
+}
+
+// Target caller45AD11 supplies primary module receiver plus source-target-options.
+// Voice-response semantics follow matched AIUpdateInterface siblings; bit3 name unknown.
+#include <list>
+#include "../../../../../Libraries/Include/Lib/Coord3D.h"
+class Drawable;
+class Object {
+public:
+    Drawable *getDrawable() const;
+    const Coord3D *getPosition() const { return &position; }
+private:
+    char pad[0x38]; Coord3D position;
+};
+class DrawableList : public _STL::list<Drawable *> {
+public: ~DrawableList() throw();
+};
+class PickAndPlayInfo {
+public:
+    PickAndPlayInfo();
+    bool air; Drawable *drawTarget; void *weaponSlot; int specialPowerType;
+    unsigned int unknown10; Coord3D position; const Rva0045A8C2Options *commandOptions;
+};
+class GameMessage { public: enum Type { Rva7E3 = 0x7E3 }; };
+void pickAndPlayUnitVoiceResponse(const DrawableList *, GameMessage::Type, PickAndPlayInfo *);
+struct Rva0045A8C2Options { char pad[0x1c]; unsigned int options; };
+void AutoAbilityBehavior::rva0045A8C2(Object *source, Object *target, const Rva0045A8C2Options *options)
+{
+    if ((unsigned char)~(options->options >> 3) & 1) {
+        PickAndPlayInfo info;
+        info.commandOptions = options;
+        if (target) {
+            info.position = *target->getPosition();
+            info.drawTarget = target->getDrawable();
+        }
+        DrawableList list;
+        Drawable *drawable = source->getDrawable();
+        list.push_back(drawable);
+        pickAndPlayUnitVoiceResponse(&list, GameMessage::Rva7E3, &info);
+    }
 }
