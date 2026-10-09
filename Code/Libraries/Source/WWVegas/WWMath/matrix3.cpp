@@ -47,6 +47,10 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 
+// Native consumer views preserve inlined math and indexed matrix access.
+#include "../../../../../reference/shims/bfme_colmathaabox/wwmath.h"
+#include "../../../../../reference/shims/bfme_colmathaabox/vector3.h"
+#include "../../../../../reference/shims/bfme_matrix3_owner_link/matrix3.h"
 #include "rendobj.h"	// the bfmerendobj shim has to win the include guard
 #include "matrix3.h"
 #include "matrix3d.h"
@@ -313,9 +317,9 @@ int Matrix3::Is_Orthogonal(void) const
 	if (Vector3::Dot_Product(y,z) > WWMATH_EPSILON) return 0;
 	if (Vector3::Dot_Product(z,x) > WWMATH_EPSILON) return 0;
 
-	if (WWMath::Fabs(x.Length() - 1.0f) > WWMATH_EPSILON) return 0;
-	if (WWMath::Fabs(y.Length() - 1.0f) > WWMATH_EPSILON) return 0;
-	if (WWMath::Fabs(z.Length() - 1.0f) > WWMATH_EPSILON) return 0;
+	if (WWMath::Fabs(WWMath::Sqrt(x.Length2()) - 1.0f) > WWMATH_EPSILON) return 0;
+	if (WWMath::Fabs(WWMath::Sqrt(y.Length2()) - 1.0f) > WWMATH_EPSILON) return 0;
+	if (WWMath::Fabs(WWMath::Sqrt(z.Length2()) - 1.0f) > WWMATH_EPSILON) return 0;
 
 	return 1;
 }
@@ -329,7 +333,7 @@ void Matrix3::Re_Orthogonalize(void)
 	Vector3::Cross_Product(x,y,&z);
 	Vector3::Cross_Product(z,x,&y);
 
-	float len = x.Length();
+	float len = WWMath::Sqrt(x.Length2());
 	if (len < WWMATH_EPSILON) {
 		Make_Identity();
 		return;
@@ -337,7 +341,7 @@ void Matrix3::Re_Orthogonalize(void)
 		x /= len;
 	}
 
-	len = y.Length();
+	len = WWMath::Sqrt(y.Length2());
 	if (len < WWMATH_EPSILON) {
 		Make_Identity();
 		return;
@@ -345,7 +349,7 @@ void Matrix3::Re_Orthogonalize(void)
 		y /= len;
 	}
 
-	len = z.Length();
+	len = WWMath::Sqrt(z.Length2());
 	if (len < WWMATH_EPSILON) {
 		Make_Identity();
 		return;
