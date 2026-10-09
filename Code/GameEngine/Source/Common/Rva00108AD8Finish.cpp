@@ -22,7 +22,9 @@ struct IterBase
 	const HashTableClass *m_table;
 	IterBase(HashTableClass *t) : m_table(t) {}
 };
-#pragma optimize("s", off)
+// Current region flags already preserve the native95B loop. As in the
+// verified Rva000F1AD8Clear peer, leave iterator support under those flags
+// so its deleting destructor is the same kept28B body, not the old30B copy.
 class HashTableIteratorClass : public IterBase
 {
 	int m_index;
@@ -36,7 +38,6 @@ public:
 	bool Is_Done();
 	HashableClass *Get_Current() { return m_cur; }
 };
-#pragma optimize("", on)
 // ?Is_Done@HashTableIteratorClass@@QAE_NXZ present-unmatched
 inline bool HashTableIteratorClass::Is_Done() { return m_cur == 0; }
 class Base8
