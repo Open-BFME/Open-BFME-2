@@ -1,27 +1,24 @@
 // cl: /MD
-// ?rva0051732A@Rva0051732A@@QAEPAU1@PAUTargetRef00217D4C@@@Z @0x0051732A 27B
-// Refcounted-pointer setter: store raw TargetRef pointer at +0, if non-null
-// AddRef at +4 then call rowed fastcall Release at 0x0007DEEF, return this.
-// Callers at 0x0044C0DB and 0x005178C8; sole callee rowed.
-struct TargetRef00217D4C
+// Native51732A..517345 RET4; constructor from an owned four-byte handle.
+// OnYesToInvite at5177EB constructs a temporary here and immediately uses
+// the constructor's returned receiver; WB145D6E0 provides the named caller.
+// The previous raw-pointer setter view had identical bytes but hid the
+// constructor lifetime. The by-value input releases in the callee.
+struct TargetRef00217D4C {void *m_vtbl;int references;};
+void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
+struct Rva004F6986Member
 {
-	void *m_vtbl;
-	int references;
+ TargetRef00217D4C *m_ptr;
+ ~Rva004F6986Member(){if(m_ptr)ReleaseTreeHintRef00217D4C(m_ptr);}
 };
-void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
-
 struct Rva0051732A
 {
-	TargetRef00217D4C *m_ptr;
-	Rva0051732A *rva0051732A(TargetRef00217D4C *p);
+ TargetRef00217D4C *m_ptr;
+ Rva0051732A(Rva004F6986Member value);
 };
-
-Rva0051732A *Rva0051732A::rva0051732A(TargetRef00217D4C *p)
+Rva0051732A::Rva0051732A(Rva004F6986Member value)
 {
-	m_ptr = p;
-	if (p) {
-		++p->references;
-		ReleaseTreeHintRef00217D4C(p);
-	}
-	return this;
+ TargetRef00217D4C *p=value.m_ptr;
+ m_ptr=p;
+ if(p)++p->references;
 }
