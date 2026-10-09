@@ -23832,7 +23832,6 @@ uw_007810ed,,0x007810ED,11,Code/gen_small/uw_gen_013.cpp,matched,gen-funclet;obj
 uw_007810f8,,0x007810F8,11,Code/gen_small/uw_gen_013.cpp,matched,gen-funclet;object-symbol=$L3498
 uw_00781103,,0x00781103,11,Code/gen_small/uw_gen_010.cpp,matched,gen-funclet;object-symbol=$L7456
 uw_0078110e,,0x0078110E,11,Code/gen_small/uw_gen_010.cpp,matched,gen-funclet;object-symbol=$L7457
-uw_00781144,,0x00781144,8,Code/gen_small/uw_gen_013.cpp,matched,gen-funclet;object-symbol=$L3946
 uw_0078114c,,0x0078114C,11,Code/gen_small/uw_gen_012.cpp,matched,gen-funclet;object-symbol=$L546
 uw_00781157,,0x00781157,11,Code/gen_small/uw_gen_012.cpp,matched,gen-funclet;object-symbol=$L547
 uw_00781162,,0x00781162,11,Code/gen_small/uw_gen_010.cpp,matched,gen-funclet;object-symbol=$L7413
@@ -72755,3 +72754,4 @@ uw_007a21b9,,0x007A21B9,11,Code/GameEngine/Source/Common/Rva005D309D.cpp,matched
 uw_007a21c4,,0x007A21C4,11,Code/GameEngine/Source/Common/Rva005D309D.cpp,matched,gen-funclet;parent=??0Rva005D309D@@QAE@HABVAsciiString@@@Z;object-symbol=$L1494;FuncInfo959AB8 state3; native saved-this EBP-10 then callback member50 dtor5D2EA8; parent290 and independently recovered member73 both full byte and EH exact.
 uw_00781178,,0x00781178,11,Code/GameEngine/Source/GameLogic/Object/Behavior/Rva0039A1CADtor.cpp,matched,gen-funclet;parent=??1Rva0039A1CA@@UAE@XZ;object-symbol=$L5522;FuncInfo92BFA0 state5 proves parent39A1CA and saved this EBP-10; vector50 cleanup calls independently verified whole63B vector<RvaPair0039973B> dtor39973B; corrected owned key layout plus matched static allocator settings preserve parent123 and complete EH graph EXACT
 uw_00781183,,0x00781183,11,Code/GameEngine/Source/GameLogic/Object/Behavior/Rva0039A1CADtor.cpp,matched,gen-funclet;parent=??1Rva0039A1CA@@UAE@XZ;object-symbol=$L5523;FuncInfo92BFA0 state6 proves parent39A1CA and saved this EBP-10; vector5C cleanup calls independently verified whole63B vector<Rva00395D77> dtor39977A; full parent123 and complete EH graph EXACT
+uw_00781144,,0x00781144,8,Code/GameEngine/Source/GameLogic/Object/Behavior/Rva0039A1CADtor.cpp,matched,gen-funclet;parent=??1Rva0039A1CA@@UAE@XZ;object-symbol=$L5517;FuncInfo92BFA0 state0 proves saved this EBP-10 and Snapshot base cleanup; emitted Snapshot dtor49B47C is whole7B exact with BBB554 vtable; parent123 and complete EH graph EXACT
