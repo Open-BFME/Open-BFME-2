@@ -1,6 +1,4 @@
-// ?rva003C0E32@ScriptActions@@IAEXABVAsciiString@@H@Z
-// partial score=0.93 date=2026-10-01
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
 // ?rva003C0E32@ScriptActions@@IAEXABVAsciiString@@H@Z, retail 0x003C0E32 85 bytes.
 // Target evidence: ScriptActions dispatch caller at 0x003CD166, AsciiString temp via
 // pinned StringBase copy 0x000365F0, ScriptEngine global 0x009FE16C, pinned
@@ -11,7 +9,7 @@
 #include "ascii_string.h"
 
 class ScriptEngine;
-extern ScriptEngine *g_Va009FE16C;
+extern ScriptEngine *TheScriptEngine;
 
 class Rva00358752Opaque
 {
@@ -65,6 +63,16 @@ class Object
 public:
     char m_pad[0x244];
     Module **m_modules;
+    __forceinline ActionTarget *getActionTarget() const
+    {
+        for (Module **p = m_modules; *p; ++p)
+        {
+            ActionTarget *target = (*p)->slot16();
+            if (target)
+                return target;
+        }
+        return 0;
+    }
 };
 
 class ScriptActions
@@ -73,28 +81,16 @@ protected:
     void rva003C0E32(const AsciiString &, int);
 };
 
-// ?rva003C0E32@ScriptActions@@IAEXABVAsciiString@@H@Z present-unmatched
+// Native3C0E32..3C0E87 proves complete caller and module query;
+// target slot16 returns an interface whose slot0 consumes the second arg.
+// As in BF1/Object module-interface getters the inline scan returns null.
 void ScriptActions::rva003C0E32(const AsciiString &name, int value)
 {
-    Object *obj = ((Rva00358752Opaque *)g_Va009FE16C)->lookupUnitByValue(name);
-    if (obj) {
-        Module **pp = obj->m_modules;
-        ActionTarget *found = 0;
-        for (;;) {
-            Module *m = *pp;
-            if (!m) {
-                found = 0;
-                break;
-            }
-            ActionTarget *r = m->slot16();
-            if (r) {
-                found = r;
-                break;
-            }
-            ++pp;
-        }
-        if (found) {
-            found->apply(value);
-        }
+    Object *obj = ((Rva00358752Opaque *)TheScriptEngine)->lookupUnitByValue(name);
+    if (obj)
+    {
+        ActionTarget *target = obj->getActionTarget();
+        if (target)
+            target->apply(value);
     }
 }
