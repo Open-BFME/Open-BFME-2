@@ -220,7 +220,9 @@ public:
     void rva0050DBE6(Object *);
     void rva0053E4F1(Object *);
     void rva0053E34A(int);
-    void rva0053DD53();
+protected:
+    void populateMultiSelect();
+public:
     void rva0050E08E();
 };
 // Each arm follows the independently read native call order.
@@ -293,7 +295,7 @@ void ControlBar::switchToContext(int context,void *draw)
         break;
     case 7:
         HIDE_PARENTS(false,false,true,true,true,true,true,true);
-        rva0053DD53();
+        populateMultiSelect();
         break;
     case 9:
         HIDE_PARENTS(true,true,true,true,true,true,true,false);

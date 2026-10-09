@@ -214,8 +214,9 @@ void GadgetCheckLikeButtonSetVisualCheck(GameWindow *, bool);
 void Rva003284ED(GameWindow *, int);
 void Rva003284B9(GameWindow *, int, int);
 class ControlBar {
+protected:
+    void updateContextCommand();
 public:
-    void rva0053CF65();
     void rva0053BB16(Object *,CommandSet *);
     void rva0031B641(GameWindow *,const CommandButton *);
     void rva0031D230();
@@ -227,8 +228,8 @@ private:
     char unknown84[0xDC-0x84]; GameWindow *windows[32];
     char unknown15C[0x208-0x15C]; int clockColor;
 };
-// ?rva0053CF65@ControlBar@@QAEXXZ
-void ControlBar::rva0053CF65()
+// ?updateContextCommand@ControlBar@@IAEXXZ
+void ControlBar::updateContextCommand()
 {
     Object *obj = 0;
     if (selected) obj = selected->object;

@@ -80,9 +80,13 @@ protected:
     void populateSpecialPowerShortcut(Player *);
 public:
     void switchToContext(int,void *);
-    void rva0053DF0A();
+protected:
+    void updateContextMultiSelect();
+public:
     void rva0053E6E1();
-    void rva0053CF65();
+protected:
+    void updateContextCommand();
+public:
     void rva0053E4B1();
     void updateContextContestedStructureInventory();
 protected:
@@ -158,14 +162,14 @@ void ControlBar::update()
     }
     if (context==7)
     {
-        rva0053DF0A();
+        updateContextMultiSelect();
         return;
     }
     if (!selectedDrawable || !((ControlBarDrawableView *)selectedDrawable)->object)
         if (context || selectedDrawable) switchToContext(0,0);
     switch (context)
     {
-    case 1: rva0053CF65(); break;
+    case 1: updateContextCommand(); break;
     case 2: updateContextStructureInventory(); break;
     case 3: updateContextContestedStructureInventory(); break;
     case 4: rva0053E6E1(); break;

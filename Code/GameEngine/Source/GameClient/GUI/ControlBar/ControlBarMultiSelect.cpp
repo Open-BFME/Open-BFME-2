@@ -239,11 +239,13 @@ class ControlBar
 {
 protected:
     void addCommonCommands(Drawable *, bool);
+	void updateContextMultiSelect();
+    void populateMultiSelect();
 public:
-	void rva0053DF0A(void);
-    void rva0053DD53();
     void rva0053D355(Object *, bool);
-    void rva0053CF65();
+protected:
+    void updateContextCommand();
+public:
     void rva0031B641(GameWindow *, const CommandButton *);
     Int rva0053BD66(const CommandButton *, GameWindow *, Object *, Real *, Bool) const;
 
@@ -259,11 +261,11 @@ private:
     Rva0053ED1A *overlaySink; // target2A0
 };
 
-// ?rva0053DF0A@ControlBar@@QAEXXZ
+// ?updateContextMultiSelect@ControlBar@@IAEXXZ
 // WB identifies the operation as updateContextMultiSelect. Retain the existing
 // address-derived external spelling so the owned ControlBar::update caller
 // uses this actual provider; target original access and declaration unasserted.
-void ControlBar::rva0053DF0A(void)
+void ControlBar::updateContextMultiSelect(void)
 {
 	Drawable *draw;
 	Object *obj;
@@ -274,7 +276,7 @@ void ControlBar::rva0053DF0A(void)
 
 	if (m_currentSelectedDrawable != 0)
 	{
-		rva0053CF65();
+		updateContextCommand();
 		return;
 	}
 
@@ -465,12 +467,12 @@ void ControlBar::addCommonCommands(Drawable *draw, bool firstDrawable)
     }
 }
 
-// ?rva0053DD53@ControlBar@@QAEXXZ
+// ?populateMultiSelect@ControlBar@@IAEXXZ
 // Native53DD53..53DF0A439B. WB1124EB0 names populateMultiSelect at
 // ControlBarMultiSelect.cpp270..339. ZH supplies the common-command and
 // portrait pass; target adds a highest-rank selection pass, breaking ties
 // by the lower native ObjectID74. Original access/declaration remain unasserted.
-void ControlBar::rva0053DD53()
+void ControlBar::populateMultiSelect()
 {
     const BfmeControlBarDrawableList *selected =
         ((BfmeControlBarInGameUISelectionView *)TheInGameUI)->getAllSelectedDrawables();
