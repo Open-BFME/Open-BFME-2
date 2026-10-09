@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /MD /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
+// cl: /O1 /G7 /MD /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /EHsc /arch:SSE
 // stlport
 #include <algorithm>
 #include <vector>
@@ -78,6 +78,7 @@ class Rva00531A44
 {
 public:
 	void rva00531BA7(Xfer *);
+ __declspec(nothrow) void rva00531A93();
 	void rva00531ABB(unsigned short);
 	unsigned short capacity, first;
 	unsigned short *parents;
@@ -86,10 +87,16 @@ public:
  unsigned short rva00531AEE(unsigned short);
  void rva00531B3A(unsigned short);
 };
+// Target array callback531FCF is a5B destructor forwarding to the rowed
+// union-find release40B at531A93. The wrapper name stays address-qualified.
+// Cleanup helpers530FAE/531A93/5320C1 only deallocate; their verified bodies
+// cannot throw. Explicit nothrow contracts reproduce retail EH state stores.
+class Rva00531FCF : public Rva00531A44 { public: ~Rva00531FCF() throw() { rva00531A93(); } };
 class Rva00531E14
 {
 public:
-	unsigned char rva00531E14(unsigned short);
+	~Rva00531E14() { delete [] table; }
+ unsigned char rva00531E14(unsigned short);
  unsigned char rva00531DAE(unsigned short);
 	unsigned short capacity, first, second, end;
 	unsigned short *table;
@@ -99,10 +106,11 @@ class PathfindCell;
 class PathfindLayer {public: char unknown00[0x2C]; unsigned short zone; char unknown2E[0x40-0x2E]; unsigned short getZone()const{return zone;} };
 bool Rva001E3679(int);
 class Rva005335B0 {public: void rva005335B0(unsigned short,unsigned short);};
-class BooleanBitmapSet {public: void SetBit(int); unsigned numBitsDiv32; int *bits; unsigned *summary; unsigned cursor,bit;};
+class BooleanBitmapSet {public: ~BooleanBitmapSet() throw() { rva00530FAE(); } __declspec(nothrow) void rva00530FAE(); void SetBit(int); unsigned numBitsDiv32; int *bits; unsigned *summary; unsigned cursor,bit;};
 class Rva00532DF6 {public: bool remove(unsigned short,unsigned short); bool add(unsigned short,unsigned short);};
 class Rva00532330 {public: bool rva00532330(unsigned short*,unsigned short*);};
 
+class Rva00531E74 { public: __declspec(nothrow) void rva005320C1(); ~Rva00531E74() throw() { rva005320C1(); } private: unsigned char storage[0x3E88]; };
 class PathfindZoneManager : public Rva00531E14
 {
 public:
@@ -122,7 +130,9 @@ public:
 		char unknown36[2];
 		char vector38[12];
 	};
-	void DoXfer(Xfer *);
+	~PathfindZoneManager();
+ void rva005335D3();
+ void DoXfer(Xfer *);
 	void CreateEquivalencySet(unsigned variant, unsigned equivalent);
  void rva005324D8(unsigned char incremental,unsigned short first,unsigned short second);
  bool InEquivSet(unsigned equivalent, unsigned first, unsigned second);
@@ -132,8 +142,9 @@ public:
  void rva00532FEA(Block *,PathfindCell **,const IRegion2D&);
  void rva00533664(Block *,PathfindCell **,PathfindLayer *,const IRegion2D&,bool);
 	// Accessed layout only. Cell storage's full element count is unproven.
-	char unknown0C[0x1B594 - 0xC];
-	Rva00531A44 unions[8][7], finalUnion;
+	char unknown0C[0x1770C - 0xC];
+ Rva00531E74 buckets;
+ Rva00531FCF unions[8][7], finalUnion;
 	BooleanBitmapSet changed,affected;
 	bool flag1BA30, flag1BA31;
 	char unknown1BA32[2];
@@ -632,3 +643,5 @@ template Rva005334A4Element *_STL::__copy_ptrs<Rva005334A4Element *,Rva005334A4E
 // typed specialization is a full byte-and-relocation twin of the existing
 // enum-vector erase. This is a real STLport instantiation, not a wrapper.
 template Rva005334A4Element *_STL::vector<Rva005334A4Element>::erase(Rva005334A4Element *,Rva005334A4Element *);
+
+PathfindZoneManager::~PathfindZoneManager() { rva005335D3(); }
