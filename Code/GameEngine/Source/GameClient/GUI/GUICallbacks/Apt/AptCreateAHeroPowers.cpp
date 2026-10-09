@@ -19,6 +19,19 @@ void Rva00030830FreeAllocation(void *);
 #include <string.h>
 struct BfmePod16 {char bytes[16];};
 namespace _STL {template<> __declspec(noinline) BfmePod16 *vector<BfmePod16>::erase(BfmePod16 *,BfmePod16 *);}
+// Native 5C counters are four-byte integers. This scoped view uses the
+// STLport pointer-copy erase and by-value resize bodies used in retail;
+// the element spelling itself is unknown. Complete callees are verified
+// against their existing owners with zero unique-byte credit.
+class BfmePowerCounts : public std::vector<unsigned int> {public:
+ unsigned int *erase(unsigned int *first,unsigned int *last);
+ void resize(unsigned int n,unsigned int value);
+};
+unsigned int *BfmePowerCounts::erase(unsigned int *first,unsigned int *last) {
+ unsigned int *i=std::__copy_ptrs(last,_M_finish,first,std::__true_type());
+ std::_Destroy(i,_M_finish);_M_finish=i;return first;
+}
+void BfmePowerCounts::resize(unsigned int n,unsigned int value) {if(n<size())erase(begin()+n,end());else _M_fill_insert(end(),n-size(),value);}
 class Rva005B3751 {public:void rva005B3947();};
 
 class GameWindow;
@@ -112,6 +125,7 @@ class Rva005B2DDF
 public:
 	void *rva005B2E09(Rva005B2E09Cell *cell);
 	void *rva005B2DDF(unsigned int row, unsigned int column);
+    void *rva005B2E35(Rva005B2E09Cell *);
 };
 
 // TheCreateAHeroManager 0x009FE344 and its rowed 0x00219309 count.
@@ -171,6 +185,7 @@ public:
     void rva000D1407(const char *, void *, GameWindow *);
     void rva005B314B(const char *);
     void UpdateAvailablePowerIcons();
+    void rva005B335E();
     void rva005B2703(const char *);
     void rva005B271E(const char *);
     void rva005B278D(const char *);
@@ -201,7 +216,7 @@ private:
 	bool m_changed;             // +0x58
 	bool m_flag59;
 	char m_pad5a[2];
-	std::vector<unsigned short> m_rows; // +0x5c; seven entries initially
+	std::vector<unsigned int> m_rows; // +0x5c; seven entries initially
 	UnicodeString m_name;              // +0x68
 	int m_word6c, m_word70;             // selected column/row
 };
@@ -635,4 +650,88 @@ void AptCreateAHero::Powers::rva005B314B(const char *path)
    Rva0043DB23((Rva00222A8BTarget*)g_bfmeAptWindowManager,m_owner->m_aptOwner,"ShowPowerErrorMessage");
  }break;
  }
+}
+
+// Native C72CAC is the existing power-level-to-column table.
+extern const int g_00C72CAC[];
+void Rva0044C0A8(UnicodeString,UnicodeString,void*);
+void AptCreateAHero::Powers::rva005B335E()
+{
+ if (m_rows[1]==0) {
+   AsciiString key("APT:HeroPowersWizard");
+   g_bfmeAptWindowManager->bfmeSetText(key,TheGameText->fetch("WIZARD:CahPowersNoAvailablePowers"),false);
+ } else {
+   UnicodeString text;
+   if (m_numPowers==0) text=TheGameText->fetch("WIZARD:CahPowersSelectFirstPower");
+   else if (m_numPowers==1) text=TheGameText->fetch("WIZARD:CahPowersSelectSecondPower");
+   else if ((unsigned)m_numPowers>=10) text=TheGameText->fetch("WIZARD:CahPowersSelectionComplete");
+   else {
+     AsciiString label;
+     label.format("WIZARD:CahPowersSelectNextPower_%d",g_00C72CAC[m_numPowers]);
+     UnicodeString format=TheGameText->fetch(label);
+     text.format(format.str(),m_numPowers+1);
+   }
+   if (m_rows[5]!=0) {
+     UnicodeString full=TheGameText->fetch("WIZARD:CahPowersPalantirFull");
+     text.concat(L"\n\n");
+     text.concat(full);
+     if (!m_flag59) {
+       m_flag59=true;
+       Rva0044C0A8(UnicodeString(L""),full,0);
+     }
+   } else if (m_numPowers!=0) {
+     m_flag59=false;
+     text.concat(L"\n\n");
+     text.concat(TheGameText->fetch("WIZARD:CahPowersUpgradeOrNewPower"));
+   }
+   g_bfmeAptWindowManager->bfmeSetText(AsciiString("APT:HeroPowersWizard"),text,false);
+   Rva005B3676Owner *holder=m_owner;
+   void *aptOwner=holder->m_aptOwner;
+   Rva00222A8BTarget *target=(Rva00222A8BTarget*)g_bfmeAptWindowManager;
+   Rva0043DB23(target,aptOwner,"OnNewWizardMessage");
+ }
+}
+
+const char *g_00DD3A80[]={"_unused","_avail","_needPrereq","_levelLow","_selected","_palantirFull","_palantirFull"};
+void Rva005B24CDHeroPowerText(void*,const char*,int);
+void AptCreateAHero::Powers::UpdateAvailablePowerIcons()
+{
+ BfmePowerCounts *counts=(BfmePowerCounts*)&m_rows;
+ counts->erase(counts->begin(),counts->end());
+ counts->resize(7,0);
+ unsigned rows=m_groups.size();
+ for (unsigned row=0;row<rows;++row) {
+   BfmePod16 *group=&m_groups[row];
+   bool first=true;
+   for (int col=0;col<4;++col) {
+     Rva005B2E09Cell *cell=((Rva005B2E09Cell**)group->bytes)[col];
+     const CommandButton *button=0;
+     if (cell) {
+       button=(const CommandButton*)cell->m_button;
+       if (!button) continue;
+       int state=CalculateFlashState(cell);
+       ++m_rows[state];
+       if (state!=cell->m_word18) {
+         cell->m_word18=state;
+         const char *frame=g_00DD3A80[state];
+         int c=cell->m_column+1;
+         int r=cell->m_row+1;
+         Rva005B2F42Invoke((Rva00222A8BTarget*)g_bfmeAptWindowManager,m_owner->m_aptOwner,"UpdateSelectPowerIcon",r,c,frame);
+       }
+       bool use;
+       switch(state) {
+       case 1: use=true;break;
+       case 4:first=true;use=!((Rva005B2DDF*)this)->rva005B2E35(cell);break;
+       default:use=first;break;
+       }
+       if (use) {
+         Rva005B24CDHeroPowerText(cell->m_button,"PowerName",row);
+         first=false;
+       }
+     }
+     rva005B2295(button,"SelectPower",row,col);
+   }
+ }
+ m_changed=false;
+ rva005B335E();
 }
