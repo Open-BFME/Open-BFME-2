@@ -12733,7 +12733,6 @@ name,address,notes
 ?tailA@Rva00066A9ASub@@QAEXXZ,0x000EA1F3,pin for 0x66A9A tail call
 ?tailB@Rva00066A9ASub@@QAEXXZ,0x000E6FC8,pin for 0x66A9A tail jmp
 ?take@Rva005045C6@@QAEXPAVGenForwardedArg@@@Z,0x005045C6,sub-object member callee of the S2 arg forwarders at retail 0x004E148C and 0x004E14BC read from their REL32 displacements; same body as the matched ?rva005045C6@Rva005045C6@@QAEXABVRva00064640Record@@@Z
-?target_0009322D@W3DSnowManager@@AAEXXZ,0x0009322D,Neutral snow-state call view; update949D9 passes this with no explicit arguments and ignores return. Full target boundary180 verified; reads weather globalDFE118 and manager state. Original method name and return type unknown
 ?target_00094652@W3DSnowManager@@AAEXXZ,0x00094652,Neutral snow-state call view; update949D9 passes this with no explicit arguments and ignores return. Full target boundary189 verified; reads weather globalDFE118 and manager state. Original method name and return type unknown
 ?teamAboutToBeDeleted@TeamPrototype@@QAEXPAVTeam@@@Z,0x003A2CA5,Ghidra FUN_007a2ca5 70B: walks the prototype +0x334 team list calling 0x003A2897 with the dying team +0x34 on each; REL32 at 0x003A3060 inside TeamFactory::teamAboutToBeDeleted per prototype (ZH Team.cpp shape)
 ?teardown@Rva006D0280@@QAEXXZ,0x006D0280,opaque thiscall member (no args); called as mov ecx,esi + E8 from release 0x006D0F20:0x6D0F35; identity unproven
