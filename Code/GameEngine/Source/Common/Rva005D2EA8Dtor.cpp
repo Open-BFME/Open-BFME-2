@@ -1,45 +1,178 @@
-// cl: /MD /EHsc
-// ??1Rva005D2EA8@@UAE@XZ retail 0x005D2EA8 73B
-// Own vptr C75898, then if the listener at +4 is set it is told through its
-// slot 0 with this; the rowed member dtor ??1Rva0052413E@@QAE@XZ tears down
-// +0xC under EH state 0; the base inline dtor restores vtable BE2B78.
-// Caller: rowed ??_GRva005D2EA8 0x005D2F62 (vtable 0x00C75898). Names
-// address-derived.
+// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// Retail 5D2EA8 destructor and 5D3398 constructor of the 24-byte counter
+// callback member used three times by the RegionStatsTray ctor 5D3506.
+// Original member class identity remains unknown. Layout and all four
+// vtable slots come from C75898 and target accesses, not donor type names.
+// Reference guide: verified EndTurnButtonImpl callback registration and
+// RegistryAsciiPath concat nodes; target binds _On<stat>RollOver/RollOut.
+#include "ascii_string.h"
 
-class Rva0052413E
+struct TargetRef00217D4C
+{
+	virtual void *destroy(unsigned int flags);
+	int references;
+};
+void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
+
+// Delegate payload (object, member) handed to the command-map reference
+// (as in Rva0042DB21Method.cpp).
+class AptCommandTarget
+{
+};
+
+struct DelegateDesc
+{
+	template <class T> DelegateDesc(T *object, void (T::*method)(const char *path))
+		: m_object(reinterpret_cast<AptCommandTarget *>(object)), m_method(reinterpret_cast<void (AptCommandTarget::*)(const char *path)>(method)) {}
+
+	AptCommandTarget *m_object;
+	void (AptCommandTarget::*m_method)(const char *path);
+};
+
+class AptCommandMap
 {
 public:
-	~Rva0052413E();
+	void *m_vtbl;
+	int m_refCount;
+};
+
+template <class T> class AptRef
+{
+public:
+	AptRef(const DelegateDesc *desc) { rva00579E47(desc); }
+	AptRef &rva00579E47(const DelegateDesc *desc); // 0x00579E47
+	AptRef(const AptRef &that) : m_ptr(that.m_ptr)
+	{
+		if (m_ptr)
+			m_ptr->m_refCount++;
+	}
+	~AptRef()
+	{
+		if (m_ptr)
+			ReleaseTreeHintRef00217D4C((TargetRef00217D4C *)m_ptr);
+	}
 
 private:
-	void *m_data[3];
+	T *m_ptr;
 };
 
-class Rva005D2EA8Listener
+// The 12-byte command-map name list: ctor 0x001F81BF (ICF fold, pinned),
+// AddCommandMap 0x0052458E, dtor 0x0052413E (pinned).
+class AptCommandMapAdder
 {
 public:
-	virtual void notify(void *who) = 0;
-};
+	AptCommandMapAdder();
+	~AptCommandMapAdder();
+	void AddCommandMap(const AsciiString &name, AptRef<AptCommandMap> map);
 
-class Rva005D2EA8Base
-{
-public:
-	virtual ~Rva005D2EA8Base() {}
-};
-
-class Rva005D2EA8 : public Rva005D2EA8Base
-{
-public:
-	virtual ~Rva005D2EA8();
+	__forceinline void AddCommandMapDelegate(const AsciiString &name, DelegateDesc desc)
+	{
+		AddCommandMap(name, &desc);
+	}
 
 private:
-	Rva005D2EA8Listener *m_listener; // +0x04
-	int m_08;
-	Rva0052413E m_0C; // +0x0C
+	void *m_pad[3];
 };
 
-Rva005D2EA8::~Rva005D2EA8()
+// "prefix + name + text" concat nodes (layout as in System/RegistryAsciiPath.cpp).
+class Rva000B3F84Pair
 {
-	if (m_listener != 0)
-		m_listener->notify(this);
+public:
+	Rva000B3F84Pair() {}
+	Rva000B3F84Pair *init(const char *src); // 0x000B3F84
+
+	const char *m_ptr;
+	int m_len;
+};
+
+struct AsciiStringRef
+{
+	const AsciiString *m_string;
+};
+
+struct AsciiStringPlusString : AsciiStringRef
+{
+	AsciiStringRef m_second;
+};
+
+struct AsciiStringPlusStringText : AsciiStringPlusString
+{
+	operator AsciiString(); // 0x0050F74B
+
+	Rva000B3F84Pair m_right;
+};
+
+static __forceinline AsciiStringPlusString operator+(const AsciiString &left, const AsciiString &right)
+{
+	AsciiStringPlusString result;
+	result.m_string = &left;
+	result.m_second.m_string = &right;
+	return result;
 }
+
+// ?operator+(AsciiStringPlusString, text) present-unmatched (inline, emitted out of line; ICF-folded at 0x00109CFD; pinned)
+// ?operatorPlusTwoStringsText present-unmatched
+inline AsciiStringPlusStringText operator+(const AsciiStringPlusString &left, const char *right)
+{
+	Rva000B3F84Pair text;
+	text.init(right);
+	AsciiStringPlusStringText result;
+	static_cast<AsciiStringPlusString &>(result) = left;
+	result.m_right = text;
+	return result;
+}
+
+
+struct Rva005D32EC:AsciiStringPlusStringText { Rva000B3F84Pair m_text2; };
+struct Rva005D3311:Rva005D32EC { Rva000B3F84Pair m_text3; operator AsciiString(); };
+// ?operatorPlusThirdText present-unmatched
+inline Rva005D32EC operator+(const AsciiStringPlusStringText &left,const char *right)
+{
+ Rva000B3F84Pair text; text.init(right);
+ Rva005D32EC result; static_cast<AsciiStringPlusStringText &>(result)=left;
+ result.m_text2=text; return result;
+}
+// ?operatorPlusFourthText present-unmatched
+inline Rva005D3311 operator+(const Rva005D32EC &left,const char *right)
+{
+ Rva000B3F84Pair text; text.init(right);
+ Rva005D3311 result; static_cast<Rva005D32EC &>(result)=left;
+ result.m_text3=text; return result;
+}
+class Rva005D2EA8Listener {
+public: virtual void notify(void *)=0;
+ virtual void slot1()=0; virtual void slot2()=0;
+ virtual void rollOut(void *)=0; virtual void rollOver(void *)=0;
+};
+class Rva005D2EA8Base {
+public: virtual Rva005D2EA8Listener *getListener() const=0;
+ virtual void setListener(Rva005D2EA8Listener *)=0;
+ virtual bool getRollOver() const=0;
+ // ?Rva005D2EA8BaseDestructor present-unmatched
+ virtual ~Rva005D2EA8Base() {}
+};
+class Rva005D2EA8:public Rva005D2EA8Base {
+public:
+ Rva005D2EA8(int level,const AsciiString &name,const char *stat);
+ virtual ~Rva005D2EA8();
+ // ?getListener@Rva005D2EA8@@UBEPAVRva005D2EA8Listener@@XZ present-unmatched
+ virtual Rva005D2EA8Listener *getListener() const {return m_listener;}
+ // ?setListener@Rva005D2EA8@@UAEXPAVRva005D2EA8Listener@@@Z present-unmatched
+ virtual void setListener(Rva005D2EA8Listener *listener) {m_listener=listener;}
+ // ?getRollOver@Rva005D2EA8@@UBE_NXZ present-unmatched
+ virtual bool getRollOver() const {return m_rollOver;}
+ void rva005D2EF1(const char *);
+ void rva005D2F07(const char *);
+private: Rva005D2EA8Listener *m_listener; bool m_rollOver; AptCommandMapAdder m_0C;
+};
+// ??0Rva005D2EA8@@QAE@HABVAsciiString@@PBD@Z present-unmatched
+Rva005D2EA8::Rva005D2EA8(int level,const AsciiString &name,const char *stat):m_listener(0),m_rollOver(false)
+{
+ AsciiString prefix; prefix.format("_level%u.",level);
+ m_0C.AddCommandMapDelegate(prefix+name+"_On"+stat+"RollOver",DelegateDesc(this,&Rva005D2EA8::rva005D2F07));
+ m_0C.AddCommandMapDelegate(prefix+name+"_On"+stat+"RollOut",DelegateDesc(this,&Rva005D2EA8::rva005D2EF1));
+}
+Rva005D2EA8::~Rva005D2EA8() {if(m_listener) m_listener->notify(this);}
+void Rva005D2EA8::rva005D2EF1(const char *) {m_rollOver=false;if(m_listener) m_listener->rollOut(this);}
+// ?rva005D2F07@Rva005D2EA8@@QAEXPBD@Z present-unmatched
+void Rva005D2EA8::rva005D2F07(const char *) {m_rollOver=true;if(m_listener) m_listener->rollOver(this);}
