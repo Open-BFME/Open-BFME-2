@@ -81,7 +81,7 @@ class WW3D
 public:
 	static void Get_Render_Target_Resolution(int &, int &, int &, bool &);
 	static void Update_Movie_Capture(void);
-	static bool rva00118170(bool, bool, const Vector3 &, float, void (*)(void));
+	static bool rva00118170(bool, bool, const Vector3 &, float);
 
 	static bool IsInitted;
 	static bool IsRendering;
@@ -94,7 +94,7 @@ private:
 
 
 bool WW3D::rva00118170(bool clear, bool clearz, const Vector3 &color,
-	float dest_alpha, void (*network_callback)(void))
+	float dest_alpha)
 {
 	if (!IsInitted)
 		return true;
