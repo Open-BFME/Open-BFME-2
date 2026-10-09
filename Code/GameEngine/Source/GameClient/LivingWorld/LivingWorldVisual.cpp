@@ -28,33 +28,26 @@
 // a local shadow type info gets the visual's type (+0x10) and five zero
 // Reals, goes to the rowed W3DShadowManager::addShadow 0x0009A8D3, and the
 // returned shadow is enabled (byte +4). The info is constructed and destroyed
-// by the rows 0x00079514 / 0x000793FA, which the ledger names AudioEventRTS;
-// their two-string / int type at +8 / five-Real layout is the shadow type
-// info's, so ShadowTypeInfo derives from that view exactly as
-// W3DShadowManagerAddShadow.cpp does.
+// by Shadow::ShadowTypeInfo's rowed ctor 0x00079514 and dtor 0x000793FA
+// (two strings, the type at +8, six Reals, three flags).
 
 #include "ascii_string.h"
 #include <vector>
 
 typedef int Int;
 
-class AudioEventRTS
-{
-public:
-	AudioEventRTS();
-	~AudioEventRTS();
-	AsciiString m_name0;		// +0x00
-	AsciiString m_name4;		// +0x04
-	Int m_type;					// +0x08
-	float m_reals[6];			// +0x0C
-	unsigned char m_flags[4];	// +0x24
-};
-
 class Shadow
 {
 public:
-	struct ShadowTypeInfo : public AudioEventRTS
+	struct ShadowTypeInfo
 	{
+		ShadowTypeInfo();
+		~ShadowTypeInfo();
+		AsciiString m_name0;		// +0x00
+		AsciiString m_name4;		// +0x04
+		Int m_type;					// +0x08
+		float m_reals[6];			// +0x0C
+		unsigned char m_flags[4];	// +0x24
 	};
 	virtual void release() = 0;
 	void enableShadowRender(bool isEnabled) { m_isEnabled = isEnabled; }

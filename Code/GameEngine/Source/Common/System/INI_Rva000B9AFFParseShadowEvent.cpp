@@ -1,41 +1,44 @@
 // cl: /Ireference/shims/bfme2_ascii /GX- /DNDEBUG /MD
 // Rva000B9AFF_ParseShadowEvent (retail 0x000B9AFF, 75 bytes). Parses a
 // 16-bit flag set through the rowed parseBitString16 at 0x002F21A; when
-// nonzero it news a 0x28-byte AudioEventRTS (rowed ctor 0x00079514, whose
-// layout below mirrors its TU: string pair, int m_unknown8 at +0x08, five
-// zero floats, 20.0f, flags), stores the pointer at instance+0xDC and the
-// flag value at m_unknown8, leaving a zero-flag slot untouched. Serves the
+// nonzero it news a 0x28-byte Shadow::ShadowTypeInfo (rowed ctor 0x00079514,
+// whose layout below mirrors its TU: string pair, the shadow type at +0x08,
+// five zero floats, 20.0f, flags), stores the pointer at instance+0xDC and
+// the flag value as its type, leaving a zero-flag slot untouched. Serves the
 // Shadow table entry. Frameless (/GX-): retail keeps no unwind state around
-// the news. The AudioEvent role comes from the rowed ctor callee; the
+// the news. The shadow-info role comes from the rowed ctor callee; the
 // callback name stays address-derived.
 
 typedef int Int;
 
 #include "ascii_string.h"
 
-class AudioEventRTS
+class Shadow
 {
 public:
-	AudioEventRTS();
+	struct ShadowTypeInfo
+	{
+		ShadowTypeInfo();
 
-	AsciiString m_first;
-	AsciiString m_second;
-	Int m_unknown8;
-	float m_floatC;
-	float m_float10;
-	float m_float14;
-	float m_float18;
-	float m_float1C;
-	float m_float20;
-	unsigned char m_byte24;
-	unsigned char m_byte25;
-	unsigned char m_byte26;
+		AsciiString m_first;
+		AsciiString m_second;
+		Int m_type;
+		float m_floatC;
+		float m_float10;
+		float m_float14;
+		float m_float18;
+		float m_float1C;
+		float m_float20;
+		unsigned char m_byte24;
+		unsigned char m_byte25;
+		unsigned char m_byte26;
+	};
 };
 
 struct Rva000B9AFF_Store
 {
 	char m_pad[0xDC];
-	AudioEventRTS *m_event;
+	Shadow::ShadowTypeInfo *m_shadowInfo;
 };
 
 class INI
@@ -52,9 +55,9 @@ void INI::Rva000B9AFF_ParseShadowEvent(INI *ini, void *instance, void *store, co
 	INI::parseBitString16(ini, instance, &bits, userData);
 	if (bits != 0)
 	{
-		AudioEventRTS *event = new AudioEventRTS();
+		Shadow::ShadowTypeInfo *info = new Shadow::ShadowTypeInfo();
 		Rva000B9AFF_Store *target = (Rva000B9AFF_Store *)instance;
-		target->m_event = event;
-		event->m_unknown8 = (Int)bits;
+		target->m_shadowInfo = info;
+		info->m_type = (Int)bits;
 	}
 }

@@ -1,40 +1,45 @@
 // cl: /Ireference/shims/bfme2_ascii /MD /DNDEBUG /DWIN32 /D_WINDOWS
 //
-// ??4AudioEventRTS@@QAEAAV0@ABV0@@Z @0x0009A41B (93B).
-// BFME2 AudioEventRTS copy-assign matching the ctor TU layout: two
-// AsciiStrings then one int six floats and three bytes. Donor is BFME1
-// AudioEventRTS::operator= (AudioEventRTS.cpp:273) trimmed to BFME2 members.
-// Evidence: caller 0x9A8D3 copies into a locally constructed AudioEventRTS;
-// AsciiString op= pin @0x366F0; ctor layout @0x79514.
+// ??4ShadowTypeInfo@Shadow@@QAEAAU01@ABU01@@Z @0x0009A41B (93B). TU named
+// for the row's earlier, wrong AudioEventRTS name.
+// Shadow::ShadowTypeInfo copy-assign on the ctor TU's layout
+// (AudioEventRTSCtor.cpp): two AsciiStrings then the type, six floats and
+// three bytes, member by member. Evidence: W3DShadowManager::addShadow
+// 0x0009A8D3 assigns the info it is passed into its locally constructed
+// copy through this body; AsciiString op= pin @0x366F0; ctor layout
+// @0x79514.
 
 typedef int Int;
 
 #include "ascii_string.h"
 
-class AudioEventRTS
+class Shadow
 {
 public:
-	AudioEventRTS &operator=(const AudioEventRTS &right);
-private:
-	AsciiString m_first;
-	AsciiString m_second;
-	Int m_unknown8;
-	float m_floatC;
-	float m_float10;
-	float m_float14;
-	float m_float18;
-	float m_float1C;
-	float m_float20;
-	unsigned char m_byte24;
-	unsigned char m_byte25;
-	unsigned char m_byte26;
+	struct ShadowTypeInfo
+	{
+		ShadowTypeInfo &operator=(const ShadowTypeInfo &right);
+
+		AsciiString m_first;
+		AsciiString m_second;
+		Int m_type;
+		float m_floatC;
+		float m_float10;
+		float m_float14;
+		float m_float18;
+		float m_float1C;
+		float m_float20;
+		unsigned char m_byte24;
+		unsigned char m_byte25;
+		unsigned char m_byte26;
+	};
 };
 
-AudioEventRTS &AudioEventRTS::operator=(const AudioEventRTS &right)
+Shadow::ShadowTypeInfo &Shadow::ShadowTypeInfo::operator=(const ShadowTypeInfo &right)
 {
 	m_first = right.m_first;
 	m_second = right.m_second;
-	m_unknown8 = right.m_unknown8;
+	m_type = right.m_type;
 	m_floatC = right.m_floatC;
 	m_float10 = right.m_float10;
 	m_float14 = right.m_float14;

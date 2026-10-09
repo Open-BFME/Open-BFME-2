@@ -12,8 +12,8 @@
 // delay remains, else OpacityStart) and the opacity fade frames (seconds
 // times the 0.03 frames-per-millisecond global g_00DBA500).
 // Donor: Open-BFME-1 DynamicDecalFXNuggetDoFXPos.cpp (same flow; BFME 2's
-// decal description holds AsciiStrings and is the rowed 0x00079514 ctor /
-// 0x000793FA dtor, which the ledger spells AudioEventRTS).
+// decal description, Shadow::ShadowTypeInfo, holds AsciiStrings and is the
+// rowed 0x00079514 ctor / 0x000793FA dtor).
 // The fade setter's frame counts are converted as UnsignedInt (retail goes
 // through x87 and __ftol2, which only an unsigned target produces under
 // /arch:SSE); its placeholder row 0x00330A37 is spelled with int parameters,
@@ -46,31 +46,30 @@ struct RGBColor
 	Real blue;
 };
 
-// The decal's shadow-type description; the ledger rows its default ctor
-// (0x00079514) and dtor (0x000793FA) under the AudioEventRTS spelling.
-class AudioEventRTS
-{
-public:
-	AudioEventRTS();
-	~AudioEventRTS();
-
-	AsciiString m_name;		// +0x00
-	AsciiString m_second;		// +0x04
-	Int m_type;			// +0x08
-	Real m_sizeX;			// +0x0C
-	Real m_sizeY;			// +0x10
-	Real m_offsetX;			// +0x14
-	Real m_offsetY;			// +0x18
-	Real m_float1C;			// +0x1C
-	Real m_float20;			// +0x20
-	Bool m_byte24;			// +0x24
-	Bool m_allowUpdates;		// +0x25
-	Bool m_allowWorldAlign;		// +0x26
-};
-
 class Shadow
 {
 public:
+	// The decal's shadow-type description: Shadow::ShadowTypeInfo, rowed
+	// default ctor 0x00079514 and dtor 0x000793FA.
+	struct ShadowTypeInfo
+	{
+		ShadowTypeInfo();
+		~ShadowTypeInfo();
+
+		AsciiString m_name;		// +0x00
+		AsciiString m_second;		// +0x04
+		Int m_type;			// +0x08
+		Real m_sizeX;			// +0x0C
+		Real m_sizeY;			// +0x10
+		Real m_offsetX;			// +0x14
+		Real m_offsetY;			// +0x18
+		Real m_float1C;			// +0x1C
+		Real m_float20;			// +0x20
+		Bool m_byte24;			// +0x24
+		Bool m_allowUpdates;		// +0x25
+		Bool m_allowWorldAlign;		// +0x26
+	};
+
 	void setOpacity(Int value);			// 0x003308F6
 	void rva00330995(Int color);			// 0x00330995
 
@@ -100,7 +99,7 @@ class ProjectedShadowManager
 {
 public:
 	virtual void v00(); virtual void v01();
-	virtual Shadow *addDecal(AudioEventRTS *shadowInfo);	// +0x08
+	virtual Shadow *addDecal(Shadow::ShadowTypeInfo *shadowInfo);	// +0x08
 };
 extern void *g_00DEC2D4;	// TheProjectedShadowManager
 
@@ -146,7 +145,7 @@ void DynamicDecalFXNugget::doFXPos(const Coord3D *primary, const Matrix3D *prima
 	if (!primary)
 		return;
 
-	AudioEventRTS decalInfo;
+	Shadow::ShadowTypeInfo decalInfo;
 	decalInfo.m_name = m_decalName;
 	decalInfo.m_type = (m_shader == 1) ? 0x800 : 0x400;
 	decalInfo.m_allowUpdates = true;

@@ -12,11 +12,11 @@
 //   when a color is given);
 // - it is added to W3DDisplay::m_3DScene (slot 2), given the drawable's +0x248
 //   info (Set_User_Data slot 86) and an identity transform (Set_Transform slot 21);
-// - a shadow descriptor built by the rowed 0x00079514/0x000793FA pair (rowed
-//   under the AudioEventRTS name; its two-string 0x28-byte layout with the
-//   20.0f default is the BFME 2 shadow info) gets the type and zero sizes. It
-//   goes to the rowed W3DShadowManager::addShadow; otherwise the pinned
-//   0x000518E0 handler removes the old shadow.
+// - a Shadow::ShadowTypeInfo built and destroyed by its rowed ctor/dtor
+//   0x00079514/0x000793FA (BFME 2's two-string 0x28-byte layout with the
+//   20.0f default) gets the type and zero sizes. It goes to the rowed
+//   W3DShadowManager::addShadow; otherwise the pinned 0x000518E0 handler
+//   removes the old shadow.
 // The emptiness test reads the string header's length word inline, as retail
 // does. The present-unmatched setModelName draft in W3DDebrisDraw.cpp covers
 // the same symbol.
@@ -120,32 +120,29 @@ public:
 
 RenderObjClass *Rva00137364CreateRenderObj(const char *name, float scale, const Rva0013101E &options);
 
+// The shadow descriptor this function fills: Shadow::ShadowTypeInfo, whose
+// rowed ctor 0x00079514 and dtor 0x000793FA give its 0x28-byte BFME 2 layout
+// (two strings / type +8 / sizes / 20.0f default).
 class Shadow
 {
 public:
-	struct ShadowTypeInfo;
-};
-
-// The rowed 0x00079514/0x000793FA constructor and destructor carry the AudioEventRTS
-// name; their 0x28-byte layout (two strings / type +8 / sizes / 20.0f default)
-// is the BFME 2 shadow descriptor this function fills.
-class AudioEventRTS
-{
-public:
-	AudioEventRTS();
-	~AudioEventRTS();
-	AsciiString m_first;
-	AsciiString m_second;
-	Int m_type;										// +0x08
-	Real m_sizeX;									// +0x0C
-	Real m_sizeY;									// +0x10
-	Real m_offsetX;									// +0x14
-	Real m_offsetY;									// +0x18
-	Real m_float1C;									// +0x1C
-	Real m_float20;									// +0x20
-	unsigned char m_byte24;
-	unsigned char m_byte25;
-	unsigned char m_byte26;
+	struct ShadowTypeInfo
+	{
+		ShadowTypeInfo();
+		~ShadowTypeInfo();
+		AsciiString m_first;
+		AsciiString m_second;
+		Int m_type;										// +0x08
+		Real m_sizeX;									// +0x0C
+		Real m_sizeY;									// +0x10
+		Real m_offsetX;									// +0x14
+		Real m_offsetY;									// +0x18
+		Real m_float1C;									// +0x1C
+		Real m_float20;									// +0x20
+		unsigned char m_byte24;
+		unsigned char m_byte25;
+		unsigned char m_byte26;
+	};
 };
 
 class Gen0003AC38
@@ -233,13 +230,12 @@ void W3DDebrisDraw::setModelName(AsciiString name, Color color, ShadowType t)
 
 		if (t != SHADOW_NONE)
 		{
-			AudioEventRTS shadowInfo;
+			Shadow::ShadowTypeInfo shadowInfo;
 			shadowInfo.m_type = t;
 			shadowInfo.m_sizeX = 0;
 			shadowInfo.m_sizeY = 0;
 			shadowInfo.m_float1C = 0;
-			m_shadow = TheW3DShadowManager->addShadow(m_renderObject,
-				reinterpret_cast<Shadow::ShadowTypeInfo *>(&shadowInfo), 0);
+			m_shadow = TheW3DShadowManager->addShadow(m_renderObject, &shadowInfo, 0);
 		}
 		else
 		{

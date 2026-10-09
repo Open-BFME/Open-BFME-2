@@ -2,10 +2,10 @@
 //
 // ?createPotentialClaimDecal@Impl@PlaceTerrainResourceClaimantFeedback@@QAEXXZ @0x004E65CF 191B
 // Leaf method on the 0x004E669A class (same this, +4/+8/+0xC/+0x1C): builds an
-// AudioEventRTS temp from the +4 param-block string, scales the +0xC float by
-// 2.0f into two audio floats, plays it through g_00DEC2D4 slot 8 into +0x1C,
+// Shadow::ShadowTypeInfo temp from the +4 param-block string, scales the +0xC
+// float by 2.0f into its two sizes, adds it through g_00DEC2D4 slot 8 into +0x1C,
 // then on success zeroes decal+0x20, applies texture 0xFFFF8000, copies rope
-// position into decal+8 and sets +0x64/opacity. Evidence: rowed AudioEventRTS
+// position into decal+8 and sets +0x64/opacity. Evidence: rowed Shadow::ShadowTypeInfo
 // ctor 0x00079514 plus StringBase set 0x000366F0 plus dtor 0x000793FA, manager
 // at 0x009EC2D4 slot 8, float 2.0f at 0x007C28F4, pins for SetTexture 0x330995
 // plus BFMERopeDrawable::getPosition 0x2763E6, rowed Shadow::setOpacity
@@ -19,23 +19,28 @@ struct Coord3D
 	float z;
 };
 
-class AudioEventRTS
+class Shadow
 {
 public:
-	AudioEventRTS();
-	~AudioEventRTS();
-	AsciiString m_first;
-	AsciiString m_second;
-	int m_unknown8;
-	float m_floatC;
-	float m_float10;
-	float m_float14;
-	float m_float18;
-	float m_float1C;
-	float m_float20;
-	unsigned char m_byte24;
-	unsigned char m_byte25;
-	unsigned char m_byte26;
+	struct ShadowTypeInfo
+	{
+		ShadowTypeInfo();
+		~ShadowTypeInfo();
+		AsciiString m_first;
+		AsciiString m_second;
+		int m_type;
+		float m_floatC;
+		float m_float10;
+		float m_float14;
+		float m_float18;
+		float m_float1C;
+		float m_float20;
+		unsigned char m_byte24;
+		unsigned char m_byte25;
+		unsigned char m_byte26;
+	};
+
+	void setOpacity(int value);
 };
 
 struct Rva004E65CFParams
@@ -60,11 +65,6 @@ public:
 	const Coord3D *getPosition() const;
 };
 
-class Shadow
-{
-public:
-	void setOpacity(int value);
-};
 
 class Rva00330995
 {
@@ -83,7 +83,7 @@ class Rva004E65CFMgr
 public:
 	virtual ~Rva004E65CFMgr() {}
 	virtual void s04() = 0;
-	virtual Rva00330995 *play(AudioEventRTS *ev) = 0;
+	virtual Rva00330995 *play(Shadow::ShadowTypeInfo *ev) = 0;
 };
 
 extern Rva004E65CFMgr *g_00DEC2D4;
@@ -113,13 +113,13 @@ public:
 
 void PlaceTerrainResourceClaimantFeedback::Impl::createPotentialClaimDecal()
 {
-	AudioEventRTS ev;
+	Shadow::ShadowTypeInfo ev;
 	ev.m_first = m_04->m_sound;
 	Rva004E65CFFloatSrc *p = m_0C;
 	Rva004E65CFMgr *mgr = g_00DEC2D4;
 	ev.m_byte25 = 0;
 	ev.m_byte26 = 1;
-	ev.m_unknown8 = 0x2000;
+	ev.m_type = 0x2000;
 	float f = p->m_f08 * g_Va00BC28F4;
 	ev.m_float10 = f;
 	ev.m_floatC = f;

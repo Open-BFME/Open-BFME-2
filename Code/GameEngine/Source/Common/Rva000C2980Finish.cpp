@@ -2,7 +2,7 @@
 // stlport
 //
 // ??1Rva000C2980@@QAE@XZ, retail 0x000C2980 292B.
-// Non-virtual dtor (mangled QAE, no vptr store in retail): AudioEventRTS* at
+// Non-virtual dtor (mangled QAE, no vptr store in retail): Shadow::ShadowTypeInfo* at
 // +0xdc deleted then nulled, an owning pointer at +0xd0 whose inlined
 // destructor is the null check plus the game's C++-linkage free, vector
 // <Rva00B9AC2> at +0xc4, Rva000C1BE1 (12B) at +0xb8, list base at +0xb4,
@@ -46,7 +46,7 @@ namespace _STL { void __cdecl free(void *block) throw(...); }
 struct Rva00B9AC2 { char _pad[0x18]; };
 struct Rva00B6CF1 { char _pad[8]; };
 struct Rva000C1BE1 { void *_p[3]; ~Rva000C1BE1(); };
-class AudioEventRTS { public: ~AudioEventRTS(); };
+class Shadow { public: struct ShadowTypeInfo { ~ShadowTypeInfo(); }; };
 
 // The +0xd0 member. Destructor defined in-class so /EHsc gives retail's
 // unwind state around the null-checked free.
@@ -111,7 +111,7 @@ private:
 	_STL::vector<Rva00B9AC2> m_c4; // +0xc4
 	Rva000C2980OwningPtr m_d0; // +0xd0
 	char _padD4[8]; // +0xd4..+0xdb
-	AudioEventRTS *m_dc; // +0xdc
+	Shadow::ShadowTypeInfo *m_dc; // +0xdc
 };
 
 // The +0xdc member and its null-out are explicit; everything from +0xd0 down

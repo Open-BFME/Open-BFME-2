@@ -16,11 +16,9 @@
 // each global holds; data rows TheW3DVolumetricShadowManager (0x009EBCD8)
 // Rva00DEC2D8Manager (0x009EC2D8; it holds the projected manager here) and
 // the 0x009EC2CC alias TheW3DShadowHelperManager (V2 manager).
-// The local info copy is constructed assigned and destroyed by the rows
-// 0x00079514 / 0x0009A41B / 0x000793FA that the ledger names
-// AudioEventRTS (their two-string / int type at +8 / five-Real layout is the
-// shadow type info's); the view below derives ShadowTypeInfo from that name
-// so the copy calls exactly those rows.
+// The local info copy is constructed, assigned and destroyed by
+// Shadow::ShadowTypeInfo's rowed ctor 0x00079514, operator= 0x0009A41B and
+// dtor 0x000793FA (two strings, the type at +8, six Reals, three flags).
 #include "ascii_string.h"
 
 class RenderObjClass;
@@ -29,24 +27,19 @@ class W3DVolumetricShadow;
 class W3DProjectedShadow;
 class W3DVolumetricShadowV2;
 
-class AudioEventRTS
-{
-public:
-	AudioEventRTS();
-	AudioEventRTS &operator=(const AudioEventRTS &that);
-	~AudioEventRTS();
-	AsciiString m_name0;  // +0x00
-	AsciiString m_name4;  // +0x04
-	int m_type;           // +0x08
-	float m_reals[6];     // +0x0C
-	unsigned char m_flags[4]; // +0x24
-};
-
 class Shadow
 {
 public:
-	struct ShadowTypeInfo : public AudioEventRTS
+	struct ShadowTypeInfo
 	{
+		ShadowTypeInfo();
+		ShadowTypeInfo &operator=(const ShadowTypeInfo &that);
+		~ShadowTypeInfo();
+		AsciiString m_name0;  // +0x00
+		AsciiString m_name4;  // +0x04
+		int m_type;           // +0x08
+		float m_reals[6];     // +0x0C
+		unsigned char m_flags[4]; // +0x24
 	};
 };
 

@@ -3274,7 +3274,6 @@ alternatename	Code/GameEngine/Source/Common/StringContainerRecordVector.cpp	?_M_
 alternatename	Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp	??$_Construct@VRva00297360Element@@V1@@_STL@@YAXPAVRva00297360Element@@ABV1@@Z	1
 alternatename	Code/GameEngine/Source/Common/StringVectorRecordCopyBFME2.cpp	??$_Construct@UBfmeVectorRecord0002154F3@@U1@@_STL@@YAXPAUBfmeVectorRecord0002154F3@@ABU1@@Z	1
 alternatename	Code/GameEngine/Source/Common/StringVectorRecordCtorC0BEC.cpp	??0BfmeAsciiStringStorage000BDD48@@QAE@ABUBfmeAsciiStringAllocator000BDD48@@@Z	1
-alternatename	Code/GameEngine/Source/Common/System/AudioEventRTSDtor.cpp	??1AudioEventRTS@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp	_bfmeAppend	1
 alternatename	Code/GameEngine/Source/Common/System/BitFlags11DisabilityCtors.cpp	?construct@Rva003B31ADMember@@QAEPAV1@XZ	1
 alternatename	Code/GameEngine/Source/Common/System/CollisionManagerConstructor.cpp	?crc@CollisionManager@@UAEXPAX@Z	1

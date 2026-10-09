@@ -1,7 +1,7 @@
 // cl: /MD /EHsc /DNDEBUG
 // Rva0029E159::rva0029E159 @0x0029E159 150B
 // Audio handle from source string plus two floats: empty check via 0x1E2F;
-// AudioEventRTS temp via ctor 0x79514 plus AsciiString assign 0x366F0 plus
+// Shadow::ShadowTypeInfo temp via ctor 0x79514 plus AsciiString assign 0x366F0 plus
 // floats and consts; manager at 0x009EC2D4 slot 8; dtor 0x793FA; caller 0x2A3ED8.
 // The manager is a real extern global (the banked attempt read it through a
 // literal-address macro, which moved its load).
@@ -40,23 +40,28 @@ public:
 	AsciiString &operator=(const AsciiString &other) { set(other); return *this; }
 };
 
-class AudioEventRTS
+// The descriptor is Shadow::ShadowTypeInfo (rowed ctor 0x00079514 and dtor
+// 0x000793FA); the type set below (0x20) is its +8 shadow type.
+class Shadow
 {
 public:
-	AudioEventRTS();
-	~AudioEventRTS();
-	AsciiString m_first;
-	AsciiString m_second;
-	Int m_unknown8;
-	float m_floatC;
-	float m_float10;
-	float m_float14;
-	float m_float18;
-	float m_float1C;
-	float m_float20;
-	unsigned char m_byte24;
-	unsigned char m_byte25;
-	unsigned char m_byte26;
+	struct ShadowTypeInfo
+	{
+		ShadowTypeInfo();
+		~ShadowTypeInfo();
+		AsciiString m_first;
+		AsciiString m_second;
+		Int m_type;
+		float m_floatC;
+		float m_float10;
+		float m_float14;
+		float m_float18;
+		float m_float1C;
+		float m_float20;
+		unsigned char m_byte24;
+		unsigned char m_byte25;
+		unsigned char m_byte26;
+	};
 };
 
 struct Source0029E159
@@ -71,7 +76,7 @@ class AudioManager0029E159
 public:
 	virtual ~AudioManager0029E159() {}
 	virtual void s04() = 0;
-	virtual int play(AudioEventRTS *ev) = 0;
+	virtual int play(Shadow::ShadowTypeInfo *ev) = 0;
 };
 
 // g_00DEC2D4: matched references place it at VA 0xdec2d4 (retail .data initial value 0).
@@ -87,14 +92,14 @@ Rva0029E159 *Rva0029E159::rva0029E159(const Source0029E159 &src)
 	m_handle = 0;
 	if (src.m_name.isEmpty())
 		return this;
-	AudioEventRTS ev;
+	Shadow::ShadowTypeInfo ev;
 	ev.m_first = src.m_name;
 	ev.m_floatC = src.m_x;
 	AudioManager0029E159 *mgr = g_00DEC2D4;
 	ev.m_float10 = src.m_y;
 	ev.m_byte25 = 0;
 	ev.m_byte26 = 1;
-	ev.m_unknown8 = 0x20;
+	ev.m_type = 0x20;
 	ev.m_float14 = 0.0f;
 	ev.m_float18 = 0.0f;
 	m_handle = mgr->play(&ev);

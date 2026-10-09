@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /EHsc /DNDEBUG /MD
 // ?rva000B9DD9@Rva000B9DD9@@QAEXABVAsciiString@@@Z 0x000B9DD9 233B
-// Evidence: leaf slot 19 offset 0x4C of 6 W3D Draw vtables Horde Quadruped Supply Truck Tank Sail; prev own 0x000B9C8C; AudioEventRTS ctor set dtor rows; StringBase isEmpty set rows; g_00DEC2D4 vcall slot 0xC; m_5c vcall slot 8.
+// Evidence: leaf slot 19 offset 0x4C of 6 W3D Draw vtables Horde Quadruped Supply Truck Tank Sail; prev own 0x000B9C8C; Shadow::ShadowTypeInfo ctor (0x00079514) set dtor (0x000793FA) rows; StringBase isEmpty set rows; g_00DEC2D4 vcall slot 0xC; m_5c vcall slot 8.
 
 #include "ascii_string.h"
 
@@ -35,23 +35,26 @@ struct Rva000B9DD9Mgr
 	virtual void *m3(void *a, void *b, int c, int d);
 };
 
-class AudioEventRTS
+class Shadow
 {
 public:
-	AudioEventRTS();
-	~AudioEventRTS();
-	AsciiString m_first;
-	AsciiString m_second;
-	int m08;
-	float m0c;
-	float m10;
-	float m14;
-	float m18;
-	float m1c;
-	float m20;
-	unsigned char m24;
-	unsigned char m25;
-	unsigned char m26;
+	struct ShadowTypeInfo
+	{
+		ShadowTypeInfo();
+		~ShadowTypeInfo();
+		AsciiString m_first;
+		AsciiString m_second;
+		int m08;
+		float m0c;
+		float m10;
+		float m14;
+		float m18;
+		float m1c;
+		float m20;
+		unsigned char m24;
+		unsigned char m25;
+		unsigned char m26;
+	};
 };
 
 struct Rva000B9DD9Floats
@@ -88,7 +91,7 @@ void Rva000B9DD9::rva000B9DD9(const AsciiString &s)
 	if (((const StringBase<char> &)s).isEmpty())
 		return;
 	Rva000B9DD9Floats *f = (Rva000B9DD9Floats *)m08->m04;
-	AudioEventRTS ev;
+	Shadow::ShadowTypeInfo ev;
 	ev.m25 = 0;
 	ev.m26 = 1;
 	ev.m08 = 0x20;

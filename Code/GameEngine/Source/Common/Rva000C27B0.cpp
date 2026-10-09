@@ -4,12 +4,12 @@
 // Copy-assign for address-derived class Rva000C27B0. Layout mirrors the
 // neighbouring Rva000C2980 dtor TU (AsciiString at +0x58/+0x5c/+0x60/+0x70/
 // +0x74, five vector<AsciiString> at +0x78/+0x84/+0x90/+0x9c/+0xa8,
-// vector<AsciiString> at +0x4c, AudioEventRTS* at +0xdc) with packet-proven
+// vector<AsciiString> at +0x4c, Shadow::ShadowTypeInfo* at +0xdc) with packet-proven
 // element types at +0x64/+0xb4/+0xb8/+0xc4/+0xd0. Evidence: unlock lane,
 // caller 0x000C8A52 in FUN_004c8914, self-check je, rep movsd 0x13 for
 // +0x00..+0x4b, rowed StringBase::set at 0x366F0, rowed vector/list assigns,
 // erase plus push_back loop at +0x4c, dword copies at +0xe0..+0xf0, new
-// AudioEventRTS at 0x79514 plus assign at 0x9A41B for +0xdc. Identity is
+// Shadow::ShadowTypeInfo at 0x79514 plus assign at 0x9A41B for +0xdc. Identity is
 // address-derived (naming: line); class may match Rva000C2980 but keeps its
 // own honest name until proven.
 #include "ascii_string.h"
@@ -21,25 +21,28 @@ class Rva000BB491 { public: char _pad[4]; };
 class Rva000BB4AC { public: char _pad[4]; };
 struct Rva000BC20DWords { char _pad[4]; };
 struct BfmeStringRecord000B94D2 { char _pad[8]; };
-class AudioEventRTS
+class Shadow
 {
 public:
-	AudioEventRTS();
-	AudioEventRTS &operator=(const AudioEventRTS &that);
-private:
-	AsciiString m_first;
-	AsciiString m_second;
-	int m_unknown8;
-	float m_floatC;
-	float m_float10;
-	float m_float14;
-	float m_float18;
-	float m_float1C;
-	float m_float20;
-	unsigned char m_byte24;
-	unsigned char m_byte25;
-	unsigned char m_byte26;
-	char m_pad27;
+	struct ShadowTypeInfo
+	{
+		ShadowTypeInfo();
+		ShadowTypeInfo &operator=(const ShadowTypeInfo &that);
+	private:
+		AsciiString m_first;
+		AsciiString m_second;
+		int m_type;
+		float m_floatC;
+		float m_float10;
+		float m_float14;
+		float m_float18;
+		float m_float1C;
+		float m_float20;
+		unsigned char m_byte24;
+		unsigned char m_byte25;
+		unsigned char m_byte26;
+		char m_pad27;
+	};
 };
 
 namespace _STL
@@ -96,7 +99,7 @@ private:
 	_STL::vector<Rva000BB491, _STL::allocator<Rva000BB491> > m_b8;
 	_STL::vector<Rva000BB4AC, _STL::allocator<Rva000BB4AC> > m_c4;
 	_STL::vector<Rva000BC20DWords, _STL::allocator<Rva000BC20DWords> > m_d0;
-	AudioEventRTS *m_dc;
+	Shadow::ShadowTypeInfo *m_dc;
 	int m_e0;
 	int m_e4;
 	int m_e8;
@@ -140,7 +143,7 @@ Rva000C27B0 &Rva000C27B0::operator=(const Rva000C27B0 &that)
 	m_64 = that.m_64;
 	m_dc = 0;
 	if (that.m_dc != 0) {
-		m_dc = new AudioEventRTS;
+		m_dc = new Shadow::ShadowTypeInfo;
 		*m_dc = *that.m_dc;
 	}
 	return *this;
