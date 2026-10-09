@@ -1,4 +1,6 @@
 // ?Update@WaitForBattleStateHandler@Impl@BattleResolver@StrategicInGameUI@@UAEXXZ
+// partial score=0.9834761011708653 date=2026-10-09
+// ?Update@WaitForBattleStateHandler@Impl@BattleResolver@StrategicInGameUI@@UAEXXZ
 // partial score=0.7201644958876028 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
 //
@@ -133,10 +135,11 @@ class Rva002BA8F1Logic {public:int rva002B5256(bool);};
 class LivingWorldLogic;extern LivingWorldLogic *TheLivingWorldLogic;
 UnicodeString Rva005D0100Get(int);
 class Rva005D087F {public:operator UnicodeString();};
-struct Pair8 {int a;int b;};
-struct Triple12 {int a,b,c;};
+struct WideStringRef {const UnicodeString *text;};
+struct Pair8 : WideStringRef {unsigned short sep;};
+struct Triple12 : Rva005D087F {int a,b,c;};
 Triple12 __cdecl Rva0037BA97Init(const Pair8*,int);
-struct S3WidePair {const UnicodeString *text;unsigned short sep;S3WidePair(const UnicodeString&t,unsigned short c):text(&t),sep(c){}};
+inline Pair8 MakeWidePair(const UnicodeString&t,unsigned short c){Pair8 p;p.text=&t;p.sep=c;return p;}
 class StrategicInGameUI::BattleResolver::Impl::WaitForBattleStateHandler {
  public:virtual ~WaitForBattleStateHandler();virtual void Update();
  Impl *owner;char pad08[8];unsigned long started;int battleType;bool shown;
@@ -147,10 +150,10 @@ void StrategicInGameUI::BattleResolver::Impl::WaitForBattleStateHandler::Update(
   Rva005CFA87 *next=new Rva005CFA87(owner,change);
   owner->m_state.rva00575674((Object*)next);
  }else if(((Rva002BA8F1Logic*)TheLivingWorldLogic)->rva002B5256(false)>1&&!shown){
-  AptStrategicMessageBox *prompt=AptStrategicMessageBox::s_instance;
+  int prompt=(int)AptStrategicMessageBox::s_instance;
   if(prompt&&timeGetTime()-started>=200){
    UnicodeString wait=TheGameText->fetch("STRATEGICHUD:WaitMessage",0);
-   ((Rva0054D2DDTarget*)prompt)->method(4,UnicodeString(L""),((Rva005D087F*)&Rva0037BA97Init((const Pair8*)&S3WidePair(Rva005D0100Get(battleType),'\n'),(int)&wait))->operator UnicodeString());
+   ((Rva0054D2DDTarget*)prompt)->method(4,UnicodeString(L""),Rva0037BA97Init(&MakeWidePair(Rva005D0100Get(battleType),'\n'),(int)&wait));
    shown=true;
   }
  }

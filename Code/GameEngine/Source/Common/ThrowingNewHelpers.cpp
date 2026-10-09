@@ -1,4 +1,4 @@
-// cl: /MD /EHsc /DNDEBUG
+// cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG
 //
 // Wave-3 F78 shape family: throwing-new plus final. Each body allocates its
 // POD helper with operator new, constructs it in place with (member, arg)
@@ -25,13 +25,6 @@ struct Rva005CF22CBig
 	Rva00575674Sub m_sub;
 };
 
-class Rva005CF07EHelper
-{
-public:
-	Rva005CF07EHelper(Rva005CF22CBig *b, int x);
-	unsigned char m_data[0x14];
-};
-
 class Rva005CF22COwner
 {
 public:
@@ -40,12 +33,6 @@ private:
 	unsigned char m_pad00[0xC];
 	Rva005CF22CBig *m_a;
 };
-
-void Rva005CF22COwner::rva005CF22C(int x)
-{
-	Rva005CF07EHelper *h = new Rva005CF07EHelper(m_a, x);
-	m_a->m_sub.rva00575674(h);
-}
 
 struct TargetRef00217D4C;
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
@@ -179,4 +166,58 @@ void Rva005CF703Owner::rva005CF703(int x)
 {
 	Rva005CF4A8Helper *h = new Rva005CF4A8Helper(m_a, x);
 	m_a->m_sub.rva00575674(h);
+}
+
+class Rva004E0741 {public:void rva004E0741()const;};
+class CreateAHeroData;
+class Rva004E05F0 {public:CreateAHeroData *rva004E05F0();};
+class Rva0042D6E6PtrChaseField {public:int get()const;};
+class Rva005CE259 {public:struct Payload {int v[2];};};
+class Rva005CE2A1 {public:~Rva005CE2A1(){if(m_p)ReleaseTreeHintRef00217D4C(m_p);}TargetRef00217D4C*m_p;};
+Rva005CE2A1 Rva005CE2A1Create(const Rva005CE259::Payload*);
+struct ICoord2D {ICoord2D(int,int);int x,y;};
+class Rva005CE4B2 {public:Rva005CE4B2(const int*);~Rva005CE4B2(){if(m_p)ReleaseTreeHintRef00217D4C(m_p);}TargetRef00217D4C*m_p;};
+class Image;struct Rva005D232DIn;
+const Image *Rva005D232DGet(Rva005D232DIn*);
+struct Rva005E8C54Source;
+class Rva005E8CB0 {public:Rva005E8CB0(void*,int,void*,const Rva005E8C54Source*);void *m_p;};
+class Rva005E893E;
+class Rva005CE236 {public:Rva005CE236():m_p(0){}~Rva005CE236();void reset(Rva005E893E*);Rva005E893E*m_p;};
+class Rva0057605DSecond {public:Rva0057605DSecond(){}virtual ~Rva0057605DSecond(){};};
+class Rva005CEE9F : public Rva005CF37DBase0,public Rva0057605DSecond {public:Rva005CEE9F(Rva005CF22CBig*,int);virtual ~Rva005CEE9F();private:void *m_region;Rva005CE236 m_build;};
+class S3RegionPanel {public:virtual void slot0();virtual void setImage(const Image*);virtual void slot2();virtual void slot3();virtual void slot4();virtual void slot5();virtual void setCallback(const Rva005CE4B2&);virtual void slot7();virtual void show();};
+class S3CommandSlots {public:virtual void slot0();virtual void createButton(int,const Rva005CE2A1&);};
+// Native374B5CF07E..5CF1F4 and WB15C2BB0 unnamed strategic region UI
+// constructor. Existing dtor5CEE9F and scalar wrapper5CF1F4 own the
+// primary vtableC7522C; listener at8 and regionC precede owned helper10.
+// Matched299B army sibling supplies UI protocol; target calls and WB
+// independently prove region callbacks and command slot5. No ZH/BF1
+// clean donor exists for this BFME2 strategic UI. Field and argument
+// meanings outside the target-read region and UI roles remain opaque.
+Rva005CEE9F::Rva005CEE9F(Rva005CF22CBig*b,int x):Rva005CF37DBase0(b),m_region((void*)x){
+ ((const Rva004E0741*)m_region)->rva004E0741();
+ void *view=m_owner->m_view10;
+ S3RegionPanel *panel=(S3RegionPanel*)((Rva0042D703PtrChaseField*)view)->get();
+ if(panel){
+  panel->setImage(Rva005D232DGet((Rva005D232DIn*)m_region));
+  {int region=(int)m_region;Rva005CE4B2 ref(&region);panel->setCallback(ref);}
+  panel->show();
+ }
+ S3CommandSlots *slots=(S3CommandSlots*)((Rva0042D69DPtrChaseField*)view)->get();
+ if(slots){
+  int button=((Rva0042D6B4PtrChaseField*)view)->get();
+  if(button)slots->createButton(5,Rva005CE2A1Create((const Rva005CE259::Payload*)&ICoord2D(button,(int)((Rva004E05F0*)x)->rva004E05F0())));
+ }
+ int builder=((Rva0042D6E6PtrChaseField*)view)->get();
+ if(builder){
+  int button=((Rva0042D6B4PtrChaseField*)view)->get();
+  if(button)m_build.reset((Rva005E893E*)new Rva005E8CB0((void*)builder,button,*(void**)((char*)m_owner+8),(const Rva005E8C54Source*)m_region));
+ }
+ ((Rva005A0B4CList*)((char*)m_region+8))->append((Rva002BA8F1Listener*)static_cast<Rva0057605DSecond*>(this));
+}
+
+// Native5CF22C allocator retained with destructor-owned class spelling.
+void Rva005CF22COwner::rva005CF22C(int x) {
+ Rva005CEE9F *h=new Rva005CEE9F(m_a,x);
+ m_a->m_sub.rva00575674(h);
 }
