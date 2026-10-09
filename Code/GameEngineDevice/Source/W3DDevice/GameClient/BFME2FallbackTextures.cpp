@@ -148,3 +148,43 @@ keep_name:
  }
  return BFME2ParticleTextureHandle();
 }
+
+// ?rva0013331A@Rva0013331A@@QAEXXZ
+// Native 0x0013331A..0x00133380 (102 bytes). WorldBuilder gives the
+// TextureAsset::Impl::Unload lead; retain the existing neutral owner name.
+// The resource at +8 is queued under DF2984 when the deferred-release owner
+// exists, otherwise released through IUnknown slot 2, then cleared. The
+// inline scoped guard uses the already matched Lock/Unlock providers.
+class CriticalSection;
+class ScopedCriticalSection {
+ CriticalSection *m_cs; bool m_locked;
+ void Lock(); void Unlock() throw();
+public:
+ __forceinline ScopedCriticalSection(CriticalSection *cs):m_cs(cs),m_locked(false){Lock();}
+ __forceinline ~ScopedCriticalSection(){if(m_locked)Unlock();}
+};
+class BfmeDeferredTexture {
+public:
+ virtual long __stdcall QueryInterface(void *,void **);
+ virtual unsigned long __stdcall AddRef();
+ virtual unsigned long __stdcall Release();
+};
+class Rva009EB960;
+extern Rva009EB960 *Rva0134FAA0;
+extern unsigned g_Va00DF2984;
+extern unsigned g_Va00DF29A8;
+class Rva0020FB8BVec20 { public: void vecPushBack(void *&); };
+class Rva0013331A {
+ unsigned char prefix[8]; BfmeDeferredTexture *texture;
+public: void rva0013331A();
+};
+void Rva0013331A::rva0013331A() {
+ if(!texture)return;
+ if(Rva0134FAA0) {
+  ScopedCriticalSection guard(reinterpret_cast<CriticalSection *>(&g_Va00DF2984));
+  reinterpret_cast<Rva0020FB8BVec20 *>(&g_Va00DF29A8)->vecPushBack(reinterpret_cast<void *&>(texture));
+ } else {
+  texture->Release();
+ }
+ texture=0;
+}
