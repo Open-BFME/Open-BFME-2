@@ -1,0 +1,206 @@
+[
+  {
+    "label": "complete-search",
+    "rva": "0x1fd837",
+    "size": 39,
+    "bytes": "558bec568b750ceb11ff75148d4e08e88b91e0ff85c074078b363b751075ea8b450889305e5dc3",
+    "instructions": [
+      {
+        "rva": "0x1fd837",
+        "op": "push ebp"
+      },
+      {
+        "rva": "0x1fd838",
+        "op": "mov ebp, esp"
+      },
+      {
+        "rva": "0x1fd83a",
+        "op": "push esi"
+      },
+      {
+        "rva": "0x1fd83b",
+        "op": "mov esi, dword ptr [ebp + 0xc]"
+      },
+      {
+        "rva": "0x1fd83e",
+        "op": "jmp 0x5fd851"
+      },
+      {
+        "rva": "0x1fd840",
+        "op": "push dword ptr [ebp + 0x14]"
+      },
+      {
+        "rva": "0x1fd843",
+        "op": "lea ecx, [esi + 8]"
+      },
+      {
+        "rva": "0x1fd846",
+        "op": "call 0x4069d6"
+      },
+      {
+        "rva": "0x1fd84b",
+        "op": "test eax, eax"
+      },
+      {
+        "rva": "0x1fd84d",
+        "op": "je 0x5fd856"
+      },
+      {
+        "rva": "0x1fd84f",
+        "op": "mov esi, dword ptr [esi]"
+      },
+      {
+        "rva": "0x1fd851",
+        "op": "cmp esi, dword ptr [ebp + 0x10]"
+      },
+      {
+        "rva": "0x1fd854",
+        "op": "jne 0x5fd840"
+      },
+      {
+        "rva": "0x1fd856",
+        "op": "mov eax, dword ptr [ebp + 8]"
+      },
+      {
+        "rva": "0x1fd859",
+        "op": "mov dword ptr [eax], esi"
+      },
+      {
+        "rva": "0x1fd85b",
+        "op": "pop esi"
+      },
+      {
+        "rva": "0x1fd85c",
+        "op": "pop ebp"
+      },
+      {
+        "rva": "0x1fd85d",
+        "op": "ret "
+      }
+    ]
+  },
+  {
+    "label": "complete-forwarder",
+    "rva": "0x5baa83",
+    "size": 32,
+    "bytes": "558bec8d450b50ff7514ff7510ff750cff7508e89c2dc4ff8b450883c4145dc3",
+    "instructions": [
+      {
+        "rva": "0x5baa83",
+        "op": "push ebp"
+      },
+      {
+        "rva": "0x5baa84",
+        "op": "mov ebp, esp"
+      },
+      {
+        "rva": "0x5baa86",
+        "op": "lea eax, [ebp + 0xb]"
+      },
+      {
+        "rva": "0x5baa89",
+        "op": "push eax"
+      },
+      {
+        "rva": "0x5baa8a",
+        "op": "push dword ptr [ebp + 0x14]"
+      },
+      {
+        "rva": "0x5baa8d",
+        "op": "push dword ptr [ebp + 0x10]"
+      },
+      {
+        "rva": "0x5baa90",
+        "op": "push dword ptr [ebp + 0xc]"
+      },
+      {
+        "rva": "0x5baa93",
+        "op": "push dword ptr [ebp + 8]"
+      },
+      {
+        "rva": "0x5baa96",
+        "op": "call 0x5fd837"
+      },
+      {
+        "rva": "0x5baa9b",
+        "op": "mov eax, dword ptr [ebp + 8]"
+      },
+      {
+        "rva": "0x5baa9e",
+        "op": "add esp, 0x14"
+      },
+      {
+        "rva": "0x5baaa1",
+        "op": "pop ebp"
+      },
+      {
+        "rva": "0x5baaa2",
+        "op": "ret "
+      }
+    ]
+  },
+  {
+    "label": "caller-list-and-result",
+    "rva": "0x5bb4cf",
+    "size": 33,
+    "bytes": "8b45e03bc3741a8b7820ff75dc8b0757508d45c450e89af5ffff83c41039387459",
+    "instructions": [
+      {
+        "rva": "0x5bb4cf",
+        "op": "mov eax, dword ptr [ebp - 0x20]"
+      },
+      {
+        "rva": "0x5bb4d2",
+        "op": "cmp eax, ebx"
+      },
+      {
+        "rva": "0x5bb4d4",
+        "op": "je 0x9bb4f0"
+      },
+      {
+        "rva": "0x5bb4d6",
+        "op": "mov edi, dword ptr [eax + 0x20]"
+      },
+      {
+        "rva": "0x5bb4d9",
+        "op": "push dword ptr [ebp - 0x24]"
+      },
+      {
+        "rva": "0x5bb4dc",
+        "op": "mov eax, dword ptr [edi]"
+      },
+      {
+        "rva": "0x5bb4de",
+        "op": "push edi"
+      },
+      {
+        "rva": "0x5bb4df",
+        "op": "push eax"
+      },
+      {
+        "rva": "0x5bb4e0",
+        "op": "lea eax, [ebp - 0x3c]"
+      },
+      {
+        "rva": "0x5bb4e3",
+        "op": "push eax"
+      },
+      {
+        "rva": "0x5bb4e4",
+        "op": "call 0x9baa83"
+      },
+      {
+        "rva": "0x5bb4e9",
+        "op": "add esp, 0x10"
+      },
+      {
+        "rva": "0x5bb4ec",
+        "op": "cmp dword ptr [eax], edi"
+      },
+      {
+        "rva": "0x5bb4ee",
+        "op": "je 0x9bb549"
+      }
+    ]
+  }
+]

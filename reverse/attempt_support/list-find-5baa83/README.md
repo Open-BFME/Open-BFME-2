@@ -11,3 +11,5 @@ Repair: retire the four-argument void-return private node search, and rehome the
 Private receipts: build/reference214/iterator-find5baa83/{variants-proof.json,pin-before.log}. These are discovery evidence; ordinary current body, identity, relocation, fold admission and linking gates are required for the tracked changes.
 
 The unmodified const __find instantiation also emitted an unused const-iterator ++ COMDAT that differed from the existing first copy. A source-local explicit specialization of the genuine __find consumes STLport node links directly and preserves the search algorithm. Its complete body is the same native 39 bytes with the same sole compare REL32; no competing const-iterator increment is emitted. No shared STLport header or compiler profile changes.
+
+Wrapper recovery: whole home 3/3 body checks retain the old 42-byte forwarder, the rehomed 39-byte provider and the new 32-byte caller. Current linking verifies all 113 bytes. The affected whole-source placement drain has zero new bodies or pins. Native instruction receipts are in native-proof.json. There are no further supported open bodies in this source.

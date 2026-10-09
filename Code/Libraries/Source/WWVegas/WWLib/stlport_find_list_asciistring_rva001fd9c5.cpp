@@ -42,3 +42,13 @@ Rva005BAA83Iter __find<Rva005BAA83Iter, AsciiString>(
     return first;
 }
 }
+
+// Native 0x005BAA83..0x005BAAA3 passes the iterator output, first/end nodes,
+// string reference and tag to the search above. Caller 0x005BB4E4 compares
+// the returned node against its sentinel. Original wrapper spelling unknown.
+Rva005BAA83Iter Rva005BAA83Find(Rva005BAA83Iter first,
+                              Rva005BAA83Iter last,
+                              const AsciiString &value)
+{
+    return _STL::__find(first, last, value, _STL::input_iterator_tag());
+}
