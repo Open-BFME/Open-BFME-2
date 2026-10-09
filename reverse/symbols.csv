@@ -16548,3 +16548,4 @@ _D3DXLoadVolumeFromFileInMemory@36,0x0062AF8C,Native1318F0 in-image JMP IAT veri
 ?rva001F4E2D@Rva001F4E2D@@QAE_NXZ,0x001F4E2D,callee of ?update@CPUParticle@FXParticleSystem@@QAE_NXZ
 ??0Rva003438C7@@QAE@PAVObject@@PAVRva003438C7Host@@I@Z,0x003438C7,callee of ?createAttackMachine@AIAttackState@@IAEXPAVObject@@@Z
 ??0Rva00346D17@@QAE@PAVObject@@PAVRva00346D17Attack@@I_N22@Z,0x00346D17,callee of ?createAttackMachine@AIAttackState@@IAEXPAVObject@@@Z
+?insert@?$list@PAVFXNugget@@V?$allocator@PAVFXNugget@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVFXNugget@@U?$_Nonconst_traits@PAVFXNugget@@@_STL@@@2@U32@ABQAVFXNugget@@@Z,0x005925E2,ICF twin of the four-byte list insert: list<FXNugget*>::push_back (folded at 0x0005548F) calls it at 0x000554A0; 37B with an out-of-line _M_create_node; fold-proof=Code/GameEngine/Source/GameClient/FXListNuggetParse.cpp
