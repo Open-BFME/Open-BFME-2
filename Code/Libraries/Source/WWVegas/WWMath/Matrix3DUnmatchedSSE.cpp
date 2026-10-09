@@ -12,6 +12,14 @@ struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #pragma optimize("", on)
 
+// Keep CRT inline adapters local, as in the verified native math siblings.
+#define inline static inline
+#include <math.h>
+#undef inline
+#include "../../../../../reference/shims/bfme_colmathaabox/wwmath.h"
+#include "../../../../../reference/shims/bfme_matrix3d_sse_link/vector3.h"
+#include "../../../../../reference/shims/bfme_matrix3d_sse_link/vector4.h"
+#include "../../../../../reference/shims/bfme_matrix3d_sse_link/matrix3d.h"
 #include "rendobj.h"
 #include "matrix3d.h"
 #include "vector3.h"
