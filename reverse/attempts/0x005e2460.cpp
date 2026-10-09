@@ -1,6 +1,8 @@
 // ?rva005E2460@Rva005E2460@@QAEXXZ
+// partial score=0.96 date=2026-10-09
+// ?rva005E2460@Rva005E2460@@QAEXXZ
 // partial score=0.96 date=2026-10-02
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /O1 /G6 /MD /EHsc
 // ?rva005E2460@Rva005E2460@@QAEXXZ @0x005E2460 120B
 // Chain method: reads [this+0xC]->[+0x170][[this+0x20]]->[+0x20]->[+0x28] label
 // holder; if present fetches its UnicodeString via rowed 0x002DF9E9 else rowed
@@ -20,7 +22,8 @@ public:
 	void rva005F0CC1(const UnicodeString &text);
 };
 
-UnicodeString Rva005C95CAGet();
+class Rva005E2338Elem;
+UnicodeString Rva005C95CAGet(const Rva005E2338Elem *);
 
 struct Rva005E2460D
 {
@@ -54,14 +57,14 @@ private:
 // ?rva005E2460@Rva005E2460@@QAEXXZ present-unmatched
 void Rva005E2460::rva005E2460()
 {
-	Rva005E2460A *a = m_0C;
-	int idx = m_20;
-	Rva005E2460C *entry = a->m_table[idx];
-	Rva005E2460D *d = entry->m_20;
+	Rva005E2460C **table = *(Rva005E2460C **volatile*)&m_0C->m_table;
+	int idx = *(const volatile int*)&m_20;
+	Rva005E2460C *entry = table[idx];
+	Rva005E2460D *d = *(Rva005E2460D *volatile*)&entry->m_20;
 	if (d != 0) {
 		Rva002DF9E9 *labelObj = d->m_28;
 		((Rva005F0CC1 *)this)->rva005F0CC1(labelObj->rva002DF9E9());
 	} else {
-		((Rva005F0CC1 *)this)->rva005F0CC1(Rva005C95CAGet());
+		((Rva005F0CC1 *)this)->rva005F0CC1(Rva005C95CAGet((const Rva005E2338Elem*)entry));
 	}
 }
