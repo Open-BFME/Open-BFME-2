@@ -1,5 +1,7 @@
 // ?drawWaypoints@W3DWaypointBuffer@@QAEXAAVRenderInfoClass@@@Z
 // partial score=0.98 date=2026-10-09
+// ?drawWaypoints@W3DWaypointBuffer@@QAEXAAVRenderInfoClass@@@Z
+// partial score=0.98 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
 // stlport
 //
