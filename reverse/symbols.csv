@@ -17059,3 +17059,7 @@ _malloc,0x00628F92,CRT malloc import linker thunk (jmp [0xBBA6EC])
 ?renderSubBox@W3DSnowManager@@QAEXAAVRenderInfoClass@@HHHH@Z,0x00093507,W3DSnowManager::renderSubBox (BFME1 W3DSnowManagerRender donor name; ret 0x14); caller W3DSnowManager::render 0x0009470F
 ??0AptMessenger@@QAE@PAX@Z,0x0051215B,AptMessenger constructor (vftables C659A0/C65998; registers the AptMessenger callbacks; WB mislabels it CloseScreen); called by AptMessengerOnline::AptMessengerOnline 0x005AEF6B
 ?OnHidden@Impl@AptMessageBoxMovieClip@@QAEXPBD@Z,0x0054CBB0,callee of ??0Rva0054CFB8Target@@QAE@HABVAsciiString@@@Z
+?rva00171067@Rva00171024@@QAEXABVBFME2ParticleTextureHandle@@@Z,0x00171067,callee of shrub updateTexture 0x000E7B3F; texture atlas list add taking the loaded handle by reference (push &handle; ECX = list at +0x40/+0x68); pushed from the particle texture loader result; identity from W3DShrubBuffer twin of BFME1 Rva0094D250
+?rva000E6406@W3DShrubBuffer@@QAEXABUBreezeInfo@@@Z,0x000E6406,callee of shrub per-frame update 0x000E89BD (ECX=buffer; push the script engine breeze info at +0x1A4A8); sway update twin of the tree buffer ZH updateSway; identity from the call site and its banked near miss
+?rva000E7DF3@W3DShrubBuffer@@QAEXXZ,0x000E7DF3,callee of shrub per-frame update 0x000E89BD when the changed flag is set; WB name loadShrubsInVertexAndIndexBuffers; banked near miss
+?rva000E8365@W3DShrubBuffer@@QAEXXZ,0x000E8365,callee of shrub per-frame update 0x000E89BD when only the push flag is set; shrub vertex push-aside refresh; banked near miss

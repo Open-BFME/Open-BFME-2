@@ -1,5 +1,3 @@
-// ?rva000EB2EF@W3DTreeBuffer@@QAEXH@Z
-// partial score=0.95 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
 // W3DTreeBuffer indexed toppling update, retail 0x000EB2EF (226 bytes, ret 4): a tree that is neither held nor
 // busy counts its sink frames down, fades its topple and push-aside models by the remaining fraction
@@ -22,7 +20,6 @@ struct Rva000EB2EFTypeData
 
 struct Rva000EB2EFTree
 {
-	char m_prefix[0x5c0];
 	char m_pad00[0x40];
 	Int m_treeType;
 	char m_pad44[0x80 - 0x44];
@@ -33,6 +30,7 @@ struct Rva000EB2EFTree
 	UnsignedInt m_sinkFrames;
 	RenderObjClass *m_topple;
 	RenderObjClass *m_pushAside;
+	char m_pade0[8];
 };
 
 struct Rva000EB2EFType
@@ -50,7 +48,7 @@ public:
 
 private:
 	char m_pad00[0x5c0];
-	char m_trees[1200 * 0xe8];
+	Rva000EB2EFTree m_trees[1200];
 	Int m_numTrees;
 	char m_pad44544[0x44558 - 0x44544];
 	Rva000EB2EFType m_treeTypes[64];
@@ -60,21 +58,20 @@ void W3DTreeBuffer::rva000EB2EF(Int treeIndex)
 {
 	if (treeIndex >= m_numTrees)
 		return;
-	Rva000EB2EFTree *tree = (Rva000EB2EFTree *)(treeIndex * 0xe8 + (char *)this);
-	Int treeType = tree->m_treeType;
+	Int treeType = m_trees[treeIndex].m_treeType;
 	if (treeType < 0)
 		return;
 
-	if (tree->m_flagc4 || tree->m_field80 != 0) {
+	if (m_trees[treeIndex].m_flagc4 || m_trees[treeIndex].m_field80 != 0) {
 		rva000EB0E6(treeIndex);
 		return;
 	}
-	--tree->m_sinkFrames;
-	Real progress = (Real)tree->m_sinkFrames / (Real)m_treeTypes[treeType].m_data->m_toppleFrames;
-	if (tree->m_topple)
-		Rva0010E87A_SetOpacity(tree->m_topple, progress);
-	if (tree->m_pushAside)
-		Rva0010E87A_SetOpacity(tree->m_pushAside, 1.0f - progress);
-	if (tree->m_sinkFrames == 0)
+	--m_trees[treeIndex].m_sinkFrames;
+	Real progress = (Real)m_trees[treeIndex].m_sinkFrames / (Real)m_treeTypes[treeType].m_data->m_toppleFrames;
+	if (m_trees[treeIndex].m_topple)
+		Rva0010E87A_SetOpacity(m_trees[treeIndex].m_topple, progress);
+	if (m_trees[treeIndex].m_pushAside)
+		Rva0010E87A_SetOpacity(m_trees[treeIndex].m_pushAside, 1.0f - progress);
+	if (m_trees[treeIndex].m_sinkFrames == 0)
 		rva000EB0E6(treeIndex);
 }

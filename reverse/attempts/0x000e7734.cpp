@@ -1,5 +1,5 @@
 // ?rva000E7734@W3DShrubBuffer@@QAEXPAVThing@@@Z
-// partial score=0.9 date=2026-10-09
+// partial score=0.99 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
 // W3DShrubBuffer::unitMoved, retail 0x000E7734 (780 bytes, ret 4): when a mobile unit moves, every shrub of the
 // 50 by 50 partition cells under the unit's footprint (radius + 7) that is within that radius is pushed aside.
@@ -86,7 +86,6 @@ struct Rva000E7734Type
 
 struct Rva000E7734Tree
 {
-	char m_prefix[0x1958];
 	Coord3D m_location;
 	char m_pad0c[0x34];
 	Int m_treeType;
@@ -107,7 +106,7 @@ private:
 	char m_pad00[0x5c0];
 	Short m_areaPartition[(0x1948 - 0x5c0) / 2];
 	Rva000E7734Region m_bounds;
-	char m_trees[2000 * 0xa0];
+	Rva000E7734Tree m_trees[2000];
 	Int m_numTrees;
 	char m_pad4fb5c[0x4fb70 - 0x4fb5c];
 	Rva000E7734Type m_treeTypes[64];
@@ -156,25 +155,24 @@ void W3DShrubBuffer::rva000E7734(Thing *unit)
 			while (treeNdx != -1) {
 				if (treeNdx < 0 || treeNdx >= m_numTrees)
 					break;
-				Rva000E7734Tree *tree = (Rva000E7734Tree *)(treeNdx * 0xa0 + (char *)this);
-				if (tree->m_treeType < 0) {
-					treeNdx = tree->m_nextInPartition;
+				if (m_trees[treeNdx].m_treeType < 0) {
+					treeNdx = m_trees[treeNdx].m_nextInPartition;
 					continue;
 				}
 				Coord3D delta;
-				delta.x = tree->m_location.x;
-				delta.y = tree->m_location.y;
-				delta.z = tree->m_location.z;
+				delta.x = m_trees[treeNdx].m_location.x;
+				delta.y = m_trees[treeNdx].m_location.y;
+				delta.z = m_trees[treeNdx].m_location.z;
 				delta.x -= pos.x;
 				delta.y -= pos.y;
 				delta.z -= pos.z;
 				if (radius * radius > delta.x * delta.x + delta.y * delta.y + delta.z * delta.z) {
-					Rva000E7734TreeData *data = m_treeTypes[tree->m_treeType].m_data;
+					Rva000E7734TreeData *data = m_treeTypes[m_trees[treeNdx].m_treeType].m_data;
 					if (data != 0 && data->m_framesToMoveOutward > 0) {
-						rva000E72B3(tree->m_drawableID, (const Coord3D *)&pos, unit->getUnitDirectionVector2D(), unit->m_id);
+						rva000E72B3(m_trees[treeNdx].m_drawableID, (const Coord3D *)&pos, unit->getUnitDirectionVector2D(), unit->m_id);
 					}
 				}
-				treeNdx = tree->m_nextInPartition;
+				treeNdx = m_trees[treeNdx].m_nextInPartition;
 			}
 		}
 	}

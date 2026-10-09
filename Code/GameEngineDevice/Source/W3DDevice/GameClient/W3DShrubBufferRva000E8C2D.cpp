@@ -1,8 +1,7 @@
 // ?rva000E8C2D@W3DShrubBuffer@@QAEXHH@Z
-// partial score=0.9 date=2026-10-09
 // cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug
-// W3DShrubBuffer method at retail 0x000ECA4D (936 bytes, ret 8; called from the key lookup 0x000ECF2A):
-// gives a tree its type's model and the model of the type at +0xD0 at the tree's position and rotation,
+// W3DShrubBuffer start-morph at retail 0x000E8C2D (880 bytes, ret 8), shrub twin of the tree 0x000ECA4D:
+// gives a shrub its type's model and the model of the type at +0xD0 at the tree's position and rotation,
 // starts the +0xD4 countdown and plays the type's effect. Donor: Open-BFME-1 W3DShrubBufferRva00736150.cpp
 // (BFME1 0x00736150). BFME2 layout read from retail.
 #include "matrix3.h"
@@ -65,7 +64,6 @@ struct Rva000E8C2DType
 
 struct Rva000E8C2DTree
 {
-	unsigned char m_prefix[0x1958];
 	Coord3D m_location;
 	Real m_scale;
 	Matrix3D m_transform;
@@ -87,18 +85,17 @@ public:
 
 private:
 	unsigned char m_pad0000[0x1958];
-	unsigned char m_trees[2000 * 0xa0];
+	Rva000E8C2DTree m_trees[2000];
 	Int m_numTrees;
 	bool m_anythingChanged;
-	unsigned char m_pad4fb59[0x4fb70 - 0x4fb59];
+	unsigned char m_pad4fb5d[0x4fb70 - 0x4fb5d];
 	Rva000E8C2DType m_treeTypes[64];
 };
 
 // ?rva000E8C2D@W3DShrubBuffer@@QAEXHH@Z
 void W3DShrubBuffer::rva000E8C2D(Int index, Int request)
 {
-	Rva000E8C2DTree *tree = (Rva000E8C2DTree *)(index * 0xa0 + (char *)this);
-	Int type = tree->m_treeType;
+	Int type = m_trees[index].m_treeType;
 	if (index >= m_numTrees)
 		return;
 	if (type < 0)
@@ -112,47 +109,47 @@ void W3DShrubBuffer::rva000E8C2D(Int index, Int request)
 			return;
 	}
 
-	tree->m_sinkFrames = m_treeTypes[type].m_data->m_duration;
-	tree->m_request = request;
-	if (tree->m_topple != 0) {
-		tree->m_topple->Release_Ref();
-		tree->m_topple = 0;
+	m_trees[index].m_sinkFrames = m_treeTypes[type].m_data->m_duration;
+	m_trees[index].m_request = request;
+	if (m_trees[index].m_topple != 0) {
+		m_trees[index].m_topple->Release_Ref();
+		m_trees[index].m_topple = 0;
 	}
-	tree->m_topple = Create_Render_Obj(m_treeTypes[type].m_modelName.str());
-	rva0010E4F6(tree->m_topple, false);
-	reinterpret_cast<SceneClass *>(W3DDisplay::m_3DScene)->Add_Render_Object(tree->m_topple);
-	Matrix3D transform = tree->m_topple->Get_Transform();
-	transform[0][3] = tree->m_location.x;
-	transform[1][3] = tree->m_location.y;
-	transform[2][3] = tree->m_location.z;
-	Matrix3 rotation(tree->m_transform);
+	m_trees[index].m_topple = Create_Render_Obj(m_treeTypes[type].m_modelName.str());
+	rva0010E4F6(m_trees[index].m_topple, false);
+	reinterpret_cast<SceneClass *>(W3DDisplay::m_3DScene)->Add_Render_Object(m_trees[index].m_topple);
+	Matrix3D transform = m_trees[index].m_topple->Get_Transform();
+	transform[0][3] = m_trees[index].m_location.x;
+	transform[1][3] = m_trees[index].m_location.y;
+	transform[2][3] = m_trees[index].m_location.z;
+	Matrix3 rotation(m_trees[index].m_transform);
 	transform.Set_Rotation(rotation);
-	tree->m_topple->Set_Transform(transform);
+	m_trees[index].m_topple->Set_Transform(transform);
 
-	if (tree->m_pushAside != 0) {
-		tree->m_pushAside->Release_Ref();
-		tree->m_pushAside = 0;
+	if (m_trees[index].m_pushAside != 0) {
+		m_trees[index].m_pushAside->Release_Ref();
+		m_trees[index].m_pushAside = 0;
 	}
 	if (m_treeTypes[type].m_field58 != -2) {
-		tree->m_pushAside = Create_Render_Obj(m_treeTypes[tree->m_toppledType].m_data->m_modelName.str());
-		rva0010E4F6(tree->m_pushAside, false);
-		reinterpret_cast<SceneClass *>(W3DDisplay::m_3DScene)->Add_Render_Object(tree->m_pushAside);
-		transform = tree->m_pushAside->Get_Transform();
-		transform[0][3] = tree->m_location.x;
-		transform[1][3] = tree->m_location.y;
-		transform[2][3] = tree->m_location.z;
+		m_trees[index].m_pushAside = Create_Render_Obj(m_treeTypes[m_trees[index].m_toppledType].m_data->m_modelName.str());
+		rva0010E4F6(m_trees[index].m_pushAside, false);
+		reinterpret_cast<SceneClass *>(W3DDisplay::m_3DScene)->Add_Render_Object(m_trees[index].m_pushAside);
+		transform = m_trees[index].m_pushAside->Get_Transform();
+		transform[0][3] = m_trees[index].m_location.x;
+		transform[1][3] = m_trees[index].m_location.y;
+		transform[2][3] = m_trees[index].m_location.z;
 		transform.Set_Rotation(rotation);
-		tree->m_pushAside->Set_Transform(transform);
+		m_trees[index].m_pushAside->Set_Transform(transform);
 	}
-	if (tree->m_topple != 0)
-		Rva0010E87A_SetOpacity(tree->m_topple, 1.0f);
-	if (tree->m_pushAside != 0)
-		Rva0010E87A_SetOpacity(tree->m_pushAside, 0.0f);
+	if (m_trees[index].m_topple != 0)
+		Rva0010E87A_SetOpacity(m_trees[index].m_topple, 1.0f);
+	if (m_trees[index].m_pushAside != 0)
+		Rva0010E87A_SetOpacity(m_trees[index].m_pushAside, 0.0f);
 	if (m_treeTypes[type].m_data->m_effect != 0) {
 		Coord3D position;
-		position.x = tree->m_location.x;
-		position.y = tree->m_location.y;
-		position.z = tree->m_location.z;
+		position.x = m_trees[index].m_location.x;
+		position.y = m_trees[index].m_location.y;
+		position.z = m_trees[index].m_location.z;
 		FXList::doFXPos(m_treeTypes[type].m_data->m_effect, &position, 0, 0.0f, 0);
 	}
 	m_anythingChanged = true;

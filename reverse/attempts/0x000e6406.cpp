@@ -1,5 +1,5 @@
 // ?rva000E6406@W3DShrubBuffer@@QAEXABUBreezeInfo@@@Z
-// partial score=0.95 date=2026-10-09
+// partial score=0.97 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD
 // W3DShrubBuffer breeze update, retail 0x000E6406 (398 bytes, ret 4): when the breeze version changed, rebuilds the
 // 100-entry sway offset table and the ten sway types' steps and factors from the breeze (Open-BFME-1 twin:
