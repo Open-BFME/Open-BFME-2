@@ -32,14 +32,17 @@ link_cycle receipt (reverse/link_cycle/receipt.json, stored by
 tools/progress_v2.py --store-receipt): the tree linked at the original's
 addresses with every reference checked. Self-strict counts placed code whose
 own references land where retail's do; fully linked (closed-strict) also needs
-everything it reaches to be right. Both are shares of retail .text, as the
-receipt counts them, with the receipt's date and commit. It sits beside the
+everything it reaches to be right. Both are shares of ALL retail .text, as the
+receipt counts them (vendored and prebuilt library code included, unlike the
+Linking bar's game-code-only denominator), with the receipt's date and commit.
+An unreadable receipt shows as "unavailable" and never stops the post. It sits beside the
 census's Linking bar, never in place of it: the census asks whether each file
 links on its own, the receipt whether the program links at retail addresses.
 """
 import argparse
 import json
 import os
+import sys
 from datetime import datetime, timezone
 from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
@@ -91,10 +94,15 @@ def measures(current):
 
 
 def strict_link(root=None):
-    """The committed link_cycle receipt's strict figures, or None without one:
-    {date, commit, authoritative, self_strict, closed_strict, text} (bytes, with
-    retail .text as `text`)."""
+    """The committed link_cycle receipt's strict figures: {date, commit,
+    authoritative, self_strict, closed_strict, text} (bytes, with retail .text
+    as `text`); None without a receipt; {"invalid": why} for one this cannot
+    read. The receipt is optional context beside the bars, so a bad one is
+    reported on the line and stderr and never stops the daily post (the
+    receipt's own tools are where it should fail loudly)."""
     path = (root or progress.ROOT) / RECEIPT
+    if not path.exists():
+        return None
     try:
         receipt = json.loads(path.read_text(encoding="utf-8"))
         series = receipt["series"]
@@ -103,22 +111,26 @@ def strict_link(root=None):
                   "self_strict": int(series["real"]["placed_self_strict"]["unique_bytes"]),
                   "closed_strict": int(series["credit_unique_bytes"]),
                   "text": int(series["retail_text_bytes"])}
-    except (OSError, ValueError, KeyError, TypeError):
-        return None
-    if not 0 <= strict["closed_strict"] <= strict["self_strict"] <= strict["text"]:
-        raise ValueError(f"{RECEIPT}: strict link figures out of order")
+        if not 0 <= strict["closed_strict"] <= strict["self_strict"] <= strict["text"] or not strict["text"]:
+            raise ValueError("strict link figures out of order")
+    except (OSError, ValueError, KeyError, TypeError, OverflowError, AttributeError) as error:
+        why = f"{RECEIPT} unreadable ({type(error).__name__}: {error})"
+        print(f"readme_progress: warning: {why}; strict link check not shown", file=sys.stderr)
+        return {"invalid": why}
     return strict
 
 
 def strict_line(current):
     """`Strict link check (2026-10-09 at 9193fd8247): 25.78% self-strict, 13.09% fully linked,
-    of retail .text`; None without a receipt."""
+    of all retail .text (libraries included)`; None without a receipt."""
     strict = current.get("strict")
     if not strict:
         return None
+    if strict.get("invalid"):
+        return "Strict link check unavailable: the stored link_cycle receipt could not be read"
     share = lambda key: f"{progress.percent(strict[key], strict['text']):.2f}%"  # noqa: E731
     return (f"Strict link check ({strict['date']} at {strict['commit']}): {share('self_strict')} self-strict, "
-            f"{share('closed_strict')} fully linked, of retail .text"
+            f"{share('closed_strict')} fully linked, of all retail .text (libraries included)"
             + ("" if strict["authoritative"] else " (not authoritative)"))
 
 

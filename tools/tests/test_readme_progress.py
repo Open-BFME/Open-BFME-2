@@ -237,9 +237,11 @@ def test_strict_link_reads_the_committed_receipt(tmp_path):
     path.write_text(json.dumps(receipt()), encoding="utf-8")
     assert daily.strict_link(tmp_path) == {"date": "2026-10-09", "commit": "9193fd8247", "authoritative": True,
                                            "self_strict": 2_000, "closed_strict": 1_000, "text": 8_000}
-    path.write_text(json.dumps(receipt(self_strict=500, closed=1_000)), encoding="utf-8")
-    with pytest.raises(ValueError):
-        daily.strict_link(tmp_path)
+    for bad in (receipt(self_strict=500, closed=1_000), {**receipt(), "series": {}}):
+        path.write_text(json.dumps(bad), encoding="utf-8")
+        assert "invalid" in daily.strict_link(tmp_path)
+    path.write_text('{"series": {"retail_text_bytes": Infinity}}', encoding="utf-8")
+    assert "invalid" in daily.strict_link(tmp_path)
 
 
 def test_strict_line_sits_beside_linking_never_instead(tmp_path):
@@ -247,7 +249,8 @@ def test_strict_line_sits_beside_linking_never_instead(tmp_path):
     path.parent.mkdir(parents=True)
     path.write_text(json.dumps(receipt()), encoding="utf-8")
     current = {**sample(), "strict": daily.strict_link(tmp_path)}
-    line = "Strict link check (2026-10-09 at 9193fd8247): 25.00% self-strict, 12.50% fully linked, of retail .text"
+    line = ("Strict link check (2026-10-09 at 9193fd8247): 25.00% self-strict, 12.50% fully linked, "
+            "of all retail .text (libraries included)")
     lines = daily.announcement(current, None)["embeds"][0]["description"].split("\n")
     assert "**Linking: 10.00%**" in lines and lines[-3:] == [line, "", f"[What each bar measures, with charts: README]({daily.README})"]
     svg = daily.render(current)
@@ -260,3 +263,25 @@ def test_strict_line_flags_a_receipt_that_is_not_authoritative(tmp_path):
     path.parent.mkdir(parents=True)
     path.write_text(json.dumps(receipt(authoritative=False)), encoding="utf-8")
     assert daily.strict_line({"strict": daily.strict_link(tmp_path)}).endswith("(not authoritative)")
+
+
+def test_unreadable_receipt_never_stops_the_daily_post(tmp_path, monkeypatch):
+    path = setup_state(tmp_path, monkeypatch)
+    receipt_path = tmp_path / daily.RECEIPT
+    receipt_path.parent.mkdir(parents=True)
+    receipt_path.write_text(json.dumps(receipt(self_strict=500, closed=1_000)), encoding="utf-8")
+    monkeypatch.setattr(sys, "argv", ["readme_progress.py", "--discord"])
+    monkeypatch.setenv("DISCORD_PROGRESS_WEBHOOK", "https://discord.com/api/webhooks/test/token")
+    posted = []
+    monkeypatch.setattr(daily, "urlopen", lambda request, *a, **k: posted.append(request) or io.BytesIO(b'{"id":"9"}'))
+    monkeypatch.setattr(daily.progress, "matched_at", lambda *a: [])
+    monkeypatch.setattr(daily.progress, "notes_at", lambda *a: {})
+    monkeypatch.setattr(daily.progress, "retail_text", lambda: (0, 100))
+    monkeypatch.setattr(daily.progress, "naked_cpp_rows_at", lambda *a: [])
+    monkeypatch.setattr(daily.progress, "real_split", lambda *a: sample())
+    monkeypatch.setattr(daily.progress, "census_at", lambda *a: None)
+    monkeypatch.setattr(daily.progress, "real_code_denominator", lambda *a: (0, 100))
+    monkeypatch.setattr(daily.name_metric, "readable", lambda: (200, 58))
+    daily.main()
+    assert posted and json.loads(path.read_text())["message_id"] == "9"
+    assert "Strict link check unavailable" in (tmp_path / "docs/progress.svg").read_text()
