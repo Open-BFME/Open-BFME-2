@@ -1,14 +1,16 @@
 // ?Render@Render2DClass@@QAEXXZ
 // partial score=0.96 date=2026-10-09
-// cl: /O2 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme_vp_math /Ireference/shims/sweep /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
+// ?Render@Render2DClass@@QAEXXZ
+// partial score=0.96 date=2026-10-09
+// cl: /O2 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme_projection_matrix_link /Ireference/shims/bfme_vp_math /Ireference/shims/sweep /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
 // Semantic donor: GeneralsMD/WW3D2/render2d.cpp Render2DClass::Render.
 // BFME2 native118F50..119A55: direct packed44B vertex and ushort-index upload;
 // save/restore view and projection matrices and bind single owning texture.
 // WB9C07A0 establishes Render2DClass::Render identity but contains newer batch
 // loops absent from this target. Only target-native control flow is claimed.
 #include <string.h>
-#include "../../../../../reference/shims/bfme_vp_math/vector4.h"
-#include "../../../../../reference/shims/bfme_projection_matrix_link/matrix4.h"
+#include "vector4.h"
+#include "matrix4.h"
 class DynamicVBAccessClass {
 public:
     DynamicVBAccessClass(unsigned,unsigned,unsigned short,unsigned);

@@ -1,5 +1,7 @@
 // ?iniParseEvaEventForwardReference@Eva@@SAXPAVINI@@@Z
 // partial score=0.98 date=2026-10-09
+// ?iniParseEvaEventForwardReference@Eva@@SAXPAVINI@@@Z
+// partial score=0.98 date=2026-10-09
 // cl: /Ireference/shims/bfme2_ascii /O1 /G7 /EHsc /DNDEBUG /MD /arch:SSE /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // ?iniParseEvaEventForwardReference@Eva@@SAXPAVINI@@@Z retail 0x001DF6A8 (484 bytes).
 // NEAR (helper draft): WorldBuilder twin 0x00ACA200 Eva::iniParseEvaEventForwardReference

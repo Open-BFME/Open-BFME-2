@@ -1,6 +1,8 @@
 // ?iniParseNewEvaEvent@Eva@@SAXPAVINI@@@Z
 // partial score=0.99 date=2026-10-09
-// cl: /O1 /G7 /EHsc /DNDEBUG /MD /arch:SSE /Ireference/shims/bfmelist /Ireference/shims/bfmealloc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii
+// ?iniParseNewEvaEvent@Eva@@SAXPAVINI@@@Z
+// partial score=0.99 date=2026-10-09
+// cl: /O1 /G7 /EHsc /DNDEBUG /MD /arch:SSE /Ireference/shims/bfmelist /Ireference/shims/bfmealloc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /Ireference/shims/eva_vector /ICode/Libraries/Include
 // stlport
 // Existing 80-byte status clearer at 0x001DCD3C, moved here so Eva's
 // element reset loop can see its register effects. Retail writes the 0x34-byte
@@ -66,7 +68,7 @@ namespace _STL {
 template<class T> struct _EvaResizeArgument { typedef const T& type; };
 template<> struct _EvaResizeArgument<BfmePod52> { typedef BfmePod52 type; };
 }
-#include "../../../../reference/shims/eva_vector/EvaVectorABI.h"
+#include "EvaVectorABI.h"
 #include <hash_map>
 #include <list>
 
@@ -84,8 +86,8 @@ template<> void vector<BfmePod52, allocator<BfmePod52> >::_M_fill_insert(iterato
 // record's members are rowed under placeholder names (0x001DCDAF,
 // 0x001DD240); field names past WB's are not recovered.
 
-#include "../../../Libraries/Include/Lib/Coord2D.h"
-#include "../../../Libraries/Include/Lib/Coord3D.h"
+#include "Lib/Coord2D.h"
+#include "Lib/Coord3D.h"
 #include "ascii_string.h"
 
 typedef int Int;
