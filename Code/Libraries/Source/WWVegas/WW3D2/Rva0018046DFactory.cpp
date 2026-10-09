@@ -11,13 +11,15 @@ public:
 	void Release_Ref();
 };
 
+// Match the existing counted-registry release provider and shared texture view.
+#include "../../../../GameEngineDevice/Source/W3DDevice/GameClient/BFME2ParticleTextureHandles.h"
 class HierarchyPrototypeRef
 {
 public:
 	~HierarchyPrototypeRef()
 	{
 		if (m_object != 0)
-			m_object->Release_Ref();
+			((TextureClass *)m_object)->Release_Ref();
 	}
 private:
 	HierarchyPrototype *m_object;
