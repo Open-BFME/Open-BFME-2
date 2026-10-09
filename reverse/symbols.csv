@@ -6412,7 +6412,6 @@ name,address,notes
 ?Rva00506CF5@@YA?AUCoord3D@@PAXPAU1@@Z,0x00506CF5,cdecl Coord3D-by-value helper (hidden return then owner and the +0x18 point); REL32 at 0x00507181 in the Rva00506B74 ctor
 ?Rva0050EC24@@YAXXZ,0x0050EC24,unrowed 251B cdecl (Ghidra FUN_0090ec24; plain ret); REL32 read at AptPalantir::OnBttnObjectives 0x002D30E1 (no arguments and no ECX setup); address name
 ?Rva0050ED3@PoolMember@@QAEXXZ,0x0050ED3,opaque pool-member method (refcounted-deleter shape: InterlockedDecrement at +4 then dtor+free); called on +8 member-pointer with null check from vptr-body 0x4E18A2; member type opaque; identity unproven
-?Rva005116C2@@YAXXZ,0x005116C2,unrowed 110B free function (Ghidra FUN_009116c2) directly before rowed Rva00511730; no ECX use and no arguments; caller 0x00445267 calls it when g_Va00E046B8 is null; address name
 ?Rva005117DF@@YAXPBD@Z,0x005117DF,unrowed 23B cdecl (Ghidra FUN_009117df; plain ret; the argument unused) opening or closing the messenger; REL32 read at AptPalantir::OnBttnMessenger 0x002D311C which passes its own argument; address name
 ?Rva00513866Free@@YAXXZ,0x00513866,free-function spelling for the 0x5B5B0C tail callee (no ecx or stack setup at the site); target REL32 from retail call at 0x005B5B30
 ?Rva0051ED7ETail@@YAXXZ,0x0051ED7E,tail jmp from 0x0051BF47 free no this same address as AptTimeLine pin

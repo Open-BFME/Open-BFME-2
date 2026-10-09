@@ -16,10 +16,18 @@ template <> inline bool StringBase<unsigned short>::isNotEmpty() const { return 
 
 extern "C" char *__cdecl strcpy(char *destination, const char *source);
 
-void __cdecl Rva00434160Init(int a, int b, bool c);
+class AptSaveLoad
+{
+public:
+	static void OpenScreen(int a, int b, bool c);
+};
 void __cdecl Rva00511730(int value);
 void __cdecl Rva0051AF0BEnable(int value);
-void __cdecl Rva005185D8Init(bool a, bool b, bool c, bool d);
+class AptOptions
+{
+public:
+	static void OpenScreen(bool a, bool b, bool c, bool d);
+};
 
 // TheGameLogic (0x00DFE78C): the mode at +0x110, +0x114 and the rowed
 // readers this unit calls.
@@ -405,7 +413,11 @@ void InitRandom(unsigned int seed);
 void __cdecl Rva0043C96FEnable(void);
 void __cdecl Rva004E855CClose(void);
 void __cdecl Rva004E400DEnable(void);
-void __cdecl Rva0050E9D3Enable(void);
+class AptPlayerTribute
+{
+public:
+	static void CloseScreen(void);
+};
 
 // The Apt callback functors (Rva0057BC63FunctorHolder.cpp, as in
 // MpGameSetupSlots.cpp): a binding of an object and an eight-byte
@@ -613,7 +625,7 @@ void AptQuitMenu::ExitMission(const char *unused)
 // Retail 0x0051AFDD, 17 bytes: "AptQuitMenu::OptionsScreen".
 void AptQuitMenu::OptionsScreen(const char *unused)
 {
-	Rva005185D8Init(false, false, false, false);
+	AptOptions::OpenScreen(false, false, false, false);
 }
 
 // Retail 0x0051AFEE, 11 bytes: "AptQuitMenu::ReturnToGame".
@@ -637,7 +649,7 @@ void AptQuitMenu::SaveMenu(const char *unused)
 		kind = 4;
 	else
 		kind = (logic->m_110 == 2) + 1;
-	Rva00434160Init(3, kind, true);
+	AptSaveLoad::OpenScreen(3, kind, true);
 }
 
 // Retail 0x0051B04A, 81 bytes: "AptQuitMenu::LoadMenu", the same for the
@@ -654,7 +666,7 @@ void AptQuitMenu::LoadMenu(const char *unused)
 		kind = 4;
 	else
 		kind = (logic->m_110 == 2) + 1;
-	Rva00434160Init(2, kind, true);
+	AptSaveLoad::OpenScreen(2, kind, true);
 }
 
 // Retail 0x0051AF46, 115 bytes: Apt query answering the quit-menu
@@ -795,7 +807,7 @@ void ShowQuitMenu()
 	Rva0043C96FEnable();
 	Rva004E855CClose();
 	Rva004E400DEnable();
-	Rva0050E9D3Enable();
+	AptPlayerTribute::CloseScreen();
 	((Rva005CB265 *)TheInGameUI->rva000CF155())->Rva005CB265::rva005CB265();
 	((Rva001EDDC6 *)TheMouse)->rva001EDDC6(1);
 

@@ -206,13 +206,12 @@ public:
 	void rva004E8213(const char *unused);
 	void Send(const char *unused);
 	bool rva004E8670(UnicodeString text);
+	static void OpenScreen(int chatType);
 
 private:
 	int m_state; // +0x27C
 	int m_chatType; // +0x280
 	GameWindow *m_entry; // +0x284
-
-	friend void rva004E8258(int chatType);
 };
 
 // Retail 0x004E8B38, 518 bytes: the screen's constructor. The first one
@@ -420,8 +419,10 @@ extern GameTextInterface *TheGameText;
 // set or, except for the console, while TheWritableGlobalData's +0xA44 is
 // set and TheGameInfo's vslot 19 refuses; the open screen keeps the type
 // at +0x280 and "APT:InGameChatReceivers" names it. BFME 1's
-// Rva00511CC0InGameChat.cpp is the donor.
-void rva004E8258(int chatType)
+// Rva00511CC0InGameChat.cpp is the donor. WorldBuilder names it
+// AptInGameChat::OpenScreen (AptInGameChat.cpp:105 assert), whose body
+// pushes the same "InGameChat.apt" and receiver labels.
+void AptInGameChat::OpenScreen(int chatType)
 {
 	if (TheGameLogic->m_gameMode == 3)
 		return;

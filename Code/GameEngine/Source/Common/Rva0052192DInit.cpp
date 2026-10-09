@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /MD
 #include "ascii_string.h"
-// ?Rva0052192DInit@@YAXH@Z retail 0x0052192D 74B
+// ?OpenScreen@AptSkirmish@@SAXH@Z retail 0x0052192D 74B: AptSkirmish::OpenScreen (WorldBuilder AptSkirmish.cpp:81/85 s_instance asserts around the same "Skirmish.apt" push).
 // Evidence: chain via Shell::push 0x0035C74A; callers 0x00515C64; strings Skirmish.apt; globals g_00E04930 g_00DD179C g_Va00A01E48 TheRva00222A8BTarget; callees StringBase 0x00037BA0 Shell::push 0x0035C74A rva002233A6 0x002233A6; precedent Rva00434160Init same Shell push pattern.
 extern int g_00E04930;
 // g_00E04930: matched references place it at VA 0xe04930 (zero-filled .bss).
@@ -20,7 +20,12 @@ public:
 };
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 
-void Rva0052192DInit(int a1)
+class AptSkirmish {
+public:
+    static void OpenScreen(int a1);
+};
+
+void AptSkirmish::OpenScreen(int a1)
 {
     if (g_00E04930 != 0)
         return;

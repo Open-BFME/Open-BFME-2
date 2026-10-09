@@ -70,9 +70,13 @@ public:
 
 // Free helpers the key handler below calls: 0x00444040 is rowed; 0x005116C2
 // (110 bytes, no arguments, opens "Messenger.apt" when no messenger state
-// exists) is unrowed and pinned by address; 0x00511730 is rowed.
+// exists) is AptMessenger::OpenScreen; 0x00511730 is rowed.
 void Rva00444040Enable();
-void Rva005116C2();
+class AptMessenger
+{
+public:
+	static void OpenScreen();
+};
 void __cdecl Rva00511730(int unused);
 
 struct Rva00511730State;
@@ -180,7 +184,7 @@ int AptLanLobby::rva0044522D(int msg, unsigned char key, int flags)
 				if (flags & 1)
 				{
 					if (!g_Va00E046B8)
-						Rva005116C2();
+						AptMessenger::OpenScreen();
 					else
 						Rva00511730(0);
 				}

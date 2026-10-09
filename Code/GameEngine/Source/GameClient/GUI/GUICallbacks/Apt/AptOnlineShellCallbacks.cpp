@@ -5,7 +5,11 @@
 // pointers by the screen's registration; that binding is their only
 // reference. The class is named for the strings' prefix.
 
-void __cdecl Rva005185D8Init(bool a, bool b, bool c, bool d);
+class AptOptions
+{
+public:
+	static void OpenScreen(bool a, bool b, bool c, bool d);
+};
 
 // Rva00516E92Enable.cpp's 0x00516E92.
 void Rva00516E92Enable();
@@ -56,7 +60,7 @@ private:
 // Retail 0x00516EC0, 19 bytes: "AptOnline::Options".
 void AptOnline::Options(const char *unused)
 {
-	Rva005185D8Init(true, false, true, false);
+	AptOptions::OpenScreen(true, false, true, false);
 }
 
 // Retail 0x00516ED3, 22 bytes: "AptOnline::ShellExit" resets both words

@@ -42,7 +42,11 @@ int __cdecl Rva00524EF4AptCall(Rva00222A8BTarget *t, void *a1, const char *a2, c
 // and 0x0059F296).
 void Rva0059F20BSet(int slot, const UnicodeString &text);
 void Rva0059F296Set(int slot, const UnicodeString &text);
-void __cdecl Rva00434160Init(int a, int b, bool c);
+class AptSaveLoad
+{
+public:
+	static void OpenScreen(int a, int b, bool c);
+};
 
 // The game slot the owner menus edit. Target facts: Team writes +0x1C;
 // the host's name (slot 0) is the UnicodeString at +0x30 that
@@ -531,7 +535,7 @@ void AptOnlineCustomMatch::PlayGame(const char *unused)
 // Retail 0x0059ECC1, 17 bytes: "AptOnline::CustomMatch::LoadGame".
 void AptOnlineCustomMatch::LoadGame(const char *unused)
 {
-	Rva00434160Init(2, 16, false);
+	AptSaveLoad::OpenScreen(2, 16, false);
 }
 
 // Retail 0x0059ED18, 20 bytes: "AptOnline::CustomMatch::CancelPopUpCreate".

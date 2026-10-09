@@ -44,7 +44,11 @@ public:
 };
 extern GameWindowTransitionsHandler *TheTransitionHandler;
 
-bool _bfme_showCampaignReview();
+class AptCampaignReview
+{
+public:
+    static bool OpenScreen();
+};
 void Rva0051BF47Run();
 
 class Rva0051CBC6
@@ -68,7 +72,7 @@ int Rva0051CBC6::rva0051C139()
             if (m != 0)
                 return 1;
             TheMessageStream->v18(0x1d);
-            _bfme_showCampaignReview();
+            AptCampaignReview::OpenScreen();
         }
         else
         {

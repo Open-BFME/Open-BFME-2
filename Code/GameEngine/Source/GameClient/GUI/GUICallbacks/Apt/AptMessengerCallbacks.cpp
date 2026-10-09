@@ -33,9 +33,9 @@ extern bool g_Va00DD13D8;
 
 void __cdecl Rva005118F3Show(int index, bool clear);
 
-// Rva00511730Save.cpp's close (0x00511730) and open (0x005116C2) helpers.
+// Rva00511730Save.cpp's close (0x00511730) helper; its open helper
+// 0x005116C2 is AptMessenger::OpenScreen, declared in the class below.
 void __cdecl Rva00511730(int unused);
-void Rva005116C2();
 
 extern "C" __declspec(dllimport) int __cdecl atoi(const char *text);
 extern "C" __declspec(dllimport) int __cdecl _snprintf(char *buffer, unsigned int count, const char *format, ...);
@@ -250,6 +250,7 @@ public:
 	void GameWindowSize(const Coord2D *position, const Coord2D *size, void *unused3, void *unused4);
 	static void IsOpen(int query, char *result, bool skip);
 	static void OnMessengerBttn(const char *unused);
+	static void OpenScreen();
 	void rva00511AD4(int query, char *value, bool set);
 	int rva00511990(int message, unsigned int wParam, unsigned int lParam);
 	void rva005118B2();
@@ -358,7 +359,7 @@ void AptMessenger::OnMessengerBttn(const char *unused)
 	if (g_Va00E046B8)
 		Rva00511730(0);
 	else
-		Rva005116C2();
+		OpenScreen();
 }
 
 // Retail 0x005119FF, 213 bytes: "AptMessenger::InitGadgets" hands the chat

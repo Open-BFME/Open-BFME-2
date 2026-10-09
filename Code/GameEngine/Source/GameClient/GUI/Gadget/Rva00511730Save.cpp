@@ -112,8 +112,15 @@ void __cdecl Rva00511730(int unused)
 }
 // Retail 0x005116C2, 110 bytes: opens "Messenger.apt" when online (or on
 // a LAN) and no messenger is up, except in a multiplayer game of mode 3 or
-// with the global flag at +0xA44 clear.
-void Rva005116C2()
+// with the global flag at +0xA44 clear. WorldBuilder names it
+// AptMessenger::OpenScreen (AptMessenger.cpp:246/263 asserts on TheLAN,
+// TheGameSpyInfo and s_instance around the same "Messenger.apt" open).
+class AptMessenger
+{
+public:
+	static void OpenScreen();
+};
+void AptMessenger::OpenScreen()
 {
 	if ((TheGameSpyInfo || TheLAN) && !g_Va00E046B8)
 	{

@@ -21,8 +21,16 @@ extern void *g_obj12F495C;
 // g_obj12F495C: matched references place it at VA 0xe048c8 (zero-filled .bss).
 void * g_obj12F495C;
 
-// ?_bfme_showCampaignReview@@YA_NXZ
-bool _bfme_showCampaignReview( void )
+// ?OpenScreen@AptCampaignReview@@SA_NXZ, retail 0x0051291C: WorldBuilder
+// names it AptCampaignReview::OpenScreen (AptCampaignReview.cpp:163
+// s_instance assert after the same "CampaignReview.apt" push).
+class AptCampaignReview
+{
+public:
+	static bool OpenScreen( void );
+};
+
+bool AptCampaignReview::OpenScreen( void )
 {
 	if( g_obj12F495C == 0 )
 		TheShell->push( AsciiString( "CampaignReview.apt" ), false );

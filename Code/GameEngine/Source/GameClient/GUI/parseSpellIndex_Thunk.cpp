@@ -608,10 +608,15 @@ public:
 
 extern Display *TheDisplay;
 
-// BFME 1's HideInGameChat and HideDiplomacy, then the rowed 0x0050E9D3.
+// BFME 1's HideInGameChat and HideDiplomacy, then the rowed 0x0050E9D3
+// (AptPlayerTribute::CloseScreen).
 void Rva004E855CClose(void);
 void Rva004E400DEnable(void);
-void Rva0050E9D3Enable(void);
+class AptPlayerTribute
+{
+public:
+	static void CloseScreen(void);
+};
 
 class Mouse
 {
@@ -683,7 +688,7 @@ void finishShowPurchaseScience(void)
 		logic->rva0023CD9E(true, 0, true);
 	Rva004E855CClose();
 	Rva004E400DEnable();
-	Rva0050E9D3Enable();
+	AptPlayerTribute::CloseScreen();
 	((Rva005CB265 *)TheInGameUI->rva000CF155())->Rva005CB265::rva005CB265();
 	TheMouse->setCursor(2);
 	TheShell->rva0035C7CF(false);

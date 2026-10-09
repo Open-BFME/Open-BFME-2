@@ -35,7 +35,11 @@ class LinearCampaignManager;
 extern LinearCampaignManager *TheLinearCampaignManager;
 
 void __cdecl Rva005210ECEnable(bool flag);
-void __cdecl Rva00434160Init(int a, int b, bool c);
+class AptSaveLoad
+{
+public:
+	static void OpenScreen(int a, int b, bool c);
+};
 
 class AptCampaignMenu
 {
@@ -61,13 +65,13 @@ void AptCampaignMenu::OnBttnMainMenu(const char *unused)
 // Retail 0x0052117D, 17 bytes: "AptCampaignMenu::OnBttnSaveGame".
 void AptCampaignMenu::OnBttnSaveGame(const char *unused)
 {
-	Rva00434160Init(3, 1, false);
+	AptSaveLoad::OpenScreen(3, 1, false);
 }
 
 // Retail 0x0052118E, 17 bytes: "AptCampaignMenu::OnBttnLoadGame".
 void AptCampaignMenu::OnBttnLoadGame(const char *unused)
 {
-	Rva00434160Init(2, 1, false);
+	AptSaveLoad::OpenScreen(2, 1, false);
 }
 
 // Retail 0x0052119F, 26 bytes: "AptCampaignMenu::OnBttnLastMission".

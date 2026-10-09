@@ -98,7 +98,11 @@ struct AptTimeLinePlayer
 };
 
 // Rva00434160Init.cpp's 0x00434160 and Rva00433D3CClear.cpp's 0x00433D3C.
-void __cdecl Rva00434160Init(int a, int b, bool c);
+class AptSaveLoad
+{
+public:
+	static void OpenScreen(int a, int b, bool c);
+};
 void Rva00433D3CClear();
 
 class AptTimeLine
@@ -128,7 +132,7 @@ private:
 // and "AptScoreScreen::Save".
 void AptTimeLine::rva0051E3C3(const char *unused)
 {
-	Rva00434160Init(3, 4, false);
+	AptSaveLoad::OpenScreen(3, 4, false);
 	Rva00433D3CClear();
 }
 

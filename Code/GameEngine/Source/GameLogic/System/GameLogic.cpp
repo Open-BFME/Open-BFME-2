@@ -114,7 +114,11 @@ public:
 #include "../../Common/GameLogicObjectLookupView.h"
 
 void Rva004E400DEnable();
-void Rva0050E9D3Enable();
+class AptPlayerTribute
+{
+public:
+	static void CloseScreen(void);
+};
 void Rva004E855CClose();
 void Rva004E84ABRun();
 void Rva00511730(int);
@@ -140,7 +144,7 @@ extern int g_Va00A04908;
 void GameLogic::rva00376D49(void)
 {
 	Rva004E400DEnable();
-	Rva0050E9D3Enable();
+	AptPlayerTribute::CloseScreen();
 	Rva004E855CClose();
 	Rva004E84ABRun();
 	Rva00511730(0);

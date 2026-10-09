@@ -1,5 +1,9 @@
 // cl: /GX-
-// ?Rva0050E9D3Enable@@YAXXZ @0x0050E9D3 43B.
+// ?CloseScreen@AptPlayerTribute@@SAXXZ @0x0050E9D3 43B: AptPlayerTribute::
+// CloseScreen per WorldBuilder (AptPlayerTribute.cpp:1745/1748 asserts on
+// TheShell and TheAptPlayer around the same s_instance +0x278 latch, Shell
+// +0x54 store and enable call); its callers include the tribute page
+// callbacks.
 // One-shot enabler: if global 0x00A046B4 is null or its byte at +0x278 is
 // set, return; else set it and the byte at +0x54 of global 0x00A01E48, then
 // tail-jmp to rowed enable 0x00222479 on global 0x009FE4CC. Callers at
@@ -13,7 +17,12 @@ struct GlobalA01E48 { char pad[0x54]; unsigned char flag; };
 extern GlobalA01E48 *g_Va00A01E48;
 class Rva00222479ByteOneSetter { public: void enable(); };
 extern Rva00222479ByteOneSetter *g_Va009FE4CC;
-void Rva0050E9D3Enable(void)
+class AptPlayerTribute
+{
+public:
+	static void CloseScreen(void);
+};
+void AptPlayerTribute::CloseScreen(void)
 {
 	GlobalA046B4 *p = g_Va00A046B4;
 	if (!p)

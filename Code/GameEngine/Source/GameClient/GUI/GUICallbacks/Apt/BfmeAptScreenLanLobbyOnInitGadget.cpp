@@ -251,10 +251,18 @@ struct Rva00446443GameLogic
 };
 
 void __cdecl Rva005118F3Show(int mode, bool show);
-void __cdecl Rva00434160Init(int a, int b, bool c);
+class AptSaveLoad
+{
+public:
+	static void OpenScreen(int a, int b, bool c);
+};
 void __cdecl Rva003B3371Call(int value);
 void Rva00444040Enable();
-void __cdecl Rva005185D8Init(bool a, bool b, bool c, bool d);
+class AptOptions
+{
+public:
+	static void OpenScreen(bool a, bool b, bool c, bool d);
+};
 void GadgetListBoxGetSelected(GameWindow *listbox, int *selected);
 
 // Unrowed 0x0044C0A8 (message box with title, text and callback), pinned.
@@ -724,7 +732,7 @@ int AptLanLobby::OnUpdateData()
 		}
 		case 11:
 			reinterpret_cast<Rva004442FD *>(this)->rva004442FD();
-			Rva00434160Init(2, 0x10, false);
+			AptSaveLoad::OpenScreen(2, 0x10, false);
 			break;
 		}
 
@@ -789,7 +797,7 @@ int AptLanLobby::rva00444826(int msg, unsigned int data1, unsigned int data2)
 void AptLanLobby::OnOptionsBttn(const char *unused)
 {
 	reinterpret_cast<Rva004442FD *>(this)->rva004442FD();
-	Rva005185D8Init(false, false, true, false);
+	AptOptions::OpenScreen(false, false, true, false);
 }
 
 // Retail 0x00444342, 8 bytes: "AptLanLobby::OnExitBttn".

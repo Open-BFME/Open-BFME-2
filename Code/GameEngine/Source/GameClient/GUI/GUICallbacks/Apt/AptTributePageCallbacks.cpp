@@ -35,8 +35,12 @@ template <> struct less<AsciiString>
 extern "C" char *__cdecl strcpy(char *destination, const char *source);
 
 // Rva0050E9D3Enable.cpp's one-shot enabler on this screen's instance
-// (g_Va00A046B4, which the destructor clears).
-void Rva0050E9D3Enable(void);
+// (g_Va00A046B4, which the destructor clears): AptPlayerTribute::CloseScreen.
+class AptPlayerTribute
+{
+public:
+	static void CloseScreen(void);
+};
 
 // BfmeAskRV.cpp's player predicate.
 class BfmeMemberRV
@@ -150,7 +154,7 @@ void Rva00510D0C::TributeEnabled(int query, char *result, bool skip)
 // Retail 0x0050EBBD, 8 bytes: "_ReturnToGame".
 void Rva00510D0C::ReturnToGame(const char *unused)
 {
-	Rva0050E9D3Enable();
+	AptPlayerTribute::CloseScreen();
 }
 
 // Retail 0x0050EBC5, 95 bytes. Name unknown. The current page gets the
@@ -168,7 +172,7 @@ int Rva00510D0C::rva0050EBC5(int message, int key, int state)
 		case 0x01:
 		case 0x0F:
 			if (state & 1)
-				Rva0050E9D3Enable();
+				AptPlayerTribute::CloseScreen();
 			return 1;
 		}
 		break;
