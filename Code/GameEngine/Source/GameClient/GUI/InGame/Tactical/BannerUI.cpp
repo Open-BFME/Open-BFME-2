@@ -10,6 +10,8 @@
 // address-derived names; the field table is referenced by address.
 
 #include "ascii_string.h"
+#include "unicode_string.h"
+#include "../../../../Common/GameLogicObjectLookupView.h"
 
 struct FieldParse;
 
@@ -41,11 +43,78 @@ extern const FieldParse g_00BE5A50[];
 
 
 struct Rva0041534BIter {void *m_node;void *m_table;};
+struct BannerTypeIterator
+{
+	BannerTypeIterator(void *node, void *table) : m_node(node), m_table(table) {}
+	void *m_node;
+	void *m_table;
+};
 class Rva00056F61 {
 public:
+ BannerTypeIterator find(const AsciiString &name) {return BannerTypeIterator(rva00056F61(&name),this);}
  __declspec(nothrow) Rva0041534BIter rva0041534B(const AsciiString *);
  __declspec(nothrow) void *rva00056F61(const AsciiString *);
  void *unused;void **begin,**end,**capacity;unsigned count;
+};
+
+// One banner on screen, the vector's 28-byte record (rowed push_back
+// 0x00216BB9 and the slot-keyed find/erase in RemoveBanner): its slot, the
+// army banner id it shows, and the banner type entry it was created from.
+// CreateBanner builds it with +0x14 at -1 and the rest cleared, as WB's
+// inline constructor plus assignments does.
+struct BfmePod28
+{
+	unsigned int slot;			// +0x00
+	int bannerID;				// +0x04
+	const void *typeEntry;		// +0x08, the type table's key/info pair
+	int unknown0C;
+	int unknown10;
+	int unknown14;
+	bool unknown18;
+	BfmePod28() : bannerID(0), typeEntry(0), unknown0C(0), unknown10(0), unknown14(0), unknown18(false) {}
+};
+
+namespace _STL {
+template <class T> class allocator {};
+template <class T, class A> class vector {
+public:
+	typedef T *iterator;
+	iterator begin() { return _M_start; }
+	iterator end() { return _M_finish; }
+	void push_back(const T &value);	// 0x00216BB9
+private:
+	iterator _M_start;
+	iterator _M_finish;
+	iterator _M_end_of_storage;
+};
+// STLport 4.5.3 for_each (stl/_algo.h). Over the banners with the collector
+// below it is retail 0x00215EF7 (43 bytes; the collector has a constructor,
+// so it is returned through the hidden pointer).
+template <class _InputIter, class _Function>
+_Function for_each(_InputIter __first, _InputIter __last, _Function __f) {
+	for ( ; __first != __last; ++__first)
+		__f(*__first);
+	return __f;
+}
+}
+
+// The banner slot collector CreateBanner runs over the banners: slot i keeps
+// the first banner holding it (rowed 0x00215E6F, still address-named), and
+// firstFree is the inline scan for the first slot nobody holds (2 if none).
+class Rva00215E6F
+{
+public:
+	Rva00215E6F() { for (BfmePod28 **slot = m_slots; slot != m_slots + 2; ++slot) *slot = 0; }
+	void rva00215E6F(unsigned int *banner);
+	void operator()(BfmePod28 &banner) { rva00215E6F((unsigned int *)&banner); }
+	unsigned int firstFree() const
+	{
+		for (unsigned int slot = 0; slot < 2; ++slot)
+			if (!m_slots[slot])
+				return slot;
+		return 2;
+	}
+	BfmePod28 *m_slots[2];
 };
 
 class BannerUI
@@ -54,11 +123,13 @@ public:
 	static void ParseBannerTypeInfo(INI *ini);
  void init();
  const AsciiString &GetBannerIconImageName(const AsciiString &key);
+ int CreateBanner(int bannerID);
 private:
  unsigned char m_pad00[0x0C];
  Rva00056F61 m_types;
  unsigned char m_unmodelled20[4];
  int m_windowIndex;
+ _STL::vector<BfmePod28, _STL::allocator<BfmePod28> > m_banners;	// +0x28
 };
 
 void BannerUI::ParseBannerTypeInfo(INI *ini)
@@ -155,31 +226,60 @@ void BannerUI::init() {
   m_windowIndex=((BannerWindowLoader*)g_bfmeAptWindowManager)->loadWindow("Apt\\","BannerUI.apt",0,0);
 }
 
-// The banner records (28 bytes; rowed vector push_back 0x00216BB9 and the
-// slot-keyed find/erase in RemoveBanner) and the collector CreateBanner runs
-// over them: slot i keeps the first banner holding it (rowed 0x00215E6F,
-// still address-named). STLport's for_each over the two is retail 0x00215EF7
-// (43 bytes; the collector has a constructor, so it is returned through the
-// hidden pointer).
-struct BfmePod28 { int a[7]; };
+// BannerUI::CreateBanner, retail 0x00216DBC (383 bytes; WB 0x00B6E140 at
+// BannerUI.cpp:425..452, wb-name-unverified; WB's own assert text names the
+// type table m_bannerTypeInfoMap). The banner takes the first of
+// the two slots no current banner holds (else -1); its type is the army
+// banner name GameLogic reports for the id (BannerMen when that is empty),
+// looked up in the type table at +0x0C (unknown type: -1). The movie's
+// AddBanner gets the slot, the type name and the type's first string, the
+// banner is appended, and the slot's timer text APT:BannerTimer%d is
+// cleared. Returns the slot.
+extern GameLogic *TheGameLogic;
 
-namespace _STL {
-// STLport 4.5.3 for_each (stl/_algo.h).
-template <class _InputIter, class _Function>
-_Function for_each(_InputIter __first, _InputIter __last, _Function __f) {
-	for ( ; __first != __last; ++__first)
-		__f(*__first);
-	return __f;
-}
-}
+class Rva00222A8BTarget;
+int __cdecl Rva00216496Invoke(Rva00222A8BTarget *target, void *owner, const char *name, const unsigned int &a, const AsciiString &b, const AsciiString &c);
 
-class Rva00215E6F
+class BfmeAptWindowManager
 {
 public:
-	Rva00215E6F() { for (BfmePod28 **slot = m_slots; slot != m_slots + 2; ++slot) *slot = 0; }
-	void rva00215E6F(unsigned int *banner);
-	void operator()(BfmePod28 &banner) { rva00215E6F((unsigned int *)&banner); }
-	BfmePod28 *m_slots[2];
+	void bfmeSetText(const AsciiString &key, const UnicodeString &text, bool usePlaceholder);
 };
 
 template Rva00215E6F _STL::for_each<BfmePod28 *, Rva00215E6F>(BfmePod28 *, BfmePod28 *, Rva00215E6F);
+
+int BannerUI::CreateBanner(int bannerID)
+{
+	BfmePod28 banner;
+	banner.bannerID = bannerID;
+	banner.unknown0C = 0;
+	banner.unknown10 = 0;
+	banner.unknown14 = -1;
+
+	Rva00215E6F used;
+	used = _STL::for_each(m_banners.begin(), m_banners.end(), used);
+	unsigned int slot = used.firstFree();
+	banner.slot = slot;
+	if (banner.slot < 0 || banner.slot >= 2)
+		return -1;
+
+	AsciiString typeName(*TheGameLogic->rva0023D06A(bannerID));
+	if (typeName.isEmpty())
+		typeName = "BannerMen";
+	// Retail keeps the iterator's table store (+0x0C into [ebp-0x20]) only
+	// when the iterator is assigned from find after being declared.
+	BannerTypeIterator it(0, 0);
+	it = m_types.find(typeName);
+	if (!it.m_node)
+		return -1;
+
+	const AsciiString *typeEntry = (const AsciiString *)((char *)it.m_node + 8);
+	banner.typeEntry = typeEntry;
+	Rva00216496Invoke((Rva00222A8BTarget *)g_bfmeAptWindowManager, (void *)m_windowIndex, "AddBanner", banner.slot, typeEntry[0], typeEntry[1]);
+	m_banners.push_back(banner);
+
+	AsciiString timerName;
+	timerName.format("APT:BannerTimer%d", slot);
+	g_bfmeAptWindowManager->bfmeSetText(timerName, UnicodeString(L""), false);
+	return slot;
+}

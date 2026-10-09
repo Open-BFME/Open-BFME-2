@@ -92,6 +92,7 @@ public:
 	void rva0023CD9E(bool paused, int pauseMode, bool affectMouse);	// 0x0023CD9E
 	Object *findObjectByID(ObjectID id);
 	void rva0023D033(); // 0x0023D033, native +0x184 cleanup forwarder
+	const AsciiString *rva0023D06A(int value);	// 0x0023D06A, +0x184 army banner name by id
 	int rva0023D08B(int value);	// 0x0023D08B, existing +0x184 forwarder
 	void rva0023D0C2(Object *obj, int handle);	// 0x0023D0C2
 	Object *getFirstObject();	// 0x0023CAD2
