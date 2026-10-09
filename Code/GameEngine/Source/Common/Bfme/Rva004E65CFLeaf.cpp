@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /O1 /Oy /G7 /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /O1 /Oy /G7 /arch:SSE /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/inputs/reference/shims/sweep
 //
 // ?createPotentialClaimDecal@Impl@PlaceTerrainResourceClaimantFeedback@@QAEXXZ @0x004E65CF 191B
 // Leaf method on the 0x004E669A class (same this, +4/+8/+0xC/+0x1C): builds an
@@ -11,6 +11,8 @@
 // plus BFMERopeDrawable::getPosition 0x2763E6, rowed Shadow::setOpacity
 // 0x3308F6, caller 0x004E6739, neighbours in same Bfme dir.
 #include "ascii_string.h"
+#include "unicode_string.h"
+#include "wwmath.h"
 
 struct Coord3D
 {
@@ -104,6 +106,27 @@ public:
  virtual void getSize(int *width,int *height);
 };
 
+class FeedbackTextInterface {
+public:
+ virtual void s00();
+ virtual void s04();
+ virtual void s08();
+ virtual void s0C();
+ virtual void s10();
+ virtual void s14();
+ virtual void s18();
+ virtual void s1C();
+ virtual void s20();
+ virtual void s24();
+ virtual void s28();
+ virtual void s2C();
+ virtual void s30();
+ virtual void s34();
+ virtual void s38();
+ virtual UnicodeString fetch(const char *label,bool *exists);
+};
+class GameTextInterface;
+extern GameTextInterface *TheGameText;
 class PlaceTerrainResourceClaimantFeedback
 {
 public:
@@ -123,6 +146,7 @@ public:
 	void createPotentialClaimDecal();
  float rva004E6295();
  void updateStringPos(ICoord2D *position);
+ void update(ICoord2D *position);
 };
 
 void PlaceTerrainResourceClaimantFeedback::Impl::createPotentialClaimDecal()
@@ -226,3 +250,34 @@ float PlaceTerrainResourceClaimantFeedback::Impl::rva004E6295()
  }
  return 0.0f;
 }
+
+// WB1324400 names update at line142. RGB bytes preserve the native
+// conditional initialization: the decal tail uses the same bytes.
+// ZH WWMath::Float_To_Long(float), committed donor874, is the existing
+// x87 conversion primitive: ordinary casts emit __ftol2 and /QIfist
+// cannot be combined with retail SSE. The remainder is clean C++.
+// Native4E6455..4E65CF RET4; both local helpers are separately exact.
+void PlaceTerrainResourceClaimantFeedback::Impl::update(ICoord2D *position)
+{
+ unsigned char r,g,b;
+ if(m_10) {
+  UnicodeString format=((FeedbackTextInterface*)TheGameText)->fetch("GUI:TerrainResourcePercentageClaimable",0);
+  UnicodeString text;
+  int percent=WWMath::Float_To_Long((float)floor(rva004E6295()*100.0f+0.5f));
+  text.format(format.str(),percent);
+  m_10->setText(text);
+  updateStringPos(position);
+  float fraction=rva004E6295();
+  if(fraction>0.75f) { r=0;g=255;b=0; }
+  else if(fraction>=0.5f) {r=255;g=255;b=0;}
+  else if(fraction>=0.25f) {r=255;g=0;b=0;}
+  else {r=0;g=0;b=0;}
+  m_10->setColor((255u<<24)|((unsigned)r<<16)|((unsigned)g<<8)|b,255u<<24);
+ }
+ if(m_1C) {
+  m_1C->SetTexture((void*)((255u<<24)|((unsigned)r<<16)|((unsigned)g<<8)|b));
+  const Coord3D *pos=m_08->getPosition();
+  m_1C->m_pos08=*pos;
+ }
+}
+
