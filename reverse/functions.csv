@@ -74092,3 +74092,4 @@ _vp6_xprintf,,0x001C4C90,610,Code/Libraries/Source/VP6/vp6_xprintf.cpp,matched,v
 ?rva005E9761@Rva005E9761@@QAE?AURvaF1Handle@@II@Z,,0x005E9761,87,Code/GameEngine/Source/Common/Rva005E5CF9Factory.cpp,matched,
 ?rva005E97D5@Rva005E97D5@@QAE?AURvaF1Handle@@II@Z,,0x005E97D5,87,Code/GameEngine/Source/Common/Rva005E5CF9Factory.cpp,matched,
 ?rva005E9849@Rva005E9849@@QAE?AURvaF1Handle@@II@Z,,0x005E9849,87,Code/GameEngine/Source/Common/Rva005E5CF9Factory.cpp,matched,
+?rva005ED198@@YAPAXPBX@Z,,0x005ED198,53,Code/GameEngine/Source/Common/Rva0052B5C6Factory.cpp,matched,
