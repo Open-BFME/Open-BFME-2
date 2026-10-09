@@ -32,10 +32,18 @@ void Rva00325388Send(GameWindow *,int,int,int);
 template<> bool StringBase<unsigned short>::isEmpty() const;
 class ChatWindowsInGame {
 public:
+    virtual void slot00();
+    virtual void slot04();
+    virtual void slot08();
+    virtual void slot0C();
+    virtual bool slot10(const UnicodeString &,SelectionIDs &);
+    void rva005B000C();
     bool PopulatePlayerList();
     int rva005AFEF7(SelectionIDs *,_STL::vector<AsciiString> *);
     int rva005AFDC5(int,const UnicodeString &,const UnicodeString &,int);
-    char unknown00[0x10];
+    char unknown04[4];
+    GameWindow *entry08;
+    char unknown0C[4];
     GameWindow *playerList10;
 };
 int ChatWindowsInGame::rva005AFDC5(int user,const UnicodeString &name,const UnicodeString &team,int color)
@@ -160,4 +168,34 @@ bool ChatWindowsInGame::PopulatePlayerList()
     Rva00326F9BSet(list,reinterpret_cast<const int **>(&newRows));
     GadgetListBoxSetTopVisibleEntry(list,top);
     return true;
+}
+
+UnicodeString GadgetTextEntryGetText(GameWindow *);
+void GadgetTextEntrySetText(GameWindow *,UnicodeString);
+class LanguageFilter { public: void filterLine(UnicodeString &); };
+extern LanguageFilter *TheLanguageFilter;
+// Shared StringBase header ABI is refs32/length16/capacity16. A direct
+// boolean header test preserves the native word compare without integer
+// length materialization (same view used by InGameCommandButtonHelpSetWidth).
+struct UnicodeStringHeaderView { int refs; unsigned short length; };
+static __forceinline bool hasText(const UnicodeString &s)
+{
+    const UnicodeStringHeaderView *header=*(const UnicodeStringHeaderView *const *)&s;
+    return header && header->length!=0;
+}
+// Native5B000C..5B00C8 RET0; WB1518AA0 unnamed and the bound Send/
+// OnButtonSend callbacks identify this same chat-list receiver. Read entry08,
+// trim/filter its line, query selected IDs, and dispatch through vslot10.
+// Only a successful bool response clears the entry with TheEmptyString.
+// All188 bytes and both cleanup states exact; original method name unknown.
+void ChatWindowsInGame::rva005B000C()
+{
+    UnicodeString text=GadgetTextEntryGetText(entry08);
+    text.trim();
+    TheLanguageFilter->filterLine(text);
+    if(!hasText(text)) return;
+    SelectionIDs selected;
+    rva005AFEF7(&selected,0);
+    if(slot10(text,selected))
+        GadgetTextEntrySetText(entry08,UnicodeString::TheEmptyString);
 }

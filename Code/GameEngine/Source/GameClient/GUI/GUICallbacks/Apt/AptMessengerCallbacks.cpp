@@ -193,8 +193,10 @@ public:
 	int winGetSize(int *width, int *height);
 };
 
-// A tab's chat entry; its unrowed 0x005B000C sends the typed line, pinned
+// A tab's chat entry; its recovered 0x005B000C sends the typed line, pinned
 // by address.
+// Call-only view of the query/send receiver now owned in ChatWindowsInGame.cpp.
+class ChatWindowsInGame { public: void rva005B000C(); };
 class Rva005B000C
 {
 public:
@@ -202,7 +204,7 @@ public:
 	virtual void v01();
 	virtual ~Rva005B000C();
 
-	void rva005B000C();
+
 	// Unrowed 0x005B00C8, the tab's window message handler.
 	bool rva005B00C8(int message, unsigned int wParam, unsigned int lParam);
 	// Unrowed 0x005AFC21 and 0x005AFC4C keep the tab's chat and player
@@ -285,7 +287,7 @@ void AptMessenger::OnButtonSend(const char *unused)
 {
 	Rva005B000C *entry = m_entries[g_Va00E046BC];
 	if (entry)
-		entry->rva005B000C();
+		reinterpret_cast<ChatWindowsInGame *>(entry)->rva005B000C();
 }
 
 // Retail 0x005AEF16, 28 bytes: "AptMessenger::OnBttn_0".

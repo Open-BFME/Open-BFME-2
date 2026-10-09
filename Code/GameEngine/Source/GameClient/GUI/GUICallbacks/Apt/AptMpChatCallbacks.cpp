@@ -114,17 +114,19 @@ struct Rva0057FFB9Owner
 	int m_08;
 };
 
-// The chat helper the panel keeps at +0x64: its unrowed 0x005B000C (188
+// The chat helper the panel keeps at +0x64: its recovered 0x005B000C (188
 // bytes) sends the typed line, 0x005AFC21 and 0x005AFC4C take the chat and
 // player list windows (all pinned by address), and the rowed 0x005AFD43
 // sets the entry's text (its own address class).
+// Call-only view of the query/send receiver now owned in ChatWindowsInGame.cpp.
+class ChatWindowsInGame { public: void rva005B000C(); };
 class Rva005B000C
 {
 public:
 	virtual void f0();
 	virtual void f1();
 	virtual ~Rva005B000C();
-	void rva005B000C();
+
 	void rva005AFC21(GameWindow *window);
 	void rva005AFC4C(GameWindow *window);
 
@@ -184,7 +186,7 @@ void AptMpChat::rva0057FDBF(int query, char *result, bool skip)
 void AptMpChat::Send(const char *unused)
 {
 	if (m_entry)
-		m_entry->rva005B000C();
+		reinterpret_cast<ChatWindowsInGame *>(m_entry)->rva005B000C();
 }
 
 // Retail 0x0057FDEF, 124 bytes: "AptMpChat::InitGadgets" hands the "Chat",
