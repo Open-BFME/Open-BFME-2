@@ -23,10 +23,26 @@ private:
 	Rva003182CDElem m_34[5];
 };
 
-unsigned char Rva003182CD::rva003182CD()
+// Native 94AC6 tail-calls this actual 3182CD provider.
+__declspec(noinline) unsigned char Rva003182CD::rva003182CD()
 {
 	int idx = m_10;
 	if (idx < 0 || idx >= 5)
 		return 0;
 	return m_34[idx].b;
+}
+
+// The global is owned by GlobalWeatherSystem.cpp at native VA E01CE4.
+class GlobalWeatherSystem;
+extern GlobalWeatherSystem *TheGlobalWeatherSystem;
+
+// BF1 f989 R2GuardedTailCalls is the structural source lead. Its guessed
+// bool callee is replaced by the actual rowed raw-byte getter above; native
+// 94AC6..94AD8 preserves that byte result and returns zero when the named
+// weather-system pointer is null. Original wrapper name remains unknown.
+unsigned char Rva00094AC6WeatherByte()
+{
+	if (TheGlobalWeatherSystem)
+		return reinterpret_cast<Rva003182CD *>(TheGlobalWeatherSystem)->rva003182CD();
+	return 0;
 }
