@@ -34,8 +34,7 @@ struct BfmeRenderVertex
 
 typedef BfmeUInt32 (__cdecl *BfmeColorConverter)(BfmeUInt32 color);
 
-extern float g_Va00DEC49C;
-extern float g_Va00BBB8D8;
+extern "C" float g_BfmeRender2DZ;
 extern int g_Va00DB5FC8;
 
 class Render2DClass
@@ -59,7 +58,7 @@ private:
 	{
 		vertex.x = x * m_coordinateScaleX + m_biasedCoordinateOffsetX;
 		vertex.y = y * m_coordinateScaleY + m_biasedCoordinateOffsetY;
-		vertex.z = g_Va00DEC49C;
+		vertex.z = g_BfmeRender2DZ;
 	}
 
 public:
@@ -81,7 +80,7 @@ void Render2DClass::Add_Quad(const RectClass &screen, BfmeUInt32 color)
 	convertPosition006e(vertices[3], screen.Right, screen.Bottom);
 
 	vertices[0].u = vertices[1].u = vertices[0].v = vertices[2].v = 0.0f;
-	float one = g_Va00BBB8D8;
+	float one = 1.0f;
 	vertices[2].u = vertices[3].u = vertices[1].v = vertices[3].v = one;
 
 	vertices[0].color = vertices[1].color = vertices[2].color = vertices[3].color =
