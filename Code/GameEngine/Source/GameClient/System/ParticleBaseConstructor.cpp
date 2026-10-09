@@ -1,7 +1,11 @@
-// ??0Rva001F4B63@@QAE@ABVRvaSmartPtr12@@ABVRva001F376E@@@Z
-// partial score=0.91 date=2026-10-01
+// Native1F4B63..1F4C67: complete260B base particle constructor.
+// BF1 ParticleConstructor.cpp at donor874e38488c7d supplies the semantic
+// field-order guide. Retail and matched Rva001F4C67 destructor separately
+// establish the intrusive handles at3C and78 (the old bank called78 Vec12).
+// The existing vtable/dtor owner provides this honest address-derived class
+// name. The complete original Particle identity is not asserted here.
 // cl: /O1 /MD /arch:SSE /EHsc
-// ??0Rva001F4B63@@QAE@ABVRvaSmartPtr12@@ABVRva001F376E@@@Z, RVA 0x001F4B63, 260B.
+// ??0Rva001F4C67@@QAE@ABVRvaSmartPtr12@@ABVRva001F376E@@@Z, RVA 0x001F4B63, 260B.
 // Chain lane: calls 0x001F376E just landed. Base Rva001F376E at +0x0, SmartPtr at +0x3C,
 // floats/ints copied from second arg, GameClient slot 0x7c to +0x58, manager insert,
 // ParticleSystem slot 0x7c and helper slot 0x14. Evidence: vtable 0x007E173C,
@@ -27,12 +31,17 @@ public:
 	unsigned char m_38;
 	char m_pad39[3];
 };
+class BfmeParticleSystemHandle {public:~BfmeParticleSystemHandle()throw();};
+class ParticleSystem;
+ParticleSystem *Make001FCBD7();
 class RvaSmartPtr12
 {
 public:
-  RvaSmartPtr12() { m_ptr = 0; m_pad04 = 0; m_pad08 = 0; }
+  ParticleSystem *operator->()const{return m_ptr?(ParticleSystem*)m_ptr:Make001FCBD7();}
+ RvaSmartPtr12() { m_ptr = 0; m_pad04 = 0; m_pad08 = 0; }
   RvaSmartPtr12(const RvaSmartPtr12 &that);
   RvaSmartPtr12 &operator=(const RvaSmartPtr12 &that);
+ ~RvaSmartPtr12() throw() {if(m_ptr)((BfmeParticleSystemHandle*)this)->BfmeParticleSystemHandle::~BfmeParticleSystemHandle();}
 	void *m_ptr;
 	int m_pad04;
 	int m_pad08;
@@ -52,7 +61,7 @@ public:
 };
 extern ClientFrameSubsystem *TheGameClient;
 class ParticleSystem;
-class Rva001F4B63;
+class Rva001F4C67;
 class HelperA4
 {
 public:
@@ -61,7 +70,7 @@ public:
 	virtual void f2();
 	virtual void f3();
 	virtual void f4();
-	virtual void f5(Rva001F4B63 *p);
+	virtual void f5(Rva001F4C67 *p);
 };
 class ParticleSystem
 {
@@ -91,10 +100,10 @@ public:
 	Node001F416C *m_arr2[9];
 	int m_count;
 };
-class Rva001F4B63 : public Rva001F376E
+class Rva001F4C67 : public Rva001F376E
 {
 public:
-	Rva001F4B63(const RvaSmartPtr12 &a, const Rva001F376E &b);
+	Rva001F4C67(const RvaSmartPtr12 &a, const Rva001F376E &b);
 	RvaSmartPtr12 m_smart;
 	Vec12 m_48;
 	int m_54;
@@ -109,16 +118,13 @@ public:
 	unsigned char m_74;
 	unsigned char m_75;
 	char m_pad76[2];
-	Vec12 m_78;
+	RvaSmartPtr12 m_78;
 	int m_84;
 };
-// ??0Rva001F4B63@@QAE@ABVRvaSmartPtr12@@ABVRva001F376E@@@Z present-unmatched
-Rva001F4B63::Rva001F4B63(const RvaSmartPtr12 &a, const Rva001F376E &b)
+// ??0Rva001F4C67@@QAE@ABVRvaSmartPtr12@@ABVRva001F376E@@@Z
+Rva001F4C67::Rva001F4C67(const RvaSmartPtr12 &a, const Rva001F376E &b)
 	: m_5c(1)
 {
-	m_78.x = 0.0f;
-	m_78.y = 0.0f;
-	m_78.z = 0.0f;
 	m_84 = 0;
 	m_smart = a;
 	m_60 = 0;
@@ -142,8 +148,5 @@ Rva001F4B63::Rva001F4B63(const RvaSmartPtr12 &a, const Rva001F376E &b)
 	if (ps == 0)
 		ps = Make001FCBD7();
 	((Rva001F416C *)TheParticleSystemManager)->rva001F416C((Node001F416C *)this, ps->m_7c);
-	ps = (ParticleSystem *)m_smart.m_ptr;
-	if (ps == 0)
-		ps = Make001FCBD7();
-	ps->m_a4->f5(this);
+	m_smart->m_a4->f5(this);
 }
