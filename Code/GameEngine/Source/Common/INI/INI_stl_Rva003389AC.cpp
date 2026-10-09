@@ -18,3 +18,14 @@ VeterancyLevelFlags clearVeterancyLevelFlag(VeterancyLevelFlags flags, Veterancy
 {
 	return (flags & ~(1UL << (dt - 1)));
 }
+
+// Reference guide: BFME1 f98983a7 GameCommon.h inline flag setters,
+// emitted by Common/INI/ini.cpp under O1/SSE/G6. Their VeterancyLevel
+// and DeathType spellings are ambiguous at the placed target. Retail
+// 003389CE..003389DD is independently complete after RET at 003389CD:
+// two raw stack words, flags OR (1u << (index - 1)), EAX result, RET0.
+// Original name and enum identity remain unknown.
+unsigned int rva003389ce(unsigned int flags, unsigned int index)
+{
+    return flags | (1u << (index - 1u));
+}
