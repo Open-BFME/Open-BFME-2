@@ -17059,3 +17059,4 @@ _malloc,0x00628F92,CRT malloc import linker thunk (jmp [0xBBA6EC])
 ?renderAsQuads@W3DSnowManager@@QAEXAAVRenderInfoClass@@HHHH@Z,0x00093CC3,W3DSnowManager::renderAsQuads (BFME1 W3DSnowManagerRender donor name; ret 0x14); caller W3DSnowManager::render 0x0009470F
 ?renderSubBox@W3DSnowManager@@QAEXAAVRenderInfoClass@@HHHH@Z,0x00093507,W3DSnowManager::renderSubBox (BFME1 W3DSnowManagerRender donor name; ret 0x14); caller W3DSnowManager::render 0x0009470F
 ??0AptMessenger@@QAE@PAX@Z,0x0051215B,AptMessenger constructor (vftables C659A0/C65998; registers the AptMessenger callbacks; WB mislabels it CloseScreen); called by AptMessengerOnline::AptMessengerOnline 0x005AEF6B
+?OnHidden@Impl@AptMessageBoxMovieClip@@QAEXPBD@Z,0x0054CBB0,callee of ??0Rva0054CFB8Target@@QAE@HABVAsciiString@@@Z

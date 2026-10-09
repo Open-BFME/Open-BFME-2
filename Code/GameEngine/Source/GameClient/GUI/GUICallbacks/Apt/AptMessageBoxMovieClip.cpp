@@ -20,6 +20,8 @@ struct TreeHintRef00217D4C {
  TreeHintRef00217D4C &operator=(const TreeHintRef00217D4C &);
  TargetRef00217D4C *m_ptr;
  // ?TreeHintRef00217D4C::TreeHintRef00217D4C present-unmatched
+ TreeHintRef00217D4C() : m_ptr(0) {}
+ // ?TreeHintRef00217D4C::TreeHintRef00217D4C present-unmatched
  TreeHintRef00217D4C(const TreeHintRef00217D4C &other) : m_ptr(other.m_ptr)
  {
   if (m_ptr)
@@ -34,19 +36,75 @@ struct TreeHintRef00217D4C {
 };
 #include "ascii_string.h"
 #include "unicode_string.h"
-class Rva000B3F84Pair { public: const char *m_ptr; int m_len; };
+class Rva000B3F84Pair { public: Rva000B3F84Pair() {} Rva000B3F84Pair *init(const char *src); const char *m_ptr; int m_len; };
 struct AsciiStringRef { const AsciiString *m_string; };
 struct AsciiStringPlusText : AsciiStringRef { operator AsciiString(); Rva000B3F84Pair m_right; };
 AsciiStringPlusText operator+(const AsciiString &,const char *);
+// (prefix + movie) + "_OnX" nodes, as in Rva005794EDDtor.cpp: concat
+// 0x00109CFD (pinned ICF fold) and conversion 0x0050F74B.
+struct AsciiStringPlusString : AsciiStringRef { AsciiStringRef m_second; };
+struct AsciiStringPlusStringText : AsciiStringPlusString { operator AsciiString(); Rva000B3F84Pair m_right; };
+static __forceinline AsciiStringPlusString operator+(const AsciiString &left, const AsciiString &right)
+{
+ AsciiStringPlusString result;
+ result.m_string = &left;
+ result.m_second.m_string = &right;
+ return result;
+}
+// ?operator+(AsciiStringPlusString, text) present-unmatched (inline, emitted out of line; ICF-folded at 0x00109CFD; pinned)
+inline AsciiStringPlusStringText operator+(const AsciiStringPlusString &left, const char *right)
+{
+ Rva000B3F84Pair text;
+ text.init(right);
+ AsciiStringPlusStringText result;
+ static_cast<AsciiStringPlusString &>(result) = left;
+ result.m_right = text;
+ return result;
+}
+
+// Apt delegate (object, member) and the command-map name list that binds
+// it: ctor 0x001F81BF (ICF fold, pinned), AddCommandMap 0x0052458E, dtor
+// 0x0052413E (pinned), delegate ref 0x00579E47 (pinned).
+class AptCommandTarget {};
+struct DelegateDesc {
+ template <class T> DelegateDesc(T *object, void (T::*method)(const char *))
+  : m_object(reinterpret_cast<AptCommandTarget *>(object)),
+    m_method(reinterpret_cast<void (AptCommandTarget::*)(const char *)>(method)) {}
+ AptCommandTarget *m_object;
+ void (AptCommandTarget::*m_method)(const char *);
+};
+class AptCommandMap { public: void *m_vtbl; int m_refCount; };
+template <class T> class AptRef {
+public:
+ AptRef(const DelegateDesc *desc) { rva00579E47(desc); }
+ AptRef &rva00579E47(const DelegateDesc *desc);
+ AptRef(const AptRef &that) : m_ptr(that.m_ptr) { if (m_ptr) m_ptr->m_refCount++; }
+ ~AptRef() { if (m_ptr) ReleaseTreeHintRef00217D4C((TargetRef00217D4C *)m_ptr); }
+private:
+ T *m_ptr;
+};
+class AptCommandMapAdder {
+public:
+ AptCommandMapAdder();
+ ~AptCommandMapAdder();
+ void AddCommandMap(const AsciiString &name, AptRef<AptCommandMap> map);
+ __forceinline void AddCommandMapDelegate(const AsciiString &name, DelegateDesc desc)
+ {
+  AddCommandMap(name, &desc);
+ }
+private:
+ char m_pad[0xC];
+};
 class BfmeAptWindowManager {public: void bfmeSetText(const AsciiString &,const UnicodeString &,bool);
  char m_pad000[0x312]; bool m_flag312;};
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 
 class Rva0054CFB8Target {
-public: void method(int,const UnicodeString &,const UnicodeString &,TreeHintRef00217D4C,TreeHintRef00217D4C);
+public: Rva0054CFB8Target(int level, const AsciiString &movie);
+ void method(int,const UnicodeString &,const UnicodeString &,TreeHintRef00217D4C,TreeHintRef00217D4C);
  void rva0054CA4A();
 protected:
- unsigned m_level00; AsciiString m_movie04; char m_pad08[0xc]; int m_previous14; int m_state18;
+ unsigned m_level00; AsciiString m_movie04; AptCommandMapAdder m_commands08; int m_previous14; int m_state18;
  TreeHintRef00217D4C m_callback1C; TreeHintRef00217D4C m_callback20; unsigned m_deadline24; bool m_long28; bool m_29;
 };
 // Pinned 0x0054C99A (unrowed; closes the box) names this view of the same
@@ -67,6 +125,7 @@ public:
  void OnShowing(const char *);
  void OnShown(const char *);
  void OnHiding(const char *);
+ void OnHidden(const char *);
 };
 extern int g_Va00E032C8;
 class Rva00222A8BTarget;
@@ -210,4 +269,27 @@ void AptMessageBoxMovieClip::Impl::OnHiding(const char *)
 {
  if (m_callback20.m_ptr)
   ((Rva0057CC15Ref *)&m_callback20)->invoke(2);
+}
+
+// Native [54CC35,54CFB8)899B thiscall RET8 ending at Show 54CFB8, the
+// box ctor called from 0x0054D286: level00, movie04, the command-map list at
+// 08, no pending transition, state18 5 (no box), empty callbacks, no
+// deadline; then binds the eight delegates as "_level%u." + movie + "_OnX".
+// OnHidden 0x0054CBB0 is pinned, not rowed.
+Rva0054CFB8Target::Rva0054CFB8Target(int level, const AsciiString &movie)
+ : m_level00(level), m_movie04(movie), m_previous14(0), m_state18(5),
+   m_deadline24((unsigned)-1), m_long28(false), m_29(false)
+{
+ typedef AptMessageBoxMovieClip::Impl Impl;
+ Impl *impl = static_cast<Impl *>(this);
+ AsciiString prefix;
+ prefix.format("_level%u.", m_level00);
+ m_commands08.AddCommandMapDelegate(prefix + m_movie04 + "_OnButtonOk", DelegateDesc(impl, &Impl::OnButtonOk));
+ m_commands08.AddCommandMapDelegate(prefix + m_movie04 + "_OnButtonCancel", DelegateDesc(impl, &Impl::OnButtonCancel));
+ m_commands08.AddCommandMapDelegate(prefix + m_movie04 + "_OnButtonYes", DelegateDesc(impl, &Impl::OnButtonYes));
+ m_commands08.AddCommandMapDelegate(prefix + m_movie04 + "_OnButtonNo", DelegateDesc(impl, &Impl::OnButtonNo));
+ m_commands08.AddCommandMapDelegate(prefix + m_movie04 + "_OnShowing", DelegateDesc(impl, &Impl::OnShowing));
+ m_commands08.AddCommandMapDelegate(prefix + m_movie04 + "_OnShown", DelegateDesc(impl, &Impl::OnShown));
+ m_commands08.AddCommandMapDelegate(prefix + m_movie04 + "_OnHiding", DelegateDesc(impl, &Impl::OnHiding));
+ m_commands08.AddCommandMapDelegate(prefix + m_movie04 + "_OnHidden", DelegateDesc(impl, &Impl::OnHidden));
 }
