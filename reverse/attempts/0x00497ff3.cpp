@@ -1,7 +1,9 @@
 // ?setStatus@BattlePlanUpdate@@IAEXW4TransitionStatus@@@Z
+// partial score=0.9237408 date=2026-10-09
+// ?setStatus@BattlePlanUpdate@@IAEXW4TransitionStatus@@@Z
 // partial score=0.98 date=2026-10-09
 // stlport
-// cl: /O1 /G7 /D_STLP_NO_EXCEPTIONS /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include
+// cl: /O1 /G7 /D_STLP_NO_EXCEPTIONS /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /I.
 //
 // BattlePlanUpdate.cpp: BattlePlanUpdate bodies retail links from this TU
 // (tu_map approved). The turret helpers were folded in from split units with
@@ -18,8 +20,8 @@
 // playing handle at84 and four banks of ref-counted audio names at44..80.
 #include "Common/BfmeAudioEventPrefix136.h"
 #include "unicode_string.h"
-#include "../../../Common/GameLogicObjectLookupView.h"
-#include "../../../../../Libraries/Include/Lib/Coord3D.h"
+#include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
+#include "Code/Libraries/Include/Lib/Coord3D.h"
 #include <bitset>
 class Player { public: char pad[0x54]; int index; };
 class Drawable { public: void setAnimationLoopDuration(unsigned); };

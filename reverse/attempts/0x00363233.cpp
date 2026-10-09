@@ -1,19 +1,15 @@
 // ?clientUpdate@LaserUpdate@@UAEXXZ
+// partial score=0.960298 date=2026-10-09
+// ?clientUpdate@LaserUpdate@@UAEXXZ
 // partial score=0.97 date=2026-10-09
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii /I. /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
 // BFME1 LaserUpdateClientUpdate.cpp donor9cbfb551fe20dae985f91f2319d8997287b6a705; ZH widening/decaying spine.
 // Target measured deltas: GameClient frame31/find16/destroy29; Object geometry+A8.
 // Handle return/assignment use existing BFME2 12-byte call views and conditional cleanup.
 #include "ascii_string.h"
-#include "../../../../../Libraries/Include/Lib/Coord3D.h"
+#include "Code/Libraries/Include/Lib/Coord3D.h"
 class GeometryInfo { public: float getMaxHeightAbovePosition() const; };
-class Matrix3D { public: float m[12];
- __forceinline Matrix3D(bool identity) { if(identity) {
- m[0]=1.0F;m[1]=0;m[2]=0;m[3]=0;m[4]=0;m[5]=1.0F;m[6]=0;m[7]=0;m[8]=0;m[9]=0;m[10]=1.0F;m[11]=0; } }
- float Get_X_Translation() const {return m[3];}
- float Get_Y_Translation() const {return m[7];}
- float Get_Z_Translation() const {return m[11];}
-};
+#include "matrix3d.h"
 static inline void coordSet(Coord3D *to,const Coord3D *from) {to->x=from->x;to->y=from->y;to->z=from->z;}
 static inline void coordSet(Coord3D *to,float x,float y,float z) {to->x=x;to->y=y;to->z=z;}
 static inline void coordAdd(Coord3D *to,const Coord3D *from) {to->x=to->x+from->x;to->y=to->y+from->y;to->z=to->z+from->z;}
