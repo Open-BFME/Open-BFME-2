@@ -46,7 +46,7 @@ private:
 class Object
 {
 public:
-	AIUpdateInterface *getAI() { return m_ai; }
+	static __forceinline AIUpdateInterface *getAI(const Object *object) { return object->m_ai; }
 	void rva0028BBF3(Object *guardee);
 private:
 	unsigned char m_pad00[0x258];
@@ -93,7 +93,7 @@ private:
 void AIGuardState::onExit( StateExitType status )
 {
 	Object *owner = getMachineOwner();
-	AIUpdateInterface *ai = owner->getAI();
+	AIUpdateInterface *ai = Object::getAI(owner);
 	ai->clearBfme3CD();
 	Object *guardee = TheGameLogic->findObjectByID(ai->getGuardObject());
 	if (guardee && ai->getGuardTargetType() == GUARDTARGET_OBJECT)

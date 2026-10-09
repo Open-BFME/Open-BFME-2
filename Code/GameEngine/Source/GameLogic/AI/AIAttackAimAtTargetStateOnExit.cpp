@@ -59,7 +59,7 @@ private:
 class Object
 {
 public:
-	AIUpdateInterface *getAI() { return m_ai; }
+	static __forceinline AIUpdateInterface *getAI(const Object *object) { return object->m_ai; }
 	const ThingTemplate *getTemplate() const { return m_template; }
 	void setStatus(ObjectStatusTypes bit, bool set);
 	void clearStatus(ObjectStatusTypes bit) { setStatus(bit, false); }
@@ -104,7 +104,7 @@ private:
 
 void AIAttackAimAtTargetState::onExit( StateExitType status )
 {
-	AIUpdateInterface* sourceAI = getMachineOwner()->getAI();
+	AIUpdateInterface* sourceAI = Object::getAI(getMachineOwner());
 	// contained by AIAttackState, so no separate timer
 	if (m_canTurnInPlace)
 	{

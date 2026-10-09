@@ -38,7 +38,7 @@ public:
 class Object
 {
 public:
-	AIUpdateInterface *getAI() { return m_ai; }
+	static __forceinline AIUpdateInterface *getAI(const Object *object) { return object->m_ai; }
 private:
 	unsigned char m_pad00[0x258];
 	AIUpdateInterface *m_ai; // +0x258
@@ -80,7 +80,7 @@ public:
 void AIWanderInPlaceState::onExit( StateExitType status )
 {
 	AIInternalMoveToState::onExit( status );
-	AIUpdateInterface *ai = getMachineOwner()->getAI();
+	AIUpdateInterface *ai = Object::getAI(getMachineOwner());
 	if (ai) {
 		ai->chooseLocomotorSet(LOCOMOTORSET_NORMAL);
 	}
