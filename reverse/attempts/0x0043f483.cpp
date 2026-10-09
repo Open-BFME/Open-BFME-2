@@ -1,4 +1,6 @@
-// ?rva0043F483@AptMpGameSetup@@QAEXH@Z
+// ?PopulatePlayerCombo@AptMpGameSetup@@QAEXH@Z
+// partial score=0.9 date=2026-10-09
+// ?PopulatePlayerCombo@AptMpGameSetup@@QAEXH@Z
 // partial score=0.86 date=2026-10-08
 // cl: /O1 /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
 // stlport
@@ -842,6 +844,7 @@ void _bfme_closeAptScreen(const AsciiString &name);
 class AptMpGameSetup
 {
 public:
+ static void PlayerTooltip(GameWindow*,WinInstanceData*,unsigned int);
 	int GetDisplayedPlayerTemplateIndex(int slot);
 	void rva0043DC0F();
 	void rva0043E49C(const UnicodeString &text);
@@ -898,7 +901,7 @@ public:
 	// Unrowed per-slot refreshers called by 0x004427C5, pinned by address:
 	// 0x0043F483 (1072 bytes), 0x004424E7 (734 bytes) and 0x004406BA (792
 	// bytes).
-	void rva0043F483(int slot);
+	void PopulatePlayerCombo(int slot);
 	void rva0043F244(int slot, bool reset);
 	void rva004424E7(int slot);
 	void rva004406BA(int slot);
@@ -1003,25 +1006,26 @@ struct PlayerComboMapPosition { unsigned char flags[3]; char pad; int value; uns
 class MapMetaData { public: unsigned char pad0[0x20]; int numPlayers; unsigned char pad24[0x54-0x24]; PlayerComboMapPosition positions[8]; };
 class GlobalData { public: unsigned char pad[0x9d4]; int modeFlags; };
 extern GlobalData* TheGlobalData;
-extern int AptLobbyRandomColorTint;
+// Native DC8D48 is a writable DWORD tint initialized FFFFFFFF, shared
+// by nine lobby entry sites. This is a descriptive name, not a claimed
+// original source spelling; there is no existing ledger data owner.
+int AptLobbyRandomColorTint=-1;
 GameWindow* GadgetComboBoxGetListBox(GameWindow*);
 void GadgetComboBoxSetItemData(GameWindow*,int,void*);
 int GadgetComboBoxAddEntry(GameWindow*,UnicodeString,int);
-void AptMpPlayerComboTooltip(GameWindow*,WinInstanceData*,unsigned int);
-void AptMpGameSetup::rva0043F483(int slot)
+void AptMpGameSetup::PopulatePlayerCombo(int slot)
 {
     GameWindow** combo = &m_player[slot];
     if (!*combo) return;
     int mode=m_60.m_mode;
     bool mode1=mode==1;
     bool allowAI;
-    bool allowOpen;
     UnicodeString previousText;
     int previous = Rva00322910(*combo);
     if (previous == -1) previousText = GadgetComboBoxGetText(*combo);
     else previous = (int)GadgetComboBoxGetItemData(*combo,previous);
     GadgetComboBoxReset(*combo);
-    GadgetComboBoxGetListBox(*combo)->winSetTooltipFunc(AptMpPlayerComboTooltip);
+    GadgetComboBoxGetListBox(*combo)->winSetTooltipFunc(AptMpGameSetup::PlayerTooltip);
     allowAI=true;
     GameInfo* game=(GameInfo*)m_game->rva0043DA65();
     if(game && !mode1) {
@@ -1040,7 +1044,7 @@ void AptMpGameSetup::rva0043F483(int slot)
         int index=GadgetComboBoxAddEntry(*combo,empty,AptLobbyRandomColorTint);
         GadgetComboBoxSetItemData(*combo,index,(void*)0);
     } else {
-        allowOpen=!(m_flags&2);
+        bool allowOpen=!(m_flags&2);
         if(m_owner->v01() && mode1) {
             if(allowOpen && game) {
                 for(int i=1;i<8;++i) {
