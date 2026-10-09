@@ -37,20 +37,5 @@ int PortNegotiationSchema::GetConnectionState(unsigned short x, unsigned short y
 	return m_arr2[y + x * 8];
 }
 
-// ?rva005DBA60@PortNegotiationSchema@@QAE_NG@Z 0x005DBA60 60B
-// Unlock row/col scan for value 2 in m_arr2; same class/offsets as neighbours.
-// Evidence: neighbours 0x005DB9BC/0x005DBBA5 same cl; offset +0x18 int[81]; callers 0x005DC655/0x005DC661.
-bool PortNegotiationSchema::rva005DBA60(unsigned short x)
-{
-	if (x < 8)
-	{
-		for (int i = 0; i < 8; ++i)
-		{
-			if (i != x && m_arr2[i + x * 8] == 2)
-				return true;
-			if (m_arr2[x + i * 8] == 2)
-				return true;
-		}
-	}
-	return false;
-}
+// The conflict scan definition is now co-located with its 5DC586 consumer
+// in NATUpdateBfme.cpp so the compiler observes its ECX-preserving contract.

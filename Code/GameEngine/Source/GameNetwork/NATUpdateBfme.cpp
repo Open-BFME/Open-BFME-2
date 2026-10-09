@@ -18,9 +18,9 @@ class PSPlayerAllStats{public:int id;char rest[0x544];~PSPlayerAllStats();};
 class GameSpyPSMessageQueueInterface{public:virtual void s0();virtual void s1();virtual void s2();virtual void s3();virtual void s4();virtual void s5();virtual void s6();virtual void s7();virtual void s8();virtual void s9();virtual void s10();virtual void s11();virtual PSPlayerAllStats findPlayerStatsByID(int);};extern GameSpyPSMessageQueueInterface *TheGameSpyPSMessageQueue;
 struct Rva00A063B0Obj;extern Rva00A063B0Obj *g_a063b0;
 bool g_natTransportContextEnabled=false;unsigned g_natStatsWaitStartTick=0;
-struct Rva005A7A96Pair{int cookie;unsigned short first,second;};
+struct Rva005A7A96Pair{void *opaque00;unsigned short first,second;};
 struct Rva005A7172:public _STL::vector<int>{~Rva005A7172();};
-class PortNegotiationSchema{public:bool rva005DBA9C(bool);bool rva005DC586(_STL::vector<Rva005A7A96Pair>*);};
+class PortNegotiationSchema{public:char pad00[0x18];int state[81];char pad15c[0x738-0x15c];unsigned timeout[8][8];unsigned short tries[8][8];bool rva005DBA9C(bool);bool rva005DBA60(unsigned short);bool rva005DC586(_STL::vector<Rva005A7A96Pair>*);};
 class NAT{public:bool rva005A6709();void rva005A7C9C();void rva005A6CA5();void sendPings();void processUDPPacket();void rva005A879B();void rva005A7A96(const _STL::vector<Rva005A7A96Pair>*);};
 class Rva005A6732{public:bool rva005A6732()const;};
 class Rva005A6D47 {public:void *vptr;Transport *transport;GameSpyGameSlot **slots;int host,state,local;char pad18[0x10];PortNegotiationSchema schema;int rva005A8F57();};
@@ -36,3 +36,29 @@ int Rva005A6D47::rva005A8F57(){
  }
  return state;
 }
+
+class Rva005DBCD1{public:unsigned short first,second;Rva005DBCD1(unsigned short a,unsigned short b):first(a),second(b){}Rva005DBCD1(const Rva005DBCD1&);virtual ~Rva005DBCD1(){}};
+struct Elem003AF7A0{virtual ~Elem003AF7A0();char body[4];};
+struct Rva005DC408Element{void *vptr;unsigned short first,second;};
+namespace _STL{template<>void vector<Elem003AF7A0,allocator<Elem003AF7A0> >::push_back(const Elem003AF7A0&);template<>Rva005DC408Element *vector<Rva005DC408Element,allocator<Rva005DC408Element> >::erase(Rva005DC408Element*,Rva005DC408Element*);}
+// Native412B: find disjoint ready slot pairs. No clean schema donor exists
+// in the sanctioned BF1 source or ZH NAT.cpp; target WB15C7630 and native
+// supply state/tries/timeout arrays and eligibility. Second retry check reads
+// the first direction timeout exactly as retail does. Element vtable owner
+// Rva005DBCD1 and existing erase/push providers establish eight-byte storage.
+bool PortNegotiationSchema::rva005DC586(_STL::vector<Rva005A7A96Pair>*pairs){
+ _STL::vector<Rva005DC408Element>*eraseView=(_STL::vector<Rva005DC408Element>*)pairs;eraseView->erase(eraseView->begin(),eraseView->end());
+ unsigned now=timeGetTime();
+ for(unsigned short first=0;first<8;++first){for(unsigned short second=first+1;second<8;++second){
+  if((state[first*8+second]==1&&state[second*8+first]==1)||((state[first*8+second]==4||state[second*8+first]==4)&&tries[first][second]<5&&tries[second][first]<5&&(state[first*8+second]!=2||timeout[first][second]<now)&&(state[second*8+first]!=2||timeout[first][second]<now))){
+   if(!rva005DBA60(first)&&!rva005DBA60(second)){
+    _STL::vector<Rva005A7A96Pair>::iterator it=pairs->begin();for(;it!=pairs->end();++it){if(it->first==first||it->second==first||it->first==second||it->second==second)goto skipPair;}
+    {Rva005DBCD1 pair(first,second);((_STL::vector<Elem003AF7A0>*)pairs)->push_back(*(const Elem003AF7A0*)&pair);}
+   }
+  }
+ skipPair:;
+ }}
+ return pairs->size()>0;
+}
+
+__declspec(noinline) bool PortNegotiationSchema::rva005DBA60(unsigned short x){if(x<8){for(int i=0;i<8;++i){if(i!=x&&state[i+x*8]==2)return true;if(state[x+i*8]==2)return true;}}return false;}
