@@ -1,56 +1,60 @@
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
-// ?embedPristineMap@@YAXVAsciiString@@PAVFile@@@Z (WorldBuilder name), retail 0x0041AD08, 248 bytes.
+// ?embedPristineMap@@YAXVAsciiString@@PAVXfer@@@Z (WorldBuilder name), retail 0x0041AD08, 248 bytes.
 // Evidence: unlock lane, callers at 0x0041B35F/0x0041B3CA in 0x0041AFDA, callee openFile 0x00600C34,
 // _bfmeFormatText 0x0060C36E, new[] 0x0002FDE0, delete[] 0x0002FD80, releaseBuffer 0x00036410,
 // EmptyString g_Rva0107301CEmptyString, TheFileSystem, PristineMap literal, guard throw info.
 // Static with TU-local caller for private register convention (ctx in edi from entry, shape lever 462).
 #include "ascii_string.h"
 
-class OpenedFile
-{
-public:
-	virtual void f0();
-	virtual void f1();
-	virtual void f_close();
-	virtual int f_read(void *buf, int size);
-	virtual void f4();
-	virtual int f_seek(int offset, int origin);
-};
-
 class File
 {
 public:
 	virtual void f0();
 	virtual void f1();
-	virtual void f2();
-	virtual void f3();
-	virtual int f_read(void *buf, int size);
-	virtual void f_check(const char *key);
-	virtual void f_close2();
-	virtual void f7();
-	virtual void f8();
-	virtual void f_read2(void *buf, int size);
-	virtual void f10();
-	virtual void f11();
-	virtual void f12();
-	virtual void f13();
-	virtual void f14();
-	virtual void f15();
-	virtual void f16();
-	virtual void f17();
-	virtual void f18();
-	virtual void f19();
-	virtual void f20();
-	virtual void f21();
-	virtual void f22();
-	virtual void f23();
-	virtual void f24();
-	virtual void f25();
-	virtual void f26();
-	virtual void f27();
-	virtual void f28();
-	virtual void f29();
-	virtual void f_getsize(int *size);
+	virtual void close();
+	virtual int read(void *buf, int size);
+	virtual void f4();
+	virtual int seek(int offset, int origin);
+};
+
+// The second parameter is the save game's Xfer, as in Zero Hour's and BFME 1's
+// GameStateMap.cpp (static void embedPristineMap(AsciiString, Xfer *)); WB's
+// twin asserts xfer.IsStoring(). Slots as the rowed BFME 2 Xfer views place
+// them: beginBlock +0x14, endBlock +0x18, xferUser +0x24, xferUnsignedInt +0x78.
+class Xfer
+{
+public:
+	virtual void slot00();
+	virtual void slot01();
+	virtual void slot02();
+	virtual void slot03();
+	virtual void slot04();
+	virtual int beginBlock(const char *name);
+	virtual void endBlock();
+	virtual void slot07();
+	virtual void slot08();
+	virtual void xferUser(void *data, unsigned int size);
+	virtual void slot10();
+	virtual void slot11();
+	virtual void slot12();
+	virtual void slot13();
+	virtual void slot14();
+	virtual void slot15();
+	virtual void slot16();
+	virtual void slot17();
+	virtual void slot18();
+	virtual void slot19();
+	virtual void slot20();
+	virtual void slot21();
+	virtual void slot22();
+	virtual void slot23();
+	virtual void slot24();
+	virtual void slot25();
+	virtual void slot26();
+	virtual void slot27();
+	virtual void slot28();
+	virtual void slot29();
+	virtual void xferUnsignedInt(unsigned int *value);
 };
 
 class FileSystem
@@ -73,11 +77,11 @@ extern "C" void __stdcall _CxxThrowException(void *pExceptionObject, const _s__T
 void *__cdecl operator new[](unsigned int size);
 void __cdecl operator delete[](void *p);
 
-static void __cdecl embedPristineMap(AsciiString path, File *ctx)
+static void __cdecl embedPristineMap(AsciiString path, Xfer *xfer)
 {
 	char *t = *(char **)(void *)&path;
 	const char *name = t ? t + 8 : "";
-	OpenedFile *f = (OpenedFile *)TheFileSystem->openFile(name, 0x41, 0);
+	File *f = TheFileSystem->openFile(name, 0x41, 0);
 	if (!f)
 	{
 		BfmeFormattedText tmp;
@@ -85,8 +89,8 @@ static void __cdecl embedPristineMap(AsciiString path, File *ctx)
 		_CxxThrowException(&tmp, (const _s__ThrowInfo *)&g_guardTargetTypeThrowInfo);
 		__assume(0);
 	}
-	int size = f->f_seek(0, 2);
-	f->f_seek(0, 0);
+	unsigned int size = f->seek(0, 2);
+	f->seek(0, 0);
 	char *buf = new char[size];
 	if (!buf)
 	{
@@ -95,7 +99,7 @@ static void __cdecl embedPristineMap(AsciiString path, File *ctx)
 		_CxxThrowException(&tmp, (const _s__ThrowInfo *)&g_guardTargetTypeThrowInfo);
 		__assume(0);
 	}
-	int got = f->f_read(buf, size);
+	int got = f->read(buf, size);
 	if (got != size)
 	{
 		delete[] buf;
@@ -104,27 +108,27 @@ static void __cdecl embedPristineMap(AsciiString path, File *ctx)
 		_CxxThrowException(&tmp, (const _s__ThrowInfo *)&g_guardTargetTypeThrowInfo);
 		__assume(0);
 	}
-	f->f_close();
-	ctx->f_check("PristineMap");
-	ctx->f_getsize(&size);
-	ctx->f_read2(buf, size);
-	ctx->f_close2();
+	f->close();
+	xfer->beginBlock("PristineMap");
+	xfer->xferUnsignedInt(&size);
+	xfer->xferUser(buf, size);
+	xfer->endBlock();
 	delete[] buf;
 }
 
-// ?Rva0041AD08Caller@@YAXVAsciiString@@PAVFile@@@Z present-unmatched
-void __cdecl Rva0041AD08Caller(AsciiString p, File *c)
+// ?Rva0041AD08Caller@@YAXVAsciiString@@PAVFile@@@Z present-unmatched (register key kept; the anchor takes the Xfer view)
+void __cdecl Rva0041AD08Caller(AsciiString p, Xfer *c)
 {
 	embedPristineMap(p, c);
 }
 
-// ?embedInUseMap@@YAXVAsciiString@@PAVFile@@@Z (WorldBuilder name), retail 0x0041AE00, 248 bytes:
+// ?embedInUseMap@@YAXVAsciiString@@PAVXfer@@@Z (WorldBuilder name), retail 0x0041AE00, 248 bytes:
 // the same read for the "InUseMap" entry (callers 0x0041B3DA, 0x0041B435).
-static void __cdecl embedInUseMap(AsciiString path, File *ctx)
+static void __cdecl embedInUseMap(AsciiString path, Xfer *xfer)
 {
 	char *t = *(char **)(void *)&path;
 	const char *name = t ? t + 8 : "";
-	OpenedFile *f = (OpenedFile *)TheFileSystem->openFile(name, 0x41, 0);
+	File *f = TheFileSystem->openFile(name, 0x41, 0);
 	if (!f)
 	{
 		BfmeFormattedText tmp;
@@ -132,8 +136,8 @@ static void __cdecl embedInUseMap(AsciiString path, File *ctx)
 		_CxxThrowException(&tmp, (const _s__ThrowInfo *)&g_guardTargetTypeThrowInfo);
 		__assume(0);
 	}
-	int size = f->f_seek(0, 2);
-	f->f_seek(0, 0);
+	unsigned int size = f->seek(0, 2);
+	f->seek(0, 0);
 	char *buf = new char[size];
 	if (!buf)
 	{
@@ -142,7 +146,7 @@ static void __cdecl embedInUseMap(AsciiString path, File *ctx)
 		_CxxThrowException(&tmp, (const _s__ThrowInfo *)&g_guardTargetTypeThrowInfo);
 		__assume(0);
 	}
-	int got = f->f_read(buf, size);
+	int got = f->read(buf, size);
 	if (got != size)
 	{
 		delete[] buf;
@@ -151,16 +155,16 @@ static void __cdecl embedInUseMap(AsciiString path, File *ctx)
 		_CxxThrowException(&tmp, (const _s__ThrowInfo *)&g_guardTargetTypeThrowInfo);
 		__assume(0);
 	}
-	f->f_close();
-	ctx->f_check("InUseMap");
-	ctx->f_getsize(&size);
-	ctx->f_read2(buf, size);
-	ctx->f_close2();
+	f->close();
+	xfer->beginBlock("InUseMap");
+	xfer->xferUnsignedInt(&size);
+	xfer->xferUser(buf, size);
+	xfer->endBlock();
 	delete[] buf;
 }
 
-// ?Rva0041AE00Caller@@YAXVAsciiString@@PAVFile@@@Z present-unmatched
-void __cdecl Rva0041AE00Caller(AsciiString p, File *c)
+// ?Rva0041AE00Caller@@YAXVAsciiString@@PAVFile@@@Z present-unmatched (register key kept; the anchor takes the Xfer view)
+void __cdecl Rva0041AE00Caller(AsciiString p, Xfer *c)
 {
 	embedInUseMap(p, c);
 }
