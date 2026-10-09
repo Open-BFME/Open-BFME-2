@@ -1,5 +1,5 @@
 // cl: /MD
-// ?rva005D9C77@Rva005D9C6C@@QAE_NPAVObject@@@Z @0x005D9C77 48B
+// ?rva005D9C77@Rva005D9C6C@@UAE_NPAVObject@@@Z @0x005D9C77 48B
 // Evidence: gap between Rva005D9C6C dtor 0x005D9C6C and deleting dtor 0x005D9CA7 plus vslot 6 of 0x008763FC.
 class Object;
 class AIUpdateInterface { public: Object *getCurrentVictim() const; };

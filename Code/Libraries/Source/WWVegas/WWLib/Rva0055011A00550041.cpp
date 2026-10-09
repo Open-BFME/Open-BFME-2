@@ -1,6 +1,6 @@
 // cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
-// ?rva00550041@Rva0055011A@@QAEXXZ @0x00550041 66B.
+// ?rva00550041@Rva0055011A@@UAEXXZ @0x00550041 66B.
 // Rva0055011A slot-10 method: lock m_14, clear map at +0x74.
 // Evidence: vtable slot 10 of 0x0086AB90; callees rowed 0x00613A70 0x00389A4C 0x00613AC0.
 #include <map>

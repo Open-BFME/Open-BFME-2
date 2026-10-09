@@ -1,5 +1,5 @@
 // cl: /MD
-// ?rva005D8EA7@Rva005D8C25@@QAE_NPAVObject@@@Z @0x005D8EA7 47B
+// ?rva005D8EA7@Rva005D8C25@@UAE_NPAVObject@@@Z @0x005D8EA7 47B
 // Evidence: vslot 6 of 0x00876230 class Rva005D8C25 plus AI victim plus picker 0x005D8C4C.
 class Object;
 class AIUpdateInterface { public: Object *getCurrentVictim() const; };

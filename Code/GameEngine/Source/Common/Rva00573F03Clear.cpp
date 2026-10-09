@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
-// ?rva00573F0E@Rva00573F03@@QAEXXZ @0x00573F0E 44B
+// ?rva00573F0E@Rva00573F03@@UAEXXZ @0x00573F0E 44B
 // Chain lane: calls rowed 0x0055AFA3; vtable slot1 of 0x0086E2C8 (Rva00573F03)
 // and 0x00870B38. Zeroes Coord +0x40 via stack temp then base clear.
 // Layout from Rva00573F9FXfer.cpp (base ends 0x40, Coord +0x40) and

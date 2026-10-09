@@ -4,7 +4,7 @@
 // 0x00709D80 (113 bytes): virtual slot 13 (offset 0x34) of vtable 0x008EE8C8 and
 // of three further vtables that inherit the same prefix (0x008EE93C, 0x008EE9A4,
 // 0x008EEAEC) -- the vtable the rowed
-// ?rva00709E00@Rva00709B80@@QAEXXZ (Rva00709B80Slot11.cpp) is itself slot 11 of.
+// ?rva00709E00@Rva00709B80@@UAEXXZ (Rva00709B80Slot11.cpp) is itself slot 11 of.
 // The receiver is the same Apt array/GC-mark owner class, which Rva00709B80Slot11.cpp
 // proves carries three apt-value pointers at +0x20, +0x24 and +0x28; the order the
 // body walks them in is that file's +0x28, +0x20, +0x24.

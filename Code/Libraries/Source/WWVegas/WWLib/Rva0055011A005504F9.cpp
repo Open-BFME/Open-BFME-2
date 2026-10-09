@@ -1,6 +1,6 @@
 // cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
-// ?rva005504F9@Rva0055011A@@QAEXABUBfmeNarrowRecord0054FEF1@@@Z @0x005504F9 125B.
+// ?rva005504F9@Rva0055011A@@UAEXABUBfmeNarrowRecord0054FEF1@@@Z @0x005504F9 125B.
 // Rva0055011A slot-6 method: lock m_14, map[text]=word0, lock m_0C, m_70++, m_44.push_back.
 // Evidence: vtable slot 6 of 0x0086AB90; callees rowed 0x00613A70 0x0038E041 0x00613AC0 0x00550384; offsets match landed ctor layout.
 // The emitted unsigned max copy must match retail RVA 0x00013740.

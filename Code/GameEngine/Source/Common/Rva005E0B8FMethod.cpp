@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 //
-// ?rva005E0B8F@Rva005E0B0F@@QAEXH@Z @0x005E0B8F 47B
+// ?rva005E0B8F@Rva005E0B0F@@UAEXH@Z @0x005E0B8F 47B
 // vslot slot 3 offset 0xC of vtable 0x00877960 class of ??1Rva005E0B0F.
 // Same class layout as Rva005E0B0FDtor: +4 getter pin 0x005CB265
 // ?rva005CB265@Rva005CB265@@UAEHXZ then forwarder 0x005CB260

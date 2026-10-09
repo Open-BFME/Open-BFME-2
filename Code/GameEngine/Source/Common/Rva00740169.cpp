@@ -1,5 +1,5 @@
 // cl: /DNDEBUG /MD /GX
-// ?rva00740169@Rva00740242@@QAEXHMMM@Z, retail 0x00740169, 58 bytes.
+// ?rva00740169@Rva00740242@@UAEXHMMM@Z, retail 0x00740169, 58 bytes.
 // Vslot 4 of Rva00740242 vtable 0x008F1600: if arg0!=0 return else call m_0C slot 6 with three floats.
 // Evidence: vtable slot 4; model donor Rva00740242Dtor.cpp; callee slot 0x18; caller none.
 class M0CClass

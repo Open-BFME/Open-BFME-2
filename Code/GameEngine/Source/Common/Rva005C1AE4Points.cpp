@@ -1,5 +1,5 @@
 // cl: /O1 /G7 /arch:SSE /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHs
-// ?rva005C1AE4@Rva005C1A36@@QAEHH@Z @0x005C1AE4 73B
+// ?rva005C1AE4@Rva005C1A36@@UAEHH@Z @0x005C1AE4 73B
 // Slot 2 of Rva005C1A36's vtable 0x008743DC: the Points value for a faction
 // index. Builds a by-value AsciiString from the faction table 0x009BE9B0,
 // fetches the UserPreferences from the object held at +0x2C through its

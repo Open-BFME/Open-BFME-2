@@ -1,7 +1,7 @@
 // cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //
-// ?rva004FAC4F@Rva004FAC21@@QAE?AV?$StringBase@D@@XZ 28B @0x004FAC4F:
+// ?rva004FAC4F@Rva004FAC21@@UAE?AV?$StringBase@D@@XZ 28B @0x004FAC4F:
 // virtual slot 2 (offset 0x8) of vtable 0x008633B0 installed by rowed ctor
 // 0x004FAC21. Returns the fixed "SpawnArmy" string by value through the
 // hidden out-pointer; method and element names are honest-address
