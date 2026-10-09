@@ -7,6 +7,7 @@
 // order lever for volatile word vs intermediate vptrs. t=20 model=muse-03
 class RvaSmartPtr12;
 struct Rva005648FEInput;
+struct Rva005641EDInput;
 class GameClientRandomVariable {public:float getValue()const;int mode;float minimum,maximum;};
 class FXList;
 class Rva0056468E {public:const FXList *rva0056468E();};
@@ -70,10 +71,12 @@ public:
 namespace FXParticleSystem {
 class LifeEventModuleInfo {
 public:
+	LifeEventModuleInfo();
+ const FXList*getEventFX();
 	LifeEventModuleInfo(const LifeEventModuleInfo &other);
 	virtual ~LifeEventModuleInfo();
-private:
-	char m_pad[0x18 - 4];
+public:
+ void*unknown04;GameClientRandomVariable eventTime;const FXList*cached;
 };
 class TerrainCollisionModuleInfo {
 public:
@@ -89,6 +92,7 @@ class Rva003AEE16 : public Rva005641BB, public FXParticleSystem::LifeEventModule
 {
 public:
 	Rva003AEE16(const Rva003AEE16 &other);
+ Rva003AEE16(const RvaSmartPtr12&,const Rva005641EDInput&);
 	virtual ~Rva003AEE16();
 private:
 	int m_38;
@@ -154,4 +158,17 @@ Rva003AF076::Rva003AF076(const RvaSmartPtr12&smart,const Rva005648FEInput&input)
  ((bool*)&m_word)[1]=input.b;
  m_3c=(int)eventTime.getValue();
  m_40=true;
+}
+
+struct Rva005641EDInput {char unknown00[8];bool a,b;char unknown0A[10];GameClientRandomVariable eventTime;};
+// Native5641ED..564284: independently same base/info protocol as5648FE;
+// target supplies info20/time28/cache34/count38/active3C and vtableRva003AEE16.
+Rva003AEE16::Rva003AEE16(const RvaSmartPtr12&smart,const Rva005641EDInput&input)
+ :Rva005641BB(smart,(int)&input),FXParticleSystem::LifeEventModuleInfo()
+{
+ eventTime=input.eventTime;
+ cached=((FXParticleSystem::LifeEventModuleInfo*)((char*)&input+0xC))->getEventFX();
+ ((bool*)&m_word)[0]=input.a;
+ ((bool*)&m_word)[1]=input.b;
+ m_38=(int)eventTime.getValue();m_3c=true;
 }
