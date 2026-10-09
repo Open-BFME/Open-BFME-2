@@ -1,0 +1,25 @@
+{
+  "id": "B-20261010-battle-step-startup-005ea70b",
+  "seat": "B",
+  "base_commit": "a30fb85c6b848536e8f2dfd7e5acbd461d36b12e",
+  "paths": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIDynamicAutoResolveDialog.cpp"
+  ],
+  "recoveries": [
+    {
+      "name": "?Startup@ShowBattleStepStateHandler@Impl@DynamicAutoResolveDialog@StrategicInGameUI@@UAEXXZ",
+      "rva": "0x005EA70B",
+      "size": 156,
+      "source": "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIDynamicAutoResolveDialog.cpp",
+      "notes": "WB15E3860 names ShowBattleStepStateHandler::Startup. Native5EA70B..5EA7A7 establishes156B including three terminal tail jumps; retail vtable878198 holds its VA9EA70B at slot2 independently proving virtual ABI. Matched siblings establish owner4; two12B ranges at1C; player stride24; strengths8/0C; reinforcement1C; icon20 and slot8. Counts hit8 and reinforcement0C; remaining units forward strength/total*100 and entry14; then start reinforcement or hit animation or finish. Full body and100.0f literal verified; all10 existing rows unchanged. No new pins or assembler.",
+      "replace_rva": ""
+    }
+  ],
+  "proof_command": "python tools/explain_mismatch.py \"?Startup@ShowBattleStepStateHandler@Impl@DynamicAutoResolveDialog@StrategicInGameUI@@UAEXXZ\" --rva 0x005EA70B --size156 --source Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIDynamicAutoResolveDialog.cpp; python build/verify-battle-step-startup.py (copied as verify-candidate.py)",
+  "proof_log": "proof.log",
+  "claim_owner": "codex-01a12257-recovery",
+  "dependencies": [],
+  "ledger_delta": "No local ledger changes. New156B row only. Existing OnHitAnimDone present-unmatched body also compiles exactly but its106B is already rowed under Rva005EAEAF in another source; do not add a second row for it.",
+  "provider_notes": "All five callees have existing matched rows. Vtable slot declarations extended with observed first six slots so OnHitAnimDone/Reinforce stay at actual slots6/7. No source emits this vtable. Native big Update depends on already refused private-ESI collectors5EAA9C/5EABD9; left untouched.",
+  "proof_exit_code": 0
+}

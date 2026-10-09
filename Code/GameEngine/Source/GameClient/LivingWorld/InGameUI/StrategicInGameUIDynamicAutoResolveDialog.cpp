@@ -287,6 +287,12 @@ struct Rva005EA5E3Entry
 class StrategicInGameUI::DynamicAutoResolveDialog::Impl::ShowBattleStepStateHandler
 {
 public:
+	virtual void slot00();
+	virtual void slot01();
+	virtual void Startup();                           // pointer at 0x00878198
+	virtual void slot03();
+	virtual void slot04();
+	virtual void slot05();
 	virtual void OnHitAnimDone(int player, int unit); // pointer at 0x008781A8
 	virtual void OnReinforceAnimDone(void *a, void *b);
 	virtual bool v0050B5C6();                          // 0x008781B0, shared body
@@ -299,6 +305,34 @@ private:
 	int m_08; // +0x08
 	int m_numReinforceAnimsToComplete; // +0x0C
 };
+
+// WB15E3860 names this Startup routine; native5EA70B..5EA7A7 gives
+// its156B boundary and vtable878198 independently proves virtual dispatch.
+// The rowed sibling loops establish two12B ranges of24B player entries;
+// native compares strength8/0C, counts hit8 and reinforcement0C, and
+// forwards the gain percentage plus entry14 to the existing icon methods.
+void StrategicInGameUI::DynamicAutoResolveDialog::Impl::ShowBattleStepStateHandler::Startup()
+{
+	for (int side = 0; side < 2; ++side) {
+		Rva005EAEAFUnit *end = m_owner->m_units[side].m_finish;
+		for (Rva005EAEAFUnit *unit = m_owner->m_units[side].m_start; unit != end; ++unit) {
+			if (unit->m_reinforced > unit->m_strength)
+				++m_08;
+			if (unit->m_numReinforcements > 0) {
+				++m_numReinforceAnimsToComplete;
+			} else if (unit->m_strength > unit->m_reinforced) {
+				((Rva005FBB68 *)&unit->m_icon->m_slot)->rva005FBB55(unit->m_strength / m_owner->m_totalStrength * 100.0f);
+				((Rva005FBB68 *)&unit->m_icon->m_slot)->rva005FBB68(unit->m_14);
+			}
+		}
+	}
+	if (m_numReinforceAnimsToComplete > 0)
+		StartReinforceAnims();
+	else if (m_08 > 0)
+		((Rva005EA33D *)this)->rva005EA33D();
+	else
+		Done();
+}
 
 void StrategicInGameUI::DynamicAutoResolveDialog::Impl::ShowBattleStepStateHandler::Done()
 {
