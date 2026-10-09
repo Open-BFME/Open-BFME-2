@@ -1,4 +1,5 @@
-// cl: /DNDEBUG /MD
+// stlport
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
 // ?rva005490AE@Rva005490D2@@QBEHXZ, RVA 0x005490AE, 36B
 // ?rva005490D2@Rva005490D2@@QBEHXZ, RVA 0x005490D2, 31B
 // Max and summing loops over the array at +4 with count at +0 via double
@@ -18,7 +19,7 @@ struct Mid005490D2 {
 };
 struct Rva005490D2 {
 	int count;
-	Mid005490D2 *array[1];
+	Mid005490D2 *array[6];
 	int rva005490AE() const;
 	int rva005490D2() const;
 };
@@ -45,3 +46,52 @@ int Rva005490D2::rva005490D2() const
 	}
 	return total;
 }
+
+
+#include "../../../Libraries/Include/Lib/Coord2D.h"
+#include <deque>
+// Formation rows are 0x1C: count plus six unit pointers. Width clamp
+// 0x549237 and row stride in the formation builder independently prove this.
+// TheAI/data offsets are target facts; the original spacing names are unknown.
+struct FormationSpacingView {char pad[0xa0];float spacingA0,spacingA4;};
+class AI {public:char pad[0x18];FormationSpacingView*data;};
+extern AI*TheAI;
+class Rva00549252 {public:void rva00549252();};
+class FormationSquad {
+public:
+ void rva00549425(Coord2D*out);
+ int rows,width;
+ Rva005490D2 row[10];
+ int unitCount;
+ Mid005490D2*units[36];
+ int totalHeight;
+ bool ready;
+};
+// Target549425..549489 (100B). The served123B boundary includes two
+// independent count getters at549489 and549493. The target loop repeatedly
+// reads row[0], with no row-pointer advance; preserve that observable behavior.
+// WB identifies the family, but its ApplyUnitPositions pairing is broader
+// than this body, so the member's original name remains unknown.
+void FormationSquad::rva00549425(Coord2D*out){
+ if(!ready)reinterpret_cast<Rva00549252*>(this)->rva00549252();
+ FormationSpacingView*data=TheAI->data;
+ float height=totalHeight*data->spacingA0;
+ int widthTotal=0;
+ for(int i=0;i<rows;++i)widthTotal+=row[0].rva005490AE();
+ out->x=widthTotal*data->spacingA4;
+ out->y=height;
+}
+
+// Retail's independent getters subtract two16B deque iterators over8B
+// elements. This is a typed ABI view of the existing concrete owner; it
+// does not establish the original element type or container field names.
+struct BfmeE8 {int a,b;};
+template<> int _STL::_Deque_iterator_base<BfmeE8>::_M_subtract(const _STL::_Deque_iterator_base<BfmeE8>&)const;
+struct FormationDequeView {
+ _STL::_Deque_iterator_base<BfmeE8>start,finish;
+ int size()const{return finish._M_subtract(start);}
+};
+class Rva00549489 {public:int get()const;FormationDequeView view;};
+int Rva00549489::get()const{return view.size();}
+class Rva00549493 {public:int get()const;char pad[0x14];FormationDequeView view;};
+int Rva00549493::get()const{return view.size();}
