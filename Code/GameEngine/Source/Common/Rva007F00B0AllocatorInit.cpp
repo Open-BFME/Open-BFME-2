@@ -56,3 +56,16 @@ clear:
 	(*(Rva007F00B0Allocator **)&g_genAlloc) = 0;
 }
 
+extern "C" void *__cdecl malloc(unsigned int);
+extern "C" void __cdecl free(void *);
+
+void *__cdecl Rva0065CEC0Allocate(unsigned int size, int)
+{
+	return malloc(size);
+}
+
+void __cdecl Rva0065CED0Release(void *pointer, int)
+{
+	free(pointer);
+}
+
