@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/inputs/reference/shims/stringinline
+// cl: /O1 /Oy- /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/inputs/reference/shims/stringinline
 //
 // Bodies ported from Open-BFME-1's
 // GameEngine/Source/Common/BfmeRectVNH_ctor.cpp (donor revision
@@ -29,6 +29,7 @@ class BfmeRectVNH : public BfmeBaseVNH
 {
 public:
 	BfmeRectVNH(unsigned w, const AsciiString &s, char f);
+	bool rva003FD522();
 
 	AsciiString m_name;
 };
@@ -38,4 +39,37 @@ BfmeRectVNH::BfmeRectVNH(unsigned w, const AsciiString &s, char f)
 	: BfmeBaseVNH(w, f)
 	, m_name(s)
 {
+}
+
+
+class GameTextInterface
+{
+public:
+#define SLOT(n) virtual void slot##n();
+    SLOT(0) SLOT(1) SLOT(2) SLOT(3) SLOT(4) SLOT(5) SLOT(6)
+    SLOT(7) SLOT(8) SLOT(9) SLOT(10) SLOT(11) SLOT(12) SLOT(13)
+#undef SLOT
+    virtual UnicodeString fetch(const AsciiString &, bool *);
+};
+extern GameTextInterface *TheGameText;
+class InGameUI;
+extern InGameUI *TheInGameUI;
+class Rva0029B16A
+{
+public:
+    void rva0029B16A(int, int);
+};
+
+// WB 105D300 names DelayedWorldTextEventModule::Activate.
+// Native passes the existing label at +0C by reference to slot +38,
+// receives a four-byte UnicodeString, checks its exists byte and forwards
+// the temporary to the established mission-help provider with duration zero.
+bool BfmeRectVNH::rva003FD522()
+{
+    bool exists;
+    UnicodeString text = TheGameText->fetch(m_name, &exists);
+    if (!exists)
+        return false;
+    ((Rva0029B16A *)TheInGameUI)->rva0029B16A((int)&text, 0);
+    return true;
 }
