@@ -56,7 +56,7 @@
 #define WW3D_DEVTYPE D3DDEVTYPE_HAL
 
 // Retail owns the snapshot-aware outlined texture-stage setter separately.
-#include "../../../../../reference/shims/bfme_mapper_apply_link/dx8wrapper.h"
+#include "../../../../../reference/shims/bfme_dx8wrapper_home_link/dx8wrapper.h"
 
 #include "dx8webbrowser.h"
 #include "dx8fvf.h"
@@ -4188,7 +4188,9 @@ void DX8Wrapper::Set_Gamma(float gamma,float bright,float contrast,bool calibrat
 // ?Get_DX8_Render_State_Value_Name@DX8Wrapper@@ present-unmatched
 // Defined ahead of Apply_Default_State and forced inline, so each literal
 // render state there folds this switch down to its one case.
-__forceinline void DX8Wrapper::Get_DX8_Render_State_Value_Name(StringClass& name, D3DRENDERSTATETYPE state, unsigned value)
+// Suppress its non-retail outlined copy; DX8WrapperGetRenderStateValueName.cpp
+// owns the external resolver at 0x00121A10. Matched callers inline it entirely.
+__declspec(dllimport) __forceinline void DX8Wrapper::Get_DX8_Render_State_Value_Name(StringClass& name, D3DRENDERSTATETYPE state, unsigned value)
 {
 	switch (state) {
 	case D3DRS_ZENABLE:
@@ -4483,81 +4485,9 @@ void DX8Wrapper::Apply_Default_State()
 // DX8Wrapper::Get_DX8_Render_State_Name: defined in dx8wrapper_names.cpp (its row's unit).
 // DX8Wrapper::Get_DX8_Texture_Stage_State_Name: defined in dx8wrapper_names.cpp (its row's unit).
 
-// ?Get_DX8_Texture_Stage_State_Value_Name@DX8Wrapper@@ present-unmatched
-void DX8Wrapper::Get_DX8_Texture_Stage_State_Value_Name(StringClass& name, D3DTEXTURESTAGESTATETYPE state, unsigned value)
-{
-	switch (state) {
-	case D3DTSS_COLOROP:
-	case D3DTSS_ALPHAOP:
-		name=Get_DX8_Texture_Op_Name(value);
-		break;
+// The native texture-stage value-name resolver is defined in
+// DX8WrapperGetTextureStageStateValueName.cpp at retail 0x00120B90.
 
-	case D3DTSS_COLORARG0:
-	case D3DTSS_COLORARG1:
-	case D3DTSS_COLORARG2:
-	case D3DTSS_ALPHAARG0:
-	case D3DTSS_ALPHAARG1:
-	case D3DTSS_ALPHAARG2:
-	case D3DTSS_RESULTARG:
-		name=Get_DX8_Texture_Arg_Name(value);
-		break;
-
-	case D3DTSS_ADDRESSU:
-	case D3DTSS_ADDRESSV:
-	case D3DTSS_ADDRESSW:
-		name=Get_DX8_Texture_Address_Name(value);
-		break;
-
-	case D3DTSS_MAGFILTER:
-	case D3DTSS_MINFILTER:
-	case D3DTSS_MIPFILTER:
-		name=Get_DX8_Texture_Filter_Name(value);
-		break;
-
-	case D3DTSS_TEXTURETRANSFORMFLAGS:
-		name=Get_DX8_Texture_Transform_Flag_Name(value);
-
-	// Floating point values
-	case D3DTSS_MIPMAPLODBIAS:
-	case D3DTSS_BUMPENVMAT00:
-	case D3DTSS_BUMPENVMAT01:
-	case D3DTSS_BUMPENVMAT10:
-	case D3DTSS_BUMPENVMAT11:
-	case D3DTSS_BUMPENVLSCALE:
-	case D3DTSS_BUMPENVLOFFSET:
-		name.Format("%f",*(float*)&value);
-		break;
-
-	case D3DTSS_TEXCOORDINDEX:
-		if ((value&0xffff0000)==D3DTSS_TCI_CAMERASPACENORMAL) {
-			name.Format("D3DTSS_TCI_CAMERASPACENORMAL|%d",value&0xffff);
-		}
-		else if ((value&0xffff0000)==D3DTSS_TCI_CAMERASPACEPOSITION) {
-			name.Format("D3DTSS_TCI_CAMERASPACEPOSITION|%d",value&0xffff);
-		}
-		else if ((value&0xffff0000)==D3DTSS_TCI_CAMERASPACEREFLECTIONVECTOR) {
-			name.Format("D3DTSS_TCI_CAMERASPACEREFLECTIONVECTOR|%d",value&0xffff);
-		}
-		else {
-			name.Format("%d",value);
-		}
-		break;
-
-	// Integer value
-	case D3DTSS_MAXMIPLEVEL:
-	case D3DTSS_MAXANISOTROPY:
-		name.Format("%d",value);
-		break;
-	// Hex values
-	case D3DTSS_BORDERCOLOR:
-		name.Format("0x%x",value);
-		break;
-
-	default:
-		name.Format("UNKNOWN (%d)",value);
-		break;
-	}
-}
 
 // DX8Wrapper::Get_DX8_Texture_Op_Name: defined in dx8wrapper_names.cpp (its row's unit).
 // DX8Wrapper::Get_DX8_Texture_Arg_Name: defined in dx8wrapper_names.cpp (its row's unit).
