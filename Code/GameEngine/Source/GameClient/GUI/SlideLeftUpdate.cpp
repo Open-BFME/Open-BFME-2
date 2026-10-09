@@ -1,5 +1,3 @@
-// ?reverseAnimateWindow@ProcessAnimateWindowSlideFromLeft@@UAE_NPAVAnimateWindow@@@Z
-// partial score=0.95 date=2026-10-09
 // cl: /O1 /arch:SSE /G6 /Oy- /MD /ICode/Libraries/Include/Lib
 // Reference: BF1 f98983a7d / GeneralsMD ProcessAnimateWindowSlideFromLeft.
 // Target boundary 0x005C53DD..0x005C54BC; offsets and ordering are retail facts.
@@ -57,36 +55,5 @@ bool ProcessAnimateWindowSlideFromLeft::updateAnimateWindow(AnimateWindow *a)
  RvaLeftVelocity outgoing;
  outgoing.x=x; outgoing.y=scratch.velocity.y;
  a->setVel(outgoing);
- return false;
-}
-
-bool ProcessAnimateWindowSlideFromLeft::reverseAnimateWindow(AnimateWindow *a)
-{
- if(!a) return true;
- if(a->finished) return true;
- unsigned startTime=a->startTime;
- if(timeGetTime()<startTime) return false;
- GameWindow *win=a->window;
- if(!win) return true;
- ICoord2D cur=a->current;
- RvaLeftVelocity vel;
- union { ICoord2D position; RvaLeftVelocity output; } scratch;
- scratch.position=a->start;
- typedef void (AnimateWindow::*VelocityOutput)(RvaLeftVelocity*);
- (a->*reinterpret_cast<VelocityOutput>(&AnimateWindow::getVel))(&vel);
- cur.x+=(int)vel.x;
- if(cur.x<scratch.position.x) {
-  cur.x=scratch.position.x; a->finished=true;
-  win->winSetPosition(cur.x,cur.y); return true;
- }
- win->winSetPosition(cur.x,cur.y);
- a->current=cur;
- scratch.position=a->end;
- float slowedX=vel.x;
- if(scratch.position.x-cur.x<=slowThreshold) slowedX=speedRatio*slowedX;
- else slowedX=-maxVel.x;
- if(slowedX<-maxVel.x) slowedX=-maxVel.x;
- scratch.output.x=slowedX; scratch.output.y=vel.y;
- a->setVel(scratch.output);
  return false;
 }
