@@ -1,5 +1,5 @@
-// Rva0037D55EGet
-// partial score=0.858942065491184 date=2026-10-09
+// ?Rva0037D55EGet@@YA?AVUnicodeString@@XZ
+// partial score=0.906091370558376 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // BANK TRIAL ONLY: expanded UnicodeString adds an inline triple constructor.
 // Canonical headers remain unchanged. Native37D55E..37D6E8 is394B,WB F5B870.
@@ -85,14 +85,14 @@ public:
 };
 
 
-struct Pair8 {int a,b;};struct Triple12 {int a,b,c;};
-Triple12 Rva0037BA97Init(const Pair8 *,int);
+struct Pair8 {Pair8(){} Pair8(int x,int y):a(x),b(y){} int a,b;};struct Triple12 {Triple12(){} int a,b,c;};
+inline Triple12 Rva0037BA97Init(const Pair8 *src,int c){Triple12 tmp;tmp.a=src->a;tmp.b=src->b;tmp.c=c;return tmp;}
 struct BFME2WideConcatTriple {const UnicodeString *a,*b,*c;operator StringBase<unsigned short>();};
 __forceinline UnicodeString::UnicodeString(const BFME2WideConcatTriple &that)
  : StringBase<unsigned short>(const_cast<BFME2WideConcatTriple &>(that)) {}
-__forceinline Triple12 makeTriple(const UnicodeString &x,const UnicodeString &y,const UnicodeString &z){
- Pair8 pair={(int)&x,(int)&y};return Rva0037BA97Init(&pair,(int)&z);
-}
+__forceinline Pair8 makePair(const UnicodeString &x,const UnicodeString &y){Pair8 pair((int)&x,(int)&y);return pair;}
+__forceinline const Pair8 *pairPtr(const Pair8 &p){return &p;}
+__forceinline int widePtr(const UnicodeString &s){return (int)&s;}
 UnicodeString Rva0037B9D4Get();UnicodeString Rva0037BA48Get();
 class FileSystem;extern FileSystem *TheFileSystem;
 class BFME2FileSystemFacade {public:bool doesWideFileExist(const unsigned short *);};
@@ -109,7 +109,7 @@ UnicodeString Rva0037D55EGet(){
  if(TheGameText)formatText=TheGameText->fetch("GUI:DefaultReplayFileName");
  for(int i=1;i<99999999;++i){
   UnicodeString filename;filename.format(&formatText,i);
-  UnicodeString filepath((const BFME2WideConcatTriple &)makeTriple(Rva0037B9D4Get(),filename,Rva0037BA48Get()));
+  UnicodeString filepath((const BFME2WideConcatTriple &)Rva0037BA97Init(pairPtr(makePair(Rva0037B9D4Get(),filename)),widePtr(Rva0037BA48Get())));
   if(!((BFME2FileSystemFacade *)TheFileSystem)->doesWideFileExist(filepath.str()))return filename;
  }
  return UnicodeString((const unsigned short *)L"0");
