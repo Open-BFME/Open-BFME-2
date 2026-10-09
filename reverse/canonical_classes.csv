@@ -88,3 +88,6 @@ ScoredKillEvaAnnouncer,Code/GameEngine/Source/Common/ScoredKillEvaAnnouncerView.
 Rva005EFD53Element,Code/GameEngine/Source/Common/RegionIconSlotReferenceView.h,four-byte owning reference with count08 proven by Construct5F09FF and factory5EFE87; reconciles six provider views
 Rva005EFDE9Element,Code/GameEngine/Source/Common/RegionIconSlotResizeView.h,four-byte value-fill ABI retained by resize5EFDE9 and null-wrapper5EFE6E
 StrategicHUD::RegionDetailsArmiesMovieClip::Impl,Code/GameEngine/Source/Common/RegionDetailsArmiesClipImplView.h,shared clip fields proven by slot-count5EFE87 show/hide name and command points; opaque08..23 preserved
+AreaRetainedObjectView,Code/GameEngine/Source/GameLogic/Map/AreaSetEntryView.h,native 30C95C and callers30C61B/30CE66 prove retained-reference ownership and layout; original reference/entry spelling unasserted
+AreaRefValueView,Code/GameEngine/Source/GameLogic/Map/AreaSetEntryView.h,native 30C95C and callers30C61B/30CE66 prove retained-reference ownership and layout; original reference/entry spelling unasserted
+Rva0030C95C,Code/GameEngine/Source/GameLogic/Map/AreaSetEntryView.h,native 30C95C and callers30C61B/30CE66 prove retained-reference ownership and layout; original reference/entry spelling unasserted
