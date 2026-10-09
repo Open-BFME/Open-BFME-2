@@ -166,7 +166,10 @@ protected:
 	virtual void a011(); virtual void a012();
 	virtual void privateMoveToPosition(const Coord3D *pos, float speed, CommandSourceType cmdSource); // slot 13
 	virtual void a014(); virtual void a015(); virtual void a016(); virtual void a017(); virtual void a018(); virtual void a019();
-	SLOT_GAP10(a, 02) SLOT_GAP10(a, 03) SLOT_GAP10(a, 04) SLOT_GAP10(a, 05) SLOT_GAP10(a, 06)
+	virtual void a020(); virtual void a021(); virtual void a022();
+	virtual void bfmePrivateCommand42(Object *obj, CommandSourceType cmdSource); // slot 23 (+0x5C)
+	virtual void a024(); virtual void a025(); virtual void a026(); virtual void a027(); virtual void a028(); virtual void a029();
+	SLOT_GAP10(a, 03) SLOT_GAP10(a, 04) SLOT_GAP10(a, 05) SLOT_GAP10(a, 06)
 	SLOT_GAP10(a, 07) SLOT_GAP10(a, 08) SLOT_GAP10(a, 09) SLOT_GAP10(a, 10) SLOT_GAP10(a, 11)
 	SLOT_GAP10(a, 12) SLOT_GAP10(a, 13)
 	virtual void a140(); virtual void a141(); virtual void a142(); virtual void a143(); virtual void a144();
@@ -182,6 +185,52 @@ public:
 	bool porcupineFormationIgnoresCommand(const AICommandParms *parms);
 protected:
 	virtual void privateMoveToPosition(const Coord3D *pos, float speed, CommandSourceType cmdSource);
+};
+
+enum ObjectID
+{
+	INVALID_ID = 0
+};
+
+// Placeholder owners of two rowed HordeWorkerAIUpdate helpers whose names
+// are not recovered: 0x0049ADB7 (the ObjectID check sibling of 0x0049AE5E)
+// and 0x0049B0BF (the command 0x13 worker; its argument is the command's
+// object). Both take the HordeWorkerAIUpdate as this.
+class Rva0049AE5E
+{
+public:
+	void rva0049ADB7();
+};
+
+struct Rva0049B0BFData;
+
+class Rva0049B0BF
+{
+public:
+	void rva0049B0BF(Rva0049B0BFData *arg, int arg2);
+};
+
+class ObjectIDView
+{
+public:
+	ObjectID getID() const { return m_id; }
+private:
+	char m_unrecovered00[0x74];
+	ObjectID m_id; // +0x74
+};
+
+// HordeWorkerAIUpdate (vftable 0x00C508C8) calls HordeAIUpdate::aiDoCommand
+// directly, so it derives from HordeAIUpdate here. Member names are not
+// recovered; +0x3E8/+0x3EC/+0x3F0 are the ObjectIDs its xfer saves.
+class HordeWorkerAIUpdate : public HordeAIUpdate
+{
+public:
+	virtual void aiDoCommand(const AICommandParms *parms);
+private:
+	char m_unrecovered24[0x3E8 - 0x24];
+	ObjectID m_3E8;
+	ObjectID m_3EC;
+	ObjectID m_3F0;
 };
 
 // ?privateMoveToPosition@HordeAIUpdate@@MAEXPBUCoord3D@@MW4CommandSourceType@@@Z @0x0049A93B
@@ -477,4 +526,38 @@ void HordeAIUpdate::aiDoCommand(const AICommandParms *parms)
 	}
 
 	AIUpdateInterface::aiDoCommand(parms);
+}
+
+// ?aiDoCommand@HordeWorkerAIUpdate@@UAEXPBUAICommandParms@@@Z @0x0049B231
+// Slot 0 of HordeWorkerAIUpdate's AICommandInterface vftable (this is
+// +0x20). Control flow follows the WorldBuilder body: a repair (0x13) of the
+// object already held at +0x3EC is ignored; otherwise the rowed 0x0049ADB7
+// runs, repair goes to the rowed 0x0049B0BF, command 0x42 to primary slot 23
+// and everything else to HordeAIUpdate::aiDoCommand.
+void HordeWorkerAIUpdate::aiDoCommand(const AICommandParms *parms)
+{
+	if (!isAllowedToRespondToAiCommands(parms))
+		return;
+
+	if (parms->m_cmd == 0x13 && parms->m_obj
+		&& m_3EC == reinterpret_cast<const ObjectIDView *>(parms->m_obj)->getID())
+		return;
+
+	reinterpret_cast<Rva0049AE5E *>(this)->rva0049ADB7();
+
+	switch (parms->m_cmd)
+	{
+	case 0x13:
+		reinterpret_cast<Rva0049B0BF *>(this)->rva0049B0BF(
+			reinterpret_cast<Rva0049B0BFData *>(parms->m_obj), parms->m_cmdSource);
+		break;
+
+	case 0x42:
+		bfmePrivateCommand42(parms->m_obj, parms->m_cmdSource);
+		break;
+
+	default:
+		HordeAIUpdate::aiDoCommand(parms);
+		break;
+	}
 }
