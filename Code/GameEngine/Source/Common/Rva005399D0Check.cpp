@@ -1,10 +1,13 @@
 // cl: /MD
-// ?Rva005399D0Check@@YGHPAVObject@@@Z @0x005399D0 67B:
-// Free __stdcall predicate over Object*: null check then isLocallyControlled
+// ?rva005399D0Check@ControlBar@@QAEHPAVObject@@@Z @0x005399D0 67B:
+// ControlBar member predicate over Object*: null check then isLocallyControlled
 // then isSelectable then rva0028D481==0 then TheInGameUI slot 0x188 call,
 // true (1) when all pass else false (0). Caller 0x0042AF97 pushes Object*.
 // Evidence: rowed Object preds 0x0028B07A 0x0028D7FD plus int leaf 0x0028D481
 // plus TheInGameUI global 0x009FEDF0 slot 98; ret 4 single dword arg.
+// Native caller0042AF97 loads TheControlBar into ECX before this call;
+// the member receiver is unused within the body. This corrects the earlier
+// free-function ABI inference; the target name remains address-derived.
 class Object
 {
 public:
@@ -119,7 +122,9 @@ public:
 
 extern InGameUI *TheInGameUI;
 
-int __stdcall Rva005399D0Check(Object *obj)
+class ControlBar {public:int rva005399D0Check(Object*);};
+
+int ControlBar::rva005399D0Check(Object *obj)
 {
 	if (obj == 0)
 		return 0;
