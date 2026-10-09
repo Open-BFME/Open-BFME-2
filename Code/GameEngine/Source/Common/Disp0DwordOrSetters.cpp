@@ -38,3 +38,15 @@ void Rva003FA381WordMask::combine(const unsigned int *other)
 {
     m_word |= *other;
 }
+
+// Whole clean BF1 f98983a7 Common/Bfme/Rva000B5E90_orValues.cpp is
+// the source lead. Native2257E9..2257F2/9 follows a complete RET4 and
+// endsRET immediately before a separate AND leaf. It returns the raw32-bit
+// OR of stack arguments4/8; ECX is unused and the caller cleans the stack.
+// Eight-section direct scans found no call; the sole raw VA occurrence at
+// 6429F0 is a JMP encoding, not a pointer witness. Original owner and whether
+// its original declaration was free or a member remain unknown. This ordinary
+// cdecl behavior view claims only the independently bounded argument/result.
+unsigned Rva002257E9OrValues(unsigned first, unsigned second) {
+    return first | second;
+}
