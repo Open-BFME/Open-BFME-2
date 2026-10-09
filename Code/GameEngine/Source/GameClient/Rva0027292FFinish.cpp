@@ -1,19 +1,11 @@
 // cl: /DNDEBUG /MD /EHsc
-//
-// ?setTerrainDecalSize@Drawable@@QAEXMM@Z, retail 0x0027292F, 22 bytes.
-// First-module forwarder over draw modules at this+0x14C to the module's
-// virtual slot 0x64. Evidence: BFME1 donor Drawable::setTerrainDecalSize in
-// reference/open-bfme-1/Code/GameEngine/Source/GameClient/Drawable.cpp
-// (DrawModule** dm = getDrawModules(); if (*dm) (*dm)->setTerrainDecalSize);
-// retail +0x14C matches the landed pristine twin 0x00272945; 2-float ret-8
-// shape.
-//
-// The module slot is declared (int, int) on purpose: /O1 refuses to
-// tail-call a float-argument virtual and emits an x87 copy instead. The
-// ABI for two 4-byte stack arguments is identical, so forwarding the same
-// two 32-bit values with an integer-typed declaration reproduces retail's
-// tail jmp [edx+0x64] exactly; the values forwarded are the float bits.
-class BfmeDrawModuleForDecalSize
+// Native27292F..27294522B forwards position/normal coordinate pointers
+// to first draw module14C vslot64. Target275C79..275D95 passes addresses
+// of native twelve-byte position and normal locals; the former donor
+// setTerrainDecalSize(float,float) attribution is refuted by this caller.
+// Original BFME2 method spelling remains unresolved.
+#include "../../../Libraries/Include/Lib/Coord3D.h"
+class DrawableDecalPositionModule
 {
 public:
 	virtual void slot00() = 0; virtual void slot04() = 0;
@@ -29,22 +21,22 @@ public:
 	virtual void slot50() = 0; virtual void slot54() = 0;
 	virtual void slot58() = 0; virtual void slot5C() = 0;
 	virtual void slot60() = 0;
-	virtual void setTerrainDecalSize(int x, int y) = 0;
+	virtual void rva0027292F(const Coord3D *position, const Coord3D *normal) = 0;
 };
 
 class Drawable
 {
 public:
-	void setTerrainDecalSize(float x, float y);
+	void rva0027292F(const Coord3D *position, const Coord3D *normal);
 private:
 	char m_pad[0x14C];
-	BfmeDrawModuleForDecalSize **m_drawModules;
+	DrawableDecalPositionModule **m_drawModules;
 };
 
-// ?setTerrainDecalSize@Drawable@@QAEXMM@Z
-void Drawable::setTerrainDecalSize(float x, float y)
+// ?rva0027292F@Drawable@@QAEXPBUCoord3D@@0@Z
+void Drawable::rva0027292F(const Coord3D *position, const Coord3D *normal)
 {
-	BfmeDrawModuleForDecalSize **p = m_drawModules;
+	DrawableDecalPositionModule **p = m_drawModules;
 	if (*p)
-		(*p)->setTerrainDecalSize(*(int *)&x, *(int *)&y);
+		(*p)->rva0027292F(position, normal);
 }
