@@ -48,9 +48,11 @@ struct AptSaveLoadPending
 	int m_kind; // +0x28
 };
 
+class GameSpyGameSlot;
 class AptSaveLoad
 {
 public:
+	static void __cdecl AddFriendConfirmationHandler(int button);
 	void OnClosed(const char *unused);
 	void Cancel(const char *unused);
 	// Bound as "AptSaveLoad::OnInitialized" and
@@ -208,11 +210,13 @@ void __cdecl Rva00434EFA();
 // Set while the saved-game prompt is up (0x00E032E0).
 extern int g_Va00E032E0;
 
-// Retail 0x00435107, 107 bytes. Name unknown: bound without a name as the
-// answer to the "APT:AddFriendOnSaveTitle" prompt (0x004355B5/0x0043560D).
+// Retail 0x00435107, 107 bytes. Named WB12AD800/371 and assertions755/757
+// identify AptSaveLoad::AddFriendConfirmationHandler. The complete WB/native
+// bodies agree on the static cdecl answer to the "APT:AddFriendOnSaveTitle"
+// prompt (0x004355B5/0x0043560D), opponent getter and temporary string cleanup.
 // Button 2 asks the first human GameSpy player for friendship; the
 // saved-game prompt follows unless it is already up.
-void __cdecl Rva00435107(int button)
+void __cdecl AptSaveLoad::AddFriendConfirmationHandler(int button)
 {
 	if (button == 2)
 	{
