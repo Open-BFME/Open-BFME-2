@@ -29,3 +29,20 @@ Rva00051C89Iterator &Rva00051C89Iterator::retreat() {
     node=_STL::_Rb_global<bool>::_M_decrement(node);
     return *this;
 }
+
+// Whole clean BF1 f989 ScoreScreenGrabMultiPlayerInfo.cpp emits two
+// reverse-tree dereference operations at this same complete target. The
+// donor Player-map specialization and original operator name stay unknown.
+// Native170A31..170A3D follows RET8 and precedes a fresh prologue: pass
+// receiver word0 to the independently matched cdecl predecessor242C0,
+// then return its pointer +16. This uses the existing opaque provider ABI;
+// only the consumed pointer prefix and payload displacement are observed.
+struct Rva00170A31Iterator
+{
+    _STL::_Rb_tree_node_base *node;
+    void *previousPayload() const;
+};
+void *Rva00170A31Iterator::previousPayload() const
+{
+    return reinterpret_cast<char *>(_STL::_Rb_global<bool>::_M_decrement(node)) + 16;
+}
