@@ -255,7 +255,7 @@ void StrategicInGameUI::ChecklistItem::Impl::rva005CCA57()
 // (not one hoisted reference) keeps that reload.
 struct Rva005F8F96;
 typedef _STL::list<Rva005F8F96, _STL::allocator<Rva005F8F96> > Rva005CCFD1ListView;
-struct Rva005CCFD1ListHead { ChecklistNode *node; bool empty() const { return node->next==node; } ChecklistNode *back() const { return node->prev; } };
+struct Rva005CCFD1ListHead { ChecklistNode *node; bool empty() const { return node->next==node; } ChecklistNode *back() const { return node->prev; } Rva005CCC74Record *rva005CCC8F() const; };
 void StrategicInGameUI::Checklist::Impl::rva005CCFD1()
 {
  while( !reinterpret_cast<Rva005CCFD1ListHead*>(m_records)->empty() ) {
@@ -277,4 +277,16 @@ public:
 void Rva005CD010::rva005CD010()
 {
  implementation->rva005CCFD1();
+}
+
+// Whole BF1 f989 AsciiStringListClear.cpp emits list::back under O2/SSE2/G7.
+// That donor element name is unasserted here. Native5CCC8F..5CCC98 starts
+// after the independently rowed27B record constructor RET8 and ends RET0.
+// It loads receiver word0, then pointee word4, and returns that address+8.
+// Existing native5CCFD1 list drain proves the same head/previous-node offsets
+// and record implementation at node+C; existing record ctor fixes its8B pair.
+// Reuse this already-proven list-head/node model, retaining unknown API name.
+Rva005CCC74Record *Rva005CCFD1ListHead::rva005CCC8F() const
+{
+    return reinterpret_cast<Rva005CCC74Record *>(&node->prev->item);
 }
