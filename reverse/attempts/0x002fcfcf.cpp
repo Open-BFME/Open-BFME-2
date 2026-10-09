@@ -1,5 +1,7 @@
 // ?AdjustDestination@Pathfinder@@QAE_NPAVObject@@ABVLocomotorSet@@PAUCoord3D@@PBU4@@Z
 // partial score=0.996682 date=2026-10-09
+// ?AdjustDestination@Pathfinder@@QAE_NPAVObject@@ABVLocomotorSet@@PAUCoord3D@@PBU4@@Z
+// partial score=0.996682 date=2026-10-09
 // cl: /O1 /DNDEBUG /MD /arch:SSE /G7 /EHsc /ICode/Libraries/Include /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc
 // stlport
 #include <vector>
