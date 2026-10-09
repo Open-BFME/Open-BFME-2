@@ -59,6 +59,7 @@ public:
 	class Icon;
 	class InProgressIcon;
 	friend class Icon;
+ friend class InProgressIcon;
 	friend class ::Rva005E7ED7;
 
 	void SelectQueueIndex(int queueIndex);
@@ -107,6 +108,7 @@ public:
 	virtual void rva005E7166(StrategicHUD::BuildQueueIconSlot *slot);
 
 friend class ::Rva005E7ED7;
+ friend class InProgressIcon;
 private:
 	StrategicHUD::BuildQueueIconSlot *GetIconSlot() { return m_iconSlot; }
 
@@ -480,3 +482,50 @@ extern Mouse *TheMouse;
 // ?StrategicInGameUI::BuildQueueDetailsPanel::Impl::Icon::Update present-unmatched
 void StrategicInGameUI::BuildQueueDetailsPanel::Impl::Icon::Update()
 { if(m_21) TheMouse->rva001EEA6D(rva005E7684Get(m_owner->m_queue,m_queueIndex),-1,0,1.0f); }
+
+// Init at 0x005E797F is 327B through RET4 at 0x005E7AC3. WorldBuilder
+// names InProgressIcon::Init(bool); retail independently fixes the owner+4,
+// queue+1C, context+18 and progress-slot+24 accesses. The portrait army ends
+// before selection; the second 88B army remains alive through progress/hover.
+// Retain the returned ID array, then reload the queue for virtual slot4;
+// retail performs that reload after slot13. Progress uses virtual slot12.
+inline static const Image *rva005E704EInline(Rva005E76AEContext *context,Rva005E72B4Queue *queue,int id)
+{
+ Rva004E3184 army(0);
+ if(queue->slot4(id,&army)) return ((Rva00319CED *)&army)->rva004E24DC(context->m_id);
+ return 0;
+}
+inline static const Image *rva005E7607Inline(Rva005E76AEContext *context,Rva005E72B4Queue *queue,int index)
+{
+ return rva005E704EInline(context,queue,queue->slot13()->begin[index]);
+}
+class Rva005E70AD { public: void rva005E70AD(int); };
+class Rva005E70C6 { public: void rva005E70C6(int); };
+class Rva005E70DF { public: void rva005E70DF(int); };
+
+class Rva005E797FProgressSlot {
+public:
+ virtual bool v0();virtual void v1();virtual void v2();virtual void v3();
+ virtual void v4();virtual void v5();virtual void v6();virtual void v7();
+ virtual void v8();virtual void v9();virtual void v10();virtual void v11();
+ virtual void SetProgress(int,int);
+};
+
+void StrategicInGameUI::BuildQueueDetailsPanel::Impl::InProgressIcon::Init(bool selected)
+{
+ ((Rva005E73B2 *)this)->rva005E73B2();
+ ((Rva005E70AD *)this)->rva005E70AD((int)rva005E7607Inline(m_owner->m_context,m_owner->m_queue,0));
+ ((Rva005E70C6 *)this)->rva005E70C6((int)rva005E7625Get(m_owner->m_queue,0));
+ ((Rva005E70DF *)this)->rva005E70DF(rva005E77F0Get(m_owner->m_queue,0));
+ if(selected) Select(); else Deselect();
+ Rva004E3184 army(0);
+ int *ids=m_owner->m_queue->slot13()->begin;
+ Rva004E3184 *armyPtr=&army;
+ m_owner->m_queue->slot4(ids[0],armyPtr);
+ int total=army.m_48;
+ int remaining=total-m_owner->m_queue->slot12();
+ Rva005E797FProgressSlot *progress=(Rva005E797FProgressSlot *)m_progressSlot;
+ if(remaining<=0) remaining=0;
+ progress->SetProgress(total,remaining);
+ if(m_progressSlot->v0()) rva005E789A();
+}
