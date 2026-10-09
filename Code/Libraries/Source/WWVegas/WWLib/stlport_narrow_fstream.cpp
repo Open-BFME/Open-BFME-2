@@ -3,6 +3,14 @@
 
 #include <fstream>
 
+// Native allocation owner 0x00013F10 (189 bytes) supplies this helper.
+// BFME 1 FilebufInstantiations at f98983a7d3 likewise defers allocation.
+// The generic emitted copy differs from the complete retail body.
+namespace _STL {
+template <> bool basic_filebuf<char, char_traits<char> >::_M_allocate_buffers(char *, streamsize);
+}
+
+
 // Retail's generic-widening init is owned by stlport_basic_ios_init.cpp.
 // Leave this specialization declared so this unit does not emit a different copy.
 namespace _STL {

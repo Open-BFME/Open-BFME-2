@@ -3,6 +3,14 @@
 
 #include <fstream>
 
+// Native allocation owner 0x00013F10 (189 bytes) supplies this helper.
+// BFME 1 FilebufInstantiations at f98983a7d3 likewise defers allocation.
+// The generic emitted copy differs from the complete retail body.
+namespace _STL {
+template <> bool basic_filebuf<char, char_traits<char> >::_M_allocate_buffers(char *, streamsize);
+}
+
+
 // The verified narrow_ifstream owner supplies these native seek operations.
 namespace _STL {
 template <> bool basic_filebuf<char, char_traits<char> >::_M_seek_init(bool);
