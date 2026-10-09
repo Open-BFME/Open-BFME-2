@@ -397,7 +397,7 @@ class View { public:
 
 };
 extern View* TheTacticalView;
-extern PartitionManager* ThePartitionManager;
+extern PartitionManager* TheShroudManager;
 enum RecorderModeType { RECORDERMODETYPE_RECORD, RECORDERMODETYPE_PLAYBACK };
 class RecorderClass { public: bool isMultiplayer(); RecorderModeType getMode(); };
 extern RecorderClass* TheRecorder;
@@ -577,8 +577,8 @@ void InGameUI::createMouseoverHint(const GameMessage* msg)
     int localPlayerIndex=ThePlayerList?ThePlayerList->getLocalPlayer()->getPlayerIndex():0;
     Coord3D cursorWorld={0,0,0};
     if(io) TheTacticalView->screenToWorld(&io->pos,&cursorWorld);
-    if(ThePartitionManager->getShroudStatusForPlayer(localPlayerIndex,obj->getPosition())==CELLSHROUD_CLEAR ||
-       (obj->getTemplate()->testByte(11,0x40) && ThePartitionManager->getShroudStatusForPlayer(localPlayerIndex,&cursorWorld)==CELLSHROUD_CLEAR)) {
+    if(TheShroudManager->getShroudStatusForPlayer(localPlayerIndex,obj->getPosition())==CELLSHROUD_CLEAR ||
+       (obj->getTemplate()->testByte(11,0x40) && TheShroudManager->getShroudStatusForPlayer(localPlayerIndex,&cursorWorld)==CELLSHROUD_CLEAR)) {
      RGBColor rgb;
      if(disguised) rgb.setFromInt(player->getPlayerColor());
      else {
