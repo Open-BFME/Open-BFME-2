@@ -109,9 +109,10 @@ public:
 	void rva00809400( BfmeC994 *message, int gid,
 		Rva00802680Owner *player );
 	void rva0080A3C0( Rva0080A3C0Input *input );
-	void rva0080A680(Rva0080A680Input *input);
+	// Slot 3 of the table 0x00CE4008 that the constructor installs at +0;
+	// the real vptr replaces the explicit word that modelled it.
+	virtual void rva0080A680(Rva0080A680Input *input);
 
-	void *m_vtable;
 	int m_registrationValue;
 	BfmeOwnerUNC *m_owner;
 	char m_pad0c[ 4 ];

@@ -5,7 +5,7 @@
 // The shared headers declare these members with the access/virtual spelling
 // retail's vftables reference; the ledger row keeps the spelling this TU
 // compiled to. Same function, same address: bind the header spelling here.
-#pragma comment(linker, "/alternatename:?rva007F8790@BfmeThingTWA@@UAEXPBDH0E@Z=?rva007F8790@BfmeThingTWA@@QAEXPBDH0E@Z")
+#pragma comment(linker, "/alternatename:?rva007F8790@BfmeThingTWA@@UAEXPBDH0E@Z=?rva007F8790@BfmeThingTWA@@UAEXPBDH0E@Z")
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
@@ -64,9 +64,10 @@ public:
 class BfmeThingTWA
 {
 public:
-	void rva007F8790( const char *gameID, int port,
+	// Slot 1 of the primary table 0x00CE30B8 that the constructor installs
+	// at +0; the real vptr replaces the explicit word that modelled it.
+	virtual void rva007F8790( const char *gameID, int port,
 		const char *session, unsigned char flag );
-	void *m_bfmeVft0;
 	void *m_bfmeVft1;
 	Rva00804150ProtoMangleRef *m_bfme08;
 	int m_bfme0c;

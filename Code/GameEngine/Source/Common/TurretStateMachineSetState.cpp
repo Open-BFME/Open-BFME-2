@@ -1,5 +1,5 @@
 // cl: /MD
-// ?setState@TurretStateMachine@@QAE?AW4StateReturnType@@H@Z, retail 0x004D8578, 62 bytes.
+// ?setState@TurretStateMachine@@UAE?AW4StateReturnType@@H@Z, retail 0x004D8578, 62 bytes.
 // Virtual slot 8 (offset 0x20) of vtable 0x008609C8 (VA 0x00C609C8), class
 // TurretStateMachine (slot 2 returns "TurretStateMachine" at 0x00860A08).
 // BFME1 donor reference/open-bfme-1/Code/GameEngine/Source/GameLogic/AI/TurretAI.cpp
@@ -78,7 +78,7 @@ StateReturnType TurretStateMachine::setState(StateID newStateID)
 	return tmp;
 }
 
-// ?resetToDefaultState@TurretStateMachine@@QAE?AW4StateReturnType@@XZ @0x004D855B 29B
+// ?resetToDefaultState@TurretStateMachine@@UAE?AW4StateReturnType@@XZ @0x004D855B 29B
 // Retail vtable slot 6 (offset 0x18) of vtable 0x008609C8, class TurretStateMachine.
 // BFME1 donor TurretAI.cpp resetToDefaultState verbatim plus BFME2 deltas (owner at
 // +0x3C, notify inlined as m_sleepUntil (+0x34) = frame). Single callee reset 0x004D7A75.

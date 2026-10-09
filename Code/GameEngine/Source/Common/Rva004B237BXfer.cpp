@@ -1,5 +1,5 @@
 // cl: /MD
-// ?rva004B23C5@Rva004B237B@@QAEXPAVXfer@@@Z, retail 0x004B23C5, 147 bytes.
+// ?rva004B23C5@Rva004B237B@@UAEXPAVXfer@@@Z, retail 0x004B23C5, 147 bytes.
 // Virtual slot 3 (offset 0xC) of vtable 0x00856948 (VA 0x00C56948), class of
 // ??1Rva004B237B@@UAE@XZ in Rva0024A797Derived.cpp. UpdateModule xfer via
 // rowed 0x0044DF9F with Version(1,1) via Xfer slot 0x28 then uint fields at
@@ -93,15 +93,18 @@ class UpdateModule
 {
 public:
 	void xfer( Xfer *xfer );
+	// The module's vptr (its own slots are not modelled here; xfer stays the
+	// plain member the derived body calls qualified).
+	virtual ~UpdateModule();
 
 private:
-	unsigned char m_pad[ 0x20 ];
+	unsigned char m_pad[ 0x20 - 4 ];
 };
 
 class Rva004B237B : public UpdateModule
 {
 public:
-	void rva004B23C5( Xfer *xfer );
+	virtual void rva004B23C5( Xfer *xfer );	// slot 3 of 0x00C56948
 
 private:
 	unsigned int m_20;

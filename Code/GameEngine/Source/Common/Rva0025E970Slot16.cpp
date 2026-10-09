@@ -1,6 +1,6 @@
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD
 //
-// ?rva0025E970@Rva0025E4CD@@QAEXH@Z, retail 0x0025E970..0x0025E9DE (110
+// ?rva0025E970@Rva0025E4CD@@UAEXH@Z, retail 0x0025E970..0x0025E9DE (110
 // bytes, RET 4): slot 16 of Rva0025E4CD's vtable. A state at +0x10 moves from
 // 0 to 1; the class's 0x0025E75F step and its own slot 15 (with the
 // argument) run; in state 2 the +0x0C ConnectionManager disconnects the local
