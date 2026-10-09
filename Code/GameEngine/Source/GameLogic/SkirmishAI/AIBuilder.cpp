@@ -11,6 +11,7 @@
 // unlock these calls without speculative callee pins.
 #include "../../Common/GameLogicObjectLookupView.h"
 #include "ascii_string.h"
+#include <new>
 #include <vector>
 class UpgradeTemplate;
 class UpgradeCenter;
@@ -67,8 +68,11 @@ template <class T, class A> class _List_base
 {
 public:
     void clear();
+    ~_List_base();
+    void *head;
 };
 }
+void __cdecl Rva00030830FreeAllocation(void *);
 // Existing RvaVector is a four-byte-element vector ABI view with a link
 // provider for the rowed 31BD55 erase; this does not name the element type.
 class RvaVector
@@ -76,10 +80,17 @@ class RvaVector
 public:
     void **erase(void **, void **);
     void clear() { erase(start, finish); }
+    ~RvaVector() { if (start) Rva00030830FreeAllocation(start); }
 private:
     void **start;
     void **finish;
     void **storageEnd;
+};
+class Rva005997CD
+{
+public:
+    ~Rva005997CD();
+    unsigned char storage00[0x14];
 };
 class AIBuilderResetView
 {
@@ -88,8 +99,70 @@ public:
     virtual void slot01() = 0;
     virtual void reset() = 0;
 };
-class AIDozerManager {public: void DoXfer(Xfer*); void rva00599825(int); __declspec(noinline) void rva00599606();};
-class AIBaseBuilder {public: void DoXfer(Xfer*); void notifyBuildingDestroyed(Object *);};
+class AIDozerManager : public Rva005997CD
+{
+public:
+    void DoXfer(Xfer*);
+    void rva00599825(int);
+    __declspec(noinline) void rva00599606();
+};
+class AIBaseBuilder
+{
+public:
+    virtual void slot00();
+    virtual void slot01();
+    virtual void reset();
+    virtual ~AIBaseBuilder();
+    void DoXfer(Xfer*);
+    void notifyBuildingDestroyed(Object *);
+private:
+    unsigned char opaque04[0x30];
+};
+class Rva00598B2A
+{
+public:
+    virtual ~Rva00598B2A();
+    unsigned char prefix04[0x44];
+    int savingsLimit48;
+    unsigned char suffix4c[0x0c];
+};
+class Rva0059A85C
+{
+public:
+    virtual ~Rva0059A85C();
+    unsigned char opaque04[0x20];
+};
+class Rva004EA3B8
+{
+public:
+    virtual ~Rva004EA3B8();
+    unsigned char opaque04[0x2c];
+};
+class Rva004E9B46
+{
+public:
+    virtual ~Rva004E9B46();
+    unsigned char opaque04[0x14];
+};
+class Rva005990DF
+{
+public:
+    virtual ~Rva005990DF();
+    unsigned char opaque04[0x2c];
+};
+class Rva0059761BDeleteView
+{
+public:
+    virtual void slot00();
+    virtual void slot01();
+    virtual void *deleteWithFlag(unsigned int);
+};
+typedef char AIBaseBuilderTargetSize[sizeof(AIBaseBuilder) == 0x34 ? 1 : -1];
+typedef char Rva00598B2ATargetSize[sizeof(Rva00598B2A) == 0x58 ? 1 : -1];
+typedef char Rva0059A85CTargetSize[sizeof(Rva0059A85C) == 0x24 ? 1 : -1];
+typedef char Rva004EA3B8TargetSize[sizeof(Rva004EA3B8) == 0x30 ? 1 : -1];
+typedef char Rva004E9B46TargetSize[sizeof(Rva004E9B46) == 0x18 ? 1 : -1];
+typedef char Rva005990DFTargetSize[sizeof(Rva005990DF) == 0x30 ? 1 : -1];
 #include "AIEconomyBuilder/AIEconomyBuilderFarmLibrary.h"
 class AIWallBuilder {public: void DoXfer(Xfer*);};
 class Rva00598DA2 {public: void rva00598DA2(Xfer*);};
@@ -203,21 +276,35 @@ struct AIBuilderOrderNode
     AIBuilderOrder *order;
 };
 class AIBuilder {
-public: void DoXfer(Xfer*); void moneySaverUpdate(); void rva004ECA01();
+public: ~AIBuilder(); void DoXfer(Xfer*); void moneySaverUpdate(); void rva004ECA01();
     void unRegisterProducedObject(Object *);
     void notifyDozerDead(Rva005996FFArg *);
     void rva004EC51F();
 private:
     Player *owner00;
-    unsigned char gap04[0x7c];
-    int savingsLimit80;
-    unsigned char gap84[0xa8];
+    AIBaseBuilder base04;
+    Rva00598B2A component38;
+    Rva0059A85C component90;
+    Rva004EA3B8 componentB4;
+    Rva004E9B46 componentE4;
+    Rva005990DF componentFC;
     Rva0059761B *component12c;
     RvaVector entries130;
-    AIBuilderOrderNode *orders13c;
-    unsigned char opaque140[0x14];
+    _STL::_List_base<int, _STL::allocator<int> > orders13c;
+    AIDozerManager dozer140;
     bool flag154; unsigned char gap155[3]; unsigned int value158;
 };
+typedef char AIBuilderTargetSize[sizeof(AIBuilder) == 0x15c ? 1 : -1];
+AIBuilder::~AIBuilder()
+{
+    rva004EC51F();
+    if (component12c)
+    {
+        void *released = reinterpret_cast<Rva0059761BDeleteView *>(component12c)->deleteWithFlag(0);
+        ::operator delete(released);
+        component12c = 0;
+    }
+}
 void AIBuilder::DoXfer(Xfer *xfer) {
  WallVersion version(1,5);
  xfer->xferVersion(&version);
@@ -242,7 +329,7 @@ void AIBuilder::moneySaverUpdate()
     {
         AIBuilderSavingsStore *store = static_cast<AIBuilderSavingsStore *>(g_00DFEEF8->rva002A8F24(owner00));
         Rva00596389 *saver = store->saver0c;
-        saver->limit18 = savingsLimit80;
+        saver->limit18 = component38.savingsLimit48;
         if (saver->limit18 == -1 || saver->saved14 < static_cast<unsigned int>(saver->limit18))
         {
             Rva002A8AB1Record *record = g_00DFEEF8->rva002A8AB1(owner00);
@@ -275,7 +362,7 @@ void AIBuilder::unRegisterProducedObject(Object *object)
             Object *producer = TheGameLogic->findObjectByID(object->producer78);
             if (producer && (producer->template04->kindOf109 & 0x40) && !(producer->flags438 & 1))
                 reinterpret_cast<AIDozerManager *>(reinterpret_cast<unsigned char *>(this) + 0x140)->rva00599825(producer->id74);
-            AIBuilderOrderNode *end = orders13c;
+            AIBuilderOrderNode *end = static_cast<AIBuilderOrderNode *>(orders13c.head);
             for (AIBuilderOrderNode *it = end->next; it != end; it = it->next)
             {
                 AIBuilderOrder *order = it->order;
@@ -315,7 +402,7 @@ void AIBuilder::rva004EC51F()
     if (*optional)
         reinterpret_cast<AIBuilderResetView *>(reinterpret_cast<unsigned char *>(*optional) + 0x0c)->reset();
     entries130.clear();
-    reinterpret_cast<_STL::_List_base<int, _STL::allocator<int> > *>(&orders13c)->clear();
+    orders13c.clear();
     reinterpret_cast<AIBuilderResetView *>(reinterpret_cast<unsigned char *>(this) + 0xe4)->reset();
     reinterpret_cast<AIBuilderResetView *>(reinterpret_cast<unsigned char *>(this) + 0x108)->reset();
     reinterpret_cast<AIBuilderResetView *>(reinterpret_cast<unsigned char *>(this) + 4)->reset();
