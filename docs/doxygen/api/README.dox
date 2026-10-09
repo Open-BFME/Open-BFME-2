@@ -1,0 +1,13 @@
+/*
+ * docs/doxygen/api/ holds the guide's out-of-line documentation: one file
+ * per subsystem, named after the subsystem's slug. Each file opens with the
+ * subsystem's group (grp_ plus the slug) and holds the class, function and
+ * file blocks for that subsystem, written as triple-slash comments.
+ *
+ * Documentation never goes into Code/ or reference/ files. The blocks here
+ * name the declarations they describe, and docs/doxygen/sources.cfg lists
+ * the files Doxygen reads those declarations from.
+ *
+ * docs/doxygen/README.md describes the id scheme and the writing rules.
+ * This file is a plain comment and adds nothing to the output.
+ */

@@ -1,0 +1,159 @@
+# Doxygen configuration for the Open-BFME-2 developer guide.
+# Local only: nothing in the build, the hooks or CI reads this file, and the
+# HTML is not published. Run from the repository root:
+#
+#   mkdir -p build/doxygen && doxygen docs/doxygen/Doxyfile
+#
+# Output: build/doxygen/html/index.html; warnings: build/doxygen/warnings.log
+# (build/ is ignored). Tested with doxygen 1.9.8. docs/doxygen/README.md
+# describes the layout and the page ids.
+
+#---------------------------------------------------------------- project
+DOXYFILE_ENCODING      = UTF-8
+PROJECT_NAME           = "Open-BFME-2"
+PROJECT_BRIEF          = "Developer guide to the reconstructed BFME 2 source"
+OUTPUT_DIRECTORY       = build/doxygen
+CREATE_SUBDIRS         = YES
+FULL_PATH_NAMES        = YES
+STRIP_FROM_PATH        = .
+INPUT_ENCODING         = UTF-8
+TAB_SIZE               = 4
+MARKDOWN_SUPPORT       = YES
+AUTOLINK_SUPPORT       = YES
+JAVADOC_AUTOBRIEF      = NO
+QT_AUTOBRIEF           = NO
+MULTILINE_CPP_IS_BRIEF = NO
+INHERIT_DOCS           = YES
+DISTRIBUTE_GROUP_DOC   = NO
+# SYSTEM: case-insensitive output names on Windows and macOS, where two
+# classes differing only in case would otherwise overwrite each other's page.
+CASE_SENSE_NAMES       = SYSTEM
+
+#---------------------------------------------------------------- what is published
+# Only what docs/doxygen/pages and docs/doxygen/api document is published.
+# Source files listed in sources.cfg are parsed for their declarations alone:
+# the INPUT_FILTER below removes every comment from them first, so no
+# reverse-engineering note, matcher comment or donor banner can become
+# documentation. HIDE_UNDOC_* then keeps the undocumented members and the
+# TU-private class views out of the pages.
+EXTRACT_ALL            = NO
+EXTRACT_PRIVATE        = NO
+EXTRACT_PACKAGE        = NO
+EXTRACT_STATIC         = YES
+# Most classes are declared inside .cpp files; a class documented in a .dox
+# is only published when local classes are extracted.
+EXTRACT_LOCAL_CLASSES  = YES
+EXTRACT_LOCAL_METHODS  = NO
+EXTRACT_ANON_NSPACES   = NO
+HIDE_UNDOC_MEMBERS     = YES
+HIDE_UNDOC_CLASSES     = YES
+HIDE_FRIEND_COMPOUNDS  = YES
+HIDE_IN_BODY_DOCS      = YES
+INTERNAL_DOCS          = NO
+SHOW_INCLUDE_FILES     = NO
+SHOW_USED_FILES        = NO
+SORT_MEMBER_DOCS       = NO
+GENERATE_TODOLIST      = NO
+GENERATE_TESTLIST      = NO
+GENERATE_BUGLIST       = NO
+GENERATE_DEPRECATEDLIST= NO
+
+#---------------------------------------------------------------- input
+# The guide's pages and out-of-line docs, then the curated list of source
+# files whose declarations the .dox blocks refer to (sources.cfg). Never list
+# a directory there: only named files are parsed.
+INPUT                  = docs/doxygen/pages docs/doxygen/api
+@INCLUDE               = docs/doxygen/sources.cfg
+FILE_PATTERNS          = *.md *.dox
+RECURSIVE              = YES
+# Every input passes through the filter. It returns the guide's own .md and
+# .dox files unchanged and strips all comments from everything else, keeping
+# line numbers. FILTER_SOURCE_FILES applies it to any source listing too.
+INPUT_FILTER           = "python3 docs/doxygen/strip_comments.py"
+FILTER_SOURCE_FILES    = YES
+# Safety net in case a directory is listed anyway: generated, vendored and
+# reference trees are never read through a directory entry.
+EXCLUDE_PATTERNS       = */Code/gen_asm/* \
+                         */Code/gen_small/* \
+                         */Code/masm_dumps/* \
+                         */Code/stlport/* \
+                         */STLport/* \
+                         */stlport_* \
+                         */GameNetwork/GameSpy/* \
+                         */Libraries/Source/Lua/* \
+                         */Compression/ZLib/* \
+                         */Compression/LZHCompress/* \
+                         */Libraries/Source/ATL/* \
+                         */Libraries/Source/GdiPlus/* \
+                         */Libraries/Source/VP6/* \
+                         */Libraries/Source/Theora/* \
+                         */Libraries/Source/Benchmark/* \
+                         */Libraries/Source/CRT/* \
+                         */reference/open-bfme-1/* \
+                         */vendor/* \
+                         */build/* \
+                         */reverse/*
+EXCLUDE_SYMBOLS        = _STL::* std::*
+USE_MDFILE_AS_MAINPAGE = docs/doxygen/pages/mainpage.md
+IMAGE_PATH             = docs/doxygen/pages
+
+#---------------------------------------------------------------- preprocessing
+# MSVC 7.1 spellings, so declarations parse. Nothing here affects the build.
+ENABLE_PREPROCESSING   = YES
+MACRO_EXPANSION        = YES
+EXPAND_ONLY_PREDEF     = YES
+SEARCH_INCLUDES        = NO
+PREDEFINED             = _MSC_VER=1310 \
+                         _WIN32 \
+                         WIN32 \
+                         _M_IX86=600 \
+                         NDEBUG \
+                         __cplusplus \
+                         "GCALL=" \
+                         "__cdecl=" \
+                         "__stdcall=" \
+                         "__fastcall=" \
+                         "__thiscall=" \
+                         "__inline=inline" \
+                         "__forceinline=inline" \
+                         "__declspec(x)=" \
+                         "__int8=char" \
+                         "__int16=short" \
+                         "__int32=int" \
+                         "__int64=long long"
+
+#---------------------------------------------------------------- cross references
+# No source listings: readers open the file in the repository. The relations
+# still list which documented functions call each other.
+SOURCE_BROWSER         = NO
+INLINE_SOURCES         = NO
+STRIP_CODE_COMMENTS    = YES
+REFERENCED_BY_RELATION = YES
+REFERENCES_RELATION    = YES
+REFERENCES_LINK_SOURCE = NO
+VERBATIM_HEADERS       = NO
+
+#---------------------------------------------------------------- warnings
+# Filter the log for docs/doxygen/ to find stale \fn, \class and \ref targets.
+QUIET                  = YES
+WARNINGS               = YES
+WARN_IF_UNDOCUMENTED   = NO
+WARN_IF_DOC_ERROR      = YES
+WARN_IF_INCOMPLETE_DOC = YES
+WARN_NO_PARAMDOC       = YES
+WARN_AS_ERROR          = NO
+WARN_LOGFILE           = build/doxygen/warnings.log
+
+#---------------------------------------------------------------- output
+GENERATE_HTML          = YES
+HTML_OUTPUT            = html
+GENERATE_TREEVIEW      = YES
+FULL_SIDEBAR           = NO
+SEARCHENGINE           = YES
+SERVER_BASED_SEARCH    = NO
+GENERATE_LATEX         = NO
+GENERATE_XML           = NO
+GENERATE_TAGFILE       = build/doxygen/open-bfme-2.tag
+HAVE_DOT               = NO
+CLASS_GRAPH            = YES
+COLLABORATION_GRAPH    = NO
