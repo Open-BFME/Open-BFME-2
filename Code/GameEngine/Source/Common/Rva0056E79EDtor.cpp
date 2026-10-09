@@ -1,5 +1,8 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
-// ??1Rva0056E79E@@UAE@XZ @0x0056E79E 171B
+// ??1AptOnlineLogin@@UAE@XZ @0x0056E79E 171B
+// AptOnlineLogin's destructor: WorldBuilder names it (AptOnlineLogin.cpp:215
+// s_instance assert) and retail closes the screen through the same
+// "AptOnlineLogin::InitGadgets" literal.
 // Dtor with AptOnlineLogin::InitGadgets close plus WindowManager/IMEManager plus GameSpy at +0x60 plus AsciiString at +0xd8 plus base 0x005248D0.
 // Evidence: vtable stores 0x0086DBBC/0x0086DB78; g_Va00E062EC guard; string literal; _bfme_closeAptScreen pin; TheWindowManager+0xb4 TheIMEManager+0x40; releaseBuffer at +0xd8; GameSpy dtor; base dtor pin.
 // Second store 0x0086DB78 is Rva0056DC6B middle (rowed trivial dtor at 0x0056DC6B store+jmp base); inlined here.
@@ -110,16 +113,16 @@ extern IMEManager *TheIMEManager;
 
 void __cdecl _bfme_closeAptScreen(const AsciiString &s);
 
-class Rva0056E79E : public Rva0056DC6B
+class AptOnlineLogin : public Rva0056DC6B
 {
 public:
-	virtual ~Rva0056E79E();
+	virtual ~AptOnlineLogin();
 private:
 	GameSpyLoginPreferences m_login;
 	AsciiString m_name;
 };
 
-Rva0056E79E::~Rva0056E79E()
+AptOnlineLogin::~AptOnlineLogin()
 {
 	if (g_Va00E062EC == (int)this)
 	{

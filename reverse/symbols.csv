@@ -4585,7 +4585,6 @@ name,address,notes
 ??1Rva00512E49@@UAE@XZ,0x00512E49,opaque dtor called by the scalar deleting dtor at 0x0051342D (vtable 0x00C65B6C#0); identity unproven; address-derived name
 ??1Rva00513BAB@@UAE@XZ,0x00513BAB,opaque dtor called by the scalar deleting dtor at 0x00513DB4 (vtable 0x00C65D20#0); identity unproven; address-derived name
 ??1Rva00514E6B@@UAE@XZ,0x00514E6B,opaque vptr+jmp dtor (11B: vptr 0xBC93A0, tail-jmp 0x40EDB); called by scalar-deleting-dtor at 0xA883A; identity unproven, address-derived name
-??1Rva00514EAB@@UAE@XZ,0x00514EAB,opaque dtor called by the scalar deleting dtor at 0x0051588B (vtable 0x00C65F10#0); identity unproven; address-derived name
 ??1Rva00514EABResourceView@@QAE@XZ,0x005B6EFE,Native514EAB resource290 call-only ABI view; complete rowed provider independently byte verified; destructor reads0/4 and close reads0C/10; original resource name unknown
 ??1Rva005173F8@@UAE@XZ,0x005173F8,opaque dtor called by the scalar deleting dtor at 0x00517582 (vtable 0x00C66428#0); identity unproven; address-derived name
 ??1Rva0051D93@@UAE@XZ,0x0051D93,opaque lea+vptr dtor head (lea eax,[ecx+0x88], vptr 0xBC5318); called by scalar-deleting-dtor at 0x51DB0; identity unproven, address-derived name

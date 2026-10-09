@@ -75,12 +75,12 @@ class Rva00514EABResourceView {
 public: ~Rva00514EABResourceView(); void close();
 private: void* first;void* second;unsigned int unknown08;int status0C;void* com10;
 };
-class Rva00514EAB : public _bfme_AptGameWindow {
-public: Rva00514EAB(EmitVtableTag*);virtual ~Rva00514EAB();
+class AptMainMenu : public _bfme_AptGameWindow {
+public: AptMainMenu(EmitVtableTag*);virtual ~AptMainMenu();
 private: unsigned char unknown274[0x1c];Rva00514EABResourceView resource290;AsciiString str2A4;
 };
-// ?<Rva00514EAB::Rva00514EAB> absent-from-retail
-Rva00514EAB::Rva00514EAB(EmitVtableTag *)
+// ?<AptMainMenu::AptMainMenu> absent-from-retail
+AptMainMenu::AptMainMenu(EmitVtableTag *)
 {
 }
 
@@ -359,8 +359,12 @@ Rva00574338::Rva00574338(EmitVtableTag *)
 {
 }
 
+// AptMainMenu's destructor 0x00514EAB: it installs vftable 0x00C65F10, which
+// the AptMainMenu constructor 0x00516211 installs (WorldBuilder lead 28.4),
+// and clears the instance global g_Va00E048DC that the AptMainMenu
+// callbacks test; WorldBuilder's twin asserts the same s_instance.
 extern int g_Va00E048DC;
-Rva00514EAB::~Rva00514EAB() {
+AptMainMenu::~AptMainMenu() {
  if(g_Va00E048DC==reinterpret_cast<int>(this)) {resource290.close();g_Va00E048DC=0;}
 }
 

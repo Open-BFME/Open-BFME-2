@@ -2,7 +2,10 @@
 #include "ascii_string.h"
 #include "unicode_string.h"
 //
-// ??1Rva005B922F@@UAE@XZ @0x005B922F 221B
+// ??1AptOnlineHome@@UAE@XZ @0x005B922F 221B
+// AptOnlineHome's destructor: WorldBuilder names it (AptOnlineHome.cpp:180
+// s_instance assert) and retail closes the screen through the same
+// "AptOnlineHome::InitGadgets" literal.
 // Dtor with Apt conditional: stores vtable 0x873B70, if this == g_Va00E06480
 // closes two screens via rva00223A94 plus AptOnlineHome InitGadgets via
 // _bfme_closeAptScreen, clears global, destroys wide member +0x64, base
@@ -48,17 +51,17 @@ inline Rva0056DC6B::~Rva0056DC6B()
 {
 }
 
-class Rva005B922F : public Rva0056DC6B
+class AptOnlineHome : public Rva0056DC6B
 {
 public:
-	virtual ~Rva005B922F();
+	virtual ~AptOnlineHome();
 
 private:
 	char m_pad[0x64 - 0x58];
 	UnicodeString m_64;
 };
 
-Rva005B922F::~Rva005B922F()
+AptOnlineHome::~AptOnlineHome()
 {
 	if ((int)this == g_Va00E06480) {
 		{
