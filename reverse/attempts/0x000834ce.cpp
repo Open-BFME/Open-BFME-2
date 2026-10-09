@@ -1,6 +1,10 @@
 // ?rva000834CE@Rva000834CE@@QAEXXZ
+// partial score=0.995 date=2026-10-09
+// ?rva000834CE@Rva000834CE@@QAEXXZ
 // partial score=0.98 date=2026-10-07
-// cl: /O1 /MD
+// cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
+// stlport
+#include <vector>
 //
 // ?rva000834CE@Rva000834CE@@QAEXXZ @ 0x000834CE (121B), Ghidra boundary.
 // Target bytes establish a one-shot guarded call to 0x0008304A followed by a
@@ -31,15 +35,10 @@ public:
 class Rva000834CE
 {
 	char m_pad00[0x70];
-	VertexBufferClass **m_vertexBegin;
-	VertexBufferClass **m_vertexEnd;
-	char m_pad78[4];
-	unsigned *m_vertexCounts;
-	char m_pad80[8];
-	IndexBufferClass **m_indexBuffers;
-	char m_pad8C[8];
-	int *m_indexCounts;
-	char m_pad98[8];
+	_STL::vector<VertexBufferClass *> m_vertexBuffers;
+	_STL::vector<unsigned> m_vertexCounts;
+	_STL::vector<IndexBufferClass *> m_indexBuffers;
+	_STL::vector<int> m_indexCounts;
 	bool m_needsRefresh;
 
 public:
@@ -53,9 +52,9 @@ void Rva000834CE::rva000834CE()
 		m_needsRefresh = false;
 	}
 
-	for (unsigned int i = 0; i < (unsigned int)(((int)((char *)m_vertexEnd - (char *)m_vertexBegin)) >> 2); ++i) {
+	for (unsigned int i = 0; i < m_vertexBuffers.size(); ++i) {
 		DX8Wrapper::Set_Index_Buffer(m_indexBuffers[i], 0);
-		DX8Wrapper::Set_Vertex_Buffer(*(VertexBufferClass **)((int)(i * 4u) + (int)(void *)m_vertexBegin), 0);
+		DX8Wrapper::Set_Vertex_Buffer(m_vertexBuffers[i], 0);
 		DX8Wrapper::Draw_Triangles(0, m_indexCounts[i] / 3, 0, m_vertexCounts[i]);
 	}
 }
