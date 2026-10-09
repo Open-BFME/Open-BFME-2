@@ -13,6 +13,7 @@
 #include <memory>
 #include <vector>
 #include "ascii_string.h"
+#include "unicode_string.h"
 #define BFME_SNAPSHOT_NAME_SLOT
 #include "Common/Snapshot.h"
 class LivingWorldManager;
@@ -210,7 +211,7 @@ extern ImageCollection *TheMappedImageCollection;
 class CreateAHeroHero;
 class CreateAHeroManager { public:const AsciiString &GetButtonImageName(const CreateAHeroHero*); };
 extern CreateAHeroManager *TheCreateAHeroManager;
-class Rva00319CED { public:void *rva004E23E2(); };
+class Rva00319CED { public:void *rva004E23E2(); UnicodeString rva004E25AF(int); };
 struct Rva002B2579Result;
 class Rva002BA8F1Logic { public:Rva002B2579Result *rva002B2579(int); };
 class Rva002E2903Player;
@@ -253,4 +254,35 @@ const Image *Rva004E3184::GetPortraitImage(int id) {
   image=TheMappedImageCollection->findImageByName(TheCreateAHeroManager->GetButtonImageName((const CreateAHeroHero*)hero));
  } else image=((ThingTemplate*)thing)->getButtonImage();
  return image?image:missing;
+}
+
+// WB128BD80 identifies SpawnArmy::GetButtonTitle. Native 4E25AF/176B
+// returns UnicodeString by value, including the hidden output pointer and
+// every EH state transition. The old pointer-return interpretation missed
+// those states. Preserve the existing Rva00319CED binding used by callers.
+// The native AsciiString text-fetch overload occupies vtable slot0x38;
+// this interface and ABI also match AptMapPreview's existing consumers.
+class GameTextInterface { public:
+ virtual ~GameTextInterface();
+ virtual void slot04()=0;virtual void slot08()=0;virtual void slot0C()=0;
+ virtual void slot10()=0;virtual void slot14()=0;virtual void slot18()=0;
+ virtual void slot1C()=0;virtual void slot20()=0;virtual void reset()=0;
+ virtual void slot28()=0;virtual void slot2C()=0;virtual void slot30()=0;virtual void slot34()=0;
+ virtual UnicodeString fetch(const char*,bool* =0)=0;
+ virtual UnicodeString fetch(const AsciiString&,bool* =0)=0;
+};
+extern GameTextInterface *TheGameText;
+UnicodeString Rva00319CED::rva004E25AF(int id) {
+ UnicodeString title=TheGameText->fetch(((Rva004E3184*)this)->m_10);
+ void *thing=rva004E23E2();
+ if(thing && (*((unsigned char*)thing+0x11f)&0x40)) {
+  Rva002B2579Result *building=((Rva002BA8F1Logic*)TheLivingWorldLogic)->rva002B2579(id);
+  if(!building)return title;
+  Rva002E2903Player *player=((Rva004E0705*)building)->rva004E0705();
+  if(!player)return title;
+  void *hero=((Rva002E06B8*)player)->rva002E06EF();
+  if(!hero)return title;
+  return *(const UnicodeString*)((char*)hero+8);
+ }
+ return title;
 }
