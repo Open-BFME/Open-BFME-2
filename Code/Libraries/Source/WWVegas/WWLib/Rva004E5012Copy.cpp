@@ -5,6 +5,17 @@
 // pad at +0x1C/+0x20 untouched, lists int at +0x34 Pod8 at +0x38 via default empty allocator.
 // Neighbours stlport_pod_list_bodies Pod60. Evidence unlock lane caller 0x004E5317.
 #include <list>
+
+// Retain bfmealloc's native null-checked free and proxy forwarding inline.
+// The matched bodies already inline these STLport ownership wrappers.
+namespace _STL {
+template<> __declspec(dllimport) __forceinline
+void allocator<_List_node<int> >::deallocate(pointer p, size_type n) const
+{ if (p != 0) ::free((void*)p); }
+template<> __declspec(dllimport) __forceinline
+void _STLP_alloc_proxy<_List_node<int>*, _List_node<int>, allocator<_List_node<int> > >::deallocate(_List_node<int>* p, size_t n)
+{ __stl_alloc_rebind(static_cast<_Base&>(*this), (_List_node<int>*)0).deallocate(p, n); }
+}
 struct Pod12_004E5012 { int a[3]; };
 struct BfmePod8 { int a[2]; };
 class Rva004E5012 {
