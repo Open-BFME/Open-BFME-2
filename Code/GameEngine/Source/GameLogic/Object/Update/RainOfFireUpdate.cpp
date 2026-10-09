@@ -19,7 +19,8 @@ class WeaponSet {public:Weapon *getWeaponInWeaponSlot(WeaponSlotType) const;};
 class Thing {public:void setTransformMatrix(const Matrix3D *);};
 class Object:public Thing {public:__forceinline Weapon *getWeapon()const{return ((const WeaponSet*)((const char*)this+0x330))->getWeaponInWeaponSlot(PRIMARY_WEAPON);} };
 template<int N>class RainSlots:public RainSlots<N-1>{public:virtual void gap(char (*)[N])=0;};template<>class RainSlots<0>{};
-class GameClient:public RainSlots<70>{public:virtual void rvaSlot70(Coord3D *)=0;};extern GameClient *TheGameClient;
+// The camera-position global at DFEA3C is the tactical View, as in the reference.
+class View:public RainSlots<70>{public:virtual void rvaSlot70(Coord3D *)=0;};extern View *TheTacticalView;
 class TerrainLogic:public RainSlots<7>{public:virtual float rvaSlot7(float,float,PathfindLayerEnum,Coord3D *,bool)=0;PathfindLayerEnum getHighestLayerForDestination(const Coord3D *,bool);};extern TerrainLogic *TheTerrainLogic;
 struct RainOfFireUpdateModuleData {char pad[8];unsigned startRainTime,darknessFadeTime;float height,darkness,jitter,dpsMin,dpsMax,rampup;Coord2D offset;};
 class ObjectModule {public:virtual ~ObjectModule();const RainOfFireUpdateModuleData *data;Object *object;};
@@ -43,7 +44,7 @@ UpdateSleepTime RainOfFireUpdate::update() {
   pending+=GetGameLogicRandomValueReal(d->dpsMin,d->dpsMax,"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\RainOfFireUpdate.cpp",125)*scale*ramp/g_Va00DBA4E4;
   Weapon *weapon=obj->getWeapon();
   if(weapon) {
-   Coord3D center;TheGameClient->rvaSlot70(&center);center.z=d->height;
+   Coord3D center;TheTacticalView->rvaSlot70(&center);center.z=d->height;
    while(pending>=1.0f) {
     Coord3D pos={center.x,center.y,center.z};
     if(d->jitter>0.0f) {
