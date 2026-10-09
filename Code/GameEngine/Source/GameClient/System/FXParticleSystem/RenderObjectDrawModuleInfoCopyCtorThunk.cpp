@@ -1,26 +1,14 @@
-// cl: /DNDEBUG /MD /EHsc
-
-// Open-BFME5: RenderObjectDrawModuleInfo copy constructor.
-
-template <typename Character>
-class StringBase
-{
-public:
-	StringBase(const StringBase &);
-
-private:
-	void *m_data;
-};
-
-class BFMERetailAsciiString : private StringBase<char>
-{
-public:
-	BFMERetailAsciiString(const BFMERetailAsciiString &that)
-		: StringBase<char>(that)
-	{
-	}
-	~BFMERetailAsciiString();
-};
+// cl: /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
+// Canonical string repair of the BFME1 donor copy constructor, reviewed at
+// 575ba2b04743f190f069805fbdc59936123c45da (same source/headers as f989).
+// BFME2 RVA 0x003A9AD6 is the complete 165-byte copy; the naturally emitted
+// deleting destructor at 0x003A9B7B is the existing 28-byte owner row.
+// Target accesses prove three four-byte strings at +0x10/+0x20/+0x30 and
+// copy calls to StringBase<char> at 0x365F0. Native unwind cleanup releases
+// those buffers through the actual 0x36410 worker, as in the real dtor3A9A8B.
+// Use canonical inline cleanup; a declaration-only string destructor would
+// instead name the distinct 0x48BA39 thunk. Other module views are unchanged.
+#include "ascii_string.h"
 
 namespace FXParticleSystem
 {
@@ -42,15 +30,15 @@ private:
 	bool m_enabled;
 	unsigned int m_type;
 	bool m_flag;
-	BFMERetailAsciiString m_name0;
+	AsciiString m_name0;
 	unsigned int m_value00;
 	unsigned int m_value01;
 	unsigned int m_value02;
-	BFMERetailAsciiString m_name1;
+	AsciiString m_name1;
 	unsigned int m_value10;
 	unsigned int m_value11;
 	unsigned int m_value12;
-	BFMERetailAsciiString m_name2;
+	AsciiString m_name2;
 	unsigned int m_value20;
 	unsigned int m_value21;
 	unsigned int m_value22;
