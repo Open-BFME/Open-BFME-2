@@ -62,6 +62,7 @@ public:
 		float m_maximum;
 		unsigned char m_dirty;
 	};
+	class Persistent;
 };
 
 void GameStats::Row::Init(const char *label, int numCells)
@@ -123,4 +124,71 @@ Rva005DE7D1Record::Rva005DE7D1Record()
 void Rva005DE7D1Vector::resize(unsigned count)
 {
     resize(count, Rva005DE7D1Record());
+}
+
+// WB 0x015D5700 names GameStats::Persistent::Persistent; its 37 labels
+// and assertion GameStats.cpp:220 agree with complete retail5DEE37..5DF144.
+// The existing31B base constructor owns a20B object with rows at4; its
+// row lifecycle providers and every Init receiver prove a24B row stride.
+// Retail adds a word at14 initialized to numCells-1; its original name is open.
+// All three named table constructors store C76DD4. Existing StrategicEndGame
+// destructor/scalar owners retain the folded address; no new aliases or pins.
+class Rva005DE9E3 {
+public:
+    Rva005DE9E3(unsigned int);
+    virtual ~Rva005DE9E3();
+protected:
+    GameStats::Row *m_rows;
+    GameStats::Row *m_finish;
+    GameStats::Row *m_capacity;
+    int m_10;
+};
+class GameStats::Persistent : public Rva005DE9E3 {
+public:
+    Persistent(int numCells);
+private:
+    int m_14;
+};
+typedef char GameStatsRowSize[(sizeof(GameStats::Row) == 24) ? 1 : -1];
+typedef char GameStatsPersistentSize[(sizeof(GameStats::Persistent) == 24) ? 1 : -1];
+GameStats::Persistent::Persistent(int numCells)
+    : Rva005DE9E3(37), m_14(numCells - 1)
+{
+    m_rows[0].Init("STAT:PERSIST_CURRENT_WIN_STREAK", numCells);
+    m_rows[1].Init("STAT:PERSIST_CURRENT_LOSS_STREAK", numCells);
+    m_rows[2].Init("STAT:PERSIST_LONGEST_WIN_STREAK", numCells);
+    m_rows[3].Init("STAT:PERSIST_WORST_LOSS_STREAK", numCells);
+    m_rows[4].Init("STAT:PERSIST_CAREER_WINS", numCells);
+    m_rows[5].Init("STAT:PERSIST_CAREER_LOSSES", numCells);
+    m_rows[6].Init("STAT:PERSIST_WIN_LOSS_RATIO", numCells);
+    m_rows[7].Init("STAT:PERSIST_TOTAL_GAMES_PLAYED", numCells);
+    m_rows[8].Init("STAT:PERSIST_AVERAGE_GAME_LENGTH", numCells);
+    m_rows[9].Init("STAT:PERSIST_LONGEST_GAME_LENGTH", numCells);
+    m_rows[10].Init("STAT:PERSIST_SHORTEST_GAME_LENGTH", numCells);
+    m_rows[11].Init("STAT:PERSIST_TOTAL_TIME_PLAYED", numCells);
+    m_rows[12].Init("STAT:PERSIST_FACTION_MOST_SUCCESSFUL_AGAINST", numCells);
+    m_rows[13].Init("STAT:PERSIST_FACTION_LEAST_SUCCESSFUL_AGAINST", numCells);
+    m_rows[14].Init("STAT:PERSIST_STRUCTURES_CREATED", numCells);
+    m_rows[15].Init("STAT:PERSIST_STRUCTURES_LOST", numCells);
+    m_rows[16].Init("STAT:PERSIST_STRUCTURES_DESTROYED", numCells);
+    m_rows[17].Init("STAT:PERSIST_UNITS_CREATED", numCells);
+    m_rows[18].Init("STAT:PERSIST_UNITS_LOST", numCells);
+    m_rows[19].Init("STAT:PERSIST_UNIT_KILL_DEATH_RATIO", numCells);
+    m_rows[20].Init("STAT:PERSIST_UNITS_KILLED", numCells);
+    m_rows[21].Init("STAT:PERSIST_TOTAL_RESOURCES_GATHERED", numCells);
+    m_rows[22].Init("STAT:PERSIST_STRATEGIC_SKILL", numCells);
+    m_rows[23].Init("STAT:PERSIST_TACTICAL_SKILL", numCells);
+    m_rows[24].Init("STAT:PERSIST_HEROES_BUILT", numCells);
+    m_rows[25].Init("STAT:PERSIST_HEROES_LOST", numCells);
+    m_rows[26].Init("STAT:PERSIST_STRATEGIC_TURNS_PLAYED", numCells);
+    m_rows[27].Init("STAT:PERSIST_STRATEGIC_MOST_TURNS_PLAYED", numCells);
+    m_rows[28].Init("STAT:PERSIST_STRATEGIC_TACTICAL_BATTLES_WON", numCells);
+    m_rows[29].Init("STAT:PERSIST_STRATEGIC_TACTICAL_BATTLES_LOST", numCells);
+    m_rows[30].Init("STAT:PERSIST_STRATEGIC_AUTO_RESOLVE_BATTLES_WON", numCells);
+    m_rows[31].Init("STAT:PERSIST_STRATEGIC_AUTO_RESOLVE_BATTLES_LOST", numCells);
+    m_rows[32].Init("STAT:PERSIST_STRATEGIC_AUTO_RESOLVE_BATTLES_PLAYED", numCells);
+    m_rows[33].Init("STAT:PERSIST_STRATEGIC_REGIONS_WON", numCells);
+    m_rows[34].Init("STAT:PERSIST_STRATEGIC_REGIONS_LOST", numCells);
+    m_rows[35].Init("STAT:PERSIST_STRATEGIC_TERRITORIES_WON", numCells);
+    m_rows[36].Init("STAT:PERSIST_STRATEGIC_TERRITORIES_LOST", numCells);
 }
