@@ -15,6 +15,7 @@
 // base constructor, which is rowed now.
 
 class Rva0057C394;
+class Rva000AD6F4 {public:void clear();};
 
 class Rva005F2381
 {
@@ -38,8 +39,8 @@ private:
 // This two-slot view keeps an independent opaque identity.
 struct Rva005E626DListener
 {
-	virtual void notify();
-	virtual ~Rva005E626DListener() {}
+	virtual void notify(void *);
+	~Rva005E626DListener() {}
 };
 
 struct Rva002BA8F1Listener; // borrowed list-entry representation
@@ -68,7 +69,8 @@ class Rva005E626D : public Rva005F566A, public Rva005E626DListener
 public:
 	Rva005E626D(Rva005E626DOwner *owner, Rva0057C394 *source, Rva005E626DListOwner *listOwner, void *extra);
 	virtual ~Rva005E626D();
-	virtual void notify();
+	virtual void rva005E586B();
+	virtual void notify(void *) { reinterpret_cast<Rva000AD6F4*>((char*)m_owner0C+0x40)->clear(); }
 
 private:
 	Rva005E626DOwner *m_owner0C;			// +0x0C
@@ -89,6 +91,10 @@ Rva005E626D::~Rva005E626D() {
  reinterpret_cast<Rva002B7250*>(&m_listOwner10->m_list08)->rva002B7250(reinterpret_cast<CreateAHeroData*>(static_cast<Rva005E626DListener*>(this)));
 }
 
-// Native5E5FA8..5E5FFB83B restores the constructor's two vptrs and
-// unregisters the exact second-base address before the primary teardown.
-// Native scalar5E6237 belongs to this constructor's C77DE8 vtable.
+void Rva005E626D::rva005E586B(){reinterpret_cast<Rva000AD6F4*>((char*)m_owner0C+0x40)->clear();}
+
+// Native5E5876..5E5884 RET4 proves a one-word callback argument;
+// it is unused. VC7 compiles this secondary-interface override with the
+// listener receiver: owner0C becomes a +4 access from the biased this.
+// Existing11B primary clear5E586B is the same owner's direct operation.
+// Constructor132/fullDT83/scalar28 remain exact under this contract.

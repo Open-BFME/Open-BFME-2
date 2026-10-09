@@ -710,23 +710,6 @@ void Rva005E57D0::rva005E57D0()
 {
 	m_08->m_38.clear();
 }
-struct Rva005E586BInner
-{
-	char m_pad00[0x40];
-	Rva000AD6F4 m_40;
-};
-class Rva005E586B
-{
-public:
-	void rva005E586B();
-private:
-	char m_pad00[0x0C];
-	Rva005E586BInner *m_0C;
-};
-void Rva005E586B::rva005E586B()
-{
-	m_0C->m_40.clear();
-}
 struct Rva0057708FInner
 {
 	char m_pad00[0x14];
