@@ -22,13 +22,25 @@ private:
 	bool m_isAccepted;
 };
 
+class Image;
+
+// Retail C187C0 slot14 owns resetAccepted; slots12/13 are the
+// host/local-slot queries. The implicit vptr keeps m_slot at native+18.
 class GameInfo
 {
 public:
 	GameSlot *getSlot(Int slotNum);
-	void resetAccepted();
+	virtual ~GameInfo();
+	virtual void slot01(); virtual void slot02(); virtual void slot03();
+	virtual void slot04(); virtual void slot05();
+	virtual const Image *rva00401015(Int column);
+	virtual void slot07(); virtual void slot08(); virtual void slot09();
+	virtual void slot10(); virtual void slot11();
+	virtual bool amIHost() const;
+	virtual Int getLocalSlotNum() const;
+	virtual void resetAccepted();
 private:
-	char m_pad[0x18];
+	char m_pad04[0x18 - 0x04];
 	GameSlot *m_slot[8];
 };
 
@@ -38,4 +50,20 @@ GameSlot *GameInfo::getSlot(Int slotNum)
 	if (m_slot == 0)
 		return 0;
 	return (slotNum < 0 || slotNum >= MAX_SLOTS) ? 0 : m_slot[slotNum];
+}
+
+// ?resetAccepted@GameInfo@@UAEXXZ
+// BFME1 GameInfo.cpp resetAccepted shape, with slot 0 spelled as a direct
+// array load: retail inlines slot 0 to lea/test/mov (xor edx,edx; lea; inc)
+// and issues getSlot calls only for slots 1..7, reusing dl for setAccept.
+void GameInfo::resetAccepted()
+{
+	if (m_slot && m_slot[0])
+		m_slot[0]->setAccept();
+	for (Int i = 1; i < MAX_SLOTS; ++i)
+	{
+		GameSlot *slot = getSlot(i);
+		if (slot)
+			slot->unAccept();
+	}
 }

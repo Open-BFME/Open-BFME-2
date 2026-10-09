@@ -333,19 +333,6 @@ Bool GameInfo::isStartPositionTaken(Int positionIdx, Int slotToIgnore ) const
 	return false;
 }
 
-void GameInfo::resetAccepted( void )
-{
-	GameSlot *slot = getSlot(0);
-	if (slot)
-		slot->setAccept();
-	for(int i = 1; i< MAX_SLOTS; i++)
-	{
-		slot = getSlot(i);
-		if (slot)
-			slot->unAccept();
-	}
-}
-
 void GameInfo::resetStartSpots()
 {
 	GameSlot *slot = NULL;
