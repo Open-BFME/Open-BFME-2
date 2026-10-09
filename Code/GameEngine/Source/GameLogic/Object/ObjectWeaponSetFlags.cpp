@@ -41,7 +41,8 @@ enum WeaponSetType
 };
 enum ModelConditionFlagType
 {
-	MODELCONDITION_INVALID = -1
+	MODELCONDITION_INVALID = -1,
+	MODELCONDITION_COUNT = 0x24F
 };
 class Object;
 enum WeaponSlotType
@@ -128,6 +129,133 @@ public:
 };
 extern const ModelConditionFlagType TheWeaponSetTypeToModelConditionTypeMap[];
 extern int g_Va00DBA4E4;
+
+// The target's 0x0029080C consumer reads 104 map entries; the following
+// strings begin at 0x00800868, fixing the table extent at 416 bytes. Numeric
+// values are the target's ModelConditionFlagType IDs; names beyond INVALID
+// are not reconstructed here. The 591-condition bound is also used by
+// ObjectSMCHelper at 0x004DE85F.
+const ModelConditionFlagType TheWeaponSetTypeToModelConditionTypeMap[104] =
+{
+	// Weapon-set indices 0-7.
+	static_cast<ModelConditionFlagType>(12),
+	static_cast<ModelConditionFlagType>(13),
+	static_cast<ModelConditionFlagType>(14),
+	static_cast<ModelConditionFlagType>(17),
+	static_cast<ModelConditionFlagType>(15),
+	static_cast<ModelConditionFlagType>(16),
+	static_cast<ModelConditionFlagType>(143),
+	static_cast<ModelConditionFlagType>(159),
+	// Weapon-set indices 8-15.
+	static_cast<ModelConditionFlagType>(161),
+	static_cast<ModelConditionFlagType>(192),
+	static_cast<ModelConditionFlagType>(229),
+	static_cast<ModelConditionFlagType>(230),
+	static_cast<ModelConditionFlagType>(231),
+	static_cast<ModelConditionFlagType>(232),
+	static_cast<ModelConditionFlagType>(233),
+	static_cast<ModelConditionFlagType>(234),
+	// Weapon-set indices 16-23.
+	static_cast<ModelConditionFlagType>(235),
+	static_cast<ModelConditionFlagType>(236),
+	static_cast<ModelConditionFlagType>(237),
+	static_cast<ModelConditionFlagType>(238),
+	static_cast<ModelConditionFlagType>(241),
+	static_cast<ModelConditionFlagType>(247),
+	static_cast<ModelConditionFlagType>(250),
+	static_cast<ModelConditionFlagType>(251),
+	// Weapon-set indices 24-31.
+	static_cast<ModelConditionFlagType>(301),
+	static_cast<ModelConditionFlagType>(302),
+	static_cast<ModelConditionFlagType>(303),
+	static_cast<ModelConditionFlagType>(304),
+	static_cast<ModelConditionFlagType>(253),
+	static_cast<ModelConditionFlagType>(409),
+	static_cast<ModelConditionFlagType>(410),
+	static_cast<ModelConditionFlagType>(411),
+	// Weapon-set indices 32-39.
+	static_cast<ModelConditionFlagType>(412),
+	static_cast<ModelConditionFlagType>(413),
+	static_cast<ModelConditionFlagType>(414),
+	static_cast<ModelConditionFlagType>(415),
+	static_cast<ModelConditionFlagType>(416),
+	static_cast<ModelConditionFlagType>(417),
+	static_cast<ModelConditionFlagType>(418),
+	static_cast<ModelConditionFlagType>(419),
+	// Weapon-set indices 40-47.
+	static_cast<ModelConditionFlagType>(420),
+	static_cast<ModelConditionFlagType>(421),
+	static_cast<ModelConditionFlagType>(422),
+	static_cast<ModelConditionFlagType>(423),
+	static_cast<ModelConditionFlagType>(424),
+	static_cast<ModelConditionFlagType>(425),
+	static_cast<ModelConditionFlagType>(426),
+	static_cast<ModelConditionFlagType>(427),
+	// Weapon-set indices 48-55.
+	static_cast<ModelConditionFlagType>(428),
+	static_cast<ModelConditionFlagType>(429),
+	static_cast<ModelConditionFlagType>(430),
+	static_cast<ModelConditionFlagType>(431),
+	static_cast<ModelConditionFlagType>(432),
+	static_cast<ModelConditionFlagType>(433),
+	static_cast<ModelConditionFlagType>(434),
+	static_cast<ModelConditionFlagType>(435),
+	// Weapon-set indices 56-63.
+	static_cast<ModelConditionFlagType>(436),
+	static_cast<ModelConditionFlagType>(437),
+	static_cast<ModelConditionFlagType>(438),
+	static_cast<ModelConditionFlagType>(439),
+	static_cast<ModelConditionFlagType>(440),
+	static_cast<ModelConditionFlagType>(259),
+	MODELCONDITION_INVALID,
+	MODELCONDITION_INVALID,
+	// Weapon-set indices 64-71.
+	MODELCONDITION_INVALID,
+	MODELCONDITION_INVALID,
+	MODELCONDITION_INVALID,
+	MODELCONDITION_INVALID,
+	MODELCONDITION_INVALID,
+	MODELCONDITION_INVALID,
+	MODELCONDITION_INVALID,
+	MODELCONDITION_INVALID,
+	// Weapon-set indices 72-79.
+	static_cast<ModelConditionFlagType>(553),
+	static_cast<ModelConditionFlagType>(554),
+	static_cast<ModelConditionFlagType>(555),
+	static_cast<ModelConditionFlagType>(556),
+	static_cast<ModelConditionFlagType>(557),
+	static_cast<ModelConditionFlagType>(558),
+	static_cast<ModelConditionFlagType>(559),
+	static_cast<ModelConditionFlagType>(560),
+	// Weapon-set indices 80-87.
+	static_cast<ModelConditionFlagType>(561),
+	static_cast<ModelConditionFlagType>(562),
+	static_cast<ModelConditionFlagType>(563),
+	static_cast<ModelConditionFlagType>(564),
+	static_cast<ModelConditionFlagType>(565),
+	static_cast<ModelConditionFlagType>(566),
+	static_cast<ModelConditionFlagType>(567),
+	static_cast<ModelConditionFlagType>(568),
+	// Weapon-set indices 88-95.
+	static_cast<ModelConditionFlagType>(569),
+	static_cast<ModelConditionFlagType>(570),
+	static_cast<ModelConditionFlagType>(571),
+	static_cast<ModelConditionFlagType>(572),
+	static_cast<ModelConditionFlagType>(573),
+	static_cast<ModelConditionFlagType>(574),
+	static_cast<ModelConditionFlagType>(575),
+	static_cast<ModelConditionFlagType>(576),
+	// Weapon-set indices 96-103.
+	static_cast<ModelConditionFlagType>(577),
+	static_cast<ModelConditionFlagType>(578),
+	static_cast<ModelConditionFlagType>(579),
+	static_cast<ModelConditionFlagType>(580),
+	static_cast<ModelConditionFlagType>(581),
+	static_cast<ModelConditionFlagType>(582),
+	static_cast<ModelConditionFlagType>(583),
+	static_cast<ModelConditionFlagType>(584),
+};
+
 class Object
 {
 public:
