@@ -1,5 +1,5 @@
 // cl: /MD
-// ?rva00595D0B@FirewallHelperClass@@QAEPAXI@Z @0x00595D0B 34B: store vtable 0x00870A2C then rowed clear 0x0059515C plus conditional delete. Evidence: vtable slot 0 of 0x00870A2C class FirewallHelperClass ctor 0x00594CDD; calls row 0x0059515C and rowed delete 0x0002FD60.
+// ?rva00595D0B@FirewallHelperClass@@UAEPAXI@Z @0x00595D0B 34B: store vtable 0x00870A2C then rowed clear 0x0059515C plus conditional delete. Evidence: vtable slot 0 of 0x00870A2C class FirewallHelperClass ctor 0x00594CDD; calls row 0x0059515C and rowed delete 0x0002FD60.
 class Rva0059515C
 {
 public:
@@ -12,7 +12,7 @@ void __cdecl operator delete(void *p);
 class FirewallHelperClass
 {
 public:
-	void *rva00595D0B(unsigned int flags);
+	virtual void *rva00595D0B(unsigned int flags);
 };
 
 void *FirewallHelperClass::rva00595D0B(unsigned int flags)

@@ -1,6 +1,6 @@
 // cl: /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP=
 // stlport
-// ?rva002000A4@Rva0022CA74@@QAEXXZ @0x002000A4 51B
+// ?rva002000A4@Rva0022CA74@@UAEXXZ @0x002000A4 51B
 // vtable slot 9 (offset 0x24) of 0x007E2704 = class of ??0Rva0022CA74@@QAE@XZ.
 // Iterates vector at +0xC..+0x10, calls rowed deleteOverrides 0x001E35ED,
 // erases via rowed vector<void*> erase 0x001FF51F when it returns 0.
@@ -16,9 +16,9 @@ public:
 class Rva0022CA74
 {
 public:
-	void rva002000A4();
+	virtual void rva002000A4();
 private:
-	char m_pad[0xC];
+	char m_pad04[0xC - 4];
 	_STL::vector<void *> m_vec;
 };
 

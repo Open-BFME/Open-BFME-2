@@ -24,8 +24,8 @@ struct Rva003A35A0Element {
  char bytes[184];
 };
 class Rva008B77D {public:
- void rva00312EDA(const Rva00311431Arg*);
- char pad[0x2c];_STL::vector<Rva003A35A0Element>records;
+ virtual void rva00312EDA(const Rva00311431Arg*);
+ char m_pad04[0x2c - 4];_STL::vector<Rva003A35A0Element>records;
 
 };
 void Rva008B77D::rva00312EDA(const Rva00311431Arg*node) {

@@ -1,5 +1,5 @@
 // cl: /MD /EHsc
-// ?rva005E716D@Rva005E80FD@@QAEXXZ @0x005E716D 17B
+// ?rva005E716D@Rva005E80FD@@UAEXXZ @0x005E716D 17B
 // Virtual slot 1 (offset 0x4) of vtable 0x00877F54 (class of ??1Rva005E80FD@@UAE@XZ).
 // Helper-then-member forwarder: folded empty helper on this, then tail-call
 // member at +0x10 slot 1. Retail calls 0x000B3FD0 annotated as
@@ -22,9 +22,9 @@ public:
 class Rva005E80FD
 {
 public:
-	void rva005E716D();
+	virtual void rva005E716D();
 private:
-	char m_pad[0x10];
+	char m_pad04[0x10 - 4];
 	Inner005E716D *m_10;
 };
 void Rva005E80FD::rva005E716D()

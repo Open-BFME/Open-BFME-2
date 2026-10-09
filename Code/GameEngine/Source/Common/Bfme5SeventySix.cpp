@@ -1,6 +1,6 @@
 // cl: /GX
 
-// ?bfmeResetGrid@BfmeTaintManager@@QAEXXZ
+// ?bfmeResetGrid@BfmeTaintManager@@UAEXXZ
 //
 // BFME1 donor Bfme5SeventySix.cpp shape: reset the owned grid, then
 // re-establish it over an empty region. BFME2 repair: the grid pointer sits
@@ -129,17 +129,17 @@ private:
 class BfmeTaintManager
 {
 public:
-	void bfmeResetGrid();
+	virtual void bfmeResetGrid();
 	void bfmeApplyCircleWorld(const BfmePointFC *point, Real radius, int amount, bool absolute, int mode);
 	int rva006C0850(const BfmePointFC *point, int *extra);
 	int rva006C0840(int x, int y);
 
 private:
-	unsigned char m_bfmeHead[0x10];				// +0x00
+	unsigned char m_bfmeHead[0x10 - 4];				// +0x04
 	Gen_008812D0 *m_bfmeGrid;				// +0x10
 };
 
-// ?bfmeResetGrid@BfmeTaintManager@@QAEXXZ
+// ?bfmeResetGrid@BfmeTaintManager@@UAEXXZ
 void BfmeTaintManager::bfmeResetGrid()
 {
 	m_bfmeGrid->bfmeReset();

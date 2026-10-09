@@ -1,6 +1,6 @@
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
 //
-// ?rva005F4C8E@Rva005F4C52@@QAE?AV?$Rva005F4C8ERef@VRva005E6ED6Third@@@@HH@Z,
+// ?rva005F4C8E@Rva005F4C52@@UAE?AV?$Rva005F4C8ERef@VRva005E6ED6Third@@@@HH@Z,
 // retail 0x005F4C8E..0x005F4CF8 (106 bytes, EH, RET 12): slot 1 of
 // Rva005F4C52's vtable. It returns a counted reference to the third
 // interface (+0x14) of a new 0x2C-byte Rva005E6ED6 built from both arguments
@@ -61,10 +61,10 @@ class Rva005E5590Iface;
 class Rva005F4C52
 {
 public:
-	Rva005F4C8ERef<Rva005E6ED6Third> rva005F4C8E(int a, int b);
+	virtual Rva005F4C8ERef<Rva005E6ED6Third> rva005F4C8E(int a, int b);
 	Rva005F4C8ERef<Rva005E5590Iface> rva005F4CF8(int a, int b);
 private:
-	unsigned char m_pad00[0x08];
+	unsigned char m_pad04[0x08 - 4];
 	int m_08;
 };
 
@@ -147,9 +147,9 @@ Rva005F4C8ERef<Rva005E5590Iface> Rva005F4C52::rva005F4CF8(int a, int b)
 class Rva005CDF6C
 {
 public:
-	Rva005F4C8ERef<Rva005CDE89Iface> rva005CDF8B(int a, int b);
+	virtual Rva005F4C8ERef<Rva005CDE89Iface> rva005CDF8B(int a, int b);
 private:
-	unsigned char m_pad00[0x08];
+	unsigned char m_pad04[0x08 - 4];
 	int m_08;
 };
 

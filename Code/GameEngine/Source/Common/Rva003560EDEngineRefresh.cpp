@@ -1,8 +1,8 @@
 // cl: /O1 /G7 /arch:SSE /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
-// ?rva00355DF4@Rva003560ED@@QAEXH@Z @0x00355DF4 44B
-// ?rva00355E20@Rva003560ED@@QAEXHH@Z @0x00355E20 44B
-// ?rva00356889@Rva003561BE@@QAEXPAVGameInfo@@@Z @0x00356889 625B (SSE: /G7 /arch:SSE)
-// ?rva00356724@Rva003560ED@@QAEXPAVGameInfo@@@Z @0x00356724 329B
+// ?rva00355DF4@Rva003560ED@@UAEXH@Z @0x00355DF4 44B
+// ?rva00355E20@Rva003560ED@@UAEXHH@Z @0x00355E20 44B
+// ?rva00356889@Rva003561BE@@UAEXPAVGameInfo@@@Z @0x00356889 625B (SSE: /G7 /arch:SSE)
+// ?rva00356724@Rva003560ED@@UAEXPAVGameInfo@@@Z @0x00356724 329B
 // Slots 1 and 4 of vtable 0x00C14EA4 (class of the rowed dtor 0x003560ED and
 // of rva00355DDD, slot 3), shared by the derived vtable 0x00C14EBC: both call
 // TheGameEngine slot 23 and, when TheWritableGlobalData's +0x11C8 flag is set,
@@ -86,11 +86,11 @@ class GameInfo;
 class Rva003560ED
 {
 public:
-	void rva00355DF4(int);
-	void rva00355E20(int, int);
-	void rva00356724(GameInfo *game);
+	virtual void rva00355DF4(int);
+	virtual void rva00355E20(int, int);
+	virtual void rva00356724(GameInfo *game);
 private:
-	unsigned char m_pad00[0x10];
+	unsigned char m_pad04[0x10 - 4];
 	AsciiString m_movieOverlay; // +0x10
 	AsciiString m_image; // +0x14
 };
@@ -107,7 +107,7 @@ void Rva003560ED::rva00355E20(int, int)
 		TheDisplay->slot73(0);
 }
 
-// ?rva00355E4C@Rva003561BE@@QAE_NXZ @0x00355E4C 57B
+// ?rva00355E4C@Rva003561BE@@UAE_NXZ @0x00355E4C 57B
 // Slot 5 of the derived vtable 0x00C14EBC (class of the rowed deleting dtor
 // 0x0035686D): true without TheAudio; otherwise TheAudio slot 10, then, unless
 // the +0x1C value is 1, true only when TheAudio slot 52 refuses that value.
@@ -130,11 +130,11 @@ extern AudioManager *TheAudio;
 class Rva003561BE
 {
 public:
-	bool rva00355E4C();
-	void rva00355E85();
-	void rva00356889(GameInfo *game);
+	virtual bool rva00355E4C();
+	virtual void rva00355E85();
+	virtual void rva00356889(GameInfo *game);
 private:
-	unsigned char m_pad00[0x08];
+	unsigned char m_pad04[0x08 - 4];
 	int m_08; // +0x08
 	unsigned char m_pad0C[0x10 - 0x0C];
 	AsciiString m_image; // +0x10
@@ -171,7 +171,7 @@ public:
 	void rva00356284();
 };
 
-// ?rva00355E85@Rva003561BE@@QAEXXZ @0x00355E85 92B
+// ?rva00355E85@Rva003561BE@@UAEXXZ @0x00355E85 92B
 // Slot 3 of the derived vtable 0x00C14EBC: hands each of the +0x1C/+0x20
 // values that is not 1 to TheAudio slot 27 and resets it to 1, clears
 // TheGameLogic's +0x78 flag, runs TheDisplay slot 68 and the rowed
@@ -195,7 +195,7 @@ void Rva003561BE::rva00355E85()
 	m_08 &= 0;
 }
 
-// ?rva00356889@Rva003561BE@@QAEXPAVGameInfo@@@Z @0x00356889 625B
+// ?rva00356889@Rva003561BE@@UAEXPAVGameInfo@@@Z @0x00356889 625B
 // Slot 2 of the derived vtable 0x00C14EBC (RET 4, argument unused): the
 // load screen's start. TheAudio slot 20 (2) and slot 10; the
 // "LoadScreenForeground" image on display layer 2 over the whole screen and
@@ -241,7 +241,7 @@ void Rva003561BE::rva00356889(GameInfo *)
 	((BfmeStrVM0 *)TheDisplay)->rva0025D358(text, 0.5f, 0.03125f, (int)font, -10924, 0);
 }
 
-// ?rva00356724@Rva003560ED@@QAEXPAVGameInfo@@@Z @0x00356724 329B
+// ?rva00356724@Rva003560ED@@UAEXPAVGameInfo@@@Z @0x00356724 329B
 // Slot 2 of vtable 0x00C14EA4 (RET 4, argument unused), the base load
 // screen's start: with a +0x10 name, the ring rectangle (Display 0x002B2466)
 // and TheAudio slots 20(2)/10; the +0x14 image on display layer 2 over the
