@@ -501,9 +501,10 @@ Two remedies, and they are not interchangeable:
 - **Row the body**, which is real work and the reason the file is frozen.
 
 Note that the second half of the tool's own error message is not actionable
-here: it suggests `reverse/unclaimed_sources_whitelist.txt`, and that file
-exists only in the BFME 1 reference tree, not in this repo. Do not go looking
-for it — marker the definitions or row them.
+here: it suggests `reverse/unclaimed_sources_whitelist.txt`. That file exists,
+but it only exempts a source with zero matched rows, and it is a protected
+shrink-only list (`tools/protected_paths.py`) that may not grow. Do not add to
+it — marker the definitions or row them.
 
 An earlier version of this section said flatly: do not script the marking. That
 was too strong, and the sweeps above are the counter-example — but the reason
