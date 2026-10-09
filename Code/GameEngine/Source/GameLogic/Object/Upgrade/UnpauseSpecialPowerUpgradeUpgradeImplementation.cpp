@@ -14,6 +14,7 @@ typedef unsigned int UnsignedInt;
 #define FALSE false
 #define TRUE true
 class SpecialPowerTemplate;
+class UnpauseSpecialPowerUpgrade;
 class SpecialPowerModuleInterface
 {
 public:
@@ -42,8 +43,7 @@ private:
 };
 class Object
 {
-public:
-	BehaviorModule **getBehaviorModules() const { return m_behaviors; }
+friend class UnpauseSpecialPowerUpgrade;
 private:
 	unsigned char m_pad000[0x244];
 	BehaviorModule **m_behaviors; // +0x244
@@ -113,7 +113,7 @@ private:
 };
 void UnpauseSpecialPowerUpgrade::upgradeImplementation()
 {
-	for (BehaviorModule **m = getObject()->getBehaviorModules(); *m; ++m)
+	for (BehaviorModule **m = getObject()->m_behaviors; *m; ++m)
 	{
 		SpecialPowerModuleInterface *sp = (*m)->getBehaviorModuleInterface()->getSpecialPower();
 		if (!sp)
@@ -130,7 +130,7 @@ void UnpauseSpecialPowerUpgrade::upgradeRemovalImplementation()
 {
 	if (!slot00())
 		return;
-	for (BehaviorModule **m = getObject()->getBehaviorModules(); *m; ++m)
+	for (BehaviorModule **m = getObject()->m_behaviors; *m; ++m)
 	{
 		SpecialPowerModuleInterface *sp = (*m)->getBehaviorModuleInterface()->getSpecialPower();
 		if (!sp)
