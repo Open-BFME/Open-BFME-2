@@ -50,3 +50,14 @@ void Rva003FA381WordMask::combine(const unsigned int *other)
 unsigned Rva002257E9OrValues(unsigned first, unsigned second) {
     return first | second;
 }
+
+// Whole clean BF1 f98983a7 Common/Rva00694BB0Or.cpp supplies this source
+// lead. Native50E45..50E52/13 followsRET8 and endsRET before a new prologue.
+// It reads sourceword0 through stack8 then ORs destinationword0 through
+// stack4. ECX is a temporary and stack cleanup is the caller's. Eight-section
+// direct/address scans found no witnesses. Original owner and declaration's
+// return type remain unknown; donor's void cdecl behavior view asserts the
+// raw32-bit read/modify/write only, without a name or payload interpretation.
+void Rva00050E45OrInto(unsigned *destination, const unsigned *source) {
+    *destination |= *source;
+}
