@@ -10,6 +10,10 @@ class SubsystemInterface {
 public:
     SubsystemInterface();
     virtual ~SubsystemInterface();
+    virtual void init() = 0;
+    // Target vtables place loadIniFilesFromLegend at slot 2 (0x001B5384).
+    // The existing SubsystemInterface provider implements this bool method.
+    virtual bool loadIniFilesFromLegend();
 private:
     unsigned int m_targetBaseWords[2]; // Offset evidence: SnowManager begins at +0x0C.
 };
@@ -25,7 +29,6 @@ public:
     SnowManager();
     virtual ~SnowManager();
     virtual void init();
-    virtual void targetSlot2();
     virtual void targetSlot3();
     virtual void targetSlot4();
     virtual void targetSlot5();
