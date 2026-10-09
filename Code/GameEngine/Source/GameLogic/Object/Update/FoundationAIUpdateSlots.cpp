@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /GX
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /GX /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
 //
 // FoundationAIUpdate overrides. Two sit on vtables only its matched ctor 0x004551B3
 // and dtor ??1Rva00455050 install: the primary 0x00C40608 and the
@@ -46,7 +46,19 @@ class Team;
 class ThingTemplate;
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 
-class GeometryInfo { public: char m_pad00[0x14]; float m_radius; };
+enum GeometryType { GEOMETRY_SPHERE=0, GEOMETRY_CYLINDER=1, GEOMETRY_BOX=2 };
+class GeometryInfo { public:
+ GeometryInfo(GeometryType, bool, float, float, float);
+ virtual ~GeometryInfo();
+ char m_pad04[0xC]; float m_radius10; float m_radius;
+ char m_pad18[0xC]; float m_major24, m_minor28; char m_tail2C[0x30];
+};
+enum Relationship { ENEMIES=0, ALLIES=1, NEUTRAL=2 };
+enum CommandSourceType { CMD_FROM_PLAYER=0, CMD_FROM_SCRIPT=1, CMD_FROM_AI=2 };
+class AICommandInterface { public: void aiMoveToPositionEvenIfSleeping(const Coord3D *, CommandSourceType); };
+class AIUpdateInterface { public: bool isMoving() const;
+ AICommandInterface *command() { return reinterpret_cast<AICommandInterface *>(reinterpret_cast<char *>(this)+0x20); }
+};
 
 enum ObjectID
 {
@@ -81,6 +93,7 @@ class Thing
 {
 public:
 	Drawable *getDrawable() const;
+ void rva0030A8EE(Coord3D *out) const;
 };
 
 class Player;
@@ -94,6 +107,9 @@ public:
  const Coord3D *getPosition() const { return reinterpret_cast<const Coord3D *>(m_pad008 + 0x30); }
  void setProducer(Object *obj);
  bool isEffectivelyDead() const { return m_effectivelyDead; }
+ Object *container() const { return *reinterpret_cast<Object *const *>(reinterpret_cast<const char *>(this)+0x274); }
+ Team *getTeam() const { return *reinterpret_cast<Team *const *>(reinterpret_cast<const char *>(this)+0x304); }
+ AIUpdateInterface *getAIUpdateInterface() const { return *reinterpret_cast<AIUpdateInterface *const *>(reinterpret_cast<const char *>(this)+0x258); }
 	__forceinline unsigned int isKindOf(int kind) const
 	{
 		return m_template->m_kindOf[kind >> 5] & (1U << (kind & 0x1f));
@@ -172,7 +188,8 @@ extern InGameUI *TheInGameUI;
 class Player
 {
 public:
-	Team *getDefaultTeam() const { return m_defaultTeam; }
+	Relationship getRelationship(const Team *) const;
+ Team *getDefaultTeam() const { return m_defaultTeam; }
 private:
 	unsigned char m_pad000[0x2EC];
 	Team *m_defaultTeam; // +0x2EC
@@ -273,7 +290,7 @@ public:
 private:
 	void rva0045527A(ObjectID id);
 	void rva00455BDD(const ThingTemplate *tmpl, const Coord3D *pos, float angle);
-	void rva00455C98(const ThingTemplate *tmpl, const Coord3D *pos, float angle, Player *owner);
+	bool rva00455C98(const ThingTemplate *tmpl, const Coord3D *pos, float angle, Player *owner);
 	int m_24;
 	ObjectID m_28; // +0x28
 	bool m_2C;
@@ -451,4 +468,64 @@ void FoundationAIUpdate::rva0045537F()
    obj->setProducer(self);
   }
  }
+}
+
+#include <math.h>
+#include "vector3.h"
+float GetGameLogicRandomValueReal(float, float, char *, int);
+// Reference-first adaptation of ZH BuildAssistant::moveObjectsForConstruction;
+// WB's paired Foundation body supplies the two destinations and line-build branch.
+bool FoundationAIUpdate::rva00455C98(const ThingTemplate *tmpl, const Coord3D *pos, float angle, Player *owner)
+{
+ float minor=tmpl->getGeometryInfo().m_minor28, major=tmpl->getGeometryInfo().m_major24;
+ GeometryInfo gi(GEOMETRY_BOX,false,50.0F,major*1.5F,minor*1.5F);
+ float radius=gi.m_radius10*1.5F;
+ bool anyUnmovables=false;
+ BfmeWideResult hits=ThePartitionManager->iterateObjectsInRange(pos,gi.m_radius*1.5F,3,&Rva00261603Filter(*pos,gi,angle,true),0);
+ for(Object *obj=hits.next();obj;obj=hits.next()) {
+  if (obj->container()) obj=obj->container();
+  if (!obj) continue;
+  if (obj->getTemplate()->constructionKind(89) || obj->getTemplate()->constructionKind(104) || obj->getTemplate()->constructionKind(60) || obj->getTemplate()->constructionKind(134)) continue;
+  if (!obj->getTemplate()->constructionKind(58) && !isRemovableForConstruction(obj)) {
+   Relationship rel=owner->getRelationship(obj->getTeam());
+   if (rel==ALLIES || rel==NEUTRAL) {
+    AIUpdateInterface *ai=obj->getAIUpdateInterface();
+    if (ai) {
+     char *src="C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\AIUpdate\\FoundationAIUpdate.cpp";
+     float variedRadius=GetGameLogicRandomValueReal(0.5F,1.5F,src,683)*radius;
+     Coord3D dest1,dest2;
+     if (!tmpl->constructionKind(60)) {
+      angle=GetGameLogicRandomValueReal(-3.1415927410125732F,3.1415927410125732F,src,687);
+      Vector3 vec(variedRadius,0.0F,0.0F);vec.Rotate_Z(angle);
+      dest1.x=pos->x+vec.X;dest1.y=pos->y+vec.Y;dest1.z=pos->z+vec.Z;
+      angle=GetGameLogicRandomValueReal(-3.1415927410125732F,3.1415927410125732F,src,695);
+      vec.Rotate_Z(angle);
+      dest2.x=pos->x+vec.X;dest2.y=pos->y+vec.Y;dest2.z=pos->z+vec.Z;
+     } else {
+      Coord3D delta;
+      if (m_object->getTemplate()->constructionKind(120)) {
+       delta=*m_object->getPosition();delta.x-=pos->x;delta.y-=pos->y;delta.z-=pos->z;
+       delta.x*=0.5F;delta.y*=0.5F;delta.z*=0.5F;
+      } else {
+       obj->rva0030A8EE(&delta);float scale=variedRadius+radius;
+       delta.x*=scale;delta.y*=scale;delta.z*=scale;
+      }
+      dest1.x=pos->x+delta.x;dest1.y=pos->y+delta.y;dest1.z=pos->z+delta.z;
+      dest2.x=pos->x-delta.x;dest2.y=pos->y-delta.y;dest2.z=pos->z-delta.z;
+     }
+     float dx1=obj->getPosition()->x-dest1.x,dy1=obj->getPosition()->y-dest1.y;
+     float dist1=dx1*dx1+dy1*dy1;
+     float dx2=obj->getPosition()->x-dest2.x,dy2=obj->getPosition()->y-dest2.y;
+     float dist2=dx2*dx2+dy2*dy2;
+     Coord3D dest;
+     if (dist1 < dist2)
+      dest = dest1;
+     else
+      dest = dest2;
+     if (!ai->isMoving()) ai->command()->aiMoveToPositionEvenIfSleeping(&dest,CMD_FROM_AI);
+    } else anyUnmovables=true;
+   } else anyUnmovables=true;
+  }
+ }
+ return !anyUnmovables;
 }

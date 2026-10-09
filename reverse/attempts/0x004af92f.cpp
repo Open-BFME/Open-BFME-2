@@ -1,12 +1,14 @@
 // ?update@RespawnUpdate@@UAE?AW4UpdateSleepTime@@XZ
 // partial score=0.995 date=2026-10-09
-// cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG
+// ?update@RespawnUpdate@@UAE?AW4UpdateSleepTime@@XZ
+// partial score=0.995 date=2026-10-09
+// cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG /I.
 // WB RespawnUpdate::update and native4AF92F..4AFB01 establish identity.
 // Factory4AF8F6/ctor4AF096 prove44B module and secondary update at10;
 // vtableC556A4 entry0 is VA8AF92F. BF1 RespawnUpdate9cbfb551 condition
 // helpers plus matched BFME2 death/rule units guide state semantics.
-#include "../../../../../Libraries/Include/Lib/Coord3D.h"
-#include "../../../Common/GameLogicObjectLookupView.h"
+#include "Code/Libraries/Include/Lib/Coord3D.h"
+#include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 enum UpdateSleepTime {UPDATE_SLEEP_FOREVER=0x3fffffff};
 enum DisabledType;

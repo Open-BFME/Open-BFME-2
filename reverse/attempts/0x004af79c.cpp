@@ -1,10 +1,12 @@
 // ?triggerRevival@RespawnUpdate@@QAEXPAVObject@@@Z
 // partial score=0.99 date=2026-10-09
-// cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG
+// ?triggerRevival@RespawnUpdate@@QAEXPAVObject@@@Z
+// partial score=0.99 date=2026-10-09
+// cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG /I.
 // WB RespawnUpdate::triggerRevival and native 4AF79C..4AF92F.
 // BF1 RespawnUpdate rule/condition helpers (9cbfb551) guide semantics;
 // BFME2 layout from matched death helper4AF63E and native accesses.
-#include "../../../../../Libraries/Include/Lib/Coord3D.h"
+#include "Code/Libraries/Include/Lib/Coord3D.h"
 // ?triggerDeathBeforeRespawn@RespawnUpdate@@QAEXXZ @0x004AF63E 350B.
 // RespawnUpdate death entry called by RespawnBody::apply. State 0 or 4
 // looks the object's experience level up in the module-data rule tree at
