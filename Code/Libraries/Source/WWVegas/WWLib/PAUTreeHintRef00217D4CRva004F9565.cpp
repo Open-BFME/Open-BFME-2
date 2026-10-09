@@ -36,4 +36,19 @@ struct Rva004F9185Cmp
 {
 	__forceinline bool operator()(const ConstTreeHintRef00217D4C &a, const ConstTreeHintRef00217D4C &b) const { int ka = a.m_ptr->m_08->m_key; int kb = b.m_ptr->m_08->m_key; return ka > kb; }
 };
+// Native4F6590..4F6628,152B. STLport _algo.c unguarded insertion with
+// the established converting-handle comparison and owning-reference ABI.
+// The volatile cursor constrains compiler reloads to retail's stack home;
+// it is not evidence of an original volatile qualifier or concurrent access.
+namespace _STL {
+template<> void __unguarded_linear_insert<TreeHintRef00217D4C *,TreeHintRef00217D4C,Rva004F9185Cmp>(TreeHintRef00217D4C *last,TreeHintRef00217D4C value,Rva004F9185Cmp cmp) {
+ TreeHintRef00217D4C *volatile next=last-1;
+ while(cmp(value,*next)) {
+  *last=*next;
+  last=next;
+  --next;
+ }
+ *last=value;
+}
+}
 template void _STL::sort<TreeHintRef00217D4C *, Rva004F9185Cmp>(TreeHintRef00217D4C *, TreeHintRef00217D4C *, Rva004F9185Cmp);
