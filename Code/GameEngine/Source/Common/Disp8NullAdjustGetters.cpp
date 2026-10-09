@@ -80,3 +80,32 @@ void *__fastcall Rva0024E301Adjust(void *baseAt10)
     char *complete = (char *)baseAt10 - 0x10;
     return complete ? (char *)baseAt10 + 4 : 0;
 }
+
+// Native 68DC6..68DD6 is a complete RET0 body immediately after RET4.
+// It reads receiver+4, then that node's +0x0C pointer, and returns either
+// pointer-8 or null. These prefix views record only those observed accesses.
+// The original iterator, object type and inheritance remain unidentified.
+// Clean BF1 f98983a7d3bb405f1a4ba94bb6a2a168062a819d lookuptable.cpp,
+// using multilist.h's Current_Object and nullable downcast in Peek_Obj,
+// emits the same whole 16 bytes with no relocations under /O1 /G7 /arch:SSE2.
+// That is a source guide, not proof of a LookupTableClass or RenderObjClass
+// identity in BF2. This unit's established /O1 /G6 emits the same body.
+struct Rva00068DC6NodePrefix
+{
+    char m_unknown[0x0C];
+    void *m_object;
+};
+
+class Rva00068DC6CurrentObject
+{
+public:
+    void *get() const;
+    void *m_unknown;
+    Rva00068DC6NodePrefix *m_current;
+};
+
+void *Rva00068DC6CurrentObject::get() const
+{
+    void *object = m_current->m_object;
+    return object ? (char *)object - 8 : 0;
+}
