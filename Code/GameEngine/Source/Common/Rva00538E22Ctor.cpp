@@ -1,10 +1,14 @@
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
+// cl: /EHsc /Ireference/shims/moduledata /ICode/Libraries/Include/Lib
 // stlport
 // ??0Rva00538E22@@QAE@H@Z, retail 0x00538E22, 28 bytes.
 // Ctor: vector<BfmeE16> at +0 plus int at +0xc. Calls rowed _Vector_base ctor 0x00211E58 then stores arg.
 // Evidence: retail lea [ebp+0xb] allocator temp plus mov [esi+0xc] plus ret 4 plus returns this.
 #include <vector>
+#include "Coord2D.h"
 #include <cstring>
+extern "C" void _ReadWriteBarrier(void);
+#pragma intrinsic(_ReadWriteBarrier)
 #pragma intrinsic(memcpy)
 #define BFME_SNAPSHOT_NAME_SLOT
 #include "../../../../reference/shims/moduledata/Common/Snapshot.h"
@@ -54,6 +58,7 @@ struct Rva00538E43Pair
 {
 	float x, y;
 	Rva00538E43Pair() : x(0), y(0) {}
+	Rva00538E43Pair(float a, float b) : x(a), y(b) {}
 	Rva00538E43Pair(const Rva00318E4ACoord &that) { memcpy(this, &that, sizeof(that)); }
 	Rva00538E43Pair(const Rva00538E43Pair &that) : x(that.x), y(that.y) {}
 	~Rva00538E43Pair() {}
@@ -222,4 +227,61 @@ void Rva003FE1DBOwner::rva003FE1DB()
  } else {
   m_active = 0;
  }
+}
+
+extern "C" double __cdecl sqrt(double);
+class Rva003FE13E
+{
+	float m_pad00[6];
+	float m_18;
+	float m_1C;
+	char m_pad20[0x50 - 0x20];
+	float m_50;
+	float m_54;
+	float m_58;
+
+public:
+	float rva003FE13E();
+};
+
+
+class LivingWorldArmyIcon
+{
+public:
+	void continueMoving(Coord2D *out);
+private:
+	char m_unknown0[0x18];
+	Coord2D current;
+	char m_unknown20[0x30];
+	Coord2D destination;
+};
+
+// Complete native 229B RET4 and WB1074010 establish this movement step.
+// The speed helper and queue advance retain their address-derived names.
+// Ordered current reads preserve retail's loads after displacement construction.
+// The output barrier retains the native x reload; newY stays a local because
+// the native subtraction reuses its value rather than loading out->y again.
+void LivingWorldArmyIcon::continueMoving(Coord2D *out)
+{
+	Coord2D d;
+	d.x = destination.x - current.x;
+	d.y = destination.y - current.y;
+	float squared = d.x * d.x + d.y * d.y;
+	if (squared > 0.001) {
+		float inverse = 1.0f / (float)sqrt(squared);
+		d.x *= inverse;
+		d.y *= inverse;
+	}
+	float step = ((Rva003FE13E *)this)->rva003FE13E();
+	Rva00538E43Pair displacement(step * d.x, step * d.y);
+	out->x = *reinterpret_cast<const volatile float *>(&current.x) + displacement.x;
+	float newY = *reinterpret_cast<const volatile float *>(&current.y) + displacement.y;
+	out->y = newY;
+	_ReadWriteBarrier();
+	d.x = destination.x;
+	d.y = destination.y;
+	d.x -= out->x;
+	d.y -= newY;
+	if (d.length() < 1.0f)
+		((Rva003FE1DBOwner *)this)->rva003FE1DB();
 }
