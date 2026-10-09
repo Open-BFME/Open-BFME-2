@@ -1,5 +1,5 @@
 // stlport
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /arch:SSE /ICode/GameEngine/Source/Common /ICode/Libraries/Include/Lib /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
+// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmelist /Ireference/shims/bfmealloc /D_CRTIMP= /O1 /EHsc /MD /arch:SSE /ICode/GameEngine/Source/Common /ICode/Libraries/Include/Lib /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
 // InGameHeroSelectInterface.cpp -- InGameHeroSelectInterface::Impl members
 // recovered from WorldBuilder leads (reverse/wb_name_leads.csv): WB's debug
 // build names the function and asserts a valid hero id and template; retail
@@ -33,6 +33,7 @@ public:
 	AsciiString m_name;				// +0x64
 };
 
+class Player {public:bool isLocalPlayer() const;};
 class Drawable;
 struct HeroContainer;
 
@@ -40,6 +41,7 @@ class Object
 {
 public:
 	bool isSelectable() const;
+ Player *getControllingPlayer() const;
 	const ThingTemplate *getTemplate() const { return m_template; }
 	Drawable *getDrawable() const;			// 0x005508E2
 
@@ -85,7 +87,7 @@ public:
 	HERO_VIEW_SLOT(08) HERO_VIEW_SLOT(09) HERO_VIEW_SLOT(10) HERO_VIEW_SLOT(11)
 	HERO_VIEW_SLOT(12) HERO_VIEW_SLOT(13) HERO_VIEW_SLOT(14) HERO_VIEW_SLOT(15)
 	HERO_VIEW_SLOT(16) HERO_VIEW_SLOT(17) HERO_VIEW_SLOT(18) HERO_VIEW_SLOT(19)
-	HERO_VIEW_SLOT(20) HERO_VIEW_SLOT(21) HERO_VIEW_SLOT(22) HERO_VIEW_SLOT(23)
+	HERO_VIEW_SLOT(20) virtual void lookAt(const Coord3D *); HERO_VIEW_SLOT(22) HERO_VIEW_SLOT(23)
 	HERO_VIEW_SLOT(24) HERO_VIEW_SLOT(25) HERO_VIEW_SLOT(26) HERO_VIEW_SLOT(27)
 	HERO_VIEW_SLOT(28) HERO_VIEW_SLOT(29) HERO_VIEW_SLOT(30) HERO_VIEW_SLOT(31)
 	HERO_VIEW_SLOT(32) HERO_VIEW_SLOT(33) HERO_VIEW_SLOT(34) HERO_VIEW_SLOT(35)
@@ -138,7 +140,8 @@ struct HeroButtonList
 struct HeroSelectData
 {
 	unsigned char m_pad00[0x10];
-	HeroButtonList m_heroButtons;			// +0x10
+	HeroButtonList m_heroButtons;
+ HeroButtonList m_builders;			// +0x10
 };
 
 struct BuilderSelectionData;
@@ -170,6 +173,8 @@ public:
 	{
 	public:
 		void SelectAllHeroes();
+
+ void BuildLocalBuilderList(_STL::list<Rva00525119> *,int);
 		void FlashHeroButton(const AsciiString &templateName, Int frames);
 		Bool IsBuilderOnScreen(const Object *builder);
 		void rva00526E8B(_STL::list<Rva00525119> *list);
@@ -181,6 +186,8 @@ public:
  char pad14[0x48-0x14];
  struct HeroSlot {HeroButtonNode *node;char unknown[20];};
  HeroSlot slots[16];
+ char pad1C8[0x1DA-0x1C8];bool builderUsed;
+ char pad1DB;unsigned int builderDeadline;
 	};
 };
 
@@ -328,5 +335,28 @@ void InGameHeroSelectInterface::Impl::SelectAllHeroes()
   message->appendObjectIDArgument(hero->id);
   reinterpret_cast<BuilderUISelectionView *>(TheInGameUI)->selectDrawable(draw);
   clear=false;
+ }
+}
+
+// WB13C0BF0 names BuildLocalBuilderList. Native526421..5264AD is142B.
+// Native list at data+14 stores nodes with id+8 and used+C; output list
+// contains one pointer per node. Mode is a DWORD compared with1, not bool.
+// The same verified readiness callback and four-byte handle serve sorting.
+void InGameHeroSelectInterface::Impl::BuildLocalBuilderList(_STL::list<Rva00525119> *list,int mode)
+{
+ list->clear();
+ if(m_data->m_builders.begin()!=m_data->m_builders.end()) {
+  for(HeroButtonNode *it=m_data->m_builders.begin();it!=m_data->m_builders.end();it=it->m_next) {
+   Object *builder=TheGameLogic->findObjectByID(it->m_data.m_heroID);
+   BuilderSelectionData *entry=reinterpret_cast<BuilderSelectionData *>(&it->m_data);
+   if(builder && builder->getControllingPlayer()->isLocalPlayer()) {
+    if(entry->used)builderUsed=true;
+    union {unsigned char (__stdcall *fn)(Object *);unsigned char (Impl::*method)(Object *);} ready={Rva00524FEDCheck};
+    if(mode!=1 || (this->*ready.method)(builder)) {
+     Rva00525119 handle;handle.m_ptr=reinterpret_cast<Rva00525119Inner *>(it);
+     list->push_back(handle);
+    }
+   } else entry->used=false;
+  }
  }
 }
