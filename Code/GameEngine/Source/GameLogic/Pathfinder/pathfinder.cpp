@@ -47,6 +47,7 @@ struct PathfinderTemplateView {
     char *nameBuffer;
     char pad68[0x108-0x68];
     unsigned char kinds[24];
+    char pad120[0x56c-0x120];Int priority;char pad570[0x634-0x570];Bool flag;
     __forceinline bool hasKind(int bit) const { return (kinds[bit/8] & (1<<(bit%8)))!=0; }
     __forceinline const char *name() const { return nameBuffer ? nameBuffer+8 : ""; }
 };
@@ -84,10 +85,8 @@ struct Rva002E93A7Info
 	Pathfinder *m_00;
 	Int m_04;
 };
-// Retail2EE1C7 proves the accessed offsets; chain and portal labels describe
-// behavior. Original member spellings are not established.
-class Waypoint {public:Int word0,id;void *name;Coord3D location;char pad18[0x44-0x18];Waypoint *chainNext;Int word48,linkCount;};
-struct PathfinderPathNode {char pad00[0xc];Coord3D position;PathfindLayerEnum layer;Bool canOptimize;char pad1d[3];Int portalID;};
+class Waypoint { public: Int word0,id;void *name;Coord3D location;char pad18[0x44-0x18];Waypoint *chainNext;Int word48,linkCount; };
+struct PathNode {char pad00[0xc];Coord3D position;PathfindLayerEnum layer;Bool canOptimize;char pad1d[3];Int portalID;};
 class PathfindCell;
 class Path
 {
@@ -100,11 +99,29 @@ public:
 	void rva00364551(Object *obj, LocomotorSurfaceTypeMask surfaces, Bool blocked, const float *facing);
 	void rva00365E98(Object *obj, const Coord3D *dir, LocomotorSurfaceTypeMask surfaces, Bool blocked);
 private:
-	void *word0;PathfinderPathNode *firstNode;Int word8;char wordC;Bool blockedByAlly;char padE[0x28-0xe];
+	void *word0;PathNode *firstNode;Int word8;char wordC;Bool blockedByAlly;char padE[0x28-0xe];
 };
 
+struct Rva002E8C23Pair { Int x,y; };
+int __cdecl Rva002E8C4DCall(int,unsigned char,Rva002E8C23Pair *,int);
+bool Rva002EBBFBIsOdd(void *);
+struct ICoord2D;
+ICoord2D *Rva002E7875WorldToCell(ICoord2D *,bool,const Coord3D *);
+extern "C" double __cdecl fabs(double);
 struct PathfinderCostCellInfo { Int x,y; };
-struct PathfinderGroundInfo {Int x,y,parent;Waypoint *parentWaypoint;char pad10[0x2c-0x10];unsigned int flags;};
+struct PathfinderGroundInfo { PathfinderCostCellInfo position;Int parent;Waypoint *parentWaypoint;unsigned short totalCost,costSoFar;char pad14[0x2c-0x14];unsigned int flags; };
+struct In002E6BA1 { Int x,y; };
+class MixFileInfoBuffer;
+extern Int TheMixFileInfoPool;
+void Rva0052DBCDInit();
+MixFileInfoBuffer *Rva002E8B7AInit(MixFileInfoBuffer **,Int,In002E6BA1 *);
+class Rva002E6AF3 { public: Int get() const; };
+class Rva002E6B06 { public: Int rva002E6B06(); };
+class Rva002E6C79;
+struct Rva002E8BCFSrc;
+class Rva002E8BCF { public: Rva002E8BCF(const Rva002E8BCFSrc *,Bool,Int,Bool); Int surfaces;Bool field4,field5;Int maxLayer;Bool fieldC; };
+class Rva002E6DC4 { public: Bool rva002E6DC4(void *,void *); };
+
 void ji_00629952();
 struct Rva002F35AFCell;
 class Rva002E6C79
@@ -127,20 +144,25 @@ public:
 	};
 	enum { LAYER_GROUND = 1 };
 
+ Bool StartPathfind(Int);void ReleaseInfo();void SetParentCell(Int *);void PutOnClosedList(MixFileInfoBuffer **);Int CalcCostSoFar(const Rva002E6C79 *);
+ __forceinline void allocateInfo(In002E6BA1 *pos) {
+  if(!m_pathInfo) { if(!TheMixFileInfoPool)Rva0052DBCDInit();m_pathInfo=(PathfinderGroundInfo *)Rva002E8B7AInit((MixFileInfoBuffer **)&TheMixFileInfoPool,(Int)this,pos); }
+  else m_pathInfo->parentWaypoint=0;
+ }
 	void rva0052DAE9(Bool open);
-	Int getXIndex() const { return m_pathInfo->x; }
-	Int getYIndex() const { return m_pathInfo->y; }
+	Int getXIndex() const { return m_pathInfo->position.x; }
+	Int getYIndex() const { return m_pathInfo->position.y; }
 	// 0x0052DD75 (unrowed): an angle for the cell from a facing, a count and
 	// a weight (unnamed).
 	float rva0052DD75(float facing, Int count, float weight);
 	CellType getType() const { return (CellType)(m_info & 0xf); }
 	Int getLayer() const { return (m_info & 0x3f0) >> 4; }
  PathfindCell *getParentCell(){return (PathfindCell *)((Rva002E6C79 *)this)->rva002E6C79();}
- Waypoint *getParentWaypoint()const{return m_pathInfo?m_pathInfo->parentWaypoint:0;}
+ Waypoint *getParentWaypoint()const {return m_pathInfo?m_pathInfo->parentWaypoint:0;}
 
 private:
 	PathfinderGroundInfo *m_pathInfo;
- Waypoint *waypoint;Int word8;
+	Waypoint *waypoint;Int word8;
 	unsigned int m_info;			// +0x0C
 };
 
@@ -214,6 +236,7 @@ class TerrainLogicCheckDestination : public PathfinderNativeSlots<50> { public: 
 class PathfinderContain28 : public PathfinderNativeSlots<28> { public: virtual int slot70(); };
 class PathfinderContain31 : public PathfinderNativeSlots<31> { public: virtual void *slot7C(); };
 class PathfinderContain69 : public PathfinderNativeSlots<69> { public: virtual unsigned int slot114(int); };
+class TerrainLogicWaterQuery : public PathfinderNativeSlots<19> { public: virtual bool slot4C(float,float,float *,void *,void *); };
 class TerrainLogic
 {
 public:
@@ -224,6 +247,7 @@ public:
 	virtual void slot10();
 	virtual void slot14();
 	virtual float getGroundHeight(float x, float y, Coord3D *normal);
+	virtual float getLayerHeight(float,float,PathfindLayerEnum,Coord3D *,Bool);
 	PathfindLayerEnum getLayerForDestination(Object *obj, const Coord3D *pos);
 };
 extern TerrainLogic *TheTerrainLogic;
@@ -285,7 +309,7 @@ public:
 	const Coord3D *m_layerPos;				// +0x14
 	PathfindLayerEnum m_layer;				// +0x18
 	float m_range;							// +0x1C
-	char m_pad20[0x28 - 0x20];
+	Rva002E8C23Pair fallback;
 	Int m_28;								// +0x28
 	Int m_2C;								// +0x2C
 	Coord3D m_goal;							// +0x30
@@ -369,7 +393,8 @@ struct Rva002F35AFCell
 	Rva002F35AFZone *m_0C;
 };
 
-struct Rva002E8C23Param;Int Rva002E8C23Call(Int,unsigned char,Rva002E8C23Param *);
+struct Rva002E8C23Param;
+Int Rva002E8C23Call(Int,unsigned char,Rva002E8C23Param *);
 // The 12-byte record +0x1C1CC collects per hop (zone, next cell x/y).
 struct Rva002F35AFHop
 {
@@ -498,9 +523,13 @@ public:
 	Bool rva002EAE5F(const ICoord2D *,Int,ICoord2D *,void *);
 	Bool rva002EB11B(const ICoord2D *,Int,ICoord2D *,void *);
 	Bool rva002F379E(ICoord2D *,Int,void *);
+	Bool AdjustDestination(Object *,const LocomotorSet &,Coord3D *,const Coord3D *);
+	Int CheckPathCost(Object *,const LocomotorSet &,const Coord3D *,const Coord3D *);
 	Bool rva002F8E2D(const ICoord2D *,Int,ICoord2D *,void *);
 	Bool rva002F90E9(ICoord2D *,Int,void *);
 	Bool rva002F92BC(const ICoord2D *,Int,ICoord2D *,void *);
+ PathfindCell *rva002E8BF8(PathfindLayerEnum,const Coord3D *);
+ PathfindCell *rva002F36E5();Int rva002F40E7();void CheckChangeLayers(PathfindCell *,Object *);
 	Int rva002F0A72(PathfindCell *,PathfindCell *);
 	float GetWallHeight(PathfindLayerEnum layer, const Coord3D *pos, Coord3D *normal);
 	void *rva001E3647Pos(int layer, const Coord3D *pos);
@@ -552,11 +581,11 @@ protected:
 		const Coord3D *from, const Coord3D *to, Bool crusher, Bool closestOK,
 		Coord3D *adjustedTo);
 private:
-	char m_pad000[0x10];
+	char m_pad000[8];Bool m_isMapReady;char m_pad009[7];
 	int m_unknown10;
 	char m_pad014[0x10];
     Int m_extentLowX,m_extentLowY,m_extentHighX,m_extentHighY;
-    char m_pad034[0x5c-0x34];
+    MixFileInfoBuffer *m_closedList;Bool m_isTunneling;char m_pad039[0x5c-0x39];
 	Bridge *m_bridges;
 	PathfindLayer m_layers[16];
 	PathfindZoneManager m_zoneManager;
@@ -1842,9 +1871,69 @@ Bool Pathfinder::rva002F379E(ICoord2D *scanCenterCell, Int remainingCellBudget, 
 }
 
 
-// PrependCells: clean GeneralsMD AIPathfind.cpp9030 semantic spine.
-// WB D5E770 proves name and native2EE1C7..2EE43A RET16 proves full boundary.
-// BFME2 additionally prepends waypoint chains and marks portal ids.
+
+// BF1 checkPathCost from clean PathfinderStepD4F90 donor9cbfb551; native
+// 2F5C7A..2F600C RET16 and WB D5F9F0 independently name CheckPathCost.
+Int Pathfinder::CheckPathCost(Object *obj,const LocomotorSet &locomotorSet,const Coord3D *from,const Coord3D *rawTo)
+{
+ if(!m_isMapReady)return 0;
+ const Int MAX_COST=0x7fff0000;
+ Int cellCount=0;
+ Coord3D adjustTo;copyCoord3D(&adjustTo,rawTo);
+ PathfindLayerEnum goalLayer=TheTerrainLogic->getLayerForDestination(obj,&adjustTo);
+ PathfindCell *goal=rva002E8BF8(goalLayer,&adjustTo);
+ if(!goal)return MAX_COST;
+ Bool center;Int radius;Rva002EBCA7Split(obj,&radius,(unsigned char *)&center);
+ PathfindCell *parent;
+ {
+ ICoord2D start;Rva002E7875WorldToCell(&start,true,from);
+ PathfindLayerEnum fromLayer=TheTerrainLogic->getLayerForDestination(obj,from);
+ parent=(PathfindCell *)rva001E3647Pos(fromLayer,from);
+ if(!parent)return MAX_COST;
+ {
+ ICoord2D end;ICoord2D *ep=Rva002E7875WorldToCell(&end,true,&adjustTo);
+ goal->allocateInfo((In002E6BA1 *)ep);
+ if(parent!=goal)parent->allocateInfo((In002E6BA1 *)&start);
+ }
+ }
+ Int priority=obj->m_template->priority;Bool flag=obj->m_template->flag;
+ Rva002E8BCF info((const Rva002E8BCFSrc *)&locomotorSet,!flag,priority-1,obj->rva0028AFBB());
+ if(!((Rva002E6DC4 *)this)->rva002E6DC4(&info,parent)) {parent->ReleaseInfo();goal->ReleaseInfo();return MAX_COST;}
+ parent->StartPathfind((Int)goal);
+ parent->m_pathInfo->totalCost=(unsigned short)rva002F0A72(parent,goal);
+ AddToOpenList(parent);
+ while((parent=rva002F36E5())!=0) {
+  parent->PutOnClosedList(&m_closedList);
+  if(parent==goal) {Int cost=parent->m_pathInfo->totalCost;m_isTunneling=false;rva002F40E7();return cost;}
+  if(cellCount>500)continue;
+  CheckChangeLayers(parent,obj);
+  static Int deltaX[]={1,0,-1,0,1,-1,-1,1};
+  static Int deltaY[]={0,1,0,-1,1,1,-1,-1};
+  const Int adjacent[5]={0,1,2,3,0};
+  Bool neighborFlags[8]={false,false,false,false,false,false,false};
+  for(Int i=0;i<8;++i) {
+   neighborFlags[i]=false;
+   ICoord2D coords={parent->getXIndex()+deltaX[i],parent->getYIndex()+deltaY[i]};ICoord2D next=coords;
+   
+   PathfindCell *neighbor=getCell((PathfindLayerEnum)parent->getLayer(),next.x,next.y);
+   if(!neighbor)continue;
+   if((unsigned char)((Rva002E6AF3 *)neighbor)->get() || (unsigned char)((Rva002E6B06 *)neighbor)->rva002E6B06())continue;
+   if(i>=4 && !neighborFlags[adjacent[i-4]] && !neighborFlags[adjacent[i-3]])continue;
+   if(!((Rva002E6DC4 *)this)->rva002E6DC4(&info,neighbor))continue;
+   neighborFlags[i]=true;neighbor->allocateInfo((In002E6BA1 *)&next);++cellCount;
+   Int cost=neighbor->CalcCostSoFar((const Rva002E6C79 *)parent);
+   cost+=CalcExtraCosts(obj,parent,(Rva002EBC7FPair *)&next,radius,radius+(center?1:0),true);
+   neighbor->m_pathInfo->flags&=~1U;
+   neighbor->SetParentCell((Int *)parent);
+   neighbor->m_pathInfo->costSoFar=(unsigned short)cost;
+   Int remaining=rva002F0A72(neighbor,goal);
+   neighbor->m_pathInfo->totalCost=(unsigned short)(neighbor->m_pathInfo->costSoFar+remaining);
+   AddToOpenList(neighbor);
+  }
+ }
+ m_isTunneling=false;rva002F40E7();goal->ReleaseInfo();return MAX_COST;
+}
+
 void Pathfinder::PrependCells(Path *path,const Coord3D *fromPos,PathfindCell *goalCell,Bool center)
 {
  Coord3D pos;
@@ -1892,6 +1981,4 @@ void Pathfinder::PrependCells(Path *path,const Coord3D *fromPos,PathfindCell *go
  }
 }
 
-// Neutral queue peek: retail2F068F..2F06A3; same queue used by rowed
-// AddToOpenList and2F36E5. Original function name is not established.
 PathfindCell *Pathfinder::rva002F068F(){PathfindCell *cell=0;if(!m_openCells.empty())cell=m_openCells.front();return cell;}
