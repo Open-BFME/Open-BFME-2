@@ -1,10 +1,13 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /EHsc /G7
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /MD /O1 /EHsc /G7
 //
 // BFME2 Object module accessors, transferred from the exact BFME1
 // reconstruction (Code/GameEngine/Source/GameLogic/Object/Object.cpp).
 // Retail BFME2 keeps this run of module-cache fields at the same offsets:
 // behaviors at +0x18C, body at +0x194, stealth at +0x198, ai at +0x19C,
 // radar data at +0x1A8.
+
+#include "ascii_string.h"
+#include "unicode_string.h"
 
 class BehaviorModule;
 class BodyModuleInterface;
@@ -14,6 +17,7 @@ class RadarObject;
 
 typedef bool Bool;
 typedef unsigned int UnsignedInt;
+enum ObjectID;
 
 // Bit indices only; the values live in the callers' headers. Opaque here so
 // this TU claims no numbering it has not measured.
@@ -27,7 +31,10 @@ enum WeaponSetType
 class Object;
 struct ThingTemplate
 {
-	unsigned char m_pad[0x548];
+	unsigned char m_pad[0x64];
+	const char *m_nameData64;
+	unsigned char m_pad68[0x548 - 0x68];
+	const char *getNameText() const { return m_nameData64 ? m_nameData64 + 8 : ""; }
 	int m_val548;
 };
 template <int N> class BitFlags
@@ -59,7 +66,13 @@ class Player
 {
 public:
 	void rva002AB8FB(Object *obj, bool flag);
-	char m_pad00[0x13C];
+	char m_pad00[0x38];
+	const unsigned short *m_displayNameData38;
+	char m_pad3C[0x54 - 0x3C];
+	int m_playerIndex54;
+	char m_pad58[0x13C - 0x58];
+	const unsigned short *getPlayerDisplayNameText() const { return m_displayNameData38 ? m_displayNameData38 + 4 : (const unsigned short *)L""; }
+	int getPlayerIndex() const { return m_playerIndex54; }
 	BfmeFixedStorage128 m_upgradeMask13C;
 };
 class Rva004DF207
@@ -104,6 +117,8 @@ public:
 class Object
 {
 public:
+	friend AsciiString DescribeObject(const Object *);
+	ObjectID getID() const { return m_id74; }
 	BehaviorModule **getBehaviorModules() const;
 	BodyModuleInterface *getBodyModule() const;
 	StealthUpdate *getStealth() const;
@@ -134,7 +149,10 @@ public:
 private:
 	unsigned char m_pre000[4];		// +0x00..0x04
 	ThingTemplate *m_template004;	// +0x04
-	unsigned char m_pre008[0x8C - 0x08];	// +0x08..0x8C
+	unsigned char m_pre008[0x74 - 0x08];
+	ObjectID m_id74;
+	unsigned char m_pad78[0x88 - 0x78];
+	AsciiString m_name88;	// +0x08..0x8C
 	Object *m_prev8C;			// +0x8C
 	Object *m_next90;			// +0x90
 	unsigned int m_statusBits[3];		// +0x94, ObjectStatus bits (86-bit per BFME1)
@@ -454,4 +472,32 @@ void Rva0028D680::rva0028D680()
   if (upgrade && upgrade->isAlreadyUpgraded())
    upgrade->slot05();
  }
+}
+
+// DescribeObject: ZH/BFME1 Object.cpp supplies the semantic formatter.
+// Native28F982..28FAD1 and WB CBA140 witness the two formats and null-owner
+// additions. Object ID74/name88/template4->name64 and Player display38/index54
+// are target facts; pointer fields denote the existing StringBase storage.
+// The access views preserve the witnessed header+8 payload/empty literals.
+AsciiString DescribeObject(const Object *obj)
+{
+ if (!obj)
+  return "<No Object>";
+ Player *owner = obj->getControllingPlayer();
+ AsciiString result;
+ if (!((const StringBase<char> *)&obj->m_name88)->isEmpty())
+ {
+  result.format("Object %d (%s) [%s, owned by player %d (%ls)]",
+   obj->getID(), obj->m_name88.str(), obj->m_template004->getNameText(),
+   owner ? owner->getPlayerIndex() : 0,
+   owner ? owner->getPlayerDisplayNameText() : (const unsigned short *)L"<unknown>");
+ }
+ else
+ {
+  result.format("Object %d [%s, owned by player %d (%ls)]",
+   obj->getID(), obj->m_template004->getNameText(),
+   owner ? obj->getControllingPlayer()->getPlayerIndex() : 0,
+   owner ? obj->getControllingPlayer()->getPlayerDisplayNameText() : (const unsigned short *)L"<unknown>");
+ }
+ return result;
 }
