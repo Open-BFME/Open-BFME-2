@@ -9,7 +9,8 @@
 extern "C" void *memset(void *,int,unsigned);
 class Team;class ThingTemplate;class Drawable;class ClientUpdateModule;
 class Player {public:char pad[0x2EC];Team *team;};
-class Object {public:Player *getControllingPlayer() const;Drawable *getDrawable() const;char pad[0x38];Coord3D position;};
+class Thing {public:Drawable *getDrawable()const;};
+class Object:public Thing {public:Player *getControllingPlayer() const;char pad[0x38];Coord3D position;};
 struct CreateMask {unsigned words[4];};
 class ThingFactory {public:Object *newObject(const ThingTemplate *,Team *,const CreateMask *,bool);};extern ThingFactory *TheThingFactory;
 enum NameKeyType {NAMEKEY_INVALID=0};
