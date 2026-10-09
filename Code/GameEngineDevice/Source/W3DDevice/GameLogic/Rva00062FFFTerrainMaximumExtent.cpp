@@ -41,6 +41,7 @@ public:
     void getMaximumPathfindExtent(Region3D *extent) const;
     void activeBoundaryExtent(Region3D *extent) const;
     float groundHeight(float x,float y,Coord3D *normal) const;
+    float rva00062C23(const Coord3D &pos, const Coord3D &posOther) const;
     void largestBoundaryExtent(Region3D *extent) const;
 
 private:
@@ -165,9 +166,19 @@ public:
 };
 
 
-class BaseHeightMapRenderObjClass;
+class BaseHeightMapRenderObjClass {
+public:
+	Real EstimateMaxHeightAlongLine(const Coord3D &pos, const Coord3D &posOther) const;
+};
 extern BaseHeightMapRenderObjClass *TheTerrainRenderObject;
 #undef UNUSED_VIRTUALS_16
+
+// Native 0x00062C23..0x00062C45, 34B, RET8 (address-derived; sits between
+// isClearLineOfSight and groundHeight): the terrain render object's line max
+// height estimate (0x66E69), 0 without a render object.
+float Rva00062FFFTerrainPrefix::rva00062C23(const Coord3D &pos, const Coord3D &posOther) const {
+ return TheTerrainRenderObject ? TheTerrainRenderObject->EstimateMaxHeightAlongLine(pos,posOther) : 0.0f;
+}
 
 float Rva00062FFFTerrainPrefix::groundHeight(float x,float y,Coord3D *normal) const {
  if(normal) {normal->x=0.0f;normal->y=0.0f;normal->z=1.0f;}
