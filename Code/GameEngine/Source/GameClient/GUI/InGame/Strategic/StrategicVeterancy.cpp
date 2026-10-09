@@ -100,10 +100,10 @@ public:
 	bool rva0022277D(int level);	// 0x0022277D, WB AptPlayer::HideLevel
 };
 
-class Rva002224FE
+class AptPlayer
 {
 public:
-	Bool rva002224FE(Int level);			// 0x002224FE, WB AptPlayer::ShowLevel
+	Bool ShowLevel(Int level);			// 0x002224FE, WB AptPlayer::ShowLevel
 };
 
 class Rva00222A8BTarget; extern class BfmeAptWindowManager *g_bfmeAptWindowManager;

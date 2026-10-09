@@ -141,6 +141,7 @@ class AptPlayer
 {
 public:
  static int GetLevelIndex(GameWindow *window);
+ bool ShowLevel(int index);
  void GetExtern(const char *name,char *out);
  const Image *FindRenderImage(const char *targetName,const char *parameters);
 	void PopFocus(AptFocusTarget *target);
@@ -443,4 +444,14 @@ void AptPlayer::GetExtern(const char *name,char *out)
  }
  AptExternNode *node=static_cast<AptExternNode *>(found.m_node);
  node->handle.invoke(node->context,reinterpret_cast<int>(out),0);
+}
+
+bool AptPlayer::ShowLevel(int index)
+{
+ if(static_cast<unsigned>(index)>=14) return false;
+ Rva00062908Host::Slot &entry=m_levelData[index];
+ if(entry.m_flags&2) return false;
+ entry.m_flags|=1;
+ m_levelsDirty=true;
+ return true;
 }

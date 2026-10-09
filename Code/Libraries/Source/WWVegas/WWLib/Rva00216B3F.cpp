@@ -3,7 +3,7 @@
 // ?Hide@BannerUI@@QAEX_N@Z, retail 0x00216B3F, 65 bytes.
 // Guards on TheRva00222A8BTarget null then branches on bool param: true calls
 // pinned rva0022277D with +0x24 and erases pod28 range at +0x28 clearing +0x20,
-// false calls rowed rva002224FE with +0x24 as int. Evidence: global 0x009FE4CC
+// false calls rowed ShowLevel with +0x24 as int. Evidence: global 0x009FE4CC
 // extern name in use; callees rowed 0x005842F7 0x002224FE pinned 0x0022277D;
 // callers at 0x00216D32 0x00402A62 0x00402AD3; prev/next STLport pod28 TUs.
 #include <vector>
@@ -18,10 +18,10 @@ public:
 
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 
-class Rva002224FE
+class AptPlayer
 {
 public:
-	bool rva002224FE(int index);
+	bool ShowLevel(int index);
 };
 
 class BannerUI
@@ -51,6 +51,6 @@ void BannerUI::Hide(bool on)
 	}
 	else
 	{
-		((Rva002224FE *)(*(Rva00222A8BTarget **)&g_bfmeAptWindowManager))->rva002224FE((int)m_ptr24);
+		((AptPlayer *)(*(Rva00222A8BTarget **)&g_bfmeAptWindowManager))->ShowLevel((int)m_ptr24);
 	}
 }

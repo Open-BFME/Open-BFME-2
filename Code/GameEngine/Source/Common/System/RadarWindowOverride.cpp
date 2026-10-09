@@ -110,10 +110,10 @@ public:
 		void *a1, void *a2, void *a3, void *a4);
 };
 
-class Rva002224FE
+class AptPlayer
 {
 public:
-	bool rva002224FE(int index);
+	bool ShowLevel(int index);
 };
 
 class AptPalantir
@@ -273,7 +273,7 @@ void RadarWindowOverrideSource::rva002D4240(bool immediate)
 
 		if ((m_inner->m_flags & 4) && !(m_inner->m_flags & 1))
 		{
-			((Rva002224FE *)g_bfmeAptWindowManager)->rva002224FE((int)m_inner->m_movie);
+			((AptPlayer *)g_bfmeAptWindowManager)->ShowLevel((int)m_inner->m_movie);
 			m_inner->m_flags |= 1;
 		}
 	}

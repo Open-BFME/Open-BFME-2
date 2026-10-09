@@ -44,7 +44,7 @@ void Rva005EB955::rva005EB955(int index, char *result, bool disabled)
 // at+0C and dereferences it. The accessed implementation prefix is owned
 // by Rva005EB8D6 (constructor5EB9F2 and destructor5EB8D6).
 class Rva002B254F { public: int rva002B254F(); };
-class Rva002224FE { public: bool rva002224FE(int); };
+class AptPlayer { public: bool ShowLevel(int); };
 class Rva00222A8BTarget;
 void Rva00516F21Invoke(Rva00222A8BTarget *, void *, const char *, const char *);
 class BfmeAptWindowManager;
@@ -78,7 +78,7 @@ bool Rva005EBC74::rva005EC017(void *battle)
         return false;
     switch (m_impl->state) {
     case 0:
-        ((Rva002224FE *)g_bfmeAptWindowManager)->rva002224FE(m_impl->level);
+        ((AptPlayer *)g_bfmeAptWindowManager)->ShowLevel(m_impl->level);
         m_impl->state = 1;
         break;
     case 3:
