@@ -1,5 +1,5 @@
 // ?Add_Mesh@DX8RigidFVFCategoryContainer@@UAEXPAVMeshModelClass@@@Z
-// partial score=0.749838943 date=2026-10-09
+// partial score=0.743966774 date=2026-10-09
 // cl: /O2 /G7 /arch:SSE /DNDEBUG /MD /EHsc
 // Semantic donor ZH dx8renderer.cpp Add_Mesh, BFME1 revision9cbfb551fe20.
 // WB9D97D0 confirms target148180 identity and source1010..1024. Native
@@ -20,8 +20,10 @@ public:
  const unsigned *Get_Color_Array(unsigned n)const{S2Buffer*b=descriptor->Colors[n];return b?(unsigned*)b->Data:0;}
  const Vector2*Get_UV_Array_By_Index(int n)const {
   S2MaterialDesc *d=descriptor;
-  if(d->UVCount && n<2){int i=d->UVIndex[n];if(i!=-1){S2Buffer*b=d->UV[i];if(b)return (Vector2*)b->Data;}return 0;}
-  S2Buffer*b=d->UV[n];if(b)return (Vector2*)b->Data;return 0;
+  S2Buffer*b;
+  if(d->UVCount && n<2){int i=d->UVIndex[n];if(i==-1)return 0;b=d->UV[i];}
+  else b=d->UV[n];
+  if(b)return (Vector2*)b->Data;return 0;
  }
 };
 class Vertex_Split_Table {
@@ -87,7 +89,7 @@ void DX8RigidFVFCategoryContainer::Add_Mesh(MeshModelClass* mmc_) {
  for(int j=0;j<uvcount;++j){
   unsigned char *vb=(unsigned char*)l.Get_Vertex_Array();
   const Vector2 *uvs=split_table.Get_UV_Array(j);
-  if(uvs)for(;i<split_table.Get_Vertex_Count();++i){*(Vector2*)(vb+fi.Get_Tex_Offset(j))=uvs[i];vb+=fi.Get_FVF_Size();}
+  if(uvs)for(i=0;i<split_table.Get_Vertex_Count();++i){*(Vector2*)(vb+fi.Get_Tex_Offset(j))=uvs[i];vb+=fi.Get_FVF_Size();}
  }
  Generate_Texture_Categories(split_table,used_vertices);
  used_vertices+=needed_vertices;
