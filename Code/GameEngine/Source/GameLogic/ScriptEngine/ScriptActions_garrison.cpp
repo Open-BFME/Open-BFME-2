@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHs /arch:SSE /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //
 // BFME2's garrison script actions and their shared contain helpers, from
@@ -185,6 +185,9 @@ private:
 
 enum ObjectStatusTypes { OBJECT_STATUS_NONE = 0 };
 enum ObjectID { INVALID_ID = 0 };
+enum NameKeyType { NAMEKEY_INVALID = 0 };
+enum SpecialPowerType { SPECIAL_INVALID = 0 };
+class Module;
 
 class Thing
 {
@@ -192,6 +195,23 @@ public:
 	virtual ~Thing();
 	void setOrientation(float angle);
 	void setPosition(const Coord3D *pos);
+};
+
+class SpecialPowerModuleInterface
+{
+public:
+	virtual void s00();
+	virtual bool isReady();
+	virtual void s02();
+	virtual void s03();
+	virtual void s04();
+	virtual void s05();
+	virtual void s06();
+	virtual void s07();
+	virtual void s08();
+	virtual void s09();
+	virtual void s10();
+	virtual void doSpecialPowerAtObject(Object *target, int value);
 };
 
 class Object : public Thing
@@ -205,6 +225,8 @@ public:
 	Player *getControllingPlayer() const;
 	bool testStatus(ObjectStatusTypes bit) const;
 	void rva0028FC18();
+	SpecialPowerModuleInterface *findSpecialPowerModuleInterface(SpecialPowerType type) const;	// 0x00290E22
+	Module *findModule(NameKeyType key) const;	// 0x0028B6D6
 
 private:
 	const ThingTemplate *m_template;
@@ -264,6 +286,16 @@ public:
 	Player *getControllingPlayer() const;
 	void getTeamAsAIGroup(AIGroup *group);
 	void rva0039E5B9(Coord3D *pos);
+	Coord3D rva0039DA2A() const;	// 0x0039DA2A: the team's position
+};
+
+class Parameter
+{
+public:
+	unsigned char m_beforeInt[8];
+	int m_int;
+	float m_real;
+	AsciiString m_string;	// +0x10
 };
 
 class Rva002046C0Owner
@@ -277,6 +309,7 @@ class ScriptEngine
 public:
 	Team *getTeamNamed(AsciiString name, bool);
 	Object *getUnitNamed(const AsciiString &name);
+	Object *getUnitNamed(Parameter *parameter);
 	void AppendDebugMessage(const AsciiString &msg, bool flag);
 	bool didUnitExist(const AsciiString &name);
 	void rva00357960(const AsciiString &name, Object *obj); // ZH transferObjectName
@@ -331,6 +364,7 @@ public:
 	Rva000421C8() : m_next(0) {}
 	virtual ~Rva000421C8() {}
 	virtual bool allow(Object *obj) = 0;
+	Rva000421C8 *link(Rva000421C8 *next);	// 0x00625790
 	Rva000421C8 *m_next;
 };
 
@@ -705,3 +739,92 @@ void __stdcall Rva003C5405Do(AsciiString timerName, const AsciiString &label)
 	tmp += timerName;
 	TheInGameUI->addNamedTimer(tmp, TheGameText->fetch(label), false);
 }
+
+class NameKeyGenerator
+{
+public:
+	NameKeyType nameToKey(const char *name);
+};
+extern NameKeyGenerator *TheNameKeyGenerator;
+
+// A KindOfMaskType as the mask filters copy it (0x0004543D).
+class BfmeFixedStorage0004543D
+{
+public:
+	BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &other) throw();
+private:
+	unsigned char m_bytes[28];
+};
+
+struct Rva00045411BitSet
+{
+	Rva00045411BitSet(int unused, int bit);	// 0x00045411
+	unsigned int m_bits[7];
+};
+extern unsigned char g_00DFEFA4StoragePrototype[28];
+
+// vftable 0x00BC2908, allow 0x002610DE: accept what has every kind of the
+// first mask and none of the second (ZH's PartitionFilterAcceptByKindOf).
+class Rva0004584D : public Rva000421C8
+{
+public:
+	Rva0004584D(const BfmeFixedStorage0004543D &a, const BfmeFixedStorage0004543D &b);
+	virtual bool allow(Object *obj);
+	BfmeFixedStorage0004543D m_08;
+	BfmeFixedStorage0004543D m_24;
+};
+
+// SiegeDockingBehavior: the +0x20 interface's slot 3 answers whether the
+// object with the given ID may dock (retail 0x003C6A0E).
+class SiegeDockInterface
+{
+public:
+	virtual void s00();
+	virtual void s01();
+	virtual void s02();
+	virtual bool canDock(ObjectID id);
+};
+
+class SiegeDockingModule
+{
+public:
+	unsigned char m_pad[0x20];
+	SiegeDockInterface m_dock;
+};
+
+// ?Rva003C6A0EDo@@YGXPAVParameter@@00@Z @0x003C6A0E 365B evidence: unit by Parameter (0x003588E7) of kind 93 with a ready special power 0x2d; waypoint (TerrainLogic slot 0x88) location and the radius parameter; objects in range passing the kind-60 filter; first with a SiegeDockingBehavior whose dock interface accepts the unit gets the special power at it (slot 11, 2); caller 0x003CE4A0
+void __stdcall Rva003C6A0EDo(Parameter *unitParm, Parameter *wayParm, Parameter *radiusParm)
+{
+	Object *unit = TheScriptEngine->getUnitNamed(unitParm);
+	if (!unit || !unit->isKindOf(0x5D))
+		return;
+	SpecialPowerModuleInterface *sp = unit->findSpecialPowerModuleInterface((SpecialPowerType)0x2D);
+	if (!sp || !sp->isReady())
+		return;
+	Waypoint *way = TheTerrainLogic->getWaypointByName(wayParm->m_string);
+	if (!way)
+		return;
+	Coord3D pos;
+	pos.x = way->getLocation()->x;
+	pos.y = way->getLocation()->y;
+	pos.z = way->getLocation()->z;
+	float radius = radiusParm->m_real;
+	BfmeWideResult iter = ThePartitionManager->iterateObjectsInRange(&pos, radius, 0,
+		&Rva0004584D(*(BfmeFixedStorage0004543D *)&Rva00045411BitSet(0, 0x3C),
+			*(BfmeFixedStorage0004543D *)g_00DFEFA4StoragePrototype), 1);
+	for (Object *obj = iter.next(); obj; obj = iter.next()) {
+		static NameKeyType siegeKey = TheNameKeyGenerator->nameToKey("SiegeDockingBehavior");
+		SiegeDockingModule *module = (SiegeDockingModule *)obj->findModule(siegeKey);
+		if (module && module->m_dock.canDock(unit->getID())) {
+			sp->doSpecialPowerAtObject(obj, 2);
+			break;
+		}
+	}
+}
+
+// vftable 0x00BFAD10, allow 0x0026119D: not effectively dead.
+class Rva0026119DFilter : public Rva000421C8
+{
+public:
+	virtual bool allow(Object *obj);
+};
