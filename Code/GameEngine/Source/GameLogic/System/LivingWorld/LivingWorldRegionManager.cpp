@@ -64,6 +64,7 @@ class LivingWorldRegionManager
 public:
 	void EnumeratePendingBattles(PendingBattleVisitor &visitor) const;
 	void AddBattle(RegionBattleView *, const RegionSlots &, const RegionSlots &, const RegionBattlePoint &);
+	LivingWorldPendingBattle *rva0020E57F(unsigned int);
 	Bool GetRegionCenterPoint(Int regionID, Coord2D *out);
 	Bool GetRegionCenterPoint(Rva0020E89C *region, Coord2D *out);	// 0x0020EA58
 	Bool GetRegionUiPopupPoint(Int regionID, Coord2D *out);
@@ -76,6 +77,8 @@ private:
 	unsigned char m_pad00[0x14];
 	LivingWorldPendingBattle **m_pendingBattlesStart;		// +0x14
 	LivingWorldPendingBattle **m_pendingBattlesFinish;		// +0x18
+	unsigned char m_pad1C[0x30 - 0x1C];
+	Int m_nextBattleID;							// +0x30
 };
 
 // LivingWorldRegionManager::GetRegionCenterPoint, retail 0x0020F27E.
@@ -318,12 +321,16 @@ public:
 };
 
 class Rva003F287F;
+struct LivingWorldArmy;
+struct Rva002B6A04Player;
+class LivingWorldRegion;
 class LivingWorldLogic
 {
     friend class Rva0020FDDFHost;
 private:
     void AddDelayedRegionVictory(Rva003F287F *, int, unsigned int);
 public:
+    LivingWorldArmy *CreateEmptyGarrisonArmy(Rva002B6A04Player *, LivingWorldRegion *);
     void LetAIResolveRegionAwardDispute(int, const _STL::vector<int> &, unsigned int);
     void rva002B9A90(int, const _STL::vector<int> &, unsigned int);
 	unsigned char m_pad00[0xB0];
@@ -508,7 +515,7 @@ Rva00210B38::~Rva00210B38()
 // The existing delayed-victory ABI spells its player word int; preserve the
 // pointer bits here, as both native images pass the player object itself.
 class Rva002E2903Player { public: char pad00[0x44]; int field44; };
-class Rva003F02E4 { public: bool rva003F0336(const Rva002E071E *); };
+class Rva003F02E4 { public: bool rva003F02E4(); bool rva003F0336(const Rva002E071E *); };
 class Rva003F287F;
 struct Rva002B488EResult;
 class Rva002BA8F1Logic
@@ -628,6 +635,10 @@ class Rva003F409F;
 // Callback prefix: slot0 compares two army words and slot1 deletes.
 // Separate installed tables BE4320/BE433C bound BE4318/BE4334 at two slots.
 #include "../../../../Include/Common/RegionArmyComparatorView.h"
+struct LivingWorldBattleArmyView;
+struct LivingWorldBattlePlayerView;
+struct LivingWorldBattleCoord;
+class Rva003F468D { public: int rva003F4DAE(int); };
 class LivingWorldBattle {
 public:
  class BattlePlayer {
@@ -638,24 +649,15 @@ public:
   void SwapArmies(int,int);
  };
  struct Side { int key; _STL::vector<BattlePlayer> players; char tail[0x1C-16]; };
+ LivingWorldBattle(int,int,const _STL::vector<LivingWorldBattleArmyView *> &,const _STL::vector<LivingWorldBattlePlayerView *> &,const LivingWorldBattleCoord &);
+ bool rva003F48EF(void *);
+ void *rva003F4FBD(void *);
+ void AddArmy(int,void *);
  void rva003F4A46(int,int,Rva0020E20C *const &);
+ int sideCount() const { return (int)sides.size(); }
 private:
- char pad00[0x18]; _STL::vector<Side> sides;
+ char pad00[0x18]; _STL::vector<Side> sides; char tail24[0x40-0x24];
 };
-void LivingWorldBattle::rva003F4A46(int side,int player,Rva0020E20C *const &compare)
-{
- BattlePlayer *entry=&sides[side].players[player];
- int count=(int)entry->armies.size();
- for (int first=0;first<count;++first) {
-  for(int second=first+1;second<count;++second) {
-   void *a=entry->armies[first];
-   void *b=entry->armies[second];
-   if(!compare->Compare(a,b)) entry->SwapArmies(first,second);
-  }
- }
-}
-
-
 // Native BE4334 slot0 compares the signed byte spans at army+78/+40..44,
 // each rounded down to eight bytes; its body20E6FB..20E72A RET8 is47B.
 // The byte-vector view is read-only and does not identify the owning element
@@ -663,6 +665,31 @@ void LivingWorldBattle::rva003F4A46(int side,int player,Rva0020E20C *const &comp
 struct CompareRecord { int a,b; };
 struct CompareSummary { char pad00[0x40]; _STL::vector<char> entries; };
 struct CompareArmy { char pad00[0x78]; CompareSummary *summary; CompareSummary *getSummary() const { return summary; } };
+// WB B56E30 names AddBattle; complete native20FC0F..20FD40 is307B RET16.
+// The existing constructor consumes a region pointer as its second ABI
+// word and allocates64 bytes. Its two pointer-vector and coordinate
+// references are views of the same32-bit words, without changing identity.
+// The final sort creates a four-byte two-slot callback; independently
+// installed adjacent visitor tables are excluded from its interface.
+void LivingWorldRegionManager::AddBattle(RegionBattleView *region,const RegionSlots &armies,const RegionSlots &players,const RegionBattlePoint &point)
+{
+ if (rva0020E57F(reinterpret_cast<unsigned int>(region))) return;
+ LivingWorldBattle *battle=new LivingWorldBattle(++m_nextBattleID,reinterpret_cast<int>(region),reinterpret_cast<const _STL::vector<LivingWorldBattleArmyView *> &>(armies),reinterpret_cast<const _STL::vector<LivingWorldBattlePlayerView *> &>(players),reinterpret_cast<const LivingWorldBattleCoord &>(point));
+ reinterpret_cast<RegionSlots *>(&m_pendingBattlesStart)->push_back(reinterpret_cast<const ModuleData *const &>(battle));
+ Rva002E2903Player *owner=reinterpret_cast<Rva002BA8F1Logic *>(TheLivingWorldLogic)->find(region->getOwner(),0);
+ if (owner && battle->rva003F48EF(owner) && !battle->rva003F4FBD(owner) && reinterpret_cast<Rva003F02E4 *>(region)->rva003F02E4()) {
+  LivingWorldArmy *garrison=TheLivingWorldLogic->CreateEmptyGarrisonArmy(reinterpret_cast<Rva002B6A04Player *>(owner),reinterpret_cast<LivingWorldRegion *>(region));
+  if (garrison) battle->AddArmy(reinterpret_cast<int>(owner),garrison);
+ }
+ for(int side=0;side<battle->sideCount();++side) {
+  for(int player=0;player<reinterpret_cast<Rva003F468D *>(battle)->rva003F4DAE(side);++player) {
+   Rva0020E205 comparator;
+   Rva0020E20C *callback=&comparator;
+   battle->rva003F4A46(side,player,callback);
+  }
+ }
+}
+
 bool Rva0020E205::Compare(void *first,void *second)
 {
  int leftBytes=static_cast<CompareArmy *>(first)->getSummary()->entries.size() & ~7;
