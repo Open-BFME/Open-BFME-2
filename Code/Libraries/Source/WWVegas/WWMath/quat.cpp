@@ -63,6 +63,12 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 
+#pragma push_macro("inline")
+#define inline __declspec(dllimport) __forceinline
+#include <math.h>
+#pragma pop_macro("inline")
+#include "../../../../../reference/shims/bfme_quat_link/wwmath.h"
+#include "../../../../../reference/shims/bfme_quat_link/vector3.h"
 #include "quat.h"
 #include "matrix3d.h"
 #include "matrix4.h"
