@@ -14,9 +14,30 @@
 #include <map>
 #include <algorithm>
 
+// Native2DFCF6 releases trivial index storage with a conditional game free.
+// The generic header leaves cleanup out of line for this instantiation;
+// this specialization keeps the same trivial destruction and allocator
+// semantics, using the independently verified17B game-free provider.
+void Rva00030830GameFree(void *);
+namespace _STL {
+template <> inline void vector<unsigned int>::_M_clear()
+{
+    if (this->_M_start) Rva00030830GameFree(this->_M_start);
+}
+}
+
 typedef int Int;
 typedef unsigned int UnsignedInt;
 typedef bool Bool;
+
+// Retain the already rowed signed-vector tree lookup while the native bling
+// index table uses unsigned elements. Both are real STLport instantiations;
+// the key-only search is independently verified at retail's folded body.
+typedef _STL::pair<const int, _STL::vector<int> > SignedBlingPair;
+typedef _STL::_Rb_tree<int, SignedBlingPair,
+    _STL::_Select1st<SignedBlingPair>, _STL::less<int>,
+    _STL::allocator<SignedBlingPair> > SignedBlingTree;
+template SignedBlingTree::_Link_type SignedBlingTree::_M_find<int>(const int &) const;
 
 class CreateAHeroHero
 {
@@ -167,11 +188,12 @@ public:
 	public:
 		Int rva0021BC2C(Int blingKey) const;		// 0x0021BC2C, bling count
 		Int GetDefaultBlingId(Int blingKey) const; // 0x0021BC53
+        void AddBling(Int blingKey, UnsignedInt index, Bool makeDefault);
     private:
         // WB lookup and retail node+14/+18 prove the vector mapped value.
         // Retail map headers are at +24 and +48.
         unsigned char m_pad00[0x24];
-        std::map<int, std::vector<int> > m_blingIds;
+        std::map<int, std::vector<unsigned int> > m_blingIds;
         unsigned char m_pad30[0x48-0x30];
         std::map<int, int> m_defaultBlingIds;
 	};
@@ -387,12 +409,16 @@ Int CreateAHeroManager::CreateAHeroSubClass::GetDefaultBlingId(Int blingKey) con
 {
     std::map<int, int>::const_iterator def = m_defaultBlingIds.find(blingKey);
     if (def != m_defaultBlingIds.end()) {
-        std::map<int, std::vector<int> >::const_iterator ids = m_blingIds.find(blingKey);
+        std::map<int, std::vector<unsigned int> >::const_iterator ids = m_blingIds.find(blingKey);
         if (ids != m_blingIds.end()) {
-            const std::vector<int> &list = ids->second;
-            const int *it = std::find(list.begin(), list.end(), def->second);
-            if (it != list.end())
-                return it - list.begin();
+            const std::vector<unsigned int> &list = ids->second;
+            // The existing native search uses the corresponding signed
+            // alias of these four-byte indices. Equality consumes the same
+            // bits, preserving its already verified const-int provider.
+            const int *it = std::find(reinterpret_cast<const int *>(list.begin()),
+                reinterpret_cast<const int *>(list.end()), def->second);
+            if (it != reinterpret_cast<const int *>(list.end()))
+                return it - reinterpret_cast<const int *>(list.begin());
         }
     }
     return 0;
@@ -525,4 +551,26 @@ template <> void sort<unsigned int *, BlingIndexLess>(unsigned int *, unsigned i
 void Rva0021E673Sort(std::vector<unsigned int> *values)
 {
     std::sort(values->begin(), values->end(), Rva0021AD88Less);
+}
+
+namespace _STL {
+template <> vector<unsigned int> &map<int, vector<unsigned int> >::operator[](const int &);
+}
+// WB B770E0 names AddBling; native21E954..21E9D8 RET12 fixes the map
+// offsets24/48. The four-byte index selects a bling through the comparator
+// above; the integer key groups indices. New groups receive default index0,
+// existing groups may replace it, and unique appended indices are sorted.
+void CreateAHeroManager::CreateAHeroSubClass::AddBling(Int blingKey, UnsignedInt index, Bool makeDefault)
+{
+    if (!g_Va00DFE348) return;
+    if (m_defaultBlingIds.find(blingKey) == m_defaultBlingIds.end())
+        m_defaultBlingIds[blingKey] = 0;
+    else if (makeDefault)
+        m_defaultBlingIds[blingKey] = index;
+    std::vector<unsigned int> &ids = m_blingIds[blingKey];
+    unsigned int *finish = ids.end();
+    if (std::find(ids.begin(), finish, index) == finish) {
+        ids.push_back(index);
+        Rva0021E673Sort(&ids);
+    }
 }
