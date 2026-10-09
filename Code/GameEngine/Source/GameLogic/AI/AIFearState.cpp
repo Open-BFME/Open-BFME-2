@@ -1,7 +1,8 @@
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
 //
 // AIFearState: onEnter 0x00354D0D (419 bytes), update 0x00347CA3 (359 bytes)
-// and onExit 0x00347E0A (66 bytes).
+// and onExit 0x00347E0A (66 bytes); computePath 0x0034029B (53 bytes, slot
+// 17, "ComputePath7": spend one repath try at +0x4C or fail).
 //
 // Identity: the constructor 0x003428CC passes 0xE4366E82, zlib.crc32 of the
 // debug name "AIFearState", and installs the vtable 0x00C125C8 whose slots
@@ -251,6 +252,7 @@ public:
 	virtual void onExit(StateExitType status);
 	virtual StateReturnType update();
 protected:
+	virtual Bool computePath();
 	Int m_okToRepathTimes; // +0x4C
 	Bool m_checkForPath; // +0x50
 	char m_pad51[3];
@@ -375,4 +377,15 @@ void AIFearState::onExit(StateExitType status)
 		if (ai)
 			ai->m_bfmeFlag3C4 = false;
 	}
+}
+
+Bool AIFearState::computePath()
+{
+	critterDesyncLog("CritterDesync: ComputePath7");
+	if (m_okToRepathTimes > 0)
+	{
+		m_okToRepathTimes--;
+		return true;
+	}
+	return false;
 }

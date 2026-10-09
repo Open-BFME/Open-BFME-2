@@ -17,6 +17,10 @@
 // condition is bit 77 (word +0x114 of the bits at +0x10C, then 0x0028AE6D);
 // the goal-object state also fails without an owner. Layout as in
 // AIEnterStateOnEnter.cpp; m_okToRepathTimes +0x4C, m_checkForPath +0x50.
+// computePath (slot 17): AIMoveAwayPanicState 0x0034017A ("ComputePath5",
+// vtable 0x00C12580) and AIMoveAwayFromRepulsorsState 0x003401AF
+// ("ComputePath6", 0x00C12538) spend one repath try at +0x4C or fail, like
+// AIMoveAwayAndCowerState's in AIStatesBfmeComputePath.cpp.
 
 #include "../../Common/GameLogicObjectLookupView.h"
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
@@ -227,6 +231,7 @@ public:
 	virtual StateReturnType onEnter();
 	virtual StateReturnType update();
 protected:
+	virtual Bool computePath();
 	Int m_okToRepathTimes; // +0x4C
 	Bool m_checkForPath; // +0x50
 };
@@ -238,6 +243,7 @@ public:
 	virtual void onExit(StateExitType status);
 	virtual StateReturnType update();
 protected:
+	virtual Bool computePath();
 	Int m_okToRepathTimes; // +0x4C
 	Bool m_checkForPath; // +0x50
 };
@@ -352,4 +358,26 @@ StateReturnType AIMoveAwayFromRepulsorsState::update()
 		}
 	}
 	return AIInternalMoveToState::update();
+}
+
+Bool AIMoveAwayPanicState::computePath()
+{
+	critterDesyncLog("CritterDesync: ComputePath5");
+	if (m_okToRepathTimes > 0)
+	{
+		m_okToRepathTimes--;
+		return true;
+	}
+	return false;
+}
+
+Bool AIMoveAwayFromRepulsorsState::computePath()
+{
+	critterDesyncLog("CritterDesync: ComputePath6");
+	if (m_okToRepathTimes > 0)
+	{
+		m_okToRepathTimes--;
+		return true;
+	}
+	return false;
 }
