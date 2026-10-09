@@ -211,3 +211,24 @@ RvaF1Handle Rva00574AD9::rva00574AD9(void *argument)
 {
 	return RvaF1Handle(new Rva005CC37C(argument, (struct Rva005CC3C0In *)&m_context));
 }
+
+// ?rva00567F3D@Rva00567F3D@@QAE?AURvaF1Handle@@H@Z, retail 0x00567F3D (84B): the same factory shape with a 0x1C-byte
+// object built by the rowed constructor Rva00567960 (0x00567CCD) from the int argument and receiver+8 (an Info view).
+// class-gate: allow Rva00567960 proved codegen view: opaque 0x1C-byte storage view; only the constructor is called
+class Rva00567960
+{
+	char m_pad[0x1C];
+public:
+	Rva00567960(int argument, const struct Rva00567CCDInfo *info);
+};
+struct Rva00567F3D
+{
+	char m_prefix[8];
+	Rva005E5CF9In m_context;
+	RvaF1Handle rva00567F3D(int argument);
+};
+
+RvaF1Handle Rva00567F3D::rva00567F3D(int argument)
+{
+	return RvaF1Handle(new Rva00567960(argument, (const struct Rva00567CCDInfo *)&m_context));
+}

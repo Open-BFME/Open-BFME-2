@@ -74088,3 +74088,4 @@ _vp6_xprintf,,0x001C4C90,610,Code/Libraries/Source/VP6/vp6_xprintf.cpp,matched,v
 ?Rva0043B278Do@@YGXW4ObjectID@@H@Z,,0x0043B278,44,Code/GameEngine/Source/GameLogic/Object/Rva0043B278Do.cpp,matched,
 ?rva005FB243@Rva005FB243@@QAE?AURvaF1Handle@@HH@Z,,0x005FB243,87,Code/GameEngine/Source/Common/Rva005E5CF9Factory.cpp,matched,
 ?rva00574AD9@Rva00574AD9@@QAE?AURvaF1Handle@@PAX@Z,,0x00574AD9,84,Code/GameEngine/Source/Common/Rva005E5CF9Factory.cpp,matched,
+?rva00567F3D@Rva00567F3D@@QAE?AURvaF1Handle@@H@Z,,0x00567F3D,84,Code/GameEngine/Source/Common/Rva005E5CF9Factory.cpp,matched,
