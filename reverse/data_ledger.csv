@@ -20626,7 +20626,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A05FB4,4,.data,global,?TheGameSpyConfig@@3PAVGameSpyConfigInterface@@A,Code/GameEngine/Source/GameNetwork/GameSpy/GameSpyInfo_getPingValue.cpp,provisional,?TheGameSpyConfig@@3PAVGameSpyConfigInterface@@A;?g_00E05FB4@@3PAVG00E05FB4Provider@@A,1,27
 0x00A05FB8,4,.data,global,?ThePinger@@3PAVPingerInterface@@A,,unowned,,0,12
 0x00A05FBC,12,.data,global,?TheGameSpyBuddyMessageQueue@@3PAVGameSpyBuddyMessageQueueInterface@@A,,unowned,?TheGameSpyBuddyMessageQueue@@3PAVGameSpyBuddyMessageQueueInterface@@A;?g_rva00627AA0@@3PAURva00627AA0Obj@@A,1,30
-0x00A05FC8,4,.data,global,?TheGameSpyPSMessageQueue@@3PAVGameSpyPSMessageQueueInterface@@A,,unowned,,0,34
+0x00A05FC8,4,.data,global,?TheGameSpyPSMessageQueue@@3PAVGameSpyPSMessageQueueInterface@@A,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PersistentStorageThread.cpp,provisional,,0,34
 0x00A05FCC,52,.data,global,?g_Va00E05FCC@@3IA,,unowned,?g_Va00E05FCC@@3IA;?g_rva005B8018Two@@3PADA,0,3
 0x00A06000,52,.data,global,?g_Va00E06000@@3IA,,unowned,?g_Va00E06000@@3IA;?g_rva005B8018Other@@3PADA,0,3
 0x00A06034,44,.data,global,?g_00E06034@@3PADA,Code/GameEngine/Source/Common/Rva005C18F0Ctor.cpp,provisional,?g_00E06034@@3PADA;?g_Va00E06034@@3IA,1,3

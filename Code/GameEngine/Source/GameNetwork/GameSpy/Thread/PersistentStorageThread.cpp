@@ -929,7 +929,7 @@ public:
 	static void ParseAllOtherStats(char *data, int len, PSPlayerAllStats *stats);
 	static PSPlayerAllStats readLocalCachedStats();
 };
-extern GameSpyPSMessageQueueInterface *TheGameSpyPSMessageQueue;	// 0x00E05FC8
+GameSpyPSMessageQueueInterface *TheGameSpyPSMessageQueue = NULL;	// 0x00E05FC8
 
 // ZH's stats thread (vftable 0x00C6B0D0, constructor 0x0055436A) with BFME 2's
 // pending GHTTP ladder requests: the map at +0x5c keys each request handle to
