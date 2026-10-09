@@ -173,7 +173,7 @@ public:
  void *data;
 };
 struct Rva006D0280 {
- void teardown();
+ ~Rva006D0280();
  int m_useCount;
  int unknown4;
  EAStringC name8;
@@ -191,7 +191,7 @@ public:
  ~Rva006D07E0Key() {
   Rva006D0280 *p=m_object;
   if(p && --p->m_useCount==0) {
-   p->teardown();
+   p->~Rva006D0280();
    g_pChainBlockAllocator->freeBlock(p,0x1c);
   }
  }
@@ -254,7 +254,7 @@ BfmeRefVGO *__cdecl Rva006D0460Copy(BfmeRefVGO *first,
     if(old && --*old==0) {
      Rva006D0280 *p=(Rva006D0280 *)destination->m_bfmeP;
      if(p) {
-      p->teardown();
+      p->~Rva006D0280();
       g_pChainBlockAllocator->freeBlock(p,0x1c);
      }
     }
@@ -282,7 +282,7 @@ BfmeRefVGO *__cdecl Rva006D04D0CopyBackward(Rva006D1130Iterator first,
    if(old && --*old==0) {
     Rva006D0280 *p=(Rva006D0280 *)result->m_bfmeP;
     if(p) {
-     p->teardown();
+     p->~Rva006D0280();
      g_pChainBlockAllocator->freeBlock(p,0x1c);
     }
    }
@@ -309,7 +309,7 @@ Rva006D1130Iterator __cdecl Rva006D0540Copy(BfmeRefVGO *first,
     if(old && --*old==0) {
      Rva006D0280 *p=(Rva006D0280 *)destination.position->m_bfmeP;
      if(p) {
-      p->teardown();
+      p->~Rva006D0280();
       g_pChainBlockAllocator->freeBlock(p,0x1c);
      }
     }

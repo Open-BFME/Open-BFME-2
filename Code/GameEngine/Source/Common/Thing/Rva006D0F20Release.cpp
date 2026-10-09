@@ -9,7 +9,7 @@
 // extern (DIR32 auto-patches). No // cl: line (defaults match).
 struct Rva006D0280
 {
-	void teardown();
+	~Rva006D0280();
 
 	int m_useCount; // +0, dropped by release above
 };
@@ -43,6 +43,6 @@ void Rva006D0F20::release()
 	Rva006D0280 *target = m_subBlock;
 	if (target == 0)
 		return;
-	target->teardown();
+	target->~Rva006D0280();
 	g_pChainBlockAllocator->freeBlock(target, 0x1C);
 }

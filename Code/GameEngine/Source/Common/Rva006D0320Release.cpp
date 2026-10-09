@@ -13,12 +13,12 @@ extern Rva006DB270 *g_pChainBlockAllocator;
 class Rva006D0280
 {
 public:
-    void teardown();
+    ~Rva006D0280();
     Rva006D0280 *rva006D0320(unsigned char doFree);
 };
 Rva006D0280 *Rva006D0280::rva006D0320(unsigned char doFree)
 {
-    teardown();
+    this->~Rva006D0280();
     if (doFree & 1)
         g_pChainBlockAllocator->freeBlock(this, 0x1C);
     return this;

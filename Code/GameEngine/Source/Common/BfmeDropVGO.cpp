@@ -4,7 +4,7 @@
 class Rva006D0280
 {
 public:
-	void teardown();
+	~Rva006D0280();
 };
 
 class Rva006DB270
@@ -19,7 +19,7 @@ void __cdecl bfmeDropVGO(void *p)
 {
 	if (p != 0)
 	{
-		((Rva006D0280 *)p)->teardown();
+		((Rva006D0280 *)p)->~Rva006D0280();
 		g_pChainBlockAllocator->freeBlock(p, 0x1C);
 	}
 }

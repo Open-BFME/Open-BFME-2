@@ -25,7 +25,7 @@ BfmeRefVGO *__cdecl Rva006D0460Copy(BfmeRefVGO *first, BfmeRefVGO *last, BfmeRef
 class Rva006D0280
 {
 public:
-	void teardown();
+	~Rva006D0280();
 };
 
 class Rva006DB270
@@ -58,7 +58,7 @@ private:
 			if (*p == 0)
 			{
 				Rva006D0280 *owner = (Rva006D0280 *)m_count;
-				owner->teardown();
+				owner->~Rva006D0280();
 				g_pChainBlockAllocator->freeBlock(owner, 0x1C);
 			}
 		}
