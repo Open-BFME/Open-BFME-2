@@ -39,7 +39,8 @@ public: void OnAllyTabsLoaded(const char *);void OnEnemyTabsLoaded(const char *)
 private: char prefix[0x20];_STL::vector<BfmeStringRecord005F93E3> allies;BattlePromptTabsSlot allyTabs;_STL::vector<BfmeStringRecord005F93E3> enemies;BattlePromptEnemyTabsSlot enemyTabs;_STL::vector<Rva005FA197Element> allyPages;int selectedAlly;_STL::vector<Rva005FA1CEElement> enemyPages;int selectedEnemy;
 };
 
-BfmeStringRecord005F93E3::~BfmeStringRecord005F93E3() {}
+// Keep the verified eight-byte destructor selectable with its exact implicit twins.
+inline BfmeStringRecord005F93E3::~BfmeStringRecord005F93E3() {}
 
 void StrategicHUD::BattlePromptMovieClip::Impl::OnAllyTabsLoaded(const char *path){
  if(allyTabs.ptr)return;
