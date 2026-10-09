@@ -46,7 +46,6 @@ class Object
 {
 public:
 	ObjectID getID() const { return m_id; }
-	const AsciiString &getName() const { return m_name; }
 	Object *getNextObject() const { return m_next; }
 	bool isEffectivelyDead() const { return (m_438 & 1) != 0; }
 
@@ -157,7 +156,7 @@ void GateOpenAndCloseBehavior::onObjectCreated()
 	AsciiString candidateName;
 	while (candidate != 0)
 	{
-		candidateName = candidate->getName();
+		candidateName = candidate->m_name;
 		if (candidateName.compare(data->m_gateName) == 0)
 		{
 			static NameKeyType gateKey =
