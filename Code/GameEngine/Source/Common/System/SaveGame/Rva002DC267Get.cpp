@@ -111,20 +111,6 @@ bool Rva002DCCFB::rva002DCCFB(UnicodeString filename)
 	return result;
 }
 
-// ?Rva002DC802BaseName@@YG?AVAsciiString@@ABV1@@Z @0x002DC802 49B:
-// Ascii basename: reverseFind '\\' at 0x00035930 then AsciiString from
-// substring at 0x00037BA0 or copy at 0x000365F0 into hidden return buffer.
-// Caller 0x00356E8E forwards map path at ebp+8 with temp at ebp-0x14 then
-// translates via UnicodeString at 0x006CB6A0. Honest-address free function.
-// Ret 8 proves __stdcall.
-AsciiString __stdcall Rva002DC802BaseName(const AsciiString &in)
-{
-	const char *slash = ((const StringBase<char> &)in).reverseFind('\\');
-	if (slash)
-		return AsciiString(slash + 1);
-	return in;
-}
-
 // ?doesWideFileExist@BFME2FileSystemFacade@@QAE_NPBG@Z @0x0060068A 11B
 // Facade ignores this and forwards wide path via TheArchiveFileSystem
 // (VA 0x00A06E5C, mangled ?TheArchiveFileSystem@@3PAVArchiveFileSystem@@A)

@@ -40449,7 +40449,6 @@ _Rva00020AC0,,0x00020AC0,39,Code/Libraries/Source/WWVegas/WWLib/Rva0084D890CodeP
 ??$__uninitialized_copy@PAVRva0036CA00Str@@PAV1@@_STL@@YAPAVRva0036CA00Str@@PAV1@00ABU__false_type@0@@Z,,0x002393BC,38,Code/Libraries/Source/WWVegas/WWLib/Rva0036CA00UninitCopy.cpp,matched,uninit copy 4B record via rowed Construct
 ?Rva00444040Enable@@YAXXZ,,0x00444040,21,Code/GameEngine/Source/Common/Rva0050E9D3Enable.cpp,matched,guarded enabler via globals plus tail jmp enable
 ?rva00357A36@ScriptEngine@@QAE_NABVAsciiString@@_N@Z,,0x00357A36,97,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva00357A36.cpp,matched,CRC plus ObjectID find plus conditional int erase at 0x1A254
-?Rva002DC802BaseName@@YG?AVAsciiString@@ABV1@@Z,,0x002DC802,49,Code/GameEngine/Source/Common/System/SaveGame/Rva002DC267Get.cpp,matched,basename reverseFind 0x35930 caller 0x356E8E stdcall ret8
 ??$_M_allocate_and_copy@PAVRva0036CA00Str@@@?$vector@VRva0036CA00Str@@V?$allocator@VRva0036CA00Str@@@_STL@@@_STL@@IAEPAVRva0036CA00Str@@IPAV2@0@Z,,0x00239408,45,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva0036CA00_allocate_copy.cpp,matched,vector allocate and copy via rowed uninit copy
 ??1Rva0033BDC0@@QAE@XZ,,0x0033BDC0,56,Code/GameEngine/Source/Common/Rva0033BDC0Free.cpp,matched,chain via rowed clear 0x002CF807 and rowed free 0x00030830 same shape as rowed 0x0033C3F3
 ?Rva001FA8DDParse@@YAXPAVINI@@PAX@Z,,0x001FA8DD,110,Code/GameEngine/Source/GameLogic/Object/Rva001FA8DDParse.cpp,matched,INI token dispatch via StringBase table 0x9FDD5C virtual create append 0x5A0B4C
