@@ -61,10 +61,12 @@ struct Rva000527E2Event
 	Int m_8;
 };
 
+class AudioEventRTS;
+
 class MilesAudioManager
 {
 public:
-	void rva0005D734(Int a, Int b, Int c, Int d, Int e);
+	unsigned int addOrResumeAudioEvent(AudioEventRTS *a, Int b, Int c, Int d, Int e);
 
 	void rva000514BB();
 	void rva000517F1();
@@ -179,14 +181,16 @@ void MilesAudioManager::rva0005329C()
 		LeaveCriticalSection(m_b90->m_section);
 }
 
+// Native5D734 returns an audio handle in EAX; WB786F40 identifies addOrResumeAudioEvent.
+// These vtable wrappers discard the returned handle.
 // vtable 0x00BC55B0#25
 void MilesAudioManager::rva0005DABB(Int a)
 {
-	rva0005D734(a, 0, 1, 0, 1);
+	addOrResumeAudioEvent(reinterpret_cast<AudioEventRTS *>(a), 0, 1, 0, 1);
 }
 
 // vtable 0x00BC55B0#29
 void MilesAudioManager::rva0005DAE6(Int a, Int b)
 {
-	rva0005D734(a, 1, b, 0, 1);
+	addOrResumeAudioEvent(reinterpret_cast<AudioEventRTS *>(a), 1, b, 0, 1);
 }

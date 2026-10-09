@@ -10967,7 +10967,7 @@ name,address,notes
 ?rva0005BBE2@Rva0005BD28Host@@QAEXH@Z,0x0005BBE2,"member a vtable slot 0x0005BD28 calls with a constant argument; opaque address name"
 ?rva0005BE59@MilesAudioManager@@QAEXPAXM0@Z,0x0005BE59,manager thiscall taking (slot, float, idx-or-const): 3-arg voice setup tail in 0x0005CA03/0x0005CA75 (789B body, dep-heavy); compiler emits trailing void* as 0; REL32 read at those call sites; identity unproven,manager thiscall taking (slot, float, idx-or-const): 3-arg voice setup tail in 0x0005CA03/0x0005CA75 (789B body, dep-heavy); REL32 read at those call sites; identity unproven
 ?rva0005C23C@Rva0005C892@@QAEXPAVRva00052B3D@@@Z,0x0005C23C,thiscall helper taking the 8-byte Rva00052B3D local: REL32 read at the call site in 0x0005C892 (lea eax,[ebp-8] push eax mov ecx,esi call); identity unproven so caller keeps the address token
-?rva0005D734@MilesAudioManager@@QAEXHHHHH@Z,0x0005D734,"MilesAudioManager method (ret 0x14) the slots 0x0005DABB/0x0005DAE6 call with constant flag args; callee body (SEH, mutex +0x9D4) remains unclaimed; opaque address name"
+?addOrResumeAudioEvent@MilesAudioManager@@QAEIPAVAudioEventRTS@@HHHH@Z,0x0005D734,"Rename prior opaque void five-int pin: WB786F40 names method; native5D734..5DABB RET20 takes event pointer at arg0 and returns handle in EAX; multisound5A451 uses returned handle, SmallSlots callers discard it."
 ?rva0005EA8F@Rva0005F279Host@@QAEXPAVRva0005F279Elem@@@Z,0x0005EA8F,dump range 1 loop callees for 0x5F279
 ?rva00064020Rescale@@YAII@Z,0x00503E4F,callee of ?parseControlPointBlock@Rva00064680@@SAXPAVINI@@PAX1PBX@Z at retail 0x00503FD1 read from its REL32 displacement; donor static rescale body shared with the pin at this address for ?rva003BB860Scale@@YAII@Z
 ?rva00066E69@Rva00062C23Host@@QAEMMM@Z,0x00066E69,tail-call target of guard wrapper 0x00062C23; address-view alias (body blocked 591B)
@@ -17029,3 +17029,4 @@ _log,0x00629B0E,log double import thunk (gen-import row ji_00629b0e: msvcr71 slo
 ?rva0060D2E9@XferSave@@QAEXPBD@Z,0x0060D2E9,callee of ?rva0060D435@XferSave@@QAEHPBD@Z
 ??1Rva001F8D70Map@@QAE@XZ,0x001F8D70,thiscall dtor of the ParticleSystemManager +0x88 ID map (the ledger's dup_001f8d70 is a free-function placeholder spelling; the caller ParticleSystemManager dtor 0x001F9D98 loads ECX with this+0x88)
 ?rva002B256E@Rva002B256E@@QAEPAXXZ,0x002B256E,thiscall getter (every caller loads ECX first; the ledger's Rva002B256EGet is a free-function spelling); caller the PlanningPhaseBehavior::Impl dtor 0x00575F38
+?mapLogicalHandleToPhysicalHandle@MilesAudioManager@@QAEXII@Z,0x000593CD,"WB785D00 names method; native593CD..5952D RET8 and caller5A451 pass logical then physical unsigned handles; complete352B hash/list mapping body boundary. No other owner at this address."
