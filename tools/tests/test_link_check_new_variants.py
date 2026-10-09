@@ -267,7 +267,9 @@ def test_census_objects_the_ledger_no_longer_links_are_left_out(monkeypatch):
     assert C.new_variants(Path("new.obj"), ix, None, rank=order("new.obj", "b.obj")) == ["f"]
 
 
-def test_link_rank_is_the_census_link_order_of_the_ledger():
+def test_link_rank_is_the_census_link_order_of_the_ledger(monkeypatch):
+    # This synthetic code/library ledger has no synthetic data providers.
+    monkeypatch.setattr(C.link_census, "data_ledger", lambda: [])
     # One row per compiled source places it as all of them would; a lib's rows
     # name different members, so each counts.
     rows = [{"source": "Code/B.cpp", "target_rva": "0x300"}, {"source": "Code/A.cpp", "target_rva": "0x200"},

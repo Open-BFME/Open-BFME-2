@@ -17,6 +17,19 @@ import link_census as census
 from test_build_include_inventory import _fixture
 
 
+@pytest.fixture(autouse=True)
+def isolated_data_ledger(tmp_path, monkeypatch):
+    # Synthetic census/order fixtures must not inherit live repository data
+    # providers. Tests of populated/malformed data rows still supply their own
+    # rows/path and exercise the unchanged real data loader and byte gate.
+    import data_rows
+    empty = tmp_path / "data_rows.csv"
+    empty.write_bytes((data_rows.HEADER + "\n").encode())
+    loader = data_rows.load
+    monkeypatch.setattr(data_rows, "DATA_ROWS", empty)
+    monkeypatch.setattr(data_rows, "load", lambda path=None: loader(path or data_rows.DATA_ROWS))
+
+
 def test_new_shadowing_shim_header_invalidates_census_object(tmp_path, monkeypatch):
     source, obj, early, original, _, _ = _fixture(tmp_path, monkeypatch)
     assert census.object_current(source, obj)

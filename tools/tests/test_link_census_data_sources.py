@@ -1,6 +1,6 @@
 """Data providers enter the census without becoming function ledger rows
 (ported from Open-BFME-1's test_link_census_data_sources.py; its first case
-reads two of Open-BFME-1's own data rows, so here it reads the empty ledger)."""
+reads two of Open-BFME-1's own data rows, so here it uses synthetic providers)."""
 import sys
 from pathlib import Path
 
@@ -11,9 +11,21 @@ import data_rows  # noqa: E402
 import link_census as census  # noqa: E402
 
 
+@pytest.fixture(autouse=True)
+def isolated_data_ledger(tmp_path, monkeypatch):
+    # Synthetic census/order fixtures must not inherit live repository data
+    # providers. Tests of populated/malformed data rows still supply their own
+    # rows/path and exercise the unchanged real data loader and byte gate.
+    import data_rows
+    empty = tmp_path / "data_rows.csv"
+    empty.write_bytes((data_rows.HEADER + "\n").encode())
+    loader = data_rows.load
+    monkeypatch.setattr(data_rows, "DATA_ROWS", empty)
+    monkeypatch.setattr(data_rows, "load", lambda path=None: loader(path or data_rows.DATA_ROWS))
+
+
 def test_an_empty_data_ledger_adds_no_compile_input_object_or_owner(monkeypatch):
-    """reverse/data_rows.csv starts header-only: the census must see exactly
-    what it saw before data rows were ported."""
+    """With an explicitly empty ledger, no data providers enter the census."""
     assert data_rows.DATA_ROWS.read_bytes() == (data_rows.HEADER + "\n").encode()
     rows = [{"name": "code", "target_rva": "0x00001000", "source": "Code/GameEngine/Source/Common/A.cpp"},
             {"name": "more", "target_rva": "0x00001010", "source": "Code/GameEngine/Source/Common/A.cpp"}]
