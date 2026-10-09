@@ -1,4 +1,7 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /O1 /G7 /EHsc /DNDEBUG /MD /D_STLP_NO_EXCEPTIONS /D_BFME_RETAIL_TREE_INSERT_LAYOUT /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc
+// stlport
+#include <map>
+#include "ascii_string.h"
 // Player::accumulateRTSBattleStatsIntoLivingWorldScoreKeeper, retail
 // 0x002A9994 (62 bytes):
 // ?accumulateRTSBattleStatsIntoLivingWorldScoreKeeper@Player@@QAEXXZ
@@ -111,4 +114,44 @@ void LivingWorldScoreKeeper::rva004EE950(ScoreKeeper *rtsScoreKeeper)
 	Rva0039C3AC *scoreMaps = (Rva0039C3AC *)rtsScoreKeeper;
 	for (int i = 0; i < 20; ++i)
 		rva004EE8B8(&m_indexedMap, scoreMaps->rva0039C3AC(i));
+}
+
+class ThingTemplate;
+struct ScoreMergeTemplateView {char pad00[8];bool overridden;char pad09[0x64-9];AsciiString name;};
+// Same ABI wrapper as ThingTemplateCountMap.cpp: unsigned stored addresses
+// are keys and mapped counts occupy four bytes. Application type stays opaque.
+struct TemplateCountKey {
+ const ThingTemplate *pointer;
+ __forceinline TemplateCountKey() {}
+ __forceinline TemplateCountKey(const ThingTemplate *p):pointer(p) {}
+ __forceinline bool operator<(const TemplateCountKey &v)const{return pointer<v.pointer;}
+};
+namespace _STL {template<class T,class L,class R> static inline bool operator!=(const _Rb_tree_iterator<T,L>&a,const _Rb_tree_iterator<T,R>&b){return a._M_node!=b._M_node;}}
+class ThingFactory;
+extern ThingFactory *TheThingFactory;
+class Rva002D06CA {public:void *rva002D06CA(const AsciiString *);};
+// Native helper called only by the already measured score-map fold. The
+// target resolves overridden templates by name, then adds the source count.
+void rva004EE8B8(ObjectCountMap *destination,ObjectCountMap *source)
+{
+ typedef _STL::map<TemplateCountKey,int> Map;
+ typedef _STL::pair<const TemplateCountKey,int> Value;
+ typedef _STL::_Rb_tree<TemplateCountKey,Value,_STL::_Select1st<Value>,_STL::less<TemplateCountKey>,_STL::allocator<Value> > Tree;
+ Map *src=(Map*)source;
+ Map::iterator it=src->begin(),end=src->end();
+ while(it!=end) {
+  const ThingTemplate *key=it->first.pointer;
+  const ThingTemplate *resolved=0;
+  AsciiString name;
+  if(key) {
+   name=((const ScoreMergeTemplateView*)key)->name;
+   if(((const ScoreMergeTemplateView*)key)->overridden)
+    resolved=(const ThingTemplate*)((Rva002D06CA*)TheThingFactory)->rva002D06CA(&name);
+   else resolved=key;
+  }
+  Value value(TemplateCountKey(resolved),0);
+  _STL::pair<Map::iterator,bool> result=((Tree*)destination)->insert_unique(value);
+  result.first->second+=it->second;
+  ++it;
+ }
 }
