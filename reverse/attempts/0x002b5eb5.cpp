@@ -1,5 +1,5 @@
-// ?rva002B5EB5@Rva002B5EB5@@QAE_NXZ
-// partial score=0.85 date=2026-10-06
+// ?IsLocalPlayerAllowedToEndPhase@LivingWorldLogic@@QAE_NXZ
+// partial score=0.779342723 date=2026-10-09
 // cl: /O1 /MD
 // ?rva002B5EB5@Rva002B5EB5@@QAE_NXZ @0x002B5EB5 213B: __thiscall bool with
 // no stack args. Gate chain: rowed 0x2B254F int probe (byte-tested); on hit
@@ -29,10 +29,10 @@ public:
 	void *rva003B8BAA();
 };
 
-class Rva003F85C6Obj
+class Rva003F81FDProxy
 {
 public:
-	bool rva003F85C6();
+	unsigned char rva003F85C6();
 };
 
 class Rva002B4C09
@@ -59,11 +59,12 @@ public:
 	bool rva0020E72A(void *p);
 };
 
-class Rva002B5EB5
+struct Rva002B4C35Player;
+class LivingWorldLogic
 {
 public:
-	bool rva002B5EB5();
-	bool rva002B5CBB(void *p);
+	bool IsLocalPlayerAllowedToEndPhase();
+	bool rva002B5CBB(const Rva002B4C35Player *p);
 private:
 	char m_pad0[0x98];
 	void *m_98; // +0x98 scan subject passed to 0x20E72A and 0x2B5CBB
@@ -82,21 +83,21 @@ private:
 	int m_end158; // +0x158
 };
 
-bool Rva002B5EB5::rva002B5EB5()
+bool LivingWorldLogic::IsLocalPlayerAllowedToEndPhase()
 {
 	if ((unsigned char)((Rva002B254F *)this)->rva002B254F() == 0)
 		goto check154;
 	{
-		Rva003F85C6Obj *inner = (Rva003F85C6Obj *)g_00E02D6C->rva003B8BAA();
+		Rva003F81FDProxy *inner = (Rva003F81FDProxy *)g_00E02D6C->rva003B8BAA();
 		if (!inner->rva003F85C6())
-			return false;
+			goto fail;
 	}
 check154:
 	int *p154 = (int *)((char *)this + 0x154);
 	if (p154[0] != p154[1])
-		return false;
-	if (!((Rva002B4C09 *)this)->rva002B3621())
-		return false;
+		goto fail;
+	if (((Rva002B4C09 *)this)->rva002B3621())
+		goto fail;
 	int m = m_f4;
 	switch (m)
 	{
@@ -112,8 +113,8 @@ check154:
 		{
 		void **pp = (void **)((char *)this + 0x98);
 		if (((Rva0020E72A *)m_pB0)->rva0020E72A(*pp))
-			return false;
-		bool b = !rva002B5CBB(*pp);
+			goto fail;
+		bool b = !rva002B5CBB((const Rva002B4C35Player*)*pp);
 		return b;
 		}
 	case 3:
@@ -122,13 +123,15 @@ check154:
 	case 4:
 		{
 		int *p10C = (int *)((char *)this + 0x10C);
-		if (p10C[0] == p10C[1])
-			return true;
-		if (((Rva002B32CE *)this)->rva002B32CE())
-			return true;
-		return false;
+		int result=0;
+		if (p10C[0] == p10C[1] || ((Rva002B32CE *)this)->rva002B32CE())
+			result=1;
+		return result;
 		}
 	default:
-		return false;
+		goto fail;
 	}
+ goto fail;
+fail:
+ return false;
 }
