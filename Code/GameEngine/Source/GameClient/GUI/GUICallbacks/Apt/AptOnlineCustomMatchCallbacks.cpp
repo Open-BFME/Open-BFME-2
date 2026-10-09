@@ -1103,3 +1103,27 @@ bool AptOnlineCustomMatch::RequestJoinGame(const char *password)
 	m_popUp = true;
 	return true;
 }
+
+class GameTextInterface
+{
+public:
+#define T(n) virtual void t##n();
+	T(0) T(1) T(2) T(3) T(4) T(5) T(6) T(7) T(8) T(9) T(10) T(11) T(12) T(13) T(14)
+#undef T
+	virtual UnicodeString fetch(const char *, bool *exists = 0);
+};
+extern GameTextInterface *TheGameText;
+
+// Retail 0x0059F12A..0x0059F1B8, 142 bytes. WorldBuilder's unnamed
+// 0x014EC750 counterpart returns a UnicodeString by value. Native tooltip
+// callers pass a signed ladder rank: negatives fetch the unavailable label;
+// other values use the UTF-16 "%d" literal at 0x00BC9260. Name remains unknown.
+UnicodeString Rva0059F12A(int rank)
+{
+	UnicodeString text;
+	if (rank < 0)
+		text = TheGameText->fetch("TOOLTIP:LadderRankUnavailable");
+	else
+		text.format((const unsigned short *)L"%d", rank);
+	return text;
+}
