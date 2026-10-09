@@ -1,4 +1,6 @@
 // ?rva004DE2ED@Rva004DD843@@QAE_NXZ
+// partial score=0.7946 date=2026-10-09
+// ?rva004DE2ED@Rva004DD843@@QAE_NXZ
 // partial score=0.85 date=2026-10-09
 // ?rva004DE2ED@Rva004DD843@@QAE_NXZ
 // Native 0x004DD8FA..0x004DD9E3, 233 bytes, RET4.
@@ -426,8 +428,8 @@ bool Rva004DD843::rva004DE2ED()
   if (mode!=oldLayer)
   {
    int newLayer=mode;
-   if (mode!=16 && !(unsigned char)Rva002E6E8AGet(mode)) newLayer=1;
    m_object->rva0028B4CE((PathfindLayerEnum)newLayer);
+   if (mode!=16 && !(unsigned char)Rva002E6E8AGet(mode)) newLayer=1;
   }
   if(m_position.m_value!=-666666) rva004DD8FA(&m_position);
   return false;
