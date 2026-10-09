@@ -1,6 +1,8 @@
 // ??0WeatherSetting@@QAE@XZ
+// partial score=0.98 date=2026-10-09
+// ??0WeatherSetting@@QAE@XZ
 // partial score=0.95 date=2026-10-09
-// cl: /O1 /G7 /arch:SSE /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/sweep
+// cl: /O1 /G7 /arch:SSE /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /ICode/Libraries/Include
 // stlport
 // ??0WeatherSetting@@QAE@XZ @0x00201618 503B.
 // BFME 2's WeatherSetting constructor: Zero Hour's field defaults over the
@@ -14,6 +16,10 @@
 // "EXSnowFlake.tga" goes through AsciiString::set; the colour at +0x8C is
 // set from the packed int 0x00886655 (RGBColor::setFromInt 0x00004EDF).
 #include "ascii_string.h"
+#include "Lib/Coord2D.h"
+extern "C" void _ReadWriteBarrier();
+#pragma intrinsic(_ReadWriteBarrier)
+inline void setWeatherPair(Coord2D &v,float x,float y){v.x=x;v.y=y;}
 
 class Overridable
 {
@@ -72,30 +78,23 @@ public:
 	bool m_snowEnabled;					// +0x45
 	bool m_46;
 	int m_48;
-	float m_4C;
-	float m_50;
-	bool m_54;
+	Coord2D m_4C;
+	volatile bool m_54;
 	int m_58;
 	float m_5C;
 	float m_60;
-	int m_64;
+	volatile int m_64;
 	float m_68;
-	bool m_6C;
-	int m_70;
-	float m_74;
-	float m_78;
-	float m_7C;
-	float m_80;
-	float m_84;
-	float m_88;
+	volatile bool m_6C;
+	volatile int m_70;
+	volatile Coord2D m_74;
+	Coord2D m_7C;
+	Coord2D m_84;
 	RGBColor m_8C;
 	bool m_98;
-	float m_9C;
-	float m_A0;
-	float m_A4;
-	float m_A8;
-	float m_AC;
-	float m_B0;
+	Coord2D m_9C;
+	Coord2D m_A4;
+	Coord2D m_AC;
 };
 
 WeatherSetting::WeatherSetting() : Rva00200D38(AsciiString("Weather")), m_58(0), m_5C(0.0f), m_60(0.0f)
@@ -115,25 +114,22 @@ WeatherSetting::WeatherSetting() : Rva00200D38(AsciiString("Weather")), m_58(0),
 	m_snowEnabled = false;
 	m_46 = false;
 	m_48 = 4;
-	m_4C = 0.0f;
-	m_50 = 0.0f;
+	m_4C.x = 0.0f;
+	m_4C.y = 0.0f;
 	m_68 = 0.01f;
+	_ReadWriteBarrier();
 	m_54 = false;
 	m_64 = 30;
 	m_6C = true;
 	m_70 = 200;
-	m_74 = 0.3f;
-	m_78 = 0.7f;
-	m_7C = 0.0f;
-	m_80 = 100.0f;
-	m_84 = 50.0f;
-	m_88 = 20.0f;
+	m_74.x = 0.3f;
+	m_74.y = 0.7f;
+	setWeatherPair(m_7C, 0.0f, 100.0f);
+	setWeatherPair(m_84, 50.0f, 20.0f);
 	m_8C.setFromInt(0x886655);
-	m_9C = 300.0f;
-	m_A0 = 1500.0f;
+	m_9C.x = 300.0f;
+	m_9C.y = 1500.0f;
 	m_98 = false;
-	m_A4 = 660.0f;
-	m_A8 = 660.0f;
-	m_AC = -0.012f;
-	m_B0 = -0.018f;
+	setWeatherPair(m_A4, 660.0f, 660.0f);
+	setWeatherPair(m_AC, -0.012f, -0.018f);
 }
