@@ -354,3 +354,11 @@ char *Rva00050D53Fields::get() { if (value != 0) return value + 8; return 0; }
 // The donor disguised-template name and pointer type are not target facts;
 // this existing raw-word predicate view asserts only the accessed field.
 BFME_DISP8_CMP_ZERO_BOOL_GETTER(Rva0052D843CmpBoolField, 0x38, !=)
+
+// Whole clean BF1 f98983a7d3 Common/PointerZeroTestPredicates.cpp supplies the
+// nonzero-field source expression, compiled /O1 /SSE2 /G7 in the donor pass.
+// Native50525D..505266 follows RET4, reads receiverword34, returns EAX0/1
+// with SETNE, and RETs before the next independent getter. Owner, field
+// meaning and pointer/integer interpretation remain unknown; only the raw
+// four-byte field and nonzero predicate are asserted by this existing macro.
+BFME_DISP8_CMP_ZERO_BOOL_GETTER(Rva0050525DCmpBoolField, 0x34, !=)
