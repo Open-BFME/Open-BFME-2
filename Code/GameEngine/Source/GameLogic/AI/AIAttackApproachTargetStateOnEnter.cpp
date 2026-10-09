@@ -36,6 +36,13 @@
 // layer >= 17 and no quick path, or a non-moving owner (Object::rva002907A1,
 // locomotor 0x001E46E1 speed < 0.1), waits two seconds (+0x68, flag +0x71).
 // Donors: Zero Hour AIStates.cpp, BFME1 AIAttackApproachTargetState_onEnter.cpp.
+//
+// AIAttackApproachTargetState00C12678::onEnter 0x0034D049 (383 bytes, slot 4
+// of vtable 0x00C12678): the same body for the BFME 2 position-approach
+// variant -- no victim branch, the weapon range test against the machine's
+// goal position, owner position at +0x4C, timestamp +0x58, wait frame +0x5C
+// and wait flag +0x62. The goal pointer is read before the timestamp store
+// (retail keeps the negated frame rate in ECX across the argument pushes).
 
 #include "../../Common/GameLogicObjectLookupView.h"
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
@@ -458,6 +465,21 @@ private:
 	Bool m_waiting; // +0x71
 };
 
+// The BFME 2 approach variant of vtable 0x00C12678 (rowed onExit/update in
+// AIAttackApproachTargetStateOnExit.cpp, constructor 0x00342978).
+class AIAttackApproachTargetState00C12678 : public AIInternalMoveToState
+{
+public:
+	virtual StateReturnType onEnter();
+private:
+	Coord3D m_ownerPosition; // +0x4C
+	Int m_approachTimestamp; // +0x58
+	UnsignedInt m_waitFrame; // +0x5C
+	Bool m_stopIfInRange; // +0x60
+	Bool m_isInitialApproach; // +0x61
+	Bool m_waiting; // +0x62
+};
+
 Bool Rva0034311ECheck(Object *obj);
 
 Bool rva003430A3(Object *source, Object *victim, Weapon *weapon)
@@ -639,6 +661,58 @@ StateReturnType AIAttackApproachTargetState::onEnter()
 		else
 			ai->setTurretTargetPosition(tur, getMachineGoalPosition());
 	}
+
+	if (computePath() == false)
+		return STATE_FAILURE;
+	if (m_waiting)
+		return STATE_CONTINUE;
+
+	critterDesyncLog("CritterDesync: setAdjustDestination(FALSE) 21");
+	setAdjustsDestination(false);
+	StateReturnType ret = AIInternalMoveToState::onEnter();
+	critterDesyncLog("CritterDesync: setAdjustDestination(TRUE) 22");
+	setAdjustsDestination(true);
+	return ret;
+}
+
+StateReturnType AIAttackApproachTargetState00C12678::onEnter()
+{
+	Object *source = getMachineOwner();
+	AIUpdateInterface *ai = source->getAI();
+	if (source->isKindOfProjectile())
+	{
+		if (ai->getCurLocomotor())
+			ai->getCurLocomotor()->setUsePreciseZPos(true);
+	}
+
+	m_ownerPosition = *source->getPosition();
+	m_waiting = false;
+	Weapon *weapon = source->getCurrentWeapon();
+	const Coord3D *goalPos = getMachineGoalPosition();
+	m_approachTimestamp = -LOGICFRAMES_PER_SECOND;
+	if (weapon->isWithinAttackRange(source, (void *)goalPos, 0.0f, 1))
+		return STATE_SUCCESS;
+	if (!rva00343FB0(source))
+		return STATE_FAILURE;
+
+	if (source->testStatus(OBJECT_STATUS_26) && source->m_containedBy)
+		return STATE_FAILURE;
+
+	Bool mobile = true;
+	if (!source->rva002907A1())
+		mobile = false;
+	if (((Rva001E46E1 *)ai->getCurLocomotor())->rva001E46E1(source) < 0.1f)
+		mobile = false;
+	if (!mobile)
+	{
+		m_waiting = true;
+		m_waitFrame = TheGameLogic->getFrame() + 2 * LOGICFRAMES_PER_SECOND;
+		return STATE_CONTINUE;
+	}
+
+	WhichTurretType tur = ai->getWhichTurretForCurWeapon();
+	if (tur != TURRET_INVALID)
+		ai->setTurretTargetPosition(tur, getMachineGoalPosition());
 
 	if (computePath() == false)
 		return STATE_FAILURE;
