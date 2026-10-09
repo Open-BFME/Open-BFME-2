@@ -92,7 +92,6 @@ public:
 	void rva003EF1D9(const _STL::vector<Int> &vec);
 	void rva003EF2FF();
 };
-void LivingWorldRegionEffectsManager::rva003EF13E(Int value, Int, Int) { SyncRegion(value); }
 
 void LivingWorldRegionEffectsManager::rva003EF1D9(const _STL::vector<Int> &vec)
 {

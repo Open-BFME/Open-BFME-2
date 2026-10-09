@@ -438,11 +438,14 @@ Rva0039AE75::Rva0039AE75(EmitVtableTag *)
 {
 }
 
+struct Rva003EE746Color;
+struct Rva003EE746Region;
 class Rva003EE711
 {
 public:
 	Rva003EE711(EmitVtableTag *);
 	virtual ~Rva003EE711() {}
+	virtual Rva003EE746Color color(const Rva003EE746Region *) = 0;
 };
 
 // ?<Rva003EE711::Rva003EE711> absent-from-retail
