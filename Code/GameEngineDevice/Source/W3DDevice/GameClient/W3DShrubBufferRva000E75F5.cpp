@@ -4,7 +4,10 @@
 // upright type (or the toppled type while a push-aside model exists), drops its topple and push-aside models (a
 // shrub with none resets the rows that share its key) and leaves the toppling state. BFME2 layout: 2000 records
 // of 0xA0 at +0x1958, count +0x4FB58, changed byte +0x4FB5C.
+#include "../../../../Libraries/Include/Lib/Coord3D.h"
+#include "../../../../Libraries/Include/Lib/Coord2D.h"
 typedef int Int;
+
 
 class Rva000E75F5RenderObjClass
 {
@@ -28,9 +31,10 @@ public:
 
 struct Rva000E75F5Tree
 {
-	unsigned char m_pad00[0x40];
+	Coord3D m_position; float m_scale;
+	unsigned char m_pad10[0x40 - 0x10];
 	Int m_treeType;
-	unsigned char m_pad44[0x58 - 0x44];
+	bool m_enabled; unsigned char m_pad45[0x58 - 0x45];
 	Int m_key;
 	unsigned char m_pad5c[0x84 - 0x5c];
 	Int m_state;
@@ -42,10 +46,16 @@ struct Rva000E75F5Tree
 	unsigned char m_pad9c[0xa0 - 0x9c];
 };
 
+struct Rva000E7546TypeRecord {
+ void *m_valid; char at04[0x2C-4];
+ Coord2D m_shadowA; char at34[0x3C-0x34];
+ Coord2D m_shadowB; bool m_ready; char at45[0x5C-0x45];
+};
 class W3DShrubBuffer
 {
 public:
 	void rva000E75F5(Int index);
+ bool rva000E7546(Int index, float *outPos, float *outScale, Coord2D *outShadowA, Coord2D *outShadowB);
 	void rva000E70D9(Int key);
 
 private:
@@ -53,6 +63,8 @@ private:
 	Rva000E75F5Tree m_trees[2000];
 	Int m_numTrees;
 	unsigned char m_anythingChanged;
+ char at4FB5D[0x4FB70-0x4FB5D];
+ Rva000E7546TypeRecord m_treeTypes[64];
 };
 
 void W3DShrubBuffer::rva000E75F5(Int index)
@@ -85,4 +97,26 @@ void W3DShrubBuffer::rva000E75F5(Int index)
 	}
 	m_trees[index].m_state = 0;
 	m_anythingChanged = true;
+}
+
+static inline void copyShrubPosition(float *out, const Coord3D *position)
+{
+ out[0] = position->x; out[1] = position->y; out[2] = position->z;
+}
+// BF1 f98983a7 W3DShrubBufferRva0071CF40 is the semantic guide.
+// BFME2's existing removeTreeAtIndex independently proves160B entries,
+// not the donor164B stride; native175 proves all four copied outputs.
+bool W3DShrubBuffer::rva000E7546(Int index, float *outPos, float *outScale, Coord2D *outShadowA, Coord2D *outShadowB)
+{
+ if (index < m_numTrees) {
+  Int type = m_trees[index].m_treeType;
+  if (type >= 0 && m_trees[index].m_enabled && m_treeTypes[type].m_valid && m_treeTypes[type].m_ready) {
+   copyShrubPosition(outPos, &m_trees[index].m_position);
+   *outScale = m_trees[index].m_scale * 10.0f;
+   *outShadowA = m_treeTypes[type].m_shadowA;
+   *outShadowB = m_treeTypes[type].m_shadowB;
+   return true;
+  }
+ }
+ return false;
 }
