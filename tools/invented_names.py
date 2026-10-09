@@ -8,7 +8,8 @@ second, third, ninth name for one retail global: reverse/data_ledger.csv binds
 TheWritableGlobalData, g_00DFE758, g_Va009FE758 and six more to 0x009FE758.
 Each extra name is a separate definition the link has to reconcile.
 
-WHAT. Code/ C/C++ sources a change touches whose added lines hold a 6-hex run.
+WHAT. Code/ C/C++ sources a change touches whose added lines hold a 6-hex run,
+or where a line splice (a trailing backslash) sits in a hunk or beside one.
 The complete old and new file contents are lexed once each, as a compiler's
 first phases see them: CRLF read as LF, backslash-newline line splices joined
 (a `//` comment continued that way, a `/` spliced onto the `/` that starts the
@@ -267,8 +268,11 @@ def literal_text(symbol):
 # ---------------------------------------------------------------- the diff
 
 def parse_patch(text):
-    """[(commit, parent, [(old path or None, new path, [(line number, text)])])] from
-    `git log -p -U0 --format=SEP%H SEP%P` or `git diff -U0` (commit None)."""
+    """[(commit, parent, [[old path or None, new path, [(line number, text)], spliced]])] from
+    `git log -p -U1 --format=SEP%H SEP%P` or `git diff -U1` (commit None). `spliced` is set
+    when a line of a hunk -- added, removed or the one line of context on each side -- ends
+    in a backslash: a line splice there can join an unchanged line into a new token, or
+    let a comment run on, so the added lines alone do not say whether the file changed."""
     commits, files = [], None
     current = None
     header = False
@@ -292,16 +296,21 @@ def parse_patch(text):
             elif line.startswith("+++ "):
                 new = line[6:] if line.startswith("+++ b/") else None
                 if new:
-                    current = (old, new, [])
+                    current = [old, new, [], False]
                     files.append(current)
             elif line.startswith("@@"):
                 header = False
                 lineno = _hunk_start(line)
         elif line.startswith("@@"):
             lineno = _hunk_start(line)
-        elif current is not None and line.startswith("+"):
-            current[2].append((lineno, line[1:].rstrip("\r")))
-            lineno += 1
+        elif current is not None and line[:1] in ("+", "-", " "):
+            body = line[1:].rstrip("\r")
+            if body.endswith("\\"):
+                current[3] = True
+            if line[0] == "+":
+                current[2].append((lineno, body))
+            if line[0] != "-":
+                lineno += 1
     return commits
 
 
@@ -402,9 +411,11 @@ def findings(commits, ledger_loader, specs, budget, progress=None):
         budget.check()
         chunk = files[start:start + CHUNK]
         todo = []
-        for sha, parent, (old, new, added) in chunk:
-            # only a file whose added lines (spliced) hold a 6-hex run can gain such a name
-            if HEX_RUN.search(splice("\n".join(text for _lineno, text in added))[0]) and load() is not None:
+        for sha, parent, (old, new, added, spliced) in chunk:
+            # the cheap path: a file can gain such a name only where its added lines (spliced)
+            # hold a 6-hex run -- or where a line splice at a hunk joins in an unchanged line
+            if (spliced or HEX_RUN.search(splice("\n".join(text for _lineno, text in added))[0])) \
+                    and load() is not None:
                 todo.append((sha, new, *specs(sha, parent, old, new)))
         blobs = read_blobs(budget, [spec for item in todo for spec in item[2:]])
         for sha, new, old_spec, new_spec in todo:
@@ -473,7 +484,7 @@ def ledger_loader(path):
 
 
 def staged(budget, ledger_path, progress):
-    text = git(budget, "diff", "--cached", "-M", "-U0", "--no-color", "--no-ext-diff", "--no-textconv",
+    text = git(budget, "diff", "--cached", "-M", "-U1", "--no-color", "--no-ext-diff", "--no-textconv",
                "--diff-filter=ACMR", "--", *PATHSPECS)
     head = "HEAD" if git(budget, "rev-parse", "-q", "--verify", "HEAD^{commit}", ok=(0, 1)).strip() else None
 
@@ -487,7 +498,7 @@ def in_history(sha, parent, old, new):
 
 
 def log_patch(budget, *rev_args):
-    return parse_patch(git(budget, "log", "--no-merges", "-M", "-p", "-U0", "--no-color", "--no-ext-diff",
+    return parse_patch(git(budget, "log", "--no-merges", "-M", "-p", "-U1", "--no-color", "--no-ext-diff",
                            "--no-textconv", "--diff-filter=ACMR", "--format=" + SEP + "%H" + SEP + "%P",
                            *rev_args, "--", *PATHSPECS))
 

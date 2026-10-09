@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Report outgoing commits that replay work already upstream (pre-push, SHADOW).
+"""Report outgoing commits that repeat work already upstream (pre-push, SHADOW).
 
 WHY. On 2026-10-06..08 automated seats re-pushed old commits 3,541 times. One
 subject, "Recover counted allocator lock wrapper" (authored 2026-10-05 15:45
@@ -11,21 +11,19 @@ rows. Every hook stayed green: a duplicate of a verified row is still verified.
 Open-BFME-1 has no equivalent check (its seat_replay.py replays a seat's delta
 onto master; it does not look for replays), so this one is new.
 
-SIGNATURES, per outgoing (non-merge) commit:
+SIGNATURES, per outgoing (non-merge) commit, both informational:
   identity  its (author email, author date, subject) equals that of a commit
-            already reachable from the remote tip. A rebase or cherry-pick
-            keeps all three -- and so do an intentional re-land after an
-            upstream revert and an amended commit, so identity alone is only a
-            POSSIBLE replay, with advice to compare, never to drop.
-  ledger    lines it adds to reverse/functions.csv or reverse/symbols.csv (net
-            of lines it removes, so a moved row is not counted) that already
-            exist verbatim in the remote tip's copy of that file: DUPLICATE
-            ROWS, to be removed from the commit.
-  content   ALL of its changes are already upstream: every file it changes
-            ends as the remote tip has it (same blob), except a ledger, where
-            every line it adds is already there and it removes none. Only this
-            is a REPLAY, with advice to drop the commit. One duplicate row
-            beside a fresh one is duplicate rows, not a replay.
+            already reachable from the remote tip: "possible replay of <sha>".
+            A rebase or cherry-pick keeps all three -- and so do an intentional
+            re-land after an upstream revert and an amended commit, so the
+            advice is to compare (git diff <upstream sha> <sha>), nothing more.
+  ledger    lines its own diff adds to reverse/functions.csv or
+            reverse/symbols.csv (net of lines it removes, so a moved row is
+            not counted) that already exist verbatim in the remote tip's copy:
+            "remove the duplicate rows".
+A shadow detector does not tell anyone to discard a commit: proving that a
+whole commit is already upstream (modes, force-pushed parents, files restored
+to an earlier state) is more than it can do safely, so it never claims it.
 
 COST. A hard wall-clock budget (tools/shadow_budget.py: $BFME_SHADOW_BUDGET_S,
 default 10 s) bounds the run: each git child waits at most the budget left and
@@ -37,15 +35,13 @@ more than --max-days before the newest outgoing commit (outgoing commits
 authored before that window are counted, not matched); one diff of the whole
 range's ledgers, its added lines looked up in the remote tip's copy of each
 ledger it touches (nothing is read when it touches none; `git grep` for a few
-lines, one read of the file for more). Per-commit ledger diffs (~0.2 s each
-with a 16 MB ledger, four at a time) only where they decide something: when
-the net diff finds a line, the first --attribute ledger-touching commits
-(identity twins first) to say which added it; and the first --attribute
-ledger-touching identity twins. Measured on real ranges: 500 commits ~4 s (was
-112-114 s), 2,000 commits ~4 s (was over 240 s). What this leaves unchecked is
-reported as a count: ledger commits seen only through the net diff (which
-hides a row added and dropped again within the push), twins whose content was
-not compared, commits authored before the walk window.
+lines, one read of the file for more). Only when that finds a line: each of
+the first --attribute ledger-touching commits' own ledger diff (~0.2 s each with
+a 16 MB ledger, four at a time; identity twins first) to say which commit
+added it. Measured on real ranges: 500 commits ~2.3 s (was 112-114 s), 2,000
+commits ~3 s (was over 240 s). What this leaves unchecked is reported as a
+count: ledger commits seen only through the net diff (which hides a row added
+and removed again within the push), commits authored before the walk window.
 
 REPORT ONLY. With --shadow (the hook) it always exits 0. Without it, it exits 1
 when it finds anything, so scripts and tests can branch on it.
@@ -72,7 +68,6 @@ WORKERS = 4                  # concurrent per-commit diffs
 CHUNK = 3                    # commits per diff process: what a budget overrun can lose
 GREP_MAX = 8                 # `git grep -F -f` tries every pattern on every line: few lines only
 REVERT = re.compile(r'^Revert "(.*)"$')
-ABSENT = "0" * 40
 
 
 class Git:
@@ -204,12 +199,9 @@ class Result:
         self.touched = set()
         self.net = None             # {path: (added, removed)}: the range's net ledger change
         self.present = None         # {path: lines already upstream}, once looked up
-        self.need_diff = set()
-        self.ledger = {}            # sha -> {ledger path: (added, removed)} of that commit alone
-        self.attributed = set()     # ledger commits whose own additions were read
-        self.files = None           # sha -> {path: resulting blob}, of the commits judged on content
-        self.upstream = {}          # path -> its blob at the remote tip
         self.read = {}              # ledger path -> all its lines at the remote tip, once read whole
+        self.need_diff = set()
+        self.ledger = {}            # sha -> {ledger path: (added, removed)}, from its own diff
         self.attribute = 0
         self.max_days = 0.0
 
@@ -221,43 +213,22 @@ class Result:
         return {p: v[0] for p, v in self.ledger.get(sha, {}).items()}
 
     def hits(self, sha):
-        """How many lines this commit adds that the remote tip's ledger already holds."""
+        """How many lines this commit's own diff adds that the remote tip's ledger holds."""
         if self.present is None:
             return 0
         return sum(1 for p, v in self.added(sha).items() for line in v if line in self.present.get(p, ()))
-
-    def upstream_already(self, sha):
-        """True when every change of this commit is already upstream, False when one is not,
-        None when that was not established."""
-        if self.files is None or sha not in self.files:
-            return None
-        for path, blob in self.files[sha].items():
-            if path in LEDGERS:
-                if sha not in self.ledger:
-                    return None
-                added, removed = self.ledger[sha].get(path, ([], []))
-                if removed or any(line not in self.present.get(path, ()) for line in added):
-                    return False
-            elif self.upstream.get(path, ABSENT) != blob:
-                return False
-        return True
-
-    def candidate(self, commit):
-        return bool(self.twins(commit) or self.hits(commit[0]))
 
     def complete(self, commit):
         """Every check planned for this commit finished."""
         sha = commit[0]
         if not self.indexed or (sha in self.need_diff and sha not in self.ledger):
             return False
-        if self.present is None and sha in self.touched:
-            return False
-        return not (self.candidate(commit) and self.files is None)
+        return not (self.present is None and sha in self.touched)
 
 
 def check(git, base, tip, result, slack_hours=6.0, max_days=30.0, attribute=20):
-    """Fill `result` for base..tip, cheapest and most telling checks first (raises
-    BudgetExceeded midway, leaving what it finished)."""
+    """Fill `result` for base..tip, cheapest first (raises BudgetExceeded midway, leaving
+    what it finished)."""
     r = result
     r.attribute = attribute
 
@@ -288,69 +259,35 @@ def check(git, base, tip, result, slack_hours=6.0, max_days=30.0, attribute=20):
         r.ledger_commits = touched.result()
         r.touched = set(r.ledger_commits)
         r.net, r.present = net.result()
-    if not r.outgoing:
+    if not r.outgoing or not any(r.present.values()):
         return r
 
-    # each ledger commit's own change: one alone is the net diff; else the first
-    # `attribute` (identity twins first) when the net diff found a line, and the
-    # first `attribute` ledger-touching twins
-    twinned = [c[0] for c in reversed(r.outgoing) if r.twins(c)]
-    if len(r.ledger_commits) == 1:
-        r.ledger[r.ledger_commits[0]] = r.net
-        r.attributed.add(r.ledger_commits[0])
-    else:
-        wanted = []
-        if any(r.present.values()):
-            wanted = sorted(r.ledger_commits, key=lambda s: s not in set(twinned))[:attribute]
-        wanted += [s for s in twinned if s in r.touched][:attribute]
-        r.need_diff = set(wanted)
-        try:
-            diff_all(git, wanted, r.ledger)
-        finally:
-            r.attributed.update(s for s in wanted if s in r.ledger)
-        # lines a commit adds that the net diff cancels: look those up too
-        extra = collections.defaultdict(set)
-        net = {p: set(v[0]) for p, v in r.net.items()}
-        for sha in r.attributed:
-            for p, v in r.added(sha).items():
-                extra[p].update(line for line in v if line not in net.get(p, ()))
-        for p, v in extra.items():
-            r.present.setdefault(p, set()).update(already_upstream(git, base, p, v, r.read))
-
-    # is every change of a twin or a duplicating commit already upstream? Its files'
-    # resulting blobs against the remote tip's, from tree diffs (no content read)
-    judged = [c[0] for c in reversed(r.outgoing) if r.candidate(c)]
-    files = {}
-    if judged:
-        raw = git("diff-tree", "--stdin", "-r", "--root", "--always", "--no-renames", "--no-abbrev",
-                  "--format=" + SEP + "%H",
-                  input="".join(s + "\n" for s in judged))
-        sha = None
-        for line in raw.splitlines():
-            if line.startswith(SEP):
-                sha = line[1:].strip()
-                files[sha] = {}
-            elif line.startswith(":") and sha and "\t" in line:
-                meta, path = line.split("\t", 1)
-                files[sha][path] = meta.split()[3]
-        paths = sorted({p for f in files.values() for p in f if p not in LEDGERS})
-        if paths:
-            found = git("cat-file", "--batch-check=%(objectname)", input="".join(f"{base}:{p}\n" for p in paths))
-            for path, line in zip(paths, found.splitlines()):
-                r.upstream[path] = line.split()[0] if not line.endswith(" missing") else ABSENT
-    r.files = files
+    # the net diff found lines already upstream: which commits added them? Each one's own
+    # ledger diff (never the range's: a force-pushed parent makes the two differ), the
+    # first `attribute` of them, identity twins first
+    twinned = {c[0] for c in r.outgoing if r.twins(c)}
+    wanted = sorted(r.ledger_commits, key=lambda s: s not in twinned)[:attribute]
+    r.need_diff = set(wanted)
+    diff_all(git, wanted, r.ledger)
+    # lines a commit adds that the net diff cancels: look those up too
+    net = {p: set(v[0]) for p, v in r.net.items()}
+    extra = collections.defaultdict(set)
+    for sha in wanted:
+        for p, v in r.added(sha).items():
+            extra[p].update(line for line in v if line not in net.get(p, ()))
+    for p, v in extra.items():
+        r.present.setdefault(p, set()).update(already_upstream(git, base, p, v, r.read))
     return r
 
 
 # ---------------------------------------------------------------- the report
 
-Verdict = collections.namedtuple("Verdict", "commit kind hits total why")
+Verdict = collections.namedtuple("Verdict", "commit hits total why")
 
 
 def verdicts(r):
-    """[Verdict] newest first. kind: "replay" (every change already upstream: drop it),
-    "duplicate" (some added ledger lines already upstream: remove them) or "possible"
-    (same author, date and subject as an upstream commit, nothing more shown)."""
+    """[Verdict] newest first, for each commit with an identity twin upstream or ledger
+    lines already upstream. Informational: nothing here says to discard a commit."""
     out = []
     for commit in r.outgoing:
         sha, subject = commit[0], commit[5]
@@ -359,24 +296,15 @@ def verdicts(r):
         if not (same or hits):
             continue
         total = sum(len(v) for v in r.added(sha).values())
-        whole = r.upstream_already(sha)
         why = []
         if same:
-            twin = "same as " + same[0][:10] + (f" (+{len(same) - 1} more)" if len(same) > 1 else "")
+            more = f" (+{len(same) - 1} more)" if len(same) > 1 else ""
             revert = r.reverts.get(subject)
-            why.append(twin + (f", which upstream reverted in {revert[:10]}" if revert else ""))
+            why.append(f"possible replay of {same[0][:10]}{more} (same author/date/subject"
+                       + (f"; upstream reverted it in {revert[:10]})" if revert else ")"))
         if hits:
-            why.append(f"{hits}/{total} ledger line(s) already upstream")
-        if whole:
-            kind = "replay"
-            why.append("every change already upstream")
-        elif hits:
-            kind = "duplicate"
-            why.append("its other changes are new" if whole is False else "its other changes not compared")
-        else:
-            kind = "possible"
-            why.append("its changes are not all upstream" if whole is False else "content not compared")
-        out.append(Verdict(commit, kind, hits, total, why))
+            why.append(f"{hits}/{total} added ledger line(s) already upstream: remove the duplicate rows")
+        out.append(Verdict(commit, hits, total, why))
     return out
 
 
@@ -387,7 +315,7 @@ def unattributed_hits(r):
         return 0
     net = collections.Counter((p, line) for p, v in r.net.items() for line in v[0]
                               if line in r.present.get(p, ()))
-    seen = collections.Counter((p, line) for sha in r.attributed for p, v in r.added(sha).items() for line in v)
+    seen = collections.Counter((p, line) for sha in r.ledger for p, v in r.added(sha).items() for line in v)
     return sum((net - seen).values())
 
 
@@ -397,26 +325,20 @@ def gaps(r):
     if r.unchecked:
         out.append(f"{r.unchecked} outgoing commit(s) authored more than {r.max_days:g} days before the "
                    "push: identity not checked")
-    skipped = sum(1 for s in r.ledger_commits if s not in r.attributed)
+    skipped = sum(1 for s in r.ledger_commits if s not in r.ledger)
     if len(r.ledger_commits) > 1 and skipped:
         out.append(f"{skipped} of {len(r.ledger_commits)} ledger-touching commit(s) were checked only through "
-                   "the push's net ledger diff, not one by one, which hides a row added and dropped again "
+                   "the push's net ledger diff, not one by one, which hides a row added and removed again "
                    "within the push")
-    unread = sum(1 for c in r.outgoing if r.twins(c) and c[0] in r.touched and c[0] not in r.ledger)
-    if unread:
-        out.append(f"{unread} ledger-touching identity twin(s) past --attribute {r.attribute}: content not "
-                   "compared")
     return out
 
 
 ADVICE = {
-    "replay": "A replay changes nothing upstream does not already have: drop it (git rebase --onto) "
-              "instead of pushing it again.",
-    "duplicate": "Duplicate rows: remove the ledger lines already upstream from that commit; its other "
-                 "changes are its own.",
-    "possible": "A possible replay matches an upstream commit's author, date and subject only. An intentional "
-                "re-land after a revert and an amended commit look the same: compare them (git range-diff, "
-                "or git diff UPSTREAM_SHA SHA) before dropping anything.",
+    "duplicate": "Duplicate rows are already verified upstream: remove those ledger lines from the commits "
+                 "named above; the rest of each commit is unaffected.",
+    "possible": "A possible replay matches an upstream commit's author, date and subject. A rebased or "
+                "cherry-picked copy keeps those, and so do a re-land after a revert and an amended commit: "
+                "compare them (git diff UPSTREAM_SHA SHA) before deciding anything.",
 }
 
 
@@ -440,31 +362,31 @@ def report(git, base, tip, shadow, examples=10, slack_hours=6.0, max_days=30.0, 
     say = lambda text: print(text, file=sys.stderr)  # noqa: E731
     if partial:
         say(f"{tag}: {partial}")
-    kinds = collections.Counter(v.kind for v in found)
-    found = sorted(found, key=lambda v: ("replay", "duplicate", "possible").index(v.kind))   # actionable first
+    duplicates = [v for v in found if v.hits]
+    possible = [v for v in found if r.twins(v.commit)]
+    found = duplicates + [v for v in found if not v.hits]                 # duplicate rows first
     if found or loose:
-        say(f"{tag}: {len(found)} of {len(r.outgoing)} outgoing commit(s) may replay work already upstream "
+        say(f"{tag}: {len(found)} of {len(r.outgoing)} outgoing commit(s) may repeat work already upstream "
             f"({r.walked} upstream commit(s) searched, {budget.elapsed():.2f}s)")
-        say(f"  replay, every change already upstream: {kinds['replay']} commit(s); duplicate rows beside "
-            f"new changes: {kinds['duplicate']} commit(s), "
-            f"{sum(v.hits for v in found if v.kind == 'duplicate')} line(s); possible replay, same author, "
-            f"author date and subject only: {kinds['possible']} commit(s)")
-        labels = {"replay": "replay", "duplicate": "duplicate rows", "possible": "possible replay"}
+        say(f"  adding ledger lines already upstream: {len(duplicates)} commit(s), "
+            f"{sum(v.hits for v in duplicates)} line(s); possible replays (same author/date/subject as an "
+            f"upstream commit): {len(possible)} commit(s)")
         for v in found[:examples]:
-            say(f"  {v.commit[0][:10]} {v.commit[5][:72]}  [{labels[v.kind]}: {'; '.join(v.why)}]")
+            say(f"  {v.commit[0][:10]} {v.commit[5][:72]}  [{'; '.join(v.why)}]")
         if len(found) > examples:
             say(f"  ... and {len(found) - examples} more")
         if loose:
             say(f"  the push also adds {loose} ledger line(s) already upstream verbatim in commits not "
-                f"attributed one by one (past --attribute {r.attribute}): remove the duplicates before pushing")
+                f"attributed one by one (past --attribute {r.attribute}): remove the duplicate rows")
     elif not partial:
-        say(f"{tag}: no replay found in {len(r.outgoing)} outgoing commit(s), but not all of it was checked "
-            f"({budget.elapsed():.2f}s)")
+        say(f"{tag}: no repeated work found in {len(r.outgoing)} outgoing commit(s), but not all of it was "
+            f"checked ({budget.elapsed():.2f}s)")
     for hole in holes:
         say(f"  not checked: {hole}")
-    for kind in ("replay", "duplicate", "possible"):
-        if kinds[kind]:
-            say("  " + ADVICE[kind])
+    if duplicates or loose:
+        say("  " + ADVICE["duplicate"])
+    if possible:
+        say("  " + ADVICE["possible"])
     return 0 if (shadow or partial) else int(bool(found or loose))
 
 
@@ -478,7 +400,7 @@ def main(argv=None):
     ap.add_argument("--max-days", type=float, default=30.0,
                     help="never walk upstream further back than this before the newest outgoing commit")
     ap.add_argument("--attribute", type=int, default=20,
-                    help="per-commit ledger diffs for at most this many ledger commits and as many twins")
+                    help="per-commit ledger diffs for at most this many ledger-touching commits")
     ap.add_argument("--budget", type=float, default=None,
                     help="wall-clock seconds (default $BFME_SHADOW_BUDGET_S or 10; 0 = none)")
     a = ap.parse_args(argv)

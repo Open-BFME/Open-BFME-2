@@ -1,11 +1,13 @@
-"""replay_check.py: an outgoing commit that replays one already upstream is reported -- a
-replay when every change it makes is already upstream ("drop it"), duplicate rows when
-only some of its ledger lines are ("remove them"), and on author, author date and
-subject alone a possible replay with neutral advice; fresh work, a moved row and a
-clean push are not. What it does not check is counted, and a hard wall-clock budget
-ends it with a partial report, killing only its direct git children and leaving no
-thread behind. Report only: --shadow always exits 0."""
+"""replay_check.py: an outgoing commit that may repeat work already upstream is reported,
+informationally -- a possible replay of an upstream commit with the same author, author
+date and subject (compare them), and ledger lines its own diff adds that are already
+upstream (remove the duplicate rows); fresh work, a moved row and a clean push are not.
+Nothing it prints tells anyone to drop or rebase away a commit. What it does not check
+is counted, and a hard wall-clock budget ends it with a partial report, killing only
+its direct git children and leaving no thread behind. Report only: --shadow always
+exits 0."""
 import os
+import re
 import subprocess
 import sys
 import threading
@@ -26,6 +28,9 @@ HEADER = "name,aliases,target_rva,target_size,source,status,notes\n"
 ROW_A = "?a@@YAXXZ,,0x00001000,16,Code/a.cpp,matched,\n"
 ROW_B = "?b@@YAXXZ,,0x00002000,16,Code/b.cpp,matched,counted lock wrapper\n"
 ROW_C = "?c@@YAXXZ,,0x00003000,16,Code/c.cpp,matched,\n"
+ROW_X = "?x@@YAXXZ,,0x00004000,16,Code/x.cpp,matched,\n"
+# a shadow detector never tells an agent to discard a commit
+IMPERATIVE = re.compile(r"\bdrop\b|\bdiscard\b|git rebase|rebase (?:it|away)", re.IGNORECASE)
 
 
 class Repo:
@@ -60,8 +65,11 @@ class Repo:
         return self.git("rev-parse", "HEAD")
 
     def check(self, base, tip, *extra, env=None):
-        return subprocess.run([sys.executable, str(TOOL), "--range", base, tip, *extra],
-                              cwd=self.root, capture_output=True, text=True, env=env)
+        got = subprocess.run([sys.executable, str(TOOL), "--range", base, tip, *extra],
+                             cwd=self.root, capture_output=True, text=True, env=env)
+        printed = "\n".join(line.split("  [", 1)[-1] for line in got.stderr.splitlines())   # not subjects
+        assert not IMPERATIVE.search(printed), got.stderr
+        return got
 
 
 @pytest.fixture
@@ -77,17 +85,17 @@ def repo(tmp_path):
 
 def test_replayed_commit_is_reported(repo):
     # a seat replays the original onto master: same author, author date and
-    # subject, and the union merge appends row B a second time -- nothing else
+    # subject, and the union merge appends row B a second time
     repo.ledger(ROW_A, ROW_B, ROW_B)
     replay = repo.commit("Recover counted allocator lock wrapper", author=T0 + 3600, committer=T0 + 2 * DAY)
     repo.ledger(ROW_A, ROW_B, ROW_B, ROW_C)
     fresh = repo.commit("Recover c", author=T0 + 2 * DAY, committer=T0 + 2 * DAY)
     got = repo.check(repo.upstream, fresh)
     assert got.returncode == 1, got.stderr
-    assert "1 of 2 outgoing commit(s)" in got.stderr
-    assert (f"{replay[:10]} Recover counted allocator lock wrapper  [replay: same as {repo.original[:10]}; "
-            "1/1 ledger line(s) already upstream; every change already upstream]") in got.stderr
-    assert "drop it" in got.stderr
+    assert "1 of 2 outgoing commit(s) may repeat work already upstream" in got.stderr
+    assert (f"{replay[:10]} Recover counted allocator lock wrapper  [possible replay of {repo.original[:10]} "
+            "(same author/date/subject); 1/1 added ledger line(s) already upstream: remove the duplicate "
+            "rows]") in got.stderr
     assert fresh[:10] not in got.stderr
 
 
@@ -112,8 +120,8 @@ def test_identity_alone_is_only_possible(repo):
     tip = repo.commit("Recover counted allocator lock wrapper", author=T0 + 3600, committer=T0 + DAY)
     got = repo.check(repo.upstream, tip)
     assert got.returncode == 1
-    assert (f"[possible replay: same as {repo.original[:10]}; its changes are not all upstream]") in got.stderr
-    assert "drop it" not in got.stderr and "before dropping anything" in got.stderr
+    assert f"[possible replay of {repo.original[:10]} (same author/date/subject)]" in got.stderr
+    assert "compare them (git diff UPSTREAM_SHA SHA) before deciding anything" in got.stderr
 
 
 def test_other_author_or_date_is_not_identity(repo):
@@ -126,44 +134,63 @@ def test_other_author_or_date_is_not_identity(repo):
     assert got.returncode == 0, got.stderr
 
 
-def test_one_duplicate_row_beside_a_fresh_one_is_not_a_replay(repo):
-    # review round 2: one duplicate row plus one fresh row said "drop it"; the commit
-    # carries new work, so the advice is to remove the duplicate row
+def test_one_duplicate_row_beside_a_fresh_one(repo):
+    # review round 2: one duplicate row plus one fresh row; the commit carries new work,
+    # so the advice is about the duplicate row only
     repo.ledger(ROW_A, ROW_B, ROW_C, ROW_B)
     tip = repo.commit("Recover c", author=T0 + DAY, committer=T0 + DAY)
     got = repo.check(repo.upstream, tip)
     assert got.returncode == 1
-    assert "[duplicate rows: 1/2 ledger line(s) already upstream; its other changes are new]" in got.stderr
-    assert "remove the ledger lines already upstream" in got.stderr
-    assert "drop it" not in got.stderr and "same as" not in got.stderr
+    assert f"{tip[:10]} Recover c  [1/2 added ledger line(s) already upstream: remove the duplicate rows]" \
+        in got.stderr
+    assert "remove those ledger lines from the commits named above" in got.stderr
+    assert "possible replay of" not in got.stderr
 
 
-def test_twin_with_a_fresh_file_and_a_duplicate_row_is_not_a_replay(repo):
+def test_twin_with_a_fresh_file_and_a_duplicate_row(repo):
     repo.ledger(ROW_A, ROW_B, ROW_B)
     repo.write("Code/b.cpp", "void b() {}\n")
     tip = repo.commit("Recover counted allocator lock wrapper", author=T0 + 3600, committer=T0 + DAY)
     got = repo.check(repo.upstream, tip)
-    assert (f"[duplicate rows: same as {repo.original[:10]}; 1/1 ledger line(s) already upstream; its other "
-            "changes are new]") in got.stderr
-    assert "drop it" not in got.stderr
+    assert (f"[possible replay of {repo.original[:10]} (same author/date/subject); 1/1 added ledger line(s) "
+            "already upstream: remove the duplicate rows]") in got.stderr
 
 
-def test_whole_commit_already_upstream_is_a_replay(repo):
-    # a code file ending exactly as upstream has it, plus a duplicate row: nothing new
-    repo.write("Code/b.cpp", "void b() {}\n")
-    base = repo.commit("Add b.cpp", author=T0 + DAY, committer=T0 + DAY)
-    repo.write("Code/b.cpp", "void b() { /* draft */ }\n")
-    repo.commit("Draft b", author=T0 + DAY + 60, committer=T0 + DAY + 60)
-    repo.write("Code/b.cpp", "void b() {}\n")
+def test_mode_change_beside_a_duplicate_row(repo):
+    # review round 3: a duplicate row plus a 100644 -> 100755 change was called a whole
+    # replay ("drop it"), which would have lost the mode change
+    repo.write("run.sh", "echo hi\n")
+    base = repo.commit("Add run.sh", author=T0 + DAY, committer=T0 + DAY)
     repo.ledger(ROW_A, ROW_B, ROW_B)
-    tip = repo.commit("Recover b again", author=T0 + DAY + 120, committer=T0 + DAY + 120)
+    repo.git("add", "-A")
+    repo.git("update-index", "--chmod=+x", "run.sh")
+    repo.git("commit", "-q", "-m", "Make run.sh executable", author=T0 + 2 * DAY, committer=T0 + 2 * DAY)
+    tip = repo.git("rev-parse", "HEAD")
+    assert "100644 100755" in repo.git("diff-tree", "-r", "--raw", tip)
     got = repo.check(base, tip)
-    assert f"{tip[:10]} Recover b again  [replay: 1/1 ledger line(s) already upstream; every change already " \
-           "upstream]" in got.stderr, got.stderr
-    assert "drop it" in got.stderr
+    assert (f"{tip[:10]} Make run.sh executable  [1/1 added ledger line(s) already upstream: remove the "
+            "duplicate rows]") in got.stderr
+    assert "the rest of each commit is unaffected" in got.stderr
 
 
-def test_moved_row_is_not_a_replay(repo):
+def test_force_pushed_twin_is_judged_on_its_own_diff(repo):
+    # review round 3: a twin whose parent held an extra row that it deletes was judged on
+    # the remote-to-tip diff (nothing) instead of its own delta, and told "drop it"
+    repo.ledger(ROW_A, ROW_B, ROW_X)
+    parent = repo.commit("Add x", author=T0 + DAY, committer=T0 + DAY)
+    repo.ledger(ROW_A, ROW_B)
+    base = repo.commit("Remove x", author=T0 + DAY + 60, committer=T0 + DAY + 60)
+    repo.git("checkout", "-q", parent)
+    repo.ledger(ROW_A, ROW_B, ROW_B)
+    tip = repo.commit("Recover counted allocator lock wrapper", author=T0 + 3600, committer=T0 + 2 * DAY)
+    got = repo.check(base, tip)
+    # its own diff removes row X and adds row B again; only the duplicate row is reported
+    assert (f"{tip[:10]} Recover counted allocator lock wrapper  [possible replay of {repo.original[:10]} "
+            "(same author/date/subject); 1/1 added ledger line(s) already upstream: remove the duplicate "
+            "rows]") in got.stderr
+
+
+def test_moved_row_is_not_reported(repo):
     # removing row B and adding it back elsewhere adds nothing new
     repo.ledger(ROW_B, ROW_A, ROW_C)
     tip = repo.commit("Sort the ledger and recover c", author=T0 + DAY, committer=T0 + DAY)
@@ -178,38 +205,37 @@ def test_window_bounds_the_upstream_walk(repo):
     tip = repo.commit("Recover counted allocator lock wrapper", author=T0 + 3600, committer=T0 + 40 * DAY)
     got = repo.check(repo.upstream, tip, "--max-days", "30")
     assert got.returncode == 1
-    assert "same as" not in got.stderr
+    assert "possible replay of" not in got.stderr
     assert "1 outgoing commit(s) authored more than 30 days" in got.stderr
-    assert "1/1 ledger line(s) already upstream" in got.stderr
+    assert "1/1 added ledger line(s) already upstream" in got.stderr
     wide = repo.check(repo.upstream, tip, "--max-days", "60")
-    assert "same as " + repo.original[:10] in wide.stderr
+    assert "possible replay of " + repo.original[:10] in wide.stderr
 
 
 def test_reland_after_upstream_revert_is_only_possible(repo):
     # upstream reverted the original; the seat re-lands it on purpose: same author, date,
-    # subject and patch, no duplicate ledger line -- never "drop it"
+    # subject and patch, no duplicate ledger line
     repo.ledger(ROW_A)
     base = repo.commit('Revert "Recover counted allocator lock wrapper"', author=T0 + DAY, committer=T0 + DAY)
     repo.ledger(ROW_A, ROW_B)
     tip = repo.commit("Recover counted allocator lock wrapper", author=T0 + 3600, committer=T0 + 2 * DAY)
     got = repo.check(base, tip)
     assert got.returncode == 1, got.stderr
-    assert (f"[possible replay: same as {repo.original[:10]}, which upstream reverted in {base[:10]}; "
-            "its changes are not all upstream]") in got.stderr
-    assert "drop it" not in got.stderr and "before dropping anything" in got.stderr
+    assert (f"[possible replay of {repo.original[:10]} (same author/date/subject; upstream reverted it in "
+            f"{base[:10]})]") in got.stderr
 
 
 def test_cancelled_replay_is_counted_not_hidden(repo):
-    # a changed-metadata replay re-adds row B, a cleanup in the same push drops it: the
+    # a changed-metadata replay re-adds row B, a cleanup in the same push removes it: the
     # push's net ledger diff is clean, so the report says what it could not see
     repo.ledger(ROW_A, ROW_B, ROW_B)
     repo.commit("Recover counted allocator lock wrapper again", author=T0 + DAY, committer=T0 + DAY)
     repo.ledger(ROW_A, ROW_B)
-    tip = repo.commit("Clean up: drop 1 exact duplicate ledger row", author=T0 + DAY + 60,
+    tip = repo.commit("Clean up: remove 1 exact duplicate ledger row", author=T0 + DAY + 60,
                       committer=T0 + DAY + 60)
     got = repo.check(repo.upstream, tip)
     assert got.returncode == 0, got.stderr
-    assert "no replay found in 2 outgoing commit(s), but not all of it was checked" in got.stderr
+    assert "no repeated work found in 2 outgoing commit(s), but not all of it was checked" in got.stderr
     assert "not checked: 2 of 2 ledger-touching commit(s) were checked only through the push's net " \
            "ledger diff" in got.stderr
 
@@ -221,7 +247,7 @@ def test_attribution_is_bounded_and_says_so(repo):
         tip = repo.commit(f"Recover thing {i}", author=T0 + DAY + i, committer=T0 + DAY + i)
     got = repo.check(repo.upstream, tip, "--attribute", "1")
     assert got.returncode == 1
-    assert "1 of 3 outgoing commit(s) may replay" in got.stderr
+    assert "1 of 3 outgoing commit(s) may repeat work" in got.stderr
     assert "not checked: 2 of 3 ledger-touching commit(s)" in got.stderr
     assert "the push also adds 2 ledger line(s) already upstream verbatim in commits not attributed" in got.stderr
 

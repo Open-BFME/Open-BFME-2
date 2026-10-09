@@ -332,6 +332,50 @@ def test_line_numbers_count_spliced_lines(repo):
     assert f"{SRC}:4 invents g_00DFE758 for 0x009FE758" in got.stderr, got.stderr
 
 
+def test_added_line_splices_into_an_unchanged_line(repo):
+    # review round 3: `extern void *benign\` became `extern void *g_00DF\` above the
+    # unchanged line `E758;`; no added line held a 6-hex run, so no blob was read
+    repo.stage(SRC, "// a\nextern void *benign\\\nE758;\nint f();\n")
+    repo.git("commit", "-q", "-m", "benign")
+    repo.stage(SRC, "// a\nextern void *g_00DF\\\nE758;\nint f();\n")
+    got = repo.run("--staged")
+    assert f"{SRC}:2 invents g_00DFE758 for 0x009FE758" in got.stderr, got.stderr
+
+
+def test_unchanged_line_splices_into_an_added_line(repo):
+    # the hunk boundary inside a splice: the unchanged line ends in a backslash
+    repo.stage(SRC, "// a\nextern void *g_00DF\\\nXXXX;\nint f();\n")
+    repo.git("commit", "-q", "-m", "odd")
+    repo.stage(SRC, "// a\nextern void *g_00DF\\\nE758;\nint f();\n")
+    got = repo.run("--staged")
+    assert f"{SRC}:2 invents g_00DFE758 for 0x009FE758" in got.stderr, got.stderr
+
+
+def test_removed_splice_uncomments_an_unchanged_line(repo):
+    # a `//` comment continued onto the next line hid a declaration; the splice goes
+    repo.stage(SRC, "// a\n// note \\\nextern void *g_00DFE758;\nint f();\n")
+    repo.git("commit", "-q", "-m", "commented")
+    repo.stage(SRC, "// a\n// note\nextern void *g_00DFE758;\nint f();\n")
+    got = repo.run("--staged")
+    assert f"{SRC}:3 invents g_00DFE758 for 0x009FE758" in got.stderr, got.stderr
+
+
+def test_spliceless_change_without_hex_reads_no_blob(repo, monkeypatch):
+    # the cheap path stays: nothing to read for an ordinary edit
+    repo.stage(SRC, "// a\nint f() { return 1; }\n")
+    calls = []
+    run = inv.Budget.run
+
+    def spy(self, args, input=None):
+        calls.append(args)
+        return run(self, args, input)
+
+    monkeypatch.setattr(inv.Budget, "run", spy)
+    monkeypatch.chdir(repo.root)
+    assert inv.main(["--staged"]) == 0
+    assert not [a for a in calls if "cat-file" in a]
+
+
 def test_splice_keeps_offsets_and_lines():
     code, offsets, first = inv.code_tokens("a\r\nb\\\r\nc g_00DFE758 /* g_Va00E02EEC */\n")
     assert "g_00DFE758" in first and "g_Va00E02EEC" not in first
