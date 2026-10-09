@@ -64,10 +64,11 @@ public:
 private:
 	struct Impl
 	{
-		void *m_vtbl;
+		void *m_owner;
 		void *m_level;					// +0x04
 		Int m_state;					// +0x08
-		Int m_enabled;					// +0x0C
+		Int m_numRows;					// +0x0C
+		void OnFadeOut(const char *path);
 	};
 
 	Impl *m_impl;						// +0x00
@@ -149,4 +150,11 @@ void StrategicVeterancy::Data::rva005EC296()
 		m_images.rva00524725(key, row->image);
 		++index;
 	}
+}
+
+// Constructor 5EC64E binds this exact member to
+// AptStrategicVeterancy::OnFadeOut; WB15EA030 confirms the state store.
+void StrategicVeterancy::Impl::OnFadeOut(const char *path)
+{
+	m_state = 4;
 }
