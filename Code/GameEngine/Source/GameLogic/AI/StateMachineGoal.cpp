@@ -15,7 +15,7 @@
 // retail 0x004D764C, 31 bytes, plus
 // ?internalSetState@StateMachine@@QAE?AW4StateReturnType@@H@Z,
 // retail 0x004D766B, 135 bytes, plus
-// ?initDefaultState@StateMachine@@QAE?AW4StateReturnType@@XZ,
+// ?initDefaultState@StateMachine@@UAE?AW4StateReturnType@@XZ,
 // retail 0x004D770F, 23 bytes, plus
 // ?hasState@StateMachine@@QAE_NH@Z,
 // retail 0x004D76F2, 29 bytes. Dedicated TU for the StateMachine goal
@@ -40,7 +40,7 @@
 // The shared headers declare these members with the access/virtual spelling
 // retail's vftables reference; the ledger row keeps the spelling this TU
 // compiled to. Same function, same address: bind the header spelling here.
-#pragma comment(linker, "/alternatename:?initDefaultState@StateMachine@@UAE?AW4StateReturnType@@XZ=?initDefaultState@StateMachine@@QAE?AW4StateReturnType@@XZ")
+#pragma comment(linker, "/alternatename:?initDefaultState@StateMachine@@UAE?AW4StateReturnType@@XZ=?initDefaultState@StateMachine@@UAE?AW4StateReturnType@@XZ")
 #pragma comment(linker, "/alternatename:?halt@StateMachine@@UAEXXZ=?halt@StateMachine@@QAEXXZ")
 #pragma comment(linker, "/alternatename:?updateStateMachine@StateMachine@@UAE?AW4StateReturnType@@XZ=?updateStateMachine@StateMachine@@QAE?AW4StateReturnType@@XZ")
 #pragma comment(linker, "/alternatename:?resetToDefaultState@StateMachine@@UAE?AW4StateReturnType@@XZ=?resetToDefaultState@StateMachine@@QAE?AW4StateReturnType@@XZ")
@@ -136,7 +136,6 @@ extern GameLogic *TheGameLogic;
 class StateMachine
 {
 public:
-	unsigned char m_pad00[0x04];
 	void *m_currentState; // +0x04
 	_STL::map<StateID, State *> m_stateMap; // +0x08
 	unsigned char m_pad14[0x18 - 0x14];
@@ -157,7 +156,7 @@ public:
 	State *internalGetState(StateID id);
 	Bool hasState(StateID id);
  	StateReturnType internalSetState(StateID newStateID);
- 	StateReturnType initDefaultState();
+ 	virtual StateReturnType initDefaultState();
  	StateReturnType resetToDefaultState();
  	StateReturnType setState(StateID newStateID);
  	void rva004D7627(StateID id);
@@ -171,7 +170,7 @@ public:
 	Bool rva002621FC() const;
 	Bool rva0026220D() const;
 	void lock(const char *msg);
-	void rva004D7395();
+	virtual void rva004D7395();
 	void rva004D73AD(const void *src);
 	void rva004D7427(const void *src);
 };
@@ -324,7 +323,7 @@ StateReturnType StateMachine::internalSetState(StateID newStateID)
 	}
 }
 
-// ?initDefaultState@StateMachine@@QAE?AW4StateReturnType@@XZ
+// ?initDefaultState@StateMachine@@UAE?AW4StateReturnType@@XZ
 StateReturnType StateMachine::initDefaultState()
 {
 	if (m_defaultStateInited)
@@ -519,7 +518,7 @@ inline void StateMachine::lock(const char *msg)
 	m_locked = true;
 }
 
-// ?rva004D7395@StateMachine@@QAEXXZ @0x004D7395 15B: slot 13 of the
+// ?rva004D7395@StateMachine@@UAEXXZ @0x004D7395 15B: slot 13 of the
 // StateMachine vtables (e.g. 0x00C11AF4), between isInBusyState (slot 12)
 // and setGoalObject; tail-calls the current state's slot 16 when there is one.
 void StateMachine::rva004D7395()

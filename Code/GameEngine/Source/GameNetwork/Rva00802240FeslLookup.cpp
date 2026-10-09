@@ -46,9 +46,8 @@ public:
 class Rva00802380Owner
 {
 public:
-	void *rva00802240( const char *key );
+	virtual void *rva00802240( const char *key );
 
-	void *m_bfmeVft;
 	Rva00802240Host *m_host;
 	int m_field8;
 	char m_bfmePad0c[0xc];

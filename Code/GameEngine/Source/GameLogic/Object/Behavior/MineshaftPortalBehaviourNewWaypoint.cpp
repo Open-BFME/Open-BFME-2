@@ -150,10 +150,9 @@ class MineshaftPortalBehaviour
 {
 public:
 	Waypoint *rva00372DFA(const Coord3D *pos);
-    void rva00373A0F(Xfer *xfer);
+    virtual void rva00373A0F(Xfer *xfer);
 
 private:
-	void *m_vtbl;
 	const MineshaftPortalBehaviourModuleData *m_moduleData;	// +0x04
 	Rva00372DFAObject *m_object;				// +0x08
     unsigned char m_pad0C[0x28 - 0x0C];

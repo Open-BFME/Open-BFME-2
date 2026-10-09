@@ -40,9 +40,8 @@ public:
 UnicodeString Rva00220E30(void *army, bool detailed);
 class Rva00406BB0 {
 public:
-    TreeHintRef00217D4C rva00406BF3();
+    virtual TreeHintRef00217D4C rva00406BF3();
 private:
-    void *m_vtable;
     UnicodeString m_title;
     int m_army;
 };

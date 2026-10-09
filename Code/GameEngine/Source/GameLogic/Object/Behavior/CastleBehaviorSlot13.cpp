@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /DNDEBUG /MD /EHsc
 //
-// ?rva00455076@CastleBehavior@@QAEXABUOpaqueRefElement4@@H@Z 104B @0x00455076:
+// ?rva00455076@CastleBehavior@@UAEXABUOpaqueRefElement4@@H@Z 104B @0x00455076:
 // slot 13 of CastleBehavior vtable 0x0081A780 (and Rva00455050 0x00840608).
 // Builds BfmeAudioEventPrefix136 from OpaqueRefElement4+0, applies int arg
 // via rowed CondSetter, submits via TheAudio slot 0x64, stores result at
@@ -52,9 +52,9 @@ extern AudioManager *TheAudio;
 class CastleBehavior
 {
 public:
-	void rva00455076(const OpaqueRefElement4 &o, int v);
+	virtual void rva00455076(const OpaqueRefElement4 &o, int v);
 private:
-	char m_pad[0x24];
+	char m_pad04[0x24 - 4];
 	int m_24;
 };
 

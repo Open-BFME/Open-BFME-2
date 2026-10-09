@@ -30,7 +30,7 @@ public:
 	static NameKeyType rva000486C95();
 };
 
-// ?rva00486CF6@Rva00486B56@@QAEXPBVDamageInfo@@@Z @ 0x00486CF6 (125B). Die slot 12 onDie-style via Object/GameLogic/Radar.
+// ?rva00486CF6@Rva00486B56@@UAEXPBVDamageInfo@@@Z @ 0x00486CF6 (125B). Die slot 12 onDie-style via Object/GameLogic/Radar.
 // Evidence: vtable slot 12 of 0x0084AEBC class Rva00486B56; retail uses [esi-8] Object [esi-0x0C] +0x38/+0x3C [esi-0x10] DieModule calling rowed getControllingPlayer destroyObject setSpecial isDieApplicable Radar::addObject; no callers.
 class Player;
 
@@ -100,7 +100,7 @@ public:
 class Rva00486B56
 {
 public:
-	void rva00486CF6(const DamageInfo *damageInfo);
+	virtual void rva00486CF6(const DamageInfo *damageInfo);
 };
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Die/KeepObjectDiePoolKey.cpp

@@ -69,7 +69,7 @@ void Rva001524BE::rva001524BE(Rva00087A93) {}
 class GameClient
 {
 public:
-	void unloadMap(AsciiString text);
+	virtual void unloadMap(AsciiString text);
 };
 void GameClient::unloadMap(AsciiString) {}
 

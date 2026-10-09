@@ -1,6 +1,6 @@
 // cl: /O1 /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS
 //
-// ?Rva0017FDA7_LoadTree@Rva0017FB41_Prototype@@QAEXXZ
+// ?Rva0017FDA7_LoadTree@Rva0017FB41_Prototype@@UAEXXZ
 // retail 0x0017FDA7..0x0017FEA4 (254 bytes) thiscall RET 0.
 //
 // Slot 2 of the HTree prototype vtable 0x00BD4F10 (absolute reference
@@ -92,10 +92,9 @@ private:
 class Rva0017FB41_Prototype
 {
 public:
-	void Rva0017FDA7_LoadTree();
+	virtual void Rva0017FDA7_LoadTree();
 
 private:
-	void *m_vtable;
 	char m_pad04[0x10];
 	HTreeClass *m_tree;	// +0x14
 	StringClass m_name;	// +0x18

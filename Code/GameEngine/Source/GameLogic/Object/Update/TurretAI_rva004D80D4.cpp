@@ -1,5 +1,5 @@
 // cl: /MD
-// ?rva004D80D4@TurretAI@@QAEXXZ, retail 0x004D80D4, 26 bytes.
+// ?rva004D80D4@TurretAI@@UAEXXZ, retail 0x004D80D4, 26 bytes.
 // Gap between ??1Rva004D7E61 (TurretStateMachine dtor) and Disp8 setters.
 // TurretAI layout from TurretAI_setTurretTargetObject.cpp: machine at +0x14,
 // victimInitialTeam at +0x28. Object team at +0x304. Single callee
@@ -23,8 +23,8 @@ public:
 class TurretAI
 {
 public:
-	void rva004D80D4();
-	char m_pad00[0x10];
+	virtual void rva004D80D4();
+	char m_pad04[0x10 - 4];
 	Object *m_owner;
 	TurretStateMachine *m_machine;
 	char m_pad18[0x28 - 0x18];

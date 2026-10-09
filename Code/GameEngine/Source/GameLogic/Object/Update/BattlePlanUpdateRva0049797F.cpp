@@ -1,6 +1,6 @@
 // cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX
 //
-// ?onObjectCreated@BattlePlanUpdate@@QAEXXZ @0x0049797F 204B.
+// ?onObjectCreated@BattlePlanUpdate@@UAEXXZ @0x0049797F 204B.
 // Slot 5 (offset 0x14) of vtable 0x0084FBAC (class of ??1Rva004978A3 in
 // BattlePlanUpdateRva004978A3Dtor.cpp). Calls FilteredFind 0x0028BB9E,
 // OpaqueRefElement4 operator= 0x00239099 (10 copies), Object::setWeaponSetFlag
@@ -72,13 +72,12 @@ struct Payload0049797F
 class BattlePlanUpdate
 {
 public:
-	void onObjectCreated();
+	virtual void onObjectCreated();
 
 protected:
 	void enableTurret(bool enable);
 
 private:
-	void *m_vtable; // +0x00
 	Payload0049797F *m_payload; // +0x04
 	Object *m_object; // +0x08
 	char m_pad0C[0x38 - 0x0c];

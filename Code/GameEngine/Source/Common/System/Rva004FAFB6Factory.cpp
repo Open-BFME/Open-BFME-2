@@ -1,6 +1,6 @@
 // cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
-// ?rva004FAFB6@Rva004FAC21@@QAEPAVRva004FADF4@@I@Z @0x004FAFB6 60B evidence: chain via just-landed Rva004FADF4 0x004FADF4; new 0x30 plus II ctor; vtable slot 1 of 0x008633B0 Rva004FAC21; caller none.
+// ?rva004FAFB6@Rva004FAC21@@UAEPAVRva004FADF4@@I@Z @0x004FAFB6 60B evidence: chain via just-landed Rva004FADF4 0x004FADF4; new 0x30 plus II ctor; vtable slot 1 of 0x008633B0 Rva004FAC21; caller none.
 // Honest Rva factory returning new Rva004FADF4 via EH new.
 #include <vector>
 
@@ -40,7 +40,7 @@ void *__cdecl operator new(unsigned int size);
 class Rva004FAC21
 {
 public:
-	Rva004FADF4 *rva004FAFB6(unsigned int arg);
+	virtual Rva004FADF4 *rva004FAFB6(unsigned int arg);
 };
 
 Rva004FADF4 *Rva004FAC21::rva004FAFB6(unsigned int arg)

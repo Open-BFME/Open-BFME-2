@@ -1,5 +1,5 @@
 // cl: /MD
-// ?rva004F48D8@Rva004F07E6@@QAEXXZ at 0x004F48D8 (79B).
+// ?rva004F48D8@Rva004F07E6@@UAEXXZ at 0x004F48D8 (79B).
 // Vtable slot 18 of 0x00862DC8 (class Rva004F07E6 dtor 0x004F07E6).
 // Evidence: calls pin bfmeTailDTK 0x004F46A9 and vslot 0x68; global g_Va00DBA4E4; imul by 5 precedent AIRoamingDefenseTactic.
 
@@ -20,9 +20,8 @@ struct Rva004F48D8Sub
 class Rva004F07E6
 {
 public:
-	void rva004F48D8();
+	virtual void rva004F48D8();
 private:
-	char m_pad0[4];
 	char m_pad4[8];
 	Rva004F48D8Sub *m_sub;
 	unsigned char m_10;
