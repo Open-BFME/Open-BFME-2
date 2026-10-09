@@ -130,3 +130,28 @@ void Rva005CCA98Guard::invokeAndClear() {
         active=false;
     }
 }
+
+// Complete 00129440..0012944E entry between INT3 runs, after the independent
+// 00129430..00129439 RET body. Native receiver word0 is nullable; a nonnull
+// receiver supplies vptr word0 and tail dispatch through byte offset28. The
+// null branch clears AL and RETs without stack cleanup. Only the observed
+// receiver and low-byte result channel are modeled; original owner, full
+// object layout, remaining slots and complete prototype are unasserted.
+// BFME1 f98983a7 WW3D2/Rva0090C6A0VirtualFlag.cpp O2/SSE2/G7 is a clean
+// reference lead, not an identity. Explicit returns avoid integer promotion
+// of a raw byte through the donor's bool ternary. No compiler override.
+struct Rva00129440Target;
+struct Rva00129440Table {
+    void *unknownSlots[10];
+    unsigned char (__fastcall *query)(Rva00129440Target *);
+};
+struct Rva00129440Target { Rva00129440Table *table; };
+class Rva00129440 {
+    Rva00129440Target *target;
+public:
+    unsigned char query() const;
+};
+unsigned char Rva00129440::query() const {
+    if (target) return target->table->query(target);
+    return 0;
+}
