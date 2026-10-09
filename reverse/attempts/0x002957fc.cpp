@@ -1,4 +1,6 @@
-// ?rva002957FC@Object@@QAE_NXZ
+// ?rva002957FC@Object@@QAEEXZ
+// partial score=0.9706 date=2026-10-10
+// ?rva002957FC@Object@@QAEEXZ
 // partial score=0.95 date=2026-10-09
 // cl: /O1 /MD /G7 /arch:SSE
 extern "C" void _ReadWriteBarrier();
@@ -150,9 +152,9 @@ virtual bool predicate();};
 struct TemplateView {char pad[0x11F];unsigned char bits;};
 class Object {
  char pad0[4];TemplateView *m_template;char pad8[0x110];unsigned m_bits;
- public:void *rva0029439D();bool rva002957FC();
+ public:void *rva0029439D();unsigned char rva002957FC();
 };
-bool Object::rva002957FC(){
+unsigned char Object::rva002957FC(){
  if(!(m_template->bits&1)) return false;
  Interface142 *module=(Interface142*)rva0029439D();
  if(module)return module->predicate();
