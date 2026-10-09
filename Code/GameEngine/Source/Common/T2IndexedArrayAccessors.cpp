@@ -212,6 +212,23 @@ void *Rva00564C4CArray::at(unsigned index) const
 {
 	return elements + index;
 }
+// Clean BF1 f98983a7 Common/Rva003A2070Update.cpp is a source guide.
+// Native 0x000897B9..0x000897C8 starts after complete RET12 at 0x000897B6;
+// its own RET4 ends before the next EH prologue at 0x000897C8. It multiplies
+// the stack word by 0xB8 and adds receiver word0 without dereferencing it.
+// The original container and element identity remain unknown. This accessed
+// word projection preserves only the witnessed 32-bit address arithmetic.
+// The established size-optimized indexed block gives target-proven O1 scheduling.
+struct Rva000897B9
+{
+    unsigned int addressBits;
+    unsigned int elementAddressBits(unsigned int index) const;
+};
+
+unsigned int Rva000897B9::elementAddressBits(unsigned int index) const
+{
+    return addressBits + index * 0xB8u;
+}
 #pragma optimize("", on)
 
 // BFME1 9cbfb551 whole PAVectorEraseRangeFamily003AF.cpp supplies the source
