@@ -1,5 +1,13 @@
 // ?RenderStreak@StreakRendererClass@@QAEXAAVRenderInfoClass@@ABVMatrix3D@@IPAVVector3@@PAVVector4@@PAMABVSphereClass@@PAI@Z
 // partial score=0.4 date=2026-09-14
+// CORRECTION 2026-10-09: the historical recipe below confuses VA and RVA.
+// Its callback VA 0x0087A6A9 is executable RVA 0x0047A6A9: mov eax,ecx; ret.
+// The native iterator at RVA 0x00746CAD constructs four 16-byte elements.
+// Do not omit this call or hardcode a callback based on the old rdata claim.
+// This file is a historical recipe, not a compilable recovered RenderStreak body.
+// Current home TU emits 13399/14026 bytes; transform, VB/FVF ABI and catch
+// differences remain. Init at 0x00743190 and UV assignment at 0x00743260
+// already have exact owner rows; they are not additional recovery bytes.
 // ?RenderStreak@StreakRendererClass@@QAEXAAVRenderInfoClass@@ABVMatrix3D@@IPAVVector3@@PAVVector4@@PAMABVSphereClass@@PAI@Z
 // partial score=0.4 date=2026-09-14
 //
