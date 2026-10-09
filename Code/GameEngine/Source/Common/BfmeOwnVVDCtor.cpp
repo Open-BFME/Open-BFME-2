@@ -503,7 +503,10 @@ virtual unsigned int d17();
 };
 extern Display *TheDisplay;
 class GlobalData {public: char pad00[0x2c]; bool m_windowed;};
-extern GlobalData *TheGlobalData;
+// Reference GlobalData.h exposes TheGlobalData as this const provider view.
+// Native DIR32 sites bind the same provider at VA 0x00DFE758.
+extern GlobalData *TheWritableGlobalData;
+#define TheGlobalData ((const GlobalData *)TheWritableGlobalData)
 class Shell {public: char pad00[0x5c]; bool m_active;};
 extern Shell *TheShell;
 class GameTextInterface {public:
