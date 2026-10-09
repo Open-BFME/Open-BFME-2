@@ -35,6 +35,7 @@ public:
 	typedef Type *iterator;
 
 	iterator erase(iterator first, iterator last);
+	iterator begin() { return m_start; }
 	iterator end() { return m_finish; }
 
 private:
@@ -86,3 +87,19 @@ void bfmeEmitVectorAsciiStringErase(_STL::vector<AsciiString, _STL::allocator<As
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
 #pragma comment(linker, "/alternatename:?erase@SidesInfoStringVector@@QAEPAVAsciiString@@PAV2@0@Z=?erase@?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAEPAVAsciiString@@PAV3@0@Z")
+
+// Clean BFME1 f98983a7d3 Module.cpp supplies the erase-all pattern. Retail
+// proves pointer slots0/4 and the string-owning erase provider; original owner
+// and complete object size are unknown. The existing vector is an ABI exemplar.
+class Rva0002D1B0Range
+{
+public:
+    void rva0002D1B0Clear();
+private:
+    _STL::vector<AsciiString, _STL::allocator<AsciiString> > m_values;
+};
+
+void Rva0002D1B0Range::rva0002D1B0Clear()
+{
+    m_values.erase(m_values.begin(), m_values.end());
+}
