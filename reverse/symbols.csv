@@ -17035,3 +17035,4 @@ _isdigit,0x00629982,Native6F97F0 suffix parser calls PE isdigit import thunk6299
 ?rva00082C98@Rva00082C98Host@@QAEXIVVector3@@@Z,0x00082C98,by-value Vector3 spelling (retail passes an uninitialised Vector3 by value: sub esp 0xC with no stores); caller the tiled height-map update 0x000E3CE1
 ?rva00115DA7@Rva00115DA7@@QAEXHHHH_N@Z,0x00115DA7,five-argument spelling with a bool fifth argument (its whole dword is pushed); caller the tiled height-map update 0x000E3CE1
 ?resize@?$vector@UAptTimeLinePlayer@@V?$allocator@UAptTimeLinePlayer@@@_STL@@@_STL@@QAEXI@Z,0x0052076F,vector<AptTimeLinePlayer>::resize(n) (35B: default row + resize(n x)) called by AptTimeLine::CollectPlayerData 0x00520923 and four more AptTimeLine sites
+?rva00052B53@MilesAudioManager@@QAEXXZ,0x00052B53,unrowed 971B member (WB 0x78A8C0 recalculateMicrophone by callgraph); called by the +0x678 view setter 0x5DAFC after the reverb room type

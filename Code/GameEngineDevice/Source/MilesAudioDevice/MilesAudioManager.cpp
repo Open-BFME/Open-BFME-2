@@ -886,6 +886,10 @@ public:
     void rva000562A2(int key, const void *value);
     void rva0005A92A(int key, Rva0005A084Vector *output);
     void rva0005B137(void);
+    void rva00052B53(void);
+    void rva0005DAFC(int viewType);
+    int rva0005A7BE(AudioEventRTS *event, int arg1);
+    void rva0005AF92(AudioEventInfo *info);
     AsciiString rva0005B19E(const AsciiString &key);
     AsciiString rva0005B1FA(const AsciiString &key);
     // These audio INI calls use the manager receiver and an explicit INI*.
@@ -949,6 +953,7 @@ public:
     bool rva006AD9B0(void);    // 0x00059646, cached reinitialize setting
     void rva00060309(void);
     void rva0006047C(void);
+    void rva000603ED(void);
     void rva000544EB(void);
     void startPendingMusicTracks(void);
     void openDevice(void);
@@ -2135,6 +2140,70 @@ void MilesAudioManager::rva0005A92A(int key, Rva0005A084Vector *output)
     void *result = 0;
     if (rva0005623E(key, &result, 0) && result)
         output->push_back(*reinterpret_cast<const Rva0005A084Element *>(reinterpret_cast<char *>(result) + 8));
+}
+
+// Address-derived callee views for the event-info table at +0xBC: the find
+// (rowed 0x0041534B on 0x56F61's table), the by-value erase (0x003A37DC) and
+// the first/next walk (0x00427195/0x00411084), all banked under these names.
+class Rva00056F61;
+struct Rva0041534BIter {
+    void *m_node;
+    Rva00056F61 *m_table;
+};
+class Rva00056F61 {
+public:
+    __declspec(nothrow) Rva0041534BIter rva0041534B(const AsciiString *key);
+};
+struct VideoPair {
+    struct { void *first; void *second; } s;
+    inline VideoPair(void *a, void *b) { s.first = a; s.second = b; }
+    inline VideoPair(const VideoPair &other) { s.first = other.s.first; s.second = other.s.second; }
+};
+class Rva000411084 {
+public:
+    void *next();
+    void *m_current;
+    void *m_table;
+};
+class Rva000427195 {
+public:
+    void *first(Rva000411084 *iter);
+    void rva003A37DC(VideoPair pair);
+};
+// Slot 1 of an event info's vftable hands back its name.
+class AudioEventInfoVirtuals {
+public:
+    virtual void slot0();
+    virtual const AsciiString &slot1();
+};
+
+// Retail 0x0005AF92 (address-derived): under the mutex, erases the table entry
+// for the info's name when it still maps to this very info, then marks the
+// name tree stale.
+void MilesAudioManager::rva0005AF92(AudioEventInfo *info)
+{
+    MilesMutexGuard guard(&m_mutex, 0);
+    Rva0041534BIter found = reinterpret_cast<Rva00056F61 *>(&m_allAudioEventInfo)->rva0041534B(&info->m_audioName);
+    if (found.m_node && *reinterpret_cast<AudioEventInfo **>(reinterpret_cast<char *>(found.m_node) + 8) == info)
+        reinterpret_cast<Rva000427195 *>(&m_allAudioEventInfo)->rva003A37DC(*reinterpret_cast<VideoPair *>(&found));
+    m_at6A4 = false;
+}
+
+// Retail 0x0005B137 (pinned): rebuilds the +0xB0 name tree from the event info
+// table, keeping the names of infos of type 0 whose type bits 9 and 10 are clear.
+void MilesAudioManager::rva0005B137(void)
+{
+    _STL::set<AsciiString> *names = reinterpret_cast<_STL::set<AsciiString> *>(reinterpret_cast<char *>(this) + 0xB0);
+    names->clear();
+    Rva000411084 iter;
+    reinterpret_cast<Rva000427195 *>(&m_allAudioEventInfo)->first(&iter);
+    while (iter.m_current) {
+        AudioEventInfo *info = *reinterpret_cast<AudioEventInfo **>(reinterpret_cast<char *>(iter.m_current) + 8);
+        if (info->m_atB0 == 0 && !(info->m_type & 0x600))
+            names->insert(reinterpret_cast<AudioEventInfoVirtuals *>(info)->slot1());
+        iter.next();
+    }
+    m_at6A4 = true;
 }
 
 // Target evidence: the 92B body tests the byte at this+0x6A4, searches a
@@ -3533,6 +3602,91 @@ void MilesAudioManager::rva0006047C(void)
     reinterpret_cast<Rva00053D89 *>(&m_atB90)->clear();
     AIL_quick_shutdown();
     AIL_shutdown();
+}
+
+// Retail 0x000603ED (address-derived): gives back the Miles handles of every
+// playing stream whose event info type (+0xB0) is 1 and drops it from the list.
+void MilesAudioManager::rva000603ED(void)
+{
+    PlayingAudioRef playing;
+    OpaqueRefList::iterator it = reinterpret_cast<OpaqueRefList &>(m_playingStreams).begin();
+    while (it != reinterpret_cast<OpaqueRefList &>(m_playingStreams).end()) {
+        playing = *reinterpret_cast<const PlayingAudioRef *>(&*it);
+        if (playing.get()) {
+            if (playing->m_event->getAudioEventInfo()->m_atB0 == 1) {
+                releaseMilesHandles(*playing.get());
+                it = reinterpret_cast<OpaqueRefList &>(m_playingStreams).erase(it);
+            } else {
+                ++it;
+            }
+        }
+    }
+}
+
+// Retail 0x0005623E (symbols.csv pin): the playing lookup 0x55FCA run into a
+// local PlayingAudioRef; the event goes to the caller's slot and the playing
+// reference replaces the caller's when one was supplied.
+// The unit's own holder: retail tests and then reloads the pointer in memory.
+class PlayingAudioHolder {
+public:
+    PlayingAudioHolder() : m_ptr(0) {}
+    ~PlayingAudioHolder() { if (m_ptr) reinterpret_cast<OpaqueRefCounted *>(m_ptr)->Release_Ref(); }
+    PlayingAudio *get(void) const { return m_ptr; }
+private:
+    PlayingAudio *volatile m_ptr;
+};
+
+bool MilesAudioManager::rva0005623E(int key, void **result, int flags)
+{
+    PlayingAudioHolder playing;
+    bool found = rva00055FCA(key, reinterpret_cast<void **>(&key), reinterpret_cast<int>(&playing));
+    if (result)
+        *result = reinterpret_cast<void *>(key);
+    if (flags)
+        reinterpret_cast<PlayingAudioRef *>(flags)->set(playing.get());
+    return found;
+}
+
+class Rva0005C892 { public: void rva0005C892(void); };
+
+// Retail 0x0005DAFC (address-derived): under the mutex, switches the active
+// view type (+0x678) and refreshes the reverb, the microphone and the 0x5C892
+// state; +0x6A5 marks the change.
+void MilesAudioManager::rva0005DAFC(int viewType)
+{
+    MilesMutexGuard guard(&m_mutex, 0);
+    if (viewType != m_at678) {
+        m_at678 = viewType;
+        at6A5 = 1;
+        internalSetReverbRoomType(m_atBE4);
+        rva00052B53();
+        reinterpret_cast<Rva0005C892 *>(this)->rva0005C892();
+    }
+}
+
+// Retail 0x0005A7BE..0x5A812 (Ghidra splits the prolog off at 0x5A7BE and starts the body at 0x5A7CA; address-derived): pushMusicEventInternal under the mutex
+// with no second argument and append set.
+int MilesAudioManager::rva0005A7BE(AudioEventRTS *event, int arg1)
+{
+    MilesMutexGuard guard(&m_mutex, 0);
+    return pushMusicEventInternal(event, arg1, 0, 1);
+}
+
+class Rva00050DF0 { public: bool rva00050DF0(void); };
+
+// Retail 0x00053606 (pinned): whether a request may be serviced now. The
+// triple-flag predicate 0x50DF0 and an event whose +0x64 (shorter than one
+// client frame) reaches the cutoff both refuse it, as does a preloaded file
+// that is not ready yet.
+bool MilesAudioManager::rva00053606(Rva00051107AudioRequest *req)
+{
+    if (reinterpret_cast<Rva00050DF0 *>(req)->rva00050DF0())
+        return false;
+    if (req->m_pendingEvent.get() && req->m_pendingEvent->m_at64 >= g_00DBA4FC)
+        return false;
+    if (req->m_file.isOpen() && !reinterpret_cast<Rva00050DBD *>(&req->m_file)->rva00050DBD())
+        return false;
+    return true;
 }
 
 extern "C" __declspec(dllimport) void __stdcall AIL_resume_3D_sample(void *sample3D);
