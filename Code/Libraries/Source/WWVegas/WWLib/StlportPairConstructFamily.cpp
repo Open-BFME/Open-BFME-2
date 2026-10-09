@@ -13,7 +13,8 @@
 //   0x002E00CC  0x002E0273   0x002DFD82  BfmePod72
 //   0x00418985  0x004189ED   0x0041890F  BfmePod32
 //   0x004192A4  0x0041930C   0x0041922E  BfmePod20
-//   0x0041985E  0x004198C6   0x004197E8  BfmePod60
+// The native 41985E/4198C6 family now uses the typed string-key record
+// in Rva004197E8Pair.cpp; its former integer-key view was retired.
 //
 // The BfmePod72 pair copy at 0x002DFD82 (first int, then the record's copy
 // constructor at 0x002DFC1B) is this unit's own implicit copy and is landed
@@ -25,14 +26,11 @@
 struct BfmePod72 { int a[18]; BfmePod72(const BfmePod72 &); };
 struct BfmePod32 { int a[8]; BfmePod32(const BfmePod32 &); };
 struct BfmePod20 { int a[5]; BfmePod20(const BfmePod20 &); };
-struct BfmePod60 { int a[15]; BfmePod60(const BfmePod60 &); };
 
 typedef _STL::pair<const int, BfmePod72> IntPod72Pair;
 typedef _STL::pair<const int, BfmePod32> IntPod32Pair;
 typedef _STL::pair<const int, BfmePod20> IntPod20Pair;
-typedef _STL::pair<const int, BfmePod60> IntPod60Pair;
 
 template void _STL::_Construct<IntPod72Pair, IntPod72Pair>(IntPod72Pair *, const IntPod72Pair &);
 template void _STL::_Construct<IntPod20Pair, IntPod20Pair>(IntPod20Pair *, const IntPod20Pair &);
-template void _STL::_Construct<IntPod60Pair, IntPod60Pair>(IntPod60Pair *, const IntPod60Pair &);
 template _STL::pair<const int, BfmePod72>::pair(const int &, const BfmePod72 &);

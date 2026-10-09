@@ -35,8 +35,6 @@ struct BfmePod44 { int a[11]; };
 inline bool operator==(const BfmePod44 &x, const BfmePod44 &y) { return x.a[0] == y.a[0]; }
 struct BfmePod52 { int a[13]; };
 inline bool operator==(const BfmePod52 &x, const BfmePod52 &y) { return x.a[0] == y.a[0]; }
-struct BfmePod60 { int a[15]; };
-inline bool operator==(const BfmePod60 &x, const BfmePod60 &y) { return x.a[0] == y.a[0]; }
 struct BfmePod72 { int a[18]; };
 inline bool operator==(const BfmePod72 &x, const BfmePod72 &y) { return x.a[0] == y.a[0]; }
 template class _STL::hash_set<int, _STL::hash<int>, _STL::equal_to<int>, _STL::allocator<int> >;
@@ -46,7 +44,7 @@ template class _STL::hash_map<int, BfmePod24, _STL::hash<int>, _STL::equal_to<in
 template class _STL::hash_map<int, BfmePod48, _STL::hash<int>, _STL::equal_to<int>, _STL::allocator<_STL::pair<const int, BfmePod48> > >;
 template class _STL::hash_map<int, BfmePod44, _STL::hash<int>, _STL::equal_to<int>, _STL::allocator<_STL::pair<const int, BfmePod44> > >;
 template class _STL::hash_map<int, BfmePod52, _STL::hash<int>, _STL::equal_to<int>, _STL::allocator<_STL::pair<const int, BfmePod52> > >;
-template class _STL::hash_map<int, BfmePod60, _STL::hash<int>, _STL::equal_to<int>, _STL::allocator<_STL::pair<const int, BfmePod60> > >;
+// Native4198C6 is now the typed string-key node creator in Rva004197E8Pair.cpp.
 template class _STL::hash_map<int, BfmePod72, _STL::hash<int>, _STL::equal_to<int>, _STL::allocator<_STL::pair<const int, BfmePod72> > >;
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's

@@ -10,7 +10,7 @@
 #include "ascii_string.h"
 
 struct BfmePod20 { int a[5]; };
-struct BfmePod60 { int a[15]; };
+class Rva004198C6Host { public: void *newNode(const void *value); };
 
 class Rva000427195;
 
@@ -64,8 +64,6 @@ private:
 
 typedef _STL::pair<const int, BfmePod20> Pod20Pair;
 typedef _STL::hashtable<Pod20Pair, int, _STL::hash<int>, _STL::_Select1st<Pod20Pair>, _STL::equal_to<int>, _STL::allocator<Pod20Pair> > Pod20Table;
-typedef _STL::pair<const int, BfmePod60> Pod60Pair;
-typedef _STL::hashtable<Pod60Pair, int, _STL::hash<int>, _STL::_Select1st<Pod60Pair>, _STL::equal_to<int>, _STL::allocator<Pod60Pair> > Pod60Table;
 
 #pragma pack(push, 1)
 struct InsertRet00419331
@@ -136,7 +134,7 @@ InsertRet00419331 Rva000427195::rva004198EB(const void *key)
 			cur = *(void **)cur;
 		} while (cur != 0);
 	}
-	void *node = (void *)((Pod60Table *)this)->_M_new_node(*(const Pod60Pair *)key);
+	void *node = reinterpret_cast<Rva004198C6Host *>(this)->newNode(key);
 	*(void **)node = head;
 	m_beginBuckets[bucket] = node;
 	++m_numElements;
