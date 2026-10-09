@@ -54,6 +54,10 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
  *   LineSegClass::Find_Intersection -- Finds the closest points on the two lines				  * 
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
+// Native inline algorithms; out-of-line helpers remain with ledger owners.
+#include "../../../../../reference/shims/bfme_colmathaabox/wwmath.h"
+#include "../../../../../reference/shims/bfme_lineseg_math_link/vector3.h"
+#include "../../../../../reference/shims/bfme_lineseg_math_link/matrix3d.h"
 #include "lineseg.h"
 //#include <stdlib.h>
 
