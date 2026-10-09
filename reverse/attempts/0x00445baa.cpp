@@ -1,9 +1,11 @@
 // ?Rva00445BAALanLobbyTooltip@@YAXPAVGameWindow@@PAVWinInstanceData@@I@Z
+// partial score=0.98 date=2026-10-09
+// ?Rva00445BAALanLobbyTooltip@@YAXPAVGameWindow@@PAVWinInstanceData@@I@Z
 // partial score=0.99 date=2026-10-05
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
-// Banked note: also needs the reverse/symbols.csv pin
-// ?GadgetListBoxGetEntryBasedOnXY@@YAHPAVGameWindow@@HHAAH1@Z,0x00323F6F (9B frame-and-jump
-// entry to 0x00323E95; the BFME1 donor calls GadgetListBoxGetEntryBasedOnXY at the same spot).
+// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// Refreshed after lifetime recovery: listbox323F6F is already rowed and
+// LANAPI::ValidateGameInfo449969 is the established owner. No pin needed.
+// Remaining mismatch is compiler shape, not an unresolved callback binding.
 //
 // BFME2's LAN lobby gadget initialization callback, retail 0x00445DA5
 // (153 bytes). The screen's constructor 0x00445EE3 binds it as a member
@@ -73,11 +75,10 @@ class LANAPI
 	friend void Rva00445BAALanLobbyTooltip(GameWindow *window, WinInstanceData *data, unsigned int mouse);
 
 protected:
-	bool rva00449969(LANGameInfo *game);
+	bool ValidateGameInfo(LANGameInfo *game);
 };
 
-extern LANAPI *g_00DFE958;
-#define TheLAN g_00DFE958
+extern LANAPI *TheLAN;
 
 struct RGBColor;
 
@@ -112,8 +113,7 @@ public:
 
 extern GameTextInterface *TheGameText;
 
-struct Outer00446A77;
-extern Outer00446A77 *g_Va00A03354;
+extern int g_Va00A03354; // Existing storage owner; this body only tests zero.
 
 // Retail 0x00445BAA, 507 bytes: the custom games list tooltip. Donor
 // Open-BFME-1 GameNetwork/GameSpy/LanLobbyGamesTooltip.cpp
@@ -135,7 +135,7 @@ void Rva00445BAALanLobbyTooltip(GameWindow *window, WinInstanceData *, unsigned 
 	if (row != -1 && column != -1)
 	{
 		LANGameInfo *game = (LANGameInfo *)Rva003253BEGet(window, row, 3);
-		if (!TheLAN->rva00449969(game))
+		if (!TheLAN->ValidateGameInfo(game))
 			game = 0;
 		if (game)
 		{
