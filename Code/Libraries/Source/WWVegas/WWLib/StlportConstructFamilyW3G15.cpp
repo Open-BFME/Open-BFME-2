@@ -18,9 +18,9 @@
 //   0x00423648  Rva00423648Element       0x004220CD
 //   0x004C734D  Rva004C734DElement       0x004C7330
 //   0x004F868A  Rva004F868AElement       0x004F802C
-//   0x00502082  Rva00502082Element       0x00501DD4
+//   0x00502082  pair<const int, Rva00501776> 0x00501DD4
 //   0x00502667  Rva00502667Element       0x005020AF
-//   0x00502C53  Rva00502C53Element       0x00502909
+//   0x00502C53  pair<const int, Rva00501656> 0x00502909
 //   0x00557C90  Rva00557C90Element       0x005564EB
 //   0x00600F9C  Rva00600F9CElement       0x00600F76
 //
@@ -30,7 +30,10 @@
 // and 0x00502667 from the 0x005028E7 node factory. 0x002BAE2A's callee is the
 // rowed vector<Rva002B72C9> copy ctor; the element stays an address-named
 // placeholder (its copy ctor is pinned at 0x002B9247) and no layout beyond
-// that of the sibling placeholders is claimed.
+// that of the sibling placeholders is claimed. The 0x00502082 and 0x00502C53
+// elements are pair<const int, S> of the LivingWorld AI records (see
+// StlportElementCopyCtorsW3G15.cpp); their pair copy constructors are
+// declared specialised so _Construct calls the rowed out-of-line bodies.
 #include <memory>
 
 struct Rva0014F647Element
@@ -69,11 +72,11 @@ struct Rva004F868AElement
 	Rva004F868AElement(const Rva004F868AElement &that);
 };
 
-struct Rva00502082Element
+struct Rva00501776
 {
 	int a;
-	Rva00502082Element(const Rva00502082Element &that);
 };
+template <> _STL::pair<const int, Rva00501776>::pair(const _STL::pair<const int, Rva00501776> &);
 
 struct Rva00502667Element
 {
@@ -81,11 +84,11 @@ struct Rva00502667Element
 	Rva00502667Element(const Rva00502667Element &that);
 };
 
-struct Rva00502C53Element
+struct Rva00501656
 {
 	int a;
-	Rva00502C53Element(const Rva00502C53Element &that);
 };
+template <> _STL::pair<const int, Rva00501656>::pair(const _STL::pair<const int, Rva00501656> &);
 
 struct Rva00557C90Element
 {
@@ -111,9 +114,9 @@ template void _STL::_Construct<Rva002E160FElement, Rva002E160FElement>(Rva002E16
 template void _STL::_Construct<Rva00423648Element, Rva00423648Element>(Rva00423648Element *, const Rva00423648Element &);
 template void _STL::_Construct<Rva004C734DElement, Rva004C734DElement>(Rva004C734DElement *, const Rva004C734DElement &);
 template void _STL::_Construct<Rva004F868AElement, Rva004F868AElement>(Rva004F868AElement *, const Rva004F868AElement &);
-template void _STL::_Construct<Rva00502082Element, Rva00502082Element>(Rva00502082Element *, const Rva00502082Element &);
+template void _STL::_Construct<_STL::pair<const int, Rva00501776>, _STL::pair<const int, Rva00501776> >(_STL::pair<const int, Rva00501776> *, const _STL::pair<const int, Rva00501776> &);
 template void _STL::_Construct<Rva00502667Element, Rva00502667Element>(Rva00502667Element *, const Rva00502667Element &);
-template void _STL::_Construct<Rva00502C53Element, Rva00502C53Element>(Rva00502C53Element *, const Rva00502C53Element &);
+template void _STL::_Construct<_STL::pair<const int, Rva00501656>, _STL::pair<const int, Rva00501656> >(_STL::pair<const int, Rva00501656> *, const _STL::pair<const int, Rva00501656> &);
 template void _STL::_Construct<Rva00557C90Element, Rva00557C90Element>(Rva00557C90Element *, const Rva00557C90Element &);
 template void _STL::_Construct<Rva002BAE2AElement, Rva002BAE2AElement>(Rva002BAE2AElement *, const Rva002BAE2AElement &);
 template void _STL::_Construct<Rva00600F9CElement, Rva00600F9CElement>(Rva00600F9CElement *, const Rva00600F9CElement &);

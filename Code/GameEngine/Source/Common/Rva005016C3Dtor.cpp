@@ -18,7 +18,7 @@ struct Rva005016C3Buf
 	}
 };
 
-struct Rva005016C3Dtor
+struct Rva00501656
 {
 	char m_pad0[0x10];
 	Rva005016C3Buf m_10;
@@ -32,9 +32,9 @@ struct Rva005016C3Dtor
 	Rva005016C3Buf m_40;
 	char m_pad5[0x8];
 	Rva00500804 m_4c;
-	~Rva005016C3Dtor();
+	~Rva00501656();
 };
 
-Rva005016C3Dtor::~Rva005016C3Dtor()
+Rva00501656::~Rva00501656()
 {
 }

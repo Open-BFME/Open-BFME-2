@@ -10,7 +10,11 @@
 // first tree is ScienceStore's map<ScienceType, bool>: its insert_unique sits
 // beside the map's constructor 0x001FFA00 and _Rb_tree constructor 0x001FF84B
 // (ScienceStoreRootPrereqs.cpp), so it keeps those types.  No other identity
-// is claimed.
+// is claimed, except that three mapped types are the LivingWorld AI records
+// GatherWorldInformation (0x0050366B) builds and are spelled with their merged
+// address-derived names: Rva00501776 (player record, insert 0x00502D61),
+// Rva00501656 (region record, insert 0x0050364E) and Rva00501E3FElement
+// (army record, insert 0x00501A0B); only their int footprint is declared here.
 //
 //   insert_unique  _M_insert   _M_create_node
 //   0x001FF875     0x001FF791  0x001FF703
@@ -55,7 +59,7 @@ struct Rva0032EB87Mapped { int a; };
 // record. Its meaning and field layout remain unknown.
 struct Rva00439AAAMapped { unsigned char m_data[0x10]; };
 struct Rva004F90FFMapped { int a; };
-struct Rva00502861Mapped { int a; };
+struct Rva00501776 { int a; };
 struct Rva00502BCDMapped { int a; };
 struct Rva00559076Mapped { int a; };
 
@@ -93,7 +97,7 @@ template class _STL::_Rb_tree<ScienceType, _STL::pair<const ScienceType, bool>, 
 template class _STL::_Rb_tree<int, _STL::pair<const int, Rva0032EB87Mapped>, _STL::_Select1st<_STL::pair<const int, Rva0032EB87Mapped> >, _STL::less<int>, _STL::allocator<_STL::pair<const int, Rva0032EB87Mapped> > >;
 template class _STL::_Rb_tree<int, _STL::pair<const int, Rva00439AAAMapped>, _STL::_Select1st<_STL::pair<const int, Rva00439AAAMapped> >, _STL::less<int>, _STL::allocator<_STL::pair<const int, Rva00439AAAMapped> > >;
 template class _STL::_Rb_tree<int, _STL::pair<const int, Rva004F90FFMapped>, _STL::_Select1st<_STL::pair<const int, Rva004F90FFMapped> >, _STL::less<int>, _STL::allocator<_STL::pair<const int, Rva004F90FFMapped> > >;
-template class _STL::_Rb_tree<int, _STL::pair<const int, Rva00502861Mapped>, _STL::_Select1st<_STL::pair<const int, Rva00502861Mapped> >, _STL::less<int>, _STL::allocator<_STL::pair<const int, Rva00502861Mapped> > >;
+template class _STL::_Rb_tree<int, _STL::pair<const int, Rva00501776>, _STL::_Select1st<_STL::pair<const int, Rva00501776> >, _STL::less<int>, _STL::allocator<_STL::pair<const int, Rva00501776> > >;
 template class _STL::_Rb_tree<int, _STL::pair<const int, Rva00502BCDMapped>, _STL::_Select1st<_STL::pair<const int, Rva00502BCDMapped> >, _STL::less<int>, _STL::allocator<_STL::pair<const int, Rva00502BCDMapped> > >;
 template class _STL::_Rb_tree<int, _STL::pair<const int, Rva00559076Mapped>, _STL::_Select1st<_STL::pair<const int, Rva00559076Mapped> >, _STL::less<int>, _STL::allocator<_STL::pair<const int, Rva00559076Mapped> > >;
 
@@ -108,22 +112,21 @@ template class _STL::_Rb_tree<int, _STL::pair<const int, Rva00559076Mapped>, _ST
 //   0x00502FAE    0x00503554  0x00502F26  0x00502EA4
 
 struct Rva002F1DA1Mapped { int a; };
-struct Rva00501130Mapped { int a; };
-struct Rva00502FAEMapped { int a; };
+struct Rva00501E3FElement { int a; };
+struct Rva00501656 { int a; };
 template class _STL::_Rb_tree<int, _STL::pair<const int, Rva002F1DA1Mapped>, _STL::_Select1st<_STL::pair<const int, Rva002F1DA1Mapped> >, _STL::less<int>, _STL::allocator<_STL::pair<const int, Rva002F1DA1Mapped> > >;
-template class _STL::_Rb_tree<int, _STL::pair<const int, Rva00501130Mapped>, _STL::_Select1st<_STL::pair<const int, Rva00501130Mapped> >, _STL::less<int>, _STL::allocator<_STL::pair<const int, Rva00501130Mapped> > >;
-template class _STL::_Rb_tree<int, _STL::pair<const int, Rva00502FAEMapped>, _STL::_Select1st<_STL::pair<const int, Rva00502FAEMapped> >, _STL::less<int>, _STL::allocator<_STL::pair<const int, Rva00502FAEMapped> > >;
+template class _STL::_Rb_tree<int, _STL::pair<const int, Rva00501E3FElement>, _STL::_Select1st<_STL::pair<const int, Rva00501E3FElement> >, _STL::less<int>, _STL::allocator<_STL::pair<const int, Rva00501E3FElement> > >;
+template class _STL::_Rb_tree<int, _STL::pair<const int, Rva00501656>, _STL::_Select1st<_STL::pair<const int, Rva00501656> >, _STL::less<int>, _STL::allocator<_STL::pair<const int, Rva00501656> > >;
 
 // map::insert(hint) forwarders @0x00502D61 and @0x00502F09 (29B) over the insert_unique rows above.
-template _STL::map<int, Rva00502861Mapped>::iterator _STL::map<int, Rva00502861Mapped>::insert(_STL::map<int, Rva00502861Mapped>::iterator, const _STL::map<int, Rva00502861Mapped>::value_type &);
+template _STL::map<int, Rva00501776>::iterator _STL::map<int, Rva00501776>::insert(_STL::map<int, Rva00501776>::iterator, const _STL::map<int, Rva00501776>::value_type &);
 template _STL::map<int, Rva00502BCDMapped>::iterator _STL::map<int, Rva00502BCDMapped>::insert(_STL::map<int, Rva00502BCDMapped>::iterator, const _STL::map<int, Rva00502BCDMapped>::value_type &);
 // multimap::insert(hint) forwarder @0x00501A0B (29B) over the insert_equal row above.
-template _STL::multimap<int, Rva00501130Mapped>::iterator _STL::multimap<int, Rva00501130Mapped>::insert(_STL::multimap<int, Rva00501130Mapped>::iterator, const _STL::multimap<int, Rva00501130Mapped>::value_type &);
+template _STL::multimap<int, Rva00501E3FElement>::iterator _STL::multimap<int, Rva00501E3FElement>::insert(_STL::multimap<int, Rva00501E3FElement>::iterator, const _STL::multimap<int, Rva00501E3FElement>::value_type &);
 // map::insert(hint) @0x004F9ED6 and multimap::insert(hint) @0x0050364E (29B each).
 template _STL::map<int, Rva004F90FFMapped>::iterator _STL::map<int, Rva004F90FFMapped>::insert(_STL::map<int, Rva004F90FFMapped>::iterator, const _STL::map<int, Rva004F90FFMapped>::value_type &);
-template _STL::multimap<int, Rva00502FAEMapped>::iterator _STL::multimap<int, Rva00502FAEMapped>::insert(_STL::multimap<int, Rva00502FAEMapped>::iterator, const _STL::multimap<int, Rva00502FAEMapped>::value_type &);
+template _STL::multimap<int, Rva00501656>::iterator _STL::multimap<int, Rva00501656>::insert(_STL::multimap<int, Rva00501656>::iterator, const _STL::multimap<int, Rva00501656>::value_type &);
 
-struct Rva00501776 { int a; };
 typedef _STL::_Rb_tree<int, _STL::pair<const int, Rva00501776>,
 
 	_STL::_Select1st<_STL::pair<const int, Rva00501776> >,

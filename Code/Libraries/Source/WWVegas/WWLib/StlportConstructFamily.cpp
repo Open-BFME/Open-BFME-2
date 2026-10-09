@@ -87,25 +87,19 @@ template void _STL::_Construct<Rva004E3E5AElement, Rva004E3E5AElement>(Rva004E3E
 template void _STL::_Construct<Rva00501E3FElement, Rva00501E3FElement>(Rva00501E3FElement *, const Rva00501E3FElement &);
 template void _STL::_Construct<Rva005C8624Element, Rva005C8624Element>(Rva005C8624Element *, const Rva005C8624Element &);
 
-// ??0Rva00500856@@QAE@ABU0@@Z @0x00500856 29B copy ctor of 0x18 struct with
-// int at +0 and Rva00501E3FElement at +4. Retail copies the first dword with
-// mov then tail-copies the subobject via the pinned Rva00501E3FElement copy
-// ctor 0x005007AA. Callers 0x00500CD1 (45B _Construct twin) and 0x0050366B.
-// _Construct at 0x00500873 proves the callee spelling.
-struct Rva00500856
-{
-	int m_00;
-	Rva00501E3FElement m_04;
-	Rva00500856(const Rva00500856 &that);
-};
-
-Rva00500856::Rva00500856(const Rva00500856 &that)
-	: m_00(that.m_00)
-	, m_04(that.m_04)
+// ??0?$pair@$$CBHURva00501E3FElement@@@_STL@@QAE@ABU01@@Z @0x00500856 29B:
+// copy ctor of pair<const int, Rva00501E3FElement>, the value type of the
+// multimap<int, Rva00501E3FElement> in the LivingWorld AI region record
+// (_M_create_node 0x00501086 -> _Construct 0x00500CD1 -> here). Retail copies
+// the key dword with mov then tail-copies the 0x14-byte army record via its
+// copy ctor 0x005007AA. Callers 0x00500CD1 and 0x0050366B.
+template <> _STL::pair<const int, Rva00501E3FElement>::pair(const _STL::pair<const int, Rva00501E3FElement> &that)
+	: first(that.first)
+	, second(that.second)
 {
 }
 
-template void _STL::_Construct<Rva00500856, Rva00500856>(Rva00500856 *, const Rva00500856 &);
+template void _STL::_Construct<_STL::pair<const int, Rva00501E3FElement>, _STL::pair<const int, Rva00501E3FElement> >(_STL::pair<const int, Rva00501E3FElement> *, const _STL::pair<const int, Rva00501E3FElement> &);
 
 // More _Construct<T, T> bodies of the same 45-byte shape, each named by the
 // rows that call it (push_back / _M_insert_overflow / uninitialized helpers or

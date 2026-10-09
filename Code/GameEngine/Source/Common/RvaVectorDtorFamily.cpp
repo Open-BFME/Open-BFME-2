@@ -692,14 +692,14 @@ Rva0052CDE1::~Rva0052CDE1()
 	_STL::_Destroy(m_start, m_finish);
 }
 
-struct Rva004FFE81;
+struct Rva00501E3FElement;
 
-void __cdecl Rva00500CB8Destroy(Rva004FFE81 *, Rva004FFE81 *);
+void __cdecl Rva00500CB8Destroy(Rva00501E3FElement *, Rva00501E3FElement *);
 
 // ??1Rva005011DA@@QAE@XZ @0x005011DA 63B -> ?Rva00500CB8Destroy@@YAXPAURva004FFE81@@0@Z
 // Vector dtor shape (destroy [start finish) then free): caller 0x00501776 holds
 // vectors at +0x14/+0x20 and calls here twice; callees rowed 0x00500CB8 and 0x00030830.
-struct Rva005011DA : RvaVectorFamilyBase<Rva004FFE81>
+struct Rva005011DA : RvaVectorFamilyBase<Rva00501E3FElement>
 {
 	~Rva005011DA();
 };

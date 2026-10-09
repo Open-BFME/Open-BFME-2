@@ -4,6 +4,6 @@
 // stlport
 #include <hash_map>
 
-struct Rva00501A5FElement { Rva00501A5FElement();Rva00501A5FElement(const Rva00501A5FElement&);~Rva00501A5FElement();Rva00501A5FElement&operator=(const Rva00501A5FElement&);char bytes[1]; bool operator<(const Rva00501A5FElement&)const; bool operator==(const Rva00501A5FElement&)const; };
-namespace _STL {template<> struct hash<Rva00501A5FElement> { unsigned operator()(const Rva00501A5FElement&) const; };}
-template class _STL::hash_map<int,Rva00501A5FElement>;
+struct Rva00501776 { Rva00501776();Rva00501776(const Rva00501776&);~Rva00501776();Rva00501776&operator=(const Rva00501776&);char bytes[1]; bool operator<(const Rva00501776&)const; bool operator==(const Rva00501776&)const; };
+namespace _STL {template<> struct hash<Rva00501776> { unsigned operator()(const Rva00501776&) const; };}
+template class _STL::hash_map<int,Rva00501776>;

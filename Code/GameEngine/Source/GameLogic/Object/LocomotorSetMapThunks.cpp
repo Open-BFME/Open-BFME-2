@@ -6,6 +6,12 @@
 // at 0x004FF5F3 (rowed via Code/GameEngine/Source/GameLogic/Object/LocomotorSetMapSubscript.cpp).
 // Caller 0x00500CB8 destroys an array with stride 0x14 calling here with
 // ecx set to each element so the map sits at +4 and the element size is 0x14.
+// The 0x14-byte element is the LivingWorld AI army record Rva00501E3FElement
+// (vector<Rva00501E3FElement> in the player record; its copy ctor is
+// 0x005007AA): GatherWorldInformation 0x0050366B unwinds its [ebp-0x74] army
+// local through 0x004FFE81 and clears the player record's two army vectors
+// through erase 0x0050126C. The +4 tree keeps the LocomotorSet map view only
+// because the ledger names the tree bodies 0x004FF5F3/0x004FFDA5 that way.
 // LocomotorSetType values from the Zero Hour donor
 // (GameEngine/Include/GameLogic/Module/AIUpdate.h).
 
@@ -44,16 +50,16 @@ template<> BfmeLocomotorSetTree::~_Rb_tree();
 template<> BfmeLocomotorSetTree& BfmeLocomotorSetTree::operator=(const BfmeLocomotorSetTree&);
 }
 
-struct Rva004FFE81
+struct Rva00501E3FElement
 {
 	int m_first;
 	BfmeLocomotorSetMap m_second;
 	int m_third;	// +0x10: assignment 0x0050052F copies [edi+0x10] to [esi+0x10]; stride 0x14 in 0x00500CB8/0x0050094B
-	~Rva004FFE81();
-	Rva004FFE81& operator=(const Rva004FFE81&);
+	~Rva00501E3FElement();
+	Rva00501E3FElement& operator=(const Rva00501E3FElement&);
 };
 
-Rva004FFE81::~Rva004FFE81()
+Rva00501E3FElement::~Rva00501E3FElement()
 {
 }
 
@@ -72,10 +78,10 @@ Rva004FFE89::~Rva004FFE89()
 // ?Rva00500CB8Destroy@@YAXPAURva004FFE81@@0@Z @0x00500CB8 25B: range destroy.
 // Destroys [first, last) with stride 0x14 calling ??1Rva004FFE81@@QAE@XZ.
 // Callers 0x005011DA 0x0050126C 0x00501356 pass vector start/finish.
-void __cdecl Rva00500CB8Destroy(Rva004FFE81 *first, Rva004FFE81 *last)
+void __cdecl Rva00500CB8Destroy(Rva00501E3FElement *first, Rva00501E3FElement *last)
 {
 	for (; first != last; ++first)
-		first->~Rva004FFE81();
+		first->~Rva00501E3FElement();
 }
 
 extern "C" void __cdecl free(void *block);
@@ -86,8 +92,8 @@ extern "C" void __cdecl free(void *block);
 // overwrites start/finish/end right after the call.
 struct Rva00501356
 {
-	Rva004FFE81 *m_first;
-	Rva004FFE81 *m_last;
+	Rva00501E3FElement *m_first;
+	Rva00501E3FElement *m_last;
 	void rva00501356();
 };
 
@@ -101,7 +107,7 @@ void Rva00501356::rva00501356()
 // Retail 0x0050052F / 37: assign the two scalar fields around the map.
 // The call at 0x00500543 reaches the rowed tree assignment at 0x004FFDA5;
 // the element's semantic name remains unknown.
-Rva004FFE81& Rva004FFE81::operator=(const Rva004FFE81& other)
+Rva00501E3FElement& Rva00501E3FElement::operator=(const Rva00501E3FElement& other)
 {
     m_first = other.m_first;
     m_second = other.m_second;
@@ -111,14 +117,14 @@ Rva004FFE81& Rva004FFE81::operator=(const Rva004FFE81& other)
 
 // Explicit STLport random-access copy. Retail 0x0050094B divides the
 // pointer difference by 20 and calls the element assignment at 0x0050052F.
-template Rva004FFE81* _STL::__copy<Rva004FFE81*, Rva004FFE81*, int>(
-    Rva004FFE81*, Rva004FFE81*, Rva004FFE81*,
+template Rva00501E3FElement* _STL::__copy<Rva00501E3FElement*, Rva00501E3FElement*, int>(
+    Rva00501E3FElement*, Rva00501E3FElement*, Rva00501E3FElement*,
     const _STL::random_access_iterator_tag&, int*);
 
 // The vector's nontrivial assignment dispatch reaches __copy at 0x0050094B.
-template Rva004FFE81* _STL::__copy_ptrs<Rva004FFE81*, Rva004FFE81*>(
-    Rva004FFE81*, Rva004FFE81*, Rva004FFE81*, const _STL::__false_type&);
+template Rva00501E3FElement* _STL::__copy_ptrs<Rva00501E3FElement*, Rva00501E3FElement*>(
+    Rva00501E3FElement*, Rva00501E3FElement*, Rva00501E3FElement*, const _STL::__false_type&);
 
 // Native 0x0050126C has two pointer arguments, returns the first, copies
 // [last, finish) into first and destroys the vacated tail before updating finish.
-template Rva004FFE81* _STL::vector<Rva004FFE81>::erase(Rva004FFE81*, Rva004FFE81*);
+template Rva00501E3FElement* _STL::vector<Rva00501E3FElement>::erase(Rva00501E3FElement*, Rva00501E3FElement*);

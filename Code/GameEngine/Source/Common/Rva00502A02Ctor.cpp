@@ -4,22 +4,22 @@
 // via rowed 0x005026EE. Evidence: same int-plus-Sub layout as
 // Rva00502909Owner read family in RvaReadThroughFamily.cpp and rowed Sub copy
 // ctor callee; frameless 29B ret-8 shape matches that family.
-struct Rva00502909Sub
+struct Rva00501656
 {
-	Rva00502909Sub(const Rva00502909Sub &o);
+	Rva00501656(const Rva00501656 &o);
 };
 
 class Rva00502A02
 {
 public:
-	Rva00502A02(int &a, const Rva00502909Sub &b);
+	Rva00502A02(int &a, const Rva00501656 &b);
 
 private:
 	int m_00;
-	Rva00502909Sub m_04;
+	Rva00501656 m_04;
 };
 
-Rva00502A02::Rva00502A02(int &a, const Rva00502909Sub &b)
+Rva00502A02::Rva00502A02(int &a, const Rva00501656 &b)
 	: m_00(a)
 	, m_04(b)
 {

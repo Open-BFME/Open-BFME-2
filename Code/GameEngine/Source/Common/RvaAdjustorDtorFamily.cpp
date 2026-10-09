@@ -99,10 +99,10 @@ private:
 	Rva00425756Dtor m_inner;
 };
 
-class Rva005016C3Dtor
+class Rva00501656
 {
 public:
-	~Rva005016C3Dtor();
+	~Rva00501656();
 };
 
 class Rva0050174A
@@ -112,7 +112,7 @@ public:
 
 private:
 	char m_pad[4];
-	Rva005016C3Dtor m_inner;
+	Rva00501656 m_inner;
 };
 
 class Rva005C8494Dtor

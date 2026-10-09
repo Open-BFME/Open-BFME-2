@@ -1,9 +1,9 @@
 // cl: /MD
 // ??0Rva004C734DElement@@QAE@ABU0@@Z @0x004C7330 29B via 0x001F206E
 // ??0Rva004F868AElement@@QAE@ABU0@@Z @0x004F802C 29B via 0x004F69D6
-// ??0Rva00502082Element@@QAE@ABU0@@Z @0x00501DD4 29B via 0x005017B4
+// ??0?$pair@$$CBHURva00501776@@@_STL@@QAE@ABU01@@Z @0x00501DD4 29B via 0x005017B4
 // ??0Rva00502667Element@@QAE@ABU0@@Z @0x005020AF 29B via 0x00501B33
-// ??0Rva00502C53Element@@QAE@ABU0@@Z @0x00502909 29B via 0x005026EE
+// ??0?$pair@$$CBHURva00501656@@@_STL@@QAE@ABU01@@Z @0x00502909 29B via 0x005026EE
 // ??0Rva00557C90Element@@QAE@ABU0@@Z @0x005564EB 29B via 0x0038630B
 // Six 29-byte element copy constructors called by the rowed _Construct
 // siblings in StlportConstructFamilyW3G15.cpp (found by family_scan --wide
@@ -14,6 +14,16 @@
 // address-named placeholders and no layout beyond int-plus-subobject is
 // claimed. The sibling TU's minimal element views are intentionally not
 // touched: its _Construct bodies only pass pointers through.
+// Two of the elements are STLport pair<const int, S> of the LivingWorld AI
+// records GatherWorldInformation (0x0050366B) builds: S = Rva00501656
+// (0x58 region record, copy 0x005026EE) and S = Rva00501776 (0x2C player
+// record, copy 0x005017B4). Each is the value type of the int-keyed tree
+// whose _M_create_node reaches it through _Construct (0x00502EA4 -> 0x00502C53,
+// 0x00502645 -> 0x00502082), so they are declared here as that pair.
+namespace _STL
+{
+template <class T1, class T2> struct pair;
+}
 struct Rva004C7330Sub
 {
 	Rva004C7330Sub(const Rva004C7330Sub &o);
@@ -50,21 +60,24 @@ Rva004F868AElement::Rva004F868AElement(const Rva004F868AElement &o)
 {
 }
 
-struct Rva00501DD4Sub
+struct Rva00501776
 {
-	Rva00501DD4Sub(const Rva00501DD4Sub &o);
+	Rva00501776(const Rva00501776 &o);
 };
 
-struct Rva00502082Element
+namespace _STL
 {
-	int m_00;
-	Rva00501DD4Sub m_04;
-	Rva00502082Element(const Rva00502082Element &o);
+template <> struct pair<const int, Rva00501776>
+{
+	const int first;
+	Rva00501776 second;
+	pair(const pair &o);
 };
+}
 
-Rva00502082Element::Rva00502082Element(const Rva00502082Element &o)
-	: m_00(o.m_00)
-	, m_04(o.m_04)
+_STL::pair<const int, Rva00501776>::pair(const _STL::pair<const int, Rva00501776> &o)
+	: first(o.first)
+	, second(o.second)
 {
 }
 
@@ -86,21 +99,24 @@ Rva00502667Element::Rva00502667Element(const Rva00502667Element &o)
 {
 }
 
-struct Rva00502909Sub
+struct Rva00501656
 {
-	Rva00502909Sub(const Rva00502909Sub &o);
+	Rva00501656(const Rva00501656 &o);
 };
 
-struct Rva00502C53Element
+namespace _STL
 {
-	int m_00;
-	Rva00502909Sub m_04;
-	Rva00502C53Element(const Rva00502C53Element &o);
+template <> struct pair<const int, Rva00501656>
+{
+	const int first;
+	Rva00501656 second;
+	pair(const pair &o);
 };
+}
 
-Rva00502C53Element::Rva00502C53Element(const Rva00502C53Element &o)
-	: m_00(o.m_00)
-	, m_04(o.m_04)
+_STL::pair<const int, Rva00501656>::pair(const _STL::pair<const int, Rva00501656> &o)
+	: first(o.first)
+	, second(o.second)
 {
 }
 

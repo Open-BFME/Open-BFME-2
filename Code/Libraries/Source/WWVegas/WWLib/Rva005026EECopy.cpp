@@ -1,7 +1,7 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT /Ireference/shims/bfmealloc
 // stlport
 // ??0Rva00502909Sub@@QAE@ABU0@@Z, retail 0x005026EE 153B.
-// Subobject copy ctor: 4 ints then 5 vector<ScienceType> then map<int Rva00501130Mapped>.
+// Subobject copy ctor: 4 ints then 5 vector<ScienceType> then map<int Rva00501E3FElement>.
 // Evidence: rowed vector copy 0x0054878E x5 and rowed rb_tree copy 0x00501E88; element copy 0x00502909 tail-calls it; neighbours share stlport /O1 /EHsc flags.
 #include <map>
 #include <vector>
@@ -11,14 +11,14 @@ enum ScienceType
 	SCIENCE_NONE = 0
 };
 
-struct Rva00501130Mapped
+struct Rva00501E3FElement
 {
 	int a[5];
 };
 
-struct Rva00502909Sub
+struct Rva00501656
 {
-	Rva00502909Sub(const Rva00502909Sub &o);
+	Rva00501656(const Rva00501656 &o);
 	int m_00;
 	int m_04;
 	int m_08;
@@ -28,10 +28,10 @@ struct Rva00502909Sub
 	_STL::vector<ScienceType> m_28;
 	_STL::vector<ScienceType> m_34;
 	_STL::vector<ScienceType> m_40;
-	_STL::map<int, Rva00501130Mapped> m_4c;
+	_STL::map<int, Rva00501E3FElement> m_4c;
 };
 
-Rva00502909Sub::Rva00502909Sub(const Rva00502909Sub &o)
+Rva00501656::Rva00501656(const Rva00501656 &o)
 	: m_00(o.m_00)
 	, m_04(o.m_04)
 	, m_08(o.m_08)

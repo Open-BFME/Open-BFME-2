@@ -19,5 +19,5 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 
 
 
-struct Rva0050298DRecord {  char bytes[1]; };
-template class _STL::map<int,Rva0050298DRecord>;
+struct Rva00501656 {  char bytes[1]; };
+template class _STL::map<int,Rva00501656>;
