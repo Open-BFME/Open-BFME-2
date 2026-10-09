@@ -1,4 +1,6 @@
 // ?rva00461C1F@FakePathfindPortalBehaviour@@QAEXXZ
+// partial score=0.99 date=2026-10-09
+// ?rva00461C1F@FakePathfindPortalBehaviour@@QAEXXZ
 // partial score=0.96 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
 //
@@ -184,14 +186,15 @@ void FakePathfindPortalBehaviour::rva00461C1F()
  struct PortalVector {
  float x,y,z;
  PortalVector(float a,float b,float c):x(a),y(b),z(c){}
- __forceinline void rotate(float ca,float sa) {
+ __forceinline void rotate(float ca,const float &sa) {
   float tmp_x=x;float tmp_y=y;
   x=ca*tmp_x-sa*tmp_y;
   y=sa*tmp_x+ca*tmp_y;
  }
  };
  PortalVector offset(radius+s_fakePortalWaypointMargin,0.0f,0.0f);
- offset.rotate((float)cos(angle),(float)sin(angle));
+ float sine;
+ offset.rotate((sine=(float)sin(angle),(float)cos(angle)),sine);
  struct PortalCoord : Coord3D { PortalCoord(const PortalVector &o) {x=o.x;y=o.y;z=o.z;} };
  PortalCoord point(offset);
  point.x+=m_owner->position.x;
