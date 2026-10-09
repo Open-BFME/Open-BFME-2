@@ -139,12 +139,12 @@ Real Rva00573E1A::rva00573E1A()
 	return normalizeAngle(m_4C + m_3C);
 }
 
-// slot at VA 0x00C6F12C: with the +0x14 state 0 runs the rowed 0x0057A92D
+// slot at VA 0x00C6F12C: with the +0x14 state 0 runs the rowed 0x0057A92D (StrategicHUD::ChecklistUIImpl::Open)
 // on this object (a tail jump); with state 3 sets the +0x26 byte.
+namespace StrategicHUD { class ChecklistUIImpl { public: void Open(); }; }
 class Rva0057A92D
 {
 public:
-	void rva0057A92D();
 	void rva0057AB00();
 private:
 	char m_pad00[0x14];
@@ -156,7 +156,7 @@ void Rva0057A92D::rva0057AB00()
 {
 	if (m_14 == 0)
 	{
-		rva0057A92D();
+		((StrategicHUD::ChecklistUIImpl *)this)->Open();
 		return;
 	}
 	if (m_14 == 3)

@@ -10,15 +10,18 @@ typedef unsigned int UnsignedInt;
 typedef float Real;
 
 // 0x0057BC25: tail call of the rowed 0x0057BAC4 on this object.
-class Rva0057BAC4
+// Slot 8 of StrategicHUD::SelectionDetailsUIImpl's vftable 0x00C6F26C (its
+// rowed ctor and dtor install it): virtual.
+namespace StrategicHUD { class SelectionDetailsUIImpl; }
+class StrategicHUD::SelectionDetailsUIImpl
 {
 public:
-	void rva0057BAC4();
-	void rva0057BC25();
+	void Close();
+	virtual void rva0057BC25();
 };
-void Rva0057BAC4::rva0057BC25()
+void StrategicHUD::SelectionDetailsUIImpl::rva0057BC25()
 {
-	rva0057BAC4();
+	Close();
 }
 
 // 0x0058AD81 and 0x005EE2CF: the pinned Object command-button entry points

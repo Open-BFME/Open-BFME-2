@@ -87,18 +87,6 @@ public:
 	void rva00575674(Object *scrollBar);
 };
 
-// The rowed expand and collapse bodies.
-class Rva0057A8F9
-{
-public:
-	void rva0057A8F9();
-};
-
-class Rva0057A92D
-{
-public:
-	void rva0057A92D();
-};
 
 // The scroll bar's enable forwarder to its Impl (0x005D49CD, pinned by
 // address), as Rva005D498BVisible.cpp views the scroll bar.
@@ -227,6 +215,10 @@ public:
 	void OnExpandButtonClicked(const char *unused);
 	void OnScrollBarLoaded(const char *name);
 	void rva0057B499();
+	// The rowed collapse and expand bodies (WorldBuilder names; "CloseList"
+	// and "OpenList" Apt calls).
+	void Close();
+	void Open();
 
 	// Scroll layout at 0x0057B16D and stable priority sort at 0x0057B217.
 	void rva0057B16D();
@@ -301,7 +293,7 @@ void StrategicHUD::ChecklistUIImpl::rva0057B499()
 	}
 	if (m_26 && m_state == 0)
 	{
-		((Rva0057A92D *)this)->rva0057A92D();
+		Open();
 		m_26 = false;
 	}
 	Rva0057B499Node *end = reinterpret_cast<Rva0057B499Node*>(items.end()._M_node);
@@ -315,9 +307,9 @@ void StrategicHUD::ChecklistUIImpl::OnExpandButtonClicked(const char *unused)
 {
 	int state = m_state;
 	if (state == 2)
-		((Rva0057A8F9 *)this)->rva0057A8F9();
+		Close();
 	else if (state == 0)
-		((Rva0057A92D *)this)->rva0057A92D();
+		Open();
 }
 
 // Retail 0x0057AC8F, 92 bytes: the scroll bar listener's position slot
@@ -541,12 +533,6 @@ public:
 	void rva0057BA90();
 };
 
-class Rva0057BAC4
-{
-public:
-	void rva0057BAC4();
-};
-
 namespace StrategicHUD {
 class SelectionDetailsUIImpl;
 }
@@ -558,6 +544,8 @@ public:
 	~SelectionDetailsUIImpl();
 	void OnPanelFrameLoaded(const char *name);
 	void OnPanelFrameUnloaded(const char *name);
+	// The rowed close body (WorldBuilder name; "Close" Apt call).
+	void Close();
 	void OnToggleButtonClicked(const char *unused);
 	void OnClosed(const char *unused);
 	void OnOpened(const char *unused);
@@ -619,7 +607,7 @@ void StrategicHUD::SelectionDetailsUIImpl::OnToggleButtonClicked(const char *unu
 	if (state == 0)
 		((Rva0057BA90 *)this)->rva0057BA90();
 	else if (state == 2)
-		((Rva0057BAC4 *)this)->rva0057BAC4();
+		Close();
 }
 
 // Retail 0x0057BC9E, 27 bytes: bound as "<movie>_OnClosed" (0x0057BE19);
@@ -654,7 +642,7 @@ void StrategicHUD::SelectionDetailsUIImpl::rva0057BBBB()
 	if (!m_2C)
 	{
 		if (m_state == 2)
-			((Rva0057BAC4 *)this)->rva0057BAC4();
+			Close();
 		SetToggleButtonEnabled(false);
 	}
 	if (m_panelFrame.m_ptr != 0)
