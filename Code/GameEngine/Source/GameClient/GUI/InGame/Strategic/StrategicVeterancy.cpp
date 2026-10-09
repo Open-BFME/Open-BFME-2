@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD
 // StrategicVeterancy.cpp -- StrategicVeterancy members at their WorldBuilder
 // home (reverse/wb_name_leads.csv: WB's debug build names the file and each
 // method); retail supplies the bytes.
@@ -6,6 +6,24 @@
 // Layout (target evidence): the object holds its implementation at +0x00,
 // which keeps the Apt level at +0x04, the display state at +0x08 (0 hidden,
 // 1 shown, 2 fading in, 3-4 later states) and an enable word at +0x0C.
+
+#include "ascii_string.h"
+#include "unicode_string.h"
+
+class Image;
+class Rva00524306
+{
+public:
+	void rva00524725(const AsciiString &key, const Image *image);
+private:
+	char m_names[12];
+};
+
+class BfmeAptWindowManager
+{
+public:
+	void bfmeSetText(const AsciiString &key, const UnicodeString &text, bool usePlaceholder);
+};
 
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
@@ -59,6 +77,17 @@ public:
 	{
 	public:
 		class AutoResolve;
+		void rva005EC296(); // Original name unknown: populates the six labels per row.
+	private:
+		struct Row
+		{
+			UnicodeString name;
+			int level, battles, killsInBattle, killsInWar;
+			const Image *image;
+		};
+		void *m_vtbl;
+		Row *m_begin, *m_end, *m_capacity;
+		Rva00524306 m_images;
 	};
 };
 
@@ -70,8 +99,6 @@ class StrategicVeterancy::Data::AutoResolve : public StrategicVeterancy::Data
 public:
 	AutoResolve(void *a, void *b, void *c);
 
-private:
-	char m_data[0x1C];
 };
 
 StrategicVeterancy::Data *__cdecl Rva005ED15DCreateAutoResolve(void *a, void *b, void *c);
@@ -92,4 +119,34 @@ void StrategicVeterancy::Hide()
 StrategicVeterancy::Data *__cdecl Rva005ED15DCreateAutoResolve(void *a, void *b, void *c)
 {
 	return new StrategicVeterancy::Data::AutoResolve(a, b, c);
+}
+
+// Native 0x005EC296..0x005EC422; WB 0x015EB200 independently confirms
+// the six binding strings and each 24-byte row field. Layout names describe
+// those accesses; the original method and row type names are unknown.
+void StrategicVeterancy::Data::rva005EC296()
+{
+	AsciiString key;
+	UnicodeString number;
+	int index = 0;
+	for (Row *row = m_begin; row != m_end; ++row)
+	{
+		key.format("StrategicVeterancy:UnitName_%d", index);
+		g_bfmeAptWindowManager->bfmeSetText(key, row->name, false);
+		key.format("StrategicVeterancy:UnitLevel_%d", index);
+		number.format((const unsigned short *)L"%d", row->level);
+		g_bfmeAptWindowManager->bfmeSetText(key, number, false);
+		key.format("StrategicVeterancy:UnitBattles_%d", index);
+		number.format((const unsigned short *)L"%d", row->battles);
+		g_bfmeAptWindowManager->bfmeSetText(key, number, false);
+		key.format("StrategicVeterancy:UnitKillsInBattle_%d", index);
+		number.format((const unsigned short *)L"%d", row->killsInBattle);
+		g_bfmeAptWindowManager->bfmeSetText(key, number, false);
+		key.format("StrategicVeterancy:UnitKillsInWar_%d", index);
+		number.format((const unsigned short *)L"%d", row->killsInWar);
+		g_bfmeAptWindowManager->bfmeSetText(key, number, false);
+		key.format("StrategicVeterancy:UnitImage_%d", index);
+		m_images.rva00524725(key, row->image);
+		++index;
+	}
 }
