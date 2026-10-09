@@ -1,5 +1,5 @@
 // cl: /MD
-// ?shouldActivate@AISpellBookTreeKiller@@QAE_NPAVObject@@@Z, retail 0x005D7766, 221 bytes.
+// ?shouldActivate@AISpellBookTreeKiller@@UAE_NPAVObject@@@Z, retail 0x005D7766, 221 bytes.
 // Evidence: slot 6 of 0x00875DB4 class AISpellBookTreeKiller, terrain table via TheTerrainLogic+0x584 with shroud check then 0x005EE8DD.
 class Object;
 class Player;
@@ -73,7 +73,7 @@ public:
 class AISpellBookTreeKiller
 {
 public:
-	bool shouldActivate(Object *source);
+	virtual bool shouldActivate(Object *source);
 };
 
 bool AISpellBookTreeKiller::shouldActivate(Object *source)

@@ -493,9 +493,11 @@ class AISpecialPowerElendil
 {
 public:
 	float getRadius() const { return m_14; }
-	bool shouldActivate(Object *source);
+	// Slot 6 of 0x00C76494, as shouldActivate is in every special power's
+	// 7-slot vftable: virtual, with the vptr at +0.
+	virtual bool shouldActivate(Object *source);
 private:
-	char m_pad00[0x14];
+	char m_pad04[0x10];
 	float m_14;		// +0x14
 };
 

@@ -306,17 +306,21 @@ class Rva005EEA20
 public:
 	Object *rva005EEA20(Player *player, bool a, bool b);
 };
+// The special-power base: shouldActivate is slot 6 of each power's 7-slot
+// vftable (0x00C75E44 here, installed by 0x005D7AB3/0x005D7AC5), so the
+// override is virtual and the vptr sits at +0.
 class Rva005EE816
 {
 public:
+	virtual bool shouldActivate(Object *obj) = 0;
 	bool rva005EE8DD(const Coord3D *pos, Object *obj);
 };
 class AISpellBookBuffTerrain : public Rva005EE816
 {
 public:
-	bool shouldActivate(Object *obj);
+	virtual bool shouldActivate(Object *obj);
 private:
-	char m_pad00[0x28];
+	char m_pad04[0x24];
 	Rva005EEA20 m_28;
 };
 bool AISpellBookBuffTerrain::shouldActivate(Object *obj)

@@ -389,15 +389,18 @@ public:
 
 // Network (vtable 0x00BF6040): WorldBuilder's Network.cpp:68-71 names these
 // three null-checked forwards to the connection manager (m_pConMgr, +0xC)
-// ParseUserList and the two InitTransport overloads.
+// ParseUserList and the two InitTransport overloads. Retail reaches them
+// only through slots 17, 20 and 19 of that vftable, which
+// BFME2NativeNetwork::construct installs: they are virtual, as quitGame and
+// startNewSession are in Network.cpp, and the vptr sits at +0.
 class Network
 {
 public:
-	void ParseUserList(Int a0);
-	void InitTransport();
-	void InitTransport(Int a0);
+	virtual void ParseUserList(Int a0);
+	virtual void InitTransport();
+	virtual void InitTransport(Int a0);
 private:
-	char m_lead[0xC];
+	char m_lead04[0x8];
 	void *m_pConMgr;
 };
 

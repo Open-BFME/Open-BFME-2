@@ -52,13 +52,15 @@ public:
 	Bool rva005EE8DD(const Coord3D *pos, Object *obj);
 };
 
+// shouldActivate is slot 6 of the 7-slot vftable 0x00C75F84 (installed by
+// 0x005D816B/0x005D817D), so it is virtual and the vptr sits at +0.
 class AISpellBookHeal
 {
 public:
-	Bool shouldActivate(Object *obj);
+	virtual Bool shouldActivate(Object *obj);
 
 private:
-	unsigned char m_pad00[0x28];
+	unsigned char m_pad04[0x24];
 	Rva005EEA20 m_base;
 };
 

@@ -1,5 +1,5 @@
 // cl: /MD
-// ?isLocalAlliedVictory@VictoryConditions@@QAE_NXZ, retail 0x0042008F, 60 bytes. Vslot 18
+// ?isLocalAlliedVictory@VictoryConditions@@UAE_NXZ, retail 0x0042008F, 60 bytes. Vslot 18
 // of vtable 0x00C3BA28: if m_86 set or GameInfo slot 0x50 true then false;
 // else bounds-check m_68 in [0,20) and tail-call virtual slot 0x38 with
 // m_dword18[m_68]. Evidence: callers none; callees rowed GameInfo 0x00A02EEC
@@ -84,8 +84,8 @@ public:
 	virtual bool v14(int x) = 0;
 	virtual void v15() = 0;
 	virtual void v16() = 0;
-	virtual void v17() = 0;
-	virtual void v18() = 0;
+	virtual void cachePlayerPtrs();
+	virtual bool isLocalAlliedVictory();
 	virtual void v19() = 0;
 	virtual void v20() = 0;
 	virtual void v21() = 0;
@@ -94,8 +94,6 @@ public:
 	virtual void v24() = 0;
 	virtual void v25() = 0;
 	virtual bool v26(Player *p) = 0;
-	bool isLocalAlliedVictory();
-	void cachePlayerPtrs();
 private:
 	char m_pad04[0x8];
 	int m_0C;
@@ -121,7 +119,7 @@ bool VictoryConditions::isLocalAlliedVictory()
 	return v14(m_dword18[idx]);
 }
 
-// ?cachePlayerPtrs@VictoryConditions@@QAEXXZ @0x0041FFAD 106B
+// ?cachePlayerPtrs@VictoryConditions@@UAEXXZ @0x0041FFAD 106B
 // Vslot 17 of vtable 0x00C3BA28 (offset 0x44). If not multiplayer return;
 // else poll 20 players via ThePlayerList slot, count true from own slot
 // 0x68, zero m_dword18 tail, then if m_68<0 set m_84/m_86 and TheRadar+0x11.
