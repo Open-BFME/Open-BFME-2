@@ -146,8 +146,10 @@ def test_unanchored_naming_hint_does_not_break_its_host_span(unconverted):
     assert "noncontiguous" not in unconverted[0x8000]["evidence"]
     hint = unconverted[0x9000]
     assert hint["tu"] == "Code/X/BfmeThingQQ.cpp" and hint["confidence"] == "proposed"
-    # the unledgered functions either side of it are bracketed by different TUs: no TU
-    assert 0x8040 not in unconverted and 0x9800 not in unconverted
+    # the unledgered functions either side of it are bracketed by different TUs: no TU,
+    # but their extents are written (tu_at needs every known body)
+    for rva in (0x8040, 0x9800):
+        assert (unconverted[rva]["tu"], unconverted[rva]["confidence"], unconverted[rva]["size"]) == ("", "", 16)
 
 
 def test_map_with_unconverted_rows_is_deterministic(tmp_path, unconverted):
@@ -155,23 +157,183 @@ def test_map_with_unconverted_rows_is_deterministic(tmp_path, unconverted):
     assert tu_map.render(tu_map.build(layout)) == tu_map.render(tu_map.build(layout))
 
 
-def _code(tu, conf):
-    return {"kind": "code", "tu": tu, "confidence": conf, "by": "Z", "evidence": "", "source": ""}
+def _code(tu, conf, size=16, by="Z", evidence=""):
+    return {"kind": "code", "size": str(size), "tu": tu, "confidence": conf, "by": by, "evidence": evidence,
+            "source": ""}
+
+
+class FakeImage:
+    """Retail bytes: 0x90 (code) everywhere except the padding runs given."""
+
+    def __init__(self, *pads):
+        self.pads = pads
+
+    def read(self, rva, n):
+        return bytes(tu_map.PAD if any(lo <= a < hi for lo, hi in self.pads) else 0x90 for a in range(rva, rva + n))
 
 
 def test_tu_at_infers_c_only_between_one_tus_brackets():
     m = {0x1000: [_code("Code/A.cpp", "approved")], 0x2000: [_code("Code/A.cpp", "approved")],
          0x2100: [_code("Code/B.cpp", "approved")], 0x9000: [_code("Code/B.cpp", "approved")],
          0xA000: [_code("Code/C.cpp", "approved")], 0xA100: [_code("Code/C.cpp", "proposed")]}
-    got = tu_map.tu_at(m, 0x1800)
+    # 0x1010..0x1800 is padding; 0x1800 is where an unsplit body starts
+    index = tu_map.code_index(m, FakeImage((0x1010, 0x1800)))
+    got = tu_map.tu_at(m, 0x1800, index)
     assert (got["tu"], got["confidence"], got["by"], got["kind"], got["source"]) == \
         ("Code/A.cpp", "approved", "C", "code-inferred", "")
-    assert tu_map.tu_at(m, 0x1000) is m[0x1000][0]            # a row wins as it stands
-    assert tu_map.tu_at(m, 0x2050) is None                    # A below, B above
-    assert tu_map.tu_at(m, 0x5000) is None                    # B..B but further apart than GAP
-    assert tu_map.tu_at(m, 0x0800) is None                    # nothing below
-    assert tu_map.tu_at(m, 0xA080)["confidence"] == "proposed"
+    assert tu_map.tu_at(m, 0x1000, index) is m[0x1000][0]     # a row wins as it stands
+    assert tu_map.tu_at(m, 0x2050, index) is None             # A below, B above
+    assert tu_map.tu_at(m, 0x5000, index) is None             # B..B but further apart than GAP
+    assert tu_map.tu_at(m, 0x0800, index) is None             # nothing below
+    assert tu_map.tu_at(m, 0xA080, index)["confidence"] == "proposed"
     assert tu_map.tu_at({}, 0x1800) is None
+    # without the image nothing shows a boundary: bracketed, but only proposed
+    assert tu_map.tu_at(m, 0x1800)["confidence"] == "proposed"
+
+
+# ---------------------------------------------------------------- review regressions (2026-10-09)
+def test_tu_at_inside_a_displaced_body_inherits_displaced():
+    # 0x00040780 (a displaced 33-byte DebugIOFlat deleting-dtor thunk) between approved rows
+    m = {0x40720: [_code("Code/D/ods.cpp", "approved", 92)],
+         0x40780: [_code("", "displaced", 33, by="-", evidence="N=Code/D/DebugIOFlat.cpp")],
+         0x407B0: [_code("Code/D/ods.cpp", "approved", 126)]}
+    index = tu_map.code_index(m, FakeImage((0x4077C, 0x40780), (0x407A1, 0x407B0)))
+    got = tu_map.tu_at(m, 0x40781, index)
+    assert (got["kind"], got["tu"], got["confidence"]) == ("code-interior", "", "displaced")
+    assert got["evidence"].startswith("inside 0x00040780")
+    got = tu_map.tu_at(m, 0x40730, index)                     # inside an approved body: its answer
+    assert (got["kind"], got["tu"], got["confidence"]) == ("code-interior", "Code/D/ods.cpp", "approved")
+    # a body with no TU stays without one
+    m[0x40780] = [_code("", "", 33, by="-")]
+    assert tu_map.tu_at(m, 0x40790, tu_map.code_index(m))["confidence"] == ""
+
+
+def test_tu_at_gives_padding_no_answer_and_needs_boundary_evidence():
+    m = {0x40720: [_code("Code/D/ods.cpp", "approved", 92)],       # ends 0x4077C
+         0x40800: [_code("Code/D/ods.cpp", "approved", 16)]}
+    index = tu_map.code_index(m, FakeImage((0x4077C, 0x40780), (0x407C0, 0x40800)))
+    assert tu_map.tu_at(m, 0x4077C, index) is None                 # retail CC padding
+    assert tu_map.tu_at(m, 0x407C4, index) is None
+    got = tu_map.tu_at(m, 0x40780, index)                          # first byte after the padding
+    assert (got["confidence"], got["evidence"]) == ("approved", "C=0x00040720..0x00040800 gap=start")
+    got = tu_map.tu_at(m, 0x40790, index)                          # inside undiscovered bytes
+    assert (got["confidence"], got["evidence"]) == ("proposed", "C=0x00040720..0x00040800 gap=inside")
+
+
+@pytest.fixture
+def turret(tmp_path):
+    """StateMachine.cpp and TurretAI.cpp interleave in retail; one TurretAI body pushes its __FILE__."""
+    zh = tmp_path / "reference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source"
+    (zh / "Common").mkdir(parents=True)
+    (zh / "GameLogic/AI").mkdir(parents=True)
+    (zh / "Common/StateMachine.cpp").write_text("void StateMachine::a()\n{\n}\nvoid StateMachine::b()\n{\n}\n")
+    (zh / "GameLogic/AI/TurretAI.cpp").write_text("void TurretAI::x()\n{\n}\nvoid TurretAI::y()\n{\n}\n")
+    (tmp_path / "reverse").mkdir()
+    ai = "Code/GameEngine/Source/GameLogic/AI"
+    (tmp_path / "reverse/functions.csv").write_text(HEADER + "".join([
+        row("?a@StateMachine@@QAEXXZ", 0x1000, 16, "Code/GameEngine/Source/Common/StateMachineA.cpp"),
+        row("?x@TurretAI@@QAEXXZ", 0x1040, 16, f"{ai}/TurretAI.cpp"),
+        row("?b@StateMachine@@QAEXXZ", 0x1080, 16, "Code/GameEngine/Source/Common/StateMachineB.cpp"),
+        row("?rva000010C0@Rva000010C0@@QAEXXZ", 0x10C0, 16, "Code/GameEngine/Source/Common/Rva000010C0.cpp"),
+        row("?y@TurretAI@@QAEXXZ", 0x1100, 16, f"{ai}/TurretAIY.cpp"),
+    ]))
+    (tmp_path / "reverse/string_xrefs.tsv").write_text(
+        "C:\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\AI\\TurretAI.cpp\t0x10C4\n")
+    return tmp_path
+
+
+def test_interleaved_anchored_tus_are_not_merged_and_contradicted_approval_is_demoted(turret):
+    out = tu_map.build(tu_map.Layout(turret))
+    got = {int(r["rva"], 16): r for r in out}
+    ai = "Code/GameEngine/Source/GameLogic/AI/TurretAI.cpp"
+    # retail's own __FILE__ string says TurretAI.cpp; a merge into StateMachine.cpp is refused
+    assert (got[0x10C0]["tu"], got[0x10C0]["by"]) == (ai, "F")
+    assert got[0x1040]["tu"] == got[0x1100]["tu"] == ai
+    assert got[0x1000]["tu"].endswith("Common/StateMachine.cpp")
+    # the two TUs interleave: neither is contiguous, nothing in them is approved
+    assert {r["confidence"] for r in out if r["tu"]} == {"proposed"}
+    assert all("noncontiguous" in r["evidence"] for r in out if r["tu"])
+    assert tu_map.self_check(out) == (0, 0)
+    # the safety net itself: a row whose TU contradicts its own evidence
+    assert tu_map.contradicts("Code/S.cpp", f="Code/T.cpp", z="Code/S.cpp")
+    assert tu_map.contradicts("Code/S.cpp", z="Code/T.cpp", s="Code/U.cpp")
+    assert not tu_map.contradicts("Code/S.cpp", z="Code/T.cpp", s="Code/s.cpp")
+    assert not tu_map.contradicts("Code/S.cpp")
+
+
+def test_naming_hints_still_merge_into_one_anchored_tu(tmp_path):
+    zh = tmp_path / "reference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/X"
+    zh.mkdir(parents=True)
+    (zh / "Host.cpp").write_text("void Host::f()\n{\n}\nvoid Host::g()\n{\n}\n")
+    (tmp_path / "reverse").mkdir()
+    (tmp_path / "reverse/functions.csv").write_text(HEADER + "".join([
+        row("?f@Host@@QAEXXZ", 0x1000, 16, "Code/X/HostF.cpp"),
+        row("?go@HostHelper@@QAEXXZ", 0x1040, 16, "Code/X/HostHelper.cpp"),    # N only: one file, two classes
+        row("?g@Host@@QAEXXZ", 0x1080, 16, "Code/X/HostG.cpp"),
+    ]))
+    got = {int(r["rva"], 16): r for r in tu_map.build(tu_map.Layout(tmp_path))}
+    assert (got[0x1040]["tu"], got[0x1040]["by"], got[0x1040]["confidence"]) == ("Code/X/Host.cpp", "U", "approved")
+    assert "N=Code/X/HostHelper.cpp" in got[0x1040]["evidence"]       # its own hint is kept
+
+
+def test_zh_call_expressions_and_comments_are_not_definitions():
+    text = ("void CaveContain::onRemoving( Object *obj ) \n{\n\tOpenContain::onRemoving(obj);\n}\n"
+            "void INI::parseWeaponTemplateDefinition( INI* ini )\n{\n"
+            "\tWeaponStore::parseWeaponTemplateDefinition(ini);\n}\n"
+            "OpenContain::onRemoving(obj);\n"                              # a call at column 0
+            "/*static*/ void WeaponStore::parseWeaponTemplateDefinition(INI* ini)\n{\n}\n"
+            "/*\nvoid Gone::commentedOut( void )\n{\n}\n*/\n"
+            "// void Gone::lineComment()\n"
+            "const char *s = \"Gone::inString(\";\n"
+            "Foo::Foo( Thing *t ) : Base( t )\n{\n}\n"
+            "Foo::~Foo()\n{\n}\n"
+            "void Matrix3D::Transform_Min_Max_AABox\n(\n\tint a\n)\n{\n}\n"
+            "return Gone::kw(1);\n")
+    assert list(tu_map.zh_definitions(text)) == [
+        ("CaveContain", "onRemoving"), ("INI", "parseWeaponTemplateDefinition"),
+        ("WeaponStore", "parseWeaponTemplateDefinition"), ("Foo", "Foo"), ("Foo", "~Foo"),
+        ("Matrix3D", "Transform_Min_Max_AABox")]
+
+
+def test_validate_scores_rows_landed_since_a_revision(tmp_path):
+    zh = tmp_path / "reference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/X"
+    zh.mkdir(parents=True)
+    (zh / "Foo.cpp").write_text("void Foo::a()\n{\n}\nvoid Foo::b()\n{\n}\nvoid Foo::c()\n{\n}\n")
+    (zh / "Bar.cpp").write_text("void Bar::z()\n{\n}\n")
+    (tmp_path / "reverse").mkdir()
+    led = tmp_path / "reverse/functions.csv"
+    led.write_text(HEADER + row("?a@Foo@@QAEXXZ", 0x1000, 16, "Code/X/FooA.cpp")
+                   + row("?b@Foo@@QAEXXZ", 0x1100, 16, "Code/X/FooB.cpp"))
+    (tmp_path / "reverse/ghidra_functions.csv").write_text("rva,size,name\n0x1040,16,FUN_1040\n0x1080,16,FUN_1080\n")
+    git(tmp_path, "init", "-q")
+    git(tmp_path, "config", "user.name", "t")
+    git(tmp_path, "config", "user.email", "t@t")
+    git(tmp_path, "add", "-A")
+    git(tmp_path, "commit", "-qm", "cutoff")
+    # since the cutoff: one landed body agrees with the approved C prediction, one does not
+    led.write_text(led.read_text() + row("?c@Foo@@QAEXXZ", 0x1040, 16, "Code/X/FooC.cpp")
+                   + row("?z@Bar@@QAEXXZ", 0x1080, 16, "Code/X/BarZ.cpp"))
+    landed, tally, misses = tu_map.validate(tu_map.Layout(tmp_path), "HEAD")
+    assert landed == 2
+    assert tally == {("approved", "C", "row"): [2, 1]}
+    assert [(m[0], m[2], m[3]) for m in misses] == [(0x1080, "Code/X/Foo.cpp", "Code/X/Bar.cpp")]
+
+
+def test_fingerprint_detects_a_changed_input(tmp_path):
+    (tmp_path / "reverse").mkdir()
+    zh = tmp_path / "reference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code"
+    zh.mkdir(parents=True)
+    (tmp_path / "reverse/functions.csv").write_text(HEADER + row("?f@A@@QAEXXZ", 0x1000, 16, "Code/X/A.cpp"),
+                                                    newline="\n")
+    assert tu_map.main(["--root", str(tmp_path), "--check-fresh"]) == 1      # never written
+    assert tu_map.main(["--root", str(tmp_path)]) == 0
+    assert tu_map.main(["--root", str(tmp_path), "--check-fresh"]) == 0
+    p = tmp_path / "reverse/functions.csv"
+    p.write_bytes(p.read_bytes().replace(b"\n", b"\r\n"))                    # line endings only: still fresh
+    assert tu_map.main(["--root", str(tmp_path), "--check-fresh"]) == 0
+    p.write_text(p.read_text() + row("?g@A@@QAEXXZ", 0x1010, 16, "Code/X/A.cpp"))
+    assert tu_map.main(["--root", str(tmp_path), "--check-fresh"]) == 1
+    assert tu_map.check_fresh(tu_map.Layout(tmp_path)) == ["reverse/functions.csv"]
 
 
 # ---------------------------------------------------------------- skeleton

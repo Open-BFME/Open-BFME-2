@@ -12,19 +12,33 @@ Signals, strongest first (one letter each in the `by` and `evidence` columns):
 
   F  the function references a `__FILE__` string naming a .cpp (assert/debug
      paths survive in retail); the string IS the TU.
-  Z  `Class::method(` is defined in that file of the Zero Hour reference.
+  Z  `Class::method(` is defined in that file of the Zero Hour reference (an
+     out-of-line definition at file scope; a call such as `Base::f(x);` in a
+     body is not one).
   S  every ZH definition of `Class::` sits in one .cpp: the class's site.
   N  naming convention `<dir>/<Class>.cpp` (ModuleData suffix stripped); used
      only inside the address cluster an F/Z/S anchor or a run of N rows forms.
+  U  the row's own naming hint (N, never F/Z/S) names a small TU whose rows
+     interleave with an anchored TU's, so the two are one file (several
+     classes in one .cpp) and the row takes the anchored TU's name.
   C  address contiguity: the nearest assigned rows on both sides agree and are
      within 0x3000 bytes (retail object order keeps a TU contiguous).
   K  placeholder-class propagation (`??1Rva...` follows its `??_GRva...`).
   X  data: every function that references the item is assigned to one TU.
 
+The `evidence` column keeps each row's own pre-clustering F/Z/S/N values, so a
+row's TU can always be checked against what its own name and strings say.
+
 Class name alone is not a TU key: repo-wide only 42% of rows agree between Z and
 N, and header-inline bodies (??_G, friend_new*, *ModuleData ctors) are emitted as
 COMDATs in whichever TU used them first. A naming hint outside its TU's main
 address cluster is therefore `displaced`, never assigned.
+
+Clusters are merged (U) only when at most one of them is anchored by F/Z/S. Two
+TUs that F/Z/S name differently are two files; when their rows interleave, both
+are noncontiguous and nothing in them is approved. A row's own F/Z/S anchor is
+never renamed by a merge, and a row whose TU contradicts its own F (or, without
+F, both its Z and S) is never approved: it is marked `contradicted`.
 
 Unconverted functions are mapped too. Every function start in
 ghidra_functions.csv without a ledger row is a `code-unledgered` row with an
@@ -32,67 +46,100 @@ empty `source`; generated placeholder rows (gen_small, gen_asm) keep their
 ledger source but carry no usable name. Neither has a name to read, so only the
 name-free signals reach them: F (the body pushes a `__FILE__` path) and C (it
 sits in a run bracketed by one TU). That is the routing table for new work:
-tools/tu_ownership.py (A2/A3) and `tools/repair_queue.py dest` read the
-approved TU of an address before anything is converted there. An address with
-no row at all (a body Ghidra never split out) gets the same C test from
-`tu_at()`; nothing else is inferred for it. The EH funclets linked after all
-of .text (`.text$x`, about a third of Ghidra's functions) have neither signal
-and stay unmapped.
+tools/tu_ownership.py (A2/A3) and `tools/repair_queue.py dest` read the TU of
+an address through `tu_at()` before anything is converted there. The EH
+funclets linked after all of .text (`.text$x`, about a third of Ghidra's
+functions) have neither signal and stay unmapped.
+
+Every known code body is written, with or without a TU (`confidence` empty for
+a body no signal reaches), so the map carries the extents `tu_at()` needs:
+
+  * an address with a row gets that row, whatever its confidence;
+  * an address inside a known body inherits that body's TU and confidence (a
+    displaced or unassigned body stays so: nothing approves its interior);
+  * an address in no known body is padding or an undiscovered body. Padding
+    (retail 0xCC) gets no answer. Otherwise C from its brackets applies, and is
+    approved only on boundary evidence: the retail image shows the address is
+    the first non-padding byte after the body below it, i.e. where an
+    unsplit function would start. Without the image it is at most proposed.
 
 Confidence:
   approved  the TU's main cluster holds at least one F/Z/S anchor, the row is
-            assigned by F/Z/S/N or bracketed (C) by approved rows, and no row
-            that could be approved for a different TU sits inside the TU's
-            address span (a TU that is not contiguous in retail is not
-            trusted). A row "could be approved" when its TU is anchored and it
-            is assigned by F/Z/S/N/C; a K row, or a row of a TU no F/Z/S
-            anchors (a naming hint for a class this repo named, alone), never
-            can, so it does not break its host's span. A run of C rows is
-            approved exactly when the two rows that bracket the whole run are.
-  proposed  assigned, but by N/K only, by brackets that are not approved, or in
-            a non-contiguous span. The queue for investigation.
+            assigned by F/Z/S/N/U or bracketed (C) by approved rows, its own
+            F/Z/S do not contradict the TU, and no row that could be approved
+            for a different TU sits inside the TU's address span (a TU that is
+            not contiguous in retail is not trusted). A row "could be approved"
+            when its TU is anchored and it is assigned by F/Z/S/N/U/C; a K row,
+            or a row of a TU no F/Z/S anchors (a naming hint for a class this
+            repo named, alone), never can, so it does not break its host's
+            span. A run of C rows is approved exactly when the two rows that
+            bracket the whole run are.
+  proposed  assigned, but by N/K only, by brackets that are not approved, in a
+            non-contiguous span, or contradicted. The queue for investigation.
   displaced a naming hint sat outside its TU's cluster (COMDAT pile).
-Rows with no signal are not written; they have no TU.
+  (empty)   a known body no signal reaches; it has no TU.
 
 The output is a pure function of the ledger, ghidra_functions.csv,
 string_xrefs.tsv, data_xrefs.tsv and the ZH tree: rerunning on unchanged inputs
-writes the same bytes. Never edit tu_map.csv by hand; regenerate it.
+writes the same bytes. Never edit tu_map.csv by hand; regenerate it. Writing it
+also writes `tu_map.inputs.sha256` (sha256sum format, line endings normalised):
+the hashes of those inputs (the ZH tree excepted; the submodule pointer pins
+it), of this tool and of the map, which `--check-fresh` compares in a fraction
+of a second.
 
 Usage:
-  python3 tools/tu_map.py                write tu_map.csv, print a summary
-  python3 tools/tu_map.py --check        exit 1 when tu_map.csv is stale
+  python3 tools/tu_map.py                write tu_map.csv (+ fingerprint), print a summary
+  python3 tools/tu_map.py --check        exit 1 when tu_map.csv differs from a rebuild
+  python3 tools/tu_map.py --check-fresh  exit 1 when an input changed since tu_map.csv was written
+  python3 tools/tu_map.py --validate REV score approved predictions against independent evidence:
+                                         each approved row's own F/Z/S, and the F/Z/S of rows
+                                         landed since REV at addresses a map built from REV's
+                                         ledger routed
   python3 tools/tu_map.py --dir PREFIX   summary for one directory's rows
+  --zh DIR                               the ZH Code/ tree (default: the Open-BFME-1 submodule's)
 """
 import argparse
 import bisect
 import collections
 import csv
+import hashlib
 import io
+import itertools
 import os
 import re
+import struct
+import subprocess
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 GAP = 0x3000          # max distance between bracketing anchors (C)
 UNION_SPAN = 0x2000   # clusters this small that interleave are one TU
+PAD = 0xCC            # MSVC fills between functions with int3
 COLUMNS = ["rva", "size", "kind", "tu", "confidence", "by", "evidence", "source"]
+APPROVABLE = {"F", "Z", "S", "N", "U"}
+SPAN_BREAKERS = APPROVABLE | {"C"}
+FINGERPRINTED = ("functions.csv", "ghidra_functions.csv", "string_xrefs.tsv", "data_xrefs.tsv")
 
 
 class Layout:
-    """Where this repo keeps its ledger, sources and reference tree."""
+    """Where this repo keeps its ledger, sources, reference tree and retail image."""
 
-    def __init__(self, root):
+    def __init__(self, root, zh=None):
         self.root = Path(root)
         if (self.root / "targets/game/reverse/functions.csv").exists():
             self.reverse = "targets/game/reverse"   # Open-BFME-1
             self.src = "game/"
             self.zh = self.root / "inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code"
+            self.image = self.root / "inputs/baselines/bfme1/retail-1.03-unpacked/files/lotrbfme.exe"
         else:
             self.reverse = "reverse"                # Open-BFME-2
             self.src = "Code/"
             self.zh = self.root / ("reference/open-bfme-1/inputs/reference/"
                                    "CnC_Generals_Zero_Hour/GeneralsMD/Code")
+            self.image = self.root / "baselines/bfme2/workshop-vanilla-1.06/files/game.dat"
+        if zh:
+            self.zh = Path(zh)
 
     def path(self, name):
         return self.root / self.reverse / name
@@ -100,6 +147,10 @@ class Layout:
     @property
     def out(self):
         return self.path("tu_map.csv")
+
+    @property
+    def fingerprint(self):
+        return self.path("tu_map.inputs.sha256")
 
 
 def read_csv(path):
@@ -112,7 +163,14 @@ CTOR = re.compile(r"^\?\?(_G|_E|0|1)([A-Za-z_]\w*)@@")
 METHOD = re.compile(r"^\?([A-Za-z_]\w*)@([A-Za-z_]\w*)@@")
 PLACEHOLDER = re.compile(r"^(Rva|rva|Gen|gen|Sub|sub|FUN_)[0-9A-Fa-f_]")
 COMDAT = re.compile(r"^\?\?_[GE]|^\?friend_new|^\?\?[01]\w*ModuleData@@")
-ZH_DEF = re.compile(r"^[^\s#/][^;(){}]*?\b([A-Za-z_]\w*)\s*::\s*(~?[A-Za-z_]\w*)\s*\(", re.M)
+# Comments and literals, so a commented-out or quoted `X::y(` is never read as code.
+CPP_NOISE = re.compile(r"//[^\n]*|/\*.*?\*/|\"(?:\\.|[^\"\\\n])*\"|'(?:\\.|[^'\\\n])*'", re.S)
+# An out-of-line definition opens at file scope: column 0, no statement keyword, no
+# assignment or call before `Class::method`, then `(` on that line or the next (the
+# parameter text is group 3; one that ends the statement with `;` is a call or a
+# declaration, never a definition).
+ZH_DEF = re.compile(r"^(?!(?:return|else|if|while|for|do|switch|case|delete|new|throw|goto)\b)(?=[A-Za-z_])"
+                    r"[^;(){}=\n]*?\b([A-Za-z_]\w*)\s*::\s*(~?[A-Za-z_]\w*)\s*(\(.*)?$")
 
 
 def demangle(name):
@@ -123,6 +181,25 @@ def demangle(name):
     if m:
         return m.group(2), m.group(1)
     return None, name
+
+
+def zh_definitions(text):
+    """(class, method) of each out-of-line definition in one ZH .cpp, in file order."""
+    clean = CPP_NOISE.sub(lambda m: m.group(0) if m.group(0)[0] in "\"'" else re.sub(r"[^\n]", " ", m.group(0)),
+                          text)
+    raws, lines = text.split("\n"), clean.split("\n")
+    for i, (raw, line) in enumerate(zip(raws, lines)):
+        if raw.startswith("/"):            # `/*static*/ void X::f(` -- a leading comment, not an indent
+            line = line.lstrip()
+        m = ZH_DEF.match(line)
+        if not m:
+            continue
+        params = m.group(3)
+        if params is None:                 # `void Matrix3D::Transform_Min_Max_AABox` / `(` ...
+            after = lines[i + 1].strip() if i + 1 < len(lines) else ""
+            params = after if after.startswith("(") else None
+        if params is not None and not params.rstrip().endswith(";"):
+            yield m.group(1), m.group(2)
 
 
 class Paths:
@@ -165,7 +242,7 @@ def zh_index(layout, paths):
                 text = p.read_text(encoding="latin-1")
             except OSError:
                 continue
-            for c, m in ZH_DEF.findall(text):
+            for c, m in zh_definitions(text):
                 meth.setdefault((c, m), rel)
                 sites[c].add(rel)
     return meth, {c: next(iter(v)) for c, v in sites.items() if len(v) == 1}
@@ -192,19 +269,72 @@ def file_strings(layout, paths, owner):
     return out
 
 
-def build(layout):
-    ledger = read_csv(layout.path("functions.csv"))
+def same(a, b):
+    return bool(a and b and a.lower() == b.lower())
+
+
+def contradicts(tu, f=None, z=None, s=None):
+    """Does a row's own pre-clustering evidence name a TU other than `tu`? F is the TU
+    itself; without F, a row is contradicted only when neither its Z nor its S is `tu`."""
+    if not tu:
+        return False
+    if f:
+        return not same(f, tu)
+    hard = [x for x in (z, s) if x]
+    return bool(hard) and not any(same(x, tu) for x in hard)
+
+
+def anchors(evidence):
+    """{"F": tu, "Z": tu, "S": tu, "N": tu} from a tu_map.csv `evidence` cell."""
+    out = {}
+    for token in (evidence or "").split():
+        k, eq, v = token.partition("=")
+        if eq and k in ("F", "Z", "S", "N") and k not in out:
+            out[k] = v
+    return out
+
+
+C_SPAN = re.compile(r"\bC=0x([0-9A-Fa-f]+)\.\.0x([0-9A-Fa-f]+)")
+
+
+def disputed(m, t):
+    """The F/Z/S anchor that contradicts the TU of `t` (a tu_at answer from load() map `m`):
+    its own (its host body's, for an interior address) or that of any row its C evidence
+    brackets on, followed through a run. None when no anchor does. A map built by these
+    rules approves nothing disputed; an older map can."""
+    seen, todo = set(), [t]
+    while todo:
+        r = todo.pop()
+        ev = anchors(r["evidence"])
+        if contradicts(t["tu"], ev.get("F"), ev.get("Z"), ev.get("S")):
+            return f"{r['rva']} " + " ".join(f"{k}={ev[k]}" for k in "FZS" if ev.get(k))
+        for span in C_SPAN.finditer(r["evidence"]):
+            for x in span.groups():
+                if int(x, 16) not in seen:
+                    seen.add(int(x, 16))
+                    todo.extend(q for q in m.get(int(x, 16), ()) if q["kind"].startswith("code"))
+    return None
+
+
+def evidence_rows(layout, ledger=None):
+    """Every known code body -- ledger rows, then Ghidra function starts the ledger lacks --
+    with its own pre-clustering evidence (F, Z, S, N). `ledger` (rows of a functions.csv)
+    defaults to the working tree's."""
+    ledger = read_csv(layout.path("functions.csv")) if ledger is None else ledger
     rows, seen = [], set()
     for r in ledger:
-        if "gen-alias" in (r.get("notes") or "") or not r["target_rva"].startswith("0x"):
+        if "gen-alias" in (r.get("notes") or "") or not (r.get("target_rva") or "").startswith("0x"):
             continue
-        rva = int(r["target_rva"], 16)
+        try:
+            rva = int(r["target_rva"], 16)
+        except ValueError:
+            continue
         if rva in seen:
             continue                       # one identity per address; first row wins
         seen.add(rva)
         try:
             size = int(r["target_size"])
-        except ValueError:
+        except (TypeError, ValueError):
             size = 0
         rows.append(dict(rva=rva, size=size, kind="code", name=r["name"], source=r["source"]))
     for g in read_csv(layout.path("ghidra_functions.csv")):
@@ -239,6 +369,11 @@ def build(layout):
         r["hard"] = r["F"] or r["Z"] or r["S"]
         r["hint"] = r["hard"] or r["N"]
         r["C"] = r["K"] = None
+    return rows
+
+
+def build(layout, ledger=None):
+    rows = evidence_rows(layout, ledger)
 
     # Main address cluster per hinted TU; hints outside it are displaced COMDATs.
     by_hint = collections.defaultdict(list)
@@ -265,7 +400,9 @@ def build(layout):
         r["A"] = r["hint"] if (r["F"] or (key and main.get(id(r)) == key)) else None
         r["disp"] = bool(r["hint"] and not r["A"])
 
-    # TUs whose small clusters interleave are one TU (one file, several classes).
+    # TUs whose small clusters interleave are one TU (one file, several classes) --
+    # unless both are anchored: two TUs F/Z/S name differently are two files, and
+    # interleaving makes both noncontiguous instead of renaming one into the other.
     span = {}
     for r in rows:
         if r["A"]:
@@ -287,13 +424,12 @@ def build(layout):
             if span[a][1] - span[a][0] > UNION_SPAN or span[b][1] - span[b][0] > UNION_SPAN:
                 continue
             ra, rb = find(a), find(b)
-            if ra != rb:
-                keep, drop = (ra, rb) if (ra in anchored or rb not in anchored) else (rb, ra)
-                parent[drop] = keep
-                if drop in anchored:
-                    anchored.add(keep)
+            if ra == rb or (ra in anchored and rb in anchored):
+                continue
+            keep, drop = (ra, rb) if (ra in anchored or rb not in anchored) else (rb, ra)
+            parent[drop] = keep
     for r in rows:
-        if r["A"]:
+        if r["A"] and not r["hard"]:        # a row's own F/Z/S anchor is never renamed by a merge
             r["A"] = spelled[find(r["A"].lower())]
 
     # Contiguity (C) and placeholder-class propagation (K), iterated.
@@ -322,11 +458,14 @@ def build(layout):
                     and len(votes.get(r["cls"], ())) == 1:
                 r["A"] = r["K"] = next(iter(votes[r["cls"]]))
 
-    # Confidence. Retail object order: a TU must be contiguous in .text.
+    # Classification from the row's own evidence; U when its naming hint was merged.
     for r in rows:
-        r["by"] = ("F" if r["F"] and r["A"] == r["F"] else "Z" if r["Z"] and r["A"] and r["A"].lower() == r["Z"].lower()
-                   else "S" if r["S"] and r["A"] and r["A"].lower() == r["S"].lower() else
-                   "C" if r["C"] else "K" if r["K"] else "N" if r["A"] else "")
+        a = r["A"]
+        r["by"] = ("F" if same(r["F"], a) else "Z" if same(r["Z"], a) else "S" if same(r["S"], a) else
+                   "C" if r["C"] else "K" if r["K"] else "N" if same(r["N"], a) else "U" if a else "")
+        r["contra"] = contradicts(a, r["F"], r["Z"], r["S"])
+
+    # Confidence. Retail object order: a TU must be contiguous in .text.
     assigned = [r for r in rows if r["A"]]
     lo_hi = {}
     for r in assigned:
@@ -336,11 +475,11 @@ def build(layout):
     idx = [r["rva"] for r in assigned]
     roots = {find(k) for k in anchored if k in parent}
     # Only a row that could be approved contradicts a span: one of an anchored TU,
-    # assigned by F/Z/S/N/C. A K row or an unanchored TU's naming hint never can.
+    # assigned by F/Z/S/N/U/C. A K row or an unanchored TU's naming hint never can.
     broken = set()
     for k, (lo, hi) in lo_hi.items():
         i, j = bisect.bisect_left(idx, lo), bisect.bisect_right(idx, hi)
-        if any(x["A"].lower() != k and x["A"].lower() in roots and x["by"] in "FZSNC"
+        if any(x["A"].lower() != k and x["A"].lower() in roots and x["by"] in SPAN_BREAKERS
                for x in assigned[i:j]):
             broken.add(k)
     for r in rows:
@@ -348,8 +487,8 @@ def build(layout):
         if not k:
             r["conf"] = "displaced" if r["disp"] else ""
             continue
-        ok = k in roots and k not in broken and r["by"] in "FZSN"
-        r["conf"] = "approved" if ok and r["by"] else "proposed"
+        ok = k in roots and k not in broken and r["by"] in APPROVABLE and not r["contra"]
+        r["conf"] = "approved" if ok else "proposed"
     # C rows inherit approval only from two approved brackets. Within a run the
     # upper bracket is the next C row up, so walk down from the top until the
     # whole run resolves to its two ends (a fixed pass count left long runs
@@ -366,8 +505,6 @@ def build(layout):
 
     out = []
     for r in rows:
-        if not r["conf"]:
-            continue
         ev = []
         for s in "FZSN":
             if r[s]:
@@ -379,6 +516,8 @@ def build(layout):
             ev.append(f"K={r['cls']}")
         if r["A"] and r["A"].lower() in broken:
             ev.append("noncontiguous")
+        if r["contra"]:
+            ev.append("contradicted")
         out.append({"rva": f"0x{r['rva']:08X}", "size": r["size"], "kind": r["kind"],
                     "tu": r["A"] or "", "confidence": r["conf"], "by": r["by"] or "-",
                     "evidence": " ".join(ev), "source": r["source"]})
@@ -433,41 +572,234 @@ def load(root=ROOT):
     return m
 
 
-def code_index(m):
-    """(sorted rvas, rows) of the assigned code rows of a load() map: tu_at's brackets."""
-    got = sorted(((rva, r) for rva, rs in m.items() for r in rs
-                  if r["kind"].startswith("code") and r["tu"] and r["confidence"] in ("approved", "proposed")),
-                 key=lambda x: x[0])
-    return [x[0] for x in got], [x[1] for x in got]
+# ---------------------------------------------------------------- routing an address
+class Image:
+    """Retail bytes by RVA through the PE section table, read on first use."""
+
+    def __init__(self, path):
+        self.path, self._data, self._secs = Path(path), None, []
+
+    @classmethod
+    def open(cls, path):
+        """An Image, or None when the file is absent (tu_at then never claims a boundary)."""
+        return cls(path) if path is not None and Path(path).is_file() else None
+
+    def read(self, rva, n):
+        if self._data is None:
+            data = self.path.read_bytes()
+            pe = struct.unpack_from("<I", data, 0x3C)[0]
+            table = pe + 24 + struct.unpack_from("<H", data, pe + 20)[0]
+            for i in range(struct.unpack_from("<H", data, pe + 6)[0]):
+                vsize, va, rsize, raw = struct.unpack_from("<IIII", data, table + 40 * i + 8)
+                self._secs.append((va, min(vsize, rsize), raw))
+            self._data = data
+        for va, size, raw in self._secs:
+            if va <= rva and rva + n <= va + size:
+                return self._data[raw + rva - va:raw + rva - va + n]
+        return None
+
+
+def _int(value):
+    try:
+        return int(value or 0)
+    except ValueError:
+        return 0
+
+
+class Index:
+    """tu_at's view of a load() map: the assigned code rows (C brackets) and the extent of
+    every known body (code rows of any confidence, a body with no TU included)."""
+
+    def __init__(self, m, image=None):
+        got = sorted(((rva, r) for rva, rs in m.items() for r in rs
+                      if r["kind"].startswith("code") and r["tu"] and r["confidence"] in ("approved", "proposed")),
+                     key=lambda x: x[0])
+        self.starts, self.rows = [x[0] for x in got], [x[1] for x in got]
+        size = {}
+        for rva, rs in m.items():
+            for r in rs:
+                if r["kind"].startswith("code"):
+                    size[rva] = max(size.get(rva, 1), _int(r.get("size")))
+        self.lo = sorted(size)
+        self.hi = [s + size[s] for s in self.lo]
+        self.reach = list(itertools.accumulate(self.hi, max))   # furthest end of any body starting at or before
+        self.image = image
+
+    def host(self, rva):
+        """Start of the latest-starting known body that contains RVA, or None."""
+        i = bisect.bisect_right(self.lo, rva) - 1
+        while i >= 0 and self.reach[i] > rva:
+            if self.hi[i] > rva:
+                return self.lo[i]
+            i -= 1
+        return None
+
+    def gap(self, rva):
+        """For an RVA in no known body: "padding", "start" (the first non-padding byte after the
+        body below it, where an unsplit function begins), "inside" (past such a start), or None
+        when the image cannot say."""
+        i = bisect.bisect_right(self.lo, rva) - 1
+        if self.image is None or i < 0 or self.reach[i] > rva:
+            return None
+        floor = self.reach[i]
+        got = self.image.read(floor, rva - floor + 1)
+        if not got:
+            return None
+        if got[-1] == PAD:
+            return "padding"
+        return "start" if all(b == PAD for b in got[:-1]) else "inside"
+
+
+def code_index(m, image=None):
+    """tu_at's index of a load() map; pass Image.open(Layout(root).image) for boundary evidence."""
+    return Index(m, image)
 
 
 def tu_at(m, rva, index=None):
     """The code row of `m` (a load() map) for RVA, or None.
 
-    An address the map has a code row for gets that row, whatever its
-    confidence. An address with no row (a body Ghidra never split out, or one
-    inside a merged Ghidra range) gets C on the same terms as an unledgered
-    function: the nearest assigned code rows below and above name one TU and
-    start within GAP of each other; approved only when both brackets are.
+    An address the map has a code row for gets that row, whatever its confidence
+    (empty for a known body no signal reaches). An address inside a known body
+    inherits that body's TU and confidence: nothing approves the interior of a
+    displaced, proposed or unassigned body. An address in no known body gets no
+    answer when the retail image shows padding; otherwise C on the same terms as
+    an unledgered function (the nearest assigned code rows below and above name
+    one TU and start within GAP of each other), approved only when both brackets
+    are and the image shows the address starts right after the body below it.
     """
     for r in m.get(rva, ()):
         if r["kind"].startswith("code"):
             return r
-    starts, rows = code_index(m) if index is None else index
+    index = code_index(m) if index is None else index
+    host = index.host(rva)
+    if host is not None:
+        r = next(r for r in m[host] if r["kind"].startswith("code"))
+        return {"rva": f"0x{rva:08X}", "size": "", "kind": "code-interior", "tu": r["tu"],
+                "confidence": r["confidence"], "by": r["by"],
+                "evidence": f"inside 0x{host:08X} {r['evidence']}".rstrip(), "source": ""}
+    starts, rows = index.starts, index.rows
     i = bisect.bisect_left(starts, rva)
     if i == 0 or i >= len(starts):
         return None
     lo, hi, a, b = starts[i - 1], starts[i], rows[i - 1], rows[i]
     if a["tu"].lower() != b["tu"].lower() or hi - lo > GAP:
         return None
-    conf = "approved" if a["confidence"] == b["confidence"] == "approved" else "proposed"
+    gap = index.gap(rva)
+    if gap == "padding":
+        return None
+    conf = "approved" if gap == "start" and a["confidence"] == b["confidence"] == "approved" else "proposed"
     return {"rva": f"0x{rva:08X}", "size": "", "kind": "code-inferred", "tu": a["tu"], "confidence": conf,
-            "by": "C", "evidence": f"C=0x{lo:08X}..0x{hi:08X}", "source": ""}
+            "by": "C", "evidence": f"C=0x{lo:08X}..0x{hi:08X} gap={gap or 'unread'}", "source": ""}
+
+
+# ---------------------------------------------------------------- freshness
+def _digest(path):
+    try:
+        return hashlib.sha256(path.read_bytes().replace(b"\r\n", b"\n")).hexdigest()
+    except OSError:
+        return "missing"
+
+
+def fingerprint(layout):
+    """sha256sum-format lines for the map's inputs, this tool and the map itself."""
+    files = [layout.path(n) for n in FINGERPRINTED] + [Path(__file__).resolve(), layout.out]
+    out = []
+    for p in files:
+        try:
+            name = p.resolve().relative_to(layout.root.resolve()).as_posix()
+        except ValueError:
+            name = "tools/" + p.name
+        out.append(f"{_digest(p)}  {name}")
+    return "\n".join(out) + "\n"
+
+
+def check_fresh(layout):
+    """[] when tu_map.csv was written from the current inputs, else the files that changed
+    (or the missing fingerprint's own name)."""
+    have = layout.fingerprint.read_text(encoding="utf-8") if layout.fingerprint.exists() else ""
+    if not have.strip():
+        return [layout.fingerprint.relative_to(layout.root).as_posix()]
+
+    def parse(text):
+        return {name: digest for digest, _, name in (line.partition("  ") for line in text.splitlines()) if name}
+    old, new = parse(have), parse(fingerprint(layout))
+    return [name for name in new if old.get(name) != new[name]]
+
+
+# ---------------------------------------------------------------- validation
+def _ledger_at(layout, rev):
+    text = subprocess.run(["git", "show", f"{rev}:{layout.reverse}/functions.csv"], cwd=layout.root,
+                          capture_output=True, check=True).stdout.decode("utf-8", "replace")
+    return list(csv.DictReader(io.StringIO(text, newline="")))
+
+
+def _named(row):
+    return bool(row["name"] and row["cls"] and not PLACEHOLDER.match(row["cls"])
+                and not re.search(r"/(gen_small|gen_asm|masm_dumps)/", row["source"]))
+
+
+def self_check(out):
+    """(approved code rows, those whose own pre-clustering F/Z/S name another TU) of a map."""
+    n = bad = 0
+    for r in out:
+        if r["kind"].startswith("code") and r["confidence"] == "approved":
+            n += 1
+            ev = anchors(r["evidence"])
+            bad += contradicts(r["tu"], ev.get("F"), ev.get("Z"), ev.get("S"))
+    return n, bad
+
+
+def validate(layout, rev, predict=None, lookup=None):
+    """Score routing predictions made from REV's ledger against independent evidence: the
+    F/Z/S of rows that landed since REV (a real name at an address REV's ledger had no row
+    for). `predict(ledger) -> rows` and `lookup(map, rva, index)` default to this module's
+    build and tu_at; a caller can pass another revision's to score it the same way."""
+    predict = predict or (lambda led: build(layout, led))
+    lookup = lookup or (lambda m, rva, ix: tu_at(m, rva, ix))
+    then = _ledger_at(layout, rev)
+    had = {int(r["target_rva"], 16) for r in then if (r.get("target_rva") or "").startswith("0x")}
+    now = [r for r in evidence_rows(layout) if r["kind"] == "code" and r["rva"] not in had and _named(r)
+           and (r["F"] or r["Z"] or r["S"])]
+    m = collections.defaultdict(list)
+    for r in predict(then):
+        m[int(r["rva"], 16)].append(r)
+    index = code_index(m, Image.open(layout.image))
+    tally = collections.defaultdict(lambda: [0, 0])
+    misses = []
+    for r in now:
+        t = lookup(m, r["rva"], index)
+        if not t or t["confidence"] not in ("approved", "proposed") or not t["tu"]:
+            continue
+        bad = contradicts(t["tu"], r["F"], r["Z"], r["S"])
+        key = (t["confidence"], t["by"], {"code-inferred": "gap", "code-interior": "interior"}.get(t["kind"], "row"))
+        tally[key][0] += 1
+        tally[key][1] += bad
+        if bad and t["confidence"] == "approved":
+            misses.append((r["rva"], r["name"], t["tu"], r["F"] or r["Z"] or r["S"]))
+    return len(now), dict(tally), misses
+
+
+def report_validation(layout, rev, out=None):
+    n, bad = self_check(read_csv(layout.out) if out is None else out)
+    print(f"self-check: {bad} of {n} approved code rows in {layout.out.name} have their own F/Z/S "
+          f"naming another TU")
+    landed, tally, misses = validate(layout, rev)
+    print(f"landed since {rev}: {landed} named rows with F/Z/S evidence at addresses its ledger had no row for")
+    for conf in ("approved", "proposed"):
+        rows = {k: v for k, v in tally.items() if k[0] == conf}
+        tot = sum(v[0] for v in rows.values())
+        dis = sum(v[1] for v in rows.values())
+        rate = f"{100 * dis / tot:.1f}%" if tot else "-"
+        print(f"  {conf}: {dis}/{tot} disagree ({rate})  " +
+              "  ".join(f"{b}/{via}={v[1]}/{v[0]}" for (_, b, via), v in sorted(rows.items())))
+    for rva, name, tu, want in misses[:20]:
+        print(f"    0x{rva:08X} {name[:60]}: routed {tu}, evidence {want}")
+    return 0
 
 
 def summary(out, prefix=None):
     rows = [r for r in out if not prefix or r["source"].startswith(prefix)]
-    conf = collections.Counter((r["kind"].split(":")[0], r["confidence"]) for r in rows)
+    conf = collections.Counter((r["kind"].split(":")[0], r["confidence"] or "none") for r in rows)
     by = collections.Counter(r["by"] for r in rows if r["confidence"] == "approved")
     tus = collections.Counter(r["tu"] for r in rows if r["confidence"] == "approved")
     print(f"rows {len(rows)}  " + "  ".join(f"{k[0]}/{k[1]}={v}" for k, v in sorted(conf.items())))
@@ -477,11 +809,29 @@ def summary(out, prefix=None):
 
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--check", action="store_true", help="exit 1 when tu_map.csv is stale")
-    ap.add_argument("--dir", help="summarise rows whose current source starts with this prefix")
+    g = ap.add_mutually_exclusive_group()
+    g.add_argument("--check", action="store_true", help="exit 1 when tu_map.csv differs from a rebuild")
+    g.add_argument("--check-fresh", action="store_true",
+                   help="exit 1 when an input changed since tu_map.csv was written (hashes only)")
+    g.add_argument("--validate", metavar="REV", help="score predictions from REV's ledger against landed rows")
+    g.add_argument("--dir", help="summarise rows whose current source starts with this prefix")
     ap.add_argument("--root", type=Path, default=ROOT)
+    ap.add_argument("--zh", type=Path, help="ZH GeneralsMD/Code tree (default: the Open-BFME-1 submodule's)")
     a = ap.parse_args(argv)
-    layout = Layout(a.root)
+    layout = Layout(a.root, a.zh)
+    if a.check_fresh:
+        stale = check_fresh(layout)
+        if stale:
+            print(f"tu_map: {layout.out.relative_to(layout.root).as_posix()} is stale (changed or missing: "
+                  f"{', '.join(stale)}); run python3 tools/tu_map.py", file=sys.stderr)
+            return 1
+        return 0
+    if not layout.zh.exists():
+        print(f"tu_map: no ZH tree at {layout.zh} (initialise the submodule or pass --zh); "
+              "Z and S evidence would be empty", file=sys.stderr)
+        return 2
+    if a.validate:
+        return report_validation(layout, a.validate)
     out = build(layout)
     text = render(out)
     if a.check:
@@ -493,6 +843,7 @@ def main(argv=None):
         return 0
     if not a.dir:
         layout.out.write_text(text, encoding="utf-8", newline="")
+        layout.fingerprint.write_text(fingerprint(layout), encoding="utf-8", newline="")
     summary(out, a.dir)
     return 0
 

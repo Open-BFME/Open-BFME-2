@@ -70,9 +70,74 @@ def test_dest_routes_to_the_approved_tu_before_neighbouring_files(tmp_path):
     got = rq.dest_tu(0x1040)                                                     # an unconverted function's row
     assert got["dest"] == "Code/GameEngine/Locomotor.cpp"
     assert got["basis"] == "approved TU in tu_map.csv (by C; the file does not exist yet: create it)"
-    assert rq.dest_tu(0x1060)["dest"] == "Code/GameEngine/Locomotor.cpp"         # no row: bracketed
+    assert rq.dest_tu(0x1060)["dest"] == "Code/GameEngine/Locomotor.cpp"         # no row: inside 0x1040's body
     got = rq.dest_tu(0x1F00)                                                     # proposed only: neighbours
     assert got["dest"] == "Code/GameEngine/Body.cpp" and "nearest neighbour" in got["basis"]
+    assert got["basis"].startswith("neighbour heuristic, no usable approved TU")
+
+
+TURRET = [("?a@StateMachine@@QAEXXZ", 0x1000, 16, "GameEngine/Source/Common/StateMachineA.cpp"),
+          ("?x@TurretAI@@QAEXXZ", 0x1040, 16, "GameEngine/Source/GameLogic/AI/TurretAI.cpp"),
+          ("?b@StateMachine@@QAEXXZ", 0x1080, 16, "GameEngine/Source/Common/StateMachineB.cpp"),
+          ("?rva000010C0@Rva000010C0@@QAEXXZ", 0x10C0, 16, "GameEngine/Source/Common/Rva000010C0.cpp"),
+          ("?y@TurretAI@@QAEXXZ", 0x1100, 16, "GameEngine/Source/GameLogic/AI/TurretAIY.cpp")]
+ZH = "reference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source/"
+TURRET_AI = "Code/GameEngine/Source/GameLogic/AI/TurretAI.cpp"
+STATE_MACHINE = "Code/GameEngine/Source/Common/StateMachine.cpp"
+
+
+def test_dest_never_routes_an_f_turretai_row_to_a_merged_statemachine_tu(tmp_path):
+    # Retail interleaves StateMachine.cpp and TurretAI.cpp, and 0x10C0 pushes TurretAI.cpp's
+    # __FILE__. The old cluster union renamed every TurretAI row StateMachine.cpp, approved
+    # them, and dest said "create StateMachine.cpp" while TurretAI.cpp existed.
+    rq, rev, _ = load(tmp_path, "bfme2", TURRET, [
+        (TURRET_AI, "//\n"),
+        (ZH + "Common/StateMachine.cpp", "void StateMachine::a()\n{\n}\nvoid StateMachine::b()\n{\n}\n"),
+        (ZH + "GameLogic/AI/TurretAI.cpp", "void TurretAI::x()\n{\n}\nvoid TurretAI::y()\n{\n}\n"),
+        ("reverse/string_xrefs.tsv", "C:\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\AI\\TurretAI.cpp\t0x10C4\n")])
+    import tu_map
+    (rev / "tu_map.csv").write_text(tu_map.render(tu_map.build(tu_map.Layout(tmp_path))), newline="\n")
+    got = rq.dest_tu(0x10C0)
+    assert got["dest"] == TURRET_AI and got["basis"].startswith("retail __FILE__ string at this address")
+    for rva in (0x1040, 0x1048, 0x10C0, 0x10C8, 0x1100):
+        assert rq.dest_tu(rva)["dest"] != STATE_MACHINE, hex(rva)
+
+
+def test_dest_distrusts_a_stale_approval_its_own_anchors_contradict(tmp_path):
+    rq, _, _ = load(tmp_path, "bfme2", LEDGER, [
+        (TURRET_AI, "//\n"),
+        ("reverse/tu_map.csv",
+         "rva,size,kind,tu,confidence,by,evidence,source\n"
+         f"0x00001000,64,code,{STATE_MACHINE},approved,Z,Z={STATE_MACHINE},\n"
+         f"0x00001040,64,code,{STATE_MACHINE},approved,N,F={TURRET_AI},\n"          # old rules' mislabel
+         f"0x00001080,64,code-unledgered,{STATE_MACHINE},approved,C,C=0x00001040..0x000010C0,\n"
+         f"0x000010C0,64,code,{STATE_MACHINE},approved,Z,Z={STATE_MACHINE},\n")])
+    got = rq.dest_tu(0x1040)                                       # its own __FILE__ string wins
+    assert got["dest"] == TURRET_AI and f"contradicted by 0x00001040 F={TURRET_AI}" in got["basis"]
+    got = rq.dest_tu(0x1080)                                       # C resting on that row: not trusted either
+    assert got["dest"] != STATE_MACHINE and got["basis"].startswith("neighbour heuristic")
+    got = rq.dest_tu(0x1000)                                       # an uncontested approval still routes
+    assert got["dest"] == STATE_MACHINE and "create it" in got["basis"]
+
+
+def test_dest_refuses_padding(tmp_path):
+    rq, _, _ = load(tmp_path, "bfme2", LEDGER, [
+        ("reverse/tu_map.csv",
+         "rva,size,kind,tu,confidence,by,evidence,source\n"
+         "0x00001000,60,code,Code/GameEngine/Locomotor.cpp,approved,Z,,Code/GameEngine/Loco.cpp\n"
+         "0x00001080,64,code,Code/GameEngine/Locomotor.cpp,approved,Z,,Code/GameEngine/Loco.cpp\n")])
+    import tu_map
+
+    class Image:
+        def read(self, rva, n):
+            return bytes(0xCC if 0x103C <= a < 0x1040 else 0x55 for a in range(rva, rva + n))
+    rq.tu_routes.cache_clear()
+    m = tu_map.load(tmp_path)
+    rq.tu_routes = lambda: (tu_map, m, tu_map.code_index(m, Image()))
+    assert rq.dest_tu(0x103C) == {"dest": None, "basis": "retail padding (0xCC) inside no known body: "
+                                                         "no function starts here"}
+    got = rq.dest_tu(0x1040)                                       # where the next body starts
+    assert got["dest"] == "Code/GameEngine/Locomotor.cpp" and got["basis"].startswith("approved TU")
 
 
 def test_bfme2_gate_debt_items_and_pass_test(tmp_path):

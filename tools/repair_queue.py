@@ -35,11 +35,15 @@ tools/next_work.py serves these as tiers; this module builds them.
           neither, `link` says so and exits 1.
   dest    for a NEW match: the translation unit the row belongs in. EA evidence of
           the source file first (BFME1 ea_evidence.csv `file` rows), then the
-          address's approved TU in tu_map.csv (the one tu_ownership A3 checks), then
-          address contiguity: the unit both neighbouring rows come from, else the nearest
-          neighbour's unit within DEST_WINDOW. Generated, dump and address-named
-          one-function files are never offered; with no known neighbour the answer
-          says so instead of inviting a fresh one-function file.
+          address's approved TU in tu_map.csv (the one tu_ownership A3 checks, read
+          through tu_map.tu_at) unless the address's own F/Z/S evidence names another
+          TU, then the existing file the address's own `__FILE__` string (F) names,
+          then -- labelled a neighbour heuristic -- address contiguity: the unit both
+          neighbouring rows come from, else the nearest neighbour's unit within
+          DEST_WINDOW. A file that does not exist yet is offered only for an
+          uncontradicted approved TU. Generated, dump and address-named one-function
+          files are never offered; with no known neighbour the answer says so instead
+          of inviting a fresh one-function file.
 
   python3 tools/repair_queue.py repair [--limit N]
   python3 tools/repair_queue.py link [--limit N]
@@ -492,12 +496,13 @@ def file_evidence():
 
 @lru_cache(maxsize=1)
 def tu_routes():
-    """tools/tu_map.py's map and its bracket index; imported here, not at the top, because
-    the hooks run this file through stdin (verify-removed) without tools/ on the path."""
+    """tools/tu_map.py's map and its tu_at index (with the retail image for boundary
+    evidence); imported here, not at the top, because the hooks run this file through
+    stdin (verify-removed) without tools/ on the path."""
     sys.path.insert(0, str(Path(__file__).resolve().parent if "__file__" in globals() else ROOT / "tools"))
     import tu_map
     m = tu_map.load(ROOT)
-    return tu_map, m, tu_map.code_index(m)
+    return tu_map, m, tu_map.code_index(m, tu_map.Image.open(tu_map.Layout(ROOT).image))
 
 
 def dest_tu(rva):
@@ -509,9 +514,33 @@ def dest_tu(rva):
             return {"dest": path, "basis": f"EA source-file evidence ({route})"}
     tu_map, m, index = tu_routes()
     t = tu_map.tu_at(m, rva, index)
-    if t and t["confidence"] == "approved":   # what tu_ownership A3 holds a new row to
+    own = tu_map.anchors(t["evidence"]) if t else {}
+    # What tu_ownership A3 holds a new row to -- unless an F/Z/S anchor of the address or
+    # of the rows its C evidence rests on names another TU (a map built before contradicted
+    # approvals were demoted can still carry one, and then a merged cluster's file is not
+    # created over the file retail's own __FILE__ string names).
+    dispute = tu_map.disputed(m, t) if t and t["confidence"] == "approved" else None
+    if t and t["confidence"] == "approved" and not dispute:
         made = "" if (ROOT / t["tu"]).exists() else "; the file does not exist yet: create it"
         return {"dest": t["tu"], "basis": f"approved TU in tu_map.csv (by {t['by']}{made})"}
+    state = "no TU" if not t else (t["confidence"] or "no TU") + (f" {t['tu']}" if t["tu"] else "")
+    if dispute:
+        state += f", contradicted by {dispute}"
+    if t and t["kind"] == "code-interior":
+        state += f", {t['evidence'].split()[0]} {t['evidence'].split()[1]}"   # inside 0x... (a known body)
+    if own.get("F") and (ROOT / own["F"]).exists():
+        return {"dest": own["F"], "basis": f"retail __FILE__ string at this address (F in tu_map.csv; "
+                                           f"tu_map: {state})"}
+    if not t and index.host(rva) is None and index.gap(rva) == "padding":
+        return {"dest": None, "basis": "retail padding (0xCC) inside no known body: no function starts here"}
+    got = neighbour_dest(rva)
+    got["basis"] = f"neighbour heuristic, no usable approved TU (tu_map: {state}): " + got["basis"]
+    return got
+
+
+def neighbour_dest(rva):
+    """The pre-tu_map rule: the unit both neighbouring ledger rows come from, else the
+    nearest neighbour's within DEST_WINDOW."""
     _, homes = ledger()
     starts = [h[0] for h in homes]
     i = bisect.bisect_left(starts, rva)
