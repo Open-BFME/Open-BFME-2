@@ -2,6 +2,7 @@
 // ?rva00355DF4@Rva003560ED@@QAEXH@Z @0x00355DF4 44B
 // ?rva00355E20@Rva003560ED@@QAEXHH@Z @0x00355E20 44B
 // ?rva00356889@Rva003561BE@@QAEXPAVGameInfo@@@Z @0x00356889 625B (SSE: /G7 /arch:SSE)
+// ?rva00356724@Rva003560ED@@QAEXPAVGameInfo@@@Z @0x00356724 329B
 // Slots 1 and 4 of vtable 0x00C14EA4 (class of the rowed dtor 0x003560ED and
 // of rva00355DDD, slot 3), shared by the derived vtable 0x00C14EBC: both call
 // TheGameEngine slot 23 and, when TheWritableGlobalData's +0x11C8 flag is set,
@@ -81,11 +82,17 @@ public:
 extern GameEngine *TheGameEngine;
 extern Display *TheDisplay;
 extern GlobalData *TheWritableGlobalData;
+class GameInfo;
 class Rva003560ED
 {
 public:
 	void rva00355DF4(int);
 	void rva00355E20(int, int);
+	void rva00356724(GameInfo *game);
+private:
+	unsigned char m_pad00[0x10];
+	AsciiString m_movieOverlay; // +0x10
+	AsciiString m_image; // +0x14
 };
 void Rva003560ED::rva00355DF4(int)
 {
@@ -120,7 +127,6 @@ public:
 	virtual bool slot52(int value);
 };
 extern AudioManager *TheAudio;
-class GameInfo;
 class Rva003561BE
 {
 public:
@@ -233,4 +239,36 @@ void Rva003561BE::rva00356889(GameInfo *)
 	GameFont *font = TheFontLibrary->getFont(&AsciiString("SachaWynter"), 18.0f, false);
 	UnicodeString text = TheGameText->fetch(AsciiString("GUI:Loading"), &exists);
 	((BfmeStrVM0 *)TheDisplay)->rva0025D358(text, 0.5f, 0.03125f, (int)font, -10924, 0);
+}
+
+// ?rva00356724@Rva003560ED@@QAEXPAVGameInfo@@@Z @0x00356724 329B
+// Slot 2 of vtable 0x00C14EA4 (RET 4, argument unused), the base load
+// screen's start: with a +0x10 name, the ring rectangle (Display 0x002B2466)
+// and TheAudio slots 20(2)/10; the +0x14 image on display layer 2 over the
+// whole screen; TheGameLogic +0x78; and with a +0x10 name the "SmallRing"
+// movie through TheDisplay slot 72 (flags 4) or, with TheWritableGlobalData
+// +0x11C8, slot 66 (4, -1, -1). The derived 0x00356889 is the same sequence
+// with its foreground and text.
+void Rva003560ED::rva00356724(GameInfo *)
+{
+	if (!((const StringBase<char> *)&m_movieOverlay)->isEmpty())
+	{
+		TheDisplay->rva002B2466(0.4677734375f, 0.84114583f, 0.5302734375f, 0.92447917f);
+		TheAudio->slot20(2);
+		TheAudio->slot10();
+	}
+	if (!((const StringBase<char> *)&m_image)->isEmpty())
+		((BfmeStrVM0 *)TheDisplay)->rva0025C6E2((int)TheMappedImageCollection->findImageByName(m_image), 2, 0.0f, 0.0f, 1.0f, 1.0f);
+	setGameLogicFlag78();
+	if (!((const StringBase<char> *)&m_movieOverlay)->isEmpty())
+	{
+		AsciiString movieName("SmallRing");
+		if (!TheWritableGlobalData->m_11c8)
+		{
+			if (TheDisplay)
+				TheDisplay->slot72(movieName, 4);
+		}
+		else
+			TheDisplay->slot66(movieName, 4, -1, -1);
+	}
 }
