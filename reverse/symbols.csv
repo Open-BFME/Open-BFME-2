@@ -11410,7 +11410,6 @@ name,address,notes
 ?rva002AEEA7@Player@@QAEXH@Z,0x002AEEA7,Player method taking int 1 in the 0x003BBD84 mask sweep; read from REL32 at 0x003BBDB5; identity unproven
 ?rva002AF037@Player@@QAEXH@Z,0x002AF037,Player method taking int 1 in the 0x003BBDC4 mask sweep; read from REL32 at 0x003BBDF5; identity unproven
 ?rva002B07A9@Player@@QAE_NPAX@Z,0x2B07A9,Player EH-framed slot initializer called by PlayerList 0x2A7F2A
-?rva002B0D00@Player@@QAEXXZ,0x002B0D00,"Player member PlayerList slot 15 calls on each of the twenty players; REL32 at 0x002A7AF0; identity not recovered"
 ?rva002B2210@Rva00373EC6@@QAEXI@Z,0x002B2210,"stealth helper flags setter (the Object::rva0028F4BC result); REL32 in BroadcastStealthUpdate::update 0x004A3723 with the flags masked by module data +0x140"
 ?rva002B2579@Rva002BA8F1Logic@@QAEPAURva002B2579Result@@H@Z,0x002B2579,PC audio owner-position worker2DA1CC direct call; target disassembly verifies thiscall and return ABI; original receiver identity unasserted
 ?rva002B269E@Rva002B269E@@QAE_NH@Z,0x002B269E,thiscall (int) returning bool in al; RETAIL REL32 at 0x0056B626 (body 0x0056B613) targets this address; honest address-derived name
@@ -16541,3 +16540,4 @@ _D3DXLoadVolumeFromFileInMemory@36,0x0062AF8C,Native1318F0 in-image JMP IAT veri
 ??$__copy@PAVRva0054103E@@PAV1@H@_STL@@YAPAVRva0054103E@@PAV1@00ABUrandom_access_iterator_tag@0@PAH@Z,0x005410B1,REL32 call-site in auto row 0x00541231; the unit that defines this copy is the insert-overflow unit; fold-proof=Code/Libraries/Source/WWVegas/WWLib/Rva0054103EVectorInsertOverflow.cpp
 ?rva00291EB1@Object@@QAEXXZ,0x00291EB1,Native Object transform callback 292D49 RET12 calls these complete no-stack-argument Object helpers at 292E57 and292EA7; wb_show confirms target291EB1..2922A9 RET0 and28B98B..28B9F6 RET0. Original method names remain unproved.
 ?rva0028B98B@Object@@QAEXXZ,0x0028B98B,Native Object transform callback 292D49 RET12 calls these complete no-stack-argument Object helpers at 292E57 and292EA7; wb_show confirms target291EB1..2922A9 RET0 and28B98B..28B9F6 RET0. Original method names remain unproved.
+?initBuildableHeroes@Player@@QAEXXZ,0x002B0B96,WB 0x00C1C660 Player::initBuildableHeroes callgraph 2 with Player.cpp 4121..4144 hero assert strings; native 0x002B0B96..0x002B0CB0 ret0; called by named Player newMap 0x002B0D00 at REL32 0x002B0E34

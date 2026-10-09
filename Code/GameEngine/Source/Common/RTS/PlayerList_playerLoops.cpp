@@ -13,8 +13,9 @@
 // slot 10 of its table too), and Zero Hour's PlayerList::update is this loop
 // over Player::update; that pairing names the first body and its callee
 // (inference). Zero Hour's other two such loops, newMap and updateTeamStates,
-// are not virtual there, and the two Player callees do not show which is
-// which, so slots 15 and 16 keep address names. updateTeamStates is the
+// are not virtual there. WB 0x00C133C0 independently names the slot-15
+// callee Player::newMap; slot 16's purpose remains unproved, so the
+// PlayerList slots keep address names. updateTeamStates is the
 // non-virtual one: ScriptEngine::update calls 0x002A7B1C directly on
 // ThePlayerList (0x0020D2A6) right after its side-script loop, where Zero
 // Hour's update calls ThePlayerList->updateTeamStates(), and its callee
@@ -38,7 +39,7 @@ public:
 	void init(const PlayerTemplate *pt);	///< pinned 0x002AF729 (ZH name)
 	void update();							///< pinned 0x002AE770 (ZH name, inferred)
 	void rva002A99FA();
-	void rva002B0D00();
+	void newMap();
 	void updateTeamStates();				///< 0x002AB429
 };
 
@@ -88,7 +89,7 @@ void PlayerList::rva002A7ACE()
 void PlayerList::rva002A7AE6()
 {
 	for (Int i = 0; i < MAX_PLAYER_COUNT; i++)
-		m_players[i]->rva002B0D00();
+		m_players[i]->newMap();
 }
 
 void PlayerList::updateTeamStates()
