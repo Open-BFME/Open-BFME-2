@@ -41,10 +41,12 @@ public:
   void HideButtons(int);
   void OnFadeInComplete(const char *params);
   void OnFadeOutComplete(const char *params);
+  void OnLoaded(const char *params);
  private:
   char m_prefix[0x14];
   int m_state;
-  char m_middle[8];
+  AsciiString m_prefixString; // +18, assigned by loaded callback
+  unsigned m_selectedObject; // +1c, measured in Impl::Update
   unsigned m_displayedObject; // +20 as measured in Impl::Update
   Rva00575674 m_buttons[15];
   int m_count;
@@ -109,4 +111,14 @@ void AptInGameSideCommandBar::Impl::OnFadeOutComplete(const char *)
   m_displayedObject = 0;
   m_state = 1;
  }
+}
+
+// Constructor 005288C4 binds 005283C9 to
+// OnAptInGameSideCommandBarLoaded. Complete26B body calls the existing
+// StringBase set(text) worker on +18 and sets state14 to1, ending at5283E3.
+// The callback spelling describes the binding, not a retained WB name.
+void AptInGameSideCommandBar::Impl::OnLoaded(const char *params)
+{
+ m_prefixString = params;
+ m_state = 1;
 }
