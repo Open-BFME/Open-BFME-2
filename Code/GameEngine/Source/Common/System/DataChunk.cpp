@@ -14,12 +14,15 @@ struct InputChunk
 	InputChunk *m_next;			// +0x04
 	unsigned int m_id;			// +0x08
 	unsigned short m_version;	// +0x0C
+	unsigned char m_unknown0E[0x0A];
+	unsigned int m_dataLeft;		// +0x18
 };
 
 class DataChunkInput
 {
 public:
 	unsigned short getChunkVersion();
+	unsigned int getChunkDataSizeLeft();
 	void clearChunkStack();
 
 private:
@@ -194,3 +197,14 @@ void bfmeEmitDataChunkTableOfContentsCtor(DataChunkTableOfContents *p)
 	p->DataChunkTableOfContents::DataChunkTableOfContents();
 }
 #pragma inline_depth()
+
+// Clean BF1 f98983a7 System/DataChunk.cpp supplies the size-left getter.
+// Native306E22..306E2E is the whole leaf between matched size/end getters:
+// a null chunkStack1C returns zero; otherwise it reads dataLeft18. The
+// existing InputChunk prefix is extended only through that proven field.
+unsigned int DataChunkInput::getChunkDataSizeLeft()
+{
+	if (m_chunkStack == 0)
+		return 0;
+	return m_chunkStack->m_dataLeft;
+}
