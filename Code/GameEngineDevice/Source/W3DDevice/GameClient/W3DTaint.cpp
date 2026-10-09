@@ -221,9 +221,15 @@ public:
 	UnsignedByte getShroudLevel(int x, int y);
 };
 
+class WorldHeightMap;
 class BaseHeightMapRenderObjClass
 {
-	unsigned char m_pad00[0x3878];
+ unsigned char m_pad00[0x37C0];
+public:
+ WorldHeightMap *m_map;
+ WorldHeightMap *getMap() const {return m_map;}
+private:
+ unsigned char m_pad37C4[0x3878-0x37C4];
 
 public:
 	W3DShroud *m_shroud;
@@ -237,6 +243,7 @@ class Rva000729CC
 {
 public:
 	void rva00073CC0(int x, int y, int inputLevel, int inputTextureOnly);
+
  float getXScale() {return scaleX;} float getYScale() {return scaleY;}
 
 private:
@@ -279,7 +286,7 @@ void Rva000729CC::rva00073CC0(int x, int y,
 	}
 
 	int yForColor = y;
-	
+
 	float red=1,green=1,blue=1; int currentShroudLevel=255; int levelValue=level;
  if(g_bfmeTaintModeView && g_bfmeTaintModeView->mode()<=0) {
 	if (level < 0x80)
@@ -380,9 +387,12 @@ public:
 	int m_xExtent;
 	int m_yExtent;
 	int m_borderSize;
-	unsigned char m_pad14[0x120E8 - 0x14];
+	unsigned char m_pad14[0x120E0 - 0x14];
+ int m_drawOriginX, m_drawOriginY;
 	int m_drawWidth;
 	int m_drawHeight;
+	int getDrawOriginX() const { return m_drawOriginX; }
+ int getDrawOriginY() const { return m_drawOriginY; }
 	int getXExtent() const { return m_xExtent; }
 	int getYExtent() const { return m_yExtent; }
 	int getBorderSize() const { return m_borderSize; }
@@ -433,12 +443,36 @@ __forceinline float taintCeil(float value) { return float(ceil(double(value))); 
 // independently confirms both loops and alpha clamp. The original method name
 // is unknown; rva000738C4 describes the address. Preserve the legacy view used
 // by setTaintLevel above while giving this separately proven entry its WB class.
+
+#include "../../../../../reference/shims/d3d8_shim_validated.h"
+class CameraClass;
+class DX8Wrapper { public:
+ static IDirect3DDevice8 *_Get_D3D_Device8() { return D3DDevice; }
+protected:
+ static IDirect3DDevice8 *D3DDevice;
+};
+class ShroudFilter { public:
+ int getMagFilter() const { return m_filter4; }
+ void setMagFilter(int v) {m_filter4=v;}
+ void setMinFilter(int v) {m_filter0=v;}
+ int m_filter0,m_filter4;
+};
+class ShroudTexture { public: ShroudFilter *getFilter(); };
+class W3DRadarResetSurface {public: void *m_surface; ~W3DRadarResetSurface();};
+struct CursorTextureSlot { void *Ptr; W3DRadarResetSurface Get_Surface_Level(); };
+class Rva001166E0 { public: void *rva001166E0(int*,int,int,int,int); };
+class Member0C00739C70 {public: void clear();};
+class Rva00073950 {public: void rva00073950(unsigned char,void*);};
+class Rva00073C7A {public: void rva00073C7A();};
+
 class W3DTaint
 {
 public:
  void rva000738C4(unsigned char alpha);
  bool ReAcquireResources();
  void init(WorldHeightMap *map, float worldCellSizeX, float worldCellSizeY);
+ void render(CameraClass *cam);
+ void rva000741C0(RECT *unused);
 private:
  unsigned int m_numCellsX, m_numCellsY;
  int m_numMaxVisibleCellsX, m_numMaxVisibleCellsY;
@@ -446,7 +480,9 @@ private:
  unsigned int *m_taintData;
  void *m_dstTexture;
  int m_dstTextureWidth, m_dstTextureHeight;
- unsigned char m_pad28[0x38 - 0x28];
+ int m_taintFilter;
+ float m_drawOriginX,m_drawOriginY;
+ unsigned char m_drawTaint,m_clearDstTexture,m_borderTaintLevel,m_pad37;
  unsigned char *m_cellLevels, *m_referenceCellLevels;
 };
 
@@ -559,4 +595,89 @@ void W3DTaint::init(WorldHeightMap *map,
 	}
 	if (TheWritableGlobalData && TheWritableGlobalData->m_taintOn && TheTaintManager)
 		reinterpret_cast<Rva006C0820 *>(TheTaintManager)->rva006C0820();
+}
+
+// BF1 9cbfb551 W3DShroudRenderBfme semantic rendering donor.
+// WB82DC70 names W3DTaint::render; native743C2..7461F proves changes.
+void W3DTaint::render(CameraClass *cam)
+{
+	(void)cam;
+
+	if (!m_taintData)
+		return;
+
+	ShroudTexture *texture =
+		reinterpret_cast<ShroudTexture *>(&m_dstTexture);
+	if (!m_dstTexture)
+		return;
+
+	IDirect3DDevice8 *device = DX8Wrapper::_Get_D3D_Device8();
+	if (device && device->TestCooperativeLevel() != D3D_OK)
+		return;
+
+	if (TheWritableGlobalData && TheWritableGlobalData->m_taintOn != m_drawTaint) {
+		reinterpret_cast<Rva00073C7A *>(this)->rva00073C7A();
+		reinterpret_cast<Rva000728E2 *>(this)->rva000728E2();
+		init(TheTerrainRenderObject->getMap(),m_cellWidth,m_cellHeight);
+		if(TheTaintManager) reinterpret_cast<Rva006C0820 *>(TheTaintManager)->rva006C0820();
+		m_drawTaint=TheWritableGlobalData->m_taintOn;
+		m_clearDstTexture=1;
+		if(!m_taintData) return;
+	}
+	WorldHeightMap *hm = TheTerrainRenderObject->getMap();
+	int visStartX = WWMath::Float_To_Long(taintFloor(
+		(float)(hm->getDrawOriginX() - hm->getBorderSize()) /
+		m_cellWidth * 10.0f));
+	int visStartY = WWMath::Float_To_Long(taintFloor(
+		(float)(hm->getDrawOriginY() - hm->getBorderSize()) /
+		m_cellHeight * 10.0f));
+	int visEndX = WWMath::Float_To_Long(taintFloor(
+		(float)(hm->getDrawWidth() - 1) /
+		m_cellWidth * 10.0f));
+	int visEndY = WWMath::Float_To_Long(taintFloor(
+		(float)(hm->getDrawHeight() - 1) /
+		m_cellHeight * 10.0f));
+	(void)visStartX;
+	(void)visStartY;
+	visEndX = m_numCellsX;
+	visEndY = m_numCellsY;
+
+	m_drawOriginX = m_cellWidth * 0.0f;
+	m_drawOriginY = m_cellHeight * 0.0f;
+
+	if (texture->getFilter()->getMagFilter() != m_taintFilter)
+	{
+		texture->getFilter()->setMagFilter(m_taintFilter);
+		texture->getFilter()->setMinFilter(m_taintFilter);
+	}
+
+	W3DRadarResetSurface surface =
+		reinterpret_cast<CursorTextureSlot *>(&m_dstTexture)->Get_Surface_Level();
+	RECT rect;
+	rva000741C0(&rect);
+	if(m_clearDstTexture) {
+		m_clearDstTexture=0;
+		reinterpret_cast<Rva00073950 *>(this)->rva00073950(m_borderTaintLevel,&surface);
+	}
+
+	{
+		unsigned int *src = m_taintData;
+		int pitch;
+		unsigned int *dst = (unsigned int *)
+			reinterpret_cast<Rva001166E0 *>(&surface)->rva001166E0(
+			&pitch, 1, 1, visEndX + 1, visEndY + 1);
+
+		if (visEndY > 0)
+		{
+			int row_bytes = visEndX * (int)sizeof(unsigned int);
+			for (int y = visEndY; y > 0; --y)
+			{
+				memcpy(dst, src, row_bytes);
+				src += m_numCellsX;
+				dst = (unsigned int *)((char *)dst + pitch);
+			}
+		}
+
+		reinterpret_cast<Member0C00739C70 *>(&surface)->clear();
+	}
 }
