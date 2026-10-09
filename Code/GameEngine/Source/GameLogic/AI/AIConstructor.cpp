@@ -21,10 +21,12 @@ class Xfer;
 #include "Common/Snapshot.h"
 extern int g_Va00DBA4E4;
 
+class Gen0014AE40;
 class TAiData : public Snapshot
 {
 public:
 	TAiData();
+	void addFactionBuildList(Gen0014AE40*);
 	TAiData&operator=(const TAiData&other);
 	virtual ~TAiData();
 	virtual const char *GetSnapshotName() const;
@@ -100,7 +102,7 @@ private:
 	Bool m_disableTrees;
 	Real m_unknownF0;
 	void *m_sideInfo;
-	void *m_sideBuildLists;
+	Gen0014AE40 *m_sideBuildLists;
 	void *m_namedLists;
 	TAiData *m_next;
 	unsigned int m_unknown104[4];
@@ -286,3 +288,26 @@ TAiData&TAiData::operator=(const TAiData&other){
 // four intrusive links and four opaque final dwords. Padding is skipped.
 // BF1 f989 TAiDataAssign is the semantic guide; BFME2 constructor/native
 // stores prove target offsets and AsciiString usage at DC/E0/E4.
+
+extern "C" void _ReadWriteBarrier();
+#pragma intrinsic(_ReadWriteBarrier)
+class Rva002FE8CCDeleteView{public:virtual void*destroy(int);};
+class BuildListInfo{public:virtual~BuildListInfo();BuildListInfo*duplicate();};
+class Gen0014AE40{public:Gen0014AE40(AsciiString);virtual~Gen0014AE40();AsciiString side;BuildListInfo*build;Gen0014AE40*next;};
+// BF1 f989 TAiData_addFactionBuildList guides the registration/ownership.
+// Target2FE8CC..2FE940 RET4 proves headF8 and 16B node fields4/8/C.
+// Slot0 is a deletion ABI view: flag0 returns the allocation pointer which
+// native feeds to ordinary cdecl scalar delete. No original slot name inferred.
+// Native clears build and next before loading the slot; preserve this order.
+void TAiData::addFactionBuildList(Gen0014AE40*incoming){
+ Gen0014AE40*info=m_sideBuildLists;
+ while(info){
+  if(incoming->side.compare(info->side)==0){
+   if(info->build)::operator delete(((Rva002FE8CCDeleteView*)info->build)->destroy(0));
+   info->build=incoming->build;incoming->build=0;incoming->next=0;_ReadWriteBarrier();
+   ::operator delete(((Rva002FE8CCDeleteView*)incoming)->destroy(0));return;
+  }
+  info=info->next;
+ }
+ incoming->next=m_sideBuildLists;m_sideBuildLists=incoming;
+}
