@@ -28,6 +28,9 @@ namespace _STL
 	public:
 		void push_back(const T &value);
 		Int size() const { return m_finish - m_start; }
+        T *begin() { return m_start; }
+        T *end() { return m_finish; }
+        T *erase(T *, T *);
 
 	private:
 		T *m_start;
@@ -145,9 +148,11 @@ public:
 // and folded into the one body 0x00148B27, pinned under the
 // KeyToBucketMap view (ObjectLookupMapFindSlot.cpp): it fills an out-pair
 // {node, map}; a hit's value sits at node +0x08.
+enum NameKeyType { NAMEKEY_UNKNOWN = 0 };
 class NameKeyGenerator
 {
 public:
+    NameKeyType nameToKey(const AsciiString &);
 	class KeyToBucketMap
 	{
 	public:
@@ -161,9 +166,35 @@ public:
 	};
 };
 
+// Declaration-only experience-level view. The 0x108-byte construction and
+// teardown belong to Rva002894A2 at 0x00289CEB / 0x002894A2; this caller
+// touches only the fields proved by its native loads and stores.
+// The upgrade vector retains the existing void-pointer provider spelling.
+struct BfmePod264;
+class Rva002894A2
+{
+public:
+    virtual ~Rva002894A2();
+    Rva002894A2(const Rva002894A2 &);
+    char pad04[12];
+    AsciiString name10;
+    int key14, required18, award1C, index20;
+    _STL::vector<AsciiString> targets24, attributes30;
+    char pad3C[16];
+    _STL::vector<void *> upgrades4C;
+    char pad58[0xb0];
+};
+class Rva0028951F { public: const Overridable *rva0028951F(int); };
+class Rva0028881C { public: void rva002889BB(); };
+extern NameKeyGenerator *TheNameKeyGenerator;
+Int SplitUpgrades(void *, const AsciiString &);
+Int SplitString(_STL::vector<AsciiString> &, const AsciiString &);
+
 class ExperienceLevelStore
 {
 public:
+    bool CreateNewExpLevel(const AsciiString &, const AsciiString &, const AsciiString &, const AsciiString &, const AsciiString &);
+    void rva0028A1AA(void *, const BfmePod264 *);
 	Int GetLevelRank(ExperienceLevelHandle levelHandle) const;
 	Int GetRequiredExperience(ExperienceLevelHandle levelHandle) const;
 	Int GetExperienceAwardForLevel(ExperienceLevelHandle levelHandle) const;
@@ -363,4 +394,37 @@ ExperienceLevelList *ExperienceLevelStore::FindExperienceLevelList(const Experie
 			return (ExperienceLevelList *)((char *)found.node + 8);
 	}
 	return 0;
+}
+
+// WB 0x00BE9C10 names CreateNewExpLevel and ExperienceLevelSystem.cpp.
+// Retail 0x0028A473..0x0028A5D5 copies a named source when the new name
+// is absent, installs its target/attribute/upgrade lists, then invalidates
+// the cache at store+0x28. An existing destination only updates those lists.
+// Full 354-byte body, established callees and one-state EH graph verified.
+bool ExperienceLevelStore::CreateNewExpLevel(const AsciiString &sourceName, const AsciiString &newName, const AsciiString &target, const AsciiString &upgrades, const AsciiString &attributes)
+{
+    Rva002894A2 *existing = (Rva002894A2 *)((Rva0028951F *)this)->rva0028951F(TheNameKeyGenerator->nameToKey(newName));
+    if (!existing) {
+        const Rva002894A2 *source = (const Rva002894A2 *)((Rva0028951F *)this)->rva0028951F(TheNameKeyGenerator->nameToKey(sourceName));
+        if (!source) return false;
+        Rva002894A2 level(*source);
+        level.name10 = newName;
+        level.key14 = TheNameKeyGenerator->nameToKey(newName);
+        level.targets24.erase(level.targets24.begin(), level.targets24.end());
+        level.targets24.push_back(target);
+        SplitString(level.attributes30, attributes);
+        level.upgrades4C.erase(level.upgrades4C.begin(), level.upgrades4C.end());
+        SplitUpgrades(&level.upgrades4C, upgrades);
+        rva0028A1AA(m_levelLists, (const BfmePod264 *)&level);
+        ((Rva0028881C *)((char *)this + 0x28))->rva002889BB();
+    } else {
+        _STL::vector<AsciiString> &targets = existing->targets24;
+        targets.erase(targets.begin(), targets.end());
+        targets.push_back(target);
+        SplitString(existing->attributes30, attributes);
+        _STL::vector<void *> &upgradeList = existing->upgrades4C;
+        upgradeList.erase(upgradeList.begin(), upgradeList.end());
+        SplitUpgrades(&upgradeList, upgrades);
+    }
+    return true;
 }
