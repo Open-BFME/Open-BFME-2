@@ -24,13 +24,6 @@ int Rva001FF282Get(void)
 	return 0x00c039e8;
 }
 
-// ?Rva00203517Get@@YAHXZ @ 0x00203517 (6B): returns 0x00de0878.
-// Conditional-skip target (jne +6). Opaque address-derived name.
-int Rva00203517Get(void)
-{
-	return 0x00de0878;
-}
-
 // ?Rva0020D4DDGet@@YAHXZ @ 0x0020d4dd (6B): returns 0x00c082f0.
 // Follows a ret (leave / ret 0x14). Opaque address-derived name.
 int Rva0020D4DDGet(void)

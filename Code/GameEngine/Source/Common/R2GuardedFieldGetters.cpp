@@ -105,3 +105,27 @@ const void *Rva00050D60Pointer::getPointer() const
 {
     return value ? value : &AsciiString::TheEmptyString;
 }
+
+// The old ConstIntGetters8Addr row at 0x203517 covers an interior fallback
+// block. Native 0x203510..0x203521 is a complete 17-byte conditional getter
+// between the prior LEA/RET leaf and the next floating-point body. It reads
+// receiver pointer +0x30: null returns the genuine AsciiString::TheEmptyString
+// object at VA 0xDE0878, nonnull returns an interior address at pointer+0x14.
+// BF1 f989 nullable-pointer sources guide the conditional only. Payload type,
+// owner, semantic fields and member/free spelling remain unknown; retain an
+// address-owned consumed-prefix view and the canonical global declaration.
+class Rva00203510Pointer
+{
+public:
+    const void *getPointer() const;
+private:
+    char m_unmodelled0[0x30];
+    const char *m_value;
+};
+const void *Rva00203510Pointer::getPointer() const
+{
+    const char *value = m_value;
+    if (!value)
+        return &AsciiString::TheEmptyString;
+    return value + 0x14;
+}
