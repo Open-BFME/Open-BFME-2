@@ -23,10 +23,38 @@ enum GameMessageDisposition
 
 class GameMessage;
 
+struct ICoord2D
+{
+	int x;
+	int y;
+};
+
+// WB calls IRegion2D::width/height on the click region; retail inlines both
+// (the region.cpp rows 0x00004D4B/0x00004D51 are the out-of-line copies), so
+// the extents are spelled out in the handler rather than defining second
+// copies of those members.
+struct IRegion2D
+{
+	ICoord2D lo;
+	ICoord2D hi;
+};
+
+// The translator base (WB UserInputTranslator.cpp): translateGameMessage in
+// slot 0, a deleting dtor in slot 1, then the input handlers, whose
+// defaults are the shared stubs 0x005748B2 (slot 2 and slots 18..25) and
+// 0x005748AD (slots 3..17). Only the slots this unit needs are named.
 class UserInputTranslator
 {
 public:
-	virtual GameMessageDisposition translateGameMessage(const GameMessage *msg);
+	virtual GameMessageDisposition translateGameMessage(const GameMessage *msg);	// slot 0
+	virtual ~UserInputTranslator();										// slot 1
+	virtual void slot02(); virtual void slot03(); virtual void slot04();
+	virtual void slot05(); virtual void slot06(); virtual void slot07();
+	virtual void slot08(); virtual void slot09(); virtual void slot10();
+	virtual void slot11(); virtual void slot12(); virtual void slot13();
+	virtual void slot14(); virtual void slot15(); virtual void slot16();
+	virtual void slot17();
+	virtual int OnMouseLeftClick(const IRegion2D &region, unsigned modifiers);	// slot 18 (+0x48)
 };
 
 // The translators behind the behavior (ManualPhaseEnder.cpp's and
@@ -68,7 +96,7 @@ public:
 	void rva00576AF3();
  void Update();
  void CreateResolveRegionOwnershipChecklistItems();
- int rva00576946(void *, unsigned);
+ virtual int OnMouseLeftClick(const IRegion2D &region, unsigned modifiers);
 
 private:
 	char m_pad04[0x20 - 0x04];
@@ -233,8 +261,6 @@ template<class T> class ResolveClickHolder { public:
   ::operator delete(released);
  }
 };
-struct ResolveClickPoint { int x,y; };
-struct ResolveClickRegion { int x,y,right,bottom; };
 struct ResolveClickUI { void *unknown0; Rva00328A83PtrChaseField *impl; };
 struct ResolveClickPlayer { char unknown0[0x14]; int id; };
 struct ResolveClickObject { char unknown0[0x10]; void *key; };
@@ -242,20 +268,25 @@ struct ResolveClickView {
  char unknown0[0x10]; ResolveClickUI *ui; Rva002C025AViewer *viewer;
  ResolveClickPlayer *player; ResolveClickHolder<Rva0057647E> battle; char unknown20[0x20]; ResolveClickHolder<Rva005765D1> ownership;
 };
-// Native576946..576ACB and WB14D0EE0 (OnMouseLeftClick) independently show
-// the point-pick, battle lookup and dispute-resolution branches. The first
-// argument points to a four-int region; the second stack word is unused.
-// Original parameter types and return enum are unproven, so retain an
-// address-derived method with their observed pointer/word ABI. Point temporaries
-// end immediately after picking, allowing retail's subsequent allocation reuse.
-int StrategicInGameUI::ResolveBattlesBehavior::Impl::rva00576946(void *regionWord,unsigned unused) {
- ResolveClickRegion *region=(ResolveClickRegion *)regionWord;
+// Native576946..576ACB and WB14D0EE0 (OnMouseLeftClick, asserts at
+// StrategicInGameUIResolveBattlesBehavior.cpp:531..561) independently show
+// the point-pick, battle lookup and dispute-resolution branches. The handler
+// is a virtual: nothing calls it directly, and it fills slot 18 (+0x48) of
+// the Impl vftable 0x00C6E7F0, whose slot 0 is this unit's
+// translateGameMessage 0x0057667D and which the Impl constructor 0x00576DF1
+// and destructor 0x00576C4B (rowed as Rva00576C4B) install. The base UserInputTranslator::translateGameMessage
+// 0x005CBC95 (WB name) dispatches slot +0x48 with argument 0's record (the
+// pixel region) and argument 1's integer; WB measures the first argument with
+// IRegion2D::width/height (pointer or reference: the codegen is the same).
+// The second word is unused here. Point temporaries end immediately after
+// picking, allowing retail's subsequent allocation reuse.
+int StrategicInGameUI::ResolveBattlesBehavior::Impl::OnMouseLeftClick(const IRegion2D &region, unsigned modifiers) {
  ResolveClickView *state=(ResolveClickView *)this;
- if(region->right-region->x>0 || region->bottom-region->y>0) return 0;
+ if(region.hi.x-region.lo.x>0 || region.hi.y-region.lo.y>0) return 0;
  if(!state->battle.p) {
   ResolveClickObject *object;
   {
-   ResolveClickPoint point; point.x=region->x; point.y=region->y;
+   ICoord2D point; point.x=region.lo.x; point.y=region.lo.y;
    object=(ResolveClickObject *)state->viewer->rva002C025A(&point,1,false);
   }
   if(object) {
@@ -275,7 +306,7 @@ int StrategicInGameUI::ResolveBattlesBehavior::Impl::rva00576946(void *regionWor
  if(dialog && !dialog->get()) {
   ResolveClickObject *object;
   {
-   ResolveClickPoint point; point.x=region->x; point.y=region->y;
+   ICoord2D point; point.x=region.lo.x; point.y=region.lo.y;
    object=(ResolveClickObject *)state->viewer->rva002C025A(&point,2,false);
   }
   if(object) {
