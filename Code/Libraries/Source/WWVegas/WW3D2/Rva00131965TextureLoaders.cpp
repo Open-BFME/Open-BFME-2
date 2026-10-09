@@ -35,7 +35,7 @@ class Rva0013107A {
 public:
  bool loadAuxImage();void loadImage();void postLoad(const char *);void loadVolume();void loadCube();void loadVolumeSlices();
 private:
- char head[8];TextureCOM9*m_resource;int m_type;char gap[4];char*m_source;unsigned m_size;char gap1[4];char*m_alpha;char gap24[4];unsigned m_width,m_height,m_depth,m_sliceWidth,m_sliceHeight,m_originalDepth;int m_imageMode;unsigned m_mipLevels;int m_preference;int m_format;int m_ready,m_loading;
+ char head[8];TextureCOM9*m_resource;int m_type;char gap[4];char*m_source;unsigned m_size;char gap1[4];char*m_alpha;unsigned m_alphaSize;unsigned m_width,m_height,m_depth,m_sliceWidth,m_sliceHeight,m_originalDepth;int m_imageMode;unsigned m_mipLevels;int m_preference;int m_format;int m_ready,m_loading;
 };
 void Rva0013107A::loadVolume() {
  TextureDeviceLock lock;TextureCOM9 *texture=0;
@@ -213,4 +213,49 @@ void Rva0013107A::loadImage() {
   }
  }
  if(texture){TextureSurfaceDesc desc;texture->GetLevelDesc(0,&desc);m_format=desc.format;texture->QueryInterface(TextureBaseInterfaceID,reinterpret_cast<void **>(&m_resource));texture->Release();texture=0;}
+}
+
+// ?loadAuxImage@Rva0013107A@@QAE_NXZ
+// Native 0x00131378..0x0013154B (467 bytes); WB separate color/alpha lead.
+// Retail proves the alpha source +20/size +24, format-21 destination, alpha
+// formats 28/50/21 with byte stride 1/1/4, locked row pitches, cleanup labels,
+// filtered base-interface acquisition, and AL bool return. The parent loader
+// supplies the device mutex. No donor class identity is claimed.
+extern "C" long __stdcall D3DXLoadSurfaceFromFileInMemory(SurfaceResource*,void*,const void*,const void*,unsigned,const void*,unsigned,unsigned,void*);
+bool Rva0013107A::loadAuxImage() {
+ if(!m_alpha||!m_alphaSize)return false;
+ m_resource=0;m_format=21;
+ TextureCOM9 *texture;
+ if(D3DXCreateTexture(DX8Wrapper::D3DDevice,m_width,m_height,m_mipLevels,0,m_format,1,&texture)<0)return false;
+ bool loaded=false;
+ SurfaceResource *surface;
+ if(reinterpret_cast<Texture2DSurfaceView*>(texture)->GetSurfaceLevel(0,&surface)<0)goto freeTexture;
+ if(D3DXLoadSurfaceFromFileInMemory(surface,0,0,m_source,m_size,0,-1,0,0)<0)goto freeSurface;
+ TextureCOM9 *alpha;
+ if(D3DXCreateTextureFromFileInMemoryEx(DX8Wrapper::D3DDevice,m_alpha,m_alphaSize,m_width,m_height,1,0,28,2,-1,-1,0,0,0,&alpha)<0)goto freeSurface;
+ {
+  TextureSurfaceDesc desc;
+  alpha->GetLevelDesc(0,&desc);
+  if(desc.format!=28 && desc.format!=50 && desc.format!=21)goto freeAlpha;
+  int step=1,offset=0;
+  if(desc.format==21){offset=3;step=4;}
+  TextureLockedRect colorRect,alphaRect;
+  if(texture->LockRect(0,&colorRect,0,0)<0)goto freeAlpha;
+  if(alpha->LockRect(0,&alphaRect,0,0)<0)goto unlockColor;
+  loaded=true;
+  unsigned char *color=colorRect.bits,*alphaRow=alphaRect.bits;
+  for(unsigned y=0;y<m_height;++y){
+   unsigned char *to=color+3,*from=alphaRow+offset;
+   for(unsigned x=0;x<m_width;++x){*to=*from;from+=step;to+=4;}
+   color+=colorRect.pitch;alphaRow+=alphaRect.pitch;
+  }
+  alpha->UnlockRect(0);
+ }
+ unlockColor: texture->UnlockRect(0);
+ freeAlpha: alpha->Release();
+ freeSurface: surface->Release();
+ freeTexture:
+ if(loaded){D3DXFilterTexture(texture,0,0,-1);texture->QueryInterface(TextureBaseInterfaceID,reinterpret_cast<void**>(&m_resource));}
+ texture->Release();
+ return m_resource!=0;
 }
