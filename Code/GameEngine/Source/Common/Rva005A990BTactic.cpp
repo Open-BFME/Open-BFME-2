@@ -1,4 +1,4 @@
-// cl: /MD /GX /DNDEBUG /Ireference/shims/bfme2_ascii
+// cl: /O1 /MD /GX /DNDEBUG /Ireference/shims/bfme2_ascii
 //
 // The "AIBasePenetrationTroopsTactic" skirmish-AI tactic (vtable 0x00871DB4;
 // ctor 0x005A9988 in Rva004ECECDTacticCtors.cpp, dtor 0x005A990B and ??_G in
@@ -14,7 +14,7 @@
 //               owner's record has a positive +0x16C, and the request's
 //               object (0x002C5DA6) is of the wanted kind and free
 //   0x005A994B  slot 2: clear the flag
-//   0x005A9A89  slot 3 (not here yet): flag the unit (+0x2E0 / +0x307
+//   0x005A9A89  slot 3: flag the unit (+0x2E0 / +0x307
 //               bits, +0x2D4 = 5) and set the flag
 //   0x005A9916  slot 6: 0x004ED372 with the +0x20 record's +0x0C point
 //   0x005A9923  slot 7: while running (+0x10), stop (0x004ED748(1, 0)) when
@@ -96,7 +96,21 @@ public:
 	Object *rva002C5DA6();
 };
 
-struct Rva005A990BUnit;
+// WorldBuilder sets bit indices 8 and 9 in the +0x2E0 mask and 90
+// in the +0x2FC mask. Target measures seven words in each accessed view.
+struct TacticKindMask
+{
+	unsigned int bits[7];
+	unsigned int &word(unsigned int bit) { return bits[bit / 32]; }
+	void set(unsigned int bit) { word(bit) |= 1UL << (bit % 32); }
+};
+struct Rva005A990BUnit
+{
+	char pad[0x2D4];
+	int m_2D4;
+	char pad2D8[0x2E0 - 0x2D8];
+	TacticKindMask m_2E0, m_2FC;
+};
 
 class AITactic
 {
@@ -132,6 +146,7 @@ class AIBasePenetrationTroopsTactic : public AITacticOffensive
 {
 public:
 	virtual ~AIBasePenetrationTroopsTactic();
+	virtual bool initializeTeamTemplate(Rva005A990BUnit *, void *);
 	virtual bool canRun(void *request);
 	virtual void cleanUp();
 	virtual void run();
@@ -172,4 +187,21 @@ void AIBasePenetrationTroopsTactic::update()
 {
 	if (m_running && (m_record->m_18 || rva004ED169()))
 		end(1, 0);
+}
+
+// Retail 0x005A9A89..0x005A9ACD, 68 bytes, vftable slot 3 (ret 8).
+// WB 0x01519B80 names initializeTeamTemplate and asserts the owner record
+// at AIBasePenetrationTroopsTactic.cpp:114. The template's original argument
+// type and the unused second word remain unknown; the measured view follows
+// the base's existing signature. All flag indices and offsets are native.
+bool AIBasePenetrationTroopsTactic::initializeTeamTemplate(Rva005A990BUnit *unit, void *)
+{
+	unit->m_2E0.set(8);
+	unit->m_2E0.set(9);
+	unit->m_2FC.set(90);
+	unit->m_2D4 = 5;
+	Rva002A8AB1Record *record = g_00DFEEF8->rva002A8AB1(m_owner);
+	if (record)
+		record->rva002C717E(AIBasePenetrationTroopsTactic_IsRunning, 1);
+	return true;
 }
