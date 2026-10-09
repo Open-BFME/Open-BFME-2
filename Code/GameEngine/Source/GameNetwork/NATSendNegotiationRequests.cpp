@@ -111,13 +111,17 @@ struct NAT
 	unsigned char m_8E4[8];	// per-slot gate
     int m_8ec[8];
     NetPacketAddress *m_addresses[8];
-    char m_pad92c[0x94c-0x92c];
+    char m_pad92c[0x943-0x92c];
+    bool m_probeAnnounced;
+    unsigned m_944;
+    unsigned m_nextProbe;
     int m_state94c;
     int m_state950;
     char m_pad954[0x96c-0x954];
     unsigned m_nextHostUpdate;
     bool m_970;
     static unsigned s_hostUpdateInterval;
+    static unsigned s_probeRetryInterval;
 
 	void rva005A7A96(const std::vector<Rva005A7A96Pair> *pairs);
     void rva005A74D8();
@@ -219,7 +223,7 @@ void NAT::rva005A7C9C() {
 
 extern "C" __declspec(dllimport) int __cdecl sscanf(const char *,const char *,...);
 extern "C" __declspec(dllimport) char *__cdecl strtok(char *,const char *);
-struct NetPacketAddress { unsigned ip;unsigned short port; };
+struct NetPacketAddress { unsigned ip;unsigned short port; NetPacketAddress(unsigned i,unsigned short p):ip(i),port(p){} };
 #pragma pack(push,1)
 // Canonical Transport ring witness: same40E stride and field offsets;
 // this local representation accesses the packet storage, not a second class view.
@@ -299,4 +303,21 @@ void NAT::rva005A73DE(Rva005A7A96Slot *slot) {
  name.translate(slot->m_name);
  request.unknown_04=name.str();request.unknown_40=options.str();
  g_00A02340->f6(&request);
+}
+
+// Target callback5A831E validates the peer index, sends the selected endpoint
+// a PROBE, announces it once, and schedules the next probe using the1500ms
+// data value referenced at VA DD35B8. Reference NAT supplies probe semantics.
+unsigned NAT::s_probeRetryInterval=1500;
+void NAT::rva005A831E() {
+ if(m_targetSlot<0 || m_targetSlot>=8) {m_state94c=4;return;}
+ Rva005A7A96Slot *slot=m_8[m_targetSlot];
+ unsigned ip=m_addresses[m_targetSlot]->ip;
+ unsigned short port=m_addresses[m_targetSlot]->port;
+ AsciiString options;
+ options.format("PROBE%d %X",m_localSlot,m_cookie);
+ m_04->queueSend(&NetPacketAddress(ip,port),(const unsigned char *)options.str(),options.getLength()+1);
+ m_04->doSend();
+ if(!m_probeAnnounced) {rva005A73DE(slot);m_probeAnnounced=true;}
+ m_nextProbe=timeGetTime()+s_probeRetryInterval;
 }
