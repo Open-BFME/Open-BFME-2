@@ -1,6 +1,3 @@
-// ?Render@W3DStatusCircle@@UAEXAAVRenderInfoClass@@@Z
-// partial score=0.985 date=2026-10-09
-// ?Render@W3DStatusCircle@@UAEXAAVRenderInfoClass@@@Z
 // Target 0x0008E7A4, 1779 bytes, through RET 4 at 0x0008EE94.
 // Source lead: BF1 f98983a7d W3DStatusCircleRenderBFME.cpp; ZH W3DStatusCircle.cpp.
 // Target calls both buffer updates; +C8/+CC/+D0 are the fade mode/previous/current
@@ -100,7 +97,7 @@ public:
 	static void Get_DX8_Render_State_Value_Name(StringClass &, unsigned long, unsigned int);
 };
 
-class GameLogic { public: bool rva00085124(); };
+#include "../../../../GameEngine/Source/Common/GameLogicObjectLookupView.h"
 class ScriptEngine;
 extern GameLogic *TheGameLogic;
 class GlobalData;
@@ -281,11 +278,12 @@ void W3DStatusCircle::Render(RenderInfoClass &)
 	if (previousIntensity < 0.0f) {
 		previousIntensity = intensity;
 	} else if (currentIntensity != previousIntensity) {
-		intensity = (1.0f - frameFraction) * previousIntensity +
-			frameFraction * currentIntensity;
-	} else {
-		intensity = previousIntensity;
-	}
+        Real old = previousIntensity;
+        intensity = old;
+        Real inv = 1.0f - frameFraction;
+        intensity *= inv;
+        intensity += currentIntensity * frameFraction;
+    } else { intensity = previousIntensity; }
 	intensity *= 255.0f;
 	Int clr = (Int)intensity;
 	Int diffuse = (0xff << 24) | (clr << 16) | (clr << 8) | clr;

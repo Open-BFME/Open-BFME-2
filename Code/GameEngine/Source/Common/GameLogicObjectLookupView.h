@@ -87,6 +87,7 @@ private:
 	bool m_backgroundPending; // +0x1BC
 
 public:
+	bool rva00085124();	// 0x00085124; verified mode 4-or-7 predicate
 	bool isInMultiplayerGame();	// 0x00042235
 	bool rva0042219();	// 0x00042219, mode gate rejecting 9, 4 and 7
 	bool rva001DCD1C();	// 0x001DCD1C, mode 8 or mode 9 with +0x114 != 3
