@@ -1,35 +1,26 @@
 // ?loadDirectory@INI@@QAE_NVAsciiString@@_NW4INILoadType@@PAVXfer@@H@Z
-// partial score=0.99 date=2026-10-08
+// Native2E63B..2E850 includes the shared throw block after RET20.
+// The matched find44B implementation is a byte-identical select-any copy;
+// keeping its definition visible supplies MSVC call-result information and
+// reproduces four TEST EAX,EAX sites that a declaration alone changes to CMP.
 // cl: /Ireference/shims/bfme2_ascii /EHsc /MD /O1 /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /Ireference/shims/bfmealloc
 // stlport
 //
-// ?loadFile@INI@@QAEEVAsciiString@@W4INILoadType@@PAVXfer@@@Z
-// @0x0002DC75 (195B, catch funclets at 0x0002DCE1 and 0x0002DD00 included).
-//
-// Target evidence: thiscall, ret 0xC, returns a byte in AL; the by-value
-// filename is released through rowed 0x00036410 on both exits. Same setup as
-// the load variants 0x0002DA4B and 0x0002DD38: rowed setFPMode (0x00040EA9),
-// arg 3 into 0x00DDF57C, then 0x0002D2C1 with &arg1 and arg 2. When that
-// returns zero the function releases filename and returns 0 without entering
-// the try. Otherwise the loop tests the end-of-file byte at +0x430, calls rowed
-// readLine 0x0002D669, then 0x0002C0F5 with &arg1; the loop exit runs rowed
-// 0x0002BF4A and returns 1. catch(INIException &) rethrows a copy built through
-// rowed 0x0002F681 from the caught message and count; catch(...) runs
-// 0x0002BF4A and rethrows. Callers OR the result across several files
-// (0x00054120, 0x0031B4D6) and SubsystemInterfaceList::initSubsystem
-// (0x001B5266) calls it per InitFile.
-//
-// Donor (BFME1 ini.cpp): prepFile and unPrepFile are carried names, and BFME1's
-// provisional loadFile (0x00853A20) is the analogous entry point; the name here
-// is that existing pin, not a recovered original. BFME1's version returns
-// void and stops on a failed prepFile through DEBUG_CRASH/throw, so the
-// byte result is target-specific.
+// BFME1 9cbfb551 GeneralsMD INI.cpp supplies the two-pass load algorithm.
+// Native2E63B..2E850 establishes the byte result, filter and complete extent.
+// The main return ends2E846; the following shared throw block is part of
+// this compiled body and matches through2E850. The adjacent parser begins2E850.
 
 #include "ascii_string.h"
 #include <set>
 
 template<> inline void StringBase<char>::concat(char c) { concat(&c, 1); }
 
+// ?StringBase<char>::find present-unmatched
+template<> __declspec(noinline) inline const char*StringBase<char>::find(char c)const{
+ const char*p=m_data?&m_data->data[0]:""; const char*end=p+(m_data?m_data->length:0);
+ while(p!=end){if(*p==c)return p;++p;}return 0;
+}
 class Xfer;
 
 enum INILoadType
@@ -79,35 +70,6 @@ public:
 extern void setFPMode();
 extern void *g_00DDF57C; // s_xfer, provider INI_readLine.cpp
 
-unsigned char INI::loadFile(AsciiString filename, INILoadType loadType, Xfer *pXfer)
-{
-	setFPMode();
-	g_00DDF57C = pXfer;
-	if (!prepFile(filename, loadType))
-		return 0;
-
-	try
-	{
-		while (m_endOfFile == false)
-		{
-			readLine();
-			rva0002C0F5(filename);
-		}
-	}
-	catch (INIException &e)
-	{
-		throw INIException(e.m_argCount, e.mFailureMessage);
-	}
-	catch (...)
-	{
-		unPrepFile();
-		throw;
-	}
-
-	unPrepFile();
-	return 1;
-}
-
 // Donor: GeneralsMD Code/GameEngine/Source/Common/INI/INI.cpp at BFME1
 // revision 6583b3c1. Its loadDirectory has the same two-pass sorted INI load:
 // root files first, then nested paths. Retail evidence supports this identity:
@@ -139,7 +101,7 @@ public:
 // cleanup through the rowed no-case tree dtor at 0x0002CC38 support this local
 // BFME2 FilenameList comparator view.
 	void getFileListInDirectory(const AsciiString &directory,
-		const AsciiString &searchName, void *filenameList, int searchSubdirectories) const;
+		const AsciiString &searchName, FilenameList &filenameList, bool searchSubdirectories) const;
 };
 
 extern FileSystem *TheFileSystem;
@@ -149,7 +111,8 @@ extern FileSystem *TheFileSystem;
 // four-byte element range, compares each element through 0x0002C42F, and
 // returns whether it found a match. Its original name and filter semantics are
 // not established.
-extern bool __cdecl rva0002C5E6(void *candidate, void *filter);
+struct Rva0002C5E6Range { const StringBase<char>*first,*last; };
+extern bool __cdecl Rva0002C5E6(const StringBase<char>&candidate,const Rva0002C5E6Range*filter);
 
 bool INI::loadDirectory(AsciiString dirName, bool subdirs, INILoadType loadType,
 	Xfer *pXfer, int fileFilter)
@@ -164,7 +127,7 @@ bool INI::loadDirectory(AsciiString dirName, bool subdirs, INILoadType loadType,
 		if (!dirName.endsWith("\\"))
 			dirName.concat('\\');
 		TheFileSystem->getFileListInDirectory(dirName, AsciiString("*.ini"),
-			&filenameList, 1);
+			filenameList, true);
 
 		AsciiString tempname;
 		FilenameList::const_iterator it = filenameList.begin();
@@ -187,7 +150,7 @@ bool INI::loadDirectory(AsciiString dirName, bool subdirs, INILoadType loadType,
 				tempname = (*it).str() + dirName.getLength();
 				if (tempname.find('\\') || tempname.find('/'))
 				{
-					if (!rva0002C5E6((void *)&*it, (void *)fileFilter)
+					if (!Rva0002C5E6(*(const StringBase<char>*)&*it,(const Rva0002C5E6Range*)fileFilter)
 						&& loadFile(*it, loadType, pXfer))
 						didLoad = true;
 				}
