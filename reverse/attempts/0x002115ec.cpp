@@ -1,4 +1,6 @@
-// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc
+// ?rva002115EC@Rva002115EC@@QAEXXZ
+// partial score=0.97 date=2026-10-09
+// cl: /O1 /Ob2 /arch:SSE /G7 /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
 // ?rva00211494@Rva00211494@@QAEXXZ, RVA 0x00211494, 113 bytes.
 // Two back-to-back vectors of object pointers at +0x234/+0x240; each element
 // virtual slot 3 (+0x0C) called in index order. Evidence: caller 0x002123BE
@@ -132,9 +134,15 @@ void Rva002141D1::rva002118C2()
     }
 }
 
-// Native21122A27B: copy the item smart handle at1C and return it by value.
-// Native2115EC caller owns and conditionally destroys the returned12B object.
+// Native2115EC726B: instantiate missing particle handles for the two
+// rowed item vectors240 and234 while singleton flag18 is set.
 // Names remain address-derived; offset and call ABI claims are target facts.
+#include "ascii_string.h"
+struct Vec3 {
+ Vec3(){}
+ Vec3(const Vec3 &v){x=v.x;y=v.y;z=v.z;}
+ float x,y,z;
+};
 class RvaSmartPtr12 { public:
  RvaSmartPtr12(const RvaSmartPtr12 &);
  void rva0004CBC0() throw();
@@ -155,3 +163,68 @@ class Rva0021122A {
 public: BfmeParticleSystemHandle rva0021122A() const;
 };
 BfmeParticleSystemHandle Rva0021122A::rva0021122A() const {return particle1C;}
+class Rva003F936EHost {public:void rva003FB793(Vec3 *);};
+struct Rva001F3899Arg {int x,y,z;};
+class Rva001F3899Slot {public:void set(const Rva001F3899Arg &);};
+class Rva001F465EView {public:void unused();};
+// Existing ParticleSystem method takes the target dword unchanged; native
+// stores1 at98, which is not enough evidence to call it a Boolean enable.
+class ParticleEnableView {public:void rva001F465E(void *);};
+class Rva003FC7FCView {public:void unused();};
+class Rva003FD9FA {public:void rva003FD9FA(const RvaSmartPtr12 *,Vec3);};
+class Rva002D3627Host;
+extern Rva002D3627Host *g_00DFEF18;
+struct ParticleSetupEnabledView {char pad[0x18];bool enabled18; bool enabled()const{return enabled18;} };
+class ParticleSystemTemplate;
+namespace FXParticleSystem {class ParticleSystemTemplate;}
+class ParticleSystemManager {public:
+ ParticleSystemTemplate *findTemplate(const AsciiString &) const;
+ BfmeParticleSystemHandle createParticleSystem(const ParticleSystemTemplate *,bool);
+};
+extern ParticleSystemManager *TheParticleSystemManager;
+class Rva002115EC {public:
+ char pad00[0x130];AsciiString template130;Vec3 position134;
+ char pad140[0x16c-0x140];AsciiString template16C;Vec3 position170;
+ char pad17C[0x234-0x17c];
+ Rva0021122A **begin234,**end238;void *cap23C;
+ Rva0021122A **begin240,**end244;void *cap248;
+ void rva002115EC();
+};
+void Rva002115EC::rva002115EC() {
+ if(!((ParticleSetupEnabledView *)g_00DFEF18)->enabled())return;
+ unsigned i;
+ Vec3 position;
+ for(i=0;i<(unsigned)(end244-begin240);++i) {
+  _ReadWriteBarrier();
+  if(!begin240[i]->rva0021122A()) {
+   ParticleSystemTemplate *definition=TheParticleSystemManager->findTemplate(AsciiString(template130.str()));
+   if(definition) {
+    BfmeParticleSystemHandle handle=TheParticleSystemManager->createParticleSystem((const ParticleSystemTemplate *)definition,true);
+    if(handle) {
+     ((Rva003F936EHost *)begin240[i])->rva003FB793(&position);
+     ((Rva001F3899Slot *)handle.operator->())->set(*(const Rva001F3899Arg *)&position);
+     handle.operator->()->rva001F465E((void *)1);
+     ((Rva001F3852ByteOneSetter *)handle.operator->())->enable();
+     ((Rva003FD9FA *)begin240[i])->rva003FD9FA((const RvaSmartPtr12 *)&handle,position134);
+    }
+   }
+  }
+ }
+ for(i=0;i<(unsigned)(end238-begin234);++i) {
+  _ReadWriteBarrier();
+  if(!begin234[i]->rva0021122A()) {
+   ParticleSystemTemplate *definition=TheParticleSystemManager->findTemplate(AsciiString(template16C.str()));
+   if(definition) {
+    BfmeParticleSystemHandle handle=TheParticleSystemManager->createParticleSystem((const ParticleSystemTemplate *)definition,true);
+    if(handle) {
+     ((Rva003F936EHost *)begin234[i])->rva003FB793(&position);
+     ((Rva001F3899Slot *)handle.operator->())->set(*(const Rva001F3899Arg *)&position);
+     handle.operator->()->rva001F465E((void *)1);
+     ((Rva001F3852ByteOneSetter *)handle.operator->())->enable();
+     _ReadWriteBarrier();
+     ((Rva003FC7FC *)begin234[i])->rva003FC7C7(*(const RvaSmartPtr12 *)&handle);
+    }
+   }
+  }
+ }
+}
