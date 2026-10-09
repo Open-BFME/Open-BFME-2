@@ -182,11 +182,12 @@ const Image *Rva005D232DGet(Rva005D232DIn*);
 struct Rva005E8C54Source;
 class Rva005E8CB0 {public:Rva005E8CB0(void*,int,void*,const Rva005E8C54Source*);void *m_p;};
 class Rva005E893E;
-class Rva005CE236 {public:Rva005CE236():m_p(0){}~Rva005CE236();void reset(Rva005E893E*);Rva005E893E*m_p;};
+class Rva005CE21C {public:void clear();};
+class Rva005CE236 {public:Rva005CE236():m_p(0){}~Rva005CE236(){((Rva005CE21C*)this)->clear();}void reset(Rva005E893E*);Rva005E893E*m_p;};
 class Rva0057605DSecond {public:Rva0057605DSecond(){}virtual ~Rva0057605DSecond(){};};
 class Rva005CEE9F : public Rva005CF37DBase0,public Rva0057605DSecond {public:Rva005CEE9F(Rva005CF22CBig*,int);virtual ~Rva005CEE9F();private:void *m_region;Rva005CE236 m_build;};
-class S3RegionPanel {public:virtual void slot0();virtual void setImage(const Image*);virtual void slot2();virtual void slot3();virtual void slot4();virtual void slot5();virtual void setCallback(const Rva005CE4B2&);virtual void slot7();virtual void show();};
-class S3CommandSlots {public:virtual void slot0();virtual void createButton(int,const Rva005CE2A1&);};
+class S3RegionPanel {public:virtual void slot0();virtual void setImage(const Image*);virtual void slot2();virtual void slot3();virtual void slot4();virtual void slot5();virtual void setCallback(const Rva005CE4B2&);virtual void slot7();virtual void show();virtual void slot9();virtual void hide();};
+class S3CommandSlots {public:virtual void slot0();virtual void createButton(int,const Rva005CE2A1&);virtual void deleteButton(int);};
 // Native374B5CF07E..5CF1F4 and WB15C2BB0 unnamed strategic region UI
 // constructor. Existing dtor5CEE9F and scalar wrapper5CF1F4 own the
 // primary vtableC7522C; listener at8 and regionC precede owned helper10.
@@ -220,4 +221,16 @@ Rva005CEE9F::Rva005CEE9F(Rva005CF22CBig*b,int x):Rva005CF37DBase0(b),m_region((v
 void Rva005CF22COwner::rva005CF22C(int x) {
  Rva005CEE9F *h=new Rva005CEE9F(m_a,x);
  m_a->m_sub.rva00575674(h);
+}
+
+class Rva002B7250 {public:void rva002B7250(CreateAHeroData*);};
+class Rva004E0750 {public:void rva004E0750()const;};
+Rva005CEE9F::~Rva005CEE9F(){
+ ((Rva002B7250*)((char*)m_region+8))->rva002B7250((CreateAHeroData*)static_cast<Rva0057605DSecond*>(this));
+ void *view=m_owner->m_view10;
+ S3RegionPanel *panel=(S3RegionPanel*)((Rva0042D703PtrChaseField*)view)->get();
+ if(panel)panel->hide();
+ S3CommandSlots *slots=(S3CommandSlots*)((Rva0042D69DPtrChaseField*)view)->get();
+ if(slots)slots->deleteButton(5);
+ ((const Rva004E0750*)m_region)->rva004E0750();
 }
