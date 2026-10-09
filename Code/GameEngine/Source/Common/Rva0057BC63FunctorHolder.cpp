@@ -36,8 +36,20 @@ class Rva0057BC63FunctorWrapper : public FunctorWrapperHead
 {
 public:
 	Rva0057BC63FunctorWrapper(const FunctorBinding &binding) : m_binding(binding) {}
+	void invoke();
 	FunctorBinding m_binding;
 };
+
+// Fresh BF1 f98983a7 whole FunctorBindInvokers.cpp supplies the ordinary
+// multiple-inheritance member-pointer invocation. The donor has 41 names
+// for this shape; none is asserted as the target's original class name.
+// Target514EA0..514EAB is the complete tail jump, immediately afterRET4.
+// Independently, this wrapper's existing native ctor5185BA installsC6FAA0,
+// whose second slot names514EA0; its four copied binding words establish
+// object+8 and the actual {code,delta} member-pointer words+10/+14.
+void Rva0057BC63FunctorWrapper::invoke() {
+    (m_binding.m_target->*m_binding.m_method)();
+}
 
 class Rva0057BC63FunctorHolder
 {
