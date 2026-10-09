@@ -17055,3 +17055,6 @@ _isdigit,0x00629982,Native6F97F0 suffix parser calls PE isdigit import thunk6299
 ?rva003EA12A@ScriptConditions@@IAE_NPAVParameter@@@Z,0x003EA12A,callee of ?evaluateConditionHelper@ScriptConditions@@IAE_NPAVCondition@@@Z
 ?rva003EA228@ScriptConditions@@IAE_NPAVParameter@@_N@Z,0x003EA228,callee of ?evaluateConditionHelper@ScriptConditions@@IAE_NPAVCondition@@@Z
 _malloc,0x00628F92,CRT malloc import linker thunk (jmp [0xBBA6EC])
+??0Rva005C1980@@QAE@XZ,0x005C1926,default ctor of the Rva005C1980 stats record (its dtor is rowed at 0x005C1980); caller the AptStats subclass ctor 0x005C19B6
+?renderAsQuads@W3DSnowManager@@QAEXAAVRenderInfoClass@@HHHH@Z,0x00093CC3,W3DSnowManager::renderAsQuads (BFME1 W3DSnowManagerRender donor name; ret 0x14); caller W3DSnowManager::render 0x0009470F
+?renderSubBox@W3DSnowManager@@QAEXAAVRenderInfoClass@@HHHH@Z,0x00093507,W3DSnowManager::renderSubBox (BFME1 W3DSnowManagerRender donor name; ret 0x14); caller W3DSnowManager::render 0x0009470F
