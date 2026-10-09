@@ -46,3 +46,28 @@ void *Rva00170A31Iterator::previousPayload() const
 {
     return reinterpret_cast<char *>(_STL::_Rb_global<bool>::_M_decrement(node)) + 16;
 }
+
+// Whole clean BF1 f989 Map/Rva0019F890FillHelper.cpp supplies reverse-pointer
+// iterator leads. Native329D28..329D2E and329D2E..329D34 are separate complete
+// six-byte entries between RET boundaries; the following entry has a fresh
+// stack-argument prologue. Their only observed state is receiver word0.
+// The first returns that word minus four; the second subtracts four in place
+// and returns the receiver. Original specializations, pointer types and owner
+// identities remain unknown. Separate prefix views avoid assuming adjacency
+// establishes a shared class; unsigned arithmetic models the raw32-bit result.
+struct Rva00329D28WordPrefix {
+    unsigned word;
+    unsigned previousAddressBits() const;
+};
+unsigned Rva00329D28WordPrefix::previousAddressBits() const {
+    return word - 4u;
+}
+
+struct Rva00329D2EWordPrefix {
+    unsigned word;
+    Rva00329D2EWordPrefix &retreat();
+};
+Rva00329D2EWordPrefix &Rva00329D2EWordPrefix::retreat() {
+    word -= 4u;
+    return *this;
+}
