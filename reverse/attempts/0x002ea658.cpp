@@ -1,4 +1,6 @@
 // ?rva002EA658@Pathfinder@@QAE_NPAVObject@@AAUTCheckMovementInfo@@PBUICoord2D@@@Z
+// partial score=0.918554 date=2026-10-09
+// ?rva002EA658@Pathfinder@@QAE_NPAVObject@@AAUTCheckMovementInfo@@PBUICoord2D@@@Z
 // partial score=0.97 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
 // NEAR (helper draft for 0x002EA658 rva002EA658; the two other bodies here are
