@@ -486,6 +486,7 @@ class AITactic
 {
 public:
 	virtual ~AITactic();
+	virtual bool canRun(void *request);
 	virtual void cleanUp();
 	virtual void initializeTeamTemplate();
 	virtual void v4();
@@ -515,6 +516,7 @@ class AIStructureCreepTactic : public Rva005DCC24
 {
 public:
 	virtual ~AIStructureCreepTactic();
+	virtual bool canRun(void *request);
 	virtual void cleanUp();
 	virtual void xfer(Xfer *xfer);
 	bool findBestInterestZone();
@@ -605,6 +607,21 @@ void AIStructureCreepTactic::cleanUp()
 		obj->setTeam(obj->getControllingPlayer()->m_defaultTeam);
 		record->m_140.rva00599825(m_58);
 	}
+}
+
+bool AIStructureCreepTactic::canRun(void *request)
+{
+	if (m_nextRun == (unsigned int)-1 || m_nextRun <= TheGameLogic->getFrame()) {
+		Rva002A8AB1Record *record = g_00DFEEF8->rva002A8AB1(m_owner);
+		if (record->rva002C7196(AIStructureCreep_IsRunning) == 0
+			&& !record->m_160->m_names.empty()
+			&& record->m_140.rva00599870(((Rva004EBF4B *)record)->rva004EBF4B(), 0) != 0) {
+			Rva00596389 *stats = ((Rva005AB7E5Objects *)g_00DFEEF8->rva002A8F24(m_owner))->m_0C;
+			if (stats->rva00596394() >= 700u && findBestInterestZone())
+				return true;
+		}
+	}
+	return false;
 }
 
 bool AIStructureCreepTactic::findBestInterestZone()
