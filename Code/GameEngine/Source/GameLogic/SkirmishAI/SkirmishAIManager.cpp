@@ -8,6 +8,8 @@
 // corresponding offsets and flag implementation differ from this target.
 #include <vector>
 #include <algorithm>
+#include <map>
+#include <new>
 
 class Player;
 class CreateAHeroData;
@@ -37,6 +39,8 @@ class AIStatCollector
 {
 public:
     void Register(Object *);
+    AIStatCollector(Player *);
+    unsigned char nativeStorage[0x38];
 };
 class Rva002A8F24
 {
@@ -45,8 +49,15 @@ public:
     void *rva002A8F24(Player *);
     void rva002A9365(Object *);
     void findPreSpawnedObjects();
+    void *addNewAIForPlayer(Player *);
+    void rva002A95F9();
 private:
-    unsigned char prefix00[0x934];
+    unsigned char prefix00[0x860];
+    bool forceAI860;
+    unsigned char gap861[0x908-0x861];
+    _STL::map<int,int> collectors908;
+    _STL::vector<const class ModuleData *> teams914;
+    unsigned char builders920[0x14];
     _STL::vector<ObjectID> heroIDs934;
 };
 
@@ -110,4 +121,58 @@ void Rva002A8F24::findPreSpawnedObjects() {
                 rva002A9365(it.cur());
         }
     }
+}
+
+class GameInfo {
+public:
+    virtual void slot00();
+    virtual void slot04();
+    virtual void slot08();
+    virtual void slot0C();
+    virtual void slot10();
+    virtual void slot14();
+    virtual void slot18();
+    virtual void slot1C();
+    virtual void slot20();
+    virtual void slot24();
+    virtual void slot28();
+    virtual void slot2C();
+    virtual void slot30();
+    virtual void slot34();
+    virtual void slot38();
+    virtual void slot3C();
+    virtual void slot40();
+    virtual void slot44();
+    virtual bool slot48();
+    virtual bool slot4c();
+};
+extern GameInfo *TheGameInfo;
+class GameLogic;
+extern GameLogic *TheGameLogic;
+class Rva0023C6A4 { public: bool rva00200084(); };
+void Rva004ECE14Clear();
+class AIGameTeam { public: void rva004E94FB(); };
+// WB E8D0A0 names newMap. Native2A95F9..2A9706 preserves the
+// multiplayer/replay guards and AI/collector split before team startup.
+// addNewAIForPlayer remains a separately banked unconverted dependency.
+void Rva002A8F24::rva002A95F9() {
+    if (!TheGameInfo || (!TheGameInfo->slot48() && !TheGameInfo->slot4c()) ||
+        ((Rva0023C6A4 *)TheGameLogic)->rva00200084())
+        return;
+    Rva004ECE14Clear();
+    for (int i=0; i<ThePlayerList->playerCount14; ++i) {
+        Player *player=ThePlayerList->getNthPlayer(i);
+        if (player->rva002AA245()) {
+            if (*(int *)((char *)player+0x5c)==1 || forceAI860)
+                addNewAIForPlayer(player);
+            else {
+                AIStatCollector *collector=new AIStatCollector(player);
+                int id=*(int *)((char *)player+0x54);
+                collectors908[id]=(int)collector;
+            }
+        }
+    }
+    for (const ModuleData **it=teams914.begin(); it!=teams914.end(); ++it)
+        ((AIGameTeam *)*it)->rva004E94FB();
+    findPreSpawnedObjects();
 }
