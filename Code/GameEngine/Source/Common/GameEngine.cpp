@@ -327,7 +327,6 @@ void GameEngine::startHeadlessClients(int numClients)
 // Offsets +0x40 and +0x48..0x5C are established by the complete retail body.
 // The diagnostic global keeps its existing provisional name: its pointee
 // type is not established; retail invokes the rowed clear at 0x002CEC34.
-// ?GameEngine::reset present-unmatched
 void GameEngine::reset(void)
 {
 	WindowLayout *background =
