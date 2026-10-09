@@ -25,3 +25,24 @@ Rva004E6A37 Rva004E6A1D::rva004E6BF6() {
  m_ptr=0;
  return Rva004E6A37(transfer);
 }
+
+// ?rva002B54BB@Rva002B54BB@@QAE?AVRva002B4349@@XZ @0x002B54BB (62B): the same ownership transfer on another owner whose
+// consuming holder is Rva002B4349 (rowed destructor 0x002B4349). Target evidence: retail body and the destructor
+// REL32 read byte for byte; names are address-derived.
+class Rva002B4349 {
+public:
+ Rva004E6935 *m_ptr;
+ Rva002B4349(Rva004E6935 *p=0):m_ptr(p) {}
+ Rva002B4349(Rva002B4349 &v) { Rva004E6935 *p=v.m_ptr; v.m_ptr=0; m_ptr=p; }
+ ~Rva002B4349();
+};
+class Rva002B54BB {
+public:
+ Rva004E6935 *m_ptr;
+ Rva002B4349 rva002B54BB();
+};
+Rva002B4349 Rva002B54BB::rva002B54BB() {
+ Rva002B4349 transfer(m_ptr);
+ m_ptr=0;
+ return Rva002B4349(transfer);
+}
