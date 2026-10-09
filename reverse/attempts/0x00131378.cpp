@@ -1,3 +1,5 @@
+// ?loadAuxImage@Rva0013107A@@QAE_NXZ
+// partial score=0.97 date=2026-10-09
 // Retail131965..131A04 volume159B and131A04..131A9D cube153B.
 // Target D3D9 import identities are independently read from the PE import table.
 // Stack option values and field offsets are target facts. ZH textureloader
@@ -25,8 +27,6 @@ struct TextureCOM9 {
  virtual void slot3()=0;virtual void slot4()=0;virtual void slot5()=0;virtual void slot6()=0;virtual void slot7()=0;virtual void slot8()=0;virtual void slot9()=0;virtual void slot10()=0;virtual void slot11()=0;virtual void slot12()=0;virtual unsigned __stdcall GetLevelCount()=0;virtual void slot14()=0;virtual void slot15()=0;virtual void slot16()=0;
  virtual long __stdcall GetLevelDesc(unsigned,void*)=0;
  virtual long __stdcall GetVolumeLevel(unsigned,VolumeCOM9**)=0;
- virtual long __stdcall LockRect(unsigned,void*,const void*,unsigned)=0;
- virtual long __stdcall UnlockRect(unsigned)=0;
 };
 extern "C" long __stdcall D3DXCreateVolumeTextureFromFileInMemoryEx(void*,const void*,unsigned,unsigned,unsigned,unsigned,unsigned,unsigned,int,int,unsigned,unsigned,unsigned,void*,void*,TextureCOM9**);
 extern "C" long __stdcall D3DXCreateCubeTextureFromFileInMemoryEx(void*,const void*,unsigned,unsigned,unsigned,unsigned,int,int,unsigned,unsigned,unsigned,void*,void*,TextureCOM9**);
@@ -97,6 +97,8 @@ struct TexturePostLoadCOM9 {
  virtual unsigned __stdcall GetLevelCount();
  virtual void s14();virtual void s15();virtual void s16();virtual void s17();
  virtual long __stdcall GetSurfaceLevel(unsigned,SurfaceResource **);
+ virtual long __stdcall LockRect(unsigned,void *,const void *,unsigned);
+ virtual long __stdcall UnlockRect(unsigned);
 };
 class SurfaceClass {public:void DrawPixel(unsigned,unsigned,unsigned);};
 class W3DRadarResetSurface {public:W3DRadarResetSurface(SurfaceResource *);~W3DRadarResetSurface();SurfaceResource *surface;
@@ -152,64 +154,50 @@ load:
  }
 }
 
-// Native13154B..131821726B; WB9D15E0 dispatches separate color/alpha,
-// uncompressed TGA24/32 fast conversion, or D3DX generic loading. The source
-// types represent the target TGA header and COM lock descriptors, not a
-// recovered private game layout. The minimum-bit loop explicitly tests
-// ratio>1 before parity: this retains native generic/finalizer blocks ahead
-// of the cold pixel-copy path. The negative creation branch is required too.
-extern "C" long __stdcall D3DXCheckTextureRequirements(void*,unsigned*,unsigned*,unsigned*,unsigned,int*,int);
 extern "C" long __stdcall D3DXCreateTexture(void*,unsigned,unsigned,unsigned,unsigned,int,int,TextureCOM9**);
 extern "C" long __stdcall D3DXCreateTextureFromFileInMemoryEx(void*,const void*,unsigned,unsigned,unsigned,unsigned,unsigned,int,int,unsigned,unsigned,unsigned,void*,void*,TextureCOM9**);
-extern "C" void *__cdecl memcpy(void*,const void*,unsigned);
+extern "C" long __stdcall D3DXLoadSurfaceFromFileInMemory(SurfaceResource*,void*,const void*,const void*,unsigned,const void*,unsigned,unsigned,void*);
 struct TextureLockedRect {int pitch;unsigned char *bits;};
-#pragma pack(push,1)
-struct TextureTgaHeader {unsigned char id,colorMap,type;char rest[9];short width,height;unsigned char bits,flags;};
-#pragma pack(pop)
-void Rva0013107A::loadImage() {
- TextureDeviceLock lock;TextureCOM9 *texture=0;
- if(m_secondBuffer){loadAuxImage();}
- else {
-  const TextureTgaHeader *header=(const TextureTgaHeader*)m_source;
-  if(m_imageMode==2 && header->type==2 && header->id==0 && header->colorMap==0 && (header->bits==24||header->bits==32) && header->width%4==0 && !(header->flags&0xf0)){
-   int format=header->bits==24?22:21;
-   if(D3DXCheckTextureRequirements(DX8Wrapper::D3DDevice,&m_width,&m_height,0,0,&format,1)>=0 && m_width==(int)header->width && m_height==(int)header->height && format==(header->bits==24?22:21)) {
-    if(D3DXCreateTexture(DX8Wrapper::D3DDevice,header->width,header->height,m_mipLevels,0,format,1,&texture)<0) {texture=0;} else {
-     TextureLockedRect rect;
-     if(texture->LockRect(0,&rect,0,0x800)>=0){
-      unsigned char *dst=rect.bits+(header->height-1)*rect.pitch;
-      const unsigned char *src=(const unsigned char*)m_source+18;
-      if(header->bits==24){
-       for(int y=header->height;y>0;--y){
-        unsigned char *d=dst;const unsigned char*p=src;
-        for(int x=header->width/4;x>0;--x){
-         d[0]=p[0];d[1]=p[1];d[2]=p[2];d[4]=p[3];d[5]=p[4];d[6]=p[5];d[8]=p[6];d[9]=p[7];d[10]=p[8];d[12]=p[9];d[13]=p[10];d[14]=p[11];p+=12;d+=16;
-        }
-        dst-=rect.pitch;src+=header->width*3;
-       }
-      } else {
-       int stride=header->width*4;
-       for(int y=header->height;y>0;--y){memcpy(dst,src,stride);src+=stride;dst-=rect.pitch;}
-      }
-      texture->UnlockRect(0);
+bool Rva0013107A::loadAuxImage(){
+ if(!m_secondBuffer || !m_secondSize)return false;
+ void **resource=&m_resource;
+ *resource=0;
+ m_format=21;
+ TextureCOM9 *texture;
+ if(D3DXCreateTexture(DX8Wrapper::D3DDevice,m_width,m_height,m_mipLevels,0,m_format,1,&texture)<0)return false;
+ bool copied=false;
+ SurfaceResource *surface;
+ if(reinterpret_cast<TexturePostLoadCOM9 *>(texture)->GetSurfaceLevel(0,&surface)<0)goto freeTexture;
+ if(D3DXLoadSurfaceFromFileInMemory(surface,0,0,m_source,m_size,0,-1,0,0)<0)goto freeSurface;
+ {
+  TextureCOM9 *alpha;
+  if(D3DXCreateTextureFromFileInMemoryEx(DX8Wrapper::D3DDevice,m_secondBuffer,m_secondSize,m_width,m_height,1,0,28,2,-1,-1,0,0,0,&alpha)<0)goto freeSurface;
+  TextureSurfaceDesc desc;
+  alpha->GetLevelDesc(0,&desc);
+  if(desc.format==28 || desc.format==50 || desc.format==21){
+   int stride=1,offset=0;
+   if(desc.format==21){offset=3;stride=4;}
+   struct {TextureLockedRect alphaRect,colorRect;} rects;
+   if(reinterpret_cast<TexturePostLoadCOM9 *>(texture)->LockRect(0,&rects.colorRect,0,0)>=0){
+    if(reinterpret_cast<TexturePostLoadCOM9 *>(alpha)->LockRect(0,&rects.alphaRect,0,0)>=0){
+     copied=true;
+     unsigned char *colorRow=rects.colorRect.bits,*alphaRow=rects.alphaRect.bits;
+     for(unsigned y=0;y<m_height;++y){
+      unsigned char *a=alphaRow+offset,*c=colorRow+3;
+      for(unsigned x=0;x<m_width;++x){*c=*a;a+=stride;c+=4;}
+      alphaRow+=rects.alphaRect.pitch;colorRow+=rects.colorRect.pitch;
      }
-     if(m_mipLevels!=1)D3DXFilterTexture(texture,0,0,5);
-     goto finish;
+     reinterpret_cast<TexturePostLoadCOM9 *>(alpha)->UnlockRect(0);
     }
+    reinterpret_cast<TexturePostLoadCOM9 *>(texture)->UnlockRect(0);
    }
   }
-  {
-   int skip=0;
-   if(m_imageMode==4){
-    int ratio=m_sliceWidth/m_width;
-    if(ratio>1 && m_width*ratio==m_sliceWidth && m_height*ratio==m_sliceHeight){
-     while(ratio>1 && !(ratio&1)){ratio>>=1;++skip;}
-     if(ratio!=1)skip=0;
-    }
-   }
-   if(D3DXCreateTextureFromFileInMemoryEx(DX8Wrapper::D3DDevice,m_source,m_size,m_width,m_height,m_mipLevels,0,m_format,1,-1,((skip&31)<<26)|5,0,0,0,&texture)<0)texture=0;
-  }
+  alpha->Release();
  }
- finish:
- if(texture){TextureSurfaceDesc desc;texture->GetLevelDesc(0,&desc);m_format=desc.format;texture->QueryInterface(TextureBaseInterfaceID,&m_resource);texture->Release();texture=0;}
+ freeSurface:
+ surface->Release();
+ if(copied){D3DXFilterTexture(texture,0,0,-1);texture->QueryInterface(TextureBaseInterfaceID,resource);}
+ freeTexture:
+ texture->Release();
+ return *resource!=0;
 }
