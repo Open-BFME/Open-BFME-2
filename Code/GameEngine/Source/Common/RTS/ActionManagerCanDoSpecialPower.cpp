@@ -32,7 +32,7 @@ public:
 class SpecialPowerTemplate : public Overridable
 {
 public:
-	SpecialPowerType getSpecialPowerType() const
+	__declspec(dllimport) __forceinline SpecialPowerType getSpecialPowerType() const
 	{
 		return ((const SpecialPowerTemplate *)friend_getFinalOverride())->m_type;
 	}

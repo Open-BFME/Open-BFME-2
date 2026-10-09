@@ -83,7 +83,7 @@ public:
 class Player
 {
 public:
-	Int getPlayerColor() const { return m_color; }
+	__declspec(dllimport) __forceinline Int getPlayerColor() const { return m_color; }
 
 private:
 	char m_pad000[0x280];
