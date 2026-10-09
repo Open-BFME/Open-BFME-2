@@ -4154,7 +4154,6 @@ name,address,notes
 ??1Rva001F4540Vec@@UAE@XZ,0x003A6201,"destructor the vector deleting destructor 0x001F4540 calls and hands to the eh vector destructor iterator (DIR32 at 0x001F454F); opaque address name"
 ??1Rva001F4B01@@UAE@XZ,0x001F4B01,"destructor the scalar deleting destructor 0x001F4B47 calls (REL32 at 0x001F4B4A; vtable 0x00BE171C#0); opaque address name"
 ??1Rva001F4D22@@UAE@XZ,0x001F4D22,"destructor the scalar deleting destructor 0x001F61E5 calls (REL32 at 0x001F61E8; vtable 0x00BE174C#0); opaque address name"
-??1Rva001F9D98@@UAE@XZ,0x001F9D98,"destructor the scalar deleting destructor 0x001FA779 calls (REL32 at 0x001FA77C; vtable 0x00BE18C8#0); opaque address name"
 ??1Rva001FBD17@@UAE@XZ,0x001FBD17,"destructor the scalar deleting destructor 0x001FC17F calls (REL32 at 0x001FC182; vtable 0x00BE1A10#0); opaque address name"
 ??1Rva001FBF4D@@UAE@XZ,0x001FBF4D,"destructor the vector deleting destructor 0x001FC052 calls and hands to the eh vector destructor iterator (DIR32 at 0x001FC061); opaque address name"
 ??1Rva001FC036@@QAE@XZ,0x001FBF4D,non-virtual dtor called directly by scalar deleting dtor 0x001FC036; owning class unproven
@@ -4641,7 +4640,6 @@ name,address,notes
 ??1Rva00575395@@UAE@XZ,0x00575395,base destructor called last by the destructor 0x00575D45 (byte-exact modulo relocs in MemberBaseDtorsB01.cpp); identity unproven; address-derived name
 ??1Rva0057571C@@QAE@XZ,0x0057571C,destructor called by the vtable-referenced scalar deleting dtor 0x00575700 (REL32 at +4 of its 28B delete-flag wrapper); identity unproven; address-derived name
 ??1Rva00575D45@@UAE@XZ,0x00575D45,opaque dtor called by the scalar deleting dtor at 0x00575E32 (vtable 0x00C6E664#0); identity unproven; address-derived name
-??1Rva00575F38@@UAE@XZ,0x00575F38,opaque dtor called by the scalar deleting dtor at 0x005760E9 (vtable 0x00C6E720#1); identity unproven; address-derived name
 ??1Rva0057605D@@UAE@XZ,0x00575E9C,dtor installs its own vftable 0x00C6E6A0 (bytes at ++23) and is the REL32 callee of the slot-0 ??_G at 0x005760B1
 ??1Rva005764F9@@UAE@XZ,0x005764F9,opaque dtor called by the scalar deleting dtor at 0x005767A4 (vtable 0x00C6E78C#0); identity unproven; address-derived name
 ??1Rva00576591@@UAE@XZ,0x00576591,opaque dtor called by the scalar deleting dtor at 0x005767C0 (vtable 0x00C6E798#0); identity unproven; address-derived name
@@ -17030,3 +17028,5 @@ _log,0x00629B0E,log double import thunk (gen-import row ji_00629b0e: msvcr71 slo
 ?Rva00559CE5@@YA?AVUnicodeString@@HH@Z,0x00559CE5,Complete native559CE5..559D0C39B and WB13F9F20 establish cdecl UnicodeString(side int; rank int) wrapper forwarding through rowed Rva00559B4BCheck and Rva00559C3D; same direct callee at5A02DC in named player tooltip; original wrapper name unresolved; prior37B bank is not recovery
 ?generatePortNumbers@NAT@@IAEXPAPAVGameSlot@@H@Z,0x005A678E,BFME1 protected NAT::generatePortNumbers donor at9cbfb551 plus complete native5A678E..5A683C174B and WB014DB9D0 prove the eight-slot starting-port and forced-local-port helper; BFME2 additionally caches each updated two-word address at NAT+90C; direct call from named WB014DBB90/native5A6BD0 attachSlotList; no competing owner or named address
 ?rva0060D2E9@XferSave@@QAEXPBD@Z,0x0060D2E9,callee of ?rva0060D435@XferSave@@QAEHPBD@Z
+??1Rva001F8D70Map@@QAE@XZ,0x001F8D70,thiscall dtor of the ParticleSystemManager +0x88 ID map (the ledger's dup_001f8d70 is a free-function placeholder spelling; the caller ParticleSystemManager dtor 0x001F9D98 loads ECX with this+0x88)
+?rva002B256E@Rva002B256E@@QAEPAXXZ,0x002B256E,thiscall getter (every caller loads ECX first; the ledger's Rva002B256EGet is a free-function spelling); caller the PlanningPhaseBehavior::Impl dtor 0x00575F38
