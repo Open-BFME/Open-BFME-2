@@ -109,3 +109,17 @@ void *Rva00068DC6CurrentObject::get() const
     void *object = m_current->m_object;
     return object ? (char *)object - 8 : 0;
 }
+
+// Clean BF1 f98983a7 HelixContain.cpp/OpenContain.cpp under O1/SSE2/G6
+// emits this nullable interface-projection expression. Its OpenContain and
+// ExitInterface labels remain donor facts. Native 4647F0..4647FD is a whole
+// RET0 leaf after complete RET4 and before the following argument setter.
+// It takes one ECX pointer, tests that pointer minus 0x20, and returns the
+// pointer plus 0x10 or null, with no memory read or other input. This free
+// fastcall ABI view preserves those operations without adding a class view
+// or claiming original inheritance, interfaces, signature or function name.
+void *__fastcall Rva004647F0Adjust( void *baseAt20 )
+{
+    char *complete = static_cast<char *>(baseAt20) - 0x20;
+    return complete ? static_cast<char *>(baseAt20) + 0x10 : 0;
+}
