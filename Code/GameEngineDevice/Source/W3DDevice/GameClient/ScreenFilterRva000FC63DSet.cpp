@@ -116,8 +116,12 @@ class ShaderClass
 {
 public:
 	static ShaderClass _PresetOpaqueShader;
-private:
-	unsigned int m_bits[3];
+	static ShaderClass _PresetAlphaShader;
+	unsigned bits;
+	ShaderClass(unsigned value) : bits(value) {}
+	static __forceinline void Force_Dirty() { ShaderDirty = true; }
+protected:
+	static bool ShaderDirty;
 };
 
 struct BFME2TextureResource;
@@ -164,9 +168,13 @@ struct IDirect3DDevice8
 
 extern unsigned number_of_DX8_calls;
 
+class DX8Caps;
+
 class DX8Wrapper
 {
 public:
+	static DX8Caps *_Get_DX8_Caps() { return CurrentCaps; }
+	static void Set_DX8_Texture_Stage_State(unsigned, unsigned long, unsigned);
 	static IDirect3DDevice8 *_Get_D3D_Device8() { return D3DDevice; }
 	static void Invalidate_Cached_Render_States();
 	static __forceinline void Set_DX8_Texture(unsigned stage, IDirect3DBaseTexture8 *texture)
@@ -204,6 +212,7 @@ protected:
 	static IDirect3DDevice8 *D3DDevice;
 	static IDirect3DBaseTexture8 *Textures[16];
 	static unsigned texture_changes;
+	static DX8Caps *CurrentCaps;
 };
 
 #define REF_PTR_RELEASE(x) { if (x) x->Release_Ref(); x = 0; }
@@ -337,4 +346,187 @@ void Rva000FC63DFilter::reset()
 	DX8Wrapper::_Get_D3D_Device8()->SetPixelShader(0);
 	++number_of_DX8_calls;
 	DX8Wrapper::Invalidate_Cached_Render_States();
+}
+
+#include "../../../../Libraries/Include/Lib/Coord2D.h"
+struct D3DXVECTOR4
+{
+	float x, y, z, w;
+	D3DXVECTOR4() {}
+	D3DXVECTOR4(float a, float b, float c, float d) : x(a), y(b), z(c), w(d) {}
+};
+struct IDirect3DTexture8 : IDirect3DBaseTexture8 {};
+class W3DShaderManager
+{
+public:
+	static IDirect3DTexture8 *endRenderToTexture();
+};
+struct BfmeDevice;
+
+struct BfmeDeviceVtable
+{
+	char pad000[0x104];
+	long (__stdcall *SetTexture)(BfmeDevice *, unsigned int, void *);
+	char pad108[0x44];
+	long (__stdcall *DrawPrimitiveUP)(BfmeDevice *, unsigned int,
+		unsigned int, const void *, unsigned int);
+	char pad150[0x14];
+	long (__stdcall *SetVertexShader)(BfmeDevice *, unsigned int);
+};
+
+struct BfmeDevice
+{
+	BfmeDeviceVtable *v;
+};
+
+// The matched viewport calls use TheTacticalView at VA 0x00DFEA3C.
+class View;
+extern View *TheTacticalView;
+#define BfmeDeviceGlobal ((BfmeDevice *)DX8Wrapper::_Get_D3D_Device8())
+
+
+/* ShaderClass::_PresetAlphaShader is declared below. */
+
+class BfmeTacticalView
+{
+public:
+	virtual void slot00();
+	virtual void slot01();
+	virtual void slot02();
+	virtual void slot03();
+	virtual void slot04();
+	virtual void slot05();
+	virtual void slot06();
+	virtual void slot07();
+	virtual void slot08();
+	virtual void slot09();
+	virtual void slot10();
+	virtual void slot11();
+	virtual void slot12();
+	virtual void slot13();
+	virtual void slot14();
+	virtual Int getWidth();
+	virtual void slot16();
+	virtual Int getHeight();
+	virtual void slot18();
+	virtual void getOrigin(Int *, Int *);
+};
+
+// TU-local view of the tactical view singleton; the witnessed slots are read here.
+static inline BfmeTacticalView *theTacticalView() { return (BfmeTacticalView *)TheTacticalView; }
+
+struct BfmeCaps
+{
+	char pad[0x2A8];
+	Bool dot3;
+};
+
+// DOT3 postRender: native 0x000FCF54..0x000FD257 (771B; RET16).
+// Slot 3 of vftable 0x007CF3F4, beside the unrowed set at 0x000FD257.
+// BFME 1 f98983a7 game/GameEngineDevice/Source/W3DDevice/GameClient/
+// ScreenFilterRva007D3580PostRender.cpp supplies the clean two-pass contract.
+// Target evidence proves capability byte +0x2A8, D3D9 slots 65/83/89,
+// cached texture ownership, shader dirty flag and the same fade value used
+// by the setup above. Constant half-pixel and 255 alpha factors are native.
+// The owner stays address-derived; no original class name or inheritance
+// is asserted. Complete body bytes and every relocation match.
+class Rva000FCF54Filter
+{
+public:
+	virtual int init();
+	virtual int shutdown();
+	virtual bool preRender(bool &, int &);
+	virtual bool postRender(FilterModes, Coord2D &, bool &, Coord2D *);
+	virtual bool setup(FilterModes);
+protected:
+	virtual int set(FilterModes);
+	virtual void reset();
+};
+// ?postRender@Rva000FCF54Filter@@UAE_NW4FilterModes@@AAVCoord2D@@AA_NPAV3@@Z @0x000FCF54
+Bool Rva000FCF54Filter::postRender(FilterModes mode, Coord2D &scrollDelta,
+	Bool &doExtraRender, Coord2D *displaySize)
+{
+	IDirect3DTexture8 *tex = W3DShaderManager::endRenderToTexture();
+	if (!tex)
+		return false;
+	if (!set(mode))
+		return false;
+
+	BfmeDevice *pDev = BfmeDeviceGlobal;
+	Int xpos, ypos, width, height;
+	struct Vertex
+	{
+		D3DXVECTOR4 p;
+		unsigned int color;
+		Real u;
+		Real v;
+	} v[4];
+
+	theTacticalView()->getOrigin(&xpos, &ypos);
+	width = theTacticalView()->getWidth();
+	height = theTacticalView()->getHeight();
+
+	v[0].p = D3DXVECTOR4(xpos + width - 0.5f,
+		ypos + height - 0.5f, 0.0f, 1.0f);
+	v[0].u = (1.0f / displaySize->x) *
+		(Real)(xpos + width);
+	v[0].v = (1.0f / displaySize->y) *
+		(Real)(ypos + height);
+	v[1].p = D3DXVECTOR4(xpos + width - 0.5f,
+		ypos - 0.5f, 0.0f, 1.0f);
+	v[1].u = (1.0f / displaySize->x) *
+		(Real)(xpos + width);
+	v[1].v = (1.0f / displaySize->y) * (Real)ypos;
+	v[2].p = D3DXVECTOR4(xpos - 0.5f,
+		ypos + height - 0.5f, 0.0f, 1.0f);
+	v[2].u = (1.0f / displaySize->x) * (Real)xpos;
+	v[2].v = (1.0f / displaySize->y) *
+		(Real)(ypos + height);
+	v[3].p = D3DXVECTOR4(xpos - 0.5f,
+		ypos - 0.5f, 0.0f, 1.0f);
+	v[3].u = (1.0f / displaySize->x) * (Real)xpos;
+	v[3].v = (1.0f / displaySize->y) * (Real)ypos;
+	unsigned int currentFade =
+		((Int)((1.0f - g_Va00DEC1B0) * 255.0f) << 24) |
+		0x00ffffff;
+	v[0].color = currentFade;
+	v[1].color = currentFade;
+	v[2].color = currentFade;
+	v[3].color = currentFade;
+
+	BfmeDevice *fvfDevice = BfmeDeviceGlobal;
+	fvfDevice->v->SetVertexShader(fvfDevice, 0x144);
+	++number_of_DX8_calls;
+	if (((struct BfmeCaps *)DX8Wrapper::_Get_DX8_Caps())->dot3)
+	{
+		DX8Wrapper::Set_DX8_Render_State(60, 0x80a5ca8e);
+		DX8Wrapper::Set_DX8_Texture_Stage_State(0, 26, 35);
+		DX8Wrapper::Set_DX8_Texture_Stage_State(0, 2, 2);
+		DX8Wrapper::Set_DX8_Texture_Stage_State(0, 3, 35);
+		DX8Wrapper::Set_DX8_Texture_Stage_State(0, 1, 25);
+		DX8Wrapper::Set_DX8_Texture_Stage_State(1, 2, 1);
+		DX8Wrapper::Set_DX8_Texture_Stage_State(1, 3, 3);
+		DX8Wrapper::Set_DX8_Texture_Stage_State(1, 1, 24);
+	}
+	else
+	{
+		DX8Wrapper::Set_DX8_Render_State(60, 0x60606060);
+		DX8Wrapper::Set_DX8_Texture_Stage_State(0, 2, 2);
+		DX8Wrapper::Set_DX8_Texture_Stage_State(0, 3, 3);
+		DX8Wrapper::Set_DX8_Texture_Stage_State(0, 1, 4);
+	}
+
+	DX8Wrapper::Set_DX8_Texture(0, tex);
+	pDev->v->DrawPrimitiveUP(pDev, 5, 2, v,
+		sizeof(Vertex));
+
+	ShaderClass::Force_Dirty();
+	DX8Wrapper::Set_Shader(
+		ShaderClass(ShaderClass::_PresetAlphaShader.bits | 7));
+	DX8Wrapper::Apply_Render_State_Changes();
+	DX8Wrapper::Set_DX8_Texture_Stage_State(0, 4, 3);
+	pDev->v->DrawPrimitiveUP(pDev, 5, 2, v,
+		sizeof(Vertex));
+	reset();
+	return true;
 }
