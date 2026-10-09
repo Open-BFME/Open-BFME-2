@@ -28,6 +28,10 @@ struct less {
 	bool operator()(const _Tp& __x, const _Tp& __y) const { return __x < __y; }
 };
 
+template <> __declspec(dllimport) __forceinline
+bool less<unsigned int>::operator()(const unsigned int &left, const unsigned int &right) const
+{ return left < right; }
+
 template <class _RandomAccessIter, class _Distance>
 inline void distance(_RandomAccessIter __first, _RandomAccessIter __last, _Distance& __n)
 { __n += __last - __first; }

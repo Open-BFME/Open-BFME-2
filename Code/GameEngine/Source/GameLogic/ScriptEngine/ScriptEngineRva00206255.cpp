@@ -5,6 +5,13 @@
 // BfmeMemberRV::bfmeAskRV pin 0x2AA231, CRC Rva003ECA13Get 0x3ECA13,
 // map<unsigned,void*>::_M_find 0x357180; this+0x1A164 array stride 0xC.
 #include <map>
+// Preserve the native inline unsigned comparison without an external copy.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+bool less<unsigned int>::operator()(const unsigned int &left, const unsigned int &right) const
+{ return left < right; }
+}
+
 
 class AsciiString;
 unsigned long Rva003ECA13Get(const AsciiString &s);

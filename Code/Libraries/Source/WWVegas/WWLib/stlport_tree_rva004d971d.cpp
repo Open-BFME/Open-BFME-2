@@ -7,6 +7,13 @@
 // constructs the already-rowed 40-byte Rva004D971D payload at node +16.
 #define _STLP_NO_EXCEPTIONS 1
 #include <map>
+// Preserve the native inline unsigned comparison without an external copy.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+bool less<unsigned int>::operator()(const unsigned int &left, const unsigned int &right) const
+{ return left < right; }
+}
+
 class Rva004D971D {
     char m_opaque[40];
 public:

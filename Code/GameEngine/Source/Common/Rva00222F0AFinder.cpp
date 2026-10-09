@@ -4,6 +4,13 @@
 // Scan 14-entry table at +0xD8 for -1 slots and return first index absent from map at +0x84.
 // Evidence: _M_find row 0x00357180 plus 0xE loop plus caller 0x00224754 using +0xD8 +0xCC +0x5C.
 #include <map>
+// Preserve the native inline unsigned comparison without an external copy.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+bool less<unsigned int>::operator()(const unsigned int &left, const unsigned int &right) const
+{ return left < right; }
+}
+
 typedef _STL::map<unsigned int, void *> Map84_t;
 enum { Map84Size = sizeof(Map84_t) };
 class Rva00222F0A

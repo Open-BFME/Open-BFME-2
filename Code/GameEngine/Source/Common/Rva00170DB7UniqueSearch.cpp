@@ -9,6 +9,13 @@
 // rowed worker at 0x00170BFF. The container and value identities remain
 // address-derived; the record models only observed return bytes and layout.
 #include <map>
+// Preserve the native inline unsigned comparison without an external copy.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+bool less<unsigned int>::operator()(const unsigned int &left, const unsigned int &right) const
+{ return left < right; }
+}
+
 
 class Rva00170999;
 

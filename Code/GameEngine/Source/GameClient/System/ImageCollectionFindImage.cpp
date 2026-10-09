@@ -10,6 +10,13 @@
 // base (vptr + byte@4 + dword@8 zeroed by 0x001B4E63).
 
 #include <map>
+// Preserve the native inline unsigned comparison without an external copy.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+bool less<unsigned int>::operator()(const unsigned int &left, const unsigned int &right) const
+{ return left < right; }
+}
+
 
 enum NameKeyType
 {
