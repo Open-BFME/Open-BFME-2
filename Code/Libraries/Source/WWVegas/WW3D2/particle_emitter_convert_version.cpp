@@ -31,6 +31,7 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 // Select the BFME2 legacy kernel32 import declarations before reference headers.
 #include <sweep/winbase_shim.h>
 
+#include "../../../../../reference/shims/bfme_tri_math/vector3.h"
 #include "rendobj.h"	// the bfmerendobj shim has to win the include guard
 #include "winbase_shim.h"
 #define MAX_PATH 260

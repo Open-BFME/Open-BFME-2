@@ -606,7 +606,6 @@ Code/Libraries/Source/WWVegas/WW3D2/StreakRendererInit.cpp,-arch:SSE -G7,1,1,reg
 Code/Libraries/Source/WWVegas/WW3D2/TextureBaseReleaseRefThunk.cpp,-O2,1,1,region default loses rows
 Code/Libraries/Source/WWVegas/WW3D2/TextureClassReleaseRef.cpp,-O2,1,1,region default loses rows
 Code/Libraries/Source/WWVegas/WW3D2/TextureStatisticsVector.cpp,,10,1,region default loses rows
-Code/Libraries/Source/WWVegas/WW3D2/W3dUtilityConvertShader.cpp,-O1,1,1,region default loses rows
 Code/Libraries/Source/WWVegas/WW3D2/W3d_Shader_Reset.cpp,-O1,1,1,region default loses rows
 Code/Libraries/Source/WWVegas/WW3D2/camera.cpp,-arch:SSE -G7,55,33,region default loses rows
 Code/Libraries/Source/WWVegas/WW3D2/coltest.cpp,,2,2,region default loses rows

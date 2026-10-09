@@ -118,7 +118,6 @@ void W3dUtilityClass::Convert_Color(const Vector4 & v,W3dRGBAStruct * color)
 	color->A = (uint8)(255.0f * v.W);
 }
 
-// ?W3dUtilityClass::Convert_Shader present-unmatched
 void W3dUtilityClass::Convert_Shader(const W3dShaderStruct & shader,ShaderClass * set)
 {
 	set->Set_Depth_Compare		((ShaderClass::DepthCompareType)W3d_Shader_Get_Depth_Compare(&shader));
@@ -142,7 +141,8 @@ void W3dUtilityClass::Convert_Shader(const W3dShaderStruct & shader,ShaderClass 
 	set->Set_Post_Detail_Alpha_Func ((ShaderClass::DetailAlphaFuncType) W3d_Shader_Get_Detail_Alpha_Func (&shader));
 }
 
-// ?W3dUtilityClass::Convert_Shader present-unmatched
+// Match the size-optimized retail converter and retain its helper providers here.
+#pragma optimize("gsy", on)
 void W3dUtilityClass::Convert_Shader(const ShaderClass & shader,W3dShaderStruct * set)
 {
 	W3d_Shader_Reset(set);
@@ -157,3 +157,5 @@ void W3dUtilityClass::Convert_Shader(const ShaderClass & shader,W3dShaderStruct 
 	W3d_Shader_Set_Post_Detail_Color_Func(set,shader.Get_Post_Detail_Color_Func());
 	W3d_Shader_Set_Post_Detail_Alpha_Func(set,shader.Get_Post_Detail_Alpha_Func());
 }
+
+#pragma optimize("", on)
