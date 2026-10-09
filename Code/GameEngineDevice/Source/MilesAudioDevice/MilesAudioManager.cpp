@@ -867,6 +867,7 @@ public:
     };
 
     void setMaxAmbientStreams(void);
+    void internalSetReverbRoomType(int roomType);
     void rva0005452B(void);
     void rva000606CE(bool accelerated);
     void rva00060123(unsigned int viewMask);
@@ -2922,7 +2923,6 @@ public:
 private:
     PlayingAudio *m_ptr;
 };
-class Rva000512C4 { public: void rva000512C4(int roomType); };
 // WorldBuilder's shouldUseDolbyProvider, under its ledger name. The manager
 // word at +0xBF0 must be 1..5 (beyond the members modelled above).
 class Rva00051525 {
@@ -3053,7 +3053,7 @@ void MilesAudioManager::rva000606CE(bool accelerated)
     }
     setHardwareAccelerated(accelerated);
     if (m_selectedProvider != (unsigned int)-1) {
-        ((Rva000512C4 *)this)->rva000512C4(m_atBE4);
+        internalSetReverbRoomType(m_atBE4);
         slot10();
     }
 }
@@ -3101,7 +3101,7 @@ void MilesAudioManager::onAudioLODChanged(void)
     if (needReselect)
         rva000606CE(false);
     else
-        ((Rva000512C4 *)this)->rva000512C4(m_atBE4);
+        internalSetReverbRoomType(m_atBE4);
     setMaxAmbientStreams();
 }
 

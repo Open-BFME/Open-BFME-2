@@ -10,16 +10,11 @@ private:
     bool m_held;
 };
 
-class Rva000512C4
-{
-public:
-    void rva000512C4(int a);
-};
-
 class MilesAudioManager
 {
 public:
     void rva000530DF();
+    void internalSetReverbRoomType(int roomType);
 private:
     char m_pad0[0x9d4];
     int m_mutex9D4;
@@ -31,5 +26,5 @@ void MilesAudioManager::rva000530DF()
 {
     MilesMutexGuard guard(&m_mutex9D4, 0);
     m_0BE4 = 0;
-    ((Rva000512C4 *)this)->rva000512C4(0);
+    internalSetReverbRoomType(0);
 }

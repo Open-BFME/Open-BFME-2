@@ -1,5 +1,8 @@
 // cl: /DNDEBUG /MD
-// ?rva000512C4@Rva000512C4@@QAEXH@Z @ 0x000512C4 143B: audio room update via AIL with LOD gate; evidence TheGameLODManager extern IAT mss32 AIL_set_3D_room_type and AIL_set_digital_master_room_type callers 0x530DF 0x5522C
+// ?internalSetReverbRoomType@MilesAudioManager@@QAEXH@Z @ 0x000512C4 143B.
+// WorldBuilder 0x0078DC90 names it (MilesAudioManager.cpp:6327);
+// the full retail body shares its LOD gate, provider layout, AIL calls
+// and reverb-enabled/dirty byte updates at +0x6A7/+0x6A8.
 class GameLODManager
 {
 public:
@@ -15,7 +18,7 @@ extern "C" __declspec(dllimport) void __stdcall AIL_set_digital_master_room_type
 
 struct RoomEntry { int room; char _p[8]; };
 
-class Rva000512C4
+class MilesAudioManager
 {
 public:
 	char _p0[0x678];
@@ -28,10 +31,10 @@ public:
 	int m_9d0;
 	char _p3[0x9dc - 0x9d4];
 	int m_9dc;
-	void rva000512C4(int a);
+	void internalSetReverbRoomType(int a);
 };
 
-void Rva000512C4::rva000512C4(int a)
+void MilesAudioManager::internalSetReverbRoomType(int a)
 {
 	int edi = a;
 	if (edi != 0)
