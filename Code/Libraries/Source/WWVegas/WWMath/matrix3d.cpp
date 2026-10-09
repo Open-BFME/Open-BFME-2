@@ -33,6 +33,13 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 // the binary are defined here; Multiply and Lerp are omitted because the retail
 // build's inlining/codegen for them drifted from this source (see report).
 
+// Preserve native inlined CRT adapters without competing external copies.
+#pragma push_macro("inline")
+#define inline __declspec(dllimport) __forceinline
+#include <math.h>
+#pragma pop_macro("inline")
+#include "../../../../../reference/shims/bfme_matrix3d_link/vector4.h"
+#include "../../../../../reference/shims/bfme_matrix3d_link/matrix3d.h"
 #include "rendobj.h"	// the bfmerendobj shim has to win the include guard
 #include "matrix3d.h"
 
