@@ -42,3 +42,22 @@ Rva000F0D22Record6 *Rva000F0D22Indexed::rva000F0D22(int index)
 	return m_items + index;
 }
 
+
+// Clean BF1 f98983a7d3bb405f1a4ba94bb6a2a168062a819d whole WWLib/
+// mixfile.cpp emits VectorClass<FileInfoStruct>::operator[] as a source lead.
+// Other donor element names emit the same bytes, so no container/element
+// identity is asserted. NativeF0BE4..F0BF1 follows complete RET0 atF0BE3
+// and precedes a new EH prologue: stack word times12 plus receiver word+4,
+// returned in EAX with RET4 and no pointed data access or bounds test.
+// This consumed-prefix view retains raw32 address arithmetic; original
+// receiver, field meaning, signedness and complete layout remain unknown.
+struct Rva000F0BE4IndexedWords
+{
+    unsigned int unknown0;
+    unsigned int addressBits;
+    unsigned int elementAddressBits(unsigned int index) const;
+};
+unsigned int Rva000F0BE4IndexedWords::elementAddressBits(unsigned int index) const
+{
+    return addressBits + index * 12u;
+}
