@@ -153,11 +153,7 @@ public:
 	virtual void * rva0005E959();
 };
 
-class Rva000869CF
-{
-public:
-	float * rva000869CF();
-};
+#include "../GameClient/Rva000869CF.h"
 
 class VideoPlayer
 {

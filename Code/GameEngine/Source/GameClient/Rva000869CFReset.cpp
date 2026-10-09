@@ -1,4 +1,7 @@
 // cl: /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /DBFME_MODULE_NO_MPO /DZH_EMIT_POOL_GLUE /Ireference/shims/bfmerendobj /Ireference/shims/debugvtable /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/bfmeanimobj /Ireference/shims/indexbuffercount /Ireference/shims/bfmecaps /Ireference/shims/bfmehcanim /Ireference/shims/bfmevector /Ireference/shims/bfmemapper /Ireference/shims/meshmatdesclayout /Ireference/shims/bfmeshader /Ireference/shims/bfmecpudetect /Ireference/shims/bfmepool /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWAudio /Ireference/shims/bfmealloc /Ireference/shims/bfmehashtable /Ireference/shims/bfmelist /Ireference/shims/asciistring_downloadmanager /Ireference/shims/stlp_nodealloc /Ireference/shims/asciistring_thin /ICode/GameEngine/Source/Common /Ireference/shims/w3droadbuffer /Ireference/shims/bfmeterraintracks /ICode/Libraries/Include/Lib
+extern "C" void _ReadWriteBarrier(void);
+#pragma intrinsic(_ReadWriteBarrier)
+
 // ?rva000869CF@Rva000869CF@@QAEXXZ @0x000869CF 79B zero-init method, callers 0x00088D0A 0x00086F56 0x0008D477 0x0008D925, no vtable, no donor
 struct Rva000869CFVec3
 {
@@ -7,50 +10,7 @@ struct Rva000869CFVec3
 	float z;
 };
 
-class Rva00088D0AMember
-{
-public:
-	virtual float v0();
-	virtual float v1();
-	virtual void v2();
-	virtual void v3();
-	virtual void v4();
-	virtual void v5();
-	virtual void v6();
-	virtual void v7(float value);
-};
-
-class Rva000869CF
-{
-public:
-	float *rva000869CF();
-	void rva00088D0A(float value, int unused, float scale);
-
-	char m_pad0[0x4c];
-	float m_4c;
-	char m_pad50[0x58 - 0x50];
-	int m_58;
-	int m_5c;
-	char m_pad60[0x8];
-	float m_68;
-	char m_pad6c[0x170];
-	unsigned char m_1dc;
-	char m_pad1dd[0x27];
-	unsigned char m_204;
-	char m_pad205[0x23];
-	unsigned char m_228;
-	char m_pad229[0x53];
-	unsigned char m_27c;
-	unsigned char m_27d;
-	char m_pad27e[0x20d6];
-	int m_2354;
-	char m_pad2358[0x70];
-	unsigned char m_23c8;
-	char m_pad23c9[0x83];
-	float m_244cArr[3];
-	char m_pad2458[0x24c8 - 0x2458];
-	Rva00088D0AMember m_24c8;
-};
+#include "Rva000869CF.h"
 
 float *Rva000869CF::rva000869CF()
 {
@@ -84,4 +44,43 @@ void Rva000869CF::rva00088D0A(float value, int unused, float scale)
 	m_24c8.v7(m_24c8.v1() * scale);
 	if (m_24c8.v0() > m_24c8.v1())
 		m_24c8.v7(m_24c8.v0());
+}
+
+
+// ?rva00086A94@Rva000869CF@@QAEXHHM@Z @0x00086A94 152B; target call at 0x00089C2D reads the 768-float history and index at +0x2070.
+void Rva000869CF::rva00086A94(int a, int b, float c)
+{
+	int index = m_2070;
+	_ReadWriteBarrier();
+	float *p = &m_1470[index];
+	m_146c = c;
+	switch (b) {
+	case 2:
+		p[-2] = c;
+		p[-1] = m_1470[0];
+		break;
+	case 1:
+		p[-1] = p[-2] - p[-3] + p[-2];
+		break;
+	case 0:
+		p[-1] = p[-2];
+		break;
+	default:
+		p[-1] = p[-2];
+		break;
+	}
+	switch (a) {
+	case 2:
+		m_1468 = p[-3];
+		break;
+	case 1:
+		m_1468 = m_146c - m_1470[0] + m_146c;
+		break;
+	case 0:
+		m_1468 = m_146c;
+		break;
+	default:
+		m_1468 = m_146c;
+		break;
+	}
 }
