@@ -70,12 +70,29 @@ class Rva002E204D { public: Rva002E0D93 *rva002E204D(Rva002E0D93 *); };
 // Existing opaque native predicate at 0x00318F42. Native and WB identify
 // the receiver as an element of m_armyVec; its original method is unknown.
 class Mbr002E0B30 { public: unsigned char pred(); };
+// Three-word RGB copies are proven by the native color setter and the
+// recovered MultiplayerColorDefinition constructor. Reference getNumColors
+// supplies the lazy-count semantics; target settings fields are38 and40.
+// The extra color triplets' original field names remain unknown.
+struct LivingWorldPlayerRGBColorView { float r,g,b; };
+class MultiplayerColorDefinition { public:
+ char unknown00[4]; LivingWorldPlayerRGBColorView rgbAt04;
+ char unknown10[0x24-0x10]; LivingWorldPlayerRGBColorView rgbAt24,rgbAt30;
+};
+class MultiplayerSettings { public:
+ MultiplayerColorDefinition *getColor(int);
+ int getNumColors() { if(numColors==0) numColors=listCount; return numColors; }
+private: char unknown00[0x38]; int listCount; int unknown3C; int numColors;
+};
+extern MultiplayerSettings *TheMultiplayerSettings;
+
 class LivingWorldPlayer
 {
 public:
 	typedef _STL::vector<void *> ArmyVec;
 
 	void OnUnitDequeued(Rva00319CED *unit);
+	void SetColorIndex(Int color);
 	void **RemoveArmy(void **&iter);
 	bool rva002E12F3(int key);
 	bool rva002E0B30();
@@ -83,7 +100,9 @@ public:
     void GetRevivalUnitData(int key, LivingWorldRevivalUnitDataView *out);
 
 private:
-	unsigned char m_pad000[0x1a8];
+	unsigned char m_pad000[0x180];
+	Int m_colorIndex;
+	LivingWorldPlayerRGBColorView m_color184,m_color190,m_color19C;
 	_STL::vector<LivingWorldPlayerRecordView> m_records;
 	unsigned char m_pad1B4[4];
 	ArmyVec m_armyVec;			// +0x1B8
@@ -158,4 +177,20 @@ bool LivingWorldPlayer::rva002E0B30()
  for(unsigned int i=0; i<(unsigned)((span[1]-span[0])>>2); ++i)
   if (((Mbr002E0B30 *)m_armyVec[i])->pred()) return true;
  return false;
+}
+
+// WBDE36A0 names SetColorIndex; native2E0F91..2E1001 RET4,112B.
+// Keep the old index unless settings and an in-range new index are available.
+// Once selected, copy definition triplets24/04/30 to player184/190/19C.
+void LivingWorldPlayer::SetColorIndex(Int color)
+{
+ if(m_colorIndex==color || !TheMultiplayerSettings || color<0 ||
+    color>=TheMultiplayerSettings->getNumColors()) return;
+ m_colorIndex=color;
+ MultiplayerColorDefinition *definition=TheMultiplayerSettings->getColor(color);
+ if(definition) {
+  m_color184=definition->rgbAt24;
+  m_color190=definition->rgbAt04;
+  m_color19C=definition->rgbAt30;
+ }
 }
