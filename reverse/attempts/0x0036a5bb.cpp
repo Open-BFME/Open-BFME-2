@@ -1,5 +1,5 @@
 // ?rva0036A5BB@Rva00368004@@QAEHXZ
-// partial score=0.84 date=2026-10-09
+// partial score=0.91127 date=2026-10-09
 // cl: /MD /O1 /Oy- /arch:SSE /G7 /EHs
 // ?rva00368004@Rva00368004@@QAE_NXZ @0x00368004 17B
 // Null-checked virtual forward: if +0x3C pointer is null return false else
@@ -194,6 +194,8 @@ class AIAttackState {public:
 class GoalMachineView {public:
  virtual void s00();virtual void s04();virtual void s08();virtual void s0c();virtual void s10();virtual void s14();virtual void s18();virtual void s1c();virtual void s20();virtual void s24();virtual void s28();virtual void s2c();virtual void s30();virtual void s34();virtual void setGoalObject(const Object*);
 };
+// Native0036A5BB..0036A75C and ZH AIGuardOuterState::onEnter support purpose.
+// Owner spelling retained neutral; offsets and virtual slots follow retail.
 int Rva00368004::rva0036A5BB() {
  Rva0036A75CInfo *info=m_info;
  if(info->getMode()==1)return -1;
@@ -215,7 +217,8 @@ int Rva00368004::rva0036A5BB() {
  float chase=8.0f>(float)TheAI->getAiData()->chaseFrames?8.0f:(float)TheAI->getAiData()->chaseFrames;
  *(unsigned*)((char*)this+0x38)= (unsigned)((float)*(unsigned*)((char*)TheGameLogic+0x40)+chase);
  *(unsigned*)((char*)this+0x24)=7;
- m_ptr=(Rva00368004Inner*)new AIAttackState(getMachine(),false,true,false,&m_conditions);
+  StateMachine *machine=getMachine();
+ m_ptr=(Rva00368004Inner*)new AIAttackState(machine,false,true,false,&m_conditions);
  ((GoalMachineView*)((AIAttackState*)m_ptr)->machine)->setGoalObject(nemesis);
  int result=((AIAttackState*)m_ptr)->onEnter();
  return result==0?0:-1;
