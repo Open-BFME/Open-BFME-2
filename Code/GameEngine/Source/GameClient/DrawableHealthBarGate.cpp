@@ -1,10 +1,15 @@
 // ?rva0027601B@Rva0027601BHost@@QAEXXZ
 // partial score=0.98 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD
-// NEAR draft for ?rva0027601B@Rva0027601BHost@@QAEXXZ 0x0027601B (472 bytes): Drawable health bar
-// gate (WB 0x00CAD980). 472B with every instruction matching except one scheduling
-// residue: retail loads the body vptr (mov eax,[esi]) before the two zero stores of the
-// stack offset pair [ebp-0x14] ahead of the getHealth call; cl keeps the stores first.
+// Native27601B..2761F3 RET0 and WB CAD980 establish the Drawable UI
+// health-bar gate, global flags9BD/9BE, object/body and kind filters.
+// Primary semantic and codegen guide: BF1 f98983a7d3bb405f1a4ba94bb6a2a168062a819d
+// game/GameEngine/Source/GameClient/DrawableHealthBar.cpp (511B donor).
+// Target-specific relationships, offsets and kind numbers are witnessed in
+// retail independently; the original BFME2 method spelling remains unproved.
+// BF1's explicit vtable-view lever separates the health-address load from
+// the zero stores. Each target query has only ECX receiver and ST0 float
+// result, so a one-register function-pointer view preserves that ABI.
 typedef float Real;
 typedef bool Bool;
 typedef int Int;
@@ -113,6 +118,7 @@ public:
 	virtual Real getMaxHealth() const; // +0x18
 };
 
+struct HealthBodyVtable {void *slots[4]; Real (__fastcall *getHealth)(BodyModuleInterface *);void *slot5;Real (__fastcall *getMaxHealth)(BodyModuleInterface *);};
 class Drawable;
 
 class Object
@@ -245,10 +251,11 @@ void Rva0027601BHost::rva0027601B()
 	Real maxHealth = body->getMaxHealth();
 	if (maxHealth == 0.0f)
 		return;
-	Rva0027601BOffset offset;
+	HealthBodyVtable *vtable = *reinterpret_cast<HealthBodyVtable **>(body);
+ Rva0027601BOffset offset;
 	offset.x = 0;
 	offset.y = 0;
-	Real health = body->getHealth();
+	Real health = vtable->getHealth(body);
 	if (health == 0.0f)
 		return;
 	self->rva0027411F(&offset, health / maxHealth);
