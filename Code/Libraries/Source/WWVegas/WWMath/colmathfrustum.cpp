@@ -49,6 +49,7 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 
+#include "../../../../../reference/shims/bfme_tri_math/vector3.h" // retain native inline stores without a competing constructor
 #define COLMATHPLANE_H // use the source-local inline expressions below
 #include "colmath.h"
 #include "colmathinlines.h"

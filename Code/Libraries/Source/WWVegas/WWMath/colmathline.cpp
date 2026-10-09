@@ -15,7 +15,7 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 // Emit retail's /O1 COMDAT copies (Plane ctor, Vector3 operators).
 // TriClass::Collide rows below keep the TU flags.
 #pragma optimize("s", on)
-#include "vector3.h"
+#include "../../../../../reference/shims/bfme_tri_math/vector3.h" // retain native inline stores without a competing constructor
 #include "plane.h"
 #pragma optimize("", on)
 #include "rendobj.h"	// the bfmerendobj shim has to win the include guard
