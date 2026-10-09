@@ -1764,7 +1764,6 @@ name,address,notes
 ??0ArmorUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z,0x004B3468,(Thing*;ModuleData*) ctor called by ArmorUpgrade::friend_newModuleInstance (0x0024FDC7); class from the ModuleFactory registration literal
 ??0AsciiString@@QAE@ABV0@@Z,0x00365F0,address read from the retail REL32 at 0x002E4968 in OptionPreferences::getFirewallNeedToRefresh; AsciiString copy ctor for the it->second copy
 ??0AsciiStringVX@@QAE@ABV0@@Z,0x000365F0,callee of ??0Gen_00491580@@QAE@ABVAsciiStringVX@@0@Z at retail 0x003560C8 and 0x003560D7 read from its REL32 displacements; ICF alias onto StringBase narrow copy ctor rowed at 0x000365F0
-??0AsciiStringWH@@QAE@ABV0@@Z,0x000365F0,callee of 0Gen_003A8BE0 (0x0021613D) at the site its BFME1 donor calls it; may be an ICF alias
 ??0AsciiStringWI@@QAE@ABV0@@Z,0x000365F0,callee of 0Gen_003BEA30 (0x002B59AA) at the site its BFME1 donor calls it; may be an ICF alias
 ??0AsciiStringWN@@QAE@ABV0@@Z,0x000365F0,callee of 0Gen_004E9FD0 (0x00415FAB) at the site its BFME1 donor calls it; may be an ICF alias
 ??0AsciiStringYI@@QAE@PBD@Z,0x00037BA0,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
