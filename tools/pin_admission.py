@@ -710,14 +710,40 @@ def add_pins(pins, notes="", reason=None):
                                     "(pin_consistency: one name, one function)")
     if problems or not new:
         return problems
+    register = ROOT / hatch_counters.BASELINE
+    register_before = register.read_bytes() if register.exists() else None
+    # What the register did not grant before this call (HEAD's own drift, a hand pin) is not
+    # this call's to fix; what it granted then -- an earlier admission of this working change
+    # whose stamp an edit since made stale included -- must still be granted after, in full.
+    owed = (hatch_counters.ungranted(PINS, raw, register_before.decode("utf-8"), earlier=True)
+            if register_before is not None else {})
+    original = raw
     if raw and not raw.endswith(b"\n"):
         raw += eol
     lines = b"".join(f"{p['name']},{p['address']},{p['notes']}".encode("utf-8") + eol for p in new)
     path.write_bytes(raw + lines)
     hatch_counters.admit(PINS, reason or f"pin_admission --add: {len(new)} checked pin(s)",
-                         tokens={p["address"] for p in new}, before=hatch_counters.blob_id(PINS, raw))
+                         tokens={p["address"] for p in new}, before=hatch_counters.blob_id(PINS, original))
+    added = {p["address"] for p in new}
+    after = hatch_counters.ungranted(PINS) if register_before is not None else {}
+    lost = {key: got for key, got in after.items()
+            if key[2] in added or key not in owed or got[1] < owed[key][1]}
+    if lost:
+        # The register must grant every pin just written and every admission made before
+        # it; a pin it does not grant is the silent failure this check exists to stop.
+        path.write_bytes(original)
+        register.write_bytes(register_before)
+        return [f"HATCH REGISTER DOES NOT GRANT pin {key[2]} after admission (symbols.csv "
+                f"carries {carried}, {hatch_counters.BASELINE} grants {granted}"
+                f"{'' if key[2] in added else '; admitted before this call'}); symbols.csv and "
+                "the register are restored -- a tools/hatch_counters.py admit() defect, report it"
+                for key, (carried, granted) in sorted(lost.items())]
     for pin in new:
         print(f"pin admission: added {pin['name']},{pin['address']}")
+    if after:
+        print(f"pin admission: note: {len(after)} other pin address(es) in {PINS} are not "
+              f"granted by {hatch_counters.BASELINE} (not written by this call); "
+              "`python3 tools/hatch_counters.py --staged` names them", file=sys.stderr)
     return []
 
 

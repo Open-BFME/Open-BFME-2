@@ -104,7 +104,12 @@ python3 tools/class_gate.py --staged || fail "new private copy of a class with a
 # approved TU (reverse/tu_map.csv), no private copy of a registered class. Reports,
 # never refuses, until its measured false-rejection rate is under budget.
 python3 tools/tu_ownership.py --staged --shadow || echo "pre-commit: tu_ownership shadow check failed to run (ignored)" >&2
-python3 tools/hatch_counters.py --staged || fail "escape hatches grew or a retail inventory was hand-edited (see above)"
+# In shadow mode the hatch register reports growth without refusing it, and a report
+# printed here scrolls away under the byte-verify output below: 319 pin lines went in
+# unadmitted that way. Its banner is repeated as the hook's last words, on every exit.
+hatch_note=$(mktemp) || fail "temporary file for the hatch register's note"
+trap 'if [ -s "$hatch_note" ]; then cat "$hatch_note" >&2; fi; rm -f "$hatch_note"' EXIT
+python3 tools/hatch_counters.py --staged --note-file "$hatch_note" || fail "escape hatches grew or a retail inventory was hand-edited (see above)"
 python3 tools/code_identity_gate.py --staged || fail "code identity: wrong binding, duplicate definition or hand-made alias (see above)"
 
 staged_sources=()

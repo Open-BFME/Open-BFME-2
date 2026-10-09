@@ -85,6 +85,91 @@ def test_two_tool_writes_in_one_commit_both_pass(tree):
     assert staged(tree) == []
 
 
+def test_an_edit_between_two_tool_writes_keeps_both_admissions(tree):
+    assert pin_admission.add_pins([("?one@@YAXXZ", "0x2000")]) == []
+    pins = tree / "reverse/symbols.csv"
+    pins.write_bytes(pins.read_bytes().replace(b",pin\n", b",pin; renoted by another tool\n"))
+    assert pin_admission.add_pins([("?two@@YAXXZ", "0x3000")]) == []
+    assert hatch_counters.ungranted("reverse/symbols.csv") == {}
+    assert staged(tree) == []
+
+
+def test_hand_pin_between_two_tool_writes_is_still_refused(tree, capsys):
+    assert pin_admission.add_pins([("?one@@YAXXZ", "0x2000")]) == []
+    with (tree / "reverse/symbols.csv").open("a", newline="\n") as handle:
+        handle.write("?typed@@YAXXZ,0x00004000,by hand\n")
+    assert pin_admission.add_pins([("?two@@YAXXZ", "0x3000")]) == []
+    assert "note: 1 other pin address(es)" in capsys.readouterr().err   # the hand pin, and said so
+    assert set(hatch_counters.ungranted("reverse/symbols.csv")) == {("pin", "reverse/symbols.csv", "0x00004000")}
+    problems = staged(tree)
+    assert any("0x00004000" in p for p in problems)
+    assert not any("0x00002000" in p or "0x00003000" in p for p in problems)
+
+
+def _stamp(tree, address):
+    return [line for line in (tree / "reverse/hatch_baseline.tsv").read_text().splitlines()
+            if f"\t{address}\t" in line][0].split("allow=")[1]
+
+
+@pytest.mark.parametrize("stamp", ["neighbour", "0" * 40])
+def test_hand_pin_behind_a_hex_stamped_typed_line_is_still_refused(tree, stamp, capsys):
+    # A typed register line with a blob-shaped stamp -- copied from the tool's own line, or
+    # forged -- is not an admission, and the next --add must not turn it into one.
+    assert pin_admission.add_pins([("?one@@YAXXZ", "0x2000")]) == []
+    stamp = _stamp(tree, "0x00002000") if stamp == "neighbour" else stamp
+    with (tree / "reverse/symbols.csv").open("a", newline="\n") as handle:
+        handle.write("?typed@@YAXXZ,0x00004000,by hand\n")
+    with (tree / "reverse/hatch_baseline.tsv").open("a", newline="\n") as handle:
+        handle.write(f"pin\treverse/symbols.csv\t0x00004000\t1\tallow={stamp}\n")
+    assert any("0x00004000" in p for p in staged(tree))                 # refused before the call
+    assert pin_admission.add_pins([("?two@@YAXXZ", "0x3000")]) == []
+    err = capsys.readouterr().err
+    assert "kept pin in reverse/symbols.csv: 0x00002000 at 1" in err
+    assert "NOT KEPT pin in reverse/symbols.csv: 0x00004000" in err and "note: 1 other pin address(es)" in err
+    assert set(hatch_counters.ungranted("reverse/symbols.csv")) == {("pin", "reverse/symbols.csv", "0x00004000")}
+    problems = staged(tree)                                             # and still refused after it
+    assert any("0x00004000" in p for p in problems)
+    assert not any("0x00002000" in p or "0x00003000" in p for p in problems)
+
+
+def test_pin_renamed_at_an_admitted_address_is_refused_after_the_next_add(tree):
+    assert pin_admission.add_pins([("?one@@YAXXZ", "0x2000")]) == []
+    pins = tree / "reverse/symbols.csv"
+    pins.write_bytes(pins.read_bytes().replace(b"?one@@YAXXZ,0x00002000", b"?unchecked@@YAXXZ,0x00002000"))
+    assert pin_admission.add_pins([("?two@@YAXXZ", "0x3000")]) == []
+    problems = staged(tree)
+    assert any("0x00002000" in p for p in problems) and not any("0x00003000" in p for p in problems)
+
+
+def test_add_fails_loudly_and_restores_when_the_register_does_not_grant(tree, monkeypatch):
+    assert pin_admission.add_pins([("?one@@YAXXZ", "0x2000")]) == []
+    pins, register = tree / "reverse/symbols.csv", tree / "reverse/hatch_baseline.tsv"
+    # another tool's edit: the first admission's stamp now names an older blob
+    pins.write_bytes(pins.read_bytes().replace(b",pin\n", b",pin; renoted by another tool\n"))
+    before = pins.read_bytes(), register.read_bytes()
+    real = hatch_counters.admit
+    # an admit() that writes nothing: the pin just added is not granted
+    monkeypatch.setattr(hatch_counters, "admit", lambda *a, **k: {"admitted": [], "kept": [], "refused": []})
+    problems = pin_admission.add_pins([("?two@@YAXXZ", "0x3000")])
+    assert any("HATCH REGISTER DOES NOT GRANT pin 0x00003000" in p for p in problems)
+    assert (pins.read_bytes(), register.read_bytes()) == before
+
+    # an admit() that resets the earlier admission to HEAD (the old defect) is caught too
+    def resetting(*args, **kwargs):
+        got = real(*args, **kwargs)
+        register.write_text("".join(line for line in register.read_text().splitlines(True)
+                                    if "0x00002000" not in line), newline="\n")
+        return got
+    monkeypatch.setattr(hatch_counters, "admit", resetting)
+    problems = pin_admission.add_pins([("?two@@YAXXZ", "0x3000")])
+    assert problems == [p for p in problems if "pin 0x00002000" in p and "admitted before this call" in p]
+    assert len(problems) == 1
+    assert (pins.read_bytes(), register.read_bytes()) == before
+    monkeypatch.setattr(hatch_counters, "admit", real)               # the real admit() keeps it
+    assert pin_admission.add_pins([("?two@@YAXXZ", "0x3000")]) == []
+    assert staged(tree) == []
+
+
 def test_repeat_of_an_existing_pin_is_a_no_op(tree):
     before = (tree / "reverse/symbols.csv").read_bytes()
     assert pin_admission.add_pins([("?a@@YAXXZ", "0x1010")]) == []

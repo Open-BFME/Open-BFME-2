@@ -1,6 +1,7 @@
 """hatch_counters.py: the escape-hatch register only shrinks by hand; growth needs a
 tool allowance tied to the staged blob; a 2x jump in 24 h freezes allowances until a
 Verifier-Change lift; the retail inventories are tool-owned."""
+import collections
 import os
 import shutil
 import subprocess
@@ -345,6 +346,157 @@ def test_admit_restamps_an_earlier_tool_allowance_in_the_same_file(repo):
     assert subprocess.run([sys.executable, "-c", code], cwd=repo.root, env=env).returncode == 0
     repo.git("add", ".")
     assert staged(repo).returncode == 0                                       # both pins carry the new blob
+
+
+def _pin_lines(repo, pins):
+    """{address: (count, stamp)} of the register's pin lines for PINS."""
+    out = {}
+    for line in repo.read(repo.lay["base"]).splitlines():
+        cells = line.split("\t")
+        if len(cells) >= 4 and cells[0] == "pin" and cells[1] == pins:
+            out[cells[2]] = (int(cells[3]), cells[4][6:] if len(cells) > 4 else None)
+    return out
+
+
+def test_admissions_accumulate_across_an_edit_between_two_admits(repo):
+    # The edit between the calls changed symbols.csv's blob, and the second admit reset the
+    # first's line to HEAD's count: 319 pin lines went in unadmitted across four commits.
+    pins = repo.lay["rev"] + "/symbols.csv"
+    repo.write(pins, repo.read(pins) + "?b@@3HA,0x00001004,tool\n")
+    assert admit(repo, pins, "--tokens", "0x00001004").returncode == 0
+    repo.write(pins, repo.read(pins).replace(",pin\n", ",pin; renoted by another tool\n"))
+    repo.write(pins, repo.read(pins) + "?d@@3HA,0x0000100C,tool\n")
+    got = admit(repo, pins, "--tokens", "0x0000100C")
+    assert got.returncode == 0, got.stderr
+    blob = repo.git("hash-object", pins).strip()
+    lines = _pin_lines(repo, pins)
+    assert lines["0x00001004"] == (1, blob) and lines["0x0000100C"] == (1, blob)
+    repo.git("add", ".")
+    got = staged(repo)
+    assert got.returncode == 0 and "pin +" not in got.stderr, got.stderr
+
+
+def _tool_stamp(repo, pins, address):
+    return _pin_lines(repo, pins)[address][1]
+
+
+@pytest.mark.parametrize("stamp", ["typed-by-hand", "0" * 40, "neighbour"])
+def test_a_hand_pin_between_two_admits_is_still_reported(repo, stamp):
+    pins = repo.lay["rev"] + "/symbols.csv"
+    repo.write(pins, repo.read(pins) + "?b@@3HA,0x00001004,tool\n")
+    assert admit(repo, pins, "--tokens", "0x00001004").returncode == 0
+    if stamp == "neighbour":                     # a real tool stamp, copied from the line above it
+        stamp = _tool_stamp(repo, pins, "0x00001004")
+    # by hand: a new address, and a second name on the address the first call admitted ...
+    repo.write(pins, repo.read(pins) + "?c@@3HA,0x00001008,hand\n?e@@3HA,0x00001004,hand\n")
+    # ... and register lines typed for them: one added, one raised to the file's count
+    repo.write(repo.lay["base"], repo.read(repo.lay["base"]).replace(
+        "pin\t%s\t0x00001004\t1\t" % pins, "pin\t%s\t0x00001004\t2\t" % pins)
+        + "pin\t%s\t0x00001008\t1\tallow=%s\n" % (pins, stamp))
+    repo.write(pins, repo.read(pins) + "?d@@3HA,0x0000100C,tool\n")
+    got = admit(repo, pins, "--tokens", "0x0000100C")
+    assert got.returncode == 1 and "0x00001008" in got.stderr and "0x00001004" in got.stderr
+    assert "kept pin in %s: 0x00001004 at 1" % pins in got.stderr     # the admission, said so
+    assert "NOT KEPT pin in %s: 0x00001008: register line 1 -> 0" % pins in got.stderr
+    assert "NOT KEPT pin in %s: 0x00001004: register line 2 -> 1" % pins in got.stderr
+    lines = _pin_lines(repo, pins)
+    assert lines["0x00001004"][0] == 1 and "0x00001008" not in lines  # what the first call saw
+    repo.git("add", ".")
+    got = staged(repo)
+    assert got.returncode == 1
+    assert "pin +1 in %s: 0x00001008 (register grants 0)" % pins in got.stderr
+    assert "pin +1 in %s: 0x00001004 (register grants 1)" % pins in got.stderr
+    assert "0x0000100C" not in got.stderr
+
+
+def test_a_pin_renamed_at_an_admitted_address_is_reported(repo):
+    # The register keys a pin by address. Renaming the admitted pin by hand keeps the count, so
+    # a count alone would carry the grant over to a name nothing checked.
+    pins = repo.lay["rev"] + "/symbols.csv"
+    repo.write(pins, repo.read(pins) + "?one@@3HA,0x00001004,tool\n")
+    assert admit(repo, pins, "--tokens", "0x00001004").returncode == 0
+    repo.write(pins, repo.read(pins).replace("?one@@3HA,0x00001004", "?unchecked@@3HA,0x00001004"))
+    repo.write(pins, repo.read(pins) + "?two@@3HA,0x0000100C,tool\n")
+    got = admit(repo, pins, "--tokens", "0x0000100C")
+    assert got.returncode == 1 and "NOT KEPT pin in %s: 0x00001004" % pins in got.stderr
+    repo.git("add", ".")
+    got = staged(repo)
+    assert got.returncode == 1 and "pin +1 in %s: 0x00001004 (register grants 0)" % pins in got.stderr
+    repo.write(pins, repo.read(pins).replace("?unchecked@@3HA,0x00001004", "?one@@3HA,0x00001004"))
+    assert admit(repo, pins, "--tokens", "0x00001004").returncode == 0    # re-admitted by its tool
+    repo.git("add", ".")
+    assert staged(repo).returncode == 0
+
+
+def test_a_typed_line_for_a_hand_pin_the_admitted_blob_carries_is_refused(repo):
+    # The hand pin is in the very blob the first admission stamped, and the typed line copies
+    # that stamp: only a record of what the admission granted tells the two lines apart.
+    pins = repo.lay["rev"] + "/symbols.csv"
+    repo.write(pins, repo.read(pins) + "?c@@3HA,0x00001008,hand\n?b@@3HA,0x00001004,tool\n")
+    assert admit(repo, pins, "--tokens", "0x00001004").returncode == 1        # 0x00001008 refused
+    stamp = _tool_stamp(repo, pins, "0x00001004")
+    repo.write(repo.lay["base"], repo.read(repo.lay["base"]) + "pin\t%s\t0x00001008\t1\tallow=%s\n" % (pins, stamp))
+    repo.write(pins, repo.read(pins).replace(",tool\n", ",tool; renoted\n") + "?d@@3HA,0x0000100C,tool\n")
+    got = admit(repo, pins, "--tokens", "0x0000100C")
+    assert "kept pin in %s: 0x00001004" % pins in got.stderr and "NOT KEPT pin in %s: 0x00001008" % pins in got.stderr
+    repo.git("add", ".")
+    got = staged(repo)
+    assert got.returncode == 1 and "pin +1 in %s: 0x00001008 (register grants 0)" % pins in got.stderr
+    assert "0x00001004" not in got.stderr and "0x0000100C" not in got.stderr
+
+
+def test_the_admission_record_is_scoped_to_head(repo):
+    pins = repo.lay["rev"] + "/symbols.csv"
+    repo.write(pins, repo.read(pins) + "?b@@3HA,0x00001004,tool\n")
+    assert admit(repo, pins, "--tokens", "0x00001004").returncode == 0
+    repo.write(repo.lay["src2"], "int unrelated;\n")
+    repo.commit("another working change", paths=[repo.lay["src2"]])    # HEAD moves under it
+    repo.write(pins, repo.read(pins).replace(",pin\n", ",pin; renoted\n") + "?d@@3HA,0x0000100C,tool\n")
+    got = admit(repo, pins, "--tokens", "0x0000100C")
+    assert "NOT KEPT pin in %s: 0x00001004: register line 1 -> 0" % pins in got.stderr
+
+
+def test_no_admission_exceeds_what_the_file_carries(repo):
+    pins = repo.lay["rev"] + "/symbols.csv"
+    repo.write(pins, repo.read(pins) + "?b@@3HA,0x00001004,tool\n?b2@@3HA,0x00001004,tool\n"
+               "?f@@3HA,0x00001010,tool\n")
+    assert admit(repo, pins, "--tokens", "0x00001004", "0x00001010").returncode == 0
+    assert _pin_lines(repo, pins)["0x00001004"][0] == 2
+    # pins retired between the calls: the earlier grants follow the file down, never past it
+    repo.write(pins, repo.read(pins).replace("?b2@@3HA,0x00001004,tool\n", "")
+               .replace("?f@@3HA,0x00001010,tool\n", ""))
+    repo.write(pins, repo.read(pins) + "?d@@3HA,0x0000100C,tool\n")
+    assert admit(repo, pins, "--tokens", "0x0000100C").returncode == 0
+    lines = _pin_lines(repo, pins)
+    assert lines["0x00001004"][0] == 1 and "0x00001010" not in lines and lines["0x0000100C"][0] == 1
+    carried = collections.Counter(line.split(",")[1] for line in repo.read(pins).splitlines()[1:])
+    assert all(n <= carried[address] for address, (n, _) in lines.items())
+    repo.git("add", ".")
+    assert staged(repo).returncode == 0
+
+
+def test_shadow_banner_frames_what_the_commit_adds_and_tags_what_head_carries(repo):
+    _shadow_register(repo)
+    _drift(repo)                                                   # HEAD carries an unadmitted 0x00001004
+    pins = repo.lay["rev"] + "/symbols.csv"
+    repo.write(pins, repo.read(pins) + "?e@@3HA,0x00001010,hand\n")
+    repo.git("add", pins)
+    note = repo.root / "hatch-note.txt"
+    got = repo.tool("--staged", "--note-file", str(note))
+    assert got.returncode == 0                                     # shadow still never refuses
+    banner = got.stderr[got.stderr.index("THIS COMMIT ADDS"):]
+    assert "THIS COMMIT ADDS UNADMITTED ESCAPE HATCHES (pin +1)" in banner
+    assert "SHADOW (not enforced): pin +1 in %s: 0x00001010 (register grants 0)\n" % pins in banner
+    assert "0x00001004" not in banner
+    assert "0x00001004 (register grants 0) [already in HEAD]" in got.stderr
+    assert "0x00001010" in note.read_text() and "0x00001004" not in note.read_text()
+    note.unlink()
+    repo.git("reset", "-q", "--hard", "HEAD")
+    repo.write(pins, repo.read(pins).replace(",pin\n", ",pin; renoted\n"))
+    repo.git("add", pins)                                          # touches the file, adds nothing
+    got = repo.tool("--staged", "--note-file", str(note))
+    assert got.returncode == 0 and "[already in HEAD]" in got.stderr
+    assert "THIS COMMIT ADDS" not in got.stderr and not note.exists()
 
 
 def test_admit_shrinks_and_leaves_other_files_alone(repo):
