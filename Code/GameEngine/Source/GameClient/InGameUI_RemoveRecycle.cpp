@@ -1,31 +1,24 @@
-// cl: /DNDEBUG /MD /EHsc
-//
-// Intrusive list remove-plus-recycle helper used by the InGameUI slot-96
-// find-and-remove body at 0x0029F77E (sole E8 caller, verified by raw
-// scan). Unlinks the node through its prev/next words, pushes it onto the
-// freelist at 0x00DB8FF4 and reports the predecessor through the out
-// parameter. Frameless stdcall leaf with no calls; the freelist rides a
-// TU-local extern (DIR32 patches from retail, no pin). Semantic class
-// membership is unproven so it rides an address-derived free name;
-// opaque behavior.
-
-struct ListNode
-{
-	void *m_prev;
-	void *m_next;
-};
-
+// stlport
+// cl: /O1 /DNDEBUG /MD /EHsc
+// Native29DFC5..29DFE9 RET8 consumes the four-byte iterator copy and
+// writes its successor to the hidden return pointer. Caller29F77E
+// independently proves the member receiver and nontrivial iterator ABI.
+// Unlink/recycle semantics are established by retail; the allocator and
+// original method spelling remain unresolved. This member view replaces
+// the former stdcall void-pointer view without adding an alias or pin.
+#include <list>
+class Object;
 extern void *g_freeList001EB130;
-
-// ?removeRecycleRva0029DFC5@@YGXPAX0@Z
-void __stdcall removeRecycleRva0029DFC5(void *outParam, void *nodeParam)
+using namespace _STL;
+class Rva0029DFC5List { public: list<Object*>::iterator rva0029DFC5(list<Object*>::iterator); };
+list<Object*>::iterator Rva0029DFC5List::rva0029DFC5(list<Object*>::iterator position)
 {
-	ListNode *node = (ListNode *)nodeParam;
-	ListNode *next = (ListNode *)node->m_next;
-	ListNode *prev = (ListNode *)node->m_prev;
-	next->m_prev = prev;
-	prev->m_next = next;
-	node->m_prev = g_freeList001EB130;
-	g_freeList001EB130 = node;
-	*(void **)outParam = prev;
+ _List_node_base *node=position._M_node;
+ _List_node_base *prev=node->_M_prev;
+ _List_node_base *next=node->_M_next;
+ prev->_M_next=next;
+ next->_M_prev=prev;
+ node->_M_next=static_cast<_List_node_base*>(g_freeList001EB130);
+ g_freeList001EB130=node;
+ return list<Object*>::iterator(static_cast<_List_node<Object*>*>(next));
 }

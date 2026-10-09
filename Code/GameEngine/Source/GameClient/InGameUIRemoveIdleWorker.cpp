@@ -1,9 +1,11 @@
-// ?removeIdleWorker@InGameUI@@UAEXPAVObject@@H@Z
-// partial score=0.95 date=2026-10-08
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
+// cl: /O1 /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
 // stlport
 //
-// InGameUI idle-worker virtuals, ported from ZH InGameUI.cpp.
+// InGameUI removeIdleWorker, guided by the Zero Hour method.
+// Native29F77E..29F7C8 supplies bounds, layout, full RET8 boundary and
+// iterator ABI. The pool-specific36B helper29DFC5 is independently
+// recovered with an honest address-derived member name; this is not the
+// differently allocated Object-list erase body438539.
 //
 // Target evidence: the InGameUI vftable (0x007C7A88; class string "InGameUI"
 // right after it) holds six adjacent slots at +0x1C0..+0x1D4. updateIdleWorker
@@ -19,6 +21,9 @@
 // m_idleWorkerWin +0x978, m_currentIdleWorkerDisplay +0x97C. getInputEnabled()
 // tests both +0x15 (setEngineInputEnabled's flag) and +0x16
 // (setInputEnabled's flag). Player index at Player +0x54.
+//
+// addIdleWorker (0x002A3D98, slot +0x1A4) is ZH's: findIdleWorker +0x1C4
+// guards a push_back (0x001EC03C) onto the controlling player's list.
 //
 // selectNextIdleWorker (0x0029D64F, slot +0x1AC) is ZH's body: the local
 // player (ThePlayerList +0x10) indexes the lists, getSelectCount +0x118 is
@@ -46,6 +51,7 @@ class GameWindow
 {
 public:
 	int winEnable(bool enable);
+	int winGetWindowId(void);
 };
 
 void GadgetButtonSetText(GameWindow *g, UnicodeString text);
@@ -228,39 +234,7 @@ private:
 	int m_currentIdleWorkerDisplay;
 };
 
-Object *InGameUI::findIdleWorker(Object *obj)
-{
-	if(!obj)
-		return 0;
-
-	int index = obj->getControllingPlayer()->getPlayerIndex();
-	if(m_idleWorkers[index].empty())
-		return 0;
-
-	ObjectListIt it = m_idleWorkers[index].begin();
-	while(it != m_idleWorkers[index].end())
-	{
-		Object *itObj = *it;
-		if(itObj == obj)
-		{
-			return itObj;
-		}
-		++it;
-	}
-	return 0;
-}
-
-void InGameUI::addIdleWorker(Object *obj)
-{
-	if(!obj)
-		return;
-
-	if(findIdleWorker(obj))
-		return;
-
-	m_idleWorkers[obj->getControllingPlayer()->getPlayerIndex()].push_back(obj);
-}
-
+class Rva0029DFC5List { public: ObjectListIt rva0029DFC5(ObjectListIt); };
 void InGameUI::removeIdleWorker(Object *obj, int playerNumber)
 {
 	if(!obj || playerNumber < 0 || playerNumber >= MAX_PLAYER_COUNT)
@@ -274,102 +248,10 @@ void InGameUI::removeIdleWorker(Object *obj, int playerNumber)
 	{
 		if(*it == obj)
 		{
-			m_idleWorkers[playerNumber].erase(it);
+			reinterpret_cast<Rva0029DFC5List*>(&m_idleWorkers[playerNumber])->rva0029DFC5(it);
 			return;
 		}
 		++it;
 	}
 }
 
-extern InGameUI *TheInGameUI;
-
-void InGameUI::selectNextIdleWorker(void)
-{
-	int index = ThePlayerList->getLocalPlayer()->getPlayerIndex();
-	if(m_idleWorkers[index].empty())
-		return;
-	Object *selectThisObject = 0;
-
-	if(getSelectCount() == 0 || getSelectCount() > 1)
-	{
-		selectThisObject = *m_idleWorkers[index].begin();
-	}
-	else
-	{
-		Drawable *selectedDrawable = TheInGameUI->getFirstSelectedDrawable();
-
-		ObjectListIt it = m_idleWorkers[index].begin();
-		while(it != m_idleWorkers[index].end())
-		{
-			Object *itObj = *it;
-			if(itObj == selectedDrawable->getObject())
-			{
-				++it;
-				if(it != m_idleWorkers[index].end())
-					selectThisObject = *it;
-				else
-					selectThisObject = *m_idleWorkers[index].begin();
-				break;
-			}
-			++it;
-		}
-		// if we had something selected that wasn't a worker, we'll get here
-		if(!selectThisObject)
-			selectThisObject = *m_idleWorkers[index].begin();
-	}
-	if(selectThisObject)
-	{
-		// If our idle worker is contained by anything, we need to select the container instead.
-		Object *containedBy = selectThisObject->getContainedBy();
-		if( containedBy )
-		{
-			selectThisObject = containedBy;
-		}
-
-		deselectAllDrawables();
-		GameMessage *teamMsg = MessageStreamSubsystem->appendMessage( GameMessage::MSG_CREATE_SELECTED_GROUP );
-
-		// New group or add to group? Passed in value is true if we are creating a new group.
-		teamMsg->appendBooleanArgument( true );
-
-		teamMsg->appendObjectIDArgument( selectThisObject->getID() );
-
-		selectDrawable( selectThisObject->getDrawable() );
-
-		// center on the unit
-		TheTacticalView->lookAt(selectThisObject->getPosition());
-	}
-}
-
-void InGameUI::showIdleWorkerLayout(void)
-{
-	if (!m_idleWorkerWin)
-	{
-		m_idleWorkerWin = TheWindowManager->winGetWindowFromId(0, TheNameKeyGenerator->nameToKey("ControlBar.wnd:ButtonIdleWorker"));
-		return;
-	}
-
-	m_idleWorkerWin->winEnable(true);
-
-	m_currentIdleWorkerDisplay = getIdleWorkerCount();
-}
-
-void InGameUI::hideIdleWorkerLayout(void)
-{
-	if(!m_idleWorkerWin)
-		return;
-	GadgetButtonSetText(m_idleWorkerWin, UnicodeString::TheEmptyString);
-	m_idleWorkerWin->winEnable(false);
-	m_currentIdleWorkerDisplay = -1;
-}
-
-void InGameUI::updateIdleWorker(void)
-{
-	int idleCount = getIdleWorkerCount();
-
-	if(idleCount > 0 && m_currentIdleWorkerDisplay != idleCount && getInputEnabled())
-		showIdleWorkerLayout();
-
-	if((idleCount <= 0 && m_idleWorkerWin) || !getInputEnabled())
-		hideIdleWorkerLayout();
-}
