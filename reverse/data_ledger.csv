@@ -18357,7 +18357,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x009FE174,12,.data,global,?g_00DFE174@@3IA,,unowned,?g_00DFE174@@3IA;?g_Va00DFE174@@3IA,0,7
 0x009FE180,12,.data,global,?TheFXParticleEditor@@3VBfmeDualVtableReleaseDtor@@A,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_init.cpp,provisional,?TheFXParticleEditor@@3VBfmeDualVtableReleaseDtor@@A;?g_00DFE180@@3IA;?g_Va00DFE180@@3IA,1,10
 0x009FE18C,28,.data,global,?g_Va00DFE18C@@3HA,Code/GameEngine/Source/Common/Rva002036B4GlobalCopiers.cpp,owned,,1,3
-0x009FE1A8,4,.data,global,?TheLargeGroupAudio@@3PAVLargeGroupAudio@@A,,unowned,?TheLargeGroupAudio@@3PAVLargeGroupAudio@@A;?g_00DFE1A8@@3PAVRva0020D8F1Host@@A;?g_00DFE1A8@@3PAVRva0020D959Host@@A;?g_00DFE1A8@@3PAVRva0020DB91@@A,1,28
+0x009FE1A8,4,.data,global,?TheLargeGroupAudio@@3PAVLargeGroupAudio@@A,Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp,provisional,?TheLargeGroupAudio@@3PAVLargeGroupAudio@@A;?g_00DFE1A8@@3PAVRva0020D8F1Host@@A;?g_00DFE1A8@@3PAVRva0020D959Host@@A;?g_00DFE1A8@@3PAVRva0020DB91@@A,1,28
 0x009FE1AC,16,.data,global,?g_00DFE1AC@@3V?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@A,,unowned,?g_00DFE1AC@@3IA;?g_00DFE1AC@@3V?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@A;?g_Va00DFE1AC@@3IA;?g_moduleDataList0020DFFB@@3V?$vector@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@A,0,8
 0x009FE1BC,12,.data,global,?s_ruleCount@LivingWorldRegionBonusRule@@0HA,,unowned,,0,2
 0x009FE1C8,4,.data,global,?TheLivingWorldManager@@3PAVLivingWorldManager@@A,Code/GameEngine/Source/GameLogic/Object/Rva003FD7CEParse.cpp,provisional,?Rva00DFE1C8@@3PAXA;?TheLivingWorldManager@@3PAVLivingWorldManager@@A;?g_009FE1C8@@3PAVRva0021294A@@A;?g_00DFE1C8@@3PAURva00DFE1C8Host@@A;?g_00DFE1C8@@3PAVRva00DFE1C8Host@@A,1,84

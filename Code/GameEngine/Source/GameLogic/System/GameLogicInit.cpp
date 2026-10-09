@@ -662,7 +662,7 @@ extern CollisionManager *TheCollisionManager;
 extern GlobalData *TheWritableGlobalData;
 extern GhostObjectManager *TheGhostObjectManager;
 extern TerrainLogic *TheTerrainLogic;
-extern LargeGroupAudio *TheLargeGroupAudio;
+LargeGroupAudio *TheLargeGroupAudio = 0;
 extern BuffLogic *TheBuffLogic;
 extern SidesList *TheSidesList;
 extern GameLogic *TheGameLogic;
