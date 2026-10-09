@@ -50,3 +50,31 @@ private:
     Rva005E4B9D child;
 };
 Rva005E4F6D::~Rva005E4F6D() {}
+
+// The constructor 5E6ED6 calls the 12-byte polymorphic base at 0 and
+// Rva005E4F6D at C. Its shared counted base moves to24; the second owned
+// pointer at20 is independently cleared in the native102-byte teardown.
+class Rva005F64F5
+{
+public:
+    virtual ~Rva005F64F5();
+private:
+    void *data4;
+    void *owned8;
+};
+class Rva005E6D90
+{
+public:
+    ~Rva005E6D90() { clear(); }
+    void clear();
+private:
+    void *value;
+};
+class Rva005E6F9D : public Rva005F64F5, public Rva005E4F6D
+{
+public:
+    virtual ~Rva005E6F9D();
+private:
+    Rva005E6D90 child20;
+};
+Rva005E6F9D::~Rva005E6F9D() {}

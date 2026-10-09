@@ -4675,7 +4675,6 @@ name,address,notes
 ??1Rva005E5FA8@@UAE@XZ,0x005E5FA8,opaque dtor called by the scalar deleting dtor at 0x005E6237 (vtable 0x00C77DE8#0); identity unproven; address-derived name
 ??1Rva005E5FFB@@QAE@XZ,0x005E5FFB,pointee destructor called by the owning-pointer reset 0x005E6253 (byte-exact modulo relocs in OwnedPointerResets.cpp); identity unproven; address-derived name
 ??1Rva005E6D0D@@QAE@XZ,0x005E6D0D,pointee destructor called by the owning-pointer reset 0x005E6D90 (byte-exact modulo relocs in OwnedPointerResets.cpp); identity unproven; address-derived name
-??1Rva005E6F9D@@QAE@XZ,0x005E6F9D,destructor called by the vtable-referenced scalar deleting dtor 0x005E7003 (REL32 at +4 of its 35B delete-flag wrapper that also resets the vbase vptr at +0x24); identity unproven; address-derived name
 ??1Rva005E7D72@@QAE@XZ,0x005E7D72,pointee destructor called by the owning-pointer reset 0x005E7FC8 (byte-exact modulo relocs in OwnedPointerResets.cpp); identity unproven; address-derived name
 ??1Rva005E7ED7View@@QAE@XZ,0x005E7ED7,non-virtual view of rowed ??1Rva005E7ED7@@UAE@XZ called by the thunk-reached scalar deleting dtor 0x005E7EBB (REL32 at +4 of its 28B delete-flag wrapper); identity unproven; address-derived name
 ??1Rva005E80FD@@UAE@XZ,0x005E80FD,opaque dtor called by the scalar deleting dtor at 0x005E8240 (vtable 0x00C77F54#0); identity unproven; address-derived name

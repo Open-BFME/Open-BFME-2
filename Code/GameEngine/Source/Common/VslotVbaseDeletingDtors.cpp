@@ -18,7 +18,6 @@
 //  0x005CDB6C via dtor 0x005CD9C0, vbase +0x20 vft 0x00BC6F20
 //  0x005CDF49 via dtor 0x005CDCEE, vbase +0x28 vft 0x00BC6F20
 //  0x005E5628 via dtor 0x005E54F7, vbase +0x1C vft 0x00BC6F20
-//  0x005E7003 via dtor 0x005E6F9D, vbase +0x24 vft 0x00BC6F20
 // The three 38B members have a disp32 vbase offset, which this non-virtual
 // model does not inline under /O1. Each sits in a large vftable of its own
 // (0x00C07F80 slot 20, 0x00C088FC slot 10, 0x00C089A8 slot 20), so their
@@ -85,14 +84,6 @@ private:
 	char m_unknown[0x18];
 };
 
-class Rva005E6F9D : public virtual VBase00BC6F20
-{
-public:
-	~Rva005E6F9D();
-private:
-	char m_unknown[0x20];
-};
-
 class Rva0030902E : public virtual VBase00C6EE28
 {
 public:
@@ -124,7 +115,6 @@ void Rva00538133_DeleteAnchor(Rva00538133 *p) { delete p; }
 void Rva005CD9C0_DeleteAnchor(Rva005CD9C0 *p) { delete p; }
 void Rva005CDCEE_DeleteAnchor(Rva005CDCEE *p) { delete p; }
 void Rva005E54F7_DeleteAnchor(Rva005E54F7 *p) { delete p; }
-void Rva005E6F9D_DeleteAnchor(Rva005E6F9D *p) { delete p; }
 void Rva0030902E_CtorAnchor(Rva0030902E *p) { p->Rva0030902E::Rva0030902E(); }
 void Rva0030C40A_CtorAnchor(Rva0030C40A *p) { p->Rva0030C40A::Rva0030C40A(); }
 void Rva0030CDCA_CtorAnchor(Rva0030CDCA *p) { p->Rva0030CDCA::Rva0030CDCA(); }
