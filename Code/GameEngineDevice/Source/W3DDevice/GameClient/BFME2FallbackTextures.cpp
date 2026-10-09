@@ -16,7 +16,7 @@ class W3DRadarResetSurface {
 public:
  W3DRadarResetSurface():surface(0){}
  ~W3DRadarResetSurface();
- void DrawPixel(unsigned x,unsigned y,unsigned color) { ((SurfaceClass *)this)->DrawPixel(x,y,color); }
+ __forceinline void DrawPixel(unsigned x,unsigned y,unsigned color) { ((SurfaceClass *)this)->DrawPixel(x,y,color); }
  void *surface;
 };
 struct CursorTextureSlot { void *Ptr; W3DRadarResetSurface Get_Surface_Level(); };
@@ -76,7 +76,12 @@ public:
  bool supportTextureFormat(WW3DFormat);
 };
 class DX8Caps;
-class DX8Wrapper { public: static DX8Caps *CurrentCaps; static bool IsInitted; };
+class DX8Wrapper {
+ friend BFME2ParticleTextureHandle Load_Texture(ChunkLoadClass &);
+protected:
+ static DX8Caps *CurrentCaps;
+ static bool IsInitted;
+};
 namespace _STL { class ios_base { protected: void _M_clear_nothrow(int); }; }
 // Same measured folded setter ABI view used by Render2DSentenceBuildTexturesBFME2.
 // This does not assert the original texture filter inherits from STL ios_base.

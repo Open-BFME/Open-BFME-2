@@ -89,7 +89,7 @@ class SurfaceResource {public:virtual void slot0();virtual void slot1();virtual 
 class SurfaceClass {public:void DrawPixel(unsigned,unsigned,unsigned);};
 class W3DRadarResetSurface {
 public:W3DRadarResetSurface(SurfaceResource*);~W3DRadarResetSurface();
- void DrawPixel(unsigned x,unsigned y,unsigned c){reinterpret_cast<SurfaceClass*>(this)->DrawPixel(x,y,c);}
+ __forceinline void DrawPixel(unsigned x,unsigned y,unsigned c){reinterpret_cast<SurfaceClass*>(this)->DrawPixel(x,y,c);}
 private:SurfaceResource*surface;
 };
 void Log_DX8_ErrorCode(unsigned);
