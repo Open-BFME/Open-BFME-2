@@ -10,9 +10,15 @@
 // not established: address-derived.
 
 #include "ascii_string.h"
+#include "../../../../../Libraries/Include/Lib/Coord3D.h"
 #include "../../../Common/GameLogicObjectLookupView.h"
 
 typedef int Int;
+enum NameKeyType { NK_UNKNOWN = 0 };
+class NameKeyGenerator { public: NameKeyType nameToKey(const char *); };
+extern NameKeyGenerator *TheNameKeyGenerator;
+class Module;
+class Rva00397FEBInterface;
 
 extern "C" int __cdecl fprintf(void *stream, const char *format, ...);
 
@@ -27,15 +33,21 @@ struct ChainValue
 {
 	char m_pad00[0x64];
 	AsciiString m_value;
+	char m_pad68[0x11A - 0x68];
+	unsigned char m_flags11A;
 };
 
 class Object
 {
 public:
 	Player *getControllingPlayer() const;
+	Module *findModule(NameKeyType) const;
+	void *rva0028BCF4() const;
 	void *m_pad00;
 	ChainValue *m_chain;
-	char m_pad08[0x6C];
+	char m_pad08[0x30];
+	Coord3D m_position;
+	char m_pad44[0x30];
 	Int m_id;
 };
 
@@ -77,4 +89,34 @@ bool Rva00397F45::rva00397F45( Player *player, Int arg )
 	}
 
 	return alreadyMyCastle ? true : playerAllowed;
+}
+
+// Native helper 397FEB..3980BF: callers supply four cdecl words. The
+// template bit, CastleMemberBehavior key, member +14 and interface slots
+// are native evidence; BFME1 createOwnedObject corroborates the factory
+// relationship but does not establish the interface's original class name.
+class Module { public: char m_pad00[0x14]; void *m_pending; };
+class BfmeItemE63 { public: bool checkValid(); };
+class Rva00397FEBInterface
+{
+public:
+ virtual void unused0();
+ virtual void unused1();
+ virtual void unused2();
+ virtual bool query();
+ virtual void *create(Object *, void *, const Coord3D *, float, Player *, int);
+};
+
+void *__cdecl rva00397FEB(void *context, unsigned int id, void *target, int mode)
+{
+ Object *object = TheGameLogic->findObjectByID((ObjectID)id);
+ if (!object || (object->m_chain->m_flags11A & 0x40)) return 0;
+ static NameKeyType key = TheNameKeyGenerator->nameToKey("CastleMemberBehavior");
+ Module *module = object->findModule(key);
+ if (!(unsigned char)mode && module && module->m_pending &&
+     ((BfmeItemE63 *)module)->checkValid()) return 0;
+ Rva00397FEBInterface *factory = (Rva00397FEBInterface *)object->rva0028BCF4();
+ if (!factory || factory->query()) return 0;
+ return factory->create(object, target, &object->m_position, 0.0f,
+                        object->getControllingPlayer(), mode);
 }
