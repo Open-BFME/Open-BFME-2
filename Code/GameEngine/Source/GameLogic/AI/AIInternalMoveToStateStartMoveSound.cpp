@@ -136,7 +136,7 @@ class Object : public Thing
 public:
 	void *rva0028C197() const;
 	ObjectID getID() const { return m_id; }
-	BodyModuleInterface *getBodyModule() const { return m_body; }
+	static __forceinline BodyModuleInterface *getBodyModule(const Object *object) { return object->m_body; }
 private:
 	unsigned char m_pad00[0x74];
 	ObjectID m_id; // +0x74
@@ -198,7 +198,7 @@ void AIInternalMoveToState::startMoveSound()
 {
 	Object *obj = getMachineOwner();
 	Drawable *draw = obj->getDrawable();
-	BodyModuleInterface *body = obj->getBodyModule();
+	BodyModuleInterface *body = Object::getBodyModule(obj);
 	if (draw != 0)
 	{
 		playMoveStartSound(draw, obj, body);
@@ -228,7 +228,7 @@ void AIInternalMoveToState::startMoveSound()
 		{
 			Object *member = node->m_object;
 			if (member != 0)
-				playMoveStartSound(member->getDrawable(), member, member->getBodyModule());
+				playMoveStartSound(member->getDrawable(), member, Object::getBodyModule(member));
 		}
 	}
 }
