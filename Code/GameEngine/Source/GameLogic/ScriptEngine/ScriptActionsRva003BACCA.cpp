@@ -84,6 +84,48 @@ public:
 	virtual void s60(float value, int milliseconds, float a, float b);
 	virtual void s61(float value, int milliseconds, float a, float b);
 	virtual void s62(float angle, int milliseconds, float a, float b);
+	virtual void s63();
+	virtual void s64();
+	virtual void s65();
+	virtual void s66();
+	virtual void s67();
+	virtual void s68();
+	virtual void s69();
+	virtual void s70();
+	virtual void s71();
+	virtual void s72();
+	virtual void s73();
+	virtual void s74();
+	virtual void s75();
+	virtual void s76();
+	virtual void s77();
+	virtual void s78();
+	virtual void s79();
+	virtual void s80();
+	virtual void s81();
+	virtual void s82();
+	virtual void s83();
+	virtual void s84();
+	virtual void s85();
+	virtual void s86();
+	virtual void s87();
+	virtual void s88();
+	virtual void s89();
+	virtual void s90();
+	virtual void s91();
+	virtual void s92();
+	virtual void s93();
+	virtual void s94();
+	virtual void s95();
+	virtual void s96();
+    virtual void s97(unsigned int objectID);
+    virtual void s98();
+    virtual void s99(int mode, float value);
+    virtual void s100(float value);
+    virtual void s101();
+    virtual void s102();
+    virtual void s103(int drawableID);
+
 };
 
 extern class View *TheTacticalView;
@@ -377,5 +419,36 @@ void Rva003BAE04()
         destination.x *= scale;
         destination.y *= scale;
         reinterpret_cast<TacticalView *>(TheTacticalView)->s39(&destination);
+    }
+}
+
+class Drawable;
+class Thing
+{
+public:
+    Drawable *getDrawable() const;
+};
+class Rva0055A88BDwordField
+{
+public:
+    int get() const;
+};
+// ZH doCameraTetherNamed supplies the lock/snap/tether workflow. Native
+// 0x003BAA46 adds Drawable-ID slot103 before snap and uses slots97/98/100/99;
+// dispatcher0x003CAD35 and RET12 prove Parameter*, bool, float free ABI.
+void __stdcall Rva003BAA46(Parameter *p, bool snap, float play)
+{
+    Object *object = TheScriptEngine->getUnitNamed(p);
+    if (object)
+    {
+        reinterpret_cast<TacticalView *>(TheTacticalView)->s97(
+            reinterpret_cast<Rva003BAFE8Object *>(object)->objectID);
+        reinterpret_cast<TacticalView *>(TheTacticalView)->s103(
+            reinterpret_cast<Rva0055A88BDwordField *>(
+                reinterpret_cast<Thing *>(object)->getDrawable())->get());
+        if (snap)
+            reinterpret_cast<TacticalView *>(TheTacticalView)->s98();
+        reinterpret_cast<TacticalView *>(TheTacticalView)->s100(play);
+        reinterpret_cast<TacticalView *>(TheTacticalView)->s99(0, 0.0f);
     }
 }
