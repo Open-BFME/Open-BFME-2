@@ -12,6 +12,16 @@
 // envelope in state 2. The previous status then takes the current one.
 // WorldBuilder's twin (0x00CA5060) is unnamed.
 
+class Drawable;
+class Thing { public:Drawable *getDrawable() const; };
+class Object:public Thing { public:Object *rva002931F5(bool); };
+class Rva002716Holder { public:void rva00271547(); };
+extern int g_009BA4E8;
+float Sin(float);
+// Target reads the stored1/30-second value at VA DBA508; its original
+// linkage/name is unknown. A local data owner preserves the measured read.
+float opacityLogicStepSeconds=0.03333333507180214f;
+
 struct RGBColor
 {
 	float red;
@@ -59,6 +69,7 @@ class Drawable
 {
 public:
 	void rva00275598();
+    void rva00272DEE();
 private:
 	__forceinline void playTint(Rva0027070CGlobal *setting, bool scaled)
 	{
@@ -75,9 +86,18 @@ private:
 	}
 	unsigned char m_pad000[0x8C];
 	Rva00271826 *m_envelope8C;				// +0x8C
-	unsigned char m_pad090[0x120 - 0x90];
+	unsigned char m_pad090[0xb4 - 0x90];
+    float m_B4,m_B8,m_BC,m_C0,m_C4,m_C8,m_CC,m_D0;
+    unsigned m_D4;
+    unsigned char m_padD8[0xfc-0xd8];
+    Object *m_objectFC;
+    unsigned char m_pad100[0x120-0x100];
 	unsigned int m_tintStatus120;			// +0x120
-	unsigned int m_prevTintStatus124;		// +0x124
+	unsigned int m_prevTintStatus124;
+    unsigned char m_pad128[0x164-0x128];
+    unsigned m_164;
+    unsigned char m_pad168[0x43e-0x168];
+    unsigned char m_43E;		// +0x124
 };
 
 void Drawable::rva00275598()
@@ -99,4 +119,31 @@ void Drawable::rva00275598()
 			playTint(setting, scaled);
 	}
 	m_prevTintStatus124 = m_tintStatus120;
+}
+
+// BFME2 native272DEE..272FB6: inherit parent's effective stealth look,
+// otherwise update pulse/transition opacity. ZH imitateStealthLook and
+// setEffectiveOpacity establish the subsystem purpose; new pulse/transition
+// equations, offsets and comparisons below are independently target facts.
+void Drawable::rva00272DEE() {
+ Object *parent=m_objectFC?m_objectFC->rva002931F5(false):0;
+ if(parent && m_objectFC!=parent) {
+  Drawable *other=parent->getDrawable();
+  if(!other)return;
+  m_B4=other->m_B4;
+  unsigned char old=m_43E;
+  m_43E=other->m_43E;
+  m_164=other->m_164;
+  if(old!=m_43E)reinterpret_cast<Rva002716Holder *>(this)->rva00271547();
+ }else if(m_B8!=m_BC) {
+  float pulse=m_C4+m_C8*Sin(m_CC);
+  float blend=(g_009BA4E8*m_C0-m_D4)/(g_009BA4E8*m_C0);
+  if(m_D4>0)--m_D4;
+  m_B4=pulse*blend+m_D0*(1.0f-blend);
+  m_CC+=(opacityLogicStepSeconds/m_C0)*3.1415927410125732f;
+ }else if((float)(m_B8==m_BC)==1.0f && m_B4<1.0f) {
+  float blend=(g_009BA4E8*m_C0-m_D4)/(g_009BA4E8*m_C0);
+  if(m_D4>0)--m_D4;
+  m_B4=m_D0*(1.0f-blend)+blend;
+ }
 }
