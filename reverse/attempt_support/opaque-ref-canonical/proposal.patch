@@ -1,0 +1,342 @@
+diff --git a/Code/Libraries/Include/Lib/OpaqueRefCounted.h b/Code/Libraries/Include/Lib/OpaqueRefCounted.h
+new file mode 100644
+index 0000000000..1b2758ef9a
+--- /dev/null
++++ b/Code/Libraries/Include/Lib/OpaqueRefCounted.h
+@@ -0,0 +1,23 @@
++// Target-neutral atomic reference protocol; the original class name is unknown.
++// Native 0x50EC8/0x50ED3/0x50EFA pass the LONG at +4 to the Interlocked APIs.
++// Release_Ref invokes virtual destruction through slot 0, then scalar delete.
++// This declaration describes that eight-byte prefix, not an allocation size:
++// payload, subclasses and the original complete-object layout remain unknown.
++#ifndef BFME2_OPAQUE_REF_COUNTED_H
++#define BFME2_OPAQUE_REF_COUNTED_H
++
++extern "C" __declspec(dllimport) long __stdcall InterlockedIncrement(long volatile *);
++extern "C" __declspec(dllimport) long __stdcall InterlockedDecrement(long volatile *);
++
++class OpaqueRefCounted
++{
++public:
++    virtual ~OpaqueRefCounted();
++    void Add_Ref() { InterlockedIncrement(&refs); }
++    bool rva00050EFA();
++    void Release_Ref();
++private:
++    long refs;
++};
++
++#endif
+diff --git a/Code/Libraries/Source/WWVegas/WWLib/OpaqueRefOwnership.cpp b/Code/Libraries/Source/WWVegas/WWLib/OpaqueRefOwnership.cpp
+index a540986f09..5cc795ded1 100644
+--- a/Code/Libraries/Source/WWVegas/WWLib/OpaqueRefOwnership.cpp
++++ b/Code/Libraries/Source/WWVegas/WWLib/OpaqueRefOwnership.cpp
+@@ -1,19 +1,8 @@
+ // cl: /MD /D_CRTIMP= /DNDEBUG
+ // Target owning-reference view; original class names are unknown.
+ // The referent has a virtual destructor and an atomic LONG count at +4.
+-extern "C" __declspec(dllimport) long __stdcall InterlockedIncrement(long volatile *);
+-extern "C" __declspec(dllimport) long __stdcall InterlockedDecrement(long volatile *);
+ 
+-class OpaqueRefCounted
+-{
+-public:
+-    virtual ~OpaqueRefCounted();
+-    void Add_Ref() { InterlockedIncrement(&refs); }
+-    bool rva00050EFA();
+-    void Release_Ref();
+-private:
+-    long refs;
+-};
++#include "../../../Include/Lib/OpaqueRefCounted.h"
+ 
+ // ?rva00050EFA@OpaqueRefCounted@@QAE_NXZ, retail 0x00050EFA, 31B.
+ // Atomically acquires a reference only while the prior count is positive;
+diff --git a/Code/Libraries/Source/WWVegas/WWLib/StlportVectorOverflowBfmeStringTailRecord144.cpp b/Code/Libraries/Source/WWVegas/WWLib/StlportVectorOverflowBfmeStringTailRecord144.cpp
+index 70ebcdde17..2ab5faa012 100644
+--- a/Code/Libraries/Source/WWVegas/WWLib/StlportVectorOverflowBfmeStringTailRecord144.cpp
++++ b/Code/Libraries/Source/WWVegas/WWLib/StlportVectorOverflowBfmeStringTailRecord144.cpp
+@@ -26,17 +26,17 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int
+ #include "ascii_string.h"
+ 
+ 
+-class PoolMember { public: void Rva0050ED3(); };
+-struct BfmePoolHolder88 { unsigned char pad[0x88]; PoolMember m_ref; };
++#include "../../../Include/Lib/OpaqueRefCounted.h"
++struct BfmePoolHolder88 { unsigned char pad[0x88]; OpaqueRefCounted m_ref; };
+ class BfmePoolRef08 {
+-	PoolMember *m_target;
++	OpaqueRefCounted *m_target;
+ public:
+-	__forceinline ~BfmePoolRef08() { if (m_target != 0) m_target->Rva0050ED3(); }
++	__forceinline ~BfmePoolRef08() { if (m_target != 0) m_target->Release_Ref(); }
+ };
+ class BfmePoolRef10 {
+ 	BfmePoolHolder88 *m_target;
+ public:
+-	__forceinline ~BfmePoolRef10() { if (m_target != 0) m_target->m_ref.Rva0050ED3(); }
++	__forceinline ~BfmePoolRef10() { if (m_target != 0) m_target->m_ref.Release_Ref(); }
+ };
+ 
+ struct BfmeStringTailRecord144 {
+diff --git a/Code/Libraries/Source/WWVegas/WWLib/stlport_stringtailrecord144_dtor.cpp b/Code/Libraries/Source/WWVegas/WWLib/stlport_stringtailrecord144_dtor.cpp
+index 3b0a42ba9d..b91aa70b6c 100644
+--- a/Code/Libraries/Source/WWVegas/WWLib/stlport_stringtailrecord144_dtor.cpp
++++ b/Code/Libraries/Source/WWVegas/WWLib/stlport_stringtailrecord144_dtor.cpp
+@@ -10,20 +10,14 @@
+ // here). Layout cross-proven by the installing constructors at
+ // 0x2D97D6/0x2D982A/0x2D9893: AsciiString members at +0x04/+0x1C/+0x20/+0x84
+ // (each destroyed through the 0x36410 fold), two refcounted-pointer members
+-// released through the pinned PoolMember::Rva0050ED3 at 0x50ED3 (same
+-// spelling as Rva004E18A2Dtor.cpp), and ints elsewhere. The +0x10 member's
++// released through canonical OpaqueRefCounted::Release_Ref at 0x50ED3,
++// and ints elsewhere. The +0x10 member's
+ // release runs against pointee+0x88, hence the holder; the holder's own
+ // layout past the release slot is unproven. Destruction runs
+ // +0x84/+0x20/+0x1C/+0x10/+0x08/+0x04, plain reverse declaration order under
+ // an empty dtor body. Zero new pins.
+ #include "ascii_string.h"
+-class OpaqueRefCounted
+-{
+-public:
+-	void Release_Ref();
+-};
+-typedef long Long;
+-extern "C" __declspec(dllimport) Long __stdcall InterlockedIncrement(Long volatile *addend);
++#include "../../../Include/Lib/OpaqueRefCounted.h"
+ struct BfmePoolHolder88
+ {
+     unsigned char m_pad[0x88];
+@@ -109,20 +103,20 @@ BfmeStringTailRecord144::~BfmeStringTailRecord144()
+ BfmePoolRef10::BfmePoolRef10(BfmePoolHolder88 *p) : m_target(p)
+ {
+     if (m_target)
+-        InterlockedIncrement((Long *)((char *)m_target + 0x8c));
++        m_target->m_ref.Add_Ref();
+ }
+ // ??0BfmePoolRef10@@QAE@ABV0@@Z 0x00051950 33B copy ctor via InterlockedIncrement on holder+0x8c; 9 callers incl 0x519F1/0x51C7E; double-deref of source ref
+ BfmePoolRef10::BfmePoolRef10(const BfmePoolRef10 &other) : m_target(other.m_target)
+ {
+     if (m_target)
+-        InterlockedIncrement((Long *)((char *)m_target + 0x8c));
++        m_target->m_ref.Add_Ref();
+ }
+ // ??4BfmePoolRef10@@QAEAAV0@ABV0@@Z 0x00051971 58B operator= self-check then AddRef source and Release old via pinned 0x50ED3; 13 callers incl 0x5990A/0x2D98C2; same shape as OpaqueRefElement4::operator= at 0x239099
+ BfmePoolRef10 &BfmePoolRef10::operator=(const BfmePoolRef10 &other)
+ {
+     if (this != &other) {
+         if (other.m_target)
+-            InterlockedIncrement((Long *)((char *)other.m_target + 0x8c));
++            other.m_target->m_ref.Add_Ref();
+         if (m_target)
+ 			m_target->m_ref.Release_Ref();
+         m_target = other.m_target;
+@@ -144,7 +138,7 @@ void BfmePoolRef10::rva00053D26(BfmePoolHolder88 *p)
+         rva000519BD();
+         m_target = p;
+         if (p)
+-            InterlockedIncrement((Long *)((char *)p + 0x8c));
++            p->m_ref.Add_Ref();
+     }
+ }
+ 
+diff --git a/reverse/canonical_classes.csv b/reverse/canonical_classes.csv
+index 853654673a..5df3c010ab 100644
+--- a/reverse/canonical_classes.csv
++++ b/reverse/canonical_classes.csv
+@@ -97,3 +97,4 @@ Rva0010EDC2,Code/GameEngine/Include/Common/Rva0010EDC2Resource.h,native 10ED4C/1
+ Gen_uw_000e5033,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFloorElement.h,existing header; contract class_contracts/Gen_uw_000e5033.json; 2/2 sampled units adopt
+ Rva0020E20C,Code/GameEngine/Include/Common/RegionArmyComparatorView.h,native BE4318/BE4334 two-slot prefix independently bounded by the separate installed visitor tables BE4320/BE433C; CodeView sizeof4; three provider/consumer units75/75 whole bodies and6/6 EH exact; original class names and full retail extent unproved
+ Rva0020E205,Code/GameEngine/Include/Common/RegionArmyComparatorView.h,native BE4318/BE4334 two-slot prefix independently bounded by the separate installed visitor tables BE4320/BE433C; CodeView sizeof4; three provider/consumer units75/75 whole bodies and6/6 EH exact; original class names and full retail extent unproved
++OpaqueRefCounted,Code/Libraries/Include/Lib/OpaqueRefCounted.h,existing header; contract class_contracts/OpaqueRefCounted.json; 1/1 sampled units adopt
+diff --git a/reverse/class_contracts/OpaqueRefCounted.json b/reverse/class_contracts/OpaqueRefCounted.json
+new file mode 100644
+index 0000000000..0e4898b37d
+--- /dev/null
++++ b/reverse/class_contracts/OpaqueRefCounted.json
+@@ -0,0 +1,82 @@
++{
++ "bases": [],
++ "bases_by": "majority",
++ "class": "OpaqueRefCounted",
++ "evidence": {
++  "census": 94,
++  "retail_access": {
++   "0x0": {
++    "4": 1
++   },
++   "0x4": {
++    "4": 2
++   }
++  },
++  "retail_member_rows": 3,
++  "retail_vtables": {},
++  "view_errors": 0,
++  "view_sizes": {
++   "1": 73,
++   "4": 4,
++   "8": 17
++  },
++  "views": 94,
++  "witness_offsets": [],
++  "zh": {}
++ },
++ "fields": [
++  {
++   "decided_by": "majority",
++   "kind": "VPTR",
++   "name": "__vfptr",
++   "name_by": "majority",
++   "offset": 0,
++   "retail_widths": {
++    "4": 1
++   },
++   "size": 4,
++   "type": "void*",
++   "views": 21,
++   "witness": null
++  }
++ ],
++ "key": "class",
++ "key_by": "bytes",
++ "ledger_keys": {
++  "class": 1
++ },
++ "outliers": [
++  {
++   "offset": 4,
++   "sources": [
++    "Code/GameEngine/Source/Common/BfmeObject476Copy.cpp",
++    "Code/GameEngine/Source/Common/Open2Destructors.cpp",
++    "Code/GameEngine/Source/Common/Rva000A8CE5SetRef.cpp",
++    "Code/GameEngine/Source/Common/Rva002390CBDtor.cpp",
++    "Code/GameEngine/Source/Common/Rva003FA26FCopyCtor.cpp",
++    "Code/GameEngine/Source/Common/Rva00402D7ECopyCtor.cpp",
++    "Code/GameEngine/Source/Common/Rva00403055CopyCtor.cpp",
++    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp",
++    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerAllocatePlayingAudio.cpp",
++    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerStopAudio.cpp",
++    "Code/Libraries/Source/WWVegas/WWLib/OpaqueRefDequePop57151.cpp",
++    "Code/Libraries/Source/WWVegas/WWLib/OpaqueRefOwnership.cpp",
++    "Code/Libraries/Source/WWVegas/WWLib/Rva00056da2Finish.cpp",
++    "Code/Libraries/Source/WWVegas/WWLib/StlportOwnedDeque.cpp",
++    "Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorFamily.cpp",
++    "Code/Libraries/Source/WWVegas/WWLib/stlport_list_opaqueref_erase.cpp",
++    "Code/Libraries/Source/WWVegas/WWLib/stlport_vector_opaque_mclear.cpp"
++   ],
++   "views": 17
++  }
++ ],
++ "queue": [],
++ "size": 8,
++ "size_by": "majority",
++ "vslots": {
++  "0": {
++   "decided_by": "bytes",
++   "member": "__vecDelDtor(uint)"
++  }
++ }
++}
+diff --git a/reverse/header_queue.tsv b/reverse/header_queue.tsv
+index cc07371c49..a46d01b2a2 100644
+--- a/reverse/header_queue.tsv
++++ b/reverse/header_queue.tsv
+@@ -52,6 +52,98 @@ Coord3D	Code/GameEngine/Source/GameLogic/Object/Update/StructureToppleUpdateCtor
+ Coord3D	Code/GameEngine/Source/GameLogic/SkirmishAI/AISpecialPowers/AISPecialPowerTargetAoE.cpp	0x005EE317 0x005EE3B0 0x005EE5D7 0x005EE816	Code/Libraries/Include/Lib/Coord3D.h	Code\GameEngine\Source\GameLogic\SkirmishAI\AISpecialPowers\AISPecialPowerTargetAoE.cpp(30) : error C2039: 'normalize' : is not a member of 'Coord3D'	3	python3 tools/header_adopt_lane.py accept --class Coord3D Code/GameEngine/Source/GameLogic/SkirmishAI/AISpecialPowers/AISPecialPowerTargetAoE.cpp
+ Coord3D	Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapAddProp.cpp	0x0006831C	Code/Libraries/Include/Lib/Coord3D.h	FAIL ?addProp@BaseHeightMapRenderObjClass@@QAEXHUCoord3D@@MMABVAsciiString@@_N@Z (Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapAddProp.cpp)	3	python3 tools/header_adopt_lane.py accept --class Coord3D Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapAddProp.cpp
+ Coord3D	Code/Libraries/Source/WWVegas/WWMath/region.cpp	0x000036D1 0x00003F3A 0x00004C06 0x00004C28	Code/Libraries/Include/Lib/Coord3D.h	Code\Libraries\Source\WWVegas\WWMath\region.cpp(92) : error C2039: 'scale' : is not a member of 'Coord3D'	3	python3 tools/header_adopt_lane.py accept --class Coord3D Code/Libraries/Source/WWVegas/WWMath/region.cpp
++OpaqueRefCounted	Code/GameEngine/Source/Common/BfmeObject476Copy.cpp	0x0005571B 0x000A8C7C 0x000B3FD0 0x000B3FD0	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngine/Source/Common/BfmeObject476Copy.cpp
++OpaqueRefCounted	Code/GameEngine/Source/Common/BfmeRecord001DD3BCDtor.cpp	0x001DD1FF	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngine/Source/Common/BfmeRecord001DD3BCDtor.cpp
++OpaqueRefCounted	Code/GameEngine/Source/Common/BfmeStringTailRecord156Dtor.cpp	0x0010F149	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngine/Source/Common/BfmeStringTailRecord156Dtor.cpp
++OpaqueRefCounted	Code/GameEngine/Source/Common/HostClass005C8E2C.cpp	0x005C8E2C	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngine/Source/Common/HostClass005C8E2C.cpp
++OpaqueRefCounted	Code/GameEngine/Source/Common/HostClass005C8F17.cpp	0x005C8F17	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngine/Source/Common/HostClass005C8F17.cpp
++OpaqueRefCounted	Code/GameEngine/Source/Common/HostClass005C908B.cpp	0x005C908B	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngine/Source/Common/HostClass005C908B.cpp
++OpaqueRefCounted	Code/GameEngine/Source/Common/INI/AudioEventInfoParseSoundLists.cpp	0x001DAD3E 0x001DAD68	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngine/Source/Common/INI/AudioEventInfoParseSoundLists.cpp
++OpaqueRefCounted	Code/GameEngine/Source/Common/INI/INIRecordListParsers.cpp	0x0033A1CE 0x0039A4FC 0x0039A565	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngine/Source/Common/INI/INIRecordListParsers.cpp
++OpaqueRefCounted	Code/GameEngine/Source/Common/INI/INISoundRefListRva0033A167.cpp	0x0033A167	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngine/Source/Common/INI/INISoundRefListRva0033A167.cpp
++OpaqueRefCounted	Code/GameEngine/Source/Common/INI/Rva004CC371ParseSoundEventList.cpp	0x004CC371	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngine/Source/Common/INI/Rva004CC371ParseSoundEventList.cpp
++OpaqueRefCounted	Code/GameEngine/Source/Common/OpaqueScalarDeletingDtors.cpp	0x0002C536 0x00041B69 0x00042105 0x0004303B	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngine/Source/Common/OpaqueScalarDeletingDtors.cpp
++OpaqueRefCounted	Code/GameEngine/Source/Common/Open2Destructors.cpp	0x00215101 0x002218D0 0x002E096A	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngine/Source/Common/Open2Destructors.cpp
++OpaqueRefCounted	Code/GameEngine/Source/Common/Rva00051DF9Ctor.cpp	0x00051DF9	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngine/Source/Common/Rva00051DF9Ctor.cpp
++OpaqueRefCounted	Code/GameEngine/Source/Common/Rva000A86CEDtor.cpp	0x000A86CE	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngine/Source/Common/Rva000A86CEDtor.cpp
++OpaqueRefCounted	Code/GameEngine/Source/Common/Rva000A8C9BClear.cpp	0x000A8C9B	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngine/Source/Common/Rva000A8C9BClear.cpp
++OpaqueRefCounted	Code/GameEngine/Source/Common/Rva000A8CE5SetRef.cpp	0x000A8CE5	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngine/Source/Common/Rva000A8CE5SetRef.cpp
++OpaqueRefCounted	Code/GameEngine/Source/Common/Rva0010F7EEDtor.cpp	0x0010F7EE	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngine/Source/Common/Rva0010F7EEDtor.cpp
++OpaqueRefCounted	Code/GameEngine/Source/Common/Rva0010FA6BFactoryBatch.cpp	0x0010F9F1 0x0010FA6B 0x0010FAEA 0x0010FB64	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngine/Source/Common/Rva0010FA6BFactoryBatch.cpp
++OpaqueRefCounted	Code/GameEngine/Source/Common/Rva0011653FCluster.cpp	0x001164F5 0x0011653F	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngine/Source/Common/Rva0011653FCluster.cpp
++OpaqueRefCounted	Code/GameEngine/Source/Common/Rva002217EADtor.cpp	0x002217B1	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngine/Source/Common/Rva002217EADtor.cpp
++OpaqueRefCounted	Code/GameEngine/Source/Common/Rva002390CBDtor.cpp	0x004C9F38	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngine/Source/Common/Rva002390CBDtor.cpp
++OpaqueRefCounted	Code/GameEngine/Source/Common/Rva002CD4A6Dtor.cpp	0x002CD4A6	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngine/Source/Common/Rva002CD4A6Dtor.cpp
++OpaqueRefCounted	Code/GameEngine/Source/Common/Rva002DB311Ctor.cpp	0x002DB1CA	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngine/Source/Common/Rva002DB311Ctor.cpp
++OpaqueRefCounted	Code/GameEngine/Source/Common/Rva002DB311Dtor.cpp	0x002DB311 0x002DB47A	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngine/Source/Common/Rva002DB311Dtor.cpp
++OpaqueRefCounted	Code/GameEngine/Source/Common/Rva0032884ASet.cpp	0x0032884A	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngine/Source/Common/Rva0032884ASet.cpp
++OpaqueRefCounted	Code/GameEngine/Source/Common/Rva003561BEDtor.cpp	0x003561BE	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngine/Source/Common/Rva003561BEDtor.cpp
++OpaqueRefCounted	Code/GameEngine/Source/Common/Rva003B1101Assign.cpp	0x003B1337	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngine/Source/Common/Rva003B1101Assign.cpp
++OpaqueRefCounted	Code/GameEngine/Source/Common/Rva003B1101Dtor.cpp	0x003B1101 0x003B152A	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngine/Source/Common/Rva003B1101Dtor.cpp
++OpaqueRefCounted	Code/GameEngine/Source/Common/Rva003FA26FCopyCtor.cpp	0x003FA14B 0x003FA1F2 0x003FA26F 0x003FA30C	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngine/Source/Common/Rva003FA26FCopyCtor.cpp
++OpaqueRefCounted	Code/GameEngine/Source/Common/Rva003FAB93.cpp	0x003FAB93	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngine/Source/Common/Rva003FAB93.cpp
++OpaqueRefCounted	Code/GameEngine/Source/Common/Rva003FAFB9Dtor.cpp	0x003FADB5 0x003FAFB9 0x003FB4EC	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngine/Source/Common/Rva003FAFB9Dtor.cpp
++OpaqueRefCounted	Code/GameEngine/Source/Common/Rva00402D7ECopyCtor.cpp	0x00402C8A 0x00402D01 0x00402D7E 0x00402DEB	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngine/Source/Common/Rva00402D7ECopyCtor.cpp
++OpaqueRefCounted	Code/GameEngine/Source/Common/Rva00403055CopyCtor.cpp	0x00402C4E 0x00402F28 0x00402F71 0x00402FD8	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngine/Source/Common/Rva00403055CopyCtor.cpp
++OpaqueRefCounted	Code/GameEngine/Source/Common/Rva0044ECCEDtor.cpp	0x0044ECCE 0x0044EF42	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngine/Source/Common/Rva0044ECCEDtor.cpp
++OpaqueRefCounted	Code/GameEngine/Source/Common/Rva00469D86Dtor.cpp	0x00469D86	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngine/Source/Common/Rva00469D86Dtor.cpp
++OpaqueRefCounted	Code/GameEngine/Source/Common/Rva004D95CEValueDtors.cpp	0x004D95CE 0x004D960C	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngine/Source/Common/Rva004D95CEValueDtors.cpp
++OpaqueRefCounted	Code/GameEngine/Source/Common/Rva004D97B0Record.cpp	0x004D97B0 0x004D9874 0x004D990E	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngine/Source/Common/Rva004D97B0Record.cpp
++OpaqueRefCounted	Code/GameEngine/Source/Common/Rva004E6935Dtor.cpp	0x004E6935	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngine/Source/Common/Rva004E6935Dtor.cpp
++OpaqueRefCounted	Code/GameEngine/Source/Common/Rva0056A3FF.cpp	0x0056A3FF	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngine/Source/Common/Rva0056A3FF.cpp
++OpaqueRefCounted	Code/GameEngine/Source/Common/Rva005C847BRecordXfer.cpp	0x005C90F1	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngine/Source/Common/Rva005C847BRecordXfer.cpp
++OpaqueRefCounted	Code/GameEngine/Source/Common/Rva005C8624ElementCopy.cpp	0x005C9217	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngine/Source/Common/Rva005C8624ElementCopy.cpp
++OpaqueRefCounted	Code/GameEngine/Source/Common/Rva005C8FBD.cpp	0x005C8FBD	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngine/Source/Common/Rva005C8FBD.cpp
++OpaqueRefCounted	Code/GameEngine/Source/Common/StringRecord002CF550Dtor.cpp	0x00255D1F 0x0033B1DE	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngine/Source/Common/StringRecord002CF550Dtor.cpp
++OpaqueRefCounted	Code/GameEngine/Source/Common/System/Rva003F2D03Dtor.cpp	0x003F2D03	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngine/Source/Common/System/Rva003F2D03Dtor.cpp
++OpaqueRefCounted	Code/GameEngine/Source/Common/Thing/UpgradeSoundSelectorDataFindName.cpp	0x004CB2FB	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngine/Source/Common/Thing/UpgradeSoundSelectorDataFindName.cpp
++OpaqueRefCounted	Code/GameEngine/Source/GameClient/Drawable/Update/UpgradeSoundSelectorClientBehaviorSlots01.cpp	0x004CB3F8 0x004CB48A	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngine/Source/GameClient/Drawable/Update/UpgradeSoundSelectorClientBehaviorSlots01.cpp
++OpaqueRefCounted	Code/GameEngine/Source/GameClient/DrawableKeyedLookup.cpp	0x00274CD8 0x0027675F 0x00276805	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngine/Source/GameClient/DrawableKeyedLookup.cpp
++OpaqueRefCounted	Code/GameEngine/Source/GameClient/GUI/Gadget/PushButtonDataDtor.cpp	0x00327E50	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngine/Source/GameClient/GUI/Gadget/PushButtonDataDtor.cpp
++OpaqueRefCounted	Code/GameEngine/Source/GameClient/Rva00212ED3Dtor.cpp	0x00212ED3	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngine/Source/GameClient/Rva00212ED3Dtor.cpp
++OpaqueRefCounted	Code/GameEngine/Source/GameClient/Rva0030DBD5Lifecycle.cpp	0x0030DA25 0x0030DBD5 0x0030DE92	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngine/Source/GameClient/Rva0030DBD5Lifecycle.cpp
++OpaqueRefCounted	Code/GameEngine/Source/GameClient/SoundFXNuggetDtor.cpp	0x001E0E07	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngine/Source/GameClient/SoundFXNuggetDtor.cpp
++OpaqueRefCounted	Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehaviorModuleDataDtor.cpp	0x00395B2C 0x00396007	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehaviorModuleDataDtor.cpp
++OpaqueRefCounted	Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorModuleDataCtor.cpp	0x00498E2E	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorModuleDataCtor.cpp
++OpaqueRefCounted	Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorModuleDataDtor.cpp	0x00498D46 0x00498DD7	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorModuleDataDtor.cpp
++OpaqueRefCounted	Code/GameEngine/Source/GameLogic/Object/Behavior/GettingBuiltBehaviorModuleDataDtor.cpp	0x00453315 0x004534D9	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngine/Source/GameLogic/Object/Behavior/GettingBuiltBehaviorModuleDataDtor.cpp
++OpaqueRefCounted	Code/GameEngine/Source/GameLogic/Object/Behavior/InstantDeathBehaviorParsers.cpp	0x0045D1BD 0x0045D200 0x0045D2F6	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngine/Source/GameLogic/Object/Behavior/InstantDeathBehaviorParsers.cpp
++OpaqueRefCounted	Code/GameEngine/Source/GameLogic/Object/Behavior/ModelConditionAudioLoopClientBehaviorDtor.cpp	0x004CC0FE 0x004CC179	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngine/Source/GameLogic/Object/Behavior/ModelConditionAudioLoopClientBehaviorDtor.cpp
++OpaqueRefCounted	Code/GameEngine/Source/GameLogic/Object/Behavior/SlowDeathBehaviorParsers.cpp	0x0045E293 0x0045E533 0x0045E5A4 0x0045E618	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngine/Source/GameLogic/Object/Behavior/SlowDeathBehaviorParsers.cpp
++OpaqueRefCounted	Code/GameEngine/Source/GameLogic/Object/Contain/Rva00465124BaseDtor.cpp	0x00257481	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngine/Source/GameLogic/Object/Contain/Rva00465124BaseDtor.cpp
++OpaqueRefCounted	Code/GameEngine/Source/GameLogic/Object/ObjectUpdateObjValuesFromMapProperties.cpp	0x002951AB	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngine/Source/GameLogic/Object/ObjectUpdateObjValuesFromMapProperties.cpp
++OpaqueRefCounted	Code/GameEngine/Source/GameLogic/Object/Rva003FD3EFDtor.cpp	0x002B30AE 0x003FD3EF	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngine/Source/GameLogic/Object/Rva003FD3EFDtor.cpp
++OpaqueRefCounted	Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDataCtor.cpp	0x004930A0	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDataCtor.cpp
++OpaqueRefCounted	Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDataDtor.cpp	0x0049334F	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDataDtor.cpp
++OpaqueRefCounted	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIUpdateModuleDataDtor.cpp	0x00494BE4	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIUpdateModuleDataDtor.cpp
++OpaqueRefCounted	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DozerAIUpdateCtor.cpp	0x004550DE 0x004885DE 0x0048899D 0x004889E8	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DozerAIUpdateCtor.cpp
++OpaqueRefCounted	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/Rva002544B5Dtor.cpp	0x002544B5	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/Rva002544B5Dtor.cpp
++OpaqueRefCounted	Code/GameEngine/Source/GameLogic/Object/Update/BattlePlanUpdateRva00497DD6Dtor.cpp	0x00497DD6	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngine/Source/GameLogic/Object/Update/BattlePlanUpdateRva00497DD6Dtor.cpp
++OpaqueRefCounted	Code/GameEngine/Source/GameLogic/Object/Update/BloodthirstyUpdateModuleDataDtor.cpp	0x0044E331	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngine/Source/GameLogic/Object/Update/BloodthirstyUpdateModuleDataDtor.cpp
++OpaqueRefCounted	Code/GameEngine/Source/GameLogic/Object/Update/FlammableUpdateModuleDataDtor.cpp	0x0048D075 0x0048D60C	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngine/Source/GameLogic/Object/Update/FlammableUpdateModuleDataDtor.cpp
++OpaqueRefCounted	Code/GameEngine/Source/GameLogic/Object/Update/OneRingPenaltyUpdateModuleDataDtor.cpp	0x00499A16 0x00499C19	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngine/Source/GameLogic/Object/Update/OneRingPenaltyUpdateModuleDataDtor.cpp
++OpaqueRefCounted	Code/GameEngine/Source/GameLogic/Object/Update/Rva0044EB54Ctor.cpp	0x0044EB54	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngine/Source/GameLogic/Object/Update/Rva0044EB54Ctor.cpp
++OpaqueRefCounted	Code/GameEngine/Source/GameLogic/Object/Update/StealthUpdateModuleDataDtor.cpp	0x003759F5	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngine/Source/GameLogic/Object/Update/StealthUpdateModuleDataDtor.cpp
++OpaqueRefCounted	Code/GameEngine/Source/GameLogic/Object/Update/ToggleDeploySpecialAbilityUpdateModuleDataDtor.cpp	0x004AE685	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngine/Source/GameLogic/Object/Update/ToggleDeploySpecialAbilityUpdateModuleDataDtor.cpp
++OpaqueRefCounted	Code/GameEngine/Source/GameLogic/Object/Upgrade/AudioLoopUpgradeModuleDataDtor.cpp	0x004B7C4C 0x004B7EBD	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngine/Source/GameLogic/Object/Upgrade/AudioLoopUpgradeModuleDataDtor.cpp
++OpaqueRefCounted	Code/GameEngine/Source/GameLogic/Object/Upgrade/FamilyUpgradeModuleDataDtors.cpp	0x000D100A 0x000D1026 0x00255F08 0x00255F24	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngine/Source/GameLogic/Object/Upgrade/FamilyUpgradeModuleDataDtors.cpp
++OpaqueRefCounted	Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp	0x00051525 0x00051565 0x000515E4 0x000518B8	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp
++OpaqueRefCounted	Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerAllocatePlayingAudio.cpp	0x0005320F	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerAllocatePlayingAudio.cpp
++OpaqueRefCounted	Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerStopAudio.cpp	0x00054284	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerStopAudio.cpp
++OpaqueRefCounted	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTruckDrawCtor.cpp	0x000CB3FB	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTruckDrawCtor.cpp
++OpaqueRefCounted	Code/Libraries/Source/WWVegas/WW3D2/Rva003F7EC7Dtor.cpp	0x003F7EC7 0x003F845C	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/Libraries/Source/WWVegas/WW3D2/Rva003F7EC7Dtor.cpp
++OpaqueRefCounted	Code/Libraries/Source/WWVegas/WWLib/OpaqueRefDequePop57151.cpp	0x00053DF2 0x00057151	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/Libraries/Source/WWVegas/WWLib/OpaqueRefDequePop57151.cpp
++OpaqueRefCounted	Code/Libraries/Source/WWVegas/WWLib/Rva00056da2Finish.cpp	0x00056DA2 0x00056E14	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/Libraries/Source/WWVegas/WWLib/Rva00056da2Finish.cpp
++OpaqueRefCounted	Code/Libraries/Source/WWVegas/WWLib/Rva001EC349Dtor.cpp	0x001EC349	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/Libraries/Source/WWVegas/WWLib/Rva001EC349Dtor.cpp
++OpaqueRefCounted	Code/Libraries/Source/WWVegas/WWLib/Rva0026F684Ctor.cpp	0x0026F5B3	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/Libraries/Source/WWVegas/WWLib/Rva0026F684Ctor.cpp
++OpaqueRefCounted	Code/Libraries/Source/WWVegas/WWLib/Rva0026F684Dtor.cpp	0x0026F684 0x0026F8BA	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/Libraries/Source/WWVegas/WWLib/Rva0026F684Dtor.cpp
++OpaqueRefCounted	Code/Libraries/Source/WWVegas/WWLib/StlportOwnedDeque.cpp	0x00051B1E 0x00054039 0x00054D5A 0x00054D90	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/Libraries/Source/WWVegas/WWLib/StlportOwnedDeque.cpp
++OpaqueRefCounted	Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorFamily.cpp	0x00057994 0x0008B64A 0x000C6878 0x000C68C2	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorFamily.cpp
++OpaqueRefCounted	Code/Libraries/Source/WWVegas/WWLib/stlport_deque_str_aux.cpp	0x0005800A	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/Libraries/Source/WWVegas/WWLib/stlport_deque_str_aux.cpp
++OpaqueRefCounted	Code/Libraries/Source/WWVegas/WWLib/stlport_deque_str_pushback.cpp	0x00058B90	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/Libraries/Source/WWVegas/WWLib/stlport_deque_str_pushback.cpp
++OpaqueRefCounted	Code/Libraries/Source/WWVegas/WWLib/stlport_list_opaqueref_erase.cpp	0x00054AA1 0x00054ACD 0x00054AE3 0x00054D27	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/Libraries/Source/WWVegas/WWLib/stlport_list_opaqueref_erase.cpp
++OpaqueRefCounted	Code/Libraries/Source/WWVegas/WWLib/stlport_target_list_73eee0.cpp	0x0073EECA 0x0073EEE0 0x0073EF44 0x0073EF84	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/Libraries/Source/WWVegas/WWLib/stlport_target_list_73eee0.cpp
++OpaqueRefCounted	Code/Libraries/Source/WWVegas/WWLib/stlport_vector_opaque_mclear.cpp	0x00057DE4	Code/Libraries/Include/Lib/OpaqueRefCounted.h	not attempted: bounded protocol adoption; native complete-object and consumer closure remain to be verified	3	python3 tools/header_adopt_lane.py accept --class OpaqueRefCounted Code/Libraries/Source/WWVegas/WWLib/stlport_vector_opaque_mclear.cpp
+ Transport	Code/GameEngine/Source/Common/Rva0025DDD2Float.cpp	0x0025DD48 0x0025DD76 0x0025DDA4 0x0025DDD2	Code/GameEngine/Include/GameNetwork/Transport.h	Code\GameEngine\Source\Common\Rva0025DDD2Float.cpp(44) : error C2039: 'rva004D5046' : is not a member of 'Transport'	3	python3 tools/header_adopt_lane.py accept --class Transport Code/GameEngine/Source/Common/Rva0025DDD2Float.cpp
+ Transport	Code/GameEngine/Source/GameNetwork/ConnectionManager_doRelay.cpp	0x004D316A 0x004D3221	Code/GameEngine/Include/GameNetwork/Transport.h	Code\GameEngine\Source\GameNetwork\ConnectionManager_doRelay.cpp(278) : error C2248: 'Transport::m_inBuffer' : cannot access private member declared in class 'T	3	python3 tools/header_adopt_lane.py accept --class Transport Code/GameEngine/Source/GameNetwork/ConnectionManager_doRelay.cpp
+ Transport	Code/GameEngine/Source/GameNetwork/LANAPIInit.cpp	0x00449BAA	Code/GameEngine/Include/GameNetwork/Transport.h	Code\GameEngine\Source\GameNetwork\LANAPIInit.cpp(90) : error C2039: 'init' : is not a member of 'Transport'	3	python3 tools/header_adopt_lane.py accept --class Transport Code/GameEngine/Source/GameNetwork/LANAPIInit.cpp

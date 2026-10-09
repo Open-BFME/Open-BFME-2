@@ -1,0 +1,26 @@
+{
+  "bfme2_revision": "ef1ad21cb8a0e622343ccae17ff0b18ef2fc3afe",
+  "bfme1_actual": "f98983a7d3bb405f1a4ba94bb6a2a168062a819d",
+  "candidate_sha256": {
+    "Code/Libraries/Source/WWVegas/WWLib/OpaqueRefOwnership.cpp": "591a42eb0079ed67db37e512f6cd724610586c25b8db590a3916f79340726cda",
+    "Code/Libraries/Source/WWVegas/WWLib/StlportVectorOverflowBfmeStringTailRecord144.cpp": "d3bcad02d3e30f093d3f3facfbfaee6050e0dda12d1c7cbe4b52feb332ed4da7",
+    "Code/Libraries/Source/WWVegas/WWLib/stlport_stringtailrecord144_dtor.cpp": "60306b7557018053e230dd6851703eaf91038cd30ed2246fe9172cd77c657bd3",
+    "reverse/canonical_classes.csv": "5cb361517375fe906816a9feebb88e7d9f4d0c9ade1ed8080dcd37c7be7e5cf4",
+    "reverse/header_queue.tsv": "b627a5ea3fce86304f25276ed1312611ea8a25bb92f03ba09a200294a9222bc9",
+    "Code/Libraries/Include/Lib/OpaqueRefCounted.h": "f79c21f70d8f6848bebbaa8e386eb156cd0258919539ac0bd30242caf8cccf57",
+    "reverse/class_contracts/OpaqueRefCounted.json": "0af636e6e5ec62c157d26d0529213883f18a29c505fbb980e34d64fb0276b3bb"
+  },
+  "patch_sha256": "3a0f687f3ddfef83c30b5dcf3d1e8ded55277849f31c122d2d7b5d6085f66ab6",
+  "old_full_exit": 1,
+  "new_full_exit": 1,
+  "normal_commit_hook": "refused full DIR32 consistency; HEAD unchanged",
+  "full_bodies": [
+    73305,
+    73305
+  ],
+  "own_body_count": 17,
+  "own_row_bytes": 1064,
+  "new_exact_bytes": 0,
+  "new_linked_bytes": 0,
+  "remaining_private_views": 92
+}
