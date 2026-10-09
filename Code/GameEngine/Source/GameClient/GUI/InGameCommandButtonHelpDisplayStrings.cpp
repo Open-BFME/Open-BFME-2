@@ -36,13 +36,14 @@ class FontLibrary {public: GameFont *getFont(const AsciiString *,float,bool);};
 extern FontLibrary *TheFontLibrary;
 class DisplayString {public:
 virtual void v0();
-virtual void v1();
+virtual void setText(UnicodeString);
 virtual void v2();
 virtual void v3();
 virtual void v4();
 virtual void v5();
 virtual void setFont(GameFont *);
- virtual void v7(); virtual void v8(); virtual void slot9(bool); virtual void slot10(int,int);
+ virtual void v7(); virtual void setWordWrap(int); virtual void slot9(bool); virtual void slot10(int,int);
+ virtual void v11();virtual void v12();virtual void v13();virtual void v14();virtual void getSize(int*,int*);
 };
 class Rva0043FC20 {public:
  Rva0043FC20(const Rva0043FC20 &);
@@ -123,9 +124,22 @@ class InGameSimpleHelp:public Rva005398CDRefCounted {public:class Impl;
 class InGameSimpleHelp::Impl {public:
  InGameSimpleHelp *owner;UnicodeString title,text;DisplayString *titleString,*textString;
  Impl(InGameSimpleHelp*,const UnicodeString&,const UnicodeString&);
+ int rva0053973F(int);
 };
 InGameSimpleHelp::Impl::Impl(InGameSimpleHelp *o,const UnicodeString&t,const UnicodeString&txt):owner(o),title(Rva00539619(t)),text(txt){
  titleString=TheDisplayStringManager->newDisplayString();textString=TheDisplayStringManager->newDisplayString();
  Rva0056C790(titleString,&((Rva0029F8B8*)TheInGameUI)->rva0029F8B8());
  Rva0056C790(textString,&((Rva0029F8B8*)TheInGameUI)->rva0029D948());
+}
+
+// Native53973F..5397D3 RET4 returns combined height after word wrapping
+// and measuring both nonempty strings. Scope each measured height after
+// its by-value setText argument dies: MSVC reuses the incoming width slot
+// and reproduces148B rather than149B. No original method name is asserted.
+int InGameSimpleHelp::Impl::rva0053973F(int width){
+ titleString->setWordWrap(width);textString->setWordWrap(width);
+ int total=0;int textWidth;
+ if(!title.isEmpty()) {titleString->setText(title);int textHeight;titleString->getSize(&textWidth,&textHeight);total=textHeight;}
+ if(!text.isEmpty()) {textString->setText(text);int textHeight;textString->getSize(&textWidth,&textHeight);total+=textHeight;}
+ return total;
 }
