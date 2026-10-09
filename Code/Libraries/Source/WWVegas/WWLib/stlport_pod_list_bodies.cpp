@@ -56,7 +56,9 @@ struct BfmePod196 { int a[49]; };
 inline bool operator==(const BfmePod196 &x, const BfmePod196 &y) { return x.a[0] == y.a[0]; }
 inline bool operator<(const BfmePod196 &x, const BfmePod196 &y) { return x.a[0] < y.a[0]; }
 namespace _STL { template<> void _Construct<BfmePod196, BfmePod196>(BfmePod196 *, const BfmePod196 &) throw(); }
-struct BfmePod264 { int a[66]; };
+// Experience payload cleanup is virtual: retail list clear 0x002887EA.
+// Keep the proven 0x108-byte node payload and existing provider spelling.
+struct BfmePod264 { BfmePod264(const BfmePod264 &); virtual ~BfmePod264(); int a[65]; };
 inline bool operator==(const BfmePod264 &x, const BfmePod264 &y) { return x.a[0] == y.a[0]; }
 inline bool operator<(const BfmePod264 &x, const BfmePod264 &y) { return x.a[0] < y.a[0]; }
 struct BfmeShortPod22 { short a[11]; };
@@ -76,6 +78,12 @@ template class _STL::list<BfmePod72, _STL::allocator<BfmePod72 > >;
 template class _STL::list<BfmePod80, _STL::allocator<BfmePod80 > >;
 template class _STL::list<BfmePod124, _STL::allocator<BfmePod124 > >;
 template class _STL::list<BfmePod196, _STL::allocator<BfmePod196 > >;
-template class _STL::list<BfmePod264, _STL::allocator<BfmePod264 > >;
+// Emit the recovered experience-list operations and their cleanup only.
+// Blanket instantiation also emitted unsupported comparisons and POD copies.
+template _STL::list<BfmePod264>::list(const _STL::list<BfmePod264> &);
+template void _STL::list<BfmePod264>::push_back(const BfmePod264 &);
+template _STL::_List_base<BfmePod264, _STL::allocator<BfmePod264> >::~_List_base();
 template class _STL::list<BfmeShortPod22, _STL::allocator<BfmeShortPod22 > >;
 template class _STL::list<BfmeShortPod26, _STL::allocator<BfmeShortPod26 > >;
+
+

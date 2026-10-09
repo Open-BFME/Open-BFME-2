@@ -30,6 +30,7 @@ struct Rva00289FBCRecord;
 typedef _STL::list<BfmePod264> ExperienceList;
 typedef _STL::hash_map<int,ExperienceList> ExperienceMap;
 namespace _STL {
+template<> _List_base<BfmePod264, allocator<BfmePod264> >::~_List_base();
 template<> void ExperienceList::push_back(const BfmePod264 &);
 template<> ExperienceList &ExperienceMap::operator[](const int &);
 template<> list<Rva00289FBCRecord> &list<Rva00289FBCRecord>::operator=(const list<Rva00289FBCRecord> &);
@@ -57,6 +58,7 @@ void ExperienceLevelStore::rva0028A1AA(void *table,const BfmePod264 *level)
         }
     }
 }
+
 
 
 
