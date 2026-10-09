@@ -2609,7 +2609,6 @@ name,address,notes
 ??0Rva005B8F69@@QAE@PAVAptOnline@@@Z,0x005B8F69,unrowed thiscall constructor (ret 4) of the online shell's "Stats" sub-screen taking the shell: REL32 at 0x00516D38 in its factory after a 0x90-byte operator new (the shell screen table 0x00DD1568 entry); address name
 ??0Rva005B9BBC@@QAE@PAVAptOnline@@@Z,0x005B9BBC,unrowed thiscall constructor (ret 4) of the online shell's "OnlineHome" sub-screen taking the shell: REL32 at 0x00516DBD in its factory after a 0x68-byte operator new (the shell screen table 0x00DD1568 entry); address name
 ??0Rva005BA1FD@@QAE@PAVAptOnline@@@Z,0x005BA1FD,unrowed thiscall constructor (ret 4) of the online shell's "OnlineOpenPlay" sub-screen taking the shell: REL32 at 0x00516DF9 in its factory after a 0x4E0-byte operator new (the shell screen table 0x00DD1568 entry); address name
-??0Rva005BA1FDBase@@QAE@HH@Z,0x005A5BC7,wrapper-call spelling for the 0x5BA1FD base constructor (thiscall 2 args callee cleanup; entry ecx flows through with no setup); target REL32 from retail call at 0x005BA206
 ??0Rva005BA28E@@QAE@PAVAptOnline@@@Z,0x005BA28E,unrowed thiscall constructor (ret 4) of the online shell's "OnlineStrategic" sub-screen taking the shell: REL32 at 0x00516E37 in its factory after a 0x4E0-byte operator new (the shell screen table 0x00DD1568 entry); address name
 ??0Rva005BAB7E@@QAE@PAVAptOnline@@@Z,0x005BAB7E,unrowed thiscall constructor (ret 4) of the online shell's "OnlineQuickMatch" sub-screen taking the shell: REL32 at 0x00516E7D in its factory after a 0xA0-byte operator new (the shell screen table 0x00DD1568 entry); address name
 ??0Rva005C3549@@QAE@PAX00@Z,0x005C3697,base ctor called by Rva005685EE ctor 0x0056858C (byte-exact shape sibling); identity unproven; address-derived signature
@@ -11718,7 +11717,6 @@ name,address,notes
 ?rva0043448C@AptSaveLoad@@QAEXXZ,0x0043448C,unrowed thiscall (Ghidra FUN_0083448C; plain ret) on the save/load screen; REL32 read in the AptSaveLoad::Load/ConfirmationOk callbacks (0x004348CA/0x004357CF) with ECX=this; address name
 ?rva00434B8A@AptSaveLoad@@QAEXXZ,0x00434B8A,unrowed thiscall (Ghidra FUN_00834B8A; plain ret) on the save/load screen; REL32 read in the AptSaveLoad::Load/ConfirmationOk callbacks (0x004348CA/0x004357CF) with ECX=this; address name
 ?rva00435224@AptSaveLoad@@QAEXXZ,0x00435224,unrowed thiscall (Ghidra FUN_00835224; plain ret) on the save/load screen; REL32 read in the AptSaveLoad::Load/ConfirmationOk callbacks (0x004348CA/0x004357CF) with ECX=this; address name
-?rva0043684C@AptSaveLoad@@QAEXXZ,0x0043684C,callee of ?rva00436FF6@AptSaveLoad@@QAEXXZ
 ?rva00437050@@YIXPAVRva005F90F6Sub@@H@Z,0x00437050,fastcall sub method called from 0x005F90F6; identity unproven
 ?rva00439CF7@Rva00439CF7@@QAEXPAVObject@@HPBX@Z,0x00439CF7,"member of TheGameLogic's +0x178 object (ret 0xC: an object, an int and a pointer into module data); REL32 at 0x004C25F8 in InvisibilitySpecialPower 0x004C2517 (module data +0x13C, &+0x7C) and at 0x004C2444 in its slot-11 twin; identity not recovered"
 ?rva00439E0C@Rva00439E0C@@QAEXPAVObject@@HHH@Z,0x00439E0C,callee of ?rva00464EE7@OpenContain@@UAE_NPAVObject@@@Z
@@ -17057,3 +17055,15 @@ _log,0x00629B0E,log double import thunk (gen-import row ji_00629b0e: msvcr71 slo
 ?erase@?$vector@HV?$Rva002444BEAllocator@H@@@_STL@@QAEPAHPAH0@Z,0x0031BD55,scalar selection vector erase; whole34 bytes and memmove relocation match the owned range erase; fold-proof=Code/GameEngine/Source/GameClient/GUI/ChatWindowsInGame.cpp
 ??0?$SideBarButtonSlot@VRva000AD6F4@@USideBarUpdaterRef@@@@QAE@XZ,0x005FFF09,ICF slot default constructor fourteen bytes zero zero minusone; target5288C4 vector constructor callback; this instantiation has no separate address; fold-proof=Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/AptInGameSideCommandBar.cpp
 ??0Rva002894A2@@QAE@ABV0@@Z,0x00289CEB,Replace BfmePod264 copy pin with existing experience-level vtable owner; 143B constructor and seven-state EH independently exact; Construct REL32 at 0x00289E85 and CreateNewExpLevel at 0x0028A4CF
+?ModuleFactoryHookAt000C32C7@@YAXPAXH0@Z,0x000C32C7,W3D draw-module asset hook registered by W3DModuleFactory::init 0x000652CA (named like the existing ModuleFactoryHookAt pins)
+?ModuleFactoryHookAt000CA152@@YAXPAXH0@Z,0x000CA152,W3D draw-module asset hook registered by W3DModuleFactory::init 0x000652CA (named like the existing ModuleFactoryHookAt pins)
+?ModuleFactoryHookAt000D1112@@YAXPAXH0@Z,0x000D1112,W3D draw-module asset hook registered by W3DModuleFactory::init 0x000652CA (named like the existing ModuleFactoryHookAt pins)
+?rva005B0608@AptMyHero@@QAEXHPAD_N@Z,0x005B0608,AptMyHero extern-handler method (ret 0xC / three arguments) registered by the AptMyHero ctor 0x005B12C5
+?rva005B0648@AptMyHero@@QAEXHPAD_N@Z,0x005B0648,AptMyHero extern-handler method (ret 0xC / three arguments) registered by the AptMyHero ctor 0x005B12C5
+?rva005B068E@AptMyHero@@QAEXHPAD_N@Z,0x005B068E,AptMyHero extern-handler method (ret 0xC / three arguments) registered by the AptMyHero ctor 0x005B12C5
+?rva005B06CE@AptMyHero@@QAEXHPAD_N@Z,0x005B06CE,AptMyHero extern-handler method (ret 0xC / three arguments) registered by the AptMyHero ctor 0x005B12C5
+?rva005B03B4@AptMyHero@@QAEXHPAD_N@Z,0x005B03B4,AptMyHero extern-handler method (ret 0xC / three arguments) registered by the AptMyHero ctor 0x005B12C5
+?rva005B0357@AptMyHero@@QAEXHPAD_N@Z,0x005B0357,AptMyHero extern-handler method (ret 0xC / three arguments) registered by the AptMyHero ctor 0x005B12C5
+??1Rva0021DA13@@QAE@XZ,0x0021DA13,file-name set dtor stub (jmp 0x21D5D5) that the AptSaveLoad replay list fill 0x0043684C unwinds to
+??1?$AptRef@VAptExternHandler@@@@QAE@XZ,0x005F8F96,ICF-folded AptRef<AptExternHandler> dtor that the AptMyHero ctor's AptRef temporaries unwind to (alias of the rowed ??1Rva005F8F96 body) fold-proof=Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHeroCtor.cpp
+??1Rva0059EB41@@UAE@XZ,0x0059EB3A,out-of-line copy of the inline Rva0059EB41 dtor (stores ??_7Rva0059EB41 and returns) that the AptOnlineCustomMatch ctor 0x005A5BC7 state-2 unwind reaches fold-proof=Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCtor.cpp
