@@ -173,3 +173,24 @@ Rva004DE52CWordPair *Rva004DE52CWordPair::clear() {
     word0 = 0;
     return this;
 }
+
+// Whole clean BF1 f98983a7d3bb405f1a4ba94bb6a2a168062a819d WWLib/
+// msgloop.cpp supplies AcceleratorTracker's ordered two-zero expression.
+// Other donor names emit the same bytes; no tracker identity or constructor
+// role is asserted. Native306761..306769 begins after the prior tail-JMP
+// wrapper and ends before a distinct global-guarded entry. It clears raw32
+// receiver words+0 then+4 and returns RET0 without calls or relocations.
+// Original receiver, field meanings and complete layout remain unknown.
+class Rva00306761WordPair
+{
+public:
+    void clear();
+private:
+    unsigned int word0;
+    unsigned int word4;
+};
+void Rva00306761WordPair::clear()
+{
+    word0 = 0;
+    word4 = 0;
+}
