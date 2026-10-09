@@ -47470,7 +47470,6 @@ _Rva006FD040,,0x006FD040,26,Code/Libraries/Source/WWVegas/WWLib/Rva006FD040Sibli
 ??0Rva00289ABD@@QAE@XZ,,0x00289ABD,263,Code/GameEngine/Source/Common/Rva00289ABDCtor.cpp,matched,ctor via baseConstruct plus vector plus map plus NOTFOUND Rva plus float push plus two Armor maps
 ?rva00532330@Rva00532330@@QAE_NPAG0@Z,,0x00532330,49,Code/GameEngine/Source/Common/Rva00532330Pop.cpp,matched,pop two WORDs via barrier callers 0x00533000 0x00533049
 ?rva002150CE@Rva002150CE@@QAEPAV1@XZ,,0x002150CE,51,Code/GameEngine/Source/Common/Rva002150CEClear.cpp,matched,leaf reset via return-this plus SSE zeros plus extern-free
-?Rva00215EF7Collect@@YAXPAPAIPAI111@Z,,0x00215EF7,43,Code/GameEngine/Source/Common/Rva00215EF7Collect.cpp,matched,finish stash 0.95 via volatile slot0 load order
 ?rva005FF4BD@Rva005FED2A@@QAEXH@Z,,0x005FF4BD,8,Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicHUDBattlePromptArmyPanelMovieClip.cpp,matched,native 005FF0F6 ctor passes its shared Rva005FED2A clip at +08; child +04 forwards state to rowed 005FF267; reconciled existing wrapper owner
 ?rva005FFA4E@Rva005FFA4E@@QAEXH@Z,,0x005FFA4E,8,Code/GameEngine/Source/Common/Rva005FFA4EForward.cpp,matched,chain via 0x005FF9D8 icon count forwarder plus4
 ?rva005FFED5@Rva005FFED5@@QAEXH@Z,,0x005FFED5,8,Code/GameEngine/Source/Common/Rva005FFED5Forward.cpp,matched,unlock via 0x005FFC26 SetState forwarder plus4
