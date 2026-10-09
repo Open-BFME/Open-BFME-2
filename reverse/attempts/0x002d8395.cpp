@@ -1,15 +1,15 @@
-// ?rva002D8395@Radar@@QAEXPBUCoord3D@@HMABUVec16@@1@Z
-// partial score=0.96 date=2026-10-05
-// cl: /O1 /G7 /DNDEBUG /MD
-// ?rva002D8395@Radar@@QAEXPBUCoord3D@@HMABUVec16@@1@Z @0x002D8395 353B: Radar add-event with worldToRadar and client frame scaling. Evidence: caller pair 0x002D893B 0x002D88A4; callees worldToRadar 0x002D77C9 clearRef 0x002D7CC6 ftol2; member offsets match Radar_reset event layout stride 0x50 trailer +0x142C.
+// ?internalCreateEvent@Radar@@IAEXPBUCoord3D@@W4RadarEventType@@MPBURGBAColorInt@@2@Z
+// partial score=0.98 date=2026-10-09
+// Zero Hour Radar.cpp internalCreateEvent at BF1 committed2f243e26d.
+// Existing matched createEvent88A4 and existing internalCreateEvent pin prove name/ABI.
+// Target stride50 events2C nextFree142C, frame slot7C, clearRef2D7CC6.
+// Whole353B extent; typed donor structure fixes SIB coordinate stores.
+// Only tmp.x load is delayed until after worldLoc copy instead of before.
+// cl: /I. /O1 /G7 /DNDEBUG /MD
+// ?internalCreateEvent@Radar@@IAEXPBUCoord3D@@W4RadarEventType@@MPBURGBAColorInt@@2@Z @0x002D8395 353B: Radar add-event with worldToRadar and client frame scaling. Evidence: caller pair 0x002D893B 0x002D88A4; callees worldToRadar 0x002D77C9 clearRef 0x002D7CC6 ftol2; member offsets match Radar_reset event layout stride 0x50 trailer +0x142C.
 #include <math.h>
 
-struct Coord3D
-{
-	float x;
-	float y;
-	float z;
-};
+#include "Code/Libraries/Include/Lib/Coord3D.h"
 
 struct ICoord2D
 {
@@ -17,10 +17,8 @@ struct ICoord2D
 	int y;
 };
 
-struct Vec16
-{
-	int v[4];
-};
+struct RGBAColorInt { unsigned int v[4]; };
+enum RadarEventType { RADAR_EVENT_INVALID = 11 };
 
 class ClientFrameSubsystem
 {
@@ -59,42 +57,19 @@ private:
 	RadarEventRef *m_ref;
 };
 
-struct RadarEventBody
-{
-	unsigned char m_state;
-	unsigned char m_pad00[3];
-	int m_04;
-	int m_08;
-	int m_0C;
-	int m_10;
-	int m_14;
-	int m_18;
-	int m_keep1C;
-	int m_20;
-	int m_24;
-	int m_28;
-	int m_keep2C;
-	float m_30;
-	float m_34;
-	float m_38;
-	int m_3C;
-	int m_40;
-	unsigned char m_44;
-	unsigned char m_pad44[3];
-	RadarEventRefSlot m_ref;
-};
-
-struct RadarEvent
-{
-	int m_tag;
-	RadarEventBody m_body;
+struct RadarEvent {
+ RadarEventType type; bool active;
+ unsigned int createFrame, dieFrame, fadeFrame;
+ RGBAColorInt color1,color2; Coord3D worldLoc; ICoord2D radarLoc;
+ bool soundPlayed; RadarEventRefSlot ref;
 };
 
 class Radar
 {
 public:
 	bool worldToRadar(const Coord3D *world, ICoord2D *radar);
-	void rva002D8395(const Coord3D *pos, int tag, float scale, const Vec16 &a, const Vec16 &b);
+	protected:
+ void internalCreateEvent(const Coord3D *pos, RadarEventType tag, float scale, const RGBAColorInt *a, const RGBAColorInt *b);
 private:
 	char m_pad[0x2C];
 public:
@@ -103,31 +78,19 @@ private:
 	int m_eventCount;
 };
 
-// ?rva002D8395@Radar@@QAEXPBUCoord3D@@HMABUVec16@@1@Z present-unmatched
-void Radar::rva002D8395(const Coord3D *pos, int tag, float scale, const Vec16 &a, const Vec16 &b)
+void Radar::internalCreateEvent(const Coord3D *pos, RadarEventType tag, float scale, const RGBAColorInt *a, const RGBAColorInt *b)
 {
-	ICoord2D tmp;
-	if (pos == 0)
-		return;
-	if (&a == 0)
-		return;
-	if (&b == 0)
-		return;
-	worldToRadar(pos, &tmp);
-	m_events[m_eventCount].m_tag = tag;
-	m_events[m_eventCount].m_body.m_state = 1;
-	m_events[m_eventCount].m_body.m_04 = TheGameClient->getFrame();
-	m_events[m_eventCount].m_body.m_08 = (int)((float)(unsigned)TheGameClient->getFrame() + (float)g_00DBA4E8 * scale);
-	m_events[m_eventCount].m_body.m_0C = (int)((float)(unsigned)m_events[m_eventCount].m_body.m_08 - (float)g_00DBA4E8 * g_00DBCEB8);
-	*(Vec16 *)&m_events[m_eventCount].m_body.m_10 = a;
-	*(Vec16 *)&m_events[m_eventCount].m_body.m_20 = b;
-	int tx = tmp.x;
-	*(Coord3D *)&m_events[m_eventCount].m_body.m_30 = *pos;
-	const int idx = m_eventCount;
-	m_events[idx].m_body.m_3C = tx;
-	m_events[idx].m_body.m_40 = tmp.y;
-	m_events[m_eventCount].m_body.m_44 = 0;
-	m_events[m_eventCount].m_body.m_ref.clearRef();
-	if (++m_eventCount >= 0x40)
-		m_eventCount = 0;
+ ICoord2D tmp; if(!pos||!a||!b)return; worldToRadar(pos,&tmp);
+ m_events[m_eventCount].type=tag;
+ m_events[m_eventCount].active=true;
+ m_events[m_eventCount].createFrame=TheGameClient->getFrame();
+ m_events[m_eventCount].dieFrame=(unsigned int)((float)(unsigned)TheGameClient->getFrame()+(float)g_00DBA4E8*scale);
+ m_events[m_eventCount].fadeFrame=(unsigned int)((float)m_events[m_eventCount].dieFrame-(float)g_00DBA4E8*g_00DBCEB8);
+ m_events[m_eventCount].color1=*a;
+ m_events[m_eventCount].color2=*b;
+ m_events[m_eventCount].worldLoc=*pos;
+ m_events[m_eventCount].radarLoc=tmp;
+ m_events[m_eventCount].soundPlayed=false;
+ m_events[m_eventCount].ref.clearRef();
+ if(++m_eventCount>=64)m_eventCount=0;
 }
