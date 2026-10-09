@@ -1,9 +1,9 @@
-// ?Add_Mesh@DX8TextureCategoryClass@@QAEIAAVVertex_Split_Table@@IIPAVIndexBufferClass@@I@Z
-// partial score=0.9907774893064629 date=2026-10-09
-// ?Add_Mesh@DX8TextureCategoryClass@@QAEIAAVVertex_Split_Table@@IIPAVIndexBufferClass@@I@Z
-// partial score=0.99 date=2026-10-08
 // cl: /O2 /arch:SSE /G7 /DNDEBUG /MD /EHsc
-// Semantic guide: ZH dx8renderer.cpp Add_Mesh. BFME2 target 145620..145A65.
+// Semantic guide: ZH dx8renderer.cpp Add_Mesh. BFME2 target 145620..145A68.
+// Target offsets and managed texture accessors come from the retail body.
+// Separate unit preserves BFME2 lock ABI (four arguments), without changing
+// the inherited ZH home whose older material/texture views emit different bytes.
+// Reference-bound source index array reproduces the native second-loop registers.
 #include <new>
 class MultiListObjectClass { public: virtual ~MultiListObjectClass(); void *ListNode; };
 class GenericMultiListClass {
@@ -103,6 +103,7 @@ inline static bool Equal_Material(const VertexMaterialClass *a,const VertexMater
  int ca=a?a->Get_CRC():0, cb=b?b->Get_CRC():0;
  return ca==cb;
 }
+// ?Add_Mesh@DX8TextureCategoryClass@@QAEIAAVVertex_Split_Table@@IIPAVIndexBufferClass@@I@Z
 unsigned DX8TextureCategoryClass::Add_Mesh(Vertex_Split_Table &split_table,unsigned vertex_offset,
  unsigned index_offset,IndexBufferClass *index_buffer,unsigned pass)
 {
@@ -119,7 +120,7 @@ unsigned DX8TextureCategoryClass::Add_Mesh(Vertex_Split_Table &split_table,unsig
  if(polygons) {
   index_count=polygons*3;
   bool stripify=false;
-  const TriIndex *src_indices=(const TriIndex*)split_table.Get_Polygon_Array(pass);
+  const TriIndex *_src_indices=(const TriIndex*)split_table.Get_Polygon_Array(pass); const TriIndex *&src_indices=_src_indices;
   DX8PolygonRendererClass *p_renderer=new DX8PolygonRendererClass(index_count,
    split_table.Get_Mesh_Model_Class(),this,vertex_offset,index_offset,stripify,pass);
   PolygonRendererList.Add_Tail(p_renderer);
@@ -148,10 +149,3 @@ unsigned DX8TextureCategoryClass::Add_Mesh(Vertex_Split_Table &split_table,unsig
  }
  return index_count;
 }
-
-
-
-
-
-
-
