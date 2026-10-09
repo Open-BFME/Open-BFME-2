@@ -1,4 +1,6 @@
 // ?parseObjectDefinition@ThingFactory@@SAXPAVINI@@ABVAsciiString@@11@Z
+// partial score=0.98352 date=2026-10-09
+// ?parseObjectDefinition@ThingFactory@@SAXPAVINI@@ABVAsciiString@@11@Z
 // partial score=0.95 date=2026-10-08
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii /Ireference/shims/iniexception /ICode/GameEngine/Include
 #include "ascii_string.h"
@@ -116,6 +118,15 @@ virtual void slot76();
 virtual void slot77();
 virtual char *settings();
 };
+// Target strings share the retail Header{refCount,length,capacity} at +0.
+// Compute the payload address before selecting the empty-string fallback;
+// integer arithmetic preserves the null case without dereferencing it.
+static __forceinline const char* errorText(const AsciiString&s){
+ const unsigned int buffer=*(const unsigned int*)&s;
+ const char* text=(const char*)(buffer+8);
+ if(!buffer)text="";
+ return text;
+}
 void ThingFactory::parseObjectDefinition(INI *ini,const AsciiString &name,const AsciiString &reskinFrom,const AsciiString &childOf)
 {
     ThingTemplate *tmplate = 0;
@@ -144,7 +155,7 @@ void ThingFactory::parseObjectDefinition(INI *ini,const AsciiString &name,const 
             ini->initFromINIMulti(tmplate,fields);
             ini->loadType=oldType;
         } else {
-            throw INIException(3,"ChildObject must come after the original Object (%s, %s).",childOf.str(),name.str());
+            throw INIException(3,"ChildObject must come after the original Object (%s, %s).",childOf.str(),errorText(name));
         }
     } else {
         if (!reskinFrom.isEmpty()) {
@@ -154,7 +165,7 @@ void ThingFactory::parseObjectDefinition(INI *ini,const AsciiString &name,const 
                 tmplate->setCopiedFromDefault();
                 ((Rva0033E06A *)tmplate)->rva0033E06A((Rva0033E06AArg *)reskin);
             } else {
-                throw INIException(3,"ObjectReskin must come after the original Object (%s, %s).",reskinFrom.str(),name.str());
+                throw INIException(3,"ObjectReskin must come after the original Object (%s, %s).",reskinFrom.str(),errorText(name));
             }
         }
         ini->initFromINIMulti(tmplate,fields);
