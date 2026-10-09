@@ -51,7 +51,8 @@ class Rva00406E47 {public: bool rva00406E47(int);};
 struct Rva005B0473View {char opaque[0x60];float field60;int field64,field68;};
 struct CreateAHeroClassRecord {char opaque[0x20];};
 struct CreateAHeroClassList {unsigned int size() const {return last-first;}CreateAHeroClassRecord *first,*last,*capacity;};
-class CreateAHeroManager {public: Rva005B0473View *rva00219F36(int,int);const AsciiString &GetBlingNameTag(int,const CreateAHeroHero *,unsigned int);unsigned int GetClassCount() const {return classes14C.size();}char pad000[0x14C];CreateAHeroClassList classes14C;char pad158[0x1E8-0x158];AsciiString field1E8;};
+class Rva002195E6;
+class CreateAHeroManager {public: const Rva002195E6 *GetViewInfo(unsigned int,unsigned int);const AsciiString &GetBlingNameTag(int,const CreateAHeroHero *,unsigned int);unsigned int GetClassCount() const {return classes14C.size();}char pad000[0x14C];CreateAHeroClassList classes14C;char pad158[0x1E8-0x158];AsciiString field1E8;};
 class Object;
 class Drawable {public: char pad000[0xFC];Object *object;char pad100[4];Drawable *next;};
 class GameClient {
@@ -135,7 +136,7 @@ void AptMyHero::SwitchToPendingHero(){
 // Native005B0473..005B0487 forwards fields10 then0C through the existing
 // typed manager global. Named locals preserve the independently observed
 // read order; the getter and returned view retain address-derived names.
-Rva005B0473View *AptMyHero::rva005B0473(){int b=field10;int a=field0C;return TheCreateAHeroManager->rva00219F36(a,b);}
+Rva005B0473View *AptMyHero::rva005B0473(){int b=field10;int a=field0C;return const_cast<Rva005B0473View *>(reinterpret_cast<const Rva005B0473View *>(TheCreateAHeroManager->GetViewInfo(a,b)));}
 
 // WB AptMyHero.cpp line1170 and native005B0923..005B097F prove this
 // unnamed record loop. Retail retains the exact diagnostic path and line1203.
@@ -151,7 +152,7 @@ void AptMyHero::rva005B0923(int group){
 }
 // Native005B0487..005B04B6 and WB corresponding view access prove the
 // +60 float bound and +168/+16C range. Retail emits SSE2 stores.
-void AptMyHero::rva005B0487(){int b=field10;int a=field0C;float upper=TheCreateAHeroManager->rva00219F36(a,b)->field60;float *range=&field168;range[0]=0.0f;range[1]=upper;}
+void AptMyHero::rva005B0487(){int b=field10;int a=field0C;float upper=reinterpret_cast<const Rva005B0473View *>(TheCreateAHeroManager->GetViewInfo(a,b))->field60;float *range=&field168;range[0]=0.0f;range[1]=upper;}
 
 // WB record-minimum loop and native005B097F..005B09BB; independent index.
 void AptMyHero::rva005B097F(int group){MyHeroBlingBlock &block=blocks174[group];int index=0;for(MyHeroBlingRecord *record=block.first;record!=block.last;++record)SetBling(group,index++,record->minimum);slot14();}
