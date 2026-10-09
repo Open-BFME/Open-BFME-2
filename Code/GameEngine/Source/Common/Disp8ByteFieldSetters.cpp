@@ -86,3 +86,11 @@ BFME_DISP8_BYTE_SETTER(Rva002DABFEByteSlot, 0x08)
 // at4AD9A5 and precedes known4AD9B0: stack low byte -> receiver+3C, RET4.
 // Preserve raw byte width and unknown owner/purpose through the existing macro.
 BFME_DISP8_BYTE_SETTER(Rva004AD9A6ByteSlot, 0x3C)
+
+// Clean BF1 f98983a7d3 AIMoveAwayFromRepulsorsState_onEnter_Thunk.cpp's
+// setAdjustsDestination supplies the raw store expression only; its original
+// class, bool interpretation and member name are not target facts.
+// Native 3B23C3..3B23CD starts after the rowed 3B23B9 leaf's RET4,
+// writes the stack argument's low byte at receiver+0x4C, and ends RET4
+// before the separately rowed 3B23CD byte setter.
+BFME_DISP8_BYTE_SETTER(Rva003B23C3ByteSlot, 0x4C)
