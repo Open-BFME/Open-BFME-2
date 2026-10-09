@@ -1,5 +1,5 @@
 // ?Rva0037D96B@@YA_NABVUnicodeString@@00@Z
-// partial score=0.8641456582633054 date=2026-10-09
+// partial score=0.970629370629371 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // BANK TRIAL ONLY: canonical Unicode proposal expanded, shared headers untouched.
 // Native37D96B..37DC36,715B. BF1 9cbfb551 RecorderCopyReplayFile semantic guide.
@@ -95,8 +95,8 @@ extern "C" __declspec(dllimport) int __cdecl fclose(FILE *);
 extern "C" __declspec(dllimport) int __cdecl fwprintf(FILE *,const unsigned short *,...);
 extern "C" __declspec(dllimport) unsigned short __cdecl fputwc(unsigned short,FILE *);
 UnicodeString Rva0037B9D4Get();UnicodeString Rva0037BA48Get();UnicodeString Rva0037D55EGet();
-struct Pair8 {int a,b;};struct Triple12{int a,b,c;};
-Triple12 Rva0037BA97Init(const Pair8 *,int);
+struct Pair8 {int a,b;};struct Triple12{Triple12(){} int a,b,c;};
+inline Triple12 Rva0037BA97Init(const Pair8 *src,int c){Triple12 tmp;tmp.a=src->a;tmp.b=src->b;tmp.c=c;return tmp;}
 struct BFME2WideConcatPair{const UnicodeString *a,*b;operator StringBase<unsigned short>();};
 struct BFME2WideConcatTriple{const UnicodeString *a,*b,*c;operator StringBase<unsigned short>();};
 __forceinline UnicodeString &UnicodeString::operator=(const BFME2WideConcatPair &that){set(const_cast<BFME2WideConcatPair &>(that));return *this;}
@@ -104,8 +104,7 @@ __forceinline UnicodeString &UnicodeString::operator=(const BFME2WideConcatTripl
 __forceinline BFME2WideConcatPair makePair(const UnicodeString &x,const UnicodeString &y){BFME2WideConcatPair p={&x,&y};return p;}
 __forceinline UnicodeString &UnicodeString::assignTriple(const UnicodeString &x,const UnicodeString &y,const UnicodeString &z){
  Pair8 pair={(int)&x,(int)&y};
- const BFME2WideConcatTriple &triple=(const BFME2WideConcatTriple &)Rva0037BA97Init(&pair,(int)&z);
- set(const_cast<BFME2WideConcatTriple &>(triple));return *this;
+ set((BFME2WideConcatTriple &)Rva0037BA97Init(&pair,(int)&z));return *this;
 }
 
 UnicodeString readUnicodeString(FILE *);
