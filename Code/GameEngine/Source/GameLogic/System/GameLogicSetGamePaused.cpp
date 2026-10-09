@@ -250,14 +250,15 @@ public:
 };
 extern GameInfo *TheGameInfo;
 
-// TheTerrainVisual (0x009FDC8C) and its rowed 0x001EB0B1.
+// TheLinearCampaignManager (0x009FDC8C) and its rowed 0x001EB0B1.
 class Rva001EB0B1Holder
 {
 public:
 	void rva001EB0B1();
 };
 class TerrainVisual;
-extern TerrainVisual *TheTerrainVisual;	// defined in GameClient.cpp
+class LinearCampaignManager;
+extern LinearCampaignManager *TheLinearCampaignManager;
 
 // The living-world host (0x009FEF18): a war of the ring game.
 class Rva002D3627Host;
@@ -277,7 +278,7 @@ void GameLogic::rva0023D0E3(bool selfDestruct)
 		GameMessage *msg = TheMessageStream->appendMessage(0x448);
 		msg->appendBooleanArgument(true);
 	}
-	((Rva001EB0B1Holder *)TheTerrainVisual)->rva001EB0B1();
+	((Rva001EB0B1Holder *)TheLinearCampaignManager)->rva001EB0B1();
 	GameMessage *msg = TheMessageStream->appendMessage(0x1D);
 	if (g_00DFEF18)
 		msg->appendIntegerArgument(2);
@@ -285,3 +286,7 @@ void GameLogic::rva0023D0E3(bool selfDestruct)
 		rva0023CD9E(false, 0, true);
 	TheInGameUI->m_clientQuiet = true;
 }
+
+// Native global DFDC8C is registered as TheLinearCampaignManager by22F3A1.
+// Existing helper facades carry their historical names; those names do not
+// establish a terrain identity for this campaign-manager data access.

@@ -32,7 +32,8 @@ class W3DTerrainVisual : public TerrainVisual
 public:
 	virtual void removeAllBibs();
 };
-extern TerrainVisual *TheTerrainVisual;	// defined in GameClient.cpp
+class LinearCampaignManager;
+extern LinearCampaignManager *TheLinearCampaignManager;
 
 class Rva00E02D6C
 {
@@ -70,9 +71,13 @@ void Rva003BD598::rva003BD598()
 	m_flagC = 0;
 	TheGameLogic->rva00376D49();
 	((Rva003BBAD3 *)this)->rva003BBAD3();
-	if (TheTerrainVisual != 0)
-		static_cast<W3DTerrainVisual *>(TheTerrainVisual)->W3DTerrainVisual::removeAllBibs();
+	if (TheLinearCampaignManager != 0)
+		reinterpret_cast<W3DTerrainVisual *>(TheLinearCampaignManager)->W3DTerrainVisual::removeAllBibs();
 	TheCampaignManager->m_flag2D = true;
 	(*(Rva002036A9DwordImmSetter **)&TheScriptEngine)->apply();
 	(*(Rva0021A54A **)&TheCreateAHeroManager)->rva0021A54A();
 }
+
+// Native global DFDC8C is registered as TheLinearCampaignManager by22F3A1.
+// Existing helper facades carry their historical names; those names do not
+// establish a terrain identity for this campaign-manager data access.

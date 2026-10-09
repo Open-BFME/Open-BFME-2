@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /O2 /Ob2 /G6 /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/shims/moduledata
+// cl: /DNDEBUG /MD /EHsc /GX- /O2 /Ob2 /G6 /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/shims/moduledata
 // stlport
 // Open-BFME: GeometryInfo::calcBoundingStuff, target 0x006BE700, 301 bytes.
 // BFME 1 address labels below preserve donor naming; target helpers are
@@ -70,12 +70,14 @@ inline const T &bfmeMin(const T &a, const T &b)
     return (a < b) ? a : b;
 }
 
+class INI;
 class GeometryInfo : public Snapshot
 {
 public:
 	void rva0087E650(Rva0087E650Bounds *bounds);
 
 private:
+	friend void parseAdditionalGeometryRva006BFA60(INI *volatile, void *, void *, const void *);
 	void calcBoundingStuff();
 
 	Bool m_isSmall;
@@ -225,4 +227,41 @@ void GeometryInfo::rva0087E650(Rva0087E650Bounds *bounds)
 			break;
 		}
 	}
+}
+
+// Target identity: named WB GeometryInfo::parseAdditionalGeometryType lead;
+// retail FieldParse VA00DBF2C8 names AdditionalGeometry and passes geometry storage
+// as callback argument3. Native6BFA60..6BFB11 uses a36-byte record and vector+2C.
+// Reference guide: ZH Common/System/Geometry.cpp default shape semantics. The
+// additional-shape vector is BFME2-specific, not a claimed ZH layout transfer.
+// Existing rowed copy63BE4, overflow6BF5E0, and bounds6BE700 establish these ABI
+// views. Field-blind BfmeElemBE is the overflow provider's existing36-byte view.
+// Original local types/qualifiers remain unknown. A readonly1.0 snapshot through
+// double preserves native x87 reuse. After token parsing the incoming parser slot
+// is reused for the empty insertion trait; its provider consumes no tag payload.
+// Placement construction ends only the unused local pointer object's lifetime.
+#include "ascii_string.h"
+#include <new>
+extern const char *const GeometryNames[];
+class INI { public: const char *getNextToken(const char *);int scanIndexList(const char *,const char *const *); };
+static const volatile float kDefaultDimension=1.0f;
+struct DimensionTriple { float height,major,minor;DimensionTriple(){double value=kDefaultDimension;height=(float)value;major=(float)value;minor=(float)value;} };
+struct GeometryAdditionalShape { int type;DimensionTriple dimensions;float x,y,z;AsciiString name;unsigned char active,flag21;GeometryAdditionalShape(int t):type(t),dimensions(),x(0),y(0),z(0),active(1),flag21(1){} };
+struct BfmeStringRecord00063BE4 {unsigned int words[7];AsciiString text;unsigned char tail0,tail1;BfmeStringRecord00063BE4(const BfmeStringRecord00063BE4 &);};
+struct BfmeElemBE { char data[36]; };
+struct BfmeFalseBE {};
+class BfmeVecBE { public:
+ void overflow(BfmeElemBE *,const BfmeElemBE &,const BfmeFalseBE &,unsigned,bool);
+ BfmeElemBE *start,*finish,*limit;
+ void append(const GeometryAdditionalShape &shape,const BfmeFalseBE &tag) {
+  if(finish!=limit) {if(finish)new(finish)BfmeStringRecord00063BE4(*reinterpret_cast<const BfmeStringRecord00063BE4 *>(&shape));++finish;}
+  else {overflow(finish,*reinterpret_cast<const BfmeElemBE *>(&shape),tag,1,true); }
+ }
+};
+void parseAdditionalGeometryRva006BFA60(INI *volatile ini,void *,void *store,const void *) {
+ INI *parser=ini;
+ GeometryAdditionalShape shape(parser->scanIndexList(parser->getNextToken(0),GeometryNames));
+ GeometryInfo *geometry=static_cast<GeometryInfo *>(store);
+ BfmeFalseBE &tag=*new(const_cast<INI **>(&ini)) BfmeFalseBE;
+ reinterpret_cast<BfmeVecBE *>(&geometry->m_shapes)->append(shape,tag);geometry->calcBoundingStuff();
 }

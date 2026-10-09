@@ -231,7 +231,7 @@ extern class Rva003EF328 *TheLivingWorldRegionEffectsManagerStore;
 extern class LivingWorldManager *TheLivingWorldManager;
 extern class LivingWorldLogic *TheLivingWorldLogic;
 extern class ClientFrameSubsystem *TheGameClient;
-extern class TerrainVisual *TheTerrainVisual;	// defined in GameClient.cpp
+extern class LinearCampaignManager *TheLinearCampaignManager;
 extern AI *TheAI;
 extern AerialPathfinder *TheAerialPathfinder;
 extern Rva0022B3F6Subsystem *TheSplineService;
@@ -730,7 +730,7 @@ void GameEngine::init(Int argc, char *argv[])
 		initSubsystem((reinterpret_cast<Rva0022B12DSubsystem *&>(TheLivingWorldManager)), "TheLivingWorldManager", new Rva0022B12DSubsystem, 0);
 		initSubsystem((reinterpret_cast<Rva0022B1A2Subsystem *&>(TheLivingWorldLogic)), "TheLivingWorldLogic", new Rva0022B1A2Subsystem, (Xfer *)&xferCRC);
 		initSubsystem((reinterpret_cast<GameClient *&>(TheGameClient)), "TheGameClient", createGameClient(), 0);
-		initSubsystem((reinterpret_cast<Rva0022B28CSubsystem *&>(TheTerrainVisual)), "TheLinearCampaignManager", new Rva0022B28CSubsystem, (Xfer *)&xferCRC);
+		initSubsystem((reinterpret_cast<Rva0022B28CSubsystem *&>(TheLinearCampaignManager)), "TheLinearCampaignManager", new Rva0022B28CSubsystem, (Xfer *)&xferCRC);
 		initSubsystem(TheAI, "TheAI", new AI, (Xfer *)&xferCRC);
 		initSubsystem(TheAerialPathfinder, "TheAerialPathfinder", new AerialPathfinder, (Xfer *)&xferCRC);
 		initSubsystem(TheSplineService, "TheSplineService", new Rva0022B3F6Subsystem, (Xfer *)&xferCRC);
@@ -933,3 +933,7 @@ void GameEngine::init(Int argc, char *argv[])
 	m_54 = timeGetTime();
 	Rva0002BBC9Update();
 }
+
+// Native global DFDC8C is registered as TheLinearCampaignManager by22F3A1.
+// Existing helper facades carry their historical names; those names do not
+// establish a terrain identity for this campaign-manager data access.
