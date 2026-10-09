@@ -16,7 +16,7 @@ public:
     void Get_Description(SurfaceDescription &description);
     unsigned int GetSurfaceMemoryUsage() const;
     void DrawPixel(unsigned int x, unsigned int y, unsigned int color);
-    void rva00116D10(unsigned int x, unsigned int y, unsigned int alpha);
+    void rva00116D10(unsigned int x, unsigned int y, unsigned char alpha);
 private:
     void *surface;
 };
@@ -222,14 +222,14 @@ void SurfaceClass::DrawPixel(unsigned int x, unsigned int y, unsigned int color)
         Log_DX8_ErrorCode((unsigned int)hr);
 }
 
-// ?SurfaceClass::rva00116D10 present-unmatched
+// ?rva00116D10@SurfaceClass@@QAEXIIE@Z
 // Native 0x00116D10..0x00116DB2: the DrawPixel sibling that changes only
 // the high byte of an A8R8G8B8 pixel. Surface ownership, Get_Description,
 // COM slots 13/14 and the rectangle layout agree with the matched sibling.
 // The historical method name is unknown. The rectangle/lock sequence follows
 // Open-BFME-1 6583b3c1ff SurfaceClass_DrawPixel.cpp; the format-21 test and
 // single byte store are established directly from BFME2 retail.
-void SurfaceClass::rva00116D10(unsigned int x, unsigned int y, unsigned int alpha)
+void SurfaceClass::rva00116D10(unsigned int x, unsigned int y, unsigned char alpha)
 {
     if (!surface)
         return;
