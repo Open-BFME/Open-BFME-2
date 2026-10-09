@@ -49,3 +49,26 @@ Rva0027C36A &Rva0027C36A::operator=(const Rva0027C36A &other)
 		m_9c[i] = other.m_9c[i];
 	return *this;
 }
+
+// Reference lead: clean Open-BFME-1 AIPlayer.cpp at f98983a7d3bb405f1a4ba94bb6a2a168062a819d,
+// compiled /O1 /G7 /arch:SSE. Its queue-membership name does not apply here:
+// native 00087AB9 calls the independently rowed 175-byte record assignment
+// at 00085420, rather than the donor's list predicate. The full 16-byte
+// entry forwards the receiver's +0x0C record to the destination stack word
+// and preserves the assignment's returned destination reference. Its
+// preceding rowed deleting destructor ends at 00087AB9, and the following
+// independent rowed pair-copy begins at 00087AC9. The original owner and
+// member name are unknown; this view describes only the consumed prefix.
+class Rva00087AB9
+{
+public:
+	Rva0027C36A &rva00087AB9(Rva0027C36A *destination);
+private:
+	unsigned char m_beforeRecord[0x0C];
+	Rva0027C36A m_record;
+};
+
+Rva0027C36A &Rva00087AB9::rva00087AB9(Rva0027C36A *destination)
+{
+	return *destination = m_record;
+}
