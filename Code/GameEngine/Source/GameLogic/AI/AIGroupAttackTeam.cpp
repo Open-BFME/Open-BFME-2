@@ -37,11 +37,18 @@
 // condition on every member.
 
 #include <list>
+#include <vector>
 #include <string.h>
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 #include "../../../Include/GameLogic/ContainmentListView.h"
 
 typedef int Int;
+enum ObjectID { INVALID_ID=0 };
+namespace _STL {
+ template<> vector<ObjectID>::iterator vector<ObjectID>::erase(iterator,iterator);
+ template<> void vector<ObjectID>::push_back(const ObjectID&);
+}
+
 
 enum CommandSourceType
 {
@@ -135,11 +142,19 @@ class SpawnBehaviorInterface { public:
  virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
  virtual void attack(const Coord3D*,int,CommandSourceType);
 };
+class Player;
+class UpgradeTemplate { public: unsigned int pad; int type; };
+class UpgradeCenter { public: bool rva0026F11A(Player*,const UpgradeTemplate*,Object*,bool); };
+extern UpgradeCenter *TheUpgradeCenter;
+class Rva0036DE89Production { public:
+ virtual void v0(); virtual int canQueue(const UpgradeTemplate*); virtual void v2(); virtual void queue(const UpgradeTemplate*);
+};
 class AICommandInterface
 {
 public:
 	void aiAttackTeam(const Team *team, Int maxShotsToFire, CommandSourceType cmdSource);
 	void aiHunt(CommandSourceType cmdSource);
+	void rva0036EC1D(Object*,CommandSourceType);
 	void aiAttackPosition(const Coord3D *, int, CommandSourceType);
 };
 
@@ -217,6 +232,12 @@ public:
 	const ThingTemplate *getTemplate() const { return m_template; }
 	const Coord3D *getPosition() const {return &m_pos;}
 	SpawnBehaviorInterface *getSpawnBehaviorInterface() const;
+	Player *getControllingPlayer() const;
+	ObjectID getID() const { return m_id; }
+	bool rva00290D2B(const UpgradeTemplate*) const;
+	bool rva002940B9(const UpgradeTemplate*);
+	void *rva0028BC58(int);
+	Object *rva002931F5(bool);
 	CanAttackResult getAbleToUseWeaponAgainstTarget(AbleToAttackType, const Object*, const Coord3D*, CommandSourceType) const;
 	void setWeaponSetFlag(WeaponSetType wst);
 	void rva0028C20F(int x);
@@ -228,7 +249,9 @@ public:
 	const ThingTemplate *m_template; // +0x04
 	char m_pad08[0x38 - 0x08];
 	Coord3D m_pos;
-	char m_pad44[0x250 - 0x44];
+	char m_pad44[0x74 - 0x44];
+	ObjectID m_id;
+	char m_pad78[0x250 - 0x78];
 	Rva0036FF74Contain *m_contain;
 	char m_pad254[4];
 	AIUpdateInterface *m_ai;
@@ -239,6 +262,9 @@ class AIGroup
 public:
 	void groupAttackTeam(const Team *team, Int maxShotsToFire, CommandSourceType cmdSource);
 	void groupHunt(CommandSourceType cmdSource);
+	void rva0036DE89(const UpgradeTemplate*);
+	void rva00370554(Object*,CommandSourceType);
+	const _STL::vector<ObjectID>& getAllIDs() const;
 	void groupAttackPosition(const Coord3D *, Int, CommandSourceType);
 	void rva0036DBBA(int unused, int type, unsigned int frames);
 	void rva0036DC1D(ModelConditionFlagType mc, unsigned int frames);
@@ -251,6 +277,8 @@ public:
 private:
 	unsigned int m_pad00;
 	std::list<Object *> m_memberList;
+	char m_pad08[0x30 - 0x08];
+	mutable _STL::vector<ObjectID> m_lastRequestedIDList;
 };
 
 void AIGroup::groupAttackTeam(const Team *team, Int maxShotsToFire, CommandSourceType cmdSource)
@@ -412,4 +440,33 @@ void AIGroup::groupAttackPosition(const Coord3D *pos, Int maxShotsToFire, Comman
         AIUpdateInterface *ai=(*i)->m_ai;
         if(ai) ai->m_commands.aiAttackPosition(&attackPos,maxShotsToFire,cmdSource);
     }
+}
+
+// ZH queueUpgrade semantic lead; native 0036DE89..0036DF14 RET4.
+// BFME2 adds Object argument to affordability; removes canProduceUpgrade;
+// production interface slots1/3 accept UpgradeTemplate, queue-full enum4.
+void AIGroup::rva0036DE89(const UpgradeTemplate *upgrade)
+{
+ if (!upgrade) return;
+ for (std::list<Object*>::iterator i=m_memberList.begin(); i!=m_memberList.end(); ++i) {
+  Object *obj=*i;
+  if (!TheUpgradeCenter->rva0026F11A(obj->getControllingPlayer(),upgrade,obj,false)) continue;
+  if (upgrade->type==1) {
+   if (obj->rva00290D2B(upgrade) || !obj->rva002940B9(upgrade)) continue;
+  }
+  Rva0036DE89Production *production=(Rva0036DE89Production*)obj->rva0028BC58(0);
+  if (!production) continue;
+  if (production->canQueue(upgrade)==4) continue;
+  production->queue(upgrade);
+ }
+}
+// ZH getAllIDs; native 0036F710..0036F757 reads ObjectID74 and vector30.
+const _STL::vector<ObjectID>& AIGroup::getAllIDs() const
+{
+ m_lastRequestedIDList.clear();
+ for(std::list<Object*>::const_iterator it=m_memberList.begin();it!=m_memberList.end();++it) {
+  if(!*it) continue;
+  m_lastRequestedIDList.push_back((*it)->getID());
+ }
+ return m_lastRequestedIDList;
 }
