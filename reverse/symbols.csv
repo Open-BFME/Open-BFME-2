@@ -16994,3 +16994,4 @@ _D3DXMatrixTranslation@16,0x0062AF32,First named PE import thunk: FF25 IAT00BBA9
 ?reallyCreate@GenericObjectCreationNugget@@QBE?AUNuggetCreated@@PBUCoord3D@@PBVMatrix3D@@MPBVObject@@I@Z,0x001F1634,callee of ?create@GenericObjectCreationNugget@@UBEXPBVObject@@0I@Z
 ??0Rva0006F9D6@@QAE@XZ,0x0006F9D6,ctor called by W3DDisplay init 0x46A50 on a new 0x11C-byte scene object (Set_Ambient slot 0x18); class identity unproven
 _isdigit,0x00629982,Native6F97F0 suffix parser calls PE isdigit import thunk629982 repeatedly; named import ji_00629982 independently identifies msvcr71 isdigit
+?rva0030E67C@Rva0030E961@@QAEMMM@Z,0x0030E67C,callee of ?setZoomToDefault@W3DView@@QAEXXZ

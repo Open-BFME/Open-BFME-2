@@ -82,6 +82,8 @@ struct WaypointXY
 	char padding[4];
 };
 
+class Rva0030E961 { public: Real rva0030E67C(Real x,Real y); };
+
 class W3DView
 {
 public:
@@ -109,23 +111,39 @@ public:
 		Real easeIn, Real easeOut);
 	virtual void cameraModFinalZoom(Real finalZoom, Real easeIn, Real easeOut);
 
+	void setZoomToDefault();
 private:
+	void setCameraTransform();
 	char m_padding0004[0x0c - 4];
 	Coord3D m_pos;
-	char m_padding0018[0x1ac - 0x18];
+	char m_padding0018[0x3c - 0x18];
+	Real m_zoom, m_heightAboveGround;
+	char m_padding0044[0x1ac - 0x44];
 	Int m_rcNumFrames;
 	Int m_rcCurFrame;
 	char m_padding01b4[0x1bc - 0x1b4];
 	Int m_rcNumHoldFrames;
 	char m_padding01c0[0x1dc - 0x1c0];
 	Bool m_doingRotateCamera;
-	char m_padding01dd[0x22f0 - 0x1dd];
+	char m_padding01dd[0x204 - 0x1dd];
+	Bool m_doingPitchCamera;
+	char m_padding0205[0x228 - 0x205];
+	Bool m_doingZoomCamera;
+	char m_padding0229[0x27c - 0x229];
+	Bool m_doingScriptedCameraLock,m_CameraArrivedAtWaypointOnPathFlag;
+	char m_padding027e[0x22f0 - 0x27e];
 	Int m_numWaypoints;
 	char m_padding22f4[0x2354 - 0x22f4];
 	Int m_cameraMovementMode;
 	char m_padding2358[0x23f0 - 0x2358];
 	Real m_cameraOffsetZ;
-	char m_padding23f4[0x24c8 - 0x23f4];
+	char m_padding23f4[0x241c - 0x23f4];
+	Bool m_cameraConstraintValid;
+	char m_padding241d[0x2458 - 0x241d];
+	Rva0030E961 m_cameraHeightField;
+	char m_padding2459[0x2474 - 0x2459];
+	Bool m_useHeightField;
+	char m_padding2475[0x24c8 - 0x2475];
 	CameraLimit m_cameraLimits;
 };
 
@@ -163,4 +181,25 @@ void W3DView::cameraModFinalZoom(Real finalZoom, Real easeIn, Real easeOut)
 			zoomCamera(finalZoom * maxZoom, time, time * easeIn, time * easeOut);
 		}
 	}
+}
+
+// Native 8D477..8D55D: guarded default-zoom update. BF1 f989/ZH
+// setZoomToDefault is the semantic guide; target adds movement guards and
+// the optional flat-grid height source at2458/2474. All offsets from bytes.
+void W3DView::setZoomToDefault()
+{
+ if(m_cameraMovementMode || m_doingRotateCamera || m_doingPitchCamera ||
+    m_doingZoomCamera || m_CameraArrivedAtWaypointOnPathFlag || m_doingScriptedCameraLock) return;
+ Real height = getHeightAroundPos(m_pos.x,m_pos.y);
+ if(m_useHeightField) height=m_cameraHeightField.rva0030E67C(m_pos.x,m_pos.y);
+ Real desiredHeight=height+m_cameraLimits.getMaximum();
+ m_zoom=desiredHeight/m_cameraOffsetZ;
+ m_heightAboveGround=m_cameraLimits.getMaximum();
+ m_doingRotateCamera=false;
+ m_doingPitchCamera=false;
+ m_doingScriptedCameraLock=false;
+ m_doingZoomCamera=false;
+ m_CameraArrivedAtWaypointOnPathFlag=false;
+ m_cameraConstraintValid=false;
+ setCameraTransform();
 }
