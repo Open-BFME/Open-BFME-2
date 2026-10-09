@@ -1,6 +1,8 @@
 // ?parseCastleTemplateMaps@SidesList@@QAEXXZ
+// partial score=0.9 date=2026-10-09
+// ?parseCastleTemplateMaps@SidesList@@QAEXXZ
 // partial score=0.9 date=2026-10-08
-// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /D_CRTIMP= /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii
+// cl: /O1 /G7 /arch:SSE /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /D_CRTIMP= /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 // stlport
 //
