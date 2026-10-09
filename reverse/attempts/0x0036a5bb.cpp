@@ -1,4 +1,6 @@
 // ?rva0036A5BB@Rva00368004@@QAEHXZ
+// partial score=0.973902 date=2026-10-09
+// ?rva0036A5BB@Rva00368004@@QAEHXZ
 // partial score=0.91127 date=2026-10-09
 // cl: /MD /O1 /Oy- /arch:SSE /G7 /EHs
 // ?rva00368004@Rva00368004@@QAE_NXZ @0x00368004 17B
