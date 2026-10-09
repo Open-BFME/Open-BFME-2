@@ -29,7 +29,10 @@ class LivingWorldBuildingTemplate
 public:
     BuildingNuggetView *findNugget(const AsciiString &) const;
     void appendDisplayCommandPointBonus(UnicodeString &) const;
-    char unknown00[0x2C];
+    UnicodeString rva002DFE36();
+    char unknown00[0x24];
+    AsciiString descriptionLabel;
+    char unknown28[4];
     int kind;
     BuildingNuggetView **begin, **end;
 };
@@ -50,8 +53,9 @@ class GameTextInterface
 {
 public:
 #define GT_SLOT(n) virtual void slot##n();
-GT_SLOT(0) GT_SLOT(1) GT_SLOT(2) GT_SLOT(3) GT_SLOT(4) GT_SLOT(5) GT_SLOT(6) GT_SLOT(7) GT_SLOT(8) GT_SLOT(9) GT_SLOT(10) GT_SLOT(11) GT_SLOT(12) GT_SLOT(13) GT_SLOT(14)
+GT_SLOT(0) GT_SLOT(1) GT_SLOT(2) GT_SLOT(3) GT_SLOT(4) GT_SLOT(5) GT_SLOT(6) GT_SLOT(7) GT_SLOT(8) GT_SLOT(9) GT_SLOT(10) GT_SLOT(11) GT_SLOT(12) GT_SLOT(13)
 #undef GT_SLOT
+    virtual UnicodeString fetchLabel(const AsciiString &, bool *);
     virtual UnicodeString fetch(const char *, bool *);
 };
 extern GameTextInterface *TheGameText;
@@ -117,4 +121,12 @@ private: char unknown00[0x10]; char tablePrefix[0x14];
 const LivingWorldBuildingTemplate *LivingWorldBuildingTemplateStore::getEmergencyBackupTemplateForBadLoads() {
  NativeBeginTable::iterator first=reinterpret_cast<NativeBeginTable*>(tablePrefix)->begin();
  return reinterpret_cast<const LivingWorldBuildingTemplate*>((char*)first._M_cur+8);
+}
+
+// Native2DFE36..2DFE9E complete104B: translated description + command-point bonus.
+UnicodeString LivingWorldBuildingTemplate::rva002DFE36()
+{
+    UnicodeString description=TheGameText->fetchLabel(descriptionLabel,0);
+    appendDisplayCommandPointBonus(description);
+    return UnicodeString(description);
 }
