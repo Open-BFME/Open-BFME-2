@@ -33,6 +33,7 @@ public:
  	T *erase(T *pos);
  	T *erase(T *first, T *last);
  	T *insert(T *pos, const T &x);
+    void reserve(unsigned int count);
 	T *begin() { return m_start; }
 	T *end() { return m_finish; }
 private:
@@ -48,6 +49,7 @@ public:
  	void rva005389D9(const BfmeFloat4Record00469C61 &x);
  	void rva00538768(int index);
  	void rva00538931();
+    void rva0053892C(unsigned int count);
  	void rva005389ED(int index, const W3DAnimationInfo &x);
  	void rva00538383(float scale);
 private:
@@ -92,6 +94,16 @@ void QuadStrip2D::rva00538931()
 {
 	m_vec.erase(m_vec.begin(), m_vec.end());
 	m_20 = 1;
+}
+
+// Complete five-byte tail wrapper between this holder's copy assignment and
+// clear operation. The rowed reserve provider uses the same four-float strip
+// family as parse (0x00538A0B) and append above; no receiver adjustment occurs.
+// WB's RiverArea::reserveStipSpace callsite is a lead for the embedded strip,
+// not proof of this wrapper's original name or its caller's public signature.
+void QuadStrip2D::rva0053892C(unsigned int count)
+{
+    ((_STL::vector<BfmeFloat4Record00469C61, _STL::allocator<BfmeFloat4Record00469C61> > *)&m_vec)->reserve(count);
 }
 
 // ?rva005389ED@QuadStrip2D@@QAEXHABVW3DAnimationInfo@@@Z @0x005389ED 30B

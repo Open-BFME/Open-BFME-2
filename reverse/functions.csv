@@ -74046,3 +74046,4 @@ _vp6_xprintf,,0x001C4C90,610,Code/Libraries/Source/VP6/vp6_xprintf.cpp,matched,v
 ?Rva003C58C9Do@@YGXPAVParameter@@ABVAsciiString@@H@Z,,0x003C58C9,161,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_Rva003C57A9Do.cpp,matched,
 ?set@Rva000FC34FFilter@@MAEHW4FilterModes@@@Z,,0x000FC34F,590,Code/GameEngineDevice/Source/W3DDevice/GameClient/ScreenFilterRva000FC63DSet.cpp,matched,
 ?set@Rva000F9989Filter@@MAEHW4FilterModes@@@Z,,0x000F9989,590,Code/GameEngineDevice/Source/W3DDevice/GameClient/ScreenFilterRva000FC63DSet.cpp,matched,
+?rva0053892C@QuadStrip2D@@QAEXI@Z,,0x0053892C,5,Code/GameEngine/Source/Common/Rva005388C2Assign.cpp,matched,Native53892C..538931 complete JMP to owned four-float vector reserve538839; established holder copy53 ends at entry and clear19 follows; vector at+0 agrees with parse538A0B and append5389D9. WB RiverArea reserveStipSpace callsite is only embedded-strip lead; original wrapper name unresolved. No alias pin or flags added.
