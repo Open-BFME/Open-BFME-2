@@ -5,9 +5,24 @@
 // Retail BFME2 keeps the flag at the same offset (+0x65): crippling means
 // approach requests are accepted but enter clearance is never granted.
 
+struct Rva0028F59A
+{
+	unsigned int m_bits[19];
+	Rva0028F59A(int unused, int bit);
+};
+
+class Rva001E4912
+{
+public:
+	Rva001E4912() {}
+	Rva001E4912 *rva001E4912(int unused, unsigned int first, unsigned int second);
+	unsigned int m_bits[19];
+};
+
 class Object
 {
 public:
+	void rva0028CFB2(const int *clear, const int *set);
 	int m_pad74[0x74 / 4];	// vptr at +0x0, id at +0x74
 	int m_id;	// +0x74
 };
@@ -39,8 +54,24 @@ class DockUpdate
 {
 public:
 	virtual bool isClearToApproach(const Object *docker) const;
-	virtual void setDockCrippled(bool setting);
+	virtual void dockSlot01();
+	virtual void dockSlot02();
 	virtual bool isClearToEnter(const Object *docker) const;
+	virtual void dockSlot04();
+	virtual void dockSlot05();
+	virtual void dockSlot06();
+	virtual void dockSlot07();
+	virtual void dockSlot08();
+	virtual void dockSlot09();
+	virtual void dockSlot10();
+	virtual void onExitReached(Object *docker);
+	virtual void dockSlot12();
+	virtual void dockSlot13();
+	virtual bool isDockOpen();
+	virtual void dockSlot15();
+	virtual void dockSlot16();
+	virtual void dockSlot17();
+	virtual void setDockCrippled(bool setting);
 
 private:
 	unsigned char m_pre04[0x24];	// interface vptr at +0x0, count at +0x28
@@ -49,7 +80,7 @@ private:
 	ObjectIDVector m_approachPositionOwners;	// +0x40
 	unsigned char m_pre4C[0x14];	// +0x4C..+0x5F
 	int m_activeDocker;	// +0x60
-	unsigned char m_pad64;	// +0x64
+	bool m_dockerInside;	// +0x64
 	bool m_dockCrippled;	// +0x65
 };
 
@@ -81,4 +112,28 @@ void DockUpdate::setDockCrippled(bool setting)
 bool DockUpdate::isClearToEnter(const Object *docker) const
 {
 	return docker->m_id == m_activeDocker;
+}
+
+// ?onExitReached@DockUpdate@@UAEXPAVObject@@@Z
+// Zero Hour's DockUpdate::onExitReached supplies the callback semantics;
+// donor revision f98983a7d3bb405f1a4ba94bb6a2a168062a819d. Native
+// 0x0058977F..0x005897FB independently proves the interface receiver,
+// owner at this-0x18, 76-byte condition masks, bits 0x53/0x51/0x54,
+// docker ID +0x74, inside byte +0x64 and active ID +0x60. The native
+// mismatch arm still calls isDockOpen at interface slot 14. This class
+// is a view of the secondary DockUpdateInterface, as in the existing rows.
+void DockUpdate::onExitReached(Object *docker)
+{
+	Object *me = *(Object **)((char *)this - 0x18);
+	me->rva0028CFB2(
+		(const int *)Rva001E4912().rva001E4912(0, 0x53, 0x51),
+		(const int *)&Rva0028F59A(0, 0x54));
+	docker->rva0028CFB2(
+		(const int *)Rva001E4912().rva001E4912(0, 0x53, 0x51),
+		(const int *)&Rva0028F59A(0, 0x54));
+	m_dockerInside = false;
+	if (docker->m_id == m_activeDocker)
+		m_activeDocker = 0;
+	else
+		isDockOpen();
 }
