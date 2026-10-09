@@ -37,7 +37,7 @@ template <> struct less<AsciiString>
 class Rva004E35D5
 {
 public:
-	void rva004E35D5(const AsciiString &key, Int a, Int b);
+	void rva004E35D5(const AsciiString &key, Int a, bool b);
 private:
 	_STL::map<AsciiString, AsciiString> m_map;
 };
@@ -477,4 +477,30 @@ void Rva003EE8D8::rva003EE8D8(Int a)
 	Int tmp[3];
 	((Rva003EE7CA *)this)->rva003EE7CA((Int)&tmp, a);
 	((Rva003EE89E *)this)->rva003EE89E(a, (Int)&tmp);
+}
+
+// Native 003EEDD6..003EEE64: 142B campaign-region range update.
+// WB1037D10 confirms index-range traversal and all five call targets.
+// Native reads region bool1A2 and manager bool54; manager constructor and
+// RegionEffects FieldParse ShouldShowRegionBorders separately prove bool54.
+// Actual function name and unconstrained region fields remain unknown.
+class Rva003F0FD1 {public:void rva003F0FD1();};
+struct S3CampaignRegion {char pad0[0x54];char region[0x1a2-0x54];bool border;};
+struct S3CampaignRange {S3CampaignRegion **begin;S3CampaignRegion **end;};
+class Rva003EEDD6 {public:void rva003EEDD6(int);char pad0[0x54];bool borders;};
+void Rva003EEDD6::rva003EEDD6(int value)
+{
+    S3CampaignRange &range=*(S3CampaignRange*)value;
+    for(unsigned i=0;i<(unsigned)(range.end-range.begin);++i) {
+        S3CampaignRegion *region=range.begin[i];
+        ((Rva003F0FD1*)region)->rva003F0FD1();
+        ((Rva003EE7E1*)this)->rva003EE7E1((int)region);
+        if(region->border) {
+            void *p=region->region;
+            Rva004E35D5 *effects=(Rva004E35D5*)((char*)this+8);
+            effects->rva004E35D5(g_Rva00E02E64,(int)p,borders);
+            ((Rva004E35FF*)effects)->rva004E35FF(g_Rva00E02E64,(int)p,(int)((char*)this+0x2c));
+            ((Rva004E35AF*)effects)->rva004E35AF(g_Rva00E02E64,0);
+        }
+    }
 }

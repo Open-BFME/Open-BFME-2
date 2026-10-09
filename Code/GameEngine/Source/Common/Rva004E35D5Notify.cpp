@@ -8,7 +8,8 @@
 // (Rva003BAD00Owner::notify0C, same shape with int key, slots 4/8/0xC).
 // Retail evidence: call to rowed _M_find at 0x001F8437, cmp eax,[esi],
 // mov eax,[eax+0x14], call [edx+0xC], ret 0xC. Callers pass static
-// AsciiStrings (BordersEffect etc at 0x00E02E64+) with (ptr, int).
+// AsciiStrings (BordersEffect etc at 0x00E02E64+) with (ptr, boolean). The 003EEDD6 caller passes the parsed
+// manager bool at +54 in CL with upper bits intentionally untouched.
 // Map spelled map<AsciiString,AsciiString> so the emitted _M_find names
 // the rowed worker (FontLibraryFindRecord precedent); second recast to target.
 #include <map>
@@ -45,7 +46,7 @@ public:
 	virtual void slot00();
 	virtual void slot04(Int a);
 	virtual void slot08(Int a);
-	virtual void slot0C(Int a, Int b);
+	virtual void slot0C(Int a, bool b);
 	virtual void slot10(Int a, Int b);
 };
 
@@ -60,7 +61,7 @@ private:
 class Rva004E35D5
 {
 public:
-	void rva004E35D5(const AsciiString &key, Int a, Int b);
+	void rva004E35D5(const AsciiString &key, Int a, bool b);
 private:
 	_STL::map<AsciiString, AsciiString> m_map;
 };
@@ -92,7 +93,7 @@ void Rva004E35AF::rva004E35AF(const AsciiString &key, Int a)
 	t->slot04(a);
 }
 
-void Rva004E35D5::rva004E35D5(const AsciiString &key, Int a, Int b)
+void Rva004E35D5::rva004E35D5(const AsciiString &key, Int a, bool b)
 {
 	_STL::map<AsciiString, AsciiString>::iterator it = m_map.find(key);
 	if (it == m_map.end())

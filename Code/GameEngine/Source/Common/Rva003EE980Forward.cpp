@@ -36,7 +36,7 @@ template <> struct less<AsciiString>
 class Rva004E35D5
 {
 public:
-	void rva004E35D5(const AsciiString &key, Int a, Int b);
+	void rva004E35D5(const AsciiString &key, Int a, bool b);
 private:
 	_STL::map<AsciiString, AsciiString> m_map;
 };
