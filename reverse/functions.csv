@@ -48366,7 +48366,7 @@ _rva006D9D70Comparator,,0x006D9D70,203,Code/Libraries/Source/Apt/AptValue/Rva006
 ??0Rva00418797@@QAE@ABVAsciiString@@PBV0@@Z,,0x00418797,124,Code/GameEngine/Source/GameClient/Rva00418797Ctor.cpp,matched,ctor via sibling Rva00419669 precedent with two maps plus string
 ?rva00323E1C@Rva00323E1C@@QAEXXZ,,0x00323E1C,121,Code/GameEngine/Source/GameClient/GUI/Gadget/Rva00323E1CMethod.cpp,matched,gui audio prefix via TheAudio misc plus addAudioEvent
 ?rva00323619@Rva00323619@@QAEXH@Z,,0x00323619,41,Code/GameEngine/Source/GameClient/GUI/Gadget/Rva00323619Setter.cpp,matched,setter via userData with global scale over 0x300
-?Rva001DCFC9Parse@@YGXPAVINI@@PAX@Z,,0x001DCFC9,28,Code/GameEngine/Source/Common/Rva001DCFC9.cpp,matched,callers 0x001DEB43 0x001DF688 table VA 0x00BDC078 callee initFromINI rowed
+?rva001DCFC9@Eva@@QAEXPAVINI@@PAX@Z,,0x001DCFC9,28,Code/GameEngine/Source/Common/Rva001DCFC9.cpp,matched,Target callers 0x001DEB43 and 0x001DF688 load TheEva into ECX before the two explicit arguments; canonicalize unused-receiver thiscall ABI. Native 28B extent and initFromINI table VA 0x00BDC078 prove the body; owner role remains address-derived.
 ?rva00356284@Rva00356284@@QAEXXZ,,0x00356284,227,Code/GameEngine/Source/Common/Rva00356284Audio.cpp,matched,Audio double-prefix refresh via TheAudio
 ?Rva004CF145@@YAXXZ,,0x004CF145,104,Code/GameEngine/Source/Common/Rva004CF145.cpp,matched,Audio event via TheAudio slot138
 ??$__pop_heap_aux@PAHHURva005E4300Cmp@@@_STL@@YAXPAH00URva005E4300Cmp@@@Z,,0x005E4AC4,30,Code/Libraries/Source/WWVegas/WWLib/stlport_pop_heap_rva005E4300.cpp,matched,chain calls just-landed 0x005E4A5F same 30B as 0x00423F9F
