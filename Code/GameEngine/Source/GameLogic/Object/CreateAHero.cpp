@@ -515,3 +515,14 @@ bool Rva0021AD88Less(unsigned int first, unsigned int second)
             TheCreateAHeroManager->GetBling(second))->m_upgradeName));
     return a->word88 < b->word88;
 }
+
+typedef bool (*BlingIndexLess)(unsigned int, unsigned int);
+namespace _STL {
+template <> void sort<unsigned int *, BlingIndexLess>(unsigned int *, unsigned int *, BlingIndexLess);
+}
+// Native21E673..21E68A supplies the verified comparator and the unsigned
+// index vector's complete range to the recursively proven value-sort fold.
+void Rva0021E673Sort(std::vector<unsigned int> *values)
+{
+    std::sort(values->begin(), values->end(), Rva0021AD88Less);
+}

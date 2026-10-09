@@ -34,6 +34,15 @@ typedef bool (*IntValueLess)(int, int);
 template void _STL::sort<void **, VoidPtrValueLess>(void **, void **, VoidPtrValueLess);
 template void _STL::sort<int *, IntValueLess>(int *, int *, IntValueLess);
 
+// CreateAHero's native bling indices are four-byte unsigned values. Its
+// comparator21AD88 compares independently looked-up upgrade words; sorting
+// copies the indices and passes them by value. Emit the real specialization
+// so the whole sort and every folded child can be admitted with relocation
+// proof against the existing value-sort owners, without a pointer-container
+// view of the application's indices.
+typedef bool (*UnsignedValueLess)(unsigned int, unsigned int);
+template void _STL::sort<unsigned int *, UnsignedValueLess>(unsigned int *, unsigned int *, UnsignedValueLess);
+
 // Native 002195E6..00219695 is a 175-byte constructor returning this.
 // Float values below are read from retail's literal slots, independently of
 // donor names. The four unwritten dwords and original class remain unknown.
