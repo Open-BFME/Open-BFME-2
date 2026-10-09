@@ -1,5 +1,5 @@
 // ?calcBlendHeight@W3DTerrainBackground@@QAEXMHPAM@Z
-// partial score=0.92 date=2026-10-09
+// partial score=0.93 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
 // Native [00115A5B,00115DA7),844B, RET12. W3DTerrainBackground::
 // calcBlendHeight (WorldBuilder name and "Bad ndxNdx" assert in
@@ -123,8 +123,8 @@ void W3DTerrainBackground::calcBlendHeight(Real param, Int mode, Real *maxDelta)
 	Int yOrigin = m_yOrigin;
 	Int xLimit = m_xOrigin + m_width;
 	Int yLimit = m_yOrigin + m_width;
-	Int mapXMax = m_map->getXExtent() - 1;
 	Int mapYMax = m_map->getYExtent() - 1;
+	Int mapXMax = m_map->getXExtent() - 1;
 	if (xLimit > mapXMax)
 		xLimit = mapXMax;
 	if (yLimit > mapYMax)
