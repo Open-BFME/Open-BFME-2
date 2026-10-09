@@ -3,6 +3,11 @@
 // WWMath::Init at 0x00711AD0 and WWMath::Fast_Acos at 0x007185C0, from BFME 1's
 // WWMath/wwmath.cpp built with BFME 2's /G7 /arch:SSE. WWLib/wwmath.cpp keeps
 // Random_Float.
+// Keep CRT float adapters local, as in the native math siblings.
+#define inline static inline
+#include <math.h>
+#undef inline
+#include "../../../../../reference/shims/bfme_wwmath_init_link/wwmath.h"
 #include "wwmath.h"
 #include "wwhack.h"
 #include <stdlib.h>
