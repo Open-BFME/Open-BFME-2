@@ -1,0 +1,28 @@
+{
+  "id": "seat-c-watchdog-report-002255ad-20261010",
+  "seat": "C",
+  "base_commit": "91519e490fda7d55539144b184100732ad86323d",
+  "paths": [
+    "Code/GameEngine/Source/Common/WatchdogThreadFunction.cpp"
+  ],
+  "recoveries": [
+    {
+      "name": "?reportWatchdog@Watchdog@@UAEXXZ",
+      "rva": "0x002255AD",
+      "size": 105,
+      "source": "Code/GameEngine/Source/Common/WatchdogThreadFunction.cpp",
+      "notes": "Native2255AD..225616 complete105B and primary vtable slot3; WB12AB0C0 OnDeadThread; BF1@575ba2b WatchdogReport semantic donor; three-argument BF2 debug stream; existing provisional Watchdog class/method spelling retained; all105 bytes and existing335B unit rows exact",
+      "replace_rva": null
+    }
+  ],
+  "new_retail_bytes": 105,
+  "proof_command": "python tools/explain_mismatch.py \"?reportWatchdog@Watchdog@@UAEXXZ\" --rva 0x002255AD --size 105 --source Code/GameEngine/Source/Common/WatchdogThreadFunction.cpp",
+  "proof_log": "scoped-proof.txt",
+  "claim_owner": "codex-104a-01a12257",
+  "worker_root": "C:\\Users\\franz\\.codex\\worktrees\\recovery-preserved\\openbfme2",
+  "dependencies": [],
+  "claims": [
+    "0x002255AD",
+    "file:Code/GameEngine/Source/Common/WatchdogThreadFunction.cpp"
+  ]
+}
