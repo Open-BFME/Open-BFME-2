@@ -116,7 +116,8 @@ public:
  virtual void s29();
  virtual void s30();
  virtual unsigned getFrame();};
-extern ClientFrameSubsystem *TheGameClient;
+class GameClient;
+extern GameClient *TheGameClient;
 class Rva003B00D6 {public:virtual ~Rva003B00D6();char data[0x18];};
 class Rva003B0152:public Rva003B00D6 {public:Rva003B0152(const RvaSmartPtr12&);};
 class Rva003B0344 {public:Rva003B0344(const RvaSmartPtr12&);virtual ~Rva003B0344();char data[0x40];};
@@ -149,7 +150,7 @@ ParticleSystem::ParticleSystem(const FXParticleSystem::ParticleSystemTemplate *t
  unknown188.zero();unknown194=0;
  angle=t->angle;angularRate=t->angularRate;angularDamping=t->angularDamping;velocityDamping=t->velocityDamping;
  burstLeft=0;life=t->life;oneShot=t->oneShot;
- delayLeft=(unsigned)t->startSize.getValue();startTime=TheGameClient->getFrame();lifetimeLeft=t->lifetime;
+ delayLeft=(unsigned)t->startSize.getValue();startTime=((ClientFrameSubsystem*)TheGameClient)->getFrame();lifetimeLeft=t->lifetime;
  forever=t->lifetime==0;depth=t->depth;unknown180=0.0f;emissionVelocity=t->emissionVelocity;
  hollow=t->hollow;ground=t->ground;above=t->above;up=t->up;windMoving=t->windMoving;
  shader=t->shader;particleType=t->particleType;typeName=t->typeName;stopped=false;
