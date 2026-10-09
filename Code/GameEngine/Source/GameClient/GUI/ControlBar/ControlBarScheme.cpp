@@ -82,3 +82,38 @@ void Rva005F8376::rva005F8376(unsigned int *out) const
 	out[0] = m_word18;
 	out[1] = m_word1C;
 }
+
+// Complete retail 0x0031ED01..0x0031ED12: two raw dwords are read from
+// stack +4/+8 and stored at receiver +0x18/+0x1C, followed by RET 8.
+// The preceding rowed CommandSet parser ends at 0x0031ED00 (then INT3);
+// the next independently rowed setter starts at 0x0031ED12. No incoming
+// direct/address reference establishes an original class or method name.
+//
+// Whole clean BFME1 f98983a7 GameClient/GUI/ControlBar/ControlBarScheme.cpp
+// and AnimateWindowManager.cpp, compiled O1/x87/G7, place this same body
+// under different coordinate-setter names. Those names are guides only.
+// Represent the observed stack payload as a trivial two-word value without
+// claiming its original aggregate identity or whether it was two arguments.
+// The unsigned words preserve raw bits; field meaning and full object size
+// remain unknown. This consumed prefix is independent of Rva005F8376.
+struct Rva0031ED01Words
+{
+    unsigned int first;
+    unsigned int second;
+};
+
+class Rva0031ED01
+{
+    unsigned char prefix[0x18];
+    unsigned int word18;
+    unsigned int word1C;
+
+public:
+    void rva0031ED01(Rva0031ED01Words words);
+};
+
+void Rva0031ED01::rva0031ED01(Rva0031ED01Words words)
+{
+    word18 = words.first;
+    word1C = words.second;
+}
