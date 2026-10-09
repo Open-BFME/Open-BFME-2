@@ -1405,10 +1405,13 @@ void Rva00349217::rva00349217()
 	rva00349013();
 }
 
+// Native slot3497C2 forwards the StateReturnType result of the recovered
+// 433B internal update. Bind the call to its real provider instead of the
+// older unprovided void-return pin; this wrapper keeps its neutral spelling.
 class Rva00349611
 {
 public:
-	void rva00349611();
+ StateReturnType rva00349611();
 };
 class Rva003497C2 : public Rva00349611
 {
