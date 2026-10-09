@@ -619,3 +619,45 @@ void Rva0020FDDFHost::rva0020FDDF()
         }
     }
 }
+
+
+// Native3F4A46..3F4ABB117B RET12 and WB104C5D0 agree on the side28B,
+// player48B and pointer-array sorting loops. The third stack word is a
+// reference to a callback pointer; slot0 receives both army pointers.
+class Rva003F409F;
+// Callback prefix: slot0 compares two army words, slot1 deletes, slot2 visits.
+// Native BE4318/BE4334 prove the order; the sort reads slot0 only.
+class Rva0020E20C {
+public:
+ virtual bool Compare(void *,void *)=0;
+ virtual ~Rva0020E20C();
+ virtual bool Visit(Rva003F409F *);
+protected:
+ Rva003F409F *owner04;
+};
+class LivingWorldBattle {
+public:
+ class BattlePlayer {
+ public:
+  void *player;
+  _STL::vector<void *> armies;
+  char tail[0x30-16];
+  void SwapArmies(int,int);
+ };
+ struct Side { int key; _STL::vector<BattlePlayer> players; char tail[0x1C-16]; };
+ void rva003F4A46(int,int,Rva0020E20C *const &);
+private:
+ char pad00[0x18]; _STL::vector<Side> sides;
+};
+void LivingWorldBattle::rva003F4A46(int side,int player,Rva0020E20C *const &compare)
+{
+ BattlePlayer *entry=&sides[side].players[player];
+ int count=(int)entry->armies.size();
+ for (int first=0;first<count;++first) {
+  for(int second=first+1;second<count;++second) {
+   void *a=entry->armies[first];
+   void *b=entry->armies[second];
+   if(!compare->Compare(a,b)) entry->SwapArmies(first,second);
+  }
+ }
+}
