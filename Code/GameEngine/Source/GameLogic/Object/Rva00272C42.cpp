@@ -1,5 +1,3 @@
-// ?rva00272C42@Rva00272C42@@QAEXPBD@Z
-// partial score=0.9 date=2026-10-09
 // cl: /O1 /DNDEBUG /MD
 // Retail 0x00272C42..0x00272C5B, a 25-byte RET4 forwarder on the Drawable
 // returned by Thing::getDrawable. Native +14C is the pointer to its null-ended
@@ -25,10 +23,11 @@ private:
     char pad[0x14C];
     Rva00272C42Module **modules;
 };
-// ?rva00272C42@Rva00272C42@@QAEXPBD@Z present-unmatched
 void Rva00272C42::rva00272C42(const char *text)
 {
-    Rva00272C42Module *module = *modules;
+    // Retail loads the first module through EAX before the virtual tail call.
+    Rva00272C42Module *const volatile &entry = *modules;
+    Rva00272C42Module *module = entry;
     if (module)
         module->forward(text);
 }
