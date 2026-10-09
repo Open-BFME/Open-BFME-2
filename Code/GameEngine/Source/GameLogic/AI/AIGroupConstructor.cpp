@@ -13,7 +13,7 @@
 // before XORPS scheduling. Real Object-pointer list constructor41B folds
 // at4EC36C; the old1EB98440B pin is a distinct candidate, not this call.
 #include <list>
-class Object;
+class Object {public: void leaveGroup();};
 #include "Code/Libraries/Include/Lib/Coord3D.h"
 #include <vector>
 
@@ -42,6 +42,7 @@ class AIGroup : public Snapshot
 {
 public:
 	AIGroup();
+ void rva0036CE87();
 protected:
  virtual ~AIGroup();
 public:
@@ -74,4 +75,20 @@ AIGroup::AIGroup()
 	m_dirty = false;
 	m_id = TheAI->getNextGroupID();
 	m_memberList.clear();
+}
+
+// Native36E564..36E5F1 RET0. Scalar deleting wrapper36E8EA calls
+// this protected destructor. BF1 f989 AIGroupDestructors supplies the
+// remove-or-erase loop; WBEDD090 and native calls28C01F/36CE87 prove
+// the BFME2 reset helper. Iterator/Object* payload and vector<ObjectID>
+// layout are shared with the verified constructor and getAllIDs owner.
+AIGroup::~AIGroup()
+{
+    std::list<Object*>::iterator i=m_memberList.begin();
+    while(i!=m_memberList.end()) {
+        Object*member=*i;
+        if(member) {member->leaveGroup(); i=m_memberList.begin();}
+        else {i=m_memberList.erase(i);}
+    }
+    rva0036CE87();
 }
