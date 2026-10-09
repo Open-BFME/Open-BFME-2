@@ -105,6 +105,7 @@ class Rva005ED976
 {
 public:
 	void rva005ED976(const UnicodeString &text);
+	void SetRegionBonusText(int index, const UnicodeString &text);
 	void rva005ED5EB();
 private:
 	int m_pad0;
@@ -119,4 +120,11 @@ void Rva005ED976::rva005ED976(const UnicodeString &text)
 void Rva005ED976::rva005ED5EB()
 {
 	m_obj->rva005ED411();
+}
+
+// Native5ED97E..5ED986: the same +4 implementation holder as the adjacent
+// region-name wrapper; complete8B forward to the owned5ED8FF setter.
+void Rva005ED976::SetRegionBonusText(int index, const UnicodeString &text)
+{
+ m_obj->SetRegionBonusText(index, text);
 }

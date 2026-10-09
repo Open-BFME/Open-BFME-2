@@ -103,6 +103,7 @@ public:
 	void rva005ED859(int index, int value);
 	void rva005ED861(int row);
 	void rva005ED986(int index, const UnicodeString &name);
+	void SetRegionBonusText(int index, const UnicodeString &text);
 	void rva005ED5BB(int index, const Image *image);
 };
 
@@ -212,4 +213,53 @@ void StrategicInGameUI::RegionAwardDialog::Impl::OnMovieClipLoaded(int first, co
 		rva005D1527();
 		SetupMovieClipPlayers();
 	}
+}
+
+class GameTextInterface {
+ public:
+ virtual void slot0();virtual void slot1();virtual void slot2();virtual void slot3();virtual void slot4();virtual void slot5();virtual void slot6();virtual void slot7();virtual void slot8();virtual void slot9();virtual void slot10();virtual void slot11();virtual void slot12();virtual void slot13();virtual void slot14();
+ virtual UnicodeString fetch(const char*,bool*);
+};
+extern GameTextInterface *TheGameText;
+struct RegionBonusFields
+{
+ char gap[0x90];
+ int multiplier, commandPoints, spellPoints, bonus, otherBonus;
+ __forceinline int GetCommandPoints() const { return commandPoints; }
+ __forceinline int GetSpellPoints() const { return spellPoints; }
+ __forceinline int GetBonus() const { return bonus; }
+ __forceinline int GetOtherBonus() const { return otherBonus; }
+};
+// BF2 5D1527..5D17B2 and WB SetupMovieClipRegionBonuses establish purpose.
+// Region field meanings are independently supported by the four native labels;
+// offsets90..A0 are read from the target. Inline scalar accessors preserve argument
+// loads before the following UnicodeString branch and match all651 bytes.
+void StrategicInGameUI::RegionAwardDialog::Impl::rva005D1527() {
+ const RegionBonusFields*region=(const RegionBonusFields*)GetRegion();
+ UnicodeString text;
+ bool found;
+ UnicodeString format=TheGameText->fetch("STRATEGICHUD:RegionAwardCommandPoints",&found);
+ if(found)text.format(format.str(),region->GetCommandPoints());
+ m_rowView->SetRegionBonusText(0,text);
+ text.clear();
+ format=TheGameText->fetch("STRATEGICHUD:RegionAwardResourceMultiplier",&found);
+ if(found){float multiplier=region->multiplier*0.01f;text.format(format.str(),multiplier);}
+ m_rowView->SetRegionBonusText(1,text);
+ text.clear();
+ format=TheGameText->fetch("STRATEGICHUD:RegionAwardSpellPoints",&found);
+ if(found)text.format(format.str(),region->GetSpellPoints());
+ m_rowView->SetRegionBonusText(2,text);
+ text.clear();
+ format=TheGameText->fetch("STRATEGICHUD:RegionAwardBonus",&found);
+ if(found){
+  text.format(format.str(),region->GetBonus());
+  m_rowView->SetRegionBonusText(3,text);
+  text.format(format.str(),region->GetOtherBonus());
+  m_rowView->SetRegionBonusText(4,text);
+  text.format(format.str(),region->GetBonus());
+ }else{
+  m_rowView->SetRegionBonusText(3,text);
+  m_rowView->SetRegionBonusText(4,text);
+ }
+ m_rowView->SetRegionBonusText(5,text);
 }
