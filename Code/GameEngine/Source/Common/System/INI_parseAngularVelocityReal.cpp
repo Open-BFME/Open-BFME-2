@@ -34,3 +34,14 @@ void INI::parseAngularVelocityReal(INI *ini, void * /*instance*/, void *store, c
 	Real degPerSec = ini->scanReal(ini->getNextToken(0));
 	*(Real *)store = degPerSec * (g_secondsPerLogicFrame * RADS_PER_DEGREE);
 }
+
+// Target 003389BD..003389CE/17 is a complete neighboring raw float
+// operation after RET3389BC. It forms g_secondsPerLogicFrame * PI/180
+// before multiplying the stack float, returning through x87 ST0.
+// BFME1 f989 GameCommon.h supplies the angular-conversion expression;
+// the original out-of-line helper name remains unknown in BFME2.
+Real rva003389bd(Real value)
+{
+    const Real RADS_PER_DEGREE = PI / 180.0f;
+    return value * (g_secondsPerLogicFrame * RADS_PER_DEGREE);
+}
