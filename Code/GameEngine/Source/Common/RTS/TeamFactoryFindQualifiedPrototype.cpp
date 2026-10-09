@@ -54,11 +54,13 @@ public:
 };
 
 class TeamPrototype;
+class Team;
 
 class Rva0039FE6COwner
 {
 public:
 	TeamPrototype *findPrototype(const AsciiString &a, const AsciiString &b);
+	Team *rva003A3E37(const AsciiString &a, const AsciiString &b);
 
 };
 
@@ -68,6 +70,7 @@ class TeamFactory
 {
 public:
 	TeamPrototype *findTeamPrototype(const AsciiString &word);
+	Team *rva003A40F5(const AsciiString &word);
 };
 
 TeamPrototype *TeamFactory::findTeamPrototype(const AsciiString &word)
@@ -76,4 +79,15 @@ TeamPrototype *TeamFactory::findTeamPrototype(const AsciiString &word)
 	AsciiString b;
 	Rva000DF920(a, b) = Rva00194810((const BfmeWordEL &)word);
 	return ((Rva0039FE6COwner *)this)->findPrototype(a, b);
+}
+
+// Qualified team lookup: Object::restoreOriginalTeam calls this body using
+// the original qualified team name. The two-name provider owns the prototype
+// lookup, singleton reuse, and inactive-team creation semantics.
+Team *TeamFactory::rva003A40F5(const AsciiString &word)
+{
+	AsciiString a;
+	AsciiString b;
+	Rva000DF920(a, b) = Rva00194810((const BfmeWordEL &)word);
+	return ((Rva0039FE6COwner *)this)->rva003A3E37(a, b);
 }
