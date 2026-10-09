@@ -83,7 +83,7 @@ class PathfindCell
 public:
 	void ReleaseInfo();
 	void rva0052DED3();
-	PathfindCell *rva0052DFF2();
+	PathfindCell();
 	bool rva0052DFB1(const Rva0052DFB1Arg *arg);
 	bool rva0052DEEF(const Rva0052DEEFArg *a, bool b, In002E6BA1 *c);
 	void rva0052DAE9(bool flag);
@@ -126,11 +126,13 @@ void PathfindCell::rva0052DED3()
 	ReleaseInfo();
 }
 
-PathfindCell *PathfindCell::rva0052DFF2()
+// ??0PathfindCell@@QAE@XZ (formerly rowed as the method rva0052DFF2): the
+// default constructor new PathfindCell[] passes to the vector constructor
+// iterator in PathfindLayer::allocateCells 0x0036683D.
+PathfindCell::PathfindCell()
 {
 	m_node = 0;
 	rva0052DED3();
-	return this;
 }
 
 bool PathfindCell::rva0052DFB1(const Rva0052DFB1Arg *arg)
