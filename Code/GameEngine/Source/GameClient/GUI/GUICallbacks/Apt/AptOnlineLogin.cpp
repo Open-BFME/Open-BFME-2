@@ -271,6 +271,7 @@ public:
     void rva00570C64();
     void rva00570D36();
     void rva00571129();
+    virtual int rva0056DDC1(void *,unsigned int,unsigned int,unsigned int);
     virtual int rva0057166C(void *,unsigned int,void *,void *);
     void rva0057179D(bool);
     void rva005700A0();
@@ -701,6 +702,33 @@ void AptOnlineLogin::rva005700A0()
         preferences2->write();
         ((AptOnlineShell *)owner)->LoadChildScreen("OnlineHome");
     }
+}
+
+void Rva00516E92Enable();
+
+// Native [56DDC1,56DDF5) RET16: vtable 0x0086DBBC slot 4, the input
+// handler beside the slot-5 gadget handler below. On GWM_CHAR (0x15) for
+// KEY_ESC (1) it answers handled, and on the key's release (KEY_STATE_UP,
+// bit 1) while no request is pending (+0xBC 0 or 1) it runs the rowed
+// 0x00516E92 the cancel callbacks use. Everything else is ignored.
+int AptOnlineLogin::rva0056DDC1(void *,unsigned int msg,unsigned int mData1,unsigned int mData2)
+{
+    switch(msg) {
+    case 0x15: {
+        unsigned char key=(unsigned char)mData1;
+        unsigned char state=(unsigned char)mData2;
+        switch(key) {
+        case 1:
+            if(state&1) {
+                if(m_pendingButtonState==0||m_pendingButtonState==1)
+                    Rva00516E92Enable();
+            }
+            return 1;
+        }
+        break;
+    }
+    }
+    return 0;
 }
 
 // BFME1 9cbfb551fe OnlineLoginGadgetMessage00552AA0.cpp supplies the
