@@ -1,0 +1,147 @@
+{
+  "donor_revision": "f98983a7d3bb405f1a4ba94bb6a2a168062a819d",
+  "bfme2_revision": "a6f9dbef229b9524708f805cd8dca17fd0e8a02c",
+  "changed_paths": [
+    "game/GameEngine/Source/Common/INI/Rva00144100AddItem.cpp",
+    "game/GameEngine/Source/GameClient/Drawable/Behavior/UpgradeSoundSelectorClientBehaviorParseSoundUpgrade.cpp",
+    "game/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_updateSpecialPowerShortcut.cpp",
+    "game/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehavior_projectileFireAtObjectOrPosition.cpp",
+    "game/GameEngine/Source/GameNetwork/GameSpy/LobbyUtilsIstringstreamCtor0053FB00.cpp",
+    "game/GameEngineDevice/Source/W3DDevice/GameClient/W3DBoxFilterDraw.cpp",
+    "game/GameEngineDevice/Source/W3DDevice/GameClient/W3DBridgeGetModelVertices.cpp",
+    "game/GameEngineDevice/Source/W3DDevice/GameClient/Water/W3DWaterTracks.cpp",
+    "game/GameEngineDevice/Source/W3DDevice/GameClient/Water/WaterTracksRenderSystem_flush.cpp",
+    "game/Libraries/Source/STLport/FstreamDefaultProtectionNameCtors.cpp",
+    "game/Libraries/Source/WWVegas/WWLib/stlport_basic_ifstream_char_default_ctor.cpp",
+    "game/Libraries/Source/WWVegas/WWLib/stlport_basic_ofstream_char_default_ctor.cpp",
+    "game/Libraries/Source/WWVegas/WWLib/stlport_file_stream_name_ctors.cpp",
+    "game/Libraries/Source/WWVegas/WWLib/stlport_ifstream_name_ctor_0084C300.cpp",
+    "game/Libraries/Source/WWVegas/WWLib/stlport_ofstream_fd_ctor.cpp",
+    "game/stlport/FilebufInstantiations.cpp",
+    "game/stlport/StreamConstructorInstantiations.cpp",
+    "game/stlport/StreamFdConstructorInstantiations.cpp",
+    "game/stlport/StreamIfstreamPathCtorInstantiation.cpp",
+    "game/stlport/X4Iostream.cpp",
+    "targets/game/reverse/attempt_history/0x00381d10/66c8aa04032879d7eee151fefa2f9cdf3396b40b1442f94d40439521aa2ffc13.json",
+    "targets/game/reverse/functions.csv",
+    "targets/game/reverse/re_attempts.log"
+  ],
+  "changed_headers_toolchain_inputs": [],
+  "profiles": {
+    "o1-sse-g7": {
+      "regular_clean_units": 18,
+      "regular_compiled": 17,
+      "regular_results_sha256": "c07258e992244b83d3ed2566fff2b2f5a01e417b2179acc50b1a624345df88d1",
+      "manifest": {
+        "donor_revision": "f98983a7d3bb405f1a4ba94bb6a2a168062a819d",
+        "bfme2_revision": "a6f9dbef229b9524708f805cd8dca17fd0e8a02c",
+        "tool_sha256": "d719cbc326acfeb03164851b61bfba2332b9578d4d9a40fa7009dd51b400782d",
+        "profile_sha256": "7ed3d66bbc24914121085232d6f3572cd0c5315720a9df118f4be63890170519",
+        "flags": "donor ABI/EH/includes preserved; profile o1-sse-g7; private Fa/Fd/obj",
+        "files": {
+          "reference/open-bfme-1/game/GameEngine/Source/GameClient/Drawable/Behavior/UpgradeSoundSelectorClientBehaviorParseSoundUpgrade.cpp": "b6d2383300a4e45e04e86cf020bf35c4b11fa9298d5598c1914113447c663dc8",
+          "reference/open-bfme-1/game/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_updateSpecialPowerShortcut.cpp": "a81a6f4326b9417616cd5cc60d0a12e55e6c7c3ffe080d349bbd52f0f8b48c8a",
+          "reference/open-bfme-1/game/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehavior_projectileFireAtObjectOrPosition.cpp": "b29081550608c32a638697c1375a472cc163973b41f58a8d7e69b402a07e2e56",
+          "reference/open-bfme-1/game/GameEngine/Source/GameNetwork/GameSpy/LobbyUtilsIstringstreamCtor0053FB00.cpp": "872a7ba6f07ea310e5923adf74d196ff598df52656c1365739a41960a487e995",
+          "reference/open-bfme-1/game/GameEngineDevice/Source/W3DDevice/GameClient/W3DBoxFilterDraw.cpp": "89a479660034a49fcbb85981e1926bde8553ee8da051d2bff76b6b916c8de803",
+          "reference/open-bfme-1/game/GameEngineDevice/Source/W3DDevice/GameClient/Water/W3DWaterTracks.cpp": "741a458acc44a8b36e055255bceea88db4c6e5656cac54ef688453aaa84689bc",
+          "reference/open-bfme-1/game/GameEngineDevice/Source/W3DDevice/GameClient/Water/WaterTracksRenderSystem_flush.cpp": "92109fd04b41b8ab8ba4fba4aa294f5ebf82cf2c58f4ee4fb035872db97086ff",
+          "reference/open-bfme-1/game/Libraries/Source/STLport/FstreamDefaultProtectionNameCtors.cpp": "4d64bf469f7d6e4d14e698cb3064f4097b78752598156847c216b51d3688ab1c",
+          "reference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib/stlport_basic_ifstream_char_default_ctor.cpp": "2bc4193aebecc3a885ae752f16d1fb7d80eb592a20ce2f60f8e6f13d614a695d",
+          "reference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib/stlport_basic_ofstream_char_default_ctor.cpp": "44540a60e577f5bcc3c0cd6b5516f5e3d35ccbf542ee104d9399394e69471009",
+          "reference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib/stlport_file_stream_name_ctors.cpp": "8693eb43a98cb66479576852489997ba7747f9ce2d7ce2470b1e7b9cd246c6a0",
+          "reference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib/stlport_ifstream_name_ctor_0084C300.cpp": "958ac8b336ed84464cd146d7e833c3afdc25ad2408033aefcb7304329bdddf47",
+          "reference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib/stlport_ofstream_fd_ctor.cpp": "fa63909bde511c4198e23312da3b97356bba41ee6242826f209f6a1a3ba84a52",
+          "reference/open-bfme-1/game/stlport/FilebufInstantiations.cpp": "c65c4a0f05d68081f5c0701b6abe7c754603f1357bc033834ce968d1409bc687",
+          "reference/open-bfme-1/game/stlport/StreamConstructorInstantiations.cpp": "ee0760e766a628ae0a687bf3719a3bbc92487b21444acacb4ec56b349308c9af",
+          "reference/open-bfme-1/game/stlport/StreamFdConstructorInstantiations.cpp": "e7eb6a4b8875f5d51e14ba8ed319ad170ca6485745f32974ffdf46256cf14e27",
+          "reference/open-bfme-1/game/stlport/StreamIfstreamPathCtorInstantiation.cpp": "892e9564f254e391cbb2e53bb40e12c52fe4e532454d4be6790ee055dbba8e24",
+          "reference/open-bfme-1/game/stlport/X4Iostream.cpp": "101bea190b058382ba2c042cad81f1648fb7839b5438f116188191ba084c1516"
+        }
+      },
+      "explicit_vendor_prefix_retry": {
+        "status": "ok",
+        "donor_revision": "f98983a7d3bb405f1a4ba94bb6a2a168062a819d",
+        "bfme2_revision": "a6f9dbef229b9524708f805cd8dca17fd0e8a02c",
+        "prefix_path": "reference\\open-bfme-1\\inputs\\vendor\\stlport\\src\\stlport_prefix.h",
+        "prefix_sha256": "114aee5496e73b8cdd1481b7f5450cc6450beb28ab557c4a88a8dd4077891d7b",
+        "additional_include": "reference/open-bfme-1/inputs/vendor/stlport/src",
+        "profile_sha256": "b649c3bd5d9aaa61185e147339db95e9d1b86f20cc3daf11d45f4236ab39a2e5",
+        "reason": "Explicit actual donor vendor/src prefix header; normal external donor command lacks this source-build include."
+      },
+      "prefix_placements": 31,
+      "prefix_new_unique_leads": 0,
+      "source_include_dirs_checked": true
+    },
+    "o2-sse-g7": {
+      "regular_clean_units": 18,
+      "regular_compiled": 17,
+      "regular_results_sha256": "3f1cabfe0a608dfbe6940e2cf74d881b92448dcde9f158afab5323bc5e8f50aa",
+      "manifest": {
+        "donor_revision": "f98983a7d3bb405f1a4ba94bb6a2a168062a819d",
+        "bfme2_revision": "a6f9dbef229b9524708f805cd8dca17fd0e8a02c",
+        "tool_sha256": "d719cbc326acfeb03164851b61bfba2332b9578d4d9a40fa7009dd51b400782d",
+        "profile_sha256": "a4b22ef2245f86d3c36bfdd20863305a42eb4e31fb57d6ee40c923d23dbfcbd3",
+        "flags": "donor ABI/EH/includes preserved; profile o2-sse-g7; private Fa/Fd/obj",
+        "files": {
+          "reference/open-bfme-1/game/GameEngine/Source/GameClient/Drawable/Behavior/UpgradeSoundSelectorClientBehaviorParseSoundUpgrade.cpp": "b6d2383300a4e45e04e86cf020bf35c4b11fa9298d5598c1914113447c663dc8",
+          "reference/open-bfme-1/game/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_updateSpecialPowerShortcut.cpp": "a81a6f4326b9417616cd5cc60d0a12e55e6c7c3ffe080d349bbd52f0f8b48c8a",
+          "reference/open-bfme-1/game/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehavior_projectileFireAtObjectOrPosition.cpp": "b29081550608c32a638697c1375a472cc163973b41f58a8d7e69b402a07e2e56",
+          "reference/open-bfme-1/game/GameEngine/Source/GameNetwork/GameSpy/LobbyUtilsIstringstreamCtor0053FB00.cpp": "872a7ba6f07ea310e5923adf74d196ff598df52656c1365739a41960a487e995",
+          "reference/open-bfme-1/game/GameEngineDevice/Source/W3DDevice/GameClient/W3DBoxFilterDraw.cpp": "89a479660034a49fcbb85981e1926bde8553ee8da051d2bff76b6b916c8de803",
+          "reference/open-bfme-1/game/GameEngineDevice/Source/W3DDevice/GameClient/Water/W3DWaterTracks.cpp": "741a458acc44a8b36e055255bceea88db4c6e5656cac54ef688453aaa84689bc",
+          "reference/open-bfme-1/game/GameEngineDevice/Source/W3DDevice/GameClient/Water/WaterTracksRenderSystem_flush.cpp": "92109fd04b41b8ab8ba4fba4aa294f5ebf82cf2c58f4ee4fb035872db97086ff",
+          "reference/open-bfme-1/game/Libraries/Source/STLport/FstreamDefaultProtectionNameCtors.cpp": "4d64bf469f7d6e4d14e698cb3064f4097b78752598156847c216b51d3688ab1c",
+          "reference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib/stlport_basic_ifstream_char_default_ctor.cpp": "2bc4193aebecc3a885ae752f16d1fb7d80eb592a20ce2f60f8e6f13d614a695d",
+          "reference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib/stlport_basic_ofstream_char_default_ctor.cpp": "44540a60e577f5bcc3c0cd6b5516f5e3d35ccbf542ee104d9399394e69471009",
+          "reference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib/stlport_file_stream_name_ctors.cpp": "8693eb43a98cb66479576852489997ba7747f9ce2d7ce2470b1e7b9cd246c6a0",
+          "reference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib/stlport_ifstream_name_ctor_0084C300.cpp": "958ac8b336ed84464cd146d7e833c3afdc25ad2408033aefcb7304329bdddf47",
+          "reference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib/stlport_ofstream_fd_ctor.cpp": "fa63909bde511c4198e23312da3b97356bba41ee6242826f209f6a1a3ba84a52",
+          "reference/open-bfme-1/game/stlport/FilebufInstantiations.cpp": "c65c4a0f05d68081f5c0701b6abe7c754603f1357bc033834ce968d1409bc687",
+          "reference/open-bfme-1/game/stlport/StreamConstructorInstantiations.cpp": "ee0760e766a628ae0a687bf3719a3bbc92487b21444acacb4ec56b349308c9af",
+          "reference/open-bfme-1/game/stlport/StreamFdConstructorInstantiations.cpp": "e7eb6a4b8875f5d51e14ba8ed319ad170ca6485745f32974ffdf46256cf14e27",
+          "reference/open-bfme-1/game/stlport/StreamIfstreamPathCtorInstantiation.cpp": "892e9564f254e391cbb2e53bb40e12c52fe4e532454d4be6790ee055dbba8e24",
+          "reference/open-bfme-1/game/stlport/X4Iostream.cpp": "101bea190b058382ba2c042cad81f1648fb7839b5438f116188191ba084c1516"
+        }
+      },
+      "explicit_vendor_prefix_retry": {
+        "status": "ok",
+        "donor_revision": "f98983a7d3bb405f1a4ba94bb6a2a168062a819d",
+        "bfme2_revision": "a6f9dbef229b9524708f805cd8dca17fd0e8a02c",
+        "prefix_path": "reference\\open-bfme-1\\inputs\\vendor\\stlport\\src\\stlport_prefix.h",
+        "prefix_sha256": "114aee5496e73b8cdd1481b7f5450cc6450beb28ab557c4a88a8dd4077891d7b",
+        "additional_include": "reference/open-bfme-1/inputs/vendor/stlport/src",
+        "profile_sha256": "aad1281e62f6c510b34dd2182c1d836262e7780e40ef181f122953799659f83a",
+        "reason": "Explicit actual donor vendor/src prefix header; normal external donor command lacks this source-build include."
+      },
+      "prefix_placements": 59,
+      "prefix_new_unique_leads": 0,
+      "source_include_dirs_checked": true
+    }
+  },
+  "delegated_common": {
+    "seat": "reference_repair",
+    "scope": "INI/Rva00144100AddItem.cpp",
+    "receipt_relative": "build/seat3/resume-oct8/common-changed-f989-min5-{o1,o2}-sse-g7",
+    "broader_clean_units_per_profile": 231,
+    "compiled_per_profile": 229,
+    "failed_per_profile": 2,
+    "actual_reference": "f98983a7d3",
+    "include_inventories": "recorded; no missing directories"
+  },
+  "excluded_nonclean_source": "game/GameEngineDevice/Source/W3DDevice/GameClient/W3DBridgeGetModelVertices.cpp",
+  "unclaimed_trial_leads": [
+    {
+      "rva": "0x000FE369",
+      "size": 16,
+      "donor_name": "WaterTracksObj::Get_Obj_Space_Bounding_Box",
+      "status": "lead only; target Region3D copy callee requires separate identity reconciliation"
+    },
+    {
+      "rva": "0x000FDF3F",
+      "size": 13,
+      "donor_name": "WaterTracksObj::update",
+      "status": "lead only; independent preceding RET proves leaf despite oversized inherited index extent"
+    }
+  ]
+}

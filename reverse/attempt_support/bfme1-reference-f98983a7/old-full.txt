@@ -1,0 +1,23 @@
+Full verification
+Baseline: OK 2 file(s) (bfme2.workshop-vanilla-1.06)
+Lib members: 28 extracted from 3 archive(s)
+Compile: 5058 of 20795 TU(s) (deps-cache: 15737 current)
+Funclet pins: 503 row(s) verified past a renumbered $L label
+    uw_007738bf (Code/GameEngine/Source/GameLogic/Map/TerrainLogicXfer.cpp): $L6274 was renumbered; verified parent EH data places $L6815 at 0x007738BF
+    uw_007739ac (Code/GameEngine/Source/GameClient/Rva00282500Dtor.cpp): $L1343 was renumbered; verified parent EH data places $L2047 at 0x007739AC
+    uw_007739b4 (Code/GameEngine/Source/GameClient/Rva00282500Dtor.cpp): $L1344 was renumbered; verified parent EH data places $L2048 at 0x007739B4
+    uw_007739bc (Code/GameEngine/Source/GameClient/Rva00282500Dtor.cpp): $L1345 was renumbered; verified parent EH data places $L2049 at 0x007739BC
+    uw_007739c4 (Code/GameEngine/Source/GameClient/Rva00282500Dtor.cpp): $L1346 was renumbered; verified parent EH data places $L2050 at 0x007739C4
+STLport folds: 68 complete emitted constructor(s) verified against retail owners and resolved callees
+Functions: OK 73104/73104 matched across 20798 source file(s)
+Reloc names: 3 anonymous function(s) named from byte-true call sites (3 recovered identity, 0 generated placeholder) -> reverse\reloc_names.csv
+String-ref verify: OK (26885 literals + 1541 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (4799 compiler literals verified)
+Import-ref verify: OK (4798 named imports verified)
+DIR32 consistency: OK (18393 symbols; 5 whitelisted, 9 PE-verified duplicate import(s), 0 new)
+Pin consistency: OK (6 multi-pinned symbols of 17075; 0 baselined, 0 new, 0 stale)
+Module registry: OK (329 registrations; 2 allowlisted, 0 baselined, 0 new, 0 stale)
+Source claims: OK (20596 sources, all byte-verified)
+No-op patch: OK build\patch\game.noop.dat
+
+FULL GATE: OK — every check green

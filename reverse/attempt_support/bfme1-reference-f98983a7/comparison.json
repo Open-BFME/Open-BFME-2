@@ -1,0 +1,43 @@
+{
+  "bfme2_revision": "a6f9dbef229b9524708f805cd8dca17fd0e8a02c",
+  "committed_pointer": "f98983a7d3bb405f1a4ba94bb6a2a168062a819d",
+  "old_input": "2f243e26d44a74a48ef0ccfe9b543874e6567883",
+  "new_input": "f98983a7d3bb405f1a4ba94bb6a2a168062a819d",
+  "old_candidate_staged_for_pointer_guard": true,
+  "old_full_started_utc": "2026-10-09T15:44:26.106011+00:00",
+  "resolved_paths": {
+    "game": "reference/open-bfme-1/game",
+    "reference": "reference/open-bfme-1/inputs/reference",
+    "toolchains": "reference/open-bfme-1/inputs/toolchains",
+    "ledger": "reference/open-bfme-1/targets/game/reverse",
+    "shims": "reference/open-bfme-1/inputs/reference/shims",
+    "zh_gameengine_include": "reference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include"
+  },
+  "tool_hashes": {
+    "tools/build.py": "8198cc0cf1c75024dfdad2ba319c774e3f9c2c1a2a881620ad95da745c035d79",
+    "tools/flag_defaults.py": "c0105f4467a62a0fc95e9458802880281138d3c33bf252a42276c3fc11d800d5",
+    "build.sh": "62e525441e94d1f73a893ca2ec39b5886906b54fc856fbb057504c610b1af0b9"
+  },
+  "old_and_new_success_stamp": "verified; recorded only after both full gates passed",
+  "old_full_exit": 0,
+  "old_full_functions_exact": 73104,
+  "old_full_completed_utc": "2026-10-09T15:51:54.210504+00:00",
+  "old_full_log_sha256": "5df03b668b1e981c4ecefce2ca16d0ab7b152a70b0619bf71a6c8f2e21e2cbf0",
+  "new_full_started_utc": "2026-10-09T15:51:54.210619+00:00",
+  "new_input_matches_committed_and_index": true,
+  "completed_utc": "2026-10-09T16:02:01.433386+00:00",
+  "new_full_exit": 0,
+  "new_full_functions_exact": 73104,
+  "new_regressions": 0,
+  "new_full_log_sha256": "8271b2510ca71395432c4d0990b671393436557e4cf2f6f3825d682d088af2ee",
+  "sampled_actual_reference_headers": 81,
+  "actual_header_proof_sha256": "efea56b15dc46d4f89d77a18b4da6103ca4e50127944ebffa5fd2b9533a487fb",
+  "bfme1_byte_scan_controls": 5343,
+  "bfme1_ranked_available_donors": 0,
+  "bfme1_near_candidates": 3,
+  "bfme1_near_bytes": 75,
+  "named_lift_bodies": 229,
+  "named_lift_servable_bodies": 151,
+  "named_lift_servable_bytes": 94221,
+  "pointer_publication": "already committed upstream before this audit; no pointer delta produced"
+}
