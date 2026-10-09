@@ -48774,7 +48774,6 @@ _rva006D9D70Comparator,,0x006D9D70,203,Code/Libraries/Source/Apt/AptValue/Rva006
 ?rva000E73CE@Rva000E73CE@@QAEXXZ,,0x000E73CE,46,Code/GameEngine/Source/Common/Rva000E73CE.cpp,matched,shroud null fill over stride A0 via rowed global
 ??0Rva000E771B@@QAE@XZ,,0x000E771B,25,Code/GameEngine/Source/Common/Rva000E771BCtor.cpp,matched,Region2D array ctor via vector iterator
 ?Rva00413D58Parse@@YAXPAVINI@@@Z,,0x00413D58,115,Code/GameEngine/Source/Common/Rva00413D58Parse.cpp,matched,chain lane INI dispatch Attacker Defender via 0x00413D46
-?rva00214E02@Rva00214E02@@QAEPAV1@ABV1@@Z,,0x00214E02,274,Code/GameEngine/Source/Common/Rva00214E02Copy.cpp,matched,copy assign five strings via set callers 0x002150C8 0x00215278 0x002152A6
 ?Rva00339A8DCopy@@YAPAV?$vector@HV?$allocator@H@_STL@@@_STL@@PAV12@00PAXH@Z,,0x00339A8D,50,Code/Libraries/Source/WWVegas/WWLib/stlport_copy_sciencevec.cpp,matched,forward copy via rowed 0x0021C21B stride 0xC caller 0x001FFC38
 ?rva00056DA2@Rva00056DA2@@QAEXXZ,,0x00056DA2,73,Code/Libraries/Source/WWVegas/WWLib/Rva00056da2Finish.cpp,matched,deque clear helper via __thiscall twin of Rva00055864Free ecx=this load
 ??0Rva005CB35A@@QAE@XZ,,0x005CB35A,100,Code/GameEngine/Source/Common/Rva005CB35AFinish.cpp,matched,ctor via Rva005E74CF shape no explicit vtable store so derived vptr emits first
