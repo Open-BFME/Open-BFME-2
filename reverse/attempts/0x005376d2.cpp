@@ -1,8 +1,27 @@
 // ?rva005376D2@UserPreferences@@QAE?AVAsciiString@@XZ
-// partial score=0.93 date=2026-09-28
-// ?rva005376D2@UserPreferences@@QAE?AVAsciiString@@XZ
-// partial score=0.93 date=2026-09-28
-// cl: /O1 /EHsc /arch:SSE /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
+// partial score=0.8 date=2026-10-09
+// cl: /O1 /G7 /arch:SSE /Ireference/shims/bfme2_ascii /EHsc /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
+//
+// UserPreferences WinsVs/LossesVs helpers (retail 0x0053740C/82, 0x0053745E/85,
+// 0x005374B3/82, 0x00537505/85, plus max-finders 0x0053755A/188 and
+// 0x00537616/188).
+// Each builds "<outer>WinsVs<inner>" or "<outer>LossesVs<inner>" from a
+// by-value outer AsciiString plus "WinsVs"/"LossesVs" plus an inner faction
+// string, then forwards to the UserPreferences virtual at slot 6 (getInt,
+// +0x18, default 0) or slot 11 (setInt, +0x2C). The max-finders loop the
+// six-entry faction table at 0x009BE9B0 (Men/Elves/Dwarves/Isengard/Mordor/
+// Wild) and return the faction with the largest WinsVs/LossesVs value.
+// Vtable layout mirrors Common/UserPreferences.cpp (13 slots: dtor, 2 loads,
+// write, 5 getters, 4 setters) so the indirect offsets match; the mirror
+// omits the map base and m_filename since these bodies touch only the vtable.
+// Evidence: "WinsVs" at 0x00869120, "LossesVs" at 0x00869128; faction table
+// at 0x009BE9B0 (Men/Elves/Dwarves/Isengard/Mordor/Wild); callers 0x0053755A,
+// 0x00537616 (outer = [ebp+0x0C]) and 0x005376D2/0x005377B6 (outer/inner loop
+// factions), plus 0x005BF4BC (RealTimeStatsPreferences at [ebp-0x2C]) and
+// 0x005BFD35 (StrategicStatsPreferences at [ebp-0x28]); no BFME1 donor
+// (no WinsVs/LossesVs hits in open-bfme-1/game). Class proven by shared use
+// from both RealTime and Strategic stats objects (common UserPreferences base).
+
 typedef int Int;
 typedef bool Bool;
 typedef float Real;
@@ -15,30 +34,8 @@ template <typename T> struct BfmeStringData
 	T text[1];
 };
 
-template <typename T> class StringBase
-{
-	friend class AsciiString;
-	StringBase(const T *text);
-	StringBase(const StringBase<T> &other);
-	void releaseBuffer();
-public:
-	StringBase() : m_data(0) {}
-	~StringBase() { releaseBuffer(); }
-	void concat(const T *text);
-	void concat(const StringBase<T> &other);
-	void set(const T *text);
-protected:
-	BfmeStringData<T> *m_data;
-};
+#include "ascii_string.h"
 
-class AsciiString : public StringBase<char>
-{
-public:
-	AsciiString() {}
-	AsciiString(const AsciiString &other) : StringBase<char>(other) {}
-	~AsciiString() {}
-	AsciiString &operator=(const AsciiString &other);
-};
 
 class UnicodeString;
 
@@ -63,50 +60,50 @@ public:
 	void rva005374B3(AsciiString a, const AsciiString &b, Int v);
 	Int rva0053745E(AsciiString a, const AsciiString &b);
 	void rva0053740C(AsciiString a, const AsciiString &b, Int v);
-	AsciiString rva00537616(AsciiString a);
 	AsciiString rva0053755A(AsciiString a);
+	AsciiString rva00537616(AsciiString a);
 	AsciiString rva005376D2();
 	AsciiString rva005377B6();
 };
 
 Int UserPreferences::rva00537505(AsciiString a, const AsciiString &b)
 {
-	a.concat("LossesVs");
-	a.concat(b);
+	((StringBase<char> *)&a)->concat("LossesVs");
+	((StringBase<char> *)&a)->concat(*(const StringBase<char> *)&b);
 	return getInt(a, 0);
 }
 
 void UserPreferences::rva005374B3(AsciiString a, const AsciiString &b, Int v)
 {
-	a.concat("LossesVs");
-	a.concat(b);
+	((StringBase<char> *)&a)->concat("LossesVs");
+	((StringBase<char> *)&a)->concat(*(const StringBase<char> *)&b);
 	setInt(a, v);
 }
 
 Int UserPreferences::rva0053745E(AsciiString a, const AsciiString &b)
 {
-	a.concat("WinsVs");
-	a.concat(b);
+	((StringBase<char> *)&a)->concat("WinsVs");
+	((StringBase<char> *)&a)->concat(*(const StringBase<char> *)&b);
 	return getInt(a, 0);
 }
 
 void UserPreferences::rva0053740C(AsciiString a, const AsciiString &b, Int v)
 {
-	a.concat("WinsVs");
-	a.concat(b);
+	((StringBase<char> *)&a)->concat("WinsVs");
+	((StringBase<char> *)&a)->concat(*(const StringBase<char> *)&b);
 	setInt(a, v);
 }
 
 static const char *kFactions[] = { "Men", "Elves", "Dwarves", "Isengard", "Mordor", "Wild" };
 
-AsciiString UserPreferences::rva00537616(AsciiString a)
+AsciiString UserPreferences::rva0053755A(AsciiString a)
 {
 	AsciiString best;
 	AsciiString cur;
 	Int max = 0;
 	for (Int i = 0; i < 6; ++i) {
-		cur.set(kFactions[i]);
-		Int v = rva00537505(a, cur);
+		((StringBase<char> *)&cur)->set(kFactions[i]);
+		Int v = rva0053745E(a, cur);
 		if (v > max) {
 			best = cur;
 			max = v;
@@ -115,14 +112,14 @@ AsciiString UserPreferences::rva00537616(AsciiString a)
 	return best;
 }
 
-AsciiString UserPreferences::rva0053755A(AsciiString a)
+AsciiString UserPreferences::rva00537616(AsciiString a)
 {
 	AsciiString best;
 	AsciiString cur;
 	Int max = 0;
 	for (Int i = 0; i < 6; ++i) {
-		cur.set(kFactions[i]);
-		Int v = rva0053745E(a, cur);
+		((StringBase<char> *)&cur)->set(kFactions[i]);
+		Int v = rva00537505(a, cur);
 		if (v > max) {
 			best = cur;
 			max = v;
@@ -133,19 +130,14 @@ AsciiString UserPreferences::rva0053755A(AsciiString a)
 
 AsciiString UserPreferences::rva005376D2()
 {
-	AsciiString best;
-	AsciiString outer;
-	AsciiString inner;
+	AsciiString best, outer, inner;
 	Int max = 0;
-	for (Int i = 0; i < 6; ++i) {
-		outer.set(kFactions[i]);
-		for (Int j = 0; j < 6; ++j) {
-			inner.set(kFactions[j]);
+	for (const char **a = kFactions; (Int)a < (Int)(kFactions + 6); ++a) {
+		((StringBase<char> *)&outer)->set(*a);
+		for (const char **b = kFactions; (Int)b < (Int)(kFactions + 6); ++b) {
+			((StringBase<char> *)&inner)->set(*b);
 			Int v = rva0053745E(outer, inner);
-			if (v > max) {
-				best = inner;
-				max = v;
-			}
+			if (v > max) { best = inner; max = v; }
 		}
 	}
 	return best;
@@ -153,19 +145,14 @@ AsciiString UserPreferences::rva005376D2()
 
 AsciiString UserPreferences::rva005377B6()
 {
-	AsciiString best;
-	AsciiString outer;
-	AsciiString inner;
+	AsciiString best, outer, inner;
 	Int max = 0;
-	for (Int i = 0; i < 6; ++i) {
-		outer.set(kFactions[i]);
-		for (Int j = 0; j < 6; ++j) {
-			inner.set(kFactions[j]);
+	for (const char **a = kFactions; (Int)a < (Int)(kFactions + 6); ++a) {
+		((StringBase<char> *)&outer)->set(*a);
+		for (const char **b = kFactions; (Int)b < (Int)(kFactions + 6); ++b) {
+			((StringBase<char> *)&inner)->set(*b);
 			Int v = rva00537505(outer, inner);
-			if (v > max) {
-				best = inner;
-				max = v;
-			}
+			if (v > max) { best = inner; max = v; }
 		}
 	}
 	return best;
