@@ -367,7 +367,7 @@ public:
 
 extern AudioManager *TheAudio;
 extern Display *TheDisplay;
-extern GlobalData *TheGlobalData;
+extern GlobalData *TheWritableGlobalData;
 extern GameLogic *TheGameLogic;
 
 class AptOptions
@@ -592,7 +592,7 @@ void AptOptions::Reset(const char *unused)
 			}
 		}
 		if (m_scrollSlider)
-			Rva0050E776Send(m_scrollSlider, (int)(TheGlobalData->m_keyboardDefaultScrollFactor * 50.0f));
+			Rva0050E776Send(m_scrollSlider, (int)(TheWritableGlobalData->m_keyboardDefaultScrollFactor * 50.0f));
 		if (m_2c0)
 			GadgetCheckBoxSetChecked(m_2c0, false);
 		if (m_2b8)
@@ -660,7 +660,7 @@ void AptOptions::Save(const char *unused)
 				{
 					int xres, yres, bitDepth;
 					TheDisplay->getDisplayModeDescription(index, &xres, &yres, &bitDepth);
-					if (TheGlobalData->m_xResolution != xres || TheGlobalData->m_yResolution != yres)
+					if (TheWritableGlobalData->m_xResolution != xres || TheWritableGlobalData->m_yResolution != yres)
 					{
 						m_30c = index;
 						m_xres = xres;
@@ -689,16 +689,16 @@ void AptOptions::Save(const char *unused)
 			AsciiString prefString;
 			prefString.format("%d", val);
 			pref["Brightness"] = prefString;
-			if (TheGlobalData->m_gamma != gammaval)
-				TheGlobalData->m_gamma = gammaval;
+			if (TheWritableGlobalData->m_gamma != gammaval)
+				TheWritableGlobalData->m_gamma = gammaval;
 		}
 
 		val = m_scrollSlider ? GadgetSliderGetPosition(m_scrollSlider) : -1;
 		if (val != -1)
 		{
 			val = _STL::max(val, 1);
-			TheGlobalData->m_keyboardScrollFactor = val / 50.0f;
-			TheGlobalData->m_a9c = val / 50.0f;
+			TheWritableGlobalData->m_keyboardScrollFactor = val / 50.0f;
+			TheWritableGlobalData->m_a9c = val / 50.0f;
 			AsciiString prefString;
 			prefString.format("%d", val);
 			pref["ScrollFactor"] = prefString;
@@ -719,7 +719,7 @@ void AptOptions::Save(const char *unused)
 				AsciiString prefString;
 				prefString = checked ? AsciiString("yes") : AsciiString("no");
 				pref["AllHealthBars"] = prefString;
-				TheGlobalData->m_allHealthBars = checked != 0;
+				TheWritableGlobalData->m_allHealthBars = checked != 0;
 			}
 		}
 
@@ -729,7 +729,7 @@ void AptOptions::Save(const char *unused)
 			AsciiString prefString;
 			prefString = checked ? AsciiString("yes") : AsciiString("no");
 			pref["AlternateMouseSetup"] = prefString;
-			TheGlobalData->m_5c = checked == 0;
+			TheWritableGlobalData->m_5c = checked == 0;
 		}
 
 		checked = m_eaxCheckBox ? GadgetCheckBoxIsChecked(m_eaxCheckBox) : -1;
@@ -761,7 +761,7 @@ void AptOptions::Save(const char *unused)
 			AsciiString prefString;
 			prefString = checked ? AsciiString("yes") : AsciiString("no");
 			pref["SendDelay"] = prefString;
-			TheGlobalData->m_sendDelay = checked != 0;
+			TheWritableGlobalData->m_sendDelay = checked != 0;
 		}
 
 		if (m_ipCombo)
@@ -781,10 +781,10 @@ void AptOptions::Save(const char *unused)
 				if (value >= 8088 && value < 65535)
 					port = value;
 			}
-			if (port != TheGlobalData->m_firewallPortOverride)
+			if (port != TheWritableGlobalData->m_firewallPortOverride)
 			{
 				pref.rva002E4438(port);
-				TheGlobalData->m_firewallPortOverride = port;
+				TheWritableGlobalData->m_firewallPortOverride = port;
 				if (g_a063b0 == 0)
 					g_a063b0 = (Rva00A063B0Obj *)Rva00595143Get();
 				((FirewallHelperClass *)g_a063b0)->flagNeedToRefresh(true);
