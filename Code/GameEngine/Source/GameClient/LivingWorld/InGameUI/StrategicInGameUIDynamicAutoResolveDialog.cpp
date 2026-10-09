@@ -11,6 +11,16 @@
 // +0x08..+0x10 and four zeroed words at +0x14..+0x20.
 
 #include <map>
+#include <vector>
+class AsciiString;
+struct TargetRef00217D4C;
+struct Rva002BED91 { void set(TargetRef00217D4C *); };
+class Rva005EB0CBState {public:
+    virtual void rvaSlot0();
+    virtual void rvaSlot1();
+    virtual void rvaSlot2();
+    virtual void rvaSlot3();
+};
 
 typedef int Int;
 typedef float Real;
@@ -82,6 +92,11 @@ namespace StrategicInGameUI
 			class ClosingStateHandler;
 			class MovieClip;
 			class PlayerPanelMovieClip;
+            void OnPlayerPanelLoaded(int,int,unsigned,const AsciiString &);
+            char m_unmodelled00[0x14];
+            Rva005EB0CBState *m_loadedState;
+            int m_unmodelled18;
+            _STL::vector<PlayerData> m_panelPlayers[2];
 		};
 	};
 }
@@ -379,6 +394,7 @@ class StrategicInGameUI::DynamicAutoResolveDialog::Impl::PlayerPanelMovieClip
 {
 public:
 	void DequeueBanner();
+    PlayerPanelMovieClip(Impl *,int,int,unsigned,const AsciiString &);
 
 private:
 	int m_00;
@@ -386,7 +402,7 @@ private:
 	Rva005FBB9E m_slots; // +0x08
 	char m_pad09[0x1C - 0x09];
 	int m_numBanners; // +0x1C
-	int m_banners[1]; // +0x20
+	int m_banners[2]; // +0x20
 };
 
 void StrategicInGameUI::DynamicAutoResolveDialog::Impl::PlayerPanelMovieClip::DequeueBanner()
@@ -457,4 +473,28 @@ void StrategicInGameUI::DynamicAutoResolveDialog::Impl::ClosingStateHandler::Sta
 	}
 	m_owner->m_34->rva005FC19E(m_owner->m_44 == 0);
 	m_owner->m_34->rva005FC1A6();
+}
+
+// WB15E6610 names this callback, lines1270..1278. Native5EB0CB..5EB159
+// proves side-indexed vector1C (12B each), PlayerData stride24 and holder20.
+// Native5EAF19 ctor stores owner10/side14/index18; its final unsigned level
+// and AsciiString-reference arguments forward to the rowed5FBE0D member.
+// The constructor's clear loop20..28 proves the existing banner array has
+// two slots and the allocation is40B. Keep the original holder facade's
+// rowed setter3F8396 rather than claiming another ref-count implementation.
+// State14 receives its unnamed VT0C notification after successful attach.
+void StrategicInGameUI::DynamicAutoResolveDialog::Impl::OnPlayerPanelLoaded(
+    int side,int index,unsigned level,const AsciiString &name)
+{
+    if(index>=0 && static_cast<unsigned>(index)<m_panelPlayers[side].size())
+    {
+        PlayerData *player=&m_panelPlayers[side][index];
+        DynamicAutoResolvePlayerHandle &holder=player->m_20;
+        if(!holder.m_ptr)
+        {
+            PlayerPanelMovieClip *clip=new PlayerPanelMovieClip(this,side,index,level,name);
+            reinterpret_cast<Rva002BED91 *>(&holder)->set(reinterpret_cast<TargetRef00217D4C *>(clip));
+            m_loadedState->rvaSlot3();
+        }
+    }
 }
