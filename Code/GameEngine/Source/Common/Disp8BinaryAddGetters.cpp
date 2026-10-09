@@ -34,3 +34,29 @@ Rva00108B37Pair *Rva00108B37Pair::clear()
     second = 0.0f;
     return this;
 }
+
+// BF1 f98983a7 Common/Rva00783360GapBodies.cpp is the clean source lead.
+// Each target is independently INT3-bounded:6FBD20..6FBD27/7 and
+// 6FBD30..6FBD3A/10. Native reads the witnessed raw DWORDs at0 or0/4
+// and returns receiverbits +those DWORDs +20 using ordinary32bit arithmetic.
+// Eight-section direct/address scans found no witnesses for either entry.
+// Original Apt owner, payload and pointee identity remain unknown; these
+// independent prefix views claim only the accessed words/address formula.
+struct Rva006FBD20Address
+{
+    unsigned word0;
+    unsigned addressBits() const;
+};
+unsigned Rva006FBD20Address::addressBits() const
+{
+    return (unsigned)this + word0 + 20;
+}
+struct Rva006FBD30Address
+{
+    unsigned word0, word4;
+    unsigned addressBits() const;
+};
+unsigned Rva006FBD30Address::addressBits() const
+{
+    return (unsigned)this + (word4 + word0) + 20;
+}
