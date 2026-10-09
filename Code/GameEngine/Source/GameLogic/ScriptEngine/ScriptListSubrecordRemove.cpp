@@ -245,3 +245,42 @@ void rva003B7FE0(Rva003B32E5 *destination, const Rva003B32E5 *source)
 		throw;
 	}
 }
+
+class Rva003B76EF
+{
+public:
+	// Preserve the already verified provider's argument spelling. Its native
+	// constructor copies from source+4 into this+4, with link word at +0.
+	Rva003B76EF(int *other);
+	Rva003B76EF *next;
+	char payload[84];
+};
+
+struct Rva00359330Record;
+void clearRva00359330Nodes(Rva00359330Record *record);
+
+// WB AB4D60 is the Script specialization's independent deep-copy entry.
+// Native 003B825F..003B8337 allocates 0x58-byte nodes, calls 003B76EF,
+// and drains through 003B578E on failure. The rest of the whole body and
+// EH graph independently agree with the record/borrowed-deque algorithm.
+void rva003B825F(Rva003B32E5 *destination, const Rva003B32E5 *source)
+{
+	*destination = *source;
+	destination->nodes = 0;
+	_STL::deque<BfmeScriptSlotAddress> nodes;
+	BfmeScriptSlotAddress node;
+	node.address = reinterpret_cast<unsigned int>(source->nodes);
+	for (; node.address; node.address = reinterpret_cast<unsigned int>(reinterpret_cast<Rva003B76EF *>(node.address)->next))
+		nodes.push_back(node);
+	try {
+		while (!nodes.empty()) {
+			Rva003B76EF *copy = new Rva003B76EF(reinterpret_cast<int *>(nodes.back().address));
+			nodes.pop_back();
+			copy->next = static_cast<Rva003B76EF *>(destination->nodes);
+			destination->nodes = copy;
+		}
+	} catch (...) {
+		clearRva00359330Nodes(reinterpret_cast<Rva00359330Record *>(destination));
+		throw;
+	}
+}
