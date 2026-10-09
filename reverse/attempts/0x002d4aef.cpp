@@ -1,109 +1,94 @@
 // ?DoMove@RadarPing@Impl@Palantir@@QAEXMM@Z
-// partial score=0.97 date=2026-10-09
-// cl: /DNDEBUG /MD /EHsc
-// Rva002D43EFFire, retail 0x002D43EF, 117 bytes, sole caller 0x002D4A95.
-// UI callback firer: formats the int through the rowed Rva00222834Get
-// 0x00222834 and passes its text and the given AsciiString's text (both
-// falling back to "") to the UI invoker 0x00222A8B (int-return pin) with
-// kind 2, returning the invoker's result.
-// The formatted string is a temporary of the call expression: retail reads
-// its data through the returned pointer and destroys it after the invoke
-// (unwind state 0), and keeps the invoker's result in esi across that
-// teardown. The banked 0.93 attempt used a named local, an extern empty
-// string and a void return.
-#include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
+// partial score=0.978 date=2026-10-09
+// cl: /O1 /G7 /arch:SSE /Oy- /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
+// ?Update@RadarPing@Impl@Palantir@@QAEXXZ retail 0x002D4A69..0x002D4AEF
+// (134 bytes ret 0). WorldBuilder twin 0x00F415E0 is
+// Palantir::Impl::RadarPing::Update (Palantir.cpp; assert "TheAptPlayer !=
+// NULL" at line 852; string evidence "CreateRadarPing"/"MoveRadarPing").
+// Sole caller 0x002D6ABC calls it directly. Once per ping (flag +0x14) and
+// only with an owner (+0x08) it fires the Apt callback "CreateRadarPing"
+// with the ping id (+0x18) and name (+0x10) through the rowed 0x002D43EF
+// helper then scales the normalised position (+0x1C/+0x20) by the Apt
+// player's scale pair (vtable +0x40) and fires "MoveRadarPing" through the
+// rowed 0x002D4464 helper. The scaled floats are by-value parameters of an
+// inline wrapper whose addresses reach the helper: that is what lets the
+// scheduler sink retail's x store past the owner push. The global at
+// 0x009FE4CC is TheAptPlayer in WorldBuilder; the ledger's provisional
+// name is used. Owner and scale types are views.
+#include "ascii_string.h"
+#include <math.h>
 
+class Rva00222A8BTarget;
 
-AsciiString Rva00222834Get(int val);
-AsciiString Rva002228E8Get(float val);
+int Rva002D43EFFire(Rva00222A8BTarget *target, void *owner, const char *name, int *value,
+	const AsciiString *text);
+int Rva002D4464Fire(Rva00222A8BTarget *target, void *level, const char *name, int *intParam,
+	float *float1, float *float2);
 
-class Rva00222A8BTarget
+struct AptScale
 {
-public:
-	int invoke(void *owner, const char *name, int kind, const char *value, void *a4, void *a5, void *a6, void *a7);
+	float x;
+	float y;
 };
 
-int Rva002D43EFFire(Rva00222A8BTarget *target, void *owner, const char *name, int *value, const AsciiString *text)
-{
-	return target->invoke(owner, name, 2, Rva00222834Get(*value).str(), (void *)text->str(), 0, 0, 0);
-}
-
-// Native [0x002D4464,0x002D4531), 205B, cdecl RET0. Both radar callers
-// pass target/level/name/int*/float*/float*. The native formatting calls
-// evaluate float2, float1, then int; their returned strings remain alive
-// through the eight-argument invoke and are destroyed in reverse order.
-// The consumed types and lifetime are target evidence. The original helper
-// name remains unknown. This immediately follows the 117B sibling above.
-int Rva002D4464Fire(Rva00222A8BTarget *target, void *level, const char *name,
-                    int *intParam, float *float1, float *float2)
-{
-	return target->invoke(level, name, 3, Rva00222834Get(*intParam).str(),
-	    (void *)Rva002228E8Get(*float1).str(),
-	    (void *)Rva002228E8Get(*float2).str(), 0, 0);
-}
-
-// ?DoMove@RadarPing@Impl@Palantir@@QAEXMM@Z, retail 0x002D4AEF..0x002D4BA5
-// (182 bytes, RET 8): WorldBuilder's Palantir::Impl::RadarPing::DoMove
-// (Palantir.cpp). A move of half a unit or more from the last position
-// (+0x1C/+0x20) is sent, while the ping is shown (+0x14) and has an owner
-// (+0x08), to the movie as "MoveRadarPing" with the ping's +0x18 id and the
-// position scaled by the Apt player's slot-16 scale, through the helper
-// above; the position is then remembered. Retail's second test is on a
-// difference that is always zero, which the compiler folds to fabs(0).
-extern Rva00222A8BTarget *TheRva00222A8BTarget;
-extern "C" double __cdecl fabs(double x);
-
-class Rva00222A8BTargetScaleView
+class BfmeAptWindowManager
 {
 public:
-	virtual void s00(); virtual void s01(); virtual void s02(); virtual void s03();
-	virtual void s04(); virtual void s05(); virtual void s06(); virtual void s07();
-	virtual void s08(); virtual void s09(); virtual void s10(); virtual void s11();
-	virtual void s12(); virtual void s13(); virtual void s14(); virtual void s15();
-	virtual const float *getScale();		// slot 16
+	virtual void slot00(); virtual void slot01(); virtual void slot02(); virtual void slot03();
+	virtual void slot04(); virtual void slot05(); virtual void slot06(); virtual void slot07();
+	virtual void slot08(); virtual void slot09(); virtual void slot10(); virtual void slot11();
+	virtual void slot12(); virtual void slot13(); virtual void slot14(); virtual void slot15();
+	virtual const AptScale *getScale(); // +0x40
 };
+
+extern BfmeAptWindowManager *g_bfmeAptWindowManager;
+
+static __forceinline int fireMoveRadarPing(void *level, int *id, float x, float y)
+{
+	return Rva002D4464Fire(reinterpret_cast<Rva00222A8BTarget *>(g_bfmeAptWindowManager), level,
+		"MoveRadarPing", id, &x, &y);
+}
 
 struct PalantirRadarPingOwner
 {
-	unsigned char m_pad00[0x5C];
-	void *m_level5C;
+	char m_pad00[0x5C];
+	void *m_aptLevel; // +0x5C
 };
 
-class Palantir
+static const volatile float radarMoveThreshold = 0.5f;
+
+namespace Palantir {
+class Impl
 {
 public:
-	class Impl
+	class RadarPing
 	{
 	public:
-		class RadarPing
-		{
-		public:
-			void DoMove(float x, float y);
-		private:
-			unsigned char m_pad00[0x08];
-			PalantirRadarPingOwner *m_owner08;	// +0x08
-			unsigned char m_pad0C[0x14 - 0x0C];
-			bool m_shown14;						// +0x14
-			unsigned char m_pad15[3];
-			int m_id18;							// +0x18
-			float m_x1C;						// +0x1C
-			float m_y20;						// +0x20
-		};
+		void DoMove(float x, float y);
+
+	private:
+		char m_pad00[8];
+		PalantirRadarPingOwner *m_owner; // +0x08
+		char m_pad0C[4];
+		AsciiString m_name; // +0x10
+		bool m_initialized; // +0x14
+		int m_id; // +0x18
+		float m_x; // +0x1C
+		float m_y; // +0x20
 	};
 };
+}
 
 void Palantir::Impl::RadarPing::DoMove(float x, float y)
 {
-	if (fabs(x - m_x1C) >= 0.5f || fabs(y - y) >= 0.5f)
-	{
-		if (m_shown14 && m_owner08)
-		{
-			const float *scale = reinterpret_cast<Rva00222A8BTargetScaleView *>(TheRva00222A8BTarget)->getScale();
-			float scaledY = scale[1] * y;
-			float scaledX = scale[0] * x;
-			Rva002D4464Fire(TheRva00222A8BTarget, m_owner08->m_level5C, "MoveRadarPing", &m_id18, &scaledX, &scaledY);
-		}
-		m_x1C = x;
-		m_y20 = y;
-	}
+ if (fabs((double)(x - m_x)) >= radarMoveThreshold || fabs((double)(y - y)) >= radarMoveThreshold)
+ {
+  if (m_initialized && m_owner != 0)
+  {
+   const AptScale *scale = g_bfmeAptWindowManager->getScale();
+   fireMoveRadarPing(m_owner->m_aptLevel, &m_id, x * scale->x, y * scale->y);
+  }
+  m_x = x;
+  m_y = y;
+ }
 }

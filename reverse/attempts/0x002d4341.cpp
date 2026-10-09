@@ -1,57 +1,40 @@
 // ?bfmeDoBLD@BfmeSinkBLD@@QAEXPAXH@Z
-// partial score=0.95 date=2026-10-07
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /O1 /arch:SSE /G7
-// ?bfmeDoBLD@BfmeSinkBLD@@QAEXPAXH@Z @0x002D4341 95B
-// Target evidence: function name is pinned; it calls hasOverrideWindow three times,
-// updates the object at this+0x10 offsets +0x14C/+0x150, then uses its +0x78 object.
+// partial score=1.0 date=2026-10-09
+// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
 #include "ascii_string.h"
-
-class RadarWindowOverrideSource
-{
+class Rva005C96A9 {
 public:
-	bool hasOverrideWindow() const throw();
-	void rva002D4240(bool enabled) throw();
+ virtual void v0();virtual void v1();virtual void v2();virtual void v3();virtual void v4();
+ virtual void v5();virtual void v6();virtual void v7();virtual void v8();virtual void stop();
+ void rva00524D01(const AsciiString &,int);
+};
+struct AlertInner {
+ char unknown00[0x60]; unsigned char flags;
+ char unknown61[0x17]; Rva005C96A9 *playback;
+ char unknown7C[0xD0]; int value14C;bool hidden150;
+};
+class RadarWindowOverrideSource {
+public:
+ __declspec(noinline) bool hasOverrideWindow() const;
+ void rva002D4240(bool);
 private:
-	char m_pad00[0x10];
+ char unknown00[0x10]; AlertInner *inner;
 };
-
-class Rva005C96A9
-{
+bool RadarWindowOverrideSource::hasOverrideWindow() const {
+ return (inner->flags&7)==0;
+}
+class BfmeSinkBLD {
 public:
-#define V(n) virtual void pad##n();
-	V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7) V(8)
-#undef V
-	virtual void vf9();
-	void rva00524D01(const AsciiString &value, int flags);
-};
-
-struct BfmeSinkBLDState
-{
-	char m_pad00[0x78];
-	Rva005C96A9 *m_object78;
-	char m_pad7C[0x14C - 0x7C];
-	int m_value14C;
-	bool m_flag150;
-};
-
-class BfmeSinkBLD : public RadarWindowOverrideSource
-{
-public:
-	void bfmeDoBLD(void *text, int value);
+ void bfmeDoBLD(void *,int);
 private:
-	BfmeSinkBLDState *m_state;
+ char unknown00[0x10]; AlertInner *inner;
 };
-
-void BfmeSinkBLD::bfmeDoBLD(void *text, int value)
-{
-	if (!hasOverrideWindow())
-		return;
-
-	m_state->m_flag150 = !hasOverrideWindow();
-	m_state->m_value14C = value;
-	if (!hasOverrideWindow())
-		rva002D4240(false);
-
-	m_state->m_object78->vf9();
-	m_state->m_object78->rva00524D01(*(const AsciiString *)text, 0x40);
+void BfmeSinkBLD::bfmeDoBLD(void *name,int value) {
+ RadarWindowOverrideSource *owner=reinterpret_cast<RadarWindowOverrideSource *>(this);
+ if(!owner->hasOverrideWindow())return;
+ inner->hidden150=!owner->hasOverrideWindow();
+ inner->value14C=value;
+ if(!owner->hasOverrideWindow())owner->rva002D4240(false);
+ inner->playback->stop();
+ inner->playback->rva00524D01(*reinterpret_cast<const AsciiString *>(name),64);
 }
