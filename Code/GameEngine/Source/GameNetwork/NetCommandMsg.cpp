@@ -241,3 +241,12 @@ UnsignedInt NetDisconnectScreenOffCommandMsg::getNewFrame() {
 // each one has the same function in that slot (vftable addresses from matched vptr
 // stores). Bind them to the rows at those functions.
 #pragma comment(linker, "/alternatename:?getSortNumber@NetCommandMsg@@UAEHXZ=?IsCRC@Xfer@@UBE_NXZ")
+
+// BFME1 874e38488c moved this virtual out of NetCommandMsg.h. BFME2's
+// existing folded 28B body at 0x0028F940 must still be emitted by this TU;
+// preserve the old header's empty-string copy, rather than importing a
+// BFME1 provider address. Same target body and shared AsciiString layout.
+AsciiString NetCommandMsg::getContentsAsAsciiString()
+{
+ return AsciiString::TheEmptyString;
+}
