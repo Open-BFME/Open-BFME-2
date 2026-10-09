@@ -1,5 +1,5 @@
-// NAT::notifyConnectionToTargetFailed
-// partial score=0.93 date=2026-10-09
+// ?notifyConnectionToTargetFailed@NAT@@QAEXXZ
+// partial score=0.98 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // BF1 NAT_update f98983a7d supplies stats-wait semantics; WB14DA930 and
@@ -145,9 +145,10 @@ struct BfmeOpaqueOwnedRecord492 {
 
 
 class GameSpyPeerMessageQueueInterface {public:virtual void f0();virtual void f1();virtual void f2();virtual void f3();virtual void f4();virtual void f5();virtual void addRequest(const BfmeOpaqueOwnedRecord492&);};extern GameSpyPeerMessageQueueInterface *TheGameSpyPeerMessageQueue;
-void NAT::notifyConnectionToTargetFailed(){NatConnectionView *v=(NatConnectionView*)this;GameSpyGameSlot *local=v->slots[v->local];GameSpyGameSlot *target=v->slots[v->target];if(!local||!target){v->connectionState=v->previousState=5;}else{
+void NAT::notifyConnectionToTargetFailed(){NatConnectionView *v=(NatConnectionView*)this;GameSpyGameSlot *local=v->slots[v->local];GameSpyGameSlot *target=v->slots[v->target];if(!local||!target){v->connectionState=5;v->previousState=5;return;}
+ {
  BfmeOpaqueOwnedRecord492 request;AsciiString options;options.format("CONNFAILED%d %d %X",v->local,v->target,v->cookie);request.unknown_00=13;request.payload_flag0.value=true;request.unknown_34="NAT/";
- AsciiString names,tmp;tmp.translate(*(UnicodeString*)((char*)v->slots[v->host]+0x30));if(!names.isEmpty())names+=',';names+=tmp;
- tmp.translate(*(UnicodeString*)((char*)v->slots[v->target]+0x30));if(!names.isEmpty())names+=',';names+=tmp;
+ AsciiString names,tmp;tmp.translate(*(UnicodeString*)((char*)v->slots[v->host]+0x30));if(!names.isEmpty()){char delimiter=',';((StringBase<char>*)&names)->concat(&delimiter,1);}names+=tmp;
+ tmp.translate(*(UnicodeString*)((char*)v->slots[v->target]+0x30));if(!names.isEmpty()){char delimiter=',';((StringBase<char>*)&names)->concat(&delimiter,1);}names+=tmp;
  request.unknown_04=names.str();request.unknown_40=options.str();TheGameSpyPeerMessageQueue->addRequest(request);
 }}
