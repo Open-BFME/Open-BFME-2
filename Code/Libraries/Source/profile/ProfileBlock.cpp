@@ -1,4 +1,4 @@
-// cl: /MD /EHsc
+// cl: /MD /EHsc /Ireference/shims/sweep
 // ZH profile_highlevel.cpp Block constructor is the primary semantic lead.
 // Native6C65F0..6C67E7 establishes a three-argument worker/RET12, linked
 // current-block pointer E0C624, Id0 timestamp8 previous10 and dotted names.
