@@ -71,10 +71,10 @@ static NameKeyType radioButtonUserMapsID = NAMEKEY_INVALID;
 static GameWindow *mapList = NULL;
 
 static Bool showSoloMaps = true;
-static Bool isShuttingDown = false;
-static Bool startGame = false;
+Bool mapSelectIsShuttingDown = false;
+Bool mapSelectStartGame = false;
 static Bool buttonPushed = false;
-static GameDifficulty s_AIDiff = DIFFICULTY_NORMAL;
+extern int g_00DD12D8; // Shared difficulty storage defined by the radio-button helper.
 
 
 class BFMERetailScriptEngineView
@@ -109,24 +109,12 @@ public:
 //-------------------------------------------------------------------------------------------------
 /** This is called when a shutdown is complete for this menu */
 //-------------------------------------------------------------------------------------------------
-// Retail 0x004D1000 (22 B): this menu static over isShuttingDown
-// (VA 0x012F3E6C); layout arrives in EAX beside MapSelectMenuUpdate and
-// MapSelectMenuShutdown (mov ecx,[TheShell] / push 0 / push eax / clear
-// flag / call Shell::shutdownComplete via ILT 0x2F1D). Update/Shutdown
-// inline the same sequence; no direct callers, refs=2 abs-ref.
+// BFME2 native 0x0050CE92: shared shutdown flag followed by Shell completion.
 // ?shutdownCompleteMapSelectMenu@@YAXPAVWindowLayout@@@Z
-static void shutdownCompleteMapSelectMenu( WindowLayout *layout )
+void shutdownCompleteMapSelectMenu( WindowLayout *layout )
 {
 
-	isShuttingDown = false;
-
-	// Open-BFME5: BFME dropped Zero Hour's `layout->hide( TRUE )` here. Retail
-	// inlines this helper wholesale into MapSelectMenuUpdate at 0x004D1BD0 and
-	// the inlined copy is `mov eax,[esp+4]` / `mov ecx,[TheShell]` / `push 0` /
-	// `push eax` / clear the flag / call -- no vtable load, no hide, and no room
-	// for one in the 79-byte extent. NetworkDirectConnect.cpp still has the hide
-	// and reaches it through vtable slot 0x10, so this is a per-menu change and
-	// not a change to WindowLayout.
+	mapSelectIsShuttingDown = false;
 
 	// our shutdown is complete
 	TheShell->shutdownComplete( layout );
@@ -151,26 +139,6 @@ public:
 //-------------------------------------------------------------------------------------------------
 /** MapSelect menu shutdown method */
 //-------------------------------------------------------------------------------------------------
-void MapSelectMenuShutdown( WindowLayout *layout, void *userData )
-{
-	if (!startGame)
-		isShuttingDown = true;
-
-	// if we are shutting down for an immediate pop, skip the animations
-	Bool popImmediate = *(Bool *)userData;
-	if( popImmediate )
-	{
-
-		shutdownCompleteMapSelectMenu( layout );
-		return;
-
-	}  //end if
-
-	if (!startGame)
-		TheShell->reverseAnimatewindow();
-
-}
-
   // end MapSelectMenuInput
 
 //-------------------------------------------------------------------------------------------------
@@ -201,14 +169,15 @@ static Int mapSelectHeadlessCount = 0;
 // the shared startGame flag, reverseAnimatewindow and optional Apt hide.
 // Keep the menu suffix because setupGameStart is a source-local helper.
 class Rva00222A8BTarget {public:void rva00222F55(bool);};
-extern Rva00222A8BTarget *TheRva00222A8BTarget;
+class BfmeAptWindowManager;
+extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 struct MapSelectGlobalDataView {char pad[0xAC0];AsciiString pendingFile;};
 void setupGameStartMapSelectMenu(AsciiString label)
 {
- startGame=true;
+ mapSelectStartGame=true;
  ((MapSelectGlobalDataView *)TheWritableGlobalData)->pendingFile=label;
  TheShell->reverseAnimatewindow();
- if(TheRva00222A8BTarget)TheRva00222A8BTarget->rva00222F55(false);
+ if(g_bfmeAptWindowManager)((Rva00222A8BTarget *)g_bfmeAptWindowManager)->rva00222F55(false);
 }
 
 // Native system callback uses window-manager slots58/60 and message slot18.
@@ -426,15 +395,15 @@ WindowMsgHandledType MapSelectMenuSystem( GameWindow *window, UnsignedInt msg,
 			}  // end else if
 			else if( controlID == radioButtonEasyAI)
 			{
-				s_AIDiff = DIFFICULTY_EASY;
+				g_00DD12D8 = DIFFICULTY_EASY;
 			}
 			else if( controlID == radioButtonMediumAI)
 			{
-				s_AIDiff = DIFFICULTY_NORMAL;
+				g_00DD12D8 = DIFFICULTY_NORMAL;
 			}
 			else if( controlID == radioButtonHardAI)
 			{
-				s_AIDiff = DIFFICULTY_HARD;
+				g_00DD12D8 = DIFFICULTY_HARD;
 			}
 			break;
 

@@ -59,8 +59,8 @@ static NameKeyType radioButtonUserMapsID = NAMEKEY_INVALID;
 static GameWindow *mapList = NULL;
 
 static Bool showSoloMaps = true;
-static Bool isShuttingDown = false;
-static Bool startGame = false;
+extern Bool mapSelectIsShuttingDown;
+extern Bool mapSelectStartGame;
 static Bool buttonPushed = false;
 static GameDifficulty s_AIDiff = DIFFICULTY_NORMAL;
 
@@ -137,8 +137,8 @@ void shutdownCompleteMapSelectMenu( WindowLayout *layout );
 //-------------------------------------------------------------------------------------------------
 void MapSelectMenuShutdown( WindowLayout *layout, void *userData )
 {
-	if (!startGame)
-		isShuttingDown = true;
+	if (!mapSelectStartGame)
+		mapSelectIsShuttingDown = true;
 
 	// if we are shutting down for an immediate pop, skip the animations
 	Bool popImmediate = *(Bool *)userData;
@@ -150,7 +150,7 @@ void MapSelectMenuShutdown( WindowLayout *layout, void *userData )
 
 	}  //end if
 
-	if (!startGame)
+	if (!mapSelectStartGame)
 		TheShell->reverseAnimatewindow();
 
 }  // end MapSelectMenuShutdown
@@ -165,11 +165,11 @@ void doGameStart( void );
 void MapSelectMenuUpdate( WindowLayout *layout, void *userData )
 {
 
-	if (startGame && TheShell->isAnimFinished())
+	if (mapSelectStartGame && TheShell->isAnimFinished())
 		doGameStart();
 
 	// We'll only be successful if we've requested to 
-	if(isShuttingDown && TheShell->isAnimFinished())
+	if(mapSelectIsShuttingDown && TheShell->isAnimFinished())
 		shutdownCompleteMapSelectMenu(layout);
 
 
