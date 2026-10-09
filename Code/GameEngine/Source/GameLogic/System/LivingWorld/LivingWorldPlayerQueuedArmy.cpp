@@ -1,11 +1,17 @@
-// LivingWorldPlayer::HasArmyQueuedInAnyBuilding
-// partial score=0.96 date=2026-10-08
-// Named WB 0x00DE4CD0 and native 0x002E118E / 201 B: player +0x14,
-// region owner +0x13C, logic->manager +0xB0->group +8, collection +0x2C.
-// The null-preserving +0x2C adjustment supports the secondary-base model.
-// First argument is forwarded unchanged; its original type is unresolved.
-// Return-word provider 4E0625 preserves its established integer ABI; target
-// and WB use that 32-bit word as the queue's virtual receiver at slot 11.
+// LivingWorldPlayer::HasArmyQueuedInAnyBuilding, retail 0x002E118E..0x002E1257
+// (201 bytes, ret12). Target identity: WB 0x00DE4C60 names the method
+// with callgraph2 and LivingWorldPlayer.cpp:748 assert evidence. Native
+// extraction2E2F44 calls it with record+A4 and two zero argument words.
+// Target layout: player id+14; logic region manager+B0 -> group+8 ->
+// collection+2C; region owner+13C; building id+18. These are accessed
+// offset views, not evidence of class inheritance or complete layouts.
+// The inline manager accessor produces retail's JE/LEA/JMP/XOR null
+// branch; directly converting an inferred secondary-base pointer emitted
+// NEG/SBB/AND instead. The complete search, exclusion and output-id logic
+// is native; no donor type or relationship is asserted here.
+// First key is an opaque four-byte value forwarded to queue vslot11.
+// Its original type is unproved. Existing provider4E0625 returns a raw
+// word typed int; retail consumes it as the virtual queue receiver.
 // cl: /O1 /EHsc /MD /arch:SSE /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 #include <vector>
@@ -48,17 +54,15 @@ struct Rva002E118ERegionCollection
 {
     _STL::vector<LivingWorldRegion *> m_regions;
 };
-struct Rva002E118EGroupBase
+struct Rva002E118ERegionGroup
 {
-    unsigned char m_pad00[0x2c];
-};
-struct Rva002E118ERegionGroup : Rva002E118EGroupBase, Rva002E118ERegionCollection
-{
+ unsigned char pad[0x2C]; Rva002E118ERegionCollection collection;
 };
 struct Rva002E118ERegionManager
 {
     unsigned char m_pad00[8];
     Rva002E118ERegionGroup *m_group;
+ __forceinline Rva002E118ERegionCollection *getCollection() const { if (m_group) return &m_group->collection; return 0; }
 };
 struct Rva002E118ELogicView
 {
@@ -77,9 +81,8 @@ private:
 };
 bool LivingWorldPlayer::HasArmyQueuedInAnyBuilding(void *key, int *outBuildingID, int excludedBuildingID)
 {
-    Rva002E118ERegionGroup *group =
-        reinterpret_cast<Rva002E118ELogicView *>(TheLivingWorldLogic)->m_regionManager->m_group;
-    Rva002E118ERegionCollection *collection = static_cast<Rva002E118ERegionCollection *>(group);
+    Rva002E118ERegionCollection *collection =
+        reinterpret_cast<Rva002E118ELogicView *>(TheLivingWorldLogic)->m_regionManager->getCollection();
     if (collection == 0)
         return false;
     for (unsigned int i = 0; i < collection->m_regions.size(); ++i)
