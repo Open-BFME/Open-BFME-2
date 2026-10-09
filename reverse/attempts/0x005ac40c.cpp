@@ -1,15 +1,17 @@
-// ?rva005AC40C@Rva005AB7E5@@QAEXXZ
-// partial score=0.7 date=2026-10-04
-// cl: /O1 /G7 /MD /GX /DNDEBUG /arch:SSE /Ireference/shims/bfme2_ascii
+// ?moveDozerAway@AIStructureCreepTactic@@QAEXXZ
+// partial score=0.8 date=2026-10-09
+// cl: /DBFME_ASCII_DTOR_DECL /MD /GX /DNDEBUG /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii
+// stlport
 //
 // The "StructureCreep" skirmish-AI tactic (vtable 0x008722EC; ctor 0x005AB91D
 // in Rva004ECECDTacticCtors.cpp, slot 9 0x005AB9AF in
 // Rva004ECECDTacticCreate.cpp). Base chain, all address-derived: Rva005DCC24
-// (ctor 0x005DCC0A, dtor 0x005DCC24) over Rva005DC73C over the AITactic.cpp
-// object Rva004ECECD. Layout: +0x58 an ObjectID, +0x5C, +0x64, +0x68
+// (ctor 0x005DCC0A, dtor 0x005DCC24) over AITacticOffensive over the AITactic.cpp
+// object AITactic. Layout: +0x58 an ObjectID, +0x5C, +0x64, +0x68
 // counters, +0x60 the owned build order (Rva00573B23, 0x40 bytes), +0x6C the
 // index of the structure name last picked from the owner's list.
 //
+//   0x005AB7C4  the owner record's site with the given id
 //   0x005AB7E5  dtor: abandon (0x0055ADBA) and ::delete the build order
 //   0x005AB993  scalar deleting dtor (slot 0)
 //   0x005ABC81  slot 2: clear the running key and schedule the next run
@@ -18,17 +20,44 @@
 //   0x005AB843  slot 5: xfer: the AITactic's, the id, the counters, whether
 //               there is an order and the order itself (restarted on load
 //               when it had not begun)
-//   0x005AB9EE  (not here yet) whether the object's template name is one of the owner's
+//   0x005AB9EE  whether the object's template name is one of the owner's
 //               creep structure names (record +0x160, +0x98 vector)
 //   0x005ABA59  the next creep structure name: a random one first, then
 //               round-robin
+//   0x005AC0B5  whether a structure of this name may go up at the +0x68
+//               site: true when no alive allied kind-7 object is within
+//               twice its radius, or fewer than three of them are creep
+//               structures and the name is a kind-8 template or not yet
+//               among theirs
+//   0x005ABEA2  last to first over the owner record's +0x164 sites below
+//               state 2: a site with more than 15 live allied objects of
+//               kind 3 or 90 that are not kind 7 within its radius becomes
+//               the creep target (+0x68)
+// Retail keeps one unsigned max, RVA 0x00013740 (the vendored STLport row). This unit's
+// flags (/G7 /arch:SSE) compile a different copy, and retail kept another unit's. This unit-local
+// overload keeps the inlined code and offers the link no second copy.
+#include <stl/_algobase.h>
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
+
+#include <string.h>
+#include <set>
+#include <vector>
 #include "ascii_string.h"
 
 extern int g_Va00DBA4E4;
 
 // This unit's statics (0x00E06418..0x00E06428, built in this order by
 // 0x007B458D, 0x007B45A8, 0x007B45C1, 0x007B45CE and 0x007B45D9).
+// Retail's initializer calls AsciiString's out-of-line const char * ctor
+// (0x0000654A) rather than expanding it, so inline expansion is off here.
+#pragma inline_depth(0)
 AsciiString AIStructureCreep_IsRunning("AIStructureCreep_IsRunning");
+#pragma inline_depth()
 float g_00E0641C = g_Va00DBA4E4 * 30.0f;
 int g_00E06420 = g_Va00DBA4E4 * 2;
 int g_00E06424 = g_Va00DBA4E4;
@@ -130,6 +159,7 @@ struct Rva005AB7E5Template
 
 class Player;
 class Team;
+
 struct Coord3D;
 
 enum CommandSourceType
@@ -140,8 +170,8 @@ enum CommandSourceType
 class AICommandInterface
 {
 public:
-	void aiIdle(CommandSourceType source);
-	void rva0026C26D(const Coord3D *point, int source);
+	void aiIdle(CommandSourceType source);			// 0x001E8A38
+	void aiMoveToPosition(const Coord3D *point, int source);	// move to the point
 };
 
 struct Rva005AB7E5AI
@@ -154,7 +184,7 @@ class Object
 {
 public:
 	Player *getControllingPlayer() const;
-	void rva00298AE4(Team *team);
+	void setTeam(Team *team);
 	char m_pad000[4];
 	Rva005AB7E5Template *m_04;	// +0x04
 	char m_pad008[0x38 - 8];
@@ -189,25 +219,9 @@ struct Coord3DBase
 	float z;
 };
 
-class WWMath
-{
-public:
-	static float __fastcall Inv_Sqrt(float value);
-};
-
 struct Coord3D : public Coord3DBase
 {
 	~Coord3D() {}
-	__forceinline void normalize()
-	{
-		float len2 = z * z + y * y + x * x;
-		if (len2 != 0.0f) {
-			float oolen = WWMath::Inv_Sqrt(len2);
-			x *= oolen;
-			y *= oolen;
-			z *= oolen;
-		}
-	}
 };
 
 class Rva004EBF4B
@@ -216,7 +230,40 @@ public:
 	Coord3D rva004EBF4B();
 };
 
-class Rva00599825
+class WWMath
+{
+public:
+	static float __fastcall Inv_Sqrt(float val);
+};
+
+// Vector3-style helper for the dozer step: Normalize multiplies by
+// WWMath::Inv_Sqrt of the squared length when that is non-zero.
+struct Rva005AC40CVector
+{
+	float X;
+	float Y;
+	float Z;
+	__forceinline Rva005AC40CVector() {}
+	__forceinline Rva005AC40CVector(float x, float y, float z) : X(x), Y(y), Z(z) {}
+	__forceinline float Length2() const { return X * X + Y * Y + Z * Z; }
+	__forceinline Rva005AC40CVector operator-(const Rva005AC40CVector &b) const
+	{
+		return Rva005AC40CVector(X - b.X, Y - b.Y, Z - b.Z);
+	}
+	__forceinline void Normalize()
+	{
+		float len2 = Length2();
+		if (len2 != 0.0f)
+		{
+			float oolen = WWMath::Inv_Sqrt(len2);
+			X *= oolen;
+			Y *= oolen;
+			Z *= oolen;
+		}
+	}
+};
+
+class AIDozerManager
 {
 public:
 	void rva00599825(int id);
@@ -251,14 +298,173 @@ struct Rva005AB7E5Names
 	Rva005AB7E5NameList m_names;	// +0x98
 };
 
+
+// BFME2's partition filters (Open-BFME-1 carries the same shape): a vptr, the
+// +0x04 link to the next filter of a chain, then each filter's own members.
+// Rva000421C8 is the base (ctor 0x000421C8, vftable 0x00BC26E0); the inline
+// destructors only restore that vftable, as retail does at every scope exit.
+class Object;
+class Rva000421C8
+{
+public:
+	Rva000421C8() : m_next(0) {}
+	virtual ~Rva000421C8() {}
+	virtual bool allow(Object *obj) = 0;
+	virtual int getPlayerMask();
+	Rva000421C8 *link(Rva000421C8 *next);	// 0x00625790
+	Rva000421C8 *m_next;
+};
+
+class BfmeFixedStorage0004543D
+{
+public:
+	BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &other) throw();
+private:
+	unsigned char m_bytes[28];
+};
+
+// A KindOfMaskType view: 224 bits, zeroed then set bit by bit.
+struct Rva005ABEA2Mask
+{
+	Rva005ABEA2Mask() { memset(this, 0, sizeof(*this)); }
+	void set(int bit) { m_bits[bit >> 5] |= 1u << (bit & 31); }
+	unsigned int m_bits[7];
+};
+
+struct Rva00045411BitSet
+{
+	Rva00045411BitSet(int unused, int bit);	// 0x00045411
+	unsigned int m_bits[7];
+};
+extern unsigned char g_00DFEFA4StoragePrototype[28];
+
+// vftable 0x00C1A268, allow 0x0026115D: reject objects satisfying the
+// set/clear masks (ZH's PartitionFilterRejectByKindOf).
+class PartitionFilterRejectByKindOf : public Rva000421C8
+{
+public:
+	PartitionFilterRejectByKindOf(const BfmeFixedStorage0004543D &a, const BfmeFixedStorage0004543D &b);
+	virtual bool allow(Object *obj);
+	BfmeFixedStorage0004543D m_08;
+	BfmeFixedStorage0004543D m_24;
+};
+
+// vftable 0x00BC2908, allow 0x002610DE: accept what has every kind of the
+// first mask and none of the second (ZH's PartitionFilterAcceptByKindOf).
+class Rva0004584D : public Rva000421C8
+{
+public:
+	Rva0004584D(const BfmeFixedStorage0004543D &a, const BfmeFixedStorage0004543D &b);
+	virtual bool allow(Object *obj);
+	BfmeFixedStorage0004543D m_08;
+	BfmeFixedStorage0004543D m_24;
+};
+
+// vftable 0x00C1A25C, allow 0x002610F2: accept what has any of the mask's kinds.
+class Rva003959FA : public Rva000421C8
+{
+public:
+	Rva003959FA(const BfmeFixedStorage0004543D &mask);
+	virtual bool allow(Object *obj);
+	BfmeFixedStorage0004543D m_08;
+};
+
+// vftable 0x00C004D8, allow 0x00261409: the player's relationship to the
+// object's team against the +0x10 flags (ZH's PartitionFilterRelationship
+// analogue), +0x0C whether a hit allows.
+class Rva00261409Filter : public Rva000421C8
+{
+public:
+	Rva00261409Filter(Player *player, bool match, int flags)
+		: m_player(player), m_match(match), m_flags(flags) {}
+	virtual bool allow(Object *obj);
+	virtual int getPlayerMask();
+	Player *m_player;
+	bool m_match;
+	int m_flags;
+};
+
+// vftable 0x00BFAD10, allow 0x0026119D: not effectively dead (status bit 0),
+// ZH's PartitionFilterAlive.
+class Rva0026119DFilter : public Rva000421C8
+{
+public:
+	virtual bool allow(Object *obj);
+};
+
+struct Rva005ABEA2Hit
+{
+	Object *m_object;
+	float m_distance;
+};
+
+struct Rva005ABEA2Payload
+{
+	Rva005ABEA2Hit *m_begin;
+	Rva005ABEA2Hit *m_end;
+	Rva005ABEA2Hit *m_capacity;
+	Rva005ABEA2Hit *m_current;
+	int m_references;
+};
+
+struct Rva005AC0B5Template
+{
+	char m_pad000[0x108];
+	unsigned int m_108;	// +0x108
+};
+
+class Rva002D06CA
+{
+public:
+	void *rva002D06CA(const AsciiString *key);	// the thing template by name
+};
+// Use the ledger-defined factory view at DFF000; avoid a second
+// external spelling of the same factory pointer.
+extern Rva002D06CA *TheThingFactory;
+
+struct BfmeWideResult
+{
+	Object *next() throw();	// 0x00045623
+	Rva005ABEA2Payload *m_value;
+	~BfmeWideResult();	// 0x0004AA28
+};
+
+class PartitionManager
+{
+public:
+	BfmeWideResult iterateObjectsInRange(const Coord3D *pos, float radius, int distCalc,
+		Rva000421C8 *filters, int order);	// 0x00625610
+};
+extern PartitionManager *ThePartitionManager;
+
+struct Rva005ABEA2Site
+{
+	unsigned int m_id;	// +0x00
+	Coord3D m_pos;		// +0x04
+	unsigned int m_10;	// +0x10
+	float m_radius;		// +0x14
+};
+
+// The owner record's +0x164 list of candidate sites.
+class Rva002C5FE8
+{
+public:
+	void *rva002C5FE8(int id);		// the site with this id
+	void rva002C60A9(unsigned int id);	// drop and free the site with this id
+	char m_pad00[0x20];
+	Rva005ABEA2Site **m_begin;	// +0x20
+	Rva005ABEA2Site **m_end;	// +0x24
+};
+
 struct Rva002A8AB1Record
 {
 	void rva002C717E(const AsciiString &key, int value);
 	int rva002C7196(const AsciiString &key);
 	char m_pad000[0x140];
-	Rva00599825 m_140;		// +0x140
+	AIDozerManager m_140;		// +0x140
 	char m_pad141[0x160 - 0x141];
 	Rva005AB7E5Names *m_160;	// +0x160
+	Rva002C5FE8 *m_164;	// +0x164
 };
 
 class Rva002A8F24
@@ -277,6 +483,12 @@ public:
 	void rva0055ADBA(void *owner);
 };
 
+class Rva004E9378
+{
+public:
+	bool rva004E9378();	// the order has finished
+};
+
 class Rva00573B23
 {
 public:
@@ -288,49 +500,66 @@ public:
 	virtual void v7(); virtual void v8(); virtual void v9(); virtual void v10();
 	virtual void v11();
 	virtual void xfer(Xfer *xfer, void *owner);
-	char m_pad04[0x10 - 4];
+	float m_radius;		// +0x04
+	ObjectID m_08;		// +0x08
+	AsciiString m_name;	// +0x0C
 	int m_status;		// +0x10
-	char m_pad14[0x40 - 0x14];
+	char m_pad14[0x20 - 0x14];
+	bool m_20;		// +0x20
+	bool m_21;		// +0x21
+	char m_pad22[0x28 - 0x22];
+	bool m_28;		// +0x28
+	char m_pad29[0x40 - 0x29];
 };
 
-class Rva004ECECD
+struct Rva00573A00
+{
+	void rva00573A00(const Coord3D *p);
+};
+
+class AITactic
 {
 public:
-	virtual ~Rva004ECECD();
-	virtual void v2();
-	virtual void v3();
+	virtual ~AITactic();
+	virtual void cleanUp();
+	virtual void initializeTeamTemplate();
 	virtual void v4();
 	virtual void xfer(Xfer *xfer);
-	virtual void v6();
-	virtual void v7();
+	virtual void run();
 	virtual void v8();
-	virtual Rva004ECECD *create();
+	virtual AITactic *create();
+	void end(bool a, bool b);
 };
 
-class Rva005DC73C : public Rva004ECECD
+class AITacticOffensive : public AITactic
 {
 public:
-	virtual ~Rva005DC73C();
+	virtual ~AITacticOffensive();
 	char m_pad04[0x24 - 4];
 	Player *m_owner;		// +0x24
 	char m_pad28[0x58 - 0x28];
 };
 
-class Rva005DCC24 : public Rva005DC73C
+class Rva005DCC24 : public AITacticOffensive
 {
 public:
 	virtual ~Rva005DCC24();
 };
 
-class Rva005AB7E5 : public Rva005DCC24
+class AIStructureCreepTactic : public Rva005DCC24
 {
 public:
-	virtual ~Rva005AB7E5();
-	virtual void v2();
+	virtual ~AIStructureCreepTactic();
+	virtual void cleanUp();
 	virtual void xfer(Xfer *xfer);
-	bool rva005ABEA2();
-	void rva005AC40C();
-	AsciiString rva005ABA59();
+	bool findBestInterestZone();
+	AsciiString getBuildTemplateName();
+	bool rva005ABCFE(Coord3DBase *out, const AsciiString &name);
+	bool validateTemplateName(const AsciiString &name);
+	bool isOffensiveBuilding(Object *obj);
+	bool rva005AC294();
+	void moveDozerAway();
+	virtual void update();
 private:
 	ObjectID m_58;		// +0x58
 	unsigned int m_5C;	// +0x5C
@@ -338,14 +567,14 @@ private:
 	unsigned int m_64;	// +0x64
 	unsigned int m_68;	// +0x68
 	int m_next;		// +0x6C
-	int m_70;
-	int m_74;
-	bool m_78;
+	unsigned int m_70;	// +0x70 frame of the next site scan
+	unsigned int m_74;	// +0x74 frame of the next move order
+	bool m_78;		// +0x78 done
 	bool m_running;		// +0x79
 	unsigned int m_nextRun;	// +0x7C
 };
 
-Rva005AB7E5::~Rva005AB7E5()
+AIStructureCreepTactic::~AIStructureCreepTactic()
 {
 	if (m_order) {
 		((Rva00506FE9Hit *)m_order)->rva0055ADBA(m_owner);
@@ -354,9 +583,9 @@ Rva005AB7E5::~Rva005AB7E5()
 	}
 }
 
-void Rva005AB7E5::xfer(Xfer *xfer)
+void AIStructureCreepTactic::xfer(Xfer *xfer)
 {
-	Rva004ECECD::xfer(xfer);
+	AITactic::xfer(xfer);
 	XferObjectID(xfer, &m_58);
 	*xfer == m_5C;
 	*xfer == m_64;
@@ -375,7 +604,18 @@ void Rva005AB7E5::xfer(Xfer *xfer)
 	}
 }
 
-AsciiString Rva005AB7E5::rva005ABA59()
+bool AIStructureCreepTactic::isOffensiveBuilding(Object *obj)
+{
+	Rva002A8AB1Record *record = g_00DFEEF8->rva002A8AB1(m_owner);
+	for (unsigned int i = 0; i < record->m_160->m_names.size(); ++i) {
+		const AsciiString &name = obj->m_04->m_name;
+		if (record->m_160->m_names[i].compare(name) == 0)
+			return true;
+	}
+	return false;
+}
+
+AsciiString AIStructureCreepTactic::getBuildTemplateName()
 {
 	Rva002A8AB1Record *record = g_00DFEEF8->rva002A8AB1(m_owner);
 	if (m_next == -1) {
@@ -388,7 +628,7 @@ AsciiString Rva005AB7E5::rva005ABA59()
 	return record->m_160->m_names[m_next];
 }
 
-void Rva005AB7E5::v2()
+void AIStructureCreepTactic::cleanUp()
 {
 	Rva002A8AB1Record *record = g_00DFEEF8->rva002A8AB1(m_owner);
 	if (m_running) {
@@ -397,30 +637,110 @@ void Rva005AB7E5::v2()
 	}
 	Object *obj = TheGameLogic->findObjectByID(m_58);
 	if (obj && !(obj->m_438 & 1)) {
-		obj->rva00298AE4(obj->getControllingPlayer()->m_defaultTeam);
+		obj->setTeam(obj->getControllingPlayer()->m_defaultTeam);
 		record->m_140.rva00599825(m_58);
 	}
 }
 
-// a - b into out (the base centre less the structure's position).
-static inline void subtract(Coord3D *out, const Coord3D &a, const float *b)
+bool AIStructureCreepTactic::findBestInterestZone()
 {
-	out->x = a.x - b[0];
-	out->y = a.y - b[1];
-	out->z = a.z - b[2];
+	Rva002C5FE8 *sites = g_00DFEEF8->rva002A8AB1(m_owner)->m_164;
+	if (sites->m_begin != sites->m_end) {
+		for (int i = (int)(sites->m_end - sites->m_begin) - 1; i >= 0; --i) {
+			Rva005ABEA2Site *site = sites->m_begin[i];
+			if (site->m_10 >= 2)
+				continue;
+			Rva005ABEA2Mask mask;
+			mask.set(3);
+			mask.set(90);
+			BfmeWideResult hits = ThePartitionManager->iterateObjectsInRange(&site->m_pos,
+				site->m_radius, 0,
+				Rva0026119DFilter().link(&Rva00261409Filter(m_owner, true, 2))
+					->link(&Rva003959FA(*(BfmeFixedStorage0004543D *)&mask))
+					->link(&PartitionFilterRejectByKindOf(*(BfmeFixedStorage0004543D *)&Rva00045411BitSet(0, 7),
+						*(BfmeFixedStorage0004543D *)g_00DFEFA4StoragePrototype)), 0);
+			if ((unsigned int)(hits.m_value->m_end - hits.m_value->m_begin) > 15) {
+				m_68 = site->m_id;
+				return true;
+			}
+		}
+	}
+	return false;
 }
 
-void Rva005AB7E5::rva005AC40C()
+// The base filter's slot 2 is the trivial virtual retail shares across 68
+// vftable slots (0x0036CC7A); bind the declaration to that row.
+#pragma comment(linker, "/alternatename:?getPlayerMask@Rva000421C8@@UAEHXZ=?Get_File_Handle@FileClass@@UAEPAXXZ")
+
+Rva005ABEA2Site *getMyZone(Player *owner, int id)
 {
-	Object *obj = TheGameLogic->findObjectByID(m_58);
-	if (!obj)
+	Rva002C5FE8 *sites = g_00DFEEF8->rva002A8AB1(owner)->m_164;
+	return (Rva005ABEA2Site *)sites->rva002C5FE8(id);
+}
+bool AIStructureCreepTactic::validateTemplateName(const AsciiString &name)
+{
+	Player *owner = m_owner;
+	Rva005ABEA2Site *site = getMyZone(owner, m_68);
+	Rva005ABEA2Mask mustBeSet;
+	Rva005ABEA2Mask mustBeClear;
+	mustBeSet.set(7);
+	BfmeWideResult hits = ThePartitionManager->iterateObjectsInRange(&site->m_pos,
+		site->m_radius * 2.0f, 0,
+		Rva0026119DFilter().link(&Rva00261409Filter(m_owner, true, 2))
+			->link(&Rva0004584D(*(BfmeFixedStorage0004543D *)&mustBeSet,
+				*(BfmeFixedStorage0004543D *)&mustBeClear)), 0);
+	if (hits.m_value->m_end - hits.m_value->m_begin == 0)
+		return true;
+	_STL::vector<Object *> objects;
+	_STL::set<AsciiString> names;
+	Object *obj;
+	while ((obj = hits.next()) != 0) {
+		if (isOffensiveBuilding(obj)) {
+			objects.push_back(obj);
+			Rva005AB7E5Template *tmpl = obj->m_04;
+			names.insert(tmpl->m_name);
+		}
+	}
+	if (objects.size() < 3) {
+		Rva005AC0B5Template *tmpl = (Rva005AC0B5Template *)TheThingFactory->rva002D06CA(&name);
+		if (tmpl->m_108 & 8)
+			return true;
+		if (names.find(name) == names.end())
+			return true;
+	}
+	return false;
+}
+
+static __forceinline Rva005AC40CVector towards(const Coord3D &to, const Object *from)
+{
+	return Rva005AC40CVector(to.x, to.y, to.z) -
+		Rva005AC40CVector(from->m_pos[0], from->m_pos[1], from->m_pos[2]);
+}
+
+static __forceinline Coord3D offsetFrom(const Object *from, const Rva005AC40CVector &dir)
+{
+	Coord3D result;
+	result.x = from->m_pos[0] + dir.X;
+	result.y = from->m_pos[1] + dir.Y;
+	result.z = from->m_pos[2] + dir.Z;
+	return result;
+}
+
+// ?moveDozerAway@AIStructureCreepTactic@@QAEXXZ
+// Idle the tactic's dozer (+0x58), then order it 500 units from its position
+// straight away from the owner record's base point (0x004EBF4B).
+void AIStructureCreepTactic::moveDozerAway()
+{
+	Object *dozer = TheGameLogic->findObjectByID(m_58);
+	if (dozer == 0)
 		return;
-	obj->m_ai->m_commands.aiIdle(CMD_FROM_PLAYER);
-	Coord3D dir;
-	subtract(&dir, ((Rva004EBF4B *)g_00DFEEF8->rva002A8AB1(m_owner))->rva004EBF4B(), obj->m_pos);
-	dir.normalize();
-	dir.x = dir.x * 500.0f + obj->m_pos[0];
-	dir.y = dir.y * 500.0f + obj->m_pos[1];
-	dir.z = dir.z * 500.0f + obj->m_pos[2];
-	obj->m_ai->m_commands.rva0026C26D(&dir, 0);
+
+	dozer->m_ai->m_commands.aiIdle(CMD_FROM_PLAYER);
+	Rva002A8AB1Record *record = g_00DFEEF8->rva002A8AB1(m_owner);
+	Rva005AC40CVector dir = towards(reinterpret_cast<Rva004EBF4B *>(record)->rva004EBF4B(), dozer);
+	dir.Normalize();
+	dir.X *= 500.0f;
+	dir.Y *= 500.0f;
+	dir.Z *= 500.0f;
+	dozer->m_ai->m_commands.aiMoveToPosition(&offsetFrom(dozer, dir), 0);
 }
