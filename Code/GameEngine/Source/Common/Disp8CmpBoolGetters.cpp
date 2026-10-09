@@ -362,3 +362,23 @@ BFME_DISP8_CMP_ZERO_BOOL_GETTER(Rva0052D843CmpBoolField, 0x38, !=)
 // meaning and pointer/integer interpretation remain unknown; only the raw
 // four-byte field and nonzero predicate are asserted by this existing macro.
 BFME_DISP8_CMP_ZERO_BOOL_GETTER(Rva0050525DCmpBoolField, 0x34, !=)
+
+// BF1 f98983a7d3 Common/Rva0089CompactHelpers.cpp supplies the clean equality
+// expression, compiled /O1 /SSE /G6 in the source-discovery pass. Its donor
+// name and signed/bool prototype are not established target identities.
+// Complete retail 40A63B..40A64B and 40A64B..40A65B are separate RET leaves,
+// after the independently rowed destructor's RET40A63A and before rowed40A65B.
+// Each reads one DWORD through a stackword pointer, compares the other raw
+// stackword, returns full EAX0/1, and leaves argument cleanup to the caller.
+// Incoming ECX is unused; no direct/literal address references were found in
+// all eight image sections. Original owner, payload type, signedness and
+// declared result type remain unknown. These address-owned free predicates
+// assert only the two accessed words and normalized physical result.
+unsigned int Rva0040A63BWordsEqual(const unsigned int *word, unsigned int value)
+{
+    return *word == value;
+}
+unsigned int Rva0040A64BWordsEqual(unsigned int value, const unsigned int *word)
+{
+    return *word == value;
+}
