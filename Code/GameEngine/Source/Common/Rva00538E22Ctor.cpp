@@ -4,6 +4,8 @@
 // Ctor: vector<BfmeE16> at +0 plus int at +0xc. Calls rowed _Vector_base ctor 0x00211E58 then stores arg.
 // Evidence: retail lea [ebp+0xb] allocator temp plus mov [esi+0xc] plus ret 4 plus returns this.
 #include <vector>
+#include <cstring>
+#pragma intrinsic(memcpy)
 #define BFME_SNAPSHOT_NAME_SLOT
 #include "../../../../reference/shims/moduledata/Common/Snapshot.h"
 #include "../../../Libraries/Include/Lib/Coord2D.h"
@@ -47,10 +49,12 @@ int __cdecl Rva003EFE82Get(Rva003EFE82Obj *object, void *out);
 // slot2 at318B7D. Its cleanup at7978D9 tail-calls Snapshot dtor49B47C.
 // Field accesses establish coordinates at4/8 and a signed tag atC;
 // their higher-level roles are not established.
+struct Rva00318E4ACoord { float x, y; };
 struct Rva00538E43Pair
 {
 	float x, y;
 	Rva00538E43Pair() : x(0), y(0) {}
+	Rva00538E43Pair(const Rva00318E4ACoord &that) { memcpy(this, &that, sizeof(that)); }
 	Rva00538E43Pair(const Rva00538E43Pair &that) : x(that.x), y(that.y) {}
 	~Rva00538E43Pair() {}
 };
@@ -59,6 +63,7 @@ struct Rva00538E43Result : Snapshot
 	Rva00538E43Pair position;
 	int tag;
 	Rva00538E43Result() : position(), tag(-1) {}
+	Rva00538E43Result(const Rva00318E4ACoord &point, int value);
 	Rva00538E43Result(const Rva00538E43Result &that) : Snapshot(that), position(that.position), tag(that.tag) {}
 	virtual ~Rva00538E43Result() {}
 	virtual void loadPostProcess() {}
@@ -110,6 +115,7 @@ struct Rva00538E22
 	_STL::vector<BfmeE16> m_vec;
 	int m_val;
 	Rva00538E22(int v);
+	bool hasRecords() const { return m_vec.size() > 0; }
 	void rva00538ED1(int value);
 	void rva00538F10(const _STL::vector<BfmeE16> &source, int value);
 	void rva00538D3B(int value);
@@ -188,4 +194,32 @@ void Rva00538E43Result::xfer(Xfer *stream)
 	input->slot28(flags);
 	input->slot50(&position);
 	Rva003EFE82Get((Rva003EFE82Obj *)input, &tag);
+}
+
+Rva00538E43Result::Rva00538E43Result(const Rva00318E4ACoord &point, int value) : position(point), tag(value)
+{
+}
+
+// The caller at 0x3FE1DB holds this queue at+3C and copies the returned
+// coordinate bits into+50/+54; an empty queue clears its byte at+5C.
+class Rva003FE1DBOwner
+{
+public:
+ void rva003FE1DB();
+private:
+ char m_pad0[0x3C];
+ Rva00538E22 m_queue;
+ char m_pad4C[4];
+ Rva00318E4ACoord m_position;
+ char m_pad58[4];
+ unsigned char m_active;
+};
+void Rva003FE1DBOwner::rva003FE1DB()
+{
+ if (m_queue.hasRecords()) {
+  Rva00538E43Result front = m_queue.rva00538E43();
+  memcpy(&m_position, &front.position, sizeof(m_position));
+ } else {
+  m_active = 0;
+ }
 }
