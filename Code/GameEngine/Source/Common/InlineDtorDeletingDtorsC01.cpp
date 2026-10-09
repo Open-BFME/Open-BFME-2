@@ -356,6 +356,10 @@ class Rva002D3556
 public:
 	Rva002D3556(EmitVtableTag *);
 	virtual ~Rva002D3556();
+	virtual void rva002D3D2A() = 0;
+	virtual void rva002D4AEF(float, float) = 0;
+	virtual void rva002D4BA5() = 0;
+	int references;
 };
 
 // ?<Rva002D3556::Rva002D3556> absent-from-retail

@@ -1,5 +1,7 @@
 // ?rva005D2A53@Rva005D25F2@@QAEXXZ
 // partial score=0.9652579852579852 date=2026-10-10
+// ?rva005D2A53@Rva005D25F2@@QAEXXZ
+// partial score=0.9652579852579852 date=2026-10-10
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
 #include "ascii_string.h"
 extern "C" __declspec(dllimport) unsigned long __stdcall timeGetTime();
