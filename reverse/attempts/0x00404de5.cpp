@@ -1,4 +1,6 @@
 // ?newMap@VictorySystemNewMapView@@QAEXXZ
+// partial score=0.9958064401604715 date=2026-10-09
+// ?newMap@VictorySystemNewMapView@@QAEXXZ
 // partial score=0.9958 date=2026-10-09
 // ?newMap@VictorySystemNewMapView@@QAEXXZ
 // partial score=0.99581 date=2026-10-08
