@@ -26,9 +26,11 @@ typedef _STL::hash_map<const GameWindow*,WindowVideo*,WindowVideoManager::hashCo
 typedef _STL::hashtable<_STL::pair<const GameWindow*const,WindowVideo*>,const GameWindow*,WindowVideoManager::hashConstGameWindowPtr,_STL::_Select1st<_STL::pair<const GameWindow*const,WindowVideo*> >,_STL::equal_to<const GameWindow*>,_STL::allocator<_STL::pair<const GameWindow*const,WindowVideo*> > > WindowTableView;
 namespace _STL {template<> WindowTableView::iterator WindowTableView::begin();}
 extern "C" void free(void*);
+extern "C" void* memset(void*,int,unsigned);
 class Player; class PlayerTemplate; class Object;
 struct Rva002ADF9C{void rva002ADF9C(const Player*,Object*);};
 class PolymorphicOwner {public: virtual ~PolymorphicOwner();};
+class UpgradeView:public PolymorphicOwner {public:char gap4[8];UpgradeView*next;};
 class PlayerRelationMap:public PolymorphicOwner {char opaque[20];public:PlayerRelationMap();};
 class Rva003A3959:public PolymorphicOwner {char opaque[20];public:Rva003A3959();};
 class Squad:public PolymorphicOwner {char opaque[24];public:Squad() throw();};
@@ -77,7 +79,7 @@ void deleteUpgradeList();void rva002A99FA();void initPlayerUpgrades();
 char gap00[0xC];const unsigned char*property;
 char gap10[0x34-0x10];const PlayerTemplate*tmplate;UnicodeString displayName;HandicapView handicap;
 AsciiString name;NameKeyType nameKey;int index;AsciiString side;int type;
-Rva002A7761 r60;char gap61[0x90-0x61];Rva003B0D7C money;char gap9C[4];
+Rva002A7761 r60;char gap61[0x90-0x61];Rva003B0D7C money;UpgradeView*upgradeList;
 int radar;int disableRadar;bool radarDisabled;char gapA9[3];int bombard;int hold;int search;void*battle;
 char gapBC[0x1BC-0xBC];EnergyView energy;Rva004F599E stats;
 PolymorphicOwner*buildList;int unknown27C;unsigned color;unsigned nightColor;
@@ -130,4 +132,11 @@ void Player::init(const PlayerTemplate*pt){
  {_STL::list<int>&modifierNodes=(_STL::list<int>&)modifiers;_STL::list<int>::iterator m=modifierNodes.begin();while(m!=modifierNodes.end()){pt=(const PlayerTemplate*)*m;m=modifierNodes.erase(m);if(pt){ProductionCostModifier*entry=(ProductionCostModifier*)pt;if(entry->first)free(entry->first);::operator delete((void*)pt);}}
 }
  unknown700.clear();text74C.clear();
+}
+
+void Player::deleteUpgradeList(){
+ UpgradeView*next;
+ while(upgradeList){next=upgradeList->next;::delete upgradeList;upgradeList=next;}
+ memset((char*)this+0xBC,0,0x80);
+ memset((char*)this+0x13C,0,0x80);
 }
