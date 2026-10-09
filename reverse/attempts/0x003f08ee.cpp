@@ -1,71 +1,126 @@
-// ?rva003F08EE@Rva003F012F@@QAEXXZ
-// partial score=0.96 date=2026-10-05
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
-// ?rva003F012F@Rva003F012F@@QAEHXZ @0x003F012F 90B via vec at +0x60 stride 0x18 plus AsciiString at +4 plus lookup 0x00210390 via +0x130
-// Evidence: callees rowed rva00210390 0x00210390; callers 0x003F08F1 plus thunk 0x003F0DC6; unblocks 0x003F08EE; offsets +0x60 start +0x64 finish +0x130 holder +4 str +8 result.
-#include "ascii_string.h"
+// ?loadPostProcess@Rva003F332E@@UAEXXZ
+// partial score=0.96 date=2026-10-10
+// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata /Ireference/shims/bfmealloc /O1 /EHsc /MD /arch:SSE /ICode/Libraries/Include/Lib /D_STLP_USE_STATIC_LIB
+// stlport
+// Complete334B constructor3F3967..3F3AB5 RET12. Target parser210620
+// independently allocates1B4 and passes definition owner/id/name. Existing
+// scalar deleting dtor3F36EC and four-slot Snapshot vtableC36FA4 establish
+// the neutral receiver ownerRva003F332E. Region14 owns the118B descriptor,
+// whose constructor542 and destructor545 are independently verified.
+// BF1 f989 region constructor is a semantic guide only; BF2 MI observer
+// base4/id12C/owner130 and six tail headers are all target evidence.
+// Visible actual29B header init and23B observer ctor are byte/relocation
+// twins of existing owners, enabling removal of a redundant base vptr.
+// Header stand-in types describe three-pointer storage only. The native
+//63B destructors at180/18C and1A8 remain their existing neutral owners.
+// Child ctor76 only stores and erases pointers, supporting nothrow.
+// Destructor234 adds the target-proven child30 cleanup and owned-list74
+// reset before automatic reverse member/base teardown. Outer header frees
+// use the existing C++ allocator spelling for four native EH transitions;
+// child cleanup preserves the observed C-call context. Full ctor334 stays exact.
+// Original class/function spellings remain unproven; retain existing owner.
 
-class Rva00210390
+#include <vector>
+#include "ascii_string.h"
+#include "Coord2D.h"
+#define BFME_SNAPSHOT_NAME_SLOT
+#include "Common/Snapshot.h"
+extern "C" void __cdecl free(void*);
+void Rva00030830FreeAllocation(void*);
+struct BfmeE16{float x,y,z,w;};
+namespace _STL{template<>void allocator<BfmeE16>::deallocate(pointer p,size_type)const{Rva00030830FreeAllocation(p);}template<>__declspec(nothrow) __declspec(noinline) _Vector_base<BfmeE16,allocator<BfmeE16> >::_Vector_base(const allocator<BfmeE16>&a):_M_start(0),_M_finish(0),_M_end_of_storage(a,0){}}
+struct Header:public _STL::_Vector_base<BfmeE16,_STL::allocator<BfmeE16> >{using _STL::_Vector_base<BfmeE16,_STL::allocator<BfmeE16> >::_M_start;using _STL::_Vector_base<BfmeE16,_STL::allocator<BfmeE16> >::_M_finish;__forceinline Header():_STL::_Vector_base<BfmeE16,_STL::allocator<BfmeE16> >(_STL::allocator<BfmeE16>()){} };
+class Rva00330757Member:public Header{public:__declspec(noinline) Rva00330757Member();__forceinline ~Rva00330757Member(){}int flag;};
+inline Rva00330757Member::Rva00330757Member(){flag|=-1;}
+class Rva003F2D03{public:Rva003F2D03(const AsciiString&);~Rva003F2D03();char bytes[0x118];};
+class Gen_uwm_003f30d1:public Header{public:__forceinline Gen_uwm_003f30d1(){}~Gen_uwm_003f30d1();};
+class Rva003F1797:public Header{public:__forceinline Rva003F1797(){}~Rva003F1797();};
+struct RegionChildHeader{void*start,*finish,*end;~RegionChildHeader(){if(start)free(start);}};
+class Rva003F1F6A{public:__declspec(nothrow) Rva003F1F6A(void*);void*owner;RegionChildHeader header;int value10,value14,id;float x,y,z;int value28;bool flag2c;};
+enum ScienceType{RegionOpaqueScienceValue=0};
+namespace _STL{template<>ScienceType*vector<ScienceType>::erase(ScienceType*,ScienceType*);}
+struct RegionZeroCoord:public Coord2D{__forceinline RegionZeroCoord(){x=0;y=0;}};
+class Rva003F332E:public Snapshot,public Rva00330757Member{
+public:Rva003F332E(void*owner,int id,const AsciiString&name);virtual~Rva003F332E();virtual void loadPostProcess();virtual const char*GetSnapshotName()const;virtual void xfer(Xfer*);
+Rva003F2D03 definition;
+int id;void*owner;int value134,value138;int ownerID,otherID;RegionZeroCoord position;int value14c,value150,value154;
+Header values158,values164,plots;int plotIndex;Gen_uwm_003f30d1 values180,values18c;Rva003F1F6A *child;int value19c;bool flag1a0,flag1a1,flag1a2,flag1a3,flag1a4;Rva003F1797 values1a8;
+};
+typedef char SizeCheck[sizeof(Rva003F332E)==0x1b4?1:-1];
+Rva003F332E::Rva003F332E(void*owner_,int id_,const AsciiString&name):definition(name),id(id_),owner(owner_),value134(0),value138(0),ownerID(-1),otherID(-1),value14c(0),value150(0),value154(0),plotIndex(0),value19c(0),flag1a0(false),flag1a1(false),flag1a2(false),flag1a3(false),flag1a4(false){
+child=new Rva003F1F6A((void*)id_);
+_STL::vector<ScienceType>*v=(_STL::vector<ScienceType>*)&values158;v->erase(v->begin(),v->end());
+}
+
+class Rva003F3F27{public:void rva003F2106();};
+Rva003F332E::~Rva003F332E(){delete child;child=0;((Rva003F3F27*)this)->rva003F2106();}
+// ?rva003EFDF5@Rva003EFDF5Host@@QAEXPAX@Z @0x003EFDF5 73B. Leaf via caller
+// 0x0020E37C (Rva002104C7::rva0020E374 forwards a1 as object and a2 as arg).
+// Stores low byte of void* arg at this+0x1A2 and inner(this+0x198)+0x2C; when
+// zero runs g_009FEF10->m_B0->rva0020EA22(this+0x12C); then if
+// g_009FE1C8->m_268 non-null runs it->SyncRegion((int)this). Types follow
+// rowed callees and g_ externs in use.
+
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
+class Rva0020EA22Outer
 {
 public:
-	void *rva00210390(const AsciiString *s);
+	void rva0020EA22(int v);
 };
 
-struct Entry003F012F
+class Rva002BA8F1Logic
 {
-	char m_pad00[4];
-	AsciiString m_str04;
-	int m_result08;
-	char m_pad0C[0x18 - 0x0C];
+public:
+	char m_pad[0xB0];
+	Rva0020EA22Outer *m_B0;
 };
 
-struct Vec003F012F
+class LivingWorldRegionEffectsManager
 {
-	Entry003F012F *m_start;
-	Entry003F012F *m_finish;
-	unsigned size() const { return ((char *)m_finish - (char *)m_start) / 0x18; }
+public:
+	void SyncRegion(int value);
+};
+
+class Rva0021294A
+{
+public:
+	char m_pad[0x268];
+	LivingWorldRegionEffectsManager *m_268;
+};
+
+extern Rva0021294A *g_009FE1C8;
+
+struct Rva003EFDF5Inner
+{
+	char m_pad[0x2C];
+	unsigned char m_2C;
 };
 
 class Rva003EFDF5Host
 {
 public:
-	void rva003EFDF5(void *p);
-};
-
-class Rva003F012F
-{
-public:
-	void rva003F012F();
-	void rva003F08EE();
+	void rva003EFDF5(void *a);
 private:
-	char m_pad00[0x60];
-	Vec003F012F m_vec60;
-	char m_pad68[0x130 - 0x68];
-	Rva00210390 *m_holder130;
-	char m_pad134[0x1A2 - 0x134];
+	char m_pad00[0x12C];
+	int m_12C;
+	char m_pad130[0x198 - 0x130];
+	Rva003EFDF5Inner *m_198;
+	char m_pad19C[0x1A2 - 0x19C];
 	unsigned char m_1A2;
 };
 
-void Rva003F012F::rva003F012F()
+__declspec(noinline) void Rva003EFDF5Host::rva003EFDF5(void *a)
 {
-	unsigned idx = 0;
-	if (m_vec60.size() <= 0u)
-		return;
-	do {
-		void *res = m_holder130->rva00210390(&m_vec60.m_start[idx].m_str04);
-		int val;
-		if (res != 0)
-			val = *(int *)((char *)res + 0x12c);
-		else
-			val = -1;
-		m_vec60.m_start[idx].m_result08 = val;
-		++idx;
-	} while (idx < m_vec60.size());
+	unsigned char v = (unsigned char)(unsigned int)a;
+	Rva003EFDF5Inner *inner = m_198;
+	m_1A2 = v;
+	inner->m_2C = v;
+	if (v == 0)
+		(*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->m_B0->rva0020EA22(m_12C);
+	LivingWorldRegionEffectsManager *obj = g_009FE1C8->m_268;
+	if (obj)
+		obj->SyncRegion((int)this);
 }
-
-// ?rva003F08EE@Rva003F012F@@QAEXXZ present-unmatched
-void Rva003F012F::rva003F08EE()
-{
-	rva003F012F();
-	((Rva003EFDF5Host *)this)->rva003EFDF5((void *)m_1A2);
-}
+class Rva003F012F{public:void rva003F012F();};
+void Rva003F332E::loadPostProcess(){((Rva003F012F*)this)->rva003F012F();((Rva003EFDF5Host*)this)->rva003EFDF5((void*)(unsigned int)flag1a2);}
