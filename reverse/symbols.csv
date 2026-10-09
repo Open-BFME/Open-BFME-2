@@ -2866,7 +2866,6 @@ name,address,notes
 ??0W3DRadarResetSurface@@QAE@IIII@Z,0x001165D0,address from the retail call in getBackBufferSurface006e; the body there is held as SurfaceClass(unsigned; unsigned; WW3DFormat; D3DPOOL) and this unit models the same holder under another name
 ??0W3DRadarResetSurface@@QAE@PAVSurfaceResource@@@Z,0x00116600,address from the retail call in getBackBufferSurface006e; the body there is held as ??0BfmeThingDC@@QAE@PAUBfmeItemDC@@@Z and this unit models the same holder under another name
 ??0W3DRopeDraw@@QAE@PAVThing@@PBVModuleData@@@Z,0x000CA752
-??0W3DScriptedModelDraw@@QAE@PAVThing@@PBVModuleData@@@Z,0x000C0DD8,(Thing*;ModuleData*) ctor called by W3DScriptedModelDraw::friend_newModuleInstance (0x0006489B); class from the ModuleFactory registration literal
 ??0W3DSnowManager@@QAE@XZ,0x00093162,W3DGameClient snow factory4C5F8 allocates B0 then calls this113-byte ctor; calls SnowManager20109B and writes vtableBC8144; derived init94642 calls base201064 and derived dtor938C4 calls base20156B; donor W3DSnowManager identity supported by TheSnowManager registration at23AA6B
 ??0W3DStreakDraw@@QAE@PAVThing@@PBVModuleData@@@Z,0x000D02A7,(Thing*;ModuleData*) ctor called by W3DStreakDraw::friend_newModuleInstance (0x00064F0F); class from the ModuleFactory registration literal
 ??0W3DStreakDrawModuleData@@QAE@XZ,0x000D0520,ctor call in the byte-true W3DStreakDraw data factory (ModuleFactory registers it under "W3DStreakDraw")
