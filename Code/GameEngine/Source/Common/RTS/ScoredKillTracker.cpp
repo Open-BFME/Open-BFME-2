@@ -95,3 +95,19 @@ ScoredKillTracker::ScoredKillTracker(unsigned frames,const Rva00360D26Member &fi
  m_lifetime(frames),m_filter(filter),m_value0c(flags),m_keeper(0),m_playerIndex(-1),m_trackedKillsCount(0) {}
 ScoredKillTracker::~ScoredKillTracker() {rva0055A91A();}
 const char *ScoredKillTracker::GetSnapshotName() const {return "ScoredKillTracker";}
+
+// Native55A892..55A8E2 is independently bounded80B, RET4.
+// The unknown scalar0C acts as a player-acceptance mask here. No-player
+// objects require all20 bits. The filter receives the keeper player only
+// when the existing signed index is nonnegative. All callees already owned.
+class Player {public:char opaque[0x54];int index;};
+class PlayerList {public:Player*getNthPlayer(int);};extern PlayerList*ThePlayerList;
+class Object {public:Player*getControllingPlayer()const;};
+class Rva2225E0Filter {public:bool accepts(Object*,Player*);};
+bool ScoredKillTracker::rva0055A892(const Object*o){
+ Player*p=o->getControllingPlayer();
+ if(p){if(!(m_value0c&(1u<<p->index)))return false;}
+ else if(m_value0c!=0xFFFFF)return false;
+ Player*owner=0;if(m_playerIndex>=0)owner=ThePlayerList->getNthPlayer(m_playerIndex);
+ return ((Rva2225E0Filter*)&m_filter)->accepts((Object*)o,owner);
+}

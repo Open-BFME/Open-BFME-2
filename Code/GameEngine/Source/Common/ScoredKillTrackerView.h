@@ -32,6 +32,10 @@ public:
  virtual void LoadPostProcess();
  virtual const char *GetSnapshotName() const;
  virtual void DoXfer(Xfer *);
+ // Native55A892..55A8E2 filters by the20-player mask at0C and then
+ // applies the indexed ObjectFilter at8 with the tracked owner at14.
+ // Its original method name remains unknown. Nonvirtual; layout unchanged.
+ bool rva0055A892(const class Object *);
  void rva0055A91A();
  void hookToKeeper(Rva0039BCF8 *);
  void friend_addTrackedKill(const Coord3D *);
