@@ -4552,7 +4552,6 @@ name,address,notes
 ??1Rva004FB130@@UAE@XZ,0x004FB130,opaque dtor called by the scalar deleting dtor at 0x004FB1FD (vtable 0x00C63438#0); identity unproven; address-derived name
 ??1Rva004FBCBE@@UAE@XZ,0x004FBCBE,opaque dtor called by the scalar deleting dtor at 0x004FBD1E (vtable 0x00C634E4#0); identity unproven; address-derived name
 ??1Rva004FC4D1@@UAE@XZ,0x004FC4D1,opaque dtor called by the scalar deleting dtor at 0x004FC563 (vtable 0x00C63530#0); identity unproven; address-derived name
-??1Rva004FD1BC@@UAE@XZ,0x004FD1BC,opaque dtor called by the scalar deleting dtor at 0x004FD85E (vtable 0x00C63564#0); identity unproven; address-derived name
 ??1Rva004FF2C0@@UAE@XZ,0x004FF2C0,opaque dtor called by the scalar deleting dtor at 0x004FF2D2 (vtable 0x00C63B34#0); identity unproven; address-derived name
 ??1Rva005011AADtor@@QAE@XZ,0x005011AA,dtor thunk stub at 0x005011AA to 0x00500D68 (target of thunk 0x007B9071)
 ??1Rva005011B4@@QAE@XZ,0x005011B4,destructor called by the unreferenced scalar deleting dtor 0x0050160D (REL32 at +4 of its 28B delete-flag wrapper); identity unproven; address-derived name
@@ -15352,7 +15351,6 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ??0Rva004E3184@@QAE@H@Z,0x004E30D5,Rva004E3184 int-ctor: vtable 0x861F28 store plus member zeroing; 0x004FA9B1 builds its Rva004E3184 temp (rowed dtor 0x004E3184) through this ctor pushing one int 0
 ?rva002E0764@Rva002E2903Player@@QAEXPAVRva004E3184@@@Z,0x002E0764,thiscall one-arg worker on the Player* from rowed find 0x004FA5F8 taking the Rva004E3184 temp address; called from 0x004FA9B1 with the temp; return ignored
 ?rva004F9F39@Rva004F9F39@@QAEXXZ,0x004F9F39,callee of 0x004FA10F read from REL32 at 0x004FA12F; no-arg thiscall; body blocked (470B sort) so pinned only
-?rva004F971E@Rva004F971E@@QAEXXZ,0x004F971E,callee of 0x004FA10F read from REL32 at 0x004FA13A; no-arg thiscall in the ready loop; identity unproven
 ?rva004F99CC@Rva004F99CC@@QAEXPA_N@Z,0x004F99CC,bool-out-param callee of 0x004FA10F read from REL32 at 0x004FA145; sets the ready byte; identity unproven
 ?rva004F9D6A@Rva004F9D6A@@QAEXXZ,0x004F9D6A,callee of 0x004FA10F read from REL32 at 0x004FA152; no-arg thiscall after the ready loop; identity unproven
 ?rva004F61B1@Rva004F61B1@@QAEXXZ,0x004F61B1,callee of 0x004FA10F read from REL32 at 0x004FA160; no-arg thiscall tail; identity unproven
@@ -15603,7 +15601,6 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?rva003F4FD4@LivingWorldBattle@@QAEHXZ,0x003F4FD4,callee of ?rva005E9687@Rva005E9687@@QAEXXZ
 ?rva002B9B42@Rva002BAF01@@QAEXPAURva002BAF01Region@@PAVCreateAHeroData@@H@Z,0x002B9B42,callee of ?rva002BAF01@Rva002BAF01@@QAEXPAURva002BAF01Region@@PAVCreateAHeroData@@@Z
 ?rva00056BC3@Rva00056BC3@@QAEXURva00056BC3Iter@@@Z,0x00056BC3,callee of ?rva002A44D5@Rva002A44D5@@QAEXABVAsciiString@@@Z
-?rva0046781F@Rva0046781F@@QAEXPAVObject@@_N@Z,0x0046781F,callee of ?rva0047BA10@Rva0047BA10@@QAEXPAVObject@@_N@Z
 ?rva0023C9F8@Rva0047BA10SelectionView@@QAEXPAVObject@@I_N@Z,0x0023C9F8,callee of ?rva0047BA10@Rva0047BA10@@QAEXPAVObject@@_N@Z
 ?rva0023C924@Rva0047BA10SelectionView@@QAEXPAVObject@@_NI1@Z,0x0023C924,callee of ?rva0047BA10@Rva0047BA10@@QAEXPAVObject@@_N@Z
 ?rva001ECDB3@Rva001EBAEA@@QAEXXZ,0x001ECDB3,callee of ?rva001ECF03@Rva0023D607Holder@@QAEXHH@Z
@@ -17044,3 +17041,10 @@ _log,0x00629B0E,log double import thunk (gen-import row ji_00629b0e: msvcr71 slo
 ?push_front@?$list@PAVGen_uw_000e5033@@V?$allocator@PAVGen_uw_000e5033@@@_STL@@@_STL@@QAEXABQAVGen_uw_000e5033@@@Z,0x00392076,pointer-element floor list; direct native E6005 calls E60E9/E60F0; full emitted bodies and nested callees match existing list<int> owners and all relocations; fold-proof=Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E473F.cpp
 ?push_back@?$list@PAVGen_uw_000e5033@@V?$allocator@PAVGen_uw_000e5033@@@_STL@@@_STL@@QAEXABQAVGen_uw_000e5033@@@Z,0x0005548F,pointer-element floor list; direct native E6005 calls E60E9/E60F0; full emitted bodies and nested callees match existing list<int> owners and all relocations; fold-proof=Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E473F.cpp
 ?addNewAIForPlayer@Rva002A8F24@@QAEPAXPAVPlayer@@@Z,0x002A9476,WB E8E370 names SkirmishAIManager::addNewAIForPlayer; native323B2A9476..2A95B9 thiscall Player pointer and returned AI pointer proven by team lookup and complete newMap caller2A95F9. Preserve established Rva002A8F24 manager receiver spelling; unrowed body banked separately; this pin establishes callee identity only.
+??1Rva004FCD5E@@QAE@XZ,0x004FCD5E,jmp-thunk multimap member dtor referenced by the LivingWorldScenario::Scenario dtor 0x004FD1BC unwind funclets (the ledger's rva004FCD5E is a method-shaped placeholder of the same 5-byte thunk)
+??1Rva004FCD63@@QAE@XZ,0x004FCD63,jmp-thunk multimap member dtor referenced by the LivingWorldScenario::Scenario dtor 0x004FD1BC unwind funclets (the ledger's rva004FCD63 is a method-shaped placeholder of the same 5-byte thunk)
+??1Rva004FCD68@@QAE@XZ,0x004FCD68,jmp-thunk multimap member dtor referenced by the LivingWorldScenario::Scenario dtor 0x004FD1BC unwind funclets (the ledger's rva004FCD68 is a method-shaped placeholder of the same 5-byte thunk)
+??0?$list@URva005F8F96@@V?$allocator@URva005F8F96@@@_STL@@@_STL@@QAE@XZ,0x004F87AA,list<Rva005F8F96> default ctor closure passed to the EH vector ctor by LivingWorldAutoResolveBattle::chooseTargets 0x004F971E
+??1Rva00524306@@QAE@XZ,0x004F87B7,priority-queue dtor (jumps to 0x4F81FC) used by LivingWorldAutoResolveBattle::chooseTargets 0x004F971E; ctor pin ??0Rva00524306 at 0x1F81BF
+??1Rva004F6943@@QAE@XZ,0x005F8F96,unwind-funclet dtor of chooseTargets 0x004F971E (same family as the existing pin ??1Rva004F6966)
+??1Rva004F692B@@QAE@XZ,0x005F8F96,unwind-funclet dtor of chooseTargets 0x004F971E (same family as the existing pin ??1Rva004F6966)
