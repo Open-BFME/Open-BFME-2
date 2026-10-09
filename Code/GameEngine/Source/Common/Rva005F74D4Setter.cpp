@@ -5,7 +5,7 @@ namespace StrategicHUD { class BuildQueueDetailsMovieClip { public: class Impl {
 class StrategicHUD::BuildQueueDetailsMovieClip::Impl::QueuedIconSlot
 {
 public:
-	virtual ~QueuedIconSlot();
+	~QueuedIconSlot();
 };
 
 class Rva005F74D4
