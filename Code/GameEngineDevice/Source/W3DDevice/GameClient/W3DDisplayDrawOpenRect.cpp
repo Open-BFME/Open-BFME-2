@@ -35,13 +35,17 @@ public:
 class Render2DClass
 {
 public:
-	void Enable_Texturing(bool onoff) { m_texturing = onoff; }
 	void Add_Outline(const RectClass &rect, float width, unsigned long color);
 
 private:
 	char m_pad00[0x48];
 	bool m_texturing;					// +0x48
 };
+
+static __forceinline void setRender2DTexturing(Render2DClass *render, bool onoff)
+{
+	*(bool *)((char *)render + 0x48) = onoff;
+}
 
 #define W3DDISPLAY_SLOT(n) virtual void slot##n();
 
@@ -108,7 +112,7 @@ void W3DDisplay::drawOpenRect(Real startX, Real startY, Real width, Real height,
 	}
 	else
 	{
-		m_2DRender->Enable_Texturing(false);
+		setRender2DTexturing(m_2DRender, false);
 		m_2DRender->Add_Outline(RectClass(startX, startY, startX + width, startY + height), lineWidth, lineColor);
 	}
 }
