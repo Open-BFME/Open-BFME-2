@@ -12,7 +12,14 @@ template <class T, int N> class AutoPoolClass {};
 #include "vector3.h"
 #include "rendobj.h"
 typedef RefMultiListClass<RenderObjClass> RefRenderObjListClass;
-typedef MultiListClass<RenderObjClass> NonRefRenderObjListClass;
+// Native BC/D4 members install BD33B8, owned by the 96-byte
+// BfmeNonRefSceneList destructor at141780. The donor template's BD34E4
+// belongs to the decal lists. Preserve the native GenericMultiList base
+// and the separately verified non-owning drain, rather than that template.
+class BfmeNonRefSceneList : public GenericMultiListClass {
+public:
+    virtual ~BfmeNonRefSceneList();
+};
 
 class RenderInfoClass;
 class SceneIterator;
@@ -135,8 +142,8 @@ private:
     RefRenderObjListClass list_74;
     RefRenderObjListClass list_8c;
     RefRenderObjListClass list_a4;
-    NonRefRenderObjListClass list_bc;
-    NonRefRenderObjListClass list_d4;
+    BfmeNonRefSceneList list_bc;
+    BfmeNonRefSceneList list_d4;
     RefRenderObjListClass list_ec;
     int m_104;
 protected:
