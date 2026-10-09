@@ -75,7 +75,8 @@ public:
 	Int m_xResolution;
 	Int m_yResolution;
 };
-extern GlobalData *TheGlobalData;
+extern GlobalData *TheWritableGlobalData;
+#define TheGlobalData TheWritableGlobalData
 
 class DisplayStringManager
 {

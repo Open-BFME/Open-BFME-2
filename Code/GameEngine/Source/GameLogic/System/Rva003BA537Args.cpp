@@ -16,7 +16,8 @@ public:
 };
 }
 
-extern void *g_00DFE758;
+class GlobalData;
+extern GlobalData *TheWritableGlobalData;
 extern unsigned char g_00E02D78;
 
 struct Rva003BA537Arg
@@ -28,10 +29,10 @@ struct Rva003BA537Arg
 // ?rva003BA537@@YAHPAURva003BA537Arg@@H@Z @0x003BA537
 int __cdecl rva003BA537(Rva003BA537Arg *arg, int argc)
 {
-	if (g_00DFE758 != 0 && argc > 1)
+	if (TheWritableGlobalData != 0 && argc > 1)
 	{
 		AsciiString text(arg->m_04);
-		((_STL::vector<AsciiString> *)((char *)g_00DFE758 + 0x10F4))->push_back(text);
+		((_STL::vector<AsciiString> *)((char *)TheWritableGlobalData + 0x10F4))->push_back(text);
 	}
 	else
 	{

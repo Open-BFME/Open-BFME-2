@@ -98,8 +98,9 @@ public:
 };
 extern GameTextInterface *TheGameText;
 
-struct GlobalData
+class GlobalData
 {
+public:
 	char m_unrecovered0000[0x99C];
 	Bool m_audioOn;
 	Bool m_musicOn;
@@ -108,7 +109,8 @@ struct GlobalData
 	char m_unrecovered1101[3];
 	Int m_startingMoney;
 };
-extern GlobalData *TheGlobalData;
+extern GlobalData *TheWritableGlobalData;
+#define TheGlobalData TheWritableGlobalData
 
 unsigned char Rva000308D0GetByte();
 

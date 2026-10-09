@@ -126,13 +126,15 @@ private:
 
 extern AI *TheAI;
 
-struct GlobalData
+class GlobalData
 {
+public:
 	unsigned char m_pad000[0xAE4];
 	Real m_AE4; // +0xAE4
 };
 
-extern GlobalData *TheGlobalData;
+extern GlobalData *TheWritableGlobalData;
+#define TheGlobalData TheWritableGlobalData
 
 class FXList
 {

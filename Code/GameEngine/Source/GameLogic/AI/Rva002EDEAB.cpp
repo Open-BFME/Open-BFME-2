@@ -2,7 +2,7 @@
 
 // ?SetDebugPath@Pathfinder@@QAEXPAURva002EDEABArg@@@Z, retail 0x002EDEAB, 153 bytes.
 // Rebuilds the Path at +0x58 from an arg list: notifies GameInfo at 0x00E02EEC
-// slot 0x4C then returns early when the GlobalData flag at 0x00DFE758+0x9B8 is
+// slot 0x4C then returns early when the GlobalData flag at TheWritableGlobalData (VA 0x00DFE758)+0x9B8 is
 // clear else deletes the old Path news a fresh Path via 0x363DC8 and appends
 // each source node via Path::rva002655E3 with waypoint 0x7FFFFFFF.
 // Target evidence: new(0x28) plus ctor 0x363DC8 plus append 0x2655E3 sequence
@@ -88,14 +88,15 @@ public:
 	virtual void virt19() = 0;
 };
 
-struct Rva00DFE758Holder
+class GlobalData
 {
+public:
 	char m_pad[0x9B8];
 	int m_flag9B8;
 };
 
 extern Rva00E02EECObj *g_00E02EEC;
-extern Rva00DFE758Holder *g_00DFE758;
+extern GlobalData *TheWritableGlobalData;
 
 class Pathfinder
 {
@@ -109,7 +110,7 @@ void Pathfinder::SetDebugPath(Rva002EDEABArg *arg)
 {
 	if (g_00E02EEC != 0)
 		g_00E02EEC->virt19();
-	if (g_00DFE758->m_flag9B8 == 0)
+	if (TheWritableGlobalData->m_flag9B8 == 0)
 		return;
 	delete m_path;
 	m_path = new Path;
@@ -118,5 +119,3 @@ void Pathfinder::SetDebugPath(Rva002EDEABArg *arg)
 }
 // ?g_00E02EEC@@3PAVRva00E02EECObj@@A: the global at VA 0xe02eec is ?TheGameInfo@@3PAVGameInfo@@A.
 #pragma comment(linker, "/alternatename:?g_00E02EEC@@3PAVRva00E02EECObj@@A=?TheGameInfo@@3PAVGameInfo@@A")
-// ?g_00DFE758@@3PAURva00DFE758Holder@@A: the global at VA 0xdfe758 is ?TheGlobalData@@3PAVGlobalData@@A.
-#pragma comment(linker, "/alternatename:?g_00DFE758@@3PAURva00DFE758Holder@@A=?TheGlobalData@@3PAVGlobalData@@A")

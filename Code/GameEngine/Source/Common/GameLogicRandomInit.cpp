@@ -2,9 +2,9 @@
 // ?InitRandom@@YAXI@Z @ 0x00233F82 (69B) and ?InitGameLogicRandom@@YAXI@Z
 // @ 0x00233FC7 (44B). Seeded-random initializers ported from Open-BFME-1
 // Code/GameEngine/Source/Common/System/random_value.cpp
-// (InitRandom/InitGameLogicRandom), with BFME2's frame-override check:
-// when TheGameLogic runs a frame other than -1 the frame number seeds the
-// generators instead of the passed seed. /Ob0 keeps the seedRandom calls
+// (InitRandom/InitGameLogicRandom), with BFME2's fixed-seed override:
+// when GlobalData's fixed seed is not -1 it seeds the generators instead
+// of the passed seed. /Ob0 keeps the seedRandom calls
 // out of line in retail's mov-reg form. This TU also owns the 48-byte static
 // seedRandom body at 0x00233F3A: VC7.1 passes its arguments in eax/ecx and
 // preserves edx only while the implementation is visible. An extern declaration
@@ -28,16 +28,20 @@ static UnsignedInt theGameLogicSeed[6] =
 
 static UnsignedInt theGameLogicBaseSeed;
 
-// Upstream layout: GameLogic::m_frame read directly (no call). Only the
-// +0x1228 offset is modeled; everything else is padding.
-class GameLogic
+// The override is GlobalData::m_fixedSeed (ZH GlobalData.h: "fixed random
+// seed for game logic", default -1 = disabled), read through
+// TheWritableGlobalData at VA 0x00DFE758: the matched -randomSeed parser
+// (CommandLineRandomSeed.cpp, 0x003B9D2C) writes the same +0x1228 field of
+// that global. Only that offset is modeled; everything else is padding.
+class GlobalData
 {
 public:
 	unsigned char m_pad[0x1228];
-	UnsignedInt m_frame;
+	UnsignedInt m_fixedSeed;	// +0x1228
 };
 
-static GameLogic *TheGameLogic;
+extern GlobalData *TheWritableGlobalData;
+#define TheGlobalData TheWritableGlobalData
 
 static void seedRandom(UnsignedInt seed, UnsignedInt *seeds)
 {
@@ -61,8 +65,8 @@ static void seedRandom(UnsignedInt seed, UnsignedInt *seeds)
 // ?InitRandom@@YAXI@Z
 void InitRandom(UnsignedInt seed)
 {
-	if (TheGameLogic != 0 && TheGameLogic->m_frame != (UnsignedInt)-1)
-		seed = TheGameLogic->m_frame;
+	if (TheGlobalData != 0 && TheGlobalData->m_fixedSeed != (UnsignedInt)-1)
+		seed = TheGlobalData->m_fixedSeed;
 	seedRandom(seed, theGameAudioSeed);
 	seedRandom(seed, theGameClientSeed);
 	seedRandom(seed, theGameLogicSeed);
@@ -72,8 +76,8 @@ void InitRandom(UnsignedInt seed)
 // ?InitGameLogicRandom@@YAXI@Z
 void InitGameLogicRandom(UnsignedInt seed)
 {
-	if (TheGameLogic != 0 && TheGameLogic->m_frame != (UnsignedInt)-1)
-		seed = TheGameLogic->m_frame;
+	if (TheGlobalData != 0 && TheGlobalData->m_fixedSeed != (UnsignedInt)-1)
+		seed = TheGlobalData->m_fixedSeed;
 	seedRandom(seed, theGameLogicSeed);
 	theGameLogicBaseSeed = seed;
 }

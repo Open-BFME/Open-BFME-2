@@ -109,12 +109,14 @@ private:
 };
 extern ResourceEntryCollector g_Va00DFEDFC;
 
-struct GlobalData
+class GlobalData
 {
+public:
 	char m_opaque000[0xA94];
 	int m_maxLineBuildObjects;				// +0xA94
 };
-extern GlobalData *TheGlobalData;
+extern GlobalData *TheWritableGlobalData;
+#define TheGlobalData TheWritableGlobalData
 
 extern int g_009BA4E8;	// logic frames per second
 

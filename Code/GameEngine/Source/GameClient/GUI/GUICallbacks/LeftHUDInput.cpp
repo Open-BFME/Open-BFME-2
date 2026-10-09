@@ -201,8 +201,9 @@ public:
 	virtual void lookAt(const Coord3D *o);                               // +0x54
 };
 
-struct GlobalData
+class GlobalData
 {
+public:
 	char m_pad00[0x5C];
 	Bool m_useAlternateMouse;       // +0x5C
 };
@@ -214,7 +215,8 @@ extern InGameUI *TheInGameUI;
 extern GameClient *TheGameClient;
 extern MessageStream *MessageStreamSubsystem;
 extern View *TheTacticalView;
-extern GlobalData *TheGlobalData;
+extern GlobalData *TheWritableGlobalData;
+#define TheGlobalData TheWritableGlobalData
 
 WindowMsgHandledType LeftHUDInput( GameWindow *window, UnsignedInt msg,
 																	 WindowMsgData mData1, WindowMsgData mData2 )

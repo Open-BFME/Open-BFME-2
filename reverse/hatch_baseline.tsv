@@ -1015,7 +1015,6 @@ address_global	Code/GameEngine/Source/Common/Rva0051318EVotes.cpp	g_Va007C9260	3
 address_global	Code/GameEngine/Source/Common/Rva00516E92Enable.cpp	g_Va00A04904	2
 address_global	Code/GameEngine/Source/Common/Rva00516FA9Init.cpp	g_Va00A04904	2
 address_global	Code/GameEngine/Source/Common/Rva00518262Enable.cpp	g_Va00A04908	3
-address_global	Code/GameEngine/Source/Common/Rva0051847BAudio.cpp	g_Va009FE758	3
 address_global	Code/GameEngine/Source/Common/Rva005185D8Init.cpp	g_Va00A04908	8
 address_global	Code/GameEngine/Source/Common/Rva00518769Dtor.cpp	g_Va00A01E48	4
 address_global	Code/GameEngine/Source/Common/Rva00518769Dtor.cpp	g_Va00A04908	3
@@ -1684,7 +1683,6 @@ address_global	Code/GameEngine/Source/GameClient/GUI/Rva00427157Ctor.cpp	g_Va00D
 address_global	Code/GameEngine/Source/GameClient/GUI/Rva0043D1C9Destructor.cpp	g_Va00E03314	2
 address_global	Code/GameEngine/Source/GameClient/GUI/Rva00521206Dtor.cpp	g_Va00E0492C	2
 address_global	Code/GameEngine/Source/GameClient/GUI/Shell/Rva00238B90Ctor.cpp	g_Va00DBA4E4	2
-address_global	Code/GameEngine/Source/GameClient/GUI/Shell/ShellTop.cpp	g_Va009FE758	1
 address_global	Code/GameEngine/Source/GameClient/GUI/parseSpellIndex_Thunk.cpp	g_Va00E0330C	2
 address_global	Code/GameEngine/Source/GameClient/GUI/parseSpellIndex_Thunk.cpp	g_Va00E03314	3
 address_global	Code/GameEngine/Source/GameClient/GUI/parseSpellIndex_Thunk.cpp	g_Va00E048D0	2
@@ -3051,7 +3049,6 @@ alternatename	Code/GameEngine/Source/Common/Rva0050E9D3Enable.cpp	?g_Va00E04450@
 alternatename	Code/GameEngine/Source/Common/Rva0050E9D3Enable.cpp	?g_Va00E046B4@@3HA	1
 alternatename	Code/GameEngine/Source/Common/Rva0051318EVotes.cpp	?g_Va007C9260@@3QBGB	1
 alternatename	Code/GameEngine/Source/Common/Rva005183A0Finish.cpp	??1OptionPreferences@@UAE@XZ	1
-alternatename	Code/GameEngine/Source/Common/Rva0051847BAudio.cpp	?g_Va009FE758@@3PAVGlobal9FE758@@A	1
 alternatename	Code/GameEngine/Source/Common/Rva005189CFText.cpp	??1?$StringBase@D@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/Rva005189CFText.cpp	?g_00DB95F4@@3PAPBDA	1
 alternatename	Code/GameEngine/Source/Common/Rva0051AF0BEnable.cpp	?g_Va00A04910@@3PAUGlobalA04910@@A	1
@@ -3568,11 +3565,6 @@ alternatename	Code/GameEngine/Source/GameClient/GUI/Shell/ShellCtor.cpp	?update@
 alternatename	Code/GameEngine/Source/GameClient/GUI/Shell/ShellHide.cpp	?hide@Shell@@QAEX_N@Z	1
 alternatename	Code/GameEngine/Source/GameClient/GUI/Shell/ShellMenuSchemeDtor.cpp	??1?$StringBase@D@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameClient/GUI/Shell/ShellTop.cpp	??1?$StringBase@D@@QAE@XZ	1
-alternatename	Code/GameEngine/Source/GameClient/GUI/Shell/ShellTop.cpp	?TheGlobalData@@3PAUGlobalData@@A	2
-alternatename	Code/GameEngine/Source/GameClient/GUI/Shell/ShellTop.cpp	?TheWritableGlobalData@@3PAUGlobalData@@A	1
-alternatename	Code/GameEngine/Source/GameClient/GUI/Shell/ShellTop.cpp	?g_00DFE758@@3PAURva00DFE758Holder@@A	1
-alternatename	Code/GameEngine/Source/GameClient/GUI/Shell/ShellTop.cpp	?g_Va009FE758@@3PAVGlobal9FE758@@A	1
-alternatename	Code/GameEngine/Source/GameClient/GUI/Shell/ShellTop.cpp	?g_rampageGlobal@@3PAUGlobalWithB8@@A	1
 alternatename	Code/GameEngine/Source/GameClient/GUI/window_video_manager.cpp	?TheDisplay@@3PAVDisplayInterface@@A	1
 alternatename	Code/GameEngine/Source/GameClient/GUI/window_video_manager.cpp	?first@Rva000427195@@QAEPAXPAVRva000411084@@@Z	1
 alternatename	Code/GameEngine/Source/GameClient/GameTextStringLookUpBound.cpp	??RRva002E5C15Comp@@QBE_NPBUStringLookUp@@PBD@Z	1
@@ -3756,7 +3748,6 @@ alternatename	Code/GameEngine/Source/GameLogic/AI/GroupOrderCtor.cpp	_vtbl_00C6A
 alternatename	Code/GameEngine/Source/GameLogic/AI/GroupOrderHolderCtor.cpp	_vtbl_00C6A520	1
 alternatename	Code/GameEngine/Source/GameLogic/AI/MoveToGroupOrderXfer.cpp	?_CxxThrowException@@YGXPAX0@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/AI/Rva00265254Ctor.cpp	?ji_006291ae@@YAPAXPAXHI@Z	1
-alternatename	Code/GameEngine/Source/GameLogic/AI/Rva002EDEAB.cpp	?g_00DFE758@@3PAURva00DFE758Holder@@A	1
 alternatename	Code/GameEngine/Source/GameLogic/AI/Rva002EDEAB.cpp	?g_00E02EEC@@3PAVRva00E02EECObj@@A	1
 alternatename	Code/GameEngine/Source/GameLogic/AI/Rva0034316AStates.cpp	?g_00C11AC0@@3QBQBXB	1
 alternatename	Code/GameEngine/Source/GameLogic/AI/Rva003435FBStates.cpp	?g_00C11B70@@3QBQBXB	1
@@ -3869,7 +3860,6 @@ alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBe
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehaviorModuleDataCtor2.cpp	_vfn_00481BB2	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehaviorModuleDataCtor2.cpp	_vfn_0050B5C6	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehaviorXfer.cpp	?g_rva005c5100ThrowInfo@@3HA	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/RampageBehaviorModuleDataCtor.cpp	?g_rampageGlobal@@3PAUGlobalWithB8@@A	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/RandomSoundSelectorClientBehaviorCtor.cpp	_vtbl_00BE2B78	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/RebuildHoleBehavior.cpp	_vtbl_00C078DC	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/RebuildHoleBehavior.cpp	_vtbl_00C1C780	1
@@ -34846,7 +34836,6 @@ pin	reverse/symbols.csv	0x009FDD54	1
 pin	reverse/symbols.csv	0x009FE16C	1
 pin	reverse/symbols.csv	0x009FE1C8	1
 pin	reverse/symbols.csv	0x009FE4CC	2
-pin	reverse/symbols.csv	0x009FE758	1
 pin	reverse/symbols.csv	0x009FE78C	2
 pin	reverse/symbols.csv	0x009FECC4	1
 pin	reverse/symbols.csv	0x009FEF10	1

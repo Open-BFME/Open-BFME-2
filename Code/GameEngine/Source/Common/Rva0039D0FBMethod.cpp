@@ -134,8 +134,9 @@ public:
 	bool accepts(Object *obj, Player *player);
 };
 
-struct GlobalData
+class GlobalData
 {
+public:
 	char m_pad0000[0x1168];
 	Rva2225E0Filter m_scoreUnitFilter;
 };

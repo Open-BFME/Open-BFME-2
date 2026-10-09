@@ -196,8 +196,9 @@ public:
 	BfmeMemberRV *bfmePickRV(void);   // PlayerList: local player, else the observed one
 };
 
-struct GlobalData
+class GlobalData
 {
+public:
 	char m_pad000[0xBC0];
 	Int m_powerBarBase;          // +0xBC0
 	Real m_powerBarIntervals;    // +0xBC4
@@ -389,7 +390,8 @@ extern PlayerList *ThePlayerList;
 extern Radar *TheRadar;
 extern ControlBar *TheControlBar;
 extern ImageCollection *TheMappedImageCollection;
-extern GlobalData *TheGlobalData;
+extern GlobalData *TheWritableGlobalData;
+#define TheGlobalData TheWritableGlobalData
 
 float Rva0009DE01Get(float value, float base);   // ZH logN
 

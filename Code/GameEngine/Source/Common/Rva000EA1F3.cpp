@@ -3,7 +3,8 @@
 // Same GlobalData gate as 0x000E6FC8. A set +0xD45 passes 0x14.
 // Otherwise byte +0x62 selects 7 or 4. Both arms call 0x000E6D94.
 
-extern void *g_00DFE758;
+class GlobalData;
+extern GlobalData *TheWritableGlobalData;
 
 class Rva000E6FC8
 {
@@ -14,7 +15,7 @@ public:
 
 void Rva000E6FC8::rva000EA1F3()
 {
-	unsigned char *globalData = (unsigned char *)g_00DFE758;
+	unsigned char *globalData = (unsigned char *)TheWritableGlobalData;
 	int value;
 	if (globalData[0xD45] != 0)
 		value = 0x14;

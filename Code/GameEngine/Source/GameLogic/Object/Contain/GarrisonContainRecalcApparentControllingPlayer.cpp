@@ -81,12 +81,14 @@ public:
 };
 extern TeamFactory *TheTeamFactory;
 
-struct GlobalData
+class GlobalData
 {
+public:
     unsigned char m_pad00[0x134];
     int m_timeOfDay; // +0x134
 };
-extern GlobalData *TheGlobalData;
+extern GlobalData *TheWritableGlobalData;
+#define TheGlobalData TheWritableGlobalData
 
 struct Rva0046247DPair
 {

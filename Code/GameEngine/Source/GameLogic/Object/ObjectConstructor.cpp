@@ -207,8 +207,8 @@ class Radar { public: void addObject(Object *obj); };
 extern Radar *TheRadar;
 
 class ObjectFilter { public: bool testTemplate(const ThingTemplate *tt, const Player *a, const Player *b); };
-struct Rva00DFE758View { unsigned char m_pad[0xEB4]; ObjectFilter m_filter; };
-extern Rva00DFE758View *g_00DFE758;
+class GlobalData { public: unsigned char m_pad[0xEB4]; ObjectFilter m_filter; };
+extern GlobalData *TheWritableGlobalData;
 
 class Thing
 {
@@ -655,7 +655,7 @@ Object::Object(const ThingTemplate *tt, const CreateMask *mask, Team *team, Obje
 
 	m_428 = tt->m_occlusionDelay + TheGameLogic->getFrame();
 
-	if (g_00DFE758->m_filter.testTemplate(tt, 0, 0))
+	if (TheWritableGlobalData->m_filter.testTemplate(tt, 0, 0))
 		((Rva004381B0 *)TheGameLogic->getManager178())->rva004381B0(tt->m_10);
 
 	rva0028DCC4();

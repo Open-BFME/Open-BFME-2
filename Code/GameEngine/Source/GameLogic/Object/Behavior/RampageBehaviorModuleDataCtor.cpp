@@ -27,13 +27,14 @@ public:
 private:
 };
 
-struct GlobalWithB8
+class GlobalData
 {
+public:
 	int m_pad[0xB8 / 4];
 	int m_value;
 };
 
-extern GlobalWithB8 *g_rampageGlobal;
+extern GlobalData *TheWritableGlobalData;
 
 class RampageBehaviorModuleData : public BehaviorModuleData
 {
@@ -55,7 +56,7 @@ private:
 // ??0RampageBehaviorModuleData@@QAE@XZ @0x458C0F
 RampageBehaviorModuleData::RampageBehaviorModuleData()
 	: m_vtable(reinterpret_cast<const void *>(0x00C40EF8))
-	, m_healthThreshold(g_rampageGlobal->m_value)
+	, m_healthThreshold(TheWritableGlobalData->m_value)
 	, m_lifeTimer(0)
 	, m_angryLifeTimer(0)
 	, m_resetTimer(0)
@@ -64,5 +65,3 @@ RampageBehaviorModuleData::RampageBehaviorModuleData()
 {
 	m_requiredUpgrade.clear();
 }
-// ?g_rampageGlobal@@3PAUGlobalWithB8@@A: the global at VA 0xdfe758 is ?TheGlobalData@@3PAVGlobalData@@A.
-#pragma comment(linker, "/alternatename:?g_rampageGlobal@@3PAUGlobalWithB8@@A=?TheGlobalData@@3PAVGlobalData@@A")

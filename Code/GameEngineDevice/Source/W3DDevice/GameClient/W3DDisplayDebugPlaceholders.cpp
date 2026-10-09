@@ -79,7 +79,8 @@ void NetworkDebugDisplay(DebugDisplayInterface *, void *, FILE *fp)
 // both callees consume ECX as their receiver and return with RET0. Their
 // original method names remain unknown; keep address-derived declarations.
 class GlobalData;
-extern GlobalData *TheGlobalData;
+extern GlobalData *TheWritableGlobalData;
+#define TheGlobalData TheWritableGlobalData
 typedef void DebugDisplayCallback(DebugDisplayInterface *, void *, FILE *);
 
 class W3DDisplay

@@ -50,7 +50,8 @@ class Image;
 class ImageCollection {public:const Image* findImageByName(const AsciiString&);};
 extern ImageCollection* TheMappedImageCollection;
 class GlobalData {public:unsigned char pad[0x9d4];int modeFlags;};
-extern GlobalData* TheGlobalData;
+extern GlobalData *TheWritableGlobalData;
+#define TheGlobalData TheWritableGlobalData
 extern unsigned char g_Va00E03340;
 extern int g_Va00E0333C;
 class AptMpGameSetup:public Rva005248D0 {

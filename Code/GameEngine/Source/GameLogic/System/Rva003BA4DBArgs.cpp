@@ -16,7 +16,8 @@ public:
 };
 }
 
-extern void *g_00DFE758;
+class GlobalData;
+extern GlobalData *TheWritableGlobalData;
 
 struct Rva003BA4DBArg
 {
@@ -27,10 +28,10 @@ struct Rva003BA4DBArg
 // ?rva003BA4DB@@YAHPAURva003BA4DBArg@@H@Z @0x003BA4DB
 int __cdecl rva003BA4DB(Rva003BA4DBArg *arg, int argc)
 {
-	if (g_00DFE758 != 0 && argc > 1)
+	if (TheWritableGlobalData != 0 && argc > 1)
 	{
 		AsciiString text(arg->m_04);
-		((_STL::vector<AsciiString> *)((char *)g_00DFE758 + 0xC54))->push_back(text);
+		((_STL::vector<AsciiString> *)((char *)TheWritableGlobalData + 0xC54))->push_back(text);
 	}
 	return 2;
 }

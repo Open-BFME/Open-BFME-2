@@ -73,7 +73,8 @@ public:
 	int m_stretchTerrain;
 };
 
-extern GlobalData *TheGlobalData;
+extern GlobalData *TheWritableGlobalData;
+#define TheGlobalData TheWritableGlobalData
 
 class W3DTerrainBackground
 {

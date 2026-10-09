@@ -58,7 +58,8 @@ public:
 	TimeOfDay m_timeOfDay;
 };
 
-extern GlobalData *TheGlobalData;
+extern GlobalData *TheWritableGlobalData;
+#define TheGlobalData TheWritableGlobalData
 
 template<int N> class GameClientSlots : public GameClientSlots<N-1> { public: virtual void unusedSlot(GameClientSlots<N> *); };
 template<> class GameClientSlots<0> {};

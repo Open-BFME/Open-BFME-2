@@ -5,7 +5,8 @@
 // cl: /O1 /MD /EHsc /D_STLP_NO_EXCEPTIONS /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii
 #include "ascii_string.h"
 
-extern void *g_00DFE758;
+class GlobalData;
+extern GlobalData *TheWritableGlobalData;
 extern StringBase<char> g_00DFE7B0;
 extern unsigned char g_00DFE7A8;
 
@@ -20,8 +21,8 @@ int __cdecl rva003B9EC4(Rva003B9EC4Arg *arg, int argc)
 			g_00DFE7B0.set(reinterpret_cast<const StringBase<char> &>(text));
 		}
 		g_00DFE7A8 = 1;
-		((unsigned char *)g_00DFE758)[0x2C] = 1;
-		((unsigned char *)g_00DFE758)[0xAF0] = 0;
+		((unsigned char *)TheWritableGlobalData)[0x2C] = 1;
+		((unsigned char *)TheWritableGlobalData)[0xAF0] = 0;
 		return 2;
 	}
 	return 1;

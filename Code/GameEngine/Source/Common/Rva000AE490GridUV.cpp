@@ -65,7 +65,8 @@ public:
 		float *maxV, bool fullTile);
 };
 
-extern void *g_00DFE758;
+class GlobalData;
+extern GlobalData *TheWritableGlobalData;
 
 class Rva000AE490
 {
@@ -116,7 +117,7 @@ bool Rva000AE490::rva000AE490(int ndx, short tileNdx, float U[4],
 		V[1] = xV;
 		V[2] = nV;
 		V[3] = nV;
-		if (g_00DFE758 && !((unsigned char *)g_00DFE758)[0x4B])
+		if (TheWritableGlobalData && !((unsigned char *)TheWritableGlobalData)[0x4B])
 			return false;
 		if (nU == 0.0)
 			return false;

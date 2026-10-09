@@ -137,7 +137,8 @@ class RecorderClass { public:void stopRecording(); };
 class Rva00210C66CmpBoolField { public: bool get() const; };
 struct LANGameInfo; extern LANGameInfo *g_Rva00E02EEC;
 class GameInfo { public: void setMap(AsciiString); }; extern GameInfo *TheSkirmishGameInfo;
-extern void *g_00DFE758;
+class GlobalData;
+extern GlobalData *TheWritableGlobalData;
 void InitGameLogicRandom(unsigned);
 extern "C" __declspec(dllimport) unsigned long __stdcall timeGetTime();
 class GameMessage { public: void appendIntegerArgument(int); };
@@ -165,7 +166,7 @@ void Rva0021237E::rva0021246D(Rva0021246DInput *input)
  const char *base=input->name.str();
  AsciiString map;
  map.format("maps\\%s\\%s.map",base,base);
- ((AsciiString*)((char*)g_00DFE758+0xAC0))->format(&map);
+ ((AsciiString*)((char*)TheWritableGlobalData+0xAC0))->format(&map);
  if(!g_Rva00E02EEC || !((Rva00210C66CmpBoolField*)TheGameLogic)->get())
   { if(TheSkirmishGameInfo) InitGameLogicRandom(timeGetTime()); else InitGameLogicRandom(0); }
  GameMessage *message=TheMessageStream->append(30);

@@ -1,12 +1,13 @@
 // cl: /O1 /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // Target 0x0023DC8E (64B) calls StringBase<char>::isEmpty at 0x00001E2F,
-// tests the byte at g_00DFE758+0x9AD, then writes byte +0x72 and either assigns
+// tests the byte at TheWritableGlobalData+0x9AD, then writes byte +0x72 and either assigns
 // or destroys the AsciiString-shaped field at +0x74. The offsets and callees
 // are target evidence; this address-derived owner and operation remain
 // unresolved.
 #include "ascii_string.h"
 
-extern void *g_00DFE758;
+class GlobalData;
+extern GlobalData *TheWritableGlobalData;
 
 class Rva0023DC8EOwner
 {
@@ -23,7 +24,7 @@ private:
 void Rva0023DC8EOwner::rva0023DC8E(const AsciiString &value)
 {
 	const StringBase<char> &stringBase = *(const StringBase<char> *)&value;
-	if (!stringBase.isEmpty() && ((unsigned char *)g_00DFE758)[0x9AD] == 0)
+	if (!stringBase.isEmpty() && ((unsigned char *)TheWritableGlobalData)[0x9AD] == 0)
 	{
 		m_flag = 1;
 		m_value = value;

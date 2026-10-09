@@ -52,7 +52,8 @@ public:
 };
 
 extern GameLogic *TheGameLogic;
-extern GlobalData *TheGlobalData;
+extern GlobalData *TheWritableGlobalData;
+#define TheGlobalData TheWritableGlobalData
 
 class NetCommandMsg
 {

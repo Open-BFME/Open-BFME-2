@@ -480,13 +480,15 @@ public:
 	static void Flush(void);
 };
 
-struct GlobalData
+class GlobalData
 {
+public:
 	char m_pad[0xC60];
 	Int m_unknownC60;
 };
 
-extern GlobalData *TheGlobalData;
+extern GlobalData *TheWritableGlobalData;
+#define TheGlobalData TheWritableGlobalData
 
 class View
 {
