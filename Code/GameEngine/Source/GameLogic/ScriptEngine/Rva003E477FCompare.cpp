@@ -34,7 +34,13 @@ public:
 };
 extern class ScriptEngine *TheScriptEngine;
 
-bool __stdcall Rva003E477FGet(Parameter *pMaskParm, Parameter *pOpParm, Parameter *pValParm)
+class ScriptConditions
+{
+protected:
+	bool rva003E477F(Parameter *pMaskParm, Parameter *pOpParm, Parameter *pValParm);
+};
+
+bool ScriptConditions::rva003E477F(Parameter *pMaskParm, Parameter *pOpParm, Parameter *pValParm)
 {
     int threshold = pValParm->m_int;
     int mask = TheScriptEngine->rva00357B82(pMaskParm);

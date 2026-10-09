@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii
-// ?Rva003E5017Check@@YG_NPAVParameter@@00@Z
+// ?rva003E5017@ScriptConditions@@IAE_NPAVParameter@@00@Z
 // retail 0x003E5017 157B leaf free stdcall bool of 3x Parameter ret 0xc. Evidence:
 // rowed Rva002D06CA::rva002D06CA via g_009FF000 with (Parameter+0x10 AsciiString)
 // plus rowed ScriptEngine::getUnitNamed via g_Va009FE16C plus rowed rva00357B82
@@ -74,14 +74,20 @@ public:
 
 class Object
 {
-	friend bool __stdcall Rva003E5017Check(Parameter *, Parameter *, Parameter *);
+	friend class ScriptConditions;
 public:
 	Player *getControllingPlayer() const;
 protected:
 	Module *findModule(NameKeyType key) const;
 };
 
-bool __stdcall Rva003E5017Check(Parameter *a, Parameter *b, Parameter *c)
+class ScriptConditions
+{
+protected:
+	bool rva003E5017(Parameter *a, Parameter *b, Parameter *c);
+};
+
+bool ScriptConditions::rva003E5017(Parameter *a, Parameter *b, Parameter *c)
 {
 	void *payload = ((Rva002D06CA *)TheThingFactory)->rva002D06CA(&c->m_string10);
 	if (!payload)

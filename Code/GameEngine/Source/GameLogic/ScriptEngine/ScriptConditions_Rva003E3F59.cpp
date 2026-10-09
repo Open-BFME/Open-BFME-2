@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
-// ?Rva003E3F59Check@@YG_NPAVParameter@@00@Z @0x003E3F59 165B: player-mask sum of Player+0x94 vs threshold with 0..5 op switch
+// ?rva003E3F59@ScriptConditions@@IAE_NPAVParameter@@00@Z @0x003E3F59 165B: player-mask sum of Player+0x94 vs threshold with 0..5 op switch
 // Evidence: neighbours ScriptConditions_evaluateNamedUnit and evaluateRva003E3FFE same flags; rowed getEachPlayerFromMask 0x002A7BC9 plus pin rva00357B82 plus globals g_Va009FE16C ThePlayerList plus caller 0x003EAD99
 class Parameter
 {
@@ -32,7 +32,13 @@ public:
 
 extern PlayerList *ThePlayerList;
 
-bool __stdcall Rva003E3F59Check(Parameter *pValue, Parameter *pOp, Parameter *pPlayerParm)
+class ScriptConditions
+{
+protected:
+	bool rva003E3F59(Parameter *pValue, Parameter *pOp, Parameter *pPlayerParm);
+};
+
+bool ScriptConditions::rva003E3F59(Parameter *pValue, Parameter *pOp, Parameter *pPlayerParm)
 {
 	int mask = TheScriptEngine->rva00357B82(pPlayerParm);
 	int total = 0;

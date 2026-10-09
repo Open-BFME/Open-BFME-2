@@ -1,5 +1,5 @@
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
-// ?Rva003E4F79Get@@YG_NPAVParameter@@00@Z
+// ?rva003E4F79@ScriptConditions@@IAE_NPAVParameter@@00@Z
 // retail 0x003E4F79 158B leaf free stdcall bool of 3x Parameter ret 0xc from 0x003EBF20. Evidence:
 // mask via rowed ScriptEngine::rva00357B82 walked with rowed PlayerList::getEachPlayerFromMask
 // summing rowed Rva002A9ED2DwordField::get at +0x31C; op at [p2+8] 0..5 selects < <= == >= > !=
@@ -32,7 +32,13 @@ public:
 };
 extern class ScriptEngine *TheScriptEngine;
 
-bool __stdcall Rva003E4F79Get(Parameter *pMaskParm, Parameter *pOpParm, Parameter *pValParm)
+class ScriptConditions
+{
+protected:
+	bool rva003E4F79(Parameter *pMaskParm, Parameter *pOpParm, Parameter *pValParm);
+};
+
+bool ScriptConditions::rva003E4F79(Parameter *pMaskParm, Parameter *pOpParm, Parameter *pValParm)
 {
     int sum = 0;
     int mask = TheScriptEngine->rva00357B82(pMaskParm);

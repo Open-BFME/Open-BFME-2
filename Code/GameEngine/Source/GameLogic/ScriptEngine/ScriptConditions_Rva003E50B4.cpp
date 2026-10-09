@@ -1,5 +1,5 @@
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
-// ?Rva003E50B4Check@@YG_NPAVParameter@@0@Z
+// ?rva003E50B4@ScriptConditions@@IAE_NPAVParameter@@0@Z
 // retail 0x003E50B4 81B leaf free stdcall bool of 2x Parameter ret 8. Evidence:
 // rowed ScriptEngine::getUnitNamed via TheScriptEngine plus TerrainLogic slot 0x88
 // getWaypointByName via TheTerrainLogic with (Parameter+0x10) plus pin
@@ -86,7 +86,13 @@ public:
 };
 extern AI *TheAI;
 
-bool __stdcall Rva003E50B4Check(Parameter *a, Parameter *b)
+class ScriptConditions
+{
+protected:
+	bool rva003E50B4(Parameter *a, Parameter *b);
+};
+
+bool ScriptConditions::rva003E50B4(Parameter *a, Parameter *b)
 {
 	Object *o1 = TheScriptEngine->getUnitNamed(a);
 	if (!o1)

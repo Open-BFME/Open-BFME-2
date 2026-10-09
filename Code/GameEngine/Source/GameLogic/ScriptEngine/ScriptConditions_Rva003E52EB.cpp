@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii
-// ?Rva003E52EBCheck@@YG_NPAVParameter@@PAUCondA003E52EB@@PAUCondB003E52EB@@@Z
+// ?rva003E52EB@ScriptConditions@@IAE_NPAVParameter@@PAUCondA003E52EB@@PAUCondB003E52EB@@@Z
 // retail 0x003E52EB 146B leaf free stdcall bool of 3x Parameter ret 0xc. Evidence:
 // rowed ScriptEngine::rva00357475 via g_Va009FE16C with (Parameter+0x10 AsciiString and NULL)
 // plus rowed PlayerList::getPlayerFromMask via ThePlayerList plus Player +0x1c value
@@ -47,7 +47,13 @@ public:
 };
 extern class ScriptEngine *TheScriptEngine;
 
-bool __stdcall Rva003E52EBCheck(Parameter *a, CondA003E52EB *b, CondB003E52EB *c)
+class ScriptConditions
+{
+protected:
+	bool rva003E52EB(Parameter *a, CondA003E52EB *b, CondB003E52EB *c);
+};
+
+bool ScriptConditions::rva003E52EB(Parameter *a, CondA003E52EB *b, CondB003E52EB *c)
 {
 	int mask = TheScriptEngine->rva00357475(a->m_10, 0);
 	Player *pl = ThePlayerList->getPlayerFromMask(mask);

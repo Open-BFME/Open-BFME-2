@@ -1,5 +1,5 @@
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
-// ?Rva003E5105Check@@YG_NPAVParameter@@0@Z
+// ?rva003E5105@ScriptConditions@@IAE_NPAVParameter@@0@Z
 // retail 0x003E5105 74B leaf free stdcall bool of 2x Parameter ret 8 from 0x003EC0F3. Evidence:
 // rowed ScriptEngine::getUnitNamed twice via TheScriptEngine plus pin QuickDoesPathExist via TheAI+0x10
 // pathfinder with (object from to 0); Object +0x38 Coord3D; siblings 0x003E4F79 0x003E514F /O1.
@@ -37,7 +37,13 @@ public:
 };
 extern AI *TheAI;
 
-bool __stdcall Rva003E5105Check(Parameter *a, Parameter *b)
+class ScriptConditions
+{
+protected:
+	bool rva003E5105(Parameter *a, Parameter *b);
+};
+
+bool ScriptConditions::rva003E5105(Parameter *a, Parameter *b)
 {
 	Object *o1 = TheScriptEngine->getUnitNamed(a);
 	if (!o1)

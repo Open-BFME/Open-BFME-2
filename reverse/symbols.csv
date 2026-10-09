@@ -17037,3 +17037,20 @@ _isdigit,0x00629982,Native6F97F0 suffix parser calls PE isdigit import thunk6299
 ?resize@?$vector@UAptTimeLinePlayer@@V?$allocator@UAptTimeLinePlayer@@@_STL@@@_STL@@QAEXI@Z,0x0052076F,vector<AptTimeLinePlayer>::resize(n) (35B: default row + resize(n x)) called by AptTimeLine::CollectPlayerData 0x00520923 and four more AptTimeLine sites
 ?rva00052B53@MilesAudioManager@@QAEXXZ,0x00052B53,unrowed 971B member (WB 0x78A8C0 recalculateMicrophone by callgraph); called by the +0x678 view setter 0x5DAFC after the reverb room type
 ?recalculateMicrophone@MilesAudioManager@@QAEXXZ,0x00052B53,WB 0x78A8C0 names it by callgraph; unrowed 971B member called by the +0x678 view setter 0x5DAFC
+?Rva0056815A@@YA_NXZ,0x0056815A,callee of ?evaluateConditionHelper@ScriptConditions@@IAE_NPAVCondition@@@Z
+?rva003E4565@ScriptConditions@@IAE_NPAVParameter@@0@Z,0x003E4565,callee of ?evaluateConditionHelper@ScriptConditions@@IAE_NPAVCondition@@@Z
+?rva003E59B0@ScriptConditions@@IAE_NPAVParameter@@00_N@Z,0x003E59B0,callee of ?evaluateConditionHelper@ScriptConditions@@IAE_NPAVCondition@@@Z
+?rva003E64A6@ScriptConditions@@IAE_NPAVCondition@@PAVParameter@@1111@Z,0x003E64A6,callee of ?evaluateConditionHelper@ScriptConditions@@IAE_NPAVCondition@@@Z
+?rva003E719C@ScriptConditions@@IAE_NPAVCondition@@PAVParameter@@111@Z,0x003E719C,callee of ?evaluateConditionHelper@ScriptConditions@@IAE_NPAVCondition@@@Z
+?rva003E782D@ScriptConditions@@IAE_NPAVCondition@@PAVParameter@@1@Z,0x003E782D,callee of ?evaluateConditionHelper@ScriptConditions@@IAE_NPAVCondition@@@Z
+?rva003E86A3@ScriptConditions@@IAE_NPAVParameter@@00@Z,0x003E86A3,callee of ?evaluateConditionHelper@ScriptConditions@@IAE_NPAVCondition@@@Z
+?rva003E8785@ScriptConditions@@IAE_NPAVParameter@@00@Z,0x003E8785,callee of ?evaluateConditionHelper@ScriptConditions@@IAE_NPAVCondition@@@Z
+?rva003E8863@ScriptConditions@@IAE_NPAVParameter@@000@Z,0x003E8863,callee of ?evaluateConditionHelper@ScriptConditions@@IAE_NPAVCondition@@@Z
+?rva003E89A9@ScriptConditions@@IAE_NPAVParameter@@0@Z,0x003E89A9,callee of ?evaluateConditionHelper@ScriptConditions@@IAE_NPAVCondition@@@Z
+?rva003E8B47@ScriptConditions@@IAE_NPAVParameter@@0@Z,0x003E8B47,callee of ?evaluateConditionHelper@ScriptConditions@@IAE_NPAVCondition@@@Z
+?rva003E8C24@ScriptConditions@@IAE_NPAVParameter@@0@Z,0x003E8C24,callee of ?evaluateConditionHelper@ScriptConditions@@IAE_NPAVCondition@@@Z
+?rva003E8E23@ScriptConditions@@IAE_NPAVParameter@@000@Z,0x003E8E23,callee of ?evaluateConditionHelper@ScriptConditions@@IAE_NPAVCondition@@@Z
+?rva003E9062@ScriptConditions@@IAE_NPAVParameter@@0@Z,0x003E9062,callee of ?evaluateConditionHelper@ScriptConditions@@IAE_NPAVCondition@@@Z
+?rva003E91F6@ScriptConditions@@IAE_NPAVParameter@@00@Z,0x003E91F6,callee of ?evaluateConditionHelper@ScriptConditions@@IAE_NPAVCondition@@@Z
+?rva003EA12A@ScriptConditions@@IAE_NPAVParameter@@@Z,0x003EA12A,callee of ?evaluateConditionHelper@ScriptConditions@@IAE_NPAVCondition@@@Z
+?rva003EA228@ScriptConditions@@IAE_NPAVParameter@@_N@Z,0x003EA228,callee of ?evaluateConditionHelper@ScriptConditions@@IAE_NPAVCondition@@@Z

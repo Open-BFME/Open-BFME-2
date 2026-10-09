@@ -1,5 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
-// Native 0x003E7E54..0x003E7F3A, RET16; ECX is unused on entry.
+// Native 0x003E7E54..0x003E7F3A, RET16; ECX is unused on entry. A ScriptConditions
+// member (the condition dispatcher 0x003EA9AF reloads ECX = this for the call).
 // Four Parameter pointers have native modes at +8, float values at +C,
 // and strings at +10, consistent with the adjacent rowed condition helpers.
 // A named team is resolved through verified getTeamNamed(AsciiString,false),
@@ -22,7 +23,11 @@ public:
     Team *getTeamNamed(AsciiString name,bool create);
 };
 extern ScriptEngine *TheScriptEngine;
-bool __stdcall Rva003E7E54Get(Parameter *teamName,Parameter *comparison,Parameter *threshold,Parameter *input)
+class ScriptConditions {
+protected:
+    bool rva003E7E54(Parameter *teamName,Parameter *comparison,Parameter *threshold,Parameter *input);
+};
+bool ScriptConditions::rva003E7E54(Parameter *teamName,Parameter *comparison,Parameter *threshold,Parameter *input)
 {
     if (!teamName || !input || !comparison || !threshold)
         return false;
