@@ -1,10 +1,12 @@
-// ??0TeamTemplateInfo@@QAE@PAVDict@@@Z
-// partial score=0.94 date=2026-10-06
-// cl: /Ireference/shims/bfme2_ascii /ICode/Libraries/Include /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG
+// cl: /Ireference/shims/moduledata /Ireference/shims/bfme2_ascii /ICode/Libraries/Include /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG
 // ??0TeamTemplateInfo@@QAE@PAVDict@@@Z @0x003A26E6 399B
+// Donor TeamTemplateInfo constructor and current target loader/dtor establish
+// Snapshot base; float member initializer preserves canonical Coord3D layout.
 // evidence: vtable 0x00C1AE70 TeamTemplateInfo plus loadFromDict 0x0039FEBB plus 7x0x18 records plus 32 scripts plus counters plus 0.5f plus Dict arg
 #include "ascii_string.h"
 #include "Lib/Coord3D.h"
+#include "Common/Snapshot.h"
+struct TeamHomeLocation : Coord3D { TeamHomeLocation() { x=0.0f; y=0.0f; z=0.0f; } };
 
 class Dict;
 class Rva0039EA9C
@@ -27,24 +29,20 @@ public:
 private:
 	unsigned char m_data[0x1C];
 };
-class TeamTemplateEmptyBase
-{
-public:
-	TeamTemplateEmptyBase() {}
-	~TeamTemplateEmptyBase();
-};
 enum AttitudeType { AI_NORMAL = 0 };
 enum VeterancyLevel { LEVEL_REGULAR = 0 };
 enum { MAX_GENERIC_SCRIPTS = 32 };
-class TeamTemplateInfo : public TeamTemplateEmptyBase
+class TeamTemplateInfo : public Snapshot
 {
 public:
 	TeamTemplateInfo(Dict *dict);
 	virtual ~TeamTemplateInfo();
 	void loadFromDict(Dict *dict);
+protected: virtual void crc(Xfer*); virtual void xfer(Xfer*); virtual void loadPostProcess();
+public:
 	Rva0039EA9C m_unitsInfo[7];
 	int m_numUnitsInfo;
-	Coord3D m_homeLocation;
+	TeamHomeLocation m_homeLocation;
 	bool m_hasHomeLocation;
 	AsciiString m_scriptOnCreate;
 	AsciiString m_teamEventsList;

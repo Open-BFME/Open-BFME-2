@@ -1,6 +1,11 @@
-// ?rva0039D97E@Team@@QAEXPAVBfmeOwnerCFF@@@Z
-// partial score=0.95 date=2026-10-04
-// cl: /O1 /DNDEBUG /MD
+// ?setControllingPlayer@Team@@QAEXPAVPlayer@@@Z
+// partial score=0.970297 date=2026-10-09
+// Donor Team.cpp setControllingPlayer plus BFME2 capture notification path.
+// Native39D97E..39D9E1 and WB EF4800 establish identity and receiver.
+// Target prototype30/controller8; member template115 bit20 suppresses
+// notification; old/new Player arguments forwarded through owned290DBB.
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD
+class Player;
 class BfmeOwnerCFF;
 class BfmeThingCFF
 {
@@ -39,13 +44,13 @@ class Team
 {
 public:
 	DLINK_ITERATOR<Object> iterate_TeamMemberList() const;
-	void rva0039D97E(BfmeOwnerCFF *owner);
+	void setControllingPlayer(Player *player);
 	unsigned char m_pad00[0x30];
 	BfmeThingCFF *m_proto;
 };
-// ?rva0039D97E@Team@@QAEXPAVBfmeOwnerCFF@@@Z present-unmatched
-void Team::rva0039D97E(BfmeOwnerCFF *owner)
+void Team::setControllingPlayer(Player *player)
 {
+ BfmeOwnerCFF *owner=(BfmeOwnerCFF*)player;
 	BfmeThingCFF *proto = m_proto;
 	if (!proto)
 		return;
