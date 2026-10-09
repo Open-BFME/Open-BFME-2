@@ -14,6 +14,7 @@ public:
  virtual ~AptStats();
  virtual void*rankValues();virtual int rankPoints(int);
  void ColorExtern(int,char*,bool);
+ void NextRankExtern(int,char*,bool);
  char beforeOwner[0x14];void*owner;
 };
 void AptStats::ColorExtern(int faction,char*out,bool lvalue) {
@@ -28,4 +29,18 @@ void AptStats::ColorExtern(int faction,char*out,bool lvalue) {
  case 5:color="0xF5772A";break;
  }
  _mbscpy(reinterpret_cast<unsigned char*>(out),reinterpret_cast<const unsigned char*>(color));
+}
+
+// WB015D9570 AptStats.cpp295 names this callback; native full68B
+// [005DD029,005DD06D),RET12. Its address is taken by the faction-level
+// registration at005DD2D3. Target virtual slots1/2 supply thresholds/points.
+// The rank-progress dependency has independently proven entry and thiscall ABI.
+class Rva00559AC1 {public:float rva00559AF9(int);};
+extern "C" __declspec(dllimport) int __cdecl sprintf(char*,const char*,...);
+void AptStats::NextRankExtern(int faction,char*out,bool lvalue)
+{
+ if(lvalue)return;
+ int points=rankPoints(faction);
+ float progress=((Rva00559AC1*)rankValues())->rva00559AF9(points)*100.0f;
+ sprintf(out,"%d",int(progress));
 }
