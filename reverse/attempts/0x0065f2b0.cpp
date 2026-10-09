@@ -1,15 +1,11 @@
 // ?buildRva007F27C0@@YGXPAVRva007E8810Message@@PBDPBURva007F27C0User@@H@Z
-// partial score=0.9926605505 date=2026-10-09
+// partial score=0.9927 date=2026-10-09
 // ?buildRva007F27C0@@YGXPAVRva007E8810Message@@PBDPBURva007F27C0User@@H@Z
 // Evidence: targets/game/reverse/identity_evidence/007f27c0-rank-request.md
 // cl: /GS
 #include <stdio.h>
 
 typedef __int64 FeslInt64;
-
-// Descriptive name for the mutable pointer read at native VA 0x00E0A0AC.
-// Its original name is unknown; the image stores this word in zero-fill data.
-extern const char *FeslRankRequestTransaction;
 
 class Rva007E8AC0
 {
@@ -55,6 +51,16 @@ struct Rva007F27C0User
 	Rva007F27C0UserData data;
 };
 
+// Existing target UpdateStats transaction record: pointer field at +4.
+struct Rva007B55E0TxnName
+{
+    Rva007B55E0TxnName(const char *type, const char *name);
+    const char *m_type;
+    const char *m_name;
+    int m_reserved;
+};
+extern Rva007B55E0TxnName g_Va00E0A0A8;
+
 void __stdcall buildRva007F27C0( Rva007E8810Message *msg, const char *gsid,
 	const Rva007F27C0User *users, int userCount )
 {
@@ -65,7 +71,7 @@ void __stdcall buildRva007F27C0( Rva007E8810Message *msg, const char *gsid,
 	int i;
 
 	message = msg;
-	txn = FeslRankRequestTransaction;
+	txn = *(&g_Va00E0A0A8.m_name);
 	((Rva007E8AC0 *)message)->run();
 	message->m_category = 'rank';
 	message->addString( "TXN", txn );
@@ -104,5 +110,3 @@ void __stdcall buildRva007F27C0( Rva007E8810Message *msg, const char *gsid,
 	}
 	message->addInt( "u.[]", userCount );
 }
-
-const char *FeslRankRequestTransaction;
