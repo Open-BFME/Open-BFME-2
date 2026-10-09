@@ -164,8 +164,8 @@ Real normalizeAngle(Real angle);
 
 #define PATHFIND_CELL_SIZE_F 10.0f
 
-extern const int g_009BA4E4;
-#define LOGICFRAMES_PER_SECOND g_009BA4E4
+extern int g_Va00DBA4E4;
+#define LOGICFRAMES_PER_SECOND g_Va00DBA4E4
 
 extern GameLogic *TheGameLogic;
 
@@ -439,7 +439,8 @@ public:
 class Object : public Thing
 {
 public:
-	AIUpdateInterface *getAI() { return m_ai; }
+	// This retail view reads +0x258; the named Object::getAI provider reads +0x19C.
+	AIUpdateInterface *getObservedAI() { return m_ai; }
 	Object *getContainedBy() { return m_containedBy; }
 	Object *getOutermostContainer()
 	{
@@ -1063,7 +1064,7 @@ static Bool canPursue(Object *source, Weapon *weapon, Object *victim)
 		return false;
 	if (source->testStatus(OBJECT_STATUS_26) && source->m_containedBy)
 		return false;
-	AIUpdateInterface *ai = source->getAI();
+	AIUpdateInterface *ai = source->getObservedAI();
 	if (!ai)
 		return false;
 
@@ -1084,7 +1085,7 @@ static Bool canPursue(Object *source, Weapon *weapon, Object *victim)
 	if (weapon->rva002C9AFE(source, victim))
 		return false;
 
-	Real ourMaxSpeed = source->getAI()->getCurLocomotorSpeed();
+	Real ourMaxSpeed = source->getObservedAI()->getCurLocomotorSpeed();
 	Real victimSpeed = victim->rva0028AC7D();
 	if (victimSpeed >= ourMaxSpeed)
 		return false;
@@ -1104,7 +1105,7 @@ static Bool canPursue(Object *source, Weapon *weapon, Object *victim)
 StateReturnType AIAttackApproachTargetState::onEnter()
 {
 	Object *source = getMachineOwner();
-	AIUpdateInterface *ai = source->getAI();
+	AIUpdateInterface *ai = source->getObservedAI();
 	if (source->isKindOfProjectile())
 	{
 		if (ai->getCurLocomotor())
@@ -1210,7 +1211,7 @@ StateReturnType AIAttackApproachTargetState::onEnter()
 StateReturnType AIAttackApproachTargetState00C12678::onEnter()
 {
 	Object *source = getMachineOwner();
-	AIUpdateInterface *ai = source->getAI();
+	AIUpdateInterface *ai = source->getObservedAI();
 	if (source->isKindOfProjectile())
 	{
 		if (ai->getCurLocomotor())
@@ -1262,7 +1263,7 @@ StateReturnType AIAttackApproachTargetState00C12678::onEnter()
 StateReturnType AIAttackPursueTargetState::onEnter()
 {
 	Object *source = getMachineOwner();
-	AIUpdateInterface *ai = source->getAI();
+	AIUpdateInterface *ai = source->getObservedAI();
 	if (source->isKindOfProjectile())
 		return STATE_SUCCESS;
 	if (((TurretStateMachine *)getMachine())->rva004D7ADD())
@@ -1317,7 +1318,7 @@ Bool AIAttackPursueTargetState::computePath()
 	Bool forceRepath = false;
 	if (getMachineOwner()->rva002907A1() == false)
 		return false;
-	AIUpdateInterface *ai = getMachineOwner()->getAI();
+	AIUpdateInterface *ai = getMachineOwner()->getObservedAI();
 	if (ai->isBlockedAndStuck())
 		return false;
 	if (m_waitingForPath)
@@ -1358,7 +1359,7 @@ Bool AIAttackApproachTargetState00C12678::computePath()
 	Bool forceRepath = false;
 	if (getMachineOwner()->rva002907A1() == false)
 		return false;
-	AIUpdateInterface *ai = getMachineOwner()->getAI();
+	AIUpdateInterface *ai = getMachineOwner()->getObservedAI();
 	if (m_waitingForPath)
 		return true;
 	if (!forceRepath && ai->getPath() == 0 && !ai->isWaitingForPath())
@@ -1417,7 +1418,7 @@ Bool AIAttackFireDuringApproachState::computePath()
 	critterDesyncLog("CritterDesync: ComputePath15");
 	Bool forceRepath = false;
 	StateMachine *machine = getMachine();
-	AIUpdateInterface *ai = machine->getOwner()->getAI();
+	AIUpdateInterface *ai = machine->getOwner()->getObservedAI();
 	if (ai->isBlockedAndStuck())
 		return false;
 	if (m_waitingForPath && ai->isWaitingForPath())
@@ -1528,7 +1529,7 @@ public:
 StateReturnType AIAttackMeleeSquishState::rva0034D98B()
 {
 	Object *obj = getMachineOwner();
-	AIUpdateInterface *ai = obj->getAI();
+	AIUpdateInterface *ai = obj->getObservedAI();
 	ai->setPathExtraDistance(50.0f);
 	Object *victim = getMachineGoalObject();
 	if (obj->m_contain && !((Rva0028CECFOwner *)obj)->rva0028CECF())
@@ -1581,7 +1582,7 @@ StateReturnType AIAttackMeleeSquishState::rva0034D98B()
 			if (!(obj->getTemplate()->m_kindOf[0x12] & 0x80))
 				return STATE_SUCCESS;
 			m_goalPosition = *victim->getPosition();
-			obj->getAI()->destroyPath();
+			obj->getObservedAI()->destroyPath();
 			critterDesyncLog("CritterDesync: ComputePath25");
 			if (computePath())
 			{
@@ -1661,7 +1662,7 @@ StateReturnType AIAttackMeleeEngageState::onEnter()
 StateReturnType AIAttackPositionFireWeaponState::onEnter()
 {
 	Object *obj = getMachineOwner();
-	AIUpdateInterface *ai = obj->getAI();
+	AIUpdateInterface *ai = obj->getObservedAI();
 	m_waitOddFrame = false;
 	obj->setStatus(OBJECT_STATUS_52, false);
 	if ((ai->getMoodMatrixActionAdjustment(MM_Action_Attack) & 1) == 0)
@@ -1730,7 +1731,7 @@ StateReturnType AIAttackSquadState::onEnter()
 		return STATE_FAILURE;
 
 	m_attackSquadMachine = getMachine()->slot09();
-	AIUpdateInterface *ai = owner->getAI();
+	AIUpdateInterface *ai = owner->getObservedAI();
 	Object *victim = chooseVictim();
 	Weapon *weapon = owner->getCurrentWeapon();
 	if (weapon && victim && !weapon->isWithinAttackRange((const Object *)owner, victim, 0.0f, 1) &&
@@ -1762,7 +1763,7 @@ StateReturnType AIAttackSquadState::update()
 	if (machine->getOwner()->testStatus(OBJECT_STATUS_1C))
 		m_sawStatus1C = true;
 	Object *owner = machine->getOwner();
-	AIUpdateInterface *ai = owner->getAI();
+	AIUpdateInterface *ai = owner->getObservedAI();
 	Object *goal = machine->getGoalObject();
 	if (goal != m_attackSquadMachine->getGoalObject())
 		m_attackSquadMachine->setGoalObject(goal);
@@ -1878,7 +1879,7 @@ StateReturnType AIAttackAreaState::update()
 		if (owner->isOutOfAmmo() && !owner->isKindOfProjectile())
 			return STATE_FAILURE;
 		m_nextEnemyScanTime = now + LOGICFRAMES_PER_SECOND;
-		AIUpdateInterface *ai = owner->getAI();
+		AIUpdateInterface *ai = owner->getObservedAI();
 		if (((AIAreaGuardView *)ai)->getAreaToGuard() == 0)
 			return STATE_FAILURE;
 		Object *victim = TheAI->rva002FF8DD(((AIAreaGuardView *)ai)->getAreaToGuard(), owner, ai->m_attackInfo);
@@ -1929,7 +1930,7 @@ Bool AIFollowPathAsTeamState::computePath()
 	Coord3D pos; // the extent test ignores z, which retail never copies
 	pos.x = owner->getPosition()->x;
 	pos.y = owner->getPosition()->y;
-	AIUpdateInterface *ai = owner->getAI();
+	AIUpdateInterface *ai = owner->getObservedAI();
 	Region3D extent;
 	((const TerrainLogicExtentView *)TheTerrainLogic)->getExtent(&extent);
 	if (ai && !extent.isInRegionNoZ(&pos) && extent.isInRegionNoZ(&m_goalPosition))
@@ -1950,7 +1951,7 @@ Bool AIFollowPathAsTeamState::computePath()
 StateReturnType AIFollowPathAsTeamState::onEnter()
 {
 	Object *obj = getMachineOwner();
-	AIUpdateInterface *ai = obj->getAI();
+	AIUpdateInterface *ai = obj->getObservedAI();
 	m_index = 0;
 	if (m_5c)
 	{
@@ -2149,7 +2150,7 @@ StateReturnType AIAttackFireWeaponState::update()
 	{
 		holdFire = false;
 		AIUpdateInterface *ai;
-		if (victim && (ai = obj->getAI()) != 0 && ai->getCurLocomotor() && ai->getWhichTurretForCurWeapon() == TURRET_INVALID)
+		if (victim && (ai = obj->getObservedAI()) != 0 && ai->getCurLocomotor() && ai->getWhichTurretForCurWeapon() == TURRET_INVALID)
 		{
 			Coord3D target;
 			target.x = victim->getPosition()->x;
@@ -2208,7 +2209,7 @@ StateReturnType AIAttackFireWeaponState::update()
 			const Coord3D *originalVictimPos = m_att ? m_att->getOriginalVictimPos() : 0;
 			if (originalVictimPos)
 			{
-				AIUpdateInterface *ai = obj->getAI();
+				AIUpdateInterface *ai = obj->getObservedAI();
 				Int lastCmdSource = ai ? ai->slot143() : 2;
 				{
 					PartitionFilterSameMapStatus filterMapStatus(obj);
@@ -2252,7 +2253,7 @@ Bool AIAttackMeleeSquishState::computePath()
 {
  critterDesyncLog("CritterDesync: ComputePath21");
  Bool forceRepath=false;
- AIUpdateInterface*ai=getMachineOwner()->getAI();
+ AIUpdateInterface*ai=getMachineOwner()->getObservedAI();
  if(ai->isBlockedAndStuck())return false;
  if(m_waitingForPath)return true;
  if(!forceRepath && ai->getPath()==0 && !ai->isWaitingForPath())forceRepath=true;
