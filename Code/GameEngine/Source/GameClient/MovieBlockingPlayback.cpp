@@ -22,8 +22,10 @@ class GameEngine:public MovieSlots<23>{public:virtual void pump()=0;};extern Gam
 class BfmeDfe6e4{public:void rva00225492();};extern BfmeDfe6e4*theBfmeDfe6e4;
 class VideoStreamInterface:public MovieSlots<6>{public:virtual unsigned advance(int)=0;};
 class Display{public:bool rva0025CC7A(bool);};
+// Current master owns the rectangle helper at0025C3AA under its neutral ABI view.
+class Rva0025C3AA{public:void rva0025C3AA();};
 class W3DDisplay:public MovieSlots<66>{public:virtual bool startMovie(AsciiString,int,int,int)=0;virtual void gap67()=0;virtual void close()=0;virtual void gap69()=0;virtual void gap70()=0;virtual void gap71()=0;virtual void gap72()=0;virtual void gap73()=0;virtual void gap74()=0;virtual void gap75()=0;virtual void gap76()=0;virtual void gap77()=0;virtual void gap78()=0;virtual void gap79()=0;virtual void gap80()=0;virtual void gap81()=0;virtual void gap82()=0;virtual void gap83()=0;virtual void gap84()=0;virtual void gap85()=0;virtual void gap86()=0;virtual void gap87()=0;virtual void gap88()=0;virtual void gap89()=0;virtual void gap90()=0;virtual void gap91()=0;virtual void gap92()=0;virtual void gap93()=0;virtual void gap94()=0;virtual void gap95()=0;virtual void gap96()=0;virtual void gap97()=0;virtual void gap98()=0;virtual void render(bool)=0;
- bool rva0025D6F5(AsciiString,bool,int);void rva0025D2F6();void rva0025C3AA();char pad4[0x38-4];VideoStreamInterface*stream;char pad3c[0x64-0x3c];bool flag64;char pad65[0x10c-0x65];bool flag10c;
+ bool rva0025D6F5(AsciiString,bool,int);void rva0025D2F6();char pad4[0x38-4];VideoStreamInterface*stream;char pad3c[0x64-0x3c];bool flag64;char pad65[0x10c-0x65];bool flag10c;
 };
 bool W3DDisplay::rva0025D6F5(AsciiString name,bool allowSkip,int flags){
  SendMessageA(ApplicationHWnd,15,0,0);g_bfmeVM0Scale=(1.0/30.0)/(double)g_bfmeVM0Total*1000.0;
@@ -32,7 +34,7 @@ bool W3DDisplay::rva0025D6F5(AsciiString name,bool allowSkip,int flags){
   flag10c=true;unsigned pending=0;bool skipRequested=false;bool drawFrame=false;TheWindowManager->pump();TheMouse->_bfme_setEngineVisibility(false);bool alternateAudio=false;bool done;
   do{if(Rva0025CEEFCheck(allowSkip))skipRequested=true;done=((Display*)this)->rva0025CC7A(skipRequested);
    if(stream&&!(pending&2)){pending|=stream->advance(0);drawFrame=(pending&1)!=0;}else done=true;
-   if(drawFrame){drawFrame=false;pending&=~1U;rva0025C3AA();render(true);TheTransitionHandler->pump();TheGameEngine->pump();if(alternateAudio){TheAudio->pump();alternateAudio=false;}else alternateAudio=true;setFPMode();}
+   if(drawFrame){drawFrame=false;pending&=~1U;reinterpret_cast<Rva0025C3AA*>(this)->rva0025C3AA();render(true);TheTransitionHandler->pump();TheGameEngine->pump();if(alternateAudio){TheAudio->pump();alternateAudio=false;}else alternateAudio=true;setFPMode();}
    if(theBfmeDfe6e4)theBfmeDfe6e4->rva00225492();
   }while(!done);
   close();flag64=false;rva0025D2F6();TheKeyboard->pump();
