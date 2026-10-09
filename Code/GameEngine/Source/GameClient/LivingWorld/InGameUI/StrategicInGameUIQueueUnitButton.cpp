@@ -1,10 +1,25 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
 //
 // StrategicInGameUIQueueUnitButton.cpp -- StrategicInGameUI::QueueUnitButton
 // members at their WorldBuilder home (reverse/wb_name_leads.csv); retail
 // supplies the bytes. Target facts: the button keeps the region id at +0x18
 // and the queued unit's id at +0x20; the region's virtual slot 13 (+0x34)
 // gives its build queue of ids.
+
+#include "ascii_string.h"
+
+class Image;
+class ImageCollection
+{
+public:
+	const Image *findImageByName(const AsciiString &name);
+};
+extern ImageCollection *TheMappedImageCollection;
+class Rva004E3184
+{
+public:
+	const Image *GetButtonImage(int playerID);
+};
 
 struct QueueUnitButtonIds
 {
@@ -68,6 +83,18 @@ static inline int FindQueuedBefore(const QueueUnitButtonIds *queue, int id, int 
 
 namespace StrategicInGameUI
 {
+// WB1633D30 names GetButtonImage and its BuildingNoArt fallback. Native
+//5F8BD4..5F8C48 is116B: playerID first then the existing208B SpawnArmy
+// image-provider receiver. Its EH states prove a dynamic local-static
+// initializer with temporary AsciiString; retain that native lifetime.
+// Receiver spelling remains the existing address-derived access view.
+const Image *GetButtonImage(int playerID, Rva004E3184 *army)
+{
+	static const Image *noArtImage = TheMappedImageCollection->findImageByName(AsciiString("BuildingNoArt"));
+	const Image *image = army->GetButtonImage(playerID);
+	return image ? image : noArtImage;
+}
+
 class QueueUnitButton
 {
 public:
