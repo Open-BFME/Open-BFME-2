@@ -1179,3 +1179,13 @@ def test_receipt_core_binds_the_shadow_rules():
 
 if __name__ == "__main__":
     sys.exit(pytest.main([__file__, "-q"]))
+
+
+def test_const_data_reads_pointer_constness_from_the_outer_code():
+    """Review round 3: for a pointer variable the trailing cv-class qualifies the
+    POINTEE (`?x@@3PBDB` is `const char *x`, a mutable pointer); the pointer's own
+    constness is its outer code, P/R mutable, Q/S const (LLVM MicrosoftDemangle)."""
+    for name in ("?x@@3PBDB", "?s6@PR13182@@3PBQBDB", "?p@@3RBDB", "?r@@3AAHA"):
+        assert not lc.const_data(name), name
+    for name in ("?p@@3QADA", "?arr@@3QBHB", "?q@@3SBDB"):
+        assert lc.const_data(name), name

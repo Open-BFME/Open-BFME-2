@@ -982,17 +982,35 @@ def _type_end(s, i, depth=0):
     return None
 
 
+# A pointer variable's OWN constness is its outer type code (P/R mutable, Q/S const);
+# the trailing cv-class then qualifies the pointee (`?x@@3PBDB` is `const char *x`,
+# a mutable pointer; LLVM MicrosoftDemangle). References (A/B) are never proven.
+POINTER_SELF_CONST = {"P": False, "R": False, "Q": True, "S": True}
+
+
 def const_data(name):
     """True only when an export name provably names const data: a compiler literal
     (CONST_LITERALS), a vftable (??_7, storage class 6) or vbtable (??_8, 7) of
     cv-class B, or a variable whose storage class (0-4: static member, global,
-    local static) is followed by a type this parser reads to the last character,
-    the cv-class: B (const) or D (const volatile), never A or C. Unparsed: False."""
+    local static) is followed by a type this parser reads to the last character.
+    A non-pointer variable is const when that last character, its cv-class, is
+    B (const) or D (const volatile); a pointer variable only when the pointer
+    itself is const (outer Q or S), whatever its pointee. Unparsed: False."""
     if name.startswith(CONST_LITERALS) or re.match(r"\?\?_7.*@@6B|\?\?_8.*@@7B", name):
         return True
-    if not name.startswith("?") or name.startswith("??") or name[-1] not in "BD":
+    if not name.startswith("?") or name.startswith("??"):
         return False
-    return any(_type_end(name, m.end()) == len(name) - 1 for m in re.finditer(r"@[0-4]", name))
+    for m in re.finditer(r"@[0-4]", name):
+        start = m.end()
+        if _type_end(name, start) != len(name) - 1:
+            continue
+        outer = name[start]
+        if outer in POINTER_SELF_CONST:
+            return POINTER_SELF_CONST[outer]
+        if outer in "AB":
+            return False
+        return name[-1] in "BD"
+    return False
 
 
 def export_folds(exports, rsecs):

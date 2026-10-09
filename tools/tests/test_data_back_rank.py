@@ -518,3 +518,19 @@ def test_fold_report_never_clears_rows_with_unresolved_symbols():
     # without flags (fallback mode) nothing is held back
     part = dbr.fold_report(entries, folds, None, rows=rows, back_of=back_of, other_of=other_of)["export"]
     assert part["clear_rows"] == 3
+
+
+def test_partial_object_evidence_never_settles_a_symbol(tmp_path, monkeypatch):
+    """Review round 3: a compiled body shorter than the status row's size used to
+    settle --disambiguate from the references it happened to cover; a row with
+    partial object or retail bytes now gives no evidence (stays quarantined)."""
+    functions = tmp_path / "functions.csv"
+    functions.write_text("name,export_rva,target_rva,target_size,source,status,notes\n"
+                         "?f@@YAXXZ,,0x00001000,20,Code/A.cpp,matched,\n", encoding="utf-8")
+    import build
+    monkeypatch.setattr(build, "read_object_symbol_bytes", lambda path, symbol, size: (b"\0" * 8, [(0, 6, "_g")]))
+    monkeypatch.setattr(build, "read_target_bytes", lambda rva, size: b"\0" * size)
+    references_of = dbr.object_references(functions, tmp_path)
+    assert references_of({"name": "?f@@YAXXZ", "retail_rva": "0x00001000", "size": "20"}) is None
+    monkeypatch.setattr(build, "read_object_symbol_bytes", lambda path, symbol, size: (b"\0" * size, [(0, 6, "_g")]))
+    assert references_of({"name": "?f@@YAXXZ", "retail_rva": "0x00001000", "size": "20"}) is not None

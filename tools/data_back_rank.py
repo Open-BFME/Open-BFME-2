@@ -637,6 +637,8 @@ def object_references(functions, objects):
             target = build.read_target_bytes(rva, size)
         except (OSError, ValueError, SystemExit):
             return None
+        if len(body) < size or len(target) < size:
+            return None  # partial evidence never settles a symbol: keep it quarantined
         return datum_starts(body, target, relocs, size)
     return references_of
 
