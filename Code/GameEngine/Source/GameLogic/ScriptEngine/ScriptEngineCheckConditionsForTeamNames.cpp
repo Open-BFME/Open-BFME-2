@@ -87,8 +87,6 @@ private:
 
 class TeamPrototype
 {
-public:
-	bool getIsSingleton() const { return (m_flags & 1) != 0; }
 private:
 	char m_beforeFlags[0x18];
 public:
@@ -167,7 +165,7 @@ void ScriptEngine::checkConditionsForTeamNames(Script *pScript, const AsciiStrin
 				TeamPrototype *proto = ((Rva0039FE6COwner *)TheTeamFactory)->findPrototype(canonical, teamName);
 				if (proto == 0)
 					continue;
-				Bool singleton = proto->getIsSingleton();
+				Bool singleton = (proto->m_flags & 1) != 0;
 				if (proto->m_maxInstances < 2)
 					singleton = true;
 				if (singleton) {
