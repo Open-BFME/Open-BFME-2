@@ -4262,7 +4262,6 @@ name,address,notes
 ??1Rva002E0427@@UAE@XZ,0x002E0427,"destructor the scalar deleting destructor 0x0022DA4A calls (REL32 at 0x0022DA4D; vtable 0x00BE7628#0); opaque address name"
 ??1Rva002E2AAE@@UAE@XZ,0x002E2AAE,"destructor the scalar deleting destructor 0x002E2CF4 calls (REL32 at 0x002E2CF7; vtable 0x00C04B50#0); opaque address name"
 ??1Rva002E4049@@QAE@XZ,0x002E4049,destructor called by the vtable-referenced scalar deleting dtor 0x002E424F (REL32 at +4 of its 35B delete-flag wrapper that also resets the vbase vptr at +0x60); identity unproven; address-derived name
-??1Rva002F213F@@QAE@XZ,0x002F213F,destructor called by the thunk-reached scalar deleting dtor 0x002F312E (REL32 at +4 of its 28B delete-flag wrapper); identity unproven; address-derived name
 ??1Rva002FEBB7@@UAE@XZ,0x002FEBB7,"destructor the scalar deleting destructor 0x002FED37 calls (REL32 at 0x002FED3A; vtable 0x00C073D0#0); opaque address name"
 ??1Rva00301621Dtor@@QAE@XZ,0x00301621,dtor at 0x00301621 (target of thunk 0x007B7A9B)
 ??1Rva00304DC7Entry@@QAE@XZ,0x0022DDF4,"auto-pin (permute --pins): REL32 call target read from retail in 0x00304dc7, whose banked body is byte-exact once this call resolves"
