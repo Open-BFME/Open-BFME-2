@@ -1,8 +1,5 @@
-// ?addSkillPointsForDamage@Player@@QAE_NPAVObject@@PBV2@M@Z
-// partial score=0.9 date=2026-10-06
 // cl: /O1 /DNDEBUG /MD /arch:SSE
 // Player::addSkillPointsForDamage, retail 0x002AA5E1 (253 bytes):
-// ?addSkillPointsForDamage@Player@@QAE_NPBVObject@@0M@Z
 // Identity (target): WorldBuilder's debug Player.cpp:3341 body of this name
 // (asserting the victim's experience tracker) has retail's tests and callee
 // order: Object::testStatus, the attacker's kind-of tests,
@@ -17,18 +14,14 @@
 // so. Damage to its own units earns nothing; otherwise the tracker value
 // (+0x264) scaled by the damage argument, when positive, is accumulated and
 // handed to 0x003805BB with true. Kind indices are read off the tested bits.
+// The unsigned-word view preserves retail's shared first-word load and byte
+// tests; it is a target access view, not a canonical ThingTemplate layout.
+// The strict positive comparison also rejects unordered (NaN) values.
+// BFME1 6c1e0b51 and ZH Player.cpp supply the kill-accounting sibling lead;
+// the damage-specific rule and accessed offsets come from retail and WB.
 enum ObjectStatusTypes
 {
 	OBJECT_STATUS_UNDER_CONSTRUCTION = 2
-};
-
-enum KindOfType
-{
-	KINDOF_3 = 3,
-	KINDOF_7 = 7,
-	KINDOF_10 = 10,
-	KINDOF_90 = 90,
-	KINDOF_179 = 179
 };
 
 class Object;
@@ -37,11 +30,8 @@ class Player;
 class ThingTemplate
 {
 public:
-	__forceinline bool isKindOf(KindOfType t) const { return (m_kindOf[t >> 3] & (1 << (t & 7))) != 0; }
-
-private:
 	unsigned char m_pad000[0x108];
-	unsigned char m_kindOf[0x20]; // +0x108
+	unsigned int m_kindOf[7]; // seven-word retail KindOf range begins at +0x108
 };
 
 class Rva0039ACBD
@@ -58,7 +48,8 @@ public:
 	virtual bool v08(); // slot 0x20
 };
 
-Rva004A1828Iface *Rva004A1828Get(const Object *obj);
+struct Rva004A1828Owner;
+int Rva004A1828Get(Rva004A1828Owner *obj);
 
 class Object
 {
@@ -67,7 +58,6 @@ public:
 	Player *getControllingPlayer() const;
 	Object *rva002931F5(bool b);
 	const ThingTemplate *getTemplate() const { return m_template; }
-	__forceinline bool isKindOf(KindOfType t) const { return getTemplate()->isKindOf(t); }
 	Rva0039ACBD *getExperienceTracker() const { return m_experienceTracker; }
 
 private:
@@ -109,8 +99,9 @@ bool Player::addSkillPointsForDamage(Object *attacker, const Object *victim, flo
 		return false;
 
 	bool canGain;
-	if (attacker->isKindOf(KINDOF_3) && !attacker->isKindOf(KINDOF_7) &&
-		!(attacker->isKindOf(KINDOF_10) && attacker->isKindOf(KINDOF_179)))
+	const unsigned int flags = attacker->getTemplate()->m_kindOf[0];
+	if ((flags & 8) && !(flags & 128) &&
+		!((flags & 1024) && (attacker->getTemplate()->m_kindOf[5] & (1U << 19))))
 	{
 		canGain = true;
 	}
@@ -119,13 +110,13 @@ bool Player::addSkillPointsForDamage(Object *attacker, const Object *victim, flo
 		canGain = false;
 		Object *source = attacker->rva002931F5(false);
 		if (source)
-			canGain = source->isKindOf(KINDOF_3);
-		if (!canGain && attacker->isKindOf(KINDOF_90))
+			canGain = (source->getTemplate()->m_kindOf[0] >> 3) & 1;
+		if (!canGain && (attacker->getTemplate()->m_kindOf[2] & (1U << 26)))
 			canGain = true;
 	}
 	if (canGain)
 	{
-		Rva004A1828Iface *iface = Rva004A1828Get(attacker);
+		Rva004A1828Iface *iface = (Rva004A1828Iface *)Rva004A1828Get((Rva004A1828Owner *)attacker);
 		if (iface && iface->v08())
 			canGain = false;
 	}
@@ -133,7 +124,7 @@ bool Player::addSkillPointsForDamage(Object *attacker, const Object *victim, flo
 		return false;
 
 	float value = (float)victim->getExperienceTracker()->rva0039ACBD(attacker, false) * damageScalar;
-	if (value <= 0.0f)
+	if (!(value > 0.0f))
 		return false;
 	m_accumulator.rva0039B683(value);
 	return m_skillPoints.rva003805BB(value, true);
