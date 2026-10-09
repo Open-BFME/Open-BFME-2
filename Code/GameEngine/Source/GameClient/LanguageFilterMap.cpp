@@ -52,3 +52,8 @@ LanguageFilterTree::_M_lower_bound(const UnicodeString&) const;
 
 template void LanguageFilterTree::_M_erase(_STL::_Rb_tree_node<LanguageFilterValue>*);
 template void LanguageFilterTree::clear();
+
+// BFME1 donor874e38488 UnicodeStringBoolTreeFind.cpp under BFME2 O1/G7
+// served this public const find. Native387F00..387F14 calls the existing
+// exact LanguageFilter _M_find387DD8 and returns its pointer as an iterator.
+template LanguageFilterTree::const_iterator LanguageFilterTree::find<UnicodeString>(const UnicodeString&) const;
