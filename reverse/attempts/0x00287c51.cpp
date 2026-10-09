@@ -1,6 +1,8 @@
 // ?xfer@FireLogicSystem@@UAEXPAVXfer@@@Z
+// partial score=0.9831884057971014 date=2026-10-09
+// ?xfer@FireLogicSystem@@UAEXPAVXfer@@@Z
 // partial score=0.97 date=2026-10-08
-// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /GX /ICode/Libraries/Include
+// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /GX /ICode/Libraries/Include /ICode/GameEngine/Source/Common /Ireference/shims/moduledata
 //
 // FireLogicSystem's registration of a placed object (0x00286373): the id is
 // filed in the grid cell under its world position and the cell takes the
@@ -63,7 +65,7 @@ extern Rva00065964ObjectPool g_pool00286136;
 extern Rva00065964ObjectPool g_pool00286116;
 void Rva00286116Free(void *node);
 
-#include "../../Common/GameLogicObjectLookupView.h"
+#include "GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 
 class ThingTemplate;
@@ -114,10 +116,12 @@ class Rva002860CFHost
 public:
 	void rva002860CF(Rva002860CFIterator it);
 };
+struct Rva00287B2AResult;
 class Rva00286214
 {
 public:
 	Rva00286214Node *rva00286214(const Rva00285672 *key);
+ Rva00287B2AResult rva00287B2A(const Rva00285672 *key);
 	void erase(Rva002860CFIterator pos) { ((Rva002860CFHost *)this)->rva002860CF(pos); }
 	Rva00286214();	// the map's default ctor 0x00242F01
 	~Rva00286214();	// the tree teardown 0x0028681A
@@ -173,7 +177,7 @@ public:
 private:
 	char m_pad[8];
 };
-#include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
+#include "Common/Snapshot.h"
 
 // A material entry (0x18 bytes): the array constructor zeroes all six
 // dwords (0x00286297) and the destructor releases the string at +4
@@ -839,13 +843,9 @@ struct Rva00287B2AResult
 {
 	Rva00286214Node *m_it;
 	bool m_inserted;
-	Rva00287B2AResult(const Rva00287B2AResult &that);
+	Rva00287B2AResult(Rva00286214Node *node, bool inserted) : m_it(node),m_inserted(inserted) {}
 };
-class Rva00287B2AHost
-{
-public:
-	Rva00287B2AResult rva00287B2A(const Rva00285BEC &value);
-};
+static __forceinline const Rva00285672 *fireKey(const Rva00285BEC &key) {return reinterpret_cast<const Rva00285672 *>(&key);}
 
 // ?xfer@FireLogicSystem@@UAEXPAVXfer@@@Z @0x00287C51
 // FireLogicSystem::DoXfer (WorldBuilder lead): the grid size must match, then
@@ -883,7 +883,7 @@ void FireLogicSystem::xfer(Xfer *xfer)
 			cell->m_field30 = field30;
 			cell->m_field31 = field31;
 			if (version.m_minimum < 2 && cell->m_check > 0 && xfer->IsLoading())
-				((Rva00287B2AHost *)&m_cellsOnFire)->rva00287B2A(Rva00285BEC(x * 10 + 5, y * 10 + 5));
+				((Rva00286214 *)&m_cellsOnFire)->rva00287B2A(fireKey(Rva00285BEC(x * 10 + 5, y * 10 + 5)));
 		}
 	}
 	if (version.m_minimum >= 2)
@@ -899,7 +899,7 @@ void FireLogicSystem::xfer(Xfer *xfer)
 				centre.x = 0;
 				centre.y = 0;
 				*xfer == centre;
-				((Rva00287B2AHost *)&m_cellsOnFire)->rva00287B2A(Rva00285BEC(centre.x, centre.y));
+				((Rva00286214 *)&m_cellsOnFire)->rva00287B2A(fireKey(Rva00285BEC(centre.x, centre.y)));
 			}
 		}
 		else
