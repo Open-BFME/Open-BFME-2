@@ -82,3 +82,55 @@ AutoAbilityBehavior::~AutoAbilityBehavior()
 // each one has the same function in that slot (vftable addresses from matched vptr
 // stores). Bind them to the rows at those functions.
 #pragma comment(linker, "/alternatename:?unused@BehaviorModuleOther@@EAEXXZ=?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")
+
+// Retail 0x0045A63F is a cdecl lookup, not a member (no ECX use and RET).
+// The object list at +0x244 is null terminated; each primary module vslot
+// +0x10 returns its name key. AutoAbilityBehavior's class string supplies
+// the cached key. The optional command name is the module data's +0x18
+// AsciiString, independently established by its matched destructor.
+// No donor establishes the original public name of this lookup.
+enum NameKeyType { NK_UNKNOWN = 0 };
+class NameKeyGenerator
+{
+public:
+    NameKeyType nameToKey(const char *name);
+};
+extern NameKeyGenerator *TheNameKeyGenerator;
+
+struct Rva0045A63FData
+{
+    char pad[0x18];
+    StringBase<char> command;
+};
+class Rva0045A63FModule
+{
+public:
+    virtual void slot0() = 0;
+    virtual void slot4() = 0;
+    virtual void slot8() = 0;
+    virtual void slotC() = 0;
+    virtual NameKeyType getModuleNameKey() const = 0;
+    const Rva0045A63FData *data;
+};
+struct Rva0045A63FObject
+{
+    char pad[0x244];
+    Rva0045A63FModule **modules;
+};
+
+Rva0045A63FModule *Rva0045A63F(const Rva0045A63FObject *obj, const AsciiString &command)
+{
+    static NameKeyType key = TheNameKeyGenerator->nameToKey("AutoAbilityBehavior");
+    Rva0045A63FModule *result = 0;
+    for (Rva0045A63FModule **iter = obj->modules; *iter; ++iter)
+    {
+        if ((*iter)->getModuleNameKey() == key)
+        {
+            result = *iter;
+            if (result->data->command.getLength() <= 0 || result->data->command.compare(*(const StringBase<char> *)&command) == 0)
+                break;
+            result = 0;
+        }
+    }
+    return result;
+}
