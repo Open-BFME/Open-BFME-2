@@ -101,6 +101,7 @@ class AptRefCounted { public: void *m_vtbl; int m_refCount; };
 class AptCommandMap : public AptRefCounted {};
 class AptCustomRender : public AptRefCounted {};
 class AptTimer : public AptRefCounted {};
+class AptExternHandler : public AptRefCounted {};
 class AptOverButtonHandler : public AptRefCounted {};
 template <class T> class AptRef {
 public:
@@ -156,6 +157,7 @@ public:
  void AddCommandMap(const AsciiString &name, AptRef<AptCommandMap> map);
  void AddCustomRender(const AsciiString &name, AptRef<AptCustomRender> render);
  void AddTimer(const AsciiString &name, AptRef<AptTimer> timer);
+ void AddExternHandler(const AsciiString &name,int context,AptRef<AptExternHandler> handler);
  void AddOverButtonHandler(const AsciiString &name, AptRef<AptOverButtonHandler> handler);
 
 private:
@@ -399,4 +401,21 @@ const Image *AptPlayer::FindRenderImage(const char *targetName,const char *param
   if(!it.m_node) return 0;
  }
  return static_cast<AptImageNode *>(it.m_node)->image;
+}
+
+// Existing 22402A owns an eight-byte mapped {reference word,index} value.
+// Only a call projection is needed here; its first word follows AptRef's
+// proven intrusive retain/release ABI and the second is a plain context.
+class Rva00468520;
+class Rva0022402A { public: Rva00468520 &rva0022402A(const AsciiString &); };
+struct AptExternMappedValue { AptRef<AptExternHandler> handler; int context; };
+// ?AddExternHandler@AptPlayer@@QAEXABVAsciiString@@HV?$AptRef@VAptExternHandler@@@@@Z present-unmatched
+void AptPlayer::AddExternHandler(const AsciiString &name,int context,AptRef<AptExternHandler> handler)
+{
+ if(!handler.m_ptr) return;
+ AptExternMappedValue &entry=reinterpret_cast<AptExternMappedValue &>(reinterpret_cast<Rva0022402A *>(m_commandMap+0x14)->rva0022402A(name));
+ AptRef<AptExternHandler> oldHandler=entry.handler;
+ if(oldHandler.m_ptr) return;
+ entry.handler=handler;
+ entry.context=context;
 }
