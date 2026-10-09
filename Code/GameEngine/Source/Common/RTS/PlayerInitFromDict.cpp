@@ -12,10 +12,11 @@
 // FF404040 and the null-template branch copies it into both color fields.
 // WB debug labels on reset include an inlined BitFlags::SetBit; its scoring
 // masks, map resets, player-index store and native call site identify reset.
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /MD /EHsc /D_CRTIMP= /D_STLP_USE_MALLOC /Ireference/shims/bfmealloc /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
+// cl: /I. /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /MD /EHsc /D_CRTIMP= /D_STLP_USE_MALLOC /Ireference/shims/bfmealloc /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
 // stlport
 #include "ascii_string.h"
 #include "unicode_string.h"
+#include "Code/Libraries/Include/Lib/Coord3D.h"
 #include <list>
 #include <vector>
 #include <hash_map>
@@ -27,7 +28,11 @@ typedef _STL::hashtable<_STL::pair<const GameWindow*const,WindowVideo*>,const Ga
 namespace _STL {template<> WindowTableView::iterator WindowTableView::begin();}
 extern "C" void free(void*);
 extern "C" void* memset(void*,int,unsigned);
-class Player; class PlayerTemplate; class Object;
+class ThingTemplate {public:char pad[0x64];AsciiString name;};
+class Object {public:char pad0[4];const ThingTemplate*tmplate;char pad8[0x38-8];Coord3D position;float angle;char pad48[0x74-0x48];unsigned id;};
+class Rva002AAE81 {public:void rva002AAE81(AsciiString);};
+class BuildListInfo {public:BuildListInfo();void*vt;AsciiString building,tmplate;Coord3D position;char pad18[8];float angle;char pad24[4];int rebuilds;BuildListInfo*next;char pad30[0x47-0x30];bool priority;unsigned id;char pad4C[0x80-0x4C];};
+class Player; class PlayerTemplate;
 struct Rva002ADF9C{void rva002ADF9C(const Player*,Object*);};
 class PolymorphicOwner {public: virtual ~PolymorphicOwner();};
 class UpgradeView:public PolymorphicOwner {public:char gap4[8];UpgradeView*next;};
@@ -75,6 +80,8 @@ char gap120[0x150-0x120];bool observer;char gap151[3];unsigned char property154;
 };
 class Player {public:
 void init(const PlayerTemplate*);
+void addToBuildList(Object*);
+void addToPriorityBuildList(const AsciiString&,Coord3D*,float);
 void deleteUpgradeList();void rva002A99FA();void initPlayerUpgrades();
 char gap00[0xC];const unsigned char*property;
 char gap10[0x34-0x10];const PlayerTemplate*tmplate;UnicodeString displayName;HandicapView handicap;
@@ -139,4 +146,23 @@ void Player::deleteUpgradeList(){
  while(upgradeList){next=upgradeList->next;::delete upgradeList;upgradeList=next;}
  memset((char*)this+0xBC,0,0x80);
  memset((char*)this+0x13C,0,0x80);
+}
+
+// ZH Player.cpp::addToBuildList and addToPriorityBuildList. Native
+// 2AAEC5..2AAF72 and 2AAF72..2AB01C prove new BuildListInfo(80), position C,
+// ID48/angle20/rebuild28/priority47/next2C and Player build list278.
+void Player::addToBuildList(Object*obj){
+ BuildListInfo*info=new BuildListInfo;
+ info->id=obj->id;
+ ((Rva002AAE81*)info)->rva002AAE81(obj->tmplate->name);
+ Coord3D pos;pos.x=obj->position.x;pos.y=obj->position.y;pos.z=obj->position.z;
+ info->position=pos;info->angle=obj->angle;info->rebuilds=0;
+ info->next=(BuildListInfo*)buildList;buildList=(PolymorphicOwner*)info;
+}
+void Player::addToPriorityBuildList(const AsciiString&name,Coord3D*pos,float angle){
+ BuildListInfo*info=new BuildListInfo;
+ ((Rva002AAE81*)info)->rva002AAE81(name);
+ Coord3D location;location.x=pos->x;location.y=pos->y;location.z=pos->z;
+ info->position=location;info->angle=angle;info->priority=true;info->rebuilds=1;
+ info->next=(BuildListInfo*)buildList;buildList=(PolymorphicOwner*)info;
 }
