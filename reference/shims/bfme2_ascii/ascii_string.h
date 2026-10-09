@@ -135,7 +135,12 @@ public:
 		return ((StringBase<char> *)this)->nextToken((StringBase<char> *)tok, delims);
 	}
 	void clear();
+#if defined(BFME_ASCII_KEEP_CHAR_SET_BODY)
+	// Keep native receiver/argument evaluation at callers while the StringBase worker owns the call.
+	__declspec(dllimport) __forceinline void set(const char *s) { ((StringBase<char> *)this)->set(s); }
+#else
 	void set(const char *s);
+#endif
 	#if defined(BFME_ASCII_KEEP_COPY_SET_BODY)
 	// These callers require the original class method surface for exact codegen;
 	// their verified objects emit no public copy-set COMDAT.
