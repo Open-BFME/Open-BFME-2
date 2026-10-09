@@ -156,19 +156,21 @@ void Rva00330CD3ByteView::setBits(unsigned char bits)
 // Target preceding Ghidra360BB8/70 endsret360BFD, this body360BFE/8 ends
 // ret4 at360C03, and the distinct next body begins360C06. Native stores all
 // one bits to receiverword0, returns the receiver inEAX, and ignores one
-// cleanup word. No target lifetime evidence establishes a constructor or
-// argument type; use a plain address-qualified raw-word reset ABI view.
+// cleanup word. Player::DoXfer 2B1522 now supplies native lifetime evidence:
+// 2B1C1B allocates4B, 2B1C28 enters constructor cleanup state3, and 2B1C2E
+// passes the ignored word1 to this body. The returned receiver initializes
+// the holder constructed at2B1C55. Retain the address-derived class name;
+// the original state type and meaning of the ignored word remain unknown.
 class Rva00360BFEWordView
 {
 public:
     unsigned int m_bits00;
-    Rva00360BFEWordView *resetBits(unsigned int ignored);
+    Rva00360BFEWordView(unsigned int ignored);
 };
 #pragma optimize("s", on)
-Rva00360BFEWordView *Rva00360BFEWordView::resetBits(unsigned int)
+Rva00360BFEWordView::Rva00360BFEWordView(unsigned int)
 {
     m_bits00 = ~0u;
-    return this;
 }
 #pragma optimize("", on)
 
