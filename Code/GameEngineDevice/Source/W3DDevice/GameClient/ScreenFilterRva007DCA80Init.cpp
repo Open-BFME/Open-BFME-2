@@ -13,7 +13,7 @@
 // creates two square A8R8G8B8 render targets of the settings size (+0x0C of
 // the block behind 0x00309E4B, stored at +0x2C) into +0x40/+0x44 with their
 // level-0 surfaces at +0x4C/+0x50, builds the gaussian kernel at +0x34 and
-// registers itself in W3DFilters[4] (0x00DE1F40). A shader or texture
+// registers itself in W3DFilters[5] (0x00DE1F40). A shader or texture
 // creation failure calls shutdown (slot 1) and returns FALSE.
 //
 // Callees are the ledger's rows: 0x00132D89 BFME2LoadParticleTexture,
@@ -133,7 +133,9 @@ public:
 	virtual int shutdown(void) = 0;
 };
 
-extern W3DFilterInterface *W3DFilters[5];
+// Indexed selectors at RVA756BF and shutdown at RVA7684A establish base
+// VADE1F2C. The smoke-glow store VADE1F40 is slot5; BW uses slot1.
+extern W3DFilterInterface *W3DFilters[10];
 
 class Rva007DCA80 : public W3DFilterInterface
 {
@@ -205,6 +207,6 @@ int Rva007DCA80::init(void)
 	params.m_10 = ((BfmeGaussianSettings *)Rva00309E4BGet())->m_10;
 	params.m_18 = ((BfmeGaussianSettings *)Rva00309E4BGet())->m_18;
 	W3DShaderManager::createGaussianVector(m_kernel, &params);
-	W3DFilters[4] = this;
+	W3DFilters[5] = this;
 	return 1;
 }
