@@ -1,134 +1,476 @@
-// ?isCellClearForCrusher@@YA_NPAVPathfindCell@@I_N@Z
-// partial score=0.87 date=2026-10-09
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD
+// ?rva002E76D3@@YA_NPAVPathfindCell@@I_N@Z
+// partial score=0.99 date=2026-10-09
+// cl: /DNDEBUG /MD /O1 /arch:SSE /G7
 //
-// Pathfinder::clearCellForDiameter, retail 0x002E7749 (300B, ret 0x18), and
-// its TU-local cell test 0x002E76D3 (118B; cell in EDI, crusher level and the
-// unit flag on the stack, caller-cleaned - MSVC's register convention for a
-// static helper). Zero Hour's Pathfinder::clearCellForDiameter is the donor
-// for the radius / numCellsAbove square, the trimmed outside corners when the
-// radius exceeds one and the 2*radius (or 1) result. BFME 2 passes a crusher
-// LEVEL instead of a bool, tests each cell through the static helper (the
-// rowed cell query 0x0052DB11 gates a walk over the cell info's +0x20 object
-// list comparing Object 0x0028CE7B crushable levels; obstacle cells, type 4,
-// pass only for a non-zero level when info +0x2C bit 1 is set) and, when a
-// corner-trimmed square fails and the last argument is clear, retries two
-// cells narrower (the tail call is the native jump back to the top).
-// The existing caller pin ?rva002E7749@Pathfinder@@QAEHPAXHHHH_N@Z names the
-// same address.
+// Pathfinder::getCell (retail 0x002E6D62) and fifteen cell-space line walks
+// that iterate the cells between two ICoord2D cells with Bresenham and hand
+// each (previous, current, x, y) to a per-caller callback object.  The walk
+// is Open-BFME-1's PathfinderIterateCellsAlongLineMADStruct.cpp donor
+// (reference/open-bfme-1, game/GameEngine/Source/GameLogic/AI), which BFME 1
+// emits with getCell inlined; BFME 2 keeps getCell and abs out of line and
+// otherwise compiles the donor body unchanged under /O1 /G7.  Like the donor,
+// each callback type gets its own private overload; the fifteen retail
+// copies differ only in the callback their REL32 names.
+//
+// getCell follows the Zero Hour inline (extent check, layers 2..15 first,
+// then the ground map); BFME 2's PathfindLayer is 0x40 bytes with the layer
+// array at +0x60.  PathfindLayer::getCell (0x00366626), abs (0x00629952) and
+// every callback are declared and resolve to pins.  Callback owners are
+// named after their cellCallback address; their identities are not
+// recovered.
+//
+//   walk        cellCallback
+//   0x002E8045  0x002E7261
+//   0x002E8348  0x002E6F92
+//   0x002E8448  0x002E7B29
+//   0x002E8A47  0x002E7ED6
+//   0x002EB6B4  0x002E93A7
+//   0x002EEF16  0x002ECE6A
+//   0x002EF016  0x002ED01E
+//   0x002EF116  0x002ED15A
+//   0x002F1F3F  0x002F18D4
+//   0x002F203F  0x002F1BD5
+//   0x002F4391  0x002F3F7D
+//   0x002F69E3  0x002F4491
+//   0x002F6B22  0x002F5925
+//   0x002F6C22  0x002F4D8B
+//   0x002F6D22  0x002F600C
+
+#include "../../Code/Libraries/Include/Lib/Coord3D.h"
+
+extern "C" int __cdecl abs( int n );
+
 typedef int Int;
-typedef unsigned int UnsignedInt;
-typedef bool Bool;
 
-enum PathfindLayerEnum { LAYER_INVALID = 0 };
-
-class Object
+struct ICoord2D
 {
-public:
-	signed char rva0028CE7B() const;
+	Int x;
+	Int y;
 };
 
-struct PathfindObjectNode
+enum PathfindLayerEnum
 {
-	PathfindObjectNode *m_next;		// +0x00
-	Int m_04;
-	Object *m_object;			// +0x08
+	LAYER_INVALID = 0
 };
 
-struct PathfindCellInfo
-{
-	unsigned char m_pad00[0x20];
-	PathfindObjectNode *m_objects;		// +0x20
-	unsigned char m_pad24[0x2C - 0x24];
-	UnsignedInt m_blocked : 1;		// +0x2C bit 0
-	UnsignedInt m_obstacleIsFence : 1;	// +0x2C bit 1
-};
+ICoord2D *__cdecl Rva002E7875WorldToCell(ICoord2D *out, bool center, const Coord3D *pos);
+
+class Object { public: signed char rva0028CE7B() const; };
+struct DiameterOccupant { DiameterOccupant *next; int unused; Object *object; };
+struct DiameterCellInfo { char unused[0x20]; DiameterOccupant *occupants; int unused24; int unused28; unsigned int flags; };
+class Rva0052DB11 { public: bool rva0052DB11(int); };
 
 class PathfindCell
 {
 public:
-	Bool rva0052DB11(Int arg);
-	UnsignedInt isObstacleFence() const { return m_info ? m_info->m_obstacleIsFence : 0; }
-	PathfindCellInfo *m_info;		// +0x00
-	unsigned char m_pad04[0x0C - 4];
-	UnsignedInt m_typeFlags;		// +0x0C, type in the low nibble
+	DiameterCellInfo *info;
+	char m_pad[8];
+	unsigned int m_flags;
+ unsigned char obstacleFence() const { return info ? (info->flags >> 1)&1 : 0; }
 };
+
+class Pathfinder;
+
+class PathfindLayer
+{
+public:
+	PathfindCell *getCell( Int cellX, Int cellY );
+
+private:
+	char m_unreconstructed[0x40];
+};
+
+#define PATHFINDER_CELL_LINE_CALLBACK( Info ) \
+struct Info \
+	{ \
+		Pathfinder *m_pathfinder; \
+		Int m_arg; \
+		Int cellCallback( PathfindCell *previousCell, PathfindCell *currentCell, Int cellX, Int cellY ); \
+	};
+
+PATHFINDER_CELL_LINE_CALLBACK( Rva002E7261Info )
+PATHFINDER_CELL_LINE_CALLBACK( Rva002E6F92Info )
+PATHFINDER_CELL_LINE_CALLBACK( Rva002E7B29Info )
+PATHFINDER_CELL_LINE_CALLBACK( Rva002E7ED6Info )
+PATHFINDER_CELL_LINE_CALLBACK( Rva002E93A7Info )
+PATHFINDER_CELL_LINE_CALLBACK( Rva002ECE6AInfo )
+PATHFINDER_CELL_LINE_CALLBACK( Rva002ED01EInfo )
+PATHFINDER_CELL_LINE_CALLBACK( Rva002ED15AInfo )
+PATHFINDER_CELL_LINE_CALLBACK( Rva002F18D4Info )
+PATHFINDER_CELL_LINE_CALLBACK( Rva002F1BD5Info )
+PATHFINDER_CELL_LINE_CALLBACK( Rva002F3F7DInfo )
+PATHFINDER_CELL_LINE_CALLBACK( Rva002F4491Info )
+PATHFINDER_CELL_LINE_CALLBACK( Rva002F5925Info )
+PATHFINDER_CELL_LINE_CALLBACK( Rva002F4D8BInfo )
+PATHFINDER_CELL_LINE_CALLBACK( Rva002F600CInfo )
+
+#define PATHFINDER_CELL_LINE_WALK_DECL( Info ) \
+	Int iterateCellsAlongLine( const ICoord2D *startCell, const ICoord2D *destinationCell, \
+		PathfindLayerEnum layer, Info *callbackInfo );
 
 class Pathfinder
 {
 public:
-	PathfindCell *getCell(PathfindLayerEnum layer, Int x, Int y);
-	Int clearCellForDiameter(UnsignedInt crusherLevel, Int cellX, Int cellY, PathfindLayerEnum layer, Int pathDiameter, Bool exact);
+	PathfindCell *getCell( PathfindLayerEnum layer, Int cellX, Int cellY );
+	Int rva002E7749(void *unused, Int cellX, Int cellY, Int layer, Int arg, bool check);
+	Int rva002F9578(const Coord3D *startPos, const Coord3D *destPos, PathfindLayerEnum layer, Rva002F4D8BInfo *info);
+
+private:
+	PATHFINDER_CELL_LINE_WALK_DECL( Rva002E7261Info )
+	PATHFINDER_CELL_LINE_WALK_DECL( Rva002E6F92Info )
+	PATHFINDER_CELL_LINE_WALK_DECL( Rva002E7B29Info )
+	PATHFINDER_CELL_LINE_WALK_DECL( Rva002E7ED6Info )
+	PATHFINDER_CELL_LINE_WALK_DECL( Rva002E93A7Info )
+	PATHFINDER_CELL_LINE_WALK_DECL( Rva002ECE6AInfo )
+	PATHFINDER_CELL_LINE_WALK_DECL( Rva002ED01EInfo )
+	PATHFINDER_CELL_LINE_WALK_DECL( Rva002ED15AInfo )
+	PATHFINDER_CELL_LINE_WALK_DECL( Rva002F18D4Info )
+	PATHFINDER_CELL_LINE_WALK_DECL( Rva002F1BD5Info )
+	PATHFINDER_CELL_LINE_WALK_DECL( Rva002F3F7DInfo )
+	PATHFINDER_CELL_LINE_WALK_DECL( Rva002F4491Info )
+	PATHFINDER_CELL_LINE_WALK_DECL( Rva002F5925Info )
+	PATHFINDER_CELL_LINE_WALK_DECL( Rva002F4D8BInfo )
+	PATHFINDER_CELL_LINE_WALK_DECL( Rva002F600CInfo )
+	Int rva002E8251(const ICoord2D *startCell, const ICoord2D *destinationCell,
+		PathfindLayerEnum layer, Rva002E7ED6Info *callbackInfo);
+
+	char m_beforeMap[0x10];
+	PathfindCell **m_map;
+	struct
+	{
+		ICoord2D lo;
+		ICoord2D hi;
+	} m_extent;
+	char m_beforeLayers[0x60 - 0x24];
+	PathfindLayer m_layers[16];
 };
 
-static Bool isCellClearForCrusher(PathfindCell *cell, UnsignedInt crusherLevel, Bool checkUnits)
+extern bool __cdecl Rva001E3679(Int layer);
+
+// ?cellCallback@Rva002E93A7Info@@QAEHPAVPathfindCell@@0HH@Z @0x002E93A7 104B.
+// The pin and caller establish this callback type; its two stored words and
+// field offsets come from the retail loads at [this] and [this+4].
+Int Rva002E93A7Info::cellCallback(PathfindCell *previousCell, PathfindCell *currentCell, Int cellX, Int cellY)
 {
-	if (checkUnits && cell->rva0052DB11(0))
+	if (previousCell != 0)
 	{
-		for (PathfindObjectNode *node = cell->m_info ? cell->m_info->m_objects : 0; node; node = node->m_next)
+		Int layer = (currentCell->m_flags >> 4) & 0x3f;
+		if (Rva001E3679(layer))
 		{
-			if ((UnsignedInt)node->m_object->rva0028CE7B() > crusherLevel)
-				return false;
+			Int previousLayer = (previousCell->m_flags >> 4) & 0x3f;
+			if (previousLayer == layer)
+				return 0;
 		}
 	}
-	UnsignedInt type = cell->m_typeFlags & 0xf;
-	if (type != 0)
-	{
-		if (type == 4)
-			return crusherLevel && cell->isObstacleFence();
-		return false;
-	}
-	return true;
+	Int layer = (currentCell->m_flags >> 4) & 0x3f;
+	Int result = m_pathfinder->rva002E7749(0, cellX, cellY, layer, m_arg, true);
+	return result != m_arg;
 }
 
-Int Pathfinder::clearCellForDiameter(UnsignedInt crusherLevel, Int cellX, Int cellY, PathfindLayerEnum layer, Int pathDiameter, Bool exact)
+class Rva002E6CD8Owner
 {
-	Int radius = pathDiameter / 2;
-	Int numCellsAbove = radius;
-	if (radius == 0)
-		numCellsAbove++;
-	Int iStart = cellX - radius;
-	Int iEnd = cellX + numCellsAbove;
-	if (radius > 1)
+public:
+	Rva002E6CD8Owner& rva002E6CD8(int a0, unsigned char a1, int a2, unsigned char a3, unsigned char a4);
+private:
+	int m_00;
+	unsigned char m_04;
+	unsigned char m_05;
+	char m_pad06[2];
+	int m_08;
+	unsigned char m_0C;
+};
+
+// ?rva002E6CD8@Rva002E6CD8Owner@@QAEAAV1@HEHEE@Z @0x002E6CD8 38B
+Rva002E6CD8Owner& Rva002E6CD8Owner::rva002E6CD8(int a0, unsigned char a1, int a2, unsigned char a3, unsigned char a4)
+{
+	m_00 = a0;
+	m_04 = a1;
+	m_05 = a3;
+	m_08 = a2;
+	m_0C = a4;
+	return *this;
+}
+
+class Rva002E6CFE
+{
+	int m_00;
+	int m_04;
+	int m_08;
+public:
+	void rva002E6CFE(int a, int b, int c);
+	bool rva002E6D2F();
+};
+
+// ?rva002E6CFE@Rva002E6CFE@@QAEXHHH@Z @0x002E6CFE 49B
+void Rva002E6CFE::rva002E6CFE(int a, int b, int c)
+{
+	m_08 = c;
+	if (c > 0) {
+		m_04 = ((b - a) << 8) / c;
+		m_00 = (m_04 / 2) + (a << 8);
+	}
+}
+
+// ?rva002E6D2F@Rva002E6CFE@@QAE_NXZ @0x002E6D2F 19B
+bool Rva002E6CFE::rva002E6D2F()
+{
+	m_00 += m_04;
+	return --m_08 > 0;
+}
+
+// ?rva002E6D42@@YAHHH@Z @0x002E6D42 18B
+int __cdecl rva002E6D42(int a, int b)
+{
+	int next = a + 1;
+	return (next == b) ? 0 : next;
+}
+
+// ?rva002E6D54@@YAHHH@Z @0x002E6D54 14B
+int __cdecl rva002E6D54(int a, int b)
+{
+	if (a != 0)
+		return a - 1;
+	return b - 1;
+}
+
+PathfindCell *Pathfinder::getCell( PathfindLayerEnum layer, Int cellX, Int cellY )
+{
+	if (cellX >= m_extent.lo.x && cellX <= m_extent.hi.x &&
+		cellY >= m_extent.lo.y && cellY <= m_extent.hi.y)
 	{
-		for (Int i = iStart; i < iEnd; i++)
+		if (layer > 1 && layer <= 15)
 		{
-			Int jStart, jEnd;
-			if (i == iStart || i == iEnd - 1)
-			{
-				jEnd = numCellsAbove + cellY - 1;
-				jStart = -radius + cellY + 1;
-			}
-			else
-			{
-				jEnd = numCellsAbove + cellY;
-				jStart = -radius + cellY;
-			}
-			for (Int j = jStart; j < jEnd; j++)
-			{
-				PathfindCell *cell = getCell(layer, i, j);
-				if (!cell || !isCellClearForCrusher(cell, crusherLevel, true))
-				{
-					if (exact)
-						return 0;
-					return clearCellForDiameter(crusherLevel, cellX, cellY, layer, pathDiameter - 2, false);
-				}
-			}
+			PathfindCell *cell = m_layers[layer].getCell( cellX, cellY );
+			if (cell)
+				return cell;
 		}
+		return &m_map[cellX][cellY];
+	}
+	return 0;
+}
+
+#define PATHFINDER_CELL_LINE_WALK( Info ) \
+Int Pathfinder::iterateCellsAlongLine( const ICoord2D *startCell, \
+	const ICoord2D *destinationCell, PathfindLayerEnum layer, \
+	Info *callbackInfo ) \
+{ \
+	Int delta_x = abs( destinationCell->x - startCell->x ); \
+	Int delta_y = abs( destinationCell->y - startCell->y ); \
+ \
+	Int xinc2, yinc1, xinc1, numpixels, numadd, den; \
+	Int yinc2, num; \
+	if (delta_x >= delta_y) \
+	{ \
+		numpixels = delta_x + 1; \
+		num = 2 * delta_y - delta_x; \
+		numadd = delta_y << 1; \
+		den = 2 * (delta_y - delta_x); \
+		xinc2 = 1; \
+		yinc2 = 0; \
+		yinc1 = 1; \
+		xinc1 = 1; \
+	} \
+	else \
+	{ \
+		numpixels = delta_y + 1; \
+		num = 2 * delta_x - delta_y; \
+		numadd = delta_x << 1; \
+		den = 2 * (delta_x - delta_y); \
+		yinc2 = 1; \
+		xinc2 = 0; \
+		yinc1 = 1; \
+		xinc1 = 1; \
+	} \
+ \
+	if (startCell->x > destinationCell->x) \
+	{ \
+		xinc2 = -xinc2; \
+		xinc1 = -1; \
+	} \
+	if (startCell->y > destinationCell->y) \
+	{ \
+		yinc2 = -yinc2; \
+		yinc1 = -1; \
+	} \
+ \
+	Int x = startCell->x; \
+	Int y = startCell->y; \
+	PathfindCell *previousCell = 0; \
+	for (Int curpixel = 0; curpixel < numpixels; curpixel++) \
+	{ \
+		PathfindCell *currentCell = getCell( layer, x, y ); \
+		if (currentCell == 0) \
+			return 0; \
+ \
+		Int ret = callbackInfo->cellCallback( previousCell, currentCell, x, y ); \
+		if (ret != 0) \
+			return ret; \
+		previousCell = currentCell; \
+ \
+		if (num < 0) \
+		{ \
+			num += numadd; \
+			x += xinc2; \
+			y += yinc2; \
+		} \
+		else \
+		{ \
+			num += den; \
+			x += xinc1; \
+			y += yinc1; \
+		} \
+	} \
+	return 0; \
+}
+
+PATHFINDER_CELL_LINE_WALK( Rva002E7261Info )
+PATHFINDER_CELL_LINE_WALK( Rva002E6F92Info )
+PATHFINDER_CELL_LINE_WALK( Rva002E7B29Info )
+PATHFINDER_CELL_LINE_WALK( Rva002E7ED6Info )
+PATHFINDER_CELL_LINE_WALK( Rva002E93A7Info )
+PATHFINDER_CELL_LINE_WALK( Rva002ECE6AInfo )
+PATHFINDER_CELL_LINE_WALK( Rva002ED01EInfo )
+PATHFINDER_CELL_LINE_WALK( Rva002ED15AInfo )
+PATHFINDER_CELL_LINE_WALK( Rva002F18D4Info )
+PATHFINDER_CELL_LINE_WALK( Rva002F1BD5Info )
+PATHFINDER_CELL_LINE_WALK( Rva002F3F7DInfo )
+PATHFINDER_CELL_LINE_WALK( Rva002F4491Info )
+PATHFINDER_CELL_LINE_WALK( Rva002F5925Info )
+PATHFINDER_CELL_LINE_WALK( Rva002F4D8BInfo )
+PATHFINDER_CELL_LINE_WALK( Rva002F600CInfo )
+
+// ?rva002E8251@Pathfinder@@AAEHPBUICoord2D@@0W4PathfindLayerEnum@@PAURva002E7ED6Info@@@Z @0x002E8251 247B.
+// Private line walk checking flags &0x3f0 vs 0x10 via rowed getCell 0x002E6D62
+// and abs 0x00629952. Same Bresenham as iterateCellsAlongLine above with the
+// callback replaced by the flag test. Evidence is pin plus caller 0x002EAE16
+// plus abut to 0x002E8348.
+Int Pathfinder::rva002E8251(const ICoord2D *startCell, const ICoord2D *destinationCell, PathfindLayerEnum layer, Rva002E7ED6Info *callbackInfo)
+{
+	(void)callbackInfo;
+	Int delta_x = abs(destinationCell->x - startCell->x);
+	Int delta_y = abs(destinationCell->y - startCell->y);
+
+	Int xinc2, yinc1, xinc1, numpixels, numadd, den;
+	Int yinc2, num;
+	if (delta_x >= delta_y)
+	{
+		numpixels = delta_x + 1;
+		num = 2 * delta_y - delta_x;
+		numadd = delta_y << 1;
+		den = 2 * (delta_y - delta_x);
+		xinc2 = 1;
+		yinc2 = 0;
+		yinc1 = 1;
+		xinc1 = 1;
 	}
 	else
 	{
-		for (Int i = iStart; i < iEnd; i++)
+		numpixels = delta_y + 1;
+		num = 2 * delta_x - delta_y;
+		numadd = delta_x << 1;
+		den = 2 * (delta_x - delta_y);
+		yinc2 = 1;
+		xinc2 = 0;
+		yinc1 = 1;
+		xinc1 = 1;
+	}
+
+	if (startCell->x > destinationCell->x)
+	{
+		xinc2 = -xinc2;
+		xinc1 = -1;
+	}
+	if (startCell->y > destinationCell->y)
+	{
+		yinc2 = -yinc2;
+		yinc1 = -1;
+	}
+
+	Int x = startCell->x;
+	Int y = startCell->y;
+	for (Int curpixel = 0; curpixel < numpixels; curpixel++)
+	{
+		PathfindCell *currentCell = getCell(layer, x, y);
+		if (currentCell == 0)
+			return 0;
+		Int blocked = ((currentCell->m_flags & 0x3f0) != 0x10);
+		if (blocked)
+			return blocked;
+		if (num < 0)
 		{
-			for (Int j = cellY - radius; j < cellY + numCellsAbove; j++)
-			{
-				PathfindCell *cell = getCell(layer, i, j);
-				if (!cell || !isCellClearForCrusher(cell, crusherLevel, true))
-					return 0;
-			}
+			num += numadd;
+			x += xinc2;
+			y += yinc2;
+		}
+		else
+		{
+			num += den;
+			x += xinc1;
+			y += yinc1;
 		}
 	}
-	if (radius == 0)
-		return 1;
-	return 2 * radius;
+	return 0;
+}
+
+// ?rva002F9578@Pathfinder@@QAEHPBUCoord3D@@0W4PathfindLayerEnum@@PAURva002F4D8BInfo@@@Z @0x002F9578 63B.
+// The caller and adjacent Pathfinder helpers establish the class; both world-to-cell
+// conversions and the Rva002F4D8BInfo line-walk overload are rowed.
+Int Pathfinder::rva002F9578(const Coord3D *startPos, const Coord3D *destPos, PathfindLayerEnum layer, Rva002F4D8BInfo *info)
+{
+	ICoord2D tmpDest;
+	ICoord2D tmpStart;
+	return iterateCellsAlongLine(Rva002E7875WorldToCell(&tmpStart, true, startPos), Rva002E7875WorldToCell(&tmpDest, true, destPos), layer, info);
+}
+
+// ZH AIPathfind.cpp clearCellForDiameter semantic guide; target D4D280
+// separates the cell test. Native field offsets and unsigned crusher compare.
+static __declspec(noinline) bool rva002E76D3(PathfindCell *cell, unsigned int crusher, bool occupants)
+{
+ if (occupants && reinterpret_cast<Rva0052DB11 *>(cell)->rva0052DB11(0)) {
+  DiameterOccupant *it=cell->info ? cell->info->occupants : 0;
+  for (; it; it=it->next) {
+   if ((unsigned int)it->object->rva0028CE7B() > crusher) return false;
+  }
+ }
+ unsigned int type=cell->m_flags & 15;
+ switch (type) {
+ case 0: return true;
+ case 4: return crusher!=0 && cell->obstacleFence();
+ default: return false;
+ }
+}
+Int Pathfinder::rva002E7749(void *crusher, Int cellX, Int cellY, Int layer, Int diameter, bool exact)
+{
+ Int radius=diameter/2;
+ Int above=radius;
+ if (!radius) above++;
+ Int i;
+ register Int j;
+ if (radius>1) {
+  Int negativeRadius=-radius;
+  Int xMin=cellX+negativeRadius;
+  Int xMax=cellX+above;
+  for (i=xMin; i<xMax; ++i) {
+   Int end;
+   if (i==xMin || i==xMax-1) {
+    end=cellY+above-1; j=cellY+negativeRadius+1;
+   } else { end=cellY+above; j=cellY+negativeRadius; }
+   for (; j<end; ++j) {
+    PathfindCell *cell=getCell((PathfindLayerEnum)layer,i,j);
+    if (!cell || !rva002E76D3(cell,(unsigned int)crusher,true)) {
+     if (exact) return 0;
+     return rva002E7749(crusher,cellX,cellY,layer,diameter-2,false);
+    }
+   }
+  }
+ } else {
+  for (i=cellX-radius; i<cellX+above; ++i) {
+   for (j=cellY-radius; j<cellY+above; ++j) {
+    PathfindCell *cell=getCell((PathfindLayerEnum)layer,i,j);
+    if (!cell || !rva002E76D3(cell,(unsigned int)crusher,true)) return 0;
+   }
+  }
+ }
+ if (radius==0) return 1;
+ return radius*2;
 }
