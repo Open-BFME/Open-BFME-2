@@ -32,7 +32,7 @@ private:
 
 	enum { FRAME_HASH_SIZE = 10007 };
 
-	char m_prefix[0x18];
+	char m_prefix[0x18 - 4];	// after the vptr
 	FrameHashEntry *frameHash[FRAME_HASH_SIZE];
 
 	FrameHashEntry *AddFrameEntry(unsigned int addr, unsigned int type,
@@ -51,13 +51,13 @@ private:
 	}
 
 public:
-	bool isLogEnabled(unsigned int addr);
+	virtual bool isLogEnabled(unsigned int addr);	// slot 28 of 0x00BBE810
 };
 
 // The matched caller retains its frame pointer.
 #pragma optimize("y", off)
 
-// ?isLogEnabled@Debug@@QAE_NI@Z
+// ?isLogEnabled@Debug@@UAE_NI@Z
 bool Debug::isLogEnabled(unsigned int addr)
 {
 	FrameHashEntry *entry = LookupFrame(addr);

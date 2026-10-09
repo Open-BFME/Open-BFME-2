@@ -32,7 +32,8 @@ private:
 
 	enum { FRAME_HASH_SIZE = 10007 };
 
-	int m_prefix[6];
+	int m_prefix[4];	// after the vptr
+	int m_14;	// +0x14, the address last looked up
 	FrameHashEntry *frameHash[FRAME_HASH_SIZE];
 	unsigned char m_gap[0x9DF8 - 0x9C74];
 	int m_fastPath;
@@ -51,20 +52,20 @@ private:
 	}
 
 public:
-	bool frameStatus(unsigned int addr, bool reset);
+	virtual bool frameStatus(unsigned int addr, bool reset);	// slot 23 of 0x00BBE810
 };
 
 // The matched caller retains its frame pointer.
 #pragma optimize("y", off)
 
-// ?frameStatus@Debug@@QAE_NI_N@Z
+// ?frameStatus@Debug@@UAE_NI_N@Z
 bool Debug::frameStatus(unsigned int addr, bool reset)
 {
 	if (m_fastPath != 0)
 		return true;
 
 	EnterCriticalSection((void *)&g_bfmeCsDWC);
-	m_prefix[5] = (int)addr;
+	m_14 = (int)addr;
 	FrameHashEntry *entry = LookupFrame(addr);
 	if (reset)
 	{

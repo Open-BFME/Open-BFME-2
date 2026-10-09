@@ -79,10 +79,10 @@ private:
     virtual void StartOutput(DebugIOInterface::StringType, const char *, ...);
 
 public:
-    Debug &LogBegin(const char *);
+    virtual Debug &LogBegin(const char *);	// slot 26 of 0x00BBE810
 };
 
-// ?LogBegin@Debug@@QAEAAV1@PBD@Z
+// ?LogBegin@Debug@@UAEAAV1@PBD@Z
 Debug &Debug::LogBegin(const char *fileOrGroup)
 {
     WaitForSingleObject(m_mutex,100);
