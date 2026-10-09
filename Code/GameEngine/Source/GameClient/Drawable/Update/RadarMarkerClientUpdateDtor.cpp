@@ -10,10 +10,10 @@
 // 0x00252AD9 news 0x10; slot 4 pool key 0x004C9BF3 with string
 // RadarMarkerClientUpdate proves the class. Shape follows W3DLightDraw
 // dtor (explicit member release plus intermediate inline base).
-class Rva002D76BB
+class RadarMarker
 {
 public:
-	void release();
+	void DeleteReference();
 };
 
 class DrawableModule
@@ -37,11 +37,11 @@ public:
 	virtual ~RadarMarkerClientUpdate();
 
 private:
-	Rva002D76BB *m_0C;
+	RadarMarker *m_0C;
 };
 
 RadarMarkerClientUpdate::~RadarMarkerClientUpdate()
 {
 	if (m_0C != 0)
-		m_0C->release();
+		m_0C->DeleteReference();
 }

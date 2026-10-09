@@ -31,10 +31,10 @@ public:
 	void rva005CB265(const Coord3D *pos);
 };
 
-class Rva002D76BB
+class RadarMarker
 {
 public:
-	void release();
+	void DeleteReference();
 };
 
 class Rva004C9B8F
@@ -43,7 +43,7 @@ public:
 	~Rva004C9B8F()
 	{
 		if (m_ptr != 0)
-			reinterpret_cast<Rva002D76BB *>(m_ptr)->release();
+			reinterpret_cast<RadarMarker *>(m_ptr)->DeleteReference();
 	}
 	Rva004C9B8F &operator=(const Rva004C9B8F &other);
 	void *get() const { return m_ptr; }

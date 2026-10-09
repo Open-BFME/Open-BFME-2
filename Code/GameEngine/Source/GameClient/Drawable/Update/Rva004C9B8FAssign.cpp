@@ -11,12 +11,7 @@ class RadarMarker
 {
 public:
 	void AddReference();
-};
-
-class Rva002D76BB
-{
-public:
-	void release();
+	void DeleteReference();
 };
 
 class Rva004C9B8F
@@ -32,7 +27,7 @@ private:
 Rva004C9B8F::~Rva004C9B8F()
 {
 	if (m_ptr != 0)
-		reinterpret_cast<Rva002D76BB *>(m_ptr)->release();
+		reinterpret_cast<RadarMarker *>(m_ptr)->DeleteReference();
 }
 
 Rva004C9B8F &Rva004C9B8F::operator=(const Rva004C9B8F &other)
@@ -42,7 +37,7 @@ Rva004C9B8F &Rva004C9B8F::operator=(const Rva004C9B8F &other)
 	if (other.m_ptr != 0)
 		reinterpret_cast<RadarMarker *>(other.m_ptr)->AddReference();
 	if (m_ptr != 0)
-		reinterpret_cast<Rva002D76BB *>(m_ptr)->release();
+		reinterpret_cast<RadarMarker *>(m_ptr)->DeleteReference();
 	m_ptr = other.m_ptr;
 	return *this;
 }
