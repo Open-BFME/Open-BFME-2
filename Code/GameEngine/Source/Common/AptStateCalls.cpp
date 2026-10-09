@@ -14,6 +14,13 @@
 // ?HideCommandPoints@Impl@RegionDetailsArmiesMovieClip@StrategicHUD@@QAEXXZ   @0x005EF327 63B  SetCommandPointsState _hide
 #include "ascii_string.h"
 #include "unicode_string.h"
+struct Rva005EF096Outer;
+struct Rva0057A5A8Team;
+namespace StrategicHUD
+{
+	void __cdecl SetCommandPointsString(int level, Rva005EF096Outer *outer, int a, int b);
+	void __cdecl SetTimeRemainingString(int level, Rva0057A5A8Team **ppTeam, int totalSeconds);
+}
 
 struct RGBColor { float red, green, blue; };
 
@@ -46,10 +53,8 @@ extern Rva00222A8BTarget *TheRva00222A8BTarget;
 int __cdecl Rva005FB5E6AptCall(Rva00222A8BTarget *target, void *level, const char *prefix, const char *function, const char *a0);
 
 struct Rva0057A5A8Team;
-void Rva0057A5A8Set(int level, Rva0057A5A8Team **ppTeam, int totalSeconds);
 
 struct Rva005EF096Outer;
-void Rva005EF096Set(int level, Rva005EF096Outer *outer, int a, int b);
 
 namespace StrategicHUD {
 class ChecklistUIImpl;
@@ -78,7 +83,7 @@ void StrategicHUD::ChecklistUIImpl::DoShowTimeRemaining(int seconds)
 	}
 	if (seconds != m_seconds)
 	{
-		Rva0057A5A8Set(m_level, (Rva0057A5A8Team **)&m_name, seconds);
+		StrategicHUD::SetTimeRemainingString(m_level, (Rva0057A5A8Team **)&m_name, seconds);
 		m_seconds = seconds;
 	}
 }
@@ -121,7 +126,7 @@ void StrategicHUD::RegionDetailsArmiesMovieClip::Impl::ShowCommandPoints(int a, 
 {
 	if (a != m_a || b != m_b)
 	{
-		Rva005EF096Set(m_level, (Rva005EF096Outer *)&m_name, a, b);
+		StrategicHUD::SetCommandPointsString(m_level, (Rva005EF096Outer *)&m_name, a, b);
 		m_a = a;
 		m_b = b;
 	}

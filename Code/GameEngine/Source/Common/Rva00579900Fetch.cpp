@@ -5,6 +5,11 @@
 // names each (StrategicHUDStatsDisplayImpl.cpp lines 203, 187, 219) by the
 // same STRATEGICHUD:Stats* labels.
 // Evidence: unlock; TheGameText fetch slot 0x3C STRATEGICHUD:StatsBonus; UnicodeString format 0x006CB5D0; releaseBuffer 0x00036E70; copy ctor 0x00037050; callers 0x00579D3D 0x00579E82; precedent Rva005D38C8Fetch.cpp single-int
+class UnicodeString;
+namespace StrategicHUD
+{
+	UnicodeString __cdecl FormatPowerPointsText(int a);
+}
 typedef unsigned short wchar_t;
 typedef bool Bool;
 
@@ -16,7 +21,6 @@ namespace StrategicHUD
 	UnicodeString FormatCommandPointsText(int a, int b);
 	UnicodeString FormatResourceMultiplierText(float v);
 }
-UnicodeString Rva00579A2FGet(int a);
 
 template <typename T>
 class StringBase
@@ -26,7 +30,7 @@ class StringBase
 	friend UnicodeString StrategicHUD::FormatBonusText(int);
 	friend UnicodeString StrategicHUD::FormatCommandPointsText(int, int);
 	friend UnicodeString StrategicHUD::FormatResourceMultiplierText(float);
-	friend UnicodeString Rva00579A2FGet(int);
+	friend UnicodeString StrategicHUD::FormatPowerPointsText(int);
 
 	StringBase(const StringBase<T> &that);
 	void releaseBuffer();
@@ -51,7 +55,7 @@ class UnicodeString
 	friend UnicodeString StrategicHUD::FormatBonusText(int);
 	friend UnicodeString StrategicHUD::FormatCommandPointsText(int, int);
 	friend UnicodeString StrategicHUD::FormatResourceMultiplierText(float);
-	friend UnicodeString Rva00579A2FGet(int);
+	friend UnicodeString StrategicHUD::FormatPowerPointsText(int);
 public:
 	UnicodeString() {}
 	UnicodeString(const UnicodeString &that) : m_data(that.m_data) {}
@@ -121,10 +125,10 @@ UnicodeString StrategicHUD::FormatResourceMultiplierText(float v)
 	return tmp;
 }
 
-// ?Rva00579A2FGet@@YA?AVUnicodeString@@H@Z retail 0x00579A2F 136B: the
+// ?FormatPowerPointsText@StrategicHUD@@YA?AVUnicodeString@@H@Z retail 0x00579A2F 136B: the
 // power-points sibling formats with a literal L"%d" (0x00BC9260) and leaves
 // the fetched label unread; caller the stats-display ctor 0x00579E82.
-UnicodeString Rva00579A2FGet(int a)
+UnicodeString StrategicHUD::FormatPowerPointsText(int a)
 {
 	UnicodeString tmp;
 	Bool exists;

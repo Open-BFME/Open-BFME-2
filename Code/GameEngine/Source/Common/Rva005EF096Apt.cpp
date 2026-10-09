@@ -1,6 +1,11 @@
 // cl: /MD /EHsc
-// ?Rva005EF096Set@@YAXHPAURva005EF096Outer@@HH@Z retail 0x005EF096 207B
+// ?SetCommandPointsString@StrategicHUD@@YAXHPAURva005EF096Outer@@HH@Z retail 0x005EF096 207B
 // Evidence: TheGameText fetch slot 0x3C STRATEGICHUD:StatsCommandPoints; Unicode format 0x006CB5D0 with +8-or-NullChr; Ascii format APT:_level%u.%s_CommandPoints; bfmeSetText pin 0x00225301; globals 0x009FF0BC 0x009FE4CC 0x007BAC1C 0x007BB5C4; callers 0x005EF2DD 0x005EFADE; precedent Rva005D38C8Fetch.cpp plus Rva005FDF1CApt.cpp
+struct Rva005EF096Outer;
+namespace StrategicHUD
+{
+	void __cdecl SetCommandPointsString(int level, Rva005EF096Outer *outer, int a, int b);
+}
 typedef unsigned short wchar_t;
 typedef bool Bool;
 
@@ -13,7 +18,7 @@ class StringBase
 {
 	friend class AsciiString;
 	friend class UnicodeString;
-	friend void __cdecl Rva005EF096Set(int, struct Rva005EF096Outer *, int, int);
+	friend void __cdecl StrategicHUD::SetCommandPointsString(int, struct Rva005EF096Outer *, int, int);
 
 	StringBase(const StringBase<T> &that);
 	void releaseBuffer();
@@ -41,7 +46,7 @@ template <> StringBase<char>::~StringBase();
 
 class UnicodeString
 {
-	friend void __cdecl Rva005EF096Set(int, struct Rva005EF096Outer *, int, int);
+	friend void __cdecl StrategicHUD::SetCommandPointsString(int, struct Rva005EF096Outer *, int, int);
 public:
 	UnicodeString() {}
 	UnicodeString(const UnicodeString &that) : m_data(that.m_data) {}
@@ -53,7 +58,7 @@ private:
 
 class AsciiString
 {
-	friend void __cdecl Rva005EF096Set(int, struct Rva005EF096Outer *, int, int);
+	friend void __cdecl StrategicHUD::SetCommandPointsString(int, struct Rva005EF096Outer *, int, int);
 public:
 	AsciiString() {}
 	~AsciiString() {}
@@ -108,7 +113,7 @@ public:
 
 extern GameTextInterface *TheGameText;
 
-void __cdecl Rva005EF096Set(int level, Rva005EF096Outer *outer, int a, int b)
+void __cdecl StrategicHUD::SetCommandPointsString(int level, Rva005EF096Outer *outer, int a, int b)
 {
 	UnicodeString tmp;
 	Bool exists;

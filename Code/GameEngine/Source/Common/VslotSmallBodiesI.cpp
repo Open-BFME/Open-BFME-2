@@ -6,6 +6,11 @@
 // address-derived unless the ledger already names it, and models only what
 // its body touches; the comment above each gives the .rdata slot address(es)
 // that reference it. Meanings are not recovered.
+struct Rva0057A51CTeam;
+namespace StrategicHUD
+{
+	void __cdecl SetTurnNumberString(int level, Rva0057A51CTeam **ppTeam, int turn);
+}
 
 typedef int Int;
 typedef unsigned int UnsignedInt;
@@ -16,7 +21,6 @@ class AsciiString;
 // slot at VA 0x00C6F100: when the argument differs from +0x3C, runs the rowed
 // cdecl 0x0057A51C with (+0x08, &+0x0C, argument) and stores it at +0x3C.
 struct Rva0057A51CTeam;
-void Rva0057A51CSet(Int count, Rva0057A51CTeam **teams, Int value);
 class Rva0057A83C
 {
 public:
@@ -32,7 +36,7 @@ void Rva0057A83C::rva0057A83C(Int value)
 {
 	if (value != m_3C)
 	{
-		Rva0057A51CSet(m_08, &m_0C, value);
+		StrategicHUD::SetTurnNumberString(m_08, &m_0C, value);
 		m_3C = value;
 	}
 }

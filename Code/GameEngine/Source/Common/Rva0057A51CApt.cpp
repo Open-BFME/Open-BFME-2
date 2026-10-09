@@ -1,9 +1,14 @@
 // cl: /Ireference/shims/bfme2_ascii /MD /EHsc
-// ?Rva0057A51CSet@@YAXHPAPAURva0057A51CTeam@@H@Z @0x0057A51C 140B.
+// ?SetTurnNumberString@StrategicHUD@@YAXHPAPAURva0057A51CTeam@@H@Z @0x0057A51C 140B.
 // Free Apt TurnNumber setter: team name lookup then format APT:_level%u.%s_TurnNumber plus Unicode int format then bfmeSetText false.
 // Evidence: unlock lane plus callers 0x0057A851 0x0057B90B plus precedent Rva0057A685Apt plus globals TheRva00222A8BTarget g_Rva0107301CEmptyString g_Va007C9260 plus string APT:_level%u.%s_TurnNumber.
 #include "ascii_string.h"
 #include "unicode_string.h"
+struct Rva0057A51CTeam;
+namespace StrategicHUD
+{
+	void __cdecl SetTurnNumberString(int level, Rva0057A51CTeam **ppTeam, int turn);
+}
 
 class BfmeAptWindowManager
 {
@@ -24,7 +29,7 @@ struct Rva0057A51CTeam
 	char m_name[1];
 };
 
-void Rva0057A51CSet(int level, Rva0057A51CTeam **ppTeam, int turn)
+void StrategicHUD::SetTurnNumberString(int level, Rva0057A51CTeam **ppTeam, int turn)
 {
 	AsciiString key;
 	Rva0057A51CTeam *team = *ppTeam;

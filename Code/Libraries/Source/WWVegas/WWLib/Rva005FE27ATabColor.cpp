@@ -12,6 +12,12 @@
 
 #include "ascii_string.h"
 #include "unicode_string.h"
+struct Rva005FDF1COuter;
+class UnicodeString;
+namespace StrategicHUD
+{
+	void __cdecl SetPlayerNameString(int level, Rva005FDF1COuter *outer, const UnicodeString &text);
+}
 
 struct BfmeContainerRecord005FDEC7
 {
@@ -49,7 +55,6 @@ class Rva00222A8BTarget;
 extern Rva00222A8BTarget *TheRva00222A8BTarget;
 int __cdecl Rva00525235Fire(void *a1, void *a2, const char *a3, const char *a4, int *a5, int *a6);
 struct Rva005FDF1COuter;
-void __cdecl Rva005FDF1CSet(int level, Rva005FDF1COuter *outer, const UnicodeString &text);
 
 __forceinline const char *GetStr005FE27A(const AsciiString &s)
 {
@@ -102,7 +107,7 @@ void Rva005FE750::rva005FE27A(int idx, int w0, int w1, const UnicodeString &text
 	if (text.compare(rec.text) != 0)
 	{
 		if (idx == m_24)
-			Rva005FDF1CSet(m_04, (Rva005FDF1COuter *)&m_08, text);
+			StrategicHUD::SetPlayerNameString(m_04, (Rva005FDF1COuter *)&m_08, text);
 		rec.text.set(text);
 	}
 }

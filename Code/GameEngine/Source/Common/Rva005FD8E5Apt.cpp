@@ -10,6 +10,11 @@ template <typename T> struct BfmeStringData
 };
 #include "ascii_string.h"
 #include "unicode_string.h"
+class UnicodeString;
+namespace StrategicHUD
+{
+	UnicodeString __cdecl FormatCPString(int a, int b);
+}
 struct Rva005FD788Inner
 {
 	char m_pad8[8];
@@ -20,7 +25,6 @@ class BfmeAptWindowManager
 public:
 	void bfmeSetText(const AsciiString &, const UnicodeString &, bool);
 };
-UnicodeString Rva005FD53EGet(int a, int b);
 extern BfmeAptWindowManager *g_Va009FE4CC;
 extern const char *g_Va0087A290[];
 struct Rva005FD8E5Entry
@@ -53,7 +57,7 @@ void StrategicHUD::ArmyUnitSwapperMovieClip::Impl::SetCommandPoints(int index, i
 	Rva005FD8E5Entry *entry = &m_entries[index];
 	if (a == entry->m_a16 && b == entry->m_b20)
 		return;
-	SetSlotString(index, "CP", Rva005FD53EGet(a, b));
+	SetSlotString(index, "CP", StrategicHUD::FormatCPString(a, b));
 	entry->m_a16 = a;
 	entry->m_b20 = b;
 }

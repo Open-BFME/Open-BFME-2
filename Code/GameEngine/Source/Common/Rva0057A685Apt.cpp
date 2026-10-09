@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /MD /EHsc
-// ?Rva0057A685Set@@YAXHPAPAURva0057A685Team@@H@Z @0x0057A685 195B.
+// ?SetPhaseTitleString@StrategicHUD@@YAXHPAPAURva0057A685Team@@H@Z @0x0057A685 195B.
 // Free Apt PhaseTitle setter: GameText table lookup then format APT:_level%u.%s_PhaseTitle then bfmeSetText.
 // Evidence: unlock lane plus callers 0x0057ABBD 0x0057B917 plus precedents Rva005F6220Apt Rva005FF450Apt GameSlotSetState fetch slot 0x3C plus globals TheGameText TheRva00222A8BTarget g_Rva0107301CEmptyString plus string APT:_level%u.%s_PhaseTitle.
 #include "ascii_string.h"
@@ -17,6 +17,11 @@ class Rva00222A8BTarget
 extern Rva00222A8BTarget *TheRva00222A8BTarget;
 
 #include "unicode_string.h"
+struct Rva0057A685Team;
+namespace StrategicHUD
+{
+	void __cdecl SetPhaseTitleString(int level, Rva0057A685Team **ppTeam, int phase);
+}
 
 class GameTextInterface
 {
@@ -59,7 +64,7 @@ static const Rva0057A685Entry s_table[3] = {
 	{ 2, "C" },
 };
 
-void Rva0057A685Set(int level, Rva0057A685Team **ppTeam, int phase)
+void StrategicHUD::SetPhaseTitleString(int level, Rva0057A685Team **ppTeam, int phase)
 {
 	UnicodeString value;
 	for (unsigned i = 0; i < 3; ++i) {

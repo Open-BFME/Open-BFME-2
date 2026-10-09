@@ -4,9 +4,14 @@
 
 #include "ascii_string.h"
 #include "unicode_string.h"
+struct Rva005FDF1COuter;
+class UnicodeString;
+namespace StrategicHUD
+{
+	void __cdecl SetLocalPlayerNameString(int level, Rva005FDF1COuter *outer, const UnicodeString &text);
+}
 
 struct Rva005FDF1COuter;
-void __cdecl Rva005FDF83Set(int level, Rva005FDF1COuter *outer, const UnicodeString &text);
 
 class Rva005FE750
 {
@@ -36,7 +41,7 @@ void Rva005FE7FA::rva005FE373(int idx, int w0, int w1, const UnicodeString &text
 	{
 		if (text.compare(m_38) != 0)
 		{
-			Rva005FDF83Set(m_04, (Rva005FDF1COuter *)&m_08, text);
+			StrategicHUD::SetLocalPlayerNameString(m_04, (Rva005FDF1COuter *)&m_08, text);
 			m_38.set(text);
 		}
 	}

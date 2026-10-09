@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /MD /EHsc
-// ?Rva005F066CSet@@YAXHPAURva005F066COuter@@ABVUnicodeString@@@Z @0x005F066C 103B caller 0x005F0C54, format APT:_level BuildingName via 0x00038150
+// ?SetBuildingNameString@StrategicHUD@@YAXHPAURva005F066COuter@@ABVUnicodeString@@@Z @0x005F066C 103B caller 0x005F0C54, format APT:_level BuildingName via 0x00038150
 template <typename T> struct BfmeStringData
 {
 	int refCount;
@@ -11,6 +11,12 @@ template <typename T> struct BfmeStringData
 #include "ascii_string.h"
 
 #include "unicode_string.h"
+struct Rva005F066COuter;
+class UnicodeString;
+namespace StrategicHUD
+{
+	void __cdecl SetBuildingNameString(int level, Rva005F066COuter *outer, const UnicodeString &text);
+}
 
 struct Rva005F066CInner
 {
@@ -31,7 +37,7 @@ public:
 
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 
-void __cdecl Rva005F066CSet(int level, Rva005F066COuter *outer, const UnicodeString &text)
+void __cdecl StrategicHUD::SetBuildingNameString(int level, Rva005F066COuter *outer, const UnicodeString &text)
 {
 	AsciiString key;
 	const char *mid = outer->m_ptr ? outer->m_ptr->m_name : "";

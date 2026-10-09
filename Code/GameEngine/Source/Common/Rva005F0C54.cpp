@@ -7,6 +7,12 @@
 // row 0x005FB5E6 with _show plus SetBuildingNameState plus empty fallback.
 // Evidence: 1 caller plus prev/next neighbours plus BuildingName Outer shape.
 #include "unicode_string.h"
+struct Rva005F066COuter;
+class UnicodeString;
+namespace StrategicHUD
+{
+	void __cdecl SetBuildingNameString(int level, Rva005F066COuter *outer, const UnicodeString &text);
+}
 
 struct Rva005F066CInner
 {
@@ -19,7 +25,6 @@ struct Rva005F066COuter
 	Rva005F066CInner *m_ptr;
 };
 
-void __cdecl Rva005F066CSet(int level, Rva005F066COuter *outer, const UnicodeString &text);
 
 class Rva00222A8BTarget;
 int __cdecl Rva005FB5E6AptCall(Rva00222A8BTarget *target, void *level, const char *prefix, const char *function, const char *a0);
@@ -52,7 +57,7 @@ private:
 void StrategicHUD::RegionDetailsStructuresMovieClip::Impl::ShowBuildingName(const UnicodeString &text)
 {
 	if (text.compare(m_name) != 0) {
-		Rva005F066CSet(m_level, &m_outer, text);
+		StrategicHUD::SetBuildingNameString(m_level, &m_outer, text);
 		m_name.set(text);
 	}
 	if (!m_shown) {

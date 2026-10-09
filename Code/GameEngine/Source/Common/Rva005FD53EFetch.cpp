@@ -1,21 +1,25 @@
 // cl: /MD /EHsc
-// ?Rva005FD53EGet@@YA?AVUnicodeString@@HH@Z @0x005FD53E (150B): ArmyUnitSwapperCP fetch+format twin of 0x005D38C8.
+// ?FormatCPString@StrategicHUD@@YA?AVUnicodeString@@HH@Z @0x005FD53E (150B): ArmyUnitSwapperCP fetch+format twin of 0x005D38C8.
 // TheGameText fetch slot 0x3C with null exists; fmt via +8-or-empty at 0x007BB5C4; UnicodeString format
 // 0x006CB5D0; releaseBuffer 0x00036E70; copy ctor 0x00037050; b>0 guard; caller 0x005FD916.
 // Evidence: same label STRATEGICHUD:ArmyUnitSwapperCP; neighbours 0x005FD4FF/0x005FD788.
+class UnicodeString;
+namespace StrategicHUD
+{
+	UnicodeString __cdecl FormatCPString(int a, int b);
+}
 typedef unsigned short wchar_t;
 typedef bool Bool;
 
 template <typename T> class StringBase;
 class UnicodeString;
-UnicodeString Rva005FD53EGet(int a, int b);
 
 template <typename T>
 class StringBase
 {
 	friend class AsciiString;
 	friend class UnicodeString;
-	friend UnicodeString Rva005FD53EGet(int, int);
+	friend UnicodeString StrategicHUD::FormatCPString(int, int);
 
 	StringBase(const StringBase<T> &that);
 	void releaseBuffer();
@@ -37,7 +41,7 @@ private:
 
 class UnicodeString
 {
-	friend UnicodeString Rva005FD53EGet(int, int);
+	friend UnicodeString StrategicHUD::FormatCPString(int, int);
 public:
 	UnicodeString() {}
 	UnicodeString(const UnicodeString &that) : m_data(that.m_data) {}
@@ -70,7 +74,7 @@ public:
 
 extern GameTextInterface *TheGameText;
 
-UnicodeString Rva005FD53EGet(int a, int b)
+UnicodeString StrategicHUD::FormatCPString(int a, int b)
 {
 	UnicodeString tmp;
 	if (b > 0) {

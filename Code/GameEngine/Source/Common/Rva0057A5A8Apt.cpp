@@ -1,9 +1,14 @@
 // cl: /Ireference/shims/bfme2_ascii /MD /EHsc
-// ?Rva0057A5A8Set@@YAXHPAPAURva0057A5A8Team@@H@Z @0x0057A5A8 221B.
+// ?SetTimeRemainingString@StrategicHUD@@YAXHPAPAURva0057A5A8Team@@H@Z @0x0057A5A8 221B.
 // Free Apt TimeRemaining setter: team name lookup then format APT:_level%u.%s_TimeRemaining plus GameText STRATEGICHUD:TurnTimeRemaining fetch then minutes:seconds format then bfmeSetText false.
 // Evidence: chain lane calls 0x0057A272 plus caller 0x0057A861 plus precedents Rva0057A51CApt Rva0057A685Apt plus globals TheGameText TheRva00222A8BTarget g_Rva0107301CEmptyString plus strings APT:_level%u.%s_TimeRemaining STRATEGICHUD:TurnTimeRemaining.
 #include "ascii_string.h"
 #include "unicode_string.h"
+struct Rva0057A5A8Team;
+namespace StrategicHUD
+{
+	void __cdecl SetTimeRemainingString(int level, Rva0057A5A8Team **ppTeam, int totalSeconds);
+}
 
 class BfmeAptWindowManager
 {
@@ -47,7 +52,7 @@ struct Rva0057A5A8Team
 	char m_name[1];
 };
 
-void Rva0057A5A8Set(int level, Rva0057A5A8Team **ppTeam, int totalSeconds)
+void StrategicHUD::SetTimeRemainingString(int level, Rva0057A5A8Team **ppTeam, int totalSeconds)
 {
 	AsciiString key;
 	Rva0057A5A8Team *team = *ppTeam;
