@@ -44,7 +44,7 @@ public:
 	V(10) V(11) V(12) V(13) V(14)
 #undef V
 	virtual void slot15(int arg);
-	void rva0025E970(int arg);
+	virtual void rva0025E970(int arg);
 	void rva0025E75F();
 	void rva0025E5F4();
 private:

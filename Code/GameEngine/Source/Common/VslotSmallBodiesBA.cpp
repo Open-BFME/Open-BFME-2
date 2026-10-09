@@ -97,17 +97,17 @@ class Rva0025E4CD
 public:
 	virtual ~Rva0025E4CD();
 
-	void rva0025DBAE(Int value);
+	virtual void rva0025DBAE(Int value);
 	void rva0025DBDC(const Rva0025DBDCPair &pair);
-	Int rva0025DC7A();
-	Int rva0025DC95();
-	Int rva0025DCB0();
-	Int rva0025DD25();
-	Int rva0025DE5C();
-	Int rva0025DE76(Int slot);
-	Int rva0025DEA2(Int slot);
-	void rva0025E20F(Int slot);
-	void rva0025E28E();
+	virtual Int rva0025DC7A();
+	virtual Int rva0025DC95();
+	virtual Int rva0025DCB0();
+	virtual Int rva0025DD25();
+	virtual Int rva0025DE5C();
+	virtual Int rva0025DE76(Int slot);
+	virtual Int rva0025DEA2(Int slot);
+	virtual void rva0025E20F(Int slot);
+	virtual void rva0025E28E();
 private:
 	char m_pad04[8];
 	ConnectionManager *m_conMgr;	// +0x0C
