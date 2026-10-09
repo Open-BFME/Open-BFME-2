@@ -9,6 +9,8 @@
 #include "Common/Snapshot.h"
 class Player;
 class Object;
+// Native DB8FEC freelist policy is distinct from the generic 41B allocator.
+template<class T>class Rva001EB984PoolAllocator {};
 struct TargetRef00217D4C {void*vt;int references;};
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);
 class ArmySummaryEntry {
@@ -41,25 +43,28 @@ extern FreelistPool g_freelistPool00DB8FEC;
 // in StlportObjectFreelistListBaseCtor.cpp; no alternate body is called.
 namespace _STL {
 template<class T,class A>class _List_base;
-template<>class _List_base<Object*,allocator<Object*> > {
+template<>class _List_base<Object*,Rva001EB984PoolAllocator<Object*> > {
 public:
- _List_base(const allocator<Object*>&);
+ _List_base(const Rva001EB984PoolAllocator<Object*>&);
  __forceinline ~_List_base() throw(){((Rva001EB769*)this)->rva001EB769();}
  void*head;
 };
-__declspec(noinline) inline _List_base<Object*,allocator<Object*> >::_List_base(const allocator<Object*>&a)
+__declspec(noinline) inline _List_base<Object*,Rva001EB984PoolAllocator<Object*> >::_List_base(const Rva001EB984PoolAllocator<Object*>&a)
 {
  char dummy;((FreelistProxyHead*)this)->setup(&dummy,0);
  void*n=g_freelistPool00DB8FEC.pop();((void**)n)[0]=n;((void**)n)[1]=n;head=n;
 }
-template<>class list<Object*,allocator<Object*> > : public _List_base<Object*,allocator<Object*> > {
+template<>class list<Object*,allocator<Object*> > {public:void push_back(Object*const&);};
+// Same verified circular-header wire ABI; the existing26B append worker
+// owns native Object node allocation. No generic constructor is used here.
+template<>class list<Object*,Rva001EB984PoolAllocator<Object*> > : public _List_base<Object*,Rva001EB984PoolAllocator<Object*> > {
 public:
- list(const allocator<Object*>&a=allocator<Object*>()):_List_base<Object*,allocator<Object*> >(a){}
- void push_back(Object*const&);
+ list(const Rva001EB984PoolAllocator<Object*>&a=Rva001EB984PoolAllocator<Object*>()):_List_base<Object*,Rva001EB984PoolAllocator<Object*> >(a){}
+ __forceinline void push_back(Object*const&v){((list<Object*,allocator<Object*> >*)this)->push_back(v);}
  bool empty()const{return *(void**)head==head;}
 };
 }
-typedef _STL::list<Object*,_STL::allocator<Object*> > LoadedObjectList;
+typedef _STL::list<Object*,Rva001EB984PoolAllocator<Object*> > LoadedObjectList;
 class Rva0037F57E {
 public:Rva0037F57E();virtual ~Rva0037F57E();
  void rva0037FD2B(LoadedObjectList*,class Rva002E2903Player*,struct Rva002B488EResult*,bool);
@@ -69,7 +74,8 @@ public:Rva0040E0EB(const _STL::vector<Rva0040CB11Entry>&v):_STL::vector<Rva0040C
 };
 struct Rva0040F454Cmp {};
 class Rva0040CF55Owner {public:int sumUnflagged()const;};
-struct Rva0040E534Input {ArmySummaryEntry*value;};
+class Rva0040C495 {public:Object*rva0040C495(Player*,int);};
+struct Rva0040E534Input {Rva0040C495*value;};
 class Rva0040E6D6Sub {public:void forward(int*);void*words[3];};
 class Rva00318C32Ret {public:char bytes00[0x28];_STL::vector<AsciiString>delayed;};
 class Rva00318C79Owner {public:Rva00318C32Ret*rva00318C32();};

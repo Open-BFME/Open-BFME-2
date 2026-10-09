@@ -4,17 +4,19 @@
 // unused allocator argument; this is its typed STLport constructor spelling.
 // The strong exact copy supplies callers built with different frame flags.
 class Object;
+// Native DB8FEC freelist policy is distinct from the generic 41B allocator.
+template<class T>class Rva001EB984PoolAllocator {};
 class FreelistProxyHead {public:void setup(const void*,void*);};
 class FreelistPool {public:void*pop();};
 extern FreelistPool g_freelistPool00DB8FEC;
 namespace _STL {
 template<class T>class allocator;
 template<class T,class A>class _List_base;
-template<>class _List_base<Object*,allocator<Object*> > {
-public:_List_base(const allocator<Object*>&);
+template<>class _List_base<Object*,Rva001EB984PoolAllocator<Object*> > {
+public:_List_base(const Rva001EB984PoolAllocator<Object*>&);
 private:void*head;
 };
-_List_base<Object*,allocator<Object*> >::_List_base(const allocator<Object*>&a)
+_List_base<Object*,Rva001EB984PoolAllocator<Object*> >::_List_base(const Rva001EB984PoolAllocator<Object*>&a)
 {
  char dummy;
  ((FreelistProxyHead*)this)->setup(&dummy,0);
