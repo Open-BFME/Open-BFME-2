@@ -1,5 +1,5 @@
 // ?unhookAllScoredKillTrackers@ScoreKeeper@@QAEXXZ
-// partial score=0.9 date=2026-10-09
+// partial score=0.7 date=2026-10-09
 // ?unhookAllScoredKillTrackers@ScoreKeeper@@QAEXXZ
 // partial score=0.93 date=2026-10-06
 // cl: /Ireference/shims/moduledata /I. /O1 /DNDEBUG /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
