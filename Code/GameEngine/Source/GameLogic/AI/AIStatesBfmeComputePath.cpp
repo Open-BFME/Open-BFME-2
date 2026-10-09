@@ -16,6 +16,11 @@
 //    AIFollowPathState::computePath 0x00345B89 (42 bytes; 0x00C12BC8):
 //    "ComputePath30" / "ComputePath31", then the base
 //    AIInternalMoveToState::computePath (pinned 0x003441F7) as a tail call.
+//  - AIWaitUntilFinishedFiringState::onEnter 0x00345F94 (131 bytes, slot 4):
+//    fails without a weapon; a ready weapon succeeds (or waits an odd frame
+//    under status 0x26); otherwise locks the weapon's slot (+0x0C) when the
+//    template delay +0x78 is set and disables the owner (type 8) for the
+//    template's +0x7C frames.
 //  - AIWaitUntilFinishedFiringState::onExit 0x00341391 (16 bytes;
 //    0x00C11120): releases the owner's weapon lock (pinned
 //    Object::releaseWeaponLock, LOCKED_TEMPORARILY); no base call.
@@ -90,7 +95,12 @@ enum WeaponSlotType
 };
 enum WeaponStatus
 {
+	READY_TO_FIRE = 0,
 	WEAPON_STATUS_BFME_5 = 5
+};
+enum DisabledType
+{
+	DISABLED_BFME_8 = 8
 };
 
 struct Coord3D
@@ -138,6 +148,7 @@ struct WeaponTemplateView
 {
 	unsigned char m_pad00[0x78];
 	int m_bfmeDelay78; // +0x78
+	int m_bfmeDuration7C; // +0x7C
 };
 
 class Weapon
@@ -146,10 +157,13 @@ public:
 	WeaponStatus getStatus() const;
 	const WeaponTemplateView *m_template04() const { return m_template; }
 	unsigned int m_bfmeFrame2C() const { return m_frame; }
+	WeaponSlotType getWeaponSlot() const { return m_wslot; }
 private:
 	unsigned char m_pad00[0x04];
 	const WeaponTemplateView *m_template; // +0x04
-	unsigned char m_pad08[0x2C - 0x08];
+	unsigned char m_pad08[0x0C - 0x08];
+	WeaponSlotType m_wslot; // +0x0C
+	unsigned char m_pad10[0x2C - 0x10];
 	unsigned int m_frame; // +0x2C
 };
 
@@ -162,7 +176,8 @@ public:
 NameKeyType Rva0045EE2CGet();
 enum ObjectStatusTypes
 {
-	OBJECT_STATUS_BFME_1C = 0x1C
+	OBJECT_STATUS_BFME_1C = 0x1C,
+	OBJECT_STATUS_BFME_26 = 0x26
 };
 enum WeaponLockType
 {
@@ -265,6 +280,9 @@ public:
 	Module *findModule(NameKeyType key) const;
 	void setStatus(ObjectStatusTypes status, Bool set);
 	void releaseWeaponLock(WeaponLockType lockType);
+	Bool testStatus(ObjectStatusTypes status) const;
+	Bool setWeaponLock(WeaponSlotType wslot, WeaponLockType lockType);
+	void setDisabledUntil(DisabledType type, unsigned int frame);
 	void rva0028AE6D();
 	void rva0028AD32();
 	void rva0028C2DD(Coord3D *pos) const;
@@ -498,9 +516,30 @@ Bool AIFollowPathState::computePath()
 class AIWaitUntilFinishedFiringState : public State
 {
 public:
+	virtual StateReturnType onEnter();
 	virtual void onExit(StateExitType status);
 	virtual StateReturnType update();
 };
+
+StateReturnType AIWaitUntilFinishedFiringState::onEnter()
+{
+	const Weapon *weapon = getMachineOwner()->getCurrentWeapon();
+	Object *obj = getMachineOwner();
+	if (!weapon)
+		return STATE_FAILURE;
+	if (weapon->getStatus() == READY_TO_FIRE)
+	{
+		if (obj->testStatus(OBJECT_STATUS_BFME_26) && (TheGameLogic->getFrame() & 1))
+			return STATE_CONTINUE;
+		return STATE_SUCCESS;
+	}
+	if (weapon->m_template04()->m_bfmeDelay78 >= 0)
+		obj->setWeaponLock(weapon->getWeaponSlot(), LOCKED_TEMPORARILY);
+	int duration = weapon->m_template04()->m_bfmeDuration7C;
+	if (duration > 0)
+		obj->setDisabledUntil(DISABLED_BFME_8, TheGameLogic->getFrame() + duration);
+	return STATE_CONTINUE;
+}
 
 StateReturnType AIWaitUntilFinishedFiringState::update()
 {
