@@ -79,10 +79,10 @@ struct Rva005CF37DCommandUI {
 };
 struct Rva002BA8F1Listener;
 class Rva005A0B4CList { public: void append(Rva002BA8F1Listener *); };
-class Rva005CF37DBase0 {
+class Rva005CE8F5 {
 public:
-    Rva005CF37DBase0(Rva005CF22CBig *b) : m_owner(b) {}
-    virtual ~Rva005CF37DBase0() {}
+    Rva005CE8F5(Rva005CF22CBig *b) : m_owner(b) {}
+    virtual ~Rva005CE8F5() {}
     Rva005CF22CBig *m_owner;
 };
 // Existing one-vptr observer-base view: its emitted vtable is retail C3702C.
@@ -91,7 +91,7 @@ public:
     Rva00575E4EBase2() {}
     virtual ~Rva00575E4EBase2() {}
 };
-class Rva005CF37DHelper : public Rva005CF37DBase0, public Rva00575E4EBase2
+class Rva005CF37DHelper : public Rva005CE8F5, public Rva00575E4EBase2
 {
 public:
     Rva005CF37DHelper(Rva005CF22CBig *b, int x);
@@ -104,7 +104,7 @@ private:
 // proves this constructor and its16B allocation. Primary/secondary vptrs at
 // +0/+8; owner+4 and army+0C; WB is an unnamed StrategicInGameUI lead.
 Rva005CF37DHelper::Rva005CF37DHelper(Rva005CF22CBig *b, int x)
-    : Rva005CF37DBase0(b), m_army(x)
+    : Rva005CE8F5(b), m_army(x)
 {
     ((Rva00319B0AOwner *)m_army)->rva00319B0A();
     void *view = m_owner->m_view10;
@@ -184,8 +184,8 @@ class Rva005E8CB0 {public:Rva005E8CB0(void*,int,void*,const Rva005E8C54Source*);
 class Rva005E893E;
 class Rva005CE21C {public:void clear();};
 class Rva005CE236 {public:Rva005CE236():m_p(0){}~Rva005CE236(){((Rva005CE21C*)this)->clear();}void reset(Rva005E893E*);Rva005E893E*m_p;};
-class Rva0057605DSecond {public:Rva0057605DSecond(){}virtual ~Rva0057605DSecond(){};};
-class Rva005CEE9F : public Rva005CF37DBase0,public Rva0057605DSecond {public:Rva005CEE9F(Rva005CF22CBig*,int);virtual ~Rva005CEE9F();private:void *m_region;Rva005CE236 m_build;};
+class Rva005CF07EListener {public:Rva005CF07EListener(){}virtual ~Rva005CF07EListener(){};};
+class Rva005CEE9F : public Rva005CE8F5,public Rva005CF07EListener {public:Rva005CEE9F(Rva005CF22CBig*,int);virtual ~Rva005CEE9F();private:void *m_region;Rva005CE236 m_build;};
 class S3RegionPanel {public:virtual void slot0();virtual void setImage(const Image*);virtual void slot2();virtual void slot3();virtual void slot4();virtual void slot5();virtual void setCallback(const Rva005CE4B2&);virtual void slot7();virtual void show();virtual void slot9();virtual void hide();};
 class S3CommandSlots {public:virtual void slot0();virtual void createButton(int,const Rva005CE2A1&);virtual void deleteButton(int);};
 // Native374B5CF07E..5CF1F4 and WB15C2BB0 unnamed strategic region UI
@@ -195,7 +195,7 @@ class S3CommandSlots {public:virtual void slot0();virtual void createButton(int,
 // independently prove region callbacks and command slot5. No ZH/BF1
 // clean donor exists for this BFME2 strategic UI. Field and argument
 // meanings outside the target-read region and UI roles remain opaque.
-Rva005CEE9F::Rva005CEE9F(Rva005CF22CBig*b,int x):Rva005CF37DBase0(b),m_region((void*)x){
+Rva005CEE9F::Rva005CEE9F(Rva005CF22CBig*b,int x):Rva005CE8F5(b),m_region((void*)x){
  ((const Rva004E0741*)m_region)->rva004E0741();
  void *view=m_owner->m_view10;
  S3RegionPanel *panel=(S3RegionPanel*)((Rva0042D703PtrChaseField*)view)->get();
@@ -214,7 +214,7 @@ Rva005CEE9F::Rva005CEE9F(Rva005CF22CBig*b,int x):Rva005CF37DBase0(b),m_region((v
   int button=((Rva0042D6B4PtrChaseField*)view)->get();
   if(button)m_build.reset((Rva005E893E*)new Rva005E8CB0((void*)builder,button,*(void**)((char*)m_owner+8),(const Rva005E8C54Source*)m_region));
  }
- ((Rva005A0B4CList*)((char*)m_region+8))->append((Rva002BA8F1Listener*)static_cast<Rva0057605DSecond*>(this));
+ ((Rva005A0B4CList*)((char*)m_region+8))->append((Rva002BA8F1Listener*)static_cast<Rva005CF07EListener*>(this));
 }
 
 // Native5CF22C allocator retained with destructor-owned class spelling.
@@ -226,11 +226,26 @@ void Rva005CF22COwner::rva005CF22C(int x) {
 class Rva002B7250 {public:void rva002B7250(CreateAHeroData*);};
 class Rva004E0750 {public:void rva004E0750()const;};
 Rva005CEE9F::~Rva005CEE9F(){
- ((Rva002B7250*)((char*)m_region+8))->rva002B7250((CreateAHeroData*)static_cast<Rva0057605DSecond*>(this));
+ ((Rva002B7250*)((char*)m_region+8))->rva002B7250((CreateAHeroData*)static_cast<Rva005CF07EListener*>(this));
  void *view=m_owner->m_view10;
  S3RegionPanel *panel=(S3RegionPanel*)((Rva0042D703PtrChaseField*)view)->get();
  if(panel)panel->hide();
  S3CommandSlots *slots=(S3CommandSlots*)((Rva0042D69DPtrChaseField*)view)->get();
  if(slots)slots->deleteButton(5);
  ((const Rva004E0750*)m_region)->rva004E0750();
+}
+
+class Rva0023A128Link {public:Rva0023A128Link(){}~Rva0023A128Link(){}virtual void rva00239B94(int);virtual void v01(int);};
+class Rva005E8F50;
+class Rva005CEA51 {public:Rva005CEA51():pointer(0){}~Rva005CEA51(){rva005CE7EA();}void rva005CEA51(Rva005E8F50*);void rva005CE7EA();Rva005E8F50*pointer;};
+class Rva004FC275 {public:void rva004FC2A6();};
+class Rva005CEF2F:public Rva005CE8F5,public Rva0023A128Link {public:virtual ~Rva005CEF2F();int selection;Rva005CEA51 secondary;};
+Rva005CEF2F::~Rva005CEF2F(){
+ ((Rva002B7250*)((char*)selection+8))->rva002B7250((CreateAHeroData*)static_cast<Rva0023A128Link*>(this));
+ void *view=m_owner->m_view10;
+ S3RegionPanel *panel=(S3RegionPanel*)((Rva0042D703PtrChaseField*)view)->get();
+ if(panel)panel->hide();
+ S3CommandSlots *slots=(S3CommandSlots*)((Rva0042D69DPtrChaseField*)view)->get();
+ if(slots){for(int slot=1;slot<6;++slot)slots->deleteButton(slot);}
+ ((Rva004FC275*)selection)->rva004FC2A6();
 }
