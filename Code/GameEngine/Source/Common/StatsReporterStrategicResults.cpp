@@ -1,6 +1,5 @@
 // ?ProcessStrategicSinglePlayerGame@StatsReporter@@SAXPAVLivingWorldPlayer@@@Z
-// partial score=0.9935 date=2026-10-09
-// cl: /DNDEBUG /MD /EHs /Ireference/shims/bfme2_ascii
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHs /Ireference/shims/bfme2_ascii
 #include "ascii_string.h"
 #include "unicode_string.h"
 #include <new>
@@ -148,9 +147,9 @@ class PlayerTemplateStore {public:const PlayerTemplate*findPlayerTemplate(NameKe
 class Rva004EE35D;class Rva004EE3AB;class Rva004EE3F9;class Rva004EE447;class Rva004EE485;class Rva004EE4C3;
 template<int N>class BitFlags {unsigned words[7];};
 struct Rva00045411BitSet {unsigned words[7];Rva00045411BitSet(int,int);};
-class Rva004EE35D {public:int rva004EE35D(const BitFlags<116>&,const BitFlags<116>&);};
-class Rva004EE3AB {public:int rva004EE3AB(const BitFlags<116>&,const BitFlags<116>&);};
-class Rva004EE3F9 {public:int rva004EE3F9(const BitFlags<116>&,const BitFlags<116>&);};
+class Rva004EE35D {public:int rva004EE35D(const Rva00045411BitSet&,const Rva00045411BitSet&);};
+class Rva004EE3AB {public:int rva004EE3AB(const Rva00045411BitSet&,const Rva00045411BitSet&);};
+class Rva004EE3F9 {public:int rva004EE3F9(const Rva00045411BitSet&,const Rva00045411BitSet&);};
 class Rva004EE447 {public:int rva004EE447();};
 class Rva004EE485 {public:int rva004EE485();};
 class Rva004EE4C3 {public:int rva004EE4C3();};
@@ -187,8 +186,11 @@ class LivingWorldLogic {public:
 extern LivingWorldLogic*TheLivingWorldLogic;
 extern PlayerTemplateStore*ThePlayerTemplateStore;
 extern NameKeyGenerator*TheNameKeyGenerator;
-extern Rva0021937D*g_Va00DFE344;
+class CreateAHeroManager;
+extern CreateAHeroManager*TheCreateAHeroManager;
 extern const BitFlags<116>g_defaultStorage009FEFA4;
+extern "C" void _ReadWriteBarrier();
+#pragma intrinsic(_ReadWriteBarrier)
 class StatsReporter {public:static void ProcessStrategicSinglePlayerGame(LivingWorldPlayer*);};
 template<class T>inline const T&counterMax(const T&a,const T&b){return a>b?a:b;}
 inline bool allied(const LivingWorldPlayer*a,const LivingWorldPlayer*b){return reinterpret_cast<const Rva002E071E*>(a)->rva002E071E(reinterpret_cast<const Rva002E071E*>(b));}
@@ -213,7 +215,7 @@ void StatsReporter::ProcessStrategicSinglePlayerGame(LivingWorldPlayer*player) {
   prefs.rva00535F72(prefs.rva00535FBA()+1);
   prefs.rva00536003(counterMax(prefs.rva0053604B(),prefs.rva00535FBA()));
   prefs.rva00535DBF(side,0);prefs.rva00536094(0);
-  g_Va00DFE344->rva0021937D(static_cast<Rva0021937DTarget*>(reinterpret_cast<Rva002E06B8*>(player)->rva002E06EF()));
+  reinterpret_cast<Rva0021937D*>(TheCreateAHeroManager)->rva0021937D(static_cast<Rva0021937DTarget*>(reinterpret_cast<Rva002E06B8*>(player)->rva002E06EF()));
  }else {
   prefs.rva00535C9D(side,prefs.rva00535CE4(side)+1);
   prefs.rva00535DBF(side,prefs.rva00535E06(side)+1);
@@ -221,7 +223,7 @@ void StatsReporter::ProcessStrategicSinglePlayerGame(LivingWorldPlayer*player) {
   prefs.rva00536094(prefs.rva005360DC()+1);
   prefs.rva00536125(counterMax(prefs.rva0053616D(),prefs.rva005360DC()));
   prefs.rva00535D2E(side,0);prefs.rva00535F72(0);
-  g_Va00DFE344->rva002193AB(static_cast<Rva0021937DTarget*>(reinterpret_cast<Rva002E06B8*>(player)->rva002E06EF()));
+  reinterpret_cast<Rva0021937D*>(TheCreateAHeroManager)->rva002193AB(static_cast<Rva0021937DTarget*>(reinterpret_cast<Rva002E06B8*>(player)->rva002E06EF()));
  }
  if(!player->isLost()) {
   int enemies[7];int allies[7];memset(enemies,0,sizeof(enemies));memset(allies,0,sizeof(allies));
@@ -235,13 +237,14 @@ void StatsReporter::ProcessStrategicSinglePlayerGame(LivingWorldPlayer*player) {
    }
   }
   if(numEnemies>0) {
-   int points;
+   int minimum;int points;
    {
     const int &enemyPoints=difficultyPoints(enemies);
     const int &allyPoints=difficultyPoints(allies);
-    points=enemyPoints-allyPoints;
+    // Retail keeps the minimum in ECX while the computed score stays in EAX.
+    int difference=enemyPoints-allyPoints; _ReadWriteBarrier();minimum=1;points=difference;
    }
-   int earned=counterMax(1,points);
+   int earned=counterMax(minimum,points);
    prefs.rva0053587C(side,prefs.rva005358C3(side)+earned);
   }
  }
@@ -263,10 +266,10 @@ void StatsReporter::ProcessStrategicSinglePlayerGame(LivingWorldPlayer*player) {
   if(games>oldGames)prefs.rva005361B6(side);
  }else prefs.rva005361B6(side);
  Rva00045411BitSet buildMask(0,7);
- const BitFlags<116>&mask=reinterpret_cast<const BitFlags<116>&>(buildMask);
- prefs.rva0053626B(side,prefs.rva005362B2(side)+reinterpret_cast<Rva004EE35D*>(s)->rva004EE35D(mask,g_defaultStorage009FEFA4));
- prefs.rva005362FC(side,prefs.rva00536343(side)+reinterpret_cast<Rva004EE3AB*>(s)->rva004EE3AB(mask,g_defaultStorage009FEFA4));
- prefs.rva0053638D(side,prefs.rva005363D4(side)+reinterpret_cast<Rva004EE3F9*>(s)->rva004EE3F9(mask,g_defaultStorage009FEFA4));
+ const Rva00045411BitSet&mask=buildMask;
+ prefs.rva0053626B(side,prefs.rva005362B2(side)+reinterpret_cast<Rva004EE35D*>(s)->rva004EE35D(mask,reinterpret_cast<const Rva00045411BitSet&>(g_defaultStorage009FEFA4)));
+ prefs.rva005362FC(side,prefs.rva00536343(side)+reinterpret_cast<Rva004EE3AB*>(s)->rva004EE3AB(mask,reinterpret_cast<const Rva00045411BitSet&>(g_defaultStorage009FEFA4)));
+ prefs.rva0053638D(side,prefs.rva005363D4(side)+reinterpret_cast<Rva004EE3F9*>(s)->rva004EE3F9(mask,reinterpret_cast<const Rva00045411BitSet&>(g_defaultStorage009FEFA4)));
  prefs.rva0053641E(side,prefs.rva00536465(side)+reinterpret_cast<Rva004EE447*>(s)->rva004EE447());
  prefs.rva005364AF(side,prefs.rva005364F6(side)+reinterpret_cast<Rva004EE485*>(s)->rva004EE485());
  prefs.rva00536540(side,prefs.rva00536587(side)+reinterpret_cast<Rva004EE4C3*>(s)->rva004EE4C3());
