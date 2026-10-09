@@ -1,5 +1,7 @@
 // ??0Rva005E8DCF@@QAE@PAXPAURva005E8DCFIn@@@Z
 // partial score=0.985 date=2026-10-10
+// ??0Rva005E8DCF@@QAE@PAXPAURva005E8DCFIn@@@Z
+// partial score=0.985 date=2026-10-10
 // cl: /Ireference/shims/bfme2_ascii /O1 /arch:SSE /G7 /Ob2 /DNDEBUG /EHsc /MD
 #include "ascii_string.h"
 class Image;
@@ -10,12 +12,12 @@ public:
 private:
  int m_04; void *m_08;
 };
-class Rva005F5C77Holder : public Rva005E1158 {
+class Rva005E12D1 {
 public:
- Rva005F5C77Holder(void*,const AsciiString&,void*);
- virtual ~Rva005F5C77Holder();
+ Rva005E12D1(void*, const AsciiString&, void*);
+ virtual ~Rva005E12D1();
 private:
- void *m_0C; int m_10;
+ char m_pad[0x10];
 };
 struct Ui149Base {
  Ui149Base(): m_04(0) {}
@@ -33,13 +35,13 @@ struct Ui149Fields {
  Ui149Fields(Rva005E8DCFIn *p): m_1C(p->m_00), m_20(p->m_04) {}
  void *m_1C, *m_20;
 };
-class Rva005E8DCF : public Ui149Base, public Rva005F5C77Holder, public Ui149Fields {
+class Rva005E8DCF : public Ui149Base, public Rva005E12D1, public Ui149Fields {
 public:
  Rva005E8DCF(void*, Rva005E8DCFIn*);
  virtual ~Rva005E8DCF();
 };
 Rva005E8DCF::Rva005E8DCF(void* a, Rva005E8DCFIn* p)
- : Ui149Base(), Rva005F5C77Holder(a, AsciiString("button"), p->m_00), Ui149Fields(p)
+ : Ui149Base(), Rva005E12D1(a, AsciiString("button"), p->m_00), Ui149Fields(p)
 {
  const Image *image=((Rva005E16B9*)((Rva005E8DB5*)this)->rva005E8DB5())->rva005E16B9();
  ((Rva005E1158*)this)->rva005E1158(image);
