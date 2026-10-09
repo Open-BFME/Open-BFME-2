@@ -137,16 +137,8 @@ W3DPropBuffer::~W3DPropBuffer(void)
 /** Constructor. Sets m_initialized to true if it finds the w3d models it needs
 for the props. */
 //=============================================================================
-// ??0W3DPropBuffer@@ present-unmatched
-W3DPropBuffer::W3DPropBuffer(void)
-{
-	memset(this, sizeof(W3DPropBuffer), 0);
-	m_initialized = false;
-	clearAllProps();
-	m_light = NEW_REF( LightClass, (LightClass::DIRECTIONAL) );
-	m_propShroudMaterialPass = NEW_REF(W3DShroudMaterialPassClass,());
-	m_initialized = true;
-}
+// W3DPropBuffer::W3DPropBuffer is defined with its retail-matched body in
+// W3DPropBufferCtor.cpp (0x000EF008).
 
 
 
