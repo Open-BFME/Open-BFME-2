@@ -1,7 +1,7 @@
 // cl: /MD
 //
-// ?rva004B6B04@@YGXPAVBfmeObjF9@@PAXD@Z, retail 0x004B6B04, 37 bytes.
-// Free __stdcall helper called by the two unclaimed GeometryUpgrade bodies
+// ?rva004B6B04@GeometryUpgrade@@QAEXPAVBfmeObjF9@@PAXD@Z, retail 0x004B6B04, 37 bytes.
+// Primary-this member helper called by the two GeometryUpgrade bodies
 // 0x004B6B29 and 0x004B6C8A (each calls it twice): iterates a 4-byte-element
 // vector (begin at [vec], end at [vec+4], element is BfmeStrF9 which is 4
 // bytes) and calls the rowed BfmeObjF9::setFlag at 0x006BF3C0 for each
@@ -28,7 +28,16 @@ struct BfmeStrVec
 	BfmeStrF9 *m_end;
 };
 
-void __stdcall rva004B6B04(BfmeObjF9 *obj, void *vecVoid, char flag)
+// Both native GeometryUpgrade callers set ECX to the primary this before
+// this RET12 helper. It does not access this, so the former stdcall view
+// reproduced its bytes but removed that caller-side LEA. Retain an honest
+// address-derived member view; this call shape does not establish its name.
+class GeometryUpgrade
+{
+public:
+    void rva004B6B04(BfmeObjF9 *obj, void *vecVoid, char flag);
+};
+void GeometryUpgrade::rva004B6B04(BfmeObjF9 *obj, void *vecVoid, char flag)
 {
 	BfmeStrVec *vec = (BfmeStrVec *)vecVoid;
 	for (BfmeStrF9 *p = vec->m_begin; p != vec->m_end; ++p)
