@@ -25,6 +25,7 @@
 #include <stdlib.h>
 namespace _STL { void __cdecl free(void *block) throw(...); }
 #define free _STL::free
+#include "../../../../../../reference/shims/bfme_stlport_unsigned_max_link/unsigned_max.h"
 #include <vector>
 #undef free
 

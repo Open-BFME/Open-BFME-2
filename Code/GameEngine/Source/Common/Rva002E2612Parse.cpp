@@ -2,6 +2,7 @@
 // stlport
 // ?Rva002E2612Parse@@YAXPAVINI@@PAX1PBX@Z 0x002E2612 125
 // Evidence: REF slots AvailableTo Sides Sides; string Unknown Living World player type; find 0x002E18C3 via global 0x00DFF0B0; push_back 0x004DFCB0; getNextToken 0x0002DF97 plus getNextTokenOrNull 0x0002DEED; INIException 0x0002F681 plus TI1
+#include "../../../../reference/shims/bfme_stlport_unsigned_max_link/unsigned_max.h"
 #include <vector>
 #include "ascii_string.h"
 
