@@ -1,12 +1,6 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /arch:SSE /G7 /EHsc /MD
+// cl: /Ireference/shims/bfme2_ascii /ICode/Libraries/Include/Lib /O1 /arch:SSE /G7 /EHsc /MD
 #include "ascii_string.h"
-
-struct Rva0037F7B6Coord
-{
-	float x;
-	float y;
-	float z;
-};
+#include "ArmyPlacerWaypoints.h"
 
 class Rva0037F7B6Record
 {
@@ -19,14 +13,16 @@ class Waypoint
 {
 public:
 	char m_pad[12];
-	Rva0037F7B6Coord m_position;
+	Coord3D m_position;
 };
 
 Waypoint *findNamedWaypoint(const AsciiString &name);
 
-// ?Rva0037F7B6Get@@YA_NPAURva0037F7B6Record@@PAURva0037F7B6Coord@@1@Z @0x0037F7B6 196B
+// Retail 0x0037F7B6..0x0037F87A; WB ArmyPlacer::GetWalkOnWaypointLocations.
+// Native callers 0x0037F87A and 0x0037F985 establish the ECX receiver.
+// Record +0x14 is independently established by both format operations.
 // The packet literals and caller argument layout establish the record name and output positions.
-bool __stdcall Rva0037F7B6Get(Rva0037F7B6Record *record, Rva0037F7B6Coord *spawn, Rva0037F7B6Coord *gather)
+bool ArmyPlacer::GetWalkOnWaypointLocations(Rva0037F7B6Record *record, Coord3D *spawn, Coord3D *gather)
 {
 	AsciiString spawnName;
 	spawnName.format("WOTRSpawnPoint_%s_1", record->m_name.str());

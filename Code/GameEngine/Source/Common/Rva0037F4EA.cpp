@@ -1,64 +1,7 @@
 // cl: /MD
 // ?rva0037F4EA@Rva0037F4EA@@QAEPAV1@H@Z retail 0x0037F4EA 48B
 // Evidence: callers 0x0037F90F 0x0037F985 pass dword from +0x12c; zeroes six floats plus bool; second instance at +0x20
-class Rva0037F4EA
-{
-public:
-	Rva0037F4EA *rva0037F4EA(int v);
-	void rva0037F87A(void *context);
-private:
-	friend class Rva0037F8AC;
-	int m_00;
-	float m_04;
-	float m_08;
-	float m_0c;
-	float m_10;
-	float m_14;
-	float m_18;
-	bool m_1c;
-};
-
-// Target-only view: the initializer at 0x0037F90F reads the identifier
-// from +0x12c of each input. Its original type and name are unknown.
-struct Rva0037F90FInput
-{
-	unsigned char opaque_00[0x12c];
-	int field_12c;
-};
-
-// The existing 0x0037F51A provider copies this same 0x20-byte record
-// layout. Keep its existing spelling so the copy initializer binds that
-// verified body; the relationship between the address-derived views is
-// structural evidence, not a recovered original class name.
-class Rva0037F51A
-{
-public:
-	Rva0037F51A &rva0037F51A(const Rva0037F51A &source);
-private:
-	int m_00;
-	float m_04;
-	float m_08;
-	float m_0c;
-	float m_10;
-	float m_14;
-	float m_18;
-	bool m_1c;
-};
-
-class Rva0037F8AC
-{
-public:
-	void rva0037F8AC(void *context);
-	Rva0037F8AC *rva0037F90F(void *context, Rva0037F90FInput *first,
-		Rva0037F90FInput *second);
-	Rva0037F8AC *rva0037F950(void *context, const Rva0037F51A *first,
-		const Rva0037F51A *second);
-private:
-	Rva0037F4EA m_00;
-	Rva0037F4EA m_20;
-	float m_40;
-	bool m_44;
-};
+#include "../GameLogic/System/ArmyPlacerRecords.h"
 
 Rva0037F4EA *Rva0037F4EA::rva0037F4EA(int v)
 {
