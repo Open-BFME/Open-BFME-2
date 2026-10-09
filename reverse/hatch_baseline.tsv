@@ -42776,3 +42776,5 @@ selectany	Code/GameEngine/Source/Common/VslotSmallBodiesW.cpp	__declspec(selecta
 pin	reverse/symbols.csv	0x00441ECE	1	allow=3a3a80473a99206c9228d9342580c640fbe64aab
 pin	reverse/symbols.csv	0x00512069	1	allow=3a3a80473a99206c9228d9342580c640fbe64aab
 pin	reverse/symbols.csv	0x00304BCD	1	allow=95d0bbf9684969e06b0399f2abac7345c9e6ce1b
+pin	reverse/symbols.csv	0x000A9840	1	allow=e64d323f69b42f1b9ed817d9ee380f09b6afed40
+pin	reverse/symbols.csv	0x005258C0	1	allow=e64d323f69b42f1b9ed817d9ee380f09b6afed40

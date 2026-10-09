@@ -38,3 +38,5 @@ template<> __declspec(noinline) void list<Rva00525119, allocator<Rva00525119> >:
 { Rva00525951Less compare; _S_sort(*this, compare); }
 }
 template void _STL::list<Rva00525119, _STL::allocator<Rva00525119> >::sort();
+
+namespace _STL { template void _Construct<Rva00525119, Rva00525119>(Rva00525119 *,const Rva00525119 &); }
