@@ -13,16 +13,33 @@ private:
 	char m_pad[0x0C];
 };
 
-struct Elem005D25F2
-{
-	char m_pad[0x1C];
-	~Elem005D25F2();
+// The constructor's6x1C iterator calls native25-byte zero initialization;
+// the matching destructor5D258E..5D25F2 reverses five nontrivial members.
+class Rva000AD6F4 { public: void clear(); };
+class Rva00528FE6 { public: void rva00529009(); };
+struct TargetRef00217D4C;
+void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
+struct SlotClipOwner {
+    void *ptr;
+    ~SlotClipOwner() { reinterpret_cast<Rva000AD6F4 *>(this)->clear(); }
 };
-
-// ??1Elem005D25F2@@QAE@XZ present-unmatched
-Elem005D25F2::~Elem005D25F2()
-{
-}
+struct SlotFlashOwner {
+    void *ptr;
+    ~SlotFlashOwner() { reinterpret_cast<Rva00528FE6 *>(this)->rva00529009(); }
+};
+struct SlotRefOwner {
+    TargetRef00217D4C *ptr;
+    ~SlotRefOwner() { if(ptr) ReleaseTreeHintRef00217D4C(ptr); }
+};
+struct Elem005D25F2 {
+    SlotClipOwner frame00,subMenu04;
+    SlotFlashOwner flash08;
+    SlotRefOwner reference0C,help10;
+    unsigned int lastTime14;
+    int flashCount18;
+    ~Elem005D25F2();
+};
+Elem005D25F2::~Elem005D25F2() {}
 
 extern const void *const g_00C75800[];
 extern const void *const g_00C078DC[];
