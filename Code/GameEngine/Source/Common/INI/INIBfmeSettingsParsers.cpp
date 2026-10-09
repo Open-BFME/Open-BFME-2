@@ -82,3 +82,71 @@ void Rva0030AFFBParse(INI *ini)
 	if (TheFireManager)
 		TheFireManager->slot14();
 }
+
+// 0x0021526C (81B): "CloudEffect" (registration VA 0x00DB9B68). Saved
+// settings at 0x00DFE1E8, working settings at 0x00DFE280 (the copy the
+// record ctor 0x00214F14 reads), field table VA 0x00BE5390, manager pointer
+// 0x00DFE1E4. The copy is Rva00214E02's implicit operator= (0x00214E02,
+// 274B): five AsciiString sets at +0x00 +0x04 +0x08 +0x14 +0x94, the plain
+// members between them. BFME 1's CloudEffect record is the same idea with a
+// shorter tail (its last string is at +0x88).
+class Rva00214E02
+{
+public:
+	AsciiString m_00;
+	AsciiString m_04;
+	AsciiString m_08;
+	int m_0C;
+	int m_10;
+	AsciiString m_14;
+	int m_18;
+	int m_1C;
+	S12 m_20;
+	S12 m_2C;
+	int m_38;
+	int m_3C;
+	int m_40;
+	int m_44;
+	unsigned char m_48;
+	unsigned char m_49;
+	unsigned char m_4A;
+	int m_4C;
+	S12 m_50;
+	int m_5C;
+	S12 m_60;
+	int m_6C;
+	S12 m_70;
+	int m_7C;
+	int m_80;
+	int m_84;
+	int m_88;
+	int m_8C;
+	int m_90;
+	AsciiString m_94;
+};
+
+class Rva0027070CGlobal
+{
+public:
+	virtual void slot00(); virtual void slot04(); virtual void slot08(); virtual void slot0C();
+	virtual void slot10(); virtual void slot14(); virtual void slot18(); virtual void slot1C();
+	virtual void slot20(); virtual void slot24(); virtual void slot28(); virtual void slot2C();
+	virtual void slot30(); virtual void slot34();
+	virtual void slot38();
+};
+
+extern Rva00214E02 TheCloudEffectSettings;
+extern Rva00214E02 TheCloudEffectSettingsSaved;
+extern const FieldParse CloudEffectSettingsFields[];
+extern Rva0027070CGlobal *g_00DFE1E4;
+
+void Rva0021526CParse(INI *ini)
+{
+	TheCloudEffectSettings = TheCloudEffectSettingsSaved;
+	ini->initFromINI(&TheCloudEffectSettings, CloudEffectSettingsFields);
+	Int loadType = ini->getLoadType();
+	if (loadType != 2 && loadType != 4)
+		TheCloudEffectSettingsSaved = TheCloudEffectSettings;
+	if (g_00DFE1E4)
+		g_00DFE1E4->slot38();
+}
