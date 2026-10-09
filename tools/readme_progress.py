@@ -42,6 +42,7 @@ links on its own, the receipt whether the program links at retail addresses.
 import argparse
 import json
 import os
+import re
 import sys
 from datetime import datetime, timezone
 from urllib.error import HTTPError, URLError
@@ -106,18 +107,28 @@ def strict_link(root=None):
             return None
         receipt = json.loads(path.read_text(encoding="utf-8"))
         series = receipt["series"]
-        strict = {"date": str(receipt["date_utc"])[:10], "commit": str(receipt["commit"])[:10],
+
+        def count(value):
+            if type(value) is not int:  # not bool, float or str: the receipt writes ints
+                raise TypeError(f"expected an integer byte count, got {type(value).__name__}")
+            return value
+        date, commit = receipt["date_utc"], receipt["commit"]
+        if not (isinstance(date, str) and re.fullmatch(r"\d{4}-\d{2}-\d{2}( \d{2}:\d{2}:\d{2})?", date)):
+            raise ValueError("date_utc is not a date")
+        if not (isinstance(commit, str) and re.fullmatch(r"[0-9a-f]{7,40}", commit)):
+            raise ValueError("commit is not a git hash")
+        strict = {"date": date[:10], "commit": commit[:10],
                   "authoritative": receipt.get("authoritative") is True,
-                  "self_strict": int(series["real"]["placed_self_strict"]["unique_bytes"]),
-                  "closed_strict": int(series["credit_unique_bytes"]),
-                  "text": int(series["retail_text_bytes"])}
+                  "self_strict": count(series["real"]["placed_self_strict"]["unique_bytes"]),
+                  "closed_strict": count(series["credit_unique_bytes"]),
+                  "text": count(series["retail_text_bytes"])}
         if not 0 <= strict["closed_strict"] <= strict["self_strict"] <= strict["text"] or not strict["text"]:
             raise ValueError("strict link figures out of order")
         if strict["text"] > 0xFFFFFFFF:  # a PE section cannot exceed 4 GiB
             raise ValueError(f"implausible retail .text size {strict['text']}")
         for key in ("self_strict", "closed_strict"):
             progress.percent(strict[key], strict["text"])  # representable before it reaches the card
-    except (OSError, ValueError, KeyError, TypeError, OverflowError, AttributeError) as error:
+    except (OSError, ValueError, KeyError, TypeError, OverflowError, AttributeError, RecursionError) as error:
         why = f"{RECEIPT} unreadable ({type(error).__name__}: {error})"
         print(f"readme_progress: warning: {why}; strict link check not shown", file=sys.stderr)
         return {"invalid": why}

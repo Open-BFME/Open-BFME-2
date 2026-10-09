@@ -298,3 +298,28 @@ def test_huge_or_unreachable_receipts_degrade(tmp_path, monkeypatch):
         raise PermissionError("denied")
     monkeypatch.setattr(type(path), "exists", denied)
     assert "invalid" in daily.strict_link(tmp_path)
+
+
+@pytest.mark.parametrize("text", [
+    "[" * 10000 + "0" + "]" * 10000,
+    json.dumps({**receipt(), "date_utc": "\ud800"}),
+    json.dumps({**receipt(), "commit": "\ud800"}),
+    json.dumps({**receipt(), "series": {**receipt()["series"], "credit_unique_bytes": True}}),
+    json.dumps({**receipt(), "series": {**receipt()["series"], "retail_text_bytes": "8000"}}),
+])
+def test_malformed_receipts_never_stop_main(tmp_path, monkeypatch, text):
+    path = setup_state(tmp_path, monkeypatch)
+    receipt_path = tmp_path / daily.RECEIPT
+    receipt_path.parent.mkdir(parents=True)
+    receipt_path.write_text(text, encoding="utf-8")
+    monkeypatch.setattr(sys, "argv", ["readme_progress.py", "--discord"])
+    monkeypatch.setenv("DISCORD_PROGRESS_WEBHOOK", "https://discord.com/api/webhooks/test/token")
+    monkeypatch.setattr(daily, "urlopen", lambda *a, **k: io.BytesIO(b'{"id":"7"}'))
+    for name, value in (("matched_at", lambda *a: []), ("notes_at", lambda *a: {}), ("retail_text", lambda: (0, 100)),
+                        ("naked_cpp_rows_at", lambda *a: []), ("real_split", lambda *a: sample()),
+                        ("census_at", lambda *a: None), ("real_code_denominator", lambda *a: (0, 100))):
+        monkeypatch.setattr(daily.progress, name, value)
+    monkeypatch.setattr(daily.name_metric, "readable", lambda: (200, 58))
+    daily.main()
+    assert json.loads(path.read_text())["message_id"] == "7"
+    assert "Strict link check unavailable" in (tmp_path / "docs/progress.svg").read_text(encoding="utf-8")
