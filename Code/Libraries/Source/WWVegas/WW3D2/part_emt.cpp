@@ -56,6 +56,10 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #pragma optimize("s", on)
 #include "refcount.h"
 #pragma optimize("", on)
+#include "../../../../../reference/shims/bfme_part_emt_inline/wwstring.h"
+#include "../../../../../reference/shims/bfme_part_emt_inline/vector3.h"
+#include "../../../../../reference/shims/bfme_part_emt_inline/matrix3d.h"
+#include "../../../../../reference/shims/bfme_part_emt_inline/texture.h"
 #include "rendobj.h"
 #include "part_emt.h"
 #include "wwdebug.h"
@@ -88,97 +92,9 @@ bool ParticleEmitterClass::DebugDisable = false;
 bool ParticleEmitterClass::DefaultRemoveOnComplete = true;
 
 
-ParticleEmitterClass::ParticleEmitterClass(float emit_rate, unsigned int burst_size,
-			Vector3Randomizer *pos_rnd, Vector3 base_vel, Vector3Randomizer *vel_rnd, float out_vel,
-			float vel_inherit_factor, 
-			ParticlePropertyStruct<Vector3> &color,
-			ParticlePropertyStruct<float> &opacity, 
-			ParticlePropertyStruct<float> &size,
-			ParticlePropertyStruct<float> &rotation, float orient_rnd,
-			ParticlePropertyStruct<float> &frames,
-			ParticlePropertyStruct<float> &blur_times,
-			Vector3 accel, float max_age, float future_start, TextureClass *tex, ShaderClass shader, int max_particles,
-			int max_buffer_size, bool pingpong,int render_mode,int frame_mode,
-			const W3dEmitterLinePropertiesStruct * line_props
-) :
-	RenderObjClass(),
-	EmitRate(emit_rate > 0.0f ? (unsigned int)(1000.0f / emit_rate) : 1000U),
-	BurstSize(burst_size != 0	? burst_size : 1),
-	OneTimeBurstSize(1),
-	OneTimeBurst(false),
-	PosRand(pos_rnd),
-	BaseVel(base_vel * 0.001f),
-	VelRand(vel_rnd),
-	OutwardVel(out_vel * 0.001f),
-	VelInheritFactor(vel_inherit_factor),
-	EmitRemain(0U),
-	PrevQ(true),
-	PrevOrig(0.0, 0.0, 0.0),
-	Active(false),
-	FirstTime(true),
-	BufferSceneNeeded(true),
-	ParticlesLeft(max_particles),
-	MaxParticles(max_particles),
-	IsComplete(false),
-	NameString(::_strdup ("ParticleEmitter")),
-	UserString(NULL),
-	RemoveOnComplete(DefaultRemoveOnComplete),
-	IsInScene(false),
-	GroupID(0),
-	Buffer(NULL),
-	IsInvisible(false)
-{
-	max_age		= max_age	> 	0.0f ? max_age : 1.0f;
-	VelRand->Scale(0.001f);
+// Constructor: native BFME2 owner particle_emitter_constructor.cpp, retail 0x001A1070.
 
-	// The maximum number of particles is determined by the emission rate, burst size and lifetime.
-	// However, it is capped both by the particle cap and by the maximum buffer size, if these are
-	// active.
-	int max_num = BurstSize * emit_rate * (max_age + 1);
-	if (max_particles > 0) max_num = MIN(max_num, max_particles);
-	if (max_buffer_size > 0) max_num = MIN(max_num, max_buffer_size);
-	max_num = MAX(max_num, 2);	// max_num of 1 causes problems
-
-	Buffer = W3DNEW ParticleBufferClass(this, max_num, color, opacity, size, rotation, orient_rnd,
-		frames, blur_times, accel/1000000.0f,max_age, future_start, tex, shader, pingpong, render_mode, frame_mode,
-		line_props);
-	SET_REF_OWNER( Buffer );
-}
-
-
-ParticleEmitterClass::ParticleEmitterClass(const ParticleEmitterClass & src) :
-	RenderObjClass(src),
-	EmitRate(src.EmitRate),
-	BurstSize(src.BurstSize),
-	OneTimeBurstSize(src.OneTimeBurstSize),
-	OneTimeBurst(src.OneTimeBurst),
-	PosRand(src.PosRand ? src.PosRand->Clone() : NULL),
-	BaseVel(src.BaseVel),
-	VelRand(src.VelRand ? src.VelRand->Clone() : NULL),
-	OutwardVel(src.OutwardVel),
-	VelInheritFactor(src.VelInheritFactor),
-	EmitRemain(src.EmitRemain),
-	PrevQ(src.PrevQ),
-	PrevOrig(src.PrevOrig),
-	Active(true),	// default to on
-	FirstTime(true),
-	BufferSceneNeeded(true),
-	ParticlesLeft(src.ParticlesLeft),
-	MaxParticles(src.MaxParticles),
-	IsComplete(false),
-	NameString(::_strdup (src.NameString)),
-	UserString(::_strdup (src.UserString)),
-	RemoveOnComplete(src.RemoveOnComplete),
-	IsInScene(false),
-	GroupID(0),
-	Buffer(NULL),
-	IsInvisible(src.IsInvisible)
-{
-	Buffer = (ParticleBufferClass *) src.Buffer->Clone();
-	Buffer->Set_Emitter(this);
-	SET_REF_OWNER( Buffer );
-}
-
+// Copy constructor: native owner particle_emitter_copy.cpp, retail 0x001A1530.
 
 // ?ParticleEmitterClass::operator= present-unmatched
 ParticleEmitterClass & ParticleEmitterClass::operator = (const ParticleEmitterClass & that)
@@ -193,141 +109,9 @@ ParticleEmitterClass & ParticleEmitterClass::operator = (const ParticleEmitterCl
 }
 
 
-ParticleEmitterClass::~ParticleEmitterClass(void)
-{
-	Buffer->Emitter_Is_Dead();
-	Buffer->Release_Ref();
+// Destructor: native owner particle_emitter_destructor.cpp, retail 0x001A1720.
 
-	if (PosRand != NULL) {
-		delete PosRand;
-		PosRand = NULL;
-	}
-
-	if (VelRand != NULL) {
-		delete VelRand;
-		VelRand = NULL;
-	}
-
-	if (NameString != NULL) {
-		::free (NameString);
-		NameString = NULL;
-	}
-
-	if (UserString != NULL) {
-		::free (UserString);
-		UserString = NULL;
-	}
-
-	return ;
-}
-
-
-ParticleEmitterClass *
-// ?ParticleEmitterClass::Create_From_Definition present-unmatched
-ParticleEmitterClass::Create_From_Definition (const ParticleEmitterDefClass &definition)
-{
-	// Assume failure
-	ParticleEmitterClass *pemitter = NULL;
-
-	// Attempt to load the texture for this emitter
-	const char *ptexture_filename = definition.Get_Texture_Filename ();
-	TextureClass *ptexture = NULL;
-	if (ptexture_filename && ptexture_filename[0]) {
-		ptexture = WW3DAssetManager::Get_Instance()->Get_Texture
-		(
-			ptexture_filename,
-			MIP_LEVELS_ALL,
-			WW3D_FORMAT_UNKNOWN
-		);
-//			false);	// no compression for particle textures!
-	}
-	
-	ShaderClass shader;
-	definition.Get_Shader (shader);
-	if (WW3DAssetManager::Get_Instance()->Get_Activate_Fog_On_Load()) {
-		shader.Enable_Fog ("ParticleEmitterClass");
-	}
-	/*if (ptexture) {
-		// If texture has an alpha channel do alpha blending instead of additive
-		// (which is the default for point groups):
-		srTextureIFace::Dimensions dimensions;
-		ptexture->getDimensions(dimensions);
-		if (dimensions.pixelFormat.aBits > 0) {
-			shader = ShaderClass::_PresetAlphaSpriteShader;
-		}
-	}*/
-
-	//
-	//	Peek at the definition's keyframes
-	//
-	ParticlePropertyStruct<Vector3> color_keys;
-	ParticlePropertyStruct<float> opacity_keys;
-	ParticlePropertyStruct<float> size_keys;
-	ParticlePropertyStruct<float> rotation_keys;
-	ParticlePropertyStruct<float> frame_keys;
-	ParticlePropertyStruct<float> blur_time_keys;
-
-	definition.Get_Color_Keyframes (color_keys);
-	definition.Get_Opacity_Keyframes (opacity_keys);
-	definition.Get_Size_Keyframes (size_keys);
-	definition.Get_Rotation_Keyframes (rotation_keys);
-	definition.Get_Frame_Keyframes (frame_keys);
-	definition.Get_Blur_Time_Keyframes (blur_time_keys);
-
-	//
-	//	Create the emitter
-	//
-	pemitter = NEW_REF( ParticleEmitterClass, (	definition.Get_Emission_Rate (),
-																definition.Get_Burst_Size (),
-																definition.Get_Creation_Volume (),
-																definition.Get_Velocity (), 
-																definition.Get_Velocity_Random (),
-																definition.Get_Outward_Vel (),
-																definition.Get_Vel_Inherit (), 
-																color_keys,
-																opacity_keys,
-																size_keys,
-																rotation_keys,
-																definition.Get_Initial_Orientation_Random(),
-																frame_keys,
-																blur_time_keys,
-																definition.Get_Acceleration (),
-																definition.Get_Lifetime (),
-																definition.Get_Future_Start_Time(),
-																ptexture,
-																shader, 
-																definition.Get_Max_Emissions (),
-																0,
-																false,
-																definition.Get_Render_Mode (),
-																definition.Get_Frame_Mode (),
-																definition.Get_Line_Properties ()) );
-
-	if (color_keys.KeyTimes != NULL) delete [] color_keys.KeyTimes;
-	if (color_keys.Values != NULL) delete [] color_keys.Values;
-	if (opacity_keys.KeyTimes != NULL) delete [] opacity_keys.KeyTimes;
-	if (opacity_keys.Values != NULL) delete [] opacity_keys.Values;
-	if (size_keys.KeyTimes != NULL) delete [] size_keys.KeyTimes;
-	if (size_keys.Values != NULL) delete [] size_keys.Values;
-	if (rotation_keys.KeyTimes != NULL) delete [] rotation_keys.KeyTimes;
-	if (rotation_keys.Values != NULL) delete [] rotation_keys.Values;
-	if (frame_keys.KeyTimes != NULL) delete [] frame_keys.KeyTimes;
-	if (frame_keys.Values != NULL) delete [] frame_keys.Values;
-	if (blur_time_keys.KeyTimes != NULL) delete [] blur_time_keys.KeyTimes;
-	if (blur_time_keys.Values != NULL) delete [] blur_time_keys.Values;
-
-	// Pass the name along to the emitter
-	pemitter->Set_Name (definition.Get_Name ());
-
-	// release our reference to particle texture.
-	if (ptexture) {
-		REF_PTR_RELEASE(ptexture);
-		ptexture = 0;
-	}
-
-	// Return a pointer to the new emitter
-	return pemitter;
-}
+// Create_From_Definition: native owner particle_emitter_create_from_definition.cpp, retail 0x001A22F0.
 
 RenderObjClass * ParticleEmitterClass::Clone(void) const
 {
@@ -368,43 +152,7 @@ void ParticleEmitterClass::Notify_Removed(SceneClass * scene)
 
 // Put particle buffer in scene if this is the first time (clunky code
 // - hopefully can be rewritten more cleanly in future)...
-// ?ParticleEmitterClass::On_Frame_Update present-unmatched
-void ParticleEmitterClass::On_Frame_Update(void)
-{
-	WWPROFILE("ParticleEmitterClass::On_Frame_Update");
-	if (Active && !IsComplete) {
-		if (FirstTime) {
-
-			// The particle buffer doesn't have a valid Scene yet - the emitter
-			// finds out what scene it belongs to (goes up the container tree
-			// until it finds a non-NULL Scene), and then adds the particle
-			// buffer to it.
-			if ( BufferSceneNeeded ) {
-			
-				if (Is_In_Scene()) {
-					Buffer->Add(Scene);
-					BufferSceneNeeded = false;
-				} else {
-					return;
-				}
-
-			}
-			BufferSceneNeeded = false;
-
-			// Initialize previous transform:
-			PrevQ = Build_Quaternion(Get_Transform());
-			PrevOrig = Get_Transform().Get_Translation();
-
-			FirstTime = false;
-		}
-	}
-
-	if (Is_Complete()) {
-		if (Is_In_Scene() && Is_Remove_On_Complete_Enabled()) {
-			Scene->Register(this,SceneClass::RELEASE);
-		}
-	}
-}
+// On_Frame_Update: native owner particle_emitter_frame.cpp, retail 0x001A1970.
 
 // ?ParticleEmitterClass::Reset present-unmatched
 void ParticleEmitterClass::Reset(void)
@@ -539,15 +287,7 @@ void ParticleEmitterClass::Set_Velocity_Inheritance_Factor(float inh_factor)
 // Collision sphere is a point - emitter emits also when not visible, so this
 // is only important to avoid affecting the collision spheres of composite
 // objects into which the emitter is inserted.
-// ?ParticleEmitterClass::Update_Cached_Bounding_Volumes present-unmatched
-void ParticleEmitterClass::Update_Cached_Bounding_Volumes(void) const
-{ 
-	CachedBoundingSphere.Init(Get_Position(),0.0); 
-	CachedBoundingBox.Center = Get_Position();
-	CachedBoundingBox.Extent.Set(0,0,0);
-	Validate_Cached_Bounding_Volumes();
-}
-
+// Update_Cached_Bounding_Volumes: native owner part_emt_update_cached.cpp, retail 0x001A1D70.
 
 // Note that creation location and velocity are in local coordinates, so new
 // particles need to be transformed into worldspace. It is important to get
@@ -650,58 +390,7 @@ void ParticleEmitterClass::Create_New_Particles(const Quaternion & curr_quat, co
 // Initialize one new particle at the given NewParticleStruct address, with
 // the given age and emitter transform (expressed as a quaternion and origin
 // vector). (must check if address is NULL).
-void ParticleEmitterClass::Initialize_Particle(NewParticleStruct * newpart,
-   unsigned int timestamp, const Quaternion & quat, const Vector3 & orig)
-{
-   // Set time stamp.
-	newpart->TimeStamp = timestamp;
-
-   // Set starting (random) local position.
-	Vector3 rand_pos;
-	if (PosRand) {
-		PosRand->Get_Vector(rand_pos);
-	} else {
-		rand_pos.Set(0.0, 0.0, 0.0);
-	}
-
-	// Transform position to worldspace, using the transform at moment of
-   // particle creation.
-	newpart->Position = quat.Rotate_Vector(rand_pos) + orig;
-
-	// Set (random) local velocity.
-	Vector3 rand_vel;
-	if (VelRand) {
-		VelRand->Get_Vector(rand_vel);
-	} else {
-		rand_vel.Set(0.0, 0.0, 0.0);
-	}
-
-	// Add outwards velocity to emitterspace velocity
-	if (OutwardVel) {
-		// Find vector pointing outwards (from origin to creation position)
-		Vector3 outwards;
-		float pos_l2 = rand_pos.Length2();
-		if (pos_l2) {
-			outwards = rand_pos * (OutwardVel * WWMath::Inv_Sqrt(pos_l2));
-		} else {
-			outwards.X = OutwardVel;
-			outwards.Y = 0.0f;
-			outwards.Z = 0.0f;
-		}
-
-		rand_vel += outwards;
-	}
-
-	// Add base velocity to emitterspace velocity
-	rand_vel += BaseVel;
-
-	// Rotate velocity to worldspace and add emitter's inherited velocity.
-	newpart->Velocity = InheritedWorldSpaceEmitterVel + quat.Rotate_Vector(rand_vel);
-
-	// GroupID
-	newpart->GroupID = GroupID;	
-}
-
+// Initialize_Particle: native owner particle_emitter_initialize.cpp, retail 0x001A1DE0.
 
 // Build_Definition: BFME2 retail 0x001A2B00, owned by
 // particle_emitter_build_definition.cpp with the native texture/string ABI.
