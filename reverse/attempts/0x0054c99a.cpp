@@ -1,179 +1,121 @@
-// ?rva0054C99A@Rva0054C99AImpl@@QAEXH@Z
-// partial score=0.86 date=2026-10-10
-// cl: /O1 /GX /MD /D_CRTIMP= /Ireference/shims/bfme2_ascii
+// ?rva0054C99A@Rva0054C941@@QAEXH@Z
+// partial score=0.97 date=2026-10-09
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /O1 /G7 /arch:SSE
+// stlport
 //
-// Message-box movie clip state machine at its WorldBuilder home. WB's
-// AptMessageBoxMovieClip.cpp names 0x0054CFB8 AptMessageBoxMovieClip::Impl::
-// Show (callgraph lead, asserts "Multiple message boxes at the same time are
-// not allowed."); the address-derived class and method names already pinned
-// for its callers are kept, since retail proves the bodies, not the names.
-//
-// Target facts (read from retail): the object is the child at +4 of the
-// g_Va00E032FC holder, the same one the adjacent configure 0x0054D12A
-// (Rva00437EDCFinish.cpp) drives: level00, movie04, previous14 (pending
-// transition), state18 (box type, 5 = none), callbacks 1C/20, a timeGetTime
-// deadline at 24, the long-text byte 28 and the hide byte 29.
-// 0x00DFE4CC is the window manager; its byte 312 suppresses the immediate
-// transition flush. The box-type names are retail's literals.
-
-struct TargetRef00217D4C { virtual void *destroy(unsigned flags); int references; };
-void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
-struct TreeHintRef00217D4C {
- TreeHintRef00217D4C &operator=(const TreeHintRef00217D4C &);
- TargetRef00217D4C *m_ptr;
- TreeHintRef00217D4C() : m_ptr(0) {}
- // ?TreeHintRef00217D4C::TreeHintRef00217D4C present-unmatched
- TreeHintRef00217D4C(const TreeHintRef00217D4C &other) : m_ptr(other.m_ptr)
- {
-  if (m_ptr)
-   ++m_ptr->references;
- }
- // ?TreeHintRef00217D4C::~TreeHintRef00217D4C present-unmatched
- __forceinline ~TreeHintRef00217D4C()
- {
-  if (m_ptr)
-   ReleaseTreeHintRef00217D4C(m_ptr);
- }
-};
+// ??1Rva0054C941@@QAE@XZ @0x0054C941 (89B).
+// Dtor with EH scope 0x0079824F: releases TreeHint refs at +0x20/+0x1c,
+// destroys Rva0052413E at +8, releases AsciiString at +4. LINK BONUS 46B,
+// callers 0x0054CC02/0x0054CC27, unblocks 0x0054CC1B.
 #include "ascii_string.h"
-#include "unicode_string.h"
-class Rva000B3F84Pair { public: const char *m_ptr; int m_len; };
-struct AsciiStringRef { const AsciiString *m_string; };
-struct AsciiStringPlusText : AsciiStringRef { operator AsciiString(); Rva000B3F84Pair m_right; };
-AsciiStringPlusText operator+(const AsciiString &,const char *);
-class BfmeAptWindowManager {public: void bfmeSetText(const AsciiString &,const UnicodeString &,bool);
- char m_pad000[0x312]; bool m_flag312;};
-extern BfmeAptWindowManager *g_bfmeAptWindowManager;
+#include <vector>
 
-class Rva0054CFB8Target {
-public: void method(int,const UnicodeString &,const UnicodeString &,TreeHintRef00217D4C,TreeHintRef00217D4C);
- void rva0054CA4A();
-protected:
- unsigned m_level00; AsciiString m_movie04; char m_pad08[0xc]; int m_previous14; int m_state18;
- TreeHintRef00217D4C m_callback1C; TreeHintRef00217D4C m_callback20; unsigned m_deadline24; bool m_long28; bool m_29;
+class Rva0052413E
+{
+public:
+	~Rva0052413E();
+private:
+	_STL::vector<AsciiString, _STL::allocator<AsciiString> > m_vec;	// +0x00, size 12
 };
-// Pinned 0x0054C99A (unrowed; closes the box) names this view of the same
-// object; Show passes its own this.
-class Rva0054C99AImpl : public Rva0054CFB8Target { public: void rva0054C99A(int); };
-class Rva00432AEB { public: int rva00432AEB(int); };
-class Rva0057CC15Ref { public: void invoke(int); };
-extern int g_Va00E032C8;
-class Rva00222A8BTarget;
-int __cdecl Rva0054C83FAptCall(Rva00222A8BTarget *, void *, const char *, const char *, const char **, bool *);
-void __cdecl Rva005277D9Fire(Rva00222A8BTarget *, void *, const char *, const char *, bool *);
-int __cdecl Rva0050E9FEAptCall(Rva00222A8BTarget *, void *, const char *, const char *, const char **);
-extern "C" __declspec(dllimport) unsigned long __stdcall timeGetTime(void);
-
-// Native [54CA4A,54CBB0)358B thiscall plain RET. Pending transition
-// previous14: 2 releases g_Va00E032C8's 432AEB(2) and calls the movie's
-// "Show" with the box-type name and the long-text byte28; 3 calls "Hide"
-// with byte29 and resets both; 4 calls "Change" with the type name. Show and
-// Change leave previous14 at 1. A pending box past its deadline24 closes.
-void Rva0054CFB8Target::rva0054CA4A()
+struct TargetRef00217D4C {void*vt;int references;};
+void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
+struct TreeHintRef00217D4C
 {
- const char *type;
- if (m_previous14 == 2)
- {
-  if (g_Va00E032C8)
-   ((Rva00432AEB *)g_Va00E032C8)->rva00432AEB(2);
-  if (m_state18 == 2)
-   type = "YesNo";
-  else if (m_state18 == 1)
-   type = "OkCancel";
-  else if (m_state18 == 3)
-   type = "Cancel";
-  else if (m_state18 == 4)
-   type = "NonInteractive";
-  else
-   type = "Ok";
-  Rva0054C83FAptCall((Rva00222A8BTarget *)g_bfmeAptWindowManager,
-   (void *)m_level00, m_movie04.str(), "Show", &type, &m_long28);
- }
- else if (m_previous14 == 3)
- {
-  Rva005277D9Fire((Rva00222A8BTarget *)g_bfmeAptWindowManager,
-   (void *)m_level00, m_movie04.str(), "Hide", &m_29);
-  m_previous14 = 0;
-  m_29 = false;
-  goto check;
- }
- else if (m_previous14 == 4)
- {
-  if (m_state18 == 2)
-   type = "YesNo";
-  else if (m_state18 == 1)
-   type = "OkCancel";
-  else if (m_state18 == 4)
-   type = "NonInteractive";
-  else if (m_state18 == 3)
-   type = "Cancel";
-  else
-   type = "Ok";
-  Rva0050E9FEAptCall((Rva00222A8BTarget *)g_bfmeAptWindowManager,
-   (void *)m_level00, m_movie04.str(), "Change", &type);
- }
- else
-  goto check;
- m_previous14 = 1;
-check:
- if (m_previous14 != 0 && timeGetTime() > m_deadline24)
-  ((Rva0054C99AImpl *)this)->rva0054C99A(0);
+	TargetRef00217D4C *m_ptr;
+ TreeHintRef00217D4C(TargetRef00217D4C*p=0):m_ptr(p){if(m_ptr)++m_ptr->references;}
+ __declspec(noinline) TreeHintRef00217D4C&operator=(const TreeHintRef00217D4C&);
+	__forceinline void clear(){*this=TreeHintRef00217D4C();}
+ ~TreeHintRef00217D4C()
+	{
+		if (m_ptr)
+			ReleaseTreeHintRef00217D4C(m_ptr);
+	}
+};
+class Rva0054C941
+{
+public:
+	~Rva0054C941();
+ TreeHintRef00217D4C&pendingRef(){return m_holder1C;}
+ void rva0054C99A(int);void rva0054CA4A();void rva0054CBB0(int);
+private:
+	void*m_level;			// +0x00
+	AsciiString m_str;			// +0x04
+	Rva0052413E m_rva08;			// +0x08
+	int m_word14;int m_word18;		// +0x14
+	TreeHintRef00217D4C m_holder1C;	// +0x1c
+	TreeHintRef00217D4C m_holder20;	// +0x20
+ unsigned m_word24;bool m_flag28,m_flag29;
+};
+Rva0054C941::~Rva0054C941()
+{
 }
 
-// Native [54CFB8,54D12A)370B thiscall RET20, ending at the adjacent
-// configure 54D12A. It closes a live box via pinned 54C99A(0), binds both
-// handles, writes Title/Text, flags text over 0x100 chars and flushes through
-// 54CA4A while the window manager's byte 312 is clear. Local member
-// references keep retail's address-before-argument evaluation order.
-void Rva0054CFB8Target::method(int kind, const UnicodeString &title,
- const UnicodeString &message, TreeHintRef00217D4C callback,
- TreeHintRef00217D4C callback2)
-{
- if (m_state18 != 5)
-  ((Rva0054C99AImpl *)this)->rva0054C99A(0);
- m_state18 = kind;
- TreeHintRef00217D4C &first = m_callback1C;
- first = callback;
- TreeHintRef00217D4C &second = m_callback20;
- second = callback2;
- m_deadline24 = (unsigned)-1;
- AsciiString prefix;
- prefix.format("APT:_level%u.%s_", m_level00, m_movie04.str());
- g_bfmeAptWindowManager->bfmeSetText(prefix + "Title", title, true);
- g_bfmeAptWindowManager->bfmeSetText(prefix + "Text", message, true);
- m_previous14 = 2;
- m_29 = false;
- m_long28 = message.getLength() > 0x100;
- if (g_bfmeAptWindowManager && !g_bfmeAptWindowManager->m_flag312)
-  rva0054CA4A();
-}
-
-// Native [54C99A,54CA4A)176B thiscall RET4. Unless state18 is already 5 it
-// sets 5, clears callback1C and the deadline, moves a nonzero previous14 to 3,
-// and when its byte argument is set marks byte29 and fires callback20
-// through rowed 57CC15 with 2 then 3 before clearing it. Same 54CA4A tail
-// as Show. Show calls it with 0 when replacing a live box.
-void Rva0054C99AImpl::rva0054C99A(int notify)
-{
- if (m_state18 == 5)
-  return;
- m_state18 = 5;
- TreeHintRef00217D4C &first = m_callback1C;
- first = TreeHintRef00217D4C();
- m_deadline24 = (unsigned)-1;
- if (m_previous14 != 0 && m_previous14 != 3)
-  m_previous14 = 3;
- if ((char)notify)
- {
-  m_29 = true;
-  if (m_callback20.m_ptr)
-  {
-   ((Rva0057CC15Ref *)&m_callback20)->invoke(2);
-   ((Rva0057CC15Ref *)&m_callback20)->invoke(3);
-   TreeHintRef00217D4C &second = m_callback20;
-   second = TreeHintRef00217D4C();
+class Rva0057CC15Ref {public:void invoke(int);};
+class BfmeAptWindowManager {public:unsigned char pad[0x312];bool flag312;};
+extern BfmeAptWindowManager*g_bfmeAptWindowManager;
+void Rva0054C941::rva0054C99A(int arg) {
+ if(m_word18!=5) {
+  m_word18=5;
+  ((TreeHintRef00217D4C*)&m_holder1C)->operator=(TreeHintRef00217D4C(0));
+  m_word24=~0u;
+  if(m_word14!=0 && m_word14!=3)m_word14=3;
+  if((unsigned char)arg) {
+   m_flag29=true;
+   if(m_holder20.m_ptr) {
+    ((Rva0057CC15Ref*)&m_holder20)->invoke(2);
+    ((Rva0057CC15Ref*)&m_holder20)->invoke(3);
+    m_holder20=TreeHintRef00217D4C();
+   }
   }
+  if(g_bfmeAptWindowManager && !g_bfmeAptWindowManager->flag312)rva0054CA4A();
  }
- if (g_bfmeAptWindowManager && !g_bfmeAptWindowManager->m_flag312)
-  rva0054CA4A();
+}
+void Rva0054C941::rva0054CBB0(int unused) {
+ if(m_holder20.m_ptr) {
+  ((Rva0057CC15Ref*)&m_holder20)->invoke(3);
+  m_holder20=TreeHintRef00217D4C();
+ }
+}
+
+TreeHintRef00217D4C&TreeHintRef00217D4C::operator=(const TreeHintRef00217D4C&other) {
+ if(this!=&other) {
+  if(other.m_ptr)++other.m_ptr->references;
+  if(m_ptr)ReleaseTreeHintRef00217D4C(m_ptr);
+  m_ptr=other.m_ptr;
+ }
+ return *this;
+}
+
+class Rva00222A8BTarget;
+int Rva0054C83FAptCall(Rva00222A8BTarget*,void*,const char*,const char*,const char**,bool*);
+void Rva005277D9Fire(Rva00222A8BTarget*,void*,const char*,const char*,bool*);
+int Rva0050E9FEAptCall(Rva00222A8BTarget*,void*,const char*,const char*,const char**);
+extern int g_Va00E032C8;
+class Rva00432AEB {public:int rva00432AEB(int);};
+extern "C" __declspec(dllimport) unsigned long __stdcall timeGetTime(void);
+void Rva0054C941::rva0054CA4A() {
+ const char*caption;
+ if(m_word14==2) {
+  Rva00432AEB*mouse=(Rva00432AEB*)g_Va00E032C8;
+  if(mouse)mouse->rva00432AEB(2);
+  if(m_word18==2)caption="YesNo";
+  else if(m_word18==1)caption="OkCancel";
+  else if(m_word18==3)caption="Cancel";
+  else if(m_word18==4)caption="NonInteractive";
+  else caption="Ok";
+  Rva0054C83FAptCall((Rva00222A8BTarget*)g_bfmeAptWindowManager,m_level,m_str.str(),"Show",&caption,&m_flag28);
+  m_word14=1;
+ } else if(m_word14==3) {
+  Rva005277D9Fire((Rva00222A8BTarget*)g_bfmeAptWindowManager,m_level,m_str.str(),"Hide",&m_flag29);
+  m_word14=0;m_flag29=false;
+ } else if(m_word14==4) {
+  if(m_word18==2)caption="YesNo";
+  else if(m_word18==1)caption="OkCancel";
+  else if(m_word18==4)caption="NonInteractive";
+  else if(m_word18==3)caption="Cancel";
+  else caption="Ok";
+  Rva0050E9FEAptCall((Rva00222A8BTarget*)g_bfmeAptWindowManager,m_level,m_str.str(),"Change",&caption);
+  m_word14=1;
+ }
+ if(m_word14 && timeGetTime()>m_word24)rva0054C99A(0);
 }
