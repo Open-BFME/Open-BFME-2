@@ -58,13 +58,107 @@ public:
 	float Y;
 };
 
+class WWMath
+{
+public:
+	static float __fastcall Inv_Sqrt( float a );
+};
+
 class Vector3
 {
 public:
-	Vector3( float x, float y, float z ) { X = x; Y = y; Z = z; }
+	__forceinline Vector3( void ) {}
+	__forceinline Vector3( const Vector3 & v ) { X = v.X; Y = v.Y; Z = v.Z; }
+	__forceinline Vector3( float x, float y, float z ) { X = x; Y = y; Z = z; }
+
+	__forceinline Vector3 & operator = ( const Vector3 & v ) { X = v.X; Y = v.Y; Z = v.Z; return *this; }
+	__forceinline Vector3 & operator += ( const Vector3 & v ) { X += v.X; Y += v.Y; Z += v.Z; return *this; }
+	__forceinline Vector3 & operator -= ( const Vector3 & v ) { X -= v.X; Y -= v.Y; Z -= v.Z; return *this; }
+	__forceinline Vector3 & operator *= ( float k ) { X = X*k; Y=Y*k; Z=Z*k; return *this; }
+
+	__forceinline float Length2( void ) const { return X*X + Y*Y + Z*Z; }
+	__forceinline void Normalize( void )
+	{
+		float len2 = Length2();
+		if (len2 != 0.0f)
+		{
+			float oolen = WWMath::Inv_Sqrt(len2);
+			X *= oolen;
+			Y *= oolen;
+			Z *= oolen;
+		}
+	}
+
+	static __forceinline float Find_X_At_Z( float z, const Vector3 &p1, const Vector3 &p2 )
+	{
+		return(p1.X + ((z - p1.Z) * ((p2.X - p1.X) / (p2.Z - p1.Z))));
+	}
+	static __forceinline float Find_Y_At_Z( float z, const Vector3 &p1, const Vector3 &p2 )
+	{
+		return(p1.Y + ((z - p1.Z) * ((p2.Y - p1.Y) / (p2.Z - p1.Z))));
+	}
+
+	__forceinline const float & operator [] ( int i ) const { return (&X)[i]; }
+
 	float X;
 	float Y;
 	float Z;
+};
+
+class Vector4
+{
+public:
+	__forceinline void Set( float x, float y, float z, float w ) { X = x; Y = y; Z = z; W = w; }
+	__forceinline float & operator []( int i ) { return (&X)[i]; }
+
+	float X;
+	float Y;
+	float Z;
+	float W;
+};
+
+extern "C" double __cdecl cos( double x );
+extern "C" double __cdecl sin( double x );
+extern "C" float __cdecl atan2f( float y, float x );
+inline float __cdecl cosf( float _X ) { return ((float)cos((double)_X)); }
+inline float __cdecl sinf( float _X ) { return ((float)sin((double)_X)); }
+
+#define M_PI 3.14159265358979323846
+
+class Matrix3D
+{
+public:
+	__forceinline explicit Matrix3D( bool init ) { if (init) Make_Identity(); }
+
+	__forceinline void Make_Identity( void )
+	{
+		Row[0].Set(1.0f,0.0f,0.0f,0.0f);
+		Row[1].Set(0.0f,1.0f,0.0f,0.0f);
+		Row[2].Set(0.0f,0.0f,1.0f,0.0f);
+	}
+	__forceinline void Set_Translation( const Vector3 & t ) { Row[0][3] = t[0]; Row[1][3] = t[1]; Row[2][3] = t[2]; }
+	__forceinline void Rotate_Z( float theta )
+	{
+		float tmp1,tmp2;
+		float c,s;
+
+		c = cosf(theta);
+		s = sinf(theta);
+
+		tmp1 = Row[0][0]; tmp2 = Row[0][1];
+		Row[0][0] = (float)( c*tmp1 + s*tmp2);
+		Row[0][1] = (float)(-s*tmp1 + c*tmp2);
+
+		tmp1 = Row[1][0]; tmp2 = Row[1][1];
+		Row[1][0] = (float)( c * (*(const volatile float *)&Row[1][0]) + s*tmp2);
+		Row[1][1] = (float)(-s*tmp1 + c*tmp2);
+
+		tmp1 = Row[2][0]; tmp2 = Row[2][1];
+		Row[2][0] = (float)( c * (*(const volatile float *)&Row[2][0]) + s*tmp2);
+		Row[2][1] = (float)(-s*tmp1 + c*tmp2);
+	}
+
+	Vector4 Row[3];
 };
 
 class HAnimClass;
@@ -85,7 +179,8 @@ public:
 	virtual void slot08(); virtual void slot09(); virtual void slot10(); virtual void slot11();
 	virtual void slot12(); virtual void slot13(); virtual void slot14(); virtual void slot15();
 	virtual void slot16(); virtual void slot17(); virtual void slot18(); virtual void slot19();
-	virtual void slot20(); virtual void slot21();
+	virtual void slot20();
+	virtual void Set_Transform( const Matrix3D &m );	// slot 21 (+0x54)
 	virtual void Set_Position( const Vector3 &v );		// slot 22 (+0x58)
 	virtual void slot23(); virtual void slot24(); virtual void slot25(); virtual void slot26();
 	virtual void slot27(); virtual void slot28(); virtual void slot29(); virtual void slot30();
@@ -94,6 +189,8 @@ public:
 	virtual void slot39(); virtual void slot40(); virtual void slot41(); virtual void slot42();
 	virtual void slot43(); virtual void slot44();
 	virtual void Set_Animation( HAnimClass *motion, float frame, int anim_mode );	// slot 45 (+0xB4)
+
+	Vector3 Get_Position( void ) const;
 };
 
 class CameraClass : public RenderObjClass
@@ -113,11 +210,15 @@ public:
 		FrustumValid = false;
 		Projection = ptype;
 	}
+	void Un_Project( Vector3 & dest, const Vector2 & view_point ) const;
+	float Get_Depth( void ) const { return ZFar; }
 
 private:
 	char m_pad004[0xC4 - 4];
 	ProjectionType Projection;
-	char m_padC8[0xFC - 0xC8];
+	char m_padC8[0xF0 - 0xC8];
+	float ZFar;
+	char m_padF4[0xFC - 0xF4];
 	bool FrustumValid;
 	char m_padFD[0x3FC - 0xFD];
 };
@@ -162,7 +263,7 @@ struct IDirect3DDevice8
 	virtual void __stdcall slot06(); virtual void __stdcall slot07(); virtual void __stdcall slot08();
 	virtual void __stdcall slot09();
 	virtual long __stdcall SetCursorProperties( unsigned int x, unsigned int y, IDirect3DSurface8 *bitmap );	// slot 10 (+0x28)
-	virtual void __stdcall slot11();
+	virtual void __stdcall SetCursorPosition( int x, int y, unsigned long flags );	// slot 11 (+0x2C)
 	virtual int __stdcall ShowCursor( int bShow );		// slot 12 (+0x30)
 };
 
@@ -183,9 +284,27 @@ public:
 	virtual void Remove_Render_Object( RenderObjClass *obj );	// slot 3 (+0x0C)
 };
 
-class W3DDisplay
+class Image;
+
+class Display
 {
 public:
+	virtual void slot00(); virtual void slot01(); virtual void slot02(); virtual void slot03();
+	virtual void slot04(); virtual void slot05(); virtual void slot06(); virtual void slot07();
+	virtual void slot08(); virtual void slot09(); virtual void slot10(); virtual void slot11();
+	virtual void slot12(); virtual void slot13(); virtual void slot14(); virtual void slot15();
+	virtual unsigned int getWidth( void );		// slot 16 (+0x40)
+	virtual unsigned int getHeight( void );		// slot 17 (+0x44)
+	virtual void slot18(); virtual void slot19(); virtual void slot20();
+	virtual Bool getWindowed( void );			// slot 21 (+0x54)
+};
+extern Display *TheDisplay;
+
+class W3DDisplay : public Display
+{
+public:
+	void rva0004D6B3( Image *image, Real startX, Real startY, Real endX, Real endY, Int color = 0xFFFFFFFF, Int mode = 2 );
+
 	static RTS3DInterfaceScene *m_3DInterfaceScene;
 };
 
@@ -225,6 +344,72 @@ enum MouseCursor
 extern "C" __declspec(dllimport) void *__stdcall SetCursor( void *cursor );
 extern "C" __declspec(dllimport) unsigned long __stdcall timeGetTime( void );
 
+struct POINT
+{
+	long x;
+	long y;
+};
+extern "C" __declspec(dllimport) int __stdcall GetCursorPos( POINT *point );
+extern "C" __declspec(dllimport) int __stdcall ScreenToClient( void *hwnd, POINT *point );
+extern void *ApplicationHWnd;
+
+#include "../../../../Libraries/Include/Lib/Coord2D.h"
+static __forceinline void copyScroll(Coord2D &out,const Coord2D &in) {
+    const volatile unsigned *words=reinterpret_cast<const volatile unsigned *>(&in);
+    unsigned first=words[0],second=words[1];
+    reinterpret_cast<unsigned *>(&out)[0]=first;
+    reinterpret_cast<unsigned *>(&out)[1]=second;
+}
+
+class InGameUI
+{
+public:
+	virtual void slot00(); virtual void slot01(); virtual void slot02(); virtual void slot03();
+	virtual void slot04(); virtual void slot05(); virtual void slot06(); virtual void slot07();
+	virtual void slot08(); virtual void slot09(); virtual void slot10(); virtual void slot11();
+	virtual void slot12(); virtual void slot13(); virtual void slot14(); virtual void slot15();
+	virtual void slot16(); virtual void slot17(); virtual void slot18(); virtual void slot19();
+	virtual void slot20(); virtual void slot21(); virtual void slot22(); virtual void slot23();
+	virtual void slot24(); virtual void slot25(); virtual void slot26(); virtual void slot27();
+	virtual void slot28(); virtual void slot29(); virtual void slot30(); virtual void slot31();
+	virtual void slot32(); virtual void slot33(); virtual void slot34(); virtual void slot35();
+	virtual void slot36(); virtual void slot37(); virtual void slot38(); virtual void slot39();
+	virtual void slot40(); virtual void slot41();
+	virtual Bool isScrolling( void );					// slot 42 (+0xA8)
+	virtual void slot43(); virtual void slot44(); virtual void slot45();
+	virtual Coord2D getScrollAmount( void );			// slot 46 (+0xB8)
+};
+extern InGameUI *TheInGameUI;
+
+// The three GlobalData fields the retail tooltip gate reads; their BFME 2
+// meaning is not established, so they keep offset names.
+struct MouseTooltipGlobalData
+{
+	char m_pad000[0x9B8];
+	Int m_field9B8;
+	char m_pad9BC[0x9C1 - 0x9BC];
+	Bool m_field9C1;
+	char m_pad9C2[0xDD0 - 0x9C2];
+	Bool m_fieldDD0;
+};
+class GlobalData;
+extern GlobalData *TheWritableGlobalData;
+
+class Image
+{
+public:
+	Int getImageWidth( void ) const { return m_imageSize.x; }
+	Int getImageHeight( void ) const { return m_imageSize.y; }
+
+private:
+	char m_pad00[0x24];
+	struct { Int x; Int y; } m_imageSize;
+};
+
+float __cdecl Rva000930C0( float lhs, float rhs );
+bool Rva00118660Call( void *scene, void *camera );
+void PixelScreenToW3DLogicalScreen( Int x, Int y, Real *screenX, Real *screenY, Int screenWidth, Int screenHeight );
+
 class Mouse
 {
 public:
@@ -250,6 +435,9 @@ public:
 	virtual void slot17(); virtual void slot18();
 	virtual void setCursor( MouseCursor cursor );		// slot 19 (+0x4C)
 	MouseCursor getMouseCursor( void ) { return m_currentCursor; }
+	bool rva001EDE26( void ) const;
+	void drawCursorText( void );
+	void drawTooltip( void );
 
 protected:
 	char m_pad004[0x0C - 4];
@@ -259,7 +447,9 @@ protected:
 	char m_pad12E0[0x12E3 - 0x12E0];
 	Bool m_orthoCamera;
 	Real m_orthoZoom;
-	char m_pad12E8[0x4FA4 - 0x12E8];
+	char m_pad12E8[0x4F0C - 0x12E8];
+	struct { ICoord2D pos; } m_currMouse;
+	char m_pad4F14[0x4FA4 - 0x4F14];
 	MouseCursor m_currentCursor;
 	char m_pad4FA8[0x601C - 0x4FA8];
 };
@@ -279,13 +469,13 @@ enum
 	MAX_2D_CURSOR_ANIM_FRAMES = 21
 };
 
-class Image;
-extern "C" const Image *cursorImages[Mouse::NUM_MOUSE_CURSORS];
+extern "C" Image *cursorImages[Mouse::NUM_MOUSE_CURSORS];
 
 class W3DMouse : public Win32Mouse
 {
 public:
 	virtual void setCursor( MouseCursor cursor );
+	virtual void draw( void );
 	virtual void setRedrawMode( RedrawMode mode );
 
 private:
@@ -580,4 +770,131 @@ void W3DMouse::setRedrawMode(RedrawMode mode)
 	//Force cursor update since we changed redraw methods.
 	setCursor(NONE);
 	setCursor(cursor);
+}
+
+// Native 0x992B0..0x998EA, complete1594B; ZH draw is the semantic source.
+// copyScroll preserves both target word reads before either destination store.
+// The last two rotation rows independently reread old X for their x87 products;
+// marking those reads volatile preserves the native SSE/x87 scheduling and width.
+void W3DMouse::draw(void)
+{
+	CriticalSectionClass::LockClass m(mutex);
+
+	m_drawing = TRUE;
+
+	//make sure the correct cursor image is selected
+	setCursor(m_currentCursor);
+
+	if (m_currentRedrawMode == RM_DX8 && m_currentD3DCursor != NONE)
+	{
+		//called from upate thread or rendering loop.  Tells D3D where
+		//to draw the mouse cursor.
+		IDirect3DDevice8 *m_pDev=DX8Wrapper::_Get_D3D_Device8();
+		if (m_pDev)
+		{	m_pDev->ShowCursor(TRUE);	//Enable DX8 cursor
+
+			if (TheDisplay && !TheDisplay->getWindowed())
+			{	//if we're full-screen, need to manually move cursor image
+				POINT ptCursor;
+
+				GetCursorPos( &ptCursor );
+				ScreenToClient( ApplicationHWnd, &ptCursor );
+				m_pDev->SetCursorPosition( ptCursor.x, ptCursor.y, 1);
+			}
+			//Check if animated cursor and new frame
+			if (m_currentFrames > 1)
+			{
+				Int msTime=timeGetTime();
+				m_currentAnimFrame += (msTime-m_lastAnimTime) * m_currentFMS;
+				m_currentAnimFrame=Rva000930C0(m_currentAnimFrame,(Real)m_currentFrames);
+				m_lastAnimTime=msTime;
+
+				if ((Int)m_currentAnimFrame != m_currentD3DFrame)
+				{
+					m_currentD3DFrame=(Int)m_currentAnimFrame;
+					m_pDev->SetCursorProperties(m_currentHotSpot.x,m_currentHotSpot.y,m_currentD3DSurface[m_currentD3DFrame]);
+				}
+			}
+		}
+	}
+	else if (m_currentRedrawMode == RM_POLYGON)
+	{
+		Image *image=cursorImages[m_currentPolygonCursor];
+		if (image)
+		{
+			((W3DDisplay *)TheDisplay)->rva0004D6B3(image,m_currMouse.pos.x-m_currentHotSpot.x,m_currMouse.pos.y-m_currentHotSpot.y,
+				m_currMouse.pos.x+image->getImageWidth()-m_currentHotSpot.x, m_currMouse.pos.y+image->getImageHeight()-m_currentHotSpot.y);
+		}
+	}
+	else if (m_currentRedrawMode == RM_WINDOWS)
+	{
+	}
+	else if (m_currentRedrawMode == RM_W3D)
+	{
+		if ( W3DDisplay::m_3DInterfaceScene && m_camera && rva001EDE26())
+		{
+			if (cursorModels[m_currentW3DCursor])
+			{
+				Real xPercent = (1.0f - (TheDisplay->getWidth() - m_currMouse.pos.x) / (Real)TheDisplay->getWidth());
+				Real yPercent = ((TheDisplay->getHeight() - m_currMouse.pos.y) / (Real)TheDisplay->getHeight());
+
+				Real x, y, z = -1.0f;
+
+				if (m_orthoCamera)
+				{
+					x = xPercent*2 - 1;
+					y = yPercent*2;
+				}
+				else
+				{
+					//W3D Screen coordinates are -1 to 1, so we need to do some conversion:
+					Real logX, logY;
+					PixelScreenToW3DLogicalScreen(m_currMouse.pos.x - 0, m_currMouse.pos.y - 0, &logX, &logY, TheDisplay->getWidth(), TheDisplay->getHeight());
+
+					Vector3 rayStart;
+					Vector3 rayEnd;
+					rayStart = m_camera->Get_Position();							//get camera location
+					m_camera->Un_Project(rayEnd,Vector2(logX,logY));	//get world space point
+					rayEnd -= rayStart;																//vector camera to world space point
+					rayEnd.Normalize();																//make unit vector
+					rayEnd *= m_camera->Get_Depth();									//adjust length to reach far clip plane
+					rayEnd += rayStart;																//get point on far clip plane along ray from camera.
+
+					x = Vector3::Find_X_At_Z(z, rayStart, rayEnd);
+					y = Vector3::Find_Y_At_Z(z, rayStart, rayEnd);
+				}
+
+				Matrix3D tm(1);
+				tm.Set_Translation(Vector3(x, y, z));
+				if (TheInGameUI && TheInGameUI->isScrolling())
+				{
+					Coord2D offset;
+					copyScroll(offset, TheInGameUI->getScrollAmount());
+					offset.normalize();
+					Real theta = atan2f(-offset.y, offset.x);
+					theta -= (Real)M_PI/2;
+					tm.Rotate_Z(theta);
+				}
+				cursorModels[m_currentW3DCursor]->Set_Transform(tm);
+
+				Rva00118660Call( W3DDisplay::m_3DInterfaceScene, m_camera );
+			}
+		}
+	}
+
+	//@todo: In DX8 mode the mouse is drawn in another thread which isn't allowed
+	//access to D3D so we can't do any drawing here.
+	// draw the cursor text
+	if (!isThread)
+		drawCursorText();
+
+	// draw tooltip text
+	MouseTooltipGlobalData *data = (MouseTooltipGlobalData *)TheWritableGlobalData;
+	Bool showTooltip = data->m_fieldDD0;
+	if (data->m_field9C1 || data->m_field9B8)
+		showTooltip = TRUE;
+	if (showTooltip && rva001EDE26() && !isThread)
+		drawTooltip();
+
+	m_drawing = FALSE;
 }
