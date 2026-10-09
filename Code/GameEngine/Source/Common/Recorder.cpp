@@ -17,6 +17,7 @@
 #include <time.h>
 void __cdecl operator delete[](void*);
 void* __cdecl operator new[](unsigned int);
+void __cdecl operator delete(void*);
 
 class FileSystem {public:bool rva0037BD2B(const UnicodeString &);};extern FileSystem*TheFileSystem;
 UnicodeString Rva0037B9D4Get(); UnicodeString GetLastReplayDisplayName(); UnicodeString Rva0037BA48Get();
@@ -72,12 +73,17 @@ extern GameInfo *TheGameInfo;
 class Debug {public:
 virtual void p0();virtual void p1();virtual void p2();virtual void p3();virtual void p4();virtual void p5();virtual void p6();virtual void p7();virtual void p8();virtual void p9();virtual void p10();virtual void p11();virtual void p12();virtual void p13();virtual Debug&operator<<(const char*);virtual void p15();virtual void p16();virtual void p17();virtual void p18();virtual bool CrashDone(int);virtual void p20();virtual void p21();virtual void p22();virtual void p23();virtual void SkipNext();virtual void p25();virtual void p26();virtual Debug&CrashBegin(const char*,int,int);};
 extern Debug *theDebug;void _bfme_debugRecordCallsite(int);
+class GameMessage;
 class RecorderClass {
 public:
 virtual void slot0();virtual void slot1();virtual void slot2();virtual void slot3();virtual void slot4();virtual void slot5();virtual void slot6();virtual void slot7();virtual void slot8();virtual void reset();
  char pad004[0x10-4];FILE*m_file;UnicodeString m_fileName;int field0018;int m_mode;int field0020;
- GameInfo m_gameInfo;char padGameInfo[0xe60-0x24-sizeof(GameInfo)];int field0e60,field0e64;
+ GameInfo m_gameInfo;char padGameInfo[0xe60-0x24-sizeof(GameInfo)];int field0e60,field0e64;char padE68[8];bool m_doingAnalysis;char padE71[3];int m_gameMode;
 protected:
+ void writeToFile(GameMessage*);
+ void appendNextCommand();
+ void updateRecord();
+ void stopRecording();
  void logGameStart(AsciiString);
  void startRecording(int difficulty,int gameMode,int rankPoints,int maxFPS);
 };
@@ -265,3 +271,133 @@ bool Rva0037BBED::rva0037CBB6(Rva0037B5DF&header) {
  for(int i=0;i<8;++i)if(*(const int*)((const char*)gameInfo->getConstSlot(i)+4)==6)++m_numPlayers;
  m_localIndex=header.localIndex;return true;
 }
+
+// Donor9cbfb551: Common/Recorder.cpp writeToFile and System/recorder_strings.cpp
+// appendNextCommand. WB F5A490 names appendNextCommand; writeToFile's stream
+// schema, constructors, native message getters and writeArgument corroborate it.
+// Target: FILE10, frame40, parser16B, message24B, analysisE70, game modeE74.
+union GameMessageArgumentType {int integer;char payload[16];};
+enum GameMessageArgumentDataType {ARG_INT,ARG_REAL,ARG_BOOL,ARG_OBJECT,ARG_DRAWABLE,ARG_TEAM,ARG_COORD,ARG_PIXEL,ARG_REGION,ARG_TIME,ARG_CHAR,ARG_UNKNOWN};
+class GameMessage {public:
+ enum Type{MSG_CLEAR_GAME_DATA=0x1d,MSG_NEW_GAME=0x1e,MSG_BEGIN_NETWORK_MESSAGES=0x3e8,MSG_END_NETWORK_MESSAGES=0x7cf};
+ GameMessage(Type);virtual ~GameMessage();GameMessage*m_next;GameMessage*m_prev;void*m_list;Type m_type;int m_playerIndex;unsigned char m_argCount;char p19[3];void*m_argFirst;void*m_argLast;
+ Type getType()const{return m_type;}unsigned char getArgumentCount()const{return m_argCount;}int getPlayerIndex()const{return m_playerIndex;}const GameMessageArgumentType*getArgument(int)const;GameMessageArgumentDataType getArgumentDataType(int);void friend_setPlayerIndex(int index){m_playerIndex=index;}
+};
+struct Rva0054D54ANode {virtual void*destroy(unsigned);Rva0054D54ANode*next;int type,count;};
+class Rva0054D54A {public:Rva0054D54A();Rva0054D54A(GameMessage*);virtual ~Rva0054D54A();Rva0054D54ANode*first;void*last;int numTypes;};
+class Rva0054D5D3 {public:void rva0054D5D3(void*,void*);};
+class Rva0037AF05 {public:void rva0037AF05(int,GameMessageArgumentType);};
+class Rva0037AF88 {public:void rva0037AF88(int,GameMessage*);};
+#include "GameLogicObjectLookupView.h"
+extern GameLogic*TheGameLogic;
+class CommandList {public:virtual void s0();virtual void s1();virtual void s2();virtual void s3();virtual void s4();virtual void s5();virtual void s6();virtual void s7();virtual void s8();virtual void s9();virtual void s10();virtual void s11();virtual void s12();virtual void s13();virtual void appendMessage(GameMessage*);char p4[8];GameMessage*first;};extern CommandList*TheCommandList;
+void RecorderClass::writeToFile(GameMessage *msg)
+{
+    // Write the frame number for this command.
+    unsigned int frame = TheGameLogic->getFrame();
+    fwrite(&frame, sizeof(frame), 1, m_file);
+
+    // Write the command type
+    GameMessage::Type type = msg->getType();
+    fwrite(&type, sizeof(type), 1, m_file);
+
+    // Write the player index
+    int playerIndex = msg->getPlayerIndex();
+    fwrite(&playerIndex, sizeof(playerIndex), 1, m_file);
+
+    Rva0054D54A *parser = new Rva0054D54A(msg);
+    unsigned char numTypes = (unsigned char)parser->numTypes;
+    fwrite(&numTypes, sizeof(numTypes), 1, m_file);
+
+    Rva0054D54ANode *argType = parser->first;
+    while (argType != 0) {
+        unsigned char argT = (unsigned char)(argType->type);
+        fwrite(&argT, sizeof(argT), 1, m_file);
+
+        unsigned char argTypeCount = (unsigned char)(argType->count);
+        fwrite(&argTypeCount, sizeof(argTypeCount), 1, m_file);
+
+        argType = argType->next;
+    }
+
+    int numArgs = msg->getArgumentCount();
+    for (int i = 0; i < numArgs; ++i) {
+        ((Rva0037AF05*)this)->rva0037AF05((int)msg->getArgumentDataType(i), *(msg->getArgument(i)));
+    }
+
+    ::delete parser;
+
+    fflush(m_file);
+}
+
+void RecorderClass::appendNextCommand()
+{
+    GameMessage::Type type;
+    int retcode = fread(&type, sizeof(type), 1, m_file);
+    if (retcode != 1) {
+        return;
+    }
+
+    GameMessage *msg = new GameMessage(type);
+    if (type != GameMessage::MSG_BEGIN_NETWORK_MESSAGES && type != GameMessage::MSG_CLEAR_GAME_DATA) {
+        if (!m_doingAnalysis) {
+            TheCommandList->appendMessage(msg);
+        }
+    }
+
+    int playerIndex = -1;
+    fread(&playerIndex, sizeof(playerIndex), 1, m_file);
+    msg->friend_setPlayerIndex(playerIndex);
+
+    unsigned char numTypes = 0;
+    int totalArgs = 0;
+    fread(&numTypes, sizeof(numTypes), 1, m_file);
+
+    Rva0054D54A *parser = new Rva0054D54A;
+    for (unsigned char i = 0; i < numTypes; ++i) {
+        unsigned char type = ARG_UNKNOWN;
+        fread(&type, sizeof(type), 1, m_file);
+        unsigned char numArgs = 0;
+        fread(&numArgs, sizeof(numArgs), 1, m_file);
+        ((Rva0054D5D3*)parser)->rva0054D5D3((void*)(unsigned)type, (void*)(unsigned)numArgs);
+        totalArgs += numArgs;
+    }
+
+    Rva0054D54ANode *parserArgType = parser->first;
+    GameMessageArgumentDataType lasttype = ARG_UNKNOWN;
+    int argsLeftForType = 0;
+    if (parserArgType != 0) {
+        lasttype = (GameMessageArgumentDataType)parserArgType->type;
+        argsLeftForType = parserArgType->count;
+    }
+
+    for (int j = 0; j < totalArgs; ++j) {
+        ((Rva0037AF88*)this)->rva0037AF88(lasttype,msg);
+
+        --argsLeftForType;
+        if (argsLeftForType == 0) {
+            if (parserArgType == 0) {
+                return;
+            }
+
+            parserArgType = parserArgType->next;
+            if (parserArgType != 0) {
+                argsLeftForType = parserArgType->count;
+                lasttype = (GameMessageArgumentDataType)parserArgType->type;
+            }
+        }
+    }
+
+    if (type == GameMessage::MSG_CLEAR_GAME_DATA || type == GameMessage::MSG_BEGIN_NETWORK_MESSAGES) {
+        ::delete msg;
+        msg = 0;
+    }
+
+    if (m_doingAnalysis) {
+        ::delete msg;
+        msg = 0;
+    }
+
+    ::delete parser;
+}
+
