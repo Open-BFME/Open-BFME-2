@@ -1,12 +1,13 @@
-// ?Rva005CEC8FCreate@@YAPAVRva005CEC8F@@PAV1@PBUPayload@Rva005CEAE6@@@Z
 // cl: /O1 /MD /Oy-
-// Packet disassembly supports a free cdecl allocation helper at 0x005CEC8F:
-// allocate 0x14 bytes through 0x002FDA0, call 0x005CEAE6 with src when nonnull,
-// store the resulting pointer through out, then increment the +4 field.
-// The helper and payload names and member layout remain RVA-derived inference.
-// Retail reserves a 4-byte compiler stack slot and clears it with AND [ebp-4],0.
-// The local plus this narrow asm operation reproduce that observed codegen.
-
+// Native50B5CEC8F..5CECC1: a counted callback handle returned by value.
+// The caller5CF5DA supplies a hidden output and payload, then passes the
+// returned address to its callback slot and releases the held pointer.
+// The payload constructor5CEAE6 independently fixes the20B allocation,
+// refcount4 and three-word payload8. Names and semantic roles remain
+// address-derived. A nontrivial handle with a memberwise copy constructor
+// gives MSVC NRV; its natural construction flag emits the native AND of
+// the4B stack slot. This replaces the earlier explicit-out-pointer ABI and
+// its inline asm state store; full50B match needs no asm.
 class Rva005CEAE6
 {
 public:
@@ -17,19 +18,17 @@ public:
 	Payload m_data; // +8
 };
 
+struct TargetRef00217D4C;
+void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);
 class Rva005CEC8F
 {
 public:
+ __forceinline Rva005CEC8F(Rva005CEAE6 *p):m_00(p){if(p)++p->m_ref;}
+ __forceinline Rva005CEC8F(const Rva005CEC8F&x):m_00(x.m_00){if(m_00)++m_00->m_ref;}
+ ~Rva005CEC8F() {if(m_00)ReleaseTreeHintRef00217D4C((TargetRef00217D4C*)m_00);}
 	Rva005CEAE6 *m_00;
 };
 
-Rva005CEC8F * __cdecl Rva005CEC8FCreate(Rva005CEC8F *out, const Rva005CEAE6::Payload *src)
-{
-	int state;
-	__asm { and state, 0 }
-	Rva005CEAE6 *p = new Rva005CEAE6(src);
-	out->m_00 = p;
-	if (p != 0)
-		p->m_ref++;
-	return out;
+Rva005CEC8F __cdecl Rva005CEC8FCreate(const Rva005CEAE6::Payload *src){
+ return Rva005CEC8F(new Rva005CEAE6(src));
 }
