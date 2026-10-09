@@ -137,3 +137,25 @@ Rva0026FD07Fields *Rva0026FD07Fields::initialize() {
  m_00=0.0f; m_04=0.0f; m_08=0.0f; m_0C=0.0f;
  return this;
 }
+
+// BF1 f989 WindowManager_invokeCallback.cpp result-constructor lead,
+// compiled O1/SSE2/G7, is not proof of this target's owner or lifetime.
+// Complete native2223C7..2223DD follows RET and precedes a new thunk;
+// MOVSS copies the first stack word through a single-precision lane to0,
+// with donor float representation retained; raw argument8 goes to4, and
+// EAX returns the receiver with RET8. Original second-field interpretation,
+// original declared field types, full owner layout and constructor/reset
+// role remain unknown beyond these witnessed bit transfers.
+class Rva002223C7Fields
+{
+public:
+    Rva002223C7Fields *initialize(float value, unsigned int word);
+    float m_00;
+    unsigned int m_04;
+};
+Rva002223C7Fields *Rva002223C7Fields::initialize(float value, unsigned int word)
+{
+    m_00 = value;
+    m_04 = word;
+    return this;
+}
