@@ -1,4 +1,4 @@
-// cl: /MD /Ireference/shims/bfme2_ascii
+// cl: /O1 /MD /Ireference/shims/bfme2_ascii
 // ?rva004214C3@Rva004214C3@@QAEXPBVModuleData@@@Z @0x004214C3 93B
 // Add-if-absent with duplicate throw: Find via rowed 0x00421263 then INIException
 // 0x0002F681 on dup else push_back via rowed 0x004DFCB0. Evidence: chain lane;
@@ -18,7 +18,7 @@ struct Rva00421263Vec
 	const ModuleData **m_end;
 };
 
-const ModuleData *__stdcall Rva00421263Find(const Rva00421263Vec *vec, const StringBase<char> &key);
+class LightPointSystem { public: const ModuleData *rva00421263(const Rva00421263Vec *, const StringBase<char> &) const; };
 
 namespace _STL
 {
@@ -56,7 +56,7 @@ private:
 
 void Rva004214C3::rva004214C3(const ModuleData *data)
 {
-	const ModuleData *found = Rva00421263Find((const Rva00421263Vec *)&m_vec, data->m_name);
+	const ModuleData *found = reinterpret_cast<const LightPointSystem *>(this)->rva00421263((const Rva00421263Vec *)&m_vec, data->m_name);
 	if (found) {
 		char *t = *(char **)&found->m_name;
 		const char *s = t ? t + 8 : "";
