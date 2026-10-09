@@ -152,7 +152,7 @@ def store_receipt(src, allow_nonauthoritative=False):
                  f"compile_failed={len(receipt.get('compile_failed') or [])}, "
                  f"moved={receipt.get('moved_during_run')}); run link_cycle.py --snapshot, "
                  f"or pass --allow-nonauthoritative")
-    keep = ("tool", "rules", "commit", "dirty", "date_utc", "retail_sha256", "toolchain_sha256",
+    keep = ("tool", "rules", "shadow_rules", "commit", "dirty", "date_utc", "retail_sha256", "toolchain_sha256",
             "tool_digest", "objects_digest", "objects", "inputs", "iterations", "scaffold", "series",
             "seconds", "commit_inputs", "provenance_note", "core_sha256", "authoritative", "measure_env",
             "compile_failed", "canon_rules", "objects_canon_digest", "core_canon_sha256")

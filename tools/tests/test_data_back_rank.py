@@ -189,6 +189,45 @@ class Ranking(unittest.TestCase):
         # single-name, single-definition 0x300000 is no candidate; the gen-alias row is not counted
         self.assertEqual(got, {"0x00100000": (2, 116), "0x00200000": (1, 16)})
 
+    def test_data_fold_marks_export_proven_then_measured_folds(self):
+        """link_cycle's shadow rule data-fold-1 excuses data-back at read-only data
+        retail's ICF folded. Without --folds an address retail's export table names
+        twice is a candidate (exp?); with data_fold_list.csv the measured verdict."""
+        t = self.t
+        write_csv(t / "exports.csv", [["ordinal", "rva", "target_rva", "section", "kind", "name"],
+                                      ["1", "0x00100000", "", ".rdata", "data", NULLCHR],
+                                      ["2", "0x00100000", "", ".rdata", "data", "?IS_DEFAULT@?$Tag@$00@@2_NB"],
+                                      ["3", "0x00200000", "", ".data", "data", GD_V],
+                                      ["4", "0x00001000", "", ".text", "code", "?a@@YAXXZ"],
+                                      ["5", "0x00001000", "", ".text", "code", "?b@@YAXXZ"]])
+        status = str(t / "link_status-0123456789.csv.gz")
+        text, report = self.run_tool("--status", status, "--exports", str(t / "exports.csv"))
+        by = {a["address"]: a["fold"] for a in report["addresses"]}
+        self.assertEqual(by["0x00100000"], {"export_names": 2, "rule": None, "verdict": None, "label": "exp?"})
+        self.assertEqual(by["0x00200000"]["label"], "")
+        fold = report["data_fold"]
+        self.assertEqual(fold["export_fold_addresses"], 1)
+        # r1, r2, r7 fail data-back there; only r2 fails nothing else (r1: data-fwd, r7: another address)
+        self.assertEqual(fold["export"], {"addresses": 1, "ranked": ["0x00100000"], "rows": 3,
+                                          "bytes": 0xB4 + 16, "clear_rows": 1, "clear_bytes": 100})
+        self.assertIn("data-fold-1 export: 1 addresses", text)
+        write_csv(t / "data_fold_list.csv", [["retail_rva", "retail_start", "export_names", "linked", "symbols",
+                                              "rule", "verdict"],
+                                             ["0x00100000", "0x00100000", "2", "0x00500000:1;0x00500010:1",
+                                              f"{EMPTY};{NULLCHR}", "", "mutable datum"],
+                                             ["0x00200000", "0x00200000", "0", "0x00600000:4;0x00600010:4",
+                                              GD_V, "icf", "whole read-only COMDATs"]])
+        text, report = self.run_tool("--status", status, "--exports", str(t / "exports.csv"),
+                                     "--folds", str(t / "data_fold_list.csv"))
+        by = {a["address"]: a["fold"] for a in report["addresses"]}
+        self.assertEqual(by["0x00100000"], {"export_names": 2, "rule": None, "verdict": "mutable datum",
+                                            "label": "exp!"})               # export-proven, refused
+        self.assertEqual(by["0x00200000"]["label"], "icf")
+        fold = report["data_fold"]
+        self.assertEqual(fold["export"]["addresses"], 0)
+        self.assertEqual((fold["export+icf"]["ranked"], fold["export+icf"]["clear_rows"]), (["0x00200000"], 1))
+        self.assertIn("not excused (mutable datum)", text)
+
     def test_address_filter(self):
         text, report = self.run_tool("--status", str(self.t / "link_status-0123456789.csv.gz"),
                                      "--address", "0x200000")

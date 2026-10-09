@@ -112,6 +112,25 @@ def test_store_receipt_keeps_series_drops_detail(tmp_path, monkeypatch):
         v2.store_receipt(src)
 
 
+def test_store_receipt_keeps_the_shadow_series(tmp_path, monkeypatch):
+    """link_cycle's shadow series (data-fold-1) live in `series` beside the published
+    ones, named by `shadow_rules`; both survive into the committed receipt and the
+    published figures read as before."""
+    monkeypatch.setattr(v2, "ROOT", tmp_path)
+    series = json.loads(json.dumps(RECEIPT["series"]))
+    series["real"]["placed_closed_strict_data_fold"] = {"rows": 2, "bytes": 130, "unique_bytes": 130,
+                                                        "pct_text": 13.48}
+    series["data_fold"] = {"rule": "data-fold-1", "export_fold_addresses": 20,
+                           "excused_addresses": {"export": 1, "icf": 0}}
+    src = tmp_path / "receipt.json"
+    src.write_text(json.dumps(dict(RECEIPT, series=series, shadow_rules=["data-fold-1"], authoritative=True)))
+    v2.store_receipt(src)
+    stored = json.loads((tmp_path / v2.RECEIPT).read_text())
+    assert stored["shadow_rules"] == ["data-fold-1"] and stored["series"] == series
+    monkeypatch.setattr(v2, "text_at", lambda ref, path: (tmp_path / path).read_text())
+    assert v2.load_receipt(None)["closed_strict"] == (1, 100, 10.37)   # the published series, unchanged
+
+
 def test_counters_and_gate_debt(fake):
     fake[v2.HATCHES] = ("# mode: shadow\npin\tr/s.csv\t0x00001000\t2\npin\tr/s.csv\t0x00002000\t1\n"
                         "emit\tCode/a.cpp\t*\t4\nobject_symbol\tr/f.csv\t0x00003000\t1\n")

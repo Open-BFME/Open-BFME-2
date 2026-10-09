@@ -59,7 +59,19 @@ refs, the rows' other blocker classes (status mode), and every name with
          pointer-const only), type (anything else)
 Object symbol scans are cached in build/data_back_rank_objects.pkl.
 
+`fold` marks the addresses link_cycle's shadow rule data-fold-1 excuses:
+read-only data retail's /OPT:ICF folded, which the /OPT:NOICF link keeps as
+several datums whatever the tree does. Without --folds it is `exp?` where
+retail's export table (reverse/exports.csv) names the address twice or more:
+export-proven, the linked datums unverified. With --folds (link_cycle's
+data_fold_list.csv) it is the measured verdict: `export` or `icf` when excused,
+`exp!` for an export-proven address the rule refused (a mutable or unequal
+datum, a stub; the verdict says which). The data-fold summary counts the rows
+failing only data-back at excused addresses: what the shadow series
+placed_self_strict_data_fold can gain over placed_self_strict, at most.
+
   python3 tools/data_back_rank.py --status build/link_status-<sha10>.csv.gz [--disambiguate]
+          [--folds build/link_cycle/data_fold_list.csv]
   python3 tools/data_back_rank.py [--refs relocs|xrefs] [--top 20] [--detail 5]
           [--address 0x7BAC1C ...] [--list-files N] [--json OUT]
           [--objects DIR | --no-objects]
@@ -82,6 +94,7 @@ ROOT = Path(__file__).resolve().parents[1]
 LEDGER = ROOT / "reverse" / "data_ledger.csv"
 FUNCTIONS = ROOT / "reverse" / "functions.csv"
 XREFS = ROOT / "reverse" / "data_xrefs.tsv"
+EXPORTS = ROOT / "reverse" / "exports.csv"
 OBJECTS = ROOT / "build" / "match"
 CACHE = ROOT / "build" / "data_back_rank_objects.pkl"
 IMAGE_BASE = 0x400000
@@ -259,6 +272,67 @@ def row_unresolved(flags):
     suffix that reads two ways) or SCOPE_UNKNOWN (only bindings of unproven scope
     owned by another source). Such a row is never clear and never `sole`."""
     return bool(flags)
+
+
+def load_export_folds(path=EXPORTS):
+    """{rva: names} of the data addresses retail's export table names twice or more:
+    read-only data retail's /OPT:ICF folded (link_cycle data-fold-1's export rule)."""
+    names = collections.defaultdict(list)
+    if not Path(path).exists():
+        return {}
+    with open_text(path) as handle:
+        for row in csv.DictReader(handle):
+            if row.get("kind") == "data" and (row.get("rva") or "").startswith("0x"):
+                names[int(row["rva"], 16)].append(row["name"])
+    return {a: sorted(n) for a, n in names.items() if len(n) > 1}
+
+
+def load_fold_list(path):
+    """{retail address: (rule or "", verdict)} from link_cycle's data_fold_list.csv:
+    the verdict at each referenced address, and at each datum start no reference
+    names exactly."""
+    exact, starts = {}, {}
+    with open_text(path) as handle:
+        for row in csv.DictReader(handle):
+            verdict = (row["rule"], row["verdict"])
+            exact[int(row["retail_rva"], 16)] = verdict
+            for start in filter(None, row["retail_start"].split(";")):
+                starts.setdefault(int(start, 16), verdict)
+    return {**starts, **exact}
+
+
+def fold_of(address, export_folds, fold_list):
+    """data-fold-1 facts of one ranked address (see the module doc's `fold`)."""
+    names = len(export_folds.get(address, ()))
+    if fold_list is None:
+        return {"export_names": names, "rule": None, "verdict": None, "label": "exp?" if names else ""}
+    rule, verdict = fold_list.get(address, ("", "not a data-back address"))
+    return {"export_names": names, "rule": rule or None, "verdict": verdict,
+            "label": rule or ("exp!" if names else "")}
+
+
+def fold_report(entries, export_folds, fold_list, rows=None, back_of=None, other_of=None):
+    """The data-fold summary: the addresses data-fold-1 excuses (measured, or export-
+    proven candidates without --folds), those ranked here, their rows and the rows
+    failing only data-back at them (status mode)."""
+    if fold_list is None:
+        rules = {"export": set(export_folds)}
+        source = "reverse/exports.csv: export-proven, linked datums unverified"
+    else:
+        rules = {"export": {a for a, (r, _) in fold_list.items() if r == "export"}}
+        rules["export+icf"] = rules["export"] | {a for a, (r, _) in fold_list.items() if r == "icf"}
+        source = "link_cycle data_fold_list.csv"
+    out = {"rule": "data-fold-1", "source": source, "export_fold_addresses": len(export_folds)}
+    for name, excused in rules.items():
+        part = {"addresses": len(excused),
+                "ranked": [e["address"] for e in entries if int(e["address"], 16) in excused]}
+        if rows is not None:
+            hit = {i for i, b in enumerate(back_of) if b & excused}
+            clear = {i for i in hit if None not in back_of[i] and back_of[i] <= excused and not other_of[i]}
+            part.update(rows=len(hit), bytes=span_bytes(rows, hit), clear_rows=len(clear),
+                        clear_bytes=span_bytes(rows, clear))
+        out[name] = part
+    return out
 
 
 def row_kind(notes):
@@ -718,8 +792,16 @@ def render(report, top, list_files=0, out=None):
     if report["mode"] == "status" and report.get("scope_unknown"):
         print(f"scope: {report['scope_unknown']:,} single-name bindings of unknown scope (no owner object), "
               f"matched only for their owner's rows", file=out)
+    fold = report.get("data_fold") or {}
+    for name, part in ((k, v) for k, v in fold.items() if isinstance(v, dict)):
+        line = (f"data-fold-1 {name}: {part['addresses']} addresses ({fold['source']}), "
+                f"{len(part['ranked'])} ranked here")
+        if "clear_rows" in part:
+            line += (f"; {part['rows']:,} rows {part['bytes']:,} bytes fail data-back there, "
+                     f"{part['clear_rows']:,} rows {part['clear_bytes']:,} bytes nowhere else")
+        print(line, file=out)
     print(f"{'#':>3} {'address':10} {'sec':6} {'kind':7} {'names':>5} {'defs':>4} {'refs':>5} {'rows':>5} "
-          f"{'bytes':>9} {'sole':>8} {'inv':>3} {'var':>3}  canonical [other blockers]", file=out)
+          f"{'bytes':>9} {'sole':>8} {'inv':>3} {'var':>3} {'fold':6} canonical [other blockers]", file=out)
     shown = report["addresses"][:top]
     for n, a in enumerate(shown, 1):
         inv = sum(1 for x in a["names"] if x["invented"])
@@ -730,8 +812,9 @@ def render(report, top, list_files=0, out=None):
             tail += " [" + ", ".join(f"{k} {v}" for k, v in list(a["other_blockers"].items())[:3]) + "]"
         if a.get("capped"):
             tail += " (callers capped)"
+        label = (a.get("fold") or {}).get("label", "")
         print(f"{n:>3} {a['address']:10} {a['section']:6} {a['kind']:7} {len(a['names']):>5} {a['defs']:>4} "
-              f"{a['refs']:>5} {a['rows']:>5} {a['bytes']:>9,} {sole} {inv:>3} {var:>3}  {tail}", file=out)
+              f"{a['refs']:>5} {a['rows']:>5} {a['bytes']:>9,} {sole} {inv:>3} {var:>3} {label:6} {tail}", file=out)
     for a in (a for a in report["addresses"] if a.get("detail")):
         sole = f", sole {a['sole_rows']} rows {a['sole_bytes']:,} bytes" if "sole_bytes" in a else ""
         print(f"\n{a['address']} {a['section']} {a['kind']} ({a['status']}) defs {a['defs']} refs {a['refs']}: "
@@ -751,6 +834,11 @@ def render(report, top, list_files=0, out=None):
         if a.get("other_blockers"):
             print("  other blockers (rows): " + ", ".join(f"{k} {v}" for k, v in a["other_blockers"].items()),
                   file=out)
+        fold = a.get("fold") or {}
+        if fold.get("export_names") or fold.get("rule"):
+            print(f"  data-fold-1: {fold['export_names']} export names; "
+                  + (f"{fold['rule'] or 'not excused'} ({fold['verdict']})" if fold.get("verdict")
+                     else "export-proven, linked datums unverified (--folds)"), file=out)
     if report.get("ambiguous"):
         print(f"\nquarantined data-back symbols, counted at no address ({len(report['ambiguous'])}; "
               f"--disambiguate tries each row's own references):", file=out)
@@ -819,6 +907,12 @@ def build_report(args):
             entries.append(entry)
         report = {"mode": "provisional", "refs": args.refs, "kind": args.kind}
     entries.sort(key=lambda e: (-e["bytes"], -e["refs"], e["address"]))
+    export_folds = load_export_folds(args.exports)
+    fold_list = load_fold_list(args.folds) if args.folds else None
+    for e in entries:
+        e["fold"] = fold_of(int(e["address"], 16), export_folds, fold_list)
+    report["data_fold"] = fold_report(entries, export_folds, fold_list,
+                                      *((rows, back_of, other_of) if args.status else ()))
     if want:
         entries = [e for e in entries if int(e["address"], 16) in want]
     for n, e in enumerate(entries):
@@ -850,6 +944,8 @@ def main(argv=None):
     ap.add_argument("--ledger", default=str(LEDGER))
     ap.add_argument("--functions", default=str(FUNCTIONS))
     ap.add_argument("--xrefs", default=str(XREFS))
+    ap.add_argument("--exports", default=str(EXPORTS), help="retail's export table (export-proven folds)")
+    ap.add_argument("--folds", help="link_cycle's data_fold_list.csv: data-fold-1's measured verdicts")
     ap.add_argument("--objects", default=str(OBJECTS), help="compiled objects, tools/build.py naming")
     ap.add_argument("--no-objects", action="store_true",
                     help="skip the object scan: no per-name file counts, and every single-name `owned` binding "

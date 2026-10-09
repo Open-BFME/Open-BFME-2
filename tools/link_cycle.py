@@ -73,13 +73,28 @@ fixes of research 29, 31 and the round-2 review:
      `--snapshot REV` measures an immutable export of REV (git archive with
      submodules) in its own directory, with its own outputs and no shared
      object store; only such a receipt is `authoritative`.
+  7. Shadow series (`shadow_rules`), published beside rules=link-cycle-2's and
+     never in its credit or its other series. data-fold-1: retail was linked
+     /OPT:ICF, which folds byte-identical read-only COMDAT data into one address
+     (its export table names 0x7BAC1C 28 times, TheNullChr and 27 IS_DEFAULT
+     bools; the "" literal is there too); this link is /OPT:NOICF, so there a
+     reference fails `data-back` whatever the tree does. That failure at retail
+     address A is excused when every linked address reaching A reaches a datum, all of one
+     retail start, size and relocation layout, each read-only initialized data
+     with no failure of its own (bytes equal retail's, every relocation at
+     retail's target), retail's start in .rdata, and either retail's export table
+     names that start twice or more (rule `export`) or every datum is a whole
+     read-only COMDAT section (rule `icf`, proven by the code alone). Series
+     placed_{self,closed}_strict_data_fold admit `export`, ..._data_fold_icf both;
+     series.data_fold counts the addresses and references excused.
 
   python3 tools/link_cycle.py [--build] [--max-iter 6] [--shift-base 0x10000000]
   python3 tools/link_cycle.py --snapshot HEAD --build [--reuse-quarantine --reuse-stubs]
   python3 tools/link_cycle.py --measure-only     # re-measure the last links (never authoritative)
 
 Outputs in build/link_cycle/: link_status.csv (one row per matched ledger
-row), fold_list.csv, provenance.json, receipt.json, base.map/.exe/.log, shift.*. Diagnostic:
+row), fold_list.csv, data_fold_list.csv (data-fold-1's verdict per data-back address), provenance.json,
+receipt.json, base.map/.exe/.log, shift.*. Diagnostic:
 the image is not expected to run.
 """
 import argparse
@@ -116,6 +131,12 @@ ABSOLUTE = {"__except_list": 0}          # exsup.asm: __except_list equ 0 (an FS
 TOOL_FILES = ("link_cycle.py", "link_census.py", "build.py")
 COMDAT, EXTERNAL, STATIC, WEAK = 0x1000, 2, 3, 105
 REL32, DIR32 = 0x14, 6
+INIT_DATA, MEM_WRITE = 0x40, 0x80000000
+# Shadow rules: series published beside rules=link-cycle-2's, never in its credit.
+# data-fold-1 (Measure.fold_verdict): a data-back failure at a retail address
+# retail's ICF folded read-only data into is excused.
+SHADOW_RULES = ["data-fold-1"]
+FOLD_SERIES = (("data_fold", frozenset({"export"})), ("data_fold_icf", frozenset({"export", "icf"})))
 
 
 # ---------------------------------------------------------------- COFF
@@ -893,6 +914,30 @@ def retail_reloc_sites(path=None):
     return _RETAIL_SITES[path]
 
 
+_RETAIL_EXPORTS = {}
+
+
+def retail_exports(path=None):
+    """{rva: sorted names} of retail's export table (an ordinal-only entry is #n)."""
+    import pefile
+    path = Path(path or build.EXE)
+    if path not in _RETAIL_EXPORTS:
+        pe = pefile.PE(str(path), fast_load=True)
+        pe.parse_data_directories(directories=[pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_EXPORT"]])
+        out = collections.defaultdict(list)
+        for e in getattr(getattr(pe, "DIRECTORY_ENTRY_EXPORT", None), "symbols", ()):
+            out[e.address].append(e.name.decode("latin-1") if e.name else f"#{e.ordinal}")
+        _RETAIL_EXPORTS[path] = {a: sorted(n) for a, n in out.items()}
+    return _RETAIL_EXPORTS[path]
+
+
+def export_folds(exports, rsecs):
+    """{rva: names} of the data addresses retail's export table names twice or more:
+    retail was linked /OPT:ICF and folded those read-only COMDATs into one (code
+    addresses with several names are the twins' business)."""
+    return {a: n for a, n in sorted(exports.items()) if len(n) > 1 and rsecs.name_at(a) not in (".text", "outside")}
+
+
 def unrelocated_sites(sites, rva, size, rels):
     """Offsets in [rva, rva+size) where retail relocates a dword and the linked
     bytes carry no DIR32 relocation: a hard-coded address."""
@@ -908,6 +953,9 @@ def unrelocated_sites(sites, rva, size, rels):
 
 # ---------------------------------------------------------------- measure
 class Measure:
+    folds = {}          # data-fold-1: export_folds(retail's export table), set by measure()
+    rsecs = None        # data-fold-1: retail's sections (SectionList); None proves no fold
+
     def __init__(self, units, chunks, mapped, I, R, isecs, rimports, limports, pins, objs, ledger_starts,
                  lbase=BASE, rbase=BASE):
         self.units, self.I, self.R, self.isecs = units, I, R, isecs
@@ -950,6 +998,9 @@ class Measure:
         self.twins, self.eh = {}, collections.Counter()
         self.resolved, self.dnodes, self.twin_edges, self.twin_rels, self.twin_body = {}, {}, {}, {}, {}
         self.import_equiv = 0       # read-through references kept by the (dll, name) rule, not 1:1
+        # shadow only (data-fold-1): what each retail address is reached as, a twin's own
+        # failures before "calls a rejected twin", fold verdicts
+        self.reach, self.twin_fails, self.fold_memo = collections.defaultdict(set), {}, {}
 
     def T(self, a):
         i = bisect.bisect_right(self.istarts, a) - 1
@@ -1139,7 +1190,9 @@ class Measure:
         pointers translated through the unit or filler holding them, data pointers
         kept as references (judged once every reference is known)."""
         start, rstart, size = key
-        node = {"name": name, "fails": [], "edges": set(), "refs": [], "rels": [], "masked": set()}
+        node = {"name": name, "fails": [], "edges": set(), "refs": [], "rels": [], "masked": set(),
+                "flags": None if sec is None else sec.flags,           # None: COMMON (.bss)
+                "whole": sec is not None and value == 0 and size == sec.size}
         if size <= 0 or rstart < 0 or rstart + size > len(self.R) or start < 0 or start + size > len(self.I):
             node["fails"].append(f"data-extent:{name}")
             return node
@@ -1182,6 +1235,7 @@ class Measure:
             self.fwd[ref[0]].add(ref[1])
             self.back[ref[1]].add(ref[0])
             r = self.resolve(ref)
+            self.reach[ref[1]].add((ref[0], r[:2]))
             if r[0] == "datum":
                 node = self.dnodes[r[1]]
                 if not node.get("seen"):
@@ -1354,6 +1408,7 @@ class Measure:
                 es |= redges
             ok[key], edges[key] = fails, es
             self.twin_rels[key] = rels
+            self.twin_fails[key] = list(fails)
         good = {k for k, v in ok.items() if not v}
         changed = True
         while changed:
@@ -1373,6 +1428,114 @@ class Measure:
         self.discover([ref for b in self.twin_body.values() for ref in b[2]])
         self.judge_datums()
         self.settle_twins()
+
+    # ---- shadow rule data-fold-1: read after run(); never a link-cycle-2 verdict or credit
+    def fold_verdict(self, rt):
+        """("export" | "icf" | None, why): may a data-back failure at retail address rt
+        be excused as a read-only data fold? Retail was linked /OPT:ICF, which folds
+        byte-identical read-only COMDATs into one address; this link is /OPT:NOICF and
+        keeps every copy, so such an address is reached through several linked datums
+        whatever the tree does. A fold needs every linked address reaching rt to reach
+        a datum (no stub, import or unmapped name), all of one retail start, size and
+        relocation layout, each in read-only initialized data (no MEM_WRITE, not
+        COMMON) with no failure of its own (bytes equal retail's over its extent,
+        every relocation at retail's target), and retail's start in .rdata. Then
+        "export": retail's export table names that start twice or more (export_folds);
+        "icf": not export-proven, but every datum is a whole read-only COMDAT section,
+        the unit /OPT:ICF folds. Judged once every reference is discovered and every
+        datum judged."""
+        if rt not in self.fold_memo:
+            self.fold_memo[rt] = self._fold_verdict(rt)
+        return self.fold_memo[rt]
+
+    def _fold_verdict(self, rt):
+        linked = self.back.get(rt)
+        if not linked:
+            return None, "unreferenced"
+        if len(linked) < 2:
+            return None, "one-to-one"
+        nodes = []
+        for _, kind in sorted(self.reach.get(rt, ())):
+            if kind[0] != "datum":
+                return None, f"reaches {kind[0]}"
+            nodes.append((kind[1], self.dnodes[kind[1]]))
+        if len({key[1] for key, _ in nodes}) != 1:
+            return None, "several retail starts"
+        start = nodes[0][0][1]
+        if self.rsecs is None or self.rsecs.name_at(start) != ".rdata":
+            return None, "retail start not in .rdata"
+        if len({(key[2], tuple(sorted(n["rels"]))) for key, n in nodes}) != 1:
+            return None, "datums differ in size or relocations"
+        for _, n in nodes:
+            f = n.get("flags")
+            if f is None or f & MEM_WRITE or not f & INIT_DATA:
+                return None, "mutable datum"
+        for _, n in nodes:
+            if n["fails"]:
+                return None, "datum fails " + n["fails"][0].split(":")[0]
+        if start in self.folds:
+            return "export", "export-proven"
+        if all(n["flags"] & COMDAT and n.get("whole") for _, n in nodes):
+            return "icf", "whole read-only COMDATs"
+        return None, "not export-proven"
+
+    def fold_excused(self, ref, allow):
+        """data-fold-1 with the rules in `allow` excuses this reference's data-back
+        failure (never an import's: the (dll, name) rule judges those)."""
+        if len(self.back.get(ref[1], ())) < 2 or self.resolve(ref)[0] != "datum":
+            return False
+        return self.fold_verdict(ref[1])[0] in allow
+
+    def node_excused(self, node, allow):
+        """What data-fold-1 takes from a datum's failures: the data-ptr-back of each
+        pointer it holds into a fold."""
+        return ["data-ptr-back:" + ref[2] for ref in node["refs"] if self.fold_excused(ref, allow)]
+
+    def fold_left(self, fails, refs, allow, node_exc=None):
+        """`fails` (Counter) less what data-fold-1 excuses among `refs`, the direct data
+        references they were judged from: each one's data-back, and the excused
+        failures of the datum it reaches (ref_with_datum adds those per reference).
+        node_exc: {datum key: node_excused}, precomputed."""
+        left = collections.Counter(fails)
+        for ref in refs:
+            if self.fold_excused(ref, allow):
+                left["data-back:" + ref[2]] -= 1
+            kind = self.resolve(ref)
+            if kind[0] == "datum":
+                left.subtract(node_exc[kind[1]] if node_exc is not None
+                              else self.node_excused(self.dnodes[kind[1]], allow))
+        return +left
+
+    def fold_shadow(self, recs, allow):
+        """run()'s verdicts re-read under data-fold-1 (`allow`: the rules admitted):
+        ({id(rec): failures left}, {twin certified}, {datum key: failures left},
+        {rows, twins, datums: references excused}). Nothing run() recorded changes."""
+        by_rec = collections.defaultdict(list)
+        for rec, ref in getattr(self, "pending", ()):
+            by_rec[id(rec)].append(ref)
+        exc = {key: self.node_excused(n, allow) for key, n in self.dnodes.items()}
+        good = {k for k, b in self.twin_body.items()
+                if not self.fold_left(self.twin_fails.get(k, ["unjudged"]), b[2], allow, exc)}
+        changed = True
+        while changed:
+            changed = False
+            for k in sorted(good):
+                if any(x[0] == "twin" and (x[1], x[2]) not in good for x in self.twin_edges.get(k, ())):
+                    good.discard(k)
+                    changed = True
+        rows = {}
+        for rec in recs:
+            left = self.fold_left(rec["fails"], by_rec.get(id(rec), ()), allow, exc)
+            for e in twin_edges(rec["edges"]):
+                k = (e[1], e[2])
+                if not self.twins.get(k, (False,))[0] and k in good:
+                    left[f"twin-rejected:{self.twins.get(k, (0, 'unjudged'))[1]}"] -= 1
+            rows[id(rec)] = +left
+        nodes = {key: collections.Counter(n["fails"]) - collections.Counter(exc[key]) for key, n in self.dnodes.items()}
+        excused = {"rows": sum(self.fold_excused(ref, allow) for _, ref in getattr(self, "pending", ())),
+                   "twins": sum(self.fold_excused(ref, allow) for b in self.twin_body.values() for ref in b[2]),
+                   "datums": sum(map(len, exc.values()))}
+        return rows, good, nodes, excused
 
 
 # ---------------------------------------------------------------- cycle
@@ -1762,8 +1925,8 @@ def receipt_core(receipt):
     """The reproducible part of a receipt: what a cold and a cached run of the same
     inputs must agree on. Times, dates, link history and the warm-start path are
     left out; the core's sha256 is the receipt's identity."""
-    keep = ("rules", "commit", "submodules", "snapshot", "dirty", "diff_sha256", "tool_digest", "measure_env",
-            "retail_sha256", "toolchain_sha256", "inputs", "objects_digest", "provenance_sha256", "objects",
+    keep = ("rules", "shadow_rules", "commit", "submodules", "snapshot", "dirty", "diff_sha256", "tool_digest",
+            "measure_env", "retail_sha256", "toolchain_sha256", "inputs", "objects_digest", "provenance_sha256", "objects",
             "objects_missing", "compile_failed", "currency_proofs", "quarantine_sha256", "stubs_sha256",
             "not_ordered", "not_ordered_bytes", "analyze",
             "scaffold", "final_link", "series")
@@ -1955,7 +2118,7 @@ def cycle(args):
     t = time.time()
     res = measure(out, units, chunks, objs, R, rsecs, rimp, pins, shift_res is not None, args.shift_base)
     times["measure"] = round(time.time() - t)
-    receipt = dict(start, tool="link_cycle", rules="link-cycle-2",
+    receipt = dict(start, tool="link_cycle", rules="link-cycle-2", shadow_rules=SHADOW_RULES,
                    date_utc=time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime()),
                    objects_digest=obj_digest, provenance_sha256=prov_digest, objects=len(present), **canon,
                    objects_missing=len(missing), compile_failed=compile_failed, currency_proofs=proofs,
@@ -2019,30 +2182,7 @@ def measure(out, units, chunks, objs, R, rsecs, rimp, pins, have_shift, shift_ba
             why = sh.code(rec["linked"], rec["row"]["size"], rec["masked"], rec["rels"], rec["row"]["rva"])
             if why:
                 hard[id(rec)] = why
-    # The closure graph. Nodes: units, certified twins, datums (through data
-    # pointers), EH thunks. A node is ok when it is self-strict AND its every
-    # relocation moved with the base in the shifted link (sh); a failing node
-    # takes everything that reaches it out of the closure. Edges to fillers or
-    # stubs, or to nodes the graph does not hold, close nothing.
-    ok, edges = {}, collections.defaultdict(set)
-    for rec in recs:
-        n = ("unit", rec["unit"]["id"])
-        ok[n] = ok.get(n, True) and rec["measured"] and not rec["fails"] and id(rec) not in hard
-        edges[n] |= rec["edges"]
-    for k, (good, _) in m.twins.items():
-        n = ("twin", k[0], k[1])
-        ok[n] = good and not sh.code(k[0], ledger_starts[k[1]], {j for fo, _, _ in m.twin_rels.get(k, ())
-                                                                   for j in range(fo, fo + 4)},
-                                     m.twin_rels.get(k, ()), k[1])
-        edges[n] |= m.twin_edges.get(k, set())
-    for key, node in m.dnodes.items():
-        n = ("datum", key)
-        ok[n] = not node["fails"] and not sh.data(key, node)
-        edges[n] |= node["edges"]
-    for es in list(edges.values()):
-        for e in es:
-            if e[0] == "eh" and e not in ok:
-                ok[e] = not sh.eh(e[1])
+    ok, edges = closure_graph(m, recs, hard, sh, ledger_starts)
     closed = greatest_closure(ok, edges)
     # the pilot's rule, for comparison: code edges only, fillers are leaves, no shift
     pilot_ok = {n: v for n, v in ok.items() if n[0] == "unit"}
@@ -2051,6 +2191,9 @@ def measure(out, units, chunks, objs, R, rsecs, rimp, pins, have_shift, shift_ba
         pilot_ok[n] = pilot_ok.get(n, True) and rec["measured"] and not rec["fails"]
     pilot_edges = {n: {e for e in es if e[0] == "unit"} for n, es in edges.items() if n[0] == "unit"}
     closed_pilot = greatest_closure(pilot_ok, pilot_edges, bad_targets=(), unknown_closes=True)
+    m.folds, m.rsecs = export_folds(retail_exports(), rsecs), rsecs
+    shadow = fold_closures(m, recs, ok, edges, hard, sh, ledger_starts)
+    write_data_folds(out / "data_fold_list.csv", m)
     fold = out / "fold_list.csv"
     with fold.open("w", newline="", encoding="utf-8") as f:
         w = csv.writer(f)
@@ -2091,6 +2234,10 @@ def measure(out, units, chunks, objs, R, rsecs, rimp, pins, have_shift, shift_ba
                      "placed_closed_strict_pilot_rule": rec["placed"] and row["closed_strict_pilot_rule"],
                      "placed_byte_equal": be, "placed_self_strict_hardcoded": rec["placed"] and st and row["hardcoded"],
                      "placed_self_strict_shift_safe": rec["placed"] and st and not row["hardcoded"]}
+            for tag, (left, sclosed, _) in shadow.items():          # shadow: never the credit
+                sst = rec["measured"] and not left[id(rec)]
+                flags[f"placed_self_strict_{tag}"] = rec["placed"] and sst
+                flags[f"placed_closed_strict_{tag}"] = rec["placed"] and sst and n in sclosed
             for name, v in flags.items():
                 if v:
                     series[(k, name, "rows")] += 1
@@ -2120,11 +2267,113 @@ def measure(out, units, chunks, objs, R, rsecs, rimp, pins, have_shift, shift_ba
         kinds[(n[0], "ok" if v else "failed")] += 1
         kinds[(n[0], "closed" if n in closed else "open")] += 1
     res["closure_nodes"] = {f"{a}_{b}": c for (a, b), c in sorted(kinds.items())}
+    res["data_fold"] = fold_summary(m, {tag: s[2] for tag, s in shadow.items()})
     res["shift"] = sh.summary()
     res["retail_relocations"] = sites_info
     res["retail_text_bytes"] = textsz
     res["link_status_sha256"] = sha256(status)
     return res
+
+
+def closure_graph(m, recs, hard, sh, ledger_starts):
+    """The closure graph (ok, edges). Nodes: units, certified twins, datums (through
+    data pointers), EH thunks. A node is ok when it is self-strict AND its every
+    relocation moved with the base in the shifted link (sh); a failing node takes
+    everything that reaches it out of the closure. Edges to fillers or stubs, or to
+    nodes the graph does not hold, close nothing."""
+    ok, edges = {}, collections.defaultdict(set)
+    for rec in recs:
+        n = ("unit", rec["unit"]["id"])
+        ok[n] = ok.get(n, True) and rec["measured"] and not rec["fails"] and id(rec) not in hard
+        edges[n] |= rec["edges"]
+    for k, (good, _) in m.twins.items():
+        n = ("twin", k[0], k[1])
+        ok[n] = good and not sh.code(k[0], ledger_starts[k[1]], {j for fo, _, _ in m.twin_rels.get(k, ())
+                                                                   for j in range(fo, fo + 4)},
+                                     m.twin_rels.get(k, ()), k[1])
+        edges[n] |= m.twin_edges.get(k, set())
+    for key, node in m.dnodes.items():
+        n = ("datum", key)
+        ok[n] = not node["fails"] and not sh.data(key, node)
+        edges[n] |= node["edges"]
+    for es in list(edges.values()):
+        for e in es:
+            if e[0] == "eh" and e not in ok:
+                ok[e] = not sh.eh(e[1])
+    return ok, edges
+
+
+def fold_closures(m, recs, ok, edges, hard, sh, ledger_starts):
+    """The shadow series' closures (FOLD_SERIES): {tag: ({id(rec): failures left},
+    closed nodes, references excused)}. The graph is link-cycle-2's, same nodes and
+    edges; a unit, twin or datum is ok when data-fold-1 leaves it no failure and, as
+    there, it is shift-verified. A shift verdict the published graph never asked for
+    is kept out of sh.failed, so res["shift"] stays the published count."""
+    asked = {}
+
+    def shifted(n, check, *args):
+        if n not in asked:
+            saved = collections.Counter(sh.failed)
+            asked[n] = check(*args)
+            sh.failed = saved
+        return asked[n]
+    out = {}
+    for tag, allow in FOLD_SERIES:
+        left, good, nodes, excused = m.fold_shadow(recs, allow)
+        sok = {n: v for n, v in ok.items() if n[0] != "unit"}
+        for rec in recs:
+            n = ("unit", rec["unit"]["id"])
+            sok[n] = sok.get(n, True) and rec["measured"] and not left[id(rec)] and id(rec) not in hard
+        for k, (base_good, _) in m.twins.items():
+            n = ("twin", k[0], k[1])
+            if k not in good:
+                sok[n] = False
+            elif not base_good:                       # certified only in the shadow: verify its shift
+                rels = m.twin_rels.get(k, ())
+                sok[n] = not shifted(n, sh.code, k[0], ledger_starts[k[1]],
+                                     {j for fo, _, _ in rels for j in range(fo, fo + 4)}, rels, k[1])
+        for key, node in m.dnodes.items():
+            n = ("datum", key)
+            if nodes[key]:
+                sok[n] = False
+            elif node["fails"]:                       # clean only in the shadow: verify its shift
+                sok[n] = not shifted(n, sh.data, key, node)
+        out[tag] = (left, greatest_closure(sok, edges), excused)
+    return out
+
+
+def fold_summary(m, excused):
+    """series.data_fold: every retail address reached through several linked addresses
+    (data-back's), by its data-fold-1 verdict; the references each shadow series
+    excuses; the verdict at each export-proven fold address."""
+    back = sorted(a for a, ls in m.back.items() if len(ls) > 1)
+    verdicts = [m.fold_verdict(rt) for rt in back]
+    return {"rule": SHADOW_RULES[0],
+            "series": {tag: sorted(allow) for tag, allow in FOLD_SERIES},
+            "export_fold_addresses": len(m.folds),
+            "data_back_addresses": len(back),
+            "excused_addresses": {r: sum(1 for v in verdicts if v[0] == r) for r in ("export", "icf")},
+            "refused_addresses": dict(sorted(collections.Counter(w for r, w in verdicts if r is None).items())),
+            "references_excused": excused,
+            "export_folds": {"0x%08X" % a: m.fold_verdict(a)[0] or m.fold_verdict(a)[1] for a in sorted(m.folds)}}
+
+
+def write_data_folds(path, m):
+    """data_fold_list.csv: every retail address reached through several linked
+    addresses, what reaches it (linked address: datum size, or what it is) and its
+    data-fold-1 verdict (an empty rule: not excused)."""
+    with path.open("w", newline="", encoding="utf-8") as f:
+        w = csv.writer(f)
+        w.writerow(["retail_rva", "retail_start", "export_names", "linked", "symbols", "rule", "verdict"])
+        for rt in sorted(a for a, ls in m.back.items() if len(ls) > 1):
+            rule, why = m.fold_verdict(rt)
+            reach = sorted(m.reach.get(rt, ()))
+            keys = sorted({k[1] for _, k in reach if k[0] == "datum"})
+            starts = sorted({key[1] for key in keys})
+            w.writerow(["0x%08X" % rt, ";".join("0x%08X" % s for s in starts),
+                        max([len(m.folds.get(s, ())) for s in starts] or [0]),
+                        ";".join("0x%08X:%s" % (lt, k[1][2] if k[0] == "datum" else k[0]) for lt, k in reach),
+                        ";".join(sorted({m.dnodes[key]["name"] for key in keys})), rule or "", why])
 
 
 class Shifted:
@@ -2273,7 +2522,8 @@ def remeasure(args):
     path = out / "receipt.json"
     if path.exists():   # the links are the receipt's; the measure, its digest and series are replaced
         receipt = json.loads(path.read_text(encoding="utf-8"))
-        receipt.update(series=res, tool_digest=tool_digest(), rules="link-cycle-2", authoritative=False,
+        receipt.update(series=res, tool_digest=tool_digest(), rules="link-cycle-2", shadow_rules=SHADOW_RULES,
+                       authoritative=False,
                        remeasured_utc=time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime()))
         receipt.setdefault("seconds", {})["measure"] = round(time.time() - t)
         stamp_cores(receipt)
