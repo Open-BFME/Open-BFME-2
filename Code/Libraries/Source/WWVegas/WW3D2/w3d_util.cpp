@@ -47,6 +47,8 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 
+#include "../../../../../reference/shims/bfme_w3d_util/shader.h"
+#include "../../../../../reference/shims/bfme_w3d_util/w3d_file.h"
 #include "rendobj.h"	// the bfmerendobj shim has to win the include guard
 #include "w3d_util.h"
 #include "vector3.h"
