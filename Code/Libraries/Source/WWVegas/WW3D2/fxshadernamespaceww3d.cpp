@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD
+// cl: /O1 /arch:SSE /EHsc /MD
 // Target identity: WorldBuilder fxshadernamespaceww3d.cpp:102 names
 // FXShaderParameterSourceNamespaceWW3D::SourceNamespace_Fog::ResolveBindings.
 // Retail 0x0018BFCE has the same IsEnabled/Color/RangeStart/RangeEnd strings,
@@ -8,7 +8,14 @@
 // water binder; 0x00080221 constructs it from the callback argument's address.
 
 typedef const char *D3DXHANDLE;
-struct FogVector { float x, y, z, w; };
+// WWMath Vector4 memberwise copy semantics (BFME 1 874e38488 vector4.h).
+// A trivial struct copy introduces a second temporary and MOVSD copies;
+// retail keeps scalar color lanes and one local under /arch:SSE.
+struct FogVector {
+    FogVector() {}
+    FogVector(const FogVector &v) : x(v.x), y(v.y), z(v.z), w(v.w) {}
+    float x, y, z, w;
+};
 struct ID3DXEffect {
     virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
     virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();
@@ -82,8 +89,21 @@ void Rva0018BE65FogRangeEnd(ID3DXEffect *effect, D3DXHANDLE handle);
 class DX8Wrapper {
 public:
     __forceinline static bool Get_Fog_Enable() { return FogEnable; }
+    __forceinline static unsigned long Get_Fog_Color() { return FogColor; }
+    // BFME 1 874e38488 dx8wrapper.h Convert_Color(unsigned), unchanged
+    // channel masks and ordering. Target 18BDCF confirms unsigned blue
+    // conversion remains x87 while the three narrow channels use SSE.
+    __forceinline static FogVector Convert_Color(unsigned color) {
+        FogVector col;
+        col.w = ((color & 0xff000000) >> 24) / 255.0f;
+        col.x = ((color & 0xff0000) >> 16) / 255.0f;
+        col.y = ((color & 0xff00) >> 8) / 255.0f;
+        col.z = (color & 0xff) / 255.0f;
+        return col;
+    }
 protected:
     static bool FogEnable;
+    static unsigned long FogColor;
 };
 // The existing range-start alias had consumers but no definition. Retail's
 // initial .data value is zero; this provider lets those consumers link.
@@ -93,6 +113,14 @@ extern float g_Va00DEDA2C;
 void Rva0018BDB8FogIsEnabled(ID3DXEffect *effect, D3DXHANDLE handle)
 {
     effect->SetBool(handle, DX8Wrapper::Get_Fog_Enable());
+}
+
+// Retail 0x0018BDCF..0x0018BE4C, entire 125-byte callback through RET.
+// ResolveBindings independently installs this function for the Color path.
+void Rva0018BDCFFogColor(ID3DXEffect *effect, D3DXHANDLE handle)
+{
+    const FogVector &col = DX8Wrapper::Convert_Color(DX8Wrapper::Get_Fog_Color());
+    effect->SetVector(handle, &col);
 }
 
 void Rva0018BE4CFogRangeStart(ID3DXEffect *effect, D3DXHANDLE handle)
