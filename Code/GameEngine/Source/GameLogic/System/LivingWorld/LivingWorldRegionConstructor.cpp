@@ -29,7 +29,7 @@ struct BfmeE16{float x,y,z,w;};
 namespace _STL{template<>void allocator<BfmeE16>::deallocate(pointer p,size_type)const{Rva00030830FreeAllocation(p);}template<>__declspec(nothrow) __declspec(noinline) _Vector_base<BfmeE16,allocator<BfmeE16> >::_Vector_base(const allocator<BfmeE16>&a):_M_start(0),_M_finish(0),_M_end_of_storage(a,0){}}
 struct Header:public _STL::_Vector_base<BfmeE16,_STL::allocator<BfmeE16> >{using _STL::_Vector_base<BfmeE16,_STL::allocator<BfmeE16> >::_M_start;using _STL::_Vector_base<BfmeE16,_STL::allocator<BfmeE16> >::_M_finish;__forceinline Header():_STL::_Vector_base<BfmeE16,_STL::allocator<BfmeE16> >(_STL::allocator<BfmeE16>()){} };
 class Rva00330757Member:public Header{public:__declspec(noinline) Rva00330757Member();__forceinline ~Rva00330757Member(){}int flag;};
-Rva00330757Member::Rva00330757Member(){flag|=-1;}
+inline Rva00330757Member::Rva00330757Member(){flag|=-1;}
 class Rva003F2D03{public:Rva003F2D03(const AsciiString&);~Rva003F2D03();char bytes[0x118];};
 class Gen_uwm_003f30d1:public Header{public:__forceinline Gen_uwm_003f30d1(){}~Gen_uwm_003f30d1();};
 class Rva003F1797:public Header{public:__forceinline Rva003F1797(){}~Rva003F1797();};
