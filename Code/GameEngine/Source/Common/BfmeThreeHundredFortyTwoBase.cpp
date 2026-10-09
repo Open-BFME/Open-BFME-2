@@ -1,26 +1,17 @@
-// flags: region default (reverse/retail_inventory/flag_regions.csv)
-// The base init stores retail vtable 0x00C0BBF8, not bfmeInitTC's 0x00C67840,
-// so it needs its own symbol for the DIR32 check.
-extern "C" unsigned char bfmeVftTCBase[];
-
-class BfmeThingTC
-{
+// cl: /O1 /G7 /arch:SSE /MD
+// Native17B31454D is the C0BBF8 input-route base constructor: it clears
+// next/owner at4/8 and installs the same table as the verified link/unlink
+// and destructor in GameWindow.cpp. AptLanLobby445EE3 constructs this base
+// at6AC before installing its derived route table. Replaces the earlier
+// BfmeThingTC::bfmeBaseTC placeholder without changing the17 native bytes.
+// This is a consumed12-byte prefix; the target owner argument to Link is
+// a different receiver view and its1DC list head is not part of this object.
+class Rva0031455E {
 public:
-	BfmeThingTC *bfmeBaseTC();
-	void *m_bfmeVft;
-	int m_bfmeStateFlags04;
-	int m_bfmeStateFlags08;
-	void *m_bfmeWhat;
+ Rva0031455E();
+ virtual ~Rva0031455E();
+ virtual void Rva0031455ELink(Rva0031455E *);
+ virtual void Rva00314581Unlink();
+private: void *next; void *window;
 };
-
-BfmeThingTC *BfmeThingTC::bfmeBaseTC()
-{
-	m_bfmeStateFlags04 &= 0;
-	m_bfmeStateFlags08 &= 0;
-	m_bfmeVft = bfmeVftTCBase;
-	return this;
-}
-
-// Retail's data references in this unit's matched rows land on globals defined
-// under other spellings at the same addresses (addend-corrected DIR32). Bind them.
-#pragma comment(linker, "/alternatename:_bfmeVftTCBase=??_7Rva0031455E@@6B@")
+Rva0031455E::Rva0031455E() : next(0),window(0) {}
