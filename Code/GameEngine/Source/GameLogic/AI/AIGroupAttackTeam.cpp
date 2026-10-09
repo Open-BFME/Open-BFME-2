@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /Ireference/shims/bfmelist /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /ICode/Libraries/Include/Lib /ICode/GameEngine/Include/GameLogic /O1 /G7 /arch:SSE /EHs /DNDEBUG /MD /Ireference/shims/bfmelist /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //
 // AIGroup::groupAttackTeam (?groupAttackTeam@AIGroup@@QAEXPBVTeam@@HW4CommandSourceType@@@Z),
@@ -39,8 +39,8 @@
 #include <list>
 #include <vector>
 #include <string.h>
-#include "../../../../Libraries/Include/Lib/Coord3D.h"
-#include "../../../Include/GameLogic/ContainmentListView.h"
+#include "Coord3D.h"
+#include "ContainmentListView.h"
 
 typedef int Int;
 enum ObjectID { INVALID_ID=0 };
@@ -63,7 +63,7 @@ class Team;
 class Object;
 
 enum CanAttackResult { ATTACKRESULT_POSSIBLE_AFTER_MOVING=2, ATTACKRESULT_POSSIBLE=3 };
-enum AbleToAttackType { ATTACK_NEW_TARGET=0 };
+enum AbleToAttackType { ATTACK_NEW_TARGET=0, ATTACK_NEW_TARGET_FORCED=1 };
 class Rva0036FF74Contain {
 public:
 	virtual void v0();
@@ -156,6 +156,9 @@ public:
 	void aiHunt(CommandSourceType cmdSource);
 	void rva0036EC1D(Object*,CommandSourceType);
 	void aiAttackPosition(const Coord3D *, int, CommandSourceType);
+ void aiForceAttackObject(Object*,int,CommandSourceType);
+ void rva0026C2D9(Object*,int,CommandSourceType);
+ void rva0036EFF5(Object*,CommandSourceType);
 };
 
 class AIUpdateInterface
@@ -234,6 +237,9 @@ public:
 	SpawnBehaviorInterface *getSpawnBehaviorInterface() const;
 	Player *getControllingPlayer() const;
 	ObjectID getID() const { return m_id; }
+ int rva0028B38D() const;
+ bool held() const {return (m_held[0]&8)!=0;}
+ CanAttackResult getAbleToAttackSpecificObject(AbleToAttackType,const Object*,CommandSourceType) const;
 	bool rva00290D2B(const UpgradeTemplate*) const;
 	bool rva002940B9(const UpgradeTemplate*);
 	void *rva0028BC58(int);
@@ -251,12 +257,18 @@ public:
 	Coord3D m_pos;
 	char m_pad44[0x74 - 0x44];
 	ObjectID m_id;
-	char m_pad78[0x250 - 0x78];
+	char m_pad78[0x1C8 - 0x78];
+ unsigned char m_held[0x250-0x1C8];
 	Rva0036FF74Contain *m_contain;
 	char m_pad254[4];
 	AIUpdateInterface *m_ai;
 };
 
+enum IterOrderType {ITER_FASTEST, ITER_SORTED_NEAR_TO_FAR, ITER_SORTED_FAR_TO_NEAR};
+class SimpleObjectIterator {public: SimpleObjectIterator(); virtual ~SimpleObjectIterator(); virtual int first(); virtual int next(); void insert(int,float); void sort(IterOrderType); private: char m_pad04[0x3C-4];};
+struct Coord3DCopy: Coord3D {Coord3DCopy(const Coord3D &p){x=p.x;y=p.y;z=p.z;}};
+class ActionManager {public: CanAttackResult getCanAttackObject(const Object*,const Object*,CommandSourceType,AbleToAttackType);};
+extern ActionManager *TheActionManager;
 class AIGroup
 {
 public:
@@ -275,6 +287,7 @@ public:
 	void setWeaponSetFlag( WeaponSetType wst );
 
 private:
+ void groupAttackObjectPrivate(bool,Object*,int,CommandSourceType);
 	unsigned int m_pad00;
 	std::list<Object *> m_memberList;
 	char m_pad08[0x30 - 0x08];
@@ -469,4 +482,44 @@ const _STL::vector<ObjectID>& AIGroup::getAllIDs() const
   m_lastRequestedIDList.push_back((*it)->getID());
  }
  return m_lastRequestedIDList;
+}
+
+// ZH groupAttackObjectPrivate; native36FD64..36FF33 RET16, WB EE7060.
+void AIGroup::groupAttackObjectPrivate(bool forced,Object *victim,int shots,CommandSourceType source)
+{
+ if (!victim) return;
+ Coord3DCopy victimPos=*victim->getPosition();
+ SimpleObjectIterator *iter=new SimpleObjectIterator;
+ for(std::list<Object*>::iterator i=m_memberList.begin();i!=m_memberList.end();++i) {
+  Coord3DCopy unitPos=*(*i)->getPosition();
+  if((*i)->held()) continue;
+  float dx=unitPos.x-victimPos.x,dy=unitPos.y-victimPos.y;
+  iter->insert((int)*i,dx*dx+dy*dy);
+ }
+ iter->sort(ITER_SORTED_NEAR_TO_FAR);
+ for(Object *unit=(Object*)iter->first();unit;unit=(Object*)iter->next()) {
+  Rva0036FF74Contain *contain=unit->m_contain;
+  if(contain && contain->allowedToFire()) {
+   Rva0036AE51ListView items=contain->items();
+   for(ContainmentList::const_iterator i=items.b->begin();i!=items.b->end();++i) {
+    Object *member=(Object*)containmentFirstWord(*i);
+    CanAttackResult result=member->getAbleToAttackSpecificObject(forced?ATTACK_NEW_TARGET_FORCED:ATTACK_NEW_TARGET,victim,source);
+    if(result==ATTACKRESULT_POSSIBLE || result==ATTACKRESULT_POSSIBLE_AFTER_MOVING) {
+     AIUpdateInterface *ai=member->m_ai;
+     if(ai) {
+      if(forced) ai->m_commands.aiForceAttackObject(victim,shots,source);
+      else ai->m_commands.rva0026C2D9(victim,shots,source);
+     }
+    }
+   }
+  }
+  AIUpdateInterface *ai=unit->m_ai;
+  if(ai && unit!=victim) {
+   if((unsigned char)unit->rva0028B38D()) {
+    CanAttackResult result=TheActionManager->getCanAttackObject(unit,victim,source,ATTACK_NEW_TARGET);
+    if(result==ATTACKRESULT_POSSIBLE || result==ATTACKRESULT_POSSIBLE_AFTER_MOVING) ai->m_commands.rva0036EFF5(victim,source);
+   } else if(forced) ai->m_commands.aiForceAttackObject(victim,shots,source);
+   else ai->m_commands.rva0026C2D9(victim,shots,source);
+  }
+ }
 }
