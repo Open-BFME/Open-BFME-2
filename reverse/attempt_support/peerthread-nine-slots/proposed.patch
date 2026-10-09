@@ -1,0 +1,74 @@
+diff --git a/Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp b/Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp
+index dd575536e4..65c0ef6974 100644
+--- a/Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp
++++ b/Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp
+@@ -445,6 +445,7 @@ public:
+ 	Bool getSawCompleteGameList() { return m_sawCompleteGameList; }
+ 
+ private:
++	friend class DualIndexedDispatchThunk;
+ 	Bool m_isConnecting;
+ 	Bool m_isConnected;
+ 	std::string m_loginName, m_originalName, m_password, m_email;
+@@ -504,9 +505,12 @@ private:
+ #ifdef USE_BROADCAST_KEYS
+ // Native data table DC0768 contains these nine literal pointers in this order.
+ const char* PeerThreadClass::s_keys[NumKeys] = { "b_locale", "b_wins", "b_losses", "b_points", "b_side", "b_pre", "b_BSide", "b_rank1v1", "b_rank2v2" };
+-char PeerThreadClass::s_valueBuffers[NumKeys][20] = { "", "", "", "", "", "" };
++// Native DC078C stores nine pointers to E025E0 + 20*i; localIP starts at E02694.
++// The room publisher uses slots 0..6 and Thread_Function writes slots 7 and 8.
++char PeerThreadClass::s_valueBuffers[NumKeys][ValBufSize] = {};
+ const char* PeerThreadClass::s_values[NumKeys] = { s_valueBuffers[0], s_valueBuffers[1], s_valueBuffers[2],
+-	s_valueBuffers[3], s_valueBuffers[4], s_valueBuffers[5]};
++	s_valueBuffers[3], s_valueBuffers[4], s_valueBuffers[5],
++	s_valueBuffers[6], s_valueBuffers[7], s_valueBuffers[8]};
+ 
+ // Player-stat writes are recovered in PeerThreadStats.cpp.
+ 
+@@ -1535,6 +1539,8 @@ public:
+ class DualIndexedDispatchThunk
+ {
+ public:
++	unsigned char padding[0x54];
++	void *value;
+ 	void dispatch(PEER peer);
+ };
+ 
+@@ -2259,8 +2265,8 @@ void PeerThreadClass::Thread_Function()
+ 				break;
+ 
+ 			case PeerRequest::PEERREQUEST_PUSHSTATSVALUES:
+-				_snprintf(s_valueBuffers[0], 20, "%d", payload.statsPair.value0);
+-				_snprintf(s_valueBuffers[1], 20, "%d", payload.statsPair.value4);
++				_snprintf(s_valueBuffers[7], 20, "%d", payload.statsPair.value0);
++				_snprintf(s_valueBuffers[8], 20, "%d", payload.statsPair.value4);
+ 				reinterpret_cast<DualIndexedDispatchThunk *>(this)->dispatch( peer );
+ 				break;
+ 
+@@ -3651,3 +3657,18 @@ typedef _STL::pair<const Int, SBServer> BfmeServerPair;
+ typedef _STL::_Rb_tree<Int, BfmeServerPair, _STL::_Select1st<BfmeServerPair>,
+ 	_STL::less<Int>, _STL::allocator<BfmeServerPair> > BfmeServerTree;
+ template _STL::pair<BfmeServerTree::iterator, bool> BfmeServerTree::insert_unique(const BfmeServerPair &);
++
++// Native 388D61 forwards the last two pointers in both nine-entry tables.
++// Its receiver field at +54 remains an opaque pointer; the donor class name
++// does not establish the original target owner. Keep the verified body with
++// the actual table owner instead of inventing separate interior globals.
++extern void __cdecl dispatchIndexedValue(void *, int, void *, int, int *, int *);
++void DualIndexedDispatchThunk::dispatch(PEER peer)
++{
++    dispatchIndexedValue(peer, 1, value, 2,
++        reinterpret_cast<int *>(&PeerThreadClass::s_keys[7]),
++        reinterpret_cast<int *>(&PeerThreadClass::s_values[7]));
++    dispatchIndexedValue(peer, 2, value, 2,
++        reinterpret_cast<int *>(&PeerThreadClass::s_keys[7]),
++        reinterpret_cast<int *>(&PeerThreadClass::s_values[7]));
++}
+diff --git a/reverse/data_rows.csv b/reverse/data_rows.csv
+index 72a615479a..a168c7f2ca 100644
+--- a/reverse/data_rows.csv
++++ b/reverse/data_rows.csv
+@@ -1 +1,3 @@
+ name,address,address_kind,size,section,source,status,evidence,model
++?s_valueBuffers@PeerThreadClass@@0PAY0BE@DA,0x00E025E0,va,180,.data,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp,matched,Native nine DC078C pointer entries target E025E0+20*i; room38AF29 uses first7 and Thread_Function38EDD7 last2; all180 loader zeros end at independently owned localIP E02694; BF1 repair9562b49 is ownership verification guide only,gpt-6.1-sol
++?s_values@PeerThreadClass@@0PAPBDA,0x00DC078C,va,36,.data,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp,matched,Native full9 pointer table DC078C..DC07B0 targets proven180-byte s_valueBuffers entries0..8; next owned s_lastExtendedInfoID starts DC07B0; room and dispatch388D61 consume prefix7 and final2 respectively,gpt-6.1-sol

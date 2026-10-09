@@ -1,0 +1,41 @@
+{
+  "buffers_va": "0x00E025E0",
+  "count": 9,
+  "width": 20,
+  "zero_size": 180,
+  "values_va": "0x00DC078C",
+  "values": [
+    "0xe025e0",
+    "0xe025f4",
+    "0xe02608",
+    "0xe0261c",
+    "0xe02630",
+    "0xe02644",
+    "0xe02658",
+    "0xe0266c",
+    "0xe02680"
+  ],
+  "next_values_word": "0xffffffff",
+  "keys_va": "0x00DC0768",
+  "keys": [
+    "b_locale",
+    "b_wins",
+    "b_losses",
+    "b_points",
+    "b_side",
+    "b_pre",
+    "b_BSide",
+    "b_rank1v1",
+    "b_rank2v2"
+  ],
+  "next_buffer_owner_localIP_va": "0x00E02694",
+  "selected_native": [
+    "0078F78E 686c26e000               push 0xe0266c",
+    "0078F79E 688026e000               push 0xe02680",
+    "0078F957 ff359426e000             push dword ptr [0xe02694]",
+    "0078F9A1 a19426e000               mov eax, dword ptr [0xe02694]",
+    "0078B069 68e025e000               push 0xe025e0",
+    "0078B13C bf8c07dc00               mov edi, 0xdc078c",
+    "0078B142 be6807dc00               mov esi, 0xdc0768"
+  ]
+}
