@@ -33,6 +33,11 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 // the binary are defined here; Multiply and Lerp are omitted because the retail
 // build's inlining/codegen for them drifted from this source (see report).
 
+// Keep verified donor math algorithms inline under the native layout.
+#include "../../../../../reference/shims/bfme_part_emt_inline/vector3.h"
+#include "../../../../../reference/shims/bfme_vp_math/vector4.h"
+#include "../../../../../reference/shims/bfme_part_emt_inline/matrix3d.h"
+#include "../../../../../reference/shims/bfme_matrix_inverse_link/matrix4.h"
 #include "rendobj.h"	// the bfmerendobj shim has to win the include guard
 #include "matrix3d.h"
 
