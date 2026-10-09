@@ -22,7 +22,7 @@ class Rva003F468D;
 class Rva0020E6B7RegionManager {public: Rva003F468D *rva0020E6B7();};
 class LivingWorldLogic {public: char unknown00[0xB0]; Rva0020E6B7RegionManager *manager;};
 extern LivingWorldLogic *TheLivingWorldLogic;
-#include "../../Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
+#include "../../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 class LivingWorldBattle {
 public:
@@ -350,17 +350,9 @@ class ArmorTemplate;
 namespace rts { template<class T> struct hash; template<class T>struct equal_to; }
 namespace _STL {
 template<class V> struct _Hashtable_node;
-template<class V,class K,class H,class X,class E,class A> struct _Hashtable_iterator {
+template<class V,class Traits,class K,class H,class X,class E,class A> struct _Ht_iterator {
  void *node;void *table;
- _Hashtable_node<V> *_M_skip_to_next();
-};
-template<class V,class Traits,class K,class H,class X,class E,class A> struct _Ht_iterator : _Hashtable_iterator<V,K,H,X,E,A> {
- _Ht_iterator(void *n,void *t){this->node=n;this->table=t;}
- _Ht_iterator(){}
- __declspec(noinline) _Ht_iterator &operator++() {
-  void *n=*(void**)this->node;
-  this->node=n?n:this->_M_skip_to_next();return *this;
- }
+ _Ht_iterator &operator++();
 };
 template<class T> struct hash;
 
@@ -372,10 +364,7 @@ template<class V,class K,class H,class X,class E,class A> class hashtable {
 public:
  typedef _Ht_iterator<V,_Nonconst_traits<V>,K,H,X,E,A> iterator;
  template<class T> __declspec(noinline) iterator find(const T &);
- __declspec(noinline) iterator begin() {
- for(unsigned int n=0;n<buckets.size();++n) if(buckets[n])return iterator(buckets[n],this);
- return iterator(0,this);
- }
+ iterator begin();
 private:
  unsigned int unknown00;
  vector<_Hashtable_node<V>*> buckets;
@@ -393,7 +382,7 @@ typedef _STL::hashtable<ArmyLookupProviderValue,NameKeyType,rts::hash<NameKeyTyp
 namespace _STL {
 template<class V,class K,class H,class X,class E,class A> template<class T>
 typename hashtable<V,K,H,X,E,A>::iterator hashtable<V,K,H,X,E,A>::find(const T &key) {
- iterator result(((const ArmyLookupProvider*)this)->_M_find(*(const NameKeyType*)&key),this);
+ iterator result={((const ArmyLookupProvider*)this)->_M_find(*(const NameKeyType*)&key),this};
  return result;
 }
 }
@@ -472,6 +461,13 @@ class GameWindow;class WindowVideo;
 class WindowVideoManager {public:struct hashConstGameWindowPtr;};
 typedef _STL::pair<const GameWindow *const,WindowVideo*> WindowProviderValue;
 typedef _STL::hashtable<WindowProviderValue,const GameWindow*,WindowVideoManager::hashConstGameWindowPtr,_STL::_Select1st<WindowProviderValue>,_STL::equal_to<const GameWindow*>,_STL::allocator<WindowProviderValue> > WindowProvider;
+namespace _STL {
+template<> struct _Ht_iterator<WindowProviderValue,_Nonconst_traits<WindowProviderValue>,const GameWindow*,WindowVideoManager::hashConstGameWindowPtr,_Select1st<WindowProviderValue>,equal_to<const GameWindow*>,allocator<WindowProviderValue> > {
+ void *node; void *table;
+ _Ht_iterator(void *n,void *t):node(n),table(t){}
+ _Ht_iterator &operator++();
+};
+}
 class ArmyMemberDefinition {public:float getInterpolatedPercentageOfArmy(void*);};
 void AIUnitBuilder::Rva00598A3D()
 {
