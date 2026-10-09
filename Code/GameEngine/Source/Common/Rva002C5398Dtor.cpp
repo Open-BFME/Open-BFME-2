@@ -42,17 +42,17 @@ public:
 	virtual void freeStaticStrings();
 };
 
-class GameEngineDeletingBase
+class SubsystemInterface
 {
 public:
-	GameEngineDeletingBase();
-	virtual ~GameEngineDeletingBase();
+	SubsystemInterface();
+	virtual ~SubsystemInterface();
 
 private:
 	char m_pad04[8];
 };
 
-class Rva002C5398 : public GameEngineDeletingBase
+class Rva002C5398 : public SubsystemInterface
 {
 public:
 	Rva002C5398();

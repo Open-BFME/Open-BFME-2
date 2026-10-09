@@ -2,12 +2,12 @@
 // ??1Rva00359290@@UAE@XZ @0x00359290 85B.
 // Virtual scalar dtor (vptr 0xC15398): vptr store, three member-dtor calls
 // in reverse order through the rowed Rva00358D62/Rva00358E6A bodies, then
-// the rowed GameEngineDeletingBase dtor. No new pins; the base is an opaque
+// the rowed SubsystemInterface dtor. No new pins; the base is an opaque
 // 0xC TU-local stand-in.
-class GameEngineDeletingBase
+class SubsystemInterface
 {
 public:
-	virtual ~GameEngineDeletingBase();
+	virtual ~SubsystemInterface();
 
 private:
 	char m_pad[0xC - 4];
@@ -31,7 +31,7 @@ private:
 	char m_pad[12];
 };
 
-class Rva00359290 : public GameEngineDeletingBase
+class Rva00359290 : public SubsystemInterface
 {
 public:
 	virtual ~Rva00359290();

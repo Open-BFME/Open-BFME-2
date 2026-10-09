@@ -4,7 +4,7 @@
 // 0x00818828. Body clears TheGameInfo when it points at member m_24 closes
 // FILE at +0x10 via fclose then destroys Rva0037BB53 member at +0x24 and two
 // UnicodeStrings at +0x20/+0x14 (inlined releaseBuffer) then
-// GameEngineDeletingBase base. Identity from vtable store member call to just
+// SubsystemInterface base. Identity from vtable store member call to just
 // landed 0x0037BB53 TheGameInfo global fclose IAT and deleting dtor caller
 // 0x0037BD48.
 #include "unicode_string.h"
@@ -20,15 +20,15 @@ public:
 	char m_pad[0xE3C - 4];
 };
 
-class GameEngineDeletingBase
+class SubsystemInterface
 {
 public:
-	virtual ~GameEngineDeletingBase();
+	virtual ~SubsystemInterface();
 	int m_pad04;
 	int m_pad08;
 };
 
-class Rva0037BBED : public GameEngineDeletingBase
+class Rva0037BBED : public SubsystemInterface
 {
 public:
 	virtual ~Rva0037BBED();

@@ -14,16 +14,16 @@ public:
 	Rva002D6C1CNode *m_next; // +0x04
 };
 
-class GameEngineDeletingBase
+class SubsystemInterface
 {
 public:
-	virtual ~GameEngineDeletingBase();
+	virtual ~SubsystemInterface();
 
 private:
 	char m_pad04[8];
 };
 
-class Rva002D6C1C : public GameEngineDeletingBase
+class Rva002D6C1C : public SubsystemInterface
 {
 public:
 	virtual ~Rva002D6C1C();

@@ -5,7 +5,7 @@
 // DisplayManager global 0x009FEAD8 slot 0x3C (FreeEntry, Rva0025FC61 precedent),
 // Wide strings at +0x1300/+0x12FC/+0x12F8 and narrow at +0x126C via
 // releaseBuffer, CursorInfo[0x54] array at +0xC via ??_M, base
-// GameEngineDeletingBase dtor. Evidence: ??_G caller; no donor.
+// SubsystemInterface dtor. Evidence: ??_G caller; no donor.
 #include <vector>
 
 #include "ascii_string.h"
@@ -39,13 +39,13 @@ struct CursorInfo {
 	unsigned char m_pad[0x54];
 };
 
-class GameEngineDeletingBase
+class SubsystemInterface
 {
 public:
-	virtual ~GameEngineDeletingBase();
+	virtual ~SubsystemInterface();
 };
 
-class Rva001EE3DE : public GameEngineDeletingBase
+class Rva001EE3DE : public SubsystemInterface
 {
 public:
 	virtual ~Rva001EE3DE();

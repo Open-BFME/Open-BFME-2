@@ -9,10 +9,10 @@
 struct TargetRef00217D4C;
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *ref);
 
-class GameEngineDeletingBase
+class SubsystemInterface
 {
 public:
-	virtual ~GameEngineDeletingBase();
+	virtual ~SubsystemInterface();
 
 private:
 	char m_pad04[8];
@@ -36,7 +36,7 @@ public:
 	TargetRef00217D4C *m_ref;
 };
 
-class Rva00524BB4 : public GameEngineDeletingBase
+class Rva00524BB4 : public SubsystemInterface
 {
 public:
 	virtual ~Rva00524BB4();

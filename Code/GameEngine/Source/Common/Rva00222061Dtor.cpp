@@ -30,10 +30,10 @@ typedef _Rb_tree<AsciiString, HintValue, _Select1st<HintValue>,
     less<AsciiString>, allocator<HintValue> > HintTree;
 }
 
-class GameEngineDeletingBase
+class SubsystemInterface
 {
 public:
-	virtual ~GameEngineDeletingBase();
+	virtual ~SubsystemInterface();
 
 private:
 	char m_pad04[8];
@@ -48,7 +48,7 @@ private:
 	unsigned char m_pad[0x1C];
 };
 
-class Rva00222061 : public GameEngineDeletingBase
+class Rva00222061 : public SubsystemInterface
 {
 public:
 	virtual ~Rva00222061();

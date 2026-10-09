@@ -27,7 +27,7 @@
 //   (three WideChars each), +0xE1C m_inputFrame.
 // - The destructor frees the vector's start pointer with the C++-linkage free
 //   (0x00030830): the inlined POD-vector deallocate. It then chains to the
-//   SubsystemInterface destructor (ledger GameEngineDeletingBase,
+//   SubsystemInterface destructor (ledger SubsystemInterface,
 //   0x001B4E74). The C++ linkage is load-bearing: it emits the unwind state
 //   stores retail carries, while an extern "C" import would call through
 //   the IAT.
@@ -46,11 +46,11 @@ public:
 };
 
 // Ledger name of SubsystemInterface (vptr, +0x04, AsciiString at +0x08).
-class GameEngineDeletingBase
+class SubsystemInterface
 {
 public:
-	GameEngineDeletingBase() throw();
-	virtual ~GameEngineDeletingBase();
+	SubsystemInterface() throw();
+	virtual ~SubsystemInterface();
 
 private:
 	char m_pad04[4];
@@ -93,7 +93,7 @@ enum
 
 enum { KEY_NONE = 0x00 };
 
-class Keyboard : public GameEngineDeletingBase
+class Keyboard : public SubsystemInterface
 {
 public:
 	Keyboard();
@@ -113,7 +113,7 @@ protected:
 };
 
 Keyboard::Keyboard()
-	: GameEngineDeletingBase(), m_keys(_STL::allocator<BfmeE16>())
+	: SubsystemInterface(), m_keys(_STL::allocator<BfmeE16>())
 {
 	memset(m_keyStatus, 0, sizeof(m_keyStatus));
 	m_modifiers = KEY_STATE_NONE;

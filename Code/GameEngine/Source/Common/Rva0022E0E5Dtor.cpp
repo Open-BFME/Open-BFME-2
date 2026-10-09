@@ -32,16 +32,16 @@ namespace _STL
 	};
 }
 
-class GameEngineDeletingBase
+class SubsystemInterface
 {
 public:
-	virtual ~GameEngineDeletingBase();
+	virtual ~SubsystemInterface();
 
 private:
 	char m_pad04[8];
 };
 
-class Rva0022E0E5 : public GameEngineDeletingBase
+class Rva0022E0E5 : public SubsystemInterface
 {
 public:
 	virtual ~Rva0022E0E5();
