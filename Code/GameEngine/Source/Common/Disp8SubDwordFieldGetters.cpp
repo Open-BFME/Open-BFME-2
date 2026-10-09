@@ -37,3 +37,27 @@ BFME_DISP8_SUB_DWORD_GETTER(Rva00414325SubDwordField, 0x04, 0x30)
 BFME_DISP8_SUB_DWORD_GETTER(Rva0051E3F1SubDwordField, 0x04, 0x50)
 BFME_DISP8_SUB_DWORD_GETTER(Rva00625BA0SubDwordField, 0x04, 0x08)
 BFME_DISP8_SUB_DWORD_GETTER(Rva006BD4C0SubDwordField, 0x04, 0x24)
+
+// BF1 f98983a7d3 Rva003D6960Get.cpp / Rva003D9D50Get.cpp and the
+// Gen20VectorDestructor.cpp-emitted back() provide clean operation guides.
+// Native2EAD79..2EAD7F and3B3F66..3B3F6D independently establish complete
+// RET0 leaves reading receiverwords0/4 and subtracting12/20 inEAX. Prior
+// completed RET and tail JMP, respectively, and following fresh entries
+// bound the bodies. Original owners, payload meaning and declarations remain
+// unknown; the raw unsigned words express native32-bit wrap without asserting
+// a pointer, vector, or Gen20 identity.
+// ?getBits@Rva002EAD79WordOffset@@QBEIXZ
+struct Rva002EAD79WordOffset
+{
+    unsigned int word0;
+    unsigned int getBits() const;
+};
+unsigned int Rva002EAD79WordOffset::getBits() const { return word0 - 12u; }
+// ?getBits@Rva003B3F66WordOffset@@QBEIXZ
+struct Rva003B3F66WordOffset
+{
+    char pad0[4];
+    unsigned int word4;
+    unsigned int getBits() const;
+};
+unsigned int Rva003B3F66WordOffset::getBits() const { return word4 - 20u; }
