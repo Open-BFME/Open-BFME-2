@@ -70,3 +70,54 @@ unsigned Rva000E44B1::dispatch() const
         return held->dispatch();
     return 0;
 }
+
+// Whole clean BF1 f98983a7d3 Common/NullCheckedForwarders.cpp supplies the
+// nullable held-interface forwarding expression. Native complete leaves
+// 001F4234/12, 001F4240/14 and 001F424E/14 each load receiver[0], return on
+// null, otherwise tail-dispatch slot1 (no stackwords) or slot3 (two / one).
+// A completed RET4 precedes the first; each ends at its next sibling, and a
+// new prologue follows the third. No wrapper/target class relationship or
+// original method name is inferred from this adjacency. Argument words are
+// raw32 bits; their pointer/integer meaning remains unknown. The target
+// virtual declarations only express the witnessed slot and physical arity.
+class Rva001F4234Slot1 {
+public:
+    virtual void slot0();
+    virtual void forward();
+};
+class Rva001F4234 {
+public:
+    void forward();
+    Rva001F4234Slot1 *held;
+};
+void Rva001F4234::forward() { if (held) held->forward(); }
+
+class Rva001F4240Slot3 {
+public:
+    virtual void slot0();
+    virtual void slot1();
+    virtual void slot2();
+    virtual void forward(unsigned first, unsigned second);
+};
+class Rva001F4240 {
+public:
+    void forward(unsigned first, unsigned second);
+    Rva001F4240Slot3 *held;
+};
+void Rva001F4240::forward(unsigned first, unsigned second) {
+    if (held) held->forward(first, second);
+}
+
+class Rva001F424ESlot3 {
+public:
+    virtual void slot0();
+    virtual void slot1();
+    virtual void slot2();
+    virtual void forward(unsigned word);
+};
+class Rva001F424E {
+public:
+    void forward(unsigned word);
+    Rva001F424ESlot3 *held;
+};
+void Rva001F424E::forward(unsigned word) { if (held) held->forward(word); }
