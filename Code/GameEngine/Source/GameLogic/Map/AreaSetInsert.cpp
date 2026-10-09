@@ -82,3 +82,18 @@ void Rva0030912A::rva0030912A(int id, StandingWaterRef area) {
     listeners.forEach(&Rva00281A33Listener::notify, this, reinterpret_cast<int>(area.m_ptr));
 }
 
+
+// Native3291F4..32927A RET4,134B: allocate the current nextID, advance it,
+// append the same retained eight-byte entry, notify the same listener slot,
+// release the by-value input and return that saved ID. Every call matches
+// the insert siblings; target fixes ownership/storage but not the original
+// receiver or reference-template name, so use address-derived storage views.
+
+class Rva003291F4 : public AreaSetInsertStorage { public: int rva003291F4(AreaRefValueView); };
+int Rva003291F4::rva003291F4(AreaRefValueView area) {
+    int id = nextID++;
+    entries.push_back(reinterpret_cast<const Rva00308E2CElement &>(Rva0030C95C(id, area)));
+    listeners.forEach(&Rva00281A33Listener::notify, this, reinterpret_cast<int>(area.pointer));
+    return id;
+}
+
