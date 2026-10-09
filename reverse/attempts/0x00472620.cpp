@@ -1,4 +1,6 @@
 // ?rva00472620@Rva00468E98@@QAE?AURva00472620Position@@PAURva00472620Object@@PAM@Z
+// partial score=0.95 date=2026-10-09
+// ?rva00472620@Rva00468E98@@QAE?AURva00472620Position@@PAURva00472620Object@@PAM@Z
 // partial score=0.9 date=2026-10-07
 // cl: /O1 /arch:SSE /MD /EHsc /Oy- /DNDEBUG
 // stlport
@@ -20,6 +22,7 @@ class Vector2
 public:
     float X, Y;
     Vector2() {}
+    ~Vector2() {}
     Vector2(const Vector2 &other) { X = other.X; Y = other.Y; }
     Vector2(float x, float y) { X = x; Y = y; }
     Vector2 &operator=(const Vector2 &other)
