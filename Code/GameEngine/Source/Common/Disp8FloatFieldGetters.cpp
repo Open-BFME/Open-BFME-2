@@ -104,3 +104,25 @@ struct Rva001DCCF0Fields {
     bool isPositive() const;
 };
 bool Rva001DCCF0Fields::isPositive() const { return value00 > 0.0f; }
+
+// Clean BF1 f98983a7d3 PhysicsUpdate.cpp Get_Z_Vector supplied the expression
+// guide under /O1 /arch:SSE /G7. That name already owns a distinct native
+// body at 143260; no Matrix3D or Vector3 identity is transferred here.
+// Independent native 6643C..6645C follows RET16 at66439 and precedes the
+// rowed Matrix3D copy at6645C. It reads float32 at receiver08/18/28 and writes
+// result00/04/08 through the stack result pointer, returned in EAX, RET4.
+// Whole-image E8/E9 and absolute-address searches find no incoming references.
+// This consumed prefix and result representation claim only those accesses;
+// original class, result name, field purposes and full object size are unknown.
+
+struct Rva0006643CResult {
+ float value0,value4,value8;
+ Rva0006643CResult(float a,float b,float c):value0(a),value4(b),value8(c) {}
+};
+class Rva0006643CFields {
+ unsigned char unknown0[8]; float value8; unsigned char unknownC[12];
+ float value18; unsigned char unknown1C[12]; float value28;
+public:
+ Rva0006643CResult project() const;
+};
+Rva0006643CResult Rva0006643CFields::project() const { return Rva0006643CResult(value8,value18,value28); }
