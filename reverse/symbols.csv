@@ -17010,3 +17010,4 @@ _D3DXMatrixTranslation@16,0x0062AF32,First named PE import thunk: FF25 IAT00BBA9
 ??0Rva005D2111@@QAE@PAX0@Z,0x005D2184,"auto-pin (permute --pins): REL32 call target read from retail in 0x00576fd3, whose banked body is byte-exact once this call resolves"
 ??0Rva005E1FBC@@QAE@PAX0ABUPageContext@@@Z,0x005E20A6,"auto-pin (permute --pins): REL32 call target read from retail in 0x005cc4b3, whose banked body is byte-exact once this call resolves"
 ??0Rva005E21EB@@QAE@PAX0ABUPageContext@@@Z,0x005E2C9D,"auto-pin (permute --pins): REL32 call target read from retail in 0x005cc4fb, whose banked body is byte-exact once this call resolves"
+?rva00276952@Rva002768AC@@QAE_NHH@Z,0x00276952,thiscall two-dword bool query on the Drawable's lazily created 0x310-byte helper (+0x45C); called from 0x002788C7
