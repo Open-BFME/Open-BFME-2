@@ -5,9 +5,8 @@
 // shim destructor, and slot fills go through StringBase::set (0x000366F0)
 // via AsciiString::operator= (the operator= inline schedules the member-add
 // ahead of the argument push where a direct set call does not).
-// Class and member names are address-derived; sibling probes 0xB82F9/0xB83A7
-// are banked (epilog load-order wall) with the wider layout, and rejoin here
-// when that lever is found.
+// Class and member names are address-derived. Probe 0xB82F9 is verified;
+// sibling 0xB83A7 is banked with one source-pointer register mismatch.
 
 #include "ascii_string.h"
 template<> bool StringBase<char>::isEmpty() const;
