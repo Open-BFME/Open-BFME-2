@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHs-c-
-// ?rva00449FE8@LANAPI@@QAEXPAX@Z @0x00449FE8 231B evidence: vslot 17 of LANAPI vtable 0x0083E680; type-0x12 message via fillInLANMessage slot 0xe4 send via Rva004495A2; slots 0x88 0x100; wcsncpy game name; timeGetTime; state at +0x28
+// ?rva00449FE8@LANAPI@@UAEXPAX@Z @0x00449FE8 231B evidence: vslot 17 of LANAPI vtable 0x0083E680; type-0x12 message via fillInLANMessage slot 0xe4 send via Rva004495A2; slots 0x88 0x100; wcsncpy game name; timeGetTime; state at +0x28
 #include "unicode_string.h"
 
 typedef int Int;
@@ -44,7 +44,7 @@ public:
 	virtual void s14();
 	virtual void s15();
 	virtual void s16();
-	virtual void s17();
+	virtual void rva00449FE8(void *arg);
 	virtual void s18();
 	virtual void s19();
 	virtual void s20();
@@ -93,7 +93,6 @@ public:
 	virtual void s63();
 	virtual LANGameInfo2 *v100();
 	void Rva004495A2(LANMessage *msg, unsigned int addr);
-	void rva00449FE8(void *arg);
 private:
 	char m_pad04[0x14 - 4];
 	void *m_14;

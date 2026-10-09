@@ -69,15 +69,19 @@ struct AudioLock
 	int m_14;
 };
 
+// rva001DBE6E, rva001DBEB6 and rva001DBFD1 are slots 9, 10 and 12 of the
+// handler's vftable 0x00BDBC30 (installed by its ctor 0x001DCBC3 and dtor
+// 0x001DC6E4), as their WorldBuilder twins are of WB's: virtual, with the
+// vptr at +0. isFinished is called directly and stays a plain member.
 class GameWindowTransitionsHandler
 {
 public:
 	bool isFinished();
-	void rva001DBE6E();
-	void rva001DBFD1();
-	void rva001DBEB6();
+	virtual void rva001DBE6E();
+	virtual void rva001DBFD1();
+	virtual void rva001DBEB6();
 private:
-	char m_pad00[0x24];
+	char m_pad04[0x20];
 	Rva001DBDA4 *m_24;
 	Rva001DBDA4 *m_28;
 	Rva001DBDA4 *m_2C;

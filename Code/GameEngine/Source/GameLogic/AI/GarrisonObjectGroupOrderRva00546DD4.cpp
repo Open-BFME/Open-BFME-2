@@ -1,5 +1,5 @@
 // cl: /MD
-// ?rva00546DD4@GarrisonObjectGroupOrder@@QAEXW4ObjectID@@@Z @0x00546DD4 90B evidence: slot 4 of 0x0086A3C4; calls findObjectByID rowed 0x00049DC5 three times plus AI rva0036EBB8 rowed 0x0036EBB8; uses TheGameLogic; clears +0x18 on null.
+// ?rva00546DD4@GarrisonObjectGroupOrder@@UAEXW4ObjectID@@@Z @0x00546DD4 90B evidence: slot 4 of 0x0086A3C4; calls findObjectByID rowed 0x00049DC5 three times plus AI rva0036EBB8 rowed 0x0036EBB8; uses TheGameLogic; clears +0x18 on null.
 // Honest-address slot method via vtable (naming rule).
 enum ObjectID
 {
@@ -44,8 +44,7 @@ class GroupOrder
 {
 public:
 	GroupOrder();
-protected:
-	void *m_vtable;
+	virtual ~GroupOrder();
 private:
 	unsigned char m_pad04[0x18 - 4];
 };
@@ -53,7 +52,9 @@ private:
 class GarrisonObjectGroupOrder : public GroupOrder
 {
 public:
-	void rva00546DD4(enum ObjectID id);
+	// Slot 4 of 0x00C6A3C4, the class's vftable: virtual (SynchronizeGroupOrder's
+	// slot 4 0x00546A78 is rowed virtual too).
+	virtual void rva00546DD4(enum ObjectID id);
 private:
 	enum ObjectID m_18;
 	int m_1c;

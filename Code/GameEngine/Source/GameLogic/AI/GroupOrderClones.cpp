@@ -9,6 +9,8 @@
 //   AttackObjectGroupOrder    vtable 0x00C6A420  0x00546F6C  new(0x2C)  copy 0x00546F2F
 //
 // Sizes are the ones the group-order factory 0x00354EFC news. Names by address.
+// Retail reaches each only through slot 13 of its class's vftable, which the
+// class's own ctors and dtor install: virtual.
 class GroupOrder
 {
 public:
@@ -22,7 +24,7 @@ class ChangeStanceGroupOrder : public GroupOrder
 {
 public:
 	ChangeStanceGroupOrder(const ChangeStanceGroupOrder &other);
-	ChangeStanceGroupOrder *rva00546B34();
+	virtual ChangeStanceGroupOrder *rva00546B34();
 private:
 	int m_stance; // +0x18
 };
@@ -31,7 +33,7 @@ class GarrisonObjectGroupOrder : public GroupOrder
 {
 public:
 	GarrisonObjectGroupOrder(const GarrisonObjectGroupOrder &other);
-	GarrisonObjectGroupOrder *rva00546CB8();
+	virtual GarrisonObjectGroupOrder *rva00546CB8();
 private:
 	unsigned char m_pad18[0x28 - 0x18];
 };
@@ -40,7 +42,7 @@ class AttackObjectGroupOrder : public GroupOrder
 {
 public:
 	AttackObjectGroupOrder(const AttackObjectGroupOrder &other);
-	AttackObjectGroupOrder *rva00546F6C();
+	virtual AttackObjectGroupOrder *rva00546F6C();
 private:
 	unsigned char m_pad18[0x2C - 0x18];
 };
