@@ -1,31 +1,8 @@
 // cl: /O1 /MD /EHsc
-// Range-34 dump lane: 61B plain method at 0x005EA4FC (ret).
-// Runs virtual slot 0x1C on the +8 member's +0x14 subobject; on true,
-// creates message 0x6BE through ((GlobalHolder*)MessageStreamSubsystem) slot 0x48, appends the +0xC
-// subobject's +0x34 word through the rowed 0x0030F936, then tail-jumps to
-// the pinned 0x005EA136 member method. Same global recipe as
-// Rva002B2E77Finish.cpp. All identities unproven (address-derived).
-class GameMessage
-{
-public:
-	void appendIntegerArgument(int v);
-};
-
-class GlobalHolder
-{
-public:
-	virtual void s00(); virtual void s01(); virtual void s02(); virtual void s03();
-	virtual void s04(); virtual void s05(); virtual void s06(); virtual void s07();
-	virtual void s08(); virtual void s09(); virtual void s10(); virtual void s11();
-	virtual void s12(); virtual void s13(); virtual void s14(); virtual void s15();
-	virtual void s16(); virtual void s17();
-	virtual GameMessage* newMessage(int type);
-};
-
-// Bind to the existing data-ledger owner; keep the retail access view local.
-class MessageStream;
-extern MessageStream *MessageStreamSubsystem;
-
+// Native 77-byte factory tail at 0x005EA136; preserve its opaque identity.
+// Its caller at 0x005EA4FC is already rowed in
+// GameClient/LivingWorld/InGameUI/StrategicInGameUIDynamicAutoResolveDialog.cpp.
+// Retire that caller's obsolete private copy and its unused message-stream view.
 class Rva005EA4FCM14
 {
 public:
@@ -48,27 +25,6 @@ struct Rva005EA4FCM08
 	Rva005EA4FCM14 *m14;
 	void rva005EA136();
 };
-
-class Rva005EA4FC
-{
-public:
-	int m00;
-	int m04;
-	Rva005EA4FCM08 *m08;
-	void rva005EA4FC();
-};
-
-void Rva005EA4FC::rva005EA4FC()
-{
-	if (!m08->m14->v07())
-		return;
-	GameMessage *msg = ((GlobalHolder*)MessageStreamSubsystem)->newMessage(0x6BE);
-	msg->appendIntegerArgument(m08->m0c->m34);
-	m08->rva005EA136();
-}
-
-// The global(s) below are defined elsewhere under another name at the same
-// address (the census owner of that DIR32 target); bind this unit's spelling.
 
 // Target 5EA136..5EA183 is the complete 77-byte factory tail called by
 // 5EA4FC. Native allocation size16 and rowed constructor5E9FC1 establish
