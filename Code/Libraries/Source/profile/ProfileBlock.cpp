@@ -17,6 +17,8 @@ inline void ProfileHighLevel::Id::Increment(double add) {
 class Rva006C65F0 {
 public:
  Rva006C65F0(const char *,const char *,bool);
+ ~Rva006C65F0();
+ void rva006C6000();
  static Rva006C65F0 *current;
 private:
  ProfileHighLevel::Id id;
@@ -51,3 +53,20 @@ Rva006C65F0::Rva006C65F0(const char *name,const char *descr,bool countCalls) {
  }
  ProfileGetTime(start);
 }
+
+// Native 006C6000..006C608D: RDTSC time delta, Id increment, restore current,
+// and clear the timestamp. ZH Block destructor is the semantic guide; BFME2
+// moves this work into a stop-like worker guarded by the nonzero timestamp.
+void Rva006C65F0::rva006C6000() {
+ if(start) {
+  __int64 end;
+  ProfileGetTime(end);
+  end-=start;
+  id.Increment(double(end)/double(Profile::GetClockCyclesPerSecond()));
+  current=previous;
+  start=0;
+ }
+}
+// Native 006C6090 jumps directly to 006C6000. The owning constructor and
+// caller EH cleanup prove this is the destructor of the same 24-byte object.
+Rva006C65F0::~Rva006C65F0() {rva006C6000();}
