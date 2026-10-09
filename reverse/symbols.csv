@@ -14990,7 +14990,6 @@ rva009C7380WeightPairs,0x009B84E0
 ??$_M_allocate_and_copy@PBURva0021C21BElement@@@?$vector@URva0021C21BElement@@V?$allocator@URva0021C21BElement@@@_STL@@@_STL@@IAEPAURva0021C21BElement@@IPBU2@0@Z,0x0031B9EB,callee of ??4?$vector@URva0021C21BElement@@V?$allocator@URva0021C21BElement@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z
 ??$__copy_ptrs@PBURva0021C21BElement@@PAU1@@_STL@@YAPAURva0021C21BElement@@PBU1@0PAU1@ABU__false_type@0@@Z,0x0025BF40,callee of ??4?$vector@URva0021C21BElement@@V?$allocator@URva0021C21BElement@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z
 ??$__uninitialized_copy@PBURva0021C21BElement@@PAU1@@_STL@@YAPAURva0021C21BElement@@PBU1@0PAU1@ABU__false_type@0@@Z,0x001DD10D,callee of ??4?$vector@URva0021C21BElement@@V?$allocator@URva0021C21BElement@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z
-?rva005CBC95@Rva005CBC95Call@@QAEHPAX@Z,0x005CBC95,callee of ?rva00574910@Rva00574910@@QAEHPAX@Z
 ?rva005CD690@Rva005CD690Call@@QAEHPAX@Z,0x005CD690,callee of ?rva005771F4@Rva005772BF@@QAEHPAVGameMessage@@@Z
 ??0Rva0057525FCall@@QAE@PAVRva00574A8A@@II@Z,0x0057525F,callee of ??0Rva00574A8A@@QAE@II@Z
 ?rva005CBB4A@Rva00574815@@QAEXHHH@Z,0x005CBB4A,callee of ?rva00574959@Rva00574959@@QAEHHH@Z
@@ -15939,7 +15938,6 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ?rva0032927A@@YAXPAURva003294B3Obj@@H@Z,0x0032927A,callee of ?rva003294B3@@YAXPAURva003294B3Obj@@HH@Z
 ?rva004E00D9@Rva004E02D7Owner@@QAEXXZ,0x004E00D9,address-named callee of 0x004E02D7 (unnamed follow-up member; byte gate is the proof)
 ?rva005BB3A1@Rva005BB3A1@@QAE_NXZ,0x005BB3A1,address-named gate predicate of 0x005BB5CE (unowned; byte gate is the proof)
-?rva005B4653@Rva005B486DOwner@@QAEXXZ,0x005B4653,address-named member called from 0x005B486D (unowned; byte gate is the proof)
 ??$make_pair@VAsciiString@@PAVSidesList@@@_STL@@YA?AU?$pair@VAsciiString@@PAVSidesList@@@0@ABVAsciiString@@ABQAVSidesList@@@Z,0x0032ACCF,callee of ?getSides@LibraryMapCache@@QAEPAVSidesList@@ABVAsciiString@@@Z
 ?push_back@?$vector@U?$pair@VAsciiString@@PAVSidesList@@@_STL@@V?$allocator@U?$pair@VAsciiString@@PAVSidesList@@@_STL@@@2@@_STL@@QAEXABU?$pair@VAsciiString@@PAVSidesList@@@2@@Z,0x0032DC80,callee of ?getSides@LibraryMapCache@@QAEPAVSidesList@@ABVAsciiString@@@Z
 ?rva000613A9@MilesAudioManager@@QAE_NI@Z,0x000613A9,"callee of rva000615DA read from its byte-true calls at 0x0006162C and 0x0006163E; Ghidra start FUN_004613a9 (561B; thiscall bool; ret 4); WB unnamed twin 0x794760 erases the +0x9C pending request and walks the +0x98 list; address-named until rowed"
