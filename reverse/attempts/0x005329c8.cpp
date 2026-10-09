@@ -1,5 +1,5 @@
 // ?rva005329C8@PathfindZoneManager@@QAEXPAPAVPathfindCell@@ABUIRegion2D@@@Z
-// partial score=0.98 date=2026-10-08
+// partial score=0.979562 date=2026-10-09
 // cl: /O1 /G7 /MD
 // WB12D3020 and12D3290 name PathfindZoneManager::DoXfer and Block::DoXfer
 // in GameLogic/Pathfinder/pathfinder_zonemanager.cpp. Complete target bodies
@@ -88,17 +88,17 @@ class Rva00531E14
 {
 public:
 	unsigned char rva00531E14(unsigned short);
+ unsigned char rva00531DAE(unsigned short);
  unsigned short rva00531D52();
 	unsigned short capacity, first, second, end;
 	unsigned short *table;
 };
 
 class PathfindCell;
-class BooleanBitmapSet {
-public:
- unsigned count; int *bits; unsigned *summary; unsigned cursor, bit;
- void SetBit(int);
-};
+class BooleanBitmapSet {public: void SetBit(int); unsigned numBitsDiv32; int *bits; unsigned *summary; unsigned cursor,bit;};
+class Rva00532DF6 {public: bool remove(unsigned short,unsigned short);};
+class Rva00532330 {public: bool rva00532330(unsigned short*,unsigned short*);};
+
 class PathfindZoneManager : public Rva00531E14
 {
 public:
@@ -119,16 +119,18 @@ public:
 		char vector38[12];
 	};
 	void DoXfer(Xfer *);
- void rva005329C8(PathfindCell **,const IRegion2D &);
 	void CreateEquivalencySet(unsigned variant, unsigned equivalent);
  void rva005324D8(unsigned char incremental,unsigned short first,unsigned short second);
  bool InEquivSet(unsigned equivalent, unsigned first, unsigned second);
  bool CouldBeInEquivSet(unsigned equivalent, unsigned zone);
 
+ unsigned char rva005316E0(unsigned short first,unsigned short second);
+ void rva00532FEA(Block *,PathfindCell **,const IRegion2D&);
+ void rva005329C8(PathfindCell **,const IRegion2D&);
 	// Accessed layout only. Cell storage's full element count is unproven.
 	char unknown0C[0x1B594 - 0xC];
 	Rva00531A44 unions[8][7], finalUnion;
-	BooleanBitmapSet changed, affected;
+	BooleanBitmapSet changed,affected;
 	bool flag1BA30, flag1BA31;
 	char unknown1BA32[2];
 	void *allocation;
@@ -409,6 +411,7 @@ public:
  union { unsigned value; struct {
  unsigned type:4,id:6,secondary:6,unknown16:1,flag17:1,flag18:1,kind:2,unknown21:1,flag22:1,unknown23:9;
  }; };
+ unsigned short getZone() const { return zone; }
  unsigned char get17() const { return (unsigned char)flag17; }
  unsigned char get18() const { return (unsigned char)flag18; }
  unsigned char get22() const { return (unsigned char)flag22; }
@@ -423,6 +426,96 @@ bool Rva0053166DEqual(const PathfindCell *a,const PathfindCell *b) {
 // The original function name is unknown. Packed DWORD fields are at cell+0x0C;
 // byte-return flag accessors preserve retail promotion and the bool result ABI.
 
+
+// Native 0x005316E0..0x00531720: exclude an identical zone; otherwise
+// zones with the same six-bit id or three-bit type can be connected.
+// CellType fields are independently supported by DoXfer and equivalency methods.
+unsigned char PathfindZoneManager::rva005316E0(unsigned short first,unsigned short second) {
+ if(first==second)return 0;
+ CellType *a=(CellType*)((char*)this+0xC)+first;
+ CellType *b=(CellType*)((char*)this+0xC)+second;
+ unsigned av=a->value,bv=b->value;
+ if(a->id==b->id)return 1;
+ unsigned char type=av;
+ type^=bv;
+ return (type & 7)==0;
+}
+
+// Native 0x00532FEA..0x005334A4 and WB0x012D1CE0 establish zone-link
+// removal over a changed block and its four borders. Original name unknown.
+// The ZH updateZonesForModify routine supports subsystem purpose only;
+// BFME2's counted adjacency graph and four-by-seven invalidation are native facts.
+void PathfindZoneManager::rva00532FEA(Block *block,PathfindCell **map,const IRegion2D& bounds) {
+ {
+ unsigned short first,second;
+ while(((Rva00532330*)block)->rva00532330(&first,&second)) {
+  if(((Rva00532DF6*)((char*)this+0x1770C))->remove(first,second)) {
+   changed.SetBit(first);changed.SetBit(second);
+  }
+ }
+ }
+ {
+ int x,y;
+ for(x=bounds.lo.x;x<=bounds.hi.x;++x) {
+  for(y=bounds.lo.y;y<=bounds.hi.y;++y) {
+   if(x<bounds.hi.x && rva005316E0(map[x][y].getZone(),map[x+1][y].getZone())) {
+    if(((Rva00532DF6*)((char*)this+0x1770C))->remove(map[x][y].getZone(),map[x+1][y].getZone())) {
+     changed.SetBit(map[x][y].getZone());changed.SetBit(map[x+1][y].getZone());
+    }
+   }
+   if(y<bounds.hi.y && rva005316E0(map[x][y].getZone(),map[x][y+1].getZone())) {
+    if(((Rva00532DF6*)((char*)this+0x1770C))->remove(map[x][y].getZone(),map[x][y+1].getZone())) {
+     changed.SetBit(map[x][y].getZone());changed.SetBit(map[x][y+1].getZone());
+    }
+   }
+   if(rva00531DAE(map[x][y].getZone())) {
+    changed.SetBit(map[x][y].getZone());
+    for(int i=0;i<8;i+=2)for(int j=0;j<7;++j)unions[i][j].rva00531B3A(map[x][y].getZone());
+   }
+  }
+ }
+ }
+ if(bounds.lo.x>extent.lo.x) {
+  int y;
+  for(y=bounds.lo.y;y<=bounds.hi.y;++y) {
+   if(rva005316E0(map[bounds.lo.x][y].getZone(),map[bounds.lo.x-1][y].getZone())) {
+    if(((Rva00532DF6*)((char*)this+0x1770C))->remove(map[bounds.lo.x][y].getZone(),map[bounds.lo.x-1][y].getZone())) {
+     changed.SetBit(map[bounds.lo.x][y].getZone());changed.SetBit(map[bounds.lo.x-1][y].getZone());
+    }
+   }
+  }
+ }
+ if(bounds.hi.x<extent.hi.x) {
+  int y;
+  for(y=bounds.lo.y;y<=bounds.hi.y;++y) {
+   if(rva005316E0(map[bounds.hi.x][y].getZone(),map[bounds.hi.x+1][y].getZone())) {
+    if(((Rva00532DF6*)((char*)this+0x1770C))->remove(map[bounds.hi.x][y].getZone(),map[bounds.hi.x+1][y].getZone())) {
+     changed.SetBit(map[bounds.hi.x][y].getZone());changed.SetBit(map[bounds.hi.x+1][y].getZone());
+    }
+   }
+  }
+ }
+ if(bounds.lo.y>extent.lo.y) {
+  int x;
+  for(x=bounds.lo.x;x<=bounds.hi.x;++x) {
+   if(rva005316E0(map[x][bounds.lo.y].getZone(),map[x][bounds.lo.y-1].getZone())) {
+    if(((Rva00532DF6*)((char*)this+0x1770C))->remove(map[x][bounds.lo.y].getZone(),map[x][bounds.lo.y-1].getZone())) {
+     changed.SetBit(map[x][bounds.lo.y].getZone());changed.SetBit(map[x][bounds.lo.y-1].getZone());
+    }
+   }
+  }
+ }
+ if(bounds.hi.y<extent.hi.y) {
+  int x;
+  for(x=bounds.lo.x;x<=bounds.hi.x;++x) {
+   if(rva005316E0(map[x][bounds.hi.y].getZone(),map[x][bounds.hi.y+1].getZone())) {
+    if(((Rva00532DF6*)((char*)this+0x1770C))->remove(map[x][bounds.hi.y].getZone(),map[x][bounds.hi.y+1].getZone())) {
+     changed.SetBit(map[x][bounds.hi.y].getZone());changed.SetBit(map[x][bounds.hi.y+1].getZone());
+    }
+   }
+  }
+ }
+}
 
 class Rva00531ED3 { public: unsigned short rva00531ED3(unsigned short); };
 class Rva0053222F {
