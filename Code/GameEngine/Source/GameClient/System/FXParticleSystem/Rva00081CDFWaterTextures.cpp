@@ -103,10 +103,10 @@ class BFME2ParticleTextureHandle : public RefCountPtr<TextureClass>
 
 BFME2ParticleTextureHandle __cdecl BFME2LoadParticleTexture(const char *filename, int a, int b);
 
-class Rva0007EDBC
+class RenderableStandingWaterArea
 {
 public:
-	void rva0007EDBC(int index);
+	void createTexture(int index);
 };
 
 class Rva0030812E
@@ -156,7 +156,7 @@ void Rva00081CDF::rva00081CDF()
 	assets.rva0006C995((Rva001408C0Target *)"Noise0000.tga");
 
 	for (int i = 0; i < 2; ++i) {
-		((Rva0007EDBC *)(char *)this)->rva0007EDBC(i);
+		((RenderableStandingWaterArea *)(char *)this)->createTexture(i);
 		assets << *(const AsciiString *)m_holder40->rva0030812E(i);
 	}
 

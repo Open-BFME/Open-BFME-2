@@ -60,12 +60,6 @@ public:
 	void clear();
 };
 
-class Rva0007EDBC
-{
-public:
-	void rva0007EDBC(int index);
-};
-
 class Rva0030812E
 {
 public:
@@ -80,12 +74,13 @@ class RenderableStandingWaterArea
 	Rva0030812E *m_assets;
 public:
 	void onStandingWaterAreaTextureNameChanged(void *unused, int index);
+	void createTexture(int index);
 };
 
 void RenderableStandingWaterArea::onStandingWaterAreaTextureNameChanged(void *, int index)
 {
 	((BfmeResetTextureRef *)((char *)this + 0x14 + index * 4))->clear();
-	((Rva0007EDBC *)((char *)this - 0x3C))->rva0007EDBC(index);
+	((RenderableStandingWaterArea *)((char *)this - 0x3C))->createTexture(index);
 
 	AssetList assets;
 	assets << *(const AsciiString *)m_assets->rva0030812E(index);
