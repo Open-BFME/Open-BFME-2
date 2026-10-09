@@ -45,7 +45,16 @@ extern const StaticNameKey TheKey_objectIsABase;		// VA 0x00DBDD0C
 extern const StaticNameKey TheKey_objectBaseName;		// VA 0x00DBDD14
 extern const StaticNameKey TheKey_objectBasePriority;	// VA 0x00DBDD84
 extern const StaticNameKey TheKey_objectBasePhase;		// VA 0x00DBDD8C
-extern const StaticNameKey TheKey_playerAIType;
+// Preserve the data ledger's established provider spelling for this key.
+class Rva00148F5ECache {
+public:
+    NameKeyType get();
+    operator NameKeyType() { return get(); }
+private:
+    int m_key;
+    const char *m_name;
+};
+extern Rva00148F5ECache TheKey_playerAIType;
 extern const StaticNameKey TheKey_playerName;			// VA 0x00DBDE24
 extern const StaticNameKey TheKey_teamOwner;			// VA 0x00DBD9FC
 extern const StaticNameKey TheKey_teamLibraryMapName;	// VA 0x00DBDC1C
