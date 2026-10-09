@@ -37,6 +37,7 @@ struct Rva004F87BCElement {
  ~Rva004F87BCElement() {if(m_ptr) ReleaseTreeHintRef00217D4C(m_ptr);}
 };
 typedef _STL::vector<Rva004F87BCElement> UnitVector;
+template void UnitVector::insert<Rva004F87BCElement *>(Rva004F87BCElement *,Rva004F87BCElement *,Rva004F87BCElement *);
 
 class Rva004F7DF9Vector {public: void reserve(unsigned);};
 struct Rva005F8FCC {void *rva005F8FCC(unsigned);};
@@ -52,8 +53,35 @@ public:
 };
 class Rva004FA168Storage {public: Rva004F87BCElement *start,*finish,*capacity;};
 
+
+struct BfmeE12 {float a,b,c;};
+struct Rva004F7D7FRecord {char opaque[1];};
+typedef _STL::vector<Rva004F7D7FRecord> CleanupVector;
+namespace _STL {template<> CleanupVector::~vector();}
+struct RoundUnits {
+ Rva004F87BCElement *start,*finish,*capacity;
+ RoundUnits() {
+  typedef _STL::_Vector_base<BfmeE16,_STL::allocator<BfmeE16> > HeaderProvider;
+  reinterpret_cast<HeaderProvider*>(this)->HeaderProvider::_Vector_base(_STL::allocator<BfmeE16>());
+ }
+ ~RoundUnits(){reinterpret_cast<CleanupVector*>(this)->CleanupVector::~CleanupVector();}
+ void swap(Rva004FA168Storage &other) {
+  reinterpret_cast<_STL::vector<BfmeE12> *>(this)->swap(*reinterpret_cast<_STL::vector<BfmeE12> *>(&other));
+ }
+};
+struct Rva004F88BBIterator {
+ void *node;
+ Rva004F88BBIterator(void *p):node(p){}
+ __declspec(nothrow) Rva004F88BBIterator(const Rva004F88BBIterator &p):node(p.node){}
+};
+struct Rva004F8C16Element {char opaque[4];};
+struct Rva004F9185Cmp {};
+void rva004F904F(Rva004F8C16Element *,Rva004F8C16Element *,Rva004F8C16Element *,Rva004F9185Cmp);
+
 class Rva004FA168Map {
 public: Rva004FA168Storage &subscript(const int &);
+ void rva004F88BB(Rva004F88BBIterator);
+ void erase(const Rva004F88BBIterator &p){rva004F88BB(p);}
 private: unsigned header,count,unknown8;
 };
 struct Rva004FA1F3Player {
@@ -64,11 +92,14 @@ struct Rva004FA1F3Player {
 class LivingWorldAutoResolveBattle {
 public:
  void buildReinforcementMaps();
+ void addUnitsForCurrentRound(int);
  void rva004F9635(Rva004F9635Rec *);
  void rva004F9658(Rva004FA168Storage &,EntryVector &,ArmySummary *,unsigned,bool);
  _STL::vector<Rva004FA1F3Player> players;
- char unknown0C[0x18];
+ Rva004FA168Storage currentUnits[2];
  Rva004FA168Map maps[2];
+ char unknown3C[0x3C];
+ int winner,roundNumber;
 };
 void LivingWorldAutoResolveBattle::buildReinforcementMaps()
 {
@@ -107,4 +138,34 @@ void LivingWorldAutoResolveBattle::rva004F9658(Rva004FA168Storage &units,EntryVe
   }
  }
  rva004F9635(reinterpret_cast<Rva004F9635Rec *>(&units));
+}
+
+// WB12EB6F0 names this method at the original home assertion372. Native
+// 4F922C..4F92E3 consumes the round at7C in two12B maps, transfers each
+// mapped owning vector into the corresponding current-unit vector, erases
+// the emptied node and merges the sorted old/new ranges. The unused quiet
+// argument retains native RET4; its original debug-only scalar type is unknown.
+// RoundUnits uses existing header constructor/cleanup providers without
+// claiming their historical element spellings as the army/unit type.
+void LivingWorldAutoResolveBattle::addUnitsForCurrentRound(int quiet)
+{
+ const int *round=&roundNumber;
+ Rva004FA168Map *map=maps;
+ int left=2;
+ do {
+  _STL::map<int,int> *tree=reinterpret_cast<_STL::map<int,int> *>(map);
+  _STL::map<int,int>::iterator found=tree->find(*round);
+  if(found._M_node!=tree->end()._M_node) {
+   RoundUnits reinforcements;
+   reinforcements.swap(*reinterpret_cast<Rva004FA168Storage *>(reinterpret_cast<char *>(found._M_node)+0x14));
+   map->erase(Rva004F88BBIterator(found._M_node));
+   Rva004FA168Storage *current=reinterpret_cast<Rva004FA168Storage *>(reinterpret_cast<char *>(map)-0x18);
+   unsigned oldSize=current->finish-current->start;
+   reinterpret_cast<UnitVector *>(current)->insert(current->finish,reinforcements.start,reinforcements.finish);
+   Rva004F87BCElement *end=current->finish;
+   Rva004F9185Cmp cmp={};
+   rva004F904F(reinterpret_cast<Rva004F8C16Element *>(current->start),reinterpret_cast<Rva004F8C16Element *>(current->start+oldSize),reinterpret_cast<Rva004F8C16Element *>(end),cmp);
+  }
+  ++map;
+ }while(--left);
 }

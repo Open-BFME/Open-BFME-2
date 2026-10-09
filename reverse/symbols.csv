@@ -6404,7 +6404,6 @@ name,address,notes
 ?Rva004EE1E2UninitCopy@@YAPAUElem003AF8C0@@PAU1@00ABU__false_type@_STL@@@Z,0x004EE1E2,hand insert 0x004EE6D0 uninit-copy helper
 ?Rva004EE20BFillN@@YAPAUElem003AF8C0@@PAU1@IABU1@ABU__false_type@_STL@@@Z,0x004EE20B,hand insert 0x004EE6D0 fill_n helper
 ?Rva004EE9E9@@YAXPAVXfer0051FFF5@@PAX@Z,0x004EE9E9,cdecl out-param helper of range feed 0x0051FFF5 (REL32 at 0x0052004B); Ghidra 245B unrecovered; address name
-?Rva004F7EE9Worker@@YGXHHHPAD@Z,0x004F7EE9,REL32 callee decoded from target call bytes of top-byte forwards 0x004F83F2/0x004F8B89; identity unproven
 ?Rva004FCA0C@Sub0052BAC1@@QAEPAURes004FCA0C@@PAVRva0020E89C@@@Z,0x004FCA0C,thiscall second-stage lookup of range dispatch 0x0052BAC1 (REL32 at 0x0052BAE9) on this+0x1C with the 0x0020EAF6 pointer; answers holder with +0x12C int; Ghidra body unrecovered; address name
 ?Rva00500BA6Opaque@@YGPAXABVRva00500500@@@Z,0x00500BA6,opaque-pointer ABI twin of rowed108B node factory; native clone call501071; same92B value at node+10
 ?Rva00506CF5@@YA?AUCoord3D@@PAXPAU1@@Z,0x00506CF5,cdecl Coord3D-by-value helper (hidden return then owner and the +0x18 point); REL32 at 0x00507181 in the Rva00506B74 ctor
@@ -11961,7 +11960,6 @@ name,address,notes
 ?rva004F2C14@Rva004F2C14@@QAEXH@Z,0x004F2C14,tail-call target of the byte-verified Rva002A9DEC::rva002A9DEC 0x002A9DEC on its +0x2DC member read from its REL32 displacement; name unknown
 ?rva004F2C14@Rva004F2C14NullTarget@@QAEXH@Z,0x004F2C14,null-checked tail jmp target of 18B forwarder; original name unknown
 ?rva004F7767@@YAXPAX0_N@Z,0x004F7767,triple callee of 0x004F941E and 0x004F81DB read from REL32 (vec-begin vec-finish flag-byte); Ghidra FUN_008f7767; body unrowed
-?rva004F7EE9@@YGXHHHPAX@Z,0x004F7EE9,stdcall 4-arg callee of 0x004F8B89 read from its REL32 displacement; body unrowed
 ?rva004F8C16@@YAXHHHHHH@Z,0x004F8C16,cdecl 6-arg callee of 0x004F904F read from its REL32 displacement; in-range target, provisional signature
 ?rva004F95A8@@YAXPAURva004F6352@@0HHURva004F6352Cmp@@@Z,0x004F95A8,sort-phase helper callee of 0x004F9EF3 read from its REL32 displacement (first last 0 2xlog comp); Ghidra FUN_008f95a8 136B; body unrowed
 ?rva004FB222@Rva002E0648M4C@@QAEXPAX0@Z,0x004FB222,pin for 0x2E0648/0x2E07CC thiscall void (void*,void*) on +0x4c
@@ -15420,7 +15418,6 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?rva0050492F@Rva0050492F@@QAEXPAVRva00504DF8Owner@@@Z,0x0050492F,owner-temp thiscall callee of 0x00504E38 read from REL32 at 0x00504E52
 ??0Rva004E3184@@QAE@H@Z,0x004E30D5,Rva004E3184 int-ctor: vtable 0x861F28 store plus member zeroing; 0x004FA9B1 builds its Rva004E3184 temp (rowed dtor 0x004E3184) through this ctor pushing one int 0
 ?rva002E0764@Rva002E2903Player@@QAEXPAVRva004E3184@@@Z,0x002E0764,thiscall one-arg worker on the Player* from rowed find 0x004FA5F8 taking the Rva004E3184 temp address; called from 0x004FA9B1 with the temp; return ignored
-?rva004F922C@Rva004F922C@@QAEXH@Z,0x004F922C,callee of 0x004FA10F read from REL32 at 0x004FA121; one-int thiscall with 0; identity unproven
 ?rva004F9F39@Rva004F9F39@@QAEXXZ,0x004F9F39,callee of 0x004FA10F read from REL32 at 0x004FA12F; no-arg thiscall; body blocked (470B sort) so pinned only
 ?rva004F971E@Rva004F971E@@QAEXXZ,0x004F971E,callee of 0x004FA10F read from REL32 at 0x004FA13A; no-arg thiscall in the ready loop; identity unproven
 ?rva004F99CC@Rva004F99CC@@QAEXPA_N@Z,0x004F99CC,bool-out-param callee of 0x004FA10F read from REL32 at 0x004FA145; sets the ready byte; identity unproven
@@ -16548,3 +16545,5 @@ _D3DXLoadVolumeFromFileInMemory@36,0x0062AF8C,Native1318F0 in-image JMP IAT veri
 ??$_Destroy@PAURva004F87BCElement@@@_STL@@YAXPAURva004F87BCElement@@0@Z,0x005F97BC,Whole24B STLport range-destruction forwarder with same false-type tag and same27B4F72ED callee; that callee is now defined and proved whole including its34B5F8FCC relocation. No independent address for this element instantiation. fold-proof=Code/Libraries/Source/WWVegas/WWLib/StlportVectorInsertOverflowFamily.cpp
 ?_M_clear@?$vector@URva004F87BCElement@@V?$allocator@URva004F87BCElement@@@_STL@@@_STL@@IAEXXZ,0x00577EF1,Whole30B owning-vector cleanup has same24B Destroy5F97BC and native free30830 relocations as owner; Destroy and its27B aux4F72ED are now whole-body certified with same34B slot cleanup5F8FCC. Retires size-only speculative lead with complete recursive fold proof; no separate retail address. fold-proof=Code/Libraries/Source/WWVegas/WWLib/StlportVectorInsertOverflowFamily.cpp
 ??1Rva0021030E@@QAE@XZ,0x0021030E,dtor of the hash-table member +0x38 of the region bonus rule holder; retail REL32 at 0x0021090D in ??1Rva002109F8 0x00210830; 57B per-owner copy of the ??1Rva000427195 body (own EH handler so not folded); address-derived owner name
+??$copy@PAURva004F87BCElement@@PAU1@@_STL@@YAPAURva004F87BCElement@@PAU1@00@Z,0x004F6E47,Whole27B identical to canonical TreeHintRef copy including REL32 to its const-reference-tag __copy_ptrs provider 4F6A35; no separate address; owning4B reference slot copy dispatch fold-proof=Code/Libraries/Source/WWVegas/WWLib/StlportAutoResolveUnitRange.cpp
+??$__copy_backward_ptrs@PAURva004F87BCElement@@PAU1@@_STL@@YAPAURva004F87BCElement@@PAU1@00ABU__false_type@0@@Z,0x004F6D2E,Whole29B identical to canonical TreeHintRef backward dispatcher including REL32 to its five-argument __copy_backward provider 4F6628; no separate address; owning4B reference slot dispatch fold-proof=Code/Libraries/Source/WWVegas/WWLib/StlportAutoResolveUnitRange.cpp

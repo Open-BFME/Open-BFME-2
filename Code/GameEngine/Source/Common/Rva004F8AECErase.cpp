@@ -86,23 +86,32 @@ struct Rva004F88BBNode : public _STL::_Rb_tree_node_base
 {
 };
 
-// ?rva004F88BB@Rva004F88BB@@QAEXPAURva004F88BBNode@@@Z retail 0x004F88BB 59B
+// ?rva004F88BB@Rva004FA168Map@@QAEXURva004F88BBIterator@@@Z retail 0x004F88BB 59B
 // Rb erase-one: rebalance-for-erase then destroy Rva004F7DD4 value at +16 and free.
 // Evidence: calls 0x00025620 rebalance-erase plus 0x004F7DD4 pin plus free
 // 0x00030830; callers at 0x004F8D8A 0x004F927F; same 59B shape as 0x00383380
 // in Rva003833BBErase.cpp.
-class Rva004F88BB
+// Caller4F922C constructs and copies a one-word iterator in its argument
+// slot. Keep the map receiver and iterator contract while preserving the
+// native rebalance, mapped-value cleanup and node free.
+struct Rva004F88BBIterator {
+ void *node;
+ Rva004F88BBIterator(void *p):node(p){}
+ Rva004F88BBIterator(const Rva004F88BBIterator &p):node(p.node){}
+};
+class Rva004FA168Map
 {
 	_STL::_Rb_tree_node_base* m_header;
 	int m_count;
+ unsigned unknown8;
 public:
-	void rva004F88BB(Rva004F88BBNode* pos);
+	void rva004F88BB(Rva004F88BBIterator pos);
 };
 
-void Rva004F88BB::rva004F88BB(Rva004F88BBNode* pos)
+void Rva004FA168Map::rva004F88BB(Rva004F88BBIterator pos)
 {
 	_STL::_Rb_tree_node_base* toDelete = _STL::_Rb_global<bool>::_Rebalance_for_erase(
-		pos, m_header->_M_parent, m_header->_M_left, m_header->_M_right);
+		static_cast<Rva004F88BBNode *>(pos.node), m_header->_M_parent, m_header->_M_left, m_header->_M_right);
 	((Rva004F7DD4*)(toDelete + 1))->~Rva004F7DD4();
 	if (toDelete)
 		free(toDelete);

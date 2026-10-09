@@ -3,12 +3,13 @@
 // 0x004FA10F (89B): guarded one-time init. If +0x78 != -1 return; else
 // inc +0x7C, call 0x4F922C(0), 0x4F6187, 0x4F9F39, then loop 0x4F971E plus
 // 0x4F99CC(&ready) until ready, then 0x4F9D6A, 0x4F9E59, 0x4F61B1.
-// All callees pinned/rowed, identities unproven.
+// addUnitsForCurrentRound is now recovered in its WB-named class; the
+// remaining callees retain their existing opaque views.
 
-class Rva004F922C
+class LivingWorldAutoResolveBattle
 {
 public:
-	void rva004F922C(int v);
+	void addUnitsForCurrentRound(int v);
 };
 
 class Rva004F6187
@@ -69,7 +70,7 @@ void Rva004FA10FOwner::rva004FA10F()
 	if (m_78 != -1)
 		return;
 	m_7C++;
-	((Rva004F922C *)this)->rva004F922C(0);
+	((LivingWorldAutoResolveBattle *)this)->addUnitsForCurrentRound(0);
 	((Rva004F6187 *)this)->rva004F6187();
 	((Rva004F9F39 *)this)->rva004F9F39();
 	bool ready = false;
