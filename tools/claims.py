@@ -24,6 +24,7 @@ what they serve, settling this checkout's published landings first.
   python3 tools/claims.py list                 # live claims
   python3 tools/claims.py whoami               # this worker's owner string
   python3 tools/claims.py claim 0xRVA [...]    # claim for this worker (TTL 4 h)
+  python3 tools/claims.py renew 0xRVA [...]    # extend your claims, keeping their lease
   python3 tools/claims.py release 0xRVA [...]  # release your own claims
   python3 tools/claims.py release --landed [SHA]
       # release claims whose rows are ON origin/master (SHA: rows it names by Claim-Lease trailer)
@@ -34,22 +35,29 @@ return ([], []) when origin was unreachable, which a caller cannot tell from
   * claim() raises ClaimsUnavailable when origin cannot be fetched, and lists
     a body as claimed only when origin accepted the push. A body whose push
     failed is re-read from origin: held by another worker -> refused; not
-    held by anyone -> refused AND listed in result.unconfirmed. (BFME2's
-    pickers catch it and still serve the body, saying it is unclaimed.)
+    held by anyone -> refused AND listed in result.unconfirmed. The CLI
+    exits 2. The exception carries what origin did show (.claimed, and
+    .refused: bodies another worker holds); BFME2's pickers, bfme1_sweep and
+    permute fall back to working unclaimed, but never on a body in .refused.
   * WORKER IDENTITY is BFME_CLAIM_OWNER, else `fleet:<BFME_RUN_ID>` inside a
     fleet run, else the agent a `work-<agent>` branch names, else
     `<user>@<host>/<checkout hash>` -- one per worktree, never one string
-    shared by every seat on a host.
+    shared by every seat on a host. See legacy_owner() for claims taken
+    under the old `<user>@<host>` default.
   * FENCING: the claim commit's sha is the token (result.tokens). renew()
     (the heartbeat) and release(tokens=...) compare-and-swap on it, so a
     worker whose claim expired and was taken over learns it lost the body
     instead of overwriting or deleting the successor's claim. holds() asks
-    origin whether a token is still current.
+    origin whether a token is still current. The LEASE id survives renewals,
+    and claim() on a live claim of the same owner keeps it too: a re-claim
+    is a renewal, so a landing queued under the lease still settles.
   * add_match and add_match_batch no longer release on LOCAL verification:
     they queue the row in build/claims/landed_pending.jsonl and `release
     --landed` (settle(), which the pickers' --claim runs) releases a claim
-    only once origin/master holds that exact row. Anything never settled
-    expires with its TTL.
+    only once origin/master holds the row (its name, target_rva, size,
+    source and status; export_rva and notes may change later) and the same
+    blobs of the files the verified compile read (landing_deps). Anything
+    never settled expires with its TTL.
 Readers (active(), busy_rvas()) still warn and serve without shared claims
 when origin is unreachable: a picker only proposes, the claim decides.
 
@@ -89,9 +97,9 @@ ROOT = Path(__file__).resolve().parents[1]
 # this block or marked BFME2 below. Keep the rest identical to make syncing a
 # plain diff.
 LEDGER = "reverse/functions.csv"
-# What a landing's verification reads besides its row: game source, the
-# reference shims/submodule and vendored headers (see landing_deps).
-DEP_PREFIXES = ("Code/", "reference/", "vendor/")
+# Where the byte gate writes each compiled source's dependency receipt
+# (tools/build.py obj_path + _deps_sidecar); landing_deps reads it.
+RECEIPTS = "build/match"
 # Where claims live on origin. A host whose git proxy only accepts branch
 # pushes sets `git config bfme.claimNamespace refs/heads/claims/`.
 NS = (os.environ.get("BFME_CLAIM_NS")
@@ -106,13 +114,18 @@ PENDING = Path("build") / "claims" / "landed_pending.jsonl"
 
 
 class ClaimsUnavailable(RuntimeError):
-    """Origin could not be reached or read back: nothing is known to be
-    claimed. `claimed` lists bodies origin DID accept before the failure (the
-    caller should release them or let them expire)."""
+    """Origin could not be reached or read back, so the claim is incomplete.
+    `claimed` lists bodies origin DID accept before the failure (the caller
+    should release them or let them expire); `refused` lists bodies origin was
+    seen to hold for another worker before it failed. A caller that falls
+    back to working unclaimed must still leave every refused body alone
+    (review 2026-10-09: the fallback attempted a donor whose body a peer
+    held)."""
 
-    def __init__(self, message, claimed=()):
+    def __init__(self, message, claimed=(), refused=()):
         super().__init__(message)
         self.claimed = list(claimed)
+        self.refused = list(refused)
 
 
 class ClaimResult(tuple):
@@ -167,19 +180,60 @@ def owner(root=None):
     agent (BFME2); otherwise `<user>@<host>/<checkout>` with a short hash of
     the checkout path. The old `<user>@<host>` was shared by every seat on a
     host, so any seat could renew or release another's."""
-    explicit = os.environ.get("BFME_CLAIM_OWNER")
+    explicit, legacy = _explicit_owner(root)
     if explicit:
         return explicit
-    run = os.environ.get("BFME_RUN_ID", "")
-    if run:
-        return f"fleet:{run}"
-    branch = _git("symbolic-ref", "--short", "-q", "HEAD", cwd=root).stdout.strip()
-    if branch.startswith("work-") and len(branch) > 5:
-        return branch[5:]
-    name = _git("config", "user.name", cwd=root).stdout.strip() or "unknown"
     top = _git("rev-parse", "--show-toplevel", cwd=root).stdout.strip() or str(root or ROOT)
     tag = hashlib.sha1(os.path.normcase(os.path.abspath(top)).encode("utf-8")).hexdigest()[:8]
-    return f"{name}@{socket.gethostname()}/{tag}"
+    return f"{legacy}/{tag}"
+
+
+def _explicit_owner(root=None):
+    """(explicit owner or None, `<user>@<host>`): the owner that BFME_CLAIM_OWNER,
+    a fleet run or a work-<agent> branch names, and the host-wide default."""
+    explicit = os.environ.get("BFME_CLAIM_OWNER")
+    if explicit:
+        return explicit, None
+    run = os.environ.get("BFME_RUN_ID", "")
+    if run:
+        return f"fleet:{run}", None
+    branch = _git("symbolic-ref", "--short", "-q", "HEAD", cwd=root).stdout.strip()
+    if branch.startswith("work-") and len(branch) > 5:
+        return branch[5:], None
+    name = _git("config", "user.name", cwd=root).stdout.strip() or "unknown"
+    return None, f"{name}@{socket.gethostname()}"
+
+
+def legacy_owner(root=None):
+    """The owner this checkout's claims carried before 2026-10-09, when the
+    default was `<user>@<host>` with no checkout hash; None when an explicit
+    owner applies (BFME_CLAIM_OWNER, a fleet run, a work-<agent> branch: those
+    did not change).
+
+    The upgrade otherwise strands such a claim: the per-checkout owner can
+    neither renew nor release it (review 2026-10-09: 11 of 277 live claims).
+    So renew(), release() and settlement accept a record whose owner is
+    exactly this string as the default owner's own -- always fenced by the
+    record's token, and renew() rewrites it under the per-checkout owner, so
+    the alias retires as those claims are renewed, released or expire.
+    claim() does NOT adopt it: a legacy claim is refused like a peer's.
+
+    TRADEOFF: every checkout of one user on one host shares this string, as it
+    did before the upgrade. Any of them can renew or release a legacy claim
+    another of them took -- exactly what the old default already allowed, no
+    more -- and never a claim taken under a per-checkout owner."""
+    explicit, legacy = _explicit_owner(root)
+    return None if explicit else legacy
+
+
+def _names(who, root=None):
+    """The owner strings whose claims are `who`'s own: `who`, plus the legacy
+    `<user>@<host>` when `who` is this checkout's default owner."""
+    names = {who}
+    legacy = legacy_owner(root)
+    if legacy and who == owner(root):
+        names.add(legacy)
+    return names
 
 
 def _mirror(rva, sha, root=None):
@@ -192,7 +246,7 @@ def current_lease(rva, who=None, root=None):
     """The lease id of `who`'s claim on `rva` in the local mirror (no network),
     or None. queue_landed binds a landing to it."""
     entry = _read_local(root).get(key_of(rva))
-    if not entry or entry[1].get("owner") != (who or owner(root)):
+    if not entry or entry[1].get("owner") not in _names(who or owner(root), root):
         return None
     return entry[1].get("lease") or entry[0]
 
@@ -370,11 +424,16 @@ def claim(rvas, who=None, ttl_hours=TTL_HOURS, note="", root=None):
     """Claim `rvas` on origin. Returns a ClaimResult (claimed, refused).
 
     Tries all-or-nothing first (--atomic); if that fails, claims the rest one
-    by one. A claim of ours is renewed; an expired claim is taken over by
-    compare-and-swap. A body counts as claimed only when origin accepted it.
-    A body the mirrored remote holds is refused. Raises ClaimsUnavailable
-    when origin cannot be fetched, or when no push succeeded and nobody else
-    holds the bodies (network trouble, not a race)."""
+    by one. A live claim of ours is renewed and KEEPS its lease (and start
+    time): a re-claim is how a worker extends a claim, and a fresh lease
+    orphaned the landing queued under the old one (review 2026-10-09). An
+    expired claim -- ours included -- is taken over by compare-and-swap under
+    a new lease. A body counts as claimed only when origin accepted it. A
+    body the mirrored remote holds is refused, and so is a legacy-owner claim
+    (see legacy_owner). Raises ClaimsUnavailable when origin cannot be
+    fetched, or when no push succeeded and nobody else holds the bodies
+    (network trouble, not a race); its .refused names the bodies origin
+    showed another worker holding."""
     who = who or owner(root)
     scopes = {key_of(r): r[r.index(":") + 1:] for r in rvas if isinstance(r, str) and ":" in r}
     rvas = _ints(rvas)
@@ -389,15 +448,25 @@ def claim(rvas, who=None, ttl_hours=TTL_HOURS, note="", root=None):
     upstream = mirrored(root)
     held |= {r for r in rvas if isinstance(r, int) and r in upstream}   # upstream is on it
     wanted = [r for r in rvas if r not in held]
-    lease = uuid.uuid4().hex
+    fresh = uuid.uuid4().hex
     shas = {}
 
+    def lease_of(rva):
+        """(lease, since) the claim on `rva` is written under."""
+        old = current.get(rva)
+        if old and old[1].get("owner") == who and old[1].get("expires", 0) > now:
+            return old[1].get("lease") or old[0], old[1].get("since") or old[1].get("created")
+        return fresh, None
+
     def token(rva):
-        # one claim commit per call (per scope: a scope record names its scope)
+        # one claim commit per call, per scope (a scope record names its
+        # scope) and per lease (a renewed claim keeps its own)
         scope = scopes.get(rva, "")
-        if scope not in shas:
-            shas[scope] = _record(who, ttl_hours, note, root, lease=lease, scope=scope)
-        return shas[scope]
+        lease, since = lease_of(rva)
+        if (scope, lease) not in shas:
+            shas[scope, lease] = _record(who, ttl_hours, note, root, lease=lease, since=since,
+                                         scope=scope)
+        return shas[scope, lease]
 
     def spec(rva):
         sha = token(rva)
@@ -423,7 +492,8 @@ def claim(rvas, who=None, ttl_hours=TTL_HOURS, note="", root=None):
         if not fetch(root):
             active.cache_clear()
             raise ClaimsUnavailable("claims: push failed and origin cannot be re-read; "
-                                    "only the bodies in .claimed are held", claimed=claimed)
+                                    "only the bodies in .claimed are held", claimed=claimed,
+                                    refused=sorted(held, key=_order))
         after = _read_local(root)
         for rva in failed:
             entry = after.get(rva)
@@ -432,17 +502,20 @@ def claim(rvas, who=None, ttl_hours=TTL_HOURS, note="", root=None):
             elif not (entry and entry[1].get("expires", 0) > time.time()
                       and entry[1].get("owner") != who):
                 unconfirmed.append(rva)
+            else:
+                held.add(rva)                           # lost the race to a peer
         if unconfirmed and not claimed and len(unconfirmed) == len(wanted):
             active.cache_clear()
             raise ClaimsUnavailable("claims: origin accepted no claim push and nobody else holds "
-                                    "the bodies; nothing claimed")
+                                    "the bodies; nothing claimed",
+                                    refused=sorted(held, key=_order))
     claimed = sorted(claimed, key=_order)
     refused = sorted(set(rvas) - set(claimed), key=_order)
     for rva in claimed:
         _mirror(rva, token(rva), root)
     active.cache_clear()
     return ClaimResult(claimed, refused, tokens={r: token(r) for r in claimed},
-                       leases={r: lease for r in claimed},
+                       leases={r: lease_of(r)[0] for r in claimed},
                        unconfirmed=sorted(unconfirmed, key=_order), worker=who)
 
 
@@ -450,12 +523,14 @@ def renew(tokens, who=None, ttl_hours=TTL_HOURS, note="", root=None):
     """Heartbeat: extend claims we still hold. `tokens` is {rva: sha} from a
     ClaimResult or an earlier renew. Each ref is compare-and-swapped against
     its token, so a claim that expired and was taken over is reported lost,
-    never overwritten. Returns (renewed {rva: new sha}, lost [rva]); raises
-    ClaimsUnavailable when origin cannot be read."""
+    never overwritten. The lease is kept. A legacy-owner claim (see
+    legacy_owner) is renewed under `who`. Returns (renewed {rva: new sha},
+    lost [rva]); raises ClaimsUnavailable when origin cannot be read."""
     who = who or owner(root)
     tokens = {key_of(r): t for r, t in tokens.items()}
     if not tokens:
         return {}, []
+    names = _names(who, root)
     if not fetch(root):
         raise ClaimsUnavailable("claims: cannot fetch refs/claims/* to renew")
     current = _read_local(root)
@@ -472,7 +547,7 @@ def renew(tokens, who=None, ttl_hours=TTL_HOURS, note="", root=None):
         entry = current.get(rva)
         same = entry and (entry[0] == token or (
             entry[1].get("lease") and entry[1].get("lease") == leases.get(rva)))
-        if not same or entry[1].get("owner") != who:
+        if not same or entry[1].get("owner") not in names:
             lost.append(rva)
             continue
         sha = _record(who, ttl_hours, note or entry[1].get("note", ""), root,
@@ -497,6 +572,26 @@ def renew(tokens, who=None, ttl_hours=TTL_HOURS, note="", root=None):
             lost.append(rva)
     active.cache_clear()
     return renewed, lost
+
+
+def renew_held(rvas, who=None, ttl_hours=TTL_HOURS, note="", root=None):
+    """`claims.py renew`: renew() each of `rvas` that origin shows `who`
+    holding (legacy owner included), at the token origin shows now, so the
+    lease survives. Returns (renewed {key: sha}, not_renewed [key]): a body
+    nobody holds, another worker holds, or that was taken over mid-renewal is
+    not renewed. Raises ClaimsUnavailable when origin cannot be read."""
+    who = who or owner(root)
+    keys = _ints(rvas)
+    if not keys:
+        return {}, []
+    names = _names(who, root)
+    if not fetch(root):
+        raise ClaimsUnavailable("claims: cannot fetch refs/claims/* to renew")
+    current = _read_local(root)
+    tokens = {k: current[k][0] for k in keys if k in current and current[k][1].get("owner") in names}
+    renewed, lost = renew(tokens, who=who, ttl_hours=ttl_hours, note=note, root=root) \
+        if tokens else ({}, [])
+    return renewed, sorted(set(lost) | (set(keys) - set(tokens)), key=_order)
 
 
 def lease_holder(rva, lease, root=None):
@@ -549,6 +644,7 @@ def release(rvas, who=None, force=False, root=None, tokens=None):
     With `tokens` ({rva: sha}) a ref is deleted only while it still carries
     that token, so a successor's claim survives a late release. Network
     trouble releases nothing (with a warning): claims expire on their own.
+    A legacy-owner claim (see legacy_owner) counts as the default owner's.
     BFME2: the batch goes in one atomic push (each ref leased at the
     generation read here), one by one only if that fails; a branch-namespace
     host overwrites the claim with an expired record instead of deleting it."""
@@ -556,6 +652,7 @@ def release(rvas, who=None, force=False, root=None, tokens=None):
     if not rvas:
         return []
     who = who or owner(root)
+    names = _names(who, root)
     if not fetch(root):
         print("claims: origin unreachable; releasing nothing (claims expire on their own)", file=sys.stderr)
         return []
@@ -564,7 +661,7 @@ def release(rvas, who=None, force=False, root=None, tokens=None):
     eligible = []
     for rva in rvas:
         entry = current.get(rva)
-        if not entry or (entry[1].get("owner") != who and not force):
+        if not entry or (entry[1].get("owner") not in names and not force):
             continue
         if rva in tokens and entry[0] != tokens[rva]:
             continue                    # taken over since: not ours to delete
@@ -605,7 +702,7 @@ def _pending_path(root=None):
     return Path(root or ROOT) / PENDING
 
 
-DEP_LIMIT = 200
+DEP_LIMIT = 2000        # files one compile read; the most measured (2026-10-09) was 452
 _QUEUE_THREADS = threading.Lock()
 
 
@@ -645,68 +742,186 @@ def _write_queue(path, entries):
     os.replace(tmp, path)
 
 
-def _blobs(root, paths):
-    """{path: blob sha of the working file as git would store it, '' if absent}.
-    A submodule (gitlink) maps to its checked-out commit, which is what
-    origin/master's tree records for it (BFME2: reference/open-bfme-1)."""
-    base = Path(root or ROOT)
-    present = [p for p in paths if (base / p).is_file()]
-    out = {p: "" for p in paths}
-    if present:
-        got = _git("hash-object", "--", *present, cwd=root)
-        if got.returncode:
-            raise RuntimeError(got.stderr.strip())
-        out.update(zip(present, got.stdout.split()))
-    for path in paths:
-        if (base / path).is_dir():
-            head = _git("rev-parse", "HEAD", cwd=base / path)
-            if head.returncode == 0:
-                out[path] = head.stdout.strip()
-    return out
+def receipt_path(source, root=None):
+    """The dependency receipt the byte gate wrote when it compiled `source`:
+    tools/build.py's obj_path(source) with the suffix .deps.json (the same
+    encoding: path parts joined by '_', an uppercase letter as '^' + lower)."""
+    stem = "_".join(Path(source).with_suffix("").parts)
+    encoded = "".join(("^" + c.lower()) if c.isupper() else c for c in stem)
+    return Path(root or ROOT) / RECEIPTS / (encoded + ".deps.json")
+
+
+def _md5(path):
+    """The digest tools/build.py records for a compiled file, or None."""
+    try:
+        return hashlib.md5(Path(path).read_bytes()).hexdigest()
+    except OSError:
+        return None
+
+
+def _hash_objects(cwd, paths):
+    """[blob sha of each working file as git would store it], via stdin (a
+    command line of a few hundred header paths overflows Windows' limit)."""
+    if not paths:
+        return []
+    got = _git("hash-object", "--stdin-paths", cwd=cwd, input_text="".join(p + "\n" for p in paths))
+    shas = got.stdout.split()
+    if got.returncode or len(shas) != len(paths):
+        raise RuntimeError(f"git hash-object failed: {got.stderr.strip()}")
+    return shas
+
+
+def _spelled(base, rel, listings):
+    """`rel` as spelled on disk. cl reports an include in the spelling the
+    #include asked for, which Windows and Wine resolve whatever its case, and
+    git compares paths exactly. Symbolic links and junctions are not followed:
+    a junctioned reference/open-bfme-1 is still that path here."""
+    current, out = Path(base), []
+    for part in rel.split("/"):
+        if current not in listings:
+            try:
+                names = os.listdir(current)
+            except OSError:
+                names = []
+            listings[current] = (set(names), {name.lower(): name for name in names})
+        exact, folded = listings[current]
+        name = part if part in exact else folded.get(part.lower(), part)
+        out.append(name)
+        current = current / name
+    return "/".join(out)
+
+
+def _nested_repo(base, rel, seen):
+    """The checkout-relative directory of the nested repository (a submodule)
+    that holds `rel`, or None."""
+    parts = rel.split("/")[:-1]
+    for depth in range(1, len(parts) + 1):
+        directory = "/".join(parts[:depth])
+        if directory not in seen:
+            seen[directory] = (Path(base) / directory / ".git").exists()
+        if seen[directory]:
+            return directory
+    return None
 
 
 def landing_deps(source, root=None):
-    """What a landing's verification read that origin/master must also hold
-    before its claim is released: the row's source plus every changed
-    DEP_PREFIXES file of this checkout (uncommitted, untracked, or committed
-    since this checkout's merge base with origin/master). ({path: blob},
-    truncated)."""
-    changed = set()
-    # BFME2: `origin/master...HEAD` (three dots) lists only this checkout's own
-    # commits. Open-BFME-1's two-dot diff also listed files a peer changed
-    # upstream, whose stale local blobs never equal origin's, so a published
-    # landing could not settle (Open-BFME-1 re_attempts.log, 0x008615F0
-    # false-reject claims.release_landed).
-    for args in (("diff", "--name-only", "HEAD"),
-                 ("ls-files", "--others", "--exclude-standard"),
-                 ("diff", "--name-only", "refs/remotes/origin/master...HEAD")):
-        got = _git(*args, "--", *DEP_PREFIXES, cwd=root)
-        if got.returncode == 0:
-            changed.update(line.strip() for line in got.stdout.splitlines() if line.strip())
-    changed.discard(source)
-    changed = sorted(changed)
-    truncated = len(changed) > DEP_LIMIT
-    return _blobs(root, [source] + changed[:DEP_LIMIT]), truncated
+    """What origin/master must hold, blob for blob, before a landing's claim is
+    released: every file the verified compile of `source` read.
+
+    The byte gate's receipt (receipt_path) names the source and each header
+    cl reported through /showIncludes, with the md5 it compiled. Each must
+    still have that md5, so these are the bytes that verified. A file inside
+    this checkout is then recorded by the blob git would store, unless git
+    ignores it (a generated case shim is not repository content); a file
+    outside it is the host's, not origin's. A file inside a submodule
+    (reference/open-bfme-1, which also ships the toolchain headers) is recorded
+    as the submodule's checked-out commit -- what origin/master's tree records
+    -- once it is shown to equal that commit's blob: a submodule modified in a
+    file the compile read cannot be published as verified. A .lib source is
+    its own only input (its members are compared verbatim).
+
+    Returns ({path: blob or commit}, why): `why` is "" when every input is
+    established, else the reason one is not, and settlement then keeps the
+    claim until it expires (fail closed). The source's blob is always there.
+
+    Open-BFME-1 lists the files `git diff origin/master HEAD` (two dots) names
+    instead: that also lists files a peer changed upstream, whose stale local
+    blobs never equal origin's (its re_attempts.log, 0x008615F0
+    false-reject), and misses an upstream change made after the last fetch.
+    The three-dot diff BFME2 used first dropped every upstream change, so a
+    stale header the compile had read was never compared (review
+    2026-10-09). The receipt needs neither: a peer's change to a file this
+    compile read holds the claim, a change to any other file does not. It
+    does not see a header origin ADDED that would shadow one the compile read
+    (include search order), nor reverse/symbols.csv pins."""
+    base = Path(root or ROOT)
+    source = source.replace("\\", "/")
+    if not (base / source).is_file():
+        return {source: ""}, "the source is missing"
+    own = dict(zip([source], _hash_objects(base, [source])))
+    if source.lower().endswith(".lib"):
+        return own, ""
+    receipt = receipt_path(source, base)
+    try:
+        meta = json.loads(receipt.read_text(encoding="utf-8"))
+        recorded, compiled = dict(meta["deps"]), meta["source"]
+    except (OSError, ValueError, KeyError, TypeError):
+        return own, f"no readable build receipt {receipt.relative_to(base).as_posix()}"
+    if compiled != _md5(base / source):
+        return own, "the build receipt is for another revision of the source"
+    listings, seen, plain, nested = {}, {}, [], {}
+    for dep, digest in sorted(recorded.items()):
+        path = Path(dep) if os.path.isabs(dep) else base / dep
+        if _md5(path) != digest:
+            return own, f"{dep} changed since the verified compile read it"
+        try:
+            rel = os.path.relpath(os.path.normpath(path), os.path.normpath(base)).replace("\\", "/")
+        except ValueError:              # another drive
+            continue
+        if rel == ".." or rel.startswith("../") or os.path.isabs(rel):
+            continue                    # outside the checkout: the host's, not origin's
+        rel = _spelled(base, rel, listings)
+        repo = _nested_repo(base, rel, seen)
+        if repo:
+            nested.setdefault(repo, []).append(rel[len(repo) + 1:])
+        else:
+            plain.append(rel)
+    if len(plain) + len(nested) > DEP_LIMIT:
+        return own, f"more than {DEP_LIMIT} dependencies"
+    ignored = set()
+    if plain:
+        got = _git("check-ignore", "--stdin", "-z", cwd=base, input_text="\0".join(plain) + "\0")
+        if got.returncode not in (0, 1):                # 1: none ignored
+            return own, f"git check-ignore failed: {got.stderr.strip()}"
+        ignored = {path for path in got.stdout.split("\0") if path}
+    required = [path for path in plain if path not in ignored and path != source]
+    deps = dict(own)
+    deps.update(zip(required, _hash_objects(base, required)))
+    for repo, inner in sorted(nested.items()):
+        link = _git("ls-files", "-s", "--", repo, cwd=base).stdout.split()
+        if not link or link[0] != "160000":
+            if _git("check-ignore", "-q", repo, cwd=base).returncode == 0:
+                continue                # an ignored nested clone: the host's
+            return own, f"{repo} is a nested repository, not a submodule"
+        head = _git("rev-parse", "HEAD", cwd=base / repo).stdout.strip()
+        committed = _git("cat-file", "--batch-check=%(objectname)", cwd=base / repo,
+                         input_text="".join(f"HEAD:{path}\n" for path in inner)).stdout.splitlines()
+        if not head or len(committed) != len(inner):
+            return own, f"cannot read {repo}'s checked-out commit"
+        for path, blob, have in zip(inner, committed, _hash_objects(base / repo, inner)):
+            if blob.strip() != have:
+                return own, f"{repo} differs from its commit in {path}, which the compile read"
+        deps[repo] = head
+    return deps, ""
 
 
-def queue_landed(rva, row, who=None, root=None, deps=None):
-    """add_match calls this after LOCAL verification: remember the exact
-    ledger row AND the blobs of the source and changed dependencies it
-    verified, so the claim is released only once origin/master carries all
-    of them -- an old published row with the same key is not this landing
-    (review 2026-09-29). Never raises: bookkeeping must not fail a landing."""
+def queue_landed(rva, row, who=None, root=None, deps=None, unproven=""):
+    """add_match calls this after LOCAL verification: remember the row and
+    the blobs of every file its verified compile read (landing_deps), so the
+    claim is released only once origin/master carries the row's name,
+    target_rva, size, source and status (not export_rva or notes, which may
+    change later) and all of those blobs -- an old published row with the same
+    key is not this landing (review 2026-09-29). `deps` and `unproven` are a
+    landing_deps result the caller already has. Never raises: bookkeeping must
+    not fail a landing."""
     try:
         fields = row.strip().split(",")
         source = fields[4] if len(fields) >= 6 else ""
-        truncated = False
         if deps is None:
-            deps, truncated = landing_deps(source, root) if source else ({}, True)
+            try:
+                deps, unproven = landing_deps(source, root) if source else ({}, "the row names no source")
+            except Exception as error:  # noqa: BLE001 -- still queue it: unproven keeps the claim
+                deps, unproven = {}, f"dependency scan failed: {error}"
         now = int(time.time())
         who = who or owner(root)
         entry = {"rva": f"0x{int(rva):08X}", "row": row.strip(), "owner": who,
                  "lease": current_lease(rva, who, root),
-                 "queued": now, "deps": deps, "deps_truncated": truncated,
+                 "queued": now, "deps": deps, "deps_truncated": bool(unproven),
                  "id": uuid.uuid4().hex}
+        if unproven:
+            entry["deps_unproven"] = unproven
+            print(f"claims: 0x{int(rva):08X}: what its verification read cannot be compared with "
+                  f"origin/master ({unproven}); its claim is kept until it expires", file=sys.stderr)
         with _queue_lock(root) as path:
             # a checkout nobody settles must not grow the queue forever: entries
             # past two days describe claims that have long expired
@@ -787,14 +1002,19 @@ def lease_trailers(sha, root=None):
 def release_landed(sha=None, root=None, who=None, keep_days=1.0):
     """Release claims for bodies that have landed on origin/master.
 
-    Every queued landing (queue_landed) whose exact row origin/master now
-    holds is released under the owner that queued it and dropped from the
-    queue; with `sha`, the matched rows that commit adds whose lease the
-    commit names in a `Claim-Lease: 0xRVA=<lease>` trailer are released under
-    `who` -- except any body that still has an unsettled queued landing,
-    which stays claimed whatever selected it. Unsettled entries older than `keep_days` are dropped (their claims
-    have long expired). Returns (released, still_pending) lists of ints.
-    Raises ClaimsUnavailable when origin/master cannot be read."""
+    Every queued landing (queue_landed) whose row (name, target_rva, size,
+    source, status) and whose every recorded input blob (landing_deps)
+    origin/master's tip now holds is released under the owner that queued it
+    and dropped from the queue; with `sha`, the matched rows that commit adds
+    whose lease the commit names in a `Claim-Lease: 0xRVA=<lease>` trailer
+    are released under `who` -- except any body that still has an unsettled
+    queued landing, which stays claimed whatever selected it. A landed entry
+    whose release did not happen while its lease is still the live claim
+    stays queued for the next settlement; it is dropped once released, once
+    another lease holds the body, or once the claim expired. Unsettled
+    entries older than `keep_days` are dropped (their claims have long
+    expired). Returns (released, still_pending) lists of ints. Raises
+    ClaimsUnavailable when origin/master cannot be read."""
     queue = pending(root)
     if not queue and sha is None:
         return [], []
@@ -804,15 +1024,18 @@ def release_landed(sha=None, root=None, who=None, keep_days=1.0):
     rows = _rows_at(tip, root) if queue else set()
     if rows is None:
         raise ClaimsUnavailable("claims: cannot read origin/master's ledger")
-    wanted = sorted({p for e in queue for p in (e.get("deps") or {})})
+    wanted = {p for e in queue for p in (e.get("deps") or {})}
     published = {}
     if wanted:
-        listed = _git("ls-tree", "-r", tip, "--", *wanted, cwd=root, timeout=120)
+        # the whole tree, not `-- <paths>`: hundreds of header paths overflow
+        # a Windows command line. A submodule is listed as its commit.
+        listed = _git("ls-tree", "-r", "-z", tip, cwd=root, timeout=120)
         if listed.returncode:
             raise ClaimsUnavailable("claims: cannot read origin/master's tree")
-        for line in listed.stdout.splitlines():
+        for line in listed.stdout.split("\0"):
             meta, _, path = line.partition("\t")
-            published[path] = meta.split()[2]
+            if path in wanted:
+                published[path] = meta.split()[2]
 
     def landed(entry):
         deps = entry.get("deps")
@@ -834,7 +1057,7 @@ def release_landed(sha=None, root=None, who=None, keep_days=1.0):
     trailers = lease_trailers(sha, root) if sha else {}
     extra = sorted(trailers)
     # holder -> {rva: set of leases a landed entry was built under}
-    by_owner, waiting, keep, unsettled = {}, [], [], set()
+    by_owner, waiting, keep, unsettled, evidence = {}, [], [], set(), []
     now = time.time()
     for entry in queue:
         try:
@@ -844,6 +1067,7 @@ def release_landed(sha=None, root=None, who=None, keep_days=1.0):
         if landed(entry) and entry.get("lease"):
             holder = entry.get("owner") or who or owner(root)
             by_owner.setdefault(holder, {}).setdefault(rva, set()).add(entry["lease"])
+            evidence.append((rva, entry))
         else:
             unsettled.add(rva)
             if now - entry.get("queued", 0) < keep_days * 86400:
@@ -875,11 +1099,12 @@ def release_landed(sha=None, root=None, who=None, keep_days=1.0):
                     unsettled.add(int(entry["rva"], 16))
                 except (KeyError, ValueError):
                     continue
-        # The generation is read NOW, after the evidence: a body re-claimed
-        # since the landing (a FRESH lease, even by the same owner) is not
-        # the claim that landing was built under, and survives (review
-        # 2026-09-30). Renewals and publications keep the lease, so they do
-        # not block a release. The release itself is a compare-and-swap on
+        # The generation is read NOW, after the evidence: a body claimed
+        # afresh since the landing (a NEW lease: by another worker, or by the
+        # same one after the claim lapsed) is not the claim that landing was
+        # built under, and survives (review 2026-09-30). Renewals,
+        # publications and a re-claim of a live claim keep the lease, so they
+        # do not block a release. The release itself is a compare-and-swap on
         # the generation read here.
         if not fetch(root):
             raise ClaimsUnavailable("claims: cannot fetch refs/claims/* to settle")
@@ -895,10 +1120,26 @@ def release_landed(sha=None, root=None, who=None, keep_days=1.0):
                     tokens[rva] = token
             if tokens:
                 released += release(sorted(tokens), who=holder, root=root, tokens=tokens)
+        # A landed entry is the only evidence a retry has, so it goes only once
+        # its claim is settled: released here, held under another lease,
+        # expired or gone -- or still held for a newer queued landing of the
+        # body, which carries it from here. A release that did not happen
+        # while the entry's lease is still the live claim (origin refused or
+        # unreachable, a renewal won the compare-and-swap) keeps it queued
+        # (review 2026-10-09: a failed delete dropped it, stranding the claim).
+        retry, again = set(), set()
+        for rva, entry in evidence:
+            live_claim = generation.get(rva)
+            if (rva in unsettled or rva in released or not live_claim
+                    or live_claim[1].get("expires", 0) <= time.time()
+                    or (live_claim[1].get("lease") or live_claim[0]) != entry["lease"]):
+                continue
+            retry.add(json.dumps(entry, sort_keys=True))
+            again.add(rva)
         # drop only the entries settled here
-        settled = snapshot - kept
+        settled = snapshot - kept - retry
         _write_queue(path, [e for e in current if json.dumps(e, sort_keys=True) not in settled])
-    return sorted(set(released)), sorted(set(waiting) | (unsettled - set(released)))
+    return sorted(set(released)), sorted(set(waiting) | (unsettled - set(released)) | again)
 
 
 def settle(rvas=(), who=None, root=None, tokens=None):
@@ -924,7 +1165,7 @@ def settle(rvas=(), who=None, root=None, tokens=None):
 
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
-    ap.add_argument("action", choices=["list", "claim", "release", "whoami"])
+    ap.add_argument("action", choices=["list", "claim", "renew", "release", "whoami"])
     ap.add_argument("rvas", nargs="*")
     ap.add_argument("--note", default="")
     ap.add_argument("--force", action="store_true", help="release: also claims owned by others")
@@ -949,6 +1190,8 @@ def main(argv=None):
             print(error, file=sys.stderr)
             if error.claimed:
                 print(f"claimed before the failure: {' '.join(label(r) for r in error.claimed)}")
+            if error.refused:
+                print(f"held by someone else: {' '.join(label(r) for r in error.refused)}")
             return 2
         got, refused = result
         print(f"claimed {len(got)}: {' '.join(label(r) for r in got)}")
@@ -956,7 +1199,24 @@ def main(argv=None):
             print(f"not claimed: {' '.join(label(r) for r in refused)}"
                   + (f" (unconfirmed, origin trouble: {' '.join(label(r) for r in result.unconfirmed)})"
                      if result.unconfirmed else " (held by someone else)"))
+            legacy = legacy_owner()
+            mine = [r for r, info in active().items() if r in refused and legacy
+                    and info.get("owner") == legacy]
+            if mine:
+                print(f"{' '.join(label(r) for r in mine)}: held under this checkout's pre-2026-10-09 "
+                      f"owner {legacy}; `claims.py renew` continues it, `release` frees it")
         return 0 if not refused else 1
+    if args.action == "renew":
+        try:
+            renewed, missed = renew_held(args.rvas, note=args.note)
+        except ClaimsUnavailable as error:
+            print(error, file=sys.stderr)
+            return 2
+        print(f"renewed {len(renewed)}: {' '.join(label(r) for r in renewed)}")
+        if missed:
+            print(f"not renewed (not yours, taken over or not claimed): "
+                  f"{' '.join(label(r) for r in missed)}")
+        return 0 if not missed else 1
     if args.action == "release" and args.landed is not None:
         try:
             done, waiting = release_landed(args.landed or None)
@@ -968,7 +1228,8 @@ def main(argv=None):
             return 1
         print(f"released {len(done)} landed: {' '.join(f'0x{r:08X}' for r in done)}")
         if waiting:
-            print(f"still waiting for origin/master: {' '.join(f'0x{r:08X}' for r in waiting)}")
+            print(f"still queued (not yet on origin/master as verified, or its release is retried "
+                  f"next time): {' '.join(f'0x{r:08X}' for r in waiting)}")
         return 0
     done = release(args.rvas, force=args.force)
     print(f"released {len(done)}: {' '.join(label(r) for r in done)}")

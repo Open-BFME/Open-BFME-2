@@ -1683,9 +1683,10 @@ def do_land(args):
     try:
         acquired, refused = shared_claims.claim(rvas, note=f"BFME1 donor {entry['source']}")
     except shared_claims.ClaimsUnavailable as error:
-        # AGENTS.md: network failure warns and keeps work available
+        # Origin failed mid-claim: land without a shared claim (AGENTS.md),
+        # unless origin already showed a peer holding one of the bodies.
         print(f"bfme1_sweep: {error}; landing without a shared claim", file=sys.stderr)
-        acquired, refused = list(error.claimed), []
+        acquired, refused = list(error.claimed), list(error.refused)
     if refused:
         if acquired:
             shared_claims.release(acquired)
@@ -1695,9 +1696,31 @@ def do_land(args):
         return _do_land(args, entry=entry)
     finally:
         if acquired:
-            # add_match queued every body it verified: those stay claimed
-            # until origin/master holds their rows; the rest are released now.
-            shared_claims.settle(acquired)
+            # A verified row is not a published one: queue each body whose row
+            # this landing left in the ledger (its add_match runs had
+            # BFME_CLAIMS=off) and keep its claim until origin/master holds
+            # it. Release the rest -- refused, unwound or never tried.
+            landed = queue_landed_rows(entry, acquired)
+            shared_claims.settle([rva for rva in acquired if rva not in landed])
+
+
+def queue_landed_rows(entry, rvas):
+    """Queue (claims.queue_landed) each of `rvas` whose matched row for this
+    donor's BFME 2 source is in the ledger now; returns those RVAs."""
+    target = bfme2_source_path(entry["source"])
+    wanted, landed = set(rvas), []
+    for row in BFME2_LEDGER.read_text(encoding="utf-8").splitlines():
+        fields = row.split(",")
+        if len(fields) < 6 or fields[4] != target or fields[5] != "matched":
+            continue
+        try:
+            rva = int(fields[2], 16)
+        except ValueError:
+            continue
+        if rva in wanted:
+            shared_claims.queue_landed(rva, row)
+            landed.append(rva)
+    return landed
 
 
 def _do_land(args, entry=None):
@@ -1768,8 +1791,9 @@ def _do_land(args, entry=None):
             command = [sys.executable, str(ROOT / "tools" / "add_match.py"), body["name"],
                        f"0x{body['bfme2_rva']:08X}", str(body["size"]), target_source,
                        "--notes", ledger_note(body)]
-            # The wrapper releases the whole donor batch together after the
-            # last verification (or failure), avoiding one Git push per row.
+            # do_land owns the claims: after the last verification (or
+            # failure) it queues each row the ledger kept and releases the
+            # rest in one push, so no row is queued and then unwound here.
             verify_env = os.environ.copy()
             verify_env["BFME_CLAIMS"] = "off"
             result = subprocess.run(command, cwd=ROOT, env=verify_env)

@@ -201,6 +201,22 @@ def _commit_ledger(clone, rows, message, files=None):
     return _git(clone, "rev-parse", "HEAD").strip()
 
 
+def _verified(clone, source, headers=()):
+    """Write the receipt tools/build.py leaves when it compiles `source`
+    (build/match/<obj>.deps.json: the md5 of the source and of each header
+    /showIncludes reported, keyed relative to the checkout), as a verified
+    add_match would have."""
+    import hashlib
+    import json
+
+    def md5(path):
+        return hashlib.md5((clone / path).read_bytes()).hexdigest()
+    receipt = claims.receipt_path(source, clone)
+    receipt.parent.mkdir(parents=True, exist_ok=True)
+    receipt.write_text(json.dumps({"cmd": "fixture", "source": md5(source),
+                                   "deps": {h: md5(h) for h in headers}}), encoding="utf-8")
+
+
 def test_a_landing_releases_only_once_origin_master_holds_the_row(hosts):
     a = hosts("a")
     base = _commit_ledger(a, ["?d_00000100@@YAXXZ,,0x00000100,16,Code/gen_asm/x.asm,matched,gen-dump"], "base")
@@ -208,6 +224,7 @@ def test_a_landing_releases_only_once_origin_master_holds_the_row(hosts):
     claims.claim([0x100])
     row = "?f@@YAXXZ,,0x00000100,16,Code/x.cpp,matched,model=m"
     sha = _commit_ledger(a, [row], "land", {"Code/x.cpp": "void f() {}\n"})
+    _verified(a, "Code/x.cpp")
     claims.queue_landed(0x100, row)
     # verified and committed locally, not pushed: the claim must hold
     assert claims.release_landed() == ([], [0x100])
@@ -244,6 +261,7 @@ def test_an_old_published_row_does_not_release_an_unpublished_source_change(host
     claims.claim([0x100])
     (a / "Code/x.cpp").write_text("void f() { real(); }\n", encoding="utf-8")
     (a / "Code/x.h").write_text("struct X;\n", encoding="utf-8")          # a new dependency
+    _verified(a, "Code/x.cpp", ["Code/x.h"])
     claims.queue_landed(0x100, row.replace("gen-dump", "model=m"))
     entry = claims.pending()[0]
     assert set(entry["deps"]) == {"Code/x.cpp", "Code/x.h"}
@@ -304,6 +322,7 @@ def test_release_landed_sha_cannot_override_a_pending_landing(hosts):
     _git(a, "push", "-q", "origin", "HEAD:refs/heads/master")
     claims.claim([0x100])
     (a / "Code/x.cpp").write_text("void f() { different(); }\n", encoding="utf-8")
+    _verified(a, "Code/x.cpp")
     claims.queue_landed(0x100, row)
     assert claims.release_landed() == ([], [0x100])
     assert claims.release_landed(sha) == ([], [0x100])
@@ -317,8 +336,10 @@ def test_an_earlier_settled_landing_does_not_release_a_newer_pending_one(hosts):
     _commit_ledger(a, [row], "published", {"Code/x.cpp": "void f() {}\n"})
     _git(a, "push", "-q", "origin", "HEAD:refs/heads/master")
     claims.claim([0x100])
+    _verified(a, "Code/x.cpp")
     claims.queue_landed(0x100, row)                          # matches origin: settled
     (a / "Code/x.cpp").write_text("void f() { again(); }\n", encoding="utf-8")
+    _verified(a, "Code/x.cpp")
     claims.queue_landed(0x100, row)                          # a second, local-only pass
     assert claims.release_landed() == ([], [0x100])
     assert 0x100 in claims.active()
@@ -334,20 +355,22 @@ def test_a_committed_but_unpushed_repair_is_not_released(hosts):
     _git(a, "fetch", "-q", "origin")
     claims.claim([0x100])
     _commit_ledger(a, [row], "unpublished repair", {"Code/x.cpp": "repaired source\n"})
+    _verified(a, "Code/x.cpp")
     claims.queue_landed(0x100, row.replace("model=old", "model=new"))
     assert claims.release_landed() == ([], [0x100])
     assert 0x100 in claims.active()
 
 
 def test_a_committed_but_unpushed_header_is_a_dependency(hosts):
-    # the source is published already; the header it now needs is only in a
-    # local commit, which the merge-base diff must still list
+    # the source is published already; the header it now reads is only in a
+    # local commit, and the build's receipt names it
     a = hosts("a")
     row = "?f@@YAXXZ,,0x00000100,16,Code/x.cpp,matched,model=m"
     _commit_ledger(a, [row], "published", {"Code/x.cpp": "void f() {}\n"})
     _git(a, "push", "-q", "origin", "HEAD:refs/heads/master")
     claims.claim([0x100])
     _commit_ledger(a, [row], "local header", {"Code/x.h": "struct X;\n"})
+    _verified(a, "Code/x.cpp", ["Code/x.h"])
     claims.queue_landed(0x100, row)
     assert set(claims.pending()[0]["deps"]) == {"Code/x.cpp", "Code/x.h"}
     assert claims.release_landed() == ([], [0x100])
@@ -359,7 +382,8 @@ def test_an_upstream_only_change_does_not_hold_a_published_landing(hosts):
     # BFME2 deviation from Open-BFME-1: its two-dot `origin/master HEAD` diff
     # also listed files a PEER changed upstream; their stale local blobs never
     # equal origin's, so the landing could not settle (Open-BFME-1
-    # re_attempts.log, 0x008615F0 false-reject claims.release_landed).
+    # re_attempts.log, 0x008615F0 false-reject claims.release_landed). The
+    # receipt lists only what the compile read, which a peer's file is not.
     a = hosts("a")
     _commit_ledger(a, [], "base")
     _git(a, "push", "-q", "origin", "HEAD:refs/heads/master")
@@ -372,6 +396,7 @@ def test_an_upstream_only_change_does_not_hold_a_published_landing(hosts):
     claims.claim([0x100])
     row = "?f@@YAXXZ,,0x00000100,16,Code/x.cpp,matched,model=m"
     _commit_ledger(a, [row], "land", {"Code/x.cpp": "void f() {}\n"})
+    _verified(a, "Code/x.cpp")
     claims.queue_landed(0x100, row)
     assert set(claims.pending()[0]["deps"]) == {"Code/x.cpp"}
     _git(a, "pull", "-q", "--rebase", "origin", "master")
@@ -380,18 +405,23 @@ def test_an_upstream_only_change_does_not_hold_a_published_landing(hosts):
 
 
 def test_a_submodule_dependency_is_its_checked_out_commit(tmp_path):
-    # BFME2: reference/open-bfme-1 is a gitlink under a dependency prefix;
-    # origin/master's tree records its commit, not a blob
+    # BFME2: reference/open-bfme-1 is a gitlink; origin/master's tree records
+    # its commit, not the blobs of the headers a compile read inside it
+    _git(tmp_path, "init", "-q")
     sub = tmp_path / "reference" / "sub"
     sub.mkdir(parents=True)
     _git(sub, "init", "-q")
-    _git(sub, "-c", "user.name=t", "-c", "user.email=t@example.com",
-         "commit", "-q", "--allow-empty", "-m", "pin")
+    (sub / "x.h").write_text("#define V 1\n", encoding="utf-8")
+    _git(sub, "add", "x.h")
+    _git(sub, "-c", "user.name=t", "-c", "user.email=t@example.com", "commit", "-q", "-m", "pin")
     head = _git(sub, "rev-parse", "HEAD").strip()
+    _git(tmp_path, "add", "reference/sub")
     (tmp_path / "Code").mkdir()
-    (tmp_path / "Code" / "plain").mkdir()                          # not a repository
-    assert claims._blobs(tmp_path, ["reference/sub", "Code/plain", "Code/gone.cpp"]) == \
-        {"reference/sub": head, "Code/plain": "", "Code/gone.cpp": ""}
+    (tmp_path / "Code" / "x.cpp").write_text('#include "x.h"\n', encoding="utf-8")
+    _verified(tmp_path, "Code/x.cpp", ["reference/sub/x.h"])
+    deps, why = claims.landing_deps("Code/x.cpp", tmp_path)
+    assert why == "" and set(deps) == {"Code/x.cpp", "reference/sub"}
+    assert deps["reference/sub"] == head
 
 
 def test_a_lease_survives_renewal_and_dies_with_a_takeover(hosts):
@@ -417,11 +447,13 @@ def test_a_landing_queued_during_settlement_keeps_its_claim(hosts, monkeypatch):
     _commit_ledger(a, [row], "published", {"Code/x.cpp": "void f() {}\n"})
     _git(a, "push", "-q", "origin", "HEAD:refs/heads/master")
     claims.claim([0x100])
+    _verified(a, "Code/x.cpp")
     claims.queue_landed(0x100, row)                    # settled on origin
     real_fetch = claims._fetch_master
 
     def queue_while_on_network(root=None):
         (a / "Code/x.cpp").write_text("void f() { local_repair(); }\n", encoding="utf-8")
+        _verified(a, "Code/x.cpp")
         claims.queue_landed(0x100, row)
         return real_fetch(root)
     monkeypatch.setattr(claims, "_fetch_master", queue_while_on_network)
@@ -436,6 +468,7 @@ def test_settlement_releases_only_the_claim_generation_it_evaluated(hosts, monke
     _commit_ledger(a, [row], "published", {"Code/x.cpp": "void f() {}\n"})
     _git(a, "push", "-q", "origin", "HEAD:refs/heads/master")
     claims.claim([0x100])
+    _verified(a, "Code/x.cpp")
     claims.queue_landed(0x100, row)
     real_release = claims.release
 
@@ -453,20 +486,24 @@ def _published_and_queued(a):
     _commit_ledger(a, [row], "published", {"Code/x.cpp": "void f() {}\n"})
     _git(a, "push", "-q", "origin", "HEAD:refs/heads/master")
     old = claims.claim([0x100])
+    _verified(a, "Code/x.cpp")
     claims.queue_landed(0x100, row)
     assert claims.pending()[0]["lease"] == old.leases[0x100]
     return old
 
 
 def test_a_fresh_claim_during_settlement_survives_the_old_landing(hosts, monkeypatch):
-    # review 2026-09-30 (test_review_probes.py): the body was re-claimed by the
-    # same owner while settlement fetched; the old landing deleted the NEW claim.
+    # review 2026-09-30 (test_review_probes.py): the body was claimed afresh
+    # by the same owner while settlement fetched; the old landing deleted the
+    # NEW claim. (A re-claim of a LIVE claim keeps its lease since review
+    # 2026-10-09, so the fresh claim here follows a release.)
     a = hosts("a")
     old = _published_and_queued(a)
     real_fetch = claims._fetch_master
     fresh = []
 
     def replace_before_evaluation(root=None):
+        claims.release([0x100])
         fresh.append(claims.claim([0x100], who="a"))
         return real_fetch(root)
     monkeypatch.setattr(claims, "_fetch_master", replace_before_evaluation)
@@ -502,11 +539,11 @@ def test_release_landed_sha_never_releases_on_timing(hosts, monkeypatch):
 def test_a_trailer_naming_an_old_lease_does_not_release_a_fresh_claim(hosts):
     a = hosts("a")
     _commit_ledger(a, [], "base")
-    old = claims.claim([0x300])
+    old = claims.claim([0x300], ttl_hours=-1)        # lapses at once
     sha = _commit_ledger(a, ["?g@@YAXXZ,,0x00000300,8,Code/y.cpp,matched,"],
                          f"land\n\nClaim-Lease: 0x00000300={old.leases[0x300]}\n")
     _git(a, "push", "-q", "origin", "HEAD:refs/heads/master")
-    fresh = claims.claim([0x300])                    # same owner, new lease
+    fresh = claims.claim([0x300])                    # same owner, new lease after the lapse
     assert fresh.leases[0x300] != old.leases[0x300]
     assert claims.release_landed(sha)[0] == []
     assert claims.holds(0x300, fresh.tokens[0x300])
@@ -576,6 +613,7 @@ def test_settle_keeps_an_unpublished_landing_and_frees_the_rest(hosts):
     claims.claim([0x100, 0x200])
     row = "?f@@YAXXZ,,0x00000100,16,Code/x.cpp,matched,model=m"
     _commit_ledger(a, [row], "land 0x100 locally", {"Code/x.cpp": "void f() {}\n"})
+    _verified(a, "Code/x.cpp")
     claims.queue_landed(0x100, row)
     assert claims.settle([0x100, 0x200]) == [0x200]
     assert set(claims.active()) == {0x100}

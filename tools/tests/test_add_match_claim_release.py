@@ -9,6 +9,7 @@ claim is released only once origin/master holds it (claims.release_landed).
 Ported from Open-BFME-1's tools/tests/test_add_match_claim_release.py; its
 receipt and fleet-fencing cases test add_match features BFME2 does not have.
 """
+import hashlib
 import json
 import subprocess
 import sys
@@ -45,9 +46,14 @@ def landing(tmp_path, monkeypatch):
     real_run = subprocess.run
     subprocess.run(["git", "init", "-q", str(tmp_path)], check=True)
 
-    def run(command, *args, **kwargs):     # the byte gate passes; git stays real
+    def run(command, *args, **kwargs):     # the byte gate passes and leaves its receipt; git stays real
         if command[0] == "git":
             return real_run(command, *args, **kwargs)
+        compiled = command[-1]
+        receipt = claims.receipt_path(compiled, tmp_path)
+        receipt.parent.mkdir(parents=True, exist_ok=True)
+        receipt.write_text(json.dumps({"source": hashlib.md5((tmp_path / compiled).read_bytes())
+                                       .hexdigest(), "deps": {}}), encoding="utf-8")
         return SimpleNamespace(returncode=0)
     monkeypatch.setattr(add_match.subprocess, "run", run)
     monkeypatch.setenv("BFME_CLAIM_OWNER", "worker-a")
@@ -74,6 +80,16 @@ def test_local_verification_queues_instead_of_releasing(landing):
     assert queued[0]["rva"] == "0x00ABCD00" and queued[0]["owner"] == "worker-a"
     assert queued[0]["row"] == f"{REAL},,0x00ABCD00,32,{SOURCE_REL},matched,"
     assert queued[0]["deps"][SOURCE_REL]            # bound to the verified source blob
+    assert not queued[0]["deps_truncated"]          # ... through the gate's receipt
+
+
+def test_a_landing_without_a_build_receipt_is_queued_unproven(landing, monkeypatch):
+    real_run = add_match.subprocess.run
+    monkeypatch.setattr(add_match.subprocess, "run", lambda command, *a, **k: (
+        real_run(command, *a, **k) if command[0] == "git" else SimpleNamespace(returncode=0)))
+    add_match.main()
+    queued = _queued(landing)
+    assert queued[0]["deps_truncated"] and "receipt" in queued[0]["deps_unproven"]
 
 
 def test_claims_off_queues_nothing(landing, monkeypatch):

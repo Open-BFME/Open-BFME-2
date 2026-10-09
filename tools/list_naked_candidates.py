@@ -382,7 +382,10 @@ def claim_choice(candidates):
         try:
             acquired, refused = claims.claim([rva], note="naked conversion")
         except claims.ClaimsUnavailable as error:
-            # AGENTS.md: network failure warns and keeps work available
+            if rva in error.refused:    # origin showed a peer holding it
+                remaining = without_busy(remaining, {rva})
+                continue
+            # AGENTS.md: the picker warns and serves the body unclaimed
             print(f"list_naked_candidates: {error}; serving 0x{rva:08X} without a shared claim",
                   file=sys.stderr)
             return selected, meta, list(error.claimed)

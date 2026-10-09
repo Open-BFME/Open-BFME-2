@@ -669,7 +669,10 @@ def claim_choice(candidates, label):
         try:
             acquired, refused = claims.claim([rva], note=f"next_work {label}")
         except claims.ClaimsUnavailable as error:
-            # AGENTS.md: network failure warns and keeps work available
+            if rva in error.refused:    # origin showed a peer holding it
+                remaining = without_busy(remaining, {rva})
+                continue
+            # AGENTS.md: the picker warns and serves the body unclaimed
             print(f"next_work: {error}; serving 0x{rva:08X} without a shared claim",
                   file=sys.stderr)
             return candidate, list(error.claimed)

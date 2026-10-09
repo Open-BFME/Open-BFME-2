@@ -248,9 +248,10 @@ def main():
         add_match.remove_stash(c["rva"], root)
     add_match.record_landings(root, [(c["name"], c["rva"], c["size"], c["source"], c["notes"])
                                      for c in claims])
-    # Verified is not landed: keep every claim and queue each exact row, as
-    # add_match does; `claims.py release --landed` releases them once
-    # origin/master holds the rows. A test-only --root never queues.
+    # Verified is not landed: keep every claim and queue each row with the
+    # files its verification compiled, as add_match does; `claims.py release
+    # --landed` releases them once origin/master holds both. A test-only
+    # --root never queues.
     if os.environ.get("BFME_CLAIMS", "on") != "off" and root == DEFAULT_ROOT.resolve():
         import claims as shared_claims
         who = shared_claims.owner(root)
@@ -258,14 +259,12 @@ def main():
         for c in claims:
             if c["source"] not in deps:
                 try:
-                    found, truncated = shared_claims.landing_deps(c["source"], root)
-                except Exception as error:  # noqa: BLE001 -- queue_landed rescans and reports
-                    print(f"add_match_batch: dependency scan failed for {c['source']}: {error}",
-                          file=sys.stderr)
-                    found, truncated = None, True
-                deps[c["source"]] = None if truncated else found
+                    deps[c["source"]] = shared_claims.landing_deps(c["source"], root)
+                except Exception as error:  # noqa: BLE001 -- queued unproven: the claim is kept
+                    deps[c["source"]] = ({}, f"dependency scan failed: {error}")
+            found, unproven = deps[c["source"]]
             shared_claims.queue_landed(c["rva"], c["row"], who=who, root=root,
-                                       deps=deps[c["source"]])
+                                       deps=found, unproven=unproven)
         print(f"add_match_batch: {len(claims)} claim(s) kept until the rows are on "
               "origin/master; after your push run `python3 tools/claims.py release --landed`")
 

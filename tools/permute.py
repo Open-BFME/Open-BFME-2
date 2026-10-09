@@ -1117,7 +1117,9 @@ def main(argv=None):
         except claims.ClaimsUnavailable as error:
             print(f"permute: {error}; running unclaimed", file=sys.stderr)
             claimed = [f"0x{rva:08x}" for rva in error.claimed]
-            rvas = wanted                               # no network: run unclaimed
+            # no network: run unclaimed, but never a body origin showed a peer holding
+            held = set(error.refused)
+            rvas = [rva for rva in wanted if int(rva, 16) not in held]
     else:
         rvas = args.rvas or [rva for _, _, rva, _ in items[:args.top]]
     if not rvas:
