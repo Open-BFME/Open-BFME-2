@@ -1,40 +1,35 @@
-// cl: /DNDEBUG /MD /EHsc
-// ??0Rva005E1680@@QAE@HHH@Z @0x005E1680 39B
-// Derived ctor taking (a, b, c): forwards (a, b) to base 0x005E1627
-// (pinned), stores c at +0x0C, installs its own vtable, zeroes +0x10.
-// Base 0x005E1627 (89B EH) sets vtable 0x00C77998, zeroes +4, stores
-// 0x005E136C result at +8. Derived overwrites vtable to 0x00C779B4.
-// Layout: base [0,0xC), derived +0x0C (c), +0x10 (zero).
-// Boundary: base 0x005E1627..0x005E167D (ret8), derived 0x005E1680..0x005E16A6
-// (ret 0xC), next 0x005E16A7 contiguous. Address-derived names; identity unproven.
-class Rva005E1627
-{
+// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc /DNDEBUG
+// Retail 005E1680..005E16A7 (39B): constructor for the same vtable
+// C779B4 whose destructor is the verified Rva005E12D1 at005E12D1.
+// The frame and AsciiString-reference ABI comes from the rowed base
+// CommandButtonMovieClip constructor and independent constructor callers.
+// Owner pointer +0C and counted handle +10 are confirmed by that destructor.
+#include "ascii_string.h"
+class AptMovieClipFrame;
+class __declspec(novtable) Rva005E1627Base {
+public: __forceinline Rva005E1627Base():m_04(0) {} virtual ~Rva005E1627Base();
+protected: int m_04;
+};
+namespace StrategicHUD {
+class CommandButtonMovieClip : public Rva005E1627Base {
 public:
-	Rva005E1627(int a, int b);
-	virtual ~Rva005E1627();
-protected:
-	int m_base04;
-	int m_base08;
+ CommandButtonMovieClip(AptMovieClipFrame*, const AsciiString&);
+ virtual ~CommandButtonMovieClip();
+private: void *m_impl;
 };
-
-struct Rva005E1680Tail
-{
-	int m_10;
-	Rva005E1680Tail() : m_10(0) {}
+}
+struct TargetRef00217D4C;
+struct Rva005E1680Tail {
+ Rva005E1680Tail():m_ref(0) {}
+ TargetRef00217D4C *m_ref;
 };
-
-class Rva005E1680 : public Rva005E1627
-{
+class Rva005E12D1 : public StrategicHUD::CommandButtonMovieClip {
 public:
-	Rva005E1680(int a, int b, int c);
-	virtual ~Rva005E1680();
-protected:
-	int m_0C;
-	Rva005E1680Tail m_tail;
+ Rva005E12D1(void*,const AsciiString&,void*);
+ virtual ~Rva005E12D1();
+private: void *m_owner; Rva005E1680Tail m_held;
 };
-
-Rva005E1680::Rva005E1680(int a, int b, int c)
-	: Rva005E1627(a, b)
-	, m_0C(c)
+Rva005E12D1::Rva005E12D1(void* frame,const AsciiString& name,void* owner)
+ : StrategicHUD::CommandButtonMovieClip((AptMovieClipFrame*)frame,name),m_owner(owner)
 {
 }
