@@ -530,7 +530,9 @@ struct AudioSettings {
     char at84[0x8C - 0x84];
     unsigned int m_at8C;                 // +0x8C, over +0x90 the loop-buffer thread's sleep
     unsigned int m_at90;                 // +0x90
-    char at94[0xB0 - 0x94];
+    char at94[0xA8 - 0x94];
+    int m_atA8;                          // +0xA8, seconds before 0x61C87 reopens the device
+    char atAC[0xB0 - 0xAC];
     float m_atB0;                        // +0xB0, position change 0x55C5D ignores
     int m_atB4;                          // +0xB4, processRequest's preload limit
     float m_atB8;
@@ -764,7 +766,7 @@ public:
     // event info up by name.
     virtual void init(); virtual void slot02(); virtual void slot03(); virtual void slot04();
     virtual void slot05(); virtual void slot06(); virtual void slot07(); virtual void slot08(); virtual void slot09();
-    virtual void slot10(); virtual void slot11(); virtual void slot12(); virtual void slot13(); virtual void slot14();
+    virtual void slot10(); virtual void slot11(); virtual void slot12(); virtual void slot13(); virtual void rva00061C87(unsigned int viewMask);
     virtual void slot15(); virtual void slot16(); virtual void slot17(); virtual void slot18(); virtual void slot19();
     virtual void slot20(); virtual void slot21(); virtual void slot22(); virtual void slot23(); virtual void slot24();
     virtual void slot25(); virtual void slot26(); virtual void slot27(); virtual void slot28(); virtual void slot29();
@@ -862,6 +864,8 @@ public:
     void rva0005452B(void);
     void rva000606CE(bool accelerated);
     void rva00060123(unsigned int viewMask);
+    void rva00056FD9(unsigned int viewMask);
+    bool rva006AD9B0(void);    // 0x00059646, cached reinitialize setting
     void rva00060309(void);
     void rva0006047C(void);
     void rva000544EB(void);
@@ -954,18 +958,22 @@ private:
     char at14[0x3C - 0x14];
     AudioAreaCorner m_corners[5];        // +0x3C, entries 1..4 used by 0x53854
     float m_at8C;                        // +0x8C, distance occlusion scale
-    char at90[0x98 - 0x90];
+    char at90[0x94 - 0x90];
+    int m_at94;                          // +0x94, zeroed by 0x61C87
     Rva00051107AudioRequestList m_audioRequests;    // +0x98
     Rva00051107AudioRequestSet m_requestSet;        // +0x9C
     char atB0[0xBC - 0xB0];
     Rva00059FBBMap m_allAudioEventInfo;  // +0xBC
     char atD0[0xE0 - 0xD0];
     QueuedAudioEvents m_queuedEvents[3];  // +0xE0, per view type (0x60123)
-    char at104[0x678 - 0x104];
+    char at104[0x12C - 0x104];
+    // Per-view GlobalVolumeData records, 0x1C4 apart in retail (0x61C87).
+    char m_volumeData[3][0x1C4];         // +0x12C
     int m_at678;                         // +0x678, compared with event view types
     char at67C[0x68C - 0x67C];
     int m_at68C;                         // +0x68C, zeroed by 0x60309
-    char at690[0x698 - 0x690];
+    unsigned int m_at690;                // +0x690, per-view-type bits 0x61C87 clears
+    char at694[0x698 - 0x694];
     unsigned int m_at698;                // +0x698, per-view-type bits processAudioCompletion clears
     unsigned short m_maxAmbientStreams;  // +0x69C
     char at69E[0x6A4 - 0x69E];
@@ -990,7 +998,7 @@ private:
     MilesFileTextMap m_fileText;         // +0x9E8
     _STL::vector<UnicodeString> m_pendingFileText;  // +0x9FC
     _STL::vector<AsciiString> m_unknownFileNames;   // +0xA08
-    char atA14[0xA38 - 0xA14];
+    _STL::set<AsciiString> m_atA14[3];   // +0xA14, per view type (0x61C87)
     _STL::list<void *> m_availableSamples;    // +0xA38 (Zero Hour's name)
     _STL::list<void *> m_available3DSamples;  // +0xA3C (Zero Hour's name)
     PlayingAudioList m_playingSounds;    // +0xA40
@@ -1015,6 +1023,10 @@ private:
     bool m_atBE0;                        // +0xBE0, stops the 0x5EFE9 thread loop
     char atBE1[0xBE4 - 0xBE1];
     int m_atBE4;                         // +0xBE4, reverb room type (0x530DF zeroes it)
+    char atBE8[0xBEC - 0xBE8];
+    unsigned int m_atBEC;                // +0xBEC, view types reset since the last update
+    char atBF0[0xBF8 - 0xBF0];
+    __int64 m_atBF8;                     // +0xBF8, _time64 of the last device open
 };
 
 // Rowed under address-derived names at 0x00051038 (pinned) and 0x00050FE3;
@@ -1619,6 +1631,55 @@ bool MilesAudioManager::rva00061BD2(int unused)
   rva0006179C(0);
  }
  return AudioEventsReloaded;
+}
+
+// The CRT clock, imported (this unit builds with /D_CRTIMP=).
+extern "C" __declspec(dllimport) __int64 __cdecl _time64(__int64 *timer);
+
+// The file-text map's clear, rowed under an address-derived name.
+class Rva00057FC1 { public: void rva00057FC1(void); };
+
+// Retail 0x00061C87, vftable 0x007C55B0 slot 14: resets the view types in
+// viewMask under the manager mutex -- their queued events (0x60123) and
+// requests (0x56FD9), and for the main view the trigger areas -- then each
+// selected view's volume data, name set, music system and affect masks, the
+// per-view bits and the file-text caches. A main-view reset reopens the
+// device (0x6179C) once the configured interval since the last open has
+// passed, if the cached reinitialize setting allows it.
+void MilesAudioManager::rva00061C87(unsigned int viewMask)
+{
+    MilesMutexGuard guard(&m_mutex, 0);
+    rva00060123(viewMask);
+    rva00056FD9(viewMask);
+    if (viewMask & 1) {
+        slot91();
+        m_triggerAreas.clear();
+        m_at6AA = true;
+        m_at94 = 0;
+    }
+    m_atBEC |= viewMask;
+    for (int i = 0; i < 3; ++i) {
+        if (viewMask & (1 << i)) {
+            reinterpret_cast<GlobalVolumeData *>(m_volumeData[i])->reset();
+            m_atA14[i].clear();
+            m_activeMusicSystem[i] = MUSIC_SYSTEM_0;
+            m_at6B4[i] = 0;
+            m_at6C0[i] = 0;
+        }
+    }
+    m_at690 &= ~viewMask;
+    m_at698 &= ~viewMask;
+    reinterpret_cast<Rva00057FC1 *>(&m_fileText)->rva00057FC1();
+    m_pendingFileText.clear();
+    m_unknownFileNames.clear();
+    m_unknownFileNames.reserve(m_audioSettings->m_at68 + m_audioSettings->m_at64);
+    if ((viewMask & 1) && m_audioSettings->m_atA8 > 0) {
+        if (_time64(0) - m_atBF8 > m_audioSettings->m_atA8) {
+            static bool allowReinitialize = rva006AD9B0();
+            if (allowReinitialize)
+                rva0006179C(1);
+        }
+    }
 }
 
 unsigned char MilesAudioManager::rva00054120(INI *ini)
