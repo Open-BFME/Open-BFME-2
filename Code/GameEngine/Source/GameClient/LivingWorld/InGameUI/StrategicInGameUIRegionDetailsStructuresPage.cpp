@@ -16,7 +16,7 @@ class Image;
 class LivingWorldBuildPlot;
 struct Rva005F0220In;
 const Image *__cdecl Rva005F0220Get(Rva005F0220In *);
-const Image *__cdecl Rva005F02E0Get(void *);
+namespace StrategicInGameUI { const Image *__cdecl GetButtonImage(void *); }
 const Image *__cdecl Rva005F0318Get(void *);
 class Rva005E261C { public: void rva005E261C(); };
 // Native constructor 0x005E28FE proves a primary vptr/count pair and
@@ -104,7 +104,7 @@ namespace StrategicInGameUI {
 // portrait thunk, rather than the mispaired Observable template.
 void RegionDetailsStructuresPage::Impl::Icon::OnBuildPlotBuildingChanged(LivingWorldBuildPlot &buildPlot) {
     BuildPlot *plot=getBuildPlot();
-    const Image *image=plot->building ? Rva005F02E0Get(plot->building) : Rva005F0318Get(plot);
+    const Image *image=plot->building ? StrategicInGameUI::GetButtonImage(plot->building) : Rva005F0318Get(plot);
     StructureIconSlot *clip=(StructureIconSlot *)((Rva005E2138 *)this)->rva005E2138();
     clip->SetImage(image);
     const Image *typeImage=Rva005F0220Get((Rva005F0220In *)getBuildPlot());

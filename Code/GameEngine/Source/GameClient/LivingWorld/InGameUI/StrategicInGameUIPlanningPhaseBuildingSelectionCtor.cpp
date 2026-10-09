@@ -118,7 +118,6 @@ public:
 
 class Image;
 struct Rva005D232DIn;
-const Image *Rva005D232DGet(Rva005D232DIn *in);
 
 class CommandSlots
 {
@@ -143,12 +142,12 @@ public:
 	virtual void show();							// +0x20
 };
 
-class StrategicInGameUI
+namespace StrategicInGameUI
 {
-public:
 	class PlanningUI;
 	class PlanningPhaseBuildingSelection;
-};
+	const Image *GetSelectionPortrait(Rva005D232DIn *in);	// 0x005D232D
+}
 
 class StrategicInGameUI::PlanningPhaseBuildingSelection : public Rva005E67FE, public LivingWorldBuildingObserver
 {
@@ -209,7 +208,7 @@ StrategicInGameUI::PlanningPhaseBuildingSelection::PlanningPhaseBuildingSelectio
 	RegionPanel *panel = (RegionPanel *)((const Rva0042D703PtrChaseField *)m_ui)->get();
 	if (panel)
 	{
-		panel->setImage(Rva005D232DGet((Rva005D232DIn *)m_region));
+		panel->setImage(StrategicInGameUI::GetSelectionPortrait((Rva005D232DIn *)m_region));
 		{
 			int regionValue = (int)m_region;
 			Rva005CE4B2 callback(&regionValue);

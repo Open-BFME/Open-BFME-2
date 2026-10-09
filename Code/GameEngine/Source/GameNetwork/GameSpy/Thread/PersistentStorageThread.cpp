@@ -922,6 +922,12 @@ public:
 	virtual void addRequest(const BfmeOpaqueOwnedRecord1432 &req) = 0;
 	virtual bool getRequest(BfmeOpaqueOwnedRecord1432 &req) = 0;
 	virtual void addResponse(const BfmeOpaqueOwnedRecord1408 &resp) = 0;
+
+	// The cached-stats helpers (WB PersistentStorageThread.cpp): static, so
+	// cdecl with no receiver, as both retail and WB call them.
+	static void ParseToolTipStats(char *data, int len, PSPlayerAllStats *stats);
+	static void ParseAllOtherStats(char *data, int len, PSPlayerAllStats *stats);
+	static PSPlayerAllStats readLocalCachedStats();
 };
 extern GameSpyPSMessageQueueInterface *TheGameSpyPSMessageQueue;	// 0x00E05FC8
 
@@ -1098,7 +1104,11 @@ File *createMemoryReadFile(char *data, Int size);
 // tournament, open-play and strategic blocks back from a persist-data buffer
 // into the player's stats, then copies the open-play +0x144 short into every
 // block; an empty buffer, a failed open or a throw resets the stats instead.
-void rva00556982(char *data, int len, PSPlayerAllStats *stats)
+// WB 0x013F11D0 is GameSpyPSMessageQueueInterface::ParseToolTipStats (its
+// diagnostic "Can not create MemoryReadFile in GameSpyPSMessageQueueInterface::
+// ParseToolTipStats"); its readLocalCachedStats calls it on the decoded
+// ToolTipCachedStats buffer, as retail 0x00556DFF calls this body.
+void GameSpyPSMessageQueueInterface::ParseToolTipStats(char *data, int len, PSPlayerAllStats *stats)
 {
 	File *file = createMemoryReadFile(data, len);
 	if (!file)
@@ -1140,8 +1150,11 @@ void rva00556982(char *data, int len, PSPlayerAllStats *stats)
 
 // Native [556C54,556DFF),427B with its catch funclet at 0x556DE1: the load
 // twin of 0x00556B3C, reading each block through its second xfer slot; the
-// open-play +0x144 copy of 0x00556982 is absent here.
-void rva00556C54(char *data, int len, PSPlayerAllStats *stats)
+// open-play +0x144 copy of 0x00556982 is absent here. WB 0x013F1890 is
+// GameSpyPSMessageQueueInterface::ParseAllOtherStats (its diagnostic names
+// it); its readLocalCachedStats calls it on the AllOtherCachedStats buffer,
+// as retail 0x00556DFF calls this body.
+void GameSpyPSMessageQueueInterface::ParseAllOtherStats(char *data, int len, PSPlayerAllStats *stats)
 {
 	File *file = createMemoryReadFile(data, len);
 	if (!file)
@@ -1206,7 +1219,10 @@ public:
 
 // Retail 0x55325C (122 bytes): decodes a lowercase hex string, two digits
 // per output byte. The string reference arrives in eax (static, TU-local).
-static bool rva0055325C(const AsciiString &text, char *out, unsigned int outLen)
+// WB names it ConvertHexToBinary: WB's readLocalCachedStats calls
+// ConvertHexToBinary (WB 0x013F2130) at the two places retail 0x00556DFF
+// calls this body, once per cached-stats string.
+static bool ConvertHexToBinary(const AsciiString &text, char *out, unsigned int outLen)
 {
 	const char *s = text.str();
 	int len = text.getLength();
@@ -1240,8 +1256,11 @@ static bool rva0055325C(const AsciiString &text, char *out, unsigned int outLen)
 
 // Retail 0x556DFF (441 bytes): rebuilds the cached player stats from the two
 // hex strings GameSpyMiscPreferences keeps (ToolTipCachedStats and
-// AllOtherCachedStats).
-PSPlayerAllStats rva00556DFF()
+// AllOtherCachedStats). WB 0x013F1CD0 is GameSpyPSMessageQueueInterface::
+// readLocalCachedStats (asserts at PersistentStorageThread.cpp:2410..2425):
+// the same preference reads, hex decodes and the two parsers above; it takes
+// no receiver, so it is static.
+PSPlayerAllStats GameSpyPSMessageQueueInterface::readLocalCachedStats()
 {
 	PSPlayerAllStats stats(0);
 	GameSpyMiscPreferences prefs;
@@ -1253,9 +1272,9 @@ PSPlayerAllStats rva00556DFF()
 	if (len)
 	{
 		char *buf = new char[len];
-		if (buf && rva0055325C(first, buf, len))
+		if (buf && ConvertHexToBinary(first, buf, len))
 		{
-			rva00556982(buf, len, &stats);
+			ParseToolTipStats(buf, len, &stats);
 			delete[] buf;
 		}
 	}
@@ -1265,9 +1284,9 @@ PSPlayerAllStats rva00556DFF()
 	if (len)
 	{
 		char *buf = new char[len];
-		if (buf && rva0055325C(second, buf, len))
+		if (buf && ConvertHexToBinary(second, buf, len))
 		{
-			rva00556C54(buf, len, &stats);
+			ParseAllOtherStats(buf, len, &stats);
 			delete[] buf;
 		}
 	}
@@ -1619,16 +1638,14 @@ public:
 	Rva00385333String get() const;
 };
 
-void rva00556982(char *data, int len, PSPlayerAllStats *stats);
-void rva00556C54(char *data, int len, PSPlayerAllStats *stats);
 
 // Native [557E5D,5580FB),670B: ZH getPersistentDataCallback with the newer
 // SDK's modified-time argument. A failed read posts response type 1 and, when
 // no operation is outstanding and the local player's data never arrived,
 // re-requests it (request type 0 tagged with the index). Index 1 carries the
-// stats Xfer stream (rva00556982) and, for the local player, pushes an update
+// stats Xfer stream (ParseToolTipStats) and, for the local player, pushes an update
 // (request type 1) when the preference file's locale differs from the
-// stored one; index 2 carries the second stream (rva00556C54). The response
+// stored one; index 2 carries the second stream (ParseAllOtherStats). The response
 // is type 0 with the index at +4.
 void getPersistentDataCallback(int localid, int profileid, persisttype_t type, int index, int success, time_t modified, char *data, int len, void *instance)
 {
@@ -1660,7 +1677,7 @@ void getPersistentDataCallback(int localid, int profileid, persisttype_t type, i
 	if (index == 1)
 	{
 		if (len > 0)
-			rva00556982(data, len, &resp.player);
+			GameSpyPSMessageQueueInterface::ParseToolTipStats(data, len, &resp.player);
 		if (profileid == MESSAGE_QUEUE->getLocalPlayerID())
 		{
 			GameSpyMiscPreferences pref;
@@ -1684,7 +1701,7 @@ void getPersistentDataCallback(int localid, int profileid, persisttype_t type, i
 	else if (index == 2)
 	{
 		if (len > 0)
-			rva00556C54(data, len, &resp.player);
+			GameSpyPSMessageQueueInterface::ParseAllOtherStats(data, len, &resp.player);
 	}
 	else
 	{

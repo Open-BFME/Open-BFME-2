@@ -55,7 +55,7 @@ public:
 RvaCloneResult<Rva005CEA74> Rva005CEC5DCreate(const Rva005CEA74::Payload *);
 class Image;
 struct Rva005D2355In;
-const Image *Rva005D2355Get(Rva005D2355In *);
+namespace StrategicInGameUI { const Image *GetSelectionPortrait(Rva005D2355In *); }
 int GetMaxCommandPoints(void *);
 class Rva00318FBE { public: int rva00318FBE(); };
 class Rva00319B0AOwner { public: void rva00319B0A();void rva00319B31(); };
@@ -111,7 +111,7 @@ Rva005CEE07::Rva005CEE07(Rva005CF22CBig *b, int x)
     Rva005CF37DPortrait *portrait = (Rva005CF37DPortrait *)
         ((Rva0042D703PtrChaseField *)view)->get();
     if (portrait) {
-        portrait->setImage(Rva005D2355Get((Rva005D2355In *)m_army));
+        portrait->setImage(StrategicInGameUI::GetSelectionPortrait((Rva005D2355In *)m_army));
         { int army = m_army; Rva005773DB ref(&army); portrait->setArmy(ref); }
         portrait->setCounts(((Rva00318FBE *)m_army)->rva00318FBE(),
                             GetMaxCommandPoints((void *)m_army));
@@ -178,7 +178,7 @@ Rva005CE2A1 Rva005CE2A1Create(const Rva005CE259::Payload*);
 struct ICoord2D {ICoord2D(int,int);int x,y;};
 class Rva005CE4B2 {public:Rva005CE4B2(const int*);~Rva005CE4B2(){if(m_p)ReleaseTreeHintRef00217D4C(m_p);}TargetRef00217D4C*m_p;};
 class Image;struct Rva005D232DIn;
-const Image *Rva005D232DGet(Rva005D232DIn*);
+namespace StrategicInGameUI { const Image *GetSelectionPortrait(Rva005D232DIn*); }
 struct Rva005E8C54Source;
 class Rva005E8CB0 {public:Rva005E8CB0(void*,int,void*,const Rva005E8C54Source*);void *m_p;};
 class Rva005E893E;
@@ -200,7 +200,7 @@ Rva005CEE9F::Rva005CEE9F(Rva005CF22CBig*b,int x):Rva005CE8F5(b),m_region((void*)
  void *view=m_owner->m_view10;
  S3RegionPanel *panel=(S3RegionPanel*)((Rva0042D703PtrChaseField*)view)->get();
  if(panel){
-  panel->setImage(Rva005D232DGet((Rva005D232DIn*)m_region));
+  panel->setImage(StrategicInGameUI::GetSelectionPortrait((Rva005D232DIn*)m_region));
   {int region=(int)m_region;Rva005CE4B2 ref(&region);panel->setCallback(ref);}
   panel->show();
  }

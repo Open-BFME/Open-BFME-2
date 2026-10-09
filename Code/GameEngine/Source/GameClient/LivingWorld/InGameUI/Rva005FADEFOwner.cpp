@@ -21,7 +21,7 @@ private:
 };
 struct Rva005D2355In { char pad[0x18]; StringBase<char> name; };
 class Image;
-const Image *Rva005D2355Get(Rva005D2355In *);
+namespace StrategicInGameUI { const Image *GetSelectionPortrait(Rva005D2355In *); }
 class Rva005FED59;
 // Uncalled slot declarations establish ordinals only; their ABIs are unknown.
 class BattlePromptOwnerDisplay
@@ -64,7 +64,7 @@ void Rva005FAF9FOwner::rva005FADEF(Rva005FED59 *child)
 
     ((Rva005FEF65 *)m_active14)->setClipSelected(true);
     Rva005D2355In *input = (Rva005D2355In *)((Rva005FEF65 *)m_active14)->m_input14;
-    m_display0C->slot01(Rva005D2355Get(input));
+    m_display0C->slot01(StrategicInGameUI::GetSelectionPortrait(input));
     {
         int value = (int)input;
         Rva005773DB hint(&value);

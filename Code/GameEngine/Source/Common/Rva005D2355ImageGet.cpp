@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /MD
-// ?Rva005D2355Get@@YAPBVImage@@PAURva005D2355In@@@Z @0x005D2355 102B
+// ?GetSelectionPortrait@StrategicInGameUI@@YAPBVImage@@PAURva005D2355In@@@Z @0x005D2355 102B
 // Image lookup: non-empty +0x18 string goes through global 0x009FF000 rowed 0x002D06CA
 // then tail-jmps ThingTemplate 0x0033BA46 else falls back to LivingWorld find 0x002B51F8
 // with id at +0x54 and player +0x40+0x30 string via ImageCollection findImageByName.
@@ -48,9 +48,21 @@ struct Rva005D2355In {
     char pad1C[0x38];
     int id54;
 };
-const Image *Rva005D2355Get(Rva005D2355In *in);
-const Image *Rva005F031DGet(Rva005D2355In *in);
-const Image *Rva005D2355Get(Rva005D2355In *in)
+// WB names both bodies here: StrategicInGameUI::GetSelectionPortrait (WB
+// 0x015B2760, asserts at StrategicInGameUIGetSelectionPortrait.cpp:38..53)
+// and StrategicInGameUI::GetButtonImage (WB 0x01615320, asserts at
+// StrategicInGameUIGetButtonImage.cpp:82..97). Each WB twin makes the same
+// calls in the same order: the +0x18 template name through
+// ThingFactory::findTemplateInternal, then the template's portrait (rowed
+// 0x0033BA46) or ThingTemplate::getButtonImage, else the +0x54 player's
+// +0x40 record's image name through ImageCollection::findImageByName. The
+// argument record's type stays a TU-scoped view.
+namespace StrategicInGameUI
+{
+const Image *GetSelectionPortrait(Rva005D2355In *in);
+const Image *GetButtonImage(Rva005D2355In *in);
+}
+const Image *StrategicInGameUI::GetSelectionPortrait(Rva005D2355In *in)
 {
     const AsciiString &s = in->str18;
     if (!((const StringBase<char> *)&s)->isEmpty()) {
@@ -69,10 +81,10 @@ const Image *Rva005D2355Get(Rva005D2355In *in)
     return 0;
 }
 
-// ?Rva005F031DGet@@YAPBVImage@@PAURva005D2355In@@@Z @0x005F031D 102B: the same
+// ?GetButtonImage@StrategicInGameUI@@YAPBVImage@@PAURva005D2355In@@@Z @0x005F031D 102B: the same
 // lookup ending in the template's rowed ButtonImage resolver 0x0033B580 instead
 // of the portrait one; called from 0x005E1B09 and 0x005FF04B.
-const Image *Rva005F031DGet(Rva005D2355In *in)
+const Image *StrategicInGameUI::GetButtonImage(Rva005D2355In *in)
 {
     const AsciiString &s = in->str18;
     if (!((const StringBase<char> *)&s)->isEmpty()) {

@@ -88,7 +88,7 @@ class Rva005FFA4E { public: void rva005FFA4E(int); };
 class Rva005FF5B8 { public: void rva005FF5B8(int,const Image*,int); };
 class Rva005FF5EE { public: void rva005FF5EE(const UnicodeString &); };
 struct Rva005D2355In;
-const Image *Rva005F031DGet(Rva005D2355In *);
+namespace StrategicInGameUI { const Image *GetButtonImage(Rva005D2355In *); }
 const Image *Rva005F01C7Get(int);
 namespace StrategicInGameUI { UnicodeString GetDisplayName(void *); }
 struct CounterWords { void *vptr; int counts[8]; };
@@ -101,7 +101,7 @@ Rva005FEF65::Rva005FEF65(int a,int b,const Rva005FEF11Input **source)
     for (int i = 0; i < 8; ++i) {
         if (counter.m_counts04[i] > 0 && ++count >= 6) break;
     }
-    ((Rva005FF4C5 *)&m_08)->rva005FF4C5(Rva005F031DGet((Rva005D2355In *)m_input14));
+    ((Rva005FF4C5 *)&m_08)->rva005FF4C5(StrategicInGameUI::GetButtonImage((Rva005D2355In *)m_input14));
     ((Rva005FFA4E *)&m_08)->rva005FFA4E(count);
     m_types18.reserve(count);
     for (int i = 0; i < 8; ++i) {

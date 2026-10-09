@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /MD
-// ?Rva005D232DGet@@YAPBVImage@@PAURva005D232DIn@@@Z @0x005D232D 40B
+// ?GetSelectionPortrait@StrategicInGameUI@@YAPBVImage@@PAURva005D232DIn@@@Z @0x005D232D 40B
 // Image lookup sibling of 0x005D2355: +0x28 referent plus 0xC string goes through
 // global 0x009FF000 rowed 0x002D06CA then tail-jmps ThingTemplate 0x0033BA46.
 // Evidence: rowed 0x002D06CA and 0x0033BA46 callers 0x005CE74C 0x005CF0E2.
@@ -25,8 +25,12 @@ struct Rva005D232DIn {
     char pad[0x28];
     void *p28;
 };
-const Image *Rva005D232DGet(Rva005D232DIn *in);
-const Image *Rva005D232DGet(Rva005D232DIn *in)
+// WB 0x015B2990 is this StrategicInGameUI::GetSelectionPortrait overload
+// (asserts at StrategicInGameUIGetSelectionPortrait.cpp:64..71): the +0x28
+// referent's template name through ThingFactory::findTemplateInternal, then
+// the template's portrait (rowed 0x0033BA46), as retail does.
+namespace StrategicInGameUI { const Image *GetSelectionPortrait(Rva005D232DIn *in); }
+const Image *StrategicInGameUI::GetSelectionPortrait(Rva005D232DIn *in)
 {
     void *q = in->p28;
     if (q != 0) {

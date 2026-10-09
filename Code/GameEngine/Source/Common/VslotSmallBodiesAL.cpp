@@ -131,8 +131,7 @@ public:
 class Image;
 struct Rva005D2355In;
 struct Rva005F002CIn;
-const Image *Rva005F031DGet(Rva005D2355In *in);
-const Image *Rva005F002CGet(Rva005F002CIn *in);
+namespace StrategicInGameUI { const Image *GetButtonImage(Rva005D2355In *in); const Image *GetTypeImage(Rva005F002CIn *in); }
 class Rva005E197E
 {
 public:
@@ -188,9 +187,9 @@ void Rva005E1B41Primary::rva005E1AB6(Int a)
 			return;
 		full->m_18->v04((void *)static_cast<Rva005E1B41Iface *>(full));
 		full->m_18->v0c(1 + (full->m_20 != 0));
-		const Image *img1 = Rva005F031DGet(full->m_14);
+		const Image *img1 = StrategicInGameUI::GetButtonImage(full->m_14);
 		full->m_18->v14(img1);
-		const Image *img2 = Rva005F002CGet((Rva005F002CIn *)full->m_14);
+		const Image *img2 = StrategicInGameUI::GetTypeImage((Rva005F002CIn *)full->m_14);
 		full->m_18->v1c(img2);
 		if (full->m_18->v00())
 			((Rva005E1928 *)this)->rva005E1928();

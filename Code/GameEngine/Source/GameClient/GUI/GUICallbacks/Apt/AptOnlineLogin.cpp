@@ -171,7 +171,9 @@ class PSPlayerAllStats { public:
     // PersistentStorageThread provider. No fields reconstructed here.
     unsigned opaque[0x548/4];
 };
-PSPlayerAllStats rva00556DFF();
+// The stats queue interface, viewed only for its static cached-stats reader
+// (PersistentStorageThread.cpp, retail 0x00556DFF).
+class GameSpyPSMessageQueueInterface { public: static PSPlayerAllStats readLocalCachedStats(); };
 void Rva003B3371Call(int);
 bool GadgetCheckBoxIsChecked(GameWindow *);
 class AptOnlineShell { public:void LoadChildScreen(const char *); };
@@ -680,7 +682,7 @@ void AptOnlineLogin::rva005700A0()
         loggedIn=false;loginStartTime=0;
         TheGameSpyInfo->clearGroupRoomList();
         Rva003B3371Call(0x12);
-        PSPlayerAllStats stats=rva00556DFF();
+        PSPlayerAllStats stats=GameSpyPSMessageQueueInterface::readLocalCachedStats();
         stats.setID(TheGameSpyInfo->getLocalProfileID());
         TheGameSpyInfo->setCachedLocalPlayerStats(stats);
         AsciiString email;

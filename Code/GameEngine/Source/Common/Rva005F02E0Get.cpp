@@ -1,10 +1,14 @@
 // cl: /Ireference/shims/bfme2_ascii /MD
 //
-// ?Rva005F02E0Get@@YAPBVImage@@PAX@Z @0x005F02E0 56B
+// ?GetButtonImage@StrategicInGameUI@@YAPBVImage@@PAX@Z @0x005F02E0 56B
 // Evidence: unlock lane, prev Rva005F0220Get 0x005F0220 next rva005F05E6
 // 0x005F05E6 in Common, 3 callers, callees rva002D06CA ThingTemplate
 // ButtonImage flows plus tail rva0033BA46, global g_009FF000, literal none.
-// Identity: free function returning Image* with void* arg, honest address name.
+// Identity: WB 0x01615550 is this StrategicInGameUI::GetButtonImage overload
+// (asserts at StrategicInGameUIGetButtonImage.cpp:108..115): the +0x28
+// referent's template through ThingFactory::findTemplateInternal, then
+// ThingTemplate::getButtonImage, falling back to the template's portrait
+// (rowed 0x0033BA46), as retail does. The argument stays void*.
 #include "ascii_string.h"
 
 class Image
@@ -38,7 +42,8 @@ struct Rva005F02E0In
 	Rva005F02E0Mid *m_mid;
 };
 
-const Image *Rva005F02E0Get(void *in)
+namespace StrategicInGameUI { const Image *GetButtonImage(void *in); }
+const Image *StrategicInGameUI::GetButtonImage(void *in)
 {
 	Rva005F02E0Mid *mid = ((Rva005F02E0In *)in)->m_mid;
 	void *found;
