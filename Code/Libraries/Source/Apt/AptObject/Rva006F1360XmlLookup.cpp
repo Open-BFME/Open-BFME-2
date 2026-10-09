@@ -24,17 +24,36 @@ public:                                                                        \
     g_pChainBlockAllocatorF4->freeBlock(p, n);                                 \
   }
 class EAStringC {
-  void *data;
+public:
+  class StringDataC {
+  public:
+    unsigned short m_uRefCount;
+    unsigned short m_uSize;
+    unsigned short m_uMaxSize;
+    unsigned short m_uHash;
+  };
+
+private:
+  StringDataC *data;
 
 public:
   EAStringC(const char *);
-  EAStringC() { clear(); }
+  EAStringC();
   EAStringC &clear();
   bool rva006D3510(const char *) const;
   ~EAStringC();
   const char *rva00620090() const;
   unsigned rva006D3750() const;
 };
+extern EAStringC::StringDataC g_eaEmptyStringData;
+// Native callers invoke this 16-byte constructor at 0x006D2F90, folded with
+// clear; it roots the string at the empty singleton (RVA 0x009DC020 / VA
+// 0x00DDC020) and takes one reference. Keep the native call boundary.
+__declspec(noinline) inline EAStringC::EAStringC()
+{
+  data = &g_eaEmptyStringData;
+  ++data->m_uRefCount;
+}
 class AptValue {
 public:
   void SetString(const char *);

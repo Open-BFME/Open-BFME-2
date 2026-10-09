@@ -10,15 +10,31 @@ struct AptActionInterpreter {AptBasePtrStack stack;};
 extern AptActionInterpreter g_aptDateInterpreter;
 class EAStringC {
 public:
+ class StringDataC {
+ public:
+  unsigned short m_uRefCount;
+  unsigned short m_uSize;
+  unsigned short m_uMaxSize;
+  unsigned short m_uHash;
+ };
  EAStringC(unsigned int);
- EAStringC(){clear();}
+ EAStringC();
  ~EAStringC();
  EAStringC &clear();
  EAStringC &rva006D61E0(int);
  EAStringC &Rva006D4F00Append(const EAStringC &);
  EAStringC &operator=(const EAStringC &);
-private:void *data;
+private:StringDataC *data;
 };
+extern EAStringC::StringDataC g_eaEmptyStringData;
+// Native callers invoke this 16-byte constructor at 0x006D2F90, folded with
+// clear; it roots the string at the empty singleton (RVA 0x009DC020 / VA
+// 0x00DDC020) and takes one reference. Keep the native call boundary.
+__declspec(noinline) inline EAStringC::EAStringC()
+{
+ data = &g_eaEmptyStringData;
+ ++data->m_uRefCount;
+}
 class AptString {
 public:static AptString *Create();
  char prefix[8]; EAStringC text;
