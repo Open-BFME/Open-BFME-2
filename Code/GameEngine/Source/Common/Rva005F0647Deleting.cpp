@@ -108,6 +108,8 @@ public:
 	char m_pad1[0x4C - 0xC];
 	bool m_flag;
 	void HideBuildingName();
+	// WorldBuilder's SetRegionFortressIconVisibility (0x005F086E).
+	void SetRegionFortressIconVisibility(bool flag);
 };
 
 void StrategicHUD::RegionDetailsStructuresMovieClip::Impl::HideBuildingName()
@@ -175,22 +177,16 @@ void Rva005F09EF::rva005F09EF(const Image *image)
 // Forwarders at 0x005F09DF and 0x005F09E7 load their target from +4 and
 // tail-jump. The wrapper owners are address-named; only the target method
 // identities are established by the respective jump destinations.
-class Rva005F086E
-{
-public:
-	void rva005F086E(bool flag);
-};
-
 struct Rva005F09DF
 {
 	char m_pad[4];
-	Rva005F086E *m_target;
+	StrategicHUD::RegionDetailsStructuresMovieClip::Impl *m_target;
 	void rva005F09DF(bool flag);
 };
 
 void Rva005F09DF::rva005F09DF(bool flag)
 {
-	return m_target->rva005F086E(flag);
+	return m_target->SetRegionFortressIconVisibility(flag);
 }
 
 struct Rva005F09E7

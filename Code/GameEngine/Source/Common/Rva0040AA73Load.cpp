@@ -1,5 +1,7 @@
 // cl: /Ireference/shims/bfme2_ascii /Oy- /DNDEBUG /MD /EHsc
-// ?Rva0040AA73Load@@YGXXZ @0x0040AA73 98B
+// ?init@AwardSystemManager@@UAEXXZ @0x0040AA73 98B: AwardSystemManager::init
+// (WorldBuilder name; the same Data\INI\AwardSystem.ini load), slot 1
+// (SubsystemInterface::init) of the manager's vftable 0x00C392E0.
 // Free AwardSystem INI loader via temp INI plus rowed ctor 0x2CDB0 plus
 // StringBase ctor 0x37BA0 plus pinned loadFile 0x2DC75 plus rowed dtor
 // 0x2CE5B when g_00E02F78 set with literal Data\INI\AwardSystem.ini.
@@ -29,7 +31,12 @@ extern int g_00E02F78;
 // g_00E02F78: matched references place it at VA 0xe02f78 (zero-filled .bss).
 int g_00E02F78;
 
-void __stdcall Rva0040AA73Load()
+class AwardSystemManager
+{
+public:
+	virtual void init();
+};
+void AwardSystemManager::init()
 {
 	if (g_00E02F78 == 0) {
 		return;
