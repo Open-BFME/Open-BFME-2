@@ -162,8 +162,13 @@ void Rva0020EB07::rva0020EB07(Int a, Int b)
 		v[i]->rva003F1044(a, b);
 }
 
-// 0x00235736: destroys the chain from the head at VA 0x00DFE758 up to the
-// end marker at VA 0x00DFE75C (next link at +0x1250) with global delete.
+// GlobalData::reset, retail 0x00235736: destroys the chain from the head at
+// VA 0x00DFE758 up to the end marker at VA 0x00DFE75C (next link at +0x1250)
+// with global delete. WB 0x00BA6650 GlobalData::reset (assert "calling reset
+// on wrong GlobalData", GlobalData.cpp:1708) runs the same loop on
+// TheWritableGlobalData and its original. A virtual: slot 9 of GlobalData's
+// vftable 0x00BED1C4, installed at +0 by its constructor 0x0023631C and
+// destructor 0x002376CC; retail never calls it directly.
 class Rva00235736Node
 {
 public:
@@ -173,12 +178,12 @@ public:
 };
 extern class GlobalData *TheWritableGlobalData;
 extern Rva00235736Node *g_rva00235736End;
-class Rva00235736
+class GlobalData
 {
 public:
-	void rva00235736();
+	virtual void reset();
 };
-void Rva00235736::rva00235736()
+void GlobalData::reset()
 {
 	while ((*(Rva00235736Node **)&TheWritableGlobalData) != g_rva00235736End)
 	{
