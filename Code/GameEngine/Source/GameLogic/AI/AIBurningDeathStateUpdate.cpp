@@ -40,13 +40,40 @@ public:
 	bool rva00298893();
 };
 
+enum DisabledType { DISABLED_NATIVE_1 = 1 };
+class Rva00346BC0 { public: unsigned int words[4]; };
+extern unsigned g_Va00E01E08;
+class Drawable { public: void rva00272BE7(); };
+class Thing { public: Drawable *getDrawable() const; };
+class Rva262FF8PtrChaseField { public: int get() const; };
+template<int N> class BurningNativeSlots : public BurningNativeSlots<N-1> { public: virtual void gap(char (*)[N])=0; };
+template<> class BurningNativeSlots<0> {};
+class BurningAIView : public BurningNativeSlots<142> { public: virtual void slot142(int)=0; };
+
+class Rva0010CBits
+{
+public:
+	unsigned int testIndex(unsigned int bit) const { return m_words[bit >> 5] & (1U << (bit & 0x1f)); }
+	void setIndex(unsigned int bit) { m_words[bit >> 5] |= 1U << (bit & 0x1f); }
+private:
+	unsigned int m_words[20];
+};
 class Object
 {
 public:
 	void *getAI() const { return m_ai; }
+	const Coord3D *getPosition() const { return &m_position; }
+	bool clearDisabled(DisabledType);
+	void rva0028AE6D();
+	void rva0028CDEB(const Rva00346BC0 &,bool);
+	__forceinline void setConditionIndex(unsigned int mc) { if (m_conditionBits.testIndex(mc) == 0) { m_conditionBits.setIndex(mc); rva0028AE6D(); } }
 
 private:
-	unsigned char m_pad000[0x258];
+	unsigned char m_pad000[0x38];
+	Coord3D m_position;
+	unsigned char m_pad044[0x10C-0x44];
+	Rva0010CBits m_conditionBits;
+	unsigned char m_pad15C[0x258-0x15C];
 	void *m_ai; // +0x258
 };
 
@@ -95,11 +122,13 @@ protected:
 class AIBurningDeathState : public AIInternalMoveToState
 {
 public:
+	virtual StateReturnType onEnter();
 	virtual StateReturnType update();
 	Coord3D rva003469F5();
 
 private:
 	UnsignedInt m_deathFrame; // +0x4C
+	Coord3D m_deathPosition; // +0x50
 };
 
 StateReturnType AIBurningDeathState::update()
@@ -122,4 +151,34 @@ StateReturnType AIBurningDeathState::update()
 		AIInternalMoveToState::onEnter();
 	}
 	return STATE_CONTINUE;
+}
+
+// Native35017B..35025B RET0 and the same state vtable's onEnter slot.
+// Owner, AI, frame, initial position and condition word are native accesses;
+// goal-picker and base-entry ABIs are independently used by update above.
+// The unlabelled slot142 argument and condition word retain native identities.
+// The condition is bit 544 of the model-condition bits at +0x10C (word
+// +0x150), set once and notified through the rowed Object::rva0028AE6D; the
+// bitset spelling of ObjectConditionAndPassengerWeaponSet.cpp keeps retail's
+// direct [obj+0x150] operands (a raw word field CSEs the address into a LEA).
+StateReturnType AIBurningDeathState::onEnter()
+{
+    Object *obj = getMachineOwner();
+    if (!obj || !obj->getAI())
+        return STATE_FAILURE;
+    m_deathFrame = TheGameLogic->getFrame() +
+        ((Rva262FF8PtrChaseField *)obj->getAI())->get();
+    m_deathPosition = *getMachineOwner()->getPosition();
+    obj->clearDisabled(DISABLED_NATIVE_1);
+    obj->setConditionIndex(544);
+    obj->rva0028CDEB(*(const Rva00346BC0 *)&g_Va00E01E08, true);
+    TheGameLogic->deselectObject(obj, 0xfffff, true);
+    ((BurningAIView *)obj->getAI())->slot142(16);
+    Drawable *drawable = ((Thing *)obj)->getDrawable();
+    if (drawable)
+        drawable->rva00272BE7();
+    Coord3D goal = rva003469F5();
+    m_goalPosition.x = goal.x;
+    m_goalPosition.y = goal.y;
+    return AIInternalMoveToState::onEnter();
 }
