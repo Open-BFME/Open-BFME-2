@@ -43,6 +43,14 @@
 // goal position, owner position at +0x4C, timestamp +0x58, wait frame +0x5C
 // and wait flag +0x62. The goal pointer is read before the timestamp store
 // (retail keeps the negated frame rate in ECX across the argument pushes).
+//
+// AIAttackPursueTargetState (vtable 0x00C12730): onEnter 0x0034D345 (349
+// bytes, slot 4) and computePath 0x00345246 (333 bytes, slot 17), Zero Hour's
+// bodies with BFME 2's status 0x44 / AI byte +0x3CC direct exit (as in the
+// approach onEnter), the AI slot 143 == 2 command-source test with owner byte
+// +0x249, CritterDesync 27/13 and 12/26, the AI blocked-frames count +0x16C,
+// path +0x140 and waiting byte +0x3B1, and the static isSamePosition and
+// canPursue register helpers of this unit.
 
 #include "../../Common/GameLogicObjectLookupView.h"
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
@@ -213,13 +221,22 @@ public:
 	Bool isQuickPathAvailable(const Coord3D *destination) const;
 	Real getCurLocomotorSpeed() const { return ((const Rva002627E8 *)this)->rva002627E8(); }
 	void setCurrentVictim(const Object *victim);
+	void requestPath(Coord3D *destination, Bool isFinalGoal);
+	void *getPath() const { return m_path; }
+	Bool isWaitingForPath() const { return m_waitingForPath; }
+	Bool isBlockedAndStuck() const { return m_blockedFrames > 0; }
 	UnsignedInt getMoodMatrixValue() const;
 	Bool isAttackPath() const { return m_3b2; }
 private:
 	const AIUpdateModuleData *m_moduleData; // +0x04
-	unsigned char m_pad008[0x1F0 - 0x08];
+	unsigned char m_pad008[0x140 - 0x08];
+	void *m_path; // +0x140
+	unsigned char m_pad144[0x16C - 0x144];
+	Int m_blockedFrames; // +0x16C
+	unsigned char m_pad170[0x1F0 - 0x170];
 	Locomotor *m_curLocomotor; // +0x1F0
-	unsigned char m_pad1F4[0x3B2 - 0x1F4];
+	unsigned char m_pad1F4[0x3B1 - 0x1F4];
+	Bool m_waitingForPath; // +0x3B1
 	Bool m_3b2; // +0x3B2
 	unsigned char m_pad3B3[0x3C1 - 0x3B3];
 public:
@@ -445,6 +462,7 @@ protected:
 	Coord3D m_goalPosition; // +0x20
 	unsigned char m_pad2C[0x48 - 0x2C];
 	Bool m_adjustsDestination; // +0x48
+	Bool m_waitingForPath; // +0x49
 };
 
 class AIAttackApproachTargetState : public AIInternalMoveToState
@@ -478,6 +496,24 @@ private:
 	Bool m_stopIfInRange; // +0x60
 	Bool m_isInitialApproach; // +0x61
 	Bool m_waiting; // +0x62
+};
+
+// AIAttackPursueTargetState, vtable 0x00C12730 (constructor 0x003429B9;
+// rowed updateInternal 0x0034939E).
+class AIAttackPursueTargetState : public AIInternalMoveToState
+{
+public:
+	virtual StateReturnType onEnter();
+protected:
+	virtual Bool computePath();
+private:
+	Coord3D m_prevVictimPos; // +0x4C
+	UnsignedInt m_approachTimestamp; // +0x58
+	Bool m_follow; // +0x5C
+	Bool m_isAttackingObject; // +0x5D
+	Bool m_stopIfInRange; // +0x5E
+	Bool m_isInitialApproach; // +0x5F
+	Bool m_isForceAttacking; // +0x60
 };
 
 Bool Rva0034311ECheck(Object *obj);
@@ -523,6 +559,25 @@ static Bool rva00343FB0(Object *obj)
 	if (ai->rva00260DED() == 0x3e || ai->slot143() != 2 || ai->m_3c1 || obj->m_249)
 		return true;
 	return false;
+}
+
+// Rowed at 0x0033FA8E from AIAttackApproachTargetState_computePath_Bfme.cpp;
+// VC7.1 passes its three pointers in registers, so callers only match with a
+// definition in the same unit.
+static __declspec(noinline) Bool isSamePosition(const Coord3D *ourPos,
+	const Coord3D *prevTargetPos, const Coord3D *curTargetPos)
+{
+	Coord3D diff;
+	diff.x = curTargetPos->x - prevTargetPos->x;
+	diff.y = curTargetPos->y - prevTargetPos->y;
+	Coord3D toTarget;
+	toTarget.x = curTargetPos->x - ourPos->x;
+	toTarget.y = curTargetPos->y - ourPos->y;
+	const float TOLERANCE_FACTOR = 1.0f / (10.0f * 10.0f);
+	float toleranceSqr = (toTarget.x*toTarget.x+toTarget.y*toTarget.y) * TOLERANCE_FACTOR;
+	if (diff.x * diff.x + diff.y * diff.y > toleranceSqr)
+		return false;
+	return true;
 }
 
 static Bool canPursue(Object *source, Weapon *weapon, Object *victim)
@@ -725,4 +780,97 @@ StateReturnType AIAttackApproachTargetState00C12678::onEnter()
 	critterDesyncLog("CritterDesync: setAdjustDestination(TRUE) 22");
 	setAdjustsDestination(true);
 	return ret;
+}
+
+StateReturnType AIAttackPursueTargetState::onEnter()
+{
+	Object *source = getMachineOwner();
+	AIUpdateInterface *ai = source->getAI();
+	if (source->isKindOfProjectile())
+		return STATE_SUCCESS;
+	if (((TurretStateMachine *)getMachine())->rva004D7ADD())
+		return STATE_SUCCESS;
+	if (!m_isAttackingObject)
+		return STATE_SUCCESS;
+
+	if (source->testStatus(OBJECT_STATUS_44) || ai->m_3cc)
+	{
+		if (AI::rva002FE193(source, getMachineGoalObject()))
+			return STATE_SUCCESS;
+		getMachine()->setGoalObject(0);
+		return STATE_FAILURE;
+	}
+
+	critterDesyncLog("CritterDesync: setAdjustDestination(FALSE) 27");
+	setAdjustsDestination(false);
+	if (source->getControllingPlayer()->m_playerType == 0)
+	{
+		if (ai->slot143() == 2 && !source->m_249)
+			return STATE_SUCCESS;
+	}
+
+	m_prevVictimPos.x = 0.0f;
+	m_prevVictimPos.y = 0.0f;
+	m_prevVictimPos.z = 0.0f;
+	m_approachTimestamp = -LOGICFRAMES_PER_SECOND;
+
+	Object *victim = getMachineGoalObject();
+	if (!victim)
+		return STATE_SUCCESS;
+	Weapon *weapon = source->getCurrentWeapon();
+	if (!weapon)
+		return STATE_FAILURE;
+	if (!canPursue(source, weapon, victim))
+		return STATE_SUCCESS;
+
+	WhichTurretType tur = ai->getWhichTurretForCurWeapon();
+	if (tur == TURRET_INVALID)
+		return STATE_SUCCESS;
+	ai->setTurretTargetObject(tur, victim, m_isForceAttacking);
+
+	critterDesyncLog("CritterDesync: ComputePath13");
+	if (computePath() == false)
+		return STATE_SUCCESS;
+	return AIInternalMoveToState::onEnter();
+}
+
+Bool AIAttackPursueTargetState::computePath()
+{
+	critterDesyncLog("CritterDesync: ComputePath12");
+	Bool forceRepath = false;
+	if (getMachineOwner()->rva002907A1() == false)
+		return false;
+	AIUpdateInterface *ai = getMachineOwner()->getAI();
+	if (ai->isBlockedAndStuck())
+		return false;
+	if (m_waitingForPath)
+		return true;
+	if (!forceRepath && ai->getPath() == 0 && !ai->isWaitingForPath())
+		forceRepath = true;
+	if (!forceRepath && TheGameLogic->getFrame() - m_approachTimestamp < (UnsignedInt)LOGICFRAMES_PER_SECOND)
+		return true;
+	m_approachTimestamp = TheGameLogic->getFrame();
+
+	if (getMachineGoalObject())
+	{
+		Object *source = getMachineOwner();
+		if (!forceRepath && isSamePosition(source->getPosition(), &m_prevVictimPos,
+				getMachineGoalObject()->getPosition()))
+			return true;
+		Weapon *weapon = source->getCurrentWeapon();
+		if (!weapon)
+			return false;
+		if (!canPursue(source, weapon, getMachineGoalObject()))
+			return false;
+		Object *victim = getMachineGoalObject();
+		m_prevVictimPos = *victim->getPosition();
+		critterDesyncLog("CritterDesync: setAdjustDestination(TRUE) 26");
+		setAdjustsDestination(true);
+		m_goalPosition = m_prevVictimPos;
+		ai->requestPath(&m_goalPosition, false);
+		m_waitingForPath = ai->isWaitingForPath();
+		m_stopIfInRange = false;
+		return true;
+	}
+	return false;
 }
