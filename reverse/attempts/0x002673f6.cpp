@@ -1,14 +1,14 @@
 // ?aiDoCommand@AIUpdateInterface@@UAEXPBUAICommandParms@@@Z
-// partial score=0.995 date=2026-10-09
+// partial score=0.9988968 date=2026-10-09
 // ?aiDoCommand@AIUpdateInterface@@UAEXPBUAICommandParms@@@Z
 // partial score=0.995 date=2026-10-08
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /I.
 // Reference: ZH AIUpdate.cpp::aiDoCommand; donor 9cbfb551fe20dae985f91f2319d8997287b6a705.
 // Identity: DozerAIUpdate::aiDoCommand calls this base; secondary vtable slot0.
 // BFME2 command IDs, argument locations and handler slots are retail jump-table facts.
 // Unnamed handler slots retain their slot numbers rather than guessed semantics.
 
-#include "../../../../../../reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
+#include "reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
 struct Coord3D { float x,y,z; };
 class Object;
 struct AICommandParms {
