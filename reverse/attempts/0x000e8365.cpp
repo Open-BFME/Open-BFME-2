@@ -1,4 +1,6 @@
 // ?rva000E8365@W3DShrubBuffer@@QAEXXZ
+// partial score=0.9858600684979381 date=2026-10-10
+// ?rva000E8365@W3DShrubBuffer@@QAEXXZ
 // partial score=0.99 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib 
 // W3DShrubBuffer::rva000E8365, retail 0x000E8365 (753 bytes): Zero Hour's
