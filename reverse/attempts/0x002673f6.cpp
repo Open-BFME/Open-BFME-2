@@ -1,4 +1,6 @@
 // ?aiDoCommand@AIUpdateInterface@@UAEXPBUAICommandParms@@@Z
+// partial score=0.995 date=2026-10-09
+// ?aiDoCommand@AIUpdateInterface@@UAEXPBUAICommandParms@@@Z
 // partial score=0.995 date=2026-10-08
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD
 // Reference: ZH AIUpdate.cpp::aiDoCommand; donor 9cbfb551fe20dae985f91f2319d8997287b6a705.
