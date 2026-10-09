@@ -11,6 +11,7 @@
 // PathfindLayer::setDestroyed(Bool) donor. Target arithmetic gives 64-byte
 // layers at +0x60 and the final manager-like subobject at +0x460.
 #include <vector>
+#include <new>
 typedef bool Bool;
 typedef int Int;
 enum PathfindLayerEnum
@@ -80,13 +81,23 @@ public:
 };
 struct Rva002E7ED6Info;
 class Pathfinder;
+// Native aircraft-path node ABI agrees with the rowed ctor and prepend provider.
+class PathNode {
+public:
+    PathNode(const Coord3D *,PathfindLayerEnum) throw();
+    PathNode *next,*previous,*nextOptimized;
+    Coord3D position;
+    PathfindLayerEnum layer;
+    Bool canOptimize;
+    Int portalID;
+};
+struct Rva002EDEABArg;
 struct Rva002E93A7Info
 {
 	Pathfinder *m_00;
 	Int m_04;
 };
 class Waypoint { public: Int word0,id;void *name;Coord3D location;char pad18[0x44-0x18];Waypoint *chainNext;Int word48,linkCount; };
-struct PathNode {char pad00[0xc];Coord3D position;PathfindLayerEnum layer;Bool canOptimize;char pad1d[3];Int portalID;};
 class PathfindCell;
 class Path
 {
@@ -520,6 +531,10 @@ class Pathfinder
 {
 public:
  PathfindCell *rva002F068F();
+    Path *GetAircraftPath(const Object *,const Coord3D *);
+    Bool rva002E9BE5(const Coord3D *,const Coord3D *,float,unsigned,Coord3D *);
+    Bool rva002F3392(PathNode *,PathNode *,unsigned,Coord3D *,Coord3D *,Coord3D *);
+    void SetDebugPath(Rva002EDEABArg *);
 	Bool rva002EAE5F(const ICoord2D *,Int,ICoord2D *,void *);
 	Bool rva002EB11B(const ICoord2D *,Int,ICoord2D *,void *);
 	Bool rva002F379E(ICoord2D *,Int,void *);
@@ -1982,3 +1997,65 @@ void Pathfinder::PrependCells(Path *path,const Coord3D *fromPos,PathfindCell *go
 }
 
 PathfindCell *Pathfinder::rva002F068F(){PathfindCell *cell=0;if(!m_openCells.empty())cell=m_openCells.front();return cell;}
+// Semantic source: BFME1 verified donor0bef414b, AIPathfind.cpp getAircraftPath.
+// Target facts: WB D31B00 and native2F3971..2F3B6B RET8; AI+258,
+// locomotor+1F0 and appearance3; node pool, ctor, prepend and debug providers.
+// Unlike the donor, retail replaces current->next three times without moving
+// the cursor to the middle inserted node. Preserve that observed behavior.
+// The 48-byte local scratch aggregate describes compiler storage only; its
+// start/p3 union reproduces dead-start reuse proved by the retail stack accesses.
+class Rva00065964ObjectPool { public: void *rva002635C2() throw(); };
+extern Rva00065964ObjectPool g_pathNodePool;
+template<int N> class AircraftSlots:public AircraftSlots<N-1>{public:virtual void slot(AircraftSlots<N>*);};
+template<> class AircraftSlots<0>{};
+struct AircraftLocomotorTemplate { char prefix[0x74];int appearance; };
+struct AircraftLocomotor { void *vtable; AircraftLocomotorTemplate *data; };
+class AircraftAIView:public AircraftSlots<109>{
+public:
+ virtual unsigned avoidObject();
+ char prefix04[0x1f0-4]; AircraftLocomotor *locomotor;
+};
+class GlobalData;
+extern GlobalData *TheWritableGlobalData;
+class AI;
+extern AI *TheAI;
+struct PathfinderAircraftAIView { char prefix[0x10]; Pathfinder *pathfinder; };
+static __forceinline PathNode *makeAircraftNode(const Coord3D *p) {
+ void *memory=g_pathNodePool.rva002635C2();
+ return memory?new(memory)PathNode(p,PATHFIND_LAYER_GROUND):0;
+}
+static __forceinline void appendAircraftNode(PathNode *current,PathNode *node) {
+ current->next=node;
+ if(node) node->previous=current;
+}
+Path *Pathfinder::GetAircraftPath(const Object *object,const Coord3D *to)
+{
+ Path *path=new Path;
+ AircraftAIView *ai=reinterpret_cast<AircraftAIView *>(object->getAI());
+ unsigned avoid=0;
+ if(ai) avoid=ai->avoidObject();
+ bool clips=false;
+ if(ai && ai->locomotor && ai->locomotor->data->appearance==3) clips=true;
+ // Local scratch only: retain the target-proven relative homes, not a retail class layout.
+ struct { Coord3D p1,p2; union { Coord3D start; Coord3D p3; } stage; Coord3D adjusted; } scratch;
+ scratch.adjusted.x=to->x; scratch.adjusted.y=to->y; scratch.adjusted.z=to->z;
+ if(clips) rva002E9BE5(reinterpret_cast<const Coord3D *>(object->position),to,100.0f,avoid,&scratch.adjusted);
+ path->rva00265596(&scratch.adjusted,PATHFIND_LAYER_GROUND,0x7fffffff);
+ // Native start-coordinate storage is later reused for the third detour output.
+ scratch.stage.start.x=object->position[0]; scratch.stage.start.y=object->position[1]; scratch.stage.start.z=to->z;
+ path->rva00265596(&scratch.stage.start,PATHFIND_LAYER_GROUND,0x7fffffff);
+ int limit=20;
+ for(PathNode *node=path->firstNode;node && node->next;) {
+  if(rva002F3392(node,node->next,avoid,&scratch.p1,&scratch.p2,&scratch.stage.p3)) {
+   appendAircraftNode(node,makeAircraftNode(&scratch.stage.p3));
+   appendAircraftNode(node,makeAircraftNode(&scratch.p2));
+   appendAircraftNode(node,makeAircraftNode(&scratch.p1));
+  }
+  node=node->next;
+  if(--limit<0) break;
+ }
+ for(PathNode *node=path->firstNode;node && node->next;node=node->next) node->nextOptimized=node->next;
+ path->wordC=true;
+ if(*(int *)((char *)TheWritableGlobalData+0x9b8)==1) reinterpret_cast<PathfinderAircraftAIView *>(TheAI)->pathfinder->SetDebugPath((Rva002EDEABArg *)path);
+ return path;
+}
