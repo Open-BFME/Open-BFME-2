@@ -11819,7 +11819,6 @@ name,address,notes
 ?rva00516F08@Rva00516F08@@QAEXXZ,0x00516F08,unrowed 25B thiscall (Ghidra FUN_00916f08): with TheGameSpyInfo 0x00E02320 set calls its vslot 10(1; this+0x2B4); REL32 read at AptOnline::OnlineQuickMatch::Cancel 0x005BAAE8 with ECX = the screen +0x58; address name
 ?rva00517EA2@Rva00517EA2@@QAEXXZ,0x00517EA2,address-derived callee of matched slot 0x005B800A; retail jmp rel32 targets 0x00517EA2; Ghidra FUN bounds 137 bytes; thiscall no args ret; callee body remains unclaimed; no named identity inferred
 ?rva00517F31@Rva005B8EBB@@QAEXXZ,0x00517F31,callees of 0x005B8EBB from retail REL32; names unknown
-?rva00518B05@AptOptions@@QAEXABVAsciiString@@H@Z,0x00518B05,unrowed 264B thiscall (Ghidra; EH; ret 8) on the options screen: a warning prompt taking a label (const AsciiString &) and a kind (the +0x288 vector<bool> is indexed by it); REL32 at 0x00518C58 in the MasterOption0Template handler 0x00518C0D with "APT:WarnHighGraphicDetail" and 3; address name
 ?rva0051B09B@Rva0051BED7@@QAEXXZ,0x0051B09B,this-shaped call site in the 0x0051BED7 poll (mov ecx,esi with no stack args); rowed free fn Rva0051B09BEnable lives here; address from retail REL32
 ?rva0051DE3D@State0051E262@@QAEXXZ,0x0051DE3D,thiscall tail of 0x0051E262 score-screen init (REL32 at 0x0051E2AE); Ghidra 1061B EH body unrecovered; address name
 ?rva0051ED7E@AptTimeLine@@QAEXXZ,0x0051ED7E,unrowed 345B thiscall (Ghidra FUN_0091ed7e) on the time line screen; REL32 read at AptTimeLine::OnButtonContinue 0x0051F6D7 with ECX=this; address name

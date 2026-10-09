@@ -1,4 +1,5 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
+// cl: /vmg /vmm /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB
+// stlport
 //
 // BFME2's options screen Apt callbacks "AptOptions::RefreshNat",
 // 0x005182AB, and "AptOptions::EnterAdvancedSettings", 0x0051889D, bound by
@@ -70,7 +71,71 @@ struct BfmeEnumTableEntry
 
 extern BfmeEnumTableEntry BfmeEnumTable[];
 
+#include <vector>
 #include "ascii_string.h"
+#include "unicode_string.h"
+
+// AptOnlineQuickMatchOptions.cpp's prompt plumbing: a member-pointer
+// binding wrapped in the refcounted holder 0x0057BC63 builds, handed by
+// value to the prompt helper 0x00437F61 (type, title, text, answer).
+struct TargetRef00217D4C
+{
+	void *vtbl;
+	int references;
+};
+void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
+class __multiple_inheritance FunctorTarget;
+typedef void (FunctorTarget::*FunctorMethod)(int);
+struct FunctorBinding
+{
+	FunctorTarget *target;
+	unsigned pad;
+	FunctorMethod method;
+	FunctorBinding(FunctorMethod m, FunctorTarget *t) : target(t), method(m) {}
+};
+struct Rva0057BC63FunctorHolder
+{
+	Rva0057BC63FunctorHolder(const FunctorBinding &);
+	Rva0057BC63FunctorHolder(const Rva0057BC63FunctorHolder &o) : ptr(o.ptr) { if (ptr) ++ptr->references; }
+	~Rva0057BC63FunctorHolder() { if (ptr) ReleaseTreeHintRef00217D4C(ptr); }
+	TargetRef00217D4C *ptr;
+};
+class Rva0023E8D8 : public Rva0057BC63FunctorHolder
+{
+public:
+	__forceinline Rva0023E8D8(const FunctorBinding &b) : Rva0057BC63FunctorHolder(b) {}
+	Rva0023E8D8(const Rva0023E8D8 &o) : Rva0057BC63FunctorHolder(o) {}
+};
+extern "C" void __cdecl Rva00437F61(int, const UnicodeString &, const UnicodeString &, Rva0023E8D8);
+static __forceinline FunctorBinding bind(FunctorMethod m, FunctorTarget *t)
+{
+	FunctorBinding r(m, t);
+	return r;
+}
+
+#define V(n) virtual void slot##n();
+class GameTextInterface
+{
+public:
+	V(0)V(1)V(2)V(3)V(4)V(5)V(6)V(7)V(8)V(9)V(10)V(11)V(12)V(13)
+	virtual UnicodeString fetch(const char *label, bool *exists = 0);
+	virtual UnicodeString fetch(const AsciiString &label, bool *exists = 0);
+};
+#undef V
+extern GameTextInterface *TheGameText;
+
+// The Apt player (0x00DFE4CC, the ledger's g_bfmeAptWindowManager): calls an ActionScript function on a movie
+// level (rowed 0x00222A8B).
+class Rva00222A8BTarget
+{
+public:
+	int invoke(void *level, const char *function, int argc, const char *a0, void *a1, void *a2, void *a3, void *a4);
+};
+class BfmeAptWindowManager;
+extern BfmeAptWindowManager *g_bfmeAptWindowManager;
+
+class GameWindow;
+void GadgetComboBoxSetSelectedPos(GameWindow *comboBox, int position, bool dontNotify);
 
 // The options file (its destructor is rowed as ??1Rva002E4272 and pinned
 // under this name, as AptMainMenuCallbacks.cpp's view).
@@ -117,22 +182,33 @@ public:
 	void rva00518FEA(int query, int kind);
 	void Externs(int query, char *value, bool set);
 
-	// Unrowed 0x00518B05 (264 bytes; a warning prompt), pinned by address.
 	void rva00518B05(const AsciiString &text, int kind);
+	void rva0051890E(int answer);
 
 private:
-	unsigned char m_pad000[0x27C];
+	unsigned char m_pad000[0x274];
+	void *m_274; // +0x274, the screen's Apt movie level
+	unsigned char m_pad278[0x27C - 0x278];
 	int m_state; // +0x27C
 	unsigned char m_pad280[0x281 - 0x280];
 	bool m_281; // +0x281
 	bool m_282; // +0x282
 	bool m_online; // +0x283
 	bool m_284; // +0x284
-	unsigned char m_pad285[0x308 - 0x285];
+	unsigned char m_pad285[0x288 - 0x285];
+	_STL::vector<bool> m_warned; // +0x288, one per warning kind
+	unsigned char m_pad29c[0x2AC - 0x29C];
+	GameWindow *m_2ac; // +0x2AC
+	unsigned char m_pad2b0[0x2F8 - 0x2B0];
+	bool m_2f8; // +0x2F8
+	unsigned char m_pad2f9[0x308 - 0x2F9];
 	AsciiString m_308; // +0x308
-	unsigned char m_pad30c[0x310 - 0x30C];
+	int m_30c; // +0x30C
 	int m_preset; // +0x310, -1 for custom settings
 	AsciiString m_presetText; // +0x314
+	int m_saved30c; // +0x318
+	int m_savedPreset; // +0x31C
+	AsciiString m_savedPresetText; // +0x320
 };
 
 // Retail 0x005182AB, 174 bytes: "AptOptions::RefreshNat".
@@ -182,6 +258,50 @@ void AptOptions::EnterAdvancedSettings(const char *unused)
 	OptionPreferences prefs;
 	TheRva00DFE144->rva00202244(m_preset, &prefs);
 	Rva005186E1Format(&prefs, &m_presetText);
+}
+
+// Retail 0x0051890E, 193 bytes: the warning prompt's answer. Answer 1
+// puts back the preset, its settings text and the +0x30C choice saved
+// before the prompt, refreshing the page ("RefreshAdvOptions" on the
+// advanced page) and the +0x2AC combo box.
+void AptOptions::rva0051890E(int answer)
+{
+	if (answer != 1)
+		return;
+	if (m_preset != m_savedPreset)
+	{
+		m_preset = m_savedPreset;
+		((Rva00518359 *)this)->rva00518359();
+		if (m_state == 2)
+			((Rva00222A8BTarget *)g_bfmeAptWindowManager)->invoke(m_274, "RefreshAdvOptions", 0, 0, 0, 0, 0, 0);
+	}
+	if (m_presetText != m_savedPresetText)
+	{
+		m_presetText = m_savedPresetText;
+		((Rva00222A8BTarget *)g_bfmeAptWindowManager)->invoke(m_274, "RefreshAdvOptions", 0, 0, 0, 0, 0, 0);
+	}
+	if (m_30c != m_saved30c)
+	{
+		m_2f8 = false;
+		m_30c = m_saved30c;
+		if (m_2ac)
+			GadgetComboBoxSetSelectedPos(m_2ac, m_30c, false);
+	}
+}
+
+// Retail 0x00518B05, 264 bytes: warns once per kind. Saves the preset, its
+// settings text and the +0x30C choice for 0x0051890E to restore, then
+// prompts "APT:Warning" with the given text.
+void AptOptions::rva00518B05(const AsciiString &text, int kind)
+{
+	if (m_warned[kind])
+		return;
+	m_savedPreset = m_preset;
+	m_savedPresetText = m_presetText;
+	m_saved30c = m_30c;
+	Rva00437F61(1, TheGameText->fetch("APT:Warning"), TheGameText->fetch(text),
+		Rva0023E8D8(bind(reinterpret_cast<FunctorMethod>(&AptOptions::rva0051890E), (FunctorTarget *)this)));
+	m_warned[kind] = true;
 }
 
 // Retail 0x00518C0D, 286 bytes. Bound as the Apt variables
