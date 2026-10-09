@@ -363,9 +363,9 @@ public:
 	int addTeam(const Dict *d);
 
 private:
-	char m_tree[0xc];
-	TeamsInfoNode *m_nodes;                                              // +0x0C
-	char m_pad10[0x1c - 0x10];
+	_STL::map<_STL::pair<AsciiString,AsciiString>,int> m_tree;
+	_STL::vector<TeamsInfoNode> m_nodes;
+	short m_count;short m_freeHead;
 };
 
 class Dict
@@ -534,6 +534,7 @@ public:
 	void loadMapINI(AsciiString mapName);
 	void rva0023E628(AsciiString mapName);
 	void CreateMPPlayers(bool isSkirmish, int progress);
+	void CreateWOTRMPPlayers();
 	void SetUpCampaignPlayers(void);
 	void rva0023E0C7(void);
 	void lastHeardFrom(int playerIndex);
@@ -2136,6 +2137,7 @@ public:
 class TeamFactory : public SubsystemInterface
 {
 public:
+	virtual void tf0b(); virtual void tf0c(); virtual void tf0d(); virtual void tf0e(); virtual void tf0f(); virtual void tf10(); virtual void tf11();
 	void rva003A262C(void);
 };
 
@@ -4550,4 +4552,85 @@ void GameLogic::update(int phase)
 		}
 		TheGameClient->m_c8 = true;
 	}
+}
+
+// Native23E99A..23EE5B complete RET; WB CF3EA0 names CreateWOTRMPPlayers.
+// The matched CreateMPPlayers pass supplies existing Dict/key/slot/team APIs.
+// Target adds three subsystem resets, marks every slot at1A4, drops linked
+// nonfinal teams and uses index names; faction/team/color settings keep the
+// independently verified provider calls of the existing player builder.
+struct Rva0023E99ASlotFlag { char prefix[0x1a4]; bool flag; };
+void GameLogic::CreateWOTRMPPlayers()
+{
+ if(!TheGameInfo) return;
+ GameInfo *game=TheGameInfo;
+ ThePlayerList->reset();
+ ((SubsystemInterface*)TheSidesList)->reset();
+ TheAI->reset();
+ for(int i=0;i<8;++i) ((Rva0023E99ASlotFlag*)game->getSlot(i))->flag=true;
+ int teamID=TheSidesList->getTeamInfo()->getNode(0)->m_previous;
+ while(teamID){
+  int next=TheSidesList->getTeamInfo()->getNode(teamID)->m_previous;
+  if(TheSidesList->getTeamInfo()->getNode(teamID)->m_chainPrevious)
+   TheSidesList->getTeamInfo()->removeTeam(teamID);
+  teamID=next;
+ }
+ for(int i=0;i<8;++i){
+  GameSlot *slot=game->getSlot(i);
+  if(!slot||!slot->isOccupied()||m_114==3)continue;
+  AsciiString playerName;
+  if(slot->getPlayerTemplate()>=0)playerName.format("Player_%d",i+1);else playerName.format("Observer_%d",i+1);
+  slot->m_34=playerName;
+ }
+ for(int i=0;i<8;++i){
+  GameSlot *slot=game->getSlot(i);
+  if(!slot||!slot->isOccupied())continue;
+  Dict d;d.clear();
+  const AsciiString &name=slot->m_34;
+  d.setAsciiString(((Rva00148F5ECache *)&TheKey_playerName)->get(),name);
+  d.setBool(cacheKey(TheKey_playerIsHuman),slot->isHuman());
+  d.setUnicodeString(TheKey_playerDisplayName.get(),slot->m_name);
+  const PlayerTemplate *pt;
+  if(slot->getPlayerTemplate()>=0)pt=ThePlayerTemplateStore->getNthPlayerTemplate(slot->getPlayerTemplate());
+  else pt=ThePlayerTemplateStore->findPlayerTemplate(TheNameKeyGenerator->nameToKey("FactionObserver"));
+  if(pt)d.setAsciiString(cacheKey(TheKey_playerFaction),TheNameKeyGenerator->keyToName(pt->getNameKey()));
+  if(game->isPlayerPreorder(i))d.setBool(TheKey_playerIsPreorder.get(),true);
+  AsciiString enemiesString;
+  AsciiString alliesString;
+  int team=slot->getTeamNumber();
+  for(int j=0;j<8;++j){
+   GameSlot *other=game->getSlot(j);
+   if(i==j||!other->isOccupied())continue;
+   const AsciiString &otherName=other->m_34;
+   bool isEnemy=team==-1||other->getTeamNumber()!=team;
+   if(isEnemy){
+    if(!enemiesString.isEmpty())enemiesString.concat(" ");
+    enemiesString.concat(otherName);
+   }else{
+    if(!alliesString.isEmpty())alliesString.concat(" ");
+    alliesString.concat(otherName);
+   }
+  }
+  d.setAsciiString(TheKey_playerAllies.get(),alliesString);
+  d.setAsciiString(TheKey_playerEnemies.get(),enemiesString);
+  d.setInt(TheKey_playerSlot20.get(),slot->m_bfme20);
+  d.setInt(TheKey_playerColor.get(),TheMultiplayerSettings->getColor(slot->getColor())->getColor());
+  d.setInt(TheKey_playerNightColor.get(),TheMultiplayerSettings->getColor(slot->getColor())->getNightColor());
+  d.setBool(TheKey_multiplayerIsLocal.get(),slot->isHuman()&&slot->m_name.compare(game->getSlot(game->getLocalSlotNum())->getNameStr())==0);
+  d.setInt(((Rva00148F5ECache*)&TheKey_livingWorldPlayerID)->get(),slot->m_livingWorldPlayerID);
+  TheSidesList->findSideInfo(name);
+  TheSidesList->addSide(&d);
+  AsciiString teamName;
+  teamName="team";
+  teamName.concat(name);
+  d.clear();
+  d.setAsciiString(TheKey_teamName.get(),teamName);
+  d.setAsciiString(TheKey_teamOwner.get(),name);
+  d.setBool(TheKey_teamIsSingleton.get(),true);
+  TheSidesList->addTeam(&d);
+ }
+ TheTeamFactory->reset();
+ TheAI->reset();
+ ThePlayerList->p0e();
+ TheTeamFactory->tf11();
 }

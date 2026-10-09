@@ -1,5 +1,5 @@
 // ?call@Rva001E19E8CallView@@QBEXPBUCoord3D@@PBVMatrix3D@@PBVObject@@2@Z
-// partial score=0.88 date=2026-10-09
+// partial score=0.8965821252031981 date=2026-10-10
 // ?call@Rva001E19E8CallView@@QBEXPBUCoord3D@@PBVMatrix3D@@PBVObject@@2@Z
 // partial score=0.884135 date=2026-10-09
 // ?call@Rva001E19E8CallView@@QBEXPBUCoord3D@@PBVMatrix3D@@PBVObject@@2@Z
@@ -63,13 +63,13 @@ void adjustVector(Coord3D*,const Matrix3D*);
 static __forceinline int roundDelay(float f){int n;__asm { fld f } __asm { fistp n } return n;}
 static __forceinline void rotateParticleY(Matrix3D&m,const float&s,float c){m.Rotate_Y(s,c);}
 void Rva001E19E8CallView::call(const Coord3D*primary,const Matrix3D*mtx,const Object*thingToAttachTo,const Object*secondary)const {
- Vector3 localOffset=*(const Vector3*)&offset;
+ Vector3 _boundlocalOffset0=*(const Vector3*)&offset; Vector3 &localOffset=_boundlocalOffset0;
  if(mtx)adjustVector((Coord3D*)&localOffset,mtx);
  const ParticleSystemTemplate*tmp=TheParticleSystemManager->findTemplate(name);
  if(tmp)for(int i=0;i<count;++i){
   BfmeParticleSystemHandle sys=TheParticleSystemManager->createParticleSystem(tmp,true);
   if(sys){
-   Coord3D newPos={0,0,0};
+   Coord3D _boundnewPos2={0,0,0}; Coord3D &newPos=_boundnewPos2;
    float rad=radius.getValue();
    float angle=GetGameClientRandomValueReal(0,6.28318530717958647692f,"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameClient\\FXList.cpp",1698);
    bool needsHeight=true;
@@ -88,7 +88,7 @@ void Rva001E19E8CallView::call(const Coord3D*primary,const Matrix3D*mtx,const Ob
     Matrix3D orientation=*mtx;
     if(aimSecondary&&secondary){
      const Coord3D*sp=objectPos(secondary);
-     Vector3 delta=Vector3(-newPos.x,-newPos.y,-newPos.z)+Vector3(sp->x,sp->y,sp->z);
+     Vector3 _bounddelta10=Vector3(-newPos.x,-newPos.y,-newPos.z)+Vector3(sp->x,sp->y,sp->z); Vector3 &delta=_bounddelta10;
      float len=WWMath::Sqrt(delta.X*delta.X+delta.Y*delta.Y);delta.Z+=10.0f;float angleToTarget=(float)atan2((double)delta.Z,(double)len);float a=1.5707963267948966f-angleToTarget;
      float s;Matrix3D rotation(true);rotateParticleY(rotation,s,(s=(float)sin(a),(float)cos(a)));orientation.postMul(rotation);
     }

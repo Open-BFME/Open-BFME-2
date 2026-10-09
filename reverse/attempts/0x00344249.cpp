@@ -1,6 +1,8 @@
 // ?rva00344249@AIMoveToStateSA@@QAE_NPAUCoord3D@@PAVObject@@@Z
+// partial score=0.978899 date=2026-10-10
+// ?rva00344249@AIMoveToStateSA@@QAE_NPAUCoord3D@@PAVObject@@@Z
 // partial score=0.98 date=2026-10-09
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /ICode/Libraries/Include
 //
 // ?rva00344249@AIMoveToStateSA@@QAE_NPAUCoord3D@@PAVObject@@@Z
 // retail 0x00344249..0x003444CE (645 bytes) thiscall RET 8; this unused.
@@ -26,21 +28,18 @@ typedef bool Bool;
 typedef float Real;
 typedef int Int;
 
-// class-gate: allow Coord3D the canonical data-only header cannot declare BFME 2's out-of-line GetLength (rowed 0x00005A26) and Normalize (rowed 0x00005A70) or the user copy constructor that copies the candidate field by field; same three floats
-struct Coord3D
-{
-	Real x;
-	Real y;
-	Real z;
-
-	Coord3D() {}
-	Coord3D(const Coord3D &p) { x = p.x; y = p.y; z = p.z; }
-	void sub(const Coord3D *p) { x -= p->x; y -= p->y; z -= p->z; }
-	void scale(Real s) { x *= s; y *= s; z *= s; }
-	Real GetLength() const;
-	Real length() const;
-	Real Normalize();
-	void normalize();
+#include "Lib/Coord3D.h"
+// Three-float transient with explicit copy, not a replacement class view.
+struct MoveGoalCoord {
+ Real x,y,z;
+ MoveGoalCoord() {}
+ MoveGoalCoord(const Coord3D &p){x=p.x;y=p.y;z=p.z;}
+ void sub(const Coord3D*p){x-=p->x;y-=p->y;z-=p->z;}
+ void scale(Real s){x*=s;y*=s;z*=s;}
+ __forceinline Real GetLength()const{return reinterpret_cast<const Coord3D*>(this)->GetLength();}
+ __forceinline Real length()const{return reinterpret_cast<const Coord3D*>(this)->length();}
+ __forceinline Real Normalize(){return reinterpret_cast<Coord3D*>(this)->Normalize();}
+ __forceinline void normalize(){reinterpret_cast<Coord3D*>(this)->normalize();}
 };
 
 class LocomotorSet;
@@ -113,12 +112,12 @@ Bool AIMoveToStateSA::rva00344249(Coord3D *destination, Object *obj)
 	AIUpdateInterface *ai = obj->getAI();
 	if (!ai)
 		return false;
-	Coord3D direction(*destination);
+	MoveGoalCoord direction(*destination);
 	direction.sub(obj->getPosition());
 	direction.z = 0.0f;
 	Real distance = direction.GetLength();
-	direction = *destination;
-	Coord3D candidate(*destination);
+	direction = *reinterpret_cast<MoveGoalCoord*>(destination);
+	MoveGoalCoord candidate(*destination);
 	direction.sub(obj->getPosition());
 	direction.z = 0.0f;
 	Int count = -(Int)(direction.length() * -0.05f) - 1;
@@ -127,8 +126,8 @@ Bool AIMoveToStateSA::rva00344249(Coord3D *destination, Object *obj)
 	Bool found = false;
 	for (Int i = 0; i < count; ++i)
 	{
-		candidate.sub(&direction);
-		if (TheAI->pathfinder()->QuickDoesPathExist(obj, obj->getPosition(), &candidate, 0))
+		candidate.sub(reinterpret_cast<Coord3D*>(&direction));
+		if (TheAI->pathfinder()->QuickDoesPathExist(obj, obj->getPosition(), reinterpret_cast<Coord3D*>(&candidate), 0))
 		{
 			found = true;
 			break;
@@ -139,14 +138,14 @@ Bool AIMoveToStateSA::rva00344249(Coord3D *destination, Object *obj)
 	Real clearance = TheAI->getAiData()->m_clearanceD4 + obj->getBfmeRadiusB8();
 	direction.normalize();
 	direction.scale(clearance);
-	candidate.sub(&direction);
-	direction = *destination;
-	direction.sub(&candidate);
+	candidate.sub(reinterpret_cast<Coord3D*>(&direction));
+	direction = *reinterpret_cast<MoveGoalCoord*>(destination);
+	direction.sub(reinterpret_cast<Coord3D*>(&candidate));
 	direction.z = 0.0f;
 	if (direction.GetLength() + 20.0f > distance)
 		return false;
-	TheAI->pathfinder()->adjustToPossibleDestination(obj, ai->getLocomotorSet(), &candidate);
-	TheAI->pathfinder()->adjustDestination(obj, ai->getLocomotorSet(), &candidate, 0);
-	*destination = candidate;
+	TheAI->pathfinder()->adjustToPossibleDestination(obj, ai->getLocomotorSet(), reinterpret_cast<Coord3D*>(&candidate));
+	TheAI->pathfinder()->adjustDestination(obj, ai->getLocomotorSet(), reinterpret_cast<Coord3D*>(&candidate), 0);
+	*destination = *reinterpret_cast<Coord3D*>(&candidate);
 	return true;
 }

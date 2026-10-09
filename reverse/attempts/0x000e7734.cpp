@@ -1,6 +1,8 @@
 // ?rva000E7734@W3DShrubBuffer@@QAEXPAVThing@@@Z
+// partial score=0.9826478283621141 date=2026-10-10
+// ?rva000E7734@W3DShrubBuffer@@QAEXPAVThing@@@Z
 // partial score=0.99 date=2026-10-09
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /ICode/Libraries/Include
 // W3DShrubBuffer::unitMoved, retail 0x000E7734 (780 bytes, ret 4): when a mobile unit moves, every shrub of the
 // 50 by 50 partition cells under the unit's footprint (radius + 7) that is within that radius is pushed aside.
 // Open-BFME-1 twin: W3DShrubBuffer_unitMoved.cpp (0x00721B20). BFME2 layout read from retail: partition table of
@@ -8,7 +10,7 @@
 // (type +0x40, drawable +0x58, next in partition +0x74), count +0x4FB58, types of 0x5C at +0x4FB70 with the type
 // data at +0x20 (frames to move outward +0x10); the unit is described by its position at +0x38, kind-of mask byte
 // at template+0x108 and major radius at +0xB8; GlobalData flags +0x1C/+0x1D.
-#include "../../../../Libraries/Include/Lib/Coord3D.h"
+#include "Lib/Coord3D.h"
 
 typedef int Int;
 typedef unsigned int UnsignedInt;
