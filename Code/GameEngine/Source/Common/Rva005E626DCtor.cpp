@@ -8,8 +8,7 @@
 // The primary base is the rowed six-argument constructor 0x005F5614, fed
 // from the owner's +0x18 and +0x1C, the list owner, the caller's last
 // argument and the address of a temporary built by the rowed 0x005F2381
-// and destroyed by the rowed 0x005F23B2 (pinned under this temporary's
-// class name). The listener base at +0x08 is announced to the list owner's
+// and destroyed through the concrete rowed 0x005F23B2 teardown. The listener base at +0x08 is announced to the list owner's
 // +0x08 list (rowed append 0x005A0B4C) after the owner and list owner are
 // stored at +0x0C/+0x10. The earlier verdict was blocked on the primary
 // base constructor, which is rowed now.
@@ -17,11 +16,13 @@
 class Rva0057C394;
 class Rva000AD6F4 {public:void clear();};
 
+class Rva005F23B2 {public: ~Rva005F23B2();};
+
 class Rva005F2381
 {
 public:
 	Rva005F2381();
-	~Rva005F2381();
+	__forceinline ~Rva005F2381() { reinterpret_cast<Rva005F23B2*>(this)->~Rva005F23B2(); }
 private:
 	unsigned char m_data[0x1C];
 };
@@ -98,3 +99,8 @@ void Rva005E626D::rva005E586B(){reinterpret_cast<Rva000AD6F4*>((char*)m_owner0C+
 // listener receiver: owner0C becomes a +4 access from the biased this.
 // Existing11B primary clear5E586B is the same owner's direct operation.
 // Constructor132/fullDT83/scalar28 remain exact under this contract.
+
+// The verified StrategicUiArmyDragDrop sibling uses this same inline
+// teardown forwarding for the opaque28-byte scratch view. It binds the
+// concrete provider directly and removes the legacy wrong-name pin; it
+// does not establish28 as the original complete class size.
