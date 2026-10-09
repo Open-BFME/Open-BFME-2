@@ -30,6 +30,8 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 // stlport
 #define Matrix3x3 Matrix3
 #define Matrix4x4 Matrix4
+#include "../../../../../reference/shims/bfme_vp_math/vector4.h"
+#include "../../../../../reference/shims/bfme_projection_matrix_link/matrix4.h"
 #include "camera.h"
 #include "dx8wrapper.h"
 void DX8Wrapper::Set_Projection_Transform_With_Z_Bias(const Matrix4x4& matrix,float znear,float zfar)
