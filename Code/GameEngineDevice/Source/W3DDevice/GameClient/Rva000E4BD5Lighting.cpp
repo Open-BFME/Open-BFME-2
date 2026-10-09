@@ -1,7 +1,9 @@
-// ?doLighting@Rva000E4BD5Lighting@@SGIPBUBfmeLighting36@@PBUCoord3D@@IMI@Z
-// partial score=0.9929738114791495 date=2026-10-09
 // cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /Oy- /ICode/Libraries/Include
 #include "Lib/Coord3D.h"
+// Semantic guide: Zero Hour W3DTreeBuffer lighting through BFME1. Target
+// E4BD5..E4F20 owns all offsets, globals, weather and terrain virtual slots.
+// Original target method/class name is unproven; retain address-derived identity.
+// MSVC7.1 needs references for R/G accumulators to reproduce both RGB reloads.
 class GlobalData;extern GlobalData *TheWritableGlobalData;
 struct LightingGlobals {char p[0x49];bool skipFirst;char p4A[0x944-0x4A];float red,green,blue;};
 class Rva0027070CGlobal;extern Rva0027070CGlobal *g_00DFE1E4;
@@ -56,11 +58,7 @@ struct BfmeLighting36 {
         Real blue;
     } ambient;
     RGBColor diffuse;
-    struct Coord3D {
-        Real x;
-        Real y;
-        Real z;
-    } lightPos;
+    Coord3D lightPos;
 };
 
 static Real Rva006F7DA0Fabs(Real value)
@@ -84,8 +82,7 @@ public:
                                              UnsignedInt alpha);
 };
 
-// ?doLighting@W3DTreeBuffer@@SGIPBUTerrainLighting@GlobalData@@PBVVector3@@IMI@Z
-// ?doLighting@Rva000E4BD5Lighting@@SGIPBUTerrainLighting@GlobalData@@PBVVector3@@IMI@Z
+// ?doLighting@Rva000E4BD5Lighting@@SGIPBUBfmeLighting36@@PBUCoord3D@@IMI@Z
 UnsignedInt __stdcall Rva000E4BD5Lighting::doLighting(
     const BfmeLighting36 *objectLighting,
     const Coord3D *emissive,
@@ -93,8 +90,8 @@ UnsignedInt __stdcall Rva000E4BD5Lighting::doLighting(
     Real scale,
     UnsignedInt alpha)
 {
-    Real shadeR;
-    Real shadeG;
+    Real _shadeR; Real &shadeR = _shadeR;
+    Real _shadeG; Real &shadeG = _shadeG;
     Real shadeB;
     Real shade;
     Int i;
