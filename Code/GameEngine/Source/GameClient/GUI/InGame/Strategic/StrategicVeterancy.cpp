@@ -69,6 +69,7 @@ private:
 		Int m_state;					// +0x08
 		Int m_numRows;					// +0x0C
 		void OnFadeOut(const char *path);
+		void OnContinue(const char *path);
 	};
 
 	Impl *m_impl;						// +0x00
@@ -157,4 +158,11 @@ void StrategicVeterancy::Data::rva005EC296()
 void StrategicVeterancy::Impl::OnFadeOut(const char *path)
 {
 	m_state = 4;
+}
+
+// Constructor 5EC64E binds this to AptStrategicVeterancy::OnContinue;
+// WB15EA050 confirms state8=5 and the one-argument member ABI.
+void StrategicVeterancy::Impl::OnContinue(const char *path)
+{
+	m_state = 5;
 }
