@@ -124,3 +124,15 @@ strstream::strstream()
 }
 
 }
+
+// Retail 00603800..006038D4: fixed external buffer; app seeks to strlen(s).
+// The STLport declaration establishes the class ABI; target calls and vtables
+// establish this BFME2 constructor. The entire 212-byte body is verified.
+namespace _STL {
+strstream::strstream(char *s,int n,ios_base::openmode mode)
+ : basic_iostream<char,char_traits<char> >(0),
+   _M_buf(s,n,(mode & ios_base::app) ? s + strlen(s) : s)
+{
+ init(&_M_buf);
+}
+}
