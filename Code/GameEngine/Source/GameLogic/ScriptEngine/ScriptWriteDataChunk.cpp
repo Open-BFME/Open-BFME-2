@@ -19,7 +19,7 @@ class ScriptList;
 class ScriptAction;
 class DataChunkInput;
 struct DataChunkInfo;
-class OrCondition { public: static bool ParseOrConditionDataChunk(DataChunkInput &,DataChunkInfo *,void *); static void WriteOrConditionDataChunk(DataChunkOutput &,OrCondition *); };
+class OrCondition { public: OrCondition *duplicate() const; static bool ParseOrConditionDataChunk(DataChunkInput &,DataChunkInfo *,void *); static void WriteOrConditionDataChunk(DataChunkOutput &,OrCondition *); };
 class DataChunkOutput { public:
  void openDataChunk(char *, unsigned short);
  void writeAsciiString(const AsciiString &);
@@ -142,9 +142,11 @@ static __declspec(noinline) BfmeFixedStorage002CF0F0 ReadScriptPlayerMask_Rva003
     ((Rva003B44EE *)&mask)->rva003B5624(text);
     return mask;
 }
-struct Rva003B3536
+class Rva003B3536
 {
+public:
     Rva003B3536() : a(false), b(false), value(0), c(true) {}
+    Rva003B3536(const Rva003B3536 &);
     bool a, b;
     int value;
     bool c;
@@ -154,6 +156,7 @@ struct Rva003B3536
 class ScriptAction
 {
 public:
+    ScriptAction *duplicate() const;
     static bool ParseActionDataChunk(DataChunkInput &, DataChunkInfo *, void *);
     static bool ParseActionFalseDataChunk(DataChunkInput &, DataChunkInfo *, void *);
 };
@@ -163,6 +166,8 @@ class Script : public Snapshot
 {
 public:
     Script();
+    Script(const Script &other);
+    Script *duplicate() const;
     bool Rva003B79F1(DataChunkInput &file, unsigned short version);
 protected:
     virtual ~Script();
@@ -216,7 +221,7 @@ bool Script::Rva003B79F1(DataChunkInput &file, unsigned short version)
 }
 
 // ZH Script default initialization supplies semantics; target adds player
-// mask24 and the measured12B subrecord10. Native destructor3B35B1 calls
+// mask24 and the measured16B subrecord10. Native destructor3B35B1 calls
 // string cleanup on44; timer field meanings follow the ZH lead. Snapshot identity:
 // vtable81F424 slot2 returns the native literal "Script" at81F434.
 Script::Script()
@@ -228,4 +233,20 @@ Script::Script()
       m_conditionTime(0.0f), m_currentTime(0.0f), m_conditionExecutedCount(0)
 {
     for (int i = 0; i < 8; ++i) ((unsigned char *)m_actions)[i] = 0;
+}
+
+// ZH duplicate semantics; target copyctor/duplicate establish the84B extent,
+// deep condition/action providers and reset of the runtime fields.
+Script::Script(const Script &other)
+    : Snapshot(other), m_text0(other.m_text0), m_text1(other.m_text1),
+      m_text2(other.m_text2), m_subrecord(other.m_subrecord),
+      m_delay(other.m_delay), m_mask(other.m_mask),
+      m_active(other.m_active), m_easy(other.m_easy), m_subroutine(other.m_subroutine),
+      m_normal(other.m_normal), m_hard(other.m_hard), m_flag(other.m_flag),
+      m_condition(other.m_condition ? other.m_condition->duplicate() : 0),
+      m_frame(0), m_currentActive(other.m_currentActive), m_otherFlag(false),
+      m_conditionTime(0.0f), m_currentTime(0.0f), m_conditionExecutedCount(0)
+{
+    for (int i = 0; i < 2; ++i)
+        m_actions[i] = other.m_actions[i] ? other.m_actions[i]->duplicate() : 0;
 }
