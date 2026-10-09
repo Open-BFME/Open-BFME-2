@@ -39,6 +39,10 @@ public:
 	unsigned char m_pad[0x115];
 	unsigned char m_flags115;
 };
+class Rva00390533Conditions {
+public: unsigned char test(unsigned bit) const { return (words[bit>>5] >> (bit&31))&1; }
+unsigned words[19];
+};
 class Object
 {
 public:
@@ -47,7 +51,9 @@ public:
 	Rva00390557Template *m_template;
 	unsigned char m_pad08[0x38 - 8];
 	Coord3D m_position;
-	unsigned char m_pad44[0x274 - 0x44];
+	unsigned char m_pad44[0x10C - 0x44];
+ Rva00390533Conditions m_conditions;
+ unsigned char m_pad158[0x274-0x158];
 	Object *m_holder274;
 };
 #include "../../../Common/GameLogicObjectLookupView.h"
@@ -183,4 +189,16 @@ void PhysicsBehavior::rva00390E36(int source, int weapon)
 	Coord3D force;
 	force.zero();
 	reinterpret_cast<Rva003909FAObj *>(this)->consume(&force, source, weapon);
+}
+
+// Receiver comes from Object+25C; native 390533..390557 reads its Object+8.
+// Condition-array base10C is established independently by rowed setters.
+// BFME1 c1f3b5af79 clean29A7D0 accessor supplies the unsigned-shift shape.
+class Rva00390533 { public: bool rva00390533(); char pad[8];Object *m_object; };
+bool Rva00390533::rva00390533()
+{
+ if(!m_object->m_conditions.test(3*32+31)) {
+  if(!m_object->m_conditions.test(2*32+8)) return false;
+ }
+ return true;
 }
