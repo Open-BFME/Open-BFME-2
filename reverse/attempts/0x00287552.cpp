@@ -1,8 +1,10 @@
 // ?rva00287552@FireLogicSystem@@QAEXPAURva00287C21Other@@H@Z
+// partial score=0.9189 date=2026-10-09
+// ?rva00287552@FireLogicSystem@@QAEXPAURva00287C21Other@@H@Z
 // partial score=0.96 date=2026-10-09
 // ?rva00287552@FireLogicSystem@@QAEXPAURva00287C21Other@@H@Z
 // partial score=0.96 date=2026-10-08
-// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /GX /ICode/Libraries/Include /I.
+// cl: /O1 /arch:SSE /G6 /DNDEBUG /MD /GX /ICode/Libraries/Include /I.
 //
 // FireLogicSystem's registration of a placed object (0x00286373): the id is
 // filed in the grid cell under its world position and the cell takes the
@@ -768,8 +770,8 @@ void FireLogicSystem::rva00287552(Rva00287C21Other *obj, int add)
 		obj->m_watchCount = node != 0;
 		return;
 	}
-	Int count = 0;
 	WatcherNode *list = 0;
+	Int count = 0;
 	float angle = obj->m_angle;
 	BfmeVecVNB pos;
 	pos.x = obj->m_pos.x;
@@ -786,7 +788,7 @@ void FireLogicSystem::rva00287552(Rva00287C21Other *obj, int add)
 		p.x = pos.x;
 		p.y = pos.y;
 		p.z = pos.z;
-		float c = Cos(angle);
+		const float c = Cos(angle);
 		float s = Sin(angle);
 		shape->bfmeApplyVNB(&p, angle);
 		switch (shape->m_type)

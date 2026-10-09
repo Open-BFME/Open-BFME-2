@@ -1,4 +1,6 @@
 // ??0ProfileId@@QAE@PBD00HH@Z
+// partial score=0.9304 date=2026-10-09
+// ??0ProfileId@@QAE@PBD00HH@Z
 // partial score=0.7 date=2026-09-23
 // cl: /MD /Oi
 //
@@ -66,10 +68,11 @@ ProfileId::ProfileId(const char *name, const char *descr, const char *unit, int 
 	m_valueMode = Unknown;
 
 	// keep the list ordered by name
+	const char *sortName=m_name;
 	ProfileId **link = &first;
 	for (ProfileId *cur = first; cur; cur = *link)
 	{
-		if (strcmp(m_name, cur->m_name) > 0)
+		if (strcmp(sortName, cur->m_name) > 0)
 			break;
 		link = &cur->m_next;
 	}
