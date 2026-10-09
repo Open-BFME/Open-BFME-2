@@ -52,8 +52,21 @@ Rva0025DB46::~Rva0025DB46()
 class Rva0026201C : public SubsystemInterface
 {
 public:
+	Rva0026201C();
 	virtual ~Rva0026201C();
+
+private:
+	int m_0C;
+	int m_10;
 };
+
+// ??0Rva0026201C@@QAE@XZ retail 0x00262002 26B: base ctor 0x001B4E63, +0x0C
+// and +0x10 cleared, own vptr 0x00BF9010.
+Rva0026201C::Rva0026201C()
+{
+	m_0C = 0;
+	m_10 = 0;
+}
 
 Rva0026201C::~Rva0026201C()
 {
@@ -72,8 +85,15 @@ Rva002D22CA::~Rva002D22CA()
 class Rva002E55D8 : public SubsystemInterface
 {
 public:
+	Rva002E55D8();
 	virtual ~Rva002E55D8();
 };
+
+// ??0Rva002E55D8@@QAE@XZ retail 0x002E55FF 18B: base ctor 0x001B4E63 then own
+// vptr 0x00804E90.
+Rva002E55D8::Rva002E55D8()
+{
+}
 
 Rva002E55D8::~Rva002E55D8()
 {
@@ -122,8 +142,15 @@ Rva00419CD4::~Rva00419CD4()
 class Rva0041B8C7 : public SubsystemInterface
 {
 public:
+	Rva0041B8C7();
 	virtual ~Rva0041B8C7();
 };
+
+// ??0Rva0041B8C7@@QAE@XZ retail 0x0041B8B5 18B: base ctor 0x001B4E63 then own
+// vptr 0x00C3AE60 (caller 0x0022FA81).
+Rva0041B8C7::Rva0041B8C7()
+{
+}
 
 Rva0041B8C7::~Rva0041B8C7()
 {
