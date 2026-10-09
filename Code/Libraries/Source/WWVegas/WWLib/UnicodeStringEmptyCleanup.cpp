@@ -31,3 +31,16 @@ void rva007B6740InitializeEmptyUnicodeString()
     atexit(rva007B9C10DestroyEmptyUnicodeString);
 }
 #pragma inline_depth()
+
+// Clean BF1 f98983a7d3bb405f1a4ba94bb6a2a168062a819d
+// Common/Rva00558D90Release.cpp supplies a wide-string cleanup guide.
+// Native 5BA587..5BA593 follows RET and ends its own RET8; it takes the
+// address of stack word+8 and calls genuine StringBase<ushort>::releaseBuffer
+// at 36E70. The first stack word is unused; no receiver is accessed and no
+// original callback/owner identity or return-value contract is asserted.
+// A by-value canonical UnicodeString supplies the observed one-word wide
+// holder and its natural cleanup; do not import the donor's empty private view.
+void __stdcall rva005ba587(unsigned int word, UnicodeString text)
+{
+    (void)word;
+}
