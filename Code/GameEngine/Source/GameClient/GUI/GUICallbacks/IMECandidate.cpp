@@ -58,3 +58,50 @@ void IMECandidateMainDraw(GameWindow *window, WinInstanceData *instData)
 		TheWindowManager->winFillRect(backColor, 0.0f, start.x, start.y, end.x, end.y);
 	}
 }
+
+class DisplayString;
+class DisplayStringManager;
+extern DisplayStringManager *TheDisplayStringManager;
+// Call-only factory prefix: native create/free slots38/3C, as independently
+// used by the already recovered Rva004E5821 consumer. No object is constructed.
+class ImeDisplayFactoryPrefix {
+public:
+ virtual void slot00() = 0;
+ virtual void slot04() = 0;
+ virtual void slot08() = 0;
+ virtual void slot0C() = 0;
+ virtual void slot10() = 0;
+ virtual void slot14() = 0;
+ virtual void slot18() = 0;
+ virtual void slot1C() = 0;
+ virtual void slot20() = 0;
+ virtual void slot24() = 0;
+ virtual void slot28() = 0;
+ virtual void slot2C() = 0;
+ virtual void slot30() = 0;
+ virtual void slot34() = 0;
+ virtual DisplayString *newDisplayString() = 0;
+ virtual void freeDisplayString(DisplayString *) = 0;
+};
+// Native WindowSystem uses the same nullable four-byte file-static at
+// VAE031F8 for create and destroy; the initial native storage is zero.
+static DisplayString *Dstring = 0;
+
+// Native FunctionLexicon DBCAB0 binds nameC02690 to427810. All72 bytes
+// end427858 with cdecl return; only msg (second callback word) is used.
+WindowMsgHandledType IMECandidateWindowSystem(GameWindow *window,UnsignedInt msg,WindowMsgData data1,WindowMsgData data2)
+{
+ switch(msg) {
+  case GWM_CREATE:
+   if(Dstring==0) Dstring=reinterpret_cast<ImeDisplayFactoryPrefix *>(TheDisplayStringManager)->newDisplayString();
+   break;
+  case GWM_DESTROY:
+   if(Dstring!=0) {
+    reinterpret_cast<ImeDisplayFactoryPrefix *>(TheDisplayStringManager)->freeDisplayString(Dstring);
+    Dstring=0;
+   }
+   break;
+  default: return MSG_IGNORED;
+ }
+ return MSG_HANDLED;
+}
