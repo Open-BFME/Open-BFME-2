@@ -3,6 +3,8 @@
 // ?Set_DX8_Render_State@DX8Wrapper@@SAXKI@Z, retail 0x0006615F, 126 bytes.
 // ?Set_DX8_Texture_Stage_State@DX8Wrapper@@SAXIKI@Z, retail 0x000661DD, 173 bytes.
 // Dedicated TU (both bodies share the retail cookie, so they share this TU).
+// Data bindings follow the established address index and native providers;
+// the outlined body must share state with DX8Wrapper and WW3D.
 //
 // Battle for Middle-earth reference
 // (reference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.h,
@@ -16,6 +18,7 @@
 
 typedef int Int;
 typedef long HRESULT;
+struct IDirect3DDevice8;
 
 #define NULL 0
 
@@ -35,15 +38,20 @@ public:
 	static void Set_DX8_Texture_Stage_State(unsigned stage, unsigned long state, unsigned value);
 	static void Get_DX8_Render_State_Value_Name(StringClass &name, unsigned long state, unsigned value);
 	static void Get_DX8_Texture_Stage_State_Value_Name(StringClass &name, unsigned long state, unsigned value);
+protected:
+	static unsigned RenderStates[256];
+	static unsigned TextureStageStates[16][32];
+	static IDirect3DDevice8 *D3DDevice;
+	static unsigned render_state_changes;
+	static unsigned texture_stage_state_changes;
 };
 
-static unsigned RenderStates[256];
-static unsigned TextureStageStates[16][32];
-static bool snapshotActivated;
-static void *d3dDevice;
-static unsigned numberOfDX8Calls;
-static unsigned renderStateChanges;
-static unsigned textureStageStateChanges;
+class WW3D
+{
+	friend class DX8Wrapper;
+	static bool SnapshotActivated;
+};
+extern unsigned number_of_DX8_calls;
 
 typedef HRESULT (__stdcall *SetRenderStateFn)(void *device, unsigned long state, unsigned value);
 typedef HRESULT (__stdcall *SetTextureStageStateFn)(void *device, unsigned stage, unsigned long state, unsigned value);
@@ -54,38 +62,38 @@ inline void DX8Wrapper::Set_DX8_Render_State(unsigned long state, unsigned value
 	if (RenderStates[state] == value)
 		return;
 
-	if (snapshotActivated) {
+	if (WW3D::SnapshotActivated) {
 		StringClass valueName(0, true);
 		Get_DX8_Render_State_Value_Name(valueName, state, value);
 	}
 
 	RenderStates[state] = value;
-	(*(SetRenderStateFn **)d3dDevice)[57](d3dDevice, state, value);
-	numberOfDX8Calls++;
-	renderStateChanges++;
+	(*(SetRenderStateFn **)D3DDevice)[57](D3DDevice, state, value);
+	number_of_DX8_calls++;
+	render_state_changes++;
 }
 
 // ?Set_DX8_Texture_Stage_State@DX8Wrapper@@SAXIKI@Z
 inline void DX8Wrapper::Set_DX8_Texture_Stage_State(unsigned stage, unsigned long state, unsigned value)
 {
 	if (stage >= 16) {
-		(*(SetTextureStageStateFn **)d3dDevice)[67](d3dDevice, stage, state, value);
-		numberOfDX8Calls++;
+		(*(SetTextureStageStateFn **)D3DDevice)[67](D3DDevice, stage, state, value);
+		number_of_DX8_calls++;
 		return;
 	}
 
 	if (TextureStageStates[stage][state] == value)
 		return;
 
-	if (snapshotActivated) {
+	if (WW3D::SnapshotActivated) {
 		StringClass valueName(0, true);
 		Get_DX8_Texture_Stage_State_Value_Name(valueName, state, value);
 	}
 
 	TextureStageStates[stage][state] = value;
-	(*(SetTextureStageStateFn **)d3dDevice)[67](d3dDevice, stage, state, value);
-	numberOfDX8Calls++;
-	textureStageStateChanges++;
+	(*(SetTextureStageStateFn **)D3DDevice)[67](D3DDevice, stage, state, value);
+	number_of_DX8_calls++;
+	texture_stage_state_changes++;
 }
 
 #pragma inline_depth(0)
