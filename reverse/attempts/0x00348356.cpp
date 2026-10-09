@@ -1,6 +1,8 @@
 // ?updateInternal@AIAttackApproachTargetState@@AAE?AW4StateReturnType@@XZ
+// partial score=0.7949064415 date=2026-10-09
+// ?updateInternal@AIAttackApproachTargetState@@AAE?AW4StateReturnType@@XZ
 // partial score=0.85 date=2026-10-09
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// cl: /I. /ICode/Libraries/Include/Lib /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
 //
 // AIAttackApproachTargetState::onEnter, retail 0x0034CD3A (783 bytes): slot 4
 // of vtable 0x00C12610 (slot-2 name getter "AIAttackApproachTargetState";
@@ -61,23 +63,9 @@ enum ObjectStatusTypes
 	OBJECT_STATUS_44 = 0x44
 };
 
-struct Coord3D
-{
-	Real x, y, z;
-	Real length() const;
-	void add(const Coord3D *a)
-	{
-		x += a->x;
-		y += a->y;
-		z += a->z;
-	}
-	void scale(Real scale)
-	{
-		x *= scale;
-		y *= scale;
-		z *= scale;
-	}
-};
+#include "Coord3D.h"
+static __forceinline void coordScale(Coord3D* a, Real n) {a->x*=n; a->y*=n; a->z*=n;}
+static __forceinline void coordAdd(Coord3D* a,const Coord3D* b) {a->x+=b->x;a->y+=b->y;a->z+=b->z;}
 
 class Object;
 class Weapon;
@@ -99,17 +87,8 @@ static __forceinline void critterDesyncLog(const char *text)
 extern const int g_009BA4E4;
 #define LOGICFRAMES_PER_SECOND g_009BA4E4
 
-class GameLogic
-{
-public:
-	UnsignedInt getFrame() const { return m_frame; }
-private:
-	unsigned char m_pad00[0x40];
-	UnsignedInt m_frame; // +0x40
-	unsigned char m_pad44[0x1B4 - 0x44];
-public:
-	Int m_1b4; // +0x1B4
-};
+#include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
+struct ApproachLogStatusView {unsigned char pad[0x1B4]; Int value;};
 extern GameLogic *TheGameLogic;
 
 class TAiData
@@ -721,8 +700,8 @@ StateReturnType AIAttackApproachTargetState::updateInternal()
 				dir.y = victimDir->y;
 				dir.z = victimDir->z;
 				Real dist = victim->rva0028AC7D() * 4.0f;
-				dir.scale(dist);
-				pos.add(&dir);
+				coordScale(&dir,dist);
+				coordAdd(&pos,&dir);
 				inRange = ((Rva002C9B80Owner *)weapon)->isWithinAttackRange(source, source->getPosition(),
 					victim, &pos, 0.0f, true);
 			}
@@ -829,7 +808,7 @@ StateReturnType AIAttackApproachTargetState::updateInternal()
 		return STATE_CONTINUE;
 	}
 
-	if (TheGameLogic->m_1b4 > 0 && m_stopIfInRange && weapon)
+	if (((const ApproachLogStatusView*)TheGameLogic)->value > 0 && m_stopIfInRange && weapon)
 	{
 		if (theLogicRandomLogFile)
 			fprintf(theLogicRandomLogFile, "masiwar called by AIAttackApproachTargetState::updateInternal [2]");
