@@ -77,7 +77,7 @@ public:
 	void rva002102CA();
 	bool rva0020F91D(void *a1, void *a2, void *a3);
 	void *rva0020F9F6(void *a1, void *a2, void *filter);
-	void rva0020FAEA(float *a1, void *a2);
+	void *rva0020FAEA(float *a1, void *a2);
 	void rva0020FAB4(int a1, int a2);
 	void rva0020FB8B(Rva0020FB8BNode *arg);
 
@@ -207,14 +207,16 @@ void LivingWorldRegionManager::OnTurnEnding(int a1, int a2)
 		bounds[0][i]->rva003F20E5(a1, a2);
 }
 
-// ?rva0020FAEA@Rva0020EE29@@QAEXPAMPAX@Z @0x0020FAEA 87B
+// ?rva0020FAEA@Rva0020EE29@@QAEPAXPAMPAX@Z @0x0020FAEA 87B
 // Builds the two search-key blocks on the stack (six floats at B, with A
 // aliasing its tail) and runs the 0x0020F9F6 finder over the inner vector.
 // Evidence: retail movss fills from the [ebp+8] float pair plus the .rdata
 // floats 10000.0f (VA 0x00BC8970) and -1.0f (VA 0x00BBB9AC, both verified by
 // the float gate); the early arg2 push and the A-then-B push order match the
-// (candidate, A, B) finder shape; return discarded by retail.
-void Rva0020EE29::rva0020FAEA(float *a1, void *a2)
+// (candidate, A, B) finder shape. EAX carries the finder result through
+// leave/ret 8; 0x00318C32 stores it at +0x8C and 0x002B2858 compares it
+// against the requested region. The return type must therefore be a pointer.
+void *Rva0020EE29::rva0020FAEA(float *a1, void *a2)
 {
 	float data[6];
 	data[0] = a1[0];
@@ -223,7 +225,7 @@ void Rva0020EE29::rva0020FAEA(float *a1, void *a2)
 	data[3] = 0.0f;
 	data[4] = 0.0f;
 	data[5] = -1.0f;
-	rva0020F9F6(data, data + 3, a2);
+	return rva0020F9F6(data, data + 3, a2);
 }
 
 // ?rva0020FAB4@Rva0020EE29@@QAEXHH@Z @0x0020FAB4 54B
