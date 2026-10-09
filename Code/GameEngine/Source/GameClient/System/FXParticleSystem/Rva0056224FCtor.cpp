@@ -9,8 +9,9 @@
 // ??0Rva00562366@@QAE@IAAUSrc00562366@@@Z @0x00562366 376B, caller
 // 0x003ACAC1 (twin of 0x005646BC): the emitter built from a Src00562366
 // template block. Target evidence (unwind map at 0x00B99C46): state 0
-// destroys the +0 base (??1Rva003AE13C, the Rva003ADFDB class under another
-// placeholder; its uint ctor is the rowed 0x0055F821), state 1 destroys the
+// destroys the +0 parent through the24B Rva003AE13C cleanup fold; the
+// parent Rva003ADFDB includes interface+8 and has uint ctor0x0055F821.
+// The two neutral class names need not denote the same class. State1 destroys the
 // +0xC base through the BoxEmissionVolumeInfo dtor, state 2 destroys the
 // 12-byte RvaSmartPtr12 temporary at [ebp-0x1C] through the rowed 0x002115C5,
 // whose body is `cmp [ecx],0 / je / jmp 0x0004CBC0`: the handle dtor is the
@@ -39,20 +40,9 @@ private:
 
 class ParticleSystem;
 
-class Rva003ADFDB
-{
-public:
-	Rva003ADFDB(unsigned int a);
-	virtual ~Rva003ADFDB();
-private:
-	unsigned int m_base04;
-};
-
-class __declspec(novtable) Iface00C1C780
-{
-public:
-	virtual void slot00() = 0;
-};
+class __declspec(novtable) Rva003ADFDBPrimary {public:virtual ~Rva003ADFDBPrimary();private:unsigned argument4;};
+class __declspec(novtable) Iface00C1C780 {public:virtual void slot00()=0;};
+class __declspec(novtable) Rva003ADFDB:public Rva003ADFDBPrimary,public Iface00C1C780 {public:Rva003ADFDB(unsigned);virtual ~Rva003ADFDB();};
 
 class Rva0056224F
 {
@@ -149,7 +139,7 @@ struct ParticleSystemView
 	float m_184;
 };
 
-class Rva00562366 : public Rva003ADFDB, public Iface00C1C780, public Rva0056224F
+class Rva00562366 : public Rva003ADFDB, public Rva0056224F
 {
 public:
 	Rva00562366(unsigned int a, Src00562366 &src);
