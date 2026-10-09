@@ -11,6 +11,7 @@ class Rva006C1F60
 {
 public:
 	int rva006C1F60(unsigned int v);
+	bool rva006C1DC0(unsigned int block);
 private:
 	unsigned char m_pad0[0x4e4];
 	Rva00030DD0Lock *m_lock;
@@ -64,6 +65,7 @@ int Rva006C1F60::rva006C1F60(unsigned int v)
 
 #include <string.h>
 #pragma intrinsic(memset)
+#pragma intrinsic(memcpy)
 
 struct Rva00030DD0Lock;
 int Rva00030DD0AddRef(Rva00030DD0Lock *lock);
@@ -117,9 +119,12 @@ private:
 	Rva00030DD0Lock *m_lock;
 };
 
+class Rva006C1850 { public: bool rva006C1850(unsigned int, void **); };
+
 class GeneralAllocatorDebug : public EA::Allocator::GeneralAllocator
 {
 public:
+	void *rva006C2010Run6(void *block, unsigned int size, unsigned short kind, void *dst, unsigned int capacity, unsigned int *outLen);
 	void rva006C2AA0(unsigned char fillFree, unsigned char fillDelayedFree,
 		unsigned char fillNew, unsigned char fillGuard, unsigned char fillUnusedCore);
 	void *rva006C25F0Run6(void *runBlock, int kind, int zero3, int zero2,
@@ -220,4 +225,66 @@ void GeneralAllocatorDebug::rva006C2AA0(unsigned char fillFree, unsigned char fi
 		}
 		rva00033E90(walk);
 	}
+}
+
+// Native 0x006C2010..0x006C209F (143B): six stack arguments, RET18,
+// backward ushort tag/length traversal bounded by the trailer extent; optional
+// copy and length output. Address-derived identity, no donor semantic name.
+void *GeneralAllocatorDebug::rva006C2010Run6(void *block, unsigned int size, unsigned short kind, void *dst, unsigned int capacity, unsigned int *outLen)
+{
+ char *end=(char *)block+size-2;
+ char *begin=end-*(unsigned short *)end;
+ if (begin >= (char *)block) {
+  while (end > begin) {
+   end-=2; unsigned short len=*(unsigned short *)end;
+   end-=2; unsigned short tag=*(unsigned short *)end;
+   end-=len;
+   if (tag==kind) {
+    if (dst) {
+     unsigned int n=capacity;
+     if (n>=len) n=len;
+     memcpy(dst,end,n);
+    }
+    if (outLen) *outLen=len;
+    return end;
+   }
+  }
+ }
+ if (outLen) *outLen=0;
+ return 0;
+}
+
+// Native 0x006C25F0..0x006C26E6 (246B): locked six-argument guard-run
+// provider for fill updates. Retail proves the mode gate at +67C, lookup bool
+// at +680 and hash view at +684; the existing validator and hash names remain
+// their owned address-derived linkage identities.
+void *GeneralAllocatorDebug::rva006C25F0Run6(void *block,int kind,int a3,int a4,unsigned int *outLen,int mode)
+{
+ Rva00030DD0Lock *lock=m_lock;
+ if(lock)Rva00030DD0AddRef(lock);
+ void *result=0;
+ if(((Rva006C1F60*)this)->rva006C1DC0((unsigned int)block)) {
+  int gate=mode;
+  if(mode==2) {
+   if((unsigned short)kind==0xB) goto edit;
+   gate=*(int *)((char *)this+0x67C);
+  }
+  if(!gate) {
+edit:
+   unsigned int h=*((unsigned int*)block-1);
+   unsigned int size;
+   if(!(h&2))size=(h&0x7FFFFFF8)+4;
+   else size=h&0x7FFFFFF8;
+   result=rva006C2010Run6(block,size-8,(unsigned short)kind,(void*)a3,a4,outLen);
+  } else if(*(bool *)((char *)this+0x680)) {
+   void *out=0;
+   if(((Rva006C1850*)((char*)this+0x684))->rva006C1850((unsigned int)block,&out)&&out) {
+    char *bytes=*(char**)out;
+    unsigned short len=*(unsigned short*)bytes;
+    if(len)result=rva006C2010Run6(bytes+2,len-2,(unsigned short)kind,(void*)a3,a4,outLen);
+   }
+  }
+ }
+ if(lock)Rva00030DF0Release(lock);
+ return result;
 }
