@@ -25654,7 +25654,7 @@ pin	reverse/symbols.csv	0x001F498A	1
 pin	reverse/symbols.csv	0x001F4B01	1
 pin	reverse/symbols.csv	0x001F4B63	1
 pin	reverse/symbols.csv	0x001F4D22	1
-pin	reverse/symbols.csv	0x001F4E2D	1	allow=ccba7318568b016427efbfaa209d02f2f2a2ed62
+pin	reverse/symbols.csv	0x001F4E2D	1
 pin	reverse/symbols.csv	0x001F50BC	1
 pin	reverse/symbols.csv	0x001F5B0A	3
 pin	reverse/symbols.csv	0x001F5B79	1
@@ -27932,7 +27932,6 @@ pin	reverse/symbols.csv	0x0031B031	1
 pin	reverse/symbols.csv	0x0031B0CE	1
 pin	reverse/symbols.csv	0x0031B134	1
 pin	reverse/symbols.csv	0x0031B4A8	1
-pin	reverse/symbols.csv	0x0031B641	1
 pin	reverse/symbols.csv	0x0031B892	1
 pin	reverse/symbols.csv	0x0031B9EB	3
 pin	reverse/symbols.csv	0x0031BA18	1
@@ -28323,6 +28322,7 @@ pin	reverse/symbols.csv	0x00342BAE	1
 pin	reverse/symbols.csv	0x0034301B	1
 pin	reverse/symbols.csv	0x00343042	1
 pin	reverse/symbols.csv	0x003430A3	1
+pin	reverse/symbols.csv	0x003438C7	1	allow=ec6dd14b5f24aba24b1fb52e5b4ec6a3d5f8c54b
 pin	reverse/symbols.csv	0x00343BC9	1
 pin	reverse/symbols.csv	0x00343DD8	1
 pin	reverse/symbols.csv	0x00344138	1
@@ -28334,6 +28334,7 @@ pin	reverse/symbols.csv	0x0034612C	2
 pin	reverse/symbols.csv	0x003468F5	1
 pin	reverse/symbols.csv	0x003469F5	1
 pin	reverse/symbols.csv	0x00346C53	1
+pin	reverse/symbols.csv	0x00346D17	1	allow=ec6dd14b5f24aba24b1fb52e5b4ec6a3d5f8c54b
 pin	reverse/symbols.csv	0x00346FA5	1
 pin	reverse/symbols.csv	0x00347225	1
 pin	reverse/symbols.csv	0x00347460	2
@@ -31145,10 +31146,10 @@ pin	reverse/symbols.csv	0x004F6BB3	1
 pin	reverse/symbols.csv	0x004F6BD8	2
 pin	reverse/symbols.csv	0x004F6C64	1
 pin	reverse/symbols.csv	0x004F6CDD	1
-pin	reverse/symbols.csv	0x004F6D2E	2	allow=0415922f3d3c0deb07d38c9e60ad1452315765e4
+pin	reverse/symbols.csv	0x004F6D2E	2
 pin	reverse/symbols.csv	0x004F6D4B	1
 pin	reverse/symbols.csv	0x004F6D66	1
-pin	reverse/symbols.csv	0x004F6E47	2	allow=0415922f3d3c0deb07d38c9e60ad1452315765e4
+pin	reverse/symbols.csv	0x004F6E47	2
 pin	reverse/symbols.csv	0x004F6EB1	1
 pin	reverse/symbols.csv	0x004F6F08	1
 pin	reverse/symbols.csv	0x004F6FE1	2
