@@ -1,7 +1,7 @@
 // ?drawViewBox@W3DRadar@@QAEXHHHHH@Z
 // partial score=0.9 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
-// Native [0004DBD5,0004DDBD),488B, RET20. BFME 2 W3DRadar::drawViewBox: the
+// Native [0004DBD5,0004DDBF),490B, RET20. BFME 2 W3DRadar::drawViewBox: the
 // ZH drawViewBox (W3DRadar.cpp) is the semantic guide - project the
 // tactical view origin to the terrain average Z (+0x1C), convert it to radar
 // cells over the map extent (+0x1434, 128 cells per side) and walk the stored
@@ -62,10 +62,11 @@ public:
 
 extern View *TheTacticalView;
 
+struct BfmePod8 { int fields[2]; };
 class RadarWindowOverrideSource
 {
 public:
-	void rva002D55D2(const Coord2D *corners);
+	void rva002D55D2(const BfmePod8 *corners);
 };
 
 extern RadarWindowOverrideSource *theRadarWindowOverrideSource;
@@ -141,5 +142,5 @@ void W3DRadar::drawViewBox(int pixelX, int pixelY, int width, int height, int un
 	corners[3] = ulRadar;
 
 	if (theRadarWindowOverrideSource)
-		theRadarWindowOverrideSource->rva002D55D2(corners);
+		theRadarWindowOverrideSource->rva002D55D2(reinterpret_cast<const BfmePod8*>(corners));
 }
