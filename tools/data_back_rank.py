@@ -325,11 +325,13 @@ def fold_of(address, export_folds, fold_list):
     return {"export_names": names, "rule": rule or None, "verdict": verdict, "label": label}
 
 
-def fold_report(entries, export_folds, fold_list, rows=None, back_of=None, other_of=None):
+def fold_report(entries, export_folds, fold_list, *, rows=None, back_of=None, other_of=None):
     """The data-fold summary: the addresses data-fold-1 excuses (measured: the
     referenced addresses, one per data_fold_list.csv row; else the export-proven
     candidates), the ledger addresses ranked here they cover, their rows and the
-    rows failing only data-back at them (status mode)."""
+    rows failing only data-back at them (status mode: rows, back_of and other_of
+    are refs_from_status's, by row index; keyword-only, so a per-row argument
+    can join them)."""
     if fold_list is None:
         canonical = covered = set(export_folds)
         source = "reverse/exports.csv: export-proven, linked datums unverified"
@@ -931,8 +933,8 @@ def build_report(args):
     fold_list = load_fold_list(args.folds) if args.folds else None
     for e in entries:
         e["fold"] = fold_of(int(e["address"], 16), export_folds, fold_list)
-    report["data_fold"] = fold_report(entries, export_folds, fold_list,
-                                      *((rows, back_of, other_of) if args.status else ()))
+    per_row = {"rows": rows, "back_of": back_of, "other_of": other_of} if args.status else {}
+    report["data_fold"] = fold_report(entries, export_folds, fold_list, **per_row)
     if want:
         entries = [e for e in entries if int(e["address"], 16) in want]
     for n, e in enumerate(entries):

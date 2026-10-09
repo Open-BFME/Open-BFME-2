@@ -83,10 +83,11 @@ fixes of research 29, 31 and the round-2 review:
      reaching A reaches a datum, all of one retail start, size and relocation
      layout; retail's extent is in .rdata; each datum is read-only initialized
      data in its object and in the linked image over its whole extent, a whole
-     COMDAT section of a foldable selection, all of one section name and
+     COMDAT section of selection ANY, all of one section name and
      characteristics; none fails on its own (bytes equal retail's, every
      relocation at retail's target) and all relocations reach the same linked
-     targets; and retail's export table names that start twice or more.
+     targets; and retail's export table names that start twice or more, every
+     name provably const data (const_data: retail's own immutability evidence).
      Without the export proof the address is an ICF candidate: counted, never
      excused. Series placed_{self,closed}_strict_data_fold; series.data_fold
      counts the addresses and references excused and the candidates.
@@ -135,8 +136,11 @@ TOOL_FILES = ("link_cycle.py", "link_census.py", "build.py")
 COMDAT, EXTERNAL, STATIC, WEAK = 0x1000, 2, 3, 105
 REL32, DIR32 = 0x14, 6
 CNT_CODE, INIT_DATA, MEM_EXECUTE, MEM_WRITE = 0x20, 0x40, 0x20000000, 0x80000000
-# COMDAT selections /OPT:ICF folds on their own: not 5 (associative), which goes with its parent
-FOLDABLE_SEL = (1, 2, 3, 4, 6)
+# COMDAT selections data-fold-1 admits as foldable by /OPT:ICF: 2 (ANY) only. Selections
+# 1 NODUPLICATES, 3 SAME_SIZE, 4 EXACT_MATCH and 6 LARGEST govern duplicate definitions of
+# ONE symbol and prove nothing about folding across names; 5 ASSOCIATIVE goes with its
+# parent. Admit another only with recorded MSVC 7.1 evidence that its ICF folds it.
+ICF_SELECTIONS = (2,)
 # Shadow rules: series published beside rules=link-cycle-2's, never in its credit.
 # data-fold-1 (Measure.fold_verdict): a data-back failure at a retail address
 # retail's ICF folded read-only data into is excused.
@@ -936,6 +940,61 @@ def retail_exports(path=None):
     return _RETAIL_EXPORTS[path]
 
 
+CONST_LITERALS = ("??_C@", "__real@", "__xmm@")      # string and float literals: const by construction
+_SIMPLE_TYPES = frozenset("CDEFGHIJKMNO")             # char .. long double
+_SIMPLE_TYPES2 = frozenset(("_N", "_J", "_K", "_W"))  # bool, __int64, unsigned __int64, wchar_t
+
+
+def _qualified_end(s, i):
+    """End of the qualified name at s[i:] (fragments `name@` or one-digit back
+    references, closed by `@`), or None. Templates and nested scopes are not parsed."""
+    n = 0
+    while i < len(s):
+        if s[i] == "@":
+            return i + 1 if n else None
+        if s[i].isdigit():
+            i += 1
+        else:
+            m = re.match(r"[A-Za-z_][A-Za-z0-9_]*@", s[i:])
+            if not m:
+                return None
+            i += m.end()
+        n += 1
+    return None
+
+
+def _type_end(s, i, depth=0):
+    """End of the MSVC data type encoded at s[i:], or None when this conservative
+    parser does not know it: simple types, enums (W4), classes (U V T) by plain
+    qualified name, pointers (P Q R S + cv + type)."""
+    if i >= len(s) or depth > 8:
+        return None
+    if s[i] in _SIMPLE_TYPES:
+        return i + 1
+    if s[i:i + 2] in _SIMPLE_TYPES2:
+        return i + 2
+    if s[i] in "PQRS":
+        return _type_end(s, i + 2, depth + 1) if i + 1 < len(s) and s[i + 1] in "ABCD" else None
+    if s[i] in "UVT":
+        return _qualified_end(s, i + 1)
+    if s[i:i + 2] == "W4":
+        return _qualified_end(s, i + 2)
+    return None
+
+
+def const_data(name):
+    """True only when an export name provably names const data: a compiler literal
+    (CONST_LITERALS), a vftable (??_7, storage class 6) or vbtable (??_8, 7) of
+    cv-class B, or a variable whose storage class (0-4: static member, global,
+    local static) is followed by a type this parser reads to the last character,
+    the cv-class: B (const) or D (const volatile), never A or C. Unparsed: False."""
+    if name.startswith(CONST_LITERALS) or re.match(r"\?\?_7.*@@6B|\?\?_8.*@@7B", name):
+        return True
+    if not name.startswith("?") or name.startswith("??") or name[-1] not in "BD":
+        return False
+    return any(_type_end(name, m.end()) == len(name) - 1 for m in re.finditer(r"@[0-4]", name))
+
+
 def export_folds(exports, rsecs):
     """{rva: names} of the data addresses retail's export table names twice or more:
     retail was linked /OPT:ICF and folded those read-only COMDATs into one (code
@@ -1446,19 +1505,22 @@ class Measure:
           - every linked address reaching rt reaches a datum (no stub, import or
             unmapped name), all of one retail start, size and relocation layout;
           - retail's datum extent lies in one retail .rdata section, initialized
-            data, not executable (retail's .rdata and .text headers both carry
-            MEM_WRITE, 0xC0000040 and 0xE0000020, so the name says read-only);
+            data, not executable. That is placement only: retail's headers say
+            .rdata and .text are writable (0xC0000040, 0xE0000020), and a name
+            proves no permission (/SECTION, /MERGE);
           - each datum's object section is read-only initialized data (not
             COMMON), and its whole extent in the linked image lies in a section
             that is initialized data, neither writable nor executable;
-          - each datum is a whole COMDAT section of a selection /OPT:ICF folds
-            (FOLDABLE_SEL: not associative), all of one section name and
+          - each datum is a whole COMDAT section of an admitted selection
+            (ICF_SELECTIONS: ANY only), all of one section name and
             characteristics, alignment included;
           - no datum fails on its own (bytes equal retail's over its extent, every
             relocation at retail's target) and every relocation of every datum
             reaches the same linked target: one identity, not only one layout;
           - retail's export table names the start twice or more (export_folds):
-            retail itself folded the address.
+            retail itself folded the address; and EVERY export name there is
+            provably const data (const_data): retail's immutability evidence for
+            this address, since several names may also alias one mutable object.
         An address meeting all but the export proof is an "icf candidate": counted,
         never excused. Judged once every reference is discovered and every datum
         judged."""
@@ -1469,8 +1531,9 @@ class Measure:
     @staticmethod
     def ro_extent(secs, a, size, retail=False):
         """[a, a+size) lies inside one section of `secs` (a SectionList with
-        characteristics) that is initialized data and not executable; a retail one
-        must be .rdata (its headers say writable), a linked one not writable."""
+        characteristics) that is initialized data and not executable; a linked one
+        not writable, a retail one .rdata (placement only: its headers say writable;
+        retail's immutability comes from const_data)."""
         s = secs.section_at(a) if hasattr(secs, "section_at") else None
         if s is None or s[3] is None or size <= 0 or a + size > s[1] + s[2]:
             return False
@@ -1504,7 +1567,7 @@ class Measure:
             if not self.ro_extent(self.isecs, key[0], key[2]):
                 return None, "linked datum not in read-only data"
         for _, n in nodes:
-            if not (n["flags"] & COMDAT and n.get("sel") in FOLDABLE_SEL and n.get("whole")):
+            if not (n["flags"] & COMDAT and n.get("sel") in ICF_SELECTIONS and n.get("whole")):
                 return None, "not a whole foldable COMDAT"
         if len({(n.get("secname"), n["flags"]) for _, n in nodes}) != 1:
             return None, "datums differ in section name or characteristics"
@@ -1513,9 +1576,11 @@ class Measure:
                 return None, "datum fails " + n["fails"][0].split(":")[0]
         if len({tuple(u32(self.I, key[0] + fo) for fo, _, _ in sorted(n["rels"])) for key, n in nodes}) != 1:
             return None, "relocation targets differ"
-        if start in self.folds:
-            return "export", "export-proven"
-        return None, "icf candidate"
+        if start not in self.folds:
+            return None, "icf candidate"
+        if not all(const_data(name) for name in self.folds[start]):
+            return None, "export alias not provably const"
+        return "export", "export-proven"
 
     def fold_excused(self, ref, allow):
         """data-fold-1 with the rules in `allow` excuses this reference's data-back
@@ -2398,6 +2463,7 @@ def fold_summary(m, excused):
     return {"rule": SHADOW_RULES[0],
             "series": {tag: sorted(allow) for tag, allow in FOLD_SERIES},
             "export_fold_addresses": len(m.folds),
+            "export_fold_const_addresses": sum(1 for ns in m.folds.values() if all(map(const_data, ns))),
             "data_back_addresses": len(back),
             "excused_addresses": sum(1 for r, _ in verdicts if r == "export"),
             "icf_candidate_addresses": sum(1 for r, w in verdicts if r is None and w == "icf candidate"),

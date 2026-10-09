@@ -988,6 +988,10 @@ def test_data_fold_refuses_an_export_proven_address_whose_duplicate_cannot_fold(
     associative COMDAT or another alignment is refused, export proof or not."""
     _assert_refused(*_fold_link(null_flags=RO), "not a whole foldable COMDAT")                # not a COMDAT
     _assert_refused(*_fold_link(null_sel=5), "not a whole foldable COMDAT")                   # associative
+    # review of 92101b66c1: SAME_SIZE (like NODUPLICATES, EXACT_MATCH, LARGEST) governs duplicates
+    # of ONE symbol and proves nothing about folding across names; only ANY is admitted
+    assert lc.ICF_SELECTIONS == (2,)
+    _assert_refused(*_fold_link(null_sel=3), "not a whole foldable COMDAT")
     _assert_refused(*_fold_link(null_flags=(RO & ~0x00F00000) | 0x00500000 | lc.COMDAT),     # ALIGN_16
                     "datums differ in section name or characteristics")
 
@@ -1011,6 +1015,42 @@ def test_data_fold_reads_the_linked_and_retail_section_permissions():
     m.rsecs = None
     m.fold_memo.clear()
     assert m.fold_verdict(0x3100)[0] is None
+
+
+MUTABLE_ALIAS = "?g_bfmeEmptyF9@@3PADA"                                 # char *: the pointer itself is mutable
+CONST_EXPORTS = ["??_C@_00CNPNBAHC@?$AA@", "__real@3f800000", NULLCHR, "?IS_DEFAULT@?$ModuleTag@$00@@2_NB",
+                 "?CATEGORY@?$CategoryModuleInfo@$01@FXParticleSystem@@2W4ModuleCategory@2@B",
+                 "??_7?$CategoryModuleTemplate@$00@FXParticleSystem@@6BModuleTemplate@1@@",
+                 "??_7CylinderEmissionVolumeInfo@FXParticleSystem@@6B@", "?g_Rva0107301CEmptyString@@3QBDB",
+                 "?TheVolatileConst@@3HD", "??_8X@@7B@"]
+
+
+def test_const_data_reads_the_mangled_cv_class_conservatively():
+    """Review of 92101b66c1: retail's .rdata header says writable (0xC0000040), so a
+    fold's immutability comes from its export names: the cv-class after the type is
+    B (const) or D (const volatile); literals and vftables are const by construction.
+    Anything the parser cannot read is not proven const."""
+    assert all(lc.const_data(n) for n in CONST_EXPORTS)
+    for name in (MUTABLE_ALIAS, "?TheWritableGlobalData@@3PAVGlobalData@@A",   # A: mutable
+                 "?x@@3HA", "?x@@3HC", "?x@@3PBDA",                            # volatile; mutable pointer to const
+                 "?f@@YAXXZ", "_plain_c_name", "??_R0?AVX@@@8",               # a function; unmangled; RTTI
+                 "?x@@3V?$A@H@@B"):                                             # a template class: not parsed
+        assert not lc.const_data(name), name
+
+
+def test_data_fold_needs_every_export_name_at_the_address_to_be_const_data():
+    """Review of 92101b66c1: several export names at one address may be an explicit
+    alias of a MUTABLE object. A mutable alias is refused; all-const names pass."""
+    m, recs, sh = _fold_link()
+    m.folds = {0x3100: sorted([NULLCHR, MUTABLE_ALIAS])}
+    _assert_refused(m, recs, sh, "export alias not provably const")
+    s = lc.fold_summary(m, {"data_fold": {}})
+    assert (s["export_fold_addresses"], s["export_fold_const_addresses"], s["excused_addresses"]) == (1, 0, 0)
+    m, recs, sh = _fold_link()
+    m.folds = {0x3100: sorted(CONST_EXPORTS)}
+    assert m.fold_verdict(0x3100) == ("export", "export-proven")
+    s = lc.fold_summary(m, {"data_fold": {}})
+    assert (s["export_fold_const_addresses"], s["excused_addresses"]) == (1, 1)
 
 
 def test_data_fold_without_export_proof_is_only_an_icf_candidate():
