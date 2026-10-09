@@ -1,6 +1,9 @@
 // cl: /DBFME_ASCII_DTOR_DECL /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /O1 /G7 /arch:SSE /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 #include <vector>
+#include <list>
+#include <map>
+#include <set>
 #include <new>
 #include "Common/BfmeAudioEventPrefix136.h"
 // WorldBuilder786370 multisound identity; native5A451..5A7BE. Previous bank
@@ -31,32 +34,130 @@ struct OwnedAudioInfoCopy : Rva0036CA00Str {
 };
 class BfmeStringTailRecord156 {public: AudioEventInfoRef m_eventInfo;unsigned m_weight;};
 struct AudioEventInfo { virtual ~AudioEventInfo();virtual int getNameKey()const;char pad04[0xc];float defaultPriority;char pad14[8];float defaultVolume;char pad20[0x20]; int m_lastSubsoundIndex; unsigned m_priority,m_type,m_control;
- char pad50[0x3c]; unsigned m_totalSubsoundWeight;
+ char pad50[0x3c]; unsigned m_totalSubsoundWeight; char pad90[0x20];int m_audioType;
+
  const _STL::vector<BfmeStringTailRecord156>&getSubsoundVector()const;
 };
 class AudioEventRTS { public:
- char pad0[8];AudioEventInfo *m_info;unsigned m_playingHandle;AudioEventRTS*m_multiSoundParent;int m_eventsBeforeReplay;char pad18[0x18];int m_viewType;
+ char pad0[8];AudioEventInfo *m_info;unsigned m_playingHandle;AudioEventRTS*m_multiSoundParent;int m_eventsBeforeReplay;
+ char pad18[0x18];int m_viewType;char pad34[0x16];bool m_localOverride;
+ bool m_loopRestart;char pad4C[3];bool m_startFlag;char pad50[2];bool m_immediate;char pad53[0x11];float m_delay;char pad68[0xc];int m_nextPlayPortion;
  const AudioEventInfo*getAudioEventInfo()const{return m_info;}
+ unsigned getSoundClass()const;void advanceNextPlayPortion();bool hasMoreLoops()const;
+ __forceinline float getDelay()const{return m_delay;}void rva002D9ADC();
 };
 inline AudioEventRTS *multisoundTarget(const BfmePoolRef10& ref) {
  return *reinterpret_cast<AudioEventRTS*const*>(&ref);
 }
 class GameMessageList;
 class GameMessage {public:void friend_setList(GameMessageList*);};
+class MilesMutexGuard {public:MilesMutexGuard(void*,int);~MilesMutexGuard();bool rva00041055();bool rva00041037(int);void*mutex;bool held;};
+class Rva001D9A00 {public:bool rva001D9A00();};
+class Rva001D98BD {public:int rva001D9781();};
+class AudioInfoNames {public:virtual ~AudioInfoNames();virtual const AsciiString&getAudioName()const;};
+class Weapon {public:void setLeechRangeActive(bool);};
+class FileStatus {public:virtual bool check(int);};
+struct PendingAudioFile {char pad0[0x44];FileStatus ready;char pad48[4];FileStatus failed;};
+class Rva00691110Handle {public:Rva00691110Handle(const Rva00691110Handle&);PendingAudioFile*target;};
+class Rva00691040Handle {public:Rva00691040Handle&operator=(const Rva00691040Handle&);private:void*target;};
+class Rva00690FF0Handle:public Rva00691110Handle {public:
+ __forceinline Rva00690FF0Handle(const Rva00690FF0Handle&x):Rva00691110Handle(x){}
+ ~Rva00690FF0Handle();
+ __forceinline operator const Rva00691040Handle&()const{return *reinterpret_cast<const Rva00691040Handle*>(this);}
+ bool isReady()const{return target ? target->ready.check(0):false;}
+ bool hasFailed()const{return target ? target->failed.check(0):false;}
+};
+struct Rva00051107AudioRequest {int kind;BfmePoolRef10 event;unsigned field08;Rva00690FF0Handle file;bool flag10,flag11,flag12,flag13,flag14;char pad15[3];};
+class Image;
+typedef _STL::map<unsigned,Image*> ResumeHandles;
 union Rva006AD590Slot {int m_asInt;float m_asFloat;};
 class Rva006AD590Entry {public:Rva006AD590Slot*find(int);char opaque[0x1c4];};
 class Rva003EF5DA {public:void rva003EF5DA(float);};
 class View {public:virtual void setAngle(float);};
+struct Rva0005E13CInner1;
+class Rva0005E13CHost {public:bool helper(const Rva0005E13CInner1*);};
+class Rva002D9BDC {public:void rva002D9BDC(float,float);};
+class AudioFileCache {public:Rva00690FF0Handle requestFile(const BfmePoolRef10&,int);};
+struct AudioSettings {char pad0[0xb4];int cacheThreshold;};
+extern float g_00DBA4FC;extern float g_Va00BBDA30;
 class MilesAudioManager {public:
+ virtual ~MilesAudioManager();
+ virtual void slot1();
+ virtual void slot2();
+ virtual void slot3();
+ virtual void slot4();
+ virtual void slot5();
+ virtual void slot6();
+ virtual void slot7();
+ virtual void slot8();
+ virtual void slot9();
+ virtual void slot10();
+ virtual void slot11();
+ virtual void slot12();
+ virtual void slot13();
+ virtual void slot14();
+ virtual void slot15();
+ virtual void slot16();
+ virtual void slot17();
+ virtual void slot18();
+ virtual void slot19();
+ virtual void slot20();
+ virtual void slot21();
+ virtual void slot22();
+ virtual void slot23();
+ virtual void slot24();
+ virtual void slot25();
+ virtual void slot26();
+ virtual void slot27();
+ virtual void slot28();
+ virtual void slot29();
+ virtual void slot30();
+ virtual void slot31();
+ virtual void slot32();
+ virtual void slot33();
+ virtual void slot34();
+ virtual void slot35();
+ virtual void slot36();
+ virtual void slot37();
+ virtual void slot38();
+ virtual void slot39();
+ virtual void slot40();
+ virtual void slot41();
+ virtual void slot42();
+ virtual void slot43();
+ virtual void slot44();
+ virtual void slot45();
+ virtual void slot46();
+ virtual void slot47();
+ virtual void slot48();
+ virtual void slot49();
+ virtual void slot50();
+ virtual void slot51();
+ virtual void slot52();
+ virtual void slot53();
+ virtual void slot54();
+ virtual void slot55();
+ virtual bool slot56(unsigned soundClass);
  int addResumeOrPushMultisound(AudioEventRTS*,int,int,int,int,int);
  BfmePoolRef10 rva0005286A(AudioEventRTS*,int);
  int pushMusicEventInternal(AudioEventRTS*,int,int,int);
  unsigned addOrResumeAudioEvent(AudioEventRTS*,int,int,int,int);
  void mapLogicalHandleToPhysicalHandle(unsigned,unsigned);
+ unsigned allocateNewHandle(){return m_nextHandle++;}
  unsigned rva0005933D(AudioEventRTS*,int);
  void rva000592B8(AudioEventRTS*);
- unsigned allocateNewHandle(){return m_nextHandle++;}
- char pad0[0xd0];unsigned m_nextHandle;char padD4[0xc];_STL::vector<BfmePod144> m_queued[3];char pad104[0x28];Rva006AD590Entry m_priority[3];
+ bool shouldPlayLocally(const AudioEventRTS*);
+ bool addAudioEventMusic(BfmePoolRef10&,int,int);
+ bool addAudioEventSound(BfmePoolRef10&,int,int);
+ void processRequest(Rva00051107AudioRequest*,bool*);
+ void deleteAudioRequest(void*);
+ Rva00051107AudioRequest*rva00051107();
+ char pad04[0xc];AudioSettings*settings;char pad14[0x98-0x14];_STL::list<Rva00051107AudioRequest*>requests;
+ char pad9C[0xd0-0x9c];unsigned m_nextHandle;
+ char padD4[0xc];_STL::vector<BfmePod144> m_queued[3];char pad104[0x28];Rva006AD590Entry m_priority[3];char pad678[0x698-0x678];unsigned activeViews;
+ char pad69C[0x18];unsigned flags6B4[3],flags6C0[3];char pad6CC[0x9d4-0x6cc];void*mutex;
+ char pad9D8[0xa14-0x9d8];_STL::set<AsciiString>mutedNames[3];
+ char padA38[0xb6c-0xa38];ResumeHandles resumeHandles;char padB78[0x14];AudioFileCache*fileCache;
 };
 class Rva002D9C2F {public:OpaqueRefElement4&rva002D9C2F(const OpaqueRefElement4&);};
 class Rva002D9AD4 {public:BfmePoolRef10&rva002D9AD4(const BfmePoolRef10&);};
@@ -191,4 +292,44 @@ void MilesAudioManager::rva000592B8(AudioEventRTS*event)
   reinterpret_cast<Rva003EF5DA*>(event)->rva003EF5DA(event->m_info->defaultPriority);
   reinterpret_cast<View*>(event)->View::setAngle(event->m_info->defaultVolume);
  }
+}
+
+// WB785260 names addAudioEventSound; native5D57B..5D734 RET12. Target
+// request layout and loops/delay/cache flows extend the ZH audio-request lead.
+bool MilesAudioManager::addAudioEventSound(BfmePoolRef10&event,int requestType,int append)
+{
+ if(requestType==2)return false;
+ bool available=reinterpret_cast<Rva0005E13CHost*>(this)->helper(reinterpret_cast<const Rva0005E13CInner1*>(multisoundTarget(event)));
+ if(!available) {
+  float firstDelay=multisoundTarget(event)->getDelay();
+  if(firstDelay<g_00DBA4FC && multisoundTarget(event)->hasMoreLoops()) {
+   multisoundTarget(event)->rva002D9ADC();
+   if(multisoundTarget(event)->hasMoreLoops()) {
+    multisoundTarget(event)->advanceNextPlayPortion();
+    multisoundTarget(event)->m_loopRestart=true;
+    reinterpret_cast<Rva002D9BDC*>(multisoundTarget(event))->rva002D9BDC(g_00DBA4FC+1.0f,g_Va00BBDA30);
+   }
+  }
+  float secondDelay=multisoundTarget(event)->getDelay();
+  if(!(secondDelay>=g_00DBA4FC) && !multisoundTarget(event)->hasMoreLoops())return false;
+ }
+ Rva00051107AudioRequest*request=rva00051107();
+ request->event=event;
+ request->kind=0;
+ if(requestType==1) {
+  multisoundTarget(request->event)->m_startFlag=false;
+  request->flag14=true;
+ }
+ unsigned affect=multisoundTarget(event)->getSoundClass();
+ if(flags6B4[multisoundTarget(event)->m_viewType]&affect)request->flag12=true;
+ if(flags6C0[multisoundTarget(event)->m_viewType]&affect)request->flag13=true;
+ if(multisoundTarget(event)->m_info->m_audioType==2 && available) {
+  if(multisoundTarget(event)->getDelay()<settings->cacheThreshold) {
+  int priority=!(multisoundTarget(event)->getDelay()>=g_00DBA4FC);
+  if(multisoundTarget(event)->m_immediate && multisoundTarget(event)->getDelay()<g_00DBA4FC)priority=2;
+  reinterpret_cast<Rva00691040Handle*>(&request->file)->operator=(fileCache->requestFile(event,priority));
+ }
+ }
+ if(!append)requests.push_front(request);else requests.push_back(request);
+ return true;
 }
