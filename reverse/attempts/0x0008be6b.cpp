@@ -1,12 +1,17 @@
 // ?setCameraTransform@W3DView@@AAEXXZ
+// partial score=0.8544709066123826 date=2026-10-09
+// ?setCameraTransform@W3DView@@AAEXXZ
 // partial score=0.7963344591043144 date=2026-10-09
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC
+// cl: /ICode/Libraries/Include/Lib /O1 /G7 /arch:SSE /DNDEBUG /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC
 // stlport
 // WB9886F0 names setCameraTransform; native8BE6B..8C224 supplies all BFME2 additions.
+#define _STLP_NO_EXCEPTIONS 1
 #include <vector>
 #define _OPERATOR_NEW_DEFINED_
 #include "matrix3d.h"
-struct Coord3D {float x,y,z;};
+#include "Coord3D.h"
+struct CameraPoint:public Coord3D {__forceinline CameraPoint(const Coord3D&p){x=p.x;y=p.y;z=p.z;}};
+static __forceinline float cameraClamp(float x,float low,float high){return low>x?low:(x>high?high:x);}
 class CameraClass {public:
  virtual void v000();
  virtual void v001();
@@ -30,17 +35,20 @@ class CameraClass {public:
  virtual void v019();
  virtual void v020();
  virtual void Set_Transform(const Matrix3D&);
- int refs;void Add_Ref(){++refs;}void Release_Ref(){if(--refs==0)v000();}
+ int refs;void Add_Ref(){refs++;}void Release_Ref(){refs--;if(refs==0)v000();}
  void Set_Clip_Planes(float,float);void Set_View_Plane(float,float);
 };
-template<class T>class RefCountPtr{T *pointer;public:RefCountPtr():pointer(0){} RefCountPtr(const RefCountPtr&p):pointer(p.pointer){if(pointer)pointer->Add_Ref();}~RefCountPtr(){if(pointer)pointer->Release_Ref();}bool isNull()const{return pointer==0;}};
-RefCountPtr<CameraClass> Rva000897C8(CameraClass*);
-class Rva0007D9B5Host{public:void rva0007D9B5(CameraClass*);};
-class Rva0007BB79Owner{public:RefCountPtr<CameraClass> rva0007BB79();};
-class Rva0007FD57Owner{public:RefCountPtr<CameraClass> rva0007FD57(CameraClass*);};
+struct Rva0008B689Element {CameraClass *pointer; Rva0008B689Element():pointer(0){} __forceinline Rva0008B689Element(const Rva0008B689Element&p):pointer(p.pointer){if(pointer)pointer->Add_Ref();} ~Rva0008B689Element(){if(pointer)pointer->Release_Ref();}bool isNull()const{return pointer==0;}};
+namespace _STL {template<> void vector<Rva0008B689Element>::push_back(const Rva0008B689Element&);}
+struct Rva0008B470 {Rva0008B689Element *start,*finish,*end;__forceinline Rva0008B470(const std::allocator<Rva0008B689Element>&a=std::allocator<Rva0008B689Element>()):start(0),finish(0),end(0){}~Rva0008B470();__forceinline void push_back(const Rva0008B689Element&p){reinterpret_cast<std::vector<Rva0008B689Element>*>(this)->push_back(p);}};
+Rva0008B689Element Rva000897C8(CameraClass*);
+class Rva0007D9B5Host{public:void rva0007D9B5(int);};
+class Rva0007BB79Owner{public:Rva0008B689Element rva0007BB79();};
+class Rva0007FD57Owner{public:Rva0008B689Element rva0007FD57(CameraClass*);};
 class Rva0007DA23ResourceManager;extern Rva0007DA23ResourceManager *Rva00DE1FF8Manager;
 extern void *W3DGCData00DE2000;
 class RenderObjClass;template<class T>class RefMultiListIterator;
+class Rva0006ED29 {public:void rva0006ED29(void*);};
 class RTS3DScene{public:RefMultiListIterator<RenderObjClass>*createLightsIterator();void destroyLightsIterator(RefMultiListIterator<RenderObjClass>*);};
 class W3DDisplay{public:static RTS3DScene*m_3DScene;};
 class BaseHeightMapRenderObjClass{public:
@@ -178,7 +186,7 @@ virtual void v130();
 virtual void v131();
 virtual void v132();
 virtual void v133();
-virtual void updateCenter(std::vector<RefCountPtr<CameraClass> >&,RefMultiListIterator<RenderObjClass>*);};
+virtual void updateCenter(std::vector<Rva0008B689Element >&,RefMultiListIterator<RenderObjClass>*);};
 extern BaseHeightMapRenderObjClass *TheTerrainRenderObject;
 class Rva00203B2BHost{public:void rva00203B2B();};class ScriptEngine;extern ScriptEngine *TheScriptEngine;
 class AudioManager{public:
@@ -211,20 +219,20 @@ class W3DView{void *vtable;char pad4[8];Coord3D position;char pad18[0x44-0x18];b
 };
 void W3DView::setCameraTransform(){
  moved=true;Matrix3D transform(1);
- camera->Set_Clip_Planes(10.0f,1800.0f*TheWritableGlobalData->clipMultiplier);
+ camera->Set_Clip_Planes(10.0f,1800.0f*(double)TheWritableGlobalData->clipMultiplier);
  if(!valid){buildCameraTransform(&transform);camera->Set_Transform(transform);calcCameraConstraints();}
- if(valid && constrain){Coord3D pos=position;pos.x=loX>pos.x?loX:(pos.x>hiX?hiX:pos.x);pos.y=loY>pos.y?loY:(pos.y>hiY?hiY:pos.y);position=pos;}
- camera->Set_View_Plane(TheWritableGlobalData->debug?TheWritableGlobalData->debugFov:fov,-1.0f);
+ if(valid && constrain){CameraPoint pos(position);float x=cameraClamp(pos.x,loX,hiX);float y=cameraClamp(pos.y,loY,hiY);pos.x=x;pos.y=y;position=pos;}
+ if(TheWritableGlobalData->debug)camera->Set_View_Plane(TheWritableGlobalData->debugFov,-1.0f);else camera->Set_View_Plane(fov,-1.0f);
  buildCameraTransform(&transform);
  if(mode==4)camera->Set_View_Plane(modeFov,-1.0f);
  if(TheWritableGlobalData->debug)transform.Rotate_Y(TheWritableGlobalData->debugAngle);
  camera->Set_Transform(transform);
  if(TheTerrainRenderObject){
-  RefMultiListIterator<RenderObjClass>*it=W3DDisplay::m_3DScene->createLightsIterator();std::vector<RefCountPtr<CameraClass> > cameras;
+  RefMultiListIterator<RenderObjClass>*it=W3DDisplay::m_3DScene->createLightsIterator();Rva0008B470 cameras;
   cameras.push_back(Rva000897C8(camera));
-  if(Rva00DE1FF8Manager){reinterpret_cast<Rva0007D9B5Host*>(Rva00DE1FF8Manager)->rva0007D9B5(camera);RefCountPtr<CameraClass> extra=reinterpret_cast<Rva0007BB79Owner*>(Rva00DE1FF8Manager)->rva0007BB79();if(!extra.isNull())cameras.push_back(extra);}
-  if(W3DGCData00DE2000){RefCountPtr<CameraClass> extra=reinterpret_cast<Rva0007FD57Owner*>(W3DGCData00DE2000)->rva0007FD57(camera);if(!extra.isNull())cameras.push_back(extra);}
-  TheTerrainRenderObject->updateCenter(cameras,it);if(it)W3DDisplay::m_3DScene->destroyLightsIterator(it);
+  if(Rva00DE1FF8Manager){reinterpret_cast<Rva0007D9B5Host*>(Rva00DE1FF8Manager)->rva0007D9B5((int)camera);Rva0008B689Element extra=reinterpret_cast<Rva0007BB79Owner*>(Rva00DE1FF8Manager)->rva0007BB79();if(!extra.isNull())cameras.push_back(extra);}
+  if(W3DGCData00DE2000){Rva0008B689Element extra=reinterpret_cast<Rva0007FD57Owner*>(W3DGCData00DE2000)->rva0007FD57(camera);if(!extra.isNull())cameras.push_back(extra);}
+  TheTerrainRenderObject->updateCenter(*reinterpret_cast<std::vector<Rva0008B689Element>*>(&cameras),it);if(it)reinterpret_cast<Rva0006ED29*>(W3DDisplay::m_3DScene)->rva0006ED29(it);
  }
  reinterpret_cast<Rva00203B2BHost*>(TheScriptEngine)->rva00203B2B();if(TheAudio)TheAudio->rva0008BE6BNotify();
 }
