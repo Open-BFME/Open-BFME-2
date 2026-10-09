@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /Oy- /GX /MD /DNDEBUG /Ireference/shims/bfme2_ascii
+// cl: /O1 /G7 /arch:SSE /GX /MD /DNDEBUG /Ireference/shims/bfme2_ascii
 // Native3B3AE2 full88B plus559-byte compressed selector table: action id4,
 // signed parameter count8, parameter pointer arrayC, parameter string10.
 // All cases and their target0/1/default come from retail table3B3B46.
@@ -6,7 +6,7 @@
 // lead: ZH Scripts.cpp ScriptAction parameter access; BF2 IDs are target facts.
 // Original getter name unknown. No full ScriptAction/Parameter layout inferred.
 #include "ascii_string.h"
-class Team; class Object; class Parameter;
+class AIGroup; class Team {public:void getTeamAsAIGroup(AIGroup *);}; class Object; class Parameter;
 class ScriptEngine {public: Team *getTeamNamed(AsciiString,bool); Object *getUnitNamed(Parameter *);};
 extern ScriptEngine *TheScriptEngine;
 struct Rva003B3AE2ParameterPrefix {unsigned int unknown[4]; AsciiString text;};
@@ -611,3 +611,35 @@ bool Rva003B3AE2ActionPrefix::rva003B2D03() const { switch(id) {
  case 571:
  case 572:
  return true; default: return false; } }
+
+// Native3B3D75: optional SequentialScript tracking for object or team actions.
+// Caller executeActions supplies two opaque arguments; downstream owned
+// ScriptTracker/AIGroup providers prove SequentialScript* and integer usage.
+// Object+258 yields AIUpdateInterface and its tracker at3D0. Borrowed views
+// avoid claiming the rest of either class layout. Original method name unknown.
+class SequentialScript;
+class ScriptTracker {public:void setCurScript(SequentialScript *,bool,int);};
+struct Rva003B3D75AIUpdateView {char unknown[0x3D0]; ScriptTracker tracker;};
+struct Rva003B3D75ObjectView {char unknown[0x258]; Rva003B3D75AIUpdateView *ai;};
+class AIGroup;
+class AI {public:AIGroup *createGroup();};
+extern AI *TheAI;
+class Rva0036E2A7 {public:void rva0036E2A7(SequentialScript *,int);};
+class ScriptAction {public:void rva003B3D75(void *,void *);};
+void ScriptAction::rva003B3D75(void *script,void *mode) {
+ const Rva003B3AE2ActionPrefix *view=reinterpret_cast<const Rva003B3AE2ActionPrefix *>(this);
+ if(!view->rva003B2D03())return;
+ if(view->rva003B2858()) {
+  Rva003B3D75ObjectView *obj=reinterpret_cast<Rva003B3D75ObjectView *>(view->rva003B2F2E());
+  if(obj && obj->ai)obj->ai->tracker.setCurScript(reinterpret_cast<SequentialScript *>(script),false,(int)mode);
+ } else if(view->rva003B2AAB()) {
+  if(view->getTeam()) {
+   AIGroup *group=TheAI->createGroup();
+   if(group) {
+    // Owned112B Team provider supplies the actual method identity/ABI.
+    view->getTeam()->getTeamAsAIGroup(group);
+    reinterpret_cast<Rva0036E2A7 *>(group)->rva0036E2A7(reinterpret_cast<SequentialScript *>(script),(int)mode);
+   }
+  }
+ }
+}
