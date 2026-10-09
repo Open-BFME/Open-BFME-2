@@ -32461,3 +32461,5 @@ _vp6_xprintf	0x001C4C90	610	landed	vp6-spec 001c4c90: retail selects the bitmap 
 Rva003BBCB3Set	0x003BBCB3	31	blocked	TheAudio slot wrapper: vtbl loaded into edx then arg in eax; ours swaps eax/edx in 7 source forms; whole 3BBB51/C81/CB3/CD2 glue family same wall (t=25 model=sonnet-5.5)
 ?cleanup@NestedAt0C@@QAEXXZ	0x003B70CA	116	partial	ours 109B vs 116: retail keeps the delete null test (test ebp,ebp) and loads m_records into edx before imul/lea; 12 source forms (rec expr x loop shape) all fold to the same; NestedAt2C twin 0x3B71E8 identical with BfmeNodeZ dtor 0x3B3F5E and release 0x3B71B4 score=0.9 stash=reverse/attempts/0x003b70ca.cpp
 ?rva003FB508@Rva003FB508@@QAEXPAVINI@@PAX@Z	0x003FB508	234	landed	add_match verified Code/GameEngine/Source/Common/System/Rva003FB508Parse.cpp 234B
+?Rva00136090MeshHold@@YA?AURva00136090MeshHolder@@PAVMeshModelClass@@@Z	0x00136090	90	landed	add_match verified Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMeshHolderHold.cpp 90B
+?Rva001007D5Hold@@YA?AURva001007D5Holder@@PAVRva001007D5Model@@@Z	0x001007D5	90	landed	add_match verified Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMeshHolderHold.cpp 90B
