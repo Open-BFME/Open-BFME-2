@@ -1,6 +1,19 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 #include <vector>
+// Reuse the non-owning x86 address word and its verified deque providers from
+// BfmeOwnerZKRelink.cpp. Here each word holds a node address, not ownership.
+struct BfmeScriptSlotAddress { unsigned int address; };
+namespace _STL {
+template<> struct __type_traits<BfmeScriptSlotAddress> : __type_traits_aux<1> {};
+}
+#include <deque>
+namespace _STL {
+// Keep the independently compiled base destructor as the selected provider.
+// Its definition in this unit would let MSVC remove the final unwind-state
+// update, although the native deep-copy bodies retain that update.
+template<> _Deque_base<BfmeScriptSlotAddress, allocator<BfmeScriptSlotAddress> >::~_Deque_base();
+}
 #include "ascii_string.h"
 
 // ?rva003B66D8@Rva003B573E@@QAEXH@Z @0x003B66D8 (131B): remove record at index
@@ -175,4 +188,60 @@ Rva003B8337Node *Rva003B573E::rva003B8337(int key)
 		return node;
 	}
 	return 0;
+}
+
+// The existing record-assignment provider's measured 0x14-byte view. Its
+// name remains address-derived; the WorldBuilder lead does not establish the
+// original template argument spelling for this retail instantiation.
+class Rva003B32E5
+{
+public:
+	Rva003B32E5 &operator=(const Rva003B32E5 &other);
+	int previous;
+	int next;
+	AsciiString name;
+	unsigned char released;
+	unsigned short references;
+	void *nodes;
+};
+
+// Native new(0x14), link at +0 and the verified pointer-copy constructor
+// 0x003B44AB establish this complete storage extent. Payload identity is not
+// inferred from the WorldBuilder ScriptGroup template name.
+class Rva003B44AB
+{
+public:
+	Rva003B44AB(const Rva003B44AB *other);
+	Rva003B44AB *next;
+	char payload[16];
+};
+
+void clearRva003B675BNodes(Rva003B675BRecord *record);
+
+// WorldBuilder AB33E0 supplies the ScriptSetBase<ScriptGroup>::deepCopy
+// algorithm: assign the record, collect its nodes, copy in reverse order,
+// and drain the destination on a throwing copy. Retail's complete extent is
+// 003B7FE0..003B80B8, including its catch and epilogue; the 171-byte Ghidra
+// fragment alone omits both. All provider names below already have verified
+// bodies. The local deque holds borrowed addresses of nodes.
+void rva003B7FE0(Rva003B32E5 *destination, const Rva003B32E5 *source)
+{
+	*destination = *source;
+	destination->nodes = 0;
+	_STL::deque<BfmeScriptSlotAddress> nodes;
+	BfmeScriptSlotAddress node;
+	node.address = reinterpret_cast<unsigned int>(source->nodes);
+	for (; node.address; node.address = reinterpret_cast<unsigned int>(reinterpret_cast<Rva003B44AB *>(node.address)->next))
+		nodes.push_back(node);
+	try {
+		while (!nodes.empty()) {
+			Rva003B44AB *copy = new Rva003B44AB(reinterpret_cast<const Rva003B44AB *>(nodes.back().address));
+			nodes.pop_back();
+			copy->next = static_cast<Rva003B44AB *>(destination->nodes);
+			destination->nodes = copy;
+		}
+	} catch (...) {
+		clearRva003B675BNodes(reinterpret_cast<Rva003B675BRecord *>(destination));
+		throw;
+	}
 }
