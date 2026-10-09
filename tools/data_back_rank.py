@@ -325,7 +325,7 @@ def fold_of(address, export_folds, fold_list):
     return {"export_names": names, "rule": rule or None, "verdict": verdict, "label": label}
 
 
-def fold_report(entries, export_folds, fold_list, *, rows=None, back_of=None, other_of=None):
+def fold_report(entries, export_folds, fold_list, *, rows=None, back_of=None, other_of=None, flags_of=None):
     """The data-fold summary: the addresses data-fold-1 excuses (measured: the
     referenced addresses, one per data_fold_list.csv row; else the export-proven
     candidates), the ledger addresses ranked here they cover, their rows and the
@@ -347,7 +347,11 @@ def fold_report(entries, export_folds, fold_list, *, rows=None, back_of=None, ot
             "ranked": [e["address"] for e in entries if int(e["address"], 16) in covered]}
     if rows is not None:
         hit = {i for i, b in enumerate(back_of) if b & covered}
-        clear = {i for i in hit if None not in back_of[i] and back_of[i] <= covered and not other_of[i]}
+        # A row with a data-back symbol counted at no address (unmapped, ambiguous, scope
+        # unknown) may fail somewhere unproven: never clear (row_unresolved).
+        unresolved = (lambda i: row_unresolved(flags_of[i])) if flags_of is not None else (lambda i: False)
+        clear = {i for i in hit if None not in back_of[i] and back_of[i] <= covered and not other_of[i]
+                 and not unresolved(i)}
         part.update(rows=len(hit), bytes=span_bytes(rows, hit), clear_rows=len(clear),
                     clear_bytes=span_bytes(rows, clear))
     out["export"] = part
@@ -933,7 +937,7 @@ def build_report(args):
     fold_list = load_fold_list(args.folds) if args.folds else None
     for e in entries:
         e["fold"] = fold_of(int(e["address"], 16), export_folds, fold_list)
-    per_row = {"rows": rows, "back_of": back_of, "other_of": other_of} if args.status else {}
+    per_row = {"rows": rows, "back_of": back_of, "other_of": other_of, "flags_of": flags_of} if args.status else {}
     report["data_fold"] = fold_report(entries, export_folds, fold_list, **per_row)
     if want:
         entries = [e for e in entries if int(e["address"], 16) in want]

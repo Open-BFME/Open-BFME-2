@@ -498,3 +498,23 @@ class Objects(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+
+
+def test_fold_report_never_clears_rows_with_unresolved_symbols():
+    """A row failing data-back only at an excused fold address is clear; one that
+    also carries an unmapped or ambiguous data-back symbol is not: its unresolved
+    failure may sit at an address the fold rule did not excuse."""
+    entries = [{"address": "0x007BAC1C"}]
+    folds = {0x7BAC1C: ["?TheNullChr@?1??str@?$StringBase@D@@QBEPBDXZ@4DB", "?IS_DEFAULT@X@@2_NB"]}
+    rows = [(0x1000, 100, "a", "A.cpp"), (0x2000, 100, "b", "B.cpp"), (0x3000, 100, "c", "C.cpp")]
+    back_of = [{0x7BAC1C}, {0x7BAC1C}, {0x7BAC1C}]
+    other_of = [set(), set(), set()]
+    flags_of = [set(), {dbr.UNMAPPED}, {dbr.AMBIGUOUS}]
+    part = dbr.fold_report(entries, folds, None, rows=rows, back_of=back_of, other_of=other_of,
+                           flags_of=flags_of)["export"]
+    assert (part["rows"], part["clear_rows"], part["clear_bytes"]) == (3, 1, 100), part
+    # without flags (fallback mode) nothing is held back
+    part = dbr.fold_report(entries, folds, None, rows=rows, back_of=back_of, other_of=other_of)["export"]
+    assert part["clear_rows"] == 3
