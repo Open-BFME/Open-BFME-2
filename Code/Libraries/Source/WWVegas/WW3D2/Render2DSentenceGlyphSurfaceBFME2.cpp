@@ -12,6 +12,8 @@ void __cdecl operator delete[](void *) throw();
 // Target class fields and complete COM surface and PendingSurface lifecycle match donor.
 // Owner from target sentence fields and proven adjacent allocator158C60.
 // Glyph record types and offset-pair type carried from reference source.
+// Retail's pending record installs the owned integer-vector table at
+// VA00BBB5AC; the donor pointer-vector instantiation names VA00BD6C24.
 
 class BfmeSurfaceResource
 {
