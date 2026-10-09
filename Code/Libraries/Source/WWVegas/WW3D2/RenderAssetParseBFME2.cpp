@@ -57,6 +57,8 @@ static bool UnMangleName(const char *mangledName,AsciiString &name,float &scale,
 }
 class Rva0013101E {
 public: Rva0013101E &rva0013101E(const Rva0013101E *);
+ AsciiString rva001360EA() const;
+ bool specialValue() const {return m_c != 0;}
  unsigned m_a:3,m_b:27,m_c:1,m_keep:1;unsigned m_d1,m_d2,m_d3;
 };
 class RenderObjClass;
@@ -74,4 +76,13 @@ RenderObjClass *Rva00137364CreateRenderObj(const char *name,float scale,const Rv
  Strings textures,replacements,excluded;
  if(name[0]=='#') UnMangleName(name,baseName,localScale,reinterpret_cast<RenderAssetOptions &>(options),textures,replacements,excluded);
  return Rva0013682BCreateRenderObj(baseName.str(),localScale,options,textures,replacements,excluded);
+}
+
+// Native1360EA..136164 option serialization; native bit30 chooses -1.
+AsciiString Rva0013101E::rva001360EA() const
+{
+ AsciiString text;
+ if(specialValue())text.format("%d&%d&%d&%d",-1,0,0,0);
+ else text.format("%d&%d&%d&%d",m_a,m_d1,m_d2,m_d3);
+ return text;
 }
