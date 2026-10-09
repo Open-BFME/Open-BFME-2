@@ -666,9 +666,15 @@ def claim_choice(candidates, label):
         rva = _candidate_rva(candidate)
         if rva is None:
             raise SystemExit("next_work: selected candidate has no claimable RVA")
-        acquired, refused = claims.claim([rva], note=f"next_work {label}")
+        try:
+            acquired, refused = claims.claim([rva], note=f"next_work {label}")
+        except claims.ClaimsUnavailable as error:
+            # AGENTS.md: network failure warns and keeps work available
+            print(f"next_work: {error}; serving 0x{rva:08X} without a shared claim",
+                  file=sys.stderr)
+            return candidate, list(error.claimed)
         if rva not in refused:
-            return candidate, acquired  # network failures warn and keep work available
+            return candidate, acquired
         remaining = without_busy(remaining, {rva})
     return None, []
 
@@ -1728,6 +1734,8 @@ def main():
     label, candidates = selected_queue(args.tier, drifts, structural, ghidra_absent,
                                        anchored, named, packets, similar_q, repair=repair, link=link,
                                        repair_turn=turn, wb=wb)
+    if args.claim:
+        claims.settle()    # release this checkout's landings origin/master now holds
     candidate, acquired = (claim_choice(candidates, label) if args.claim else
                            (weighted_choice(candidates) if candidates else None, []))
     deferred = sum(1 for c in candidates if c.get("deferred_attempts"))

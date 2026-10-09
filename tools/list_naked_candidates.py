@@ -379,7 +379,13 @@ def claim_choice(candidates):
     while remaining:
         selected, meta = select_candidate(remaining)
         rva = candidate_rva(selected)
-        acquired, refused = claims.claim([rva], note="naked conversion")
+        try:
+            acquired, refused = claims.claim([rva], note="naked conversion")
+        except claims.ClaimsUnavailable as error:
+            # AGENTS.md: network failure warns and keeps work available
+            print(f"list_naked_candidates: {error}; serving 0x{rva:08X} without a shared claim",
+                  file=sys.stderr)
+            return selected, meta, list(error.claimed)
         if rva not in refused:
             return selected, meta, acquired
         remaining = without_busy(remaining, {rva})
@@ -582,6 +588,7 @@ def main():
         return
     if not args.ranked:
         if args.claim:
+            claims.settle()    # release this checkout's landings origin/master now holds
             selected, meta, acquired = claim_choice(candidates)
         else:
             selected, meta = select_candidate(candidates)

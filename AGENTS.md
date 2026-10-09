@@ -153,8 +153,10 @@ release only its own claims.
 
 Claims are shared `refs/claims/0xRVA` on origin, expire after four hours, and
 do not change `master` publication. `python3 tools/claims.py list` shows current
-owners. A verified `add_match` or `add_match_batch` releases landed claims; run
-`python3 tools/claims.py release 0xRVA` for a banked, blocked or abandoned body.
+owners. A verified `add_match` or `add_match_batch` keeps the claim and queues
+the row; after your push, `python3 tools/claims.py release --landed` (the
+pickers' `--claim` also runs it) releases it once origin/master holds the row.
+Run `python3 tools/claims.py release 0xRVA` for a banked, blocked or abandoned body.
 Renew the claim before expiry when work lasts longer than four hours.
 Network failure warns and leaves work available without a shared claim.
 

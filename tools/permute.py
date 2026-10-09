@@ -1111,9 +1111,13 @@ def main(argv=None):
         else:
             wanted = [rva for _, _, rva, _ in items
                       if rva not in tried and int(rva, 16) not in busy][:args.next]
-        got, _refused = claims.claim([int(rva, 16) for rva in wanted], note="permute")
-        claimed = [f"0x{rva:08x}" for rva in got]
-        rvas = claimed if got or not wanted else wanted  # no network: run unclaimed
+        try:
+            got, _refused = claims.claim([int(rva, 16) for rva in wanted], note="permute")
+            claimed = rvas = [f"0x{rva:08x}" for rva in got]
+        except claims.ClaimsUnavailable as error:
+            print(f"permute: {error}; running unclaimed", file=sys.stderr)
+            claimed = [f"0x{rva:08x}" for rva in error.claimed]
+            rvas = wanted                               # no network: run unclaimed
     else:
         rvas = args.rvas or [rva for _, _, rva, _ in items[:args.top]]
     if not rvas:
@@ -1134,7 +1138,8 @@ def main(argv=None):
         if claimed:
             import claims
             # Every claim but a win's is released, even if the batch died;
-            # wins stay claimed until --land, where add_match releases them.
+            # wins stay claimed through --land (add_match queues them) until
+            # `claims.py release --landed` sees their rows on origin/master.
             claims.release([int(rva, 16) for rva in claimed if rva not in won])
     print(f"permute: {wins} of {len(rvas)} closed exactly")
     return 0

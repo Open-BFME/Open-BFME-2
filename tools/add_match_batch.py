@@ -218,6 +218,7 @@ def main():
         export_rva = add_match.lookup_export_rva(root, c["name"])
         line = (f"{c['name']},{export_rva},0x{c['rva']:08X},{c['size']},"
                 f"{c['source']},matched,{c['notes']}")
+        c["row"] = line
         appended.write(line.encode("utf-8") + eol)
     functions_csv.write_bytes(new_raw + appended.getvalue())
 
@@ -247,13 +248,26 @@ def main():
         add_match.remove_stash(c["rva"], root)
     add_match.record_landings(root, [(c["name"], c["rva"], c["size"], c["source"], c["notes"])
                                      for c in claims])
-    if root == DEFAULT_ROOT.resolve() and os.environ.get("BFME_CLAIMS", "on") != "off":
-        try:
-            import claims as shared_claims
-            shared_claims.release([c["rva"] for c in claims], force=True)
-        except Exception as error:  # advisory; the refs expire on their own
-            print(f"add_match_batch: could not release shared claims: {error}",
-                  file=sys.stderr)
+    # Verified is not landed: keep every claim and queue each exact row, as
+    # add_match does; `claims.py release --landed` releases them once
+    # origin/master holds the rows. A test-only --root never queues.
+    if os.environ.get("BFME_CLAIMS", "on") != "off" and root == DEFAULT_ROOT.resolve():
+        import claims as shared_claims
+        who = shared_claims.owner(root)
+        deps = {}                       # one dependency scan per source
+        for c in claims:
+            if c["source"] not in deps:
+                try:
+                    found, truncated = shared_claims.landing_deps(c["source"], root)
+                except Exception as error:  # noqa: BLE001 -- queue_landed rescans and reports
+                    print(f"add_match_batch: dependency scan failed for {c['source']}: {error}",
+                          file=sys.stderr)
+                    found, truncated = None, True
+                deps[c["source"]] = None if truncated else found
+            shared_claims.queue_landed(c["rva"], c["row"], who=who, root=root,
+                                       deps=deps[c["source"]])
+        print(f"add_match_batch: {len(claims)} claim(s) kept until the rows are on "
+              "origin/master; after your push run `python3 tools/claims.py release --landed`")
 
 
 if __name__ == "__main__":

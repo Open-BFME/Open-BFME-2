@@ -1680,7 +1680,12 @@ def do_land(args):
     entry = find_entry(served, args.source, near=near_candidates(payload, include_held=True))
     wanted = ("T1", "T2", "T3") if args.allow_icf else ("T1", "T2")
     rvas = [body["bfme2_rva"] for body in entry["bodies"] if body["tier"] in wanted]
-    acquired, refused = shared_claims.claim(rvas, note=f"BFME1 donor {entry['source']}")
+    try:
+        acquired, refused = shared_claims.claim(rvas, note=f"BFME1 donor {entry['source']}")
+    except shared_claims.ClaimsUnavailable as error:
+        # AGENTS.md: network failure warns and keeps work available
+        print(f"bfme1_sweep: {error}; landing without a shared claim", file=sys.stderr)
+        acquired, refused = list(error.claimed), []
     if refused:
         if acquired:
             shared_claims.release(acquired)
@@ -1690,7 +1695,9 @@ def do_land(args):
         return _do_land(args, entry=entry)
     finally:
         if acquired:
-            shared_claims.release(acquired)
+            # add_match queued every body it verified: those stay claimed
+            # until origin/master holds their rows; the rest are released now.
+            shared_claims.settle(acquired)
 
 
 def _do_land(args, entry=None):

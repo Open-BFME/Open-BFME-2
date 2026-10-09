@@ -520,17 +520,21 @@ def main():
     print("add_match: verified OK — row is live")
     remove_stash(rva, args.root)
     record_landing(root, args.name, rva, size, source_rel, args.notes)
-    if root == DEFAULT_ROOT.resolve() and os.environ.get("BFME_CLAIMS", "on") != "off":
-        # Verification has landed this body; a worker no longer needs its
-        # shared work claim. A test-only --root must never touch origin.
-        try:
-            import claims
+    # Verified HERE is not landed: the commit may never be pushed, or be
+    # rejected, and AGENTS.md batches pushes. Releasing now (force, anyone's
+    # claim -- the old behaviour) let another worker take a body whose
+    # conversion was still unpublished. Queue the exact row; `claims.py release
+    # --landed` (the pickers' --claim runs it) releases the claim once
+    # origin/master holds that row, and an unsettled claim simply expires.
+    # A test-only --root never queues against the live checkout.
+    if os.environ.get("BFME_CLAIMS", "on") != "off" and root == DEFAULT_ROOT.resolve():
+        import claims
 
-            claims.release([rva], force=True)
-        except Exception as error:  # advisory; the ref expires on its own
-            print(
-                f"add_match: could not release shared claim: {error}", file=sys.stderr
-            )
+        claims.queue_landed(rva, ledger_row, root=root)
+        print(
+            "add_match: claim kept until the row is on origin/master; after your push run "
+            "`python3 tools/claims.py release --landed`"
+        )
 
 
 if __name__ == "__main__":
