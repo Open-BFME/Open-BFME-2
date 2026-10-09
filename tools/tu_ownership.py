@@ -10,6 +10,9 @@ Rules (each finding carries its rule id):
   A3  new row        a commit adds a row for an address with an approved TU in a
                      file other than that TU. Separate id so it can be promoted on
                      its own measurements; a moved row is A2, not A3.
+                     The approved TU is the address's tu_map.csv row (unconverted
+                     functions have rows too), or for an address with no row,
+                     contiguity with its approved brackets (tu_map.tu_at).
   A4  second body    a staged source gains an out-of-line `Class::method(`
                      definition while every matched ledger row of that symbol is
                      owned by another file (two definitions of one retail function;
@@ -110,6 +113,7 @@ def check_ledger(base, new, d, tumap):
     gone = {(r["rva"], r["source"]) for r in rem}
     was = {r["rva"]: r for r in rem}
     out = []
+    index = tu_map.code_index(tumap) if add else None
     for r in add:
         if "gen-alias" in r["notes"]:
             continue
@@ -124,11 +128,11 @@ def check_ledger(base, new, d, tumap):
                 out.append(("A1", f"0x{r['rva']:08X} {r['name']}: second row in {r['source']}; "
                                   f"owned by {owners[0]['source']}"))
                 continue
-        tus = [t for t in tumap.get(r["rva"], ()) if t["confidence"] == "approved" and t["kind"].startswith("code")]
-        if tus and r["source"].lower() != tus[0]["tu"].lower():
+        t = tu_map.tu_at(tumap, r["rva"], index)     # an address with no map row: C from its brackets
+        if t and t["confidence"] == "approved" and r["source"].lower() != t["tu"].lower():
             rule = "A2" if prior else "A3"
             out.append((rule, f"0x{r['rva']:08X} {r['name']}: {'moved' if prior else 'added'} to {r['source']}; "
-                              f"approved TU is {tus[0]['tu']} ({tus[0]['by']})"))
+                              f"approved TU is {t['tu']} ({t['by']})"))
     return out
 
 

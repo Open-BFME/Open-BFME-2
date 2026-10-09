@@ -59,6 +59,22 @@ def test_dest_takes_ea_file_evidence_first(tmp_path):
     assert got == {"dest": "game/GameEngine/Source/Snapshot.cpp", "basis": "EA source-file evidence (zh)"}
 
 
+def test_dest_routes_to_the_approved_tu_before_neighbouring_files(tmp_path):
+    rq, _, _ = load(tmp_path, "bfme2", LEDGER, [
+        ("reverse/tu_map.csv",
+         "rva,size,kind,tu,confidence,by,evidence,source\n"
+         "0x00001000,64,code,Code/GameEngine/Locomotor.cpp,approved,Z,,Code/GameEngine/Loco.cpp\n"
+         "0x00001040,64,code-unledgered,Code/GameEngine/Locomotor.cpp,approved,C,,\n"
+         "0x00001080,64,code,Code/GameEngine/Locomotor.cpp,approved,Z,,Code/GameEngine/Loco.cpp\n"
+         "0x00002000,32,code,Code/GameEngine/Body.cpp,proposed,N,,Code/GameEngine/Body.cpp\n")])
+    got = rq.dest_tu(0x1040)                                                     # an unconverted function's row
+    assert got["dest"] == "Code/GameEngine/Locomotor.cpp"
+    assert got["basis"] == "approved TU in tu_map.csv (by C; the file does not exist yet: create it)"
+    assert rq.dest_tu(0x1060)["dest"] == "Code/GameEngine/Locomotor.cpp"         # no row: bracketed
+    got = rq.dest_tu(0x1F00)                                                     # proposed only: neighbours
+    assert got["dest"] == "Code/GameEngine/Body.cpp" and "nearest neighbour" in got["basis"]
+
+
 def test_bfme2_gate_debt_items_and_pass_test(tmp_path):
     rq, rev, _ = load(tmp_path, "bfme2", LEDGER, [
         ("reverse/gate_baseline.txt", "# header\ntail 0x00001000 ?a@Loco@@QAEXXZ\nstrnul 0x00002000 ?c@Body@@QAEXXZ\n")])

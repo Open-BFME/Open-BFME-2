@@ -26,11 +26,29 @@ N, and header-inline bodies (??_G, friend_new*, *ModuleData ctors) are emitted a
 COMDATs in whichever TU used them first. A naming hint outside its TU's main
 address cluster is therefore `displaced`, never assigned.
 
+Unconverted functions are mapped too. Every function start in
+ghidra_functions.csv without a ledger row is a `code-unledgered` row with an
+empty `source`; generated placeholder rows (gen_small, gen_asm) keep their
+ledger source but carry no usable name. Neither has a name to read, so only the
+name-free signals reach them: F (the body pushes a `__FILE__` path) and C (it
+sits in a run bracketed by one TU). That is the routing table for new work:
+tools/tu_ownership.py (A2/A3) and `tools/repair_queue.py dest` read the
+approved TU of an address before anything is converted there. An address with
+no row at all (a body Ghidra never split out) gets the same C test from
+`tu_at()`; nothing else is inferred for it. The EH funclets linked after all
+of .text (`.text$x`, about a third of Ghidra's functions) have neither signal
+and stay unmapped.
+
 Confidence:
   approved  the TU's main cluster holds at least one F/Z/S anchor, the row is
             assigned by F/Z/S/N or bracketed (C) by approved rows, and no row
-            approved for a different TU sits inside the TU's address span
-            (a TU that is not contiguous in retail is not trusted).
+            that could be approved for a different TU sits inside the TU's
+            address span (a TU that is not contiguous in retail is not
+            trusted). A row "could be approved" when its TU is anchored and it
+            is assigned by F/Z/S/N/C; a K row, or a row of a TU no F/Z/S
+            anchors (a naming hint for a class this repo named, alone), never
+            can, so it does not break its host's span. A run of C rows is
+            approved exactly when the two rows that bracket the whole run are.
   proposed  assigned, but by N/K only, by brackets that are not approved, or in
             a non-contiguous span. The queue for investigation.
   displaced a naming hint sat outside its TU's cluster (COMDAT pile).
@@ -316,12 +334,15 @@ def build(layout):
         lo, hi = lo_hi.get(k, (r["rva"], r["rva"]))
         lo_hi[k] = (min(lo, r["rva"]), max(hi, r["rva"]))
     idx = [r["rva"] for r in assigned]
+    roots = {find(k) for k in anchored if k in parent}
+    # Only a row that could be approved contradicts a span: one of an anchored TU,
+    # assigned by F/Z/S/N/C. A K row or an unanchored TU's naming hint never can.
     broken = set()
     for k, (lo, hi) in lo_hi.items():
         i, j = bisect.bisect_left(idx, lo), bisect.bisect_right(idx, hi)
-        if any(x["A"].lower() != k for x in assigned[i:j]):
+        if any(x["A"].lower() != k and x["A"].lower() in roots and x["by"] in "FZSNC"
+               for x in assigned[i:j]):
             broken.add(k)
-    roots = {find(k) for k in anchored if k in parent}
     for r in rows:
         k = r["A"].lower() if r["A"] else None
         if not k:
@@ -329,12 +350,19 @@ def build(layout):
             continue
         ok = k in roots and k not in broken and r["by"] in "FZSN"
         r["conf"] = "approved" if ok and r["by"] else "proposed"
-    for _ in range(3):   # C rows inherit approval only from two approved brackets
-        for r in rows:
+    # C rows inherit approval only from two approved brackets. Within a run the
+    # upper bracket is the next C row up, so walk down from the top until the
+    # whole run resolves to its two ends (a fixed pass count left long runs
+    # half-approved).
+    changed = True
+    while changed:
+        changed = False
+        for r in reversed(rows):
             if r["by"] == "C" and r["conf"] == "proposed":
                 a, b = r["Cvia"]
                 if a["conf"] == b["conf"] == "approved" and r["A"].lower() not in broken:
                     r["conf"] = "approved"
+                    changed = True
 
     out = []
     for r in rows:
@@ -403,6 +431,38 @@ def load(root=ROOT):
     for r in read_csv(Layout(root).out):
         m[int(r["rva"], 16)].append(r)
     return m
+
+
+def code_index(m):
+    """(sorted rvas, rows) of the assigned code rows of a load() map: tu_at's brackets."""
+    got = sorted(((rva, r) for rva, rs in m.items() for r in rs
+                  if r["kind"].startswith("code") and r["tu"] and r["confidence"] in ("approved", "proposed")),
+                 key=lambda x: x[0])
+    return [x[0] for x in got], [x[1] for x in got]
+
+
+def tu_at(m, rva, index=None):
+    """The code row of `m` (a load() map) for RVA, or None.
+
+    An address the map has a code row for gets that row, whatever its
+    confidence. An address with no row (a body Ghidra never split out, or one
+    inside a merged Ghidra range) gets C on the same terms as an unledgered
+    function: the nearest assigned code rows below and above name one TU and
+    start within GAP of each other; approved only when both brackets are.
+    """
+    for r in m.get(rva, ()):
+        if r["kind"].startswith("code"):
+            return r
+    starts, rows = code_index(m) if index is None else index
+    i = bisect.bisect_left(starts, rva)
+    if i == 0 or i >= len(starts):
+        return None
+    lo, hi, a, b = starts[i - 1], starts[i], rows[i - 1], rows[i]
+    if a["tu"].lower() != b["tu"].lower() or hi - lo > GAP:
+        return None
+    conf = "approved" if a["confidence"] == b["confidence"] == "approved" else "proposed"
+    return {"rva": f"0x{rva:08X}", "size": "", "kind": "code-inferred", "tu": a["tu"], "confidence": conf,
+            "by": "C", "evidence": f"C=0x{lo:08X}..0x{hi:08X}", "source": ""}
 
 
 def summary(out, prefix=None):

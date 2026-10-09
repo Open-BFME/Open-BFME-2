@@ -104,6 +104,76 @@ def test_noncontiguous_tu_is_not_approved(tmp_path):
     assert out[0x1000]["confidence"] == "proposed" and "noncontiguous" in out[0x1000]["evidence"]
 
 
+# ---------------------------------------------------------------- unconverted functions
+@pytest.fixture
+def unconverted(tmp_path):
+    """Retail functions with no ledger row, between and beside named anchors."""
+    zh = tmp_path / "reference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/X"
+    zh.mkdir(parents=True)
+    (zh / "Foo.cpp").write_text("void Foo::a()\n{\n}\nvoid Foo::b()\n{\n}\n")
+    (zh / "Host.cpp").write_text("void Host::f()\n{\n}\nvoid Host::g()\n{\n}\n")
+    (tmp_path / "reverse").mkdir()
+    (tmp_path / "reverse/functions.csv").write_text(HEADER + "".join([
+        row("?a@Foo@@QAEXXZ", 0x1000, 16, "Code/X/FooA.cpp"),
+        row("?b@Foo@@QAEXXZ", 0x1100, 16, "Code/X/FooB.cpp"),
+        row("?f@Host@@QAEXXZ", 0x8000, 16, "Code/X/HostF.cpp"),
+        row("?bfmeGo@BfmeThingQQ@@QAEXXZ", 0x9000, 16, "Code/X/BfmeThingQQ.cpp"),  # N only, no anchor
+        row("?g@Host@@QAEXXZ", 0xA800, 16, "Code/X/HostG.cpp"),        # host span > UNION_SPAN
+    ]))
+    ghidra = [0x1020, 0x1040, 0x1060, 0x1080, 0x10A0, 0x5000, 0x8040, 0x9800]
+    (tmp_path / "reverse/ghidra_functions.csv").write_text(
+        "rva,size,name\n" + "".join(f"0x{g:X},16,FUN_{g:X}\n" for g in ghidra))
+    (tmp_path / "reverse/string_xrefs.tsv").write_text("C:\\bfme2\\Code\\X\\Bar.cpp\t0x5004\n")
+    return {int(r["rva"], 16): r for r in tu_map.build(tu_map.Layout(tmp_path))}
+
+
+def test_unledgered_run_between_approved_anchors_is_approved_whole(unconverted):
+    for rva in (0x1020, 0x1040, 0x1060, 0x1080, 0x10A0):   # five, more than the old three passes reached
+        r = unconverted[rva]
+        assert (r["kind"], r["source"], r["by"], r["tu"], r["confidence"]) == \
+            ("code-unledgered", "", "C", "Code/X/Foo.cpp", "approved"), hex(rva)
+        assert r["evidence"].startswith("C=0x00001000..")
+
+
+def test_unledgered_function_with_a_file_string_is_its_tu(unconverted):
+    r = unconverted[0x5000]
+    assert (r["kind"], r["source"], r["by"], r["tu"]) == ("code-unledgered", "", "F", "Code/X/Bar.cpp")
+    assert r["confidence"] == "approved"
+
+
+def test_unanchored_naming_hint_does_not_break_its_host_span(unconverted):
+    assert unconverted[0x8000]["confidence"] == "approved"
+    assert "noncontiguous" not in unconverted[0x8000]["evidence"]
+    hint = unconverted[0x9000]
+    assert hint["tu"] == "Code/X/BfmeThingQQ.cpp" and hint["confidence"] == "proposed"
+    # the unledgered functions either side of it are bracketed by different TUs: no TU
+    assert 0x8040 not in unconverted and 0x9800 not in unconverted
+
+
+def test_map_with_unconverted_rows_is_deterministic(tmp_path, unconverted):
+    layout = tu_map.Layout(tmp_path)
+    assert tu_map.render(tu_map.build(layout)) == tu_map.render(tu_map.build(layout))
+
+
+def _code(tu, conf):
+    return {"kind": "code", "tu": tu, "confidence": conf, "by": "Z", "evidence": "", "source": ""}
+
+
+def test_tu_at_infers_c_only_between_one_tus_brackets():
+    m = {0x1000: [_code("Code/A.cpp", "approved")], 0x2000: [_code("Code/A.cpp", "approved")],
+         0x2100: [_code("Code/B.cpp", "approved")], 0x9000: [_code("Code/B.cpp", "approved")],
+         0xA000: [_code("Code/C.cpp", "approved")], 0xA100: [_code("Code/C.cpp", "proposed")]}
+    got = tu_map.tu_at(m, 0x1800)
+    assert (got["tu"], got["confidence"], got["by"], got["kind"], got["source"]) == \
+        ("Code/A.cpp", "approved", "C", "code-inferred", "")
+    assert tu_map.tu_at(m, 0x1000) is m[0x1000][0]            # a row wins as it stands
+    assert tu_map.tu_at(m, 0x2050) is None                    # A below, B above
+    assert tu_map.tu_at(m, 0x5000) is None                    # B..B but further apart than GAP
+    assert tu_map.tu_at(m, 0x0800) is None                    # nothing below
+    assert tu_map.tu_at(m, 0xA080)["confidence"] == "proposed"
+    assert tu_map.tu_at({}, 0x1800) is None
+
+
 # ---------------------------------------------------------------- skeleton
 def test_chunks_keep_comments_and_ignore_braces_in_literals():
     text = ('#include "a.h"\n// lead comment\nstruct S { int a; };\n'
@@ -128,6 +198,22 @@ def test_compose_dedupes_declarations_and_marks_placeholders():
     assert out.count('#include "x.h"') == 1 and out.count("class A") == 1
     assert out.index("void A::f()") < out.index("0x00001010") < out.index("void A::g()")
     assert "tu-skeleton: 0x00001010 8B (unledgered) -- unmatched, no code, never credited" in out
+
+
+def test_generated_placeholder_file_is_never_a_donor(tmp_path, monkeypatch):
+    (tmp_path / "reverse").mkdir()
+    (tmp_path / "reverse/functions.csv").write_text(HEADER + row("?f@A@@QAEXXZ", 0x1000, 16, "Code/X/Af.cpp")
+                                                    + row("uw_00001010", 0x1010, 11, "Code/gen_small/uw_gen_001.cpp"))
+    (tmp_path / "reverse/tu_map.csv").write_text(
+        "rva,size,kind,tu,confidence,by,evidence,source\n"
+        "0x00001000,16,code,Code/X/A.cpp,approved,Z,,Code/X/Af.cpp\n"
+        "0x00001010,11,code,Code/X/A.cpp,approved,C,,Code/gen_small/uw_gen_001.cpp\n")
+    monkeypatch.setattr(tu_skeleton, "LAYOUT", tu_map.Layout(tmp_path))
+    monkeypatch.setattr(tu_skeleton, "LEDGER", tmp_path / "reverse/functions.csv")
+    sk = tu_skeleton.skeleton("Code/X/A.cpp")
+    assert len(sk) == 2
+    don, mixed = tu_skeleton.donors("Code/X/A.cpp", sk)
+    assert set(don) == {"Code/X/Af.cpp"} and not mixed
 
 
 def test_repoint_moves_only_absorbed_donor_rows_and_keeps_terminators():
@@ -200,6 +286,15 @@ def test_a3_new_row_outside_approved_tu(repo):
 
 def test_a3_new_row_in_its_tu_passes(repo):
     ledger_add(repo, row("?h@Foo@@QAEXXZ", 0x1020, 16, "Code/X/Foo.cpp"))
+    assert staged(repo) == set()
+
+
+def test_a3_covers_an_address_with_no_map_row_by_its_brackets(repo):
+    # 0x1008 has no tu_map row; 0x1000 and 0x1010 are both approved for Foo.cpp
+    ledger_add(repo, row("?k@Foo@@QAEXXZ", 0x1008, 8, "Code/X/FooK.cpp"))
+    assert staged(repo) == {"A3"}
+    p = repo / "reverse/functions.csv"
+    p.write_text(p.read_text().replace(",Code/X/FooK.cpp,", ",Code/X/Foo.cpp,"))
     assert staged(repo) == set()
 
 

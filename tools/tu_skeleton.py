@@ -244,8 +244,11 @@ def donors(tu, sk):
     by_file = collections.defaultdict(list)
     for r in rows:
         by_file[r["source"]].append(r)
+    # Unconverted rows are approved too now; a generated or dump file (gen_uw.py owns
+    # gen_small end to end) is a placeholder for the address, never a donor to absorb.
     cands = {led["source"] for t, led in sk
-             if led and led["status"] == "matched" and led["source"].endswith(".cpp")}
+             if led and led["status"] == "matched" and led["source"].endswith(".cpp")
+             and not re.search(r"/(gen_small|gen_asm|masm_dumps)/", led["source"])}
     if by_file.get(tu):
         cands.add(tu)
     out, mixed = {}, {}

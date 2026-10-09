@@ -34,8 +34,9 @@ tools/next_work.py serves these as tiers; this module builds them.
           The output names the source used and the commit it describes; with
           neither, `link` says so and exits 1.
   dest    for a NEW match: the translation unit the row belongs in. EA evidence of
-          the source file first (BFME1 ea_evidence.csv `file` rows), then address
-          contiguity: the unit both neighbouring rows come from, else the nearest
+          the source file first (BFME1 ea_evidence.csv `file` rows), then the
+          address's approved TU in tu_map.csv (the one tu_ownership A3 checks), then
+          address contiguity: the unit both neighbouring rows come from, else the nearest
           neighbour's unit within DEST_WINDOW. Generated, dump and address-named
           one-function files are never offered; with no known neighbour the answer
           says so instead of inviting a fresh one-function file.
@@ -489,6 +490,16 @@ def file_evidence():
     return out
 
 
+@lru_cache(maxsize=1)
+def tu_routes():
+    """tools/tu_map.py's map and its bracket index; imported here, not at the top, because
+    the hooks run this file through stdin (verify-removed) without tools/ on the path."""
+    sys.path.insert(0, str(Path(__file__).resolve().parent if "__file__" in globals() else ROOT / "tools"))
+    import tu_map
+    m = tu_map.load(ROOT)
+    return tu_map, m, tu_map.code_index(m)
+
+
 def dest_tu(rva):
     """{"dest": path or None, "basis": why} for a new row at RVA."""
     for route, value in sorted(file_evidence().get(rva, ()),
@@ -496,6 +507,11 @@ def dest_tu(rva):
         path = SOURCE_PREFIX + value.lstrip("/")
         if (ROOT / path).exists():
             return {"dest": path, "basis": f"EA source-file evidence ({route})"}
+    tu_map, m, index = tu_routes()
+    t = tu_map.tu_at(m, rva, index)
+    if t and t["confidence"] == "approved":   # what tu_ownership A3 holds a new row to
+        made = "" if (ROOT / t["tu"]).exists() else "; the file does not exist yet: create it"
+        return {"dest": t["tu"], "basis": f"approved TU in tu_map.csv (by {t['by']}{made})"}
     _, homes = ledger()
     starts = [h[0] for h in homes]
     i = bisect.bisect_left(starts, rva)
