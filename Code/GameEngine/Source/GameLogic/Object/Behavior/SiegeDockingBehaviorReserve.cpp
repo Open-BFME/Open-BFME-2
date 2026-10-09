@@ -1,9 +1,6 @@
-// ?rva00459CC0@SiegeDockingBehavior@@UAEHW4ObjectID@@@Z
-// partial score=0.98 date=2026-10-09
-// ?rva00459CC0@SiegeDockingBehavior@@UAEHW4ObjectID@@@Z
-// partial score=0.98 date=2026-10-09
 // cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
 // stlport
+// ?rva00459CC0@SiegeDockingBehavior@@UAEHW4ObjectID@@@Z
 // Retail 0x00459CC0, 234B: a SiegeDockingBehavior member entered through the
 // interface at +0x20 (ret 4): reserve the nearest free dock entry for an
 // object id. It looks the object up, refreshes the reservations
@@ -13,6 +10,8 @@
 // (towers - template kind-of 0x119:0x08 - may take any type, other objects
 // only type 0) by Coord3D::length of the offset, records the id there and
 // returns its index, or -1. Slot name not established: address-derived.
+// The entry position goes through a memberwise-copy local so the three
+// coordinate loads issue x,y,z (a direct subtraction compiles y,z,x).
 #define _STLP_NO_EXCEPTIONS 1
 #include <vector>
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
@@ -40,6 +39,14 @@ public:
 };
 
 extern GameLogic *TheGameLogic;
+
+struct SiegeDockingPoint
+{
+	SiegeDockingPoint(const Coord3D &c) : x(c.x), y(c.y), z(c.z) {}
+	float x;
+	float y;
+	float z;
+};
 
 struct Rva00459E05Entry
 {
@@ -94,13 +101,11 @@ Int SiegeDockingBehavior::rva00459CC0( ObjectID id )
 		if( ( obj->m_template->m_kindOf119 & 8 ) == 0 && entry->m_type != 0 )
 			continue;
 
-		Real dx = entry->m_position.x - obj->getPosition()->x;
-		Real dy = entry->m_position.y - obj->getPosition()->y;
-		Real dz = entry->m_position.z - obj->getPosition()->z;
+		SiegeDockingPoint entryPos(entry->m_position);
 		Coord3D delta;
-		delta.x = dx;
-		delta.y = dy;
-		delta.z = dz;
+		delta.x = entryPos.x - obj->m_pos.x;
+		delta.y = entryPos.y - obj->m_pos.y;
+		delta.z = entryPos.z - obj->m_pos.z;
 		Real dist = delta.length();
 		if( dist < bestDist )
 		{
