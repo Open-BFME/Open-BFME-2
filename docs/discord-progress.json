@@ -30,16 +30,16 @@
     "rules": "retail-truth-1",
     "prev_rules": "retail-truth-1-no-wrong-selected"
   },
-  "declared_names": 415600,
-  "readable_names": 272413,
+  "declared_names": 416172,
+  "readable_names": 272796,
   "linked": 2430342,
   "linked_authored": 2151586,
   "linked_game_code": 7512979,
-  "authored": 5014486,
-  "vendored": 287968,
+  "authored": 5021117,
+  "vendored": 287973,
   "generated": 168254,
   "library": 177553,
-  "updated_at": "2026-10-09T18:03:28.047870+00:00",
-  "message_id": "1558178097080041584",
-  "run_id": "37970546916"
+  "updated_at": "2026-10-09T18:29:23.392441+00:00",
+  "message_id": "1558184620829446175",
+  "run_id": "37973552717"
 }
