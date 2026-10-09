@@ -1,5 +1,7 @@
 // ?rva00467AB8@Rva00467AB8@@QAEXPAVObject@@@Z
 // partial score=0.94 date=2026-10-09
+// ?rva00467AB8@Rva00467AB8@@QAEXPAVObject@@@Z
+// partial score=0.94 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /Ireference/shims/bfmelist /Ireference/shims/bfmealloc /ICode/GameEngine/Source/Common /ICode/Libraries/Include
 // stlport
 // Clean reference transfer: BFME1 9cbfb551fe20,
