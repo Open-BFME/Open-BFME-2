@@ -14,6 +14,11 @@
 // Local floor/table helpers preserve the donor formulas without emitting
 // incompatible shared WWMath COMDAT copies.
 #pragma optimize("gsy", on)
+// Use the native quaternion siblings' CRT inline-adapter visibility.
+#pragma push_macro("inline")
+#define inline __declspec(dllimport) __forceinline
+#include <math.h>
+#pragma pop_macro("inline")
 #include "quat.h"
 #include "wwmath.h"
 #include <math.h>
