@@ -645,3 +645,15 @@ template Rva005334A4Element *_STL::__copy_ptrs<Rva005334A4Element *,Rva005334A4E
 template Rva005334A4Element *_STL::vector<Rva005334A4Element>::erase(Rva005334A4Element *,Rva005334A4Element *);
 
 PathfindZoneManager::~PathfindZoneManager() { rva005335D3(); }
+
+// Native37B53442A..53444F: signed two-cell division with8B hidden return.
+// Rowed caller534557 proves the empty-base record ABI. Read each source
+// coordinate once in native order before writing either output coordinate.
+struct Rva00534557EmptyBase{};
+struct Rva00534557Record : Rva00534557EmptyBase { Rva00534557Record(int a,int b):x(a),y(b){}
+ int x,y; };
+Rva00534557Record rva0053442A(const int *src) {
+ const volatile int &x=src[0], &y=src[1]; int a=x/16;
+ int b=y/16;
+ return Rva00534557Record(a,b);
+}

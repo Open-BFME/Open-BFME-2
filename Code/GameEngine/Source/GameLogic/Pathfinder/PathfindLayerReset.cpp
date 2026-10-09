@@ -108,6 +108,7 @@ class PathfindLayer
 public:
 	void ClassifyWallCells();
 	void rva00366DEC();
+ ~PathfindLayer();
 	void rva003667D4();
 	void rva003666FD(Xfer *xfer);
 private:
@@ -237,3 +238,7 @@ void PathfindLayer::ClassifyWallCells()
   }
  }
 }
+
+// Native array cleanup callback367369 in Pathfinder destructor2F213F;
+// target tail-jumps the already verified66B layer release wrapper.
+PathfindLayer::~PathfindLayer(){rva00366DEC();}
