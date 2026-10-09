@@ -9411,7 +9411,7 @@ _Rva009BD470Vp6FilterSse,,0x001CDD70,253,Code/GameEngine/Source/Common/BfmeConv9
 ??0Rva007E8810@@QAE@XZ,,0x006558C0,60,Code/GameEngine/Source/Common/Rva007E8810Ctor.cpp,matched,BFME1 byte-identical donor; b1 0x007E8810
 ?assertFailed@Rva00802980Browser@@QAEXH@Z,,0x0066EAD0,30,Code/GameEngine/Source/Common/U2FeslGameBrowserAsserts.cpp,matched,BFME1 byte-identical donor; b1 0x00802980; 2 DIR32 string literal(s) agree
 ?set@Rva0081C2F0@@QAEAAV1@H@Z,,0x00689140,63,Code/GameEngine/Source/Common/Rva0081C2F0Set.cpp,matched,BFME1 donor with vtable-literal repair; b1 0x0081C2F0
-?rva00822FB0ParseTag@@YGIPBE@Z,,0x0068EB20,61,Code/GameEngine/Source/Common/SmallGaps/Rva00822FB0ParseTag.cpp,matched,BFME1 byte-identical donor; b1 0x00822FB0
+_BTREE_size@4,,0x0068EB20,61,Code/Libraries/Source/Compression/EAC/btreedecode.cpp,matched,EAC BTREE_size identity and ownership repair; original 0x46fb/0x47fb size algorithm and stdcall ABI; explicit byte-read expression retains existing 61B retail match; no new byte coverage
 ?dispatchIndexedValue@@YAXPAXH0HPAH1@Z,,0x00699630,66,Code/GameEngine/Source/GameNetwork/GameSpy/ChatDispatchIndexedValue.cpp,matched,BFME1 byte-identical donor; b1 0x00858070
 ?Rva0083F3B0Duplicate@@YAPAXPBUU2Elem8@@H@Z,,0x0001C2C0,59,Code/GameEngine/Source/Common/U2AllocatedRangeCopy8.cpp,matched,BFME1 donor with malloc import repair; b1 0x0083F3B0
 ?bfmeWriteQN@@YGXHPAXPAD@Z,,0x00040B10,59,Code/GameEngine/Source/Common/BfmeTwoHundredNinetySeven.cpp,matched,BFME1 byte-identical donor; b1 0x008911C0

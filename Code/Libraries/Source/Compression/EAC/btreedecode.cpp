@@ -143,18 +143,14 @@ bool GCALL BTREE_is(const void *compresseddata)
 
 int GCALL BTREE_size(const void *compresseddata)
 {
-    int len=0;
-
-    if (ggetm(compresseddata,2)==0x46fb)
-    {
-        len = ggetm((char *)compresseddata+2,3);
-    }
-    else
-    {
-        len = ggetm((char *)compresseddata+2+3,3);
-    }
-
-    return(len);
+    // BFME2 RVA 0x0068EB20: the original API and header algorithm, with
+    // explicit byte reads preserving retail's 61-byte expression scheduling.
+    // Previously matched as the address-derived rva00822FB0ParseTag.
+    const unsigned char *p = (const unsigned char *)compresseddata;
+    unsigned int tag = (p[0] << 8) | p[1];
+    if (tag == 0x46fb)
+        return (p[2] << 16) | (p[3] << 8) | p[4];
+    return (p[5] << 16) | (p[6] << 8) | p[7];
 }
 
 int GCALL BTREE_decode(void *dest, const void *compresseddata, int *compressedsize)
