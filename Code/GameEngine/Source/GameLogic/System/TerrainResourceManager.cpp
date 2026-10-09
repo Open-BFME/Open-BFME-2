@@ -11,9 +11,33 @@ struct Rva003598A5Obj { virtual void f(int,int); };
 class TerrainResourceManager {
 public:
     void rva003598A5(int,int,int,void *);
+    void rva0035997F(int,int,int,void *);
 };
 void TerrainResourceManager::rva003598A5(int low,int high,int y,void *visitor)
 {
     Rva003598A5Obj *o=static_cast<Rva003598A5Obj *>(visitor);
     for(int x=low;x<=high;++x) o->f(x,y);
+}
+
+// Native35997F..359A0C and WB E60FF0: midpoint-circle span traversal.
+// WB names the surrounding TerrainResourceManager methods; original name unknown.
+void TerrainResourceManager::rva0035997F(int centerX,int centerY,int radius,void *visitor)
+{
+    int x=0;
+    int y=radius;
+    int error=2*(1-radius);
+    for(;;) {
+        if(error+y>0) {
+            if(y==0 && radius==1) ++x;
+            rva003598A5(centerX-x,centerX+x,centerY+y,visitor);
+            if(y==0) break;
+            rva003598A5(centerX-x,centerX+x,centerY-y,visitor);
+            --y;
+            error-=2*y-1;
+        }
+        if(x>error) {
+            ++x;
+            error+=2*x+1;
+        }
+    }
 }
