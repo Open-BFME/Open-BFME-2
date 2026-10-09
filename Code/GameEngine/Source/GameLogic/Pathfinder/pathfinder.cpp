@@ -535,12 +535,15 @@ class Rva002E7440 { public: Bool rva002E7440(Int,Int); };
 class Rva002E7414 { public: Int rva002E7414(Int,Int); };
 class Rva002F336AOwner { public: Bool rva002F336A(Int,Int); };
 struct PathfinderOpenQueue {PathfindCell **first,**last;Bool empty()const{return first==last;}PathfindCell *front()const{return *first;}};
+struct ICoord2D;
+struct Rva002E7261Info;
 class Pathfinder
 {
 public:
  Bool QuickDoesPathExist(Object *,const Coord3D *,const Coord3D *,Int);
  Bool IsValidMovementPositionForObject(const Coord3D *,Int,Int,const Object *);
  Bool rva002F4115(Object *,Int,Int,LocomotorSet *);
+ Bool rva002F4AC1(const ICoord2D *,Int,Int,Object *,PathfindLayerEnum,Int,Rva002E7261Info *,void *,void *);
  PathfindCell *rva002F068F();
     Path *GetAircraftPath(const Object *,const Coord3D *);
     int _GetOverlapUnits(Object *,const Coord3D *,int *);
@@ -611,6 +614,7 @@ protected:
 		const Coord3D *from, const Coord3D *to, Bool crusher, Bool closestOK,
 		Coord3D *adjustedTo);
 private:
+	Int iterateCellsAlongLine(const ICoord2D *,const ICoord2D *,PathfindLayerEnum,Rva002E7261Info *);
 	char m_pad000[8];Bool m_isMapReady;char m_pad009[7];
 	int m_unknown10;
 	char m_pad014[0x10];
@@ -627,6 +631,45 @@ private:
 	_STL::vector<Rva002F35AFHop> m_1C1CC;	// +0x1C1CC
  char pad1c1d8[0x1d1f0-0x1c1d8];PathfinderOpenQueue m_openCells;
 };
+
+class Rva002E99F9Sub460
+{
+public:
+	unsigned short rva0053241F(void *, unsigned short);
+	unsigned short rva00531FD4(void *, unsigned short);
+};
+
+// The 0x002E8045 walk calls this ABI view. The callback at 0x002E7261
+// writes its result key at +8 and cell coordinates at +0xC/+0x10.
+struct Rva002E7261Info
+{
+	Pathfinder *m_pathfinder;
+	Int m_arg;
+	Int m_key;
+	ICoord2D m_position;
+	Int cellCallback(PathfindCell *, PathfindCell *, Int, Int);
+};
+
+// Native 0x002F4AC1..0x002F4B33 (114 bytes, RET36). WB's four calls pass
+// this argument order; retail confirms the changed-cell key at info+8.
+Bool Pathfinder::rva002F4AC1(const ICoord2D *start, Int dx, Int dy,
+	Object *object, PathfindLayerEnum layer, Int expected,
+	Rva002E7261Info *info, void *lookup, void *context)
+{
+	ICoord2D endpoint = *start;
+	endpoint.x += dx;
+	endpoint.y += dy;
+	iterateCellsAlongLine(start, &endpoint, layer, info);
+	if (info->m_key != -1)
+	{
+		Int actual = ((Rva002E99F9Sub460 *)((char *)this + 0x460))
+			->rva0053241F(lookup, (unsigned short)info->m_key);
+		if (expected == actual || rva002F4115(object, expected, actual,
+			(LocomotorSet *)context))
+			return true;
+	}
+	return false;
+}
 
 // ?Pathfinder::SetBridgeStateRepaired present-unmatched
 void Pathfinder::SetBridgeStateRepaired(PathfindLayerEnum layer, Bool repaired)
@@ -2286,7 +2329,6 @@ int Pathfinder::_GetAdjacentUnits(Object *object,const Coord3D *position,int *ou
 struct Rva002CECAETarget;
 void Rva002CECAEAppend(Rva002CECAETarget *,const char *,...);
 class Rva0028B984ByteField {public:unsigned char get()const;};
-class Rva002E99F9Sub460 {public:unsigned short rva0053241F(void *,unsigned short);unsigned short rva00531FD4(void *,unsigned short);};
 Bool Pathfinder::QuickDoesPathExist(Object *obj,const Coord3D *from,const Coord3D *to,Int overrideSet)
 {
  if(g_00E03745 && g_00DFEFF0) Rva002CECAEAppend((Rva002CECAETarget *)g_00DFEFF0,

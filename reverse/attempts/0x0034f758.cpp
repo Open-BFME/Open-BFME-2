@@ -1,6 +1,12 @@
 // ?update@AIAttackState@@UAE?AW4StateReturnType@@XZ
 // partial score=0.9 date=2026-10-09
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
+// AIAttackState::update, retail 0x0034F758..0x0034FB77 (1055 bytes).
+// Target identity: the 0x00C13B78 vtable name getter returns AIAttackState;
+// its matched onExit is 0x0034B889. Zero Hour GeneralsMD AIStates.cpp
+// supplies the update-state behavior. BFME2-specific gates and fields below
+// follow target bytes and rowed providers; retail keeps the victim local at
+// [EBP-8] on the dead-victim path.
 //
 // AIAttackState::onExit, retail 0x0034B889 (201 bytes): slot 5 of vtable
 // 0x00C13B78, whose slot-2 name getter returns AIAttackState.
@@ -206,7 +212,20 @@ private:
 	unsigned int m_438; // +0x438
 };
 class State;
-class StateMachine : public AttackSlots<4>
+class StateMachine
+{
+public:
+	virtual ~StateMachine();
+	Object *getOwner() const { return m_owner; }
+	Object *getGoalObject();
+private:
+	unsigned char m_pad04[0x14 - 0x04];
+	Object *m_owner; // +0x14
+};
+
+// State-machine calls use the target's slot 4/8 interface. Keep this separate
+// from StateMachine's virtual destructor view used by AIAttackState::onExit.
+class StateMachineCallView : public AttackSlots<4>
 {
 public:
 	virtual StateReturnType updateStateMachine();
@@ -214,8 +233,6 @@ public:
 	virtual StateReturnType rva0034FB52Slot8(Int stateID);
 	virtual void s09(); virtual void s10(); virtual void s11(); virtual void s12(); virtual void s13();
 	virtual void setGoalObject(const Object *obj);
-	Object *getOwner() const { return m_owner; }
-	Object *getGoalObject();
 	State *getCurrentState() const { return m_currentState; }
 	Int m_1cState() const { return m_1c; }
 private:
@@ -314,7 +331,7 @@ StateReturnType AIAttackState::update()
 	if (victim && victim->testStatus(OBJECT_STATUS_3C))
 	{
 		if (getMachine())
-			getMachine()->setGoalObject(0);
+			reinterpret_cast<StateMachineCallView *>(getMachine())->setGoalObject(0);
 		return STATE_FAILURE;
 	}
 	AIUpdateInterface *sourceAI = source->getAI();
@@ -330,7 +347,8 @@ StateReturnType AIAttackState::update()
 			source->getAI()->notifyVictimIsDead();
 			if (source->getTemplate()->m_kindOf[0x12] & 0x80)
 				return STATE_SUCCESS;
-			return CONVERT_SLEEP_TO_CONTINUE(m_attackMachine->updateStateMachine());
+			return CONVERT_SLEEP_TO_CONTINUE(
+					reinterpret_cast<StateMachineCallView *>(m_attackMachine)->updateStateMachine());
 		}
 		AIUpdateInterface *ai = source->getAI();
 		Int lastCommandSource = ai->getLastCommandSource();
@@ -361,7 +379,7 @@ StateReturnType AIAttackState::update()
 			}
 		}
 		if (victim != m_attackMachine->getGoalObject())
-			m_attackMachine->setGoalObject(victim);
+			reinterpret_cast<StateMachineCallView *>(m_attackMachine)->setGoalObject(victim);
 	}
 
 	if (source->getContainedBy() && source->getContainedBy()->getContain() &&
@@ -388,12 +406,13 @@ StateReturnType AIAttackState::update()
 		{
 			sourceAI->setCurrentVictim(victim);
 			sourceAI->rva00262B0F((int)victim);
-			getMachine()->setGoalObject(victim);
+			reinterpret_cast<StateMachineCallView *>(getMachine())->setGoalObject(victim);
 		}
 		return onEnter();
 	}
 
-	Int stateID = m_attackMachine->getCurrentState() ? m_attackMachine->getCurrentState()->getID() : 999999;
+	Int stateID = reinterpret_cast<StateMachineCallView *>(m_attackMachine)->getCurrentState()
+		? reinterpret_cast<StateMachineCallView *>(m_attackMachine)->getCurrentState()->getID() : 999999;
 	if (stateID == 0xE4)
 	{
 		source->clearModelConditionState(1 * 32 + 5);
@@ -408,8 +427,11 @@ StateReturnType AIAttackState::update()
 		if (!m_isAttackingObject)
 			source->setModelConditionState(1 * 32 + 7);
 	}
-	Bool runState = m_attackMachine->getCurrentState() ? m_attackMachine->getCurrentState()->getByte1C() : true;
-	if (runState && m_attackMachine->rva0034FB52Slot8(m_attackMachine->m_1cState()) == STATE_FAILURE)
+	Bool runState = reinterpret_cast<StateMachineCallView *>(m_attackMachine)->getCurrentState()
+		? reinterpret_cast<StateMachineCallView *>(m_attackMachine)->getCurrentState()->getByte1C() : true;
+	if (runState && reinterpret_cast<StateMachineCallView *>(m_attackMachine)->rva0034FB52Slot8(
+		reinterpret_cast<StateMachineCallView *>(m_attackMachine)->m_1cState()) == STATE_FAILURE)
 		return STATE_FAILURE;
-	return CONVERT_SLEEP_TO_CONTINUE(m_attackMachine->updateStateMachine());
+	return CONVERT_SLEEP_TO_CONTINUE(
+		reinterpret_cast<StateMachineCallView *>(m_attackMachine)->updateStateMachine());
 }
