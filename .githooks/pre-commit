@@ -122,6 +122,7 @@ wide_change=0
 flags_changed=0
 baseline_changed=0
 attempts_changed=0
+data_rows_changed=0
 capture staged_out "listing staged files" git diff --cached --name-only --diff-filter=ACMRT
 while IFS= read -r path; do
     case "$path" in
@@ -133,6 +134,10 @@ while IFS= read -r path; do
         # Region flags decide how every Code/ TU compiles (tools/flag_defaults.py).
         reverse/retail_inventory/flag_regions.csv|reverse/flag_overrides.csv) flags_changed=1 ;;
         reverse/functions.csv|reverse/symbols.csv|reverse/deleted_rows.csv|reverse/re_attempts.log) ledger_changed=1 ;;
+        # A data row (tools/data_rows.py) is a claim like a function row: without
+        # this a data_rows.csv-only commit took the early exit below unverified.
+        # delta_sources names the row's source and the build byte-verifies it.
+        reverse/data_rows.csv) data_rows_changed=1 ;;
         # A stash-only commit changes no ledger and no source, so without this
         # it takes the early exit below and check_csv never validates the very
         # file it just added. It stays out of the byte-verify set: a banked
@@ -177,7 +182,7 @@ python3 tools/data_check.py --staged || fail "data identity: staged data_check_b
 
 if [ "${#staged_sources[@]}" -eq 0 ] && [ "$ledger_changed" -eq 0 ] \
    && [ "$wide_change" -eq 0 ] && [ "$flags_changed" -eq 0 ] && [ "$baseline_changed" -eq 0 ] \
-   && [ "$attempts_changed" -eq 0 ]; then
+   && [ "$attempts_changed" -eq 0 ] && [ "$data_rows_changed" -eq 0 ]; then
     exit 0
 fi
 
@@ -243,7 +248,7 @@ for path in "${staged_sources[@]}"; do
 done
 for ledger in reverse/functions.csv reverse/symbols.csv reverse/deleted_rows.csv \
               reverse/re_attempts.log reverse/pin_consistency_baseline.csv \
-              reverse/gate_baseline.txt; do
+              reverse/gate_baseline.txt reverse/data_rows.csv; do
     if ! git diff --cached --quiet -- "$ledger" && ! git diff --quiet -- "$ledger"; then
         dirty+=("$ledger")
     fi
@@ -300,9 +305,10 @@ if [ "${#staged_sources[@]}" -ne 0 ]; then
         || fail "staged sources define functions the ledger does not declare (see above)"
 fi
 
-# 3) Byte-verify the delta: staged sources plus sources of any ledger rows this
-#    commit adds or edits. Seconds per file. Row deletions and dedup reorders
-#    verify nothing extra — they cannot break byte-truth.
+# 3) Byte-verify the delta: staged sources plus sources of any ledger rows
+#    (functions.csv or data_rows.csv) this commit adds or edits. Seconds per
+#    file. Row deletions and dedup reorders verify nothing extra — they cannot
+#    break byte-truth.
 declare -A verify_set=()
 for path in "${staged_sources[@]}"; do verify_set["$path"]=1; done
 capture delta_out "delta_sources" python3 tools/delta_sources.py --staged
@@ -337,6 +343,10 @@ if [ "${#verify_set[@]}" -ne 0 ]; then
 import csv, os, sys
 claimed = {r["source"] for r in csv.DictReader(open("reverse/functions.csv"))
            if r.get("status") == "matched"}
+# a data-only TU owns data_rows.csv rows (tools/data_rows.py) and is verified like any claimed source
+if os.path.exists("reverse/data_rows.csv"):
+    claimed |= {r["source"] for r in csv.DictReader(open("reverse/data_rows.csv"))
+                if r.get("status") == "matched"}
 for p in sys.stdin.buffer.read().split(b"\0")[:-1]:
     if os.fsdecode(p) not in claimed:
         sys.stdout.buffer.write(p + b"\0")

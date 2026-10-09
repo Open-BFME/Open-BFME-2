@@ -13,6 +13,8 @@ SCRIPT = Path(__file__).resolve().parents[1] / 'delta_sources.py'
 HEADER = b'name,export_rva,target_rva,target_size,source,status,notes\n'
 A = b'a,,0x100,4,Code/a.cpp,matched,test\n'
 B = b'b,,0x200,4,Code/b.cpp,matched,test\n'
+DATA_HEADER = b'name,address,address_kind,size,section,source,status,evidence,model\n'
+D = b'?g@@3HA,0x00403000,va,4,.data,Code/d.cpp,matched,ZH defines it,m\n'
 
 class DeltaTest(unittest.TestCase):
     def setUp(self):
@@ -40,6 +42,41 @@ class DeltaTest(unittest.TestCase):
         if commit:
             self.git('commit', '-qm', 'ledger')
         return self.git('rev-parse', 'HEAD').stdout.decode().strip()
+
+    def data_ledger(self, content, commit=False):
+        path = self.root / 'reverse/data_rows.csv'
+        path.parent.mkdir(exist_ok=True)
+        path.write_bytes(content)
+        self.git('add', 'reverse/data_rows.csv')
+        if commit:
+            self.git('commit', '-qm', 'data ledger')
+        return self.git('rev-parse', 'HEAD').stdout.decode().strip()
+
+    def test_a_ledger_only_data_row_names_its_source(self):
+        # A data-only TU owns no function row: before, a data_rows.csv-only change
+        # printed nothing and the hooks verified nothing (review of cd1336610f).
+        base = self.ledger(HEADER + A, True)
+        self.data_ledger(DATA_HEADER + D)                # the ledger's first appearance
+        out = self.cli('--staged')
+        self.assertEqual((out.returncode, out.stdout), (0, b'Code/d.cpp\n'))
+        tip = self.data_ledger(DATA_HEADER + D, True)
+        out = self.cli('--range', base, tip)
+        self.assertEqual((out.returncode, out.stdout), (0, b'Code/d.cpp\n'))
+        self.data_ledger(DATA_HEADER + D.replace(b'ZH defines it', b'edited'))
+        self.ledger(HEADER + A.replace(b'test', b'edited'))
+        out = self.cli('--staged')                       # both ledgers' deltas, sorted
+        self.assertEqual((out.returncode, out.stdout), (0, b'Code/a.cpp\nCode/d.cpp\n'))
+        self.ledger(HEADER + A)
+        self.data_ledger(DATA_HEADER)                    # a deletion verifies nothing
+        out = self.cli('--staged')
+        self.assertEqual((out.returncode, out.stdout), (0, b''))
+
+    def test_an_unreadable_data_ledger_is_refused(self):
+        self.ledger(HEADER + A, True)
+        for raw in [b'', D, b'name,address\n' + D, DATA_HEADER + b'a,b\n', DATA_HEADER + DATA_HEADER]:
+            with self.subTest(raw=raw):
+                self.data_ledger(raw)
+                self.refused(self.cli('--staged'))
 
     def cli(self, *args):
         return subprocess.run([sys.executable, str(self.root / 'tools/delta_sources.py'), *args], capture_output=True)

@@ -87,6 +87,21 @@ def test_check_csv_orphans_count_a_data_only_source_as_owned(monkeypatch):
     assert count == 1 and problems == []
 
 
+def test_the_empty_ledger_is_checked_without_the_retail_image(monkeypatch, capsys):
+    """Review of cd1336610f: check() read game.dat's sections before looking at a
+    single row, so check_csv needed the retail image for a header-only ledger."""
+    def no_image(exe=None):
+        raise AssertionError("read the retail image")
+    monkeypatch.setattr(data_rows, "retail_sections", no_image)
+    problems = []
+    assert data_rows.check(HEADER_ONLY, problems) == 0 and problems == []
+    assert data_rows.check(data_rows.HEADER.encode(), problems) == 0 and "no line ending" in problems[0]
+    code, out, err = _check_csv_run(monkeypatch, capsys, data_rows.DATA_ROWS)
+    assert code == 0, err
+    with pytest.raises(AssertionError, match="read the retail image"):  # a row still needs its section
+        data_rows.check(HEADER_ONLY + (data_row("Code/b.cpp") + "\n").encode(), [])
+
+
 def test_check_csv_checks_data_row_integrity(monkeypatch, capsys, tmp_path):
     bad = ledger_file(tmp_path, data_row("game/G.cpp"))
     code, _, err = _check_csv_run(monkeypatch, capsys, bad)

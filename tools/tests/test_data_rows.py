@@ -18,8 +18,10 @@ import data_rows  # noqa: E402
 import reloc_ledger  # noqa: E402
 
 BASE = 0x400000
-SECTIONS = [(".text", BASE + 0x1000, BASE + 0x2000), (".rdata", BASE + 0x2000, BASE + 0x3000),
-            (".data", BASE + 0x3000, BASE + 0x5000)]
+CODE, RDATA, DATA = 0x60000020, 0x40000040, 0xC0000040  # section characteristics
+SECTIONS = [(".text", BASE + 0x1000, BASE + 0x2000, CODE), (".rdata", BASE + 0x2000, BASE + 0x3000, RDATA),
+            (".data", BASE + 0x3000, BASE + 0x5000, DATA)]
+FUNCTION = 0x20  # COFF symbol type of a function
 
 
 # --------------------------------------------------------------------------- fixtures
@@ -59,27 +61,28 @@ def image_with(rdata=b"", data=b"", data_vsize=None, text=b"\xc3" * 16):
 
 
 def write_coff(path, sections, symbols):
-    """sections [(name, flags, body or None, size, relocs [(offset, symbol index)])],
-    symbols [(name, value, section number, storage)]: one i386 COFF object."""
+    """sections [(name, flags, body or None, size, relocs [(offset, symbol index[, type])])],
+    symbols [(name, value, section number, storage[, type])]: one i386 COFF object.
+    A relocation is DIR32 and a symbol's type 0 (data) unless given."""
     head = 20 + 40 * len(sections)
     strings, headers, body = bytearray(4), bytearray(), bytearray()
     for name, flags, data, size, relocs in sections:
         raw_ptr = head + len(body) if data is not None else 0
         body += data or b""
         rel_ptr = head + len(body) if relocs else 0
-        for offset, symbol in relocs:
-            body += struct.pack("<IIH", offset, symbol, data_rows.DIR32)
+        for offset, symbol, *kind in relocs:
+            body += struct.pack("<IIH", offset, symbol, kind[0] if kind else data_rows.DIR32)
         headers += name.encode().ljust(8, b"\0") + struct.pack(
             "<IIIIIIHHI", 0, 0, size, raw_ptr, rel_ptr, 0, len(relocs), 0, flags)
     table = bytearray()
-    for name, value, section, storage in symbols:
+    for name, value, section, storage, *typ in symbols:
         raw = name.encode("latin-1")
         if len(raw) <= 8:
             field = raw.ljust(8, b"\0")
         else:
             field = struct.pack("<II", 0, len(strings))
             strings += raw + b"\0"
-        table += field + struct.pack("<IhHBB", value, section, 0, storage, 0)
+        table += field + struct.pack("<IhHBB", value, section, typ[0] if typ else 0, storage, 0)
     struct.pack_into("<I", strings, 0, len(strings))
     path.write_bytes(struct.pack("<HHIIIHH", 0x14C, len(sections), 0, head + len(body), len(symbols), 0, 0)
                      + bytes(headers) + bytes(body) + bytes(table) + bytes(strings))
@@ -147,10 +150,11 @@ def test_the_header_only_ledger_is_clean_and_owns_nothing():
 # --------------------------------------------------------------------------- verification
 
 def compiled(tmp_path, monkeypatch, sections, symbols, source_text="// fixture\n"):
-    """A fake object for Code/G.cpp: sections [(name, flags, body, size, relocs)]."""
+    """A fake object for Code/G.cpp: sections [(name, flags, body, size, relocs)],
+    symbols [(name, value, section[, type])]."""
     obj = tmp_path / "G.obj"
-    write_coff(obj, sections, [(name, value, section, 3 if name.startswith("$") else 2)
-                               for name, value, section in symbols])
+    write_coff(obj, sections, [(name, value, section, 3 if name.startswith("$") else 2, *typ)
+                               for name, value, section, *typ in symbols])
     (tmp_path / "Code").mkdir(exist_ok=True)
     (tmp_path / "Code/G.cpp").write_text(source_text)
     monkeypatch.setattr(data_rows, "ROOT", tmp_path)
@@ -158,7 +162,8 @@ def compiled(tmp_path, monkeypatch, sections, symbols, source_text="// fixture\n
 
 
 # what the compiler's sizeof probe answers for the fixture objects' symbols
-SIZES = {"?t@@3PAUX@@A": 8, "?g@@3HA": 4, "?a@@3HA": 4, "?b@@3NA": 8, "?p@@3PBDB": 4}
+SIZES = {"?t@@3PAUX@@A": 8, "?g@@3HA": 4, "?a@@3HA": 4, "?b@@3NA": 8, "?p@@3PBDB": 4,
+         "?fp@@3P6AXXZA": 4, "?dp@@3PAHA": 4, "?table@@3PAP6AXXZA": 12}
 
 
 def fixture_sizer(source, symbol):
@@ -166,7 +171,9 @@ def fixture_sizer(source, symbol):
 
 
 def verify(img, entry, homes):
-    return data_rows.verify_row(dict(zip(data_rows.FIELDS, entry)), img, lambda name: homes.get(name, set()),
+    """verify_row with a fixed name -> homes map (`homes` may also be a Resolver)."""
+    resolve = homes if callable(homes) else (lambda name, function=None: homes.get(name, set()))
+    return data_rows.verify_row(dict(zip(data_rows.FIELDS, entry)), img, resolve,
                                 compile=False, sizer=fixture_sizer)
 
 
@@ -260,11 +267,95 @@ def test_the_resolver_reads_this_repositorys_ledgers(tmp_path, monkeypatch):
     monkeypatch.setattr(data_rows, "DIR32_ADDRESSES", tmp_path / "absent.csv")
     monkeypatch.setattr(build, "load_function_rows",
                         lambda: [{"name": "?f@@YAXXZ", "target_rva": "0x00002000", "notes": ""}])
-    resolve = data_rows.Resolver([dict(zip(data_rows.FIELDS, row()))])
+    resolve = data_rows.Resolver([dict(zip(data_rows.FIELDS, row()))], SECTIONS)
     assert resolve("?f@@YAXXZ") == {BASE + 0x2000}
     assert resolve("?g@@3HA") == {BASE + 0x3000}
     assert resolve("?pinned@@3HA") == {BASE + 0x1234}  # an RVA pin; below the image base it has one reading
     assert resolve("?unknown@@3HA") == set()
+
+
+# --------------------------------------------------------------------------- pin readings (review of cd1336610f)
+
+def resolver(tmp_path, monkeypatch, pins, sections):
+    """A Resolver over `pins` ("name,0xADDRESS") alone, built the way verify() builds
+    one (Resolver(rows)), with `sections` standing for retail's."""
+    build = data_rows._tools()[0]
+    symbols = tmp_path / "symbols.csv"
+    symbols.write_text("name,address,notes\n" + "".join(f"{pin},\n" for pin in pins))
+    monkeypatch.setattr(data_rows, "SYMBOLS", symbols)
+    monkeypatch.setattr(data_rows, "DIR32_ADDRESSES", tmp_path / "absent.csv")
+    monkeypatch.setattr(build, "load_function_rows", lambda: [])
+    monkeypatch.setattr(data_rows, "retail_sections", lambda exe=None: sections)
+    return data_rows.Resolver([])
+
+
+# .text runs past RVA 0x400000, so pin 0x00401010 reads as RVA 0x401010 (VA 0x00801010)
+# and as VA 0x00401010 (RVA 0x1010), both in .text: 7,192 retail pins are like that
+HIGH_TEXT = [(".text", BASE + 0x1000, BASE + 0x501000, CODE), (".rdata", BASE + 0x501000, BASE + 0x502000, RDATA),
+             (".data", BASE + 0x502000, BASE + 0x503000, DATA)]
+
+
+def high_text_image(pointer):
+    return make_pe([(".text", 0x1000, 0x500000, b"\xc3" * 16), (".rdata", 0x501000, 0x1000, b""),
+                    (".data", 0x502000, 0x1000, struct.pack("<I", pointer))])
+
+
+def test_a_code_pin_is_an_rva_so_a_high_relocation_cannot_take_its_va_reading(tmp_path, monkeypatch):
+    resolve = resolver(tmp_path, monkeypatch, ["?f@@YAXXZ,0x00401010"], HIGH_TEXT)
+    assert resolve("?f@@YAXXZ") == {BASE + 0x401010}
+    compiled(tmp_path, monkeypatch, [(".data", 0xC0300040, bytes(4), 4, [(0, 1)])],
+             [("?fp@@3P6AXXZA", 0, 1), ("?f@@YAXXZ", 0, 0, FUNCTION)], "void f();\nvoid (*fp)() = &f;\n")
+    entry = row("?fp@@3P6AXXZA", "0x00902000")
+    ok, message = verify(high_text_image(0x00401010), entry, resolve)  # retail points at RVA 0x1010, not f
+    assert not ok and "retail points at 0x00401010" in message
+    assert verify(high_text_image(BASE + 0x401010), entry, resolve)[0]  # the pin's own RVA
+
+
+def test_a_function_takes_only_a_code_home_and_data_only_a_data_home(tmp_path, monkeypatch):
+    resolve = resolver(tmp_path, monkeypatch, ["?f@@YAXXZ,0x00003000", "?g@@3HA,0x00001000"], SECTIONS)
+    assert resolve("?f@@YAXXZ", True) == set() and resolve("?f@@YAXXZ", False) == {BASE + 0x3000}
+    assert resolve("?g@@3HA", False) == set() and resolve("?g@@3HA", True) == {BASE + 0x1000}
+    compiled(tmp_path, monkeypatch, [(".data", 0xC0300040, bytes(4), 4, [(0, 1)])],
+             [("?fp@@3P6AXXZA", 0, 1), ("?f@@YAXXZ", 0, 0, FUNCTION)])
+    ok, message = verify(image_with(data=struct.pack("<I", BASE + 0x3000)), row("?fp@@3P6AXXZA"), resolve)
+    assert not ok and "no retail address in the ledgers (as code)" in message
+
+
+# a data pin's VA reading counts, but not when its RVA reading lands in a section too
+AMBIGUOUS = [(".text", BASE + 0x1000, BASE + 0x11000, CODE), (".data", BASE + 0x11000, BASE + 0x12000, DATA),
+             (".rdata", BASE + 0x400000, BASE + 0x411018, RDATA)]
+
+
+def test_a_pin_whose_rva_and_va_readings_both_land_places_nothing(tmp_path, monkeypatch):
+    resolve = resolver(tmp_path, monkeypatch,
+                       ["?d@@3HA,0x00411010",   # RVA: .rdata at 0x00811010; VA: .data at 0x00411010
+                        "?v@@3HA,0x00411800",   # RVA: no section; VA: .data at 0x00411800
+                        "?w@@3HA,0x00011800"],  # RVA: .data at 0x00411800; below the base, one reading
+                       AMBIGUOUS)
+    assert resolve("?d@@3HA") == set() and "ambiguous" in resolve.ambiguous["?d@@3HA"][0]
+    assert resolve("?v@@3HA") == resolve("?w@@3HA") == {BASE + 0x11800}
+    img = make_pe([(".text", 0x1000, 0x10000, b"\xc3"),
+                   (".data", 0x11000, 0x1000, bytes(0x100) + struct.pack("<I", 0x00411010)),
+                   (".rdata", 0x400000, 0x11018, b"")])
+    compiled(tmp_path, monkeypatch, [(".data", 0xC0300040, bytes(4), 4, [(0, 1)])],
+             [("?dp@@3PAHA", 0, 1), ("?d@@3HA", 0, 0)], "extern int d;\nint *dp = &d;\n")
+    ok, message = verify(img, row("?dp@@3PAHA", "0x00411100"), resolve)  # either reading would have passed
+    assert not ok and "ambiguous" in message
+
+
+def test_dir32nb_holds_an_rva_and_a_stub_counts_for_its_body(tmp_path, monkeypatch):
+    # retail .text: an ILT stub at RVA 0x1000 (jmp f) and f's body at RVA 0x1010;
+    # .data: the stub's RVA (DIR32NB), f's RVA (DIR32NB), the stub's VA (DIR32)
+    text = (b"\xe9" + struct.pack("<i", 0x1010 - 0x1005)).ljust(0x10, b"\xcc") + b"\xc3"
+    img = image_with(data=struct.pack("<3I", 0x1000, 0x1010, BASE + 0x1000), text=text)
+    relocs = [(0, 1, data_rows.DIR32NB), (4, 1, data_rows.DIR32NB), (8, 1, data_rows.DIR32)]
+    compiled(tmp_path, monkeypatch, [(".data", 0xC0300040, bytes(12), 12, relocs)],
+             [("?table@@3PAP6AXXZA", 0, 1), ("?f@@YAXXZ", 0, 0, FUNCTION)])
+    entry = row("?table@@3PAP6AXXZA", size="12")
+    ok, message = verify(img, entry, {"?f@@YAXXZ": {BASE + 0x1010}})
+    assert ok, message
+    ok, message = verify(img, entry, {"?f@@YAXXZ": {BASE + 0x1020}})
+    assert not ok and "+0x0 (0x00403000): retail points at 0x00401000" in message
 
 
 # --------------------------------------------------------------------------- names

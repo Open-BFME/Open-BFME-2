@@ -151,6 +151,11 @@ def git(*argv):
 
 claimed = {r["source"] for r in csv.DictReader(io.StringIO(
     git("show", "%s:reverse/functions.csv" % rev))) if r.get("status") == "matched"}
+# a data-only TU owns data_rows.csv rows (tools/data_rows.py): its edits are verified too.
+# Only a proven absence (ls-tree lists nothing) means no data rows; a git error fails.
+if git("ls-tree", rev, "--", "reverse/data_rows.csv").strip():
+    claimed |= {r["source"] for r in csv.DictReader(io.StringIO(
+        git("show", "%s:reverse/data_rows.csv" % rev))) if r.get("status") == "matched"}
 touched = git("diff", "--name-only", "--diff-filter=ACMRT", base, rev,
               "--", "Code/*.cpp", "Code/*.c", "Code/*.asm").splitlines()
 sys.stdout.reconfigure(newline="\n")

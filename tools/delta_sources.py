@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
-"""Print the source files whose functions.csv claims change between two states.
+"""Print the source files whose functions.csv or data_rows.csv claims change between two states.
 
 Row-set semantics: a row counts as delta only if its exact tuple is absent from
 the old state — new claims and edited claims need byte-proof; deletions and
 reorders (dedup_csv re-sorts the whole file) cannot break byte-truth and are
 ignored. Used by the git hooks to byte-verify exactly what a commit or push
-adds, instead of running the full multi-minute gate.
+adds, instead of running the full multi-minute gate. A data-only TU owns no
+function row, so only its data_rows.csv rows put it under verification
+(Open-BFME-1's data_delta_sources); both ledgers are read with the same checks.
 
   --staged        HEAD vs the git index (pre-commit)
   --range A B     committed state A vs committed state B (pre-push)
@@ -21,9 +23,11 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 LEDGER = "reverse/functions.csv"
+DATA_LEDGER = "reverse/data_rows.csv"  # tools/data_rows.py
 
 
 HEADER = ("name", "export_rva", "target_rva", "target_size", "source", "status", "notes")
+DATA_HEADER = ("name", "address", "address_kind", "size", "section", "source", "status", "evidence", "model")
 
 
 class LedgerReadError(RuntimeError):
@@ -52,35 +56,36 @@ def unborn_head():
     return False
 
 
-def rows_at(spec):
+def rows_at(spec, ledger=LEDGER, header=HEADER):
     """Read a validated ledger blob; only proven path absence means no rows."""
-    if spec == f":{LEDGER}":
-        entries = git_bytes("ls-files", "--stage", "-z", "--", LEDGER).split(b"\0")
+    label = ledger.rsplit("/", 1)[-1]
+    if spec == f":{ledger}":
+        entries = git_bytes("ls-files", "--stage", "-z", "--", ledger).split(b"\0")
         entries = [entry for entry in entries if entry]
         if not entries:
             return set()
         if len(entries) != 1:
-            raise LedgerReadError("functions.csv has unresolved index stages")
+            raise LedgerReadError(f"{label} has unresolved index stages")
         metadata, path = entries[0].split(b"\t", 1)
         mode, oid, stage = metadata.split()
-        if path != LEDGER.encode() or stage != b"0" or mode not in (b"100644", b"100755"):
-            raise LedgerReadError("functions.csv is not a regular stage-0 index blob")
+        if path != ledger.encode() or stage != b"0" or mode not in (b"100644", b"100755"):
+            raise LedgerReadError(f"{label} is not a regular stage-0 index blob")
     else:
-        suffix = f":{LEDGER}"
+        suffix = f":{ledger}"
         if not spec.endswith(suffix):
             raise LedgerReadError(f"unsupported ledger spec: {spec}")
         ref = spec[:-len(suffix)]
         tree = git_bytes("rev-parse", "--verify", "--end-of-options", ref + "^{tree}").strip()
-        entries = git_bytes("ls-tree", "-z", tree.decode("ascii"), "--", LEDGER).split(b"\0")
+        entries = git_bytes("ls-tree", "-z", tree.decode("ascii"), "--", ledger).split(b"\0")
         entries = [entry for entry in entries if entry]
         if not entries:
             return set()
         if len(entries) != 1:
-            raise LedgerReadError("ambiguous functions.csv tree entry")
+            raise LedgerReadError(f"ambiguous {label} tree entry")
         metadata, path = entries[0].split(b"\t", 1)
         mode, kind, oid = metadata.split()
-        if path != LEDGER.encode() or kind != b"blob" or mode not in (b"100644", b"100755"):
-            raise LedgerReadError("functions.csv is not a regular tree blob")
+        if path != ledger.encode() or kind != b"blob" or mode not in (b"100644", b"100755"):
+            raise LedgerReadError(f"{label} is not a regular tree blob")
     raw = git_bytes("cat-file", "blob", oid.decode("ascii"))
     try:
         text = raw.decode("utf-8")
@@ -89,19 +94,36 @@ def rows_at(spec):
         # must not turn them into an unreadable state or change row semantics.
         rows = list(csv.reader(io.StringIO(text)))
     except (UnicodeDecodeError, csv.Error) as exc:
-        raise LedgerReadError(f"invalid functions.csv: {exc}") from exc
-    if not rows or tuple(rows[0]) != HEADER:
-        raise LedgerReadError("functions.csv has missing or invalid header")
+        raise LedgerReadError(f"invalid {label}: {exc}") from exc
+    if not rows or tuple(rows[0]) != header:
+        raise LedgerReadError(f"{label} has missing or invalid header")
     result = set()
     for line, row in enumerate(rows[1:], 2):
         if not row or row == [""]:
             continue
-        if len(row) != len(HEADER) or tuple(row) == HEADER or not row[0]:
-            raise LedgerReadError(f"malformed functions.csv row {line}")
+        if len(row) != len(header) or tuple(row) == header or not row[0]:
+            raise LedgerReadError(f"malformed {label} row {line}")
         if any("\n" in value or "\r" in value or "\0" in value for value in row):
-            raise LedgerReadError(f"multiline or NUL functions.csv row {line}")
+            raise LedgerReadError(f"multiline or NUL {label} row {line}")
         result.add(tuple(row))
     return result
+
+
+def delta_rows(args, ledger=LEDGER, header=HEADER):
+    """Rows of `ledger` that are new or edited between the two states `args` names."""
+    if args.staged:
+        try:
+            old = rows_at(f"HEAD:{ledger}", ledger, header)
+        except LedgerReadError:
+            if not unborn_head():
+                raise
+            old = set()
+        new = rows_at(f":{ledger}", ledger, header)
+    else:
+        old_ref, new_ref = args.range
+        old = rows_at(f"{old_ref}:{ledger}", ledger, header)
+        new = rows_at(f"{new_ref}:{ledger}", ledger, header)
+    return new - old
 
 
 def main():
@@ -114,19 +136,10 @@ def main():
                       help="delta between two committed refs/SHAs")
     args = parser.parse_args()
 
-    if args.staged:
-        try:
-            old = rows_at(f"HEAD:{LEDGER}")
-        except LedgerReadError:
-            if not unborn_head():
-                raise
-            old = set()
-        new = rows_at(f":{LEDGER}")
-    else:
-        old_ref, new_ref = args.range
-        old, new = rows_at(f"{old_ref}:{LEDGER}"), rows_at(f"{new_ref}:{LEDGER}")
-
-    sources = {r[4] for r in (new - old) if len(r) >= 5 and r[4]}
+    sources = {r[4] for r in delta_rows(args) if len(r) >= 5 and r[4]}
+    # A new or edited data row: build.py byte-verifies its source's data rows.
+    column = DATA_HEADER.index("source")
+    sources |= {r[column] for r in delta_rows(args, DATA_LEDGER, DATA_HEADER) if r[column]}
     # Hooks consume this via mapfile/<(...) - force LF-only output or
     # Windows text-mode stdout appends CR to every path and -f "$s" fails.
     sys.stdout.reconfigure(newline="\n")

@@ -31,7 +31,12 @@ Verification (build.py, per source and in the full gate), per row:
             fields, and every relocation's target (symbol + in-place addend)
             equal to retail's pointer there, the target's address coming from
             the ledgers (functions.csv object symbols, data_rows, dir32 names,
-            symbols.csv pins read as RVA or VA; an ILT stub counts for its body).
+            symbols.csv pins; an ILT stub counts for its body). A function
+            target takes only a code address and a data target only a data
+            address. A pin is an RVA (pin_admission admits only in-image RVAs
+            in code); its VA reading counts only where it lands in data, and a
+            pin with two readings that both qualify places nothing (pin_readings).
+            DIR32 holds the target's VA, DIR32NB its RVA.
             A relocation to a TU-local symbol cannot be placed and fails.
             uninitialised (.bss / COMMON): retail holds zeros over the extent.
             Each symbol is checked alone at its own address: MSVC 7.1 lays a
@@ -41,9 +46,12 @@ Verification (build.py, per source and in the full gate), per row:
   python3 tools/data_rows.py --check            # integrity only
   python3 tools/data_rows.py --verify [SOURCE]  # compile + verify (all rows, or one source's)
 
-Ported from Open-BFME-1's tools/data_rows.py; only its paths differ, set once
-below (REVERSE, SOURCE_ROOT). This repository has no dir32_addresses.csv, so
-no dir32 name places a relocation target until one exists.
+Ported from Open-BFME-1's tools/data_rows.py; its paths are set once below
+(REVERSE, SOURCE_ROOT). Fixed here since the port (review of cd1336610f): pin
+readings (pin_readings, Resolver), the DIR32NB stub comparison in verify_row,
+and check() no longer reads retail's image for a ledger with no rows. This
+repository has no dir32_addresses.csv, so no dir32 name places a relocation
+target until one exists.
 """
 import argparse
 import csv
@@ -66,6 +74,8 @@ IMAGE_BASE = 0x400000
 DIR32, DIR32NB = 0x0006, 0x0007
 EXTERNAL, STATIC = 2, 3
 UNINIT = 0x80
+EXECUTABLE = 0x20000000 | 0x00000020  # IMAGE_SCN_MEM_EXECUTE | IMAGE_SCN_CNT_CODE
+DTYPE_FUNCTION = 2  # COFF symbol type: (type >> 4) & 3 == 2 is a function (MSVC writes 0x20)
 SOURCE_SUFFIXES = (".c", ".cpp")
 
 
@@ -90,7 +100,7 @@ def va_of(row):
 
 
 def retail_sections(exe=None):
-    """[(name, va, end)] from retail's PE header (no image load)."""
+    """[(name, va, end, characteristics)] from retail's PE header (no image load)."""
     if exe is None:
         sys.path.insert(0, str(ROOT / "tools"))
         import build
@@ -105,8 +115,41 @@ def retail_sections(exe=None):
         o = pe + 24 + optional + 40 * k
         name = head[o:o + 8].rstrip(b"\0").decode("latin-1").strip()
         vsize, rva, rsize = struct.unpack_from("<III", head, o + 8)
-        out.append((name, base + rva, base + rva + max(vsize, rsize)))
+        characteristics = struct.unpack_from("<I", head, o + 36)[0]
+        out.append((name, base + rva, base + rva + max(vsize, rsize), characteristics))
     return out
+
+
+def section_kind(sections, va):
+    """'code' where `va` lies in an executable section of `sections` (retail_sections'
+    4-tuples), 'data' in any other section, None outside them all."""
+    for _, start, end, characteristics in sections:
+        if start <= va < end:
+            return "code" if characteristics & EXECUTABLE else "data"
+    return None
+
+
+def pin_readings(value, sections):
+    """({VA}, None) a symbols.csv pin address stands for, or (set(), why) when it
+    places nothing.
+
+    pin_admission admits a pin only as an in-image RVA in code, so code targets
+    resolve by RVA only: 0x00401010 is RVA 0x00401010, never VA 0x00401010
+    (7,192 pins had both readings in retail .text on 2026-10-09). Older data
+    pins were written as RVAs or as VAs (link_cycle.pin_matches), so a VA
+    reading counts too, but only where it lands in data. When the RVA reading
+    and such a VA reading both land in a section the pin is ambiguous and fails
+    closed."""
+    readings = []
+    rva_kind = section_kind(sections, IMAGE_BASE + value)
+    if rva_kind is not None:
+        readings.append(IMAGE_BASE + value)
+    if section_kind(sections, value) == "data":
+        readings.append(value)
+    if len(readings) > 1:
+        return set(), (f"pin 0x{value:08X} is ambiguous: as an RVA it is {rva_kind} at 0x{readings[0]:08X}, "
+                       f"as a VA data at 0x{value:08X}")
+    return set(readings), None
 
 
 def check(raw, problems, sources_ok=None, sections=None):
@@ -118,6 +161,8 @@ def check(raw, problems, sources_ok=None, sections=None):
         return 0
     if raw and not raw.endswith(b"\n"):
         problems.append("data_rows.csv: the last row has no line ending")
+    if not records:
+        return 0  # header and framing only: nothing to place, so retail's image is not read
     sections = retail_sections() if sections is None else sections
     spans, names, starts = [], {}, {}
     for line, row in records:
@@ -453,9 +498,11 @@ def symbol_size(sections, symbols, sym, source=None, sizer=compiled_size):
 class Resolver:
     """Retail VAs a relocation target name may take, from the ledgers only."""
 
-    def __init__(self, data_rows):
+    def __init__(self, data_rows, sections=None):
         build, rl = _tools()
+        self.sections = retail_sections() if sections is None else sections
         self.homes = {}
+        self.ambiguous = {}  # name -> [why]: pins that placed nothing
         for row in build.load_function_rows():
             if row["target_rva"].startswith("0x"):
                 va = IMAGE_BASE + int(row["target_rva"], 16)
@@ -469,12 +516,19 @@ class Resolver:
         with SYMBOLS.open(newline="", encoding="utf-8") as handle:
             for row in csv.reader(handle):
                 if len(row) >= 2 and row[1].startswith("0x"):
-                    value = int(row[1], 16)
-                    readings = [value] + ([value - IMAGE_BASE] if value >= IMAGE_BASE else [])
-                    self.homes.setdefault(row[0], set()).update(IMAGE_BASE + r for r in readings)
+                    homes, why = pin_readings(int(row[1], 16), self.sections)
+                    if why:
+                        self.ambiguous.setdefault(row[0], []).append(why)
+                    self.homes.setdefault(row[0], set()).update(homes)
 
-    def __call__(self, name):
-        return self.homes.get(name, set())
+    def __call__(self, name, function=None):
+        """`name`'s homes; for a function (True) only those in code, for data
+        (False) only those in data."""
+        homes = self.homes.get(name, set())
+        if function is None:
+            return set(homes)
+        want = "code" if function else "data"
+        return {va for va in homes if section_kind(self.sections, va) == want}
 
 
 def verify_row(row, img, resolve, compile=True, sizer=compiled_size):
@@ -530,15 +584,18 @@ def verify_row(row, img, resolve, compile=True, sizer=compiled_size):
         if target["storage"] != EXTERNAL:
             return False, f"+{w - lo:#x}: relocation to TU-local {target['name']} cannot be placed"
         addend = struct.unpack_from("<i", sec["body"], w)[0]
-        want = {(home + addend - (IMAGE_BASE if kind == DIR32NB else 0)) & 0xFFFFFFFF
-                for home in resolve(target["name"])}
+        function = (target["type"] >> 4) & 3 == DTYPE_FUNCTION
+        want = {(home + addend) & 0xFFFFFFFF for home in resolve(target["name"], function)}  # VAs
         if not want:
-            return False, f"+{w - lo:#x}: {target['name']} has no retail address in the ledgers"
-        actual = value if kind == DIR32 else value + IMAGE_BASE
+            ambiguity = "; ".join(getattr(resolve, "ambiguous", {}).get(target["name"], ()))
+            return False, (f"+{w - lo:#x}: {target['name']} has no retail address in the ledgers "
+                           f"(as {'code' if function else 'data'})" + (f": {ambiguity}" if ambiguity else ""))
+        # DIR32 holds the target's VA, DIR32NB its RVA: compare VAs, the stub's target included
+        actual = value if kind == DIR32 else (value + IMAGE_BASE) & 0xFFFFFFFF
         head = img.read(actual, 5) if img.section(actual) == ".text" else None
         stub = (actual + 5 + struct.unpack_from("<i", head, 1)[0]) & 0xFFFFFFFF if head and head[0] == 0xE9 else None
-        if value not in want and stub not in want:
-            return False, (f"+{w - lo:#x} (0x{site:08X}): retail points at 0x{value:08X}, "
+        if actual not in want and stub not in want:
+            return False, (f"+{w - lo:#x} (0x{site:08X}): retail points at 0x{actual:08X}, "
                            f"{target['name']}+{addend:#x} is " + ", ".join(f"0x{x:08X}" for x in sorted(want)))
     return True, f"{size} B at 0x{va:08X} equal to retail, {len(relocs)} relocation(s) on target ({why})"
 

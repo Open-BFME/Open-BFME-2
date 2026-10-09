@@ -188,7 +188,7 @@ def test_undeclared_and_unclaimed_definitions_among_1500_are_still_refused(repo)
     assert "staged sources define functions the ledger does not declare" in result.stderr
     report = result.stdout.replace("\\", "/")  # the tool prints native paths
     assert f"{bad}: C0750::g" in report
-    assert f"{unclaimed}: ZERO matched functions.csv rows" in report
+    assert f"{unclaimed}: ZERO matched functions.csv / data_rows.csv rows" in report
     assert f"{unclaimed}: Draft::run" in report
     assert "C0749::f" not in report
     assert not calls(repo, "build-calls.jsonl")

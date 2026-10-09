@@ -128,3 +128,35 @@ def test_constructor_initializers_and_indented_definitions_remain_visible():
     assert find_defined_functions(source) == {
         ("Work::Worker", "Worker", None), ("Work::Worker", "unclaimed", None)
     }
+
+
+def test_a_data_only_source_is_claimed_by_its_data_rows(tmp_path, monkeypatch, capsys):
+    """A TU that defines only data owns data_rows.csv rows (tools/data_rows.py), not
+    function rows; Open-BFME-1's claims gate counts them, and the port did not."""
+    import find_declared_unmatched as tool
+    import data_rows
+    (tmp_path / "reverse").mkdir()
+    (tmp_path / "reverse/functions.csv").write_text(
+        "name,export_rva,target_rva,target_size,source,status,notes\n")
+    (tmp_path / "Code").mkdir()
+    (tmp_path / "Code/Language.cpp").write_text("int OurLanguage = 0;\n")
+    monkeypatch.setattr(tool, "ROOT", tmp_path)
+    monkeypatch.setattr(tool, "FUNCTIONS_CSV", tmp_path / "reverse/functions.csv")
+    monkeypatch.setattr(tool, "CLAIMS_WHITELIST", tmp_path / "absent.txt")
+    monkeypatch.setattr(tool, "DATA_ROWS_CSV", tmp_path / "reverse/data_rows.csv", raising=False)
+    monkeypatch.setattr(sys, "argv", ["find_declared_unmatched.py", "--fail", "Code/Language.cpp"])
+
+    def report():
+        try:
+            tool.main()
+            code = 0
+        except SystemExit as exc:
+            code = exc.code
+        return code, capsys.readouterr().out
+
+    code, out = report()  # no data row yet: a source that owns nothing
+    assert code == 1 and "Code/Language.cpp: ZERO matched" in out.replace("\\", "/")
+    (tmp_path / "reverse/data_rows.csv").write_text(
+        data_rows.HEADER + "\n?OurLanguage@@3HA,0x00403000,va,4,.data,Code/Language.cpp,matched,ZH,m\n")
+    code, out = report()
+    assert code == 0 and "ZERO matched" not in out

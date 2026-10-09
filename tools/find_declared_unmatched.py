@@ -13,6 +13,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 SRC_DIR = ROOT / "src"
 FUNCTIONS_CSV = ROOT / "reverse" / "functions.csv"
+DATA_ROWS_CSV = ROOT / "reverse" / "data_rows.csv"
 CLAIMS_WHITELIST = ROOT / "reverse" / "unclaimed_sources_whitelist.txt"
 
 # `// <label> present-unmatched` / `// <label> absent-from-retail` definition markers
@@ -114,6 +115,19 @@ def read_function_names(path: Path, staged: bool):
             matched_by_source[row["source"]] = matched_by_source.get(row["source"], 0) + 1
             matched_sources.setdefault(row["name"], set()).add(row["source"])
     return declared, matched, matched_by_source, matched_sources
+
+
+def read_data_row_sources(path: Path, staged: bool):
+    """Sources of matched data_rows.csv rows (one entry per row), staged or on disk
+    (Open-BFME-1's data-only TU handling)."""
+    text = git_show(path.relative_to(ROOT)) if staged else (
+        path.read_text(encoding="utf-8") if path.exists() else None)
+    if not text:
+        return []
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    import data_rows
+    return [row["source"] for _, row in data_rows.parse(text.encode("utf-8"))
+            if row.get("status") == "matched"]
 
 
 def mangle_method(class_name: str, method_name: str) -> str:
@@ -301,6 +315,9 @@ def main():
 
     declared, matched, matched_by_source, matched_sources = read_function_names(FUNCTIONS_CSV, args.staged)
     whitelist = load_claims_whitelist()
+    # a data-only TU owns its globals in data_rows.csv (tools/data_rows.py, byte-verified by the gate)
+    for source in read_data_row_sources(DATA_ROWS_CSV, args.staged):
+        matched_by_source[source] = matched_by_source.get(source, 0) + 1
 
     unmatched = []
     violations = []
@@ -331,7 +348,7 @@ def main():
         file_matched = matched_by_source.get(rel_path.as_posix(), 0)
         if file_matched == 0 and rel_path.as_posix() not in whitelist:
             violations.append(
-                f"{rel_path}: ZERO matched functions.csv rows — match at least one "
+                f"{rel_path}: ZERO matched functions.csv / data_rows.csv rows — match at least one "
                 f"function before committing this file, or whitelist it with a reason "
                 f"(reverse/unclaimed_sources_whitelist.txt)"
             )

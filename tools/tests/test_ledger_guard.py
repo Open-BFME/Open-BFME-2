@@ -67,6 +67,28 @@ def test_push_refuses_a_ledger_that_is_not_the_pushed_commits(repo):
     assert G.main(["--commit", git(repo, "rev-parse", "HEAD").strip()]) == 0
 
 
+DATA = "reverse/data_rows.csv"
+DATA_HEAD = "name,address,address_kind,size,section,source,status,evidence,model\n"
+DATA_ROW = "?g@@3HA,0x00403000,va,4,.data,Data.cpp,matched,ZH defines it,m\n"
+
+
+def test_data_rows_staged_and_unstaged_divergence_is_refused(repo, capsys):
+    """build.py byte-verifies a source's data rows from the working-tree
+    data_rows.csv (tools/data_rows.py); the guard covered only functions.csv and
+    symbols.csv, so an unstaged data row would have been proven instead."""
+    (repo / DATA).write_text(DATA_HEAD)
+    git(repo, "add", DATA)
+    git(repo, "commit", "-qm", "data ledger")
+    head = git(repo, "rev-parse", "HEAD").strip()
+    (repo / DATA).write_text(DATA_HEAD + DATA_ROW)
+    git(repo, "add", DATA)
+    assert G.main(["--staged"]) == 0                  # the row is staged as it is on disk
+    (repo / DATA).write_text(DATA_HEAD + DATA_ROW.replace("0x00403000", "0x00403004"))
+    assert G.main(["--staged"]) == 1                  # and then moved, unstaged
+    assert DATA in capsys.readouterr().err
+    assert G.main(["--commit", head]) == 1            # not the pushed commit's either
+
+
 @pytest.mark.parametrize("hook,call", [("pre-commit", "ledger_guard.py --staged"),
                                        ("pre-push", 'ledger_guard.py --commit "$local_sha"')])
 def test_hooks_guard_before_any_build(hook, call):
