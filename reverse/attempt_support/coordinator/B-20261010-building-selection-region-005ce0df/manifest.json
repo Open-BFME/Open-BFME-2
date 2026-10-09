@@ -1,0 +1,25 @@
+{
+  "id": "B-20261010-building-selection-region-005ce0df",
+  "seat": "B",
+  "base_commit": "a30fb85c6b848536e8f2dfd7e5acbd461d36b12e",
+  "paths": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIPlanningPhaseBuildingSelectionCtor.cpp"
+  ],
+  "recoveries": [
+    {
+      "name": "?SelectRegion@DetailsPanel@PlanningPhaseBuildingSelection@StrategicInGameUI@@UAEXXZ",
+      "rva": "0x005CE0DF",
+      "size": 43,
+      "source": "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIPlanningPhaseBuildingSelectionCtor.cpp",
+      "notes": "WB15C12B0 names PlanningPhaseBuildingSelection DetailsPanel SelectRegion and asserts its owner relationship at source121; native5CE0DF..5CE10A proves complete43B body and pointer875120 independently proves virtual ABI. Existing496B constructor establishes owner region field18; callback reads panel ownerC and region ID24 then existing4E05F0 hero query and5E683E owner forwarder. Full43B body exact on first trial under unchanged sibling flags; existing496B constructor still exact. No new pins or assembly.",
+      "replace_rva": ""
+    }
+  ],
+  "proof_command": "python tools/explain_mismatch.py \"?SelectRegion@DetailsPanel@PlanningPhaseBuildingSelection@StrategicInGameUI@@UAEXXZ\" --rva 0x005CE0DF --size 43 --source Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIPlanningPhaseBuildingSelectionCtor.cpp; python build/verify-building-selection-region.py (copied as verify-candidate.py)",
+  "proof_log": "proof.log",
+  "claim_owner": "codex-01a12257-recovery",
+  "dependencies": [],
+  "ledger_delta": "No local ledger edits. One new row.",
+  "provider_notes": "Native virtual-method pointer875120 contains VA9CE0DF; both callees already rowed with unchanged declaration spellings: Rva004E05F0 rva004E05F021B and Rva005E683EMid fwd8B. The existing source constructor supplies supported parent layout. Nested panel definition adds no vtable or constructor emission. This work does not migrate the independently already-rowed panel constructor5CE172 or destruction callback5CE130.",
+  "proof_exit_code": 0
+}

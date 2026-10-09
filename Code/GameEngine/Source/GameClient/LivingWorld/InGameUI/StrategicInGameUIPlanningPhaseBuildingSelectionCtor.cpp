@@ -152,6 +152,8 @@ namespace StrategicInGameUI
 class StrategicInGameUI::PlanningPhaseBuildingSelection : public Rva005E67FE, public LivingWorldBuildingObserver
 {
 public:
+	class DetailsPanel;
+	friend class DetailsPanel;
 	PlanningPhaseBuildingSelection(void *owner, void *context, PlanningUI *ui, void *extra, LivingWorldRegion *region);
 	virtual ~PlanningPhaseBuildingSelection();
 	virtual void onBuildingChanged();
@@ -164,6 +166,33 @@ private:
 	Rva005CE236 m_build;		// +0x1C
 	int m_20;			// +0x20
 };
+
+// WB 0x015C12B0 names this panel method and asserts its owner relationship.
+// Native 0x005CE0DF..0x005CE10A, virtual pointer at 0x00875120: owner +0x0C,
+// region at owner +0x18, selected region ID +0x24, then the existing hero
+// query and owner forwarding thunk. Other panel fields are opaque here.
+class StrategicInGameUI::PlanningPhaseBuildingSelection::DetailsPanel
+{
+public:
+	virtual void SelectRegion();
+private:
+	char m_pad04[0x08];
+	PlanningPhaseBuildingSelection *m_owner;
+};
+
+void StrategicInGameUI::PlanningPhaseBuildingSelection::DetailsPanel::SelectRegion()
+{
+	if (m_owner)
+	{
+		int regionId = *(int *)((char *)m_owner->m_region + 0x24);
+		if (regionId)
+		{
+			CreateAHeroData *hero = ((Rva004E05F0 *)m_owner->m_region)->rva004E05F0();
+			if (hero)
+				((Rva005E683EMid *)m_owner)->fwd(regionId, (int)hero);
+		}
+	}
+}
 
 StrategicInGameUI::PlanningPhaseBuildingSelection::PlanningPhaseBuildingSelection(void *owner, void *context,
 	PlanningUI *ui, void *extra, LivingWorldRegion *region)
