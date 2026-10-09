@@ -302,13 +302,31 @@ def high_text_image(pointer):
 
 def test_a_code_pin_is_an_rva_so_a_high_relocation_cannot_take_its_va_reading(tmp_path, monkeypatch):
     resolve = resolver(tmp_path, monkeypatch, ["?f@@YAXXZ,0x00401010"], HIGH_TEXT)
-    assert resolve("?f@@YAXXZ") == {BASE + 0x401010}
+    assert resolve("?f@@YAXXZ") == resolve("?f@@YAXXZ", True) == {BASE + 0x401010}  # never both
     compiled(tmp_path, monkeypatch, [(".data", 0xC0300040, bytes(4), 4, [(0, 1)])],
              [("?fp@@3P6AXXZA", 0, 1), ("?f@@YAXXZ", 0, 0, FUNCTION)], "void f();\nvoid (*fp)() = &f;\n")
     entry = row("?fp@@3P6AXXZA", "0x00902000")
     ok, message = verify(high_text_image(0x00401010), entry, resolve)  # retail points at RVA 0x1010, not f
     assert not ok and "retail points at 0x00401010" in message
     assert verify(high_text_image(BASE + 0x401010), entry, resolve)[0]  # the pin's own RVA
+
+
+# a function pinned as a VA whose RVA reading is not code, as ??1Rva0033DDA1E4@@QAE@XZ
+# is at 0x0088BA39 (RVA 0x0048BA39 in .text; as an RVA, .rdata)
+LEGACY = [(".text", BASE + 0x1000, BASE + 0x10000, CODE), (".rdata", BASE + 0x400000, BASE + 0x402000, RDATA),
+          (".data", BASE + 0x402000, BASE + 0x403000, DATA)]
+
+
+def test_a_legacy_va_function_pin_stands_for_its_code_when_its_rva_reading_is_not(tmp_path, monkeypatch):
+    resolve = resolver(tmp_path, monkeypatch, ["??1X@@QAE@XZ,0x00401010"], LEGACY)
+    assert resolve("??1X@@QAE@XZ", True) == {0x00401010}         # VA 0x00401010 = RVA 0x1010, .text
+    assert resolve("??1X@@QAE@XZ", False) == {BASE + 0x401010}   # as data it is the .rdata RVA
+    img = make_pe([(".text", 0x1000, 0xF000, b"\xc3"), (".rdata", 0x400000, 0x2000, b""),
+                   (".data", 0x402000, 0x1000, struct.pack("<I", 0x00401010))])
+    compiled(tmp_path, monkeypatch, [(".data", 0xC0300040, bytes(4), 4, [(0, 1)])],
+             [("?fp@@3P6AXXZA", 0, 1), ("??1X@@QAE@XZ", 0, 0, FUNCTION)])
+    ok, message = verify(img, row("?fp@@3P6AXXZA", "0x00802000"), resolve)  # a pointer to the dtor
+    assert ok, message
 
 
 def test_a_function_takes_only_a_code_home_and_data_only_a_data_home(tmp_path, monkeypatch):

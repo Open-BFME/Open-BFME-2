@@ -159,6 +159,9 @@ def _quiet_git(monkeypatch):
 
 def _main_harness(tmp_path, monkeypatch, obj, source):
     _quiet_git(monkeypatch)
+    # main(--build) does os.environ.setdefault("BUILD_POOL", ...): owned here, so
+    # monkeypatch removes it again and later tests (test_hook_argmax) see none.
+    monkeypatch.setenv("BUILD_POOL", "4")
     monkeypatch.setattr(census, "OUT", tmp_path / "out")
     monkeypatch.setattr(census, "ledger", lambda: [])
     monkeypatch.setattr(census, "objects", lambda rows, data=None: ([obj], []))

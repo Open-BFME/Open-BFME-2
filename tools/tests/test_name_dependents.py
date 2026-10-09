@@ -176,6 +176,66 @@ def test_rename_breaking_a_dependent_lists_it_and_updated_dependent_does_not(tmp
                                 objects_of=lambda _r: pytest.fail("scanned"), root=tmp_path) == set()
 
 
+def data_rows_of(*specs):
+    return [{"name": n, "address": a, "address_kind": "va", "size": "4", "section": ".data",
+             "source": s, "status": "matched", "evidence": "fixture", "model": "m"} for n, a, s in specs]
+
+
+def test_a_lost_data_home_lists_the_data_rows_that_relocate_to_it(tmp_path):
+    """`int *dp = &g;` resolves g through data_rows.Resolver: g's data row, a
+    function row or a pin. Losing that home must re-verify dp's source, which
+    owns no function row (review of b667b74e91)."""
+    g = "?g@@3HA"
+    objects = {"Code/pointer.cpp": [compiled(tmp_path, "Code/pointer.cpp", [".data", "?dp@@3PAHA", g],
+                                             "extern int g;\nint *dp = &g;\n")],
+               "Code/other.cpp": [compiled(tmp_path, "Code/other.cpp", [".data", "?x@@3HA"], "int x;\n")]}
+    data = data_rows_of((g, "0x00DFE004", "Code/g.cpp"), ("?dp@@3PAHA", "0x00DFE008", "Code/pointer.cpp"),
+                        ("?x@@3HA", "0x00DFE00C", "Code/other.cpp"))
+    scan = dict(admitted=admit_all, objects_of=lambda _rows: {}, root=tmp_path,
+                data_objects_of=lambda _data: objects)
+    deleted = data[1:]
+    moved = [dict(data[0], address="0x00DFE010")] + data[1:]
+    assert nd.dependent_sources([], [], [], [], old_data=data, new_data=deleted, **scan) == {"Code/pointer.cpp"}
+    assert nd.dependent_sources([], [], [], [], old_data=data, new_data=moved, **scan) == {"Code/pointer.cpp"}
+    pin = [{"name": g, "address": "0x009FE004", "notes": ""}]
+    assert nd.dependent_sources([], pin, [], [], old_data=None, new_data=lambda: deleted,
+                                **scan) == {"Code/pointer.cpp"}
+    home = rows((g, "0x9FE004", "Code/g.cpp"))  # a (function) row giving g its home
+    assert nd.dependent_sources(home, [], [], [], old_data=None, new_data=deleted,
+                                **scan) == {"Code/pointer.cpp"}
+    # Additive, or the data ledger unchanged and nothing lost: no scan, no read.
+    assert nd.dependent_sources([], [], [], [], old_data=deleted, new_data=data, admitted=admit_all,
+                                objects_of=lambda _r: pytest.fail("scanned"), root=tmp_path,
+                                data_objects_of=lambda _d: pytest.fail("scanned")) == set()
+    assert nd.dependent_sources(home, [], home, [], old_data=None,
+                                new_data=lambda: pytest.fail("read the data ledger"),
+                                admitted=admit_all, root=tmp_path) == set()
+
+
+def test_data_rows_csv_at_a_state_is_absent_only_when_git_lists_none(tmp_path):
+    repo = tmp_path / "repo"
+    (repo / "reverse").mkdir(parents=True)
+
+    def sh(*args):
+        return subprocess.run(["git", *args], cwd=repo, check=True, capture_output=True,
+                              text=True).stdout.strip()
+    sh("init", "-q")
+    sh("config", "user.name", "Fixture")
+    sh("config", "user.email", "fixture@example.invalid")
+    (repo / "reverse/functions.csv").write_text("name,export_rva,target_rva,target_size,source,status,notes\n")
+    sh("add", "-A")
+    sh("commit", "-qm", "before the data ledger")
+    (repo / nd.DATA_ROWS).write_text("name,address,address_kind,size,section,source,status,evidence,model\n"
+                                     "?g@@3HA,0x00DFE004,va,4,.data,Code/g.cpp,matched,x,m\n")
+    sh("add", nd.DATA_ROWS)
+    staged = argparse.Namespace(staged=True, range=None)
+    assert nd.changed_ledgers(staged, repo) == {nd.DATA_ROWS}
+    assert nd.data_dicts("HEAD:", repo) == []
+    assert [r["name"] for r in nd.data_dicts(":", repo)] == ["?g@@3HA"]
+    with pytest.raises(SystemExit, match="cannot list"):
+        nd.data_dicts("no-such-ref:", repo)
+
+
 def test_objectless_source_widens_on_its_text(tmp_path):
     code = tmp_path / "Code"
     code.mkdir()

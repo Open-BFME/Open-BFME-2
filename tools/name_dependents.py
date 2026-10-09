@@ -32,6 +32,15 @@ This lists those units so the hooks byte-verify them too:
 The object cache is the index: it is what the build compiles and verifies
 against, keyed per source, so it never needs a second cache to go stale.
 
+Data rows (reverse/data_rows.csv, tools/data_rows.py) are consumers too: a
+data initializer's relocation (`int *dp = &g;`) resolves its target through
+the same rows and pins, plus the data rows themselves and a function row's
+object symbol (data_rows.Resolver). So a lost call target is also looked for in
+every source that owns a matched data row, and a lost data home -- a data row
+deleted or re-addressed, a function row's object symbol or matched status gone
+-- is looked for in those sources. When only data_rows.csv changes, no call
+target can be lost and functions.csv is not read.
+
   --staged        HEAD vs the git index (pre-commit)
   --range A B     committed A vs committed B (pre-push)
 """
@@ -51,6 +60,7 @@ sys.path.insert(0, str(ROOT / "tools"))
 
 LEDGER = "reverse/functions.csv"
 PINS = "reverse/symbols.csv"
+DATA_ROWS = "reverse/data_rows.csv"
 
 
 def git_bytes(spec, root=ROOT):
@@ -84,6 +94,32 @@ def call_targets(rows, pins, admitted=_admitted):
         except (KeyError, TypeError, ValueError):
             continue
         targets.setdefault(pin["name"], set()).add(address)
+    return targets
+
+
+def data_targets(rows, data_rows):
+    """name -> the homes tools/data_rows.Resolver gives a relocation target from
+    the ledger rows: a matched function row under its name and its object symbol,
+    a data row at its VA. Tagged, so they never compare equal to call_targets'
+    plain addresses; pins are call_targets' already. A function row's address is
+    compared as written (73,000 int() calls are half this function's cost): a
+    respelled address can only list more dependents, never fewer."""
+    import build
+    import data_rows as data_ledger
+    targets = {}
+    for row in rows:
+        if row.get("status") != "matched":
+            continue
+        home = ("row", row.get("target_rva"))
+        targets.setdefault(row["name"], set()).add(home)
+        if "object-symbol=" in (row.get("notes") or ""):
+            targets.setdefault(build.ledger_object_symbol(row), set()).add(home)
+    for row in data_rows:
+        try:
+            address = data_ledger.va_of(row)
+        except (KeyError, TypeError, ValueError):
+            continue
+        targets.setdefault(row["name"], set()).add(("data", address))
     return targets
 
 
@@ -159,6 +195,13 @@ def _row_objects(rows):
         if path is not None and path not in paths:
             paths.append(path)
     return objects
+
+
+def _data_row_objects(data_rows):
+    """{source: [object path]} for matched data rows: data_rows.verify_row reads
+    the source's own compiled object."""
+    return _row_objects([{"source": row.get("source"), "status": row.get("status"), "notes": ""}
+                         for row in data_rows])
 
 
 def compiled_from(obj, digest):
@@ -241,13 +284,20 @@ def ledger_dicts(spec, root=ROOT):
     return csv_dicts(data.decode("utf-8", errors="replace"))
 
 
-def ledgers_differ(args, root=ROOT):
-    """False when neither ledger changes: every name keeps exactly its targets."""
+def changed_ledgers(args, root=ROOT):
+    """The ledgers (functions.csv, symbols.csv, data_rows.csv) that differ
+    between the two states, from one `git diff` that reads no blob."""
     against = ["--cached", "HEAD"] if args.staged else list(args.range)
-    out = subprocess.run(["git", "-C", str(root), "diff", "--quiet", *against, "--", LEDGER, PINS])
-    if out.returncode not in (0, 1):
+    out = subprocess.run(["git", "-C", str(root), "diff", "--name-only", "-z", *against, "--",
+                          LEDGER, PINS, DATA_ROWS], capture_output=True)
+    if out.returncode:
         raise SystemExit("name_dependents: cannot compare the ledgers")
-    return out.returncode == 1
+    return {p.decode("utf-8", errors="surrogateescape") for p in out.stdout.split(b"\0") if p}
+
+
+def ledgers_differ(args, root=ROOT):
+    """False when no ledger changes: every name keeps exactly its targets."""
+    return bool(changed_ledgers(args, root))
 
 
 def states(args, root=ROOT):
@@ -257,6 +307,26 @@ def states(args, root=ROOT):
         old, new = f"{args.range[0]}:", f"{args.range[1]}:"
     return ((ledger_dicts(old + LEDGER, root), ledger_dicts(old + PINS, root)),
             (ledger_dicts(new + LEDGER, root), ledger_dicts(new + PINS, root)))
+
+
+def data_dicts(state, root=ROOT):
+    """data_rows.csv's rows at `state` ("HEAD:", ":" or "<ref>:"). It is younger
+    than the other ledgers, so a state may lack it: no rows only where git lists
+    no such path there; unreadable is an error."""
+    listing = (["ls-files", "-z", "--", DATA_ROWS] if state == ":"
+               else ["ls-tree", "-z", "--name-only", state[:-1], "--", DATA_ROWS])
+    out = subprocess.run(["git", "-C", str(root), *listing], capture_output=True)
+    if out.returncode:
+        raise SystemExit(f"name_dependents: cannot list {state}{DATA_ROWS}")
+    return ledger_dicts(state + DATA_ROWS, root) if out.stdout.strip(b"\0") else []
+
+
+def data_loaders(args, changed, root=ROOT):
+    """(old, new) loaders of data_rows.csv for dependent_sources; old is None when
+    the ledger is the same in both states, so its rows are read only for a scan."""
+    old, new = ("HEAD:", ":") if args.staged else (f"{args.range[0]}:", f"{args.range[1]}:")
+    return ((lambda: data_dicts(old, root)) if DATA_ROWS in changed else None,
+            lambda: data_dicts(new, root))
 
 
 def working_copy(args, root=ROOT):
@@ -270,19 +340,42 @@ def working_copy(args, root=ROOT):
 
 
 def dependent_sources(old_rows, old_pins, new_rows, new_pins, *, admitted=_admitted,
-                      objects_of=_row_objects, root=ROOT, report=None, working=None):
+                      objects_of=_row_objects, root=ROOT, report=None, working=None,
+                      old_data=(), new_data=(), data_objects_of=_data_row_objects):
+    """Sources to re-verify. old_data/new_data are data rows or zero-argument
+    loaders of them; old_data None means data_rows.csv did not change, and its
+    rows (tagged apart from a function row's) then lose nothing."""
+    def load(data):
+        return data() if callable(data) else data
     lost = lost_names(call_targets(old_rows, old_pins, admitted),
                       call_targets(new_rows, new_pins, admitted))
-    if not lost:
+    if old_data is None:
+        lost_data = lost_names(data_targets(old_rows, ()), data_targets(new_rows, ()))
+    else:
+        old_data, new_data = load(old_data), load(new_data)
+        lost_data = lost_names(data_targets(old_rows, old_data), data_targets(new_rows, new_data))
+    if not lost and not lost_data:
         return set()
+    new_data = load(new_data)
     started = time.monotonic()
-    objects = objects_of(new_rows)
+    data_objects = data_objects_of(new_data)
     unsettled, committed = working() if working is not None else (frozenset(), None)
-    found = dependents(lost, objects, root, unsettled=unsettled, committed=committed)
+    found = set()
+    scanned = set(data_objects)
+    if lost:
+        # a call target is a data initializer's relocation target too
+        objects = {source: list(paths) for source, paths in objects_of(new_rows).items()}
+        for source, paths in data_objects.items():
+            objects.setdefault(source, []).extend(p for p in paths if p not in objects[source])
+        scanned |= set(objects)
+        found |= dependents(lost, objects, root, unsettled=unsettled, committed=committed)
+    if lost_data:
+        found |= dependents(lost_data, data_objects, root, unsettled=unsettled, committed=committed)
     if report is not None:
-        print(f"name_dependents: {len(lost)} call target(s) lost "
-              f"({', '.join(sorted(lost)[:3])}{', ...' if len(lost) > 3 else ''}); "
-              f"{len(found)} referencing unit(s) of {len(objects)} scanned in "
+        names = sorted(set(lost) | set(lost_data))
+        print(f"name_dependents: {len(lost)} call target(s) and {len(lost_data)} data-row "
+              f"target(s) lost ({', '.join(names[:3])}{', ...' if len(names) > 3 else ''}); "
+              f"{len(found)} referencing unit(s) of {len(scanned)} scanned in "
               f"{time.monotonic() - started:.1f}s", file=report)
     return found
 
@@ -294,11 +387,18 @@ def main():
     mode.add_argument("--staged", action="store_true")
     mode.add_argument("--range", nargs=2, metavar=("OLD", "NEW"))
     args = parser.parse_args()
-    if not ledgers_differ(args):
+    changed = changed_ledgers(args)
+    if not changed:
         return
-    (old_rows, old_pins), (new_rows, new_pins) = states(args)
+    if changed - {DATA_ROWS}:
+        (old_rows, old_pins), (new_rows, new_pins) = states(args)
+    else:
+        # only data rows moved: no call target and no function row's home can be lost
+        old_rows, old_pins, new_rows, new_pins = [], [], [], []
+    old_data, new_data = data_loaders(args, changed)
     found = dependent_sources(old_rows, old_pins, new_rows, new_pins, report=sys.stderr,
-                              working=lambda: working_copy(args))
+                              working=lambda: working_copy(args),
+                              old_data=old_data, new_data=new_data)
     sys.stdout.reconfigure(newline="\n")
     for source in sorted(found):
         print(source)

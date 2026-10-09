@@ -126,6 +126,16 @@ def delta_rows(args, ledger=LEDGER, header=HEADER):
     return new - old
 
 
+def unchanged(args, ledger):
+    """True only when git proves `ledger` the same in both states: one `git diff`
+    that compares object ids and reads no blob. A difference or any git error
+    (an unborn HEAD, a bad ref) is False, and the full read decides."""
+    against = ["--cached", "HEAD"] if args.staged else list(args.range)
+    out = subprocess.run(["git", "-C", str(ROOT), "diff", "--quiet", *against, "--", ledger],
+                         capture_output=True)
+    return out.returncode == 0
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -138,8 +148,11 @@ def main():
 
     sources = {r[4] for r in delta_rows(args) if len(r) >= 5 and r[4]}
     # A new or edited data row: build.py byte-verifies its source's data rows.
-    column = DATA_HEADER.index("source")
-    sources |= {r[column] for r in delta_rows(args, DATA_LEDGER, DATA_HEADER) if r[column]}
+    # Most commits leave data_rows.csv alone; then nothing is new and its two
+    # blobs need not be read (one git call instead of five).
+    if not unchanged(args, DATA_LEDGER):
+        column = DATA_HEADER.index("source")
+        sources |= {r[column] for r in delta_rows(args, DATA_LEDGER, DATA_HEADER) if r[column]}
     # Hooks consume this via mapfile/<(...) - force LF-only output or
     # Windows text-mode stdout appends CR to every path and -f "$s" fails.
     sys.stdout.reconfigure(newline="\n")

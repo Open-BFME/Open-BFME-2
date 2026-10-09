@@ -33,10 +33,11 @@ Verification (build.py, per source and in the full gate), per row:
             the ledgers (functions.csv object symbols, data_rows, dir32 names,
             symbols.csv pins; an ILT stub counts for its body). A function
             target takes only a code address and a data target only a data
-            address. A pin is an RVA (pin_admission admits only in-image RVAs
-            in code); its VA reading counts only where it lands in data, and a
-            pin with two readings that both qualify places nothing (pin_readings).
-            DIR32 holds the target's VA, DIR32NB its RVA.
+            address. A pin is read for the target's kind (pin_readings): for
+            a function, as an RVA when that lands in code (pin_admission's
+            form), else as a legacy VA when that lands in code; for data, as
+            whichever reading lands in data, and a pin with two such readings
+            places nothing. DIR32 holds the target's VA, DIR32NB its RVA.
             A relocation to a TU-local symbol cannot be placed and fails.
             uninitialised (.bss / COMMON): retail holds zeros over the extent.
             Each symbol is checked alone at its own address: MSVC 7.1 lays a
@@ -129,27 +130,34 @@ def section_kind(sections, va):
     return None
 
 
-def pin_readings(value, sections):
-    """({VA}, None) a symbols.csv pin address stands for, or (set(), why) when it
-    places nothing.
+def pin_readings(value, sections, function=None):
+    """({VA}, None) a symbols.csv pin address stands for as a function (True),
+    as data (False) or as either (None), or (set(), why) when it is ambiguous.
 
-    pin_admission admits a pin only as an in-image RVA in code, so code targets
-    resolve by RVA only: 0x00401010 is RVA 0x00401010, never VA 0x00401010
-    (7,192 pins had both readings in retail .text on 2026-10-09). Older data
-    pins were written as RVAs or as VAs (link_cycle.pin_matches), so a VA
-    reading counts too, but only where it lands in data. When the RVA reading
-    and such a VA reading both land in a section the pin is ambiguous and fails
-    closed."""
-    readings = []
-    rva_kind = section_kind(sections, IMAGE_BASE + value)
-    if rva_kind is not None:
-        readings.append(IMAGE_BASE + value)
-    if section_kind(sections, value) == "data":
-        readings.append(value)
-    if len(readings) > 1:
-        return set(), (f"pin 0x{value:08X} is ambiguous: as an RVA it is {rva_kind} at 0x{readings[0]:08X}, "
-                       f"as a VA data at 0x{value:08X}")
-    return set(readings), None
+    A function's address is code. pin_admission admits a pin only as an
+    in-image RVA in code, so a pin whose RVA reading lands in code is that RVA
+    and never its VA reading: 0x00401010 is RVA 0x00401010, never VA 0x00401010
+    (7,192 pins had both readings in retail .text on 2026-10-09). Only when the
+    RVA reading is not code does a VA reading that lands in code stand for the
+    function: a legacy VA pin, ??1Rva0033DDA1E4@@QAE@XZ at 0x0088BA39 (RVA
+    0x0048BA39; its RVA reading is .rdata).
+    Data pins were written as RVAs or as VAs (link_cycle.pin_matches), so
+    whichever reading lands in data counts; when both do, the pin is ambiguous
+    and places nothing (fail closed)."""
+    readings = (("RVA", IMAGE_BASE + value), ("VA", value))
+    kinds = [(how, va, section_kind(sections, va)) for how, va in readings]
+    if function is None:
+        code, _ = pin_readings(value, sections, True)
+        data, why = pin_readings(value, sections, False)
+        return code | data, why
+    if function:
+        code = [va for _, va, kind in kinds if kind == "code"]
+        return set(code[:1]), None  # the RVA reading first: never both
+    data = [(how, va) for how, va, kind in kinds if kind == "data"]
+    if len(data) > 1:
+        return set(), (f"pin 0x{value:08X} is ambiguous: as an RVA and as a VA it is data, "
+                       f"at 0x{data[0][1]:08X} and at 0x{data[1][1]:08X}")
+    return {va for _, va in data}, None
 
 
 def check(raw, problems, sources_ok=None, sections=None):
@@ -501,8 +509,9 @@ class Resolver:
     def __init__(self, data_rows, sections=None):
         build, rl = _tools()
         self.sections = retail_sections() if sections is None else sections
-        self.homes = {}
-        self.ambiguous = {}  # name -> [why]: pins that placed nothing
+        self.homes = {}      # name -> VAs from the ledger rows
+        self.pins = {}       # name -> raw symbols.csv addresses, read per target kind
+        self.ambiguous = {}  # name -> [why]: pins that place no data address
         for row in build.load_function_rows():
             if row["target_rva"].startswith("0x"):
                 va = IMAGE_BASE + int(row["target_rva"], 16)
@@ -516,19 +525,22 @@ class Resolver:
         with SYMBOLS.open(newline="", encoding="utf-8") as handle:
             for row in csv.reader(handle):
                 if len(row) >= 2 and row[1].startswith("0x"):
-                    homes, why = pin_readings(int(row[1], 16), self.sections)
+                    value = int(row[1], 16)
+                    self.pins.setdefault(row[0], []).append(value)
+                    why = pin_readings(value, self.sections, False)[1]
                     if why:
                         self.ambiguous.setdefault(row[0], []).append(why)
-                    self.homes.setdefault(row[0], set()).update(homes)
 
     def __call__(self, name, function=None):
         """`name`'s homes; for a function (True) only those in code, for data
-        (False) only those in data."""
-        homes = self.homes.get(name, set())
-        if function is None:
-            return set(homes)
-        want = "code" if function else "data"
-        return {va for va in homes if section_kind(self.sections, va) == want}
+        (False) only those in data, each pin read for that kind."""
+        homes = set(self.homes.get(name, ()))
+        if function is not None:
+            want = "code" if function else "data"
+            homes = {va for va in homes if section_kind(self.sections, va) == want}
+        for value in self.pins.get(name, ()):
+            homes |= pin_readings(value, self.sections, function)[0]
+        return homes
 
 
 def verify_row(row, img, resolve, compile=True, sizer=compiled_size):
