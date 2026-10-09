@@ -255,6 +255,7 @@ struct RegionBonusRuleRegionIDList
 	Int operator[](unsigned int i) const { return m_start[i]; }
 };
 
+#define BFME_SNAPSHOT_NAME_SLOT
 #include "Common/Snapshot.h"
 
 // A rule's bonus block (+0x04): a Snapshot with six ints, copied by the rowed
@@ -269,7 +270,7 @@ public:
 
 protected:
 	virtual void loadPostProcess(void);
-	virtual void crc(Xfer *xfer);
+	virtual const char *GetSnapshotName(void) const;
 	virtual void xfer(Xfer *xfer);
 
 private:
@@ -420,4 +421,65 @@ Rva002109F8::~Rva002109F8()
 Rva0021030E::~Rva0021030E()
 {
 	reinterpret_cast<Rva000427195 *>(this)->rva003A2A41();
+}
+
+// Native210B38..210C17 RET0; WB B54E00 is the region-manager destructor.
+// Its primary Snapshot table has four slots; the +4 observer base has two
+// turn callbacks and no virtual destructor. The three pointer vectors are
+// at +14, +20 and +34; +34 owns the campaign records destroyed above.
+// Preserve the existing address-derived destructor owner rather than infer
+// names for the observer interface or the remaining primary-slot methods.
+class CreateAHeroData;
+class Rva002B7250
+{
+public:
+	void rva002B7250(CreateAHeroData *observer);
+};
+struct RegionLogicObserverPrefix
+{
+	unsigned char m_pad00[0x1C];
+	Rva002B7250 m_observers;
+};
+class Rva0020FB41Outer
+{
+public:
+	void rva0020F685();
+};
+class RegionTurnObserverView
+{
+public:
+	virtual void BeginTurn(int, int) = 0;
+	virtual void EndTurn(int, int) = 0;
+	~RegionTurnObserverView() {}
+};
+class Rva00210B38 : public Snapshot, public RegionTurnObserverView
+{
+public:
+	virtual ~Rva00210B38();
+protected:
+	virtual void loadPostProcess();
+	virtual const char *GetSnapshotName(void) const;
+	virtual void xfer(Xfer *);
+	virtual void BeginTurn(int, int);
+	virtual void EndTurn(int, int);
+private:
+	void *m_campaign08;
+	int m_key0C, m_key10;
+	_STL::vector<void *> m_pending;
+	_STL::vector<void *> m_completed;
+	unsigned char m_pad2C[8];
+	_STL::vector<void *> m_campaigns;
+};
+
+Rva00210B38::~Rva00210B38()
+{
+	for (unsigned int i = 0; i < m_campaigns.size(); ++i)
+		delete static_cast<Rva002109F8 *>(m_campaigns[i]);
+	m_campaigns.clear();
+	reinterpret_cast<Rva0020FB41Outer *>(this)->rva0020F685();
+	// The holder at singleton+1C removes the +4 observer subobject. Its
+	// existing ABI spells the opaque argument CreateAHeroData; this call
+	// establishes its address, not that unrelated class identity.
+	reinterpret_cast<RegionLogicObserverPrefix *>(TheLivingWorldLogic)->m_observers.rva002B7250(reinterpret_cast<CreateAHeroData *>(
+		static_cast<RegionTurnObserverView *>(this)));
 }
