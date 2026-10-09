@@ -1,5 +1,5 @@
 // ?rva00047F79@Rva006EE520@@QAE_NPAVSubTitleManager@@MMHHHH@Z
-// partial score=1.0 date=2026-10-09
+// Replayed after the independently proven SubTitleWindow constructor pin landed.
 // cl: /O1 /arch:SSE /G7 /MD /EHsc
 // Native 0x00047F79..0x0004802C / 179B, subtitle-start sibling of the
 // independently matched update at 0x0004802C (same +0x184/+0x188 fields).
@@ -30,12 +30,13 @@ public:
 class SubTitleWindow {
 public:
     
+    SubTitleWindow(GameFont*,float,float,int,int,int,int);
     ~SubTitleWindow();
 private:
     char m_body[0x6C];
 };
 
-class Rva00260865{public:Rva00260865(GameFont*,float,float,int,int,int,int);char data[0x6c];};
+
 class Rva006EE520 {
 public:
     bool rva00047F79(SubTitleManager *manager, float a, float b,
@@ -59,7 +60,7 @@ bool Rva006EE520::rva00047F79(SubTitleManager *manager, float a, float b,
     int fontSize=*(volatile int*)&manager->m_fontSize;
     GameFont *font = TheFontLibrary->getFont(
         (const AsciiString *)&manager->m_fontName, (float)fontSize, false);
-    m_sink = (SubTitleWindow*)new Rva00260865(font, a, b, c, d, e, f);
+    m_sink = new SubTitleWindow(font, a, b, c, d, e, f);
     m_manager->rva00046A27();
     return true;
 }
