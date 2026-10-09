@@ -1,0 +1,40 @@
+{
+  "id": "D-respawn-image-4af2de-20261009T2340",
+  "seat": "D",
+  "base_commit": "39907989332c884ac74a647b20019615027220eb",
+  "paths": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateRva004AF25D.cpp"
+  ],
+  "recoveries": [
+    {
+      "name": "?getDeadImage@RespawnUpdate@@UAEPBVImage@@XZ",
+      "rva": "0x004AF2DE",
+      "size": 223,
+      "source": "Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateRva004AF25D.cpp",
+      "notes": "WB RespawnUpdate::getDeadImage851/868; native vtable8556B0 slot14; lazy image24 module-data name118 object8 template4 heroKey74 KindOf byte11F bit40; existing hero/image providers; whole223B EH RET0 exact",
+      "replace_rva": ""
+    }
+  ],
+  "proof_command": [
+    [
+      "C:\\Users\\franz\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+      "tools/explain_mismatch.py",
+      "?getDeadImage@RespawnUpdate@@UAEPBVImage@@XZ",
+      "--rva",
+      "0x004AF2DE",
+      "--size",
+      "223",
+      "--source",
+      "Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateRva004AF25D.cpp"
+    ],
+    [
+      "C:\\Users\\franz\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+      "tools/build.py",
+      "Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateRva004AF25D.cpp"
+    ]
+  ],
+  "proof_log": "proof.log",
+  "claim_owner": "codex-01a12257-root",
+  "dependencies": [],
+  "temporary_ledger": false
+}
