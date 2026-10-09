@@ -18,7 +18,6 @@ public:
 	Vector2() {}
 	Vector2(Real x, Real y) { X = x; Y = y; }
 	Vector2 &operator=(const Vector2 &v) { X = v.X; Y = v.Y; return *this; }
-	Vector2 &operator*=(Real k) { X *= k; Y *= k; return *this; }
 	Real X;
 	Real Y;
 };
@@ -38,7 +37,8 @@ public:
 	void Set_UV_Offset_Delta(const Vector2 &per_second)
 	{
 		UVOffsetDeltaPerMS = per_second;
-		UVOffsetDeltaPerMS *= -0.001f;
+		UVOffsetDeltaPerMS.X *= -0.001f;
+		UVOffsetDeltaPerMS.Y *= -0.001f;
 	}
 
 private:
