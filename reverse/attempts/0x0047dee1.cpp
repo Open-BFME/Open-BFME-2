@@ -1,5 +1,7 @@
 // ?rva0047DEE1@TunnelContain@@UAEPAVRva0047DEE1Rider@@H@Z
 // partial score=0.97 date=2026-10-09
+// ?rva0047DEE1@TunnelContain@@UAEPAVRva0047DEE1Rider@@H@Z
+// partial score=0.97 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // Retail 0x0047DEE1, 99B: a TunnelContain primary-vtable member (only

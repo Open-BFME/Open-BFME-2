@@ -1,4 +1,6 @@
 // ?chooseBestWeaponForTarget@WeaponSet@@QAE_NPBVObject@@0W4WeaponChoiceCriteria@@W4CommandSourceType@@@Z
+// partial score=0.99 date=2026-10-09
+// ?chooseBestWeaponForTarget@WeaponSet@@QAE_NPBVObject@@0W4WeaponChoiceCriteria@@W4CommandSourceType@@@Z
 // partial score=0.99 date=2026-10-08
 // cl: /O1 /Oy /G7 /arch:SSE /DNDEBUG /MD
 //
