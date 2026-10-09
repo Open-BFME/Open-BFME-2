@@ -6341,7 +6341,6 @@ object_symbol	reverse/functions.csv	0x0020596A	1
 object_symbol	reverse/functions.csv	0x0020781B	1
 object_symbol	reverse/functions.csv	0x0020D5E6	1
 object_symbol	reverse/functions.csv	0x0020F321	1
-object_symbol	reverse/functions.csv	0x0021030E	1
 object_symbol	reverse/functions.csv	0x00210C87	1
 object_symbol	reverse/functions.csv	0x00210C91	1
 object_symbol	reverse/functions.csv	0x00211F6D	1
@@ -25923,7 +25922,6 @@ pin	reverse/symbols.csv	0x0020FAEA	2
 pin	reverse/symbols.csv	0x0020FB8B	1
 pin	reverse/symbols.csv	0x0020FDDF	1
 pin	reverse/symbols.csv	0x002100E6	1
-pin	reverse/symbols.csv	0x0021030E	1
 pin	reverse/symbols.csv	0x002104B6	2
 pin	reverse/symbols.csv	0x00210566	1
 pin	reverse/symbols.csv	0x00210830	1

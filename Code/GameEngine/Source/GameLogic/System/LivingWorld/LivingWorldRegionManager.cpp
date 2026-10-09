@@ -147,16 +147,39 @@ class Rva002105A6;
 class Rva002E2285;
 class LivingWorldRegionBonusRule;
 
-// The +0x38 member: an AsciiString-keyed hash table. Its destructor is the
-// per-owner copy at 0x0021030E of the body rowed at 0x001FDEDB (its own EH
-// handler, so /OPT:ICF kept it apart); the class is named for that address.
+// The AsciiString-keyed hash table family (Rva000427195Dtor.cpp and its
+// insert units): the instantiations' identical clear() bodies fold to the
+// one the ledger rows at 0x003A2A41 on the family placeholder.
+struct Rva000427195
+{
+	void rva003A2A41();										// 0x003A2A41
+};
+
+// The table's bucket vector: freed (null-guarded) by the table's dtor after
+// clear(), as in Rva000427195Dtor.cpp.
+struct Rva0021030EBuckets
+{
+	~Rva0021030EBuckets()
+	{
+		if (m_begin)
+			_STL::free(m_begin);
+	}
+
+	void **m_begin;
+	void **m_end;
+	void **m_storageEnd;
+};
+
+// The +0x38 member: this holder's instantiation of that table (the family's
+// layout: an unused word, the bucket vector at +4, the count at +0x10). Its
+// destructor is its own copy at 0x0021030E of the family's clear-then-free
+// body (0x001FDEDB and its other copies): each copy carries its own EH
+// handler, so /OPT:ICF keeps them apart. The class is named for that address.
 struct Rva0021030E
 {
 	~Rva0021030E();
 	void *m_unused00;
-	void **m_beginBuckets;
-	void **m_endBuckets;
-	void **m_storageEnd;
+	Rva0021030EBuckets m_buckets;
 	unsigned int m_numElements;
 };
 
@@ -388,4 +411,13 @@ Rva002109F8::~Rva002109F8()
 
 	for (unsigned int j = 0; j < m_rules.size(); ++j)
 		delete m_rules[j];
+}
+
+// Rva0021030E::~Rva0021030E, retail 0x0021030E: the holder's +0x38 table
+// clears its nodes through the family's folded clear (0x003A2A41), then its
+// bucket vector frees the bucket array (null-guarded, C++-linkage free at
+// 0x00030830); the bucket member is live (EH state 0) across the clear.
+Rva0021030E::~Rva0021030E()
+{
+	reinterpret_cast<Rva000427195 *>(this)->rva003A2A41();
 }
