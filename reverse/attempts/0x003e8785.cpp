@@ -127,7 +127,7 @@ class Parameter
 {
 public:
 	Int getInt() const { return m_int; }
-	const AsciiString &getString() const { return *(const AsciiString *)m_string; }
+	const AsciiString *getString() const { return (const AsciiString *)m_string; }
 private:
 	unsigned char m_beforeInt[8];
 	Int m_int; // +0x08
@@ -143,6 +143,7 @@ enum KindOfType
 class ThingTemplate
 {
 public:
+	Bool isEquivalentTo(const ThingTemplate *other) const;
 	Bool isKindOf(KindOfType t) const
 	{
 		return (m_kindOf[t >> 3] >> (t & 7)) & 1;
@@ -152,10 +153,29 @@ private:
 	unsigned char m_kindOf[16]; // +0x108
 };
 
-class ExperienceTracker
+class UpgradeTemplate;
+
+class UpgradeCenter
+{
+public:
+	const UpgradeTemplate *findUpgrade(const AsciiString &name) const;
+};
+extern UpgradeCenter *TheUpgradeCenter;
+
+class Vector3i16;
+
+// ledger 0x000B49A1 (named MeshGeometryClass::get_polys): [[this+0x2C]+0xC].
+class MeshGeometryClass
+{
+protected:
+	Vector3i16 *get_polys();
+};
+
+class ExperienceTracker : public MeshGeometryClass
 {
 public:
 	Int getRank() const { return m_rank; }
+	Int getLevelCap() { return (Int)get_polys(); }
 private:
 	unsigned char m_pad[0x24];
 	Int m_rank; // +0x24
@@ -171,14 +191,42 @@ enum ObjectStatusTypes
 	OBJECT_STATUS_COUNT = 0x80
 };
 
-class UpgradeTemplate;
-
-class UpgradeCenter
+// ThingFactory's template lookup (ledger 0x002D06CA, held under this name).
+class Rva002D06CA
 {
 public:
-	const UpgradeTemplate *findUpgrade(const AsciiString &name) const;
+	void *rva002D06CA(const AsciiString *name);
 };
-extern UpgradeCenter *TheUpgradeCenter;
+extern Rva002D06CA *TheThingFactory;
+
+// The module record Object::rva0028C197 returns: a vtable whose slot 59
+// (+0xEC) answers a status flag.
+class Rva0028C197Module
+{
+public:
+	virtual void slot00(); virtual void slot01(); virtual void slot02(); virtual void slot03(); virtual void slot04();
+	virtual void slot05(); virtual void slot06(); virtual void slot07(); virtual void slot08(); virtual void slot09();
+	virtual void slot10(); virtual void slot11(); virtual void slot12(); virtual void slot13(); virtual void slot14();
+	virtual void slot15(); virtual void slot16(); virtual void slot17(); virtual void slot18(); virtual void slot19();
+	virtual void slot20(); virtual void slot21(); virtual void slot22(); virtual void slot23(); virtual void slot24();
+	virtual void slot25(); virtual void slot26(); virtual void slot27(); virtual void slot28(); virtual void slot29();
+	virtual void slot30(); virtual void slot31(); virtual void slot32(); virtual void slot33(); virtual void slot34();
+	virtual void slot35(); virtual void slot36(); virtual void slot37(); virtual void slot38(); virtual void slot39();
+	virtual void slot40(); virtual void slot41(); virtual void slot42(); virtual void slot43(); virtual void slot44();
+	virtual void slot45(); virtual void slot46(); virtual void slot47(); virtual void slot48(); virtual void slot49();
+	virtual void slot50(); virtual void slot51(); virtual void slot52(); virtual void slot53(); virtual void slot54();
+	virtual void slot55(); virtual void slot56(); virtual void slot57(); virtual void slot58();
+	virtual Bool slot59();
+};
+
+// Object::rva0028BD92(0x27) returns a record whose +0x20 sub-object answers
+// a flag in vtable slot 2.
+class Rva0028BD92Flag
+{
+public:
+	virtual void slot00(); virtual void slot01();
+	virtual Bool answers();
+};
 
 class ContainModuleInterface
 {
@@ -228,6 +276,8 @@ public:
 	ContainModuleInterface *getContain() const { return m_contain; }
 	Bool testStatus(ObjectStatusTypes bit) const;
 	Bool rva00290D2B(const UpgradeTemplate *upgrade) const;
+	void *rva0028C197() const;
+	void *rva0028BD92(Int slot);
 	const ThingTemplate *getTemplate() const { return m_template; }
 	ExperienceTracker *getExperienceTracker() const { return m_experienceTracker; }
 	Bool isCaptured() const { return (m_privateStatus & CAPTURED) != 0; }
@@ -310,6 +360,7 @@ class ScriptConditions
 protected:
 	Bool rva003E85E0(Parameter *playerParm, Parameter *countParm, Parameter *rankParm);
 	Bool rva003E8AA9(Parameter *playerParm);
+	Bool rva003E86A3(Parameter *playerParm, Parameter *countParm, Parameter *modeParm);
 	Bool rva003E8785(Parameter *playerParm, Parameter *countParm, Parameter *upgradeParm);
 	Bool evaluateSkirmishUnownedFactionUnitComparison(Parameter *pSkirmishPlayerParm, Parameter *pComparisonParm, Parameter *pCountParm);
 	Bool evaluateSkirmishPlayerHasComparisonGarrisoned(Parameter *pSkirmishPlayerParm, Parameter *pComparisonParm, Parameter *pCountParm);
@@ -538,20 +589,56 @@ Bool ScriptConditions::evaluateSkirmishPlayerHasDiscoveredPlayer(Parameter *pSki
 	return false;
 }
 
-// ?rva003E8785@ScriptConditions@@IAE_NPAVParameter@@00@Z @ 0x003E8785 222B
-// Target evidence: jump-table index 173 (condition 178) sends here. Counts the
-// player's team members that are not status 0x26 and have the named upgrade
-// (rowed UpgradeCenter::findUpgrade 0x0026F26D, Object bit query 0x00290D2B),
-// true when the count reaches the second Parameter's int. The upgrade
-// resolves from the third Parameter's string; an unknown upgrade or player
-// is false. Same walk as rva003E8AA9.
-Bool ScriptConditions::rva003E8785(Parameter *playerParm, Parameter *countParm, Parameter *upgradeParm)
+
+// ?rva003E86A3@ScriptConditions@@IAE_NPAVParameter@@00@Z @ 0x003E86A3 226B
+// Target evidence: jump-table index 172 (condition 177) sends here. Counts the
+// player's team members that are not status 0x26, skip KindOf bit 90 unless
+// the third Parameter's int is set, and have an experience tracker whose
+// rank is above the tracker's cap (ledger 0x000B49A1); true when the count
+// reaches the second Parameter's int.
+Bool ScriptConditions::rva003E86A3(Parameter *playerParm, Parameter *countParm, Parameter *modeParm)
 {
 	Player *player = ThePlayerList->getPlayerFromMask(TheScriptEngine->rva00357B82(playerParm));
 	if (!player)
 		return false;
-	const UpgradeTemplate *upgrade = TheUpgradeCenter->findUpgrade(upgradeParm->getString());
-	if (!upgrade)
+	Int count = 0;
+	PlayerTeamNode *head = player->getPlayerTeams();
+	for (PlayerTeamNode *it = head->m_next; it != player->getPlayerTeams(); it = it->m_next)
+	{
+		for (DLINK_ITERATOR<Team> iter = it->m_value->iterate_TeamInstanceList(); !iter.done(); iter.advance())
+		{
+			Team *team = iter.cur();
+			if (!team)
+				continue;
+			for (DLINK_ITERATOR<Object> iter2 = team->iterate_TeamMemberList(); !iter2.done(); iter2.advance())
+			{
+				Object *obj = iter2.cur();
+				if (obj->testStatus((ObjectStatusTypes)0x26))
+					continue;
+				if (modeParm->getInt() == 0 && obj->getTemplate()->isKindOf(KINDOF_90))
+					continue;
+				ExperienceTracker *tracker = obj->getExperienceTracker();
+				if (tracker && tracker->getRank() > tracker->getLevelCap())
+					count++;
+			}
+		}
+	}
+	if (count >= countParm->getInt())
+		return true;
+	return false;
+}
+
+// ?rva003E8785@ScriptConditions@@IAE_NPAVParameter@@00@Z @ 0x003E8785 222B
+// Target evidence: jump-table index 173 (condition 178) sends here. Counts the
+// player's team members that are not status 0x26 and carry the named upgrade
+// (rowed UpgradeCenter::findUpgrade 0x0026F26D, Object bit query 0x00290D2B),
+// true when the count reaches the second Parameter's int. An unknown player
+// or upgrade is false. Same walk as rva003E86A3.
+Bool ScriptConditions::rva003E8785(Parameter *playerParm, Parameter *countParm, Parameter *upgradeParm)
+{
+	Player *player = ThePlayerList->getPlayerFromMask(TheScriptEngine->rva00357B82(playerParm));
+	const UpgradeTemplate *upgrade;
+	if (!player || !(upgrade = TheUpgradeCenter->findUpgrade(*upgradeParm->getString())))
 		return false;
 	Int count = 0;
 	PlayerTeamNode *head = player->getPlayerTeams();
@@ -567,10 +654,12 @@ Bool ScriptConditions::rva003E8785(Parameter *playerParm, Parameter *countParm, 
 				Object *obj = iter2.cur();
 				if (!obj)
 					continue;
-				if (!obj->testStatus((ObjectStatusTypes)0x26) && iter2.cur()->rva00290D2B(upgrade))
+				if (!obj->testStatus((ObjectStatusTypes)0x26) && obj->rva00290D2B(upgrade))
 					count++;
 			}
 		}
 	}
-	return count >= countParm->getInt();
+	if (count >= countParm->getInt())
+		return true;
+	return false;
 }

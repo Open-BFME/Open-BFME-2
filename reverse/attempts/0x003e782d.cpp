@@ -1,5 +1,5 @@
 // ?evaluateSkirmishPlayerHasUnitsInArea@ScriptConditions@@IAE_NPAVCondition@@PAVParameter@@1@Z
-// partial score=0.9 date=2026-10-07
+// partial score=0.92 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata /DNDEBUG /MD /EHsc
 //
 // BFME2 player-wide team walk conditions. The count conditions resolve a player from a
@@ -67,13 +67,11 @@
 // Donor shape (Zero Hour): the DLINK_ITERATOR with the checked advance and
 // the null-team / null-member skips, as in PlayerRva002AD93A.cpp.
 
-#include "ascii_string.h"
-
 typedef bool Bool;
 typedef int Int;
-typedef unsigned int UnsignedInt;
 
 class Object;
+class PolygonTrigger;
 
 template <class OBJCLASS>
 class DLINK_ITERATOR
@@ -122,61 +120,55 @@ public:
 	virtual ~MemoryPoolObject();
 };
 
+#include "ascii_string.h"
 #include "Common/Snapshot.h"
+
+class AsciiString;
 
 class Parameter
 {
 public:
 	Int getInt() const { return m_int; }
-	const AsciiString &getString() const { return m_string; }
+	const AsciiString *getString() const { return (const AsciiString *)m_string; }
 private:
 	unsigned char m_beforeInt[8];
 	Int m_int; // +0x08
 	float m_real; // +0x0C
-	AsciiString m_string; // +0x10
+	unsigned char m_string[4]; // +0x10 (AsciiString)
 };
-
-class Condition
-{
-public:
-	Int getCustomData() const { return m_customData; }
-	void setCustomData(Int val) { m_customData = val; }
-	UnsignedInt getCustomFrame() const { return m_customFrame; }
-	void setCustomFrame(UnsignedInt frame) { m_customFrame = frame; }
-private:
-	unsigned char m_pad[0x44];
-	Int m_customData; // +0x44
-	UnsignedInt m_customFrame; // +0x48
-};
-
-class PolygonTrigger;
 
 enum KindOfType
 {
-	KINDOF_25 = 25,
-	KINDOF_89 = 89,
-	KINDOF_90 = 90,
-	KINDOF_134 = 134,
-	KINDOF_152 = 152,
-	KINDOF_175 = 175
+	KINDOF_90 = 90
 };
 
 class ThingTemplate
 {
 public:
-	UnsignedInt isKindOf(KindOfType t) const
+	Bool isEquivalentTo(const ThingTemplate *other) const;
+	Bool isKindOf(KindOfType t) const
 	{
-		return m_kindOf[t >> 5] & (1u << (t & 31));
+		return (m_kindOf[t >> 3] >> (t & 7)) & 1;
 	}
 private:
 	unsigned char m_pad[0x108];
-	UnsignedInt m_kindOf[4]; // +0x108
+	unsigned char m_kindOf[16]; // +0x108
 };
 
-class ExperienceTracker
+class Vector3i16;
+
+// ledger 0x000B49A1 (named MeshGeometryClass::get_polys): [[this+0x2C]+0xC].
+class MeshGeometryClass
+{
+protected:
+	Vector3i16 *get_polys();
+};
+
+class ExperienceTracker : public MeshGeometryClass
 {
 public:
 	Int getRank() const { return m_rank; }
+	Int getLevelCap() { return (Int)get_polys(); }
 private:
 	unsigned char m_pad[0x24];
 	Int m_rank; // +0x24
@@ -190,6 +182,43 @@ enum DisabledType
 enum ObjectStatusTypes
 {
 	OBJECT_STATUS_COUNT = 0x80
+};
+
+// ThingFactory's template lookup (ledger 0x002D06CA, held under this name).
+class Rva002D06CA
+{
+public:
+	void *rva002D06CA(const AsciiString *name);
+};
+extern Rva002D06CA *TheThingFactory;
+
+// The module record Object::rva0028C197 returns: a vtable whose slot 59
+// (+0xEC) answers a status flag.
+class Rva0028C197Module
+{
+public:
+	virtual void slot00(); virtual void slot01(); virtual void slot02(); virtual void slot03(); virtual void slot04();
+	virtual void slot05(); virtual void slot06(); virtual void slot07(); virtual void slot08(); virtual void slot09();
+	virtual void slot10(); virtual void slot11(); virtual void slot12(); virtual void slot13(); virtual void slot14();
+	virtual void slot15(); virtual void slot16(); virtual void slot17(); virtual void slot18(); virtual void slot19();
+	virtual void slot20(); virtual void slot21(); virtual void slot22(); virtual void slot23(); virtual void slot24();
+	virtual void slot25(); virtual void slot26(); virtual void slot27(); virtual void slot28(); virtual void slot29();
+	virtual void slot30(); virtual void slot31(); virtual void slot32(); virtual void slot33(); virtual void slot34();
+	virtual void slot35(); virtual void slot36(); virtual void slot37(); virtual void slot38(); virtual void slot39();
+	virtual void slot40(); virtual void slot41(); virtual void slot42(); virtual void slot43(); virtual void slot44();
+	virtual void slot45(); virtual void slot46(); virtual void slot47(); virtual void slot48(); virtual void slot49();
+	virtual void slot50(); virtual void slot51(); virtual void slot52(); virtual void slot53(); virtual void slot54();
+	virtual void slot55(); virtual void slot56(); virtual void slot57(); virtual void slot58();
+	virtual Bool slot59();
+};
+
+// Object::rva0028BD92(0x27) returns a record whose +0x20 sub-object answers
+// a flag in vtable slot 2.
+class Rva0028BD92Flag
+{
+public:
+	virtual void slot00(); virtual void slot01();
+	virtual Bool answers();
 };
 
 class ContainModuleInterface
@@ -218,7 +247,6 @@ public:
 
 enum ObjectPrivateStatusBits
 {
-	EFFECTIVELY_DEAD = 0x01,
 	CAPTURED = 0x04
 };
 
@@ -240,11 +268,13 @@ public:
 	CellShroudStatus getShroudStatusForPlayer(Int playerIndex) const;
 	ContainModuleInterface *getContain() const { return m_contain; }
 	Bool testStatus(ObjectStatusTypes bit) const;
+	Bool isInside(PolygonTrigger *trigger);
+	Bool testPrivateBit0() const { return (m_privateStatus & 1) != 0; }
+	void *rva0028C197() const;
+	void *rva0028BD92(Int slot);
 	const ThingTemplate *getTemplate() const { return m_template; }
 	ExperienceTracker *getExperienceTracker() const { return m_experienceTracker; }
 	Bool isCaptured() const { return (m_privateStatus & CAPTURED) != 0; }
-	Bool isEffectivelyDead() const { return (m_privateStatus & EFFECTIVELY_DEAD) != 0; }
-	Bool isInside(PolygonTrigger *pTrigger);
 	Bool isDisabledByType(DisabledType type) const
 	{
 		return (m_disabledMask[type >> 3] >> (type & 7)) & 1;
@@ -317,12 +347,25 @@ class ScriptEngine
 public:
 	Int rva00357B82(Parameter *playerParm);
 	PolygonTrigger *getQualifiedTriggerAreaByName(AsciiString name);
-	UnsignedInt getFrameObjectCountChanged() const { return m_frameObjectCountChanged; }
-	UnsignedInt getFrameTeamEnteredOrExited() const { return m_frameTeamEnteredOrExited; }
+	unsigned int frameObjectCountChanged() const { return m_frameObjectCountChanged; }
+	unsigned int frameOther() const { return m_frameOther; }
 private:
 	unsigned char m_pad[0x1A15C];
-	UnsignedInt m_frameObjectCountChanged; // +0x1A15C
-	UnsignedInt m_frameTeamEnteredOrExited; // +0x1A160
+	unsigned int m_frameObjectCountChanged; // +0x1A15C
+	unsigned int m_frameOther; // +0x1A160
+};
+
+class Condition
+{
+public:
+	Int getCustomData() const { return m_customData; }
+	unsigned int getCustomFrame() const { return m_customFrame; }
+	void setCustomData(Int data) { m_customData = data; }
+	void setCustomFrame(unsigned int frame) { m_customFrame = frame; }
+private:
+	unsigned char m_pad[0x44];
+	Int m_customData; // +0x44
+	unsigned int m_customFrame; // +0x48
 };
 extern ScriptEngine *TheScriptEngine;
 
@@ -331,11 +374,12 @@ class ScriptConditions
 protected:
 	Bool rva003E85E0(Parameter *playerParm, Parameter *countParm, Parameter *rankParm);
 	Bool rva003E8AA9(Parameter *playerParm);
+	Bool evaluateSkirmishPlayerHasUnitsInArea(Condition *pCondition, Parameter *pSkirmishPlayerParm, Parameter *pTriggerParm);
+	Bool rva003E86A3(Parameter *playerParm, Parameter *countParm, Parameter *modeParm);
 	Bool evaluateSkirmishUnownedFactionUnitComparison(Parameter *pSkirmishPlayerParm, Parameter *pComparisonParm, Parameter *pCountParm);
 	Bool evaluateSkirmishPlayerHasComparisonGarrisoned(Parameter *pSkirmishPlayerParm, Parameter *pComparisonParm, Parameter *pCountParm);
 	Bool evaluateSkirmishPlayerHasComparisonCapturedUnits(Parameter *pSkirmishPlayerParm, Parameter *pComparisonParm, Parameter *pCountParm);
 	Bool evaluateSkirmishPlayerHasDiscoveredPlayer(Parameter *pSkirmishPlayerParm, Parameter *pDiscoveredByParm);
-	Bool evaluateSkirmishPlayerHasUnitsInArea(Condition *pCondition, Parameter *pSkirmishPlayerParm, Parameter *pTriggerParm);
 };
 
 Bool ScriptConditions::rva003E85E0(Parameter *playerParm, Parameter *countParm, Parameter *rankParm)
@@ -559,53 +603,102 @@ Bool ScriptConditions::evaluateSkirmishPlayerHasDiscoveredPlayer(Parameter *pSki
 	return false;
 }
 
+
+// ?rva003E86A3@ScriptConditions@@IAE_NPAVParameter@@00@Z @ 0x003E86A3 226B
+// Target evidence: jump-table index 172 (condition 177) sends here. Counts the
+// player's team members that are not status 0x26, skip KindOf bit 90 unless
+// the third Parameter's int is set, and have an experience tracker whose
+// rank is above the tracker's cap (ledger 0x000B49A1); true when the count
+// reaches the second Parameter's int.
+Bool ScriptConditions::rva003E86A3(Parameter *playerParm, Parameter *countParm, Parameter *modeParm)
+{
+	Player *player = ThePlayerList->getPlayerFromMask(TheScriptEngine->rva00357B82(playerParm));
+	if (!player)
+		return false;
+	Int count = 0;
+	PlayerTeamNode *head = player->getPlayerTeams();
+	for (PlayerTeamNode *it = head->m_next; it != player->getPlayerTeams(); it = it->m_next)
+	{
+		for (DLINK_ITERATOR<Team> iter = it->m_value->iterate_TeamInstanceList(); !iter.done(); iter.advance())
+		{
+			Team *team = iter.cur();
+			if (!team)
+				continue;
+			for (DLINK_ITERATOR<Object> iter2 = team->iterate_TeamMemberList(); !iter2.done(); iter2.advance())
+			{
+				Object *obj = iter2.cur();
+				if (obj->testStatus((ObjectStatusTypes)0x26))
+					continue;
+				if (modeParm->getInt() == 0 && obj->getTemplate()->isKindOf(KINDOF_90))
+					continue;
+				ExperienceTracker *tracker = obj->getExperienceTracker();
+				if (tracker && tracker->getRank() > tracker->getLevelCap())
+					count++;
+			}
+		}
+	}
+	if (count >= countParm->getInt())
+		return true;
+	return false;
+}
+
+// ?evaluateSkirmishPlayerHasUnitsInArea@ScriptConditions@@IAE_NPAVCondition@@PAVParameter@@1@Z @ 0x003E782D 386B
+// Target evidence: the jump table sends condition 96 here (the dispatcher
+// 0x003EA9AF's callee, pinned earlier as evaluateSkirmishPlayerHasUnitsInArea)
+// and 0x003E79AF negates it. Zero Hour's cached "player has units in area":
+// the Condition's custom data (+0x44: 0 unset, -1 false, 1 true) and frame
+// (+0x48) cache the answer until a script-engine frame counter (+0x1A15C or
+// +0x1A160) passes the cached frame; BFME2 walks every player of the
+// parameter's mask and counts members that pass four template-kind exclusions
+// (89, 134, 152, 175), are inside the trigger, are not private-status bit 0
+// and not template kind 25.
 Bool ScriptConditions::evaluateSkirmishPlayerHasUnitsInArea(Condition *pCondition, Parameter *pSkirmishPlayerParm, Parameter *pTriggerParm)
 {
-	PolygonTrigger *pTrig = TheScriptEngine->getQualifiedTriggerAreaByName(pTriggerParm->getString());
+	PolygonTrigger *pTrig = TheScriptEngine->getQualifiedTriggerAreaByName(*pTriggerParm->getString());
 	if (pTrig == 0)
 		return false;
-	if (pCondition->getCustomData() != 0
-		&& TheScriptEngine->getFrameObjectCountChanged() <= pCondition->getCustomFrame()
-		&& TheScriptEngine->getFrameTeamEnteredOrExited() <= pCondition->getCustomFrame())
+	if (pCondition->getCustomData() != 0)
 	{
-		if (pCondition->getCustomData() == -1)
-			return false;
-		if (pCondition->getCustomData() == 1)
-			return true;
+		unsigned int frame = pCondition->getCustomFrame();
+		if (!(TheScriptEngine->frameObjectCountChanged() > frame) && !(TheScriptEngine->frameOther() > frame))
+		{
+			if (pCondition->getCustomData() == -1)
+				return false;
+			if (pCondition->getCustomData() == 1)
+				return true;
+		}
 	}
 	Int mask = TheScriptEngine->rva00357B82(pSkirmishPlayerParm);
 	while (mask)
 	{
-		Player *pPlayer = ThePlayerList->getEachPlayerFromMask(mask);
-		if (!pPlayer)
+		Player *player = ThePlayerList->getEachPlayerFromMask(mask);
+		if (!player)
 			continue;
 		Int count = 0;
-		PlayerTeamNode *head = pPlayer->getPlayerTeams();
-		for (PlayerTeamNode *it = head->m_next; it != pPlayer->getPlayerTeams(); it = it->m_next)
+		PlayerTeamNode *head = player->getPlayerTeams();
+		for (PlayerTeamNode *it = head->m_next; it != player->getPlayerTeams(); it = it->m_next)
 		{
 			for (DLINK_ITERATOR<Team> iter = it->m_value->iterate_TeamInstanceList(); !iter.done(); iter.advance())
 			{
 				Team *team = iter.cur();
 				if (!team)
 					continue;
-				for (DLINK_ITERATOR<Object> objIter = team->iterate_TeamMemberList(); !objIter.done(); objIter.advance())
+				for (DLINK_ITERATOR<Object> iter2 = team->iterate_TeamMemberList(); !iter2.done(); iter2.advance())
 				{
-					Object *pObj = objIter.cur();
-					if (!pObj)
+					Object *pObj = iter2.cur();
+					if (pObj->getTemplate()->isKindOf((KindOfType)89) || pObj->getTemplate()->isKindOf((KindOfType)134)
+						|| pObj->getTemplate()->isKindOf((KindOfType)152) || pObj->getTemplate()->isKindOf((KindOfType)175))
 						continue;
-					if (pObj->getTemplate()->isKindOf(KINDOF_89) || pObj->getTemplate()->isKindOf(KINDOF_134) || pObj->getTemplate()->isKindOf(KINDOF_152) || pObj->getTemplate()->isKindOf(KINDOF_175))
+					if (!pObj->isInside(pTrig))
 						continue;
-					if (pObj->isInside(pTrig))
-					{
-						if (!(pObj->isEffectivelyDead() || pObj->getTemplate()->isKindOf(KINDOF_25)))
-							count++;
-					}
+					if (pObj->testPrivateBit0() || pObj->getTemplate()->isKindOf((KindOfType)25))
+						continue;
+					count++;
 				}
 			}
 		}
-		Bool comparison = count > 0;
-		pCondition->setCustomFrame(TheScriptEngine->getFrameObjectCountChanged());
-		if (comparison)
+		pCondition->setCustomFrame(TheScriptEngine->frameObjectCountChanged());
+		if (count > 0)
 		{
 			pCondition->setCustomData(1);
 			return true;
