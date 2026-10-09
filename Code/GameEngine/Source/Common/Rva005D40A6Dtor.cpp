@@ -9,6 +9,11 @@
 // no argument words. Original hook names remain unknown.
 // Native member offsets: level4/name8/mapsC/render-names18/display24/text28,
 // color2C/floats30,38/word34 and seven individually initialized flag bits3C.
+// Private helper415D has caller-clean ECX/name ABI and WB15A7790 RetrieveTextWidth;
+// height4287 uses the same capture/value lifetime and native scale.y. Result
+// is initialized after handler teardown to retain native BL; three adjacent
+// height locals preserve native addressable storage. SetText/Wrap/Height paths
+// use native virtual slots04/20/40 and float hook04.
 // Catch states9/10 and handler5D46C8 prove free-display then rethrow.
 // Renderer: FISTP is required by retail under SSE; the two-instruction helper
 // follows the proven codegen blocker already present in Rva005D2B2FMethod.cpp.
@@ -22,9 +27,9 @@
 struct FloatPair { float x,y; };
 class GameFont;
 class DisplayString { public:
- virtual ~DisplayString(); virtual void slot04(); virtual void slot08();
+ virtual ~DisplayString(); virtual void setText(UnicodeString); virtual void slot08();
  virtual void slot0C(); virtual void slot10(); virtual void slot14();
- virtual void setFont(GameFont *); virtual void slot1C(); virtual void slot20();
+ virtual void setFont(GameFont *); virtual void slot1C(); virtual void setWordWrap(int);
  virtual void slot24(); virtual void setColor(unsigned int,unsigned int);
  virtual void slot2C(); virtual void slot30(); virtual void draw(int,int);
  virtual void slot38(); virtual void getSize(int *,int *);
@@ -38,7 +43,7 @@ class BfmeAptWindowManager { public:
  virtual void slot18(); virtual void slot1C(); virtual void slot20();
  virtual void slot24(); virtual void slot28(); virtual void slot2C();
  virtual void slot30(); virtual void slot34(); virtual void slot38();
- virtual const FloatPair &getScale();
+ virtual const FloatPair &getScale(); virtual const FloatPair &getInverseScale();
  char pad04[0x318-4]; int suppressClick318;
 };
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
@@ -90,6 +95,7 @@ public:
  Rva005D40A6(int,const AsciiString &,const ChecklistFontDesc &);
  void OnClicked(const char *); void OnRollOver(const char *); void OnRollOut(const char *);
  void RenderText(const FloatPair &,const FloatPair &,unsigned int,unsigned int);
+ void rva005D4395(); void rva005D46E3(const UnicodeString &); void rva005D472C();
  virtual ~Rva005D40A6();
  virtual void rva0047A69C(float);
  virtual void rva000B3FD0Slot08(); virtual void rva000B3FD0Slot0C();
@@ -215,5 +221,73 @@ void Rva005D40A6::RenderText(const FloatPair &position,const FloatPair &size,uns
   int x=checklistRound((float)floor(position.x+0.5f));
   int y=checklistRound((float)floor((size.y-height+1.0f)*0.5f+position.y));
   m_24->draw(x,y);
+ }
+}
+
+struct Rva0057ACEBData { int word0,word4; };
+class Rva0057ACEB { public: Rva0057ACEB(const Rva0057ACEBData *); void *impl; };
+class Rva005D4E22 { public: Rva005D4E22(bool *,AsciiString *); int word0,word4; };
+class AptExternHandler;
+template<> class AptRef<AptExternHandler> : public Rva0057ACEB {
+ public: __forceinline AptRef(Rva005D4E22 data):Rva0057ACEB(reinterpret_cast<const Rva0057ACEBData *>(&data)) {}
+ AptRef(const AptRef &other):Rva0057ACEB(other) { if(impl) ++reinterpret_cast<int *>(impl)[1]; }
+ ~AptRef() { if(impl) ReleaseTreeHintRef00217D4C(reinterpret_cast<TargetRef00217D4C *>(impl)); }
+};
+class AptSingleExternHandlerAdder { public:
+ AptSingleExternHandlerAdder(const AsciiString &,int,AptRef<AptExternHandler>);
+ ~AptSingleExternHandlerAdder(); AsciiString name;
+};
+extern "C" __declspec(dllimport) double __cdecl atof(const char *);
+namespace StrategicHUD {
+static __declspec(noinline) bool RetrieveTextWidth(const AsciiString &path,int level,int *output) {
+ AsciiString value; bool ready=false;
+ {
+  AsciiString name; name.format("_level%u.%s_TextWidth",level,path.str());
+  AptSingleExternHandlerAdder handler(name,0,AptRef<AptExternHandler>(Rva005D4E22(&ready,&value)));
+  Rva00524EF4AptCall(reinterpret_cast<Rva00222A8BTarget *>(g_bfmeAptWindowManager),reinterpret_cast<void *>(level),path.str(),"GetTextWidth");
+ }
+ bool result=false;
+ if(ready) {
+  const FloatPair &scale=g_bfmeAptWindowManager->getScale();
+  float v=static_cast<float>(atof(value.str()));
+  *output=checklistRound(static_cast<float>(floor(v*scale.x+0.5f))); result=true;
+ }
+ return result;
+}
+}
+static __declspec(noinline) bool Rva005D4287(const AsciiString &path,int level,float *output) {
+ AsciiString value; bool ready=false;
+ {
+  AsciiString name; name.format("_level%u.%s_Height",level,path.str());
+  AptSingleExternHandlerAdder handler(name,0,AptRef<AptExternHandler>(Rva005D4E22(&ready,&value)));
+  Rva00524EF4AptCall(reinterpret_cast<Rva00222A8BTarget *>(g_bfmeAptWindowManager),reinterpret_cast<void *>(level),path.str(),"GetHeight");
+ }
+ bool result=false;
+ if(ready) {
+  const FloatPair &scale=g_bfmeAptWindowManager->getScale();
+  float v=static_cast<float>(atof(value.str())); *output=scale.y*v; result=true;
+ }
+ return result;
+}
+int __cdecl Rva00527925Fire(void *,void *,const char *,const char *,const float *);
+void Rva005D40A6::rva005D4395() {
+ struct { int width; float value; int height; } local;
+ m_24->getSize(&local.width,&local.height);
+ local.value=local.height*g_bfmeAptWindowManager->getInverseScale().y;
+ Rva00527925Fire(g_bfmeAptWindowManager,reinterpret_cast<void *>(m_04),m_08.str(),"SetHeight",&local.value);
+ if(Rva005D4287(m_08,m_04,&local.value)) {
+  flag5=true;
+  if(local.value!=m_float30) { float old=m_float30; m_float30=local.value; rva0047A69C(old); }
+ }
+}
+void Rva005D40A6::rva005D46E3(const UnicodeString &text) {
+ if(text.compare(m_28)) {
+  m_24->setText(text); m_28=text; flag5=false; rva005D4395();
+ }
+}
+void Rva005D40A6::rva005D472C() {
+ int width;
+ if(StrategicHUD::RetrieveTextWidth(m_08,m_04,&width)) {
+  m_word34=width; m_24->setWordWrap(width); flag5=false; rva005D4395(); flag6=true;
  }
 }
