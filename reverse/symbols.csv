@@ -3092,7 +3092,6 @@ name,address,notes
 ??1BfmeStringPresenceValue@@QAE@XZ,0x00036410,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ??1BfmeStringRecord000B94D2@@QAE@XZ,0x000B6CF1,two-string record dtor read from Rva000C3824 teardown REL32; shares address with gen-uw funclet pins
 ??1BfmeStringRecord00111ACF@@QAE@XZ,0x003F60C8,EH record dtor resolves _Destroy call at 0x3F663F; row deferred
-??1BfmeStringRecord002199C8@@QAE@XZ,0x0021A0C2,"implicit dtor of the 0x10 record as emitted by StringRecordVectorGrowthG7.cpp is byte-identical (68B; relocs masked) to the matched Rva0021A0C2 dtor row at this address; retail REL32 target of the placed _Destroy range at 0x0021D8B5"
 ??1BfmeStringRecord002CF4C6@@QAE@XZ,0x002CF51B,Native addModuleInfo33D553 destroys temporary constructed by33B13B and copied by33D433; two strings at0 and4 match2CF51B teardown; linked alias to Nugget dtor
 ??1BfmeStringRecord00426A5B@@QAE@XZ,0x00495C43,callee REL32 read by locate.py from a unique masked-byte placement emitted by Rva0042700FParse.cpp
 ??1BfmeStringRecord00568CE0@@QAE@XZ,0x00568C4E,ICF twin of rowed Rva00568C4E 53B stride-0x14 Destroy 0x569A5B calls it per element
