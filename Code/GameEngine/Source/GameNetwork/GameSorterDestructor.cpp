@@ -61,3 +61,10 @@ void GameSorter::OnSortPing(const char *)
 {
  reinterpret_cast<Rva00580172*>(this)->rva00580182(8);
 }
+
+// Constructor580842 binds native5801E8 to GameSorter::OnSortStatus.
+// Its complete10B body forwards selector16 to580182 and returns RET4.
+void GameSorter::OnSortStatus(const char *)
+{
+ reinterpret_cast<Rva00580172*>(this)->rva00580182(16);
+}
