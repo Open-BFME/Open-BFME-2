@@ -265,7 +265,7 @@ void XferObjectID(Xfer*,ObjectID*);
 void XferDrawableID(Xfer*,int*);
 void*__cdecl operator new(unsigned int);
 void __cdecl operator delete(void*);
-class GameStateMap {public:void DoXfer(Xfer*);};
+class GameStateMap {public:void DoXfer(Xfer*);void clearScratchPadMaps();};
 // Target identity: WB132D380 GameStateMap.cpp357 and native41AFDA..41B603.
 // BFME1 GameStateMap::xfer at874e38488 supplies save/load structure; target
 // independently supplies the two mode words, both auxiliary .wak paths,
@@ -356,5 +356,55 @@ void GameStateMap::DoXfer(Xfer*xfer) {
  if(xfer->isLoading()) {
   if(TheGameLogic->m_110!=9 && saveGameInfo->saveType!=6 && saveGameInfo->saveType!=4)TheGameLogic->rva00248558(true);
   *(bool*)((char*)TheGameLogic+0x6E)=false;
+ }
+}
+namespace _STL {
+ template<class T>struct less{};template<class T>class allocator{};
+ template<class K,class C,class A>class set {
+ public:set();private:void*header;int count;int compare;
+ };
+ struct _Rb_tree_node_base {
+ int color;_Rb_tree_node_base*parent,*left,*right;
+ };
+ template<class Dummy>struct _Rb_global {
+ static _Rb_tree_node_base *_M_increment(_Rb_tree_node_base*);
+ };
+}
+struct S6SaveFileNode:public _STL::_Rb_tree_node_base {UnicodeString name;};
+// Keep the established typed-fold construction and out-of-line cleanup
+// used by GameStateIterateSaveFiles.cpp; no new constructor alias/pin.
+class Rva0021C459:public _STL::set<AsciiString,_STL::less<AsciiString>,_STL::allocator<AsciiString> > {
+public:~Rva0021C459();
+ _STL::_Rb_tree_node_base *header()const{return *reinterpret_cast<_STL::_Rb_tree_node_base *const*>(this);}
+};
+class Rva006007DAFileSystem {public:void rva006007DA(const UnicodeString*,const UnicodeString*,Rva0021C459*,bool);};
+class Rva002DC267 {public:UnicodeString rva002DC267()const;};
+AsciiString *Rva00300678Get();
+class BFME2WideConcatPair {
+public:
+ BFME2WideConcatPair(const UnicodeString&a,const UnicodeString&b):left(&a),right(&b){}
+ operator UnicodeString();
+ const UnicodeString *left,*right;
+};
+extern "C" __declspec(dllimport) int __stdcall DeleteFileW(const unsigned short*);
+// Native397B boundary41B603..41B790. Constructor41AC6A and destructor41B790
+// share primary vtableC3ADD8 and Snapshot vtableC3ADC8: the latter carries
+// the GameStateMap name getter41AC8A and DoXfer41AFDA. This independently
+// establishes the owner. BFME1 clearScratchPadMaps supplies
+// .map/.wak cleanup purpose; target uses wide FileSystem enumeration and
+// also removes .lws. Existing wide-pair pin's UnicodeString ABI view keeps
+// the canonical one-pointer return ownership rather than copying StringBase.
+void GameStateMap::clearScratchPadMaps() {
+ Rva0021C459 files;
+ {UnicodeString pattern(L"*");
+ reinterpret_cast<Rva006007DAFileSystem*>(TheFileSystem)->rva006007DA(
+ &reinterpret_cast<const Rva002DC267*>(TheGameState)->rva002DC267(),&pattern,&files,false);}
+ for(_STL::_Rb_tree_node_base *node=files.header()->left;node!=files.header();
+ node=_STL::_Rb_global<bool>::_M_increment(node)) {
+  static UnicodeString suffix((const UnicodeString&)BFME2WideConcatPair(UnicodeString(L"."),UnicodeString(*Rva00300678Get())));
+  // Witness the iterator cell after static initialization: the native loop
+  // reloads its node from the frame, rather than retaining it in EBX.
+  UnicodeString &name=static_cast<S6SaveFileNode*>(reinterpret_cast<_STL::_Rb_tree_node_base *const volatile &>(node))->name;
+  if(name.endsWithNoCase(L".map")||name.endsWithNoCase(L".wak")||name.endsWithNoCase(suffix))DeleteFileW(name.str());
  }
 }
