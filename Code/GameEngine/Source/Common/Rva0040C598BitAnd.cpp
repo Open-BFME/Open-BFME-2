@@ -42,3 +42,21 @@ unsigned Rva002257F2AndValues(unsigned first, unsigned second) {
 void Rva005C4B10AndInto(unsigned *destination, unsigned mask) {
     *destination &= mask;
 }
+
+// Complete RET0 native leaves3B32DE..3B32E5 and5EA0EF..5EA0F6 each
+// mutate the raw32 word addressed by stackarg4 and leave that pointer inEAX.
+// Whole BF1 f98983a7d3 SmallLeafBodies2.cpp increment family and
+// Bfme/Rva006919A0DecrementPointer.cpp are operation guides only. Original
+// owners, declaration return types, and signed payload meaning are unknown;
+// unsigned expresses the native32-bit wrapping mutation without overclaim.
+// ?Rva003B32DEIncrementWord@@YAXPAI@Z
+void Rva003B32DEIncrementWord(unsigned int *value)
+{
+    ++*value;
+}
+// ?Rva005EA0EFDecrementWord@@YAPAIPAI@Z
+unsigned int *Rva005EA0EFDecrementWord(unsigned int *value)
+{
+    --*value;
+    return value;
+}
