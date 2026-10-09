@@ -116,35 +116,7 @@ public:
 //#pragma MESSAGE("************************************** WARNING, optimization disabled for debugging purposes")
 #endif
 
-//=============================================================================
-/** Constructor */
-//=============================================================================
-// ??0Thing@@ present-unmatched
-Thing::Thing( const ThingTemplate *thingTemplate ) 
-{
-	// sanity
-	if( thingTemplate == NULL )
-	{
-	
-		// cannot create thing without template
-		DEBUG_CRASH(( "no template" ));
-		return;
-
-	}  // end if
-		
-	m_template = thingTemplate;
-#if defined(_DEBUG) || defined(_INTERNAL)
-	m_templateName = thingTemplate->getName();
-#endif
-	m_transform.Make_Identity();
-	m_cachedPos.zero();
-	m_cachedAngle = 0.0f;
-	m_cachedDirVector.zero();
-	m_cachedAltitudeAboveTerrain = 0;
-	m_cachedAltitudeAboveTerrainOrWater = 0;
-	m_cacheFlags = 0;
-
-}
+// Thing::Thing: defined in ThingConstructor.cpp (its row's unit).
 
 //=============================================================================
 /** Destructor */
