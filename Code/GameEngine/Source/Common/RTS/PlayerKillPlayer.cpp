@@ -6,7 +6,8 @@
 // WB C18C60 corroborates this relationship; its offsets differ from retail.
 // BFME2 also credits the last 20-byte score record to opponent104, scaled by
 // GlobalData11B8. Its 37-byte worker at 0039B6A8 tests the canonical scoring
-// flag98 and accumulates floatFC. These extra method names remain neutral.
+// flag98 and accumulates floatFC. The separately published provider retains
+// the established neutral receiver name Rva0039B683.
 // Team's multiple-inheritance member-pointer ABI is inherited from the
 // already matched PlayerRva002AD93A.cpp and confirmed by callback9C4AF5.
 // Cache the range's begin pointer before the count: native keeps it for the
@@ -14,7 +15,7 @@
 #include "../GameLogicObjectLookupView.h"
 #include "Common/Snapshot.h"
 extern GameLogic *TheGameLogic;
-class Rva0039B6A8 {
+class Rva0039B683 {
   public:
     char pad[0xFC];
     float score;
@@ -29,14 +30,10 @@ class Rva0039B6A8 {
     } range;
     void rva0039B6A8(float);
 };
-void Rva0039B6A8::rva0039B6A8(float amount) {
-    if (TheGameLogic->isScoringEnabled())
-        score += amount;
-}
 class Player {
   public:
     char pad[0x3BC];
-    Rva0039B6A8 score;
+    Rva0039B683 score;
 };
 struct Rva002A8AB1Record;
 class Rva002A8F24 {
@@ -135,7 +132,7 @@ class Rva002AB5C7Player {
     char pad98[0x32C - 0x98];
     PlayerTeamNode *teams;
     char pad330[0x3BC - 0x330];
-    Rva0039B6A8 score;
+    Rva0039B683 score;
     char pad6E4[0x734 - 0x6E4];
     bool dead;
     void rva002AB44A();
@@ -171,12 +168,12 @@ void Rva002AB5C7Player::rva002AB44A() {
     }
     if (this == ThePlayerList->local)
         TheInGameUI->dispatchBC(false);
-    Rva0039B6A8 *stats = &score;
+    Rva0039B683 *stats = &score;
     if (stats) {
         Player *other = ThePlayerList->getNthPlayer(stats->opponent);
         if (other) {
-            Rva0039B6A8::Range *array = &stats->range;
-            Rva0039B6A8::Record *begin = array->begin;
+            Rva0039B683::Range *array = &stats->range;
+            Rva0039B683::Record *begin = array->begin;
             int count = array->end - begin;
             if (count > 0)
                 other->score.rva0039B6A8(begin[count - 1].value * TheWritableGlobalData->factor);
