@@ -1,4 +1,6 @@
 // ?onEnter@AIAttackMeleeApproachState@@UAE?AW4StateReturnType@@XZ
+// partial score=0.9937149297395809 date=2026-10-09
+// ?onEnter@AIAttackMeleeApproachState@@UAE?AW4StateReturnType@@XZ
 // partial score=0.9828689271 date=2026-10-09
 // ?onEnter@AIAttackMeleeApproachState@@UAE?AW4StateReturnType@@XZ
 // partial score=0.98 date=2026-10-09
@@ -220,19 +222,13 @@ protected:
 	Bool m_waitingForPath; // +0x49
 };
 
+struct MeleeCoordCopy:Coord3D{__forceinline MeleeCoordCopy(float X,float Y,float Z){x=X;y=Y;z=Z;}__forceinline MeleeCoordCopy(const Coord3D&p){x=p.x;y=p.y;z=p.z;} __forceinline void sub(const Coord3D*p){x-=p->x;y-=p->y;z-=p->z;}};
 class AIAttackMeleeApproachState : public AIInternalMoveToState
 {
 public:
 	virtual StateReturnType onEnter();
 private:
-	__forceinline Bool isCloseToVictim(const Object *source) const
-	{
-		Coord3D delta;
-		coordSet(&delta, source->getPosition());
-		coordSub(&delta, &m_50);
-		delta.z = 0.0f;
-		return delta.length() < TheAI->getAiData()->m_94 + TheAI->getAiData()->m_90;
-	}
+	__forceinline Bool isCloseToVictim(const Object*source)const{MeleeCoordCopy raw(*source->getPosition());raw.sub(&m_50);float dx=raw.x,dy=raw.y;const TAiData*data=TheAI->getAiData();MeleeCoordCopy delta(dx,dy,0.0f);return delta.length()<data->m_94+data->m_90;}
 	Int m_4C; // +0x4C
 	Coord3D m_50; // +0x50
 	Int m_5C; // +0x5C
