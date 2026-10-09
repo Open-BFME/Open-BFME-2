@@ -83,6 +83,7 @@ public:
  MeshModelClass *model; DX8TextureCategoryClass *category;
  unsigned indexOffset,vertexOffset,indexCount,minIndex,range,firstPolygon,polygonRange;
  bool strip; unsigned pass;
+ void Set_Vertex_Index_Range(unsigned mn,unsigned rng);
  void Set_Vertex_Index_Range(unsigned mn,unsigned rng,unsigned first,unsigned polys) {
   range=rng; minIndex=mn; firstPolygon=first; polygonRange=polys;
  }
@@ -148,4 +149,12 @@ unsigned DX8TextureCategoryClass::Add_Mesh(Vertex_Split_Table &split_table,unsig
   p_renderer->Set_Vertex_Index_Range(vmin,vmax-vmin+1,firstPolygon,lastPolygon-firstPolygon+1);
  }
  return index_count;
+}
+
+// ?Set_Vertex_Index_Range@DX8PolygonRendererClass@@QAEXII@Z
+// Existing 17-byte retail provider; rehomed after removal of the old ZH
+// Add_Mesh eliminates the sole use that emitted this inline copy there.
+void DX8PolygonRendererClass::Set_Vertex_Index_Range(unsigned mn,unsigned rng)
+{
+ minIndex=mn; range=rng;
 }
