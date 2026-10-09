@@ -42775,3 +42775,4 @@ present_unmatched	reference/shims/water/W3DDevice/GameClient/W3DWater.h	?	1
 selectany	Code/GameEngine/Source/Common/VslotSmallBodiesW.cpp	__declspec(selectany) Int g_00DFEE18 = 0;	1
 pin	reverse/symbols.csv	0x00441ECE	1	allow=3a3a80473a99206c9228d9342580c640fbe64aab
 pin	reverse/symbols.csv	0x00512069	1	allow=3a3a80473a99206c9228d9342580c640fbe64aab
+pin	reverse/symbols.csv	0x00304BCD	1	allow=95d0bbf9684969e06b0399f2abac7345c9e6ce1b

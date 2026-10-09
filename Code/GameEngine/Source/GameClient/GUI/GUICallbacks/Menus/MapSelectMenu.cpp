@@ -54,7 +54,10 @@
 #include "GameClient/CampaignManager.h"
 #include "GameClient/WindowLayout.h"
 #include "GameClient/Gadget.h"
+// Bind the existing target-owned Shell pop method spelling in this TU.
+#define pop rva0035BEC7
 #include "GameClient/Shell.h"
+#undef pop
 #include "GameClient/GameWindowManager.h"
 #include "GameClient/GadgetListBox.h"
 #include "GameClient/GadgetComboBox.h"
@@ -190,7 +193,7 @@ void __cdecl bfmePopulateMapListFlags( void *listbox, char useSystemMaps, char i
 extern void __cdecl bfmeCommitYH( AsciiString label );
 
 // Retail 0x012F3E70: filled from the HeadlessCount combo box selection.
-extern void *g_bfmePtrAAV;
+static Int mapSelectHeadlessCount = 0;
   // end MapSelectMenuSystem
 
 // Zero Hour setupGameStart semantics, BFME1 6c1e0b51 donor menu.
@@ -207,3 +210,265 @@ void setupGameStartMapSelectMenu(AsciiString label)
  TheShell->reverseAnimatewindow();
  if(TheRva00222A8BTarget)TheRva00222A8BTarget->rva00222F55(false);
 }
+
+// Native system callback uses window-manager slots58/60 and message slot18.
+class MapSelectWindowManagerView {public:
+virtual void slot0();
+virtual void slot1();
+virtual void slot2();
+virtual void slot3();
+virtual void slot4();
+virtual void slot5();
+virtual void slot6();
+virtual void slot7();
+virtual void slot8();
+virtual void slot9();
+virtual void slot10();
+virtual void slot11();
+virtual void slot12();
+virtual void slot13();
+virtual void slot14();
+virtual void slot15();
+virtual void slot16();
+virtual void slot17();
+virtual void slot18();
+virtual void slot19();
+virtual void slot20();
+virtual void slot21();
+virtual void slot22();
+virtual void slot23();
+virtual void slot24();
+virtual void slot25();
+virtual void slot26();
+virtual void slot27();
+virtual void slot28();
+virtual void slot29();
+virtual void slot30();
+virtual void slot31();
+virtual void slot32();
+virtual void slot33();
+virtual void slot34();
+virtual void slot35();
+virtual void slot36();
+virtual void slot37();
+virtual void slot38();
+virtual void slot39();
+virtual void slot40();
+virtual void slot41();
+virtual void slot42();
+virtual void slot43();
+virtual void slot44();
+virtual void slot45();
+virtual void slot46();
+virtual void slot47();
+virtual void slot48();
+virtual void slot49();
+virtual void slot50();
+virtual void slot51();
+virtual void slot52();
+virtual void slot53();
+virtual void slot54();
+virtual void slot55();
+virtual void slot56();
+virtual void slot57();
+virtual int winSendSystemMsg(GameWindow *,unsigned,unsigned,unsigned);
+virtual void slot59();
+virtual GameWindow *winGetWindowFromId(GameWindow *,NameKeyType);
+};
+class MapSelectMessageStreamView {public:
+virtual void slot0();
+virtual void slot1();
+virtual void slot2();
+virtual void slot3();
+virtual void slot4();
+virtual void slot5();
+virtual void slot6();
+virtual void slot7();
+virtual void slot8();
+virtual void slot9();
+virtual void slot10();
+virtual void slot11();
+virtual void slot12();
+virtual void slot13();
+virtual void slot14();
+virtual void slot15();
+virtual void slot16();
+virtual void slot17();
+virtual GameMessage *appendMessage(GameMessage::Type);
+};
+
+int Rva00304BCDPopulate(GameWindow *,bool,bool,const AsciiString &);
+// BFME1 6c1e0b51 MapSelectMenuSystem plus WB144E530 and native50D672..50DBAA.
+// BFME2 clears game state through message0x22 and uses direct string setters.
+WindowMsgHandledType MapSelectMenuSystem( GameWindow *window, UnsignedInt msg,
+																				  WindowMsgData mData1, WindowMsgData mData2 )
+{
+	static NameKeyType buttonBack = NAMEKEY_INVALID;
+	static NameKeyType buttonOK = NAMEKEY_INVALID;
+	static NameKeyType listboxMap = NAMEKEY_INVALID;
+	static NameKeyType radioButtonEasyAI = NAMEKEY_INVALID;
+	static NameKeyType radioButtonMediumAI = NAMEKEY_INVALID;
+	static NameKeyType radioButtonHardAI = NAMEKEY_INVALID;
+	switch( msg )
+	{
+
+		// --------------------------------------------------------------------------------------------
+		case GWM_CREATE:
+		{
+
+			// get ids for our children controls
+			buttonBack = TheNameKeyGenerator->nameToKey( AsciiString("MapSelectMenu.wnd:ButtonBack") );
+			buttonOK = TheNameKeyGenerator->nameToKey( AsciiString("MapSelectMenu.wnd:ButtonOK") );
+			listboxMap = TheNameKeyGenerator->nameToKey( AsciiString("MapSelectMenu.wnd:ListboxMap") );
+			radioButtonEasyAI = TheNameKeyGenerator->nameToKey( AsciiString("MapSelectMenu.wnd:RadioButtonEasyAI") );
+			radioButtonMediumAI = TheNameKeyGenerator->nameToKey( AsciiString("MapSelectMenu.wnd:RadioButtonMediumAI") );
+			radioButtonHardAI = TheNameKeyGenerator->nameToKey( AsciiString("MapSelectMenu.wnd:RadioButtonHardAI") );
+			break;
+
+		}  // end create
+
+		//---------------------------------------------------------------------------------------------
+		case GWM_DESTROY:
+		{
+
+			break;
+
+		}  // end case
+
+		// --------------------------------------------------------------------------------------------
+		case GWM_INPUT_FOCUS:
+		{
+
+			// if we're givin the opportunity to take the keyboard focus we must say we want it
+			if( mData1 == TRUE )
+				*(Bool *)mData2 = TRUE;
+
+			return MSG_HANDLED;
+
+		}  // end input
+
+		//---------------------------------------------------------------------------------------------
+		case GBM_SELECTED:
+		{
+			if (buttonPushed)
+				break;
+
+			GameWindow *control = (GameWindow *)mData1;
+			Int controlID = control->winGetWindowId();
+
+			static NameKeyType singlePlayerID = NAMEKEY("MapSelectMenu.wnd:ButtonSinglePlayer");
+			static NameKeyType multiplayerID = NAMEKEY("MapSelectMenu.wnd:ButtonMultiplayer");
+			if ( controlID == singlePlayerID )
+			{
+				showSoloMaps = true;
+				OptionPreferences pref;
+				Rva00304BCDPopulate( mapList, pref.usesSystemMapDir(), !showSoloMaps, AsciiString::TheEmptyString );
+			}
+			else if ( controlID == multiplayerID )
+			{
+				showSoloMaps = false;
+				OptionPreferences pref;
+				Rva00304BCDPopulate( mapList, pref.usesSystemMapDir(), !showSoloMaps, AsciiString::TheEmptyString );
+			}
+			else if ( controlID == radioButtonSystemMapsID )
+			{
+				if (TheMapCache)
+					TheMapCache->updateCache();
+				Rva00304BCDPopulate( mapList, TRUE, !showSoloMaps, AsciiString::TheEmptyString );
+				OptionPreferences pref;
+				pref["UseSystemMapDir"].set("yes");
+				pref.write();
+			}
+			else if ( controlID == radioButtonUserMapsID )
+			{
+				if (TheMapCache)
+					TheMapCache->updateCache();
+				Rva00304BCDPopulate( mapList, FALSE, !showSoloMaps, AsciiString::TheEmptyString );
+				OptionPreferences pref;
+				pref["UseSystemMapDir"].set("no");
+				pref.write();
+			}
+			else if( controlID == buttonBack )
+			{
+
+				// go back one screen
+				TheShell->rva0035BEC7();
+				buttonPushed = true;
+
+			}  // end if
+			else if( controlID == buttonOK )
+			{
+
+				Int selected;
+				UnicodeString map;
+				GameWindow *mapWindow = ((MapSelectWindowManagerView *)TheWindowManager)->winGetWindowFromId( NULL, listboxMap );
+
+				// get the selected index
+				GadgetListBoxGetSelected( mapWindow, &selected );
+
+				if( selected != -1 )
+				{
+					buttonPushed = true;
+					// reset the campaign manager to empty
+					((MapSelectMessageStreamView *)TheMessageStream)->appendMessage((GameMessage::Type)0x22);
+					// get text of the map to load
+					const char *mapFname = (const char *)GadgetListBoxGetItemData( mapWindow, selected );
+					DEBUG_ASSERTCRASH(mapFname, ("No map item data"));
+					if (mapFname)
+					{
+						GameWindow *headlessCount = ((MapSelectWindowManagerView *)TheWindowManager)->winGetWindowFromId( NULL,
+							NAMEKEY("MapSelectMenu.wnd:HeadlessCount") );
+						GadgetComboBoxGetSelectedPos( headlessCount, &mapSelectHeadlessCount );
+						setupGameStartMapSelectMenu( mapFname );
+					}
+				}  // end if
+
+			}  // end else if
+			else if( controlID == radioButtonEasyAI)
+			{
+				s_AIDiff = DIFFICULTY_EASY;
+			}
+			else if( controlID == radioButtonMediumAI)
+			{
+				s_AIDiff = DIFFICULTY_NORMAL;
+			}
+			else if( controlID == radioButtonHardAI)
+			{
+				s_AIDiff = DIFFICULTY_HARD;
+			}
+			break;
+
+		}  // end selected
+		// BFME's list box double-click message is 0x4015 (GBM_SELECTED + 0xD).
+		case 0x4015:
+			{
+				if (buttonPushed)
+					break;
+
+				GameWindow *control = (GameWindow *)mData1;
+				Int controlID = control->winGetWindowId();
+				if( controlID == listboxMap )
+				{
+					int rowSelected = mData2;
+
+					if (rowSelected >= 0)
+					{
+						//buttonPushed = true;
+						GadgetListBoxSetSelected( control, rowSelected );
+						NameKeyType buttonOKID = TheNameKeyGenerator->nameToKey( AsciiString("MapSelectMenu.wnd:ButtonOK") );
+						GameWindow *buttonOK = ((MapSelectWindowManagerView *)TheWindowManager)->winGetWindowFromId( NULL, buttonOKID );
+
+						((MapSelectWindowManagerView *)TheWindowManager)->winSendSystemMsg( window, GBM_SELECTED,
+																								(WindowMsgData)buttonOK, buttonOKID );
+					}
+				}
+				break;
+			}
+		default:
+			return MSG_IGNORED;
+
+	}  // end switch
+
+	return MSG_HANDLED;
+
+}  // end MapSelectMenuSystem
