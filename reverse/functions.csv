@@ -74040,3 +74040,4 @@ _vp6_xprintf,,0x001C4C90,610,Code/Libraries/Source/VP6/vp6_xprintf.cpp,matched,v
 ?rva003FB508@Rva003FB508@@QAEXPAVINI@@PAX@Z,,0x003FB508,234,Code/GameEngine/Source/Common/System/Rva003FB508Parse.cpp,matched,
 ?Rva00136090MeshHold@@YA?AURva00136090MeshHolder@@PAVMeshModelClass@@@Z,,0x00136090,90,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMeshHolderHold.cpp,matched,
 ?Rva001007D5Hold@@YA?AURva001007D5Holder@@PAVRva001007D5Model@@@Z,,0x001007D5,90,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMeshHolderHold.cpp,matched,
+?rva0073CC60@Gen_008F7CD0@@QAEXPAUFloatRect0073CE30@@HI@Z,,0x0073CC60,96,Code/GameEngine/Source/Common/RTS/Rva0073CE30.cpp,matched,
