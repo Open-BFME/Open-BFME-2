@@ -14,9 +14,9 @@ public:
 class Rva006D2A60 { public: void *allocBlock(int); void freeBlock(void *,int); };
 extern Rva006D2A60 *g_pChainBlockAllocatorF4;
 __forceinline void *AptScriptFunction1::operator new(unsigned int size) { return g_pChainBlockAllocatorF4->allocBlock(size); }
-__forceinline void AptScriptFunction1::operator delete(void *v) { g_pChainBlockAllocatorF4->freeBlock(v,52); }
+__forceinline void AptScriptFunction1::operator delete(void *v,unsigned int size) { g_pChainBlockAllocatorF4->freeBlock(v,size); }
 __forceinline void *AptScriptFunction2::operator new(unsigned int size) { return g_pChainBlockAllocatorF4->allocBlock(size); }
-__forceinline void AptScriptFunction2::operator delete(void *v) { g_pChainBlockAllocatorF4->freeBlock(v,52); }
+__forceinline void AptScriptFunction2::operator delete(void *v,unsigned int size) { g_pChainBlockAllocatorF4->freeBlock(v,size); }
 class AptBasePtrStack { public: void Push(AptValue *); int count,capacity; AptValue **items; };
 struct AptCharacterInst;
 struct AptActionInterpreter {

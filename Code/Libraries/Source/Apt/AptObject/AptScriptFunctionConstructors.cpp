@@ -22,3 +22,34 @@ AptScriptFunction2::AptScriptFunction2(AptScriptFunctionBase *creator,const AptA
 #pragma comment(linker, "/alternatename:?GetNumArguments@AptScriptFunction2@@UAEIXZ=?get@Rva00709D00PtrChaseField@@QBEHXZ")
 #pragma comment(linker, "/alternatename:?GetByteCodeBase@AptScriptFunction2@@UAEPBEXZ=?get@Rva00709D10AddDwordField@@QBEHXZ")
 #pragma comment(linker, "/alternatename:?GetByteCodeSize@AptScriptFunction2@@UAEIXZ=?get@Rva00709D20PtrChaseField@@QBEHXZ")
+
+// Native vtable slots and52-byte allocations establish Duplicate for both
+// original PDB classes. The clone copies the +30 record pointer after the
+// newly verified three-argument base clone, with type43/44 respectively.
+// Allocation helpers are the same proven definitions used by DefineFunction.
+class Rva006D2A60 {
+public:
+  void *allocBlock(int);
+  void freeBlock(void *, int);
+};
+extern Rva006D2A60 *g_pChainBlockAllocatorF4;
+// Native unwind passes both pointer and52B size; class-sized delete is required.
+// Its emitted pool forwarder is a byte-and-relocation twin of6F12F0Free.
+__forceinline void *AptScriptFunction1::operator new(unsigned int n) {
+  return g_pChainBlockAllocatorF4->allocBlock(n);
+}
+__forceinline void AptScriptFunction1::operator delete(void *p, unsigned int n) {
+  g_pChainBlockAllocatorF4->freeBlock(p, n);
+}
+__forceinline void *AptScriptFunction2::operator new(unsigned int n) {
+  return g_pChainBlockAllocatorF4->allocBlock(n);
+}
+__forceinline void AptScriptFunction2::operator delete(void *p, unsigned int n) {
+  g_pChainBlockAllocatorF4->freeBlock(p, n);
+}
+AptScriptFunctionBase *AptScriptFunction1::Duplicate(AptCIH *cih) {
+  return new AptScriptFunction1(this, cih);
+}
+AptScriptFunctionBase *AptScriptFunction2::Duplicate(AptCIH *cih) {
+  return new AptScriptFunction2(this, cih);
+}

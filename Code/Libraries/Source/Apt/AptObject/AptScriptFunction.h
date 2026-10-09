@@ -184,8 +184,12 @@ struct AptAction_DefineFunction {
 class AptScriptFunction1 : public AptScriptFunctionBase {
 public:
     AptScriptFunction1(AptScriptFunctionBase *,const AptAction_DefineFunction *,AptCIH *);
+    // Native Duplicate70A390 inlines this clone; original record remains shared.
+    AptScriptFunction1(AptScriptFunction1 *original, AptCIH *cih)
+        : AptScriptFunctionBase((AptVirtualFunctionTable_Indices)43, original, cih),
+          mpFunction(original->mpFunction) {}
     static void *operator new(unsigned int);
-    static void operator delete(void *);
+    static void operator delete(void *,unsigned int);
     virtual const char *GetName() const;
     virtual unsigned int GetNumArguments();
     virtual const unsigned char *GetByteCodeBase();
@@ -213,8 +217,12 @@ class AptScriptFunction2 : public AptScriptFunctionBase
 {
 public:
     AptScriptFunction2(AptScriptFunctionBase *,const AptAction_DefineFunction2 *,AptCIH *);
+    // Native Duplicate70A4C0 uses the same clone pattern with tag44.
+    AptScriptFunction2(AptScriptFunction2 *original, AptCIH *cih)
+        : AptScriptFunctionBase((AptVirtualFunctionTable_Indices)44, original, cih),
+          mpFunction(original->mpFunction) {}
     static void *operator new(unsigned int);
-    static void operator delete(void *);
+    static void operator delete(void *,unsigned int);
     virtual const char *GetName() const;
     virtual unsigned int GetNumArguments();
     virtual const unsigned char *GetByteCodeBase();
