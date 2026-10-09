@@ -72,6 +72,21 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #include "Common/PerfTimer.h"
 
 
+// Native uint-bool tree node creation is supplied by 0x002D464E (34B).
+// The donor map touch must not emit a competing allocator/cleanup shape.
+namespace _STL {
+typedef pair<const unsigned int, bool> FileSystemUIntBoolPair;
+typedef _Rb_tree<unsigned int, FileSystemUIntBoolPair,
+    _Select1st<FileSystemUIntBoolPair>, less<unsigned int>,
+    allocator<FileSystemUIntBoolPair> > FileSystemUIntBoolTree;
+template <> FileSystemUIntBoolTree::_Link_type
+FileSystemUIntBoolTree::_M_create_node(const FileSystemUIntBoolPair &);
+// Retain this unit's separately matched pair construction helpers.
+template void _Construct<FileSystemUIntBoolPair, FileSystemUIntBoolPair>(
+    FileSystemUIntBoolPair *, const FileSystemUIntBoolPair &);
+template pair<const unsigned int, bool>::pair(const FileSystemUIntBoolPair &);
+}
+
 DECLARE_PERF_TIMER(FileSystem)
 
 //----------------------------------------------------------------------------
