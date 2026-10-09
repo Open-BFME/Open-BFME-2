@@ -9,6 +9,9 @@
 // no argument words. Original hook names remain unknown.
 // Native member offsets: level4/name8/mapsC/render-names18/display24/text28,
 // color2C/floats30,38/word34 and seven individually initialized flag bits3C.
+// WB15A7470 names the254-byte Update callback. Native flag bits gate width/height
+// readiness and three Fire setters; inverse-scale reference before multiplication
+// keeps the target member-first SSE load without altering arithmetic.
 // Private helper415D has caller-clean ECX/name ABI and WB15A7790 RetrieveTextWidth;
 // height4287 uses the same capture/value lifetime and native scale.y. Result
 // is initialized after handler teardown to retain native BL; three adjacent
@@ -95,7 +98,7 @@ public:
  Rva005D40A6(int,const AsciiString &,const ChecklistFontDesc &);
  void OnClicked(const char *); void OnRollOver(const char *); void OnRollOut(const char *);
  void RenderText(const FloatPair &,const FloatPair &,unsigned int,unsigned int);
- void rva005D4395(); void rva005D46E3(const UnicodeString &); void rva005D472C();
+ void rva005D4395(); void Update(); void rva005D46E3(const UnicodeString &); void rva005D472C();
  virtual ~Rva005D40A6();
  virtual void rva0047A69C(float);
  virtual void rva000B3FD0Slot08(); virtual void rva000B3FD0Slot0C();
@@ -289,5 +292,27 @@ void Rva005D40A6::rva005D472C() {
  int width;
  if(StrategicHUD::RetrieveTextWidth(m_08,m_04,&width)) {
   m_word34=width; m_24->setWordWrap(width); flag5=false; rva005D4395(); flag6=true;
+ }
+}
+
+void __cdecl Rva005277D9Fire(Rva00222A8BTarget *,void *,const char *,const char *,bool *);
+void Rva005D40A6::Update() {
+ if(!flag6) { rva005D472C(); if(!flag6)return; }
+ if(!flag5) { rva005D4395(); if(!flag5)return; }
+ if(!flag1) {
+  bool value=flag0;
+  Rva005277D9Fire(reinterpret_cast<Rva00222A8BTarget *>(g_bfmeAptWindowManager),reinterpret_cast<void *>(m_04),m_08.str(),"SetChecked",&value);
+  flag1=true;
+ }
+ if(!flag3) {
+  bool value=flag2;
+  Rva005277D9Fire(reinterpret_cast<Rva00222A8BTarget *>(g_bfmeAptWindowManager),reinterpret_cast<void *>(m_04),m_08.str(),"SetCheckVisibility",&value);
+  flag3=true;
+ }
+ if(!flag4) {
+  const FloatPair &inverse=g_bfmeAptWindowManager->getInverseScale();
+  float value=m_float38*inverse.y;
+  Rva00527925Fire(g_bfmeAptWindowManager,reinterpret_cast<void *>(m_04),m_08.str(),"SetY",&value);
+  flag4=true;
  }
 }
