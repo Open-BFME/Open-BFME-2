@@ -15,6 +15,12 @@ class GameSorter {
 public:
  GameSorter(Rva005248D0 *registry);
  ~GameSorter();
+ void OnSortName(const char*);
+ void OnSortMap(const char*);
+ void OnSortPlayers(const char*);
+ void OnSortPing(const char*);
+ void OnSortStatus(const char*);
+
 private:
  _STL::vector<GameInfo*> m_games;
  int m_primarySort;
@@ -24,3 +30,13 @@ private:
  int m_cycle;
 };
 GameSorter::~GameSorter() {}
+
+// The existing state-change provider has the same receiver and field layout.
+class Rva00580172 { public: void rva00580182(int); };
+
+// Constructor580842 binds native5801C0 to GameSorter::OnSortName.
+// Its complete10B body forwards selector1 to580182 and returns RET4.
+void GameSorter::OnSortName(const char *)
+{
+ reinterpret_cast<Rva00580172*>(this)->rva00580182(1);
+}
