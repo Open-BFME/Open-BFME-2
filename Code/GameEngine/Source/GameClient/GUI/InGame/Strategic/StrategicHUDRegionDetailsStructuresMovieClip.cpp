@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /ICode/GameEngine/Source/Common /ICode/Libraries/Include/Lib /DNDEBUG /MD /EHsc
 //
 // DoShowProgress: WB161AAB0 names the IconSlot method and assertions290/294
 // in this same source. Native5F0A9C..5F0BF2 is342B with two integer arguments.
@@ -25,6 +25,8 @@
 // under the address-named view in GameClient/GUI/AptWotrIconSlotCallbacks.cpp.
 #include "ascii_string.h"
 #include "unicode_string.h"
+#include "RegionArmyIconSlotView.h"
+#include "Coord2D.h"
 
 namespace StrategicHUD {
 class RegionDetailsStructuresMovieClip
@@ -50,7 +52,7 @@ public:
  int m_level;
  AsciiString m_name;
  int m_arg;
- char m_data10[0x50-0x10];
+ AptCommandMapAdder m_commands;char pad1C[0x28-0x1C];char m_custom[12];char pad34[0x50-0x34];
 public:
  class IconSlot;
 };
@@ -71,8 +73,9 @@ extern GameTextInterface *TheGameText;
 class BfmeAptWindowManager {public:void bfmeSetText(const AsciiString &,const UnicodeString &,bool);};
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 int __cdecl Rva00525338Fire(void *,void *,const char *,const char *,int *,void *);
-class StrategicHUD::RegionDetailsStructuresMovieClip::Impl::IconSlot {
+class StrategicHUD::RegionDetailsStructuresMovieClip::Impl::IconSlot : public Rva005EEF2FBase0,public Rva005EEF2FBase4 {
 public:
+ IconSlot(Impl*,int);
  virtual ~IconSlot();
  virtual void slot01(int);
  virtual int slot02()const;
@@ -85,12 +88,11 @@ public:
  virtual void DoShowProgress(int total,int remaining);
  virtual void DoHideProgress();
 private:
- char pad04[0xc-4];
- Impl *m_owner;
+  Impl *m_owner;
  int m_index;
  void *m_listener;
  int m_state;
- char pad1c[0x24-0x1c];
+ int m_word1C,m_word20;
  int m_total,m_remaining;
  bool m_showProgress,m_turnsRolledOver;
 };
@@ -115,3 +117,40 @@ void StrategicHUD::RegionDetailsStructuresMovieClip::Impl::IconSlot::DoShowProgr
   m_showProgress=true;
  }
 }
+
+#pragma pointers_to_members(full_generality, multiple_inheritance)
+class Rva005F0CC9 {public:
+ void OnIconSlotClicked(const char*);void OnIconSlotRollOver(const char*);void OnIconSlotRollOut(const char*);
+ void OnIconSlotTypeRollOver(const char*);void OnIconSlotTypeRollOut(const char*);
+ void OnRollOverTurnsRemaining(const char*);void OnRollOutTurnsRemaining(const char*);
+ void RenderProgress(const Coord2D*,const Coord2D*,void*,void*);
+};
+class AptCustomRender;
+class AptCustomRenderAdder {public:
+ void AddCustomRender(const AsciiString&,AptRef<AptCustomRender>);
+};
+// IconSlot ctor: WB1619920 source158 independently names the native
+// 5F0CC9..5F11D0 RET8 constructor. Primary interface/counting secondary
+// base at4 share the proven army-slot header. Target stores establish ownerC,
+// index10, listener14, state18, words1C/20, total24/remaining28=-1, flags2C/2D.
+// The eight bound rowed callbacks supply identity and their existing ABI.
+// Four-part name nodes and the counted functor carrier are existing BFME2
+// providers; no applicable clean BFME1/ZH implementation at donor f98983a7d.
+// Return the real binding before constructing the argument holder: retail
+// reloads owner/adder after holder construction. The helper-on-adder form
+// cached that receiver too soon and compiled16 extra bytes. No pins added.
+template<class T> static __forceinline FunctorBinding structureBinding(T*target,void(T::*method)(const char*)){FunctorBinding binding(target,method);return binding;}
+StrategicHUD::RegionDetailsStructuresMovieClip::Impl::IconSlot::IconSlot(Impl*owner,int index)
+ :m_owner(owner),m_index(index),m_listener(0),m_state(0),m_word1C(0),m_word20(0),m_total(-1),m_remaining(-1),m_showProgress(false),m_turnsRolledOver(false) {
+ AsciiString prefix;prefix.format("_level%u.",m_owner->m_level);
+ AsciiString number;number.format("%d",m_index);
+ m_owner->m_commands.AddCommandMap(prefix+m_owner->m_name+"_OnIconSlotClicked"+number,AptRef<AptCommandMap>(structureBinding((Rva005F0CC9*)this,&Rva005F0CC9::OnIconSlotClicked)));
+ m_owner->m_commands.AddCommandMap(prefix+m_owner->m_name+"_OnIconSlotRollOver"+number,AptRef<AptCommandMap>(structureBinding((Rva005F0CC9*)this,&Rva005F0CC9::OnIconSlotRollOver)));
+ m_owner->m_commands.AddCommandMap(prefix+m_owner->m_name+"_OnIconSlotRollOut"+number,AptRef<AptCommandMap>(structureBinding((Rva005F0CC9*)this,&Rva005F0CC9::OnIconSlotRollOut)));
+ m_owner->m_commands.AddCommandMap(prefix+m_owner->m_name+"_OnIconSlotTypeRollOver"+number,AptRef<AptCommandMap>(structureBinding((Rva005F0CC9*)this,&Rva005F0CC9::OnIconSlotTypeRollOver)));
+ m_owner->m_commands.AddCommandMap(prefix+m_owner->m_name+"_OnIconSlotTypeRollOut"+number,AptRef<AptCommandMap>(structureBinding((Rva005F0CC9*)this,&Rva005F0CC9::OnIconSlotTypeRollOut)));
+ m_owner->m_commands.AddCommandMap(prefix+m_owner->m_name+"_OnRollOverTurnsRemaining"+number,AptRef<AptCommandMap>(structureBinding((Rva005F0CC9*)this,&Rva005F0CC9::OnRollOverTurnsRemaining)));
+ m_owner->m_commands.AddCommandMap(prefix+m_owner->m_name+"_OnRollOutTurnsRemaining"+number,AptRef<AptCommandMap>(structureBinding((Rva005F0CC9*)this,&Rva005F0CC9::OnRollOutTurnsRemaining)));
+ ((AptCustomRenderAdder*)m_owner->m_custom)->AddCustomRender(prefix+m_owner->m_name+"_RenderProgress"+number,AptRef<AptCustomRender>(structureBinding((Rva005F0CC9*)this,reinterpret_cast<void(Rva005F0CC9::*)(const char*)>(&Rva005F0CC9::RenderProgress))));
+}
+typedef char StructuresIconSlotIs48[sizeof(StrategicHUD::RegionDetailsStructuresMovieClip::Impl::IconSlot)==48 ? 1 : -1];
