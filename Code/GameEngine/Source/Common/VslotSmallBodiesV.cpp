@@ -162,37 +162,6 @@ void Rva0020EB07::rva0020EB07(Int a, Int b)
 		v[i]->rva003F1044(a, b);
 }
 
-// GlobalData::reset, retail 0x00235736: destroys the chain from the head at
-// VA 0x00DFE758 up to the end marker at VA 0x00DFE75C (next link at +0x1250)
-// with global delete. WB 0x00BA6650 GlobalData::reset (assert "calling reset
-// on wrong GlobalData", GlobalData.cpp:1708) runs the same loop on
-// TheWritableGlobalData and its original. A virtual: slot 9 of GlobalData's
-// vftable 0x00BED1C4, installed at +0 by its constructor 0x0023631C and
-// destructor 0x002376CC; retail never calls it directly.
-class Rva00235736Node
-{
-public:
-	virtual ~Rva00235736Node();
-	char m_pad04[0x124C];
-	Rva00235736Node *m_next;
-};
-extern class GlobalData *TheWritableGlobalData;
-extern Rva00235736Node *g_rva00235736End;
-class GlobalData
-{
-public:
-	virtual void reset();
-};
-void GlobalData::reset()
-{
-	while ((*(Rva00235736Node **)&TheWritableGlobalData) != g_rva00235736End)
-	{
-		Rva00235736Node *next = (*(Rva00235736Node **)&TheWritableGlobalData)->m_next;
-		::delete (*(Rva00235736Node **)&TheWritableGlobalData);
-		(*(Rva00235736Node **)&TheWritableGlobalData) = next;
-	}
-}
-
 // 0x002616D1 and 0x002616EB (tables at VA 0x00C1796C, 0x00C071D0): the rowed dual-mask
 // test 0x0026157E of the argument's +0x94 masks against this object's
 // +0x08/+0x18, resp. its negation.

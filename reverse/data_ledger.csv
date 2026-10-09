@@ -18455,7 +18455,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x009FE750,4,.data,global,?TheTaintManager@@3PAVBfmeTaintManager@@A,,unowned,?TheTaintManager@@3PAVBfmeTaintManager@@A;?TheTaintManager@@3PAVTaintManager@@A;?g_00DFE750@@3PAVTaintManager@@A;?g_Va00DFE750@@3PAXA,1,18
 0x009FE754,4,.data,global,?TheCollisionManager@@3PAVCollisionManager@@A,,unowned,?TheCollisionManager@@3PAVCollisionManager@@A;?g_00DFE754@@3PAVCollisionManager@@A;?g_Va00DFE754@@3PAXA,1,11
 0x009FE758,4,.data,global,?TheWritableGlobalData@@3PAVGlobalData@@A,Code/GameEngine/Source/GameClient/GameClient.cpp,provisional,?TheGlobalData@@3PAUGlobalData@@A;?TheGlobalData@@3PAVGlobalData@@A;?TheWritableGlobalData@@3PAUGlobalData@@A;?TheWritableGlobalData@@3PAVGlobalData@@A;?g_00DFE758@@3PAURva00DFE758Holder@@A;?g_00DFE758@@3PAXA;?g_Va009FE758@@3PAVGlobal9FE758@@A;?g_rampageGlobal@@3PAUGlobalWithB8@@A;_TheGameLogic@Code/GameEngine/Source/Common/GameLogicRandomInit.cpp,2,678
-0x009FE75C,4,.data,global,?g_rva00235736End@@3PAVRva00235736Node@@A,,unowned,,0,2
+0x009FE75C,4,.data,global,?m_theOriginal@GlobalData@@0PAV1@A,Code/GameEngine/Source/Common/GlobalData.cpp,owned,,1,4
 0x009FE760,4,.data,global,?g_versionMajor@@3HA,Code/GameEngine/Source/Common/VersionDestructor.cpp,owned,,1,1
 0x009FE764,4,.data,global,?g_versionMinor@@3HA,Code/GameEngine/Source/Common/VersionDestructor.cpp,owned,,1,1
 0x009FE768,4,.data,global,?g_versionBuildNum@@3HA,Code/GameEngine/Source/Common/VersionDestructor.cpp,owned,,1,1
