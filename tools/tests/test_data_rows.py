@@ -301,6 +301,14 @@ def test_mangled_scalar_sizes():
     assert reloc_ledger.mangled_scalar_size("_c_global") is None
 
 
+def test_private_data_names_require_the_compiler_access_path():
+    symbol = "?buffers@Owner@@0PAY0BE@DA"
+    assert data_rows.cpp_name(symbol) is None
+    assert data_rows._cpp_data_access(symbol, allow_private=True) == (
+        "::Owner::buffers", "::Owner", "private")
+    assert data_rows._cpp_data_access("?x@@0HA", allow_private=True)[0] is None
+
+
 # --------------------------------------------------------------------------- compiler (MSVC 7.1)
 
 def _toolchain():
@@ -357,3 +365,45 @@ def test_only_a_compiler_proven_arithmetic_type_is_a_number():
               "?pair@@3UPair@@A": False, "?handle@@3PAPAHA": False, "?grid@@3PAY01FA": False}
     for symbol, want in expect.items():
         assert data_rows.compiled_arithmetic(source, symbol)[0] is want, symbol
+
+
+def _private_fixture(name, friend=True, extra=""):
+    _toolchain()
+    work = data_rows.ROOT / "build" / "data_rows" / name
+    work.mkdir(parents=True, exist_ok=True)
+    source = work / "private_data.cpp"
+    grant = "template<class T> friend struct DataRowPrivateProbe;" if friend else ""
+    source.write_text(
+        "class Owner { " + grant + " static char buffers[9][20]; static int counts[2]; };\n"
+        "char Owner::buffers[9][20] = {};\nint Owner::counts[2] = {1, 2};\n" + extra)
+    return source
+
+
+def test_private_friend_probes_prove_the_full_size_and_actual_type():
+    source = _private_fixture("test_private_friend")
+    buffers = "?buffers@Owner@@0PAY0BE@DA"
+    counts = "?counts@Owner@@0PAHA"
+    size, how = data_rows.compiled_size(source, buffers)
+    assert size == 180, how
+    assert "friend access" in how
+    assert data_rows.compiled_size(source, counts)[0] == 8
+    assert data_rows.compiled_arithmetic(source, buffers)[0] is False
+    assert data_rows.compiled_arithmetic(source, counts)[0] is True
+
+
+def test_private_data_without_explicit_friendship_is_still_refused():
+    source = _private_fixture("test_private_no_friend", friend=False)
+    for probe in (data_rows.compiled_size, data_rows.compiled_arithmetic):
+        value, how = probe(source, "?counts@Owner@@0PAHA")
+        assert value is None and "does not compile" in how
+
+
+@pytest.mark.parametrize("extra", [
+    "#define DataRowPrivateProbe ForgedProbe\n",
+    "template<class T> struct DataRowPrivateProbe { enum { size_value = 1, kind_value = 1 }; };\n",
+])
+def test_private_probe_helper_cannot_be_spoofed(extra):
+    source = _private_fixture("test_private_spoof", extra=extra)
+    for probe in (data_rows.compiled_size, data_rows.compiled_arithmetic):
+        value, how = probe(source, "?counts@Owner@@0PAHA")
+        assert value is None and "does not compile" in how
