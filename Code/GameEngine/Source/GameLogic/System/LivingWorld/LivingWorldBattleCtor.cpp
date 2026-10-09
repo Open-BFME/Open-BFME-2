@@ -43,8 +43,8 @@ typedef unsigned int UnsignedInt;
 class Rva00330757Member
 {
 public:
-	Rva00330757Member();
-	~Rva00330757Member();
+	Rva00330757Member() throw();
+	~Rva00330757Member() throw();
 
 private:
 	void *m_begin;
@@ -86,6 +86,7 @@ struct LivingWorldBattleArmyView
 // ctor gives retail's store schedule (WorldBuilder copies it through a temp).
 struct LivingWorldBattleCoord
 {
+	LivingWorldBattleCoord() { *(float *)&m_a = 0.0f; *(float *)&m_b = 0.0f; }
 	LivingWorldBattleCoord(const LivingWorldBattleCoord &o) : m_a(o.m_a), m_b(o.m_b) {}
 	Int m_a;
 	Int m_b;
@@ -108,6 +109,7 @@ public:
 class LivingWorldBattle : public Snapshot, public Rva00330757Member, public LivingWorldBattleListener
 {
 public:
+	LivingWorldBattle();
 	LivingWorldBattle(Int first, Int second,
 		const _STL::vector<LivingWorldBattleArmyView *> &armies,
 		const _STL::vector<LivingWorldBattlePlayerView *> &players,
@@ -148,4 +150,14 @@ LivingWorldBattle::LivingWorldBattle(Int first, Int second,
 		}
 	}
 	((Rva003F43D3 *)this)->rva003F43D3();
+}
+
+// Native3F6A3A..3F6A8B81B default constructor, called by224B2100E6
+// deserializer allocating0x40. Primary name() at3F6A8B returns
+// LivingWorldBattle; vtables +0/+4 match the parameterized constructor.
+// Both coordinate words are initialized through float views: native XORPS
+// and two MOVSS independently prove this initialization type.
+LivingWorldBattle::LivingWorldBattle()
+ : m_second(0),m_coord(),m_30(0),m_first(0),m_winningSide(-1),m_3C(0)
+{
 }

@@ -1,5 +1,3 @@
-// ?rva002100E6@Rva0020EE29@@QAEXPAX0@Z
-// partial score=1.0 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /MD /EHsc /D_CRTIMP= /D_STLP_NO_EXCEPTIONS /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // Native2100E6..2101C6 (224B), thiscall RET8. Called twice from2101C6.
