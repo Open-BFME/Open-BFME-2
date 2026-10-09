@@ -1,6 +1,11 @@
-// ?Rva004354F3@@YA_NXZ
-// partial score=0.78 date=2026-10-06
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// ?PromptAddFriend@AptSaveLoad@@SA_NXZ
+// partial score=0.99 date=2026-10-09
+// WB12AD250 PromptAddFriend and native4354F3..43566A establish static bool ABI.
+// Complete375B, only key home -10 vs native -14 differs at two displacement bytes.
+// Both branches bind named AddFriendConfirmationHandler; native53B Rva holder copy
+// has its proven +4 reference lifetime. Four-byte one-member callback view restores
+// stack-save order. EHs preserves C-linkage prompt cleanup states4/7.
+// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHs
 // Retail boundary 0x004354F3..0x0043566A is 375 bytes and ends in RET.
 // Its caller at 0x00435CCC tests AL and falls through to the saved-game
 // handler only when this routine declines to show the add-friend prompt.
@@ -33,6 +38,7 @@ extern GameTextInterface *TheGameText;
 
 struct AptSaveLoadSlot
 {
+ const UnicodeString &getName() const { return m_name; }
 	unsigned char m_pad000[0x30];
 	UnicodeString m_name;
 	unsigned char m_pad034[0x1AC - 0x34];
@@ -40,7 +46,7 @@ struct AptSaveLoadSlot
 };
 
 class GameSpyGameSlot;
-GameSpyGameSlot *Rva00433FF3Get();
+
 
 class RvaFriendProfileMap : public _STL::map<int, int>
 {
@@ -82,42 +88,57 @@ extern int g_Va00E032E0;
 class AptSaveLoad
 {
 public:
+	static GameSpyGameSlot *GetOpponentSlotData();
+	static void AddFriendConfirmationHandler(int);
+	static bool PromptAddFriend();
 	unsigned char m_pad000[0x27C];
 	int m_state;
 };
 
+struct TargetRef00217D4C;
+void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
 class Rva0023E8D8
 {
 public:
-	Rva0023E8D8() {}
+	Rva0023E8D8() : m_impl(0) {}
+	~Rva0023E8D8() { if(m_impl)ReleaseTreeHintRef00217D4C((TargetRef00217D4C*)m_impl); }
 	Rva0023E8D8(void *function);
+	Rva0023E8D8(const Rva0023E8D8 &r) : m_impl(r.m_impl) {if(m_impl)++((int*)m_impl)[1];}
 	void *m_impl;
 };
 
-extern "C" void __cdecl Rva00435107(int button);
+
+struct CallbackStorage;
 extern "C" void __cdecl Rva00437F61(int type,
 	const UnicodeString &message, const UnicodeString &title,
-	Rva0023E8D8 callback);
+	CallbackStorage callback);
 extern "C" void __cdecl Rva0043802B(int type,
 	const UnicodeString &message, const UnicodeString &title,
-	Rva0023E8D8 callback);
+	CallbackStorage callback);
 
-bool Rva004354F3()
+struct CallbackStorage {
+ Rva0023E8D8 holder;
+ CallbackStorage(void*p):holder(p){}
+ CallbackStorage(const CallbackStorage&r):holder(r.holder){}
+};
+bool AptSaveLoad::PromptAddFriend()
 {
 	AptSaveLoadSlot *slot;
 	RvaFriendProfileMap *profiles;
 	if (!TheGameSpyInfo)
 		goto declined;
 
-	slot = (AptSaveLoadSlot *)Rva00433FF3Get();
+	slot = (AptSaveLoadSlot *)AptSaveLoad::GetOpponentSlotData();
 	if (!slot)
 		goto declined;
 
 	profiles = TheGameSpyInfo->getFriendProfiles();
 	if (!profiles)
 		goto declined;
-	if (profiles->find(slot->m_profileID) == profiles->end())
-		goto show_prompt;
+	int profile = slot->m_profileID;
+	if (profiles->find(profile) != profiles->end())
+		goto declined;
+	goto show_prompt;
 
 declined:
 	return false;
@@ -126,24 +147,23 @@ show_prompt:
 	{
 		UnicodeString message;
 	{
-			UnicodeString format = TheGameText->fetch(
-				"APT:AddFriendOnSaveDescription", 0);
-			message.format(format.str(), slot->m_name.str());
+			message.format(TheGameText->fetch("APT:AddFriendOnSaveDescription",0).str(), slot->getName().str());
 		}
 
 		if (g_Va00E032E0)
 		{
-			void (__cdecl *callback)(int) = Rva00435107;
-			Rva0043802B(2, message,
-				TheGameText->fetch("APT:AddFriendOnSaveTitle", 0),
-				Rva0023E8D8(&callback));
+			void (__cdecl *callback)(int) = AptSaveLoad::AddFriendConfirmationHandler;
+			Rva0043802B(2, TheGameText->fetch("APT:AddFriendOnSaveTitle", 0),
+				message,
+				CallbackStorage(&callback));
 			((AptSaveLoad *)g_Va00E032E0)->m_state = 0x0C;
 		}
 		else
 		{
-			Rva00437F61(2, message,
-				TheGameText->fetch("APT:AddFriendOnSaveTitle", 0),
-				Rva0023E8D8());
+			void (__cdecl *callback)(int) = AptSaveLoad::AddFriendConfirmationHandler;
+			Rva00437F61(2, TheGameText->fetch("APT:AddFriendOnSaveTitle", 0),
+				message,
+				CallbackStorage(&callback));
 		}
 	}
 	return true;

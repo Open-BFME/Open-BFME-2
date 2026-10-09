@@ -17079,3 +17079,4 @@ _isalnum,0x00629AF6,msvcr71 isalnum import stub called directly by the URL escap
 ?rva002B8BFE@Rva002B8BFE@@QAEXPAVXfer@@@Z,0x002B8BFE,callee of ?rva002BB5DD@Rva002BB5DD@@QAEXPAVXfer@@@Z
 ?rva002B5023@Rva002B5023Owner@@QAEXPAVGlo012F1028Entry@@@Z,0x002B5023,callee of ?rva002B8AEA@Rva002B8AEA@@QAEXXZ
 ?rva001DB0A8@UpgradeCenter@@QBEPBVUpgradeTemplate@@XZ,0x001DB0A8,Address-derived ABI only; native306505/306544 REL32 targets;4B mov eax [ecx+C] RET; UpgradeCenter head+C corroborated by findUpgrade26F26D donor/target data accesses; unrelated FX getters sharefold; original method name unproven
+?PromptAddFriend@AptSaveLoad@@SA_NXZ,0x004354F3,WB12AD250 names static AptSaveLoad::PromptAddFriend; complete375B native4354F3..43566A returns AL bool and GetOpponentSlotData/profilemap miss prompts named AddFriendConfirmationHandler; native435CCC direct call testsAL; original name target-debug independently proven
