@@ -1889,7 +1889,6 @@ name,address,notes
 ??0BfmePod196@@QAE@ABU0@@Z,0x00438559,twin of rowed Rva004382FC copy ctor at same address called by _Construct 0x00438E49 size 196 match
 ??0BfmePod248@@QAE@ABU0@@Z,0x000C6B17,element copy constructor: REL32 read at 0x000C790F in the byte-verified _Construct 0x000C78F3; ledger spelling there: none
 ??0BfmePod252@@QAE@ABU0@@Z,0x000C254B,element copy constructor: REL32 read at 0x000C3733 in the byte-verified _Construct 0x000C3717; ledger spelling there: none
-??0BfmePod264@@QAE@ABU0@@Z,0x00289CEB,element copy constructor: REL32 read at 0x00289E85 in the byte-verified _Construct 0x00289E69; ledger spelling there: none
 ??0BfmePod340@@QAE@ABU0@@Z,0x001E4DEB,element copy constructor: REL32 read at 0x004D9BB4 in the byte-verified _Construct 0x004D9B98; ledger spelling there: none
 ??0BfmePod52@@QAE@ABU0@@Z,0x001DD0A0,twin of rowed Rva001DD0A0 copy ctor at same address called by _Construct 0x001DD2DC size 52 match
 ??0BfmePod72@@QAE@ABU0@@Z,0x002DFC1B,pair/record copy constructor: REL32 read at 0x002DFD94 in the byte-verified _Construct 0x002DFD82; ledger spelling there: none
@@ -17057,3 +17056,4 @@ _log,0x00629B0E,log double import thunk (gen-import row ji_00629b0e: msvcr71 slo
 ??0?$map@HUAttributeBlingBounds@@U?$less@H@_STL@@V?$allocator@U?$pair@$$CBHUAttributeBlingBounds@@@_STL@@@3@@_STL@@QAE@XZ,0x00242F01,Native subclass199 constructor fields24 bling index map;48 default index map;54 attribute record map with NameKey and three AsciiStrings; genuine STLport constructors complete25B and recursive helpers match every owner relocation; fold-proof=Code/GameEngine/Source/GameLogic/Object/CreateAHero.cpp
 ?erase@?$vector@HV?$Rva002444BEAllocator@H@@@_STL@@QAEPAHPAH0@Z,0x0031BD55,scalar selection vector erase; whole34 bytes and memmove relocation match the owned range erase; fold-proof=Code/GameEngine/Source/GameClient/GUI/ChatWindowsInGame.cpp
 ??0?$SideBarButtonSlot@VRva000AD6F4@@USideBarUpdaterRef@@@@QAE@XZ,0x005FFF09,ICF slot default constructor fourteen bytes zero zero minusone; target5288C4 vector constructor callback; this instantiation has no separate address; fold-proof=Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/AptInGameSideCommandBar.cpp
+??0Rva002894A2@@QAE@ABV0@@Z,0x00289CEB,Replace BfmePod264 copy pin with existing experience-level vtable owner; 143B constructor and seven-state EH independently exact; Construct REL32 at 0x00289E85 and CreateNewExpLevel at 0x0028A4CF

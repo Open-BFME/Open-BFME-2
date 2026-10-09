@@ -22,12 +22,19 @@ public:
 	Rva0042526Member();
 	char m_pad[0x4C];
 };
+// Native cleanup releases the two strings at decal+0/+4 via the already
+// owned 0x000B6CF1 record destructor. Composition models that owned prefix;
+// the remaining decal fields are scalar storage, without another dtor pin.
+struct BfmeStringRecord000B94D2
+{
+    ~BfmeStringRecord000B94D2();
+    AsciiString first, second;
+};
 class RadiusDecalTemplate
 {
 public:
 	RadiusDecalTemplate();
-	AsciiString m_name;
-	AsciiString m_secondName;
+	BfmeStringRecord000B94D2 names;
 	int m_shadowType;
 	float m_minOpacity, m_maxOpacity, m_opacityThrobTime;
 	int m_color;
@@ -61,6 +68,7 @@ class Rva002894A2 : public Rva001E3624
 public:
 	virtual ~Rva002894A2();
 	Rva002894A2();
+	Rva002894A2(const Rva002894A2 &);
 private:
 	AsciiString m10;
 	int m14;
@@ -110,4 +118,12 @@ Rva002894A2::Rva002894A2()
 	, m104(-1)
 {
 	mDC.setFromInt(0);
+}
+
+// Copy constructor 0x00289CEB default-constructs owned members, then calls
+// the already pinned 0x00289902 experience-level assignment operation.
+struct Rva00289FBCRecord { Rva00289FBCRecord &operator=(const Rva00289FBCRecord &); };
+Rva002894A2::Rva002894A2(const Rva002894A2 &that)
+{
+    reinterpret_cast<Rva00289FBCRecord *>(this)->operator=(reinterpret_cast<const Rva00289FBCRecord &>(that));
 }

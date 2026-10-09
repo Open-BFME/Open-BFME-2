@@ -149,10 +149,16 @@ struct BfmePod248
 	int a;
 	BfmePod248(const BfmePod248 &that);
 };
-struct BfmePod264
+struct BfmePod264 { int a[66]; };
+// The experience-level copy now has its established Rva002894A2 owner.
+// This declaration-only view passes the existing 0x108-byte list payload
+// to that constructor; the helper retains its already rowed template name.
+class Rva002894A2
 {
-	int a;
-	BfmePod264(const BfmePod264 &that);
+public:
+    Rva002894A2(const Rva002894A2 &);
+private:
+    char opaque[0x108];
 };
 template void _STL::_Construct<BfmePod104, BfmePod104>(BfmePod104 *, const BfmePod104 &);
 template void _STL::_Construct<Rva0040C0C7Element, Rva0040C0C7Element>(Rva0040C0C7Element *, const Rva0040C0C7Element &);
@@ -160,7 +166,12 @@ template void _STL::_Construct<Rva00414258Element, Rva00414258Element>(Rva004142
 template void _STL::_Construct<Rva005668E9Element, Rva005668E9Element>(Rva005668E9Element *, const Rva005668E9Element &);
 template void _STL::_Construct<BfmePod252, BfmePod252>(BfmePod252 *, const BfmePod252 &);
 template void _STL::_Construct<BfmePod248, BfmePod248>(BfmePod248 *, const BfmePod248 &);
-template void _STL::_Construct<BfmePod264, BfmePod264>(BfmePod264 *, const BfmePod264 &);
+namespace _STL {
+template<> void _Construct<BfmePod264, BfmePod264>(BfmePod264 *p, const BfmePod264 &value)
+{
+    ::new ((void *)p) Rva002894A2(reinterpret_cast<const Rva002894A2 &>(value));
+}
+}
 
 // Also the 45-byte _Construct for Rva00153729 (0x00153786, copy constructor
 // 0x0015375A), named by its rowed callers: the uninitialized fill/copy and
