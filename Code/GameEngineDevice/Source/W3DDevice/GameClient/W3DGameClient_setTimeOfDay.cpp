@@ -18,12 +18,14 @@ enum TimeOfDay
 extern void *W3DGCData00DE2000;
 // W3DGCData00DE2000: matched references place it at VA 0xde2000 (zero-filled .bss).
 void * W3DGCData00DE2000;
-// ?W3DGCData00DE5DFC@@3PAXA: the global at this VA is ?g_shadowManager@@3PAVGen0003AC38@@A; this name is an alias for it.
-extern class Gen0003AC38 *g_shadowManager;
+// The data ledger identifies the native shadow-manager pointer at VA 0x00DE5DFC.
+extern class W3DShadowManager *TheW3DShadowManager;
 extern class Display *TheDisplay;
 
 #pragma optimize("ty", on)
-#include "vector3.h"
+// Native constructor and normalization stay inline without competing copies.
+#include "../../../../../reference/shims/bfme_colmathaabox/wwmath.h"
+#include "../../../../../reference/shims/bfme_colmathaabox/vector3.h"
 #pragma optimize("", on)
 
 class W3DGameClientWaterShim
@@ -102,7 +104,7 @@ void W3DGameClient::setTimeOfDay(TimeOfDay tod)
 	void *water = W3DGCData00DE2000;
 	if (water)
 		((W3DGameClientWaterShim *)water)->setTimeOfDay(tod);
-	void *shadow = (*(void **)&g_shadowManager);
+	void *shadow = TheW3DShadowManager;
 	if (shadow)
 		((W3DGameClientShadowShim *)shadow)->setTimeOfDay(tod);
 	void *display = (*(void **)&TheDisplay);
