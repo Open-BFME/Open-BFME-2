@@ -17072,6 +17072,6 @@ _isalnum,0x00629AF6,msvcr71 isalnum import stub called directly by the URL escap
 ?updateInterestZones@TacticalAI@@QAEXXZ,0x002C6607,WB E897E0 TacticalAI.cpp297..327 names updateInterestZones; complete native370B expires interestZones20 then scans player32C TeamPrototypes and registered member victims through matched DLINK63864/63526 and AI victim68D71; owner proven neighboring DoXfer and creation64D0; banked readable375B preserves all calls/fields; name independently supported
 ?rva0028DF48@Object@@QAEXPBVSpecialPowerTemplate@@I_N@Z,0x0028DF48,
 ?addObject@ElvenWoodSpecialPower@@QAEPAVObject@@PBUCoord3D@@PBVAsciiString@@@Z,0x004C397F,callee of ?rva004C3C36@ElvenWoodSpecialPower@@QAEXPBUCoord3D@@@Z
-?rva002BBA45@Rva002BBA45@@QAEXPAVXfer@@@Z,0x002BBA45,callee of ?rva002BC653@Rva002BC653Snapshot@@QAEXPAVXfer@@@Z
+?rva002BBA45@Rva002BBA45@@QAEEPAVXfer@@@Z,0x002BBA45,callee of ?rva002BC653@Rva002BC653Snapshot@@QAEXPAVXfer@@@Z
 ?rva002BB5DD@Rva002BB5DD@@QAEXPAVXfer@@@Z,0x002BB5DD,callee of ?rva002BC653@Rva002BC653Snapshot@@QAEXPAVXfer@@@Z
 ?rva002B7C74@Rva002B7C74@@QAEXXZ,0x002B7C74,callee of ?rva002BC653@Rva002BC653Snapshot@@QAEXPAVXfer@@@Z
