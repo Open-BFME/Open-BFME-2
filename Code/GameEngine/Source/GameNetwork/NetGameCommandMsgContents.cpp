@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
-// ?rva004D5D55@NetGameCommandMsg@@QAE?AVAsciiString@@XZ @0x004D5D55 154B: NetGameCommandMsg contents slot 3 of 0x008601E4.
+// ?getContentsAsAsciiString@NetGameCommandMsg@@UAE?AVAsciiString@@XZ @0x004D5D55 154B: NetGameCommandMsg contents slot 3 of 0x008601E4.
 // Target evidence: vtable 0x008601E4 slot 3, members +4/+8/+0xC/+0x10 word +0x24 from retail pushes, format "<session=%d,frame=%d, player=%d, id=%d>, %s" at 0x00860330, callees getCommandTypeAsAsciiString 0x0030FA44 plus format 0x00038150 plus releaseBuffer 0x00036410 plus StringBase copy 0x000365F0, empty fallback g_Rva0107301CEmptyString; donor BFME1 NetCommandMsg_getContentsAsAsciiString.cpp plus NetGameCommandMsgCtor.cpp layout.
 #include "ascii_string.h"
 
@@ -54,7 +54,9 @@ protected:
 class NetGameCommandMsg : public NetCommandMsg
 {
 public:
-	AsciiString rva004D5D55();
+	// Slot 3 of this class's vftable, where NetCommandMsg declares
+	// getContentsAsAsciiString: the override.
+	virtual AsciiString getContentsAsAsciiString();
 private:
 	Int m_numArgs;
 	Int m_argSize;
@@ -63,7 +65,7 @@ private:
 	void *m_argTail;
 };
 
-AsciiString NetGameCommandMsg::rva004D5D55()
+AsciiString NetGameCommandMsg::getContentsAsAsciiString()
 {
 	AsciiString result;
 	result.format("<session=%d,frame=%d, player=%d, id=%d>, %s", m_timestamp, m_executionFrame, m_playerID, m_id, GetStr004D5D55(GameMessage::getCommandTypeAsAsciiString((GameMessage::Type)m_type)));

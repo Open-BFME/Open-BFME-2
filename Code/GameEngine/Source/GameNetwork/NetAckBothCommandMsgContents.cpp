@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
-// ?rva004D5DEF@NetAckBothCommandMsg@@QAE?AVAsciiString@@XZ, retail 0x004D5DEF, 151 bytes.
+// ?getContentsAsAsciiString@NetAckBothCommandMsg@@UAE?AVAsciiString@@XZ, retail 0x004D5DEF, 151 bytes.
 // NetAckBothCommandMsg contents slot 3 of 0x008601F4: base
 // NetCommandMsg::rva004D5B4C plus ", commandID=%d, origPlayer=%d, origExeSID=%d, origExeFrame=%d".
 // Identity from vtable slot 3, ctor 0x004D568F layout +0x1c word +0x1e byte +0x20 +0x24,
@@ -49,7 +49,9 @@ protected:
 class NetAckBothCommandMsg : public NetCommandMsg
 {
 public:
-	AsciiString rva004D5DEF();
+	// Slot 3 of this class's vftable, where NetCommandMsg declares
+	// getContentsAsAsciiString: the override.
+	virtual AsciiString getContentsAsAsciiString();
 private:
 	UnsignedShort m_commandID;
 	UnsignedByte m_originalPlayerID;
@@ -58,7 +60,7 @@ private:
 	UnsignedInt m_24;
 };
 
-AsciiString NetAckBothCommandMsg::rva004D5DEF()
+AsciiString NetAckBothCommandMsg::getContentsAsAsciiString()
 {
 	AsciiString result;
 	result.format("%s, commandID=%d, origPlayer=%d, origExeSID=%d, origExeFrame=%d", GetStr004D5DEF(((NetCommandMsg *)this)->rva004D5B4C()), m_commandID, m_originalPlayerID, m_20, m_24);
