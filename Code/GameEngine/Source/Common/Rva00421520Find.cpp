@@ -72,3 +72,38 @@ void Rva00421520::rva00421520(Rva004210B0 *holder, const StringBase<char> *name)
 		}
 	}
 }
+
+// ?rva00421292@Rva00421292@@QAEXPAVGen_0039BE00@@PBV?$StringBase@D@@@Z @0x00421292 82B
+// Twin of rva00421520 above on another table owner: the same name search over the vector<ModuleData*> at +0x0C, but a
+// hit removes the entry through the rowed Gen_0039BE00::bfmeRemove (0x00421176) instead of adding it. Target evidence:
+// retail body and the callee REL32 read byte for byte; class names are address-derived.
+class Gen_0039BE00
+{
+public:
+	void bfmeRemove(int index);
+};
+
+class Rva00421292
+{
+public:
+	void rva00421292(Gen_0039BE00 *holder, const StringBase<char> *name);
+private:
+	char m_pad[12];
+	const ModuleData **m_begin;
+	const ModuleData **m_end;
+};
+void Rva00421292::rva00421292(Gen_0039BE00 *holder, const StringBase<char> *name)
+{
+	for (unsigned i = 0; i < (m_end - m_begin); ++i) {
+		_ReadWriteBarrier();
+		const ModuleData *md = m_begin[i];
+		const Overridable *target = md;
+		if (md->m_nextOverride) {
+			target = md->m_nextOverride->getFinalOverride();
+		}
+		if (((const ModuleData *)target)->m_10.compare(*name) == 0) {
+			holder->bfmeRemove(i);
+			break;
+		}
+	}
+}
