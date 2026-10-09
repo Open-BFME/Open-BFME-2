@@ -1,4 +1,6 @@
 // ?update@AIWanderInPlaceState@@UAE?AW4StateReturnType@@XZ
+// partial score=0.9676 date=2026-10-09
+// ?update@AIWanderInPlaceState@@UAE?AW4StateReturnType@@XZ
 // partial score=0.9676 date=2026-10-05
 // ?update@AIWanderInPlaceState@@UAE?AW4StateReturnType@@XZ
 // partial score=0.9 date=2026-10-04

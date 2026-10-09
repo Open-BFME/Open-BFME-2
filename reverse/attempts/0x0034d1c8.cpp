@@ -1,6 +1,6 @@
 // ?onEnter@AIAttackMeleeHordeApproachTargetState@@UAE?AW4StateReturnType@@XZ
-// partial score=0.96 date=2026-10-07
-// cl: /DNDEBUG /MD
+// partial score=0.97 date=2026-10-09
+// cl: /ICode/GameEngine/Source/Common /O1 /G7 /arch:SSE /DNDEBUG /MD
 //
 // onEnter/onExit/update overrides of BFME 2 states, each named by its
 // vtable's slot-2 name getter (the state's own name literal):
@@ -34,6 +34,74 @@
 //    Coord3D::Normalize, result unused), after clearing the machine's goal
 //    object (slot 14) and Object::rva0028AD32. The ZH Coord3D scale/add
 //    inlines give retail's batched multiplies.
+//  - AIAttackMeleeHordeApproachTargetState::onExit, retail 0x0034921C (161
+//    bytes): slot 5 of 0x00C126C0, whose slot-2 getter names the class.
+//    Donor: Open-BFME-1 AIAttackMeleeHordeApproachTargetState_onExit.cpp.
+//    Clears the +0x5D initial-approach flag after the base onExit; unless
+//    the owner's +0x94 flag is set, clears status 0x4B, restores full speed,
+//    drops the ignored obstacle and, for ground movement (AI slot 137),
+//    snaps the owner onto the +0x20 goal position when within sqrt(12.5).
+//  - AIAttackMeleeHordeApproachTargetState::rva00344D60, retail 0x00344D60
+//    (338 bytes): thiscall (this unused, ret 0xc) called twice by the class's
+//    computePath 0x00348BA4 (slot 17 of 0x00C126C0) with the goal, the source
+//    and the victim or 0. Steps the goal back toward the source by ten units
+//    (count -(int)(len * -0.05f) - 1, the idiom of BFME 1's Rva0016EE00) until
+//    Pathfinder 0x002F1BA2 passes the line from the stepped point with the
+//    AI's locomotor surfaces (+0x1DC) and the rowed Object::rva0028B511 layer;
+//    else the pinned adjustToPossibleDestination and false. Name and
+//    surfaces field are structural inference; the step logic is target fact.
+//  - AIMoveToPositionAndEnterState::onEnter, retail 0x00350020 (198
+//    bytes): slot 4 of 0x00C136A0. Donor: Open-BFME-1
+//    AIMoveToPositionAndEnterState_onEnter.cpp. Takes the goal's contain
+//    slot-87 enter position as the +0x20 goal; BFME 2 adds the pinned
+//    Pathfinder::adjustDestination for goal templates with kind byte +0x11F
+//    mask 0x80. After the base onEnter, an owner with a +0x410 group pointer
+//    moves at its AIGroup's speed (rowed AIUpdateInterface::rva002630F5).
+//  - AIMoveToPositionAndEnterState::update, retail 0x00354945 (369
+//    bytes): slot 6 of 0x00C136A0; the base call is the pinned
+//    AIMoveToState::update 0x00353A65, so the class derives from
+//    AIMoveToState. Donor: Open-BFME-1 AIStates.cpp (canEnterObject
+//    refusal, then aiEnter on success, rowed here as
+//    AICommandInterface::rva0026C347). BFME 2 additions: a goal controlled
+//    by another player that holds occupants (contain slot 69) and lies
+//    within 200 of an owner with status 0x5D gets contain slot 32 with the
+//    owner's command source, and keeps the state running; a goal whose
+//    template has kind byte +0x11F bit 0x80 continues in AI states
+//    0x46/0x47 and otherwise fails unless it is in state 0 and the pinned
+//    Pathfinder::getClosestPointOnLand finds land.
+//  - AIEnterState::update, retail 0x0035455A (419 bytes): slot 6 of
+//    0x00C12E90, base call the pinned AIInternalMoveToState::update. Donors:
+//    Open-BFME-1 AIStates.cpp and Zero Hour AIStates.cpp. Fails without a
+//    goal or when an airborne-contained goal is out of reach. It tracks the
+//    goal's contain slot-86 position (else the goal position), sets the AI
+//    goal object and, when canEnterObject refuses, attacks an enemy goal
+//    (rowed AICommandInterface::rva0026C2D9) or fails. A held owner
+//    succeeds. After a finished move it forces the unit into the contain
+//    (slot 39, Zero Hour addToContain) when within the goal's +0xB8
+//    radius or past the +0x50 frame.
+//  - AIEnterAndAttackState::update, retail 0x003546FD (385 bytes): slot 6
+//    of 0x00C12F40 (slot-2 name getter AIEnterAndAttackState). Donor:
+//    Open-BFME-1 AIStates.cpp AIEnterAndAttackState::update. Same callees
+//    as AIEnterState::update, but it always tracks the goal position; after
+//    a successful move it continues while an airborne goal is above a
+//    grounded owner, else forces the unit into the contain (slot 39) when
+//    within the goal's +0xB8 radius.
+//  - AIEnterAndAttackState::onEnter, retail 0x0034FD0D (259 bytes): slot 4
+//    of 0x00C12F40. Shape of the BFME 1 / Zero Hour AIEnterState::onEnter:
+//    clears +0x4C, records the owner AI's pinned getCurrentVictim id at
+//    +0x50 (the rowed xfer saves both ObjectIDs), fails without a goal or
+//    when canEnterObject refuses, announces the unit to the goal's contain
+//    (slot 17, Zero Hour onObjectWantsToEnterOrExit) and records the goal
+//    id, then ignores the goal as an obstacle, allows invalid locomotor
+//    positions and logs critter desync 59 before the base onEnter.
+//  - AIMoveToPositionAndDieState::update, retail 0x003513C9 (214 bytes):
+//    slot 6 of 0x00C12CE8. Zero Hour AIMoveAndDeleteState::update: fails
+//    for an effectively dead owner (+0x438 bit 0), allows invalid locomotor
+//    positions and appends the ground-snapped goal once (+0x4C) to an
+//    existing path when not waiting for one (AI +0x3B1), through the rowed
+//    Path append with BFME 2's extra 0x7fffffff. When the move ends, BFME 2
+//    kills the owner (rowed Object::kill(8, 0)) instead of destroying it,
+//    first reporting it to the last damage source (pinned 0x00294D61).
 //  - AIMoveToPositionAndEnterState::onExit, retail 0x0034C035 (99 bytes):
 //    slot 5 of 0x00C136A0. When the owner has object status 0x4E, clears it
 //    and status 3, and for a template with kind byte +0x115 mask 0x20 also
@@ -116,10 +184,7 @@ enum ObjectStatusTypes
 	OBJECT_STATUS_BFME_4E = 0x4E,
 	OBJECT_STATUS_BFME_5D = 0x5D
 };
-enum ObjectID
-{
-	INVALID_ID = 0
-};
+#include "GameLogicObjectLookupView.h"
 enum
 {
 	STATE_SUCCESS = -1,
@@ -128,26 +193,33 @@ enum
 struct Coord3D;
 class Object;
 
+enum PathfindLayerEnum
+{
+	LAYER_GROUND = 1
+};
+class LocomotorSet;
 class Pathfinder
 {
 public:
+	Bool adjustDestination(Object *obj, const LocomotorSet &locomotorSet, Coord3D *dest,
+		const Coord3D *groupDest);
 	Bool getClosestPointOnLand(const Coord3D *pos, Object *obj, Coord3D *dest);
 	Bool QuickDoesPathExist(Object *obj, const Coord3D *from, const Coord3D *to, int flag);
+	Bool adjustToPossibleDestination(Object *obj, const LocomotorSet &locomotorSet, Coord3D *dest);
+	// The rowed Int body at 0x002F1BA2 (PathfinderCoordLineWalk.cpp); its callers
+	// test only al, so this TU calls it through a Bool view.
+	Bool Rva002F1BA2(void *obj, void *surfaces, PathfindLayerEnum layer, const Coord3D *from, const Coord3D *to);
 };
 class AI
 {
 public:
-	static Bool rva002FE193(Object *source, Object *victim);
+	static Bool rva002FE193(Object *owner, Object *nemesis);
 	Pathfinder *pathfinder() { return m_pathfinder; }
 private:
 	unsigned char m_pad00[0x10];
 	Pathfinder *m_pathfinder; // +0x10
 };
 extern AI *TheAI;
-
-extern int g_Va00DBA4E4; // logic frames per second
-#define LOGICFRAMES_PER_SECOND g_Va00DBA4E4
-extern "C" double __cdecl sqrt(double);
 
 extern unsigned char g_00E03745;
 extern void *g_00DFEFF0;
@@ -236,6 +308,13 @@ public:
 		else
 			m_flags &= ~(1 << PRECISE_Z_POS);
 	}
+	void setAllowInvalidPosition(Bool b)
+	{
+		if (b)
+			m_flags |= (1 << ALLOW_INVALID_POSITION);
+		else
+			m_flags &= ~(1 << ALLOW_INVALID_POSITION);
+	}
 private:
 	unsigned char m_pad00[0x44];
 	unsigned int m_flags; // +0x44
@@ -257,6 +336,51 @@ public:
 template <class Base> class AIStateGapSlots<Base, 0> : public Base
 {
 };
+// Pure gap slots From+1..To after Base's last slot From; numbering the
+// signature by slot keeps successive fills distinct.
+template <class Base, int From, int To> class AIStateSlotFill : public AIStateSlotFill<Base, From, To - 1>
+{
+public:
+	virtual void fill(char (*)[To]) = 0;
+};
+template <class Base, int From> class AIStateSlotFill<Base, From, From> : public Base
+{
+};
+
+class Path
+{
+public:
+	// Rowed tail append; BFME 2 adds a trailing int to Zero Hour's appendNode.
+	void rva002655E3(const Coord3D *pos, PathfindLayerEnum layer, int bfmeLimit);
+};
+class TerrainLogic : public AIStateAISlots<6>
+{
+public:
+	virtual Real getGroundHeight(Real x, Real y, Coord3D *normal) const = 0;
+};
+extern TerrainLogic *TheTerrainLogic;
+struct DamageInfoInput
+{
+	unsigned char m_pad00[0x08];
+	ObjectID m_sourceID; // +0x08
+};
+struct DamageInfo
+{
+	DamageInfoInput in;
+};
+class BodyModuleInterface : public AIStateAISlots<15>
+{
+public:
+	virtual const DamageInfo *getLastDamageInfo() const = 0;
+};
+enum DamageType
+{
+	DAMAGE_BFME_8 = 8
+};
+enum DeathType
+{
+	DEATH_NORMAL = 0
+};
 
 // The interface Object::rva0028C197 returns (opaque): slot 24 and the bool
 // slot 136 are the two AICombineState::onEnter calls.
@@ -275,6 +399,58 @@ class AICommandInterface
 {
 public:
 	void aiIdle(CommandSourceType cmdSource);
+	void rva0026C347(Object *obj, CommandSourceType cmdSource);
+	void rva0026C2D9(Object *victim, int maxShotsToFire, CommandSourceType cmdSource);
+};
+
+enum CanEnterType
+{
+	CHECK_CAPACITY = 0
+};
+
+enum AbleToAttackType
+{
+	ATTACK_NEW_TARGET = 0
+};
+
+enum CanAttackResult
+{
+	ATTACKRESULT_POSSIBLE_AFTER_MOVING = 2,
+	ATTACKRESULT_POSSIBLE = 3
+};
+
+enum Relationship
+{
+	ENEMIES = 0
+};
+
+class ActionManager
+{
+public:
+	CanAttackResult getCanAttackObject(const Object *obj, const Object *objectToAttack,
+		CommandSourceType commandSource, AbleToAttackType attackType);
+};
+
+class BFMEActionManager : public ActionManager
+{
+public:
+	Bool canEnterObject(const Object *obj, const Object *objectToEnter, CommandSourceType commandSource,
+		CanEnterType mode, Bool passThrough, Bool *outFlag);
+};
+extern BFMEActionManager *TheActionManager;
+extern GameLogic *TheGameLogic;
+
+class RadarObject;
+class Player
+{
+public:
+	unsigned char m_pad00[0x5C];
+	int m_playerType; // +0x5C
+};
+class AIGroup
+{
+public:
+	Real getSpeed();
 };
 
 class AIUpdateInterface : public AIStateAISlots<135>
@@ -293,84 +469,41 @@ public:
 	void rva00263EA2(ObjectID id);
 	void setCurrentVictim(const Object *victim);
 	void ignoreObstacle(const Object *obj);
-	Bool getBfmeFlag3CC() const { return m_bfmeFlag3CC; }
+	Object *getCurrentVictim() const;
 	unsigned int getMoodMatrixActionAdjustment(MoodMatrixAction action) const;
 	void setCanPathThroughUnits(Bool b) { m_canPathThroughUnits = b; }
 	Locomotor *getCurLocomotor() { return m_curLocomotor; }
 	void friend_setCurrentGoalPathIndex(int index) { m_currentGoalPathIndex = index; }
 	void setDesiredSpeed(Real speed);
 	void requestPath(Coord3D *destination, Bool isFinalGoal);
-	void *getPath() const { return m_path; }
+	RadarObject *rva002630F5();
+	int rva00260DED() const;
+	void friend_setGoalObject(Object *obj);
+	const LocomotorSet &getLocomotorSet() const { return *(const LocomotorSet *)m_locomotorSet; }
+	Path *getPath() const { return m_path; }
 	Bool getBfmeFlag3B1() const { return m_bfmeFlag3B1; }
+	void *getValidLocomotorSurfaces() const { return m_validLocomotorSurfaces; }
 private:
 	unsigned char m_pad004[0x20 - 0x04];
 public:
 	AICommandInterface m_commands; // +0x20 (rowed aiIdle's this)
 private:
 	unsigned char m_pad021[0x140 - 0x21];
-	void *m_path; // +0x140
+	Path *m_path; // +0x140
 	unsigned char m_pad144[0x194 - 0x144];
 	int m_currentGoalPathIndex; // +0x194
-	unsigned char m_pad198[0x1F0 - 0x198];
+	unsigned char m_pad198[0x1CC - 0x198];
+	unsigned char m_locomotorSet[0x1DC - 0x1CC]; // +0x1CC (LocomotorSet, 0x24 bytes)
+	void *m_validLocomotorSurfaces; // +0x1DC (LocomotorSet +0x10)
+	unsigned char m_pad1E0[0x1F0 - 0x1E0];
 	Locomotor *m_curLocomotor; // +0x1F0
 	unsigned char m_pad1F4[0x3B1 - 0x1F4];
 	Bool m_bfmeFlag3B1; // +0x3B1
 	unsigned char m_pad3B2[0x3BA - 0x3B2];
 	Bool m_canPathThroughUnits; // +0x3BA
 	unsigned char m_pad3BB[0x3CC - 0x3BB];
+public:
 	Bool m_bfmeFlag3CC; // +0x3CC
-};
-
-// The horde contain behind the contain module's slot 31 (as in BFME 1's
-// AIAttackMeleeHordeApproachTargetState sources, BFME 2 slot numbers).
-class HordeContainInterfaceHead : public AIStateAISlots<85>
-{
-public:
-	virtual Bool isMeleeTargetReady(Object *target) = 0;
-	virtual void slot86(Object *target) = 0;
-};
-class HordeContainInterface : public AIStateGapSlots<HordeContainInterfaceHead, 3>
-{
-public:
-	virtual void setMeleeFormation(ObjectID id) = 0;
-};
-class ContainModuleInterface : public AIStateAISlots<31>
-{
-public:
-	virtual HordeContainInterface *getHordeContainInterface() = 0;
-};
-
-enum PlayerType
-{
-	PLAYER_HUMAN,
-	PLAYER_COMPUTER
-};
-class Player
-{
-public:
-	PlayerType getPlayerType() const { return m_playerType; }
-private:
-	unsigned char m_pad00[0x5C];
-	PlayerType m_playerType; // +0x5C
-};
-
-// Object +0xA8 and its rowed element accessor 0x006BD980; the element's
-// +0x08 real is the BFME 1 donor's m_height.
-struct BfmeShapeE15
-{
-	unsigned char m_pad00[0x08];
-	Real m_height; // +0x08
-};
-class BfmeObjE15
-{
-public:
-	BfmeShapeE15 *bfmeAtE15(int index);
-};
-struct Rva0028AC4EEntry;
-class Rva001E46E1
-{
-public:
-	Real rva001E46E1(Object *obj);
 };
 
 class Rva0010CBits
@@ -396,25 +529,103 @@ class ThingTemplate
 {
 public:
 	Bool testKindByte115() const { return (m_kindOf[1] & 0x20) != 0; }
+	Bool testKindByte11F() const { return (m_kindOf[11] & 0x80) != 0; }
 	Real getBfmeReal53C() const { return m_bfmeReal53C; }
 private:
 	unsigned char m_pad00[0x114];
-	unsigned char m_kindOf[4]; // +0x114
-	unsigned char m_pad118[0x53C - 0x118];
+	unsigned char m_kindOf[12]; // +0x114
+	unsigned char m_pad120[0x53C - 0x120];
 	Real m_bfmeReal53C; // +0x53C
 };
 
 Real normalizeAngle(Real angle);
-extern "C" float __cdecl fabs(double); // CRT fabs; x87 result compared as float (as in AIFaceStateUpdate.cpp)
+// math.h: its sqrt declaration is what keeps the x87 result store after the
+// argument pops, and its float fabs overload is the CRT fabs compared as float.
+#include <math.h>
 
 struct Coord3D
 {
 	Real x, y, z;
 	Real Normalize();
 	void scale(Real scale) { x *= scale; y *= scale; z *= scale; }
+	void sub(const Coord3D *a) { x -= a->x; y -= a->y; z -= a->z; }
 	void add(const Coord3D *a) { x += a->x; y += a->y; z += a->z; }
+	Real length() const;
 };
 
+// The contain module's slot 87 hands back the position an entering unit
+// walks to (BFME 1 donor: slot 82, its GetContainedObjectPosition typedef);
+// slot 86 is the donor's slot-81 getContainedObjectPosition, which
+// AIEnterState reads (the same +5 shift). Slot 69
+// is the contain count with one zero argument (as in
+// ScriptConditions_evaluateIsBuildingEmpty.cpp); slot 32 takes a command
+// source and has no evidenced name; slot 39 is the Zero Hour addToContain
+// that AIEnterState::update forces an arrived unit into; slot 17 is the Zero
+// Hour onObjectWantsToEnterOrExit that AIEnterAndAttackState::onEnter
+// announces the entering unit with.
+enum ObjectEnterExitType
+{
+	WANTS_TO_ENTER = 0
+};
+class ContainModuleSlot17 : public AIStateAISlots<17>
+{
+public:
+	virtual void onObjectWantsToEnterOrExit(Object *obj, ObjectEnterExitType wants) = 0;
+};
+// The horde contain behind the contain module's slot 31 (as in BFME 1's
+// AIAttackMeleeHordeApproachTargetState sources, BFME 2 slot numbers).
+class HordeContainInterfaceHead : public AIStateAISlots<85>
+{
+public:
+	virtual Bool isMeleeTargetReady(Object *target) = 0;
+	virtual void slot86(Object *target) = 0;
+};
+class HordeContainInterface : public AIStateGapSlots<HordeContainInterfaceHead, 3>
+{
+public:
+	virtual void setMeleeFormation(ObjectID id) = 0;
+};
+class ContainModuleSlot32 : public AIStateSlotFill<ContainModuleSlot17, 17, 30>
+{
+public:
+	virtual HordeContainInterface *getHordeContainInterface() = 0;
+	virtual void slot32(CommandSourceType cmdSource) = 0;
+};
+class ContainModuleSlot39 : public AIStateSlotFill<ContainModuleSlot32, 32, 38>
+{
+public:
+	virtual void addToContain(Object *obj) = 0;
+};
+class ContainModuleSlot69 : public AIStateSlotFill<ContainModuleSlot39, 39, 68>
+{
+public:
+	virtual int getContainCount(int extra) const = 0;
+};
+class ContainModuleInterface : public AIStateSlotFill<ContainModuleSlot69, 69, 85>
+{
+public:
+	virtual const Coord3D *getContainedObjectPosition() const = 0;
+	virtual const Coord3D *getEnterPosition() = 0;
+};
+
+// Object +0xA8 and its rowed element accessor 0x006BD980; the element's
+// +0x08 real is the BFME 1 donor's m_height.
+struct BfmeShapeE15
+{
+	unsigned char m_pad00[0x08];
+	Real m_height; // +0x08
+};
+class BfmeObjE15
+{
+public:
+	BfmeShapeE15 *bfmeAtE15(int index);
+};
+struct Rva0028AC4EEntry;
+class Rva001E46E1
+{
+public:
+	Real rva001E46E1(Object *obj);
+};
 class Thing
 {
 public:
@@ -423,6 +634,7 @@ public:
 	Real getOrientation() const { return m_orientation; }
 	void setOrientation(Real angle);
 	void setPosition(const Coord3D *pos);
+	Bool isAboveTerrain() const;
 private:
 	unsigned char m_pad00[0x04];
 	const ThingTemplate *m_template; // +0x04
@@ -436,9 +648,22 @@ class Object : public Thing
 public:
 	AIUpdateInterface *getAI() { return m_ai; }
 	ObjectID getID() const { return m_id; }
+	ContainModuleInterface *getContain() const { return m_contain; }
+	void *getBfme410() const { return m_bfme410; }
 	Bool testBfmeFlag94() const { return (m_bfmeFlags94 & 1) != 0; }
 	void setBfmeAngle1C0(Real angle) { m_bfmeAngle1C0 = angle; }
 	Bool testStatus(ObjectStatusTypes status) const;
+	Bool rva002943B2(const Player *player);
+	Real rva002615E3(const Coord3D *pos) const;
+	Real rva0028AC7D() const;
+	const Rva0028AC4EEntry *rva0028AC4E() const;
+	Object *rva002931F5(Bool b);
+	BfmeObjE15 *getShapes() { return &m_shapes; }
+	Player *getControllingPlayer() const;
+	Relationship getRelationship(const Object *that) const;
+	Real getBoundingCircleRadius() const { return m_boundingCircleRadius; }
+	Bool isDisabledHeld() const { return (m_disabledMask & 8) != 0; }
+	Object *getContainedBy() const { return m_containedBy; }
 	void setStatus(ObjectStatusTypes status, Bool set);
 	void rva00346C53(ObjectStatusTypes status, Bool set);
 	void releaseWeaponLock(WeaponLockType lockType);
@@ -448,15 +673,11 @@ public:
 	void rva0028AD32();
 	void rva0028AE6D();
 	void *rva0028C197() const;
+	int rva0028B511() const;
 	Bool chooseBestWeaponForTarget(const Object *target, WeaponChoiceCriteria criteria, CommandSourceType cmdSource);
-	Player *getControllingPlayer() const;
-	Bool rva002943B2(const Player *player);
-	Real rva002615E3(const Coord3D *pos) const;
-	Real rva0028AC7D() const;
-	const Rva0028AC4EEntry *rva0028AC4E() const;
-	Object *rva002931F5(Bool b);
-	BfmeObjE15 *getShapes() { return &m_shapes; }
-	ContainModuleInterface *getContain() const { return m_contain; }
+	BodyModuleInterface *getBodyModule() const { return m_body; }
+	Bool isEffectivelyDead() const { return (m_privateStatus & 1) != 0; }
+	void kill(DamageType damageType, DeathType deathType);
 	__forceinline void setModelConditionBit(int bit)
 	{
 		if (m_conditionBits.test(bit) == 0)
@@ -480,16 +701,33 @@ private:
 	unsigned char m_bfmeFlags94; // +0x94
 	unsigned char m_pad095[0xA8 - 0x95];
 	BfmeObjE15 m_shapes; // +0xA8
-	unsigned char m_padA9[0x10C - 0xA9];
+	unsigned char m_pad0A9[0xB8 - 0xA9];
+	Real m_boundingCircleRadius; // +0xB8 (geometry info)
+	unsigned char m_pad0BC[0x10C - 0xBC];
 	Rva0010CBits m_conditionBits; // +0x10C
 	unsigned char m_pad158[0x1C0 - (0x10C + sizeof(Rva0010CBits))];
 	Real m_bfmeAngle1C0; // +0x1C0
-	unsigned char m_pad1C4[0x250 - 0x1C4];
+	unsigned char m_pad1C4[0x1C8 - 0x1C4];
+	unsigned char m_disabledMask; // +0x1C8 (bit 3: DISABLED_HELD)
+	unsigned char m_pad1C9[0x250 - 0x1C9];
 	ContainModuleInterface *m_contain; // +0x250
-	unsigned char m_pad254[0x258 - 0x254];
+	BodyModuleInterface *m_body; // +0x254
 	AIUpdateInterface *m_ai; // +0x258
+	unsigned char m_pad25C[0x274 - 0x25C];
+	Object *m_containedBy; // +0x274
+	unsigned char m_pad278[0x410 - 0x278];
+	void *m_bfme410; // +0x410
+	unsigned char m_pad414[0x438 - 0x414];
+	unsigned char m_privateStatus; // +0x438 (bit 0: effectively dead)
 };
 
+// The rowed goal-destroyed test 0x004D7ADD (Zero Hour's
+// StateMachine::isGoalObjectDestroyed), rowed under this class name.
+class TurretStateMachine
+{
+public:
+	bool rva004D7ADD();
+};
 class StateMachine
 {
 public:
@@ -503,7 +741,6 @@ public:
 	virtual void setGoalObject(const Object *obj);
 	Object *getOwner() const { return m_owner; }
 	Object *getGoalObject();
-	Bool isGoalObjectDestroyed() const;
 	const Coord3D *getGoalPosition() const { return &m_goalPosition; }
 	void rva0034BF11ClearByte3A() { m_bfmeFlag3A = false; }
 private:
@@ -703,6 +940,7 @@ public:
 	virtual StateReturnType onEnter();
 	virtual void onExit(StateExitType status);
 	virtual StateReturnType update();
+	Bool rva00344D60(Coord3D *goal, Object *source, Object *victim);
 private:
 	Real m_bfmeReal4C; // +0x4C
 	Real m_bfmeReal50; // +0x50
@@ -711,55 +949,6 @@ private:
 	Bool m_successOnPathFailure; // +0x5C
 	Bool m_isInitialApproach; // +0x5D
 };
-
-Bool rva00344EB2Gate(Object *source, Thing *target);
-
-StateReturnType AIAttackMeleeHordeApproachTargetState::onEnter()
-{
-	Object *owner = getMachineOwner();
-	if (owner->getControllingPlayer()->getPlayerType() == PLAYER_COMPUTER)
-		m_isInitialApproach = false;
-
-	Object *goal = getMachine()->getGoalObject();
-	if (!goal || goal->rva002943B2(owner->getControllingPlayer()))
-		return (StateReturnType)STATE_FAILURE;
-	if (getMachine()->isGoalObjectDestroyed())
-		return (StateReturnType)STATE_SUCCESS;
-
-	if (owner->getContain() && !rva00344EB2Gate(owner, goal))
-	{
-		HordeContainInterface *horde = owner->getContain()->getHordeContainInterface();
-		if (horde && horde->isMeleeTargetReady(goal))
-			return (StateReturnType)STATE_SUCCESS;
-	}
-
-	if (owner->testStatus(OBJECT_STATUS_BFME_44) || owner->getAI()->getBfmeFlag3CC())
-	{
-		if (!AI::rva002FE193(owner, goal))
-		{
-			getMachine()->setGoalObject(0);
-			return (StateReturnType)STATE_FAILURE;
-		}
-		return (StateReturnType)STATE_SUCCESS;
-	}
-
-	m_bfmeReal4C = 0.0f;
-	m_bfmeReal50 = 0.0f;
-	m_bfmeReal54 = 0.0f;
-	m_bfmeFrame58 = -LOGICFRAMES_PER_SECOND;
-
-	critterDesyncLog("CritterDesync: ComputePath11");
-	if (!computePath())
-		return (StateReturnType)(m_successOnPathFailure ? STATE_SUCCESS : STATE_FAILURE);
-
-	critterDesyncLog("CritterDesync: setAdjustDestination(FALSE) 24");
-	setAdjustsDestination(false);
-	StateReturnType ret = AIInternalMoveToState::onEnter();
-	critterDesyncLog("CritterDesync: setAdjustDestination(TRUE) 25");
-	setAdjustsDestination(m_isInitialApproach);
-	return ret;
-}
-
 
 void AIAttackMeleeHordeApproachTargetState::onExit(StateExitType status)
 {
@@ -786,87 +975,123 @@ void AIAttackMeleeHordeApproachTargetState::onExit(StateExitType status)
 	}
 }
 
-StateReturnType AIAttackMeleeHordeApproachTargetState::update()
+// 0x00344D60 338B: walks a melee goal back toward its source in ten-unit
+// steps until the pathfinder's line query from the stepped point passes, then
+// stores that point; with no passing step it falls back to
+// adjustToPossibleDestination and fails. computePath (0x00348BA4) calls it on
+// the goal, its source and the victim (or 0); the victim is unused.
+// Retail loads the goal once into registers for both copies (three movss, no
+// movsd block copy); only a user-written copy constructor reproduces that.
+// The shipped type is not known, so this TU-local view carries just that
+// constructor (as in AIStatesBfmeComputePath.cpp).
+struct MemberwiseCoord3D : public Coord3D
 {
-	Object *source = getMachineOwner();
+	MemberwiseCoord3D(const Coord3D &other) { x = other.x; y = other.y; z = other.z; }
+};
+Bool AIAttackMeleeHordeApproachTargetState::rva00344D60(Coord3D *goal, Object *source, Object *victim)
+{
 	AIUpdateInterface *ai = source->getAI();
-
-	if (getMachine()->isGoalObjectDestroyed())
+	if (!ai)
+		return false;
+	MemberwiseCoord3D direction(*goal);
+	MemberwiseCoord3D candidate(*goal);
+	direction.sub(source->getPosition());
+	direction.z = 0.0f;
+	int count = -(int)(direction.length() * -0.05f) - 1;
+	direction.Normalize();
+	direction.scale(10.0f);
+	for (int i = 0; i < count; ++i)
 	{
-		ai->notifyVictimIsDead();
-		ai->setCurrentVictim(0);
-		return (StateReturnType)STATE_FAILURE;
-	}
-
-	{
-	Object *target = getMachine()->getGoalObject();
-	if (!target)
-		return (StateReturnType)STATE_FAILURE;
-
-	Bool specialTarget = false;
-	if (rva00344EB2Gate(source, target))
-	{
-		specialTarget = true;
-		Real distance = (Real)sqrt(source->rva002615E3(target->getPosition()));
-		Real sourceHeight = source->getShapes()->bfmeAtE15(0)->m_height;
-		Real gap = distance - (sourceHeight + target->getShapes()->bfmeAtE15(0)->m_height);
-		Real range = target->rva0028AC7D() + gap;
-		if (range < 0.0f)
-			range = 0.0f;
-
-		Real speed = FAST_AS_POSSIBLE;
-		if (source->rva0028AC4E())
-			speed = ((Rva001E46E1 *)source->rva0028AC4E())->rva001E46E1(source);
-		ai->setDesiredSpeed(range);
-		Bool closeEnough = (range < speed) ? true : false;
-		source->rva00346C53(OBJECT_STATUS_BFME_4B, closeEnough);
-	}
-	else if (source->testStatus(OBJECT_STATUS_BFME_4B))
-		source->rva00346C53(OBJECT_STATUS_BFME_4B, false);
-
-	ContainModuleInterface *contain = source->getContain();
-	if (contain)
-	{
-		HordeContainInterface *horde = contain->getHordeContainInterface();
-		if (horde)
+		if (TheAI->pathfinder()->Rva002F1BA2(source, ai->getValidLocomotorSurfaces(),
+				(PathfindLayerEnum)source->rva0028B511(), &candidate, &candidate))
 		{
-			ObjectID formation = target->getID();
-			if (target->testStatus(OBJECT_STATUS_BFME_26))
-			{
-				Object *resolved = target->rva002931F5(false);
-				if (resolved)
-					formation = resolved->getID();
-			}
-			horde->setMeleeFormation(formation);
-			if (specialTarget)
-				horde->slot86(target);
-			else if (horde->isMeleeTargetReady(target))
-			{
-				ai->rva0034A82DSlot136();
-				return (StateReturnType)STATE_SUCCESS;
-			}
+			*goal = candidate;
+			return true;
 		}
+		candidate.x -= direction.x;
+		candidate.y -= direction.y;
+		candidate.z -= direction.z;
 	}
-
-	if (target->testStatus(OBJECT_STATUS_BFME_33))
-		return (StateReturnType)STATE_FAILURE;
-	if (target->rva002943B2(source->getControllingPlayer()))
-		return (StateReturnType)STATE_FAILURE;
-
-	ai->setCurrentVictim(target);
-	if (!computePath())
-		return (StateReturnType)STATE_SUCCESS;
-	if (AIInternalMoveToState::update() != STATE_CONTINUE)
-		return (StateReturnType)STATE_SUCCESS;
-	return STATE_CONTINUE;
-	}
+	TheAI->pathfinder()->adjustToPossibleDestination(source, ai->getLocomotorSet(), goal);
+	return false;
 }
 
-class AIMoveToPositionAndEnterState : public AIInternalMoveToState
+class AIMoveToState : public AIInternalMoveToState
 {
 public:
-	virtual void onExit(StateExitType status);
+	virtual StateReturnType update();
 };
+
+class AIMoveToPositionAndEnterState : public AIMoveToState
+{
+public:
+	virtual StateReturnType onEnter();
+	virtual void onExit(StateExitType status);
+	virtual StateReturnType update();
+};
+
+StateReturnType AIMoveToPositionAndEnterState::onEnter()
+{
+	critterDesyncLog("CritterDesync: setAdjustDestination(FALSE) 61");
+	setAdjustsDestination(false);
+	Object *owner = getMachineOwner();
+	AIUpdateInterface *ai = owner->getAI();
+	Object *goal = getMachine()->getGoalObject();
+	m_goalPosition = *goal->getContain()->getEnterPosition();
+	if (goal->getTemplate()->testKindByte11F())
+		TheAI->pathfinder()->adjustDestination(owner, ai->getLocomotorSet(), &m_goalPosition, 0);
+
+	StateReturnType ret = AIInternalMoveToState::onEnter();
+	if (owner->getBfme410())
+	{
+		AIGroup *group = (AIGroup *)ai->rva002630F5();
+		if (group)
+			ai->setDesiredSpeed(group->getSpeed());
+	}
+	return ret;
+}
+
+StateReturnType AIMoveToPositionAndEnterState::update()
+{
+	Object *owner = getMachineOwner();
+	Object *goal = getMachine()->getGoalObject();
+	if (owner->getAI() && !TheActionManager->canEnterObject(owner, goal,
+			owner->getAI()->getLastCommandSource(), CHECK_CAPACITY, 1, 0))
+		return (StateReturnType)STATE_FAILURE;
+
+	AIUpdateInterface *ai = owner->getAI();
+	int count = goal->getContain()->getContainCount(0);
+	Bool otherPlayer = goal->getControllingPlayer() != owner->getControllingPlayer();
+	if (otherPlayer && owner->testStatus(OBJECT_STATUS_BFME_5D) && count > 0)
+	{
+		Coord3D delta;
+		delta.x = goal->getPosition()->x;
+		delta.y = goal->getPosition()->y;
+		delta.z = goal->getPosition()->z;
+		delta.x -= owner->getPosition()->x;
+		delta.y -= owner->getPosition()->y;
+		delta.z -= owner->getPosition()->z;
+		if (delta.length() < 200.0f)
+			goal->getContain()->slot32(ai->getLastCommandSource());
+	}
+
+	StateReturnType ret = AIMoveToState::update();
+	if (goal->getTemplate()->testKindByte11F())
+	{
+		int state = goal->getAI()->rva00260DED();
+		if (state == 0x46 || state == 0x47)
+			return STATE_CONTINUE;
+		Coord3D landPos;
+		Bool onLand = TheAI->pathfinder()->getClosestPointOnLand(goal->getPosition(), goal, &landPos);
+		if (state != 0 || !onLand)
+			return (StateReturnType)STATE_FAILURE;
+	}
+	if (otherPlayer && count > 0)
+		return STATE_CONTINUE;
+	if (ret == STATE_SUCCESS)
+		ai->m_commands.rva0026C347(goal, ai->getLastCommandSource());
+	return ret;
+}
 
 void AIMoveToPositionAndEnterState::onExit(StateExitType status)
 {
@@ -922,6 +1147,230 @@ void AIAttackPositionAimAtTargetState::onExit(StateExitType status)
 	if (ai && getMachineOwner()->getTemplate()->getBfmeReal53C() < 360.0f)
 		ai->rva0034BEF9Slot142(0);
 	getMachineOwner()->setStatus(OBJECT_STATUS_BFME_19, false);
+}
+
+class AIEnterState : public AIInternalMoveToState
+{
+public:
+	virtual StateReturnType update();
+private:
+	int m_entryToClear; // +0x4C
+	unsigned int m_enterFrame; // +0x50
+};
+
+StateReturnType AIEnterState::update()
+{
+	Object *obj = getMachineOwner();
+	Object *goal = getMachine()->getGoalObject();
+	if (goal)
+	{
+		if (goal->getContainedBy() != 0 && goal->isAboveTerrain() && !obj->isAboveTerrain())
+			return (StateReturnType)STATE_FAILURE;
+
+		ContainModuleInterface *contain = goal->getContain();
+		if (contain)
+			m_goalPosition = *contain->getContainedObjectPosition();
+		else
+			m_goalPosition = *goal->getPosition();
+
+		obj->getAI()->friend_setGoalObject(goal);
+		if (!TheActionManager->canEnterObject(obj, goal, obj->getAI()->getLastCommandSource(),
+				CHECK_CAPACITY, 0, 0))
+		{
+			if (obj->getRelationship(goal) == ENEMIES && obj->getAI())
+			{
+				CanAttackResult result = TheActionManager->getCanAttackObject(obj, goal,
+					obj->getAI()->getLastCommandSource(), ATTACK_NEW_TARGET);
+				if (result == ATTACKRESULT_POSSIBLE || result == ATTACKRESULT_POSSIBLE_AFTER_MOVING)
+				{
+					AIUpdateInterface *ai = obj->getAI();
+					ai->m_commands.rva0026C2D9(goal, 0x7fffffff, ai->getLastCommandSource());
+					return STATE_CONTINUE;
+				}
+			}
+			return (StateReturnType)STATE_FAILURE;
+		}
+
+		if (getMachineOwner()->isDisabledHeld())
+			return (StateReturnType)STATE_SUCCESS;
+	}
+	else
+	{
+		return (StateReturnType)STATE_FAILURE;
+	}
+
+	StateReturnType code = AIInternalMoveToState::update();
+	if (code != STATE_CONTINUE)
+	{
+		ContainModuleInterface *contain = goal->getContain();
+		if (contain)
+		{
+			const Coord3D *pos = contain->getContainedObjectPosition();
+			Real dx = obj->getPosition()->x - pos->x;
+			Real dy = obj->getPosition()->y - pos->y;
+			Real radius = goal->getBoundingCircleRadius();
+			if (dx * dx + dy * dy < radius * radius || TheGameLogic->getFrame() > m_enterFrame)
+			{
+				contain->addToContain(obj);
+				code = (StateReturnType)STATE_SUCCESS;
+			}
+		}
+	}
+	return code;
+}
+
+class AIEnterAndAttackState : public AIInternalMoveToState
+{
+public:
+	virtual StateReturnType onEnter();
+	virtual StateReturnType update();
+private:
+	ObjectID m_entryToClear; // +0x4C
+	ObjectID m_victimID; // +0x50
+};
+
+StateReturnType AIEnterAndAttackState::onEnter()
+{
+	m_entryToClear = INVALID_OBJECT_ID;
+	Object *obj = getMachineOwner();
+	Object *goal = getMachine()->getGoalObject();
+	AIUpdateInterface *ai = obj->getAI();
+	Object *victim = ai->getCurrentVictim();
+	if (victim)
+		m_victimID = victim->getID();
+	else
+		m_victimID = INVALID_OBJECT_ID;
+	if (goal)
+	{
+		if (!TheActionManager->canEnterObject(obj, goal, obj->getAI()->getLastCommandSource(),
+				CHECK_CAPACITY, 0, 0))
+			return (StateReturnType)STATE_FAILURE;
+
+		ContainModuleInterface *contain = goal->getContain();
+		if (contain)
+		{
+			m_goalPosition = *contain->getContainedObjectPosition();
+			contain->onObjectWantsToEnterOrExit(obj, WANTS_TO_ENTER);
+			m_entryToClear = goal->getID();
+		}
+		else
+		{
+			m_goalPosition = *goal->getPosition();
+		}
+	}
+	else
+	{
+		return (StateReturnType)STATE_FAILURE;
+	}
+
+	ai->ignoreObstacle(getMachine()->getGoalObject());
+	if (ai->getCurLocomotor())
+		ai->getCurLocomotor()->setAllowInvalidPosition(true);
+	critterDesyncLog("CritterDesync: setAdjustDestination(FALSE) 59");
+	setAdjustsDestination(false);
+	return AIInternalMoveToState::onEnter();
+}
+
+StateReturnType AIEnterAndAttackState::update()
+{
+	Object *obj = getMachineOwner();
+	Object *goal = getMachine()->getGoalObject();
+	if (goal)
+	{
+		if (goal->getContainedBy() != 0 && goal->isAboveTerrain() && !obj->isAboveTerrain())
+			return (StateReturnType)STATE_FAILURE;
+
+		m_goalPosition = *goal->getPosition();
+		obj->getAI()->friend_setGoalObject(goal);
+		if (!TheActionManager->canEnterObject(obj, goal, obj->getAI()->getLastCommandSource(),
+				CHECK_CAPACITY, 0, 0))
+		{
+			if (obj->getRelationship(goal) == ENEMIES && obj->getAI())
+			{
+				CanAttackResult result = TheActionManager->getCanAttackObject(obj, goal,
+					obj->getAI()->getLastCommandSource(), ATTACK_NEW_TARGET);
+				if (result == ATTACKRESULT_POSSIBLE || result == ATTACKRESULT_POSSIBLE_AFTER_MOVING)
+				{
+					AIUpdateInterface *ai = obj->getAI();
+					ai->m_commands.rva0026C2D9(goal, 0x7fffffff, ai->getLastCommandSource());
+					return STATE_CONTINUE;
+				}
+			}
+			return (StateReturnType)STATE_FAILURE;
+		}
+
+		if (getMachineOwner()->isDisabledHeld())
+			return (StateReturnType)STATE_SUCCESS;
+	}
+	else
+	{
+		return (StateReturnType)STATE_FAILURE;
+	}
+
+	StateReturnType code = AIInternalMoveToState::update();
+	if (code == STATE_SUCCESS && goal->isAboveTerrain() && !obj->isAboveTerrain())
+		code = STATE_CONTINUE;
+	if (code == STATE_SUCCESS)
+	{
+		Real dx = obj->getPosition()->x - goal->getPosition()->x;
+		Real dy = obj->getPosition()->y - goal->getPosition()->y;
+		Real radius = goal->getBoundingCircleRadius();
+		if (dx * dx + dy * dy < radius * radius)
+		{
+			ContainModuleInterface *contain = goal->getContain();
+			if (contain)
+				contain->addToContain(obj);
+		}
+	}
+	return code;
+}
+
+// The pinned killer notification SpawnBehavior::onSpawnDeath also makes
+// (BFME 1 donor: killer->report(owner, 1)); its identity is unproven.
+class Rva00294D61
+{
+public:
+	void report(Object *victim, int count);
+};
+
+class AIMoveToPositionAndDieState : public AIInternalMoveToState
+{
+public:
+	virtual StateReturnType update();
+private:
+	Bool m_appendGoalPosition; // +0x4C
+};
+
+StateReturnType AIMoveToPositionAndDieState::update()
+{
+	Object *obj = getMachine()->getOwner();
+	if (obj->isEffectivelyDead())
+		return (StateReturnType)STATE_FAILURE;
+
+	AIUpdateInterface *ai = obj->getAI();
+	if (ai->getCurLocomotor())
+		ai->getCurLocomotor()->setAllowInvalidPosition(true);
+	if (m_appendGoalPosition)
+	{
+		Path *thePath = ai->getPath();
+		if (!ai->getBfmeFlag3B1() && ai->getPath())
+		{
+			m_goalPosition.z = TheTerrainLogic->getGroundHeight(m_goalPosition.x, m_goalPosition.y, 0);
+			thePath->rva002655E3(&m_goalPosition, LAYER_GROUND, 0x7fffffff);
+			m_appendGoalPosition = false;
+		}
+	}
+	StateReturnType status = AIInternalMoveToState::update();
+	if (status != STATE_CONTINUE)
+	{
+		Object *obj = getMachineOwner();
+		Object *killer = TheGameLogic->findObjectByID(obj->getBodyModule()->getLastDamageInfo()
+			? obj->getBodyModule()->getLastDamageInfo()->in.m_sourceID : INVALID_OBJECT_ID);
+		if (killer)
+			((Rva00294D61 *)killer)->report(obj, 1);
+		obj->kill(DAMAGE_BFME_8, DEATH_NORMAL);
+	}
+	return status;
 }
 
 class AIMoveAwayAndCowerState : public AIInternalMoveToState
@@ -1082,4 +1531,134 @@ StateReturnType AIBusyState::onEnter()
 		&& !owner->chooseBestWeaponForTarget(goal, WEAPON_CHOICE_BFME_5, ai->getLastCommandSource()))
 		return (StateReturnType)STATE_FAILURE;
 	return (StateReturnType)STATE_SUCCESS;
+}
+
+Bool rva00344EB2Gate(Object *source, Thing *target);
+extern const int g_009BA4E4;
+
+// AIAttackMeleeHordeApproachTargetState::update, retail 0x00349013 (516
+// bytes): slot 6 of 0x00C126C0. Donor: Open-BFME-1
+// AIAttackMeleeHordeApproachTargetState_update.cpp. A destroyed goal fails;
+// otherwise for a gated (special) target the approach speed is the surface
+// gap clamped at zero and status 0x4B marks being within the locomotor speed,
+// a horde contain gets the melee formation (and, for a special target, slot
+// 86) or succeeds once the melee target is ready, and the base move runs.
+StateReturnType AIAttackMeleeHordeApproachTargetState::onEnter()
+{
+	Object *source = getMachineOwner();
+	if (source->getControllingPlayer()->m_playerType == 1)
+		m_isInitialApproach = false;
+	Object *victim = getMachine()->getGoalObject();
+	if (victim && !victim->rva002943B2(source->getControllingPlayer()))
+	{
+		if (!((TurretStateMachine *)getMachine())->rva004D7ADD())
+		{
+			HordeContainInterface *horde;
+			if (!(source->getContain() && !rva00344EB2Gate(source, victim) &&
+					(horde = source->getContain()->getHordeContainInterface()) != 0 &&
+					horde->isMeleeTargetReady(victim)))
+			{
+				if (!source->testStatus(OBJECT_STATUS_BFME_44) && !source->getAI()->m_bfmeFlag3CC)
+				{
+					m_bfmeReal4C = 0.0f;
+					m_bfmeReal50 = 0.0f;
+					m_bfmeReal54 = 0.0f;
+					m_bfmeFrame58 = -g_009BA4E4;
+					critterDesyncLog("CritterDesync: ComputePath11");
+					if (!computePath())
+						return m_successOnPathFailure ? (StateReturnType)STATE_SUCCESS : (StateReturnType)STATE_FAILURE;
+					critterDesyncLog("CritterDesync: setAdjustDestination(FALSE) 24");
+					setAdjustsDestination(false);
+					StateReturnType ret = AIInternalMoveToState::onEnter();
+					critterDesyncLog("CritterDesync: setAdjustDestination(TRUE) 25");
+					setAdjustsDestination(m_isInitialApproach);
+					return ret;
+				}
+				if (!AI::rva002FE193(source, victim))
+				{
+					getMachine()->setGoalObject(0);
+					return (StateReturnType)STATE_FAILURE;
+				}
+			}
+		}
+	}
+	else
+		return (StateReturnType)STATE_FAILURE;
+	return (StateReturnType)STATE_SUCCESS;
+}
+
+StateReturnType AIAttackMeleeHordeApproachTargetState::update()
+{
+	Object *source = getMachineOwner();
+	AIUpdateInterface *ai = source->getAI();
+
+	if (((TurretStateMachine *)getMachine())->rva004D7ADD())
+	{
+		ai->notifyVictimIsDead();
+		ai->setCurrentVictim(0);
+		return (StateReturnType)STATE_FAILURE;
+	}
+
+	{
+	Object *target = getMachine()->getGoalObject();
+	if (!target)
+		return (StateReturnType)STATE_FAILURE;
+
+	Bool specialTarget = false;
+	if (rva00344EB2Gate(source, target))
+	{
+		specialTarget = true;
+		Real distance = (Real)sqrt(source->rva002615E3(target->getPosition()));
+		Real sourceHeight = source->getShapes()->bfmeAtE15(0)->m_height;
+		Real gap = distance - (sourceHeight + target->getShapes()->bfmeAtE15(0)->m_height);
+		Real range = target->rva0028AC7D() + gap;
+		if (range < 0.0f)
+			range = 0.0f;
+
+		Real speed = FAST_AS_POSSIBLE;
+		if (source->rva0028AC4E())
+			speed = ((Rva001E46E1 *)source->rva0028AC4E())->rva001E46E1(source);
+		ai->setDesiredSpeed(range);
+		Bool closeEnough = (range < speed) ? true : false;
+		source->rva00346C53(OBJECT_STATUS_BFME_4B, closeEnough);
+	}
+	else if (source->testStatus(OBJECT_STATUS_BFME_4B))
+		source->rva00346C53(OBJECT_STATUS_BFME_4B, false);
+
+	ContainModuleInterface *contain = source->getContain();
+	if (contain)
+	{
+		HordeContainInterface *horde = contain->getHordeContainInterface();
+		if (horde)
+		{
+			ObjectID formation = target->getID();
+			if (target->testStatus(OBJECT_STATUS_BFME_26))
+			{
+				Object *resolved = target->rva002931F5(false);
+				if (resolved)
+					formation = resolved->getID();
+			}
+			horde->setMeleeFormation(formation);
+			if (specialTarget)
+				horde->slot86(target);
+			else if (horde->isMeleeTargetReady(target))
+			{
+				ai->rva0034A82DSlot136();
+				return (StateReturnType)STATE_SUCCESS;
+			}
+		}
+	}
+
+	if (target->testStatus(OBJECT_STATUS_BFME_33))
+		return (StateReturnType)STATE_FAILURE;
+	if (target->rva002943B2(source->getControllingPlayer()))
+		return (StateReturnType)STATE_FAILURE;
+
+	ai->setCurrentVictim(target);
+	if (!computePath())
+		return (StateReturnType)STATE_SUCCESS;
+	if (AIInternalMoveToState::update() != STATE_CONTINUE)
+		return (StateReturnType)STATE_SUCCESS;
+	return STATE_CONTINUE;
+	}
 }
