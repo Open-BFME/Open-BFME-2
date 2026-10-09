@@ -81,10 +81,13 @@ public:
 
 extern LivingWorldLogic *TheLivingWorldLogic;
 
+class LivingWorldRegionEffectsManager;
 class LivingWorldManager
 {
 public:
 	void rva00210F96();
+	unsigned char opaque_00[0x268];
+	LivingWorldRegionEffectsManager *m_regionEffects;
 };
 
 extern LivingWorldManager *TheLivingWorldManager;
@@ -111,6 +114,7 @@ public:
 	Rva00564DF2NameView *rva003B8D4D(const AsciiString &name);
 	AsciiString rva003B8D06();
 	void StartNewCampaign(const AsciiString &campaignName);
+	void CallActSubroutine(const AsciiString &name);
 	void StartNewCampaign(Int campaignIndex);			// 0x003B8C06
 	void *UseGenericSpawnArmyForPlayer(Int a, Int b);
 	Rva0052BFE1 *rva003B8EDC(const AsciiString &name);
@@ -277,4 +281,39 @@ Rva00564DF2NameView *LivingWorldCampaignManager::rva003B8D4D(const AsciiString &
     if (m_campaignIndex >= 0 && (UnsignedInt)m_campaignIndex < m_campaignVector.size())
         return m_campaignVector[m_campaignIndex]->rva0052C7A2(name);
     return 0;
+}
+
+
+class LivingWorldRegionEffectsManager
+{
+public:
+    void rva003EF2FF();
+};
+class Gen_003bcb40
+{
+public:
+    void m(int);
+};
+class Glo012F1024Item
+{
+public:
+    void bfmeEnter();
+};
+inline int addressForEmptyCallback(const AsciiString &name)
+{
+    return (int)&name;
+}
+
+// WB10323B0 names CallActSubroutine and asserts the named act at line428.
+// Native calls the established 27-byte +4 getter, the shared RET4 callback,
+// the complete entry dispatcher and manager+268 effects reset. The callback
+// argument is one pointer-sized word; its original purpose remains unknown.
+void LivingWorldCampaignManager::CallActSubroutine(const AsciiString &name)
+{
+    Rva00564DF2NameView *entry = rva003B8D4D(name);
+    if (!entry)
+        return;
+    ((Gen_003bcb40 *)TheLivingWorldLogic)->m(addressForEmptyCallback(entry->rva00564DF2()));
+    ((Glo012F1024Item *)entry)->bfmeEnter();
+    TheLivingWorldManager->m_regionEffects->rva003EF2FF();
 }
