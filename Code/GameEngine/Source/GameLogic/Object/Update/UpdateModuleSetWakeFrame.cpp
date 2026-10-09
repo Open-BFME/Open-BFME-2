@@ -95,6 +95,8 @@ public:
 class UpdateModule : public BehaviorModule, public UpdateModuleInterface
 {
 	UnsignedInt m_nextCallFrameAndPhase; // +0x14 (ctor TU precedent)
+	int m_indexInLogic; // +0x18, native scheduler and ctor
+	int m_phaseInLogic; // +0x1C, native scheduler and ctor
 
 protected:
 	void setWakeFrame(Object *obj, UpdateSleepTime wakeDelay);
@@ -103,6 +105,7 @@ protected:
 public:
 	DisabledMaskType getDisabledTypesToProcess() const;
 	void rva0044DF8D(UpdateSleepTime wakeDelay);
+	int rva0023C3DA(int *phase);
 };
 
 // ?setWakeFrame@UpdateModule@@IAEXPAVObject@@W4UpdateSleepTime@@@Z @0x0044DF71
@@ -168,3 +171,16 @@ DisabledMaskType Rva004DF396::getDisabledTypesToProcess() const
 // Other units call this body (pinned at its address) under the spelling(s)
 // below, with the same calling convention and stack arguments; bind them.
 #pragma comment(linker, "/alternatename:?bfmeSetWakeBJ@BfmeWakeBJ@@QAEXPAXH@Z=?setWakeFrame@UpdateModule@@IAEXPAVObject@@W4UpdateSleepTime@@@Z")
+
+// Native 23C3DA..23C3E9 is a complete RET4 accessor between the scheduler
+// frame setter23C3C6 and index/phase setter23C3E9. The existing rowed
+// friend_awakenUpdateModule24297F and ctor253390 establish this UpdateModule
+// owner and its signed index18/phase1C fields. Original accessor name remains
+// unknown. BF1 f98983a7d3 Rva003826A0Copy.cpp is a whole-source operation
+// guide only; no donor owner or guessed friend-method identity is imported.
+// ?rva0023C3DA@UpdateModule@@QAEHPAH@Z
+int UpdateModule::rva0023C3DA(int *phase)
+{
+    *phase = m_phaseInLogic;
+    return m_indexInLogic;
+}
