@@ -1,4 +1,6 @@
-// ?Rva0039A270Move@@YGXPAVObject@@@Z
+// ?rva0039A270Move@Rva0039A270MoveOwner@@QAEXPAVObject@@@Z
+// partial score=0.94 date=2026-10-09
+// ?rva0039A270Move@Rva0039A270MoveOwner@@QAEXPAVObject@@@Z
 // partial score=0.92 date=2026-10-08
 // cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /GX /EHsc /Ireference/shims/bfme2_ascii /ICode/Libraries/Include
 // ?Rva0039A270Move@@YGXPAVObject@@@Z @0x0039A270 542B
@@ -8,14 +10,11 @@
 // linkbody lane, callees GeometryInfo copy Filter WouldCollide
 // iterateObjectsInRange BfmeWideResult next AI aiMove normalize GetLength
 // slot114 rva0029439D, floats 1.1 1.5 1.0, kinds at template +0x108.
-struct Coord3D
-{
-	float x;
-	float y;
-	float z;
-	void normalize();
-};
-
+#include "Lib/Coord3D.h"
+inline void setCoord(Coord3D*r,const Coord3D*a){r->x=a->x;r->y=a->y;r->z=a->z;}
+inline void subCoord(Coord3D*r,const Coord3D*a){r->x-=a->x;r->y-=a->y;r->z-=a->z;}
+inline void addCoord(Coord3D*r,const Coord3D*a){r->x+=a->x;r->y+=a->y;r->z+=a->z;}
+inline void scaleCoord(Coord3D*r,float s){r->x*=s;r->y*=s;r->z*=s;}
 typedef bool Bool;
 typedef float Real;
 
@@ -170,7 +169,8 @@ public:
 	void *rva0029439D();
 };
 
-void __stdcall Rva0039A270Move(Object *src)
+class Rva0039A270MoveOwner {public:void rva0039A270Move(Object*);};
+void Rva0039A270MoveOwner::rva0039A270Move(Object *src)
 {
 	if (!src)
 		return;
@@ -200,30 +200,13 @@ void __stdcall Rva0039A270Move(Object *src)
 		AIHolder *holder = them->m_ai258;
 		if (!holder)
 			continue;
-		Coord3D delta;
-		delta.x = them->m_pos38.x - src->m_pos38.x;
-		delta.y = them->m_pos38.y - src->m_pos38.y;
-		delta.z = them->m_pos38.z - src->m_pos38.z;
+		Coord3D delta;setCoord(&delta,&them->m_pos38);subCoord(&delta,&src->m_pos38);
 		Real len = ((Coord2D *)&delta)->GetLength();
-		delta.z = 0.0f;
-		Real dirX;
-		Real dirY;
-		Real dirZ;
-		if (len > 0.0f) {
-			delta.normalize();
-			dirX = delta.x;
-			dirY = delta.y;
-			dirZ = delta.z;
-		} else {
-			dirX = 1.0f;
-			dirY = 0.0f;
-			dirZ = 0.0f;
-		}
-		Real step = radius * 1.5f;
-		Coord3D dest;
-		dest.x = pos.x + step * dirX;
-		dest.y = pos.y + step * dirY;
-		dest.z = pos.z + step * dirZ;
+		delta.z=0.0f;
+		if(len>0.0f) delta.normalize();
+		else {delta.x=1.0f;delta.y=0.0f;}
+		Real step=radius*1.5f;
+		Coord3D dest;setCoord(&dest,&delta);scaleCoord(&dest,step);addCoord(&dest,&pos);
 		holder->m_cmd.aiMoveToPositionEvenIfSleeping(&dest, (CommandSourceType)2);
 	}
 }
