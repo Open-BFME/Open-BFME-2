@@ -1,10 +1,10 @@
 // ?copyCurrentRecordingToFile@RecorderClass@@QAE_NPAVUnicodeString@@0@Z
-// partial score=0.866044 date=2026-10-09
+// partial score=0.968895800933126 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // BANK ONLY: the canonical UnicodeString view is expanded here with proposed
 // inline concat assignment declarations. No canonical header was edited;
-// adopt this API through the shared-header gate before moving this into Code. Candidate641B versus retail643B;
-// local frame and return-block placement still differ. Formal qualifiers
+// adopt this API through the shared-header gate before moving this into Code. Candidate643B versus retail643B;
+// local frame and temporary slots still differ; all instruction positions agree. Formal qualifiers
 // remain an ABI view; WB independently establishes the method name.
 // BFME1 9cbfb551 RecorderCopyReplayRva00099A40 supplies body sequence.
 // Native37D6E8..37D96B643B; out-of-line success epilogue37D930 belongs
@@ -93,7 +93,7 @@ public:
 	static UnicodeString TheEmptyString;
 };
 
-struct FILE;
+struct _iobuf;typedef _iobuf FILE;
 extern "C" __declspec(dllimport) FILE *__cdecl _wfopen(const unsigned short *,const unsigned short *);
 extern "C" __declspec(dllimport) unsigned int __cdecl fread(void *,unsigned int,unsigned int,FILE *);
 extern "C" __declspec(dllimport) unsigned int __cdecl fwrite(const void *,unsigned int,unsigned int,FILE *);
@@ -103,8 +103,8 @@ extern "C" __declspec(dllimport) int __cdecl fclose(FILE *);
 extern "C" __declspec(dllimport) int __cdecl fwprintf(FILE *,const unsigned short *,...);
 extern "C" __declspec(dllimport) unsigned short __cdecl fputwc(unsigned short,FILE *);
 UnicodeString Rva0037B9D4Get();UnicodeString Rva0037BA48Get();UnicodeString Rva0037D55EGet();
-struct Pair8 {int a,b;};struct Triple12{int a,b,c;};
-Triple12 Rva0037BA97Init(const Pair8 *,int);
+struct Pair8 {int a,b;};struct Triple12{Triple12(){} int a,b,c;};
+inline Triple12 Rva0037BA97Init(const Pair8 *src,int c){Triple12 tmp;tmp.a=src->a;tmp.b=src->b;tmp.c=c;return tmp;}
 struct BFME2WideConcatPair{const UnicodeString *a,*b;operator StringBase<unsigned short>();};
 struct BFME2WideConcatTriple{const UnicodeString *a,*b,*c;operator StringBase<unsigned short>();};
 __forceinline UnicodeString &UnicodeString::operator=(const BFME2WideConcatPair &that){set(const_cast<BFME2WideConcatPair &>(that));return *this;}
@@ -112,8 +112,7 @@ __forceinline UnicodeString &UnicodeString::operator=(const BFME2WideConcatTripl
 __forceinline BFME2WideConcatPair makePair(const UnicodeString &x,const UnicodeString &y){BFME2WideConcatPair p={&x,&y};return p;}
 __forceinline UnicodeString &UnicodeString::assignTriple(const UnicodeString &x,const UnicodeString &y,const UnicodeString &z){
  Pair8 pair={(int)&x,(int)&y};
- const BFME2WideConcatTriple &triple=(const BFME2WideConcatTriple &)Rva0037BA97Init(&pair,(int)&z);
- set(const_cast<BFME2WideConcatTriple &>(triple));return *this;
+ set((BFME2WideConcatTriple &)Rva0037BA97Init(&pair,(int)&z));return *this;
 }
 class Rva0037BBED {public:UnicodeString rva0037BCA8();};
 typedef int Int;
