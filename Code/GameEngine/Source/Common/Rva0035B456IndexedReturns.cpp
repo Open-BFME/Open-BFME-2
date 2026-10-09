@@ -18,16 +18,21 @@ public:
     void *m_00;
     void *m_04;
 };
+class Image { public: void rva002D937E(); };
+
 class Rva0035B456Owner
 {
 public:
     Rva002390CB rva0035B456();
     Rva002390CB rva0035B495();
     Rva002390CB rva0035B4D4();
+    void rva0035B3E7();
     char pad[0xC8];
     _STL::vector<Rva002390CB> a, b, c;
-    void *padEC[4];
+    _STL::vector<Image *> images;
+    int padF8;
     unsigned selected;
+    bool flag100, flag101, flag102;
 };
 Rva002390CB Rva0035B456Owner::rva0035B456()
 {
@@ -61,4 +66,15 @@ Rva002390CB Rva0035B456Owner::rva0035B4D4()
         return (*v)[index];
     }
     return Rva002390CB();
+}
+
+// Native/WB control predicates and image vector stride establish this loop;
+// the owner identity and flag names remain unresolved.
+void Rva0035B456Owner::rva0035B3E7()
+{
+    if (flag101 || flag102 || *(int *)(pad + 0x14) == 0x19) {
+        for (_STL::vector<Image *>::iterator i = images.begin(); i != images.end(); ++i) {
+            if (*i) (*i)->rva002D937E();
+        }
+    }
 }
