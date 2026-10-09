@@ -85,9 +85,9 @@ static void adjustVector(Coord3D *vec, const Matrix3D* mtx)
 		vectmp.Y = vec->y;
 		vectmp.Z = vec->z;
 		vectmp = mtx->Rotate_Vector(vectmp);
-		vec->x = vectmp.X;
-		vec->y = vectmp.Y;
-		vec->z = vectmp.Z;
+		// Coord3D and Vector3 are the witnessed 12-byte float triplets.
+		// Preserve the aggregate copy from the returned rotation temporary.
+		*vec = *reinterpret_cast<const Coord3D *>(&vectmp);
 	}
 }
 
