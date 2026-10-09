@@ -178,7 +178,7 @@ public:
 protected:
     void populateUnderConstruction(Object *);
 public:
-    void rva0031B641(GameWindow *, const CommandButton *);
+    void setControlCommand(GameWindow *, const CommandButton *);
     const CommandButton *findCommandButton(const AsciiString &);
     void showRallyPoint(const Coord3D *);
 	void rva0053E4B1();
@@ -563,7 +563,7 @@ void ControlBar::populateUnderConstruction(Object *objectUnderConstruction)
     for (int i=0; i<32; ++i) {
         if (commandWindows[i]) {
             commandWindows[i]->winHide(true);
-            rva0031B641(commandWindows[i],0);
+            setControlCommand(commandWindows[i],0);
         }
     }
     bool overlay=((ConstructionOverlayModeView *)TheControlBar)->mode==1;
@@ -582,7 +582,7 @@ void ControlBar::populateUnderConstruction(Object *objectUnderConstruction)
         } else {
             win->winClearStatus(0x4000000);
         }
-        rva0031B641(win,commandButton);
+        setControlCommand(win,commandButton);
         if (locallyControlled) {
             win->winEnable(true);
             win->winClearStatus(0x40000000);
@@ -661,7 +661,7 @@ void ControlBar::populateStructureInventory(void *objectPointer, int flag)
         evacuateCommand = findCommandButton("Command_Evacuate_Contested");
     else
         evacuateCommand = findCommandButton("Command_Evacuate");
-    rva0031B641(commandWindows[11], evacuateCommand);
+    setControlCommand(commandWindows[11], evacuateCommand);
     commandWindows[11]->winEnable(false);
     const CommandButton *exitCommand = findCommandButton("Command_StructureExit");
     int containMax = (unsigned char)flag ? contain->constructionContestedMax() : contain->constructionContainMax();
@@ -685,7 +685,7 @@ void ControlBar::populateStructureInventory(void *objectPointer, int flag)
         commandWindows[i]->winSetStatus(0x1000000);
         commandWindows[i]->winClearStatus(0x400000);
         commandWindows[i]->winClearStatus(0x80000000);
-        rva0031B641(commandWindows[i], exitCommand);
+        setControlCommand(commandWindows[i], exitCommand);
         if (buttonImage) GadgetButtonSetEnabledImage_Rva002C0433(commandWindows[i], buttonImage);
         Rva003284ED(commandWindows[i], 0);
         if (disableUnavailable && (commandWindows[i]->winGetStatus() & 8)) {

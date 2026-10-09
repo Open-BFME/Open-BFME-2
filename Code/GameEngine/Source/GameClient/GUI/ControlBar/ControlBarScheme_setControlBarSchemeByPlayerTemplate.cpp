@@ -104,7 +104,7 @@ class ControlBar
 {
 public:
 	const CommandButton *findCommandButton(const AsciiString &name);
-	void rva0031B641(GameWindow *window, const CommandButton *button);
+	void setControlCommand(GameWindow *window, const CommandButton *button);
 };
 
 extern ControlBar *TheControlBar;
@@ -178,9 +178,9 @@ void ControlBarSchemeManager::setControlBarSchemeByPlayer(Player *p)
 	if (communicatorButton && TheControlBar)
 	{
 		if (g_bfme939Helper->isMultiplayer())
-			TheControlBar->rva0031B641(communicatorButton, TheControlBar->findCommandButton("NonCommand_Communicator"));
+			TheControlBar->setControlCommand(communicatorButton, TheControlBar->findCommandButton("NonCommand_Communicator"));
 		else
-			TheControlBar->rva0031B641(communicatorButton, TheControlBar->findCommandButton("NonCommand_BriefingHistory"));
+			TheControlBar->setControlCommand(communicatorButton, TheControlBar->findCommandButton("NonCommand_BriefingHistory"));
 	}
 	if (!p)
 		return;

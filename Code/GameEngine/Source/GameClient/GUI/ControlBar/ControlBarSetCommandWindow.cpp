@@ -96,10 +96,10 @@ extern Rva00E01E28Owner *g_00E01E28;
 class ControlBar
 {
 public:
-    void rva0031B641(GameWindow *,const CommandButton *);
+    void setControlCommand(GameWindow *,const CommandButton *);
     void rva0031ABD9(GameWindow *,int);
 };
-void ControlBar::rva0031B641(GameWindow *button,const CommandButton *commandButton)
+void ControlBar::setControlCommand(GameWindow *button,const CommandButton *commandButton)
 {
     if (!button->isPushButton()) return;
     ShortcutCommandButtonSetView *command=(ShortcutCommandButtonSetView *)commandButton;

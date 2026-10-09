@@ -246,7 +246,7 @@ public:
 protected:
     void updateContextCommand();
 public:
-    void rva0031B641(GameWindow *, const CommandButton *);
+    void setControlCommand(GameWindow *, const CommandButton *);
     Int rva0053BD66(const CommandButton *, GameWindow *, Object *, Real *, Bool) const;
 
 private:
@@ -443,7 +443,7 @@ void ControlBar::addCommonCommands(Drawable *draw, bool firstDrawable)
                     } else {
                         const_cast<CommandButton *>(command)->rva0035B5C2(obj, false);
                     }
-                    rva0031B641(m_commandWindows[i], command);
+                    setControlCommand(m_commandWindows[i], command);
                 }
             }
         }
@@ -457,7 +457,7 @@ void ControlBar::addCommonCommands(Drawable *draw, bool firstDrawable)
                 if (m_commandWindows[i]) {
                     m_commandWindows[i]->winHide(false);
                     m_commandWindows[i]->winEnable(true);
-                    rva0031B641(m_commandWindows[i], command);
+                    setControlCommand(m_commandWindows[i], command);
                 }
             } else if (command != m_commonCommands[i] && !attackMove) {
                 m_commonCommands[i] = 0;

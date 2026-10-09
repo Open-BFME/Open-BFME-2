@@ -37,7 +37,7 @@ class ControlBar
 {
 public:
 	void setControlCommand(const AsciiString &buttonWindowName, GameWindow *parent, const CommandButton *commandButton);
-	void rva0031B641(GameWindow *button, const CommandButton *commandButton);	// setControlCommand(GameWindow *, ...)
+	void setControlCommand(GameWindow *button, const CommandButton *commandButton);	// setControlCommand(GameWindow *, ...)
 };
 
 void ControlBar::setControlCommand(const AsciiString &buttonWindowName, GameWindow *parent, const CommandButton *commandButton)
@@ -46,5 +46,5 @@ void ControlBar::setControlCommand(const AsciiString &buttonWindowName, GameWind
 	GameWindow *win = TheWindowManager->winGetWindowFromId(parent, winID);
 	if (win == 0)
 		return;
-	rva0031B641(win, commandButton);
+	setControlCommand(win, commandButton);
 }

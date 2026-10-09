@@ -65,7 +65,7 @@ class ControlBar
 {
 public:
 	const CommandButton *findCommandButton(const AsciiString &name);
-	void rva0031B641(GameWindow *window, const CommandButton *button);
+	void setControlCommand(GameWindow *window, const CommandButton *button);
 	void rva0053E34A(int status);
 
 protected:
@@ -190,7 +190,7 @@ void ControlBar::rva0053E34A(int status)
 	NameKeyType key = TheNameKeyGenerator->nameToKey(
 		"ControlBar.wnd:OCLTimerSellButton");
 	GameWindow *sellButton = TheWindowManager->winGetWindowFromId(parent, key);
-	rva0031B641(sellButton, button);
+	setControlCommand(sellButton, button);
 	sellButton->winSetStatus(0x00200000);
 	updateContextOCLTimer();
 	((Gen_003bcb40 *)this)->m(status);

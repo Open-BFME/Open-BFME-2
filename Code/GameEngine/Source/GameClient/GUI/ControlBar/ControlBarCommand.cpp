@@ -218,7 +218,7 @@ protected:
     void updateContextCommand();
 public:
     void rva0053BB16(Object *,CommandSet *);
-    void rva0031B641(GameWindow *,const CommandButton *);
+    void setControlCommand(GameWindow *,const CommandButton *);
     void rva0031D230();
     int rva0053BD66(const CommandButton *, GameWindow *, Object *, float *, bool) const;
 private:
@@ -348,7 +348,7 @@ void ControlBar::rva0053BB16(Object *transport,CommandSet *set)
                 windows[i]->winClearStatus(0x200);
                 Rva003284ED(windows[i],0);
                 if(*((unsigned char *)transport+0x1C8)&0x20)windows[i]->winHide(true);
-                rva0031B641(windows[i],button);
+                setControlCommand(windows[i],button);
                 if(*((unsigned char *)button+0x101))windows[i]->winSetStatus(0x4000000);
                 else windows[i]->winClearStatus(0x4000000);
             }
