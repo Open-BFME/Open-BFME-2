@@ -1,4 +1,4 @@
-// cl: /DBFME_ASCII_DTOR_DECL /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata /O1 /G7 /arch:SSE /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata /O1 /G7 /arch:SSE /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // MilesAudioManager members recovered from WorldBuilder leads.
 // Identity: WorldBuilder's debug build names each body (its assert text and
@@ -961,6 +961,9 @@ private:
     // Rowed at 0x00053352 and pinned at 0x000604A3 (OpenDevice.cpp's name).
     void unselectProvider(void);
     void setHardwareAccelerated(bool accelerated);
+public:
+    unsigned int getProviderIndex(const AsciiString &providerName) const;
+private:
 protected:
     virtual void loadPostProcess(void);
 private:
@@ -3511,4 +3514,19 @@ PlayingAudioList::iterator MilesAudioManager::rva0005442A(int viewType, int musi
         return PlayingAudioList::iterator(static_cast<_STL::_List_node<PlayingAudioRef> *>(it._M_node));
     }
     return found;
+}
+
+
+// Zero Hour's provider-name lookup, previously rowed in
+// MilesAudioManagerGetProviderIndex.cpp. Retail 0x56634/60 uses the
+// same 12-byte provider records at +0x6CC and count at +0x9CC.
+// Keep it in the home unit: selectProvider's native string cleanup
+// relies on the compiler knowing this query's nonthrowing body.
+unsigned int MilesAudioManager::getProviderIndex(const AsciiString &providerName) const
+{
+    for (unsigned int i = 0; i < m_providerCount; ++i) {
+        if (providerName.compare(m_provider3D[i].name) == 0)
+            return i;
+    }
+    return 0xffffffff;
 }
