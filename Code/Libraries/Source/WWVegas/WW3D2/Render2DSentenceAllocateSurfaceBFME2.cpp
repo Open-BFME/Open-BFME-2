@@ -8,8 +8,10 @@ void __cdecl operator delete[](void *) throw();
 // BFME2 native 158C60..158E87/551B: no leading Unlock; spacing uses loadCharacterData.
 // Target class fields and complete COM surface and PendingSurface lifecycle match donor.
 // Target sentence layout/font pointer4C and resource operations attest owner.
-// Font record layout and integer vector type are carried from BFME1 source;
-// native width/extra and68/6C texture-offset clears independently support use.
+// Font record layout is carried from BFME1 source; native width/extra and
+// 68/6C texture-offset clears independently support use. Retail constructs
+// PendingSurfaceStruct with the owned integer-vector table at VA00BBB5AC,
+// whereas the donor's pointer-vector table is VA00BD6C24 in BFME2.
 
 class BfmeSurfaceResource
 {
