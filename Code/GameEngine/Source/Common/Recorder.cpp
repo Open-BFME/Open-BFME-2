@@ -16,6 +16,7 @@
 #include <windows.h>
 #include <time.h>
 void __cdecl operator delete[](void*);
+void* __cdecl operator new[](unsigned int);
 
 class FileSystem {public:bool rva0037BD2B(const UnicodeString &);};extern FileSystem*TheFileSystem;
 UnicodeString Rva0037B9D4Get(); UnicodeString GetLastReplayDisplayName(); UnicodeString Rva0037BA48Get();
@@ -36,14 +37,15 @@ extern GlobalData *TheWritableGlobalData;
 struct BfmeNetAddress { unsigned int address,port;bool Rva00248CBF(const BfmeNetAddress*) const;};
 // Target compares the complete address through rowed248CBF; donor IP-only
 // comparison would omit the port. Native GameSlot/GameInfo address is38.
-class GameSlot { public: char pad000[0x38]; BfmeNetAddress address;char pad40[0x60-0x40];bool heroPresent;char pad61[3]; };
+class CreateAHeroData;
+class GameSlot { public: char pad000[0x38]; BfmeNetAddress address;char pad40[0x60-0x40];bool heroPresent;char pad61[3];void rva0037AD8D(const CreateAHeroData&); };;
 class GameInfo {
 public:
     virtual void slot0(); virtual void slot1(); virtual void slot2();
-    virtual void slot3(); virtual void slot4(); virtual void slot5(); virtual void slot6(); virtual void slot7(); virtual void slot8(); virtual void slot9(); virtual void slot10();virtual void slot11();virtual void slot12();virtual int getLocalSlotNum();
+    virtual void slot3(); virtual void slot4(); virtual void slot5(); virtual void slot6(); virtual void slot7(); virtual void slot8(); virtual void slot9(); virtual void reset();virtual void startGame(int);virtual void slot12();virtual int getLocalSlotNum();
     int field0004;int field0008; int m_crcInterval;
     char pad010[0x38-0x10]; BfmeNetAddress address;
-    GameSlot *getSlot(int);
+    GameSlot *getSlot(int);const GameSlot *getConstSlot(int) const;void enterGame();void endGame();
     void setCRCInterval(int n) { m_crcInterval = n < 100 ? n : 100; }
 };
 class GameSpyStagingRoom : public GameInfo {};
@@ -180,4 +182,86 @@ void RecorderClass::logGameStart(AsciiString options)
 	if (!fseek(m_file, 8, 0))
 		fwrite(&startTime, sizeof(time_t), 1, m_file);
 	fseek(m_file, fileSize, 0);
+}
+
+// Replay-header reader: clean BFME1 RecorderReadReplayHeader.cpp donor at
+//9cbfb551 gives the IO and game-info sequence; WB F58540 names this target.
+// Native37CBB6..37D076 is1216B, including the catch cleanup37CF51 and
+// continuation37CF85. Target calls and reads prove the wide path and
+// header fields; header dtor37B5DF independently proves all six strings.
+// Original names of the late header fields remain unknown. The Rva receiver
+// and method spellings preserve the existing caller37D0EF's typed binding.
+// BFME2 hero deserialization is target reconstruction; no donor claim for it.
+class Rva0037B5DF {
+public:
+ int start,end,frame,crcInterval,mode;
+ bool quitEarly,disconnected[8];char pad1D[3];
+ AsciiString options;int localIndex;UnicodeString filename;bool forPlayback;char pad2D[3];
+ UnicodeString name;SYSTEMTIME time;UnicodeString version,versionTime;
+ unsigned int crc4C;bool flag50;char pad51[3];int word54;UnicodeString str58;
+};
+class Rva0037BBED {
+public:
+ char head[0x10];FILE*m_file;char gap14[0x10];GameInfo m_gameInfo;
+ char gap64[0xe60-0x24-sizeof(GameInfo)];int m_crcInterval,m_mode,m_numPlayers,m_localIndex;
+ UnicodeString rva0037BCA8();AsciiString rva0037B70A();bool rva0037CBB6(Rva0037B5DF&);
+};
+class File {public:virtual void p0();virtual void p1();virtual void close();};
+File*createMemoryReadFile(char*,int);
+struct Rva0060C3C3Stream;
+struct XferLoad {bool Open(Rva0060C3C3Stream*,int*);};
+class Rva0060C5FA : public Xfer {public:Rva0060C5FA(void*,void*,void*);char tail[28];};
+class Rva0060C45E {public:void clear();};
+bool ParseAsciiStringToGameInfo(GameInfo*,AsciiString,bool) throw();
+
+bool Rva0037BBED::rva0037CBB6(Rva0037B5DF&header) {
+ UnicodeString filepath;
+ if(header.filename.find('\\'))filepath=header.filename;
+ else {filepath=Rva0037B9D4Get();filepath+=header.filename;}
+ m_file=_wfopen((const wchar_t*)filepath.str(),L"rb");
+ if(!m_file)return false;
+ char genrep[9];fread(genrep,1,8,m_file);genrep[8]=0;
+ if(strncmp(genrep,"BFME2RPL",8)!=0){fclose(m_file);m_file=0;return false;}
+ fread(&header.start,4,1,m_file);fread(&header.end,4,1,m_file);fread(&header.frame,4,1,m_file);
+ fread(&header.crcInterval,4,1,m_file);m_crcInterval=header.crcInterval;
+ fread(&header.mode,4,1,m_file);m_mode=header.mode;
+ fread(&header.quitEarly,1,1,m_file);
+ for(int i=0;i<8;++i)fread(&header.disconnected[i],1,1,m_file);
+ header.name=rva0037BCA8();fread(&header.time,16,1,m_file);
+ header.version=rva0037BCA8();header.versionTime=rva0037BCA8();
+ fread(&header.crc4C,4,1,m_file);fread(&header.flag50,1,1,m_file);fread(&header.word54,4,1,m_file);
+ fpos_t pos;fgetpos(m_file,&pos);
+ header.options=rva0037B70A();
+ GameInfo*gameInfo=&m_gameInfo;gameInfo->reset();gameInfo->enterGame();
+ if(!ParseAsciiStringToGameInfo(gameInfo,header.options,true)){fclose(m_file);m_file=0;return false;}
+ gameInfo->startGame(0);
+ AsciiString playerIndex=rva0037B70A();header.localIndex=atoi(playerIndex.str());
+ CreateAHeroData*hero=TheCreateAHeroManager->rva00219251(0,0,0,UnicodeString::TheEmptyString,-1,0xff707070,-1);
+ for(unsigned i=0;i<8;++i) {
+  bool hasHero=false;fread(&hasHero,1,1,m_file);
+  if(hasHero) {
+   int length;fread(&length,4,1,m_file);char*data=(char*)operator new[](length);fread(data,length,1,m_file);
+   File*memory=createMemoryReadFile(data,length);
+   Rva0060C5FA reader(0,0,0);
+   GameSlot*slot=gameInfo->getSlot(i);
+   try {
+    int unused;
+    if(((XferLoad*)&reader)->Open((Rva0060C3C3Stream*)memory,&unused)){hero->xfer((Xfer*)&reader);slot->rva0037AD8D(*hero);}
+   }catch(...) {
+    if(hero)TheCreateAHeroManager->rva0021929D(&hero);
+    operator delete[](data);((Rva0060C45E*)&reader)->clear();memory->close();return false;
+   }
+   operator delete[](data);((Rva0060C45E*)&reader)->clear();memory->close();
+  }
+ }
+ TheCreateAHeroManager->rva0021929D(&hero);
+ if(header.localIndex< -1 || header.localIndex>=8){gameInfo->endGame();gameInfo->reset();fclose(m_file);m_file=0;return false;}
+ if(header.localIndex>=0){GameSlot*slot=m_gameInfo.getSlot(header.localIndex);m_gameInfo.address=slot->address;}
+ if(!header.forPlayback){gameInfo->endGame();gameInfo->reset();fclose(m_file);m_file=0;}
+ // Reload the embedded view after the address-copy and playback branches.
+ // This preserves the native pointer/counter allocation for the final scan.
+ gameInfo=&m_gameInfo;
+ m_numPlayers=0;
+ for(int i=0;i<8;++i)if(*(const int*)((const char*)gameInfo->getConstSlot(i)+4)==6)++m_numPlayers;
+ m_localIndex=header.localIndex;return true;
 }
