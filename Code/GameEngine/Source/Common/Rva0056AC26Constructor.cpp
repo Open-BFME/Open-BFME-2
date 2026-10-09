@@ -56,3 +56,20 @@ Rva0056AC26::Rva0056AC26(Rva0056AC26Owner *owner):m_text(owner->rva003F855D()),m
 // construction selects the same class vftables C6D058/C6D01C. Hidden getter
 // 3F855D initializes the owned string directly, not an explicit raw output.
 // Original registry-entry and getter names are unknown; view follows target.
+
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
+class Rva002B2702 { public: void rva002B2702(void*,void*,int); };
+class Rva0056AC82:public Rva0056AC26 {
+public:virtual ~Rva0056AC82();
+ Rva0056AC82(Rva0056AC26Owner *,void *,void *);
+};
+Rva0056AC82::Rva0056AC82(Rva0056AC26Owner *owner,void *second,void *third):Rva0056AC26(owner){
+ reinterpret_cast<Rva002B2702 *>(TheLivingWorldLogic)->rva002B2702(second,third,1);
+}
+
+// Native scalar destructor56AEAA (already rowed as Rva0056AC82) identifies
+// constructor56AE5C via first slot C6D0A8; secondary C6D06C points its
+// this-8 adjustment. Existing constructor bank named the entry address
+// instead; real source now shares the already recovered destructor owner.
+// TheLivingWorldLogic is independently named by the data ledger at9FEF10.
