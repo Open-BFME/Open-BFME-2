@@ -98,7 +98,8 @@ struct BfmeAptScreenRefStorage;
 extern BfmeAptScreenRefStorage g_aptScreenReferences;
 extern unsigned g_Va00E02FE4;
 extern unsigned g_Va00E02FF8;
-extern unsigned g_Va00E0300C;
+struct Rva00411112GlobalTable;
+extern Rva00411112GlobalTable g_Va00E0300C;
 
 struct Rva004121B2HashMapInits
 {

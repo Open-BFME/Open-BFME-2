@@ -6432,8 +6432,9 @@ void __cdecl rva007B8229()
 	return p->~Rva004110B9Tree();
 }
 
-extern unsigned g_Va00E0300C;
-unsigned int g_Va00E0300C;
+// Native 20-byte table storage is owned by Rva00411112Get.cpp.
+struct Rva00411112GlobalTable;
+extern Rva00411112GlobalTable g_Va00E0300C;
 
 // ?rva007B8233@@YAXXZ @ 0x007B8233 (10B). Tree teardown: ecx=&g_Va00E0300C then tail-jmp to the 0x004110B9 stub for the rowed dup_00410c7b body (0x00410C7B). No callers. Honest address name.
 void __cdecl rva007B8233()

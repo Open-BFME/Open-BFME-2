@@ -1212,8 +1212,6 @@ Code/GameEngine/Source/GameClient/Rva003FEDDB.cpp	wrong-name	?TheRva00222A8BTarg
 Code/GameEngine/Source/GameClient/Rva0040AD80ReferenceState_Rva00362c9f.cpp	wrong-name	?g_rva012F10DC@@3URva00C6B3D0Init@@A	0x00A01E7C
 Code/GameEngine/Source/GameClient/Rva004110DCGet.cpp	duplicate-def	?g_Va00E02FF8@@3URva004110DCGlobalTable@@A	0x00A02FF8
 Code/GameEngine/Source/GameClient/Rva004110DCGet.cpp	wrong-name	?g_Va00E02FF8@@3URva004110DCGlobalTable@@A	0x00A02FF8
-Code/GameEngine/Source/GameClient/Rva00411112Get.cpp	duplicate-def	?g_Va00E0300C@@3URva00411112GlobalTable@@A	0x00A0300C
-Code/GameEngine/Source/GameClient/Rva00411112Get.cpp	wrong-name	?g_Va00E0300C@@3URva00411112GlobalTable@@A	0x00A0300C
 Code/GameEngine/Source/GameClient/Rva004114EFWalk.cpp	wrong-name	?g_Va00E02FE4@@3URva004114EFGlobalTable@@A	0x00A02FE4
 Code/GameEngine/Source/GameClient/Rva00411523Walk.cpp	wrong-name	?g_Va00E02FE4@@3URva004114EFGlobalTable@@A	0x00A02FE4
 Code/GameEngine/Source/GameClient/Rva0041154F.cpp	wrong-name	?g_00E02FE4@@3VRva000427195@@A	0x00A02FE4

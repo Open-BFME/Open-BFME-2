@@ -19,7 +19,8 @@ class Rva000427195
 public:
 	void* rva004112A0(const AsciiString* key);
 };
-extern const void* const g_00E0300C[];
+struct Rva00411112GlobalTable;
+extern Rva00411112GlobalTable g_Va00E0300C;
 
 template<class T>
 class StringBase
@@ -33,13 +34,18 @@ private:
 	void* m_data;
 };
 
+// The native narrow teardown is the 133-byte releaseBuffer at 0x00036410.
+// Existing tree-wide public-destructor aliases select that worker; do not
+// emit the non-retail forwarding wrapper from this private template view.
+template <> StringBase<char>::~StringBase();
+
 void* Rva004119F3Get(void* a, const AsciiString* b, int c)
 {
 	StringBase<char> tmp;
 	Rva0074104C* obj = makeRva0074104C();
 	obj->slot04(b, c);
 	obj->m_04 = a;
-	void* ret = ((Rva000427195*)&g_00E0300C)->rva004112A0(b);
+	void* ret = ((Rva000427195*)&g_Va00E0300C)->rva004112A0(b);
 	*(void**)ret = obj;
 	return obj;
 }
