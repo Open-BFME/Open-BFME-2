@@ -46,7 +46,8 @@ private:
 class Rva005CF9FF : public Rva005CF872
 {
 public:
-	virtual ~Rva005CF9FF();
+	Rva005CF9FF(void*,int,int,bool);
+ virtual ~Rva005CF9FF();
 	virtual void slot1();
 
 private:
@@ -64,7 +65,8 @@ Rva005CF9FF::~Rva005CF9FF()
 class Rva005CFA43 : public Rva005CF872
 {
 public:
-	virtual ~Rva005CFA43();
+	Rva005CFA43(void*,int,bool);
+ virtual ~Rva005CFA43();
 	virtual void slot1();
 
 private:
@@ -107,5 +109,54 @@ Rva005CFA87::Rva005CFA87(void*o,bool change):Rva005CF872(o),m_08(timeGetTime()),
   if(change) ((Rva0054D3E1Prompt*)prompt)->configure(4,title,text);
   else ((Rva0054D2DDTarget*)prompt)->method(4,title,text);
   m_flag=true;
+ }
+}
+
+class LivingWorldLogic;extern LivingWorldLogic *TheLivingWorldLogic;
+class Rva002BA8F1Logic {public:int rva002B5256(bool);};
+UnicodeString Rva005D0100Get(int);
+UnicodeString Rva005D012EGet(int);
+// WB15B8920 names GetStartingBattleMessage. Native354B5D015C through5D02BE
+// keeps two user inputs in ECX/EDX and hidden Unicode output on the stack.
+// A TU-local static definition with both callers below lets MSVC infer that
+// internal ABI; explicit __fastcall puts the hidden output first and fails.
+namespace StrategicInGameUI {
+static UnicodeString GetStartingBattleMessage(int opponent,int chosen) {
+ if(opponent==chosen||(opponent!=1&&opponent!=3)) return Rva005D012EGet(chosen);
+ bool exists;
+ UnicodeString mismatch=TheGameText->fetch("STRATEGICHUD:OpponentSelectionIsDifferent",&exists);
+ if(!exists)return Rva005D012EGet(chosen);
+ UnicodeString priority=TheGameText->fetch(chosen==1?"STRATEGICHUD:BattlePriorityAutoResolve":"STRATEGICHUD:BattlePriorityRTS",0);
+ UnicodeString result;
+ result.format(mismatch.str(),Rva005D0100Get(opponent).str(),priority.str(),Rva005D012EGet(chosen).str());
+ return result;
+}
+}
+// Native206B5D02BE through5D038C; state field8 stored from argument2,
+// timestampC and bool10 independently read by the rowed dtor; vtableC752CC.
+Rva005CF9FF::Rva005CF9FF(void*owner,int data,int opponent,bool change):Rva005CF872(owner),m_08(data),m_0C(timeGetTime()),m_flag(change) {
+ if(((Rva002BA8F1Logic*)TheLivingWorldLogic)->rva002B5256(false)>1){
+  AptStrategicMessageBox *prompt=AptStrategicMessageBox::s_instance;
+  if(prompt){
+   UnicodeString title=TheGameText->fetch("STRATEGICHUD:StartingBattleTitle",0);
+   UnicodeString text=StrategicInGameUI::GetStartingBattleMessage(opponent,1);
+   if(change)((Rva0054D3E1Prompt*)prompt)->configure(4,title,text);
+   else((Rva0054D2DDTarget*)prompt)->method(4,title,text);
+   m_flag=true;
+  }
+ }
+}
+// Native192B5D038C through5D044C; bool8 and vtableC752D4 tie this ctor
+// to the existing dtor; selected message kind3 is target-measured.
+Rva005CFA43::Rva005CFA43(void*owner,int opponent,bool change):Rva005CF872(owner),m_flag(change) {
+ if(((Rva002BA8F1Logic*)TheLivingWorldLogic)->rva002B5256(false)>1){
+  AptStrategicMessageBox *prompt=AptStrategicMessageBox::s_instance;
+  if(prompt){
+   UnicodeString title=TheGameText->fetch("STRATEGICHUD:StartingBattleTitle",0);
+   UnicodeString text=StrategicInGameUI::GetStartingBattleMessage(opponent,3);
+   if(change)((Rva0054D3E1Prompt*)prompt)->configure(4,title,text);
+   else((Rva0054D2DDTarget*)prompt)->method(4,title,text);
+   m_flag=true;
+  }
  }
 }
