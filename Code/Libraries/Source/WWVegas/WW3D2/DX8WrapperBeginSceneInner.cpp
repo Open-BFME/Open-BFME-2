@@ -70,10 +70,6 @@ public:
 struct Rva00959410Ptr
 {
 	Rva00958D30 *m_p;
-	Rva00958D30 *operator->() const
-	{
-		return m_p;
-	}
 	operator bool() const
 	{
 		return m_p != 0;
@@ -86,7 +82,7 @@ extern Rva00959410Ptr Rva00959410Dispatch;
 __declspec(noinline) void bfmeDebugTouch009588e0(void)
 {
 	if (Rva00959410Dispatch)
-		Rva00959410Dispatch->invoke();
+		Rva00959410Dispatch.m_p->invoke();
 }
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.h
