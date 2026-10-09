@@ -1,6 +1,8 @@
 // ?ParticleSystemDebugDisplay@@YAXPAVDebugDisplayInterface@@PAXPAU_iobuf@@@Z
+// partial score=0.998025 date=2026-10-09
+// ?ParticleSystemDebugDisplay@@YAXPAVDebugDisplayInterface@@PAXPAU_iobuf@@@Z
 // partial score=0.98 date=2026-10-09
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /D_CRTIMP= /D_STLP_USE_MALLOC
 // stlport
 // BF1 readonly9cbfb551 ParticleSystemDebugDisplay semantic donor.
 // Native001FA04B..001FA4401013B has identical statistics literals and
@@ -10,7 +12,8 @@
 #define _BFME_RETAIL_TREE_INSERT_LAYOUT
 #define _STLP_USE_STATIC_LIB
 #include <map>
-namespace _STL { template<> struct less<AsciiString> { bool operator()(const AsciiString &a,const AsciiString &b) const { return a.compare(b)<0; } }; }
+bool operator<(const AsciiString &,const AsciiString &);
+namespace _STL { template<> struct less<AsciiString> { bool operator()(const AsciiString &a,const AsciiString &b) const { return a<b; } }; }
 
 class DebugDisplayInterface;
 struct _iobuf;
@@ -54,9 +57,12 @@ ParticleSystem *Make001FCBD7();
 class RvaSmartPtr12 {
 public:
  ParticleSystem *particle;void *previous,*next;
- RvaSmartPtr12(const RvaSmartPtr12&);~RvaSmartPtr12();
+ RvaSmartPtr12(const RvaSmartPtr12&);
+ ~RvaSmartPtr12();
  ParticleSystem *get() const{return particle?particle:Make001FCBD7();}
 };
+class Rva0004CCFF {public:void *destroyDelete(unsigned int);};
+namespace _STL {template<> __forceinline void _Destroy(RvaSmartPtr12 *p){((Rva0004CCFF *)p)->destroyDelete(0);}}
 #include <list>
 template<> _STL::list<RvaSmartPtr12>::list(const _STL::list<RvaSmartPtr12>&);
 class Rva001F81EC {public:void rva001F81EC();};
@@ -65,6 +71,7 @@ static bool timing() { return *((char *)TheWritableGlobalData+0x9c2)!=0; }
 static float managerFloat(unsigned off) { return *(float *)((char *)TheParticleSystemManager+off); }
 static int managerInt(unsigned off) { return *(int *)((char *)TheParticleSystemManager+off); }
 
+// ?ParticleSystemDebugDisplay@@YAXPAVDebugDisplayInterface@@PAXPAU_iobuf@@@Z present-unmatched
 void ParticleSystemDebugDisplay(DebugDisplayInterface *display, void *, _iobuf *) {
  Rva001FA04BDisplay *dd=(Rva001FA04BDisplay *)display;
  if(!dd) return;
@@ -105,8 +112,7 @@ void ParticleSystemDebugDisplay(DebugDisplayInterface *display, void *, _iobuf *
   dd->print("  %s: %d instances",mapIt->first.str(),mapIt->second);
   if(countIt!=templateMapParticleCount.end() && mapIt->second>0) {
    // A separate compound divide preserves retail's x87/argument-stack order.
-   float average=(float)countIt->second;
-   average/=mapIt->second;
+   float average=(float)countIt->second; average/=mapIt->second;
    dd->print("    (Avg per system %.2f) ",average);
   }
   if(timing() && costIt!=templateMapCost.end() && mapIt->second>0)
