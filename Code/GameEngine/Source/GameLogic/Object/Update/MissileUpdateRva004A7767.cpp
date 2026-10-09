@@ -11,7 +11,7 @@ class Object;
 class GameLogic
 {
 public:
-	unsigned int getFrame() { return m_frame; }
+	__declspec(dllimport) __forceinline unsigned int getFrame() { return m_frame; } // Native +0x40 inline frame load.
 	void destroyObject(Object *obj);
 private:
 	unsigned char m_pad[0x40];

@@ -26,7 +26,7 @@ class UpdateModule;
 class GameLogic
 {
 public:
-	UnsignedInt getFrame() { return m_frame; }
+	__declspec(dllimport) __forceinline UnsignedInt getFrame() { return m_frame; } // Native +0x40 inline frame load.
 	void friend_awakenUpdateModule(Object *obj, UpdateModule *u, UnsignedInt when);
 
 private:

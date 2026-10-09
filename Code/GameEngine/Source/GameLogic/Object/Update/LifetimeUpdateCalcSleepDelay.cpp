@@ -15,7 +15,7 @@ typedef unsigned int UnsignedInt;
 class GameLogic
 {
 public:
-	UnsignedInt getFrame() { return m_frame; }
+	__declspec(dllimport) __forceinline UnsignedInt getFrame() { return m_frame; } // Native +0x40 inline frame load.
 
 private:
 	unsigned char m_pad[0x40];
