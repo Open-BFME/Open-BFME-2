@@ -1,0 +1,26 @@
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// stlport
+// GameSorter constructor580842 and WB1562BC0 bind its five named sort
+// callbacks; target stores primary4/previous8 at0C/10, flags14/15 and cycle18.
+// 580B40 appends the LAN/online GameInfo pointers, 58113D indexes and sorts
+// them, and 580182 changes the sort fields. Vector storage is12B, object28B.
+// The automatic destructor has the full14-byte free-first-pointer shape at
+// 7FAB3 called by AptLanLobby::~AptLanLobby44455C and its EH cleanup.
+// Keep this provider separate: whole-TU exception analysis otherwise removes
+// the caller's state2 transition. No public exception guarantee is inferred.
+#include <vector>
+class GameInfo;
+class Rva005248D0;
+class GameSorter {
+public:
+ GameSorter(Rva005248D0 *registry);
+ ~GameSorter();
+private:
+ _STL::vector<GameInfo*> m_games;
+ int m_primarySort;
+ int m_previousSort;
+ bool m_changed;
+ bool m_sorted;
+ int m_cycle;
+};
+GameSorter::~GameSorter() {}
