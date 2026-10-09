@@ -151,3 +151,25 @@ unsigned int Rva00405A1CWordClearResult::clear() {
     *target = 0;
     return result;
 }
+
+// Complete native 4DE52C..4DE536 follows RET8 at4DE529 and precedes the
+// distinct word-copy leaf4DE536. ECX supplies the accessed prefix; EAX keeps
+// that receiver while raw DWORD+4 then DWORD+0 are zeroed before RET0.
+// Clean BF1 f98983a7d3bb405f1a4ba94bb6a2a168062a819d GameLogic/Object/
+// WeaponNuggetParse.cpp, compiled O1/SSE2/G6, supplies Made001E5D60::Tail's
+// two-zero expression. Its Tail/WeaponNugget identity and constructor role
+// are donor facts only; target owner, field meanings and complete class
+// bounds remain unknown. This ordinary method models only the physical
+// receiver/return and two raw32 accesses, with no original lifetime claim.
+class Rva004DE52CWordPair {
+public:
+    Rva004DE52CWordPair *clear();
+private:
+    unsigned int word0;
+    unsigned int word4;
+};
+Rva004DE52CWordPair *Rva004DE52CWordPair::clear() {
+    word4 = 0;
+    word0 = 0;
+    return this;
+}
