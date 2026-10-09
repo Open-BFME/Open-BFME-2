@@ -249,3 +249,21 @@ unsigned int Rva006BE260::elementAddressBits(unsigned int index) const
 {
     return addressBits + (index << 4);
 }
+
+// Clean BF1 f98983a7 Common/Rva001EB060OffsetGetter.cpp is the source guide.
+// Native143280..14328B follows complete RET4 at14327D and ends before INT3;
+// it loads a raw four-byte value at receiver+18+4*stackword and returns RET4.
+// This accessed-prefix view does not establish the original owner, slot value
+// meaning or the complete array extent. Donor O2/SSE/G6 placement is a lead;
+// the normal home settings and whole body are independently byte verified.
+struct Rva00143280
+{
+    unsigned char unknown00[0x18];
+    unsigned int words[1];
+    unsigned int at(unsigned int index) const;
+};
+
+unsigned int Rva00143280::at(unsigned int index) const
+{
+    return words[index];
+}
