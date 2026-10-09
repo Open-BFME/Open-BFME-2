@@ -73,6 +73,8 @@ inline bool operator<(const BfmePod88 &x, const BfmePod88 &y) { return x.a[0] < 
 struct BfmePod92 { int a[23]; };
 inline bool operator==(const BfmePod92 &x, const BfmePod92 &y) { return x.a[0] == y.a[0]; }
 inline bool operator<(const BfmePod92 &x, const BfmePod92 &y) { return x.a[0] < y.a[0]; }
+// _Construct<BfmePod92> is the rowed non-trivial copy construct at 0x00049D44: declare it, as for Pod172.
+namespace _STL { template <> __declspec(nothrow) void _Construct<BfmePod92, BfmePod92>(BfmePod92 *__p, const BfmePod92 &__val); }
 struct BfmePod104 { int a[26]; };
 inline bool operator==(const BfmePod104 &x, const BfmePod104 &y) { return x.a[0] == y.a[0]; }
 inline bool operator<(const BfmePod104 &x, const BfmePod104 &y) { return x.a[0] < y.a[0]; }
@@ -85,6 +87,8 @@ inline bool operator<(const BfmePod144 &x, const BfmePod144 &y) { return x.a[0] 
 struct BfmePod148 { int a[37]; };
 inline bool operator==(const BfmePod148 &x, const BfmePod148 &y) { return x.a[0] == y.a[0]; }
 inline bool operator<(const BfmePod148 &x, const BfmePod148 &y) { return x.a[0] < y.a[0]; }
+// _Construct<BfmePod148> is the rowed non-trivial copy construct at 0x00361470: declare it, as for Pod172.
+namespace _STL { template <> __declspec(nothrow) void _Construct<BfmePod148, BfmePod148>(BfmePod148 *__p, const BfmePod148 &__val); }
 struct BfmePod160 { int a[40]; };
 inline bool operator==(const BfmePod160 &x, const BfmePod160 &y) { return x.a[0] == y.a[0]; }
 inline bool operator<(const BfmePod160 &x, const BfmePod160 &y) { return x.a[0] < y.a[0]; }
@@ -97,6 +101,8 @@ namespace _STL { template <> __declspec(nothrow) void _Construct<BfmePod172, Bfm
 struct BfmePod180 { int a[45]; };
 inline bool operator==(const BfmePod180 &x, const BfmePod180 &y) { return x.a[0] == y.a[0]; }
 inline bool operator<(const BfmePod180 &x, const BfmePod180 &y) { return x.a[0] < y.a[0]; }
+// _Construct<BfmePod180> is the rowed non-trivial copy construct at 0x000C2387: declare it, as for Pod172.
+namespace _STL { template <> __declspec(nothrow) void _Construct<BfmePod180, BfmePod180>(BfmePod180 *__p, const BfmePod180 &__val); }
 // The 216-byte element is CreateAHeroManager::CreateAHeroSubClass: its vector
 // is CreateAHeroClass +0x14 (parseCreateAHeroSubClass push_back, CreateAHeroClass
 // copy 0x0021F876); this unit keeps only its 216-byte footprint.
