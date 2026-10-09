@@ -111,10 +111,14 @@ static int Rva009AC660ReadHeader(unsigned char* s)
     return 1;
 }
 
-// Absent-from-retail harness; reproduces the witnessed caller's boolean use.
-int Rva009AC660ReadHeaderHarness(unsigned char* s)
+// Native1BD550..1BD56C RET: codec-reader Boolean normalization wrapper.
+// BFME1 donor874e uses explicit initialized result and zero-on-failure branch.
+int Rva001BD550ReadHeader(unsigned char* s)
 {
-    return Rva009AC660ReadHeader(s) ? 1 : 0;
+    int result = 1;
+    if (!Rva009AC660ReadHeader(s))
+        result = 0;
+    return result;
 }
 
 #undef U
