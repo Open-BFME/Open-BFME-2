@@ -8,4 +8,12 @@
 template <>
 _STL::basic_ofstream<char, _STL::char_traits<char> >::basic_ofstream();
 
+// Filename and descriptor constructors likewise defer to their exact owners.
+template <>
+_STL::basic_ofstream<char, _STL::char_traits<char> >::basic_ofstream(int, _STL::ios_base::openmode);
+template <>
+_STL::basic_ofstream<char, _STL::char_traits<char> >::basic_ofstream(const char *, _STL::ios_base::openmode, long);
+template <>
+_STL::basic_ofstream<char, _STL::char_traits<char> >::basic_ofstream(const char *, _STL::ios_base::openmode);
+
 template class _STL::basic_ofstream<char, _STL::char_traits<char> >;
