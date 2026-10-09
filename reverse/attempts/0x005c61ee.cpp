@@ -1,98 +1,101 @@
 // ?reverseAnimateWindow@ProcessAnimateWindowSlideFromTop@@UAE_NPAVAnimateWindow@@@Z
-// partial score=0.95 date=2026-10-02
-// cl: /FIzh_ascii.h /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /arch:SSE /O1 /Oy- /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /DBFME_MODULE_NO_MPO /DZH_EMIT_POOL_GLUE /Ireference/shims/bfmerendobj /Ireference/shims/debugvtable /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/bfmeanimobj /Ireference/shims/indexbuffercount /Ireference/shims/bfmecaps /Ireference/shims/bfmehcanim /Ireference/shims/bfmevector /Ireference/shims/bfmemapper /Ireference/shims/meshmatdesclayout /Ireference/shims/bfmeshader /Ireference/shims/bfmecpudetect /Ireference/shims/bfmepool /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWAudio /Ireference/shims/bfmealloc /Ireference/shims/bfmehashtable /Ireference/shims/bfmelist /Ireference/shims/asciistring_downloadmanager /Ireference/shims/stlp_nodealloc /Ireference/shims/asciistring_thin /ICode/GameEngine/Source/Common /Ireference/shims/w3droadbuffer /Ireference/shims/bfmeterraintracks /ICode/Libraries/Include/Lib /Ireference/shims
-// stlport
-/*
-**	Command & Conquer Generals Zero Hour(tm)
-**	Copyright 2025 Electronic Arts Inc.
-**
-**	This program is free software: you can redistribute it and/or modify
-**	it under the terms of the GNU General Public License as published by
-**	the Free Software Foundation, either version 3 of the License, or
-**	(at your option) any later version.
-**
-**	This program is distributed in the hope that it will be useful,
-**	but WITHOUT ANY WARRANTY; without even the implied warranty of
-**	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-**	GNU General Public License for more details.
-**
-**	You should have received a copy of the GNU General Public License
-**	along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-// Reference: ZH ProcessAnimateWindow.cpp at BFME1 10af19f44a89ab7ecc23195bb9a842ceafbc02c9.
-// Top reverse target0x5C61EE/234, ctor-installed vtable slots.
-#pragma optimize("y", on)
-// Keep source headers untouched; the target copied Coord2D nontrivially.
-#define Coord2D ZHTrivialCoord2D
-#include "Lib/BaseType.h"
-#undef Coord2D
-struct Coord2D {
-    Coord2D() {}
-    // Matched empty destructor: coord2d.cpp, RVA 0x000B3FD0.
-    ~Coord2D() {}
-    Coord2D(const Coord2D& other): x(other.x), y(other.y) {}
-    float x,y;
+// partial score=0.95 date=2026-10-09
+// cl: /O1 /arch:SSE /G6 /Oy- /MD /ICode/Libraries/Include/Lib
+// Reference: BF1 f98983a7d / GeneralsMD ProcessAnimateWindowSlideFromTop.
+// Target boundary 0x005C6106..0x005C61EE; offsets and ordering are retail facts.
+// Constructor5C55A5 and C74884 slot3 prove the target virtual method.
+// Existing getVel at 0x005C5046 has an 8-byte hidden output and ret 4.
+// Keep its struct-return declaration incomplete; use a typed output view below
+// rather than inventing copy traits for the canonical Coord2D class.
+struct Coord2D;
+struct RvaTopVelocity { float x,y; };
+struct ICoord2D { int x,y; };
+class GameWindow { public: int winSetPosition(int,int); };
+class AnimateWindow {
+public:
+ Coord2D getVel();
+ void setVel(RvaTopVelocity value) { m_velocity=value; }
+ void *vptr; unsigned delay; ICoord2D start,end,current,rest;
+ GameWindow *window; RvaTopVelocity m_velocity;
+ unsigned startTime,endTime; int animType; bool needsFinish,finished;
 };
-#include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
-
-#include "GameClient/ProcessAnimateWindow.h"
-#include "GameClient/AnimateWindowManager.h"
-#include "GameClient/GameWindow.h"
-#include "GameClient/Display.h"
-#pragma optimize("", on)
-
-Bool ProcessAnimateWindowSlideFromTop::reverseAnimateWindow( AnimateWindow *animWin )
+extern "C" __declspec(dllimport) unsigned long __stdcall timeGetTime();
+class ProcessAnimateWindowSlideFromTop {
+public:
+ virtual ~ProcessAnimateWindowSlideFromTop();
+ virtual void initAnimateWindow(AnimateWindow*);
+ virtual void initReverseAnimateWindow(AnimateWindow*,unsigned);
+ virtual bool updateAnimateWindow(AnimateWindow*);
+ virtual bool reverseAnimateWindow(AnimateWindow*);
+ virtual void setMaxDuration(unsigned);
+ RvaTopVelocity maxVel; int slowThreshold; float slowRatio,speedRatio;
+};
+bool ProcessAnimateWindowSlideFromTop::updateAnimateWindow(AnimateWindow *a)
 {
+ if(!a) return true;
+ if(a->finished) return true;
+ unsigned startTime=a->startTime;
+ if(timeGetTime()<startTime) return false;
+ GameWindow *win=a->window;
+ if(!win) return true;
+ // The endpoint scratch is dead when the helper writes its velocity result.
+ union { ICoord2D position; RvaTopVelocity output; } cur;
+ cur.position=a->current;
+ union { ICoord2D position; RvaTopVelocity velocity; } scratch;
+ scratch.position.x=a->end.x;
+ int endY=a->end.y;
+ typedef void (AnimateWindow::*VelocityOutput)(RvaTopVelocity*);
+ (a->*reinterpret_cast<VelocityOutput>(&AnimateWindow::getVel))(&scratch.velocity);
+ cur.position.y+=(int)scratch.velocity.y;
+ if(cur.position.y>endY) {
+  cur.position.y=endY;
+  win->winSetPosition(cur.position.x,cur.position.y);
+  a->finished=true; return true;
+ }
+ win->winSetPosition(cur.position.x,cur.position.y);
+ a->current=cur.position;
+ float &y=scratch.velocity.y;
+ if(endY-cur.position.y<=slowThreshold) *(volatile float *)&y=slowRatio*y;
+ if(1.0f>y) *(volatile float *)&y=1.0f;
+ cur.output.x=scratch.velocity.x;
+ cur.output.y=y;
+ a->setVel(cur.output);
+ return false;
+}
 
-	if(!animWin)
-	{
-		DEBUG_ASSERTCRASH( animWin, ("animWin was passed into updateAnimateWindow as a NULL Pointer... bad bad bad!"));
-		return TRUE;
-	}
-
-	// if the window has finished animating into position, return
-	if(animWin->isFinished())
-		return TRUE;
-
-	// if the window hasn't started animating...return that we're not finished
-	if(timeGetTime() < animWin->getStartTime())
-		return FALSE;
-
-	// it's set that the window is passed in as it's current position being it's rest position
-	// so save off the rest position
-	GameWindow *win = animWin->getGameWindow();
-	if(!win)
-	{
-		DEBUG_ASSERTCRASH( win, ("animWin contains a NULL Pointer for it's GameWindow... Whatup wit dat?"));
-		return TRUE;
-	}
-
-	ICoord2D curPos = animWin->getCurPos();
-	ICoord2D startPos = animWin->getStartPos();
-	Coord2D vel = animWin->getVel();
-	curPos.y += (Int)vel.y;
-
-	if(curPos.y < startPos.y)
-	{
-		curPos.y = startPos.y;
-		animWin->setFinished( TRUE );
-		win->winSetPosition(curPos.x, curPos.y);
-		return TRUE;
-	}
-	win->winSetPosition(curPos.x, curPos.y);
-	animWin->setCurPos(curPos);
-
-	ICoord2D endPos = animWin->getEndPos();
-	if( endPos.y - curPos.y <= m_slowDownThreshold )
-	{
-		vel.y *= m_speedUpRatio;
-	}
-	else
-	{
-		vel.y = -m_maxVel.y;
-	}
-	if( vel.y < -m_maxVel.y)
-		vel.y = -m_maxVel.y;
-	animWin->setVel(vel);
-	return FALSE;
+struct RvaTopReverseVelocity {
+ RvaTopReverseVelocity() {}
+ RvaTopReverseVelocity(const RvaTopReverseVelocity &v):x(v.x),y(v.y) {}
+ float x,y;
+};
+// Target C74884 slot4 independently identifies Top reverse; 0x5C61EE/234.
+bool ProcessAnimateWindowSlideFromTop::reverseAnimateWindow(AnimateWindow *a)
+{
+ if(!a) return true;
+ if(a->finished) return true;
+ unsigned startTime=a->startTime;
+ if(timeGetTime()<startTime) return false;
+ GameWindow *win=a->window;
+ if(!win) return true;
+ ICoord2D cur=a->current;
+ RvaTopReverseVelocity vel;
+ ICoord2D start=a->start;
+ typedef void (AnimateWindow::*VelocityOutput)(RvaTopReverseVelocity*);
+ (a->*reinterpret_cast<VelocityOutput>(&AnimateWindow::getVel))(&vel);
+ cur.y+=(int)vel.y;
+ if(cur.y<start.y) {
+  cur.y=start.y;
+  a->finished=true;
+  win->winSetPosition(cur.x,cur.y);
+  return true;
+ }
+ win->winSetPosition(cur.x,cur.y);
+ a->current=cur;
+ start=a->end;
+ if(start.y-cur.y<=slowThreshold) vel.y=speedRatio*vel.y;
+ else vel.y=-maxVel.y;
+ vel.y=(vel.y < -maxVel.y) ? -maxVel.y : vel.y;
+ RvaTopReverseVelocity copied(vel);
+ a->setVel(*reinterpret_cast<RvaTopVelocity*>(&copied));
+ return false;
 }
