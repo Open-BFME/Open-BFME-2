@@ -1,0 +1,26 @@
+{
+  "id": "B-20261010-waitmessage-00574192",
+  "seat": "B",
+  "base_commit": "a30fb85c6b848536e8f2dfd7e5acbd461d36b12e",
+  "paths": [
+    "Code/GameEngine/Source/GameClient/GUI/AptStrategicMessageBoxForward.cpp"
+  ],
+  "recoveries": [
+    {
+      "name": "?rva00574192@Rva00574192@@QAEXXZ",
+      "rva": "0x00574192",
+      "size": 191,
+      "source": "Code/GameEngine/Source/GameClient/GUI/AptStrategicMessageBoxForward.cpp",
+      "notes": "Native574192..574251 191B; WB14CE250 names WaitMessage::Update and STRATEGICHUD:WaitMessage proves delayed-notice purpose. Existing57417E destructor and both rowed callers establish fields0/4 and shared address-derived owner. Data ledger identifies TheAptQuitMenu and AptStrategicMessageBox::s_instance; native278 access is an observed view of the existing quit-menu base. Original owner spelling remains unresolved. Both Unicode literals, timeGetTime import and complete EH graph verified exact; title lifetime ends before visible store. No new pins or assembler.",
+      "replace_rva": ""
+    }
+  ],
+  "proof_command": "python tools/explain_mismatch.py \"?rva00574192@Rva00574192@@QAEXXZ\" --rva 0x00574192 --size 191 --source Code/GameEngine/Source/GameClient/GUI/AptStrategicMessageBoxForward.cpp; python build/verify-waitmessage-candidate.py (copied as verify-candidate.py)",
+  "proof_log": "proof.log",
+  "claim_owner": "codex-01a12257-recovery",
+  "dependencies": [],
+  "ledger_delta": "No local ledger changes. New row only, existing pin retained. Existing three source rows must still verify.",
+  "provider_notes": "Calls existing StringBase<unsigned short> ctor/releaseBuffer, rowed Rva0054D2DDTarget::method and Rva0054CBEFTarget::method, virtual GameText fetch slot3C and timeGetTime import. TheAptQuitMenu data is currently unowned; no new data owner or pin claimed. Link closure remains unmeasured.",
+  "last_worker_push": "a30fb85c6b (published before coordinator instruction); no unpublished commits",
+  "proof_exit_code": 0
+}
