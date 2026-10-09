@@ -1,5 +1,7 @@
 // ??HEAStringC@@QBE?AV0@PBD@Z
 // partial score=0.9956407933 date=2026-10-09
+// ??HEAStringC@@QBE?AV0@PBD@Z
+// partial score=0.9956407933 date=2026-10-09
 // cl: /O2 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // ??HEAStringC@@QBE?AV0@ABV0@@Z
 // Retail 0x006D46C0..0x006D47EC (300 bytes).
