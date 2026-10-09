@@ -12,6 +12,7 @@ extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *, const char *, int);
 extern int g_bfmeAptBreakOnAssertAtDDC01C;
 
 class AptCIH;
+class EAStringC;
 class AptValue
 {
 public:
@@ -21,6 +22,7 @@ public:
     bool isUndefined() const;
     float toFloat() const;
     int toInteger() const;
+    void toString(EAStringC &) const;
 };
 
 class AptCIH
@@ -173,4 +175,31 @@ AptValue *__cdecl Rva006ECA70PointHitTest(void *self,int count)
   if(x>=bounds.ownRect.left && x<=bounds.ownRect.right && y>=bounds.ownRect.top && y<=bounds.ownRect.bottom)return AptInteger::Create(1);
  }
  return AptInteger::Create(0);
+}
+
+class Rva008A4570Owner {public:bool nameEquals(const char*);};
+class Rva006EB4B0 {
+public:EAStringC font;float size;int color,align;unsigned flags;int indent,left,right;
+ Rva006EB4B0(AptValue*,float,int,int,int,int,int,int,AptValue*,int,int,int,int);
+};
+Rva006EB4B0::Rva006EB4B0(AptValue *fontValue,float sizeValue,int colorValue,int bold,int italic,int underline,int unused6,int unused7,AptValue *alignValue,int leftValue,int rightValue,int indentValue,int unused12)
+: size(sizeValue),color(colorValue)
+{
+ flags=0;
+ if(bold==0)flags|=0x10000;
+ if(bold==1)flags|=0x10001;
+ if(italic==0)flags|=0x100000;
+ if(italic==1)flags|=0x100010;
+ if(underline==0)flags|=0x1000000;
+ if(underline==1)flags|=0x1000100;
+ indent=indentValue;left=leftValue;right=rightValue;
+ if(!fontValue->isUndefined())fontValue->toString(font);
+ if(!alignValue->isUndefined()){
+  EAStringC str;alignValue->toString(str);
+  Rva008A4570Owner *s=(Rva008A4570Owner*)&str;
+  if(s->nameEquals("left")||s->nameEquals("true"))align=0;
+  else if(s->nameEquals("center"))align=2;
+  else if(s->nameEquals("right"))align=1;
+  else align=3;
+ }else align=3;
 }
