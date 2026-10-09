@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/ini_bfme2 /Ireference/shims/bfme2_ascii /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/moduledata /Ireference/shims/ini_bfme2 /Ireference/shims/bfme2_ascii /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath
 // Semantic donor: Open-BFME-1 9cbfb551fe20dae985f91f2319d8997287b6a705,
 // game/GameEngine/Source/GameLogic/LivingWorld/LivingWorldSoundParseRva0061C410.cpp.
 // WB 0x01060A40 names LivingWorldSound::ParseSound; the retail INI registration
@@ -8,6 +8,8 @@
 // opaque return type. This view describes only the fields the parser accesses.
 #include "Common/INI/INI.h"
 #include "region.h"
+#include "Common/Snapshot.h"
+#include <string.h>
 
 class BfmeAwakenLog
 {
@@ -115,4 +117,65 @@ void LivingWorldSound::ParseSound(INI *ini)
 	}
 	else if (sound->m_zoom.y_min == sound->m_zoom.y_max)
 		REPORT_SOUND_ERROR(": ZoomRegionLow Y: is equal to ZoomRegionHigh Y:. This sound cannot play");
+}
+
+// Target 003FAE68..003FAF13, vtable C37A08, and the rowed destructor
+// 003FAFB9 establish the opaque owner. The INI parser independently witnesses
+// name +4, position +8, event +14, flags +18, zoom +1C. BFME1 f98983a7d
+// LivingWorldSoundCopyCtor.cpp supplies the sound-subsystem interpretation;
+// it does not independently prove this owner's source name. State +2C and
+// three booleans +30..32 are corroborated by the rowed xfer 003FADB5.
+// The flags constructor 003B31AD is a nonthrowing memset of one word.
+class Rva003B31ADMember
+{
+public:
+    __declspec(nothrow) Rva003B31ADMember();
+    void clear() { memset(&m_word, 0, sizeof(m_word)); }
+private:
+    unsigned int m_word;
+};
+class OpaqueRefCounted
+{
+public:
+    void Release_Ref();
+};
+struct LivingWorldSoundEvent
+{
+    LivingWorldSoundEvent() : value(0) {}
+    ~LivingWorldSoundEvent() { if (value) value->Release_Ref(); }
+    OpaqueRefCounted *value;
+};
+struct LivingWorldSoundPosition
+{
+    LivingWorldSoundPosition() : x(0), y(0), z(0) {}
+    float x, y, z;
+};
+struct LivingWorldSoundZoom
+{
+    LivingWorldSoundZoom(const Region2D &r) : x_min(r.x_min), y_min(r.y_min), x_max(r.x_max), y_max(r.y_max) {}
+    float x_min, y_min, x_max, y_max;
+};
+class Rva003FAFB9 : public Snapshot
+{
+public:
+    Rva003FAFB9(const AsciiString &name);
+    virtual ~Rva003FAFB9();
+protected:
+    virtual void xfer(Xfer *);
+private:
+    AsciiString m_name;
+    LivingWorldSoundPosition m_position;
+    LivingWorldSoundEvent m_event;
+    Rva003B31ADMember m_flags;
+    LivingWorldSoundZoom m_zoom;
+    unsigned int m_state;
+    bool m_shouldFade, m_isPlaying, m_hasPlayed;
+};
+Rva003FAFB9::Rva003FAFB9(const AsciiString &name) : m_name(name), m_zoom(g_00E02EAC)
+{
+    m_state = 1;
+    m_shouldFade = false;
+    m_isPlaying = false;
+    m_hasPlayed = false;
+    m_flags.clear();
 }
