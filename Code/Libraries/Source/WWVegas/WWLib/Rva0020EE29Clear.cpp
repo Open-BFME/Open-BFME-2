@@ -1,5 +1,7 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /Ob1 /EHsc /MD /arch:SSE /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /Ireference/shims/bfme2_ascii /O1 /Ob1 /EHsc /MD /arch:SSE /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// stlport
 #include <new>
+#include <hash_map>
 #include "ascii_string.h"
 // ?rva0020EE29@Rva0020EE29@@QAEXXZ @0x0020EE29 51B
 // Clears each entry of the pointer vector at inner+0x2c/+0x30 (inner = *(this+8))
@@ -590,85 +592,28 @@ void Rva0020EE29::rva0020F795()
 	self->m_inner = 0;
 }
 
-// ?rva00212655@Rva00212655@@QAEXH@Z @0x00212655 102B
-// Resolves an entry through the +0x218 member, reports it, and links it:
-// the member lookup takes the address of the incoming arg slot as its
-// out-parameter and answers the entry or null; a null entry ends the body.
-// Otherwise the entry's +8 sub-object selects a dword (its +4 plus 8, or
-// the VA 0x00BBAC1C constant) reported to the VA 0x00DFEF18 singleton
-// (rowed-pending 0x002C004F); the sub-object runs the notify idiom (virtual
-// slot-0 under zero, else null) into the rowed-pending free 0x002FD60; then
-// the rowed-pending 0x001E2861 links {entry, this+0x218} on this+0x218.
-// Evidence: retail lea/mov/call shapes per site; the garbage-push inline
-// struct (address taken then both words stored); ebp-frame with EH-free
-// SEH-style locals; the singleton and notify pins already in this TU.
-// Entry and singleton identities are unproven (address-derived views).
-class Rva00212655Sub;
+class Rva003FD14D;
+class Rva002D3627Host { public: void rva002C004F(const char*); };
+extern Rva002D3627Host *g_00DFEF18;
+class Rva00212655Virt { public: virtual void *v00(int); };
 
-class Rva00212655Entry
+// Complete native 212655..2126BB and WB B608E0. The map at +218 is
+// established by the verified CreateBeaconObject body. Resolve by id,
+// report the beacon's string at +4 on the DFEF18 singleton, invoke its
+// slot-zero cleanup with zero, scalar-delete the result, then erase the
+// saved iterator. The original method name remains unproven.
+void Rva00DFE1C8Host::rva00212655(int arg)
 {
-public:
-	void *m_00;
-	char m_pad[4];
-	Rva00212655Sub *m_08sub;
-};
-
-class Rva00212655Sub
-{
-public:
-	void *m_00;
-	int m_04;
-};
-
-class Rva00212655Vec218
-{
-public:
-	void *rva002888D4(void **out);
-	void rva001E2861(void *pair);
-};
-
-class Rva002C004FHost
-{
-public:
-	void rva002C004F(void *val);
-};
-
-class Rva00212655Virt
-{
-public:
-	virtual void *v00(int zero);
-};
-
-class Rva00212655
-{
-public:
-	void rva00212655(int arg);
-
-private:
-	char m_pad[0x218];
-	Rva00212655Vec218 m_218;
-};
-
-void rva002FD60(void *v);
-
-// ?rva00212655@Rva00212655@@QAEXH@Z present-unmatched
-void Rva00212655::rva00212655(int arg)
-{
-	void *entry = m_218.rva002888D4((void **)&arg);
-	if (!entry)
-		return;
-	Rva00212655Sub *sub = ((Rva00212655Entry *)entry)->m_08sub;
-	int val;
-	if (sub->m_04)
-		val = sub->m_04 + 8;
-	else
-		val = 0xBBAC1C;
-	((Rva002C004FHost *)((Rva00DFE1C8Host *)TheLivingWorldManager))->rva002C004F((void *)val);
-	Rva00212655Virt *virt = (Rva00212655Virt *)sub;
-	void *nv = virt ? virt->v00(0) : 0;
-	rva002FD60(nv);
-	struct Pair { void *a; void *b; } p = { entry, &m_218 };
-	m_218.rva001E2861(&p);
+    _STL::hash_map<int,Rva003FD14D*> &beacons = *(_STL::hash_map<int,Rva003FD14D*>*)((char*)this+0x218);
+    _STL::hash_map<int,Rva003FD14D*>::iterator it = beacons.find(arg);
+    if (it != beacons.end()) {
+        Rva003FD14D *beacon = it->second;
+        g_00DFEF18->rva002C004F(((AsciiString*)((char*)beacon+4))->str());
+        Rva00212655Virt *view = (Rva00212655Virt*)beacon;
+        void *allocation = view ? view->v00(0) : 0;
+        ::operator delete(allocation);
+        beacons.erase(it);
+    }
 }
 
 // ?rva00210F09@Rva00210F09@@QAEXXZ @0x00210F09 30B
