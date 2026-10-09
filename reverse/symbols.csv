@@ -17001,3 +17001,4 @@ _isdigit,0x00629982,Native6F97F0 suffix parser calls PE isdigit import thunk6299
 ?rva000835D0@RenderableRiverArea@@QAEXXZ,0x000835D0,432-byte void thiscall rebuilding the river area rendering method (reads the +0x40 holder through 30BBA9 like createTexture); caller the by-value rendering-method getter 0x00083A50
 ?Rva006D1520@@YAXVRva006D07E0Key@@@Z,0x006D1520,Opaque address-derived call view. Native6D1520..6D15B0 RET0 consumes one four-byte counted owner argument and releases it via teardown6D0280 and pool1c; direct caller6D1680 constructs the value then cleans4. Original helper identity unknown.
 ?rva006E5940@Rva006E5940@@QAEXH@Z,0x006E5940,Native6D02EC calls cleanup with argument10 and receiver object14 plus8; native6E5940..6E5F08 RET4 relocation cleanup; complete bank preserves address-derived identity and same ABI. Body not yet recovered.
+?rva00093B5B@W3DSnowManager@@QAEXXZ,0x00093B5B,callee of ?target_00094652@W3DSnowManager@@AAEXXZ
