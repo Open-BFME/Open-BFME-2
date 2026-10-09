@@ -50,6 +50,9 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
  *   PivotClass::Compute_Transform -- Update the pivot's transformation matrix                 * 
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
+// Native consumer inlines retain the verified matrix and vector operations.
+#include "../../../../../reference/shims/bfme_part_emt_inline/vector3.h"
+#include "../../../../../reference/shims/bfme_pivot_link/matrix3d.h"
 #include "rendobj.h"	// the bfmerendobj shim has to win the include guard
 #include "pivot.h"
 #include "wwmath.h"
