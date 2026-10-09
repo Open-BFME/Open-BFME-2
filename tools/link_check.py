@@ -33,6 +33,7 @@ recompiles every stale ledger object and replaces its census definitions).
   python3 tools/link_check.py Code/path/File.cpp [...]   # check files
   python3 tools/link_check.py --staged                  # the units staged for commit
   python3 tools/link_check.py --refresh SOURCE          # recompile stale objects first
+  python3 tools/link_check.py --refresh --current-ledger SOURCE  # include newer matched units
 
 The pre-commit hook runs the admission form on the units a commit adds, with
 their list on stdin (Windows caps a command line at 32,767 characters). It
@@ -533,6 +534,137 @@ def refresh_stale(index, truth):
     print(f"link_check: recompiled {len(stale):,} stale ledger object(s) and replaced their census definitions")
 
 
+def preview_state(present, rows):
+    """The census guards plus retail bytes and archives used by this preview.
+
+    Import-library inventory matters too: adding a library can add an excuse.
+    This is only a transient check; no census receipt or status is written.
+    """
+    libraries = {ROOT / row["source"] for row in rows
+                 if row["source"].lower().endswith(build.LIB_SUFFIX)}
+    vc = build.vc71_root() / "Vc7"
+    libraries.update(path for directory in (vc / "lib", vc / "PlatformSDK" / "Lib")
+                     for path in directory.glob("*") if path.suffix.lower() == ".lib")
+    state = link_census.census_state(present)
+    state["retail_and_libraries"] = link_census.object_stamps([build.EXE, *sorted(libraries)])
+    return state
+
+
+def selection_signature(index, name):
+    """Ordered defining objects and their facts for one actual-MAP exception."""
+    objects = index["objects"]
+    entries = [(i, objects[i], "strong") for i in index["strong"].get(name, ())]
+    entries += [(i, objects[i], "comdat", digest, verdict)
+                for i, digest, verdict in index["comdat"].get(name, ())]
+    return [entry[1:] for entry in sorted(entries)]
+
+
+def current_selection(old, current, owners):
+    """Remap measured holders by object name only while their evidence agrees.
+
+    A changed set/order/body of definers invalidates a /MAP exception. Strong
+    definitions have no body digest in old indexes, so cannot preserve their
+    exceptions without a fresh /MAP. Guessing
+    its new holder can hide wrong_selected; requested units touching it must
+    wait for a new measured census instead. Unchanged None holders retain the
+    census's existing unknown-selection rule.
+    """
+    positions = {name: i for i, name in enumerate(current["objects"])}
+    exceptions, unmeasured = {}, set()
+    for name, holder in old["selection"]["exceptions"].items():
+        if (old["strong"].get(name) or current["strong"].get(name)
+                or selection_signature(old, name) != selection_signature(current, name)):
+            unmeasured.add(name)
+        else:
+            exceptions[name] = None if holder is None else positions[old["objects"][holder]]
+    return {"exceptions": exceptions, "owners": owners}, unmeasured
+
+
+def require_current_objects(present, sources):
+    stale = link_census.stale_objects(present, sources)
+    if stale:
+        raise SystemExit(f"link_check: {len(stale):,} current-ledger object(s) lack current compiler evidence: "
+                         + ", ".join(obj.name for obj in stale[:5]))
+
+
+def current_ledger_index(index, rows):
+    """Build a guarded, in-memory preview of ALL current matched providers.
+
+    Appending just the requested new object misses new-new duplicates and
+    earlier COMDAT providers. Reuse the census's exact object universe/order,
+    compiler currency, data proof, retail judgment and ownership machinery.
+    This mode never starts a whole-tree compile: unavailable compiler evidence
+    is a refusal, to be prepared by a separate ordinary build.
+    Removed ledger units disappear; current cached objects are reread even
+    when --refresh did not need to recompile them.
+    """
+    inputs = preview_state([], rows)
+    present, missing = link_census.objects(rows)
+    if missing:
+        raise SystemExit(f"link_check: {len(missing):,} current-ledger object(s) missing: "
+                         + ", ".join(obj.name for obj in missing[:5]))
+    if len({obj.name for obj in present}) != len(present):
+        raise SystemExit("link_check: current-ledger object-name collision; never LINKS")
+    sources = link_census._object_sources(rows)
+    state = preview_state(present, rows)
+    if {k: v for k, v in state.items() if k != "objects"} != {k: v for k, v in inputs.items() if k != "objects"}:
+        raise SystemExit("link_check: current-ledger inputs moved while enumerating providers; retry")
+    require_current_objects(present, sources)
+    link_census.verify_data_objects()
+    truth = link_census.RetailTruth(rows)
+    facts = link_census.read_facts(present, rows)
+    tables = index_tables(present, facts, {})
+    selection, unmeasured = current_selection(index, tables, link_census.ledger_owners(rows))
+    tables["selection"] = selection
+    crt = build.vc71_root() / "Vc7" / "lib" / "msvcrt.lib"
+    excuses = {"runtime": link_census.library_symbols(crt), "imported": link_census.retail_imports(),
+               "stubs": link_census.import_stubs()}
+    current = {**index, **tables, "excuses": excuses}
+    # Do not publish this as a census index: its historical blockers/bytes and
+    # /MAP receipt still belong to the last recorded census.
+    return current, truth, present, sources, state, unmeasured
+
+
+def check_current_ledger(index, paths, rows, started):
+    current, truth, present, sources, state, unmeasured = current_ledger_index(index, rows)
+    by_path = {obj.resolve(): obj for obj in present}
+    resolved = {}
+    for argument in paths:
+        path = Path(argument)
+        path = (path if path.is_absolute() else ROOT / path).resolve()
+        obj = path if path.suffix.lower() == ".obj" else build.obj_path(path)
+        expected = by_path.get(obj.resolve())
+        if expected is None or (path.suffix.lower() != ".obj" and sources.get(expected) != path):
+            raise SystemExit(f"link_check: {argument} is not a current matched provider; never LINKS")
+        canonical = sources.get(expected)
+        source = canonical.relative_to(ROOT).as_posix() if canonical is not None else None
+        resolved[expected] = source
+    results = []
+    for obj, source in resolved.items():
+        fact = link_census.object_facts(obj, truth)
+        needs_map = (link_census.touched_names(fact) | set(link_census.common_definitions(obj))) & unmeasured
+        if needs_map:
+            raise SystemExit(f"link_check: {source or obj.name} touches changed /MAP selection exception(s); "
+                             "a new measured census is required: " + ", ".join(sorted(needs_map)))
+        results.append((source, obj, check_object(obj, current, truth, source)))
+    now = source_bytes({source for source in resolved.values() if source})
+    require_current_objects(present, sources)
+    after = preview_state(present, rows)
+    if after != state:
+        raise SystemExit("link_check: current-ledger preview inputs moved (" + link_census.moved(state, after)
+                         + "); no result accepted, retry")
+    clean, before, after_bytes = [], 0, 0
+    print(f"link_check: transient current-ledger preview ({len(present):,} providers); census record unchanged")
+    for source, obj, result in results:
+        clean.append(report(source, obj, result, current, now.get(source, 0)))
+        entry = index["blockers"].get(source or "", {})
+        before += index["bytes"].get(source, 0) if entry.get("linked") else 0
+        after_bytes += now.get(source, 0) if clean[-1] else 0
+    print(f"link_check: {sum(clean)} of {len(clean)} link cleanly; LINKED {before:,} -> {after_bytes:,} bytes "
+          f"({time.time() - started:.1f}s; transient preview)")
+    return 0 if all(clean) else 1
+
+
 def main(argv=None):
     argv = sys.argv[1:] if argv is None else argv
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
@@ -540,6 +672,10 @@ def main(argv=None):
     ap.add_argument("--staged", action="store_true", help="check the C/C++ units staged for commit")
     ap.add_argument("--refresh", action="store_true",
                     help="first recompile every stale ledger object and replace its census definitions")
+    ap.add_argument("--current-ledger", action="store_true",
+                    help="with --refresh: reread all receipt-current matched providers in memory, including "
+                         "units absent from the census; refuses missing/stale providers, never compiles the "
+                         "whole tree or updates census status")
     ap.add_argument("--census-only", action="store_true",
                     help="check against the census's definitions of the given files, not their current objects")
     ap.add_argument("--new-variants", action="store_true",
@@ -554,6 +690,8 @@ def main(argv=None):
     ap.add_argument("--shadow", action="store_true",
                     help="with --new-variants: report, never refuse (the pre-commit hook, until promoted)")
     args = ap.parse_args(argv)
+    if args.current_ledger and (not args.refresh or args.census_only or args.new_variants):
+        ap.error("--current-ledger requires --refresh and cannot combine with --census-only or --new-variants")
     if args.shadow and not args.new_variants:
         ap.error("--shadow needs --new-variants")
     if args.paths_from:
@@ -603,6 +741,8 @@ def main(argv=None):
     started = time.time()
     index = load_index()
     require_common_index(index)
+    if args.current_ledger:
+        return check_current_ledger(index, paths, link_census.ledger(), started)
     truth = link_census.RetailTruth(link_census.ledger())
     if args.refresh:
         refresh_stale(index, truth)
