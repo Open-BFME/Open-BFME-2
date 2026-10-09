@@ -77,7 +77,8 @@ class DX8Wrapper
 public:
 	static IDirect3DDevice8 *_Get_D3D_Device8() { return D3DDevice; }
 	static void Invalidate_Cached_Render_States();
-	static __forceinline void Set_DX8_Texture(unsigned stage, IDirect3DBaseTexture8 *texture)
+	// Retain the native inline state update; omit the competing external copy.
+	static __declspec(dllimport) __forceinline void Set_DX8_Texture(unsigned stage, IDirect3DBaseTexture8 *texture)
 	{
 		if (stage >= 16) {
 			IDirect3DDevice8 *device = _Get_D3D_Device8();

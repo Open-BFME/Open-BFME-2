@@ -123,7 +123,7 @@ class DX8Wrapper
 {
 public:
 	static IDirect3DDevice8 *_Get_D3D_Device8() { return D3DDevice; }
-	static void Set_DX8_Texture(unsigned int stage, IDirect3DBaseTexture8 *texture);
+	static __declspec(dllimport) __forceinline void Set_DX8_Texture(unsigned int stage, IDirect3DBaseTexture8 *texture);
 protected:
 	static IDirect3DDevice8 *D3DDevice;
 	static IDirect3DBaseTexture8 *Textures[16];
@@ -138,7 +138,7 @@ static inline void *deviceSlot(int slot)
 }
 
 // Zero Hour's inline DX8Wrapper::Set_DX8_Texture.
-__forceinline void DX8Wrapper::Set_DX8_Texture(unsigned int stage, IDirect3DBaseTexture8 *texture)
+__declspec(dllimport) __forceinline void DX8Wrapper::Set_DX8_Texture(unsigned int stage, IDirect3DBaseTexture8 *texture)
 {
 	if (Textures[stage] == texture)
 		return;

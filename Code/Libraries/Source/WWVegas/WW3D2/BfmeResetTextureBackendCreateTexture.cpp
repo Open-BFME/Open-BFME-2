@@ -136,7 +136,8 @@ private:
 class DX8Wrapper
 {
 public:
-	static __forceinline void Set_DX8_Texture(unsigned int stage,
+	// Retain the native inline state update; omit the competing external copy.
+	static __declspec(dllimport) __forceinline void Set_DX8_Texture(unsigned int stage,
 		IDirect3DBaseTexture8 *texture)
 	{
 		if (stage >= 16)
