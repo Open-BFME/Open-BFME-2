@@ -329,20 +329,26 @@ Rva006D0D7::Rva006D0D7(EmitVtableTag *)
 {
 }
 
-class Rva006DD51Base0
+// Native6DD51 sets the two leaf vptrs then tail-calls owned LightClass dtor130E80.
+// These existing opaque bases model only the two-vptr prefix. novtable keeps
+// prefix-view cleanup from seating invented intermediate tables; the first
+// cleanup invokes the real LightClass destructor and the second is empty.
+// Constructor6DD6F independently proves LightClass120 plus dynamic leaf174.
+class LightClass {public:virtual ~LightClass();};
+class __declspec(novtable) Rva006DD51Base0
 {
 public:
-	virtual ~Rva006DD51Base0();
+	virtual ~Rva006DD51Base0() { reinterpret_cast<LightClass *>(this)->LightClass::~LightClass(); }
 private:
 	char m_unmodelled[0x4];
 };
 
 // Secondary base at +0x8: the this-adjusting deleting-destructor thunk
 // (sub ecx, 0x8) at 0x0006DD67 in its vtable is target evidence for it.
-class Rva006DD51Base8
+class __declspec(novtable) Rva006DD51Base8
 {
 public:
-	virtual ~Rva006DD51Base8();
+	virtual ~Rva006DD51Base8() {}
 };
 class Rva006DD51 : public Rva006DD51Base0, public Rva006DD51Base8
 {
@@ -558,3 +564,5 @@ public:
 Rva009203A::Rva009203A(EmitVtableTag *)
 {
 }
+
+Rva006DD51::~Rva006DD51() {}
