@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
+// cl: /O1 /G7 /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
 // stlport
 //
 // BFME2's skirmish screen Apt callbacks, 0x00521741 onward, bound by these
@@ -120,7 +120,7 @@ public:
 	virtual int rva005231B0(int message, unsigned int data1, unsigned int data2);
 	virtual void vslot3() = 0;
 	virtual void vslot4() = 0;
-	virtual void vslot5() = 0;
+	virtual int OnUpdateData();
 	virtual void vslot6() = 0;
 	virtual void vslot7() = 0;
 	virtual void vslot8() = 0;
@@ -131,6 +131,7 @@ public:
 	virtual void vslot13() = 0;
 	virtual bool MPOwnerValidatGameInfo(GameInfo *gameInfo);
 
+	bool InitTheGame();
 	void OnInitialized(const char *unused);
 	// Bound under both "AptSkirmish::Back" and "AptSkirmish::Exit" (one
 	// body or two folded), so it keeps its address.
@@ -562,6 +563,7 @@ public:
 class AptMpGameSetup
 {
 public:
+	bool OnUpdate();bool rva00440BDF(int);
 	int rva00442CB3(unsigned int message, unsigned int data1, unsigned int data2);
 	void rva0044303D();
 };
@@ -683,4 +685,46 @@ void AptSkirmish::InitCreateAHeroOnStartGame()
 			((Rva005B5B0CMgr *)TheHeroManager)->UseSub(hero);
 		slot->rva0037AD8D(*hero);
 	}
+}
+
+class Rva0043DB47DoubleSetter {public:void enable();};
+class Rva005216A6 {public:bool rva005216A6();};
+class AptMpGameSetupUpdateView {public:virtual void slot0();virtual void slot1();};
+
+class Rva00222A8BTarget {public:int invoke(void*,const char*,int,const char*,void*,void*,void*,void*);};
+// WB14664A0 names OnUpdateData; native522290..5223D7 proves327B,
+// table867910 slot5, states6B8 and refresh6C1. State1 shows main, state5
+// initializes preferences/game, state6 waits for setup, state8 advances,
+// and state10 starts the host game. Other states update the panel only.
+// Callee521EDA identity follows WB1467A90 and its slot/map initialization;
+// the existing address-derived 440BDF provider remains the host-start call.
+int AptSkirmish::OnUpdateData() {
+ if(m_6c1) {reinterpret_cast<Rva0043DB47DoubleSetter*>((char*)this+0x288)->enable();m_6c1=false;}
+ switch(m_state) {
+ case 1:
+  TheRva00222A8BTarget->invoke(m_274,"ShowMain",0,0,0,0,0,0);
+  m_state=5;
+  return OnUpdateData();
+ case 5:
+  if(!reinterpret_cast<SkirmishPreferences*>((char*)this+0x698)->Rva0043B9E8()) {
+   TheRva00222A8BTarget->invoke(m_274,"ShowAddProfile",0,0,0,0,0,0);
+  } else {
+   reinterpret_cast<AptMpGameSetupUpdateView*>((char*)this+0x288)->slot1();
+   if(InitTheGame()) {m_state=6;return OnUpdateData();}
+  }
+  break;
+ case 6:
+  if(reinterpret_cast<Rva005216A6*>(this)->rva005216A6()) m_state=7;
+  break;
+ case 8: m_state=9;break;
+ case 10:
+  if(reinterpret_cast<AptMpGameSetup*>((char*)this+0x288)->rva00440BDF(0)) {
+   TheRva00222A8BTarget->invoke(m_274,"CloseMain",0,0,0,0,0,0);m_state=11;
+  } else {
+   TheRva00222A8BTarget->invoke(m_274,"ButtonReset",0,0,0,0,0,0);m_state=7;
+  }
+  break;
+ }
+ reinterpret_cast<AptMpGameSetup*>((char*)this+0x288)->OnUpdate();
+ return 1;
 }
