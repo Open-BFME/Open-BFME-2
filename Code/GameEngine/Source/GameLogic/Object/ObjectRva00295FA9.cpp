@@ -91,7 +91,7 @@ public:
 	void rva00295F05(Bool force);
 	Object *rva002931F5(Bool checkProducer);
 	Bool testStatus(ObjectStatusTypes status) const;
-	void rva00295CA6();
+	Bool rva00295CA6();
 
 private:
 	unsigned char m_pad00[4];

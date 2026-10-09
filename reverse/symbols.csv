@@ -9215,7 +9215,6 @@ name,address,notes
 ?doSpecialPowerAtLocation@SpecialPowerModule@@UAEXPBUCoord3D@@I@Z,0x004949D8,"SpecialPowerModule base of special-power interface slot 12 (+0x10 subobject this, ret 8: a location and options); InvisibilitySpecialPower's slot-12 override 0x004C2517 calls it first, as Zero Hour's overrides call SpecialPowerModule::doSpecialPowerAtLocation; BFME2 drops the angle argument"
 ?doSpecialPowerAtObject@SpecialPowerModule@@UAEXPAVObject@@I@Z,0x0049495B,"SpecialPowerModule base of special-power interface slot 11 (+0x10 subobject this, ret 8: an object and options); InvisibilitySpecialPower's slot-11 override 0x004C2419 calls it first, beside the slot-12 doSpecialPowerAtLocation base 0x004949D8"
 ?doStartOrStopParticleSys@W3DModelDraw@@AAEXXZ,0x000B6EDE,"callee of W3DModelDraw::setFullyObscuredByShroud at 0xB6FFE; that body calls it as its last statement, a no-arg thiscall member, and retail's direct call lands on 0xB6EDE, a 143-byte function already in the inventory. ZH names the call doStartOrStopParticleSys(). Not landed yet, so this is a pin only, not an identity claim on a body."
-?doXfer@Rva0026AFDAMember@@QAEXPAVXfer@@@Z,0x003533BF,"non-virtual xfer of the 0xC4 DeployStyle +0x3E4 member (Version(1,2) via Xfer +0x28); DeployStyleAIUpdate::xfer calls it last, where Generals calls m_lastOutsideCommand.doXfer (AICommandParmsStorage, donor-carried lead); callers 0x2684A5 0x36ACAF 0x48E81E"
 ?do_always_noconv@?$codecvt@GDH@_STL@@MBE_NXZ,0x001826C0,slot 5 of 0x007BBB2C; folded
 ?do_close@?$messages@G@_STL@@MBEXH@Z,0x00019F70,slot 3 of 0x007BC8EC; do_close forwards a catalog handle and never touches the character type so the two instantiations folded
 ?do_decimal_point@?$moneypunct@D$0A@@_STL@@MBEDXZ,0x00019730,moneypunct vftable slot; the default facet reports no locale data so this body serves every instantiation that names it
@@ -15073,7 +15072,6 @@ rva009C7380WeightPairs,0x009B84E0
 ?drawTextEntryText@@YAXPAVGameWindow@@HHHHHH@Z,0x0009FE49,callee of ?W3DGadgetTextEntryDraw@@YAXPAVGameWindow@@PAVWinInstanceData@@@Z
 ?rva00553CDE@Rva00553CDE@@QAEGE@Z,0x00553CDE,callee of ?rva00553D26@Rva00553D26@@QAEEXZ
 ?rva00553FDD@Rva00385333@@QAEXXZ,0x00553FDD,callee of ?rva00555F68@Rva00385333@@QAEXXZ
-?rva005C71AD@Rva005C71ADView@@QAEPAXPAXM00000000@Z,0x005C71AD,Ghidra boundary 0x005C71AD/654; callers 0x00540E6C and 0x00540EBD load context into ECX and pass 40 stack bytes with callee cleanup; address-derived helper view
 ?rva0040F87E@ArmySummarySystem@@QAE_NXZ,0x0040F87E,address-derived ArmySummarySystem callee: Ghidra function boundary at 0x0040F87E; called through GameLogic+0x184 at 0x0023C8F9; semantic name unproven
 ?rva0057E45C@Rva0057E3DB@@QAEXXZ,0x0057E45C,callee of ?rva0044303D@AptMpGameSetup@@QAEXXZ (the +0x60 AptMapPreview member's Apt callback registration; REL32 call at 0x00443418); owner identity unresolved
 ?rva0057F0AA@Rva0057EE5C@@QAEXXZ,0x0057F0AA,callee of ?rva0044303D@AptMpGameSetup@@QAEXXZ (the +0xD0 member's registration; binds AptMpGameRules::Reset and AptMpGameRules::InitGadgets); owner identity unresolved
@@ -15497,7 +15495,6 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?rva0032FF91@SidesList@@QAEXXZ,0x0032FF91,TheSidesList member (FUN_0072ff91 1199B; ret 0) called by GameLogic 0x002469A5 at 0x00246BF6 when TheGameEngine virtual +0x58 or the AI-slot flag is set (BFME 1 startNewGame calls prepareForMP_or_Skirmish under the same test)
 ?rva0032FD8E@SidesList@@QAEXXZ,0x0032FD8E,TheSidesList member (FUN_0072fd8e 359B; ret 0) called by GameLogic 0x002469A5 at 0x00246C4D when 0x001DCD1C returns false and TheSidesList+0xF7C is set
 ?rva00207C02@ScriptEngine@@QAEXXZ,0x00207C02,TheScriptEngine (0x009FE16C) member (FUN_00607c02 498B; ret 0) called by GameLogic 0x002469A5 at 0x00246C90 after progress 0xD
-?rva002E8DAA@Pathfinder@@QAEXXZ,0x002E8DAA,member of TheAI's +0x10 object (FUN_006e8daa 571B; ret 0) called by GameLogic 0x002469A5 at 0x00246E31 after progress 0x14 (BFME 1 startNewGame calls TheAI->pathfinder()->newMap())
 ?rva00287015@Rva002872BA@@QAEXXZ,0x00287015,TheTriggerManager (0x009FEC68) member (FUN_00687015 399B; ret 0) called by GameLogic 0x002469A5 at 0x00246E3C
 ?rva0024622F@GameLogic@@QAEX_N@Z,0x0024622F,GameLogic bridge pass (banked partial reverse/attempts/0x0024622f.cpp; ret 4) called by 0x002469A5 at 0x00246E74 with its bool param
 ?rva002817F2@TerrainLogic@@QAEXABVAsciiString@@@Z,0x002817F2,TheTerrainLogic (0x009FEC50) member (FUN_006817f2 443B; first calls the rowed clear 0x0027DA58 then opens the AsciiString argument through FileSystem::openFile with mode 0x41 and reads an 0x12-byte header: the ambient light map loader) called by GameLogic 0x0023E628 at 0x0023E77C with the folder ambientlightmap.tga path
@@ -16043,7 +16040,6 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ?rva0052A765@Rva0052A765Owner@@QAEXXZ,0x0052A765,callee of ?rva002D4240@RadarWindowOverrideSource@@QAEX_N@Z
 ??$__copy_ptrs@PBURva002821CFElem@@PAU1@@_STL@@YAPAURva002821CFElem@@PBU1@0PAU1@ABU__false_type@0@@Z,0x00281AB7,erase copy
 ??1Rva002821CFDtor@@QAE@XZ,0x0027EA49,dtor for erase 0x002821CF
-?rva00295CA6@Object@@QAEXXZ,0x00295CA6,callee at 0x00295F9F; Ghidra boundary 0x00295CA6..0x00295F05; thiscall void with no arguments; address-derived until rowed
 ?rva002ED313@Pathfinder@@QAE_NPAVObject@@@Z,0x002ED313,callee at 0x00295F7B; ECX is TheAI+0x10 and stack argument is Object*; Ghidra boundary 0x002ED313..0x002ED484 returns AL; Pathfinder is an address-derived structural inference
 ?rva0027CE80@Rva0027CE80@@QAEXXZ,0x0027CE80,REL32 callee at 0x00283575 in TerrainLogic::reset; helper identity unresolved; GeneralsMD deleteWaypoints is semantic context only
 ?rva0027D5AD@Rva0027D5AD@@QAEXXZ,0x0027D5AD,REL32 callee at 0x0028357C in TerrainLogic::reset; address-derived identity; GeneralsMD deleteBridges is semantic context only
@@ -17037,3 +17033,4 @@ _D3DXLoadVolumeFromFileInMemory@36,0x0062AF8C,Native1318F0 in-image JMP IAT veri
 ?doTesselatedUpdate@W3DTerrainBackground@@QAEXABUIRegion2D@@PAVWorldHeightMap@@_N@Z,0x001149EB,WorldBuilder W3DTerrainBackground::doTesselatedUpdate (callgraph 2.0); called by 0x00115791 with (IRegion2D&,+0x5C map,false)
 ?rva000AE989@WorldHeightMap@@QAE?AV?$RefCountPtr@VTextureClass@@@@HHHHH_N@Z,0x000AE989,map flat-texture builder (ZH getFlatTexture analogue) called from updateTexture 0x001125BE with (x;y;width;0x20;0x19;second)
 ?rva00113399@W3DTerrainBackground@@QAEXPAGPAXHHHH0AAH@Z,0x00113399,recursive rectangle index filler (ZH fillVBRecursive analogue; WorldBuilder W3DTerrainBackground.cpp) called 9x by 0x00113C07 with (ib;aux;x;y;w;h;ndx;curIndex)
+?rva00530212@Pathfinder@@QAEXPAVObject@@HHH@Z,0x00530212,thiscall spelling of the placeholder-named 530212 (retail sets ecx = this before the call in Pathfinder newMap 2E8DAA; the stdcall pin cannot produce those bytes)
