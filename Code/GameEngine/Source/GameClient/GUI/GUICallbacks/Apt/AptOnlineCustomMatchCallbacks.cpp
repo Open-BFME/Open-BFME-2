@@ -14,7 +14,7 @@
 #include <string>
 #include <vector>
 
-class GameWindow;
+class GameWindow { public: int winEnable(bool); };
 
 class GameWindowManager
 {
@@ -273,6 +273,8 @@ public:
 	virtual void v02();
 	virtual bool write();
 
+	AsciiString rva0044DAA8(const AsciiString &);
+	AsciiString rva0044DBA5();
 	void rva0044DDFB(int *rules); // rowed 0x0044DDFB, "Rules"
 
 private:
@@ -489,8 +491,8 @@ public:
 	// FillBuddyInviteGameInfo 0x0059FB4F is banked: reverse/attempts/0x0059fb4f.cpp.
 	// UpdatePings 0x0059ED8B is banked: reverse/attempts/0x0059ed8b.cpp.
 
-	// Unrowed 0x005A0DC2 (339 bytes; ret 4, a byte flag), pinned by address.
-	void rva005A0DC2(bool flag);
+	// Rowed 0x005A0DC2 (339 bytes; ret 4), named by WorldBuilder.
+	void FillGameNameTextEntry(bool flag);
 
 	// Unrowed 0x005A0D61 (97 bytes; ret 4, a byte flag), pinned by address.
 	void rva005A0D61(bool force);
@@ -510,7 +512,7 @@ private:
 	int m_48c; // +0x48C
 	int m_490; // +0x490
 	int m_494; // +0x494
-	int m_498; // +0x498
+	GameWindow *m_textentryGameName; // +0x498; WB +0x490 assert names this field
 	GameWindow *m_createDialog; // +0x49C
 	bool m_popUp; // +0x4A0
 	unsigned char m_pad4a1[0x4A4 - 0x4A1];
@@ -521,7 +523,9 @@ private:
 	unsigned char m_pad4b4[0x4B8 - 0x4B4];
 	int m_gameToJoinID;
 	int m_connectingCount; // +0x4BC, open requests of the connecting pop-up
-	unsigned char m_pad4c0[0x4D4 - 0x4C0];
+	unsigned char m_pad4c0[2];
+	bool m_4c2; // +0x4C2
+	unsigned char m_pad4c3[0x4D4 - 0x4C3];
 	AptConnectionScreen *m_connectionGrid; // +0x4D4
 	bool m_connectionsScreen; // +0x4D8
 };
@@ -579,7 +583,7 @@ void AptOnlineCustomMatch::Refresh(const char *unused)
 // focuses the +0x49C window and moves to state 3.
 void AptOnlineCustomMatch::OnOpenCreateDialog(const char *unused)
 {
-	rva005A0DC2(true);
+	FillGameNameTextEntry(true);
 	TheWindowManager->winSetFocus(m_createDialog);
 	m_state = 3;
 }
@@ -1019,7 +1023,7 @@ void AptOnlineCustomMatch::InitGadgets()
 	m_48c = 0;
 	m_490 = 0;
 	m_494 = 0;
-	m_498 = 0;
+	m_textentryGameName = 0;
 	m_createDialog = 0;
 	((Rva0052493F *)this)->rva0052493F();
 }
@@ -1130,4 +1134,29 @@ UnicodeString Rva0059F12A(int rank)
 	else
 		text.format((const unsigned short *)L"%d", rank);
 	return text;
+}
+
+void GadgetTextEntrySetText(GameWindow *, UnicodeString);
+// Retail RVA 0x005A0DC2, 339 bytes, RET4; named WB014F84A0 and assert4214.
+// The complete native body establishes the +8 target field delta and
+// both string lifetimes. The flag at4C2 retains an address-derived label.
+void AptOnlineCustomMatch::FillGameNameTextEntry(bool flag)
+{
+ if (!m_textentryGameName)
+  return;
+ UnicodeString secondText;
+ UnicodeString firstText;
+ if (flag) {
+  firstText.translate(m_prefs.rva0044DAA8(TheGameSpyInfo->getLocalName()));
+  secondText.translate(m_prefs.rva0044DBA5());
+ } else {
+  GameSpyStagingRoom *room = GetGameToJoin();
+  if (room)
+   firstText = ((Rva0022C4DF *)room)->rva0022C4DF();
+ }
+ m_4c2 = true;
+ GadgetTextEntrySetText(m_textentryGameName, firstText);
+ m_textentryGameName->winEnable(flag);
+ m_createDialog->winEnable(true);
+ GadgetTextEntrySetText(m_createDialog, secondText);
 }
