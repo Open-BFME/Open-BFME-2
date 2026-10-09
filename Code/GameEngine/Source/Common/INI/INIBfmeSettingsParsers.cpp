@@ -15,17 +15,39 @@
 // retail callee. The tokens are target facts read from the registrations;
 // the class and parser names are not known, so they keep address names, and
 // the settings globals are named for their token.
+//
+// The field tables are retail's own rows (token, rowed INI parser, 0,
+// offset), read from VA 0x00C08708 and 0x00BE5390; the tokens are retail
+// strings, the table names follow the settings. The settings globals are
+// defined as storage in Rva007B6880Thunks.cpp beside retail's atexit thunks.
 #include "ascii_string.h"
 
 typedef int Int;
 
-struct FieldParse;
+class INI;
+typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
+
+struct FieldParse
+{
+	const char *token;
+	INIFieldParseProc parse;
+	const void *userData;
+	int offset;
+};
 
 class INI
 {
 public:
 	void initFromINI(void *what, const FieldParse *parseTable);
 	Int getLoadType() const { return m_loadType; }
+
+	static void parseBool(INI *ini, void *instance, void *store, const void *userData);
+	static void parseInt(INI *ini, void *instance, void *store, const void *userData);
+	static void parseReal(INI *ini, void *instance, void *store, const void *userData);
+	static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);
+	static void parseRGBColor(INI *ini, void *instance, void *store, const void *userData);
+	static void parseCoord2D(INI *ini, void *instance, void *store, const void *userData);
+	static void parseGameClientRandomVariable(INI *ini, void *instance, void *store, const void *userData);
 
 private:
 	char m_unreconstructed_00[0x08];
@@ -70,6 +92,18 @@ public:
 extern Rva0030ADED TheFireSettings;
 extern Rva0030ADED TheFireSettingsSaved;
 extern const FieldParse FireSettingsFields[];
+const FieldParse FireSettingsFields[] =
+{
+	{ "TerrainFireSystem", INI::parseAsciiString, 0, 0x00 },
+	{ "TerrainSmokeSystem", INI::parseAsciiString, 0, 0x04 },
+	{ "BurntTerrainColor", INI::parseRGBColor, 0, 0x08 },
+	{ "FuelIndicatorColor", INI::parseRGBColor, 0, 0x14 },
+	{ "EnableScorches", INI::parseBool, 0, 0x20 },
+	{ "ScorchFrequency", INI::parseGameClientRandomVariable, 0, 0x24 },
+	{ "ScorchSize", INI::parseGameClientRandomVariable, 0, 0x30 },
+	{ "ScorchIntensity", INI::parseReal, 0, 0x3C },
+	{ 0, 0, 0, 0 }
+};
 extern FireManager *TheFireManager;
 
 void Rva0030AFFBParse(INI *ini)
@@ -138,6 +172,37 @@ public:
 extern Rva00214E02 TheCloudEffectSettings;
 extern Rva00214E02 TheCloudEffectSettingsSaved;
 extern const FieldParse CloudEffectSettingsFields[];
+const FieldParse CloudEffectSettingsFields[] =
+{
+	{ "CloudTexture", INI::parseAsciiString, 0, 0x00 },
+	{ "DarkCloudTexture", INI::parseAsciiString, 0, 0x04 },
+	{ "AlphaTexture", INI::parseAsciiString, 0, 0x08 },
+	{ "PropagateSpeed", INI::parseReal, 0, 0x0C },
+	{ "Angle", INI::parseInt, 0, 0x10 },
+	{ "DissipateTexture", INI::parseAsciiString, 0, 0x14 },
+	{ "DissipateStartLevel", INI::parseReal, 0, 0x18 },
+	{ "DissipateSpeed", INI::parseReal, 0, 0x1C },
+	{ "DarkeningFactor", INI::parseRGBColor, 0, 0x20 },
+	{ "DarkeningFactorRain", INI::parseRGBColor, 0, 0x2C },
+	{ "DarkeningRate", INI::parseInt, 0, 0x38 },
+	{ "LighteningRate", INI::parseInt, 0, 0x3C },
+	{ "CloudScrollSpeed", INI::parseReal, 0, 0x40 },
+	{ "DissipateRateScale", INI::parseReal, 0, 0x44 },
+	{ "LightningShadows", INI::parseBool, 0, 0x48 },
+	{ "JitterLightningLightPosition", INI::parseBool, 0, 0x49 },
+	{ "JitterLightningLightIntensity", INI::parseBool, 0, 0x4A },
+	{ "LightningChance", INI::parseReal, 0, 0x4C },
+	{ "LightningShadowColor", INI::parseRGBColor, 0, 0x50 },
+	{ "LightningShadowIntensity", INI::parseReal, 0, 0x5C },
+	{ "LightningDuration", INI::parseGameClientRandomVariable, 0, 0x60 },
+	{ "LightningFrequency", INI::parseReal, 0, 0x6C },
+	{ "LightningIntensity", INI::parseGameClientRandomVariable, 0, 0x70 },
+	{ "LightningLightPosition1", INI::parseCoord2D, 0, 0x7C },
+	{ "LightningLightPosition2", INI::parseCoord2D, 0, 0x84 },
+	{ "LightningLightPosition3", INI::parseCoord2D, 0, 0x8C },
+	{ "LightningFX", INI::parseAsciiString, 0, 0x94 },
+	{ 0, 0, 0, 0 }
+};
 extern Rva0027070CGlobal *g_00DFE1E4;
 
 void Rva0021526CParse(INI *ini)

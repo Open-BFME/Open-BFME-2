@@ -8,10 +8,10 @@ public:
     Rva0030ADED &operator=(const Rva0030ADED &other);
 };
 
-extern AsciiString g_00DFF4F8;
-extern unsigned int g_Va00DFF4B8;	// object at 0x00DFF4B8 (Rva007B6880Thunks.cpp)
+extern Rva0030ADED TheFireSettings;		// 0x00DFF4F8 (Rva007B6880Thunks.cpp)
+extern Rva0030ADED TheFireSettingsSaved;	// 0x00DFF4B8
 
 void Rva0030AEA6Copy()
 {
-    ((Rva0030ADED &)g_00DFF4F8) = (Rva0030ADED &)g_Va00DFF4B8;
+    TheFireSettings = TheFireSettingsSaved;
 }

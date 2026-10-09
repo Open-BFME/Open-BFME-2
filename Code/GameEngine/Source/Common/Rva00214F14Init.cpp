@@ -16,7 +16,8 @@ extern float g_00BC7824;
 extern float Cos(float);
 extern float Sin(float);
 
-extern AsciiString g_00DFE280;
+class Rva00214E02;
+extern Rva00214E02 TheCloudEffectSettings;	// 0x00DFE280, CloudTexture at +0x00
 extern AsciiString g_00DFE284;
 extern AsciiString g_00DFE288;
 extern AsciiString g_00DFE294;
@@ -105,7 +106,7 @@ private:
 
 void Rva009519B::rva00214F14()
 {
-	((StringBase<char> *)&m_0C)->set(*(const StringBase<char> *)&g_00DFE280);
+	((StringBase<char> *)&m_0C)->set(*(const StringBase<char> *)&TheCloudEffectSettings);
 	((StringBase<char> *)&m_10)->set(*(const StringBase<char> *)&g_00DFE284);
 	((StringBase<char> *)&m_14)->set(*(const StringBase<char> *)&g_00DFE288);
 	m_18 = g_00BC28F8 * g_00DFE28C;

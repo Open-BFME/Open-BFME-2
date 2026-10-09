@@ -6,13 +6,6 @@
 // AsciiString operator= pin-only, movsd string moves, movss needs SSE).
 #include "ascii_string.h"
 
-// Matched DIR32 witness places this one-pointer AsciiString at VA 0x00DFF4F8
-// in the zero-filled .data tail; the next known object starts at 0x00DFF4FC.
-AsciiString g_00DFF4F8;
-// Matched DIR32 witness places this one-pointer AsciiString at VA 0x00DFF4FC
-// in the zero-filled .data tail; g_00DFF500 begins immediately after it.
-AsciiString g_00DFF4FC;
-
 struct S12
 {
 	int a;
@@ -20,20 +13,23 @@ struct S12
 	int c;
 };
 
-// g_00DFF500: matched references place it at VA 0xdff500 (zero-filled; a plain-data view).
-S12 g_00DFF500;
-// g_00DFF50C: matched references place it at VA 0xdff50c (zero-filled; a plain-data view).
-S12 g_00DFF50C;
-// g_00DFF51C: matched references place it at VA 0xdff51c (zero-filled; a plain-data view).
-S12 g_00DFF51C;
-// g_00DFF528: matched references place it at VA 0xdff528 (zero-filled; a plain-data view).
-S12 g_00DFF528;
-extern unsigned char g_00DFF518;
-// g_00DFF518: matched references place it at VA 0xdff518 (zero-filled .bss).
-unsigned char g_00DFF518;
-extern float g_00DFF534;
-// g_00DFF534: matched references place it at VA 0xdff534 (zero-filled .bss).
-float g_00DFF534;
+// The Fire settings this manager copies from (TheFireSettings, 0x00DFF4F8,
+// defined in Rva007B6880Thunks.cpp). Members follow the retail field table
+// at VA 0x00C08708 (INIBfmeSettingsParsers.cpp); ScorchIntensity is a Real.
+class Rva0030ADED
+{
+public:
+	AsciiString m_00;
+	AsciiString m_04;
+	S12 m_08;
+	S12 m_14;
+	unsigned char m_20;
+	S12 m_24;
+	S12 m_30;
+	float m_3C;
+};
+
+extern Rva0030ADED TheFireSettings;
 
 class Rva00985E4
 {
@@ -54,12 +50,12 @@ private:
 
 void Rva00985E4::rva0030AE42()
 {
-	m_0C = g_00DFF4F8;
-	m_10 = g_00DFF4FC;
-	m_14 = g_00DFF500;
-	m_20 = g_00DFF50C;
-	m_2C = g_00DFF518;
-	m_30 = g_00DFF51C;
-	m_3C = g_00DFF528;
-	m_48 = g_00DFF534;
+	m_0C = TheFireSettings.m_00;
+	m_10 = TheFireSettings.m_04;
+	m_14 = TheFireSettings.m_08;
+	m_20 = TheFireSettings.m_14;
+	m_2C = TheFireSettings.m_20;
+	m_30 = TheFireSettings.m_24;
+	m_3C = TheFireSettings.m_30;
+	m_48 = TheFireSettings.m_3C;
 }

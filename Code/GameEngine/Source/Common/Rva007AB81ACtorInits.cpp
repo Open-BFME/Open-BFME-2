@@ -123,8 +123,9 @@ extern unsigned g_Va00DEDC80;
 extern unsigned g_Va00DEE5D8;
 extern unsigned int g_Va009F6F30;
 extern unsigned g_Va00DFE180;
-extern unsigned g_Va00DFE1E8;
-extern unsigned g_Va00DFE280;
+class Rva00214E02;
+extern Rva00214E02 TheCloudEffectSettings;		// 0x00DFE280 (Rva007B6880Thunks.cpp)
+extern Rva00214E02 TheCloudEffectSettingsSaved;	// 0x00DFE1E8
 extern unsigned g_Va00E065EC;
 extern unsigned g_Va00E06664;
 extern unsigned g_Va00E06665;
@@ -227,17 +228,17 @@ void Rva007AB81ACtorInits::rva007AD7DD()
 	atexit( rva007B75E2 );
 }
 
-// ?rva007AD9BC@Rva007AB81ACtorInits@@SAXXZ @ 0x007AD9BC (22B): ?rva002150CE@Rva002150CE@@QAEPAV1@XZ on VA 0x00DFE1E8, atexit(0x007B763C)
+// ?rva007AD9BC@Rva007AB81ACtorInits@@SAXXZ @ 0x007AD9BC (22B): ?rva002150CE@Rva002150CE@@QAEPAV1@XZ on TheCloudEffectSettingsSaved (VA 0x00DFE1E8), atexit(0x007B763C)
 void Rva007AB81ACtorInits::rva007AD9BC()
 {
-	( (Rva002150CE *)&g_Va00DFE1E8 )->rva002150CE();
+	( (Rva002150CE *)&TheCloudEffectSettingsSaved )->rva002150CE();
 	atexit( rva007B763C );
 }
 
-// ?rva007AD9D2@Rva007AB81ACtorInits@@SAXXZ @ 0x007AD9D2 (22B): ?rva002150CE@Rva002150CE@@QAEPAV1@XZ on VA 0x00DFE280, atexit(0x007B7632)
+// ?rva007AD9D2@Rva007AB81ACtorInits@@SAXXZ @ 0x007AD9D2 (22B): ?rva002150CE@Rva002150CE@@QAEPAV1@XZ on TheCloudEffectSettings (VA 0x00DFE280), atexit(0x007B7632)
 void Rva007AB81ACtorInits::rva007AD9D2()
 {
-	( (Rva002150CE *)&g_Va00DFE280 )->rva002150CE();
+	( (Rva002150CE *)&TheCloudEffectSettings )->rva002150CE();
 	atexit( rva007B7632 );
 }
 

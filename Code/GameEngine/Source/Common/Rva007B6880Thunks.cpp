@@ -2110,23 +2110,29 @@ public:
 	~Open2Dtor40B830();
 };
 
-extern unsigned g_00DFE280;
-// g_00DFE280: packet annotates VA 0x009FE280 (data), no name yet.
+// The CloudEffect settings pair (INIBfmeSettingsParsers.cpp lays out its
+// members and parses it): working copy at 0x00DFE280, saved copy at
+// 0x00DFE1E8, 0x98 bytes each. Retail constructs both in the initializers at
+// 0x007AD9BC/0x007AD9D2 and registers these thunks with atexit; the storage is
+// defined here as plain bytes so it carries no dynamic initializer of its own.
+class Rva00214E02
+{
+	unsigned char m_storage[0x98];
+};
+Rva00214E02 TheCloudEffectSettings;
+Rva00214E02 TheCloudEffectSettingsSaved;
 
-// ?rva007B7632@@YAXXZ @ 0x007B7632 (10B). Global Open2Dtor40B830 dtor thunk: ecx=&g_00DFE280 then tail-jmp to rowed ??1Open2Dtor40B830@@QAE@XZ (0x00215101). No callers. Between 0x007B7628 and 0x007B7646. Honest address name.
+// ?rva007B7632@@YAXXZ @ 0x007B7632 (10B). Global Open2Dtor40B830 dtor thunk: ecx=&TheCloudEffectSettings then tail-jmp to rowed ??1Open2Dtor40B830@@QAE@XZ (0x00215101). No callers. Between 0x007B7628 and 0x007B7646. Honest address name.
 void __cdecl rva007B7632()
 {
-	Open2Dtor40B830 *p = (Open2Dtor40B830 *)&g_00DFE280;
+	Open2Dtor40B830 *p = (Open2Dtor40B830 *)&TheCloudEffectSettings;
 	return p->Open2Dtor40B830::~Open2Dtor40B830();
 }
 
-extern unsigned g_00DFE1E8;
-// g_00DFE1E8: packet annotates VA 0x009FE1E8 (data), no name yet.
-
-// ?rva007B763C@@YAXXZ @ 0x007B763C (10B). Global Open2Dtor40B830 dtor thunk: ecx=&g_00DFE1E8 then tail-jmp to rowed ??1Open2Dtor40B830@@QAE@XZ (0x00215101). No callers. Between 0x007B7632 and 0x007B7646. Honest address name.
+// ?rva007B763C@@YAXXZ @ 0x007B763C (10B). Global Open2Dtor40B830 dtor thunk: ecx=&TheCloudEffectSettingsSaved then tail-jmp to rowed ??1Open2Dtor40B830@@QAE@XZ (0x00215101). No callers. Between 0x007B7632 and 0x007B7646. Honest address name.
 void __cdecl rva007B763C()
 {
-	Open2Dtor40B830 *p = (Open2Dtor40B830 *)&g_00DFE1E8;
+	Open2Dtor40B830 *p = (Open2Dtor40B830 *)&TheCloudEffectSettingsSaved;
 	return p->Open2Dtor40B830::~Open2Dtor40B830();
 }
 
@@ -6935,23 +6941,29 @@ public:
 	~Rva0030AF8FAudioEventRTS();
 };
 
-extern unsigned g_Va00DFF4F8;
-unsigned int g_Va00DFF4F8;
+// The Fire settings pair (INIBfmeSettingsParsers.cpp lays out its members
+// and parses it): working copy at 0x00DFF4F8, saved copy at 0x00DFF4B8, 0x40
+// bytes each. Retail constructs both through 0x0030AEB6 in the initializers
+// at 0x007AE7B4/0x007AE79E and registers these thunks with atexit; the storage
+// is defined here as plain bytes so it carries no dynamic initializer.
+class Rva0030ADED
+{
+	unsigned char m_storage[0x40];
+};
+Rva0030ADED TheFireSettings;
+Rva0030ADED TheFireSettingsSaved;
 
-// ?rva007B7AF5@@YAXXZ @ 0x007B7AF5 (10B). Global AudioEventRTS dtor thunk: ecx=&g_Va00DFF4F8 then tail-jmp to pinned ??1Rva0030AF8FAudioEventRTS@@QAE@XZ (0x0030AF8F). No callers. Honest address name.
+// ?rva007B7AF5@@YAXXZ @ 0x007B7AF5 (10B). Global AudioEventRTS dtor thunk: ecx=&TheFireSettings then tail-jmp to pinned ??1Rva0030AF8FAudioEventRTS@@QAE@XZ (0x0030AF8F). No callers. Honest address name.
 void __cdecl rva007B7AF5()
 {
-	Rva0030AF8FAudioEventRTS *p = (Rva0030AF8FAudioEventRTS *)&g_Va00DFF4F8;
+	Rva0030AF8FAudioEventRTS *p = (Rva0030AF8FAudioEventRTS *)&TheFireSettings;
 	return p->~Rva0030AF8FAudioEventRTS();
 }
 
-extern unsigned g_Va00DFF4B8;
-unsigned int g_Va00DFF4B8;
-
-// ?rva007B7AFF@@YAXXZ @ 0x007B7AFF (10B). Global AudioEventRTS dtor thunk: ecx=&g_Va00DFF4B8 then tail-jmp to pinned ??1Rva0030AF8FAudioEventRTS@@QAE@XZ (0x0030AF8F). No callers. Honest address name.
+// ?rva007B7AFF@@YAXXZ @ 0x007B7AFF (10B). Global AudioEventRTS dtor thunk: ecx=&TheFireSettingsSaved then tail-jmp to pinned ??1Rva0030AF8FAudioEventRTS@@QAE@XZ (0x0030AF8F). No callers. Honest address name.
 void __cdecl rva007B7AFF()
 {
-	Rva0030AF8FAudioEventRTS *p = (Rva0030AF8FAudioEventRTS *)&g_Va00DFF4B8;
+	Rva0030AF8FAudioEventRTS *p = (Rva0030AF8FAudioEventRTS *)&TheFireSettingsSaved;
 	return p->~Rva0030AF8FAudioEventRTS();
 }
 
