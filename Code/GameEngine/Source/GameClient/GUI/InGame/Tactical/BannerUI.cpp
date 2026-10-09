@@ -125,6 +125,8 @@ public:
  const AsciiString &GetBannerIconImageName(const AsciiString &key);
  int CreateBanner(int bannerID);
  void OnAptMovieInitialized(const char *path);
+ void OnBannerButton(int slot);
+ void OnBttnBanner(const char *path);
 private:
  unsigned char m_pad00[0x0C];
  Rva00056F61 m_types;
@@ -406,4 +408,73 @@ void BannerUI::OnAptMovieInitialized(const char *path)
 
 	m_38 = -1;
 	m_aptMovieInitialized = true;
+}
+
+// BannerUI::OnBannerButton, retail 0x002166BB (122 bytes; WB 0x00B6EBD0,
+// wb-name-unverified), and the Apt command the constructor binds as
+// "AptBannerUI::OnBttnBanner", retail 0x00216735 (26 bytes), which passes it
+// atoi of the command path. Entry 0x002166BB is proven by that command's
+// call and 0x00216735 by the constructor's DIR32; both end at their RET 4.
+// The banner in the pressed slot (the rowed slot lookup 0x00216245, still
+// spelled on an address-named owner) is acted on once: in state 0 the
+// message 0x45E carries its banner id; in state 2 the script engine gets the
+// banner's army name (GameLogic 0x0023D05F, script call 0x00357DAC), message
+// 0x45F carries the id and the banner is marked handled (+0x18).
+class Rva00216245
+{
+public:
+	BfmePod28 *rva00216245(int slot);	// 0x00216245
+};
+
+class GameMessage
+{
+public:
+	void appendIntegerArgument(int arg);	// 0x0030F936
+};
+
+#define V(n) virtual void vslot##n() = 0;
+class MessageStream
+{
+public:
+	V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7)
+	V(8) V(9) V(10) V(11) V(12) V(13) V(14) V(15)
+	V(16) V(17)
+	virtual GameMessage *appendMessage(int type) = 0;	// slot 18, 0x0030F6D4
+};
+#undef V
+extern MessageStream *TheMessageStream;
+
+class ScriptEngine
+{
+public:
+	void rva00357DAC(const AsciiString &name);	// 0x00357DAC
+};
+extern ScriptEngine *TheScriptEngine;
+
+// msvcr71's atoi, called through its import as <stdlib.h> declares it under /MD.
+extern "C" __declspec(dllimport) int __cdecl atoi(const char *text);
+
+void BannerUI::OnBannerButton(int slot)
+{
+	BfmePod28 *banner = ((Rva00216245 *)this)->rva00216245(slot);
+	if (banner && !banner->unknown18)
+	{
+		if (banner->unknown0C == 0)
+		{
+			GameMessage *msg = TheMessageStream->appendMessage(0x45E);
+			msg->appendIntegerArgument(banner->bannerID);
+		}
+		else if (banner->unknown0C == 2)
+		{
+			TheScriptEngine->rva00357DAC(*TheGameLogic->rva0023D05F(banner->bannerID));
+			GameMessage *msg = TheMessageStream->appendMessage(0x45F);
+			msg->appendIntegerArgument(banner->bannerID);
+			banner->unknown18 = true;
+		}
+	}
+}
+
+void BannerUI::OnBttnBanner(const char *path)
+{
+	OnBannerButton(atoi(path));
 }
