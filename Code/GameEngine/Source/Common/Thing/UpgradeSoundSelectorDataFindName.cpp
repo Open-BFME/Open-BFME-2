@@ -1,6 +1,7 @@
 // cl: /O1 /Oy- /G7 /MD /EHsc /Ireference/shims/bfme2_ascii
 // Native4CB2FB..4CB33356B and WB1272D40187B prove named sound lookup.
-// Existing selector slot4CB48A proves the entry extent384 and 8-byte result.
+// Existing selector slots4CB48A/4CB3F8 prove entry extent384 and8-byte result.
+// Native4CB16734B and WB1272CD0 independently prove indexed record array1B0.
 // Target facts: map370; node key10/value14; absent id=-1/ref=0 and found
 // id/reference copy with atomic AddRef. Rva002390CB owns the byte-verified
 // 10B default initializer4CEE6E and29B copy2390CB; both cannot throw.
@@ -39,10 +40,13 @@ typedef _STL::_Rb_tree<AsciiString,_STL::pair<const AsciiString,AsciiString>,_ST
 struct NativeTree { void *header; unsigned count; unsigned comparator; };
 struct Rva004CB51CEntry {
  Rva002C99FB rva004CB2FB(const AsciiString &);
- char unknown[0x370]; NativeTree map;
+ Rva002C99FB rva004CB167(int);
+ char unknown[0x1b0]; Rva002C99FB values[56]; NativeTree map;
 };
 Rva002C99FB Rva004CB51CEntry::rva004CB2FB(const AsciiString &name) {
  void *node=reinterpret_cast<const FindTree *>(&map)->_M_find<AsciiString>(name);
  if(node!=map.header) return *reinterpret_cast<const Rva002C99FB *>((char *)node+0x14);
  return Rva002C99FB();
 }
+
+Rva002C99FB Rva004CB51CEntry::rva004CB167(int index) { return values[index]; }
