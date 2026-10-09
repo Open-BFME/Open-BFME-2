@@ -1,3 +1,4 @@
+class AptPlayer { public: bool HideLevel(int); };
 // cl: /Ireference/shims/bfme2_ascii /MD /EHsc
 // stlport
 // Apt panel state toggles: each calls the panel's Apt function through the
@@ -47,7 +48,7 @@ extern Mouse *TheMouse;
 class Rva00222A8BTarget
 {
 public:
-	bool rva0022277D(int level);	// 0x0022277D, WB AptPlayer::HideLevel
+
 };
 extern Rva00222A8BTarget *TheRva00222A8BTarget;
 
@@ -321,7 +322,7 @@ void StrategicVeterancy::FadeOut()
 	switch (m_window->m_state)
 	{
 	case 1:
-		TheRva00222A8BTarget->rva0022277D((int)m_window->m_owner);
+		reinterpret_cast<AptPlayer *>(TheRva00222A8BTarget)->HideLevel((int)m_window->m_owner);
 		m_window->m_state = 0;
 		break;
 	case 2:

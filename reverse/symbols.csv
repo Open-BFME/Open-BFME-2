@@ -11018,7 +11018,6 @@ name,address,notes
 ?rva0021BD41@Rva0021BDAccess@@QAEHIPAX@Z,0x0021BD41,inner entry of the 0x0021BDAB chain taking index then element pointer: REL32 read at the second call site in 0x0021BDAB; resolves through 0x0021BC0D and rowed 0x00219D85; owner class identity unproven
 ?rva0021F797@Rva00219B9E@@QAEPAVRva0040A3F9@@XZ,0x0021F797,unrowed 16B thiscall (Ghidra FUN_0061f797; plain ret) on TheCreateAHeroManager (0x00DFE344): runs 0x0021F47E and returns its +0x174 hero list (the Rva0040A3F9 CreateAHeroData pointer vector); called from 0x0043DD53 and 0x004414F4; address name
 ?rva0022274A@Rva00062908Host@@QAEXXZ,0x0022274A,"member vtable slot 0x00062908 tail-jumps to; opaque address name"
-?rva0022277D@Rva00222A8BTarget@@QAEXPAX@Z,0x0022277D,rowed at this address as bool(int) from the body comparison with 14 and multiply-by-0x28 record access; this call-site view remains void(void*) and callers ignore AL; AptPalantir::OnClosed 0x002D2FEF passes its +0x5C value; address-derived name
 ?rva00222B19@Rva00222A8BTarget@@QAEHPAXPBD1H10000@Z,0x00222B19,thiscall twin of rowed free AptCall same 9 stack args via call-site mov ecx at 0x005E30E8
 ?rva00222D47@Rva00222D47Target@@QAEXHHH@Z,0x00222D47,"method a vtable-slot forwarder tail-jumps to (ret 0xc); opaque address name"
 ?rva00222D9A@Rva00222D9ATarget@@QAEXH@Z,0x00222D9A,"method a vtable-slot forwarder tail-jumps to (ret 4); opaque address name"

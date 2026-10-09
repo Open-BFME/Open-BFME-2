@@ -1,3 +1,4 @@
+class AptPlayer { public: bool HideLevel(int); };
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // StrategicHUD::HUD::Impl, the strategic HUD's Apt load/unload callbacks.
 //
@@ -397,7 +398,7 @@ class Rva00222A8BTarget
 {
 public:
 	// Native provider compares the incoming 32-bit index with 14 and returns AL.
-	bool rva0022277D(int index);
+
 };
 
 namespace StrategicHUD
@@ -562,7 +563,7 @@ StrategicHUD::Palantir *StrategicHUD::HUD::rva0042D6EC()
 StrategicHUD::HUD::Impl::~Impl()
 {
 	if (m_state != 0 && g_bfmeAptWindowManager != 0)
-		((Rva00222A8BTarget *)g_bfmeAptWindowManager)->rva0022277D(reinterpret_cast<int>((void *)m_level));
+		reinterpret_cast<AptPlayer *>(g_bfmeAptWindowManager)->HideLevel(reinterpret_cast<int>((void *)m_level));
 }
 
 // Retail 0x0042D9E3, 148 bytes: bound as "_level%u_OnChecklistLoaded".

@@ -1,3 +1,4 @@
+class AptPlayer { public: bool HideLevel(int); };
 // cl: /O1 /MD
 // Range-34 dump lane: 39B plain method at 0x005EB7FE. It clears the slot's
 // +0xC word, then, when the +0 slot's +8 word is set, forwards its +4 word
@@ -6,7 +7,7 @@
 class Rva00222A8BTarget
 {
 public:
-	bool rva0022277D(int v);
+
 };
 
 // Bind to the existing data-ledger owner; keep the retail access view local.
@@ -32,7 +33,7 @@ void Rva005EB7FE::rva005EB7FE()
 {
 	m00->m0c = 0;
 	if (m00->m08 != 0) {
-		((Rva00222A8BTarget *)g_bfmeAptWindowManager)->rva0022277D((int)m00->m04);
+		reinterpret_cast<AptPlayer *>(g_bfmeAptWindowManager)->HideLevel((int)m00->m04);
 		m00->m08 = 0;
 	}
 }

@@ -1,3 +1,4 @@
+class AptPlayer { public: bool HideLevel(int); };
 // cl: /O1 /DNDEBUG /MD /EHsc
 //
 // ?rva005EC46F@Rva005EC46F@@QAEXXZ @0x005EC46F 59B: unlocks 0x005EC4AF.
@@ -11,7 +12,7 @@
 class Rva00222A8BTarget
 {
 public:
-	bool rva0022277D(int level);	// 0x0022277D, WB AptPlayer::HideLevel
+
 };
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 
@@ -44,7 +45,7 @@ void Rva005EC46F::rva005EC46F()
 	switch (m_08)
 	{
 	case 4:
-		(*(Rva00222A8BTarget **)&g_bfmeAptWindowManager)->rva0022277D((int)m_04);
+		reinterpret_cast<AptPlayer *>(g_bfmeAptWindowManager)->HideLevel((int)m_04);
 		m_08 = 0;
 		break;
 	case 2:

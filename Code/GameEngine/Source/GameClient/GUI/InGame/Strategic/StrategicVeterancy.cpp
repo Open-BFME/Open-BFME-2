@@ -97,12 +97,13 @@ typedef bool Bool;
 class Rva00222A8BTarget
 {
 public:
-	bool rva0022277D(int level);	// 0x0022277D, WB AptPlayer::HideLevel
+
 };
 
 class AptPlayer
 {
 public:
+	bool HideLevel(int);
 	Bool ShowLevel(Int level);			// 0x002224FE, WB AptPlayer::ShowLevel
 };
 
@@ -180,7 +181,7 @@ void StrategicVeterancy::Hide()
 {
 	if (m_impl->m_state != 0)
 	{
-		((Rva00222A8BTarget *)g_bfmeAptWindowManager)->rva0022277D((int)m_impl->m_level);
+		reinterpret_cast<AptPlayer *>(g_bfmeAptWindowManager)->HideLevel((int)m_impl->m_level);
 		m_impl->m_state = 0;
 	}
 }

@@ -145,6 +145,7 @@ public:
  static int GetLevelIndex(GameWindow *window);
  bool ShowLevel(int index);
  bool UnloadLevel(int index);
+ bool HideLevel(int index);
  void GetExtern(const char *name,char *out);
  const Image *FindRenderImage(const char *targetName,const char *parameters);
 	void PopFocus(AptFocusTarget *target);
@@ -475,4 +476,18 @@ bool AptPlayer::UnloadLevel(int index)
  entry.m_flags&=0xF5;
  Rva00411E80(index);
  return true;
+}
+
+#include "unicode_string.h"
+struct RGBColor;
+class Mouse { public: void rva001EEA6D(UnicodeString,int,const RGBColor *,float); };
+extern Mouse *TheMouse;
+// WB B94EA0 AptPlayer.cpp1240 names HideLevel. Native2277D..227DF is98 bytes.
+bool AptPlayer::HideLevel(int index)
+{
+ if(static_cast<unsigned>(index)>=14) return false;
+ Rva00062908Host::Slot *entry=&m_levelData[index];
+ if(TheMouse) TheMouse->rva001EEA6D(UnicodeString::TheEmptyString,0,0,1.0f);
+ if(!(entry->m_flags&2)) return false;
+ return UnloadLevel(index);
 }

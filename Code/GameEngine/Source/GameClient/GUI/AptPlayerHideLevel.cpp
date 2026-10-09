@@ -22,34 +22,6 @@ public:
 };
 extern Mouse *TheMouse;
 
-struct Rva0022277DLevel
-{
-	unsigned char m_pad00[0x24];
-	unsigned int m_flags;			// +0x24, bit 1: loaded
-};
-
-class Rva00222A8BTarget
-{
-public:
-	bool rva0022277D(int level);
-
-private:
-	unsigned char m_pad[0xCC];
-	Rva0022277DLevel m_levels[14];		// +0xCC
-};
-
-bool Rva00222A8BTarget::rva0022277D(int level)
-{
-	if ((unsigned int)level >= 14)
-		return false;
-	Rva0022277DLevel *entry = &m_levels[level];
-	if (TheMouse)
-		TheMouse->rva001EEA6D(UnicodeString::TheEmptyString, 0, 0, 1.0f);
-	if ((entry->m_flags & 2) == 0)
-		return false;
-	return reinterpret_cast<AptPlayer *>(this)->UnloadLevel(level);
-}
-
 class Rva000427195
 {
 public:

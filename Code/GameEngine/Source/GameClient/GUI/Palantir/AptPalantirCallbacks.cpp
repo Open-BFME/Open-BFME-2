@@ -1,3 +1,4 @@
+class AptPlayer { public: bool HideLevel(int); };
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // BFME2's palantir (in-game command bar) Apt callbacks, 0x002D2FD4 onward,
@@ -224,7 +225,7 @@ class Rva00222A8BTarget
 {
 public:
 	// Unrowed 0x0022277D (98 bytes; ret 4), pinned by address.
-	bool rva0022277D(int level);	// 0x0022277D, WB AptPlayer::HideLevel
+
 
 	unsigned char m_pad000[0x318];
 	int m_318; // +0x318, 2 for the right mouse button
@@ -388,7 +389,7 @@ void AptPalantir::OnInitialized(const char *unused)
 // Retail 0x002D2FE3, 31 bytes: "AptPalantir::OnClosed".
 void AptPalantir::OnClosed(const char *unused)
 {
-	TheRva00222A8BTarget->rva0022277D((int)m_movie);
+	reinterpret_cast<AptPlayer *>(TheRva00222A8BTarget)->HideLevel((int)m_movie);
 	m_flags = (m_flags & ~2) | 4;
 }
 

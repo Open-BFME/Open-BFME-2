@@ -1,3 +1,4 @@
+class AptPlayer { public: bool HideLevel(int); };
 // cl: /O1 /DNDEBUG /MD
 //
 // ?rva005EB825@Rva005EB825@@QAEXXZ, retail 0x005EB825, 85 bytes.
@@ -10,7 +11,7 @@
 class Rva00222A8BTarget
 {
 public:
-	bool rva0022277D(int level);	// 0x0022277D, WB AptPlayer::HideLevel
+
 };
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 void __cdecl Rva00516F21Invoke(Rva00222A8BTarget *t, void *p, const char *a, const char *b);
@@ -36,7 +37,7 @@ void Rva005EB825::rva005EB825()
 	m_00->m_0C = 0;
 	switch (m_00->m_08) {
 	case 1:
-		(*(Rva00222A8BTarget **)&g_bfmeAptWindowManager)->rva0022277D((int)m_00->m_04);
+		reinterpret_cast<AptPlayer *>(g_bfmeAptWindowManager)->HideLevel((int)m_00->m_04);
 		m_00->m_08 = 0;
 		break;
 	case 2:

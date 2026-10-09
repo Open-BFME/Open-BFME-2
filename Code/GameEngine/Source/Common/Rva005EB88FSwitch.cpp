@@ -1,3 +1,4 @@
+class AptPlayer { public: bool HideLevel(int); };
 // cl: /O1 /MD /arch:SSE /G7
 // ?rva005EB88F@Rva005EB88F@@QAEXXZ, RVA 0x005EB88F, 59 bytes.
 // Address-based state dispatch. Evidence: retail reads the state at +8, invokes the rowed predicate at +0x34, uses the pinned manager method with +4, and tail-calls the rowed Rva005EB825 method through +0.
@@ -5,7 +6,7 @@ class Rva00222A8BTarget
 {
 public:
 	// Native provider compares the incoming 32-bit index with 14 and returns AL.
-	bool rva0022277D(int index);
+
 };
 class BfmeAptWindowManager : public Rva00222A8BTarget {};
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
@@ -38,7 +39,7 @@ void Rva005EB88F::rva005EB88F()
 			m_stateObject->rva005EB825();
 		break;
 	case 4:
-		g_bfmeAptWindowManager->rva0022277D(reinterpret_cast<int>(m_04));
+		reinterpret_cast<AptPlayer *>(g_bfmeAptWindowManager)->HideLevel(reinterpret_cast<int>(m_04));
 		m_state = 0;
 		break;
 	case 5:

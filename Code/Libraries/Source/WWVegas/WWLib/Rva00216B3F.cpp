@@ -13,7 +13,7 @@ struct BfmePod28 { int a[7]; };
 class Rva00222A8BTarget
 {
 public:
-	bool rva0022277D(int level);	// 0x0022277D, WB AptPlayer::HideLevel
+
 };
 
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
@@ -21,6 +21,7 @@ extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 class AptPlayer
 {
 public:
+	bool HideLevel(int);
 	bool ShowLevel(int index);
 };
 
@@ -44,7 +45,7 @@ void BannerUI::Hide(bool on)
 	m_flag34 = on;
 	if (on)
 	{
-		(*(Rva00222A8BTarget **)&g_bfmeAptWindowManager)->rva0022277D((int)m_ptr24);
+		reinterpret_cast<AptPlayer *>(g_bfmeAptWindowManager)->HideLevel((int)m_ptr24);
 		_STL::vector<BfmePod28> &vr = m_vec28;
 		vr.erase(vr.begin(), vr.end());
 		m_flag20 = 0;
