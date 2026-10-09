@@ -19,7 +19,7 @@ struct BfmeE16 { float x, y, z, w; };
 class Rva00330757Member
 {
 public:
-	Rva00330757Member();
+	__declspec(noinline) Rva00330757Member();
 
 private:
 	_STL::vector<BfmeE16> m_items; // +0
@@ -27,7 +27,7 @@ private:
 };
 
 // ??0Rva00330757Member@@QAE@XZ @0x330757
-Rva00330757Member::Rva00330757Member()
+inline Rva00330757Member::Rva00330757Member()
 	: m_items(_STL::allocator<BfmeE16>())
 {
 	m_flags |= -1;
