@@ -1,13 +1,14 @@
 // ?rva001B2210@BFME2Encoding1MotionChannel@@QAEXPAIIIPAM1@Z
-// partial score=0.8 date=2026-10-09
+// partial score=0.9 date=2026-10-09
 // ?rva001B2210@BFME2Encoding1MotionChannel@@QAEXPAIIIPAM1@Z
-// partial score=0.85 date=2026-10-09
+// partial score=0.9 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /Oy-
-// BFME2 stream motion channel encoding 1 scalar decoder (nibble adaptive delta, 9 byte packets, 16
-// frames per block): continues from the cached state to frame, writing the values at frame and
-// frame+1. Structure from BFME1 motchan.cpp AdaptiveDelta decompress; last value is kept as an
-// address-taken dword (retail reuses the dead state argument slot for it).
+// Scalar encoding 1 decoder. `volatile unsigned fi` reproduces the retail memory-resident loop
+// counter (46 differing rows instead of 91); retail uses INC where volatile emits ADD, and fi is
+// not really volatile there, so the true lever (what keeps fi and f in the dead argument slots)
+// is still unknown. See the exact Vector3/quaternion twins for the rest of the structure.
 class ChunkLoadClass;
+struct Slot1 { float v; };
 class Vector3 { public: float X, Y, Z; };
 class BFME2MotionChannel {
 public:
@@ -34,42 +35,36 @@ public:
 };
 void BFME2Encoding1MotionChannel::rva001B2210(unsigned int *state, unsigned int from, unsigned int frame, float *value0, float *value1)
 {
-    unsigned int lastBits;
-    if (from <= frame)
-        lastBits = *state;
-    else {
+    Slot1 last;
+    if (from > frame) {
         from = 0;
-        lastBits = *(unsigned int *)&Initial[0];
-    }
-    float last = *(float *)&lastBits;
+        last = *(const Slot1 *)Initial;
+    } else
+        last = *(const Slot1 *)state;
     unsigned char *packet = Data + (from >> 4) * 9;
     while (from <= frame + 1) {
         if (from >= (unsigned int)Count) {
             if (value0)
-                *(unsigned int *)value0 = lastBits;
-            *(unsigned int *)value1 = lastBits;
+                *(Slot1 *)value0 = last;
+            *(Slot1 *)value1 = last;
             return;
         }
         float filter = filtertable[*packet] * Scale;
-        unsigned int fi = from & 0xF;
+        volatile unsigned int fi = from & 0xF;
         from &= ~0xFu;
-        unsigned char *p = packet + 1 + (fi >> 1);
+        unsigned char *p = packet + 1 + ((from & 0xF) >> 1);
         for (; fi < 16; ++fi) {
             unsigned int f = from + fi;
             if (f == frame)
-                *value0 = last;
+                *value0 = last.v;
             else if (f == frame + 1) {
-                *value1 = last;
+                *value1 = last.v;
                 break;
             }
-            int factor;
-            if (fi & 1)
-                factor = (signed char)*p >> 4;
-            else
-                factor = (signed char)(*p << 4) >> 4;
-            p += fi & 1;
-            last += (float)factor * filter;
-            *(float *)&lastBits = last;
+            int bit = fi & 1;
+            int factor = bit ? (signed char)*p >> 4 : (signed char)(*p << 4) >> 4;
+            p += bit;
+            last.v += (float)factor * filter;
         }
         packet += 9;
         from += 16;
