@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /G7 /MD /EHsc /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
+// cl: /O1 /arch:SSE /G7 /MD /EHsc /ICode/Libraries/Include /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
 // Reference semantic lead: GeneralsMD W3DTerrainTracks.cpp computeTrackSpacing
 // at BFME1 checkout dae380faa5f6fa536eec8d6ebbe877321d4cb51d.
 // Retail 0x84B18..0x84C05 supplies the boundary and target-specific ABI:
@@ -10,6 +10,9 @@
 // WWMath::Sqrt is the existing donor x87 implementation, matching retail FSQRT.
 // The renderer and track classes are partial ABI views, not recovered names.
 #include "wwmath.h"
+#include "vector2.h"
+#include "vector3.h"
+#include "Lib/Coord3D.h"
 struct TrackVector { float x,y,z;
  TrackVector(){} TrackVector(float a,float b,float c):x(a),y(b),z(c){}
  TrackVector(const TrackVector&a):x(a.x),y(a.y),z(a.z){}
@@ -85,18 +88,35 @@ public:
  ~BFME2ParticleTextureHandle() { if(ptr) ptr->Release_Ref(); }
 };
 extern BFME2ParticleTextureHandle BFME2LoadParticleTexture(const char *,int,int);
+
+class Object { public: int rva0028B511() const; };
+class Drawable { public: char prefix00[0xFC]; Object *m_object; };
+class TerrainLogic {
+public:
+ virtual void v0() const; virtual void v1() const; virtual void v2() const;
+ virtual void v3() const; virtual void v4() const; virtual void v5() const;
+ virtual float getGroundHeight(float,float,Coord3D *normal=0) const;
+ virtual float getLayerHeight(float,float,int,Coord3D *normal=0,unsigned char clip=true) const;
+};
+extern TerrainLogic *TheTerrainLogic;
+class TerrainTracksRenderObjClassSystem {
+public: char prefix00[0x1C];int m_maxTankTrackEdges;
+};
+extern TerrainTracksRenderObjClassSystem *TheTerrainTracksRenderObjClassSystem;
+static inline float sqr(float value) { return value*value; }
 struct TrackEdge {
- float endpointPositions[6], endpointUVs[4]; int timeAdded; float alpha;
+ Vector3 endPointPos[2]; Vector2 endPointUV[2]; int timeAdded; float alpha;
 };
 class Rva00084206Track {
 public:
  Rva00084206Track();
  char pad0[8]; TrackVector endpoints[2]; char pad20[0xc];
- BFME2ParticleTextureHandle texture; int activeEdgeCount, totalEdgesAdded; void *owner;
- TrackEdge edges[100]; TrackVector lastAnchor;
- int bottomIndex, topIndex; bool haveAnchor, bound; char pad1312[2]; float width,length; char pad131c[4];
+ BFME2ParticleTextureHandle texture; int activeEdgeCount, totalEdgesAdded; Drawable *owner;
+ TrackEdge edges[100]; Vector3 lastAnchor;
+ int bottomIndex, topIndex; bool haveAnchor, bound; char pad1312[2]; float width,length; bool airborne,haveCap; char pad131e[2];
  Rva00084206Track *next,*prev;
  void init(float,float,const char*);
+ void addCapEdgeToTrack(float,float);
 };
 static __declspec(noinline) float computeTrackSpacing(Rva00084B18RenderObj *obj,TrackVector *ends,const char *left,const char *right) {
  float spacing=14.0f;
@@ -318,3 +338,115 @@ void Rva00084206Track::init(float w,float l,const char *name) {
  width=w; length=l;
  texture=BFME2LoadParticleTexture(name,0,0);
 }
+
+// Semantic donor: BFME1 9cbfb551 TerrainTracksBfmeAddCap.cpp. The complete
+// native84271..8458A ret8 body establishes cap+131D, ownerDrawable+38 and
+// object+FC, TerrainLogic slots18/1C, edges48B at3C, lastAnchor12FC and
+// width1314/length1318. vZ's value construction preserves target scheduling.
+void Rva00084206Track::addCapEdgeToTrack(float x, float y)
+{
+	if (haveCap)
+	{
+		return;
+	}
+
+	if (activeEdgeCount == 1)
+	{
+		haveCap = true;
+		haveAnchor = false;
+		return;
+	}
+
+	Vector3 vPos;
+	Vector3 vZ;
+	Coord3D vZTmp;
+	int objectLayer;
+	float eHeight;
+
+	if (owner && (objectLayer = owner->m_object->rva0028B511()) != 1)
+	{
+		eHeight = 0.25f + TheTerrainLogic->getLayerHeight(x, y, objectLayer, &vZTmp);
+	}
+	else
+	{
+		eHeight = TheTerrainLogic->getGroundHeight(x, y, &vZTmp);
+	}
+
+	vZ=Vector3(vZTmp.x,vZTmp.y,vZTmp.z);
+
+	vPos.X = x;
+	vPos.Y = y;
+	vPos.Z = eHeight;
+
+	Vector3 vDir = Vector3(x, y, eHeight) - lastAnchor;
+	int maxEdgeCount = TheTerrainTracksRenderObjClassSystem->m_maxTankTrackEdges;
+
+	if (vDir.Length2() < sqr(length))
+	{
+		int lastAddedEdge = topIndex - 1;
+		if (lastAddedEdge < 0)
+			lastAddedEdge = maxEdgeCount - 1;
+		edges[lastAddedEdge].alpha = 0.0f;
+		haveCap = true;
+		haveAnchor = false;
+		return;
+	}
+
+	if (activeEdgeCount >= maxEdgeCount)
+	{
+		bottomIndex++;
+		activeEdgeCount--;
+
+		if (bottomIndex >= maxEdgeCount)
+			bottomIndex = 0;
+	}
+
+	if (topIndex >= maxEdgeCount)
+		topIndex = 0;
+
+	vDir.Z = 0;
+	vDir.Normalize();
+
+	Vector3 vX;
+	Vector3::Cross_Product(vDir, vZ, &vX);
+
+	TrackEdge &topEdge = edges[topIndex];
+
+	topEdge.endPointPos[0] = vPos - (width * 0.5f * vX);
+	topEdge.endPointPos[0].Z += 2.0f;
+
+	if (totalEdgesAdded & 1)
+	{
+		topEdge.endPointUV[0].X = 0.0f;
+		topEdge.endPointUV[0].Y = 0.0f;
+	}
+	else
+	{
+		topEdge.endPointUV[0].X = 0.0f;
+		topEdge.endPointUV[0].Y = 1.0f;
+	}
+
+	topEdge.endPointPos[1] = vPos + (width * 0.5f * vX);
+	topEdge.endPointPos[1].Z += 2.0f;
+
+	if (totalEdgesAdded & 1)
+	{
+		topEdge.endPointUV[1].X = 1.0f;
+		topEdge.endPointUV[1].Y = 0.0f;
+	}
+	else
+	{
+		topEdge.endPointUV[1].X = 1.0f;
+		topEdge.endPointUV[1].Y = 1.0f;
+	}
+
+	topEdge.timeAdded = WW3D::Get_Sync_Time();
+	topEdge.alpha = 0.0f;
+	lastAnchor = vPos;
+	activeEdgeCount++;
+	totalEdgesAdded++;
+	topIndex++;
+	haveCap = true;
+	haveAnchor = false;
+}
+
