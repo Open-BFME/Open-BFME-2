@@ -69,3 +69,29 @@ void Rva000643F0Value::copyTo(Rva000643F0Triple *destination) const
 	destination->m_value04 = m_value04;
 	destination->m_value08 = m_value08;
 }
+
+// Clean BF1 f98983a7d3 Common/BfmeHostESMDo.cpp emits the collision-header
+// constructor as a source guide under /O1 /SSE /G6. That donor identity and
+// its pointer/type interpretation are not proved for this target entry.
+// Native6E27D..6E293 starts after the rowed SceneClass setter's RET4 at6E27A
+// and ends with RET8 before rowed6E293. It writes raw stackwords to receiver
+// words0/4, clears word8 and retains the receiver in full EAX. Both separate
+// stackword loads and receiver use establish this minimum callable contract;
+// RET8 alone is not the prototype evidence. No direct/literal references
+// were found in all eight image sections. Original class, constructor role,
+// field purpose and complete object size remain unknown. This ordinary
+// consumed-prefix initializer preserves only the witnessed stores/result.
+class Rva0006E27DWords
+{
+public:
+    Rva0006E27DWords *initialize(unsigned int first, unsigned int second);
+private:
+    unsigned int word0, word4, word8;
+};
+Rva0006E27DWords *Rva0006E27DWords::initialize(unsigned int first, unsigned int second)
+{
+    word0 = first;
+    word4 = second;
+    word8 = 0;
+    return this;
+}
