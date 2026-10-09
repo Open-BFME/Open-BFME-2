@@ -1,5 +1,5 @@
 // ??0Rva00527378Payload@@QAE@PAXHABVAsciiString@@00@Z
-// partial score=0.97 date=2026-10-09
+// partial score=0.9885202318 date=2026-10-09
 // cl: /O1 /arch:SSE /G7 /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ??0Rva00527378Payload@@QAE@PAXHABVAsciiString@@00@Z @0x00527378 1007B:
@@ -36,6 +36,7 @@
 class Rva000B3F84Pair
 {
 public:
+ Rva000B3F84Pair() {}
 	const char *m_ptr;
 	int m_len;
 };
@@ -301,7 +302,7 @@ public:
 };
 
 class Rva00E01E28Owner;
-extern Rva00E01E28Owner *g_00E01E28;
+extern HotKeyManager *TheHotKeyManager;
 
 class CommandButton
 {
@@ -388,17 +389,17 @@ Rva00527378Payload::Rva00527378Payload(void *owner, int level, const AsciiString
 		AptUtils::DotPath2SlashPath(m_name.str()) + "/SelectAllHeroesBttn/",
 		AptRef<AptOverButtonHandler>(DelegateDesc(this, rva005257F6)));
 	((InGameHeroSelectInterface::Impl *)this)->rva005255E2((const AsciiString *)faction);
-	if (g_00E01E28)
+	if (TheHotKeyManager)
 	{
 		static const AsciiString s_selectNearestBuilder("NonCommand_SelectNearestBuilder");
 		const CommandButton *button = TheControlBar->findCommandButton(s_selectNearestBuilder);
 		if (button)
 		{
-			AsciiString hotKey = ((HotKeyManager *)g_00E01E28)->rva00358CCD(button->rva0035B1E9());
+			AsciiString hotKey = ((HotKeyManager *)TheHotKeyManager)->rva00358CCD(button->rva0035B1E9());
 			if (!hotKey.isEmpty())
 			{
 				Rva005F8F96 action(new SelectNearestBuilderAction(this));
-				m_hotKey1D0 = ((HotKeyManager *)g_00E01E28)->addHotKey(*(const TreeHintRef00217D4C *)&action, hotKey, true);
+				m_hotKey1D0 = ((HotKeyManager *)TheHotKeyManager)->addHotKey(*(const TreeHintRef00217D4C *)&action, hotKey, true);
 				m_hasHotKey1D0 = true;
 			}
 		}

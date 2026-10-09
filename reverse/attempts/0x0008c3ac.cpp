@@ -1,3 +1,5 @@
+// ?update@W3DView@@UAEXXZ
+// partial score=0.8900301634 date=2026-10-09
 // ?update@W3DView@@UAE_NXZ
 // partial score=0.8854845531 date=2026-10-09
 // ?update@W3DView@@UAEXXZ
@@ -598,7 +600,7 @@ void W3DView::update()
                         curpos.x+=dx*ratio; curpos.y+=dy*ratio;CameraMemoryBarrier();
                     } else {
                         float ratio=0.01f*m_lockDist;
-                        curpos.x+=dx*ratio; curpos.y+=dy*ratio;CameraMemoryBarrier();
+                        curpos.x+=ratio*(objpos.x-curpos.x); curpos.y+=ratio*(objpos.y-curpos.y);
                     }
                 } else { curpos.x+=dx*FollowFactor007446A0; curpos.y+=dy*FollowFactor007446A0; }
             }
