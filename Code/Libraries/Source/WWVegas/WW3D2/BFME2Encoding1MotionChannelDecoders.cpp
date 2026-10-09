@@ -1,13 +1,14 @@
-// ?rva001B230A@BFME2Encoding1MotionChannel@@QAEXPAIIIPAVVector3@@1@Z
-// partial score=0.85 date=2026-10-09
-// ?rva001B230A@BFME2Encoding1MotionChannel@@QAEXPAIIIPAVVector3@@1@Z
-// partial score=0.85 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /Oy-
-// BFME2 stream motion channel encoding 1 (nibble adaptive delta, 9 byte packets, 16 frames per
-// block) Vector3 decoder: continues from cached state/from to frame and writes the values at frame
-// and frame+1. Semantics read from retail 1B230A plus BFME1 motchan.cpp AdaptiveDelta decompress
-// (donor; stream layout, packet size and two-output fusion are BFME2). Layout: this+0x14 scale,
-// +0x18 initial values, +0x28 data, +0xC frame count.
+// BFME 2 stream motion channel encoding 1: nibble adaptive-delta decoders, called from the
+// slot 3/4/5 evaluators (BFME2StreamMotionChannelEvaluate.cpp). The decoder continues from a
+// cached state (first value record, frame) to `frame` and writes the values at `frame` and
+// `frame + 1`; blocks are 16 frames, each component packet is a filter byte plus 16 signed
+// nibbles (9 bytes). Structure is BFME 1 motchan.cpp AdaptiveDeltaMotionChannelClass::decompress
+// (donor, 9cbfb551) fused for two outputs; packet size, component count and layout are read
+// from retail 0x001B230A. Layout: Data at +0x28, scale at +0x14, initial values at +0x18,
+// frame count at +0xC.
+// Codegen: `bit` kept as an int and used for both the select and the pointer step; the vi
+// loop advances packet in its increment expression.
 class ChunkLoadClass;
 class Vector3 { public: float X, Y, Z; };
 class BFME2MotionChannel {
@@ -35,14 +36,12 @@ public:
 };
 void BFME2Encoding1MotionChannel::rva001B230A(unsigned int *state, unsigned int from, unsigned int frame, Vector3 *value0, Vector3 *value1)
 {
-    const Vector3 *src;
-    if (from <= frame)
-        src = (const Vector3 *)state;
-    else {
+    Vector3 last;
+    if (from > frame) {
         from = 0;
-        src = (const Vector3 *)Initial;
-    }
-    Vector3 last = *src;
+        last = *(const Vector3 *)Initial;
+    } else
+        last = *(const Vector3 *)state;
     unsigned char *packet = Data + (from >> 4) * 27;
     while (from <= frame + 1) {
         if (from >= (unsigned int)Count) {
@@ -53,7 +52,7 @@ void BFME2Encoding1MotionChannel::rva001B230A(unsigned int *state, unsigned int 
         }
         unsigned int fi0 = from & 0xF;
         from &= ~0xFu;
-        for (int vi = 0; vi < 3; ++vi) {
+        for (int vi = 0; vi < 3; ++vi, packet += 9) {
             float filter = filtertable[*packet] * Scale;
             unsigned char *p = packet + 1 + (fi0 >> 1);
             for (unsigned int fi = fi0; fi < 16; ++fi) {
@@ -64,15 +63,11 @@ void BFME2Encoding1MotionChannel::rva001B230A(unsigned int *state, unsigned int 
                     ((float *)value1)[vi] = ((float *)&last)[vi];
                     break;
                 }
-                int factor;
-                if (fi & 1)
-                    factor = (signed char)*p >> 4;
-                else
-                    factor = (signed char)(*p << 4) >> 4;
-                p += fi & 1;
+                int bit = fi & 1;
+                int factor = bit ? (signed char)*p >> 4 : (signed char)(*p << 4) >> 4;
+                p += bit;
                 ((float *)&last)[vi] += (float)factor * filter;
             }
-            packet += 9;
         }
         from += 16;
         if (from > frame)
