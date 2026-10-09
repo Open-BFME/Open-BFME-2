@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS /ICode/Libraries/Include
+// cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS /ICode/Libraries/Include /Ireference/shims/bfme2_ascii /ICode/GameEngine/Source/Common
 // BridgeBehavior::getRandomSurfacePosition (retail 0x004565BD, 360B) and
 // BridgeBehavior::doAreaEffects (retail 0x0045685D, 143B), Zero Hour
 // GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp bodies.
@@ -14,10 +14,12 @@
 typedef float Real;
 typedef int Int;
 
+#include "ascii_string.h"
 #include "Lib/Coord3D.h"
 
+typedef unsigned int UnsignedInt;
+
 class Matrix3D;
-class Object;
 
 Real GetGameLogicRandomValueReal(Real lo, Real hi, char *file, int line);
 #define GameLogicRandomValueReal(lo, hi) GetGameLogicRandomValueReal((lo), (hi), __FILE__, __LINE__)
@@ -49,8 +51,55 @@ public:
 	const BridgeInfo *peekBridgeInfo(void) const { return &m_bridgeInfo; }
 
 private:
-	unsigned char m_unmodelled00[0xC];
+	void *m_vtable;
+	Bridge *m_next;
+	AsciiString m_templateName;
 	BridgeInfo m_bridgeInfo;
+};
+
+class TerrainType
+{
+public:
+	AsciiString getTexture() const;
+};
+
+class TerrainRoadCollection
+{
+public:
+	TerrainRoadType *findBridge(AsciiString name);
+};
+extern TerrainRoadCollection *TheTerrainRoads;
+
+class TerrainLogic
+{
+public:
+	virtual void slot00(); virtual void slot04(); virtual void slot08(); virtual void slot0C();
+	virtual void slot10(); virtual void slot14(); virtual void slot18(); virtual void slot1C();
+	virtual void slot20(); virtual void slot24(); virtual void slot28(); virtual void slot2C();
+	virtual void slot30(); virtual void slot34(); virtual void slot38(); virtual void slot3C();
+	virtual void slot40(); virtual void slot44(); virtual void slot48(); virtual void slot4C();
+	virtual void slot50(); virtual void slot54(); virtual void slot58(); virtual void slot5C();
+	virtual void slot60(); virtual void slot64(); virtual void slot68(); virtual void slot6C();
+	virtual void slot70(); virtual void slot74(); virtual void slot78(); virtual void slot7C();
+	virtual void slot80(); virtual void slot84(); virtual void slot88(); virtual void slot8C();
+	virtual void slot90(); virtual void slot94(); virtual void slot98(); virtual void slot9C();
+	virtual void slotA0();
+	virtual Bridge *findBridgeAt(const Coord3D *loc) const;
+};
+extern TerrainLogic *TheTerrainLogic;
+
+#include "GameLogicObjectLookupView.h"
+extern GameLogic *TheGameLogic;
+
+class Object
+{
+public:
+	const Coord3D *getPosition(void) const { return &m_pos; }
+	bool getSingleLogicalBonePosition(const char *boneName, Coord3D *position, Matrix3D *transform) const;
+
+private:
+	unsigned char m_unmodelled00[0x38];
+	Coord3D m_pos;
 };
 
 class FXList
@@ -64,23 +113,78 @@ class ObjectCreationList
 {
 public:
 	void create(void *primaryObject, void *primary, void *secondary, int lifetimeFrames);
+	void create(void *primaryObject, void *secondaryObject, void *lifetimeFrames);
 };
 
-class BridgeBehavior
+struct TimeAndLocationInfo
+{
+	UnsignedInt delay;
+	AsciiString boneName;
+};
+
+// STLport list<BridgeFXInfo> / list<BridgeOCLInfo> nodes: next, prev, value.
+struct BridgeFXNode
+{
+	BridgeFXNode *next;
+	BridgeFXNode *prev;
+	const FXList *fx;
+	TimeAndLocationInfo timeAndLocationInfo;
+};
+
+struct BridgeOCLNode
+{
+	BridgeOCLNode *next;
+	BridgeOCLNode *prev;
+	const ObjectCreationList *ocl;
+	TimeAndLocationInfo timeAndLocationInfo;
+};
+
+struct BridgeBehaviorModuleData
+{
+	unsigned char m_unmodelled00[0x10];
+	BridgeFXNode *m_fx;
+	BridgeOCLNode *m_ocl;
+};
+
+enum UpdateSleepTime
+{
+	UPDATE_SLEEP_NONE = 1
+};
+
+class BehaviorModule
 {
 public:
+	virtual ~BehaviorModule();
 	Object *getObject(void) const { return m_object; }
 
 protected:
+	const BridgeBehaviorModuleData *m_moduleData;
+	Object *m_object;
+	unsigned char m_unmodelled0C[0x10 - 0xC];
+};
+
+class UpdateModuleInterface
+{
+public:
+	virtual UpdateSleepTime update() = 0;
+};
+
+class BridgeBehavior : public BehaviorModule, public UpdateModuleInterface
+{
+public:
+	virtual UpdateSleepTime update();
+
+protected:
+	const BridgeBehaviorModuleData *getBridgeBehaviorModuleData(void) const { return m_moduleData; }
+
 	void getRandomSurfacePosition(TerrainRoadType *bridgeTemplate,
 		const BridgeInfo *bridgeInfo, Coord3D *pos);
 	void doAreaEffects(TerrainRoadType *bridgeTemplate, Bridge *bridge,
 		const ObjectCreationList *ocl, const FXList *fx);
 
 private:
-	void *m_vtable;
-	void *m_moduleData;
-	Object *m_object;
+	unsigned char m_unmodelled14[0x104 - 0x14];
+	UnsignedInt m_deathFrame;
 };
 
 // ------------------------------------------------------------------------------------------------
@@ -185,3 +289,125 @@ void BridgeBehavior::doAreaEffects( TerrainRoadType *bridgeTemplate,
 	}  // end for i
 
 }  // end doAreaEffects
+
+// ------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
+UpdateSleepTime BridgeBehavior::update( void )
+{
+
+	// if we're dead, we need to possibly throw off some effects
+	if( m_deathFrame != 0 )
+	{
+		AsciiString boneName;
+
+		// get object
+		Object *us = getObject();
+
+		// get module data
+		const BridgeBehaviorModuleData *modData = getBridgeBehaviorModuleData();
+
+		// get bridge information
+		Bridge *bridge = TheTerrainLogic->findBridgeAt( us->getPosition() );
+		const BridgeInfo *bridgeInfo = 0;
+		TerrainRoadType *bridgeTemplate = 0;
+		if ( bridge )
+		{
+
+			// get bridge info
+			bridgeInfo = bridge->peekBridgeInfo();
+
+			// get the bridge template info
+			// ZH: bridge->getBridgeTemplateName(), which copies m_templateName (+8).
+			// Retail calls its ICF-folded 27B body 0x000AF1DD (the dup_000af1dd
+			// row); the REL32 resolver knows that body only by the admitted
+			// TerrainType::getTexture pin, the spelling Rva003967A5Notify.cpp
+			// uses for the same fold.
+			AsciiString bridgeTemplateName = ((const TerrainType *)bridge)->getTexture();
+			bridgeTemplate = TheTerrainRoads->findBridge( bridgeTemplateName );
+
+		}
+
+		// how much time has passed between now and our destruction frame
+		UnsignedInt deathTime = TheGameLogic->getFrame() - m_deathFrame;
+
+		// see if there are any fx visuals we need to execute
+		BridgeFXNode *fxIt;
+		for( fxIt = modData->m_fx->next; fxIt != modData->m_fx; fxIt = fxIt->next )
+		{
+
+			// we'll launch an fx list if our death time is equal to exactly the delay
+			// we're waiting for to launch the list
+			if( deathTime == fxIt->timeAndLocationInfo.delay )
+			{
+				Coord3D pos;
+
+				// if a bone name is present, we'll use the bone position, otherwise we'll pick a
+				// spot somewhere on the bridge surface
+				boneName = fxIt->timeAndLocationInfo.boneName;
+				if( boneName.isEmpty() == false )
+					us->getSingleLogicalBonePosition( boneName.str(), &pos, 0 );
+				else if ( bridge && bridgeTemplate && bridgeInfo )
+					getRandomSurfacePosition( bridgeTemplate, bridgeInfo, &pos );
+				else
+				{
+					pos.x = getObject()->getPosition()->x;
+					pos.y = getObject()->getPosition()->y;
+					pos.z = getObject()->getPosition()->z;
+				}
+
+				// launch the fx list
+				FXList::doFXPos( fxIt->fx, &pos, 0, 0.0f, 0 );
+
+			}  // end if
+
+		}  // end for, fxIt
+
+		// see if there are any ocl visuals we need to execute
+		BridgeOCLNode *oclIt;
+		for( oclIt = modData->m_ocl->next; oclIt != modData->m_ocl; oclIt = oclIt->next )
+		{
+
+			// we'll launch an ocl list if our death time is equal to exactly the delay
+			// we're waiting for to launch the list
+			if( deathTime == oclIt->timeAndLocationInfo.delay )
+			{
+				Coord3D pos;
+
+				boneName = oclIt->timeAndLocationInfo.boneName;
+				if( boneName.isEmpty() == false )
+				{
+
+					// special case for creating an OCL using the bridge object parent center location
+					if( boneName.compare( "ParentObject" ) == 0 )
+					{
+						if( oclIt->ocl )
+							const_cast<ObjectCreationList *>( oclIt->ocl )->create( us, 0, 0 );
+						continue;
+					}
+
+					// get bone position
+					us->getSingleLogicalBonePosition( boneName.str(), &pos, 0 );
+
+				}  // end if, bone name not empty
+				else if ( bridge && bridgeTemplate && bridgeInfo )
+					getRandomSurfacePosition( bridgeTemplate, bridgeInfo, &pos );
+				else
+				{
+					pos.x = getObject()->getPosition()->x;
+					pos.y = getObject()->getPosition()->y;
+					pos.z = getObject()->getPosition()->z;
+				}
+
+				// launch the ocl
+				if( oclIt->ocl )
+					const_cast<ObjectCreationList *>( oclIt->ocl )->create( us, &pos, 0, 0 );
+
+			}  // end if
+
+		}  // end for, oclIt
+
+	}  // end if
+
+	return UPDATE_SLEEP_NONE;
+
+}  // end update
