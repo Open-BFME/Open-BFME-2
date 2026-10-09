@@ -1,6 +1,7 @@
 // cl: /Ireference/shims/bfme2_ascii /O1 /arch:SSE /G7 /MD
-// ?rva005B2B6D@Powers@AptCreateAHero@@QAEXPBD@Z @ 0x005B2B6D, 112 bytes. Vtable
-// slot 7 proves a virtual method; its class is address-derived. Retail reads
+// ?rva005B2B6D@Powers@AptCreateAHero@@UAEXPBD@Z @ 0x005B2B6D, 112 bytes. Vtable
+// slot 7 proves a virtual method: retail reaches it only from slot 7 of the
+// table 0x00C72F3C that the Powers ctor 0x005B414F installs. Retail reads
 // a wide string at +0x68 and calls the rowed Mouse method for these path keys.
 #include "unicode_string.h"
 #include "ascii_string.h"
@@ -45,10 +46,18 @@ UnicodeString __cdecl Rva005B2376Describe(void *power, const AsciiString &unused
 class AptCreateAHero::Powers
 {
 public:
-	void rva005B2B6D(const char *path);
+	// Table 0x00C72F3C: slot 0 the deleting dtor 0x005B4541, slots 1-6
+	// unnamed, slot 7 this member (WB's twin 0x015748D0 is slot 7 too).
+	virtual ~Powers();
+	virtual void vslot1();
+	virtual void vslot2();
+	virtual void vslot3();
+	virtual void vslot4();
+	virtual void vslot5();
+	virtual void vslot6();
+	virtual void rva005B2B6D(const char *path);
 	void MyPowerToolTip(const char *path);
 private:
-	char m_pad[4];
 	Rva005B2B6DOwner *m_owner;
 	char m_pad2[0x60];
 	UnicodeString m_name;
