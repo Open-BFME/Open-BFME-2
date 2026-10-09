@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata /O1 /EHsc /MD /arch:SSE
 // LivingWorldRegionManager.cpp -- region-manager members recovered from
 // WorldBuilder leads (reverse/wb_name_leads.csv): WB's debug build names the
 // function and the region overload it calls (0x0020EA58); retail supplies
@@ -136,11 +136,32 @@ public:
 
 class ObjectCreationNugget;
 
-// The manager's rule-list append, rowed with an ObjectCreationNugget parameter.
+class Rva002105A6;
+class Rva002E2285;
+class LivingWorldRegionBonusRule;
+
+// The rules' holder (the INI block that owns ConcurrentRegionBonus): its
+// rule-list append is rowed with an ObjectCreationNugget parameter; the
+// rules are owned pointers at +0x5C.
+struct RegionBonusRuleList
+{
+	LivingWorldRegionBonusRule **m_start;
+	LivingWorldRegionBonusRule **m_finish;
+	LivingWorldRegionBonusRule **m_endOfStorage;
+
+	unsigned int size() const { return m_finish - m_start; }
+	LivingWorldRegionBonusRule *operator[](unsigned int i) const { return m_start[i]; }
+};
+
 class Rva0020F77C
 {
 public:
 	void rva0020F77C(ObjectCreationNugget *rule);			// 0x0020F77C
+	void rva0020F34E(void *owner, Rva002E2285 *player);
+
+private:
+	unsigned char m_pad00[0x5C];
+	RegionBonusRuleList m_rules;					// +0x5C
 };
 
 // The rule's region names (+0x20, a vector<AsciiString> per the ctor and
@@ -165,6 +186,27 @@ struct RegionBonusRuleRegionIDList
 	Int operator[](unsigned int i) const { return m_start[i]; }
 };
 
+#include "Common/Snapshot.h"
+
+// A rule's bonus block (+0x04): a Snapshot with six ints, copied by the rowed
+// 0x0020E449 and scaled by the rowed 0x0020E27B; a copy dies inline, leaving
+// only the Snapshot vptr store.
+class Rva0020E449 : public Snapshot
+{
+public:
+	Rva0020E449(const Rva0020E449 &other);	// 0x0020E449
+	virtual ~Rva0020E449() {}
+	void rva0020E27B(float scale);			// 0x0020E27B
+
+protected:
+	virtual void loadPostProcess(void);
+	virtual void crc(Xfer *xfer);
+	virtual void xfer(Xfer *xfer);
+
+private:
+	Int m_values[6];						// +0x04..+0x18
+};
+
 class Rva002105A6
 {
 public:
@@ -172,7 +214,7 @@ public:
 	~Rva002105A6();							// 0x002105A6
 
 	Int m_id;								// +0x00
-	unsigned char m_pad04[0x20 - 0x04];
+	Rva0020E449 m_bonus;					// +0x04
 	RegionBonusRuleRegionList m_regions;	// +0x20
 	RegionBonusRuleRegionIDList m_regionIDs;	// +0x2C
 	unsigned char m_pad38[0x58 - 0x38];
@@ -187,6 +229,14 @@ public:
 
 	unsigned char m_pad00[0x14];
 	Int m_id;								// +0x14
+};
+
+// The same player under the placeholder owner of its bonus accumulator
+// 0x002E2285, which takes the rule's id word and the scaled bonus.
+class Rva002E2285 : public Rva002E071E
+{
+public:
+	void rva002E2285(Int *ruleID, const Rva0020E449 &bonus);	// 0x002E2285
 };
 
 class LivingWorldLogic
@@ -255,4 +305,24 @@ Bool LivingWorldRegionBonusRule::IsRuleSatisfied(Rva002E071E *player, float *fra
 	if (fraction)
 		*fraction = (float)held / (float)m_regionIDs.size();
 	return true;
+}
+
+// Rva0020F77C::rva0020F34E, retail 0x0020F34E (WB 0x00B53D70, unnamed, in
+// LivingWorldRegionManager.cpp between ParseINI and IsRuleSatisfied): every
+// rule the player satisfies adds its bonus, scaled by the satisfied fraction,
+// to the player. The first argument is unused; its caller passes the object
+// whose +8 is this holder.
+void Rva0020F77C::rva0020F34E(void *owner, Rva002E2285 *player)
+{
+	for (unsigned int i = 0; i < m_rules.size(); ++i)
+	{
+		LivingWorldRegionBonusRule *rule = m_rules[i];
+		float fraction = 1.0f;
+		if (rule->IsRuleSatisfied(player, &fraction))
+		{
+			Rva0020E449 bonus(rule->m_bonus);
+			bonus.rva0020E27B(fraction);
+			player->rva002E2285(&rule->m_id, bonus);
+		}
+	}
 }
