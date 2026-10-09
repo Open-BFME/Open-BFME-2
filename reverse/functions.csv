@@ -73964,3 +73964,4 @@ _VP6_AllocateFragmentInfo,,0x001B9140,396,Code/Libraries/Source/VP6/AllocateFrag
 ?Rva003C1EC2Set@@YGXABVAsciiString@@H@Z,,0x003C1EC2,72,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptGlueRva003C1EC2.cpp,matched,
 ?xferList2069F0@@YAPAVXfer@@PAV1@PAV?$list@UBfmeFloat4Record00469C61@@V?$allocator@UBfmeFloat4Record00469C61@@@_STL@@@_STL@@@Z,,0x002069F0,206,Code/GameEngine/Source/GameLogic/ScriptEngine/XferList2069F0.cpp,matched,
 ?rva002B8DFC@Rva002BA8F1Logic@@QAEXPAVXfer@@PAV?$vector@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@@Z,,0x002B8DFC,214,Code/Libraries/Source/WWVegas/WWLib/Rva002B8DFCXfer.cpp,matched,
+?rva004FBDF7@RegionAwardDispute@@QAEXPAVXfer@@@Z,,0x004FBDF7,131,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionAwardDisputeXfer.cpp,matched,
