@@ -28,6 +28,11 @@ private:
 	unsigned m_words[7];
 };
 
+//5BF4BC constructs both masks through the measured 28-byte224-bit
+//Rva00045411BitSet constructor. Keep its neutral type on these two
+//consuming wrappers rather than asserting the legacy116-bit view.
+struct Rva00045411BitSet { unsigned m_words[7]; };
+
 struct ObjectCountMap
 {
 	void *m_header;
@@ -56,17 +61,17 @@ int Rva0039BF0B::rva0039BF0B(const BitFlags<116> &mustBeSet, const BitFlags<116>
 class Rva0039BF22
 {
 public:
-	int rva0039BF22(const BitFlags<116> &mustBeSet, const BitFlags<116> &mustBeClear);
+	int rva0039BF22(const Rva00045411BitSet &mustBeSet, const Rva00045411BitSet &mustBeClear);
 private:
 	char m_pad[0x1C8];
 	ObjectCountMap m_map;
 };
 
-int Rva0039BF22::rva0039BF22(const BitFlags<116> &mustBeSet, const BitFlags<116> &mustBeClear)
+int Rva0039BF22::rva0039BF22(const Rva00045411BitSet &mustBeSet, const Rva00045411BitSet &mustBeClear)
 {
 	const ObjectCountMap *map = &m_map;
 	const ObjectCountMap *self_map = &this->m_map;
-	return Rva0039BEC3Count(mustBeSet, mustBeClear, map ? map : self_map);
+	return Rva0039BEC3Count(reinterpret_cast<const BitFlags<116>&>(mustBeSet), reinterpret_cast<const BitFlags<116>&>(mustBeClear), map ? map : self_map);
 }
 
 // ?rva0039BF39@Rva0039BF39@@QAEHABV?$BitFlags@$0HE@@@0@Z @0x0039BF39 23B: the sibling
@@ -87,20 +92,20 @@ int Rva0039BF39::rva0039BF39(const BitFlags<116> &mustBeSet, const BitFlags<116>
 	return Rva0039BEC3Count(mustBeSet, mustBeClear, map ? map : self_map);
 }
 
-// ?rva0039BF50@Rva0039BF50@@QAEHABV?$BitFlags@$0HE@@@0@Z @0x0039BF50 23B: the sibling
+// ?rva0039BF50@Rva0039BF50@@QAEHABURva00045411BitSet@@0@Z @0x0039BF50 23B: the sibling
 // forwarder for the map at +0x1D4, same recipe.
 class Rva0039BF50
 {
 public:
-	int rva0039BF50(const BitFlags<116> &mustBeSet, const BitFlags<116> &mustBeClear);
+	int rva0039BF50(const Rva00045411BitSet &mustBeSet, const Rva00045411BitSet &mustBeClear);
 private:
 	char m_pad[0x1D4];
 	ObjectCountMap m_map;
 };
 
-int Rva0039BF50::rva0039BF50(const BitFlags<116> &mustBeSet, const BitFlags<116> &mustBeClear)
+int Rva0039BF50::rva0039BF50(const Rva00045411BitSet &mustBeSet, const Rva00045411BitSet &mustBeClear)
 {
 	const ObjectCountMap *map = &m_map;
 	const ObjectCountMap *self_map = &this->m_map;
-	return Rva0039BEC3Count(mustBeSet, mustBeClear, map ? map : self_map);
+	return Rva0039BEC3Count(reinterpret_cast<const BitFlags<116>&>(mustBeSet), reinterpret_cast<const BitFlags<116>&>(mustBeClear), map ? map : self_map);
 }
