@@ -26362,7 +26362,7 @@ pin	reverse/symbols.csv	0x002423E3	1
 pin	reverse/symbols.csv	0x0024297F	1
 pin	reverse/symbols.csv	0x00242C09	2
 pin	reverse/symbols.csv	0x00242EE7	1
-pin	reverse/symbols.csv	0x00242F01	2
+pin	reverse/symbols.csv	0x00242F01	4	allow=2f709a8ac3b594036ec1f241e77b1d836b2800ef
 pin	reverse/symbols.csv	0x0024314A	1
 pin	reverse/symbols.csv	0x002431CB	1
 pin	reverse/symbols.csv	0x00243BA0	1
@@ -28268,7 +28268,7 @@ pin	reverse/symbols.csv	0x0033C176	2
 pin	reverse/symbols.csv	0x0033C247	1
 pin	reverse/symbols.csv	0x0033C259	1
 pin	reverse/symbols.csv	0x0033C3BC	1
-pin	reverse/symbols.csv	0x0033C432	19
+pin	reverse/symbols.csv	0x0033C432	20	allow=2f709a8ac3b594036ec1f241e77b1d836b2800ef
 pin	reverse/symbols.csv	0x0033C646	1
 pin	reverse/symbols.csv	0x0033CA81	1
 pin	reverse/symbols.csv	0x0033CB90	1
@@ -29571,7 +29571,7 @@ pin	reverse/symbols.csv	0x004079D5	1
 pin	reverse/symbols.csv	0x00407C7F	1
 pin	reverse/symbols.csv	0x00407DA5	1
 pin	reverse/symbols.csv	0x00407E94	1
-pin	reverse/symbols.csv	0x00408150	1	allow=924053df0cb91039ba86f4f67432a45221c3700b
+pin	reverse/symbols.csv	0x00408150	1
 pin	reverse/symbols.csv	0x004083FF	1
 pin	reverse/symbols.csv	0x004089C7	1
 pin	reverse/symbols.csv	0x00408A55	1
@@ -29580,7 +29580,7 @@ pin	reverse/symbols.csv	0x00409359	2
 pin	reverse/symbols.csv	0x004097AF	1
 pin	reverse/symbols.csv	0x004098BE	1
 pin	reverse/symbols.csv	0x004099CA	2
-pin	reverse/symbols.csv	0x00409A76	1	allow=924053df0cb91039ba86f4f67432a45221c3700b
+pin	reverse/symbols.csv	0x00409A76	1
 pin	reverse/symbols.csv	0x00409C3D	1
 pin	reverse/symbols.csv	0x00409D4D	1
 pin	reverse/symbols.csv	0x00409EE8	1
@@ -29707,7 +29707,7 @@ pin	reverse/symbols.csv	0x00412E76	1
 pin	reverse/symbols.csv	0x0041345B	1
 pin	reverse/symbols.csv	0x0041360E	2
 pin	reverse/symbols.csv	0x004136B4	1
-pin	reverse/symbols.csv	0x00413727	2
+pin	reverse/symbols.csv	0x00413727	3	allow=2f709a8ac3b594036ec1f241e77b1d836b2800ef
 pin	reverse/symbols.csv	0x004137C6	1
 pin	reverse/symbols.csv	0x00413951	1
 pin	reverse/symbols.csv	0x0041398E	1

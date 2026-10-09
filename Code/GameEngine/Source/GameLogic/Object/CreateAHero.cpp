@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /arch:SSE /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // CreateAHero.cpp -- CreateAHeroManager forwarding accessors recovered from
 // WorldBuilder leads (reverse/wb_name_leads.csv): WB's debug build names each
@@ -186,22 +186,50 @@ private:
 	NameKeyType m_playerNameKey;				// +0x50
 };
 
+
+enum FactionType { FACTION_UNKNOWN=-1 };
+template<int NUM_BITS,class BitTag>class BitFlags {
+public: BitFlags() throw();
+private: unsigned words[(NUM_BITS+31)/32];
+};
+class Rva002195E6 {
+public: Rva002195E6() throw();
+private: unsigned char data[108];
+};
+struct AttributeBlingBounds {
+    // Target accessors21BDAB/21BDD3/21BDFB pass strings at+4/+8/+C to
+    // GetBlingIndex; parser compares the leading NameKey with upgrade+84.
+    // Field purposes are inferred; the three string representations are proven.
+    NameKeyType group;
+    AsciiString minimum, maximum, defaultBling;
+};
+
 class CreateAHeroManager
 {
 public:
 	class CreateAHeroSubClass
 	{
 	public:
+		CreateAHeroSubClass(const AsciiString &,const AsciiString &,const AsciiString &,const AsciiString &);
 		Int rva0021BC2C(Int blingKey) const;		// 0x0021BC2C, bling count
 		Int GetDefaultBlingId(Int blingKey) const; // 0x0021BC53
         void AddBling(Int blingKey, UnsignedInt index, Bool makeDefault);
     private:
-        // WB lookup and retail node+14/+18 prove the vector mapped value.
-        // Retail map headers are at +24 and +48.
-        unsigned char m_pad00[0x24];
+        // Native199B constructor21E793 proves the complete216B layout.
+        // WB supplies subclass identity and faction mask template; the names
+        // of the color-like words and the trailing108B record remain unknown.
+        AsciiString m_nameTag,m_descriptionTag,m_iconName,m_emptyString;
+        unsigned m_word10,m_word14,m_word18;
+        int m_spendablePoints;
+        AsciiString m_upgradeName;
         std::map<int, std::vector<unsigned int> > m_blingIds;
-        unsigned char m_pad30[0x48-0x30];
+        std::vector<NameKeyType> m_keys30,m_keys3C;
         std::map<int, int> m_defaultBlingIds;
+        std::map<int,AttributeBlingBounds> m_attributes;
+        bool m_flag60;
+        FactionType m_preferredFaction;
+        BitFlags<7,FactionType> m_factionMask;
+        Rva002195E6 m_trailing;
 	};
 
 	class CreateAHeroClass
@@ -716,3 +744,15 @@ void CreateAHeroManager::BindHeroToObjectAndUpdate(Object *object)
         }
     }
 }
+
+// WB B76120 constructor callsite lead; target21E793..21E85A (RET16).
+// Native member initialization and reference-taking ABI are independent
+// target evidence; container folds require whole bodies and all relocations.
+CreateAHeroManager::CreateAHeroSubClass::CreateAHeroSubClass(
+    const AsciiString &upgrade,const AsciiString &name,
+    const AsciiString &description,const AsciiString &icon)
+    : m_nameTag(name),m_descriptionTag(description),m_iconName(icon),
+      m_word10(0xff00ffff),m_word14(0xff00ffff),m_word18(0xff00ffff),
+      m_spendablePoints(20),m_upgradeName(upgrade),
+      m_flag60(false),m_preferredFaction(static_cast<FactionType>(6))
+{}
