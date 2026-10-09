@@ -20,6 +20,7 @@ class AIEconomyBuilder {
 public:
  static AIEconomyFarmLibraryStorage m_farmList;
  AsciiString getFarmTemplateName();
+ bool needMoreFarms(int *priority);
  void DoXfer(Xfer *);
  unsigned char m_prefix00[0x14];
  void *m_14;
