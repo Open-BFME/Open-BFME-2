@@ -2310,7 +2310,6 @@ name,address,notes
 ??0Rva0008B7CFProduct@@QAE@XZ,0x0008B7CF,"constructor storing vtable 0x00BC7530; REL32 in factory slot 118 of vtable 0x00BC7A88 (0x0008EFFC) after new 0x2508"
 ??0Rva0008EF3FProduct@@QAE@XZ,0x0008EF3F,"constructor storing vtable 0x00BC7A88; REL32 in game client vtable 0x00BC4738 factory 0x0004C492 after new 0xAC0"
 ??0Rva00091A80Product@@QAE@XZ,0x00091A80,"constructor storing vtable 0x00BC80A0; REL32 in game client vtable 0x00BC4738 factory 0x0004C5C6 after new 0x24"
-??0Rva0009525EProduct@@QAE@XZ,0x0009525E,"constructor storing vtable 0x00BC8208; REL32 in game client vtable 0x00BC4738 factory 0x0004C62D after new 0x108"
 ??0Rva00098667Product@@QAE@XZ,0x00098667,"constructor storing vtable 0x00BC8358; REL32 in game client vtable 0x00BC4738 factory 0x0004C694 after new 0x68"
 ??0Rva000A2137@@QAE@PAX@Z,0x000A2137,constructor called by the factory 0x0008FA81 (byte-exact modulo relocs in Rva0008F8EBFactories.cpp) on a 0x2F0-byte allocation; identity unproven; address-derived name
 ??0Rva000A217F@@QAE@PAX@Z,0x000A217F,constructor called by the factory 0x0008FABB (byte-exact modulo relocs in Rva0008F8EBFactories.cpp) on a 0x2F0-byte allocation; identity unproven; address-derived name

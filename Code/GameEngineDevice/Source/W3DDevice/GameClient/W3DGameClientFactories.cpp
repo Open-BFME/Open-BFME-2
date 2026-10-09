@@ -18,7 +18,7 @@
 //   0x0004C4C7  0x40  0x0008FC51  0x00BC7C90  Rva008FCA3
 //   0x0004C553  0x40  0x00090360  0x00BC7E20  Rva00090360
 //   0x0004C5C6  0x24  0x00091A80  0x00BC80A0  Rva00091A80Product
-//   0x0004C62D  0x108  0x0009525E  0x00BC8208  Rva0009525EProduct
+//   0x0004C62D  0x108  0x0009525E  0x00BC8208  Gen006E2310
 //   0x0004C694  0x68  0x00098667  0x00BC8358  Rva00098667Product
 //   0x0004C709  0x60A8  0x00098E69  0x00BC86D8  W3DMouse
 //   0x0004C8DD  0x1D4  0x0009D55B  0x00BC89C8  Rva0009D55BProduct
@@ -80,10 +80,10 @@ private:
 	char m_unmodelled[0x24];
 };
 
-class Rva0009525EProduct
+class Gen006E2310
 {
 public:
-	Rva0009525EProduct();
+	Gen006E2310();
 private:
 	char m_unmodelled[0x108];
 };
@@ -176,7 +176,7 @@ void *Rva004C743::rva0004C5C6()
 
 void *Rva004C743::rva0004C62D()
 {
-	return new Rva0009525EProduct;
+	return new Gen006E2310;
 }
 
 void *Rva004C743::rva0004C694()
