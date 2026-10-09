@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
 // stlport
 //
 // Two STLport 4.5.3 sort(first, last) instantiations over 8-byte records
@@ -42,3 +42,47 @@ struct S4SortElem8B
 
 template void _STL::sort<S4SortElem8 *>(S4SortElem8 *, S4SortElem8 *);
 template void _STL::sort<S4SortElem8B *>(S4SortElem8B *, S4SortElem8B *);
+
+#include "ascii_string.h"
+#include "unicode_string.h"
+#include <vector>
+class Image;
+struct StrategicButtonImageView;
+namespace StrategicInGameUI { const Image *GetButtonImage(const StrategicButtonImageView *, int); }
+class Rva0037DCA5 {
+public:
+ unsigned char pad00[4];AsciiString name04;
+ unsigned char pad08[4];int value0C;
+ unsigned char pad10[0x94-0x10];int value94,value98,value9C;
+ UnicodeString titleA0;
+ void *rva0040C65D(int);
+};
+// Existing 24B push_back footprint, now viewed through target5ECD8C stores.
+struct BfmeStringRecord005EC43C {
+ UnicodeString title;int value04,value08,value0C,value10;const Image *image14;
+ BfmeStringRecord005EC43C():value04(-1),value08(-1),value0C(-1),value10(-1),image14(0){}
+ BfmeStringRecord005EC43C(const BfmeStringRecord005EC43C&);
+};
+namespace _STL {
+template<> void vector<BfmeStringRecord005EC43C>::push_back(const BfmeStringRecord005EC43C&);
+}
+class Rva005ECD8C {
+public:
+ void *vptr0;
+ _STL::vector<BfmeStringRecord005EC43C> rows4;
+ void rva005ECD8C(_STL::vector<S4SortElem8B> *input,int player);
+};
+// Native245B: sort opaque8B army entries, collect title/icon/four counters.
+void Rva005ECD8C::rva005ECD8C(_STL::vector<S4SortElem8B> *input,int player) {
+ _STL::sort(input->begin(),input->end());
+ AsciiString nativeTemporary;
+ for(_STL::vector<S4SortElem8B>::iterator it=input->begin();it!=input->end();++it) {
+  Rva0037DCA5 *army=reinterpret_cast<Rva0037DCA5 *>(it->m_bfmeFirst);
+  BfmeStringRecord005EC43C row;
+  if(!army->titleA0.isEmpty())row.title=army->titleA0;
+  else row.title=*reinterpret_cast<UnicodeString *>(army->rva0040C65D(player));
+  row.image14=StrategicInGameUI::GetButtonImage(reinterpret_cast<const StrategicButtonImageView *>(army),player);
+  row.value04=army->value0C;row.value08=army->value94;row.value0C=army->value98;row.value10=army->value9C;
+  rows4.push_back(row);
+ }
+}
