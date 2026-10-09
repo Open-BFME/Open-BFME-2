@@ -17,11 +17,15 @@
 #include "ascii_string.h"
 #include "../../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
+// Use the same witnessed retail allocator cleanup as the matched builder.
+namespace _STL { void __cdecl free(void *); }
+#define free _STL::free
 #include <vector>
+#undef free
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 
 class Object;
-class Player;
+class Player { public: void rva002AF614(void *); };
 
 class Rva000421C8
 {
@@ -69,12 +73,19 @@ float __cdecl GetGameLogicRandomValueReal(float, float, char *, int);
 // No vtable definition or assertion about unobserved slots is made here.
 struct WallPositionValue : Coord3D {
     WallPositionValue() {}
+    WallPositionValue(const Coord3D &other) {
+        x=other.x; y=other.y; z=other.z;
+    }
     WallPositionValue(const WallPositionValue &other) {
         x=other.x; y=other.y; z=other.z;
     }
     WallPositionValue &operator+=(const WallPositionValue &other) {
         x+=other.x; y+=other.y; z+=other.z; return *this;
     }
+    WallPositionValue &operator-=(const WallPositionValue &other) {
+        x-=other.x; y-=other.y; z-=other.z; return *this;
+    }
+    float squaredLength() const { return x*x + y*y + z*z; }
     WallPositionValue &operator*=(float scale) {
         x=x*scale; y=y*scale; z=z*scale; return *this;
     }
@@ -214,6 +225,7 @@ public:
 	void updateState(bool left);
 	void update();
 	void activate(void *owner, float delay, const void *orderName);
+	bool rva004EB7CC(void *owner);
 private:
 	void *unknown00;
 	WallPositionOrderView *selected04;
@@ -362,4 +374,33 @@ void AIWall::activate(void *owner, float delay, const void *orderName)
     Rva005970ED *plan = new Rva005970ED;
     m_14 = reinterpret_cast<Rva004EB902Plan *>(plan);
     plan->delay04 = delay + 10.0f;
+}
+
+// Full native4EB7CC..4EB902 and WB137BE20/419 establish a bool predicate
+// with one owner argument. Owned Player2AF614 and its callback2AF5EF prove
+// vector<Coord3D> input (twelve-byte positions); canonical storage replaces
+// the older bank's mismatched sixteen-byte element reinterpretation.
+// Every order must be within squared distance2250000 of some supplied point.
+// The native sum order is z-square plus y-square plus x-square; all points
+// are visited even after a nearby point is found. Original method name unknown.
+bool AIWall::rva004EB7CC(void *owner)
+{
+    _STL::vector<Coord3D> points;
+    static_cast<Player *>(owner)->rva002AF614(&points);
+    if (points.empty())
+        return false;
+    _STL::vector<WallPositionOrderView *>::iterator end = orders08.end();
+    for (_STL::vector<WallPositionOrderView *>::iterator order = orders08.begin(); order != end; ++order) {
+        bool far = true;
+        _STL::vector<Coord3D>::iterator pointEnd = points.end();
+        for (_STL::vector<Coord3D>::iterator point = points.begin(); point != pointEnd; ++point) {
+            WallPositionValue local(*point);
+            local -= (*order)->position();
+            if (local.squaredLength() < 2250000.0f)
+                far = false;
+        }
+        if (far)
+            return false;
+    }
+    return true;
 }
