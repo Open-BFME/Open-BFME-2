@@ -33,3 +33,12 @@ void INI::parseAccelerationReal(INI *ini, void * /*instance*/, void *store, cons
 	float val = ini->scanReal(ini->getNextToken(0));
 	*(float *)store = (g_secondsPerLogicFrame * g_secondsPerLogicFrame) * val;
 }
+
+// Reference guide: BFME1 f989 GameCommon.h acceleration conversion.
+// Target 001E3488..001E3499/17 follows the independent RET1E3487 and
+// computes the existing mutable frame factor squared, then multiplies
+// one stack float and returns ST0. Original helper name remains unknown.
+float rva001e3488(float value)
+{
+    return (g_secondsPerLogicFrame * g_secondsPerLogicFrame) * value;
+}
