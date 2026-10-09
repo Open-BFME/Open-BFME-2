@@ -445,6 +445,8 @@ public:
 	Bool getSawCompleteGameList() { return m_sawCompleteGameList; }
 
 private:
+	template<class T> friend struct DataRowPrivateProbe;
+	friend class DualIndexedDispatchThunk;
 	Bool m_isConnecting;
 	Bool m_isConnected;
 	std::string m_loginName, m_originalName, m_password, m_email;
@@ -504,9 +506,12 @@ private:
 #ifdef USE_BROADCAST_KEYS
 // Native data table DC0768 contains these nine literal pointers in this order.
 const char* PeerThreadClass::s_keys[NumKeys] = { "b_locale", "b_wins", "b_losses", "b_points", "b_side", "b_pre", "b_BSide", "b_rank1v1", "b_rank2v2" };
-char PeerThreadClass::s_valueBuffers[NumKeys][20] = { "", "", "", "", "", "" };
+// DC078C contains nine pointers to E025E0 + 20*i; localIP starts at E02694.
+// Room publication consumes slots 0..6; Thread_Function writes slots 7 and 8.
+char PeerThreadClass::s_valueBuffers[NumKeys][ValBufSize] = {};
 const char* PeerThreadClass::s_values[NumKeys] = { s_valueBuffers[0], s_valueBuffers[1], s_valueBuffers[2],
-	s_valueBuffers[3], s_valueBuffers[4], s_valueBuffers[5]};
+	s_valueBuffers[3], s_valueBuffers[4], s_valueBuffers[5],
+	s_valueBuffers[6], s_valueBuffers[7], s_valueBuffers[8]};
 
 // Player-stat writes are recovered in PeerThreadStats.cpp.
 
@@ -1535,6 +1540,8 @@ public:
 class DualIndexedDispatchThunk
 {
 public:
+	unsigned char padding[0x54];
+	void *value;
 	void dispatch(PEER peer);
 };
 
@@ -2259,8 +2266,8 @@ void PeerThreadClass::Thread_Function()
 				break;
 
 			case PeerRequest::PEERREQUEST_PUSHSTATSVALUES:
-				_snprintf(s_valueBuffers[0], 20, "%d", payload.statsPair.value0);
-				_snprintf(s_valueBuffers[1], 20, "%d", payload.statsPair.value4);
+				_snprintf(s_valueBuffers[7], 20, "%d", payload.statsPair.value0);
+				_snprintf(s_valueBuffers[8], 20, "%d", payload.statsPair.value4);
 				reinterpret_cast<DualIndexedDispatchThunk *>(this)->dispatch( peer );
 				break;
 
@@ -3651,3 +3658,16 @@ typedef _STL::pair<const Int, SBServer> BfmeServerPair;
 typedef _STL::_Rb_tree<Int, BfmeServerPair, _STL::_Select1st<BfmeServerPair>,
 	_STL::less<Int>, _STL::allocator<BfmeServerPair> > BfmeServerTree;
 template _STL::pair<BfmeServerTree::iterator, bool> BfmeServerTree::insert_unique(const BfmeServerPair &);
+
+// Native 388D61 forwards the last two pointers of the nine-entry tables.
+// The receiver field at +54 is opaque; the donor thunk name is not owner identity.
+extern void __cdecl dispatchIndexedValue(void *, int, void *, int, int *, int *);
+void DualIndexedDispatchThunk::dispatch(PEER peer)
+{
+    dispatchIndexedValue(peer, 1, value, 2,
+        reinterpret_cast<int *>(&PeerThreadClass::s_keys[7]),
+        reinterpret_cast<int *>(&PeerThreadClass::s_values[7]));
+    dispatchIndexedValue(peer, 2, value, 2,
+        reinterpret_cast<int *>(&PeerThreadClass::s_keys[7]),
+        reinterpret_cast<int *>(&PeerThreadClass::s_values[7]));
+}
