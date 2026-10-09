@@ -1,40 +1,40 @@
-// ??0Rva005CC287@@QAE@XZ
-// partial score=0.93 date=2026-10-01
-// cl: /O1 /MD /EHsc
-// ??0Rva005CC287@@QAE@XZ @0x005CC287 62B ctor stores vtables and calls rowed 0x002B7250 erase.
-// Evidence: callees rowed __EH_prolog plus 0x002B7250; callers 0x00574DAF; vtable stores 0x00C74E04 then 0x00C6E330.
+// ??1Rva005CC254@@QAE@XZ
+// partial score=0.95 date=2026-10-09
+// cl: /O1 /G7 /arch:SSE /EHsc /MD
+// Native constructor 5CC254/26B and teardown 5CC287/62B share dispatch table
+// C74E04 and fields04/08/0C. The teardown has no constructor receiver return;
+// its final table C6E330 is the parent observer table (eight RET4 entries).
+// Explicit dispatch field retains this TU's established opaque representation.
 extern const void *const g_00C74E04[];
 extern const void *const g_00C6E330[];
 class CreateAHeroData;
-class Rva002B7250
-{
+class Rva002B7250 { public: void rva002B7250(CreateAHeroData *v); };
+struct Rva005CC254Holder { char pad[4]; Rva002B7250 list; };
+extern "C" void _ReadWriteBarrier();
+#pragma intrinsic(_ReadWriteBarrier)
+class Rva005CC254Base {
 public:
-	void rva002B7250(CreateAHeroData *v);
+    ~Rva005CC254Base() { m_00 = (void *)g_00C6E330; }
+    void *m_00;
+    void *m_04;
+    Rva005CC254Holder *m_08;
+    unsigned char m_0c;
 };
-struct Holder002B7250
-{
-	char m_pad[4];
-	Rva002B7250 m_list04;
-};
-class EmptyBase005CC287
-{
+class Rva005CC254 : public Rva005CC254Base {
 public:
-	EmptyBase005CC287() {}
-	~EmptyBase005CC287();
+    Rva005CC254(void *p);
+    ~Rva005CC254();
 };
-class Rva005CC287 : public EmptyBase005CC287
+Rva005CC254::Rva005CC254(void *p)
 {
-public:
-	Rva005CC287();
-private:
-	char m_pad[8];
-	Holder002B7250 *m_holder08;
-};
-// ??0Rva005CC287@@QAE@XZ present-unmatched
-Rva005CC287::Rva005CC287()
+    m_08 = 0;
+    m_00 = (void *)g_00C74E04;
+    m_04 = p;
+    m_0c = 1;
+}
+Rva005CC254::~Rva005CC254()
 {
-	*(const void **)this = g_00C74E04;
-	if (m_holder08)
-		m_holder08->m_list04.rva002B7250((CreateAHeroData *)this);
-	*(const void **)this = g_00C6E330;
+    m_00 = (void *)g_00C74E04;
+    _ReadWriteBarrier();
+    if (m_08) m_08->list.rva002B7250((CreateAHeroData *)this);
 }
