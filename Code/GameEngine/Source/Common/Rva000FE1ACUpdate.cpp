@@ -16,6 +16,8 @@ struct FeNode
 	unsigned char m_pad2[0xb0 - 0x78];
 	FeNode *m_next;
 	FeNode *m_prev;
+
+	int rva000FDF3F(int elapsed);
 };
 
 class WaterTracksRenderSystem
@@ -61,4 +63,16 @@ void WaterTracksRenderSystem::rva000FE1AC()
 			releaseTrack(node);
 		node = next;
 	}
+}
+
+// BF1 f98983a7 W3DWaterTracks.cpp update is a source guide. Native
+// FDF3F..FDF4C independently starts after RET4 at FDF3C and ends at its
+// own RET4. The WaterTracks system update FE1AC and current bind/editor
+// bodies prove the same node's elapsed word at74, flag3C and linksB0/B4.
+// FeNode remains the established structural view; the original leaf name
+// and its declaration's precise source type are not asserted from the donor.
+int FeNode::rva000FDF3F(int elapsed)
+{
+	m_74 += elapsed;
+	return 1;
 }
