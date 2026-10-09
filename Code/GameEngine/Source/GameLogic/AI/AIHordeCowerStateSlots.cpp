@@ -44,6 +44,13 @@
 //    0x00C11468. Needs an owner, a goal object and the owner's contain
 //    slot-31 horde interface; then tells the goal's contain the owner wants
 //    to exit (slot 17, WANTS_TO_EXIT) and continues, else fails.
+//  - AIHordeExitState::update, retail 0x003462E1 (249 bytes; Ghidra splits
+//    a phantom function at 0x00346365): slot 6 of 0x00C11468. Waits while
+//    the goal's AI slot 106 says 2, needs the owner's horde (contain slot
+//    31) and the goal's exit interface (contain slot 29), waits while it is
+//    busy, reserves a door and exits the owner with the +0x20 byte copied to
+//    g_00E03624 around the call; when horde slot 62 holds, a still-contained
+//    owner exits once more.
 //  - AIHordeEnterState::update, retail 0x003419C7 (84 bytes): slot 6 of
 //    0x00C11410. With an owner, a goal and the owner's horde interface:
 //    succeeds when its slot 61 holds, else hands it the goal (slot 63) and
@@ -99,6 +106,17 @@ typedef bool Bool;
 
 class Object;
 
+class ThingTemplate;
+
+// A contain module's exit interface (contain slot 29).
+class ExitInterface
+{
+public:
+	virtual Bool isExitBusy() = 0;
+	virtual int reserveDoorForExit(const ThingTemplate *objType, Object *specificObject) = 0;
+	virtual void exitObjectViaDoor(Object *newObj, int exitDoor) = 0;
+};
+
 class ContainModuleInterface
 {
 public:
@@ -123,7 +141,8 @@ public:
 	virtual void slot18() = 0; virtual void slot19() = 0; virtual void slot20() = 0;
 	virtual void slot21() = 0; virtual void slot22() = 0; virtual void slot23() = 0;
 	virtual void slot24() = 0; virtual void slot25() = 0; virtual void slot26() = 0;
-	virtual void slot27() = 0; virtual void slot28() = 0; virtual void slot29() = 0;
+	virtual void slot27() = 0; virtual void slot28() = 0;
+	virtual ExitInterface *getContainExitInterface() = 0;
 	virtual void slot30() = 0;
 	virtual class Rva00341A3EHorde *rva00341A3ESlot31() = 0;
 	virtual void slot32() = 0; virtual void slot33() = 0; virtual void slot34() = 0;
@@ -168,7 +187,7 @@ public:
 	virtual void s56() = 0; virtual void s57() = 0; virtual void s58() = 0;
 	virtual void s59() = 0; virtual void s60() = 0;
 	virtual Bool rva003419F7Slot61() = 0;
-	virtual void slot62() = 0;
+	virtual Bool rva003463A0Slot62() = 0;
 	virtual void rva00341A0BSlot63(Object *obj) = 0;
 	virtual void s64() = 0; virtual void s65() = 0; virtual void s66() = 0;
 	virtual void s67() = 0; virtual void s68() = 0; virtual void s69() = 0;
@@ -222,6 +241,12 @@ public:
 	virtual void rva00340366Slot107() = 0;
 };
 
+// The goal AI's slot 106 (2: the goal is still taking the owner in).
+class AIExitStateView : public CowerSlots<106>
+{
+public:
+	virtual int rva003462E1Slot106(Object *obj) = 0;
+};
 class AIUpdateInterface
 {
 public:
@@ -284,6 +309,7 @@ public:
 	Bool isDestroyedBfme() const { return (m_bfmeFlags438 & 1) != 0; }
 	Bool testBfmeFlag94() const { return (m_bfmeFlags94 & 1) != 0; }
 	void rva00292EB3(DisabledType type);
+	Object *getContainedBy() const { return m_containedBy; }
 private:
 	unsigned char m_pad000[0x04];
 	const ThingTemplate *m_template; // +0x04
@@ -297,7 +323,9 @@ private:
 	ContainModuleInterface *m_contain; // +0x250
 	unsigned char m_pad254[0x258 - 0x254];
 	AIUpdateInterface *m_ai; // +0x258
-	unsigned char m_pad25C[0x438 - 0x25C];
+	unsigned char m_pad25C[0x274 - 0x25C];
+	Object *m_containedBy; // +0x274
+	unsigned char m_pad278[0x438 - 0x278];
 	unsigned char m_bfmeFlags438; // +0x438
 };
 
@@ -352,11 +380,17 @@ protected:
 	StateMachine *m_machine; // +0x18
 };
 
+extern Bool g_00E03624;
+
 class AIHordeExitState : public State
 {
 public:
 	virtual StateReturnType onEnter();
 	virtual void onExit(StateExitType status);
+	virtual StateReturnType update();
+private:
+	unsigned char m_pad1C[0x20 - 0x1C];
+	Bool m_20; // +0x20
 };
 
 void AIHordeExitState::onExit(StateExitType status)
@@ -524,6 +558,44 @@ StateReturnType AIHordeExitState::onEnter()
 		return STATE_CONTINUE;
 	}
 	return STATE_FAILURE;
+}
+
+StateReturnType AIHordeExitState::update()
+{
+	Object *owner = getMachineOwner();
+	Object *goal = getMachine()->getGoalObject();
+	if (!owner || !goal)
+		return STATE_FAILURE;
+	if (goal->getAI() && ((AIExitStateView *)goal->getAI())->rva003462E1Slot106(owner) == 2)
+		return STATE_CONTINUE;
+	if (!owner->getContain())
+		return STATE_FAILURE;
+	Rva00341A3EHorde *horde = owner->getContain()->rva00341A3ESlot31();
+	if (!horde)
+		return STATE_FAILURE;
+	ExitInterface *exitInterface = goal->getContain() ? goal->getContain()->getContainExitInterface() : 0;
+	if (!exitInterface)
+		return STATE_FAILURE;
+	if (exitInterface->isExitBusy())
+		return STATE_CONTINUE;
+	int exitDoor = exitInterface->reserveDoorForExit(owner->getTemplate(), owner);
+	if (exitDoor == -1)
+		return STATE_FAILURE;
+	g_00E03624 = m_20;
+	exitInterface->exitObjectViaDoor(owner, exitDoor);
+	g_00E03624 = false;
+	if (!horde->rva003463A0Slot62())
+	{
+		if (owner->getContainedBy())
+			return STATE_CONTINUE;
+	}
+	else if (owner->getContainedBy())
+	{
+		g_00E03624 = m_20;
+		exitInterface->exitObjectViaDoor(owner, exitDoor);
+		g_00E03624 = false;
+	}
+	return STATE_SUCCESS;
 }
 
 StateReturnType AIHordeEnterState::update()
