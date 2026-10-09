@@ -45360,7 +45360,7 @@ _peerAuthenticateCDKey,,0x00699BB0,146,Code/GameEngine/Source/GameNetwork/GameSp
 ?upgradeImplementation@ExperienceScalarUpgrade@@MAEXXZ,,0x004B6213,35,Code/GameEngine/Source/GameLogic/Object/Upgrade/ExperienceScalarUpgradeUpgradeImplementation.cpp,matched,slot 10 of the +0x10 vtable 0xC584A0 installed by matched ExperienceScalarUpgrade ctor; ZH experience scalar add and subtract
 ?upgradeRemovalImplementation@ExperienceScalarUpgrade@@MAEXXZ,,0x004B6236,35,Code/GameEngine/Source/GameLogic/Object/Upgrade/ExperienceScalarUpgradeUpgradeImplementation.cpp,matched,slot 8 of the +0x10 vtable 0xC584A0 (ExperienceScalarUpgrade); ZH experience scalar add and subtract
 ?rva0045906E@Rva0045906E@@QAEX_N@Z,,0x0045906E,87,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/Rva0045906E.cpp,matched,unlocks 3 via setStatus plus slot142
-?Rva003598A5@@YGXHHHPAX@Z,,0x003598A5,38,Code/GameEngine/Source/Common/Rva003598A5.cpp,matched,loop virtual slot0 over int range
+?rva003598A5@TerrainResourceManager@@QAEXHHHPAX@Z,,0x003598A5,38,Code/GameEngine/Source/GameLogic/System/TerrainResourceManager.cpp,matched,span visitor slot0; native and WB circle callers prove member ABI; old standalone owner renamed
 ?Rva003BBFD6Select@@YGXPAVParameter@@@Z,,0x003BBFD6,37,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsRva003BAAD6.cpp,matched,leaf caller 0x003CC482 globals ScriptEngine InGameUI slot 0xA0 via getUnitNamed
 ?Rva003BB274Ai@@YGXPAVParameter@@H@Z,,0x003BB274,41,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsRva003BAAD6.cpp,matched,leaf caller 0x003CB376 ScriptEngine getUnitNamed AIUpdateInterface 0x258
 ??0BfmeThingSH@@QAE@XZ,,0x000FE2A3,182,Code/GameEngine/Source/Common/BfmeThingSHCtor.cpp,matched,ctor vtable bfmeVftSH float literals 1p0 m1p0
