@@ -145,3 +145,34 @@ Rva004102C8Arg*Rva004115A9Create(const Coord2D*origin,const Coord2D*size,const c
 
 class Rva0056D671 {public:Rva0056D671(void*);private:char unmodelled[0x270];};
 void*__stdcall Rva00410223(void*context){return new Rva0056D671(context);}
+
+// WB10935F0 identifies ComponentGameWindow; native411EC3..4120B3 RET0
+// supplies the complete496B boundary and the same four callback arguments as
+// the recovered registry. Native name/init strings and target record offsets
+// establish behavior independently of the clean neighbour callbacks. The
+// existing three-int functor provider keeps its erased physical word ABI.
+// Explicit init-name pointer preserves the node through the assignment;
+// positive-found branch keeps the newly-created failure exit in the cold tail.
+void Rva00411EC3(const Coord2D*origin,const Coord2D*size,const char*path,const char*params){
+const AsciiString*foundName; AsciiString windowId;
+ if(!Rva004128F0GetParam(params,"_WindowId",windowId))windowId=bfmePathLeafAfterMarker(path);
+ bool created=false;
+ Rva004102C8Arg*info=(Rva004102C8Arg*)Rva004110C3Get(&windowId);
+ if(!info){info=Rva004115A9Create(origin,size,path,params,&windowId);if(!info)return;created=true;}
+ GameWindow*window=info->m_10;if(!window)return;
+ if(strcmp(info->path.str(),path)!=0)info->path=path;
+ if(info->initName.isEmpty()){
+  AsciiString init;Rva004128F0GetParam(params,"_Init",init);
+  void*found=((Rva00056F61*)&g_aptScreenReferences)->rva00056F61(&init);
+  if(found){
+   window->winEnable(true);
+   ((Rva00222947Ref*)((char*)found+8))->invoke((int)windowId.str(),(int)params,(int)window);
+   foundName=(AsciiString*)((char*)found+4);info->initName=*foundName;
+   GameWindow*parent=(GameWindow*)((AptPlayer*)g_bfmeAptWindowManager)->PeekGameWindow(AptUtils::LevelIndexFromTarget(path));
+   if(parent!=window->winGetParent())window->rva00314056((int)parent);
+  }else if(created)return;
+ }
+ if(window->winIsHidden()){if(!(window->winGetStatus()&0x10000000))return;window->winHide(false);}
+ if(!created)Rva004102C8Update(info,(float*)origin,(float*)size);
+ TheWindowManager->drawWindow(window);info->drawn=true;
+}
