@@ -1,6 +1,6 @@
 // cl: /MD /EHsc
-// ??0Rva00343756@@QAE@PAVObject@@HVAsciiString@@@Z @0x00343756 198B
-// class-gate: allow AsciiString retail pushes single dword for VAsciiString (0x00343756 base 0x004D79E1); shared header emits copy lea and breaks prolog
+// ??0Rva00343756@@QAE@PAVObject@@HI@Z @0x00343756 198B
+// Name is a scalar hash: factory 34B1E9 pushes 0x30C4498F directly.
 // Derived StateMachine ctor: base Rva004D759C with (owner, name, false),
 // vtable, two states (500/501) via new 0x28/0x20 and defineState.
 // Evidence: calls rowed base 0x004D79E1, new 0x0002FDA0, state ctors
@@ -8,12 +8,6 @@
 // +0xC transformed to 0 or +0x20; ids 0x1F4/0x1F5/0x270F; cond 0x00C13164.
 
 class Object;
-
-class AsciiString
-{
-public:
-	void *m_data;
-};
 
 struct StateConditionInfo
 {
@@ -33,7 +27,7 @@ class StateMachine;
 class Rva004D759C
 {
 public:
-	Rva004D759C(Object *owner, AsciiString name, bool flag);
+	Rva004D759C(Object *owner, unsigned int name, bool flag);
 	virtual ~Rva004D759C();
 };
 
@@ -66,13 +60,13 @@ extern const void *const g_00C11BD0[];
 class Rva00343756 : public Rva004D759C
 {
 public:
-	Rva00343756(Object *owner, int val, AsciiString name);
+	Rva00343756(Object *owner, int val, unsigned int name);
 };
 
 extern void *__cdecl operator new(unsigned int size);
 inline void *__cdecl operator new(unsigned int, void *p) { return p; }
 
-Rva00343756::Rva00343756(Object *owner, int val, AsciiString name)
+Rva00343756::Rva00343756(Object *owner, int val, unsigned int name)
 	: Rva004D759C(owner, name, false)
 {
 	State *s1 = new Rva0033F483((StateMachine *)(void *)this, val ? val + 0x20 : 0);

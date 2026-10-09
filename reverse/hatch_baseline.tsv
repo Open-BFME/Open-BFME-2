@@ -6108,7 +6108,6 @@ class_gate_allow	Code/GameEngine/Source/Common/Rva002DB496Finish.cpp	AsciiString
 class_gate_allow	Code/GameEngine/Source/Common/Rva003193EC.cpp	StringBase	1
 class_gate_allow	Code/GameEngine/Source/Common/Rva0033D3B8Lookup.cpp	AsciiString	1
 class_gate_allow	Code/GameEngine/Source/Common/Rva0033FC0ACtor.cpp	AsciiString	1
-class_gate_allow	Code/GameEngine/Source/Common/Rva00343756Ctor.cpp	AsciiString	1
 class_gate_allow	Code/GameEngine/Source/Common/Rva004A78E1Spawn.cpp	AsciiString	1
 class_gate_allow	Code/GameEngine/Source/Common/Rva004B3AFFNotify.cpp	AsciiString	1
 class_gate_allow	Code/GameEngine/Source/Common/Rva00518769Dtor.cpp	AsciiString	1
@@ -6142,10 +6141,6 @@ class_gate_allow	Code/GameEngine/Source/GameClient/System/FXParticleSystem/Modul
 class_gate_allow	Code/GameEngine/Source/GameClient/Terrain/TerrainRoads_Rva00062E72.cpp	AsciiString	1
 class_gate_allow	Code/GameEngine/Source/GameLogic/AI/AIAttackMoveStateMachine.cpp	AsciiString	1
 class_gate_allow	Code/GameEngine/Source/GameLogic/AI/AIStatesDerivedOnExit.cpp	Coord3D	1
-class_gate_allow	Code/GameEngine/Source/GameLogic/AI/Rva0034316AStates.cpp	AsciiString	1
-class_gate_allow	Code/GameEngine/Source/GameLogic/AI/Rva003435FBStates.cpp	AsciiString	1
-class_gate_allow	Code/GameEngine/Source/GameLogic/AI/Rva00343838States.cpp	AsciiString	1
-class_gate_allow	Code/GameEngine/Source/GameLogic/AI/Rva00343A86States.cpp	AsciiString	1
 class_gate_allow	Code/GameEngine/Source/GameLogic/AI/Rva003444CEStates.cpp	AsciiString	1
 class_gate_allow	Code/GameEngine/Source/GameLogic/AI/Rva0034B952Ctor.cpp	AsciiString	1
 class_gate_allow	Code/GameEngine/Source/GameLogic/AI/Rva0036A88A.cpp	Coord3D	1

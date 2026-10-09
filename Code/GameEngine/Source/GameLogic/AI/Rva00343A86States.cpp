@@ -1,18 +1,13 @@
 // cl: /DNDEBUG /MD /EHsc
-// class-gate: allow AsciiString 4-byte trivial view to pass VAsciiString by value to rowed base 0x004D79E1 with no copy-ctor call like the base TU's own view
-// ??0Rva00343A86@@QAE@PAVObject@@HVAsciiString@@@Z @0x00343A86 295B.
+// ??0Rva00343A86@@QAE@PAVObject@@HI@Z @0x00343A86 295B.
+// Name is a scalar hash: factory 34B1E9 pushes an immediate key, with no
+// string construction or destruction. Keep the established host-word view.
 // StateMachine-family ctor (thiscall): base-constructs the rowed
 // Rva004D759C from (owner, name, 0), stores vtable g_00C11A86, then four
 // new-expression state blocks into the dead name slot with post-call eax
 // feeding rowed defineState directly (B952-family shape). The zero lives in
 // esi and is recycled into 0x2BC; 0x2C0/0x2BE trade through ebx; the 0x270F
 // pair rides transient ecx.
-class AsciiString
-{
-public:
-	void *m_data;
-};
-
 class Object;
 struct State;
 struct StateConditionInfo;
@@ -26,7 +21,7 @@ public:
 class Rva004D759C
 {
 public:
-	Rva004D759C(Object *owner, AsciiString name, bool flag);
+	Rva004D759C(Object *owner, unsigned int name, bool flag);
 	virtual ~Rva004D759C();
 };
 
@@ -62,10 +57,10 @@ extern const void *const g_00C11A86[];
 class Rva00343A86 : public Rva004D759C
 {
 public:
-	Rva00343A86(Object *owner, int x, AsciiString name);
+	Rva00343A86(Object *owner, int x, unsigned int name);
 };
 
-Rva00343A86::Rva00343A86(Object *owner, int x, AsciiString name)
+Rva00343A86::Rva00343A86(Object *owner, int x, unsigned int name)
 	: Rva004D759C(owner, name, false)
 {
 	*(const void **)this = g_00C11A86;
