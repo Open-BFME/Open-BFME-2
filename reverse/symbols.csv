@@ -16974,3 +16974,4 @@ _isalnum,0x00629AF6,msvcr71 isalnum import stub called directly by the URL escap
 ?update@BezierProjectileBehavior@@UAE?AW4UpdateSleepTime@@XZ,0x0045C226,WB1181E80 names BezierProjectileBehavior update; native MissileUpdate4A7B48 passes its UpdateModuleInterface at owner10 to this entry and returns its sleep result; target Bezier constructor and module-name ownership independently agree
 ?rva005A879B@NAT@@QAEXXZ,0x005A879B,callee of ?rva005A8F57@Rva005A6D47@@QAEHXZ
 ?rva005DC586@PortNegotiationSchema@@QAE_NPAV?$vector@URva005A7A96Pair@@V?$allocator@URva005A7A96Pair@@@_STL@@@_STL@@@Z,0x005DC586,callee of ?rva005A8F57@Rva005A6D47@@QAEHXZ
+?rva0008AAD4@W3DView@@AAEXXZ,0x0008AAD4,callee of ?updateCameraMovements@W3DView@@QAE_NXZ

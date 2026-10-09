@@ -1,5 +1,4 @@
 // ?updateCameraMovements@W3DView@@QAE_NXZ
-// partial score=1.0 date=2026-10-09
 // Reference: Open-BFME-1 revision874e38488c7dcf8cf3343452e8e5371bb3a0e64c,
 // W3DViewUpdateCameraMovementsBfme.cpp supplies modes1/2 and flag dispatch.
 // Target WB98A520 and native8B010..8B1E5 prove mode3 timestamp gating,
@@ -24,12 +23,7 @@ public:
 };
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/GameLogic.h
-class GameLogic
-{
-public:
-	char m_padding[0x40];
-	Int m_frame;
-};
+#include "../../../../GameEngine/Source/Common/GameLogicObjectLookupView.h"
 
 extern GlobalData *TheWritableGlobalData;
 extern GameLogic *TheGameLogic;
@@ -37,7 +31,7 @@ extern Int TheW3DFrameLengthInMsec;
 
 #include "Coord3D.h"
 #include "Coord2D.h"
-class Rva00086761CameraMove {public:void rva00086CDA();};
+#include "../../../../GameEngine/Include/GameClient/Rva0008990CArrayOwner.h"
 class Rva00086D73 {public:void rva00086D73();};
 class Rva00086E24 {public:void rva00086E24();};
 class Rva00086EBD {public:void rva00086EBD();};
@@ -126,7 +120,7 @@ Bool W3DView::updateCameraMovements(void)
 	register Bool didUpdate = false;
 
 	if (TheWritableGlobalData->m_disableCameraMovement) {
-		Int frame = TheGameLogic->m_frame;
+		Int frame = (Int)TheGameLogic->getFrame();
 		if (m_cameraMovementLastFrame < frame) {
 			m_cameraMovementLastFrame = frame;
 		}
