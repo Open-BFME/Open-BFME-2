@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /EHsc /Ireference/shims/bfme2_ascii /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /O1 /G7 /arch:SSE /EHsc /Ireference/shims/bfme2_ascii /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 //
 // LargeGroupAudioSoundKeyPair subject bookkeeping (retail 0x00568920..0x00569863).
@@ -44,6 +44,9 @@ class ModuleData;
 struct FloatPair
 {
 	FloatPair() {}
+ // Nontrivial coordinate return has the same two-float physical ABI.
+ FloatPair(float a,float b):x(a),y(b){}
+ operator float *() { return &x; }
 	FloatPair(const FloatPair &o) : x(o.x), y(o.y) {}
 	~FloatPair() {}
 	__forceinline bool isExactlyEqualTo(const FloatPair &o) const { return x == o.x && y == o.y; }
@@ -137,11 +140,9 @@ class Rva00569373 {public: void rva00569373(void *);};
 class Rva00569393 {public: void rva005694CD();};
 class Rva00568F04 {public: void rva00568F04(void *);};
 struct BfmeStringRecord00568CE0 { char opaque00[12]; Rva00568F04 *subject; char opaque10[4]; ~BfmeStringRecord00568CE0(); };
-// Native transfer 00569BBC uses version bytes and Xfer virtual slots 50/78/7C/80/90.
-// WB twin 1442480 is unnamed; its address-derived method name is retained.
-// The WB-named 1442010 xferGridCellVector twin proves the helper identity.
-// Native grid vectors hold opaque four-byte pointers; ModuleData is only the
-// existing STLport emitter view and does not establish the cell pointee type.
+// Native transfer569BBC and WB unnamed twin1442480 establish version/Xfer
+// protocol. WB-named1442010 establishes xferGridCellVector identity.
+// ModuleData pointer vectors are opaque four-byte emitter views only.
 struct VersionPair { unsigned char minimum,current; };
 class Xfer {
 public:
@@ -185,6 +186,28 @@ public:
 };
 class Rva00568A05 { public: Rva00568A05 &operator=(const Rva00568A05 &); };
 
+struct Rva005688D2Base { char pad[0x10]; float scale; };
+// Native 5688D2 returns its two-float output address in EAX and RET8.
+// Its caller569ABD consumes that EAX as a live temporary with an empty
+// destructor. This typed-return body is an emitted byte/relocation twin of
+// the existing explicit-output provider; original source spelling is unknown.
+// Native constant BC6C50 is -0.5f; scale belongs to owner+10 reached at this+3C.
+class Rva005688D2 {
+public:
+ FloatPair rva005688D2(int mode);
+private:
+ char pad[0x3C]; Rva005688D2Base *base;
+};
+FloatPair Rva005688D2::rva005688D2(int mode)
+{
+ float first,second;
+ if(mode==0 || mode==2)first=0;
+ else first=base->scale * -0.5f;
+ if(mode==0 || mode==1)second=0;
+ else second=base->scale * -0.5f;
+ return FloatPair(first,second);
+}
+
 class LargeGroupAudioSoundKeyPair;
 // Retail passes one source pointer (RET4), keeps it in EDI, and reuses its
 // dead argument home for the four-grid counter and then the output flag at
@@ -197,6 +220,8 @@ class LargeGroupAudioKeyMap {public: LargeGroupAudioKeyMap &operator=(const Larg
 struct OpaqueRefElement4 { void *m_referent; OpaqueRefElement4 &operator=(const OpaqueRefElement4 &);};
 class Rva005C8565 {public: void rva005C8565();};
 struct Rva00569F0CVec { void *m_begin,*m_end,*m_pad; void rva00569F0C(void *,void *,bool *);};
+class Rva005C865B {public: Rva005C865B(void *,float *); char opaque[0x1C];};
+class Rva005C81D8 {public: void rva005C81D8(Rva005C8176 *,Rva005C8176 *,Rva005C8176 *);};
 class LargeGroupAudioSoundKeyPair
 {
 public:
@@ -205,6 +230,7 @@ public:
  void rva0056A378(Rva0056A378Source arg);
  void rva00569BBC(Xfer *, VersionPair *);
  void allocateGrids();
+ void setupAllDuckingTargets();
  void xferGridCellVector(Xfer *, void *, VersionPair *);
  void rva0056979A(const FloatPair &pos, unsigned short weight);
  void rva005697F7(LargeGroupAudioSubject *subject);
@@ -306,6 +332,25 @@ void LargeGroupAudioSoundKeyPair::updateSubject(LargeGroupAudioSubject *subject)
 		key.w = weight;
 		m_pendingAdds.insert(key);
 	}
+}
+
+// WB143EA40 names allocateGrids. Native569ABD proves allocations1C and
+// four ordered neighbour hookups through neutral5C81D8. /G7 closes the
+// pending key's 16-bit weight load; target has no zero-extension instruction.
+void LargeGroupAudioSoundKeyPair::allocateGrids()
+{
+ for(int i=0;i<4;++i){
+  if(m_grids[i]){reinterpret_cast<Rva00569393 *>(this)->rva005694CD();i=0;}
+  m_grids[i]=reinterpret_cast<Rva005C8176 *>(new Rva005C865B(reinterpret_cast<void *>(unknown3C),reinterpret_cast<Rva005688D2 *>(this)->rva005688D2(i)));
+ }
+ reinterpret_cast<Rva005C81D8 *>(m_grids[0])->rva005C81D8(m_grids[1],m_grids[2],m_grids[3]);
+ reinterpret_cast<Rva005C81D8 *>(m_grids[1])->rva005C81D8(m_grids[0],m_grids[3],m_grids[2]);
+ reinterpret_cast<Rva005C81D8 *>(m_grids[2])->rva005C81D8(m_grids[3],m_grids[0],m_grids[1]);
+ reinterpret_cast<Rva005C81D8 *>(m_grids[3])->rva005C81D8(m_grids[2],m_grids[1],m_grids[0]);
+ setupAllDuckingTargets();
+ Rva00568FE4Multi::iterator it=m_pendingAdds.begin(),end=m_pendingAdds.end();
+ for(;it!=end;++it)rva0056979A(reinterpret_cast<const FloatPair &>(*it),it->w);
+ m_pendingAdds.clear();
 }
 
 void LargeGroupAudioSoundKeyPair::rva0056979A(const FloatPair &pos, unsigned short weight)
