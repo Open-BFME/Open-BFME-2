@@ -1,6 +1,8 @@
 // ?groupRotateFiringarc@AIGroup@@QAEXPBUCoord3D@@W4CommandSourceType@@@Z
+// partial score=0.9254123112659699 date=2026-10-10
+// ?groupRotateFiringarc@AIGroup@@QAEXPBUCoord3D@@W4CommandSourceType@@@Z
 // partial score=0.9 date=2026-10-06
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /O1 /DNDEBUG /MD /arch:SSE /G7 /ICode/Libraries/Include/Lib
 // AIGroup::groupRotateFiringarc, retail 0x003706C8 (205 bytes):
 // ?groupRotateFiringarc@AIGroup@@QAEXPBUCoord3D@@W4CommandSourceType@@@Z
 // Identity (target): WorldBuilder's debug AIGroup.cpp
@@ -23,6 +25,7 @@ struct Coord3D
 	float lengthSqr2D() const { return x * x + y * y; }
 };
 
+struct RotateCoord:Coord3D{__forceinline RotateCoord(float X,float Y,float Z){y=Y;x=X;z=Z;}__forceinline RotateCoord(const Coord3D&p){x=p.x;y=p.y;z=p.z;}__forceinline void sub(const Coord3D*p){x-=p->x;y-=p->y;z-=p->z;}};
 float ACos(float x);
 
 enum CommandSourceType
@@ -52,7 +55,7 @@ class Object
 {
 public:
 	const Coord3D *getPosition() const { return &m_position; }
-	AIUpdateInterface *getAI() const { return m_ai; }
+	AIUpdateInterface *getObservedAI() const { return m_ai; }
 
 private:
 	unsigned char m_pad00[0x38];
@@ -77,14 +80,10 @@ void AIGroup::groupRotateFiringarc(const Coord3D *pos, CommandSourceType cmdSour
 		Object *obj = *i;
 		if (!obj)
 			continue;
-		AIUpdateInterface *ai = obj->getAI();
+		AIUpdateInterface *ai = obj->getObservedAI();
 		if (!ai)
 			continue;
-		Coord3D dir;
-		dir.z = pos->z - obj->getPosition()->z;
-		dir.y = pos->y - obj->getPosition()->y;
-		dir.x = pos->x - obj->getPosition()->x;
-		if (dir.lengthSqr2D() < 1.0f)
+RotateCoord dir(pos->x-obj->getPosition()->x,pos->y-obj->getPosition()->y,pos->z-obj->getPosition()->z);		if (dir.lengthSqr2D() < 1.0f)
 			continue;
 		dir.Normalize2D();
 		float angle;
