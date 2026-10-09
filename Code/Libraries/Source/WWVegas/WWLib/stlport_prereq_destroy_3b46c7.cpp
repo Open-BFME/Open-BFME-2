@@ -44,3 +44,26 @@ void Rva003B6846Vec::rva003B6846()
 	if (m_start)
 		free(m_start);
 }
+
+// Native3B57D9..3B57E5 is bounded by priorRET4 at3B57D6 and the next
+// independently rowed entry3B57E5. It subtracts20 from word4, reloads that
+// pointer intoECX, then tail-calls the existing577998 +8 AsciiString teardown.
+// BF1 f989 Common/Gen20VectorDestructor.cpp and
+// Containers/Rva0013C2D0VectorDestructor.cpp underO1/SSE2/G6 provide whole-TU
+// pop_back operation guides. Their element/vector names are not target facts.
+// Original owner and element identity remain unknown. The existing destructor
+// declaration is only the verified shared+8 string cleanup contract; this does
+// not identify the payload as ProductionPrerequisite::PrereqUnitRec. This home
+// already has a native20B destroy loop calling that same actual cleanup.
+struct Rva003B57D9
+{
+    unsigned int word0;
+    unsigned char *finish;
+    void removeLastStringTail();
+};
+
+void Rva003B57D9::removeLastStringTail()
+{
+    finish -= 20;
+    reinterpret_cast<ProductionPrerequisite::PrereqUnitRec *>(finish)->~PrereqUnitRec();
+}
