@@ -93,6 +93,7 @@ public:
  class Impl {
  public:
   Impl(AptInGameSideCommandBar *owner, int levelIndex);
+  ~Impl();
   void Update();
   void OnButtonFrameLoaded(const char *params);
   void OnButtonFrameUnloaded(const char *params);
@@ -205,3 +206,8 @@ AptInGameSideCommandBar::Impl::Impl(AptInGameSideCommandBar *owner, int levelInd
  m_maps.AddCommandMapDelegate(AsciiString("OnAptInGameSideCommandBarButtonFrameLoaded"), DelegateDesc(this, &Impl::OnButtonFrameLoaded));
  m_maps.AddCommandMapDelegate(AsciiString("OnAptInGameSideCommandBarButtonFrameUnloaded"), DelegateDesc(this, &Impl::OnButtonFrameUnloaded));
 }
+
+// Complete native79B5282BA..528309 destroys fifteen slots24, string18,
+// then maps8, exactly the member ownership established by constructor5288C4.
+// The owning-pointer reset5287D0 reaches this destructor.
+AptInGameSideCommandBar::Impl::~Impl() {}
