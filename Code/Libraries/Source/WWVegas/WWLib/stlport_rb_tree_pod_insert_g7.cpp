@@ -16,6 +16,14 @@
 // _M_clone_node row (0x00417DDD) and itself. /G7 is what reproduces retail's
 // instruction schedule here; the owning TU's flags keep the blend schedule.
 #include <map>
+
+// Keep the STLport signed comparison inline; its retail external copy
+// belongs to stlport_list_int.cpp at RVA0x00626F90.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+bool less<int>::operator()(const int &left, const int &right) const
+{ return left < right; }
+}
 namespace _STL {
 template <> class allocator<char> {
 public:
