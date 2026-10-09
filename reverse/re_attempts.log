@@ -29096,3 +29096,4 @@ FUN_007808F0	0x003808F0	365	converted	stale_verdicts backfill: address-named def
 ?Update@Impl@InGamePlanningModeInterface@@QAEXXZ	0x00527EAB	186	landed	stale_verdicts backfill: real-source matched row at this RVA (?Update@Impl@InGamePlanningModeInterface@@QAEXXZ)
 ?rva005E2E91@Rva005E2E91@@QAEHH@Z	0x005E2E91	92	converted	stale_verdicts backfill: address-named deferral; same-size real-source matched row at this RVA (?ShowPage@Impl@RegionDetailsMovieClip@StrategicHUD@@QAEXH@Z)
 ?rva005E2EED@Rva005E2EED@@QAEXH@Z	0x005E2EED	92	converted	stale_verdicts backfill: address-named deferral; same-size real-source matched row at this RVA (?HidePage@Impl@RegionDetailsMovieClip@StrategicHUD@@QAEXH@Z)
+?rva0044FB28@SpecialAbilityUpdate@@QAE_NPAVObject@@PAX@Z	0x0044FB28	298	converted	stale_verdicts backfill: address-named deferral; same-size real-source matched row at this RVA (?initLaser@SpecialAbilityUpdate@@IAE_NPAVObject@@0@Z)
