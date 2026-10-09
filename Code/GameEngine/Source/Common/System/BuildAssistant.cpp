@@ -801,6 +801,10 @@ private:
 	ObjectSellList m_sellList;		// +0x0C
 };
 
+// BFME1 defines this public pointer as NULL; BFME2 has a zero-filled slot at
+// 0x00A027B8, and native callers load it as the build-assistant receiver.
+BuildAssistant *TheBuildAssistant = NULL;
+
 class ThingFactory
 {
 public:

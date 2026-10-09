@@ -19015,7 +19015,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A027AC,4,.data,global,_s_rva007AF18A,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A027B0,4,.data,global,?TheRadiusDecalUpdatePoolKey@?1??rva000391445@RadiusDecalUpdate@@SA?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/RadiusDecalUpdatePoolKey.cpp,owned,,1,2
 0x00A027B4,4,.data,global,?g_Va00E027B4@@3IA,Code/GameEngine/Source/Common/GlobalFlagClearers_E027xx.cpp,provisional,?$S1@?1??rva000391445@RadiusDecalUpdate@@SA?AW4NameKeyType@@XZ@4IA@Code/GameEngine/Source/GameLogic/Object/Update/RadiusDecalUpdatePoolKey.cpp;?g_Va00E027B4@@3IA,2,4
-0x00A027B8,4,.data,global,?TheBuildAssistant@@3PAVBuildAssistant@@A,,unowned,?TheBuildAssistant@@3PAVBuildAssistant@@A;?g_00A027B8@@3PAVRva00A027B8@@A,1,27
+0x00A027B8,4,.data,global,?TheBuildAssistant@@3PAVBuildAssistant@@A,Code/GameEngine/Source/Common/System/BuildAssistant.cpp,provisional,?TheBuildAssistant@@3PAVBuildAssistant@@A;?g_00A027B8@@3PAVRva00A027B8@@A,1,27
 0x00A027BC,4,.data,global,_s_rva007AF1CE,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A027C0,4,.data,global,_s_rva007AF1DE,Code/GameEngine/Source/Common/Rva007AF1DEFrameScaleSseInits.cpp,owned,,1,1
 0x00A027C4,4,.data,global,?g_00E027C4@@3MA,,unowned,,0,2
