@@ -1,4 +1,4 @@
-// cl: /vmg /vmm /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB
+// cl: /vmg /vmm /Ireference/shims/bfme2_ascii /ICode/GameEngine/Source/Common /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB
 // stlport
 //
 // BFME2's options screen Apt callbacks "AptOptions::RefreshNat",
@@ -74,6 +74,7 @@ extern BfmeEnumTableEntry BfmeEnumTable[];
 #include <vector>
 #include "ascii_string.h"
 #include "unicode_string.h"
+#include "GameLogicObjectLookupView.h"
 
 // AptOnlineQuickMatchOptions.cpp's prompt plumbing: a member-pointer
 // binding wrapped in the refcounted holder 0x0057BC63 builds, handed by
@@ -172,6 +173,82 @@ extern GameLODManager *TheGameLODManager;
 // Rva005186E1Format.cpp's 0x005186E1 formats the options into a string.
 void Rva005186E1Format(OptionPreferences *prefs, AsciiString *text);
 
+// What AptOptions::Reset calls. The LOD manager's 0x002026A0 is the WB twin's
+// GameLODManager::findAudioLODLevel; 0x005183FA is rowed on Rva005183A0.
+class Rva002026A0
+{
+public:
+	int rva002026A0() const;
+};
+
+class Rva005183A0
+{
+public:
+	void rva005183FA();
+};
+
+class GameWindow
+{
+public:
+	void *winGetUserData();
+};
+
+// A slider's user data: its range.
+struct SliderData
+{
+	int minVal;
+	int maxVal;
+};
+
+int GadgetSliderGetPosition(GameWindow *slider);
+int Rva0050E776Send(GameWindow *slider, int position); // GadgetSliderSetPosition
+void GadgetCheckBoxSetChecked(GameWindow *checkBox, bool isChecked);
+void GadgetTextEntrySetText(GameWindow *textEntry, UnicodeString text);
+
+struct BfmeAudioSettings
+{
+	unsigned char m_pad00[0x1C];
+	float m_defaultVolumes[5]; // +0x1C
+};
+
+#define V(n) virtual void slot##n();
+class AudioManager
+{
+public:
+	V(0)V(1)V(2)V(3)V(4)V(5)V(6)V(7)V(8)V(9)V(10)V(11)V(12)V(13)V(14)V(15)
+	V(16)V(17)V(18)V(19)V(20)V(21)V(22)V(23)V(24)V(25)V(26)V(27)V(28)V(29)
+	V(30)V(31)V(32)V(33)V(34)V(35)V(36)V(37)V(38)V(39)V(40)V(41)V(42)V(43)
+	V(44)V(45)V(46)V(47)V(48)V(49)V(50)V(51)V(52)V(53)V(54)V(55)V(56)V(57)
+	virtual void setVolume(int which, float volume); // +0xE8
+	V(59)V(60)V(61)V(62)V(63)V(64)V(65)V(66)V(67)V(68)V(69)V(70)V(71)V(72)
+	V(73)V(74)V(75)V(76)
+	virtual const BfmeAudioSettings *getAudioSettings(); // +0x134
+	V(78)V(79)V(80)V(81)V(82)V(83)V(84)V(85)V(86)V(87)V(88)V(89)V(90)V(91)
+	V(92)V(93)V(94)V(95)V(96)
+	virtual bool setUseEAX(bool use); // +0x184
+};
+
+class Display
+{
+public:
+	V(0)V(1)V(2)V(3)V(4)V(5)V(6)V(7)V(8)V(9)V(10)V(11)V(12)V(13)V(14)V(15)
+	V(16)V(17)V(18)V(19)V(20)V(21)V(22)V(23)V(24)
+	virtual void setGamma(float gamma, float bright, float contrast, bool calibrate); // +0x64
+};
+#undef V
+
+class GlobalData
+{
+public:
+	unsigned char m_pad000[0xAFC];
+	float m_keyboardDefaultScrollFactor; // +0xAFC
+};
+
+extern AudioManager *TheAudio;
+extern Display *TheDisplay;
+extern GlobalData *TheGlobalData;
+extern GameLogic *TheGameLogic;
+
 class AptOptions
 {
 public:
@@ -184,13 +261,14 @@ public:
 
 	void rva00518B05(const AsciiString &text, int kind);
 	void rva0051890E(int answer);
+	void Reset(const char *unused);
 
 private:
 	unsigned char m_pad000[0x274];
 	void *m_274; // +0x274, the screen's Apt movie level
 	unsigned char m_pad278[0x27C - 0x278];
 	int m_state; // +0x27C
-	unsigned char m_pad280[0x281 - 0x280];
+	bool m_280; // +0x280
 	bool m_281; // +0x281
 	bool m_282; // +0x282
 	bool m_online; // +0x283
@@ -198,10 +276,23 @@ private:
 	unsigned char m_pad285[0x288 - 0x285];
 	_STL::vector<bool> m_warned; // +0x288, one per warning kind
 	unsigned char m_pad29c[0x2AC - 0x29C];
-	GameWindow *m_2ac; // +0x2AC
-	unsigned char m_pad2b0[0x2F8 - 0x2B0];
+	GameWindow *m_2ac; // +0x2AC, the resolution combo box
+	unsigned char m_pad2b0[0x2B8 - 0x2B0];
+	GameWindow *m_2b8; // +0x2B8, a text entry
+	unsigned char m_pad2bc[0x2C0 - 0x2BC];
+	GameWindow *m_2c0; // +0x2C0, check boxes Reset clears
+	GameWindow *m_2c4; // +0x2C4
+	GameWindow *m_2c8; // +0x2C8
+	GameWindow *m_2cc; // +0x2CC
+	unsigned char m_pad2d0[0x2D4 - 0x2D0];
+	GameWindow *m_eaxCheckBox; // +0x2D4
+	GameWindow *m_2d8; // +0x2D8, checked for audio LOD level 1
+	GameWindow *m_volumeSliders[5]; // +0x2DC
+	GameWindow *m_scrollSlider; // +0x2F0
+	GameWindow *m_gammaSlider; // +0x2F4
 	bool m_2f8; // +0x2F8
-	unsigned char m_pad2f9[0x308 - 0x2F9];
+	unsigned char m_pad2f9[0x304 - 0x2F9];
+	int m_304; // +0x304, the default resolution choice
 	AsciiString m_308; // +0x308
 	int m_30c; // +0x30C
 	int m_preset; // +0x310, -1 for custom settings
@@ -333,6 +424,87 @@ void AptOptions::ExternsLODTemplate(int query, char *value, bool set)
 	AsciiString text;
 	Rva005186E1Format(&prefs, &text);
 	strcpy(value, text.str());
+}
+
+// Retail 0x00518D2B, 703 bytes: "AptOptions::Reset", bound by that name in
+// the screen's registration (0x0051A96F). Forgets the warnings given and, on
+// the basic page (state 1), puts the gadgets back to their defaults as Zero
+// Hour's OptionsMenu setDefaults does: the resolution combo, the gamma
+// slider at mid range (Zero Hour's gamma formula into TheDisplay), the
+// scroll slider, the check boxes and text entry, EAX off, the volume
+// sliders at the audio settings' defaults. The WorldBuilder twin
+// 0x013D5260 has the same shape with its fields 4 lower from +0x288.
+void AptOptions::Reset(const char *unused)
+{
+	m_warned.clear();
+	m_warned.resize(4, false);
+	if (m_state == 1)
+	{
+		if (m_2ac && m_280 && !TheGameLogic->rva0042219())
+		{
+			GadgetComboBoxSetSelectedPos(m_2ac, m_304, false);
+			m_30c = m_304;
+		}
+		if (m_gammaSlider)
+		{
+			SliderData *data = (SliderData *)m_gammaSlider->winGetUserData();
+			Rva0050E776Send(m_gammaSlider, (data->maxVal - data->minVal) / 2 + data->minVal);
+			int val = GadgetSliderGetPosition(m_gammaSlider);
+			if (val != -1)
+			{
+				float gammaval = 1.0f;
+				if (val < 50)
+				{
+					if (val <= 0)
+						gammaval = 0.6f;
+					else
+						gammaval = 1.0f - (0.4f) * (float)(50 - val) / 50.0f;
+				}
+				else if (val > 50)
+					gammaval = 1.0f + (1.0f) * (float)(val - 50) / 50.0f;
+				TheDisplay->setGamma(gammaval, 0.0f, 1.0f, false);
+			}
+		}
+		if (m_scrollSlider)
+			Rva0050E776Send(m_scrollSlider, (int)(TheGlobalData->m_keyboardDefaultScrollFactor * 50.0f));
+		if (m_2c0)
+			GadgetCheckBoxSetChecked(m_2c0, false);
+		if (m_2b8)
+			GadgetTextEntrySetText(m_2b8, UnicodeString(L""));
+		if (m_2c4)
+			GadgetCheckBoxSetChecked(m_2c4, false);
+		if (m_2cc)
+			GadgetCheckBoxSetChecked(m_2cc, false);
+		if (m_2c8)
+			GadgetCheckBoxSetChecked(m_2c8, false);
+		if (m_eaxCheckBox)
+		{
+			TheAudio->setUseEAX(false);
+			GadgetCheckBoxSetChecked(m_eaxCheckBox, false);
+		}
+		if (m_2d8)
+		{
+			if (((Rva002026A0 *)TheGameLODManager)->rva002026A0() == 1)
+				GadgetCheckBoxSetChecked(m_2d8, true);
+			else
+				GadgetCheckBoxSetChecked(m_2d8, false);
+		}
+		for (int i = 0; i < 5; i++)
+		{
+			if (m_volumeSliders[i])
+			{
+				int val = (int)(TheAudio->getAudioSettings()->m_defaultVolumes[i] * 100.0f);
+				Rva0050E776Send(m_volumeSliders[i], val);
+				TheAudio->setVolume(i, (float)val / 100.0f);
+			}
+		}
+		((Rva005183A0 *)this)->rva005183FA();
+	}
+	if (m_281 && !TheGameLogic->rva0042219())
+	{
+		m_preset = TheGameLODManager->m_17c4;
+		((Rva00518359 *)this)->rva00518359();
+	}
 }
 
 // Retail 0x00518FEA, 101 bytes: warns via 0x00518B05 with
