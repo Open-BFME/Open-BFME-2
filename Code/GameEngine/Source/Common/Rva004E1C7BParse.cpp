@@ -1,5 +1,5 @@
 // cl: /O1 /arch:SSE /G7 /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /MD /EHsc
-// ?Rva004E1C7BParse@@YAXPAVINI@@PAX@Z @0x004E1C7B 126B
+// ?Rva004E1C7BParse@@YAXPAVINI@@PAX1PBX@Z @0x004E1C7B 126B
 // ParseSetPlayerControlOfArmyBlockAndAddToLivingWorldCampaignAct proc: throws INIException 3 on null
 // ini or instance with retail literal then builds Rva004E1B72 record inline then INI::initFromINI with
 // table g_00C61884 then append 0x0056656A. Evidence: table slot 0x0086CE34 neighbour
@@ -51,8 +51,8 @@ public:
 	void append(const Rva0052BEF0 &record);
 };
 
-// ?Rva004E1C7BParse@@YAXPAVINI@@PAX@Z
-void Rva004E1C7BParse(INI *ini, void *instance)
+// ?Rva004E1C7BParse@@YAXPAVINI@@PAX1PBX@Z
+void Rva004E1C7BParse(INI *ini, void *instance, void *, const void *)
 {
 	if (ini && instance)
 	{
@@ -67,3 +67,7 @@ void Rva004E1C7BParse(INI *ini, void *instance)
 		__assume(0);
 	}
 }
+
+// Native C6CD50 FieldParse registration uses the four-argument callback ABI.
+// Preserve the witnessed body and existing address binding; both trailing
+// parameters are unused. No function-pointer cast or alternate callee pin.
