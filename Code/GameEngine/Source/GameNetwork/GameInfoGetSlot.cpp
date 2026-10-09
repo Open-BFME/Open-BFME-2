@@ -39,19 +39,3 @@ GameSlot *GameInfo::getSlot(Int slotNum)
 		return 0;
 	return (slotNum < 0 || slotNum >= MAX_SLOTS) ? 0 : m_slot[slotNum];
 }
-
-// ?resetAccepted@GameInfo@@QAEXXZ
-// BFME1 GameInfo.cpp resetAccepted shape, with slot 0 spelled as a direct
-// array load: retail inlines slot 0 to lea/test/mov (xor edx,edx; lea; inc)
-// and issues getSlot calls only for slots 1..7, reusing dl for setAccept.
-void GameInfo::resetAccepted()
-{
-	if (m_slot && m_slot[0])
-		m_slot[0]->setAccept();
-	for (Int i = 1; i < MAX_SLOTS; ++i)
-	{
-		GameSlot *slot = getSlot(i);
-		if (slot)
-			slot->unAccept();
-	}
-}
