@@ -17063,3 +17063,4 @@ _D3DXCreateTextureFromFileInMemoryEx@60,0x0062AF7A,Named d3dx9_27.dll PE import 
 ??0Rva005EF92D@@QAE@IPBXH@Z,0x005EF92D,callee of ??0Rva005EFDDB@@QAE@IPBXH@Z
 ??0Impl@RegionDetailsArmiesPage@StrategicInGameUI@@QAE@PAX00ABUPageContext@@@Z,0x005E1FF7,callee of ??0Rva005E1FBC@@QAE@PAX0ABUPageContext@@@Z
 ??0Impl@RegionDetailsTerritoryPage@StrategicInGameUI@@QAE@IABVAsciiString@@PAX@Z,0x005E3753,callee of ??0Rva005E362F@@QAE@PAX00@Z
+??1Rva005E3AE1@@UAE@XZ,0x005F4AA3,Native5E4F6D second interface ctor hidden virtual-base flag calls5E3AE1; native5E5018 teardown calls5F4AA3 with fixed vbase-this bias8; both install C1C780/C77C70 pair witnessed by rowed helper bodies
