@@ -1,5 +1,7 @@
 // ?CreateArmyIcons@Impl@RegionDetailsArmiesPage@StrategicInGameUI@@QAEXXZ
 // partial score=0.78 date=2026-10-09
+// ?CreateArmyIcons@Impl@RegionDetailsArmiesPage@StrategicInGameUI@@QAEXXZ
+// partial score=0.78 date=2026-10-09
 // cl: /O1 /G7 /MD /EHsc /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport
 // Native9E1B4E..9E1B9A complete76B. WB15F0DD0 names PopulateIconSlots.
