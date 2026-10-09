@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /EHsc /MD /arch:SSE /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
+// cl: /O1 /G7 /EHsc /MD /arch:SSE /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /ICode/Libraries/Source/WWVegas/WWLib
 // stlport
 // LivingWorldPlayer.cpp -- LivingWorldPlayer members recovered from
 // WorldBuilder leads (reverse/wb_name_leads.csv): WB's debug build names the
@@ -14,6 +14,7 @@
 typedef int Int;
 
 #include <vector>
+#include "FixedStorage128.h"
 
 namespace _STL
 {
@@ -22,10 +23,16 @@ namespace _STL
 }
 
 // Native2E12F3..2E134C and WBDE4FC0 prove the216-byte stride and
-// the key atAC. The remaining fields and the original method name are unknown.
+// the key atAC. Native2E1451..2E14DD and the verified UnitRevivalEntry
+// copies establish the consumed experience/rank/upgrade fields. The remaining
+// fields and the key-search method name remain unknown.
 struct LivingWorldPlayerRecordView
 {
-	char unknown00[0xAC];
+	char unknown00[8];
+    float experience;
+    int rank, level;
+    BfmeFixedStorage128 upgrades;
+    char unknown94[0xAC - 0x94];
 	int key;
 	char unknownB0[0xD8 - 0xB0];
 };
@@ -50,6 +57,16 @@ public:
 	Int rva004E1755();			// 0x004E1755, command-point cost
 };
 
+// The existing61B provider consumes a24-byte subrecord. These are
+// pointer views into that record; no objects of the declaration-only class
+// are constructed here.
+class Rva001EAFC1 { public: Rva001EAFC1 &operator=(const Rva001EAFC1 &); };
+struct LivingWorldRevivalUnitDataView {
+    char unknown00[8]; float experience; int rank; BfmeFixedStorage128 upgrades;
+    char unknown90[4]; char record94[0x18];
+};
+class Rva002E0D93;
+class Rva002E204D { public: Rva002E0D93 *rva002E204D(Rva002E0D93 *); };
 class LivingWorldPlayer
 {
 public:
@@ -58,6 +75,8 @@ public:
 	void OnUnitDequeued(Rva00319CED *unit);
 	void **RemoveArmy(void **&iter);
 	bool rva002E12F3(int key);
+    void RemoveRevivalUnit(int key);
+    void GetRevivalUnitData(int key, LivingWorldRevivalUnitDataView *out);
 
 private:
 	unsigned char m_pad000[0x1a8];
@@ -93,4 +112,35 @@ bool LivingWorldPlayer::rva002E12F3(int key)
 			return true;
 	}
 	return false;
+}
+
+// WBDE5040 names RemoveRevivalUnit; native2E2225..2E2285 RET4.
+// Reuse the full61B216-byte vector erase at2E204D under its owner spelling.
+void LivingWorldPlayer::RemoveRevivalUnit(int key)
+{
+    if (key == 0) return;
+    for (unsigned int i = 0; i < m_records.size(); ++i) {
+        if (m_records[i].key == key) {
+            reinterpret_cast<Rva002E204D *>(&m_records)->rva002E204D(
+                reinterpret_cast<Rva002E0D93 *>(&m_records[i]));
+            break;
+        }
+    }
+}
+// WBDE64F0 names GetRevivalUnitData; native2E1451..2E14DD RET8.
+// Output field offsets are target facts; its original type name is unknown.
+void LivingWorldPlayer::GetRevivalUnitData(int key, LivingWorldRevivalUnitDataView *out)
+{
+    if (key == 0) return;
+    for (unsigned int i = 0; i < m_records.size(); ++i) {
+        const LivingWorldPlayerRecordView &entry = m_records[i];
+        if (entry.key == key) {
+            out->rank = entry.rank;
+            out->experience = entry.experience;
+            out->upgrades = entry.upgrades;
+            *reinterpret_cast<Rva001EAFC1 *>(out->record94) =
+                *reinterpret_cast<const Rva001EAFC1 *>(entry.unknownB0);
+            break;
+        }
+    }
 }
