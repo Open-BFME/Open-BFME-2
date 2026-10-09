@@ -13,6 +13,9 @@ struct Coord3D {
     bool operator==(const Coord3D &r);
     float GetLengthSqrd() const;
     float GetLength() const;
+    // Native 0x000037D1/108; existing coord3d.cpp owner and mux callers.
+    float GetLengthEstimate2D() const;
+    float GetLength2D() const;
     float Normalize();
     float operator*(const struct Coord3DBase &r) const;
 };

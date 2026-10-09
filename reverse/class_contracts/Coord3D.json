@@ -69,6 +69,22 @@
     "decided_by": "byte-verified owner; native BuildAssistant site filter 391E6D calls this owner on twelve-byte three-float path/delta vectors; WB F9EBC0 independently identifies the corresponding math operation"
    },
    {
+    "declaration": "float GetLengthEstimate2D() const;",
+    "name": "?GetLengthEstimate2D@Coord3D@@QBEMXZ",
+    "rva": "0x000037D1",
+    "size": 108,
+    "source": "Code/Libraries/Source/WWVegas/WWMath/coord3d.cpp",
+    "decided_by": "byte-verified owner; native mux4CE700 calls it twice on a twelve-byte projected velocity; WB11E0BA0 independently calls Coord3D::GetLengthEstimate2D on the corresponding vector"
+   },
+   {
+    "declaration": "float GetLength2D() const;",
+    "name": "?GetLength2D@Coord3D@@QBEMXZ",
+    "rva": "0x0000599F",
+    "size": 32,
+    "source": "Code/Libraries/Source/WWVegas/WWMath/coord3d.cpp",
+    "decided_by": "existing byte-verified planar-length owner; paired canonical planar declarations preserve TeamTemplateInfo3606B native ESI/EDI restores whereas estimate declaration alone reverses them"
+   },
+   {
     "declaration": "float Normalize();",
     "name": "?Normalize@Coord3D@@QAEMXZ",
     "rva": "0x00005A70",

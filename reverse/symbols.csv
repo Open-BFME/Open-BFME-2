@@ -17084,3 +17084,4 @@ _isalnum,0x00629AF6,msvcr71 isalnum import stub called directly by the URL escap
 ?rva005A8F57@Rva005A6D47@@QAEXXZ,0x005A8F57,callee of ?rva005BB5F6@Rva005BB5F6@@QAEXXZ
 ?rva005A8ABF@Rva005A6D47@@QAEXHPBD@Z,0x005A8ABF,callee of ?rva005BB5F6@Rva005BB5F6@@QAEXXZ
 ?rva005BAF35@Rva005BB5F6@@QAEXABVPeerResponse@@@Z,0x005BAF35,callee of ?rva005BB5F6@Rva005BB5F6@@QAEXXZ
+?rva0028E8FD@Object@@QAEXPAUCoord3D@@@Z,0x0028E8FD,Native404B Ghidra Object boundary28E8FD..28EA91 RET4; notifier4CE700 passes its12B coordinate local; WB11E0BA0 same call then Coord3D scale and planar length; output ABI and velocity projection role are target facts; original provider name unproved

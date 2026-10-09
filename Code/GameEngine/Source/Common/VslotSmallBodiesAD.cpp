@@ -19,6 +19,7 @@ class Object
 {
 public:
 	void setStatus(ObjectStatusTypes status, bool set);
+	bool rva0029493F(Object *victim, int mode);
 };
 struct Rva00349D02Machine
 {
@@ -52,26 +53,28 @@ bool Rva00260E44::rva00260E44(const Rva00260E44Arg *arg)
 	return false;
 }
 
-// 0x0026156C: the pinned 0x0029493F of the +0x08 object with the argument
-// and the +0x0C word.
-class Rva0029493F
+// 0x0026156C: filter slot1 of native vftable C600A0. Its caller preserves
+// Object::rva0029493F's AL result; the older void/int view dropped that ABI fact.
+// The source Object at+8 and mode at+C match the notifier's native filter.
+class Rva000421C8
 {
 public:
-	void rva0029493F(Int a, Int b);
+ virtual ~Rva000421C8();
+ virtual bool allow(Object *)=0;
+ virtual int getPlayerMask();
+ Rva000421C8 *m_next;
 };
-class Rva0026156C
+class Rva0026156C:public Rva000421C8
 {
 public:
-	void rva0026156C(Int a);
+ virtual bool allow(Object *candidate);
 private:
-	Int m_00;
-	Int m_04;
-	Rva0029493F *m_08;
-	Int m_0C;
+ Object *m_object;
+ int m_mode;
 };
-void Rva0026156C::rva0026156C(Int a)
+bool Rva0026156C::allow(Object *candidate)
 {
-	m_08->rva0029493F(a, m_0C);
+ return m_object->rva0029493F(candidate,m_mode);
 }
 
 // 0x00349D02 (AI state tables): the pinned 0x003497E6 result, setting or
