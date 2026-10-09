@@ -1,5 +1,5 @@
 // ?CheckPathCost@Pathfinder@@QAEHPAVObject@@ABVLocomotorSet@@PBUCoord3D@@2@Z
-// partial score=0.977568 date=2026-10-09
+// partial score=1.0 date=2026-10-09
 // cl: /O1 /DNDEBUG /MD /arch:SSE /G7 /EHsc /ICode/Libraries/Include /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc
 // stlport
 #include <vector>
@@ -1615,15 +1615,14 @@ static Int deltaY[]={0,1,0,-1,1,1,-1,-1};
 const Int adjacent[5]={0,1,2,3,0};
 Bool neighborFlags[8]={false,false,false,false,false,false,false};
 for(Int i=0;i<8;++i) {
-Bool *flagp=&neighborFlags[i];
-ICoord2D next;next.x=parent->getXIndex()+deltaX[i];next.y=parent->getYIndex()+deltaY[i];
-*flagp=false;
+neighborFlags[i]=false;
+ICoord2D coords={parent->getXIndex()+deltaX[i],parent->getYIndex()+deltaY[i]};ICoord2D next=coords;
 PathfindCell *neighbor=getCell((PathfindLayerEnum)parent->getLayer(),next.x,next.y);
 if(!neighbor)continue;
 if((unsigned char)((Rva002E6AF3 *)neighbor)->get() || (unsigned char)((Rva002E6B06 *)neighbor)->rva002E6B06())continue;
 if(i>=4 && !neighborFlags[adjacent[i-4]] && !neighborFlags[adjacent[i-3]])continue;
 if(!((Rva002E6DC4 *)this)->rva002E6DC4(&info,neighbor))continue;
-*flagp=true;neighbor->allocateInfo((In002E6BA1 *)&next);++cellCount;
+neighborFlags[i]=true;neighbor->allocateInfo((In002E6BA1 *)&next);++cellCount;
 Int cost=neighbor->CalcCostSoFar((const Rva002E6C79 *)parent);
 cost+=CalcExtraCosts(obj,parent,(Rva002EBC7FPair *)&next,radius,radius+(center?1:0),true);
 neighbor->m_pathInfo->flags&=~1U;
