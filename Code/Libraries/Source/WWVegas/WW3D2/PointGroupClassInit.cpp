@@ -1,5 +1,5 @@
 // ?Rva0017E210Init@@YAXXZ
-// partial score=1.0 date=2026-10-08
+// Recovered from the exact clean C++ bank dated 2026-10-08.
 // cl: /Ireference/shims/indexbuffercount /O2 /arch:SSE /G7 /DBFME_WWSTRING_CTOR_BUFFER_RELOAD /DBFME_WWSTRING_NATIVE_CSTR_ASSIGN /Ireference/shims/wwstring_teardown/bfme /Ireference/shims/banked_segline /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/game/Libraries/Source/Compression /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep
 // PointGroup table/index-buffer init donor at BFME1 9cbfb551fe20dae985f91f2319d8997287b6a705.
 // Target evidence: Do_Onetime_Device_Dependent_Inits calls this no-arg helper;
