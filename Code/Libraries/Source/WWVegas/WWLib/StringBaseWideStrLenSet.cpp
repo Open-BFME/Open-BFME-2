@@ -27,6 +27,8 @@ public:
 template <typename T>
 class CharSource {
 public:
+    // Retail setter/concat EH restores the abstract base vtable at BE2B78.
+    ~CharSource() {}
     virtual int getLength() const = 0;
     virtual void getCharRange(T *dest, int start, int count) const = 0;
     virtual int getChars(T *dest) const = 0;
