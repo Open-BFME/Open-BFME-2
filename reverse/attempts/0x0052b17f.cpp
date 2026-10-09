@@ -1,92 +1,100 @@
 // ?rva0052B17F@Rva0052B17F@@QAEXXZ
-// partial score=0.99 date=2026-10-06
-// cl: /O1
-// ?rva0052B17F@Rva0052B17F@@QAEXXZ, RVA 0x0052B17F size 112.
-// Chain lane: calls rowed 0x002DA651 ctor; now ready.
-// Evidence: callers at 0x004E0CA9 0x004E0F58 (unclaimed); vtable slot 0x64 on
-// TheAudio (?TheAudio@@3PAVAudioManager@@A); dtor row 0x002D9A43;
-// int callee row 0x0052B003 in Rva0052B003Loop; neighbours share /O1.
-struct OpaqueRefElement4
-{
-	void *referent;
-};
-struct AudioEvent88
-{
-	AudioEvent88(const OpaqueRefElement4 &ref, int id);
-	virtual ~AudioEvent88();
-	char m_pad[0x88 - 4];
-};
-#pragma comment(linker, "/alternatename:??0AudioEvent88@@QAE@ABUOpaqueRefElement4@@H@Z=??0Rva002DA651@@QAE@ABUOpaqueRefElement4@@H@Z")
-#pragma comment(linker, "/alternatename:??1AudioEvent88@@UAE@XZ=??1BfmeStringTailRecord144@@UAE@XZ")
-class AudioManager
-{
+// partial score=0.96 date=2026-10-10
+// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /O1 /G7 /arch:SSE /EHsc /MD /DNDEBUG
+// Native52AF95/52B10F/52B17F audio wrappers: sibling3FDDAC is semantic source guide.
+// Target establishes receiver14 refs10/14/18 owner38 ID18 and rowed tag5
+// ctor2DA651 / destructor2D9A43 then Audio slot64. Original owner unknown.
+#include "Common/BfmeAudioEventPrefix136.h"
+
+// Native 3FDF1B/3FDF8B/3FDFFB call tag4 ctor2DA5D3 and prefix dtor2D9A43.
+// The 0x88-byte aligned storage owns that exact lifetime without a second
+// destructor. Only +14 reference slots18/1C/20 and +38 owner20/54 are asserted.
+// Original helper names remain unknown; existing home-TU /O2 settings close
+// the banked /O1 guard scheduling delta in all three independent bodies.
+struct Rva002DA651 { Rva002DA651(const OpaqueRefElement4&,int); };
+union EventStorage0052 { int align; unsigned char bytes[0x88]; };
+class OwnerAudioEvent0052 {
+ EventStorage0052 storage;
 public:
-	virtual void vf00();
-	virtual void vf01();
-	virtual void vf02();
-	virtual void vf03();
-	virtual void vf04();
-	virtual void vf05();
-	virtual void vf06();
-	virtual void vf07();
-	virtual void vf08();
-	virtual void vf09();
-	virtual void vf10();
-	virtual void vf11();
-	virtual void vf12();
-	virtual void vf13();
-	virtual void vf14();
-	virtual void vf15();
-	virtual void vf16();
-	virtual void vf17();
-	virtual void vf18();
-	virtual void vf19();
-	virtual void vf20();
-	virtual void vf21();
-	virtual void vf22();
-	virtual void vf23();
-	virtual void vf24();
-	virtual void vf25(const void *rec);
+ __forceinline OwnerAudioEvent0052(const OpaqueRefElement4 &ref,int id) {
+  ((Rva002DA651*)&storage)->Rva002DA651::Rva002DA651(ref,id);
+ }
+ __forceinline ~OwnerAudioEvent0052() {
+  ((BfmeAudioEventPrefix136*)&storage)->BfmeAudioEventPrefix136::~BfmeAudioEventPrefix136();
+ }
+ __forceinline BfmeAudioEventPrefix136 *get() {return (BfmeAudioEventPrefix136*)&storage;}
 };
+
+class AudioManager;
 extern AudioManager *TheAudio;
-struct Holder0052B003
-{
-	void rva0052B003(int value);
-};
-struct RefHost18
-{
-	char m_pad[0x18];
-	OpaqueRefElement4 m_elem18;
-};
-struct ValHost38
-{
-	char m_pad[0x18];
-	int m_val18;
-};
-class Rva0052B17F
+
+class Rva0052AudioView
 {
 public:
-	void rva0052B17F();
-private:
-	void *m_vtbl;
-	char m_pad04[0x14 - 0x04];
-	RefHost18 *m_ptr14;
-	char m_pad18[0x38 - 0x18];
-	ValHost38 *m_ptr38;
-	char m_pad3C[0x44 - 0x3C];
+	virtual void slot0();
+	virtual void slot1();
+	virtual void slot2();
+	virtual void slot3();
+	virtual void slot4();
+	virtual void slot5();
+	virtual void slot6();
+	virtual void slot7();
+	virtual void slot8();
+	virtual void slot9();
+	virtual void slot10();
+	virtual void slot11();
+	virtual void slot12();
+	virtual void slot13();
+	virtual void slot14();
+	virtual void slot15();
+	virtual void slot16();
+	virtual void slot17();
+	virtual void slot18();
+	virtual void slot19();
+	virtual void slot20();
+	virtual void slot21();
+	virtual void slot22();
+	virtual void slot23();
+	virtual void slot24();
+	virtual int addAudioEvent(const BfmeAudioEventPrefix136 *);
 };
-// ?rva0052B17F@Rva0052B17F@@QAEXXZ present-unmatched
-void Rva0052B17F::rva0052B17F()
-{
-	RefHost18 *host = m_ptr14;
-	if (host->m_elem18.referent != 0)
-	{
-		ValHost38 *vh = m_ptr38;
-		if (vh != 0)
-		{
-			AudioEvent88 tmp(host->m_elem18, vh->m_val18);
-			TheAudio->vf25(&tmp);
-		}
-	}
-	((Holder0052B003 *)this)->rva0052B003(0);
+
+
+struct AudioRefs0052 { char unknown[0x10]; OpaqueRefElement4 r10,r14,r18; };
+struct AudioID0052 { char unknown[0x18]; int id; };
+class Rva005391A9 { public: void rva005391A9(); };
+class Holder0052B003 { public: void rva0052B003(int); };
+struct Receiver0052 {
+ char unknown00[0x14]; AudioRefs0052 *refs;
+ char unknown18[0x20]; AudioID0052 *owner;
+};
+class Rva0052AF95 : private Receiver0052 { public: void rva0052AF95(); };
+class Rva0052B10F : private Receiver0052 { public: void rva0052B10F(); };
+class Rva0052B17F : private Receiver0052 { public: void rva0052B17F(); };
+void Rva0052AF95::rva0052AF95() {
+ if(!refs->r10.referent)goto done;
+ if(!owner)goto done;
+ {
+  OwnerAudioEvent0052 event(refs->r10,owner->id);
+  ((Rva0052AudioView *)TheAudio)->addAudioEvent(event.get());
+ }
+ done:((Rva005391A9 *)this)->rva005391A9();
+}
+void Rva0052B10F::rva0052B10F() {
+ if(!refs->r14.referent)goto done;
+ if(!owner)goto done;
+ {
+  OwnerAudioEvent0052 event(refs->r14,owner->id);
+  ((Rva0052AudioView *)TheAudio)->addAudioEvent(event.get());
+ }
+ done:((Holder0052B003 *)this)->rva0052B003(1);
+}
+void Rva0052B17F::rva0052B17F() {
+ if(!refs->r18.referent)goto done;
+ if(!owner)goto done;
+ {
+  OwnerAudioEvent0052 event(refs->r18,owner->id);
+  ((Rva0052AudioView *)TheAudio)->addAudioEvent(event.get());
+ }
+ done:((Holder0052B003 *)this)->rva0052B003(0);
 }
