@@ -1,5 +1,7 @@
 // ?Rva005F32B5@@YA?AURva005F32B5Dimensions@@ABVAsciiString@@I@Z
 // partial score=0.99498 date=2026-10-09
+// ?Rva005F32B5@@YA?AURva005F32B5Dimensions@@ABVAsciiString@@I@Z
+// partial score=0.99498 date=2026-10-09
 // cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc /arch:SSE
 #include "ascii_string.h"
 #include <stdlib.h>
