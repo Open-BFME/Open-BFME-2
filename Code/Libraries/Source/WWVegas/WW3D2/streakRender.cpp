@@ -39,7 +39,7 @@ void operator delete[](void*) throw();
 #include "vp.h"
 #include "vector3i.h"
 #include "random.h"
-#include "v3_rnd.h"
+#include "../../../../../reference/shims/bfme_randomizer_dtor/v3_rnd.h"
 
 #ifdef _INTERNAL
 // for occasional debugging...

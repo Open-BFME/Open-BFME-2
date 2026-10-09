@@ -36,7 +36,10 @@
 #include "vp.h"
 #include "vector3i.h"
 #include "random.h"
-#include "v3_rnd.h"
+// The retail deleting wrapper uses speed-mode ADD ESP rather than POP ECX.
+// Parse its base class under the same existing speed setting as Set_Texture.
+#pragma optimize("t", on)
+#include "../../../../../reference/shims/bfme_randomizer_dtor/v3_rnd.h"
 
 #ifdef _INTERNAL
 // for occasional debugging...
@@ -65,7 +68,6 @@
 // StreakRendererClass::Init is defined with its retail-matched body in Code/Libraries/Source/WWVegas/WW3D2/StreakRendererInit.cpp (0x00743190).
 
 
-#pragma optimize("t", on)
 void StreakRendererClass::Set_Texture(TextureClass *texture)
 { 
 	REF_PTR_SET(Texture,texture); 

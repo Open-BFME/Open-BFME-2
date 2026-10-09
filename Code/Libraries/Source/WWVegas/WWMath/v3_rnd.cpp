@@ -47,7 +47,7 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "rendobj.h"	// the bfmerendobj shim has to win the include guard
-#include "v3_rnd.h"
+#include "../../../../../reference/shims/bfme_randomizer_dtor/v3_rnd.h"
 #include "vector2.h"
 
 const float Vector3Randomizer::OOIntMax = 1.0f / (float)INT_MAX;

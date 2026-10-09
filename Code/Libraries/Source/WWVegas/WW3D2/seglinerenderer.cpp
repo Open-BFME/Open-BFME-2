@@ -65,7 +65,7 @@ class CameraClass;
 // is emitted from this very file.
 #define BFME_RANDOM3CLASS_CTOR_NOINLINE
 #include "random.h"
-#include "v3_rnd.h"
+#include "../../../../../reference/shims/bfme_randomizer_dtor/v3_rnd.h"
 #include "meshgeometry.h"
 
 #ifndef W3D_ELINE_TILED_TEXTURE_MAP
