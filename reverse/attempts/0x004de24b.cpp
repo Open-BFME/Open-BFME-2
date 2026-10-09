@@ -1,7 +1,9 @@
 // ?rva004DE24B@Rva004DD843@@QAEXH@Z
+// partial score=0.9926128314106456 date=2026-10-10
+// ?rva004DE24B@Rva004DD843@@QAEXH@Z
 // partial score=0.96 date=2026-10-08
-// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc /Oy-
-#include "../Code/Libraries/Include/Lib/Coord3D.h"
+// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc /Oy- /I.
+#include "Code/Libraries/Include/Lib/Coord3D.h"
 struct ICoord2DBase { int x,y; };
 struct ICoord2D : ICoord2DBase { bool operator==(const ICoord2DBase &) const; };
 enum ObjectStatusTypes { OBJECT_STATUS_NATIVE_38=38 };
@@ -35,7 +37,7 @@ void Rva004DD843::rva004DE24B(int position)
    Rva004DD843Slot *other=&m_other;
    if (!(cell==*(ICoord2DBase *)other) || layer!=m_other.m_pathLayer) {
      if(other->m_value!=-666666) rva004DD8FA(other);
-     other->m_value=cell.x; other->m_y=cell.y;
+     other->m_value=cell.x;m_other.m_y=cell.y;
      m_other.m_pathLayer=layer; m_other.m_listKind=1;
      rva004DDF51(other);
    }
