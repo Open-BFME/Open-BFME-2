@@ -1,7 +1,4 @@
 // ?rva00349611@Rva00349611@@QAE?AW4StateReturnType@@XZ
-// partial score=0.9949666234300356 date=2026-10-09
-// ?rva00349611@Rva00349611@@QAE?AW4StateReturnType@@XZ
-// partial score=0.93 date=2026-10-09
 // cl: /O1 /ICode/Libraries/Include/Lib /G7 /arch:SSE /DNDEBUG /MD
 //
 // Target identity: C12800 vtable slot6 thunk 003497C2 forwards to this complete
@@ -13,8 +10,9 @@
 // target victim/status/weapon/pathfinder spine and +90/+94 distance thresholds
 // are independently read from retail. Copy/sub into scalar XYZ then constructing
 // the 2D local restores all native coordinate and AIData load scheduling.
-// Complete body/calls exact except FLD94/FADD90 vs native FLD90/FADD94.
-// No pin or retail method-name claim; source is banked evidence only.
+// Volatile access view for the +90 read preserves native FLD90/FADD94.
+// This records observed load order rather than a donor storage qualifier.
+// No pin or retail method-name claim.
 #include "Coord3D.h"
 
 struct ApproachCoordCopy:Coord3D{__forceinline ApproachCoordCopy(float X,float Y,float Z){x=X;y=Y;z=Z;} __forceinline ApproachCoordCopy(const Coord3D&p){x=p.x;y=p.y;z=p.z;} __forceinline void sub(const Coord3D*p){x-=p->x;y-=p->y;z-=p->z;}};
@@ -51,7 +49,7 @@ public:
 struct Rva00349611AIData
 {
 	unsigned char m_pad00[0x90];
-	Real m_90; // +0x90
+	volatile Real m_90; // +0x90
 	Real m_94; // +0x94
 };
 
