@@ -1,26 +1,29 @@
-// cl: /MD
-// ?Rva0045628CDraw@@YGXPAX0H@Z @0x0045628C 52B
-// Loops an AsciiString array [start,finish) at +0/+4 of arg1 (stride 4,
-// sizeof AsciiString) calling rowed Drawable::rva002724FD 0x002724FD with
-// (string, arg3, 1, 0.0f, 0.0f) on Drawable arg2. Proven by retail push 1,
-// fstp 0.0 twice, add esi 4 cmp/jne, ret 0xC (3 __stdcall args), and 5
-// callers in 0x004562F8. Honest free-function name, __stdcall for ret 0xC.
+// cl: /O1 /G7 /arch:SSE /MD
+// ?rva0045628C@BuildingBehavior@@QAEXPBUBuildingWindowList@@PAVDrawable@@H@Z @0x0045628C 52B
+// BuildingBehavior::update (0x004562F8) loads the module into ecx before each
+// of its five calls, so this is a thiscall member that ignores this. It walks
+// one window-name list [start,finish) (AsciiString stride 4) of the module
+// data and calls the rowed Drawable::rva002724FD 0x002724FD with
+// (string, state, 1, 0.0f, 0.0f).
 class AsciiString;
 class Drawable {
 public:
     void rva002724FD(const AsciiString &s, int a, int b, float c, float d);
 };
-struct AsciiRange {
+struct BuildingWindowList {
     char *m_start;
     char *m_finish;
+    char *m_end;
 };
-void __stdcall Rva0045628CDraw(void *range, void *drawable, int val)
+class BuildingBehavior {
+public:
+    void rva0045628C(const BuildingWindowList *names, Drawable *draw, int state);
+};
+void BuildingBehavior::rva0045628C(const BuildingWindowList *names, Drawable *draw, int state)
 {
-    AsciiRange *r = (AsciiRange *)range;
-    Drawable *d = (Drawable *)drawable;
-    char *cur = r->m_start;
-    while (cur != r->m_finish) {
-        d->rva002724FD(*(const AsciiString *)cur, val, 1, 0.0f, 0.0f);
+    char *cur = names->m_start;
+    while (cur != names->m_finish) {
+        draw->rva002724FD(*(const AsciiString *)cur, state, 1, 0.0f, 0.0f);
         cur += 4;
     }
 }
