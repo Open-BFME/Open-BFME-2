@@ -404,54 +404,7 @@ const char *GameLODManager::getStaticGameLODLevelName(StaticGameLODLevel level)
 
 /**Function which calculates the recommended LOD level for current hardware
 configuration.*/
-// byte-exact reconstruction: Code/GameEngine/Source/Common/GameLODManager_findStaticLODLevel_Thunk.cpp
-// ?findStaticLODLevel@GameLODManager@@QAE?AW4StaticGameLODLevel@@XZ present-unmatched
-StaticGameLODLevel GameLODManager::findStaticLODLevel(void)
-{
-	//Check if we have never done the test on current system
-	if (m_idealDetailLevel == STATIC_GAME_LOD_UNKNOWN)
-	{
-		//search all our presets for matching hardware
-		m_idealDetailLevel = STATIC_GAME_LOD_LOW;
-
-		//get system configuration - only need vide chip type, got rest in ::init().
-		testMinimumRequirements(&m_videoChipType,NULL,NULL,NULL,NULL,NULL,NULL);
-		if (m_videoChipType == DC_UNKNOWN)
-			m_videoChipType = DC_TNT2;	//presume it's at least TNT2 level
-
-		Int numMBRam=m_numRAM/(1024*1024);
-
-		for (Int i=STATIC_GAME_LOD_HIGH; i >= STATIC_GAME_LOD_LOW; i--)
-		{
-				LODPresetInfo *preset=&m_lodPresets[i][0];	//pointer to first preset at this LOD level.
-				for (Int j=0; j<m_numLevelPresets[i]; j++)
-				{
-
-					if(	m_cpuType == preset->m_cpuType &&
-							((Real)m_cpuFreq/(Real)preset->m_mhz >= PROFILE_ERROR_LIMIT) &&//make sure we're within 5% or higher
-							m_videoChipType >= preset->m_videoType &&
-							((Real)numMBRam/(Real)preset->m_memory >= PROFILE_ERROR_LIMIT)
-						)
-					{	m_idealDetailLevel = (StaticGameLODLevel)i;
-						break;
-					}
-
-					preset++;	//skip to next preset
-
-				}
-				if (m_idealDetailLevel >= i)
-					break;	//we already found a higher level than the remaining presets so no need to keep searching.
-		}
-		//Save ideal detail level for future usage
-		OptionPreferences optionPref;
-		optionPref["IdealStaticGameLOD"] = getStaticGameLODLevelName(m_idealDetailLevel);
-		if (getStaticLODLevel() == STATIC_GAME_LOD_UNKNOWN)	//save for future usage.
-			optionPref["StaticGameLOD"] = getStaticGameLODLevelName(m_idealDetailLevel);
-		optionPref.write();
-	}
-
-	return m_idealDetailLevel;
-}
+// The matched BFME 2 definition is in GameLODManagerFindStaticLODLevel.cpp.
 
 /**Set all game systems to match the desired LOD level.*/
 struct BfmeGameLODManagerState
