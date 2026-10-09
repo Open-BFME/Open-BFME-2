@@ -4074,7 +4074,6 @@ name,address,notes
 ??1Rva000FC5AADtor@@QAE@XZ,0x000FC5AA,dtor helper at 0x000FC5AA (target of thunks 0x007B6F08 and 0x007B6F12)
 ??1Rva000FE9C7@@QAE@XZ,0x000FE290,non-virtual dtor called directly by scalar deleting dtor 0x000FE9C7; owning class unproven (address also carries bfmeResetSH row)
 ??1Rva00102188@@UAE@XZ,0x00102188,opaque dtor; call target of retail scalar-deleting-dtor at 0x1021BE (28B flag-test shape); Ghidra function start; identity unproven; address-derived name
-??1Rva001041D8@@UAE@XZ,0x001041D8,opaque dtor; call target of retail scalar-deleting-dtor at 0x104723 (28B flag-test shape); Ghidra function start; identity unproven; address-derived name
 ??1Rva00104DB0@@UAE@XZ,0x00104DB0,opaque dtor; call target of retail scalar-deleting-dtor at 0x104F16 (28B flag-test shape); Ghidra function start; identity unproven; address-derived name
 ??1Rva00104E03@@UAE@XZ,0x00104E03,opaque dtor; call target of retail scalar-deleting-dtor at 0x104F73 (28B flag-test shape); Ghidra function start; identity unproven; address-derived name
 ??1Rva00108650@@UAE@XZ,0x00108650,"destructor the scalar deleting destructor 0x00108D17 calls (REL32 at 0x00108D1A; vtable 0x00BCF9AC#0); opaque address name"
@@ -12104,7 +12103,6 @@ name,address,notes
 ?rva0059E3A7@Rva0059E3A7@@QAEXPBVModuleData@@@Z,0x0059E3A7,"holder append reached by Rva0059E511Parse at 0x0059E511; abuts 0x0059E390"
 ?rva005A061B@Rva005A0D61@@QAEXXZ,0x005A061B,callee of 0x005A0D61 from retail REL32; name unknown
 ?rva005A0D61@CustomMatch@AptOnline@@QAEX_N@Z,0x005A0D61,unrowed 97B thiscall (Ghidra FUN_009a0d61; ret 4; byte flag) on the online custom match screen; REL32 read at AptOnline::CustomMatch::Refresh 0x005A0F17 with ECX=this and 1; address name
-?rva005A57BA@@YGXH@Z,0x005A57BA,stdcall 1-arg callee of 0x5A5BAF (caller pushes 1 and returns; no cleanup); SEH function body; signature unproven
 ?rva005A6D47@Rva005A6D47@@QAEXXZ,0x005A6D47,unrowed 101B thiscall (Ghidra FUN_009a6d47) on the global at 0x00E063F8; REL32 read at the Connection::OnRetryConnections callback 0x005DB36A with ECX=that global; address name
 ?rva005A910E@Rva005A9562@@QAEPAURva0050542BTarget@@XZ,0x005A910E,current target of the +0x04 Rva005A9562 (rowed under the Player* spelling); REL32 at 0x00505653
 ?rva005A91BE@Rva005A9562@@QAEXPAVXfer@@@Z,0x005A91BE,xfer of the +0x04 Rva005A9562; REL32 at 0x005058CA in Rva0050542B::xfer
@@ -17027,3 +17025,5 @@ _log,0x00629B0E,log double import thunk (gen-import row ji_00629b0e: msvcr71 slo
 ??1Rva001F8D70Map@@QAE@XZ,0x001F8D70,thiscall dtor of the ParticleSystemManager +0x88 ID map (the ledger's dup_001f8d70 is a free-function placeholder spelling; the caller ParticleSystemManager dtor 0x001F9D98 loads ECX with this+0x88)
 ?rva002B256E@Rva002B256E@@QAEPAXXZ,0x002B256E,thiscall getter (every caller loads ECX first; the ledger's Rva002B256EGet is a free-function spelling); caller the PlanningPhaseBehavior::Impl dtor 0x00575F38
 ?mapLogicalHandleToPhysicalHandle@MilesAudioManager@@QAEXII@Z,0x000593CD,"WB785D00 names method; native593CD..5952D RET8 and caller5A451 pass logical then physical unsigned handles; complete352B hash/list mapping body boundary. No other owner at this address."
+??$_M_find@H@?$hashtable@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@2@@_STL@@ABEPAU?$_Hashtable_node@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@1@ABH@Z,0x002888D4,ICF-folded STLport hashtable _M_find for LivingWorldManager's +0x218 beacon map hash_map<int / Rva003FD14D*>; caller CreateBeaconObject 0x00213171 fold-proof=Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerCreateBeaconObject.cpp
+??A?$hash_map@HPAVRva003FD14D@@U?$hash@H@_STL@@U?$equal_to@H@3@V?$allocator@U?$pair@$$CBHPAVRva003FD14D@@@_STL@@@3@@_STL@@QAEAAPAVRva003FD14D@@ABH@Z,0x0041F4E5,ICF-folded STLport hash_map operator[] (find_or_insert) for LivingWorldManager's +0x218 beacon map hash_map<int / Rva003FD14D*>; caller CreateBeaconObject 0x00213171 fold-proof=Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManagerCreateBeaconObject.cpp
