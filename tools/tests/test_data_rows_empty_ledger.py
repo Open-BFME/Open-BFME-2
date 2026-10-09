@@ -37,14 +37,22 @@ def ledger_file(tmp_path, *rows):
     return path
 
 
-def test_the_committed_ledger_is_header_only_and_clean():
+def test_the_committed_ledger_passes_its_integrity_check():
+    """It started header-only (the port); verified rows have landed since, so the
+    committed ledger is held to its integrity rules, not to being empty."""
     raw = data_rows.DATA_ROWS.read_bytes()
-    assert raw == HEADER_ONLY
+    assert raw.startswith(HEADER_ONLY)
     problems = []
-    assert data_rows.check(raw, problems) == 0  # against retail game.dat's own sections
+    data_rows.check(raw, problems)  # against retail game.dat's own sections
     assert problems == []
-    assert data_rows.load() == []
     assert data_rows.main(["--check"]) == 0
+
+
+def test_a_header_only_ledger_loads_nothing(tmp_path, monkeypatch):
+    empty = tmp_path / "data_rows.csv"
+    empty.write_bytes(HEADER_ONLY)
+    monkeypatch.setattr(data_rows, "DATA_ROWS", empty)
+    assert data_rows.load() == []
 
 
 # --------------------------------------------------------------------------- check_csv
@@ -63,7 +71,9 @@ def _check_csv_run(monkeypatch, capsys, ledger_path):
 
 def test_check_csv_says_the_same_with_the_empty_ledger_as_without_one(monkeypatch, capsys, tmp_path):
     without = _check_csv_run(monkeypatch, capsys, tmp_path / "absent.csv")
-    with_empty = _check_csv_run(monkeypatch, capsys, data_rows.DATA_ROWS)
+    empty = tmp_path / "data_rows.csv"
+    empty.write_bytes(HEADER_ONLY)
+    with_empty = _check_csv_run(monkeypatch, capsys, empty)
     assert with_empty == without
     assert "data_rows.csv" not in with_empty[1] + with_empty[2]
 
@@ -87,7 +97,7 @@ def test_check_csv_orphans_count_a_data_only_source_as_owned(monkeypatch):
     assert count == 1 and problems == []
 
 
-def test_the_empty_ledger_is_checked_without_the_retail_image(monkeypatch, capsys):
+def test_the_empty_ledger_is_checked_without_the_retail_image(monkeypatch, capsys, tmp_path):
     """Review of cd1336610f: check() read game.dat's sections before looking at a
     single row, so check_csv needed the retail image for a header-only ledger."""
     def no_image(exe=None):
@@ -96,7 +106,9 @@ def test_the_empty_ledger_is_checked_without_the_retail_image(monkeypatch, capsy
     problems = []
     assert data_rows.check(HEADER_ONLY, problems) == 0 and problems == []
     assert data_rows.check(data_rows.HEADER.encode(), problems) == 0 and "no line ending" in problems[0]
-    code, out, err = _check_csv_run(monkeypatch, capsys, data_rows.DATA_ROWS)
+    empty = tmp_path / "data_rows.csv"
+    empty.write_bytes(HEADER_ONLY)  # the committed ledger has rows now; this is about an empty one
+    code, out, err = _check_csv_run(monkeypatch, capsys, empty)
     assert code == 0, err
     with pytest.raises(AssertionError, match="read the retail image"):  # a row still needs its section
         data_rows.check(HEADER_ONLY + (data_row("Code/b.cpp") + "\n").encode(), [])

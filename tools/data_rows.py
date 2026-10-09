@@ -223,7 +223,10 @@ def check(raw, problems, sources_ok=None, sections=None):
     return len(records)
 
 
-def load(path=DATA_ROWS):
+def load(path=None):
+    """The ledger's rows; `path` defaults to DATA_ROWS as it is NOW (read at call
+    time, so a test or tool that points DATA_ROWS elsewhere is honoured)."""
+    path = DATA_ROWS if path is None else path
     if not Path(path).exists():
         return []
     return [row for _, row in parse(Path(path).read_bytes()) if "_fields" not in row]
