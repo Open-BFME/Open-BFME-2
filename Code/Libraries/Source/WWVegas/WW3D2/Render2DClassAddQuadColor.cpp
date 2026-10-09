@@ -64,6 +64,9 @@ private:
 
 public:
 	void Add_Quad(const RectClass &screen, BfmeUInt32 color);
+	void Add_Quad(const RectClass &screen, const RectClass &uv,
+		BfmeUInt32 color0, BfmeUInt32 color1,
+		BfmeUInt32 color2, BfmeUInt32 color3);
 };
 
 void Render2DClass::Add_Quad(const RectClass &screen, BfmeUInt32 color)
@@ -83,6 +86,40 @@ void Render2DClass::Add_Quad(const RectClass &screen, BfmeUInt32 color)
 
 	vertices[0].color = vertices[1].color = vertices[2].color = vertices[3].color =
 		(*(BfmeColorConverter *)&g_Va00DB5FC8)(color);
+
+	indices[0] = baseVertexPair + 0x00010000;
+	indices[1] = baseVertexPair + 0x00020002;
+	indices[2] = baseVertexPair + 0x00030001;
+}
+
+// Clean BFME 1 donor: reference/open-bfme-1/game/Libraries/Source/WWVegas/
+// WW3D2/Render2DClassAddQuad.cpp at 0bef414b52a39a3ab1ec98dca60d8a214de4260e.
+// Native 0x00042719..0x000428C7 uses the same 44-byte vertex and allocator
+// as the overload above, with four independently converted corner colors.
+// The matched sibling's position helper includes Z; keeping that assignment
+// within the helper reproduces retail's last-vertex base and push scheduling.
+void Render2DClass::Add_Quad(const RectClass &screen, const RectClass &uv,
+	BfmeUInt32 color0, BfmeUInt32 color1,
+	BfmeUInt32 color2, BfmeUInt32 color3)
+{
+	BfmeUInt32 baseVertexPair;
+	BfmeUInt32 *indices;
+	BfmeRenderVertex *vertices = allocateGeometry006e(4, 6, &indices, &baseVertexPair);
+
+	convertPosition006e(vertices[0], screen.Left, screen.Top);
+	convertPosition006e(vertices[1], screen.Left, screen.Bottom);
+	convertPosition006e(vertices[2], screen.Right, screen.Top);
+	convertPosition006e(vertices[3], screen.Right, screen.Bottom);
+
+	vertices[0].u = vertices[1].u = uv.Left;
+	vertices[2].u = vertices[3].u = uv.Right;
+	vertices[0].v = vertices[2].v = uv.Top;
+	vertices[1].v = vertices[3].v = uv.Bottom;
+
+	vertices[0].color = (*(BfmeColorConverter *)&g_Va00DB5FC8)(color0);
+	vertices[1].color = (*(BfmeColorConverter *)&g_Va00DB5FC8)(color2);
+	vertices[2].color = (*(BfmeColorConverter *)&g_Va00DB5FC8)(color1);
+	vertices[3].color = (*(BfmeColorConverter *)&g_Va00DB5FC8)(color3);
 
 	indices[0] = baseVertexPair + 0x00010000;
 	indices[1] = baseVertexPair + 0x00020002;
