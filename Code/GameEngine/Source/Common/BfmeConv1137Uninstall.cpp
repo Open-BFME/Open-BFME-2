@@ -55,20 +55,25 @@ public:
 	__forceinline ~StringClass(void) { Free_String(); }
 };
 
-struct Device;
+struct IDirect3DDevice8;
 struct DeviceVtable
 {
 	char m_pad[0x10c];
-	int (__stdcall *SetTextureStageState)(Device *, unsigned int,
+	int (__stdcall *SetTextureStageState)(IDirect3DDevice8 *, unsigned int,
 		unsigned long, unsigned int);
 };
-struct Device
+struct IDirect3DDevice8
 {
 	DeviceVtable *v;
 };
 
-extern Device *ScreenDevice;
-extern unsigned ScreenTextureStageStates[8][32];
+class DX8Wrapper;
+class WW3D
+{
+	friend class DX8Wrapper;
+	static bool SnapshotActivated;
+};
+
 extern bool ScreenSnapshot;
 // ?ScreenSnapshot@@3_NA: the global at this VA is ?SnapshotActivated@WW3D@@0_NA; this name is an alias for it.
 #pragma comment(linker, "/alternatename:?ScreenSnapshot@@3_NA=?SnapshotActivated@WW3D@@0_NA")
@@ -83,26 +88,32 @@ public:
 	static void Get_DX8_Texture_Stage_State_Value_Name(StringClass &,
 		unsigned long, unsigned int);
 
+protected:
+	static IDirect3DDevice8 *D3DDevice;
+	static unsigned TextureStageStates[16][32];
+	static unsigned texture_stage_state_changes;
+
+public:
 	static __forceinline void Set_DX8_Texture_Stage_State(unsigned int stage,
 		unsigned long state, unsigned int value)
 	{
-		if (stage >= 8)
+		if (stage >= 16)
 		{
-			ScreenDevice->v->SetTextureStageState(ScreenDevice, stage, state, value);
+			D3DDevice->v->SetTextureStageState(D3DDevice, stage, state, value);
 			++number_of_DX8_calls;
 			return;
 		}
-		if (ScreenTextureStageStates[stage][state] == value)
+		if (TextureStageStates[stage][state] == value)
 			return;
-		if (ScreenSnapshot)
+		if (WW3D::SnapshotActivated)
 		{
 			StringClass name(0, true);
 			Get_DX8_Texture_Stage_State_Value_Name(name, state, value);
 		}
-		ScreenTextureStageStates[stage][state] = value;
-		ScreenDevice->v->SetTextureStageState(ScreenDevice, stage, state, value);
+		TextureStageStates[stage][state] = value;
+		D3DDevice->v->SetTextureStageState(D3DDevice, stage, state, value);
 		++number_of_DX8_calls;
-		++ScreenTextureStageStateChanges;
+		++texture_stage_state_changes;
 	}
 };
 
