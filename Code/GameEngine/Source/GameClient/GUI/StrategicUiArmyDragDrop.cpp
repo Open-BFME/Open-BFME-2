@@ -28,6 +28,7 @@ template<class T,class A=allocator<T> >class vector;
 template<>class vector<int,allocator<int> >:public _Vector_base<int,allocator<int> > {public:
 __forceinline vector(const allocator<int>&a):_Vector_base<int,allocator<int> >(a){}~vector(){if(start)allocator<int>::deallocate(start,0);}
 void reserve(unsigned int);
+ template<class Iter>vector(Iter,Iter,const allocator<int>&);
 template<class Iter>void _M_assign_aux(Iter,Iter,const forward_iterator_tag&);
 };
 struct _Rb_tree_node_base {int color;_Rb_tree_node_base*parent,*left,*right;};
@@ -103,5 +104,36 @@ void Rva005F52C0::rva005F5331(){
  Rva005FSelectionView&first=entry->selection;
  if(Rva005F50E9CanMoveArmyMembers(&first,source,target)){
   Rva005E5DF5SendSwapArmyMembers(source->getID(),&first,target->getID(),*(const Rva005FSelectionView*)&Rva005F2381());
+ }
+}
+
+// Native5E652E..5E663C is WB15FEAC0 PlanningPhaseArmySelection::Impl::MoveArmyMembers.
+// The target establishes selection1C and army18; WB supplies the operation's
+// semantic lead. The existing range-vector constructor5E60D1 and child
+// constructor5E626D retain their owned ABI. The Ctrl query232696 is verified
+// in Keyboard.cpp. Context getters read node18/1C; pending registration uses40.
+class Keyboard {public:bool isCtrl();};extern Keyboard*TheKeyboard;
+class Rva0042D6B4PtrChaseField {public:int get()const;};
+class Rva0042D6BAPtrChaseField {public:int get()const;};
+class Object;
+class Rva00575674 {public:void rva00575674(Object*);};
+struct Rva005E626DOwner;class Rva0057C394;struct Rva005E626DListOwner;
+class Rva005E626D {public:Rva005E626D(Rva005E626DOwner*,Rva0057C394*,Rva005E626DListOwner*,void*);char bytes[20];};
+class Rva005E652E {public:void rva005E652E(Rva005FArmyView*);
+ char unknown00[16];void*context10;char unknown14[4];Rva005FArmyView*army18;Rva005FSelectionView selected1C;char unknown38[8];Rva00575674 pending40;
+};
+void Rva005E652E::rva005E652E(Rva005FArmyView*destination) {
+ if(!TheKeyboard->isCtrl()) {
+  Rva005E59FCKeyIterator begin={selected1C.root->left},end={selected1C.root};
+  _STL::vector<int> ids(begin,end,_STL::allocator<int>());
+  if(((Rva002B6C9F*)TheLivingWorldLogic)->rva002B6C9F((int)army18,(int)&ids,(int)destination)) {
+   Rva005E5DF5SendSwapArmyMembers(army18->getID(),&selected1C,destination->getID(),*(const Rva005FSelectionView*)&Rva005F2381());
+   return;
+  }
+ }
+ Rva0057C394*owner=(Rva0057C394*)((Rva0042D6BAPtrChaseField*)context10)->get();
+ if(owner) {
+  void*extra=(void*)((Rva0042D6B4PtrChaseField*)context10)->get();
+  if(extra) pending40.rva00575674((Object*)new Rva005E626D((Rva005E626DOwner*)this,owner,(Rva005E626DListOwner*)destination,extra));
  }
 }
