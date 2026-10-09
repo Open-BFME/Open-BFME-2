@@ -1,4 +1,5 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /GX /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHs /EHc- /arch:SSE /D_CRTIMP= /Ireference/shims/subsystem_bfme2
+// stlport
 //
 // Lua callbacks of BFME2's LuaScriptEngine.cpp: the file-name literal the two
 // random-number bindings pass (VA 0x00C0DE00) reads
@@ -340,4 +341,61 @@ int ObjectTestCanSufferFear(lua_State *L)
   bfmeGo1039E((BfmeQ1039*)L,doPush);
  } else lua_pushnil(L);
  return 1;
+}
+
+extern "C" void __cdecl lua_close(void *L);
+#include <stdlib.h>
+struct Rva003378D0
+{
+	~Rva003378D0();
+	char m_pad[12];
+};
+#include "subsystem_interface.h"
+template <class T> struct Rva00337AA8Buf
+{
+	void *m_ptr;
+	~Rva00337AA8Buf()
+	{
+		if (m_ptr != 0)
+			free(m_ptr);
+	}
+};
+// Retail C0E390 has the fourteen canonical subsystem slots, followed by
+// an empty hook and the name getter at337AA2. The constructor3379FD and
+// WB LuaScriptEngine dtor support identity; the address-derived type retains
+// compatibility with the already-owned deleting dtor337C70.
+class Rva00337AA8 : public SubsystemInterface
+{
+public:
+	virtual ~Rva00337AA8();
+ virtual void init();
+ virtual void reset();
+ virtual void update() {}
+ virtual void slot14() {}
+ virtual const char *slot15();
+private:
+	void *m_lua0C;
+	void *m_lua10;
+	char m_pad14[0xA0 - 0x14];
+	Rva00337AA8Buf<void> m_bufA0;
+	char m_padA4[0xB0 - 0xA4];
+	Rva003378D0 m_vecB0;
+	Rva00337AA8Buf<void> m_bufBC;
+	char m_padC0[0xC8 - 0xC0];
+	// C8 is explicitly released by the dtor body; BC/A0 are automatic.
+	void *m_bufC8;
+};
+Rva00337AA8::~Rva00337AA8()
+{
+	if (m_lua0C != 0)
+	{
+		lua_close(m_lua0C);
+		m_lua0C = 0;
+	}
+	if (m_lua10 != 0)
+	{
+		lua_close(m_lua10);
+		m_lua10 = 0;
+	}
+ if(m_bufC8) free(m_bufC8);
 }
