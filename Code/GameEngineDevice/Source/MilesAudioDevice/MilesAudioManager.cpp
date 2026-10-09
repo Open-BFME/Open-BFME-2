@@ -868,6 +868,7 @@ public:
 
     void setMaxAmbientStreams(void);
     void notifyOf2DSampleCompletion();
+    void notifyOf3DSampleCompletion();
     void internalSetReverbRoomType(int roomType);
     void rva0005452B(void);
     void rva000606CE(bool accelerated);
@@ -1043,7 +1044,6 @@ class Rva0005F279Elem { public: bool rva00051038() throw(); bool rva0005106A(); 
 // The guarded 2D and 3D playing-sample count decrements (WorldBuilder's
 // notifyOf2DSampleCompletion/notifyOf3DSampleCompletion), rowed at 0x000514EB
 // and 0x000514FB under an address-derived owner.
-class Rva000514EB { public: void rva000514FB(); };
 class Rva00050FE3 { public: void rva00050FE3() throw(); };
 // The loop buffer's play position, start and loop count, rowed at 0x00050FFD,
 // 0x00050FC9 and 0x00051017 under address-derived names.
@@ -1179,7 +1179,7 @@ void MilesAudioManager::cleanUpLoopBuffer(LoopBuffer *buffer)
             }
             m_available3DSamples.push_back(buffer->m_3DSample);
             buffer->m_3DSample = 0;
-            ((Rva000514EB *)this)->rva000514FB();
+            notifyOf3DSampleCompletion();
         }
     } else if (buffer->m_sample) {
         if (buffer->m_playingAudio) {
@@ -3350,7 +3350,7 @@ bool MilesAudioManager::playSample2DOr3DUsingCallbackBuffers(PlayingAudioRef &pl
     }
     if (i == m_numLoopBuffers) {
         if (is3D)
-            ((Rva000514EB *)this)->rva000514FB();
+            notifyOf3DSampleCompletion();
         else
             notifyOf2DSampleCompletion();
         return false;

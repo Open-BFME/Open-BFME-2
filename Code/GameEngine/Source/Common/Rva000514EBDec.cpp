@@ -9,20 +9,11 @@ class MilesAudioManager
 {
 public:
     void notifyOf2DSampleCompletion();
+    void notifyOf3DSampleCompletion();
 private:
     char m_pad[0x684];
     unsigned m_numPlaying2DSamples;
-};
-
-class Rva000514EB
-{
-public:
-	void rva000514FB();
-
-private:
-	char m_pad[0x684];
-	unsigned m_count684;
-	unsigned m_count688; // +0x688
+    unsigned m_numPlaying3DSamples;
 };
 
 void MilesAudioManager::notifyOf2DSampleCompletion()
@@ -33,7 +24,9 @@ void MilesAudioManager::notifyOf2DSampleCompletion()
 	--(*p);
 }
 
-void Rva000514EB::rva000514FB()
+// WorldBuilder 0x00797510 independently names the 3D completion method
+// and its unsigned counter at +0x688 (MilesAudioManager.cpp:8560).
+void MilesAudioManager::notifyOf3DSampleCompletion()
 {
 	unsigned *p = (unsigned *)((char *)this + 0x688);
 	if (*p <= 0u)
