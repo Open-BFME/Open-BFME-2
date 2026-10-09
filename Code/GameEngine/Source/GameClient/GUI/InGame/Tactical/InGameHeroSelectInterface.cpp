@@ -34,10 +34,12 @@ public:
 };
 
 class Drawable;
+struct HeroContainer;
 
 class Object
 {
 public:
+	bool isSelectable() const;
 	const ThingTemplate *getTemplate() const { return m_template; }
 	Drawable *getDrawable() const;			// 0x005508E2
 
@@ -46,7 +48,9 @@ private:
 	const ThingTemplate *m_template;		// +0x04
 public:
 	unsigned char m_pad08[0x38 - 8];
-	Coord3D m_pos; // +0x38, retail distance calculation reads x and y
+	Coord3D m_pos; // +0x38
+ char pad44[0x74-0x44]; ObjectID id;
+ char pad78[0x438-0x78]; unsigned char flags438;
 };
 
 class GameLogic
@@ -67,7 +71,8 @@ class Drawable
 {
 public:
 	const Coord3D *getPosition() const;		// 0x002763E6
-	unsigned char m_pad00[0x43C];
+	unsigned char pad00[0xFC]; HeroContainer *container;
+ unsigned char pad100[0x43C-0x100];
 	bool selected; // native readiness filter reads Drawable +0x43C
 };
 
@@ -106,6 +111,7 @@ extern View *TheTacticalView;
 // GameClient drawable walker does, rather than a second unresolved spelling.
 class BFMERopeDrawable { public: const Coord3D *getPosition() const; };
 
+struct HeroContainer {char pad00[0x274]; Object *owner;};
 struct HeroButtonInfo
 {
 	ObjectID m_heroID;				// +0x00
@@ -150,10 +156,11 @@ class BuilderUISelectionView {public:
  BUILDER_SLOT(40) BUILDER_SLOT(41) BUILDER_SLOT(42) BUILDER_SLOT(43) BUILDER_SLOT(44) BUILDER_SLOT(45) BUILDER_SLOT(46) BUILDER_SLOT(47)
  BUILDER_SLOT(48) BUILDER_SLOT(49) BUILDER_SLOT(50) BUILDER_SLOT(51) BUILDER_SLOT(52) BUILDER_SLOT(53) BUILDER_SLOT(54) BUILDER_SLOT(55)
  BUILDER_SLOT(56) BUILDER_SLOT(57) BUILDER_SLOT(58) BUILDER_SLOT(59) BUILDER_SLOT(60) BUILDER_SLOT(61) BUILDER_SLOT(62) BUILDER_SLOT(63)
- BUILDER_SLOT(64) BUILDER_SLOT(65) BUILDER_SLOT(66) BUILDER_SLOT(67) BUILDER_SLOT(68) BUILDER_SLOT(69) BUILDER_SLOT(70) BUILDER_SLOT(71)
+ BUILDER_SLOT(64) BUILDER_SLOT(65) virtual void selectDrawable(Drawable *); BUILDER_SLOT(67) virtual void clearSelection(); BUILDER_SLOT(69) BUILDER_SLOT(70) BUILDER_SLOT(71)
  BUILDER_SLOT(72)
 #undef BUILDER_SLOT
  virtual const SelectedList *selection();
+ char padVptr[0x8BA-4];bool additiveSelection;
 };
 unsigned char __stdcall Rva00524FEDCheck(Object *);
 class InGameHeroSelectInterface
@@ -162,6 +169,7 @@ public:
 	class Impl
 	{
 	public:
+		void SelectAllHeroes();
 		void FlashHeroButton(const AsciiString &templateName, Int frames);
 		Bool IsBuilderOnScreen(const Object *builder);
 		void rva00526E8B(_STL::list<Rva00525119> *list);
@@ -170,6 +178,9 @@ public:
 	private:
 		unsigned char m_pad00[0x10];
 		HeroSelectData *m_data;			// +0x10
+ char pad14[0x48-0x14];
+ struct HeroSlot {HeroButtonNode *node;char unknown[20];};
+ HeroSlot slots[16];
 	};
 };
 
@@ -267,4 +278,55 @@ BuilderSelectionData *InGameHeroSelectInterface::Impl::FindReadyLocalBuilder(_ST
 		break;
 	}
 	return result;
+}
+
+class GameMessage {public:void appendBooleanArgument(bool);void appendObjectIDArgument(ObjectID);};
+class MessageStream {public:
+#define MSLOT(N) virtual void v##N();
+ MSLOT(0) MSLOT(1) MSLOT(2) MSLOT(3) MSLOT(4) MSLOT(5) MSLOT(6) MSLOT(7)
+ MSLOT(8) MSLOT(9) MSLOT(10) MSLOT(11) MSLOT(12) MSLOT(13) MSLOT(14) MSLOT(15)
+ MSLOT(16) MSLOT(17)
+#undef MSLOT
+ virtual GameMessage *createMessage(int);
+};
+extern MessageStream *MessageStreamSubsystem;
+// WB13C13F0 names SelectAllHeroes; complete native525E55..526008 is435B.
+// Native establishes16 slots of24B at+48, Object id+74/flags438,
+// Drawable container+FC/selection43C, container owner274 and template bit115/20.
+// UI additive-selection8BA and virtual slots108/110; message IDs3E9/3EA.
+// BFME1 control-bar source shares the command label but has no matching body;
+// reconstruction follows the named WB flow and native target layout/call sites.
+void InGameHeroSelectInterface::Impl::SelectAllHeroes()
+{
+ bool clear = !reinterpret_cast<BuilderUISelectionView *>(TheInGameUI)->additiveSelection;
+ int last = 0;
+ for(int i=0;i<16;++i) {
+  HeroButtonNode *it=slots[i].node;
+  if(it==m_data->m_heroButtons.end())continue;
+  Object *hero=TheGameLogic->findObjectByID(it->m_data.m_heroID);
+  if(!hero || !hero->isSelectable() || (hero->flags438&1))continue;
+  if(!hero->getDrawable() || (!clear && hero->getDrawable()->selected))continue;
+  last=i;
+ }
+ for(int i=0;i<last+1;++i) {
+  HeroButtonNode *it=slots[i].node;
+  if(it==m_data->m_heroButtons.end())continue;
+  Object *hero=TheGameLogic->findObjectByID(it->m_data.m_heroID);
+  if(!hero || !hero->isSelectable() || (hero->flags438&1))continue;
+  Drawable *draw=hero->getDrawable();
+  if(!draw || (!clear && draw->selected))continue;
+  HeroContainer *container=draw->container;
+  if(container) {
+   Object *owner=container->owner;
+   if(owner && (((const unsigned char *)owner->getTemplate())[0x115]&0x20)) {
+    hero=owner;draw=owner->getDrawable();
+   }
+  }
+  if(clear)reinterpret_cast<BuilderUISelectionView *>(TheInGameUI)->clearSelection();
+  GameMessage *message=MessageStreamSubsystem->createMessage(i==last?0x3E9:0x3EA);
+  message->appendBooleanArgument(clear);
+  message->appendObjectIDArgument(hero->id);
+  reinterpret_cast<BuilderUISelectionView *>(TheInGameUI)->selectDrawable(draw);
+  clear=false;
+ }
 }

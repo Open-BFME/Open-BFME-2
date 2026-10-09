@@ -73,10 +73,10 @@ void Rva00330BA3::rva00330BA3(Int a)
 // 0x00526342, 0x00527111 and 0x00567D96: the pinned 0x00525E55 (no
 // argument), 0x00526F85 (the argument) resp. 0x00567A6E (+0x0C) of the
 // +0x08 object; answer true.
+class InGameHeroSelectInterface { public: class Impl { public: void SelectAllHeroes(); }; };
 class Rva00525E55
 {
 public:
-	void rva00525E55();
 	void rva00526F85(Int a);
 	void rva00567A6E(Int a);
 };
@@ -94,7 +94,7 @@ private:
 };
 bool Rva00526342::rva00526342(Int)
 {
-	m_08->rva00525E55();
+	reinterpret_cast<InGameHeroSelectInterface::Impl *>(m_08)->SelectAllHeroes();
 	return true;
 }
 bool Rva00526342::rva00527111(Int a)
