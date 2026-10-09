@@ -1,5 +1,7 @@
 // ?rva00363FA4@Path@@QAEXH@Z
 // partial score=0.9979775 date=2026-10-09
+// ?rva00363FA4@Path@@QAEXH@Z
+// partial score=0.9979775 date=2026-10-09
 // cl: /ICode/Libraries/Include /O1 /DNDEBUG /MD /arch:SSE /G7 /EHsc
 // BF1 clean donor0bef PathOptimizeGround.cpp is semantic guide.
 // Target363FA4..3641AE RET4; caller2EF908 passes pathDiameter.

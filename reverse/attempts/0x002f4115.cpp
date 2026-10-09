@@ -1,6 +1,8 @@
 // ?rva002F4115@Pathfinder@@QAE_NPAVObject@@HHPAVLocomotorSet@@@Z
+// partial score=0.823262 date=2026-10-09
+// ?rva002F4115@Pathfinder@@QAE_NPAVObject@@HHPAVLocomotorSet@@@Z
 // partial score=0.85 date=2026-10-09
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
+// cl: /ICode/Libraries/Include /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
 // stlport
 //
 // ?rva002F4115@Pathfinder@@QAE_NPAVObject@@HHPAVLocomotorSet@@@Z, retail
@@ -31,7 +33,7 @@ typedef int Int;
 typedef bool Bool;
 
 class Object;
-struct Coord3D { float x, y, z; };
+#include "Lib/Coord3D.h"
 
 enum PathfindLayerEnum { LAYER_INVALID = 0 };
 
@@ -233,11 +235,8 @@ private:
 
 Bool Pathfinder::rva002F4115(Object *obj, Int startZone, Int goalZone, LocomotorSet *locoSet)
 {
-	if (reinterpret_cast<Rva0028B984ByteField *>(obj)->get())
-		return false;
-	AIUpdateInterface *ai = obj->getAI();
-	if (ai == 0 && locoSet == 0)
-		return false;
+	AIUpdateInterface *ai;
+	if (reinterpret_cast<Rva0028B984ByteField *>(obj)->get())goto reject;ai=obj->getAI();if(ai==0&&locoSet==0)goto reject;goto work;reject:return false;work:;
 	Int surfaces;
 	if (locoSet)
 		surfaces = locoSet->m_validSurfaces;
