@@ -9,6 +9,7 @@ counted, and a hard wall-clock budget ends a run with a partial report. Report o
 import os
 import subprocess
 import sys
+import threading
 import time
 from pathlib import Path
 
@@ -285,13 +286,57 @@ def test_budget_expiry_exits_0_with_a_partial_report(repo):
 
 
 def test_budget_kills_hanging_git(tmp_path, monkeypatch, capsys):
-    from test_replay_check import assert_all_dead, hanging_git
+    from test_replay_check import _kill, direct_children_dead, hanging_git
     monkeypatch.setattr(inv, "GIT", hanging_git(tmp_path))
+    threads = threading.active_count()
     t0 = time.monotonic()
     code = inv.main(["--staged", "--ledger", str(tmp_path / "none.csv"), "--budget", "2"])
-    assert code == 0 and time.monotonic() - t0 < 20
+    assert code == 0 and time.monotonic() - t0 < 15
     assert "partial: budget of 2s exceeded after 0 of ? file(s)" in capsys.readouterr().err
-    assert_all_dead(tmp_path)
+    for pid in direct_children_dead(tmp_path):
+        _kill(pid)
+    assert threading.active_count() == threads
+
+
+# review round 2: what the compiler's first phases do to the text
+
+def test_raw_string_contents_are_not_code(repo):
+    # a plain-string reading would end the literal at the inner quote and see the name
+    repo.stage(SRC, '// a\nconst char *s = R"x( " g_00DFE758 " )" still )x";\nint f() { return 0; }\n')
+    got = repo.run("--staged")
+    assert got.returncode == 0 and got.stderr == "", got.stderr
+
+
+def test_crlf_continued_line_comment_is_not_code(repo):
+    repo.git("config", "core.autocrlf", "false")
+    repo.stage(SRC, "// a\r\n// a note that runs on \\\r\n   g_00DFE758 is still the comment\r\nint f();\r\n")
+    got = repo.run("--staged")
+    assert got.returncode == 0 and got.stderr == "", got.stderr
+
+
+def test_slash_spliced_to_slash_is_a_comment(repo):
+    repo.stage(SRC, "// a\n/\\\n/ g_00DFE758 in a comment the splice opened\nint f();\n")
+    got = repo.run("--staged")
+    assert got.returncode == 0 and got.stderr == "", got.stderr
+
+
+def test_spliced_identifier_is_found_at_its_first_line(repo):
+    repo.stage(SRC, "// a\nextern void *g_00DF\\\nE758;\nint f();\n")
+    got = repo.run("--staged")
+    assert f"{SRC}:2 invents g_00DFE758 for 0x009FE758" in got.stderr, got.stderr
+
+
+def test_line_numbers_count_spliced_lines(repo):
+    repo.stage(SRC, "// a\n#define X 1 \\\n  + 2\nextern void *g_00DFE758;\n")
+    got = repo.run("--staged")
+    assert f"{SRC}:4 invents g_00DFE758 for 0x009FE758" in got.stderr, got.stderr
+
+
+def test_splice_keeps_offsets_and_lines():
+    code, offsets, first = inv.code_tokens("a\r\nb\\\r\nc g_00DFE758 /* g_Va00E02EEC */\n")
+    assert "g_00DFE758" in first and "g_Va00E02EEC" not in first
+    at = first["g_00DFE758"]
+    assert code.count("\n", 0, at) + inv.bisect.bisect_right(offsets, at) + 1 == 3
 
 
 def test_missing_ledger_is_not_an_error(repo):

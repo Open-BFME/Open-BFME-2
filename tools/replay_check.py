@@ -16,55 +16,63 @@ SIGNATURES, per outgoing (non-merge) commit:
             already reachable from the remote tip. A rebase or cherry-pick
             keeps all three -- and so do an intentional re-land after an
             upstream revert and an amended commit, so identity alone is only a
-            POSSIBLE replay and gets no "drop it" advice.
-  patch     its patch-id (`git patch-id --stable` of its -U0 diff) equals its
-            identity twin's: the same change, so a REPLAY -- unless upstream
-            holds a `Revert "<subject>"` commit, which makes it a re-land.
+            POSSIBLE replay, with advice to compare, never to drop.
   ledger    lines it adds to reverse/functions.csv or reverse/symbols.csv (net
             of lines it removes, so a moved row is not counted) that already
-            exist verbatim in the remote tip's copy of that file: a REPLAY.
+            exist verbatim in the remote tip's copy of that file: DUPLICATE
+            ROWS, to be removed from the commit.
+  content   ALL of its changes are already upstream: every file it changes
+            ends as the remote tip has it (same blob), except a ledger, where
+            every line it adds is already there and it removes none. Only this
+            is a REPLAY, with advice to drop the commit. One duplicate row
+            beside a fresh one is duplicate rows, not a replay.
 
 COST. A hard wall-clock budget (tools/shadow_budget.py: $BFME_SHADOW_BUDGET_S,
-default 10 s) bounds the run; when it runs out the tool kills its git children,
-prints what it finished ("partial: budget ... exceeded after N of M commit(s)")
-and exits 0. Within it, cheapest first: one `git log` of the outgoing commits;
-an upstream walk of only the commits COMMITTED since the oldest outgoing author
-date less --slack-hours, and never more than --max-days before the newest
-outgoing commit (outgoing commits authored before that window are counted, not
-matched); one diff of the whole range's ledgers, checked against one read of
-each remote ledger. Per-commit diffs (~0.2 s each with a 16 MB ledger, four at
-a time) only where they decide something: when that net diff finds a line, the
-first --attribute ledger-touching commits (identity twins first) to say which
-added it; and the first --attribute identity twins without such lines, with
-their upstream twins, for patch-ids. Measured on real ranges: 500 commits in
-~4 s (was 112-114 s), 2,000 in ~4 s (was over 240 s), 1-20 commits ~1 s. What this leaves
-unchecked is reported as a count: ledger commits seen only through the net
-diff (which hides a row added and dropped again within the push), twins whose
-patch-id was not compared, commits authored before the walk window.
+default 10 s) bounds the run: each git child waits at most the budget left and
+is killed past it; the tool then prints what it finished ("partial: budget ...
+exceeded after N of M commit(s)") and exits 0. Within it, cheapest first: one
+`git log` of the outgoing commits; an upstream walk of only the commits
+COMMITTED since the oldest outgoing author date less --slack-hours, and never
+more than --max-days before the newest outgoing commit (outgoing commits
+authored before that window are counted, not matched); one diff of the whole
+range's ledgers, its added lines looked up in the remote tip's copy of each
+ledger it touches (nothing is read when it touches none; `git grep` for a few
+lines, one read of the file for more). Per-commit ledger diffs (~0.2 s each
+with a 16 MB ledger, four at a time) only where they decide something: when
+the net diff finds a line, the first --attribute ledger-touching commits
+(identity twins first) to say which added it; and the first --attribute
+ledger-touching identity twins. Measured on real ranges: 500 commits ~4 s (was
+112-114 s), 2,000 commits ~4 s (was over 240 s). What this leaves unchecked is
+reported as a count: ledger commits seen only through the net diff (which
+hides a row added and dropped again within the push), twins whose content was
+not compared, commits authored before the walk window.
 
 REPORT ONLY. With --shadow (the hook) it always exits 0. Without it, it exits 1
-when it finds a replay or possible replay, so scripts and tests can branch on it.
+when it finds anything, so scripts and tests can branch on it.
 
   python3 tools/replay_check.py --range REMOTE_SHA LOCAL_SHA [--shadow]
 """
 import argparse
 import collections
 import concurrent.futures
+import os
 import re
 import sys
+import tempfile
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from shadow_budget import Budget, BudgetExceeded, exit_on_signals, seconds  # noqa: E402
+from shadow_budget import GIT, Budget, BudgetExceeded, seconds  # noqa: E402
 
 LEDGERS = ("reverse/functions.csv", "reverse/symbols.csv",                         # Open-BFME-2
            "targets/game/reverse/functions.csv", "targets/game/reverse/symbols.csv")  # Open-BFME-1
 SEP = "\x1f"
 DIFF = ("--no-color", "--no-ext-diff", "--no-textconv", "--no-renames", "-U0")
-GIT = ("git", "-c", "core.quotePath=false")
 WORKERS = 4                  # concurrent per-commit diffs
-TWINS_COMPARED = 1           # upstream twins (newest first) one outgoing commit is compared with
+CHUNK = 3                    # commits per diff process: what a budget overrun can lose
+GREP_MAX = 8                 # `git grep -F -f` tries every pattern on every line: few lines only
 REVERT = re.compile(r'^Revert "(.*)"$')
+ABSENT = "0" * 40
 
 
 class Git:
@@ -76,10 +84,6 @@ class Git:
         if code not in ok:
             raise RuntimeError("git %s: %s" % (" ".join(args[:3]), err.decode("utf-8", "replace").strip()))
         return out.decode("utf-8", "replace")
-
-    def lines(self, *args, input=None):
-        for raw in self.budget.lines([*GIT, *args], input=input):
-            yield raw.decode("utf-8", "replace")
 
 
 def commits(git, *rev_args):
@@ -96,9 +100,9 @@ def commits(git, *rev_args):
     return out
 
 
-def additions(text):
-    """{sha or None: {path: [net added line, ...]}} from `git diff/log -U0` output,
-    commits introduced by a SEP<sha> line."""
+def changes(text):
+    """{sha or None: {path: (net added [line], net removed [line])}} from `git diff/log -U0`
+    output, commits introduced by a SEP<sha> line."""
     out = {}
     sha = path = None
     header = False
@@ -106,25 +110,26 @@ def additions(text):
 
     def flush():
         got = {}
-        for p in plus:
-            net = plus[p] - minus.get(p, collections.Counter())
-            if net:
-                got[p] = sorted(net.elements())
-        if got:
-            out[sha] = got
+        for p in set(plus) | set(minus):
+            added, removed = plus[p] - minus[p], minus[p] - plus[p]
+            if added or removed:
+                got[p] = (sorted(added.elements()), sorted(removed.elements()))
+        out[sha] = got
 
     for line in text.splitlines():
         if line.startswith(SEP):
-            flush()
+            if sha is not None or plus or minus:
+                flush()
             sha, path, header = line[1:].strip(), None, False
             plus.clear()
             minus.clear()
         elif line.startswith("diff --git "):
             path, header = None, True
         elif header:
-            if line.startswith("+++ "):
-                # "+++ /dev/null" is a deletion: it adds nothing
-                path = line[6:] if line.startswith("+++ b/") else None
+            if line.startswith("--- "):
+                path = line[6:] if line.startswith("--- a/") else path
+            elif line.startswith("+++ "):
+                path = line[6:] if line.startswith("+++ b/") else path
             elif line.startswith("@@"):
                 header = False
         elif path and line.startswith("+"):
@@ -135,35 +140,54 @@ def additions(text):
     return out
 
 
-def ledger_lines(text):
-    """{ledger path: [net added line]} of one commit's diff."""
-    got = additions(text).get(None, {})
-    return {p: v for p, v in got.items() if p in LEDGERS}
-
-
-def upstream_lines(git, base, path):
-    """Every line of `path` at `base` (empty when it has no such file). One blob read and a
-    set beat `git grep -F -f`, which tries each of thousands of patterns on every line
-    (56 s for a 500-commit push's lines)."""
-    code, out, _err = git.budget.run([*GIT, "cat-file", "blob", f"{base}:{path}"])
-    if code:
+def already_upstream(git, base, path, lines, cache):
+    """The subset of `lines` that is a whole line of `path` at `base`; `cache` keeps a
+    ledger read whole."""
+    wanted = {line for line in lines if line.strip()}      # an empty pattern matches every line
+    if not wanted:
         return set()
-    return {line.rstrip("\r") for line in out.decode("utf-8", "replace").split("\n")}
+    if path in cache:
+        return cache[path] & wanted
+    if len(wanted) <= GREP_MAX:
+        handle, patterns = tempfile.mkstemp(suffix=".txt")
+        try:
+            with os.fdopen(handle, "wb") as out:
+                out.write("".join(line + "\n" for line in sorted(wanted)).encode("utf-8"))
+            got = git("grep", "-h", "-I", "-F", "-f", patterns, base, "--", path, ok=(0, 1))
+        finally:
+            os.unlink(patterns)
+        return {line.rstrip("\r") for line in got.splitlines()} & wanted
+    try:
+        got = git("cat-file", "blob", f"{base}:{path}")
+    except RuntimeError:
+        got = ""                                          # no such file upstream
+    cache[path] = {line.rstrip("\r") for line in got.split("\n")}
+    return cache[path] & wanted
 
 
-def diff_texts(git, shas, into):
-    """into[sha] = that commit's full -U0 diff, for each sha whose diff completed."""
-    current, buf = None, []
-    for line in git.lines("diff-tree", "--stdin", "-r", "-p", "--root", "--always", *DIFF,
-                          "--format=" + SEP + "%H", input="".join(s + "\n" for s in shas).encode()):
-        if line.startswith(SEP):
-            if current:
-                into[current] = "".join(buf)
-            current, buf = line[1:].strip(), []
-        else:
-            buf.append(line)
-    if current:
-        into[current] = "".join(buf)
+def diff_all(git, shas, into):
+    """into[sha] = {ledger path: (added, removed)} of each commit, CHUNK commits per git
+    process, WORKERS processes at a time; a budget overrun keeps the chunks that finished."""
+    shas = [s for s in dict.fromkeys(shas) if s not in into]
+    chunks = [shas[i:i + CHUNK] for i in range(0, len(shas), CHUNK)]
+
+    def one(chunk):
+        text = git("diff-tree", "--stdin", "-r", "-p", "--root", "--always", *DIFF, "--format=" + SEP + "%H",
+                   "--", *LEDGERS, input="".join(s + "\n" for s in chunk))
+        got = changes(text)
+        return {s: got.get(s, {}) for s in chunk}
+
+    if not chunks:
+        return
+    over = False
+    with concurrent.futures.ThreadPoolExecutor(max_workers=min(WORKERS, len(chunks))) as pool:
+        for job in [pool.submit(one, c) for c in chunks]:
+            try:
+                into.update(job.result())
+            except BudgetExceeded:
+                over = True
+    if over:
+        raise BudgetExceeded()
 
 
 class Result:
@@ -176,16 +200,16 @@ class Result:
         self.index = collections.defaultdict(list)
         self.reverts = {}           # subject -> upstream sha of `Revert "subject"`
         self.unchecked = 0          # outgoing commits authored before the walk window
-        self.ledger_commits = None  # outgoing commits touching a ledger, oldest first
+        self.ledger_commits = []    # outgoing commits touching a ledger, oldest first
         self.touched = set()
-        self.net = None             # {path: [line]}: the range's net ledger additions
+        self.net = None             # {path: (added, removed)}: the range's net ledger change
+        self.present = None         # {path: lines already upstream}, once looked up
         self.need_diff = set()
-        self.diffs = {}             # sha -> its -U0 diff
+        self.ledger = {}            # sha -> {ledger path: (added, removed)} of that commit alone
         self.attributed = set()     # ledger commits whose own additions were read
-        self.added = {}             # sha -> {path: [line]}
-        self.present = None         # {path: lines already upstream}, once grepped
-        self.pairs = {}             # outgoing sha -> [upstream twins compared by patch-id]
-        self.patch_ids = None       # sha -> patch-id, once computed
+        self.files = None           # sha -> {path: resulting blob}, of the commits judged on content
+        self.upstream = {}          # path -> its blob at the remote tip
+        self.read = {}              # ledger path -> all its lines at the remote tip, once read whole
         self.attribute = 0
         self.max_days = 0.0
 
@@ -193,36 +217,42 @@ class Result:
         sha, email, ats, atz, _cts, subject = commit
         return self.index.get((email, ats, atz, subject), [])
 
+    def added(self, sha):
+        return {p: v[0] for p, v in self.ledger.get(sha, {}).items()}
+
     def hits(self, sha):
         """How many lines this commit adds that the remote tip's ledger already holds."""
         if self.present is None:
             return 0
-        return sum(1 for p, v in self.added.get(sha, {}).items() for line in v if line in self.present.get(p, ()))
+        return sum(1 for p, v in self.added(sha).items() for line in v if line in self.present.get(p, ()))
+
+    def upstream_already(self, sha):
+        """True when every change of this commit is already upstream, False when one is not,
+        None when that was not established."""
+        if self.files is None or sha not in self.files:
+            return None
+        for path, blob in self.files[sha].items():
+            if path in LEDGERS:
+                if sha not in self.ledger:
+                    return None
+                added, removed = self.ledger[sha].get(path, ([], []))
+                if removed or any(line not in self.present.get(path, ()) for line in added):
+                    return False
+            elif self.upstream.get(path, ABSENT) != blob:
+                return False
+        return True
+
+    def candidate(self, commit):
+        return bool(self.twins(commit) or self.hits(commit[0]))
 
     def complete(self, commit):
         """Every check planned for this commit finished."""
         sha = commit[0]
-        if not self.indexed:
-            return False
-        if sha in self.need_diff and sha not in self.diffs:
+        if not self.indexed or (sha in self.need_diff and sha not in self.ledger):
             return False
         if self.present is None and sha in self.touched:
             return False
-        if self.twins(commit) and not self.hits(sha) and self.patch_ids is None:
-            return False                            # its patch-id comparison was still to come
-        return True
-
-
-def diff_all(git, shas, into):
-    """Per-commit diffs of `shas` into `into`, WORKERS at a time (each ~0.2 s with a 16 MB ledger)."""
-    shas = [s for s in dict.fromkeys(shas) if s not in into]
-    if not shas:
-        return
-    workers = min(WORKERS, len(shas))
-    with concurrent.futures.ThreadPoolExecutor(max_workers=workers) as pool:
-        jobs = [pool.submit(diff_texts, git, shas[i::workers], into) for i in range(workers)]
-        for job in jobs:
-            job.result()
+        return not (self.candidate(commit) and self.files is None)
 
 
 def check(git, base, tip, result, slack_hours=6.0, max_days=30.0, attribute=20):
@@ -230,122 +260,123 @@ def check(git, base, tip, result, slack_hours=6.0, max_days=30.0, attribute=20):
     BudgetExceeded midway, leaving what it finished)."""
     r = result
     r.attribute = attribute
-    with concurrent.futures.ThreadPoolExecutor(max_workers=2 + len(LEDGERS)) as pool:
-        # the whole range's ledger diff and the remote tip's ledgers (16 MB blobs) are read
-        # beside the commit walk
-        net = pool.submit(lambda: additions(git("diff", *DIFF, base, tip, "--", *LEDGERS)).get(None, {}))
-        tips = {p: pool.submit(upstream_lines, git, base, p) for p in LEDGERS}
+
+    def net_change():
+        net = changes(git("diff", *DIFF, base, tip, "--", *LEDGERS)).get(None, {})
+        present = {p: already_upstream(git, base, p, v[0], r.read) for p, v in net.items()}
+        return net, present
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=2) as pool:
+        # the range's ledger diff (two 16 MB blobs) and its lookups run beside the commit walk
+        net = pool.submit(net_change)
         touched = pool.submit(lambda: git("log", "--no-merges", "--reverse", "--format=%H",
                                           f"{base}..{tip}", "--", *LEDGERS).split())
         r.outgoing = commits(git, f"{base}..{tip}")
-        if not r.outgoing:
-            net.result(), touched.result()
-            r.indexed = True
-            return r
-        newest = max(c[4] for c in r.outgoing)
-        since = max(min(c[2] for c in r.outgoing) - int(slack_hours * 3600), newest - int(max_days * 86400))
-        r.unchecked = sum(1 for c in r.outgoing if c[2] - slack_hours * 3600 < since)
-        upstream = commits(git, f"--max-age={since}", base)
-        for sha, email, ats, atz, _cts, subject in upstream:
-            r.index[(email, ats, atz, subject)].append(sha)
-            reverted = REVERT.match(subject)
-            if reverted:
-                r.reverts.setdefault(reverted.group(1), sha)
-        r.walked, r.indexed = len(upstream), True
-        r.net, r.ledger_commits = net.result(), touched.result()
+        if r.outgoing:
+            newest = max(c[4] for c in r.outgoing)
+            since = max(min(c[2] for c in r.outgoing) - int(slack_hours * 3600),
+                        newest - int(max_days * 86400))
+            r.unchecked = sum(1 for c in r.outgoing if c[2] - slack_hours * 3600 < since)
+            upstream = commits(git, f"--max-age={since}", base)
+            for sha, email, ats, atz, _cts, subject in upstream:
+                r.index[(email, ats, atz, subject)].append(sha)
+                reverted = REVERT.match(subject)
+                if reverted:
+                    r.reverts.setdefault(reverted.group(1), sha)
+            r.walked = len(upstream)
+        r.indexed = True
+        r.ledger_commits = touched.result()
         r.touched = set(r.ledger_commits)
-        upstream_of = {p: job.result() for p, job in tips.items()}
+        r.net, r.present = net.result()
+    if not r.outgoing:
+        return r
 
-    # the range's net ledger additions against the remote tip's ledgers
-    r.present = {p: {line for line in v if line in upstream_of[p]} for p, v in r.net.items()}
-
-    # which commit added them: one ledger commit is the net diff itself; else read the
-    # own diffs of `attribute` ledger commits, identity twins first (the likeliest
-    # replays), then in push order -- only when the net diff found a line
+    # each ledger commit's own change: one alone is the net diff; else the first
+    # `attribute` (identity twins first) when the net diff found a line, and the
+    # first `attribute` ledger-touching twins
+    twinned = [c[0] for c in reversed(r.outgoing) if r.twins(c)]
     if len(r.ledger_commits) == 1:
-        r.added[r.ledger_commits[0]] = r.net
+        r.ledger[r.ledger_commits[0]] = r.net
         r.attributed.add(r.ledger_commits[0])
-    elif any(r.present.values()):
-        twinned = {c[0] for c in r.outgoing if r.twins(c)}
-        first = sorted(r.ledger_commits, key=lambda s: s not in twinned)[:attribute]
-        r.need_diff.update(first)
+    else:
+        wanted = []
+        if any(r.present.values()):
+            wanted = sorted(r.ledger_commits, key=lambda s: s not in set(twinned))[:attribute]
+        wanted += [s for s in twinned if s in r.touched][:attribute]
+        r.need_diff = set(wanted)
         try:
-            diff_all(git, first, r.diffs)
-        finally:                                   # past the budget, keep the diffs that finished
-            for sha in first:
-                if sha in r.diffs:
-                    r.added[sha] = ledger_lines(r.diffs[sha])
-                    r.attributed.add(sha)
-        extra = collections.defaultdict(set)      # lines a commit adds that the net diff cancels
-        net = {p: set(v) for p, v in r.net.items()}
-        for sha in first:
-            for p, v in r.added[sha].items():
+            diff_all(git, wanted, r.ledger)
+        finally:
+            r.attributed.update(s for s in wanted if s in r.ledger)
+        # lines a commit adds that the net diff cancels: look those up too
+        extra = collections.defaultdict(set)
+        net = {p: set(v[0]) for p, v in r.net.items()}
+        for sha in r.attributed:
+            for p, v in r.added(sha).items():
                 extra[p].update(line for line in v if line not in net.get(p, ()))
         for p, v in extra.items():
-            r.present.setdefault(p, set()).update(line for line in v if line in upstream_of.get(p, ()))
+            r.present.setdefault(p, set()).update(already_upstream(git, base, p, v, r.read))
 
-    # identity twins whose content is not already shown upstream: compare patch-ids
-    oldest_first = list(reversed(r.outgoing))
-    for commit in [c for c in oldest_first if r.twins(c) and not r.hits(c[0])][:attribute]:
-        r.pairs[commit[0]] = r.twins(commit)[:TWINS_COMPARED]
-    r.need_diff.update(r.pairs)
-    diff_all(git, [s for sha, twins in r.pairs.items() for s in (sha, *twins)], r.diffs)
-    texts = [f"commit {sha}\n{r.diffs[sha]}" for sha in
-             dict.fromkeys([*r.pairs, *(u for v in r.pairs.values() for u in v)]) if sha in r.diffs]
-    ids = {}
-    if texts:
-        for line in git("patch-id", "--stable", input="".join(texts)).splitlines():
-            pid, _, sha = line.partition(" ")
-            ids[sha.strip()] = pid
-    r.patch_ids = ids
+    # is every change of a twin or a duplicating commit already upstream? Its files'
+    # resulting blobs against the remote tip's, from tree diffs (no content read)
+    judged = [c[0] for c in reversed(r.outgoing) if r.candidate(c)]
+    files = {}
+    if judged:
+        raw = git("diff-tree", "--stdin", "-r", "--root", "--always", "--no-renames", "--no-abbrev",
+                  "--format=" + SEP + "%H",
+                  input="".join(s + "\n" for s in judged))
+        sha = None
+        for line in raw.splitlines():
+            if line.startswith(SEP):
+                sha = line[1:].strip()
+                files[sha] = {}
+            elif line.startswith(":") and sha and "\t" in line:
+                meta, path = line.split("\t", 1)
+                files[sha][path] = meta.split()[3]
+        paths = sorted({p for f in files.values() for p in f if p not in LEDGERS})
+        if paths:
+            found = git("cat-file", "--batch-check=%(objectname)", input="".join(f"{base}:{p}\n" for p in paths))
+            for path, line in zip(paths, found.splitlines()):
+                r.upstream[path] = line.split()[0] if not line.endswith(" missing") else ABSENT
+    r.files = files
     return r
 
 
 # ---------------------------------------------------------------- the report
 
-Verdict = collections.namedtuple("Verdict", "commit replay hits total why")
-
-
-def same_patch(r, a, b):
-    if a not in r.diffs or b not in r.diffs or r.patch_ids is None:
-        return None                                   # not compared
-    if not r.diffs[a].strip() and not r.diffs[b].strip():
-        return True                                   # two empty commits
-    return r.patch_ids.get(a) is not None and r.patch_ids.get(a) == r.patch_ids.get(b)
+Verdict = collections.namedtuple("Verdict", "commit kind hits total why")
 
 
 def verdicts(r):
-    """[Verdict] newest first: `replay` when the content is shown to be upstream already (ledger
-    lines verbatim, or the identity twin's patch-id with no upstream revert); otherwise a
-    possible replay on identity alone."""
+    """[Verdict] newest first. kind: "replay" (every change already upstream: drop it),
+    "duplicate" (some added ledger lines already upstream: remove them) or "possible"
+    (same author, date and subject as an upstream commit, nothing more shown)."""
     out = []
     for commit in r.outgoing:
         sha, subject = commit[0], commit[5]
         same = r.twins(commit)
-        lines = r.added.get(sha, {})
-        total = sum(len(v) for v in lines.values())
         hits = r.hits(sha)
         if not (same or hits):
             continue
-        why, replay = [], bool(hits)
+        total = sum(len(v) for v in r.added(sha).values())
+        whole = r.upstream_already(sha)
+        why = []
         if same:
             twin = "same as " + same[0][:10] + (f" (+{len(same) - 1} more)" if len(same) > 1 else "")
-            compared = [same_patch(r, sha, u) for u in r.pairs.get(sha, ())]
             revert = r.reverts.get(subject)
-            if True in compared and not revert:
-                replay = True
-                why.append(f"{twin}, same patch-id")
-            elif True in compared:
-                why.append(f"{twin}, same patch-id, but upstream reverted it in {revert[:10]}: a re-land?")
-            elif hits:
-                why.append(twin)
-            elif False in compared:
-                why.append(f"{twin}, patch differs")
-            else:
-                why.append(f"{twin}, patch not compared")
+            why.append(twin + (f", which upstream reverted in {revert[:10]}" if revert else ""))
         if hits:
             why.append(f"{hits}/{total} ledger line(s) already upstream")
-        out.append(Verdict(commit, replay, hits, total, why))
+        if whole:
+            kind = "replay"
+            why.append("every change already upstream")
+        elif hits:
+            kind = "duplicate"
+            why.append("its other changes are new" if whole is False else "its other changes not compared")
+        else:
+            kind = "possible"
+            why.append("its changes are not all upstream" if whole is False else "content not compared")
+        out.append(Verdict(commit, kind, hits, total, why))
     return out
 
 
@@ -354,9 +385,9 @@ def unattributed_hits(r):
     whose own additions were read."""
     if r.present is None or not r.net:
         return 0
-    net = collections.Counter((p, line) for p, v in r.net.items() for line in v if line in r.present.get(p, ()))
-    seen = collections.Counter((p, line) for sha in r.attributed for p, v in r.added.get(sha, {}).items()
-                               for line in v)
+    net = collections.Counter((p, line) for p, v in r.net.items() for line in v[0]
+                              if line in r.present.get(p, ()))
+    seen = collections.Counter((p, line) for sha in r.attributed for p, v in r.added(sha).items() for line in v)
     return sum((net - seen).values())
 
 
@@ -366,16 +397,27 @@ def gaps(r):
     if r.unchecked:
         out.append(f"{r.unchecked} outgoing commit(s) authored more than {r.max_days:g} days before the "
                    "push: identity not checked")
-    touched = r.ledger_commits or []
-    skipped = sum(1 for s in touched if s not in r.attributed)
-    if len(touched) > 1 and skipped:
-        out.append(f"{skipped} of {len(touched)} ledger-touching commit(s) were checked only through the "
-                   "push's net ledger diff, not one by one, which hides a row added and dropped again "
+    skipped = sum(1 for s in r.ledger_commits if s not in r.attributed)
+    if len(r.ledger_commits) > 1 and skipped:
+        out.append(f"{skipped} of {len(r.ledger_commits)} ledger-touching commit(s) were checked only through "
+                   "the push's net ledger diff, not one by one, which hides a row added and dropped again "
                    "within the push")
-    unpaired = sum(1 for c in r.outgoing if r.twins(c) and c[0] not in r.pairs and not r.hits(c[0]))
-    if unpaired:
-        out.append(f"{unpaired} identity twin(s) past --attribute {r.attribute}: patch-id not compared")
+    unread = sum(1 for c in r.outgoing if r.twins(c) and c[0] in r.touched and c[0] not in r.ledger)
+    if unread:
+        out.append(f"{unread} ledger-touching identity twin(s) past --attribute {r.attribute}: content not "
+                   "compared")
     return out
+
+
+ADVICE = {
+    "replay": "A replay changes nothing upstream does not already have: drop it (git rebase --onto) "
+              "instead of pushing it again.",
+    "duplicate": "Duplicate rows: remove the ledger lines already upstream from that commit; its other "
+                 "changes are its own.",
+    "possible": "A possible replay matches an upstream commit's author, date and subject only. An intentional "
+                "re-land after a revert and an amended commit look the same: compare them (git range-diff, "
+                "or git diff UPSTREAM_SHA SHA) before dropping anything.",
+}
 
 
 def report(git, base, tip, shadow, examples=10, slack_hours=6.0, max_days=30.0, attribute=20):
@@ -398,21 +440,18 @@ def report(git, base, tip, shadow, examples=10, slack_hours=6.0, max_days=30.0, 
     say = lambda text: print(text, file=sys.stderr)  # noqa: E731
     if partial:
         say(f"{tag}: {partial}")
-    replays = [v for v in found if v.replay]
-    found = replays + [v for v in found if not v.replay]          # actionable first
+    kinds = collections.Counter(v.kind for v in found)
+    found = sorted(found, key=lambda v: ("replay", "duplicate", "possible").index(v.kind))   # actionable first
     if found or loose:
         say(f"{tag}: {len(found)} of {len(r.outgoing)} outgoing commit(s) may replay work already upstream "
             f"({r.walked} upstream commit(s) searched, {budget.elapsed():.2f}s)")
-        ledger = [v for v in found if v.hits]
-        patch = sum(1 for v in replays if not v.hits)
-        say(f"  replay, content already upstream: {len(replays)} commit(s) (ledger lines already upstream "
-            f"verbatim: {len(ledger)} commit(s), {sum(v.hits for v in ledger)} line(s); the identity twin's "
-            f"patch-id: {patch} commit(s))")
-        say(f"  possible replay, same author, author date and subject only: {len(found) - len(replays)} "
-            "commit(s)")
+        say(f"  replay, every change already upstream: {kinds['replay']} commit(s); duplicate rows beside "
+            f"new changes: {kinds['duplicate']} commit(s), "
+            f"{sum(v.hits for v in found if v.kind == 'duplicate')} line(s); possible replay, same author, "
+            f"author date and subject only: {kinds['possible']} commit(s)")
+        labels = {"replay": "replay", "duplicate": "duplicate rows", "possible": "possible replay"}
         for v in found[:examples]:
-            label = "replay" if v.replay else "possible replay"
-            say(f"  {v.commit[0][:10]} {v.commit[5][:72]}  [{label}: {'; '.join(v.why)}]")
+            say(f"  {v.commit[0][:10]} {v.commit[5][:72]}  [{labels[v.kind]}: {'; '.join(v.why)}]")
         if len(found) > examples:
             say(f"  ... and {len(found) - examples} more")
         if loose:
@@ -423,13 +462,9 @@ def report(git, base, tip, shadow, examples=10, slack_hours=6.0, max_days=30.0, 
             f"({budget.elapsed():.2f}s)")
     for hole in holes:
         say(f"  not checked: {hole}")
-    if replays:
-        say("  A replay adds content already upstream (rows that are already verified): drop it "
-            "(git rebase --onto) instead of pushing it again.")
-    if len(replays) < len(found):
-        say("  A possible replay matches an upstream commit's author, date and subject only. An intentional "
-            "re-land after a revert and an amended commit look the same: compare them (git range-diff, or "
-            "git diff UPSTREAM_SHA SHA) before dropping anything.")
+    for kind in ("replay", "duplicate", "possible"):
+        if kinds[kind]:
+            say("  " + ADVICE[kind])
     return 0 if (shadow or partial) else int(bool(found or loose))
 
 
@@ -443,19 +478,18 @@ def main(argv=None):
     ap.add_argument("--max-days", type=float, default=30.0,
                     help="never walk upstream further back than this before the newest outgoing commit")
     ap.add_argument("--attribute", type=int, default=20,
-                    help="per-commit diffs for at most this many ledger-touching commits and identity twins")
+                    help="per-commit ledger diffs for at most this many ledger commits and as many twins")
     ap.add_argument("--budget", type=float, default=None,
                     help="wall-clock seconds (default $BFME_SHADOW_BUDGET_S or 10; 0 = none)")
     a = ap.parse_args(argv)
-    with Budget(seconds(a.budget)) as budget:
-        try:
-            return report(Git(budget), a.range[0], a.range[1], a.shadow, a.examples, a.slack_hours,
-                          a.max_days, max(0, a.attribute))
-        except (RuntimeError, ValueError, KeyError) as exc:
-            print(f"replay_check: {exc}", file=sys.stderr)
-            return 0 if a.shadow else 2
+    budget = Budget(seconds(a.budget))
+    try:
+        return report(Git(budget), a.range[0], a.range[1], a.shadow, a.examples, a.slack_hours,
+                      a.max_days, max(0, a.attribute))
+    except (RuntimeError, ValueError, KeyError, OSError) as exc:
+        print(f"replay_check: {exc}", file=sys.stderr)
+        return 0 if a.shadow else 2
 
 
 if __name__ == "__main__":
-    exit_on_signals()
     sys.exit(main())
