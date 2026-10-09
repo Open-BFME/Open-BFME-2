@@ -55,10 +55,10 @@ class Rva0052991E
 	char m_pad00[0x64];
 	Slot m_slots[6];
 public:
-	void rva0052991E(const char *path);
-	void rva005297DD(const char *path);
+	void OnToggleFlashLoaded(const char *path);
+	void OnSubMenuLoaded(const char *path);
 };
-void Rva0052991E::rva0052991E(const char *path)
+void Rva0052991E::OnToggleFlashLoaded(const char *path)
 {
 	AsciiString name;
 	Slot *button;
@@ -78,7 +78,7 @@ void Rva0052991E::rva0052991E(const char *path)
 // Native 0x005297DD..0x005298E0, RET4; same slot/lifetime as 52991E,
 // holder +4 and the rowed clip-base constructor at 5C40E7. WorldBuilder
 // 0x013CBE00 names this operation OnSubMenuLoaded in the same source home.
-void Rva0052991E::rva005297DD(const char *path)
+void Rva0052991E::OnSubMenuLoaded(const char *path)
 {
 	AsciiString name;
 	Slot *button;
@@ -226,18 +226,18 @@ struct PalantirCostInterface {Rva00528BC1 state;
 __forceinline PalantirCostInterface(void*p){state.rva00528BC1(p);}};
 class Rva00529F3D {public:void rva00529F3D(int);};
 class Rva0052936C {public:
- Rva0052936C(void*,int);~Rva0052936C();void rva00529698(const char*);void rva005297A0(const char*);void rva005298E0(const char*);void rva00529A21(const char*);
+ Rva0052936C(void*,int);~Rva0052936C();void OnButtonFrameLoaded(const char*);void OnButtonFrameUnloaded(const char*);void OnSubMenuUnloaded(const char*);void OnToggleFlashUnloaded(const char*);
  void*owner;int frame;AptCommandMapAdder maps;AptOverButtonHandlerAdder over;bool flag2c,flag2d;void*current;AsciiString label;PalantirRankInterface rank;PalantirCostInterface cost;int value60;Rva00529318Slot slots[6];
 };
 class Rva00528F30Target {public:void reset();};
 Rva0052936C::Rva0052936C(void*p,int f):owner(p),frame(f),flag2c(false),flag2d(false),current(0),rank((void*)f),cost((void*)f),value60(0) {
  over.AddOverButtonHandlerDelegate(frame,AsciiString("CommandUI/PortraitBackground"),DelegateDesc((Rva00529F3D*)this,&Rva00529F3D::rva00529F3D));
- maps.AddCommandMapDelegate(AsciiString("PalantirCommandUI::OnButtonFrameLoaded"),DelegateDesc(this,&Rva0052936C::rva00529698));
- maps.AddCommandMapDelegate(AsciiString("PalantirCommandUI::OnButtonFrameUnloaded"),DelegateDesc(this,&Rva0052936C::rva005297A0));
- maps.AddCommandMapDelegate(AsciiString("PalantirCommandUI::OnSubMenuLoaded"),DelegateDesc((Rva0052991E*)this,&Rva0052991E::rva005297DD));
- maps.AddCommandMapDelegate(AsciiString("PalantirCommandUI::OnSubMenuUnloaded"),DelegateDesc(this,&Rva0052936C::rva005298E0));
- maps.AddCommandMapDelegate(AsciiString("PalantirCommandUI::OnToggleFlashLoaded"),DelegateDesc((Rva0052991E*)this,&Rva0052991E::rva0052991E));
- maps.AddCommandMapDelegate(AsciiString("PalantirCommandUI::OnToggleFlashUnloaded"),DelegateDesc(this,&Rva0052936C::rva00529A21));
+ maps.AddCommandMapDelegate(AsciiString("PalantirCommandUI::OnButtonFrameLoaded"),DelegateDesc(this,&Rva0052936C::OnButtonFrameLoaded));
+ maps.AddCommandMapDelegate(AsciiString("PalantirCommandUI::OnButtonFrameUnloaded"),DelegateDesc(this,&Rva0052936C::OnButtonFrameUnloaded));
+ maps.AddCommandMapDelegate(AsciiString("PalantirCommandUI::OnSubMenuLoaded"),DelegateDesc((Rva0052991E*)this,&Rva0052991E::OnSubMenuLoaded));
+ maps.AddCommandMapDelegate(AsciiString("PalantirCommandUI::OnSubMenuUnloaded"),DelegateDesc(this,&Rva0052936C::OnSubMenuUnloaded));
+ maps.AddCommandMapDelegate(AsciiString("PalantirCommandUI::OnToggleFlashLoaded"),DelegateDesc((Rva0052991E*)this,&Rva0052991E::OnToggleFlashLoaded));
+ maps.AddCommandMapDelegate(AsciiString("PalantirCommandUI::OnToggleFlashUnloaded"),DelegateDesc(this,&Rva0052936C::OnToggleFlashUnloaded));
  ((Rva00528F30Target*)this)->reset();
 }
 

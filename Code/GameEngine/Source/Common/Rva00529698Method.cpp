@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
-// ?rva00529698@Rva0052936C@@QAEXPBD@Z @0x00529698 264B.
+// ?OnButtonFrameLoaded@Rva0052936C@@QAEXPBD@Z @0x00529698 264B.
 // Chain from 0x00529628: parse index and name params, find empty slot,
 // allocate Rva005D2462 via rowed new and level/name helpers, store via rowed Set.
 // Evidence: callers none; callees all rowed; prev/next share Rva0052936C family.
@@ -31,7 +31,7 @@ struct Rva00529698Elem
 class Rva0052936C
 {
 public:
-	void rva00529698(const char *section);
+	void OnButtonFrameLoaded(const char *section);
 private:
 	char m_pad00[0x64];
 	Rva00529698Elem m_elems[6];
@@ -75,7 +75,7 @@ private:
 	int m_14;
 };
 
-void Rva0052936C::rva00529698(const char *section)
+void Rva0052936C::OnButtonFrameLoaded(const char *section)
 {
 	AsciiString val;
 	Rva00529698Elem *e;

@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /O1 /G7 /DNDEBUG /MD /EHsc
 
-// ?rva005295D5@Rva0052936C@@QAEXH@Z @0x005295D5 83B
+// ?UpdateButton@Rva0052936C@@QAEXH@Z @0x005295D5 83B
 // Target evidence: reads the +0xDC indexed global window, compares its button data with slot +0x10,
 // refreshes through 0x005294FC on change, dispatches slot 1 through +0x0C, and calls +0x04.
 // Structural inference: the six entries at +0x64 with stride 0x14 share the 0x0052936C owner view.
@@ -40,7 +40,7 @@ private:
 	};
 
 public:
-	void rva005295D5(int index);
+	void UpdateButton(int index);
 	void rva005294FC(int index);
 
 private:
@@ -48,7 +48,7 @@ private:
 	Elem m_elems[6];
 };
 
-void Rva0052936C::rva005295D5(int index)
+void Rva0052936C::UpdateButton(int index)
 {
 	Rva005295D5WindowTable *table = (Rva005295D5WindowTable *)g_00E01CFC;
 	GameWindow *window = table->m_windows[index];
