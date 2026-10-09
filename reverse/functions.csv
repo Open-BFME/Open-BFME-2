@@ -65133,7 +65133,6 @@ _Rva00438083,,0x00438083,172,Code/GameEngine/Source/Common/Rva00437EDCFinish.cpp
 ?rva0040FCC0@Rva0040FCC0@@QAEXH@Z,,0x0040FCC0,92,Code/GameEngine/Source/Common/Rva0040FCC0Shutdown.cpp,matched,ref neighbours WindowLayout rowed callees globals VTABLE Locomotor disagrees
 ??0RvaSmartPtr12@@QAE@PAX@Z,,0x0004CBF7,34,Code/GameEngine/Source/Common/System/SmartPtrCopyCtor.cpp,matched,raw pointer constructor matches adjacent smart pointer layout
 ?rva0045969F@Rva0045969F@@UAEHXZ,,0x0045969F,90,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/Rva0045969F.cpp,matched,ref slot 0x00841194 Thing-8 getDrawable AI+0x258 slot 0x1b8 iface+0x10
-?rva002D9AC3@Rva002D9AC3@@QAEPBDXZ,,0x002D9AC3,17,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,matched,honest getter ptr+8 or empty callers abut 0x002D9AD4
 ?rva00210F96@LivingWorldManager@@QAEXXZ,,0x00210F96,48,Code/GameEngine/Source/Common/Rva00210F96Body.cpp,matched,unlock lane null gate plus tail jmp same 0x268 as rowed 0x00210D68
 ?rva003235B8@Rva003235B8@@QAEHPBVImage@@HHH@Z,,0x003235B8,97,Code/GameEngine/Source/GameClient/GUI/Gadget/Rva003235B8Method.cpp,matched,rowed callees winGetUserData SetListLength AddEntryImage via adjacent Rva00323619 pattern
 ?transferUnitsToPlayer@SkirmishAI@@QAEXPAVPlayer@@@Z,,0x002C6AFA,152,Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp,matched,pinned name prev 0x002C6AA8 next 0x002C6B92 in TU
@@ -72242,3 +72241,4 @@ _Rva004097AFWorker,,0x004097AF,227,Code/GameEngine/Source/Common/Rva004097AFOpen
 ?onEnter@AIFearState@@UAE?AW4StateReturnType@@XZ,,0x00354D0D,419,Code/GameEngine/Source/GameLogic/AI/AIFearState.cpp,matched,BFME1 AIFearState::onEnter donor; ctor 0x003428CC name constant 0xE4366E82 = crc32 AIFearState; slot 4 of vtable 0x00C125C8; CritterDesync string 13
 ?update@AIFearState@@UAE?AW4StateReturnType@@XZ,,0x00347CA3,359,Code/GameEngine/Source/GameLogic/AI/AIFearState.cpp,matched,BFME1 AIFearState::update donor; slot 6 of vtable 0x00C125C8; CritterDesync string 14
 ?onExit@AIFearState@@UAEXW4StateExitType@@@Z,,0x00347E0A,66,Code/GameEngine/Source/GameLogic/AI/AIFearState.cpp,matched,slot 5 of vtable 0x00C125C8 (ctor 0x003428CC crc32 AIFearState); clears fear bit 64 and AI flag +0x3C4
+?rva002D9AC3@Rva002D9AC3@@QAEPBDXZ,,0x002D9AC3,17,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,matched,honest getter returning string object at ptr+8 or exported AsciiString::TheEmptyString at VA00DE0878; native callers copy AsciiString from result; boundary abuts rva002D9AD4
