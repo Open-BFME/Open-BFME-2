@@ -36,6 +36,11 @@
 //    retail 0x005454D0 (73 bytes): vtable 0x00C69FA0 (slot-2 name getter),
 //    State ctor 0x004D73FC with name hash 0x9cb27a45, then the inlined exit
 //    conditions (+0x20), attack state +0x3C and BFME 2's +0x40 id cleared.
+//  - AttackAggressor onEnter 0x0054587A (460 bytes): C69FA0 slot 4.
+//    ZH source plus target alternate nemesis ID +0x40; template +0x114
+//    mask 0x2000; damage slot 15 fields +8/+0x10. Target AIAttackState
+//    allocation is 0x50 and receives NULL exit conditions. Weapon template
+//    byte getter 0x002C9400 extends chase frames by half.
 // Layout (target evidence): state goal +0x20, adjusts-destination +0x48,
 // m_nextReturnScanTime +0x4C; TAiData m_guardEnemyReturnScanRate +0x44.
 typedef bool Bool;
@@ -267,15 +272,33 @@ class Rva00545355Module : public VSlots<31>
 public:
 	virtual Rva00545355Target *bfmeTarget() = 0;
 };
-class BodyModuleInterface : public VSlots<18>
+struct DamageInfo
+{
+ unsigned char pad00[8]; ObjectID sourceID; unsigned char pad0C[4]; int damageType;
+};
+class BodyModuleInterface : public VSlots<15>
 {
 public:
-	virtual ObjectID getClearableLastAttacker() const = 0;
+	virtual const DamageInfo *getLastDamageInfo() const = 0;
+ virtual void gap16() = 0; virtual void gap17() = 0;
+ virtual ObjectID getClearableLastAttacker() const = 0;
 };
+class ObjectTemplate
+{
+public:
+ unsigned int testGuardKind() const { return m_flags & 0x2000; }
+private:
+ unsigned char pad00[0x114]; unsigned int m_flags;
+};
+enum WeaponSlotType { WEAPON_PRIMARY = 0 };
+class Rva002C9400ByteField { public: unsigned char get() const; };
+class Weapon { public: const Rva002C9400ByteField *getTemplate() const { return m_template; } private: unsigned char pad00[4]; const Rva002C9400ByteField *m_template; };
 class Object
 {
 public:
 	ObjectID getID() const { return m_id; }
+ const ObjectTemplate *getTemplate() const { return m_template; }
+ const Weapon *getCurrentWeapon(WeaponSlotType *slot = NULL) const;
 	const Coord3D *getPosition() const { return &m_position; }
 	BodyModuleInterface *getBodyModule() const { return m_body; }
 	Bool testBfme438Bit0() const { return (m_bfme438 & 1) != 0; }
@@ -287,7 +310,9 @@ public:
 	AIUpdateInterface *getAI() { return m_ai; }
 	Rva00545355Module *getBfme250() { return m_bfme250; }
 private:
-	unsigned char m_pad00[0x38];
+	unsigned char m_pad00[4];
+ const ObjectTemplate *m_template;
+ unsigned char m_pad08[0x38 - 8];
 	Coord3D m_position; // +0x38
 	unsigned char m_pad44[0x74 - 0x44];
 	ObjectID m_id; // +0x74
@@ -305,13 +330,16 @@ public:
 };
 struct TAiData
 {
-	unsigned char m_pad00[0x44];
+	unsigned char m_pad00[0x3C];
+ UnsignedInt m_guardChaseUnitFrames;
+ unsigned char m_pad40[4];
 	UnsignedInt m_guardEnemyReturnScanRate; // +0x44
 };
 class AI
 {
 public:
-	Pathfinder *pathfinder() { return m_pathfinder; }
+	static Real getAdjustedVisionRangeForObject(const Object *obj, int factors);
+ Pathfinder *pathfinder() { return m_pathfinder; }
 	const TAiData *getAiData() const { return m_aiData; }
 private:
 	unsigned char m_pad00[0x10];
@@ -380,7 +408,7 @@ public:
 	virtual StateReturnType onEnter();
 	virtual void onExit(int status);
 	virtual StateReturnType update();
-protected:
+public:
 	StateMachine *getMachine() const { return m_machine; }
 	Object *getMachineOwner() const { return m_machine->getOwner(); }
 	unsigned char m_pad04[0x18 - 0x04];
@@ -496,11 +524,19 @@ public:
 	Real m_radiusSqr; // +0x14
 	UnsignedInt m_attackGiveUpFrame; // +0x18 (state +0x38)
 };
+class AIAttackState : public State
+{
+public:
+ AIAttackState(StateMachine *, Bool, Bool, Bool, AttackExitConditionsInterface *);
+private:
+ unsigned char pad1C[0x50 - 0x1C];
+};
 class AIGuardRetaliateAttackAggressorState : public State
 {
 public:
 	AIGuardRetaliateAttackAggressorState(StateMachine *machine);
 	Object *rva0054582A();
+ virtual StateReturnType onEnter();
 private:
 	AIGuardRetaliateMachine *getGuardMachine() { return (AIGuardRetaliateMachine *)getMachine(); }
 	unsigned char m_pad1C[0x20 - 0x1C];
@@ -576,4 +612,44 @@ Object *AIGuardRetaliateAttackAggressorState::rva0054582A()
 	if (controller)
 		return controller->bfmePick(0, owner->getPosition(), 0.0f, 0, 0);
 	return NULL;
+}
+
+// ZH AttackAggressor onEnter, with BFME2's alternate nemesis and weapon duration.
+static Real sqr(Real a) { return a*a; }
+StateReturnType AIGuardRetaliateAttackAggressorState::onEnter()
+{
+ Object *obj = getMachineOwner();
+ ObjectID nemID = INVALID_ID;
+ m_bfme40 = INVALID_ID;
+ Object *nemesis = TheGameLogic->findObjectByID(getGuardMachine()->getNemesisID());
+ BodyModuleInterface *body = obj->getBodyModule();
+ if (!nemesis && body && body->getLastDamageInfo()->sourceID && body->getLastDamageInfo()->damageType != 7)
+ {
+  nemID = obj->getBodyModule()->getLastDamageInfo()->sourceID;
+  nemesis = TheGameLogic->findObjectByID(nemID);
+  if (nemesis && obj->getRelationship(nemesis) == ENEMIES)
+   getGuardMachine()->setNemesisID(nemID);
+ }
+ if (!nemesis) return STATE_SUCCESS;
+ if (nemesis->getTemplate()->testGuardKind() && !obj->getTemplate()->testGuardKind())
+ {
+  m_bfme40 = nemesis->getID();
+  nemesis = rva0054582A();
+  if (!nemesis) return STATE_FAILURE;
+  getGuardMachine()->setNemesisID(nemesis->getID());
+ }
+ Coord3D pos; pos.set(getGuardMachine()->getPositionToGuard());
+ Real range = AI::getAdjustedVisionRangeForObject(obj, 3);
+ UnsignedInt chaseFrames = TheAI->getAiData()->m_guardChaseUnitFrames;
+ if (obj->getCurrentWeapon() && obj->getCurrentWeapon()->getTemplate()->get())
+  chaseFrames += chaseFrames >> 1;
+ m_exitConditions.m_center = pos;
+ m_exitConditions.m_attackGiveUpFrame = TheGameLogic->getFrame() + chaseFrames;
+ m_exitConditions.m_radiusSqr = sqr(range + Rva00545239Get(obj));
+ m_exitConditions.m_conditionsToConsider = 7;
+ m_attackState = new AIAttackState(getMachine(), false, true, false, NULL);
+ m_attackState->getMachine()->setGoalObject(nemesis);
+ StateReturnType returnVal = m_attackState->onEnter();
+ if (returnVal == STATE_CONTINUE) return STATE_CONTINUE;
+ return STATE_SUCCESS;
 }
