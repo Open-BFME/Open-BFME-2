@@ -20,7 +20,8 @@ public:
 class Object
 {
 public:
-	BodyModuleInterface *getBodyModule() const { return m_body; }
+	// Preserve the native +0x254 inline read without a legacy external copy.
+	__declspec(dllimport) __forceinline BodyModuleInterface *getBodyModule() const { return m_body; }
 private:
 	unsigned char m_pad000[0x254];
 	BodyModuleInterface *m_body;	// +0x254

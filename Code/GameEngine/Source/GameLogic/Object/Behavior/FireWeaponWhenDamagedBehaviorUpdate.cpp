@@ -76,7 +76,8 @@ class Object
 {
 public:
 	const Coord3D *getPosition() const { return &m_position; }
-	BodyModuleInterface *getBodyModule() const { return m_body; }
+	// Preserve the native +0x254 inline read without a legacy external copy.
+	__declspec(dllimport) __forceinline BodyModuleInterface *getBodyModule() const { return m_body; }
 
 private:
 	unsigned char m_pad00[0x38];
