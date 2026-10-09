@@ -37,6 +37,7 @@ struct LocalFileSystem {
   virtual void _v14();
 };
 struct Win32LocalFileSystem : LocalFileSystem {
+  virtual bool Virt10(unsigned short *buf);
   virtual bool rva006049D8(const char *src);
   virtual void rva00604A8B(const AsciiString &current,const AsciiString &original,const AsciiString &pattern,void *output,void *recurse);
   virtual File* openFile(const unsigned short* filename, int access, void** seekPointer);
@@ -352,3 +353,10 @@ void Win32LocalFileSystem::rva00604A8B(const AsciiString &current,const AsciiStr
 // The existing narrow and wide overloads establish forwarding signatures;
 // the three-string wrapper retains opaque output and recurse argument types.
 // WB16510E0 confirms the three AsciiString reads in reverse order.
+
+extern "C" __declspec(dllimport) int __cdecl _waccess(const unsigned short *filename,int mode);
+bool Win32LocalFileSystem::Virt10(unsigned short *buf)
+{
+ if(!buf) return false;
+ return _waccess(buf,0)==0 ? '\1' : '\0';
+}
