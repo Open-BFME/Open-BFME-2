@@ -9,6 +9,7 @@
 namespace _STL { void __cdecl free(void *block) throw(...); }
 #define free _STL::free
 #include <vector>
+#include <algorithm>
 #undef free
 
 #include "ascii_string.h"
@@ -53,10 +54,16 @@ public:
 	virtual bool Visit(LivingWorldPendingBattle *battle) = 0;
 };
 
+class ModuleData;
+struct RegionBattleView;
+struct RegionBattlePoint;
+typedef _STL::vector<const ModuleData *> RegionSlots;
+
 class LivingWorldRegionManager
 {
 public:
 	void EnumeratePendingBattles(PendingBattleVisitor &visitor) const;
+	void AddBattle(RegionBattleView *, const RegionSlots &, const RegionSlots &, const RegionBattlePoint &);
 	Bool GetRegionCenterPoint(Int regionID, Coord2D *out);
 	Bool GetRegionCenterPoint(Rva0020E89C *region, Coord2D *out);	// 0x0020EA58
 	Bool GetRegionUiPopupPoint(Int regionID, Coord2D *out);
@@ -295,6 +302,7 @@ public:
 class Rva002E071E
 {
 public:
+	bool rva002E071E(const Rva002E071E *) const;
 	int rva002E0BC0(Int regionID);			// 0x002E0BC0
 
 	unsigned char m_pad00[0x14];
@@ -309,9 +317,15 @@ public:
 	void rva002E2285(Int *ruleID, const Rva0020E449 &bonus);	// 0x002E2285
 };
 
+class Rva003F287F;
 class LivingWorldLogic
 {
+    friend class Rva0020FDDFHost;
+private:
+    void AddDelayedRegionVictory(Rva003F287F *, int, unsigned int);
 public:
+    void LetAIResolveRegionAwardDispute(int, const _STL::vector<int> &, unsigned int);
+    void rva002B9A90(int, const _STL::vector<int> &, unsigned int);
 	unsigned char m_pad00[0xB0];
 	LivingWorldRegionManager *m_regionManager;	// +0xB0
 };
@@ -482,4 +496,126 @@ Rva00210B38::~Rva00210B38()
 	// establishes its address, not that unrelated class identity.
 	reinterpret_cast<RegionLogicObserverPrefix *>(TheLivingWorldLogic)->m_observers.rva002B7250(reinterpret_cast<CreateAHeroData *>(
 		static_cast<RegionTurnObserverView *>(this)));
+}
+
+
+// WB B583A0 names CheckForBattles; retail20FDDF..2100E6 is the entire775B
+// RET0 body. Region+164 contains army IDs; army+78/+2C marks participation,
+// player+44 distinguishes human control and region+13C is its owner ID.
+// The two local pointer containers use the already-owned ModuleData vector
+// ABI as opaque word storage. This does not identify armies or players as
+// ModuleData. Typed pointer locals preserve native lifetime/evaluation order.
+// The existing delayed-victory ABI spells its player word int; preserve the
+// pointer bits here, as both native images pass the player object itself.
+class Rva002E2903Player { public: char pad00[0x44]; int field44; };
+class Rva003F02E4 { public: bool rva003F0336(const Rva002E071E *); };
+class Rva003F287F;
+struct Rva002B488EResult;
+class Rva002BA8F1Logic
+{
+public:
+    Rva002B488EResult *rva002B488E(int);
+    Rva002E2903Player *find(int, unsigned int *);
+};
+struct RegionArmyState { char pad00[0x2C]; int field2C; };
+struct RegionArmyView { char pad00[0x54]; int owner54; char pad58[0x20]; RegionArmyState *state78; };
+struct RegionBattleView
+{
+    char pad00[0x13C];
+    int owner13C;
+    int getOwner() const { return owner13C; }
+    char pad140[0x24];
+    _STL::vector<int> armies164;
+};
+struct RegionCampaignView { char pad00[0x2C]; _STL::vector<RegionBattleView *> regions; };
+struct RegionBattlePoint { float x,y; };
+class RegionSlotsAccess : public RegionSlots { public: Rva002E071E *get(unsigned int index) const { return reinterpret_cast<Rva002E071E *>(const_cast<ModuleData *>((*this)[index])); } };
+class Rva002B2702B0 { public: bool rva0020EA58(void *, float *); };
+class Rva0020FDDFHost
+{
+public:
+    void rva0020FDDF();
+private:
+    char pad00[8];
+    RegionCampaignView *campaign08;
+};
+
+void Rva0020FDDFHost::rva0020FDDF()
+{
+    _STL::vector<RegionBattleView *> *regions=&campaign08->regions;
+    RegionSlots armies;
+    RegionSlots players;
+    for (unsigned int i=0; i<regions->size(); ++i) {
+        RegionBattleView *region=(*regions)[i];
+        _STL::vector<int> *ids=&region->armies164;
+        if (ids->empty()) continue;
+        reinterpret_cast<_STL::vector<void *> *>(&players)->clear();
+        reinterpret_cast<_STL::vector<void *> *>(&armies)->clear();
+        for (unsigned int j=0; j<ids->size(); ++j) {
+            RegionArmyView *army=reinterpret_cast<RegionArmyView *>(reinterpret_cast<Rva002BA8F1Logic *>(TheLivingWorldLogic)->rva002B488E((*ids)[j]));
+            if (army) {
+                army->state78->field2C=1;
+                armies.push_back(reinterpret_cast<const ModuleData *const &>(army));
+                int owner=army->owner54;
+                Rva002E2903Player *player=reinterpret_cast<Rva002BA8F1Logic *>(TheLivingWorldLogic)->find(owner,0);
+                if (player) {
+                    if (_STL::find(reinterpret_cast<int *>(players.begin()),reinterpret_cast<int *>(players.end()),reinterpret_cast<const int &>(player))==reinterpret_cast<int *>(players.end()))
+                        players.push_back(reinterpret_cast<const ModuleData *const &>(player));
+                }
+            }
+        }
+        if (players.size()==0) continue;
+        if (players.size()==1) {
+            Rva002E071E *player=reinterpret_cast<Rva002E071E *>(const_cast<ModuleData *>(players[0]));
+            if (region->owner13C==-1) {
+                TheLivingWorldLogic->AddDelayedRegionVictory(reinterpret_cast<Rva003F287F *>(region),reinterpret_cast<int>(player),0);
+            } else if (!(unsigned char)player->rva002E0BC0(region->getOwner())) {
+                if (reinterpret_cast<Rva003F02E4 *>(region)->rva003F0336(player)) {
+                    Rva002E2903Player *owner=reinterpret_cast<Rva002BA8F1Logic *>(TheLivingWorldLogic)->find(region->getOwner(),0);
+                    if (owner) {
+                        players.push_back(reinterpret_cast<const ModuleData *const &>(owner));
+                        RegionBattlePoint point;
+                        reinterpret_cast<Rva002B2702B0 *>(this)->rva0020EA58(region,&point.x);
+                        reinterpret_cast<LivingWorldRegionManager *>(this)->AddBattle(region,armies,players,point);
+                    }
+                } else {
+                    TheLivingWorldLogic->AddDelayedRegionVictory(reinterpret_cast<Rva003F287F *>(region),reinterpret_cast<int>(player),1);
+                }
+            }
+        } else if (players.size()>=2) {
+            bool hostile=false;
+            for (unsigned int k=1; k<players.size(); ++k) {
+                const Rva002E071E *other=reinterpret_cast<const Rva002E071E *>(players[k]);
+                Rva002E071E *first=reinterpret_cast<Rva002E071E *>(const_cast<ModuleData *>(players[0]));
+                if (!first->rva002E071E(other)) {
+                    hostile=true; break;
+                }
+            }
+            if (!hostile && reinterpret_cast<Rva003F02E4 *>(region)->rva003F0336(reinterpret_cast<const Rva002E071E *>(players[0]))) {
+                Rva002E2903Player *owner=reinterpret_cast<Rva002BA8F1Logic *>(TheLivingWorldLogic)->find(region->getOwner(),0);
+                if (owner) {
+                    players.push_back(reinterpret_cast<const ModuleData *const &>(owner)); hostile=true;
+                }
+            }
+            if (hostile) {
+                RegionBattlePoint point;
+                reinterpret_cast<Rva002B2702B0 *>(this)->rva0020EA58(region,&point.x);
+                reinterpret_cast<LivingWorldRegionManager *>(this)->AddBattle(region,armies,players,point);
+            } else if (region->owner13C==-1 || !(unsigned char)reinterpret_cast<const RegionSlotsAccess *>(&players)->get(0)->rva002E0BC0(region->getOwner())) {
+                bool human=false;
+                for (unsigned int n=0; n<players.size(); ++n) {
+                    if (reinterpret_cast<const Rva002E2903Player *>(players[n])->field44==0) { human=true; break; }
+                }
+                if (human) {
+                    unsigned int flags=0x20;
+                    if (region->owner13C!=-1) flags=0x21;
+                    TheLivingWorldLogic->rva002B9A90(reinterpret_cast<int>(region),reinterpret_cast<const _STL::vector<int> &>(players),flags);
+                } else {
+                    unsigned int flags=0x20;
+                    if (region->owner13C!=-1) flags=0x21;
+                    TheLivingWorldLogic->LetAIResolveRegionAwardDispute(reinterpret_cast<int>(region),reinterpret_cast<const _STL::vector<int> &>(players),flags);
+                }
+            }
+        }
+    }
 }
