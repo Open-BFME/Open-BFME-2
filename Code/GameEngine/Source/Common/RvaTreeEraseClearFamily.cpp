@@ -1501,3 +1501,27 @@ void Rva005981C5::rva005981C5()
 {
 	((Rva005980F3 *)this)->rva00598120();
 }
+
+// Clean BFME1 f98983a7 System/GeometryInfoDoXfer.cpp emits the source lead
+// as BfmeElem60Head construction under O1/SSE/G7. Its geometry names remain
+// donor facts. Native4132EF..41330C follows the complete987B registration
+// routine and returns before the next prologue: word0 becomes zero and
+// words4/8/C receive the independently checked 1.0f scalar at BBB8D8.
+// EAX returns the receiver; no direct/address references establish an
+// original owner or constructor identity. This accessed-prefix field-reset
+// projection uses the existing home's unchanged O1/SSE/G7 settings.
+struct Rva004132EF
+{
+    unsigned word0;
+    float scalar4, scalar8, scalarC;
+    Rva004132EF *reset();
+};
+
+Rva004132EF *Rva004132EF::reset()
+{
+    word0 = 0;
+    scalar4 = 1.0f;
+    scalar8 = 1.0f;
+    scalarC = 1.0f;
+    return this;
+}
