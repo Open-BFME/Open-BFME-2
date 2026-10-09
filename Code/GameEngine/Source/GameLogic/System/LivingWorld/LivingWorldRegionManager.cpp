@@ -111,3 +111,81 @@ void LivingWorldRegionManager::SetRegionReinforcements(Int regionID, const Ascii
 	if (region)
 		region->rva003F1AB9(name, a, b, c, d, e);
 }
+
+// LivingWorldRegionBonusRule::ParseINI, retail 0x00210AB8: the field-parse
+// proc of the region manager's "ConcurrentRegionBonus" entry (retail table
+// 0x00BE41E0, offset 0). WorldBuilder names it (WB 0x00B53BB0,
+// LivingWorldRegionManager.cpp:220, "A ConcurrentRegionBonus was created
+// without any regions in the rule!"). It builds a 0x58-byte rule (rowed ctor
+// 0x00210973 under its placeholder name, taking the next rule id), parses it
+// with the rule's field table, and hands it to the manager through rowed
+// 0x0020F77C, or deletes it when its region list (+0x20) is empty. The rule
+// has no vftable (the ctor stores the id at +0), so the delete calls the dtor
+// 0x002105A6 directly, as WB does. The id counter and the parse table are
+// named here from their roles; retail keeps only their addresses.
+struct FieldParse;
+
+class INI
+{
+public:
+	void initFromINI(void *what, const FieldParse *parseTable);	// 0x0002DE78
+};
+
+class ObjectCreationNugget;
+
+// The manager's rule-list append, rowed with an ObjectCreationNugget parameter.
+class Rva0020F77C
+{
+public:
+	void rva0020F77C(ObjectCreationNugget *rule);			// 0x0020F77C
+};
+
+// The rule's region names (+0x20, a vector<AsciiString> per the ctor and
+// dtor rows); only its emptiness is read here.
+struct RegionBonusRuleRegionList
+{
+	AsciiString *m_start;
+	AsciiString *m_finish;
+	AsciiString *m_endOfStorage;
+
+	Bool empty() const { return m_start == m_finish; }
+};
+
+class Rva002105A6
+{
+public:
+	Rva002105A6(Int id);					// 0x00210973
+	~Rva002105A6();							// 0x002105A6
+
+	Int m_id;								// +0x00
+	unsigned char m_pad04[0x20 - 0x04];
+	RegionBonusRuleRegionList m_regions;	// +0x20
+	unsigned char m_pad2C[0x58 - 0x2C];
+};
+
+class LivingWorldRegionBonusRule
+{
+public:
+	static void ParseINI(INI *ini, void *instance, void *store, const void *userData);
+
+private:
+	static Int getNextRuleID() { return ++s_ruleCount; }
+
+	static Int s_ruleCount;
+	static const FieldParse s_fieldParseTable[];
+};
+
+void LivingWorldRegionBonusRule::ParseINI(INI *ini, void *instance, void *store, const void *userData)
+{
+	Rva002105A6 *rule = new Rva002105A6(getNextRuleID());
+	ini->initFromINI(rule, s_fieldParseTable);
+	if (!rule->m_regions.empty())
+	{
+		if (instance)
+			((Rva0020F77C *)instance)->rva0020F77C((ObjectCreationNugget *)rule);
+	}
+	else
+	{
+		delete rule;
+	}
+}

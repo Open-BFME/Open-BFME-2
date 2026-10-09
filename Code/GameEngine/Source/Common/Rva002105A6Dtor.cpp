@@ -1,7 +1,7 @@
 // cl: /EHs /MD /D_STLP_USE_STATIC_LIB
 // stlport
 //
-// ??1Rva002105A6@@UAE@XZ @ 0x002105A6 94B
+// ??1Rva002105A6@@QAE@XZ @ 0x002105A6 94B
 // ModuleData-style dtor with Snapshot base restore to 0x00BBB554. Evidence:
 // vector<AsciiString> at +0x20 via rowed dtor 0x0002CC70; C-string free at
 // +0x2C via rowed _free 0x00030830; AsciiString teardown at +0x38 plus 0x44
@@ -58,11 +58,15 @@ struct FreedPtr
 	~FreedPtr() { if (m_ptr) free(m_ptr); }
 };
 
-class __declspec(novtable) Rva002105A6
+// Not polymorphic: the ctor 0x00210973 stores the id at +0, and the three
+// retail delete sites (0x002108BF, 0x00210B1F and the unreferenced deleting
+// dtor 0x00210604) call this body directly; no vftable holds a deleting dtor.
+class Rva002105A6
 {
 public:
-	virtual ~Rva002105A6();
+	~Rva002105A6();
 private:
+	int m_id;
 	Snapshot m_snap;
 	int m_08;
 	int m_0C;
