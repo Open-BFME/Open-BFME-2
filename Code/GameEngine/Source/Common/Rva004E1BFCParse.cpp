@@ -1,5 +1,5 @@
 // cl: /O1 /arch:SSE /G7 /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /MD /EHsc
-// ?Rva004E1BFCParse@@YAXPAVINI@@PAX@Z @0x004E1BFC 126B
+// ?Rva004E1BFCParse@@YAXPAVINI@@PAX1PBX@Z @0x004E1BFC 126B
 // ParseMoveArmyBlockAndAddToLivingWorldCampaignAct proc: throws INIException 3 on null ini or instance
 // with retail literal then builds TracerFXNugget record inline then INI::initFromINI with table
 // g_00C61830 then append 0x00566537. Evidence: table slot 0x0086CD84 neighbour MoveArmy plus string
@@ -39,7 +39,7 @@ protected:
 private:
 	AsciiString m_str04;
 	AsciiString m_str08;
-	friend void Rva004E1BFCParse(INI *ini, void *instance);
+	friend void Rva004E1BFCParse(INI *ini, void *instance, void *, const void *);
 };
 
 class Rva0052BDE6
@@ -53,8 +53,8 @@ public:
 	void append(const Rva0052BDE6 &record);
 };
 
-// ?Rva004E1BFCParse@@YAXPAVINI@@PAX@Z
-void Rva004E1BFCParse(INI *ini, void *instance)
+// ?Rva004E1BFCParse@@YAXPAVINI@@PAX1PBX@Z
+void Rva004E1BFCParse(INI *ini, void *instance, void *, const void *)
 {
 	if (ini && instance)
 	{
@@ -69,3 +69,7 @@ void Rva004E1BFCParse(INI *ini, void *instance)
 		__assume(0);
 	}
 }
+
+// Native C6CD50 FieldParse registration uses the four-argument callback ABI.
+// Preserve the witnessed body and existing address binding; both trailing
+// parameters are unused. No function-pointer cast or alternate callee pin.
