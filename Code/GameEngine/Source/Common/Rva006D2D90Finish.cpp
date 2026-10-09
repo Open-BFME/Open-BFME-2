@@ -56,3 +56,7 @@ void __cdecl rva006D2D90()
 	unsigned int c = minVal < 12 ? 12u : minVal;
 	g_00E177E1 = (unsigned char)c;
 }
+// Native6CBC50 sized-free callback, independently exact6B.
+// The startup6CC380 allocations and sized EH cleanup7A8050/5F establish roles.
+extern void (__cdecl *g_bfmeAptFreeSizeAtE17730)(void *,unsigned int);
+void rva006CBC50(void *storage,unsigned int size){g_bfmeAptFreeSizeAtE17730(storage,size);}
