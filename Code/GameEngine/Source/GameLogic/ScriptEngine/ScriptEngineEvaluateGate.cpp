@@ -1,11 +1,15 @@
-// ?rva00203F0E@ScriptEngine@@QAE_NPAX@Z
-// partial score=0.94 date=2026-10-03
+// Retail203F0E rejects inactive scripts, unsupported difficulty, and future frames.
+// The existing .94 bank supplies the target-derived offsets. The positive
+// execution path ends with one true return, preserving native shared false
+// branches instead of synthesizing SBB. The receiver and method remain neutral.
 // cl: /O1 /DNDEBUG /DWIN32 /MD /EHsc /D_STLP_USE_STATIC_LIB /arch:SSE
 class Rva002A9BF2 { public: void *rva002A9BF2(); };
-class GameLogic { public: bool rva001DCD1C(); private: char m_pad00[0x40]; public: unsigned int m_frame; };
+#include "../../Common/GameLogicObjectLookupView.h"
 class Rva002BA8F1Logic { public: char m_pad00[0xF4]; unsigned int m_bitIndex; int m_padF8; unsigned int m_frame; };
 extern GameLogic *TheGameLogic;
-extern Rva002BA8F1Logic *g_009FEF10;
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
+#define World ((Rva002BA8F1Logic *)TheLivingWorldLogic)
 struct ScriptTimerArg { char m_pad00[0x2B]; unsigned char m_diff0; unsigned char m_diff1; unsigned char m_diff23; char m_pad2E[0x3C-0x2E]; unsigned int m_targetFrame; unsigned char m_enabled; char m_pad41[0x4C-0x41]; float m_zero; };
 class ScriptEngine { public: bool rva00203F0E(void *arg); private: char m_pad00[0x1A130]; Rva002A9BF2 *m_player; char m_pad134[0x1A4C4-0x1A130-4]; int m_difficulty; };
 bool ScriptEngine::rva00203F0E(void *p) {
@@ -33,22 +37,21 @@ bool ScriptEngine::rva00203F0E(void *p) {
 	default:
 		break;
 	}
-	GameLogic *logic = TheGameLogic;
-	if (!logic->rva001DCD1C()) {
-		unsigned int cur = logic->m_frame;
-		if (cur < arg->m_targetFrame)
-			return false;
-		return true;
-	} else {
-		unsigned int bit = g_009FEF10->m_bitIndex;
-		unsigned int mask = 1u << (bit & 31);
-		unsigned int word = bit >> 5;
-		unsigned int *bits = (unsigned int *)((char *)arg + 0x24);
-		if ((bits[word] & mask) == 0)
-			return false;
-		unsigned int cur2 = g_009FEF10->m_frame;
-		if (cur2 < arg->m_targetFrame)
-			return false;
-		return true;
-	}
+    GameLogic *logic = TheGameLogic;
+    if (!logic->rva001DCD1C())
+    {
+        if (logic->getFrame() < arg->m_targetFrame)
+            return false;
+    }
+    else
+    {
+        unsigned int bit = World->m_bitIndex;
+        unsigned int mask = 1u << (bit & 31);
+        unsigned int *bits = (unsigned int *)((char *)arg + 0x24);
+        if ((bits[bit >> 5] & mask) == 0)
+            return false;
+        if (World->m_frame < arg->m_targetFrame)
+            return false;
+    }
+    return true;
 }
