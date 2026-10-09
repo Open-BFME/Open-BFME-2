@@ -20,6 +20,7 @@ class MilesAudioManager::GlobalVolumeData
 {
 public:
 	void rva000522DF(float volume);
+	static void setGlobalSystemVolume(int volumeType, float volume);
 };
 
 class Rva0005C892
@@ -54,7 +55,6 @@ extern class GlobalData *TheWritableGlobalData;
 
 void rva000524D6();
 void rva000524E2();
-void rva000524EE(int a, float b);
 
 class Rva0005C8BB
 {
@@ -105,6 +105,6 @@ void Rva0005C8BB::rva0005CB39()
 void Rva0005C8BB::rva0005CB90(int a, float b)
 {
 	MilesMutexGuard guard(&m_mutex9D4, 0);
-	rva000524EE(a, b);
+	MilesAudioManager::GlobalVolumeData::setGlobalSystemVolume(a, b);
 	((Rva0005C892 *)this)->rva0005C892();
 }

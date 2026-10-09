@@ -843,6 +843,7 @@ public:
     // Ledger rows name it (refreshAll/rva00052048 share its this).
     class GlobalVolumeData {
     public:
+        static void setGlobalSystemVolume(int volumeType, float volume);
         void reset(void);
         void rva00052048(int index);
         void rva00052015(int arg);
@@ -1576,7 +1577,6 @@ int __stdcall rva006963B0ForwardSlot5(Rva006963B0Receiver *file, int a, int b);
 int __stdcall rva006963D0ForwardSlot3(Rva006963D0Receiver *file, int a, int b);
 extern "C" __declspec(dllimport) void *__stdcall CreateThread(void *attributes, unsigned long stackSize,
     unsigned long (__stdcall *start)(void *), void *param, unsigned long flags, unsigned long *threadId);
-void rva000524EE(int index, float volume);
 // AudioFileCache's guarded setter, rowed under an address-derived name.
 class Rva000A77D9 {
 public:
@@ -1590,7 +1590,7 @@ void MilesAudioManager::init()
 {
     rva000541DB();
     for (int i = 0; i < 5; ++i)
-        rva000524EE(i, m_audioSettings ? m_audioSettings->m_at30[i] : 0.55f);
+        GlobalVolumeData::setGlobalSystemVolume(i, m_audioSettings ? m_audioSettings->m_at30[i] : 0.55f);
     m_numLoopBuffers = m_audioSettings->m_at68 + m_audioSettings->m_at64;
     m_loopBuffers = new LoopBuffer[m_numLoopBuffers];
     m_atBE0 = false;

@@ -10946,7 +10946,6 @@ name,address,notes
 ?rva00051038@Rva0005F279Elem@@QAE_NXZ,0x00051038,dump range 1 tail target of 0x5106A
 ?rva000524D6@@YAXXZ,0x000524D6,no-arg global called under TheGlobalData +0x9C5 guard in 0x0005CAE2 before rowed 0x5C892; REL32 read at that call site; identity unproven
 ?rva000524E2@@YAXXZ,0x000524E2,no-arg global called under TheGlobalData +0x9C5 guard in 0x0005CB39 before rowed 0x5C892; twin of 0x524D6 path; REL32 read at that call site; identity unproven
-?rva000524EE@@YAXHM@Z,0x000524EE,cdecl global (int, float) called with caller-cleaned 8B in 0x0005CB90 before rowed 0x5C892; REL32 read at that call site; identity unproven
 ?rva00052662@MilesAudioManager@@QAEPAXPAX@Z,0x00052662,manager thiscall taking the ref pointer, HSAMPLE return saved for the AIL calls in 0x0005C931 (push esi mov edi,ecx call; mov [ebp-4],eax); REL32 read at that call site; identity unproven
 ?rva00053AFA@MilesAudioManager@@QAEXPAX@Z,0x00053AFA,manager thiscall taking the pending slot address: push esi mov ecx,ebx call in 0x0005C16E; REL32 read at that call site; identity unproven
 ?rva00054BC3@Rva00057B27@@QAEXII@Z,0x00054BC3,indexed set: REL32 read at the two-arg call site in 0x00057B27; owner identity unproven

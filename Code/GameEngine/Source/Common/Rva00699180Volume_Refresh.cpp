@@ -32,6 +32,7 @@ public:
 	void rva000520C6();
 	void rva000522DF(float volume);
 	void setVolumes(float volume, unsigned char flags);
+	static void setGlobalSystemVolume(int volumeType, float volume);
 
 	char m_pad0[4];
 	float m_base[12];
@@ -275,11 +276,14 @@ void rva000524E2()
 	Rva000524AALoop();
 }
 
-// ?rva000524EE@@YAXHM@Z retail 0x000524EE 36B (packet 122B includes next body
+// ?setGlobalSystemVolume@GlobalVolumeData@MilesAudioManager@@SAXHM@Z
+// Retail 0x000524EE 36B (packet 122B includes next body
 // at 0x00052512; landing the ret-terminated 36B per NOTE).
 // Bounds-checked store to g_00DB3F64 then Rva0005244ALoop. Evidence is pin
 // plus callers 0x0005CBBE plus LINK BONUS plus abut to 0x000524D6.
-void rva000524EE(int idx, float value)
+// WorldBuilder 0x0077AD10 names the static method and checks AVS_COUNT=6;
+// its global store and caller-cleaned helper call agree with the whole body.
+void MilesAudioManager::GlobalVolumeData::setGlobalSystemVolume(int idx, float value)
 {
 	if (idx < 0)
 		return;
