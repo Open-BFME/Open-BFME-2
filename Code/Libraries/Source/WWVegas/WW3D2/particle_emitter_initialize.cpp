@@ -49,6 +49,8 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
  * Functions:                                                              * 
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
+#include "../../../../../reference/shims/bfme_particle_definition/vector3.h"
+#include "../../../../../reference/shims/bfme_particle_initialize/quat.h"
 #include "rendobj.h"
 #include "quat.h"
 #include "part_emt.h"
