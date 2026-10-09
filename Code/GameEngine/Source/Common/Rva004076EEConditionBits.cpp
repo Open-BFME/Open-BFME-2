@@ -76,3 +76,16 @@ void Rva004076EE::rva00407C17()
 		clearModelConditionBit(object, 17 * 32 + 4);
 	}
 }
+
+// Whole BF1 f98983a7d3bb405f1a4ba94bb6a2a168062a819d WWLib/mpmath.cpp
+// and its mpmath.h XMP_Set_Bit expression supply this raw-bit source guide.
+// The donor name already belongs to a different retail body at 61B760 and
+// is not asserted here. Native28F8B3..28F8CE follows the predecessor RET4
+// and ends with RET0 before a distinct call/return wrapper. Stack words
+// supply a writable raw32 array and an unsigned bit index; the logical
+// quotient/low-five-bit shift and OR store are independently witnessed.
+// Original owner, array extent and any higher-level flag meaning are unknown.
+void Rva0028F8B3SetBit(unsigned int *words, unsigned int bit)
+{
+    words[bit >> 5] |= 1u << (bit & 31);
+}
