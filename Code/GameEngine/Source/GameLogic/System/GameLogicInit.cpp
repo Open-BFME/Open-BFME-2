@@ -663,7 +663,7 @@ extern GlobalData *TheWritableGlobalData;
 extern GhostObjectManager *TheGhostObjectManager;
 extern TerrainLogic *TheTerrainLogic;
 LargeGroupAudio *TheLargeGroupAudio = 0;
-extern BuffLogic *TheBuffLogic;
+BuffLogic *TheBuffLogic = 0;
 extern SidesList *TheSidesList;
 extern GameLogic *TheGameLogic;
 extern AI *TheAI;

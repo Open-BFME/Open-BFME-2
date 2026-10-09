@@ -18768,7 +18768,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x009FF184,4,.data,global,?unknownImage@?6??positionStartSpots@@YAXVAsciiString@@PAPAVGameWindow@@PAV3@2@Z@4PBVImage@@B,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/PositionStartSpots.cpp,owned,,1,4
 0x009FF188,4,.data,global,?TheGhostObjectManager@@3PAVGhostObjectManager@@A,Code/GameEngine/Source/GameLogic/Object/Rva00290EFEGetGhostObject.cpp,owned,,1,14
 0x009FF18C,4,.data,global,_s_rva007AE644,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
-0x009FF190,4,.data,global,?TheBuffLogic@@3PAVBuffLogic@@A,,unowned,?TheBuffLogic@@3PAVBuffLogic@@A;?g_00DFF190@@3PAVBuffLogic@@A;?g_012EF4F0@@3PAVManager012EF4F0@@A,0,6
+0x009FF190,4,.data,global,?TheBuffLogic@@3PAVBuffLogic@@A,Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp,provisional,?TheBuffLogic@@3PAVBuffLogic@@A;?g_00DFF190@@3PAVBuffLogic@@A;?g_012EF4F0@@3PAVManager012EF4F0@@A,0,6
 0x009FF194,4,.data,global,_s_rva007AE66E,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x009FF198,8,.data,global,_s_rva007AE698,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x009FF1A0,744,.data,global,?WaterSettings@@3PAVWaterSetting@@A,Code/GameEngine/Source/GameClient/WaterSettingsArray.cpp,owned,,1,29
