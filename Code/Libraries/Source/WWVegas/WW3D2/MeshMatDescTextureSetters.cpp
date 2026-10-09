@@ -1,11 +1,13 @@
 // cl: /DNDEBUG /MD
+// Retain native inlined reference operations without competing external
+// copies; whole-body verification also checks that no imported call remains.
 // EA Zero Hour meshmatdesc.cpp setters adapted to BFME2 owning handles.
 // Single slots at +0x78; indexed buffer array pointer at +8. Each assignment
 // AddRefs the new texture before releasing the old one and replacing the slot.
 // Release_Ref at61ED10 and Get_Texture_Array at15D360 are existing matched bodies.
 class TextureBaseClass { public: void Release_Ref(); };
 class TextureClass : public TextureBaseClass {
-public: void Add_Ref() { ++*reinterpret_cast<unsigned short *>(reinterpret_cast<char *>(this)+4); }
+public: __declspec(dllimport) __forceinline void Add_Ref() { ++*reinterpret_cast<unsigned short *>(reinterpret_cast<char *>(this)+4); }
 };
 template<class T> class RefCountPtr {
 public:

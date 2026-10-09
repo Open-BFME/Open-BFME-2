@@ -1,4 +1,6 @@
 // cl: /DNDEBUG /MD /EHsc
+// Retain native inlined reference operations without competing external
+// copies; whole-body verification also checks that no imported call remains.
 /*
 ** Copyright 2025 Electronic Arts Inc.
 ** SPDX-License-Identifier: GPL-3.0-or-later
@@ -24,7 +26,7 @@ VertexMaterialClass *MatBufferClass::Peek_Element(int index)
 class TextureClass
 {
 public:
-    void Add_Ref() { ++RefCount; }
+    __declspec(dllimport) __forceinline void Add_Ref() { ++RefCount; }
     void Release_Ref();
 private:
     void *VTable;

@@ -1,4 +1,6 @@
 // cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// Retain native inlined reference operations without competing external
+// copies; whole-body verification also checks that no imported call remains.
 //
 // Animatable3DObjClass::Set_Animation, the blend overload, at 0x001A4D10.
 //
@@ -14,7 +16,7 @@
 class RefCountClass
 {
 public:
-	void Add_Ref( void ) { NumRefs++; }
+	__declspec(dllimport) __forceinline void Add_Ref( void ) { NumRefs++; }
 
 protected:
 	virtual ~RefCountClass();	// vtable pointer at +0x00

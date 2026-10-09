@@ -1,4 +1,6 @@
 // cl: /DNDEBUG /MD
+// Retain native inlined reference operations without competing external
+// copies; whole-body verification also checks that no imported call remains.
 /*
 ** Copyright 2025 Electronic Arts Inc.
 ** SPDX-License-Identifier: GPL-3.0-or-later
@@ -8,8 +10,8 @@
 // original type is unknown; its RefCountClass prefix is established by target.
 class RefCountClass {
 public:
-    void Add_Ref() { ++NumRefs; }
-    void Release_Ref() { if (--NumRefs == 0) Delete_This(); }
+    __declspec(dllimport) __forceinline void Add_Ref() { ++NumRefs; }
+    __declspec(dllimport) __forceinline void Release_Ref() { if (--NumRefs == 0) Delete_This(); }
     virtual void Delete_This();
 private:
     int NumRefs;
