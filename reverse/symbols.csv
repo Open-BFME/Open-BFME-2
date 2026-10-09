@@ -17031,3 +17031,4 @@ _D3DXLoadVolumeFromFileInMemory@36,0x0062AF8C,Native1318F0 in-image JMP IAT veri
 ?rva00355472@AiOrdersManager@@QAEPAXABUCoord3D@@HPAVGroupOrder@@@Z,0x00355472,callee of ?rva00355664@AiOrdersManager@@QAEXABUCoord3D@@HPAVGroupOrder@@@Z
 ?rva00355201@AiOrdersManager@@QAEXHPAXPAVGroupOrder@@@Z,0x00355201,callee of ?rva00355664@AiOrdersManager@@QAEXABUCoord3D@@HPAVGroupOrder@@@Z
 ?rva00212183@LivingWorldManager@@QAEXPAX0@Z,0x00212183,callee of ?rva005652F7@Glo012F1024Item@@QAEXXZ
+??0GameSpyConfig@@QAE@VAsciiString@@@Z,0x0054E8DC,callee of ?create@GameSpyConfigInterface@@SAPAV1@VAsciiString@@@Z

@@ -128,7 +128,8 @@ protected:
 
 	std::set<Int> m_vip; // VIP people
 
-	Int m_rankPoints[MAX_RANKS];
+	// BFME 2 has no rank-point table: the constructor (0x0054E8DC) puts the
+	// VIP set at +0x58 and the leftover config at +0x64, and create news 0x68.
 
 	AsciiString m_leftoverConfig;
 };
@@ -163,3 +164,13 @@ Bool GameSpyConfig::getManglerLocation(Int index, AsciiString& host, UnsignedSho
 
 
 ///////////////////////////////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////////////////////////////
+// Retail 0x0054F4AF (89 bytes): Zero Hour's factory unchanged. SetUpGameSpy
+// (0x00386F7F) passes the config text by value; the 0x68-byte object is built
+// by the GameSpyConfig constructor at 0x0054E8DC (pinned).
+
+GameSpyConfigInterface* GameSpyConfigInterface::create(AsciiString config)
+{
+	return NEW GameSpyConfig(config);
+}
