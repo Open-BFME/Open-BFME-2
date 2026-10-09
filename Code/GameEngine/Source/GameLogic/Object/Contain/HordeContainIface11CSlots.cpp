@@ -3532,3 +3532,37 @@ void HordeContain::removeMemberFromHorde(Object *obj)
     if(items->empty() && m_170.empty()) TheGameLogic->destroyObject(m_object);
     checkSpecialUnitDeath(obj);
 }
+
+// Native 0x0046A5B1..0x0046A5E6 (53B, ret 8): the +0x188 record's Coord2D at
+// +0x0C rotated by the Object orientation through 0x00468E98 (pinned
+// AODHordeContain::rva00468E98: same ECX, output pointer plus a by-value
+// 8-byte offset; see AODHordeContainInitOffsets.cpp for the pair and its
+// inline copy constructor). Returns the output pointer through EAX.
+struct AODOffset2D
+{
+	AODOffset2D() {}
+	AODOffset2D(const AODOffset2D &other) : x(other.x), y(other.y) {}
+	~AODOffset2D() {}
+	float x;
+	float y;
+};
+
+class AODHordeContain
+{
+public:
+	AODOffset2D *rva00468E98(AODOffset2D *out, AODOffset2D offset);
+};
+
+struct Rva0046A5B1Record
+{
+	unsigned char m_pad00[0x0C];
+	AODOffset2D m_offset;	// +0x0C
+	unsigned char m_pad14[0x1C - 0x14];
+};
+
+Coord2D *HordeContain::rva0046A5B1(Coord2D *offset, int index)
+{
+	Rva0046A5B1Record *rec = (Rva0046A5B1Record *)m_188Begin + index;
+	((AODHordeContain *)this)->rva00468E98((AODOffset2D *)offset, rec->m_offset);
+	return offset;
+}
