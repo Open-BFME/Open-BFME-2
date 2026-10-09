@@ -184,23 +184,82 @@ void RoadType::applyTexture(void)
 //=============================================================================
 /** Sets the W3D texture. */
 //=============================================================================
-// ?loadTexture@RoadType@@QAEXVAsciiString@@H@Z present-unmatched
+// BFME 2 keeps TerrainRoadCollection's road list at +0x0C and a road type's
+// texture name at +0x38 (see TerrainRoads.cpp); the Zero Hour header here
+// carries the older offsets, so allocateRoadBuffers reads them through views.
+struct BfmeTerrainRoadListView { char m_prefix[0x0C]; TerrainRoadType *m_roadList; };
+struct BfmeTerrainRoadTextureView { char m_prefix[0x38]; AsciiString m_texture; };
+// BFME 2 GlobalData holds the road limits at +0x98C..+0x998.
+struct BfmeGlobalRoadLimitsView
+{
+	char m_prefix[0x98C];
+	Int m_maxRoadSegments;
+	Int m_maxRoadVertex;
+	Int m_maxRoadIndex;
+	Int m_maxRoadTypes;
+};
+#define BFME_ROAD_LIMITS (reinterpret_cast<const BfmeGlobalRoadLimitsView *>(TheGlobalData))
+
+// BFME 2 loads road textures through the particle texture loader (0x00132D89),
+// whose by-value result is a RefCountPtr<TextureClass> assigned with the
+// out-of-line operator= (0x000424D0); the temporary releases inline. The
+// buffers are BFME 2's DX8 vertex buffer (0x0013AC00, 0x20 bytes) and the
+// 0x18-byte index buffer.
+template <class T>
+class RefCountPtr
+{
+public:
+	RefCountPtr() : m_ptr(0) {}
+	const RefCountPtr &operator=(const RefCountPtr &other);
+	~RefCountPtr() { if (m_ptr) reinterpret_cast<W3DRoadBufferRef18Target *>(m_ptr)->Release_Ref(); }
+private:
+	T *m_ptr;
+};
+class BFME2ParticleTextureHandle : public RefCountPtr<TextureClass>
+{
+};
+BFME2ParticleTextureHandle __cdecl BFME2LoadParticleTexture(const char *filename, int a, int b);
+AsciiString makeNrmTextureName(const AsciiString &in);
+bool Render_Obj_Exists(const char *name);
+
+class BfmeDX8VertexBuffer
+{
+public:
+	enum UsageType { USAGE_DEFAULT = 0, USAGE_DYNAMIC = 1 };
+
+	BfmeDX8VertexBuffer(unsigned fvf, unsigned short count,
+		UsageType usage, unsigned vertexSize);
+
+private:
+	unsigned char m_storage[0x20];
+};
+
+// RoadType +0x00/+0x04 own their textures as RefCountPtr<TextureClass>.
+struct BfmeRoadTypeTexturesView
+{
+	RefCountPtr<TextureClass> m_roadTexture;
+	BFME2ParticleTextureHandle m_roadTexture2;
+};
+
+// BFME 2 GlobalData +0x49: load the _nrm companion road textures.
+struct BfmeGlobalNrmTexturesView { char m_prefix[0x49]; Bool m_loadNrmTextures; };
+
+// Retail 0x000D6ABB: the base texture at +0x00 and, when GlobalData asks for
+// normal maps and the _nrm name exists, a second one at +0x04; Zero Hour's
+// filter setup is gone.
+// ?loadTexture@RoadType@@QAEXVAsciiString@@H@Z
 void RoadType::loadTexture(AsciiString path, Int ID)
 {
-	/// @todo - delay loading textures and only load textures referenced by map.
-	WW3DAssetManager *pMgr = W3DAssetManager::Get_Instance();
+	reinterpret_cast<BfmeRoadTypeTexturesView *>(this)->m_roadTexture = BFME2LoadParticleTexture(path.str(), MIP_LEVELS_3, 0);
+	if (reinterpret_cast<const BfmeGlobalNrmTexturesView *>(TheGlobalData)->m_loadNrmTextures)
+	{
+		AsciiString nrmPath = makeNrmTextureName(path);
+		if (Render_Obj_Exists(nrmPath.str()))
+			reinterpret_cast<BfmeRoadTypeTexturesView *>(this)->m_roadTexture2 = BFME2LoadParticleTexture(nrmPath.str(), MIP_LEVELS_3, 0);
+	}
 
-	m_roadTexture = pMgr->Get_Texture(path.str(), MIP_LEVELS_3);
-	//Hack to disable texture reduction
-	//m_roadTexture = pMgr->Get_Texture(path.str(), MIP_LEVELS_3, WW3D_FORMAT_UNKNOWN,true,TextureBaseClass::TEX_REGULAR, false);
-
-	m_roadTexture->Get_Filter().Set_Mip_Mapping( TextureFilterClass::FILTER_TYPE_BEST );
-
-	m_roadTexture->Get_Filter().Set_U_Addr_Mode(TextureFilterClass::TEXTURE_ADDRESS_REPEAT);
-	m_roadTexture->Get_Filter().Set_V_Addr_Mode(TextureFilterClass::TEXTURE_ADDRESS_REPEAT);
-
-	m_vertexRoad=NEW_REF(DX8VertexBufferClass,(DX8_FVF_XYZDUV1,TheGlobalData->m_maxRoadVertex+4, (s_dynamic?DX8VertexBufferClass::USAGE_DYNAMIC:DX8VertexBufferClass::USAGE_DEFAULT)));
-	m_indexRoad=NEW_REF(DX8IndexBufferClass,(TheGlobalData->m_maxRoadIndex+4, (s_dynamic?DX8IndexBufferClass::USAGE_DYNAMIC:DX8IndexBufferClass::USAGE_DEFAULT)));
+	m_vertexRoad=(DX8VertexBufferClass *)NEW BfmeDX8VertexBuffer(DX8_FVF_XYZNDUV1,BFME_ROAD_LIMITS->m_maxRoadVertex+4, (s_dynamic?BfmeDX8VertexBuffer::USAGE_DYNAMIC:BfmeDX8VertexBuffer::USAGE_DEFAULT), 0);
+	m_indexRoad=NEW_REF(DX8IndexBufferClass,(BFME_ROAD_LIMITS->m_maxRoadIndex+4, (s_dynamic?DX8IndexBufferClass::USAGE_DYNAMIC:DX8IndexBufferClass::USAGE_DEFAULT)));
 	m_numRoadVertices=0;
 	m_numRoadIndices=0;
 
@@ -3041,22 +3100,6 @@ void W3DRoadBuffer::freeRoadBuffers(void)
 /** Allocates the index and vertex buffers. */
 //=============================================================================
 // ?allocateRoadBuffers@W3DRoadBuffer@@IAEXXZ
-// BFME 2 keeps TerrainRoadCollection's road list at +0x0C and a road type's
-// texture name at +0x38 (see TerrainRoads.cpp); the Zero Hour header here
-// carries the older offsets, so allocateRoadBuffers reads them through views.
-struct BfmeTerrainRoadListView { char m_prefix[0x0C]; TerrainRoadType *m_roadList; };
-struct BfmeTerrainRoadTextureView { char m_prefix[0x38]; AsciiString m_texture; };
-// BFME 2 GlobalData holds the road limits at +0x98C..+0x998.
-struct BfmeGlobalRoadLimitsView
-{
-	char m_prefix[0x98C];
-	Int m_maxRoadSegments;
-	Int m_maxRoadVertex;
-	Int m_maxRoadIndex;
-	Int m_maxRoadTypes;
-};
-#define BFME_ROAD_LIMITS (reinterpret_cast<const BfmeGlobalRoadLimitsView *>(TheGlobalData))
-
 // The +0x18 holder creates its texture through 0x00131DFC (width, height,
 // format, mip levels, ...) and hands out its top surface level by value; the
 // value's destructor is 0x00176CB0 and SurfaceClass::DrawPixel takes the
