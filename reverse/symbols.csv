@@ -11720,7 +11720,6 @@ name,address,notes
 ?rva004BFB1C@ActiveBody@@QAEXMPBUCoord3D@@@Z,0x004BFB1C,"ActiveBody side-damage distributor (primary this; ret 8; amount and source point): REL32 callee of the byte-verified directional branch 0x004BFCD4 and of setInitialHealth 0x004C0642; adds into the four Real side values at +0xCC that setCorrectDamageState compares against 0.75 of a quarter of max health; body banked as a partial"
 ?rva004C0B63@SymbioticStructuresBody@@QAEXXZ,0x004C0B63,"SymbioticStructuresBody primary member (framed, no arguments) run after the refresh 0x004C0C52 by body slot 40 0x004C123C (at 0x004C1253) and primary slot 1 0x004C1170; read from the REL32 displacement; body unrowed"
 ?rva004C21A9@PorcupineFormationBodyModule@@QAEXPAVDamageInfo@@@Z,0x004C21A9,"PorcupineFormationBodyModule member (ret 4) that sees incoming damage before ActiveBody::attemptDamage when the formation test 0x004C2095 holds; called by its attemptDamage 0x004C2230"
-?rva004C3B17@ElvenWoodSpecialPower@@QAEXPBUCoord3D@@@Z,0x004C3B17,"ElvenWoodSpecialPower member (ret 4) called with the location on the primary this right after the base doSpecialPowerAtLocation by the class's slot-12 override 0x004C3CFF"
 ?rva004C4582@CloudBreakSpecialPower@@QAEXXZ,0x004C4582,"CloudBreakSpecialPower member (plain ret) called on the primary this after 0x004C4621 by the class's slot-12 override 0x004C482B"
 ?rva004C4621@CloudBreakSpecialPower@@QAEXPBUCoord3D@@@Z,0x004C4621,"CloudBreakSpecialPower member (ret 4) called with the location on the primary this right after the base doSpecialPowerAtLocation by the class's slot-12 override 0x004C482B"
 ?rva004C4C99@FreezingRainSpecialPower@@QAEXPBUCoord3D@@@Z,0x004C4C99,"FreezingRainSpecialPower member (ret 4) called with the location on the primary this right after the base doSpecialPowerAtLocation by the class's slot-12 override 0x004C4D22"
@@ -15458,7 +15457,6 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?rva0023C9F8@Rva0047BA10SelectionView@@QAEXPAVObject@@I_N@Z,0x0023C9F8,callee of ?rva0047BA10@Rva0047BA10@@QAEXPAVObject@@_N@Z
 ?rva0023C924@Rva0047BA10SelectionView@@QAEXPAVObject@@_NI1@Z,0x0023C924,callee of ?rva0047BA10@Rva0047BA10@@QAEXPAVObject@@_N@Z
 ?rva001ECDB3@Rva001EBAEA@@QAEXXZ,0x001ECDB3,callee of ?rva001ECF03@Rva0023D607Holder@@QAEXHH@Z
-?Rva004166DB@@YA_NABVUnicodeString@@PAVGameWindow@@@Z,0x004166DB,callee of ?Rva00381458@@YA_NHABVUnicodeString@@PAVGameWindow@@@Z
 ?rva002C58B3@Rva002C589B@@QAEXXZ,0x002C58B3,callee of ?rva002C5CF7@AITarget@@QAEXPBUCoord3D@@MH@Z
 ?rva003ED0C4@Rva003ED0C4@@QAE?AURva003ED0C4Result@@PAXHH@Z,0x003ED0C4,callee of ?rva002C5CF7@AITarget@@QAEXPBUCoord3D@@MH@Z
 ?makeFeedbackLaser@AssistedTargetingUpdate@@AAEXPBVThingTemplate@@PBVObject@@1@Z,0x00486F35,callee of ?assistAttack@AssistedTargetingUpdate@@QAEXPBVObject@@PAV2@@Z
@@ -16064,7 +16062,6 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ?QuickDoesPathExistToStructure@Pathfinder@@QAE_NPAVObject@@PBUCoord3D@@0H@Z,0x002F4B33,WB D39F80 names Pathfinder::QuickDoesPathExistToStructure and pathfinder.cpp2240; native2F4B33..2F4D8B600B ret16; caller479ECE passes Object pointer fromCoord3D pointer containerObject pointer and int0 with ECX TheAI+10; WB arguments and native callee agree on this four-stack-slot ABI
 ?reserve@?$vector@PBVLivingWorldRegion@@V?$allocator@PBVLivingWorldRegion@@@_STL@@@_STL@@QAEXI@Z,0x002B712E,TeamVictoryCondition native region pointers; fold-proof=Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldScenario.cpp
 ?push_back@?$vector@PBVLivingWorldRegion@@V?$allocator@PBVLivingWorldRegion@@@_STL@@@_STL@@QAEXABQBVLivingWorldRegion@@@Z,0x004DFCB0,TeamVictoryCondition native region pointers; fold-proof=Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldScenario.cpp
-?rva002B89E1@LivingWorldLogic@@QAE_NH@Z,0x002B89E1,Address-derived LivingWorldLogic callee: direct CALL at 0x002BD9AC with original ECX and one pushed argument; native 0x002B89E1..0x002B8A9F returns AL and RET4; no public method-name claim
 ?BuildBlingData@AptMyHero@@QAEXXZ,0x005B1B5E,Native SwitchToPendingHero 005B1E71..005B1EE2 direct REL32 with same ECX receiver; WB AptMyHero.cpp confirms receiver and BuildBlingData purpose. Standard noarg/one32bit-argument ABI only; remaining names and pointer-return view are address-derived call declarations; original signatures and semantics unclaimed
 ?rva005B1019@AptMyHero@@QAEXXZ,0x005B1019,Native SwitchToPendingHero 005B1E71..005B1EE2 direct REL32 with same ECX receiver; WB AptMyHero.cpp confirms receiver and BuildBlingData purpose. Standard noarg/one32bit-argument ABI only; remaining names and pointer-return view are address-derived call declarations; original signatures and semantics unclaimed
 ?rva00219F36@CreateAHeroManager@@QAEPAURva005B0473View@@HH@Z,0x00219F36,Native005B0473..005B0487 directly calls00219F36 with ECX=TheCreateAHeroManager and int-sized fields0C/10; WB AptMyHero.cpp names CreateAHeroManager::GetViewInfo. Method and returned record view retain address names because original types are unproven; standard thiscall ret8 and pointer result from caller
@@ -16216,7 +16213,6 @@ _D3DXVec3TransformCoordArray@24,0x0062AF6E,Native 0x00107A47 REL32 reaches six-b
 ??0Rva005E6ED6@@QAE@HHPAX@Z,0x005E6ED6,callee of ?rva005F4C8E@Rva005F4C52@@QAE?AV?$Rva005F4C8ERef@VRva005E6ED6Third@@@@HH@Z
 ??0Rva005E5590@@QAE@HHPAX@Z,0x005E5590,callee of ?rva005F4CF8@Rva005F4C52@@QAE?AV?$Rva005F4C8ERef@VRva005E5590Iface@@@@HH@Z
 ??0Rva005CDE89@@QAE@HHPAX@Z,0x005CDE89,callee of ?rva005CDF8B@Rva005CDF6C@@QAE?AV?$Rva005F4C8ERef@VRva005CDE89Iface@@@@HH@Z
-?rva0025E75F@Rva0025E4CD@@QAEXXZ,0x0025E75F,callee of ?rva0025E970@Rva0025E4CD@@QAEXH@Z
 ?rva0025E5F4@Rva0025E4CD@@QAEXXZ,0x0025E5F4,callee of ?rva0025E970@Rva0025E4CD@@QAEXH@Z
 ?rva001FCF11@ParticleSystemManager@@QAEXABVAsciiString@@PAVParticleSystemTemplate@FXParticleSystem@@@Z,0x001FCF11,callee of ?rva002044C7@Rva0020453CHolderBase@@UAEXPBDABVParticleSystemTemplate@FXParticleSystem@@@Z
 ?getAllSideStrings@PlayerTemplateStore@@QAEXPAV?$list@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@@Z,0x001FDD7D,Zero Hour PlayerTemplateStore::getAllSideStrings: REL32 at 0x0054DE0A in parseLadder (LadderDefs.cpp) with ecx=ThePlayerTemplateStore 0x00DFE0D0 and one AsciiStringList pointer; body 0x001FDD7D null-guards the list then walks getNthPlayerTemplate (0x001FD3C6) adding unique side strings at +0x18; unrowed
@@ -16977,3 +16973,4 @@ _isalnum,0x00629AF6,msvcr71 isalnum import stub called directly by the URL escap
 ?processManglerResponse@NAT@@QAEXG@Z,0x005A854C,callee of ?rva005A879B@NAT@@QAEHXZ
 ?notifyConnectionToTargetFailed@NAT@@QAEXXZ,0x005A7683,callee of ?rva005A879B@NAT@@QAEHXZ
 ?SetUDPSocketForSlot@NAT@@QAE_NGGPAX@Z,0x005A6DAC,callee of ?processManglerResponse@NAT@@QAEXG@Z
+??_9@$BA@AE,0x001FF3A9,VC7.1 slot-0 vcall thunk (mov eax [ecx]; jmp [eax]) pushed as a member pointer by the LivingWorldLogic battle start 0x002B89E1; same style as the existing ??_9@$B3AE pin at 0x005CB260
