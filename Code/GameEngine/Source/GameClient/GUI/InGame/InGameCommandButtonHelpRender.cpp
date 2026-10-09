@@ -81,7 +81,8 @@ public:
 	virtual void v14();
 	virtual ScalePair *v15();
 };
-extern Rva00222A8BTarget *TheRva00222A8BTarget;
+class BfmeAptWindowManager;
+extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 
 
 // The header's inline length test, read as a 16-bit compare.
@@ -139,7 +140,7 @@ static void DrawIcon(Image *image,FloatPair position,const FloatPair &maximum,co
 }
 void InGameCommandButtonHelp::Impl::ComputeIconSizes(FloatPair *a, FloatPair *b, FloatPair *out)
 {
-	ScalePair *scale = TheRva00222A8BTarget->v15();
+	ScalePair *scale = reinterpret_cast<Rva00222A8BTarget *>(g_bfmeAptWindowManager)->v15();
 	if (m_icon30 != 0) {
 		a->x = (float)m_icon30->v24 * scale->x;
 		a->y = (float)m_icon30->v28 * scale->y;
