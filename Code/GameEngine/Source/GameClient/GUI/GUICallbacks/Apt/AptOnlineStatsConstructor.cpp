@@ -91,7 +91,8 @@ public:
     virtual int rankPoints(int);
     int tab;
 };
-extern void *g_Va00E06478;
+class Rva005B7FA4;
+extern Rva005B7FA4 *g_00E06478;
 
 Rva005B8F69::Rva005B8F69(AptOnline *host)
     : Rva0056DC4C(host), AptStats(this)
@@ -103,5 +104,5 @@ Rva005B8F69::Rva005B8F69(AptOnline *host)
         ((AptCommandMapAdder *)((char *)this + 4))->AddCommandMap(name,
             AptRef<AptCommandMap>(FunctorBinding(method, reinterpret_cast<FunctorTarget *>(this))));
     }
-    if (!g_Va00E06478) g_Va00E06478 = this;
+    if (!g_00E06478) g_00E06478 = reinterpret_cast<Rva005B7FA4 *>(this);
 }
