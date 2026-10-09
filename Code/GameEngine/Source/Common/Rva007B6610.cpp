@@ -1,4 +1,4 @@
-// cl: /O2 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
+// cl: /O2 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /GX-
 // stlport
 //
 // ?dup_007b6610@@YAXXZ is intentionally opaque. Retail's data pointer at
@@ -43,3 +43,19 @@ void Rva007B6610()
 	(((_STL::vector<void *> *)&g_Va00E0ABB4)->*call.method)(allocator);
 	atexit(rva007B9BC0);
 }
+
+enum GeometryType { GEOMETRY_SPHERE, GEOMETRY_CYLINDER, GEOMETRY_BOX };
+class GeometryInfo {
+public:
+	GeometryInfo(GeometryType, bool, float, float, float);
+	virtual ~GeometryInfo();
+};
+extern unsigned g_Va00E0C150;
+extern "C" void __cdecl rva007B9BF0(void);
+
+void Rva007B6640InitializeGeometry()
+{
+	new ((void *)&g_Va00E0C150) GeometryInfo(GEOMETRY_SPHERE, true, 2.0f, 2.0f, 2.0f);
+	atexit(rva007B9BF0);
+}
+
