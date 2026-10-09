@@ -524,7 +524,7 @@ def main():
     # rejected, and AGENTS.md batches pushes. Releasing now (force, anyone's
     # claim -- the old behaviour) let another worker take a body whose
     # conversion was still unpublished. Queue the row and the files this
-    # verification compiled (claims.landing_deps); `claims.py release
+    # verification compiled (claims.landing_evidence); `claims.py release
     # --landed` (the pickers' --claim runs it) releases the claim once
     # origin/master holds both, and an unsettled claim simply expires.
     # A test-only --root never queues against the live checkout.

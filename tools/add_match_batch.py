@@ -255,16 +255,13 @@ def main():
     if os.environ.get("BFME_CLAIMS", "on") != "off" and root == DEFAULT_ROOT.resolve():
         import claims as shared_claims
         who = shared_claims.owner(root)
-        deps = {}                       # one dependency scan per source
+        scans = {}                      # one evidence scan per source
         for c in claims:
-            if c["source"] not in deps:
-                try:
-                    deps[c["source"]] = shared_claims.landing_deps(c["source"], root)
-                except Exception as error:  # noqa: BLE001 -- queued unproven: the claim is kept
-                    deps[c["source"]] = ({}, f"dependency scan failed: {error}")
-            found, unproven = deps[c["source"]]
+            if c["source"] not in scans:
+                scans[c["source"]] = shared_claims.evidence_for(c["source"], root)
+            evidence, unproven = scans[c["source"]]
             shared_claims.queue_landed(c["rva"], c["row"], who=who, root=root,
-                                       deps=found, unproven=unproven)
+                                       evidence=evidence, unproven=unproven)
         print(f"add_match_batch: {len(claims)} claim(s) kept until the rows are on "
               "origin/master; after your push run `python3 tools/claims.py release --landed`")
 

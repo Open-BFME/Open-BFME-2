@@ -50,10 +50,12 @@ def landing(tmp_path, monkeypatch):
         if command[0] == "git":
             return real_run(command, *args, **kwargs)
         compiled = command[-1]
-        receipt = claims.receipt_path(compiled, tmp_path)
-        receipt.parent.mkdir(parents=True, exist_ok=True)
-        receipt.write_text(json.dumps({"source": hashlib.md5((tmp_path / compiled).read_bytes())
-                                       .hexdigest(), "deps": {}}), encoding="utf-8")
+        obj = claims.object_path(compiled, tmp_path)
+        obj.parent.mkdir(parents=True, exist_ok=True)
+        obj.write_bytes(b"object")
+        claims.receipt_path(compiled, tmp_path).write_text(json.dumps({
+            "source": hashlib.md5((tmp_path / compiled).read_bytes()).hexdigest(), "deps": {},
+            "path": compiled, "object": hashlib.md5(b"object").hexdigest()}), encoding="utf-8")
         return SimpleNamespace(returncode=0)
     monkeypatch.setattr(add_match.subprocess, "run", run)
     monkeypatch.setenv("BFME_CLAIM_OWNER", "worker-a")

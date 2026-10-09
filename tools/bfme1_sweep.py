@@ -1706,9 +1706,10 @@ def do_land(args):
 
 def queue_landed_rows(entry, rvas):
     """Queue (claims.queue_landed) each of `rvas` whose matched row for this
-    donor's BFME 2 source is in the ledger now; returns those RVAs."""
+    donor's BFME 2 source is in the ledger now; returns those RVAs. Every
+    row has the one source, so its evidence is scanned once."""
     target = bfme2_source_path(entry["source"])
-    wanted, landed = set(rvas), []
+    wanted, landed, scan = set(rvas), [], None
     for row in BFME2_LEDGER.read_text(encoding="utf-8").splitlines():
         fields = row.split(",")
         if len(fields) < 6 or fields[4] != target or fields[5] != "matched":
@@ -1718,7 +1719,8 @@ def queue_landed_rows(entry, rvas):
         except ValueError:
             continue
         if rva in wanted:
-            shared_claims.queue_landed(rva, row)
+            scan = scan or shared_claims.evidence_for(target)
+            shared_claims.queue_landed(rva, row, evidence=scan[0], unproven=scan[1])
             landed.append(rva)
     return landed
 

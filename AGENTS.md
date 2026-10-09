@@ -155,9 +155,10 @@ Claims are shared `refs/claims/0xRVA` on origin, expire after four hours, and
 do not change `master` publication. `python3 tools/claims.py list` shows current
 owners. A verified `add_match` or `add_match_batch` keeps the claim and queues
 the row; after your push, `python3 tools/claims.py release --landed` (the
-pickers' `--claim` also runs it) releases it once origin/master holds the row
-and the same blobs of every file the verified compile read. Until then, or when
-that cannot be shown, the claim is kept and expires.
+pickers' `--claim` also runs it) releases it once origin/master holds the row,
+the same blobs of every file the verified compile read and any
+`reverse/symbols.csv` pins you added. Until then, or when that cannot be shown
+(an untracked or ignored header, say), the claim is kept and expires.
 Run `python3 tools/claims.py release 0xRVA` for a banked, blocked or abandoned body.
 Renew the claim before expiry with `python3 tools/claims.py renew 0xRVA` when
 work lasts longer than four hours: it keeps the claim's lease, so a queued

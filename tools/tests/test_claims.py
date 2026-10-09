@@ -202,19 +202,21 @@ def _commit_ledger(clone, rows, message, files=None):
 
 
 def _verified(clone, source, headers=()):
-    """Write the receipt tools/build.py leaves when it compiles `source`
-    (build/match/<obj>.deps.json: the md5 of the source and of each header
-    /showIncludes reported, keyed relative to the checkout), as a verified
-    add_match would have."""
+    """Write the object and receipt tools/build.py leaves when it compiles
+    `source` (build/match/<obj> and <obj>.deps.json: the md5 of the source and
+    of each header /showIncludes reported, keyed relative to the checkout, the
+    source's path and the object's md5), as a verified add_match would have."""
     import hashlib
     import json
 
     def md5(path):
         return hashlib.md5((clone / path).read_bytes()).hexdigest()
-    receipt = claims.receipt_path(source, clone)
-    receipt.parent.mkdir(parents=True, exist_ok=True)
-    receipt.write_text(json.dumps({"cmd": "fixture", "source": md5(source),
-                                   "deps": {h: md5(h) for h in headers}}), encoding="utf-8")
+    obj = claims.object_path(source, clone)
+    obj.parent.mkdir(parents=True, exist_ok=True)
+    obj.write_bytes(b"object of " + source.encode())
+    claims.receipt_path(source, clone).write_text(json.dumps({
+        "cmd": "fixture", "source": md5(source), "deps": {h: md5(h) for h in headers},
+        "path": source, "object": hashlib.md5(obj.read_bytes()).hexdigest()}), encoding="utf-8")
 
 
 def test_a_landing_releases_only_once_origin_master_holds_the_row(hosts):
@@ -261,8 +263,10 @@ def test_an_old_published_row_does_not_release_an_unpublished_source_change(host
     claims.claim([0x100])
     (a / "Code/x.cpp").write_text("void f() { real(); }\n", encoding="utf-8")
     (a / "Code/x.h").write_text("struct X;\n", encoding="utf-8")          # a new dependency
+    _git(a, "add", "Code/x.h")              # an untracked header is unproven (review round 2)
     _verified(a, "Code/x.cpp", ["Code/x.h"])
     claims.queue_landed(0x100, row.replace("gen-dump", "model=m"))
+    _git(a, "reset", "-q", "--", "Code/x.h")    # unstaged: the commits below leave it local
     entry = claims.pending()[0]
     assert set(entry["deps"]) == {"Code/x.cpp", "Code/x.h"}
     assert claims.release_landed() == ([], [0x100])
@@ -290,7 +294,8 @@ def test_concurrent_queue_appends_all_survive(tmp_path):
     import threading
     jobs = [threading.Thread(target=claims.queue_landed,
                              args=(r, f"f,,0x{r:08X},1,Code/x.cpp,matched,"),
-                             kwargs={"who": "t", "root": tmp_path, "deps": {"Code/x.cpp": "b"}})
+                             kwargs={"who": "t", "root": tmp_path,
+                                     "evidence": {"deps": {"Code/x.cpp": "b"}}})
             for r in range(0x100, 0x100 + 24)]
     for job in jobs:
         job.start()

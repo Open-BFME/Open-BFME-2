@@ -55,9 +55,12 @@ return ([], []) when origin was unreachable, which a caller cannot tell from
     they queue the row in build/claims/landed_pending.jsonl and `release
     --landed` (settle(), which the pickers' --claim runs) releases a claim
     only once origin/master holds the row (its name, target_rva, size,
-    source and status; export_rva and notes may change later) and the same
-    blobs of the files the verified compile read (landing_deps). Anything
-    never settled expires with its TTL.
+    source, status and member=/object-symbol= selectors; export_rva and other
+    notes may change later), the same blobs of the files the verified compile
+    read and the symbols.csv pins this checkout added (landing_evidence; a
+    header origin adds that would shadow one of those files is not seen).
+    Anything never settled -- an unproven landing, or a queue entry in an
+    older evidence format -- expires with its TTL.
 Readers (active(), busy_rvas()) still warn and serve without shared claims
 when origin is unreachable: a picker only proposes, the claim decides.
 
@@ -97,9 +100,12 @@ ROOT = Path(__file__).resolve().parents[1]
 # this block or marked BFME2 below. Keep the rest identical to make syncing a
 # plain diff.
 LEDGER = "reverse/functions.csv"
-# Where the byte gate writes each compiled source's dependency receipt
-# (tools/build.py obj_path + _deps_sidecar); landing_deps reads it.
+# Where the byte gate writes each compiled source's object and dependency
+# receipt (tools/build.py obj_path + _deps_sidecar); landing_evidence reads it.
 RECEIPTS = "build/match"
+# The callee pins verification resolves through; a landing's local additions
+# must reach origin too (landing_evidence).
+SYMBOLS = "reverse/symbols.csv"
 # Where claims live on origin. A host whose git proxy only accepts branch
 # pushes sets `git config bfme.claimNamespace refs/heads/claims/`.
 NS = (os.environ.get("BFME_CLAIM_NS")
@@ -703,6 +709,11 @@ def _pending_path(root=None):
 
 
 DEP_LIMIT = 2000        # files one compile read; the most measured (2026-10-09) was 452
+# The format of a queued landing's evidence. 2: landing_evidence (receipt-bound
+# blobs read once, pins). An entry without it -- ba6f8d1ebb and ae731098e8
+# wrote incomplete dependency snapshots -- never releases a claim; the claim
+# expires instead (review 2026-10-09, round 2).
+EVIDENCE = 2
 _QUEUE_THREADS = threading.Lock()
 
 
@@ -742,33 +753,73 @@ def _write_queue(path, entries):
     os.replace(tmp, path)
 
 
-def receipt_path(source, root=None):
-    """The dependency receipt the byte gate wrote when it compiled `source`:
-    tools/build.py's obj_path(source) with the suffix .deps.json (the same
-    encoding: path parts joined by '_', an uppercase letter as '^' + lower)."""
+def object_path(source, root=None):
+    """The object the byte gate compiled `source` to and verified: tools/
+    build.py's obj_path (path parts joined by '_', an uppercase letter as '^'
+    + lower). Code/a_b.cpp and Code/a/b.cpp share it."""
     stem = "_".join(Path(source).with_suffix("").parts)
     encoded = "".join(("^" + c.lower()) if c.isupper() else c for c in stem)
-    return Path(root or ROOT) / RECEIPTS / (encoded + ".deps.json")
+    return Path(root or ROOT) / RECEIPTS / (encoded + ".obj")
+
+
+def receipt_path(source, root=None):
+    """The dependency receipt written beside that object (build.py
+    _deps_sidecar): its md5s of the source and of every header the compile
+    read, the source path and the object's md5."""
+    return object_path(source, root).with_suffix(".deps.json")
 
 
 def _md5(path):
-    """The digest tools/build.py records for a compiled file, or None."""
+    """The digest tools/build.py records for a file, or None."""
     try:
         return hashlib.md5(Path(path).read_bytes()).hexdigest()
     except OSError:
         return None
 
 
-def _hash_objects(cwd, paths):
-    """[blob sha of each working file as git would store it], via stdin (a
-    command line of a few hundred header paths overflows Windows' limit)."""
+def _blob_id(data):
+    return hashlib.sha1(b"blob %d\0" % len(data) + data).hexdigest()
+
+
+def _stored_blobs(cwd, buffers):
+    """({path: blob}, None) for `buffers` ({path: bytes read once}), or (None,
+    path) for the first one that cannot be bound. Each blob is derived from
+    the buffer itself -- its bytes, or its bytes with CRLF normalized to LF --
+    and git (one `hash-object --stdin-paths`, paths on stdin: hundreds of
+    them overflow a Windows command line) only says which of the two its
+    filters store. A git answer that is neither means the file changed after
+    it was read, or a filter other than line endings applies: unbound."""
+    paths = list(buffers)
     if not paths:
-        return []
+        return {}, None
     got = _git("hash-object", "--stdin-paths", cwd=cwd, input_text="".join(p + "\n" for p in paths))
     shas = got.stdout.split()
     if got.returncode or len(shas) != len(paths):
-        raise RuntimeError(f"git hash-object failed: {got.stderr.strip()}")
-    return shas
+        return None, paths[0]
+    out = {}
+    for path, sha in zip(paths, shas):
+        data = buffers[path]
+        if sha not in (_blob_id(data), _blob_id(data.replace(b"\r\n", b"\n"))):
+            return None, path
+        out[path] = sha
+    return out, None
+
+
+def _local_pins(base):
+    """(pin lines this checkout adds to reverse/symbols.csv over its merge base
+    with origin/master, working tree included; why-not or ""). Verification
+    resolves callees through them, so origin must hold them too."""
+    if not (base / SYMBOLS).exists():
+        return [], ""
+    merge = _git("merge-base", "HEAD", "refs/remotes/origin/master", cwd=base)
+    if merge.returncode or not merge.stdout.strip():
+        return [], "no merge base with origin/master to list this checkout's symbols.csv pins"
+    diff = _git("diff", "--no-color", "--no-ext-diff", "--unified=0", merge.stdout.strip(),
+                "--", SYMBOLS, cwd=base)
+    if diff.returncode:
+        return [], f"cannot diff {SYMBOLS}"
+    return sorted({line[1:].strip() for line in diff.stdout.splitlines()
+                   if line.startswith("+") and not line.startswith("+++") and line[1:].strip()}), ""
 
 
 def _spelled(base, rel, listings):
@@ -804,120 +855,173 @@ def _nested_repo(base, rel, seen):
     return None
 
 
-def landing_deps(source, root=None):
-    """What origin/master must hold, blob for blob, before a landing's claim is
-    released: every file the verified compile of `source` read.
+def landing_evidence(source, root=None):
+    """What origin/master must hold before a landing's claim is released, read
+    once at queue time: ({"deps": {path: blob or commit}, "pins": [line],
+    "receipt": {path, cmd, object}}, why). `why` is "" when every input is
+    established, else the reason one is not; settlement then keeps the claim
+    until it expires (fail closed). deps always holds the source's blob.
 
-    The byte gate's receipt (receipt_path) names the source and each header
-    cl reported through /showIncludes, with the md5 it compiled. Each must
-    still have that md5, so these are the bytes that verified. A file inside
-    this checkout is then recorded by the blob git would store, unless git
-    ignores it (a generated case shim is not repository content); a file
-    outside it is the host's, not origin's. A file inside a submodule
-    (reference/open-bfme-1, which also ships the toolchain headers) is recorded
-    as the submodule's checked-out commit -- what origin/master's tree records
-    -- once it is shown to equal that commit's blob: a submodule modified in a
-    file the compile read cannot be published as verified. A .lib source is
-    its own only input (its members are compared verbatim).
+    deps are the files the verified compile of `source` read. The byte gate's
+    receipt (receipt_path) must name this source (Code/a_b.cpp and
+    Code/a/b.cpp share a receipt file) and the object build/match holds (its
+    md5); with the compile command's fingerprint those are kept as
+    "receipt". Each file the receipt lists -- the source and every header cl
+    reported through /showIncludes -- is read ONCE: its md5 must be the one
+    the compile read, and its blob is derived from those same bytes
+    (_stored_blobs), so a file rewritten between the two is never recorded.
+    A header must be tracked in this checkout (an ignored or never-added file
+    cannot reach origin) unless it lies in a submodule: reference/open-bfme-1,
+    which also ships the toolchain headers, is recorded as the commit checked
+    out when this ran, and each header the compile read there must equal that
+    captured commit's blob -- never the live HEAD, which may move meanwhile. A
+    header outside the checkout, in a nested repository that is not a
+    submodule, or past DEP_LIMIT is unproven. A .lib source is its own only
+    compile input (its members are compared verbatim).
 
-    Returns ({path: blob or commit}, why): `why` is "" when every input is
-    established, else the reason one is not, and settlement then keeps the
-    claim until it expires (fail closed). The source's blob is always there.
+    pins are the reverse/symbols.csv lines this checkout adds over its merge
+    base with origin/master (_local_pins): callee resolution reads them.
+
+    KNOWN LIMITATION: a header origin ADDS in a directory searched before the
+    one a recorded header came from would shadow it there, and nothing here
+    sees that (it needs the include search inventory link_census records).
 
     Open-BFME-1 lists the files `git diff origin/master HEAD` (two dots) names
     instead: that also lists files a peer changed upstream, whose stale local
     blobs never equal origin's (its re_attempts.log, 0x008615F0
     false-reject), and misses an upstream change made after the last fetch.
     The three-dot diff BFME2 used first dropped every upstream change, so a
-    stale header the compile had read was never compared (review
-    2026-10-09). The receipt needs neither: a peer's change to a file this
-    compile read holds the claim, a change to any other file does not. It
-    does not see a header origin ADDED that would shadow one the compile read
-    (include search order), nor reverse/symbols.csv pins."""
+    stale header the compile had read was never compared (review 2026-10-09).
+    The receipt needs neither: a peer's change to a file this compile read
+    holds the claim, a change to any other file does not."""
     base = Path(root or ROOT)
     source = source.replace("\\", "/")
-    if not (base / source).is_file():
-        return {source: ""}, "the source is missing"
-    own = dict(zip([source], _hash_objects(base, [source])))
+    evidence = {"deps": {source: ""}, "pins": [], "receipt": {}}
+    try:
+        data = (base / source).read_bytes()
+    except OSError:
+        return evidence, "the source is missing"
+    own, odd = _stored_blobs(base, {source: data})
+    if own is None:
+        return evidence, f"git would not store {odd} as the bytes just read"
+    evidence["deps"] = dict(own)
+    evidence["pins"], why = _local_pins(base)
+    if why:
+        return evidence, why
     if source.lower().endswith(".lib"):
-        return own, ""
+        return evidence, ""
     receipt = receipt_path(source, base)
     try:
         meta = json.loads(receipt.read_text(encoding="utf-8"))
-        recorded, compiled = dict(meta["deps"]), meta["source"]
+        recorded = dict(meta["deps"])
     except (OSError, ValueError, KeyError, TypeError):
-        return own, f"no readable build receipt {receipt.relative_to(base).as_posix()}"
-    if compiled != _md5(base / source):
-        return own, "the build receipt is for another revision of the source"
-    listings, seen, plain, nested = {}, {}, [], {}
+        return evidence, f"no readable build receipt {receipt.relative_to(base).as_posix()}"
+    if meta.get("path") != source:
+        return evidence, (f"the build receipt is for {meta['path']}, not {source}" if meta.get("path")
+                          else "the build receipt names no source (written before receipts did)")
+    if not meta.get("object") or meta.get("object") != _md5(object_path(source, base)):
+        return evidence, "the build receipt does not describe the object build/match holds"
+    if meta.get("source") != hashlib.md5(data).hexdigest():
+        return evidence, "the build receipt is for another revision of the source"
+    evidence["receipt"] = {"path": source, "cmd": meta.get("cmd", ""), "object": meta["object"]}
+    listings, seen, plain, nested = {}, {}, {}, {}
     for dep, digest in sorted(recorded.items()):
         path = Path(dep) if os.path.isabs(dep) else base / dep
-        if _md5(path) != digest:
-            return own, f"{dep} changed since the verified compile read it"
+        try:
+            read = path.read_bytes()
+        except OSError:
+            return evidence, f"{dep} is gone"
+        if hashlib.md5(read).hexdigest() != digest:
+            return evidence, f"{dep} changed since the verified compile read it"
         try:
             rel = os.path.relpath(os.path.normpath(path), os.path.normpath(base)).replace("\\", "/")
         except ValueError:              # another drive
-            continue
+            rel = "../"
         if rel == ".." or rel.startswith("../") or os.path.isabs(rel):
-            continue                    # outside the checkout: the host's, not origin's
+            return evidence, f"{dep} lies outside the checkout, so origin cannot hold it"
         rel = _spelled(base, rel, listings)
         repo = _nested_repo(base, rel, seen)
         if repo:
-            nested.setdefault(repo, []).append(rel[len(repo) + 1:])
-        else:
-            plain.append(rel)
+            nested.setdefault(repo, {})[rel[len(repo) + 1:]] = read
+        elif rel != source:
+            plain[rel] = read
     if len(plain) + len(nested) > DEP_LIMIT:
-        return own, f"more than {DEP_LIMIT} dependencies"
-    ignored = set()
-    if plain:
-        got = _git("check-ignore", "--stdin", "-z", cwd=base, input_text="\0".join(plain) + "\0")
-        if got.returncode not in (0, 1):                # 1: none ignored
-            return own, f"git check-ignore failed: {got.stderr.strip()}"
-        ignored = {path for path in got.stdout.split("\0") if path}
-    required = [path for path in plain if path not in ignored and path != source]
+        return evidence, f"more than {DEP_LIMIT} dependencies"
+    index = _git("ls-files", "-s", "-z", cwd=base, timeout=120)
+    if index.returncode:
+        return evidence, "cannot read this checkout's index"
+    tracked, links = set(), set()
+    for record in index.stdout.split("\0"):
+        mode, _, path = record.partition("\t")
+        if path:
+            tracked.add(path)
+            if mode.startswith("160000"):
+                links.add(path)
+    for rel in plain:
+        if rel not in tracked:
+            return evidence, f"{rel} is not tracked (ignored or never added), so origin cannot hold it"
+    blobs, odd = _stored_blobs(base, plain)
+    if blobs is None:
+        return evidence, f"git would not store {odd} as the bytes the compile read"
     deps = dict(own)
-    deps.update(zip(required, _hash_objects(base, required)))
-    for repo, inner in sorted(nested.items()):
-        link = _git("ls-files", "-s", "--", repo, cwd=base).stdout.split()
-        if not link or link[0] != "160000":
-            if _git("check-ignore", "-q", repo, cwd=base).returncode == 0:
-                continue                # an ignored nested clone: the host's
-            return own, f"{repo} is a nested repository, not a submodule"
+    deps.update(blobs)
+    for repo, files in sorted(nested.items()):
+        if repo not in links:
+            return evidence, f"{repo} is a nested repository, not a submodule"
         head = _git("rev-parse", "HEAD", cwd=base / repo).stdout.strip()
+        if not head:
+            return evidence, f"cannot read {repo}'s checked-out commit"
         committed = _git("cat-file", "--batch-check=%(objectname)", cwd=base / repo,
-                         input_text="".join(f"HEAD:{path}\n" for path in inner)).stdout.splitlines()
-        if not head or len(committed) != len(inner):
-            return own, f"cannot read {repo}'s checked-out commit"
-        for path, blob, have in zip(inner, committed, _hash_objects(base / repo, inner)):
-            if blob.strip() != have:
-                return own, f"{repo} differs from its commit in {path}, which the compile read"
+                         input_text="".join(f"{head}:{path}\n" for path in files)).stdout.splitlines()
+        stored, odd = _stored_blobs(base / repo, files)
+        if stored is None or len(committed) != len(files):
+            return evidence, f"git would not store {repo}/{odd} as the bytes the compile read"
+        for path, blob in zip(files, committed):
+            if blob.strip() != stored[path]:
+                return evidence, (f"{repo} differs from its commit {head[:10]} in {path}, "
+                                  "which the compile read")
         deps[repo] = head
-    return deps, ""
+    evidence["deps"] = deps
+    return evidence, ""
 
 
-def queue_landed(rva, row, who=None, root=None, deps=None, unproven=""):
+def landing_deps(source, root=None):
+    """({path: blob or commit}, why): landing_evidence's file part."""
+    evidence, why = landing_evidence(source, root)
+    return evidence["deps"], why
+
+
+def evidence_for(source, root=None):
+    """landing_evidence that never raises (bookkeeping must not fail a
+    landing): an error makes the landing unproven, which keeps its claim."""
+    try:
+        if source:
+            return landing_evidence(source, root)
+        return {"deps": {}, "pins": [], "receipt": {}}, "the row names no source"
+    except Exception as error:  # noqa: BLE001
+        return {"deps": {}, "pins": [], "receipt": {}}, f"evidence scan failed: {error}"
+
+
+def queue_landed(rva, row, who=None, root=None, evidence=None, unproven=""):
     """add_match calls this after LOCAL verification: remember the row and
-    the blobs of every file its verified compile read (landing_deps), so the
-    claim is released only once origin/master carries the row's name,
-    target_rva, size, source and status (not export_rva or notes, which may
-    change later) and all of those blobs -- an old published row with the same
-    key is not this landing (review 2026-09-29). `deps` and `unproven` are a
-    landing_deps result the caller already has. Never raises: bookkeeping must
-    not fail a landing."""
+    its landing_evidence (pass `evidence` and `unproven` when a scan of the
+    same source is at hand: one scan per source per run). The claim is
+    released only once origin/master carries the row -- its name, target_rva,
+    size, source, status and member=/object-symbol= selectors, not export_rva
+    or other notes, which may change later -- every recorded blob and every
+    recorded pin; an old published row with the same key is not this landing
+    (review 2026-09-29). Never raises: bookkeeping must not fail a landing."""
     try:
         fields = row.strip().split(",")
-        source = fields[4] if len(fields) >= 6 else ""
-        if deps is None:
-            try:
-                deps, unproven = landing_deps(source, root) if source else ({}, "the row names no source")
-            except Exception as error:  # noqa: BLE001 -- still queue it: unproven keeps the claim
-                deps, unproven = {}, f"dependency scan failed: {error}"
+        if evidence is None:
+            evidence, unproven = evidence_for(fields[4] if len(fields) >= 6 else "", root)
         now = int(time.time())
         who = who or owner(root)
         entry = {"rva": f"0x{int(rva):08X}", "row": row.strip(), "owner": who,
-                 "lease": current_lease(rva, who, root),
-                 "queued": now, "deps": deps, "deps_truncated": bool(unproven),
-                 "id": uuid.uuid4().hex}
+                 "lease": current_lease(rva, who, root), "queued": now,
+                 "evidence": EVIDENCE, "deps": evidence.get("deps") or {},
+                 "pins": evidence.get("pins") or [], "receipt": evidence.get("receipt") or {},
+                 "deps_truncated": bool(unproven), "id": uuid.uuid4().hex}
         if unproven:
             entry["deps_unproven"] = unproven
             print(f"claims: 0x{int(rva):08X}: what its verification read cannot be compared with "
@@ -936,10 +1040,23 @@ def pending(root=None):
     return _read_queue(_pending_path(root))
 
 
+# Notes tokens that choose WHICH bytes a row is: the archive member a .lib row
+# reads, the object symbol a row compiles under (tools/build.py
+# ledger_member, ledger_object_symbol). Other notes are commentary.
+SELECTORS = ("member=", "object-symbol=")
+
+
 def _row_key(row):
-    """(name, rva, size, source, status) of a ledger row: what landed, not its notes."""
+    """(name, rva, size, source, status, selectors) of a ledger row: what
+    landed. export_rva and the notes apart from SELECTORS tokens may change
+    later without changing the body."""
     fields = row.strip().split(",")
-    return tuple(fields[i] for i in (0, 2, 3, 4, 5)) if len(fields) >= 6 else None
+    if len(fields) < 6:
+        return None
+    notes = ",".join(fields[6:])
+    selectors = tuple(sorted(token.strip() for token in notes.split(";")
+                             if token.strip().startswith(SELECTORS)))
+    return tuple(fields[i] for i in (0, 2, 3, 4, 5)) + (selectors,)
 
 
 def _fetch_master(root=None):
@@ -1002,10 +1119,11 @@ def lease_trailers(sha, root=None):
 def release_landed(sha=None, root=None, who=None, keep_days=1.0):
     """Release claims for bodies that have landed on origin/master.
 
-    Every queued landing (queue_landed) whose row (name, target_rva, size,
-    source, status) and whose every recorded input blob (landing_deps)
-    origin/master's tip now holds is released under the owner that queued it
-    and dropped from the queue; with `sha`, the matched rows that commit adds
+    Every queued landing (queue_landed) with EVIDENCE whose row (_row_key),
+    every recorded input blob and every recorded pin line origin/master's tip
+    now holds is released under the owner that queued it and dropped from the
+    queue (an entry in an older evidence format never releases: its claim
+    expires); with `sha`, the matched rows that commit adds
     whose lease the commit names in a `Claim-Lease: 0xRVA=<lease>` trailer
     are released under `who` -- except any body that still has an unsettled
     queued landing, which stays claimed whatever selected it. A landed entry
@@ -1036,13 +1154,23 @@ def release_landed(sha=None, root=None, who=None, keep_days=1.0):
             meta, _, path = line.partition("\t")
             if path in wanted:
                 published[path] = meta.split()[2]
+    pinned = set()
+    if any(e.get("pins") for e in queue):
+        shown = _git("show", f"{tip}:{SYMBOLS}", cwd=root, timeout=120)
+        pinned = {line.strip() for line in shown.stdout.splitlines()} if shown.returncode == 0 else set()
 
     def landed(entry):
+        # an older snapshot (no receipt binding, blobs read twice, no pins) is
+        # never trusted: its claim simply expires (review 2026-10-09, round 2)
+        if entry.get("evidence") != EVIDENCE:
+            return False
         deps = entry.get("deps")
         if entry.get("deps_truncated") or not deps or _row_key(entry.get("row", "")) not in rows:
             return False
         # a source missing locally proves nothing about what was verified
         if not deps.get(entry["row"].split(",")[4]):
+            return False
+        if any(pin not in pinned for pin in entry.get("pins") or ()):
             return False
         return all(published.get(path, "") == blob for path, blob in deps.items())
     if sha:

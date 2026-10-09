@@ -1512,7 +1512,11 @@ def _write_deps_sidecar(source, output, fingerprint, stdout_text, is_cl,
               file=sys.stderr)
         _deps_sidecar(output).unlink(missing_ok=True)
         return
-    payload = {"cmd": fingerprint, "source": _hash_file(str(source)), "deps": deps}
+    payload = {"cmd": fingerprint, "source": _hash_file(str(source)), "deps": deps,
+               # Which source and which object this receipt describes, so a
+               # reader can bind to them (tools/claims.py landing_evidence):
+               # Code/a_b.cpp and Code/a/b.cpp share one object name.
+               "path": _root_key(Path(source)), "object": _hash_file(str(output))}
     if retry_dirs is not None:
         if is_cl:
             unproven, roots, inventory = _inventory_problems(source, command, env, dep_paths, inventory_before)

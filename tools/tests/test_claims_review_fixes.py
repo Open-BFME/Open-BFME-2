@@ -7,6 +7,8 @@ add_match verification is mocked, and a mocked gate writes the dependency
 receipt the real tools/build.py leaves (test_claims._verified).
 """
 import concurrent.futures
+import hashlib
+import json
 import os
 import socket
 import subprocess
@@ -181,19 +183,12 @@ def test_receipt_inputs_that_cannot_be_proven_fail_closed(hosts):
     assert "another revision" in claims.landing_deps("Code/x.cpp", a)[1]
 
 
-def test_a_receipt_records_only_repository_content(hosts, tmp_path):
-    # an ignored, generated header and a host file outside the checkout are
-    # not origin's to hold; on Windows cl reports the spelling #include asked for
+def test_a_header_maps_to_its_tracked_spelling(hosts):
+    # on Windows cl reports the spelling #include asked for
     a = hosts("a")
-    (a / ".gitignore").write_text("gen/\n", encoding="utf-8")
-    _commit_ledger(a, [ROW], "base", {"Code/x.cpp": "void f() {}\n", "Code/Inc/X.h": "1\n",
-                                      ".gitignore": "gen/\n"})
-    (a / "gen").mkdir()
-    (a / "gen/shim.h").write_text("shim\n", encoding="utf-8")
-    host = tmp_path / "host.h"
-    host.write_text("host\n", encoding="utf-8")
+    _commit_ledger(a, [ROW], "base", {"Code/x.cpp": "void f() {}\n", "Code/Inc/X.h": "1\n"})
     spelled = os.path.join("code", "inc", "x.h") if os.name == "nt" else "Code/Inc/X.h"
-    _verified(a, "Code/x.cpp", [spelled, "gen/shim.h", str(host)])
+    _verified(a, "Code/x.cpp", [spelled])
     deps, why = claims.landing_deps("Code/x.cpp", a)
     assert why == "" and set(deps) == {"Code/x.cpp", "Code/Inc/X.h"}
 
@@ -201,6 +196,7 @@ def test_a_receipt_records_only_repository_content(hosts, tmp_path):
 def test_the_receipt_path_is_the_one_build_writes():
     import build
     source = "Code/GameEngine/Source/Common/INI.cpp"
+    assert claims.object_path(source, build.ROOT) == build.obj_path(build.ROOT / source)
     assert claims.receipt_path(source, build.ROOT) == \
         build.obj_path(build.ROOT / source).with_suffix(".deps.json")
 
@@ -402,3 +398,166 @@ def test_the_alias_never_reaches_another_users_or_a_per_checkout_claim(default_o
     assert claims.release([0x300]) == [0x300]
     monkeypatch.setenv("BFME_CLAIM_OWNER", "seat")   # an explicit owner has no legacy alias
     assert claims.legacy_owner(b) is None
+
+
+# ==== ROUND 2 (review of ae731098e8). Every case failed on ae731098e8. ====
+
+def test_r2_a_queue_entry_in_an_older_evidence_format_never_releases(hosts):
+    # R2-1 (P1): entries ba6f8d1ebb / ae731098e8 wrote carry incomplete
+    # dependency snapshots; they were trusted as if current.
+    a = hosts("a")
+    _published_and_queued(a)
+    entry = claims.pending()[0]
+    older = {k: v for k, v in entry.items() if k not in ("evidence", "pins", "receipt")}
+    (a / claims.PENDING).write_text(json.dumps(older, sort_keys=True) + "\n", encoding="utf-8")
+    assert claims.release_landed() == ([], [0x100])
+    assert 0x100 in claims.active()
+
+
+def test_r2_a_header_rewritten_while_it_is_hashed_is_unproven(hosts, monkeypatch):
+    # R2-2 (P2 race): the md5 and the blob came from two reads of the file
+    a = hosts("a")
+    _commit_ledger(a, [ROW], "base", {"Code/x.cpp": '#include "x.h"\n', "Code/x.h": "2\n"})
+    _git(a, "push", "-q", "origin", "HEAD:refs/heads/master")
+    claims.claim([0x100])
+    (a / "Code/x.h").write_text("1\n", encoding="utf-8")            # what the compile read
+    _verified(a, "Code/x.cpp", ["Code/x.h"])
+    real = claims._git
+
+    def rewritten_mid_scan(*args, **kwargs):
+        if args[:1] == ("hash-object",) and "Code/x.h" in (kwargs.get("input_text") or ""):
+            (a / "Code/x.h").write_text("2\n", encoding="utf-8")    # origin's bytes, written back
+        return real(*args, **kwargs)
+    monkeypatch.setattr(claims, "_git", rewritten_mid_scan)
+    claims.queue_landed(0x100, ROW)
+    monkeypatch.setattr(claims, "_git", real)
+    assert claims.pending()[0]["deps_truncated"]
+    assert claims.release_landed()[0] == [], "recorded a blob the compile never read"
+
+
+def test_r2_a_submodule_head_that_moves_mid_scan_is_never_read(hosts, monkeypatch):
+    # R2-2 (P2 race): the gitlink was captured from HEAD, then blobs were
+    # compared against the live HEAD, which had moved
+    a = hosts("a")
+    sub = _with_submodule(a)                                         # origin's gitlink: x.h = 1
+    (sub / "x.h").write_text("#define VERSION 2\n", encoding="utf-8")   # the compile reads 2
+    _verified(a, "Code/x.cpp", ["reference/open-bfme-1/x.h"])
+    real = claims._git
+
+    def commit_after_capture(*args, **kwargs):
+        out = real(*args, **kwargs)
+        if args == ("rev-parse", "HEAD") and Path(kwargs.get("cwd") or a).resolve() == sub.resolve():
+            _git(sub, "commit", "-q", "-am", "HEAD moves on")        # now HEAD:x.h is 2
+        return out
+    monkeypatch.setattr(claims, "_git", commit_after_capture)
+    claims.queue_landed(0x100, ROW)
+    monkeypatch.setattr(claims, "_git", real)
+    assert claims.pending()[0]["deps_truncated"]
+    assert claims.release_landed()[0] == [], "compared against a HEAD that was never recorded"
+
+
+def test_r2_a_receipt_for_another_source_sharing_its_name_is_refused(hosts):
+    # R2-3 (P2): Code/a_b.cpp and Code/a/b.cpp share one receipt file
+    a = hosts("a")
+    row = "?f@@YAXXZ,,0x00000100,16,Code/a_b.cpp,matched,model=m"
+    _commit_ledger(a, [row], "base", {"Code/a_b.cpp": "void f() {}\n", "Code/a/b.cpp": "void f() {}\n"})
+    _git(a, "push", "-q", "origin", "HEAD:refs/heads/master")
+    assert claims.receipt_path("Code/a_b.cpp", a) == claims.receipt_path("Code/a/b.cpp", a)
+    claims.claim([0x100])
+    _verified(a, "Code/a/b.cpp")                     # the gate compiled the other source last
+    claims.queue_landed(0x100, row)
+    assert "Code/a/b.cpp" in claims.pending()[0]["deps_unproven"]
+    assert claims.release_landed()[0] == []
+
+
+def test_r2_a_receipt_for_another_object_is_refused(hosts):
+    # R2-3 (P2): the receipt must describe the object the gate verified
+    a = hosts("a")
+    _commit_ledger(a, [ROW], "base", {"Code/x.cpp": "void f() {}\n"})
+    _git(a, "push", "-q", "origin", "HEAD:refs/heads/master")
+    claims.claim([0x100])
+    _verified(a, "Code/x.cpp")
+    claims.object_path("Code/x.cpp", a).write_bytes(b"a later compile")
+    claims.queue_landed(0x100, ROW)
+    assert "object" in claims.pending()[0]["deps_unproven"]
+    assert claims.release_landed()[0] == []
+
+
+def test_r2_the_build_receipt_names_its_source_and_object(tmp_path, monkeypatch):
+    import build
+    monkeypatch.setattr(build, "ROOT", tmp_path)
+    source = tmp_path / "Code" / "x.cpp"
+    source.parent.mkdir()
+    source.write_text("void f() {}\n", encoding="utf-8")
+    output = claims.object_path("Code/x.cpp", tmp_path)
+    output.parent.mkdir(parents=True)
+    output.write_bytes(b"compiled")
+    build._write_deps_sidecar(source, output, "fingerprint", "", True)
+    meta = json.loads(claims.receipt_path("Code/x.cpp", tmp_path).read_text())
+    assert meta["path"] == "Code/x.cpp" and meta["cmd"] == "fingerprint"
+    assert meta["object"] == hashlib.md5(b"compiled").hexdigest()
+
+
+def test_r2_a_row_must_select_the_same_member_and_object_symbol(hosts):
+    # R2-4 (P2): row equality ignored notes, so a different member= matched
+    a = hosts("a")
+    lib_row = "?f@@YAXXZ,,0x00000100,16,Code/x.lib,matched,vendored=v-1;member=obj\\a.obj"
+    _commit_ledger(a, [lib_row.replace("a.obj", "b.obj")], "other member", {"Code/x.lib": "archive\n"})
+    _git(a, "push", "-q", "origin", "HEAD:refs/heads/master")
+    claims.claim([0x100])
+    claims.queue_landed(0x100, lib_row)
+    assert claims.release_landed() == ([], [0x100])
+    _commit_ledger(a, [lib_row.replace("vendored=v-1", "vendored=v-1;note")], "this member")
+    _git(a, "push", "-q", "origin", "HEAD:refs/heads/master")
+    assert claims.release_landed() == ([0x100], [])                 # other notes may differ
+    row = "?f@@YAXXZ,,0x00000100,16,Code/x.cpp,matched,model=m;object-symbol=?g@@YAXXZ"
+    assert claims._row_key(row) != claims._row_key(row.replace("?g@@", "?h@@"))
+
+
+def test_r2_a_donor_scans_its_source_once_for_all_its_bodies(hosts, monkeypatch):
+    # R2-5 (perf): donor queueing repeated the evidence scan per body
+    a = hosts("a")
+    real = claims._git
+    scans = []
+    monkeypatch.setattr(claims, "_git", lambda *args, **kwargs: (
+        scans.append(1) if args[:1] == ("hash-object",) else None) or real(*args, **kwargs))
+    assert _land_donor(a, monkeypatch) == 0
+    assert len(claims.pending()) == 2 and len(scans) == 1
+
+
+def test_r2_an_ignored_untracked_or_outside_header_keeps_the_claim(hosts, tmp_path):
+    # R2 omitted inputs: such a header was skipped, so nothing compared it
+    a = hosts("a")
+    _commit_ledger(a, [ROW], "base", {"Code/x.cpp": "void f() {}\n", ".gitignore": "gen/\n"})
+    _git(a, "push", "-q", "origin", "HEAD:refs/heads/master")
+    (a / "gen").mkdir()
+    (a / "gen/shim.h").write_text("generated\n", encoding="utf-8")
+    (a / "Code/new.h").write_text("never added\n", encoding="utf-8")
+    host = tmp_path / "host.h"
+    host.write_text("host\n", encoding="utf-8")
+    for header, why in (("gen/shim.h", "not tracked"), ("Code/new.h", "not tracked"),
+                        (str(host), "outside the checkout")):
+        _verified(a, "Code/x.cpp", [header])
+        assert why in claims.landing_deps("Code/x.cpp", a)[1], header
+    claims.claim([0x100])
+    _verified(a, "Code/x.cpp", ["gen/shim.h"])
+    claims.queue_landed(0x100, ROW)
+    assert claims.release_landed()[0] == []
+
+
+def test_r2_an_unpublished_symbols_pin_keeps_the_claim(hosts):
+    # R2 omitted inputs: a pin verification resolved through, left unpushed
+    a = hosts("a")
+    symbols = "reverse/symbols.csv"
+    _commit_ledger(a, [ROW], "base", {"Code/x.cpp": "void f() {}\n", symbols: "?old@@YAXXZ,0x00001000\n"})
+    _git(a, "push", "-q", "origin", "HEAD:refs/heads/master")
+    claims.claim([0x100])
+    with (a / symbols).open("a", encoding="utf-8") as handle:
+        handle.write("?callee@@YAXXZ,0x00002000\n")
+    _verified(a, "Code/x.cpp")
+    claims.queue_landed(0x100, ROW)
+    assert claims.release_landed() == ([], [0x100]), "released before origin held its pin"
+    assert claims.pending()[0]["pins"] == ["?callee@@YAXXZ,0x00002000"]
+    _git(a, "commit", "-q", "-am", "pin")
+    _git(a, "push", "-q", "origin", "HEAD:refs/heads/master")
+    assert claims.release_landed() == ([0x100], [])
