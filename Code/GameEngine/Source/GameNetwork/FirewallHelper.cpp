@@ -109,3 +109,98 @@ unsigned char FirewallHelperClass::rva00594F0C()
 	m_currentState = 9;
 	return 1;
 }
+
+// BFME2 native NAT port allocation helper at 594F19, 263B.
+// ZH FirewallHelper::getNATPortAllocationScheme is the semantic donor at BFME1
+// pointer 9cbfb551fe20dae985f91f2319d8997287b6a705; native target omits sorting
+// and adds Int relativeDelta mode2. Caller FirewallHelperDetection confirms
+// the existing address-derived receiver and five-argument ABI.
+// Completes the banked 2026-10-04 partial. The guarded pointer walk retains
+// retail loop scheduling while preserving the donor port-offset calculation.
+typedef int Int;
+typedef unsigned short UnsignedShort;
+typedef bool Bool;
+#define TRUE true
+#define FALSE false
+#define NUM_TEST_PORTS 4
+class Rva00594F19 {
+public:
+    Int rva00594F19(Int, UnsignedShort *, UnsignedShort *, Int &, Bool &);
+};
+
+Int Rva00594F19::rva00594F19(Int numPorts, UnsignedShort *originalPorts, UnsignedShort *mangledPorts, Int &relativeDelta, Bool &looksGood)
+{
+	Int diff1 = mangledPorts[1] - mangledPorts[0];
+	Int diff2 = mangledPorts[2] - mangledPorts[1];
+	Int diff3 = mangledPorts[3] - mangledPorts[2];
+
+	if (diff1 == diff2 && diff2 == diff3) {
+		relativeDelta = 0;
+		looksGood = TRUE;
+		return(diff1);
+	}
+
+	if (diff1 == diff2) {
+		relativeDelta = 0;
+		looksGood = FALSE;
+		return(diff1);
+	}
+
+	if (diff2 == diff3) {
+		relativeDelta = 0;
+		looksGood = FALSE;
+		return(diff2);
+	}
+
+	/*
+	** See if the mangled ports keep a constant offset from the source ports.
+	*/
+	Int deltas[NUM_TEST_PORTS];
+	Int i = 0;
+	if (i < numPorts) {
+		UnsignedShort *source = originalPorts;
+		UnsignedShort *mapped = mangledPorts;
+		for (; i<numPorts ; i++, source++, mapped++) {
+			deltas[i] = *mapped - *source;
+		}
+	}
+
+	diff1 = deltas[1] - deltas[0];
+	diff2 = deltas[2] - deltas[1];
+	diff3 = deltas[3] - deltas[2];
+
+	if (diff1 == diff2 && diff2 == diff3) {
+		relativeDelta = 1;
+		looksGood = TRUE;
+		return(diff1);
+	}
+
+	if (diff1 == diff2 || diff1 == diff3) {
+		relativeDelta = 1;
+		looksGood = FALSE;
+		return(diff1);
+	}
+
+	if (diff2 == diff3) {
+		relativeDelta = 1;
+		looksGood = FALSE;
+		return(diff2);
+	}
+
+	/*
+	** BFME 2: the mangled ports' deltas themselves grow by a constant step.
+	*/
+	diff1 = mangledPorts[1] - mangledPorts[0];
+	diff2 = mangledPorts[2] - mangledPorts[1];
+	diff3 = mangledPorts[3] - mangledPorts[2];
+	if (diff2 - diff1 == diff3 - diff2) {
+		relativeDelta = 2;
+		looksGood = TRUE;
+		return(diff1);
+	}
+
+	looksGood = FALSE;
+	relativeDelta = 0;
+	return(0);
+}
+
