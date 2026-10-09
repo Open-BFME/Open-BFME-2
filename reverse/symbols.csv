@@ -10438,9 +10438,7 @@ name,address,notes
 ?prepare@Rva007EADC0Owner@@QAEXXZ,0x00657AE0
 ?prepend@Rva004EF35CAppendABI@@QAEXPAPAX@Z,0x004EF35C,Native4EF39A in complete Ghidra4EF383/32 passes node ECX and head-pointer stack argument to rowed linked4EF35C/23; layout-free member ABI alternates to verified Rva00160620 set provider; original wrapper owner unknown
 ?preprocessMacro@INI@@SAPBDPBD@Z,0x0002D0A9,INI static macro pre-expansion (digit fast path + shift/XOR hash over macro table); scanReal 0x2EDA5 first REL32 + 6 more INI-parse callers; BFME1 INIPreprocessMacro.cpp
-?privateAttackObject@AIUpdateInterface@@MAEXPAVObject@@HW4CommandSourceType@@@Z,0x0026BCD2,address read from the REL32 displacement at a placed body
 ?privateFireWeapon@Weapon@@QAE_NPBVObject@@PBUCoord3D@@0H1HHHPAH@Z,0x002CE30A,Target 955B thiscall ret24; same receiver calls matched Weapon getStatus/getRemainingAmmo; allocated Weapon reaches wrapper via 2CE9DD and 2CEA01; BFME1 nine-arg overload supplies name; control-arg meanings remain donor-derived
-?privateForceAttackObject@AIUpdateInterface@@MAEXPAVObject@@HW4CommandSourceType@@@Z,0x0026BEE6,address read from the REL32 displacement at a placed body
 ?privateMoveToPosition@AIUpdateInterface@@MAEXPBUCoord3D@@MW4CommandSourceType@@@Z,0x0026B487,callee read from retail REL32 at a given-back caller; byte-verified in the solo fork as Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateCommands.cpp (row not yet given back)
 ?process@Rva0045F0A0@@QAEXPAURva0045F0A0Input@@@Z,0x00410619,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?processAck@Connection@@QAEPAVNetCommandRef@@PAVNetAckBothCommandMsg@@@Z,0x0058BD4F,Zero Hour Connection::processAck(NetAckBothCommandMsg *): processAck(NetCommandMsg *) 0x0058BD7B calls it at 0x0058BD94 for command type 0; folded with the stage-1 overload into the rowed body 0x0058BD4F
