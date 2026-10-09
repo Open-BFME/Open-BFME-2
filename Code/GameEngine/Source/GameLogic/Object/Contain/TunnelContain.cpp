@@ -36,21 +36,40 @@ class Rva004F56FC
 public:
 	void rva004F56FC(Object *obj);
 };
-class Object
-{
+#include "../../../../../Libraries/Include/Lib/Coord3D.h"
+#include "../../../Common/GameLogicObjectLookupView.h"
+class Drawable { public: void setDrawableHidden(bool hidden); };
+struct Rva0047DD2DTemplate { char pad[0x554]; unsigned int occlusionDelay; };
+class Thing {
 public:
-	Player *getControllingPlayer() const;
+    void setPosition(const Coord3D *position);
+    Drawable *getDrawable() const;
+    const Coord3D *getPosition() const { return &position; }
+    const Rva0047DD2DTemplate *getTemplate() const { return objectTemplate; }
+private:
+    char pad0[4]; const Rva0047DD2DTemplate *objectTemplate;
+    char pad8[0x38-8]; Coord3D position;
 };
+enum DisabledType { DISABLED_HELD = 3 };
+class Object : public Thing {
+public:
+    Player *getControllingPlayer() const;
+    bool clearDisabled(DisabledType type);
+    void rva0028DCC4();
+    char pad44[0x428-0x44]; unsigned int safeOcclusionFrame;
+    char pad42C[0x454-0x42c]; bool flag454;
+};
+extern GameLogic *TheGameLogic;
 class Player
 {
 public:
 	unsigned char m_pad000[0x2E8];
 	TunnelTracker *m_2E8; // WB names the list visitor; the sibling manager is the same tracker.
 };
-struct B00 { virtual void f00(); const ModuleData *m_moduleData; Object *m_object; };
+struct B00 { virtual void f00(); virtual void p01(); virtual void p02(); virtual void p03(); virtual void p04(); virtual void p05(); virtual void p06(); virtual void p07(); virtual void p08(); virtual void p09(); virtual void p10(); virtual void p11(); virtual void p12(); virtual void p13(); virtual void p14(); virtual void p15(); virtual void p16(); virtual void p17(); virtual void p18(); virtual void p19(); virtual void p20(); virtual void p21(); virtual void rvaPrimary58(); const ModuleData *m_moduleData; Object *m_object; };
 struct B0C { virtual void f0C(); };
 struct B10 { virtual void f10(); int m_14; int m_18; Object *m_1C; };
-struct B20 { virtual void f20(); };
+struct B20 { virtual void f20(); virtual void c01(); virtual void c02(); virtual void c03(); virtual void c04(); virtual void c05(); virtual void c06(); virtual void c07(); virtual void c08(); virtual void c09(); virtual void c10(); virtual void c11(); virtual void c12(); virtual void c13(); virtual void c14(); virtual void c15(); virtual void c16(); virtual void c17(); virtual void c18(); virtual void c19(); virtual void c20(); virtual void c21(); virtual void c22(); virtual void onRemoving(Object *object); };
 struct B24 { virtual void f24(); };
 struct B28 { virtual void f28(); };
 struct B2C { virtual void f2C(); };
@@ -133,11 +152,17 @@ public:
 	virtual void s72();
 	virtual void rva0047DCDF(Rva004F553FCb cb, void *user, unsigned int flags) = 0;
 };
-class TunnelContain
+class GarrisonContain
 	: public B00, public B0C, public B10, public B20, public B24, public B28, public B2C, public B30
 	, public ContainIface34
 {
 public:
+	virtual void onRemoving(Object *object);
+};
+class TunnelContain : public GarrisonContain
+{
+public:
+	virtual void onRemoving(Object *object);
 	virtual void rva0047DCDF(Rva004F553FCb cb, void *user, unsigned int flags);
 	virtual void rva0047DE30();
 private:
@@ -169,4 +194,19 @@ void TunnelContain::rva0047DE30()
 		return;
 	mgr->rva004F56FC(m_object);
 	m_flag9B1 = 1;
+}
+
+// ZH TunnelContain onRemoving guides release/position/show; native base is GarrisonContain.
+// Native reads454 and554/428 and dispatches primary58 after the +20 override.
+void TunnelContain::onRemoving(Object *obj)
+{
+    GarrisonContain::onRemoving(obj);
+    obj->clearDisabled(DISABLED_HELD);
+    if (!obj->flag454) obj->rva0028DCC4();
+    obj->setPosition(m_object->getPosition());
+    if (obj->getDrawable()) {
+        obj->safeOcclusionFrame = TheGameLogic->getFrame() + obj->getTemplate()->occlusionDelay;
+        obj->getDrawable()->setDrawableHidden(false);
+    }
+    rvaPrimary58();
 }
