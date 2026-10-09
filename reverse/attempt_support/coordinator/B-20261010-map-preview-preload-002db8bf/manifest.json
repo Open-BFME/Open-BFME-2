@@ -1,0 +1,25 @@
+{
+  "id": "B-20261010-map-preview-preload-002db8bf",
+  "seat": "B",
+  "base_commit": "a30fb85c6b848536e8f2dfd7e5acbd461d36b12e",
+  "paths": [
+    "Code/GameEngine/Source/GameClient/MapPreviewTextureAsset.cpp"
+  ],
+  "recoveries": [
+    {
+      "name": "?PreLoad@MapPreviewTextureAssetFactory@@UAEXXZ",
+      "rva": "0x002DB8BF",
+      "size": 127,
+      "source": "Code/GameEngine/Source/GameClient/MapPreviewTextureAsset.cpp",
+      "notes": "WB1157BB0 names MapPreviewTextureAssetFactory PreLoad and asserts m_impl NULL at MapPreviewTextureAsset.cpp51; native2DB8BF..2DB93E proves complete127B body. Constructor2DB882 installs vtable803E48 with this method in slot1 at803E4C. Allocation58 and descriptor30/34/38 into impl44/4C/48 follow matched TextureAsset Factory sibling; native file10 plus delete-on-close byteD proved separately. Three callees already rowed. Explicit filename and filesystem locals reproduce WB shape and retail scheduling. Entire127B body and all relocation bindings and EH graph exact under Os MD GX. No new pins or assembly.",
+      "replace_rva": ""
+    }
+  ],
+  "proof_command": "python tools/explain_mismatch.py \"?PreLoad@MapPreviewTextureAssetFactory@@UAEXXZ\" --rva 0x002DB8BF --size 127 --source Code/GameEngine/Source/GameClient/MapPreviewTextureAsset.cpp; python build/verify-map-preview-preload.py (copied as verify-candidate.py)",
+  "proof_log": "proof.log",
+  "claim_owner": "codex-01a12257-recovery",
+  "dependencies": [],
+  "ledger_delta": "No local ledger edits. One new row and one new source file.",
+  "provider_notes": "Three callees are existing rows: operator new2FDA0; Rva0013107A constructor13107A85B; BFME2 FileSystem openFile600C34329B with filename and two integer arguments. TheFileSystem binding A06A48 is present in existing data ledger under the real name with provisional evidence and an existing BFME2FileFacade alias; no alias or pin added here. Final integration data/link checks remain delegated. Target class virtual identity is independently proved by constructor2DB882 and table803E48 rather than inferred from instruction shape.",
+  "proof_exit_code": 0
+}
