@@ -5,8 +5,8 @@
 // Identity and layout:
 // - "RTS3DScene" is the setName string. The donor is Zero Hour's
 //   RTS3DScene::RTS3DScene (W3DScene.cpp); the BFME 1 copy is an asm dump.
-// - Bases: the pinned scene base ctor 0x00142960 (Rva00142960Base, BFME 2's
-//   SimpleSceneClass), then SubsystemInterface at +0x108.
+// - Bases: the matched SimpleSceneClass ctor at 0x00142960, then
+//   SubsystemInterface at +0x108.
 // - Members:
 //   - the BfmeRefSceneList at +0x114 (rowed GenericMultiListClass ctor,
 //     nothrow, then vtable 0x007C6260);
@@ -23,6 +23,7 @@
 #include "ascii_string.h"
 
 void *operator new[](unsigned int size);
+void operator delete[](void *p);
 
 typedef int Int;
 typedef float Real;
@@ -30,11 +31,11 @@ typedef bool Bool;
 
 class RenderObjClass;
 
-class Rva00142960Base
+class SimpleSceneClass
 {
 public:
-	Rva00142960Base();
-	virtual ~Rva00142960Base();
+	SimpleSceneClass();
+	virtual ~SimpleSceneClass();
 	char m_pad004[0x108 - 0x04];
 };
 
@@ -168,7 +169,7 @@ struct RTS3DSceneVector3
 	void Set(Real x, Real y, Real z) { X = x; Y = y; Z = z; }
 };
 
-class RTS3DScene : public Rva00142960Base, public SubsystemInterface
+class RTS3DScene : public SimpleSceneClass, public SubsystemInterface
 {
 public:
 	RTS3DScene();
@@ -252,4 +253,64 @@ RTS3DScene::RTS3DScene()
 	m_potentialOccludees = new RenderObjClass *[TheGlobalData->m_maxVisibleOccludeeObjects];
 	m_nonOccludersOrOccludees = new RenderObjClass *[TheGlobalData->m_maxVisibleNonOccluderOrOccludeeObjects];
 	m_814 = 0;
+}
+
+// ??1RTS3DScene@@UAE@XZ retail 0x0006F7BD..0x0006F926 (362 bytes, EH).
+// Target identity/layout: the matched constructor at 0x6F470 sets the
+// RTS3DScene name and establishes these three LightEnvironmentClass members,
+// ref-counted passes, and array fields. The target body confirms their
+// cleanup offsets and the BfmeRefSceneList / SubsystemInterface / scene-base
+// destructor order. BFME1 Zero Hour supplies the cleanup semantics; BFME2
+// has no mask pass or per-player occlusion-material pass array.
+RTS3DScene::~RTS3DScene()
+{
+	for (Int i = 0; i < 4; i++)
+	{
+		if (m_globalLight[i])
+		{
+			m_globalLight[i]->Release_Ref();
+			m_globalLight[i] = 0;
+		}
+		if (m_infantryLight[i])
+		{
+			m_infantryLight[i]->Release_Ref();
+			m_infantryLight[i] = 0;
+		}
+	}
+
+	if (m_scratchLight)
+	{
+		m_scratchLight->Release_Ref();
+		m_scratchLight = 0;
+	}
+
+	if (m_shroudMaterialPass)
+	{
+		((RefCountClass *)m_shroudMaterialPass)->Release_Ref();
+		m_shroudMaterialPass = 0;
+	}
+
+	if (m_heatVisionMaterialPass)
+	{
+		m_heatVisionMaterialPass->Release_Ref();
+		m_heatVisionMaterialPass = 0;
+	}
+
+	if (m_heatVisionOnlyPass)
+	{
+		m_heatVisionOnlyPass->Release_Ref();
+		m_heatVisionOnlyPass = 0;
+	}
+
+	if (m_translucentObjectsBuffer)
+		delete [] m_translucentObjectsBuffer;
+
+	if (m_nonOccludersOrOccludees)
+		delete [] m_nonOccludersOrOccludees;
+
+	if (m_potentialOccludees)
+		delete [] m_potentialOccludees;
+
+	if (m_potentialOccluders)
+		delete [] m_potentialOccluders;
 }

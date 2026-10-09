@@ -221,44 +221,8 @@ RTS3DScene::RTS3DScene()
 //=============================================================================
 // RTS3DScene::~RTS3DScene
 //=============================================================================
-/** */
-//=============================================================================
-// ?RTS3DScene::~RTS3DScene present-unmatched
-RTS3DScene::~RTS3DScene()
-{
-	for (Int i=0; i<LightEnvironmentClass::MAX_LIGHTS; i++)
-	{
-		REF_PTR_RELEASE(m_globalLight[i]);
-		REF_PTR_RELEASE(m_infantryLight[i]);
-	}
-
-	REF_PTR_RELEASE(m_scratchLight);
-
-	REF_PTR_RELEASE(m_shroudMaterialPass);
-
-	REF_PTR_RELEASE(m_maskMaterialPass);
-
-	REF_PTR_RELEASE(m_heatVisionMaterialPass);
-
-	REF_PTR_RELEASE(m_heatVisionOnlyPass);
-
-	if (m_translucentObjectsBuffer)
-		delete [] m_translucentObjectsBuffer;
-
-	if (m_nonOccludersOrOccludees)
-		delete [] m_nonOccludersOrOccludees;
-
-	if (m_potentialOccludees)
-		delete [] m_potentialOccludees;
-
-	if (m_potentialOccluders)
-		delete [] m_potentialOccluders;
-
-	for (i=0; i<MAX_PLAYER_COUNT; i++)
-	{	REF_PTR_RELEASE(m_occludedMaterialPass[i]);
-	}
-
-}  // end ~RTS3DScene
+// Definition is in RTS3DSceneCtor.cpp, whose private class view matches the
+// BFME2 layout rather than Zero Hour's mask and per-player material passes.
 
 
 // ?RTS3DScene::setGlobalLight present-unmatched

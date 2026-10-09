@@ -1,6 +1,8 @@
 // ?Update@WaitForBattleStateHandler@Impl@BattleResolver@StrategicInGameUI@@UAEXXZ
 // partial score=0.9834761011708653 date=2026-10-09
 // ?Update@WaitForBattleStateHandler@Impl@BattleResolver@StrategicInGameUI@@UAEXXZ
+// partial score=0.9834761011708653 date=2026-10-09
+// ?Update@WaitForBattleStateHandler@Impl@BattleResolver@StrategicInGameUI@@UAEXXZ
 // partial score=0.7201644958876028 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
 //
