@@ -2,6 +2,25 @@
 // ?rva003FDEAD@Rva003FDEAD@@QAEXXZ @0x003FDEAD 110B: __thiscall void method guarding on +0x14 ref and +0x38 then BfmeAudioEventPrefix136(ref 1) plus +0x70 from +0x38->+0x54 then TheAudio addAudioEvent slot 0x64. Evidence: rowed ctor 0x002D97D6 plus rowed dtor 0x002D9A43 plus TheAudio 0x009FE6E8 plus caller 0x003191CA plus sibling Rva003184B8 same slot pattern.
 #include "Common/BfmeAudioEventPrefix136.h"
 
+// Native 3FDF1B/3FDF8B/3FDFFB call tag4 ctor2DA5D3 and prefix dtor2D9A43.
+// The 0x88-byte aligned storage owns that exact lifetime without a second
+// destructor. Only +14 reference slots18/1C/20 and +38 owner20/54 are asserted.
+// Original helper names remain unknown; existing home-TU /O2 settings close
+// the banked /O1 guard scheduling delta in all three independent bodies.
+struct Rva002DA5D3 { Rva002DA5D3(const OpaqueRefElement4&,int); };
+union EventStorage003FDF1B { int align; unsigned char bytes[0x88]; };
+class OwnerAudioEvent003FDF1B {
+ EventStorage003FDF1B storage;
+public:
+ __forceinline OwnerAudioEvent003FDF1B(const OpaqueRefElement4 &ref,int id) {
+  ((Rva002DA5D3*)&storage)->Rva002DA5D3::Rva002DA5D3(ref,id);
+ }
+ __forceinline ~OwnerAudioEvent003FDF1B() {
+  ((BfmeAudioEventPrefix136*)&storage)->BfmeAudioEventPrefix136::~BfmeAudioEventPrefix136();
+ }
+ __forceinline BfmeAudioEventPrefix136 *get() {return (BfmeAudioEventPrefix136*)&storage;}
+};
+
 class AudioManager;
 extern AudioManager *TheAudio;
 
@@ -38,13 +57,16 @@ public:
 
 struct Rva003FDEADRefBlock
 {
-	char m_pad[0x24];
+	char m_pad[0x18];
+	OpaqueRefElement4 ref18, ref1c, ref20;
 	OpaqueRefElement4 m_ref;
 };
 
 struct Rva003FDEADParam38
 {
-	char m_pad[0x54];
+	char m_pad[0x20];
+	int id;
+	char m_pad24[0x30];
 	int m_val54;
 };
 
@@ -56,6 +78,9 @@ class Rva003FDEAD
 	Rva003FDEADParam38 *m_p38;
 public:
 	void rva003FDEAD();
+	void rva003FDF1B();
+	void rva003FDF8B();
+	void rva003FDFFB();
 };
 
 void Rva003FDEAD::rva003FDEAD()
@@ -68,4 +93,33 @@ void Rva003FDEAD::rva003FDEAD()
 	BfmeAudioEventPrefix136 evt(blk->m_ref, 1);
 	evt.m_int70 = m_p38->m_val54;
 	reinterpret_cast<Rva003FDEADAudioView *>(TheAudio)->addAudioEvent(&evt);
+}
+
+void Rva003FDEAD::rva003FDF1B()
+{
+	if (!m_p14->ref1c.referent) return;
+	if (!m_p38) return;
+	Rva003FDEADRefBlock *block=m_p14;
+	OwnerAudioEvent003FDF1B event(block->ref1c,m_p38->id);
+	event.get()->m_int70=m_p38->m_val54;
+	reinterpret_cast<Rva003FDEADAudioView *>(TheAudio)->addAudioEvent(event.get());
+}
+
+void Rva003FDEAD::rva003FDF8B()
+{
+	if (!m_p14->ref20.referent) return;
+	if (!m_p38) return;
+	Rva003FDEADRefBlock *block=m_p14;
+	OwnerAudioEvent003FDF1B event(block->ref20,m_p38->id);
+	event.get()->m_int70=m_p38->m_val54;
+	reinterpret_cast<Rva003FDEADAudioView *>(TheAudio)->addAudioEvent(event.get());
+}
+
+void Rva003FDEAD::rva003FDFFB()
+{
+	if (!m_p14->ref18.referent) return;
+	if (!m_p38) return;
+	Rva003FDEADRefBlock *block=m_p14;
+	OwnerAudioEvent003FDF1B event(block->ref18,m_p38->id);
+	reinterpret_cast<Rva003FDEADAudioView *>(TheAudio)->addAudioEvent(event.get());
 }
