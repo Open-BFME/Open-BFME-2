@@ -22,6 +22,7 @@ template<class T> class RefCountPtr
 public:
 	T* p;
  RefCountPtr &operator=(const BFME2TextureRef&);
+ RefCountPtr &operator=(const RefCountPtr &x) {if(x.p)++x.p->NumRefs;if(p)p->Release_Ref();p=x.p;return *this;}
 	RefCountPtr() : p(0) {}
 	~RefCountPtr() { if (p) p->Release_Ref(); }
 	bool operator==(const RefCountPtr& o) const { return p == o.p; }
@@ -133,10 +134,12 @@ public:
 protected:
 	TextureCategoryList texture_category_list[MAX_PASSES];
 public:
-	DX8TextureCategoryClass* Find_Matching_Texture_Category(const BfmeHandleCX& t, unsigned pass, unsigned stage, DX8TextureCategoryClass* ref);
+	
 	void Remove_Texture_Category(DX8TextureCategoryClass* t);
 	void Change_Polygon_Renderer_Material(DX8PolygonRendererList&,VertexMaterialClass*,VertexMaterialClass*,unsigned);
+ void Change_Polygon_Renderer_Texture(DX8PolygonRendererList&,const RefCountPtr<TextureClass>&,const RefCountPtr<TextureClass>&,unsigned,unsigned);
 protected:
+ DX8TextureCategoryClass* Find_Matching_Texture_Category(const BfmeHandleCX&,unsigned,unsigned,DX8TextureCategoryClass*);
  DX8TextureCategoryClass *Find_Matching_Texture_Category(VertexMaterialClass*,unsigned,DX8TextureCategoryClass*);
 };
 
@@ -260,6 +263,80 @@ void DX8FVFCategoryContainer::Change_Polygon_Renderer_Material(
 		PolyRemover *rem=prli.Peek_Obj();
 		rem->src->Remove_Polygon_Renderer(rem->pr);
 		rem->dest->Add_Polygon_Renderer(rem->pr);		
+		prli.Remove_Current_Object();
+		::delete rem;
+	}
+}
+
+void DX8FVFCategoryContainer::Change_Polygon_Renderer_Texture(
+	DX8PolygonRendererList& polygon_renderer_list,
+	const RefCountPtr<TextureClass>& texture,
+	const RefCountPtr<TextureClass>& new_texture,
+	unsigned pass,
+	unsigned stage)
+{
+	Rva001447B0 prl;
+	PolyRemoverList* prlList = reinterpret_cast<PolyRemoverList*>(&prl);
+	bool foundtexture = false;
+	if (texture == new_texture)
+		return;
+	TextureCategoryListIterator src_it(&texture_category_list[pass]);
+	while (!src_it.Is_Done()) {
+		DX8TextureCategoryClass* src_tex_category = src_it.Peek_Obj();
+		if (reinterpret_cast<BFME2TextureCategory*>(src_tex_category)->Get_Texture(stage) == texture) {
+			foundtexture = true;
+			DX8PolygonRendererListIterator poly_it(&polygon_renderer_list);
+			while (!poly_it.Is_Done()) {
+				DX8PolygonRendererClass* polygon_renderer = poly_it.Peek_Obj();
+				DX8TextureCategoryClass* prc = polygon_renderer->Get_Texture_Category();
+				if (prc == src_tex_category) {
+					DX8TextureCategoryClass* dest_tex_category = Find_Matching_Texture_Category(reinterpret_cast<const BfmeHandleCX&>(new_texture), pass, stage, src_tex_category);
+					if (!dest_tex_category) {
+						RefCountPtr<TextureClass> tmp_textures[2];
+						for (int s = 0; s < 2; ++s) {
+							tmp_textures[s] = reinterpret_cast<BFME2TextureCategory*>(src_tex_category)->Get_Texture(s);
+						}
+ tmp_textures[stage]=new_texture;
+						DX8TextureCategoryClass* new_tex_category = new DX8TextureCategoryClass(
+							this,
+							(TextureClass**)tmp_textures,
+							src_tex_category->Peek_Shader(),
+							src_tex_category->Peek_Material(),
+							pass);
+						bool found_similar_category = false;
+						TextureCategoryListIterator tex_it(&texture_category_list[pass]);
+						while (!tex_it.Is_Done()) {
+							if (reinterpret_cast<BFME2TextureCategory*>(tex_it.Peek_Obj())->Get_Texture(0) == tmp_textures[0]) {
+								texture_category_list[pass].Add_After(new_tex_category, tex_it.Peek_Obj());
+								found_similar_category = true;
+								break;
+							}
+							tex_it.Next();
+						}
+						if (!found_similar_category) {
+							texture_category_list[pass].Add_Tail(new_tex_category);
+						}
+						dest_tex_category = new_tex_category;
+					}
+					PolyRemover* rem = new PolyRemover;
+					rem->src = src_tex_category;
+					rem->dest = dest_tex_category;
+					rem->pr = polygon_renderer;
+					prlList->Add(rem);
+				}
+				poly_it.Next();
+			}
+		} else {
+			if (foundtexture)
+				break;
+		}
+		src_it.Next();
+	}
+	PolyRemoverListIterator prli(reinterpret_cast<PolyRemoverList*>(&prl));
+	while (!prli.Is_Done()) {
+		PolyRemover* rem = prli.Peek_Obj();
+		rem->src->Remove_Polygon_Renderer(rem->pr);
+		rem->dest->Add_Polygon_Renderer(rem->pr);
 		prli.Remove_Current_Object();
 		::delete rem;
 	}
