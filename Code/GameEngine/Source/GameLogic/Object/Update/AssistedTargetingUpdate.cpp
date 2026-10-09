@@ -138,31 +138,8 @@ void AssistedTargetingUpdate::assistAttack( const Object *requestingObject, Obje
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
-// ?AssistedTargetingUpdate::makeFeedbackLaser present-unmatched
-void AssistedTargetingUpdate::makeFeedbackLaser( const ThingTemplate *laserTemplate, const Object *from, const Object *to )
-{
-	if( !getObject()->getControllingPlayer() )
-		return;
+// makeFeedbackLaser: owned by AssistedTargetingUpdateFeedbackLaser.cpp
 
-	Team *laserTeam = getObject()->getControllingPlayer()->getDefaultTeam();
-	Object *laser = TheThingFactory->newObject( laserTemplate, laserTeam );
-	if( !laser )
-		return;
-
-	// Give it a good basis in reality to ensure it can draw when on screen.
-	laser->setPosition(from->getPosition());
-	
-	Drawable *draw = laser->getDrawable();
-	static const NameKeyType key_LaserUpdate = NAMEKEY( "LaserUpdate" );
-	LaserUpdate *update = (LaserUpdate*)draw->findClientUpdateModule( key_LaserUpdate );
-	if( !update )
-	{
-		TheGameLogic->destroyObject( laser );
-		return;
-	}
-
-	update->initLaser( getObject(), to, from->getPosition(), to->getPosition(), "" );
-}
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
