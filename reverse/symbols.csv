@@ -16532,3 +16532,4 @@ _D3DXVec3TransformCoordArray@24,0x0062AF6E,Native 0x00107A47 REL32 reaches six-b
 ?rva004FFB00@Rva0059CFAACallee@@QAEPAURva004FFB00Hero@@HPAH0@Z,0x004FFB00,thiscall spelling read from the callee body (ECX save / hidden result or AL / EAX use / struct by value); callers 0x0059C010 and 0x00276BA9
 ?rva0026FFF7@Rva0026FFF7@@QAE_NXZ,0x0026FFF7,thiscall spelling read from the callee body (ECX save / hidden result or AL / EAX use / struct by value); callers 0x0059C010 and 0x00276BA9
 ?rva002747B8@Rva002747B8@@QAEXURGBColor@@@Z,0x002747B8,thiscall spelling read from the callee body (ECX save / hidden result or AL / EAX use / struct by value); callers 0x0059C010 and 0x00276BA9
+?Rva0013682BCreateRenderObj@@YAPAVRenderObjClass@@PBDMABVRva0013101E@@AAV?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@22@Z,0x0013682B,callee of ?Rva00137364CreateRenderObj@@YAPAVRenderObjClass@@PBDMABVRva0013101E@@@Z

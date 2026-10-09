@@ -55,7 +55,23 @@ static bool UnMangleName(const char *mangledName,AsciiString &name,float &scale,
  }
  return result;
 }
-// ?RenderAssetParseTrial absent-from-retail
-bool RenderAssetParseTrial(const char *input,AsciiString &name,float &scale,
- RenderAssetOptions &options,Strings &textures,Strings &replacements,Strings &excluded)
-{ return UnMangleName(input,name,scale,options,textures,replacements,excluded); }
+class Rva0013101E {
+public: Rva0013101E &rva0013101E(const Rva0013101E *);
+ unsigned m_a:3,m_b:27,m_c:1,m_keep:1;unsigned m_d1,m_d2,m_d3;
+};
+class RenderObjClass;
+RenderObjClass *Rva0013682BCreateRenderObj(const char *,float,const Rva0013101E &,Strings &,Strings &,Strings &);
+// WB9B3AE0 RenderAsset::CreateRenderObj; retain the established target
+// provider spelling used by W3DMouse and W3DGhostObjectScene.
+// Native137364..137461. Options are copied through the proven13101E worker.
+RenderObjClass *Rva00137364CreateRenderObj(const char *name,float scale,const Rva0013101E &sourceOptions)
+{
+ if(!name)return 0;
+ AsciiString baseName(name);
+ float localScale=scale;
+ Rva0013101E options;
+ options.rva0013101E(&sourceOptions);
+ Strings textures,replacements,excluded;
+ if(name[0]=='#') UnMangleName(name,baseName,localScale,reinterpret_cast<RenderAssetOptions &>(options),textures,replacements,excluded);
+ return Rva0013682BCreateRenderObj(baseName.str(),localScale,options,textures,replacements,excluded);
+}
