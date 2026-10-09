@@ -7,9 +7,8 @@
 // News 0x10-byte ref-counted impl (vtable RVA 0x0086ECB4), copies 8-byte
 // [object, method] payload from the DelegateDesc arg, stores impl to wrapper
 // at +0 and AddRefs (inc [eax+4] from 0 to 1), returns *this (mov eax,esi).
-// Evidence: vtable 0x00C6ECB4 (9 slots: slot0 deleting dtor 0x005FAA31,
-// slot1 thunk 0x005B4C73 mov ecx,[eax+8] jmp [eax+0xc], slot2 ICF getter
-// 0x004C54EC); two call sites in StatsDisplay ctor 0x00579E82 (RollOver with
+// Evidence: vtable 0x00C6ECB4 (two slots: slot0 deleting dtor 0x005FAA31,
+// slot1 thunk 0x005B4C73 mov ecx,[eax+8] jmp [eax+0xc]); two call sites in StatsDisplay ctor 0x00579E82 (RollOver with
 // method 0x00579B81 and RollOut with 0x00579C00, via ObjectCreationList add
 // 0x0052458E); strings _level%u. _OnStatRollOver _OnStatRollOut StatsDisplay
 // STRATEGICHUD:Stats* _OnClicked. Flags /O1 (inc, pop ecx cleanup of push
@@ -30,6 +29,7 @@ struct ImplBase {
 };
 
 struct Impl : ImplBase {
+    virtual void rva005b4c73(const char *argument);
     void *m_object;
     void *m_method;
     Impl(const DelegateDesc &d) : m_object(d.m_object), m_method(d.m_method) {}
@@ -133,4 +133,26 @@ Rva0052A7C1 &Rva0052A7C1::rva0052A7C1(const DelegateDesc *d)
     if (p)
         p->m_ref++;
     return *this;
+}
+
+// BF1 f98983a7d3bb405f1a4ba94bb6a2a168062a819d
+// Common/FunctorBindSingleInvokers.cpp guides the4-byte member binding.
+// Its void/no-argument signature is not target evidence: native579E82 binds
+// the existing StatsDisplay OnStatRollOver579B81/OnStatRollOut579C00 callbacks
+// with one text pointer (RET4). Native579E47/525489 install C6ECB4 and copy
+// {object+8 code+C}; its independently complete two-slot table places this
+// complete5B4C73..5B4C7B entry at slot1. The chosen method spelling is its
+// address; Impl is an existing linker key and original target name is unknown.
+class __single_inheritance Rva005B4C73Target;
+typedef void (Rva005B4C73Target::*Rva005B4C73Method)(const char *);
+
+void Impl::rva005b4c73(const char *argument)
+{
+    union
+    {
+        void *code;
+        Rva005B4C73Method method;
+    } binding;
+    binding.code = m_method;
+    (static_cast<Rva005B4C73Target *>(m_object)->*binding.method)(argument);
 }
