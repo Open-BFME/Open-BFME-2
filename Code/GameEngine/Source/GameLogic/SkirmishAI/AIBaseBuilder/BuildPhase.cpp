@@ -1,7 +1,8 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc /ICode/GameEngine/Source/Common
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc /ICode/GameEngine/Source/Common /Ireference/shims/bfme2_ascii
 // Native5DCCFB..5DCDD9 complete222; WB15D2AF0 BuildPhase::update.
 // stlport
 #include <vector>
+#include "ascii_string.h"
 #include "GameLogicObjectLookupView.h"
 // WB15D2AF0 names this BuildPhase::update in BuildPhase.cpp; the complete
 // native entry5DCCFB..5DCDD9 is222 bytes. Explicit RVA disassembly disproves
@@ -21,12 +22,13 @@ class Rva00573E7C {public:
  virtual void slot00();virtual void slot04();virtual float slot08();
  virtual void slot0c();virtual void slot10();virtual void slot14();
  virtual void slot18(void *,int);virtual void slot1c(int);
- float cost;int retries;char pad0c[4];int state;char pad14[0x54-0x14];bool required;
+ float cost;int retries;AsciiString templateName;int state;char pad14[0x54-0x14];bool required;
  char pad55[3];unsigned deadline;unsigned attempts;
 };
+class Rva005AD9C0Hit;
 class Rva005DCE08 {public:
  bool complete,started,costsSet;_STL::vector<Rva00573E7C*> orders;int phase;void *player;
- void rva005DCCFB();
+ void rva005DCCFB();Rva005AD9C0Hit*rva005DCC86(void*);
 };
 void Rva005DCE08::rva005DCCFB(){
  Rva002A8AB1Record *ai=g_00DFEEF8->rva002A8AB1(player);
@@ -51,4 +53,30 @@ void Rva005DCE08::rva005DCCFB(){
   }
   complete=true;
  }
+}
+
+class ThingTemplate;
+class ThingFactory;
+extern ThingFactory*TheThingFactory;
+class Rva002D06CA {public:void*rva002D06CA(const AsciiString*);};
+class BuildAssistant {public:bool rva00391AA1(const ThingTemplate*,const ThingTemplate*);};
+extern BuildAssistant*TheBuildAssistant;
+// Native5DCC86..5DCCFB full117 RET4; BuildPhase vector4/8 and
+// order template-name0C are read directly from retail. AITactic/AIBase
+// lookup siblings guide the registry and build-compatibility calls; no clean
+// BFME1/ZH BuildPhase source exists at f98983a7d3bb. Preserve the established
+// opaque input and hit-pointer ABI: the registry consumes the input as a
+// string key and the outer AIBase caller only tests the returned pointer.
+// Native loop deliberately returns the LAST compatible unfinished order.
+Rva005AD9C0Hit*Rva005DCE08::rva005DCC86(void*key) {
+ Rva00573E7C*selected=0;
+ for(Rva00573E7C**it=orders.begin();it!=orders.end();++it) {
+  Rva00573E7C*order=*it;
+  if(!((Rva004E9378*)order)->rva004E9378()) {
+   const ThingTemplate*first=(const ThingTemplate*)((Rva002D06CA*)TheThingFactory)->rva002D06CA(&order->templateName);
+   const ThingTemplate*second=(const ThingTemplate*)((Rva002D06CA*)TheThingFactory)->rva002D06CA((const AsciiString*)key);
+   if(first&&second&&TheBuildAssistant->rva00391AA1(first,second))selected=order;
+  }
+ }
+ return (Rva005AD9C0Hit*)selected;
 }

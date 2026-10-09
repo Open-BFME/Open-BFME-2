@@ -12039,7 +12039,6 @@ name,address,notes
 ?rva005DC8A2@Rva005DC87B@@QAE_NXZ,0x005DC8A2,Rva005DC87B tactic base search over the owner's objects (rowed under the address name Rva005DC8A2); REL32 at 0x005A9B0E in the SiegeGates slot 1
 ?rva005DCAE5@Rva005DC87B@@QAEPAVObject@@XZ,0x005DCAE5,Rva005DC87B tactic base: the target object; REL32 at 0x005A9B2F in SiegeGates 0x005A9B20
 ?rva005DCAF4@Rva005DC87B@@QAE_NXZ,0x005DCAF4,Rva005DC87B tactic base test; REL32 at 0x005A9BC0 in the SiegeGates slot 7
-?rva005DCC86@Rva005DCE08@@QAEPAVRva005AD9C0Hit@@PAX@Z,0x005DCC86,item hit test returning a polymorphic hit; REL32 at 0x005AD9D1 in Rva005ADA40::rva005AD9C0
 ?rva005DCCFB@Rva005DCE08@@QAEXXZ,0x005DCCFB,per-item update; REL32 at 0x005ADCAF in Rva005ADA40::rva005ADC63
 ?rva005DCE62@Rva005DCE08@@QAEXPAVRva00573E7C@@@Z,0x005DCE62,AIBase item takes an order; REL32 at 0x005AE084 in Rva005ADA40::rva005ADE1D
 ?rva005DCEAD@Rva005DCE08@@QAEXPAVXfer@@@Z,0x005DCEAD,per-item xfer of the Rva005ADA40 element's +0x00 item vector; REL32 at 0x005AE1E6 in Rva005ADA40::rva005AE0AD
