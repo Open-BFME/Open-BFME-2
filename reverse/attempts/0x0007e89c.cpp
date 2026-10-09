@@ -1,5 +1,5 @@
 // ?headB@Rva00066A9ASub@@QAEXXZ
-// partial score=0.98 date=2026-10-07
+// partial score=0.98 date=2026-10-09
 // cl: /O1 /EHsc /MD
 //
 // Dump range 1. The 0x66A9A host body calls this subobject's headB through the
@@ -24,16 +24,19 @@ class RefCountPtr
 {
 public:
 	T *Referent;
+	RefCountPtr() : Referent(0) {}
+	RefCountPtr(const RefCountPtr &other) : Referent(other.Referent) { if (Referent) ++*(unsigned short *)((char *)Referent + 4); }
 	~RefCountPtr() { if (Referent) Referent->Release_Ref(); }
 	RefCountPtr const &operator=(RefCountPtr const &other);
 };
 
-RefCountPtr<TextureClass> __cdecl rva0011E120(int width, int height, int format);
+enum WW3DFormat { WW3D_FORMAT_UNKNOWN = 0 };
+class DX8Wrapper { public: static RefCountPtr<TextureClass> Create_Render_Target(int width, int height, WW3DFormat format); };
 
-class Rva000FE065
+class WaterTracksRenderSystem
 {
 public:
-	void rva000FE065();
+	void ReAcquireResources();
 };
 
 void BFME_DX8_Thread_Lock();
@@ -60,7 +63,7 @@ private:
 	char m_pad[0xF8];
 	RefCountPtr<TextureClass> m_texture; // +0xF8
 	char m_padFC[4];
-	Rva000FE065 *m_helper; // +0x100
+	WaterTracksRenderSystem *m_helper; // +0x100
 };
 
 class Rva00066A9AHost
@@ -78,21 +81,10 @@ void Rva00066A9ASub::headB()
 {
 	Rva00066A9ADx8Guard guard;
 	{
-		setHeadBTexture(rva0011E120(0x200, 0x200, 0));
+		m_texture = DX8Wrapper::Create_Render_Target(0x200, 0x200, WW3D_FORMAT_UNKNOWN);
 	}
 
 	if (m_helper)
-		m_helper->rva000FE065();
+		m_helper->ReAcquireResources();
 }
 
-void Rva00066A9AHost::rva00066A9A()
-{
-	headA();
-	Rva00066A9ASub *g = (Rva00066A9ASub *)W3DGCData00DE2000;
-	if (g)
-		g->headB();
-	if (m_3850)
-		m_3850->tailA();
-	if (m_3854)
-		m_3854->tailB();
-}
