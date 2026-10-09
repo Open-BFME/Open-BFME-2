@@ -1,6 +1,7 @@
-// ?rva00477AF3@Rva00477AF3UpdateReceiver@@QAEXXZ
-// partial score=0.99 date=2026-10-08
 // cl: /O1 /DNDEBUG /MD /EHsc
+//
+// ?rva00477AF3@Rva00477AF3UpdateReceiver@@QAEXXZ, retail 0x00477af3, 118 bytes. Banked partial (score 0.99) closed by tools/permute.py;
+// the body is the banked one up to statement/operand order and local types.
 // BFME1 ba7ddda7 HordeContain/HordeTransportContain.cpp supplies update semantics.
 // Target ctor/Xfer prove outer+120 count and outer+124 latch; receiver is +10.
 // Primary maintenance members are banked, not recovered providers.

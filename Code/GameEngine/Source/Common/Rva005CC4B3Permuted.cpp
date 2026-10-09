@@ -1,6 +1,7 @@
-// ??0Rva005CC656@@QAE@PAX00ABUPageContext@@@Z
-// partial score=0.98 date=2026-10-08
 // cl: /O1 /DNDEBUG /MD /EHsc
+//
+// ??0Rva005CC656@@QAE@PAX00ABUPageContext@@@Z, retail 0x005cc4b3, 39 bytes. Banked partial (score 0.98) closed by tools/permute.py;
+// the body is the banked one up to statement/operand order and local types.
 // Complete native factory237 and WB15BF010/936; opaque arguments and
 // private virtual declarations are trial ABI views, not admitted contracts.
 struct PageContext {

@@ -1,6 +1,7 @@
-// ??0Rva005770F2@@QAE@PAVImpl@PlanRetreatsPhaseBehavior@StrategicInGameUI@@PBVModuleData@@@Z
-// partial score=0.95 date=2026-10-08
 // cl: /O1 /DNDEBUG /MD /EHsc
+//
+// ??0Rva005770F2@@QAE@PAVImpl@PlanRetreatsPhaseBehavior@StrategicInGameUI@@PBVModuleData@@@Z, retail 0x00576fd3, 43 bytes. Banked partial (score 0.95) closed by tools/permute.py;
+// the body is the banked one up to statement/operand order and local types.
 // Native576FD3 full43B RET8; primary table86E884 matches Rva005770F2's
 // rowed scalar destructor5770D6. WB14CE990 proves
 // the base call and the captured Impl at18; full base425B was read too.

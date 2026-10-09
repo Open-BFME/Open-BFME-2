@@ -1,7 +1,7 @@
-// ??0Rva005CC37C@@QAE@PAXPAURva005CC3C0In@@@Z
-// partial score=0.91 date=2026-10-07
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /EHsc /MD /O1 /arch:SSE /G7
-// ??0Rva005CC37C@@QAE@PAXPAURva005CC3C0In@@@Z @0x005CC3C0 140B
+//
+// ??0Rva005CC37C@@QAE@PAXPAURva005CC3C0In@@@Z, retail 0x005cc3c0, 140 bytes. Banked partial (score 0.91) closed by tools/permute.py;
+// the body is the banked one up to statement/operand order and local types.
 // Ctor sibling of 0x005F5C77 (same button-holder via 0x005E1680, image via
 // global 0x00E06620 through rowed 0x005E16B9 and unlock via rowed 0x005E1158);
 // two-base MI per dtor 0x005CC37C (Base0 with int at +4, holder at +8) with

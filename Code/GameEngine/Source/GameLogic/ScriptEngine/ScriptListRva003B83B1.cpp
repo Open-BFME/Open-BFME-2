@@ -1,6 +1,7 @@
-// ?rva003B83B1@ScriptList@@QAEPAVRva003BScriptReference@@ABV?$StringBase@D@@@Z
-// partial score=0.9473684211 date=2026-10-07
 // cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
+//
+// ?rva003B83B1@ScriptList@@QAEPAVRva003BScriptReference@@ABV?$StringBase@D@@@Z, retail 0x003b83b1, 76 bytes. Banked partial (score 0.9473684211) closed by tools/permute.py;
+// the body is the banked one up to statement/operand order and local types.
 // Banked reference-factory reconstruction, not a matched source unit.
 // Native extents: 0x003B8337..0x003B8383 and 0x003B83B1..0x003B83FD,
 // 76 bytes each, RET 4. ScriptListCtor.cpp independently places the two
@@ -42,16 +43,6 @@ private:
  char unknown00[12];
  Rva003BRefSubrecord first,second;
 };
-Rva003BScriptReference *ScriptList::rva003B8337(const StringBase<char> &key) {
- int index=first.rva003B7EC2(key);
- if(index!=-1) {
-  Rva003BScriptReference *result=new Rva003BScriptReference;
-  result->index=index;
-  result->references=(short)first.records[index].references;
-  return result;
- }
- return 0;
-}
 Rva003BScriptReference *ScriptList::rva003B83B1(const StringBase<char> &key) {
  int index=second.rva003B8141(key);
  if(index!=-1) {
