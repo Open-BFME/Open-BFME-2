@@ -7,7 +7,7 @@
 // against retail. Native GUID bytes equal580ca87e-1d3c-4d54-991d-b7d3e3c298ce.
 // Method names remain descriptive target-derived names; class owner is the
 // rowed Rva0013107A constructor and surrounding refresh methods.
-// cl: /O1 /Oy- /G7 /MD /EHs
+// cl: /O1 /G7 /MD /EHs
 extern void BFME_DX8_Thread_Lock();
 extern bool BFME_DX8_Thread_Assert();
 struct TextureDeviceLock {TextureDeviceLock(){BFME_DX8_Thread_Lock();}~TextureDeviceLock(){BFME_DX8_Thread_Assert();}};
