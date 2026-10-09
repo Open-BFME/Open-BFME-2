@@ -1,11 +1,19 @@
-// cl: /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /DNDEBUG
+// cl: /O1 /DBFME_ASCII_DTOR_DECL /Ireference/shims/bfme2_ascii /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /DNDEBUG
 // stlport
 // ??0Rva00220B04@@QAE@H@Z, retail 0x00220B04 124B.
-// Ctor with two vectors at +8/+0x14 plus int at +0x20: vtables at +0/+4,
-// second vector resized to global LocomotorStore count. Callers 0x00220B80
-// and 0x00220E30 pass 0. Evidence: rowed Vector_base 0x00211E58 twice,
+// Constructor and destructor share the native 36-byte layout: owning ASCII
+// strings at +8, integer category counts at +0x14, rule at +0x20, tables at +0/+4.
+// The 12-byte category records are counted through the existing global view.
+// The existing Drawable-pointer resize has the same four-byte zero-value ABI.
+// Callers 0x00220B80
+// and 0x00220E30 construct and destroy this same stack object. Evidence:
+// Native destructor 0x00220AA6..0x00220AEB calls the actual ASCII-vector
+// destructor 0x0002CC70 and frees the count storage, restoring 0x00C1C780.
+// Rowed Vector_base 0x00211E58 is a verified fold for both member types.
 // rowed Drawable resize 0x000E6D39, holder g_00DFE490.
 #include <vector>
+#include "ascii_string.h"
+extern const void *const g_00C1C780[];
 
 struct BfmeE16 { float x, y, z, w; };
 class Drawable;
@@ -34,7 +42,7 @@ struct Pointed10 {
 class EmptyBase220B04 {
 public:
 	EmptyBase220B04() {}
-	~EmptyBase220B04();
+	~EmptyBase220B04() { *(unsigned *)this = (unsigned)g_00C1C780; }
 };
 
 struct Root220B04 {
@@ -47,6 +55,7 @@ struct Root220B04 {
 };
 
 struct Base220B04 : public Root220B04 {
+    ~Base220B04() {}
 	Base220B04()
 	{
 		m_v0 = (unsigned)g_00BE6A68;
@@ -57,17 +66,18 @@ struct Base220B04 : public Root220B04 {
 class Rva00220B04 : public EmptyBase220B04, public Base220B04 {
 public:
 	Rva00220B04(int a);
+    ~Rva00220B04();
 private:
-	_STL::vector<BfmeE16, _STL::allocator<BfmeE16> > m_vec08;
-	_STL::vector<BfmeE16, _STL::allocator<BfmeE16> > m_vec14raw;
+	_STL::vector<AsciiString> m_vec08;
+	_STL::vector<int> m_vec14raw;
 	int m_20;
 };
 
 Rva00220B04::Rva00220B04(int a)
 	: EmptyBase220B04(),
 	  Base220B04(),
-	  m_vec08(_STL::allocator<BfmeE16>()),
-	  m_vec14raw(_STL::allocator<BfmeE16>())
+	  m_vec08(_STL::allocator<AsciiString>()),
+	  m_vec14raw(_STL::allocator<int>())
 {
 	m_20 = a;
 	Pointed10 *p = *(Pointed10 **)&g_00DFE490;
@@ -78,3 +88,8 @@ Rva00220B04::Rva00220B04(int a)
 // ?g_00DFE490@@3PAXA: matched references place it at VA 0xdfe490; also referenced as ?g_00DFE490@@3VRva00575674@@A.
 void * g_00DFE490 = 0;
 #pragma comment(linker, "/alternatename:?g_00DFE490@@3VRva00575674@@A=?g_00DFE490@@3PAXA")
+
+Rva00220B04::~Rva00220B04() {}
+
+
+
