@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /MD
+// cl: /O1 /G7 /arch:SSE /MD /EHsc /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include
 // Regional O1/SSE/G7 preserved; /MD imports the native _isnan dependency.
 // Object script-status and disabled-state helpers at retail 0x00291C9B+.
 // Decoded from retail bytes (all verified):
@@ -166,6 +166,9 @@ struct ObjectCrushLevelsView {
  bool gate5fe;
 };
 
+#include "Common/BfmeAudioEventPrefix136.h"
+extern "C" void *memset(void*,int,unsigned int);
+class Rva002D9508 {public:void rva002D9508(const void*);};
 class Object; class Player; class RadarWindowOverrideSource;
 class Drawable { public: void setDrawableHidden(bool); char pad[0x43c]; bool flag43c; };
 class PlayerList { public: char pad[0x10]; Player *local; };
@@ -187,12 +190,25 @@ struct Obj00526309;
 class Rva002D3726 { public: void rva002D3726(Obj00526309 *); };
 extern RadarWindowOverrideSource *theRadarWindowOverrideSource;
 
+template <int N>
+class BitFlags
+{
+public:
+	unsigned int m_bits[(N + 31) / 32];
+ bool any()const;
+ int countInverseIntersection(const BitFlags &)const;
+};
+
+
+class Rva001E4A4E {public:int rva001E4A4E(int);};
+class Rva00270619 {public:void Rva00270619Clear(int);};
 class Object
 {
 public:
 	void setDisabledUntil( DisabledType type, UnsignedInt frame );
 	void setDisabled( DisabledType type );
 	Bool clearDisabled( DisabledType type );
+ void rva0028B292(int)const;void rva0028AE6D();void rva00290357();void rva0028B8A6(bool);
 	void makeDirty( void );
 	void setScriptStatus( ObjectScriptStatusBit bit, Bool set );
 	void setStatus( ObjectStatusTypes bit, Bool flag );
@@ -233,7 +249,8 @@ private:
  unsigned int mountedFlags; // +0x124, target bit22 selects alternate level
  unsigned char m_pad128[0x1C4-0x128];
  float initialZ; // +0x1C4
- unsigned char m_pad1C8[0x1F8-0x1C8];
+ BitFlags<11> disabledMask;
+ unsigned int disabledTill[11];
  int m_unk1F8[11];
  unsigned char m_pad224[0x248-0x224];
  bool squishable; // +0x248, independently witnessed by the native predicate
@@ -332,13 +349,6 @@ void Object::rva00292EB3( DisabledType type )
 		setDisabled( type );
 	++m_unk1F8[ type ];
 }
-
-template <int N>
-class BitFlags
-{
-public:
-	unsigned int m_bits[(N + 31) / 32];
-};
 
 // placement unverified: no rowed DIR32 site yet; ZH ObjectStatusMaskType starts clear.
 BitFlags<45> OBJECT_STATUS_MASK_NONE = { { 0, 0 } };
@@ -483,4 +493,208 @@ void Object::restoreObjectToWorldInternal() {
  TheAI->getPathfinder()->AddObjectToPathfindMap(this);
  if(theRadarWindowOverrideSource) ((Rva002D3726 *)theRadarWindowOverrideSource)->rva002D3726((Obj00526309 *)this);
  rva0028DCC4(); rva00290095(); setStatus((ObjectStatusTypes)0x33,false);
+}
+
+// BF1 f989 Object_clearDisabled_Thunk and ZH Object::clearDisabled are the
+// semantic guides; native291CAC..291EB1 independently supplies all offsets,
+// two136B audio lifetimes, condition14E bit1 and the calls used below.
+class ObjectDisabledContain {
+public:
+ virtual void slot00();
+ virtual void slot01();
+ virtual void slot02();
+ virtual void slot03();
+ virtual void slot04();
+ virtual void slot05();
+ virtual void slot06();
+ virtual void slot07();
+ virtual void slot08();
+ virtual void slot09();
+ virtual void slot10();
+ virtual void slot11();
+ virtual void slot12();
+ virtual void slot13();
+ virtual void slot14();
+ virtual void slot15();
+ virtual void slot16();
+ virtual void slot17();
+ virtual void slot18();
+ virtual void slot19();
+ virtual void slot20();
+ virtual void slot21();
+ virtual void slot22();
+ virtual void slot23();
+ virtual void slot24();
+ virtual void slot25();
+ virtual void slot26();
+ virtual void slot27();
+ virtual void slot28();
+ virtual void slot29();
+ virtual void slot30();
+ virtual void slot31();
+ virtual void slot32();
+ virtual void slot33();
+ virtual void slot34();
+ virtual void slot35();
+ virtual void slot36();
+ virtual void slot37();
+ virtual void slot38();
+ virtual void slot39();
+ virtual void slot40();
+ virtual void slot41();
+ virtual void slot42();
+ virtual void slot43();
+ virtual void slot44();
+ virtual void slot45();
+ virtual void slot46();
+ virtual void slot47();
+ virtual void slot48();
+ virtual void slot49();
+ virtual void slot50();
+ virtual void slot51();
+ virtual void slot52();
+ virtual void slot53();
+ virtual void slot54();
+ virtual void slot55();
+ virtual void slot56();
+ virtual void slot57();
+ virtual void slot58();
+ virtual void slot59();
+ virtual void slot60();
+ virtual void slot61();
+ virtual void slot62();
+ virtual void slot63();
+ virtual void slot64();
+ virtual void slot65();
+ virtual void slot66();
+ virtual void slot67();
+ virtual void slot68();
+ virtual void slot69();
+ virtual void slot70();
+ virtual void slot71();
+ virtual Object *getRider();
+};
+class ObjectDisabledAudio {
+public:
+ virtual void slot00();
+ virtual void slot01();
+ virtual void slot02();
+ virtual void slot03();
+ virtual void slot04();
+ virtual void slot05();
+ virtual void slot06();
+ virtual void slot07();
+ virtual void slot08();
+ virtual void slot09();
+ virtual void slot10();
+ virtual void slot11();
+ virtual void slot12();
+ virtual void slot13();
+ virtual void slot14();
+ virtual void slot15();
+ virtual void slot16();
+ virtual void slot17();
+ virtual void slot18();
+ virtual void slot19();
+ virtual void slot20();
+ virtual void slot21();
+ virtual void slot22();
+ virtual void slot23();
+ virtual void slot24();
+ virtual void addAudioEvent(BfmeAudioEventPrefix136*);
+ virtual void slot26();
+ virtual void slot27();
+ virtual void slot28();
+ virtual void slot29();
+ virtual void slot30();
+ virtual void slot31();
+ virtual void slot32();
+ virtual void slot33();
+ virtual void slot34();
+ virtual void slot35();
+ virtual void slot36();
+ virtual void slot37();
+ virtual void slot38();
+ virtual void slot39();
+ virtual void slot40();
+ virtual void slot41();
+ virtual void slot42();
+ virtual void slot43();
+ virtual void slot44();
+ virtual void slot45();
+ virtual void slot46();
+ virtual void slot47();
+ virtual void slot48();
+ virtual void slot49();
+ virtual void slot50();
+ virtual void slot51();
+ virtual void slot52();
+ virtual void slot53();
+ virtual void slot54();
+ virtual void slot55();
+ virtual void slot56();
+ virtual void slot57();
+ virtual void slot58();
+ virtual void slot59();
+ virtual void slot60();
+ virtual void slot61();
+ virtual void slot62();
+ virtual void slot63();
+ virtual void slot64();
+ virtual void slot65();
+ virtual void slot66();
+ virtual void slot67();
+ virtual void slot68();
+ virtual void slot69();
+ virtual void slot70();
+ virtual void slot71();
+ virtual void slot72();
+ virtual void slot73();
+ virtual void slot74();
+ virtual void slot75();
+ virtual void slot76();
+ virtual void slot77();
+ virtual void *getMiscAudio();
+};
+class AudioManager;extern AudioManager *TheAudio;
+Bool Object::clearDisabled(DisabledType type)
+{
+ if((int)type<0 || (int)type>=11) return false;
+ if(!(unsigned char)reinterpret_cast<Rva001E4A4E*>(this)->rva001E4A4E(type))return false;
+ if((int)type==6 || (int)type==2) {
+  if((disabledMask.m_bits[0]&0x40) && (int)type!=6)goto no_sound;
+  if((disabledMask.m_bits[0]&4) && (int)type!=2)goto no_sound;
+  const unsigned char *kind=reinterpret_cast<const unsigned char*>(m_template);
+  if(kind[0x108]&0x80) {
+   BfmeAudioEventPrefix136 event(*reinterpret_cast<const OpaqueRefElement4*>(reinterpret_cast<char*>(reinterpret_cast<ObjectDisabledAudio*>(TheAudio)->getMiscAudio())+0x44),0);
+   reinterpret_cast<Rva002D9508*>(&event)->rva002D9508(&position);
+   reinterpret_cast<ObjectDisabledAudio*>(TheAudio)->addAudioEvent(&event);
+  } else if(kind[0x109]&8) {
+   BfmeAudioEventPrefix136 event(*reinterpret_cast<const OpaqueRefElement4*>(reinterpret_cast<char*>(reinterpret_cast<ObjectDisabledAudio*>(TheAudio)->getMiscAudio())+0x4c),0);
+   reinterpret_cast<Rva002D9508*>(&event)->rva002D9508(&position);
+   reinterpret_cast<ObjectDisabledAudio*>(TheAudio)->addAudioEvent(&event);
+  }
+ }
+no_sound:
+ if((int)type!=3) rva0028B292(0);
+ if(contain) {
+  Object *rider=reinterpret_cast<ObjectDisabledContain*>(contain)->getRider();
+  if(rider && disabledTill[type]==0x3fffffff)rider->clearDisabled(type);
+ }
+ disabledTill[type]=0;
+ BitFlags<11> &mask=disabledMask;
+ mask.m_bits[(unsigned int)type>>5]&=~(1u<<((int)type&31));
+ if((int)type==1 && (reinterpret_cast<unsigned char*>(this)[0x14e]&2)) {
+  *reinterpret_cast<unsigned int*>(reinterpret_cast<char*>(this)+0x14c)&=~0x20000u;
+  rva0028AE6D();
+ }
+ BitFlags<11> exceptions;
+ memset(&exceptions,0,sizeof(exceptions));
+ exceptions.m_bits[0]|=0x228;
+ if(!mask.any() || mask.countInverseIntersection(exceptions)==0) {
+  if(drawable)reinterpret_cast<Rva00270619*>(drawable)->Rva00270619Clear(1);
+ }
+ rva00290357();
+ if(!mask.any())rva0028B8A6(false);
+ return true;
 }
