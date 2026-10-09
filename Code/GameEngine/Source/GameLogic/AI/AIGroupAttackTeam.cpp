@@ -1,4 +1,5 @@
-// cl: /DNDEBUG /MD
+// cl: /DNDEBUG /MD /Ireference/shims/bfmelist /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// stlport
 //
 // AIGroup::groupAttackTeam (?groupAttackTeam@AIGroup@@QAEXPBVTeam@@HW4CommandSourceType@@@Z),
 // retail 0x0036FF33, 65 bytes, plus
@@ -37,6 +38,8 @@
 
 #include <list>
 #include <string.h>
+#include "../../../../Libraries/Include/Lib/Coord3D.h"
+#include "../../../Include/GameLogic/ContainmentListView.h"
 
 typedef int Int;
 
@@ -52,11 +55,92 @@ enum AttitudeType {}; // opaque order enum, passed through as int (BFME1 donor)
 class Team;
 class Object;
 
+enum CanAttackResult { ATTACKRESULT_POSSIBLE_AFTER_MOVING=2, ATTACKRESULT_POSSIBLE=3 };
+enum AbleToAttackType { ATTACK_NEW_TARGET=0 };
+class Rva0036FF74Contain {
+public:
+	virtual void v0();
+	virtual void v1();
+	virtual void v2();
+	virtual void v3();
+	virtual void v4();
+	virtual void v5();
+	virtual void v6();
+	virtual void v7();
+	virtual void v8();
+	virtual void v9();
+	virtual void v10();
+	virtual void v11();
+	virtual void v12();
+	virtual void v13();
+	virtual void v14();
+	virtual void v15();
+	virtual void v16();
+	virtual void v17();
+	virtual void v18();
+	virtual void v19();
+	virtual void v20();
+	virtual void v21();
+	virtual void v22();
+	virtual void v23();
+	virtual void v24();
+	virtual void v25();
+	virtual void v26();
+	virtual void v27();
+	virtual void v28();
+	virtual void v29();
+	virtual void v30();
+	virtual void v31();
+	virtual void v32();
+	virtual void v33();
+	virtual void v34();
+	virtual void v35();
+	virtual void v36();
+	virtual void v37();
+	virtual void v38();
+	virtual void v39();
+	virtual void v40();
+	virtual void v41();
+	virtual void v42();
+	virtual void v43();
+	virtual void v44();
+	virtual bool allowedToFire();
+	virtual void v46();
+	virtual void v47();
+	virtual void v48();
+	virtual void v49();
+	virtual void v50();
+	virtual void v51();
+	virtual void v52();
+	virtual void v53();
+	virtual void v54();
+	virtual void v55();
+	virtual void v56();
+	virtual void v57();
+	virtual void v58();
+	virtual void v59();
+	virtual void v60();
+	virtual void v61();
+	virtual void v62();
+	virtual void v63();
+	virtual void v64();
+	virtual void v65();
+	virtual void v66();
+	virtual void v67();
+	virtual void v68();
+	virtual void v69();
+	virtual Rva0036AE51ListView items();
+};
+class SpawnBehaviorInterface { public:
+ virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
+ virtual void attack(const Coord3D*,int,CommandSourceType);
+};
 class AICommandInterface
 {
 public:
 	void aiAttackTeam(const Team *team, Int maxShotsToFire, CommandSourceType cmdSource);
 	void aiHunt(CommandSourceType cmdSource);
+	void aiAttackPosition(const Coord3D *, int, CommandSourceType);
 };
 
 class AIUpdateInterface
@@ -131,6 +215,9 @@ class Object
 {
 public:
 	const ThingTemplate *getTemplate() const { return m_template; }
+	const Coord3D *getPosition() const {return &m_pos;}
+	SpawnBehaviorInterface *getSpawnBehaviorInterface() const;
+	CanAttackResult getAbleToUseWeaponAgainstTarget(AbleToAttackType, const Object*, const Coord3D*, CommandSourceType) const;
 	void setWeaponSetFlag(WeaponSetType wst);
 	void rva0028C20F(int x);
 	const Weapon *getCurrentWeapon(WeaponSlotType *slot) const;
@@ -139,7 +226,11 @@ public:
 	void setSpecialModelConditionState(ModelConditionFlagType mc, unsigned int frames);
 	char m_pad[0x04];
 	const ThingTemplate *m_template; // +0x04
-	char m_pad08[0x258 - 0x08];
+	char m_pad08[0x38 - 0x08];
+	Coord3D m_pos;
+	char m_pad44[0x250 - 0x44];
+	Rva0036FF74Contain *m_contain;
+	char m_pad254[4];
 	AIUpdateInterface *m_ai;
 };
 
@@ -148,6 +239,7 @@ class AIGroup
 public:
 	void groupAttackTeam(const Team *team, Int maxShotsToFire, CommandSourceType cmdSource);
 	void groupHunt(CommandSourceType cmdSource);
+	void groupAttackPosition(const Coord3D *, Int, CommandSourceType);
 	void rva0036DBBA(int unused, int type, unsigned int frames);
 	void rva0036DC1D(ModelConditionFlagType mc, unsigned int frames);
 	void setAttitude(AttitudeType tude);
@@ -157,6 +249,7 @@ public:
 	void setWeaponSetFlag( WeaponSetType wst );
 
 private:
+	unsigned int m_pad00;
 	std::list<Object *> m_memberList;
 };
 
@@ -289,4 +382,34 @@ void AIGroup::setWeaponSetFlag( WeaponSetType wst )
 			obj->setWeaponSetFlag( wst );
 		}
 	}
+}
+
+// ZH groupAttackPosition; native 0036FF74..0037008E RET12 proves caller ABI,
+// position38, contain250, AI258, contain slots45/70, spawn slot4.
+void AIGroup::groupAttackPosition(const Coord3D *pos, Int maxShotsToFire, CommandSourceType cmdSource)
+{
+    Coord3D attackPos;
+    if (pos) attackPos = *pos;
+    for (std::list<Object *>::iterator i=m_memberList.begin(); i!=m_memberList.end(); ++i) {
+        if (!pos) {
+            const Coord3D *p=(*i)->getPosition();
+            attackPos.x=p->x; attackPos.y=p->y; attackPos.z=p->z;
+        }
+        Rva0036FF74Contain *contain=(*i)->m_contain;
+        if (contain && contain->allowedToFire()) {
+            Rva0036AE51ListView items=contain->items();
+            for (ContainmentList::const_iterator it=items.b->begin(); it!=items.b->end(); ++it) {
+                Object *member=(Object *)containmentFirstWord(*it);
+                CanAttackResult result=member->getAbleToUseWeaponAgainstTarget(ATTACK_NEW_TARGET,0,&attackPos,cmdSource);
+                if (result==ATTACKRESULT_POSSIBLE || result==ATTACKRESULT_POSSIBLE_AFTER_MOVING) {
+                    AIUpdateInterface *ai=member->m_ai;
+                    if(ai) ai->m_commands.aiAttackPosition(&attackPos,maxShotsToFire,cmdSource);
+                }
+            }
+        }
+        SpawnBehaviorInterface *spawn=(*i)->getSpawnBehaviorInterface();
+        if(spawn) spawn->attack(&attackPos,maxShotsToFire,cmdSource);
+        AIUpdateInterface *ai=(*i)->m_ai;
+        if(ai) ai->m_commands.aiAttackPosition(&attackPos,maxShotsToFire,cmdSource);
+    }
 }
