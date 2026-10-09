@@ -234,7 +234,7 @@ extern class ClientFrameSubsystem *TheGameClient;
 extern class LinearCampaignManager *TheLinearCampaignManager;
 extern AI *TheAI;
 extern AerialPathfinder *TheAerialPathfinder;
-extern Rva0022B3F6Subsystem *TheSplineService;
+Rva0022B3F6Subsystem *TheSplineService = 0;
 extern Rva0022B46BSubsystem *TheAttributeModifierStore;
 extern void *g_Va00DFE750;
 extern ScriptEngine *TheScriptEngine;
