@@ -34,8 +34,10 @@ template <> void _Construct<AsciiString, AsciiString>(AsciiString *, const Ascii
 // non-const __copy_ptrs forwarder takes the const-ref tag (rowed at
 // 0x000B6614) and reaches the generic __copy worker. noinline keeps it out
 // of line so the callers keep retail's shape; the body is verbatim generic.
+// Match the vendor template's inline linkage so the verified helper can
+// coexist with the identical select-any copies emitted by other callers.
 template <>
-__declspec(noinline) AsciiString *__copy_ptrs<AsciiString *, AsciiString *>(AsciiString *__first, AsciiString *__last, AsciiString *__result, const __false_type &)
+__declspec(noinline) inline AsciiString *__copy_ptrs<AsciiString *, AsciiString *>(AsciiString *__first, AsciiString *__last, AsciiString *__result, const __false_type &)
 {
 	return __copy(__first, __last, __result, random_access_iterator_tag(), (ptrdiff_t *)0);
 }
