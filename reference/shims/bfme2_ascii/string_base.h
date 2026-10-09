@@ -53,7 +53,10 @@ public:
     int compare(const T *str) const;
     int compare(const T *str, int len) const;
     int compare(T c) const;
-    int compareNoCase(const StringBase<T> &str) const;
+    // Non-throwing for the same reason (0x00406A00 / wide 0x00406AA4): the
+    // sort comparator at 0x0021B68D compares a translated-label temporary
+    // with no EH state of its own and keeps the result in BL.
+    int compareNoCase(const StringBase<T> &str) const throw();
     int compareNoCase(const T *str) const;
     int compareNoCase(const T *str, int len) const;
     int compareNoCase(T c) const;
