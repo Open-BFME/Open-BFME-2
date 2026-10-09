@@ -12,11 +12,12 @@ class Rva00319159
 public:
 	void *rva00319159();
 };
+// 0x002B3A9C is the rowed AttackOrders::GetMaxHeroLeaderRank (LivingWorldLogic.cpp).
+class AttackOrders {public: int GetMaxHeroLeaderRank();};
 class Rva002B3A48
 {
 public:
 	int rva002B3A48();
-	int rva002B3A9C();
 	bool rva002B3B07(Rva002B3A48 *other);
 private:
 	char m_pad00[0x8];
@@ -53,8 +54,8 @@ bool Rva002B3A48::rva002B3B07(Rva002B3A48 *other)
  int second = other->rva002B3A48();
  if (first != second)
   return first > second;
- first = rva002B3A9C();
- second = other->rva002B3A9C();
+ first = ((AttackOrders *)this)->GetMaxHeroLeaderRank();
+ second = ((AttackOrders *)other)->GetMaxHeroLeaderRank();
  if (first != second)
   return first > second;
  return GetGameLogicRandomValue(0, 1,

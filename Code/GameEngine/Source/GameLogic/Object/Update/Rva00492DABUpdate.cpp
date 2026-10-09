@@ -43,7 +43,7 @@ extern GameLogic *TheGameLogic;
 class SpecialAbilityUpdate
 {
 public:
-	virtual void rva004508B7();
+	virtual void startUnpacking();	// row 0x004508B7
 
 protected:
 	const ModuleData *m_moduleData;
@@ -76,6 +76,6 @@ void Rva00492C59::rva00492DAB()
 		if (wt != 0)
 			TheWeaponStore->createAndFireTempWeapon(wt, object, &object->m_position);
 	}
-	SpecialAbilityUpdate::rva004508B7();
+	SpecialAbilityUpdate::startUnpacking();
 	object->rva002900E0(TheGameLogic->m_frame + data->m_C8);
 }

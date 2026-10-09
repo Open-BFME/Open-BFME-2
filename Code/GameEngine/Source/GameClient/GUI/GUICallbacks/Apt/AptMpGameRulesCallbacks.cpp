@@ -184,7 +184,7 @@ public:
 	// 0x0057ED2B, pinned by address.
 	void rva0057EF46(AptMpGameRulesWidgets *widgets, const char *index, GameWindow *window);
 	void rva0057EF18();
-	void rva0057ED2B();
+	bool rva0057ED2B();	// row 0x0057ED2B (AptMpGameRulesRefreshWidgets.cpp) returns bool
 
 	void rva0057F0AA();
     int GetGadgetValue(int rule);

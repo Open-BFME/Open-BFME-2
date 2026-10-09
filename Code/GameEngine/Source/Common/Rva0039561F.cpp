@@ -15,7 +15,7 @@ public:
 class ThingTemplate
 {
 public:
-	int rva0033A69A(Object *o, int a, int b) const;
+	int rva0033A69A(const class Player *o, int a, int b) const;	// row 0x0033A69A spelling
 };
 
 class Rva0039B795;
@@ -51,7 +51,7 @@ int Rva0039561F::rva0039561F(ThingTemplate *t)
 	Player *pl = o->getControllingPlayer();
 	if (pl == 0)
 		return 0;
-	int v = t->rva0033A69A((Object *)pl, 0, -1);
+	int v = t->rva0033A69A((const class Player *)pl, 0, -1);
 	((Rva003B0D7C *)((char *)pl + 0x90))->rva003B0CB3(v, (Rva0039B795 *)((char *)pl + 0x3bc), true);
 	m_4c = (float)(unsigned int)v;
 	return v;

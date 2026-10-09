@@ -41,7 +41,7 @@ public:
 
 void __cdecl Rva006CC110Log(int level, const char *fmt, ...);
 void __cdecl rva007097B0(void *arg);
-unsigned char __cdecl rva006FD5B0(unsigned char c1, unsigned char c2);
+unsigned char Rva006FD5B0(char hi, char lo);	// row 0x006FD5B0 (Apt/Rva006FD5B0HexPair.cpp)
 
 class BfmeBufVKG
 {
@@ -132,7 +132,7 @@ void __cdecl rva006FD630(EAStringC *pString)
 			{
 				if ((unsigned char)p[0] != 0)
 				{
-					c = (char)rva006FD5B0((unsigned char)p[0], (unsigned char)p[1]);
+					c = (char)Rva006FD5B0(p[0], p[1]);
 					p += 2;
 				}
 			}

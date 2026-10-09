@@ -28,7 +28,7 @@ public:
 class ThingTemplate
 {
 public:
-	int rva0033A69A(class Object *obj, int a, int b) const;
+	int rva0033A69A(const class Player *obj, int a, int b) const;	// row 0x0033A69A spelling
 };
 
 extern class ThingFactory *TheThingFactory;
@@ -60,6 +60,6 @@ float Rva00573B23::rva00573DCD(int arg)
 	ThingTemplate *tmpl = (ThingTemplate *)thing;
 	unsigned char flag = *((unsigned char *)tmpl + 0x11B);
 	if ((flag & 0x20) == 0)
-		value = tmpl->rva0033A69A((class Object *)arg, (int)obj, -1);
+		value = tmpl->rva0033A69A((const class Player *)arg, (int)obj, -1);
 	return (float)value;
 }

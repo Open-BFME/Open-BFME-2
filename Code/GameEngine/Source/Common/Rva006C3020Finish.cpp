@@ -43,6 +43,14 @@
 // dword test a pointer declaration produces.
 unsigned char __cdecl rva00030E20Fill(void *dst, unsigned int count, unsigned char c);
 
+// The report sink 0x006C2FB0 is the rowed Rva006C2D20Sink::rva006C2FB0
+// (Rva006C2FB0Finish.cpp); (block, message) map to its two pointer arguments.
+class Rva006C2D20Sink
+{
+public:
+	void rva006C2FB0(const char *text, const char *extra);
+};
+
 class GeneralAllocatorDebug
 {
 public:
@@ -156,8 +164,8 @@ bool GeneralAllocatorDebug::VerifyGuardFill(void *block, int alsoBeyond,
 				if (rva00030E20Fill(built, span, m_guardFillByte) == 0) {
 					// The declaration above takes (block, message) precisely so that
 					// this call pushes the message first, which is retail's order.
-					rva006C2FB0Report(
-						callerBlock, "GeneralAllocatorDebug::VerifyGuardFill failure.");
+					((Rva006C2D20Sink *)this)->rva006C2FB0(
+						(const char *)callerBlock, "GeneralAllocatorDebug::VerifyGuardFill failure.");
 					// Retail's third exit: the report is followed immediately by
 					// `pop esi / pop edi / xor al,al / pop ebp / ret 0xC`, so the
 					// verification FAILS rather than reporting and passing on. Every

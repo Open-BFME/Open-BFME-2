@@ -66,7 +66,7 @@ public:
 class SpecialAbilityUpdate : public UpdateModule, public SpecialPowerUpdateInterface
 {
 public:
-	virtual void rva004508B7();
+	virtual void startUnpacking();	// row 0x004508B7
 protected:
 	unsigned char m_pad24[0x2C - 0x24];
 	unsigned int m_2C; // +0x2C
@@ -85,7 +85,7 @@ public:
 };
 void Rva00492179::rva00492231()
 {
-	SpecialAbilityUpdate::rva004508B7();
+	SpecialAbilityUpdate::startUnpacking();
 	Object *object = m_object;
 	const Rva00492179ModuleData *data = (const Rva00492179ModuleData *)m_moduleData;
 	if (object->rva0029091E(0x1B))
@@ -108,7 +108,7 @@ public:
 };
 void Rva00492402::rva004924D9()
 {
-	SpecialAbilityUpdate::rva004508B7();
+	SpecialAbilityUpdate::startUnpacking();
 	const Rva00492402ModuleData *data = (const Rva00492402ModuleData *)m_moduleData;
 	Object *object = m_object;
 	if (data->m_CC == 1)

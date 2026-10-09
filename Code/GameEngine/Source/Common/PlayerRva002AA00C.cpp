@@ -5,7 +5,7 @@ class Object;
 class ThingTemplate
 {
 public:
-	int rva0033A69A(Object *obj, int a, int b) const;
+	int rva0033A69A(const class Player *obj, int a, int b) const;	// row 0x0033A69A spelling
 };
 class Player
 {
@@ -18,6 +18,6 @@ private:
 unsigned char Player::rva002AA00C(ThingTemplate *tmpl, int extra)
 {
 	int base = m_0094;
-	int v = tmpl->rva0033A69A((Object *)this, 0, -1);
+	int v = tmpl->rva0033A69A((const class Player *)this, 0, -1);
 	return (unsigned char)((unsigned)(base + extra) >= (unsigned)v);
 }

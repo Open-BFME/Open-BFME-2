@@ -24,7 +24,7 @@ class Rva005CCDDD;
 class Rva005CCC69
 {
 public:
-	Rva005CCC69(Rva005CCDDD *) throw();
+	Rva005CCC69(void *) throw();	// row spelling: opaque owner pointer
 	virtual ~Rva005CCC69();
 private:
 	char unknown04[0x24];

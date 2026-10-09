@@ -17,7 +17,8 @@ public:
 	void rva002E3A39(const void *p);
 };
 
-void __cdecl rva0030B7C2(const void *a, void *b);
+// Row 0x0030B7C2 spelling (returns bool over typed point/shape views).
+bool __cdecl rva0030B7C2(const struct Rva0030B7C2Point *a, class Rva0030B719Shape *b);
 
 // ?rva002E3A39@Rva002E3A39Owner@@QAEXPBX@Z
 void Rva002E3A39Owner::rva002E3A39(const void *p)
@@ -26,5 +27,5 @@ void Rva002E3A39Owner::rva002E3A39(const void *p)
 	const float *f = (const float *)p;
 	t.a = f[0];
 	t.b = f[1];
-	rva0030B7C2(&t, (char *)this + 8);
+	rva0030B7C2((const Rva0030B7C2Point *)&t, (Rva0030B719Shape *)((char *)this + 8));
 }

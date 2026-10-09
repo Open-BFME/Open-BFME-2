@@ -14,11 +14,13 @@ extern class GameLogic *TheGameLogic;
 extern class GameInfo *TheGameInfo;
 struct Rva002B2BAAGameInfo {char opaque[0x78];unsigned int count;};
 
+// The 0x002B3DB2 measure is the rowed Rva002B3DB2::rva002B3DB2 (Rva002B3D81.cpp).
+class Rva002B3DB2 {public: int rva002B3DB2();};
+
 class Rva002B4650
 {
 public:
 	bool rva002B2BAA();
-	int rva002B3DB2();
 	int rva002B4650();
 	int rva002B3DD0();
 private:
@@ -31,7 +33,7 @@ extern int g_Va00DBA4E4;
 int Rva002B4650::rva002B4650()
 {
 	if (rva002B2BAA()) {
-		int n = rva002B3DB2();
+		int n = ((Rva002B3DB2 *)this)->rva002B3DB2();
 		if (n == 0)
 			return ++n;
 	}
@@ -44,7 +46,7 @@ int Rva002B4650::rva002B4650()
 // unsigned arithmetic, gives retail's lea operand order.
 int Rva002B4650::rva002B3DD0()
 {
-	return ((unsigned int)rva002B3DB2() + (unsigned int)g_Va00DBA4E4 - 1) / (unsigned int)g_Va00DBA4E4;
+	return ((unsigned int)((Rva002B3DB2 *)this)->rva002B3DB2() + (unsigned int)g_Va00DBA4E4 - 1) / (unsigned int)g_Va00DBA4E4;
 }
 
 // Native 0x002B2BAA..0x002B2BEC, RET0. The existing rva002B4650

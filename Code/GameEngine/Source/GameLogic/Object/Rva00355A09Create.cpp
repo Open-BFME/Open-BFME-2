@@ -32,32 +32,40 @@ private:
 	char m_pad[0x28];
 };
 
+// The attach callee at 0x003558A3 is the rowed AiOrdersManager::registerOrder
+// (AiOrdersManager.cpp); this host is that manager.
+class GroupOrder;
+class AiOrdersManager
+{
+public:
+	void registerOrder(int mode, GroupOrder *order);
+};
+
 class Rva003559B5Host
 {
 public:
 	void rva00355A09(int a, Rva0036E346 *b, int c);
 	void rva00355A5D(int a, Rva0036E346 *b, int c);
 	void rva00355AB1(int a, Rva0036E346 *b);
-	void Attach(int a, Rva003559B5Val *v);
 };
 
 void Rva003559B5Host::rva00355A09(int a, Rva0036E346 *b, int c)
 {
 	GarrisonObjectGroupOrder *p = new GarrisonObjectGroupOrder(b, c);
 	if (p)
-		Attach(a, (Rva003559B5Val *)p);
+		((AiOrdersManager *)this)->registerOrder(a, (GroupOrder *)p);
 }
 
 void Rva003559B5Host::rva00355A5D(int a, Rva0036E346 *b, int c)
 {
 	ChangeStanceGroupOrder *p = new ChangeStanceGroupOrder(b, c);
 	if (p)
-		Attach(a, (Rva003559B5Val *)p);
+		((AiOrdersManager *)this)->registerOrder(a, (GroupOrder *)p);
 }
 
 void Rva003559B5Host::rva00355AB1(int a, Rva0036E346 *b)
 {
 	SynchronizeGroupOrder *p = new SynchronizeGroupOrder(b);
 	if (p)
-		Attach(a, (Rva003559B5Val *)p);
+		((AiOrdersManager *)this)->registerOrder(a, (GroupOrder *)p);
 }

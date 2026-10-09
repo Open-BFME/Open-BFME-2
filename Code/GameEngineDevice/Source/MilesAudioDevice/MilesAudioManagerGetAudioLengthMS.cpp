@@ -37,14 +37,10 @@ class AudioEventRTS
 {
 public:
 	void rva002D9ADC();			// generateFilename
+	void generatePlayInfo();	// row 0x002DA8AF (AudioEventRTSClassification.cpp)
 	AsciiString getFilename();
 };
 
-class Rva002DAAD5Owner
-{
-public:
-	void rva002DA8AF();			// generatePlayInfo
-};
 
 class CDDrive
 {
@@ -84,7 +80,7 @@ Real MilesAudioManager::getAudioLengthMS(const BfmeAudioEventPrefix136 *event)
 
 	BfmeAudioEventPrefix136 tmpEvent(*event);
 	reinterpret_cast<AudioEventRTS *>(&tmpEvent)->rva002D9ADC();
-	reinterpret_cast<Rva002DAAD5Owner *>(&tmpEvent)->rva002DA8AF();
+	reinterpret_cast<AudioEventRTS *>(&tmpEvent)->generatePlayInfo();	// row 0x002DA8AF
 	return MilesAudioManager::getFileLengthMS(reinterpret_cast<CDDrive *>(&tmpEvent)->CDDrive::getPath()) +
 	       MilesAudioManager::getFileLengthMS(reinterpret_cast<AudioEventRTS *>(&tmpEvent)->getFilename()) +
 	       MilesAudioManager::getFileLengthMS(reinterpret_cast<Rva002D9BC1AsciiField *>(&tmpEvent)->get());

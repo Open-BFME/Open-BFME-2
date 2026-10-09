@@ -22,7 +22,7 @@ class Object;
 class ThingTemplate
 {
 public:
-	int rva0033A69A(Object *who, int a, int b) const;
+	int rva0033A69A(const class Player *who, int a, int b) const;	// row 0x0033A69A spelling
 
 	char m_pad[0x108];
 	unsigned int m_kindOf108;
@@ -59,7 +59,7 @@ struct Rva002ABCF0Context
 static inline int costOf(const Object *obj)
 {
 	const ThingTemplate *tmpl = obj->m_template;
-	return tmpl ? tmpl->rva0033A69A((Object *)obj->getControllingPlayer(), 0, -1) : 0;
+	return tmpl ? tmpl->rva0033A69A((const class Player *)obj->getControllingPlayer(), 0, -1) : 0;
 }
 
 int Rva002AA497Compare(const Object *a, const Object *b)

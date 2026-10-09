@@ -20,7 +20,7 @@ private:
 class Rva004E3184
 {
 public:
-	Rva004E3184(void *arg);
+	Rva004E3184(int arg);	// row 0x004E30D5 spelling
 	virtual ~Rva004E3184();
 
 	AsciiString m_04;
@@ -63,7 +63,7 @@ struct Rva0056AA54Arg
 
 bool __stdcall rva0056AA54(void *a, void *b)
 {
-	Rva004E3184 local((void *)0);
+	Rva004E3184 local(0);
 	((Rva0056AA54Arg *)a)->m_holder.rvaMethod(b, &local);
 	bool ok = (local.m_48 == 1);
 	return ok;

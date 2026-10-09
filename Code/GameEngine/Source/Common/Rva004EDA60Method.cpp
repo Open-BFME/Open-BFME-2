@@ -9,7 +9,7 @@
 class AITactic
 {
 public:
-	void rva004ED372(void *p);
+	void rva004ED372(const struct Coord3D *p);	// row 0x004ED372 spelling
 	void end(bool a, bool b);
 	void rva004EDA60();
 private:
@@ -32,7 +32,7 @@ void AITactic::rva004EDA60()
 		return;
 	if (m_20->m_04 == 1)
 		return;
-	rva004ED372(&m_44);
+	rva004ED372((const Coord3D *)&m_44);
 	m_50 = 1;
 	end(0, 0);
 }

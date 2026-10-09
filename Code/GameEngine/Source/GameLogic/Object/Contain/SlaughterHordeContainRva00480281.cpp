@@ -26,7 +26,7 @@ private:
 class Rva0047A040Base9E0
 {
 public:
-	void *rva00588BF3(void *contain, Object *obj);
+	class Rva00588E44Contain *rva00588BF3(void *contain, Object *obj);	// row 0x00588BF3 spelling
 };
 
 class HordeGarrisonContain : public GarrisonContain, public Rva0047A040Base9E0

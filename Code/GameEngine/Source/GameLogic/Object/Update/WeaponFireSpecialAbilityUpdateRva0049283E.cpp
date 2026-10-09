@@ -97,7 +97,7 @@ public:
 class SpecialAbilityUpdate : public UpdateModule, public SpecialPowerUpdateInterface
 {
 public:
-	virtual void rva004508B7();
+	virtual void startUnpacking();	// row 0x004508B7
 protected:
 	int m_24; // +0x24
 	unsigned char m_pad28[0x88 - 0x28];
@@ -132,7 +132,7 @@ private:
 };
 void WeaponFireSpecialAbilityUpdate::startUnpacking()
 {
-	SpecialAbilityUpdate::rva004508B7();
+	SpecialAbilityUpdate::startUnpacking();
 	const WeaponFireSpecialAbilityUpdateModuleData *data = (const WeaponFireSpecialAbilityUpdateModuleData *)m_moduleData;
 	Object *object = m_object;
 	if (!data->m_D0 || m_24 == 0)

@@ -46,7 +46,8 @@ public:
 	void adjustPlayingVolume(void *ref);
 	float rva0005A9F8(void *ref, int a, int b);
 	void *get2DSampleHandleForPlayingAudio(void *p);
-	void *get3DSampleHandleForPlayingAudio(void *p);
+	// Row 0x00052662 (MilesAudioManager.cpp) takes the playing-audio ref by reference.
+	void *get3DSampleHandleForPlayingAudio(class PlayingAudioRef &p);
 };
 
 void MilesAudioManager::adjustPlayingVolume(void *ref)
@@ -63,7 +64,7 @@ void MilesAudioManager::adjustPlayingVolume(void *ref)
 	}
 	else if (type == 2 || type == 3)
 	{
-		H3DSAMPLE sample3D = get3DSampleHandleForPlayingAudio(ref);
+		H3DSAMPLE sample3D = get3DSampleHandleForPlayingAudio(*(PlayingAudioRef *)ref);
 		if (sample3D != 0)
 			AIL_set_3D_sample_volume(sample3D, volume);
 	}

@@ -24,7 +24,8 @@ public:
 	int m_code;
 
 	void rva006E1DD0(void *pRect);
-	void rva006E1C40(void *a, void *b);
+	// Row 0x006E1C40 spelling (rendering context, int).
+	void rva006E1C40(class AptRenderingContext *a, int b);
 };
 
 // ?rva006E1DD0@AptCIH@@QAEXPAX@Z
@@ -40,5 +41,5 @@ void AptCIH::rva006E1DD0(void *pRect)
 	u[2] = neg;
 	u[3] = neg;
 	u[1] = 0x4E6E6B28u;
-	rva006E1C40((void *)(*(void **)&g_aptRenderingContextAtE180C0), pRect);
+	rva006E1C40((AptRenderingContext *)(*(void **)&g_aptRenderingContextAtE180C0), (int)pRect);
 }

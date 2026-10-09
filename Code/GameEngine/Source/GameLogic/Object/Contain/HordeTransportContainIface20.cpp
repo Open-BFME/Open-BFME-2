@@ -40,8 +40,9 @@ public:
 class Rva0047A040Base9E0
 {
 public:
-	void rva00588C4E(void *contain, Object *obj);
-	void rva00588F61(void *contain, Object *owner, Object *obj);
+	// Rows 0x00588C4E / 0x00588F61 spellings.
+	Object *rva00588C4E(void *contain, const struct Coord3D *obj);
+	void rva00588F61(void *contain, Object *owner, enum CommandSourceType obj);
 	void rva00588D99(Object *obj);
 };
 
@@ -131,13 +132,13 @@ private:
 // ?rva004632E0@HordeTransportContain@@UAEXPAVObject@@@Z @0x0047710B
 void HordeTransportContain::rva004632E0(Object *obj)
 {
-	m_helper.rva00588C4E(this, obj);
+	m_helper.rva00588C4E(this, (const Coord3D *)obj);
 }
 
 // ?rva00465011@HordeTransportContain@@UAEXPAVObject@@@Z @0x004772B8
 void HordeTransportContain::rva00465011(Object *obj)
 {
-	m_helper.rva00588F61(this, m_object, obj);
+	m_helper.rva00588F61(this, m_object, (CommandSourceType)(int)obj);
 }
 
 void HordeTransportContain::rva004770A6(Object *obj)

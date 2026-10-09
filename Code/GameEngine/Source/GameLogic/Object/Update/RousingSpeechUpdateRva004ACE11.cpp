@@ -81,7 +81,7 @@ protected:
 class SpecialAbilityUpdate : public UpdateModule
 {
 public:
-	virtual void rva00450D9A();
+	virtual void startPreparation();	// row 0x00450D9A
 };
 class RousingSpeechUpdateModuleData
 {
@@ -105,7 +105,7 @@ private:
 };
 void RousingSpeechUpdate::rva004ACE11()
 {
-	SpecialAbilityUpdate::rva00450D9A();
+	SpecialAbilityUpdate::startPreparation();
 	setModelConditionBit(m_object, 6 * 32 + 15);
 	const RousingSpeechUpdateModuleData *data = (const RousingSpeechUpdateModuleData *)m_moduleData;
 	if (data->m_D4)

@@ -27,9 +27,7 @@ class Object
 {
 public:
 	void rva0028DA28();
-private:
-	void rva0028DAB9();
-public:
+	void rva0028DAB9();	// row 0x0028DAB9 is public
 	char m_pad00[4];
 	void *m_obj04;
 	char m_pad08[0x264 - 8];

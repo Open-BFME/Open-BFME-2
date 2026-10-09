@@ -1,6 +1,6 @@
 class GameWindow;
 void GadgetListBoxSetListLength(GameWindow* w, int len);
-void __cdecl rva00381618(GameWindow* a, int b);
+void __cdecl Rva00381618(GameWindow* a, unsigned int b);	// row 0x00381618 (LANChatHistory.cpp)
 
 struct Rva005AFC21Class
 {
@@ -22,7 +22,7 @@ void Rva005AFC21Class::rva005AFC21(GameWindow* a1)
 	if (!a1)
 		return;
 	GadgetListBoxSetListLength(a1, 0x3E8);
-	rva00381618(m_C, m_4);
+	Rva00381618(m_C, m_4);
 }
 
 // ?rva005AFC4C@Rva005AFC4CClass@@QAEXPAVGameWindow@@@Z @0x005AFC4C 70B: the

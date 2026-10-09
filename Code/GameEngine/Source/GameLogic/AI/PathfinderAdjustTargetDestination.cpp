@@ -49,7 +49,7 @@ class Pathfinder
 {
 public:
 	Bool AdjustTargetDestination(Object *obj, Int a, Int b, Int c, const Coord3D *dest);
-	Bool rva002F379E(ICoord2D *cell, Int range, Rva002ED7B6 *info);
+	Bool rva002F379E(ICoord2D *cell, Int range, void *info);	// row 0x002F379E spelling
 };
 
 Bool Pathfinder::AdjustTargetDestination(Object *obj, Int a, Int b, Int c, const Coord3D *dest)

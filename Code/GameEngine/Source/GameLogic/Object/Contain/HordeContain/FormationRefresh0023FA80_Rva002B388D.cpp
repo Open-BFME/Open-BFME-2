@@ -13,7 +13,8 @@ class Refresh0023FA80Object;
 class Rva002B37B4
 {
 public:
-	void rva002B37B4( Refresh0023FA80AI *ai, Refresh0023FA80Object *obj );
+	// Row 0x002B37B4 spelling (opaque P1/P2 views).
+	void rva002B37B4( struct Rva002B37B4P1 *ai, struct Rva002B37B4P2 *obj );
 };
 
 class Refresh0023FA80Primary
@@ -25,5 +26,5 @@ public:
 void Refresh0023FA80Primary::scheduleNullable( Refresh0023FA80AI *ai, Refresh0023FA80Object *obj )
 {
 	if (ai && obj)
-		((Rva002B37B4 *)this)->rva002B37B4(ai, obj);
+		((Rva002B37B4 *)this)->rva002B37B4((Rva002B37B4P1 *)ai, (Rva002B37B4P2 *)obj);
 }

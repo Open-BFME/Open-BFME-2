@@ -40,7 +40,7 @@ void XferObjectID(Xfer *xfer, ObjectID *objectID);
 class Eva
 {
 public:
-	void rva001DEC48(Xfer *xfer, int *handle);
+	void xferEvaEventID(Xfer *xfer, int *handle);	// row 0x001DEC48
 };
 extern Eva *TheEva;
 class UpdateModule
@@ -73,5 +73,5 @@ void AttachUpdate::xfer(Xfer *xfer)
 		xfer->xferBool(&dropped);
 	}
 	if (version.m_currentVersion >= 3)
-		TheEva->rva001DEC48(xfer, &m_evaHandle);
+		TheEva->xferEvaEventID(xfer, &m_evaHandle);
 }

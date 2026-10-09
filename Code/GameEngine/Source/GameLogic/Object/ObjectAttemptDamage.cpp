@@ -45,7 +45,7 @@ class Object
 public:
 	Bool testStatus(ObjectStatusTypes status) const;	// 0x0004E536
 	void attemptDamage(DamageInfo *damageInfo);
-	void rva002975AC(DamageInfo *damageInfo);		// 0x002975AC
+	void rva002975AC(struct Rva00297612Entry *damageInfo);		// 0x002975AC, row spelling
 
 private:
 	unsigned char m_pad0[0x440];
@@ -60,5 +60,5 @@ void Object::attemptDamage(DamageInfo *damageInfo)
 	if (damageInfo->m_x28 > 0.0f)
 		m_x440.push_back(*(const BfmePod124 *)damageInfo);
 	else
-		rva002975AC(damageInfo);
+		rva002975AC((Rva00297612Entry *)damageInfo);
 }

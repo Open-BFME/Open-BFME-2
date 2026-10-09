@@ -14,7 +14,8 @@ class ObjectTypes;
 class Team
 {
 public:
-	void rva003A1626(void *a, void *b, int v, Team *other);
+	// Row 0x003A1626 spelling (returns int, typed template/list arguments).
+	int rva003A1626(const class ThingTemplate *a, class Rva00376A62 *b, int v, Team *other);
 };
 
 class ScriptEngine
@@ -42,5 +43,5 @@ void __stdcall Rva003C21E5Do(const AsciiString *str1, int x, const AsciiString *
 		return;
 	void *r1 = ((Rva002D06CA *)TheThingFactory)->rva002D06CA(str2);
 	ObjectTypes *types = TheScriptEngine->getObjectTypes(*str2);
-	team1->rva003A1626(r1, types, x, team2);
+	team1->rva003A1626((const ThingTemplate *)r1, (Rva00376A62 *)types, x, team2);
 }

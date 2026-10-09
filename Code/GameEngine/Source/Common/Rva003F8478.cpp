@@ -14,7 +14,7 @@ public:
 class Rva003F8052
 {
 public:
-	unsigned char rva003F8052();
+	bool rva003F8052();	// row 0x003F8052 returns bool
 	unsigned char rva003F8478();
 private:
 	char m_pad00[8];

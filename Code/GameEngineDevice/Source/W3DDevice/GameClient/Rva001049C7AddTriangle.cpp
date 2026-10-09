@@ -41,8 +41,9 @@ void Rva001049C7AddTriangle(Render2DClass *renderer,
 // The same word is passed to final cdecl flush1173F0; its unused parameter
 // is corroborated by BFME1 WW3D::Flush(RenderInfoClass&), while the original
 // wrapper and receiver names/types remain unknown target views.
-struct Vector3
+class Vector3
 {
+public:
 	float X;
 	float Y;
 	float Z;

@@ -23,7 +23,7 @@ struct Rva00532041Record
 class Rva002E99F9Sub460
 {
 public:
-	unsigned short rva00531FE6(int mode, int context, unsigned short value);
+	unsigned short rva00531FE6(bool mode, void *context, unsigned short value);	// row 0x00531FE6 spelling
 	unsigned short rva00532041(int context, int tableIndex, int recordIndex,
 		Rva00532041Record **records);
 };
@@ -33,5 +33,5 @@ unsigned short Rva002E99F9Sub460::rva00532041(
 {
 	Rva00532041Record *record = records[tableIndex];
 	unsigned short value = record[recordIndex].m_value;
-	return rva00531FE6(0, context, value);
+	return rva00531FE6(false, (void *)context, value);
 }

@@ -24,7 +24,7 @@ public:
 class ThingTemplate
 {
 public:
-	int rva0033A69A(Object *o, int a, int b) const;
+	int rva0033A69A(const class Player *o, int a, int b) const;	// row 0x0033A69A spelling
 };
 
 class Player
@@ -53,6 +53,6 @@ bool Rva00395686::rva00395686(Player *p, ThingTemplate *t)
 	if (ctrl != p)
 		return false;
 	unsigned int field = p->m_94;
-	int v = t->rva0033A69A((Object *)p, 0, -1);
+	int v = t->rva0033A69A((const class Player *)p, 0, -1);
 	return field >= (unsigned int)v;
 }

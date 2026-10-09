@@ -36,11 +36,7 @@ class Rva002ABFA0
 {
 public:
 	void rva002ABFA0(void *p);
-};
-class Rva002ACEDF
-{
-public:
-	void rva002ACEDF(void *p);
+	void rva002ACEDF(void *p);	// row ?rva002ACEDF@Rva002ABFA0 (Rva002ABFA0Remove.cpp)
 };
 
 void __stdcall Rva003BD062Set(void *p, const AsciiString *templateName, unsigned char flag)
@@ -59,7 +55,7 @@ void __stdcall Rva003BD062Set(void *p, const AsciiString *templateName, unsigned
 			if (flag != 0)
 				((Rva002ABFA0 *)pl)->rva002ABFA0(t);
 			else
-				((Rva002ACEDF *)pl)->rva002ACEDF(t);
+				((Rva002ABFA0 *)pl)->rva002ACEDF(t);
 		}
 	} while (mask != 0);
 }

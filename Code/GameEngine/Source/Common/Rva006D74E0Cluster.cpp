@@ -29,7 +29,7 @@ public:
     EAStringC();
     EAStringC &operator=(const EAStringC &other);
     EAStringC &Rva006D4F00Append(const EAStringC &other);
-    void rva006D6100();
+    EAStringC &rva006D6100();	// row 0x006D6100 returns *this
 };
 
 class BfmeAptValue006DCD20

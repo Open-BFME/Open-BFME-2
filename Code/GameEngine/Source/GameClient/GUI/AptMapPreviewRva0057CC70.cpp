@@ -37,11 +37,6 @@ public:
 };
 
 class Rva004FD6F9;
-class Rva0057C525
-{
-public:
-	bool rva0057C525(const Rva004FD6F9 &o);
-};
 
 class MultiplayerColorDefinition;
 class MultiplayerSettings
@@ -118,6 +113,8 @@ public:
 	virtual void v0();
 	virtual void virt04(Rva0057CC70Color *o, Res004FCA0C *r);
 	Rva0057CC70Color *rva0057CC70(Rva0057CC70Color *o, CC70Arg *a);
+	// 0x0057C525 is the rowed AptMapPreview::AllowsStartInRegion(int) (AptMapPreview.cpp).
+	bool AllowsStartInRegion(int region);
 private:
 	CC70Outer *m_outer;
 };
@@ -155,7 +152,7 @@ Rva0057CC70Color *AptMapPreview::rva0057CC70(Rva0057CC70Color *o, CC70Arg *a)
 			virt04(o, r);
 			return o;
 		}
-		if (!((Rva0057C525 *)m_outer)->rva0057C525(*(const Rva004FD6F9 *)(const void *)a))
+		if (!((AptMapPreview *)m_outer)->AllowsStartInRegion((int)a))
 		{
 			CC70LWMInner *q = ((CC70LWMView *)TheLivingWorldManager)->m_ptr268;
 			src = &q->m_color;
