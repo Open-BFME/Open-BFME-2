@@ -1,25 +1,21 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /arch:SSE /G7 /EHsc /MD
+// cl: /Ireference/shims/bfme2_ascii /ICode/Libraries/Include/Lib /O1 /arch:SSE /G7 /EHsc /MD
 #include "ascii_string.h"
 
-struct Rva0037F59BCoord
-{
-	float x;
-	float y;
-	float z;
-};
+#include "ArmyPlacerWaypoints.h"
 
 class Waypoint
 {
 public:
 	char m_pad[12];
-	Rva0037F59BCoord m_position;
+	Coord3D m_position;
 };
 
 Waypoint *findNamedWaypoint(const AsciiString &name);
 
-// ?Rva0037F59BGet@@YA_NPAURva0037F59BCoord@@0@Z @0x0037F59B 146B
-// Looks up two named waypoints and copies their positions; literal names and caller/output shape from retail.
-bool __stdcall Rva0037F59BGet(Rva0037F59BCoord *spawn, Rva0037F59BCoord *gather)
+// Native37F59B..37F62D and WB ArmyPlacer::GetDefenderReinforcementWaypointLocations.
+// WB and native40CCC6 calls establish the ECX receiver and two coordinate outputs.
+// Both literal names and waypoint position +12 are established by retail.
+bool ArmyPlacer::GetDefenderReinforcementWaypointLocations(Coord3D *spawn, Coord3D *gather)
 {
 	AsciiString spawnName("WOTRSpawnPoint_DefenderReinforcements_1");
 	AsciiString gatherName("WOTRGatherPoint_DefenderReinforcements_1");

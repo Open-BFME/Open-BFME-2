@@ -929,3 +929,4 @@ BasicStringCharDtor_dup,0x0007FAB3,"gen-alias placeholder superseded by a real-n
 ?Rva003354D6@@YAHPAUlua_State@@_N@Z,0x003354D6,Recovered static LuaScriptEngine ObjectModifyUpgrade identity from full native/WB CFG and registered grant/remove callbacks;220B existing coverage retained
 ?Rva0037F62DGet@@YG_NHPAUCoord3D@@0@Z,0x0037F62D,Replaced by the WB ArmyPlacer member owner; native callers pass the ArmyPlacer receiver in ECX. Corrected provider and consumers retain their full retail bytes.
 ?Rva0037F7B6Get@@YG_NPAVRva0037F7B6Record@@PAURva0037F7B6Coord@@1@Z,0x0037F7B6,Replaced by the WB ArmyPlacer member owner; native callers pass the ArmyPlacer receiver in ECX. Corrected provider and consumers retain their full retail bytes.
+?Rva0037F59BGet@@YG_NPAURva0037F59BCoord@@0@Z,0x0037F59B,Replaced by the WB ArmyPlacer member owner; native40CCC6 calls with the ArmyPlacer ECX receiver and two coordinate outputs. Full retail body retained.
