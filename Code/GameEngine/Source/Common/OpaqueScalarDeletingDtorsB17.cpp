@@ -14,7 +14,6 @@
 //   wrapper     dtor        vtable#slot
 //   0x005E3677  0x005E362F  0x00C77BD0#0
 //   0x005E5A66  0x00576FCE  0x00C6E3E8#0, 0x00C6E620#0, 0x00C6E8A8#0, 0x00C77D90#0
-//   0x005E6237  0x005E5FA8  0x00C77DE8#0
 //   0x005E67E2  0x005E66A4  0x00C77E04#0
 //   0x005E8240  0x005E80FD  0x00C77F54#0
 //   0x005E8E64  0x005E8D71  0x00C77F88#0
@@ -58,19 +57,6 @@ public:
 
 // ?<Rva00576FCE::Rva00576FCE> absent-from-retail
 Rva00576FCE::Rva00576FCE(EmitVtableTag *)
-{
-}
-
-class Rva005E5FA8
-{
-public:
-	Rva005E5FA8(EmitVtableTag *);
-public:
-	virtual ~Rva005E5FA8();
-};
-
-// ?<Rva005E5FA8::Rva005E5FA8> absent-from-retail
-Rva005E5FA8::Rva005E5FA8(EmitVtableTag *)
 {
 }
 

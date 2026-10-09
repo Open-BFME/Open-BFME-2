@@ -29,9 +29,6 @@ void famgenDelete(Rva005E1D07 *p) { delete p; }
 class Rva005E4925 { public: ~Rva005E4925(); };
 void famgenDelete(Rva005E4925 *p) { delete p; }
 
-// ??_GRva005E5FFB@@QAEPAXI@Z @0x005E60B5 28B: calls pinned ~Rva005E5FFB 0x005E5FFB
-class Rva005E5FFB { public: ~Rva005E5FFB(); };
-void famgenDelete(Rva005E5FFB *p) { delete p; }
 
 // ??_GRva005E6D0D@@QAEPAXI@Z @0x005E6D74 28B: calls pinned ~Rva005E6D0D 0x005E6D0D
 class Rva005E6D0D { public: ~Rva005E6D0D(); };

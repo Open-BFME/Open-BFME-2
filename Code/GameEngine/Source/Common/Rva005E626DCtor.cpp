@@ -39,7 +39,7 @@ private:
 struct Rva005E626DListener
 {
 	virtual void notify();
-	virtual ~Rva005E626DListener();
+	virtual ~Rva005E626DListener() {}
 };
 
 struct Rva002BA8F1Listener; // borrowed list-entry representation
@@ -47,6 +47,7 @@ class Rva005A0B4CList
 {
 public:
 	void append(Rva002BA8F1Listener *listener);
+
 };
 
 struct Rva005E626DOwner
@@ -81,3 +82,13 @@ Rva005E626D::Rva005E626D(Rva005E626DOwner *owner, Rva0057C394 *source, Rva005E62
 {
 	listOwner->m_list08.append((Rva002BA8F1Listener *)(Rva005E626DListener *)this);
 }
+
+class CreateAHeroData;
+class Rva002B7250 {public:void rva002B7250(CreateAHeroData *);};
+Rva005E626D::~Rva005E626D() {
+ reinterpret_cast<Rva002B7250*>(&m_listOwner10->m_list08)->rva002B7250(reinterpret_cast<CreateAHeroData*>(static_cast<Rva005E626DListener*>(this)));
+}
+
+// Native5E5FA8..5E5FFB83B restores the constructor's two vptrs and
+// unregisters the exact second-base address before the primary teardown.
+// Native scalar5E6237 belongs to this constructor's C77DE8 vtable.
