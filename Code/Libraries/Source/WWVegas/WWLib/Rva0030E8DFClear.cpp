@@ -17,6 +17,7 @@ struct RvaVector {
 	void **m_cap;
 	void **erase(void **first, void **last);
 	void rva0030E910(unsigned n, float value);
+	void rva0030E94F(unsigned n);
 };
 class Rva0030E8DF {
 public:
@@ -50,4 +51,15 @@ void RvaVector::rva0030E910(unsigned n, float value)
 	else
 		((_STL::vector<float> *)this)->_M_fill_insert(
 			(float *)m_end, n - (m_end - m_begin), value);
+}
+
+// Native30E94F..30E961 follows the complete63B resize above and endsRET4
+// before the independently bounded30E961 entry. It supplies positive float0
+// on the stack and calls the actual30E910 two-argument resize contract.
+// Whole BF1f989 Common/Rva001DC500ArgFlagForwarders.cpp underO1/SSE2/G6
+// supplies the same zero-fill wrapper guide. Original owner and element
+// identity remain unknown; this reuses the existing raw storage receiver.
+void RvaVector::rva0030E94F(unsigned n)
+{
+    rva0030E910(n, 0.0f);
 }
