@@ -45,6 +45,7 @@ public:
 		FreeData(m_pData);
 	}
 	EAStringC Mid(int start) const;
+	EAStringC rva006D5690(int count) const;
 	EAStringC Mid(int start, int count) const;
 	EAStringC rva006D5ED0(int start) const;
 };
@@ -99,4 +100,21 @@ EAStringC EAStringC::rva006D5ED0(int start) const
 	if (cursor == 0)
 		return EAStringC();
 	return Mid(cursor - payload);
+}
+
+// Retail 0x006D5690, 215B: return the rightmost count bytes. Native
+// ret-8 and the adjacent Mid workers establish EAStringC return-by-value
+// ABI; word +2 and ChangeBuffer arguments establish byte substring layout.
+// BFME1 EAStringC::Left/Mid at 9cbfb551fe20dae985f91f2319d8997287b6a705
+// supply the copy-and-ChangeBuffer pattern, not this target method name.
+EAStringC EAStringC::rva006D5690(int count) const
+{
+    if (count <= 0)
+        return EAStringC();
+    int start = m_pData->m_uSize - count;
+    if (start <= 0)
+        return *this;
+    EAStringC result(*this);
+    result.ChangeBuffer(count, start, count, CB_PUSH_ZERO, count);
+    return result;
 }
