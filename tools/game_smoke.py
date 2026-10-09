@@ -72,7 +72,8 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
 import boot_smoke  # noqa: E402
 from boot_smoke import (DEBUG_PROCESS, DBG_CONTINUE, DBG_NOT_HANDLED, EXCEPTION, CREATE_PROCESS,  # noqa: E402
-                        EXIT_PROCESS, LOAD_DLL, QUIET, STARTUPINFO, PROCESS_INFORMATION, WOW64_CONTEXT)
+                        EXIT_PROCESS, LOAD_DLL, LOADER_BREAKPOINTS, QUIET, STARTUPINFO,
+                        PROCESS_INFORMATION, WOW64_CONTEXT)
 
 OUT = ROOT / "build" / "game"
 CREATE_THREAD, EXIT_THREAD = 2, 4
@@ -416,7 +417,7 @@ class Game:
         full.flags = 0x1003F                       # WOW64_CONTEXT_ALL (FPU and SSE state too)
         self.k.Wow64GetThreadContext(wt.HANDLE(h), ctypes.byref(full))
         if self.stub is None:
-            self.stub = self.k.VirtualAllocEx(self.hproc, None, 0x4000, 0x3000, 0x40)
+            self.stub = boot_smoke.alloc32(self.k, self.hproc, 0x4000)
         calls = req.get("calls") or [req]
         results = self.stub + 0x3000                  # code before, one dword per call here
         code = stub_code(calls, results)
@@ -512,7 +513,7 @@ class Game:
                     exc = int.from_bytes(ev.raw[16:20], "little")
                     addr = int.from_bytes(ev.raw[32:40], "little")
                     first = int.from_bytes(ev.raw[168:172], "little")
-                    if exc == 0x4000001F and pid in self.procs and not self.procs[pid][3]:
+                    if exc in LOADER_BREAKPOINTS and pid in self.procs and not self.procs[pid][3]:
                         self.procs[pid][3] = True
                         h, path, base, _ = self.procs[pid]
                         if game and not self._loaded():

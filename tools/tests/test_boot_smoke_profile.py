@@ -95,6 +95,7 @@ class FakeProcess:
     def __init__(self, mem=None, alloc=0x02000000, drop_writes=False):
         self.mem, self.alloc, self.drop = dict(mem or {}), alloc, drop_writes
         self.VirtualAllocEx = lambda *a: self.alloc
+        self.VirtualFreeEx = lambda *a: 1
 
     def VirtualProtectEx(self, *a):
         return 1
@@ -113,6 +114,44 @@ class FakeProcess:
 
     def u32(self, va):
         return struct.unpack("<I", bytes(self.mem.get(va + i, 0) for i in range(4)))[0]
+
+
+class Alloc32(unittest.TestCase):
+    """Stub memory must be addressable by the 32-bit game (Wine's WoW64 can hand
+    a 64-bit debugger an address above 4 GiB)."""
+
+    class Kernel:
+        def __init__(self, anywhere):
+            self.anywhere, self.freed, self.asked = anywhere, [], []
+
+            def alloc(h, at, size, kind, prot):
+                self.asked.append(at)
+                return self.anywhere if at is None else at
+            self.VirtualAllocEx = alloc
+            self.VirtualFreeEx = lambda h, at, size, kind: self.freed.append(at) or 1
+
+    def test_a_low_address_is_kept(self):
+        k = self.Kernel(0x02000000)
+        self.assertEqual(bs.alloc32(k, 1, 0x1000), 0x02000000)
+        self.assertEqual(k.freed, [])
+
+    def test_a_high_address_is_freed_and_a_low_one_asked_for(self):
+        k = self.Kernel(0x1_0000_0000)
+        mem = bs.alloc32(k, 1, 0x1000)
+        self.assertEqual(k.freed, [0x1_0000_0000])
+        self.assertLess(mem + 0x1000, 1 << 31)
+
+    def test_no_memory_anywhere_is_none(self):
+        k = self.Kernel(0)
+        k.VirtualAllocEx = lambda *a: 0
+        self.assertIsNone(bs.alloc32(k, 1, 0x1000))
+
+
+class LoaderBreakpoint(unittest.TestCase):
+    def test_windows_waits_for_the_wow64_int3(self):
+        if sys.platform == "win32" and bs.under_wine():
+            self.skipTest("running under Wine")
+        self.assertEqual(bs.LOADER_BREAKPOINTS, {0x4000001F})
 
 
 @unittest.skipUnless(RETAIL.exists(), "no retail game.dat")
