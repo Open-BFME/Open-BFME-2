@@ -71,7 +71,13 @@ protected:
 
 	/** post process phase for loading save games.  All save systems have their xfer
 	run using XferLoad mode, and then all systems each have their post process run */
+// BFME2's named tracker table has the capitalized API. This selects the
+	// spelling of the same three slots; the default ZH surface stays available.
+#ifdef BFME_SNAPSHOT_CAPITALIZED_SLOTS
+	virtual void LoadPostProcess( void ) = 0;
+#else
 	virtual void loadPostProcess( void ) = 0;
+#endif
 
 	// Named BFME2 snapshot getters use the proven retail slot-2 signature.
 	// Other imported units retain the Zero Hour crc spelling described above.
@@ -84,7 +90,11 @@ protected:
 
 	/** run save, load, or deep CRC check on this data structure, the type depends on the
 	setup of the Xfer pointer */
+#ifdef BFME_SNAPSHOT_CAPITALIZED_SLOTS
+	virtual void DoXfer( Xfer *xfer ) = 0;
+#else
 	virtual void xfer( Xfer *xfer ) = 0;
+#endif
 
 };
 

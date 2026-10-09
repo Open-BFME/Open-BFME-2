@@ -6,19 +6,7 @@
 
 struct Rva0039BCF8;
 
-class ScoredKillTracker
-{
-public:
-	void rva0055A91A();
-};
-
-class Rva00360D26Member
-{
-public:
-	~Rva00360D26Member();
-private:
-	unsigned m_unknown;
-};
+#include "ScoredKillTrackerView.h"
 
 class Xfer;
 

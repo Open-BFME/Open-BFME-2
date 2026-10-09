@@ -1,4 +1,4 @@
-// cl: /ICode/Libraries/Include /Ireference/shims/bfme2_ascii /O1 /G7 /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /ICode/Libraries/Include /Ireference/shims/bfme2_ascii /O1 /G7 /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /Ireference/shims/moduledata
 // stlport
 // WB14162D0 names ScoredKillTracker::DoXfer and the tracked-kills count.
 // Native55AA68..55AB41/217 proves the scalar offsets and Xfer slots, the
@@ -63,28 +63,13 @@ template<>void list<int>::push_back(const int&);
 }
 
 class ObjectFilter { public: void DoXfer(Xfer *); int m_id; };
-class ScoredKillTracker {
-public:
-    virtual ~ScoredKillTracker();
-    virtual void LoadPostProcess();
-    virtual const char *GetSnapshotName();
-    virtual void DoXfer(Xfer *);
-private:
-    unsigned int m_lifetime;
-    ObjectFilter m_filter;
-    unsigned int m_value0c;
-    void *m_keeper;
-    int m_playerIndex;
-    _STL::list<int> m_trackedKills;
-    int m_trackedKillsCount;
-    Coord3D m_position;
-};
+#include "../ScoredKillTrackerView.h"
 void ScoredKillTracker::DoXfer(Xfer *xfer) {
     if (xfer->IsCRC()) return;
     TrackerVersion version(1,1);
     xfer->xferVersion(&version);
     xfer->xferUnsignedInt(&m_lifetime);
-    m_filter.DoXfer(xfer);
+    reinterpret_cast<ObjectFilter *>(&m_filter)->DoXfer(xfer);
     xfer->xferUnsignedInt(&m_value0c);
     xfer->xferInt(&m_playerIndex);
     xfer->xferInt(&m_trackedKillsCount);
@@ -102,5 +87,11 @@ void ScoredKillTracker::DoXfer(Xfer *xfer) {
             xfer->xferUnsignedInt(&kill);
         }
     }
-    xfer->xferCoord3D(&m_position);
+    xfer->xferCoord3D(&m_position.value);
 }
+
+// WB14159C0 and native55A998..55AA06 RET12 prove these three arguments.
+ScoredKillTracker::ScoredKillTracker(unsigned frames,const Rva00360D26Member &filter,unsigned flags):
+ m_lifetime(frames),m_filter(filter),m_value0c(flags),m_keeper(0),m_playerIndex(-1),m_trackedKillsCount(0) {}
+ScoredKillTracker::~ScoredKillTracker() {rva0055A91A();}
+const char *ScoredKillTracker::GetSnapshotName() const {return "ScoredKillTracker";}

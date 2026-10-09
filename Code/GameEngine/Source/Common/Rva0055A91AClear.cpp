@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfmelist /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfmelist /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/moduledata
 // stlport
 // ?rva0055A91A@ScoredKillTracker@@QAEXXZ @ 0x0055A91A 34B
 // Evidence: LINK BONUS via 0x0039C09C; inner Rva0039BCF8 at +0x10 via rowed rva0039BCF8 0x0039BCF8; flag +0x14 set -1; list<int> at +0x18 via rowed clear 0x0023DAA5; count +0x1C set 0; callers 0x0039C0CA 0x0041453E 0x0055A93F 0x0055AC2D 0x0055A993; layout like Rva0055AA06 list/count.
@@ -31,19 +31,7 @@ public:
 
 // LoadPostProcess is a virtual: slot 1 of vtable 0x00C3A08C, which the dtor
 // 0x00414520 and the copy ctor 0x0055AB99 store at +0.
-class ScoredKillTracker
-{
-public:
-	void rva0055A91A();
-	void hookToKeeper(Rva0039BCF8 *p);
-	virtual void LoadPostProcess();
-private:
-	char m_pad04[0xC];
-	Rva0039BCF8 *m_10; // +0x10
-	int m_14; // +0x14
-	_STL::list<int, _STL::allocator<int> > m_list; // +0x18
-	int m_1c; // +0x1C
-};
+#include "ScoredKillTrackerView.h"
 
 class Player
 {
@@ -62,12 +50,12 @@ extern PlayerList *ThePlayerList;
 
 void ScoredKillTracker::rva0055A91A()
 {
-	if (m_10 == 0)
+	if (m_keeper == 0)
 		return;
-	m_10->rva0039BCF8(this);
-	m_14 = -1;
-	m_list.clear();
-	m_1c = 0;
+	m_keeper->rva0039BCF8(this);
+	m_playerIndex = -1;
+	m_trackedKills.clear();
+	m_trackedKillsCount = 0;
 }
 
 void ScoredKillTracker::hookToKeeper(Rva0039BCF8 *p)
@@ -75,16 +63,16 @@ void ScoredKillTracker::hookToKeeper(Rva0039BCF8 *p)
 	rva0055A91A();
 	if (p == 0)
 		return;
-	m_10 = p;
-	m_14 = p->m_100;
+	m_keeper = p;
+	m_playerIndex = p->m_100;
 	((Rva0039C7A5Holder *)p)->add((const ModuleData *)this);
 }
 
 void ScoredKillTracker::LoadPostProcess()
 {
-	if (m_14 == -1 || m_14 < 0)
+	if (m_playerIndex == -1 || m_playerIndex < 0)
 		return rva0055A91A();
-	Player *player = ThePlayerList->getNthPlayer(m_14);
+	Player *player = ThePlayerList->getNthPlayer(m_playerIndex);
 	if (player == 0)
 		return rva0055A91A();
 	hookToKeeper(&player->m_3BC);

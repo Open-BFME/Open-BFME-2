@@ -1,130 +1,104 @@
-// ??0Rva00414BA4Element@@QAE@ABU0@@Z
-// partial score=0.93 date=2026-10-06
-// ??0Rva00414BA4Element@@QAE@ABU0@@Z
-// partial score=0.93 date=2026-10-06
-// cl: /Ireference/shims/bfmelist /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// ??0ScoredKillTracker@@QAE@ABV0@@Z
+// partial score=0.97 date=2026-10-09
+// cl: /ICode/Libraries/Include /Ireference/shims/bfme2_ascii /O1 /G7 /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /Ireference/shims/moduledata
 // stlport
-// ?rva0055A91A@Rva0055A91A@@QAEXXZ @ 0x0055A91A 34B
-// Evidence: LINK BONUS via 0x0039C09C; inner Rva0039BCF8 at +0x10 via rowed rva0039BCF8 0x0039BCF8; flag +0x14 set -1; list<int> at +0x18 via rowed clear 0x0023DAA5; count +0x1C set 0; callers 0x0039C0CA 0x0041453E 0x0055A93F 0x0055AC2D 0x0055A993; layout like Rva0055AA06 list/count.
+// WB14162D0 names ScoredKillTracker::DoXfer and the tracked-kills count.
+// Native55AA68..55AB41/217 proves the scalar offsets and Xfer slots, the
+// four-byte ObjectFilter index at+8, and list<int> at+18 followed by count1C.
+// Existing friend_update proves list elements are frame values and +4 is
+// their lifetime window; the purpose of the scalar at+C remains unknown.
+// The version is1/1. CRC returns before transfer; load rebuilds the list,
+// save walks to a captured end iterator. No reference source identity is
+// claimed: WB and retail supply this reconstruction. ObjectFilter::DoXfer
+// is the independently rowed362255 provider; list clear/push are23DAA5/5548F.
 #include <list>
-
-class Rva0039BCF8
+#include "Lib/Coord3D.h"
+class AsciiString;
+// Retail Version stores minimum/current bytes and has an inline constructor;
+// that constructor form also reproduces the independent stack homes in DoXfer.
+struct TrackerVersion
 {
-public:
-	void **rva0039BCF8(void *val);
-	char m_pad00[0x100];
-	int m_100; // +0x100
+    TrackerVersion(unsigned char min, unsigned char cur) : minimum(min), current(cur) {}
+    unsigned char minimum, current;
+};
+class Xfer{public:virtual~Xfer();virtual bool IsLoading() const;
+virtual bool IsStoring() const;
+virtual bool IsCRC() const;
+virtual void slot04();
+virtual void slot05();
+virtual void slot06();
+virtual void slot07();
+virtual void slot08();
+virtual void slot09();
+virtual Xfer &xferVersion(TrackerVersion *);
+virtual void slot11();
+virtual void slot12();
+virtual void slot13();
+virtual void slot14();
+virtual void slot15();
+virtual void slot16();
+virtual void slot17();
+virtual void slot18();
+virtual void slot19();
+virtual void slot20();
+virtual void slot21();
+virtual void slot22();
+virtual void slot23();
+virtual Xfer &xferCoord3D(struct Coord3D *);
+virtual void slot25();
+virtual void slot26();
+virtual Xfer& xferAsciiString(AsciiString*);
+virtual void slot28();
+virtual void slot29();
+virtual Xfer &xferUnsignedInt(unsigned int *);
+virtual Xfer& xferInt(int*);
+virtual void slot32();
+virtual void slot33();
+virtual void slot34();
+virtual void slot35();
+virtual Xfer &xferBool(bool *);
 };
 
-class ModuleData;
-
-class Rva0039C7A5Holder
-{
-public:
-	void add(const ModuleData *data);
-};
-
-class Rva0055A91A
-{
-public:
-	void rva0055A91A();
-	void rva0055A93C(Rva0039BCF8 *p);
-private:
-	char m_pad00[0x10];
-	Rva0039BCF8 *m_10; // +0x10
-	int m_14; // +0x14
-	_STL::list<int, _STL::allocator<int> > m_list; // +0x18
-	int m_1c; // +0x1C
-};
-
-void Rva0055A91A::rva0055A91A()
-{
-	if (m_10 == 0)
-		return;
-	m_10->rva0039BCF8(this);
-	m_14 = -1;
-	m_list.clear();
-	m_1c = 0;
+namespace _STL {
+template<>void _List_base<int, allocator<int> >::clear();
+template<>void list<int>::push_back(const int&);
 }
 
-void Rva0055A91A::rva0055A93C(Rva0039BCF8 *p)
-{
-	rva0055A91A();
-	if (p == 0)
-		return;
-	m_10 = p;
-	m_14 = p->m_100;
-	((Rva0039C7A5Holder *)p)->add((const ModuleData *)this);
+class ObjectFilter { public: void DoXfer(Xfer *); int m_id; };
+#include "../../Code/GameEngine/Source/Common/ScoredKillTrackerView.h"
+void ScoredKillTracker::DoXfer(Xfer *xfer) {
+    if (xfer->IsCRC()) return;
+    TrackerVersion version(1,1);
+    xfer->xferVersion(&version);
+    xfer->xferUnsignedInt(&m_lifetime);
+    reinterpret_cast<ObjectFilter *>(&m_filter)->DoXfer(xfer);
+    xfer->xferUnsignedInt(&m_value0c);
+    xfer->xferInt(&m_playerIndex);
+    xfer->xferInt(&m_trackedKillsCount);
+    if (xfer->IsLoading()) {
+        m_trackedKills.clear();
+        for (int i=0; i<m_trackedKillsCount; ++i) {
+            int kill;
+            xfer->xferUnsignedInt(reinterpret_cast<unsigned int*>(&kill));
+            m_trackedKills.push_back(kill);
+        }
+    } else {
+        _STL::list<int>::iterator end=m_trackedKills.end();
+        for (_STL::list<int>::iterator it=m_trackedKills.begin(); it._M_node != end._M_node; ++it) {
+            unsigned int kill=*it;
+            xfer->xferUnsignedInt(&kill);
+        }
+    }
+    xfer->xferCoord3D(&m_position.value);
 }
 
-struct BfmeAssignExtra
-{
-	int v0;
-	int v1;
-	int v2;
-};
+// WB14159C0 and native55A998..55AA06 RET12 prove these three arguments.
+ScoredKillTracker::ScoredKillTracker(unsigned frames,const Rva00360D26Member &filter,unsigned flags):
+ m_lifetime(frames),m_filter(filter),m_value0c(flags),m_keeper(0),m_playerIndex(-1),m_trackedKillsCount(0) {}
+ScoredKillTracker::~ScoredKillTracker() {rva0055A91A();}
+const char *ScoredKillTracker::GetSnapshotName() const {return "ScoredKillTracker";}
 
-struct BfmeAssignRecord44
-{
-	BfmeAssignRecord44 &operator=(const BfmeAssignRecord44 &other);
-	char m_00[4]; // +0x00
-	int m_04; // +0x04
-	int m_08; // +0x08
-	int m_0c; // +0x0C
-	Rva0039BCF8 *m_10; // +0x10
-	int m_14; // +0x14
-	_STL::list<int, _STL::allocator<int> > m_list; // +0x18
-	int m_1c; // +0x1C
-	BfmeAssignExtra m_20; // +0x20 (12B via movsd x3)
-};
-
-BfmeAssignRecord44 &BfmeAssignRecord44::operator=(const BfmeAssignRecord44 &other)
-{
-	if (this == &other)
-		return *this;
-	((Rva0055A91A *)this)->rva0055A91A();
-	m_04 = other.m_04;
-	m_08 = other.m_08;
-	m_0c = other.m_0c;
-	m_list = other.m_list;
-	m_1c = other.m_1c;
-	m_20 = other.m_20;
-	if (other.m_10 != 0)
-		((Rva0055A91A *)this)->rva0055A93C(other.m_10);
-	return *this;
-}
-
-extern int g_00C3A08C;
-
-struct Rva00414BA4Element
-{
-	Rva00414BA4Element(const Rva00414BA4Element &other);
-	int m_00; // +0x00 (set to &g_00C3A08C)
-	int m_04; // +0x04
-	int m_08; // +0x08
-	int m_0c; // +0x0C
-	Rva0039BCF8 *m_10; // +0x10
-	int m_14; // +0x14
-	_STL::list<int, _STL::allocator<int> > m_list; // +0x18
-	int m_1c; // +0x1C
-	BfmeAssignExtra m_20; // +0x20
-	int m_2c; // +0x28? (to reach 44? Actually 0x20+12=0x2C=44, so no m_2c. Keep 44.)
-};
-
-// ??0Rva00414BA4Element@@QAE@ABU0@@Z present-unmatched
-Rva00414BA4Element::Rva00414BA4Element(const Rva00414BA4Element &other)
-	: m_00((int)&g_00C3A08C),
-	m_04(other.m_04),
-	m_08(other.m_08),
-	m_0c(other.m_0c),
-	m_10(0),
-	m_14(-1),
-	m_list(other.m_list)
-{
-	m_1c = other.m_1c;
-	m_20.v0 = other.m_20.v0;
-	m_20.v1 = other.m_20.v1;
-	m_20.v2 = other.m_20.v2;
-	if (other.m_10 != 0)
-		((Rva0055A91A *)this)->rva0055A93C(other.m_10);
+ScoredKillTracker::ScoredKillTracker(const ScoredKillTracker &other):Snapshot(other),
+ m_lifetime(other.m_lifetime),m_filter(other.m_filter),m_value0c(other.m_value0c),m_keeper(0),m_playerIndex(-1),m_trackedKills(other.m_trackedKills),m_trackedKillsCount(other.m_trackedKillsCount),m_position(other.m_position) {
+ if(other.m_keeper)hookToKeeper(other.m_keeper);
 }

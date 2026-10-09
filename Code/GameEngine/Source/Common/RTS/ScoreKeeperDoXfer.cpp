@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /O1 /G7 /arch:SSE /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /Ireference/shims/moduledata
 // stlport
 // Retail Xfer vtable BBB910 slot28 is operator==(float&) at554C.
 // updateFrame39D1F1 independently reads +F8/+FC as floats.
@@ -37,7 +37,7 @@ struct ScoreWeightsView {
  char opaque1190[0x24];
  float realF8;
 };
-class ScoredKillTracker { public: void friend_update(); };
+#include "../ScoredKillTrackerView.h"
 
 struct XferVersion { unsigned char minimum,current; };
 class Xfer
