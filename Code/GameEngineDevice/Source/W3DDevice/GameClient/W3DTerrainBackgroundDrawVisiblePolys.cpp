@@ -1,8 +1,6 @@
-// ?drawVisiblePolys@W3DTerrainBackground@@QAEXAAVRenderInfoClass@@_NPAVRva0011580AMethod@@@Z
-// partial score=0.99 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
 // Native [0011580A,001159F1),487B, RET12. BFME 2 W3DTerrainBackground::
-// drawVisiblePolys: WorldBuilder places it in W3DTerrainBackground.cpp and
+// rva0011580A: WorldBuilder places it in W3DTerrainBackground.cpp and
 // the ZH drawVisiblePolys (set the terrain buffers, draw the tile) is the
 // semantic guide. BFME 2 adds a pending rebuild (+0x62) through 0x00112898 and
 // 0x00115044, textures through the terrain shader interface g_00DEBC60 (see
@@ -40,6 +38,15 @@ private:
 // The texture handle's copy constructor is the out-of-line 0x000424BB.
 template <> RefCountPtr<TextureClass>::RefCountPtr(const RefCountPtr<TextureClass> &rhs);
 
+// Constructor-only argument view: same owning4-byte texture word and same
+// cleanup as RefCountPtr<TextureClass>. This direct base construction puts
+// the native lvalue copies in their argument slots. The four-slot interface
+// view below changes only those two compile-time argument construction types;
+// native slots1/2 keep the same ownership ABI. It is not a new target type
+// identity. The temporary texture getters still use the existing handle type.
+struct TextureArgumentView : public RefCountPtr<TextureClass> {
+ __forceinline TextureArgumentView(const RefCountPtr<TextureClass>&other):RefCountPtr<TextureClass>(other){}
+};
 class Rva000E19A3Interface
 {
 public:
@@ -47,6 +54,13 @@ public:
 	virtual void setBaseTexture(RefCountPtr<TextureClass> texture) = 0;
 	virtual void setNormalTexture(RefCountPtr<TextureClass> texture) = 0;
 	virtual void clearTextures() = 0;
+};
+class Rva000E19A3TextureArgumentView {
+public:
+ virtual void setRenderingMode(int)=0;
+ virtual void setBaseTexture(TextureArgumentView)=0;
+ virtual void setNormalTexture(TextureArgumentView)=0;
+ virtual void clearTextures()=0;
 };
 extern Rva000E19A3Interface *g_00DEBC60;
 
@@ -64,18 +78,20 @@ public:
 class WorldHeightMap
 {
 public:
-	RefCountPtr<TextureClass> rva000AEAA6(int xCell, int yCell, int cellWidth, bool second);
+	RefCountPtr<TextureClass> rva000AEAA6(int xCell, int yCell, int cellWidth, int second);
 };
 
-class Rva0011580AMethod
+namespace FXShader {
+class RenderingMethod
 {
 public:
 	virtual void slot0();
 	virtual void slot1();
 	virtual void slot2();
 	virtual void slot3();
-	virtual void setPass(int pass);
+	virtual void rvaSlot4(int pass);
 };
+}
 
 class RenderInfoClass;
 
@@ -94,7 +110,7 @@ public:
 class W3DTerrainBackground
 {
 public:
-	void drawVisiblePolys(RenderInfoClass &rinfo, bool disableTextures, Rva0011580AMethod *method);
+	void rva0011580A(RenderInfoClass &rinfo, bool disableTextures, FXShader::RenderingMethod *method);
 
 private:
 	unsigned char m_pad00[0x24];
@@ -125,7 +141,7 @@ private:
 	int m_extraNumIndices;
 };
 
-void W3DTerrainBackground::drawVisiblePolys(RenderInfoClass &rinfo, bool disableTextures, Rva0011580AMethod *method)
+void W3DTerrainBackground::rva0011580A(RenderInfoClass &rinfo, bool disableTextures, FXShader::RenderingMethod *method)
 {
 	if (m_curNumTerrainIndices == 0 && !m_needUpdate)
 		return;
@@ -146,10 +162,10 @@ void W3DTerrainBackground::drawVisiblePolys(RenderInfoClass &rinfo, bool disable
 
 	if (method) {
 		const RefCountPtr<TextureClass> &base = m_flatTexture.Peek() ? m_flatTexture : m_terrainTexture;
-		g_00DEBC60->setBaseTexture(base);
+		((Rva000E19A3TextureArgumentView*)g_00DEBC60)->setBaseTexture(base);
 		const RefCountPtr<TextureClass> &normal = m_flatNormalTexture.Peek() ? m_flatNormalTexture : m_normalTexture;
-		g_00DEBC60->setNormalTexture(normal);
-		method->setPass(2);
+		((Rva000E19A3TextureArgumentView*)g_00DEBC60)->setNormalTexture(normal);
+		method->rvaSlot4(2);
 	}
 	DX8Wrapper::Set_Index_Buffer(m_indexTerrain, 0);
 	DX8Wrapper::Set_Vertex_Buffer(m_vertexTerrain, 0);
@@ -163,14 +179,14 @@ void W3DTerrainBackground::drawVisiblePolys(RenderInfoClass &rinfo, bool disable
 		if (method) {
 			g_00DEBC60->setBaseTexture(m_map->rva000AEAA6(m_xOrigin, m_yOrigin, m_width, false));
 			g_00DEBC60->setNormalTexture(m_map->rva000AEAA6(m_xOrigin, m_yOrigin, m_width, true));
-			method->setPass(2);
+			method->rvaSlot4(2);
 			g_00DEBC60->setRenderingMode(1);
-			method->setPass(3);
+			method->rvaSlot4(3);
 		}
 		DX8Wrapper::Draw_Triangles(0, m_extraNumIndices / 3, 0, m_extraNumVertices);
 		if (method) {
 			g_00DEBC60->setRenderingMode(0);
-			method->setPass(3);
+			method->rvaSlot4(3);
 		}
 	}
 	g_00DEBC60->clearTextures();
