@@ -75,7 +75,7 @@ struct BfmePod28
 };
 
 namespace _STL {
-template <class T> class allocator {};
+template <class T> class allocator { public: allocator() {} };
 template <class T, class A> class vector {
 public:
 	typedef T *iterator;
@@ -124,12 +124,17 @@ public:
  void init();
  const AsciiString &GetBannerIconImageName(const AsciiString &key);
  int CreateBanner(int bannerID);
+ void OnAptMovieInitialized(const char *path);
 private:
  unsigned char m_pad00[0x0C];
  Rva00056F61 m_types;
- unsigned char m_unmodelled20[4];
+ bool m_aptMovieInitialized;	// +0x20, WB's assert names it
+ unsigned char m_pad21[3];
  int m_windowIndex;
  _STL::vector<BfmePod28, _STL::allocator<BfmePod28> > m_banners;	// +0x28
+ unsigned char m_pad34[4];
+ int m_38;	// +0x38
+ float m_bannerXOffsets[2];	// +0x3C, SetBannerSlotXOffset's per-slot offsets
 };
 
 void BannerUI::ParseBannerTypeInfo(INI *ini)
@@ -282,4 +287,123 @@ int BannerUI::CreateBanner(int bannerID)
 	timerName.format("APT:BannerTimer%d", slot);
 	g_bfmeAptWindowManager->bfmeSetText(timerName, UnicodeString(L""), false);
 	return slot;
+}
+
+// BannerUI::OnAptMovieInitialized, retail 0x00217071 (291 bytes; WB
+// 0x00B6DC60 at BannerUI.cpp:348..368, wb-name-unverified). Once, after the
+// movie loads and while the game logic exists: when the living world logic
+// is active and not selection-locked, the current battle's banner ids for the
+// local player's army (LivingWorldBattle 0x003F5BDB into an id vector) each
+// get CreateBanner. Every slot whose X offset is set is pushed to the movie
+// (SetBannerXOffset), +0x38 is reset and the movie is marked initialized.
+// The constructor 0x00217211 binds it as the Apt command
+// "AptBannerUI::OnInitialized", so it takes the command path.
+// The id vector is spelled as the vector<ScienceType> the rowed battle method
+// takes; its base ctor is the folded _Vector_base pin 0x00211E58 and its
+// storage goes back through the game free 0x00030830, as STLport's
+// _Vector_base dtor does under the BFME allocator.
+enum ScienceType {};
+extern "C" void __cdecl free(void *memory);	// 0x00030830, the game free
+namespace _STL {
+template <class T, class A> class _Vector_base {
+public:
+	_Vector_base(const A &a);	// 0x00211E58
+	~_Vector_base() { if (_M_start) free(_M_start); }
+	T *_M_start;
+	T *_M_finish;
+	T *_M_end_of_storage;
+};
+template <> class vector<ScienceType, allocator<ScienceType> > : public _Vector_base<ScienceType, allocator<ScienceType> > {
+public:
+	typedef ScienceType *iterator;
+	__forceinline vector() : _Vector_base<ScienceType, allocator<ScienceType> >(allocator<ScienceType>()) {}
+	iterator begin() { return _M_start; }
+	iterator end() { return _M_finish; }
+};
+}
+
+class Rva002E2903Player;
+class LivingWorldBattle
+{
+public:
+	void rva003F5BDB(void *army, _STL::vector<ScienceType, _STL::allocator<ScienceType> > *armyIDs);	// 0x003F5BDB
+};
+class Rva0020E6B7RegionManager
+{
+public:
+	LivingWorldBattle *rva0020E6B7();	// 0x0020E6B7, the current battle
+};
+class BfmeSelectionState
+{
+public:
+	bool isSelectionLocked() const;	// 0x0004253A
+};
+class Rva002BA8F1Logic
+{
+public:
+	Rva002E2903Player *find(int id, unsigned int *out);	// 0x002B51F8
+};
+class LivingWorldLogic
+{
+public:
+	Rva0020E6B7RegionManager *getRegionManager() const { return m_regionManager; }
+	bool isActive() const { return m_active; }
+private:
+	unsigned char m_pad00[0xB0];
+	Rva0020E6B7RegionManager *m_regionManager;	// +0xB0
+	bool m_active;	// +0xB4
+};
+extern LivingWorldLogic *TheLivingWorldLogic;
+
+class Player
+{
+public:
+	int getArmyID() const { return m_armyID; }
+private:
+	unsigned char m_pad000[0x3AC];
+	int m_armyID;	// +0x3AC
+};
+class PlayerList
+{
+public:
+	Player *getLocalPlayer() { return m_local; }
+private:
+	unsigned char m_pad00[0x10];
+	Player *m_local;	// +0x10
+};
+extern PlayerList *ThePlayerList;
+
+int __cdecl Rva0021642FInvoke(Rva00222A8BTarget *target, void *owner, const char *name, const float &value);
+
+void BannerUI::OnAptMovieInitialized(const char *path)
+{
+	if (m_aptMovieInitialized)
+		return;
+	if (TheGameLogic == 0)
+		return;
+
+	LivingWorldLogic *logic = TheLivingWorldLogic;
+	if (logic && logic->isActive() && !((BfmeSelectionState *)logic)->isSelectionLocked())
+	{
+		LivingWorldBattle *battle = logic->getRegionManager()->rva0020E6B7();
+		if (battle)
+		{
+			Player *player = ThePlayerList->getLocalPlayer();
+			Rva002E2903Player *army = player ? ((Rva002BA8F1Logic *)TheLivingWorldLogic)->find(player->getArmyID(), 0) : 0;
+			if (army)
+			{
+				_STL::vector<ScienceType, _STL::allocator<ScienceType> > armyIDs;
+				battle->rva003F5BDB(army, &armyIDs);
+				for (_STL::vector<ScienceType, _STL::allocator<ScienceType> >::iterator it = armyIDs.begin(); it != armyIDs.end(); ++it)
+					CreateBanner(*it);
+			}
+		}
+	}
+
+	for (unsigned int slot = 0; slot < 2; ++slot)
+		if (m_bannerXOffsets[slot] != 0.0f)
+			Rva0021642FInvoke((Rva00222A8BTarget *)g_bfmeAptWindowManager, (void *)m_windowIndex, "SetBannerXOffset", m_bannerXOffsets[slot]);
+
+	m_38 = -1;
+	m_aptMovieInitialized = true;
 }
