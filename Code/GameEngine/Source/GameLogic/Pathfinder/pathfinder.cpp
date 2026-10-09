@@ -472,10 +472,13 @@ extern unsigned char g_00E03745;
 extern void *g_00DFEFF0;
 
 struct ICoord2D { Int x,y; };
+class Rva002F6F90Context { public: Bool rva002F6F90(unsigned int,Int); };
 class Rva002F70E5Context { public: Bool rva002F70E5(unsigned int,Int); };
 class Pathfinder
 {
 public:
+	Bool rva002F8E2D(const ICoord2D *,Int,ICoord2D *,void *);
+	Bool rva002F90E9(ICoord2D *,Int,void *);
 	Bool rva002F92BC(const ICoord2D *,Int,ICoord2D *,void *);
 	Int rva002F0A72(PathfindCell *,PathfindCell *);
 	float GetWallHeight(PathfindLayerEnum layer, const Coord3D *pos, Coord3D *normal);
@@ -1311,3 +1314,200 @@ Bool Pathfinder::rva002F92BC(const ICoord2D *scanCenterCell, Int remainingCellBu
 	return false;
 }
 
+
+// BFME1 IterateCircular1 predicate donor 9cbfb551 and retail2F8E2D..2F90E9.
+Bool Pathfinder::rva002F8E2D(const ICoord2D *scanCenterCell, Int remainingCellBudget, ICoord2D *foundCell, void *adjustTargetInfoData)
+{
+	if (g_00E03745 && g_00DFEFF0)
+	{
+		fprintf((PathfinderLogFile *)g_00DFEFF0,
+			"\t\tIterateCircular1 called with center=%d,%d, maxCells=%d",
+			scanCenterCell->x, scanCenterCell->y, remainingCellBudget);
+	}
+
+	Rva002F6F90Context *targetSearch = (Rva002F6F90Context *)adjustTargetInfoData;
+	if (targetSearch->rva002F6F90(scanCenterCell->x, scanCenterCell->y))
+	{
+		if (g_00E03745 && g_00DFEFF0)
+			fprintf((PathfinderLogFile *)g_00DFEFF0, "\t\tfunc succeeded found=%d,%d", scanCenterCell->x, scanCenterCell->y);
+		foundCell->x=scanCenterCell->x;
+		foundCell->y=scanCenterCell->y;
+		return true;
+	}
+	if (g_00E03745 && g_00DFEFF0)
+		fprintf((PathfinderLogFile *)g_00DFEFF0, "\t\tfunc failed");
+
+	Int bestOffsetDistanceSquared = 0;
+	Int ringExtent = 1;
+	Int cellOffsetX = 0;
+	Int cellOffsetY = 0;
+
+	while (remainingCellBudget > 0)
+	{
+		remainingCellBudget -= 4 * ringExtent + 2;
+		for (Int stepsRemaining = ringExtent; stepsRemaining > 0; --stepsRemaining)
+		{
+			++cellOffsetX;
+			if (bestOffsetDistanceSquared == 0
+				|| cellOffsetX * cellOffsetX + cellOffsetY * cellOffsetY < bestOffsetDistanceSquared)
+			{
+				if (targetSearch->rva002F6F90(scanCenterCell->x + cellOffsetX, scanCenterCell->y + cellOffsetY))
+				{
+					bestOffsetDistanceSquared = cellOffsetX * cellOffsetX + cellOffsetY * cellOffsetY;
+					foundCell->x=scanCenterCell->x+cellOffsetX;
+					foundCell->y=scanCenterCell->y+cellOffsetY;
+				}
+			}
+		}
+
+		for (Int stepsRemaining = ringExtent; stepsRemaining > 0; --stepsRemaining)
+		{
+			++cellOffsetY;
+			if (bestOffsetDistanceSquared == 0
+				|| cellOffsetX * cellOffsetX + cellOffsetY * cellOffsetY < bestOffsetDistanceSquared)
+			{
+				if (targetSearch->rva002F6F90(scanCenterCell->x + cellOffsetX, scanCenterCell->y + cellOffsetY))
+				{
+					bestOffsetDistanceSquared = cellOffsetX * cellOffsetX + cellOffsetY * cellOffsetY;
+					foundCell->x=scanCenterCell->x+cellOffsetX;
+					foundCell->y=scanCenterCell->y+cellOffsetY;
+				}
+			}
+		}
+
+		for (Int stepsRemaining = 0; stepsRemaining <= ringExtent; ++stepsRemaining)
+		{
+			--cellOffsetX;
+			if (bestOffsetDistanceSquared == 0
+				|| cellOffsetX * cellOffsetX + cellOffsetY * cellOffsetY < bestOffsetDistanceSquared)
+			{
+				if (targetSearch->rva002F6F90(scanCenterCell->x + cellOffsetX, scanCenterCell->y + cellOffsetY))
+				{
+					bestOffsetDistanceSquared = cellOffsetX * cellOffsetX + cellOffsetY * cellOffsetY;
+					foundCell->x=scanCenterCell->x+cellOffsetX;
+					foundCell->y=scanCenterCell->y+cellOffsetY;
+				}
+			}
+		}
+
+		for (Int stepsRemaining = 0; stepsRemaining <= ringExtent; ++stepsRemaining)
+		{
+			--cellOffsetY;
+			if (bestOffsetDistanceSquared == 0
+				|| cellOffsetX * cellOffsetX + cellOffsetY * cellOffsetY < bestOffsetDistanceSquared)
+			{
+				if (targetSearch->rva002F6F90(scanCenterCell->x + cellOffsetX, scanCenterCell->y + cellOffsetY))
+				{
+					bestOffsetDistanceSquared = cellOffsetX * cellOffsetX + cellOffsetY * cellOffsetY;
+					foundCell->x=scanCenterCell->x+cellOffsetX;
+					foundCell->y=scanCenterCell->y+cellOffsetY;
+				}
+			}
+		}
+
+		if (bestOffsetDistanceSquared == 0)
+		{
+			ringExtent += 2;
+		}
+		else
+		{
+			if (g_00E03745 && g_00DFEFF0)
+				fprintf((PathfinderLogFile *)g_00DFEFF0, "\t\tbest return true. found=%d,%d", foundCell->x, foundCell->y);
+			return true;
+		}
+	}
+
+	if (g_00E03745 && g_00DFEFF0)
+		fprintf((PathfinderLogFile *)g_00DFEFF0, "\t\ttotal failure. found");
+	return false;
+}
+
+
+// BFME1 IterateCircular2 clean donor 9cbfb551; retail2F90E9..2F92BC.
+Bool Pathfinder::rva002F90E9(ICoord2D *scanCenterCell, Int remainingCellBudget, void *adjustTargetInfoData)
+{
+	if (g_00E03745 && g_00DFEFF0)
+	{
+		fprintf((PathfinderLogFile *)g_00DFEFF0,
+			"\t\tIterateCircular2 called with center=%d,%d, maxCells=%d",
+			scanCenterCell->x, scanCenterCell->y, remainingCellBudget);
+	}
+
+	Rva002F6F90Context *targetSearch = (Rva002F6F90Context *)adjustTargetInfoData;
+	if (targetSearch->rva002F6F90(scanCenterCell->x, scanCenterCell->y))
+	{
+		return true;
+	}
+
+	Int bestOffsetDistanceSquared = 0;
+	Int ringExtent = 1;
+	Int cellOffsetX = 0;
+	Int cellOffsetY = 0;
+
+	while (remainingCellBudget > 0)
+	{
+		remainingCellBudget -= 4 * ringExtent + 2;
+		for (Int stepsRemaining = ringExtent; stepsRemaining > 0; --stepsRemaining)
+		{
+			++cellOffsetX;
+			if (bestOffsetDistanceSquared == 0
+				|| cellOffsetX * cellOffsetX + cellOffsetY * cellOffsetY < bestOffsetDistanceSquared)
+			{
+				if (targetSearch->rva002F6F90(scanCenterCell->x + cellOffsetX, scanCenterCell->y + cellOffsetY))
+				{
+					bestOffsetDistanceSquared = cellOffsetX * cellOffsetX + cellOffsetY * cellOffsetY;
+				}
+			}
+		}
+
+		for (Int stepsRemaining = ringExtent; stepsRemaining > 0; --stepsRemaining)
+		{
+			++cellOffsetY;
+			if (bestOffsetDistanceSquared == 0
+				|| cellOffsetX * cellOffsetX + cellOffsetY * cellOffsetY < bestOffsetDistanceSquared)
+			{
+				if (targetSearch->rva002F6F90(scanCenterCell->x + cellOffsetX, scanCenterCell->y + cellOffsetY))
+				{
+					bestOffsetDistanceSquared = cellOffsetX * cellOffsetX + cellOffsetY * cellOffsetY;
+				}
+			}
+		}
+
+		for (Int stepsRemaining = 0; stepsRemaining <= ringExtent; ++stepsRemaining)
+		{
+			--cellOffsetX;
+			if (bestOffsetDistanceSquared == 0
+				|| cellOffsetX * cellOffsetX + cellOffsetY * cellOffsetY < bestOffsetDistanceSquared)
+			{
+				if (targetSearch->rva002F6F90(scanCenterCell->x + cellOffsetX, scanCenterCell->y + cellOffsetY))
+				{
+					bestOffsetDistanceSquared = cellOffsetX * cellOffsetX + cellOffsetY * cellOffsetY;
+				}
+			}
+		}
+
+		for (Int stepsRemaining = 0; stepsRemaining <= ringExtent; ++stepsRemaining)
+		{
+			--cellOffsetY;
+			if (bestOffsetDistanceSquared == 0
+				|| cellOffsetX * cellOffsetX + cellOffsetY * cellOffsetY < bestOffsetDistanceSquared)
+			{
+				if (targetSearch->rva002F6F90(scanCenterCell->x + cellOffsetX, scanCenterCell->y + cellOffsetY))
+				{
+					bestOffsetDistanceSquared = cellOffsetX * cellOffsetX + cellOffsetY * cellOffsetY;
+				}
+			}
+		}
+
+		if (bestOffsetDistanceSquared == 0)
+		{
+			ringExtent += 2;
+		}
+		else
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
