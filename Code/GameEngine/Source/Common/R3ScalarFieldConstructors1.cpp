@@ -99,3 +99,24 @@ Rva00054EB0Fields *Rva00054EB0Fields::initialize()
     scalar4 = 0.0f;
     return this;
 }
+
+// BF1 f98983a7d W3DViewBuildCameraTransformBfme.cpp/WorldHeightMap.cpp
+// emit StaticNameKey's initializer under O1/x87/G7, providing a source lead.
+// Native30D39E..30D3AD is complete: prior RET30D39D, own RET4 at30D3AA,
+// next independent prologue30D3AD. No direct/VA reference or overlap proves
+// the donor's class/constructor/name-pointer identity. Keep a raw two-word
+// address-owned initializer: clearword0, copy full argument toword4, return
+// the receiver. Field names and unsigned32 storage describe observed widths.
+struct Rva0030D39EWords
+{
+    unsigned long word0;
+    unsigned long word4;
+    Rva0030D39EWords *initialize(unsigned long argument);
+};
+
+Rva0030D39EWords *Rva0030D39EWords::initialize(unsigned long argument)
+{
+    word0 = 0;
+    word4 = argument;
+    return this;
+}
