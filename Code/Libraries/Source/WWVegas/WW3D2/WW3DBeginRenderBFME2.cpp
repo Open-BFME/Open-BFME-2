@@ -1,17 +1,15 @@
-// ?Begin_Render@WW3D@@SA?AW4WW3DErrorType@@_N0ABVVector3@@MP6AXXZ@Z
-// partial score=0.98 date=2026-10-05
-// ?Begin_Render@WW3D@@SA?AW4WW3DErrorType@@_N0ABVVector3@@MP6AXXZ@Z
-// partial score=0.98 date=2026-10-05
 // cl: /O2 /G7 /arch:SSE /DNDEBUG /MD /EHsc
 
 // Clean BFME body for WW3D::Begin_Render at BFME1 donor RVA 0x008FE280; BFME2 native118170..118296.
 // Semantic donor BFME1 6583b3c1ff21db4a561285717028fdafc780b7db.
 // Target flags, removed counters/statistics, pool reset callees, viewport
 // direct DX8 call and bool result are proved by native294, not donor labels.
-// All instructions match except REL32+5B to empty folded69E440: the stack
-// carries value1 but original identity/member-vs-static ABI is unknown.
-// The opaque cdecl-member hook below preserves the donor call shape only;
-// do not pin its invented name or infer unique identity from the empty RET.
+// Target returns AL; keep an address-derived API name because the return
+// ABI and return values differ from the donor enum. The frame-start purpose
+// is established by the reset/capture/
+// clear/scene sequence and matched WW3D companions; original enum identity
+// is not asserted. The reset-phase empty call uses an existing provider ABI
+// view; it does not name the original folded function.
 // Reset_Device122600, target resolution121860 and Clear11D330 are unrowed.
 
 typedef unsigned int UnsignedInt;
@@ -60,7 +58,7 @@ public:
 	static void *D3DDevice;
 };
 
-class BfmeDynamicVBAccess
+class DynamicVBAccessClass
 {
 public:
 	static void _Reset(bool);
@@ -72,20 +70,18 @@ public:
 	static void _Reset(bool);
 };
 
-class Rva0069E440BeginResetHook
-{
-public:
-	void __cdecl m(void);
-};
+// Native pushes an unused value1 before calling the shared empty RET.
+// Reuse its already rowed provider without adding a second pin/name.
+// The bool cdecl call view describes the caller stack, not DX8_Assert identity.
+void DX8_Assert(void);
 
 
-enum WW3DErrorType { WW3D_ERROR_NONE = 0, WW3D_ERROR_RENDERING = 1 };
 class WW3D
 {
 public:
 	static void Get_Render_Target_Resolution(int &, int &, int &, bool &);
 	static void Update_Movie_Capture(void);
-	static WW3DErrorType Begin_Render(bool, bool, const Vector3 &, float, void (*)(void));
+	static bool rva00118170(bool, bool, const Vector3 &, float, void (*)(void));
 
 	static bool IsInitted;
 	static bool IsRendering;
@@ -97,13 +93,13 @@ private:
 };
 
 
-WW3DErrorType WW3D::Begin_Render(bool clear, bool clearz, const Vector3 &color,
+bool WW3D::rva00118170(bool clear, bool clearz, const Vector3 &color,
 	float dest_alpha, void (*network_callback)(void))
 {
 	if (!IsInitted)
-		return WW3D_ERROR_RENDERING;
+		return true;
 	if (IsRendering)
-		return WW3D_ERROR_NONE;
+		return false;
 	{
 		BfmeD3DDevice *device = (BfmeD3DDevice *)DX8Wrapper::D3DDevice;
 		if (device)
@@ -112,17 +108,17 @@ WW3DErrorType WW3D::Begin_Render(bool clear, bool clearz, const Vector3 &color,
 			if (hr != 0)
 			{
 				if (hr == 0x88760868)
-					return WW3D_ERROR_RENDERING;
+					return false;
 				if (hr != 0x88760869)
-					return WW3D_ERROR_RENDERING;
+					return false;
 				DX8Wrapper::Reset_Device(true);
-				return WW3D_ERROR_RENDERING;
+				return false;
 			}
 		}
 	}
-	BfmeDynamicVBAccess::_Reset(true);
+	DynamicVBAccessClass::_Reset(true);
 	DynamicIBAccessClass::_Reset(true);
-	((Rva0069E440BeginResetHook *)1)->m();
+	reinterpret_cast<void(__cdecl *)(bool)>(&DX8_Assert)(true);
 	if (IsCapturing && (!PauseRecord || RecordNextFrame))
 	{
 		WW3D::Update_Movie_Capture();
@@ -154,5 +150,5 @@ clear_viewport:
 	}
 begin_scene:
 	DX8Wrapper::Begin_Scene_Inner();
-	return WW3D_ERROR_RENDERING;
+	return true;
 }
