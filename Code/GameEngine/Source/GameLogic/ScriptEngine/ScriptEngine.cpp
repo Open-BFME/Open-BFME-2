@@ -134,6 +134,11 @@ struct ScriptCounter
 class ScriptAction
 {
 public:
+    enum FadeActionType {
+        CAMERA_FADE_ADD = 0x7C, CAMERA_FADE_SUBTRACT,
+        CAMERA_FADE_SATURATE, CAMERA_FADE_MULTIPLY
+    };
+    int getActionType() const { return m_actionType; }
 	Parameter *getParameter(int ndx)
 	{
 		if (ndx >= 0 && ndx < m_numParms)
@@ -142,7 +147,8 @@ public:
 	}
 
 private:
-	char m_unknown[8];
+	char m_unknown[4];
+	int m_actionType;			// +0x04, the fade action type for the fade setter
 	int m_numParms;
 	Parameter *m_parms[12];
 };
@@ -171,6 +177,11 @@ public:
 	int rva00203693();	// 0x00203693, current mode mask (2 or 1)
 
 protected:
+    enum TFade { FADE_NONE, FADE_SUBTRACT, FADE_ADD, FADE_SATURATE, FADE_MULTIPLY };
+    // ?setFade@ScriptEngine@@IAEXPAVScriptAction@@@Z, retail 0x00203777 (232B),
+    // and the per-frame ?updateFades@ScriptEngine@@IAEXXZ at 0x002036CC.
+    void setFade(ScriptAction *action);
+    void updateFades();
 	bool evaluateCounter(Condition *pCondition);	// 0x00208F61
 	bool evaluateCondition(Condition *pCondition);
 	void setSway(ScriptAction *pAction);
@@ -188,7 +199,20 @@ private:
 	Team *m_callingTeam;						// +0x1A110
 	unsigned char m_unreconstructed1A114[0x1a130 - 0x1a114];
 	Player *m_currentPlayer;					// +0x1A130
-	unsigned char m_unreconstructed1A134[0x1a264 - 0x1a134];
+	char m_pad1A134[4];					// +0x1A134
+	// The camera-fade block: the fade setter 0x00203777 writes it and the
+	// per-frame updateFades 0x002036CC walks the increase/hold/decrease
+	// frame counts. Layout and field order are read from the retail bytes.
+	int m_fade;					// +0x1A138, TFade
+	bool m_fadeActive;				// +0x1A13C
+	float m_minFade;				// +0x1A140
+	float m_maxFade;				// +0x1A144
+	float m_curFadeValue;				// +0x1A148
+	int m_curFadeFrame;				// +0x1A14C
+	int m_fadeFramesIncrease;			// +0x1A150
+	int m_fadeFramesHold;				// +0x1A154
+	int m_fadeFramesDecrease;			// +0x1A158
+	unsigned char m_unreconstructed1A15C[0x1a264 - 0x1a15c];
 	ScriptFlagKeyNode *m_flagKeys;				// +0x1A264, list header
 };
 
@@ -294,4 +318,65 @@ bool ScriptEngine::evaluateConditions(Script *pScript, Team *thisTeam, Player *p
 	}
 
 	return testValue; // If none of the or's fired, then it is false.
+}
+
+// ScriptEngine::setFade, retail 0x00203777 (232B): the BFME2 camera-fade
+// setter. Zero Hour's ScriptEngine.cpp supplies the action purpose and the
+// field names; retail establishes the action values 0x7C..0x7F and the fade
+// block at +0x1A138, with the active flag raised after the optional first
+// interpolation. The interpolation helper stays separately unrecovered.
+void ScriptEngine::setFade(ScriptAction *pAction)
+{
+    switch (pAction->getActionType())
+    {
+        default: m_fade = FADE_NONE; return;
+        case ScriptAction::CAMERA_FADE_ADD: m_fade = FADE_ADD; break;
+        case ScriptAction::CAMERA_FADE_SUBTRACT: m_fade = FADE_SUBTRACT; break;
+        case ScriptAction::CAMERA_FADE_SATURATE: m_fade = FADE_SATURATE; break;
+        case ScriptAction::CAMERA_FADE_MULTIPLY: m_fade = FADE_MULTIPLY; break;
+    }
+    m_curFadeFrame = 0;
+    m_minFade = pAction->getParameter(0)->m_real;
+    m_maxFade = pAction->getParameter(1)->m_real;
+    m_fadeFramesIncrease = pAction->getParameter(2)->m_int;
+    m_fadeFramesHold = pAction->getParameter(3)->m_int;
+    m_fadeFramesDecrease = pAction->getParameter(4)->m_int;
+    m_curFadeValue = m_minFade;
+    if (m_fadeFramesIncrease == 0)
+        updateFades();
+    m_fadeActive = true;
+}
+
+// ?updateFades@ScriptEngine@@IAEXXZ present-unmatched
+void ScriptEngine::updateFades(void)
+{
+	int *frame = &m_curFadeFrame;
+	int increase = m_fadeFramesIncrease;
+	++*frame;
+	int fade = *frame;
+	m_fadeActive = false;
+	float factor;
+	if (fade <= increase)
+	{
+		factor = (float)fade / increase;
+		m_curFadeValue = m_minFade + factor * (m_maxFade - m_minFade);
+		return;
+	}
+	fade -= increase;
+	if (fade <= m_fadeFramesHold)
+	{
+		m_curFadeValue = m_maxFade;
+		return;
+	}
+	fade -= m_fadeFramesHold;
+	if (fade <= m_fadeFramesDecrease)
+	{
+		int divisor = m_fadeFramesDecrease + 1;
+		if (divisor == 0)
+			divisor = 1;
+		factor = (float)fade / divisor;
+		m_curFadeValue = m_maxFade + factor * (m_minFade - m_maxFade);
+		return;
+	}
+	m_fade = FADE_NONE;
 }
