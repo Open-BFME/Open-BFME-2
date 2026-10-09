@@ -1,4 +1,6 @@
 // ?MultiplyInternalFPF@@YAXPAUInternalFPF@@00@Z
+// partial score=0.9968 date=2026-10-09
+// ?MultiplyInternalFPF@@YAXPAUInternalFPF@@00@Z
 // partial score=0.997 date=2026-10-07
 // ?MultiplyInternalFPF@@YAXPAUInternalFPF@@00@Z
 // cl: /GS /MD /GR- /EHsc- -Ireference/shims/nbench -ICode/Libraries/Source/Benchmark
