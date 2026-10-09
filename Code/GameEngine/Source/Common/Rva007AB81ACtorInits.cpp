@@ -49,6 +49,12 @@ public:
 	BfmeDualVtableReleaseDtor();
 };
 
+class Rva0030ADED
+{
+public:
+	Rva0030ADED();
+};
+
 class Rva002150CE
 {
 public:
@@ -103,6 +109,8 @@ void __cdecl rva007B71C0();
 void __cdecl rva007B75E2();
 void __cdecl rva007B763C();
 void __cdecl rva007B7632();
+void __cdecl rva007B7AF5();
+void __cdecl rva007B7AFF();
 void __cdecl rva007B7C87();
 void __cdecl rva007B972A();
 void __cdecl rva007B9825();
@@ -124,6 +132,8 @@ extern unsigned g_Va00DEE5D8;
 extern unsigned int g_Va009F6F30;
 extern unsigned g_Va00DFE180;
 class Rva00214E02;
+extern Rva0030ADED TheFireSettings;			// 0x00DFF4F8 (Rva007B6880Thunks.cpp)
+extern Rva0030ADED TheFireSettingsSaved;		// 0x00DFF4B8
 extern Rva00214E02 TheCloudEffectSettings;		// 0x00DFE280 (Rva007B6880Thunks.cpp)
 extern Rva00214E02 TheCloudEffectSettingsSaved;	// 0x00DFE1E8
 extern unsigned g_Va00E065EC;
@@ -146,6 +156,8 @@ struct Rva007AB81ACtorInits
 	static void rva007AD7DD();
 	static void rva007AD9BC();
 	static void rva007AD9D2();
+	static void rva007AE79E();
+	static void rva007AE7B4();
 	static void rva007AEC78();
 	static void rva007B494C();
 	static void rva007B4C22();
@@ -247,6 +259,20 @@ void Rva007AB81ACtorInits::rva007AEC78()
 {
 	( (ATL::CAtlWinModule *)&g_00DDE0AC )->ATL::CAtlWinModule::CAtlWinModule();
 	atexit( rva007B7C87 );
+}
+
+// ?rva007AE79E@Rva007AB81ACtorInits@@SAXXZ @ 0x007AE79E (22B): ??0Rva0030ADED@@QAE@XZ on TheFireSettingsSaved (VA 0x00DFF4B8), atexit(0x007B7AFF)
+void Rva007AB81ACtorInits::rva007AE79E()
+{
+	( &TheFireSettingsSaved )->Rva0030ADED::Rva0030ADED();
+	atexit( rva007B7AFF );
+}
+
+// ?rva007AE7B4@Rva007AB81ACtorInits@@SAXXZ @ 0x007AE7B4 (22B): ??0Rva0030ADED@@QAE@XZ on TheFireSettings (VA 0x00DFF4F8), atexit(0x007B7AF5)
+void Rva007AB81ACtorInits::rva007AE7B4()
+{
+	( &TheFireSettings )->Rva0030ADED::Rva0030ADED();
+	atexit( rva007B7AF5 );
 }
 
 // ?rva007B494C@Rva007AB81ACtorInits@@SAXXZ @ 0x007B494C (22B): ??0Rva005CB35A@@QAE@XZ on VA 0x00E065EC, atexit(0x007B972A)
