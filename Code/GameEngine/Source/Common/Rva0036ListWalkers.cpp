@@ -80,7 +80,9 @@ public:
 	virtual void slot26(void *arg);
 };
 
-extern class Rva00A027B8 *g_00A027B8;
+// Project data ledger binds RVA A027B8 to the defined BuildAssistant global.
+// Keep the observed slot26 interface view until its method identity is recovered.
+extern class BuildAssistant *TheBuildAssistant;
 
 class Rva0036D6B4Ret : public VSlots<52>
 {
@@ -129,7 +131,7 @@ void Rva0036ListOwner::rva0036DC46(int unused)
 	while (node != m_head) {
 		RvaListNode *cur = node;
 		node = node->m_next;
-		g_00A027B8->slot26(cur->m_payload);
+		((Rva00A027B8*)TheBuildAssistant)->slot26(cur->m_payload);
 	}
 }
 
