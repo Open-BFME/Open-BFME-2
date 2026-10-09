@@ -157,7 +157,6 @@ public:
  virtual ~Rva005D2EA8();
  virtual Rva005D2EA8Listener *getListener() const {return m_listener;}
  virtual void setListener(Rva005D2EA8Listener *listener) {m_listener=listener;}
- // ?getRollOver@Rva005D2EA8@@UBE_NXZ present-unmatched
  virtual bool getRollOver() const {return m_rollOver;}
  void rva005D2EF1(const char *);
  void rva005D2F07(const char *);
