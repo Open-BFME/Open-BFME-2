@@ -2,11 +2,14 @@
 // stlport
 //
 // TheGameResultsQueue, the Zero Hour GameResultsThread.cpp queue bodies
-// (createNewGameResultsInterface, the GameResultsQueue constructor and its
-// startThreads, add/getRequest, add/getResponse, areGameResultsBeingSent):
+// (createNewGameResultsInterface, the GameResultsQueue constructor and
+// destructor, startThreads, endThreads, add/getRequest, add/getResponse,
+// areGameResultsBeingSent):
 //   ?Rva0041AA6FCreateGameResults@@YAPAVGameResultsInterface@@XZ  0x0041AA6F  53B
 //   ??0Rva0041A644@@QAE@XZ                                       0x0041A754 135B
+//   ??1Rva0041A644@@UAE@XZ                                       0x0041A644 140B
 //   ?startThreads@Rva0041A644@@UAEXXZ                            0x00419F88 135B
+//   ?endThreads@Rva0041A644@@UAEXXZ                              0x0041A00F  56B
 //   ?addRequest@Rva0041A644@@...                                 0x0041ABCC  74B
 //   ?getRequest@Rva0041A644@@...                                 0x0041AAA4  98B
 //   ?addResponse@Rva0041A644@@...                                0x0041AC16  74B
@@ -26,7 +29,8 @@
 // +0x1C/+0x44, counts +0x6C/+0x70, worker thread +0x74, thread mutex +0x78
 // and the held thread lock +0x80. BFME's startThreads locks that mutex (new
 // LockClass, handed to the +0x80 holder's set 0x000998EA) before starting
-// the 0x54-byte worker 0x00419CFB, which Zero Hour does not. The get
+// the 0x54-byte worker 0x00419CFB, and endThreads clears that holder and
+// stops the worker before the global delete, which Zero Hour does not. The get
 // methods try-lock (time 0) and test the lock's failed flag at +4.
 //
 // Names are address-derived: the decorated createNewGameResultsInterface and
@@ -123,18 +127,30 @@ private:
 	MutexClass::LockClass *m_ptr;
 };
 
-// The 0x54-byte worker thread (Rva00419CFBConstructor.cpp); ThreadClass
-// slot 1 is Execute.
-class Rva00419CFB
+// The 0x54-byte worker thread (Rva00419CFBConstructor.cpp) on ThreadClass:
+// slot 0 the virtual dtor, slot 1 Execute.
+class ThreadClass
 {
 public:
-	Rva00419CFB(void *lock);	// 0x00419CFB
-	virtual ~Rva00419CFB();
+	virtual ~ThreadClass();
 	virtual void Execute();
+	void Stop();			// 0x006105F0
 
 private:
 	char m_storage[0x54 - 4];
 };
+
+class Rva00419CFB : public ThreadClass
+{
+public:
+	Rva00419CFB(void *lock);	// 0x00419CFB
+};
+
+// The record each placeholder-named queue holds: the destructor frees the
+// queues through the rowed deque<record> dtors 0x0041A51F and 0x0041A57B.
+template <class T> struct Rva0041A644Record;
+template <> struct Rva0041A644Record<BfmePod28> { typedef BfmeNarrowRecord0041A5D2 Type; };
+template <> struct Rva0041A644Record<BfmePod16> { typedef BfmeNarrowRecord0041A617 Type; };
 
 namespace _STL
 {
@@ -142,6 +158,7 @@ template <class T> class allocator;
 template <class T, class A> class deque
 {
 public:
+	~deque();
 	void push_back(const T &value);
 };
 
@@ -152,7 +169,11 @@ class queue
 {
 public:
 	queue();
-	~queue();
+	~queue()
+	{
+		typedef typename Rva0041A644Record<T>::Type R;
+		reinterpret_cast<deque<R, allocator<R> > *>(this)->~deque();
+	}
 	bool empty() const { return m_finishCur == m_startCur; }
 	void push(const T &value) { reinterpret_cast<C *>(this)->push_back(value); }
 	void *frontCur() const { return m_startCur; }
@@ -189,7 +210,7 @@ class Rva0041A644 : public GameResultsInterface
 {
 public:
 	Rva0041A644();
-	virtual ~Rva0041A644();			// 0x0041A644
+	virtual ~Rva0041A644();
 
 	virtual void startThreads();
 	virtual void endThreads();
@@ -224,6 +245,11 @@ Rva0041A644::Rva0041A644() : m_requestCount(0), m_responseCount(0)
 	startThreads();
 }
 
+Rva0041A644::~Rva0041A644()
+{
+	endThreads();
+}
+
 void Rva0041A644::startThreads()
 {
 	endThreads();
@@ -232,6 +258,20 @@ void Rva0041A644::startThreads()
 	{
 		m_workerThreads[i] = new Rva00419CFB(&m_threadMutex);
 		m_workerThreads[i]->Execute();
+	}
+}
+
+void Rva0041A644::endThreads()
+{
+	m_threadLock.clear();
+	for (int i = 0; i < 1; ++i)
+	{
+		if (m_workerThreads[i])
+		{
+			m_workerThreads[i]->Stop();
+			::delete m_workerThreads[i];
+			m_workerThreads[i] = 0;
+		}
 	}
 }
 

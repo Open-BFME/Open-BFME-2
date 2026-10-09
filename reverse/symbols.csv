@@ -4383,7 +4383,6 @@ name,address,notes
 ??1Rva00419B8D@@QAE@XZ,0x00419B8D,destructor called by the vtable-referenced scalar deleting dtor 0x00419B71 (REL32 at +4 of its 28B delete-flag wrapper); identity unproven; address-derived name
 ??1Rva00419E38@@UAE@XZ,0x00419E38,opaque dtor called by the scalar deleting dtor at 0x00419E1C (vtable 0x00C3AD60#0 0x00C6AB40#0); identity unproven; address-derived name
 ??1Rva00419E3@@UAE@XZ,0x00419E3,opaque vptr+and+jmp dtor (18B: vptr 0xBC2478, and [0xDE1B18],0, tail-jmp 0x1EE3DE); called by scalar-deleting-dtor at 0x41B69; identity unproven, address-derived name
-??1Rva0041A644@@UAE@XZ,0x0041A644,opaque dtor called by the scalar deleting dtor at 0x0041A7DB (vtable 0x00C3AD70#0); identity unproven; address-derived name
 ??1Rva0041B790@@UAE@XZ,0x0041B790,opaque dtor called by the scalar deleting dtor at 0x0041B7D9 (vtable 0x00C3ADD8#0); identity unproven; address-derived name
 ??1Rva0041E4A3@@MAE@XZ,0x0041E4C4,dtor installs its own vftable 0x00C3AEA8 (bytes at ++21) and is the REL32 callee of the slot-0 ??_G at 0x0041E545
 ??1Rva0041E9F@@UAE@XZ,0x0041E9F,opaque frameless dtor (push esi/mov esi,ecx/push +0x60, vptr 0xBC2530); called by scalar-deleting-dtor at 0x42105; identity unproven, address-derived name
