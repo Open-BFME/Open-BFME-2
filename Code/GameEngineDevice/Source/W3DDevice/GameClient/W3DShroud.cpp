@@ -34,9 +34,12 @@ public:
 	int m_xExtent;
 	int m_yExtent;
 	int m_borderSize;
-	unsigned char m_pad14[0x120E8 - 0x14];
+	unsigned char m_pad14[0x120E0 - 0x14];
+ int m_drawOriginX,m_drawOriginY;
 	int m_drawWidth;
 	int m_drawHeight;
+	int getDrawOriginX() const {return m_drawOriginX;}
+ int getDrawOriginY() const {return m_drawOriginY;}
 	int getXExtent() const { return m_xExtent; }
 	int getYExtent() const { return m_yExtent; }
 	int getBorderSize() const { return m_borderSize; }
@@ -77,10 +80,41 @@ class Rva007397D0 { public: void rva007397D0(); };
 class ShroudManager;
 extern ShroudManager *TheShroudManager;
 
+#include "../../../../../reference/shims/d3d8_shim_validated.h"
+class CameraClass;
+class DX8Wrapper { public:
+ static IDirect3DDevice8 *_Get_D3D_Device8() { return D3DDevice; }
+protected:
+ static IDirect3DDevice8 *D3DDevice;
+};
+class ShroudFilter { public:
+ int getMagFilter() const { return m_filter4; }
+ void setMagFilter(int v) {m_filter4=v;}
+ void setMinFilter(int v) {m_filter0=v;}
+ int m_filter0,m_filter4;
+};
+class ShroudTexture { public: ShroudFilter *getFilter(); };
+class W3DRadarResetSurface {public: void *m_surface; ~W3DRadarResetSurface();};
+struct CursorTextureSlot { void *Ptr; W3DRadarResetSurface Get_Surface_Level(); };
+class Rva001166E0 { public: void *rva001166E0(int*,int,int,int,int); };
+class Member0C00739C70 {public: void clear();};
+class Rva00116680;
+class Rva00072B3A {public: void rva00072E84(unsigned char,Rva00116680*);};
+class Rva00073C7A {public: void rva00073C7A();};
+
+class BaseHeightMapRenderObjClass { public:
+ unsigned char m_pad00[0x37C0];
+ WorldHeightMap *m_map;
+ WorldHeightMap *getMap() const {return m_map;}
+};
+extern BaseHeightMapRenderObjClass *TheTerrainRenderObject;
+
 class W3DShroud
 {
 public:
 	Bool ReAcquireResources();
+ void rva00073628(void *unused);
+ void rva00073426(RECT *unused);
 	void init(WorldHeightMap *map, Real worldCellSizeX,
 		Real worldCellSizeY);
 
@@ -169,4 +203,82 @@ void W3DShroud::init(WorldHeightMap *map,
 	}
 	if (TheShroudManager)
 		reinterpret_cast<Rva007397D0 *>(TheShroudManager)->rva007397D0();
+}
+
+// Semantic donor: BFME1 9cbfb551 W3DShroudRenderBfme.cpp; the renderer
+// name and camera parameter type are not independently recovered for BFME2.
+// WB7FD800 unnamed body and native73628..73816 establish the shroud layout,
+// two-byte cell copies, texture filters, surface lifetime and RECT helper.
+void W3DShroud::rva00073628(void *cam)
+{
+	(void)cam;
+
+	if (!m_shroudData)
+		return;
+
+	ShroudTexture *texture =
+		reinterpret_cast<ShroudTexture *>(&m_dstTexture);
+	if (!m_dstTexture.m_p)
+		return;
+
+	IDirect3DDevice8 *device = DX8Wrapper::_Get_D3D_Device8();
+	if (device && device->TestCooperativeLevel() != D3D_OK)
+		return;
+
+	WorldHeightMap *hm = TheTerrainRenderObject->getMap();
+	int visStartX = WWMath::Float_To_Long(ShroudFloor(
+		(float)(hm->getDrawOriginX() - hm->getBorderSize()) /
+		m_cellWidth * 10.0f));
+	int visStartY = WWMath::Float_To_Long(ShroudFloor(
+		(float)(hm->getDrawOriginY() - hm->getBorderSize()) /
+		m_cellHeight * 10.0f));
+	int visEndX = WWMath::Float_To_Long(ShroudFloor(
+		(float)(hm->getDrawWidth() - 1) /
+		m_cellWidth * 10.0f));
+	int visEndY = WWMath::Float_To_Long(ShroudFloor(
+		(float)(hm->getDrawHeight() - 1) /
+		m_cellHeight * 10.0f));
+	(void)visStartX;
+	(void)visStartY;
+	visEndX = m_numCellsX;
+	visEndY = m_numCellsY;
+
+	m_drawOriginX = m_cellWidth * 0.0f;
+	m_drawOriginY = m_cellHeight * 0.0f;
+
+	if (texture->getFilter()->getMagFilter() != m_shroudFilter)
+	{
+		texture->getFilter()->setMagFilter(m_shroudFilter);
+		texture->getFilter()->setMinFilter(m_shroudFilter);
+	}
+
+	W3DRadarResetSurface surface =
+		reinterpret_cast<CursorTextureSlot *>(&m_dstTexture)->Get_Surface_Level();
+	RECT rect;
+	rva00073426(&rect);
+	if(m_clearDstTexture) {
+		m_clearDstTexture=0;
+		reinterpret_cast<Rva00072B3A *>(this)->rva00072E84(m_borderShroudLevel,reinterpret_cast<Rva00116680 *>(&surface));
+	}
+
+	{
+		unsigned short *src = m_shroudData;
+		int pitch;
+		unsigned short *dst = (unsigned short *)
+			reinterpret_cast<Rva001166E0 *>(&surface)->rva001166E0(
+			&pitch, 1, 1, visEndX + 1, visEndY + 1);
+
+		if (visEndY > 0)
+		{
+			int row_bytes = visEndX * (int)sizeof(unsigned short);
+			for (int y = visEndY; y > 0; --y)
+			{
+				memcpy(dst, src, row_bytes);
+				src += m_numCellsX;
+				dst = (unsigned short *)((char *)dst + pitch);
+			}
+		}
+
+		reinterpret_cast<Member0C00739C70 *>(&surface)->clear();
+	}
 }
