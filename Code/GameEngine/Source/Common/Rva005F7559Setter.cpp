@@ -8,7 +8,7 @@ public:
 };
 
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
-extern const char *g_00C78D64[];
+extern const char *const g_00C78D64[];
 
 int __cdecl Rva005252CDInvoke(Rva00222A8BTarget *target, void *level, const char *prefix, const char *name, const int &a, const char *const &b);
 

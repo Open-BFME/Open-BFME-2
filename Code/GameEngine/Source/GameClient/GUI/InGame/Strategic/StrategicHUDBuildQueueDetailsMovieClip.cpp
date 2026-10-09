@@ -71,7 +71,7 @@ void StrategicHUD::BuildQueueDetailsMovieClip::Impl::QueuedIconSlot::rva005F6AE8
 
 
 // Native81B state setter; WB owner and vtable8797F4 slot24 agree.
-extern const char *g_00C78D64[];
+extern const char *const g_00C78D64[];
 int __cdecl Rva0050E9FEAptCall(Rva00222A8BTarget*,void*,const char*,const char*,const char**);
 struct IconOwner { char unknown[4]; void *level; AsciiString name; char unknownC[4]; int overlayArg; };
 class StrategicHUD::BuildQueueDetailsMovieClip::Impl::InProgressIconSlot {

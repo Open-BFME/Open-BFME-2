@@ -140,7 +140,7 @@ struct Rva005F0505Owner
 };
 
 // The icon slot state names (0x00878D64) and the Apt calls taking them.
-extern const char *g_00C78D64[];
+extern const char *const g_00C78D64[] = { "_empty", "_up", "_selected" }; // Native read-only state table at RVA 0x00878D64.
 int __cdecl Rva005252CDInvoke(Rva00222A8BTarget *target, void *level, const char *prefix, const char *name, const int &a, const char *const &b);
 int __cdecl Rva00525338Fire(void *a1, void *a2, const char *a3, const char *a4, int *a5, void *a6);
 

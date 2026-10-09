@@ -12627,7 +12627,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00878D00,28,.rdata,string,??_C@_0BL@KIBMLGPN@SetRegionFortressIconState?$AA@,,literal,,0,1
 0x00878D1C,36,.rdata,string,??_C@_0CD@OIPEJDOG@_level?$CFu?4?$CFs_RegionFortressPortra@,,literal,,0,1
 0x00878D40,36,.rdata,string,??_C@_0CE@HECPAIBD@_level?$CFu?4?$CFs_RegionFortressTypeIm@,,literal,,0,1
-0x00878D64,12,.rdata,global,?g_00C78D64@@3PAPBDA,,unowned,,0,2
+0x00878D64,12,.rdata,global,?g_00C78D64@@3QBQBDB,Code/GameEngine/Source/GameClient/GUI/AptWotrIconSlotCallbacks.cpp,owned,,1,3
 0x00878D70,72,.rdata,string,??_C@_0BJ@OFEGGFN@SetIconSlotProgressState?$AA@,,literal,,0,1
 0x00878DB8,44,.rdata,string,??_C@_0CK@IKOCNNKN@STRATEGICHUD?3ConstructionOneTurn@,,literal,,0,1
 0x00878DE4,280,.rdata,string,??_C@_0CI@DIMDAPLL@STRATEGICHUD?3ConstructionTurnsRe@,,literal,,0,1
