@@ -1,6 +1,7 @@
 // ?queueSupplyTruck@AIPlayer@@IAEXXZ
-// partial score=0.78 date=2026-10-08
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// partial score=0.8124231700502887 date=2026-10-09
+// Native4F37B0..4F3DB1; ZH queueSupplyTruck with native layouts and three-node filter-chain lifetimes.
+// cl: /O1 /Ob1 /G7 /arch:SSE /Oy- /Ireference/shims/moduledata /ICode/GameEngine/Source/Common /ICode/Libraries/Include /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //
 // AIPlayer's factory search and team-build feasibility, Zero Hour's
@@ -103,6 +104,31 @@
 //    the team id (+0x34) into every order after Team 0x0039D889(true), runs
 //    the production script only when it has an action, and marks a
 //    prototype with nothing buildable (+0x31C).
+//  - WorkOrder::validateFactory 0x004F33BD (47 bytes): ZH's body unchanged;
+//    it was rowed under a donor placeholder name in BfmeConv1001.cpp.
+//  - queueUnits 0x004F46A9 (559 bytes): ZH's recruit-then-train walk. BFME 2
+//    recruits with tryToRecruit's extra int from the order (+0x2C) and a
+//    100000 radius without a home, calls tryToRecruit once per branch (the
+//    two calls tail-merge into retail's shared push sequence), skips a null
+//    AI, activates the team after each recruit, skips orders flagged +0x29
+//    and validates the factory only when 0x002A8AB1 has no record for the
+//    player. isWaitingToBuild is a count test written as an early return,
+//    which keeps the recruit loop top-tested as retail has it.
+//  - recruitSpecificAITeam 0x004F437E (811 bytes, vtable +0x28): ZH's body
+//    with BFME 2's position argument (null means the prototype's home),
+//    owner-and-name findTeam/createInactiveTeam, no home-position warning and
+//    tryToRecruit's extra int from the unit info (+0x14); the two recruit
+//    calls tail-merge as in queueUnits. A recruit moves to the given position
+//    or, without one, the home location (else the team centroid from Team
+//    0x0039DA2A). The disband deletes the team through its virtual
+//    destructor and global delete.
+//  - updateBridgeRepair 0x004F418A (500 bytes): ZH's body with the timer at
+//    +0x68 reset from the frame-rate global, the repair order through
+//    AICommandInterface 0x0036F19B (ZH aiRepair) and the return move adjusted
+//    by TheAI's pathfinder (+0x10) over the AI's locomotor set (+0x1CC).
+//    The first queue walk holds the count in a local that only guards the
+//    shift loop, which is how retail keeps it in edi across the lookup; the
+//    two Coord3D initialisations copy member-wise (movss) as retail does.
 #include <list>
 #include <vector>
 
@@ -113,15 +139,15 @@ typedef int Int;
 typedef float Real;
 #define NULL 0
 
-#include "../../../../Libraries/Include/Lib/Coord3D.h"
-#include "../../../../Libraries/Include/Lib/Coord2D.h"
+#include "Lib/Coord3D.h"
+#include "Lib/Coord2D.h"
 #include <math.h>
 class ThingTemplate;
 class Player;
 class Team;
-class Module;
+template <class OBJCLASS> class DLINK_ITERATOR;
 
-#include "../../Common/GameLogicObjectLookupView.h"
+#include "GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 
 enum ObjectStatusTypes
@@ -154,10 +180,7 @@ public:
 	Real m_boundingCircleRadius;			// +0xB0
 	unsigned char m_padB4[0x109 - 0xB4];
 	unsigned char m_kindOf109;			// +0x109, bit 0x40 = KINDOF_DOZER
-	unsigned char m_kindOf10A;			// +0x10A, bit 1 = KINDOF_HARVESTER
-	unsigned char m_pad10B[0x10C - 0x10B];
-	unsigned char m_kindOf10C;			// +0x10C, bit 0x40 = KINDOF_REBUILD_HOLE
-	unsigned char m_pad10D[0x10F - 0x10D];
+	unsigned char m_kindOf10A;unsigned char m_pad10B;unsigned char m_kindOf10C;unsigned char m_pad10D[0x10F - 0x10D];
 	unsigned char m_kindOf10F;			// +0x10F, bit 0x80 = factory
 	unsigned char m_pad110[0x11B - 0x110];
 	unsigned char m_bfme11B;			// +0x11B, bit 0x20 = free to build
@@ -184,7 +207,6 @@ enum ScienceType { SCIENCE_INVALID = -1 };
 enum NameKeyType { NAMEKEY_INVALID = 0 };
 
 class TeamPrototype;
-template <class OBJCLASS> class DLINK_ITERATOR;
 // Retail calls the team list's base destructor (0x002ABB44) with no EH state
 // transition before it, here and in Player at 0x002AE8BC, so cl saw it as
 // nothrow; list<int>'s 0x004EC395 keeps the stores everywhere.
@@ -259,16 +281,16 @@ public:
 	Int m_currentGatherers;			// +0x7C
 };
 
-enum Relationship { ENEMIES = 0 };
-
+enum Relationship {ENEMIES=0};
 class Player
 {
 public:
-	Relationship getRelationship(const Team *team) const;
 	BuildListInfo *getBuildList() const { return m_buildList; }
 	const PlayerTeamList *getPlayerTeams() const { return &m_playerTeamPrototypes; }
 	Int getSciencePurchasePoints() const { return m_sciencePurchasePoints; }
 	NameKeyType getPlayerNameKey() const { return m_playerNameKey; }
+	Relationship getRelationship(const Team *)const;
+	Team *getDefaultTeam()const{return m_defaultTeam;}
 	const AsciiString &getSide() const { return m_side; }
 	Bool isCapableOfPurchasingScience(ScienceType science) const;
 	Bool attemptToPurchaseScience(ScienceType science);
@@ -331,9 +353,7 @@ public:
 	virtual void slot28();
 	virtual void setForceWantingState(Bool forceWanting);	// +0x2C
 	virtual Bool isForcedIntoWantingState();	// +0x30
-	virtual void slot34();
-	virtual void slot38();
-	virtual ObjectID getPreferredDockID();		// +0x3C
+	virtual void slot34();virtual void slot38();virtual ObjectID getPreferredDockID() const;
 };
 
 enum CommandSourceType { CMD_FROM_PLAYER = 0, CMD_FROM_AI = 2 };
@@ -346,11 +366,16 @@ class Rva0035149F : public _STL::vector<Coord3D>
 
 class Object;
 
+class LocomotorSet;
+
 class AICommandInterface
 {
 public:
 	void rva0047971C(const Rva0035149F &path, Object *ignoreObject, CommandSourceType cmdSource);
+	void aiMoveToPosition(const Coord3D *pos, CommandSourceType cmdSource);
+	void aiIdle(CommandSourceType cmdSource);
 	void rva0026C3AC(Object *obj, CommandSourceType cmdSource);
+	void rva0036F19B(Object *obj, CommandSourceType cmdSource);	// ZH aiRepair
 };
 
 class StateMachine
@@ -367,6 +392,7 @@ class AIUpdateInterface
 public:
 	// The AICommandInterface base sits at +0x20.
 	AICommandInterface *getCommandInterface() { return (AICommandInterface *)((char *)this + 0x20); }
+	const LocomotorSet &getLocomotorSet() const { return *(const LocomotorSet *)((const char *)this + 0x1CC); }
 	Bool isMoving() const;
 	StateMachine *getStateMachine() const { return m_stateMachine; }
 	const Coord3D *getGoalPosition() const { return getStateMachine()->getGoalPosition(); }
@@ -514,18 +540,12 @@ public:
 	AIUpdateInterface *getAI() const { return m_ai; }
 	const ThingTemplate *getTemplate() const { return m_template; }
 	Bool isKindOfDozer() const { return (getTemplate()->m_kindOf109 & 0x40) != 0; }
+	class Module *findModule(NameKeyType) const;
 	void setTeam(Team *team);
 	void rva00291298(AsciiString name, Int value);
 	void updateObjValuesFromMapProperties(Dict *properties);
 	void setStatus(ObjectStatusTypes status, Bool set);
 	void clearStatus(ObjectStatusTypes status) { setStatus(status, false); }
-	const Coord3D *getPosition() const { return &m_pos; }
-	Team *getTeam() const { return m_team; }
-	Real getBoundingCircleRadius() const { return m_boundingCircleRadius; }
-protected:
-	Module *findModule(NameKeyType key) const;
-	friend class AIPlayer;
-public:
 
 	void *m_vtable;
 	ThingTemplate *m_template;			// +0x04
@@ -535,9 +555,7 @@ public:
 	ObjectID m_id;					// +0x74
 	unsigned char m_pad078[0x8C - 0x78];
 	Object *m_next;					// +0x8C
-	unsigned char m_pad090[0xB8 - 0x90];
-	Real m_boundingCircleRadius;			// +0xB8, the geometry's
-	unsigned char m_padBC[0x1C8 - 0xBC];
+	unsigned char m_pad090[0xB8-0x90];Real m_geometryRadius;unsigned char m_padBC[0x1C8-0xBC];
 	BitFlags<11> m_disabledMask;			// +0x1C8
 	unsigned char m_pad1CC[0x254 - 0x1CC];
 	BodyModuleInterface *m_body;			// +0x254
@@ -681,7 +699,9 @@ struct TAiData
 	char m_pad020[0x24 - 0x20];
 	Real m_teamPoorMod;		// +0x24
 	float m_teamResourcesToBuild;	// +0x28
-	char m_pad02C[0xF4 - 0x2C];
+	char m_pad02C[0x5C - 0x2C];
+	Real m_maxRecruitDistance;	// +0x5C
+	char m_pad060[0xF4 - 0x60];
 	AISideInfo *m_sideInfo;		// +0xF4
 };
 
@@ -704,12 +724,21 @@ extern ScienceStore *TheScienceStore;
 
 int GetGameLogicRandomValue(int lo, int hi, char *file, int line);
 
+class Pathfinder
+{
+public:
+	Bool adjustToPossibleDestination(Object *obj, const LocomotorSet &locomotorSet, Coord3D *dest);
+};
+
 class AI
 {
 public:
-	char m_pad00[0x18];
+	char m_pad00[0x10];
+	Pathfinder *m_pathfinder;	// +0x10
+	char m_pad14[0x18 - 0x14];
 	TAiData *m_aiData;		// +0x18
 	const TAiData *getAiData() const { return m_aiData; }
+	Pathfinder *pathfinder() { return m_pathfinder; }
 };
 extern AI *TheAI;
 
@@ -723,9 +752,16 @@ struct TCreateUnitsInfo
 	Int m_14;			// +0x14
 };
 
+#include "Common/Snapshot.h"
+class TeamTemplateInfo:public Snapshot {
+public:
+ TCreateUnitsInfo m_unitsInfo[7];Int m_numUnitsInfo;Coord3D m_homeLocation;Bool m_hasHomeLocation;
+ char m_padBD[0xE7-0xBD];Bool m_automaticallyReinforce;char m_padE8[0xEC-0xE8];Int m_maxInstances;mutable Int m_productionPriority;
+};
 class TeamPrototype
 {
 public:
+	const TeamTemplateInfo *getTemplateInfo()const{return (const TeamTemplateInfo *)((const char *)this+0x12c);}
 	Bool evaluateProductionCondition();
 	Int countTeamInstances();
 	const AsciiString &getName() const { return m_name; }
@@ -747,7 +783,9 @@ public:
 	Bool m_hasHomeLocation;			// +0x1E8
 	char m_pad1E9[0x210 - 0x1E9];
 	Bool m_bfme210;				// +0x210
-	char m_pad211[0x218 - 0x211];
+	char m_pad211[2];
+	Bool m_automaticallyReinforce; // +0x213
+	char m_pad214[0x218 - 0x214];
 	Int m_maxInstances;			// +0x218
 	Int m_productionPriority;		// +0x21C
 	char m_pad220[0x23C - 0x220];
@@ -756,8 +794,7 @@ public:
 	char m_pad241[0x31C - 0x241];
 	Bool m_bfme31C;				// +0x31C
 	Bool m_bfme31D;				// +0x31D
-	char m_pad31E[0x334 - 0x31E];
-	Team *m_dlinkhead_TeamInstanceList;	// +0x334
+	char m_pad31E[0x334-0x31E];Team *m_teamInstances;
 	DLINK_ITERATOR<Team> iterate_TeamInstanceList() const;
 };
 
@@ -788,43 +825,37 @@ private:
 	unsigned char m_state[20];
 };
 
-class Rva0055B156
+class TeamPoolView {public:virtual ~TeamPoolView();};
+#include "Common/Snapshot.h"
+class Rva0055B156:public Snapshot
 {
 public:
 	void rva0055B156(int val);
 };
 
-// Team has two polymorphic bases, vptrs at +0x00 and +0x04 (TeamDeleter.cpp),
-// so retail's pointers to its member functions are the 8-byte {function,
-// adjustment} pair. The second base is seen only as the +0x04 object that
-// 0x0055B156 and 0x004EC088 take.
-class TeamBase0
+class Team:public TeamPoolView,public Rva0055B156
 {
 public:
-	virtual ~TeamBase0();
-};
-
-class TeamBase4
-{
-public:
-	Rva0055B156 m_bfme04;			// +0x04
-};
-
-class Team : public TeamBase0, public TeamBase4
-{
-public:
-	char m_pad005[0x30 - 0x05];
+	virtual ~Team();
+	Rva0055B156 *getSnapshotView(){return this;}
+	char m_pad008[0x30 - 0x08];
 	TeamPrototype *m_proto;			// +0x30
 	unsigned int m_id;			// +0x34
-	char m_pad038[0x5D - 0x38];
+	Object *m_firstMember;
+	char m_pad03C[0x5D - 0x3C];
 	Bool m_active;				// +0x5D
 	Bool m_created;				// +0x5E
 	char m_pad05F[0x110 - 0x5F];
 	Bool m_bfme110;				// +0x110
 	Bool m_bfme111;				// +0x111
 
+	Team *dlink_next_TeamInstanceList() const;
+	Bool rva0039DEC4();
+	void countObjectsByThingTemplate(Int,const ThingTemplate *const *,Bool,Int *,Bool) const;
+	Object *getFirstItemIn_TeamMemberList() const {return m_firstMember;}
 	void rva0039D889(Bool flag);
 	void disband();
+	Object *tryToRecruit(const ThingTemplate *thing, const Coord3D *pos, Real maxDist, Int a, Int b, Int c);
 	Bool rva0039DFF8();
 	Bool hasAnyObjects(Bool ignoreBuilding);
 	void setActive() { if (!m_active) { m_created = true; m_active = true; } }
@@ -832,13 +863,9 @@ public:
 	const AsciiString &getOwnerName() const { return m_proto == 0 ? AsciiString::TheEmptyString : m_proto->getOwnerName(); }
 	const AsciiString &getName() const { return m_proto == 0 ? AsciiString::TheEmptyString : m_proto->getName(); }
 	TeamPrototype *getPrototype() const { return m_proto; }
-	Team *dlink_next_TeamInstanceList() const;
+	void rva0039DA2A(Coord3D *center) const;
+	__forceinline void deleteInstance() { ::delete this; }
 };
-
-inline DLINK_ITERATOR<Team> TeamPrototype::iterate_TeamInstanceList() const
-{
-	return DLINK_ITERATOR<Team>(m_dlinkhead_TeamInstanceList, &Team::dlink_next_TeamInstanceList);
-}
 
 class WorkOrder
 {
@@ -859,6 +886,9 @@ public:
 	Bool m_bfmeFlag28;			// +0x28
 	Bool m_bfmeFlag29;			// +0x29
 	Int m_bfmeInt2C;			// +0x2C
+
+	Bool isWaitingToBuild() const { if (m_numCompleted >= m_numRequired) return false; return true; }
+	void validateFactory(Player *thisPlayer);
 };
 
 class TeamInQueue
@@ -898,85 +928,9 @@ class GlobalData
 public:
 	char m_pad000[0x9B8];
 	Int m_debugAI;				// +0x9B8
-	char m_pad9BC[0xA5C - 0x9BC];
-	Int m_baseValuePerSupplyBox;		// +0xA5C
+	char m_pad9BC[0xA5C-0x9BC];Int m_baseValuePerSupplyBox;
 };
 extern GlobalData *TheWritableGlobalData;
-
-class Module
-{
-};
-
-class SupplyWarehouseDockUpdate : public Module
-{
-public:
-	Int getBoxesStored() const { return m_boxesStored; }
-private:
-	unsigned char m_pad[0x88];
-	Int m_boxesStored;			// +0x88
-};
-
-// BFME2's partition filter chain (AIPlayer.cpp's view): a vptr, the +0x04
-// link to the next filter, then each filter's members. The base vftable is
-// 0x00BC26E0.
-class Rva000421C8
-{
-public:
-	Rva000421C8() : m_next(0) {}
-	virtual ~Rva000421C8() {}
-	virtual bool allow(Object *obj) = 0;
-	Rva000421C8 *link(Rva000421C8 *next);	// 0x00625790
-	Rva000421C8 *m_next;
-};
-
-// vftable 0x00BFAD1C, allow 0x002611DD (ZH's PartitionFilterOnMap).
-class Rva002611DDFilter : public Rva000421C8
-{
-public:
-	virtual bool allow(Object *obj);
-};
-
-// vftable 0x00BFAD28, allow 0x0026137E, slot 2 0x00261368: +0x08 a
-// player, +0x0C whether a hit allows (ZH's PartitionFilterPlayer).
-class Rva0026137EFilter : public Rva000421C8
-{
-public:
-	Rva0026137EFilter(Player *player, bool match) : m_player(player), m_match(match) {}
-	virtual bool allow(Object *obj);
-	virtual int getPlayerMask();
-	Player *m_player;
-	bool m_match;
-};
-
-class BfmeFixedStorage0004543D
-{
-public:
-	BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &other) throw();
-private:
-	unsigned char m_bytes[28];
-};
-
-// The 224-bit KindOf mask (unused, bit) constructor 0x00045411.
-struct Rva00045411BitSet
-{
-	Rva00045411BitSet(int unused, int bit) throw();
-	unsigned int m_bits[7];
-};
-extern BitFlags<116> KINDOFMASK_NONE;
-
-// vftable 0x00BC2908, allow 0x002610DE: every kind of the first mask and
-// none of the second (ZH's PartitionFilterAcceptByKindOf).
-class Rva0004584D : public Rva000421C8
-{
-public:
-	Rva0004584D(const BfmeFixedStorage0004543D &a, const BfmeFixedStorage0004543D &b) throw();
-	virtual bool allow(Object *obj);
-	BfmeFixedStorage0004543D m_08;
-	BfmeFixedStorage0004543D m_24;
-};
-
-#include "../../Common/PartitionRangeQueryCallView.h"
-extern PartitionManager *ThePartitionManager;
 extern int g_Va00DBA4E4;
 #define LOGICFRAMES_PER_SECOND g_Va00DBA4E4
 
@@ -1009,15 +963,15 @@ protected:
 	virtual void slot02();
 	virtual void slot03();
 	virtual void slot04();
-	virtual void slot05();
+public:
+	virtual void update();						// +0x14
+protected:
 	virtual void slot06();
 public:
 	virtual void onUnitProduced(Object *factory, Object *unit);	// +0x1C
 	virtual void onStructureProduced(Object *factory, Object *bldg);	// +0x20
 	virtual void buildSpecificAITeam(TeamPrototype *teamProto, Bool priorityBuild);	// +0x24
-protected:
-	virtual void slot10();
-public:
+	virtual void recruitSpecificAITeam(TeamPrototype *teamProto, Real recruitRadius, const Coord3D *pos);	// +0x28
 	virtual Bool isSkirmishAI();					// +0x2C
 protected:
 	virtual void slot12();
@@ -1028,7 +982,7 @@ protected:
 	virtual void slot15();
 	virtual void checkReadyTeams();					// +0x40
 	virtual void checkQueuedTeams();				// +0x44
-	virtual void slot18();
+	virtual void doTeamBuilding();					// +0x48
 	virtual void doUpgradesAndSkills();				// +0x4C
 	virtual Object *findDozer(const Coord3D *searchPosition);	// +0x50
 	virtual void queueDozer();					// +0x54
@@ -1042,8 +996,11 @@ protected:
 	Bool rva004F13D8(TeamPrototype *proto);
 	Bool dozerInQueue();
 	void checkForSupplyCenter(BuildListInfo *info, Object *bldg);
-	void queueSupplyTruck();
 	void computeCenterAndRadiusOfBase(Coord3D *center, Real *radius);
+	Bool getBaseCenter(Coord3D *pos) const { *pos = m_baseCenter; return m_baseCenterSet; }
+	void queueSupplyTruck();
+	void queueUnits();
+	void updateBridgeRepair();
 	DLINK_ITERATOR<TeamInQueue> iterate_TeamBuildQueue() const
 	{
 		return DLINK_ITERATOR<TeamInQueue>(m_teamBuildQueue, &TeamInQueue::dlink_next_TeamBuildQueue);
@@ -1072,7 +1029,7 @@ private:
 	Int m_teamDelay;		// +0x24
 	unsigned char m_pad28[0x30 - 0x28];
 	Int m_skillsetSelector;		// +0x30
-	unsigned char m_pad34[0x40 - 0x34];
+	Coord3D m_baseCenter;		// +0x34
 	Bool m_baseCenterSet;		// +0x40
 	unsigned char m_pad41[0x48 - 0x41];
 	ObjectID m_structuresToRepair[MAX_STRUCTURES_TO_REPAIR];	// +0x48
@@ -1080,164 +1037,227 @@ private:
 	Coord3D m_repairDozerOrigin;	// +0x54
 	Int m_structuresInQueue;	// +0x60
 	Bool m_dozerQueuedForRepair;	// +0x64
+	Bool m_dozerIsRepairing;	// +0x65
+	Int m_bridgeTimer;		// +0x68
 };
 
 enum { DOZER_TASK_BUILD = 0 };
 
+inline DLINK_ITERATOR<Team> TeamPrototype::iterate_TeamInstanceList() const {return DLINK_ITERATOR<Team>(m_teamInstances,&Team::dlink_next_TeamInstanceList);}
 
-void AIPlayer::queueSupplyTruck()
+
+class Rva000421C8
 {
+public:
+	Rva000421C8() : m_next(0) {}
+	virtual ~Rva000421C8() {}
+	virtual bool allow(Object *obj) = 0;
+	virtual int getPlayerMask();
+	Rva000421C8 *link(Rva000421C8 *next);	// 0x00625790
+	Rva000421C8 *m_next;
+};
+
+
+// vftable 0x00BFAD1C, allow 0x002611DD: no members (ZH's
+// PartitionFilterOnMap).
+class Rva002611DDFilter : public Rva000421C8
+{
+public:
+	virtual bool allow(Object *obj);
+};
+
+// vftable 0x00BFAD28, allow 0x0026137E, slot 2 0x00261368: +0x08 a
+// player, +0x0C whether a hit allows (ZH's PartitionFilterPlayer).
+class Rva0026137EFilter : public Rva000421C8
+{
+public:
+	Rva0026137EFilter(Player *player, bool match) : m_player(player), m_match(match) {}
+	virtual bool allow(Object *obj);
+	virtual int getPlayerMask();
+	Player *m_player;
+	bool m_match;
+};
+
+class BfmeFixedStorage0004543D
+{
+public:
+	BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &other) throw();
+private:
+	unsigned char m_bytes[28];
+};
+
+// The 224-bit KindOf mask (unused, bit) constructor 0x00045411.
+struct Rva00045411BitSet
+{
+	Rva00045411BitSet(int unused, int bit) throw();	// 0x00045411
+	unsigned int m_bits[7];
+};
+extern unsigned char g_00DFEFA4StoragePrototype[28];
+
+// vftable 0x00BC2908, allow 0x002610DE: every kind of the first mask and
+// none of the second (ZH's PartitionFilterAcceptByKindOf).
+class Rva0004584D : public Rva000421C8
+{
+public:
+	Rva0004584D(const BfmeFixedStorage0004543D &a, const BfmeFixedStorage0004543D &b) throw();
+	virtual bool allow(Object *obj);
+	BfmeFixedStorage0004543D m_08;
+	BfmeFixedStorage0004543D m_24;
+};
+
+class PartitionManager{public:Object *getClosestObject(const Coord3D *,float,int,Rva000421C8 *);};extern PartitionManager *ThePartitionManager;
+class Module{public:virtual ~Module();};
+class SupplyWarehouseDockUpdate:public Module{public:char m_pad04[0x88-4];int m_boxesStored;int getBoxesStored()const{return m_boxesStored;}};
+
+void AIPlayer::queueSupplyTruck( void )
+{			
 	Bool truckInQueue = false;
-	for (DLINK_ITERATOR<TeamInQueue> iter = iterate_TeamBuildQueue(); !iter.done(); iter.advance())
+	for ( DLINK_ITERATOR<TeamInQueue> iter = iterate_TeamBuildQueue(); !iter.done(); iter.advance())
 	{
 		TeamInQueue *team = iter.cur();
 		WorkOrder *order;
-		for (order = team->m_workOrders; order; order = order->m_next)
+		for( order = team->m_workOrders; order; order = order->m_next )
 		{
-			if (order->m_isResourceGatherer)
+			// GLA dozers (workers) are also resource gatherers, so make sure it isn't a worker. jba.
+			if (order->m_isResourceGatherer) {
 				truckInQueue = true;
+			}
 		}
+	}	
+	
+	if (truckInQueue) {
+		return; // already building a supply truck.
 	}
-
-	if (truckInQueue)
-		return;
 	Int totalHarvesters = 0;
 
+	// See how many harvesters we have servicing this supply src.
+	// Scan my units.
 	PlayerTeamList::const_iterator it;
-	for (it = m_player->getPlayerTeams()->begin(); it != m_player->getPlayerTeams()->end(); ++it)
-	{
-		for (DLINK_ITERATOR<Team> iter = (*it)->iterate_TeamInstanceList(); !iter.done(); iter.advance())
-		{
+	for (it = m_player->getPlayerTeams()->begin(); it != m_player->getPlayerTeams()->end(); ++it) {
+		for (DLINK_ITERATOR<Team> iter = (*it)->iterate_TeamInstanceList(); !iter.done(); iter.advance()) {
 			Team *team = iter.cur();
-			if (!team)
+			if (!team) {
 				continue;
-			for (DLINK_ITERATOR<Object> objIter = team->iterate_TeamMemberList(); !objIter.done(); objIter.advance())
-			{
+			}			
+			for (DLINK_ITERATOR<Object> objIter = team->iterate_TeamMemberList(); !objIter.done(); objIter.advance()) {
 				Object *obj = objIter.cur();
-				if (!obj)
-					continue;
-				if (!(obj->getTemplate()->m_kindOf10A & 1))
-					continue;
-				if (!obj->getAI())
-					continue;
-				SupplyTruckAIInterface *supplyTruckAI = obj->getAI()->getSupplyTruckAIInterface();
-				if (supplyTruckAI)
+				if (!obj)  continue;
+				if (!((obj->getTemplate()->m_kindOf10A&1)!=0)) continue;
+				if (!obj->getAI()) continue;
+
+				SupplyTruckAIInterface* supplyTruckAI = obj->getAI()->getSupplyTruckAIInterface();
+				if( supplyTruckAI )	{
 					totalHarvesters++;
+				}
 			}
 		}
 	}
 
-	for (BuildListInfo *info = m_player->getBuildList(); info; info = info->getNext())
+	/* Find the info building this. */
+	for( BuildListInfo *info = m_player->getBuildList(); info; info = info->getNext() )
 	{
-		if (info->isSupplyBuilding() == false)
-			continue;
+		if (info->isSupplyBuilding() == false) continue;
 		Int desiredGatherers = info->getDesiredGatherers();
 		Int curGatherers = info->getCurrentGatherers();
 
-		if (curGatherers >= desiredGatherers)
-		{
+		if (curGatherers>=desiredGatherers) {
+			// Check & see if any have died.
 			Object *supplyCenter = TheGameLogic->findObjectByID(info->getObjectID());
-			if (supplyCenter)
-			{
-				if (supplyCenter->getTemplate()->m_kindOf10C & 0x40)
-					continue;
-				Coord3D center;
-				center.x = supplyCenter->getPosition()->x;
-				center.y = supplyCenter->getPosition()->y;
-				center.z = supplyCenter->getPosition()->z;
-				Real radius = supplyCenter->getBoundingCircleRadius() + 200.0f;
+			// Check for supplies.
+			if (supplyCenter) {
+				if (((supplyCenter->getTemplate()->m_kindOf10C&0x40)!=0)) {
+					continue; // don't consider rebuild holes.
+				}
+				// Make sure we have a supplies near it.
+				Coord3D center;center.x=supplyCenter->m_pos.x;center.y=supplyCenter->m_pos.y;center.z=supplyCenter->m_pos.z;
+				Real radius = 200.0f + supplyCenter->m_geometryRadius;
 
 				Object *supplySource;
-				{
-					Rva002611DDFilter filterMapStatus;
-					Rva0026137EFilter f2(m_player, false);
-					supplySource = ThePartitionManager->getClosestObject(&center, radius, 1,
-						Rva0004584D(*(BfmeFixedStorage0004543D *)&Rva00045411BitSet(0, 0x56),
-							*(BfmeFixedStorage0004543D *)&KINDOFMASK_NONE)
-							.link(f2.link(&filterMapStatus)));
-				}
-				if (!supplySource)
+                {Rva002611DDFilter map;Rva0026137EFilter player(m_player,false);
+                supplySource=ThePartitionManager->getClosestObject(&center,radius,1,
+                 Rva0004584D(*(BfmeFixedStorage0004543D *)&Rva00045411BitSet(0,86),
+                 *(BfmeFixedStorage0004543D *)g_00DFEFA4StoragePrototype).link(player.link(&map)));}
+                if (!supplySource) {
+					// No supplies.
 					continue;
-				static const NameKeyType key_warehouseUpdate =
-					TheNameKeyGenerator->nameToKey("SupplyWarehouseDockUpdate");
-				SupplyWarehouseDockUpdate *warehouseModule =
-					(SupplyWarehouseDockUpdate *)supplySource->findModule(key_warehouseUpdate);
-				if (warehouseModule)
-				{
-					Int availableCash = warehouseModule->getBoxesStored() * TheWritableGlobalData->m_baseValuePerSupplyBox;
-					if (availableCash <= 0)
-						continue;
-					if (m_player->getRelationship(supplySource->getTeam()) == ENEMIES)
-						continue;
 				}
+				static const NameKeyType key_warehouseUpdate = TheNameKeyGenerator->nameToKey("SupplyWarehouseDockUpdate");
+				SupplyWarehouseDockUpdate *warehouseModule = (SupplyWarehouseDockUpdate*)supplySource->findModule( key_warehouseUpdate );
+				if( warehouseModule )	{	 
+					Int availableCash = warehouseModule->getBoxesStored()*TheWritableGlobalData->m_baseValuePerSupplyBox;
+					if (availableCash<=0) continue;
+					if( m_player->getRelationship(supplySource->m_team) == 0 ) {
+						continue;
+					}
+				}
+				// Ok, it has supplies available near it.
 				checkForSupplyCenter(info, supplyCenter);
 				Int curGatherers = 0;
+				// See how many harvesters we have servicing this supply src.
+				// Scan my units.
 				PlayerTeamList::const_iterator it;
-				for (it = m_player->getPlayerTeams()->begin(); it != m_player->getPlayerTeams()->end(); ++it)
-				{
-					for (DLINK_ITERATOR<Team> iter = (*it)->iterate_TeamInstanceList(); !iter.done(); iter.advance())
-					{
+				for (it = m_player->getPlayerTeams()->begin(); it != m_player->getPlayerTeams()->end(); ++it) {
+					for (DLINK_ITERATOR<Team> iter = (*it)->iterate_TeamInstanceList(); !iter.done(); iter.advance()) {
 						Team *team = iter.cur();
-						if (!team)
+						if (!team) {
 							continue;
-						for (DLINK_ITERATOR<Object> objIter = team->iterate_TeamMemberList(); !objIter.done(); objIter.advance())
-						{
+						}			
+						for (DLINK_ITERATOR<Object> objIter = team->iterate_TeamMemberList(); !objIter.done(); objIter.advance()) {
 							Object *obj = objIter.cur();
-							if (!obj)
-								continue;
-							if (!(obj->getTemplate()->m_kindOf10A & 1))
-								continue;
-							if (!obj->getAI())
-								continue;
-							SupplyTruckAIInterface *supplyTruckAI = obj->getAI()->getSupplyTruckAIInterface();
-							if (supplyTruckAI)
-							{
+							if (!obj)  continue;
+							if (!((obj->getTemplate()->m_kindOf10A&1)!=0)) continue;
+							if (!obj->getAI()) continue;
+
+							SupplyTruckAIInterface* supplyTruckAI = obj->getAI()->getSupplyTruckAIInterface();
+							if( supplyTruckAI )	{
 								ObjectID dock = supplyTruckAI->getPreferredDockID();
-								if (dock == supplyCenter->getID())
-								{
+								if (dock == supplyCenter->getID()) {
 									curGatherers++;
-									if (!supplyTruckAI->isCurrentlyFerryingSupplies())
-										obj->getAI()->getCommandInterface()->rva0026C3AC(supplyCenter, CMD_FROM_PLAYER);
+									if (!supplyTruckAI->isCurrentlyFerryingSupplies()) {
+										// Note - although this is the ai, we are sending in CMD_FROM_PLAYER.
+										// This causes the dock object to stick in the docking interface.
+										// The supply truck ai issues dock commands, and they become confused.
+										// Thus, player.  jba.  ;(
+										obj->getAI()->getCommandInterface()->rva0026C3AC(supplyCenter,CMD_FROM_PLAYER);
+									}
 								}
 							}
 						}
 					}
 				}
+				//DEBUG_LOG(("Expected %d harvesters, found %d, need %d\n", info->getDesiredGatherers(), 
+				//	curGatherers, info->getDesiredGatherers()-curGatherers) );
 				info->setCurrentGatherers(curGatherers);
 			}
-		}
-		else
-		{
+		} else {
+			/* See if we have any "loose" harvesters (cause my supply center got nuked.) */
 			PlayerTeamList::const_iterator it;
-			for (it = m_player->getPlayerTeams()->begin(); it != m_player->getPlayerTeams()->end(); ++it)
-			{
-				for (DLINK_ITERATOR<Team> iter = (*it)->iterate_TeamInstanceList(); !iter.done(); iter.advance())
-				{
+			for (it = m_player->getPlayerTeams()->begin(); it != m_player->getPlayerTeams()->end(); ++it) {
+				for (DLINK_ITERATOR<Team> iter = (*it)->iterate_TeamInstanceList(); !iter.done(); iter.advance()) {
 					Team *team = iter.cur();
-					if (!team)
-						continue;
-					for (DLINK_ITERATOR<Object> objIter = team->iterate_TeamMemberList(); !objIter.done(); objIter.advance())
-					{
+					if (!team) continue;
+					for (DLINK_ITERATOR<Object> objIter = team->iterate_TeamMemberList(); !objIter.done(); objIter.advance()) {
 						Object *obj = objIter.cur();
-						if (!obj)
-							continue;
-						if (!(obj->getTemplate()->m_kindOf10A & 1))
-							continue;
-						if (!obj->getAI())
-							continue;
-						SupplyTruckAIInterface *supplyTruckAI = obj->getAI()->getSupplyTruckAIInterface();
-						if (supplyTruckAI)
-						{
+						if (!obj)  continue;
+						if (!((obj->getTemplate()->m_kindOf10A&1)!=0)) continue;
+						if (!obj->getAI()) continue;
+
+						SupplyTruckAIInterface* supplyTruckAI = obj->getAI()->getSupplyTruckAIInterface();
+						if( supplyTruckAI )	{
 							ObjectID dock = supplyTruckAI->getPreferredDockID();
-							if (TheGameLogic->findObjectByID(dock) != NULL)
-								continue;
-							if (supplyTruckAI->isCurrentlyFerryingSupplies() || supplyTruckAI->isForcedIntoWantingState())
+							if (TheGameLogic->findObjectByID(dock)!=NULL) continue;
+							if (supplyTruckAI->isCurrentlyFerryingSupplies() || supplyTruckAI->isForcedIntoWantingState()) 
 							{
+								// This thinks he is a gatherer, but doesn't have a preferred dock id.
 								Object *center = TheGameLogic->findObjectByID(info->getObjectID());
-								if (center)
-								{
-									info->setCurrentGatherers(info->getCurrentGatherers() + 1);
-									obj->getAI()->getCommandInterface()->rva0026C3AC(center, CMD_FROM_PLAYER);
+								if (center) {
+									info->setCurrentGatherers(info->getCurrentGatherers()+1);
+									// Note - although this is the ai, we are sending in CMD_FROM_PLAYER.
+									// This causes the dock object to stick in the docking interface.
+									// The supply truck ai issues dock commands, and they become confused.
+									// Thus, player.  jba.  ;(
+									obj->getAI()->getCommandInterface()->rva0026C3AC(center,CMD_FROM_PLAYER);
+									
 									return;
 								}
 							}
@@ -1245,44 +1265,45 @@ void AIPlayer::queueSupplyTruck()
 					}
 				}
 			}
-			if (totalHarvesters >= desiredGatherers * 3)
-				continue;
+			if (totalHarvesters >= desiredGatherers*3) {
+				continue; // we got lotsa gatherers.
+			}
 			Bool canBuildUnits = m_player->getCanBuildUnits();
+			// If we need a supply truck thingy, turn on unit building for a moment.
 			m_player->setCanBuildUnits(true);
 			const ThingTemplate *tTemplate = TheThingFactory->firstTemplate();
-			while (tTemplate)
-			{
-				Bool isSupplyTruck = tTemplate->m_kindOf10A & 1;
-				if (isSupplyTruck)
-				{
+			while (tTemplate) {	 
+				Bool isSupplyTruck = ((tTemplate->m_kindOf10A&1)!=0);;
+				if (isSupplyTruck) {
 					Object *factory = findFactory(tTemplate, false, NULL);
-					if (factory)
-					{
+					if (factory) {
+						// we can build one.
 						WorkOrder *order = new WorkOrder;
 						order->m_thing = tTemplate;
-						order->m_factoryID = INVALID_OBJECT_ID;
+						order->m_factoryID = (ObjectID)0;
 						order->m_numRequired = 1;
 						order->m_required = true;
-						order->m_isResourceGatherer = true;
+						order->m_isResourceGatherer =true;
+						// prepend to head of list
 						order->m_next = NULL;
 						TeamInQueue *team = new TeamInQueue;
+						// Put in front of queue.
 						prependTo_TeamBuildQueue(team);
 						team->m_priorityBuild = true;
 						team->m_workOrders = order;
 						team->m_frameStarted = TheGameLogic->getFrame();
-						team->m_team = m_player->m_defaultTeam;
+						// Stick it on the default team
+						team->m_team = m_player->getDefaultTeam(); 
 						AsciiString teamName = "Supply truck - building one at the ";
-						teamName.concat(factory->m_template->getName());
+						teamName.concat(factory->getTemplate()->getName());
 						TheScriptEngine->AppendDebugMessage(teamName, false);
 						m_teamDelay = 0;
-						if (info->getCurrentGatherers() == -1)
-						{
+						if (info->getCurrentGatherers()==-1) {
+							// First one is automatic. jba.
 							order->m_factoryID = factory->getID();
 							info->setCurrentGatherers(0);
-						}
-						else
-						{
-							startTraining(order, team->m_priorityBuild, team->m_team->getName());
+						}	else {
+							startTraining( order, team->m_priorityBuild, team->m_team->getName());
 						}
 						break;
 					}
