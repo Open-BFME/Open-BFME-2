@@ -16,6 +16,7 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
  * product in W,Z,Y,X order, flips the second quaternion for a negative dot,
  * then caches either the linear path or Acos(dot)/Sin(theta).
  */
+#include "../../../../../reference/shims/bfme_quat_link/wwmath.h"
 #include "quat.h"
 #include "wwmath.h"
 
