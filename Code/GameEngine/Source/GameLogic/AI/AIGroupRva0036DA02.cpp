@@ -99,6 +99,7 @@ class Object
 {
 public:
 	void rva00293105();
+	void rva0028DF48(const SpecialPowerTemplate *, UnsignedInt, bool);
 	void rva0028AC34(bool on);
 	void doSpecialPowerAtLocation(const SpecialPowerTemplate *specialPowerTemplate, const Coord3D *loc, UnsignedInt commandOptions, bool forceUsable);
 
@@ -115,6 +116,7 @@ public:
 class ActionManager
 {
 public:
+	bool canDoSpecialPower(const Object *, const SpecialPowerTemplate *, CommandSourceType, UnsignedInt, bool);
 	bool canDoSpecialPowerAtLocation(const Object *obj, const Coord3D *loc, CommandSourceType commandSource,
 		const SpecialPowerTemplate *spTemplate, const Object *objectInWay, UnsignedInt commandOptions, bool checkSourceRequirements);
 };
@@ -123,6 +125,7 @@ extern ActionManager *TheActionManager;
 class AIGroup
 {
 public:
+	bool rva0036D869(UnsignedInt id, UnsignedInt commandOptions, Int unk);
 	bool rva0036DA02(UnsignedInt id, const Coord3D *loc, const Object *objectInWay, UnsignedInt commandOptions, Int unk);
 
 private:
@@ -196,4 +199,76 @@ bool AIGroup::rva0036DA02(UnsignedInt id, const Coord3D *loc, const Object *obje
 		}
 	}
 	return done;
+}
+
+// Native 0036D869..0036DA02: sibling veteran selection; options bit20
+// bypasses selection and dispatches to all. ZH groupDoSpecialPower is the
+// semantic lead; target receiver layout and three args follow retail.
+bool AIGroup::rva0036D869(UnsignedInt id, UnsignedInt commandOptions, Int unk)
+{
+	const SpecialPowerTemplate *spTemplate = TheSpecialPowerStore->findSpecialPowerTemplateByID(id);
+	Object *best = 0;
+	Int bestRank = 0;
+	UnsignedInt all = commandOptions & 0x100000;
+	if (!all) {
+	for (_STL::list<Object *>::iterator it = m_memberList.begin(); it != m_memberList.end(); ++it) {
+		Object *object = *it;
+		ThingTemplate *tmpl = object->m_template;
+		if ((tmpl->m_113 & 4) == 0)
+			continue;
+		ExperienceLevelHandle handle = object->m_tracker->rva0039AC0C();
+		if (!((ExperienceLevelStore *)TheExperienceLevelSystem)->IsValid(handle))
+			continue;
+		Int rank = ((ExperienceLevelStore *)TheExperienceLevelSystem)->GetLevelRank(handle);
+		if (!best || rank > bestRank) {
+			best = object;
+			bestRank = rank;
+		} else if (best && rank == bestRank) {
+			if (object->m_id < best->m_id) {
+				best = object;
+				bestRank = rank;
+			}
+		}
+	}
+	}
+	if (best == 0) {
+	bool done = false;
+	for (_STL::list<Object *>::iterator it = m_memberList.begin(); it != m_memberList.end(); ++it) {
+		Object *object = *it;
+		AIUpdate *ai = object->m_ai;
+		if (ai != 0) {
+			if (unk == 0) {
+				if (ai->m_3C5 != 0)
+					continue;
+			}
+			ai->m_48 = unk;
+		}
+		if (spTemplate == 0)
+			continue;
+		if (!TheActionManager->canDoSpecialPower(object, spTemplate, CMD_FROM_PLAYER, commandOptions, true))
+			continue;
+		object->rva0028DF48(spTemplate, commandOptions, false);
+		object->rva0028AC34(false);
+		done = true;
+		if (!all) return true;
+	}
+	return done;
+	} else {
+		AIUpdate *ai = best->m_ai;
+		if (ai != 0) {
+			if (unk == 0) {
+				if (ai->m_3C5 != 0)
+					return false;
+			}
+			ai->m_48 = unk;
+		}
+		if (spTemplate != 0) {
+			if (TheActionManager->canDoSpecialPower(best, spTemplate, CMD_FROM_PLAYER, commandOptions, true)) {
+				best->rva0028DF48(spTemplate, commandOptions, false);
+				best->rva0028AC34(false);
+				return true;
+			}
+		}
+	}
+	return false;
 }
