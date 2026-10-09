@@ -16,6 +16,7 @@ public:
  char pad[0x5d]; bool active; bool dirty;
  char pad5f[0x110-0x5f]; bool flag110; bool flag111;
  Team *dlink_next_TeamInstanceList() const;
+ void disband();
 };
 template<class T> class DLINK_ITERATOR {
  typedef T *(T::*Next)() const;
@@ -54,6 +55,7 @@ public:
  void rva0059ABC9(void *);
  void rva0059AC4D(void *);
  Team *rva00599F74(TeamPrototype *);
+ void rva0059A153(TeamPrototype *);
  void checkIdleTeams();
 };
 // Native59AC6E..59ADB9,331B; WB1528FA0 AITeamBuilder::update (assert125).
@@ -111,6 +113,24 @@ Team *Rva0059AC4D::rva00599F74(TeamPrototype *prototype)
   if (!first) first=it.cur();
  }
  return first;
+}
+
+// Native59A153..59A1BF,110B RET4; WB AITeamBuilder::unRegisterTeamPrototype.
+// Find the prototype among the builder's, disband every live team of it
+// (activating the idle ones first, as update does), then erase its entry.
+void Rva0059AC4D::rva0059A153(TeamPrototype *prototype)
+{
+ // Retail's search is the folded 4-byte-element find (rowed under its int spelling).
+ TeamPrototype **last=prototypes.end();
+ TeamPrototype **found=(TeamPrototype **)_STL::find((int *)prototypes.begin(),(int *)last,(const int &)prototype);
+ if (found!=last) {
+  for (DLINK_ITERATOR<Team> it=(*found)->iterate_TeamInstanceList(); !it.done(); it.advance()) {
+   Team *team=it.cur();
+   if (!team->active) { team->dirty=true; team->active=true; }
+   team->disband();
+  }
+  prototypes.erase(found);
+ }
 }
 
 #include "GameLogicObjectLookupView.h"
