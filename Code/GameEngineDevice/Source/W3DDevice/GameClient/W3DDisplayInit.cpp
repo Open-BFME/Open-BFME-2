@@ -249,7 +249,8 @@ public:
 	unsigned char m_padd4c[0x11C8 - 0xD4C];
 	Bool m_11C8;				// +0x11C8
 };
-extern GlobalData *TheGlobalData;
+extern GlobalData *TheWritableGlobalData;
+#define TheGlobalData TheWritableGlobalData
 
 extern void *ApplicationHWnd;
 
