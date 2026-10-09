@@ -18,8 +18,8 @@ class Rva0050F5A6 { public:
 };
 extern "C" __declspec(dllimport) int __cdecl atoi(const char*);
 bool Rva004128F0GetParam(const char*,const char*,AsciiString&);
-int Rva004128BBGetLevel(const char*);
-const char *Rva00412845AfterLevel(const char*);
+namespace AptUtils { int LevelIndexFromTarget(const char*); const char *SkipLevelN(const char*); }
+
 class Rva0050FC54 {public: Rva0050FC54(int,const AsciiString&,Player*);char opaque[0x80];};
 class Rva0050FF55 {public: Rva0050FF55(Rva0050F5A6*,int,const AsciiString&,Player*);int rva0050EAC1();char opaque[0x80];Rva0050F5A6 *parent;};
 class Object;
@@ -39,12 +39,12 @@ void Rva0050F5A6::rva0050FFEC(const char *params) {
  if(slot.object)return;
  AsciiString name;
  if(!Rva004128F0GetParam(params,"name",name))return;
- int rowLevel=Rva004128BBGetLevel(name.str());
+ int rowLevel=AptUtils::LevelIndexFromTarget(name.str());
  if(rowLevel!=level)return;
  if(slot.player->isLocalPlayer())
-  reinterpret_cast<Rva00575674*>(&slot.object)->rva00575674(reinterpret_cast<Object*>(new Rva0050FF55(this,rowLevel,AsciiString(Rva00412845AfterLevel(name.str())),slot.player)));
+  reinterpret_cast<Rva00575674*>(&slot.object)->rva00575674(reinterpret_cast<Object*>(new Rva0050FF55(this,rowLevel,AsciiString(AptUtils::SkipLevelN(name.str())),slot.player)));
  else
-  reinterpret_cast<Rva00575674*>(&slot.object)->rva00575674(reinterpret_cast<Object*>(new Rva0050FC54(rowLevel,AsciiString(Rva00412845AfterLevel(name.str())),slot.player)));
+  reinterpret_cast<Rva00575674*>(&slot.object)->rva00575674(reinterpret_cast<Object*>(new Rva0050FC54(rowLevel,AsciiString(AptUtils::SkipLevelN(name.str())),slot.player)));
 }
 
 // Native50EAC1..50EB02 65B RET0, not the served260B extent which crosses
@@ -110,3 +110,4 @@ void Rva0050F5A6::rva0050EB0A(const char *unused){
   }
  }
 }
+
