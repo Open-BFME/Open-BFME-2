@@ -33,6 +33,7 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
 #include <hash_map>
 #include <hash_set>
 #include <set>
+#include <map>
 #include <vector>
 #undef free
 #include "ascii_string.h"
@@ -40,7 +41,24 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
 #include "../../../Libraries/Include/Lib/Coord3D.h"
 #include "Common/Snapshot.h"
 
-class Xfer;
+// Xfer view: slot 1 tells a load from a save; +0x78 and +0x90 xfer an
+// unsigned int and a bool (0x0005B256).
+class Xfer {
+public:
+    virtual ~Xfer();
+    virtual bool isLoading();
+    virtual void slot02(); virtual void slot03(); virtual void slot04(); virtual void slot05();
+    virtual void slot06(); virtual void slot07(); virtual void slot08(); virtual void slot09();
+    virtual void slot10(); virtual void slot11(); virtual void slot12(); virtual void slot13();
+    virtual void slot14(); virtual void slot15(); virtual void slot16(); virtual void slot17();
+    virtual void slot18(); virtual void slot19(); virtual void slot20(); virtual void slot21();
+    virtual void slot22(); virtual void slot23(); virtual void slot24(); virtual void slot25();
+    virtual void slot26(); virtual void slot27(); virtual void slot28(); virtual void slot29();
+    virtual Xfer &xferUnsignedInt(unsigned int *value);
+    virtual void slot31(); virtual void slot32(); virtual void slot33(); virtual void slot34();
+    virtual void slot35();
+    virtual Xfer &xferBool(bool *value);
+};
 enum INILoadType
 {
     INI_LOAD_INVALID,
@@ -154,6 +172,7 @@ public:
     ObjectID getObjectID(void);
     unsigned int getSoundClass(void) const;
     bool hasMoreLoops(void) const;
+    void generatePlayInfo(void);
     void rva002D9ADC(void);
     void advanceNextPlayPortion(void);
     // Inline in WorldBuilder too (its twin copies the read into a temp);
@@ -296,7 +315,20 @@ public:
     PlayingAudioRef(const PlayingAudioRef &other) : m_ptr(other.m_ptr) { if (m_ptr) asRefCounted()->Add_Ref(); }
     PlayingAudioRef(PlayingAudio *playing);
     ~PlayingAudioRef() { if (m_ptr) asRefCounted()->Release_Ref(); }
-    PlayingAudioRef &operator=(const PlayingAudioRef &other);  // folded at 0x00239099
+    // Folded at 0x00239099; defined here (cl still calls it out of line) so
+    // the unit knows it neither keeps nor changes its argument, which is
+    // what lets 0x00055FCA release its copy from the register it tested.
+    PlayingAudioRef &operator=(const PlayingAudioRef &other)
+    {
+        if (this != &other) {
+            if (other.m_ptr)
+                other.asRefCounted()->Add_Ref();
+            if (m_ptr)
+                asRefCounted()->Release_Ref();
+            m_ptr = other.m_ptr;
+        }
+        return *this;
+    }
     PlayingAudio *operator->(void) const { return m_ptr; }
     PlayingAudio *get(void) const { return m_ptr; }
     void set(PlayingAudio *playing)
@@ -880,6 +912,8 @@ public:
     void rva000606CE(bool accelerated);
     void rva00060123(unsigned int viewMask);
     void rva00056FD9(unsigned int viewMask);
+    void rva0005B256(Xfer *xfer, PlayingAudioRef &playing, int *unused);
+    bool rva000613A9(unsigned int handle);
     bool rva006AD9B0(void);    // 0x00059646, cached reinitialize setting
     void rva00060309(void);
     void rva0006047C(void);
@@ -983,7 +1017,8 @@ private:
     Rva00051107AudioRequestSet m_requestSet;        // +0x9C
     char atB0[0xBC - 0xB0];
     Rva00059FBBMap m_allAudioEventInfo;  // +0xBC
-    char atD0[0xE0 - 0xD0];
+    unsigned int m_nextHandle;           // +0xD0, next playing handle (0x0005B256)
+    char atD4[0xE0 - 0xD4];
     QueuedAudioEvents m_queuedEvents[3];  // +0xE0, per view type (0x60123)
     char at104[0x12C - 0x104];
     // Per-view GlobalVolumeData records, 0x1C4 apart in retail (0x61C87).
@@ -1835,6 +1870,120 @@ void MilesAudioManager::moveUpMusicSystems(int newMusicSystem, int viewType, int
     m_activeMusicSystem[viewType] = (MusicSystem)newMusicSystem;
 }
 
+// The request set's lookup by playing handle, rowed at 0x00055951 under
+// its address-derived owner: it returns an iterator of the table view that
+// row compiles (same {node, table} layout as the request set's iterator).
+struct Rva00054EBEElement { char bytes[1]; };
+typedef _STL::hashtable<_STL::pair<int const, Rva00054EBEElement>, int, _STL::hash<int>,
+    _STL::_Select1st<_STL::pair<int const, Rva00054EBEElement> >, _STL::equal_to<int>,
+    _STL::allocator<_STL::pair<int const, Rva00054EBEElement> > > Rva00054EBETable;
+class Rva00055951 {
+public:
+    Rva00054EBETable::iterator rva00055951(unsigned int handle);
+};
+
+// Retail 0x00055FCA (628 bytes): Zero Hour's isCurrentlyPlaying(handle)
+// with outputs. Handles below 5 are never live. Looks through the playing
+// lists then per view type the queued events and both music stacks then
+// the request list's pending events and the pending request set; reports
+// the event (and for a playing sound a reference to it through the third
+// argument, a PlayingAudioRef pointer the callers pass as zero).
+bool MilesAudioManager::rva00055FCA(int handle, void **result, int flags)
+{
+    AudioEventRTS **eventOut = reinterpret_cast<AudioEventRTS **>(result);
+    PlayingAudioRef *playingOut = reinterpret_cast<PlayingAudioRef *>(flags);
+    if (eventOut)
+        *eventOut = 0;
+    if (playingOut)
+        reinterpret_cast<Rva000A8C9B *>(playingOut)->clear();
+    if ((unsigned int)handle < 5)
+        return false;
+
+    PlayingAudioRef playing;
+    OpaqueRefList::iterator it;
+    for (it = reinterpret_cast<OpaqueRefList &>(m_playingSounds).begin();
+         it != reinterpret_cast<OpaqueRefList &>(m_playingSounds).end(); ++it) {
+        playing = *reinterpret_cast<const PlayingAudioRef *>(&*it);
+        if (playing.get() && playing->m_event->m_playingHandle == handle) {
+            if (eventOut)
+                *eventOut = playing->m_event.get();
+            if (playingOut)
+                *playingOut = playing;
+            return true;
+        }
+    }
+    for (it = reinterpret_cast<OpaqueRefList &>(m_playing3DSounds).begin();
+         it != reinterpret_cast<OpaqueRefList &>(m_playing3DSounds).end(); ++it) {
+        playing = *reinterpret_cast<const PlayingAudioRef *>(&*it);
+        if (playing.get() && playing->m_event->m_playingHandle == handle) {
+            if (eventOut)
+                *eventOut = playing->m_event.get();
+            if (playingOut)
+                *playingOut = playing;
+            return true;
+        }
+    }
+    for (it = reinterpret_cast<OpaqueRefList &>(m_playingStreams).begin();
+         it != reinterpret_cast<OpaqueRefList &>(m_playingStreams).end(); ++it) {
+        playing = *reinterpret_cast<const PlayingAudioRef *>(&*it);
+        if (playing.get() && playing->m_event->m_playingHandle == handle) {
+            if (eventOut)
+                *eventOut = playing->m_event.get();
+            if (playingOut)
+                *playingOut = playing;
+            return true;
+        }
+    }
+
+    for (int viewType = 0; viewType < 3; ++viewType) {
+        QueuedAudioEvents::iterator event;
+        for (event = m_queuedEvents[viewType].begin(); event != m_queuedEvents[viewType].end(); ++event) {
+            if (event->m_playingHandle == handle) {
+                if (eventOut)
+                    *eventOut = reinterpret_cast<AudioEventRTS *>(&*event);
+                return true;
+            }
+        }
+        for (int musicSystem = 0; musicSystem < 2; ++musicSystem) {
+            MusicStack::iterator end = m_musicStack[viewType][musicSystem].end();
+            for (MusicStack::iterator music = m_musicStack[viewType][musicSystem].begin();
+                 music != end; ++music) {
+                playing = *reinterpret_cast<const PlayingAudioRef *>(&*music);
+                if (playing.get() && playing->m_event->m_playingHandle == handle) {
+                    if (eventOut)
+                        *eventOut = playing->m_event.get();
+                    if (playingOut)
+                        *playingOut = playing;
+                    return true;
+                }
+            }
+        }
+    }
+
+    Rva00051107AudioRequestList::iterator request;
+    for (request = m_audioRequests.begin(); request != m_audioRequests.end(); ++request) {
+        Rva00051107AudioRequest *req = *request;
+        if (req && req->m_pendingEvent.get()
+            && req->m_pendingEvent->m_playingHandle == handle) {
+            if (eventOut)
+                *eventOut = req->m_pendingEvent.get();
+            return true;
+        }
+    }
+
+    {
+        Rva00054EBETable::iterator found =
+            reinterpret_cast<Rva00055951 &>(m_requestSet).rva00055951((unsigned int)handle);
+        if (found._M_cur) {
+            Rva00051107AudioRequest *req = *reinterpret_cast<Rva00051107AudioRequestSet::iterator &>(found);
+            if (eventOut)
+                *eventOut = req->m_pendingEvent.get();
+            return true;
+        }
+    }
+    return false;
+}
+
 // Address-derived Manager method. The target passes the lookup output to the
 // manager helper and increments the returned object's +0x80 reference count.
 // The helper's address is read directly from the call at 0x000562E0.
@@ -1916,6 +2065,106 @@ AsciiString MilesAudioManager::rva0005B1FA(const AsciiString &key)
 
 // Retail @ 0x0005AC61 gates the move-up helper on the per-view active system.
 // Its direct caller supplies the view, requested system, and playback flag.
+// Callee views for 0x0005B256. The event's own xfer (0x002D9F9F) and the
+// stream holder's (+0x0C) load and save halves (0x000A8C2B 0x000A8B79) are
+// rowed under address-derived owners; the load half ignores its receiver.
+// The playing-handle store (0x005F69C4: event +0x0C = argument) is the
+// ICF-folded setter pinned as GameMessage::friend_setList.
+class Rva002D9F9FArg;
+class Rva002D9F9FOwner { public: void rva002D9F9F(Rva002D9F9FArg *xfer); };
+class Rva000A8C2BObj;
+class Rva000A8B6D { public: void rva000A8B79(Rva000A8C2BObj *xfer); };
+class Rva000A8C2B { public: void rva000A8C2B(Xfer *xfer, Rva0010FFA2Packet *resumePosition); };
+class GameMessageList;
+class GameMessage { public: void friend_setList(GameMessageList *list); };
+// Saved stream position the load half fills and playAndStoreStream resumes from.
+struct Rva0010FFA2Packet {
+    int m_event0;
+    int m_value4;
+    float m_value8;
+};
+// Saved-handle -> live-handle map at +0xB6C, viewed as the folded
+// map<unsigned int, Image *> instantiation whose insert_unique is rowed at
+// 0x004D795B.
+class Image;
+typedef _STL::map<unsigned int, Image *> Rva0005B256HandleMap;
+
+// Retail 0x0005B256 (676 bytes; WorldBuilder twin 0x007AA3A0 unnamed;
+// callers are the manager's xfer 0x0005E3E5 per saved stream): xfers one
+// playing stream. On load it allocates the playing audio and a fresh event
+// then xfers the event and the +0x49 flag; on load it also registers the
+// event (0x000592B8) and reads the saved handle and the stream position. A
+// stream whose event has no info is dropped. Otherwise the saved handle is
+// mapped to a fresh one (+0xD0 counter); when it was already mapped the
+// queued and pending requests for the mapped handle are deleted. The event
+// takes the handle and is replayed (generatePlayInfo 0x002D9ADC) and the
+// stream file is reopened at the saved position and stored. On save it
+// writes the event's playing handle and the stream position.
+void MilesAudioManager::rva0005B256(Xfer *xfer, PlayingAudioRef &playing, int *unused)
+{
+    if (xfer->isLoading()) {
+        playing = allocatePlayingAudio();
+        playing->m_event.rva00053D26(
+            reinterpret_cast<BfmePoolHolder88 *>(new Rva0051D93(OpaqueRefElement4(), 0)));
+    }
+    reinterpret_cast<Rva002D9F9FOwner *>(playing->m_event.get())->rva002D9F9F(
+        reinterpret_cast<Rva002D9F9FArg *>(xfer));
+    xfer->xferBool(&playing->m_at49);
+    if (xfer->isLoading()) {
+        rva000592B8(playing->m_event.get());
+        unsigned int savedHandle;
+        xfer->xferUnsignedInt(&savedHandle);
+        Rva0010FFA2Packet resumePosition;
+        reinterpret_cast<Rva000A8C2B *>(&playing->m_at0C)->rva000A8C2B(xfer, &resumePosition);
+        if (!playing->m_event->m_info) {
+            reinterpret_cast<Rva000A8C9B *>(&playing)->clear();
+            return;
+        }
+        playing->at4C[0] = 1;
+        unsigned int handle = m_nextHandle++;
+        _STL::pair<Rva0005B256HandleMap::iterator, bool> result =
+            reinterpret_cast<Rva0005B256HandleMap *>(atB6C)->insert(
+                Rva0005B256HandleMap::value_type(savedHandle, reinterpret_cast<Image *>(handle)));
+        if (!result.second) {
+            handle = reinterpret_cast<unsigned int>(result.first->second);
+            Rva00051107AudioRequestList::iterator it = m_audioRequests.begin();
+            while (it != m_audioRequests.end()) {
+                Rva00051107AudioRequest *req = *it;
+                if (req->m_pendingEvent.get() && req->m_pendingEvent->m_playingHandle == handle) {
+                    it = m_audioRequests.erase(it);
+                    deleteAudioRequest(req);
+                } else {
+                    ++it;
+                }
+            }
+            Rva00054EBETable::iterator found =
+                reinterpret_cast<Rva00055951 &>(m_requestSet).rva00055951(handle);
+            if (found._M_cur) {
+                Rva00051107AudioRequest *req = *reinterpret_cast<Rva00051107AudioRequestSet::iterator &>(found);
+                reinterpret_cast<Rva00051B89KeyedSet &>(m_requestSet).erase(
+                    reinterpret_cast<Rva00051B89KeyedSet::iterator &>(found));
+                deleteAudioRequest(req);
+            }
+        }
+        reinterpret_cast<GameMessage *>(playing->m_event.get())->friend_setList(
+            reinterpret_cast<GameMessageList *>(handle));
+        playing->m_event->generatePlayInfo();
+        playing->m_event->rva002D9ADC();
+        AsciiString file = playing->m_event->getFilename();
+        void *owner = m_atB90;
+        ((Rva000A8D0B *)&playing->m_at0C)->rva000A8D0B(owner, file, 0);
+        PlayingAudio *p = playing.get();
+        ((Rva000A8AD8 *)&p->m_at0C)->rva000A8AD8(((Rva002D94DD *)p->m_event.get())->rva002D94DD());
+        playing->m_type = 4;
+        playAndStoreStream(playing, &resumePosition);
+    } else {
+        unsigned int handle = playing->m_event->m_playingHandle;
+        xfer->xferUnsignedInt(&handle);
+        reinterpret_cast<Rva000A8B6D *>(&playing->m_at0C)->rva000A8B79(
+            reinterpret_cast<Rva000A8C2BObj *>(xfer));
+    }
+}
+
 void MilesAudioManager::rva0005AC61(int viewType, int newMusicSystem, int arg)
 {
     if (newMusicSystem > m_activeMusicSystem[viewType])
@@ -3799,4 +4048,93 @@ void MilesAudioManager::releaseMilesHandles(PlayingAudio &playing)
         if (event && event->m_info && !event->m_info->m_channelVolumes.empty())
             ((Rva0005516F *)this)->rva0005516F((Holder *)&event->m_info, event->m_viewType);
     }
+}
+
+// Retail 0x000613A9 (561 bytes; WorldBuilder twin 0x00794760 unnamed;
+// called by 0x000615DA): kills everything that carries one playing handle
+// and reports whether anything was found. The pending request found in the
+// request set through 0x00055951 is erased and deleted; every queued play
+// (type 0) or push-music (type 3) request whose handle or pending event
+// matches is deleted and erased; the first matching 3D sound 2D sound and
+// stream gives its Miles handles back (0x0005FDCA) and leaves its list; and
+// the first matching track of each music stack is released and erased.
+bool MilesAudioManager::rva000613A9(unsigned int handle)
+{
+    bool removed = false;
+    {
+        Rva00054EBETable::iterator found =
+            reinterpret_cast<Rva00055951 &>(m_requestSet).rva00055951(handle);
+        if (found._M_cur) {
+            Rva00051107AudioRequest *req = *reinterpret_cast<Rva00051107AudioRequestSet::iterator &>(found);
+            reinterpret_cast<Rva00051B89KeyedSet &>(m_requestSet).erase(
+                reinterpret_cast<Rva00051B89KeyedSet::iterator &>(found));
+            deleteAudioRequest(req);
+            removed = true;
+        }
+    }
+
+    Rva00051107AudioRequestList::iterator request = m_audioRequests.begin();
+    while (request != m_audioRequests.end()) {
+        Rva00051107AudioRequest *req = *request;
+        bool match;
+        if (req && (req->m_request == 0 || req->m_request == 3)) {
+            match = req->m_at08 == handle;
+            if (req->m_pendingEvent.get())
+                match = match || req->m_pendingEvent->m_playingHandle == handle;
+        } else {
+            match = false;
+        }
+        if (match) {
+            deleteAudioRequest(req);
+            request = m_audioRequests.erase(request);
+            removed = true;
+        } else {
+            ++request;
+        }
+    }
+
+    PlayingAudioList::iterator it;
+    for (it = m_playing3DSounds.begin(); it != m_playing3DSounds.end(); ++it) {
+        if (it->get() && (*it)->m_event->m_playingHandle == handle) {
+            releaseMilesHandles(*it->get());
+            reinterpret_cast<OpaqueRefList &>(m_playing3DSounds).erase(
+                OpaqueRefList::iterator((OpaqueRefList::_Node *)it._M_node));
+            removed = true;
+            break;
+        }
+    }
+    for (it = m_playingSounds.begin(); it != m_playingSounds.end(); ++it) {
+        if (it->get() && (*it)->m_event->m_playingHandle == handle) {
+            releaseMilesHandles(*it->get());
+            reinterpret_cast<OpaqueRefList &>(m_playingSounds).erase(
+                OpaqueRefList::iterator((OpaqueRefList::_Node *)it._M_node));
+            removed = true;
+            break;
+        }
+    }
+    for (it = m_playingStreams.begin(); it != m_playingStreams.end(); ++it) {
+        if (it->get() && (*it)->m_event->m_playingHandle == handle) {
+            releaseMilesHandles(*it->get());
+            reinterpret_cast<OpaqueRefList &>(m_playingStreams).erase(
+                OpaqueRefList::iterator((OpaqueRefList::_Node *)it._M_node));
+            removed = true;
+            break;
+        }
+    }
+
+    for (int viewType = 0; viewType < 3; ++viewType) {
+        for (int musicSystem = 0; musicSystem < 2; ++musicSystem) {
+            MusicStack &stack = m_musicStack[viewType][musicSystem];
+            for (MusicStack::iterator music = stack.begin(); music != stack.end(); ++music) {
+                PlayingAudioRef &track = reinterpret_cast<PlayingAudioRef &>(*music);
+                if (track.get() && track->m_event->m_playingHandle == handle) {
+                    releaseMilesHandles(*track.get());
+                    stack.erase(music);
+                    removed = true;
+                    break;
+                }
+            }
+        }
+    }
+    return removed;
 }
