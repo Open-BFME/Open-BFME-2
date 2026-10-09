@@ -11,7 +11,7 @@
 //   ebp+0x8 (file), ebp+0xC (line) and ebp+0x10 provably never read, so
 //   the third parameter is an unread filler; `int reserved` is the neutral
 //   choice (same idiom as CheckBegin's reserved). Mangling:
-//   ?CrashBegin@Debug@@QAEAAV1@PBDHH@Z.
+//   ?CrashBegin@Debug@@UAEAAV1@PBDHH@Z.
 // - Frame type literal 2 (CheckBegin passes 1).
 // - Head `<<` pair is "\n" + RepeatChar('=', 80) + "\n" (no assertion
 //   text); the file block runs only under `if (file)` (CheckBegin has no
@@ -114,8 +114,6 @@ public:
 	virtual void pad18();
 	virtual void pad19();
 
-	Debug &CrashBegin(const char *file, int line, int reserved);
-
 private:
 	unsigned char m_pad04[8];
 	void *firstIOFactory;
@@ -140,9 +138,19 @@ private:
 	// order, so this two-argument form lands at index 20 = slot 0x50
 	// while the variadic one takes index 21 (slot 0x54, unused by body).
 	virtual void StartOutput(const char *fmt, unsigned count);
+
+public:
+	// Slots 23..26, then CrashBegin in its own slot 27 (+0x6C) of
+	// 0x00BBE810, declared after the slots the body calls so they keep
+	// their indices.
+	virtual void pad23();
+	virtual void pad24();
+	virtual void pad25();
+	virtual void pad26();
+	virtual Debug &CrashBegin(const char *file, int line, int reserved);
 };
 
-// ?CrashBegin@Debug@@QAEAAV1@PBDHH@Z
+// ?CrashBegin@Debug@@UAEAAV1@PBDHH@Z
 Debug &Debug::CrashBegin(const char *file, int line, int reserved)
 {
 	char help[132];

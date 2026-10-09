@@ -10,7 +10,7 @@
 //   ebp+0xC (line) and ebp+0x14 (the string printed after ",\nexpression ").
 //   ebp+0x10 is provably never read, so the body takes a fourth parameter
 //   whose type is unknowable from the bytes; `int reserved` is the neutral
-//   choice. Mangling: ?CheckBegin@Debug@@QAEAAV1@PBDHH0@Z.
+//   choice. Mangling: ?CheckBegin@Debug@@UAEAAV1@PBDHH0@Z.
 // - The two-argument StartOutput("", 10) call rides slot 0x50 (retail vtable
 //   at RVA 0x7BE810: slot 0x50 -> 0x38850, slot 0x54 -> WriteBuildInfo
 //   0x395D0). MSVC assigns same-name VIRTUAL overloads in reverse declaration
@@ -111,8 +111,6 @@ public:
 	virtual void pad18();
 	virtual void pad19();
 
-	Debug &CheckBegin(const char *file, int line, int reserved, const char *expr);
-
 private:
 	unsigned char m_pad04[8];
 	void *firstIOFactory;
@@ -137,11 +135,19 @@ private:
 	// order, so this two-argument form lands at index 20 = slot 0x50
 	// while the variadic one takes index 21 (slot 0x54, unused by body).
 	virtual void StartOutput(const char *fmt, unsigned count);
+
+public:
+	// Slots 23 and 24, then CheckBegin in its own slot 25 (+0x64) of
+	// 0x00BBE810, declared after the slots the body calls so they keep
+	// their indices.
+	virtual void pad23();
+	virtual void pad24();
+	virtual Debug &CheckBegin(const char *file, int line, int reserved, const char *expr);
 };
 
 extern Debug *theDebug;  // defined in DebugPreStaticInit.cpp
 
-// ?CheckBegin@Debug@@QAEAAV1@PBDHH0@Z
+// ?CheckBegin@Debug@@UAEAAV1@PBDHH0@Z
 Debug &Debug::CheckBegin(const char *file, int line, int reserved, const char *expr)
 {
 	char help[132];
