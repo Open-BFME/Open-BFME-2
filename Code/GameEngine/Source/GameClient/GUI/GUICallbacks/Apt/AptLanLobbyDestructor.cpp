@@ -103,7 +103,7 @@ class GameEngine { friend class AptLanLobby; void stopHeadlessClients(); };
 extern GameEngine *TheGameEngine;
 
 class AptLanLobby : public _bfme_AptGameWindow, public Rva004444D2 {
-public: virtual ~AptLanLobby(); void rva004443E7();
+public: virtual ~AptLanLobby(); void rva004443E7(); void OnInitialized(const char *);
 private:
  Rva004421E1 panel;
  GameSorter sorter;
@@ -132,4 +132,11 @@ void AptLanLobby::rva004443E7() {
  Global004443E7958View *g=(Global004443E7958View*)TheLAN;
  if (g) g->g18();
  TheGameEngine->stopHeadlessClients();
+}
+
+// Native constructor445FC7 pairs AptLanLobby::OnInitialized at83E414 with
+// function pointer47A69C at445FD5 and the full-screen receiver. Retail folds
+// this empty RET4 callback; its complete3B body has no relocations.
+void AptLanLobby::OnInitialized(const char *)
+{
 }
