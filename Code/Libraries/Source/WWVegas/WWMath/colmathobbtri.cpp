@@ -13,6 +13,10 @@ struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #pragma optimize("", on)
 
+// Reuse the verified AABox math and vector consumer views.
+#include "../../../../../reference/shims/bfme_colmathaabox/wwmath.h"
+#include "../../../../../reference/shims/bfme_colmathaabox/vector3.h"
+#include "../../../../../reference/shims/bfme_matrix3_owner_link/matrix3.h"
 #include "rendobj.h"	// the bfmerendobj shim has to win the include guard
 #include "colmath.h"
 #include "obbox.h"
@@ -135,7 +139,7 @@ static inline bool obbtri_collision_separation_test
 	*/
 	float eps = 0.0f;
 	if (lp - leb0 <= 0.0f) {
-		eps = COLLISION_EPSILON * context.TestAxis.Length();	// trying to only compute epsilon if I have to
+		eps = COLLISION_EPSILON * WWMath::Sqrt(context.TestAxis.Length2());	// trying to only compute epsilon if I have to
 	}
 
 	if (lp - leb0 > -eps) {
@@ -903,7 +907,7 @@ static inline bool obbtri_intersection_separation_test
 	*/
 	float eps = 0.0f;
 	if (lp - leb0 <= 0.0f) {
-		eps = COLLISION_EPSILON * context.TestAxis.Length();	// trying to only compute epsilon if I have to
+		eps = COLLISION_EPSILON * WWMath::Sqrt(context.TestAxis.Length2());	// trying to only compute epsilon if I have to
 	}
 
 	return (lp - leb0 > -eps);
