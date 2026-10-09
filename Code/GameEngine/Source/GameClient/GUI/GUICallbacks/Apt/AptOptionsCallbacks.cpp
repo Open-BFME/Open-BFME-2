@@ -72,6 +72,7 @@ struct BfmeEnumTableEntry
 extern BfmeEnumTableEntry BfmeEnumTable[];
 
 #include <vector>
+#include <map>
 #include "ascii_string.h"
 #include "unicode_string.h"
 #include "GameLogicObjectLookupView.h"
@@ -138,15 +139,46 @@ extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 class GameWindow;
 void GadgetComboBoxSetSelectedPos(GameWindow *comboBox, int position, bool dontNotify);
 
+bool operator<(const AsciiString &left, const AsciiString &right);
+
+namespace _STL
+{
+template <> struct less<AsciiString>
+{
+	bool operator()(const AsciiString &left, const AsciiString &right) const
+	{
+		return left < right;
+	}
+};
+}
+
+// Zero Hour's UserPreferences: a key/value map behind a vftable.
+class UserPreferences : public _STL::map<AsciiString, AsciiString>
+{
+public:
+	virtual ~UserPreferences();
+	virtual bool write();
+
+protected:
+	AsciiString m_filename; // +0x10
+};
+
 // The options file (its destructor is rowed as ??1Rva002E4272 and pinned
 // under this name, as AptMainMenuCallbacks.cpp's view).
-class OptionPreferences
+class OptionPreferences : public UserPreferences
 {
 public:
 	OptionPreferences();
 	virtual ~OptionPreferences();
 
-	unsigned char m_rest[0x14 - 0x04];
+	void setVolume(int which, float volume);
+	void rva002E53FA(int value);
+	void setOnlineIPAddress(unsigned int ip);
+	void rva002E4438(unsigned short port);
+	void rva002E43A6(int value);
+	void rva002E43EE(short value);
+	void rva002E54EA();
+	void rva002E52FC(int value);
 };
 
 // The global at 0x00DFE144 (Rva00202BB2Parse.cpp's TheRva00DFE144): its
@@ -164,7 +196,9 @@ extern Rva00DFE144Globals *TheRva00DFE144;
 class GameLODManager
 {
 public:
-	unsigned char m_pad[0x17c4];
+	unsigned char m_pad[0x1768];
+	int m_1768; // +0x1768, the setting AptOptions::Save stores with a static LOD change
+	unsigned char m_pad176c[0x17c4 - 0x176c];
 	int m_17c4; // +0x17C4
 };
 
@@ -184,8 +218,71 @@ public:
 class Rva005183A0
 {
 public:
+	bool rva005183A0();
 	void rva005183FA();
 };
+
+// The LOD manager calls AptOptions::Save makes (Rva00202058.cpp,
+// Rva00202739StaticLOD.cpp, Rva00202790Set.cpp).
+class Rva00202058
+{
+public:
+	void rva00202058(OptionPreferences *prefs);
+};
+
+class Rva00202739
+{
+public:
+	bool rva00202739(int level);
+};
+
+class Rva00202790
+{
+public:
+	void rva00202790(int value);
+};
+
+// The firewall helper's port getters (Rva00594EFCGet.cpp,
+// Disp8WordFieldGetters.cpp).
+class Rva00594EFC
+{
+public:
+	int rva00594EFC();
+};
+
+class Rva00594F07WordField
+{
+public:
+	unsigned short get() const;
+};
+
+// Rva00518262Enable.cpp and Rva005186E1Format.cpp's preset parser.
+void Rva00518262Enable();
+void Rva00518658Parse(const AsciiString &text, OptionPreferences *prefs);
+
+class GameSpyInfoInterface;
+extern GameSpyInfoInterface *TheGameSpyInfo;
+
+extern "C" __declspec(dllimport) int __cdecl _wtoi(const unsigned short *text);
+
+// StringBase's header-defined isEmpty as retail expands it in
+// AptOptions::Save: no buffer or a zero length. The shared header keeps
+// isEmpty out of line for the many sites that call it.
+struct UnicodeStringView
+{
+	struct Header
+	{
+		int refCount;
+		unsigned short length;
+		unsigned short capacity;
+	} *m_data;
+};
+
+static inline bool TextIsEmpty(const UnicodeString &text)
+{
+	const UnicodeStringView &view = (const UnicodeStringView &)text;
+	return view.m_data == 0 || view.m_data->length == 0;
+}
 
 class GameWindow
 {
@@ -201,6 +298,10 @@ struct SliderData
 };
 
 int GadgetSliderGetPosition(GameWindow *slider);
+bool GadgetCheckBoxIsChecked(GameWindow *checkBox);
+void GadgetComboBoxGetSelectedPos(GameWindow *comboBox, int *selectedIndex);
+void *GadgetComboBoxGetItemData(GameWindow *comboBox, int index);
+UnicodeString GadgetTextEntryGetText(GameWindow *textEntry);
 int Rva0050E776Send(GameWindow *slider, int position); // GadgetSliderSetPosition
 void GadgetCheckBoxSetChecked(GameWindow *checkBox, bool isChecked);
 void GadgetTextEntrySetText(GameWindow *textEntry, UnicodeString text);
@@ -232,7 +333,11 @@ class Display
 {
 public:
 	V(0)V(1)V(2)V(3)V(4)V(5)V(6)V(7)V(8)V(9)V(10)V(11)V(12)V(13)V(14)V(15)
-	V(16)V(17)V(18)V(19)V(20)V(21)V(22)V(23)V(24)
+	V(16)V(17)V(18)V(19)V(20)
+	virtual bool getWindowed(); // +0x54
+	V(22)
+	virtual int getDisplayModeCount(); // +0x5C
+	virtual void getDisplayModeDescription(int index, int *xres, int *yres, int *bitDepth); // +0x60
 	virtual void setGamma(float gamma, float bright, float contrast, bool calibrate); // +0x64
 };
 #undef V
@@ -240,8 +345,24 @@ public:
 class GlobalData
 {
 public:
-	unsigned char m_pad000[0xAFC];
+	unsigned char m_pad000[0x30];
+	int m_xResolution; // +0x30
+	int m_yResolution; // +0x34
+	unsigned char m_pad038[0x5C - 0x38];
+	bool m_5c; // +0x5C, cleared by AlternateMouseSetup
+	unsigned char m_pad05d[0x9BE - 0x5D];
+	bool m_allHealthBars; // +0x9BE
+	unsigned char m_pad9bf[0xA54 - 0x9BF];
+	int m_firewallPortOverride; // +0xA54
+	unsigned char m_padA58[0xA9C - 0xA58];
+	float m_a9c; // +0xA9C
+	float m_keyboardScrollFactor; // +0xAA0
+	unsigned char m_padAA4[0xAFC - 0xAA4];
 	float m_keyboardDefaultScrollFactor; // +0xAFC
+	unsigned char m_padB00[0xB6B - 0xB00];
+	bool m_sendDelay; // +0xB6B
+	unsigned char m_padB6C[0xBCC - 0xB6C];
+	float m_gamma; // +0xBCC
 };
 
 extern AudioManager *TheAudio;
@@ -262,6 +383,7 @@ public:
 	void rva00518B05(const AsciiString &text, int kind);
 	void rva0051890E(int answer);
 	void Reset(const char *unused);
+	void Save(const char *unused);
 
 private:
 	unsigned char m_pad000[0x274];
@@ -275,12 +397,16 @@ private:
 	bool m_284; // +0x284
 	unsigned char m_pad285[0x288 - 0x285];
 	_STL::vector<bool> m_warned; // +0x288, one per warning kind
-	unsigned char m_pad29c[0x2AC - 0x29C];
+	int m_xres; // +0x29C, the resolution chosen
+	int m_yres; // +0x2A0
+	int m_bitDepth; // +0x2A4
+	bool m_windowed; // +0x2A8
 	GameWindow *m_2ac; // +0x2AC, the resolution combo box
-	unsigned char m_pad2b0[0x2B8 - 0x2B0];
-	GameWindow *m_2b8; // +0x2B8, a text entry
-	unsigned char m_pad2bc[0x2C0 - 0x2BC];
-	GameWindow *m_2c0; // +0x2C0, check boxes Reset clears
+	unsigned char m_pad2b0[0x2B4 - 0x2B0];
+	GameWindow *m_ipCombo; // +0x2B4
+	GameWindow *m_2b8; // +0x2B8, the firewall port text entry
+	GameWindow *m_2bc; // +0x2BC, AllHealthBars
+	GameWindow *m_2c0; // +0x2C0, AlternateMouseSetup; check boxes Reset clears
 	GameWindow *m_2c4; // +0x2C4
 	GameWindow *m_2c8; // +0x2C8
 	GameWindow *m_2cc; // +0x2CC
@@ -504,6 +630,207 @@ void AptOptions::Reset(const char *unused)
 	{
 		m_preset = TheGameLODManager->m_17c4;
 		((Rva00518359 *)this)->rva00518359();
+	}
+}
+
+// Retail 0x005194F6, 2344 bytes: "AptOptions::Save", bound by that name in
+// the screen registration (0x0051A91A). On the basic page (state 1) it
+// writes the gadgets into the options file as Zero Hour's OptionsMenu
+// saveOptions does: the resolution (kept for the screen to apply), the
+// gamma ("Brightness") and scroll ("ScrollFactor") sliders, the volume
+// sliders, the check boxes ("AllHealthBars", "AlternateMouseSetup",
+// "UseEAX3", "SendDelay", the audio LOD one), the IP combo and the firewall
+// port, redetecting the firewall when the port changes. With +0x281 it then
+// applies and saves the graphics preset. The WorldBuilder twin 0x013D4160
+// has the same shape with its fields 4 lower from +0x288.
+void AptOptions::Save(const char *unused)
+{
+	if (m_state == 1)
+	{
+		OptionPreferences pref;
+		int index;
+
+		if (m_280)
+		{
+			GameWindow *resolutionCombo = m_2ac;
+			if (resolutionCombo && !TheGameLogic->rva0042219() && !TheGameSpyInfo)
+			{
+				GadgetComboBoxGetSelectedPos(resolutionCombo, &index);
+				if (index < TheDisplay->getDisplayModeCount() && index >= 0)
+				{
+					int xres, yres, bitDepth;
+					TheDisplay->getDisplayModeDescription(index, &xres, &yres, &bitDepth);
+					if (TheGlobalData->m_xResolution != xres || TheGlobalData->m_yResolution != yres)
+					{
+						m_30c = index;
+						m_xres = xres;
+						m_yres = yres;
+						m_bitDepth = bitDepth;
+						m_windowed = TheDisplay->getWindowed();
+						m_2f8 = true;
+					}
+				}
+			}
+		}
+
+		int val = m_gammaSlider ? GadgetSliderGetPosition(m_gammaSlider) : -1;
+		if (val != -1)
+		{
+			float gammaval = 1.0f;
+			if (val < 50)
+			{
+				if (val <= 0)
+					gammaval = 0.6f;
+				else
+					gammaval = 1.0f - (0.4f) * (float)(50 - val) / 50.0f;
+			}
+			else if (val > 50)
+				gammaval = 1.0f + (1.0f) * (float)(val - 50) / 50.0f;
+			AsciiString prefString;
+			prefString.format("%d", val);
+			pref["Brightness"] = prefString;
+			if (TheGlobalData->m_gamma != gammaval)
+				TheGlobalData->m_gamma = gammaval;
+		}
+
+		val = m_scrollSlider ? GadgetSliderGetPosition(m_scrollSlider) : -1;
+		if (val != -1)
+		{
+			val = _STL::max(val, 1);
+			TheGlobalData->m_keyboardScrollFactor = val / 50.0f;
+			TheGlobalData->m_a9c = val / 50.0f;
+			AsciiString prefString;
+			prefString.format("%d", val);
+			pref["ScrollFactor"] = prefString;
+		}
+
+		for (int i = 0; i < 5; i++)
+		{
+			int volume = m_volumeSliders[i] ? GadgetSliderGetPosition(m_volumeSliders[i]) : -1;
+			if (volume != -1)
+				pref.setVolume(i, (float)volume);
+		}
+
+		if (((Rva005183A0 *)this)->rva005183A0())
+		{
+			int checked = m_2bc ? GadgetCheckBoxIsChecked(m_2bc) : -1;
+			if (checked != -1)
+			{
+				AsciiString prefString;
+				prefString = checked ? AsciiString("yes") : AsciiString("no");
+				pref["AllHealthBars"] = prefString;
+				TheGlobalData->m_allHealthBars = checked != 0;
+			}
+		}
+
+		int checked = m_2c0 ? GadgetCheckBoxIsChecked(m_2c0) : -1;
+		if (checked != -1)
+		{
+			AsciiString prefString;
+			prefString = checked ? AsciiString("yes") : AsciiString("no");
+			pref["AlternateMouseSetup"] = prefString;
+			TheGlobalData->m_5c = checked == 0;
+		}
+
+		checked = m_eaxCheckBox ? GadgetCheckBoxIsChecked(m_eaxCheckBox) : -1;
+		if (checked != -1)
+		{
+			AsciiString prefString;
+			prefString = checked ? AsciiString("yes") : AsciiString("no");
+			pref["UseEAX3"] = prefString;
+		}
+
+		checked = m_2d8 ? GadgetCheckBoxIsChecked(m_2d8) : -1;
+		if (checked != -1)
+		{
+			if (checked)
+			{
+				pref.rva002E53FA(1);
+				((Rva00202790 *)TheGameLODManager)->rva00202790(1);
+			}
+			else
+			{
+				pref.rva002E53FA(0);
+				((Rva00202790 *)TheGameLODManager)->rva00202790(0);
+			}
+		}
+
+		checked = m_2c4 ? GadgetCheckBoxIsChecked(m_2c4) : -1;
+		if (checked != -1)
+		{
+			AsciiString prefString;
+			prefString = checked ? AsciiString("yes") : AsciiString("no");
+			pref["SendDelay"] = prefString;
+			TheGlobalData->m_sendDelay = checked != 0;
+		}
+
+		if (m_ipCombo)
+			GadgetComboBoxGetSelectedPos(m_ipCombo, &index);
+		else
+			index = -1;
+		if (index >= 0)
+			pref.setOnlineIPAddress((unsigned int)GadgetComboBoxGetItemData(m_ipCombo, index));
+
+		if (m_2b8)
+		{
+			UnicodeString text = GadgetTextEntryGetText(m_2b8);
+			unsigned short port = 0;
+			if (!TextIsEmpty(text))
+			{
+				int value = _wtoi(text.str());
+				if (value >= 8088 && value < 65535)
+					port = value;
+			}
+			if (port != TheGlobalData->m_firewallPortOverride)
+			{
+				pref.rva002E4438(port);
+				TheGlobalData->m_firewallPortOverride = port;
+				if (g_a063b0 == 0)
+					g_a063b0 = (Rva00A063B0Obj *)Rva00595143Get();
+				((FirewallHelperClass *)g_a063b0)->flagNeedToRefresh(true);
+				if (((Rva00595D95 *)g_a063b0)->rva00595D95() == true)
+				{
+					::operator delete(g_a063b0 ? ((FirewallHelperClass *)g_a063b0)->deleteInstance(0) : 0);
+					g_a063b0 = 0;
+				}
+				if (g_a063b0 != 0)
+				{
+					while (((FirewallHelperClass *)g_a063b0)->behaviorDetectionUpdate() == false)
+						;
+					((FirewallHelperClass *)g_a063b0)->writeFirewallBehavior();
+					((FirewallHelperClass *)g_a063b0)->flagNeedToRefresh(false);
+					pref.rva002E43A6(((Rva00594EFC *)g_a063b0)->rva00594EFC());
+					pref.rva002E43EE(((Rva00594F07WordField *)g_a063b0)->get());
+					::operator delete(g_a063b0 ? ((FirewallHelperClass *)g_a063b0)->deleteInstance(0) : 0);
+					g_a063b0 = 0;
+				}
+			}
+		}
+
+		pref.write();
+		Rva00518262Enable();
+	}
+	if (m_281)
+	{
+		if (m_preset > -1 && m_preset < 6)
+		{
+			OptionPreferences pref;
+			if (m_preset == 5)
+			{
+				Rva00518658Parse(m_presetText, &pref);
+				((Rva00202058 *)TheGameLODManager)->rva00202058(&pref);
+			}
+			else
+				pref.rva002E54EA();
+			if (((Rva00202739 *)TheGameLODManager)->rva00202739(m_preset))
+				pref.rva002E52FC(TheGameLODManager->m_1768);
+			pref.write();
+		}
+		((Rva005183A0 *)this)->rva005183FA();
+		if (m_284)
+			Rva00518262Enable();
+		else
+			m_state = 1;
 	}
 }
 
