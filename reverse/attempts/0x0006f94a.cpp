@@ -1,6 +1,8 @@
 // ?rva0006F94A@RTS3DScene@@QAEPAVW3DDynamicLight@@XZ
+// partial score=0.94 date=2026-10-09
+// ?rva0006F94A@RTS3DScene@@QAEPAVW3DDynamicLight@@XZ
 // partial score=0.85 date=2026-10-08
-// cl: /DNDEBUG /MD /EHsc
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
 
 class RenderObjClass;
 
@@ -32,20 +34,25 @@ struct Rva0006F94ANode
 	char m_pad0[4];
 	Rva0006F94ANode *m_next;
 	char m_pad8[4];
-	void *m_value;
+	struct Rva0006F94AMultiListBase *m_value;
 };
 
-class W3DDynamicLight
-{
+struct Rva0006F94AReferenceBase {
+    virtual void rva0006F94ARelease();
+    int m_refs;
+};
+struct Rva0006F94AMultiListBase { void *node; };
+class W3DDynamicLight : public Rva0006F94AReferenceBase, public Rva0006F94AMultiListBase {
 public:
-	W3DDynamicLight();
-	virtual void rva0006F94ARelease();
-	void setEnabled(bool enabled);
-	int m_refs;
-	char m_pad08[0x144 - 8];
-	bool m_inUse;
+    W3DDynamicLight();
+    void setEnabled(bool enabled);
+    char m_pad0C[0x144-0xC];
+    bool m_inUse;
+    char m_tail145[0x174-0x145];
 };
-
+static __forceinline W3DDynamicLight *PeekLight(Rva0006F94ANode *node) {
+    return static_cast<W3DDynamicLight *>(node->m_value);
+}
 class Rva0006F219
 {
 public:
@@ -76,8 +83,7 @@ W3DDynamicLight *RTS3DScene::rva0006F94A()
 	W3DDynamicLight *light;
 	for (Rva0006F94ANode *node = m_lightSentinel.m_next; node != &m_lightSentinel; node = node->m_next)
 	{
-		unsigned int value = (unsigned int)node->m_value;
-		light = (W3DDynamicLight *)((value - 8) & -(int)(value != 0));
+		light = PeekLight(node);
 		if (!light->m_inUse)
 		{
 			goto found;
