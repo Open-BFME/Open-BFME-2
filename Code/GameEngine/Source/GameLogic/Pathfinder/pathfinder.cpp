@@ -97,6 +97,8 @@ private:
 	char m_pad[0x28];
 };
 
+struct PathfinderCostCellInfo { Int x,y; };
+void ji_00629952();
 class PathfindCell
 {
 public:
@@ -110,6 +112,8 @@ public:
 	enum { LAYER_GROUND = 1 };
 
 	void rva0052DAE9(Bool open);
+	Int getXIndex() const { return m_pathInfo->x; }
+	Int getYIndex() const { return m_pathInfo->y; }
 	// 0x0052DD75 (unrowed): an angle for the cell from a facing, a count and
 	// a weight (unnamed).
 	float rva0052DD75(float facing, Int count, float weight);
@@ -117,7 +121,8 @@ public:
 	Int getLayer() const { return (m_info & 0x3f0) >> 4; }
 
 private:
-	char m_pad00[0xc];
+	PathfinderCostCellInfo *m_pathInfo;
+	char m_pad04[8];
 	unsigned int m_info;			// +0x0C
 };
 
@@ -356,8 +361,7 @@ public:
 struct Rva002F35AFHop
 {
 	Int m_zone;
-	Int m_x;
-	Int m_y;
+	PathfinderCostCellInfo m_position;
 };
 // The 0x14-byte hierarchical path (rowed constructor 0x005348AD); 0x00534557
 // adds a cell and 0x00534AAE finishes it (WorldBuilder: computeOrderMap).
@@ -470,6 +474,7 @@ extern void *g_00DFEFF0;
 class Pathfinder
 {
 public:
+	Int rva002F0A72(PathfindCell *,PathfindCell *);
 	float GetWallHeight(PathfindLayerEnum layer, const Coord3D *pos, Coord3D *normal);
 	void *rva001E3647Pos(int layer, const Coord3D *pos);
 	bool IsPointOnRamp(const Coord3D *pos);
@@ -784,8 +789,8 @@ Rva005348AD *Pathfinder::MakeHierarchicalPathPassable(void *, Rva002E6C79 *path,
 		{
 			Rva002F35AFHop hop;
 			hop.m_zone = (cell ? cell->m_0C : 0)->m_04;
-			hop.m_x = node->next()->m_00->x;
-			hop.m_y = node->next()->m_00->y;
+			hop.m_position.x = node->next()->m_00->x;
+			hop.m_position.y = node->next()->m_00->y;
 			m_1C1CC.push_back(hop);
 		}
 	}
@@ -1160,3 +1165,35 @@ Rva002EBCF6::Rva002EBCF6() {}
 struct PathfinderDebugColor { float red,green,blue; };
 void Rva000B3FD0PathDebug(const Coord3D *,float,Int,PathfinderDebugColor);
 
+
+
+// Retail 2F0A72..2F0B4D: search cost through the hierarchical waypoint list.
+// Native callers 2FA3F1/2FAD13 establish Pathfinder receiver and cell ABI.
+// Info +0 begins with x/y; native vector +1C1CC contains 12B (zone,position).
+// ZH costToGoal supplies the grid-cost purpose; WB D642F0 shows the unsigned
+// accumulator expression and coordinate copy. No donor name is claimed.
+Int Pathfinder::rva002F0A72(PathfindCell *cell, PathfindCell *goal)
+{
+    unsigned int cost = 0;
+    Int x = cell->getXIndex(), y = cell->getYIndex();
+    for (_STL::vector<Rva002F35AFHop>::iterator it = m_1C1CC.end();
+         it != m_1C1CC.begin(); --it)
+    {
+        PathfinderCostCellInfo point = (it - 1)->m_position;
+        Int nx = point.x, ny = point.y;
+        Int dx = reinterpret_cast<Int(__cdecl *)(Int)>(ji_00629952)(x - nx);
+        Int dy = reinterpret_cast<Int(__cdecl *)(Int)>(ji_00629952)(y - ny);
+        if (dx > dy)
+            cost = (cost + 14 * dy) + (cost + 10 * (dx - dy));
+        else
+            cost = (cost + 14 * dx) + (cost + 10 * (dy - dx));
+        cost += 1400;
+        x = nx;
+        y = ny;
+    }
+    Int dx = reinterpret_cast<Int(__cdecl *)(Int)>(ji_00629952)(x - goal->getXIndex());
+    Int dy = reinterpret_cast<Int(__cdecl *)(Int)>(ji_00629952)(y - goal->getYIndex());
+    if (dx > dy)
+        return 14 * dy + cost + 10 * (dx - dy);
+    return 14 * dx + cost + 10 * (dy - dx);
+}
