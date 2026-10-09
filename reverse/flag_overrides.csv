@@ -311,6 +311,7 @@ Code/GameEngine/Source/Common/namekey_hash_lowercase.cpp,-O2,1,1,region default 
 Code/GameEngine/Source/GameClient/DrawableFields.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/GameClient/GUI/HeaderTemplateManagerRva00201B05.cpp,-Os -G7,2,1,region default loses rows
 Code/GameEngine/Source/GameClient/InGameUI.cpp,-G7 -arch:SSE,7,3,region default loses rows
+Code/GameEngine/Source/GameClient/InGameUIObserverMessage.cpp,-O1 -G7,2,1,region default loses rows
 Code/GameEngine/Source/GameClient/MapUtil.cpp,-G7 -arch:SSE,18,9,region default loses rows
 Code/GameEngine/Source/GameClient/MouseRva001EEA6D.cpp,-O1,1,1,region default loses rows
 Code/GameEngine/Source/GameClient/Open2Twins006.cpp,,16,1,region default loses rows
