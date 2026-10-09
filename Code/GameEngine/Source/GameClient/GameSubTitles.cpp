@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /GX /D_STLP_USE_STATIC_LIB /Ireference/open-bfme-1/inputs/vendor/stlport /Ireference/shims/bfme2_ascii
+// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /GX /D_STLP_USE_STATIC_LIB /Ireference/open-bfme-1/inputs/vendor/stlport /Ireference/shims/bfme2_ascii /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/inputs/reference/shims/sweep
 // ?getXFromAlignment@GameSubTitle@@SAHHHHMM@Z @0x0025FF8F 175B.
 // WB 0x00DA61E0 names GameSubTitle::getXFromAlignment in GameSubTitles.cpp;
 // the full retail boundary ends at 0x0026003E. Five stack arguments, caller
@@ -125,6 +125,11 @@ public:
 	virtual void notifyTextChanged();
 	virtual void reset();
 	virtual void setFont(GameFont *font);
+ virtual void s7();virtual void s8();virtual void s9();virtual void s10();
+ virtual void colors(unsigned*);virtual void shadowColors(unsigned*);virtual void s13();
+ virtual void position(Int,Int,Int,Int);
+ virtual void s15();virtual void s16();virtual void s17();virtual void s18();virtual void s19();
+ virtual void clip(Int*);
 };
 
 // The VA 0x00DFEAD8 singleton is DisplayStringManager *TheDisplayStringManager,
@@ -255,15 +260,21 @@ GameSubTitle::GameSubTitle(GameFont *font,
 // /GX preserve retail scheduling and the by-value empty UnicodeString lifetime.
 // Complete native boundary 0x002602DA..0x002603D1, including the diagnostic.
 #include <vector>
+// STLport already included VC7.1 <new>; WWLib must use those placement forms.
+#define _OPERATOR_NEW_DEFINED_
+#include "wwmath.h"
 struct SubtitleRecord { unsigned a,b; };
 class BfmeItemKA {
 private:
  bool rva002602DA();
+ void rva0025FCE8(Int,Int,Int);
+ void rva0025FBBC(unsigned*,unsigned,Int);
  void *mainText, *font;
  _STL::vector<SubtitleRecord> records;
  int state, field18, wait, field20, count, opacity, color, field30;
  DisplayString **lines;
- int field38, displayed;
+ unsigned *values;int displayed;
+ float field40,baseline,field48,left,top,right,bottom,field5C,split60,field64,split68;
 };
 bool BfmeItemKA::rva002602DA() {
  bool draw=true;
@@ -302,3 +313,45 @@ bool BfmeItemKA::rva002602DA() {
 
 
 
+
+// Native165B 25FBBC..25FC61: same receiver/mode/color helper called by draw328.
+// Native accesses opacity28; three cases select the four corner alpha weights.
+void BfmeItemKA::rva0025FBBC(unsigned *out,unsigned value,Int mode) {
+ switch(mode) {
+ case 2:
+  for(Int i=0;i<4;++i) {
+   out[i]=value&0x00ffffff;
+   if(i<2)out[i]|=(opacity&~1)<<23;
+   else out[i]|=(opacity&~7)<<21;
+  }break;
+ case 1:
+  for(Int i=0;i<4;++i){out[i]=value&0x00ffffff;out[i]|=opacity<<24;}break;
+ case 0:
+  for(Int i=0;i<4;++i) {
+   out[i]=value&0x00ffffff;
+   if(i>=2)out[i]|=(opacity&~1)<<23;
+   else out[i]|=(opacity&~7)<<21;
+  }break;
+ }
+}
+// BF1 f98983a7d Rva00435270SetRange.cpp clean guide. Target caller260787
+// proves existing BfmeItemKA private ABI. Native adds split68/count24 start,
+// iterated alpha masks and floor rounding; virtual offsets independently read.
+void BfmeItemKA::rva0025FCE8(Int mode,Int from,Int to) {
+ Int storage[4];storage[0]=(Int)left;storage[2]=(Int)right;storage[1]=from;storage[3]=to;
+ float start=split68-(float)((count-1)*field30)+baseline;
+ for(Int i=0;i<count;++i) {
+  unsigned generated[4];unsigned masked[4]={0,0,0,0};
+  Int index=(displayed+i)%count;
+  rva0025FBBC(generated,values[index],mode);
+  for(Int j=0;j<4;++j)masked[j]|=generated[j]&0xff000000;
+  lines[index]->colors(generated);
+  lines[(displayed+i)%count]->shadowColors(masked);
+  lines[(displayed+i)%count]->clip(storage);
+  Int product=field30*i;
+  // Native FISTP obeys x87 rounding; VC7.1 rejects /QIfist with SSE.
+  // Reuse the donor WWMath primitive; the draw algorithm remains C++.
+  Int y=WWMath::Float_To_Long((float)floor((float)product+start+0.5f));
+  lines[(displayed+i)%count]->position((Int)((float)(field30>>1)+(float)storage[0]),y,1,1);
+ }
+}
