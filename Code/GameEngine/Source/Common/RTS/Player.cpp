@@ -866,45 +866,9 @@ void Player::update()
 	}
 }
 
-// BFME's newMap is not the reference one-liner through the AI player's virtual.
-// It reads a flag at +0x118 of the pointer at Player+0x04 and hands it, with the
-// field at Player+0x24, to a non-virtual call on the subobject at Player+0x30 --
-// as two separate call sites, which is what an if/else with a statement in each
-// arm compiles to rather than one call with a conditional argument.
-struct BfmePlayerMapFlagSource
-{
-	UnsignedByte m_unreconstructed_000[0x118];
-	Bool m_bfmeFlag;					///< retail this+0x118
-};
-
-class BfmePlayerMapState
-{
-public:
-	void bfmeNewMap( Int field, Bool flag );		///< retail ILT 0x00018679
-};
-
-struct BfmePlayerMapFields
-{
-	UnsignedByte m_unreconstructed_00[4];
-	BfmePlayerMapFlagSource *m_bfmeFlagSource;		///< retail this+0x04
-	UnsignedByte m_unreconstructed_08[0x24 - 8];
-	Int m_bfmeField24;					///< retail this+0x24
-	UnsignedByte m_unreconstructed_28[0x30 - 0x28];
-	BfmePlayerMapState m_bfmeMapState;			///< retail this+0x30
-};
-
-//=============================================================================
-// ?newMap@Player@@QAEXXZ
-// ?Player::newMap present-unmatched
-void Player::newMap()
-{
-	BfmePlayerMapFields *self = (BfmePlayerMapFields *)this;
-
-	if (self->m_bfmeFlagSource)
-		self->m_bfmeMapState.bfmeNewMap(self->m_bfmeField24, self->m_bfmeFlagSource->m_bfmeFlag);
-	else
-		self->m_bfmeMapState.bfmeNewMap(self->m_bfmeField24, false);
-}
+// Player::newMap is recovered in PlayerNewMapBFME2.cpp from the native
+// slot-15 callee at 0x002B0D00. The previous unpinned BFME1-shaped body
+// here did not implement that target and duplicated the recovered name.
 
 //=============================================================================
 // ?setPlayerType@Player@@QAEXW4PlayerType@@_N@Z present-unmatched

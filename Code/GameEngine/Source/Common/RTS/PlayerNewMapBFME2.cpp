@@ -1,4 +1,4 @@
-// cl: /DBFME_ASCII_KEEP_COPY_SET_BODY /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /O1 /G7 /MD /EHsc /DNDEBUG
+// cl: /DBFME_ASCII_KEEP_COPY_SET_BODY /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /O1 /G7 /MD /EHsc /DNDEBUG
 // Target identity: WB 0x00C133C0 names Player::newMap (callgraph score 2;
 // Player.cpp 1045). Retail 0x002B0D00..0x002B0E55 is ret0 and PlayerList
 // vslot 15 calls it on each of twenty players. ZH Player.cpp:761 supplies
@@ -68,6 +68,10 @@ public:
 extern GameInfo *TheGameInfo;
 class W3DBridge { public: void setEnabled(bool); char pad[0x114]; };
 struct Rva002E2690Element { char bytes[0xD8]; ~Rva002E2690Element(); };
+// Cleanup belongs to the existing 63-byte vector destructor provider at
+// 0x002B0B32. Declare that specialization so this TU emits no divergent
+// allocator/deallocation COMDAT copies for the accessed D8 record view.
+namespace _STL { template<> vector<Rva002E2690Element>::~vector(); }
 struct Rva002E2D10Record { char bytes[0xD8]; };
 class Player;
 class UnitRevivalTracker { public: void addRevivableUnit(const Rva002E2D10Record &,int); char bytes[0x14]; };
@@ -75,7 +79,8 @@ class Rva0037F32F { public: void rva0037F32F(const ThingTemplate *,Player *); };
 class LivingWorldPlayer { public: void ExtractRevivalUnitDataForCurrentMap(_STL::vector<Rva002E2690Element> *); };
 class Rva002E2903Player;
 class Rva002BA8F1Logic { public: Rva002E2903Player *find(int,unsigned int *); };
-extern Rva002BA8F1Logic *TheLivingWorldLogic;
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 class Rva0023C6A4 { public: bool rva00200084(); };
 class Player {
 public:
@@ -116,7 +121,7 @@ void Player::newMap() {
 void Player::initBuildableHeroes() {
  if (TheGameLogic->m_114 != 3) {
   if (livingWorldID == -1) return;
-  LivingWorldPlayer *living = (LivingWorldPlayer *)TheLivingWorldLogic->find(livingWorldID,0);
+  LivingWorldPlayer *living = (LivingWorldPlayer *)((Rva002BA8F1Logic *)TheLivingWorldLogic)->find(livingWorldID,0);
   if (living) {
    _STL::vector<Rva002E2690Element> units;
    living->ExtractRevivalUnitDataForCurrentMap(&units);
