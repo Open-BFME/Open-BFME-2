@@ -167,3 +167,8 @@ void *Rva002A8F24::addNewAIForPlayer(Player *player) {
     collectors908[playerID]=(int)collector;
     return ai;
 }
+
+// Independent317a trial 2026-10-09: typed player/map formulation emitted326B
+// against native323B. Three additional stack bytes and EBX lifetime differ;
+// argument-slot reuse emitted332B. Complete alternate trial retained locally
+// in build/skirmish-bank-ours.cpp; no recovery or byte-progress claim.
