@@ -373,6 +373,59 @@ void Rva000729CC::rva00073CC0(int x, int y,
 	m_taintData[x + m_numCellsX * yForColor] = pixel;
 }
 
+class WorldHeightMap
+{
+public:
+	unsigned char m_pad00[8];
+	int m_xExtent;
+	int m_yExtent;
+	int m_borderSize;
+	unsigned char m_pad14[0x120E8 - 0x14];
+	int m_drawWidth;
+	int m_drawHeight;
+	int getXExtent() const { return m_xExtent; }
+	int getYExtent() const { return m_yExtent; }
+	int getBorderSize() const { return m_borderSize; }
+	int getDrawWidth() const { return m_drawWidth; }
+	int getDrawHeight() const { return m_drawHeight; }
+
+};
+
+class TextureClass
+{
+public:
+	void Release_Ref();
+};
+
+class ShroudTextureHandle
+{
+public:
+	TextureClass *m_p;
+};
+
+// Two-reference overload at retail 0x0011E670; the upstream shared
+// textureloader.h declares a different three-argument overload.
+class TextureLoader
+{
+public:
+	static void Validate_Texture_Size(unsigned &width, unsigned &height);
+};
+
+void BFME_DX8_Thread_Lock();
+bool BFME_DX8_Thread_Assert();
+class BFMEDX8DeviceLock {
+public:
+	BFMEDX8DeviceLock() { BFME_DX8_Thread_Lock(); }
+	~BFMEDX8DeviceLock() { BFME_DX8_Thread_Assert(); }
+};
+class Rva000728E2 { public: void rva000728E2(); };
+class Rva007397D0 { public: void rva007397D0(); };
+class TaintManager;
+extern TaintManager *TheTaintManager;
+class Rva006C0820 { public: void rva006C0820(); };
+extern "C" __declspec(dllimport) double __cdecl ceil(double value);
+__forceinline float taintCeil(float value) { return float(ceil(double(value))); }
+#include <string.h>
 // BFME 1 donor 9cbfb551fe20dae985f91f2319d8997287b6a705:
 // game/GameEngineDevice/Source/W3DDevice/GameClient/TaintBufferFill.cpp.
 // BFME 2 init (WB W3DTaint::init 0x82C800) calls this at 0x738C4.
@@ -383,15 +436,18 @@ void Rva000729CC::rva00073CC0(int x, int y,
 class W3DTaint
 {
 public:
-	void rva000738C4(unsigned char alpha);
-
+ void rva000738C4(unsigned char alpha);
+ bool ReAcquireResources();
+ void init(WorldHeightMap *map, float worldCellSizeX, float worldCellSizeY);
 private:
-	unsigned int m_numCellsX;
-	unsigned int m_numCellsY;
-	unsigned char m_pad08[0x18 - 0x08];
-	unsigned int *m_taintData;
-	unsigned char m_pad1C[0x38 - 0x1C];
-	unsigned char *m_cellLevels;
+ unsigned int m_numCellsX, m_numCellsY;
+ int m_numMaxVisibleCellsX, m_numMaxVisibleCellsY;
+ float m_cellWidth, m_cellHeight;
+ unsigned int *m_taintData;
+ void *m_dstTexture;
+ int m_dstTextureWidth, m_dstTextureHeight;
+ unsigned char m_pad28[0x38 - 0x28];
+ unsigned char *m_cellLevels, *m_referenceCellLevels;
 };
 
 // ?rva000738C4@W3DTaint@@QAEXE@Z
@@ -433,4 +489,74 @@ void W3DTaint::rva000738C4(unsigned char alpha)
 		}
 		row += m_numCellsX;
 	}
+}
+
+// Semantic donor: BFME1 9cbfb551 TaintBufferInit.cpp; WB 0x82C800
+// establishes W3DTaint::init. Retail 0x739BE..0x73BFE establishes offsets.
+// ?init@W3DTaint@@QAEXPAVWorldHeightMap@@MM@Z
+void W3DTaint::init(WorldHeightMap *map,
+	float worldCellSizeX, float worldCellSizeY)
+{
+	int dstTextureWidth = 0;
+	int dstTextureHeight = 0;
+	m_cellWidth = worldCellSizeX;
+	m_cellHeight = worldCellSizeY;
+
+	if (map)
+	{
+		m_numCellsX = WWMath::Float_To_Long(taintCeil(
+			(float)(map->getXExtent() - map->getBorderSize() * 2 - 1)
+				/ worldCellSizeX * 10.0f));
+		m_numCellsY = WWMath::Float_To_Long(taintCeil(
+			(float)(map->getYExtent() - map->getBorderSize() * 2 - 1)
+				/ m_cellHeight * 10.0f));
+
+		dstTextureWidth = m_numMaxVisibleCellsX =
+			WWMath::Float_To_Long(taintFloor(
+				(float)(map->getDrawWidth() - 1) / m_cellWidth
+					* 10.0f)) + 1;
+		dstTextureHeight = m_numMaxVisibleCellsY =
+			WWMath::Float_To_Long(taintFloor(
+				(float)(map->getDrawHeight() - 1) / m_cellHeight
+					* 10.0f)) + 1;
+
+		dstTextureWidth = m_numCellsX + 2;
+		dstTextureHeight = m_numCellsY + 2;
+		BFMEDX8DeviceLock lock;
+		TextureLoader::Validate_Texture_Size(
+			(unsigned &)dstTextureWidth, (unsigned &)dstTextureHeight);
+
+	}
+
+	m_cellLevels = new unsigned char[
+		m_numCellsX * m_numCellsY];
+	m_referenceCellLevels = new unsigned char[
+		m_numCellsX * m_numCellsY];
+	memset(m_referenceCellLevels, 0x80,
+		m_numCellsX * m_numCellsY);
+	memset(m_cellLevels, 0x80,
+		m_numCellsX * m_numCellsY);
+
+	if (TheWritableGlobalData && TheWritableGlobalData->m_taintOn)
+	{
+		m_taintData = new unsigned int[m_numCellsX * m_numCellsY];
+		memset(m_taintData, 0, m_numCellsX * m_numCellsY * 4);
+	}
+	if (TheWritableGlobalData && TheWritableGlobalData->m_taintOn)
+		rva000738C4(TheWritableGlobalData->m_taintAlpha);
+
+	if (dstTextureWidth != m_dstTextureWidth ||
+		dstTextureHeight != m_dstTextureHeight)
+	{
+		reinterpret_cast<Rva000728E2 *>(this)->rva000728E2();
+	}
+
+	if (!m_dstTexture)
+	{
+		m_dstTextureWidth = dstTextureWidth;
+		m_dstTextureHeight = dstTextureHeight;
+		ReAcquireResources();
+	}
+	if (TheWritableGlobalData && TheWritableGlobalData->m_taintOn && TheTaintManager)
+		reinterpret_cast<Rva006C0820 *>(TheTaintManager)->rva006C0820();
 }
