@@ -1,5 +1,5 @@
 // ?transitionLiveMode@W3DCamTransform@@QAEXPAVVector3@@0PAVView@@@Z
-// partial score=0.98 date=2026-10-09
+// partial score=0.95 date=2026-10-09
 // cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /DNDEBUG /MD /ICode/Libraries/Include/Lib
 //
 // ?transitionLiveMode@W3DCamTransform@@QAEXPAVVector3@@0PAVView@@@Z,
@@ -149,10 +149,8 @@ void W3DCamTransform::transitionLiveMode(Vector3 *pos, Vector3 *target, View *vi
 	Object *obj = TheGameLogic->findObjectByID(view->m_cameraLock);
 	if (!obj)
 	{
-		zoomT = 0.0f;
-		zoomSpeed = 0.0f;
-		targetT = 0.0f;
-		targetSpeed = 0.0f;
+		zoomT = targetT = 0.0f;
+		zoomSpeed = targetSpeed = 0.0f;
 		m_liveState = 0;
 	}
 
