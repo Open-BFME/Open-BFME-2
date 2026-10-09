@@ -1,4 +1,6 @@
-// ?rva004771EB@Rva004771EB@@QAE_NPAVObject@@HH@Z
+// ?slot38@Rva004771EB@@UAE_NPAVObject@@HH@Z
+// partial score=0.85 date=2026-10-09
+// cl: /O1 /G7 /MD /DNDEBUG /Oy-
 // partial score=0.85 date=2026-10-05
 // ?rva004771EB@Rva004771EB@@QAE_NPAVObject@@HH@Z
 // partial score=0.85 date=2026-10-05
@@ -17,21 +19,23 @@ enum ObjectStatusTypes
 	STATUS_38 = 0x26
 };
 class Player;
+class Rva00588E44Contain;
 class Object
 {
 public:
 	bool testStatus(ObjectStatusTypes s) const;
 	Player *getControllingPlayer() const;
+	int rva0028FBBE();
 };
-class Rva00462977
+class OpenContain
 {
 public:
-	virtual bool slot38(Object *obj, int a, int b);
+	virtual bool isValidContainerFor(Object *obj, bool a, bool b);
 };
 class Rva0047A040Base9E0
 {
 public:
-	void *rva00588BF3(void *a, Object *b);
+	Rva00588E44Contain *rva00588BF3(void *a, Object *b);
 };
 class Rva0028FBBE
 {
@@ -71,14 +75,15 @@ class Rva004771EB : public Rva004771EBMid<17>
 {
 public:
 	virtual int slot114(int x) = 0; // vtable slot 69 (0x114)
-	bool rva004771EB(Object *obj, int a2, int a3);
+	virtual bool slot38(Object *obj, int a2, int a3);
+    __forceinline const char *moduleData() const { return *reinterpret_cast<const char *const *>(reinterpret_cast<const char *>(this)-0x1c); }
 };
 
 #pragma optimize("y", off)
-bool Rva004771EB::rva004771EB(Object *obj, int a2, int a3)
+bool Rva004771EB::slot38(Object *obj, int a2, int a3)
 {
-	if (!((Rva00462977 *)this)->Rva00462977::slot38(obj, a2, a3))
-		return false;
+	if (!((OpenContain *)this)->OpenContain::isValidContainerFor(obj, *reinterpret_cast<bool *>(const_cast<int *>(&a2)), *reinterpret_cast<bool *>(&a3)))
+		goto failed;
 	if (*(int *)((char *)obj + 0x250) == 0 && obj->testStatus(STATUS_38)) {
 		void *inner = (void *)((char *)this - 0x20);
 		Rva0047A040Base9E0 *box = (Rva0047A040Base9E0 *)((char *)this + 0xfd);
@@ -86,14 +91,18 @@ bool Rva004771EB::rva004771EB(Object *obj, int a2, int a3)
 	}
 	if ((unsigned char)a2 != 1)
 		goto pass;
-	void *tabBase = *(void **)((char *)this - 0x1c);
-	volatile unsigned int total = (unsigned int)slot114(0);
-	total = total + (unsigned int)slotCC();
-	total = total + (unsigned int)((Rva0028FBBE *)obj)->rva0028FBBE();
-	if (total <= (unsigned int)*(int *)((char *)tabBase + 0x98))
+    const char *module=moduleData();
+    volatile unsigned used=static_cast<unsigned>(slot114(0));
+    used+=static_cast<unsigned>(slotCC());
+    unsigned total=used+static_cast<unsigned>(obj->rva0028FBBE());
+	if (static_cast<unsigned>(total) <= *reinterpret_cast<const unsigned *>(module+0x98))
 		goto pass;
+failed:
 	return false;
  pass:
 	return true;
 }
 #pragma optimize("", on)
+
+
+
