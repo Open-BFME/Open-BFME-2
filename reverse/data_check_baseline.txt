@@ -253,7 +253,6 @@ Code/GameEngine/Source/Common/Rva000756BFSelect.cpp	wrong-name	?g_00DE1F5C@@3HA	
 Code/GameEngine/Source/Common/Rva000756F1Dispatch.cpp	wrong-name	?g_00DE1F2C@@3RCRAVRva000756F1Item@@C	0x009E1F2C
 Code/GameEngine/Source/Common/Rva000756F1Dispatch.cpp	wrong-name	?g_00DE1F5C@@3HA	0x009E1F5C
 Code/GameEngine/Source/Common/Rva00075725Check.cpp	wrong-name	?g_00DE1F2C@@3RCRAVRva00075725Item@@C	0x009E1F2C
-Code/GameEngine/Source/Common/Rva00075A23Draw.cpp	wrong-name	?TheGlobalData@@3PAUGlobalDataCheck@@A	0x009FE758
 Code/GameEngine/Source/Common/Rva00075A23Draw.cpp	wrong-name	?g_deviceObj@@3PAUDeviceObj@@A	0x009EDA34
 Code/GameEngine/Source/Common/Rva00075E36Getters.cpp	wrong-name	?g_Va001FDE68@@3HA	0x009E1F68
 Code/GameEngine/Source/Common/Rva0007912DGet.cpp	wrong-name	?TheRva00DFE144@@3PAURva00DFE144Globals@@A	0x009FE144
@@ -314,13 +313,11 @@ Code/GameEngine/Source/Common/Rva0023C748Finish.cpp	wrong-name	?g_009FEF10@@3PAV
 Code/GameEngine/Source/Common/Rva0023D229Set.cpp	wrong-name	?g_Rva0023D229Global@@3PAURva0023D229Global@@A	0x009FE78C
 Code/GameEngine/Source/Common/Rva0023D30FCall.cpp	wrong-name	?g_Rva0023D30FFlag@@3HA	0x00A02EEC
 Code/GameEngine/Source/Common/Rva0023D30FCall.cpp	wrong-name	?g_Rva0023D30FTarget@@3PAVRva0023D30FTarget@@A	0x009FEA28
-Code/GameEngine/Source/Common/Rva0023D339Check.cpp	wrong-name	?g_Rva0023D339A@@3PAURva0023D339A@@A	0x009FE758
 Code/GameEngine/Source/Common/Rva0023D339Check.cpp	wrong-name	?g_Rva0023D339B@@3PAURva0023D339B@@A	0x009FE78C
 Code/GameEngine/Source/Common/Rva0023D339Check.cpp	wrong-name	?g_bfmeRva42E8C1Add@@3IA	0x009BA4E4
 Code/GameEngine/Source/Common/Rva0023D607Check.cpp	wrong-name	?g_Rva0023D607Holder@@3PAURva0023D607Holder@@A	0x009FDC8C
 Code/GameEngine/Source/Common/Rva0023D661List.cpp	wrong-name	?g_009FE6E8@@3PAVBfmeAudio@@A	0x009FE6E8
 Code/GameEngine/Source/Common/Rva0023D6D5Guard.cpp	wrong-name	?g_va00DFDC8C@@3PAXA	0x009FDC8C
-Code/GameEngine/Source/Common/Rva0023E7D9Clear.cpp	wrong-name	?g_Rva009FE758@@3PAURva009FE758Obj@@A	0x009FE758
 Code/GameEngine/Source/Common/Rva0023E7D9Clear.cpp	wrong-name	?g_Rva00A02D86@@3EA	0x00A02D86
 Code/GameEngine/Source/Common/Rva0023E7D9Clear.cpp	wrong-name	?g_Rva00A02D87@@3EA	0x00A02D87
 Code/GameEngine/Source/Common/Rva0025CEEFCheck.cpp	wrong-name	?g_009FE720@@3PAVRva0025CEEFHost@@A	0x009FE720
@@ -424,7 +421,6 @@ Code/GameEngine/Source/Common/Rva003F8443.cpp	wrong-name	?Rva00DFEF10@@3PAVRva00
 Code/GameEngine/Source/Common/Rva003FAC3F.cpp	wrong-name	?g_00DFE6E8@@3PAVGlobalSlotTarget@@A	0x009FE6E8
 Code/GameEngine/Source/Common/Rva003FB7C7.cpp	wrong-name	?g_shadowManager@@3PAVGen0003AC38@@A	0x009E5DFC
 Code/GameEngine/Source/Common/Rva003FE0EB.cpp	wrong-name	?g_009FEF10@@3PAVRva002BA8F1Logic@@A	0x009FEF10
-Code/GameEngine/Source/Common/Rva003FE13ECap.cpp	wrong-name	?TheWritableGlobalData@@3PAUGlobalData@@A	0x009FE758
 Code/GameEngine/Source/Common/Rva003FE13ECap.cpp	wrong-name	?g_009FE720@@3PAVRva0025CEEFHost@@A	0x009FE720
 Code/GameEngine/Source/Common/Rva003FEE43.cpp	wrong-name	?$S1@?1??Rva003FEE43SetPlayerRank@@YA_NH@Z@4IA	0x00A02ECC
 Code/GameEngine/Source/Common/Rva003FEE43.cpp	wrong-name	?TheRva00222A8BTarget@@3PAVRva00222A8BTarget@@A	0x009FE4CC
@@ -1051,7 +1047,6 @@ Code/GameEngine/Source/Common/VslotSmallBodiesS.cpp	wrong-name	?g_rva00514878Fla
 Code/GameEngine/Source/Common/VslotSmallBodiesS.cpp	wrong-name	?g_rva00514878Target@@3PAVRva00222A8BTarget@@A	0x009FE4CC
 Code/GameEngine/Source/Common/VslotSmallBodiesS.cpp	wrong-name	?g_rva0051E2FBTarget@@3PAVRva0051E2FBTarget@@A	0x009FDC14
 Code/GameEngine/Source/Common/VslotSmallBodiesV.cpp	wrong-name	?g_rva001E30F5Registry@@3PAVRva0020AA00Registry@@A	0x009FF000
-Code/GameEngine/Source/Common/VslotSmallBodiesV.cpp	wrong-name	?g_rva00235736Head@@3PAVRva00235736Node@@A	0x009FE758
 Code/GameEngine/Source/Common/VslotSmallBodiesW.cpp	wrong-name	?TheThingFactory@@3PAVThingFactory@@A	0x009FF000
 Code/GameEngine/Source/Common/VslotSmallBodiesW.cpp	wrong-name	?g_00DFEFF0@@3PAXA	0x009FEFF0
 Code/GameEngine/Source/Common/VslotSmallBodiesY.cpp	wrong-name	?TheRva00222A8BTarget@@3PAVRva00222A8BTarget@@A	0x009FE4CC
@@ -1281,7 +1276,6 @@ Code/GameEngine/Source/GameLogic/Map/Rva0019BC00SetFields.cpp	wrong-name	?g_dict
 Code/GameEngine/Source/GameLogic/Map/Rva0019BC00SetFields.cpp	wrong-name	?g_dictB@@3VDict@@A	0x009BD9F4
 Code/GameEngine/Source/GameLogic/Map/SidesListAddPlayerByTemplate.cpp	wrong-name	?g_00DBD9F4@@3VRva00148F5ECache@@A	0x009BD9F4
 Code/GameEngine/Source/GameLogic/Map/SidesListAddPlayerByTemplate.cpp	wrong-name	?g_00DBD9FC@@3VRva00148F5ECache@@A	0x009BD9FC
-Code/GameEngine/Source/GameLogic/Map/TerrainLogic_setActiveBoundary.cpp	wrong-name	?TheRva00DFE758@@3PAVRva00DFE758Holder@@A	0x009FE758
 Code/GameEngine/Source/GameLogic/Module/AIUpdateInterfacePoolKey.cpp	wrong-name	?$S1@?1??rva0026E93D@AIUpdateInterface@@SA?AW4NameKeyType@@XZ@4IA	0x009FEB54
 Code/GameEngine/Source/GameLogic/Module/BridgeBehaviorPoolKey.cpp	wrong-name	?$S1@?1??rva004571A9@BridgeBehavior@@SA?AW4NameKeyType@@XZ@4IA	0x00A03430
 Code/GameEngine/Source/GameLogic/Module/DozerAIUpdatePoolKey.cpp	wrong-name	?$S1@?1??rva004895E4@DozerAIUpdate@@SA?AW4NameKeyType@@XZ@4IA	0x00A038F0
@@ -2005,7 +1999,6 @@ Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClient.cpp	wrong-name	?
 Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClient.cpp	wrong-name	?m_needUpdate@W3DStatusCircle@@1_NA	0x009E207C
 Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClientShadowShimSetLightPosition.cpp	wrong-name	?g_00DE1FF8@@3PAXA	0x009E1FF8
 Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClient_setTimeOfDay.cpp	wrong-name	?W3DGCData00DE5DFC@@3PAXA	0x009E5DFC
-Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClient_setTimeOfDay.cpp	wrong-name	?W3DGCData00DFE758@@3PAXA	0x009FE758
 Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClient_setTimeOfDay.cpp	wrong-name	?W3DGCData00DFE9D8@@3PAXA	0x009FE9D8
 Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGetBackBufferSurface.cpp	wrong-name	?g_bfmeD3DDevice@@3PAVBfmeD3DDevice@@A	0x009EDA34
 Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouse.cpp	wrong-name	_mutex	0x009E4B34

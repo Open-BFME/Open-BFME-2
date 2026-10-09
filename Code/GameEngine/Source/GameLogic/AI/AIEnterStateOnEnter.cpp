@@ -178,7 +178,8 @@ public:
 	char m_pad[0x1234];
 	UnsignedInt m_enterStateTimeoutFrames;
 };
-extern GlobalData *TheGlobalData;
+extern GlobalData *TheWritableGlobalData;
+#define TheGlobalData TheWritableGlobalData
 
 extern GameLogic *TheGameLogic;
 

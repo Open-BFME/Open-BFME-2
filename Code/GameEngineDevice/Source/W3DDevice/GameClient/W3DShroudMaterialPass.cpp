@@ -153,7 +153,8 @@ public:
 	unsigned char m_shroudAlpha;
 };
 
-extern GlobalData *TheGlobalData;
+extern GlobalData *TheWritableGlobalData;
+#define TheGlobalData TheWritableGlobalData
 
 // Reference-returning clamps; retail's min tests a < b (not STLport's
 // b < a), as its select order shows.

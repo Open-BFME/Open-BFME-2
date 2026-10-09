@@ -159,7 +159,8 @@ public:
 	Int m_maxVisibleOccludeeObjects;					// +0x97C
 	Int m_maxVisibleNonOccluderOrOccludeeObjects;		// +0x980
 };
-extern GlobalData *TheGlobalData;
+extern GlobalData *TheWritableGlobalData;
+#define TheGlobalData TheWritableGlobalData
 
 struct RTS3DSceneVector3
 {

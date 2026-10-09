@@ -90,7 +90,8 @@ public:
 	char m_pad[0x9E4];
 	Bool m_forceBenchmark;
 };
-extern GlobalData *TheGlobalData;
+extern GlobalData *TheWritableGlobalData;
+#define TheGlobalData TheWritableGlobalData
 
 extern const char *CPUNames[];
 

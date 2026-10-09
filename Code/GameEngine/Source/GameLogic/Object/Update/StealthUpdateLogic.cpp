@@ -489,7 +489,8 @@ public:
 	char m_pad00[0x134];
 	TimeOfDay m_timeOfDay; // +0x134
 };
-extern GlobalData *TheGlobalData;
+extern GlobalData *TheWritableGlobalData;
+#define TheGlobalData TheWritableGlobalData
 
 class Matrix3D;
 

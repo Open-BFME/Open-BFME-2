@@ -410,7 +410,8 @@ class GlobalData { public:
  unsigned char pad0[0x9b8]; int tooltipFlag;
  unsigned char pad1[0xa5c-0x9bc]; int baseValuePerSupplyBox;
 };
-extern GlobalData* TheGlobalData;
+extern GlobalData *TheWritableGlobalData;
+#define TheGlobalData TheWritableGlobalData
 class TooltipBase { public: virtual ~TooltipBase() {} };
 class TooltipRecord: public TooltipBase { public:
  TooltipRecord(UnsignedInt id,UnsignedInt context):objectID(id),uiContext(context) {}

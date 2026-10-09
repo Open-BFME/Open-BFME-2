@@ -51,7 +51,8 @@ public:
 };
 
 extern GameLogic *TheGameLogic;
-extern GlobalData *TheGlobalData;
+extern GlobalData *TheWritableGlobalData;
+#define TheGlobalData TheWritableGlobalData
 extern Int FRAMES_TO_KEEP;
 
 class NetCommandMsg

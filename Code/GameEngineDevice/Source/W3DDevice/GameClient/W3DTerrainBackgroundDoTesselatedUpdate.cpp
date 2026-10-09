@@ -236,7 +236,8 @@ public:
 	bool m_secondTerrainTexture;
 };
 
-extern GlobalData *TheGlobalData;
+extern GlobalData *TheWritableGlobalData;
+#define TheGlobalData TheWritableGlobalData
 
 struct ICoord2D
 {
