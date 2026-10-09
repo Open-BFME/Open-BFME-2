@@ -16,6 +16,11 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 // Dedicated TU so mapper.cpp keeps its matched bodies; flags are neighbour // cl: plus /G7.
 // Evidence: vtable slot 9 offset 0x24 of 0x007D56B0 class of INI ctor 0x00182D30; gap between Reset 0x00182E60 and ZigZag ctor 0x00183010; ZH donor GeneralsMD WW3D2 mapper.cpp Step Calculate.
 
+#pragma push_macro("inline")
+#define inline __declspec(dllimport) __forceinline
+#include <math.h>
+#pragma pop_macro("inline")
+#include "../../../../../reference/shims/bfme_matrix3d_link/vector4.h"
 #include "rendobj.h"	// the bfmerendobj shim has to win the include guard
 #include "mapper.h"
 #include "ini.h"
@@ -25,6 +30,22 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #include "wwmath.h"
 #include "random.h"
 #include <stdlib.h>
+
+// Native BFME1 donor 9cb clamp semantics; keep this inline operation local.
+static inline float mapperClamp(float value, float low, float high)
+{
+    if (value < low) return low;
+    if (value > high) return high;
+    return value;
+}
+
+// Same donor Vector2 component multiplication, without a competing operator.
+static inline Vector2 mapperScaledStep(const Vector2 &step, float scale)
+{
+    float x = step.X * scale;
+    float y = step.Y * scale;
+    return Vector2(x, y);
+}
 
 void StepLinearOffsetTextureMapperClass::Calculate_Texture_Matrix(Matrix4 &tex_matrix)
 {
@@ -37,7 +58,7 @@ void StepLinearOffsetTextureMapperClass::Calculate_Texture_Matrix(Matrix4 &tex_m
 
 	if (num_steps!=0)
 	{
-		CurrentStep+=Step*num_steps;
+		CurrentStep+=mapperScaledStep(Step,num_steps);
 		Remainder-=num_steps/(float)StepsPerMilliSec;
 	}
 
@@ -48,11 +69,11 @@ void StepLinearOffsetTextureMapperClass::Calculate_Texture_Matrix(Matrix4 &tex_m
 	// If ClampFix is TRUE we clamp the offsets between -Scale and +Scale with no wraparound.
 	// This works well for clamped textures.
 	if (!ClampFix) {
-		CurrentStep.U -= WWMath::Floor(CurrentStep.U);
-		CurrentStep.V -= WWMath::Floor(CurrentStep.V);
+		CurrentStep.U -= floorf(CurrentStep.U);
+		CurrentStep.V -= floorf(CurrentStep.V);
 	} else {
-		CurrentStep.U = WWMath::Clamp(CurrentStep.U, -Scale.X, Scale.X);
-		CurrentStep.V = WWMath::Clamp(CurrentStep.V, -Scale.Y, Scale.Y);
+		CurrentStep.U = mapperClamp(CurrentStep.U, -Scale.X, Scale.X);
+		CurrentStep.V = mapperClamp(CurrentStep.V, -Scale.Y, Scale.Y);
 	}
 
 	// Set up the offset matrix

@@ -16,7 +16,10 @@
 // The pooled literals ride compiler DIR32 relocs: float PI plus its
 // (double)PI conversion, and +HalfPi/-HalfPi/-PI.
 
+#pragma push_macro("inline")
+#define inline __declspec(dllimport) __forceinline
 #include <math.h>
+#pragma pop_macro("inline")
 
 float wrapAngle(float angle)
 {
