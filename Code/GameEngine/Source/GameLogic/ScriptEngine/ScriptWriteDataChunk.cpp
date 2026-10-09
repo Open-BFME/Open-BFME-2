@@ -17,7 +17,9 @@ class DataChunkOutput;
 class Script;
 class ScriptList;
 class ScriptAction;
-class OrCondition { public: static void WriteOrConditionDataChunk(DataChunkOutput &,OrCondition *); };
+class DataChunkInput;
+struct DataChunkInfo;
+class OrCondition { public: static bool ParseOrConditionDataChunk(DataChunkInput &,DataChunkInfo *,void *); static void WriteOrConditionDataChunk(DataChunkOutput &,OrCondition *); };
 class DataChunkOutput { public:
  void openDataChunk(char *, unsigned short);
  void writeAsciiString(const AsciiString &);
@@ -33,10 +35,12 @@ static __declspec(noinline) bool equalTag_Rva003B31C7(const void *record, const 
 extern unsigned int g_Va00E02D64;
 extern unsigned int g_Va00E02D68;
 extern const char *g_Va00DD263CNames[8];
+inline const unsigned int &ScriptAllPlayersMask() { return g_Va00E02D64; }
+inline const AsciiString &ScriptAllPlayersName() { return *(const AsciiString *)&g_Va00E02D68; }
 // ?WriteScriptPlayerMask_Rva003B372D@@YAXAAVDataChunkOutput@@PBI@Z
 static __declspec(noinline) void WriteScriptPlayerMask_Rva003B372D(DataChunkOutput &writer, const unsigned int *mask) {
- if(equalTag_Rva003B31C7(mask,&g_Va00E02D64,0)) {
-  writer.writeAsciiString(*(const AsciiString *)&g_Va00E02D68);
+ if(equalTag_Rva003B31C7(mask,&ScriptAllPlayersMask(),0)) {
+  writer.writeAsciiString(ScriptAllPlayersName());
  } else {
   AsciiString text;
   bool first=true;
@@ -94,4 +98,106 @@ void WriteScriptDataChunk(DataChunkOutput &writer,ScriptList *list,Script *scrip
   }
   writer.closeDataChunk();
  }
+}
+
+// Reader family: BFME1 f989 ScriptRva0035C0C0Parse provides the instance
+// reader rather than ZH's static allocation wrapper. BFME2 owns the +10
+// subrecord and version4 player mask. The mask helper has private ABI in
+// native3B5918..3B5994: input ECX and hidden output ESI, selected by MSVC
+// from this visible internal function and its only caller.
+class BfmeFixedStorage002CF0F0
+{
+    char m_bytes[4];
+public:
+    __declspec(nothrow) BfmeFixedStorage002CF0F0(const BfmeFixedStorage002CF0F0 &);
+    BfmeFixedStorage002CF0F0() {}
+    unsigned int bits() const { return *(const unsigned int *)m_bytes; }
+};
+class Rva003B44EE
+{
+public:
+    void rva003B5624(AsciiString text);
+};
+class DataChunkInput;
+class UserParser;
+struct DataChunkInfo;
+typedef bool (__cdecl *BfmeScriptParserCallback)(DataChunkInput &, DataChunkInfo *, void *);
+class DataChunkInput
+{
+public:
+    AsciiString readAsciiString();
+    unsigned char readByte();
+    int readInt();
+    UserParser *registerParser(const AsciiString &, const AsciiString &, BfmeScriptParserCallback, void *);
+    bool parse(void *);
+};
+extern "C" void *memset(void *, int, unsigned int);
+static __declspec(noinline) BfmeFixedStorage002CF0F0 ReadScriptPlayerMask_Rva003B5918(DataChunkInput &file)
+{
+    AsciiString text = file.readAsciiString();
+    if (text.compare(ScriptAllPlayersName()) == 0)
+        return *(const BfmeFixedStorage002CF0F0 *)&ScriptAllPlayersMask();
+    BfmeFixedStorage002CF0F0 mask;
+    memset(&mask, 0, 4);
+    ((Rva003B44EE *)&mask)->rva003B5624(text);
+    return mask;
+}
+struct Rva003B3536
+{
+    bool a, b;
+    int value;
+    bool c;
+    AsciiString name;
+    void rva003B3536(DataChunkInput &file, void *version);
+};
+class ScriptAction
+{
+public:
+    static bool ParseActionDataChunk(DataChunkInput &, DataChunkInfo *, void *);
+    static bool ParseActionFalseDataChunk(DataChunkInput &, DataChunkInfo *, void *);
+};
+class Script
+{
+public:
+    bool Rva003B79F1(DataChunkInput &file, unsigned int version);
+private:
+    int unknown;
+    AsciiString m_strings[3];
+    Rva003B3536 m_subrecord;
+    int m_delay;
+    unsigned int m_mask;
+    bool m_active, m_easy, m_subroutine, m_normal, m_hard, m_flag;
+    char m_between[0x40 - 0x2E];
+    bool m_currentActive;
+};
+bool Script::Rva003B79F1(DataChunkInput &file, unsigned int version)
+{
+    m_strings[0] = file.readAsciiString();
+    m_strings[1] = file.readAsciiString();
+    m_strings[2] = file.readAsciiString();
+    bool on = file.readByte() != 0;
+    m_currentActive = on;
+    m_active = on;
+    m_easy = file.readByte() != 0;
+    m_normal = file.readByte() != 0;
+    m_hard = file.readByte() != 0;
+    m_flag = file.readByte() != 0;
+    m_subroutine = file.readByte() != 0;
+    if ((unsigned short)version >= 2)
+        m_delay = file.readInt();
+    if ((unsigned short)version >= 3)
+        m_subrecord.rva003B3536(file, (void *)version);
+    if ((unsigned short)version >= 4)
+    {
+        m_mask = ReadScriptPlayerMask_Rva003B5918(file).bits();
+    }
+    else
+        m_mask = ScriptAllPlayersMask();
+    file.registerParser(AsciiString("OrCondition"), AsciiString("Script"),
+        (BfmeScriptParserCallback)&OrCondition::ParseOrConditionDataChunk, 0);
+    file.registerParser(AsciiString("ScriptAction"), AsciiString("Script"),
+        (BfmeScriptParserCallback)&ScriptAction::ParseActionDataChunk, 0);
+    file.registerParser(AsciiString("ScriptActionFalse"), AsciiString("Script"),
+        (BfmeScriptParserCallback)&ScriptAction::ParseActionFalseDataChunk, 0);
+    return file.parse(this);
 }
