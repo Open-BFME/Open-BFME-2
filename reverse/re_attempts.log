@@ -29929,3 +29929,5 @@ FUN_009f0318	0x005F0318	5	blocked	Whole Observable.h family checked in nine exis
 FUN_00620D1E	0x00220D1E	175	converted	stale_verdicts backfill: address-named deferral; same-size real-source matched row at this RVA (?rva00220D1E@Rva00220D1ESecondary@@QAEHPBVThingTemplate@@@Z)
 ?Rva002EE1C7Helper@@YAXXZ	0x002EE1C7	627	converted	stale_verdicts backfill: address-named deferral; same-size real-source matched row at this RVA (?PrependCells@Pathfinder@@QAEXPAVPath@@PBUCoord3D@@PAVPathfindCell@@_N@Z)
 ?rva002F068F@Rva002F068F@@QAEPAXXZ	0x002F068F	20	converted	stale_verdicts backfill: address-named deferral; same-size real-source matched row at this RVA (?rva002F068F@Pathfinder@@QAEPAVPathfindCell@@XZ)
+?Rva0007EF35Load@@YGXPAURva0007EF35Out@@H@Z	0x0007EF35	454	converted	stale_verdicts backfill: address-named deferral; same-size real-source matched row at this RVA (?loadSetting@WaterRenderObjClass@@IAEXPAUSetting@1@W4TimeOfDay@@@Z)
+?Rva004DCAE4Parse@@YAXPAVINI@@PAX1PBX@Z	0x004DCAE4	341	converted	stale_verdicts backfill: address-named deferral; same-size real-source matched row at this RVA (?friend_parseEmotionNugget@EmotionNuggetTemplate@@SAXPAVINI@@@Z)
