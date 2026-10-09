@@ -497,3 +497,21 @@ void CreateAHeroManager::rva0021A428(const CreateAHeroData &hero)
 	if (!((const StringBase<char> *)&m_localHeroName)->isEmpty())
 		m_localHero.rva004098BE(AsciiString("MyHero.dat"), false);
 }
+
+// Native 21AD88..21ADD9 is the cdecl comparator passed by the independently
+// bounded sort wrapper21E673. The preceding43B member ends exactly at21AD88;
+// the comparator returns at21ADD8 before the following member starts21ADD9.
+// Each four-byte value selects a bling and its upgrade; only the unsigned
+// word at upgrade+88 participates in ordering. Its original field and
+// comparator names are unresolved. Ghidra omitted this standalone boundary.
+struct BlingUpgradeOrderView { char unknown00[0x88]; unsigned int word88; };
+bool Rva0021AD88Less(unsigned int first, unsigned int second)
+{
+    const BlingUpgradeOrderView *a = reinterpret_cast<const BlingUpgradeOrderView *>(
+        TheUpgradeCenter->findUpgrade(static_cast<CreateAHeroBling *>(
+            TheCreateAHeroManager->GetBling(first))->m_upgradeName));
+    const BlingUpgradeOrderView *b = reinterpret_cast<const BlingUpgradeOrderView *>(
+        TheUpgradeCenter->findUpgrade(static_cast<CreateAHeroBling *>(
+            TheCreateAHeroManager->GetBling(second))->m_upgradeName));
+    return a->word88 < b->word88;
+}
