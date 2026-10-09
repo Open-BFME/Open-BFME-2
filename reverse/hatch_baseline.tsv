@@ -24304,6 +24304,7 @@ pin	reverse/symbols.csv	0x000C78D5	2
 pin	reverse/symbols.csv	0x000C78F3	1
 pin	reverse/symbols.csv	0x000C7920	2
 pin	reverse/symbols.csv	0x000C79C9	3
+pin	reverse/symbols.csv	0x000C7BC4	1
 pin	reverse/symbols.csv	0x000C8216	1
 pin	reverse/symbols.csv	0x000C828C	1
 pin	reverse/symbols.csv	0x000C834B	1
@@ -24336,6 +24337,7 @@ pin	reverse/symbols.csv	0x000CB5C3	1
 pin	reverse/symbols.csv	0x000CB682	1
 pin	reverse/symbols.csv	0x000CDE73	1
 pin	reverse/symbols.csv	0x000CE0EA	1
+pin	reverse/symbols.csv	0x000CE16A	1
 pin	reverse/symbols.csv	0x000CE837	1
 pin	reverse/symbols.csv	0x000CE960	1
 pin	reverse/symbols.csv	0x000CEA6C	1
@@ -24620,7 +24622,7 @@ pin	reverse/symbols.csv	0x00116F60	1
 pin	reverse/symbols.csv	0x00116FF0	1
 pin	reverse/symbols.csv	0x001170A0	1
 pin	reverse/symbols.csv	0x001171B0	2
-pin	reverse/symbols.csv	0x001173F0	1	allow=f1269a21435f3a0dd50b1b9d0ebba2e8bc478873
+pin	reverse/symbols.csv	0x001173F0	1
 pin	reverse/symbols.csv	0x00117C40	1
 pin	reverse/symbols.csv	0x00117CF0	1
 pin	reverse/symbols.csv	0x00117D89	1
@@ -25667,7 +25669,7 @@ pin	reverse/symbols.csv	0x001F6882	1
 pin	reverse/symbols.csv	0x001F7888	1
 pin	reverse/symbols.csv	0x001F80F6	1
 pin	reverse/symbols.csv	0x001F8167	2
-pin	reverse/symbols.csv	0x001F81BF	8
+pin	reverse/symbols.csv	0x001F81BF	9	allow=fb52cde0ae83c731dc038492abff2ec7f5c82469
 pin	reverse/symbols.csv	0x001F82AB	2
 pin	reverse/symbols.csv	0x001F8384	1
 pin	reverse/symbols.csv	0x001F8437	22
@@ -31419,7 +31421,6 @@ pin	reverse/symbols.csv	0x00510278	1
 pin	reverse/symbols.csv	0x0051030C	1
 pin	reverse/symbols.csv	0x005103A3	1
 pin	reverse/symbols.csv	0x00510665	1
-pin	reverse/symbols.csv	0x0051066A	1
 pin	reverse/symbols.csv	0x00510B72	1
 pin	reverse/symbols.csv	0x00510D0C	1
 pin	reverse/symbols.csv	0x00510FDB	1
@@ -31497,7 +31498,6 @@ pin	reverse/symbols.csv	0x0052012B	1
 pin	reverse/symbols.csv	0x00520211	1
 pin	reverse/symbols.csv	0x005202C8	1
 pin	reverse/symbols.csv	0x005204EF	1
-pin	reverse/symbols.csv	0x005212FC	1
 pin	reverse/symbols.csv	0x0052163E	1
 pin	reverse/symbols.csv	0x00521770	1
 pin	reverse/symbols.csv	0x00521977	1
@@ -42771,5 +42771,3 @@ present_unmatched	reference/shims/disconnectmanager/GameNetwork/DisconnectManage
 present_unmatched	reference/shims/pathfind/GameLogic/AIPathfind.h	?	1
 present_unmatched	reference/shims/water/W3DDevice/GameClient/W3DWater.h	?	1
 selectany	Code/GameEngine/Source/Common/VslotSmallBodiesW.cpp	__declspec(selectany) Int g_00DFEE18 = 0;	1
-pin	reverse/symbols.csv	0x000C7BC4	1	allow=becc8c47acd02acae2828bbc62c5c1ad65ad15ec
-pin	reverse/symbols.csv	0x000CE16A	1	allow=becc8c47acd02acae2828bbc62c5c1ad65ad15ec

@@ -2570,7 +2570,6 @@ name,address,notes
 ??0Rva0051BADF@@QAE@PAX@Z,0x0051BADF,constructor called by the factory entry 0x002D2099 (byte-exact modulo relocs in Rva002D1E55Factories.cpp) on a 0x284-byte allocation; identity unproven; address-derived name
 ??0Rva0051D1E6@@QAE@PAX@Z,0x0051D1E6,constructor called by the factory entry 0x002D210D (byte-exact modulo relocs in Rva002D1E55Factories.cpp) on a 0x2C4-byte allocation; identity unproven; address-derived name
 ??0Rva005202C8@@QAE@PAX@Z,0x005202C8,constructor called by the factory entry 0x002D2147 (byte-exact modulo relocs in Rva002D1E55Factories.cpp) on a 0x2F4-byte allocation; identity unproven; address-derived name
-??0Rva005212FC@@QAE@PAX@Z,0x005212FC,constructor called by the factory entry 0x002D2181 (byte-exact modulo relocs in Rva002D1E55Factories.cpp) on a 0x288-byte allocation; identity unproven; address-derived name
 ??0Rva00523825@@QAE@PAX@Z,0x00523825,constructor called by the factory entry 0x002D21FB (byte-exact modulo relocs in Rva002D1E55Factories.cpp) on a 0x294-byte allocation; identity unproven; address-derived name
 ??0Rva005257F6String@@QAE@PBD@Z,0x00037BA0,retail 005257F6 call at +34 to matched narrow StringBase constructor; target static string is one pointer
 ??0Rva0052710C@@QAE@HABVAsciiString@@PAX1@Z,0x00527767,unrowed 76B thiscall constructor (Ghidra FUN_00927767; allocates a 0x1E0 inner object); REL32 read at AptPalantir::OnHeroSelectLoaded 0x002D3FED on the 4-byte block new'd there with (level and AsciiString name and the screen +0xC0 and +0xF8 addresses) pushed; the block is the pointee the rowed reset 0x002D38AE owns; address name
@@ -15964,7 +15963,6 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ?rva0046AA85@HordeContain@@QAEXXZ,0x0046AA85,REL32 read at 0x0047294F in HordeContain slot 4 (0x00472790); HordeContain this (lea ecx [esi-0x11C]) no arguments; address-named
 ?erase@?$_Rb_tree@HHU?$_Identity@H@_STL@@U?$less@H@2@V?$allocator@H@2@@_STL@@QAEIABH@Z,0x0046EDEF,REL32 read at 0x0047280B in HordeContain slot 4 (0x00472790) erasing an ID from the +0x170 set<int> (m_170.erase(id)); the same 73-byte erase(const key &) body gatherUnitBack 0x004725D5 calls on that tree; row there is the address-named Rva002EE9B7 placeholder
 ?rva005E652E@Rva005E56FCOuter@@QAEXPAX@Z,0x005E652E,callee of ?rva005E6765@Rva005E56FC@@QAEXXZ
-??0Rva0050ED58@@QAE@HABVAsciiString@@@Z,0x0051066A,callee of ?rva005108EB@Rva005108EB@@QAEXPBD@Z
 ?rva004DFB7E@AIStatCollector@@QAE_NPAX@Z,0x004DFB7E,callee of ?Register@AIStatCollector@@QAEXPAVObject@@@Z
 ?rva00508FA8@Rva00508FA8@@QAEXPAXPAVObject@@@Z,0x00508FA8,callee of ?rva0050921D@Rva00508FA8@@QAEXPAX0@Z
 ?rva00100568@?$SimpleDynVecClass@VVector3@@@@QAEXXZ,0x00100568,callee of ?rva001006f8@?$SimpleDynVecClass@VVector3@@@@QBEXABURva001006F8FrustumView@@AAV1@@Z
@@ -17050,3 +17048,4 @@ _log,0x00629B0E,log double import thunk (gen-import row ji_00629b0e: msvcr71 slo
 ?doDrawModule@W3DModelDraw@@UAEXPBVMatrix3D@@@Z,0x000C7BC4,callee of ?doDrawModule@W3DTankDraw@@UAEXPBVMatrix3D@@@Z
 ?updateTreadObjects@W3DTankDraw@@IAEXXZ,0x000CE16A,callee of ?doDrawModule@W3DTankDraw@@UAEXPBVMatrix3D@@@Z
 ?AddBattle@LivingWorldRegionManager@@QAEXPAURegionBattleView@@ABV?$vector@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@1ABURegionBattlePoint@@@Z,0x0020FC0F,WB B56E30 LivingWorldRegionManager::AddBattle and full native20FC0F..20FD40 307B RET16 establish thiscall region plus two pointer-vector references and float2 coordinate reference; RegionSlots uses canonical ModuleData pointer-container ABI as opaque word storage; not element identity; call at20FF97/21001A in whole CheckForBattles; constructor3F6F0D confirms argument order
+??0Rva005241B0@@QAE@XZ,0x001F81BF,ICF-folded default ctor of the +0x14 member of the Rva0050ED58 row page (its dtor is the rowed ??1Rva005241B0); same fold as the pinned AptCommandMapAdder / AptTimerAdder ctors; caller 0x0051066A fold-proof=Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptRowPageCtor_Rva0051066A.cpp
