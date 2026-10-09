@@ -128,7 +128,8 @@ extern PartitionManager *TheShroudManager;
 class Player
 {
 public:
-	Int getPlayerIndex() const { return m_playerIndex; }
+	// Preserve the native +0x54 inline read without an external getter copy.
+	__declspec(dllimport) __forceinline Int getPlayerIndex() const { return m_playerIndex; }
 private:
 	unsigned char m_pad[0x54];
 	Int m_playerIndex;				// +0x54
