@@ -1,20 +1,33 @@
-// ?rva004ACADA@PartTheHeavensUpdate@@AAEXXZ
-// partial score=0.95 date=2026-10-08
-// cl: /Ireference/shims/bfme2_ascii /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc
-//
-// ?rva004ACADA@PartTheHeavensUpdate@@AAEXXZ, retail 0x004ACADA, 217 bytes.
-// Private rebuild helper called from update (0x004ACBB3) and loadPostProcess
-// (0x004ACBF3). Evidence: LINK BONUS names this mangling; prev/next are
-// PartTheHeavensUpdateXfer/Update; callees are rowed isEmpty/set,
-// AudioEventRTS ctor/dtor, Curve pin 0x00504BA9, Shadow row 0x00330995,
-// g_00DEC2D4 virtual slot 0x10; float literal 2.0f.
+// cl: /I. /Oy- /Ireference/shims/bfme2_ascii /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc
+// PartTheHeavensUpdate shadow rebuild, native 004ACADA..004ACBB3 (217B).
+// Called by the matched update and loadPostProcess. Retail proves module data
+// +4, owning Object +8, shadow +24, descriptor name+8/color+C/curve+10,
+// manager vslot4 and child position+8. Shadow::ShadowTypeInfo is the owned
+// 79514/793FA descriptor pair; its former AudioEventRTS label is retired.
+// The manager uses the existing provisional data-ledger owner declaration;
+// its historical C++ type name is not asserted as the retail class identity.
+// Keeping Object* as a local preserves retail's ECX load then ESI LEA for
+// the 12B coordinate copy. Flags precede the two zero-float stores.
 #include "ascii_string.h"
 
-class AudioEventRTS
+
+
+class Rva00504BA9Curve
 {
 public:
-	AudioEventRTS();
-	~AudioEventRTS();
+	float rva00504BA9(float v);
+};
+
+#include "Code/Libraries/Include/Lib/Coord3D.h"
+
+class Shadow
+{
+public:
+struct ShadowTypeInfo
+{
+public:
+	ShadowTypeInfo();
+	~ShadowTypeInfo();
 	AsciiString m_first;
 	AsciiString m_second;
 	int m_unknown8;
@@ -29,22 +42,6 @@ public:
 	unsigned char m_byte26;
 };
 
-class Rva00504BA9Curve
-{
-public:
-	float rva00504BA9(float v);
-};
-
-struct Coord3D
-{
-	float x;
-	float y;
-	float z;
-};
-
-class Shadow
-{
-public:
 	void rva00330995(int v);
 	unsigned char m_pad00[8];
 	Coord3D m_pos08;
@@ -74,7 +71,7 @@ public:
 	virtual void m1();
 	virtual void m2();
 	virtual void m3();
-	virtual Shadow *createEmitter(int a, AudioEventRTS *b, AudioEventRTS *c);
+	virtual Shadow *createEmitter(int a, Shadow::ShadowTypeInfo *b, Shadow::ShadowTypeInfo *c);
 };
 
 extern AudioManager0029E159 *g_00DEC2D4;
@@ -112,7 +109,7 @@ void PartTheHeavensUpdate::rva004ACADA()
 	PartTheHeavensUpdateModuleData *data = m_moduleData;
 	if (((const StringBase<char> &)data->m_str08).isEmpty())
 		return;
-	AudioEventRTS ev;
+	Shadow::ShadowTypeInfo ev;
 	float v = data->m_curve10.rva00504BA9(0.0f);
 	((StringBase<char> &)ev.m_first).set((const StringBase<char> &)data->m_str08);
 	float v2 = v * 2.0f;
@@ -120,15 +117,15 @@ void PartTheHeavensUpdate::rva004ACADA()
 	ev.m_unknown8 = type;
 	ev.m_floatC = v2;
 	ev.m_float10 = v2;
-	ev.m_float14 = 0.0f;
-	ev.m_float18 = 0.0f;
 	ev.m_byte25 = 0;
 	ev.m_byte26 = 1;
+	ev.m_float14 = 0.0f;
+	ev.m_float18 = 0.0f;
 	AudioManager0029E159 *mgr = g_00DEC2D4;
 	m_shadow = mgr->createEmitter(type, &ev, &ev);
 	if (m_shadow != 0)
 	{
-		const Coord3D *pos = &m_object->m_pos38;
+		Object *obj=m_object;const Coord3D *pos = &obj->m_pos38;
 		Coord3D *dest = &m_shadow->m_pos08;
 		*dest = *pos;
 		m_shadow->rva00330995(data->m_color0C);
