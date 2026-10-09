@@ -56,7 +56,7 @@ public:
 class Object
 {
 public:
-	AIUpdateInterface *getAI() { return m_ai; }
+	static __forceinline AIUpdateInterface *getAI(const Object *object) { return object->m_ai; }
 private:
 	unsigned char m_pad00[0x258];
 	AIUpdateInterface *m_ai; // +0x258
@@ -113,7 +113,7 @@ StateReturnType AITunnelNetworkGuardState::onEnter()
 {
 
 	Object *obj = getMachineOwner();
-	AIUpdateInterface *ai = obj->getAI();
+	AIUpdateInterface *ai = Object::getAI(obj);
 
 	m_guardMachine = new AITNGuardMachine( getMachineOwner());
 

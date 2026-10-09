@@ -35,7 +35,7 @@ public:
 	SpecialPowerModuleInterface *getSpecialPowerModule(const SpecialPowerTemplate *power) const;
 	void setWeaponSetFlag(WeaponSetType type);
 	bool setWeaponLock(WeaponSlotType slot, WeaponLockType lock);
-	AIUpdateInterface *getAI() { return m_ai; }
+	static __forceinline AIUpdateInterface *getAI(const Object *object) { return object->m_ai; }
 
 private:
 	unsigned char m_pad[0x258];
@@ -122,7 +122,7 @@ void BattlePlanUpdate::onObjectCreated()
 		m_5c = payload->m_44;
 		m_6c = payload->m_4c;
 		m_object->setWeaponSetFlag(WST_0);
-		if (obj->getAI() != 0)
+		if (Object::getAI(obj) != 0)
 			obj->setWeaponLock(WSLT_0, WLT_1);
 		enableTurret(false);
 	}
