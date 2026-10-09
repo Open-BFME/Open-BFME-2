@@ -1,5 +1,5 @@
-// ?placeObjectAtPosition@@YAPAVObject@@HVAsciiString@@PBUCoord3D@@PAVPlayer@@PBX@Z
-// partial score=1.0 date=2026-10-09
+// ?PlaceLivingWorldObjectsForPlayer@@YAXPAVPlayer@@@Z
+// partial score=0.8 date=2026-10-09
 // partial score=0.93 date=2026-10-06
 // cl: /O1 /G7 /DNDEBUG /MD /EHs /arch:SSE /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii
 // stlport
