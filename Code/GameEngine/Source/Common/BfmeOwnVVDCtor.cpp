@@ -1,5 +1,14 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /O1 /arch:SSE /G7 /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
+#include "unicode_string.h"
+#include "../../../Libraries/Include/Lib/Coord3D.h"
+#include "../../../Libraries/Include/Lib/Coord2D.h"
+#include "GameLogicObjectLookupView.h"
+struct LookAtRegion {Coord2D lo,hi;};
+struct Rva001EDD80Pair { int x, y; };
+class GameMessage;
 
+// Historical BFME1 donor notes follow; their addresses are not BFME2 addresses.
+// The BFME2 owner remains BfmeOwnVVD until its complete class/vtable is reconciled.
 // Retail layout: 0x005B5470 installs vftable 0x0110DE48, already pinned as
 // ??_7BfmeOwnVVD@@6B@ by the landed destructor
 // Code/GameEngine/Source/Common/BfmeConv1663.cpp (??1BfmeOwnVVD@@QAE@XZ,
@@ -52,22 +61,23 @@ public:
  unsigned char Rva0042E8C1();
  void rva0042E804();
  void rva0042E75F(unsigned int);
+ int rva0042E9EC(const GameMessage *);
 
 private:
-	unsigned int m_04;                    // +0x04 body-set
-	unsigned int m_08;                    // +0x08 body-set
-	unsigned int m_0c;                    // +0x0c body-set
-	unsigned int m_10;                    // +0x10 body-set
-	unsigned int m_14;                    // +0x14 body-set
-	unsigned int m_18;                    // +0x18 body-set
+	int m_04;                    // +0x04 body-set
+	int m_08;                    // +0x08 body-set
+	int m_0c;                    // +0x0c body-set
+	int m_10;                    // +0x10 body-set
+	int m_14;                    // +0x14 body-set
+	int m_18;                    // +0x18 body-set
 	unsigned char m_1c;                   // +0x1c init-list
 	unsigned char m_pad1d[3];
-	unsigned int m_20;                    // +0x20 body-set
-	unsigned int m_24;                    // +0x24 body-set
-	unsigned int m_28;                    // +0x28 body-set
-	unsigned int m_2c;                    // +0x2c body-set
-	unsigned int m_30;                    // +0x30 body-set
-	unsigned int m_34;                    // +0x34 body-set
+	int m_20;                    // +0x20 body-set
+	int m_24;                    // +0x24 body-set
+	int m_28;                    // +0x28 body-set
+	int m_2c;                    // +0x2c body-set
+	int m_30;                    // +0x30 body-set
+	int m_34;                    // +0x34 body-set
 	unsigned char m_38;                   // +0x38 init-list
 	unsigned char m_39;                   // +0x39 init-list
 	unsigned char m_3a;                   // +0x3a init-list
@@ -90,10 +100,8 @@ extern BfmeOwnVVD *g_bfmeSingletonVVD;
 // g_bfmeSingletonVVD: matched references place it at VA 0xe03214 (zero-filled .bss).
 BfmeOwnVVD * g_bfmeSingletonVVD;
 
-struct BfmeRva42E8C1Limit { char m_pad[0x40]; unsigned int m_40; };
-class GameLogic;
 extern GameLogic *TheGameLogic;
-extern unsigned int g_bfmeRva42E8C1Add;
+extern int g_Va00DBA4E4;
 
 // ??0BfmeOwnVVD@@QAE@XZ
 BfmeOwnVVD::BfmeOwnVVD()
@@ -132,9 +140,9 @@ BfmeOwnVVD::~BfmeOwnVVD()
 unsigned char BfmeOwnVVD::Rva0042E8C1()
 {
 	unsigned int &slot = m_150;
-	if (slot > ((BfmeRva42E8C1Limit *)TheGameLogic)->m_40)
+	if (slot > TheGameLogic->getFrame())
 		slot = 0;
-	return slot + g_bfmeRva42E8C1Add >= ((BfmeRva42E8C1Limit *)TheGameLogic)->m_40;
+	return slot + g_Va00DBA4E4 >= TheGameLogic->getFrame();
 }
 
 // ?rva0042E804@BfmeOwnVVD@@QAEXXZ @0x0042E804 88B evidence: same BfmeOwnVVD layout m_1c m_38 m_39 m_148 callers 0x0042EA56 0x0042ED42 TheInGameUI slot 0xa4 TheTacticalView slot 0x1a4 TheMouse slot 0x4c StatsCollector endScrollTime row
@@ -157,7 +165,7 @@ public:
 	virtual void i13();
 	virtual void i14();
 	virtual void i15();
-	virtual void i16();
+	virtual void __cdecl i16(UnicodeString, ...);
 	virtual void i17();
 	virtual void i18();
 	virtual void i19();
@@ -183,6 +191,10 @@ public:
 	virtual void i39();
  virtual void i40();
  virtual void i41(int);
+ bool getInputEnabled() const {return m_15 && m_16;}
+ virtual void i42();
+ virtual void i43();
+ virtual bool i44();
  char m_pad04[0x11];
  unsigned char m_15;
  unsigned char m_16;
@@ -221,7 +233,7 @@ public:
 	virtual void t26();
 	virtual void t27();
 	virtual void t28();
-	virtual void t29();
+	virtual void t29(int);
 	virtual void t30();
 	virtual void t31();
 	virtual void t32();
@@ -242,7 +254,7 @@ public:
 	virtual void t47();
 	virtual void t48();
 	virtual void t49();
-	virtual void t50();
+	virtual void t50(int,int,float,float);
 	virtual void t51();
 	virtual void t52();
 	virtual void t53();
@@ -255,10 +267,10 @@ public:
 	virtual void t60();
 	virtual void t61();
 	virtual void t62();
-	virtual void t63();
-	virtual void t64();
-	virtual void t65();
-	virtual void t66();
+	virtual void t63(float);
+	virtual float t64();
+	virtual void t65(float);
+	virtual float t66();
 	virtual void t67();
 	virtual void t68();
 	virtual void t69();
@@ -284,8 +296,8 @@ public:
 	virtual void t89();
 	virtual void t90();
 	virtual void t91();
-	virtual void t92();
-	virtual void t93();
+	virtual void t92(void *);
+	virtual void t93(const void *);
 	virtual void t94();
 	virtual void t95();
 	virtual void t96();
@@ -308,6 +320,17 @@ public:
  virtual void t113();
  virtual void t114();
  virtual bool t115();
+ virtual void t116();
+ virtual void t117();
+ virtual void t118();
+ virtual void t119();
+ virtual void t120();
+ virtual void t121();
+ virtual void t122();
+ virtual void t123();
+ virtual void t124(float);
+ virtual void t125();
+ virtual float t126();
 };
 extern TacticalView *TheTacticalView;
 
@@ -334,7 +357,11 @@ public:
 	virtual void m17();
  virtual void m18();
  virtual void m19(void *p);
- char m_pad04[0x4fa4 - 4];
+ bool rva001EDD80(const Rva001EDD80Pair *, const Rva001EDD80Pair *);
+ void rva001EDFF7(float *) const;
+ char m_pad04[0x4f0c - 4];
+ struct MouseStatus { int x, y; char pad08[0x10]; int event; } m_status;
+ char m_pad4f28[0x4fa4 - 0x4f28];
  void *m_4fa4;
 };
 extern Mouse *TheMouse;
@@ -345,7 +372,41 @@ public:
  char m_pad[0xc0];
  unsigned char m_c0;
 };
-class ClientFrameSubsystem; extern class GameClient *TheGameClient;
+class GameClient { public:
+virtual void c0();
+virtual void c1();
+virtual void c2();
+virtual void c3();
+virtual void c4();
+virtual void c5();
+virtual void c6();
+virtual void c7();
+virtual void c8();
+virtual void c9();
+virtual void c10();
+virtual void c11();
+virtual void c12();
+virtual void c13();
+virtual void c14();
+virtual void c15();
+virtual void c16();
+virtual void c17();
+virtual void c18();
+virtual void c19();
+virtual void c20();
+virtual void c21();
+virtual void c22();
+virtual void c23();
+virtual void c24();
+virtual void c25();
+virtual void c26();
+virtual void c27();
+virtual void c28();
+virtual void c29();
+virtual void c30();
+virtual unsigned int c31();
+};
+extern GameClient *TheGameClient;
 
 extern "C" __declspec(dllimport) unsigned long __stdcall timeGetTime(void);
 
@@ -401,9 +462,209 @@ void BfmeOwnVVD::rva0042E75F(unsigned int arg)
  g_00E032F8->startScrollTime();
 }
 
-// ?g_bfmeRva42E8C1Add@@3IA: the global at this VA is ?g_Va00DBA4E4@@3HA; this name is an alias for it.
-#pragma comment(linker, "/alternatename:?g_bfmeRva42E8C1Add@@3IA=?g_Va00DBA4E4@@3HA")
-#pragma comment(linker, "/alternatename:?g_009BA4E4@@3HB=?g_Va00DBA4E4@@3HA")
-// ?g_bfmeRva42E8C1Holder@@3PAUBfmeRva42E8C1Limit@@A: the global at VA 0xdfe78c is ?TheGameLogic@@3PAVGameLogic@@A.
-// ?g_bfmeRva42E8C1Add@@3IA: the global at VA 0xdba4e4 is ?g_Va00DBA4E4@@3HA.
-#pragma comment(linker, "/alternatename:?g_bfmeRva42E8C1Add@@3IA=?g_Va00DBA4E4@@3HA")
+
+// Reference: Open-BFME-1 9cbfb551fe20dae985f91f2319d8997287b6a705,
+// game/GameEngine/Source/GameClient/MessageStream/LookAtXlat.cpp.
+// WB 0x012C30D0 names translateGameMessage; retail 0x0042E9EC/2087
+// uses this class's already recovered scrolling helpers and fields.
+// Target-specific mouse locking, drag detection, alternate camera controls,
+// bookmark fetchPtr and key flags are established by the native body.
+union GameMessageArgumentType {
+ int integer; float real; int boolean, objectID, drawableID;
+ unsigned int teamID;
+ struct Loc {float x,y,z;} location;
+ Rva001EDD80Pair pixel;
+ struct PixReg {int loX,loY,hiX,hiY;} pixelRegion;
+ unsigned int timestamp; unsigned short wChar;
+};
+class GameMessage { public:
+ const GameMessageArgumentType *getArgument(int) const;
+ char pad00[0x10]; int m_type;
+};
+class Display {public:
+virtual void d0();
+virtual void d1();
+virtual void d2();
+virtual void d3();
+virtual void d4();
+virtual void d5();
+virtual void d6();
+virtual void d7();
+virtual void d8();
+virtual void d9();
+virtual void d10();
+virtual void d11();
+virtual void d12();
+virtual void d13();
+virtual void d14();
+virtual void d15();
+virtual unsigned int d16();
+virtual unsigned int d17();
+};
+extern Display *TheDisplay;
+class GlobalData {public: char pad00[0x2c]; bool m_windowed;};
+extern GlobalData *TheGlobalData;
+class Shell {public: char pad00[0x5c]; bool m_active;};
+extern Shell *TheShell;
+class GameTextInterface {public:
+virtual void g0();
+virtual void g1();
+virtual void g2();
+virtual void g3();
+virtual void g4();
+virtual void g5();
+virtual void g6();
+virtual void g7();
+virtual void g8();
+virtual void g9();
+virtual void g10();
+virtual void g11();
+virtual void g12();
+virtual void g13();
+virtual void g14();
+virtual void g15();
+virtual void g16();
+virtual UnicodeString *fetchPtr(const char *, bool *);
+};
+extern GameTextInterface *TheGameText;
+static bool scrollDir[4];
+
+int BfmeOwnVVD::rva0042E9EC(const GameMessage *msg)
+{
+ int disp=0;
+ int t=msg->m_type;
+ switch(t) {
+ case 21: case 22: {
+  unsigned char key=msg->getArgument(0)->integer;
+  unsigned char state=msg->getArgument(1)->integer;
+  bool pressed=!(state&1);
+  if(TheShell && TheShell->m_active) break;
+  switch(key) {
+  case 72:m_156=pressed;break; case 75:m_154=pressed;break;
+  case 77:m_155=pressed;break; case 80:m_157=pressed;break;
+  case 200:scrollDir[0]=pressed;break; case 208:scrollDir[1]=pressed;break;
+  case 203:scrollDir[2]=pressed;break; case 205:scrollDir[3]=pressed;break;
+  }
+  if(TheInGameUI->i44() || (m_38 && m_148!=2)) break;
+  int n=0;for(int i=0;i<4;++i) if(scrollDir[i]) ++n;
+  if(n && !m_38) rva0042E75F(2);
+  else if(!n && m_38) rva0042E804();
+  break;
+ }
+ case 14: {
+  m_150=TheGameLogic->getFrame();
+  const Rva001EDD80Pair &p=msg->getArgument(0)->pixel;
+  m_14=p.x; m_18=p.y; m_04=m_14; m_08=m_18;
+  if(!TheInGameUI->i44() && !m_38) m_1c=1;
+  break;
+ }
+ case 16:
+  m_150=TheGameLogic->getFrame(); m_1c=0;
+  if(m_148==1) rva0042E804();
+  break;
+ case 10: {
+  m_150=TheGameLogic->getFrame(); m_39=1;
+  const Rva001EDD80Pair &a=msg->getArgument(0)->pixel; m_20=a.x; m_24=a.y;
+  const Rva001EDD80Pair &b=msg->getArgument(0)->pixel; m_28=b.x; m_2c=b.y;
+  const Rva001EDD80Pair &c=msg->getArgument(0)->pixel; m_30=c.x; m_34=c.y;
+  m_40=TheGameClient->c31();
+  if(!m_38) TheTacticalView->t105(1);
+  break;
+ }
+ case 12: {
+  if(m_39 && !m_38) TheTacticalView->t105(0);
+  m_150=TheGameLogic->getFrame(); m_39=0;
+  int dx=m_30-m_28; if(dx<0) dx=-dx;
+  int dy=m_34-m_2c;
+  bool moved=(unsigned int)dx>5 || (unsigned int)dy>5;
+  if(!moved && TheGameClient->c31()-m_40<5) TheTacticalView->t50(0,0,0,0);
+  break;
+ }
+ case 3: {
+  if(m_1c && !m_38) {
+   Rva001EDD80Pair p=msg->getArgument(0)->pixel;
+   if(TheMouse->rva001EDD80((const Rva001EDD80Pair *)&m_04,&p)) rva0042E75F(1);
+  }
+  if(!TheTacticalView->t115()) {
+   if(m_14!=msg->getArgument(0)->pixel.x || m_18!=msg->getArgument(0)->pixel.y)
+    m_150=TheGameLogic->getFrame();
+   if(m_39) {
+    m_3a=1; const Rva001EDD80Pair &p=msg->getArgument(0)->pixel; m_30=p.x;m_34=p.y;
+   } else if(m_3a && m_148==1) {
+    int dx=m_04-m_14,dy=m_08-m_18;
+    const Rva001EDD80Pair &p=msg->getArgument(0)->pixel; m_14=p.x;m_18=p.y;
+    m_04=m_14+dx;m_08=m_18+dy;m_3a=0;
+   } else {const Rva001EDD80Pair &p=msg->getArgument(0)->pixel;m_14=p.x;m_18=p.y;}
+   unsigned int height=TheDisplay->d17(),width=TheDisplay->d16();
+   if(TheInGameUI->getInputEnabled()==false) {if(m_38) rva0042E804();break;}
+   bool selecting=TheInGameUI->i44();
+   if(selecting) {
+    Mouse::MouseStatus *s=&TheMouse->m_status;
+    if(s && s->event!=1) selecting=false;
+   }
+   if(!TheGlobalData->m_windowed && !selecting) {
+    if(m_38) {
+     if(m_148==3 && m_14>=3 && m_18>=3 && (unsigned)m_18<height-3 && (unsigned)m_14<width-3) rva0042E804();
+    } else if(m_14<3 || m_18<3 || (unsigned)m_18>=height-3 || (unsigned)m_14>=width-3) rva0042E75F(3);
+   }
+   if(m_39) {
+    float angle=.005f*(m_30-m_20);
+    TheTacticalView->t63(TheTacticalView->t64()+angle);
+    const Rva001EDD80Pair &p=msg->getArgument(0)->pixel;m_20=p.x;m_24=p.y;
+   }
+  } else {
+   LookAtRegion r;TheMouse->rva001EDFF7((float *)&r);
+   Coord2D mouse;mouse.x=(float)TheMouse->m_status.x;mouse.y=(float)TheMouse->m_status.y;
+   r.lo.x+=15; r.hi.x-=15; r.lo.y+=15; r.hi.y-=15;
+   bool rotated=false;
+   if(mouse.x<=r.lo.x) {TheTacticalView->t63(TheTacticalView->t64()+.046f);rotated=true;}
+   else if(mouse.x>=r.hi.x) {TheTacticalView->t63(TheTacticalView->t64()-.046f);rotated=true;}
+   if(rotated) {
+    float factor=.03f;
+    float height=r.hi.y-r.lo.y;
+    mouse.y-=height*.5f;
+    factor=(mouse.y/height+mouse.y/height)*factor;
+    TheTacticalView->t124(TheTacticalView->t126()+factor);
+   } else if(mouse.y<=r.lo.y) TheTacticalView->t124(TheTacticalView->t126()-.02f);
+   else if(mouse.y>=r.hi.y) TheTacticalView->t124(TheTacticalView->t126()+.02f);
+   if(m_39) {
+    float angle=.001f*(m_30-m_20);
+    TheTacticalView->t63(TheTacticalView->t64()+angle);
+    const Rva001EDD80Pair &p=msg->getArgument(0)->pixel; m_20=p.x; m_24=p.y;
+   }
+   if(m_3b) {
+    float angle=.01f*(m_18-m_08);
+    TheTacticalView->t65(TheTacticalView->t66()+angle);
+    const Rva001EDD80Pair &p=msg->getArgument(0)->pixel; m_04=p.x; m_08=p.y;
+   }
+
+  }
+  break;
+ }
+ case 19: {
+  m_150=TheGameLogic->getFrame();
+  int spin=msg->getArgument(1)->integer;
+  if(spin>0) {for(;spin>0;--spin) TheTacticalView->t77();}
+  else {for(;spin<0;++spin) TheTacticalView->t78();}
+  break;
+ }
+ case 112:rva0042E804();break;
+ case 36:case 37:case 38:case 39:case 40:case 41:case 42:case 43: {
+  int slot=t-35;
+  if(slot>0 && slot<=8) {
+   TheTacticalView->t92(&m_bfme48[slot-1]);
+   UnicodeString text;text.format(TheGameText->fetchPtr("GUI:BookmarkXSet",0),slot);
+   TheInGameUI->i16(text);
+  }
+  disp=1;break;
+ }
+ case 44:case 45:case 46:case 47:case 48:case 49:case 50:case 51: {
+  if(TheInGameUI->getInputEnabled()==false) break;
+  int slot=t-43;
+  if(slot>0 && slot<=8) TheTacticalView->t93(&m_bfme48[slot-1]);
+  disp=1;break;
+ }
+ case 1106:{int mode=msg->getArgument(0)->integer;TheTacticalView->t29(mode);break;}
+ }
+ return disp;
+}
