@@ -4,37 +4,23 @@
 // storing vtable 0x008743DC, releasing the held object at +0x2c through its
 // vtable slot 0 with arg 0, deleting the returned pointer via rowed operator
 // delete 0x0002FD60, nulling the member, then calling the rowed base dtor
-// ??1Rva005DD1EA@@UAE@XZ at 0x005DD1EA. Base is 0x24B so pad 8B to +0x2c.
+// ??1AptStats@@UAE@XZ at 0x005DD1EA. Base is the proven0x2CB AptStats; held object remains at+0x2c.
 // Held type unknown beyond slot 0 shape, modeled as a TU-local shim.
 // Two callers in 0x00521977 plus its ??_G at 0x005C1A9E. Flags copy
 // Rva005DD1EADtor.cpp for the EH state idiom.
-class Rva005DE9E3
-{
-public:
-	virtual ~Rva005DE9E3();
-private:
-	char m_base_pad[0x0C];
-};
-
-class Rva005DD1EA : public Rva005DE9E3
-{
-public:
-	virtual ~Rva005DD1EA();
-private:
-	char m_pad10[0x10];
-	void *m_20;
-};
+// Consuming ABI view: the native AptStats ctor proves44B. Its retained
+// virtual destructor provider owns the full vector/base cleanup.
+class AptStats {public:virtual ~AptStats();private:char m_pad[0x2C-4];};
 
 struct HeldSlot0 {
 	virtual void *heldSlot0(int flags);
 };
 
-class Rva005C1A36 : public Rva005DD1EA
+class Rva005C1A36 : public AptStats
 {
 public:
 	virtual ~Rva005C1A36();
 private:
-	char m_pad24[0x08];
 	HeldSlot0 *m_2c;
 };
 

@@ -83,6 +83,8 @@ public:
 	virtual UserPreferences *v2();
 };
 
+// Native AptStats is the inherited receiver of the recovered rank refresh.
+class AptStats {public:void rva005DD48C();};
 class Rva005C1A36
 {
 public:
@@ -91,8 +93,6 @@ public:
 	virtual int v2(int idx);
 	virtual int rva005C1AE4(int idx);
 	void rva005C1ABA(const UnicodeString &name);
-	// Unrowed 0x005DD48C (353 bytes), pinned by address.
-	void rva005DD48C();
 	UserPreferences *prefs() { return m_held->v2(); }
 private:
 	char m_pad[0x28];
@@ -114,7 +114,7 @@ void Rva005C1A36::rva005C1ABA(const UnicodeString &name)
 {
 	m_held->v2()->v13(name);
 	m_held->v1(this);
-	rva005DD48C();
+	((AptStats*)this)->rva005DD48C();
 }
 
 // Native5C1B2D..5C1BDE, complete177B cdecl hidden UnicodeString return.

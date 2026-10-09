@@ -12044,9 +12044,6 @@ name,address,notes
 ?rva005DCE62@Rva005DCE08@@QAEXPAVRva00573E7C@@@Z,0x005DCE62,AIBase item takes an order; REL32 at 0x005AE084 in Rva005ADA40::rva005ADE1D
 ?rva005DCEAD@Rva005DCE08@@QAEXPAVXfer@@@Z,0x005DCEAD,per-item xfer of the Rva005ADA40 element's +0x00 item vector; REL32 at 0x005AE1E6 in Rva005ADA40::rva005AE0AD
 ?rva005DD06D@Rva005DD06D@@QAEXXZ,0x005DD06D,address-derived callee of matched slot 0x005B8002; retail jmp rel32 targets 0x005DD06D; Ghidra FUN bounds 126 bytes; thiscall no args ret; callee body remains unclaimed; no named identity inferred
-?rva005DD22B@Rva005DD22B@@QAEXXZ,0x005DD22B,address-derived callee of matched slot 0x005B7FFA; retail jmp rel32 targets 0x005DD22B; Ghidra FUN bounds 168 bytes; thiscall no args ret; callee body remains unclaimed; no named identity inferred
-?rva005DD48C@Rva005B8EBB@@QAEXXZ,0x005DD48C,callees of 0x005B8EBB from retail REL32; names unknown
-?rva005DD48C@Rva005C1A36@@QAEXXZ,0x005DD48C,unrowed 353B thiscall (Ghidra FUN_009dd48c; EH; plain ret) on Rva005C1A36 (the skirmish screen +0x668 member): starts with its own vslot 1 and reads 0x00DFE0D0; REL32 at 0x005C1ADB in Rva005C1A36::rva005C1ABA after the new user name is handed on; address name
 ?rva005DE926@Rva005DE5B5@@QAEXXZ,0x005DE926,per-element method over Rva005DE5B5 range pushed as fn at 0x005DE96C for Apply 0x005DD6D5; layout vector-plus-flag
 ?rva005E1160@@YIXPAVRva005F8A7ESub@@_N@Z,0x005E1160,sub-object at this+8 bool method called from 0x005F8A7E; identity unproven
 ?rva005E1168@@YIXPAVRva005F8A7ESub@@H@Z,0x005E1168,sub-object at this+8 int method called from 0x005F8A7E; identity unproven
@@ -17067,3 +17064,4 @@ _D3DXGetImageInfoFromFileInMemory@12,0x0062AFA4,Named PE import thunk FF25 at006
 ?loadAuxImage@Rva0013107A@@QAE_NXZ,0x00131378,Native complete131378..13154B467B; WB9D0ED0 LoadFromSeparateColorAndAlphaData same target20/24 alpha-source guard and two 2D texture resources; D3D9 import identities plus per-pixel alpha copy establish purpose; AL boolean result from output-resource!=0 and RET0 establish ABI; Rva0013107A same owner as verified loaders; full467B C++ bank has14 register-choice differences
 _D3DXCheckTextureRequirements@28,0x0062AF86,Named d3dx9_27.dll PE import thunk FF25 at in-image RVA0062AF86; native image loader13154B REL32 targets this thunk; stdcall parameter bytes agree with D3DX9 API
 _D3DXCreateTextureFromFileInMemoryEx@60,0x0062AF7A,Named d3dx9_27.dll PE import thunk FF25 at in-image RVA0062AF7A; native image loader13154B REL32 targets this thunk; stdcall parameter bytes agree with D3DX9 API
+??0?$vector@IV?$allocator@I@_STL@@@_STL@@QAE@I@Z,0x002339F3,Native 5DD0EB/5DD14D construct int focus/width arrays: full 51B emitted STLport unsigned32-bit storage constructor and 4F62A4 base/7E48F fill callees are byte-and-relocation twins; fold-proof=Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptStats.cpp

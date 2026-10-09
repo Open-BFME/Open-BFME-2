@@ -1646,7 +1646,7 @@ void Rva0057863E::rva0057863E()
 	m_48->rva005D2F8A();
 }
 
-class Rva005DD22B
+class AptStats
 {
 public:
 	void rva005DD22B();
@@ -1657,7 +1657,7 @@ public:
 	void rva005B7FFA();
 private:
 	char m_pad00[0x60];
-	Rva005DD22B m_60;
+	AptStats m_60;
 };
 void Rva005B7FFA::rva005B7FFA()
 {

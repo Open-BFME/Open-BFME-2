@@ -4,6 +4,8 @@
 // helper (pinned 0x517F31), switches m_8C 0/1/2 to the pinned trio
 // (0x5B8D1C/0x5B89A1/0x5B8A40), then tailcalls the pinned 0x5DD48C on the
 // +0x60 sub-object. Targets from retail REL32; names unknown.
+// Native+60 subobject is AptStats; call its sole recovered refresh owner.
+class AptStats {public:void rva005DD48C();};
 class Rva005DE96B
 {
 public:
@@ -22,7 +24,6 @@ struct Rva005B8EBB
 	void rva005B8D1C();
 	void rva005B89A1();
 	void rva005B8A40();
-	void rva005DD48C();
 
 	void Run();
 };
@@ -42,5 +43,5 @@ void Rva005B8EBB::Run()
 		rva005B8A40();
 		break;
 	}
-	((Rva005B8EBB *)((char *)this + 0x60))->rva005DD48C();
+	((AptStats *)((char *)this + 0x60))->rva005DD48C();
 }
