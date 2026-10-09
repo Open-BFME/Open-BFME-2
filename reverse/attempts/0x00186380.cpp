@@ -1,15 +1,8 @@
 // ?Calculate_Texture_Matrix@ScreenMapperClass@@UAEXAAVMatrix4@@@Z
+// partial score=0.88 date=2026-10-09
+// ?Calculate_Texture_Matrix@ScreenMapperClass@@UAEXAAVMatrix4@@@Z
 // partial score=0.85 date=2026-10-04
 // cl: /Ireference/shims/bfmerendobj /Ireference/shims/bfmemapper /arch:SSE /DNDEBUG /MD /EHsc /G7 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/sweep
-// The compiler-generated vector constructor iterator (??_H) takes the
-// optimization state of the first function that needs it. Retail links one
-// copy, the /O1 body at 0x00001423; this unemitted anchor makes this unit's
-// copy that same body, so it no longer loses to retail's at link time.
-struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
-#pragma optimize("gsy", on)
-static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
-#pragma optimize("", on)
-
 // ScreenMapperClass::Calculate_Texture_Matrix, retail 0x00186380.
 // Evidence: slot 9 (+0x24) of vtable 0x007D32D0, the table the matched
 // ScreenMapperClass constructor 0x0013DA40 and Clone 0x0013DA80 install
@@ -58,13 +51,23 @@ void ScreenMapperClass::Calculate_Texture_Matrix(Matrix4 &tex_matrix)
 	// followed by scale and translation
 	tex_matrix = g_mapperProjectionUpload_009EDBF0.Transpose();
 	tex_matrix[0] *= Scale.X; // entire row since we're pre-multiplying
-	tex_matrix[1] *= Scale.Y;
+	float ky=Scale.Y;
+ tex_matrix[1].X=ky*tex_matrix[1].X;
+ tex_matrix[1].Y=ky*tex_matrix[1].Y;
+ tex_matrix[1].Z=ky*tex_matrix[1].Z;
+ tex_matrix[1].W=ky*tex_matrix[1].W;
 	Vector4 last(tex_matrix[3]); // this gets the w
 	last *= offset_u; // multiply by w because the projected flag will divide by w
-	tex_matrix[0] += last;
+	tex_matrix[0].X=last.X+tex_matrix[0].X;
+tex_matrix[0].Y=last.Y+tex_matrix[0].Y;
+tex_matrix[0].Z=last.Z+tex_matrix[0].Z;
+tex_matrix[0].W=last.W+tex_matrix[0].W;
 	last = tex_matrix[3];
 	last *= offset_v;
-	tex_matrix[1] += last;
+	tex_matrix[1].X=last.X+tex_matrix[1].X;
+tex_matrix[1].Y=last.Y+tex_matrix[1].Y;
+tex_matrix[1].Z=last.Z+tex_matrix[1].Z;
+tex_matrix[1].W=last.W+tex_matrix[1].W;
 
 	// Update state
 	CurrentUVOffset.X = offset_u;

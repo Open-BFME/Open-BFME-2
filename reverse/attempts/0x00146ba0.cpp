@@ -1,4 +1,6 @@
 // ?Generate_Texture_Categories@DX8FVFCategoryContainer@@IAEXAAVVertex_Split_Table@@I@Z
+// partial score=0.95 date=2026-10-09
+// ?Generate_Texture_Categories@DX8FVFCategoryContainer@@IAEXAAVVertex_Split_Table@@I@Z
 // partial score=0.94 date=2026-10-08
 // cl: /O2 /arch:SSE /G7 /DNDEBUG /MD /EHsc
 // Semantic guide: ZH dx8renderer.cpp Add_Mesh. BFME2 target 145620..145A65.
@@ -16,7 +18,7 @@ public:
  T *Referent;
  RefCountPtr();
  RefCountPtr(const RefCountPtr &v) : Referent(v.Referent) { if(Referent) ++Referent->refs; }
- ~RefCountPtr();
+ ~RefCountPtr(){if(Referent) Referent->Release_Ref();}
  T *Peek_Referent() const {return Referent;}
  RefCountPtr &operator=(const RefCountPtr &v) { if(v.Referent) ++v.Referent->refs; if(Referent) Referent->Release_Ref(); Referent=v.Referent; return *this; }
  bool operator==(const RefCountPtr &rhs) const {return Referent==rhs.Referent;}
@@ -98,10 +100,10 @@ void DX8FVFCategoryContainer::Generate_Texture_Categories(Vertex_Split_Table& sp
  for(unsigned pass=0;pass<split_table.Get_Pass_Count();++pass) {
   Textures_Material_And_Shader_Booking_Struct booking;
   for(int i=0;i<polygon_count;++i) {
-   RefCountPtr<TextureClass> textures[2];
+   ShaderClass shader; RefCountPtr<TextureClass> textures[2];
    for(int stage=0;stage<2;++stage) textures[stage]=split_table.Peek_Texture(i,pass,stage);
    VertexMaterialClass *mat=split_table.Peek_Material(i,pass);
-   ShaderClass shader=split_table.Peek_Shader(i,pass);
+   shader=split_table.Peek_Shader(i,pass);
    if(!booking.Add_Textures_Material_And_Shader(reinterpret_cast<BfmeHandleCX*>(textures),mat,shader))continue;
    Insert_To_Texture_Category(split_table,reinterpret_cast<TextureClass**>(textures),mat,shader,pass,vertex_offset);
   }
