@@ -1,6 +1,8 @@
 // ?rva00559AF9@Rva00559AC1@@QAEMH@Z
+// partial score=0.8553470919324578 date=2026-10-09
+// ?rva00559AF9@Rva00559AC1@@QAEMH@Z
 // partial score=0.792683 date=2026-10-09
-// cl: /Ireference/shims/bfme2_ascii /EHsc /DNDEBUG /MD /arch:SSE
+// cl: /O1 /Oy- /G7 /Ireference/shims/bfme2_ascii /EHsc /DNDEBUG /MD /arch:SSE
 // ?rva00559AC1@Rva00559AC1@@QAEHH@Z @0x00559AC1 27B: index search returning prior slot with 10 fallback.
 // Evidence: unlock lane making 2 callers ready; callers pass same this and int arg with ret 4; no callees.
 // ?rva00559C25@Rva00559AC1@@QAEPBVImage@@HH@Z @0x00559C25 24B: side+value to rank icon via search then GetImage.
