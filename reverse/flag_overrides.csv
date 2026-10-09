@@ -505,6 +505,7 @@ Code/Libraries/Source/Apt/AptObject/AptArrayConstructor.cpp,-O2,12,8,region defa
 Code/Libraries/Source/Apt/AptObject/AptCIHProceduralAllocation.cpp,-O2,1,1,region default loses rows
 Code/Libraries/Source/Apt/AptObject/AptFactoryConstructors.cpp,-O2,13,3,region default loses rows
 Code/Libraries/Source/Apt/AptObject/AptScriptFunctionBodies.cpp,-O2,6,1,region default loses rows
+Code/Libraries/Source/Apt/AptRefArrayResize.cpp,-O2,1,1,region default loses rows
 Code/Libraries/Source/Apt/AptValue/AptFloatCreateBFME2.cpp,-O2,1,1,region default loses rows
 Code/Libraries/Source/Apt/AptValue/AptScalarValueConstructors.cpp,-O1,3,1,region default loses rows
 Code/Libraries/Source/Apt/AptValue/AptValueToBoolBFME2.cpp,-O2,1,1,region default loses rows

@@ -1,5 +1,5 @@
 // cl: /O2 /G6 /DNDEBUG /MD /EHsc
-// WB17609C0 clock ctor structural guide. PC64B Date has clocks20/40,
+// WB17609C0 clock ctor structural guide. PC100B Date has clocks20/40,
 // timezone60, whereas WB clock24/44 timezone64. Target setDates proves ABI.
 #include "AptObject/AptScriptFunction.h"
 // ?AptValueGC::AptValueGC present-unmatched
