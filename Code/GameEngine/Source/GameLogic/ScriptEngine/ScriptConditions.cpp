@@ -87,12 +87,15 @@ public:
 class Condition
 {
 public:
-	Parameter *getParameter(Int ndx) const { if (ndx >= 0 && ndx < m_numParms) return m_parms[ndx]; return 0; }
+	Bool isInverted() const { return m_inverted; }
+    Parameter *getParameter(Int ndx) const { if (ndx >= 0 && ndx < m_numParms) return m_parms[ndx]; return 0; }
 
 private:
 	unsigned char m_pad00[8];
 	Int m_numParms;				// +0x08
-	Parameter *m_parms[12];			// +0x0C
+	Parameter *m_parms[13];			// +0x0C
+	char m_unknown40[0x0d];
+	bool m_inverted;				// +0x4D
 };
 
 class Team
@@ -166,7 +169,14 @@ extern ScriptEngine *TheScriptEngine;
 
 class ScriptConditions
 {
+public:
+	virtual void slot00(); virtual void slot01(); virtual void slot02(); virtual void slot03();
+	virtual void slot04(); virtual void slot05(); virtual void slot06(); virtual void slot07();
+	virtual void slot08(); virtual void slot09(); virtual void slot10(); virtual void slot11();
+	virtual void slot12(); virtual void slot13();
+	virtual Bool evaluateCondition(Condition *condition);
 protected:
+	Bool evaluateConditionHelper(Condition *condition);
 	Bool evaluateHasEvaEventPlayedInLastNSeconds(const AsciiString &eventName, Real seconds);
 	Bool evaluatePlayerHasNumberUnitsDistanceFromObject(Parameter *pPlayerParm, Parameter *pComparisonParm,
 		Parameter *pCountParm, Parameter *pDistanceParm, Parameter *pObjectParm);
@@ -238,4 +248,14 @@ Bool ScriptConditions::evaluatePlayerHasNumberUnitsDistanceFromObject(Parameter 
 	default:			result = false; break;
 	}
 	return result;
+}
+
+// Native 3EC8D4..3EC8F7 (35B), WB FF4530; native vtable and the
+// rowed ScriptEngine caller establish evaluateCondition at slot14 (+38).
+// The private helper is rowed at3EA9AF; bool locals preserve native CL.
+// Condition has13 parameter slots per that dispatcher and inversion at4D.
+Bool ScriptConditions::evaluateCondition(Condition *condition) {
+ Bool result=evaluateConditionHelper(condition);
+ Bool inverted=condition->isInverted();
+ return inverted ? !result : result;
 }
