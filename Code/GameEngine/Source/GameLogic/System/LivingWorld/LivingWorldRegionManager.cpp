@@ -625,16 +625,9 @@ void Rva0020FDDFHost::rva0020FDDF()
 // player48B and pointer-array sorting loops. The third stack word is a
 // reference to a callback pointer; slot0 receives both army pointers.
 class Rva003F409F;
-// Callback prefix: slot0 compares two army words, slot1 deletes, slot2 visits.
-// Native BE4318/BE4334 prove the order; the sort reads slot0 only.
-class Rva0020E20C {
-public:
- virtual bool Compare(void *,void *)=0;
- virtual ~Rva0020E20C();
- virtual bool Visit(Rva003F409F *);
-protected:
- Rva003F409F *owner04;
-};
+// Callback prefix: slot0 compares two army words and slot1 deletes.
+// Separate installed tables BE4320/BE433C bound BE4318/BE4334 at two slots.
+#include "../../../../Include/Common/RegionArmyComparatorView.h"
 class LivingWorldBattle {
 public:
  class BattlePlayer {
@@ -670,12 +663,6 @@ void LivingWorldBattle::rva003F4A46(int side,int player,Rva0020E20C *const &comp
 struct CompareRecord { int a,b; };
 struct CompareSummary { char pad00[0x40]; _STL::vector<char> entries; };
 struct CompareArmy { char pad00[0x78]; CompareSummary *summary; CompareSummary *getSummary() const { return summary; } };
-class Rva0020E205:public Rva0020E20C {
-public:
- virtual bool Compare(void *,void *);
- virtual ~Rva0020E205() {}
- virtual bool Visit(Rva003F409F *);
-};
 bool Rva0020E205::Compare(void *first,void *second)
 {
  int leftBytes=static_cast<CompareArmy *>(first)->getSummary()->entries.size() & ~7;

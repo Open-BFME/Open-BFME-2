@@ -1,0 +1,140 @@
+{
+ "bases": [],
+ "bases_by": "bytes",
+ "class": "Rva0020E20C",
+ "evidence": {
+  "canonical_header": "Code/GameEngine/Include/Common/RegionArmyComparatorView.h",
+  "compiler_codeview": {
+   "bases": [],
+   "fields": [],
+   "fwd": false,
+   "key": "class",
+   "methods": [
+    "Compare",
+    "Rva0020E20C",
+    "__local_vftable_ctor_closure",
+    "__vecDelDtor",
+    "~Rva0020E20C"
+   ],
+   "size": 4,
+   "statics": [],
+   "vfptr": true,
+   "virtual": [
+    "Compare",
+    "__vecDelDtor",
+    "~Rva0020E20C"
+   ],
+   "vslots": {
+    "0": "Compare(void*,void*)",
+    "1": "__vecDelDtor(uint)"
+   }
+  },
+  "native_witness": "native installers separately begin BE4320 at20E396 and BE433C at20E76D; these one-slot visitor tables bound the adjacent comparator tables at two slots. Sort117B calls slot0 with two army pointers; derived comparison47B reads army+78 summaries; AddBattle307B uses a four-byte callback and restores BE4318",
+  "qualification": "four-byte compiler prefix; original interface names and full retail class extents unproved; whole8-byte table relocations agree via witnessed kind2 COFF weak fallbacks; link/runtime qualification remains separate",
+  "retail_vtables": {
+   "0x00BE4318": {
+    "slots": [
+     "0x0003B810",
+     "0x0020E20C"
+    ]
+   }
+  },
+  "verification": "75/75 comparator provider/consumer bodies and6/6 EH exact; original7 visitor provider rows restored unchanged and checked separately; data_check enforce zero findings",
+  "verified_row_rvas": [
+   "0x0020E20C"
+  ]
+ },
+ "fields": [],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 1
+ },
+ "outliers": [],
+ "prior_private_view_audit": {
+  "bases": [],
+  "bases_by": "majority",
+  "class": "Rva0020E20C",
+  "evidence": {
+   "census": 2,
+   "retail_access": {},
+   "retail_member_rows": 0,
+   "retail_vtables": {},
+   "view_errors": 0,
+   "view_sizes": {
+    "4": 1,
+    "8": 1
+   },
+   "views": 2,
+   "witness_offsets": [],
+   "zh": {}
+  },
+  "fields": [
+   {
+    "decided_by": "bytes",
+    "kind": "VPTR",
+    "name": "__vfptr",
+    "name_by": "majority",
+    "offset": 0,
+    "retail_widths": {},
+    "size": 4,
+    "type": "void*",
+    "views": 2,
+    "witness": null
+   },
+   {
+    "decided_by": "bytes",
+    "kind": "P",
+    "name": "owner04",
+    "name_by": "majority",
+    "offset": 4,
+    "retail_widths": {},
+    "size": 4,
+    "type": "Rva003F409F*",
+    "views": 1,
+    "witness": null
+   }
+  ],
+  "key": "class",
+  "key_by": "bytes",
+  "ledger_keys": {
+   "class": 1
+  },
+  "outliers": [],
+  "queue": [
+   {
+    "attribute": "slot0",
+    "candidates": {
+     "Compare(void*,void*)": 1,
+     "__vecDelDtor(uint)": 1
+    },
+    "class": "Rva0020E20C"
+   }
+  ],
+  "size": 8,
+  "size_by": "majority",
+  "vslots": {
+   "1": {
+    "decided_by": "bytes",
+    "member": "__vecDelDtor(uint)"
+   },
+   "2": {
+    "decided_by": "bytes",
+    "member": "Visit(Rva003F409F*)"
+   }
+  }
+ },
+ "queue": [],
+ "size": 4,
+ "size_by": "bytes",
+ "vslots": {
+  "0": {
+   "decided_by": "retail-vftable",
+   "member": "Compare(void*,void*)"
+  },
+  "1": {
+   "decided_by": "retail-vftable",
+   "member": "__vecDelDtor(uint)"
+  }
+ }
+}

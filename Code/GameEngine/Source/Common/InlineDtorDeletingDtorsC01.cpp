@@ -269,23 +269,15 @@ Rva00203E76::Rva00203E76(EmitVtableTag *)
 {
 }
 
-class Rva0020E20C
-{
-public:
-	Rva0020E20C(EmitVtableTag *);
-	virtual ~Rva0020E20C();
-};
+#include "../../Include/Common/RegionArmyComparatorView.h"
 
 // ?<Rva0020E20C::Rva0020E20C> absent-from-retail
 Rva0020E20C::Rva0020E20C(EmitVtableTag *)
 {
 }
 
-// ??1Rva0020E20C@@UAE@XZ @0x0020E205 7B: the empty dtor, restoring the vtable;
-// the deleting dtor still expands it inline.
-Rva0020E20C::~Rva0020E20C()
-{
-}
+// The canonical two-slot base keeps its empty destructor inline; its
+// 7-byte emitted body at20E205 restores BE4318, as before.
 
 class Rva00215E42
 {

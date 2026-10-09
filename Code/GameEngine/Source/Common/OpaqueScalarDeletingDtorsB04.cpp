@@ -130,13 +130,7 @@ Rva0020DF0B::Rva0020DF0B(EmitVtableTag *)
 {
 }
 
-class Rva0020E205
-{
-public:
-	Rva0020E205(EmitVtableTag *);
-public:
-	virtual ~Rva0020E205();
-};
+#include "../../Include/Common/RegionArmyComparatorView.h"
 
 // ?<Rva0020E205::Rva0020E205> absent-from-retail
 Rva0020E205::Rva0020E205(EmitVtableTag *)

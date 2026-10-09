@@ -4169,7 +4169,6 @@ name,address,notes
 ??1Rva00207F08Dtor@@QAE@XZ,0x00207F08,dtor thunk stub at 0x00207F08 to 0x002FECBC (target of thunk 0x007B9720)
 ??1Rva0020D9EC@@UAE@XZ,0x0020D9EC,"destructor the scalar deleting destructor 0x0020D9D0 calls (REL32 at 0x0020D9D3; vtable 0x00BE3FF4#0); opaque address name"
 ??1Rva0020DF0B@@UAE@XZ,0x0020DF0B,"destructor the scalar deleting destructor 0x0020E1E1 calls (REL32 at 0x0020E1E4; vtable 0x00BE40A0#0); opaque address name"
-??1Rva0020E205@@UAE@XZ,0x0020E205,"destructor the scalar deleting destructor 0x0020E6DF calls (REL32 at 0x0020E6E2; vtable 0x00BE4334#1); opaque address name"
 ??1Rva002109F8@@QAE@XZ,0x00210830,non-virtual dtor called directly by scalar deleting dtor 0x002109F8; owning class unproven
 ??1Rva00210CF1@@QAE@XZ,0x003FA14B,non-virtual dtor called directly by scalar deleting dtor 0x00210CF1; owning class unproven
 ??1Rva0021113D@@UAE@XZ,0x0021113D,"destructor the scalar deleting destructor 0x00211121 calls (REL32 at 0x00211124; vtable 0x00BE5118#0); opaque address name"
