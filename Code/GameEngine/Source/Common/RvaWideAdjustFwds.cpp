@@ -92,7 +92,7 @@ struct Rva0040E6D6Arg;
 class Rva0040E6D6Host
 {
 public:
-	void __fastcall forwardFrom(int unused, Rva0040E6D6Arg *arg);
+	void forwardFrom(Rva0040E6D6Arg *arg);
 };
 
 class Rva0040E0B7
@@ -104,7 +104,6 @@ public:
 class GameLogic
 {
 public:
-	void __fastcall rva0023CFFC(int unused, Rva0040E6D6Arg *arg);
 	void rva0023D033();
 	void rva0023D054(int a, int b, Rva0040D2FDVec *out);
 	const AsciiString *rva0023D05F(int value);
@@ -136,9 +135,12 @@ public:
 	void fwd(void *arg);
 };
 
-void __fastcall GameLogic::rva0023CFFC(int unused, Rva0040E6D6Arg *arg)
+// Native AddArmy2E24FA supplies this plus one stack argument, no EDX input.
+// The neutral receiver view avoids claiming an original GameLogic method name.
+class Rva0023CFFCLogic {public:void rva0023CFFC(Rva0040E6D6Arg*);};
+void Rva0023CFFCLogic::rva0023CFFC(Rva0040E6D6Arg *arg)
 {
-	((Rva0040E6D6Host *)((char *)this + 0x184))->forwardFrom(unused, arg);
+	((Rva0040E6D6Host *)((char *)this + 0x184))->forwardFrom(arg);
 }
 
 // ?rva0023D033@GameLogic@@QAEXXZ @0x0023D033 11B.
