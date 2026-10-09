@@ -4083,7 +4083,6 @@ name,address,notes
 ??1Rva00109610@@UAE@XZ,0x00109610,opaque dtor; call target of retail scalar-deleting-dtor at 0x10BA83 (28B flag-test shape); Ghidra function start; identity unproven; address-derived name
 ??1Rva00109C7F@@UAE@XZ,0x00109C7F,opaque dtor; call target of retail scalar-deleting-dtor at 0x109C63 (28B flag-test shape); Ghidra function start; identity unproven; address-derived name
 ??1Rva0010C785@@UAE@XZ,0x0010C785,opaque dtor; call target of retail scalar-deleting-dtor at 0x10C825 (28B flag-test shape); Ghidra function start; identity unproven; address-derived name
-??1Rva0010EDC2@@UAE@XZ,0x0010EDC2,opaque SEH dtor (mov-eax-cookie prologue); called by scalar-deleting-dtor at 0xA7797; identity unproven, address-derived name
 ??1Rva0010EFCD@@UAE@XZ,0x0010EFCD,"destructor the scalar deleting destructor 0x0010EFD4 calls (REL32 at 0x0010EFD7; vtable 0x00BCFAA4#0); opaque address name"
 ??1Rva0010F00C@@UAE@XZ,0x0010F00C,"destructor the scalar deleting destructor 0x0010EFF0 calls (REL32 at 0x0010EFF3; vtable 0x00BCFA64#0); opaque address name"
 ??1Rva0010F0C4@@UAE@XZ,0x0010F0C4,opaque dtor; call target of retail scalar-deleting-dtor at 0x10F6EE (28B flag-test shape); Ghidra function start; identity unproven; address-derived name

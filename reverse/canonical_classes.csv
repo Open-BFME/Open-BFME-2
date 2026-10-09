@@ -93,3 +93,4 @@ AreaRefValueView,Code/GameEngine/Source/GameLogic/Map/AreaSetEntryView.h,native 
 Rva0030C95C,Code/GameEngine/Source/GameLogic/Map/AreaSetEntryView.h,native 30C95C and callers30C61B/30CE66 prove retained-reference ownership and layout; original reference/entry spelling unasserted
 Rva00351570Src,Code/GameEngine/Include/GameLogic/BfmeAICommandParameterView.h,existing header; contract class_contracts/Rva00351570Src.json; 1/1 sampled units adopt
 Rva00351570,Code/GameEngine/Include/GameLogic/BfmeStoredAICommandView.h,existing header; contract class_contracts/Rva00351570.json; 1/1 sampled units adopt
+Rva0010EDC2,Code/GameEngine/Include/Common/Rva0010EDC2Resource.h,native 10ED4C/10EDC2 and scalar A7797 prove the consumed resource fields; exact two-state EH graph; original class identity unknown

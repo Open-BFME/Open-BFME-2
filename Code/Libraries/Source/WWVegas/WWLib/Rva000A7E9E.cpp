@@ -15,6 +15,7 @@
 #include <set>
 #include <list>
 #include "ascii_string.h"
+#include "../../../../GameEngine/Include/Common/Rva0010EDC2Resource.h"
 
 struct TreeKey00242F5E
 {
@@ -107,35 +108,6 @@ public:
 private:
 	Rva00041037Mutex *m_mutex;
 	bool m_flag;
-};
-
-class Rva0049B47C
-{
-public:
-	virtual ~Rva0049B47C();
-
-private:
-	char m_pad04[8];
-};
-
-class MiBase1
-{
-public:
-	virtual void f1();
-};
-
-class Rva0010EDC2_B2
-{
-public:
-	virtual void f2();
-};
-
-class Rva0010EDC2 : public Rva0049B47C, public MiBase1, public Rva0010EDC2_B2
-{
-public:
-	virtual ~Rva0010EDC2()
-	{
-	}
 };
 
 class Rva000427195

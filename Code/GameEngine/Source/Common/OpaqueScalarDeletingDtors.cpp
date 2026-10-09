@@ -1,4 +1,4 @@
-// cl: /MD /EHsc
+// cl: /MD /EHsc /Ireference/shims/bfme2_ascii
 // The shared headers declare these members with the access/virtual spelling
 // the referring objects use; this TU emits the paired definition spelling.
 // Same function, same address: bind the header spelling here.
@@ -1399,25 +1399,16 @@ void Rva007C0F5_Anchor(Rva007C0F5 *p)
 	p->Rva007C0F5::~Rva007C0F5();
 }
 
-class Rva0010EDC2_B2
+// Native A7797..A77B3 calls the complete resource cleanup at 10EDC2,
+// conditionally frees storage for flag bit zero, and returns the same pointer.
+// Share the recovered nonvirtual layout rather than the old three-vptr stand-in.
+#include "../../Include/Common/Rva0010EDC2Resource.h"
+void *Rva0010EDC2::destroy(unsigned int flags)
 {
-public:
-	virtual void f2();
-};
-
-class Rva0010EDC2 : public Rva0049B47C, public MiBase1, public Rva0010EDC2_B2
-{
-public:
-	virtual ~Rva0010EDC2()
-	{
-	}
-};
-
-// Anchor: forces out-of-line emission of the in-class destructor COMDAT,
-// including the scalar deleting destructor.
-void Rva0010EDC2_Anchor(Rva0010EDC2 *p)
-{
-	p->Rva0010EDC2::~Rva0010EDC2();
+    this->~Rva0010EDC2();
+    if (flags & 1)
+        ::operator delete(this);
+    return this;
 }
 
 class Rva004E32F2_B2
