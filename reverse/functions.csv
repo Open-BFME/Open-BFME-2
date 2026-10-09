@@ -73955,3 +73955,4 @@ _VP6_AllocateFragmentInfo,,0x001B9140,396,Code/Libraries/Source/VP6/AllocateFrag
 ?Rva003C549DDo@@YGXVAsciiString@@ABV1@@Z,,0x003C549D,152,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_Rva003C549DDo.cpp,matched,byte twin of Rva003C5405Do with the countdown flag set
 ??1Rva003B766B@@QAE@XZ,,0x003B766B,77,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListRva003B766BDtor.cpp,matched,
 ?Rva003C7A30Do@@YGXPAVParameter@@H@Z,,0x003C7A30,195,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_Rva003C7A30Do.cpp,matched,
+?rva003B80B8@Rva003B573E@@QAEHABV?$StringBase@D@@PAH@Z,,0x003B80B8,137,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListSubrecordAddRva003B80B8.cpp,matched,
