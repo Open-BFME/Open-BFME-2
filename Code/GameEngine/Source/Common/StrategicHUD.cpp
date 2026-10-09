@@ -142,14 +142,6 @@ private:
 };
 }
 
-class Rva0057AD6E
-{
-public:
-	Rva0057AD6E(int level, const AsciiString &name); // 0x0057B5AA
-
-private:
-	unsigned char m_pad[0x50];
-};
 
 class Rva0057BD01
 {
@@ -198,7 +190,11 @@ public:
 class ChecklistUIImpl
 {
 public:
-	void rva0057B499();
+ ChecklistUIImpl(int level,const AsciiString &name);
+ virtual ~ChecklistUIImpl();
+ void rva0057B499();
+private:
+ unsigned char m_pad004[0x50-4];
 };
 
 class SelectionDetailsUIImpl
@@ -323,10 +319,10 @@ class Rva0042D81D
 public:
 	Rva0042D81D() : m_ptr(0) {}
 	~Rva0042D81D() { rva0042D840(); }
-	void rva0042D81D(Rva0057AD6E *p);
+	void rva0042D81D(StrategicHUD::ChecklistUIImpl *p);
 	void rva0042D840();
 
-	Rva0057AD6E *m_ptr;
+	StrategicHUD::ChecklistUIImpl *m_ptr;
 };
 
 class Rva0042D87D
@@ -573,7 +569,7 @@ StrategicHUD::HUD::Impl::~Impl()
 void StrategicHUD::HUD::Impl::OnChecklistLoaded(const char *name)
 {
 	if (m_checklist.m_ptr == 0)
-		m_checklist.rva0042D81D(new Rva0057AD6E(AptUtils::LevelIndexFromTarget(name), AsciiString(AptUtils::SkipLevelN(name))));
+		m_checklist.rva0042D81D(new StrategicHUD::ChecklistUIImpl(AptUtils::LevelIndexFromTarget(name), AsciiString(AptUtils::SkipLevelN(name))));
 }
 
 // Retail 0x0042DA77, 11 bytes: bound as "_level%u_OnChecklistUnloaded".
