@@ -1,6 +1,8 @@
 // ?draw@W3DMouse@@UAEXXZ
 // partial score=0.99 date=2026-10-09
 // ?draw@W3DMouse@@UAEXXZ
+// partial score=0.99 date=2026-10-09
+// ?draw@W3DMouse@@UAEXXZ
 // partial score=0.99 date=2026-10-06
 // cl: /O1 /arch:SSE /G7 /DNDEBUG /Ireference/shims/bfme2_ascii /MD /EHsc
 //
@@ -357,15 +359,13 @@ extern "C" __declspec(dllimport) int __stdcall GetCursorPos( POINT *point );
 extern "C" __declspec(dllimport) int __stdcall ScreenToClient( void *hwnd, POINT *point );
 extern void *ApplicationHWnd;
 
-// class-gate: allow Coord2D the canonical header carries no members; this view adds only the rowed normalize 0x0000378A on the same 8-byte layout
-class Coord2D
-{
-public:
-	float x;
-	float y;
-
-	void normalize( void );
-};
+#include "../../Code/Libraries/Include/Lib/Coord2D.h"
+static __forceinline void copyScroll(Coord2D &out,const Coord2D &in) {
+    const volatile unsigned *words=reinterpret_cast<const volatile unsigned *>(&in);
+    unsigned first=words[0],second=words[1];
+    reinterpret_cast<unsigned *>(&out)[0]=first;
+    reinterpret_cast<unsigned *>(&out)[1]=second;
+}
 
 class InGameUI
 {
@@ -871,7 +871,7 @@ void W3DMouse::draw(void)
 				if (TheInGameUI && TheInGameUI->isScrolling())
 				{
 					Coord2D offset;
-					offset = TheInGameUI->getScrollAmount();
+					copyScroll(offset, TheInGameUI->getScrollAmount());
 					offset.normalize();
 					Real theta = atan2f(-offset.y, offset.x);
 					theta -= (Real)M_PI/2;
