@@ -18,7 +18,7 @@ public:
 class Rva005EE30C { public: virtual ~Rva005EE30C(); };
 class Rva005D9CD5 : public Rva005EE30C {
 public:
-	bool rva005D9CE0(Object *other);
+	virtual bool rva005D9CE0(Object *other);
 };
 bool Rva005D9CD5::rva005D9CE0(Object *other)
 {

@@ -31,7 +31,7 @@ private:
 class Rva00573F03 : public Rva00573B23
 {
 public:
-	void rva00573F0E();
+	virtual void rva00573F0E();
 private:
 	Coord3DBase m_40;
 };

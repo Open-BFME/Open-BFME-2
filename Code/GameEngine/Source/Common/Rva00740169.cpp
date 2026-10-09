@@ -31,7 +31,7 @@ class Rva00740242 : public Rva007401F6
 {
 public:
 	virtual ~Rva00740242();
-	void rva00740169(int a, float b, float c, float d);
+	virtual void rva00740169(int a, float b, float c, float d);
 private:
 	M0CClass *m_0C;
 	void *m_10;

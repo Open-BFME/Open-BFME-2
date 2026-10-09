@@ -35,7 +35,7 @@ public:
 	Rva0055B0CC();
 	virtual ~Rva0055B0CC();
 	void rva0055B01F();
-	void rva0055B228();
+	virtual void rva0055B228();
 private:
 	float m_04;
 	int m_08;

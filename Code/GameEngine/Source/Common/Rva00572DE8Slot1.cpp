@@ -78,7 +78,7 @@ class Rva00572DE8 : public Rva005CB22A
 public:
 	Rva00572DE8();
 	virtual ~Rva00572DE8();
-	void rva00572E0F(AITarget *dst, Player *player, int unused);
+	virtual void rva00572E0F(AITarget *dst, Player *player, int unused);
 };
 
 void Rva00572DE8::rva00572E0F(AITarget *dst, Player *player, int unused)

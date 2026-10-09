@@ -82,7 +82,7 @@ private:
 class Rva005DAAB6 : public Rva0055B0CC
 {
 public:
-	bool rva005DABD5(bool arg);
+	virtual bool rva005DABD5(bool arg);
 private:
 	bool m_2C;
 	struct Coord3D

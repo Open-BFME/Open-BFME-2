@@ -89,7 +89,7 @@ public:
 	virtual void v0();
 	virtual void v1();
 	virtual int v2(int idx);
-	int rva005C1AE4(int idx);
+	virtual int rva005C1AE4(int idx);
 	void rva005C1ABA(const UnicodeString &name);
 	// Unrowed 0x005DD48C (353 bytes), pinned by address.
 	void rva005DD48C();

@@ -41,7 +41,7 @@ class Rva004FAC21 : public Rva004FA830
 {
 public:
 	Rva004FAC21(const StringBase<char> &s);
-	StringBase<char> rva004FAC4F();
+	virtual StringBase<char> rva004FAC4F();
 };
 
 StringBase<char> Rva004FAC21::rva004FAC4F()

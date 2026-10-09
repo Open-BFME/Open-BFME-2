@@ -53,7 +53,7 @@ private:
 class Rva005440BC : public StateMachine
 {
 public:
-	void rva005440CD();
+	virtual void rva005440CD();
 
 private:
 	char m_pad0C[ 8 ];

@@ -37,7 +37,7 @@ public:
 class Rva005E0B0F : public Rva0086E330Base
 {
 public:
-	void rva005E0B8F(int);
+	virtual void rva005E0B8F(int);
 private:
 	Rva005CB265 *m_04;
 	Rva005CB260 *m_08;
