@@ -1,8 +1,8 @@
 // ?rva00296065@Object@@QAEXPAURva00297612Entry@@@Z
-// partial score=0.8887731533183905 date=2026-10-09
+// partial score=0.8887731533183905 date=2026-10-10
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /I. /Ireference/shims/bfme2_ascii
 // Native296065..29660A RET4; native frameC8 and EBXowner/ESIentry/EDIvector allocation restored by cached vector pointer and scalar component copy.
-// Scorer uses read-only candidate contracts for unrowed3909FA/294D61/27B18C; no pins written.
+// Scorer uses read-only candidate contracts for existing consume3909FA plus provisional294D61/27B18C; no pins written.
 // Native296065..29660A RET4; owned queued caller2975AC supplies Rva00297612Entry.
 // ZH Object::attemptDamage shockwave section primary guide; target audio/airborne/recoil/AI feedback extensions follow native and WB CC92C0 Object.cpp.
 #include "Code/Libraries/Include/Lib/Coord3D.h"
@@ -16,7 +16,8 @@ class Drawable {public:Rva002390CB rva0028F8F9();Rva002390CB rva0028F8E0();void 
 class Rva002D9531 {public:void rva002D9531(int);};
 template<int N>class ShockSlots:public ShockSlots<N-1>{public:virtual void gap(char(*)[N])=0;};template<>class ShockSlots<0>{};
 class AudioManager:public ShockSlots<25>{public:virtual void addAudioEvent(BfmeAudioEventPrefix136*)=0;};extern AudioManager*TheAudio;
-class PhysicsBehavior {public:void rva003906BF();void rva00390557(const Coord3D*,float,float,int,int);void rva003909FA(const Coord3D*,int,int);void rva00390629(bool);char pad0[0x5c];bool flag5c;};
+class Rva003909FAObj{public:void consume(void*,int,int);};
+class PhysicsBehavior {public:void rva003906BF();void rva00390557(const Coord3D*,float,float,int,int);void rva00390629(bool);char pad0[0x5c];bool flag5c;};
 class AttributeModifierPoolUpdate {public:bool rva00403382(int,float*,int);};
 struct ShockBodyEntry {char pad0[8];ObjectID source;};
 class BodyModule:public ShockSlots<15>{public:virtual ShockBodyEntry*slot15()=0;};
@@ -49,7 +50,7 @@ void Object::rva00296065(Rva00297612Entry*entry){
   else{float taper=1.0f-percent*(1.0f-entry->taper);Coord3D forceVector;forceVector.x=shockVector->x;forceVector.y=shockVector->y;forceVector.z=shockVector->z;forceVector.normalize();
    if(!force){float scale=entry->amount*taper*random;forceVector.x*=scale;forceVector.y*=scale;forceVector.z*=scale;forceVector.z=forceVector.length()*entry->up*random;}
    else{Object*source=TheGameLogic->findObjectByID(entry->source);if(source&&entry->radius>0.0f){float relative[3];float*point=((Rva001E438B*)this)->rva00261988(relative,(Rva001E438B*)source);float negativeHeight=point[2]*-1.0f;float factor=1.0f-negativeHeight/entry->radius;float scale=entry->amount*factor*taper*random;random=GetGameLogicRandomValueReal(0.65f,1.35f,(char*)shockFile,4169);if(factor<0.0f)scale*=2.0f;forceVector.x*=scale;forceVector.y*=scale;forceVector.z*=scale;float r=entry->radius;forceVector.z=(1.0f-((Rva000CBA20*)this)->distSq((Rva000CBA20Point*)&source->position)/(r*r))*0.5f*entry->amount*random;}}
-   if(templ->kinds&0x80000000){if(forceVector.z>0.0f)forceVector.z=-forceVector.z;}else{if(forceVector.z<0.0f)forceVector.z=-forceVector.z;}behavior->rva003909FA(&forceVector,0,0);
+   if(templ->kinds&0x80000000){if(forceVector.z>0.0f)forceVector.z=-forceVector.z;}else{if(forceVector.z<0.0f)forceVector.z=-forceVector.z;}((Rva003909FAObj*)behavior)->consume(&forceVector,0,0);
   }
   if(!getCondition(127))setCondition(127);behavior->rva00390629(true);
   if(ai&&ai->getCurrentStateID()==45){ShockBodyEntry*data=body->slot15();Object*source=TheGameLogic->findObjectByID(data?body->slot15()->source:INVALID_OBJECT_ID);if(source&&!(status&1))source->scoreTheKill(this,true);kill(DAMAGE_UNKNOWN8,DEATH_UNKNOWN0);kill(DAMAGE_UNKNOWN8,DEATH_UNKNOWN0);}
