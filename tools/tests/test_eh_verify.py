@@ -201,3 +201,68 @@ def test_scheduled_frame_requires_funcinfo_magic():
     image[FUNCINFO:FUNCINFO + 4] = bytes(4)
     retail.bytes = bytes(image)
     assert retail.frame_funcinfo(FUNC) is None
+
+
+def scheduled_sse_frame(retail):
+    # PointGroup's /O2 prolog: preserve the previous FS chain in eax while
+    # scheduling two SSE instructions before push -1 at offset 17.
+    prolog = bytes.fromhex("64a1000000000f57d2f30f1035") \
+        + struct.pack("<I", BASE + GUARD) + bytes.fromhex("6aff68") \
+        + struct.pack("<I", BASE + THUNK) + bytes.fromhex("5064892500000000")
+    image = bytearray(retail.bytes)
+    image[FUNC:FUNC + len(prolog)] = prolog
+    retail.bytes = bytes(image)
+    return retail
+
+
+def test_sse_scheduled_before_initial_handler_push():
+    retail = scheduled_sse_frame(Retail(OURS))
+    assert retail.frame_funcinfo(FUNC) == (THUNK, FUNCINFO)
+
+
+def test_sse_scheduled_frame_rejects_incomplete_or_changed_prefix():
+    for offset, replacement in (
+        (2, b"\x04"),             # FS chain must be read at fs:[0].
+        (6, b"\x31\xc0\x90"),     # An integer zero would clobber saved eax.
+        (8, b"\xd3"),             # xorps must zero its own XMM register.
+        (12, b"\x34"),            # A SIB load is not the witnessed absolute load.
+        (17, b"\x6a\x00"),         # The initial unwind state must be -1.
+        (20, struct.pack("<I", BASE + GUARD)),  # Not a handler thunk.
+        (24, b"\x51"),            # Must push the saved previous FS chain.
+        (25, b"\x90" * 7),         # Must install the new FS chain.
+    ):
+        retail = scheduled_sse_frame(Retail(OURS))
+        image = bytearray(retail.bytes)
+        image[FUNC + offset:FUNC + offset + len(replacement)] = replacement
+        retail.bytes = bytes(image)
+        assert retail.frame_funcinfo(FUNC) is None
+
+
+def test_late_handler_push_alone_is_not_an_eh_frame():
+    retail = scheduled_sse_frame(Retail(OURS))
+    image = bytearray(retail.bytes)
+    image[FUNC:FUNC + 17] = b"\x90" * 17
+    retail.bytes = bytes(image)
+    assert retail.frame_funcinfo(FUNC) is None
+
+
+def test_sse_scheduled_frame_still_checks_funcinfo_magic():
+    retail = scheduled_sse_frame(Retail(OURS))
+    image = bytearray(retail.bytes)
+    image[FUNCINFO:FUNCINFO + 4] = bytes(4)
+    retail.bytes = bytes(image)
+    assert retail.frame_funcinfo(FUNC) is None
+
+
+def test_sse_scheduled_frame_still_verifies_eh_graph(tmp_path):
+    retail = scheduled_sse_frame(Retail(OURS))
+    compiled = obj(tmp_path, OURS)
+    frame = bytearray(retail.bytes[FUNC:FUNC + 32])
+    frame[20:24] = bytes(4)
+    compiled.sections[0]["data"] = bytes(frame)
+    compiled.sections[0]["relocs"] = [(20, 2, 6)]
+    assert eh_verify.verify_row(retail, compiled, "_f", FUNC) == ("EXACT", "")
+    changed = bytearray(compiled.sections[2]["data"])
+    changed[4] = 2
+    compiled.sections[2]["data"] = bytes(changed)
+    assert eh_verify.verify_row(retail, compiled, "_f", FUNC)[0] == "bytes_differ"

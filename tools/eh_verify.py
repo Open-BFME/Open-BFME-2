@@ -91,6 +91,20 @@ class Image:
         if 0 <= push <= 12 and head[push + 12:push + 13] == b"\x68" \
                 and head[push + 17:push + 25] == b"\x50\x64\x89\x25\0\0\0\0":
             offsets.append(push + 13)
+        # PointGroup initialization (0x17E210) loads fs:[0] first, then
+        # schedules an XMM self-zero and an absolute scalar float load before
+        # push -1 / push handler. Neither instruction changes eax or esp.
+        # Admit this complete prefix and FS installation, rather than widening
+        # the search for an arbitrary late handler-looking push.
+        if len(head) >= 32 and head[:6] == b"\x64\xa1\0\0\0\0" \
+                and head[6:8] == b"\x0f\x57" \
+                and head[8] & 0xC0 == 0xC0 \
+                and ((head[8] >> 3) & 7) == (head[8] & 7) \
+                and head[9:12] == b"\xf3\x0f\x10" \
+                and head[12] & 0xC7 == 0x05 \
+                and head[17:20] == b"\x6a\xff\x68" \
+                and head[24:32] == b"\x50\x64\x89\x25\0\0\0\0":
+            offsets.append(20)
         for offset in offsets:
             thunk = struct.unpack_from("<I", head, offset)[0] - self.base
             if 0 <= thunk < self.size - 10 and self.bytes[thunk] == 0xB8 \
