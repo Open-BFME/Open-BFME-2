@@ -1,114 +1,143 @@
-// ?rva001F131F@Rva001F131F@@QAEXHH@Z
-// partial score=0.9885 date=2026-10-05
+// ?GetAssetList@GenericObjectCreationNugget@@QBEXAAVAssetList@@PAX@Z
+// partial score=0.82 date=2026-10-09
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+//
+// Ported from Open-BFME-1 game/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetGetAssetList.cpp
+// (BFME 1 retail 0x001D7F90 is the same body: member layout +0x04 names, +0x10 container,
+// +0x14 anim sets, +0x20 FX, +0x24 particle system is identical in BFME 2).
+// Open-BFME: GenericObjectCreationNugget asset collection, retail 0x001D7F90.
+// The adjacent constructor fixes the vector, string, FX, and particle fields.
+
 #include "ascii_string.h"
-// ?rva001F131F@Rva001F131F@@QAEXHH@Z @0x001F131F 407B: vslot 4 of GenericObjectCreationNugget.
-// Evidence: forwards HH to 0x001E11F8 when +0x20 set; StringBase isEmpty at +0x10/+0x24; rva002D06CAGet + notify pin; loops over AsciiString array +0x04..+0x08 and 12B records +0x14..+0x18 with a*/PlusString/AssetList; findTemplate via TheParticleSystemManager.
+
+// BFME 2's concatenation is lazy: a two-reference proxy that converts to
+// AsciiString out of line (0x000BC495).
+struct AsciiStringPlusString
+{
+	operator AsciiString();
+	const AsciiString *m_left;
+	const AsciiString *m_right;
+};
+
+static __forceinline AsciiStringPlusString operator+(const AsciiString &left, const AsciiString &right)
+{
+	AsciiStringPlusString result;
+	result.m_left = &left;
+	result.m_right = &right;
+	return result;
+}
+
+class AssetList
+{
+public:
+	AssetList &operator<<(const AsciiString &name);
+};
 
 class Rva001E11F8
 {
 public:
-	void rva001E11F8(int a, int b);
-};
-
-class Rva002D06CA
-{
-public:
-	void *rva002D06CA(const AsciiString *s);
+	void rva001E11F8(int first, int second);	// 0x001E11F8, null-checked forwarder
 };
 
 class Rva0020AA00Target
 {
 public:
-	void notify(int a, int b);
+	void notify(int first, int second);
 };
 
-class AssetList
+class ThingTemplate;
+
+class BfmeThingFactory
 {
 public:
-	AssetList &operator<<(const AsciiString &s);
+	const ThingTemplate *findTemplate(const AsciiString &name);
 };
 
-class ParticleSystemTemplate;
+// TU-local view of the 0x012EF1D8 template singleton; the global takes the
+// canonical spelling, defined once in Common/Thing/ThingFactory.cpp.
+class ThingFactory;
+extern ThingFactory *TheThingFactory;
+
+class Rva003392B0TemplateStore
+{
+public:
+	void *findTemplate(const AsciiString &name);
+};
+
 class ParticleSystemManager
 {
-public:
-	ParticleSystemTemplate *findTemplate(const AsciiString &s) const;
 };
+
 extern ParticleSystemManager *TheParticleSystemManager;
 
-struct AsciiStringRef
+struct GenericObjectCreationNuggetAnimSet
 {
-	const AsciiString *m_string;
+	AsciiString m_initial;
+	AsciiString m_flying;
+	AsciiString m_final;
 };
 
-struct AsciiStringPlusString : AsciiStringRef
+struct GenericObjectCreationNuggetStringVector
 {
-	operator AsciiString();
-	AsciiStringRef m_second;
+	AsciiString *m_begin;
+	AsciiString *m_end;
+	AsciiString *m_capacity;
 };
 
-class Rva001F131F
+struct GenericObjectCreationNuggetAnimSetVector
+{
+	GenericObjectCreationNuggetAnimSet *m_begin;
+	GenericObjectCreationNuggetAnimSet *m_end;
+	GenericObjectCreationNuggetAnimSet *m_capacity;
+};
+
+class GenericObjectCreationNugget
 {
 public:
-	void rva001F131F(int a, int b);
+	void GetAssetList(AssetList &assets, void *context) const;
+
 private:
-	void *m_vptr;
-	AsciiString *m_namesBegin;
-	AsciiString *m_namesEnd;
-	AsciiString *m_namesCap;
+	char m_vftable[4];
+	GenericObjectCreationNuggetStringVector m_names;
 	AsciiString m_putInContainer;
-	struct AnimSet
-	{
-		AsciiString m_initial;
-		AsciiString m_flying;
-		AsciiString m_final;
-	};
-	AnimSet *m_animBegin;
-	AnimSet *m_animEnd;
-	AnimSet *m_animCap;
+	GenericObjectCreationNuggetAnimSetVector m_animSets;
 	Rva001E11F8 *m_fxFinal;
 	AsciiString m_particleSysName;
 };
 
-extern Rva002D06CA *g_009FF000;
-
-// ?rva001F131F@Rva001F131F@@QAEXHH@Z present-unmatched
-void Rva001F131F::rva001F131F(int a, int b)
+void GenericObjectCreationNugget::GetAssetList(AssetList &assets, void *context) const
 {
 	if (m_fxFinal)
-		m_fxFinal->rva001E11F8(a, b);
-	if (!((const StringBase<char> &)m_putInContainer).isEmpty()) {
-		void *p = g_009FF000->rva002D06CA(&m_putInContainer);
-		if (p)
-			((Rva0020AA00Target *)p)->notify(a, b);
+		m_fxFinal->rva001E11F8((int)&assets, (int)context);
+
+	if (!m_putInContainer.isEmpty())
+	{
+		Rva0020AA00Target *container = (Rva0020AA00Target *)((BfmeThingFactory *)TheThingFactory)->findTemplate(m_putInContainer);
+		if (container)
+			container->notify((int)&assets, (int)context);
 	}
-	for (AsciiString *name = m_namesBegin; name != m_namesEnd; ++name) {
-		void *p = g_009FF000->rva002D06CA(name);
-		if (p)
-			((Rva0020AA00Target *)p)->notify(a, b);
+
+	for (AsciiString *name = m_names.m_begin; name != m_names.m_end; ++name)
+	{
+		Rva0020AA00Target *prototype = (Rva0020AA00Target *)((BfmeThingFactory *)TheThingFactory)->findTemplate(*name);
+		if (prototype)
+			prototype->notify((int)&assets, (int)context);
 	}
-	if (!((const StringBase<char> &)m_particleSysName).isEmpty())
-		TheParticleSystemManager->findTemplate(m_particleSysName);
-	for (AnimSet *animSet = m_animBegin; animSet != m_animEnd; ++animSet) {
+
+	if (!m_particleSysName.isEmpty())
+	{
+		((Rva003392B0TemplateStore *)TheParticleSystemManager)->findTemplate(m_particleSysName);
+	}
+
+	for (GenericObjectCreationNuggetAnimSet *animSet = m_animSets.m_begin;
+		animSet != m_animSets.m_end; ++animSet)
+	{
 		AsciiString prefix("a*");
-		if (!((const StringBase<char> &)animSet->m_initial).isEmpty()) {
-			AsciiStringPlusString plus;
-			plus.m_string = &prefix;
-			plus.m_second.m_string = &animSet->m_initial;
-			((AssetList *)a)->operator<<(plus);
-		}
-		if (!((const StringBase<char> &)animSet->m_flying).isEmpty()) {
-			AsciiStringPlusString plus;
-			plus.m_string = &prefix;
-			plus.m_second.m_string = &animSet->m_flying;
-			((AssetList *)a)->operator<<(plus);
-		}
-		if (!((const StringBase<char> &)animSet->m_final).isEmpty()) {
-			AsciiStringPlusString plus;
-			plus.m_string = &prefix;
-			plus.m_second.m_string = &animSet->m_final;
-			((AssetList *)a)->operator<<(plus);
-		}
+		if (!animSet->m_initial.isEmpty())
+			assets << prefix + animSet->m_initial;
+		if (!animSet->m_flying.isEmpty())
+			assets << prefix + animSet->m_flying;
+		if (!animSet->m_final.isEmpty())
+			assets << prefix + animSet->m_final;
 	}
 }
