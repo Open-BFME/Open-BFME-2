@@ -1,5 +1,3 @@
-// ?getTriangleIntersection@W3DTerrainBackground@@QAEXPAVVector3@@HHHHABV2@11@Z
-// partial score=0.99 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
 // Native [0011319A,00113399),511B, RET32. W3DTerrainBackground::
 // getTriangleIntersection (WorldBuilder name, "Bad index" assert in
@@ -95,6 +93,7 @@ private:
 	int m_mode;
 };
 
+// ?getTriangleIntersection@W3DTerrainBackground@@QAEXPAVVector3@@HHHHABV2@11@Z
 void W3DTerrainBackground::getTriangleIntersection(Vector3 *heights, int x, int y, int width, int height,
 	const Vector3 &v0, const Vector3 &v1, const Vector3 &v2)
 {
