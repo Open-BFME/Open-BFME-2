@@ -500,7 +500,8 @@ alloc:
 	}
 }
 
-// ?RadarObject::~RadarObject present-unmatched
+// Native C035D0's deleting slot calls the same canonical Snapshot
+// destructor fold at 49B47C; this complete seven-byte body has no own address.
 RadarObject::~RadarObject() {}
 
 // ?RadarObject::loadPostProcess present-unmatched
