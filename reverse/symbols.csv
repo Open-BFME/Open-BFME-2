@@ -15059,7 +15059,6 @@ _Rva001117E3Downsample,0x001117E3,callee of ?updateMips@TileData@@QAEXXZ
 ?MapGadgetInit@AptMapPreview@@QAEXPBDPAXPAVGameWindow@@@Z,0x0057E25D,callee of ?rva0057E45C@AptMapPreview@@QAEXXZ: bound as the "AptMapPreview::MapGadgetInit" screen reference (member pointer immediate 0x0097E25D at 0x0057E484); Ghidra FUN_0097e25d 382B ret 0xC; files the MapInfo/MapDescription/MapPicture/CurrentMap/StrategicScenario*/LivingWorld windows
 ?rva0057E058@AptMapPreview@@QAEXXZ,0x0057E058,callee of ?MapGadgetInit@AptMapPreview@@QAEXPBDPAXPAVGameWindow@@@Z (REL32 tail at 0x0057E3CF); same address as the ?rva0057E058@Rva0057E3DB@@QAEXXZ placeholder pin; address name
 ?Rva00411523CallAsFree@@YAXXZ,0x00411523,Address-derived call-shape alias; 0x0022244D call site preserves original ECX and the body at 0x00411523 does not read it
-?Rva006CFAB0@@YAXH@Z,0x006CFAB0,Address-derived call views supported by direct retail calls or tail call at 0x0022274A; semantic names and unobserved ABI details unresolved
 ?Rva00411B52@@YAXXZ,0x00411B52,Address-derived call views supported by direct retail calls or tail call at 0x0022274A; semantic names and unobserved ABI details unresolved
 ?Rva006CDF60@@YAXXZ,0x006CDF60,Address-derived call views supported by direct retail calls or tail call at 0x0022274A; semantic names and unobserved ABI details unresolved
 ?Rva006CC600@@YAXPBDPAD@Z,0x006CC600,Address-derived cdecl call view from retail direct call in 0x00222481; first arg is const literal and second is stack buffer
