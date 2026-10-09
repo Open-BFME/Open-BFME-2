@@ -22,7 +22,9 @@
 // creates two square A8R8G8B8 render targets of the settings size (+0x0C of
 // the block behind 0x00309E4B, stored at +0x2C) into +0x40/+0x44 with their
 // level-0 surfaces at +0x4C/+0x50, builds the gaussian kernel at +0x34 and
-// registers itself in W3DFilters[5] (0x00DE1F40). A shader or texture
+// registers itself in W3DFilters[5] (0x00DE1F40). Retail shutdown's
+// filter loop starts at 0x00DE1F2C, so this is slot 5 of its ten entries.
+// A shader or texture
 // creation failure calls shutdown (slot 1) and returns FALSE.
 //
 // Callees are the ledger's rows: 0x00132D89 BFME2LoadParticleTexture,
