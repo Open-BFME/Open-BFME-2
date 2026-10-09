@@ -1,4 +1,6 @@
 // ?calcPhysicsXform@Drawable@@QAE_NAAUPhysicsXformInfo@1@@Z
+// partial score=0.9247661122994653 date=2026-10-09
+// ?calcPhysicsXform@Drawable@@QAE_NAAUPhysicsXformInfo@1@@Z
 // partial score=0.9 date=2026-10-08
 // cl: /O1 /arch:SSE /G7 /DNDEBUG /MD
 // Reference control flow: BFME1 90fffa62857c Drawable::calcPhysicsXform,
@@ -56,16 +58,17 @@ public:
 class GameClient;
 extern GameClient *TheGameClient;
 
+class Locomotor;
 class Drawable
 {
 public:
     struct PhysicsXformInfo;
     bool calcPhysicsXform(PhysicsXformInfo &info);
-    void rva00276CFB(const DrawablePhysicsLocomotor *, PhysicsXformInfo &);
-    void rva00270817(const DrawablePhysicsLocomotor *, PhysicsXformInfo &);
-    void rva00270B0F(const DrawablePhysicsLocomotor *, PhysicsXformInfo &);
-    void rva0027B47F(const DrawablePhysicsLocomotor *, PhysicsXformInfo &);
-    void rva00272FB6(const DrawablePhysicsLocomotor *, PhysicsXformInfo &);
+    protected: void calcPhysicsXformWheels(const Locomotor *, PhysicsXformInfo &);public:
+    protected: void calcPhysicsXformTreads(const Locomotor *, PhysicsXformInfo &);public:
+    protected: void rva00270B0F(const Locomotor *, PhysicsXformInfo &);public:
+    protected: void calcPhysicsXformHugeFourLegs(const Locomotor *, PhysicsXformInfo &);public:
+    protected: void rva00272FB6(const Locomotor *, PhysicsXformInfo &);public:
     DrawablePhysicsObject *getObject() const { return object; }
 private:
     char unknown[0xFC];
@@ -92,24 +95,24 @@ bool Drawable::calcPhysicsXform(PhysicsXformInfo &info)
                 {
                 case 1:
                 case 8:
-                    rva00276CFB(locomotor, info);
+                    calcPhysicsXformWheels((const Locomotor*)locomotor, info);
                     hasPhysicsXform = true;
                     break;
                 case 2:
                 case 3:
-                    rva00270817(locomotor, info);
+                    calcPhysicsXformTreads((const Locomotor*)locomotor, info);
                     hasPhysicsXform = true;
                     break;
                 case 4:
-                    rva0027B47F(locomotor, info);
+                    calcPhysicsXformHugeFourLegs((const Locomotor*)locomotor, info);
                     hasPhysicsXform = true;
                     break;
                 case 5:
-                    rva00270B0F(locomotor, info);
+                    rva00270B0F((const Locomotor*)locomotor, info);
                     hasPhysicsXform = true;
                     break;
                 case 9:
-                    rva00272FB6(locomotor, info);
+                    rva00272FB6((const Locomotor*)locomotor, info);
                     hasPhysicsXform = true;
                     break;
                 }

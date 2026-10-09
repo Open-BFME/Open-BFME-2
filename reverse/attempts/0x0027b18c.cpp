@@ -1,262 +1,54 @@
-// ?rva0027B18C@Drawable@@QAEXPBUDamageInfo@@@Z
-// partial score=0.85 date=2026-10-10
-// NEAR (score ~0.85): ?rva0027B18C@Drawable@@QAEXPBVDamageInfo@@@Z retail 0x0027B18C 755 bytes
-// (Drawable damage Eva/radar handler; WB twin 0x00CB7E40; caller 0x00296065 at 0x002965F6).
-// Structure frame EH states and all calls line up (757 vs 755 bytes). Remaining:
-// esi/edi swapped between the this->template chain (retail esi) and the
-// DamageInfo/damage type/alt-event chain (retail edi); the first source null
-// test is cmp [ebp+8],0 then mov ecx where retail loads ecx and tests it (2 bytes).
-// Needs pin ?tryUnderAttackEvent@Radar@@QAEXPBVObject@@@Z=0x002D8B9D (log name).
-// Filter vtable 0x00BFAF88 has no ledger name. Target file would be
-// Code/GameEngine/Source/GameClient/Drawable_rva0027B18C.cpp
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /ICode/Libraries/Include/Lib
-#include "Coord3D.h"
-
-class Object;
-class Player;
+// ?rva0027B18C@Drawable@@QAEXPAUDamageInfo@@@Z
+// partial score=0.9045927228090382 date=2026-10-09
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /ICode/GameEngine/Source/Common
+// Native 27B18C..27B47F RET4; unnamed WB CB7E40 supplies damage/EVA control flow.
+// BF1 f989 / ZH Drawable lack this BF2 notification method; existing partition
+// filter callers guide filter lifetime, while target vftables prove the slots.
+#include "PartitionRangeQueryCallView.h"
+struct Coord3D {float x,y,z;};
+enum KindOfType {RvaKind0=0};
+enum ObjectID {INVALID_ID=0};
+class Player{public:char pad[0x54];int index;bool isLocalPlayer()const;};
+struct DamageInfo{char pad0[8];ObjectID source;unsigned playerMask;int damageType;int p14;int p18;int p1c;char pad20[5];bool report;char pad26[0x70-0x26];float amount;};
+struct BfmeDamageTemplate{char pad[0x10e];unsigned char flag10e;char pad10f[4];unsigned char flag113;char pad114[4];unsigned char flag118;char pad119[0x580-0x119];int event580,event584,event588,event58c;float range;unsigned delay;int event598;};
 class Drawable;
-enum ObjectID {};
-enum KindOfType {};
-enum EvaEventID {};
-
-class Rva000421C8
-{
-public:
-	Rva000421C8() : m_next(0) {}
-	virtual ~Rva000421C8() {}
-	virtual bool allow(Object *obj) = 0;
-	virtual int getPlayerMask();
-	Rva000421C8 *link(Rva000421C8 *next);	// 0x00625790
-	Rva000421C8 *m_next;
-};
-
-// vftable 0x00BFAF88: allow 0x00271B3C, keyed by an Eva event id.
-class Rva00271B3CFilter : public Rva000421C8
-{
-public:
-	Rva00271B3CFilter(int value) : m_value(value) {}
-	virtual bool allow(Object *obj);
-	int m_value;
-};
-
-// vftable 0x00BFAD04: is the candidate controlled by the +0x08 player.
-class Rva00260E2AFilter : public Rva000421C8
-{
-public:
-	Rva00260E2AFilter(Player *player) : m_player(player) {}
-	virtual bool allow(Object *obj);
-	virtual int getPlayerMask();
-	Player *m_player;
-};
-
-struct BfmeWideResult
-{
-	Object *next() throw();	// 0x00045623
-	~BfmeWideResult();	// 0x0004AA28
-	void *m_value;
-};
-
-class PartitionManager
-{
-public:
-	BfmeWideResult iterateObjectsInRange(const Coord3D *pos, float radius, int distCalc,
-		Rva000421C8 *filters, int order);	// 0x00625610
-};
-extern PartitionManager *ThePartitionManager;
-
-class Player
-{
-public:
-	bool isLocalPlayer() const;
-	char m_pad00[0x54];
-	int m_playerIndex;	// +0x54
-};
-
-class GameLogic
-{
-public:
-	Object *findObjectByID(ObjectID id);
-	char m_pad00[0x40];
-	unsigned int m_frame;	// +0x40
-};
-extern GameLogic *TheGameLogic;
-
-class Radar
-{
-public:
-	void tryUnderAttackEvent(const Object *obj);
-};
-extern Radar *TheRadar;
-
-class Eva
-{
-public:
-	bool isEventBlockedByTimeout(EvaEventID id) const;
-	bool isEventAboutToPlay(EvaEventID id) const;
-	void rva001DE2DA(int id, const Coord3D *pos, int playerIndex);
-};
-extern Eva *TheEva;
-
-class RadarWindowOverrideSource
-{
-public:
-	void rva002D3756(void *obj);
-};
-extern RadarWindowOverrideSource *theRadarWindowOverrideSource;
-
-class Rva00271B03
-{
-public:
-	void rva00271B03();
-};
-
-class BFMERopeDrawable
-{
-public:
-	const Coord3D *getPosition() const;
-};
-
-class Thing
-{
-public:
-	Drawable *getDrawable() const;
-};
-
-class ThingTemplate
-{
-public:
-	char m_pad000[0x10E];
-	unsigned char m_10E;
-	char m_pad10F[0x113 - 0x10F];
-	unsigned char m_113;
-	char m_pad114[0x118 - 0x114];
-	unsigned char m_118;
-	char m_pad119[0x580 - 0x119];
-	int m_evaEvent580;
-	int m_evaEvent584;
-	int m_evaEvent588;
-	int m_evaEventAlt58C;
-	float m_evaRadius590;
-	int m_pad594;
-	int m_evaEvent598;
-};
-
-class Object
-{
-public:
-	Player *getControllingPlayer() const;
-	bool isKindOf(KindOfType kind) const;
-	bool rva00293926(KindOfType kind);
-	bool rva00294471(void *player, int flag);
-	Drawable *getDrawable() const { return reinterpret_cast<const Thing *>(this)->getDrawable(); }
-	const Coord3D *getPosition() const { return &m_pos; }
-	char m_pad00[4];
-	const ThingTemplate *m_template;	// +0x04
-	char m_pad08[0x38 - 0x08];
-	Coord3D m_pos;			// +0x38
-	char m_pad44[0x260 - 0x44];
-	void *m_260;			// +0x260
-};
-
-class DamageInfo
-{
-public:
-	char m_pad00[8];
-	ObjectID m_sourceID;	// +0x08
-	unsigned int m_sourcePlayerMask;	// +0x0C
-	int m_damageType;		// +0x10
-	int m_pad14;
-	int m_18;				// +0x18
-	int m_deathType;		// +0x1C
-	char m_pad20[0x25 - 0x20];
-	bool m_25;				// +0x25
-	char m_pad26[0x70 - 0x26];
-	float m_actualDamageDealt;	// +0x70
-};
-
-class Drawable
-{
-public:
-	void rva0027B18C(const DamageInfo *info);
-	const ThingTemplate *getTemplate() const { return m_template; }
-	Object *getObject() const { return m_object; }
-	void *m_vtbl;
-	const ThingTemplate *m_template;	// +0x04
-	char m_pad008[0xFC - 0x08];
-	Object *m_object;		// +0xFC
-	char m_pad100[0x388 - 0x100];
-	unsigned int m_388;		// +0x388
-	char m_pad38C[0x440 - 0x38C];
-	bool m_440;				// +0x440
-};
-
-void Drawable::rva0027B18C(const DamageInfo *info)
-{
-	Object *obj = getObject();
-	if (!obj)
-		return;
-	if ((obj->m_template->m_10E & 0x40) && (obj->m_template->m_118 & 0x40))
-		return;
-	Player *player = obj->getControllingPlayer();
-	const ThingTemplate *tmpl = getTemplate();
-	if (!(info->m_actualDamageDealt > 0.0f))
-		return;
-	if (info->m_damageType == 10 || info->m_damageType == 7)
-		return;
-	if (info->m_deathType == 0x16)
-		return;
-	if (info->m_18 == 2)
-		return;
-	if (info->m_sourcePlayerMask & (1 << player->m_playerIndex))
-		return;
-	if (!player->isLocalPlayer())
-		return;
-	if (info->m_25) {
-		if (obj->m_260 != 0)
-			TheRadar->tryUnderAttackEvent(obj);
-		if (tmpl) {
-			Object *source = TheGameLogic->findObjectByID(info->m_sourceID);
-			int evt = tmpl->m_evaEvent598;
-			int alt;
-			if (evt != -1 && !obj->isKindOf((KindOfType)0x9d)
-				&& !obj->rva00293926((KindOfType)0x3f) && !obj->rva00293926((KindOfType)0x25)
-				&& source && !source->rva00294471(player, 1)) {
-				alt = tmpl->m_evaEventAlt58C;
-			} else if (info->m_damageType == 0x17 && (evt = tmpl->m_evaEvent588) != -1) {
-				alt = -1;
-			} else if (info->m_damageType != 0x17 && source && source->getDrawable()
-				&& source->getDrawable()->m_440 && (evt = tmpl->m_evaEvent584) != -1) {
-				alt = tmpl->m_evaEventAlt58C;
-			} else {
-				evt = tmpl->m_evaEvent580;
-				alt = tmpl->m_evaEventAlt58C;
-			}
-			if (evt != -1) {
-				unsigned int frame = TheGameLogic->m_frame;
-				if (m_388 <= frame
-					&& (TheEva->isEventBlockedByTimeout((EvaEventID)evt) || TheEva->isEventAboutToPlay((EvaEventID)evt))
-					&& alt != -1)
-					TheEva->rva001DE2DA(alt, obj->getPosition(), 0);
-				else
-					TheEva->rva001DE2DA(evt, obj->getPosition(), 0);
-				float radius = tmpl->m_evaRadius590;
-				if (radius <= 0.0f || tmpl->m_evaEvent580 == -1) {
-					reinterpret_cast<Rva00271B03 *>(this)->rva00271B03();
-				} else {
-					Rva00271B3CFilter eventFilter(tmpl->m_evaEvent580);
-					Rva00260E2AFilter playerFilter(player);
-					eventFilter.link(&playerFilter);
-					BfmeWideResult hits = ThePartitionManager->iterateObjectsInRange(
-						reinterpret_cast<const BFMERopeDrawable *>(this)->getPosition(), radius, 2, &eventFilter, 0);
-					Object *other;
-					while ((other = hits.next()) != 0) {
-						if (other->getDrawable())
-							reinterpret_cast<Rva00271B03 *>(other->getDrawable())->rva00271B03();
-					}
-				}
-			}
-		}
-	}
-	if (getTemplate()->m_113 & 4)
-		theRadarWindowOverrideSource->rva002D3756(obj);
+class Object{public:void*vp;BfmeDamageTemplate*data;char pad08[0x38-8];Coord3D position;char pad44[0x260-0x44];void*radarInfo;Player*getControllingPlayer()const;bool isKindOf(KindOfType)const;bool rva00293926(KindOfType);bool rva00294471(void*,int);};
+class Thing{public:Drawable*getDrawable()const;};
+enum EvaEventID {EVA_INVALID=-1};
+class Eva{public:bool isEventBlockedByTimeout(EvaEventID)const;bool isEventAboutToPlay(EvaEventID)const;void reportEvaEvent(int,const Coord3D*,int);};extern Eva*TheEva;
+class Radar{public:void rva002D8B9D(Object*);};extern Radar*TheRadar;
+class GameLogic{public:char pad[0x40];unsigned frame;Object*findObjectByID(ObjectID);};extern GameLogic*TheGameLogic;
+class Rva002D3756{public:void rva002D3756(void*);};extern "C" Rva002D3756*g_pRva003BD424;
+class BFMERopeDrawable{public:const Coord3D*getPosition()const;};
+class Rva00271B03{public:void rva00271B03();};
+class Rva000421C8{public:Rva000421C8():m_next(0){}virtual~Rva000421C8(){}virtual bool allow(Object*)=0;virtual int getPlayerMask();Rva000421C8*link(Rva000421C8*);Rva000421C8*m_next;};
+class Rva00271B3CFilter:public Rva000421C8{public:Rva00271B3CFilter(int e):event(e){}virtual bool allow(Object*);int event;};
+class Rva00260E2AFilter:public Rva000421C8{public:Rva00260E2AFilter(Player*p):player(p){}virtual bool allow(Object*);virtual int getPlayerMask();Player*player;};
+extern PartitionManager*ThePartitionManager;
+class Drawable{public:void rva0027B18C(DamageInfo*);char pad00[4];BfmeDamageTemplate*data;char pad08[0xfc-8];Object*object;char pad100[0x388-0x100];unsigned nextFrame;char pad38c[0x440-0x38c];bool active440;};
+void Drawable::rva0027B18C(DamageInfo*damage){
+Object*obj=object;if(!obj)return;
+if((obj->data->flag10e&0x40)&&(obj->data->flag118&0x40))return;
+Player*player=obj->getControllingPlayer();const BfmeDamageTemplate*templ;
+if(!(damage->amount>0.0f)||damage->damageType==10||damage->damageType==7||damage->p1c==22||damage->p18==2||(damage->playerMask&(1<<player->index))||!player->isLocalPlayer())return;
+templ=data;
+if(damage->report){if(obj->radarInfo)TheRadar->rva002D8B9D(obj);
+if(templ){Object*attacker=TheGameLogic->findObjectByID(damage->source);int event=templ->event598,other;
+if(event!=-1&&!obj->isKindOf((KindOfType)157)&&!obj->rva00293926((KindOfType)63)&&!obj->rva00293926((KindOfType)37)&&attacker&&!attacker->rva00294471(player,1)){other=templ->event58c;}
+else if(damage->damageType==23&&templ->event588!=-1){event=templ->event588;other=-1;}
+else if(damage->damageType!=23&&attacker&&((Thing*)attacker)->getDrawable()&&((Thing*)attacker)->getDrawable()->active440&&templ->event584!=-1){event=templ->event584;other=templ->event58c;}
+else{event=templ->event580;other=templ->event58c;}
+if(event!=-1){
+unsigned now=TheGameLogic->frame;
+if(nextFrame<=now&&(TheEva->isEventBlockedByTimeout((EvaEventID)event)||TheEva->isEventAboutToPlay((EvaEventID)event))&&other!=-1)TheEva->reportEvaEvent(other,&obj->position,0);
+else TheEva->reportEvaEvent(event,&obj->position,0);
+float range=templ->range;
+if(range<=0.0f||templ->event580==-1)((Rva00271B03*)this)->rva00271B03();
+else{Rva00271B3CFilter eventFilter(templ->event580);Rva00260E2AFilter playerFilter(player);eventFilter.link(&playerFilter);
+BfmeWideResult objects=ThePartitionManager->iterateObjectsInRange(((BFMERopeDrawable*)this)->getPosition(),range,2,&eventFilter,0);
+for(Object*o=objects.next();o;o=objects.next())if(((Thing*)o)->getDrawable())((Rva00271B03*)((Thing*)o)->getDrawable())->rva00271B03();}
+}
+}
+}
+if(data->flag113&4)g_pRva003BD424->rva002D3756(obj);
 }
