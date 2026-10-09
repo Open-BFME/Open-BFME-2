@@ -1,32 +1,23 @@
+// ??0Rva005FA3B1Inner@@QAE@PAX000@Z
+// partial score=0.85 date=2026-10-09
 // ??0Impl@BattlePromptMovieClip@StrategicHUD@@QAE@PAV12@HABVAsciiString@@ABURva005F91F3Src@@@Z
-// partial score=0.9 date=2026-10-09
-// ??0Impl@BattlePromptMovieClip@StrategicHUD@@QAE@PAV12@HABVAsciiString@@ABURva005F91F3Src@@@Z
-// partial score=0.9 date=2026-10-06
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
-// BANK NOTE (0x005FA3B1 BattlePromptMovieClip::Impl ctor, 1082 B): this
-// body compiles to 1082 B and differs only by four unresolved pins
-// (_Vector_base<Rva005FA3B1Element> -> 0x00211E58, AddAlly 0x005FA205; the
-// nine callbacks are DIR32) and the order of the prefix's zeroing against
-// the three flag stores (retail zeroes [ebp+8] first). It is NOT the
-// WorldBuilder layout: WorldBuilder has +0x18 a plain word, +0x2C / +0x3C
-// EH-tracked holders after the ally / enemy tab vectors, +0x4C / +0x5C plain
-// -1 words after the other two vectors, and plain flags (retail EH states:
-// name 0, maps 1, cached name 2, vectors and holders 3..8, prefix 9). That
-// faithful layout (members in that order, bools in the init list) matches
-// the state numbering and the flag order but packs the prefix into
-// [ebp+0xC] (frame 0xA4 vs 0x9C): the allocator temps at [ebp+0xB] block
-// the owner's home unless an EH-tracked object is built after the last
-// vector, which is why this banked variant carries a stateful +0x18 holder
-// and a stateful flag struct. The real separator is still unknown; the
-// prefix also needs its own block scope here.
-// StrategicHUD::BattlePromptMovieClip::Impl::SetRegionNameString @ 0x005F9364 103B
-// (WorldBuilder name, StrategicHUDBattlePromptMovieClip.cpp line 788: the
-// APT:_level%u.%s_RegionName key and SetText); twin of 0x005FB770 PlayerName.
-// 0x005F960C (its cached-compare caller) keeps its address name.
-// Target evidence: 103B retail, EH_prolog, format string
-// "APT:_level%u.%s_RegionName" at VA 0x008758D4, rowed AsciiString::format
-// 0x00038150, pinned bfmeSetText 0x00225301, rowed releaseBuffer 0x00036410,
-// manager at VA 0x009FE4CC, default %s at VA 0x007BAC1C, callers 0x005F960C 0x005FA7BD.
+// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /DNDEBUG /MD /EHsc
+// V1 bank: native entry 0x005FA3B1, 1082 bytes. Ordinary C++ hot body
+// also emits 1082 bytes, but frame is 0xA4 rather than native 0x9C;
+// prefix uses [ebp+0xC] rather than [ebp+8], saved this uses -0x20 vs -0x18.
+// Native handler 0x007A5D55 -> FuncInfo 0x0095EE94 proves 19 states:
+// name +8, maps +0xC, cached Unicode +0x1C, vector +0x20, owner +0x2C,
+// vector +0x30, owner +0x3C, vector +0x40, vector +0x50, prefix, nine temps.
+// This object's compiled cleanup map has that order and those 19 states.
+// Native +0x18 is a plain word; +0x60..62 are plain bool flags. The old
+// bank's destructible +0x18 and flag wrapper were artificial lifetime changes.
+// Owning holders use the existing Rva000AD6F4 destructor spelling/pin.
+// The three opaque vector element identities still need reconciliation with
+// the home TU and matched storage/destructor providers. No new alias pin is
+// justified just because _Vector_base at 0x00211E58 has identical storage.
+// No Code/ admission: remaining frame/temp ownership and provider-type gaps.
+// Target layout is independently established by stores and cleanup actions;
+// WorldBuilder BattlePrompt source supplies purpose/name, not byte proof.
 template <typename T> struct BfmeStringData
 {
     int refCount;
@@ -191,43 +182,16 @@ public:
 };
 }
 
-// +0x18: a zeroed word with an EH state (a reference holder; type unknown).
-struct Rva005FA3B1Ref
-{
-	Rva005FA3B1Ref() : m_ptr(0) {}
-	~Rva005FA3B1Ref();
-
-	void *m_ptr;
+// Actual19-state native unwind map has no destructor at18 or60.
+// +2C/+3C owning slots call canonical29B clear0AD6F4; +20/+30
+// vector cleanup5F97D4, +40/+50 page vectors5F9813 are separate states.
+class Rva000AD6F4 {
+public: Rva000AD6F4():ptr(0){} ~Rva000AD6F4(); void clear();
+private: void *ptr;
 };
-
-// +0x60..+0x62: three cleared flags with an EH state (type unknown).
-struct Rva005FA3B1Flags
-{
-	Rva005FA3B1Flags() : m_0(false), m_1(false), m_2(false) {}
-	~Rva005FA3B1Flags();
-
-	bool m_0;
-	bool m_1;
-	bool m_2;
-};
-
-struct Rva005FA3B1Tabs
-{
-	__forceinline Rva005FA3B1Tabs() : m_selected(0) {}
-	~Rva005FA3B1Tabs();
-
-	_STL::vector<Rva005FA3B1Element> m_tabs;
-	int m_selected;
-};
-
-struct Rva005FA3B1List
-{
-	__forceinline Rva005FA3B1List() : m_selected(-1) {}
-	~Rva005FA3B1List();
-
-	_STL::vector<Rva005FA3B1Element> m_items;
-	int m_selected;
-};
+struct BattlePromptRecord;
+struct BattlePromptAllyPage;
+struct BattlePromptEnemyPage;
 
 // The ally / enemy record AddAlly copies through the rowed converting copy
 // 0x005F91F3 (address-named; WorldBuilder asserts allyData.pageFactory).
@@ -268,13 +232,13 @@ private:
     unsigned int m_level; // +0x04
     AsciiString m_name; // +0x08
     AptCommandMapAdder m_commandMaps; // +0x0C
-    Rva005FA3B1Ref m_18; // +0x18
+    void *m_18; // +0x18
     UnicodeString m_cachedName; // +0x1C
-    Rva005FA3B1Tabs m_allyTabs; // +0x20
-    Rva005FA3B1Tabs m_enemyTabs; // +0x30
-    Rva005FA3B1List m_40; // +0x40
-    Rva005FA3B1List m_50; // +0x50
-    Rva005FA3B1Flags m_60; // +0x60; sizeof 0x64 (the owner ctor's new)
+    _STL::vector<BattlePromptRecord> m_allyTabs; Rva000AD6F4 m_allySlot; // +0x20
+    _STL::vector<BattlePromptRecord> m_enemyTabs; Rva000AD6F4 m_enemySlot; // +0x30
+    _STL::vector<BattlePromptAllyPage> m_40; int m_selectedAlly; // +0x40
+    _STL::vector<BattlePromptEnemyPage> m_50; int m_selectedEnemy; // +0x50
+    bool m_flag60, m_flag61, m_flag62; // +0x60; sizeof 0x64 (the owner ctor's new)
 };
 void StrategicHUD::BattlePromptMovieClip::Impl::SetRegionNameString(const UnicodeString &regionName)
 {
@@ -314,7 +278,7 @@ void Rva005F9775::rva005F9775(const UnicodeString &regionName)
 // bound 0x005F9904 is WorldBuilder's Impl::OnAllyTabsLoaded), blanks the
 // region name and adds the ally.
 StrategicHUD::BattlePromptMovieClip::Impl::Impl(BattlePromptMovieClip *owner, int level, const AsciiString &name, const Rva005F91F3Src &ally)
-	: m_owner(owner), m_level(level), m_name(name)
+	: m_owner(owner), m_level(level), m_name(name),m_18(0),m_selectedAlly(-1),m_selectedEnemy(-1),m_flag60(false),m_flag61(false),m_flag62(false)
 {
 	{
 		AsciiString prefix;
