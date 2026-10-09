@@ -41,6 +41,7 @@ class CreateAHeroData : public Snapshot {
     unsigned int word134, word138, word13C;
 public:
     bool WriteNamedHeroAtRva004074CF();
+    unsigned char rva004099CA(StringBase<char> *name, int flag);
     virtual ~CreateAHeroData();
 };
 CreateAHeroData::~CreateAHeroData() { if (!text4C.isEmpty()) WriteNamedHeroAtRva004074CF(); UnregisterCreateAHeroAtRva0021A624(this); }
@@ -162,4 +163,50 @@ bool CreateAHeroData::WriteNamedHeroAtRva004074CF() {
  return true;
  }
  return false;
+}
+
+// ?rva004099CA@CreateAHeroData@@QAE_NVAsciiString@@H@Z @0x004099CA 172B: the
+// counterpart of WriteNamedHero4074CF. Native: an empty name fails; the rowed
+// opener 0x004098A9 (name, flag) yields the stream, failing when null; a
+// reader Xfer (0x0060C5FA) opens it (0x0060C3C3) and a version above 1 fails;
+// otherwise the hero's wrapper 0x00406EBF transfers it, flag48 takes the flag,
+// and the byte at +0x71 is the result. Open's version output lands on the
+// parameter slot the name occupied (a dead name's stack slot).
+class Xfer { public: virtual ~Xfer(); };
+struct Rva0060C3C3Stream;
+class Rva0060C5FA : public Xfer { public: Rva0060C5FA(void *a1, void *a2, void *a3); private: char m_pad04[0x20 - 4]; };
+class XferLoad { public: bool Open(Rva0060C3C3Stream *stream, int *version); };
+class Rva0060C45E { public: void clear(); };
+class Rva00406EBF { public: void rva00406EBF(Xfer *x); };
+class HeroFile { public: virtual ~HeroFile(); virtual bool open(const char *name, int access); virtual void close(); };
+int Rva004098A9(int, int);
+
+unsigned char CreateAHeroData::rva004099CA(StringBase<char> *name, int flag)
+{
+    if (name->isEmpty())
+        return 0;
+    HeroFile *file = (HeroFile *)Rva004098A9((int)name, flag);
+    if (file == 0)
+        return 0;
+    Rva0060C5FA xfer(0, 0, 0);
+    unsigned char ok;
+    if (!((XferLoad *)&xfer)->Open((Rva0060C3C3Stream *)file, (int *)&name))
+    {
+        file->close();
+        ok = 0;
+    }
+    else if ((unsigned)*(int *)&name > 1)
+    {
+        file->close();
+        ok = 0;
+    }
+    else
+    {
+        ((Rva00406EBF *)this)->rva00406EBF(&xfer);
+        flag48 = (unsigned char)flag;
+        ((Rva0060C45E *)&xfer)->clear();
+        file->close();
+        ok = flag71;
+    }
+    return ok;
 }
