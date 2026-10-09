@@ -80,3 +80,18 @@ const float *Rva0007B763SelectFloatAddress(const float *first,
 {
     return *second > *first ? second : first;
 }
+
+// BF1 f98983a7d3bb405f1a4ba94bb6a2a168062a819d GameLogic/Object/Body/
+// Rva00211890ForwardSourcePosition.cpp emits a min<float> expression under
+// /O1 /arch:SSE2 /G7. That supplies a source lead, not an original target name.
+// Native 7B776..7B789 is the complete adjacent 19-byte cdecl leaf: prior RET
+// at 7B775, own RET at 7B788, then the next independently entered SEH body.
+// MOVSS first / COMISS second / CMOVA second selects the second address only
+// when first is ordered strictly greater; ties and unordered retain first.
+// Unlike this file's min<float>, equal or unordered inputs keep the first
+// address. Pointee owners and the original callable identity remain unknown.
+const float *Rva0007B776SelectFloatAddress(const float *first,
+    const float *second)
+{
+    return *first > *second ? second : first;
+}
