@@ -122,6 +122,7 @@ struct _ATL_WIN_MODULE70
     CSimpleArray<ATOM> m_rgWindowClassAtoms;
 
     _ATL_WIN_MODULE70();
+    void rva0000682F();
 };
 
 _ATL_WIN_MODULE70::_ATL_WIN_MODULE70()
@@ -189,6 +190,14 @@ void CAtlWinModule::Term()
 
 template void CSimpleArray<ATOM>::RemoveAll();
 template ATOM &CSimpleArray<ATOM>::operator[](int);
+
+// Native682F is a complete13B no-argument receiver wrapper. Its actual
+// stdcallcallee58C3 takes _ATL_WIN_MODULE70* and the already-owned
+// HINSTANCE globalE09E64. Original wrapper name remains unknown.
+void _ATL_WIN_MODULE70::rva0000682F()
+{
+    AtlWinModuleTerm(this, g_00E09E64);
+}
 
 }
 
