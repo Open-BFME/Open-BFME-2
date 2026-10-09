@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /Ireference/shims/bfmealloc /O1 /DNDEBUG /MD /EHsc
-// ??1Rva005D25F2@@UAE@XZ @0x005D25F2 91B: virtual dtor, derived vtable 0x00875800 then base 0x008078DC.
+// ??1Rva005D25F2@@UAE@XZ @0x005D25F2 91B: nonvirtual dtor, derived vtable 0x00875800 then base 0x008078DC.
 // Evidence: array ??_M at +0x1C count 6 stride 0x1C via rowed 0x005D258E, rowed 0x0052413E at +0xC,
 // rowed releaseBuffer 0x00036410 at +0x8, layout matches sibling Rva005D2664 header 0x1C + 6x0x1C,
 // precedents Rva005794EDDtor Rva00579AB7Dtor Rva005FFBCBDtor, callers 0x00578532 0x0057866D 0x00578690.
@@ -19,7 +19,11 @@ private:
 // Constructor5D2BD4..5D2EA1 has six bound callback names and a six-element
 // command-slot array. WB15AD030 supplies a StrategicHUD source lead; the original
 // constructor/class spelling remains unknown. Retail vtables C078DC/C75800 prove
-// the five-slot abstract interface and the existing parent/scalar destructors.
+// five native interface slots: getter24E5 / setter264D / clear2664 / clear269B /
+// flash2B2F. Neither table contains a destructor. Direct parent25F2 and scalar
+// cleanup578532 are separate native entry points. Preserve their ABI without
+// placing a deleting destructor in the getter slot. The original virtual-dtor
+// ledger spelling was inferred from vptr writes and is corrected here.
 // Target offsets: level4/name8/owning-name-listC/current18, six1C slots at1C.
 // Inline concatenation keeps six distinct16-byte returned nodes. Passing the
 // binding descriptor by value preserves each native callback-address load.
@@ -62,14 +66,16 @@ struct TreeHintRef00217D4C { TreeHintRef00217D4C &operator=(const TreeHintRef002
 class Rva005D25F2Base
 {
 public:
-	virtual ~Rva005D25F2Base()=0;
+	virtual int rva005D24E5(int)=0;
+ ~Rva005D25F2Base();
 	virtual void rva005D264D(int,const TreeHintRef00217D4C &)=0;
 	virtual void rva005D2664(int)=0;
 	virtual void rva005D269B()=0;
 	virtual void rva005D2B2F(int,float)=0;
 };
 
-// ??1Rva005D25F2Base@@UAE@XZ present-unmatched
+// Native7-byte C078DC interface teardown at5D23FE is also the full standalone
+// body emitted here; original base spelling remains structural inference.
 inline Rva005D25F2Base::~Rva005D25F2Base()
 {
 	*(const void **)this = g_00C078DC;
@@ -79,7 +85,9 @@ class Rva005D25F2 : public Rva005D25F2Base
 {
 public:
 	Rva005D25F2(int,const AsciiString &);
-	virtual ~Rva005D25F2();
+	virtual int rva005D24E5(int);
+ ~Rva005D25F2();
+ void *rva00578532(unsigned int);
 	virtual void rva005D264D(int,const TreeHintRef00217D4C &);
 	virtual void rva005D2664(int);
 	virtual void rva005D269B();
@@ -179,3 +187,8 @@ void Rva005D25F2::rva005D2664(int i)
     if(!reinterpret_cast<Rva0057C22FByteChaseField *>(e->subMenu04.ptr)->get()) return;
     reinterpret_cast<Rva005C3E79 *>(e->subMenu04.ptr)->rva005C3E79();
 }
+
+int Rva005D25F2::rva005D24E5(int i) { Elem005D25F2 *e=reinterpret_cast<Elem005D25F2 *>(reinterpret_cast<char *>(this)+(i+1)*0x1C); return e->help10.ptr || e->reference0C.ptr; }
+
+void __cdecl operator delete(void *);
+void *Rva005D25F2::rva00578532(unsigned int flags) { this->~Rva005D25F2(); if(flags&1)operator delete(this);return this; }

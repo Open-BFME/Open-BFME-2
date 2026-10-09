@@ -47,7 +47,11 @@ struct Elem005D2B2F
 class Rva005D25F2
 {
 public:
-	virtual void rva005D2B2F(int idx, float val);
+	virtual int rva005D24E5(int);
+ virtual void rva005D264D(int,const struct TreeHintRef00217D4C &);
+ virtual void rva005D2664(int);
+ virtual void rva005D269B();
+ virtual void rva005D2B2F(int idx, float val);
 private:
 	void *m_04;
 	AsciiString m_08;
