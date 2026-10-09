@@ -166,12 +166,6 @@ class Rva001095B2 { public: __declspec(noinline) virtual ~Rva001095B2(); };
 Rva001095B2::~Rva001095B2() {}
 void Rva001095B2_Delete(Rva001095B2 *p) { delete p; }
 
-// ??_GRva0010C785@@UAEPAXI@Z @0x0010C825 28B; calls pinned ??1 at 0x0010C785
-class Rva0010C785 { public: __declspec(noinline) virtual ~Rva0010C785(); };
-// ??1Rva0010C785@@UAE@XZ present-unmatched
-Rva0010C785::~Rva0010C785() {}
-void Rva0010C785_Delete(Rva0010C785 *p) { delete p; }
-
 // ??_GRva0010F7EE@@UAEPAXI@Z @0x0010F7D2 28B; calls pinned ??1 at 0x0010F7EE
 class Rva0010F7EE { public: __declspec(noinline) virtual ~Rva0010F7EE(); };
 // ??1Rva0010F7EE@@UAE@XZ present-unmatched
