@@ -9321,7 +9321,6 @@ name,address,notes
 ?findBestTunnel@@YAPAVObject@@PAVPlayer@@PBUCoord3D@@@Z,0x00545F80,REL32 callee of AITNGuardReturnState::onEnter 0x005465E5; selects a tunnel from the owner's Player and position
 ?findBridge@TerrainRoadCollection@@QAEPAVTerrainRoadType@@VAsciiString@@@Z,0x002DB4DA,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?findChild@AptValue@@QAEPAV1@PBVEAStringC@@PAV1@@Z,0x006DF9A0
-?findClientUpdateModule@Drawable@@QAEPAVClientUpdateModule@@W4NameKeyType@@@Z,0x0027449C,read from the REL32 at 0x000C93B1 in W3DLaserDraw::doDrawModule (key_LaserUpdate lookup); body walks the client update module array at Drawable+0x150 comparing each module's name key (vtable +0x10) against the argument and returns the match or null as Zero Hour Drawable::findClientUpdateModule
 ?findClosestRepulsor@AI@@QAEPAVObject@@PBV2@M@Z,0x002FDC9A,REL32 callee of AIWanderState::update 0x0034A21B with ECX TheAI and arguments (owner, owner vision range) as in Zero Hour's repulsor check
 ?findCommandButton@ControlBar@@QAEPBVCommandButton@@ABVAsciiString@@@Z,0x0031BE3C,"call-site agreement: matched evaluateSkirmishCommandButtonIsReady 0x003E73E7 calls it on TheControlBar (0x00E01CFC) with the button Parameter name, BFME1/ZH donor TheControlBar->findCommandButton"
 ?findCommandSet@ControlBar@@QAEPBVCommandSet@@ABVAsciiString@@@Z,0x0031D5F8,ZH ControlBar::findCommandSet (38B body rowed as Rva0031D5F8::rva0031D5F8); ECX=TheControlBar at the CommandButtonHuntUpdate::xfer call (0x00495444)
