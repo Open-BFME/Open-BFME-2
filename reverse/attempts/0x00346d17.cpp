@@ -1,6 +1,8 @@
 // ??0Rva00346D17@@QAE@PAVObject@@PAVRva00346D17Attack@@I_N22@Z
+// partial score=0.9856156775 date=2026-10-09
+// ??0Rva00346D17@@QAE@PAVObject@@PAVRva00346D17Attack@@I_N22@Z
 // partial score=0.9 date=2026-10-09
-// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc
+// cl: /ICode/Libraries/Include/Lib /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc 
 //
 // Rva00346D17::Rva00346D17, retail 0x00346D17 (654 bytes): Zero Hour's
 // AttackStateMachine constructor (AIStates.cpp): aim, fire and the BFME 2
@@ -10,7 +12,7 @@
 // turreted current weapon); position attacks use the position table. Base:
 // the rowed StateMachine constructor 0x004D79E1 with the name key; states
 // from plain operator new and their rowed constructors.
-#include "../../../Code/Libraries/Include/Lib/Coord3D.h"
+#include "Coord3D.h"
 typedef bool Bool;
 typedef unsigned int UnsignedInt;
 typedef UnsignedInt StateID;
@@ -209,7 +211,7 @@ Rva00346D17::Rva00346D17(Object *obj, Rva00346D17Attack *att, UnsignedInt nameKe
 	defineState( AIM_AT_TARGET, new Rva0033F3B6( this, attackingObject, forceAttacking ), FIRE_WEAPON, EXIT_MACHINE_WITH_FAILURE, attackingObject ? objectConditions : positionConditions );
 	defineState( FIRE_WEAPON, new Rva0033F483( this, (int)static_cast<Rva00346D17AttackInterface *>(att) ), REAIM_TARGET, CHASE_TARGET, attackingObject ? objectConditions : positionConditions );
 	defineState( REAIM_TARGET, new Rva0033F43D( this ), AIM_AT_TARGET, EXIT_MACHINE_WITH_FAILURE );
-	if ((obj->m_template->m_kind108 & 4) == 0)
+	if (((signed char)(obj->m_template->m_kind108 << 5) < 0) == 0)
 	{
 		if ((obj->m_template->m_kind10F & 2) && (obj->m_template->m_kind108 & 8))
 		{
