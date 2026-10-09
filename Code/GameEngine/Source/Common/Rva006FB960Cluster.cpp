@@ -135,3 +135,17 @@ public:
 Rva006FC130::Rva006FC130() : Rva006D6360Base(0x1e, 8), Rva006DBits()
 {
 }
+
+// WB175E910 calls the same scope lookup on a global first, then this+28.
+// PC inlines only the global path. Donor+2C is not the native member layout.
+class AptFrameStack;
+extern AptFrameStack *g_bfmeFrameStackAtE1835C;
+struct Rva006FBE80 {
+ BfmeN1034 *find2(int);
+ char padding[0x28];
+ Rva006FBBE0 *scope;
+};
+BfmeN1034 *Rva006FBE80::find2(int key) {
+ if(!g_bfmeFrameStackAtE1835C) return scope ? scope->find(key) : 0;
+ return ((Rva006FBBE0 *)g_bfmeFrameStackAtE1835C)->find(key);
+}
