@@ -1,4 +1,6 @@
 // ?update@W3DView@@UAEXXZ
+// partial score=0.850341695 date=2026-10-09
+// ?update@W3DView@@UAEXXZ
 // partial score=0.8209180045876036 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC
 // BFME W3DView::update, retail 0x007446A0.
@@ -12,19 +14,20 @@ class RenderObjClass;
 template<class T> class RefMultiListIterator;
 class RTS3DScene { public: RefMultiListIterator<RenderObjClass>* createLightsIterator(); void destroyLightsIterator(RefMultiListIterator<RenderObjClass>*); };
 class W3DDisplay { public: static RTS3DScene *m_3DScene; };
-class CameraClass { public: virtual void Delete_This(); int refs; void Add_Ref(){++refs;} void Release_Ref(){if(--refs==0)Delete_This();} protected: void Update_Frustum() const; public: void *Get_Frustum() const { Update_Frustum(); return (char*)this+0x104; } };
+class CameraClass { public: virtual void Delete_This(); int refs; void Add_Ref(){++refs;} void Release_Ref(){if(--refs==0)Delete_This();} protected: void Update_Frustum() const; public: void *Get_Frustum() const { Update_Frustum(); return (char*)this+0x100; } };
 template<class T> class RefCountPtr {T *pointer;public:RefCountPtr():pointer(0){} RefCountPtr(const RefCountPtr &p):pointer(p.pointer){if(pointer)pointer->Add_Ref();} ~RefCountPtr(){if(pointer)pointer->Release_Ref();} bool isNull()const{return pointer==0;}};
 RefCountPtr<CameraClass> Rva000897C8(CameraClass*);
 class Rva0007BB79Owner {public:void rva0007D9B5(CameraClass*);RefCountPtr<CameraClass> rva0007BB79();};
 extern Rva0007BB79Owner *TheWaterRenderObj;
 class BFMERopeDrawable { public: const Coord3D *getPosition() const; };
 class Object { char gap[0x38]; public: Coord3D m_position; };
-class ScriptEngine { public: bool isTimeFrozenDebug(); bool _bfme_isClientFrameFrozen(); bool frozen() { return isTimeFrozenDebug() || _bfme_isClientFrameFrozen(); } };
-class BfmeScriptEngineFreezeExtra { public: unsigned char get() const; };
+class ScriptEngine;
+class Rva00203B08 {public:bool rva0020424FF();};
+class Rva00203ACEByteField {public:unsigned char get()const;};
 extern ScriptEngine *TheScriptEngine;
 class Rva0045A000 { public: float sample(float,float); char data[0x1c]; };
-class PolygonTrigger { public: bool bfmeContainsPointAt0018FA20(Coord3D&) const; };
-class CameraShakeSystemClass { public: bool IsCameraShaking(); };
+class PolygonTrigger { public: bool rva002E3A39(const Coord3D&); };
+class CameraShakeSystemClass;class Rva00065E21{public:bool rva00065E21();};
 extern CameraShakeSystemClass CameraShakerSystem;
 extern float FollowFactor007446A0;
 extern "C" float __identifier("?FollowFactor007446A0@@3MA") = -1.0f;
@@ -36,30 +39,20 @@ extern TerrainLogic *TheTerrainLogic;
 float getHeightAroundPos(float,float);
 class Drawable;
 void drawDrawable(Drawable *,void*);
-class GlobalData { public:
-
- char gap0000[444];
- float m_partitionCellSize; // +0x1bc
- char gap01c0[2488];
- float m_cameraAdjustSpeed; // +0xb78
- bool m_enforceMaxCameraHeight; // +0xb7c
- char gap0b7d[144];
- bool field0c0d; // +0xc0d
- char gap0c0e[586];
- float field0e58; // +0xe58
- char gap0e5c[8];
- float field0e64; // +0xe64
- char gap0e68[0xea6-0xe68];
- bool field0ed0; // +0xed0
- bool field0ed1; // +0xed1
+class GlobalData {public:
+ char prefix[0xd4];float m_partitionCellSize;
+ char gapd8[0xab0-0xd8];float m_cameraAdjustSpeed;bool m_enforceMaxCameraHeight;
+ char gapab5[0xb71-0xab5];bool field0c0d;
+ char gapb72[0xdd4-0xb72];float field0e58;
+ char gapdd8[8];float field0e64;
+ char gapde4[0xea6-0xde4];bool field0ed0,field0ed1;
 };
 extern GlobalData *TheWritableGlobalData;
-class BfmeGameLogicPause { public: bool isGamePaused(); };
 class GameLogic { public:
-Object *findObjectByID(int); bool isGamePaused() { return reinterpret_cast<BfmeGameLogicPause*>(this)->isGamePaused(); }
- char gap0000[268];
+Object *findObjectByID(int); unsigned char isGamePaused();
+ char gap0000[272];
  int field010c; // +0x10c
- char gap0110[21];
+ char gap0110[17];
  bool field011d; // +0x11d
 };
 extern GameLogic *TheGameLogic;
@@ -198,8 +191,8 @@ class BaseHeightMapRenderObjClass { public:
  virtual void slot20c();
  virtual void slot210();
  virtual void slot214();
- virtual void slot218();
  virtual void updateCenter(std::vector<RefCountPtr<CameraClass> >&,RefMultiListIterator<RenderObjClass>*);
+ virtual void target220();
  virtual void slot220();
  virtual void slot224();
  virtual void slot228();
@@ -211,7 +204,7 @@ class BaseHeightMapRenderObjClass { public:
  bool field3009; // +0x3009
 };
 extern BaseHeightMapRenderObjClass *TheTerrainRenderObject;
-class GameClient { public:
+class GameClient { public: virtual void target00();virtual void target04();virtual void target08();virtual void target0c();virtual void target10();
  virtual void slot000();
  virtual void slot004();
  virtual void slot008();
@@ -317,7 +310,7 @@ class AI { public:
  AIData007446A0 * field0014; // +0x14
 };
 extern AI *TheAI;
-class View { public:
+class View { public: virtual void targetPrimaryExtra();
  virtual void slot000();
  virtual void slot004();
  virtual void slot008();
@@ -465,6 +458,7 @@ class View { public:
  virtual void slot240();
  virtual void slot244();
  virtual void slot248();
+ virtual void zoomExtra0();virtual void zoomExtra1();virtual void zoomExtra2();virtual void zoomExtra3();virtual void zoomExtra4();virtual void zoomExtra5();virtual void zoomExtra6();virtual void zoomExtra7();
  virtual float slot24c(float);
 
  char gap0004[8];
@@ -589,8 +583,8 @@ void W3DView::update()
                     }
                 } else { curpos.x+=dx*FollowFactor007446A0; curpos.y+=dy*FollowFactor007446A0; }
             }
-            if(!(TheScriptEngine->frozen()) &&
-                !reinterpret_cast<BfmeScriptEngineFreezeExtra*>(TheScriptEngine)->get() && !TheGameLogic->isGamePaused())
+            if(!(reinterpret_cast<Rva00203B08*>(TheScriptEngine)->rva0020424FF()) &&
+                !reinterpret_cast<Rva00203ACEByteField*>(TheScriptEngine)->get() && !TheGameLogic->isGamePaused())
                 m_previousLookAtPosition=*reinterpret_cast<Coord2D*>(&m_pos);
             m_pos=curpos;
             if(m_snapImmediate) m_snapImmediate=false;
@@ -599,7 +593,7 @@ void W3DView::update()
             recalcCamera=true;
         }
     }
-    if(!(TheScriptEngine->frozen()) && !TheGameLogic->isGamePaused() && !TheGameLogic->field011d) {
+    if(!(reinterpret_cast<Rva00203B08*>(TheScriptEngine)->rva0020424FF()) && !TheGameLogic->isGamePaused() && !TheGameLogic->field011d) {
         if(updateCameraMovements()) { recalcCamera=true; didScriptedMovement=true; }
     } else {
         if(field2354 || m_doingMoveCameraOnWaypointPath || field0204 || m_doingZoomCamera || m_doingScriptedCameraLock || field027c)
@@ -615,7 +609,7 @@ void W3DView::update()
         }
         if(!getCameraLockDrawable()) recalcCamera=true;
     } else { m_shakeIntensity=0.0f; m_shakeOffset.x=0.0f; m_shakeOffset.y=0.0f; }
-    if((*reinterpret_cast<CameraShakeSystemClass **>(&CameraShakerSystem))->IsCameraShaking()) recalcCamera=true;
+    if((*reinterpret_cast<Rva00065E21 **>(&CameraShakerSystem))->rva00065E21()) recalcCamera=true;
     if(field2354!=2 && field2354!=3 && field2354!=4) {
         if(!getCameraLockDrawable() && !getCameraLock()) {
             if(field2464) {
@@ -628,7 +622,7 @@ void W3DView::update()
             } else m_terrainHeightUnderCamera=getHeightAroundPos(m_pos.x,m_pos.y);
             m_currentHeightAboveGround=m_cameraOffset.z*m_zoom-m_terrainHeightUnderCamera;
             if(TheTerrainLogic && TheWritableGlobalData && TheInGameUI && m_okToAdjustHeight && !TheGameLogic->isGamePaused()) {
-                float desiredZoom=((double)m_heightAboveGround+m_terrainHeightUnderCamera)/m_cameraOffset.z;
+                float desiredZoom=(m_heightAboveGround+m_terrainHeightUnderCamera)/m_cameraOffset.z;
                 if(didScriptedMovement || (TheGameLogic->field010c==3 && TheWritableGlobalData->field0c0d)) {
                     m_heightAboveGround=m_currentHeightAboveGround;
                     desiredZoom=m_zoom;
@@ -665,7 +659,7 @@ void W3DView::update()
         }
     }
 heightDone:
-    if(field24ac && field24ac->bfmeContainsPointAt0018FA20(m_pos)) {
+    if(field24ac && field24ac->rva002E3A39(m_pos)) {
         if(!field24b0) { field009c=TheAI->field0014->field00c0; field00a4=TheAI->field0014->field00bc; }
         field24b0=true;
     } else {
@@ -702,7 +696,7 @@ heightDone:
     }
     field24b8.slot048(&m_cameraOffset,0);
     m_cameraOffset.x=m_cameraOffset.x*field00a0;
-    float oldY=m_cameraOffset.y; { double scale=field00a0; m_cameraOffset.y=oldY*scale; }
+    m_cameraOffset.y*=field00a0;
     if(recalcCamera || m_isCameraSlaved) {
         setCameraTransform();
         if(didScriptedMovement && TheTerrainRenderObject) TheTerrainRenderObject->slot22c(0);
