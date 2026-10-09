@@ -32325,3 +32325,4 @@ _PlaneAddNoise_C	0x001B69C0	475	partial	vp6-spec 001b69c0: the upper clamp is th
 ?Rva002886E9@@YAHPAVObject@@PAX@Z	0x002886E9	33	landed	add_match verified Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptGlueRva003C1EC2.cpp 33B
 ?Rva003C1EC2Set@@YGXABVAsciiString@@H@Z	0x003C1EC2	72	landed	add_match verified Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptGlueRva003C1EC2.cpp 72B
 ?xferList2069F0@@YAPAVXfer@@PAV1@PAV?$list@UBfmeFloat4Record00469C61@@V?$allocator@UBfmeFloat4Record00469C61@@@_STL@@@_STL@@@Z	0x002069F0	206	landed	add_match verified Code/GameEngine/Source/GameLogic/ScriptEngine/XferList2069F0.cpp 206B
+?rva002B8DFC@Rva002BA8F1Logic@@QAEXPAVXfer@@PAV?$vector@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@@Z	0x002B8DFC	214	landed	add_match verified Code/Libraries/Source/WWVegas/WWLib/Rva002B8DFCXfer.cpp 214B
