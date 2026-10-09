@@ -67,6 +67,9 @@ struct LivingWorldRevivalUnitDataView {
 };
 class Rva002E0D93;
 class Rva002E204D { public: Rva002E0D93 *rva002E204D(Rva002E0D93 *); };
+// Existing opaque native predicate at 0x00318F42. Native and WB identify
+// the receiver as an element of m_armyVec; its original method is unknown.
+class Mbr002E0B30 { public: unsigned char pred(); };
 class LivingWorldPlayer
 {
 public:
@@ -75,6 +78,7 @@ public:
 	void OnUnitDequeued(Rva00319CED *unit);
 	void **RemoveArmy(void **&iter);
 	bool rva002E12F3(int key);
+	bool rva002E0B30();
     void RemoveRevivalUnit(int key);
     void GetRevivalUnitData(int key, LivingWorldRevivalUnitDataView *out);
 
@@ -143,4 +147,15 @@ void LivingWorldPlayer::GetRevivalUnitData(int key, LivingWorldRevivalUnitDataVi
             break;
         }
     }
+}
+// Native2E0B30..2E0B76, 70B; WBDE45B0 independently scans the army vector
+// at1B8 and calls318F42 until true. Signed span arithmetic retains retail's
+// recomputed vector count. Player/m_armyVec identity is established by the
+// existing RemoveArmy body; the predicate and member names remain unknown.
+bool LivingWorldPlayer::rva002E0B30()
+{
+ int *span=(int *)&m_armyVec;
+ for(unsigned int i=0; i<(unsigned)((span[1]-span[0])>>2); ++i)
+  if (((Mbr002E0B30 *)m_armyVec[i])->pred()) return true;
+ return false;
 }

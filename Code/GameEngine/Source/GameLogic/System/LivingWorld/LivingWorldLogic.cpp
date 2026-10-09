@@ -23,7 +23,7 @@ namespace _STL {
 template <> void _List_base<UnicodeString, allocator<UnicodeString> >::clear();
 }
 
-class LivingWorldPlayer;
+class LivingWorldPlayer { public: bool rva002E0B30(); };
 class LivingWorldLogic;
 struct LivingWorldBuildingNuggetSpawnArmy;
 
@@ -500,6 +500,7 @@ public:
 	const Rva004E0632 *GetArmoryToUpgradeTroop(ArmySummaryEntry *entry, LivingWorldArmy *army, Rva003F287F *region);
 	void ValidatePlayers();
 	void rva002B693F(void *keys);
+	bool rva002B4B83();
 	Bool EndTurn();
 	Bool AdvanceTurnPhase();
 	Bool IsCurrentTurnPhaseFinished();
@@ -2267,3 +2268,14 @@ void LivingWorldLogic::rva002B693F(void *keys)
  }
 }
 
+
+// ?LivingWorldLogic::rva002B4B83 present-unmatched
+// Native2B4B83..2B4BC9, 70B; WBD7EFF0 independently scans player vector8C
+// and calls the matching player predicate2E0B30 until true.
+bool LivingWorldLogic::rva002B4B83()
+{
+ int *span=(int *)&m_players;
+ for(unsigned int i=0; i<(unsigned)((span[1]-span[0])>>2); ++i)
+  if (m_players[i]->rva002E0B30()) return true;
+ return false;
+}
