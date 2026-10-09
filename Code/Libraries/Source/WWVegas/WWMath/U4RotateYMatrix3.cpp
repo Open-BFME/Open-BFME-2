@@ -20,6 +20,7 @@
 #define inline static inline
 #include <math.h>
 #undef inline
+#include "../../../../../reference/shims/bfme_matrix3_rotation_link/matrix3.h"
 #include "matrix3.h"
 
 typedef void ( Matrix3::*U4RotYFromRadians )( float );
