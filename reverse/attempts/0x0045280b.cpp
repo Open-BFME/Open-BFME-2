@@ -1,6 +1,16 @@
 // ?update@AutoHealBehavior@@UAE?AW4UpdateSleepTime@@XZ
+// partial score=0.88 date=2026-10-09
+// ?update@AutoHealBehavior@@UAE?AW4UpdateSleepTime@@XZ
 // partial score=0.86 date=2026-10-07
-// cl: /O1 /DNDEBUG /MD /GX /arch:SSE /Ireference/shims/bfme2_ascii /ICode/GameEngine/Source/Common /ICode/Libraries/Include/Lib
+// 2026-10-09 follow-up (114 instruction diffs, 1347 vs 1342 bytes, was 181/1356):
+// the heal bonus is address-taken, so its slot follows its scope; declaring it
+// in a block around the attribute query gives retail's 0x98 frame. Adding /G7
+// (the region default) changes nothing here. Still open: frame-slot pairs
+// [ebp-0x18]/[ebp-0x1c] and [ebp-0x28]/[ebp-0x2c] swapped, the icon block's
+// esi/edi swap, and the horde slot 95 call that retail makes before slot 98
+// (cl calls 98 first for both `98() < 95()` and `95() > 98()`; a local for
+// slot 95 reorders the calls but swaps registers across the respawn loop).
+// cl: /O1 /G7 /DNDEBUG /MD /GX /arch:SSE /Ireference/shims/bfme2_ascii /ICode/GameEngine/Source/Common /ICode/Libraries/Include/Lib
 //
 // BANKED NEAR MISS (update 0x0045280B, 1342 B): compiles 1356 B, frame 0x9c vs
 // retail 0x98, 181 byte diffs. Needs GameLogicObjectLookupView.h extended with
@@ -579,7 +589,6 @@ static inline Int calcHealAmount(Object *obj, const AutoHealBehaviorModuleData *
 
 UpdateSleepTime AutoHealBehavior::update()
 {
-	Real bonus;
 	if (m_stopped)
 		return UPDATE_SLEEP_FOREVER;
 
@@ -597,8 +606,12 @@ UpdateSleepTime AutoHealBehavior::update()
 		return (UpdateSleepTime)g_Va00DBA4E4;
 	}
 
-	obj->rva0028C149(0x13, &bonus, 0);
-	Int healAmount = (Int)((Real)d->m_healingAmount + bonus);
+	Int healAmount;
+	{
+		Real bonus;
+		obj->rva0028C149(0x13, &bonus, 0);
+		healAmount = (Int)((Real)d->m_healingAmount + bonus);
+	}
 	if (healAmount <= 0)
 		return UPDATE_SLEEP_NONE;
 
