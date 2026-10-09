@@ -32045,3 +32045,4 @@ rva001E388D	0x001E388D	9	no-boundary	Fresh clean BF1 f989 GameLogic O1/SSE/G7 em
 ?Rva007B6640InitializeGeometry@@YAXXZ	0x007B6640	41	landed	add_match verified Code/GameEngine/Source/Common/Rva007B6610.cpp 41B; GeometryInfo sphere initializer; registers atexit cleanup thunk 0x007B9BF0
 ?Rva0065CEC0Allocate@@YAPAXIH@Z	0x0065CEC0	14	landed	add_match verified Code/GameEngine/Source/Common/Rva007F00B0AllocatorInit.cpp 14B; Default CRT malloc allocator callback forwards size to CRT malloc import linker thunk
 ?Rva0065CED0Release@@YAXPAXH@Z	0x0065CED0	12	landed	add_match verified Code/GameEngine/Source/Common/Rva007F00B0AllocatorInit.cpp 12B; Default CRT free allocator callback forwards pointer to CRT free import linker thunk
+?invoke@Rva005E1222@@QAE?AURva005E1222Value@@XZ	0x005E1222	36	landed	add_match verified Code/GameEngine/Source/Common/Rva005E1222.cpp 36B; Invokes member callback at +0xC on target object at +0x8 returning 8-byte value through output pointer
