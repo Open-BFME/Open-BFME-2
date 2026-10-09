@@ -66,6 +66,10 @@
 #include "wwmemlog.h"
 #include "assetmgr.h"
 
+// Retail Vector2/Vector4 resize bodies belong to Vector2Resize.cpp.
+// Declare their specializations so this consumer references those owners.
+template <> bool VectorClass<Vector2>::Resize(int newsize, Vector2 const *array);
+
 //#pragma optimize("", off)
 //#pragma MESSAGE("************************************** WARNING, optimization disabled for debugging purposes")
 
