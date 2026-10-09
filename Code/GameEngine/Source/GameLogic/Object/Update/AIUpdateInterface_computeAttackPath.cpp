@@ -46,7 +46,6 @@ enum KindOfType
 extern unsigned char g_00E03745;
 extern "C" void *theLogicRandomLogFile;
 extern "C" int __cdecl fprintf(void *stream, const char *format, ...);
-extern Int g_Va00DBA4E4;
 extern GameLogic *TheGameLogic;
 
 #define CRITTER_TRACE(s) \
