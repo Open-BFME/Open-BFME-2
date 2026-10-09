@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /ICode/Libraries/Include /DNDEBUG /MD /Oi-
+// cl: /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /O1 /G7 /arch:SSE /ICode/Libraries/Include /DNDEBUG /MD /Oi-
 // Float getters of one object-module class whose shared worker is the
 // unrowed 356-byte 0x001E46E1 (pinned by address from these call sites; it
 // reads the Object's +0x254 and +0x258 and calls the rowed check at
@@ -15,6 +15,9 @@
 // Retail compares with fcompi, which MSVC 7.1 emits only under /arch:SSE.
 // Class and member names are unknown, hence address-derived.
 #include "Lib/Coord3D.h"
+#include "matrix3d.h"
+extern "C" float atan2f(float,float);
+class Rva001E43CF {public: void rva001E43CF(void*);};
 class Object;
 class GameLogic;
 extern GameLogic *TheGameLogic;
@@ -35,18 +38,22 @@ struct Rva001E46E1Data
 	float m_18;
 	char m_pad1C[0x24-0x1C];
 	float m_24;
-	char m_pad28[0x44 - 0x28];
+	char m_pad28[0x3C-0x28]; float m_3C;
+    char m_pad40[4];
 	unsigned int m_44;
 	float m_48;
 	float m_4C;
 	unsigned int m_50;
-	char m_pad54[0xEC - 0x54];
+	char m_pad54[0x74-0x54]; int m_74;
+    char m_pad78[0xBC-0x78]; float m_BC;
+    char m_padC0[0xEC-0xC0];
 	unsigned char m_ec;
 	char m_padED[0x104 - 0xED];
 	float m_104;
 	unsigned char m_108;
 	unsigned char m_109;
-	char m_pad10A[0x14C - 0x10A];
+	unsigned char m_10A;
+    char m_pad10B[0x14C-0x10B];
 	float m_14C;
 };
 class Rva001E46E1
@@ -55,6 +62,8 @@ public:
 	float rva001E46E1(Object *obj);
     bool rva001E5F1D(Object*,const Coord3D*,float*);
 	void rva001E546B(Object *obj);
+    void rva001E56DC(Object*,const Coord3D*,float,float*);
+    
 	float rva001E3F4D(Object *obj,int condition);
 	float rva001E4845(Object *obj);
 	float rva001E488A(Object *obj);
@@ -76,8 +85,11 @@ public:
 	char m_pad4C[0x5C - 0x4C];
 	float m_5C;
 	unsigned int m_60;
-	char m_pad64[0xA0-0x64];
+	char m_pad64[4];
+    Matrix3D m_matrix68;
+    unsigned char m_98,m_99; char m_pad9A[6];
 	float m_A0,m_A4;
+    int m_A8;
 };
 class Obj254V
 {
@@ -194,6 +206,46 @@ struct Obj258Holder
 	virtual void s96();
 	virtual void s97();
 	virtual Rva00368C7A *query001E546B();
+	virtual void s99();
+	virtual void s100();
+	virtual void s101();
+	virtual void s102();
+	virtual void s103();
+	virtual void s104();
+	virtual void s105();
+	virtual void s106();
+	virtual void s107();
+	virtual void s108();
+	virtual void s109();
+	virtual void s110();
+	virtual void s111();
+	virtual void s112();
+	virtual void s113();
+	virtual void s114();
+	virtual void s115();
+	virtual void s116();
+	virtual void s117();
+	virtual void s118();
+	virtual void s119();
+	virtual void s120();
+	virtual void s121();
+	virtual void s122();
+	virtual void s123();
+	virtual void s124();
+	virtual void s125();
+	virtual void s126();
+	virtual void s127();
+	virtual void s128();
+	virtual void s129();
+	virtual void s130();
+	virtual void s131();
+	virtual void s132();
+	virtual void s133();
+	virtual void s134();
+	virtual void s135();
+	virtual void s136();
+	virtual void s137();
+	virtual bool queryTurnSlow();
 	char m_pad[0x1F8-4];
 	float m_1F8;
 };
@@ -203,7 +255,7 @@ struct Rva001E546BFlags {
     __forceinline void set(unsigned i){m_bits[i>>5]|=1u<<(i&31);}
     __forceinline void reset(unsigned i){m_bits[i>>5]&=~(1u<<(i&31));}
 };
-class Thing { public: float getHeightAboveTerrainOrWater()const; void setOrientation(float); };
+class Thing { public: float getHeightAboveTerrainOrWater()const; void setOrientation(float); const Coord3D *getUnitDirectionVector2D()const; };
 class Rva0030A92C { public: void rva0030A92C(float); };
 extern "C" double __cdecl sin(double);
 float normalizeAngle(float);
@@ -217,14 +269,15 @@ public:
     void rva001E42F2(const int*);
 	bool rva0028C15E(int attr, float *val, int a, int b);
 	void rva0028AE6D();
+    void rva0028CFB2(const int*,const int*);
 	__forceinline int getID()const {return m_id74;}
-	char m_pad00[0x38];
+	char m_pad00[8]; Matrix3D m_matrix08;
 	float m_38;
 	float m_3C;
 	float m_40,m_44;
 	char m_pad48[0x74-0x48];
 	int m_id74;
-	char m_pad78[0xBC-0x78];
+	char m_pad78[0xB8-0x78]; float m_B8;
 	float m_BC;
 	char m_padC0[0x10C-0xC0];
 	Rva001E546BFlags m_flags10C;
@@ -384,7 +437,7 @@ void Rva001E46E1::rva001E546B(Object *obj)
     Obj254V *body=obj->m_254;
     if(!body) return;
     float baseline=m_48;
-    float wave=(float)sin((int)(((const Rva001E46E1FrameView*)TheGameLogic)->m_frame+obj->getID())*0.1f);
+    int id=obj->getID();unsigned frame=((const Rva001E46E1FrameView*)TheGameLogic)->m_frame;float wave=(float)sin((int)(frame+id)*0.1f);
     wave*=amplitude;
     wave*=0.2f;
     float desired=wave+baseline;
@@ -460,4 +513,94 @@ bool Rva001E46E1::rva001E5F1D(Object *obj,const Coord3D *pos,float *ground)
     obj->rva001E42F2((const int*)flags.rva001E4912(0,240,239));
     }
     return false;
+}
+
+// Native 0x001E56DC..0x001E5F1D (RET16): the locomotor receiver and Object
+// layouts are shared with the verified neighbouring movement/vertical bodies.
+// BFME1 Locomotor::rotateObjAroundLocoPivot (9cbfb551) and the ZH locomotor
+// turn logic supply the pivot semantics; the original method name is uncertain.
+// Target data offsets 3C/74/BC/10A, Object transform08 and radiusB8, AI slot228,
+// mover transform68/flags98-99/turn directionA8 and flags133/134/137/138 are
+// read from this retail body. WWMath is the unchanged shared donor at2f243e26d.
+// The local union records two successive stages: optional angle output, then
+// returned speed. Reading that speed through a volatile float view keeps the
+// native FSTP float rounding before SSE halving. The flag starts after the call
+// and before halving; the special pivot's constant offset is a const reference.
+static __forceinline void preRotateZ(Matrix3D&m,float s,float c){m.In_Place_Pre_Rotate_Z(s,c);}
+void Rva001E46E1::rva001E56DC(Object *obj,const Coord3D *goal,float maxTurnRate,float *relAngle)
+{
+    union PivotValue {float *output;float speed;};PivotValue value;value.output=relAngle;
+    float angle=obj->m_44;
+    float offset=m_data->m_BC;
+    float turnRate=m_data->m_3C;
+    if(m_99) turnRate*=0.0625f;
+    Obj258Holder *ai=obj->m_258;
+    bool slow=ai && ai->queryTurnSlow();
+    m_A8=0;
+    if(m_data->m_74==5) {
+        const float &turnPointOffset=offset*obj->m_B8;
+        Coord3D turnPos;
+        turnPos.x=obj->m_38; turnPos.y=obj->m_3C;
+        const Coord3D *dir=obj->getUnitDirectionVector2D();
+        turnPos.x+=dir->x*turnPointOffset;
+        turnPos.y+=dir->y*turnPointOffset;
+        float dx=goal->x-turnPos.x,dy=goal->y-turnPos.y;
+        if(fabs(dx)<0.1f && fabs(dy)<0.1f)return;
+        float amount=normalizeAngle(atan2f(dy,dx)-angle);
+        if(value.output)*value.output=amount;
+        if(amount>0.0f) {
+            if(amount>m_data->m_3C)m_A8=1;
+            if(amount>maxTurnRate)amount=maxTurnRate;
+        } else {
+            if(amount< -m_data->m_3C)m_A8=-1;
+            if(amount< -maxTurnRate)amount=-maxTurnRate;
+        }
+        Matrix3D mtx,tmp(true);
+        tmp.Translate(turnPos.x,turnPos.y,0.0f);
+        tmp.In_Place_Pre_Rotate_Z(amount);
+        tmp.Translate(-turnPos.x,-turnPos.y,0.0f);
+        mtx.mul(tmp,obj->m_matrix08);
+        ((Rva001E43CF*)this)->rva001E43CF(&mtx);
+    } else {
+        float turnPointOffset=offset*obj->m_B8;
+        Coord3D turnPos;
+        turnPos.x=obj->m_38;turnPos.y=obj->m_3C;
+        const Coord3D *dir=obj->getUnitDirectionVector2D();
+        turnPos.x+=dir->x*turnPointOffset;turnPos.y+=dir->y*turnPointOffset;
+        float dx=goal->x-turnPos.x,dy=goal->y-turnPos.y;
+        if(fabs(dx)<0.1f && fabs(dy)<0.1f)return;
+        float amount=normalizeAngle(atan2f(dy,dx)-angle);
+        if(value.output)*value.output=amount;
+        if(amount>0.0f){if(amount>turnRate)m_A8=1;if(amount>maxTurnRate)amount=maxTurnRate;}
+        else {if(amount< -turnRate)m_A8=-1;if(amount< -maxTurnRate)amount=-maxTurnRate;}
+        if(slow)amount*=0.5f;
+        float c=(float)cos(amount),s=(float)sin(amount);preRotateZ(m_matrix68,s,c);
+    }
+    float speed=m_40;
+    value.speed=rva001E46E1(obj);bool animate=true;float half=reinterpret_cast<const volatile float&>(value.speed)*0.5f;
+    if(speed>half && !m_data->m_10A)animate=false;
+    if(slow)animate=false;
+    if(!m_99) {
+        if(obj->m_flags10C.test(133)){obj->m_flags10C.reset(133);obj->rva0028AE6D();}
+        if(obj->m_flags10C.test(134)){obj->m_flags10C.reset(134);obj->rva0028AE6D();}
+        if(obj->m_flags10C.test(137)){obj->m_flags10C.reset(137);obj->rva0028AE6D();}
+        if(obj->m_flags10C.test(138)){obj->m_flags10C.reset(138);obj->rva0028AE6D();}
+    }
+    if(animate) {
+        if(m_A8==-1) {
+            if(speed>half) {
+                Rva001E4912 clear,set;
+                obj->rva0028CFB2((int*)clear.rva001E4912(0,137,133),(int*)set.rva001E4912(0,138,134));
+            } else if(obj->m_flags10C.test(133)||!obj->m_flags10C.test(134)){
+                obj->m_flags10C.reset(133);obj->m_flags10C.set(134);obj->rva0028AE6D();
+            }
+        } else if(m_A8==1) {
+            if(speed>half) {
+                Rva001E4912 clear,set;
+                obj->rva0028CFB2((int*)clear.rva001E4912(0,138,134),(int*)set.rva001E4912(0,137,133));
+            } else if(obj->m_flags10C.test(134)||!obj->m_flags10C.test(133)){
+                obj->m_flags10C.reset(134);obj->m_flags10C.set(133);obj->rva0028AE6D();
+            }
+        }
+    }
 }
