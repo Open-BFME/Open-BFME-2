@@ -42,6 +42,7 @@ class EAStringC
 public:
     EAStringC(){clear();}
     EAStringC &clear();
+    EAStringC &operator=(const EAStringC&);
     ~EAStringC();
     EAStringC &Rva006D4F00Append(const EAStringC &other);
     const char *rva00620090() const;
@@ -184,6 +185,7 @@ class Rva008A4570Owner {public:bool nameEquals(const char*);};
 class Rva006EB4B0 {
 public:EAStringC font;float size;int color,align;unsigned flags;int indent,left,right;
  Rva006EB4B0(AptValue*,float,int,int,int,int,int,int,AptValue*,int,int,int,int);
+ Rva006EB4B0(const Rva006EB4B0&);
 };
 Rva006EB4B0::Rva006EB4B0(AptValue *fontValue,float sizeValue,int colorValue,int bold,int italic,int underline,int unused6,int unused7,AptValue *alignValue,int leftValue,int rightValue,int indentValue,int unused12)
 : size(sizeValue),color(colorValue)
@@ -214,4 +216,15 @@ extern AptValue *gpUndefinedValue;
 AptValue *Rva006EC6F0Depth(AptValue *context,int unusedArgumentCount){
  if(context->isCIH(false))return AptInteger::Create(context->c_cih(false)->depth-0x4000);
  return gpUndefinedValue;
+}
+
+// Native CE30..CEB4 copies the same32B format state; -1 leaves three
+// destination fields untouched exactly as native. Reference signature is
+// structural inference; all field reads/writes and conditional copies are
+// target facts, and the constructor name remains address-derived.
+Rva006EB4B0::Rva006EB4B0(const Rva006EB4B0 &other){
+ align=other.align;color=other.color;font=other.font;size=other.size;flags=other.flags;
+ if(other.indent!=-1)indent=other.indent;
+ if(other.left!=-1)left=other.left;
+ if(other.right!=-1)right=other.right;
 }
