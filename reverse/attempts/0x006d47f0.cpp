@@ -1,72 +1,61 @@
-// ?Rva006D47F0Replace@EAStringC@@QAEHPBD0@Z
-// partial score=0.7109144543 date=2026-10-09
+// ?rva006D47F0@EAStringC@@QAEHPBD0@Z
+// partial score=0.9404652742 date=2026-10-09
 // cl: /O2 /DNDEBUG /MD /EHsc
-extern "C" char *__cdecl strstr(const char*,const char*);
-extern "C" unsigned int __cdecl strlen(const char*);
-extern "C" void *__cdecl memcpy(void*,const void*,unsigned int);
-#pragma intrinsic(strlen,memcpy)
+// 006D47F0..006D4A9C, complete retail extent including ret8 omitted by Ghidra.
+// WB1775230 guides non-overlapping substring replacement; native proves
+// StringDataC header and assertions. Address-derived member name preserved.
 extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char*,const char*,int);
 extern int g_bfmeAptBreakOnAssertAtDDC01C;
-void __debugbreak();
-#pragma intrinsic(__debugbreak)
+static __forceinline void aptAssert(const char *test,const char *file,int line){g_bfmeAptAssertAtE17734(test,file,line);if(g_bfmeAptBreakOnAssertAtDDC01C){__asm int 3}}
+#define STRING_FILE "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\string\\EAString.cpp"
+#define STRING_INL ".\\string\\EAString.inl"
+extern "C" unsigned int __cdecl strlen(const char*);
+extern "C" char *__cdecl strstr(const char*,const char*);
+extern "C" void *__cdecl memcpy(void*,const void*,unsigned int);
+#pragma intrinsic(strlen,memcpy)
 class EAStringC {
 public:
- struct StringDataC {unsigned short m_uRefCount,m_uSize,m_uMaxSize,m_uHash;};
- StringDataC *m_pData;
- static void FreeData(StringDataC*);
+ class StringDataC {public:unsigned short refs,size,maxSize,hash;};
+ StringDataC *data;
  EAStringC(unsigned int);
- ~EAStringC(){FreeData(m_pData);}
- char *buffer()const{return (char*)m_pData+8;}
- void SetSize(int size){
-  if((unsigned)size>m_pData->m_uMaxSize){
-   g_bfmeAptAssertAtE17734("uSize <= GetInternalMaxSize()",".\\string\\EAString.inl",0x5c);
-   if(g_bfmeAptBreakOnAssertAtDDC01C)__debugbreak();
-  }
-  m_pData->m_uSize=(unsigned short)size;
- }
- EAStringC &operator=(const EAStringC&other);
- int Rva006D47F0Replace(const char*,const char*);
+ static void FreeData(StringDataC*);
+ ~EAStringC(){FreeData(data);}
+ int rva006D47F0(const char*,const char*);
+ char *buffer()const{return (char*)data+8;}
+ void setSize(unsigned int n){StringDataC *p=data;if(n>p->maxSize)aptAssert("uSize <= GetInternalMaxSize()",STRING_INL,0x5C);p->size=(unsigned short)n;p->hash=0;}
+ EAStringC &operator=(const EAStringC&);
 };
 extern EAStringC::StringDataC g_eaEmptyStringData;
-inline EAStringC& EAStringC::operator=(const EAStringC&other){
- if(other.m_pData!=&g_eaEmptyStringData && other.m_pData->m_uRefCount>0xfffe){
-  g_bfmeAptAssertAtE17734("m_pData->m_uRefCount <= 0xfffe",".\\string\\EAString.inl",0xe1);
-  if(g_bfmeAptBreakOnAssertAtDDC01C)__debugbreak();
- }
- ++other.m_pData->m_uRefCount;
- FreeData(m_pData);
- m_pData=other.m_pData;
- return *this;
+EAStringC &EAStringC::operator=(const EAStringC &s){
+ if(s.data!=&g_eaEmptyStringData && s.data->refs>0xFFFE)aptAssert("m_pData->m_uRefCount <= 0xfffe",STRING_INL,0xE1);
+ ++s.data->refs;FreeData(data);data=s.data;return *this;
 }
-int EAStringC::Rva006D47F0Replace(const char *find,const char *replacement){
- if(!find){g_bfmeAptAssertAtE17734("pStrOld != NULL","C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\string\\EAString.cpp",0x3b4);if(g_bfmeAptBreakOnAssertAtDDC01C)__debugbreak();}
- if(!replacement){g_bfmeAptAssertAtE17734("pStrNew != NULL","C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\string\\EAString.cpp",0x3b5);if(g_bfmeAptBreakOnAssertAtDDC01C)__debugbreak();}
- int findLength=strlen(find);
- if(!findLength)return 0;
- int replacementLength=strlen(replacement);
+int EAStringC::rva006D47F0(const char *oldString,const char *newString){
+ if(!oldString)aptAssert("pStrOld != NULL",STRING_FILE,0x3B4);
+ if(!newString)aptAssert("pStrNew != NULL",STRING_FILE,0x3B5);
+ unsigned int oldLength=strlen(oldString);
+ if(!oldLength)return 0;
+ unsigned int newLength=strlen(newString);
  int count=0;
- const char*match=strstr(buffer(),find);
- if(match){do{++count;match=strstr(match+findLength,find);}while(match);}
+ const char *src=buffer();
+ const char *occurrence;
+ while((occurrence=strstr(src,oldString))!=0){++count;src=occurrence+oldLength;}
  if(!count)return 0;
- int newLength=m_pData->m_uSize+(replacementLength-findLength)*count;
- EAStringC result(newLength);
- const char*source=buffer();
- char*destination=result.buffer();
- char*destinationStart=destination;
- for(int remaining=count;remaining>0;--remaining){
-  match=strstr(source,find);
-  if(!match){g_bfmeAptAssertAtE17734("pStrOccurence != NULL","C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\string\\EAString.cpp",0x3e7);if(g_bfmeAptBreakOnAssertAtDDC01C)__debugbreak();}
-  int prefixLength=(int)(match-source);
-  if(prefixLength){memcpy(destination,source,prefixLength);destination+=prefixLength;}
-  source=match+findLength;
-  memcpy(destination,replacement,replacementLength);
-  destination+=replacementLength;
+ int resultSize=data->size+(newLength-oldLength)*count;
+ EAStringC result(resultSize);
+ src=buffer();
+ char *start=result.buffer();char *dest=start;
+ for(int i=0;i<count;++i){
+  occurrence=strstr(src,oldString);
+  if(!occurrence)aptAssert("pStrOccurence != NULL",STRING_FILE,0x3E7);
+  unsigned int prefix=occurrence-src;
+  if(prefix){memcpy(dest,src,prefix);dest+=prefix;}
+  src=occurrence+oldLength;
+  memcpy(dest,newString,newLength);dest+=newLength;
  }
- int tailLength=newLength-(int)(destination-destinationStart);
- if(tailLength){memcpy(destination,source,tailLength);destination+=tailLength;}
- *destination=0;
- result.SetSize(newLength);
- result.m_pData->m_uHash=0;
+ unsigned int remaining=resultSize-(dest-start);
+ if(remaining){memcpy(dest,src,remaining);dest+=remaining;}
+ *dest=0;result.setSize(resultSize);
  *this=result;
  return count;
 }
