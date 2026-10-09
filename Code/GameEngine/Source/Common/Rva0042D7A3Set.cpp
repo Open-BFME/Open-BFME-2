@@ -6,7 +6,7 @@ namespace StrategicHUD
 class EndTurnButtonImpl
 {
 public:
-	virtual ~EndTurnButtonImpl();
+	~EndTurnButtonImpl();
 };
 }
 

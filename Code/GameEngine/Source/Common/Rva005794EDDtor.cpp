@@ -1,6 +1,9 @@
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
-// ??1EndTurnButtonImpl@StrategicHUD@@UAE@XZ @0x005794ED 85B: virtual dtor with AsciiString at +8 plus Rva0052413E at +0xC plus TargetRef at +0x18.
-// Evidence: deleting-dtor callers 0x0042D4EB 0x0042D7A3 0x0042D7C6 plus rowed Release 0x0007DEEF plus rowed 0x0052413E plus rowed releaseBuffer 0x00036410 plus vtables 0x00C6ECBC 0x00C6EE28; prev Rva004FAC6BCtor.
+// ??1EndTurnButtonImpl@StrategicHUD@@QAE@XZ @0x005794ED 85B: dtor with AsciiString at +8 plus Rva0052413E at +0xC plus TargetRef at +0x18.
+// Evidence: direct callers 0x0042D4EB 0x0042D7A3 0x0042D7C6 plus rowed Release 0x0007DEEF plus rowed 0x0052413E plus rowed releaseBuffer 0x00036410 plus vtables 0x00C6ECBC 0x00C6EE28; prev Rva004FAC6BCtor.
+// Not virtual: slot 0 of the class's table 0x00C6ECBC is the byte getter 0x004C54EC (as WB's
+// table's slot 0 is a 17-byte getter), the base table 0x00C6EE28 is seven __purecall slots,
+// and every delete calls 0x005794ED directly before operator delete.
 #include "ascii_string.h"
 
 struct TargetRef00217D4C
@@ -120,14 +123,24 @@ inline AsciiStringPlusStringText operator+(const AsciiStringPlusString &left, co
 extern const void *const g_00C6ECBC[];
 extern const void *const g_00C6EE28[];
 
+// The base table 0x00C6EE28 is seven __purecall slots and no deleting
+// destructor. Slots 1-3 take the names of the EndTurnButtonImpl overrides
+// WorldBuilder gives; slots 0 and 4-6 stay unnamed.
 class __declspec(novtable) Rva005794EDBase
 {
 public:
 	Rva005794EDBase() {}
-	virtual ~Rva005794EDBase();
+	~Rva005794EDBase();
+	virtual bool vslot0() const = 0;
+	virtual void DoSetEnabled(bool newState) = 0;
+	virtual void DoPlayAlertFlash() = 0;
+	virtual void DoHaltAlertFlash() = 0;
+	virtual void vslot4() = 0;
+	virtual void vslot5() = 0;
+	virtual void vslot6() = 0;
 };
 
-// ??1Rva005794EDBase@@UAE@XZ present-unmatched
+// ??1Rva005794EDBase@@UAE@XZ present-unmatched (register key kept; the dtor is non-virtual)
 inline Rva005794EDBase::~Rva005794EDBase()
 {
 	*(const void **)this = g_00C6EE28;
@@ -157,7 +170,7 @@ class EndTurnButtonImpl : public Rva005794EDBase
 {
 public:
 	EndTurnButtonImpl(int level, const AsciiString &name);
-	virtual ~EndTurnButtonImpl();
+	~EndTurnButtonImpl();
 	virtual void DoSetEnabled(bool newState);
 	virtual void DoPlayAlertFlash();
 	virtual void DoHaltAlertFlash();
