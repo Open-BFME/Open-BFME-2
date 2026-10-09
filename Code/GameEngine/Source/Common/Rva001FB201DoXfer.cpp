@@ -84,7 +84,7 @@ protected:
 class Xfer::Version
 {
 public:
-	Version(unsigned char current, unsigned char minimum)
+	__declspec(dllimport) __forceinline Version(unsigned char current, unsigned char minimum) // Native two-byte version initialization.
 		: m_current(current), m_minimum(minimum) {}
 
 	unsigned char m_current;
