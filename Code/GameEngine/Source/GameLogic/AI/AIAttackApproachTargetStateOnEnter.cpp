@@ -92,6 +92,7 @@
 #include "../../Common/GameLogicObjectLookupView.h"
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 #include "../../../../Libraries/Include/Lib/Coord2D.h"
+#include "../../Common/PartitionRangeQueryCallView.h"
 
 typedef bool Bool;
 typedef float Real;
@@ -476,6 +477,8 @@ public:
 	void preFireCurrentWeapon(const Object *victim, const Coord3D *pos);
 	void rva0028FC8F();
 	void fireCurrentWeapon(const Coord3D *pos);
+	void fireCurrentWeapon(Object *victim, Int goalID);
+	Bool getWorldspaceBestContactPoint(Coord3D *result, const Coord3D *from, const char *boneName, Int a, Int b, Bool c) const;
 	void rva0028ACEE(const Coord3D *pos, Int layer);
 	Bool GetGoalPosition(Coord3D *pos) const;
 	void *rva0029439D();
@@ -487,7 +490,9 @@ public:
 	Real m_orientation; // +0x44
 	unsigned char m_pad048[0x74 - 0x48];
 	Int m_id; // +0x74
-	unsigned char m_pad078[0xB8 - 0x78];
+	unsigned char m_pad078[0x94 - 0x78];
+	UnsignedInt m_94; // +0x94 (bit 0: destroyed)
+	unsigned char m_pad098[0xB8 - 0x98];
 	Real m_geometryRadiusB8; // +0xB8
 	unsigned char m_pad0BC[0x1C0 - 0xBC];
 	Real m_1c0; // +0x1C0
@@ -533,8 +538,13 @@ public:
 	unsigned char m_pad00[0x2C];
 	Real m_aimDelta; // +0x2C
 	Real m_aimOffset; // +0x30
-	unsigned char m_pad34[0x16B - 0x34];
+	unsigned char m_pad34[0x148 - 0x34];
+	Real m_continueAttackRange; // +0x148
+	unsigned char m_pad14C[0x161 - 0x14C];
+	Bool m_161; // +0x161 (keeps attacking a dead victim)
+	unsigned char m_pad162[0x16B - 0x162];
 	Bool m_16b; // +0x16B
+	Bool is16b() const { return m_16b; }
 };
 
 class Weapon
@@ -622,7 +632,10 @@ private:
 	StateIdView *m_currentState; // +0x04
 	unsigned char m_pad08[0x14 - 0x08];
 	Object *m_owner; // +0x14
-	unsigned char m_pad18[0x24 - 0x18];
+	unsigned char m_pad18[0x20 - 0x18];
+public:
+	Int m_goalObjectID; // +0x20
+private:
 	Coord3D m_goalPosition; // +0x24
 	unsigned char m_pad30[0x38 - 0x30];
 public:
@@ -808,13 +821,15 @@ private:
 };
 
 // AIAttackFireWeaponState, vtable 0x00C111F8.
+class AttackStateHost;
 class AIAttackFireWeaponState : public State
 {
 public:
 	virtual StateReturnType onEnter();
+	virtual StateReturnType update();
 private:
-	void *m_att; // +0x1C
-	Int m_20; // +0x20
+	unsigned char m_pad1C[0x20 - 0x1C];
+	AttackStateHost *m_att; // +0x20
 	Bool m_waitOddFrame; // +0x24
 };
 
@@ -887,8 +902,10 @@ class AttackStateHost
 {
 public:
 	virtual void notifyFired();
-	virtual void slot01();
+	virtual void notifyNewVictimChosen(Object *victim);
 	virtual Bool isWeaponSlotOkToFire(WeaponSlotType wslot);
+	virtual Bool isAttackingObject() const;
+	virtual const Coord3D *getOriginalVictimPos() const;
 };
 
 // AIAttackPositionFireWeaponState, vtable 0x00C11258.
@@ -2035,4 +2052,184 @@ private:
 Bool AIAttackMoveToState::rva00340F25() const
 {
 	return m_attackMoveMachine->isInAttackState() ? false : true;
+}
+
+Real Cos(Real angle);
+Real Sin(Real angle);
+#define PI_F 3.14159265359f
+
+// The locomotor's aim-at-position hook (0x001E702E, rowed under this name).
+class Rva001E702E
+{
+public:
+	void rva001E702E(Thing *obj, Int targetPos, Int flag);
+};
+
+// BFME 2's partition filter base (ctor 0x000421C8): a vptr and the +0x04 link
+// to the next filter (link 0x00625790 appends its argument and returns this).
+class Rva000421C8
+{
+public:
+	Rva000421C8() : m_next(0) {}
+	virtual ~Rva000421C8() {}
+	virtual Bool allow(Object *objOther) = 0;
+	Rva000421C8 *link(Rva000421C8 *next);
+private:
+	Rva000421C8 *m_next; // +0x04
+};
+enum AbleToAttackType
+{
+	ATTACK_NEW_TARGET = 0
+};
+class PartitionFilterPossibleToAttack : public Rva000421C8
+{
+public:
+	PartitionFilterPossibleToAttack(AbleToAttackType t, const Object *obj, Int commandSource)
+		: m_obj(obj), m_commandSource(commandSource), m_attackType(t) {}
+	virtual Bool allow(Object *objOther);
+private:
+	const Object *m_obj; // +0x08
+	Int m_commandSource; // +0x0C
+	AbleToAttackType m_attackType; // +0x10
+};
+class PartitionFilterSameMapStatus : public Rva000421C8
+{
+public:
+	PartitionFilterSameMapStatus(const Object *obj) : m_obj(obj) {}
+	virtual Bool allow(Object *objOther);
+private:
+	const Object *m_obj; // +0x08
+};
+// vftable 0x00BFAD04 (rowed allow 0x00260E2A): Zero Hour's
+// PartitionFilterSamePlayer.
+class Rva00260E2AFilter : public Rva000421C8
+{
+public:
+	Rva00260E2AFilter(const Player *player) : m_player(player) {}
+	virtual Bool allow(Object *objOther);
+private:
+	const Player *m_player; // +0x08
+};
+extern PartitionManager *ThePartitionManager;
+
+// Retail 0x0034AAC8, 1047 bytes: slot 6 of AIAttackFireWeaponState (vtable
+// 0x00C111F8). Zero Hour's update with BFME 2's additions: Object +0x438 bit 0
+// and status 0x52 fail; a template +0x16B weapon holds fire unless the victim
+// is immobile; otherwise a walking turretless owner aims its locomotor
+// (0x001E702E) at the victim -- its "Ram" contact point for kind 0x10F/0x119
+// victims of contact or byte-field weapons, swung by the template +0x30 aim
+// offset 1000 units out when that is positive -- when the template +0x2C aim
+// delta is under PI; a dead victim ends an object attack unless template
+// +0x161. The odd-frame wait, READY_TO_FIRE / PRE_ATTACK, the slot test and
+// the firing condition follow Zero Hour; the object shot passes the machine's
+// +0x20 goal ID, and a destroyed/dead victim with a continue-attack range
+// (+0x148) re-targets around the original victim position through BFME 2's
+// chained partition filters (scoped to the query, as retail destroys them
+// before the new goal is set).
+StateReturnType AIAttackFireWeaponState::update()
+{
+	Object *obj = getMachineOwner();
+	Object *victim = getMachineGoalObject();
+	Int goalID = getMachine()->m_goalObjectID;
+	WeaponSlotType wslot;
+	Weapon *weapon = obj->getCurrentWeapon(&wslot);
+	if (!weapon)
+		return STATE_FAILURE;
+	if (obj->m_438 & 1)
+		return STATE_FAILURE;
+	if (obj->testStatus(OBJECT_STATUS_52))
+		return STATE_FAILURE;
+
+	Bool holdFire;
+	if (weapon->getTemplate()->is16b() && !(victim && victim->isKindOfImmobile()))
+	{
+		holdFire = true;
+	}
+	else
+	{
+		holdFire = false;
+		AIUpdateInterface *ai;
+		if (victim && (ai = obj->getAI()) != 0 && ai->getCurLocomotor() && ai->getWhichTurretForCurWeapon() == TURRET_INVALID)
+		{
+			Coord3D target;
+			target.x = victim->getPosition()->x;
+			target.y = victim->getPosition()->y;
+			target.z = victim->getPosition()->z;
+			if (((victim->getTemplate()->m_kindOf[7] & 0x10) || (victim->getTemplate()->m_kindOf[0x11] & 2)) &&
+				(weapon->getTemplate()->isContactWeapon() || ((const Rva002C9400ByteField *)weapon->getTemplate())->get()))
+				victim->getWorldspaceBestContactPoint(&target, obj->getPosition(), "Ram", 0, 0x2a, false);
+			if (weapon->getTemplate()->m_aimOffset > 0.0f)
+			{
+				Real offset = weapon->getTemplate()->m_aimOffset;
+				Real relative = obj->GetRelativeAngle(&target) - offset;
+				Real angle = obj->getOrientation() + relative;
+				target = *obj->getPosition();
+				target.x += Cos(angle) * 1000.0f;
+				target.y += Sin(angle) * 1000.0f;
+			}
+			Real aimDelta = weapon->getTemplate()->m_aimDelta;
+			if (aimDelta < PI_F)
+				((Rva001E702E *)ai->getCurLocomotor())->rva001E702E(obj, (Int)&target, 0);
+		}
+		if (m_att && m_att->isAttackingObject() &&
+			(!victim || (victim->m_438 & 1) || victim->testStatus(OBJECT_STATUS_32)) &&
+			!weapon->getTemplate()->m_161)
+		{
+			getMachine()->setGoalObject(0);
+			return STATE_SUCCESS;
+		}
+	}
+
+	if (m_waitOddFrame)
+	{
+		m_waitOddFrame = false;
+		obj->setStatus(OBJECT_STATUS_0D, true);
+		obj->preFireCurrentWeapon(victim, getMachineGoalPosition());
+		return STATE_CONTINUE;
+	}
+
+	WeaponStatus status = weapon->getStatus();
+	if (status == PRE_ATTACK)
+		return STATE_CONTINUE;
+	if (status != READY_TO_FIRE)
+		return STATE_FAILURE;
+	if (m_att && !m_att->isWeaponSlotOkToFire(wslot))
+		return STATE_FAILURE;
+
+	obj->rva0028FC8F();
+	if (m_att && m_att->isAttackingObject() && !holdFire)
+	{
+		obj->fireCurrentWeapon(victim, goalID);
+		obj->setStatus(OBJECT_STATUS_1B, false);
+		Real continueRange = weapon->getTemplate()->m_continueAttackRange;
+		if (continueRange > 0.0f && victim &&
+			((victim->m_94 & 1) || (victim->m_438 & 1) || victim->testStatus(OBJECT_STATUS_32)))
+		{
+			const Coord3D *originalVictimPos = m_att ? m_att->getOriginalVictimPos() : 0;
+			if (originalVictimPos)
+			{
+				AIUpdateInterface *ai = obj->getAI();
+				Int lastCmdSource = ai ? ai->slot143() : 2;
+				{
+					PartitionFilterSameMapStatus filterMapStatus(obj);
+					PartitionFilterPossibleToAttack filterAttack(ATTACK_NEW_TARGET, obj, lastCmdSource);
+					Rva00260E2AFilter filterPlayer(victim->getControllingPlayer());
+					victim = ThePartitionManager->getClosestObject(originalVictimPos, continueRange, 0,
+						filterPlayer.link(filterAttack.link(&filterMapStatus)));
+				}
+				if (victim)
+				{
+					getMachine()->setGoalObject(victim);
+					m_att->notifyNewVictimChosen(victim);
+				}
+			}
+		}
+	}
+	else
+	{
+		obj->fireCurrentWeapon(getMachineGoalPosition());
+		obj->setStatus(OBJECT_STATUS_1B, false);
+	}
+	m_att->notifyFired();
+	return STATE_SUCCESS;
 }
