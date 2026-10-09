@@ -1,116 +1,61 @@
 // ?rva004693D9@Rva004693D9@@QAEXXZ
-// partial score=0.97 date=2026-10-04
-// cl: /O1 /MD /arch:SSE
-// ?rva004693D9@Rva004693D9@@QAEXXZ 0x004693D9 308B evidence: vector at holder+0x18c via AsciiString key through g_009FF000 row 0x002D06CA flag 0x109 bit 8 then float avg via g_Va00BBB8D8 caller 0x00474519
-class AsciiString;
-class Rva002D06CA
-{
+// partial score=0.98 date=2026-10-09
+// cl: /O1 /G7 /arch:SSE /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /ICode/Libraries/Include /Ireference/shims/bfme2_ascii
+// stlport
+// Native4693D9..46950D RET0; WB10B6D30 gives complete formation-center
+// semantics. BFME1 f98983a7 Rva00245010RecordBuild calls the analogous helper
+// 23B9F0 but carries no definition. Target establishes rank18C/name4/position8,
+// kind-of11 byte109 mask8, and owner188 records28 with Coord2D positions4/C.
+// If a kind11 rank exists, center on its first slot; otherwise average all
+// slots. Subtract center and refresh each original position from the result.
+#include <vector>
+#include "Lib/Coord2D.h"
+#include "ascii_string.h"
+class ThingTemplate;
+class ThingFactory {public: const ThingTemplate *findTemplate(const AsciiString&);};
+extern ThingFactory *TheThingFactory;
+class Rva002D06CA { public: void *rva002D06CA(const AsciiString*); };
+struct Rva004693D9Input { float x,y; int partner,localIndex; };
+template<class T> struct Rva004693D9Range {
+ T *first,*finish,*limit;
+ __forceinline unsigned size() const { return finish-first; }
+};
+struct Rva004693D9Rank {
+ int key; AsciiString name; _STL::vector<Rva004693D9Input> positions;
+};
+struct Rva004693D9Definition {
+ char opaque000[0x18c]; _STL::vector<Rva004693D9Rank*> ranks;
+};
+struct Rva004693D9Template { char opaque000[0x109]; unsigned char kinds109; };
+struct Rva004693D9Slot { int key; Coord2D position,original; float value; int partner; };
+class Rva004693D9 {
 public:
-	void *rva002D06CA(const AsciiString *key);
+ void rva004693D9();
+ void *vptr; Rva004693D9Definition *definition;
+ char opaque008[0x188-8]; _STL::vector<Rva004693D9Slot> slots;
 };
-extern Rva002D06CA *g_009FF000;
-extern float g_Va00BBB8D8;
-struct Flag109
-{
-	unsigned char m_pad[0x109];
-	unsigned char m_flags;
-};
-struct Item16
-{
-	char m_d[16];
-};
-struct SubEntry
-{
-	int m_00;
-	int m_keyPlaceholder;
-	Item16 *m_08Begin;
-	Item16 *m_0CEnd;
-};
-struct Vec28
-{
-	int m_00;
-	float m_04;
-	float m_08;
-	int m_0C;
-	int m_10;
-	int m_14;
-	int m_18;
-};
-struct SubVec
-{
-	SubEntry **m_beg;
-	SubEntry **m_end;
-};
-struct Holder
-{
-	char m_pad[0x18C];
-	SubVec m_vec;
-};
-class Rva004693D9
-{
-public:
-	void rva004693D9();
-private:
-	char m_pad00[4];
-	Holder *m_04;
-	char m_pad08[0x180];
-	Vec28 *m_188;
-	Vec28 *m_18C;
-};
-// ?rva004693D9@Rva004693D9@@QAEXXZ present-unmatched
+static __forceinline Coord2D &rva4693Scale(Coord2D &v,float f) {v.x*=f;v.y*=f;return v;}
+static __forceinline Coord2D &rva4693Sub(Coord2D &v,const Coord2D &r) {v.x-=r.x;v.y-=r.y;return v;}
 void Rva004693D9::rva004693D9()
 {
-	SubVec *v = &m_04->m_vec;
-	int total = 0;
-	int wanted = -1;
-	if ((((char *)v->m_end - (char *)v->m_beg) >> 2) != 0) {
-		unsigned i = 0;
-		do {
-			void *f = g_009FF000->rva002D06CA((const AsciiString *)((char *)v->m_beg[i] + 4));
-			if (f != 0 && ((((Flag109 *)f)->m_flags) & 8) != 0) {
-				wanted = total;
-				break;
-			}
-			SubEntry *e = v->m_beg[i];
-			total += (int)(e->m_0CEnd - e->m_08Begin);
-			++i;
-		} while (i < (unsigned)(((char *)v->m_end - (char *)v->m_beg) >> 2));
-	}
-	Vec28 *b2 = m_188;
-	Vec28 *e2 = m_18C;
-	float sx = 0.0f;
-	float sy = 0.0f;
-	int n = 0;
-	total = 0;
-	if (b2 != e2) {
-		Vec28 *p = b2;
-		do {
-			sx += p->m_04;
-			sy += p->m_08;
-			++n;
-			if (total == wanted) {
-				int ix = *(int *)&p->m_04;
-				int iy = *(int *)&p->m_08;
-				sx = *(float *)&ix;
-				sy = *(float *)&iy;
-				n = 1;
-				break;
-			}
-			++total;
-			++p;
-		} while (p != e2);
-	}
-	if (n != 0) {
-		float inv = g_Va00BBB8D8 / (float)n;
-		sx *= inv;
-		sy *= inv;
-	}
-	if (b2 != e2) {
-		for (Vec28 *p = b2; p != e2; ++p) {
-			p->m_04 -= sx;
-			p->m_08 -= sy;
-			p->m_0C = *(int *)&p->m_04;
-			p->m_10 = *(int *)&p->m_08;
-		}
-	}
+ int preferred=-1;
+ const _STL::vector<Rva004693D9Rank*> &ranks=definition->ranks;
+ unsigned offset=0;
+ for(unsigned i=0;i<ranks.size();++i) {
+  const AsciiString &name=ranks[i]->name;
+  Rva004693D9Template *type=(Rva004693D9Template*)TheThingFactory->findTemplate(name);
+  if(type && (type->kinds109&8)) {preferred=offset;break;}
+  offset+=ranks[i]->positions.size();
+ }
+ Coord2D center; center.x=0;center.y=0;
+ int count=0,index=0;
+ for(Rva004693D9Slot *p=slots.begin();p!=slots.end();++index,++p) {
+  center.x+=p->position.x;center.y+=p->position.y;++count;
+  if(index==preferred) {center=p->position;count=1;break;}
+ }
+ if(count) {float scale=1.0f/count;rva4693Scale(center,scale);}
+ for(Rva004693D9Slot *p=slots.begin();p!=slots.end();++p) {
+  rva4693Sub(p->position,center);
+  p->original=p->position;
+ }
 }

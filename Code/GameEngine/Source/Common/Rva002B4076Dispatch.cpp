@@ -29,7 +29,10 @@ static __declspec(noinline) void rva002B3DE4(LivingWorldArmy *source,int key,Liv
   target->rva00319EF9(source,key);
  }
 }
-class Rva002B4076 { public: void rva002B4076(LivingWorldArmy *,int,LivingWorldArmy *); };
+class Rva002B4076 { public:
+ void rva002B4076(LivingWorldArmy *,int,LivingWorldArmy *);
+ void rva002B4076(void *,int,void *);
+};
 void Rva002B4076::rva002B4076(LivingWorldArmy *source,int key,LivingWorldArmy *target) {
  rva002B3DE4(source,key,target);
 }
@@ -55,4 +58,10 @@ void Rva002B6D85::rva002B6D85(LivingWorldArmy *source,Rva002B3E50Range *first,Li
  listeners.forEach(&Rva002B2FCBElem::notify,(int)source,(int)first,(int)target,(int)second);
  rva002B3E50(first,source,target);
  rva002B3E50(second,target,source);
+}
+
+// Neutral pointer ABI bridge for callers whose established army spelling is
+// struct LivingWorldArmy. Both pointers retain the native source/target roles.
+void Rva002B4076::rva002B4076(void *source,int key,void *target) {
+ rva002B3DE4((LivingWorldArmy*)source,key,(LivingWorldArmy*)target);
 }
