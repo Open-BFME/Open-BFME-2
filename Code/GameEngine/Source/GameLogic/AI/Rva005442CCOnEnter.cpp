@@ -29,7 +29,7 @@ public:
 class Object
 {
 public:
-	AIUpdateInterface *getAI() { return m_ai; }
+	static __forceinline AIUpdateInterface *getAI(const Object *object) { return object->m_ai; }
 private:
 	unsigned char m_pad00[0x258];
 	AIUpdateInterface *m_ai; // +0x258
@@ -133,7 +133,7 @@ StateReturnType Rva005442CC::onEnter()
 	}
 	if (!bec->v02(m_machine->getOwner(), &m_goalPosition, &m_machine->m_3c))
 		return STATE_FAILURE;
-	AIUpdateInterface *ai = m_machine->getOwner()->getAI();
+	AIUpdateInterface *ai = Object::getAI(m_machine->getOwner());
 	if (ai != 0)
 		ai->ignoreObstacle(0);
 	return AIInternalMoveToState::onEnter();

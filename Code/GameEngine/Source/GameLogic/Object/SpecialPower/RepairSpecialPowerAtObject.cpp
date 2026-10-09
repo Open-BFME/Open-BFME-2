@@ -45,7 +45,7 @@ class Object
 {
 public:
 	const ThingTemplate *getTemplate() const { return m_template; }
-	AIUpdateInterface *getAI() { return m_ai; }
+	static __forceinline AIUpdateInterface *getAI(const Object *object) { return object->m_ai; }
 	unsigned char m_pad00[0x04];
 	const ThingTemplate *m_template; // +0x04
 	unsigned char m_pad08[0x74 - 0x08];
@@ -108,7 +108,7 @@ void RepairSpecialPower::doSpecialPowerAtObject(Object *obj, unsigned int option
 	Object *self = m_object;
 	if (self->getTemplate()->isKindOf109Bit6() && obj && obj->getTemplate()->isKindOf108Bit7())
 	{
-		AIUpdateInterface *ai = self->getAI();
+		AIUpdateInterface *ai = Object::getAI(self);
 		if (ai)
 			ai->getCommandInterface()->rva0036F19B(TheGameLogic->findObjectByID(obj->m_id), CMD_FROM_PLAYER);
 	}
