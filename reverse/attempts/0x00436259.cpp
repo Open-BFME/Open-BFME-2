@@ -1,4 +1,6 @@
 // ??0AptSaveLoad@@QAE@PAX@Z
+// partial score=0.9966 date=2026-10-10
+// ??0AptSaveLoad@@QAE@PAX@Z
 // partial score=0.98 date=2026-10-09
 // cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Source/Common /DNDEBUG /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /O1 /G6 /arch:SSE
 // stlport
@@ -297,4 +299,10 @@ AptSaveLoad::AptSaveLoad(void *context)
 	m_2A4 = TheRva00222A8BTarget->m_31C == 0;
 	if (m_2A4)
 		TheRva00222A8BTarget->rva002233A6(1);
+}
+
+unsigned int bfmeHash00010AFA(unsigned int,unsigned int);
+__declspec(noinline) inline bool Gen_0056E190::bfmeDiffers(const Gen_0056E190&other)const{
+ unsigned int theirs=other.m_4;unsigned int mine=m_4;
+ return bfmeHash00010AFA(mine,theirs)!=0x993BA311;
 }
