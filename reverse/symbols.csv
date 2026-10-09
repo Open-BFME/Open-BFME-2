@@ -7925,7 +7925,7 @@ name,address,notes
 ?bfmeDestroyRange@@YAXPAVBfmeVecAW@@@Z,0x003ED7A2,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?bfmeDetachCFF@BfmeOwnerCFF@@QAEXPAVBfmeThingCFF@@@Z,0x002ABD48
 ?bfmeDo1026@BfmeStore1026@@QAEXH@Z,0x00242C09,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
-?bfmeDo1037@BfmeG1037@@QAEXHH@Z,0x00496E05,callee of ?bfmeGo1037F@@YGXHHH@Z at retail 0x00468E79 read from its REL32 displacement; opens an SEH frame and reads this+8; body unrowed
+?bfmeDo1037@BfmeG1037@@QAEXH_N@Z,0x00496E05,callee of HordeContain::rva00468E79 at retail00468E79 REL32; native00496EBC CMP BYTE arg1 proves bool; reads this+8; body unrowed
 ?bfmeDo1052@BfmeH1052@@QAEXHPAVBfmeI1052@@H@Z,0x0066CFB0
 ?bfmeDo1052@Rva00800E50Owner@@QAEXHPAURva00800E50Stamp@@H@Z,0x0066CFB0
 ?bfmeDo912C@BfmeThing912C@@QAEXPAUBfmeNode912C@@@Z,0x006274B0
