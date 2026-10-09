@@ -91,8 +91,7 @@ public:
     AsciiString rva00358CCD(const AsciiString &);
     Rva00359302Result addHotKey(const TreeHintRef00217D4C &,const AsciiString &,bool);
 };
-class Rva00E01E28Owner;
-extern Rva00E01E28Owner *g_00E01E28;
+extern HotKeyManager *TheHotKeyManager;
 class ControlBar
 {
 public:
@@ -133,11 +132,11 @@ void ControlBar::setControlCommand(GameWindow *button,const CommandButton *comma
     command->window=button;
     rva0031ABD9(button,((Rva0035AFD0 *)commandButton)->rva0035AFD0());
     Rva00327D86Update(button,command->productionCount());
-    if (g_00E01E28)
+    if (TheHotKeyManager)
     {
-        AsciiString hotKey=((HotKeyManager *)g_00E01E28)->rva00358CCD(commandButton->rva0035B1E9());
+        AsciiString hotKey=TheHotKeyManager->rva00358CCD(commandButton->rva0035B1E9());
         if (!hotKey.isEmpty())
-            ((HotKeyManager *)g_00E01E28)->addHotKey(
+            TheHotKeyManager->addHotKey(
                 TreeHintRef00217D4C(new Rva0053DAD0((int)button)),hotKey,false);
     }
     GadgetButtonSetAltSound(button,AsciiString("GUIControlButtonClick"));
