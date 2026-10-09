@@ -6,6 +6,7 @@
 // retail holds one size-optimised (/O1) out-of-line copy of each.
 // The pointer constants and the anchor below only make this TU emit them out of line; they are not retail code or data.
 //
+#include "../../../../../../reference/shims/bfme_vp_math/vector4.h" // keep native inline math without competing Vector4 helpers
 #include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
 #define DEFINE_SLOWDEATHPHASE_NAMES
 #include "Common/GameLOD.h"

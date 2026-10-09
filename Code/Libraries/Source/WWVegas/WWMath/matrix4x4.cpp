@@ -36,6 +36,7 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 // rather than inlining it away. The angle-bracket form is load-bearing: a
 // quoted include would find this directory's own Generals-era matrix4.h first.
 
+#include "../../../../../reference/shims/bfme_vp_math/vector4.h" // keep native inline math without competing Vector4 helpers
 #include <matrix4.h>
 
 Matrix4x4 (*const Matrix4x4_Multiply_Address)(const Matrix4x4 &, const Matrix4x4 &) = &operator*;

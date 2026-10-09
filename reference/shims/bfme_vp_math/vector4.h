@@ -1,7 +1,7 @@
-// Scoped vp.cpp view from BFME1 9cbfb551fe20dae985f91f2319d8997287b6a705.
+// Scoped inline Vector4 view from BFME1 9cbfb551fe20dae985f91f2319d8997287b6a705.
 // Preserve the verified inlined algorithm while suppressing its optimized
-// COMDAT copy. The external helper is owned elsewhere; no DLL-import
-// reference is emitted by vp.cpp (26 matched rows verified).
+// COMDAT copy. The external helpers are owned elsewhere; no DLL-import
+// reference is emitted by vp.cpp or the two verified matrix consumers.
 /*
 **	Command & Conquer Generals(tm)
 **	Copyright 2025 Electronic Arts Inc.
@@ -81,7 +81,7 @@ public:
 	
 	// Assignment
 	WWINLINE Vector4 & operator = (const Vector4 & v) { X = v.X; Y = v.Y; Z = v.Z; W = v.W; return *this; }	
-	WWINLINE void	Set(float x, float y, float z, float w) { X = x; Y = y; Z = z; W = w; }
+	__declspec(dllimport) __forceinline void	Set(float x, float y, float z, float w) { X = x; Y = y; Z = z; W = w; }
 	
 	// Array access
 	WWINLINE float &	operator [](int i) { return (&X)[i]; }     

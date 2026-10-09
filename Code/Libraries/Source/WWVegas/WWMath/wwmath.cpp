@@ -1,6 +1,11 @@
 // cl: /Oi
 
+// Preserve the CRT inline overloads used by the retail intrinsic wrappers,
+// without emitting their incompatible out-of-line float-wrapper copies.
+#pragma push_macro("inline")
+#define inline __declspec(dllimport) __forceinline
 #include <math.h>
+#pragma pop_macro("inline")
 
 #pragma intrinsic(sin, cos, tan, asin, acos)
 
