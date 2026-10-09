@@ -35,6 +35,20 @@ struct WeatherData
 	static const FieldParse m_fieldParseTable[];
 };
 
+// Retail C0C694 has two 16-byte FieldParse records and one zero sentinel.
+// Its pointers name WeatherSound -> the already-rowed audio token proc
+// (RVA 339900), and HasLightning -> INI::parseBool (RVA 2E850).
+// The source/field interpretation is also present in BF1 WeatherData.cpp at
+// f98983a7; the offsets 0 and 4 and these exact callbacks come from BF2.
+void Rva00339900Parse( INI *ini, void *instance, void *store, const void *userData );
+
+const FieldParse WeatherData::m_fieldParseTable[] =
+{
+	{ "WeatherSound", &Rva00339900Parse, 0, 0 },
+	{ "HasLightning", &INI::parseBool, 0, 4 },
+	{ 0, 0, 0, 0 }
+};
+
 class GlobalWeatherSystem
 {
 public:
