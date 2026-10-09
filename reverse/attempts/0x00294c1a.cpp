@@ -1,4 +1,6 @@
 // ?rva00294C1A@Object@@QAEXTObjectExperienceVictim@@TObjectExperienceFlag@@M@Z
+// partial score=0.9535 date=2026-10-09
+// ?rva00294C1A@Object@@QAEXTObjectExperienceVictim@@TObjectExperienceFlag@@M@Z
 // partial score=0.98 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /MD
 // Retail Object gap: the existing 0x00294C1A pin and BloodthirstyUpdate
