@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /ICode/Libraries/Include/Lib
+// cl: /O1 /G7 /arch:SSE /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /ICode/Libraries/Include/Lib /Ireference/shims/iniexception
 // SpawnArmy: native 88-byte record, named by WB LivingWorldCampaignObjects.cpp
 // constructor 128AFA0 and retail virtual name "SpawnArmy" at 4E30C6.
 // Retain the existing address-class binding used by its verified callers.
@@ -18,8 +18,10 @@
 class LivingWorldManager;
 struct SpawnManagerCostView{unsigned char opaque[0xf0];float revivalCost;};
 extern LivingWorldManager *TheLivingWorldManager;
+struct FieldParse;
 class Rva004E3184:public Snapshot{public:Rva004E3184(int);virtual ~Rva004E3184();
  Rva004E3184(const Rva004E3184&);
+ static const FieldParse m_fieldParseTable[];
  virtual void loadPostProcess();
  virtual const char *GetSnapshotName()const;
  virtual void xfer(Xfer*);
@@ -148,4 +150,54 @@ void Rva004E3184::xfer(Xfer *stream)
 		xfer == m_28;
 		xfer == m_1c;
 	}
+}
+
+// Native 4E324D/135B and its WB128B450 twin create this complete 88-byte
+// record with TheLivingWorldLogic's incremented ID, parse it through C616C0,
+// append it to the act's +0x20 collection, then destroy the temporary.
+// The reused error literal does not establish an original callback name.
+// Table C616C0: all 304 bytes, 18 full strings and callback bindings,
+// all offsets, zero user data and the null terminator independently verified.
+class INI { public:
+ void initFromINI(void*,const FieldParse*);
+ static void parseAsciiString(INI*,void*,void*,const void*);
+ static void parseCoord2D(INI*,void*,void*,const void*);
+ static void parseAsciiStringVector(INI*,void*,void*,const void*);
+ static void parseBool(INI*,void*,void*,const void*);
+ static void parseReal(INI*,void*,void*,const void*);
+ static void parseInt(INI*,void*,void*,const void*);
+};
+struct FieldParse { const char *name; void (*parse)(INI*,void*,void*,const void*); const void *userData; int offset; };
+const FieldParse Rva004E3184::m_fieldParseTable[]={
+ {"Icon",INI::parseAsciiString,0,0x04},
+ {"Banner",INI::parseAsciiString,0,0x08},
+ {"Position",INI::parseCoord2D,0,0x20},
+ {"InitialRegion",INI::parseAsciiString,0,0x28},
+ {"PlayerArmy",INI::parseAsciiString,0,0x2c},
+ {"PalantirMovie",INI::parseAsciiString,0,0x30},
+ {"IconSize",INI::parseAsciiString,0,0x34},
+ {"SpawnForTemplates",INI::parseAsciiStringVector,0,0x38},
+ {"ScriptingName",INI::parseAsciiString,0,0x18},
+ {"TooltipStringTag",INI::parseAsciiString,0,0x1c},
+ {"IsCity",INI::parseBool,0,0x54},
+ {"HeroTemplateName",INI::parseAsciiString,0,0x50},
+ {"MoveSpeed",INI::parseReal,0,0x44},
+ {"BuildTime",INI::parseInt,0,0x48},
+ {"ConstructButtonImage",INI::parseAsciiString,0,0x0c},
+ {"ConstructButtonTitle",INI::parseAsciiString,0,0x10},
+ {"ConstructButtonHelp",INI::parseAsciiString,0,0x14},
+ {"SpawnAtActStart",INI::parseBool,0,0x55},
+ {0,0,0,0}
+};
+#include "Common/INIException.h"
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
+class Rva002B3171BumpCounter { public:int bump(); };
+struct BfmePod88;
+class Rva00566AB7 { public:void rva00566AB7(const BfmePod88&); };
+void Rva004E324DParse(INI *ini,void *instance,void*,const void*) {
+ if(!ini || !instance) throw INIException(3,"ParseArmyMoveToBlock::Invalid data passed in.");
+ Rva004E3184 record(((Rva002B3171BumpCounter*)TheLivingWorldLogic)->bump());
+ ini->initFromINI(&record,Rva004E3184::m_fieldParseTable);
+ ((Rva00566AB7*)instance)->rva00566AB7((const BfmePod88&)record);
 }

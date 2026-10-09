@@ -10959,7 +10959,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00861DC4,20,.rdata,vtable,??_7Rva004E1B72@@6B@,,literal,??_7Rva004E1B72@@6B@;?g_00C61DC4@@3QBQBXB,0,3
 0x00861DD8,80,.rdata,string,??_C@_0EK@IKPOIGNG@ParseMoveArmyBlockAndAddToLiving@,,literal,,0,1
 0x00861E28,256,.rdata,string,??_C@_0FI@MCCCKABN@ParseSetPlayerControlOfArmyBlock@,,literal,,0,1
-0x00861F28,64,.rdata,vtable,??_7Rva004E3184@@6B@,,literal,,0,2
+0x00861F28,16,.rdata,vtable,??_7Rva004E3184@@6B@,,literal,,0,3
 0x00861F68,20,.rdata,vtable,??_7Rva004E32F2@@6B@,,literal,??_7Rva003BA660Record@@6B@;??_7Rva004E32F2@@6B@,0,4
 0x00861F7C,60,.rdata,string,??_C@_0DF@OCNJKEMF@SplineCamera?3?3ParseINIBlock?3?3Inv@,,literal,,0,1
 0x00861FB8,76,.rdata,global,?Rva003BA660FieldParseTable@@3QBUFieldParse@@B,,unowned,,0,1
@@ -20030,3 +20030,4 @@ address,size,section,kind,name,source,status,names,defs,refs
 0xC141F04D,0,,global,??1?$map@VAsciiString@@V?$list@PAVSuperweaponInfo@@V?$allocator@PAVSuperweaponInfo@@@_STL@@@_STL@@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@V?$list@PAVSuperweaponInfo@@V?$allocator@PAVSuperweaponInfo@@@_STL@@@_STL@@@_STL@@@3@@_STL@@QAE@XZ,,unowned,??1?$map@VAsciiString@@V?$list@PAVSuperweaponInfo@@V?$allocator@PAVSuperweaponInfo@@@_STL@@@_STL@@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@V?$list@PAVSuperweaponInfo@@V?$allocator@PAVSuperweaponInfo@@@_STL@@@_STL@@@_STL@@@3@@_STL@@QAE@XZ;??1UIMessage@InGameUI@@QAE@XZ,0,2
 0xFFC00000,0,,global,__except_list,,unowned,,0,10573
 0xFFC5D005,0,,global,??1MoveHint@@QAE@XZ,,unowned,,0,2
+0x008616C0,304,.rdata,global,?m_fieldParseTable@Rva004E3184@@2QBUFieldParse@@B,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignObjects.cpp,owned,,1,1
