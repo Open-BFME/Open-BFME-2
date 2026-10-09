@@ -17003,3 +17003,4 @@ _D3DXLoadVolumeFromFileInMemory@36,0x0062AF8C,Native1318F0 in-image JMP IAT veri
 ?push_back@?$vector@URva002F0D35Record@@V?$allocator@URva002F0D35Record@@@_STL@@@_STL@@QAEXABURva002F0D35Record@@@Z,0x004DFCB0,callee of ?rva002F3738@Rva002F3738@@QAEXPAPAX@Z
 ?rva0060EF3E@Rva0060EF3E@@QAE_NH@Z,0x0020EF3E,callee of ?rva002B25BF@Rva002B25BFOwner@@QAE_NH@Z
 ?rva0044FC52@Rva0044FC52@@QAE_NXZ,0x0044FC52,callee of ?rva004B01E6@Rva004B01E6Owner@@QAE_NXZ
+?bfmePrivateCommand42@HordeAIUpdate@@MAEXPAVObject@@W4CommandSourceType@@@Z,0x0049AC5F,slot 23 of HordeAIUpdate primary vftable 0x008505F8 (+0x5C holds 0x0049AC5F; base AIUpdateInterface::bfmePrivateCommand42 0x0026D56C called inside under the Object::rva0028C197 test); REL32 from HordeWorkerAIUpdate::bfmePrivateCommand42 0x0049B227; body unrowed (null-action EH frame wall)

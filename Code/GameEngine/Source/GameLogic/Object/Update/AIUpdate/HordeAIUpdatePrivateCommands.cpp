@@ -81,6 +81,15 @@ public:
 	virtual HordeContainInterface *s31();
 };
 
+// Object+0x254's body module; slot 5 is compared against 1.0 (name not
+// recovered).
+class BodyModuleView
+{
+public:
+	virtual void b00(); virtual void b01(); virtual void b02(); virtual void b03(); virtual void b04();
+	virtual float slot5(); // slot 5 (+0x14)
+};
+
 class Object
 {
 public:
@@ -90,6 +99,7 @@ public:
 		return provider ? provider->s31() : 0;
 	}
 	Rva0028C197Provider *provider() const { return m_250; }
+	BodyModuleView *getBodyModule() const { return m_body; }
 	Object *object274() const { return m_274; }
 	void *rva0028C197() const;
 	bool testStatus(ObjectStatusTypes bit) const;
@@ -97,7 +107,8 @@ public:
 private:
 	char m_unrecovered00[0x250];
 	Rva0028C197Provider *m_250;
-	char m_unrecovered254[0x274 - 0x254];
+	BodyModuleView *m_body; // +0x254
+	char m_unrecovered258[0x274 - 0x258];
 	Object *m_274;
 };
 
@@ -112,6 +123,14 @@ private:
 };
 
 extern ControlBar *TheControlBar;
+
+class ActionManager
+{
+public:
+	bool canRepairObject(const Object *obj, const Object *objectToRepair, CommandSourceType cmdSource);
+};
+
+extern ActionManager *TheActionManager;
 
 class ObjectModule
 {
@@ -179,6 +198,8 @@ protected:
 
 class HordeAIUpdate : public AIUpdateInterface
 {
+protected:
+	virtual void bfmePrivateCommand42(Object *obj, CommandSourceType cmdSource);
 public:
 	virtual void aiDoCommand(const AICommandParms *parms);
 	bool commandCancelsPorcupineFormation(const AICommandParms *parms);
@@ -226,6 +247,8 @@ class HordeWorkerAIUpdate : public HordeAIUpdate
 {
 public:
 	virtual void aiDoCommand(const AICommandParms *parms);
+protected:
+	virtual void bfmePrivateCommand42(Object *obj, CommandSourceType cmdSource);
 private:
 	char m_unrecovered24[0x3E8 - 0x24];
 	ObjectID m_3E8;
@@ -560,4 +583,25 @@ void HordeWorkerAIUpdate::aiDoCommand(const AICommandParms *parms)
 		HordeAIUpdate::aiDoCommand(parms);
 		break;
 	}
+}
+
+// ?bfmePrivateCommand42@HordeWorkerAIUpdate@@MAEXPAVObject@@W4CommandSourceType@@@Z @0x0049B1CB
+// Slot 23 of vftable 0x00C508C8 (Ghidra missed the body, 0x0049B1CB..
+// 0x0049B231). A damaged target (body slot 5 below 1.0) that
+// TheActionManager lets the worker repair is remembered at +0x3F0 and handed
+// to the rowed 0x0049B0BF; with nothing remembered it falls back to
+// HordeAIUpdate's slot 23 (0x0049AC5F).
+void HordeWorkerAIUpdate::bfmePrivateCommand42(Object *obj, CommandSourceType cmdSource)
+{
+	BodyModuleView *body = obj->getBodyModule();
+	if (body && body->slot5() < 1.0f
+		&& TheActionManager->canRepairObject(getObject(), obj, cmdSource))
+	{
+		m_3F0 = reinterpret_cast<const ObjectIDView *>(obj)->getID();
+		reinterpret_cast<Rva0049B0BF *>(this)->rva0049B0BF(
+			reinterpret_cast<Rva0049B0BFData *>(obj), cmdSource);
+	}
+
+	if (m_3F0 == INVALID_ID)
+		HordeAIUpdate::bfmePrivateCommand42(obj, cmdSource);
 }
