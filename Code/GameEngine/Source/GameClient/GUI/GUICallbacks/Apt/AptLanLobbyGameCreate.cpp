@@ -118,16 +118,6 @@ private:
 	unsigned char m_6C0; // +0x6C0
 };
 
-void AptLanLobby::rva004443E7()
-{
-	m_mem288.s1();
-	Global004443E7958View *g = TheGlobal004443E7958;
-	if (g)
-		g->g18();
-	GameEngine *e = TheGameEngine004443E7;
-	e->stopHeadlessClients();
-}
-
 void AptLanLobby::rva00444E69(int unused)
 {
 	(void)unused;

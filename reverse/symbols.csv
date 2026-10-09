@@ -4482,7 +4482,6 @@ name,address,notes
 ??1Rva0043A396@@UAE@XZ,0x0043A396,opaque dtor called by the scalar deleting dtor at 0x0043AE28 (vtable 0x00C3D50C#0); identity unproven; address-derived name
 ??1Rva0043B660@@UAE@XZ,0x0043B660,opaque dtor called by the scalar deleting dtor at 0x0043B709 (vtable 0x00C3D5F0#0); identity unproven; address-derived name
 ??1Rva0043D1C9@@UAE@XZ,0x0043D1C9,opaque dtor called by the scalar deleting dtor at 0x0043D3BE (vtable 0x00C3D7F8#0); identity unproven; address-derived name
-??1Rva0044455C@@QAE@XZ,0x0044455C,destructor called by the vtable-referenced scalar deleting dtor 0x00445211 (REL32 at +4 of its 28B delete-flag wrapper); identity unproven; address-derived name
 ??1Rva0044BE85@@QAE@XZ,0x0044BE85,destructor called by the vtable-referenced scalar deleting dtor 0x0044BE69 (REL32 at +4 of its 28B delete-flag wrapper); identity unproven; address-derived name
 ??1Rva0044D56A@@UAE@XZ,0x0044D56A,opaque SEH base dtor (vptr 0xC3EF60, AsciiString member at +0x18 via 0x36410, base 0x3B1F65); 2 derived 11B dtors tail-call it; identity unproven
 ??1Rva0044ECCE@@UAE@XZ,0x0044ECCE,opaque module-data base dtor; target call and 0xC8 prefix verified in callers; former DamageModuleBase was a TU-local stand-in and supplied no class identity
