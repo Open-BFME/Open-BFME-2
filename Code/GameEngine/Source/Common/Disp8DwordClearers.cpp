@@ -90,3 +90,26 @@ Rva004D9A35Fields *Rva004D9A35Fields::clear() { word14=0; return this; }
 // ?clear@Rva002175C7Fields@@QAEPAU1@XZ
 struct Rva002175C7Fields { char pad[0xC]; unsigned int wordC; Rva002175C7Fields *clear(); };
 Rva002175C7Fields *Rva002175C7Fields::clear() { wordC=0; return this; }
+
+// Complete native 2C8E52..2C8E5A follows RET8 and precedes a new leaf.
+// It returns the old receiver word at +4 in EAX and clears that word to zero.
+// Whole clean BF1 f98983a7d3bb405f1a4ba94bb6a2a168062a819d's
+// GameLogic/Object/WeaponStore_reset.cpp supplies friend_clearNextTemplate's
+// take-and-clear expression. Its pointer type and WeaponTemplate identity
+// are donor facts only. This consumed-prefix view preserves the raw 32 bits;
+// original receiver, field type and pointer/ownership meanings remain unknown.
+class Rva002C8E52WordField
+{
+public:
+    unsigned int take();
+private:
+    char m_unknown0[4];
+    unsigned int m_word4;
+};
+
+unsigned int Rva002C8E52WordField::take()
+{
+    unsigned int previous = m_word4;
+    m_word4 = 0;
+    return previous;
+}
