@@ -1,4 +1,6 @@
-// cl: /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
+// ?rva00373158@Rva0037381C@@QAEXPAVRva00373373Portal@@H@Z
+// partial score=0.94 date=2026-10-09
+// cl: /Oy- /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
 // stlport
 // ?rva000373109@MineshaftPortalBehaviour@@SA?AW4NameKeyType@@XZ @0x373109
 // (69B): cached pool-name key for MineshaftPortalBehaviour. The class
@@ -151,6 +153,21 @@ private:
 };
 // Manager map10/count14 and group vector0/changedC are target facts.
 // Terrain slot8C and reciprocal372CA8 removal establish portal-network maintenance.
+void Rva0037381C::rva00373158(Rva00373373Portal *portal, int key)
+{
+    Rva00373158Group *group = ((Rva00373158Node *)map.find(&key))->group;
+    Rva00373373Portal &current=*portal;
+    ObjectID *end = group->end();
+    for (ObjectID *it=group->begin(); it!=end; ++it) {
+        if ((unsigned)*it != current.id) {
+            key=(int)TheTerrainLogic->portalAt((unsigned)*it);
+            ((Rva00372CA8 *)key)->rva00372CA8((int)&current);
+            ((Rva00372CA8 *)&current)->rva00372CA8(key);
+        }
+    }
+    TheAI->pathfinder->rva002E9042(portal);
+    ((Rva004618D4Caller *)TheAI->pathfinder)->rva002E7023();
+}
 void Rva0037381C::rva003731CB(Rva00373373Portal *portal, Player *player)
 {
     if (map.count) {
