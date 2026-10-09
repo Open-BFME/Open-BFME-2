@@ -1,14 +1,21 @@
-// ?read_Rva0018AF70@MeshModelClass@@IAE_NAAVChunkLoadClass@@PAVMeshLoadContextClass@@@Z
-// partial score=0.93 date=2026-10-07
 // cl: /O2 /arch:SSE /G7 /DNDEBUG /MD /EHsc
-// ?read_Rva0018AF70@MeshModelClass@@IAE_NAAVChunkLoadClass@@PAVMeshLoadContextClass@@@Z @0x0018AF70 269B
-// MeshModelClass::read_Rva0018AF70, retail 0x0018AF70 (269 bytes):
+// ?read_Rva0018AF70@MeshModelClass@@IAE_NAAVChunkLoadClass@@PAVMeshLoadContextClass@@@Z @0x0018AF70 272B
+// MeshModelClass::read_Rva0018AF70, retail 0x0018AF70 (272 bytes):
 // Chunk 0x50 reader in read_chunks (MeshModelReadChunks.cpp:144) beside
 // read_textures 0x0018AE50 and read_texture_stage 0x0018B080. Creates an
 // FXShaderSetup (new 0x34, ctor 0x001525FB), Load_W3D 0x00152E4D, Add_Ref at
 // +4, vector Add with Resize slot 2, Release, Close_Chunk/Open_Chunk loop.
 // Vector at context+0xF4 with DynamicVectorClass layout (Vector+0x4,
 // VectorMax+0x8, ActiveCount+0x10, GrowthStep+0x14) as in ReadTextures.
+// Complete native extent: RET8 at 0018B07D ends0018B080, 272 bytes.
+// Queue269 stopped before that RET. Existing read_chunks caller proves the
+// object/ChunkLoad/context ABI, but original chunk reader name is unknown.
+// Volatile qualification belongs only to the local parameter definition;
+// its existing declaration is unchanged. Native reloads context from the
+// argument slot each loop, so cload stays in EBP and the vector view in ESI.
+// This closes the older bank's persistent-context EBP versus cload swap.
+// The vector algorithm is the clean WWLib DynamicVectorClass Add pattern;
+// constructor and Load_W3D bind existing FXShaderSetup owners. No new pins.
 #ifndef NULL
 #define NULL 0
 #endif
@@ -105,7 +112,7 @@ protected:
 	bool read_Rva0018AF70(ChunkLoadClass &cload, MeshLoadContextClass *context);
 };
 
-bool MeshModelClass::read_Rva0018AF70(ChunkLoadClass &cload, MeshLoadContextClass *context)
+bool MeshModelClass::read_Rva0018AF70(ChunkLoadClass &cload, MeshLoadContextClass * volatile context)
 {
 	if (!cload.Open_Chunk())
 		return true;
