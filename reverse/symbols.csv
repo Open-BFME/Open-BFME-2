@@ -8995,7 +8995,7 @@ name,address,notes
 ?compute@Rva00977870Object@@QAEHXZ,0x00195BC0
 ?computeApproachPosition@DockUpdate@@IAE?AUCoord3D@@HPAVObject@@@Z,0x00589B7D,callee of ?advanceApproachPosition@DockUpdate@@UAE_NPAVObject@@PAUCoor at retail 0x00589D3E read from its REL32 displacement; body unrowed
 ?computeGoal@AIFollowWaypointPathState@@QAEX_N@Z,0x00345D00,AIFollowWaypointPathState::computeGoal called by AIAttackFollowWaypointPathState::update at 0x00354386
-?computeQuickPath@AIUpdateInterface@@QAEXPBUCoord3D@@@Z,0x00265C5B,called with the destination by the byte-verified AIUpdateInterface::requestPath 0x0026893F where Zero Hour calls computeQuickPath read from its REL32 displacement; unrowed Ghidra FUN_00665c5b 432B
+?computeQuickPath@AIUpdateInterface@@QAE_NPBUCoord3D@@@Z,0x00265C5B,called with the destination by the byte-verified AIUpdateInterface::requestPath 0x0026893F where Zero Hour calls computeQuickPath read from its REL32 displacement; unrowed Ghidra FUN_00665c5b 432B
 ?computeStatus@Weapon@@QBE?AW4WeaponStatus@@PA_N@Z,0x002CC422,Reconstructed helper name; unique getStatus body calls this with a bool output and returns its status result
 ?computeTotalHeight@@YAXPAVGameWindow@@@Z,0x00324C61,"auto-pin (permute --pins): REL32 call target read from retail in 0x00326e21, whose banked body is byte-exact once this call resolves"
 ?concat@?$StringBase@D@@QAEXPBDH@Z,0x000369A0,BFME2 export and retail call target for StringBase<char>::concat(const char *, int)

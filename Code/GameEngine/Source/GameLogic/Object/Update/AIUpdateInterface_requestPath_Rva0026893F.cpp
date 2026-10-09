@@ -225,7 +225,7 @@ public:
 
 	void requestPath(Coord3D *destination, Bool isFinalGoal);
 	Bool canComputeQuickPath();
-	void computeQuickPath(const Coord3D *destination);
+	Bool computeQuickPath(const Coord3D *destination);
 	void setQueueForPathTime(Int frames);
 
 private:

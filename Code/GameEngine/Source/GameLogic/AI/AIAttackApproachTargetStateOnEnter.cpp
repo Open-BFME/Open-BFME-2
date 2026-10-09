@@ -301,6 +301,7 @@ public:
 	Real getTurretTurnRate(WhichTurretType tur) const;
 	Real getCurLocomotorSpeed() const { return ((const Rva002627E8 *)this)->rva002627E8(); }
 	void setCurrentVictim(const Object *victim);
+	Bool computeQuickPath(const Coord3D *destination);
 	Object *checkForCrateToPickup();
 	void requestPath(Coord3D *destination, Bool isFinalGoal);
 	void requestAttackPath(ObjectID victimID, const Coord3D *victimPos);
@@ -639,6 +640,7 @@ public:
 	virtual StateReturnType onEnter();
 	virtual StateReturnType update();
 protected:
+	virtual Bool computePath();
 	void setAdjustsDestination(Bool b) { m_adjustsDestination = b; }
 	unsigned char m_pad1C[0x20 - 0x1C];
 	Coord3D m_goalPosition; // +0x20
@@ -821,6 +823,8 @@ class AIFollowPathAsTeamState : public AIInternalMoveToState
 {
 public:
 	virtual StateReturnType onEnter();
+protected:
+	virtual Bool computePath();
 private:
 	Int m_index; // +0x4C
 	unsigned char m_pad50[0x54 - 0x50];
@@ -1688,4 +1692,45 @@ StateReturnType AIAttackAreaState::update()
 		status = STATE_CONTINUE;
 	getMachine()->m_locked = false;
 	return status;
+}
+
+// ZH Region3D, for the terrain extent test below.
+struct Region3D
+{
+	Coord3D lo;
+	Coord3D hi;
+	Bool isInRegionNoZ(const Coord3D *query) const
+	{
+		return (lo.x < query->x) && (query->x < hi.x) && (lo.y < query->y) && (query->y < hi.y);
+	}
+};
+
+// TheTerrainLogic's slot 8, ZH TerrainLogic::getExtent.
+class TerrainLogic;
+extern TerrainLogic *TheTerrainLogic;
+class TerrainLogicExtentView : public VirtualSlots<8>
+{
+public:
+	virtual void getExtent(Region3D *extent) const;
+};
+
+// Retail 0x00345BCF, 220 bytes: slot 17 of AIFollowPathAsTeamState (vtable
+// 0x00C121E8). An owner outside the terrain extent whose goal lies inside it
+// takes AIUpdateInterface::computeQuickPath; everything else logs
+// ComputePath34 and runs the base computePath.
+Bool AIFollowPathAsTeamState::computePath()
+{
+	critterDesyncLog("CritterDesync: ComputePath33");
+	Object *owner = getMachineOwner();
+	Coord3D pos; // the extent test ignores z, which retail never copies
+	pos.x = owner->getPosition()->x;
+	pos.y = owner->getPosition()->y;
+	AIUpdateInterface *ai = owner->getAI();
+	Region3D extent;
+	((const TerrainLogicExtentView *)TheTerrainLogic)->getExtent(&extent);
+	if (ai && !extent.isInRegionNoZ(&pos) && extent.isInRegionNoZ(&m_goalPosition))
+		return ai->computeQuickPath(&m_goalPosition);
+
+	critterDesyncLog("CritterDesync: ComputePath34");
+	return AIInternalMoveToState::computePath();
 }
