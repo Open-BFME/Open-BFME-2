@@ -31,6 +31,7 @@ template<class T> class AptValuePtrStack {
 public:
     int size() const { return m_nElements; }
     inline void pop();
+    void push(T *value);
     ~AptValuePtrStack() {
         if(m_aElements) {
             if(!g_bfmeAptFreeSizeAtE17730) {
@@ -49,6 +50,19 @@ template<class T> void AptValuePtrStack<T>::pop()
     }
     m_aElements[m_nElements-1]->Release();
     --m_nElements;
+}
+// WB175A800 names this specialization's push; native6E0D60..6E0D9F
+// agrees on count0/capacity4/elements8 and AddRef slot0. Reconciles the
+// former Rva006E0D60 split unit with this existing pop/destructor owner.
+template<class T> void AptValuePtrStack<T>::push(T *value)
+{
+    if (m_nElements >= m_nCapacity) {
+        g_bfmeAptAssertAtE17734("m_nElements < m_nSize", "c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\_AptValuePtrStack.h",118);
+        if (g_bfmeAptBreakOnAssertAtDDC01C) __debugbreak();
+    }
+    m_aElements[m_nElements] = value;
+    ++m_nElements;
+    value->AddRef();
 }
 template class AptValuePtrStack<AptValue>;
 struct AptIntervalTimer {
