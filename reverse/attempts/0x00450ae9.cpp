@@ -1,8 +1,6 @@
-// ?finishAbility@SpecialAbilityUpdate@@UAEXXZ
-// partial score=0.848677 date=2026-10-09
-// ?finishAbility@SpecialAbilityUpdate@@UAEXXZ
-// partial score=0.6 date=2026-10-09
-// cl: /O1 /G7 /arch:SSE /GX /DNDEBUG /MD /I. /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
+// ?rva00450AE9@SpecialAbilityUpdate@@QAE_NXZ
+// partial score=0.805244 date=2026-10-09
+// cl: /O1 /arch:SSE /DNDEBUG /I. /MD /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
 // stlport
 // SpecialAbilityUpdate.cpp: bodies retail links from this TU (tu_map approved),
 // folded from three split units with these exact flags. The two
@@ -66,14 +64,11 @@ class Thing
 {
 public:
 	Drawable *getDrawable() const;
-	const Coord3D *getUnitDirectionVector2D() const;
 };
 class Player
 {
 public:
 	bool isLocalPlayer() const;
-	unsigned char m_pad00[0x5C];
-	int m_playerType; // +0x5C (0: human)
 };
 class Eva
 {
@@ -112,86 +107,6 @@ public:
 void pickAndPlayUnitVoiceResponse(const DrawableList *list, GameMessage::Type messageType,
 	PickAndPlayInfo *info);
 // The rowed setter that stamps an audio event with its owning object.
-class Thing;
-class Object;
-class Rva000421C8
-{
-public:
-	Rva000421C8() : m_next(0) {}
-	virtual ~Rva000421C8() {}
-	virtual bool allow(Object *obj) = 0;
-	virtual int getPlayerMask();
-	Rva000421C8 *link(Rva000421C8 *next);	// 0x00625790
-	Rva000421C8 *m_next;
-};
-// vftable 0x00BFAD04: accepts objects controlled by one player.
-class Rva00260E2AFilter : public Rva000421C8
-{
-public:
-	Rva00260E2AFilter(Player *player) : m_player(player) {}
-	virtual bool allow(Object *obj);
-	virtual int getPlayerMask();
-	Player *m_player;
-};
-class BfmeFixedStorage0004543D
-{
-public:
-	BfmeFixedStorage0004543D(int, int);
-	BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &) throw();
-private:
-	unsigned char bytes[28];
-};
-class Rva00045411BitSet
-{
-public:
-	Rva00045411BitSet(int unused, int bit);	// 0x00045411
-	unsigned char bytes[28];
-};
-// PartitionFilterAcceptByKindOf (must-be-set, must-be-clear masks).
-class Rva0004584D : public Rva000421C8
-{
-public:
-	Rva0004584D(const BfmeFixedStorage0004543D &, const BfmeFixedStorage0004543D &) throw();
-	virtual bool allow(Object *obj);
-	BfmeFixedStorage0004543D m08, m24;
-};
-extern const BfmeFixedStorage0004543D g_009FEFA4;	// KINDOFMASK_NONE
-class PartitionManager
-{
-public:
-	Object *getClosestObject(const Coord3D *pos, float maxDist, int distCalc, Rva000421C8 *filters);
-};
-extern PartitionManager *ThePartitionManager;
-class CommandButton
-{
-public:
-	unsigned char m_pad00[0x1C];
-	unsigned short m_options; // +0x1C
-};
-class ControlBar
-{
-public:
-	const CommandButton *findCommandButton(const AsciiString &name);
-};
-extern ControlBar *TheControlBar;
-class InGameUI
-{
-public:
-	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
-	virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();
-	virtual void v08(); virtual void v09(); virtual void v10(); virtual void v11();
-	virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15();
-	virtual void v16(); virtual void v17(); virtual void v18(); virtual void v19();
-	virtual void v20(); virtual void v21(); virtual void v22(); virtual void v23();
-	virtual void v24(); virtual void v25(); virtual void v26(); virtual void v27();
-	virtual void v28(); virtual void v29(); virtual void v30(); virtual void v31();
-	virtual void v32(); virtual void v33(); virtual void v34(); virtual void v35();
-	virtual void v36(); virtual void v37(); virtual void v38(); virtual void v39();
-	virtual void v40(); virtual void v41(); virtual void v42(); virtual void v43();
-	virtual void v44(); virtual void v45(); virtual void v46();
-	virtual void placeBuildAvailable(const CommandButton *button);	// slot 47 (+0xBC)
-};
-extern InGameUI *TheInGameUI;
 class Rva002D9531
 {
 public:
@@ -208,22 +123,230 @@ enum CommandSourceType
 {
 	CMD_FROM_AI = 2
 };
+class Object;
 class AICommandInterface
 {
 public:
+	virtual void aiDoCommand(const void *parms);
 	void aiIdle(CommandSourceType cmdSource);
-	void aiMoveToPosition(const Coord3D *pos, CommandSourceType cmdSource);
+ void aiMoveToPositionSA(const Coord3D *,int);
+ void rva0044FFD9(Object *,CommandSourceType);
 	void rva0045003E(int value, CommandSourceType cmdSource);
 };
+// AIUpdateInterface: an update module whose AICommandInterface base is at +0x20.
+class AIUpdateModuleView {public:
+virtual void aiSlot00();
+virtual void aiSlot01();
+virtual void aiSlot02();
+virtual void aiSlot03();
+virtual void aiSlot04();
+virtual void aiSlot05();
+virtual void aiSlot06();
+virtual void aiSlot07();
+virtual void aiSlot08();
+virtual void aiSlot09();
+virtual void aiSlot10();
+virtual void aiSlot11();
+virtual void aiSlot12();
+virtual void aiSlot13();
+virtual void aiSlot14();
+virtual void aiSlot15();
+virtual void aiSlot16();
+virtual void aiSlot17();
+virtual void aiSlot18();
+virtual void aiSlot19();
+virtual void aiSlot20();
+virtual void aiSlot21();
+virtual void aiSlot22();
+virtual void aiSlot23();
+virtual void aiSlot24();
+virtual void aiSlot25();
+virtual void aiSlot26();
+virtual void aiSlot27();
+virtual void aiSlot28();
+virtual void aiSlot29();
+virtual void aiSlot30();
+virtual void aiSlot31();
+virtual void aiSlot32();
+virtual void aiSlot33();
+virtual void aiSlot34();
+virtual void aiSlot35();
+virtual void aiSlot36();
+virtual void aiSlot37();
+virtual void aiSlot38();
+virtual void aiSlot39();
+virtual void aiSlot40();
+virtual void aiSlot41();
+virtual void aiSlot42();
+virtual void aiSlot43();
+virtual void aiSlot44();
+virtual void aiSlot45();
+virtual void aiSlot46();
+virtual void aiSlot47();
+virtual void aiSlot48();
+virtual void aiSlot49();
+virtual void aiSlot50();
+virtual void aiSlot51();
+virtual void aiSlot52();
+virtual void aiSlot53();
+virtual void aiSlot54();
+virtual void aiSlot55();
+virtual void aiSlot56();
+virtual void aiSlot57();
+virtual void aiSlot58();
+virtual void aiSlot59();
+virtual void aiSlot60();
+virtual void aiSlot61();
+virtual void aiSlot62();
+virtual void aiSlot63();
+virtual void aiSlot64();
+virtual void aiSlot65();
+virtual void aiSlot66();
+virtual void aiSlot67();
+virtual void aiSlot68();
+virtual void aiSlot69();
+virtual void aiSlot70();
+virtual void aiSlot71();
+virtual void aiSlot72();
+virtual void aiSlot73();
+virtual void aiSlot74();
+virtual void aiSlot75();
+virtual void aiSlot76();
+virtual void aiSlot77();
+virtual void aiSlot78();
+virtual void aiSlot79();
+virtual void aiSlot80();
+virtual void aiSlot81();
+virtual void aiSlot82();
+virtual void aiSlot83();
+virtual void aiSlot84();
+virtual void aiSlot85();
+virtual void aiSlot86();
+virtual void aiSlot87();
+virtual void aiSlot88();
+virtual void aiSlot89();
+virtual bool rvaSlot168();
+ unsigned char m_pad04[0x20-4];
+};
+class AIUpdateInterface : public AIUpdateModuleView, public AICommandInterface
+{
+public:
+ void ignoreObstacle(const Object*);
+};
+class Object;
+class ContainModuleInterface
+{
+public:
+	virtual void s00();
+	virtual void s01();
+	virtual void s02();
+	virtual void s03();
+	virtual void s04();
+	virtual void s05();
+	virtual void s06();
+	virtual void s07();
+	virtual void s08();
+	virtual void s09();
+	virtual void s10();
+	virtual void s11();
+	virtual void s12();
+	virtual void s13();
+	virtual void s14();
+	virtual void s15();
+	virtual void s16();
+	virtual void s17();
+	virtual void s18();
+	virtual void s19();
+	virtual void s20();
+	virtual void s21();
+	virtual void s22();
+	virtual void s23();
+	virtual void s24();
+	virtual void s25();
+	virtual void s26();
+	virtual void s27();
+	virtual void s28();
+	virtual void s29();
+	virtual void s30();
+	virtual void s31();
+	virtual void s32();
+	virtual void s33();
+	virtual void s34();
+	virtual void s35();
+	virtual void s36();
+	virtual void s37();
+	virtual void s38();
+	virtual void s39();
+	virtual void s40();
+	virtual void s41();
+	virtual void s42();
+	virtual void s43();
+	virtual void s44();
+	virtual void s45();
+	virtual void s46();
+	virtual void s47();
+	virtual void s48();
+	virtual void s49();
+	virtual void s50();
+	virtual void s51();
+	virtual void s52();
+	virtual void s53();
+	virtual void s54();
+	virtual void s55();
+	virtual void s56();
+	virtual void s57();
+	virtual void s58();
+	virtual void useTarget(Object *target); // slot 59 (+0xEC)
+};
+class SpecialPowerModuleInterface
+{
+public:
+	virtual void s00();
+	virtual void s01();
+	virtual void s02();
+	virtual void s03();
+	virtual void s04();
+	virtual void s05();
+	virtual void s06();
+	virtual void s07();
+	virtual void s08();
+	virtual void s09();
+	virtual void s10();
+	virtual void s11();
+	virtual void s12();
+	virtual void s13();
+	virtual void markSpecialPowerTriggered(const Coord3D *location); // slot 14 (+0x38)
+};
+// The rowed two-bit status mask (0x00391F4E) read as the status setter's mask.
+class Rva00346BC0;
+class Rva00391F4E
+{
+public:
+	Rva00391F4E(int a, int b, int c);
+	unsigned int m_bits[4];
+};
+enum Relationship
+{
+	ENEMIES = 0,
+	NEUTRAL = 1,
+	ALLIES = 2
+};
+struct ApproachTargetContainer {char pad00[4]; unsigned char *m_data; char pad08[0x74-8]; unsigned int m_targetID;};
 class Object : public Thing
 {
 	friend class SpecialAbilityUpdate;
 public:
 	Player *getControllingPlayer() const;
+	bool isLocallyControlled() const;
+ int rva0028B511() const;
+ bool getWorldspaceBestContactPoint(Coord3D *,const Coord3D *,const char*,int,int,bool) const;
+	Relationship getRelationship(const Object *that) const;
+	void rva0028CDEB(const Rva00346BC0 &mask, bool set);
 	bool isKindOf(KindOfType kindOf) const;
 	// rowed 0x0028CFB2: clears the first mask's conditions, sets the second's
 	void rva0028CFB2(const int *clearMask, const int *setMask);
-	void doCommandButton(const CommandButton *button, int flag, int source);
+	// Zero Hour's inline Object::clearAndSetModelConditionState.
+	void clearAndSetModelConditionState(ModelConditionFlagType clr, ModelConditionFlagType set);
 	void setStatus(ObjectStatusTypes status, bool set);
 	void rva0028AE6D();
 	void setSpecialModelConditionState(ModelConditionFlagType mc, unsigned int frames);
@@ -252,8 +375,16 @@ public:
 	int m_id; // +0x74
 	unsigned char m_pad078[0x10C - 0x78];
 	ModelConditionFlags m_modelConditionFlags; // +0x10C
-	unsigned char m_pad158[0x258 - 0x158];
+	unsigned char m_pad158[0x250 - 0x158];
+	ContainModuleInterface *m_contain; // +0x250
+	unsigned char m_pad254[0x258 - 0x254];
 	unsigned char *m_ai; // +0x258 AIUpdateInterface (command interface at +0x20)
+	AIUpdateInterface *getAI() const { return (AIUpdateInterface *)m_ai; }
+	void *getTeam() const { return m_team; }
+	unsigned char m_pad25C[0x274-0x25C]; ApproachTargetContainer *m_targetContainer;
+ unsigned char m_pad278[0x304-0x278];
+	void *m_team; // +0x304
+ unsigned char m_pad308[0x484-0x308];unsigned int m_specialTargetID;
 protected:
 	Module *findModule(NameKeyType key) const;
 };
@@ -281,25 +412,25 @@ class SpecialAbilityUpdateModuleData
 public:
 	unsigned char m_pad[0x8];
 	OpaqueRefElement4 m_packSound; // +0x08
-	unsigned char m_pad0C[0x18 - 0x0C];
+	unsigned char m_pad0C[0x10 - 0x0C];
+	OpaqueRefElement4 m_prepSoundLoop; // +0x10
+	unsigned char m_pad14[0x18 - 0x14];
 	ModelConditionFlagType m_18; // +0x18
 	unsigned int m_1C; // +0x1C
 	unsigned int m_20; // +0x20
 	unsigned char m_pad24[0x38 - 0x24];
 	Overridable *m_specialPowerTemplate; // +0x38
-	unsigned char m_pad3C[0x54 - 0x3C];
+	unsigned char m_pad3C[0x4C-0x3C];float m_approachRange;
+ unsigned char m_pad50[4];
 	float m_packUnpackVariationFactor; // +0x54
-	float m_fleeRangeAfterCompletion; // +0x58
-	unsigned char m_pad5C[0x6C - 0x5C];
+	unsigned char m_pad58[0x6C - 0x58];
 	int m_6C; // +0x6C ability condition selector (1..6)
-	unsigned char m_pad70[0x84 - 0x70];
+	unsigned char m_pad70[0x74 - 0x70];
+	unsigned int m_preparationFrames; // +0x74
+	unsigned char m_pad78[0x84 - 0x78];
 	unsigned int m_packTime; // +0x84
 	unsigned int m_unpackTime; // +0x88
-	unsigned char m_pad8C[0xAC - 0x8C];
-	bool m_flipObjectAfterPacking; // +0xAC
-	bool m_flipObjectAfterUnpacking; // +0xAD
-	unsigned char m_padAE[0xC0 - 0xAE];
-	AsciiString m_commandButtonName; // +0xC0 issued on completion when set
+ unsigned char m_pad8C[0xBC-0x8C]; AsciiString m_targetBone;
 };
 float GetGameLogicRandomValueReal(float lo, float hi, char *file, int line);
 typedef unsigned int AudioHandle;
@@ -356,24 +487,27 @@ class Rva001E42F2
 public:
 	void rva001E42F2(const int *mask);
 };
+__forceinline void Object::clearAndSetModelConditionState(ModelConditionFlagType clr, ModelConditionFlagType set)
+{
+	rva0028CFB2((const int *)&Rva0028F59A(0, clr), (const int *)&Rva0028F59A(0, set));
+}
 class SpecialAbilityUpdate : public BehaviorModule
 {
 public:
-	void rva0044EE07();
+	virtual void saSlot01();virtual void saSlot02();virtual void saSlot03();virtual void saSlot04();virtual void saSlot05();virtual void saSlot06();virtual void saSlot07();virtual void saSlot08();virtual void saSlot09();virtual void saSlot10();virtual void saSlot11();virtual void saSlot12();
+virtual void onExit(bool,bool);
+ bool rva00450AE9();
+ bool rva0044E85E(Coord3D*,float);
+ void rva0044EE07();
 	void rva0044EE80();
 	void rva0044F72E();
-	// Retail vtable order (0x00C3FBA8) from slot 13: onExit, then the
-	// preparation, ability-effect, finish, packing and unpacking slots.
-	virtual void v01(); virtual void v02(); virtual void v03(); virtual void v04();
-	virtual void v05(); virtual void v06(); virtual void v07(); virtual void v08();
-	virtual void v09(); virtual void v10(); virtual void v11(); virtual void v12();
-	virtual void onExit(bool cleanup, bool unused);	// slot 13 (+0x34)
-	virtual void v14(); virtual void v15(); virtual void v16(); virtual void v17();
-	virtual void v18();
-	virtual void finishAbility();					// slot 19
-	virtual void v20();
+	virtual void saSlot14();virtual void startPreparation();
 	virtual void startPacking(bool success);
-	virtual void startUnpacking();					// slot 22
+protected:
+	Object *createSpecialObject();
+	bool initLaser(Object *specialObject, Object *target);
+public:
+	virtual void startUnpacking();
 protected:
 	void endPreparation();
 private:
@@ -383,14 +517,9 @@ private:
 	int m_packingState; // +0x30
 	AudioHandle m_prepSoundLoop; // +0x34
 	AudioHandle m_packSoundHandle; // +0x38
-	unsigned char m_pad3C[0x40 - 0x3C];
+	unsigned int m_prepFrames; // +0x3C
 	ObjectID m_targetID; // +0x40
-	Coord3D m_targetPos; // +0x44
-	unsigned char m_pad50[0x6C - 0x50];
-	unsigned int m_6C; // +0x6C flag word (bit 18: command button argument)
-	unsigned char m_pad70[0x80 - 0x70];
-	bool m_withinStartAbilityRange; // +0x80
-	unsigned char m_pad81[0x84 - 0x81];
+	Coord3D m_targetPos;Coord3D m_previousTarget;unsigned char m_pad5C[0x78-0x5C];unsigned int m_approachFrames;unsigned char m_pad7C[0x83-0x7C];bool m_approached;
 	unsigned int m_84; // +0x84
 };
 
@@ -447,7 +576,7 @@ void SpecialAbilityUpdate::rva0044EE07()
 			0x60, 0x5e, 0x29, 0x76, 0x5f, 0x84, 0x61, 0x62, 0x63,
 			0x249, 0x24a, 0x24b, 0x6e, 0x6f));
 	}
-	SpecialAbilityUpdateModuleData *data = (SpecialAbilityUpdateModuleData *)m_moduleData;
+	const SpecialAbilityUpdateModuleData *data = (const SpecialAbilityUpdateModuleData *)m_moduleData;
 	if (data->m_18 != MODELCONDITION_INVALID && data->m_1C == 0)
 	{
 		((Rva001E42F2 *)getObject())->rva001E42F2((const int *)&Rva0028F59A(0, data->m_18));
@@ -465,7 +594,7 @@ void SpecialAbilityUpdate::rva0044EE07()
 void SpecialAbilityUpdate::rva0044EE80()
 {
 	Object *object = m_object;
-	SpecialAbilityUpdateModuleData *data = (SpecialAbilityUpdateModuleData *)m_moduleData;
+	const SpecialAbilityUpdateModuleData *data = (const SpecialAbilityUpdateModuleData *)m_moduleData;
 	ModelConditionFlagType mc = data->m_18;
 	if (mc == MODELCONDITION_INVALID)
 		return;
@@ -528,7 +657,7 @@ void SpecialAbilityUpdate::endPreparation()
 	getObject()->setStatus(OBJECT_STATUS_18, false);
 	TheAudio->removeAudioEvent(m_prepSoundLoop);
 	((Rva001E42F2 *)getObject())->rva001E42F2((const int *)&Rva0028F59A(0, 0x5f));
-	SpecialAbilityUpdateModuleData *data = (SpecialAbilityUpdateModuleData *)m_moduleData;
+	const SpecialAbilityUpdateModuleData *data = (const SpecialAbilityUpdateModuleData *)m_moduleData;
 	switch (data->m_specialPowerTemplate->friend_getFinalOverride()->m_val1C)
 	{
 	case 0x15:
@@ -671,109 +800,152 @@ void SpecialAbilityUpdate::startPacking(bool success)
 	}
 }
 
-// The AI module's update interface: ignoreObstacle is rowed; the command
-// interface sits at +0x20.
-class AIUpdateInterface
+// The rowed special-power-module lookup (0x0044E633), taking the update as
+// this.
+class Rva0044E633
 {
 public:
-	void ignoreObstacle(const Object *obj);
-	unsigned char m_pad00[0x20];
-	AICommandInterface m_commands; // +0x20
+	void *rva0044E633();
 };
 
-// SpecialAbilityUpdate::finishAbility, retail 0x00451B92 (794 bytes, vtable
-// slot 19; EvacuateGarrisonSpecialPower overrides it). Zero Hour's
-// finishAbility reached through the matched BFME1 donor
-// (SpecialAbilityUpdate_finishAbility.cpp): with a flee range and a valid
-// target the unit flees along (or, flipped, against) its facing, steering
-// around the closest own kind-0x37 object, and moves there; otherwise BFME2
-// issues the module's completion command button (or idles), then onExit.
-void SpecialAbilityUpdate::finishAbility()
+// SpecialAbilityUpdate::startPreparation, retail 0x00450D9A (755 bytes,
+// vtable slot 15; ArrowStormUpdate overrides it). Zero Hour's
+// startPreparation reached through the matched BFME1 donor
+// (SpecialAbilityUpdate_startPreparation.cpp): with preparation frames the
+// container uses the target and conditions 96/118 -> 95 plus the selector
+// condition; per power type the laser (0x15), the same-team guard and
+// condition swap (0x1D) or the relationship guard, laser and swap (0x1A),
+// each with an Eva event 0x10 for a locally controlled target; then the
+// power module is marked, the AI idled, statuses 0x18/0x46 set and the
+// preparation sound started.
+void SpecialAbilityUpdate::startPreparation()
 {
-	SpecialAbilityUpdateModuleData *data = (SpecialAbilityUpdateModuleData *)m_moduleData;
-	m_withinStartAbilityRange = false;
-	m_packingState = 0;
-	bool validTarget = m_targetPos.x || m_targetPos.y || m_targetPos.z || m_targetID != 0;
-	if (data->m_fleeRangeAfterCompletion && validTarget)
+	const SpecialAbilityUpdateModuleData *d = (const SpecialAbilityUpdateModuleData *)m_moduleData;
+	Overridable *power = d->m_specialPowerTemplate;
+	m_prepFrames = (unsigned int)((Rva0044F633 *)this)->rva0044F633();
+	if (m_prepFrames)
 	{
-		Coord3D pos = { m_object->m_position.x, m_object->m_position.y, m_object->m_position.z };
-		AIUpdateInterface *ai = (AIUpdateInterface *)m_object->m_ai;
-		if (ai)
+		Object *target = TheGameLogic->findObjectByID(m_targetID);
+		ContainModuleInterface *contain = m_object->m_contain;
+		if (contain && target)
+			contain->useTarget(target);
+		Object *self = m_object;
+		Rva001E4912 clearMask;
+		self->rva0028CFB2((const int *)clearMask.rva001E4912(0, 0x60, 0x76), (const int *)&Rva0028F59A(0, 0x5f));
+		if (d->m_6C)
 		{
+			switch (d->m_6C)
 			{
-				const Coord3D *facing=m_object->getUnitDirectionVector2D();
-				Coord3D dir = {facing->x,facing->y,facing->z};
-				dir.normalize();
-				float range = data->m_fleeRangeAfterCompletion;
-				float y=dir.y,z=dir.z,x=dir.x;dir.x=x*range;dir.y=y*range;dir.z=z*range;
-				if (data->m_flipObjectAfterUnpacking || data->m_flipObjectAfterPacking)
-				{
-					pos.x += dir.x;
-					pos.y += dir.y;
-					pos.z += dir.z;
-				}
-				else
-				{
-					pos.x -= dir.x;
-					pos.y -= dir.y;
-					pos.z -= dir.z;
-				}
-			}
-			Object *obj = m_object;
-			if (obj)
-			{
-				Player *player = obj->getControllingPlayer();
-				if (player)
-				{
-					Object *mine = ThePartitionManager->getClosestObject(&pos,
-						data->m_fleeRangeAfterCompletion, 0, Rva0004584D(*(const BfmeFixedStorage0004543D *)&Rva00045411BitSet(0, 0x37), g_009FEFA4).link(&Rva00260E2AFilter(player)));
-					if (mine)
-					{
-						Coord3D dir;
-						dir.x = pos.x - mine->m_position.x;
-						dir.y = pos.y - mine->m_position.y;
-						dir.z = 0.0f;
-						dir.normalize();
-						float range = data->m_fleeRangeAfterCompletion;
-						pos = mine->m_position;
-						pos.x += dir.x * range;
-						pos.y += dir.y * range;
-						pos.z += dir.z * range;
-					}
-				}
-			}
-			Object *target = TheGameLogic->findObjectByID(m_targetID);
-			if (target)
-				ai->ignoreObstacle(target);
-			ai->m_commands.aiMoveToPosition(&pos, CMD_FROM_AI);
-		}
-	}
-	else if (!((const StringBase<char> *)&data->m_commandButtonName)->isEmpty())
-	{
-		const CommandButton *button = TheControlBar->findCommandButton(data->m_commandButtonName);
-		if (button)
-		{
-			if (button->m_options & 0x227)
-			{
-				Object *obj = m_object;
-				if (obj)
-				{
-					Player *player = obj->getControllingPlayer();
-					if (player && player->isLocalPlayer() && player->m_playerType == 0)
-						TheInGameUI->placeBuildAvailable(button);
-				}
-			}
-			else
-			{
-				m_object->doCommandButton(button, (m_6C >> 18) & 1, 0);
+			case 1: self->setModelConditionState((ModelConditionFlagType)97); break;
+			case 2: self->setModelConditionState((ModelConditionFlagType)98); break;
+			case 3: self->setModelConditionState((ModelConditionFlagType)99); break;
+			case 4: self->setModelConditionState((ModelConditionFlagType)585); break;
+			case 5: self->setModelConditionState((ModelConditionFlagType)586); break;
+			case 6: self->setModelConditionState((ModelConditionFlagType)587); break;
 			}
 		}
 	}
-	else
+	int type = power->friend_getFinalOverride()->m_val1C;
+	if (type == 0x15)
 	{
-		unsigned char *ai = m_object->m_ai;
-		if (ai)
-			((AICommandInterface *)(ai + 0x20))->aiIdle(CMD_FROM_AI);
+		Object *target = TheGameLogic->findObjectByID(m_targetID);
+		if (target)
+		{
+			Object *special = createSpecialObject();
+			if (special && !initLaser(special, target))
+				return;
+		}
 	}
-	onExit(false, false);
+	else if (type == 0x1d)
+	{
+		Object *target = TheGameLogic->findObjectByID(m_targetID);
+		if (target && target->getTeam() == getObject()->getTeam())
+			return;
+		m_object->clearAndSetModelConditionState((ModelConditionFlagType)0x60, (ModelConditionFlagType)0x76);
+		Drawable *draw = m_object->getDrawable();
+		if (draw)
+			draw->rva002723C0(d->m_preparationFrames);
+		if (target && target->isLocallyControlled())
+			TheEva->reportEvaEvent(0x10, &target->m_position, 0);
+	}
+	else if (type == 0x1a)
+	{
+		Object *target = TheGameLogic->findObjectByID(m_targetID);
+		if (target)
+		{
+			if (m_object->getRelationship(target) == ALLIES)
+				return;
+			Object *special = createSpecialObject();
+			if (special)
+			{
+				if (!initLaser(special, target))
+					return;
+				m_object->clearAndSetModelConditionState((ModelConditionFlagType)0x60, (ModelConditionFlagType)0x29);
+			}
+			if (target->isLocallyControlled())
+				TheEva->reportEvaEvent(0x10, &target->m_position, 0);
+		}
+	}
+	SpecialPowerModuleInterface *module = (SpecialPowerModuleInterface *)((Rva0044E633 *)this)->rva0044E633();
+	if (module)
+		module->markSpecialPowerTriggered(0);
+	if (getObject()->getAI())
+		getObject()->getAI()->aiIdle(CMD_FROM_AI);
+	Object *obj = m_object;
+	obj->rva0028CDEB(*(const Rva00346BC0 *)&Rva00391F4E(0, 0x18, 0x46), true);
+	BfmeAudioEventPrefix136 sound(d->m_prepSoundLoop, 0);
+	((Rva002D9531 *)&sound)->rva002D9531(m_object->m_id);
+	m_prepSoundLoop = TheAudio->addAudioEvent(&sound);
+}
+
+extern unsigned int g_00DBA4E4;
+bool SpecialAbilityUpdate::rva00450AE9()
+{
+ Object *self=m_object;
+ const SpecialAbilityUpdateModuleData *data=(const SpecialAbilityUpdateModuleData*)m_moduleData;
+ if(m_approachFrames>g_00DBA4E4*2) {
+  Coord3D target={m_targetPos.x,m_targetPos.y,m_targetPos.z};
+  Object *obj=TheGameLogic->findObjectByID(m_targetID);
+  if(obj) target=obj->m_position;
+  float dx=m_previousTarget.x,dy=m_previousTarget.y,dz=m_previousTarget.z;dx-=target.x;dy-=target.y;dz-=target.z;Coord3D delta={dx,dy,dz};
+  if(delta.GetLength()<5.0f){onExit(false,true);return false;}
+ }
+ ++m_approachFrames;
+ m_previousTarget=m_targetPos;
+ if(m_targetID!=INVALID_OBJECT_ID) {
+  Object *target=TheGameLogic->findObjectByID(m_targetID);
+  if(!target)return false;
+  const Coord3D *targetPos=&target->m_position;
+  m_previousTarget=*targetPos;
+  bool moveToPosition=data->m_approachRange>50.0f;
+  if(data->m_specialPowerTemplate->friend_getFinalOverride()->m_val1C==0x27){
+   ApproachTargetContainer *c=target->m_targetContainer;
+   unsigned int id;
+   if(c && (c->m_data[0x115]&0x20)) id=c->m_targetID;
+   else id=m_targetID;
+   self->m_specialTargetID=id;
+  }
+  AIUpdateInterface *ai=self->getAI();
+  if(!ai)return false;
+  if(!((const StringBase<char>*)&data->m_targetBone)->isEmpty()) {
+   Coord3D pos={0,0,0};
+   if(target->getWorldspaceBestContactPoint(&pos,&self->m_position,data->m_targetBone.str(),0,0x2A,true)){
+    ai->aiMoveToPositionSA(&pos,2);return true;
+   }
+  }
+  ai->ignoreObstacle(target);
+  if(!(target->m_base4[0x108]&0x80) && target->rva0028B511()!=1 && moveToPosition){
+   Coord3D pos={targetPos->x,targetPos->y,targetPos->z};
+   rva0044E85E(&pos,data->m_approachRange);
+   ai->aiMoveToPositionSA(&pos,2);
+  } else ai->rva0044FFD9(target,CMD_FROM_AI);
+ } else if(m_targetPos.x || m_targetPos.y || m_targetPos.z){
+  AIUpdateInterface *ai=self->getAI();
+  if(!ai)return false;
+  int type=data->m_specialPowerTemplate->friend_getFinalOverride()->m_val1C;
+  if(type==0x38 && ai->rvaSlot168())self->setStatus((ObjectStatusTypes)0x5B,true);
+  ai->aiMoveToPositionSA(&m_targetPos,2);
+  if(type==0x2A)m_approached=true;
+ } else return false;
+ return true;
 }
