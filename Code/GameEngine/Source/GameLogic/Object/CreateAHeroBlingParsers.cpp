@@ -90,17 +90,12 @@ void Rva0021ECB2Parse(INI *ini)
  reinterpret_cast<Rva0021EA74*>(TheCreateAHeroManager)->rva0021EA74(binder);
 }
 
-// The owned cleanup21A0C2 is the three-string prefix. A scalar word
-// after that prefix needs no cleanup; inherit it to call the real provider
-// rather than the old masked destructor alias.
-struct Rva0021A0C2 {
- AsciiString text0,text1,text2;
- ~Rva0021A0C2();
-};
-struct BfmeStringRecord002199C8:public Rva0021A0C2 {
- unsigned word;
+// Emit the implicit three-string destructor here. Its complete68B body,
+// calls and EH cleanup match21A0C2; an extern-only declaration would reuse
+// the stale masked alias, and a forwarding prefix would emit a wrong5B copy.
+struct BfmeStringRecord002199C8 {
+ AsciiString text0,text1,text2;unsigned word;
  BfmeStringRecord002199C8(unsigned,const AsciiString&,const AsciiString&,const AsciiString&);
-
 };
 class UpgradeTemplate;
 class UpgradeCenter {public:const UpgradeTemplate *findUpgrade(const AsciiString&)const;};
