@@ -51,3 +51,43 @@ void Rva003560ED::rva00355E20(int, int)
 	if (TheWritableGlobalData->m_11c8)
 		TheDisplay->slot73(0);
 }
+
+// ?rva00355E4C@Rva003561BE@@QAE_NXZ @0x00355E4C 57B
+// Slot 5 of the derived vtable 0x00C14EBC (class of the rowed deleting dtor
+// 0x0035686D): true without TheAudio; otherwise TheAudio slot 10, then, unless
+// the +0x1C value is 1, true only when TheAudio slot 52 refuses that value.
+class AudioManager : public VirtualSlots<10>
+{
+public:
+	virtual void slot10();
+	virtual void a11(); virtual void a12(); virtual void a13(); virtual void a14();
+	virtual void a15(); virtual void a16(); virtual void a17(); virtual void a18(); virtual void a19();
+	virtual void a20(); virtual void a21(); virtual void a22(); virtual void a23(); virtual void a24();
+	virtual void a25(); virtual void a26(); virtual void a27(); virtual void a28(); virtual void a29();
+	virtual void a30(); virtual void a31(); virtual void a32(); virtual void a33(); virtual void a34();
+	virtual void a35(); virtual void a36(); virtual void a37(); virtual void a38(); virtual void a39();
+	virtual void a40(); virtual void a41(); virtual void a42(); virtual void a43(); virtual void a44();
+	virtual void a45(); virtual void a46(); virtual void a47(); virtual void a48(); virtual void a49();
+	virtual void a50(); virtual void a51();
+	virtual bool slot52(int value);
+};
+extern AudioManager *TheAudio;
+class Rva003561BE
+{
+public:
+	bool rva00355E4C();
+private:
+	unsigned char m_pad00[0x1C];
+	int m_1c; // +0x1C
+};
+bool Rva003561BE::rva00355E4C()
+{
+	bool result = true;
+	if (TheAudio)
+	{
+		TheAudio->slot10();
+		if (m_1c != 1)
+			result = !TheAudio->slot52(m_1c);
+	}
+	return result;
+}
