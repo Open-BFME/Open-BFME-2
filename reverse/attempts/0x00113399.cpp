@@ -1,5 +1,5 @@
 // ?rva00113399@W3DTerrainBackground@@QAEXPAGPAXHHHH0AAH@Z
-// partial score=0.85 date=2026-10-09
+// partial score=0.86 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
 // Native [00113399,00113C07),2158B, RET32. WorldBuilder places the body in
 // W3DTerrainBackground.cpp (unnamed there). Rectangle form of the ZH
@@ -109,7 +109,8 @@ void W3DTerrainBackground::rva00113399(UnsignedShort *ib, void *heights, Int xOf
 	if (maxY + m_yOrigin > limitY)
 		maxY = limitY - m_yOrigin;
 	Bool topRightInMesh = m_map->isInMesh(m_xOrigin + maxX, m_yOrigin + maxY);
-	Int topRightNdx = ndx[maxX + maxY * (m_width + 1)];
+	Int pitch = m_width + 1;
+	Int topRightNdx = ndx[maxX + maxY * pitch];
 
 	ICoord2D left;
 	left.x = xOffset;
@@ -124,7 +125,7 @@ void W3DTerrainBackground::rva00113399(UnsignedShort *ib, void *heights, Int xOf
 	UnsignedShort prevNdxRight;
 	if (m_map->isInMesh(minX, minY)) {
 		if (ib)
-			ib[curIndex] = ndx[xOffset + yOffset * (m_width + 1)];
+			ib[curIndex] = ndx[xOffset + yOffset * pitch];
 		curIndex++;
 		prevNdxRight = ndx[right.x + right.y * (m_width + 1)];
 		if (ib)
