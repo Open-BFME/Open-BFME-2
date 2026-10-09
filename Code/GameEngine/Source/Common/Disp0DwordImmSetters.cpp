@@ -23,8 +23,6 @@ extern "C" const void *const vtbl_00BC6F20[];  // folded, 7 classes; via ??_7Rva
 #pragma comment(linker, "/alternatename:_vtbl_00BC6F20=??_7Rva0007DF07@@6B@")
 extern "C" const void *const vtbl_00BCEFA0[];  // folded, 3 classes; via ??_7BfmeShadowBufferOwnerBase@@6B@
 #pragma comment(linker, "/alternatename:_vtbl_00BCEFA0=??_7BfmeShadowBufferOwnerBase@@6B@")
-extern "C" const void *const vtbl_00BDBA74[];  // folded, 3 classes; via ??_7Base0_00576C4B@@6B@
-#pragma comment(linker, "/alternatename:_vtbl_00BDBA74=??_7Base0_00576C4B@@6B@")
 extern "C" const void *const vtbl_00BE2B78[];  // folded, 9 classes; via ??_7ClearanceTestingSlowDeathBehaviorIface5@@6B@
 #pragma comment(linker, "/alternatename:_vtbl_00BE2B78=??_7ClearanceTestingSlowDeathBehaviorIface5@@6B@")
 extern "C" const void *const vtbl_00BE3990[];  // folded, 2 classes; via ??_7BfmeDualVtableReleaseBase@@6B@
@@ -634,19 +632,6 @@ public:
 void Rva00049C38ADwordImmSetter::apply()
 {
 	m_value = ((unsigned int)vtbl_00BC26E0);
-}
-
-class Rva000429191DwordImmSetter
-{
-public:
-	void apply();
-
-	unsigned int m_value;
-};
-
-void Rva000429191DwordImmSetter::apply()
-{
-	m_value = ((unsigned int)vtbl_00BDBA74);
 }
 
 class Rva000419B8DDwordImmSetter
