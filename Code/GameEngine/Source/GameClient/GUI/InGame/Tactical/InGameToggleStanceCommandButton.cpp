@@ -15,6 +15,7 @@ class Rva0035B424 {public:void rva0035B424(int);};
 class Rva0057C22FByteChaseField {public:unsigned char get()const;};
 class Rva005C39AA {public:void rva005C39AA();};
 void GadgetButtonSetEnabledImage_Rva002C0433(GameWindow *,const Image *);
+// ?StanceToButtonSlot@@YAHPAVCommandButton@@H@Z present-unmatched
 __declspec(noinline) static int StanceToButtonSlot(CommandButton *button,int stance) {
  int count=button->stances.size();
  for(int i=0;i<count;++i)if(button->getStance(i)==stance)return i;

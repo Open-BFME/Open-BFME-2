@@ -2547,7 +2547,6 @@ name,address,notes
 ??0Rva005564EBSub@@QAE@ABU0@@Z,0x0038630B,subobject copy constructor: REL32 read at the tail call site in the 29B element copy ctor 0x005564EB; identity unproven
 ??0Rva00565FC1Pair@@QAE@ABU0@@Z,0x0052BB9A,address-derived ABI view; REL32 decoded from reference-guided overflow 0x00565FC1; tag uses final argument padding
 ??0Rva005668E9Element@@QAE@ABU0@@Z,0x004334D7,element copy constructor: REL32 read at 0x0052D371 in the byte-verified _Construct 0x0052D355; ledger spelling there: ??0?$vector@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@QAE@ABV01@@Z
-??0Rva0056833F@@QAE@PAX00@Z,0x0056833F,inner ctor called by Rva005685EE ctor 0x0056858C with (outer-this,a,b); identity unproven; address-derived signature
 ??0Rva00572885@@QAE@PAVAptOnline@@@Z,0x00572885,unrowed thiscall constructor (ret 4) of the online shell's "OnlineLogin" sub-screen taking the shell: REL32 at 0x00516D7C in its factory after a 0xE0-byte operator new (the shell screen table 0x00DD1568 entry); address name
 ??0Rva00573E7C@@QAE@ABV0@@Z,0x00573EB8,order-object copy ctor (base copy 0x00573AC8 then vtable 0xC6E2C8 and the +0x40..+0x5C fields); REL32 at 0x005ADF5F in Rva005ADA40::rva005ADE1D
 ??0Rva00573E7C@@QAE@XZ,0x00573E7C,0x60-byte skirmish-AI order object ctor (vtable slot 12 xfer(Xfer* owner)); REL32 at 0x005AE231 in Rva005ADA40::rva005AE0AD and 0x005ADBD6 in rva005ADAB2
@@ -17064,3 +17063,4 @@ _malloc,0x00628F92,CRT malloc import linker thunk (jmp [0xBBA6EC])
 ?rva000E8365@W3DShrubBuffer@@QAEXXZ,0x000E8365,callee of shrub per-frame update 0x000E89BD when only the push flag is set; shrub vertex push-aside refresh; banked near miss
 ?push_back@?$list@PAVResizerWindow@@V?$allocator@PAVResizerWindow@@@_STL@@@_STL@@QAEXABQAVResizerWindow@@@Z,0x0005548F,Native newResizerWindow call at 0x001DBA42; full emitted four-byte pointer list helper and nested callees match every owner relocation; fold-proof=Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarResizer.cpp
 ?setLeftMouseButton@BfmeSelectionTranslator@@QAEX_N@Z,0x00452354,callee of ?GameWinBlockInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z
+??0Rva005681CE@@QAE@I@Z,0x00568182,Native constructor 00568182..005681CE 76B called by named Impl constructor 0056833F at005683B5; this points at 12B vector storage at Impl+1C; unsigned count; rowed 60B base allocation421D73 and 27B nontrivial fill5680DE with zero action/reference/active prototype; dtor5681CE already rowed; 82B STLport draft banked pending allocation unwind shape
