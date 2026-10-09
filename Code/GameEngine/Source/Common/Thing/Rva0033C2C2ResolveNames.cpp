@@ -39,9 +39,7 @@ public:
 	void resolveNames();
 	const Image *rva0033BA46();
 	const Image *getButtonImage();
-	bool isKindOf(int mask) const { return (m_kindofByte & mask) != 0; }
-
-	static const int KINDOF_COMMANDCENTER = 2;
+	static const int COMMANDCENTER_MASK = 2;
 
 private:
 	char m_pad00[0x10a];
@@ -70,7 +68,7 @@ void ThingTemplate::resolveNames()
 		}
 	}
 
-	if (isKindOf(KINDOF_COMMANDCENTER)) {
+	if ((m_kindofByte & COMMANDCENTER_MASK) != 0) {
 		m_isBuildFacility = true;
 	}
 
