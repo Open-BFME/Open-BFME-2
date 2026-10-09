@@ -106,6 +106,7 @@ public:
 class PathfindLayer
 {
 public:
+	PathfindLayer();
 	void ClassifyWallCells();
 	void rva00366DEC();
  ~PathfindLayer();
@@ -242,3 +243,15 @@ void PathfindLayer::ClassifyWallCells()
 // Native array cleanup callback367369 in Pathfinder destructor2F213F;
 // target tail-jumps the already verified66B layer release wrapper.
 PathfindLayer::~PathfindLayer(){rva00366DEC();}
+
+// Native 003666C6..003666FD: constructor callback of the 16x64-byte
+// layer array in Pathfinder 002F6E22. ZH/BF1 constructor is the semantic
+// lead; all defaults and BFME2 field offsets are independent retail facts.
+PathfindLayer::PathfindLayer()
+{
+ m_blockOfMapCells=0; m_layerCells=0;
+ m_width=0; m_height=0; m_xOrigin=0; m_yOrigin=0;
+ m_startCell.x=-1; m_startCell.y=-1; m_endCell.x=-1; m_endCell.y=-1;
+ m_layer=0; m_zone=-1; m_destroyed=false;
+ m_bridge=0; m_triggers=0; m_triggerObjectID=-1;
+}
