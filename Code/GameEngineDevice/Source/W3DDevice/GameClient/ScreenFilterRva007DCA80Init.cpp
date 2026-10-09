@@ -1,5 +1,14 @@
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
 //
+// preRender is slot 2, native 0x000F9C9D..0x000F9D94 (247B; RET8).
+// Clean donor: BFME 1 f98983a7 game/GameEngineDevice/Source/W3DDevice/
+// GameClient/ScreenFilterRva007DCA80PreRender.cpp. Target bytes independently
+// prove six scene passes, the +0x14 amount and +0x18 sample count, the +0x1C
+// saved glow flag, +0x30 restore flag, +0x34 kernel and +0x4C target surface.
+// BFME 2's GlobalData flag is +0xD34 and its named Gaussian helper consumes
+// the same six-word block as init. The parameter assignment order preserves
+// retail's SSE scheduling; the entire body and its relocations match.
+//
 // ?init@Rva007DCA80@@UAEHXZ, retail 0x000F9D94..0x000F9F82 (494 bytes).
 // Slot 0 of vftable 0x007CF2F8 whose slot 1 is the rowed shutdown 0x000FA8AE
 // (?shutdown@Rva007DCA80@@UAEHXZ) and whose ctor-style init 0x000FA83B
@@ -120,9 +129,27 @@ struct IDirect3DDevice8
 		BfmeD3DTexture **texture, void **sharedHandle) = 0;
 };
 
+struct IDirect3DSurface8;
+class Vector3
+{
+public:
+	float X, Y, Z;
+};
+class GlobalData;
+extern GlobalData *TheWritableGlobalData;
+struct BfmeSmokeGlobalDataView
+{
+	char m_pad[0xD34];
+	bool m_glowActive;
+};
+
 class DX8Wrapper
 {
 public:
+	static IDirect3DDevice8 *_Get_D3D_Device8() { return D3DDevice; }
+	static void Set_Render_Target(IDirect3DSurface8 *, bool);
+	static void Clear(bool, bool, bool, const Vector3 &, float, float, unsigned);
+protected:
 	static IDirect3DDevice8 *D3DDevice;
 };
 
@@ -142,13 +169,19 @@ class Rva007DCA80 : public W3DFilterInterface
 public:
 	virtual int init(void);
 	virtual int shutdown(void);
+	virtual bool preRender(bool &skipRender, int &scenePassMode);
 
 private:
 	unsigned long m_pixelShader; // +0x04
 	unsigned m_vertexShader; // +0x08
-	char m_pad0C[0x2C - 0x0C];
+	char m_pad0C[0x14 - 0x0C];
+	float m_amount; // +0x14
+	int m_glowSamples; // +0x18
+	bool m_glowActive; // +0x1C
+	char m_pad1D[0x2C - 0x1D];
 	int m_size; // +0x2C
-	char m_pad30[0x34 - 0x30];
+	bool m_restoreTarget; // +0x30
+	char m_pad31[3];
 	char m_kernel[0x0C]; // +0x34
 	BfmeD3DTexture *m_texture[3]; // +0x40
 	BfmeD3DSurface *m_surface[3]; // +0x4C
@@ -178,7 +211,7 @@ int Rva007DCA80::init(void)
 	}
 
 	m_size = ((BfmeGaussianSettings *)Rva00309E4BGet())->m_size;
-	if (DX8Wrapper::D3DDevice->CreateTexture(m_size, m_size, 1, 1, 0x15, 0, &m_texture[0], 0) < 0) {
+	if (DX8Wrapper::_Get_D3D_Device8()->CreateTexture(m_size, m_size, 1, 1, 0x15, 0, &m_texture[0], 0) < 0) {
 		shutdown();
 		return 0;
 	}
@@ -188,7 +221,7 @@ int Rva007DCA80::init(void)
 		m_texture[0] = 0;
 		m_surface[0] = 0;
 	}
-	if (DX8Wrapper::D3DDevice->CreateTexture(m_size, m_size, 1, 1, 0x15, 0, &m_texture[1], 0) < 0) {
+	if (DX8Wrapper::_Get_D3D_Device8()->CreateTexture(m_size, m_size, 1, 1, 0x15, 0, &m_texture[1], 0) < 0) {
 		shutdown();
 		return 0;
 	}
@@ -209,4 +242,33 @@ int Rva007DCA80::init(void)
 	W3DShaderManager::createGaussianVector(m_kernel, &params);
 	W3DFilters[5] = this;
 	return 1;
+}
+
+// ?preRender@Rva007DCA80@@UAE_NAA_NAAH@Z @0x000F9C9D
+bool Rva007DCA80::preRender(bool &skipRender, int &scenePassMode)
+{
+	skipRender = false;
+	if (scenePassMode != 0)
+		return false;
+	scenePassMode = 6;
+	float scale = 18.0f / m_glowSamples;
+	BfmeGaussianParams params;
+	params.m_mode = 2;
+	params.m_14 = 0.06f * scale;
+	params.m_taps = m_glowSamples * 2;
+	params.m_1C = 0.11f * scale;
+	params.m_10 = 0.18f;
+	params.m_18 = 4.5f;
+	m_amount = 0.8f;
+	W3DShaderManager::createGaussianVector(m_kernel, &params);
+	m_glowActive = ((BfmeSmokeGlobalDataView *)TheWritableGlobalData)->m_glowActive;
+	((BfmeSmokeGlobalDataView *)TheWritableGlobalData)->m_glowActive = false;
+	DX8Wrapper::Set_Render_Target((IDirect3DSurface8 *)m_surface[0], true);
+	Vector3 black;
+	black.X = 0.0f;
+	black.Y = 0.0f;
+	black.Z = 0.0f;
+	DX8Wrapper::Clear(true, false, false, black, 0.0f, 1.0f, 0);
+	m_restoreTarget = true;
+	return true;
 }
