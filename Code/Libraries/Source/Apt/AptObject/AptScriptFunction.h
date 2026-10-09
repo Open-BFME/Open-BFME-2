@@ -26,6 +26,7 @@ struct AptNativeHash
     ~AptNativeHash();
     AptValue *Lookup(const EAStringC *const) const;
     __forceinline AptValue *Get__Proto__() const { return mp__proto__; }
+    void Set(const EAStringC *const, AptValue *const);
     void SetPrototype(AptValue *);
     void Set__Proto__(AptValue *);
     int mnTotalSize;
