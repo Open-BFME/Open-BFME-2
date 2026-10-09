@@ -18,7 +18,7 @@ public:
 	void rva005AFCB4(int arg);
 };
 
-class Rva005B000C
+class ChatWindowsInGame
 {
 public:
 	bool rva005B00C8(int arg0, unsigned int arg1, unsigned int arg2);
@@ -74,16 +74,16 @@ void Rva0057FD6E::rva0057FDB0(bool arg)
 }
 
 // ?rva0057FD7B@Rva0057FD6E@@QAE_NIII@Z, retail 0x0057FD7B, 25 bytes.
-// Forwards to pinned 0x005B00C8 when +0x64 non-null and +0x68 non-zero,
+// Forwards to recovered 0x005B00C8 when +0x64 non-null and +0x68 non-zero,
 // else false. Evidence: gap packet; caller 0x00442CD4 passes three
-// message args; callee pin ?rva005B00C8@Rva005B000C@@QAE_NHII@Z.
+// message args; ChatWindowsInGame.cpp now owns the callee.
 bool Rva0057FD6E::rva0057FD7B(unsigned int arg0, unsigned int arg1, unsigned int arg2)
 {
 	if (m_64 == 0) {
 		return false;
 	}
 	if (m_68 != 0) {
-		return reinterpret_cast<Rva005B000C *>(m_64)->rva005B00C8(arg0, arg1, arg2);
+		return reinterpret_cast<ChatWindowsInGame *>(m_64)->rva005B00C8(arg0, arg1, arg2);
 	}
 	return false;
 }

@@ -35,16 +35,18 @@ public:
     virtual void slot00();
     virtual void slot04();
     virtual void slot08();
-    virtual void slot0C();
+    virtual bool PopulatePlayerList();
     virtual bool slot10(const UnicodeString &,SelectionIDs &);
+    virtual void slot14(const AsciiString &);
+    bool rva005B00C8(int,unsigned int,unsigned int);
     void rva005B000C();
-    bool PopulatePlayerList();
     int rva005AFEF7(SelectionIDs *,_STL::vector<AsciiString> *);
     int rva005AFDC5(int,const UnicodeString &,const UnicodeString &,int);
     char unknown04[4];
     GameWindow *entry08;
-    char unknown0C[4];
+    GameWindow *chat0C;
     GameWindow *playerList10;
+    int unknown14, lastX18, lastY1C, repeats20;
 };
 int ChatWindowsInGame::rva005AFDC5(int user,const UnicodeString &name,const UnicodeString &team,int color)
 {
@@ -198,4 +200,47 @@ void ChatWindowsInGame::rva005B000C()
     rva005AFEF7(&selected,0);
     if(slot10(text,selected))
         GadgetTextEntrySetText(entry08,UnicodeString::TheEmptyString);
+}
+
+int GadgetListBoxGetEntryBasedOnXY(GameWindow *,int,int,int &,int &);
+// Native5B00C8..5B01D3 RET12, directly called by the verified messenger
+// message handler. Message IDs and packed unsigned coordinates are native
+// facts; symbolic event names remain unknown. Eight stable pointer observations
+// (counter>=7) dispatch the row name through vslot14. Entry-message4031
+// submits on zero data; three other message IDs acknowledge owned windows.
+// All267 bytes, return branches, argument-slot reuse and two EH states exact.
+// The in-game vtable at87287C binds vslot0C to PopulatePlayerList5AFA3C.
+bool ChatWindowsInGame::rva005B00C8(int message,unsigned int window,unsigned int data)
+{
+    switch(message) {
+    case 0x4008: case 0x4014: case 0x4026:
+        if(reinterpret_cast<GameWindow *>(window)==entry08 ||
+           reinterpret_cast<GameWindow *>(window)==chat0C ||
+           reinterpret_cast<GameWindow *>(window)==playerList10) return true;
+        break;
+    case 0x4031:
+        if(reinterpret_cast<GameWindow *>(window)==entry08) {
+            if(!data) rva005B000C();
+            return true;
+        }
+        break;
+    case 0x18:
+        GameWindow *list=reinterpret_cast<GameWindow *>(window);
+        if(list==playerList10) {
+            int x=data&0xffff;
+            int y=data>>16;
+            if(x==lastX18 && y==lastY1C) ++repeats20;
+            else repeats20=0;
+            lastX18=x; lastY1C=y;
+            if(repeats20>=7) {
+                int row,column;
+                GadgetListBoxGetEntryBasedOnXY(list,x,y,row,column);
+                AsciiString name;
+                name.translate(GadgetListBoxGetText(list,row,2));
+                slot14(name);
+            }
+        }
+        break;
+    }
+    return false;
 }

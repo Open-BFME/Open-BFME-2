@@ -196,7 +196,7 @@ public:
 // A tab's chat entry; its recovered 0x005B000C sends the typed line, pinned
 // by address.
 // Call-only view of the query/send receiver now owned in ChatWindowsInGame.cpp.
-class ChatWindowsInGame { public: void rva005B000C(); };
+class ChatWindowsInGame { public: void rva005B000C(); bool rva005B00C8(int,unsigned int,unsigned int); };
 class Rva005B000C
 {
 public:
@@ -205,8 +205,8 @@ public:
 	virtual ~Rva005B000C();
 
 
-	// Unrowed 0x005B00C8, the tab's window message handler.
-	bool rva005B00C8(int message, unsigned int wParam, unsigned int lParam);
+	// The recovered tab message handler is called through ChatWindowsInGame.
+
 	// Unrowed 0x005AFC21 and 0x005AFC4C keep the tab's chat and player
 	// list windows, pinned by address.
 	void rva005AFC21(GameWindow *window);
@@ -455,7 +455,7 @@ int AptMessenger::rva00511990(int message, unsigned int wParam, unsigned int lPa
 	int result = ((_bfme_AptGameWindow *)this)->rva0051274F(message, wParam, lParam);
 	for (int i = 0; i < 2; ++i)
 	{
-		if (m_entries[i] && m_entries[i]->rva005B00C8(message, wParam, lParam))
+		if (m_entries[i] && reinterpret_cast<ChatWindowsInGame *>(m_entries[i])->rva005B00C8(message, wParam, lParam))
 		{
 			m_29c = true;
 			result = 1;
