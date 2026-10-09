@@ -9,6 +9,7 @@
 #include "ascii_string.h"
 #include "unicode_string.h"
 #include "../../Common/GameLogicObjectLookupView.h"
+#include "../../../../Libraries/Include/Lib/Coord3D.h"
 
 class BehaviorModule;
 class BodyModuleInterface;
@@ -30,8 +31,9 @@ enum WeaponSetType
 };
 
 class Object;
-struct ThingTemplate
+class ThingTemplate
 {
+public:
 	unsigned char m_pad[0x64];
 	const char *m_nameData64;
 	unsigned char m_pad68[0x548 - 0x68];
@@ -115,6 +117,54 @@ public:
 	virtual void rva00293DACSlot66(Rva00293DACRange *out) = 0;
 };
 
+enum CommandSourceType;
+enum WeaponSlotType;
+enum WeaponLockType;
+class SpecialPowerTemplate;
+class AICommandInterface
+{
+public:
+ void aiIdle(CommandSourceType);
+ void aiAttackPosition(const Coord3D *, int, CommandSourceType);
+};
+class Rva00295A0FCommands
+{
+public:
+ void Rva00295A0FCommand(void *, int, int);
+};
+class Rva00297149AI
+{
+public:
+ char m_pad00[0x20];
+ AICommandInterface m_commands20;
+};
+class CommandButton
+{
+public:
+ const ThingTemplate *rva0035B570() const;
+ char m_pad00[0x14];
+ int m_command14;
+ char m_pad18[4];
+ unsigned int m_options1C;
+ char m_pad20[0x44 - 0x20];
+ const SpecialPowerTemplate *m_power44;
+ char m_pad48[0x80 - 0x48];
+ WeaponSlotType m_weaponSlot80;
+ char m_pad84[0xA0 - 0x84];
+ int m_maxShotsA0;
+};
+class BuildAssistant
+{
+public:
+ virtual void slot00(); virtual void slot01(); virtual void slot02();
+ virtual void slot03(); virtual void slot04(); virtual void slot05();
+ virtual void slot06(); virtual void slot07(); virtual void slot08();
+ virtual void slot09(); virtual void slot10(); virtual void slot11();
+ virtual void slot12(); virtual void slot13();
+ virtual void buildObjectNow(Object *, const ThingTemplate *, const Coord3D *, float, Player *);
+};
+extern BuildAssistant *TheBuildAssistant;
+
 class Object
 {
 public:
@@ -135,6 +185,9 @@ public:
 	Object *rva002931F5(bool flag);
 	void *rva0028C197() const;
 	__declspec(noinline) void rva0028C24C();
+	bool setWeaponLock(WeaponSlotType, WeaponLockType);
+	void doSpecialPowerAtLocation(const SpecialPowerTemplate *, const Coord3D *, unsigned int, bool);
+	void rva00297149(const CommandButton *, const Coord3D *, int, int);
 	void rva001E42F2(const int *x);
 	void rva001E431E(const int *x);
 	void rva0028CFB2(const int *a, const int *b);
@@ -171,7 +224,9 @@ private:
 	RadarObject *m_radarData;	// +0x1A8
 	unsigned char m_pad1AC[0x1C8 - 0x1AC];	// +0x1AC..0x1C8
 	BitFlags<11> m_disabled1C8;		// +0x1C8
-	unsigned char m_pad1CC[0x43C - 0x1CC];	// +0x1CC..0x43C
+	unsigned char m_pad1CC[0x258 - 0x1CC];
+	Rva00297149AI *m_commandAI258;
+	unsigned char m_pad25C[0x43C - 0x25C];	// +0x1CC..0x43C
 	bool m_receivingDifficultyBonus;	// +0x43C
 	unsigned char m_pad43D[0x458 - 0x43D];
 	int m_deadline458;
@@ -516,4 +571,49 @@ extern GameLogic *TheGameLogic;
 void Object::rva0028C24C()
 {
  m_deadline458 = g_Va00DBA4E4 * 10 + TheGameLogic->getFrame();
+}
+
+// ZH Object::doCommandButtonAtPosition is the semantic guide. WB CDDF80
+// and native297149..29725B RET16 establish the BFME2 cases and fourth byte
+// flag:24/38 power commands;10 attack-move;14 idle;53 build;23 weapon fire.
+// The build virtual's five arguments are pushed around the const template
+// getter (its RET0 takes no arguments). Deadline helper28C24C is visible and
+// preserves ECX; do not duplicate the original separate provider unit.
+void Object::rva00297149(const CommandButton *button, const Coord3D *position, int source, int flag)
+{
+ if (m_disabled1C8.any())
+  return;
+ Rva00297149AI *ai = m_commandAI258;
+ if (!button)
+  return;
+ switch (button->m_command14)
+ {
+ case 24:
+ case 38:
+  if (button->m_power44)
+  {
+   unsigned int options = button->m_options1C | 0x40000;
+   if ((unsigned char)flag)
+    options |= 0x20000000;
+   doSpecialPowerAtLocation(button->m_power44, position, options, source == 1);
+  }
+  break;
+ case 10:
+  if (ai)
+   ((Rva00295A0FCommands *)&ai->m_commands20)->Rva00295A0FCommand((void *)position, button->m_maxShotsA0, source);
+  break;
+ case 14:
+  if (ai)
+   ai->m_commands20.aiIdle((CommandSourceType)source);
+  break;
+ case 53:
+  TheBuildAssistant->buildObjectNow(this, button->rva0035B570(), position, 0.0f, getControllingPlayer());
+  break;
+ case 23:
+  rva0028C24C();
+  setWeaponLock(button->m_weaponSlot80, (WeaponLockType)1);
+  if (ai)
+   ai->m_commands20.aiAttackPosition(position, 1, (CommandSourceType)source);
+  break;
+ }
 }
