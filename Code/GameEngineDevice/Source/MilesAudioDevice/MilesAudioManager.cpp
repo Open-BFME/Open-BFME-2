@@ -870,6 +870,7 @@ public:
     void notifyOf2DSampleCompletion();
     void notifyOf3DSampleCompletion();
     void internalSetReverbRoomType(int roomType);
+    bool shouldUseDolbyProvider();
     void rva0005452B(void);
     void rva000606CE(bool accelerated);
     void rva00060123(unsigned int viewMask);
@@ -1034,7 +1035,8 @@ private:
     int m_atBE4;                         // +0xBE4, reverb room type (0x530DF zeroes it)
     char atBE8[0xBEC - 0xBE8];
     unsigned int m_atBEC;                // +0xBEC, view types reset since the last update
-    char atBF0[0xBF8 - 0xBF0];
+    int m_selectedSpeakerType;          // +0xBF0, provider-selection speaker type
+    char atBF4[0xBF8 - 0xBF4];
     __int64 m_atBF8;                     // +0xBF8, _time64 of the last device open
 };
 
@@ -2924,15 +2926,6 @@ public:
 private:
     PlayingAudio *m_ptr;
 };
-// WorldBuilder's shouldUseDolbyProvider, under its ledger name. The manager
-// word at +0xBF0 must be 1..5 (beyond the members modelled above).
-class Rva00051525 {
-public:
-    bool rva00051525(void);
-private:
-    char at00[0xBF0];
-    int m_atBF0;
-};
 
 // Native 00060123..00060309 (WorldBuilder twin 0x007967E0, unnamed). For
 // every view type in viewMask: playing sounds, 3D sounds and streams give
@@ -3068,9 +3061,11 @@ void MilesAudioManager::rva000606CE(bool accelerated)
 // keeps a byte in dl across the call, which MSVC does only for a callee whose
 // register use it has already seen. The null-manager guard keeps an explicit
 // else so the shared true block stays between the guard and the body.
-bool Rva00051525::rva00051525(void)
+// WorldBuilder 0x0079CB00 names shouldUseDolbyProvider; its speaker-type
+// range and measured retail LOD offsets independently prove this owner.
+bool MilesAudioManager::shouldUseDolbyProvider(void)
 {
-    int value = m_atBF0;
+    int value = m_selectedSpeakerType;
     if (value <= 0 || value > 5)
         return false;
     GameLODManager *lod = TheGameLODManager;
@@ -3095,7 +3090,7 @@ void MilesAudioManager::onAudioLODChanged(void)
         } else {
             const AsciiString &dolbyName = m_provider3D[m_selectedProvider].name;
             bool isDolby = dolbyName.compare("Dolby Surround") == 0;
-            if (((Rva00051525 *)this)->rva00051525() == isDolby)
+            if (shouldUseDolbyProvider() == isDolby)
                 needReselect = false;
         }
     }
