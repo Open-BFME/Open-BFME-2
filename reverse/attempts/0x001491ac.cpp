@@ -28,7 +28,7 @@ NameKeyGenerator::NameKeyGenerator() : mutex(0){
 class CriticalSection;
 class ScopedCriticalSection {
 friend class NameKeyGuard;
-private: CriticalSection *cs;bool locked; void Lock();void Unlock();
+private: CriticalSection *cs;bool locked; void Lock() throw();void Unlock() throw();
 };
 class NameKeyGuard : public ScopedCriticalSection {
 public:
