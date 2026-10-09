@@ -170,6 +170,15 @@ public:
 // teardown belong to Rva002894A2 at 0x00289CEB / 0x002894A2; this caller
 // touches only the fields proved by its native loads and stores.
 // The upgrade vector retains the existing void-pointer provider spelling.
+// The existing 0x00288E8D sort provider is rowed under this provisional
+// STL spelling. This caller passes only its one-pointer list header; it
+// neither constructs nor accesses an element through that opaque name.
+struct crateCreationEntry;
+namespace _STL {
+template <class T, class A = allocator<T> > class list;
+template <class T> struct less { less() {} };
+template <class T, class A, class C> void _S_sort(list<T, A> &, C);
+}
 struct BfmePod264;
 class Rva002894A2
 {
@@ -195,6 +204,7 @@ class ExperienceLevelStore
 public:
     bool CreateNewExpLevel(const AsciiString &, const AsciiString &, const AsciiString &, const AsciiString &, const AsciiString &);
     void rva0028A1AA(void *, const BfmePod264 *);
+    void rva002891DB(const Rva002894A2 *);
 	Int GetLevelRank(ExperienceLevelHandle levelHandle) const;
 	Int GetRequiredExperience(ExperienceLevelHandle levelHandle) const;
 	Int GetExperienceAwardForLevel(ExperienceLevelHandle levelHandle) const;
@@ -427,4 +437,18 @@ bool ExperienceLevelStore::CreateNewExpLevel(const AsciiString &sourceName, cons
         SplitUpgrades(&upgradeList, upgrades);
     }
     return true;
+}
+
+// Unnamed WB 0x00BEB9E0 and the parser call establish this store helper.
+// Native 0x002891DB..0x00289218 looks up the level key at +0x14, sorts
+// the hit list at hash-node+8 through the existing whole-byte provider,
+// and clears store+0x28. Full61 bytes and all three call targets exact.
+void ExperienceLevelStore::rva002891DB(const Rva002894A2 *level)
+{
+    NameKeyGenerator::KeyToBucketMap::Slot found;
+    m_levelLists->find(found, &level->key14);
+    if (found.node) {
+        _STL::_S_sort(*reinterpret_cast<_STL::list<crateCreationEntry> *>((char *)found.node + 8), _STL::less<crateCreationEntry>());
+        ((Rva0028881C *)((char *)this + 0x28))->rva002889BB();
+    }
 }
