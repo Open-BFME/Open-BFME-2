@@ -253,25 +253,9 @@ void FileSystem::getFileListInDirectory(const AsciiString& directory, const Asci
 //============================================================================
 // FileSystem::getFileInfo
 //============================================================================
-// ?getFileInfo@FileSystem@@ present-unmatched
-Bool FileSystem::getFileInfo(const AsciiString& filename, FileInfo *fileInfo) const
-{
-	USE_PERF_TIMER(FileSystem)
-	if (fileInfo == NULL) {
-		return FALSE;
-	}
-	memset(fileInfo, 0, sizeof(fileInfo));
-	
-	if (TheLocalFileSystem->getFileInfo(filename, fileInfo)) {
-		return TRUE;
-	}
-
-	if (TheArchiveFileSystem->getFileInfo(filename, fileInfo)) {
-		return TRUE;
-	}
-
-	return FALSE;
-}
+// The native AsciiString wrapper at 0x00077BF8 is owned by
+// FileSystemRva00077BF8.cpp and forwards to the native lookup at 0x00600E3A.
+// BFME 1 repair 7b5ff42000 at f989 likewise retires its obsolete donor body.
 
 //============================================================================
 // FileSystem::createDirectory
