@@ -83,10 +83,12 @@ def coff(symbols):
 class Parsing(unittest.TestCase):
     def test_failures_and_repeats(self):
         got = dbr.parse_failures(f"data-back:{EMPTY}x3;data-fwd:_gx2;ehx2;shift:code:hardcoded address", {EMPTY})
-        self.assertEqual(got, [("data-back", EMPTY, 3), ("data-fwd", "_g", 2), ("eh", None, 2),
-                               ("shift", "code:hardcoded address", 1)])
+        self.assertEqual(got, [("data-back", ((EMPTY, 3),)), ("data-fwd", (("_g", 2),)), ("eh", ((None, 2),)),
+                               ("shift", (("code:hardcoded address", 1),))])
         # a known name that itself ends in x<digits> keeps its spelling
-        self.assertEqual(dbr.parse_failures("data-back:_boxx2", {"_boxx2"}), [("data-back", "_boxx2", 1)])
+        self.assertEqual(dbr.parse_failures("data-back:_boxx2", {"_boxx2"}), [("data-back", (("_boxx2", 1),))])
+        # a predicate works as `known`
+        self.assertEqual(dbr.parse_failures("data-back:_gx2", lambda s: s == "_g"), [("data-back", (("_g", 2),))])
 
     def test_unique_bytes(self):
         self.assertEqual(dbr.unique_bytes([(0, 10), (5, 20), (30, 31), (0, 4)]), 21)
@@ -155,7 +157,9 @@ class Ranking(unittest.TestCase):
         text, report = self.run_tool("--status", str(self.t / "link_status-0123456789.csv.gz"))
         self.assertEqual(report["mode"], "status")
         self.assertNotIn("PROVISIONAL", text)
-        self.assertEqual(report["totals"], {"rows": 5, "bytes": 0xB4 + 40 + 8 + 16})
+        self.assertEqual(report["totals"], {"rows": 5, "bytes": 0xB4 + 40 + 8 + 16, "ambiguous_rows": 0,
+                                            "unmapped_rows": 1, "disambiguated": 0})
+        self.assertEqual(report["ambiguous"], [])
         first, second = report["addresses"]
         self.assertEqual(first["address"], "0x00100000")
         self.assertEqual((first["rows"], first["bytes"]), (3, 0xB4 + 16))     # r1+r2 overlap, r7
@@ -184,6 +188,143 @@ class Ranking(unittest.TestCase):
                                      "--address", "0x200000")
         self.assertEqual([a["address"] for a in report["addresses"]], ["0x00200000"])
         self.assertIn("_TheGameLogic @Code/A.cpp", text)
+
+
+FLOAT = "__real@c7c34ff3"
+LEDGER_HEAD = LEDGER[0]
+
+
+def status_csv(path, rows, cols=STATUS_COLS):
+    """A link_cycle link_status.csv of (name, source, rva, size, failures) placed real rows."""
+    out = [cols]
+    for name, source, rva, size, fails in rows:
+        out.append([name, "real", source, f"0x{rva:08X}", size, "", "1", "", 0, 0, 0, 0, 0, 0,
+                    fails.count(";") + 1, fails])
+    write_csv(path, out)
+
+
+class ReviewFixes(unittest.TestCase):
+    """One regression per finding of the review of 514ebfa15b; each fails on that code."""
+
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.t = Path(self.tmp.name)
+        write_csv(self.t / "functions.csv", FUNCTIONS)
+
+    def tearDown(self):
+        self.tmp.cleanup()
+
+    def run_status(self, ledger, status, *extra):
+        write_csv(self.t / "ledger.csv", [LEDGER_HEAD] + ledger)
+        status_csv(self.t / "status.csv", status)
+        with redirect_stdout(io.StringIO()):
+            dbr.main(["--ledger", str(self.t / "ledger.csv"), "--functions", str(self.t / "functions.csv"),
+                      "--status", str(self.t / "status.csv"), "--no-objects", "--json", str(self.t / "out.json"),
+                      *extra])
+        return json.loads((self.t / "out.json").read_text(encoding="utf-8"))
+
+    def test_singleton_statics_keep_their_scope(self):
+        # P1: a single-name row's static is matched from its own source only, and a
+        # name the ledger proves static (several owners; name@source elsewhere) never globally
+        ledger = [
+            ["0x00400000", "52", ".rdata", "global", "_s_vtable", "Code/V1.cpp", "owned", "", "1", "1"],
+            ["0x00400100", "52", ".rdata", "global", "_s_vtable", "Code/V2.cpp", "owned", "", "1", "1"],
+            ["0x00400200", "52", ".rdata", "vtable", "??_7Foo@@6B@", "", "literal",
+             "??_7Foo@@6B@;_s_vtable@Code/V3.cpp", "1", "2"],
+            ["0x00400300", "4", ".data", "global", "_s_only", "Code/V4.cpp", "owned", "", "1", "1"],
+            ["0x00400400", "4", ".data", "global", "?g_x@@3HA", "Code/V5.cpp", "provisional",
+             "?g_x@@3HA;_s_only@Code/V5.cpp", "1", "2"],
+            ["0x00400500", "4", ".data", "global", "?g_one@@3HA", "Code/C.cpp", "owned", "", "1", "3"],
+        ]
+        report = self.run_status(ledger, [
+            ("u1", "Code/Unrelated.cpp", 0x8000, 50, "data-back:_s_vtable"),
+            ("v1", "Code/V1.cpp", 0x8100, 30, "data-back:_s_vtable"),
+            ("u2", "Code/Unrelated.cpp", 0x8200, 20, "data-back:_s_only"),
+            ("u3", "Code/Unrelated.cpp", 0x8300, 10, "data-back:?g_one@@3HA"),   # an external: any source
+        ])
+        got = {a["address"]: (a["rows"], a["bytes"]) for a in report["addresses"]}
+        self.assertEqual(got, {"0x00400000": (1, 30), "0x00400500": (1, 10)})
+        self.assertEqual(report["unmapped"], {"_s_vtable": 1, "_s_only": 1})
+        first = next(a for a in report["addresses"] if a["address"] == "0x00400000")
+        self.assertEqual([(x["symbol"], x["local_source"]) for x in first["names"]], [("_s_vtable", "Code/V1.cpp")])
+
+    def test_ambiguous_symbol_is_quarantined(self):
+        # P1: a symbol with several ledger addresses counts at none of them
+        floats = [f"0x{0x7F9000 + 0x100 * k:08X}" for k in range(3)]
+        ledger = [[a, "8", ".rdata", "float", FLOAT, "", "literal", "", "0", "1"] for a in floats]
+        ledger.append(["0x00400500", "4", ".data", "global", "?g_one@@3HA", "Code/C.cpp", "owned", "", "1", "3"])
+        report = self.run_status(ledger, [
+            ("r", "Code/S.cpp", 0x8000, 100, f"data-back:{FLOAT};data-back:?g_one@@3HA"),
+            ("q", "Code/Q.cpp", 0x9000, 40, f"data-back:{FLOAT}"),
+        ])
+        self.assertEqual([a["address"] for a in report["addresses"]], ["0x00400500"])
+        one = report["addresses"][0]
+        self.assertEqual((one["rows"], one["bytes"], one["sole_rows"]), (1, 100, 0))
+        self.assertEqual(one["other_blockers"], {"data-back ambiguous": 1})
+        self.assertEqual(report["ambiguous"], [{"symbol": FLOAT, "reason": "several addresses",
+                                                "candidates": floats, "rows": 2, "bytes": 140}])
+        self.assertEqual(report["totals"]["ambiguous_rows"], 2)
+
+    def test_retail_reference_settles_an_ambiguous_symbol(self):
+        # ... unless the row's own retail references reach exactly one candidate
+        floats = [0x7F9000 + 0x100 * k for k in range(3)]
+        ledger = {a: {"bound": [(FLOAT, None)], "names": "", "size": 8, "kind": "float", "status": "literal",
+                      "source": "", "name": FLOAT} for a in floats}
+        path = self.t / "status.csv"
+        status_csv(path, [("r", "Code/S.cpp", 0x8000, 100, f"data-back:{FLOAT}"),
+                          ("q", "Code/Q.cpp", 0x9000, 40, f"data-back:{FLOAT}")])
+        targets = dbr.reloc_targets([(0x8010, floats[1]), (0x8020, 0x123456),            # r: one candidate
+                                     (0x9004, floats[0]), (0x9008, floats[2]),           # q: two
+                                     (0x8064, floats[0])])                                # past r's end
+        self.assertEqual(targets(0x8000, 100), {floats[1], 0x123456})
+        hits, _rows, back_of, flags_of, *_rest, ambiguous, totals = dbr.refs_from_status(path, ledger, "real", targets)
+        self.assertEqual({a: h["rows"] for a, h in hits.items()}, {floats[1]: {0}})
+        self.assertEqual((back_of, flags_of), ([{floats[1]}, set()], [set(), {"ambiguous"}]))
+        self.assertEqual(dict(ambiguous), {(FLOAT, "several addresses", tuple(floats)): {1}})
+        self.assertEqual(totals["disambiguated"], 1)
+
+    def test_wrong_input_schema_is_refused(self):
+        # P2: the census's reverse/link_status.csv (per file) is not link_cycle's per-row table
+        write_csv(self.t / "ledger.csv", LEDGER)
+        census = self.t / "link_status.csv"
+        write_csv(census, [["source", "linked", "unresolved", "duplicates", "comdat_losers", "addresses",
+                            "wrong_selected"], ["Code/A.cpp", "1", "0", "0", "0", "0", "0"]])
+        for path in (census, self.t / "trimmed.csv"):
+            if path != census:          # link_cycle's header less one column
+                status_csv(path, [("r", "Code/S.cpp", 0x8000, 100, "data-back:_x")], STATUS_COLS[:-1])
+            with self.assertRaises(SystemExit) as caught, redirect_stdout(io.StringIO()):
+                dbr.main(["--ledger", str(self.t / "ledger.csv"), "--functions", str(self.t / "functions.csv"),
+                          "--status", str(path), "--no-objects"])
+            self.assertIn("not link_cycle's per-row link_status.csv", str(caught.exception.code))
+            self.assertIn("failures", str(caught.exception.code))
+
+    def test_repeat_suffix_that_reads_two_ways(self):
+        # P3: `_gx2` is `_gx2` once or `_g` twice; both resolving is flagged, not guessed
+        both = {"_g", "_gx2"}
+        self.assertEqual(dbr.parse_failures("data-back:_gx2", both), [("data-back", (("_gx2", 1), ("_g", 2)))])
+        self.assertEqual(dbr.parse_failures("data-back:_gx2", {"_gx2"}), [("data-back", (("_gx2", 1),))])
+        self.assertEqual(dbr.parse_failures("data-back:_gx2", {"_g"}), [("data-back", (("_g", 2),))])
+        # link_cycle writes a repeat only for a count of two or more
+        self.assertEqual(dbr.parse_failures("data-back:_ax1;data-back:_bx02", ()),
+                         [("data-back", (("_ax1", 1),)), ("data-back", (("_bx02", 1),))])
+        ledger = [["0x00400000", "4", ".data", "global", "_g", "", "unowned", "", "0", "1"],
+                  ["0x00400100", "4", ".data", "global", "_gx2", "", "unowned", "", "0", "1"]]
+        report = self.run_status(ledger, [("r", "Code/S.cpp", 0x8000, 64, "data-back:_gx2")])
+        self.assertEqual(report["addresses"], [])
+        self.assertEqual(report["ambiguous"], [{"symbol": "_gx2", "reason": "repeat suffix",
+                                                "candidates": ["0x00400000", "0x00400100"], "rows": 1,
+                                                "bytes": 64}])
+
+    def test_site_in_a_long_row_after_nine_shorter_ones(self):
+        # P3: the containing row is found however many rows start between it and the site
+        ledger = {0x500000: {"size": 4, "kind": "global"}, 0x600000: {"size": 4, "kind": "global"}}
+        rows = [(0x1000, 0x1000, "long", "Code/L.cpp")]
+        rows += [(0x1010 + 0x10 * k, 8, f"s{k}", "Code/S.cpp") for k in range(9)]
+        got = dbr.attribute(ledger, rows, {0x500000, 0x600000},
+                            [(0x1800, 0x500000), (0x1014, 0x600002), (0x3000, 0x500000)])
+        self.assertEqual(dict(got), {0x500000: {0}, 0x600000: {0, 1}})
+        self.assertEqual(dbr.containing(dbr.interval_index(rows), 0x1800), {0})
+        self.assertEqual(dbr.containing(dbr.interval_index(rows), 0x0FFF), set())
 
 
 class Objects(unittest.TestCase):

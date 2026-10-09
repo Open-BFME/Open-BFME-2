@@ -6,16 +6,25 @@ reaches is reached through more than one linked address: the tree links two
 globals (two names, or two copies of one) where retail has one. One bad
 reference fails every row touching that address, so this tool counts the
 failures per retail address, not per symbol. Symbols map to addresses through
-reverse/data_ledger.csv (`name`, `names`; a TU-local static is name@source and
-is matched only for rows of that source).
+reverse/data_ledger.csv (`name`, `names`). A TU-local static is matched only
+for rows of its own source and never globally: one written name@source, and a
+single-name row's name when the ledger proves it static -- the name is written
+name@source elsewhere, or several sources own single-name rows of it (an
+external name has one owner set). An owner source alone proves nothing.
 
 With link_cycle's per-row output (`--status link_status.csv`, plain or .gz,
 e.g. the link_status-<sha10>.csv.gz asset of the link-cycle-artifacts
-release), each address is ranked by the distinct retail bytes of placed rows
+release; its header is checked, so the census's reverse/link_status.csv is
+refused), each address is ranked by the distinct retail bytes of placed rows
 (kind `real` unless --kind all) failing data-back through any of its names.
 `sole` is the part whose only failures are data-back through this address: the
 rows a fix here alone would make self-strict. A row failing through several
-addresses counts under each.
+proven addresses counts under each. A data-back symbol that resolves to
+several addresses, or whose `xN` repeat suffix reads two ways that both
+resolve (`_gx2`: `_gx2` once or `_g` twice), is AMBIGUOUS: listed apart with
+its candidate addresses and counted at none, unless --disambiguate finds
+exactly one candidate among the row's own retail references (base
+relocations inside its retail extent).
 
 Without one the ranking is PROVISIONAL: every address with several names or
 several definitions, by the distinct bytes of matched `real` rows that
@@ -37,7 +46,7 @@ refs, the rows' other blocker classes (status mode), and every name with
          pointer-const only), type (anything else)
 Object symbol scans are cached in build/data_back_rank_objects.pkl.
 
-  python3 tools/data_back_rank.py --status build/link_status-<sha10>.csv.gz
+  python3 tools/data_back_rank.py --status build/link_status-<sha10>.csv.gz [--disambiguate]
   python3 tools/data_back_rank.py [--refs relocs|xrefs] [--top 20] [--detail 5]
           [--address 0x7BAC1C ...] [--list-files N] [--json OUT]
           [--objects DIR | --no-objects]
@@ -70,8 +79,13 @@ INVENTED = re.compile(r"(?:^|[a-z_]|Va|Rva|At)(?=[0-9A-F]*[0-9])[0-9A-F]{6,8}(?!
                       r"|(?:Va|Rva|_)(?=[0-9A-F]{0,7}[0-9])[0-9A-F]{8}(?=[A-Z][a-z])")
 EMITTED = (("??_C@_1", "wstring"), ("??_C@", "string"), ("__real@", "float"), ("__xmm@", "float"),
            ("??_7", "vtable"), ("??_R", "rtti"), ("__TI", "rtti"), ("__CT", "rtti"), ("__imp_", "import"))
-REPEAT = re.compile(r"x(\d+)$")
+# link_cycle writes a repeated token once with `x<count>`, count >= 2, no leading zero
+REPEAT = re.compile(r"x([2-9]|[1-9]\d+)$")
 LOCAL = re.compile(r"^(.+)@([^@]*/[^@]*\.(?:c|cpp|asm|lib))$", re.I)   # name@source
+# tools/link_cycle.py's per-row link_status.csv header (not link_census's reverse/link_status.csv)
+STATUS_COLUMNS = ("name", "kind", "source", "retail_rva", "size", "linked_rva", "placed", "placement_reason",
+                  "self_strict", "closed_strict", "closed_strict_pilot_rule", "pinned_strict", "byte_equal",
+                  "hardcoded", "failure_count", "failures")
 GEN_KINDS = ("gen-funclet", "gen-import", "gen-alias")
 EXTERNAL, STATIC, COMDAT = 2, 3, 0x1000
 
@@ -154,25 +168,44 @@ def load_ledger(path=LEDGER):
             row["refs"] = int(row["refs"] or 0)
             row["size"] = int(row["size"] or 0)
             out[int(row["address"], 16)] = row
+    scope_statics(out)
     return out
 
 
+def scope_statics(ledger):
+    """Bind a single-name row's name as (name, owner source) where the ledger proves
+    it TU-local. tools/data_ledger.py writes name@source only in a several-name row's
+    `names`; a single-name row keeps only its name, and an owner source does not tell
+    a static from an external defined once. Proof: the name is written name@source
+    somewhere, or single-name rows of it are owned by several sources (an external
+    name's owner set is one for all its rows, so distinct owners are TU-local copies)."""
+    statics = {s for row in ledger.values() for s, src in row["bound"] if src is not None}
+    single = [row for row in ledger.values() if not row["names"] and row["status"] == "owned" and row["source"]]
+    owners = collections.defaultdict(set)
+    for row in single:
+        owners[row["name"]].add(row["source"])
+    for row in single:
+        if row["name"] in statics or len(owners[row["name"]]) > 1:
+            row["bound"] = [(row["name"], row["source"])]
+    return ledger
+
+
 def name_index(ledger):
-    """({symbol: {address}}, {(symbol, source): {address}}) over every bound name; a
-    single-name address also answers (name, owner source) for a static owner."""
+    """({symbol: {address}}, {(symbol, source): {address}}): a name bound without a
+    source answers every row, a TU-local static only rows of its own source."""
     glob, local = collections.defaultdict(set), collections.defaultdict(set)
     for address, row in ledger.items():
         for symbol, source in row["bound"]:
             if source is None:
                 glob[symbol].add(address)
-                if not row["names"] and row["source"]:
-                    local[(symbol, row["source"])].add(address)
             else:
                 local[(symbol, source)].add(address)
     return glob, local
 
 
 def resolve(symbol, source, glob, local):
+    """Every ledger address `symbol` can mean in a row of `source`: its own static
+    first, else the global name (several addresses: ambiguous)."""
     return local.get((symbol, source)) or glob.get(symbol) or set()
 
 
@@ -197,21 +230,32 @@ def load_rows(path=FUNCTIONS, kind="real"):
 
 
 def parse_failures(text, known=()):
-    """[(class, symbol or None, count)] of one link_status `failures` cell."""
+    """[(class, readings)] of one link_status `failures` cell; readings is
+    ((symbol or None, count), ...). link_cycle writes a token seen N > 1 times as
+    `<token>x<N>`, which a symbol ending in x<digits> can also spell: `_gx2` is
+    `_gx2` once or `_g` twice. `known` (a container or a predicate: does this symbol
+    resolve?) picks the reading; when both resolve the token keeps both readings,
+    the literal spelling first, and is ambiguous. When neither does, the repeat
+    reading is taken (link_cycle's own convention)."""
+    test = known if callable(known) else known.__contains__
     out = []
     for token in filter(None, (text or "").split(";")):
         cls, sep, symbol = token.partition(":")
-        count = 1
         if sep:
             found = REPEAT.search(symbol)
-            if found and symbol not in known and found.start() > 0:
-                symbol, count = symbol[:found.start()], int(found.group(1))
-            out.append((cls, symbol, count))
+            if found and found.start() > 0:
+                whole, short = (symbol, 1), (symbol[:found.start()], int(found.group(1)))
+                as_whole, as_short = test(whole[0]), test(short[0])
+                readings = (whole, short) if as_whole and as_short else (whole,) if as_whole else (short,)
+            else:
+                readings = ((symbol, 1),)
+            out.append((cls, readings))
         else:
             found = REPEAT.search(cls)
             if found and found.start() > 0:
-                cls, count = cls[:found.start()], int(found.group(1))
-            out.append((cls, None, count))
+                out.append((cls[:found.start()], ((None, int(found.group(1))),)))
+            else:
+                out.append((cls, ((None, 1),)))
     return out
 
 
@@ -311,55 +355,112 @@ def object_symbols(objects, sources, wanted, cache=CACHE):
 
 
 # ---------------------------------------------------------------- references
-def refs_from_status(path, ledger, kind):
-    """Placed rows failing data-back, read from a link_status.csv:
+def check_status_header(fields, path):
+    """Refuse a file that is not link_cycle's per-row link_status.csv."""
+    missing = [c for c in STATUS_COLUMNS if c not in (fields or ())]
+    if missing:
+        raise SystemExit(
+            f"data_back_rank: {path} is not link_cycle's per-row link_status.csv: missing column(s) "
+            f"{', '.join(missing)} (header: {', '.join(fields or ()) or 'none'}). reverse/link_status.csv is "
+            f"link_census's per-file table; pass the link_status.csv a tools/link_cycle.py run writes, or its "
+            f"link_status-<sha10>.csv.gz release asset.")
+
+
+def refs_from_status(path, ledger, kind, targets_of=None):
+    """Placed rows failing data-back, read from link_cycle's link_status.csv:
     (hits {address: {"rows": {i}, "names": {symbol or (symbol, source): {i}}}},
-     rows [(rva, size, name, source)], back_of [{address, None if unmapped}],
-     other_of [{other failure class}], unmapped Counter{symbol: rows}, totals)."""
+     rows [(rva, size, name, source)], back_of [{proven address}],
+     flags_of [{"unmapped", "ambiguous"}], other_of [{other failure class}],
+     unmapped Counter{symbol: rows}, ambiguous {(symbol, reason, candidates): {i}},
+     totals). A symbol counts at an address only when it resolves to that one
+    address; `targets_of(rva, size)` -> retail target rvas referenced inside a row
+    (--disambiguate) settles an ambiguous one when exactly one candidate is among
+    them."""
     glob, local = name_index(ledger)
-    known = set(glob) | {s for s, _ in local}
+    bases = sorted(ledger)
     hits = collections.defaultdict(lambda: {"rows": set(), "names": collections.defaultdict(set)})
-    rows, back_of, other_of = [], [], []
+    rows, back_of, flags_of, other_of = [], [], [], []
     unmapped = collections.Counter()
+    ambiguous = collections.defaultdict(set)
+    settled = 0
     with open_text(path) as handle:
-        for rec in csv.DictReader(handle):
-            if kind != "all" and rec.get("kind", "real") != kind:
+        reader = csv.DictReader(handle)
+        check_status_header(reader.fieldnames, path)
+        for rec in reader:
+            if kind != "all" and rec["kind"] != kind:
                 continue
-            if str(rec.get("placed", "")).strip().lower() not in ("1", "true"):
+            if rec["placed"].strip().lower() not in ("1", "true"):
                 continue
-            fails = parse_failures(rec.get("failures", ""), known)
-            backs = {s for c, s, _n in fails if c == "data-back" and s}
+            source = rec["source"]
+            fails = parse_failures(rec["failures"], lambda s: bool(resolve(s, source, glob, local)))
+            backs = [readings for c, readings in fails if c == "data-back" and readings[0][0]]
             if not backs:
                 continue
             i = len(rows)
-            source = rec.get("source", "")
-            rows.append((int(rec["retail_rva"], 16), int(rec["size"]), rec.get("name", ""), source))
-            addresses = set()
-            for symbol in sorted(backs):
-                found = resolve(symbol, source, glob, local)
+            rva, size = int(rec["retail_rva"], 16), int(rec["size"])
+            rows.append((rva, size, rec["name"], source))
+            proven, flags = set(), set()
+            for readings in sorted(backs):
+                label = readings[0][0]               # the token's literal spelling when it reads two ways
+                found = collections.defaultdict(list)
+                for symbol, _n in readings:
+                    for address in resolve(symbol, source, glob, local):
+                        found[address].append(symbol)
                 if not found:
-                    unmapped[symbol] += 1
-                    addresses.add(None)
-                for address in found:
+                    unmapped[label] += 1
+                    flags.add("unmapped")
+                    continue
+                reason = "repeat suffix" if len(readings) > 1 else "several addresses" if len(found) > 1 else None
+                if reason and targets_of is not None:
+                    seen = {owner(ledger, bases, set(found), t) for t in targets_of(rva, size)} - {None}
+                    if len(seen) == 1:
+                        found = {a: found[a] for a in seen}
+                        reason = None
+                        settled += 1
+                if reason:
+                    ambiguous[(label, reason, tuple(sorted(found)))].add(i)
+                    flags.add("ambiguous")
+                    continue
+                for address, symbols in found.items():
                     hits[address]["rows"].add(i)
-                    key = (symbol, source) if (symbol, source) in ledger[address]["bound"] else symbol
-                    hits[address]["names"][key].add(i)
-                    addresses.add(address)
-            back_of.append(addresses)
-            other_of.append({c for c, _s, _n in fails if c != "data-back"})
-    totals = {"rows": len(rows), "bytes": unique_bytes([(r[0], r[0] + r[1]) for r in rows])}
-    return hits, rows, back_of, other_of, unmapped, totals
+                    for symbol in symbols:
+                        key = (symbol, source) if (symbol, source) in ledger[address]["bound"] else symbol
+                        hits[address]["names"][key].add(i)
+                    proven.add(address)
+            back_of.append(proven)
+            flags_of.append(flags)
+            other_of.append({c for c, _r in fails if c != "data-back"})
+    totals = {"rows": len(rows), "bytes": unique_bytes([(r[0], r[0] + r[1]) for r in rows]),
+              "ambiguous_rows": sum(1 for f in flags_of if "ambiguous" in f),
+              "unmapped_rows": sum(1 for f in flags_of if "unmapped" in f), "disambiguated": settled}
+    return hits, rows, back_of, flags_of, other_of, unmapped, ambiguous, totals
 
 
-def refs_from_relocs(ledger, rows, candidates):
-    """{address: {row index}} from retail's base relocations in .text."""
+def text_relocations():
+    """[(site, target rva)] of retail's base relocations in .text, by site (lost
+    pages recovered, tools/boot_image.py)."""
     sys.path.insert(0, str(ROOT / "tools"))
     import boot_image  # noqa: E402  (capstone, pefile, retail game.dat)
     retail = boot_image.Retail()
     sites, _info = boot_image.all_sites(retail)
     tstart, tsize, _raw = retail.secs[".text"]
-    return attribute(ledger, rows, candidates,
-                     ((site, retail.u32(site) - IMAGE_BASE) for site in sites if tstart <= site < tstart + tsize))
+    return [(site, retail.u32(site) - IMAGE_BASE) for site in sites if tstart <= site < tstart + tsize]
+
+
+def reloc_targets(pairs):
+    """targets_of(rva, size) -> {target rva} of the (site, target) pairs inside [rva, rva + size)."""
+    pairs = sorted(pairs)
+    sites = [site for site, _t in pairs]
+
+    def targets_of(rva, size):
+        lo, hi = bisect.bisect_left(sites, rva), bisect.bisect_left(sites, rva + size)
+        return {target for _site, target in pairs[lo:hi]}
+    return targets_of
+
+
+def refs_from_relocs(ledger, rows, candidates):
+    """{address: {row index}} from retail's base relocations in .text."""
+    return attribute(ledger, rows, candidates, text_relocations())
 
 
 def owner(ledger, bases, candidates, target):
@@ -376,21 +477,42 @@ def owner(ledger, bases, candidates, target):
     return address if target < address + extent else None
 
 
+def interval_index(rows):
+    """(bounds, covers): every row start and end, sorted, and per elementary span
+    [bounds[k], bounds[k + 1]) the indices of the rows holding it, however deeply
+    rows nest or overlap."""
+    opens, closes = collections.defaultdict(list), collections.defaultdict(list)
+    for i, (start, size, *_rest) in enumerate(rows):
+        if size > 0:
+            opens[start].append(i)
+            closes[start + size].append(i)
+    bounds = sorted(set(opens) | set(closes))
+    covers, live = [], set()
+    for b in bounds:
+        live.difference_update(closes.get(b, ()))
+        live.update(opens.get(b, ()))
+        covers.append(frozenset(live))
+    return bounds, covers
+
+
+def containing(index, at):
+    """Indices of the rows whose [start, start + size) holds `at`."""
+    bounds, covers = index
+    k = bisect.bisect_right(bounds, at) - 1
+    return covers[k] if k >= 0 else frozenset()
+
+
 def attribute(ledger, rows, candidates, pairs):
     """{address: {row index}} for (site, target rva) pairs: a target owned by a
     candidate address, a site inside a row."""
     bases = sorted(ledger)
-    order = sorted(range(len(rows)), key=lambda i: rows[i][0])
-    starts = [rows[i][0] for i in order]
+    index = interval_index(rows)
     out = collections.defaultdict(set)
     for site, target in pairs:
         address = owner(ledger, bases, candidates, target)
-        if address is None:
-            continue
-        j = bisect.bisect_right(starts, site) - 1
-        for i in (order[x] for x in range(j, max(j - 8, -1), -1)):    # overlapping rows are rare
-            if rows[i][0] <= site < rows[i][0] + rows[i][1]:
-                out[address].add(i)
+        held = containing(index, site) if address is not None else ()
+        if held:
+            out[address].update(held)
     return out
 
 
@@ -489,7 +611,10 @@ def render(report, top, list_files=0, out=None):
     else:
         t = report["totals"]
         print(f"data-back: {t['rows']:,} placed {report['kind']} rows, {t['bytes']:,} distinct bytes "
-              f"({report['status']})", file=out)
+              f"({report['status']}); {t['ambiguous_rows']:,} rows with an ambiguous symbol, "
+              f"{t['unmapped_rows']:,} with an unmapped one"
+              + (f"; {t['disambiguated']:,} symbols settled by retail references" if report.get("disambiguate")
+                 else ""), file=out)
     if report.get("objects") is None:
         print("files: no objects read (--objects DIR)", file=out)
     print(f"{'#':>3} {'address':10} {'sec':6} {'kind':7} {'names':>5} {'defs':>4} {'refs':>5} {'rows':>5} "
@@ -525,6 +650,14 @@ def render(report, top, list_files=0, out=None):
         if a.get("other_blockers"):
             print("  other blockers (rows): " + ", ".join(f"{k} {v}" for k, v in a["other_blockers"].items()),
                   file=out)
+    if report.get("ambiguous"):
+        print(f"\nambiguous data-back symbols, counted at no address ({len(report['ambiguous'])}; "
+              f"--disambiguate tries the rows' retail references):", file=out)
+        print(f"  {'rows':>5} {'bytes':>9}  {'reason':17} symbol: candidates", file=out)
+        for x in report["ambiguous"][:top]:
+            more = len(x["candidates"]) - 6
+            print(f"  {x['rows']:>5} {x['bytes']:>9,}  {x['reason']:17} {short(x['symbol'], 60)}: "
+                  + " ".join(x["candidates"][:6]) + (f" (+{more})" if more > 0 else ""), file=out)
     if report.get("unmapped"):
         print("\nunmapped data-back symbols (rows): " + ", ".join(
             f"{short(k, 60)} {v}" for k, v in list(report["unmapped"].items())[:10]), file=out)
@@ -542,17 +675,25 @@ def build_report(args):
     usage = name_usage(objsyms) if objsyms is not None else (None, None)
     entries = []
     if args.status:
-        hits, rows, back_of, other_of, unmapped, totals = refs_from_status(args.status, ledger, args.kind)
+        targets_of = reloc_targets(text_relocations()) if args.disambiguate else None
+        hits, rows, back_of, flags_of, other_of, unmapped, ambiguous, totals = refs_from_status(
+            args.status, ledger, args.kind, targets_of)
         for address, hit in hits.items():
             ids = hit["rows"]
             other = collections.Counter()
             for i in ids:
                 other.update(other_of[i])
-                if len(back_of[i]) > 1:
+                if back_of[i] - {address}:
                     other["data-back elsewhere"] += 1
-            sole = {i for i in ids if back_of[i] == {address} and not other_of[i]}
+                other.update("data-back " + f for f in flags_of[i])
+            sole = {i for i in ids if back_of[i] == {address} and not flags_of[i] and not other_of[i]}
             entries.append(describe(address, ledger[address], rows, ids, hit["names"], usage, other, sole))
+        quarantined = [{"symbol": symbol, "reason": reason, "candidates": [f"0x{a:08X}" for a in candidates],
+                        "rows": len(ids), "bytes": span_bytes(rows, ids)}
+                       for (symbol, reason, candidates), ids in ambiguous.items()]
+        quarantined.sort(key=lambda x: (-x["bytes"], -x["rows"], x["symbol"], x["candidates"]))
         report = {"mode": "status", "status": str(args.status), "kind": args.kind, "totals": totals,
+                  "disambiguate": bool(args.disambiguate), "ambiguous": quarantined,
                   "unmapped": dict(unmapped.most_common())}
     else:
         rows = load_rows(args.functions, args.kind)
@@ -591,6 +732,9 @@ def build_report(args):
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     ap.add_argument("--status", help="link_cycle link_status.csv (plain or .gz); omit for the PROVISIONAL ranking")
+    ap.add_argument("--disambiguate", action="store_true",
+                    help="with --status: count an ambiguous symbol at the one candidate address the row's retail "
+                         "code references (retail base relocations; game.dat)")
     ap.add_argument("--refs", choices=("relocs", "xrefs"), default="relocs", help="PROVISIONAL reference source")
     ap.add_argument("--kind", default="real", help="row kind counted: real (default), gen-alias, ..., all")
     ap.add_argument("--top", type=int, default=20)
@@ -607,6 +751,8 @@ def main(argv=None):
     ap.add_argument("--cache", default=str(CACHE))
     ap.add_argument("--no-cache", action="store_true")
     args = ap.parse_args(argv)
+    if args.disambiguate and not args.status:
+        ap.error("--disambiguate needs --status")
     report = build_report(args)
     render(report, len(report["addresses"]) if args.address else args.top, args.list_files)
     if args.json:
