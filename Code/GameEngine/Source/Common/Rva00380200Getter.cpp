@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /GX- /O1 /MD /arch:SSE /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include
+// cl: /Ireference/shims/bfme2_ascii /EHsc /O1 /MD /arch:SSE /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include
 // ?rva00380200@Rva00380200@@QAEPAVAsciiString@@XZ @ 0x00380200 (13B): getter returning +4 or AsciiString::TheEmptyString. Callers 0x00380230 0x00380265 push result. Twin of EmptyString fallback pattern.
 // ?rva0038020D@Rva00380200@@QAEXXZ @ 0x0038020D (110B): caches at +0x20 the
 // value the store (0x00DFE0EC, pinned get 0x002000D7) config for level
@@ -102,6 +102,7 @@ public:
 };
 extern class RankInfoStore *TheRankInfoStore;
 
+class ExperienceScalarTable;
 class Rva00380200
 {
 public:
@@ -113,7 +114,7 @@ public:
 	virtual bool isReady();
 private:
 	AsciiString *m_ptr;
-	char m_pad08[4];
+	ExperienceScalarTable *m_scalars;
 	float m_0C;
 	float m_10;
 	int m_14;
@@ -123,6 +124,8 @@ private:
 	int m_24;
 	int m_28;
 public:
+	Rva00380200();
+	void rva0038028B();
 	AsciiString *rva00380200();
 	void rva0038020D();
 	void rva00380499(Xfer *xfer);
@@ -231,3 +234,19 @@ bool Rva00380200::rva0038037C(int level)
 
 // The native BFDC30 table owns setRankLevel at slot1. Keep the established
 // neutral class name; WB supplies the method identity independently.
+
+class ExperienceScalarTable;
+class ExperienceLevelStore {
+ public: ExperienceScalarTable *FindExperienceScalarTableByName(const AsciiString &)const;
+};
+extern ExperienceLevelStore *TheExperienceLevelStore;
+Rva00380200::Rva00380200()
+ :m_ptr(0),m_scalars(0),m_0C(0),m_10(1),m_14(1),m_18(1),m_1C(0),m_20(0x7FFFFFFF),m_24(0),m_28(0)
+{
+
+ if(TheExperienceLevelStore) {
+  AsciiString name("PlayerSkillPointsScalarTable");
+  m_scalars=TheExperienceLevelStore->FindExperienceScalarTableByName(name);
+ }
+ rva0038028B();
+}
