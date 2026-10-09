@@ -43,6 +43,9 @@ PROTECTED = (
     "build.sh", "build.cmd", "tools/build.py", "tools/delta_sources.py", "tools/name_dependents.py",
     "tools/flag_defaults.py", "reverse/flag_overrides.csv", "tools/eh_verify.py",
     "tools/find_declared_unmatched.py", "tools/gen_case_shims.py",
+    # data rows: the byte gate's verification of reverse/data_rows.csv and the
+    # retail-image/COFF readers it uses
+    "tools/data_rows.py", "tools/reloc_ledger.py",
     # ledger, identity and direction guards the hooks call
     "tools/check_csv.py", "tools/check_case_collisions.py", "tools/conversion_gate.py",
     "tools/link_debt.py", "tools/class_gate.py", "tools/pin_consistency.py", "tools/header_dependents.py", "tools/ledger_guard.py",

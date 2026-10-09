@@ -32,9 +32,9 @@ address, sorted:
             objects (a COMDAT literal or selectany copy is one global by design)
   refs      relocation sites in matched rows that reach this address
 
-It is not Open-BFME-1's data_rows.csv (a byte-verified ownership ledger the
-census links): tools/link_census.py refuses to run while a data_rows.csv
-exists, and nothing here is byte-verified. It is the address index the data
+It is not reverse/data_rows.csv (tools/data_rows.py, ported from
+Open-BFME-1: a byte-verified ownership ledger the census links), and nothing
+here is byte-verified. It is the address index the data
 sweep (tools/data_sweep.py) and the DIR32 check (tools/data_check.py) key on.
 
   python3 tools/data_ledger.py            # rewrite reverse/data_ledger.csv

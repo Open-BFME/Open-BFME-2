@@ -4,8 +4,9 @@
 Every other gate verifies one function at a time. Nothing had ever linked the
 tree, so nobody knew how far "the functions match" is from "the game builds".
 This links the object of every matched ledger row (compiled TUs, MASM dumps,
-generated C++, prebuilt-library members), in retail's link order (link_order),
-with MSVC 7.1's own link.exe under
+generated C++, prebuilt-library members) and of every matched data row
+(data_rows.csv: a data-only TU's globals resolve references like any other
+definition), in retail's link order (link_order), with MSVC 7.1's own link.exe under
 /FORCE, so it reports every problem instead of stopping at the first, and sorts
 them into the classes the integration work has to clear:
 
@@ -37,14 +38,17 @@ no COMDAT copy that differs from retail's body (comdat_losers), no name it
 defines or references resolves in the link to a kept definition proven not
 retail's (wrong_selected; the /MAP of a second link says which it kept), and
 the file holds no hard-coded image address. LINKED is progress.py's DECOMPILED restricted to
-those sources; progress.py and the README print the last census's figure.
+those sources; progress.py and the README print the last census's figure. A
+data-only source has a status row but no code, so it adds 0 LINKED bytes
+itself: its definitions only unblock the files that reference them.
 
 These are Open-BFME-1's rules (its tools/link_census.py), ported function for
 function so the two projects measure LINKING the same way; only paths and the
-retail-truth inputs this repository lacks differ (no data_rows.csv, no
-dir32_addresses.csv, no route= pins: see data_ledger, _dir32_rows and
-validated_import_routes; a data_rows.csv refuses the census until its rules
-are ported). Before the port this census kept the COMDAT copy most objects
+retail-truth inputs this repository lacks differ (no dir32_addresses.csv, no
+route= pins: see _dir32_rows and validated_import_routes). Data rows
+(data_rows.csv, tools/data_rows.py) are read as Open-BFME-1 reads them, and
+must pass its byte gate before their objects are used (verify_data_objects).
+Before the port this census kept the COMDAT copy most objects
 compiled, exempted STLport and the array helpers, linked in ledger row order
 and had no wrong_selected: link_census_history.csv names the rules every row
 was measured under (`rules`, `prev_rules`; see HISTORY_FIELDS), and
@@ -88,22 +92,11 @@ REFERRER = re.compile(r"^(\S+\.obj) : error LNK20(?:01|19)")
 # (reference/ holds the shims and the open-bfme-1 submodule the toolchain and
 # BFME 1 headers come from).
 CENSUS_INPUTS = ("Code", "reference", "vendor", "reverse/functions.csv", "reverse/symbols.csv",
-                 "reverse/dir32_addresses.csv")
-# Retail-truth ledgers Open-BFME-1 reads that this port has no loader for: one
-# appearing here would be silently ignored (its objects unlinked, its rows
-# owning nothing), so the census refuses instead (refuse_unsupported_ledgers).
-UNSUPPORTED_LEDGERS = ("reverse/data_rows.csv", "tools/data_rows.py")
+                 "reverse/dir32_addresses.csv", "reverse/data_rows.csv")
 # The census's own code: a checkout updated under a running census would
 # judge the rest of the run with other rules (census_state).
-TOOL_FILES = ("link_census.py", "link_check.py", "build.py", "census_receipts.py", "progress.py", "link_debt.py")
-
-
-def refuse_unsupported_ledgers():
-    found = [name for name in UNSUPPORTED_LEDGERS if (ROOT / name).exists()]
-    if found:
-        raise SystemExit(f"link_census: {', '.join(found)} exists, but this census has no loader for it "
-                         "(Open-BFME-1's data-row rules are not ported): its objects and owners would be "
-                         "silently ignored; port data_ledger/data_sources first")
+TOOL_FILES = ("link_census.py", "link_check.py", "build.py", "census_receipts.py", "progress.py", "link_debt.py",
+              "data_rows.py", "reloc_ledger.py")
 
 
 def ledger():
@@ -112,27 +105,42 @@ def ledger():
                 and (r.get("target_rva") or "").startswith("0x")]
 
 
-# Open-BFME-1 links the objects of its byte-verified data rows (data_rows.csv,
-# tools/data_rows.py) too, and lets a data row own its global. This repository
-# has no data ledger yet: no data row exists, so no data-only object is linked
-# and no data row owns a name. The functions keep Open-BFME-1's shape so the
-# rules that read them stay identical.
 def data_sources():
-    """Sources owned by byte-verified data rows; none here (no data_rows.csv)."""
-    return []
+    """Sources owned by byte-verified data rows; these are not function rows."""
+    import data_rows
+    return list(dict.fromkeys(ROOT / row["source"] for row in data_rows.load()))
 
 
 def compile_sources(rows):
     return list(dict.fromkeys([ROOT / row["source"] for row in rows] + data_sources()))
 
 
+def verify_data_objects():
+    """Require the existing data byte gate before using these providers."""
+    import data_rows
+    problems = []
+    if data_rows.DATA_ROWS.exists():
+        data_rows.check(data_rows.DATA_ROWS.read_bytes(), problems)
+    if problems:
+        raise SystemExit("link_census: invalid data rows:\n  " + "\n  ".join(problems))
+    stale = [source for source in data_sources()
+             if not object_current(source, build.obj_path(source))]
+    if stale:
+        raise SystemExit(f"link_census: {len(stale):,} data provider objects are missing or stale, "
+                         f"e.g. {stale[0].relative_to(ROOT)}; rerun with --build")
+    data_rows.verify(compile=False)
+
+
 def data_ledger():
-    """The matched rows of a data ledger: none here (no data_rows.csv)."""
-    return []
+    """The matched rows of data_rows.csv: globals a Code/ source defines,
+    byte-verified at their retail address by the gate (tools/data_rows.py)."""
+    import data_rows
+    return [row for row in data_rows.load() if row.get("status") == "matched"]
 
 
 def data_rva(row):
-    raise SystemExit("link_census: no data ledger in this repository; a data row cannot have an address")
+    import data_rows
+    return data_rows.va_of(row) - BASE
 
 
 def data_object(row):
@@ -1436,7 +1444,6 @@ def main(argv=None):
     if args.status:
         record(json.loads(path.read_text(encoding="utf-8")), ledger(), rerun=True)
         return 0
-    refuse_unsupported_ledgers()
     if not (args.history or args.measure or args.scaffold):
         # The index link_check reads is written by record() and measure() only;
         # a bare --build ran a full census on 2026-10-08 and left nothing to check.
@@ -1464,6 +1471,7 @@ def main(argv=None):
             raise SystemExit(f"link_census: {len(_INPUT_RECEIPTS.failures):,} compiled objects have no census "
                              "proof; nothing linked:\n  " + "\n  ".join(sorted(_INPUT_RECEIPTS.failures)))
         print(f"link_census: compile {time.time() - started:.0f}s", flush=True)
+    verify_data_objects()
     present, missing = objects(rows)
     sources = _object_sources(rows)
     # Never trust the compile step: a TU it skipped is only as current as its
@@ -1567,6 +1575,7 @@ def selected_main():
         raise SystemExit("link_census: --selected needs the last census's sources and ledger "
                          f"({history[-1]['commit'] if history else 'no census'}); this tree differs")
     rows = ledger()
+    verify_data_objects()
     present, missing = objects(rows)
     if missing:
         raise SystemExit(f"link_census: {len(missing):,} objects missing")
@@ -2081,7 +2090,7 @@ def record(census, rows, rerun=False, rebaseline=None):
     wrong_selected. `rebaseline` (census_rebaseline.py only) is the previous
     rules' figures for the same objects: the one row where the rules change.
     """
-    refuse_unsupported_ledgers()
+    verify_data_objects()
     if census["missing"]:
         raise SystemExit(f"link_census: {census['missing']:,} objects were missing from the link; "
                          "nothing recorded (build everything and rerun)")

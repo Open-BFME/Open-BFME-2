@@ -113,19 +113,29 @@ def test_inventory_change_during_fresh_proof_is_refused(tmp_path, monkeypatch):
         census.stale_objects([obj], {obj: source})
 
 
-def test_unsupported_data_ledger_refuses_the_census(tmp_path, monkeypatch):
-    monkeypatch.setattr(census, "ROOT", tmp_path)
-    assert census.refuse_unsupported_ledgers() is None
-    (tmp_path / "reverse").mkdir()
-    (tmp_path / "reverse" / "data_rows.csv").write_text("name\n")
-    with pytest.raises(SystemExit, match="no loader"):
-        census.refuse_unsupported_ledgers()
-    with pytest.raises(SystemExit, match="no loader"):
-        census.record({"missing": 0}, [])
+def test_data_ledger_is_read_not_refused(tmp_path, monkeypatch):
+    """Before data rows were ported, a data_rows.csv refused the census (no
+    loader). Now the header-only ledger passes the data check and the record
+    goes on to its own refusals; a malformed one is refused for what it is."""
+    import data_rows
+    assert not hasattr(census, "refuse_unsupported_ledgers")
+    empty = tmp_path / "data_rows.csv"
+    empty.write_text(data_rows.HEADER + "\n")
+    monkeypatch.setattr(data_rows, "DATA_ROWS", empty)
+    with pytest.raises(SystemExit, match="objects were missing"):
+        census.record({"missing": 1}, [])
+    empty.write_text("name\n")
+    with pytest.raises(SystemExit, match="invalid data rows"):
+        census.record({"missing": 1}, [])
 
 
 def test_dir32_ledger_is_a_monitored_census_input():
     assert "reverse/dir32_addresses.csv" in census.CENSUS_INPUTS
+
+
+def test_data_ledger_and_its_tools_are_monitored():
+    assert "reverse/data_rows.csv" in census.CENSUS_INPUTS
+    assert {"data_rows.py", "reloc_ledger.py"} <= set(census.TOOL_FILES)
 
 
 # --- the run must hold still -------------------------------------------------

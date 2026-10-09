@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Fast integrity check for reverse/functions.csv and reverse/symbols.csv (<1s).
+"""Fast integrity check for reverse/functions.csv, symbols.csv and data_rows.csv (<1s).
 
 Catches the corruption classes that break the full gate long after the fact:
 duplicate rows from union merges, two agents claiming overlapping bytes,
@@ -26,6 +26,7 @@ SYMBOLS = ROOT / "reverse" / "symbols.csv"
 DELETED = ROOT / "reverse" / "deleted_rows.csv"
 RE_ATTEMPTS = ROOT / "reverse" / "re_attempts.log"
 BODY_OWNERS = ROOT / "reverse" / "body_owners.csv"
+DATA_ROWS = ROOT / "reverse" / "data_rows.csv"
 
 # realcrc.cpp is linked twice in the retail exe, so these two symbols
 # legitimately appear at two addresses each. Any other duplicate name is a bug.
@@ -400,7 +401,25 @@ def check_attempts(spec, problems):
 ORPHAN_BASELINE = 6
 
 
-def check_orphans(spec, problems):
+def read_data_rows(spec):
+    """data_rows.csv at `spec` (b"" when that state has none)."""
+    if spec is None:
+        return DATA_ROWS.read_bytes() if DATA_ROWS.exists() else b""
+    rel = DATA_ROWS.relative_to(ROOT).as_posix()
+    out = subprocess.run(["git", "-C", str(ROOT), "show", f"{spec}:{rel}"], capture_output=True)
+    return out.stdout if out.returncode == 0 else b""
+
+
+def data_row_sources(raw):
+    """Sources owning a matched data row (tools/data_rows.py): a data-only TU."""
+    import data_rows
+    try:
+        return {row["source"] for _, row in data_rows.parse(raw) if row.get("status") == "matched"}
+    except ValueError:
+        return set()
+
+
+def check_orphans(spec, problems, *, data_raw=None):
     """Refuse a NEW Code/*.cpp that owns no matched row.
 
     A source with no row is presence pretending to be progress: nothing compiles
@@ -413,6 +432,8 @@ def check_orphans(spec, problems):
             read_ledger(FUNCTIONS, spec).decode("utf-8", errors="replace"))):
         if len(row) == 7 and row[5] == "matched":
             claimed.add(row[4])
+    # a data-only TU owns its globals in data_rows.csv (tools/data_rows.py)
+    claimed.update(data_row_sources(read_data_rows(spec) if data_raw is None else data_raw))
     orphans = sorted(
         path for path in known_sources(spec)
         if path.startswith("Code/") and path.endswith(".cpp")
@@ -501,7 +522,8 @@ def main():
     spec = "" if args.staged else args.ref  # None -> working tree
     problems = []
     deleted_raw = read_ledger(DELETED, spec)
-    n_funcs = check_functions(read_ledger(FUNCTIONS, spec), problems, known_sources(spec),
+    sources_ok = known_sources(spec)
+    n_funcs = check_functions(read_ledger(FUNCTIONS, spec), problems, sources_ok,
                               deleted_raw)
     check_body_owners(read_body_owners(spec), read_ledger(FUNCTIONS, spec), problems)
     n_syms = check_symbols(read_ledger(SYMBOLS, spec), problems)
@@ -509,7 +531,13 @@ def main():
     check_lf_ledger(read_ledger(RE_ATTEMPTS, spec), "re_attempts.log", problems,
                     allow_empty=True)
     check_attempts(spec, problems)
-    n_orphans = check_orphans(spec, problems)
+    data_raw = read_data_rows(spec)
+    n_data = 0
+    if data_raw:
+        import data_rows
+        check_lf_ledger(data_raw, "data_rows.csv", problems)
+        n_data = data_rows.check(data_raw, problems, sources_ok)
+    n_orphans = check_orphans(spec, problems, data_raw=data_raw)
 
     if problems:
         print(f"check_csv: {len(problems)} problem(s):", file=sys.stderr)
@@ -517,6 +545,7 @@ def main():
             print(f"  - {p}", file=sys.stderr)
         raise SystemExit(1)
     print(f"check_csv: OK (functions.csv {n_funcs} rows, symbols.csv {n_syms} rows"
+          + (f", data_rows.csv {n_data} rows" if n_data else "")
           + (f", {n_orphans} known row-less source(s))" if n_orphans else ")"))
 
 

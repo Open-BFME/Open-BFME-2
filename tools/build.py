@@ -3293,7 +3293,8 @@ def load_unclaimed_sources():
 
 def verify_source_claims(only=None):
     """Progress is matched rows, nothing else: every .cpp under Code/ must own at
-    least one byte-verified matched row, and no marker may contradict the ledger
+    least one byte-verified matched row (a function row, or a data_rows.csv row
+    for a data-only TU), and no marker may contradict the ledger
     (a symbol both matched and marked unmatched is a stale annotation lying about
     state).
 
@@ -3313,6 +3314,12 @@ def verify_source_claims(only=None):
     matched_by_source = {}
     matched_sources = {}
     for row in load_function_rows():
+        matched_by_source[row["source"]] = matched_by_source.get(row["source"], 0) + 1
+        matched_sources.setdefault(row["name"], set()).add(row["source"])
+    # A data-only TU owns its globals in data_rows.csv; those rows are byte-verified
+    # by data_rows.verify (below in main, and in the full gate), not taken on trust.
+    import data_rows
+    for row in data_rows.load():
         matched_by_source[row["source"]] = matched_by_source.get(row["source"], 0) + 1
         matched_sources.setdefault(row["name"], set()).add(row["source"])
 
@@ -3366,6 +3373,16 @@ def main(only=None):
         # selector names a source that owns no rows, which is exactly the case the
         # zero-row check exists to catch, so it has to run before that exit.
         verify_source_claims(only)
+        # data rows of the named sources: byte-verified whether or not the
+        # source also owns functions (a data-only TU owns nothing else)
+        import data_rows
+        data_sources = {row["source"] for row in data_rows.load()
+                        if any(sel in row["source"] for sel in only)}
+        if data_sources:
+            data_rows.verify(sources=sorted(data_sources))
+            if not any(sel in row["source"] or sel in row["name"]
+                       for row in load_function_rows() for sel in only):
+                return  # the selectors named data-only sources, verified above
         verify_functions(only)
         # String-ref verify scoped to the same rows: function bytes alone cannot
         # tell identical-twin stubs apart (their string pointer is a masked
@@ -3424,6 +3441,8 @@ def main(only=None):
     run("pin consistency", pin_consistency.verify)
     run("module registry", check_module_registry.verify)
     run("source claims", verify_source_claims)
+    import data_rows
+    run("data rows", data_rows.verify)
     if patches is None:
         # The no-op patch needs the compiled patch set, so a failed
         # verify_functions leaves it unrunnable. Say that out loud and stay red

@@ -1837,7 +1837,7 @@ def cycle(args):
     times = {}
     out = Path(args.out)
     out.mkdir(parents=True, exist_ok=True)
-    census.refuse_unsupported_ledgers()
+    getattr(census, "refuse_unsupported_ledgers", lambda: None)()
     start = input_state()                      # bound at START, re-proved before recording
     rows = census.ledger()
     compile_failed = []

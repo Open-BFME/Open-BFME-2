@@ -23,3 +23,5 @@ reverse/symbols.csv text eol=lf merge=union
 reverse/deleted_rows.csv text eol=lf merge=union
 reverse/re_attempts.log text eol=lf merge=union
 reverse/body_owners.csv text eol=lf merge=union
+# data_rows.csv (tools/data_rows.py): one owner per address, appended like the others
+reverse/data_rows.csv text eol=lf merge=union
