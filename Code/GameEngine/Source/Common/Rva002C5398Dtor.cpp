@@ -12,11 +12,14 @@ namespace _STL
 {
 	template <class T> class allocator
 	{
+	public:
+		allocator() {}
 	};
 
 	template <class T, class A> class _List_base
 	{
 	public:
+		_List_base(const A &);
 		~_List_base();
 	private:
 		void *m_node;
@@ -42,6 +45,7 @@ public:
 class GameEngineDeletingBase
 {
 public:
+	GameEngineDeletingBase();
 	virtual ~GameEngineDeletingBase();
 
 private:
@@ -51,12 +55,43 @@ private:
 class Rva002C5398 : public GameEngineDeletingBase
 {
 public:
+	Rva002C5398();
 	virtual ~Rva002C5398();
 
 private:
-	char m_pad0C[0x30 - 0x0C];
+	int m_field0C;
+	int m_field10;
+	int m_field14;
+	int m_field18;
+	int m_field1C;
+	int m_field20;
+	int m_field24;
+	int m_field28;
+	int m_field2C;
 	_STL::_List_base<int, _STL::allocator<int> > m_list; // +0x30
+	int m_field34;
+	int m_field38;
+	int m_field3C;
 };
+
+// ??0Rva002C5398@@QAE@XZ retail 0x002C5334 100B: base ctor 0x001B4E63, own
+// vptr BFF658, list base ctor 0x004EC36C at +0x30, +0x3C = -1, then the
+// pointer fields cleared. Its only caller is the derived ctor at 0x0008FC51.
+Rva002C5398::Rva002C5398() : m_list(_STL::allocator<int>())
+{
+	m_field3C = -1;
+	m_field0C = 0;
+	m_field10 = 0;
+	m_field14 = 0;
+	m_field18 = 0;
+	m_field1C = 0;
+	m_field20 = 0;
+	m_field24 = 0;
+	m_field28 = 0;
+	m_field2C = 0;
+	m_field34 = 0;
+	m_field38 = 0;
+}
 
 Rva002C5398::~Rva002C5398()
 {

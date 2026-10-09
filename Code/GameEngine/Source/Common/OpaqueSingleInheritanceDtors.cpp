@@ -79,16 +79,24 @@ inline Rva00628FD::~Rva00628FD()
 class Rva002C5398
 {
 public:
+	Rva002C5398();
 	virtual ~Rva002C5398();
 };
 
 class Rva008FCA3 : public Rva002C5398
 {
 public:
+	Rva008FCA3();
 	virtual ~Rva008FCA3();
 };
 
 inline Rva008FCA3::~Rva008FCA3()
+{
+}
+
+// ??0Rva008FCA3@@QAE@XZ retail 0x0008FC51 18B: base ctor 0x002C5334 then own
+// vptr BC7C90; built by game client vtable 0x00BC4738 factory 0x0004C4C7 (new 0x40).
+Rva008FCA3::Rva008FCA3()
 {
 }
 

@@ -2695,7 +2695,6 @@ name,address,notes
 ??0Rva00891540DebugIOCon@@QAE@XZ,0x00040C40
 ??0Rva00899560Value@@QAE@H@Z,0x006DCCC0,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ??0Rva008B2EF0@@QAE@II@Z,0x006F1310
-??0Rva008FCA3@@QAE@XZ,0x0008FC51,"constructor storing vtable 0x00BC7C90; REL32 in game client vtable 0x00BC4738 factory 0x0004C4C7 after new 0x40"
 ??0Rva00971CE0AggregatePrototype@@QAE@PBDHH@Z,0x0014CE67,callee of Register_Aggregate_Prototype (0x0014D01C) at the site its BFME1 donor calls it; may be an ICF alias
 ??0Rva009D8630BlockWriter@@QAE@XZ,0x0060D1F7,base block-writer ctor called by BFMECRCWriter::BFMECRCWriter 0x00225A2D; donor GameLogicCRC.cpp comment fixes ctor/dtor RVAs 0x0060D1F7/0x0060D0B3
 ??0Rva009F69B1Subobject@@QAE@XZ,0x00003227,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
