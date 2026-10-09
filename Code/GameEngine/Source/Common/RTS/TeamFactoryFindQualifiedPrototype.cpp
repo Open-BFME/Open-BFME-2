@@ -1,10 +1,9 @@
-// ?rva003A2659@Rva0039FE6COwner@@QAEPAVTeamPrototype@@ABVBfmeWordEL@@@Z
-// partial score=0.9304 date=2026-10-05
-// ?rva003A2659@Rva0039FE6COwner@@QAEPAVTeamPrototype@@ABVBfmeWordEL@@@Z
-// partial score=0.96 date=2026-10-04
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
 // stlport
-// ?rva003A2659@Rva0039FE6COwner@@QAEPAVTeamPrototype@@ABVBfmeWordEL@@@Z @0x003A2659 141B
+// TeamFactory::findTeamPrototype qualified-name overload; retail 0x003A2659 141B.
+// Target identity: existing named pin and evaluateHasUnits caller 0x003E941A.
+// Target ABI: splitter returns an 8-byte temporary in EAX; receiver is built
+// inside the full assignment expression, preserving that return pointer.
 // TeamFactory-style lookup: split BfmeWord on '/' via rowed 0x0032ABDA, assign
 // both halves into two AsciiStrings through rowed Rva000DF920::operator=, then
 // rowed findPrototype. Evidence: callees all rowed, caller 0x003E941A.
@@ -49,7 +48,9 @@ class Rva000DF920
 	Rva0036CA00Str *m_00;
 	Rva0036CA00Str *m_04;
 public:
+	Rva000DF920(AsciiString &a, AsciiString &b) : m_00((Rva0036CA00Str *)&a), m_04((Rva0036CA00Str *)&b) {}
 	Rva000DF920 &operator=(const Rva0036CA00Str *pair);
+	Rva000DF920 &operator=(const BfmePairEL &pair) { return operator=((const Rva0036CA00Str *)&pair); }
 };
 
 class TeamPrototype;
@@ -58,20 +59,21 @@ class Rva0039FE6COwner
 {
 public:
 	TeamPrototype *findPrototype(const AsciiString &a, const AsciiString &b);
-	TeamPrototype *rva003A2659(const BfmeWordEL &word);
+
 };
 
 struct BfmePairEL __cdecl Rva00194810(const BfmeWordEL &name);
 
-// ?rva003A2659@Rva0039FE6COwner@@QAEPAVTeamPrototype@@ABVBfmeWordEL@@@Z present-unmatched
-TeamPrototype *Rva0039FE6COwner::rva003A2659(const BfmeWordEL &word)
+class TeamFactory
+{
+public:
+	TeamPrototype *findTeamPrototype(const AsciiString &word);
+};
+
+TeamPrototype *TeamFactory::findTeamPrototype(const AsciiString &word)
 {
 	AsciiString a;
 	AsciiString b;
-	{
-		BfmePairEL tmp = Rva00194810(word);
-		HelperInit helper = { (Rva0036CA00Str *)&a, (Rva0036CA00Str *)&b };
-		((Rva000DF920 *)&helper)->operator=((const Rva0036CA00Str *)&tmp);
-	}
-	return findPrototype(a, b);
+	Rva000DF920(a, b) = Rva00194810((const BfmeWordEL &)word);
+	return ((Rva0039FE6COwner *)this)->findPrototype(a, b);
 }
