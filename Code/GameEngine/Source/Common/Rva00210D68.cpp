@@ -5,7 +5,7 @@
 // +0x268 manager, look the campaign's one up by name, store and start it).
 // Evidence: __thiscall (reads ecx first into esi); clears +0x268 via rowed
 // 0x003EF1B8 then AND-zero; chains g_009FEF10[+0xB0][+8] with null check;
-// looks up key at +0x54 through rowed 0x003EF328 with table at g_00E02E60;
+// looks up key at +0x54 through rowed 0x003EF328 with table at TheLivingWorldRegionEffectsManagerStore;
 // stores result at +0x268 and tail-jmps to rowed 0x003EF2E0. Neighbour TUs
 // Disp32DwordFieldClearers.cpp and Rva00210DC9Get.cpp both use /O1.
 // No fallback paths.
@@ -45,7 +45,7 @@ public:
 	Rva00210D68Mid *m_mid;
 };
 
-extern Rva003EF328 *g_00E02E60;
+extern Rva003EF328 *TheLivingWorldRegionEffectsManagerStore;
 
 class LivingWorldManager {
 public:
@@ -64,7 +64,7 @@ void LivingWorldManager::SetUpRegionEffectsManager()
 	Rva00210D68KeyHolder *holder = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->m_mid->m_keyHolder;
 	if (!holder)
 		return;
-	void *found = g_00E02E60->rva003EF328((const AsciiString *)((char *)holder + 0x54));
+	void *found = TheLivingWorldRegionEffectsManagerStore->rva003EF328((const AsciiString *)((char *)holder + 0x54));
 	m_ptr268 = (Rva003EF14A *)found;
 	if (!found)
 		return;

@@ -227,7 +227,7 @@ extern Rva0022AEE4Subsystem *TheDelayedExperienceLevelGrantSystem;
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 extern class Rva002E18C3Lookup *Va00DFF0B0Lookup;
 extern class Rva002E18C3Lookup *Va00E03140Lookup;
-extern class Rva003EF328 *g_00E02E60;
+extern class Rva003EF328 *TheLivingWorldRegionEffectsManagerStore;
 extern class LivingWorldManager *TheLivingWorldManager;
 extern class LivingWorldLogic *TheLivingWorldLogic;
 extern class ClientFrameSubsystem *TheGameClient;
@@ -726,7 +726,7 @@ void GameEngine::init(Int argc, char *argv[])
 		initSubsystem((reinterpret_cast<Rva0022AF59Subsystem *&>(g_bfmeAptWindowManager)), "TheAptPlayer", createAptPlayer(), 0);
 		initSubsystem((reinterpret_cast<Rva0022AFCESubsystem *&>(Va00DFF0B0Lookup)), "TheLivingWorldPlayerTemplateStore", new Rva0022AFCESubsystem, (Xfer *)&xferCRC);
 		initSubsystem((reinterpret_cast<Rva0022B043Subsystem *&>(Va00E03140Lookup)), "TheLivingWorldAITemplateStore", new Rva0022B043Subsystem, (Xfer *)&xferCRC);
-		initSubsystem((reinterpret_cast<Rva0022B0B8Subsystem *&>(g_00E02E60)), "TheLivingWorldRegionEffectsManagerStore", new Rva0022B0B8Subsystem, 0);
+		initSubsystem((reinterpret_cast<Rva0022B0B8Subsystem *&>(TheLivingWorldRegionEffectsManagerStore)), "TheLivingWorldRegionEffectsManagerStore", new Rva0022B0B8Subsystem, 0);
 		initSubsystem((reinterpret_cast<Rva0022B12DSubsystem *&>(TheLivingWorldManager)), "TheLivingWorldManager", new Rva0022B12DSubsystem, 0);
 		initSubsystem((reinterpret_cast<Rva0022B1A2Subsystem *&>(TheLivingWorldLogic)), "TheLivingWorldLogic", new Rva0022B1A2Subsystem, (Xfer *)&xferCRC);
 		initSubsystem((reinterpret_cast<GameClient *&>(TheGameClient)), "TheGameClient", createGameClient(), 0);
