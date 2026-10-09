@@ -191,7 +191,6 @@ bool HordeAIUpdate::commandCancelsPorcupineFormation(const AICommandParms *parms
 	}
 }
 
-// ?porcupineFormationIgnoresCommand@HordeAIUpdate@@QAE_NPBUAICommandParms@@@Z present-unmatched
 // WorldBuilder names it; called from the same dispatcher at 0x0049A9A9.
 bool HordeAIUpdate::porcupineFormationIgnoresCommand(const AICommandParms *parms)
 {
