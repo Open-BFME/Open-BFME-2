@@ -55,6 +55,7 @@
 //-----------------------------------------------------------------------------
 //         Includes                                                      
 //-----------------------------------------------------------------------------
+#include "../../../../../reference/shims/bfme_vector3_ctor_link/vector3.h"
 #include "W3DDevice/GameClient/W3DPropBuffer.h"
 #include "string_base.h"
 

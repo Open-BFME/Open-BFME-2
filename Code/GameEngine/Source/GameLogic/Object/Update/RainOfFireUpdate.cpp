@@ -3,6 +3,7 @@
 // RainOfFire constructor/destructor donor9cbfb551 and matched BFME2 xfer
 // establish the module fields. BF1 Vector3/Matrix3D supply math semantics;
 // native module-data table offsets and terrain/weapon calls guide this body.
+#include "../../../../../../reference/shims/bfme_vector3_ctor_link/vector3.h"
 #include "matrix3d.h"
 #include "../../../../../Libraries/Include/Lib/Coord2D.h"
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"

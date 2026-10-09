@@ -43,7 +43,7 @@ Int64 Rva0004300DGet();
 class Vector3
 {
 public:
-	Vector3(float x, float y, float z) : X(x), Y(y), Z(z) {}
+	__declspec(dllimport) __forceinline Vector3(float x, float y, float z) : X(x), Y(y), Z(z) {}
 	float X;
 	float Y;
 	float Z;

@@ -6,6 +6,7 @@
 // BC596C=.0390625, BC5CCC=20, BC5D00=400, BC5CFC=160000.
 // Original terrain-owner identity is unproven; reuse the target sample owner's
 // address-derived type rather than promoting a WorldHeightMap guess.
+#include "../../../../../reference/shims/bfme_vector3_ctor_link/vector3.h"
 #include "vector3.h"
 class Rva0006653B {
 public:
