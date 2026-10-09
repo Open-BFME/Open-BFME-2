@@ -607,3 +607,108 @@ Int Rva000FCF54Filter::set(FilterModes mode) {
  }
  return false;
 }
+
+
+// ?set@Rva000FC34FFilter@@MAEHW4FilterModes@@@Z @0x000FC34F
+// Native 590B RET4 body byte-identical in shape to Rva000FCF54Filter::set above (same fade ladder,
+// preset material, opaque shader, empty texture and depth-state setup); another screen filter of the
+// same family. Owner remains unknown; the class is a neutral address-derived view.
+class Rva000FC34FFilter
+{
+public:
+	virtual int init();
+	virtual int shutdown();
+	virtual bool preRender(bool &, int &);
+	virtual bool postRender(FilterModes, Coord2D &, bool &, Coord2D *);
+	virtual bool setup(FilterModes);
+protected:
+	virtual int set(FilterModes);
+	virtual void reset();
+};
+Int Rva000FC34FFilter::set(FilterModes mode) {
+ if (mode > FM_NULL_MODE) {
+  if (g_00DEC1B4 > 0) {
+   Int fade = ++g_00DEC1BC;
+   if (fade < g_00DEC1B8)
+    BfmeScreenTransitionFadeValue = (Real)fade / (Real)g_00DEC1B8;
+   else { BfmeScreenTransitionFadeValue = 1; g_00DEC1BC=0; g_00DEC1B4=0; }
+  } else if (g_00DEC1B4 < 0) {
+   Int fade = ++g_00DEC1BC;
+   if (fade < g_00DEC1B8)
+    BfmeScreenTransitionFadeValue = 1 - (Real)fade / (Real)g_00DEC1B8;
+   else {
+    BfmeScreenTransitionFadeValue=0;
+    TheTacticalView->setViewFilterMode(FM_NULL_MODE);
+    TheTacticalView->setViewFilter(FT_NULL_FILTER);
+    g_00DEC1BC=0; g_00DEC1B4=0;
+   }
+  }
+  VertexMaterialClass *vmat = VertexMaterialClass::Get_Preset(VertexMaterialClass::PRELIT_DIFFUSE);
+  if (vmat) ++vmat->NumRefs;
+  if (ScreenMaterial) ScreenMaterial->Release_Ref();
+  ScreenMaterial = vmat;
+  DX8Wrapper::Mark_Material_Changed();
+  REF_PTR_RELEASE(vmat);
+  DX8Wrapper::Set_Dot3_Shader(ShaderClass::_PresetOpaqueShader);
+  { BFME2TextureRef texture; BFME2Set_Texture(0, texture); }
+  DX8Wrapper::Apply_Render_State_Changes();
+  DX8Wrapper::Set_Dot3_Render_State(23,8);
+  DX8Wrapper::Set_Dot3_Render_State(14,0);
+  DX8Wrapper::Apply_Render_State_Changes();
+  return true;
+ }
+ return false;
+}
+
+
+// ?set@Rva000F9989Filter@@MAEHW4FilterModes@@@Z @0x000F9989
+// Native 590B RET4 body byte-identical in shape to Rva000FCF54Filter::set above (same fade ladder,
+// preset material, opaque shader, empty texture and depth-state setup); another screen filter of the
+// same family. Owner remains unknown; the class is a neutral address-derived view.
+class Rva000F9989Filter
+{
+public:
+	virtual int init();
+	virtual int shutdown();
+	virtual bool preRender(bool &, int &);
+	virtual bool postRender(FilterModes, Coord2D &, bool &, Coord2D *);
+	virtual bool setup(FilterModes);
+protected:
+	virtual int set(FilterModes);
+	virtual void reset();
+};
+Int Rva000F9989Filter::set(FilterModes mode) {
+ if (mode > FM_NULL_MODE) {
+  if (g_00DEC1B4 > 0) {
+   Int fade = ++g_00DEC1BC;
+   if (fade < g_00DEC1B8)
+    BfmeScreenTransitionFadeValue = (Real)fade / (Real)g_00DEC1B8;
+   else { BfmeScreenTransitionFadeValue = 1; g_00DEC1BC=0; g_00DEC1B4=0; }
+  } else if (g_00DEC1B4 < 0) {
+   Int fade = ++g_00DEC1BC;
+   if (fade < g_00DEC1B8)
+    BfmeScreenTransitionFadeValue = 1 - (Real)fade / (Real)g_00DEC1B8;
+   else {
+    BfmeScreenTransitionFadeValue=0;
+    TheTacticalView->setViewFilterMode(FM_NULL_MODE);
+    TheTacticalView->setViewFilter(FT_NULL_FILTER);
+    g_00DEC1BC=0; g_00DEC1B4=0;
+   }
+  }
+  VertexMaterialClass *vmat = VertexMaterialClass::Get_Preset(VertexMaterialClass::PRELIT_DIFFUSE);
+  if (vmat) ++vmat->NumRefs;
+  if (ScreenMaterial) ScreenMaterial->Release_Ref();
+  ScreenMaterial = vmat;
+  DX8Wrapper::Mark_Material_Changed();
+  REF_PTR_RELEASE(vmat);
+  DX8Wrapper::Set_Dot3_Shader(ShaderClass::_PresetOpaqueShader);
+  { BFME2TextureRef texture; BFME2Set_Texture(0, texture); }
+  DX8Wrapper::Apply_Render_State_Changes();
+  DX8Wrapper::Set_Dot3_Render_State(23,8);
+  DX8Wrapper::Set_Dot3_Render_State(14,0);
+  DX8Wrapper::Apply_Render_State_Changes();
+  return true;
+ }
+ return false;
+}
+

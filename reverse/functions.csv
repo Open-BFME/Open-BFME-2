@@ -74044,3 +74044,5 @@ _vp6_xprintf,,0x001C4C90,610,Code/Libraries/Source/VP6/vp6_xprintf.cpp,matched,v
 ?rva004E00D9@Rva004E02D7Owner@@QAEXXZ,,0x004E00D9,98,Code/GameEngine/Source/GameLogic/Object/Rva004E00D9.cpp,matched,
 ?Rva003C57A9Do@@YGXPAVParameter@@ABVAsciiString@@@Z,,0x003C57A9,124,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_Rva003C57A9Do.cpp,matched,
 ?Rva003C58C9Do@@YGXPAVParameter@@ABVAsciiString@@H@Z,,0x003C58C9,161,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_Rva003C57A9Do.cpp,matched,
+?set@Rva000FC34FFilter@@MAEHW4FilterModes@@@Z,,0x000FC34F,590,Code/GameEngineDevice/Source/W3DDevice/GameClient/ScreenFilterRva000FC63DSet.cpp,matched,
+?set@Rva000F9989Filter@@MAEHW4FilterModes@@@Z,,0x000F9989,590,Code/GameEngineDevice/Source/W3DDevice/GameClient/ScreenFilterRva000FC63DSet.cpp,matched,
