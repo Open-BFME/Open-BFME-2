@@ -17072,3 +17072,4 @@ _D3DXCreateTextureFromFileInMemoryEx@60,0x0062AF7A,Named d3dx9_27.dll PE import 
 ?rva006E24D0@AptCIH@@QAEHXZ,0x006E24D0,int spelling of the rowed AptCIH forward 0x006E24D0: the caller 0x006FB120 tests eax after the call
 ?rva00319EF9@LivingWorldArmy@@QAEXPAV1@H@Z,0x00319EF9,callee of ?rva002B3DE4@@YAXPAVLivingWorldArmy@@H0@Z
 ?rva00110FBF@Rva00110FBF@@QAEXXZ,0x00110FBF,callee of ?Rva000A8F98@@YAXXZ
+?rva00240866@Rva00240866SavegameCall@@QAEXPAXH@Z,0x00240866,callee of ?rva0025E5F4@Rva0025E4CD@@QAEXXZ

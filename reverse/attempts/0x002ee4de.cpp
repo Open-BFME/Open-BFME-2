@@ -1,4 +1,6 @@
 // ?AdjustFlingDestination@Pathfinder@@QAEXPAVObject@@PBUCoord3D@@PAU3@@Z
+// partial score=0.939 date=2026-10-10
+// ?AdjustFlingDestination@Pathfinder@@QAEXPAVObject@@PBUCoord3D@@PAU3@@Z
 // partial score=0.939 date=2026-10-09
 // cl: /O1 /G7 /Oy- /arch:SSE /MD /GX- /ICode/Libraries/Include/Lib
 #include "Coord3D.h"
