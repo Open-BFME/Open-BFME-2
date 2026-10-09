@@ -1,4 +1,6 @@
 // ??0Rva003438C7@@QAE@PAVObject@@PAVRva003438C7Host@@I@Z
+// partial score=0.96 date=2026-10-09
+// ??0Rva003438C7@@QAE@PAVObject@@PAVRva003438C7Host@@I@Z
 // partial score=0.95 date=2026-10-09
 // cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc
 //
@@ -7,7 +9,7 @@
 // (its unsigned spelling is pinned); each state comes from plain operator
 // new and its rowed constructor, registered with the IDs and transitions
 // read from the retail call sequence (Zero Hour's defineState pattern).
-#include "../../../Code/Libraries/Include/Lib/Coord3D.h"
+#include "../Code/Libraries/Include/Lib/Coord3D.h"
 typedef bool Bool;
 typedef unsigned int UnsignedInt;
 typedef UnsignedInt StateID;
@@ -91,6 +93,10 @@ public:
 class Rva003438C7Host : public Rva003438C7HostHead, public Rva003438C7HostInterface
 {
 };
+class Rva004D74AC : public State { public: Rva004D74AC(StateMachine*); private: char pad[0x20-4]; };
+class AIAttackApproachTargetState00C12678 : public State { public: AIAttackApproachTargetState00C12678(StateMachine*); private: char pad[0x64-4]; };
+struct AttackKindPrefixView { char before108[0x108]; unsigned char kind108; char gap[6]; unsigned char kind10F; };
+struct AttackOwnerPrefixView { char first[4]; AttackKindPrefixView *thing; };
 class Rva003438C7 : public Rva004D759C
 {
 public:
@@ -99,7 +105,9 @@ public:
 
 };
 // condition 0x0033FD98 (retail .rdata table entry)
-Bool rva0033FD98(State *thisState, void *userData);
+class Rva00343F8A;
+Bool rva0033FD98(Rva00343F8A *thisState, void *userData);
+Bool rva0033FDD6(Rva00343F8A *thisState, void *userData);
 
 Rva003438C7::Rva003438C7(Object *owner, Rva003438C7Host *host, UnsignedInt nameKey) : Rva004D759C(owner, nameKey, false)
 {
@@ -113,5 +121,12 @@ Rva003438C7::Rva003438C7(Object *owner, Rva003438C7Host *host, UnsignedInt nameK
 	defineState( 601, new Rva0033F3EF( this ), 602, 9999, g_condC131A0 );
 	defineState( 602, new Rva0033F4B1( this, (int)static_cast<Rva003438C7HostInterface *>(host) ), 603, 600, g_condC131A0 );
 	defineState( 603, new Rva0033F43D( this ), 601, 9999 );
-	defineState( 600, new Rva004D7491( this ), 9999, 9999 );
+    static const StateConditionInfo portableConditions[] = { {(void*)rva0033FDD6,601,0}, {0,0,0} };
+    AttackKindPrefixView *thing=reinterpret_cast<AttackOwnerPrefixView*>(owner)->thing;
+    if((thing->kind108 & 4)==0) {
+        if((thing->kind10F & 2) && (thing->kind108 & 8))
+            defineState(600,new Rva004D74AC(this),9999,9999,portableConditions);
+        else
+            defineState(600,new AIAttackApproachTargetState00C12678(this),601,9999);
+    } else defineState(600,new Rva004D7491(this),9999,9999);
 }
