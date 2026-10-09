@@ -1,38 +1,54 @@
-// ?Rva006D5160Concat@@YA?AVEAStringC@@PBDABV1@@Z
-// partial score=0.9121057118 date=2026-10-09
-// cl: /O2 /DNDEBUG /MD /EHsc
-// Native 006D5160..006D5291: concatenates a C string followed by EAStringC.
-// WB17749C0 supplies algorithm guide. Native proves hidden return storage,
-// copy constructor branches, the 8B header, and post-copy hash reset.
+// ?rva006D5160@@YA?AVEAStringC@@PBDABV1@@Z
+// partial score=0.9605569764 date=2026-10-09
+// ?rva006D5160@@YA?AVEAStringC@@PBDABV1@@Z
+// partial score=0.9605569764 date=2026-10-09
+// cl: /O2 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+extern "C" void *__cdecl memcpy(void *dst, const void *src, unsigned int count);
+#pragma intrinsic(memcpy)
 extern "C" unsigned int __cdecl strlen(const char*);
-extern "C" void *__cdecl memcpy(void*,const void*,unsigned int);
-#pragma intrinsic(strlen,memcpy)
-class EAStringC {
+#pragma intrinsic(strlen)
+
+class EAStringC
+{
 public:
- class StringDataC {public:unsigned short refs,size,maxSize,hash;};
- StringDataC *data;
- EAStringC(unsigned int);
- EAStringC(const char *s):data(0){Assign(s);}
- EAStringC(const EAStringC&);
- static void FreeData(StringDataC*);
- ~EAStringC(){FreeData(data);}
- void Assign(const char*);
- void SetSize(int);
- const char *buffer()const{return (const char*)data+8;}
- char *buffer(){return (char*)data+8;}
+	class StringDataC
+	{
+	public:
+		unsigned short m_uRefCount;
+		unsigned short m_uSize;
+		unsigned short m_uMaxSize;
+		unsigned short m_uHash;
+	};
+
+	static void FreeData(StringDataC *data);
+
+	StringDataC *m_pData;
+
+	EAStringC(const EAStringC &other);
+	EAStringC(unsigned int nSize);
+ EAStringC(const char* text) {m_pData=0; Assign(text);}
+ void Assign(const char* text);
+	~EAStringC()
+	{
+		FreeData(m_pData);
+	}
+	void SetSize(int size);
+	
 };
-EAStringC Rva006D5160Concat(const char *left,const EAStringC &right){
- int rightSize=right.data->size;
- if(!rightSize)return EAStringC(left);
- unsigned int leftSize=strlen(left);
- if(!leftSize)return EAStringC(right);
- int fullSize=leftSize+rightSize;
- EAStringC result(fullSize);
- char *out=result.buffer();
- memcpy(out,left,leftSize);
- out+=leftSize;
- memcpy(out,right.buffer(),rightSize);
- out[rightSize]=0;
- result.SetSize(fullSize);result.data->hash=0;
- return EAStringC(result);
+
+EAStringC rva006D5160(const char *left, const EAStringC &right)
+{
+ unsigned int size=right.m_pData->m_uSize;
+ if(!size)return EAStringC(left);
+ unsigned int otherSize=strlen(left);
+ if(!otherSize)return right;
+ unsigned int total=otherSize+size;
+ EAStringC result(total);
+ char *text=(char*)result.m_pData+8;
+ memcpy(text,left,otherSize);
+ memcpy(text+otherSize,(char*)right.m_pData+8,size);
+ text[otherSize+size]=0;
+ result.SetSize(total);
+ result.m_pData->m_uHash=0;
+ return result;
 }
