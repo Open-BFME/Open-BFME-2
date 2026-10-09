@@ -42,7 +42,7 @@ protected:
 
 struct OrnamentData
 {
-	void init();
+	OrnamentData *init() throw();
 	unsigned char m_pad[0x28];
 };
 

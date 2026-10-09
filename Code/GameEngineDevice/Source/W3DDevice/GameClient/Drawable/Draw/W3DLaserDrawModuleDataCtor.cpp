@@ -27,7 +27,7 @@ typedef float Real;
 
 struct OrnamentData
 {
-	void init() throw();
+	OrnamentData *init() throw();
 	unsigned char m_pad00[0x0C];
 	int m_reset0C;
 	unsigned char m_pad10[0x24 - 0x10];

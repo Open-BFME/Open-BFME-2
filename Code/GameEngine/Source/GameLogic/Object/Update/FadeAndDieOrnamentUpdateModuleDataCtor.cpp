@@ -32,7 +32,7 @@ private:
 
 struct OrnamentData
 {
-	void init();
+	OrnamentData *init() throw();
 	~OrnamentData();
 
 	unsigned char m_pad[0x0C];
