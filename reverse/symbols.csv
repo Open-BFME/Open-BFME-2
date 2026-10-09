@@ -2628,7 +2628,6 @@ name,address,notes
 ??0Rva005CD2A3@@QAE@PAVRva005CD1A9@@PAX111@Z,0x005CD2A3,Rva005CD2A3 ctor (vtable 0x00C74FA0) called at 0x005CD46E
 ??0Rva005CD2EF@@QAE@PAVRva005CD1A9@@PAX111@Z,0x005CD2EF,Rva005CD2EF ctor (vtable 0x00C74FB8) called at 0x005CD501
 ??0Rva005CDMorph@@QAE@PAVRva005CD1A9@@PAX111@Z,0x005CD34B,Rva005CDMorph ctor vtable 0x00C74FD8 called at 0x005CD594
-??0Rva005CF37DHelper@@QAE@PAURva005CF22CBig@@H@Z,0x005CF37D,in-place constructor of the F78 throwing-new helper 0x005CF6B5 over (member, arg); name unknown
 ??0Rva005CF4A8Helper@@QAE@PAURva005CF22CBig@@H@Z,0x005CF4A8,in-place constructor of the F78 throwing-new helper 0x005CF703 over (member, arg); name unknown
 ??0Rva005D19F8Child@@QAE@PAVRva005D19F8@@HH@Z,0x005D18E2,child constructor taking owner and two ints: REL32 read at the new-trap-guarded call site in ctor 0x005D19F8; owner identity unproven
 ??0Rva005D25F2@@QAE@HABVAsciiString@@@Z,0x005D2BD4,unrowed 717B ctor (Ghidra FUN_009d2bd4; ret 8) installing vftable 0x00C75800 - the table the rowed ??1Rva005D25F2 at 0x005D25F2 installs; REL32 read at the WOTR UI's _OnCommandUILoaded 0x005787BF on new(0xC4) with (Rva004128BBGetLevel(name) and an AsciiString of Rva00412845AfterLevel(name)); address-named class

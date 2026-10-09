@@ -58,7 +58,7 @@ struct Rva005D2355In;
 const Image *Rva005D2355Get(Rva005D2355In *);
 int GetMaxCommandPoints(void *);
 class Rva00318FBE { public: int rva00318FBE(); };
-class Rva00319B0AOwner { public: void rva00319B0A(); };
+class Rva00319B0AOwner { public: void rva00319B0A();void rva00319B31(); };
 class Rva0042D703PtrChaseField { public: int get() const; };
 class Rva0042D69DPtrChaseField { public: int get() const; };
 class Rva0042D6B4PtrChaseField { public: int get() const; };
@@ -91,11 +91,11 @@ public:
     Rva00575E4EBase2() {}
     virtual ~Rva00575E4EBase2() {}
 };
-class Rva005CF37DHelper : public Rva005CE8F5, public Rva00575E4EBase2
+class Rva005CEE07 : public Rva005CE8F5, public Rva00575E4EBase2
 {
 public:
-    Rva005CF37DHelper(Rva005CF22CBig *b, int x);
-    virtual ~Rva005CF37DHelper();
+    Rva005CEE07(Rva005CF22CBig *b, int x);
+    virtual ~Rva005CEE07();
 private:
     int m_army;
 };
@@ -103,7 +103,7 @@ private:
 // Native boundary 5CF37D..5CF4A8, RET8. Existing allocating caller5CF6B5
 // proves this constructor and its16B allocation. Primary/secondary vptrs at
 // +0/+8; owner+4 and army+0C; WB is an unnamed StrategicInGameUI lead.
-Rva005CF37DHelper::Rva005CF37DHelper(Rva005CF22CBig *b, int x)
+Rva005CEE07::Rva005CEE07(Rva005CF22CBig *b, int x)
     : Rva005CE8F5(b), m_army(x)
 {
     ((Rva00319B0AOwner *)m_army)->rva00319B0A();
@@ -142,7 +142,7 @@ private:
 
 void Rva005CF6B5Owner::rva005CF6B5(int x)
 {
-	Rva005CF37DHelper *h = new Rva005CF37DHelper(m_a, x);
+	Rva005CEE07 *h = new Rva005CEE07(m_a, x);
 	m_a->m_sub.rva00575674(h);
 }
 
@@ -248,4 +248,14 @@ Rva005CEF2F::~Rva005CEF2F(){
  S3CommandSlots *slots=(S3CommandSlots*)((Rva0042D69DPtrChaseField*)view)->get();
  if(slots){for(int slot=1;slot<6;++slot)slots->deleteButton(slot);}
  ((Rva004FC275*)selection)->rva004FC2A6();
+}
+
+Rva005CEE07::~Rva005CEE07(){
+ ((Rva002B7250*)((char*)m_army+8))->rva002B7250((CreateAHeroData*)static_cast<Rva00575E4EBase2*>(this));
+ void *view=m_owner->m_view10;
+ S3RegionPanel *panel=(S3RegionPanel*)((Rva0042D703PtrChaseField*)view)->get();
+ if(panel)panel->hide();
+ S3CommandSlots *slots=(S3CommandSlots*)((Rva0042D69DPtrChaseField*)view)->get();
+ if(slots){for(int slot=1;slot<6;++slot)slots->deleteButton(slot);}
+ ((Rva00319B0AOwner*)m_army)->rva00319B31();
 }
