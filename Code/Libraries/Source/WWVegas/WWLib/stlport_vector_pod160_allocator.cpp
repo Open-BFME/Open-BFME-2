@@ -13,4 +13,7 @@
 // here). The BfmePod160 layout mirrors the home TU declaration.
 struct BfmePod160 { int a[40]; };
 #include <memory>
+// allocator::construct would otherwise emit a second copy of _Construct<BfmePod160>, whose
+// body is the pinned copy construct at 0x003A454E; declare it as the home TU does.
+namespace _STL { template <> __declspec(nothrow) void _Construct<BfmePod160, BfmePod160>(BfmePod160 *__p, const BfmePod160 &__val); }
 template class _STL::allocator<BfmePod160>;

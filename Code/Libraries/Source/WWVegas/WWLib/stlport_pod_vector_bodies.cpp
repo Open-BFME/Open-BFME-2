@@ -84,6 +84,8 @@ inline bool operator<(const BfmePod128 &x, const BfmePod128 &y) { return x.a[0] 
 struct BfmePod144 { int a[36]; };
 inline bool operator==(const BfmePod144 &x, const BfmePod144 &y) { return x.a[0] == y.a[0]; }
 inline bool operator<(const BfmePod144 &x, const BfmePod144 &y) { return x.a[0] < y.a[0]; }
+// _Construct<BfmePod144> is the pinned copy construct at 0x00053DFE: declare it, as for Pod172.
+namespace _STL { template <> __declspec(nothrow) void _Construct<BfmePod144, BfmePod144>(BfmePod144 *__p, const BfmePod144 &__val); }
 struct BfmePod148 { int a[37]; };
 inline bool operator==(const BfmePod148 &x, const BfmePod148 &y) { return x.a[0] == y.a[0]; }
 inline bool operator<(const BfmePod148 &x, const BfmePod148 &y) { return x.a[0] < y.a[0]; }
@@ -92,6 +94,8 @@ namespace _STL { template <> __declspec(nothrow) void _Construct<BfmePod148, Bfm
 struct BfmePod160 { int a[40]; };
 inline bool operator==(const BfmePod160 &x, const BfmePod160 &y) { return x.a[0] == y.a[0]; }
 inline bool operator<(const BfmePod160 &x, const BfmePod160 &y) { return x.a[0] < y.a[0]; }
+// _Construct<BfmePod160> is the pinned copy construct at 0x003A454E: declare it, as for Pod172.
+namespace _STL { template <> __declspec(nothrow) void _Construct<BfmePod160, BfmePod160>(BfmePod160 *__p, const BfmePod160 &__val); }
 struct BfmePod172 { int a[43]; };
 inline bool operator==(const BfmePod172 &x, const BfmePod172 &y) { return x.a[0] == y.a[0]; }
 inline bool operator<(const BfmePod172 &x, const BfmePod172 &y) { return x.a[0] < y.a[0]; }

@@ -12,4 +12,7 @@
 // POD-PLACEHOLDER LAW (element construction never passes through here).
 struct BfmePod144 { int a[36]; };
 #include <memory>
+// allocator::construct would otherwise emit a second copy of _Construct<BfmePod144>, whose
+// body is the pinned copy construct at 0x00053DFE; declare it as the home TU does.
+namespace _STL { template <> __declspec(nothrow) void _Construct<BfmePod144, BfmePod144>(BfmePod144 *__p, const BfmePod144 &__val); }
 template class _STL::allocator<BfmePod144>;
