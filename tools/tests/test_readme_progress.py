@@ -285,3 +285,16 @@ def test_unreadable_receipt_never_stops_the_daily_post(tmp_path, monkeypatch):
     daily.main()
     assert posted and json.loads(path.read_text())["message_id"] == "9"
     assert "Strict link check unavailable" in (tmp_path / "docs/progress.svg").read_text()
+
+
+def test_huge_or_unreachable_receipts_degrade(tmp_path, monkeypatch):
+    path = tmp_path / daily.RECEIPT
+    path.parent.mkdir(parents=True)
+    path.write_text(json.dumps(receipt(self_strict=10, closed=5, text=10**400)), encoding="utf-8")
+    strict = daily.strict_link(tmp_path)
+    assert "invalid" in strict and daily.strict_line({"strict": strict}).startswith("Strict link check unavailable")
+
+    def denied(self):
+        raise PermissionError("denied")
+    monkeypatch.setattr(type(path), "exists", denied)
+    assert "invalid" in daily.strict_link(tmp_path)

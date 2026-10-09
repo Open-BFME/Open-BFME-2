@@ -101,9 +101,9 @@ def strict_link(root=None):
     reported on the line and stderr and never stops the daily post (the
     receipt's own tools are where it should fail loudly)."""
     path = (root or progress.ROOT) / RECEIPT
-    if not path.exists():
-        return None
     try:
+        if not path.exists():
+            return None
         receipt = json.loads(path.read_text(encoding="utf-8"))
         series = receipt["series"]
         strict = {"date": str(receipt["date_utc"])[:10], "commit": str(receipt["commit"])[:10],
@@ -113,6 +113,10 @@ def strict_link(root=None):
                   "text": int(series["retail_text_bytes"])}
         if not 0 <= strict["closed_strict"] <= strict["self_strict"] <= strict["text"] or not strict["text"]:
             raise ValueError("strict link figures out of order")
+        if strict["text"] > 0xFFFFFFFF:  # a PE section cannot exceed 4 GiB
+            raise ValueError(f"implausible retail .text size {strict['text']}")
+        for key in ("self_strict", "closed_strict"):
+            progress.percent(strict[key], strict["text"])  # representable before it reaches the card
     except (OSError, ValueError, KeyError, TypeError, OverflowError, AttributeError) as error:
         why = f"{RECEIPT} unreadable ({type(error).__name__}: {error})"
         print(f"readme_progress: warning: {why}; strict link check not shown", file=sys.stderr)
