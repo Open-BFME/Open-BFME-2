@@ -7968,7 +7968,6 @@ name,address,notes
 ?bfmeBaseUpdate@Gen009D6330@@QAEXPAXPBXI@Z,0x0060C935,callee of bfmeUpdate (0x0060D4FA) at the site its BFME1 donor calls it; may be an ICF alias
 ?bfmeBaseVHC@BfmeThingVHC@@QAEXPAVBfmeMsgVHC@@@Z,0x00668130
 ?bfmeBaseVHD@BfmeThingVHD@@QAEXPAVBfmeMsgVHC@@@Z,0x00668130
-?bfmeBegin982C@BfmeHub982@@QAEXXZ,0x00111319,address read from the REL32 displacement at a placed body
 ?bfmeBegin@BfmeSetupRecord@@QAEXXZ,0x00655B50
 ?bfmeBegin@BfmeSetupTarget@@QAEXXZ,0x00655B50
 ?bfmeBeginResourceEnumeration@@YAXI@Z,0x0061F110,Recovered resource registry role; nullable manager wrapper forwards tag to mutex-protected iterator initialization at RVA 0x621480
@@ -15727,7 +15726,6 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ?rva0050633B@AITacticsGenerator@@AAE_NPAURva00506909Request@@PAX@Z,0x0050633B,kind 3 handler of Rva00506909::rva005069CE (REL32 at 0x005069EC)
 ?setDestroyed@PathfindLayer@@QAE_N_N@Z,0x0036736E,retail REL32 at 0x002E722A from SetBridgeStateRepaired; GeneralsMD selected-layer method identity
 ?internal_findHierarchicalPath@Pathfinder@@IAEPAVPath@@_NHPAVObject@@PBUCoord3D@@200PAU4@@Z,0x002F71A6,callee pin: wb_show maps the wrapper's 8-argument call to Pathfinder::internal_findHierarchicalPath at 0x002F71A6; target bytes confirm the call displacement
-?Rva0052F2EC@Pathfinder@@QAEXXZ,0x0052F2EC,callee pin: WB 0xD37E70 maps its non-debug call to unrowed game.dat 0x0052F2EC; target body confirms thiscall with no stack arguments; WB callee 0x12D86D0 is unnamed
 ?getPathLabel1@Waypoint@@QBE?AVAsciiString@@XZ,0x0027F5A6,Waypoint +0x50 by-value label getter (rowed Rva0027F5A6); retail REL32s in TerrainLogic path queries 0x002812BF 0x002813EA 0x00281D92
 ?getPathLabel2@Waypoint@@QBE?AVAsciiString@@XZ,0x0027F5C1,Waypoint +0x54 by-value label getter (rowed Rva0027F5C1); retail REL32s in TerrainLogic path queries 0x002812BF 0x002813EA 0x00281D92
 ?getPathLabel3@Waypoint@@QBE?AVAsciiString@@XZ,0x0027F5DC,Waypoint +0x58 by-value label getter (rowed Rva0027F5DC); retail REL32s in TerrainLogic path queries 0x002812BF 0x002813EA 0x00281D92
@@ -17032,3 +17030,4 @@ _D3DXLoadVolumeFromFileInMemory@36,0x0062AF8C,Native1318F0 in-image JMP IAT veri
 ?rva00215B14@PlayerAITypeSet@@QAEXPAVINI@@@Z,0x00215B14,callee of ?Rva00215C38Parse@@YAXPAVINI@@@Z
 ?InitializeFactionVariables@AptStats@@QAEXXZ,0x005DD2D3,callee of ??0AptStats@@QAE@PAX@Z
 ??0?$_Deque_base@UBfmeTrivialDequeElement8@@V?$allocator@UBfmeTrivialDequeElement8@@@_STL@@@_STL@@QAE@ABV?$allocator@UBfmeTrivialDequeElement8@@@1@I@Z,0x0054A1B7,SimpleObjectIterator neutral8-byte deque construction; fold-proof=Code/Libraries/Source/WWVegas/WWLib/Rva0054BBB5.cpp
+?addGroupRef@ScriptList@@QAEXPAURva0034F9D0Head@@PAURva0034F9D0Node@@1@Z,0x003B23DE,ScriptList::addGroupRef per WB (thiscall: retail loads ecx with the ScriptList); ICF-folds with the rowed stdcall rva0034f9d0Insert placeholder; caller ScriptGroup binding read 3B8589
