@@ -17,13 +17,6 @@ int Rva00020E6BGet(void)
 	return 0x00bbac1c;
 }
 
-// ?Rva000B4935Get@@YAHXZ @ 0x000b4935 (6B): returns 0x00de0878.
-// Conditional-skip target (jne +5). Opaque address-derived name.
-int Rva000B4935Get(void)
-{
-	return 0x00de0878;
-}
-
 // ?Rva001EF348Get@@YAHXZ @ 0x001ef348 (6B): returns 0x00c18f40.
 // Follows padding plus leave / ret. Opaque address-derived name.
 int Rva001EF348Get(void)
