@@ -1,5 +1,7 @@
 // ?rva0051FCA2@AptTimeLine@@UAEXXZ
 // partial score=0.99 date=2026-10-09
+// ?rva0051FCA2@AptTimeLine@@UAEXXZ
+// partial score=0.99 date=2026-10-09
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /O1 /G6 /arch:SSE
 // stlport
 //
@@ -13,8 +15,9 @@
 // CaHAwardNumber" commands, the "AptTimeLine::RenderGraph" custom renderer,
 // six "TimeLine:..." status queries and the per-player
 // "TimeLine:PlayerColor/PlayerFaction/GraphFocus:%d" queries, then collects
-// every player's data (WorldBuilder: AptTimeLine::CollectAllPlayerData,
-// 0x0051FA13). The binding idiom is the matched AptScoreScreen
+// the player name/faction-icon display (rowed native0x0051FA13).
+// The weak WB CollectAllPlayerData name lead describes a larger body and
+// is not the original name of this final callee. The binding idiom is the matched AptScoreScreen
 // constructor's.
 
 #include <vector>
@@ -186,7 +189,7 @@ public:
 	void PlayerColor(int index, char *value, bool set);
 	void PlayerFaction(int index, char *value, bool set);
 	void GraphFocus(int index, const char *value, bool set);
-	void CollectAllPlayerData();
+	void rva0051FA13();
 private:
 	unsigned char m_pad27C[0x280 - 0x27C];
 	AptTimeLineStats *m_stats; // +0x280
@@ -251,5 +254,5 @@ void AptTimeLine::rva0051FCA2()
 			m_externHandlers.AddExternHandler(name, index, AptRef<AptExternHandler>(focusBinding));
 		}
 	}
-	CollectAllPlayerData();
+	rva0051FA13();
 }
