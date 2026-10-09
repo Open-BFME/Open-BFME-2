@@ -17030,3 +17030,5 @@ _D3DXLoadVolumeFromFileInMemory@36,0x0062AF8C,Native1318F0 in-image JMP IAT veri
 ?rva00113399@W3DTerrainBackground@@QAEXPAGPAXHHHH0AAH@Z,0x00113399,recursive rectangle index filler (ZH fillVBRecursive analogue; WorldBuilder W3DTerrainBackground.cpp) called 9x by 0x00113C07 with (ib;aux;x;y;w;h;ndx;curIndex)
 ?rva00530212@Pathfinder@@QAEXPAVObject@@HHH@Z,0x00530212,thiscall spelling of the placeholder-named 530212 (retail sets ecx = this before the call in Pathfinder newMap 2E8DAA; the stdcall pin cannot produce those bytes)
 ?rva00142170@BfmeSceneVector@@QAEXPAPAUGen_00943CF0_Node@@PAUSceneCollectCell@@IHHHHHHH@Z,0x00142170,native 142330 caller passes output list node array quarter-count rectangle and three subdivision coordinates; recursive target RET40 name unknown
+??0LivingWorldCampaign@@QAE@ABVAsciiString@@@Z,0x0052CF0F,callee of ?ParseLivingWorldCampaignBlock@LivingWorldCampaign@@SAXPAVINI@@@Z
+?rva0052C0C8@LivingWorldCampaign@@QAEXXZ,0x0052C0C8,callee of ?ParseLivingWorldCampaignBlock@LivingWorldCampaign@@SAXPAVINI@@@Z
