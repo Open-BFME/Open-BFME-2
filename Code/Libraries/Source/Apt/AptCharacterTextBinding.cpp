@@ -1,5 +1,6 @@
 // cl: /O2 /DNDEBUG /MD /EHsc
-// Retail 0x006EBFF0, 377 bytes, AptCharacter.cpp text-binding refresh worker.
+// Retail 0x006EBE60/386 and 0x006EBFF0/377: Apt text-binding workers.
+// 006EBE60 resolves or creates the bound value; 006EBFF0 refreshes text.
 // Identity: WorldBuilder 0x017812A0 source path/line 351, target assertion,
 // and native string/interpreter calls. Original method name is unknown.
 // Layout comes from retail accesses: definition +0C/defaultText +34,
@@ -31,6 +32,7 @@ public:
  AptValue *parent;
 };
 struct AptActionInterpreter {
+ bool setVariable(AptValue*,AptValue*,const EAStringC*,AptValue*,int,int,int);
  AptValue *getVariable(AptValue*,AptValue*,const EAStringC*,int,int,int);
 };
 extern AptActionInterpreter g_aptDateInterpreter;
@@ -38,10 +40,29 @@ struct BindingDefinition {char unknown00[0x34]; const char *defaultText;};
 class Rva006EBFF0 {
 public:
  void rva006EBFF0(AptValue*parent);
+ void rva006EBE60(AptValue*parent);
  char unknown00[0xC]; BindingDefinition *definition;
  char unknown10[8]; EAStringC text; EAStringC variable;
  char unknown20[0x6C-0x20]; unsigned int flags;
 };
+class AptString:public AptValue {
+public: static AptString *Create();
+ EAStringC &value(){return *(EAStringC*)((char*)this+8);}
+};
+void Rva006EBFF0::rva006EBE60(AptValue *parent)
+{
+ if(variable.IsEmpty())return;
+ if(variable.rva00620090()[0]=='$'){text=variable;return;}
+ while(parent && !(!parent->isUndefined() && (parent->getVtblIndex()==13||parent->getVtblIndex()==18)) && parent->parent){parent=parent->parent;}
+ AptValue *value=g_aptDateInterpreter.getVariable(parent,0,&variable,1,1,0);
+ if(value->isUndefined()){
+  AptString *created=AptString::Create();
+  if(definition->defaultText){EAStringC tmp(definition->defaultText);created->value()=tmp;}
+  else {EAStringC tmp("");created->value()=tmp;}
+  text=created->value();
+  g_aptDateInterpreter.setVariable(parent,0,&variable,created,1,1,0);
+ }else value->toString(text);
+}
 void Rva006EBFF0::rva006EBFF0(AptValue *parent)
 {
  if(variable.IsEmpty()||variable.rva00620090()[0]=='$')return;
