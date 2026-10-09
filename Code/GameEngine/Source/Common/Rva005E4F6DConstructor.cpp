@@ -2,17 +2,17 @@
 // Native destructor 5E5018..5E508F has two interfaces at 0 and 8,
 // shared virtual counted base at 14 and owned child at 10. The hidden
 // native teardown adjusts the virtual-base this bias and clears the child.
-struct RvaSmallVtableZeroBase { void *m_04; RvaSmallVtableZeroBase() : m_04(0) {} };
+struct RvaSmallVtableZeroBase { void *m_04; };
 class Rva0007DF07 : public RvaSmallVtableZeroBase
 {
 public:
-    Rva0007DF07() {}
+    Rva0007DF07() { m_04 = 0; }
     virtual ~Rva0007DF07() {}
 };
 class Rva005CC5E5 : public virtual Rva0007DF07
 {
 public:
-    Rva005CC5E5();
+    __declspec(nothrow) Rva005CC5E5();
     virtual void slot0();
     virtual ~Rva005CC5E5() {}
 };
@@ -49,6 +49,10 @@ public:
 private:
     Rva005E4B9D child;
 };
+// First interface ctor5CC5E5 is independently verified57B of only stores;
+// its nonthrowing declaration removes an otherwise redundant initial EH state.
+Rva005E4F6D::Rva005E4F6D(_Rva005E4AE2In *info, int count)
+    : child(new Rva005E4AE2(this, info, count)) {}
 Rva005E4F6D::~Rva005E4F6D() {}
 
 // The constructor 5E6ED6 calls the 12-byte polymorphic base at 0 and
@@ -78,3 +82,4 @@ private:
     Rva005E6D90 child20;
 };
 Rva005E6F9D::~Rva005E6F9D() {}
+

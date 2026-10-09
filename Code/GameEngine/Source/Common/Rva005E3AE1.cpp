@@ -1,32 +1,23 @@
-// cl: /MD
-// ?rva005E3AE1@Rva005E3AE1@@QAEPAV1@H@Z @0x005E3AE1 57B.
-// Conditional init of +4/+8/+0xC when arg nonzero then vptr at +0 plus virtual-base-style store via offset at [m_04+4].
-// Evidence: EAX holds this at ret so returns this not void plus caller 0x005E4FBA ignores return; externs s_slot3E4first g_00BC6F20 g_00C77C70 plus vbtable VA 0x00C74ED4.
-extern "C" char s_slot3E4first;
-extern const void *const g_00C74ED4[];
-extern const void *const g_00BC6F20[];
-extern const void *const g_00C77C70[];
-struct Rva005E3AE1Off {
-	char m_pad[4];
-	int m_off04;
-};
-class Rva005E3AE1 {
-public:
-	Rva005E3AE1 *rva005E3AE1(int x);
-	void *m_00;
-	Rva005E3AE1Off *m_04;
-	void *m_08;
-	int m_0C;
-};
-Rva005E3AE1 *Rva005E3AE1::rva005E3AE1(int x)
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// Native5E3AE1..5E3B1A57B constructs the second interface's primary vptr,
+// vbptr4 and shared virtual counted base8. Destructor5F4AA3..5F4AB922B
+// receives the fixed standalone virtual-base bias8 and restores the same pair.
+// Parent5E4F6D and teardown5E5018 independently establish this constructor
+// and destructor ABI. Replaces the former manually written vptr helper views.
+struct RvaSmallVtableZeroBase { void *m_04; };
+class Rva0007DF07 : public RvaSmallVtableZeroBase
 {
-	volatile int dummy = 0;
-	if (x != 0) {
-		m_04 = (Rva005E3AE1Off *)g_00C74ED4;
-		m_08 = (void *)g_00BC6F20;
-		m_0C = 0;
-	}
-	m_00 = (void *)&s_slot3E4first;
-	*(void **)((char *)this + m_04->m_off04 + 4) = (void *)g_00C77C70;
-	return this;
-}
+public:
+    Rva0007DF07() { m_04 = 0; }
+    virtual ~Rva0007DF07() {}
+};
+class Rva005E3AE1 : public virtual Rva0007DF07
+{
+public:
+    Rva005E3AE1();
+    virtual void slot0() = 0;
+    virtual ~Rva005E3AE1();
+};
+
+Rva005E3AE1::Rva005E3AE1() {}
+Rva005E3AE1::~Rva005E3AE1() {}
