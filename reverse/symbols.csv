@@ -11948,8 +11948,6 @@ name,address,notes
 ?rva004FB222@Rva002E0648M4C@@QAEXPAX0@Z,0x004FB222,pin for 0x2E0648/0x2E07CC thiscall void (void*,void*) on +0x4c
 ?rva004FBB25@Rva004FBB25Sub@@QAEXH@Z,0x004FBB25,thiscall with 1 int arg; head null-guards then 0x4FB382 probe; Ghidra FUN_008fbb25 198B
 ?rva004FD37F@Rva004FD37F@@QAEXPBVModuleData@@@Z,0x004FD37F,"holder append reached by Rva004FD719Parse at 0x004FD719; abuts rowed Rva004FD448 0x004FD448"
-?rva004FFB00@Rva0059CFAACallee@@QAEXPAXHH@Z,0x004FFB00,thiscall callee of 0x0059CEE4 mov ecx plus 3 pushes ret 0xc; callee uses ecx mov esi ecx; corrects stdcall spelling at same address
-?rva004FFB00@Rva0059CFAACallee@@QAGXPAXHH@Z,0x004FFB00,address-derived __stdcall callee of 0x0059CFAA (3 stack args, callee cleanup); target REL32 from retail call at 0x0059D019
 ?rva00500659@Rva0059CFAACallee@@QAGXPAXHH0@Z,0x00500659,address-derived __stdcall callee of 0x0059CFAA (4 stack args, callee cleanup); target REL32 from retail call at 0x0059CFF5
 ?rva005016C3@Rva005016C3@@QAEXXZ,0x005016C3,tail jmp target of 8B forwarder 0x0050174A (ret 0); original name unknown
 ?rva005045E0@Rva005045E0@@QAEXPAVXfer@@@Z,0x005045E0,address-derived callee of matched slot 0x003FD321; retail REL32 targets 0x005045E0; Ghidra FUN bounds 162 bytes; thiscall on the +0x0C member (Xfer*) ret 4; callee body remains unclaimed; no named identity inferred
@@ -12105,8 +12103,6 @@ name,address,notes
 ?rva0059A153@Rva0059A153@@QAEXPAVTeamPrototype@@@Z,0x0059A153,tail jmp target of 11B forwarder 0x004EC07D at +0x90; original name unknown
 ?rva0059AED2@Rva0059AED2@@QAEXXZ,0x0059AED2,thiscall void callee of 0x004F6187 read from its REL32 displacement; body unrowed
 ?rva0059B428@Rva0059B428@@QAEXHHH@Z,0x0059B428,address-derived callee of matched slot 0x0059B420; retail jmp rel32 targets 0x0059B428; Ghidra FUN bounds 118 bytes; thiscall on the +0x04 object 3 arg(s) ret 12; callee body remains unclaimed; no named identity inferred
-?rva0059CF34_fn@@YGXHHHH@Z,0x0059CF34,wrapper-call spelling for the 0x59D1A9 forwarder target; true signature unproven beyond 4-arg callee-cleanup (target ends ret 0x10); boundary from prologue at 0x59CF34
-?rva0059CFAA_fn@@YGXHHHH@Z,0x0059CFAA,wrapper-call spelling for the 0x59D1C3 forwarder target; true signature unproven (see banked partial attempt at this RVA); boundary proven by push-ebp prologue
 ?rva0059E0C1@@YAHH@Z,0x0059E0C1,cdecl 1-arg callee of 0x59E0F7 returning int-or-pointer (caller pops once and derefs +0xBC or tests null)
 ?rva0059E390@Rva0059E390@@QAEXPBVModuleData@@@Z,0x0059E390,"holder append reached by Rva0059E436Parse at 0x0059E436; abuts 0x0059E3A7"
 ?rva0059E3A7@Rva0059E3A7@@QAEXPBVModuleData@@@Z,0x0059E3A7,"holder append reached by Rva0059E511Parse at 0x0059E511; abuts 0x0059E390"
@@ -16457,7 +16453,6 @@ _D3DXVec3TransformCoordArray@24,0x0062AF6E,Native 0x00107A47 REL32 reaches six-b
 ?reset@ScoreKeeper@@QAEXH@Z,0x0039C5FD,Player init score +3BC call; WB FA1460 scoring masks/reset maps/player index; ZH ScoreKeeper.cpp91
 ?erase@?$vector@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@QAEPAPBVModuleData@@PAPBV3@0@Z,0x0031BD55,fold-proof=Code/GameEngine/Source/Common/Thing/ModuleFactory.cpp ICF twin of the rowed voidptr range erase; REL32 from DefendHomeTerritory 0x0059C010
 ?rva00500659@Rva0059CFAACallee@@QAE?AV?$vector@HV?$allocator@H@_STL@@@_STL@@HPAH0@Z,0x00500659,thiscall spelling read from the callee body (ECX save / hidden result or AL / EAX use / struct by value); callers 0x0059C010 and 0x00276BA9
-?rva004FFB00@Rva0059CFAACallee@@QAEPAURva004FFB00Hero@@HPAH0@Z,0x004FFB00,thiscall spelling read from the callee body (ECX save / hidden result or AL / EAX use / struct by value); callers 0x0059C010 and 0x00276BA9
 ?rva0026FFF7@Rva0026FFF7@@QAE_NXZ,0x0026FFF7,thiscall spelling read from the callee body (ECX save / hidden result or AL / EAX use / struct by value); callers 0x0059C010 and 0x00276BA9
 ?rva002747B8@Rva002747B8@@QAEXURGBColor@@@Z,0x002747B8,thiscall spelling read from the callee body (ECX save / hidden result or AL / EAX use / struct by value); callers 0x0059C010 and 0x00276BA9
 ?Rva0013682BCreateRenderObj@@YAPAVRenderObjClass@@PBDMABVRva0013101E@@AAV?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@22@Z,0x0013682B,callee of ?Rva00137364CreateRenderObj@@YAPAVRenderObjClass@@PBDMABVRva0013101E@@@Z
@@ -17031,3 +17026,4 @@ _D3DXLoadVolumeFromFileInMemory@36,0x0062AF8C,Native1318F0 in-image JMP IAT veri
 ?Rva00284AC6TryPosition@@YA_NPBUCoord3D@@MMPBUFindPositionOptions@@PAU1@@Z,0x00284AC6,Ghidra780B function 284AC6..284DD2 RET0; FindPositionAround 285202 direct REL32 calls pass center dist angle options result; WB aligned helper corroborates same five stack inputs; address-derived callee name
 ??0?$_Vector_base@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@QAE@ABV?$allocator@PBVModuleData@@@1@@Z,0x00211E58,ICF-folded empty vector base ctor (same 29B as rowed BfmeE16); vector<const ModuleData*> member of the per-turn stats record in collectEndOfTurnStats 4EEE38 fold-proof=Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva004EEE38CollectTurnStats.cpp
 ?isWithinAbilityAbortRange@SpecialAbilityUpdate@@IBE_NXZ,0x0044F4F7,callee of ?continuePreparation@SpecialAbilityUpdate@@UAE_NXZ
+_log,0x00629B0E,log double import thunk (gen-import row ji_00629b0e: msvcr71 slot 0x00BBA484 import log); called by the LivingWorldAIBuilder score helper 0x0059D089
