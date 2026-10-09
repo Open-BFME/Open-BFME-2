@@ -18,6 +18,7 @@ struct Mid005490D2 {
 	Leaf005490D2 *leaf;
 };
 struct Rva005490D2 {
+	
 	int count;
 	Mid005490D2 *array[6];
 	int rva005490AE() const;
@@ -53,15 +54,18 @@ int Rva005490D2::rva005490D2() const
 // Formation rows are 0x1C: count plus six unit pointers. Width clamp
 // 0x549237 and row stride in the formation builder independently prove this.
 // TheAI/data offsets are target facts; the original spacing names are unknown.
-struct FormationSpacingView {char pad[0xa0];float spacingA0,spacingA4;};
+struct FormationSpacingView {char pad[0xa0];float spacingA0,spacingA4;char padA8[0xc];int widthB4;};
 class AI {public:char pad[0x18];FormationSpacingView*data;};
 extern AI*TheAI;
 class Rva00549252 {public:void rva00549252();};
+class Rva0015A390Inner {public:int dword_0,dword_4,dword_8,dword_c,dword_10,dword_14;};
+class Rva0015A390Bucket {public:Rva0015A390Bucket();int dword_0;Rva0015A390Inner inner_4;};
 class FormationSquad {
 public:
+ FormationSquad();
  void rva00549425(Coord2D*out);
  int rows,width;
- Rva005490D2 row[10];
+ Rva0015A390Bucket rowStorage[10];
  int unitCount;
  Mid005490D2*units[36];
  int totalHeight;
@@ -77,7 +81,7 @@ void FormationSquad::rva00549425(Coord2D*out){
  FormationSpacingView*data=TheAI->data;
  float height=totalHeight*data->spacingA0;
  int widthTotal=0;
- for(int i=0;i<rows;++i)widthTotal+=row[0].rva005490AE();
+ for(int i=0;i<rows;++i)widthTotal+=reinterpret_cast<Rva005490D2*>(rowStorage)[0].rva005490AE();
  out->x=widthTotal*data->spacingA4;
  out->y=height;
 }
@@ -95,3 +99,13 @@ class Rva00549489 {public:int get()const;FormationDequeView view;};
 int Rva00549489::get()const{return view.size();}
 class Rva00549493 {public:int get()const;char pad[0x14];FormationDequeView view;};
 int Rva00549493::get()const{return view.size();}
+
+// Native5491E4..549237 83B; WB caller array stride1BC establishes
+// this as the FormationSquad constructor. Row default lifetimes initialize
+// ten count/six-pointer records before resetting the remaining unit list.
+// Existing neutral Bucket constructor clears precisely these seven words;
+// its 28B storage view preserves the provider declaration and original name
+// uncertainty. Width default is the target AI data field+B4 doubled.
+FormationSquad::FormationSquad():rows(0),width(TheAI->data->widthB4*2),unitCount(0),totalHeight(0),ready(false){
+ for(int i=0;i<36;++i)units[i]=0;
+}
