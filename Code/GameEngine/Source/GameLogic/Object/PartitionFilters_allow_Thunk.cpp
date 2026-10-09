@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc
 //
 // Bodies ported from Open-BFME-1's
 // GameEngine/Source/GameLogic/Object/PartitionFilters_allow_Thunk.cpp (donor
@@ -46,6 +46,8 @@ bool PointInsideArea2D(const Coord3D *pt, const Coord3D *area, int numPoints);
 class Object
 {
 public:
+ int rva0028D481() const;
+ int rva0028D4C4() const;
 	// Thing::getPosition() is inlined at both call sites as &m_cachedPos;
 	// retail reaches it with `add edx,0x38`.
 	const Coord3D *getPosition(void) const
@@ -118,3 +120,82 @@ bool PartitionFilterPlayer::allow(Object *other)
 // class by its allow address (Rva0026137EFilter, vftable 0x00BFAD28); their
 // slot-1 reference binds to this body.
 #pragma comment(linker, "/alternatename:?allow@Rva0026137EFilter@@UAE_NPAVObject@@@Z=?allow@PartitionFilterPlayer@@MAE_NPAVObject@@@Z")
+
+void iterRel001DCF20(Object *object, void *state);
+enum CanEnterType { ENTER_MODE_ZERO = 0 };
+class BFMEActionManager
+{
+public:
+    bool canEnterObject(const Object *owner, const Object *target,
+        CommandSourceType source, CanEnterType mode, bool options, bool *outFlag);
+};
+class ActionManager;
+extern ActionManager *TheActionManager;
+template<int N> class Rva002612C6PrefixSlots : public Rva002612C6PrefixSlots<N-1>
+{
+public:
+    virtual void unused(char (*)[N]) = 0;
+};
+template<> class Rva002612C6PrefixSlots<0> {};
+class Rva002612C6ReadySlot : public Rva002612C6PrefixSlots<4>
+{
+public:
+    virtual bool ready() = 0;
+};
+template<int N> class Rva002612C6MiddleSlots : public Rva002612C6MiddleSlots<N-1>
+{
+public:
+    virtual void middle(char (*)[N]) = 0;
+};
+template<> class Rva002612C6MiddleSlots<0> : public Rva002612C6ReadySlot {};
+class Rva002612C6ContainView : public Rva002612C6MiddleSlots<63>
+{
+public:
+    virtual void iterate(void (*callback)(Object *, void *), void *state, bool reverse) = 0;
+};
+struct Rva002612C6ObjectView
+{
+    char unknown00[0x250];
+    Rva002612C6ContainView *contain;
+};
+struct Rva002612C6State { Object *owner; unsigned char bad; };
+class Rva002612C6
+{
+public:
+    bool rva002612C6(Object *candidate);
+private:
+    char unknown00[8];
+    Object *owner;
+    bool skipRelationship;
+};
+// Recovery of the complete 141-byte retail body at RVA 0x002612C6.
+// Reference lead: Open-BFME-1 0bef414b52a39a3ab1ec98dca60d8a214de4260e,
+// game/GameEngine/Source/Common/Gen_001DCF50.cpp, nested can-enter flow.
+// Target evidence: d_002612c6.asm and WB 0x00E5CDB0 share the call graph;
+// native bytes establish owner +8, flag +0xC, contain +0x250 and virtual
+// slots +0x10/+0x110. The original target class/method name remains unknown.
+// Both Object readers return int with their low byte tested; the established
+// ActionManager provider takes a bool fifth argument. No donor ILT alias is used.
+bool Rva002612C6::rva002612C6(Object *candidate)
+{
+    if (static_cast<unsigned char>(candidate->rva0028D481())) {
+        if (static_cast<unsigned char>(candidate->rva0028D4C4())) {
+            Rva002612C6ContainView *contain =
+                reinterpret_cast<Rva002612C6ObjectView *>(candidate)->contain;
+            if (contain) {
+                if (contain->ready()) {
+                    if (reinterpret_cast<BFMEActionManager *>(TheActionManager)->canEnterObject(
+                            owner, candidate, CMD_FROM_AI, ENTER_MODE_ZERO, true, 0)) {
+                        if (skipRelationship) return true;
+                        Rva002612C6State state;
+                        state.bad = 0;
+                        state.owner = owner;
+                        contain->iterate(iterRel001DCF20, &state, true);
+                        return state.bad ? false : true;
+                    }
+                }
+            }
+        }
+    }
+    return false;
+}
