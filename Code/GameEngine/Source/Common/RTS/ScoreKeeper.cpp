@@ -105,37 +105,8 @@ static KindOfMaskType scoringBuildingMask;
 static KindOfMaskType scoringBuildingDestroyMask;
 static KindOfMaskType scoringBuildingCreateMask;
 
-// ?ScoreKeeper::reset present-unmatched
-void ScoreKeeper::reset( Int playerIdx )
-{
-	scoringBuildingMask.set(KINDOF_STRUCTURE);
-	scoringBuildingMask.set(KINDOF_SCORE);
+// Target reset is recovered in ScoreKeeperReset.cpp with the BFME2 layout.
 
-	scoringBuildingCreateMask.set(KINDOF_STRUCTURE);
-	scoringBuildingCreateMask.set(KINDOF_SCORE_CREATE);
-
-	scoringBuildingDestroyMask.set(KINDOF_STRUCTURE);
-	scoringBuildingDestroyMask.set(KINDOF_SCORE_DESTROY);
-
-	m_totalMoneyEarned = m_totalMoneySpent = 0;
-	m_totalUnitsLost = m_totalUnitsBuilt = 0;
-	m_totalBuildingsLost = m_totalBuildingsBuilt = 0;
-	//Added By Sadullah Nader
-	//Initializtion(s) inserted
-	m_totalFactionBuildingsCaptured = m_totalTechBuildingsCaptured = 0;	
-	//
-	m_currentScore = 0;
-	m_objectsBuilt.clear();
-	m_objectsCaptured.clear();
-	m_objectsLost.clear();
-	for(int i = 0; i < MAX_PLAYER_COUNT; ++i)
-	{
-		m_objectsDestroyed[i].clear();
-		m_totalBuildingsDestroyed[i] = m_totalUnitsDestroyed[i] = 0;
-	}
-	m_myPlayerIdx	= playerIdx;
-}
-	
 // ?ScoreKeeper::addObjectBuilt present-unmatched
 void ScoreKeeper::addObjectBuilt( const Object *o)
 {
