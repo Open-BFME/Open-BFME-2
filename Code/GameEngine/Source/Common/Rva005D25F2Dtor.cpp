@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /Ireference/shims/bfmealloc /O1 /DNDEBUG /MD /EHsc
-// ??1Rva005D25F2@@UAE@XZ @0x005D25F2 91B: nonvirtual dtor, derived vtable 0x00875800 then base 0x008078DC.
+// ??1Rva005D25F2@@QAE@XZ @0x005D25F2 91B: nonvirtual dtor, derived vtable 0x00875800 then base 0x008078DC.
 // Evidence: array ??_M at +0x1C count 6 stride 0x1C via rowed 0x005D258E, rowed 0x0052413E at +0xC,
 // rowed releaseBuffer 0x00036410 at +0x8, layout matches sibling Rva005D2664 header 0x1C + 6x0x1C,
 // precedents Rva005794EDDtor Rva00579AB7Dtor Rva005FFBCBDtor, callers 0x00578532 0x0057866D 0x00578690.
@@ -48,16 +48,18 @@ struct SlotRefOwner {
     SlotRefOwner() : ptr(0) {}
     ~SlotRefOwner() { if(ptr) ReleaseTreeHintRef00217D4C(ptr); }
 };
-struct Elem005D25F2 {
+// Reuse the independently published native25/100-byte slot providers.
+// The six-element iterator and seven-word native accesses prove this1C layout;
+// field meanings below remain structural inference.
+struct Rva005D2575 {
     SlotClipOwner frame00,subMenu04;
     SlotFlashOwner flash08;
     SlotRefOwner reference0C,help10;
     unsigned int lastTime14;
     int flashCount18;
-    Elem005D25F2();
-    ~Elem005D25F2();
+    Rva005D2575();
+    ~Rva005D2575();
 };
-Elem005D25F2::~Elem005D25F2() {}
 
 extern const void *const g_00C75800[];
 extern const void *const g_00C078DC[];
@@ -97,7 +99,7 @@ private:
 	AsciiString m_08;
 	Rva0052413E m_0C;
 	int m_18;
-	Elem005D25F2 m_1C[6];
+	Rva005D2575 m_1C[6];
 };
 
 Rva005D25F2::~Rva005D25F2()
@@ -169,7 +171,6 @@ Rva005D25F2::Rva005D25F2(int level,const AsciiString &name)
         AptRef<AptCommandMap>(MakeBinding(reinterpret_cast<FunctorMethod>(&Rva005D2664::rva005D2A27),reinterpret_cast<FunctorTarget *>(this))));
 }
 
-Elem005D25F2::Elem005D25F2():lastTime14(0),flashCount18(0) {}
 void Rva005D25F2::rva005D264D(int i,const TreeHintRef00217D4C &ref)
 {
     *reinterpret_cast<TreeHintRef00217D4C *>(&m_1C[i].reference0C)=ref;
@@ -180,7 +181,7 @@ void Rva005D25F2::rva005D269B()
 }
 void Rva005D25F2::rva005D2664(int i)
 {
-    Elem005D25F2 *e=&m_1C[i];
+    Rva005D2575 *e=&m_1C[i];
     reinterpret_cast<Rva002BED91 *>(&e->help10)->clear();
     reinterpret_cast<Rva002BED91 *>(&e->reference0C)->clear();
     if(!e->subMenu04.ptr) return;
@@ -188,7 +189,7 @@ void Rva005D25F2::rva005D2664(int i)
     reinterpret_cast<Rva005C3E79 *>(e->subMenu04.ptr)->rva005C3E79();
 }
 
-int Rva005D25F2::rva005D24E5(int i) { Elem005D25F2 *e=reinterpret_cast<Elem005D25F2 *>(reinterpret_cast<char *>(this)+(i+1)*0x1C); return e->help10.ptr || e->reference0C.ptr; }
+int Rva005D25F2::rva005D24E5(int i) { Rva005D2575 *e=reinterpret_cast<Rva005D2575 *>(reinterpret_cast<char *>(this)+(i+1)*0x1C); return e->help10.ptr || e->reference0C.ptr; }
 
 void __cdecl operator delete(void *);
 void *Rva005D25F2::rva00578532(unsigned int flags) { this->~Rva005D25F2(); if(flags&1)operator delete(this);return this; }
