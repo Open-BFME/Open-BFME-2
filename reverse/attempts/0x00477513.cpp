@@ -1,0 +1,162 @@
+// ?rva00477513@HordeTransportContain@@QAEXXZ
+// partial score=0.93 date=2026-10-09
+// BFME1 ba7ddda7 Rva0024CAE0MaintainNestedRiders.cpp supplies the nested
+// rider-maintenance algorithm. BFME2's update at477AF3 calls4779F9 first;
+// its ctor and interface wrappers establish the primary receiver, +11D
+// helper, and +20 removal-notification view. Native body4779F9..477AF3
+// establishes list-descriptor slot108, removal slotsA8/A4, and owned
+// Object::kill/GetDrawable calls. The original method name is unresolved.
+// Both lists use the shared four-byte opaque element whose insertion chain
+// is independently recovered. Declared virtual slots are ABI views only;
+// this unit creates no interface objects or invented vtable data.
+// cl: /O1 /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// stlport
+#include <list>
+extern "C" void *__cdecl memcpy(void *,const void *,unsigned int);
+#pragma intrinsic(memcpy)
+#include "../../../../../Include/GameLogic/ContainmentListView.h"
+typedef ContainmentList IntList;
+// Local comparison keeps this consumer from emitting a competing iterator.
+namespace _STL {
+template<class T, class Traits>
+static inline bool operator!=(const _List_iterator<T, Traits>&a,const _List_iterator<T, Traits>&b)
+{ return a._M_node != b._M_node; }
+template<> _List_base<Rva0036ADF9Element,allocator<Rva0036ADF9Element> >::~_List_base();}
+
+struct Rva0046247DPair {void *a; IntList *objects;};
+class Rva0046247D {public:void rva0046247D(Rva0046247DPair &);};
+class Rva0047A040Base9E0 {public:void *rva00588B8A(void *);};
+class Rva00270260 {public:bool rva00270260();};
+class Rva002716Holder {public:void rva00271601(unsigned char);};
+enum DamageType { DeathDamage=8 }; enum DeathType { NormalDeath=0 };
+class Drawable;
+// Only the accessed template prefix is established here: native477556
+// tests byte115 bit20, independently agreeing with WB's kind-of109 test.
+struct Rva00477513TemplateView {
+    unsigned char prefix00[0x115];
+    unsigned char flags115;
+};
+class Object {public:
+    Drawable *getDrawable() const;void kill(DamageType,DeathType);
+    void *vptr;
+    const Rva00477513TemplateView *templateView;
+};
+#define V(n) virtual void s##n()=0;
+class RiderContain {public:
+V(00) V(01) V(02) V(03) V(04) V(05) V(06) V(07) V(08) V(09)
+V(10) V(11) V(12) V(13) V(14) V(15) V(16) V(17) V(18) V(19)
+V(20) V(21) V(22) V(23) V(24) V(25) V(26) V(27) V(28) V(29)
+V(30) V(31) V(32) V(33) V(34) V(35) V(36) V(37) V(38) V(39) V(40) V(41)
+virtual void sA8(Object *)=0;
+V(43) V(44) V(45) V(46) V(47) V(48) V(49) V(50) V(51) V(52)
+V(53) V(54) V(55) V(56) V(57) V(58) V(59) V(60) V(61) V(62) V(63) V(64) V(65)
+virtual Rva0036AE51ListView s108()=0;
+};
+class RemovalNotice {public:
+V(00) V(01) V(02) V(03) V(04) V(05) V(06) V(07) V(08) V(09)
+V(10) V(11) V(12) V(13) V(14) V(15) V(16) V(17) V(18) V(19)
+V(20) V(21) V(22) V(23) V(24) V(25) V(26) V(27) V(28) V(29)
+V(30) V(31) V(32) V(33) V(34) V(35) V(36) V(37) V(38) V(39) V(40)
+virtual void sA4(Object *,int)=0;
+};
+#undef V
+class Thing;
+struct Rva0047727EObjectPositionView;
+class HordeTransportContain {
+public:
+    void rva004779F9();
+    __declspec(noinline) void rva0047727E(Thing *object);
+    void rva00477513();
+    void rva00463A4D(IntList objects, int context);
+private:
+    unsigned char prefix00[8];
+    Rva0047727EObjectPositionView *m_object;
+};
+void HordeTransportContain::rva004779F9()
+{
+    Rva0046247DPair outer;
+    ((Rva0046247D*)this)->rva0046247D(outer);
+    for (IntList::iterator i=outer.objects->begin();i!=outer.objects->end();++i) {
+        void *outerObject;
+        memcpy(&outerObject,&*i,4);
+        RiderContain *contain=(RiderContain*)((Rva0047A040Base9E0*)((char*)this+0x11D))->rva00588B8A(outerObject);
+        if (!contain) continue;
+        IntList nested=contain->s108().rva0036AE51();
+        for(IntList::iterator j=nested.begin();j!=nested.end();++j) {
+            Object *object;
+            memcpy(&object,&*j,4);
+            Drawable *drawable=object->getDrawable();
+            if(!drawable || ((Rva00270260*)drawable)->rva00270260()) {
+                contain->sA8(object);
+                ((RemovalNotice*)((char*)this+0x20))->sA4(object,0);
+                object->kill(DeathDamage,NormalDeath);
+                if(drawable) ((Rva002716Holder*)drawable)->rva00271601(1);
+            }
+        }
+    }
+}
+
+#include "../../../../../../Libraries/Include/Lib/Coord3D.h"
+class Thing { public: void setPosition(const Coord3D *position); };
+
+// Whole clean BF1 f98983a7 Object/Contain/HordeContainExitPosition.cpp
+// supplies the copy-and-extract pattern. Native47727E..4772B8 is complete
+// RET4, called at477572 by this subsystem's update. It reads receiver+8,
+// then the float words at pointee14/24/34, and calls genuine Thing::setPosition
+// at30AA80. WB11A00E0 independently carries the same transform-translation
+// extraction and named callee. Original helper name and complete object and
+// matrix layouts remain unknown; these views model only accessed prefixes.
+// The explicit copy preserves the independently observed out-of-line-call
+// preparation, including the temporary source-subobject address calculation.
+struct Rva0047727ETransformView {
+    unsigned char prefix00[12];
+    float x;
+    unsigned char gap10[12];
+    float y;
+    unsigned char gap20[12];
+    float z;
+    __forceinline Rva0047727ETransformView(const Rva0047727ETransformView &other)
+        : x(other.x), y(other.y), z(other.z) {}
+    __forceinline void getTranslation(Coord3D *position) const {
+        position->x=x;
+        position->y=y;
+        position->z=z;
+    }
+};
+struct Rva0047727EObjectPositionView {
+    unsigned char prefix00[8];
+    Rva0047727ETransformView transform;
+};
+void HordeTransportContain::rva0047727E(Thing *object) {
+    Coord3D position;
+    Rva0047727ETransformView transform(m_object->transform);
+    transform.getTranslation(&position);
+    object->setPosition(&position);
+}
+
+// Native477513..4775FD is a complete EH-protected body. WB119FE80 supplies
+// the list-flattening algorithm; native calls, offsets and element accesses
+// establish the target-specific adaptations. BF1 f98983a7's whole
+// Rva0024C940ProcessNestedRiders.cpp is a related subsystem lead, but its
+// callback/first-rider algorithm differs and is not imported as this body.
+// List elements remain the shared opaque four-byte containment view.
+void HordeTransportContain::rva00477513() {
+    IntList objects;
+    Rva0046247DPair outer;
+    ((Rva0046247D*)this)->rva0046247D(outer);
+    for (IntList::iterator i=outer.objects->begin();i!=outer.objects->end();++i) {
+        Rva0036ADF9Element element=*i;
+        Object *object;
+        memcpy(&object,&element,4);
+        if (object->templateView->flags115 & 0x20) {
+            RiderContain *contain=(RiderContain*)((Rva0047A040Base9E0*)((char*)this+0x11D))->rva00588B8A(object);
+            rva0047727E((Thing*)object);
+            Rva0036AE51ListView nested=contain->s108();
+            for (IntList::iterator j=nested.b->begin();j!=nested.b->end();++j)
+                objects.push_back(*j);
+        } else {
+            objects.push_back(element);
+        }
+    }
+    rva00463A4D(objects,(int)((char*)this+0x48));
+}
