@@ -346,3 +346,11 @@ public: char *get();
 private: char *value;
 };
 char *Rva00050D53Fields::get() { if (value != 0) return value + 8; return 0; }
+
+// BF1 f98983a7 System/Radar.cpp supplies only the source lead.
+// Native52D843..52D84C starts after the complete tail JMP at52D83E,
+// follows RET4 at52D838 and ends at its own RET before52D84C prologue.
+// It compares receiver word38 with zero and returns full EAX0/1.
+// The donor disguised-template name and pointer type are not target facts;
+// this existing raw-word predicate view asserts only the accessed field.
+BFME_DISP8_CMP_ZERO_BOOL_GETTER(Rva0052D843CmpBoolField, 0x38, !=)
