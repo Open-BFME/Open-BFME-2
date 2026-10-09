@@ -14,7 +14,8 @@
 // Body: nothing while WW3D::IsCurrentlyRenderingShadowMap. Unless the
 // particle system (+0x04; the rowed null system Make001FCBD7 otherwise) is of
 // type 7 or 8 (rowed Rva0004CABDSevenEight::get) its storage's (+0xA4) slot 8
-// list (+0x64 links) is walked: live particles (pinned 0x001F4E2D) whose
+// list (+0x64 links) is walked: live particles (rowed CPUParticle member
+// 0x001F4E2D) whose
 // position (+0x1C) lies within the box grown by their size (0x001F4D2D;
 // WWMath::Fabs bit mask) are appended (at most 512) to the four
 // FXParticleSystem::CategoryModule<CAT_DRAW> share buffers (position colour
@@ -141,7 +142,7 @@ class WW3D
 	static bool IsCurrentlyRenderingShadowMap;
 };
 
-class Rva001F4E2D { public: bool rva001F4E2D(); };
+namespace FXParticleSystem { class CPUParticle { public: bool rva001F4E2D(); }; }
 class Rva001F4D2D { public: float rva001F4D2D(); };
 class Rva001F4E1BSlot { public: const RGBColor *get() const; };
 class Rva001F4DF9 { public: float rva001F4DF9(); };
@@ -236,7 +237,7 @@ Int StreakDrawModule::doParticles(RenderInfoClass &rinfo, void *bounds, Int *par
 	{
 		for (; p != 0; p = p->m_next)
 		{
-			if (((Rva001F4E2D *)p)->rva001F4E2D())
+			if (((CPUParticle *)p)->rva001F4E2D())
 				continue;
 			const Vector3 *pos = &p->m_pos;
 			float size = ((Rva001F4D2D *)p)->rva001F4D2D();
