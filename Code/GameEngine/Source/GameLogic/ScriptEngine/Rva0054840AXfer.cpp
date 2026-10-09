@@ -11,6 +11,39 @@
 #define _STLP_NO_EXCEPTIONS 1
 #include <list>
 #include <algorithm>
+// Preserve bfmealloc's native null-checked free and proxy forwarding inline.
+// These wrappers are already inlined in the byte-verified queue bodies.
+namespace _STL {
+template<> __declspec(dllimport) __forceinline
+void allocator<_List_node<int> >::deallocate(pointer p, size_type n) const
+{ if (p != 0) ::free((void*)p); }
+template<> __declspec(dllimport) __forceinline
+void _STLP_alloc_proxy<_List_node<int>*, _List_node<int>, allocator<_List_node<int> > >::deallocate(_List_node<int>* p, size_t n)
+{ __stl_alloc_rebind(static_cast<_Base&>(*this), (_List_node<int>*)0).deallocate(p, n); }
+}
+
+// Keep STLport's single-node erasure inline as well; range erasure uses it.
+namespace _STL {
+template<> __declspec(dllimport) __forceinline
+list<int>::iterator list<int>::erase(iterator position)
+{
+    _List_node_base* next = position._M_node->_M_next;
+    _List_node_base* previous = position._M_node->_M_prev;
+    _Node* node = (_Node*)position._M_node;
+    previous->_M_next = next;
+    next->_M_prev = previous;
+    _Destroy(&node->_M_data);
+    this->_M_node.deallocate(node, 1);
+    return iterator((_Node*)next);
+}
+}
+
+// Native range erasure and front removal have separately verified owners.
+namespace _STL {
+template<> list<int>::iterator list<int>::erase(iterator first, iterator last);
+template<> void list<int>::pop_front();
+}
+
 // The existing speed scope also keeps the placement construction helper
 // identical to STLport's verified provider at 0x00620140.
 #pragma optimize("s", off)
