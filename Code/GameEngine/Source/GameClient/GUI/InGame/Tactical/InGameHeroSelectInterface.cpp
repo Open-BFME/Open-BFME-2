@@ -289,7 +289,7 @@ class MessageStream {public:
 #undef MSLOT
  virtual GameMessage *createMessage(int);
 };
-extern MessageStream *MessageStreamSubsystem;
+extern MessageStream *TheMessageStream;
 // WB13C13F0 names SelectAllHeroes; complete native525E55..526008 is435B.
 // Native establishes16 slots of24B at+48, Object id+74/flags438,
 // Drawable container+FC/selection43C, container owner274 and template bit115/20.
@@ -323,7 +323,7 @@ void InGameHeroSelectInterface::Impl::SelectAllHeroes()
    }
   }
   if(clear)reinterpret_cast<BuilderUISelectionView *>(TheInGameUI)->clearSelection();
-  GameMessage *message=MessageStreamSubsystem->createMessage(i==last?0x3E9:0x3EA);
+  GameMessage *message=TheMessageStream->createMessage(i==last?0x3E9:0x3EA);
   message->appendBooleanArgument(clear);
   message->appendObjectIDArgument(hero->id);
   reinterpret_cast<BuilderUISelectionView *>(TheInGameUI)->selectDrawable(draw);
