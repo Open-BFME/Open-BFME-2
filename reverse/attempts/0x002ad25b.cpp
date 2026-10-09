@@ -1,4 +1,6 @@
 // ?rva002AD25B@Player@@QAEXABVAsciiString@@@Z
+// partial score=0.8414959012337859 date=2026-10-09
+// ?rva002AD25B@Player@@QAEXABVAsciiString@@@Z
 // partial score=0.75642 date=2026-10-09
 // cl: /I. /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /O1 /G7 /arch:SSE /EHs /MD /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_CRTIMP=
 // stlport
@@ -62,8 +64,8 @@ extern SidesList *TheSidesList;
 class Rva0019C520Owner {public:int forward(AsciiString name,int extra);};
 struct Rva000B3F84Pair {const char *text;int len;};
 struct AsciiStringRef {const AsciiString *string;};
-struct AsciiStringPlusText : AsciiStringRef {Rva000B3F84Pair right;};
-struct Rva002226E5TextPlusString {Rva000B3F84Pair left;AsciiStringRef right;operator AsciiString();};
+struct AsciiStringPlusText : AsciiStringRef {AsciiStringPlusText(){}Rva000B3F84Pair right;};
+struct Rva002226E5TextPlusString {Rva002226E5TextPlusString(){}Rva000B3F84Pair left;AsciiStringRef right;operator AsciiString();};
 struct AptTextPlusStringPlusString : Rva002226E5TextPlusString {AsciiStringRef third;};
 struct Rva0020F58E {AsciiStringPlusText first;AsciiStringRef second;operator AsciiString();};
 Rva002226E5TextPlusString operator+(const char *left,const AsciiString &right);
@@ -71,7 +73,6 @@ AsciiStringPlusText operator+(const AsciiString &left,const char *right);
 AptTextPlusStringPlusString operator+(const Rva002226E5TextPlusString &left,const AsciiString &right);
 bool Rva002ACFC1Equal(int a,int b);
 static __forceinline bool equalTeamNode(const AsciiString &a,const Rva002226E5TextPlusString &b) {return Rva002ACFC1Equal((int)&a,(int)&b);}
-static __forceinline AsciiString tripleName(const AptTextPlusStringPlusString &node) {return ((Rva0020F58E*)&node)->operator AsciiString();}
 class Player {
 public:
  bool rva002AC43F(int *index);
@@ -102,7 +103,7 @@ void Player::rva002AD25B(const AsciiString &playerName)
     teamDict.setAsciiString(TheKey_teamName.key(),"team"+playerName);
    teamDict.setAsciiString(TheKey_teamOwner.key(),playerName);
    int existingTeam;
-   if (((Rva0019C520Owner*)TheSidesList)->forward(tripleName(*(const Rva002226E5TextPlusString*)&(playerName+"/")+teamName),(int)&existingTeam))
+   if (((Rva0019C520Owner*)TheSidesList)->forward(((Rva0020F58E*)&(*(const Rva002226E5TextPlusString*)&(playerName+"/")+teamName))->operator AsciiString(),(int)&existingTeam))
     TheSidesList->getTeams()->bfmeRelease(existingTeam);
    TheSidesList->getTeams()->addTeam(&teamDict);
   }
