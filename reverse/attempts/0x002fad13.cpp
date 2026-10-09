@@ -1281,7 +1281,7 @@ Path *Pathfinder::FindAttackPath(Object *obj,const LocomotorSet &locos,const Coo
             ICoord2D index;Rva002E7875WorldToCell(&index,true,&test);
             if(human && (index.x<m_extentLowX || index.y<m_extentLowY || index.x>m_extentHighX || index.y>m_extentHighY))break;
             PathfindCell *cell=getCell((PathfindLayerEnum)obj->rva0028B511(),index.x,index.y);
-            if(!cell || !((Rva002E6DC4 *)this)->rva002E6DC4(cell,&movement))break;
+            if(!cell || !((Rva002E6DC4 *)this)->rva002E6DC4(&movement,cell))break;
             if(!bfmeWrapE6E90(obj,(void *)index.x,(void *)index.y,(void *)obj->rva0028B511(),(void *)radius,*(void **)&center))break;
             if(weapon->isWithinAttackRange(obj,&test,victim,victimPos,10.0f,true) &&
                !IsAttackViewBlockedByObstacle(obj,&test,victim,victimPos)){
