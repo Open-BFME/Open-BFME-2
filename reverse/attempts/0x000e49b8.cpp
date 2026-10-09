@@ -1,6 +1,8 @@
+// ?rva000E49B8@Rva000E48BC@@QAEHH@Z
+// partial score=0.95 date=2026-10-09
 // ?rva000E49B8@Rva000E48BC@@QAE_NH@Z
 // partial score=0.95 date=2026-10-06
-// cl: /O1 /MD /arch:SSE
+// cl: /O1 /G7 /MD /arch:SSE /DNDEBUG /ICode/Libraries/Include/Lib
 //
 // ?rva000E48BC@Rva000E48BC@@QAE_NPAVRva000E488F@@@Z, retail 0x000E48BC, 252 bytes.
 // Updates world pos at +0 from offset at +0x10 via Drawable at +0x2C matrix
@@ -40,7 +42,6 @@ public:
 	WWINLINE const float &operator[](int i) const { return (&X)[i]; }
 };
 
-#pragma optimize("ty", on)
 class Matrix3D
 {
 public:
@@ -62,7 +63,6 @@ public:
 		out->Z = (A[2][0] * v->X + A[2][1] * v->Y + A[2][2] * v->Z + A[2][3]);
 	}
 };
-#pragma optimize("", on)
 
 class Drawable
 {
@@ -80,7 +80,7 @@ class Rva000E48BC
 {
 public:
 	bool rva000E48BC(Rva000E488F *container);
-	bool rva000E49B8(int player);
+	int rva000E49B8(int player);
 	Vector3 m_pos;
 	float m_extent;
 	Vector3 m_offset;
@@ -90,45 +90,27 @@ public:
 	bool m_flag;
 };
 
-bool Rva000E48BC::rva000E48BC(Rva000E488F *container)
-{
-	bool old = m_flag;
-	if (m_drawable) {
-		Vector3 *out = &m_pos;
-		const Vector3 *in = &m_offset;
-		const Matrix3D *mtx = m_drawable->getTransformMatrix();
-		Matrix3D::Transform_Vector(*mtx, *in, out);
-	}
-	bool cur = !container->rva000E488F(this);
-	m_flag = cur;
-	return old != cur;
-}
-
 enum CellShroudStatus
 {
 	CellShroudStatusShrouded = 0,
 	CellShroudStatusClear = 1
 };
-struct Coord3D
-{
-	float X;
-	float Y;
-	float Z;
-};
+#include "Coord3D.h"
 class PartitionManager
 {
 public:
 	CellShroudStatus getShroudStatusForPlayer(int player, const Coord3D *pos) const;
 };
-extern PartitionManager *TheShroudManager;
+class ShroudManager;
+extern ShroudManager *TheShroudManager;
 
-bool Rva000E48BC::rva000E49B8(int player)
+int Rva000E48BC::rva000E49B8(int player)
 {
+	const int visible = 1;
 	Drawable *d = m_drawable;
-	if (d && ((*(int *)((char *)d + 0x264) >> 12) & 1))
-		return true;
-	if (!TheShroudManager)
-		return false;
+	if (d && ((*(const volatile unsigned int *)((char *)d + 0x264) >> 12) & visible))
+		return visible;
+	if (TheShroudManager) {
 	if (d) {
 		Vector3 *out = &m_pos;
 		const Vector3 *in = &m_offset;
@@ -136,31 +118,32 @@ bool Rva000E48BC::rva000E49B8(int player)
 		Matrix3D::Transform_Vector(*mtx, *in, out);
 	}
 	Coord3D c;
-	c.X = m_pos.X;
-	c.Y = m_pos.Y;
-	c.Z = m_pos.Z;
-	if (!TheShroudManager->getShroudStatusForPlayer(player, &c))
-		return true;
-	c.X = m_pos.X + m_extent;
-	c.Y = m_pos.Y;
-	c.Z = m_pos.Z;
-	if (!TheShroudManager->getShroudStatusForPlayer(player, &c))
-		return true;
-	c.X = m_pos.X - m_extent;
-	c.Y = m_pos.Y;
-	c.Z = m_pos.Z;
-	if (!TheShroudManager->getShroudStatusForPlayer(player, &c))
-		return true;
-	c.X = m_pos.X;
-	c.Y = m_pos.Y;
-	c.Y += m_extent;
-	c.Z = m_pos.Z;
-	if (!TheShroudManager->getShroudStatusForPlayer(player, &c))
-		return true;
-	c.X = m_pos.X;
-	c.Y = m_pos.Y - m_extent;
-	c.Z = m_pos.Z;
-	if (!TheShroudManager->getShroudStatusForPlayer(player, &c))
-		return true;
-	return false;
+	c.x = m_pos.X;
+	c.y = m_pos.Y;
+	c.z = m_pos.Z;
+	if (!reinterpret_cast<PartitionManager*>(TheShroudManager)->getShroudStatusForPlayer(player, &c))
+		return visible;
+	c.x = m_pos.X + m_extent;
+	c.y = m_pos.Y;
+	c.z = m_pos.Z;
+	if (!reinterpret_cast<PartitionManager*>(TheShroudManager)->getShroudStatusForPlayer(player, &c))
+		return visible;
+	c.x = m_pos.X - m_extent;
+	c.y = m_pos.Y;
+	c.z = m_pos.Z;
+	if (!reinterpret_cast<PartitionManager*>(TheShroudManager)->getShroudStatusForPlayer(player, &c))
+		return visible;
+	c.x = m_pos.X;
+	c.y = m_pos.Y;
+	c.y += m_extent;
+	c.z = m_pos.Z;
+	if (!reinterpret_cast<PartitionManager*>(TheShroudManager)->getShroudStatusForPlayer(player, &c))
+		return visible;
+	c.x = m_pos.X;
+	c.y = m_pos.Y - m_extent;
+	c.z = m_pos.Z;
+	if (!reinterpret_cast<PartitionManager*>(TheShroudManager)->getShroudStatusForPlayer(player, &c))
+		return visible;
+ }
+	return 0;
 }
