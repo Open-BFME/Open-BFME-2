@@ -39,3 +39,26 @@ bool Rva0070B5D0Check()
 	} while ((int)p < (int)&g_00E18650);
 	return true;
 }
+
+// Native B590..B5C6 drains linked nodes at E18370; next+C, virtual slot11
+// first, then scalar deleting destructor slot14, and advances saved next.
+// WB17727C0 corroborates the deletion loop (its node next differs at10).
+class Rva0070B590Node {public:
+ virtual void slot0();virtual void slot1();virtual void slot2();
+ virtual void slot3();virtual void slot4();virtual void slot5();
+ virtual void slot6();virtual void slot7();virtual void slot8();
+ virtual void slot9();virtual void slot10();virtual void slot11();
+ virtual void slot12();virtual void slot13();virtual ~Rva0070B590Node();
+ unsigned flags;void *string;Rva0070B590Node *next;
+};
+// Reuse the owned pooled AptString free-list provider at E18370.
+class Rva006D6D20;
+extern Rva006D6D20 *g_AptStringFreeList;
+void Rva0070B590Drain() {
+ while(g_AptStringFreeList) {
+  Rva0070B590Node *next=((Rva0070B590Node *)g_AptStringFreeList)->next;
+  ((Rva0070B590Node *)g_AptStringFreeList)->slot11();
+  delete (Rva0070B590Node *)g_AptStringFreeList;
+  g_AptStringFreeList=(Rva006D6D20 *)next;
+ }
+}
