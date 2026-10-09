@@ -1,0 +1,50 @@
+{
+  "id": "A-campaign-tutorial-index-86-fbe1437085",
+  "seat": "A",
+  "kind": "exact-recovery-with-lifecycle-rehome",
+  "base_commit": "fbe1437085b359ed046df49af016d736ef1aca24",
+  "paths": [
+    "Code/GameEngine/Source/Common/GlobalFlagClearers_E02Dxx.cpp",
+    "Code/GameEngine/Source/Common/Rva007B6A00AtexitThunks.cpp",
+    "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManagerTutorial.cpp",
+    "reverse/data_ledger.csv"
+  ],
+  "recoveries": [
+    {
+      "name": "?rva003B8F20@LivingWorldCampaignManager@@QAEHXZ",
+      "rva": "0x003B8F20",
+      "size": 86,
+      "source": "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManagerTutorial.cpp",
+      "notes": "Native86B tutorial campaign lookup; WB1032200 and WOTRTutorial literal; local static with existing13B guard cleanup78279D and10B atexit7B80B5; name lookup3B8E2B proven nonthrowing; original method name unknown",
+      "replace_rva": "",
+      "new_retail_bytes": 86
+    },
+    {
+      "name": "?Rva0078279DClearFlag@@YAIXZ",
+      "rva": "0x0078279D",
+      "size": 13,
+      "source": "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManagerTutorial.cpp",
+      "notes": "gen-funclet;object-symbol=$L1165;parent=?rva003B8F20@LivingWorldCampaignManager@@QAEHXZ;retail parent EH graph places the static guard cleanup at78279D; old address-derived clearer rehomed without new coverage",
+      "replace_rva": "0x0078279D",
+      "new_retail_bytes": 0
+    },
+    {
+      "name": "?rva007B80B5@@YAXXZ",
+      "rva": "0x007B80B5",
+      "size": 10,
+      "source": "Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManagerTutorial.cpp",
+      "notes": "object-symbol=_$E2;actual compiler-local atexit callback for tutorial static E02D70 registered at3B8F55; complete10B dtor48BA39; rehome old neutral cleanup without new coverage",
+      "replace_rva": "0x007B80B5",
+      "new_retail_bytes": 0
+    }
+  ],
+  "proof_command": "py -3 tools/build.py Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManagerTutorial.cpp Code/GameEngine/Source/Common/GlobalFlagClearers_E02Dxx.cpp Code/GameEngine/Source/Common/Rva007B6A00AtexitThunks.cpp",
+  "proof_log": "campaign-tutorial-scoped-proof.log",
+  "claim_owner": "codex-549c-root",
+  "dependencies": [],
+  "new_retail_bytes": 86,
+  "ready_new_recoveries": 1,
+  "ledger_repairs": "ledger_repairs.csv",
+  "data_delta": "data_delta.patch",
+  "integration_note": "Apply source.patch and two-row data_delta.patch; rows.csv admits only new86B parent. Rehome two existing rows using ledger_repairs.csv before source verification, retaining their neutral names and compiler-local object-symbol plumbing. $L1165 parent proved from EXACT native EH graph; _$E2 is local atexit callback. Existing ledger names remain; no new alias/pin or real-name claim. Do not count rehomed23B as new coverage. Final hooks/integration/publication belong to coordinator."
+}

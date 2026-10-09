@@ -19549,8 +19549,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A02D64,4,.data,global,?g_Va00E02D64@@3IA,,unowned,,0,3
 0x00A02D68,4,.data,global,?g_Va00E02D68@@3IA,,unowned,,0,3
 0x00A02D6C,4,.data,global,?TheCampaignManager@@3PAVRva00E02D6C@@A,Code/GameEngine/Source/Common/Rva002B47B1Get.cpp,provisional,?TheCampaignManager@@3PAVLivingWorldCampaignManager@@A;?TheCampaignManager@@3PAVRva00E02D6C@@A;?g_00E02D6C@@3PAURva002B479FGlobal@@A;?g_00E02D6C@@3PAURva00E02D6CDefeatView@@A;?g_00E02D6C@@3PAVRva003B8BAA@@A;?g_00E02D6C@@3PAXA,1,46
-0x00A02D70,4,.data,global,?g_Va00E02D70@@3IA,,unowned,,0,1
-0x00A02D74,4,.data,global,?g_Va00E02D74@@3IA,Code/GameEngine/Source/Common/GlobalFlagClearers_E02Dxx.cpp,owned,,1,2
+0x00A02D70,4,.data,global,?tutorial@?1??rva003B8F20@LivingWorldCampaignManager@@QAEHXZ@4VAsciiString@@A,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManagerTutorial.cpp,owned,,1,2
+0x00A02D74,4,.data,global,?$S1@?1??rva003B8F20@LivingWorldCampaignManager@@QAEHXZ@4IA,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignManagerTutorial.cpp,owned,,1,4
 0x00A02D78,1,.data,global,?BFME2ScriptDebugLiteMode@@3_NA,Code/GameEngine/Source/Common/CommandLineScriptDebug.cpp,provisional,?BFME2ScriptDebugLiteMode@@3_NA;?g_00E02D78@@3EA,1,4
 0x00A02D79,1,.data,global,?BFME2WatchdogEnabled@@3_NA,Code/GameEngine/Source/Common/CommandLineWatchdog.cpp,owned,,1,3
 0x00A02D7A,2,.data,global,?BFME2UseDebugWindowLite@@3_NA,Code/GameEngine/Source/Common/CommandLineScriptDebug.cpp,owned,,1,3

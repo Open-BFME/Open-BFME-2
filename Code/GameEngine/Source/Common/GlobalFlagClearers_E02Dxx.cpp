@@ -9,9 +9,6 @@
 // following GlobalFlagClearers_DFEExx.cpp.
 // cl: /G7 /MD /EHsc /DNDEBUG
 
-extern unsigned int g_Va00E02D74;
-// g_Va00E02D74: matched references place it at VA 0xe02d74 (zero-filled .bss).
-unsigned int g_Va00E02D74;
 extern unsigned int g_Va00E02DA4;
 // g_Va00E02DA4: matched references place it at VA 0xe02da4 (zero-filled .bss).
 unsigned int g_Va00E02DA4;
@@ -49,10 +46,6 @@ extern unsigned int g_Va00E02DFC;
 // g_Va00E02DFC: matched references place it at VA 0xe02dfc (zero-filled .bss).
 unsigned int g_Va00E02DFC;
 
-unsigned int Rva0078279DClearFlag(void)
-{
-	return g_Va00E02D74 &= 0xFFFFFFFEu;
-}
 
 unsigned int Rva007828B2ClearFlag(void)
 {
