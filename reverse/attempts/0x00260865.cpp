@@ -1,5 +1,5 @@
 // ??0Rva00260865@@QAE@PAVGameFont@@MMHHHH@Z
-// partial score=0.93 date=2026-10-03
+// partial score=0.9659198557 date=2026-10-09
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /arch:SSE /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
 // stlport
 // ??0Rva00260865@@QAE@PAVGameFont@@MMHHHH@Z @0x00260865 471B ctor with DisplayString arrays and layout floats via TheDisplayStringManager slot 0x38 and global vector push. Evidence: callers 0x00047F79 0x00051353 new 0x6c then forward font and floats, dtor 0x00260A3C frees array and manager slots, Rva0029B816Ctor pattern for newDisplayString plus temp UnicodeString.
@@ -9,13 +9,7 @@
 class GameFont;
 class ModuleData;
 
-struct BfmeE16
-{
-	float x;
-	float y;
-	float z;
-	float w;
-};
+struct BfmeStringRecord005DDD40 { UnicodeString text; unsigned word; };
 
 class DisplayString
 {
@@ -60,9 +54,10 @@ public:
 };
 
 extern DisplayStringManager *TheDisplayStringManager;
-extern const unsigned short g_00BC26DC[];
-extern float g_00BF6450;
-extern _STL::vector<const ModuleData *> g_00DFEA44;
+
+
+class BfmeItemKA;
+extern BfmeItemKA **g_bfmeBegKA;
 
 class Rva00260865
 {
@@ -71,7 +66,7 @@ public:
 private:
 	DisplayString *m_00;
 	GameFont *m_04;
-	_STL::vector<BfmeE16, _STL::allocator<BfmeE16> > m_vec;
+	_STL::vector<BfmeStringRecord005DDD40, _STL::allocator<BfmeStringRecord005DDD40> > m_vec;
 	int m_14;
 	int m_18;
 	int m_1c;
@@ -96,7 +91,7 @@ private:
 	float m_68;
 };
 
-// ??0Rva00260865@@QAE@PAVGameFont@@MMHHHH@Z present-unmatched
+
 Rva00260865::Rva00260865(GameFont *font, float f2, float f3, int i4, int count, int i6, int i7)
 	: m_00(0)
 	, m_04(font)
@@ -131,38 +126,22 @@ Rva00260865::Rva00260865(GameFont *font, float f2, float f3, int i4, int count, 
 		m_34[i]->setFont(m_04);
 	}
 	{
-		m_34[0]->setText(UnicodeString(g_00BC26DC));
+		m_34[0]->setText(UnicodeString((const unsigned short*)L" "));
 		int w;
 		int h;
 		m_34[0]->getSize(&w, &h);
-		int total1 = (m_24 - 1) * h;
-		float fh = (float)h;
-		int total2 = (m_24 - 2) * h;
-		m_48 = fh * g_00BF6450;
-		float f_total1 = (float)total1;
-		float f1 = f3 - f_total1;
-		float f_m20 = (float)m_20;
-		float f2b = f_m20 + f2;
-		m_58 = f3;
-		m_54 = f2b;
-		int half = h >> 1;
-		float f_half = (float)half;
-		float f3b = f_half;
-		float f4 = f_m20 - fh;
-		f3b += f2;
-		f4 += f3b;
-		m_64 = f4;
-		float f_total2 = (float)total2;
-		f_half += f1;
-		m_30 = h;
-		float f5 = f_total2 + f_half;
-		m_4c = f2;
-		m_50 = f1;
-		m_5c = f3b;
-		m_60 = f_half;
-		m_68 = f5;
+		m_30=h;
+        m_48=(float)h*(1.0f/15.0f);
+        m_4c=f2;
+        m_50=f3-(float)((m_24-1)*h);
+        m_54=(float)m_20+f2;
+        m_58=f3;
+        m_5c=(float)(h>>1)+f2;
+        m_60=(float)(h>>1)+m_50;
+        m_64=(float)m_20-(float)h+m_5c;
+        m_68=(float)((m_24-2)*h)+m_60;
 	}
-	g_00DFEA44.push_back((const ModuleData *)this);
+	((_STL::vector<const ModuleData *>*)&g_bfmeBegKA)->push_back((const ModuleData *)this);
 	DisplayString *cur = TheDisplayStringManager->newDisplayString();
 	m_00 = cur;
 	cur->setFont(font);

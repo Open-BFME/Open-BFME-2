@@ -1,6 +1,6 @@
-// ?d_00047f79@@YAXXZ
-// partial score=0.9 date=2026-10-07
-// cl: /O1 /arch:SSE /G7 /MD
+// ?rva00047F79@Rva006EE520@@QAE_NPAVSubTitleManager@@MMHHHH@Z
+// partial score=1.0 date=2026-10-09
+// cl: /O1 /arch:SSE /G7 /MD /EHsc
 // Native 0x00047F79..0x0004802C / 179B, subtitle-start sibling of the
 // independently matched update at 0x0004802C (same +0x184/+0x188 fields).
 // The manager supplies an AsciiString font name at +0xC and signed font
@@ -21,20 +21,21 @@ extern FontLibrary *TheFontLibrary;
 
 class SubTitleManager {
 public:
-    void rva00046A27();
+    __declspec(nothrow) void rva00046A27();
     char m_pad[0xC];
     unsigned int m_fontName;
     int m_fontSize;
 };
 
-class Rva00260A3C {
+class SubTitleWindow {
 public:
-    Rva00260A3C(GameFont *font, float a, float b, int c, int d, int e, int f);
-    ~Rva00260A3C();
+    
+    ~SubTitleWindow();
 private:
     char m_body[0x6C];
 };
 
+class Rva00260865{public:Rva00260865(GameFont*,float,float,int,int,int,int);char data[0x6c];};
 class Rva006EE520 {
 public:
     bool rva00047F79(SubTitleManager *manager, float a, float b,
@@ -42,22 +43,23 @@ public:
 private:
     char m_pad[0x184];
     SubTitleManager *m_manager;
-    Rva00260A3C *m_sink;
+    SubTitleWindow *m_sink;
 };
 
 bool Rva006EE520::rva00047F79(SubTitleManager *manager, float a, float b,
     int c, int d, int e, int f)
 {
-    Rva00260A3C *old = m_sink;
+    SubTitleWindow *old = m_sink;
     if (old) {
-        old->Rva00260A3C::~Rva00260A3C();
+        old->SubTitleWindow::~SubTitleWindow();
         ::operator delete(old);
         m_sink = 0;
     }
     m_manager = manager;
+    int fontSize=*(volatile int*)&manager->m_fontSize;
     GameFont *font = TheFontLibrary->getFont(
-        (const AsciiString *)&manager->m_fontName, (float)manager->m_fontSize, false);
-    m_sink = new Rva00260A3C(font, a, b, c, d, e, f);
+        (const AsciiString *)&manager->m_fontName, (float)fontSize, false);
+    m_sink = (SubTitleWindow*)new Rva00260865(font, a, b, c, d, e, f);
     m_manager->rva00046A27();
     return true;
 }
