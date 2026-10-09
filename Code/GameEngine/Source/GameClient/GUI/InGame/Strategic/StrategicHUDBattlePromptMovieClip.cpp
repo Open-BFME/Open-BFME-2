@@ -28,6 +28,11 @@ class Rva005CB260 {public: void rva005CB260();};
 class Rva005CC208 {public: virtual void rva005CC208();};
 class Rva005CB260Properties {public: void rva005CB260(int,unsigned int,unsigned int,const UnicodeString &);};
 class Rva005CC208Select {public: void rva005CC208(int);};
+// Tab page views (pages are Rva005FA0C9/Rva005FA0F7; +0x28 is the page state, 3 = settled).
+class Rva005F94C2 {public: void rva005F94C2(); void rva005F9567(); char m_pad[0x28]; int m_state;};
+class Rva005F8F31 {public: void rva005F8F31();};
+// Tab window forwarder 0x005CB265 (ICF-folded vslot thunk); the qualified call binds the pin directly.
+class Rva005CB265 {public: virtual int rva005CB265();};
 namespace StrategicHUD {class BattlePromptPlayerTabsMovieClip {public: void SetTabCount(int);};}
 namespace StrategicHUD {class BattlePromptMovieClip {public: class Impl;};}
 class Rva005F8E37 {public: Rva005F8E37(StrategicHUD::BattlePromptMovieClip::Impl *,int,const AsciiString &);private:char opaque[0x40];};
@@ -35,7 +40,7 @@ class Rva005F8E5A {public: Rva005F8E5A(StrategicHUD::BattlePromptMovieClip::Impl
 struct BattlePromptEnemyTabsSlot {Rva005F8E5A *ptr;void set(Rva005F8E5A *p){((Rva00575674 *)this)->rva00575674((Object *)p);}};
 struct BattlePromptTabsSlot {Rva005F8E37 *ptr;void set(Rva005F8E37 *p){((Rva00575674 *)this)->rva00575674((Object *)p);}};
 class StrategicHUD::BattlePromptMovieClip::Impl {
-public: void OnAllyTabsLoaded(const char *);void OnEnemyTabsLoaded(const char *);void AddAlly(const Rva005F91F3Src &);void AddEnemy(const Rva005F91F3Src &);
+public: void OnAllyTabsLoaded(const char *);void OnEnemyTabsLoaded(const char *);void AddAlly(const Rva005F91F3Src &);void AddEnemy(const Rva005F91F3Src &);void rva005F963A(int);void rva005F9687(int);void rva005F96D4();
 private: char prefix[0x20];_STL::vector<BfmeStringRecord005F93E3> allies;BattlePromptTabsSlot allyTabs;_STL::vector<BfmeStringRecord005F93E3> enemies;BattlePromptEnemyTabsSlot enemyTabs;_STL::vector<Rva005FA197Element> allyPages;int selectedAlly;_STL::vector<Rva005FA1CEElement> enemyPages;int selectedEnemy;
 };
 
@@ -98,4 +103,49 @@ void StrategicHUD::BattlePromptMovieClip::Impl::AddEnemy(const Rva005F91F3Src &i
   Rva005FA1CEElement page(new Rva005FA0F7(this,enemyPages.size(),item));
   enemyPages.push_back(page);
  } catch(...) {enemies.pop_back();throw;}
+}
+
+// ?rva005F963A: select the ally page. A settled (state 3) or absent current
+// page lets the selection change: the old page fades out, the tab window gets
+// the new index, the new page fades in. 0x005F9687 is the enemy twin.
+void StrategicHUD::BattlePromptMovieClip::Impl::rva005F963A(int index){
+ int cur=selectedAlly;
+ if(cur>=0&&((Rva005F94C2 *)allyPages[cur].ptr)->m_state!=3)return;
+ if(index==cur)return;
+ if(cur>=0)((Rva005F94C2 *)allyPages[cur].ptr)->rva005F9567();
+ selectedAlly=index;
+ ((Rva005CC208Select *)allyTabs.ptr)->rva005CC208(index);
+ ((Rva005F94C2 *)allyPages[selectedAlly].ptr)->rva005F94C2();
+}
+
+void StrategicHUD::BattlePromptMovieClip::Impl::rva005F9687(int index){
+ int cur=selectedEnemy;
+ if(cur>=0&&((Rva005F94C2 *)enemyPages[cur].ptr)->m_state!=3)return;
+ if(index==cur)return;
+ if(cur>=0)((Rva005F94C2 *)enemyPages[cur].ptr)->rva005F9567();
+ selectedEnemy=index;
+ ((Rva005CC208Select *)enemyTabs.ptr)->rva005CC208(index);
+ ((Rva005F94C2 *)enemyPages[selectedEnemy].ptr)->rva005F94C2();
+}
+
+// ?rva005F96D4: with nothing selected, show the first live page of each side,
+// then close both tab windows and release every page.
+void StrategicHUD::BattlePromptMovieClip::Impl::rva005F96D4(){
+ if(selectedAlly<0&&allyPages.begin()!=allyPages.end()&&((Rva005F94C2 *)allyPages[0].ptr)->m_state!=0){
+  ((Rva005F94C2 *)allyPages[0].ptr)->rva005F94C2();
+  selectedAlly=0;
+  if(allyTabs.ptr)((Rva005CC208Select *)allyTabs.ptr)->rva005CC208(0);
+ }
+ if(selectedEnemy<0&&enemyPages.begin()!=enemyPages.end()&&((Rva005F94C2 *)enemyPages[0].ptr)->m_state!=0){
+  ((Rva005F94C2 *)enemyPages[0].ptr)->rva005F94C2();
+  selectedEnemy=0;
+  if(enemyTabs.ptr)((Rva005CC208Select *)enemyTabs.ptr)->rva005CC208(0);
+ }
+ if(allyTabs.ptr)((Rva005CB265 *)allyTabs.ptr)->Rva005CB265::rva005CB265();
+ if(enemyTabs.ptr)((Rva005CB265 *)enemyTabs.ptr)->Rva005CB265::rva005CB265();
+ _STL::vector<Rva005FA197Element>::iterator i=allyPages.begin();
+ _STL::vector<Rva005FA197Element>::iterator iEnd=allyPages.end();
+ for(;i!=iEnd;++i)((Rva005F8F31 *)i->ptr)->rva005F8F31();
+ _STL::vector<Rva005FA1CEElement>::iterator jEnd=enemyPages.end();
+ for(_STL::vector<Rva005FA1CEElement>::iterator j=enemyPages.begin();j!=jEnd;++j)((Rva005F8F31 *)j->ptr)->rva005F8F31();
 }
