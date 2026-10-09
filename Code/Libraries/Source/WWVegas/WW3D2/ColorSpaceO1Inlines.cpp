@@ -6,11 +6,15 @@
 // The pointer constants and anchors below only make this TU emit the inline bodies out of line; they are not retail code or data.
 //
 #define Matrix4x4 Matrix4  // BFME renamed it
+#pragma push_macro("inline")
+#define inline __declspec(dllimport) __forceinline
+#include <math.h>
+#pragma pop_macro("inline")
 #include "lightenvironment.h"
 #include "matrix3d.h"
 #include "camera.h"
 #include "light.h"
-#include "colorspace.h"
+#include "../../../../../reference/shims/bfme_colorspace_link/colorspace.h"
 
 extern void (*const g_bfmeHSVToRGBAnchor)(Vector3 &, const Vector3 &);
 void (*const g_bfmeHSVToRGBAnchor)(Vector3 &, const Vector3 &) = &HSV_To_RGB;
