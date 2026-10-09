@@ -83,3 +83,12 @@ BFME_DISP8_DWORD_DEC(Rva00050D14DwordCounter, 0x14)
 // ?subtract24@Rva006272D0Fields@@QAEXXZ
 struct Rva006272D0Fields { char pad[4]; unsigned int word4; void subtract24(); };
 void Rva006272D0Fields::subtract24() { word4 -= 24u; }
+
+// Whole clean BF1 f989 Rva001A6BD0VectorDtor.cpp emits pop_back for
+// several opaque eight-byte element names under O2/SSE2/G7. This is a
+// source guide only: native539A13..539A18 follows a complete RET4 and
+// ends its own RET0 before a distinct stack-based body. It subtracts8
+// modulo32 from receiver word4; no vector, pointer, element or owner
+// identity is asserted. Unsigned storage preserves the witnessed bits.
+struct Rva00539A13Fields { char pad[4]; unsigned word4; void subtract8(); };
+void Rva00539A13Fields::subtract8() { word4 -= 8u; }
