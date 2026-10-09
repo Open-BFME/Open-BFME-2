@@ -58,6 +58,8 @@ class Object
 public:
 	Player *getControllingPlayer() const;
 	Relationship getRelationship(const Object *) const;
+    int rva0028B511() const;
+    bool rva002E6B89();
 	bool IsAtGoalPosition() const;
 	bool rva0028AFBB() const;
 	float GetGoalAngle() const;
@@ -532,6 +534,7 @@ class Pathfinder
 public:
  PathfindCell *rva002F068F();
     Path *GetAircraftPath(const Object *,const Coord3D *);
+    int _GetOverlapUnits(Object *,const Coord3D *,int *);
     Bool rva002E9BE5(const Coord3D *,const Coord3D *,float,unsigned,Coord3D *);
     Bool rva002F3392(PathNode *,PathNode *,unsigned,Coord3D *,Coord3D *,Coord3D *);
     void SetDebugPath(Rva002EDEABArg *);
@@ -2058,4 +2061,99 @@ Path *Pathfinder::GetAircraftPath(const Object *object,const Coord3D *to)
  path->wordC=true;
  if(*(int *)((char *)TheWritableGlobalData+0x9b8)==1) reinterpret_cast<PathfinderAircraftAIView *>(TheAI)->pathfinder->SetDebugPath((Rva002EDEABArg *)path);
  return path;
+}
+
+// WB D3AF90 and native2EC8C3..2EC9E1 identify the sixteen-ID goal-node query.
+// BFME1 donor0bef PathfinderRva003E5E40 demonstrates visible provider bodies
+// for output escape analysis. These three current BFME2 providers are exact
+// here; keeping calls out of line lets MSVC reuse dead radius/cell slots.
+class PathfinderOverlapTerrainView:public PathfinderNativeSlots<44> { public: virtual bool objectInteractsWithBridgeLayer(Object *,int); };
+int Rva002E6E6CGet(int);
+extern int g_Va00DFECD0;
+ICoord2D *Rva002EBC14Cell(ICoord2D *,void *,const Coord3D *);
+void Rva002EBCD6Split(void *,int *,int *);
+int Pathfinder::_GetOverlapUnits(Object *object,const Coord3D *position,int *out)
+{
+ ICoord2D cell;
+ int below,above;
+ int layers[2];
+ Rva002EBC14Cell(&cell,object,position);
+ Rva002EBCD6Split(object,&below,&above);
+ layers[0]=object->rva0028B511();
+ int numLayers=1;
+ if (!(unsigned char)Rva002E6E6CGet(layers[0]) && reinterpret_cast<PathfinderOverlapTerrainView *>(TheTerrainLogic)->objectInteractsWithBridgeLayer(object,layers[0])) {
+  layers[1]=1; numLayers=2;
+ }
+ int count=0;
+ ++g_Va00DFECD0;
+ object->rva002E6B89();
+ for(int x=cell.x-below;x<cell.x+above;++x) {
+  for(int y=cell.y-below;y<cell.y+above;++y) {
+   for(int k=0;k<numLayers;++k) {
+    PathCollisionCell *c=reinterpret_cast<PathCollisionCell *>(getCell((PathfindLayerEnum)layers[k],x,y));
+    if(c && c->info) {
+     for(PathCollisionNode *node=c->info->goals;node;node=node->next) {
+      if(node->object->rva002E6B89()) continue;
+      out[count++]=node->object->getID();
+      if(count==16) return count;
+     }
+    }
+   }
+  }
+ }
+ return count;
+}
+
+
+
+// Rehomed canonical converter: original PathfindShimWorldToCell.cpp,162B.
+// Reuses this TU's existing floor/fistp codegen helper; no new asm is added.
+static const float PATHFINDER_CELL_INV = 1.0f / 10.0f;
+__declspec(noinline) ICoord2D* __cdecl Rva002E7875WorldToCell(ICoord2D* out, bool center, const Coord3D* pos)
+{
+	int ix;
+	int iy;
+	if (center) {
+		ix = realToIntFloor(pos->x * PATHFINDER_CELL_INV);
+		iy = realToIntFloor(pos->y * PATHFINDER_CELL_INV);
+	} else {
+		ix = realToIntFloor(pos->x * PATHFINDER_CELL_INV + 0.5f);
+		iy = realToIntFloor(pos->y * PATHFINDER_CELL_INV + 0.5f);
+	}
+	out->x = ix;
+	out->y = iy;
+	return out;
+}
+
+//
+// ?Rva002EBC14Cell@@YAPAUICoord2D@@PAU1@PAXPBUCoord3D@@@Z, retail 0x002EBC14 (32 bytes).
+// Free __cdecl (ICoord2D*, void*, const Coord3D*) -> ICoord2D*: odd = IsOdd(p),
+// WorldToCell(out, odd, pos), return out. Evidence: retail pushes pos then p,
+// calls IsOdd, pops p dead into ecx (ecx never read, so not __thiscall),
+// pushes eax/out, calls WorldToCell, reloads out into eax, caller-cleans 0xc.
+// Callees: the rowed parity test 0x002EBBFB (Rva002EBBFBIsOdd.cpp, rowed with
+// an unsigned char result) and the converter rehomed above.
+// Retail passes the parity result straight on with no test/setne, so it is
+// a bool here, through the bool spelling pinned at the same address; the
+// parity body compiles identically under either result type.
+struct ICoord2D;
+struct Coord3D;
+struct ICoord2D *__cdecl Rva002E7875WorldToCell(struct ICoord2D *out, bool center, const struct Coord3D *pos);
+bool __cdecl Rva002EBBFBIsOdd(void *p);
+
+__declspec(noinline) struct ICoord2D *__cdecl Rva002EBC14Cell(struct ICoord2D *out, void *p, const struct Coord3D *pos)
+{
+	Rva002E7875WorldToCell(out, Rva002EBBFBIsOdd(p), pos);
+	return out;
+}
+
+// ?Rva002EBCD6Split@@YAXPAXPAH1@Z @0x002EBCD6 32B unlock 9 callers
+// Evidence: sibling Split at 0x002EBCA7 in Rva002EBBFBIsOdd.cpp; retail calls rowed Get then cdq-sub-sar half store then remainder store.
+int __cdecl Rva002E9B31Get(void *p);
+__declspec(noinline) void __cdecl Rva002EBCD6Split(void *p, int *outHalf, int *outRest)
+{
+	int v = Rva002E9B31Get(p);
+	int h = v / 2;
+	*outHalf = h;
+	*outRest = v - h;
 }
