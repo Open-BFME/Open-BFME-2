@@ -300,7 +300,7 @@ public:
 	virtual void v15();
 	virtual void v16(bool value);
 	virtual void v17(const UnicodeString &text, int kind);
-	virtual void v18(); virtual void v19(); virtual void v20();
+	virtual void v18(); virtual void v19(GameSlot *slot); virtual void v20();
 	virtual void *v21();
 };
 
@@ -838,6 +838,7 @@ void _bfme_closeAptScreen(const AsciiString &name);
 class AptMpGameSetup
 {
 public:
+	static void PlayerTooltip(GameWindow *window, WinInstanceData *instData, unsigned int mouse);
 	int GetDisplayedPlayerTemplateIndex(int slot);
 	void rva0043DC0F();
 	void rva0043E49C(const UnicodeString &text);
@@ -2874,4 +2875,27 @@ void AptMpGameSetup::rva0044303D()
 	m_d0.rva0057F0AA();
 	m_190.rva0057FAB0();
 	m_244.rva0057FFB9();
+}
+
+GameWindow *GadgetComboBoxGetListBox(GameWindow *comboBox);
+
+// WB149BFF0 named PlayerTooltip; native43DF71..43DFE0 RET0 is a
+// previously missing Ghidra boundary: predecessor43DF22 ends exactly here,
+// and PopulatePlayerCombo43F483 stores this callback at +82.
+void AptMpGameSetup::PlayerTooltip(GameWindow *window, WinInstanceData *, unsigned int)
+{
+ if (!g_Va00E0333C) return;
+ int selected=-1;
+ for(int i=0;i<8;++i) {
+  if(window && window==GadgetComboBoxGetListBox(((AptMpGameSetup *)g_Va00E0333C)->m_player[i])) {
+   selected=i;break;
+  }
+ }
+ if(selected!=-1) {
+  GameInfo *game=(GameInfo *)((AptMpGameSetup *)g_Va00E0333C)->m_game->rva0043DA65();
+  if(game) {
+   GameSlot *slot=game->getSlot(selected);
+   if(slot) ((AptMpGameSetup *)g_Va00E0333C)->m_owner->v19(slot);
+  }
+ }
 }
