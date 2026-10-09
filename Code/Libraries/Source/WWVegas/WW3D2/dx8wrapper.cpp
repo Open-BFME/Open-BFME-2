@@ -55,7 +55,9 @@
 //#define CREATE_DX8_FPU_PRESERVE
 #define WW3D_DEVTYPE D3DDEVTYPE_HAL
 
-#include "dx8wrapper.h"
+// Retail owns the snapshot-aware outlined texture-stage setter separately.
+#include "../../../../../reference/shims/bfme_mapper_apply_link/dx8wrapper.h"
+
 #include "dx8webbrowser.h"
 #include "dx8fvf.h"
 #include "dx8vertexbuffer.h"

@@ -39,6 +39,14 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 // The retail tail selects passthrough coordinates and COUNT3|PROJECTED.
 // Each body is verified individually with /G7 /arch:SSE. No shared headers change.
 
+// These native helper bodies are inlined into the verified mapper rows.
+// Suppress competing out-of-line copies; no imported helper may remain.
+#define inline static inline
+#include <math.h>
+#undef inline
+#include "../../../../../reference/shims/bfme_mapper_apply_link/wwmath.h"
+#include "../../../../../reference/shims/bfme_vp_math/vector4.h"
+#include "../../../../../reference/shims/bfme_projection_matrix_link/matrix4.h"
 #include "refcount.h"
 #include "matrix4.h"
 #include "vector2.h"
@@ -70,7 +78,7 @@ protected:
 };
 #include "rendobj.h"
 #include "ww3d.h"
-#include "dx8wrapper.h"
+#include "../../../../../reference/shims/bfme_mapper_apply_link/dx8wrapper.h"
 
 // Only the inherited interface accessed by Apply is declared here; unused
 // derived object fields are intentionally not modelled.

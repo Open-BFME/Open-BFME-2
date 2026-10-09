@@ -59,6 +59,8 @@
 //-----------------------------------------------------------------------------
 
 
+// Retail owns the snapshot-aware outlined texture-stage setter separately.
+#include "../../../../../reference/shims/bfme_mapper_apply_link/dx8wrapper.h"
 #include "W3DDevice/GameClient/heightmap.h"
 
 #ifndef USE_FLAT_HEIGHT_MAP // Flat height map uses flattened textures. jba. [3/20/2003]
