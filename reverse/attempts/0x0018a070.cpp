@@ -1,4 +1,6 @@
 // ?install_materials@MeshModelClass@@IAEXPAVMeshLoadContextClass@@@Z
+// partial score=0.95302 date=2026-10-09
+// ?install_materials@MeshModelClass@@IAEXPAVMeshLoadContextClass@@@Z
 // partial score=0.9261744966 date=2026-10-04
 // ?install_materials@MeshModelClass@@IAEXPAVMeshLoadContextClass@@@Z
 // partial score=0.9261744966 date=2026-09-23
@@ -138,9 +140,10 @@ class MaterialInfoClass
 public:
 	virtual void Delete_This(void);
 
+	void *Add_Texture(void *texture);
 	void Add_Texture(const BfmeHandleCX &texture)
 	{
-		((BfmeThingBJE *)this)->bfmeGoBJE((void *)&texture);
+		Add_Texture((void *)&texture);
 	}
 
 	void Add_Vertex_Material(VertexMaterialClass *material)
