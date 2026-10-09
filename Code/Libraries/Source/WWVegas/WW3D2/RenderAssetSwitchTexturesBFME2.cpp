@@ -5,6 +5,7 @@
 // Reference refcount.h9cbfb551 supplies the independent32-bit lifetime;
 // existing texture-handle providers prove the separate WORD reference lifetime.
 #include <vector>
+#include <algorithm>
 #include "ascii_string.h"
 typedef _STL::vector<AsciiString> SwitchStrings;
 class TextureBaseClass{public:virtual const char *Get_Name();void Release_Ref();};
@@ -188,7 +189,9 @@ virtual int Get_Num_SubObjects();
 virtual void slot29();
 virtual SwitchObjView *Get_Sub_Object(int);
 int refs;void Release_Ref(){--refs;if(refs==0)Delete_This();}};
-AsciiString *Rva0007983DFindString(AsciiString *,AsciiString *,const char *const *);
+// The native27B search wrapper is already emitted by the canonical STLport
+// find unit. Bind that genuine provider instead of an address-named extern.
+namespace _STL {template<> AsciiString *find(AsciiString *,AsciiString *,const char *const &);}
 class RenderObjClass;
 struct Rva00136F5BRange{void *begin,*end,*capacity;};
 void rva00136E95(RenderObjClass *object,Rva00136F5BRange *oldRange,Rva00136F5BRange *newRange,Rva00136F5BRange *excludedRange)
@@ -196,7 +199,7 @@ void rva00136E95(RenderObjClass *object,Rva00136F5BRange *oldRange,Rva00136F5BRa
  SwitchObjView *obj=reinterpret_cast<SwitchObjView*>(object);if(!obj)return;
  SwitchStrings &oldNames=*reinterpret_cast<SwitchStrings*>(oldRange),&newNames=*reinterpret_cast<SwitchStrings*>(newRange),&excluded=*reinterpret_cast<SwitchStrings*>(excludedRange);
  if(obj->Class_ID()==0){
-  if(!excluded.empty()){const char *name=obj->Get_Name();if(Rva0007983DFindString(excluded.begin(),excluded.end(),&name)==excluded.end())goto afterMesh;}
+  if(!excluded.empty()){const char *name=obj->Get_Name();if(_STL::find(excluded.begin(),excluded.end(),name)==excluded.end())goto afterMesh;}
   SwitchTextureOnMesh(obj->Get_Mesh(),oldNames,newNames);
  }
  afterMesh:
