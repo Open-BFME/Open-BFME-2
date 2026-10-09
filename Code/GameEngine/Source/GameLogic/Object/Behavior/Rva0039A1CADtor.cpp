@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /GX /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /GX /DNDEBUG /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??1Rva0039A1CA@@UAE@XZ, retail 0x0039A1CA (123 bytes).
 // Identity: virtual ModuleData-style dtor restoring Snapshot vtable g_00BBB554;
@@ -18,7 +18,10 @@ struct Rva00395D77
 struct RvaPair0039973B
 {
 	~RvaPair0039973B();
-	unsigned char m_data[8];
+	// Retail range destroy 0x32C0CA owns the AsciiString at +0 and
+	// advances by eight bytes; the original element name is unproven.
+	AsciiString m_key;
+	int m_value;
 };
 class Rva00397C94
 {
