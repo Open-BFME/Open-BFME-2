@@ -208,7 +208,8 @@ public:
 	float m_highRed;
 	float m_highGreen;
 	float m_highBlue;
-	unsigned char m_padca0[0xc6a - 0xc04];
+	UnsignedByte m_taintAlpha;
+	unsigned char m_padca0[0xc6a - 0xc05];
 	UnsignedByte m_taintOn;
 };
 
@@ -370,4 +371,66 @@ void Rva000729CC::rva00073CC0(int x, int y,
 	pixel <<= 8;
 	pixel |= bluePixel & 0xff;
 	m_taintData[x + m_numCellsX * yForColor] = pixel;
+}
+
+// BFME 1 donor 9cbfb551fe20dae985f91f2319d8997287b6a705:
+// game/GameEngineDevice/Source/W3DDevice/GameClient/TaintBufferFill.cpp.
+// BFME 2 init (WB W3DTaint::init 0x82C800) calls this at 0x738C4.
+// Native 0x738C4..0x73950 is the full 140-byte RET4 body. WB 0x82DA60
+// independently confirms both loops and alpha clamp. The original method name
+// is unknown; rva000738C4 describes the address. Preserve the legacy view used
+// by setTaintLevel above while giving this separately proven entry its WB class.
+class W3DTaint
+{
+public:
+	void rva000738C4(unsigned char alpha);
+
+private:
+	unsigned int m_numCellsX;
+	unsigned int m_numCellsY;
+	unsigned char m_pad08[0x18 - 0x08];
+	unsigned int *m_taintData;
+	unsigned char m_pad1C[0x38 - 0x1C];
+	unsigned char *m_cellLevels;
+};
+
+// ?rva000738C4@W3DTaint@@QAEXE@Z
+void W3DTaint::rva000738C4(unsigned char alpha)
+{
+	GlobalData *g = TheWritableGlobalData;
+	if (!g)
+		return;
+	if (!g->m_taintOn)
+		return;
+	unsigned char floor = g->m_taintAlpha;
+	if (alpha < floor)
+		alpha = floor;
+	unsigned int color = alpha;
+	color = (color << 8) | alpha;
+	color = (color << 8) | alpha;
+	color = (color << 8) | alpha;
+	unsigned int *dst = m_taintData;
+	unsigned int y;
+	for (y = 0; y < m_numCellsY; y++)
+	{
+		unsigned int x;
+		for (x = 0; x < m_numCellsX; )
+		{
+			*dst = color;
+			x++;
+			dst++;
+		}
+	}
+	unsigned int i = 0;
+	unsigned int row = (unsigned int)m_cellLevels;
+	for (y = 0; y < m_numCellsY; y++)
+	{
+		i = 0;
+		for (; i < m_numCellsX; )
+		{
+			*(char *)(i + row) = alpha;
+			i++;
+		}
+		row += m_numCellsX;
+	}
 }
