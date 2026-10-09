@@ -37,6 +37,18 @@ struct Vec16 {
     Elem16 *m_end;
 };
 
+// Layout copied from the owned175B constructor's measured record; it is
+// also the WB-named GetViewInfo fallback, with a trivial destructor.
+struct Rva002195E6Group {
+ float value00, value04, value08, value0C, value10; unsigned int untouched14;
+};
+class Rva002195E6 {
+public: __declspec(nothrow) Rva002195E6();
+private:
+ Rva002195E6Group group00, group18, group30, group48;
+ float value60, value64; unsigned int word68;
+};
+
 // The hero's class and subclass indices (WB asserts name the argument hero).
 class CreateAHeroHero
 {
@@ -73,7 +85,8 @@ public:
         Int m_58;                               // +0x58
         char m_5C[0x64 - 0x5C];
         Int m_preferedFaction;                  // +0x64
-        char m_68[0xD8 - 0x68];                 // +0x68 faction mask
+        char m_68[4];                          // +0x68 faction mask
+        Rva002195E6 m_viewInfo;                 // +0x6C measured view record
     };
 
     struct SubClassVec {
@@ -86,6 +99,7 @@ public:
     {
         friend class CreateAHeroManager;
     public:
+        const CreateAHeroSubClass *rva0021AF1C(const AsciiString &name);
         Int rva00219CDF(UnsignedInt subClassIndex);
         Int rva00219CF6(UnsignedInt subClassIndex);
         Int rva00219D0D(UnsignedInt subClassIndex);
@@ -123,6 +137,7 @@ public:
         CreateAHeroClass *m_end;
     };
 
+    const Rva002195E6 *GetViewInfo(UnsignedInt classIndex, UnsignedInt subClassIndex);
     const AsciiString &GetClassNameTag(UnsignedInt classIndex);
     const AsciiString &GetClassDescTag(UnsignedInt classIndex);
     const AsciiString &GetClassPowersTag(UnsignedInt classIndex);
@@ -652,4 +667,14 @@ const AsciiString &CreateAHeroManager::GetBlingDescTag(Int blingKey, UnsignedInt
             return *p->rva0021C970(blingKey, index);
     }
     return err;
+}
+
+// Native219F36..219F8E and WB B7AF90 name this getter and its fallback.
+const Rva002195E6 *CreateAHeroManager::GetViewInfo(UnsignedInt classIndex, UnsignedInt subClassIndex)
+{
+ static Rva002195E6 s_defaultViewInfo;
+ if (classIndex >= ClassCount(&m_classes)) return &s_defaultViewInfo;
+ const CreateAHeroSubClass *subClass = m_classes.m_start[classIndex].rva00219B9E(subClassIndex);
+ if (!subClass) return &s_defaultViewInfo;
+ return &subClass->m_viewInfo;
 }
