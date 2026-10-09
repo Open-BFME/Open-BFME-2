@@ -674,3 +674,23 @@ unsigned int *Rva000199D0Receiver::writeWord(unsigned int *output, unsigned int)
     *output = m_word0;
     return output;
 }
+
+// Complete native 4DE536..4DE53C follows the preceding RET535 and is
+// followed by the separately rowed cursor-advance leaf. Native ECX supplies
+// an accessed prefix: raw DWORD+4 is copied to DWORD+0 and remains in EAX
+// at RET0. No native call/address witness identifies its concrete owner.
+// Clean BF1 f98983a7d3bb405f1a4ba94bb6a2a168062a819d Common/Bfme/
+// Rva001DB110Copy.cpp supplies the word-assignment expression. Its class
+// and void source-role are donor facts only; this physical raw32 result
+// view preserves the target's EAX bits without asserting a named owner,
+// original prototype, field meanings, or common owner with nearby leaves.
+class Rva004DE536WordPair {
+public:
+    unsigned int copy();
+private:
+    unsigned int word0;
+    unsigned int word4;
+};
+unsigned int Rva004DE536WordPair::copy() {
+    return word0 = word4;
+}
