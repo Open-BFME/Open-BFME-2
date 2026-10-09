@@ -1,13 +1,9 @@
-// cl: /DNDEBUG /MD /EHsc
-// class-gate: allow AsciiString 4-byte trivial view to pass VAsciiString by value to rowed base 0x004D79E1 with no copy-ctor call like the base TU's own view
-// ??0Rva0034B952@@QAE@PAVObject@@VAsciiString@@@Z @0x0034B952 206B StateMachine ctor defining states 0xa 0x27 0x00 via rowed AIAttackState Rva00342B87 Rva0033FE65.
-// Evidence: base 0x004D79E1 plus vtable g_00C122A0 plus defineState 0x004D7B0F rows; caller 0x0034BA20; prev/next share /O1 /DNDEBUG /MD.
-class AsciiString
-{
-public:
-	void *m_data;
-};
-
+// cl: /O1 /G7 /DNDEBUG /MD /EHsc
+// Native factory0034BA20 pushes the opaque scalar key72383AF5 after new3C.
+// It calls constructor0034B952 (206B): base4D79E1, vtableC122A0,
+// three rowed state constructions and defineState IDs0A/27/00.
+// Previous AsciiString by-value spelling was a legacy donor inference;
+// the scalar name-key ABI is a native factory fact. Original class names unknown.
 class Object;
 class AttackExitConditionsInterface;
 
@@ -23,7 +19,7 @@ public:
 class Rva004D759C
 {
 public:
-	Rva004D759C(Object *owner, AsciiString name, bool flag);
+	Rva004D759C(Object *owner, unsigned int name, bool flag);
 	virtual ~Rva004D759C();
 };
 
@@ -59,10 +55,11 @@ extern const void *const g_00C122A0[];
 class Rva0034B952 : public Rva004D759C
 {
 public:
-	Rva0034B952(Object *owner, AsciiString name);
+	Rva0034B952(Object *owner, unsigned int name);
+private:unsigned char m_allocatedExtent[0x38];
 };
 
-Rva0034B952::Rva0034B952(Object *owner, AsciiString name)
+Rva0034B952::Rva0034B952(Object *owner, unsigned int name)
 	: Rva004D759C(owner, name, false)
 {
 	*(const void **)this = g_00C122A0;
@@ -77,3 +74,12 @@ Rva0034B952::Rva0034B952(Object *owner, AsciiString name)
 // The global(s) below are defined elsewhere under another name at the same
 // address (the census owner of that DIR32 target); bind this unit's spelling.
 #pragma comment(linker, "/alternatename:?g_00C122A0@@3QBQBXB=??_7Rva0034144B@@6B@")
+
+class Rva0034BA20Owner {
+public:Rva0034B952*createMachine();
+private:unsigned char pad[0x14];Object*m_owner;
+ Object*getOwner() const{return m_owner;}
+};
+Rva0034B952*Rva0034BA20Owner::createMachine(){
+ return new Rva0034B952(getOwner(),0x72383AF5u);
+}
