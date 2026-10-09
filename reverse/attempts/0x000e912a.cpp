@@ -1,59 +1,68 @@
-// ?rva000E912A@Rva000E912A@@QAEXPAURva000E912AVec@@MH@Z
-// partial score=0.68 date=2026-10-07
-// cl: /O2 /arch:SSE /G7 /DNDEBUG /MD
-// ?rva000E912A@Rva000E912A@@QAEXPAURva000E912AVec@@MH@Z @0x000E912A 164B.
-// Walks 2000 records of 0xA0 from +0x1958 while count at +0x4FB58 is
-// positive. A non-negative key at +0x40 whose xyz is inside the squared
-// radius calls thiscall 0x000E90DB with the record argument at +0x58.
+// ?rva000E912A@W3DShrubBuffer@@QAEXPBURva000E912APoint@@MH@Z
+// partial score=0.8 date=2026-10-09
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD
+// W3DShrubBuffer method at retail 0x000E912A (164 bytes, ret 0xC): runs the keyed shrub removal 0x000E90DB with a
+// mode for every shrub record whose position lies within a radius of a point. BFME2 layout: 2000 records of 0xA0
+// at +0x1958 (type +0x40, key +0x58), count +0x4FB58. The cursor walks the records 8 bytes in, as the sibling row
+// reset 0x000E70D9 does.
+typedef int Int;
+typedef float Real;
 
-struct Rva000E912AVec
+struct Rva000E912APoint
 {
-	float m_x;
-	float m_y;
-	float m_z;
+	Real x;
+	Real y;
+	Real z;
+
+	void set(Real newX, Real newY, Real newZ)
+	{
+		x = newX;
+		y = newY;
+		z = newZ;
+	}
+
+	void sub(const Rva000E912APoint *other)
+	{
+		x -= other->x;
+		y -= other->y;
+		z -= other->z;
+	}
+
+	Real lengthSqr(void) const
+	{
+		return x*x + y*y + z*z;
+	}
 };
 
-struct Rva000E912ARec
-{
-	float m_x;
-	float m_y;
-	float m_z;
-	char m_pad0C[0x40 - 0x0C];
-	int m_key;
-	char m_pad44[0x58 - 0x44];
-	int m_arg;
-	char m_tail[0xA0 - 0x5C];
-};
-
-class Rva000E912A
+class W3DShrubBuffer
 {
 public:
-	void rva000E90DB(int arg, int extra);
-	void rva000E912A(Rva000E912AVec *point, float radius, int extra);
+	void rva000E912A(const Rva000E912APoint *center, Real radius, Int mode);
+	bool rva000E90DB(unsigned int key, Int mode);
 
-	char m_pad[0x1958];
-	Rva000E912ARec m_rec[2000];
-	int m_count;
+private:
+	char m_pad[0x4FB58];
+	Int m_count;
 };
 
-void Rva000E912A::rva000E912A(Rva000E912AVec *point, float radius, int extra)
+void W3DShrubBuffer::rva000E912A(const Rva000E912APoint *center, Real radius, Int mode)
 {
-	for (int index = 0; index < m_count; ++index)
+	Int i = 0;
+	if (m_count > 0)
 	{
-		Rva000E912ARec *rec = &m_rec[index];
-		if (rec->m_key < 0)
-			continue;
-		float px = *(volatile float *)&point->m_x;
-		float pz = *(volatile float *)&point->m_z;
-		float rx = rec->m_x;
-		float rz = rec->m_z;
-		float py = *(volatile float *)&point->m_y;
-		float ry = rec->m_y;
-		float dx = rx - px;
-		float dz = rz - pz;
-		float dy = ry - py;
-		float dist = dz * dz + dy * dy + dx * dx;
-		if (radius * radius > dist)
-			rva000E90DB(rec->m_arg, extra);
+		char *row = (char *)this + 0x1960;
+		do
+		{
+			if (*(Int *)(row + 0x38) >= 0)
+			{
+				Rva000E912APoint delta;
+				delta.set(*(Real *)(row - 8), *(Real *)(row - 4), *(Real *)row);
+				delta.sub(center);
+				if (radius * radius > delta.lengthSqr())
+					rva000E90DB(*(unsigned int *)(row + 0x50), mode);
+			}
+			++i;
+			row += 0xA0;
+		} while (i < m_count);
 	}
 }
