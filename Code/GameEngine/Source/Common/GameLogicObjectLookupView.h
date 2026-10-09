@@ -12,6 +12,7 @@ enum ObjectID
 };
 #endif
 
+class Xfer;
 class Object;
 class Drawable;
 class Rva00439E0C;
@@ -91,6 +92,7 @@ public:
 	bool rva001DCD1C();	// 0x001DCD1C, mode 8 or mode 9 with +0x114 != 3
 	void rva0023CD9E(bool paused, int pauseMode, bool affectMouse);	// 0x0023CD9E
 	Object *findObjectByID(ObjectID id);
+	void rva0023CFE4(Xfer *xfer); // 0x0023CFE4, Version1 plus native snapshot at +0x184
 	void rva0023D033(); // 0x0023D033, native +0x184 cleanup forwarder
 	const AsciiString *rva0023D05F(int value);	// 0x0023D05F, +0x184 army name by id
 	const AsciiString *rva0023D06A(int value);	// 0x0023D06A, +0x184 army banner name by id

@@ -8,6 +8,9 @@
 // opaque virtuals with xfer in slot 3. Callee ?Version1@Xfer@@QAEXXZ is rowed
 // (Xfer.cpp). Flags from xfer precedent PoisonedBehaviorXfer.cpp (/O1 /MD).
 
+// Canonical GameLogic view; the existing native +0x184 access is unchanged.
+#include "../../Common/GameLogicObjectLookupView.h"
+
 class Xfer
 {
 public:
@@ -23,18 +26,8 @@ public:
 	virtual void xfer(Xfer *xfer);
 };
 
-class GameLogic
-{
-public:
-	void rva0023CFE4(Xfer *xfer);
-
-private:
-	char m_pad[0x184];
-	Sub184 m_sub184; // +0x184
-};
-
 void GameLogic::rva0023CFE4(Xfer *xfer)
 {
 	xfer->Version1();
-	m_sub184.xfer(xfer);
+	((Sub184 *)((char *)this + 0x184))->xfer(xfer);
 }
