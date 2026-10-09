@@ -1,3 +1,5 @@
+// ?rva0030E67C@Rva0030E67C@@QAEXXZ
+// partial score=0.99 date=2026-10-09
 // ?rva0030E67C@Rva0030E961@@QAEMMM@Z
 // partial score=0.9922045575 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Oy-
@@ -7,8 +9,20 @@
 // Native uses FISTP after floor rather than the truncating SSE cast. The
 // two-instruction donor x87 conversion is confined to that codegen blocker.
 extern "C" __declspec(dllimport) double __cdecl floor(double);
-__forceinline int CameraFieldFloatToInt(float value){int result;__asm{fld value
- fistp result}return result;}
+__forceinline float fast_float_floor(float f)
+{
+	return (float)floor((double)f);
+}
+__forceinline long fast_float2long_round(float f)
+{
+	long i;
+	__asm {
+		fld [f]
+		fistp [i]
+	}
+	return i;
+}
+#define REAL_TO_INT_FLOOR(x) (fast_float2long_round(fast_float_floor(x)))
 class Rva0030E961 {public:float rva0030E67C(float,float);float*m_data;float*finish,*end;int m_width,m_height;float m_scale;int m_state;bool m_ready;};
 float Rva0030E961::rva0030E67C( float x, float y )
 {
@@ -19,10 +33,8 @@ float Rva0030E961::rva0030E67C( float x, float y )
 	float offset = (float)m_state * 10.0f;
 	register float scaledX = (x + offset) * scale;
 	register float scaledY = (y + offset) * scale;
-	float xFloor = (float)floor( (double)scaledX );
-	register int xIndex = CameraFieldFloatToInt( xFloor );
-	float yFloor = (float)floor( (double)scaledY );
-	register int yIndex = CameraFieldFloatToInt( yFloor );
+	register int xIndex = REAL_TO_INT_FLOOR( scaledX );
+	register int yIndex = REAL_TO_INT_FLOOR( scaledY );
 	float xFraction = scaledX - (float)xIndex;
 	float yFraction = scaledY - (float)yIndex;
 

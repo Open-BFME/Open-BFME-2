@@ -10873,7 +10873,6 @@ name,address,notes
 ?rva0007989C@Rva00079AB9Tree@@QAEPAXABVRva00079AB9Value@@@Z,0x0007989C,"Direct call target in both allocator branches of 0x00079AB9; caller passes the value reference and uses thiscall register setup, while target extent 34 ends ret 4 and returns the allocated node pointer; address-derived spelling and type identity remain unknown"
 ?rva00079AB9@Rva00079D14Tree@@QAE?AURva00079D14Iter@@PAURva00079D14Node@@0ABVRva00079D14Value@@0@Z,0x00079AB9,Direct calls from 0x00079D14 pass the hidden iterator result slot plus x y value and w to this 136-byte insertion worker; its observed ret 0x14 agrees with that ABI. Address-derived class view; original type identity unknown
 ?rva0007BF5A_4@@YAPAURegion2D@@PAU1@000@Z,0x0007BF5A,4-push call-site view of rowed 0x0007BF5A (retail pushes 4 and keeps leftover eax); definition ignores 4th
-?rva0007ECA3@Rva0007F944Item@@QAE_NPBURva0007F944Vec@@@Z,0x0007ECA3,dump range 1 family containment test called by 0x7F944 (struct-qualified)
 ?rva0007F87C@Rva0007F92AHost@@QAEXHH@Z,0x0007F87C,tail-call target of guard wrapper 0x0007F92A; address-view alias
 ?rva00082D6A@Rva00082D6A@@QAEXXZ,0x00082D6A,address-derived callee of matched slot 0x00082E12 (ECX=complete object; this-8); retail REL32 targets 0x00082D6A; Ghidra FUN bounds 168 bytes; thiscall no args ret; callee body remains unclaimed; no named identity inferred
 ?rva00085124@GameLogic@@QAE_NXZ,0x00085124,opaque GameLogic predicate (mode at +0x110 is 4 or 7); called by RecorderClass::isMultiplayer as reject gate; identity unproven
@@ -16978,3 +16977,4 @@ _D3DXMatrixMultiply@12,0x0062AF26,First named PE import thunk: FF25 IAT00BBA9B4 
 _D3DXMatrixScaling@16,0x0062AF2C,First named PE import thunk: FF25 IAT00BBA9B8 independently declares d3dx9_27.dll!D3DXMatrixScaling; native setShroudTex arguments agree with stdcall SDK ABI
 _D3DXMatrixTranslation@16,0x0062AF32,First named PE import thunk: FF25 IAT00BBA9BC independently declares d3dx9_27.dll!D3DXMatrixTranslation; native setShroudTex arguments agree with stdcall SDK ABI
 ?drawHiliteBar@@YAXPBVImage@@00HHHH@Z,0x000A273F,ZH drawHiliteBar three-image BFME2 variant; native caller A283D at A29D1 passes bar geometry in the TU-private ABI; complete 254B retail span and image tiling plus clipping slots A8/B0 establish identity
+?rva000AE37E@Rva000ABD19@@QAE_NHH@Z,0x000AE37E,height-map cell test returning bool through sete; caller the cell flip 0x000AF841

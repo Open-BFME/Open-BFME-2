@@ -205,7 +205,7 @@ public:
 
 extern AudioManager *TheAudio;
 
-void XferPathfindLayerEnum(Xfer *xfer, int *value);
+Xfer *XferPathfindLayerEnum(Xfer *xfer, int *value);
 
 class Rva0049B47C
 {

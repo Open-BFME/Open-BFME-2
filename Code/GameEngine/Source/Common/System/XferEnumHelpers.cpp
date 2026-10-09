@@ -292,10 +292,12 @@ void XferWaypointID(Xfer *xfer, int *value)
 }
 
 // Retail 0x00305D0A (24B): labelled-enum helper with the "PathfindLayerEnum"
-// label (string at 0x00807A20).
-void XferPathfindLayerEnum(Xfer *xfer, int *value)
+// label (string at 0x00807A20). It returns the Xfer XferEnum hands back:
+// PathfinderPosGoalManager's xfer (0x004DD658 WB 0x01286B40) transfers its
+// goal slot through this return value.
+Xfer *XferPathfindLayerEnum(Xfer *xfer, int *value)
 {
-	xfer->XferEnum("PathfindLayerEnum", value, 4);
+	return &xfer->XferEnum("PathfindLayerEnum", value, 4);
 }
 
 // Retail 0x00305D3A (24B): labelled-enum helper with the "RadarEventType"
