@@ -1,4 +1,6 @@
 // ?createFromView@TabWindowManagerView@@UAEPAVGameWindow@@PAVGadgetCreateView@@@Z
+// partial score=0.94 date=2026-10-09
+// ?createFromView@TabWindowManagerView@@UAEPAVGameWindow@@PAVGadgetCreateView@@@Z
 // partial score=0.94 date=2026-10-08
 // cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG /Ireference/shims/bfme2_ascii /ICode/GameEngine/Source/GameClient/GUI
 #include "ascii_string.h"
