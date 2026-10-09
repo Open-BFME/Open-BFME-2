@@ -282,3 +282,18 @@ int AptDate::dateGetNumDaysInMonth(int month,int year)
     }
     return days;
 }
+
+// Address-derived helper identity: native6F67E0..6F680F is the complete
+// 47B cdecl switch. The five entries at6F6810 prove each case mapping;
+// donor date ownership is adjacent-family evidence, not a recovered name.
+int Rva006F67E0(int value)
+{
+ switch(value) {
+ case 5:return 13;
+ case 4:return 14;
+ case 2:return 15;
+ case 1:return 12;
+ case 3:
+ default:return 3;
+ }
+}
