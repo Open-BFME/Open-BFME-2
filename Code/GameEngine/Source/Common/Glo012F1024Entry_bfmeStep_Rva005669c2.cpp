@@ -218,6 +218,13 @@ public:
 	void j_00036124(void);
 	void j_00010bcc(void);
 
+	// BFME 2 bfmeEnter steps without a row (pinned at their addresses).
+	void rva00564EC0(void);
+	void rva005666C5(void);
+	void rva00565106(void);
+	void run(void);
+	void rva005652F7(void);
+
 	char m_bfmeHead[0x08];
 	BfmeElem8StrVector m_bfmeEarly;				// +0x08
 	char m_bfmeHeadRest[0x38 - 0x10];
@@ -334,6 +341,38 @@ public:
 };
 
 				// 0x012F1028
+
+// Steps bfmeEnter calls on this same object through views rowed under other
+// names: 0x00564E43, and the two LivingWorldCampaignAct army steps.
+class Rva00564E43
+{
+public:
+	void rva00564E43(void);
+};
+
+class LivingWorldCampaignAct
+{
+public:
+	void SetPlayerControlOfArmies(void);
+	void MoveArmies(void);
+};
+
+// ?bfmeEnter@Glo012F1024Item@@QAEXXZ, retail 0x0056696F (72 bytes), the item
+// j_00019eca enters. BFME 2 cut the donor's sixteen-step sequence down to ten
+// unconditional steps, each a member call on this, the last a tail jump.
+void Glo012F1024Item::bfmeEnter(void)
+{
+	((Rva00564E43 *)this)->rva00564E43();
+	rva00564EC0();
+	rva005666C5();
+	rva00565106();
+	run();
+	j_00019eca();
+	rva005652F7();
+	j_00036124();
+	((LivingWorldCampaignAct *)this)->SetPlayerControlOfArmies();
+	((LivingWorldCampaignAct *)this)->MoveArmies();
+}
 
 // ?j_00019eca@Glo012F1024Item@@QAEXXZ
 void Glo012F1024Item::j_00019eca(void)
