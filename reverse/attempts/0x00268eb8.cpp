@@ -1,4 +1,6 @@
 // ?getNextMoodTarget@AIUpdateInterface@@QAEPAVObject@@_N0@Z
+// partial score=0.9739277643085864 date=2026-10-10
+// ?getNextMoodTarget@AIUpdateInterface@@QAEPAVObject@@_N0@Z
 // partial score=0.9675795433295147 date=2026-10-09
 // ?getNextMoodTarget@AIUpdateInterface@@QAEPAVObject@@_N0@Z
 // partial score=0.97 date=2026-10-09
@@ -6,6 +8,8 @@
 //
 // Status-mask correction: matched TransportContainOnContaining slot44 returns four
 // uint32 words; native getNextMoodTarget tests word0 through hidden return buffer.
+// R6: protected Object::findModule spelling uses its existing43-byte owner;
+// real inline getAttackInfo getter closes native late priority scheduling.
 // This fixes frame30; remaining buffer/filter/delta stack packing and late
 // attack-priority load/EBX horde mask still differ. No Code edit retained.
 // BANK for ?getNextMoodTarget@AIUpdateInterface@@QAEPAVObject@@_N0@Z, retail
@@ -262,7 +266,7 @@ public:
 	const Coord3D *getPosition() const { return &m_position; }
 	Bool testStatus(ObjectStatusTypes bit) const;
 	Player *getControllingPlayer() const;
-	Module *findModule(NameKeyType key) const;
+	protected: Module *findModule(NameKeyType key) const; friend class AIUpdateInterface; public:
 	Int rva0028F4EF();
 	Bool rva002943B2(const Player *player);
 	Int rva0028AF97();
@@ -352,7 +356,8 @@ public:
 	unsigned char m_pad00C[0x34 - 0x0C];
 	Int m_34; // +0x34
 	unsigned char m_pad038[0x70 - 0x38];
-	const AttackPriorityInfo *m_attackInfo; // +0x70
+	const AttackPriorityInfo *getAttackInfo() const { return m_attackInfo; }
+ const AttackPriorityInfo *m_attackInfo; // +0x70
 	unsigned char m_pad074[0x1A4 - 0x74];
 	ObjectID m_1a4; // +0x1A4 (a target ID taken first)
 	unsigned char m_pad1A8[0x21C - 0x1A8];
@@ -545,9 +550,7 @@ Object *AIUpdateInterface::getNextMoodTarget(Bool calledByAI, Bool calledDuringI
 	}
 	{
 		Rva00263077Filter filter(obj);
-		const AttackPriorityInfo *info = m_attackInfo;
-		target = TheAI->findClosestEnemy(obj, rangeToFindWithin, flags, info,
-			obj->getControllingPlayer()->getPlayerType() == 0 ? (PartitionFilter *)&filter : 0, 0);
+		target=TheAI->findClosestEnemy(obj,rangeToFindWithin,flags,getAttackInfo(),obj->getControllingPlayer()->getPlayerType()==0?(PartitionFilter*)&filter:0,0);
 	}
 	if (target)
 	{
