@@ -12,6 +12,8 @@ Int __stdcall Rva005960FFGet(void *arg);
 class Object;
 bool __cdecl rva004884B7(Object *obj);
 
+enum ObjectID { OBJECT_FIRST=0 };
+
 enum ScienceType
 {
 	SCIENCE_FIRST = 0
@@ -19,6 +21,8 @@ enum ScienceType
 
 namespace _STL
 {
+
+template<class I,class V> I find(I,I,const V&);
 
 template <class _Tp> class allocator
 {
@@ -28,6 +32,7 @@ template <class _Tp, class _Alloc> class vector
 {
 public:
 	void push_back(const _Tp &v);
+ _Tp *erase(_Tp *);
 	_Tp *m_start;
 	_Tp *m_finish;
 	_Tp *m_end;
@@ -50,12 +55,20 @@ class Rva003ECA69Element
 {
 public:
 	Rva003ECA69Element *rva003ECB52(Rva003ECB52Arg *arg);
+ Rva003ECA69Element *rva003ECB94(Rva003ECB52Arg *arg);
 };
+
+class Rva0025BF8C {public:bool rva0025BF8C(void*);};
 
 class AIUnitStats : public Rva0025C061
 {
 public:
 	bool Register(void *holder);
+ bool rva0059614B(void *holder);
+ private:
+  typedef _STL::vector<ObjectID,_STL::allocator<ObjectID> > IdVector;
+  IdVector &ids() { return *(IdVector *)((char *)this + 0x98); }   // +0x98
+ public:
 };
 
 bool AIUnitStats::Register(void *holder)
@@ -75,4 +88,32 @@ bool AIUnitStats::Register(void *holder)
 		return true;
 	}
 	return false;
+}
+
+// Native 0x0059614B..0x005961D6 (139B, RET 4): Register's removal twin.
+// On the Check-false path it erases the holder's ID (+0x74) from the
+// +0x98 ID vector (find 0x0020E873, erase); otherwise it forwards to the
+// +0x10 element like Register. The vector is reached through an accessor
+// at each use: native adjusts ESI to it only after pushing the value
+// address, which a cached vector pointer moves ahead of the push.
+bool AIUnitStats::rva0059614B(void *holder) {
+ if((unsigned char)Rva005960FFGet(holder)) {
+  void *inner=*(void**)((char*)holder+4);
+  unsigned int flags=*(unsigned int*)((char*)inner+0x108);
+  if((flags&8)==0 && (((unsigned char*)inner)[0x113]&4)==0) {
+   if(flags&0x4000) {
+    if(!rva004884B7((Object*)holder)) {
+     ObjectID value=*(ObjectID*)((char*)holder+0x74);
+     ObjectID *end=ids().m_finish;
+     ObjectID *found=_STL::find(ids().m_start,end,value);
+     if(found!=end)ids().erase(found);
+    }
+   }
+  } else {
+   if(((Rva0025BF8C*)this)->rva0025BF8C(holder))
+    ((Rva003ECA69Element*)((char*)this+0x10))->rva003ECB94((Rva003ECB52Arg*)holder);
+  }
+  return true;
+ }
+ return false;
 }
