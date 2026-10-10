@@ -1,0 +1,33 @@
+{
+  "id": "B-20261010-triple-string-materialize-002d511e-002d56c3",
+  "paths": [
+    "Code/GameEngine/Source/Common/Rva002D4688.cpp"
+  ],
+  "recoveries": [
+    {
+      "name": "??BRva002D4688@@QAE?AVAsciiString@@XZ",
+      "rva": "0x002D511E",
+      "size": 106,
+      "source": "Code/GameEngine/Source/Common/Rva002D4688.cpp",
+      "notes": "Native2D511E..2D5188106B RET4 and WB F4AD70 prove three-fragment materialization: lengths4/C/14 and existing copy worker2D4688. Existing37B node/provider home retains address-derived name rather than asserting original template specialization. Shared string buffer/read-copy-release ABI verified; nested pair length helpers recover native field evaluation. All106B and complete EH exact; existing37B worker unchanged. No new pins or assembler.",
+      "replace_rva": ""
+    },
+    {
+      "name": "?Rva002D56C3Construct@@YA?AVAsciiString@@AAVRva002D4688@@@Z",
+      "rva": "0x002D56C3",
+      "size": 78,
+      "source": "Code/GameEngine/Source/Common/Rva002D4688.cpp",
+      "notes": "Native2D56C3..2D571178B RET0 and WB F4A440 independently prove cdecl hidden-result wrapper around2D511E conversion then StringBase copy and temporary release. Similar matched78B wrapper4E2ED9 supplied clean semantic/codegen pattern only. Borrowed existing node view has no field access here. Whole78B and full EH exact with this batch verified106B dependency; original helper name unknown so address-derived spelling retained. No new pins or assembler.",
+      "replace_rva": ""
+    }
+  ],
+  "proof_command": "python tools/explain_mismatch.py \"??BRva002D4688@@QAE?AVAsciiString@@XZ\" --rva 0x002D511E --size 106 --source Code/GameEngine/Source/Common/Rva002D4688.cpp; python build/verify-triple-string-batch.py",
+  "proof_log": "proof.log",
+  "dependencies": [],
+  "ledger_delta": "Two new rows in existing37B provider source. Add conversion before wrapper in one batch; no local ledger or symbol edits.",
+  "provider_notes": "One in-memory dependency mapping is added only after conversion whole body verifies, allowing complete wrapper proof without temporary production pins. Coordinator normal add_match_batch should resolve both same-batch definitions. Existing address-derived Rva002D4688 node has proven24B layout from three pointer-length references; original StringCompose template spelling remains unasserted. Inline pair/nested length functions are genuine reference operations and produce no new placed bodies. Existing37B copy worker still exact.",
+  "seat": "B",
+  "base_commit": "f845c420b8a76a856f3379ddceea800d33682b02",
+  "claim_owner": "codex-01a12257-recovery",
+  "proof_exit_code": 0
+}
