@@ -1,6 +1,5 @@
+// cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /arch:SSE
 // ?Rva005E4817Partition@@YAPAHPAH0VRva005E4300Cmp@@H@Z
-// partial score=0.93 date=2026-10-03
-// cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 
 // ?Rva005E4817Partition@@YAPAHPAHVRva005E4300Cmp@@H@Z 0x005E4817 75B partition with stateful cmp
@@ -11,11 +10,10 @@ public:
 	bool operator()(int a, int b) const;
 };
 
-// ?Rva005E4817Partition@@YAPAHPAH0VRva005E4300Cmp@@H@Z present-unmatched
 int *__cdecl Rva005E4817Partition(int *first, int *last, Rva005E4300Cmp comp, int pivot)
 {
 loop:
-	if (first == last)
+	if ((first?first:first) == last)
 		return first;
 	if (comp(*first, pivot))
 	{
