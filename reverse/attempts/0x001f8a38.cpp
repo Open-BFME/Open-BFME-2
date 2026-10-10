@@ -8,8 +8,8 @@
 // the first argument. Provider ModuleData element spelling is only an ABI view.
 #include <vector>
 class ModuleData;
-struct BfmeE12 {float x,y,z;};
-namespace _STL {template<>void vector<BfmeE12>::swap(vector<BfmeE12>&);}
+class AsciiString;
+namespace _STL {template<>void vector<AsciiString>::swap(vector<AsciiString>&);}
 void __cdecl Rva00030830GameFree(void*);
 namespace _STL {template<>inline _Vector_base<const ModuleData*,allocator<const ModuleData*> >::~_Vector_base() {if(_M_start)Rva00030830GameFree(_M_start);}}
 namespace _STL {
@@ -26,5 +26,5 @@ void Rva001F8A38::rva001F8A38(_STL::vector<const ModuleData*>&out,void*context) 
   const ModuleData*value=(*it)->collect(context);
   temporary.push_back(value);
  }
- reinterpret_cast<_STL::vector<BfmeE12>&>(temporary).swap(reinterpret_cast<_STL::vector<BfmeE12>&>(out));
+ reinterpret_cast<_STL::vector<AsciiString>&>(temporary).swap(reinterpret_cast<_STL::vector<AsciiString>&>(out));
 }
