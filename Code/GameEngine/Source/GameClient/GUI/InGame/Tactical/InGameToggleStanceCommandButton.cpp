@@ -72,6 +72,7 @@ void Rva00525E55::rva00567A6E(int stance) {
 class StancesBehavior;
 class InGameToggleStanceCommandButton {public:class Impl;};
 class InGameToggleStanceCommandButton::Impl {public:
+ class StanceButton;
  virtual void onStancesBehaviorStanceChanged(StancesBehavior &,int,int)=0;
  char pad[0xC-4];StanceOwnerView *owner;GameWindow *window;CommandButton *button;
 };
@@ -116,4 +117,44 @@ TreeHintRef00217D4C Rva00567960::rva0056786B() {
  UnicodeString text=TheGameText->fetch(*reinterpret_cast<Rva0035B29E *>(button)->rva0035B29E(index));
  TreeHintRef00217D4C result(new Rva0056D3FD(title,UnicodeString::TheEmptyString,UnicodeString::TheEmptyString,text,AsciiString::TheEmptyString));
  return result;
+}
+
+// WB142FBB0 names StanceButton::DoUpdate; native5679A4..567A27 RET0.
+// The embedded movie-clip interface is at +8; the parent Impl, stance and
+// optional countdown receiver are +10,+14,+18. WB confirms the decrement
+// every tenth client frame; retail accesses its counter at +F8 (WB +FC).
+// The opening update is the established empty-hook receiver view, not a
+// claim that this member is one of the unrelated destructors folded there.
+class Rva000B3FD0Nop {public:void noop();};
+class Rva005C7C7D {public:void rva005C7C7D(const Image *);};
+class Rva005C7C75 {public:void rva005C7C75(int);};
+class Rva005C7C5D {public:void rva005C7C65(bool);};
+// Existing provider retains its original opaque 32-bit return; native passes
+// that word as the Image pointer, without creating a second callee name.
+class Rva0035B1C3 {public:int rva0035B1C3(int);};
+class GameClient;
+extern GameClient *TheGameClient;
+class StanceClientFrameView {public:
+#define SLOT(N) virtual void s##N();
+ SLOT(0) SLOT(1) SLOT(2) SLOT(3) SLOT(4) SLOT(5) SLOT(6) SLOT(7)
+ SLOT(8) SLOT(9) SLOT(10) SLOT(11) SLOT(12) SLOT(13) SLOT(14) SLOT(15)
+ SLOT(16) SLOT(17) SLOT(18) SLOT(19) SLOT(20) SLOT(21) SLOT(22) SLOT(23)
+ SLOT(24) SLOT(25) SLOT(26) SLOT(27) SLOT(28) SLOT(29) SLOT(30)
+#undef SLOT
+ virtual unsigned frame();
+};
+struct StanceCountdownView {char prefix[0xF8];int remaining;};
+class InGameToggleStanceCommandButton::Impl::StanceButton {public:
+ void DoUpdate();
+ char head[8];char movieClip[8];Impl *impl;int stance;StanceCountdownView *countdown;
+};
+void InGameToggleStanceCommandButton::Impl::StanceButton::DoUpdate() {
+ reinterpret_cast<Rva000B3FD0Nop *>(movieClip)->noop();
+ int slot=StanceToButtonSlot(impl->button,stance);
+ reinterpret_cast<Rva005C7C7D *>(movieClip)->rva005C7C7D(reinterpret_cast<const Image *>(reinterpret_cast<Rva0035B1C3 *>(impl->button)->rva0035B1C3(slot)));
+ reinterpret_cast<Rva005C7C75 *>(movieClip)->rva005C7C75(6);
+ if(countdown) {
+  if(countdown->remaining>0 && reinterpret_cast<StanceClientFrameView *>(TheGameClient)->frame()%10==0)--countdown->remaining;
+  reinterpret_cast<Rva005C7C5D *>(movieClip)->rva005C7C65(countdown->remaining>0);
+ }
 }
