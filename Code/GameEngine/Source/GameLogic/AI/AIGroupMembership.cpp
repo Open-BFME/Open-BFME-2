@@ -35,6 +35,15 @@
 #define _STLP_NO_EXCEPTIONS 1
 #include <list>
 
+class Object;
+// Keep the existing list-advance operation inline in these native consumers.
+namespace _STL {
+template<> __declspec(dllimport) __forceinline
+_List_iterator<Object *, _Nonconst_traits<Object *> >&
+_List_iterator<Object *, _Nonconst_traits<Object *> >::operator++()
+{ this->_M_incr(); return *this; }
+}
+
 // Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
 namespace _STL {
 template <class T, class Traits>
