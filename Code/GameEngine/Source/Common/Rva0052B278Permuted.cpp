@@ -1,6 +1,7 @@
-// ??0Rva0052B278@@QAE@PAX00@Z
-// partial score=0.97 date=2026-10-08
 // cl: /O1 /arch:SSE /G7 /MD /EHsc /DNDEBUG /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+//
+// ??0Rva0052B278@@QAE@PAX00@Z, retail 0x0052b278, 314 bytes. Banked partial (score 0.97) closed by tools/permute.py;
+// the body is the banked one up to statement/operand order and local types.
 // stlport
 #include <vector>
 class Vector3 {

@@ -1,6 +1,7 @@
-// ?rva0005CE7E@GlobalVolumeData@MilesAudioManager@@QAEXPAVXfer@@@Z
-// partial score=0.995 date=2026-10-09
 // cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
+//
+// ?rva0005CE7E@GlobalVolumeData@MilesAudioManager@@QAEXPAVXfer@@@Z, retail 0x0005ce7e, 225 bytes. Banked partial (score 0.995) closed by tools/permute.py;
+// the body is the banked one up to statement/operand order and local types.
 // Native0005CE7E..0005CF5D and WB77A930 establish GlobalVolumeData snapshot.
 // Current MilesAudioManager class and matched map serializer guide target layout.
 // All225 body bytes match once the unprovided58DC6 set-xfer relocation is masked.

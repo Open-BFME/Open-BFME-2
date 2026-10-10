@@ -1,7 +1,7 @@
-// ?draw@W3DRadar@@QAEXHHHHH@Z
-// partial score=1.0 date=2026-10-10
-// ?draw@W3DRadar@@QAEXHHHHH@Z
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/moduledata /Ireference/shims/subsystem_bfme2 /Ireference/shims/bfme2_ascii
+//
+// ?draw@W3DRadar@@QAEXHHHHH@Z, retail 0x0005053e, 1314 bytes. Banked partial (score 1.0) closed by tools/permute.py;
+// the body is the banked one up to statement/operand order and local types.
 // Native [0x0005053E,0x00050A60),1314B, RET20. BFME1 W3DRadar::draw
 // at f98983a7d3bb405f1a4ba94bb6a2a168062a819d and GeneralsMD W3DRadar.cpp
 // guide the aspect bars, overlay refresh, texture layers and view-box order.
@@ -21,7 +21,7 @@
 typedef bool Bool;
 #include "subsystem_interface.h"
 struct ICoord2D{int x,y;};
-struct Coord3D{float x,y,z;};
+#include "../../../../../Libraries/Include/Lib/Coord3D.h"
 struct Region3D{Coord3D lo,hi;float width()const{return hi.x-lo.x;}float height()const{return hi.y-lo.y;}};
 class Image;class RadarObject;
 class Player{public:bool hasRadar()const;};

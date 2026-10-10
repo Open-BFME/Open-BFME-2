@@ -1,7 +1,8 @@
-// ?ProcessScriptedEvent@LuaScriptEngine@@QAEXPAVXmlNameSlotList@@@Z
-// partial score=0.9338842975 date=2026-10-09
-// stlport
 // cl: /O1 /MD /EHsc /DNDEBUG /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
+//
+// ?ProcessScriptedEvent@LuaScriptEngine@@QAEXPAVXmlNameSlotList@@@Z, retail 0x00336be4, 121 bytes. Banked partial (score 0.9338842975) closed by tools/permute.py;
+// the body is the banked one up to statement/operand order and local types.
+// stlport
 // BFME1 9cbfb551 LuaScriptEngineParseScriptedEvent.cpp; native WB BFFE20.
 #include <vector>
 #include <string.h>

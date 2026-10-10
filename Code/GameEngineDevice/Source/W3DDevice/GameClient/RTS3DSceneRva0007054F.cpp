@@ -1,6 +1,7 @@
-// ?rva0007054F@RTS3DScene@@UAEXAAVRenderInfoClass@@@Z
-// partial score=1.0 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Oy-
+//
+// ?rva0007054F@RTS3DScene@@UAEXAAVRenderInfoClass@@@Z, retail 0x0007054f, 754 bytes. Banked partial (score 1.0) closed by tools/permute.py;
+// the body is the banked one up to statement/operand order and local types.
 // Source guide: pinned BFME1 f98983a7d GeneralsMD W3DScene.cpp Customized_Render.
 // Target facts: whole7054F..70841 RET4, scene vslot5C calls this from71E40,
 // UpdateList74/head78 and RenderListEC/headF0; BFME2 pass3..7 branches read

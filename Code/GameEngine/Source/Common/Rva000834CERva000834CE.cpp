@@ -1,12 +1,10 @@
-// ?rva000834CE@Rva000834CE@@QAEXXZ
-// partial score=0.995 date=2026-10-09
-// ?rva000834CE@Rva000834CE@@QAEXXZ
-// partial score=0.98 date=2026-10-07
 // cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
+//
+// ?rva000834CE@Rva000834CE@@QAEXXZ, retail 0x000834ce, 121 bytes. Banked partial (score 0.995) closed by tools/permute.py;
+// the body is the banked one up to statement/operand order and local types.
 // stlport
 #include <vector>
 //
-// ?rva000834CE@Rva000834CE@@QAEXXZ @ 0x000834CE (121B), Ghidra boundary.
 // Target bytes establish a one-shot guarded call to 0x0008304A followed by a
 // loop over the pointer range at +0x70/+0x74. Each slot binds an index buffer
 // from +0x88, a vertex buffer from +0x70, and draws with the vertex count at

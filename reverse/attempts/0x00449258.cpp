@@ -1,4 +1,6 @@
 // ?ParseGameOptionsString@@YA_NPAVLANGameInfo@@VAsciiString@@PBXH@Z
+// partial score=0.99 date=2026-10-10
+// ?ParseGameOptionsString@@YA_NPAVLANGameInfo@@VAsciiString@@PBXH@Z
 // partial score=1.0 date=2026-10-09
 // cl: /O1 /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /DNDEBUG /D_CRTIMP= /MD /EHsc /D_STLP_USE_STATIC_LIB
 // stlport
