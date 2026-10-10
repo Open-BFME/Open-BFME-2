@@ -1,4 +1,6 @@
 // ??0Impl@RegionDetailsArmiesPage@StrategicInGameUI@@QAE@PAX00ABUPageContext@@@Z
+// partial score=0.96 date=2026-10-10
+// ??0Impl@RegionDetailsArmiesPage@StrategicInGameUI@@QAE@PAX00ABUPageContext@@@Z
 // partial score=0.94 date=2026-10-09
 // cl: /O1 /G7 /MD /EHsc /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport
@@ -82,9 +84,8 @@ StrategicInGameUI::RegionDetailsArmiesPage::Impl::Impl(void *page,void *level,vo
  CreateArmyIcons();
  void *army=context.page;
  if(army){
-  _STL::vector<TreeHintRef00217D4C>::iterator i=icons.begin();
   _STL::vector<TreeHintRef00217D4C>::iterator end=icons.end();
-  for(;i!=end;++i){
+  for(_STL::vector<TreeHintRef00217D4C>::iterator i=icons.begin();i!=end;++i){
    if(((Rva005E19CAEntry*)i->m_target)->army==army){pending=(int)i->m_target;break;}
   }
  }
