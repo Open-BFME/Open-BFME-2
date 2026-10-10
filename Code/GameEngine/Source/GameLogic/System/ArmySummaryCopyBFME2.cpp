@@ -1,28 +1,18 @@
 // ??4ArmySummary@@QAEAAV0@ABV0@@Z
-// partial score=0.95 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /MD /DNDEBUG /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata
 // stlport
-// NEAR draft: ArmySummary::operator= at 0x0040EAED (399 bytes). Pinned
-// spelling ??4BfmeAssignRecord104@@QAEAAU0@ABU0@@Z is a placeholder for this
-// class. 396B vs 399B: same residue family as the copy ctor (holder kept in
-// memory/iterator in a register where retail does the opposite).
+// Native40EAED..40EC7C complete399 RET4. ArmySummary assignment is
+// identified by WB class/vftable relationships and independently owned reset,
+// entry copying, listeners, string assignment and vector providers. Field
+// offsets and reference subobject AC are target facts established in those
+// siblings. Address-named helper views preserve unknown original spellings.
+// The generic STLport push_back remains visible to the compiler; a declaration
+// specialization hid its effects and changed holder and iterator allocation.
 #include <vector>
 #include "ascii_string.h"
 class Xfer;
 
-// Snapshot base as a novtable view: retail never stores the base vtable
-// 0x00BBB554 in this constructor; its dtor 0x0049B47C stays out of line.
-class __declspec(novtable) Snapshot
-{
-public:
-	Snapshot() {}
-	virtual ~Snapshot();
-
-protected:
-	virtual void loadPostProcess() = 0;
-	virtual const char *GetSnapshotName() const = 0;
-	virtual void xfer(Xfer *xfer) = 0;
-};
+#include "Common/Snapshot.h"
 
 enum ObjectID
 {
@@ -87,7 +77,7 @@ public:
 namespace _STL
 {
 template <> void vector<Rva0040CB11Entry>::reserve(size_type n);
-template <> void vector<Rva0040CB11Entry>::push_back(const Rva0040CB11Entry &value);
+
 template <> vector<int> &vector<int>::operator=(const vector<int> &other);
 }
 
