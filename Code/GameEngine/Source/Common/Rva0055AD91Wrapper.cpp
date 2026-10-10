@@ -33,3 +33,21 @@ void AIBuildable::registerWithBuilder(void *x, bool flag)
 		m_10 = 0;
 	((Rva004EC276 *)rec)->rva004EC83F(this);
 }
+
+// ?registerWithBuilder@Rva00596CDF@@UAEXPAX_N@Z retail 0x00596C7C 9B: slot 6
+// of 0x00870AF0 (??_7Rva00596CDF, ctor 0x00596C85 right after it), an
+// override: set the class's +0x58 flag, then tail-jump to the base above with
+// both arguments unchanged.
+class Rva00596CDF : public AIBuildable
+{
+public:
+	virtual void registerWithBuilder(void *x, bool flag);
+	char m_pad14[0x58 - 0x14];
+	bool m_58;
+};
+
+void Rva00596CDF::registerWithBuilder(void *x, bool flag)
+{
+	m_58 = true;
+	AIBuildable::registerWithBuilder(x, flag);
+}
