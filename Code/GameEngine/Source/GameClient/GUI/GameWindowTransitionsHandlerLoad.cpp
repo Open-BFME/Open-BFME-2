@@ -1,14 +1,19 @@
-// ?load@GameWindowTransitionsHandler@@QAEXXZ
-// partial score=0.9911037355 date=2026-10-10
-// ?load@GameWindowTransitionsHandler@@QAEXXZ
-// Target: full780B 1DC7E1..1DCAED; init2CDB0 and loadFile2DC75.
-// Nineteen native strings/functions, map+0C and NameKey singleton independently decoded.
-// Native dispatch1DCAED uses a four-argument cdecl field parser. Existing parser
-// providers with neutral names keep their ledger signatures; casts store their entrypoints.
-// ZH load supplies INI/WindowTransitions.ini purpose; BF2 adds registration.
-// INI87C from verified ctor2CDB0; no shortening to hide four-byte frame difference.
-// Current O1 body780 differs only frame+4 and four stack-home bytes.
-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /GX /DNDEBUG /D_CRTIMP=
+// cl: /Ireference/shims/bfme2_ascii /O1 /MD /GX /DNDEBUG /D_CRTIMP= /G7 /arch:SSE
+//
+// GameWindowTransitionsHandler::load, retail 0x001DC7E1 (780 bytes): registers the
+// window-transition INI field parsers under their name keys in the handler's lookup
+// map (+0x0C), then reads Data\INI\WindowTransitions.ini through a local INI
+// (rowed ctor 0x0002CDB0, loadFile 0x0002DC75, dtor 0x0002CE5B). ZH load supplies the
+// purpose; the nineteen registrations are BFME 2 additions read from the bytes.
+// The parsers keep their ledger signatures under neutral names and are stored through
+// casts to the four-argument cdecl field-parser type.
+//
+// Frame size: retail's cl saw the whole name-key map walk (ObjectLookupMap::findSlot
+// 0x0041F4E5 -> KeyToBucketMap::find 0x00148B27 -> _M_find 0x002888D4) and knew none
+// of them keeps the address of the key temporary. Without that knowledge the key
+// temporary and the saved ESP of the by-value path argument cannot share a slot
+// (frame 0x884 instead of 0x880). The three bodies are therefore defined here as
+// noinline members with the retail bytes; their COMDAT copies stay exact.
 #include "ascii_string.h"
 class Xfer;
 enum INILoadType {INI_LOAD_INVALID, INI_LOAD_OVERWRITE};
@@ -17,7 +22,62 @@ enum NameKeyType {NAMEKEY_INVALID=0,NAMEKEY_MAX=1<<23,FORCE_NAMEKEYTYPE_LONG=0x7
 class NameKeyGenerator {public: NameKeyType nameToKey(const char*);};
 extern NameKeyGenerator* TheNameKeyGenerator;
 class Object;
-class ObjectLookupMap {public: Object** findSlot(int*); Object** slot(const NameKeyType& key) { return findSlot(reinterpret_cast<int*>(const_cast<NameKeyType*>(&key))); } private: char storage[0x14];};
+struct KeyBucketNode { KeyBucketNode *next; int key; Object *value; };
+struct KeyBucketTable
+{
+	KeyBucketNode **start;
+	KeyBucketNode **finish;
+	KeyBucketNode **storageEnd;
+	unsigned size() const { return (unsigned)(finish - start); }
+	KeyBucketNode *&at( unsigned n ) { return *( start + n ); }
+};
+struct KeyHashInt { unsigned operator()( int x ) const { return (unsigned)x; } };
+struct KeyEqualInt { bool operator()( int a, int b ) const { return a == b; } };
+class ObjectLookupMap
+{
+public:
+	struct Slot { void *node; ObjectLookupMap *map; };
+	__declspec(noinline) Object **findSlot( int *key )
+	{
+		Slot out;
+		find( out, key );
+		KeyBucketNode *node = (KeyBucketNode *)out.node;
+		if ( node == 0 )
+		{
+			out.node = (void *)*key;
+			out.map = 0;
+			return (Object **)( insertNode( (const ValueType &)out ) + 1 );
+		}
+		return &node->value;
+	}
+	Object **slot( const NameKeyType &key ) { return findSlot( reinterpret_cast<int *>( const_cast<NameKeyType *>( &key ) ) ); }
+private:
+	struct ValueType { int first; void *second; };
+	__declspec(noinline) Slot *find( Slot &out, const int *key )
+	{
+		out.node = _M_find( *key );
+		out.map = this;
+		return &out;
+	}
+	__declspec(noinline) void *_M_find( const int &key ) const
+	{
+		unsigned n = bkt_num_key( key );
+		KeyBucketNode *first;
+		for ( first = ( (ObjectLookupMap *)this )->tableAt( n ); first && !m_equals( first->key, key ); first = first->next )
+		{
+		}
+		return first;
+	}
+	int *insertNode( const ValueType &value );
+	unsigned tableSize() const { return m_table.size(); }
+	KeyBucketNode *&tableAt( unsigned n ) { return m_table.at( n ); }
+	unsigned bkt_num_key( int key ) const { return m_hash( key ) % tableSize(); }
+	KeyHashInt m_hash;
+	KeyEqualInt m_equals;
+	char m_pad2[2];
+	KeyBucketTable m_table;
+	unsigned m_count;
+};
 typedef void (__cdecl *Factory)(INI*,void*,void*,const void*);
 struct Gen_00489270;
 void s5parse0059DE10(INI*, Gen_00489270*);
