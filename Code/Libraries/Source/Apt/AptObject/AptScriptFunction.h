@@ -50,6 +50,7 @@ public:
     bool isUndefined() const;
     AptValue *findChild(const EAStringC *, AptValue *);
     bool getIsDefined() const;
+    unsigned int getRefCount() const;
     bool isCIH(bool = false) const;
     virtual void AddRef();
     virtual void Release();
@@ -158,6 +159,8 @@ class AptScriptFunctionByteCodeBlock : public AptScriptFunctionBase
 public:
     AptScriptFunctionByteCodeBlock(const unsigned char *, int, AptConstantPool,
                                  const char *, AptCIH *, AptScriptFunctionBase *);
+    static void *operator new(unsigned int);
+    static void operator delete(void *,unsigned int);
     virtual const char *GetName() const;
     virtual unsigned int GetNumArguments();
     virtual const unsigned char *GetByteCodeBase();
