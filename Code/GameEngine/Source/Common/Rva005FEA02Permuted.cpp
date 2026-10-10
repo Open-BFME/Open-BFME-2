@@ -1,12 +1,14 @@
-// ?SetTabCount@BattlePromptPlayerTabsMovieClip@StrategicHUD@@QAEXI@Z
-// partial score=0.92 date=2026-10-08
-// ?rva005FEA02@Rva005FE750@@QAEXI@Z
-// partial score=0.92 date=2026-10-05
 // cl: /Ireference/shims/bfme2_ascii /G7 /O1 /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+//
+// ?SetTabCount@BattlePromptPlayerTabsMovieClip@StrategicHUD@@QAEXI@Z, retail 0x005fea02, 96 bytes. Banked partial (score 0.92) closed by tools/permute.py;
+// the body is the banked one up to statement/operand order and local types.
+// ?rva005FEA02@Rva005FE750@@QAEXI@Z
 // stlport
 // ??1Rva005FE750@@UAE@XZ @0x005FE750 87B via vtable plus StringBase plus Rva members plus wide vector
 // Evidence: prev 0x005FE589 and next 0x005FE835 same vector family same flags; callees rowed vector 0x005FE4A3 Rva 0x005242D7 Rva 0x0052413E releaseBuffer 0x00036410; vtable 0x0087A3F4.
 
+extern "C" void _ReadWriteBarrier(void);
+#pragma intrinsic(_ReadWriteBarrier)
 #include <vector>
 
 #include "ascii_string.h"
@@ -71,11 +73,12 @@ private:
 };
 
 
-// ?rva005FEA02@Rva005FE750@@QAEXI@Z present-unmatched
 void StrategicHUD::BattlePromptPlayerTabsMovieClip::SetTabCount(unsigned newCount)
 {
 	if (newCount == m_28.size())
 		return;
+	// Codegen: this barrier fixes the native statement/schedule order (found by a per-statement barrier sweep).
+	_ReadWriteBarrier();
 	m_28.reserve(newCount);
 	const char *mid = GetStr005FEA02(this->m_08);
 	Rva0052519DFire(g_bfmeAptWindowManager, (void *)this->m_04, mid, "SetTabCount", (int *)&newCount);

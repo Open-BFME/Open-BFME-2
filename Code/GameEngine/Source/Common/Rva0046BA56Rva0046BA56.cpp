@@ -1,8 +1,8 @@
-// ?rva0046BA56@Rva0046BA56@@QAEXPAVObject@@H@Z
-// partial score=0.92 date=2026-10-06
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /arch:SSE /EHs /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /G7
+//
+// ?rva0046BA56@Rva0046BA56@@QAEXPAVObject@@H@Z, retail 0x0046ba56, 119 bytes. Banked partial (score 0.92) closed by tools/permute.py;
+// the body is the banked one up to statement/operand order and local types.
 // stlport
-// ?rva0046BA56@Rva0046BA56@@QAEXPAVObject@@H@Z, RVA 0x0046BA56, 119 bytes.
 // +0x20 iface slot (REF tables 0x00844FD0 0x00845BC8 0x00846CB8): for each
 // contained Object (pair via -0x20 base rowed 0x0046247D, second = +0x34
 // list-head address) plus the live Object of every +0x150 rb-header key,
@@ -10,19 +10,13 @@
 // Evidence: neighbours get/Rva00462CD3Sub plus FUN Clone siblings; callers none;
 // second arg unread (ret 8); TheGameLogic real name; header+8 = leftmost and
 // node+0x10 = key per rowed _M_increment TU.
+extern "C" void _ReadWriteBarrier(void);
+#pragma intrinsic(_ReadWriteBarrier)
+#include "GameLogicObjectLookupView.h"
 class Object
 {
 public:
 	void rva00298979(Object *obj, bool flag);
-};
-enum ObjectID
-{
-	INVALID_ID = 0
-};
-class GameLogic
-{
-public:
-	Object *findObjectByID(ObjectID id);
 };
 extern GameLogic *TheGameLogic;
 struct Rva0046247DPair
@@ -65,6 +59,8 @@ void Rva0046BA56::rva0046BA56(Object *obj, int)
 	Rva0046247DPair p;
 	((Rva0046247D *)((char *)this - 0x20))->rva0046247D(p);
 	void *addr = p.m04;
+	// Codegen: this barrier fixes the native statement/schedule order (found by a per-statement barrier sweep).
+	_ReadWriteBarrier();
 	for (void *node = *(void **)*(void **)addr; node != *(void **)addr; node = *(void **)node) {
 		Object *contained = *(Object **)((char *)node + 8);
 		contained->rva00298979(obj, false);

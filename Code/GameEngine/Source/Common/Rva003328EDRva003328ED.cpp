@@ -1,11 +1,9 @@
-// ?rva003328ED@Rva003328ED@@QAEXPAXHH@Z
-// partial score=0.92 date=2026-10-06
-// ?rva003328ED@Rva003328ED@@QAEXPAXHH@Z
-// partial score=0.92 date=2026-10-06
 // cl: /O1 /EHsc /DNDEBUG /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+//
+// ?rva003328ED@Rva003328ED@@QAEXPAXHH@Z, retail 0x003328ed, 136 bytes. Banked partial (score 0.92) closed by tools/permute.py;
+// the body is the banked one up to statement/operand order and local types.
 // stlport
 //
-// ?rva003328ED@Rva003328ED@@QAEXPAXHH@Z, retail 0x003328ED, 136 bytes.
 //
 // Leaf search-insert on vector<Rva003328B6Element> at +4 (same 12-byte
 // two-NameKey plus list record as Rva00331EAD / Rva003320C7ListOwner).
@@ -14,6 +12,8 @@
 // appendIfAbsent row 0x3320C7, PoolMember release row 0x268902,
 // caller 0x2628D8 in Rva003328EDChain.cpp, ret 0xC three-arg shape.
 
+extern "C" void _ReadWriteBarrier(void);
+#pragma intrinsic(_ReadWriteBarrier)
 #include <vector>
 
 struct Rva003328B6Element
@@ -62,7 +62,6 @@ private:
 	_STL::vector<Rva003328B6Element> m_vec;
 };
 
-// ?rva003328ED@Rva003328ED@@QAEXPAXHH@Z present-unmatched
 void Rva003328ED::rva003328ED(void *x, int k1, int k2)
 {
 	Rva003328B6Element *p = m_vec.begin();
@@ -78,6 +77,8 @@ void Rva003328ED::rva003328ED(void *x, int k1, int k2)
 		}
 		++p;
 	} while (!found);
+	// Codegen: this barrier fixes the native statement/schedule order (found by a per-statement barrier sweep).
+	_ReadWriteBarrier();
 	if (found != false)
 		return;
 	Rva00331EAD tmp(k1, k2);
