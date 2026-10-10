@@ -221,7 +221,7 @@ virtual void v020();
 virtual void v021();
 virtual void rva0008BE6BNotify();};extern AudioManager*TheAudio;
 class GlobalData{public:char pad[0x950];float clipMultiplier;char pad954[0xea6-0x954];bool debug,unused;float debugFov,debugAngle;};extern GlobalData*TheWritableGlobalData;
-class W3DView{void *vtable;char pad4[8];Coord3D position;char pad18[0x44-0x18];bool constrain;char pad45[0x6c-0x45];float fov;char pad70[0x104-0x70];CameraClass *camera;char pad108[0x2354-0x108];int mode;char pad2358[12];float modeFov;char pad2368[0x23d8-0x2368];bool moved;char pad23d9[0x240c-0x23d9];float loX,loY,hiX,hiY;bool valid;
+class W3DView{public:virtual void forceRedraw();private:char pad4[8];Coord3D position;char pad18[0x44-0x18];bool constrain;char pad45[0x6c-0x45];float fov;char pad70[0x104-0x70];CameraClass *camera;char pad108[0x2354-0x108];int mode;char pad2358[12];float modeFov;char pad2368[0x23d8-0x2368];bool moved;char pad23d9[0x240c-0x23d9];float loX,loY,hiX,hiY;bool valid;
  void buildCameraTransform(Matrix3D*);void calcCameraConstraints();void setCameraTransform();
 };
 void W3DView::setCameraTransform(){
@@ -243,3 +243,9 @@ void W3DView::setCameraTransform(){
  }
  reinterpret_cast<Rva00203B2BHost*>(TheScriptEngine)->rva00203B2B();if(TheAudio)TheAudio->rva0008BE6BNotify();
 }
+
+// ?forceRedraw@W3DView@@UAEXXZ @0x0008D134 5B: slot 20 of the view table
+// 0x007C7568 (??_7Rva008BD5E@@6BRva0025EF18@@@). Zero Hour's
+// W3DView::forceRedraw is its only virtual whose whole body is
+// setCameraTransform(): a tail jump to the rowed 0x0008BE6B above.
+void W3DView::forceRedraw(){setCameraTransform();}
