@@ -499,6 +499,7 @@ Code/Libraries/Source/Apt/AptCIHLevel006E0B80.cpp,-O2,10,1,region default loses 
 Code/Libraries/Source/Apt/AptCIHRender.cpp,-O2 -G6,1,1,region default loses rows
 Code/Libraries/Source/Apt/AptCharacterByteCounts.cpp,-O2,2,2,region default loses rows
 Code/Libraries/Source/Apt/AptDateConstructor.cpp,-O2 -G6,1,1,region default loses rows
+Code/Libraries/Source/Apt/AptInputSuffixAdvance.cpp,-O2 -G6,4,2,region default loses rows
 Code/Libraries/Source/Apt/AptMathCallbacksBFME2.cpp,-O2,17,3,region default loses rows
 Code/Libraries/Source/Apt/AptMathClipStack.cpp,-O2,7,2,region default loses rows
 Code/Libraries/Source/Apt/AptMovieFrameControls.cpp,-O2,10,1,region default loses rows
@@ -511,6 +512,7 @@ Code/Libraries/Source/Apt/AptValue/AptFloatCreateBFME2.cpp,-O2,1,1,region defaul
 Code/Libraries/Source/Apt/AptValue/AptScalarValueConstructors.cpp,-O1,3,1,region default loses rows
 Code/Libraries/Source/Apt/AptValue/AptValueToBoolBFME2.cpp,-O2,1,1,region default loses rows
 Code/Libraries/Source/Apt/AptValue/AptValueToNumberBFME2.cpp,-O2,1,1,region default loses rows
+Code/Libraries/Source/Apt/AptValue/PlaybackBufferResize.cpp,-O2,5,2,region default loses rows
 Code/Libraries/Source/Apt/AptValue/Rva006D9780Finish.cpp,-O2,1,1,region default loses rows
 Code/Libraries/Source/Apt/BfmeThingXSApply.cpp,,1,1,region default loses rows
 Code/Libraries/Source/Apt/DogmaPoolAllocBlock.cpp,-O2,3,1,region default loses rows

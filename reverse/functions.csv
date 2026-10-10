@@ -75160,3 +75160,10 @@ _Wmt_idct1,,0x001D89C0,98,Code/Libraries/Source/VP6/Idct1Wmt.cpp,matched,Clean-r
 ?Rva002A1EF5@@YAHPAVDrawable@@PAX@Z,,0x002A1EF5,655,Code/GameEngine/Source/GameClient/InGameUI_selectMatchingCallback.cpp,matched,select-matching drawable callback of InGameUI::selectMatchingAcrossRegion 2A3AFA; inline Object::getTemplate puts guard template in EDX; visible _List_base<const Object*> ctor/dtor
 ?call@Rva006E1260@@QAEXPAX@Z,,0x006E1260,722,Code/Libraries/Source/Apt/Rva006E1260AptCihRefresh.cpp,matched,AptCIH edit-text refresh (WB twin 0x017950F0 AptCIH.cpp line 683); x87 /O2 /G6 flag override; SN5/S2 bank
 ?rva0061EEC0@Rva0061EEC0@@QAEXXZ,,0x0061EEC0,24,Code/Libraries/Source/assetmanager/q1_registry_forwards.cpp,matched,Native 61EEC0..61EED8 RET0 thiscall; WB 1673FB0 byte twin unnamed; E09C0C registry counter +30 preincrement to this+10; G6 schedule; P3 bank
+?Rva006CDBF0Resize@@YAPAVAptValueNameEntry@@PAV1@HH@Z,,0x006CDBF0,313,Code/Libraries/Source/Apt/AptValue/PlaybackBufferResize.cpp,matched,P4 exact bank (8B entry array allocator); O2 override; landed by X1 after the DIR32 reds cleared
+?rva006CE660@Rva006CE660Vec@@QAEXH@Z,,0x006CE660,251,Code/Libraries/Source/Apt/AptValue/PlaybackBufferResize.cpp,matched,P4 exact bank (growth); O2 override
+?insert@Rva006CE660Vec@@QAEXABQAVAptValueNameEntry@@0ABURva006CDD50Iterator@@@Z,,0x006CE890,458,Code/Libraries/Source/Apt/AptValue/PlaybackBufferResize.cpp,matched,P4 exact bank (range insertion); O2 override
+??_EAptValueNameEntry@@QAEPAXI@Z,,0x006CBB20,84,Code/Libraries/Source/Apt/AptValue/PlaybackBufferResize.cpp,matched,P4 exact bank (vector deleting dtor); O2 override
+??HRva006CDD50Iterator@@QBE?AU0@H@Z,,0x006CDD30,32,Code/Libraries/Source/Apt/AptValue/PlaybackBufferResize.cpp,matched,P4 exact bank (iterator addition); O2 override
+?rva006F98C0Score@@YAMHHHHH@Z,,0x006F98C0,271,Code/Libraries/Source/Apt/AptInputSuffixAdvance.cpp,matched,P5 exact bank (AptInput suffix score; BF1 575ba2b04 AptInput.cpp guide); O2 G6 x87 override
+?rva006F99D0@@YAPAVAptCIH@@HPAV1@0@Z,,0x006F99D0,604,Code/Libraries/Source/Apt/AptInputSuffixAdvance.cpp,matched,P5 exact bank (AptInput focus search); O2 G6 x87 override
