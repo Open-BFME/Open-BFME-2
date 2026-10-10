@@ -1,6 +1,6 @@
 // cl: /O1 /Ob1 /Oy- /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /arch:SSE
 // stlport
-// Native constructor2A8D49..2A8E64 builds the manager's2232B data member.
+// Native constructor2A8D49..2A8E64 builds the manager's2296B data member.
 // The two floats at840/844 form an observed initialization subobject: grouping
 // them reproduces the native LEA840 and relative store+4 before allocator setup.
 // This does not assert an original source type/name. Values are decoded from
