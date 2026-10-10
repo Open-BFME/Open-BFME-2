@@ -345,7 +345,12 @@ extern void (__cdecl *g_bfmeAptCommandAtE17758)(const char*,const char*);
 extern AptValue *(__cdecl *g_bfmeAptLoadVariablesAtE1775C)(const char*);
 extern void (__cdecl *g_bfmeAptSetExternAtE17764)(const char*,const char*);
 extern AptValue *(__cdecl *g_bfmeAptGetExternAtE17768)(const char*);
-extern void (__cdecl *g_00E17774)(void*,int);
+// VA 0x00E17774 (zero-filled: installed at run time). This is the Apt host's
+// function-table slot the CHECK block below names "gAptFuncs.pfnDeallocateString";
+// the string allocate/free pair either side of it already live at VA 0x00E17768
+// and VA 0x00E17784. Four units call through this slot, so it is defined once here
+// in the unit that carries the table's CHECK block.
+void (__cdecl *g_00E17774)(void*,int) = 0;
 extern void (__cdecl *g_bfmeAptFreeAtE17784)(void*,int);
 extern void (__cdecl *g_AptBindTexture)(void*,int,void*);
 struct AptMatrix;
