@@ -2298,3 +2298,24 @@ Bool AIAttackMeleeSquishState::computePath()
  }
  return false;
 }
+
+// Retail 0x00345076, 101 bytes: slot 4 of 0x00C10FA0. Clears +0x24, succeeds
+// at once when the pinned rva004D7ADD reports the goal gone or there is no goal
+// object, otherwise waits from the current frame, one second and two frames
+// longer for an owner with status 0x44 or the AI's +0x3CC flag.
+StateReturnType AIAttackMeleeHordeWaitPathState::onEnter()
+{
+	m_bfmeValue24 = 0;
+	if (((TurretStateMachine *)getMachine())->rva004D7ADD())
+		return STATE_SUCCESS;
+	if (!getMachineGoalObject())
+		return STATE_SUCCESS;
+
+	UnsignedInt now = TheGameLogic->getFrame();
+	m_waitUntilFrame = now;
+	Object *owner = getMachineOwner();
+	if (owner->testStatus(OBJECT_STATUS_44) || owner->getObservedAI()->m_3cc)
+		// Same-valued conditional retains native commutative operand order.
+		m_waitUntilFrame = (now ? now : now) + LOGICFRAMES_PER_SECOND + 2;
+	return STATE_CONTINUE;
+}
