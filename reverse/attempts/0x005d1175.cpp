@@ -1,4 +1,6 @@
 // ??0Rva005D1129@@QAE@PAX@Z
+// partial score=0.98 date=2026-10-10
+// ??0Rva005D1129@@QAE@PAX@Z
 // partial score=0.83 date=2026-10-06
 // cl: /O1 /MD /EHsc
 //
@@ -23,7 +25,7 @@ public:
 
 class Object;
 class Rva002BA8F1Logic;
-extern Rva002BA8F1Logic *g_009FEF10;
+class LivingWorldLogic;extern LivingWorldLogic *TheLivingWorldLogic;
 
 class Rva00575674
 {
@@ -100,15 +102,16 @@ private:
 };
 
 void *__cdecl operator new(unsigned int size);
-void *__cdecl rva005ED198(Rva002BA8F1Logic *source);
+void *__cdecl rva005ED198(const void *source);
 
 Rva005D1129::Rva005D1129(void *vtable) : Rva005D1129Base(vtable), m_pointer()
 {
-	Rva002BA8F1Logic *global = g_009FEF10;
+	LivingWorldLogic *global = TheLivingWorldLogic;
 	m_previous = global ? (Rva005D1129 *)rva005ED198(global) : 0;
+	Object *result;
 	if (m_previous)
 	{
-		new Rva005D1064Node(this, m_previous);
+		result=(Object *)new Rva005D1064Node(this, m_previous);
 	}
 	else
 	{
@@ -122,8 +125,9 @@ Rva005D1129::Rva005D1129(void *vtable) : Rva005D1129Base(vtable), m_pointer()
 		{
 			node = 0;
 		}
-		((Rva00575674 *)&m_pointer)->rva00575674((Object *)node);
+		result=(Object *)node;
 	}
+	((Rva00575674 *)&m_pointer)->rva00575674(result);
 }
 
 void Rva005D1129::rva005D1129()
