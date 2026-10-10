@@ -14,7 +14,7 @@
 #include <vector>
 class AsciiString;
 struct TargetRef00217D4C;
-struct Rva002BED91 { void set(TargetRef00217D4C *); };
+struct Rva002BED91 { void set(TargetRef00217D4C *); void clear(); };
 class Rva005EB0CBState {public:
     virtual void rvaSlot0();
     virtual void rvaSlot1();
@@ -93,6 +93,7 @@ namespace StrategicInGameUI
 			class MovieClip;
 			class PlayerPanelMovieClip;
             void OnPlayerPanelLoaded(int,int,unsigned,const AsciiString &);
+            void rva005EA8E3(int side,int index);
             char m_unmodelled00[0x14];
             Rva005EB0CBState *m_loadedState;
             int m_unmodelled18;
@@ -396,6 +397,13 @@ class StrategicInGameUI::DynamicAutoResolveDialog::Impl::MovieClip
 {
 public:
 	virtual void OnSkipButtonClicked();
+	// vtable 0x00C781DC slots 4..7: the ally (0) and enemy (1) player panel
+	// loaded/unloaded callbacks, forwarded to the dialog Impl. Original
+	// spellings unknown.
+	virtual void rva005EB258(int index, unsigned level, const AsciiString &name);
+	virtual void rva005EA987(int index);
+	virtual void rva005EB271(int index, unsigned level, const AsciiString &name);
+	virtual void rva005EA998(int index);
 
 private:
 	int m_04;
@@ -531,4 +539,35 @@ void StrategicInGameUI::DynamicAutoResolveDialog::Impl::OnPlayerPanelLoaded(
             m_loadedState->rvaSlot3();
         }
     }
+}
+
+// Native 0x005EA8E3 (55 bytes): the counterpart of OnPlayerPanelLoaded that
+// drops the player's panel clip reference (rowed holder clear 0x002BED91)
+// when the index is valid. Original spelling unknown.
+void StrategicInGameUI::DynamicAutoResolveDialog::Impl::rva005EA8E3(int side,int index)
+{
+    if(index>=0 && static_cast<unsigned>(index)<m_panelPlayers[side].size())
+        reinterpret_cast<Rva002BED91 *>(&m_panelPlayers[side][index].m_20)->clear();
+}
+
+// MovieClip panel callbacks 0x005EB258/0x005EA987 (ally) and 0x005EB271/
+// 0x005EA998 (enemy): +0x08 is the dialog Impl.
+void StrategicInGameUI::DynamicAutoResolveDialog::Impl::MovieClip::rva005EB258(int index, unsigned level, const AsciiString &name)
+{
+	reinterpret_cast<Impl *>(m_impl)->OnPlayerPanelLoaded(0, index, level, name);
+}
+
+void StrategicInGameUI::DynamicAutoResolveDialog::Impl::MovieClip::rva005EA987(int index)
+{
+	reinterpret_cast<Impl *>(m_impl)->rva005EA8E3(0, index);
+}
+
+void StrategicInGameUI::DynamicAutoResolveDialog::Impl::MovieClip::rva005EB271(int index, unsigned level, const AsciiString &name)
+{
+	reinterpret_cast<Impl *>(m_impl)->OnPlayerPanelLoaded(1, index, level, name);
+}
+
+void StrategicInGameUI::DynamicAutoResolveDialog::Impl::MovieClip::rva005EA998(int index)
+{
+	reinterpret_cast<Impl *>(m_impl)->rva005EA8E3(1, index);
 }
