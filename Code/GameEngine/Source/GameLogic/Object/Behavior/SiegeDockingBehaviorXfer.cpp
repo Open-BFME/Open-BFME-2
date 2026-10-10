@@ -3,18 +3,15 @@
 // ?xfer@SiegeDockingBehavior@@MAEXPAVXfer@@@Z, retail 0x0045A02F, 318 bytes.
 // Slot 3 (offset 0x0C) of vtable 0x008414DC. xfer shape with Version1 then UpdateModule base then IsStoring branch.
 // Evidence: donor game/GameEngine/Source/GameLogic/Object/Behavior/SiegeDockingBehaviorXfer.cpp (BFME1 0x00206FF0) direct reuse with Version1 repair; base model from PoisonedBehaviorXfer UpdateModule 0x20 plus secondary at 0x20; callers none; callees Version1 0x53EE UpdateModule xfer 0x44DF9F IsStoring slot8 XferSiegeTypeEnum 0x306112 XferObjectID 0x3060B2 stopDocking 0x459C27 new 0x2FDA0 push_back 0x4DFCB0 rowed.
-// The emitted unsigned max copy must match retail RVA 0x00013740.
-// Define it for speed, then restore this unit's flags for its own bodies.
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
 #include <stl/_algobase.h>
-#pragma optimize("s", off)
-#pragma optimize("t", on)
 namespace _STL {
-template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
 {
     return a < b ? b : a;
 }
 }
-#pragma optimize("", on)
 
 #include <vector>
 typedef unsigned int UnsignedInt;

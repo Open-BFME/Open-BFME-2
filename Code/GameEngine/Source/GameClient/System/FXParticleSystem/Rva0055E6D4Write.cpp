@@ -2,18 +2,15 @@
 // stlport
 // ?rva0055E6D4@TerrainFireEmissionModuleTemplate@FXParticleSystem@@UAEXPAVFile@@I@Z @0x0055E6D4 313B chain lane writeINI via WriteHeader.
 // Evidence: vslot 3 of TerrainFireEmissionModuleTemplate 0x0081BBE0; calls rowed WriteHeader 0x0055CB5D then ostringstream then rowed IsZero 0x001F3744 gated Xoffset/Yoffset/Zoffset 0x001F8B5F then rowed t4IsZero 0x0055D3D9 gated CellEmissionChance 0x003A5D34 then rowed str plus FileWrite plus free plus footer; same shape as Lightning rva00561DB3.
-// The emitted unsigned max copy must match retail RVA 0x00013740.
-// Define it for speed, then restore this unit's flags for its own bodies.
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
 #include <stl/_algobase.h>
-#pragma optimize("s", off)
-#pragma optimize("t", on)
 namespace _STL {
-template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
 {
     return a < b ? b : a;
 }
 }
-#pragma optimize("", on)
 
 #include <sstream>
 #include "ascii_string.h"

@@ -10,18 +10,15 @@
 // index+1 " = " then the rowed variable Put 0x001F87D5 ' ' frame '\n'
 // (_M_put_nowiden _M_put_num<unsigned long> _M_put_char) then rowed str plus
 // FileWrite 0x001F458B plus free plus footer 0x003AFC6B.
-// The emitted unsigned max copy must match retail RVA 0x00013740.
-// Define it for speed, then restore this unit's flags for its own bodies.
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
 #include <stl/_algobase.h>
-#pragma optimize("s", off)
-#pragma optimize("t", on)
 namespace _STL {
-template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
 {
     return a < b ? b : a;
 }
 }
-#pragma optimize("", on)
 
 #include <sstream>
 
