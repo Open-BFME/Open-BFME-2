@@ -17147,3 +17147,4 @@ _VP6_ReadTokens,0x001BC3D0,callee of _VP6_DecodeBlock
 ?rva006BEF80@Rva006BEF80@@QAEXHHHHHH@Z,0x006BEF80,thiscall callee of 0x0033A77F (REL32 at 0x0033A799); ghidra FUN_00abef80 1079B ends ret 0x18 = six dword args
 ?rva003B6676@Rva003B6676@@QAEXXZ,0x003B6676,thiscall callees of 0x003B693A (REL32 at 0x003B6956 and 0x003B6967); ghidra FUN_007b6676 / FUN_007b56dc; 98B each; plain ret = no stack args
 ?rva003B56DC@Rva003B56DC@@QAEXXZ,0x003B56DC,thiscall callees of 0x003B693A (REL32 at 0x003B6956 and 0x003B6967); ghidra FUN_007b6676 / FUN_007b56dc; 98B each; plain ret = no stack args
+?rva005CCF47@Impl@Checklist@StrategicInGameUI@@QAE?AUChecklistItemRef@3@PAVChecklistItem@3@@Z,0x005CCF47,callee of 0x005CCFF3 (REL32 at 0x005CD004); ghidra FUN_009ccf47 138B RET8 = hidden return + one arg; name as in the banked 0x005CCF47 attempts
