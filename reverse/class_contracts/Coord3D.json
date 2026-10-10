@@ -139,7 +139,15 @@
    "rva": "0x00003702",
    "size": 57,
    "source": "Code/Libraries/Source/WWVegas/WWMath/coord3d.cpp"
-  }
+  },
+   {
+    "declaration": "float GetLengthEstimate() const;",
+    "name": "?GetLengthEstimate@Coord3D@@QBEMXZ",
+    "rva": "0x00003ACE",
+    "size": 372,
+    "source": "Code/Libraries/Source/WWVegas/WWMath/coord3d_lengthestimate.cpp",
+    "decided_by": "byte-verified owner; native CastleBehavior nearest-template 0x00397429 calls it on a 12-byte XYZ delta; WB EBD340 calls named Coord3D::GetLengthEstimate on the corresponding delta"
+   }
   ]
  },
  "fields": [

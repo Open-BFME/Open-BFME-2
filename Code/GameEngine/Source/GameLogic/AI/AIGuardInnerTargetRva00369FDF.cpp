@@ -1,7 +1,8 @@
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /I. /ICode/Libraries/Include/Lib
 // Native complete boundary 00369FDF..0036A3E9. Loading the ordinary owner
-// member via a local slot pointer preserves retail's owner/receiver spill
-// lifetime around the position copy. No storage-type inference is claimed.
+// member through getOwner and a same-valued receiver expression preserves
+// retail owner/receiver stack homes with the extended canonical Coord3D API.
+// No storage-type inference is claimed.
 // BF1/ZH guide the behavior; target bytes and WB F356C0 establish this variant.
 // ?lookForInnerTarget@Rva00369FDFGuardMachine@@QAE_NXZ, retail 0x00369FDF
 // (1034 bytes): the pinned name, REL32 callee of the second guard machine's
@@ -347,9 +348,8 @@ private:
 
 bool Rva00369FDFGuardMachine::lookForInnerTarget()
 {
-	Object **ownerSlot = &m_owner;
-	Object *owner = *ownerSlot;
-	if (!owner->isAbleToAttack())
+	Object *owner = getOwner();
+	if (!(owner?owner:owner)->isAbleToAttack())
 		return false;
 
 	Object *goal = owner->getAI()->getStateMachine()->getGoalObject();

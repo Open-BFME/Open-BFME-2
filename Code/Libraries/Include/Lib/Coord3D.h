@@ -25,6 +25,8 @@ struct Coord3D {
     void set(const struct Coord3DBase *p);
     void scale(float s);
     bool equals(const struct Coord3DBase &that) const;
+    // Native 0x00003ACE/372; nearest-template caller 0x00397429.
+    float GetLengthEstimate() const;
 };
 
 #endif // CANONICAL_COORD3D_H
