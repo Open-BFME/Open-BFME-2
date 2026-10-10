@@ -479,6 +479,18 @@ public:
  template<class U> Rva0054E8DCAllocator(const Rva0054E8DCAllocator<U> &) throw() {}
 };
 
+// MSVC71's STLport configuration disables member-template-class traits.
+// Rebind this stateless allocator explicitly, as the default allocator does,
+// so node construction converts the caller allocator to a node allocator.
+namespace _STL {
+template<class T, class U> struct _Alloc_traits<T, Rva0054E8DCAllocator<U> > {
+ typedef Rva0054E8DCAllocator<U> _Orig;
+ typedef Rva0054E8DCAllocator<T> allocator_type;
+ static allocator_type create_allocator(const _Orig &a) { return allocator_type(a); }
+};
+}
+
+
 class W3DTaint
 {
 public:
