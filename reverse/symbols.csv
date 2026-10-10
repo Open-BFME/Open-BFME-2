@@ -17086,3 +17086,4 @@ _VP6_ReadTokens,0x001BC3D0,callee of _VP6_DecodeBlock
 ??0Rva0010F058@@QAE@H@Z,0x0010F058,callees of 0x000A8D0B (REL32 at 0x000A8D32 and 0x000A8D4B): ctor FUN_0050f058 108B ret 4 (one arg) and method FUN_0050f962 143B ret 8 (two args); names as in the banked attempts
 ?rva0010F962@Rva0010F962@@QAEXHH@Z,0x0010F962,callees of 0x000A8D0B (REL32 at 0x000A8D32 and 0x000A8D4B): ctor FUN_0050f058 108B ret 4 (one arg) and method FUN_0050f962 143B ret 8 (two args); names as in the banked attempts
 ?rva001B5384@Rva00221088@@QAEXXZ,0x001B5384,thiscall callee of 0x002210CF (REL32 at 0x00221114) on the StrategicHUD static; ghidra FUN_005b5384 426B single plain ret = no stack args
+??0Rva004FD0DA@@QAE@XZ,0x004FD0DA,scenario ctor called by Scenario::ParseINI 0x004FD94E (REL32 at 0x004FD97E) on its new 0xB0-byte object; ghidra 226B plain ret; name as in the banked 0x004FD0DA attempt
