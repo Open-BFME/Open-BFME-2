@@ -1,7 +1,8 @@
-// ?rva002AC43F@Player@@QAE_NPAH@Z
-// partial score=0.86225 date=2026-10-09
-// ?rva002AC43F@Player@@QAE_NPAH@Z
-// partial score=0.97 date=2026-10-05
+// Donor semantic lead: Zero Hour Player.cpp skirmish side-name lookup.
+// Target: native2AC43F..2AC4D4 complete149B and output index; named Player
+// receiver from the dictionary initializer. Inline noinline skirmish accessor
+// reproduces its independently owned33B at2A98D1 exactly, allowing MSVC to
+// see its register use. No new callee pin or competing strong definition.
 // cl: /I. /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /MD /EHs
 //
 // ?rva002AC43F@Player@@QAE_NPAH@Z @0x002AC43F (149B): find this player's
@@ -31,7 +32,7 @@ private:
 	const char *m_name;
 };
 
-extern Rva00148F5ECache g_00DBDE24;
+extern Rva00148F5ECache TheKey_playerName;
 
 class Dict
 {
@@ -61,7 +62,7 @@ public:
 
 private:
 	unsigned char m_pad[0x7C0];
-	int m_numSkirmishSides;
+	int m_numSkirmishSides;SidesInfo sides[1];
 };
 
 extern SidesList *TheSidesList;
@@ -76,13 +77,15 @@ private:
 	AsciiString m_4c;
 };
 
+inline __declspec(noinline) SidesInfo *SidesList::getSkirmishSideInfo(int i){return i>=0 && i<m_numSkirmishSides?&sides[i]:0;}
+
 bool Player::rva002AC43F(int *index)
 {
 	int count = TheSidesList->getNumSkirmishSides();
 	*index = 0;
 	for (int i = 0; i < count; i++) {
 		Dict *dict=TheSidesList->getSkirmishSideInfo(i)->getDict();
-		AsciiString name=dict->getAsciiString(g_00DBDE24.get());
+		AsciiString name=dict->getAsciiString(TheKey_playerName.get());
 		if (name.compare(m_4c) == 0) {
 			*index = i;
 			return true;
