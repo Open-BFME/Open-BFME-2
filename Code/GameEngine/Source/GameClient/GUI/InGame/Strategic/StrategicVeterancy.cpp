@@ -124,7 +124,7 @@ class StrategicVeterancy
 {
 public:
 	class Data;
-	Bool Show();						// 0x005EC1A4, banked near miss
+	Bool Show();						// 0x005EC1A4
 	void Hide();
 
 private:
@@ -271,3 +271,37 @@ StrategicVeterancy::Impl::Impl(StrategicVeterancy *owner, Data *data)
 Rva005FA874::Rva005FA874():ptr(0){}
 // ?Rva005241B0::Rva005241B0 present-unmatched
 Rva005241B0::Rva005241B0():names(_STL::allocator<AsciiString>()){}
+
+// Native 005EC1A4..005EC21D, 121B; WB15EA270 names Show. The +0x0C
+// test is the row count initialized by this unit's owned Impl constructor.
+// A readiness flag with nested checks retains retail's shared early-false
+// block before the state dispatch; a single compound condition places it
+// after the successful path and does not match.
+Bool StrategicVeterancy::Show()
+{
+    Bool ready = false;
+    if (g_bfmeAptWindowManager)
+    {
+        if ((unsigned char)((Rva002B254F *)TheLivingWorldLogic)->rva002B254F() == 0)
+        {
+            if (m_impl->m_numRows)
+                ready = true;
+        }
+    }
+    if (!ready)
+        return false;
+    switch (m_impl->m_state)
+    {
+    case 3:
+    case 4:
+        Rva00516F21Invoke((Rva00222A8BTarget *)g_bfmeAptWindowManager,
+            m_impl->m_level, "SetState", "_fadeIn");
+        m_impl->m_state = 2;
+        break;
+    case 0:
+        ((Rva002224FE *)g_bfmeAptWindowManager)->rva002224FE((Int)m_impl->m_level);
+        m_impl->m_state = 1;
+        break;
+    }
+    return true;
+}
