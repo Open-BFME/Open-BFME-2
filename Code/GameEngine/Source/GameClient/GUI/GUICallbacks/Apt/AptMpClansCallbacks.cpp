@@ -1,4 +1,5 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
+// stlport
 //
 // BFME2's lobby clans panel (the AptMpGameSetup panel's +0x190 member) Apt
 // callbacks "AptMpClans::WebSite" (0x0057F41A) and "AptMpClans::InitGadgets"
@@ -8,6 +9,8 @@
 
 #include "unicode_string.h"
 #include "ascii_string.h"
+#include <vector>
+#include <list>
 
 extern "C" int __cdecl strcmp(const char *left, const char *right);
 extern "C" __declspec(dllimport) void *__stdcall ShellExecuteW(void *window, const unsigned short *operation, const unsigned short *file, const unsigned short *parameters, const unsigned short *directory, int show);
@@ -51,6 +54,7 @@ public:
 	virtual bool write();
 
 	void deleteClan(const AsciiString &clan, const AsciiString &member);
+	const _STL::list<AsciiString> &rva005CA211(const AsciiString &clan);
 };
 // The Apt callback functors (Rva0057BC63FunctorHolder.cpp, as in
 // MpGameSetupSlots.cpp): a binding of an
@@ -105,18 +109,8 @@ public:
 class AptCommandMap;
 class AptExternHandler;
 
-namespace _STL
-{
-	template <class T> class allocator {};
-
-	template <class T, class A = allocator<T> > class vector
-	{
-	private:
-		T *m_start;
-		T *m_finish;
-		T *m_endOfStorage;
-	};
-}
+extern template _STL::list<AsciiString>::list(const _STL::list<AsciiString> &);
+extern template _STL::_List_base<AsciiString, _STL::allocator<AsciiString> >::~_List_base();
 
 class AptCommandMapAdder
 {
@@ -171,11 +165,13 @@ void GadgetListBoxSetColumnWidths(GameWindow *listBox, int columns, int *widths)
 class AptMpClans
 {
 public:
+	virtual void v00();
+	virtual void v04();
 	void WebSite(const char *unused);
 	void InitGadgets(const char *name, void *argument, GameWindow *window);
 	void Delete(const char *unused);
 
-	// Unrowed 0x0057F7AC (372 bytes; sets the clan name text) and the
+	// Clan name refill 0x0057F7AC (372 bytes; recovered below) and the
 	// player list refill 0x0057F5ED, pinned by address.
 	void PopulateMyClans(const UnicodeString &name);
 	void rva0057F5ED();
@@ -183,7 +179,6 @@ public:
 	void rva0057FAB0();
 
 private:
-	unsigned char m_pad000[0x04];
 	AptCommandMapAdder m_commandMaps; // +0x04
 	AptExternHandlerAdder m_externHandlers; // +0x10
 	unsigned char m_pad01c[0x58 - 0x1C];
@@ -276,4 +271,50 @@ void AptMpClans::rva0057FAB0()
 	m_registered = true;
 	m_error = UnicodeString::TheEmptyString;
 	g_bfmeAptWindowManager->bfmeSetText(AsciiString("CLAN:Error"), m_error, false);
+}
+
+// Existing matched clan-error provider: its complete receiver uses the same
+// vtable and UnicodeString at +0xB0 witnessed in this panel's callbacks.
+class Rva0057F538
+{
+public:
+    void rva0057F538(UnicodeString message);
+};
+void GadgetComboBoxReset(GameWindow *);
+void GadgetComboBoxSetMaxChars(GameWindow *, int);
+void GadgetComboBoxSetValidationFlags(GameWindow *, int);
+void GadgetComboBoxSetIsEditable(GameWindow *, bool);
+int GadgetComboBoxAddEntry(GameWindow *, UnicodeString, int);
+void GadgetComboBoxSetSelectedPos(GameWindow *, int, bool);
+void GadgetComboBoxSetText(GameWindow *, UnicodeString);
+extern int g_00DB9198;
+
+// Retail 0x0057F7AC..0x0057F920, 372 bytes, RET4. WorldBuilder's named
+// PopulateMyClans at 0x015A1630 independently identifies the callback and
+// its clan preference/list flow; native field offsets and calls agree.
+void AptMpClans::PopulateMyClans(const UnicodeString &name)
+{
+    if (!m_clanName)
+        return;
+    m_registered = false;
+    GadgetComboBoxReset(m_clanName);
+    GadgetComboBoxSetMaxChars(m_clanName, 6);
+    GadgetComboBoxSetValidationFlags(m_clanName, 4);
+    GadgetComboBoxSetIsEditable(m_clanName, true);
+    _STL::list<AsciiString> clans(m_prefs.rva005CA211(m_clan));
+    GadgetComboBoxAddEntry(m_clanName, UnicodeString::TheEmptyString, g_00DB9198);
+    int selected = 0;
+    for (_STL::list<AsciiString>::iterator i = clans.begin(); i != clans.end(); ++i)
+    {
+        UnicodeString text(*i);
+        int index = GadgetComboBoxAddEntry(m_clanName, text, g_00DB9198);
+        if (name.compare(text) == 0)
+            selected = index;
+    }
+    reinterpret_cast<Rva0057F538 *>(this)->rva0057F538(UnicodeString::TheEmptyString);
+    GadgetComboBoxSetSelectedPos(m_clanName, selected, false);
+    if (selected == 0)
+        GadgetComboBoxSetText(m_clanName, UnicodeString::TheEmptyString);
+    v04();
+    m_registered = true;
 }
