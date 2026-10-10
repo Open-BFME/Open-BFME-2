@@ -1,4 +1,5 @@
 // cl: /O1 /MD /G7
+// stlport
 // TunnelContain.cpp: TunnelContain overrides retail links from this TU (tu_map
 // approved), folded from two split units with these exact flags. The contain
 // interface at +0x34 carries both overrides: rva0047DE30 in slot 4 and
@@ -20,6 +21,8 @@
 // of the controlling player of the Object at +0x1C (that field's meaning is
 // not asserted; it is the one the body dereferences). /G7 gives the byte
 // form of the flag extraction (shr ebx,3; and bl,1).
+#include <list>
+#include "../../../../Include/GameLogic/ContainmentListView.h"
 class Thing;
 class ModuleData;
 class Player;
@@ -31,7 +34,10 @@ class TunnelTracker
 public:
 	void iterateContained(ContainIterateFunc cb, void *user, bool reverse);
 	void addToContainList(Object *obj);
+	int getContainMax() const;
 };
+class Rva004F5436 { public: int rva004F5436(class BfmeTab1026 *tab); };
+class Rva00466398 { public: Rva0036AE51ListView rva00466398(); };
 class Rva004F56FC
 {
 public:
@@ -109,7 +115,7 @@ public:
 	virtual void s25();
 	virtual void s26();
 	virtual void s27();
-	virtual void s28();
+	virtual int getContainMax() const;
 	virtual void s29();
 	virtual void s30();
 	virtual void s31();
@@ -150,8 +156,8 @@ public:
 	virtual void s66();
 	virtual void s67();
 	virtual void s68();
-	virtual void s69();
-	virtual void s70();
+	virtual int rva0047DDD9(void *arg);
+	virtual Rva0036AE51ListView rva0047DE12();
 	virtual void s71();
 	virtual void s72();
 	virtual void rva0047DCDF(Rva004F553FCb cb, void *user, unsigned int flags) = 0;
@@ -172,6 +178,9 @@ public:
 	virtual void addToContainList(Object *obj);
 	virtual void onDie(const DamageInfo *damageInfo);
 	void rva0047DF81();
+	virtual int getContainMax() const;
+	virtual int rva0047DDD9(void *arg);
+	virtual Rva0036AE51ListView rva0047DE12();
 private:
 	char m_pad9AC[0x9AC];
 	unsigned char m_flag9B0;
@@ -213,6 +222,38 @@ void TunnelContain::addToContainList(Object *obj)
 {
 	Player *owningPlayer = m_1C->getControllingPlayer();
 	owningPlayer->m_2E8->addToContainList(obj);
+}
+
+// Three more slots of the contain interface at +0x34 (vtable 0x008475B8),
+// each reading the owning player's tunnel tracker (+0x2E8) through the +0x1C
+// object pointer:
+// ?getContainMax@TunnelContain@@UBEHXZ 0x0047DDFF 19B, slot 28: Zero Hour's
+// getContainMax, without its null checks: tail jump to the rowed
+// TunnelTracker::getContainMax 0x004F5385.
+int TunnelContain::getContainMax() const
+{
+	Player *owningPlayer = m_1C->getControllingPlayer();
+	return owningPlayer->m_2E8->getContainMax();
+}
+
+// ?rva0047DDD9@TunnelContain@@UAEHPAX@Z 0x0047DDD9 38B, slot 69: with a
+// player and a tracker, the tracker's rowed count 0x004F5436 over no table;
+// else 0. The argument is unused.
+int TunnelContain::rva0047DDD9(void *)
+{
+	Player *owningPlayer = m_1C->getControllingPlayer();
+	if (owningPlayer && owningPlayer->m_2E8)
+		return ((Rva004F5436 *)owningPlayer->m_2E8)->rva004F5436(0);
+	return 0;
+}
+
+// ?rva0047DE12@TunnelContain@@UAE?AVRva0036AE51ListView@@XZ 0x0047DE12 30B,
+// slot 70: the tracker's list view by value (rowed 0x00466398), the twin of
+// the primary-vtable slot 33 in TunnelContainContainedList.cpp.
+Rva0036AE51ListView TunnelContain::rva0047DE12()
+{
+	Player *owningPlayer = m_1C->getControllingPlayer();
+	return ((Rva00466398 *)owningPlayer->m_2E8)->rva00466398();
 }
 
 // ?onDie@TunnelContain@@UAEXPBVDamageInfo@@@Z, retail 0x0047DFD9, 38 bytes:
