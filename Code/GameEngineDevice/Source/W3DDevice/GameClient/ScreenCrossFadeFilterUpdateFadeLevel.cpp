@@ -1,4 +1,4 @@
-// cl: /MD /G7 /arch:SSE
+// cl: /O1 /MD /G7 /arch:SSE /EHsc /DNDEBUG
 // ?updateFadeLevel@ScreenCrossFadeFilter@@IAE_NXZ @0x000F633A 193B
 // Evidence: named lane pin, BFME1 donor W3DShaderManager.cpp ScreenCrossFadeFilter::updateFadeLevel, caller preRender 0x000F63FB, globals g_00DEBFF8 g_00DEBFFC g_00DEC000 g_00DEBFF4.
 extern int g_00DEBFF8;
@@ -83,12 +83,16 @@ struct BfmeDevice;
 
 struct BfmeDeviceVt
 {
-	char pad000[0x104];
+	char pad000[0xe4];
+ int (__stdcall *SetRenderState)(BfmeDevice *, unsigned long, unsigned long);
+ char pad0e8[0x104-0xe8];
 	int (__stdcall *SetTexture)(BfmeDevice *, unsigned int, void *);
 	char pad108[4];
 	int (__stdcall *SetTextureStageState)(BfmeDevice *, unsigned int,
 		unsigned int, unsigned int);
-	char pad110[0x3c];
+	char pad110[4];
+ int (__stdcall *SetSamplerState)(BfmeDevice *, unsigned, unsigned, unsigned);
+ char pad118[0x14c-0x118];
 	int (__stdcall *DrawPrimitiveUP)(BfmeDevice *, unsigned int,
 		unsigned int, const void *, unsigned int);
 	char pad150[0x14];
@@ -102,6 +106,65 @@ struct BfmeDevice
 
 
 
+class StringClass
+{
+public:
+	StringClass(int initial_len = 0, bool hint_temporary = false);
+	__forceinline ~StringClass() { Free_String(); }
+private:
+	void Free_String();
+	char *m_Buffer;
+};
+
+class VertexMaterialClass
+{
+public:
+	enum PresetType
+	{
+		PRELIT_DIFFUSE = 0
+	};
+	virtual void Delete_This();
+	static VertexMaterialClass *Get_Preset(PresetType type);
+	void Add_Ref() { NumRefs++; }
+	void Release_Ref()
+	{
+		NumRefs--;
+		if (NumRefs == 0)
+			Delete_This();
+	}
+	Int NumRefs;
+};
+extern VertexMaterialClass *ScreenMaterial;
+
+class ShaderClass
+{
+public:
+	static ShaderClass _PresetAlphaShader;
+	unsigned int ShaderBits;
+protected:
+	friend class DX8Wrapper;
+	static bool ShaderDirty;
+private:
+	unsigned int m_bits[2];
+};
+
+class TextureBaseClass
+{
+public:
+	IDirect3DBaseTexture8 *Peek_D3D_Base_Texture(void) const;
+ void Release_Ref();
+};
+
+struct BFME2TextureResource;
+struct BFME2TextureRef {
+ BFME2TextureRef(BFME2TextureResource *texture): Ptr(texture) {}
+ ~BFME2TextureRef() { if (Ptr) ((TextureBaseClass *)Ptr)->Release_Ref(); }
+ BFME2TextureResource *Ptr;
+};
+void BFME2Set_Texture(unsigned stage,const BFME2TextureRef &texture);
+class WW3D { public: static bool Is_Snapshot_Activated() { return SnapshotActivated; } private: static bool SnapshotActivated; };
+struct RenderStateStruct { ShaderClass shader; };
+
 class DX8Wrapper
 {
 public:
@@ -110,6 +173,58 @@ public:
 		return (BfmeDevice *)D3DDevice;
 	}
 
+
+	static __forceinline void Set_Material(VertexMaterialClass *material)
+	{
+		if (material)
+			material->Add_Ref();
+		if (ScreenMaterial)
+			ScreenMaterial->Release_Ref();
+		ScreenMaterial = material;
+		render_state_changed |= 0x4000;
+	}
+
+	static __forceinline void Set_Shader(const ShaderClass &shader)
+	{
+		if (!ShaderClass::ShaderDirty && shader.ShaderBits == render_state.shader.ShaderBits)
+			return;
+		render_state.shader.ShaderBits = shader.ShaderBits;
+		render_state_changed |= 0x8000;
+		StringClass str;
+	}
+
+	static __forceinline void Set_DX8_Render_State(unsigned long state, unsigned value)
+	{
+		if (RenderStates[state] == value)
+			return;
+		if (WW3D::Is_Snapshot_Activated())
+		{
+			StringClass value_name(0, true);
+			Get_DX8_Render_State_Value_Name(value_name, state, value);
+		}
+		RenderStates[state] = value;
+		_Get_D3D_Device8()->vt->SetRenderState(_Get_D3D_Device8(),state, value);
+		number_of_DX8_calls++;
+		render_state_changes++;
+	}
+
+ static __forceinline void Set_CrossFade_Texture_Stage_State(unsigned stage,unsigned long state,unsigned value) {
+  if (TextureStageStates[stage][state]==value) return;
+  if (WW3D::Is_Snapshot_Activated()) {
+   StringClass value_name(0,true);
+   Get_DX8_Texture_Stage_State_Value_Name(value_name,state,value);
+  }
+  TextureStageStates[stage][state]=value;
+  _Get_D3D_Device8()->vt->SetTextureStageState(_Get_D3D_Device8(),stage,state,value);
+  ++number_of_DX8_calls; ++texture_stage_state_changes;
+ }
+ static __forceinline void Set_CrossFade_Sampler_State(unsigned sampler,unsigned type,unsigned value) {
+  _Get_D3D_Device8()->vt->SetSamplerState(_Get_D3D_Device8(),sampler,type,value);
+  ++number_of_DX8_calls; ++texture_stage_state_changes;
+ }
+ static void Apply_Render_State_Changes();
+ static void Get_DX8_Render_State_Value_Name(StringClass &,unsigned long,unsigned);
+ static void Get_DX8_Texture_Stage_State_Value_Name(StringClass &,unsigned long,unsigned);
 
  static void Set_DX8_Texture_Stage_State(unsigned, unsigned long, unsigned);
  static void Invalidate_Cached_Render_States();
@@ -125,6 +240,12 @@ public:
   }
  }
 protected:
+ static unsigned RenderStates[256];
+ static unsigned TextureStageStates[16][32];
+ static unsigned render_state_changed;
+ static unsigned render_state_changes;
+ static unsigned texture_stage_state_changes;
+ static RenderStateStruct render_state;
  static IDirect3DDevice8 *D3DDevice;
  static IDirect3DBaseTexture8 *Textures[16];
  static unsigned texture_changes;
@@ -159,11 +280,8 @@ public:
 // accessed-slot view is used only for origin and dimensions.
 static inline BfmeTacticalView *tacticalView() { return (BfmeTacticalView *)TheTacticalView; }
 
-class TextureBaseClass
-{
-public:
-	IDirect3DBaseTexture8 *Peek_D3D_Base_Texture(void) const;
-};
+
+
 
 // Existing opaque global spelling; its first four-byte texture handle is
 // independently consumed by Peek_D3D_Base_Texture at native F65ED.
@@ -189,7 +307,9 @@ public:
 	virtual void unusedPreRenderSlot();
 	virtual Bool postRender(FilterModes, Coord2D &, Bool &, Coord2D *);
 	virtual Bool setup(FilterModes);
+protected:
 	virtual Int set(FilterModes);
+public:
 	virtual void reset();
 
 protected:
@@ -341,4 +461,38 @@ void ScreenCrossFadeFilter::reset()
  DX8Wrapper::Set_DX8_Texture_Stage_State(1, 4, 1);
  DX8Wrapper::Set_Texture(0, 0);
  DX8Wrapper::Invalidate_Cached_Render_States();
+}
+
+// BF1 W3DShaderManager.cpp set with BFME2 D3D9 sampler state ABI.
+// Identity: crossfade table7CF204 slot5 F685E; full1265B RET4.
+Int ScreenCrossFadeFilter::set(FilterModes mode)
+{
+ if (mode>FM_NULL_MODE) {
+  VertexMaterialClass *vmat=VertexMaterialClass::Get_Preset(VertexMaterialClass::PRELIT_DIFFUSE);
+  DX8Wrapper::Set_Material(vmat);
+  if (vmat) vmat->Release_Ref();
+  vmat=0;
+  DX8Wrapper::Set_Shader(ShaderClass::_PresetAlphaShader);
+  BFME2Set_Texture(0,0);
+  BFME2Set_Texture(1,0);
+  DX8Wrapper::Apply_Render_State_Changes();
+  DX8Wrapper::Set_CrossFade_Sampler_State(0,1,3);
+  DX8Wrapper::Set_CrossFade_Sampler_State(0,2,3);
+  if (mode==FM_VIEW_CROSSFADE_CIRCLE) {
+   DX8Wrapper::Set_CrossFade_Texture_Stage_State(1,2,2);
+   DX8Wrapper::Set_CrossFade_Texture_Stage_State(1,3,1);
+   DX8Wrapper::Set_CrossFade_Texture_Stage_State(1,1,4);
+   DX8Wrapper::Set_CrossFade_Texture_Stage_State(1,5,2);
+   DX8Wrapper::Set_CrossFade_Texture_Stage_State(1,6,1);
+   DX8Wrapper::Set_CrossFade_Texture_Stage_State(1,4,4);
+   DX8Wrapper::Set_CrossFade_Texture_Stage_State(1,11,1);
+   DX8Wrapper::Set_CrossFade_Sampler_State(1,1,3);
+   DX8Wrapper::Set_CrossFade_Sampler_State(1,2,3);
+   DX8Wrapper::Set_CrossFade_Sampler_State(1,7,0);
+  }
+  DX8Wrapper::Set_DX8_Render_State(23,8);
+  DX8Wrapper::Set_DX8_Render_State(14,0);
+  return true;
+ }
+ return false;
 }
