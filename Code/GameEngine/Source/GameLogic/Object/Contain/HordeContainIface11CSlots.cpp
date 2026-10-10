@@ -110,6 +110,7 @@ public:
 	void aiIdle(CommandSourceType cmdSource);
 	void rva0045003E(int a1, CommandSourceType cmdSource);
 	void rva0026C2D9(Object *obj, int a2, CommandSourceType cmdSource);
+	void rva0026C347(Object *obj, CommandSourceType cmdSource);
 	void aiAttackPosition(const Coord3D *pos, int maxShotsToFire, CommandSourceType cmdSource);
 };
 int GetGameLogicRandomValue(int lo, int hi, char *file, int line);
@@ -228,6 +229,9 @@ class GlobalData
 public:
 	unsigned char m_pad000[0x9A6];
 	bool m_9A6; // +0x9A6
+	unsigned char m_pad9A7[0x1230 - 0x9A7];
+	int m_1230; // +0x1230
+	int m_1234; // +0x1234
 };
 extern GlobalData *TheWritableGlobalData;
 class Player;
