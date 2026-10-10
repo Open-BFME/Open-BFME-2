@@ -39,6 +39,14 @@
 // Author: Matthew D. Campbell, August 2002
 
 #define __PLACEMENT_VEC_NEW_INLINE
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
 #include <queue>		// BFME uses STLport's node allocator for the results queues; parse it
 						// before PreRTS.h enables the plain-new allocator.
 #include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine

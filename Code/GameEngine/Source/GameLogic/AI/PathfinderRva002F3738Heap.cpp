@@ -6,6 +6,14 @@
 // [begin, end) with the one-byte empty comparator stored at +0xC. Follows
 // 0x002F370D (43B) in PathfinderRva002F36E5.cpp; the heap instance is the
 // rowed StlSweep make_heap at 0x002F0D35 with the same opaque record.
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
 #include <algorithm>
 #include <functional>
 #include <vector>

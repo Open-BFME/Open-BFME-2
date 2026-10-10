@@ -6,6 +6,14 @@
 // push_back to the vector at +0x38. Evidence: rowed push_back 0x005334A4
 // callee; caller 0x005337CA in 1173B unclaimed; neighbours 0x005334A4 STL
 // flags and 0x005335D3 reset share the page.
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
 #include <vector>
 
 struct Rva005334A4Element

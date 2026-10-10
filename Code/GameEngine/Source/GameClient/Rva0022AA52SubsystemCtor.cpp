@@ -2,6 +2,14 @@
 // stlport
 // ??0Rva0022AA52Subsystem@@QAE@XZ @0x0022E03F 55B
 // Evidence: pin ctor; caller GameEngine::init TheLivingWorldAutoResolveCombatChainStore; callees baseConstruct 0x001B4E63 and hash_map 0x0022D95A; pattern mirrors Rva0022A8F3Subsystem.
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
 #include <hash_map>
 #include "ascii_string.h"
 

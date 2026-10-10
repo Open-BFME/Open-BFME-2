@@ -3,6 +3,14 @@
 // ??0Rva002BB7AA@@QAE@HH@Z @0x002BB7AA 44B.
 // Two-int ctor with hash_map and vector members.
 // Evidence: unlock plus caller 0x002BCA7D; hash_map row 0x002BB686 plus Vector_base row 0x00211E58; prev next STL same alloc flags.
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
 #include <hash_map>
 #include <vector>
 

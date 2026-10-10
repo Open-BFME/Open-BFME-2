@@ -8,6 +8,14 @@
 // hash_map<int, Rva002AF625Element> at +4 (0x002AF625). Donor: ZH Player.h
 // PlayerRelationMap (Snapshot-derived relation map; BFME2 keys a hash_map).
 // The class name is carried from the donor; the element type stays address-named.
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
 #include <hash_map>
 #include "Common/Snapshot.h"
 

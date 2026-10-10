@@ -2,6 +2,14 @@
 // stlport
 // ??0Rva0022BD25Subsystem@@QAE@XZ, retail 0x0041F913 (55B).
 // Subsystem ctor for TheArmyDefinitionManager: base BFME2NativeNetwork via rowed baseConstruct 0x001B4E63 plus hash_map member at +0xC via rowed 0x0041F8F4 and vtable 0x00C3B8C8. Evidence: pin ??0Rva0022BD25Subsystem@@QAE@XZ; caller 0x0022F955 in GameEngine::init new Rva0022BD25Subsystem; vtable slot0 rowed Rva0041F94A deleting wrapper.
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
 #include <hash_map>
 #include "ascii_string.h"
 
