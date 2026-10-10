@@ -1,13 +1,12 @@
 // ?rva0035A2DC@Rva0035A2DC@@QAEXPAURegion3D@@M@Z
-// partial score=0.998 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 #undef _CRTIMP
 #define _CRTIMP __declspec(dllimport)
 #include <math.h>
 #include <vector>
-#include "../Code/Libraries/Include/Lib/Coord3D.h"
-#include "../Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
+#include "../../../../Libraries/Include/Lib/Coord3D.h"
+#include "../../Common/GameLogicObjectLookupView.h"
 
 struct Region3D {
  Coord3D lo,hi;
@@ -41,6 +40,8 @@ public:void rva0035A2DC(Region3D*,float);
 private:
  char pad00[0x14]; StoredClaim *head14;float maxRadius18;Region3D extent1C;int width34,height38;float cell3C;Rva0035A18D *cells40;
 };
+// Native uses FISTP with the current rounding mode; an ordinary cast emits
+// a different conversion sequence (441B caller versus the native455B).
 __forceinline int cellInteger(float value)
 {
  int result;
@@ -64,7 +65,7 @@ void Rva0035A2DC::rva0035A2DC(Region3D *bounds,float cellSize)
  cells40=new Rva0035A18D[count];
  for(int i=0;i<count;++i) {
     reinterpret_cast<_STL::vector<BfmeE8>*>(&cells40[i].values)->reserve(ThePlayerList->rva002A7C0B(false));
-    cells40[i].state=0;
+    (this ? cells40 : cells40)[i].state=0;
  }
  extent1C=region;
  width34=width;height38=height;cell3C=cellSize;
