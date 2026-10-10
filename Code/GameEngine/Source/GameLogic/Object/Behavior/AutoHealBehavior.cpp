@@ -261,7 +261,13 @@ UpdateSleepTime AutoHealBehavior::update( void )
 					{
 						pulseHealObject( obj );
 
-						if( d->m_singleBurst && TheGameLogic->getDrawIconUI() )
+						// Retail's GameLogic::getDrawIconUI is the 4-copy majority body; this
+						// unit's header copy reads +0x5E (4B body 8A415E measured in
+						// this unit's own object) and sorts ahead of it in link order
+						// (L on 4 units). This reads the same byte directly instead of
+						// odr-using the ZH inline, whose COMDAT would otherwise
+						// displace the majority copy.
+						if( d->m_singleBurst && *(const unsigned char *)((const char *)TheGameLogic + 0x5E) )
 						{
 							if( TheAnim2DCollection && TheGlobalData->m_getHealedAnimationName.isEmpty() == FALSE )
 							{
