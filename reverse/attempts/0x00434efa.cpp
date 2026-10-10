@@ -1,11 +1,5 @@
 // ?Rva00434EFA@@YAXXZ
-// partial score=0.9 date=2026-10-09
-// ?Rva00434EFA@@YAXXZ
-// Bank refreshed 2026-10-09: real member-pointer relocations, complete owning callbacks.
-// Target 434EFA..435107=525B; this emits523B/frame3C vs native38.
-// Retail retains original/copy binding buffers at -34/-44; current -38/-48.
-// All callback/string lifetimes and common state27C=9 are represented.
-// Original function name and first callback owner remain unknown.
+// partial score=0.97 date=2026-10-10
 // cl: /Ireference/shims/bfme2_ascii /O1 /G7 /DNDEBUG /MD /EHs /vmg /vmm
 // Retail 0x00434EFA binds the saved-game prompt's button handling. Its
 // caller at 0x00435160 reaches it when the save prompt is not already open.
@@ -47,11 +41,31 @@ struct FunctorBinding { FunctorBinding(){}
 };
 struct TargetRef00217D4C;
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);
+class FunctorWrapperHead
+{
+public:
+	FunctorWrapperHead() : m_refCount(0) {}
+	virtual void anchor();
+	int m_refCount;
+};
+class Rva0057BC63FunctorWrapper : public FunctorWrapperHead
+{
+public:
+	Rva0057BC63FunctorWrapper(const FunctorBinding &binding) : m_binding(binding) {}
+	void invoke();
+	FunctorBinding m_binding;
+};
+void *__cdecl operator new(unsigned int size);
 class Rva0057BC63FunctorHolder
 {
 public:
-	Rva0057BC63FunctorHolder(const FunctorBinding &binding);
-	void *m_ptr;
+	__declspec(noinline) Rva0057BC63FunctorHolder(const FunctorBinding &binding)
+	{
+		m_ptr = new Rva0057BC63FunctorWrapper(binding);
+		if (m_ptr != 0)
+			m_ptr->m_refCount++;
+	}
+	FunctorWrapperHead *m_ptr;
 };
 
 class Rva0023E8D8
@@ -98,23 +112,36 @@ extern "C" bool __cdecl Rva00438083(int type,
 	ScopedFunctor firstCallback);
 
 void Rva00433D4D(int);
-void __cdecl Rva00434EFA() {
- FunctorBinding binding; FunctorBinding holderBinding;
- if(g_Va00E032E0) {
-  bool confirm=Rva00437EDCGet();
-  binding.m_target=reinterpret_cast<FunctorTarget*>(g_Va00E032E0);
-  binding.m_method=reinterpret_cast<FunctorMethod>(&Rva00434337::rva00434337);
-  holderBinding=binding;
-  if(confirm) {
-   Rva00438083(2,TheGameText->fetch("APT:SaveGameProgress",0),TheGameText->fetch("APT:MultiplayerGameSaved",0),
-    ScopedFunctor(bindAgain(binding,holderBinding,(AptSaveLoad*)g_Va00E032E0,&AptSaveLoad::rva00433D71)), ScopedFunctor(holderBinding));
-  }else {
-   Rva00437FB3(2,TheGameText->fetch("APT:SaveGameProgress",0),TheGameText->fetch("APT:MultiplayerGameSaved",0),
-    ScopedFunctor(bindAgain(binding,holderBinding,(AptSaveLoad*)g_Va00E032E0,&AptSaveLoad::rva00433D71)), ScopedFunctor(holderBinding));
-  }
-  ((AptSaveLoadPromptScreen*)g_Va00E032E0)->m_state=9;
- }else {
-  void (__cdecl *callback)(int)=Rva00433D4D;
-  Rva00437F61(2,TheGameText->fetch("APT:SaveGameProgress",0),TheGameText->fetch("APT:MultiplayerGameSaved",0),CallbackStorage(&callback));
- }
+struct AptSaveLoadScreen : public AptSaveLoad, public Rva00434337
+{
+	unsigned char m_pad000[0x27C];
+	int m_state;
+};
+__forceinline FunctorBinding MakeBinding(FunctorTarget *target, FunctorMethod method)
+{
+	FunctorBinding binding;
+	binding.m_target = target;
+	binding.m_method = method;
+	return binding;
+}
+typedef void (__cdecl *SaveCallback)(int);
+template <class T> __forceinline const T *addressOf(const T &value) { return &value; }
+void __cdecl Rva00434EFA()
+{
+	if (g_Va00E032E0)
+	{
+		if (Rva00437EDCGet())
+			Rva00438083(2, TheGameText->fetch("APT:SaveGameProgress", 0), TheGameText->fetch("APT:MultiplayerGameSaved", 0),
+				ScopedFunctor(MakeBinding(reinterpret_cast<FunctorTarget *>(g_Va00E032E0), reinterpret_cast<FunctorMethod>(&AptSaveLoad::rva00433D71))),
+				ScopedFunctor(MakeBinding(reinterpret_cast<FunctorTarget *>(g_Va00E032E0), reinterpret_cast<FunctorMethod>(&Rva00434337::rva00434337))));
+		else
+			Rva00437FB3(2, TheGameText->fetch("APT:SaveGameProgress", 0), TheGameText->fetch("APT:MultiplayerGameSaved", 0),
+				ScopedFunctor(MakeBinding(reinterpret_cast<FunctorTarget *>(g_Va00E032E0), reinterpret_cast<FunctorMethod>(&AptSaveLoad::rva00433D71))),
+				ScopedFunctor(MakeBinding(reinterpret_cast<FunctorTarget *>(g_Va00E032E0), reinterpret_cast<FunctorMethod>(&Rva00434337::rva00434337))));
+		((AptSaveLoadPromptScreen *)g_Va00E032E0)->m_state = 9;
+	}
+	else
+	{
+		Rva00437F61(2, TheGameText->fetch("APT:SaveGameProgress", 0), TheGameText->fetch("APT:MultiplayerGameSaved", 0), CallbackStorage((void *)addressOf(SaveCallback(Rva00433D4D))));
+	}
 }

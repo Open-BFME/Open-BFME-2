@@ -1,6 +1,6 @@
 // ?rva005160DE@AptMainMenu@@QAEXPBD@Z
-// partial score=0.95 date=2026-10-10
-// cl: /vmg /vmm /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /DNDEBUG /MD
+// partial score=0.99 date=2026-10-10
+// cl: /O1 /G7 /arch:SSE /vmg /vmm /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /DNDEBUG /MD
 //
 // BFME2's main menu screen Apt callbacks, 0x00514A9B onward. The screen's
 // registration binds each by the name it carries here ("AptMainMenu::
@@ -864,9 +864,28 @@ struct FunctorBinding {
  FunctorTarget *target; unsigned pad; FunctorMethod method;
  FunctorBinding(FunctorMethod m,FunctorTarget *t):target(t),method(m){}
 };
+class FunctorWrapperHead {
+public:
+ FunctorWrapperHead() : m_refCount(0) {}
+ virtual void anchor();
+ int m_refCount;
+};
+class Rva0057BC63FunctorWrapper : public FunctorWrapperHead {
+public:
+ Rva0057BC63FunctorWrapper(const FunctorBinding &binding) : m_binding(binding) {}
+ void invoke();
+ FunctorBinding m_binding;
+};
+void *__cdecl operator new(unsigned int size);
+// The holder constructor (row 0x0057BC63) visible, never inlined: retail's
+// compiler knew it only reads the binding (AptOptionsConstructor.cpp).
 struct Rva0057BC63FunctorHolder {
- Rva0057BC63FunctorHolder(const FunctorBinding &);
- TargetRef00217D4C *ptr;
+ __declspec(noinline) Rva0057BC63FunctorHolder(const FunctorBinding &binding) {
+  m_ptr = new Rva0057BC63FunctorWrapper(binding);
+  if (m_ptr != 0)
+   m_ptr->m_refCount++;
+ }
+ FunctorWrapperHead *m_ptr;
 };
 struct Rva004F6986Member {
  TargetRef00217D4C *ptr;
