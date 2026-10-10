@@ -50,6 +50,16 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #include "../Common/GameLogicObjectLookupView.h"
 #include "../../Include/Common/BfmeAudioEventPrefix136.h"
 
+// _List_iterator comparisons otherwise instantiate the base-class
+// operator!= COMDAT (one byte shape per TU flags); exact-match free
+// overloads take those calls instead so this TU emits no external copy.
+namespace _STL {
+template <class _IterTp, class _LeftTraits, class _RightTraits>
+static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
+                              const _List_iterator<_IterTp, _RightTraits> &b)
+{ return a._M_node != b._M_node; }
+}
+
 // The TOC list's out-of-line members fold onto addresses other lists already
 // name, so its allocator is a placeholder class (as GameLogic's ObjectTOC list).
 template <class T> class Rva0023AC36Allocator : public _STL::allocator<T>

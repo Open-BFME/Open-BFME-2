@@ -514,6 +514,16 @@ bool CastleBehavior::checkForInstantUnPack() {
 // preserving that accessor semantics reproduces its stack slot and EH state.
 // All calls use existing verified rows or previously admitted pins.
 #include <list>
+
+// _List_iterator comparisons otherwise instantiate the base-class
+// operator!= COMDAT (one byte shape per TU flags); exact-match free
+// overloads take those calls instead so this TU emits no external copy.
+namespace _STL {
+template <class _IterTp, class _LeftTraits, class _RightTraits>
+static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
+                              const _List_iterator<_IterTp, _RightTraits> &b)
+{ return a._M_node != b._M_node; }
+}
 class Drawable { public: void rva00274176(bool); void fadeIn(unsigned); };
 struct FindPositionOptions {
  FindPositionOptions() { flags=0;minRadius=0;maxRadius=0;startAngle=-99999.9f;maxZDelta=1e10f;ignoreObject=0;sourceToPathToDest=0;relationshipObject=0; }
