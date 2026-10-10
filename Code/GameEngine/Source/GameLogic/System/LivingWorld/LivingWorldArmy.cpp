@@ -68,13 +68,14 @@ class Rva002BA8F1Logic { public: Rva002E2903Player *find(int,unsigned int *); };
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 class Rva002E34A9 { public: void rva002E34A9(const Rva0040DD3ARef &,int); };
-class ArmySummary { public: int AddArmyEntry(const Rva004F6093Holder &); Rva0040DD3ARef RemoveEntry(int); Rva0040DD3ARef rva0040E672(int); };
+class ArmySummary { public: int AddArmyEntry(const Rva004F6093Holder &); Rva0040DD3ARef RemoveEntry(int); Rva0040DD3ARef rva0040E672(int); Rva0040DD3ARef rva0040E6A4(ArmySummaryEntry *); };
 struct HeroTemplateKindView { char pad00[0x113]; unsigned char kind113; };
 class LivingWorldArmy {
 public:
     void UseArmySummary(Rva00319CED *source);
     void KillSummaryEntry(int index);
     void rva00319EF9(LivingWorldArmy *source,int key);
+    void rva00319EA3(LivingWorldArmy *source,ArmySummaryEntry *entry);
     void TakeUnitFromArmy_Internal(LivingWorldArmy *source, const Rva004F6093Holder &entry);
     char pad00[0x20];
     int owner20;
@@ -202,5 +203,16 @@ void LivingWorldArmy::rva00319EF9(LivingWorldArmy *source,int key)
 {
  LivingWorldArmy *from=(source?source:source);
  Rva0040DD3ARef entry=reinterpret_cast<ArmySummary *>(from->summary78)->rva0040E672(key);
+ TakeUnitFromArmy_Internal(from,*reinterpret_cast<const Rva004F6093Holder *>(&entry));
+}
+
+// Native319EA3..319EF9 is the owning transfer twin: the established50B
+// pointer lookup40E6A4 replaces the integer-key lookup40E672. WB102B780
+// confirms the common TakeUnitFromArmy_Internal and reference cleanup chain;
+// the original wrapper name remains unknown.
+void LivingWorldArmy::rva00319EA3(LivingWorldArmy *source,ArmySummaryEntry *entryToTake)
+{
+ LivingWorldArmy *from=(source?source:source);
+ Rva0040DD3ARef entry=reinterpret_cast<ArmySummary *>(from->summary78)->rva0040E6A4(entryToTake);
  TakeUnitFromArmy_Internal(from,*reinterpret_cast<const Rva004F6093Holder *>(&entry));
 }
