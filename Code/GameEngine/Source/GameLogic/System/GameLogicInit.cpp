@@ -4556,6 +4556,8 @@ void GameLogic::update(int phase)
 
 // Native23E99A..23EE5B complete RET; WB CF3EA0 names CreateWOTRMPPlayers.
 // The matched CreateMPPlayers pass supplies existing Dict/key/slot/team APIs.
+// Target globals independently identify PlayerList DFEEE8 / SidesList E01D58 /
+// TeamFactory E028BC and the established opaque subsystem E03138.
 // Target adds three subsystem resets, marks every slot at1A4, drops linked
 // nonfinal teams and uses index names; faction/team/color settings keep the
 // independently verified provider calls of the existing player builder.
@@ -4566,7 +4568,7 @@ void GameLogic::CreateWOTRMPPlayers()
  GameInfo *game=TheGameInfo;
  ThePlayerList->reset();
  ((SubsystemInterface*)TheSidesList)->reset();
- TheAI->reset();
+ TheTeamFactory->reset();
  for(int i=0;i<8;++i) ((Rva0023E99ASlotFlag*)game->getSlot(i))->flag=true;
  int teamID=TheSidesList->getTeamInfo()->getNode(0)->m_previous;
  while(teamID){
@@ -4629,8 +4631,8 @@ void GameLogic::CreateWOTRMPPlayers()
   d.setBool(TheKey_teamIsSingleton.get(),true);
   TheSidesList->addTeam(&d);
  }
+ g_00E03138->reset();
  TheTeamFactory->reset();
- TheAI->reset();
  ThePlayerList->p0e();
- TheTeamFactory->tf11();
+ g_00E03138->slot44();
 }
