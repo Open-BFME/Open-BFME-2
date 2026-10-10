@@ -202,18 +202,7 @@ TeamFactory::~TeamFactory()
 	TheTeamFactory = NULL;
 }
 
-// ?clear@TeamFactory@@QAEXXZ present-unmatched
-void TeamFactory::clear()
-{
-	// must remove it from the map before deleting the TeamProto, since
-	// the TeamProto will try to remove itself from the list when it goes away
-	std::map<BfmeTeamPrototypeKey, TeamPrototype *, std::less<BfmeTeamPrototypeKey> > tmp = m_prototypes;
-	m_prototypes.clear();
-	for (std::map<BfmeTeamPrototypeKey, TeamPrototype *, std::less<BfmeTeamPrototypeKey> >::iterator it = tmp.begin(); it != tmp.end(); ++it)
-	{
-		delete it->second;
-	}
-}
+// clear is defined and verified in TeamFactoryClear.cpp.
 
 // ?addTeamPrototypeToList@TeamFactory@@QAEXPAVTeamPrototype@@@Z present-unmatched
 void TeamFactory::addTeamPrototypeToList(TeamPrototype *team)

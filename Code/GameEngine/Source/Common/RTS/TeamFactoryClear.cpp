@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /DNDEBUG /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /O1 /MD /EHsc /DNDEBUG /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ?clear@TeamFactory@@QAEXXZ -- retail 0x003A2F4C..0x003A2FD4 (136 bytes).
 // Target identity: WorldBuilder 0x00EED0E0 and the TeamFactory caller family;
