@@ -1,13 +1,16 @@
-// ?rva000B3FA5@WeaponTemplateSetHead@@QAEXHH@Z
-// partial score=0.6 date=2026-10-08
-// cl: /O1 /G7 /arch:SSE /MD /EHsc
-class WeaponTemplateSetHead {
-public:
-    unsigned words[19];
-    void rva000B3FA5(int index, int value);
-};
-void WeaponTemplateSetHead::rva000B3FA5(int index,int value)
+// ?rva000B3FA5@ModelConditionFlags@@QAEXHH@Z
+// partial score=0.85 date=2026-10-10
+// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD
+// ?rva000B3FA5@ModelConditionFlags@@QAEXHH@Z @0x000B3FA5 43B bank (register-allocation near miss)
+class ModelConditionFlags
 {
-    unsigned mask=1u << (index & 31);
-    words[index >> 5] ^= ((unsigned)-value ^ words[index >> 5]) & mask;
+public:
+	void rva000B3FA5(int bit, int value);
+private:
+	unsigned int m_words[19];
+};
+void ModelConditionFlags::rva000B3FA5(int bit, int value)
+{
+	unsigned int *p = m_words + (bit >> 5);
+	*p ^= ((unsigned int)(0 - value) ^ *p) & (1u << (bit & 31));
 }
