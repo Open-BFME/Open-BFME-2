@@ -47,6 +47,7 @@ public:
     bool rva00403170(unsigned frame, const void *entry, int includeCategories);
     bool rva00403448(int attribute, float *multiplier, int name,
         int includeCategories);
+    bool rva00403382(int attribute, float *bonus, int name);
 private:
     unsigned char prefix[0x20];
     Rva00403170Entry *begin;
@@ -98,6 +99,38 @@ bool AttributeModifierPoolUpdate::rva00403448(int attribute, float *multiplier,
                     *multiplier *= value;
                     found = true;
                 }
+            }
+        }
+    }
+    return found;
+}
+
+// Additive sibling of rva00403448 supported by the same donor and Object
+// wrapper 0x28C149. Native 147B 403382..403415 RET12; found lives at
+// [ebp-0x1] and the working value reuses the dead bonus-pointer slot
+// [ebp+0xC], which falls out when the bool is declared before the value.
+// ?rva00403382@AttributeModifierPoolUpdate@@QAE_NHPAMH@Z
+bool AttributeModifierPoolUpdate::rva00403382(int attribute, float *bonus,
+    int name)
+{
+    bool found = false;
+    float value;
+    *bonus = 0.0f;
+    if (!TheGameLogic)
+        return false;
+    unsigned frame = TheGameLogic->frame;
+    for (Rva00403170Entry *entry = begin; entry != end; ++entry)
+    {
+        if (frame < entry->expirationFrame &&
+            !rva00403170(frame, entry, 1))
+        {
+            value = 0.0f;
+            if (TheAttributeModifierStore->getModifier(entry->index(),
+                reinterpret_cast<void *>(attribute), &value,
+                reinterpret_cast<const StringBase<char> *>(name)))
+            {
+                *bonus += value;
+                found = true;
             }
         }
     }
