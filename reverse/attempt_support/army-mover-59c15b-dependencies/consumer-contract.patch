@@ -1,0 +1,34 @@
+diff --git a/Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldAIArmyMoverDefendHomeTerritory.cpp b/Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldAIArmyMoverDefendHomeTerritory.cpp
+index 7c17a7efbb..75fb8c39c3 100644
+--- a/Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldAIArmyMoverDefendHomeTerritory.cpp
++++ b/Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldAIArmyMoverDefendHomeTerritory.cpp
+@@ -21,6 +21,10 @@
+ // 0x004FFB00 returns its best record in EAX.
+ #include <vector>
+ 
++// Match the existing279B closest-armies provider: its return is a vector
++// of four-byte enum values. ObjectID preserves that provider spelling; the
++// original enum identity remains unknown. The native caller discards it.
++enum ObjectID { INVALID_ID = 0 };
+ class ModuleData;
+ class Rva002E2903Player;
+ 
+@@ -33,6 +37,9 @@ struct BfmePod20
+ 	int m_step;
+ };
+ 
++// Use the independently rowed189B native overflow provider.
++extern template void _STL::vector<BfmePod20>::_M_insert_overflow(BfmePod20 *,const BfmePod20 &,const _STL::__false_type &,unsigned int,bool);
++
+ class Rva002BA8F1Logic
+ {
+ public:
+@@ -98,7 +105,7 @@ struct Rva004FFB00Hero
+ class Rva0059CFAACallee
+ {
+ public:
+-	_STL::vector<int> rva00500659(int playerId, int *territory, int *count);
++	_STL::vector<ObjectID> rva00500659(int playerId, int *territory, int *count);
+ 	Rva004FFB00Hero *rva004FFB00(int playerId, int *territory, int *distance);
+ };
+ 
