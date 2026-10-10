@@ -1,5 +1,5 @@
 // ?rva002EE64A@Pathfinder@@QAE_NPAVObject@@PBUCoord3D@@1@Z
-// partial score=0.8180204778 date=2026-10-10
+// partial score=0.8767381765 date=2026-10-10
 // ?IsValidObjectMovement@Pathfinder@@QAE_NXZ
 // partial score=0.85 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /ICode/Libraries/Include/Lib
@@ -27,7 +27,7 @@ struct ICoord2D : public ICoord2DBase
 };
 
 ICoord2D *__cdecl Rva002E7875WorldToCell(ICoord2D *out, bool center, const Coord3D *pos);
-unsigned char __cdecl Rva002EBBFBIsOdd(void *obj);
+bool __cdecl Rva002EBBFBIsOdd(void *obj);
 bool __cdecl Rva001E3679(int layer);
 int __cdecl Rva002E6E8AGet(int layer);
 
@@ -115,8 +115,7 @@ public:
 
 Bool Pathfinder::rva002EE64A(Object *obj, const Coord3D *oldPos, const Coord3D *newPos)
 {
-	if (obj->m_flags438 & 1)
-		return true;
+	if (obj->m_flags438 & 1) { return true; } else {
 	if (obj->getTemplate()->m_kindOf0 & 4)
 		return true;
 	if (!m_isMapReady)
@@ -191,5 +190,6 @@ Bool Pathfinder::rva002EE64A(Object *obj, const Coord3D *oldPos, const Coord3D *
 	ok = reinterpret_cast<Rva002E6DC4 *>(this)->rva002E6DC4(&info, newC);
 	}
 	m_ignoreObstacleID = saved;
-	return ok;
+	return ok?true:false;
+ }
 }
