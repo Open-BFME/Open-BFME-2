@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /GX
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX
 //
 // ??1SlaveWatcherBehavior@@UAE@XZ, retail 0x00484739,
 // 112 bytes. Behavior-side dtor restoring the three MI vptrs (+0 0xC4A264
@@ -14,11 +14,14 @@
 // SlaveWatcherBehaviorDestructors.cpp proves the find-plus-kill shape.
 
 class Thing;
+#include "ascii_string.h"
 
 class SlaveWatcherBehaviorModuleData
 {
 public:
-	unsigned char m_pad[0x10];
+	unsigned char m_pad[0x8];
+	AsciiString m_upgradeToRemove; // +0x08
+	AsciiString m_upgradeOnRelease; // +0x0C
 	bool m_updateSlave; // +0x10
 	bool m_letSlaveLive; // +0x11
 };
@@ -54,14 +57,31 @@ private:
 	unsigned char m_pad[0x7C];
 };
 
+class UpgradeTemplate;
+
 class Object
 {
 public:
 	void kill(DamageType type, DeathType death);
 	void updateUpgradeModules();
+	void rva00290D42(const UpgradeTemplate *upgrade);
+	void rva00293077(const void *upgrade);
+	bool isEffectivelyDead() const { return (m_privateStatus & 1) != 0; }
 	unsigned char m_pad00[0x284];
 	SlaveWatcherBits m_upgradeBits;
+	unsigned char m_pad304[0x438 - 0x304];
+	unsigned char m_privateStatus; // +0x438
 };
+
+class UpgradeCenter
+{
+public:
+	const UpgradeTemplate *findUpgrade(const AsciiString &name) const;
+};
+
+extern UpgradeCenter *TheUpgradeCenter;
+
+bool Rva0045F4C2NotEqual(const void *a, const void *b);
 
 class GameLogic
 {
@@ -91,15 +111,17 @@ public:
 	BehaviorModule(Thing *thing, const void *moduleData);
 };
 
+enum UpdateSleepTime
+{
+	UPDATE_SLEEP_NONE = 1,
+	UPDATE_SLEEP_UNREADY = 1,
+	UPDATE_SLEEP_FOREVER = 0x3fffffff
+};
+
 class UpdateModuleInterface
 {
 public:
-	virtual void update() = 0;
-};
-
-enum UpdateSleepTime
-{
-	UPDATE_SLEEP_UNREADY = 1
+	virtual UpdateSleepTime update() = 0;
 };
 
 class UpdateModule : public BehaviorModule, public UpdateModuleInterface
@@ -119,6 +141,7 @@ class SlaveWatcherBehavior : public UpdateModule
 public:
 	SlaveWatcherBehavior(Thing *thing, const void *moduleData);
 	virtual ~SlaveWatcherBehavior();
+	virtual UpdateSleepTime update();
 	void rva00484869(int id);
 
 private:
@@ -155,6 +178,42 @@ void SlaveWatcherBehavior::rva00484869(int id)
 		}
 	}
 	setWakeFrame(m_object, UPDATE_SLEEP_UNREADY);
+}
+
+// ?update@SlaveWatcherBehavior@@UAE?AW4UpdateSleepTime@@XZ @0x004847A9 192B:
+// update-interface slot 0 (vftable 0xC4A258, this = module +0x10). While a
+// slave is watched: once it is gone or effectively dead, the module data's
+// release upgrade (+0x0C) is granted (0x00290D42) and its other upgrade (+0x08)
+// removed (0x00293077), the upgrade modules refresh and the module sleeps
+// forever; otherwise, with UpdateSlave set, any change in this object's
+// upgrade mask is mirrored into the slave as in 0x00484869.
+UpdateSleepTime SlaveWatcherBehavior::update()
+{
+	Object *me = m_object;
+	const SlaveWatcherBehaviorModuleData *data = m_moduleData;
+	if (m_slaveID != 0)
+	{
+		Object *slave = TheGameLogic->findObjectByID((ObjectID)m_slaveID);
+		if (!slave || slave->isEffectivelyDead())
+		{
+			const UpgradeTemplate *granted = TheUpgradeCenter->findUpgrade(data->m_upgradeOnRelease);
+			const UpgradeTemplate *removed = TheUpgradeCenter->findUpgrade(data->m_upgradeToRemove);
+			if (granted)
+				me->rva00290D42(granted);
+			if (removed)
+				me->rva00293077(removed);
+			me->updateUpgradeModules();
+			m_slaveID = 0;
+			return UPDATE_SLEEP_FOREVER;
+		}
+		if (data->m_updateSlave && Rva0045F4C2NotEqual(&me->m_upgradeBits, &m_upgradeBits))
+		{
+			m_upgradeBits = me->m_upgradeBits;
+			slave->m_upgradeBits._M_do_or(m_upgradeBits);
+			slave->updateUpgradeModules();
+		}
+	}
+	return UPDATE_SLEEP_NONE;
 }
 
 // Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
