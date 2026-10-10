@@ -17148,3 +17148,5 @@ _VP6_ReadTokens,0x001BC3D0,callee of _VP6_DecodeBlock
 ?rva003B6676@Rva003B6676@@QAEXXZ,0x003B6676,thiscall callees of 0x003B693A (REL32 at 0x003B6956 and 0x003B6967); ghidra FUN_007b6676 / FUN_007b56dc; 98B each; plain ret = no stack args
 ?rva003B56DC@Rva003B56DC@@QAEXXZ,0x003B56DC,thiscall callees of 0x003B693A (REL32 at 0x003B6956 and 0x003B6967); ghidra FUN_007b6676 / FUN_007b56dc; 98B each; plain ret = no stack args
 ?rva005CCF47@Impl@Checklist@StrategicInGameUI@@QAE?AUChecklistItemRef@3@PAVChecklistItem@3@@Z,0x005CCF47,callee of 0x005CCFF3 (REL32 at 0x005CD004); ghidra FUN_009ccf47 138B RET8 = hidden return + one arg; name as in the banked 0x005CCF47 attempts
+??0Rva0010F058@@QAE@H@Z,0x0010F058,callees of 0x000A8D0B (REL32 at 0x000A8D32 and 0x000A8D4B): ctor FUN_0050f058 108B ret 4 (one arg) and method FUN_0050f962 143B ret 8 (two args); names as in the banked attempts
+?rva0010F962@Rva0010F962@@QAEXHH@Z,0x0010F962,callees of 0x000A8D0B (REL32 at 0x000A8D32 and 0x000A8D4B): ctor FUN_0050f058 108B ret 4 (one arg) and method FUN_0050f962 143B ret 8 (two args); names as in the banked attempts
