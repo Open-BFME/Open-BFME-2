@@ -5,15 +5,18 @@
 // except its _M_clear call, which reads 0x00565A60 rather than that vector's
 // rowed _M_clear at 0x0021580E. Its _M_allocate_and_copy call reads 0x00319304,
 // also apart from that vector's other bodies near 0x002155xx. So this is a second
-// instantiation over an element type with the same 16-byte layout; the type name
-// is generated and the layout is copied from BfmeVectorRecord0002154F3.
-// Uses the shared ascii_string.h so the emitted ??_GAsciiString copy calls
-// releaseBuffer like the kept WOLBuddyOverlay copy.
-#include "ascii_string.h"
+// instantiation over a 16-byte element type. The address-owned name does not
+// identify the original element; its virtual destruction is proved below.
 #include <vector>
+// Target correction: _Destroy at 0x00319784 calls the complete 26-byte loop
+// at 0x00319331, whose slot-0 virtual destruction (flag 0) and +0x10 stride
+// prove a virtual destructor and 16-byte extent. Other fields and the original
+// element identity remain unknown; the former AsciiString/vector view was a
+// size-only guess. BF1 575ba2b Q4VectorDtorPolymorphic.cpp supplies the same
+// evidence-backed STLport virtual-element pattern, not the target identity.
 struct BfmeVectorRecord00319C84 {
-    AsciiString text;
-    _STL::vector<AsciiString> names;
+    virtual ~BfmeVectorRecord00319C84();
+    char m_body[12];
     BfmeVectorRecord00319C84();
     BfmeVectorRecord00319C84(const BfmeVectorRecord00319C84 &);
 };

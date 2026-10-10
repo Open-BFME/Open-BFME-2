@@ -1,0 +1,54 @@
+[
+  {
+    "source": "stlport_vector_record_319c84_reserve.cpp",
+    "symbol": "??$__destroy_aux@PAUBfmeVectorRecord00319C84@@@_STL@@YAXPAUBfmeVectorRecord00319C84@@0ABU__false_type@0@@Z",
+    "rva": "0x319331",
+    "extent": 26,
+    "native": "568b742408eb0b8b066a008bceff1083c6103b74240c75ef5ec3",
+    "compiled": "568b742408eb0b8b066a008bceff1083c6103b74240c75ef5ec3",
+    "relocations": [],
+    "object_sha256": "00e2ae3c7b3953a42489e3c46e0f0af60f2437f23c78e41a1cbf2480a84f332f"
+  },
+  {
+    "source": "stlport_vector_record_319c84_reserve.cpp",
+    "symbol": "??$_Destroy@PAUBfmeVectorRecord00319C84@@@_STL@@YAXPAUBfmeVectorRecord00319C84@@0@Z",
+    "rva": "0x319784",
+    "extent": 24,
+    "native": "558bec518d45ff50ff750cff7508e89afbffff83c40cc9c3",
+    "compiled": "558bec518d45ff50ff750cff7508e80000000083c40cc9c3",
+    "relocations": [
+      [
+        15,
+        20,
+        "??$__destroy_aux@PAUBfmeVectorRecord00319C84@@@_STL@@YAXPAUBfmeVectorRecord00319C84@@0ABU__false_type@0@@Z"
+      ]
+    ],
+    "object_sha256": "00e2ae3c7b3953a42489e3c46e0f0af60f2437f23c78e41a1cbf2480a84f332f"
+  },
+  {
+    "source": "stlport_vector_record_319b58_dtor.cpp",
+    "symbol": "??$__destroy_aux@PAUBfmeVectorRecord00319C84@@@_STL@@YAXPAUBfmeVectorRecord00319C84@@0ABU__false_type@0@@Z",
+    "rva": "0x319331",
+    "extent": 26,
+    "native": "568b742408eb0b8b066a008bceff1083c6103b74240c75ef5ec3",
+    "compiled": "568b742408eb0b8b066a008bceff1083c6103b74240c75ef5ec3",
+    "relocations": [],
+    "object_sha256": "44bea2261137cb78efc826f9992d48a850f9d93fbd9143e6ce1c55802775ee2d"
+  },
+  {
+    "source": "stlport_vector_record_319b58_dtor.cpp",
+    "symbol": "??$_Destroy@PAUBfmeVectorRecord00319C84@@@_STL@@YAXPAUBfmeVectorRecord00319C84@@0@Z",
+    "rva": "0x319784",
+    "extent": 24,
+    "native": "558bec518d45ff50ff750cff7508e89afbffff83c40cc9c3",
+    "compiled": "558bec518d45ff50ff750cff7508e80000000083c40cc9c3",
+    "relocations": [
+      [
+        15,
+        20,
+        "??$__destroy_aux@PAUBfmeVectorRecord00319C84@@@_STL@@YAXPAUBfmeVectorRecord00319C84@@0ABU__false_type@0@@Z"
+      ]
+    ],
+    "object_sha256": "44bea2261137cb78efc826f9992d48a850f9d93fbd9143e6ce1c55802775ee2d"
+  }
+]

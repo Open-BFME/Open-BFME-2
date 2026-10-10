@@ -244,7 +244,6 @@ name,address,notes
 ??$_Destroy@PAUBfmeVectorRecord0002154F3@@@_STL@@YAXPAUBfmeVectorRecord0002154F3@@0@Z,0x00215783,address read from the REL32 displacement at a byte-verified placed body (0x21580E)
 ??$_Destroy@PAUBfmeVectorRecord000BDF17@@@_STL@@YAXPAUBfmeVectorRecord000BDF17@@0@Z,0x000C37CD,TU _Destroy resolves _M_clear call at 0xC6947; retail 25B loop via dtor 0xBE201
 ??$_Destroy@PAUBfmeVectorRecord002AF478@@@_STL@@YAXPAUBfmeVectorRecord002AF478@@0@Z,0x002B0CE7,Destroy range ICF twin of dup row call site matched in _M_clear
-??$_Destroy@PAUBfmeVectorRecord00319C84@@@_STL@@YAXPAUBfmeVectorRecord00319C84@@0@Z,0x00319784,_Destroy worker for _M_clear<vector<BfmeVectorRecord00319C84>> at 0x00565A60: retail REL32 at +0x09 targets this address; ghidra boundary
 ??$_Destroy@PAUElem003AF9E0@@@_STL@@YAXPAUElem003AF9E0@@0@Z,0x00319784,STLport _Destroy for this element view: REL32 read at 0x00319BB6 in the byte-verified range erase 0x00319B97; ledger spelling there: none
 ??$_Destroy@PAUEvaMessageInfo@@@_STL@@YAXPAUEvaMessageInfo@@0@Z,0x000AFF52,address read from the REL32 displacement at a placed body
 ??$_Destroy@PAUGen00141A00@@@_STL@@YAXPAUGen00141A00@@0@Z,0x002CF891,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
@@ -17158,3 +17157,4 @@ _D3DXLoadSurfaceFromFileInMemory@36,0x0062AF80,Native separate-alpha loader REL3
 ??$fill@PAURva00587375@@U1@@_STL@@YAXPAURva00587375@@0ABU1@@Z,0x005873BB,
 ??$uninitialized_fill_n@PAURva00587375@@IU1@@_STL@@YAPAURva00587375@@PAU1@IABU1@@Z,0x005875DC,
 ?Rva00080A8C@@YAHHHH@Z,0x00080A8C,3B xor-eax ret-4 fragment inside 0x00080A86C bounds; always-0 callee called from rva0040AAF8 at 0x0040AB13 with three pushes; cdecl-shaped call site cleans 12; possibly ICF-folded shared tail; address-derived name with no identity inferred
+??$_Destroy@PAUBfmeVectorRecord00319C84@@@_STL@@YAXPAUBfmeVectorRecord00319C84@@0@Z,0x00319784,Existing virtual16B cleanup binding now independently proved; complete24B caller plus26B slot0 destruction helper; fold-proof=Code/Libraries/Source/WWVegas/WWLib/stlport_vector_record_319c84_reserve.cpp

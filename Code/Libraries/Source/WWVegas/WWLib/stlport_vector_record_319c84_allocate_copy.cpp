@@ -1,9 +1,16 @@
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ??$_M_allocate_and_copy@PAUBfmeVectorRecord00319C84@@@?$vector@UBfmeVectorRecord00319C84@@V?$allocator@UBfmeVectorRecord00319C84@@@_STL@@@_STL@@IAEPAUBfmeVectorRecord00319C84@@IPAU2@0@Z @0x00319304 45B
 // Evidence: caller reserve 0x00319C84 plus unclaimed 0x00319BFF; rowed allocate 0x002226BE via BfmeVectorRecord00319C84 pin plus rowed copy 0x00318D75; same 45B ebp-tag shape as 0x001FFA2D and 0x00317D5C
+// Target correction: _Destroy at 0x00319784 calls the complete 26-byte loop
+// at 0x00319331, whose slot-0 virtual destruction (flag 0) and +0x10 stride
+// prove a virtual destructor and 16-byte extent. Other fields and the original
+// element identity remain unknown; the former AsciiString/vector view was a
+// size-only guess. BF1 575ba2b Q4VectorDtorPolymorphic.cpp supplies the same
+// evidence-backed STLport virtual-element pattern, not the target identity.
 struct BfmeVectorRecord00319C84
 {
-	char m_body[16];
+	virtual ~BfmeVectorRecord00319C84();
+	char m_body[12];
 };
 class Rva00318B5C
 {
