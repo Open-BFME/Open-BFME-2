@@ -1,0 +1,26 @@
+{
+  "bfme2_revision": "3841a80e95f0f615f29bee46c8fb99766f013784",
+  "removed_source": "Code/GameEngine/Source/GameLogic/Object/Rva0028BE93Coord.cpp",
+  "removed_source_sha256": "7b5d8226d84fc5fba7a62d3ed12d29039ffdba7f32fd1692d5d35b18644b3e4e",
+  "ledger_rows": 0,
+  "safe_tracked_code_filename_references": [],
+  "protected_paths_not_read": 248,
+  "pin_before": "?rva0028BE93@Object@@QBE?AUCoord3D@@XZ,0x0028BE93,Object query returning a Coord3D by value (zero when Object +0x240 is null); Weapon::getPreAttackDelay compares it with the object position for the per-position prefire type; REL32 at 0x002CD07F",
+  "symbols_sha256": "cb4c9bbb8ad5429b47c9ae9ad198e25a3661dc70a3aec994afd220827bebbca0",
+  "consumer": "Code/GameEngine/Source/GameLogic/Object/WeaponGetPreAttackDelay.cpp",
+  "consumer_sha256": "7409a2d956f387efefb4fe247800e48174442002a4c578b0370259c751841cbf",
+  "recovery_bytes": 0,
+  "verdict": "Refuted pointer-return prototype removed from production; native by-value77 remains banked and blocked on coherent canonical copy-constructor adoption.",
+  "normal_verification": {
+    "command": [
+      "python3",
+      "tools/build.py",
+      "Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp",
+      "Code/GameEngine/Source/GameLogic/Object/WeaponGetPreAttackDelay.cpp"
+    ],
+    "exit_status": 0,
+    "whole_affected_provider_and_consumer_rows_exact": "28/28",
+    "float_refs_exact": 1,
+    "new_source_rows": 0
+  }
+}
