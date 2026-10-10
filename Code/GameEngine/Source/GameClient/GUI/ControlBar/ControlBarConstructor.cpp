@@ -1,7 +1,11 @@
-// ??0ControlBar@@QAE@XZ
-// partial score=0.93 date=2026-10-08
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc
 // stlport
+// Target 0x0031E94C..0x0031EB7A, RET, 558 bytes.
+// Ownership guide: BFME1 575ba2b047 ControlBarConstructor.cpp uses WeakPointer
+// and OwnedPointer for its corresponding tail fields. Target stores establish
+// +2A0/+2A4; the added owned-slot cleanup is checked independently by the
+// native EH map and funclet gate. Its pointee application type is unknown;
+// int retains the observed scalar-delete-only cleanup ABI.
 // ??0ControlBar@@QAE@XZ @ 0x0031E94C 558B: ControlBar constructor.
 // Evidence: pinned name; callers ?init@InGameUI@@UAEXXZ 0x0029E5D0 and
 // ?recreateControlBar@InGameUI@@UAEXXZ 0x0029F890; vtable data 0x0080CC88;
@@ -67,6 +71,8 @@ public:
 	virtual void v01();
 };
 
+template<class T>class OwnedPointer{public:OwnedPointer():p(0){}~OwnedPointer(){delete p;}T*p;};
+template<class T>class WeakPointer{public:WeakPointer():p(0){}WeakPointer&operator=(T*x){p=x;return *this;}T*p;};
 class ControlBar : public SubsystemInterface
 {
 public:
@@ -142,12 +148,12 @@ private:
 	int m_0294;
 	void *m_0298;
 	int m_029C;
-	Rva0053ED1A *m_02A0;
-	void *m_02A4;
+	WeakPointer<Rva0053ED1A> m_02A0;
+	OwnedPointer<int> m_02A4;
 	_STL::vector<PlayerAITypeEntry> m_02A8;
 };
 
-ControlBar::ControlBar() : m_0214(false), m_02A0((Rva0053ED1A *)0), m_02A4((void *)0)
+ControlBar::ControlBar() : m_0214(false)
 {
 	m_002C = 0;
 	m_contextParent[0] = 0;
