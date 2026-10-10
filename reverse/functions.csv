@@ -74794,3 +74794,6 @@ _VP6_ReadHuffTokens,,0x001C5310,1661,Code/Libraries/Source/VP6/HuffTokens.cpp,ma
 ??1Rva00431FB5@@UAE@XZ,,0x00431FB5,61,Code/GameEngine/Source/Common/Rva00431FB5Destructor.cpp,matched,message translator derived dtor; singleton clear plus owned pointer release
 ??1Rva00098690@@UAE@XZ,,0x000986E7,85,Code/GameEngine/Source/Common/Rva00098690Destructor.cpp,matched,subsystem with particle system handles dtor; shutdown then two handle releases then base
 ??0Rva005990DF@@QAE@H@Z,,0x00598F3F,112,Code/GameEngine/Source/Common/Rva005990DFConstructor.cpp,matched,AI unit upgrader wrapper ctor
+??0Rva0056B218@@QAE@PAVRva0056AC26Owner@@PAUParent0056B218@@1@Z,,0x0056B525,116,Code/GameEngine/Source/Common/Rva0056B218Constructor.cpp,matched,two-parent listener ctor
+??0Rva0056B0BF@@QAE@PAVRva0056AC26Owner@@PAUParent0056B0BF@@@Z,,0x0056B4B4,113,Code/GameEngine/Source/Common/Rva0056B0BFConstructor.cpp,matched,x
+??0Rva0056B2DD@@QAE@PAVRva0056AC26Owner@@PAUParent0056B2DD@@H@Z,,0x0056B599,122,Code/GameEngine/Source/Common/Rva0056B2DDConstructor.cpp,matched,parent listener ctor with manager notify
