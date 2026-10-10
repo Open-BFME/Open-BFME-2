@@ -5,6 +5,11 @@
 // ?update@Rva0054482D@@UAE?AW4StateReturnType@@XZ, retail 0x005443ED, 56 bytes.
 // Virtual slot 6 (offset 0x18, update) of vtable 0x00C69B58, same class.
 // Gets goal via rowed getGoalObject, finds BEC via rowed Object::getDockUpdateInterface, calls slot 0x14 with owner and +0x20, tail-chains to pinned base update 0x00347460. Evidence: vslot slot 6; prev onEnter same TU.
+enum StateExitType
+{
+	EXIT_NORMAL = 0,
+	EXIT_RESET = 1
+};
 enum StateReturnType
 {
 	STATE_CONTINUE = 0,
@@ -70,7 +75,7 @@ public:
 	virtual void v06();
 	virtual void v07();
 	virtual void v08();
-	virtual void v09();
+	virtual void onApproachReached(Object *owner);	// +0x24
 	virtual void v10();
 	virtual void v11();
 	virtual void v12();
@@ -90,7 +95,7 @@ public:
 	virtual void slot02();
 	virtual void slot03();
 	virtual StateReturnType onEnter();
-	virtual void slot05();
+	virtual void onExit(StateExitType status);
 	virtual StateReturnType update();
 	virtual void slot07();
 	virtual bool isIdle() const;
@@ -111,6 +116,7 @@ class AIInternalMoveToState : public State
 {
 public:
 	virtual StateReturnType onEnter();
+	virtual void onExit(StateExitType status);
 	virtual StateReturnType update();
 protected:
 	unsigned char m_pad1C[0x20 - 0x1C];
@@ -121,6 +127,7 @@ class Rva0054482D : public AIInternalMoveToState
 {
 public:
 	virtual StateReturnType onEnter();
+	virtual void onExit(StateExitType status);
 	virtual StateReturnType update();
 };
 
@@ -158,4 +165,30 @@ StateReturnType Rva0054482D::update()
 		return STATE_FAILURE;
 	bec->v05(m_machine->getOwner(), &m_goalPosition);
 	return AIInternalMoveToState::update();
+}
+
+// ?onExit@Rva0054482D@@UAEXW4StateExitType@@@Z, retail 0x00544425, 91 bytes:
+// slot 5 between the onEnter and update above. Zero Hour's
+// AIDockApproachState::onExit: an interrupted approach or a closed dock
+// (slot 0x38) cancels the docking (slot 0x34), otherwise the dock is told the
+// approach was reached (slot 0x24); then the base move-to onExit (pinned
+// 0x003473A4).
+void Rva0054482D::onExit(StateExitType status)
+{
+	Object *goalObject = ((TurretStateMachine *)m_machine)->getGoalObject();
+	if (goalObject)
+	{
+		DockUpdateInterface *dock = goalObject->getDockUpdateInterface();
+		if (dock)
+		{
+			// if we were interrupted, let the dock know we're not coming
+			if (dock->v14() == false || status == EXIT_RESET)
+				dock->v13(m_machine->getOwner());
+			else
+				dock->onApproachReached(m_machine->getOwner());
+		}
+	}
+
+	// this behavior is an extention of basic MoveTo
+	AIInternalMoveToState::onExit(status);
 }
