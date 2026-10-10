@@ -1,7 +1,6 @@
 // ?update@DetachableRiderUpdateUpdateReceiver@@QAE?AW4UpdateSleepTime@@XZ
 // partial score=0.9877346278317153 date=2026-10-10
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii
-// cl: /ICode/GameEngine/Source/Common /ICode/GameEngine/Include/GameLogic
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii /ICode/GameEngine/Source/Common /ICode/GameEngine/Include/GameLogic
 // stlport
 #include "ascii_string.h"
 #include <vector>
