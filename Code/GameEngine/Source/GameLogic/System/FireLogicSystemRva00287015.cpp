@@ -1,6 +1,5 @@
+// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /GX /ICode/Libraries/Include /ICode/GameEngine/Source/Common /Ireference/shims/moduledata/Common
 // ?rva00287015@FireLogicSystem@@QAEXXZ
-// partial score=0.99 date=2026-10-08
-// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /GX /ICode/Libraries/Include
 //
 // FireLogicSystem's registration of a placed object (0x00286373): the id is
 // filed in the grid cell under its world position and the cell takes the
@@ -41,8 +40,8 @@
 
 typedef int Int;
 
-extern "C" __declspec(dllimport) double __cdecl floor(double);
-extern "C" __declspec(dllimport) double __cdecl ceil(double);
+#include <math.h>
+
 
 __forceinline long FloatToLong(float f)
 {
@@ -63,7 +62,7 @@ extern Rva00065964ObjectPool g_pool00286136;
 extern Rva00065964ObjectPool g_pool00286116;
 void Rva00286116Free(void *node);
 
-#include "../../Common/GameLogicObjectLookupView.h"
+#include "GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 
 class ThingTemplate;
@@ -172,7 +171,7 @@ public:
 private:
 	char m_pad[8];
 };
-#include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
+#include "Snapshot.h"
 
 // A material entry (0x18 bytes): the array constructor zeroes all six
 // dwords (0x00286297) and the destructor releases the string at +4
@@ -266,9 +265,9 @@ private:
 // ?rva00286373@FireLogicSystem@@QAEXHPBUCoord3D@@PBVThingTemplate@@@Z @0x00286373
 void FireLogicSystem::rva00286373(Int id, const Coord3D *pos, const ThingTemplate *tmpl)
 {
-	float fx = (float)floor(pos->x * 0.1f + 0.5);
+	float fx = floor(pos->x * 0.1f + 0.5f);
 	Int x = FloatToLong(fx);
-	float fy = (float)floor(pos->y * 0.1f + 0.5);
+	float fy = floor(pos->y * 0.1f + 0.5f);
 	Int y = FloatToLong(fy);
 	if (x >= 0 && x < m_numRows && y >= 0 && y < m_numCols)
 	{
@@ -284,9 +283,9 @@ void Rva00286136Free(void *node);
 
 void FireLogicSystem::rva0028641F(unsigned int id, const Coord3D *pos)
 {
-    float fx = (float)floor(pos->x * 0.1f + 0.5);
+    float fx = floor(pos->x * 0.1f + 0.5f);
     Int x = FloatToLong(fx);
-    float fy = (float)floor(pos->y * 0.1f + 0.5);
+    float fy = floor(pos->y * 0.1f + 0.5f);
     Int y = FloatToLong(fy);
     if (x >= 0 && x < m_numRows && y >= 0 && y < m_numCols)
     {
@@ -483,9 +482,9 @@ void FireLogicSystem::ChangeBurnRateInArea(const Coord3D *pos, float radius, Int
 		return;
 	if (delta == 0)
 		return;
-	float fx = (float)floor(pos->x * 0.1f + 0.5);
+	float fx = floor(pos->x * 0.1f + 0.5f);
 	Int cx = FloatToLong(fx);
-	float fy = (float)floor(pos->y * 0.1f + 0.5);
+	float fy = floor(pos->y * 0.1f + 0.5f);
 	Int cy = FloatToLong(fy);
 	float fr = (float)ceil(radius * 0.1f);
 	Int rad = FloatToLong(fr);
@@ -525,9 +524,9 @@ void FireLogicSystem::ChangeBurnRateInArea(const Coord3D *pos, float radius, con
 		return;
 	if (delta == 0)
 		return;
-	float fx = (float)floor(pos->x * 0.1f + 0.5);
+	float fx = floor(pos->x * 0.1f + 0.5f);
 	Int cx = FloatToLong(fx);
-	float fy = (float)floor(pos->y * 0.1f + 0.5);
+	float fy = floor(pos->y * 0.1f + 0.5f);
 	Int cy = FloatToLong(fy);
 	float fr = (float)ceil(radius * 0.1f);
 	Int rad = FloatToLong(fr);

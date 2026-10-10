@@ -1,11 +1,7 @@
-// ?rva002E75A3@Pathfinder@@QAEXPAUCoord3D@@0@Z
-// partial score=0.984005311443747 date=2026-10-09
-// ?rva002E75A3@Pathfinder@@QAEXPAUCoord3D@@0@Z
-// partial score=0.8917 date=2026-10-05
 // cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE /G7 /ICode/Libraries/Include/Lib
+// ?rva002E75A3@Pathfinder@@QAEXPAUCoord3D@@0@Z
 // ?rva002E75A3@Pathfinder@@QAEXPAUCoord3D@@0@Z @0x002E75A3 304B
 // Evidence: Pathfinder m_extent at this+0x14 (same as Rva002E7917 clamp TU); ClipLine2D row 0x0025F406; callers 0x002F722B 0x002F73FC 0x002F96CB; INV scale 0x7C2424 and cell->world *10+offset.
-// ?rva002E75A3@Pathfinder@@QAEXPAUCoord3D@@0@Z present-unmatched
 
 typedef int Int;
 typedef float Real;
@@ -27,11 +23,11 @@ struct IRegion2D
 const float INV=0.1f;
 extern float g_00BC7838;
 
-extern "C" __declspec(dllimport) double __cdecl floor(double);
+#include <math.h>
 
 static __forceinline Real fast_floor(Real f)
 {
-	return (Real)floor((double)f);
+	return floor(f);
 }
 
 static __forceinline long fast_round(Real f)
@@ -57,7 +53,6 @@ private:
 	IRegion2D m_extent;
 };
 
-// ?rva002E75A3@Pathfinder@@QAEXPAUCoord3D@@0@Z present-unmatched
 void Pathfinder::rva002E75A3(Coord3D *a, Coord3D *b)
 {
 	ICoord2D p2;
