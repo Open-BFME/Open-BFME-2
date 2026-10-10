@@ -1,6 +1,8 @@
 // ?rva000E5FB6@Rva000E5F60@@QAEPAVRva000E5EC1@@HABV?$StringBase@D@@@Z
+// partial score=0.9852592895059208 date=2026-10-10
+// ?rva000E5FB6@Rva000E5F60@@QAEPAVRva000E5EC1@@HABV?$StringBase@D@@@Z
 // partial score=0.94 date=2026-10-07
-// cl: /MD /EHs
+// cl: /MD /EHs /O1 /G7 /arch:SSE
 //
 // ?rva000E5F60@Rva000E5F60@@QAEPAVRva000E5EC1@@HV?$StringBase@D@@@Z
 // RVA 0x000E5F60, 86B. List-find by (id, name) over a sentinel-circular list
