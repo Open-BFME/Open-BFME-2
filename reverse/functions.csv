@@ -74801,3 +74801,5 @@ _VP6_ReadHuffTokens,,0x001C5310,1661,Code/Libraries/Source/VP6/HuffTokens.cpp,ma
 ??0Rva0056B126@@QAE@PAVRva0056AC26Owner@@PAUParent0056B126@@H@Z,,0x0056B372,103,Code/GameEngine/Source/Common/Rva0056B126Constructor.cpp,matched,parent listener ctor
 ??1Rva005CC287@@UAE@XZ,,0x005CC287,62,Code/GameEngine/Source/Common/Rva005CC287Destructor.cpp,matched,holder listener dtor
 ??0Rva005FE7FA@@QAE@HABVAsciiString@@@Z,,0x005FE7A7,83,Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/Rva005FE7FAConstructor.cpp,matched,local player tabs ctor
+??0Rva003FA62B@@QAE@PAURva003FA62BOwner@@@Z,,0x003FA6B4,75,Code/GameEngine/Source/Common/Rva003FA62BConstructor.cpp,matched,listener ctor with vector and owner registration
+??0Rva003B923B@@QAE@XZ,,0x003B90DB,73,Code/GameEngine/Source/Common/Rva003B923BConstructor.cpp,matched,subsystem with snapshot base ctor
