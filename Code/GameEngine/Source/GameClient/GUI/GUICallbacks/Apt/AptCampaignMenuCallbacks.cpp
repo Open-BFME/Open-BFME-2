@@ -50,6 +50,7 @@ public:
 	void OnBttnLastMission(const char *unused);
 	void OnBttnNextMission(const char *unused);
 	void Victorious(int query, char *result, bool skip);
+	int rva00521116(int message, unsigned data1, unsigned data2);
 
 private:
 	unsigned char m_pad000[0x284];
@@ -107,3 +108,19 @@ void AptCampaignMenu::Victorious(int query, char *result, bool skip)
 
 // Retail's strcpy call lands on the import thunk rowed as ji_00629176.
 #pragma comment(linker, "/alternatename:_strcpy=?ji_00629176@@YAXXZ")
+
+// The primary native campaign-menu vtable C67720 slot1 points here; its
+// constructor installs this table and existing named callbacks establish the
+// same complete receiver. This is a separate25B body before Victorious, not
+// the LastMission callback misidentified by the aggregate Ghidra boundary.
+// Base/derived screen message methods establish the three-word input ABI.
+// Native inspects only the low byte of data1; the original method name is
+// unknown, so the address-derived spelling preserves that uncertainty.
+int AptCampaignMenu::rva00521116(int message, unsigned data1, unsigned data2)
+{
+ switch(message) {
+ case 0x15:
+  switch(static_cast<unsigned char>(data1)) {case 1:return 1;default:return 0;}
+ default:return 0;
+ }
+}
