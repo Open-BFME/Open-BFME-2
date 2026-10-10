@@ -21,6 +21,8 @@ class GlobalData
 public:
 	unsigned char m_pad000[0x9AD];
 	bool m_bfme9AD; // +0x9AD
+	unsigned char m_pad9AE[0xD38 - 0x9AE];
+	StringBase<char> m_bfmeD38; // +0xD38, mod directory
 };
 
 extern GlobalData *TheWritableGlobalData;
@@ -38,8 +40,7 @@ struct Rva007AC13CEntry
 {
 	bool m_00;
 	char m_path[0x104]; // +0x01
-	bool m_105;
-	char m_106[0x3F];
+	char m_label[0x40]; // +0x105
 };
 
 extern Rva007AC13CEntry g_Va00DE44A8[3];
@@ -100,7 +101,7 @@ class VideoPlayer
 {
 public:
 	virtual ~VideoPlayer();
-	virtual void s01(); virtual void s02(); virtual void s03(); virtual void s04();
+	virtual void init(); virtual void s02(); virtual void s03(); virtual void s04();
 	virtual void s05(); virtual void s06(); virtual void s07(); virtual void s08();
 	virtual void s09(); virtual void s10(); virtual void s11(); virtual void s12();
 	virtual void s13(); virtual void s14(); virtual void s15(); virtual void s16();
@@ -116,6 +117,7 @@ public:
 class Rva009111B : public VideoPlayer
 {
 public:
+	virtual void init();
 	virtual VideoStreamInterface *open(AsciiString movieTitle, int flags);
 };
 
@@ -175,4 +177,80 @@ VideoStreamInterface *Rva009111B::open(AsciiString movieTitle, int flags)
 		}
 	}
 	return stream;
+}
+
+// init, retail 0x0009133F..0x0009151D (478 bytes): slot 1 of the same
+// vftable (0x007C7EAC, between the deleting destructor and
+// SubsystemInterface's loadIniFilesFromLegend). After VideoPlayer::init it
+// fills the three search directories: the global-data mod directory (+0xD38)
+// when set, the registry language's "Lang/%s/Data/Movies/" and plain
+// "Data\Movies", each with its label. It then hands the 0x00DE4878 word to
+// the decoder setter 0x001B6380, runs the rowed table setup 0x001B57D0, and
+// builds a 1024-entry clamped 8-bit ramp ((i - 256) * 1.2 - 15) and five
+// 256-entry fixed-point colour tables from linear accumulators. The tables
+// are unnamed data, spelled by address.
+extern "C" __declspec(dllimport) int __cdecl sprintf(char *buffer, const char *format, ...);
+extern "C" unsigned char *__cdecl _mbscpy(unsigned char *dest, const unsigned char *src);
+AsciiString GetRegistryLanguage();
+void Rva001B6380Set(int value);
+void Rva009A4D00Init();
+extern unsigned int g_Va00DE4878;
+extern unsigned int g_Va00DE3498[0x400];
+extern int g_Va00DE3098[0x100];
+extern int g_Va00DE2C98[0x100];
+extern int g_Va00DE2898[0x100];
+extern int g_Va00DE2498[0x100];
+extern unsigned int g_Va00DE2098[0x100];
+
+void Rva009111B::init()
+{
+	VideoPlayer::init();
+	StringBase<char> &modDir = TheWritableGlobalData->m_bfmeD38;
+	if (!modDir.isEmpty())
+	{
+		g_Va00DE44A8[0].m_00 = true;
+		sprintf(g_Va00DE44A8[0].m_path, "%s%s\\", ((AsciiString &)modDir).str(), "Data\\Movies");
+		_mbscpy((unsigned char *)g_Va00DE44A8[0].m_label, (const unsigned char *)"Mod Path");
+	}
+	g_Va00DE44A8[1].m_00 = true;
+	sprintf(g_Va00DE44A8[1].m_path, "Lang/%s/Data/Movies/", GetRegistryLanguage().str());
+	_mbscpy((unsigned char *)g_Va00DE44A8[1].m_label, (const unsigned char *)"Localized Path");
+	g_Va00DE44A8[2].m_00 = true;
+	sprintf(g_Va00DE44A8[2].m_path, "%s\\", "Data\\Movies");
+	_mbscpy((unsigned char *)g_Va00DE44A8[2].m_label, (const unsigned char *)"Non-Localized Path");
+	Rva001B6380Set((int)&g_Va00DE4878);
+	Rva009A4D00Init();
+
+	for (unsigned int i = 0; i < 0x400; ++i)
+	{
+		int value = (int)((float)((int)i - 256) * 1.2f - 15.0f);
+		g_Va00DE3498[i] = (unsigned char)(value > 255 ? 255 : (value < 0 ? 0 : value));
+	}
+
+	int a, b, c, d, e;
+	b = -0x16E9;
+	c = -0xAF80;
+	d = -0xDD80;
+	a = 0x5980;
+	e = 0x2B00;
+	int i = 0;
+	do
+	{
+		g_Va00DE3098[i] = d / 256 + 256;
+		g_Va00DE2C98[i] = e / 256;
+		g_Va00DE2898[i] = a / 256 + 256;
+		g_Va00DE2498[i] = c / 256 + 256;
+		int value = b / 211;
+		if (value > 255)
+			value = 255;
+		else if (value < 0)
+			value = 0;
+		e -= 0x56;
+		d += 0x1BB;
+		c += 0x15F;
+		b += 0xFF;
+		a -= 0xB3;
+		g_Va00DE2098[i] = value << 24;
+		++i;
+	} while (e > -0x2B00);
 }
