@@ -230,3 +230,7 @@ void Rva003F7177Callback::visit(Rva003F7198Node *node){
  Rva0020E89C *r=regions->rva0020EAF6(key);
  if(r && (unsigned char)player->rva002E0BC0(r->owner))region=r;
 }
+
+// Native003F7177..003F718D RET4; WB010582A0 proves player4 and null region8.
+// Complete four-slot table008370C4 is supplied by the verified methods above.
+Rva003F7177Callback::Rva003F7177Callback(Rva002E071E *p){player=p;}
