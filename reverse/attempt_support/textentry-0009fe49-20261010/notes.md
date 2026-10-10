@@ -92,19 +92,18 @@ the relative scheduling of the selection store and comparison, but does
 not fix this allocation/lifetime difference. A subsequent attempt should
 target that shared lifetime cause rather than repeat the recorded variants.
 
-## Reproduction
+## Checking the bank with existing tooling
 
 From the repository root, with the pinned inputs and MSVC 7.1 available:
 
 ```sh
-python3 reverse/attempt_support/textentry-0009fe49-20261010/replay.py --all --materialize-only
-python3 reverse/attempt_support/textentry-0009fe49-20261010/replay.py
-python3 reverse/attempt_support/textentry-0009fe49-20261010/replay.py 59 118
+python3 tools/explain_mismatch.py '?drawTextEntryText@@YAXPAVGameWindow@@HHHHHH@Z' --rva 0x0009FE49 --size 1398 --source reverse/attempts/0x0009fe49.cpp
 ```
 
-The first command checks and materializes every exact source snapshot.
-The second recompiles baseline and final bank and checks recorded size,
-score, unresolved calls and nonexact verdict. `--all` without
-`--materialize-only` recompiles every experiment. Outputs stay in
-`build/textentry-replay/`. An exact diagnostic result would still require
-the normal identity, class, relocation/data, and full-byte admission gates.
+This uses the existing mismatch tool and reports the bank's nonexact result.
+All source snapshots remain recorded as data: `baseline_source` plus each
+trial's zero-based line edits in `trials.json`, with SHA-256 hashes. Apply
+edits in reverse line order to recover a snapshot. Exploration and replay
+scripts stay local under `build/`; none is part of this evidence package.
+An exact diagnostic result would still require the normal identity, class,
+relocation/data, and full-byte admission gates.
