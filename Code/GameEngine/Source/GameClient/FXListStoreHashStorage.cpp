@@ -32,3 +32,12 @@ struct Rva001E287F {
 Rva001E287F::~Rva001E287F(){clear();}
 
 typedef char FxHashStorageSizeCheck[sizeof(Rva001E287F)==0x14 ? 1 : -1];
+
+// Native0x001E2AD4..0x001E2AD9: tail JMP to sole owned cleanup0x001E287F.
+// No receiver adjustment no stack arguments RET0. Original wrapper name
+// enclosing class and lifetime role unknown; existing receiver view reused.
+struct Rva001E2AD4CleanupForward { void cleanup(); };
+void Rva001E2AD4CleanupForward::cleanup()
+{
+    reinterpret_cast<Rva001E287F*>(this)->~Rva001E287F();
+}

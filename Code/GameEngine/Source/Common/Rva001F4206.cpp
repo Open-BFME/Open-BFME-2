@@ -11,7 +11,7 @@ struct Rva001F4206Helper {
 class Rva001F4206 {
 public:
     Rva001F4206Helper *m_ptr;
-    void rva001F4206();
+    __declspec(noinline) void rva001F4206();
 };
 void Rva001F4206::rva001F4206()
 {
@@ -20,4 +20,13 @@ void Rva001F4206::rva001F4206()
     if (p)
         q = p->func(0);
     ::operator delete(q);
+}
+
+// Native0x001F45EF..0x001F45F4: tail JMP to sole owned cleanup0x001F4206.
+// No receiver adjustment no stack arguments RET0. Original wrapper name
+// enclosing class and lifetime role unknown; existing receiver view reused.
+struct Rva001F45EFCleanupForward { void cleanup(); };
+void Rva001F45EFCleanupForward::cleanup()
+{
+    reinterpret_cast<Rva001F4206*>(this)->rva001F4206();
 }
