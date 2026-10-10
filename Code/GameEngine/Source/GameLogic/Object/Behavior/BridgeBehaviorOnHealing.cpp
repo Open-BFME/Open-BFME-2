@@ -18,9 +18,28 @@ class DamageInfo
 {
 public:
 	unsigned char m_pad00[0x08];
-	ObjectID m_sourceID;
-	unsigned char m_pad0C[0x20 - 0x0C];
-	Real m_amount;
+	ObjectID m_sourceID;			// +0x08
+	unsigned char m_pad0C[0x10 - 0x0C];
+	Int m_damageType;			// +0x10
+	unsigned char m_pad14[0x1C - 0x14];
+	Int m_deathType;			// +0x1C
+	Real m_amount;				// +0x20
+};
+
+// BFME 2's 0x7C-byte DamageInfo as a local: its default constructor is the
+// rowed 0x00263895, address-named Rva00263895Member; trivially destroyed.
+class Rva00263895Member
+{
+public:
+	Rva00263895Member();
+	unsigned char m_pad00[0x08];
+	ObjectID m_sourceID;			// +0x08
+	unsigned char m_pad0C[0x10 - 0x0C];
+	Int m_damageType;			// +0x10
+	unsigned char m_pad14[0x1C - 0x14];
+	Int m_deathType;			// +0x1C
+	Real m_amount;				// +0x20
+	unsigned char m_pad24[0x7C - 0x24];
 };
 
 class BodyModuleInterface
@@ -46,11 +65,15 @@ class Object
 {
 public:
 	void attemptHealing(Real amount, const Object *source);
+	void attemptDamage(DamageInfo *info);
 	BodyModuleInterface *getBodyModule() const { return m_body; }
 	void *m_vtable;
 	const ThingTemplate *m_template;
-	unsigned char m_pad08[0x254 - 0x08];
+	unsigned char m_pad08[0x74 - 0x08];
+	ObjectID m_id;				// +0x74
+	unsigned char m_pad78[0x254 - 0x78];
 	BodyModuleInterface *m_body;
+	ObjectID getID() const { return m_id; }
 };
 
 extern GameLogic *TheGameLogic;
@@ -92,8 +115,50 @@ class BridgeBehavior : public UpdateModule, public BridgeBehaviorInterface,
 public:
 	virtual void setTower(BridgeTowerType towerType, Object *tower);
 	virtual ObjectID getTowerID(BridgeTowerType towerType);
+	virtual void onDamage(DamageInfo *damageInfo);
 	virtual void onHealing(DamageInfo *damageInfo);
 };
+
+// ------------------------------------------------------------------------------------------------
+// Retail 0x004571FB, 182B: BridgeBehavior::onDamage, the damage-interface slot
+// before onHealing. Zero Hour's body in the same BFME 2 layout; the tower
+// damage record is the 0x7C-byte local built by 0x00263895 and handed to the
+// out-of-line Object::attemptDamage 0x0029848E.
+// ------------------------------------------------------------------------------------------------
+void BridgeBehavior::onDamage( DamageInfo *damageInfo )
+{
+
+	// get the bridge object
+	Object *bridge = getObject();
+
+	// get bridge body module
+	BodyModuleInterface *body = bridge->getBodyModule();
+
+	// what is our percentage of the damage done to the bridge
+	Real damagePercentage = damageInfo->m_amount / body->getMaxHealth();
+
+	// if our source is a tower, don't do anything
+	Object *source = TheGameLogic->findObjectByID( damageInfo->m_sourceID );
+	if( source && (source->m_template->m_kindOf10B & 1) )
+		return;
+
+	// apply damage to all towers
+	for( Int i = 0; i < BRIDGE_MAX_TOWERS; ++i )
+	{
+		Object *tower = TheGameLogic->findObjectByID( getTowerID( (BridgeTowerType)i ) );
+		if( tower )
+		{
+			BodyModuleInterface *towerBody = tower->getBodyModule();
+			Rva00263895Member towerDamage;
+			towerDamage.m_amount = towerBody->getMaxHealth() * damagePercentage;
+			towerDamage.m_sourceID = getObject()->getID();
+			towerDamage.m_damageType = damageInfo->m_damageType;
+			towerDamage.m_deathType = damageInfo->m_deathType;
+			tower->attemptDamage( (DamageInfo *)&towerDamage );
+		}
+	}
+
+}  // end onDamage
 
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
