@@ -141,8 +141,15 @@ public:
 	void rva00275DCE(Int look, Real opacityMin, Real opacityMax, Real pulseSeconds);
 	// The per-unit sound lookup (Zero Hour's ThingTemplate::getPerUnitSound).
 	Rva002390CB rva00274CD8(const AsciiString &name);
+	// The keyed sound lookups (keys 0x2A and 0x2B), Zero Hour's
+	// getSoundStealthOn and getSoundStealthOff positions in update.
+	Rva002390CB rva00374389();
+	Rva002390CB rva003743A2();
+	void setEffectiveOpacity(Real opacity) { m_effectiveOpacity = opacity; }
 private:
-	char m_pad48[0x43C - 0x48];
+	char m_pad48[0xB0 - 0x48];
+	Real m_effectiveOpacity; // +0xB0
+	char m_padB4[0x43C - 0xB4];
 	unsigned char m_selected; // +0x43C
 	char m_pad43D[0x440 - 0x43D];
 public:
@@ -241,7 +248,9 @@ public:
 // KindOf bits by the retail name table at 0x00DBBE18.
 enum KindOfType
 {
+	KINDOF_PROJECTILE = 0x19,
 	KINDOF_TREE = 0x5E,
+	KINDOF_IGNORE_FOR_EVA_SPEECH_POSITION = 0x9E,
 	KINDOF_CREATE_A_HERO = 0xBE,
 	KINDOF_CAN_SHOOT_OVER_WALLS = 0xD6
 };
@@ -323,6 +332,94 @@ class Rva0026119DFilter : public Rva000421C8
 {
 public:
 	virtual bool allow(Object *obj);
+};
+
+// The two-bit KindOf mask constructor 0x0006EE7A (the first argument is
+// BitFlags' unused init tag).
+struct Rva0006EE7A
+{
+	Rva0006EE7A(int unused, int b1, int b2);
+	unsigned int m_bits[7];
+};
+
+// vftable 0x00BF91BC, allow 0x002611BF, with the object at +0x08.
+class Rva002611BFFilter : public Rva000421C8
+{
+public:
+	Rva002611BFFilter(const Object *obj) : m_obj(obj) {}
+	virtual bool allow(Object *obj);
+	const Object *m_obj;
+};
+
+// vftable 0x00C07190, allow 0x002614DF, with the object at +0x08.
+class Rva002614DFFilter : public Rva000421C8
+{
+public:
+	Rva002614DFFilter(const Object *obj) : m_obj(obj) {}
+	virtual bool allow(Object *obj);
+	const Object *m_obj;
+};
+
+// vftable 0x00C17F08, allow 0x0026118B: no members of its own.
+class Rva0026118BFilter : public Rva000421C8
+{
+public:
+	virtual bool allow(Object *obj);
+};
+
+// vftable 0x00BFBC90, allow 0x00260EB1: Zero Hour's relationship filter
+// (the object, the allowed relationship bits, whether a hit allows).
+class Rva00260EB1Filter : public Rva000421C8
+{
+public:
+	Rva00260EB1Filter(const Object *obj, int flags, bool match)
+		: m_obj(obj), m_flags(flags), m_match(match) {}
+	virtual bool allow(Object *obj);
+	virtual int getPlayerMask();
+	const Object *m_obj;
+	int m_flags;
+	bool m_match;
+};
+
+// The range query result's hit vector (8-byte entries, cursor at +0x0C).
+struct StealthRangeHit
+{
+	Object *m_object;
+	UnsignedInt m_distance;
+};
+struct StealthRangeHits
+{
+	StealthRangeHit *m_begin;
+	StealthRangeHit *m_end;
+	StealthRangeHit *m_capacity;
+	StealthRangeHit *m_cursor;
+};
+
+// The 16-byte weapon set flags (RevealWeaponSets, Object+0x370) with their
+// out-of-line copy constructor 0x002CF108 and overlap test 0x00331682.
+class BfmeObject872Header
+{
+public:
+	BfmeObject872Header(const BfmeObject872Header &other) throw();
+	Bool any() const
+	{
+		for (UnsignedInt i = 0; i < 4; i++)
+			if (m_words[i] != 0)
+				return true;
+		return false;
+	}
+	UnsignedInt m_words[4];
+};
+class Rva00331682Holder
+{
+public:
+	bool test(const void *other) const;
+};
+// The Object+0x370 address getter 0x0028B7AE.
+class Rva0028B7AELeaGetter
+{
+public:
+	void *get() const;
 };
 
 extern PartitionManager *ThePartitionManager;
@@ -571,6 +668,15 @@ public:
 };
 
 extern float g_secondsPerLogicFrame;
+extern "C" double __cdecl fabs(double value);
+
+// Zero Hour's hintDetectableWhileUnstealthed position (0x0037441E), rowed
+// under an address-derived name.
+class Rva0037441E
+{
+public:
+	void rva0037441E();
+};
 
 struct ObjectListNode
 {
@@ -594,15 +700,46 @@ struct ContainedItemsView
 // 0x00045455 is rowed as WeaponTemplateSetHead's (an identical memcpy).
 class WeaponTemplateSetHead
 {
-	char m_bits[0x4C];
+	UnsignedInt m_words[0x4C / 4];
 public:
 	WeaponTemplateSetHead(const WeaponTemplateSetHead &that);
+	UnsignedInt test(UnsignedInt bit) const { return m_words[bit >> 5] & (1U << (bit & 0x1f)); }
+	void clear(UnsignedInt bit) { m_words[bit >> 5] &= ~(1U << (bit & 0x1f)); }
 };
 typedef WeaponTemplateSetHead ModelConditionFlags;
 
 class StealthUpdate;
 // Object::getStealth (0x0028F4BC), rowed under an address-derived name.
 class Rva00373EC6;
+
+enum WeaponSetType
+{
+	WEAPONSET_ONE_RING_MODE = 0x1C
+};
+
+// Model condition bits by the retail name table at 0x00DBAA98.
+enum ModelConditionFlagType
+{
+	MODELCONDITION_ONE_RING = 253
+};
+
+// Object's contain module (+0x250): slot 4 is Zero Hour's isGarrisonable,
+// slot 20 recalcApparentControllingPlayer.
+template <int N> class StealthContainSlots : public StealthContainSlots<N - 1>
+{
+public:
+	virtual void gapContain(char (*)[N]) = 0;
+};
+template <> class StealthContainSlots<5> : public StealthUpdateSlots<4>
+{
+public:
+	virtual Bool isGarrisonable() const = 0; // slot 4
+};
+class StealthContainView : public StealthContainSlots<20>
+{
+public:
+	virtual void recalcApparentControllingPlayer() = 0; // slot 20
+};
 
 class Object : public Thing
 {
@@ -638,15 +775,36 @@ public:
 	void rva0028B3D7() const;
 	Int getIndicatorColor() const;
 	Int getNightIndicatorColor() const;
+	Bool isLocallyControlled() const;
+	// The squared 2D distance from the position to pos (0x002615E3).
+	Real rva002615E3(const Coord3D *pos) const;
+	void clearWeaponSetFlag(WeaponSetType wst);
+	const BfmeObject872Header &getWeaponSetFlags() const { return *(const BfmeObject872Header *)((Rva0028B7AELeaGetter *)this)->get(); }
+	// The model condition notifier 0x0028AE6D.
+	void rva0028AE6D();
+	__forceinline void clearModelConditionState(ModelConditionFlagType bit)
+	{
+		if (m_modelConditionFlags.test(bit))
+		{
+			m_modelConditionFlags.clear(bit);
+			rva0028AE6D();
+		}
+	}
+	Bool isContained() const { return m_containedBy != NULL; }
+	Object *getContainedBy() const { return m_containedBy; }
+	StealthContainView *getContain() const { return m_contain; }
 private:
 	char m_pad48[0x74 - 0x48];
 	ObjectID m_id; // +0x74
 	char m_pad78[0x10C - 0x78];
 	ModelConditionFlags m_modelConditionFlags; // +0x10C
-	char m_pad158[0x254 - 0x158];
+	char m_pad158[0x250 - 0x158];
+	StealthContainView *m_contain; // +0x250
 	BodyModuleInterface *m_body; // +0x254
 	AIUpdateInterface *m_ai; // +0x258
-	char m_pad25C[0x304 - 0x25C];
+	char m_pad25C[0x274 - 0x25C];
+	Object *m_containedBy; // +0x274
+	char m_pad278[0x304 - 0x278];
 	Team *m_team; // +0x304
 	char m_pad308[0x330 - 0x308];
 	WeaponSet m_weaponSet; // +0x330
@@ -712,7 +870,8 @@ private:
 class StealthUpdateModuleData
 {
 public:
-	char m_pad00[0x0C];
+	char m_pad00[0x08];
+	UnsignedInt m_stealthDelay; // +0x08 StealthDelay
 	UnsignedInt m_stealthLevel; // +0x0C StealthForbiddenConditions
 	char m_pad10[0x20 - 0x10];
 	Real m_stealthSpeed; // +0x20 MoveThresholdSpeed
@@ -720,7 +879,8 @@ public:
 	Real m_friendlyOpacityMax; // +0x28 FriendlyOpacityMax
 	UnsignedInt m_pulseFrequency; // +0x2C PulseFrequency
 	Bool m_teamDisguised; // +0x30 DisguisesAsTeam
-	char m_pad31[0x38 - 0x31];
+	char m_pad31[0x34 - 0x31];
+	Real m_revealDistanceFromTarget; // +0x34 RevealDistanceFromTarget
 	Bool m_orderIdleEnemiesToAttackMeUponReveal; // +0x38 OrderIdleEnemiesToAttackMeUponReveal
 	const FXList *m_disguiseRevealFX; // +0x3C DisguiseRevealFX
 	const FXList *m_disguiseFX; // +0x40 DisguiseFX
@@ -734,9 +894,11 @@ public:
 	char m_pad57;
 	UnsignedInt m_disguiseTransitionFrames; // +0x58 DisguiseTransitionTime
 	UnsignedInt m_disguiseRevealTransitionFrames; // +0x5C DisguiseRevealTransitionTime
-	char m_pad60[0x74 - 0x60];
+	Real m_detectedByAnyoneRange; // +0x60 DetectedByAnyoneRange
+	BfmeObject872Header m_revealWeaponSets; // +0x64 RevealWeaponSets
 	AsciiStringVector m_removeTerrainRestrictionOnUpgrade; // +0x74 RemoveTerrainRestrictionOnUpgrade
-	char m_pad80[0xA4 - 0x80];
+	char m_pad80[0xA0 - 0x80];
+	UnsignedInt m_ringDelayAfterRemoving; // +0xA0 RingDelayAfterRemoving
 	Int m_evaEventDetectedEnemy; // +0xA4 EvaEventDetectedEnemy
 	Int m_evaEventDetectedAlly; // +0xA8 EvaEventDetectedAlly
 	Int m_evaEventDetectedOwner; // +0xAC EvaEventDetectedOwner
@@ -765,6 +927,9 @@ protected:
 	UpdateSleepTime calcSleepTime() const;
 private:
 	const StealthUpdateModuleData *getStealthUpdateModuleData() const { return (const StealthUpdateModuleData *)m_moduleData; }
+	Real getRevealDistanceFromTarget() const { return getStealthUpdateModuleData()->m_revealDistanceFromTarget; }
+	Real getDetectedByAnyoneRange() const { return getStealthUpdateModuleData()->m_detectedByAnyoneRange; }
+	void setStatusBit(const ObjectStatusTypes &status, Bool set) { ((Rva003743CF *)this)->rva003743CF((void *)&status, set); }
 
 	UnsignedInt m_stealthAllowedFrame; // +0x20
 	UnsignedInt m_detectionExpiresFrame; // +0x24
@@ -1295,6 +1460,230 @@ void StealthUpdate::changeVisualDisguise()
 
 	// couldn't possibly need to restore a disguise now :)
 	m_xferRestoreDisguise = FALSE;
+}
+
+// ?rva00374FD5@StealthUpdate@@QAE?AW4UpdateSleepTime@@XZ @0x00374FD5
+// The per-frame stealth logic the update override runs while this module is
+// the object's stealth. Zero Hour's update() order with BFME 2's One Ring
+// handling (model condition ONE_RING, weapon set ONE_RING_MODE and
+// RingDelayAfterRemoving), RevealWeaponSets and DetectedByAnyoneRange; the
+// stealth look moved out to the caller.
+UpdateSleepTime StealthUpdate::rva00374FD5()
+{
+	UnsignedInt now = TheGameLogic->getFrame();
+	const StealthUpdateModuleData *data = getStealthUpdateModuleData();
+	Object *self = getObject();
+
+	if (!m_enabled && !m_31)
+		return calcSleepTime();
+
+	Drawable *draw = self->getDrawable();
+	if (draw)
+	{
+		if (m_31)
+		{
+			if (m_stealthAllowedFrame < now)
+			setStatusBit(OBJECT_STATUS_STEALTHED, true);
+			if (m_detectionExpiresFrame != 0 && m_detectionExpiresFrame < now)
+			{
+				self->clearModelConditionState(MODELCONDITION_ONE_RING);
+				setStatusBit(OBJECT_STATUS_STEALTHED, false);
+				self->clearWeaponSetFlag(WEAPONSET_ONE_RING_MODE);
+				m_31 = FALSE;
+				m_framesGranted = data->m_ringDelayAfterRemoving + now;
+			}
+		}
+		else if (m_disguiseTransitionFrames)
+		{
+			m_disguiseTransitionFrames--;
+			Real factor;
+			if (m_transitioningToDisguise)
+			{
+				factor = 1.0f - ((Real)m_disguiseTransitionFrames / (Real)data->m_disguiseTransitionFrames);
+			}
+			else
+			{
+				factor = 1.0f - ((Real)m_disguiseTransitionFrames / (Real)data->m_disguiseRevealTransitionFrames);
+			}
+			if (factor >= 0.5f && !m_disguiseHalfpointReached)
+			{
+				//Switch models at the halfway point
+				changeVisualDisguise();
+				draw = self->getDrawable();
+				m_disguiseHalfpointReached = true;
+			}
+			//Opacity ranges from full to none at midpoint and full again at the end
+			draw->setEffectiveOpacity(fabs(1.0f - (factor * 2.0f)));
+			if (!m_disguiseTransitionFrames && !m_transitioningToDisguise)
+			{
+				//We're finished removing disguise so turn off stealth update.
+				m_enabled = false;
+				setStatusBit(OBJECT_STATUS_STEALTHED, false);
+				setStatusBit(OBJECT_STATUS_DETECTED, false);
+				return calcSleepTime();
+			}
+		}
+	}
+
+	Real revealDistance = getRevealDistanceFromTarget();
+	if (revealDistance > 0.0f && !m_31)
+	{
+		AIUpdateInterface *ai = self->getAI();
+		if (ai)
+		{
+			Object *target = ai->getCurrentVictim();
+			if (target)
+			{
+				Real distSqrd = self->rva002615E3(target->getPosition());
+				if (distSqrd <= revealDistance * revealDistance)
+				{
+					//We're close enough to reveal ourselves
+					markAsDetected(0, 1, NULL, true);
+					return calcSleepTime();
+				}
+			}
+		}
+	}
+
+	BfmeObject872Header revealSets = getStealthUpdateModuleData()->m_revealWeaponSets;
+	if (revealSets.any() && !m_31)
+	{
+		BfmeObject872Header current = getObject()->getWeaponSetFlags();
+		if (((Rva00331682Holder *)&current)->test(&revealSets))
+		{
+			markAsDetected(0, 1, NULL, true);
+			return calcSleepTime();
+		}
+	}
+
+	if (getDetectedByAnyoneRange() > 0.0f && !m_31)
+	{
+		Int relationship = 1;
+		if (data->m_detectedByFriendliesOnly)
+			relationship = 4;
+		BfmeWideResult result = ThePartitionManager->iterateObjectsInRange(self->getPosition(),
+			getStealthUpdateModuleData()->m_detectedByAnyoneRange, 2,
+			Rva002614DFFilter(self).link(&Rva0026119DFilter())->link(&Rva0026118BFilter())
+				->link(&Rva00260EB1Filter(self, relationship, true))->link(&Rva002611BFFilter(self))
+				->link(&Rva0004584D(*(const BfmeFixedStorage0004543D *)&KINDOFMASK_NONE,
+					*(BfmeFixedStorage0004543D *)&Rva0006EE7A(0, KINDOF_PROJECTILE, KINDOF_IGNORE_FOR_EVA_SPEECH_POSITION))),
+			1);
+		StealthRangeHits *hits = (StealthRangeHits *)result.m_value;
+		if ((UnsignedInt)(hits->m_end - hits->m_begin) > 0)
+		{
+			markAsDetected(0, 2, hits->m_cursor == hits->m_end ? NULL : hits->m_cursor->m_object, true);
+			return calcSleepTime();
+		}
+	}
+
+	if (rva003742B1())
+	{
+		// If I can stealth, don't attempt to Stealth until the timer is zero.
+		if (m_stealthAllowedFrame > now)
+			return calcSleepTime();
+
+		// If we haven't stealthed yet( still destealthed ), play stealthOn here
+		if (!self->testStatus(OBJECT_STATUS_STEALTHED) && draw)
+		{
+			Rva002390CB sound = draw->rva00374389();
+			if (sound.m_04.referent)
+			{
+				BfmeAudioEventPrefix136 soundEvent(sound.m_04, 0);
+				((Rva002D9531 *)&soundEvent)->rva002D9531(self->getID());
+				TheAudio->addAudioEvent(&soundEvent);
+			}
+		}
+
+		// The timer is zero, so if we aren't stealthed, do so now!
+		setStatusBit(OBJECT_STATUS_STEALTHED, true);
+	}
+	else
+	{
+		if (!m_31)
+			m_stealthAllowedFrame = now + getStealthUpdateModuleData()->m_stealthDelay;
+
+		// if you are destealthing on your own free will, play sound for all to hear
+		if (self->testStatus(OBJECT_STATUS_STEALTHED))
+		{
+			if (draw)
+			{
+				Rva002390CB sound = draw->rva003743A2();
+				if (sound.m_04.referent)
+				{
+					BfmeAudioEventPrefix136 soundEvent(sound.m_04, 0);
+					((Rva002D9531 *)&soundEvent)->rva002D9531(self->getID());
+					TheAudio->addAudioEvent(&soundEvent);
+				}
+			}
+
+			setStatusBit(OBJECT_STATUS_STEALTHED, false);
+			rva00373D5E();
+			((Rva0037441E *)this)->rva0037441E();
+			markAsDetected(0, 1, NULL, true);
+		}
+	}
+
+	Bool detectedStatusChangedThisFrame = FALSE;
+	if (now <= m_detectionExpiresFrame)
+	{
+		// if this is the first time being detected, play stealth off sound
+		if (!self->testStatus(OBJECT_STATUS_DETECTED))
+		{
+			detectedStatusChangedThisFrame = TRUE;
+			if (draw)
+			{
+				Rva002390CB sound = draw->rva003743A2();
+				if (sound.m_04.referent)
+				{
+					BfmeAudioEventPrefix136 soundEvent(sound.m_04, 0);
+					((Rva002D9531 *)&soundEvent)->rva002D9531(self->getID());
+					TheAudio->addAudioEvent(&soundEvent);
+				}
+			}
+		}
+	}
+	else
+	{
+		// if this is the first time your clearing the detected status, play the stealth on sound
+		if (self->testStatus(OBJECT_STATUS_DETECTED))
+		{
+			detectedStatusChangedThisFrame = TRUE;
+			//Only play sound effect if the selected object is controllable.
+			if (self->isLocallyControlled() && draw)
+			{
+				Rva002390CB sound = draw->rva00374389();
+				if (sound.m_04.referent)
+				{
+					BfmeAudioEventPrefix136 soundEvent(sound.m_04, 0);
+					((Rva002D9531 *)&soundEvent)->rva002D9531(self->getID());
+					TheAudio->addAudioEvent(&soundEvent);
+				}
+			}
+		}
+
+		setStatusBit(OBJECT_STATUS_DETECTED, false);
+	}
+
+	if (detectedStatusChangedThisFrame)
+	{
+		//do the trick where we tell our container to recals his apparent controlling player
+		//since I may have just become either detected or undetected
+		if (self->isContained())
+		{
+			Object *container = self->getContainedBy();
+			if (container)
+			{
+				StealthContainView *contain = container->getContain();
+				if (contain && contain->isGarrisonable())
+					contain->recalcApparentControllingPlayer();
+			}
+		}
+	}
+
+	// Retain the string lifetime in the optimizer input: it selects the
+	// native EH frame layout while emitting no operations for this scope.
+	if (0) { AsciiString unused; }
+	return calcSleepTime();
 }
 
 // ?update@StealthUpdate@@UAE?AW4UpdateSleepTime@@XZ @0x003756A8
