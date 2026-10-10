@@ -1,8 +1,12 @@
 // ??0Rva005E6D0D@@QAE@PAXPAUHeroDetailsInput@@@Z
-// partial score=0.97 date=2026-10-10
-// ??0Rva005E6D0D@@QAE@PAXPAUHeroDetailsInput@@@Z
-// partial score=0.97 date=2026-10-10
+// partial score=0.98 date=2026-10-11
 // cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /MD /DNDEBUG /EHsc /I.
+// Bank 2026-10-11 (claude-opus-5-5): m_slot moved from the base into the derived
+// class (base keeps only vptr C79544 + inline dtor) puts the slot load after
+// the this-spill as native does; 13 -> 7 diff lines. Remaining: native schedules
+// xor ecx,ecx before the +0xC store and lea ebx,[edi+1C] before the +0x10 store
+// (one slot earlier each); plus the two REL32s that resolve once 5E6CA1 uses the
+// comparator TU's Rva005E4300Context and ComputeRankProgress shares the TU.
 // Native005E4300..005E4389 low-byte comparator of selected hero keys;
 // groupB8 signed order with zero priority then the native118B fallback.
 // Its three private bodies are reconstructed from target; original template
@@ -174,12 +178,8 @@ public:
 class Rva005E6D0DBase
 {
 public:
-    Rva005E6D0DBase(void *slot):m_slot(slot){}
 	~Rva005E6D0DBase() {}
 	virtual void Rva005E6D0DSlot0();
-
-protected:
-    void *m_slot;
 };
 
 class Rva005E6D0D : public Rva005E6D0DBase
@@ -189,6 +189,7 @@ public:
 	~Rva005E6D0D();
 
 private:
+	void *m_slot;
 	Rva005CB265 *m_owner; // +0x08
 	HeroDetailsContext *m_details;
 	Rva002B7250 *m_container; // +0x10
@@ -205,7 +206,7 @@ Rva005E6D0D::~Rva005E6D0D()
 }
 
 struct HeroDetailsInput {Rva005CB265 *owner;HeroDetailsContext *details;Rva002B7250 *container;};
-Rva005E6D0D::Rva005E6D0D(void *slot,HeroDetailsInput *input):Rva005E6D0DBase(slot),m_owner(input->owner),m_details(input->details),m_container(input->container),m_pair(0,0) {
+Rva005E6D0D::Rva005E6D0D(void *slot,HeroDetailsInput *input):m_slot(slot),m_owner(input->owner),m_details(input->details),m_container(input->container),m_pair(0,0) {
  HeroDetailsPair &dst=m_pair; dst=StrategicInGameUI::Rva005E6CA1(m_details);
  void *button=m_slot;
  ((Rva005F62EE *)button)->rva005F62EE(StrategicInGameUI::GetButtonImage((const StrategicButtonImageView *)m_pair.entry,m_details->playerID));
