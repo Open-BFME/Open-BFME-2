@@ -1,8 +1,8 @@
+extern "C" void _ReadWriteBarrier();
+#pragma intrinsic(_ReadWriteBarrier)
 // ?rva0039DC05@Team@@QBEHH_N0@Z
-// partial score=0.888 date=2026-10-06
 // ?rva0039DC05@Team@@QBEHH_N0@Z
-// partial score=0.96 date=2026-10-05
-// cl: /O1 /DNDEBUG /MD
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD
 //
 // ?rva0039DC05@Team@@QBEHH_N0@Z @0x0039DC05 (94B): counts the members whose
 // template passes the rowed kind test 0x000456AC for the given kind,
@@ -28,6 +28,8 @@ public:
 	bool done() const { return m_cur == 0; }
 	OBJCLASS *cur() const { return m_cur; }
 };
+
+typedef char TeamMemberIteratorABI24[(sizeof(DLINK_ITERATOR<Object>)==24)?1:-1];
 
 enum ObjectStatusTypes
 {
@@ -67,6 +69,7 @@ int Team::rva0039DC05(int kind, bool ignoreDead, bool ignoreUnderConstruction) c
 	DLINK_ITERATOR<Object> iter = iterate_TeamMemberList();
 	for (Object *obj; (obj = iter.cur()) != 0; iter.advance())
 	{
+ _ReadWriteBarrier();
 		if (ignoreDead && obj->isEffectivelyDead())
 			continue;
 		if (ignoreUnderConstruction && obj->testStatus(OBJECT_STATUS_UNDER_CONSTRUCTION))
@@ -77,3 +80,8 @@ int Team::rva0039DC05(int kind, bool ignoreDead, bool ignoreUnderConstruction) c
 	}
 	return count;
 }
+// Target/native facts: whole94B ends at39DC63; direct caller3E5E6A,
+// iterator ABI24 and template4/dead438 accesses. The barrier in the loop
+// preserves native owner/template/flag load scheduling under O1G7SSE.
+// ZH countObjectsByThingTemplate supplies the filter semantics only; the
+// original kind-counter method name remains unknown and keeps its RVA.
