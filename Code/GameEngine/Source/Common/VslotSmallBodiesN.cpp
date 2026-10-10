@@ -28,3 +28,10 @@ void Rva001518B2::rva001518B2()
 {
 	m_14 = new Rva001517DE;
 }
+
+// Installed-vtable pointer-backed predicate. Only the observed accesses
+// and native ABI are known; original owner and field meanings are unknown.
+struct Rva005CEA3DWord {char prefix[0x18]; int word;};
+class Rva005CEA3D {public: bool rva005CEA3D(int value); private: char prefix[8]; Rva005CEA3DWord *entry;};
+bool Rva005CEA3D::rva005CEA3D(int value) {return entry->word == value;}
+
