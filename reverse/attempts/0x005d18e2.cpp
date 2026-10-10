@@ -1,4 +1,8 @@
 // ??0Rva005D19F8Child@@QAE@PAVRva005D19F8@@HH@Z
+// partial score=0.970809735190571 date=2026-10-10
+extern "C" void _ReadWriteBarrier();
+#pragma intrinsic(_ReadWriteBarrier)
+// ??0Rva005D19F8Child@@QAE@PAVRva005D19F8@@HH@Z
 // partial score=0.9654905862544008 date=2026-10-10
 // cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /Ireference/shims/bfmealloc
 // stlport
@@ -30,6 +34,6 @@ Rva005D19F8Child::Rva005D19F8Child(Rva005D19F8*o,int r,int a):owner(o),root(r),s
  for(int i=0;i<count;i++){const ModuleData*p=((AwardSource*)source)->players[i];players.push_back(p);}
  const ModuleData*local=((AwardWorld*)TheLivingWorldLogic)->localPlayer;
  const ModuleData**first=players.begin();
- const ModuleData**found=(const ModuleData**)_STL::find((int*)first,(int*)players.end(),(const int&)local);
+ _ReadWriteBarrier();const ModuleData**found=(const ModuleData**)_STL::find((int*)first,(int*)players.end(),(const int&)local);
  _STL::rotate((int*)first,(int*)found,(int*)(found+1));
 }

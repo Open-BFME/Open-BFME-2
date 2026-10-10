@@ -285,3 +285,18 @@ void InGameNotificationBoxMovieClip::UpdateNotice()
  state=2;
  consumeNotice(active,notice.rva004E6BF6());
 }
+
+static __forceinline int invokeFormatted(Rva00222A8BTarget *target,void *owner,const char *method,
+ const AsciiString &number,const bool *flag,const char *const *location, char **flagText)
+{
+ const char *place=*location;
+ char *value=*Rva004E678BGet(flagText,*flag);
+ return target->invoke(owner,method,3,number.str(),value,const_cast<char*>(place),0,0);
+}
+
+inline __declspec(noinline) int Rva004E697DCall(Rva00222A8BTarget *target,void *owner,const char *method,
+ const float *height,const bool *flag,const char *const *location)
+{
+ char *flagText;
+ return invokeFormatted(target,owner,method,Rva002228E8Get(*height),flag,location,&flagText);
+}
