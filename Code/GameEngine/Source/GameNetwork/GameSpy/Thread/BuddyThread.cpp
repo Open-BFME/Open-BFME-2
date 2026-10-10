@@ -96,7 +96,13 @@ private:
 
 typedef std::queue<BuddyRequest> RequestQueue;
 typedef std::queue<BuddyResponse> ResponseQueue;
+// Native551988 calls the separately verified response deque cleanup.
+// Declaration-only here preserves its exception boundary under home flags.
+namespace _STL {template<> deque<BuddyResponse>::~deque();}
 class BuddyThreadClass;
+// Retail shutdown550B4C and cleanup9990D prove the owning lock at +70.
+class Rva0009990D {public:MutexClass::LockClass *m_ptr;void clear();~Rva0009990D(){clear();}};
+class Rva00550B4C {public:void rva00550B4C();};
 
 class GameSpyBuddyMessageQueue : public GameSpyBuddyMessageQueueInterface
 {
@@ -126,7 +132,7 @@ private:
 	ResponseQueue m_responses;
 	BuddyThreadClass *m_thread;
 	MutexClass m_bfme_rva0063e080_mutex68;
-	Int m_bfme_rva0063e080_word70;
+	Rva0009990D m_bfme_lock70;
 };
 
 
@@ -203,7 +209,7 @@ void callbackWrapper( GPConnection *con, void *arg, void *param )
 // byte-exact reconstruction: game/GameEngine/Source/GameNetwork/GameSpy/Thread/GameSpyBuddyMessageQueueCtorThunk.cpp
 GameSpyBuddyMessageQueue::GameSpyBuddyMessageQueue()
 {
-	m_bfme_rva0063e080_word70 = 0;
+	m_bfme_lock70.m_ptr = 0;
 	m_thread = NULL;
 }
 
@@ -383,4 +389,10 @@ void BuddyThreadClass::errorCallback( GPConnection *con, GPErrorArg *errorArg )
 			m_isdeleting = false;
 		}
 	}
+}
+
+// Native551988..551A06 follows PeerThread cleanup order; target member
+// offsets and the already recovered shutdown distinguish the Buddy owner.
+GameSpyBuddyMessageQueue::~GameSpyBuddyMessageQueue(){
+ ((Rva00550B4C*)this)->rva00550B4C();
 }
