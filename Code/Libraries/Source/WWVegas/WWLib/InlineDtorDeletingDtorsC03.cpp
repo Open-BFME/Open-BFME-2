@@ -41,8 +41,14 @@ class Rva0012D780
 {
 public:
 	Rva0012D780(EmitVtableTag *);
-	virtual ~Rva0012D780() {}
+	virtual ~Rva0012D780();
 };
+
+// ??1Rva0012D780@@UAE@XZ @0x0012D770 7B: the empty destructor, restoring the
+// vtable 0x00BD23B4; the deleting destructor 0x0012D780 still expands it inline.
+Rva0012D780::~Rva0012D780()
+{
+}
 
 // ?<Rva0012D780::Rva0012D780> absent-from-retail
 Rva0012D780::Rva0012D780(EmitVtableTag *)
