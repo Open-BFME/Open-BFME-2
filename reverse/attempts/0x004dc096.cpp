@@ -1,9 +1,13 @@
 // ?rva004DC096@Rva004DC1BF@@QAE_NPAVCoord2D@@@Z
+// partial score=0.9722097413820393 date=2026-10-10
+// ?rva004DC096@Rva004DC1BF@@QAE_NPAVCoord2D@@@Z
 // partial score=0.97 date=2026-10-09
-// cl: /O1 /arch:SSE /G7 /MD /EHsc /Ireference/shims/moduledata /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug
+// cl: /I.  /O1 /arch:SSE /G7 /MD /EHsc /Ireference/shims/moduledata /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug
+extern "C" void _ReadWriteBarrier();
+#pragma intrinsic(_ReadWriteBarrier)
 #include "Common/Snapshot.h"
 #include "vector3.h"
-#include "../../Code/Libraries/Include/Lib/Coord2D.h"
+#include "/mnt/titan_nv3/open-bfme2-agent-fleet/gemini200/writer-005/Code/Libraries/Include/Lib/Coord2D.h"
 class GeometryInfo:public Snapshot {
 public:
  GeometryInfo(const GeometryInfo &);
@@ -42,7 +46,7 @@ bool Rva004DC1BF::rva004DC096(Coord2D *out)
    y=yMin;
   }
   Vector3 point;
-  point.Set((float)x*10.0f,(float)y*10.0f,0.0f);
+  point.X=(float)x*10.0f;point.Y=(float)y*10.0f;_ReadWriteBarrier();point.Z=0.0f;
   bool accepted=false;
   if(reinterpret_cast<const BfmeThingTemplateShadowSelector *>(&geometry)->usePluralShadowName()) {
    unsigned char onEdge;
