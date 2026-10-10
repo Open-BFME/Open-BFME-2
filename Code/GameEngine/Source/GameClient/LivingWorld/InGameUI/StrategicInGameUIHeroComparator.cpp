@@ -93,3 +93,33 @@ void Rva005E6AD8::rva005E6AD8(){
  if(held.m_ptr)owner->Rva003FE20FBase::slot1(&held);
  ((Rva005E4157*)((char*)clip+0xC))->rva005E4157(value);
 }
+
+// Native5E6CA1..5E6D0D, called by the listener constructor at5E6DFA.
+// The caller consumes count then entry from the hidden return object.
+// Context+78 is a summary whose8B entries begin40/end44; the two existing
+// indexed providers yield its entry pointer and count. Field names describe
+// target accesses; the original pair/context/summary class names are unknown.
+class Rva0040CB2CIndexedField {public:int get(int) const;};
+class Rva0040CC0EIndexedField {public:int get(int) const;};
+struct HeroDetailsArmyEntry {int count;Rva005E4300Entry *entry;};
+struct HeroDetailsArmySummary {char pad[0x40];HeroDetailsArmyEntry *begin,*end;};
+struct HeroDetailsPair {
+ HeroDetailsPair(){}
+ HeroDetailsPair(const HeroDetailsPair &p):count(p.count),entry(p.entry){}
+ HeroDetailsPair(const int &c,Rva005E4300Entry *const &e):count(c),entry(e){}
+ int count;Rva005E4300Entry *entry;
+};
+namespace StrategicInGameUI {
+HeroDetailsPair Rva005E6CA1(Rva005E4300Context *context) {
+ HeroDetailsArmySummary *summary=(HeroDetailsArmySummary*)context->index;
+ int count=summary->end-summary->begin;
+ int i=0;
+ Rva005E4300Entry *entry;
+ for(;i<count;++i) {
+  entry=(Rva005E4300Entry *)((Rva0040CB2CIndexedField *)summary)->get(i);
+  if(entry->name==context->selectedName)goto found;
+ }
+ if(i>=count)return HeroDetailsPair(0,0);
+ found:return HeroDetailsPair(((Rva0040CC0EIndexedField *)summary)->get(i),entry);
+}
+}
