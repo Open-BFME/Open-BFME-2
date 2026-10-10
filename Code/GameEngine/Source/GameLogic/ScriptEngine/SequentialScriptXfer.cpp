@@ -158,10 +158,10 @@ private:
 	UnsignedInt m_id;																													///< 0x34
 };
 
-class Rva0039F761Owner
+class TeamFactory
 {
 public:
-	Team *findInstance( void *prototypeKey );
+	Team *findTeamByID(unsigned int id);
 };
 
 class TeamFactory;
@@ -215,7 +215,7 @@ void SequentialScript::xfer( Xfer *xfer )
 	{
 
 		// tie up pointer
-		m_teamToExecOn = ((Rva0039F761Owner *)TheTeamFactory)->findInstance( (void *)teamID );
+		m_teamToExecOn = TheTeamFactory->findTeamByID( teamID );
 
 		// sanity
 		if( teamID != 0 && m_teamToExecOn == 0 )

@@ -37,7 +37,7 @@ struct Rva0002C4FD
 struct TeamMapNode
 {
     unsigned char pad[0x18];
-    void *value;
+    unsigned int value; // team id
 };
 
 class Rva0032C07COwner
@@ -52,10 +52,10 @@ public:
     AsciiString resolveName(const AsciiString &name);
 };
 
-class Rva0039F761Owner
+class TeamFactory
 {
 public:
-    Team *findInstance(void *prototypeKey);
+    Team *findTeamByID(unsigned int id);
 };
 
 class Rva0039FE6COwner
@@ -182,7 +182,7 @@ Team *ScriptEngine::getTeamNamed(AsciiString name, Bool createIfMissing)
         Rva0032C07COwner *map = (Rva0032C07COwner *)((char *)this + 0x190C4);
         TeamMapNode *node = map->find(key);
         if (node != *(TeamMapNode **)map)
-            return ((Rva0039F761Owner *)TheTeamFactory)->findInstance(node->value);
+            return TheTeamFactory->findTeamByID(node->value);
     }
 
     Rva0039FE6COwner *factory = (Rva0039FE6COwner *)TheTeamFactory;

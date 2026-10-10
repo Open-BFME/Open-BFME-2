@@ -7,7 +7,7 @@
 // OpenContain chain). GarrisonContain::getApparentControllingPlayer variant:
 // owner player via m_object at primary +0x08 ([ecx-0x18] from +0x20 this),
 // hide flag byte at primary +0x9DD ([ecx+0x9BD]), instance at primary +0xFC
-// ([ecx+0xDC] via TheTeamFactory->findInstance pin 0x0039F761), observing
+// ([ecx+0xDC] via TheTeamFactory->findTeamByID row 0x0039F761), observing
 // default team at Player +0x2EC, ALLIES==2. Evidence: rowed callees
 // getControllingPlayer@Object 0x0028AFA9 getRelationship@Player 0x002AD0C6
 // getControllingPlayer@Team 0x0039D7CF, TheTeamFactory 0x00A028BC,
@@ -48,10 +48,10 @@ public:
 	Player *getControllingPlayer() const;
 };
 
-class Rva0039F761Owner
+class TeamFactory
 {
 public:
-	Team *findInstance(void *instance);
+	Team *findTeamByID(unsigned int id);
 };
 
 class TeamFactory;
@@ -129,7 +129,7 @@ private:
 class GarrisonContain : public B0, public B1, public B2, public B3, public B4, public B5, public B6, public B7, public B8
 {
 public:
-	void *m_instance; // +0xFC
+	unsigned int m_instance; // +0xFC team id
 	unsigned char m_pad100[0x9DD - 0x100];
 	bool m_hideFlag; // +0x9DD (secondary +0x9BD)
 	unsigned char m_pad9DE[0x9E0 - 0x9DE];
@@ -154,7 +154,7 @@ Player *SlaughterHordeContain::rva004780E7(const Player *observing)
 		return myPlayer;
 	if (myPlayer->getRelationship(observing->m_defaultTeam) == ALLIES)
 		return myPlayer;
-	Team *team = ((Rva0039F761Owner *)TheTeamFactory)->findInstance(m_instance);
+	Team *team = TheTeamFactory->findTeamByID(m_instance);
 	if (team)
 		return team->getControllingPlayer();
 	return myPlayer;

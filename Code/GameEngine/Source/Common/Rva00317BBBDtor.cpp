@@ -15,6 +15,11 @@ struct ListNode {
 class Rva00317BBB : public SubsystemInterface {
 public:
   virtual ~Rva00317BBB();
+  // Retail vtable 0x00C0C62C slots 1/9/10 (init/reset/update) are the folded
+  // empty body 0x000B3FD0 (same view as Rva00317BA5Ctor.cpp).
+  virtual void init() {}
+  virtual void reset() {}
+  virtual void update() {}
 private:
   ListNode *m_head;
 };

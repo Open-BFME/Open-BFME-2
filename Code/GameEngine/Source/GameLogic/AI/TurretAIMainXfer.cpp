@@ -173,10 +173,10 @@ private:
 	UnsignedInt m_id;																													///< 0x34
 };
 
-class Rva0039F761Owner
+class TeamFactory
 {
 public:
-	Team *findInstance( void *prototypeKey );
+	Team *findTeamByID(unsigned int id);
 };
 
 class TeamFactory;
@@ -247,6 +247,6 @@ void TurretAI::xfer( Xfer *xfer )
 
 	UnsignedInt teamID = m_victimInitialTeam ? m_victimInitialTeam->getID() : 0;
 	*xfer == teamID;
-	m_victimInitialTeam = ((Rva0039F761Owner *)TheTeamFactory)->findInstance( (void *)teamID );
+	m_victimInitialTeam = TheTeamFactory->findTeamByID( teamID );
 
 }  // end xfer

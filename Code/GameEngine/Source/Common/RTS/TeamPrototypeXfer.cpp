@@ -148,14 +148,10 @@ private:
 
 class TeamFactory;
 struct Rva003A2FD4Proto;
-class Rva0039F761Owner
-{
-public:
-	Team *findInstance(void *id);
-};
 class TeamFactory
 {
 public:
+	Team *findTeamByID(unsigned int id);
 	Team *rva003A3DBE(Rva003A2FD4Proto *proto, int n);
 };
 extern TeamFactory *TheTeamFactory;
@@ -241,7 +237,7 @@ void TeamPrototype::xfer(Xfer *xfer)
 		for (unsigned short i = 0; i < teamInstanceCount; ++i)
 		{
 			*xfer == teamID;
-			Team *teamInstance = ((Rva0039F761Owner *)TheTeamFactory)->findInstance((void *)teamID);
+			Team *teamInstance = TheTeamFactory->findTeamByID(teamID);
 			if (teamInstance == 0)
 			{
 				teamInstance = TheTeamFactory->rva003A3DBE((Rva003A2FD4Proto *)this, 1);

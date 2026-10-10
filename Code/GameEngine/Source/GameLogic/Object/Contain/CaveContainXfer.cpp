@@ -28,7 +28,7 @@
 // gate and Version1, then ZH's fields (+0x100 flag, +0x104 cave index, +0x108
 // original team, saved by its id at Team+0x34). On load the team comes back
 // through the team factory lookup 0x0039F761, held in the ledger as
-// Rva0039F761Owner::findInstance. ZH's throw SC_INVALID_DATA becomes BFME 2's
+// TeamFactory::findTeamByID. ZH's throw SC_INVALID_DATA becomes BFME 2's
 // XferException with tag 5 and no text (constructor 0x0060C36E).
 
 class AsciiString;
@@ -151,10 +151,10 @@ private:
 	UnsignedInt m_id;																													///< 0x34
 };
 
-class Rva0039F761Owner
+class TeamFactory
 {
 public:
-	Team *findInstance( void *prototypeKey );
+	Team *findTeamByID(unsigned int id);
 };
 
 class TeamFactory;
@@ -212,7 +212,7 @@ void CaveContain::xfer( Xfer *xfer )
 		if( teamID != 0 )
 		{
 
-			m_originalTeam = ((Rva0039F761Owner *)TheTeamFactory)->findInstance( (void *)teamID );
+			m_originalTeam = TheTeamFactory->findTeamByID( teamID );
 			if( m_originalTeam == 0 )
 				throw XferException( 5, 0 );
 

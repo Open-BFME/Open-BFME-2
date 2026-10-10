@@ -154,10 +154,10 @@ public:
 
 class Team;
 
-class Rva0039F761Owner
+class TeamFactory
 {
 public:
-	Team *findInstance( void *prototypeKey );
+	Team *findTeamByID(unsigned int id);
 };
 
 class TeamFactory;
@@ -191,7 +191,7 @@ private:
 
 	static Team *findTeamByID( UnsignedInt id )
 	{
-		return ((Rva0039F761Owner *)TheTeamFactory)->findInstance( (void *)id );
+		return TheTeamFactory->findTeamByID( id );
 	}
 
 	char m_unrecovered04[ 0xFC - 0x04 ];

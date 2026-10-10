@@ -159,10 +159,10 @@ private:
 	UnsignedInt m_id;																													///< 0x34
 };
 
-class Rva0039F761Owner
+class TeamFactory
 {
 public:
-	Team *findInstance( void *prototypeKey );
+	Team *findTeamByID(unsigned int id);
 };
 
 class TeamFactory;
@@ -277,7 +277,7 @@ void TeamInQueue::xfer( Xfer *xfer )
 	UnsignedInt teamID = m_team ? m_team->getID() : 0;
 	*xfer == teamID;
 	if( xfer->IsLoading() )
-		m_team = ((Rva0039F761Owner *)TheTeamFactory)->findInstance( (void *)teamID );
+		m_team = TheTeamFactory->findTeamByID( teamID );
 	*xfer == m_frameStarted;
 	*xfer == m_sentToStartLocation;
 	*xfer == m_stopQueueing;
