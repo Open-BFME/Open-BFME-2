@@ -106,7 +106,7 @@ public:
  Bool isSignificantlyAboveTerrain() const;
  Real rva002637E2(const Coord3D*,const Coord3D*)const;
  void rva0028AD32();
- void rva0028ACDC(const Coord3D*); // the layer
+ void rva0028ACDC(int); // the layer
 	signed char rva0028CE7B() const; // the crushable level
 	Bool testStatus(ObjectStatusTypes status) const;
 	Bool isKindOf(KindOfType kind) const;
@@ -390,7 +390,7 @@ Bool AIUpdateInterface::computeAttackPath(PathfindServicesInterface *services,co
     if(!m_path){TheAI->pathfinder()->rva003E3BFB((ObjectID)0);return false;}
    }
    PathNode *end=m_path->tail;
-   goal=*(const Coord3D*)((const char*)end+12);getObject()->rva0028ACDC(&goal);
+   goal=*(const Coord3D*)((const char*)end+12);getObject()->rva0028ACDC((int)&goal);
   }
   TheAI->pathfinder()->rva003E3BFB((ObjectID)0);
   if(attackFlag)return true;

@@ -142,7 +142,7 @@ class Object
 {
 public:
 	const Coord3D *getPosition() const { return &m_position; }
-	void rva0028ACDC(const Coord3D *goal);
+	void rva0028ACDC(int goal);
 	AIUpdateInterface *getAI() { return m_ai; }
 	Bool isKindOfProjectile() const { return m_template->isKindOfProjectile(); }
 private:
@@ -359,7 +359,7 @@ StateReturnType AIFollowPathState::update()
 				if (!TheAI->pathfinder()->adjustDestination(getMachineOwner(), ai->getLocomotorSet(), &m_goalPosition)) {
 					return STATE_FAILURE;
 				}
-				getMachineOwner()->rva0028ACDC(&m_goalPosition);
+				getMachineOwner()->rva0028ACDC((int)&m_goalPosition);
 			}
 
 			// urg. hacky. if we are a projectile on the last segment, turn on precise z-pos.

@@ -31,7 +31,7 @@ public:
 class Thing { public: void setOrientation(float); };
 class Object:public Thing {
 public:
-    void teleportTo(const Coord3D *,bool); bool rva002931BA(); void *rva0029439D(); void rva0028ACDC(const Coord3D *);
+    void teleportTo(const Coord3D *,bool); bool rva002931BA(); void *rva0029439D(); void rva0028ACDC(int);
     const Coord3D *position() const { return reinterpret_cast<const Coord3D *>(reinterpret_cast<const char *>(this)+0x38); }
     float orientation() const { return *reinterpret_cast<const float *>(reinterpret_cast<const char *>(this)+0x44); }
     float radius() const { return *reinterpret_cast<const float *>(reinterpret_cast<const char *>(this)+0xB8); }
@@ -93,7 +93,7 @@ void GarrisonContain::exitObjectViaDoor(Object *exitObj,ExitDoorType)
         void *module=exitObj->rva0029439D();
         if (module) { reinterpret_cast<Rva0047983APassenger38 *>(module)->leaving(exitObj); reinterpret_cast<Rva0047983APassenger *>(module)->state(0); }
         ai->commands()->rva0047971C(*reinterpret_cast<const Rva0035149F *>(&path),object(),CMD_FROM_AI);
-        exitObj->rva0028ACDC(&end);
+        exitObj->rva0028ACDC((int)&end);
     }
     reinterpret_cast<Rva0047983ATeam *>(contain())->recalc();
 }

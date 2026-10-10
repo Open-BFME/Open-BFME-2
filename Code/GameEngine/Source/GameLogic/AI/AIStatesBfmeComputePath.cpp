@@ -289,7 +289,7 @@ public:
 	void rva0028AE6D();
 	void rva0028AD32();
 	void rva0028C2DD(Coord3D *pos) const;
-	void rva0028ACDC(const Coord3D *pos);
+	void rva0028ACDC(int pos);
 	Real getGeometryRadiusB8() const { return m_geometryRadiusB8; }
 	__forceinline void clearModelConditionBit(int bit)
 	{
@@ -821,7 +821,7 @@ Bool AIAttackMeleeEngageState::computePath()
 			m_retryFrame = TheGameLogic->getFrame() + g_009BA4E4 * 10;
 			return true;
 		}
-		source->rva0028ACDC(&m_goalPosition);
+		source->rva0028ACDC((int)&m_goalPosition);
 		ai->requestPath(&m_goalPosition, true);
 		m_waitingForPath = ai->isWaitingForPath();
 		return true;

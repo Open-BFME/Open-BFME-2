@@ -473,7 +473,7 @@ public:
 	Bool testStatus(ObjectStatusTypes bit) const;
 	// Zero Hour's getLayer and Pathfinder::updateGoal for this object.
 	int rva0028B511() const;
-	void rva0028ACDC(const Coord3D *goal);
+	void rva0028ACDC(int goal);
 	__forceinline void setModelConditionState(ModelConditionFlagType bit)
 	{
 		if (m_conditionBits.test(bit) == 0)
@@ -1199,7 +1199,7 @@ StateReturnType AIInternalMoveToState::onEnter()
 		{
 			CRITTER_DESYNC_GOAL_LOG("CritterDesync: AIInternalMoveToState::onEnter() AdjustDestination succeeded. m_goalPosition=%g,%g,%g")
 		}
-		obj->rva0028ACDC(&m_goalPosition);
+		obj->rva0028ACDC((int)&m_goalPosition);
 		CRITTER_DESYNC_GOAL_LOG("CritterDesync: AIInternalMoveToState::onEnter() post-UpdateGoalPosition. m_goalPosition=%g,%g,%g")
 		pathfinder->rva003E3BFB(INVALID_OBJECT_ID);
 	}

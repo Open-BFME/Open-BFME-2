@@ -472,7 +472,7 @@ public:
 	Bool rva002943B2(const Player *player);
 	Bool isOutOfAmmo() const;
 	Object *adjustVictim(Object *owner, bool useWeaponRange, Int index);
-	void rva0028ACDC(const Coord3D *pos);
+	void rva0028ACDC(int pos);
 	void setStatus(ObjectStatusTypes bit, Bool set);
 	Bool isKindOf(KindOfType t) const;
 	void preFireCurrentWeapon(const Object *victim, const Coord3D *pos);
@@ -1475,7 +1475,7 @@ Bool AIAttackFireDuringApproachState::computePath()
 		}
 		((Rva002F23A6 *)TheAI->pathfinder())->rva002F23A6(source, (int)weapon,
 			(int)&ai->m_locomotorSet, &m_goalPosition, victim);
-		source->rva0028ACDC(&m_goalPosition);
+		source->rva0028ACDC((int)&m_goalPosition);
 		ai->requestApproachPath(&m_goalPosition);
 		m_waitingForPath = ai->isWaitingForPath();
 		return true;
