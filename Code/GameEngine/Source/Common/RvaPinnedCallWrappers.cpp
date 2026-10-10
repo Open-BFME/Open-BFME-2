@@ -82,7 +82,7 @@ float Rva004ECE93::rva004ECE93(int key)
 	return 0.0f;
 }
 
-extern int g_Va00DE1B40;
+extern int g_bfmeDisplayAnimationSyncClock;
 
 // Native 0x000C0386, 19B: run 0x000BFDFE unless +0xB8 already equals the
 // global at 0x00DE1B40.
@@ -98,6 +98,6 @@ private:
 };
 void Rva000BFDFE::rva000C0386()
 {
-	if (g_Va00DE1B40 != m_b8)
+	if (g_bfmeDisplayAnimationSyncClock != m_b8)
 		rva000BFDFE();
 }

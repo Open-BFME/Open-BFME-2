@@ -95,13 +95,16 @@ int Rva00171660Get(void)
 
 // ?Rva000B29C3Get@@YAHXZ @ 0x000B29C3 (6B) over 0x00DE1B40.
 
-extern int g_Va00DE1B40;
-// g_Va00DE1B40: matched references place it at VA 0xde1b40 (zero-filled .bss).
-int g_Va00DE1B40;
+extern int g_bfmeDisplayAnimationSyncClock;
+// Neutral semantic name, not an assertion of the original symbol spelling.
+// Native scripted-model constructor, sync wrapper and processAnimations plus
+// WB W3DDisplay::GetCurSyncTime assert identify this DWORD animation/display clock.
+// Sole existing provider is renamed; no second address owner is introduced.
+int g_bfmeDisplayAnimationSyncClock;
 
 int Rva000B29C3Get(void)
 {
-	return g_Va00DE1B40;
+	return g_bfmeDisplayAnimationSyncClock;
 }
 
 // ?Rva000B29C9Set@@YAXH@Z @ 0x000B29C9 (10B): global dword setter over

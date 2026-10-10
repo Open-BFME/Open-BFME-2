@@ -1,6 +1,6 @@
 // cl: /MD
 // ?rva000B3A2D@Rva000B3A2D@@QAEXXZ @0x000B3A2D 59B
-// Unlock lane: validate wide string at +0, int global g_Va00DE1B40 to +0xb8,
+// Unlock lane: validate wide string at +0, int global g_bfmeDisplayAnimationSyncClock to +0xb8,
 // TheGameClient slot 0x7c int to g_Va00DB3BDC, if int at +0x214 >=0 call
 // subobject at +0xc slot 0x60 with (val != 0). Callers 0x000CDE4A 0x000CEA3C
 // 0x000CA132. Neighbours Rva000B3814/Rva000B3A68.
@@ -27,7 +27,7 @@ public:
 
 class ClientFrameSubsystem; extern class GameClient *TheGameClient;
 
-extern int g_Va00DE1B40;
+extern int g_bfmeDisplayAnimationSyncClock;
 extern int g_Va00DB3BDC;
 
 class Sub0C
@@ -56,7 +56,7 @@ private:
 void Rva000B3A2D::rva000B3A2D()
 {
 	((StringBase<unsigned short> *)this)->validate();
-	m_b8 = g_Va00DE1B40;
+	m_b8 = g_bfmeDisplayAnimationSyncClock;
 	g_Va00DB3BDC = ((ClientFrameSubsystem *)TheGameClient)->s31();
 	int v = m_214;
 	if (v < 0)

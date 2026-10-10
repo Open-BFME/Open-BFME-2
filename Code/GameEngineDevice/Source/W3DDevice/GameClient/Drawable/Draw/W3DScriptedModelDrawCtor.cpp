@@ -267,7 +267,7 @@ public:
 	virtual void interface10();
 };
 
-extern int g_Va00DE1B40;
+extern int g_bfmeDisplayAnimationSyncClock;
 int Rva000B2BA3Get(const Rva000B2BE5Src *src, bool *out);
 
 class W3DScriptedModelDraw : public DrawModule, public W3DScriptedModelDrawInterfaceC, public W3DScriptedModelDrawInterface10
@@ -379,7 +379,7 @@ W3DScriptedModelDraw::W3DScriptedModelDraw(Thing *thing, const ModuleData *modul
 	m_44 = -1;
 	m_48 = false;
 	m_49 = false;
-	m_b8 = ~g_Va00DE1B40;
+	m_b8 = ~g_bfmeDisplayAnimationSyncClock;
 	m_a0 = true;
 	m_a4 = 0;
 	m_1c8 = false;
