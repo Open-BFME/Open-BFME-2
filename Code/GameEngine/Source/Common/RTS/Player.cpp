@@ -544,7 +544,7 @@ void Player::init(const PlayerTemplate* pt)
 		m_nightColor = m_color;
 
 		m_money = *pt->getMoney();
-		m_money.setPlayerIndex(getPlayerIndex());
+		m_money.setPlayerIndex(m_playerIndex);
 
 		m_handicap = *pt->getHandicap();
 
@@ -693,6 +693,11 @@ static TeamID getRetailTeamID( const Team *that ) { return *(const TeamID *)((co
 // inline TeamPrototype::getID, whose copy reads this tree's Zero Hour offset.
 static TeamPrototypeID getRetailTeamPrototypeID( const TeamPrototype *proto ) { return *(const TeamPrototypeID *)((const char *)proto + 0x0c); }
 
+// This unit reads its own player index as m_playerIndex rather than through the
+// header's inline getPlayerIndex: its Zero Hour copy of that accessor (+0x24)
+// would otherwise be first in link order and displace the BFME 2 units' +0x54
+// copies.
+
 //DECLARE_PERF_TIMER(Player_getRelationship)
 // Player::getRelationship: defined in PlayerGetRelationship.cpp (its row's unit).
 
@@ -708,7 +713,7 @@ void Player::setPlayerRelationship(const Player *that, Relationship r)
 		// PlayerRelationMap carries one base vtable pointer where
 		// MemoryPoolObject plus Snapshot give it two here.
 		(*(PlayerRelationMapType *)(*(char **)((char *)this + 0x28c) + 0x04))
-			[that->getPlayerIndex()] = r;
+			[that->m_playerIndex] = r;
 	}
 }
 
@@ -725,7 +730,7 @@ Bool Player::removePlayerRelationship(const Player *that)
 		}
 		else
 		{
-			PlayerRelationMapType::iterator it = m_playerRelations->m_map.find(that->getPlayerIndex());
+			PlayerRelationMapType::iterator it = m_playerRelations->m_map.find(that->m_playerIndex);
 			if (it != m_playerRelations->m_map.end())
 			{
 				m_playerRelations->m_map.erase(it);
@@ -867,7 +872,7 @@ void Player::update()
 				GameMessage *msg = TheMessageStream->appendMessage( GameMessage::MSG_ENABLE_RETALIATION_MODE );
 				if( msg )
 				{
-					msg->appendIntegerArgument( getPlayerIndex() );
+					msg->appendIntegerArgument( m_playerIndex );
 					msg->appendBooleanArgument( TheGlobalData->m_clientRetaliationModeEnabled );
 				}
 			}
@@ -980,10 +985,10 @@ void Player::initFromDict(const Dict* d)
 
 				ScriptList *scripts = TheSidesList->getSkirmishSideInfo(i)->getScriptList()->duplicateAndQualify(
 							qualifier, qualTemplatePlayerName, pname);
-				if (TheSidesList->getSideInfo(getPlayerIndex())->getScriptList()) {
-					TheSidesList->getSideInfo(getPlayerIndex())->getScriptList()->deleteInstance();
+				if (TheSidesList->getSideInfo(m_playerIndex)->getScriptList()) {
+					TheSidesList->getSideInfo(m_playerIndex)->getScriptList()->deleteInstance();
 				}
-				TheSidesList->getSideInfo(getPlayerIndex())->setScriptList(scripts);
+				TheSidesList->getSideInfo(m_playerIndex)->setScriptList(scripts);
 				TheSidesList->getSkirmishSideInfo(i)->getScriptList()->deleteInstance();
 				TheSidesList->getSkirmishSideInfo(i)->setScriptList(NULL);
 			}
@@ -1032,12 +1037,12 @@ void Player::initFromDict(const Dict* d)
 			qualifier.format("%d", m_mpStartIndex);
 			ScriptList *scripts = TheSidesList->getSkirmishSideInfo(skirmishNdx)->getScriptList()->duplicateAndQualify(
 						qualifier, qualTemplatePlayerName, pname);
-			ScriptList* slist = TheSidesList->getSideInfo(getPlayerIndex())->getScriptList();
+			ScriptList* slist = TheSidesList->getSideInfo(m_playerIndex)->getScriptList();
 			if (slist) 
 			{
 				slist->deleteInstance();
 			}
-			TheSidesList->getSideInfo(getPlayerIndex())->setScriptList(scripts);
+			TheSidesList->getSideInfo(m_playerIndex)->setScriptList(scripts);
 			for (i=0; i<TheSidesList->getNumTeams(); i++) {
 				if (TheSidesList->getTeamInfo(i)->getDict()->getAsciiString(TheKey_teamOwner) == pname)
 				{
@@ -1954,7 +1959,7 @@ void Player::setUnitsShouldHunt(Bool unitsShouldHunt, CommandSourceType source)
 	m_unitsShouldHunt = unitsShouldHunt;
 
 	Coord3D pos;
-	ThePartitionManager->getMostValuableLocation(getPlayerIndex(), ALLOW_ENEMIES, VOT_CashValue, &pos);
+	ThePartitionManager->getMostValuableLocation(m_playerIndex, ALLOW_ENEMIES, VOT_CashValue, &pos);
 	for (PlayerTeamList::iterator it = m_playerTeamPrototypes.begin(); 
 			 it != m_playerTeamPrototypes.end(); ++it) {
 		for (DLINK_ITERATOR<Team> iter = (*it)->iterate_TeamInstanceList(); !iter.done(); iter.advance()) {
@@ -2462,7 +2467,7 @@ void Player::resetSciences()
 	}
 
 	for (ScienceVec::const_iterator it = m_sciences.begin(); it != m_sciences.end(); ++it)
-		TheScriptEngine->notifyOfAcquiredScience(getPlayerIndex(), *it);
+		TheScriptEngine->notifyOfAcquiredScience(m_playerIndex, *it);
 }
 
 //=============================================================================
@@ -2515,7 +2520,7 @@ Bool Player::addScience(ScienceType science)
 	}
 
 	// notify the script engine
-	TheScriptEngine->notifyOfAcquiredScience(getPlayerIndex(), science);
+	TheScriptEngine->notifyOfAcquiredScience(m_playerIndex, science);
 	
 	return true;
 }

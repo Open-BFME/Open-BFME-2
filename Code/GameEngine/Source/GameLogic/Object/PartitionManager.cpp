@@ -121,6 +121,14 @@ const Real HUGE_DIST_SQR = (HUGE_DIST*HUGE_DIST);
 //         Defines                                                         
 //-----------------------------------------------------------------------------
 
+// BFME's Player keeps m_playerIndex at +0x54 (the matched rally-point setter
+// 0x0037711A and TerrainResourceManager::tryToClaimCell 0x0035AA43 read it
+// there), where this tree's Zero Hour Player.h has +0x24. Player indices in
+// this unit are read through this function rather than the header's inline
+// Player::getPlayerIndex, whose +0x24 copy would otherwise be the first one in
+// link order and displace every BFME 2 unit's +0x54 copy.
+static Int getRetailPlayerIndex( const Player *player ) { return *(const Int *)((const char *)player + 0x54); }
+
 //-----------------------------------------------------------------------------
 static PartitionContactList* TheContactList = NULL;
 
@@ -1308,7 +1316,7 @@ void PartitionCell::addLooker(Int playerIndex)
 		// On an edge trigger, tell all objects to think about their shroudedness
 		invalidateShroudedStatusForAllCois( playerIndex );
 
-		if( playerIndex == ThePlayerList->getLocalPlayer()->getPlayerIndex() )
+		if( playerIndex == getRetailPlayerIndex(ThePlayerList->getLocalPlayer()) )
 		{
 			// and if this is the local player, do the Client update.
 			TheDisplay->setShroudLevel(m_cellX, m_cellY, newShroud);
@@ -1345,7 +1353,7 @@ void PartitionCell::removeLooker(Int playerIndex)
 		// On an edge trigger, tell all objects to think about their shroudedness
 		invalidateShroudedStatusForAllCois( playerIndex );
 
-		if( playerIndex == ThePlayerList->getLocalPlayer()->getPlayerIndex() )
+		if( playerIndex == getRetailPlayerIndex(ThePlayerList->getLocalPlayer()) )
 		{
 			// and if this is the local player, do the Client update.
 			TheDisplay->setShroudLevel(m_cellX, m_cellY, newShroud);
@@ -1374,7 +1382,7 @@ void PartitionCell::addShrouder( Int playerIndex )
 		invalidateShroudedStatusForAllCois( playerIndex );
 
 		// and update the client if we are on the local player
-		if( playerIndex == ThePlayerList->getLocalPlayer()->getPlayerIndex() )
+		if( playerIndex == getRetailPlayerIndex(ThePlayerList->getLocalPlayer()) )
 		{
 			TheDisplay->setShroudLevel(m_cellX, m_cellY, newShroud);
 			TheRadar->setShroudLevel(m_cellX, m_cellY, newShroud);
@@ -1622,7 +1630,7 @@ Int PartitionData::getControllingPlayerIndex() const
 	const Player* p = getObject()->getControllingPlayer();
 	if (p)
 	{
-		Int playerIndex = p->getPlayerIndex();
+		Int playerIndex = getRetailPlayerIndex(p);
 		DEBUG_ASSERTCRASH(playerIndex >= 0 && playerIndex < MAX_PLAYER_COUNT, ("bad playerIndex"));
 		return playerIndex;
 	}
@@ -2850,7 +2858,7 @@ void PartitionManager::update()
 			Int cellCount = m_cellCountX * m_cellCountY;
 			for (int i = 0; i < cellCount; ++i) 
 			{
-				UnsignedInt threat = m_cells[i].getThreatValue(ThePlayerList->getLocalPlayer()->getPlayerIndex());
+				UnsignedInt threat = m_cells[i].getThreatValue(getRetailPlayerIndex(ThePlayerList->getLocalPlayer()));
 				if (threat > 0) 
 				{
 					Real threatMul = INT_TO_REAL(threat) / TheGlobalData->m_maxDebugThreat;
@@ -2880,7 +2888,7 @@ void PartitionManager::update()
 			Int cellCount = m_cellCountX * m_cellCountY;
 			for (int i = 0; i < cellCount; ++i) 
 			{
-				UnsignedInt value = m_cells[i].getCashValue(ThePlayerList->getLocalPlayer()->getPlayerIndex());
+				UnsignedInt value = m_cells[i].getCashValue(getRetailPlayerIndex(ThePlayerList->getLocalPlayer()));
 				if (value > 0) 
 				{
 					Real valueMul = INT_TO_REAL(value) / TheGlobalData->m_maxDebugValue;
@@ -3091,7 +3099,7 @@ void PartitionManager::refreshShroudForLocalPlayer()
 	TheDisplay->clearShroud();
 	TheRadar->clearShroud();
 
-	Int playerIndex = ThePlayerList->getLocalPlayer()->getPlayerIndex();
+	Int playerIndex = getRetailPlayerIndex(ThePlayerList->getLocalPlayer());
 	for (int i = 0; i < m_totalCellCount; ++i)
 	{
 		Int x = m_cells[i].getCellX();
