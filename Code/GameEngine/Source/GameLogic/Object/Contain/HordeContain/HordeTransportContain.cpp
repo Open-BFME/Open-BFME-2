@@ -7,9 +7,10 @@
 // Both lists use the shared four-byte opaque element whose insertion chain
 // is independently recovered. Declared virtual slots are ABI views only;
 // this unit creates no interface objects or invented vtable data.
-// cl: /O1 /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /O1 /DNDEBUG /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 #include <list>
+#include <vector>
 extern "C" void *__cdecl memcpy(void *,const void *,unsigned int);
 #pragma intrinsic(memcpy)
 #include "../../../../../Include/GameLogic/ContainmentListView.h"
@@ -52,6 +53,7 @@ struct Rva0047727EObjectPositionView;
 class HordeTransportContain {
 public:
     void rva004779F9();
+    void rva004776E7(const struct Rva004776E7UpgradeMask *,bool);
     void rva0047727E(Thing *object);
 private:
     unsigned char prefix00[8];
@@ -117,4 +119,45 @@ void HordeTransportContain::rva0047727E(Thing *object) {
     Rva0047727ETransformView transform(m_object->transform);
     transform.getTranslation(&position);
     object->setPosition(&position);
+}
+
+// Native4776E7..47778B RET8, +20-interface slot174 in the independently
+// identified HordeTransportContain table. The 1024-bit mask is scanned in
+// index order; the owned UpgradeCenter accessor26EEA0 supplies pointers for
+// callback4772D1, whose body tests/applies each UpgradeTemplate to an Object.
+// Interface-relative slot110 visits Objects with this temporary range.
+// This entry receives the +20 interface pointer, and accesses no primary
+// fields; its CallView explicitly models that entry receiver, not the primary
+// layout used by the other methods above.
+// These offsets, iteration limit, callbacks and unwind state are target facts.
+// The original method/mask/visitor names and the unused boolean's purpose
+// remain unresolved. ModuleData is the existing library instantiation's
+// spelling at211E58/4DFCB0, not a claim that these are ModuleData objects:
+// only opaque pointers are stored, and callback4772D1 interprets the range.
+// EHs and non-imported CRT free reproduce the native cleanup state/direct
+// call; the adjacent bodies remain verified with those shared settings.
+class ModuleData; class UpgradeTemplate;
+class UpgradeCenter { public: const UpgradeTemplate *rva0026EEA0(int index) const; };
+extern UpgradeCenter *TheUpgradeCenter;
+struct Rva004772D1RangePrefix;
+void rva004772D1(Object *,const Rva004772D1RangePrefix &);
+struct Rva004776E7UpgradeMask { unsigned int bits[32]; __forceinline bool test(unsigned int i) const { return (bits[i>>5] & (1u<<(i&31)))!=0; } };
+template<int N> class Rva004776E7Slots : public Rva004776E7Slots<N-1> { public: virtual void gap(char (*)[N])=0; };
+template<> class Rva004776E7Slots<0> {};
+typedef void (__cdecl *Rva004776E7Callback)(Object *,void *);
+class Rva004776E7CallView : public Rva004776E7Slots<68> { public: virtual void iterate(Rva004776E7Callback,void *,int)=0; };
+namespace _STL { template<> void vector<const ModuleData *>::push_back(const ModuleData *const &); }
+void HordeTransportContain::rva004776E7(const Rva004776E7UpgradeMask *mask,bool)
+{
+    _STL::vector<const ModuleData *> upgrades;
+    for(int i=0;i<1024;++i)
+    {
+        if(mask->test(i))
+        {
+            const ModuleData *value=(const ModuleData *)TheUpgradeCenter->rva0026EEA0(i);
+            upgrades.push_back(value);
+        }
+    }
+    ((Rva004776E7CallView *)this)->iterate((Rva004776E7Callback)&rva004772D1,&upgrades,1);
+    ((_STL::vector<void *> *)&upgrades)->clear();
 }
