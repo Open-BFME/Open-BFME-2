@@ -1,5 +1,5 @@
 // ?rva002DCF6C@GameState@@QAEXPAVSnapshot@@I@Z
-// partial score=0.7917538556924746 date=2026-10-10
+// partial score=0.983367198838897 date=2026-10-10
 // cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmelist /Ireference/shims/bfmealloc /Ireference/shims/moduledata /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /O1 /G7  /arch:SSE /DNDEBUG /MD /EHsc
 // stlport
 #include <list>
@@ -52,15 +52,16 @@ void GameState::rva002DC4B8(void*,unsigned sequence)
 }
 void GameState::rva002DCF6C(Snapshot *snapshot,unsigned sequence)
 {
- GameStatePostRecord record;record.snapshot=snapshot;
  if(!snapshot)return;
  const char *name=snapshot->GetSnapshotName();
- if(name && !strcmp(name,"Object"))m_post.push_front(snapshot);
+ Snapshot *postCopy=snapshot;
+ if(name && !strcmp(name,"Object"))m_post.push_front(postCopy);
  else {
   if(name && !strcmp(name,"Weapon"))return;
-  m_post.push_back(snapshot);
+  m_post.push_back(postCopy);
  }
- record.sequence=sequence;
+ GameStatePostRecord record;
+ record.snapshot=snapshot;record.sequence=sequence;
  m_marks.push_back(record);
 }
 void Rva002DD908(Snapshot *snapshot,GameState *state,unsigned sequence)
