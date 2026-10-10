@@ -4,7 +4,13 @@
 // reference to 0x004166DB; mode 1 uses TheGameSpyInfo slot 0x100 with a
 // by-value wide string, false and the window pointer, then returns true.
 // ZH PeerDefs::sendChat supplies the signature, not a retail method name.
+// Retail's out-of-line UnicodeString copy is frameless; this TU builds /Oy-
+// (frame pointers), which gives the COMDAT an ebp frame and loses the link.
+// Compile the UnicodeString inline definitions with frame omission so our
+// copy matches the kept retail one.
+#pragma optimize("y", on)
 #include "unicode_string.h"
+#pragma optimize("", on)
 
 class GameWindow;
 class GameSpyInfoInterface;
