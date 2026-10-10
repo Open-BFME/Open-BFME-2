@@ -7,7 +7,38 @@
 // factory calls establish its operation independently of the donor name.
 // BFME2 calls the checked stack accessor instead of reading donor fields.
 // The numeric converter retains an address-derived member name.
-#include <math.h>
+// The CRT math declarations this unit needs, in place of <math.h> (this TU compiles with
+// /D_CRTIMP= and /O2, so these are the same plain, intrinsic-eligible declarations). <math.h>'s
+// float overloads would emit this /O2 x87 unit's copies of floor(float), sqrt(float), sinf, cosf
+// ... as COMDATs that differ from the copies the rest of the link keeps (retail's _sinf/_cosf are
+// the 17-byte rows at 0x0008516D/0x0008515C). The callbacks call the double functions; only
+// sin(float), cos(float) (rowed here, 0x0002FBB0/0x0002FBC0) and pow(float, float) keep float
+// overloads, written with the bodies <math.h> gives them after inlining sinf/cosf.
+extern "C" {
+int __cdecl abs(int);
+double __cdecl acos(double);
+double __cdecl asin(double);
+double __cdecl atan(double);
+double __cdecl atan2(double, double);
+double __cdecl ceil(double);
+double __cdecl cos(double);
+double __cdecl exp(double);
+double __cdecl fabs(double);
+double __cdecl floor(double);
+double __cdecl log(double);
+double __cdecl pow(double, double);
+double __cdecl sin(double);
+double __cdecl sqrt(double);
+double __cdecl tan(double);
+inline float powf(float _X, float _Y)
+        {return ((float)pow((double)_X, (double)_Y)); }
+}
+inline float __cdecl cos(float _X)
+        {return ((float)cos((double)_X)); }
+inline float __cdecl sin(float _X)
+        {return ((float)sin((double)_X)); }
+inline float __cdecl pow(float _X, float _Y)
+        {return (powf(_X, _Y)); }
 
 class AptValue;
 class BfmeAptValue006DCD20
@@ -48,7 +79,7 @@ AptValue *aptMathSqrt(void *self, int argc)
     if (argc < 1)
         return reinterpret_cast<AptValue *>(g_aptUndefinedAtE18078);
     float value = g_aptDateInterpreter.stack.At(0)->rva006DD460();
-    return Rva008A4EA0MakeFloat((float)sqrt(value));
+    return Rva008A4EA0MakeFloat((float)sqrt((double)value));
 }
 
 // Native 6E8A50..6E8A81: checked top value followed by x87 fptan.
@@ -57,7 +88,7 @@ AptValue *aptMathTan(void *self, int argc)
     if (argc < 1)
         return reinterpret_cast<AptValue *>(g_aptUndefinedAtE18078);
     float value = g_aptDateInterpreter.stack.At(0)->rva006DD460();
-    return Rva008A4EA0MakeFloat((float)tan(value));
+    return Rva008A4EA0MakeFloat((float)tan((double)value));
 }
 
 // Native 6E8570..6E859F: checked top value followed by x87 fsin.
@@ -86,7 +117,7 @@ AptValue *aptMathAtan(void *self, int argc)
     if (argc < 1)
         return reinterpret_cast<AptValue *>(g_aptUndefinedAtE18078);
     float value = g_aptDateInterpreter.stack.At(0)->rva006DD460();
-    return Rva008A4EA0MakeFloat((float)atan(value));
+    return Rva008A4EA0MakeFloat((float)atan((double)value));
 }
 
 // Native 6E88C0..6E8903: complete return followed by int3 padding.
@@ -97,7 +128,7 @@ AptValue *aptMathExp(void *self, int argc)
     if (argc < 1)
         return reinterpret_cast<AptValue *>(g_aptUndefinedAtE18078);
     float value = g_aptDateInterpreter.stack.At(0)->rva006DD460();
-    return Rva008A4EA0MakeFloat((float)exp(value));
+    return Rva008A4EA0MakeFloat((float)exp((double)value));
 }
 
 // Native 6E8950..6E8983: complete return followed by int3 padding.
@@ -108,7 +139,7 @@ AptValue *aptMathLog(void *self, int argc)
     if (argc < 1)
         return reinterpret_cast<AptValue *>(g_aptUndefinedAtE18078);
     float value = g_aptDateInterpreter.stack.At(0)->rva006DD460();
-    return Rva008A4EA0MakeFloat((float)log(value));
+    return Rva008A4EA0MakeFloat((float)log((double)value));
 }
 
 // Native 6E87C0..6E87F6: complete return followed by int3 padding.
@@ -119,7 +150,7 @@ AptValue *aptMathAcos(void *self, int argc)
     if (argc < 1)
         return reinterpret_cast<AptValue *>(g_aptUndefinedAtE18078);
     float value = g_aptDateInterpreter.stack.At(0)->rva006DD460();
-    return Rva008A4EA0MakeFloat((float)acos(value));
+    return Rva008A4EA0MakeFloat((float)acos((double)value));
 }
 
 // Native 6E8800..6E8836: complete return followed by int3 padding.
@@ -130,7 +161,7 @@ AptValue *aptMathAsin(void *self, int argc)
     if (argc < 1)
         return reinterpret_cast<AptValue *>(g_aptUndefinedAtE18078);
     float value = g_aptDateInterpreter.stack.At(0)->rva006DD460();
-    return Rva008A4EA0MakeFloat((float)asin(value));
+    return Rva008A4EA0MakeFloat((float)asin((double)value));
 }
 
 // Native 6E8910..6E894A: checked top value and the CRT floor call.
@@ -139,7 +170,7 @@ AptValue *aptMathFloor(void *self, int argc)
     if (argc < 1)
         return reinterpret_cast<AptValue *>(g_aptUndefinedAtE18078);
     float value = g_aptDateInterpreter.stack.At(0)->rva006DD460();
-    return Rva008A4EA0MakeFloat((float)floor(value));
+    return Rva008A4EA0MakeFloat((float)floor((double)value));
 }
 
 // Native 6E8880..6E88BA: checked top value and the CRT ceil call.
@@ -148,7 +179,7 @@ AptValue *aptMathCeil(void *self, int argc)
     if (argc < 1)
         return reinterpret_cast<AptValue *>(g_aptUndefinedAtE18078);
     float value = g_aptDateInterpreter.stack.At(0)->rva006DD460();
-    return Rva008A4EA0MakeFloat((float)ceil(value));
+    return Rva008A4EA0MakeFloat((float)ceil((double)value));
 }
 
 // Native 6E85D0..6E861E: two checked values, numeric conversion, fpatan.
@@ -162,7 +193,7 @@ AptValue *aptMathAtan2(void *self, int argc)
     BfmeAptValue006DCD20 *second = g_aptDateInterpreter.stack.At(1);
     float x = second->rva006DD460();
     float y = top->rva006DD460();
-    return Rva008A4EA0MakeFloat((float)atan2(y, x));
+    return Rva008A4EA0MakeFloat((float)atan2((double)y, (double)x));
 }
 
 class AptInteger { public: static AptValue *Create(int value); };
@@ -175,7 +206,7 @@ AptValue *aptMathAbs(void *self, int argc)
     BfmeAptValue006DCD20 *value = g_aptDateInterpreter.stack.At(0);
     if (static_cast<unsigned char>(value->isInteger()))
         return AptInteger::Create(abs(value->toInteger()));
-    return Rva008A4EA0MakeFloat((float)fabs(value->rva006DD460()));
+    return Rva008A4EA0MakeFloat((float)fabs((double)value->rva006DD460()));
 }
 
 // Native 6E8680..6E86E5: compare two numeric values, select the lesser,

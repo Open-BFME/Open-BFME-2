@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib
+// cl: /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib
 // Target method identity comes from the Zero Hour W3DVolumetricShadow donor and
 // the retail HLOD vtable calls.  BFME2 splits per-mesh population into
 // initFromMesh (0x000F1018); its object offsets are read from retail.
@@ -11,6 +11,7 @@ typedef unsigned short UnsignedShort;
 typedef int Int;
 
 #include "vector3.h"
+#include "string_base.h"
 
 class MeshModelClass;
 class RenderObjClass
@@ -233,10 +234,10 @@ typedef char W3DShadowGeometryMesh_must_be_0x34[(sizeof(W3DShadowGeometryMesh) =
 
 // Target layout view: W3DShadowGeometry+0x10 contains one buffer pointer;
 // retail uses it as [buffer + 8] and falls back to the rowed empty string.
+// The name is stored through the rowed StringBase<char>::set (0x000055F5).
 class Rva000055F5StringView
 {
 public:
-    Rva000055F5StringView &rva000055F5(const char *value);
     const char *Peek_Buffer() const
     {
         return m_buffer ? (const char *)m_buffer + 8 : "";
@@ -252,7 +253,7 @@ public:
     W3DShadowGeometry();
     int initFromHLOD(RenderObjClass *robj);
     int initFromMesh(RenderObjClass *robj, int mesh_index, W3DShadowGeometry *parent_geometry);
-    void Set_Name(const char *value) { nameStorage.rva000055F5(value); }
+    void Set_Name(const char *value) { ((StringBase<char> *)&nameStorage)->set(value); }
     const char *Get_Name() const { return nameStorage.Peek_Buffer(); }
 private:
     Rva000055F5StringView nameStorage;
@@ -281,12 +282,21 @@ int W3DShadowGeometry::initFromHLOD(RenderObjClass *robj)
 }
 
 
+// W3DShadowGeometryManager's Peek_Geom/Add_Geom are ICF-folded in retail into the
+// rowed HAnimManagerClass::Peek_Anim (0x000F0B81) and Add_Anim (0x000F0BAB) bodies
+// (same hash-table lookup/insert code); Load_Geom calls those rows.
+class HAnimClass;
+class HAnimManagerClass
+{
+public:
+    HAnimClass *Peek_Anim(const char *name);
+    bool Add_Anim(HAnimClass *anim);
+};
+
 class W3DShadowGeometryManager
 {
 public:
     int Load_Geom(RenderObjClass *robj, const char *name);
-    W3DShadowGeometry *Peek_Geom(const char *name);
-    int Add_Geom(W3DShadowGeometry *geometry);
 };
 
 // Zero Hour donor W3DShadowGeometryManager::Load_Geom with BFME2's target
@@ -314,12 +324,12 @@ int W3DShadowGeometryManager::Load_Geom(RenderObjClass *robj, const char *name)
         newgeom->Release_Ref();
         goto Error;
     }
-    if (Peek_Geom(newgeom->Get_Name()) != 0)
+    if (((HAnimManagerClass *)this)->Peek_Anim(newgeom->Get_Name()) != 0)
     {
         newgeom->Release_Ref();
         goto Error;
     }
-    Add_Geom(newgeom);
+    ((HAnimManagerClass *)this)->Add_Anim((HAnimClass *)newgeom);
     newgeom->Release_Ref();
     return 0;
 

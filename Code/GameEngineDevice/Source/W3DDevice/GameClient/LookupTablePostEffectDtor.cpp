@@ -32,16 +32,18 @@ struct Field08
     }
 };
 
-class BfmeModuleDataSnapshotBase
+// Base: the class whose empty virtual dtor 0x0011647B (row ??1Rva001164B6@@UAE@XZ)
+// restores vtable 0x00BCFB24 (deleting dtor 0x001164B6).
+class Rva001164B6
 {
 public:
-    BfmeModuleDataSnapshotBase();
-    virtual ~BfmeModuleDataSnapshotBase();
+    Rva001164B6();
+    virtual ~Rva001164B6();
 private:
     int m_04;
 };
 
-class LookupTablePostEffect : public BfmeModuleDataSnapshotBase
+class LookupTablePostEffect : public Rva001164B6
 {
 public:
     virtual ~LookupTablePostEffect();

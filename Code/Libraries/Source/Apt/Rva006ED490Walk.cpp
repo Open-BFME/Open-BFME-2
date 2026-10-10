@@ -9,10 +9,19 @@ extern int g_bfmeAptBreakOnAssertAtDDC01C;
 void __debugbreak();
 #pragma intrinsic(__debugbreak)
 class Rva006ED490X;
-class Rva006ED490Obj
+class Rva006ED490Obj;
+// Rowed callees: EAStringC::rva006D3510 (0x006D3510), BfmeAptValue006DCD20::isCharacterInst
+// (0x006E0200, int result tested as a byte) and ::rva006DCF60 (0x006DCF60).
+class EAStringC
 {
 public:
-	bool rva006D3510(int value);
+	bool rva006D3510(const char *value) const;
+};
+class BfmeAptValue006DCD20
+{
+public:
+	int isCharacterInst(void) const;
+	BfmeAptValue006DCD20 *rva006DCF60(bool flag);
 };
 class Rva006ED490Elem8
 {
@@ -46,8 +55,6 @@ public:
 class Rva006ED490X
 {
 public:
-	bool rva006E0200(void);
-	Rva006ED490X *rva006DCF60(int zero);
 	char pad00[0x48];
 	Rva006ED490X *m_48;
 	Rva006ED490Y *m_4c;
@@ -56,7 +63,7 @@ int rva006ED490(Rva006ED490X *x, Rva006ED490Obj *obj, char flag)
 {
 	Rva006ED490X *cur = x;
 	for (;;) {
-		if (!cur->rva006E0200()) {
+		if (!(char)((BfmeAptValue006DCD20 *)cur)->isCharacterInst()) {
 			g_bfmeAptAssertAtE17734("isCharacterInst()", "c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\AptCIH.h", 0xa5);
 			if (g_bfmeAptBreakOnAssertAtDDC01C)
 				__debugbreak();
@@ -64,7 +71,7 @@ int rva006ED490(Rva006ED490X *x, Rva006ED490Obj *obj, char flag)
 		Rva006ED490T *t = (Rva006ED490T *)(cur->m_4c->m_0c->m_04 + 8);
 		int edi;
 		for (edi = 0; edi < t->m_28; ++edi) {
-			if (obj->rva006D3510(t->m_2c[edi].m_a))
+			if (((EAStringC *)obj)->rva006D3510((const char *)t->m_2c[edi].m_a))
 				return t->m_10[t->m_2c[edi].m_b];
 		}
 		if (flag != 0) {
@@ -72,14 +79,14 @@ int rva006ED490(Rva006ED490X *x, Rva006ED490Obj *obj, char flag)
 			if (t->m_20 > 0) {
 				int off = 0;
 				do {
-					if (obj->rva006D3510(*(int *)(t->m_24 + off + 4)))
+					if (((EAStringC *)obj)->rva006D3510(*(const char **)(t->m_24 + off + 4)))
 						return t->m_10[*(int *)(t->m_24 + edi * 16 + 8)];
 					++edi;
 					off += 0x10;
 				} while (edi < t->m_20);
 			}
 		}
-		Rva006ED490X *next = cur->rva006DCF60(0)->m_48;
+		Rva006ED490X *next = ((Rva006ED490X *)((BfmeAptValue006DCD20 *)cur)->rva006DCF60(false))->m_48;
 		if (next == 0)
 			return 0;
 		flag = 0;

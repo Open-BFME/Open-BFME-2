@@ -80,12 +80,19 @@ public:
 	virtual bool slot17();
 };
 
+// The two getters are the rowed TextureBaseClass::rva0013275A/rva00132784 const
+// bodies (TextureRvaGetters.cpp), called on this holder.
+class TextureBaseClass
+{
+public:
+	int rva0013275A(void) const;
+	int rva00132784(void) const;
+};
+
 class Rva00132D0FHolder
 {
 public:
 	bool rva00132D0F(void);
-	int rva0013275A(void);
-	int rva00132784(void);
 private:
 	Rva00132D0FIface *m_00; // +0x00
 };
@@ -96,6 +103,6 @@ bool Rva00132D0FHolder::rva00132D0F(void)
 		return true;
 	if (m_00->slot17())
 		return true;
-	return rva0013275A() == 1 && rva00132784() == 1;
+	return ((const TextureBaseClass *)this)->rva0013275A() == 1 && ((const TextureBaseClass *)this)->rva00132784() == 1;
 }
 

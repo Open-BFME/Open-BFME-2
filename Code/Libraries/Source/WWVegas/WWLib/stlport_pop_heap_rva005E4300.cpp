@@ -31,15 +31,17 @@ template void __pop_heap<int *, int,
 // ??$__pop_heap_aux@PAHHURva005E4300Cmp@@@_STL@@YAXPAH00URva005E4300Cmp@@@Z @0x005E4AC4 30B
 // Calls the 6-arg __pop_heap overload (ICF twin of rowed 5-arg 0x005E4A5F) with
 // (first, last-1, last-1, *(last-1), comp, (int*)0). Evidence: chain (calls just-landed 0x005E4A5F); same 30B shape as 0x00423F9F precedent.
-template <class RandomAccessIter, class Distance, class Tp, class Compare>
-void __pop_heap(RandomAccessIter first, RandomAccessIter last,
-	RandomAccessIter result, Tp val, Compare comp, Distance *);
-
+// The call goes to the rowed 5-arg body with the sixth (dummy) argument, as in
+// stlport_partial_sort_rva005E4300.cpp: retail's 6-arg overload folded into it.
 template <class RandomAccessIter, class Tp, class Compare>
 void __pop_heap_aux(RandomAccessIter first, RandomAccessIter last,
 	Tp *, Compare comp)
 {
-	__pop_heap(first, last - 1, last - 1, Tp(*(last - 1)), comp, (int *)0);
+	typedef void (__cdecl *PopHeap5)(int *, int *, int *, int, Rva005E4300Cmp);
+	typedef void (__cdecl *PopHeap6)(int *, int *, int *, int, Rva005E4300Cmp, int *);
+	PopHeap5 fn5 = (PopHeap5)&_STL::__pop_heap<int *, int, Rva005E4300Cmp>;
+	PopHeap6 fn6 = (PopHeap6)fn5;
+	fn6(first, last - 1, last - 1, Tp(*(last - 1)), comp, (int *)0);
 }
 
 template void __pop_heap_aux<int *, int,

@@ -7,8 +7,15 @@
 #include <windows.h>
 #include <string.h>
 #include "internal.h"
-inline const char *ProfileHighLevel::Id::GetName() const {
- return m_idPtr ? m_idPtr->GetName() : NULL;
+// ProfileHighLevel::Id::GetName is rowed out of line (profile_highlevel.cpp, 0x006C5FB0) and
+// retail inlines it below; an inline definition here would emit a second copy under the row's
+// name, so the expansion reads Id's one pointer through a layout view.
+struct ProfileHighLevelIdView {
+ ProfileId *m_idPtr;
+};
+static inline const char *ProfileHighLevelIdName(const ProfileHighLevel::Id &id) {
+ ProfileId *p = ((const ProfileHighLevelIdView &)id).m_idPtr;
+ return p ? p->GetName() : NULL;
 }
 // ?ProfileHighLevel::Id::Increment present-unmatched
 inline void ProfileHighLevel::Id::Increment(double add) {
@@ -34,7 +41,7 @@ Rva006C65F0::Rva006C65F0(const char *name,const char *descr,bool countCalls) {
  if (strchr(name,'.')) {
   if (name[0]=='.') ++name;
  } else if(previous) {
-  strcpy(qualified,previous->id.GetName());
+  strcpy(qualified,ProfileHighLevelIdName(previous->id));
   qualified[strlen(qualified)-2]=0;
   strcat(qualified,".");
   strcat(qualified,name);

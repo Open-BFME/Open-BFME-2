@@ -57,7 +57,6 @@ float BfmeAptValue006DCD20::rva006DD460()
         return this != g_aptUndefinedAtE18078 ? 1.0f : BfmeZeroRange;
     }
 }
-// Shared readonly zero at native VA BBAEAC. Keep storage declared before
-// use and defined afterward so MSVC retains the target memory loads.
-extern const float BfmeZeroRange = 0.0f;
+// Shared readonly zero at native VA BBAEAC: only declared here (MSVC keeps the memory loads);
+// its one provider is BfmeCalcBWF.cpp, a second definition here collided with it.
 

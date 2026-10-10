@@ -5,7 +5,7 @@
 // 0x004ECF05 then create AI group, fill via Team, issue group order via rowed
 // 0x00372BB9 with (victim, 0), destroy group via rowed 0x002FE712, clear +0x10.
 // Evidence: same chain as the sibling (find/create/fill/destroy plus pin
-// findInstance 0x0039F761); globals TheAI TheTeamFactory; ret 8 two args.
+// findTeamByID 0x0039F761); globals TheAI TheTeamFactory; ret 8 two args.
 class Object;
 class AIGroup;
 class Team;
@@ -14,10 +14,10 @@ class AITactic;
 class TeamFactory;
 extern class AI *TheAI;
 extern TeamFactory *TheTeamFactory;
-class Rva0039F761Owner
+class TeamFactory
 {
 public:
-	Team *findInstance(void *p);
+	Team *findTeamByID(unsigned int id);
 };
 struct Rva004ECECDNode
 {
@@ -53,7 +53,7 @@ void AITactic::teamGarrisonObject(int id, Object *victim)
 	if (node != 0)
 	{
 		AIGroup *group = TheAI->createGroup();
-		Team *team = ((Rva0039F761Owner *)TheTeamFactory)->findInstance(node->m_model);
+		Team *team = TheTeamFactory->findTeamByID((unsigned int)node->m_model);
 		team->getTeamAsAIGroup(group);
 		group->rva00372BB9(victim, 0);
 		TheAI->destroyGroup(group);

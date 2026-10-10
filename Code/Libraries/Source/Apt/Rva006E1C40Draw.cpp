@@ -3,7 +3,7 @@
 // this is non-null ("this", AptCIH.h line 0xD8) and a character instance, then
 // brackets a drawing call with pushVertexMatrix/popVertexMatrix, choosing among
 // the bounding-box, transform and log paths by the value's type. Names match the
-// ledger except the unnamed sub-object call at 0x6EBDD0 (address-derived).
+// ledger, including the sub-object's rowed bounds worker at 0x6EBDD0.
 extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *, const char *, int);
 extern int g_bfmeAptBreakOnAssertAtDDC01C;
 void __debugbreak();
@@ -30,10 +30,10 @@ class AptDisplayList
 public:
 	void rva006F79B0(void *p, void *q);
 };
-class Rva006E1C40Sub
+class Rva006EBD30
 {
 public:
-	void rva006EBDD0(void *p, int a, int b);
+	void bounds(AptRenderingContext *ctx, void *a, void *b);
 };
 class Rva006CFCD0
 {
@@ -49,7 +49,7 @@ class Rva006E1C40Holder
 {
 public:
 	char pad00[0x0c];
-	Rva006E1C40Sub *m_c;
+	Rva006EBD30 *m_c;
 };
 class BfmeAptValue006DCD20
 {
@@ -114,6 +114,6 @@ void AptCIH::rva006E1C40(AptRenderingContext *ctx, int arg2)
 		ctx->popVertexMatrix();
 		return;
 	}
-	holder->m_c->rva006EBDD0(ctx, arg2, 0);
+	holder->m_c->bounds(ctx, (void *)arg2, 0);
 	ctx->popVertexMatrix();
 }

@@ -24,7 +24,9 @@ public:
 		return char_height;
 	}
 
-	__forceinline int Get_Char_Spacing(unsigned short character)
+	// Inline copy of the rowed FontCharsClass::Get_Char_Spacing (0x00158760, FontCharsClassGetCharSpacingThunk.cpp),
+	// which retail inlines here; a distinct name keeps its COMDAT from colliding with that row.
+	__forceinline int Get_Char_Spacing_Inline(unsigned short character)
 	{
 		const FontCharsClassCharDataStruct *data = loadCharacterData(character);
 		if (data != 0 && data->Width != 0) {
@@ -57,7 +59,7 @@ Vector2 Render2DSentenceClass::Get_Text_Extents(const unsigned short *text) {
     Vector2 extent(0,Font->Get_Char_Height());
     while (*text) {
         unsigned short ch = *text++;
-        if (ch != '\n') extent.X += Font->Get_Char_Spacing(ch);
+        if (ch != '\n') extent.X += Font->Get_Char_Spacing_Inline(ch);
     }
     return extent;
 }

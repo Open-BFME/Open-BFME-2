@@ -52,11 +52,22 @@ class Drawable
 public:
 	const Coord3D *getPosition( void ) const;
 	Real getOrientation( void ) const { return m_cachedAngle; }
-	const Real getScale( void ) const;
-	DrawableID getID( void ) const;
 private:
 	char m_unrecovered00[ 0x44 ];
 	Real m_cachedAngle;																												///< 0x44
+};
+
+// Drawable::getScale (+0x200) and Drawable::getID are the folded field getters rowed at
+// 0x000788D3 and 0x0055A88B under opaque holder names; the calls use those rows.
+class Rva000788D3FloatField
+{
+public:
+	Real get( void ) const;
+};
+class Rva0055A88BDwordField
+{
+public:
+	Int get( void ) const;
 };
 
 class BaseHeightMapRenderObjClass
@@ -105,8 +116,8 @@ void W3DPropDraw::reactToTransformChange( const Matrix3D *oldMtx,
 	if (!moduleData) {
 		return;
 	}
-	Real scale = draw->getScale();
-	TheTerrainRenderObject->addProp((Int)draw->getID(), *draw->getPosition(),
+	Real scale = ((const Rva000788D3FloatField *)draw)->get();	// getScale()
+	TheTerrainRenderObject->addProp(((const Rva0055A88BDwordField *)draw)->get(), *draw->getPosition(),	// getID()
 		draw->getOrientation(), scale, moduleData->m_modelName, moduleData->m_bfmeFlag);
 
 }

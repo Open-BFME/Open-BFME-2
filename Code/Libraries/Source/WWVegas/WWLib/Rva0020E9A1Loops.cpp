@@ -10,10 +10,13 @@ public:
 	void rva003F300A();
 };
 
-class Rva003F3708
+// Element: the class whose rowed member 0x003F3708 is ?rva003F3708@Rva003F332E@@QAEPAUElem003B2540@@H@Z
+// (result unused here).
+struct Elem003B2540;
+class Rva003F332E
 {
 public:
-	void rva003F3708(int v);
+	Elem003B2540 *rva003F3708(int v);
 };
 
 struct Rva0020E9F2Inner
@@ -26,8 +29,8 @@ struct Rva0020E9F2Inner
 struct Rva0020EA22Inner
 {
 	char m_pad[0x2C];
-	Rva003F3708 **m_begin;
-	Rva003F3708 **m_end;
+	Rva003F332E **m_begin;
+	Rva003F332E **m_end;
 };
 
 class Rva0020E9F2Outer
@@ -59,7 +62,7 @@ void Rva0020E9F2Outer::rva0020E9F2()
 void Rva0020EA22Outer::rva0020EA22(int v)
 {
 	Rva0020EA22Inner *inner = m_inner;
-	Rva003F3708 ***bounds = (Rva003F3708 ***)&inner->m_begin;
+	Rva003F332E ***bounds = (Rva003F332E ***)&inner->m_begin;
 	for (unsigned i = 0; i < (unsigned)(((char *)bounds[1] - (char *)bounds[0]) >> 2); ++i)
 		bounds[0][i]->rva003F3708(v);
 }

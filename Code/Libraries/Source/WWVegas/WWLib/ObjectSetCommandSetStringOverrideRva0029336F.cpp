@@ -28,13 +28,13 @@ private:
 	AsciiString m_override;
 };
 
-class Rva002A8F24Holder
+class Rva002A8F24
 {
 public:
 	void *rva002A8F24(Player *p);
 };
 
-extern Rva002A8F24Holder *g_00DFEEF8;
+extern Rva002A8F24 *g_00DFEEF8;
 
 class Rva004DF98B
 {
@@ -44,7 +44,7 @@ public:
 
 void Object::setCommandSetStringOverride(const AsciiString &s)
 {
-	m_override.set(s);
+	m_override.setCopyInline(s);	// rowed StringBase<char>::set (0x000366F0)
 	Player *p = getControllingPlayer();
 	if (p == 0)
 		return;

@@ -9,7 +9,7 @@
 // stlport_push_heap_rva00204bb8.cpp 0x002059CF.
 struct Rva005E4300Cmp
 {
-	bool operator()(int a, int b) const;
+	char operator()(int a, int b) const;
 };
 
 namespace _STL

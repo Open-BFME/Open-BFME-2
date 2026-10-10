@@ -16,7 +16,7 @@
 class Rva005E4300Cmp
 {
 public:
-	bool operator()(int a, int b) const;
+	char operator()(int a, int b) const;
 };
 
 enum ObjectID { INVALID_ID = 0 };

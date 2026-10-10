@@ -7,7 +7,7 @@
 // precedent 0x00209A62; retail calls all Rva005E4300Cmp helpers.
 struct Rva005E4300Cmp
 {
-	bool operator()(int a, int b) const;
+	char operator()(int a, int b) const;
 };
 void __cdecl rva005E50A7(int *first, int *last, Rva005E4300Cmp comp);
 namespace _STL

@@ -289,22 +289,8 @@ Render2DSentenceClass::Set_Location (const Vector2 &loc)
 //	Get_Text_Extents
 //
 ////////////////////////////////////////////////////////////////////////////////////
-Vector2
-// ?Get_Text_Extents@Render2DSentenceClass@@QAE?AVVector2@@PBG@Z present-unmatched
-Render2DSentenceClass::Get_Text_Extents (const WCHAR *text)
-{
-	Vector2 extent (0, Font->Get_Char_Height());
-
-	while (*text) {
-		WCHAR ch = *text++;
-
-		if ( ch != (WCHAR)'\n' ) {
-			extent.X += Font->Get_Char_Spacing( ch );
-		}
-	}
-
-	return extent;
-}
+// BFME 2's body (retail 0x00158BA0) is matched in Render2DSentenceExtentBFME2.cpp; the
+// Zero Hour copy that stood here was a second strong definition of the rowed name.
 
 
 ////////////////////////////////////////////////////////////////////////////////////
