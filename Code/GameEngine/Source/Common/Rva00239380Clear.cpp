@@ -90,6 +90,28 @@ public:
 	void *m_head;
 	void rva00239AF4();
 };
+// ??1DrawableList@@QAE@XZ @0x00239AF4 (29B): the same dispose, called
+// where sources destroy a DrawableList (voice-response bodies 0x0026B25A
+// onward read this address from REL32; symbols.csv). DrawableList is the
+// circular-list holder cleared by 0x00239380 above, so the destructor body
+// mirrors rva00239AF4 exactly and folds to the same bytes. Out-of-line
+// definitions emit without needing a caller.
+class DrawableList
+{
+public:
+	void *m_head;
+	~DrawableList();
+};
+DrawableList::~DrawableList()
+{
+	((Rva00239380Holder *)this)->rva00239380();
+	void *head = m_head;
+	if (head != 0) {
+		void *freeHead = g_freeList00239380;
+		((void **)head)[0] = freeHead;
+		g_freeList00239380 = head;
+	}
+}
 void Rva00239AF4::rva00239AF4()
 {
 	((Rva00239380Holder *)this)->rva00239380();
