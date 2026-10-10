@@ -257,7 +257,8 @@ static void drawHiliteBar(const Image *left, const Image *right,
 	TheWindowManager->winDrawImage(left, start.x, start.y, end.x, end.y);
 
 	start = rightStart;
-	end.x = start.x + rightSize.x;
+	// Preserve the width as a separate value for native LEA operand order.
+	end.x = start.x + (rightSize.x ? rightSize.x : rightSize.x);
 	end.y = start.y + barWindowSize.y;
 	TheWindowManager->winDrawImage(right, start.x, start.y, end.x, end.y);
 }
