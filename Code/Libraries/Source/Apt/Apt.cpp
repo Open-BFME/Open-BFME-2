@@ -454,3 +454,13 @@ void rva006cc940()
 {
  rva006cc880();
 }
+
+// ?_AptValidate@@YA_NXZ @0x001826C0 3B: the interpreter validation hook,
+// which returns true in this build; /OPT:ICF folded it onto the STLport
+// codecvt do_always_noconv body there. Sole retail caller: the queued-action
+// run 0x006E6540 (AptAnimation.cpp assert 0x3AC "_AptValidate()"). Its
+// WorldBuilder copy 0x174DF60 (7B return-true) lies between Apt.cpp bodies.
+bool _AptValidate()
+{
+ return true;
+}
