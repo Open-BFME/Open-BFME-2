@@ -105,6 +105,40 @@ public:
 	virtual void rva000467A5Slot();	// slot 12
 };
 
+struct IDirect3DDevice8
+{
+	virtual void s00();
+	virtual void s01();
+	virtual void s02();
+	virtual long __stdcall TestCooperativeLevel() = 0;	// slot 3 (+0x0C)
+};
+
+class DX8Wrapper
+{
+public:
+	static IDirect3DDevice8 *_Get_D3D_Device8() { return D3DDevice; }
+protected:
+	static IDirect3DDevice8 *D3DDevice;
+};
+
+class LivingWorldManager
+{
+public:
+	VSLOTS4(s0) VSLOTS4(s1)
+	virtual void s20(); virtual void s21();
+	virtual void rva000453B4Slot();	// slot 10 (+0x28)
+};
+extern LivingWorldManager *TheLivingWorldManager;
+
+class ParticleSystemManager
+{
+public:
+	VSLOTS4(s0) VSLOTS4(s1)
+	virtual void s20(); virtual void s21();
+	virtual void rva000453D2Slot();	// slot 10 (+0x28)
+};
+extern ParticleSystemManager *TheParticleSystemManager;
+
 class W3DDisplay
 {
 public:
@@ -113,6 +147,7 @@ public:
 	void rva00045086(Bool on);
 	void rva000450A3(Int a, Int b, Int c);
 	void rva000450CE(Int x, Int y);
+	void rva000453AC();
 	Bool rva000466FA();
 	void rva000466B9();
 	void rva00046791();
@@ -177,6 +212,14 @@ void W3DDisplay::rva000450CE(Int x, Int y)
 		Rva000729CC *p = TheTerrainRenderObject->m_387c;
 		p->rva00073CC0(cx, cy, TheTaintManager->rva006C0840(cx, cy), true);
 	}
+}
+
+// vtable 0x00BC3C80#98
+void W3DDisplay::rva000453AC()
+{
+	TheLivingWorldManager->rva000453B4Slot();
+	if (DX8Wrapper::_Get_D3D_Device8() && DX8Wrapper::_Get_D3D_Device8()->TestCooperativeLevel() == 0)
+		TheParticleSystemManager->rva000453D2Slot();
 }
 
 // vtable 0x00BC3C80#27
