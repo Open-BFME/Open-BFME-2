@@ -55,6 +55,12 @@ enum CommandSourceType
 	CMD_FROM_SCRIPT = 1,
 	CMD_FROM_AI = 2
 };
+enum WeaponSetType
+{
+	WEAPONSET_18 = 0x18,
+	WEAPONSET_19 = 0x19,
+	WEAPONSET_1A = 0x1A
+};
 enum ObjectID
 {
 	INVALID_ID = 0
@@ -73,6 +79,7 @@ enum UpdateSleepTime
 	UPDATE_SLEEP_NONE = 1
 };
 class Object;
+class Rva004708BCBehavior;
 class AttributeModifierPoolUpdate
 {
 public:
@@ -497,7 +504,9 @@ public:
 			unsigned int m_110; // +0x110
 		};
 	};
-	unsigned char m_pad114[0x250 - 0x114];
+	unsigned char m_pad114[0x244 - 0x114];
+	Rva004708BCBehavior **m_244; // +0x244
+	unsigned char m_pad248[0x250 - 0x248];
 	Rva0046A2ECContain *m_250; // +0x250
 	Rva0046B850Module *m_254; // +0x254
 	AIUpdateInterface *m_ai; // +0x258
@@ -505,12 +514,16 @@ public:
 	ExperienceTracker *m_264; // +0x264
 	unsigned char m_pad268[0x274 - 0x268];
 	Object *m_274; // +0x274
-	unsigned char m_pad278[0x304 - 0x278];
+	unsigned char m_pad278[0x284 - 0x278];
+	int m_284; // +0x284
+	unsigned char m_pad288[0x304 - 0x288];
 	int m_304; // +0x304
 	unsigned char m_pad308[0x438 - 0x308];
 	unsigned char m_438; // +0x438
 	unsigned char m_pad439[0x44C - 0x439];
 	int m_44C; // +0x44C
+	unsigned char m_pad450[0x45C - 0x450];
+	int m_45C; // +0x45C
 	bool isEffectivelyDead() const { return (m_438 & 1) != 0; }
 	void rva0028AD32();
 	Object *rva002931F5(bool flag);
@@ -526,6 +539,8 @@ public:
 	void rva0028AE6D();
 	void rva0029A12B();
 	void rva00298979(Object *source, bool flag);
+	void bfmeTransferReplacementState(Object *replacement);
+	void setWeaponSetFlag(WeaponSetType flag);
 	void rva0028CFB2(const int *a, const int *b);
 	void setTransformMatrix(const Matrix3D *mtx);
 	float GetRelativeAngle(const Coord3D *pos) const;
@@ -553,6 +568,7 @@ class GameLogic
 public:
 	Object *findObjectByID(ObjectID id);
 	void destroyObject(Object *);
+	void rva0023D0C2(Object *obj, int value);
 	unsigned char m_pad00[0x40];
 	unsigned int m_frame; // +0x40
 };
@@ -730,6 +746,81 @@ struct HordeContainModuleDataFields
 	float m_26C; // +0x26C
 	float m_270; // +0x270
 };
+// Rowed helpers for slot 99 (0x004708BC), under the owner names their rows carry.
+class Rva00469B73
+{
+public:
+	void rva00469B73(void *obj);	// 0x00469B73
+};
+class Rva0028D891Owner
+{
+public:
+	bool testBit(int bit) const;	// 0x0028D891
+};
+class Rva0040334B
+{
+public:
+	void rva0040334B(Object *obj);	// 0x0040334B
+};
+class LifetimeUpdate
+{
+public:
+	void setLifetimeRange(unsigned int minFrames, unsigned int maxFrames);	// 0x003A4AB3
+	unsigned char m_pad00[0x20];
+	unsigned int m_20; // +0x20 (the frame it dies on)
+};
+// A behavior module: its interface at +0x0C hands back, from slot 5, an
+// optional interface whose slot 1 takes an Object ID.
+class Rva004708BCSlot5Iface : public Rva00468D11Slots<1>
+{
+public:
+	virtual void slot1(int id) = 0;
+};
+class Rva004708BCModuleHead
+{
+public:
+	virtual void moduleHeadAnchor();
+	void *m_04;
+	void *m_08;
+};
+class Rva004708BCBehaviorIface : public Rva00468D11Slots<5>
+{
+public:
+	virtual Rva004708BCSlot5Iface *slot5() = 0;
+};
+class Rva004708BCBehavior : public Rva004708BCModuleHead, public Rva004708BCBehaviorIface
+{
+};
+// The +0x250 module's slot 31 and what it hands back (slots 4 and 121).
+class Rva004708BCTail : public Rva00468D11Slots<4>
+{
+public:
+	virtual void slot4(int a1) = 0;
+};
+class Rva004708BCTail121 : public Rva00468D11Slots<121>
+{
+public:
+	virtual void slot121() = 0;
+};
+class Rva004708BCContain : public Rva00468D11Slots<31>
+{
+public:
+	virtual Rva004708BCTail *slot31() = 0;
+};
+// Slot 99's builder interface at HordeContain +0xFC (vtable 0x00C47834):
+// slot 0 (0x00466FE0) builds the replacement Object from a template.
+class Rva00466FE0Iface
+{
+public:
+	virtual Object *rva00466FE0(const ThingTemplate *tmpl, Rva0046A2ECContain *contain, Object *obj, const char *name, int a5) = 0;
+};
+// The +0x20 contain interface out to slot 93 (unknown identity): slot 93
+// takes a member-field pointer and a flag.
+struct ContainIface93 : public Rva00468D11Slots<93>
+{
+public:
+	virtual void slot93(int *a1, int a2) = 0;
+};
 struct HordeContainModuleDataFields;
 // ModuleData slot 21 answers the HordeContain module data view (or null).
 class ModuleData : public Rva00468D11Slots<21>
@@ -782,7 +873,7 @@ public:
 	virtual void rva004730B0(Object *target) = 0; virtual bool rva0046A4C8() = 0; virtual void gap88() = 0; virtual void rva00468D7D(Object *obj) = 0;
 	virtual void gap90() = 0; virtual void gap91() = 0; virtual void rva0046D384(Team *team) = 0; virtual void gap93() = 0;
 	virtual void gap94() = 0; virtual int rva004697CD() = 0; virtual int rva0046D3FC(Rva2225E0Filter *filter) = 0; virtual int rva00468F68() = 0;
-	virtual int rva00468F7E() = 0; virtual void gap99() = 0; virtual void gap100() = 0; virtual int slot101(Object *obj) = 0;
+	virtual int rva00468F7E() = 0; virtual Object *rva004708BC(const Matrix3D *mtx) = 0; virtual void gap100() = 0; virtual int slot101(Object *obj) = 0;
 	virtual void gap102() = 0; virtual void gap103() = 0; virtual void gap104() = 0; virtual void gap105() = 0;
 	virtual void gap106() = 0; virtual void rva0046D8AE() = 0; virtual void rva0046D7AF(int a1) = 0; virtual void rva0046A78F(const Matrix3D *mtx) = 0;
 	virtual void rva0046A712(int unused) = 0; virtual void gap111() = 0; virtual void gap112() = 0; virtual bool rva0046D80B() = 0;
@@ -961,6 +1052,7 @@ public:
 	virtual int rva004697CD();
 	virtual int rva00468F68();
 	virtual int rva00468F7E();
+	virtual Object *rva004708BC(const Matrix3D *mtx);
 	virtual bool rva004698BC();
 	virtual const void *rva004698D6();
 	virtual const void *rva004698E2();
@@ -2078,6 +2170,84 @@ struct HordeContainIface20View
 	unsigned char m_pad00[0x150];
 	_STL::set<int> m_ids; // +0x150 (HordeContain +0x170)
 };
+// ?rva004708BC@HordeContain@@UAEPAVObject@@PBVMatrix3D@@@Z @0x004708BC:
+// slot 99; replaces the horde Object (which needs its +0x250 module) by one
+// built from 0x0046AF12's template through the +0xFC interface: hands over
+// the name and defection (status 0x3E), places it at the matrix, carries
+// weapon-set bits 0x18-0x1A, its recorded experience (+0x258 map, else 1),
+// contain slot 93 with the old Object's +0x284, the attribute pool, the
+// remaining lifetime and the slot-5 behavior links; then wakes the +0x250
+// module's slot-31 result. The template short is volatile-read for the
+// second lookup so retail's post-find reload reproduces.
+Object *HordeContain::rva004708BC(const Matrix3D *mtx)
+{
+	Object *self = m_object;
+	if (!self)
+		return 0;
+	Object *result = 0;
+	Rva0046A2ECContain *contain = self->m_250;
+	if (contain)
+	{
+	const ThingTemplate *tmpl = (const ThingTemplate *)rva0046AF12();
+	if (tmpl)
+	{
+		result = ((Rva00466FE0Iface *)((char *)(UpdateModule *)this + 0xFC))->rva00466FE0(tmpl, contain, self, tmpl->m_64.str(), 0);
+		if (self->testStatus((ObjectStatusTypes)0x3E))
+			self->bfmeTransferReplacementState(result);
+		TheGameLogic->rva0023D0C2(result, self->m_45C);
+		result->setTransformMatrix(mtx);
+		((Rva00469B73 *)(UpdateModule *)this)->rva00469B73(result);
+		if (((const Rva0028D891Owner *)self)->testBit(0x18))
+			result->setWeaponSetFlag((WeaponSetType)0x18);
+		if (((const Rva0028D891Owner *)self)->testBit(0x19))
+			result->setWeaponSetFlag((WeaponSetType)0x19);
+		if (((const Rva0028D891Owner *)self)->testBit(0x1A))
+			result->setWeaponSetFlag((WeaponSetType)0x1A);
+		float xp = 1.0f;
+		const ThingTemplate *keytmpl = result->m_template;
+		if (((_STL::map<unsigned short, int> *)&m_258)->find(keytmpl->m_5D8) != ((_STL::map<unsigned short, int> *)&m_258)->end())
+			xp = m_258[*(volatile short *)&keytmpl->m_5D8];
+		ExperienceTracker *tracker = result->m_264;
+		tracker->rva0039B3D1(xp, false);
+		((ContainIface93 *)((char *)this + 0x20))->slot93(&self->m_284, 0);
+		AttributeModifierPoolUpdate *pool = self->findAttributeModifierPoolUpdate();
+		if (pool)
+			((Rva0040334B *)pool)->rva0040334B(result);
+		static NameKeyType key = TheNameKeyGenerator->nameToKey("LifetimeUpdate");
+		LifetimeUpdate *oldLife = (LifetimeUpdate *)self->findModule(key);
+		if (oldLife)
+		{
+			LifetimeUpdate *newLife = (LifetimeUpdate *)result->findModule(key);
+			if (newLife)
+			{
+				unsigned int left = oldLife->m_20 - TheGameLogic->m_frame;
+				newLife->setLifetimeRange(left, left);
+			}
+		}
+		for (Rva004708BCBehavior **m = self->m_244; *m; ++m)
+		{
+			if ((*m)->slot5())
+			{
+				for (Rva004708BCBehavior **n = result->m_244; *n; ++n)
+				{
+					Rva004708BCSlot5Iface *link = (*n)->slot5();
+					if (link)
+						link->slot1(self->m_74);
+				}
+				break;
+			}
+		}
+	}
+	Rva004708BCTail *tail = ((Rva004708BCContain *)contain)->slot31();
+	if (tail)
+	{
+		tail->slot4(0);
+		((Rva004708BCTail121 *)tail)->slot121();
+	}
+	}
+	return result;
+}
+
 // ?rva0046BA56@HordeContain@@UAEXPAVObject@@H@Z @0x0046BA56: a +0x20
 // contain-interface slot (vtable 0x00C44EC8; runtime this at +0x20 like
 // iterateContained): the rowed defect member 0x00298979(source, false) on
