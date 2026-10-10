@@ -307,6 +307,16 @@ public:
 	void *m_ptr;
 };
 
+// The dialog's movie clip (0x0C bytes, vtable 0x00C781DC); its constructor
+// is rowed under an address-named class.
+class Rva005EA85A
+{
+public:
+	Rva005EA85A(void *impl, int level, const AsciiString &name);
+
+	unsigned char m_pad00[0x0C];
+};
+
 // The dialog's own update step (0x005EA5BD), rowed under an address-named
 // receiver.
 class Rva005EA183
@@ -461,6 +471,14 @@ DynamicAutoResolveDialog::Impl::Impl(void *dialog, Rva0057C394 *frame, Rva003F46
 	msg->appendIntegerArgument(m_nextStepRound);
 
 	reinterpret_cast<Rva00575674 *>(&m_state)->rva00575674(reinterpret_cast<Object *>(new StartupStateHandler(*this, numPlayers)));
+}
+
+// WB 0x015E63B0 (line 1222): the movie's load callback creates the dialog's
+// movie clip once.
+void DynamicAutoResolveDialog::Impl::OnClipLoaded(int level, const AsciiString &name)
+{
+	if (m_clip.m_ptr == 0)
+		reinterpret_cast<Rva00575674 *>(&m_clip)->rva00575674(reinterpret_cast<Object *>(new Rva005EA85A(this, level, name)));
 }
 
 // Detaches from the living-world logic's auto-resolve observers (rowed
