@@ -15,6 +15,11 @@ static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
 }
 #include "ascii_string.h"
 
+// The progress-map subscript at 004DD277 is emitted by this real caller.
+// Its ushort key and integer progress value are independently carried by the
+// ZH ConnectionManager declaration and the retail file-transfer callers.
+// Keep the established comparator spelling for consumer ABI compatibility;
+// it inherits the ordinary unsigned-short ordering without extra state.
 struct Gen_lt_00940b40 : public _STL::less<unsigned short> {};
 typedef _STL::map<unsigned short, AsciiString> FileCommandMap;
 typedef _STL::map<unsigned short, unsigned char> FileMaskMap;
