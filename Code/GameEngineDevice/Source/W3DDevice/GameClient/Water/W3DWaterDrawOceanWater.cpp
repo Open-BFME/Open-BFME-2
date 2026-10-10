@@ -168,6 +168,7 @@ public:
 class Matrix4
 {
 public:
+	Matrix4() {}
 	__forceinline explicit Matrix4(const Matrix3D &m) { Init(m); }
 	__forceinline Matrix4(const Matrix4 &m)
 	{
@@ -262,8 +263,11 @@ protected:
 	static unsigned int render_state_changed;
 
 private:
+	template<class T> friend struct DataRowPrivateProbe;
 	static Matrix4 render_state_view;
 };
+// Owned here: the view-matrix cache written above; retail .data starts it at 0.
+Matrix4 DX8Wrapper::render_state_view;
 
 // The rowed 0x00308DF0: the standing water area's (lazily reloaded) FX
 // shader setup.
