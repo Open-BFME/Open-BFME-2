@@ -1,4 +1,6 @@
 // ?update@FireLogicSystem@@UAEXXZ
+// partial score=0.9107 date=2026-10-10
+// ?update@FireLogicSystem@@UAEXXZ
 // partial score=0.85 date=2026-10-08
 // cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /ICode/Libraries/Include
 // stlport
@@ -66,7 +68,7 @@ extern Rva00065964ObjectPool g_pool00286136;
 extern Rva00065964ObjectPool g_pool00286116;
 void Rva00286116Free(void *node);
 
-#include "../../Common/GameLogicObjectLookupView.h"
+#include "/mnt/titan_nv3/open-bfme2-agent-fleet/gemini200/writer-060/Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 
 class ThingTemplate;
@@ -129,7 +131,8 @@ public:
 	void erase(Rva002860CFIterator pos) { ((Rva002860CFHost *)this)->rva002860CF(pos); }
 	Rva00286214();	// the map's default ctor 0x00242F01
 	~Rva00286214();	// the tree teardown 0x0028681A
-	Rva00287B2AResult rva00287B2A(const Rva00285672 *key);	// insert 0x00287B2A
+	Rva00287B2AResult rva00286E33(const Rva00285672 *key);
+ __declspec(noinline) Rva00287B2AResult rva00287B2A(const Rva00285672 *key);	// insert 0x00287B2A
 	Rva00286214Node *m_header;
 	unsigned int m_size;	// +0x04
 	char m_pad08[4];
@@ -182,7 +185,7 @@ public:
 private:
 	char m_pad[8];
 };
-#include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
+#include "/mnt/titan_nv3/open-bfme2-agent-fleet/gemini200/writer-060/reference/shims/moduledata/Common/Snapshot.h"
 
 // A material entry (0x18 bytes): the array constructor zeroes all six
 // dwords (0x00286297) and the destructor releases the string at +4
@@ -792,6 +795,12 @@ public:
 // 0x00287F76); the static list itself is the BfmePod8 vector whose clear
 // is 0x003FA4DB.
 struct BfmePod8 { int a[2]; };
+
+Rva00287B2AResult Rva00286214::rva00287B2A(const Rva00285672 *key) {
+ Rva00287B2AResult p=rva00286E33(key);
+ return Rva00287B2AResult(p.m_node,p.m_inserted);
+}
+
 static inline Rva00287B2AResult insertCell(Rva00286214 &set, const Rva00285BEC &key)
 {
 	return set.rva00287B2A((const Rva00285672 *)&key);

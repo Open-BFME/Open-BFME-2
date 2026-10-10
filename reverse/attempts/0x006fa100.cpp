@@ -1,6 +1,8 @@
-// ?rva006FA100@Rva006FA100Owner@@QAEXPAVAptCIH@@H@Z
+// ?rva006FA100@Rva006FB860@@QAEXPAVAptCIH@@H@Z
+// partial score=0.76445 date=2026-10-10
+// ?rva006FA100@Rva006FB860@@QAEXPAVAptCIH@@H@Z
 // partial score=0.35 date=2026-10-06
-// cl: /O2 /MD
+// cl: /O2 /G6 /MD
 // The BFME 1 AptInput.cpp donor routine BfmeBroadcast1282::bfmeBroadcast1282
 // at submodule revision 6583b3c1ff21db4a561285717028fdafc780b7db supplies the
 // route-mask, string lookup, action queue, and audio-switch semantics. Its TU
@@ -64,20 +66,15 @@ struct Rva006FA100Source
     unsigned char _pad00[0x0c];
     Rva006FA100Descriptor *descriptor;
 };
-class Rva006E3230
-{
-public:
-    void rva006E4B80(void *pArg1, AptCIH *pCIH, int iArg3, int iArg4);
+class AptValue;
+class AptActionQueueC {public:
+ void rva006E4B80(void *,AptCIH*,int,int);
+ void rva006E3810(AptValue*,AptValue*,AptValue*,int,int);
 };
-class Rva006E3810ThiscallView
+class AptAnimationPoolData
 {
 public:
-    void call(AptCIH *entry, void *found, int zero, int eventCode, int encoded);
-};
-class Rva006E6540ThiscallView
-{
-public:
-    void call();
+    void rva006E6540();
 };
 class EAStringC;
 EAStringC *Rva0070B4F0GetString(int index);
@@ -86,13 +83,13 @@ class Rva0070B380
 public:
     void *lookup(const EAStringC &key);
 };
-class Rva006FA100Owner
+class Rva006FB860
 {
 public:
-    void rva006FA100(AptCIH *pInst, int mode);
+    void rva006FA100(AptCIH *pInst, volatile int mode);
 };
 
-void Rva006FA100Owner::rva006FA100(AptCIH *pInst, int mode)
+void Rva006FB860::rva006FA100(AptCIH *pInst, volatile int mode)
 {
     if (!pInst) {
         g_bfmeAptAssertAtE17734("pInst",
@@ -124,7 +121,7 @@ void Rva006FA100Owner::rva006FA100(AptCIH *pInst, int mode)
                 if (g_bfmeAptBreakOnAssertAtDDC01C)
                     __debugbreak();
             }
-            Rva006E3230 *queue = *(Rva006E3230 **)((char *)this + 0xA0);
+            AptActionQueueC *queue = *(AptActionQueueC **)((char *)this + 0xA0);
             queue->rva006E4B80(&descriptor->records[i].payload, pInst->pParent, 0x400000,
                 *(int *)0x00E17704);
         }
@@ -150,9 +147,9 @@ void Rva006FA100Owner::rva006FA100(AptCIH *pInst, int mode)
                 if (found) {
                     int encoded = ((route[1] & 0x7f) << 10) | 5;
                     void *pool = *(void **)0x00E176D0;
-                    Rva006E3810ThiscallView *submit =
-                        *(Rva006E3810ThiscallView **)((char *)pool + 0xA0);
-                    submit->call(pInst, found, 0, *eventCode, encoded);
+                    AptActionQueueC *submit =
+                        *(AptActionQueueC **)((char *)pool + 0xA0);
+                    submit->rva006E3810((AptValue*)pInst, (AptValue*)found, 0, *eventCode, encoded);
                 }
             }
         }
@@ -178,5 +175,5 @@ void Rva006FA100Owner::rva006FA100(AptCIH *pInst, int mode)
             break;
         }
     }
-    ((Rva006E6540ThiscallView *)this)->call();
+    ((AptAnimationPoolData *)this)->rva006E6540();
 }
