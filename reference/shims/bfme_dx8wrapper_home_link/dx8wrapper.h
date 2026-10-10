@@ -889,25 +889,10 @@ WWINLINE void DX8Wrapper::Set_DX8_Light(int index, D3DLIGHT8* light)
 	}
 }
 
-WWINLINE void DX8Wrapper::Set_DX8_Render_State(D3DRENDERSTATETYPE state, unsigned value)
-{
-	// Can't monitor state changes because setShader call to GERD may change the states!
-	if (RenderStates[state]==value) return;
-
-#ifdef MESH_RENDER_SNAPSHOT_ENABLED
-	if (WW3D::Is_Snapshot_Activated()) {
-		StringClass value_name(0,true);
-		Get_DX8_Render_State_Value_Name(value_name,state,value);
-		SNAPSHOT_SAY(("DX8 - SetRenderState(state: %s, value: %s)\n",
-			Get_DX8_Render_State_Name(state),
-			value_name));
-	}
-#endif
-
-	RenderStates[state]=value;
-	DX8CALL(SetRenderState( state, value ));
-	DX8_RECORD_RENDER_STATE_CHANGE();
-}
+// BFME 2: DX8Wrapper::Set_DX8_Render_State is called out of line here. Its one retail body is
+// the /O1 copy DX8WrapperSetDX8States.cpp compiles (0x0006615F; 231 retail call
+// sites); this header's /O2 COMDAT copy was the first in link order and was not
+// retail's body, so every unit referencing the name failed to link.
 
 WWINLINE void DX8Wrapper::Set_DX8_Clip_Plane(DWORD Index, CONST float* pPlane)
 {

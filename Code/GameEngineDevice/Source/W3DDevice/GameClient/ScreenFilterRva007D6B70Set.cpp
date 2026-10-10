@@ -34,21 +34,28 @@ VertexMaterialClass * ScreenMaterial;
 extern unsigned TheBoxTextureDirtyMask;
 extern bool ScreenShaderDirty;
 extern unsigned ScreenOpaqueShader, ScreenCurrentShader;
-extern bool ScreenSnapshot;
-extern unsigned ScreenRenderStates[];
-extern Device *ScreenDevice;
-extern unsigned ScreenStateChanges,number_of_DX8_calls;
+// DX8Wrapper / WW3D statics under the names dx8wrapper.cpp and ww3d.cpp define (data
+// ledger 0x009ED5F8 / 0x009EDA34 / 0x009EDA64 / 0x009EC3FD), so the out-of-line
+// Set_DX8_Render_State this unit emits is the retail body DX8WrapperSetDX8States.cpp
+// compiles (0x0006615F) relocation for relocation.
+struct IDirect3DDevice8;
+extern unsigned number_of_DX8_calls;
+class WW3D { friend class DX8Wrapper; static bool SnapshotActivated; };
 class DX8Wrapper {
 public:
  static void Apply_Render_State_Changes();
  static void Get_DX8_Render_State_Value_Name(StringClass&,unsigned long,unsigned int);
  static __forceinline void Set_DX8_Render_State(unsigned long state,unsigned value) {
-  if(ScreenRenderStates[state]==value)return;
-  if(ScreenSnapshot){StringClass s(0,true);Get_DX8_Render_State_Value_Name(s,state,value);}
-  ScreenRenderStates[state]=value;
-  ScreenDevice->v->SetRenderState(ScreenDevice,state,value);
-  ++number_of_DX8_calls; ++ScreenStateChanges;
+  if(RenderStates[state]==value)return;
+  if(WW3D::SnapshotActivated){StringClass s(0,true);Get_DX8_Render_State_Value_Name(s,state,value);}
+  RenderStates[state]=value;
+  ((Device *)D3DDevice)->v->SetRenderState((Device *)D3DDevice,state,value);
+  ++number_of_DX8_calls; ++render_state_changes;
  }
+protected:
+ static unsigned RenderStates[256];
+ static IDirect3DDevice8 *D3DDevice;
+ static unsigned render_state_changes;
 };
 enum FilterModes {FM_NULL_MODE};
 class Rva007D6B70 { protected: virtual int set(FilterModes); };

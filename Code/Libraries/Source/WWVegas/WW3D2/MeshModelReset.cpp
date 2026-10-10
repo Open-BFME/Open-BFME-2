@@ -49,7 +49,9 @@ public:
 };
 extern DX8MeshRendererClass *TheDX8MeshRenderer;
 extern Rva00DF6F94GapFillerContext *TheMeshGapFillerContext;
-bool __cdecl Rva00199FA5TeardownMeshMatDescRenderers(MeshMatDescClass *matdesc);
+// 0x00199FA5 is rowed as rva00199FA5 (Rva00199FA5Check.cpp); called by that name.
+class Rva00199FA5Rec;
+bool __cdecl rva00199FA5(Rva00199FA5Rec *p);
 class MeshModelClass : public MeshGeometryClass {
 public:
     void Reset(int polycount, int vertcount, int passcount, bool skinned);
@@ -71,7 +73,7 @@ void MeshModelClass::Reset(int polycount, int vertcount, int passcount, bool ski
         TheMeshGapFillerContext->DeleteModelGapFiller(this);
     }
     if (CurMatDesc->RendererState != NULL) {
-        Rva00199FA5TeardownMeshMatDescRenderers(CurMatDesc);
+        rva00199FA5((Rva00199FA5Rec *)CurMatDesc);
     }
     MatInfo->Reset();
     DefMatDesc->Reset(polycount, vertcount, passcount);

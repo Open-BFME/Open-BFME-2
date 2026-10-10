@@ -177,7 +177,9 @@ private:
 	bool HasBeenInUse;
 };
 
-bool __cdecl Rva00199FA5TeardownMeshMatDescRenderers(MeshMatDescClass *matdesc);
+// 0x00199FA5 is rowed as rva00199FA5 (Rva00199FA5Check.cpp); called by that name.
+class Rva00199FA5Rec;
+bool __cdecl rva00199FA5(Rva00199FA5Rec *p);
 
 // ??1MeshModelClass@@UAE@XZ
 MeshModelClass::~MeshModelClass(void)
@@ -189,7 +191,7 @@ MeshModelClass::~MeshModelClass(void)
 		TheMeshGapFillerContext->DeleteModelGapFiller(this);
 	}
 	if (CurMatDesc->UV[0] != NULL) {
-		Rva00199FA5TeardownMeshMatDescRenderers(CurMatDesc);
+		rva00199FA5((Rva00199FA5Rec *)CurMatDesc);
 	}
 	Reset(0, 0, 0, (Flags >> SKIN_BIT_INDEX) & true);
 	if (MatInfo != NULL) {
@@ -224,6 +226,6 @@ void MeshModelClass::rva001716E0UnregisterMeshModel(void)
 	}
 	MeshMatDescClass *curDesc = CurMatDesc;
 	if (curDesc->UV[0] != NULL) {
-		Rva00199FA5TeardownMeshMatDescRenderers(curDesc);
+		rva00199FA5((Rva00199FA5Rec *)curDesc);
 	}
 }

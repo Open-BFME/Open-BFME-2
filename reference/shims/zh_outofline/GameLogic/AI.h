@@ -461,12 +461,7 @@ public:
 	
 	virtual void aiDoCommand(const AICommandParms* parms) = 0;
 
-	inline void aiMoveToPosition( const Coord3D *pos, CommandSourceType cmdSource )
-	{
-		AICommandParms parms(AICMD_MOVE_TO_POSITION, cmdSource);
-		parms.m_pos = *pos;
-		aiDoCommand(&parms);
-	}
+	void aiMoveToPosition( const Coord3D *pos, CommandSourceType cmdSource );	// OUT OF LINE
 
 	inline void aiMoveToPositionEvenIfSleeping( const Coord3D *pos, CommandSourceType cmdSource )
 	{
