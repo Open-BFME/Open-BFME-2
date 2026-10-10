@@ -202,8 +202,8 @@ class Object
 {
 public:
 	Player *getControllingPlayer() const;	// 0x0028AFA9
-	AIUpdateInterface *getAIUpdateInterface() { return m_ai; }
-	ContainModuleInterface *getContain() const { return m_contain; }
+	__declspec(dllimport) __forceinline AIUpdateInterface *getAIUpdateInterface() { return m_ai; }
+	__declspec(dllimport) __forceinline ContainModuleInterface *getContain() const { return m_contain; }
 	const Coord3D *getPosition() const { return &m_pos; }
 	char m_pad000[0x38];
 	Coord3D m_pos;			// +0x38
