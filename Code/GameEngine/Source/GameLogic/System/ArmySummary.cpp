@@ -95,8 +95,8 @@ class Rva00376A62 { public: bool rva00376A62(const StringBase<char>&); };
 bool ArmySummary::HasDelayedCarryoverUnitOfTypes(ObjectTypes *types)
 {
  if(reinterpret_cast<const ArmySummaryObjectTypesRange*>(types)->empty())return false;
- const int *end=words4C.end;
- for(const int *cur=words4C.begin;cur!=end;++cur) {
+ const int *end=words4C.last;
+ for(const int *cur=words4C.first;cur!=end;++cur) {
   int entry=reinterpret_cast<const Rva0040CB3AIndexedField*>(this)->get(*cur);
   if(entry && reinterpret_cast<Rva00376A62*>(types)->rva00376A62(*reinterpret_cast<const StringBase<char>*>(entry+4)))return true;
  }

@@ -1,0 +1,69 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "BfmeIntVecG",
+ "evidence": {
+  "census": 1,
+  "retail_access": {},
+  "retail_member_rows": 0,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "12": 1
+  },
+  "views": 1,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "first",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int*",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "last",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int*",
+   "views": 1,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "limit",
+   "name_by": "majority",
+   "offset": 8,
+   "retail_widths": {},
+   "size": 4,
+   "type": "int*",
+   "views": 1,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [],
+ "size": 12,
+ "size_by": "majority",
+ "target_evidence": {
+  "army_summary": "rowed40DED9/158B clears vector at4C; rowed40E499/155B frees first4C; native whole532803/38B invokes generic-copy25BF40/29B then forward-copy31B031/42B",
+  "living_world": "rowed3F6672/181B invokes same532803/38B over scalar ID range at10",
+  "uncertainty": "BfmeIntVecG and ArmySummaryKeyWord are physical placeholder views; neither original class nor element typedef established"
+ },
+ "vslots": {}
+}

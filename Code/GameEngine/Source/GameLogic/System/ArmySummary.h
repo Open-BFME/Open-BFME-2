@@ -32,15 +32,7 @@ struct Rva0040DD3ARef {
  Rva0040DD3ARef(const Rva0040DD3ARef& x):value(x.value){if(value)++value->ref.references;}
  ~Rva0040DD3ARef(){if(value)ReleaseTreeHintRef00217D4C(&value->ref);}
 };
-// Existing 532803 provider view: twelve-byte vector of opaque four-byte
-// words, with the same observed range-erasure ABI. Element purpose unknown.
-class BfmeIntVecG {
-public:
- void bfmeErase(int*,int*);
- __forceinline void clear() { bfmeErase(begin,end); }
- ~BfmeIntVecG() { if(begin) free(begin); }
- int *begin,*end,*limit;
-};
+#include "../../Common/BfmeIntVecG.h"
 class Rva0040CB3AIndexedField { public: int find(int key) const; int get(int key) const; };
 class ObjectTypes;
 class ArmySummary : public Snapshot, public Rva0040D8D6List {

@@ -1,3 +1,4 @@
+// stlport
 // cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG
 // Native 3F6672..3F6727 transfers the leading field and the 48-byte player
 // vector at +4, then the ID vector at +10 for version >=2. WB1049ED0
@@ -58,7 +59,7 @@ namespace _STL { template<class T> class allocator;template<class T,class A>clas
 template<>class vector<Rva003F610FElement,allocator<Rva003F610FElement> > {public:Rva003F610FElement*erase(Rva003F610FElement*,Rva003F610FElement*);};
 }
 class Rva003F664FOwner {public:void rva003F664F(unsigned);};
-class BfmeIntVecG {public:void bfmeErase(int*,int*);void clear(){bfmeErase(first,last);}int*first,*last,*limit;};
+#include "../../../Common/BfmeIntVecG.h"
 class LivingWorldBattle {public:class BattlePlayer {public:void DoXfer(Xfer*);};};
 Xfer* Rva003F5A72Xfer(Xfer*,void*);
 struct Players48 {Rva003F610FElement*first,*last,*limit;int size(){return last-first;}void clear(){((_STL::vector<Rva003F610FElement,_STL::allocator<Rva003F610FElement> >*)this)->erase(first,last);}};
