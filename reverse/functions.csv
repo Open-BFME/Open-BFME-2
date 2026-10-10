@@ -35627,7 +35627,6 @@ _piChannelKickedA,,0x006AADF0,100,Code/GameEngine/Source/GameNetwork/GameSpy/pee
 ?Rva0006182EGet@@YAHXZ,,0x0006182E,6,Code/GameEngine/Source/Common/ConstIntGettersAddr.cpp,matched,B8-6 const-int returner ret 0x00461834; Ghidra-6; opaque address-derived name
 ?Rva00061983Get@@YAHXZ,,0x00061983,6,Code/GameEngine/Source/Common/ConstIntGettersAddr.cpp,matched,B8-6 const-int returner ret 0x00461989; Ghidra-6; opaque address-derived name
 ?Rva0022D537Get@@YAHXZ,,0x0022D537,6,Code/GameEngine/Source/Common/ConstIntGettersAddr.cpp,matched,B8-6 const-int returner ret 0x0062D53D; Ghidra-6; opaque address-derived name
-?Rva0030539FGet@@YAHXZ,,0x0030539F,6,Code/GameEngine/Source/Common/ConstIntGettersAddr.cpp,matched,B8-6 const-int returner ret 0x007053A5; Ghidra-6; opaque address-derived name
 ?Rva00317717Get@@YAHXZ,,0x00317717,6,Code/GameEngine/Source/Common/ConstIntGettersAddr.cpp,matched,B8-6 const-int returner ret 0x007176F7; Ghidra-6; opaque address-derived name
 ?Rva003341CDGet@@YAHXZ,,0x003341CD,6,Code/GameEngine/Source/Common/ConstIntGettersAddr.cpp,matched,B8-6 const-int returner ret 0x007341D3; Ghidra-6; opaque address-derived name
 ?Rva00337055Get@@YAHXZ,,0x00337055,6,Code/GameEngine/Source/Common/ConstIntGettersAddr.cpp,matched,B8-6 const-int returner ret 0x0073705B; Ghidra-6; opaque address-derived name
