@@ -12,15 +12,15 @@ extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char*,const char*,int);
 extern int g_bfmeAptBreakOnAssertAtDDC01C;
 extern void *(__cdecl *g_bfmeAptAllocAtE17728)(unsigned int);
 class BfmeAptValue006DCD20;extern BfmeAptValue006DCD20 *g_aptUndefinedAtE18078;
-class Rva006DB160 {public:void*allocBlock(int);};class Rva006DB270 {public:void freeBlock(void*,int);};extern Rva006DB160*g_pChainBlockAllocator;
+class Rva006DB160 {public:void*allocBlock(int);};class Rva006DB270 {public:void freeBlock(void*,int);};extern Rva006DB270*g_pChainBlockAllocator;
 inline void Rva006D8680Free(void*p,int size){((Rva006DB270*)g_pChainBlockAllocator)->freeBlock(p,size);}void*Rva006CD440Alloc(int);void Rva006CD460Free(void*);inline void Rva006E31F0Free(void*p){Rva006CD460Free(p);}
 class Rva006E3BF0{public:void rva006E3BF0();};
 class Rva006E4F10 {unsigned short count,capacity;void**array;
-public:Rva006E4F10(int n){capacity=(unsigned short)n;array=(void**)g_pChainBlockAllocator->allocBlock(capacity*4);count=0;memset(array,0,capacity*4);}
+public:Rva006E4F10(int n){capacity=(unsigned short)n;array=(void**)((Rva006DB160*)g_pChainBlockAllocator)->allocBlock(capacity*4);count=0;memset(array,0,capacity*4);}
  ~Rva006E4F10(){((Rva006E3BF0*)this)->rva006E3BF0();}
 };
 class AptDisplayList{void*state;public:AptDisplayList();~AptDisplayList();};
-class AptActionQueueC{void *pool;char data[16];public:AptActionQueueC(int);~AptActionQueueC(){void*p=pool;Rva006CD460Free(p);}static void*operator new(unsigned size){return g_pChainBlockAllocator->allocBlock(size);}static void operator delete(void*p,unsigned size){Rva006D8680Free(p,size);}};
+class AptActionQueueC{void *pool;char data[16];public:AptActionQueueC(int);~AptActionQueueC(){void*p=pool;Rva006CD460Free(p);}static void*operator new(unsigned size){return ((Rva006DB160*)g_pChainBlockAllocator)->allocBlock(size);}static void operator delete(void*p,unsigned size){Rva006D8680Free(p,size);}};
 class AptIntervalTimer{char data[32];public:AptIntervalTimer();~AptIntervalTimer();static void*operator new[](unsigned size){return Rva006CD440Alloc(size);}static void operator delete[](void*p){Rva006E31F0Free(p);}};
 struct Rva00222343 {int fields[14];bool flag38,flag39;};
 class Rva006E6060Root{
@@ -35,14 +35,14 @@ Rva006E6060Root::Rva006E6060Root(const Rva00222343*p):a(p->fields[0]),b(p->field
  maxNew=p->fields[6];maxTimers=p->fields[4];maxInputs=p->fields[7];maxRecords=p->fields[5];
  ROOT_CHECK(g_bfmeAptAllocAtE17728,0x278,"gAptFuncs.pfnMemAlloc");
  ROOT_CHECK(maxNew!=0,0x27A,"m_iMaxNewMovieClips != 0");
- newInsts=(void**)g_pChainBlockAllocator->allocBlock(maxNew*4);
+ newInsts=(void**)((Rva006DB160*)g_pChainBlockAllocator)->allocBlock(maxNew*4);
  ROOT_CHECK(newInsts!=0,0x27C,"apNewInsts != NULL");
  queue=new AptActionQueueC(p->fields[3]);
  if(maxRecords==0)records28=0;else records28=Rva006CD440Alloc(maxRecords*28);
  timers=new AptIntervalTimer[maxTimers];
  ROOT_CHECK(timers!=0,0x28A,"aIntervalTimers != 0");
  ROOT_CHECK(maxInputs!=0,0x28C,"m_iMaxQueuedInputs != 0");
- inputs=(void**)g_pChainBlockAllocator->allocBlock(maxInputs*4);
+ inputs=(void**)((Rva006DB160*)g_pChainBlockAllocator)->allocBlock(maxInputs*4);
  ROOT_CHECK(inputs!=0,0x28E,"aQueuedInputs != NULL");
  numNew=0;value3C=0;value6C=0;value70=false;numIntervals=0;value74=0;value78=0;value38=0;value9C=0;
  value44=g_aptUndefinedAtE18078;value60=g_aptUndefinedAtE18078;value64=g_aptUndefinedAtE18078;value68=g_aptUndefinedAtE18078;
