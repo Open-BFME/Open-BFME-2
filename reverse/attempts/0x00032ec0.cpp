@@ -1,4 +1,6 @@
 // ?rva00032EC0@GeneralAllocator@Allocator@EA@@QAEXPBXPAUBlockInfo@23@@Z
+// partial score=0.8893478504882703 date=2026-10-10
+// ?rva00032EC0@GeneralAllocator@Allocator@EA@@QAEXPBXPAUBlockInfo@23@@Z
 // partial score=0.6 date=2026-10-07
 // cl: /O2 /MD
 // Native 0x00032EC0..0x00032F57, RET8. The report iterator at 0x32F60
@@ -28,13 +30,13 @@ void GeneralAllocator::rva00032EC0(const void *block, BlockInfo *out)
     unsigned int header = *(const unsigned int *)(chunk + 4);
     unsigned int mapped = header & 2;
     unsigned int size = header & 0x7FFFFFF8;
-    unsigned char nextFlags = *(const unsigned char *)(chunk + size + 4);
+    unsigned char nextFlags = *(const volatile unsigned char *)(chunk + size + 4);
     if ((nextFlags & 1) != 0)
     {
         void *data = (void *)(chunk + 8);
         unsigned int usable = rva00032A20(data);
         out->m_blockType = 2;
-        if (mapped != 0)
+        if (mapped >= 2)
         {
             out->m_core = (void *)((unsigned int)chunk - *(const unsigned int *)chunk);
             unsigned int prefix = *(const unsigned int *)chunk;

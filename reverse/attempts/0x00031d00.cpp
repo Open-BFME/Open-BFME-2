@@ -1,4 +1,7 @@
 // ?rva00031D00@GeneralAllocator@Allocator@EA@@QAEHPBX@Z
+// partial score=0.6174358638171409 date=2026-10-10
+template<class T> static __forceinline T p4Operand(const T &v) { return *(const volatile T*)&v; }
+// ?rva00031D00@GeneralAllocator@Allocator@EA@@QAEHPBX@Z
 // partial score=0.7 date=2026-10-06
 // ?rva00031D00@GeneralAllocator@Allocator@EA@@QAEHPBX@Z
 // partial score=0.7 date=2026-10-06
@@ -19,7 +22,8 @@
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(void *section);
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(void *section);
 
-class ScratchAlloc
+namespace EA { namespace Allocator {
+class GeneralAllocator
 {
 public:
 	struct ListNode
@@ -35,7 +39,7 @@ public:
 		unsigned char m_pad[0x18];
 		int volatile m_count;
 	};
-	void *probe31680(const void *block);
+	void *rva00031680(const void *block);
 	int rva00031D00(const void *block);
 
 	unsigned char m_pad0[0x440];
@@ -50,7 +54,7 @@ public:
 	Lock *m_4E4;
 };
 
-int ScratchAlloc::rva00031D00(const void *block)
+int GeneralAllocator::rva00031D00(const void *block)
 {
 	Lock *lock = m_4E4;
 	if (lock != 0)
@@ -68,14 +72,14 @@ int ScratchAlloc::rva00031D00(const void *block)
 		score = ((size & 0x7FFFFFF8) >= 0x40000000);
 		if ((size & 2) != 0)
 		{
-			score += (probe31680(block) != 0);
+			score += (rva00031680(block) != 0);
 			score += ((((unsigned int)block - *(const unsigned int *)block) & (m_4D4 - 1)) != 0);
 			score += ((((unsigned int)block + (size & 0x7FFFFFF8) + 0x10) & (m_4D4 - 1)) != 0);
 			score += ((((unsigned int)block) & 7) != 0);
 		}
 		else
 		{
-			void *node = probe31680(block);
+			void *node = rva00031680(block);
 			score += (node == 0);
 
 			score += ((unsigned int)block < *(const unsigned int *)node);
@@ -92,7 +96,7 @@ int ScratchAlloc::rva00031D00(const void *block)
 			else if (m_sentinel.m_prev == m_sentinel.m_next)
 			{
 				score += ((unsigned int)block < *(const unsigned int *)node);
-				score += (*(const unsigned int *)node + *(const unsigned int *)((const char *)node + 4) - 0x10 < blockEnd);
+				score += (*(const unsigned int *)node + *(const unsigned int *)((const char *)node + 4) - 0x10 < (this?p4Operand(blockEnd):p4Operand(blockEnd)));
 			}
 		}
 		m_470 = next - 1;
@@ -104,3 +108,5 @@ int ScratchAlloc::rva00031D00(const void *block)
 	}
 	return score;
 }
+
+}}
