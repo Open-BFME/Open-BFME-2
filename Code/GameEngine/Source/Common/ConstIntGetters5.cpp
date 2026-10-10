@@ -302,3 +302,28 @@ int Rva0050B5C9Get(void)
 {
 	return (int)&g_00C64D60;
 }
+
+
+// The two field-table addresses below now have named providers. These
+// data-only declarations make no claim about either manager instance layout.
+// BF1 575ba2b uses the same named-table declaration pattern in
+// Rva000C25F0Get.cpp and the related field-table getter units.
+struct FieldParse;
+class MultiplayerSettings { public: static const FieldParse m_multiplayerSettingsFieldParseTable[]; };
+class ShellMenuSchemeManager { public: static const FieldParse m_shellMenuSchemeFieldParseTable[]; };
+
+// ?Rva001EF361Get@@YAHXZ @ 0x001ef361 (6B): returns 0x00c18fb0.
+// Follows a ret-4 (prev C2-04-00), no .rdata vtable slot, no direct callers,
+// no branch sources. Opaque address-derived name.
+int Rva001EF361Get(void)
+{
+	return reinterpret_cast<int>(MultiplayerSettings::m_multiplayerSettingsFieldParseTable);
+}
+
+// ?Rva0020049BGet@@YAHXZ @ 0x0020049b (6B): returns 0x00be29ec.
+// Follows a leave plus ret tail. No direct callers. Opaque
+// address-derived name.
+int Rva0020049BGet(void)
+{
+	return reinterpret_cast<int>(ShellMenuSchemeManager::m_shellMenuSchemeFieldParseTable);
+}
