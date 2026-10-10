@@ -1,19 +1,28 @@
 // ?createRenderData@AptAnimData@@AAEXABVAsciiString@@@Z
-// partial score=0.983 date=2026-10-10
-// cl: /O1 /G7 /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc
+// cl: /O1 /G7 /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc
 // stlport
-// BANK: clean BFME1 donor 575ba2b04743f190f069805fbdc59936123c45da
-// game/GameEngineDevice/Source/W3DDevice/GameClient/GUI/Rva00788A30GeometryParser.cpp
-// WB 8A9470 proves AptAnimData::createRenderData identity; native AB485..AB7F9 RET4.
-// Target measured frame458 and shape layouts/callees; donor supplies control-flow semantics.
-// Remaining 15 stack-offset bytes: wrap native +B versus -1; blue native -4 versus -8; alpha native -8 versus +8.
-// Container ctor AA83B still needs native vector<void*> base call at211E58 instead of rowed15B wrapper142E20; do not substitute unrelated E16 vector.
-// Tested scope and channel permutations plus volatile and imports; best all309 instructions aligned.
+// Clean BFME1 lead575ba2b04743f190f069805fbdc59936123c45da:
+// game/GameEngineDevice/Source/W3DDevice/GameClient/GUI/Rva00788A30GeometryParser.cpp.
+// WB8A9470 independently proves AptAnimData::createRenderData; native AB485..AB7FB
+// RET4 boundary includes the complete 886B body.
+// Donor supplies control flow; native accesses establish shape offsets, imports,
+// and callees. No whole target class/geometry-element identity is inferred.
+// The verified AADC1 ctor AA83B supplies native header4/zero region10 and existing
+// pointer-vector storage. const ModuleData* is solely the ledger's existing raw
+// pointer append provider at4DFCB0: this cast asserts no semantic element type.
+// A wrap byte declared per input line, outside switch, lets the compiler reuse
+// the dead filename home +B; alpha stays -8 and blue -4. Full886 and EH exact.
 #include <vector>
 #include <stdio.h>
 #include <ctype.h>
 #include <string.h>
 #include "ascii_string.h"
+// STL free uses retail direct30830; the parser CRT functions retain named IAT calls.
+namespace AptGeometryCrt {
+extern "C" __declspec(dllimport) int __cdecl sscanf(const char*,const char*,...);
+extern "C" __declspec(dllimport) int __cdecl isdigit(int);
+extern "C" __declspec(dllimport) char *__cdecl strchr(const char*,int);
+}
 class File {public:
  virtual ~File();virtual void s04();virtual void close();virtual void s0C();
  virtual void s10();virtual void s14();virtual void nextLine(char*,int);
@@ -26,14 +35,14 @@ static File *openFile(const AsciiString *fname)throw()
  char *t=*(char *const*)fname;
  const char *s=t?t+8:"";
  for(;;){File *f=TheFileSystem->openFile(s,1,0);if(f)return f;
- s=strchr(s,'\\');if(!s)return 0;++s;}
+ s=AptGeometryCrt::strchr(s,'\\');if(!s)return 0;++s;}
 }
 static inline const char *getNameAndIndex(const AsciiString &path,int *index,bool fullPath)
 {
  const char *fname=path.reverseFind('\\');if(!fname)return 0;
  const char *digits=path.reverseFind('.');if(!digits)return 0;
- while(isdigit(digits[-1]))--digits;
- sscanf(digits,"%d.",index);
+ while(AptGeometryCrt::isdigit(digits[-1]))--digits;
+ AptGeometryCrt::sscanf(digits,"%d.",index);
  return fullPath?path.str():fname+1;
 }
 struct Rva000AB3E2Element;
@@ -42,7 +51,8 @@ namespace _STL {
  template<> class vector<Rva000AB3E2Element> {public:void *first,*last,*capacity;void push_back(const Rva000AB3E2Element&);};
  template<> class vector<Rva000AB419Element> {public:void *first,*last,*capacity;void push_back(const Rva000AB419Element&);};
 }
-class Rva000AADC1 {public:Rva000AADC1()throw();void *vptr;_STL::vector<void*> records;float matrix[6];};
+class ModuleData;
+class Rva000AADC1 {public:Rva000AADC1()throw();void *vptr;_STL::vector<const ModuleData*> records;float matrix[6];};
 class Rva000AAD06 {public:Rva000AAD06()throw();char unknown[0x14];};
 class Rva000AAE3D {public:Rva000AAE3D()throw();char unknown[0x18];};
 class Rva000AAD5C {public:Rva000AAD5C()throw();char unknown[0x34];};
@@ -73,9 +83,10 @@ void AptAnimData::createRenderData(const AsciiString &filename)
  _STL::vector<Rva000AB3E2Element> *triangles=0;
  Rva000AADC1 *geometry=new Rva000AADC1;
  *(Rva000AADC1**)map.findSlot(&number)=geometry;
- char wrap;
+
  while(!file->eof()) {
   file->nextLine(line,1023);
+ char wrap;
   switch(line[0]) {
   case 'c':current=0;triangles=0;break;
   case 's': {
@@ -86,7 +97,7 @@ void AptAnimData::createRenderData(const AsciiString &filename)
     TexturedRecordView *record=(TexturedRecordView*)new Rva000AAD5C;
     current=(GeometryRecord00788A30*)record;
     unsigned texture;
-    sscanf(line,"s t%c:%d:%d:%d:%d:%d:%f:%f:%f:%f:%f:%f",&wrap,&red,&green,&blue,&alpha,&texture,
+    AptGeometryCrt::sscanf(line,"s t%c:%d:%d:%d:%d:%d:%f:%f:%f:%f:%f:%f",&wrap,&red,&green,&blue,&alpha,&texture,
      &record->uv[0],&record->uv[1],&record->uv[2],&record->uv[3],&record->uv[4],&record->uv[5]);
     record->color=(((alpha<<8)|red)<<8|green)<<8|blue;
     record->wrap=wrap=='w';
@@ -97,30 +108,30 @@ void AptAnimData::createRenderData(const AsciiString &filename)
    case 's': {
     SolidRecordView *record=(SolidRecordView*)new Rva000AAD06;
     current=(GeometryRecord00788A30*)record;
-    sscanf(line,"s s:%d:%d:%d:%d",&red,&green,&blue,&alpha);
+    AptGeometryCrt::sscanf(line,"s s:%d:%d:%d:%d",&red,&green,&blue,&alpha);
     record->color=(((alpha<<8)|red)<<8|green)<<8|blue;
     triangles=&record->triangles;break;
    }
    case 'l': {
     LineRecordView *record=(LineRecordView*)new Rva000AAE3D;
     current=(GeometryRecord00788A30*)record;
-    sscanf(line,"s l:%f:%d:%d:%d:%d",&record->width,&red,&green,&blue,&alpha);
+    AptGeometryCrt::sscanf(line,"s l:%f:%d:%d:%d:%d",&record->width,&red,&green,&blue,&alpha);
     record->color=(((alpha<<8)|red)<<8|green)<<8|blue;break;
    }
    default:file->close();return;
    }
-   geometry->records.push_back(*(void **)&current);break;
+   geometry->records.push_back(*(const ModuleData**)&current);break;
   }
   case 't': {
    if(!current||!triangles){file->close();return;}
    Rva000A953B triangle;
-   sscanf(line,"t %f:%f:%f:%f:%f:%f",&triangle.data[0],&triangle.data[1],&triangle.data[2],&triangle.data[3],&triangle.data[4],&triangle.data[5]);
+   AptGeometryCrt::sscanf(line,"t %f:%f:%f:%f:%f:%f",&triangle.data[0],&triangle.data[1],&triangle.data[2],&triangle.data[3],&triangle.data[4],&triangle.data[5]);
    triangles->push_back(*(Rva000AB3E2Element*)&triangle);break;
   }
   case 'l': {
    if(!current||!current->slot10()){file->close();return;}
    Rva000A9551 segment;
-   sscanf(line,"l %f:%f:%f:%f",&segment.data[0],&segment.data[1],&segment.data[2],&segment.data[3]);
+   AptGeometryCrt::sscanf(line,"l %f:%f:%f:%f",&segment.data[0],&segment.data[1],&segment.data[2],&segment.data[3]);
    ((_STL::vector<Rva000AB419Element>*)((char*)current+12))->push_back(*(Rva000AB419Element*)&segment);break;
   }
   default:file->close();return;
