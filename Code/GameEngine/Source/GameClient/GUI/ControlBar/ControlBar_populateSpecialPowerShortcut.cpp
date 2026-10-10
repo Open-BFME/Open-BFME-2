@@ -1,22 +1,15 @@
-// ?populateSpecialPowerShortcut@ControlBar@@IAEXPAVPlayer@@@Z
-// partial score=0.9935448942195569 date=2026-10-10
-extern "C" void _ReadWriteBarrier();
-#pragma intrinsic(_ReadWriteBarrier)
-// ?populateSpecialPowerShortcut@ControlBar@@IAEXPAVPlayer@@@Z
-// partial score=0.994 date=2026-10-09
-// ?populateSpecialPowerShortcut@ControlBar@@IAEXPAVPlayer@@@Z
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_STLP_USE_MALLOC /D_CRTIMP= /D_STLP_NO_CSTD_FUNCTION_IMPORTS /Ireference/shims/bfme2_ascii
 // stlport
 // BFME1 semantic donor: ba7ddda7e8f261163972ddbe23c7e7a12ac5b84f
 // game/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp.
 // WB 0x00C30C60 names the BFME2 method. Target boundary 0x0031D85D..0x0031DAF8
-// is 667 bytes. Current source emits 663 bytes with every callee resolved:
+// is 667 bytes; every callee is resolved:
 // 31B210 / 31DAF8 / 35B7D9 now have rowed providers and the 31B641 call is
 // the established ControlBar::setControlCommand owner rather than a new pin.
 // Retail retains the PlayerTemplate base in ESI through StringBase::isEmpty
-// and adds 0x140 afterwards; this source retains the field pointer early.
-// All other 198 normalized instructions and real STLport science-vector cleanup
-// agree. G7 / const template / direct field / pointer getter trials did not change it.
+// and adds 0x140 in place for the command-set lookup: the name's address is
+// passed straight into findCommandSet's call (a pointer local for it is
+// computed into EAX instead).
 
 typedef int Int;
 typedef unsigned int UnsignedInt;
@@ -160,7 +153,6 @@ void GadgetButtonSetAltSound(GameWindow *window, AsciiString sound);
 void ControlBar::populateSpecialPowerShortcut(Player *player)
 {
 	const CommandSet *commandSet;
-	const AsciiString *commandSetName;
 	Int i;
 	Int currentButton = 0;
 	const CommandButton *commandButton;
@@ -180,8 +172,7 @@ void ControlBar::populateSpecialPowerShortcut(Player *player)
 	PlayerTemplate *playerTemplate=player->getPlayerTemplate();
 	if ((playerTemplate ? playerTemplate : playerTemplate)->getSpecialPowerShortcutCommandSet().isEmpty())
 		return;
-	commandSetName=&(playerTemplate ? playerTemplate : playerTemplate)->getSpecialPowerShortcutCommandSet();
-	commandSet = (const CommandSet *)((Rva0031D5F8 *)TheControlBar)->rva0031D5F8(commandSetName);
+	commandSet = (const CommandSet *)((Rva0031D5F8 *)TheControlBar)->rva0031D5F8(&playerTemplate->getSpecialPowerShortcutCommandSet());
 	if (!commandSet)
 		return;
 
