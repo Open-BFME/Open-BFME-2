@@ -120,7 +120,11 @@ static ShaderClass PlayerColorShader(SC_PLAYER_COLOR);
 // ?RTS3DScene::RTS3DScene present-unmatched
 RTS3DScene::RTS3DScene()
 {
-	setName("RTS3DScene");
+	// BFME2's SubsystemInterface::setName (retail 0x0006F3CC, rowed in
+	// SubsystemInterfaceSetName.cpp) keeps m_name at +0x08; this Zero Hour
+	// view has it at +0x04, so calling it emitted a wrong out-of-line copy
+	// that the link kept first. The BFME2 ctor is rowed in RTS3DSceneCtor.cpp.
+	m_name = AsciiString("RTS3DScene");
 	m_drawTerrainOnly = false;
 	m_numGlobalLights=0;
 	for (Int i=0; i<LightEnvironmentClass::MAX_LIGHTS; i++)
@@ -1755,7 +1759,11 @@ void RTS3DScene::draw( )
 // ?RTS2DScene::RTS2DScene present-unmatched
 RTS2DScene::RTS2DScene()
 {
-	setName("RTS2DScene");
+	// BFME2's SubsystemInterface::setName (retail 0x0006F3CC, rowed in
+	// SubsystemInterfaceSetName.cpp) keeps m_name at +0x08; this Zero Hour
+	// view has it at +0x04, so calling it emitted a wrong out-of-line copy
+	// that the link kept first. The BFME2 ctor is rowed in RTS2DSceneCtor.cpp.
+	m_name = AsciiString("RTS2DScene");
 	m_status = NEW_REF( W3DStatusCircle, () );
 	Add_Render_Object( m_status );
 }  // end RTS2DScene

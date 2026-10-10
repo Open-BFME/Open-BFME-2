@@ -10,6 +10,17 @@
 // Retail's vector allocator frees through the game-memory free wrapper at
 // 0x00030830. Use that C entry point rather than a CRT DLL-import declaration.
 #define _CRTIMP
+// vector<>::_M_insert_overflow inlines max(size(), n). Retail never calls
+// _STL::max<unsigned> (0x00013740 has no call site), but cl 13.10 still emits
+// the template's COMDAT, and under /O1 /G7 it is not retail's blend body. A
+// file-static unsigned overload takes the call instead: no external max copy.
+#include <stl/_algobase.h>
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
 #include <vector>
 class MeshClass;
 // Target1080B4 calls virtual slots 3, 5, 28 and 30 and releases refs at +4.

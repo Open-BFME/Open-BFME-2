@@ -42,6 +42,8 @@ public:
 
 protected:
 	static bool m_renderingToTexture;
+	static unsigned long m_dwGlowPixelShader;
+	static unsigned long m_dwGlowVertexShader;
 public:
 	static IDirect3DSurface8 *m_oldRenderSurface;
 	static IDirect3DTexture8 *m_renderTexture;
@@ -274,6 +276,14 @@ bool W3DShaderManager::m_renderingToTexture;
 
 // Existing native pointer storage DE1F68, previously declared as an integer.
 IDirect3DTexture8 *W3DShaderManager::m_renderTexture;
+
+// The glow shader handles (0x009E1F74 pixel, 0x009E1F78 vertex; zero-filled).
+// The glow setup at 0x00077F80 loads them through this unit's Rva00077D0FLoad
+// (unsigned long *, into 0x009E1F74) and Rva00077C19Load (into 0x009E1F78) and
+// zeroes each on failure; performGlow binds them and shutdown (0x0007684A)
+// releases and clears both. Names: WorldBuilder's performGlow asserts.
+unsigned long W3DShaderManager::m_dwGlowPixelShader;
+unsigned long W3DShaderManager::m_dwGlowVertexShader;
 
 // Clean BF1 donor and native texture callers establish the static pointer ABI.
 IDirect3DTexture8 *W3DShaderManager::getRenderTexture()

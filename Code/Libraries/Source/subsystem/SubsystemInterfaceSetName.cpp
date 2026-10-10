@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
 //
 // ?setName@SubsystemInterface@@QAEXVAsciiString@@@Z
 // retail 0x0006F3CC, 52 bytes. Dedicated shard.
@@ -10,18 +10,12 @@
 // landed initSubsystem caller in SubsystemInterface.cpp keeps calling
 // out-of-line instead of inlining.
 
-template <class T> class StringBase
-{
-	friend class AsciiString;
-	void releaseBuffer();
-};
-
-class AsciiString : public StringBase<char>
-{
-public:
-	AsciiString& operator=(const AsciiString& other);
-	~AsciiString() { releaseBuffer(); }
-};
+// The canonical AsciiString: its copy assignment calls StringBase<char>::set
+// (0x366F0) and its dtor the releaseBuffer worker (0x36410), the two names
+// those addresses carry as rows. A private operator= spelling resolved to
+// ascii_string.cpp's ??4AsciiString row (0x00001733) instead, so the link
+// judged this copy not retail's.
+#include "ascii_string.h"
 
 class SubsystemInterface
 {

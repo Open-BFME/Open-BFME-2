@@ -10,18 +10,19 @@
 // The base vtable is at 0x01141640 and has nine slots. SubsystemLegend overrides
 // 0/1/4/5 and inherits 2/3/6/7/8, which is how those five were ruled out of
 // SubsystemLegend.cpp's membership.
-// The emitted unsigned max copy must match retail RVA 0x00013740.
-// Define it for speed, then restore this unit's flags for its own bodies.
+// vector<pair>::_M_insert_overflow inlines max(size(), n). Retail never calls
+// _STL::max<unsigned> (0x00013740 has no call site), but cl 13.10 still emits
+// the template's COMDAT here, and under this unit's /O1 /G7 it is not
+// retail's blend body. A file-static unsigned overload takes the call instead:
+// _M_insert_overflow's bytes are unchanged and no external max copy is
+// emitted.
 #include <stl/_algobase.h>
-#pragma optimize("s", off)
-#pragma optimize("t", on)
 namespace _STL {
-template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
 {
     return a < b ? b : a;
 }
 }
-#pragma optimize("", on)
 
 #define __PLACEMENT_VEC_NEW_INLINE
 #include <vector>

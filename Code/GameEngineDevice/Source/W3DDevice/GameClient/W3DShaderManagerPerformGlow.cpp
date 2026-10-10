@@ -94,7 +94,7 @@ struct IDirect3DDevice8
 	GLOW_D3D_SLOT(63) GLOW_D3D_SLOT(64)
 	virtual long __stdcall SetTexture(unsigned long stage, IDirect3DBaseTexture8 *texture) = 0;	// +0x104
 	GLOW_D3D_SLOT(66) GLOW_D3D_SLOT(67) GLOW_D3D_SLOT(68)
-	virtual long __stdcall SetTextureStageState(unsigned long stage, unsigned long type, unsigned long value) = 0;	// +0x114
+	virtual long __stdcall SetSamplerState(unsigned long sampler, unsigned long type, unsigned long value) = 0;	// +0x114
 	GLOW_D3D_SLOT(70) GLOW_D3D_SLOT(71) GLOW_D3D_SLOT(72) GLOW_D3D_SLOT(73) GLOW_D3D_SLOT(74)
 	GLOW_D3D_SLOT(75) GLOW_D3D_SLOT(76) GLOW_D3D_SLOT(77) GLOW_D3D_SLOT(78) GLOW_D3D_SLOT(79)
 	GLOW_D3D_SLOT(80) GLOW_D3D_SLOT(81) GLOW_D3D_SLOT(82) GLOW_D3D_SLOT(83) GLOW_D3D_SLOT(84)
@@ -123,9 +123,14 @@ public:
 	static void Clear(bool clear_color, bool clear_z_stencil, const Vector3 &color, float dest_alpha, float z, unsigned int stencil);
 	static void Clear(bool clear_color, bool clear_z_stencil, bool clear_x, const Vector3 &color, float dest_alpha, float z, unsigned int stencil);
 	static void Set_DX8_Render_State(unsigned long state, unsigned int value);
-	static __forceinline void Set_DX8_Texture_Stage_State(unsigned stage, unsigned long state, unsigned value)
+	// The D3D9 slot at +0x114 is SetSamplerState (SetTextureStageState is
+	// +0x10C): states 1/2 and 5/6/7 are ADDRESSU/V and MAG/MIN/MIPFILTER. The
+	// sibling filter units call this helper Set_DX8_Sampler_State; under the
+	// Set_DX8_Texture_Stage_State name its copy was judged against retail's
+	// cached 0x000661DD body.
+	static __forceinline void Set_DX8_Sampler_State(unsigned stage, unsigned long state, unsigned value)
 	{
-		_Get_D3D_Device8()->SetTextureStageState(stage, state, value);
+		_Get_D3D_Device8()->SetSamplerState(stage, state, value);
 		number_of_DX8_calls++;
 		texture_stage_state_changes++;
 	}
@@ -208,11 +213,11 @@ void W3DShaderManager::performGlow(Real weightScale, const GlowSampleVector *sam
 	Int i;
 	for (i = 0; i < 4; ++i)
 	{
-		DX8Wrapper::Set_DX8_Texture_Stage_State(i, 1, 3);
-		DX8Wrapper::Set_DX8_Texture_Stage_State(i, 2, 3);
-		DX8Wrapper::Set_DX8_Texture_Stage_State(i, 5, 2);
-		DX8Wrapper::Set_DX8_Texture_Stage_State(i, 6, 2);
-		DX8Wrapper::Set_DX8_Texture_Stage_State(i, 7, 2);
+		DX8Wrapper::Set_DX8_Sampler_State(i, 1, 3);
+		DX8Wrapper::Set_DX8_Sampler_State(i, 2, 3);
+		DX8Wrapper::Set_DX8_Sampler_State(i, 5, 2);
+		DX8Wrapper::Set_DX8_Sampler_State(i, 6, 2);
+		DX8Wrapper::Set_DX8_Sampler_State(i, 7, 2);
 	}
 	DX8Wrapper::Set_DX8_Render_State(0x16, 1);
 	DX8Wrapper::Set_DX8_Render_State(0x0E, 0);
@@ -287,9 +292,9 @@ void W3DShaderManager::performGlow(Real weightScale, const GlowSampleVector *sam
 
 	for (i = 0; i < 4; ++i)
 	{
-		DX8Wrapper::Set_DX8_Texture_Stage_State(i, 5, 2);
-		DX8Wrapper::Set_DX8_Texture_Stage_State(i, 6, 2);
-		DX8Wrapper::Set_DX8_Texture_Stage_State(i, 7, 2);
+		DX8Wrapper::Set_DX8_Sampler_State(i, 5, 2);
+		DX8Wrapper::Set_DX8_Sampler_State(i, 6, 2);
+		DX8Wrapper::Set_DX8_Sampler_State(i, 7, 2);
 	}
 	DX8Wrapper::_Get_D3D_Device8()->SetPixelShader(0);
 	number_of_DX8_calls++;

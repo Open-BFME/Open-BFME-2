@@ -37,9 +37,17 @@ static inline void *deviceSlot(int slot)
 	return (*(void ***)DX8Wrapper::_Get_D3D_Device8())[slot];
 }
 
-// Zero Hour's inline DX8Wrapper::Set_DX8_Texture.
+// BFME2's inline DX8Wrapper::Set_DX8_Texture: Zero Hour's cached path plus the
+// direct SetTexture for stages past the 16-entry cache, as every other copy
+// (retail 0x00075412) has it. Stage 0 here folds that branch away in the
+// caller; without it the emitted copy was a 78-byte body unlike the rest.
 __forceinline void DX8Wrapper::Set_DX8_Texture(unsigned int stage, IDirect3DBaseTexture8 *texture)
 {
+	if (stage >= 16) {
+		((BfmeSetTextureFn)deviceSlot(65))(_Get_D3D_Device8(), stage, texture);
+		number_of_DX8_calls++;
+		return;
+	}
 	if (Textures[stage] == texture)
 		return;
 	if (Textures[stage])
