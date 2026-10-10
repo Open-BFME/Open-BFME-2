@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /DNDEBUG /MD
+// cl: /O1 /G7 /arch:SSE /EHsc /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /DNDEBUG /MD
 //
 // BFME2's main menu screen Apt callbacks, 0x00514A9B onward. The screen's
 // registration binds each by the name it carries here ("AptMainMenu::
@@ -346,6 +346,7 @@ void Rva0041267F();
 class AptMainMenu
 {
 public:
+	void OnTutorial(const char *params);
 	void LoadGame(const char *unused);
 	void Options(const char *value);
 	void Credits(const char *unused);
@@ -849,4 +850,100 @@ int AptMainMenu::rva00514950(int msg, int p1, int p2)
 		reinterpret_cast<Rva00222A8BTarget *>(TheAptPlayer)->invoke(m_274, "ShowMainMenu", 0, 0, 0, 0, 0, 0);
 	}
 	return 0;
+}
+
+// Native515359..515633 complete730B RET4; WB1459300 and the rowed
+// main-menu constructor bind AptMainMenu::OnTutorial independently.
+// Strategic selects WOTRTutorial through the rowed campaign lookup.
+// Basic/Advanced select native36B records1114/1138; selected pointer115C.
+// Map/sound uses are proved by the retained string and slot75 audio APIs.
+// Fields4/8/20 and the DF EF18 slot10 receiver remain target-only views;
+// neither original field names nor that receiver's class identity are known.
+// BFME1 10b888 main-menu callbacks provide subsystem/API context only;
+// this BFME2-specific callback is reconstructed from retail and WB evidence.
+class LivingWorldCampaignManager {public:int rva003B8F20();};
+class Rva00E02D6C;extern Rva00E02D6C *TheCampaignManager;
+class LivingWorldManager {public:void rva0021427A();};
+extern LivingWorldManager *TheLivingWorldManager;
+class Rva002D3627Host;extern Rva002D3627Host *g_00DFEF18;
+class TutorialControlView {public:
+#define V(n) virtual void pad##n();
+ V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7) V(8) V(9)
+#undef V
+ virtual void slot10(int);
+};
+class TutorialShellView {public:
+#define V(n) virtual void pad##n();
+ V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7) V(8) V(9)
+#undef V
+ virtual void slot10();
+};
+class AudioEventInfoRef {public:
+ AudioEventInfoRef(){value.referent=0;}
+ ~AudioEventInfoRef(){if(value.referent)value.referent->Release_Ref();}
+ AudioEventInfoRef &operator=(const AudioEventInfoRef &other){value=other.value;return *this;}
+ private:OpaqueRefElement4 value;
+};
+class TutorialAudioView {public:
+#define V(n) virtual void pad##n();
+ V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7) V(8) V(9)
+ V(10) V(11) V(12) V(13) V(14) V(15) V(16) V(17) V(18) V(19)
+ V(20) V(21) V(22) V(23) V(24) V(25) V(26) V(27) V(28) V(29)
+ V(30) V(31) V(32) V(33) V(34) V(35) V(36) V(37) V(38) V(39)
+ V(40) V(41) V(42) V(43) V(44) V(45) V(46) V(47) V(48) V(49)
+ V(50) V(51) V(52) V(53) V(54) V(55) V(56) V(57) V(58) V(59)
+ V(60) V(61) V(62) V(63) V(64) V(65) V(66) V(67) V(68) V(69)
+ V(70) V(71) V(72) V(73) V(74)
+#undef V
+ virtual AudioEventInfoRef findInfo(const AsciiString &);
+};
+struct TutorialConfig {AsciiString mapName,field4,field8,soundC,sound10;char unknown14[12];int field20;};
+struct TutorialGlobalView {
+ char unknown0[0xAC0];AsciiString mapAC0;
+ char unknownAC4[0x1114-0xAC4];TutorialConfig basic,advanced;
+ TutorialConfig *selected;
+};
+class Rva0023DC8E {public:void rva0023DC8E(const AsciiString &);};
+class Rva0023DCCE {public:void rva0023DCCE(const AsciiString &,const OpaqueRefElement4 &,const OpaqueRefElement4 &);};
+struct TutorialLogicView {char unknown0[0x90];int field90;};
+void AptMainMenu::OnTutorial(const char *params) {
+ ((TutorialGlobalView*)TheWritableGlobalData)->selected=0;
+ if(strcmp(params,"Strategic")==0) {
+  if(!TheCampaignManager)return;
+  int index=((LivingWorldCampaignManager*)TheCampaignManager)->rva003B8F20();
+  if(index<0)return;
+  TheGameLogic->rva00376E92(false,false);
+  if(TheLivingWorldManager)TheLivingWorldManager->rva0021427A();
+  ((TutorialControlView*)g_00DFEF18)->slot10(1);
+  GameMessage *message=TheMessageStream->appendMessage(0x1F);
+  if(!message)return;
+  message->appendIntegerArgument(index);
+  message->appendIntegerArgument(0);
+  TheShell->rva0035BF4C(true);
+  ((TutorialShellView*)TheShell)->slot10();
+  return;
+ }
+ if(strcmp(params,"Advanced")==0)((TutorialGlobalView*)TheWritableGlobalData)->selected=&((TutorialGlobalView*)TheWritableGlobalData)->advanced;
+ else if(strcmp(params,"Basic")==0)((TutorialGlobalView*)TheWritableGlobalData)->selected=&((TutorialGlobalView*)TheWritableGlobalData)->basic;
+ else return;
+ if(!((TutorialGlobalView*)TheWritableGlobalData)->selected)return;
+ AsciiString mapName(((TutorialGlobalView*)TheWritableGlobalData)->selected->mapName);
+ if(mapName.isEmpty())return;
+ TheGameLogic->rva00376E92(false,false);
+ ((TutorialGlobalView*)TheWritableGlobalData)->mapAC0=mapName;
+ ((Rva0023DC8E*)TheGameLogic)->rva0023DC8E(((TutorialGlobalView*)TheWritableGlobalData)->selected->field4);
+ {
+  AudioEventInfoRef first;
+  if(!((TutorialGlobalView*)TheWritableGlobalData)->selected->soundC.isEmpty())first=((TutorialAudioView*)TheAudio)->findInfo(((TutorialGlobalView*)TheWritableGlobalData)->selected->soundC);
+  AudioEventInfoRef second;
+  if(!((TutorialGlobalView*)TheWritableGlobalData)->selected->sound10.isEmpty())second=((TutorialAudioView*)TheAudio)->findInfo(((TutorialGlobalView*)TheWritableGlobalData)->selected->sound10);
+  ((Rva0023DCCE*)TheGameLogic)->rva0023DCCE(((TutorialGlobalView*)TheWritableGlobalData)->selected->field8,*(OpaqueRefElement4*)&first,*(OpaqueRefElement4*)&second);
+ }
+ ((TutorialLogicView*)TheGameLogic)->field90=((TutorialGlobalView*)TheWritableGlobalData)->selected->field20;
+ GameMessage *message=TheMessageStream->appendMessage(0x1E);
+ message->appendIntegerArgument(6);
+ message->appendIntegerArgument(0);
+ message->appendIntegerArgument(0);
+ TheShell->rva0035BF4C(true);
+ ((TutorialShellView*)TheShell)->slot10();
 }
