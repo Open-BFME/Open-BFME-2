@@ -1,0 +1,24 @@
+{
+  "ordinary_pin_judge": [
+    "0x00139530 already carries the real name ??1WriteLockClass@VertexBufferClass@@QAE@XZ; one address, one identity (rename the owner instead of stacking a second name)"
+  ],
+  "binding_differences": [
+    {
+      "offset": 3,
+      "type": 6,
+      "append": [
+        "local",
+        "build\\reference214\\append-lock-repair\\natural-append.obj",
+        108,
+        0
+      ],
+      "write": [
+        "local",
+        "build\\reference214\\append-lock-repair\\natural-append.obj",
+        82,
+        0
+      ]
+    }
+  ],
+  "body_exact_but_fold_unproven": true
+}

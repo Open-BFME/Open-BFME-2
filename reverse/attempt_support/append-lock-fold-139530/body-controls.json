@@ -1,0 +1,212 @@
+{
+  "head": "6376e37fbdf281396260b65540b354c20d47554c",
+  "inputs": {
+    "C:\\Users\\clemens\\.codex\\worktrees\\reference-container-seat\\Open-BFME-2\\Code\\Libraries\\Source\\WWVegas\\WW3D2\\VertexBufferLockClasses.cpp": "b477bce38ed84fb8dd287844d79f362b296d08d9f12aada9208f0355352056b0",
+    "C:\\Users\\clemens\\.codex\\worktrees\\reference-container-seat\\Open-BFME-2\\tools\\build.py": "f9688c6f004ce27253d8fa115d7ca4dec6ebc2b97234acf59591e621d1101651",
+    "C:\\Users\\clemens\\.codex\\worktrees\\reference-container-seat\\Open-BFME-2\\tools\\flag_defaults.py": "c0105f4467a62a0fc95e9458802880281138d3c33bf252a42276c3fc11d800d5",
+    "C:\\Users\\clemens\\.codex\\worktrees\\reference-container-seat\\Open-BFME-2\\reverse\\functions.csv": "51f213bde4111e20cbd717b29fc31baa3dfe2edfd4a054fd48fab18a5acbc40a",
+    "C:\\Users\\clemens\\.codex\\worktrees\\reference-container-seat\\Open-BFME-2\\reverse\\symbols.csv": "255282f1745a4113a58079f451fdf497b881ff00e3058c46291762b1b52d07fe"
+  },
+  "command": [
+    "C:\\Users\\clemens\\.codex\\worktrees\\reference-container-seat\\Open-BFME-2\\reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\bin\\cl.exe",
+    "-nologo",
+    "-c",
+    "-O2",
+    "-GR-",
+    "-EHsc-",
+    "-O2",
+    "-arch:SSE",
+    "-G7",
+    "-DNDEBUG",
+    "-MD",
+    "-EHsc",
+    "-Fobuild/reference214/append-lock-repair/natural-append.obj",
+    "-IC:/Users/clemens/.codex/worktrees/reference-container-seat/Open-BFME-2/Code/Libraries/Source/WWVegas/WW3D2",
+    "-showIncludes",
+    "C:/Users/clemens/.codex/worktrees/reference-container-seat/Open-BFME-2/build/reference214/append-lock-repair/natural-append.cpp"
+  ],
+  "compile": 0,
+  "rows": [
+    {
+      "name": "??0WriteLockClass@VertexBufferClass@@QAE@PAV1@H@Z",
+      "rva": "0x001394A0",
+      "exact": true,
+      "whole_size": 142,
+      "unresolved": [],
+      "relocs": [
+        [
+          3,
+          6,
+          "__ehhandler$??0WriteLockClass@VertexBufferClass@@QAE@PAV1@H@Z"
+        ],
+        [
+          9,
+          6,
+          "__except_list"
+        ],
+        [
+          17,
+          6,
+          "__except_list"
+        ],
+        [
+          47,
+          20,
+          "?BFME_DX8_Thread_Lock@@YAXXZ"
+        ],
+        [
+          84,
+          20,
+          "?DX8_Assert@@YAXXZ"
+        ],
+        [
+          113,
+          20,
+          "?Log_DX8_ErrorCode@@YAXI@Z"
+        ],
+        [
+          132,
+          6,
+          "__except_list"
+        ]
+      ],
+      "diff": []
+    },
+    {
+      "name": "??1WriteLockClass@VertexBufferClass@@QAE@XZ",
+      "rva": "0x00139530",
+      "exact": true,
+      "whole_size": 113,
+      "unresolved": [],
+      "relocs": [
+        [
+          3,
+          6,
+          "__ehhandler$??1WriteLockClass@VertexBufferClass@@QAE@XZ"
+        ],
+        [
+          9,
+          6,
+          "__except_list"
+        ],
+        [
+          17,
+          6,
+          "__except_list"
+        ],
+        [
+          46,
+          20,
+          "?DX8_Assert@@YAXXZ"
+        ],
+        [
+          67,
+          20,
+          "?Log_DX8_ErrorCode@@YAXI@Z"
+        ],
+        [
+          93,
+          20,
+          "?BFME_DX8_Thread_Assert@@YA_NXZ"
+        ],
+        [
+          105,
+          6,
+          "__except_list"
+        ]
+      ],
+      "diff": []
+    },
+    {
+      "name": "??0AppendLockClass@VertexBufferClass@@QAE@PAV1@IIH@Z",
+      "rva": "0x001395B0",
+      "exact": true,
+      "whole_size": 174,
+      "unresolved": [],
+      "relocs": [
+        [
+          3,
+          6,
+          "__ehhandler$??0AppendLockClass@VertexBufferClass@@QAE@PAV1@IIH@Z"
+        ],
+        [
+          9,
+          6,
+          "__except_list"
+        ],
+        [
+          17,
+          6,
+          "__except_list"
+        ],
+        [
+          47,
+          20,
+          "?BFME_DX8_Thread_Lock@@YAXXZ"
+        ],
+        [
+          100,
+          20,
+          "?DX8_Assert@@YAXXZ"
+        ],
+        [
+          145,
+          20,
+          "?Log_DX8_ErrorCode@@YAXI@Z"
+        ],
+        [
+          164,
+          6,
+          "__except_list"
+        ]
+      ],
+      "diff": []
+    },
+    {
+      "name": "??1AppendLockClass@VertexBufferClass@@QAE@XZ",
+      "rva": "0x00139530",
+      "exact": true,
+      "whole_size": 113,
+      "unresolved": [],
+      "relocs": [
+        [
+          3,
+          6,
+          "__ehhandler$??1AppendLockClass@VertexBufferClass@@QAE@XZ"
+        ],
+        [
+          9,
+          6,
+          "__except_list"
+        ],
+        [
+          17,
+          6,
+          "__except_list"
+        ],
+        [
+          46,
+          20,
+          "?DX8_Assert@@YAXXZ"
+        ],
+        [
+          67,
+          20,
+          "?Log_DX8_ErrorCode@@YAXI@Z"
+        ],
+        [
+          93,
+          20,
+          "?BFME_DX8_Thread_Assert@@YA_NXZ"
+        ],
+        [
+          105,
+          6,
+          "__except_list"
+        ]
+      ],
+      "diff": []
+    }
+  ],
+  "object_sha256": "4cdd02543bb58e1a653e2e746e826cbd978f76e43bdb8e6f1315068b6d31652c"
+}

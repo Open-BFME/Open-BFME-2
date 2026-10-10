@@ -1,0 +1,30 @@
+diff --git a/Code/Libraries/Source/WWVegas/WW3D2/VertexBufferLockClasses.cpp b/build/reference214/append-lock-repair/natural-append.cpp
+index 1b947a619e..decccfe93d 100644
+--- a/Code/Libraries/Source/WWVegas/WW3D2/VertexBufferLockClasses.cpp
++++ b/build/reference214/append-lock-repair/natural-append.cpp
+@@ -213,6 +213,22 @@ VertexBufferClass::AppendLockClass::AppendLockClass(VertexBufferClass *VertexBuf
+ 	}
+ }
+ 
+-// Callers elsewhere reach bodies in this unit through other spellings; retail's
+-// call sites in their matched rows land on these addresses (same ABI). Bind them.
+-#pragma comment(linker, "/alternatename:??1AppendLockClass@VertexBufferClass@@QAE@XZ=??1WriteLockClass@VertexBufferClass@@QAE@XZ")
++VertexBufferClass::AppendLockClass::~AppendLockClass()
++{
++	switch (VertexBuffer->Type()) {
++	case BUFFER_TYPE_DX8:
++		{
++			DX8_Assert();
++			long result = static_cast<DX8VertexBufferClass *>(VertexBuffer)->Get_DX8_Vertex_Buffer()->Unlock();
++			if (result != 0)
++				Log_DX8_ErrorCode(result);
++		}
++		break;
++	case BUFFER_TYPE_SORTING:
++		break;
++	default:
++		break;
++	}
++	VertexBuffer->Release_Ref();
++}
++
