@@ -1,4 +1,6 @@
 // ?rva0014D5B0@SourceNamespace_AmbientLight@FXShaderParameterSourceNamespaceSAS@@QAEXPAUID3DXEffect@@PBD@Z
+// partial score=0.9613960113960114 date=2026-10-10
+// ?rva0014D5B0@SourceNamespace_AmbientLight@FXShaderParameterSourceNamespaceSAS@@QAEXPAUID3DXEffect@@PBD@Z
 // partial score=0.9 date=2026-10-07
 // cl: /O1 /arch:SSE /G7 /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
@@ -516,9 +518,9 @@ void FXShaderParameterSourceNamespaceSAS::SourceNamespace_AmbientLight::rva0014D
 	if (env != 0 && m_index == 0)
 	{
 		Rva0013F6F0LightEnv::Vector3 ambient = env->Get_Equivalent_Ambient();
-		color[0] = ambient.X;
-		color[1] = ambient.Y;
-		color[2] = ambient.Z;
+		color[0] = (ShaderOverbrightEnabled?ambient.X:ambient.X);
+		color[1] = (ShaderOverbrightEnabled?ambient.Y:ambient.Y);
+		color[2] = (ShaderOverbrightEnabled?ambient.Z:ambient.Z);
 		if (ShaderOverbrightEnabled)
 		{
 			color[0] *= 2.0f;
