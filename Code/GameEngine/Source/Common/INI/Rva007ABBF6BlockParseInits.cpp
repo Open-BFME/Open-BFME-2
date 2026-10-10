@@ -21,6 +21,9 @@ struct BlockParse
 };
 
 extern BlockParse *theBlockParseList;
+// Owned here: the registration initializers below link their nodes into it;
+// retail .data starts it at 0.
+BlockParse *theBlockParseList = 0;
 
 extern BlockParse theAudioSettingsBlockParse;	// VA 0x00DB3A08 "AudioSettings", parse 0x0004171A
 extern BlockParse theShadowMapBlockParse;	// VA 0x00DB4488 "ShadowMap", parse 0x0007BE1E
