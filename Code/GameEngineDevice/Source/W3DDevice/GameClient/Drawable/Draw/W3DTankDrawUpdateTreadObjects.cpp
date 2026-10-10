@@ -172,6 +172,9 @@ class W3DTankDraw : public W3DModelDraw
 protected:
 	enum { MAX_TREADS_PER_TANK = 4 };
 	void updateTreadObjects(void);
+public:
+	virtual void onRenderObjRecreated(void);
+protected:
 
 	unsigned char m_pad2E8[0x300 - 0x2E8];
 	RenderObjClass *m_prevRenderObj;
@@ -235,4 +238,13 @@ void W3DTankDraw::updateTreadObjects(void)
 	}
 
 	m_prevRenderObj = robj;
+}
+
+// ?onRenderObjRecreated@W3DTankDraw@@UAEXXZ, retail 0x000CE3DE, 5 bytes:
+// vtable slot 63 (DrawModuleBase vtable), immediately before doDrawModule.
+// Zero Hour's W3DTankDraw::onRenderObjRecreated unchanged: rebuild the tread
+// objects for the new render object (a tail jump).
+void W3DTankDraw::onRenderObjRecreated(void)
+{
+	updateTreadObjects();
 }
