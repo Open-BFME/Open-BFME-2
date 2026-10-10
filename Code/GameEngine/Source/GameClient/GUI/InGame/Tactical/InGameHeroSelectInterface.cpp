@@ -1,5 +1,5 @@
 // stlport
-// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmelist /Ireference/shims/bfmealloc /D_CRTIMP= /O1 /EHsc /MD /arch:SSE /ICode/GameEngine/Source/Common /ICode/Libraries/Include/Lib /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
+// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmelist /Ireference/shims/bfmealloc  /O1 /G7 /EHsc /MD /arch:SSE /ICode/GameEngine/Source/Common /ICode/Libraries/Include/Lib /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
 // InGameHeroSelectInterface.cpp -- InGameHeroSelectInterface::Impl members
 // recovered from WorldBuilder leads (reverse/wb_name_leads.csv): WB's debug
 // build names the function and asserts a valid hero id and template; retail
@@ -9,6 +9,8 @@
 // +0x10 (an STLport list at +0x10 there); each entry holds the hero's
 // ObjectID (+0x00 of the payload) and its flash countdown (+0x08). The hero
 // template's name is at ThingTemplate+0x64.
+#undef _CRTIMP
+#define _CRTIMP __declspec(dllimport)
 #include "ascii_string.h"
 #include <list>
 #include "Rva00525119.h"
@@ -53,7 +55,7 @@ public:
 	unsigned char m_pad08[0x38 - 8];
 	Coord3D m_pos; // +0x38
  char pad44[0x74-0x44]; ObjectID id;
- char pad78[0x438-0x78]; unsigned char flags438;
+ char pad78[0x274-0x78];Object *containerOwner;char pad278[0x438-0x278]; unsigned char flags438;
 };
 
 class GameLogic
@@ -159,7 +161,7 @@ class BuilderUISelectionView {public:
  BUILDER_SLOT(40) BUILDER_SLOT(41) BUILDER_SLOT(42) BUILDER_SLOT(43) BUILDER_SLOT(44) BUILDER_SLOT(45) BUILDER_SLOT(46) BUILDER_SLOT(47)
  BUILDER_SLOT(48) BUILDER_SLOT(49) BUILDER_SLOT(50) BUILDER_SLOT(51) BUILDER_SLOT(52) BUILDER_SLOT(53) BUILDER_SLOT(54) BUILDER_SLOT(55)
  BUILDER_SLOT(56) BUILDER_SLOT(57) BUILDER_SLOT(58) BUILDER_SLOT(59) BUILDER_SLOT(60) BUILDER_SLOT(61) BUILDER_SLOT(62) BUILDER_SLOT(63)
- BUILDER_SLOT(64) BUILDER_SLOT(65) virtual void selectDrawable(Drawable *); BUILDER_SLOT(67) virtual void clearSelection(); BUILDER_SLOT(69) BUILDER_SLOT(70) BUILDER_SLOT(71)
+ BUILDER_SLOT(64) BUILDER_SLOT(65) virtual void selectDrawable(Drawable *); virtual void deselectDrawable(Drawable *); virtual void clearSelection(); BUILDER_SLOT(69) BUILDER_SLOT(70) BUILDER_SLOT(71)
  BUILDER_SLOT(72)
 #undef BUILDER_SLOT
  virtual const SelectedList *selection();
@@ -173,6 +175,7 @@ public:
 	{
 	public:
 		void SelectAllHeroes();
+ void OnButtonPressed(const char*);
  void SelectNearestBuilder(bool noCamera);
 
  void BuildLocalBuilderList(_STL::list<Rva00525119> *,int);
@@ -185,7 +188,7 @@ public:
 		unsigned char m_pad00[0x10];
 		HeroSelectData *m_data;			// +0x10
  char pad14[0x48-0x14];
- struct HeroSlot {HeroButtonNode *node;char unknown[20];};
+ struct HeroSlot {HeroButtonNode *node;char unknown[18];bool builderSlot;char pad;};
  HeroSlot slots[16];
  char pad1C8[0x1DA-0x1C8];bool builderUsed;
  char pad1DB;unsigned int builderDeadline;
@@ -439,5 +442,56 @@ void InGameHeroSelectInterface::Impl::SelectNearestBuilder(bool noCamera)
   entry->used=true;
   builderUsed=true;
   reinterpret_cast<Rva00524FA7 *>(this)->rva00524FA7();
+ }
+}
+
+extern "C" __declspec(dllimport) int __cdecl strncmp(const char *,const char *,unsigned int);
+extern "C" __declspec(dllimport) int __cdecl atoi(const char *);
+void InGameHeroSelectInterface::Impl::OnButtonPressed(const char *params) {
+ if(strncmp(params,"Hero",4))return;
+ int index=atoi(params+4)-1;
+ if(index<0 || index>=16)return;
+ if(slots[index].builderSlot){SelectNearestBuilder(false);return;}
+ HeroButtonNode *it=slots[index].node;
+ if(it==m_data->m_heroButtons.end())return;
+ Object *obj=TheGameLogic->findObjectByID(it->m_data.m_heroID);
+ if(!obj)return;
+ if((((const unsigned char *)obj->getTemplate())[0x113]&4) && obj->containerOwner)obj=obj->containerOwner;
+ if(!obj || !obj->isSelectable())return;
+ Drawable *draw=obj->getDrawable();
+ if(!draw)return;
+ HeroContainer *container=draw->container;
+ if(container){
+ Object *horde=container->owner;
+ if(horde && (((const unsigned char *)horde->getTemplate())[0x115]&0x20)){obj=horde;draw=horde->getDrawable();}
+ }
+ const _STL::list<Drawable*> *selected=reinterpret_cast<const _STL::list<Drawable*> *>(reinterpret_cast<BuilderUISelectionView *>(TheInGameUI)->selection());
+ if(!reinterpret_cast<BuilderUISelectionView *>(TheInGameUI)->additiveSelection || selected->size()==0 || (selected->size()==1 && selected->front()==draw)) {
+  if(selected->size()==1 && selected->front()==draw)TheTacticalView->lookAt(draw->getPosition());
+  else {
+   reinterpret_cast<BuilderUISelectionView *>(TheInGameUI)->clearSelection();
+   GameMessage *message=TheMessageStream->createMessage(0x3E9);
+   message->appendBooleanArgument(true);
+   message->appendObjectIDArgument(obj->id);
+   reinterpret_cast<BuilderUISelectionView *>(TheInGameUI)->selectDrawable(draw);
+  }
+ }else{
+  bool found=false;
+  _STL::list<Drawable*>::const_iterator pos=selected->begin();
+  while(pos!=selected->end() && !found) {
+   if(*pos==draw)found=true;
+   else ++pos;
+  }
+  if(found) {
+   GameMessage *message=TheMessageStream->createMessage(0x3ED);
+   message->appendObjectIDArgument(obj->id);
+   reinterpret_cast<BuilderUISelectionView *>(TheInGameUI)->deselectDrawable(draw);
+  }else {
+   GameMessage *message=TheMessageStream->createMessage(0x3E9);
+   message->appendBooleanArgument(false);
+   message->appendObjectIDArgument(obj->id);
+   reinterpret_cast<BuilderUISelectionView *>(TheInGameUI)->selectDrawable(draw);
+  }
+
  }
 }
