@@ -1,6 +1,8 @@
 // ?rva00374FD5@StealthUpdate@@QAE?AW4UpdateSleepTime@@XZ
+// partial score=1.0 date=2026-10-10
+// ?rva00374FD5@StealthUpdate@@QAE?AW4UpdateSleepTime@@XZ
 // partial score=0.98 date=2026-10-07
-// cl: /O1 /DNDEBUG /MD /GX /arch:SSE /ICode/GameEngine/Source/Common /ICode/Libraries/Include/Lib /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include
+// cl: /O1 /DNDEBUG /MD /GX /arch:SSE /ICode/GameEngine/Source/Common /ICode/Libraries/Include/Lib /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /G7
 //
 // StealthUpdate logic bodies between retail 0x00373D15 and 0x003758A8, the
 // stretch Zero Hour's StealthUpdate.cpp (GeneralsMD GameLogic/Object/Update)
@@ -1661,7 +1663,8 @@ UpdateSleepTime StealthUpdate::rva00374FD5()
 		}
 	}
 
-	return calcSleepTime();
+	if (0) { AsciiString unused; }
+return calcSleepTime();
 }
 
 // ?update@StealthUpdate@@UAE?AW4UpdateSleepTime@@XZ @0x003756A8
