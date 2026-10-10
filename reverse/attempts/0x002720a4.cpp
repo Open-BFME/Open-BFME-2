@@ -1,4 +1,6 @@
 // ?rva002720A4@@YAXPBUIRegion2D@@PBUICoord2D@@M@Z
+// partial score=0.9973 date=2026-10-10
+// ?rva002720A4@@YAXPBUIRegion2D@@PBUICoord2D@@M@Z
 // partial score=0.9972586356858847 date=2026-10-10
 // ?rva002720A4@@YAXPBUIRegion2D@@PBUICoord2D@@M@Z
 // cl: /O1 /DNDEBUG /MD /arch:SSE
