@@ -34,3 +34,10 @@ typedef _STL::_Rb_tree<const char*, Rva00603A00Pair, _STL::_Select1st<Rva00603A0
 template void Rva00603A00Tree::_M_erase(Rva00603A00Tree::_Link_type);
 template void Rva00603A00Tree::clear();
 template Rva00603A00Tree::~_Rb_tree();
+
+// Native603C52..603C57 tail JMP603AA8 to the sole owned tree destructor.
+// Unadjusted receiver only; original wrapper and enclosing type unknown.
+struct Rva00603C52TreeRelease { void release(); };
+void Rva00603C52TreeRelease::release() {
+    reinterpret_cast<Rva00603A00Tree *>(this)->~_Rb_tree();
+}

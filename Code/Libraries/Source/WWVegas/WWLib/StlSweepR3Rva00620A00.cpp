@@ -21,3 +21,12 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 
 struct Rva00620A00Record {  char bytes[1]; };
 template class _STL::map<int,Rva00620A00Record>;
+
+// Native620D90..620D95 tail JMP620A00 to the sole owned tree destructor.
+// Unadjusted receiver only; original wrapper and enclosing type unknown.
+struct Rva00620D90TreeRelease { void release(); };
+void Rva00620D90TreeRelease::release() {
+    typedef _STL::pair<const int,Rva00620A00Record> Value;
+    typedef _STL::_Rb_tree<int,Value,_STL::_Select1st<Value>,_STL::less<int>,_STL::allocator<Value> > Tree;
+    reinterpret_cast<Tree *>(this)->~_Rb_tree();
+}
