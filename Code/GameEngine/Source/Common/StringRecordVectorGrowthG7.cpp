@@ -35,6 +35,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 struct BfmeStringRecord002199C8 {
     AsciiString text0, text1, text2; unsigned int word;
     BfmeStringRecord002199C8(const BfmeStringRecord002199C8 &o);
+    ~BfmeStringRecord002199C8(); // rowed out of line (0x0021A0C2, Rva0021A0C2Dtor.cpp)
 };
 struct BfmeStringRecord00219A68 {
     unsigned int word0; AsciiString text0, text1; unsigned int word1, word2;

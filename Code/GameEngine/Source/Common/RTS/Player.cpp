@@ -679,10 +679,19 @@ struct RetailPlayerRelationMap { void *m_baseVtbl; PlayerRelationMapType m_map; 
 static RetailTeamRelationMap *teamRelationsOf( const Player *p ) { return *(RetailTeamRelationMap **)((char *)p + 0x290); }
 static RetailPlayerRelationMap *playerRelationsOf( const Player *p ) { return *(RetailPlayerRelationMap **)((char *)p + 0x28c); }
 
-// Team loses that second vtable pointer too, putting m_id at +0x08. A function
-// so the key stays an rvalue: find takes it by const reference, and retail
+// BFME's Team keeps m_id at +0x34 (the matched getRelationship(const Team *)
+// 0x002AD0C6 and TeamFactory::loadPostProcess 0x0039F7A5 read it there), where
+// this tree's Zero Hour Team.h has +0x0c. Every Team id read in this unit goes
+// through this function instead of the header's inline Team::getID, whose
+// +0x0c copy would otherwise be the first one in link order. A function so
+// the key stays an rvalue: find takes it by const reference, and retail
 // copies it to a stack temp rather than passing the member's own address.
-static TeamID getRetailTeamID( const Team *that ) { return *(const TeamID *)((const char *)that + 0x08); }
+static TeamID getRetailTeamID( const Team *that ) { return *(const TeamID *)((const char *)that + 0x34); }
+
+// BFME's TeamPrototype keeps m_id at +0x0c (TeamFactory::loadPostProcess
+// 0x0039F7A5 reads it there); read it here rather than through the header's
+// inline TeamPrototype::getID, whose copy reads this tree's Zero Hour offset.
+static TeamPrototypeID getRetailTeamPrototypeID( const TeamPrototype *proto ) { return *(const TeamPrototypeID *)((const char *)proto + 0x0c); }
 
 //DECLARE_PERF_TIMER(Player_getRelationship)
 // Player::getRelationship: defined in PlayerGetRelationship.cpp (its row's unit).
@@ -744,7 +753,7 @@ void Player::setTeamRelationship(const Team *that, Relationship r)
 	if (that != NULL)
 	{
 		// note that this creates the entry if it doesn't exist.
-		m_teamRelations->m_map[that->getID()] = r;
+		m_teamRelations->m_map[getRetailTeamID(that)] = r;
 	}
 }
 
@@ -3843,7 +3852,7 @@ void Player::xfer( Xfer *xfer )
 		{
 
 			prototype = *it;
-			prototypeID = prototype->getID();
+			prototypeID = getRetailTeamPrototypeID(prototype);
 			xfer->xferUser( &prototypeID, sizeof( TeamPrototypeID ) );
 
 		}  // end for
@@ -3977,7 +3986,7 @@ void Player::xfer( Xfer *xfer )
 		xfer->xferSnapshot( m_tunnelSystem );
 
 	// default team
-	TeamID teamID = m_defaultTeam ? m_defaultTeam->getID() : TEAM_ID_INVALID;
+	TeamID teamID = m_defaultTeam ? getRetailTeamID(m_defaultTeam) : TEAM_ID_INVALID;
 	xfer->xferUser( &teamID, sizeof( TeamID ) );
 	if( xfer->getXferMode() == XFER_LOAD )
 		m_defaultTeam = TheTeamFactory->findTeamByID( teamID );

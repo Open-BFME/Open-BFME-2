@@ -102,11 +102,12 @@ public:
 	virtual SupplyTruckAIInterface *getSupplyTruckAIInterface(); // slot 95 (+0x17C)
 };
 
+// The AI module pointer is read as a member: an inline getAIUpdateInterface
+// here would emit a COMDAT under the name the Zero Hour-header units define
+// with Zero Hour's offset (every use below is inlined either way).
 class Object
 {
 public:
-	AIUpdateInterface *getAIUpdateInterface() { return m_ai; }
-private:
 	unsigned char m_pad000[0x258];
 	AIUpdateInterface *m_ai; // +0x258
 };
@@ -211,7 +212,7 @@ public:
 StateReturnType Rva004A6979::onEnter()
 {
 	Object *owner = getMachineOwner();
-	SupplyTruckAIInterface *update = owner->getAIUpdateInterface()->getSupplyTruckAIInterface();
+	SupplyTruckAIInterface *update = owner->m_ai->getSupplyTruckAIInterface();
 	if (!update)
 	{
 		return STATE_FAILURE;
@@ -279,7 +280,7 @@ SupplyTruckStateMachine::SupplyTruckStateMachine(Object *owner) : StateMachine(o
 Bool SupplyTruckStateMachine::isForcedIntoWantingState(State *thisState, void *userData)
 {
 	Object *owner = thisState->getMachineOwner();
-	AIUpdateInterface *ai = owner->getAIUpdateInterface();
+	AIUpdateInterface *ai = owner->m_ai;
 	if (!ai)
 		return false;
 	SupplyTruckAIInterface *update = ai->getSupplyTruckAIInterface();
@@ -297,7 +298,7 @@ Bool SupplyTruckStateMachine::isForcedIntoWantingState(State *thisState, void *u
 Bool SupplyTruckStateMachine::isForcedIntoBusyState(State *thisState, void *userData)
 {
 	Object *owner = thisState->getMachineOwner();
-	AIUpdateInterface *ai = owner->getAIUpdateInterface();
+	AIUpdateInterface *ai = owner->m_ai;
 	if (!ai)
 		return false;
 	SupplyTruckAIInterface *update = ai->getSupplyTruckAIInterface();

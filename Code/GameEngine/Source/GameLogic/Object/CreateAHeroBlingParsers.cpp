@@ -96,6 +96,7 @@ void Rva0021ECB2Parse(INI *ini)
 struct BfmeStringRecord002199C8 {
  AsciiString text0,text1,text2;unsigned word;
  BfmeStringRecord002199C8(unsigned,const AsciiString&,const AsciiString&,const AsciiString&);
+ ~BfmeStringRecord002199C8(); // rowed out of line (0x0021A0C2, Rva0021A0C2Dtor.cpp)
 };
 class UpgradeTemplate;
 class UpgradeCenter {public:const UpgradeTemplate *findUpgrade(const AsciiString&)const;};
