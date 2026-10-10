@@ -1,5 +1,4 @@
 // ?collectKeys@Rva00622290@@QAE?AURva00622290SetGroup@@XZ
-// partial score=1.0 date=2026-10-10
 // cl: /O2 /G6 /arch:SSE /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc /Ireference/shims/sweep
 // stlport
 // Donor: Open-BFME-1 575ba2b04743 AssetRegistryKeySet009EF7D0.cpp.

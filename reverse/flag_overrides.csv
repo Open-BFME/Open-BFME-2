@@ -733,6 +733,7 @@ Code/Libraries/Source/WWVegas/wwshade/ShdDefFactoryClassDelete.cpp,,1,1,region d
 Code/Libraries/Source/assetmanager/Q1ReceiverDrain.cpp,-O2 -G6 -arch:SSE,1,1,region default loses rows
 Code/Libraries/Source/assetmanager/Rva0061FFA0.cpp,-O2 -G6,3,1,region default loses rows
 Code/Libraries/Source/assetmanager/Rva0061FFD0Cluster.cpp,,1,1,region default loses rows
+Code/Libraries/Source/assetmanager/Rva00622290CollectKeys.cpp,-O2 -G6 -arch:SSE,1,1,region default loses rows
 Code/Libraries/Source/assetmanager/assetmanager_impl.cpp,,17,6,region default loses rows
 Code/Libraries/Source/assetmanager/q1_registry_forwards.cpp,-O2 -G6,12,1,region default loses rows
 Code/Libraries/Source/partitionmanager/partitionmanager_impl.cpp,-O2 -G6,2,2,region default loses rows
