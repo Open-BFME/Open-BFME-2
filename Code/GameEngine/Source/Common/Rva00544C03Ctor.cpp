@@ -54,18 +54,50 @@ public:
 
 extern GameLogic *TheGameLogic;
 
+#include "../../../Libraries/Include/Lib/Coord3D.h"
+
 class StateMachine
 {
 public:
 	Object *getOwner() const { return m_owner; }
 	unsigned char m_pad00[0x14];
 	Object *m_owner;
+	unsigned char m_pad18[0x24 - 0x18];
+	Coord3D m_24;
+};
+
+class Rva00544FC6ConditionBits
+{
+public:
+	unsigned int test(unsigned int bit) const
+	{
+		return m_words[bit >> 5] & (1U << (bit & 0x1f));
+	}
+	void set(unsigned int bit)
+	{
+		m_words[bit >> 5] |= 1U << (bit & 0x1f);
+	}
+private:
+	unsigned int m_words[20];
 };
 
 class Object
 {
 public:
-	unsigned char m_pad000[0x258];
+	void rva0028AE6D();
+	__forceinline void markOnce()
+	{
+		if (m_conditionBits.test(256) == 0)
+		{
+			m_conditionBits.set(256);
+			rva0028AE6D();
+		}
+	}
+	unsigned char m_pad000[0x38];
+	Coord3D m_pos38;
+	unsigned char m_pad044[0x10C - 0x44];
+	Rva00544FC6ConditionBits m_conditionBits; // +0x10C
+	unsigned char m_pad15C[0x258 - 0x15C];
 	AIUpdateInterface *m_ai;
 };
 
@@ -180,9 +212,42 @@ public:
 	virtual void w04();
 	virtual void w05();
 	virtual void w06();
-	virtual void w07();
+	virtual float w07();
 	virtual int w08();
+	virtual void w09();
+	virtual void w10();
+	virtual void w11(int value);
+	virtual void w12();
+	virtual void w13();
+	virtual void w14();
+	virtual void w15();
+	virtual void w16();
+	virtual void w17(int value);
 };
+
+class BfmeX1035
+{
+public:
+	unsigned char m_pad00[0x10];
+	int m_10;
+	unsigned char m_pad14[4];
+	bool m_18;
+};
+
+class BfmeThingCME
+{
+public:
+	int rva0027F108(void *pos, float radius, int a, int b);
+};
+
+class Rva004C82E5Terrain
+{
+public:
+	void rva0028447F(BfmeX1035 *site, const Coord3D *pos);
+};
+
+class TerrainLogic;
+extern TerrainLogic *TheTerrainLogic;
 
 typedef unsigned int UnsignedInt;
 
@@ -241,6 +306,7 @@ public:
 	AIHarvestPrepareSiteState(StateMachine *machine);
 	virtual void xfer(Xfer *xfer);
 	virtual StateReturnType onEnter();
+	virtual StateReturnType update();
 private:
 	UnsignedInt m_20;
 };
@@ -271,5 +337,44 @@ StateReturnType AIHarvestPrepareSiteState::onEnter()
 	int frame = TheGameLogic->m_40;
 	int v = ret->w08();
 	m_20 = v + frame;
+	return STATE_CONTINUE;
+}
+
+// update, retail 0x00544FC6..0x005450B5 (239 bytes): slot 6 of the state
+// table 0x00C69C98. With the AI's slot-95 helper it asks TheTerrainLogic
+// (0x0027F108, radius from helper slot 7, 0, 2) for a site at the owner's
+// position, retrying at the machine's +0x24 point; with neither the helper
+// gets slot 11 (1) and the state fails. A found site goes to helper slot 17
+// by its +0x10 word, the owner's +0x12C bit 0 is raised once (notifying via
+// 0x0028AE6D), and an unclaimed site (+0x18 clear) is claimed through the
+// thiscall spelling of 0x0028447F once the frame reaches m_20; otherwise
+// the state keeps waiting.
+StateReturnType AIHarvestPrepareSiteState::update()
+{
+	RetObj *helper = m_machine->getOwner()->m_ai->v95();
+	if (helper)
+	{
+		Object *owner = m_machine->getOwner();
+		BfmeX1035 *site = (BfmeX1035 *)((BfmeThingCME *)TheTerrainLogic)->rva0027F108(
+			&owner->m_pos38, helper->w07(), 0, 2);
+		if (!site)
+		{
+			Coord3D *goal = &m_machine->m_24;
+			if (!((BfmeThingCME *)TheTerrainLogic)->rva0027F108(goal, helper->w07(), 0, 2))
+				helper->w11(1);
+			return (StateReturnType)-2;
+		}
+		helper->w17(site->m_10);
+		m_machine->getOwner()->markOnce();
+		if (!site->m_18)
+		{
+			if ((UnsignedInt)TheGameLogic->m_40 < m_20)
+				goto keepWaiting;
+			((Rva004C82E5Terrain *)TheTerrainLogic)->rva0028447F(site, &m_machine->getOwner()->m_pos38);
+		}
+		return (StateReturnType)-1;
+	}
+keepWaiting:
+	m_machine->getOwner()->markOnce();
 	return STATE_CONTINUE;
 }
