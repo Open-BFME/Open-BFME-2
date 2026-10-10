@@ -177,7 +177,8 @@ private:
 };
 
 W3DRadarResetSurface getBackBufferSurface006e(int index);
-int Rva00075E36Get();
+struct IDirect3DTexture8;
+class W3DShaderManager { public: static IDirect3DTexture8 *getRenderTexture(); };
 void Rva00075A23Draw(int width, int height);
 
 // Retail 0x00111C05. Copies the back buffer into the post-effect render
@@ -186,10 +187,10 @@ void Rva00075A23Draw(int width, int height);
 // vertex and pixel shaders.
 void LookupTablePostEffect::doApply()
 {
-	if (!m_08.get() || !Rva00075E36Get())
+	if (!m_08.get() || !W3DShaderManager::getRenderTexture())
 		return;
 	BfmeD3DSurface *target = 0;
-	if (((BfmeD3DTexture *)Rva00075E36Get())->GetSurfaceLevel(0, &target) < 0)
+	if (((BfmeD3DTexture *)W3DShaderManager::getRenderTexture())->GetSurfaceLevel(0, &target) < 0)
 		return;
 	BfmeD3DSurface *backBuffer = getBackBufferSurface006e(0).peek();
 	if (!backBuffer) {
@@ -203,7 +204,7 @@ void LookupTablePostEffect::doApply()
 	if (m_08.get()->begin(&passes, 0xffff)) {
 		for (int pass = 0; pass < passes; pass++) {
 			m_08.get()->beginPass(pass);
-			DX8Wrapper::Set_DX8_Texture(0, (IDirect3DBaseTexture8 *)Rva00075E36Get());
+			DX8Wrapper::Set_DX8_Texture(0, (IDirect3DBaseTexture8 *)W3DShaderManager::getRenderTexture());
 			Rva00075A23Draw(desc.Width, desc.Height);
 			m_08.get()->endPass();
 		}

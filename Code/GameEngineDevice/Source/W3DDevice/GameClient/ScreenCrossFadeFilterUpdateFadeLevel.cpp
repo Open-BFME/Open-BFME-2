@@ -296,11 +296,11 @@ class W3DShaderManager
 {
 public:
 	static IDirect3DTexture8 *endRenderToTexture();
+ static IDirect3DTexture8 *getRenderTexture();
  static void startRenderToTexture();
 };
 
 
-int __cdecl Rva00075E36Get();
 extern unsigned number_of_DX8_calls;
 class ScreenCrossFadeFilter
 {
@@ -376,7 +376,7 @@ Bool ScreenCrossFadeFilter::postRender(FilterModes mode, Coord2D &scrollDelta,
 		return true;
 	}
 
-	tex = reinterpret_cast<IDirect3DTexture8 *>(Rva00075E36Get());
+	tex = W3DShaderManager::getRenderTexture();
 	if (!tex)
 		return false;
 	if (!set(mode))
