@@ -455,6 +455,7 @@ class SubsystemInterface
 public:
 	SubsystemInterface() throw();
 	virtual ~SubsystemInterface();
+	virtual void init() = 0;
 private:
 	int m_pad04;
 	int m_pad08;
@@ -465,6 +466,7 @@ class Rva0022958D : public SubsystemInterface
 public:
 	Rva0022958D();
 	virtual ~Rva0022958D();
+	virtual void init();
 private:
 	AsciiString m_0c;
 	AsciiString m_10;
@@ -479,6 +481,15 @@ Rva0022958D::Rva0022958D()
 
 Rva0022958D::~Rva0022958D()
 {
+}
+
+void Rva0013676D();	// 0x0013676D: clears the 0x00DF29B4 map
+
+// Retail 0x00417A66 (5 bytes): SubsystemInterface slot 1 (init) of vtable
+// 0x007E73E8, a tail jump to the map clear.
+void Rva0022958D::init()
+{
+	Rva0013676D();
 }
 
 // Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
