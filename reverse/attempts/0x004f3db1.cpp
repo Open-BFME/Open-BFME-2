@@ -1,5 +1,5 @@
 // ?selectTeamToReinforce@AIPlayer@@MAE_NH@Z
-// partial score=0.8128917635500246 date=2026-10-10
+// partial score=0.8156204714343568 date=2026-10-10
 // ?selectTeamToReinforce@AIPlayer@@MAE_NH@Z
 // partial score=0.7939423069063325 date=2026-10-09
 // Target4F3DB1..4F418A; ZH AIPlayer selectTeamToReinforce with BFME2 record, recruit-type and null-order deltas.
