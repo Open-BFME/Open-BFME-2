@@ -1059,3 +1059,19 @@ Bool Bridge::isCellEntryPoint(const Region2D *cell, Real *z)
 	}
 	return(false);
 }
+
+// ?loadPostProcess@Rva0062AF7@@MAEXXZ @0x00062E4A 5B: slot 1 of vtable
+// 0x007C5890, the device terrain logic (??_7Rva0062AF7, whose slot 2 returns
+// "W3DTerrainLogic"). Zero Hour's W3DTerrainLogic::loadPostProcess only
+// extends the base, so it is a tail jump to TerrainLogic::loadPostProcess
+// above (slot 1 of TerrainLogic's vtable 0x007FB2C8).
+class Rva0062AF7 : public TerrainLogic
+{
+protected:
+	virtual void loadPostProcess(void);
+};
+
+void Rva0062AF7::loadPostProcess(void)
+{
+	TerrainLogic::loadPostProcess();
+}
