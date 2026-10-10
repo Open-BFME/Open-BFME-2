@@ -1,44 +1,62 @@
-// ?rva00113110@Rva00113110Holder@@QAEXH@Z
-// partial score=0.85 date=2026-10-05
-// cl: /O1 /DNDEBUG /MD
+// ?rva00113110@Rva00113110Holder@@QAEXPAX@Z
+// partial score=1.0 date=2026-10-10
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ob2
 //
-// ?rva00113110@Rva00113110Holder@@QAEXH@Z @0x00113110 65B.
-// Retail (this=esi, 1 int arg v -> edi): if (m_5C==0) return; if (v)
-// ++[v+4]; cur=m_5C; if (cur) { if (--[cur+4]==0) cur->~Rva (slot0);
-// m_5C=(Ref*)v; } if (m_60) this->rva00112898(0,0,m_58) via pin 0x00112898.
-// Refcount at +4, dtor slot0, no free. Names opaque; pin proves nothing.
-class Rva00113110Ref
+// Target facts from retail RVA 0x00113151: the 73-byte interval ends at
+// 0x0011319A. It returns immediately when this+0x5C is null. Otherwise it
+// optionally retains the incoming object, releases the prior object's +4
+// count through vtable slot 0 when that count reaches zero, and stores the
+// incoming pointer at this+0x5C. If byte this+0x60 is set, it calls
+// 0x00112AD1 with two zero values, this+0x58, and the second float argument.
+// The adjacent 0x00113110 REL32 supports a shared address-derived holder view;
+// class and method identities remain unproven. Resource layout follows the
+// target's vptr slot-0 and +4 count accesses. The callback pin records only
+// its call target and stack shape; its body remains unrecovered.
+
+class Rva00113151Resource
 {
 public:
-	virtual ~Rva00113110Ref();
-	int m_ref04; // +0x04
+	virtual void rva00113151Release() = 0;
+
+private:
+	int m_referenceCount;
+	friend class Rva00113110Holder;
+};
+
+class Rva00112AD1
+{
+public:
+	bool rva00112AD1(int arg0, int arg1, int arg2, float arg3);
 };
 
 class Rva00113110Holder
 {
 public:
-	void rva00113110(int v);
-	void rva00112898(int a, int b, void *c);
+	void rva00113151(void *incoming, float value);
+ void rva00113110(void *incoming);
+ void rva00112898(int,int,void*);
+
 private:
 	char m_pad00[0x58];
-	void *m_58; // +0x58
-	Rva00113110Ref *m_5C; // +0x5C
-	unsigned char m_60; // +0x60
+	int m_callbackContext;
+	Rva00113151Resource *m_resource;
+	unsigned char m_refresh;
 };
 
-void Rva00113110Holder::rva00113110(int v)
+void Rva00113110Holder::rva00113110(void *incoming)
 {
-	if (!m_5C)
+	if (m_resource == 0) {
 		return;
-	Rva00113110Ref *nv = (Rva00113110Ref *)v;
-	if (nv)
-		++nv->m_ref04;
-	Rva00113110Ref *cur = m_5C;
-	if (cur) {
-		if (--cur->m_ref04 == 0)
-			cur->~Rva00113110Ref();
-		m_5C = nv;
 	}
-	if (m_60)
-		rva00112898(0, 0, m_58);
+	if (incoming != 0) {
+		++*(int *)((char *)incoming + 4);
+		Rva00113151Resource *old = m_resource;
+		if (old != 0 && --old->m_referenceCount == 0) {
+			old->rva00113151Release();
+		}
+		m_resource = (Rva00113151Resource *)incoming;
+	}
+	if (m_refresh != 0) {
+		rva00112898(0,0,(void*)m_callbackContext);
+	}
 }
