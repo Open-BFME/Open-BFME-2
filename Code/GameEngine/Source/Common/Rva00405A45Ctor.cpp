@@ -9,6 +9,7 @@ extern const void *const g_00C38958[];
 class Rva00405A45
 {
 public:
+	Rva00405A45();
 	Rva00405A45(int dummy);
 private:
 	const void *m_vtable;
@@ -17,5 +18,12 @@ private:
 Rva00405A45::Rva00405A45(int dummy)
 {
 	(void)dummy;
+	m_vtable = g_00C38958;
+}
+
+// ??0Rva00405A45@@QAE@XZ @0x004059ED 9B: the default overload, installing
+// the same table 0x00838958 and returning this (no direct caller).
+Rva00405A45::Rva00405A45()
+{
 	m_vtable = g_00C38958;
 }
