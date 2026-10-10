@@ -6,15 +6,12 @@
 // inline free). Same no-EH recipe as stlport_vector_e16_noexc.cpp.
 
 #include <stl/_algobase.h>
-#pragma optimize("s", off)
-#pragma optimize("t", on)
 namespace _STL {
-template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
 {
-	return a < b ? b : a;
+    return a < b ? b : a;
 }
 }
-#pragma optimize("", on)
 
 #include <vector>
 struct Rva00504755Record { float x, y, z, w; };

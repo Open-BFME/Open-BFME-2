@@ -8,16 +8,13 @@
 // instantiation emitted a non-retail COMDAT copy of operator=.
 // The emitted unsigned max copy must match retail RVA 0x00013740.
 // Define it for speed, then restore this unit's flags for its vector bodies.
-#pragma optimize("s", off)
-#pragma optimize("t", on)
 #include <stl/_algobase.h>
 namespace _STL {
-template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
 {
     return a < b ? b : a;
 }
 }
-#pragma optimize("", on)
 
 #include <vector>
 struct TargetRef00217D4C { virtual void *destroy(unsigned int flags); int references; };
