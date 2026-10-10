@@ -5,7 +5,7 @@
   ],
   "bytes": 737,
   "verified": "All scoped body/consumer checks plus full74097 body/literal/float/import gate; EH tables exact",
-  "blocked": "Full DIR32 consistency fails four foreign fade globals binding DEC068/DEC1A0/DEC1B0; file claimed by codex-01a12257-root",
+  "blocked": "Current master DIR32: ??_7Rva00074626@@6B@ has BC65A8 in 74626/7461F destructors but BC8318 in30AFC4 constructor. Constructor/class held NotNBR. Prior seven conflicts fixed by611cafed2d.",
   "restore": "Apply Code portion of support patch; admit native472+265 with existing tool gates; rehome destructors and uninitialized_fill_n; preserve flags and canonical advanced header. Constructor registry default definitions must remain in separate TU. Reconcile ledger deletions explicitly.",
   "alias_note": "BattlePrompt constructor TU now owns the same two-string concat61 gen-alias at109CFD. Do not add duplicate symbol/row from this snapshot. All aliases contribute zero unique bytes.",
   "round3_verification": {
@@ -23,5 +23,18 @@
     ],
     "log": "build/n5-r3-737commit.log",
     "time": "2026-10-10 03:35 CEST"
+  },
+  "round3_recheck_after_shared_repairs": {
+    "base": "69c52819b3",
+    "scoped": "34/34 across6TUs;8 literals+2emptyrefs,1float,1import exact",
+    "provider_control": "41/41 across2TUs exact; supported dir32.py independently confirms both vtable addresses",
+    "logs": [
+      "build/n5-r3-priority-recheck-repaired-master.log",
+      "build/n5-r3-74626-provider-check.log",
+      "build/n5-r3-74626-dir32.log"
+    ],
+    "fresh_patch": "Code and header unchanged exact;15 source/alias rows,6 old-owner rehomes; two old destructor tombstones; no concat109CFD addition",
+    "time": "2026-10-10 07:15 CEST",
+    "model": "gpt-6.1-sol"
   }
 }
