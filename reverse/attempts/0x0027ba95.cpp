@@ -1,4 +1,6 @@
 // ?calcPhysicsXform@Drawable@@QAE_NAAUPhysicsXformInfo@1@@Z
+// partial score=0.9772349272349272 date=2026-10-10
+// ?calcPhysicsXform@Drawable@@QAE_NAAUPhysicsXformInfo@1@@Z
 // partial score=0.9247661122994653 date=2026-10-09
 // ?calcPhysicsXform@Drawable@@QAE_NAAUPhysicsXformInfo@1@@Z
 // partial score=0.9 date=2026-10-08
@@ -77,9 +79,9 @@ private:
 
 bool Drawable::calcPhysicsXform(PhysicsXformInfo &info)
 {
+    bool hasPhysicsXform = false;
     DrawablePhysicsObject *obj = getObject();
     DrawablePhysicsHolder *holder = obj ? obj->getAIUpdateInterface() : 0;
-    bool hasPhysicsXform = false;
     if (holder)
     {
         DrawablePhysicsLocomotor *locomotor =

@@ -1,4 +1,6 @@
 // ?renderOneObject@RTS3DScene@@IAEXAAVRenderInfoClass@@PAVRenderObjClass@@HH@Z
+// partial score=0.888305375382092 date=2026-10-10
+// ?renderOneObject@RTS3DScene@@IAEXAAVRenderInfoClass@@PAVRenderObjClass@@HH@Z
 // partial score=0.85864696 date=2026-10-10
 // ?renderOneObject@RTS3DScene@@IAEXAAVRenderInfoClass@@PAVRenderObjClass@@HH@Z
 // partial score=0.91 date=2026-10-09
@@ -451,11 +453,11 @@ void RTS3DScene::renderOneObject(RenderInfoClass &rinfo, RenderObjClass *robj, I
 	Bool hasLightmap = FALSE;
 	if (TheTerrainLogic)
 	{
-		Vector3 sample;
+		float sample[3];
 		if (reinterpret_cast<Rva0062AF7 *>(TheTerrainLogic)->rva0027DA6A((const float*)&robj->Get_Position(), (float*)&sample))
 		{
 			hasLightmap = TRUE;
-			lightmapColor = sample;
+			lightmapColor.X=sample[0];lightmapColor.Y=sample[1];lightmapColor.Z=sample[2];
 			ambient += lightmapColor;
 		}
 	}
