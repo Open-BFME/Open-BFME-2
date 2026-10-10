@@ -1,15 +1,11 @@
-// ??0Rva003438C7@@QAE@PAVObject@@PAVRva003438C7Host@@I@Z
-// partial score=0.96 date=2026-10-09
-// ??0Rva003438C7@@QAE@PAVObject@@PAVRva003438C7Host@@I@Z
-// partial score=0.95 date=2026-10-09
-// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc
+// cl: /O1 /I. /arch:SSE /G7 /DNDEBUG /MD /EHsc
 //
 // Rva003438C7::Rva003438C7, retail 0x3438c7: a BFME 2 state machine constructor. The base
 // is the rowed StateMachine constructor 0x004D79E1 with the caller's name key
 // (its unsigned spelling is pinned); each state comes from plain operator
 // new and its rowed constructor, registered with the IDs and transitions
 // read from the retail call sequence (Zero Hour's defineState pattern).
-#include "../Code/Libraries/Include/Lib/Coord3D.h"
+#include "Code/Libraries/Include/Lib/Coord3D.h"
 typedef bool Bool;
 typedef unsigned int UnsignedInt;
 typedef UnsignedInt StateID;
@@ -30,26 +26,12 @@ public:
 class StateMachine
 {
 public:
-	virtual ~StateMachine();
+	StateMachine(Object *owner, UnsignedInt nameKey, Bool flag);
+ virtual ~StateMachine();
 	void defineState(StateID id, State *state, StateID successID, StateID failureID, const StateConditionInfo *conditions = NULL);
 protected:
 	unsigned char m_pad04[0x3C - 0x04];
 };
-// BFME 2's StateMachine constructor (owner, name key, flag), rowed by address.
-class Rva004D759C : public StateMachine
-{
-public:
-	Rva004D759C(Object *owner, UnsignedInt nameKey, Bool flag);
-	virtual ~Rva004D759C();
-};
-// Zero Hour's Coord3D::zero(); an inlined call keeps its stores in source order.
-static __forceinline void zeroCoord3D(Coord3D &c)
-{
-	c.x = 0.0f;
-	c.y = 0.0f;
-	c.z = 0.0f;
-}
-
 class Rva0033F3EF : public State
 {
 public:
@@ -97,7 +79,7 @@ class Rva004D74AC : public State { public: Rva004D74AC(StateMachine*); private: 
 class AIAttackApproachTargetState00C12678 : public State { public: AIAttackApproachTargetState00C12678(StateMachine*); private: char pad[0x64-4]; };
 struct AttackKindPrefixView { char before108[0x108]; unsigned char kind108; char gap[6]; unsigned char kind10F; };
 struct AttackOwnerPrefixView { char first[4]; AttackKindPrefixView *thing; };
-class Rva003438C7 : public Rva004D759C
+class Rva003438C7 : public StateMachine
 {
 public:
 	Rva003438C7(Object *owner, Rva003438C7Host *host, UnsignedInt nameKey);
@@ -109,7 +91,7 @@ class Rva00343F8A;
 Bool rva0033FD98(Rva00343F8A *thisState, void *userData);
 Bool rva0033FDD6(Rva00343F8A *thisState, void *userData);
 
-Rva003438C7::Rva003438C7(Object *owner, Rva003438C7Host *host, UnsignedInt nameKey) : Rva004D759C(owner, nameKey, false)
+Rva003438C7::Rva003438C7(Object *owner, Rva003438C7Host *host, UnsignedInt nameKey) : StateMachine(owner, nameKey, false)
 {
 	static const StateConditionInfo g_condC131A0[] =
 	{
@@ -123,8 +105,8 @@ Rva003438C7::Rva003438C7(Object *owner, Rva003438C7Host *host, UnsignedInt nameK
 	defineState( 603, new Rva0033F43D( this ), 601, 9999 );
     static const StateConditionInfo portableConditions[] = { {(void*)rva0033FDD6,601,0}, {0,0,0} };
     AttackKindPrefixView *thing=reinterpret_cast<AttackOwnerPrefixView*>(owner)->thing;
-    if((thing->kind108 & 4)==0) {
-        if((thing->kind10F & 2) && (thing->kind108 & 8))
+    if(((this?reinterpret_cast<AttackOwnerPrefixView*>(owner)->thing:reinterpret_cast<AttackOwnerPrefixView*>(owner)->thing)->kind108 & 4)==0) {
+        if((thing->kind10F & 2) && ((this?reinterpret_cast<AttackOwnerPrefixView*>(owner)->thing:reinterpret_cast<AttackOwnerPrefixView*>(owner)->thing)->kind108 & 8))
             defineState(600,new Rva004D74AC(this),9999,9999,portableConditions);
         else
             defineState(600,new AIAttackApproachTargetState00C12678(this),601,9999);
