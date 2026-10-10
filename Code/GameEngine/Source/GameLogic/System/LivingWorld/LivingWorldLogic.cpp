@@ -524,6 +524,7 @@ public:
 	void ValidatePlayers();
 	void rva002B693F(void *keys);
 	UnsignedInt rva002B77B2();
+	UnsignedInt rva002B77F7();
 	bool rva002B4B83();
 	Bool EndTurn();
 	Bool AdvanceTurnPhase();
@@ -2306,6 +2307,18 @@ UnsignedInt LivingWorldLogic::rva002B77B2()
  return keys.size();
 }
 
+
+// Native2B77F7..2B783C: twin of the eligible-player-key count above.
+// Target calls the independently rowed94B collector2B69A6, whose vector8C
+// and integer-set insertion prove the same receiver and set layout. The
+// count meaning and original method spelling remain unresolved.
+class Rva002B69A6 {public:void rva002B69A6(void*);};
+UnsignedInt LivingWorldLogic::rva002B77F7()
+{
+ _STL::set<Int> keys;
+ reinterpret_cast<Rva002B69A6*>(this)->rva002B69A6(&keys);
+ return keys.size();
+}
 
 // ?LivingWorldLogic::rva002B4B83 present-unmatched
 // Native2B4B83..2B4BC9, 70B; WBD7EFF0 independently scans player vector8C
