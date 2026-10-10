@@ -21,7 +21,7 @@ private:
 class Rva0039205C
 {
 public:
-	~Rva0039205C();
+	__declspec(noinline) ~Rva0039205C();
 private:
 	int m_unk00; // +0
 	unsigned char m_pad04[4]; // +4
@@ -37,4 +37,13 @@ Rva0039205C::~Rva0039205C()
 		m_array08 = 0;
 		m_unk00 = 0;
 	}
+}
+
+// Native0x0029A21F..0x0029A224: tail JMP to sole owned cleanup0x0039205C.
+// ECX/stack unchanged no stack args RET0. Original wrapper name enclosing
+// type and lifetime role unknown; reuse only the existing receiver view.
+struct Rva0029A21FCleanupForward { void cleanup(); };
+void Rva0029A21FCleanupForward::cleanup()
+{
+    reinterpret_cast<Rva0039205C*>(this)->~Rva0039205C();
 }

@@ -19,7 +19,7 @@ extern void *g_freeList;
 class PoolMember
 {
 public:
-	void Rva00268902();
+	__declspec(noinline) void Rva00268902();
 
 private:
 	void *m_head;
@@ -33,4 +33,13 @@ void PoolMember::Rva00268902()
 		*(void **)head = g_freeList;
 		g_freeList = head;
 	}
+}
+
+// Native0x00268AFF..0x00268B04: tail JMP to sole owned cleanup0x00268902.
+// ECX/stack unchanged no stack args RET0. Original wrapper name enclosing
+// type and lifetime role unknown; reuse only the existing receiver view.
+struct Rva00268AFFCleanupForward { void cleanup(); };
+void Rva00268AFFCleanupForward::cleanup()
+{
+    reinterpret_cast<PoolMember*>(this)->Rva00268902();
 }

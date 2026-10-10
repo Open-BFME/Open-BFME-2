@@ -29,7 +29,7 @@ public:
 };
 class Rva00283426 {
 public:
-	void rva00283426();
+	__declspec(noinline) void rva00283426();
 private:
 	void *m_head;
 };
@@ -40,4 +40,13 @@ void Rva00283426::rva00283426()
 	void *head = m_head;
 	if (head != 0)
 		free(head);
+}
+
+// Native0x00283C92..0x00283C97: tail JMP to sole owned cleanup0x00283426.
+// ECX/stack unchanged no stack args RET0. Original wrapper name enclosing
+// type and lifetime role unknown; reuse only the existing receiver view.
+struct Rva00283C92CleanupForward { void cleanup(); };
+void Rva00283C92CleanupForward::cleanup()
+{
+    reinterpret_cast<Rva00283426*>(this)->rva00283426();
 }
