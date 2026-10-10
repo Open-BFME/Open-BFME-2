@@ -1,4 +1,8 @@
 // ?update@ScreenGridRva000F83FA@@QAEXPAVDynamicIBAccessClass@@HPAVDynamicVBAccessClass@@HHHMMMMPAVCoord2D@@@Z
+// partial score=0.9158154896386458 date=2026-10-10
+extern "C" void _ReadWriteBarrier();
+#pragma intrinsic(_ReadWriteBarrier)
+// ?update@ScreenGridRva000F83FA@@QAEXPAVDynamicIBAccessClass@@HPAVDynamicVBAccessClass@@HHHMMMMPAVCoord2D@@@Z
 // partial score=0.85 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHs-c- /ICode/Libraries/Include
 //
@@ -32,6 +36,7 @@ public:
 
 	public:
 		unsigned short *indices;
+ unsigned char deviceGuard;
 		WriteLockClass(DynamicIBAccessClass *ib);
 		~WriteLockClass();
 	};
@@ -53,6 +58,7 @@ public:
 
 	public:
 		Vertex *vertices;
+ unsigned char deviceGuard;
 		WriteLock(DynamicVBAccessClass *vb);
 		~WriteLock();
 	};
@@ -132,7 +138,8 @@ void ScreenGridRva000F83FA::update(DynamicIBAccessClass *ib, int ibCount, Dynami
 				float v = fy * amplitude + scrollY;
 				p->u1 = u;
 				p->v1 = v;
-				p->v2 = v + spread;
+				p->v2 = (columns?(v + spread):(v + spread));
+				_ReadWriteBarrier();
 				p->u2 = u - spread;
 				p->u1 = u + spread;
 				p->u3 = (0.5f - 0.5f * (float)sin((fx + fy) * GridWave0Frequency + GridWave0Phase * GridPhase0)) * GridWave0Amplitude;
