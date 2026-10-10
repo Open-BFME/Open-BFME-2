@@ -1,5 +1,3 @@
-// ??0Rva001ED41B@@QAE@XZ
-// partial score=0.9 date=2026-10-10
 // cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /Ireference/shims/moduledata /O1 /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport
 //
@@ -22,17 +20,18 @@ private:
 	char m_pad04[0x0C - 0x04];
 };
 
+struct Zero { int v; __forceinline Zero() : v(0) {} };
+
 class Rva001ED41B : public Snapshot, public SubsystemInterface
 {
 public:
 	Rva001ED41B();
 	virtual ~Rva001ED41B();
 private:
-	int m_10;
+	Zero m_10;
 	_STL::vector<int> m_14;
 };
 
 Rva001ED41B::Rva001ED41B()
-	: m_10(0)
 {
 }
