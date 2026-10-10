@@ -1712,3 +1712,21 @@ int CommUdpProcess( unsigned int tick )
 #pragma comment(linker, "/alternatename:_Rva00818D20Op=_Rva00818D20")
 
 }
+
+// ---- appended 2026-10-10 (w5-m1, muse-spark, t=90): home-TU graft state, score 0.92 ----
+// Graft target: Code/Libraries/Source/DirtySock/Y4CommTransportLife.c
+// (1) struct Rva00816BF0Comm: m_name[0x20]->[0x10]+m_dataSent/m_dataRecv/m_packSent/m_packRecv (+0x5C..),
+//     m_gap5[0x114]->m_tickIdle(+0xE0)+m_gap5[0x110]. Verified SAFE: ./build.sh TU -> 23/24 rows exact,
+//     only Rva00818CB0 fails (unresolved _CommUdpProcess call, expected pre-land).
+// (2) fwd decls (exact def sigs): Rva00818620, Rva00817640, Rva008186C0(+struct Rva00816F60Message*),
+//     Rva00818AD0, Rva008187E0(+record*), Rva007FF720.
+// (3) before Rva00818CB0, replacing 'int Rva00817B30(unsigned int tick);': globals g_commUdpPacket/
+//     g_commUdpPiece (struct Rva00816F60Message, = {0}), decls Rva007FDA50/CommUdpSetup/CommUdpPoke,
+//     'typedef int (__cdecl *CommUdpCallbackT)(struct Rva00816BF0Comm*,int);', then the CommUdpProcess
+//     body below in this file (line ~1473 'int CommUdpProcess(unsigned int tick)', back to '=-1' form);
+//     pump call -> CommUdpProcess(uTick). Data ledger rows needed for the 2 globals at land time.
+// Wall: exact first 0x5A3 bytes; at +0x5A3 retail 'mov ecx,[ebp-0x18]' vs ours 'mov eax,[ebp-0x18]';
+// whole tail (161 diffs to +0x843) is the same ECX/EAX/EDX rotation cascade (e.g. retail
+// 'add ecx,0x80' 6B vs ours 'add eax,0x80' 5B). Fix the ONE head choice and the tail should snap.
+// REFUTED this session in the home TU: volatile read of m_depth; prefix --pRef->m_depth (emits sub,
+// same as =-1). PHI levers need slack; extent is exact (2207) so none fit at the wall.
