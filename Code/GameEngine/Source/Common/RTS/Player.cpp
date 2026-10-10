@@ -208,6 +208,32 @@ static BfmePlayerIter bfmePlayerMembers(const Team *team)
 	return BfmePlayerIter(head, &Object::dlink_next_TeamMemberList);
 }
 
+// Retail's TeamPrototype::iterate_TeamInstanceList is the 30B body shared by
+// the majority emitters (rowed home TeamPrototypeTeamIterators.cpp): head at
+// TeamPrototype+0x334 with the -100 end marker, proven by the matched
+// healAllObjects inlining mov esi,[ecx+0x334]. This unit's header copy reads
+// the head at +0x16C and its dlink_next copy reads +0x18 (rowed +0x40 at
+// 0x005C4AF5), and this unit's object sorts first in link order, so the link
+// keeps its copies (S dlink_next on 20 units, L iterate on 15 units). The
+// instance walks below are unmatched, so they go through this TU-local twin
+// with identical semantics instead of odr-using the ZH inlines, whose COMDATs
+// would otherwise displace the retail copies.
+class BfmeTeamIter
+{
+public:
+	explicit BfmeTeamIter(Team *cur) : m_cur(cur) {}
+	void advance() { if (m_cur) m_cur = *(Team *const *)((const char *)m_cur + 0x18); }
+	Bool done() const { return m_cur == 0; }
+	Team *cur() const { return m_cur; }
+private:
+	Team *m_cur;
+};
+static BfmeTeamIter bfmeTeamInstances(const TeamPrototype *proto)
+{
+	Team *head = *(Team *const *)((const char *)proto + 0x16C);
+	return BfmeTeamIter(head);
+}
+
 // BFME 2's Object keeps its behavior list at +0x244 (the matched
 // Object::findModule 0x0028B6D6 walks it there), its contain module at +0x250
 // and its body module at +0x254; this tree's Zero Hour Object.h has +0x18C,
@@ -876,7 +902,7 @@ void Player::update()
 	// Allow the teams this player owns to update themselves.
 	for( PlayerTeamList::iterator it = m_playerTeamPrototypes.begin(); it != m_playerTeamPrototypes.end(); ++it ) 
 	{
-		for( DLINK_ITERATOR<Team> iter = (*it)->iterate_TeamInstanceList(); !iter.done(); iter.advance() ) 
+		for( BfmeTeamIter iter = bfmeTeamInstances(*it); !iter.done(); iter.advance() ) 
 		{
 			Team *team = iter.cur();
 			if( !team ) 
@@ -1999,7 +2025,7 @@ void Player::setUnitsShouldHunt(Bool unitsShouldHunt, CommandSourceType source)
 	ThePartitionManager->getMostValuableLocation(m_playerIndex, ALLOW_ENEMIES, VOT_CashValue, &pos);
 	for (PlayerTeamList::iterator it = m_playerTeamPrototypes.begin(); 
 			 it != m_playerTeamPrototypes.end(); ++it) {
-		for (DLINK_ITERATOR<Team> iter = (*it)->iterate_TeamInstanceList(); !iter.done(); iter.advance()) {
+		for (BfmeTeamIter iter = bfmeTeamInstances(*it); !iter.done(); iter.advance()) {
 			Team *team = iter.cur();
 			if (!team) {
 				continue;
@@ -2040,7 +2066,7 @@ void Player::setUnitsShouldHunt(Bool unitsShouldHunt, CommandSourceType source)
 void Player::killPlayer(void)
 {
 	for (PlayerTeamList::iterator it = m_playerTeamPrototypes.begin(); it != m_playerTeamPrototypes.end(); ++it) {
-		for (DLINK_ITERATOR<Team> iter = (*it)->iterate_TeamInstanceList(); !iter.done(); iter.advance()) {
+		for (BfmeTeamIter iter = bfmeTeamInstances(*it); !iter.done(); iter.advance()) {
 			Team *team = iter.cur();
 			if (!team) {
 				continue;
@@ -2052,7 +2078,7 @@ void Player::killPlayer(void)
 	m_isPlayerDead = TRUE; // this is so OCLs don't ever again spawn useful units for us.
 
 	for (it = m_playerTeamPrototypes.begin(); it != m_playerTeamPrototypes.end(); ++it) {
-		for (DLINK_ITERATOR<Team> iter = (*it)->iterate_TeamInstanceList(); !iter.done(); iter.advance()) {
+		for (BfmeTeamIter iter = bfmeTeamInstances(*it); !iter.done(); iter.advance()) {
 			Team *team = iter.cur();
 			if (!team) {
 				continue;
@@ -2093,7 +2119,7 @@ void Player::setObjectsEnabled(AsciiString templateTypeToAffect, Bool enable)
 {
 	for (PlayerTeamList::iterator it = m_playerTeamPrototypes.begin(); 
 			 it != m_playerTeamPrototypes.end(); ++it) {
-		for (DLINK_ITERATOR<Team> iter = (*it)->iterate_TeamInstanceList(); !iter.done(); iter.advance()) {
+		for (BfmeTeamIter iter = bfmeTeamInstances(*it); !iter.done(); iter.advance()) {
 			Team *team = iter.cur();
 			if (!team) {
 				continue;
@@ -2132,7 +2158,7 @@ void Player::transferAssetsFromThat(Player *that)
 	for (PlayerTeamList::iterator it = that->m_playerTeamPrototypes.begin(); 
 			 it != that->m_playerTeamPrototypes.end(); ++it) 
 	{
-		for (DLINK_ITERATOR<Team> iter = (*it)->iterate_TeamInstanceList(); !iter.done(); iter.advance()) 
+		for (BfmeTeamIter iter = bfmeTeamInstances(*it); !iter.done(); iter.advance()) 
 		{
 			Team *team = iter.cur();
 			if (!team) 
@@ -2177,7 +2203,7 @@ void Player::garrisonAllUnits(CommandSourceType source)
 
 	for (PlayerTeamList::iterator it = m_playerTeamPrototypes.begin(); 
 			 it != m_playerTeamPrototypes.end(); ++it) {
-		for (DLINK_ITERATOR<Team> iter = (*it)->iterate_TeamInstanceList(); !iter.done(); iter.advance()) {
+		for (BfmeTeamIter iter = bfmeTeamInstances(*it); !iter.done(); iter.advance()) {
 			Team *team = iter.cur();
 			if (!team) {
 				continue;
@@ -2222,7 +2248,7 @@ void Player::ungarrisonAllUnits(CommandSourceType source)
 {
 	for (PlayerTeamList::iterator it = m_playerTeamPrototypes.begin(); 
 			 it != m_playerTeamPrototypes.end(); ++it) {
-		for (DLINK_ITERATOR<Team> iter = (*it)->iterate_TeamInstanceList(); !iter.done(); iter.advance()) {
+		for (BfmeTeamIter iter = bfmeTeamInstances(*it); !iter.done(); iter.advance()) {
 			Team *team = iter.cur();
 			if (!team) {
 				continue;
@@ -2258,7 +2284,7 @@ void Player::setUnitsShouldIdleOrResume(Bool idle)
 	for (PlayerTeamList::iterator it = m_playerTeamPrototypes.begin(); 
 			 it != m_playerTeamPrototypes.end(); ++it) 
 	{
-		for (DLINK_ITERATOR<Team> iter = (*it)->iterate_TeamInstanceList(); !iter.done(); iter.advance()) 
+		for (BfmeTeamIter iter = bfmeTeamInstances(*it); !iter.done(); iter.advance()) 
 		{
 			Team *team = iter.cur();
 			if (!team)
@@ -2524,7 +2550,7 @@ Bool Player::addScience(ScienceType science)
 	for (PlayerTeamList::iterator it = m_playerTeamPrototypes.begin(); 
 			 it != m_playerTeamPrototypes.end(); ++it) 
 	{
-		for (DLINK_ITERATOR<Team> iter = (*it)->iterate_TeamInstanceList(); !iter.done(); iter.advance()) 
+		for (BfmeTeamIter iter = bfmeTeamInstances(*it); !iter.done(); iter.advance()) 
 		{
 			Team *team = iter.cur();
 			if (!team)
@@ -2921,7 +2947,7 @@ void Player::onUpgradeCompleted( const UpgradeTemplate *upgradeTemplate )
 	for (PlayerTeamList::iterator it = m_playerTeamPrototypes.begin(); 
 			 it != m_playerTeamPrototypes.end(); ++it) 
 	{
-		for (DLINK_ITERATOR<Team> iter = (*it)->iterate_TeamInstanceList(); !iter.done(); iter.advance()) 
+		for (BfmeTeamIter iter = bfmeTeamInstances(*it); !iter.done(); iter.advance()) 
 		{
 			Team *team = iter.cur();
 			if( team == NULL ) 
