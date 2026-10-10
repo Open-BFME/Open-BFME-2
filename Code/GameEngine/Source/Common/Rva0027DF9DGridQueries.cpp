@@ -1,9 +1,11 @@
 // cl: /O1 /G7 /arch:SSE /MD /ICode/Libraries/Include/Lib
 //
-// Three byte-twin grid queries of one owner class (683 bytes each):
+// Five byte-twin grid queries of one owner class (683 bytes each):
+//   ?rva0027DCF2@Rva0027DCF2@@QAEXPAUCoord3D@@MPAVRva0027D244@@_NH@Z  0x0027DCF2..0x0027DF9D
 //   ?rva0027DF9D@Rva0027DF9D@@QAEXPAUCoord3D@@MPAVRva0027D244@@_NH@Z  0x0027DF9D..0x0027E248
 //   ?rva0027E248@Rva0027E248@@QAEXPAUCoord3D@@MPAVRva0027D30D@@_NH@Z  0x0027E248..0x0027E4F3
 //   ?rva0027E4F3@Rva0027E4F3@@QAEXPAUCoord3D@@MPAVRva0027D347@@_NH@Z  0x0027E4F3..0x0027E79E
+//   ?rva0027E79E@Rva0027E79E@@QAEXPAUCoord3D@@MPAVRva0027D35F@@_NH@Z  0x0027E79E..0x0027EA49
 // Each walks the 50x50 cell grid of short chain heads at +0x588 over the
 // owner's object array (+0x578/+0x57C): the bounds come from virtual slot 10
 // (+0x28) as a Region3D, the query square (radius + 7) is clamped to it and
@@ -11,11 +13,13 @@
 // live entry (+0x0C) not excluded by the flag (+0x18) or the mode (1: +0x2C,
 // 2: +0x2D) and inside the radius goes to the result object: rowed
 // Rva0027D244::rva0027D276 (0x0027D276), Rva0027D30D::rva0027D30D
-// (0x0027D30D) and Rva0027D347::rva0027D347 (0x0027D347). Callers:
+// (0x0027D30D), Rva0027D347::rva0027D347 (0x0027D347),
+// Rva0027D244::rva0027D1EF (0x0027D1EF; 0x0027DCF2, called from 0x0027F0FB,
+// 0x0027F12F and 0x00283DBC) and Rva0027D35F::rva0027D35F (0x0027D35F;
+// 0x0027E79E, called from 0x0027F2CD). Callers:
 // Rva0027F13CHost::rva0027F13C (0x0027F13C), BfmeThingCME::rva0027F171
 // (0x0027F171) and TerrainLogic::rva0027F28E (0x0027F28E), all on their own
-// this (ECX), with (point radius result 0 mode). The twin 0x0027E79E feeds
-// Rva0027D35F the same way.
+// this (ECX), with (point radius result 0 mode).
 // The cell indices round through BaseType's REAL_TO_INT_FLOOR / _CEIL shape
 // with math.h's inline floorf and ceilf; one x and one y float carry first
 // the low corner and then the high corner, and the ceil results go back into
@@ -50,6 +54,7 @@ struct GridEntry
 class Rva0027D244
 {
 public:
+	void rva0027D1EF(Rva0027D244 *a, Rva0027D244 *b);
 	void rva0027D276(Rva0027D244 *a, Rva0027D244 *b);
 };
 
@@ -60,11 +65,18 @@ public:
 };
 
 struct Rva0027D347Arg;
+struct Rva0027D35FArg;
 
 class Rva0027D347
 {
 public:
 	void rva0027D347(Rva0027D347Arg *a, int dummy);
+};
+
+class Rva0027D35F
+{
+public:
+	void rva0027D35F(Rva0027D35FArg *a, int dummy);
 };
 
 __forceinline long fast_float2long_round(float f)
@@ -100,6 +112,12 @@ protected:
 	short m_grid[1];			// +0x588, 50 x 50
 };
 
+class Rva0027DCF2 : public Rva0027GridOwner
+{
+public:
+	void rva0027DCF2(Coord3D *center, float radius, Rva0027D244 *out, bool flag, int mode);
+};
+
 class Rva0027DF9D : public Rva0027GridOwner
 {
 public:
@@ -117,6 +135,90 @@ class Rva0027E4F3 : public Rva0027GridOwner
 public:
 	void rva0027E4F3(Coord3D *center, float radius, Rva0027D347 *out, bool flag, int mode);
 };
+
+class Rva0027E79E : public Rva0027GridOwner
+{
+public:
+	void rva0027E79E(Coord3D *center, float radius, Rva0027D35F *out, bool flag, int mode);
+};
+
+void Rva0027DCF2::rva0027DCF2(Coord3D *center, float radius, Rva0027D244 *out, bool flag, int mode)
+{
+	int count = (int)(m_end - m_base);
+	if (count == 0)
+		return;
+	radius = 7.0f + radius;
+	Region3D b;
+	getBounds(&b);
+	float px = center->x - radius;
+	float py = center->y - radius;
+	if (b.loX > px)
+		px = b.loX;
+	if (b.loY > py)
+		py = b.loY;
+	if (px > b.hiX)
+		px = b.hiX;
+	if (py > b.hiY)
+		py = b.hiY;
+	int xmin = fast_float2long_round(floorf((px - b.loX) / (b.hiX - b.loX) * 49.9f));
+	int ymin = fast_float2long_round(floorf((py - b.loY) / (b.hiY - b.loY) * 49.9f));
+	px = center->x + radius;
+	py = center->y + radius;
+	if (b.loX > px)
+		px = b.loX;
+	if (b.loY > py)
+		py = b.loY;
+	if (px > b.hiX)
+		px = b.hiX;
+	if (py > b.hiY)
+		py = b.hiY;
+	px = ceilf((px - b.loX) / (b.hiX - b.loX) * 49.9f);
+	int xmax = fast_float2long_round(px);
+	py = ceilf((py - b.loY) / (b.hiY - b.loY) * 49.9f);
+	int ymax = fast_float2long_round(py);
+	for (int x = xmin; x < xmax; ++x) {
+		if (ymin >= ymax)
+			continue;
+		short *cell = &m_grid[ymin * 50 + x];
+		int remaining = ymax - ymin;
+		do {
+			int idx = *cell;
+			while (idx != -1) {
+				if (idx < 0 || idx >= count)
+					break;
+				GridEntry *obj = m_base[idx];
+				if (obj->live == 0) {
+					idx = obj->next;
+					continue;
+				}
+				if (flag && obj->excluded) {
+					idx = obj->next;
+					continue;
+				}
+				if (mode == 1) {
+					if (!obj->mode1) {
+						idx = obj->next;
+						continue;
+					}
+				} else if (mode == 2) {
+					if (!obj->mode2) {
+						idx = obj->next;
+						continue;
+					}
+				}
+				float dx = obj->x - center->x;
+				float dy = obj->y - center->y;
+				float dz = obj->z - center->z;
+				float dist2 = dx * dx + dy * dy + dz * dz;
+				float rad2 = radius * radius;
+				if (rad2 > dist2)
+					out->rva0027D1EF((Rva0027D244 *)obj, (Rva0027D244 *)center);
+				idx = obj->next;
+			}
+			cell += 50;
+		} while (--remaining != 0);
+	}
+}
 
 void Rva0027DF9D::rva0027DF9D(Coord3D *center, float radius, Rva0027D244 *out, bool flag, int mode)
 {
@@ -345,6 +447,84 @@ void Rva0027E4F3::rva0027E4F3(Coord3D *center, float radius, Rva0027D347 *out, b
 				float rad2 = radius * radius;
 				if (rad2 > dist2)
 					out->rva0027D347((Rva0027D347Arg *)obj, (int)center);
+				idx = obj->next;
+			}
+			cell += 50;
+		} while (--remaining != 0);
+	}
+}
+
+void Rva0027E79E::rva0027E79E(Coord3D *center, float radius, Rva0027D35F *out, bool flag, int mode)
+{
+	int count = (int)(m_end - m_base);
+	if (count == 0)
+		return;
+	radius = 7.0f + radius;
+	Region3D b;
+	getBounds(&b);
+	float px = center->x - radius;
+	float py = center->y - radius;
+	if (b.loX > px)
+		px = b.loX;
+	if (b.loY > py)
+		py = b.loY;
+	if (px > b.hiX)
+		px = b.hiX;
+	if (py > b.hiY)
+		py = b.hiY;
+	int xmin = fast_float2long_round(floorf((px - b.loX) / (b.hiX - b.loX) * 49.9f));
+	int ymin = fast_float2long_round(floorf((py - b.loY) / (b.hiY - b.loY) * 49.9f));
+	px = center->x + radius;
+	py = center->y + radius;
+	if (b.loX > px)
+		px = b.loX;
+	if (b.loY > py)
+		py = b.loY;
+	if (px > b.hiX)
+		px = b.hiX;
+	if (py > b.hiY)
+		py = b.hiY;
+	px = ceilf((px - b.loX) / (b.hiX - b.loX) * 49.9f);
+	int xmax = fast_float2long_round(px);
+	py = ceilf((py - b.loY) / (b.hiY - b.loY) * 49.9f);
+	int ymax = fast_float2long_round(py);
+	for (int x = xmin; x < xmax; ++x) {
+		if (ymin >= ymax)
+			continue;
+		short *cell = &m_grid[ymin * 50 + x];
+		int remaining = ymax - ymin;
+		do {
+			int idx = *cell;
+			while (idx != -1) {
+				if (idx < 0 || idx >= count)
+					break;
+				GridEntry *obj = m_base[idx];
+				if (obj->live == 0) {
+					idx = obj->next;
+					continue;
+				}
+				if (flag && obj->excluded) {
+					idx = obj->next;
+					continue;
+				}
+				if (mode == 1) {
+					if (!obj->mode1) {
+						idx = obj->next;
+						continue;
+					}
+				} else if (mode == 2) {
+					if (!obj->mode2) {
+						idx = obj->next;
+						continue;
+					}
+				}
+				float dx = obj->x - center->x;
+				float dy = obj->y - center->y;
+				float dz = obj->z - center->z;
+				float dist2 = dx * dx + dy * dy + dz * dz;
+				float rad2 = radius * radius;
+				if (rad2 > dist2)
+					out->rva0027D35F((Rva0027D35FArg *)obj, (int)center);
 				idx = obj->next;
 			}
 			cell += 50;
