@@ -1,6 +1,8 @@
 // ?MoveAllies@Pathfinder@@QAE_NPAVObject@@PAVPath@@_N@Z
+// partial score=0.8918205238299699 date=2026-10-10
+// ?MoveAllies@Pathfinder@@QAE_NPAVObject@@PAVPath@@_N@Z
 // partial score=0.8785282557717079 date=2026-10-10
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// cl: /I. /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
 // Native 002F3C09..002F3F7D RET12; WorldBuilder D47470 MoveAllies.
 // ZH AIPathfind.cpp moveAllies supplies semantic guide only; native traversal samples each segment and handles harvester/horde branches.
 typedef int Int;typedef bool Bool;typedef unsigned int UnsignedInt;
@@ -141,7 +143,7 @@ template<class T>class LatchRestore{protected:T valueToRestore;T &whereToRestore
 class Pathfinder{public:PathfindCell *getCell(PathfindLayerEnum,Int,Int);Bool MoveAllies(Object *,Path *,Bool);char pad[0x1c1bc];Int moveAlliesDepth;};
 Bool Pathfinder::MoveAllies(Object *obj,Path *path,Bool force)
 {
- ThingTemplate *initialTemplate=obj->m_template;
+ ThingTemplate *initialTemplate=(obj?obj:obj)->m_template;
  Bool harvester=(initialTemplate->kinds[3]>>29)&1;
  if(!initialTemplate->hasKind(0xe) && !initialTemplate->hasKind(0x10) && !harvester && !path->blockedByAlly)return false;
  if(initialTemplate->hasKind(0xbb))return false;
@@ -149,7 +151,7 @@ Bool Pathfinder::MoveAllies(Object *obj,Path *path,Bool force)
  if(moveAlliesDepth>1)return false;
  Int radius,numCellsAbove;Rva002EBCD6Split(obj,&radius,&numCellsAbove);
  ObjectID ignoreId=INVALID_ID;
- if(obj->ai)ignoreId=obj->ai->getIgnoredObstacleID();
+ if((obj?obj:obj)->ai)ignoreId=(obj?obj:obj)->ai->getIgnoredObstacleID();
  Object *volatile *objectSlot=&obj;
 path->lock();Coord3D initialPosition;initialPosition.x=path->last->position.x;initialPosition.y=path->last->position.y;initialPosition.z=path->last->position.z;
  for(PathNode *node=path->last;node && node!=path->first && node->previous;node=node->previous){

@@ -1,7 +1,9 @@
 // ?selectTeamToReinforce@AIPlayer@@MAE_NH@Z
+// partial score=0.8128917635500246 date=2026-10-10
+// ?selectTeamToReinforce@AIPlayer@@MAE_NH@Z
 // partial score=0.7939423069063325 date=2026-10-09
 // Target4F3DB1..4F418A; ZH AIPlayer selectTeamToReinforce with BFME2 record, recruit-type and null-order deltas.
-// cl: /O1 /Ob1 /G7 /arch:SSE /Oy- /Ireference/shims/moduledata /ICode/GameEngine/Source/Common /ICode/Libraries/Include /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /I. /O1 /Ob1 /G7 /arch:SSE /Oy- /Ireference/shims/moduledata /ICode/GameEngine/Source/Common /ICode/Libraries/Include /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //
 // AIPlayer's factory search and team-build feasibility, Zero Hour's
@@ -628,17 +630,8 @@ public:
 	virtual ProductionEntry *firstProduction() const;	// +0x54
 };
 
-class Rva002D06CA
-{
-public:
-	void *rva002D06CA(const AsciiString *name);
-	const ThingTemplate *findTemplate(const AsciiString &name) { return (const ThingTemplate *)rva002D06CA(&name); }
-	ThingTemplate *firstTemplate() const { return m_firstTemplate; }
-private:
-	char m_pad00[0x0C];
-	ThingTemplate *m_firstTemplate;		// +0x0C
-};
-extern Rva002D06CA *TheThingFactory;
+class ThingFactory {public:const ThingTemplate *findTemplate(const AsciiString &);};
+extern ThingFactory *TheThingFactory;
 
 struct Rva002A8AB1Record
 {
@@ -1092,7 +1085,7 @@ Bool AIPlayer::selectTeamToReinforce( Int minPriority )
 	{
 		/* We have something to build. */
 		TeamInQueue *teamQ=NULL;WorkOrder *order=NULL;
-	if(!g_00DFEEF8->rva002A8AB1(m_player)){
+	if(!(m_player?g_00DFEEF8:g_00DFEEF8)->rva002A8AB1(m_player)){
 	teamQ = new TeamInQueue;
 		// Put in front of queue.
 		prependTo_TeamBuildQueue(teamQ);

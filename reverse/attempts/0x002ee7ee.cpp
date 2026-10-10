@@ -1,6 +1,10 @@
 // ?getClosestPointOnLand@Pathfinder@@QAE_NPBUCoord3D@@PAVObject@@PAU2@@Z
+// partial score=0.9557623478883321 date=2026-10-10
+extern "C" void _ReadWriteBarrier();
+#pragma intrinsic(_ReadWriteBarrier)
+// ?getClosestPointOnLand@Pathfinder@@QAE_NPBUCoord3D@@PAVObject@@PAU2@@Z
 // partial score=0.942393874319429 date=2026-10-10
-// cl: /I. /O1 /DNDEBUG /MD /arch:SSE /G7 /EHsc /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc
+// cl: /I. /I. /O1 /DNDEBUG /MD /arch:SSE /G7 /EHsc /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc
 // stlport
 // wb-lead 2.000 callgraph: Pathfinder::SetBridgeStateRepaired at 0x002E7205.
 // Identity evidence: the GeneralsMD AIPathfind.cpp implementation
@@ -690,7 +694,7 @@ union{int alignment;char bytes[sizeof(Rva002E7DF5)];} storage;
  int x=realToIntFloor(position->x*0.1f+0.5f);
  ICoord2DBase center={x,y};
  rva002EB4DF(&center,&diameter,object->m_orientation,1,reinterpret_cast<Rva002E7E26 *>(&storage));
- *out=reinterpret_cast<Rva002E7DF5 *>(&storage)->closest;
+{_ReadWriteBarrier();  *out=reinterpret_cast<Rva002E7DF5 *>(&storage)->closest;}
 }
  return reinterpret_cast<Rva002E7DF5 *>(&storage)->found;
  }else{*out=*position;return true;}

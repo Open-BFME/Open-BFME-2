@@ -1,7 +1,9 @@
-// ?AdjustToPossibleDestination@Pathfinder@@QAE_NPAVObject@@ABVLocomotorSet@@PAUCoord3D@@@Z
+// ?adjustToPossibleDestination@Pathfinder@@QAE_NPAVObject@@ABVLocomotorSet@@PAUCoord3D@@@Z
+// partial score=0.8863953608199133 date=2026-10-10
+// ?adjustToPossibleDestination@Pathfinder@@QAE_NPAVObject@@ABVLocomotorSet@@PAUCoord3D@@@Z
 // partial score=0.65 date=2026-10-09
-// cl: /O1 /DNDEBUG /MD /arch:SSE /G7 /EHsc /ICode/Libraries/Include/Lib
-// Semantic donor BF1 0bef414b PathfinderAdjustToPossibleDestination.cpp.
+// cl: /I. /O1 /DNDEBUG /MD /arch:SSE /G7 /EHsc /ICode/Libraries/Include/Lib
+// Semantic donor BF1 0bef414b PathfinderadjustToPossibleDestination.cpp.
 // WB D455F0 and complete native2F287A..2F2B88 RET12; target deltas retained.
 #include "Coord3D.h"
 struct ICoord2D { int x,y; };
@@ -15,13 +17,14 @@ class PathfindCell { public: char prefix[8]; unsigned short zone; unsigned short
 class TerrainLogic { public: PathfindLayerEnum getLayerForDestination(Object *,const Coord3D *); };
 extern TerrainLogic *TheTerrainLogic;
 class GlobalData; extern GlobalData *TheWritableGlobalData;
-class Rva002E7964 { public: void rva002E7964(ICoord2D *,unsigned char,const Coord3D *); };
+struct IRegion2D {ICoord2D lo,hi;};
+class Rva002E7964 { public: void rva002E7964(ICoord2D *,unsigned char,const Coord3D *);char pad[0x14]; IRegion2D extent; };
 class Rva002E99F9Sub460 { public: unsigned short rva0053241F(void *,unsigned short); unsigned short rva00531FD4(void *,unsigned short); };
 class Rva002EC3CEProbes { public: bool rva002E7BF0(int,int,bool,int,int,int,void *,bool); };
 void Rva002EBCA7Split(void *,int *,unsigned char *);
 ICoord2D *Rva002E7875WorldToCell(ICoord2D *,bool,const Coord3D *);
 class Pathfinder { public:
- bool AdjustToPossibleDestination(Object *,const LocomotorSet &,Coord3D *);
+ bool adjustToPossibleDestination(Object *,const LocomotorSet &,Coord3D *);
  PathfindCell *getCell(PathfindLayerEnum,int,int);
  PathfindCell *rva002E8BF8(PathfindLayerEnum,const Coord3D *);
  unsigned char bfmeWrapE6E90(void *,void *,void *,void *,void *,void *);
@@ -32,7 +35,7 @@ static __forceinline bool possibleFootprint(Pathfinder *p,Object *object,int x,i
  Call typed=reinterpret_cast<Call>(&Pathfinder::bfmeWrapE6E90);
  return (p->*typed)(object,x,y,layer,radius,center)!=0;
 }
-bool Pathfinder::AdjustToPossibleDestination(Object *object,const LocomotorSet &set,Coord3D *destination) {
+bool Pathfinder::adjustToPossibleDestination(Object *object,const LocomotorSet &set,Coord3D *destination) {
  int radius; bool center;
  Rva002EBCA7Split(object,&radius,reinterpret_cast<unsigned char *>(&center));
  int i,j,zone; bool obstacle; PathfindLayerEnum layer;
@@ -46,12 +49,13 @@ bool Pathfinder::AdjustToPossibleDestination(Object *object,const LocomotorSet &
  from.x=object->position[0];from.y=object->position[1];from.z=object->position[2];
  ICoord2D start;
  Rva002E7875WorldToCell(&start,true,&from);
- PathfindCell *parent=rva002E8BF8((PathfindLayerEnum)object->rva0028B511(),&from);
+ PathfindLayerEnum startLayer=(PathfindLayerEnum)object->rva0028B511();
+ PathfindCell *parent=rva002E8BF8(startLayer,&from);
  if(!parent) return false;
  int maxLayer=object->definition->maxLayer;
  unsigned char aircraftFlag=object->definition->aircraftFlag;
- bool computerControlled=object->rva0028AFBB();
- Rva002E8BCF profile(reinterpret_cast<const Rva002E8BCFSrc *>(&set),aircraftFlag==0,maxLayer-1,computerControlled);
+ 
+ Rva002E8BCF profile(reinterpret_cast<const Rva002E8BCFSrc *>(&set),aircraftFlag==0,maxLayer-1,object->rva0028AFBB());
  Rva002E99F9Sub460 *zones=reinterpret_cast<Rva002E99F9Sub460 *>((char *)this+0x460);
  zone=zones->rva0053241F(&profile,parent->zone);
  obstacle=false;
@@ -133,3 +137,11 @@ __declspec(noinline) ICoord2D* __cdecl Rva002E7875WorldToCell(ICoord2D* out, boo
 	return out;
 }
 
+
+inline __declspec(noinline) void Rva002E7964::rva002E7964(ICoord2D *out,unsigned char center,const Coord3D *pos){
+ ICoord2D tmp;
+ typedef ICoord2D *(__cdecl *CellCall)(ICoord2D*,unsigned char,const Coord3D*);
+ reinterpret_cast<CellCall>(Rva002E7875WorldToCell)(&tmp,center,pos);
+ if(tmp.x<extent.lo.x || tmp.y<extent.lo.y || tmp.x>extent.hi.x || tmp.y>extent.hi.y)tmp.x=-1;
+ *(out?out:out)=tmp;
+}

@@ -1,6 +1,10 @@
 // ?moveFormationToPos@AIGroup@@QAEXPBUCoord3D@@W4CommandSourceType@@H_N2@Z
+// partial score=0.7252090375378046 date=2026-10-10
+extern "C" void _ReadWriteBarrier();
+#pragma intrinsic(_ReadWriteBarrier)
+// ?moveFormationToPos@AIGroup@@QAEXPBUCoord3D@@W4CommandSourceType@@H_N2@Z
 // partial score=0.7025641974 date=2026-10-09
-// cl: /O1 /G7 /EHs /arch:SSE /DNDEBUG /MD /ICode/Libraries/Include/Lib /Ireference/shims/bfmealloc /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /I. /O1 /G7 /EHs /arch:SSE /DNDEBUG /MD /ICode/Libraries/Include/Lib /Ireference/shims/bfmealloc /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport
 // Donor semantic spine: f98983a7d ZH AIGroup::friend_moveFormationToPos.
 // Native371166..371AE2 RET20 / WB EE0AF0 independently name BFME2 formation move.
@@ -170,7 +174,7 @@ void AIGroup::moveFormationToPos(const Coord3D *pos,CommandSourceType source,int
     Coord3DCopy dest=node->position;Coord2D rotated=offset;
     rotateOffset(&previous,&dest,&rotated);
     if(TheTerrainLogic->slot50(&dest)){rotated.x*=TheAI->data->terrainSpacing;rotated.y*=TheAI->data->terrainSpacing;}
-    dest.x+=rotated.x;dest.y+=rotated.y;
+{_ReadWriteBarrier();     dest.x+=rotated.x;dest.y+=rotated.y;}
     if(ground==true)TheAI->pathfinder->AdjustGroundPathPosition(&node->position,&dest);
     path.push_back(dest);
     if(node==endNode)break;

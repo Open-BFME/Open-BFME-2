@@ -1,7 +1,11 @@
 // ?rva002EC479@Pathfinder@@QAE_NPAVObject@@PBUCoord3D@@0@Z
+// partial score=0.741767408786885 date=2026-10-10
+extern "C" void _ReadWriteBarrier();
+#pragma intrinsic(_ReadWriteBarrier)
+// ?rva002EC479@Pathfinder@@QAE_NPAVObject@@PBUCoord3D@@0@Z
 // partial score=0.722295 date=2026-10-10
 // ?rva002EC479@Pathfinder@@QAE_NPAVObject@@PBUCoord3D@@0@Z
-// cl: /O1 /G7 /arch:SSE /EHsc /DNDEBUG /MD /ICode/Libraries/Include/Lib /I.
+// cl: /I. /O1 /G7 /arch:SSE /EHsc /DNDEBUG /MD /ICode/Libraries/Include/Lib /I.
 // Native2EC479..2EC8C3 complete1098 RET12; WB D3A7D0 independently
 // corroborates target-footprint perimeter and range query, not a callable name.
 // Native Object/template/cell offsets below are target observations.
@@ -88,7 +92,7 @@ bool Pathfinder::rva002EC479(Object *attacker,const Coord3D *from,Object *target
   }
   if(target->definition->kindOf(0x3C)){
    float size=attacker->observedSize;
-   if(target->definition->kindOf(0x96))size=0.0f;
+{_ReadWriteBarrier();    if(target->definition->kindOf(0x96))size=0.0f;}
    size+=20.0f;
    if(target->rva0028EFB8(&target->position,attacker,from)<size*size && (target->definition->kindOf(0x96)||foundWall))return true;
   }

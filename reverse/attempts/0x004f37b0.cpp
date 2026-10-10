@@ -1,7 +1,9 @@
 // ?queueSupplyTruck@AIPlayer@@IAEXXZ
+// partial score=0.83555863613803 date=2026-10-10
+// ?queueSupplyTruck@AIPlayer@@IAEXXZ
 // partial score=0.8124231700502887 date=2026-10-09
 // Native4F37B0..4F3DB1; ZH queueSupplyTruck with native layouts and three-node filter-chain lifetimes.
-// cl: /O1 /Ob1 /G7 /arch:SSE /Oy- /Ireference/shims/moduledata /ICode/GameEngine/Source/Common /ICode/Libraries/Include /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /I. /O1 /Ob1 /G7 /arch:SSE /Oy- /Ireference/shims/moduledata /ICode/GameEngine/Source/Common /ICode/Libraries/Include /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //
 // AIPlayer's factory search and team-build feasibility, Zero Hour's
@@ -540,7 +542,9 @@ public:
 	AIUpdateInterface *getAI() const { return m_ai; }
 	const ThingTemplate *getTemplate() const { return m_template; }
 	Bool isKindOfDozer() const { return (getTemplate()->m_kindOf109 & 0x40) != 0; }
-	class Module *findModule(NameKeyType) const;
+	__forceinline class Module *queryModule(NameKeyType key) const {return findModule(key);}
+protected: class Module *findModule(NameKeyType) const;
+public:
 	void setTeam(Team *team);
 	void rva00291298(AsciiString name, Int value);
 	void updateObjValuesFromMapProperties(Dict *properties);
@@ -1174,7 +1178,7 @@ void AIPlayer::queueSupplyTruck( void )
 
 				Object *supplySource;
                 {Rva002611DDFilter map;Rva0026137EFilter player(m_player,false);
-                supplySource=ThePartitionManager->getClosestObject(&center,radius,1,
+                supplySource=(ThePartitionManager?ThePartitionManager:ThePartitionManager)->getClosestObject(&center,radius,1,
                  Rva0004584D(*(BfmeFixedStorage0004543D *)&Rva00045411BitSet(0,86),
                  *(BfmeFixedStorage0004543D *)g_00DFEFA4StoragePrototype).link(player.link(&map)));}
                 if (!supplySource) {
@@ -1182,7 +1186,7 @@ void AIPlayer::queueSupplyTruck( void )
 					continue;
 				}
 				static const NameKeyType key_warehouseUpdate = TheNameKeyGenerator->nameToKey("SupplyWarehouseDockUpdate");
-				SupplyWarehouseDockUpdate *warehouseModule = (SupplyWarehouseDockUpdate*)supplySource->findModule( key_warehouseUpdate );
+				SupplyWarehouseDockUpdate *warehouseModule = (SupplyWarehouseDockUpdate*)supplySource->queryModule( key_warehouseUpdate );
 				if( warehouseModule )	{	 
 					Int availableCash = warehouseModule->getBoxesStored()*TheWritableGlobalData->m_baseValuePerSupplyBox;
 					if (availableCash<=0) continue;
