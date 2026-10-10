@@ -1,4 +1,11 @@
 // _PlaneAddNoise_C
+// partial score=0.7 date=2026-10-10
+// _PlaneAddNoise_C
+// partial score=0.7
+// 475B (size exact) with hoisted d0/lower and 255 - d0 compare; remaining diff is register/spill allocation:
+// retail keeps dist[0] byte in BL, -d0 in ESI (lea edx,[esi+0xff] per pixel), loop count spilled at [esp+0x18], rand IAT in ESI.
+// Direct dist[0] shapes (E-G,K-M) give 443-444B. Clamp is 255 + lower per native, not the spec's 255 - lower.
+// _PlaneAddNoise_C
 // partial score=0.55 date=2026-10-10
 // NEAR draft (helper, clean room): reverse/vp6_cleanroom/specs/001b69c0.md
 // plus retail only. _PlaneAddNoise_C retail 0x001B69C0..0x001B6B9B (475B).
@@ -45,15 +52,19 @@ extern "C" void PlaneAddNoise_C(unsigned char *start, unsigned width, unsigned h
 		dist[next] = 0;
 	for (i = 0; i < 2048; i++)
 		noise[i] = dist[rand() & 0xff];
+	signed char d0 = dist[0];
+	int lower = -d0;
+	unsigned char lowByte = (unsigned char)lower;
+	unsigned char *row = start;
 	for (i = 0; i < height; i++) {
-		unsigned char *pos = start + i * pitch;
 		signed char *ref = &noise[rand() & 0xff];
 		for (j = 0; j < width; j++) {
-			if (pos[j] < -dist[0])
-				pos[j] = -dist[0];
-			if (pos[j] > 255 - dist[0])
-				pos[j] = 255 - dist[0];
-			pos[j] += ref[j];
+			if (row[j] < lower)
+				row[j] = lowByte;
+			if (row[j] > 255 - d0)
+				row[j] = 255 - d0;
+			row[j] += ref[j];
 		}
+		row += pitch;
 	}
 }
