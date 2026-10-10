@@ -154,7 +154,9 @@ def test_pre_commit_refuses_when_git_cannot_list_the_index(repo):
     write(repo, "bad-index", "not an index\n")
     result = run(repo, "pre-commit", env={"GIT_INDEX_FILE": str(repo / "bad-index")})
     assert result.returncode == 1
-    assert "PRE-COMMIT FAILED: listing staged tools (see above)" in result.stderr
+    # the lessons ban's listing is the first: through a pipe its failure read as "no
+    # lessons.md" and the hook went on to the next listing
+    assert "PRE-COMMIT FAILED: listing staged files (see above)" in result.stderr
     assert not built(repo)
 
 
@@ -428,3 +430,16 @@ def test_pre_commit_refuses_a_stash_under_a_case_renamed_attempts_tree(repo, var
     git(repo, "update-index", "--add", "--cacheinfo", f"100644,{sha},{variant}")
     result = run(repo, "pre-commit")
     assert result.returncode == 1 and f"rename to {variant.lower()}" in result.stderr and not built(repo)
+
+
+@pytest.mark.parametrize("name", ["docs/lessons.md", "Docs/Lessons-2026.md"])
+def test_the_lessons_ban_fires_however_long_the_staged_list(repo, name):
+    """`git diff | grep -q` under pipefail: grep exited at its match, a listing past
+    the 64 KiB pipe buffer died of SIGPIPE, the pipeline failed and the ban did not
+    run (found in Open-BFME-1's copy of the same line, 2026-10-10)."""
+    for i in range(4000):           # sorted after docs/: ~70 bytes a line, ~280 KB
+        write(repo, f"zz/a_long_directory_name_for_the_pipe_buffer/file_{i:05d}.txt", "x\n")
+    write(repo, name, "# lessons\n")
+    git(repo, "add", "-A")
+    result = run(repo, "pre-commit")
+    assert result.returncode == 1 and "lessons.md is banned" in result.stderr and not built(repo)

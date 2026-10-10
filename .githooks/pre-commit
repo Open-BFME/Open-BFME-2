@@ -91,9 +91,14 @@ python3 tools/check_case_collisions.py \
 # Owner decision (2026-08-29): this repo keeps NO lessons.md — in Open-BFME-1 it
 # is a plague that keeps growing back. Codegen findings go in the commit message
 # of the body that proved them.
-if git diff --cached --name-only --diff-filter=ACR | grep -qiE '(^|/)lessons[^/]*\.md$'; then
+# Through a file, not a pipe: under pipefail, `grep -q` exiting at its match killed a
+# long `git diff` with SIGPIPE, the pipeline failed, and the ban never fired.
+capture staged_names_out "listing staged files" git diff --cached --name-only --diff-filter=ACR
+if grep -qiE '(^|/)lessons[^/]*\.md$' "$staged_names_out"; then
+    rm -f "$staged_names_out"
     fail "lessons.md is banned in this repo — put the finding in the commit message"
 fi
+rm -f "$staged_names_out"
 
 # A script under tools/ is neither a Code/ source nor a ledger file, so nothing
 # else in this hook looks at it: one with a syntax error commits cleanly and only
