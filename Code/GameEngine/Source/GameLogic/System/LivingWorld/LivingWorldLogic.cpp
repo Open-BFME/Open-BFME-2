@@ -1631,17 +1631,9 @@ public:
 	int rva0020EEF4(int id);
 };
 
-Rva002B2579Result *Rva002BA8F1Logic::rva002B2579(int id)
-{
-	if (id == 0)
-		return 0;
-	return (Rva002B2579Result *)((Rva0020EEF4Outer *)m_containerB0)->rva0020EEF4(id);
-}
+// The exact null-gated lookup forwarder is owned by Rva002B2579Forward.cpp.
 
-Rva002B3740Item *Rva002BA8F1Logic::rva002B2B2D()
-{
-	return (Rva002B3740Item *)((LivingWorldRegionManager *)m_containerB0)->rva0020EAF6(m_keyB8);
-}
+// The exact region lookup forwarder is owned by Rva002B2B2DForward.cpp.
 
 // LivingWorldLogic::CreateEmptyGarrisonArmy, retail 0x002B6A04 (158 bytes;
 // WB name, asserts the spawned garrison and its summary lines 4935..4938).
