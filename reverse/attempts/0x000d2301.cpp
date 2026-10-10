@@ -1,4 +1,6 @@
 // ?rva000D2301@W3DBuffBuffer@@QAEXPAVMeshClass@@PAVRenderObjClass@@HPAU?$_Rb_tree_iterator@PAVTBuff@@U?$_Const_traits@PAVTBuff@@@_STL@@@_STL@@@Z
+// partial score=0.9938556107 date=2026-10-10
+// ?rva000D2301@W3DBuffBuffer@@QAEXPAVMeshClass@@PAVRenderObjClass@@HPAU?$_Rb_tree_iterator@PAVTBuff@@U?$_Const_traits@PAVTBuff@@@_STL@@@_STL@@@Z
 // partial score=0.96 date=2026-10-09
 // ?rva000D2301@W3DBuffBuffer@@QAEXPAVMeshClass@@PAVRenderObjClass@@HPAU?$_Rb_tree_iterator@PAVTBuff@@U?$_Const_traits@PAVTBuff@@@_STL@@@_STL@@@Z
 // partial score=0.96 date=2026-10-09
@@ -109,9 +111,9 @@ public:
 	}
 	void Set_Translation(const Vector3 &t)
 	{
-		Row[0][3] = t.X;
-		Row[1][3] = t.Y;
 		Row[2][3] = t.Z;
+		Row[1][3] = t.Y;
+		Row[0][3] = t.X;
 	}
 	void Obj_Look_At(const Vector3 &p, const Vector3 &t, float roll);
 	static __forceinline void Transform_Vector(const Matrix3D &A, const Vector3 &in, Vector3 *out)
@@ -513,7 +515,7 @@ void W3DBuffBuffer::rva000D2301(MeshClass *mesh, RenderObjClass *target, int typ
 		if (buff->m_visible && !buff->m_hidden && !buff->isShrouded(localPlayer))
 		{
 			scale = buff->m_scale;
-			pos = buff->m_position;
+			pos.Set((buff?buff->m_position.X:buff->m_position.X),(buff?buff->m_position.Y:buff->m_position.Y),(buff?buff->m_position.Z:buff->m_position.Z));
 			startVertex = m_vertexOffset + m_curNumBuffVertices;
 			mesh->Get_Transform().Get_Translation(&meshPos);
 			pos += meshPos;
