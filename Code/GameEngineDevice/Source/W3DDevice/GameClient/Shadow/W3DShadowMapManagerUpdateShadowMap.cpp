@@ -133,6 +133,7 @@ public:
 	static void Set_Rendering_Shadow_Map(bool on) { IsCurrentlyRenderingShadowMap = on; }
 
 private:
+	template<class T> friend struct DataRowPrivateProbe;
 	static bool IsCurrentlyRenderingShadowMap;
 };
 
@@ -243,3 +244,7 @@ void W3DShadowMapManager::UpdateShadowMap(RTS3DScene *scene)
 	WW3D::Set_Rendering_Shadow_Map(false);
 	rinfo.Pop_Rendering_Method();
 }
+
+// WW3D shadow-map gate read by the render units and written only through
+// Set_Rendering_Shadow_Map above. Retail .data starts it at 0.
+bool WW3D::IsCurrentlyRenderingShadowMap = false;
