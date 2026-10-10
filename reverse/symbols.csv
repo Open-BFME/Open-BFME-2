@@ -12124,7 +12124,6 @@ name,address,notes
 ?rva0071BE3C@Rva002D34FEHelper@@QAEHPAX@Z,0x0031BE3C,"address read from retail REL32 at 0x002D3511 in 0x002D34FE (E8 -> 0x71BE3C); thiscall this=dword_0xE01CFC arg=caller-this returns int per test-eax; opaque address name, pin candidate-not-proof"
 ?rva00739A30@Rva00739A30@@QAEXPAUPair00739BE0@@MH@Z,0x00739A30,REL32 at the byte-verified doNamedMapReveal 0x003577DA: TheShroudManager radius reveal (location/radius/mask) whose undo counterpart is the rowed 0x00739BE0
 ?rva0073CC60@Gen_008F7CD0@@QAEXPAUFloatRect0073CE30@@HI@Z,0x0073CC60,address-derived Gen_008F7CD0 rect-updater entry called by the 229B sibling at 0x00739AF0; ghidra boundary 0x0073CC60/96 and a prior attempt measured a 458B true extent; identity unproven
-?rva0073CE90@Gen_008F7CD0@@QAEXHHHH_NH@Z,0x0073CE90,address-derived Gen_008F7CD0 apply-circle entry called by the 171B sibling at 0x00739D90; immediate follower of the rowed 0x0073CE30 rect updater; identity unproven
 ?rva0073ea90@@YAPAVXfer@@PAV1@PAG@Z,0x0073EA90,"N=2 twin of Rva0073EB00Xfer at 0x73EB00; legacy counter reader called by ShroudManagerImpl008FBA40Element::xfer 0x73EBB0; address-derived name"
 ?rva007537e0@@YAXXZ,0x007537E0,address read from the REL32 displacement at the uniquely placed BFME2 helper
 ?rva00796023@@YAHPAVObject@@PAX@Z,0x00796023,iterate callback pushed at retail 0x003960FF in rva003960BD 0x003960BD for Player::iterateObjects over the Rva0036BDD0 box; identity unproven
