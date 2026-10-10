@@ -72,7 +72,10 @@ struct B0C { virtual void f0C(); };
 struct B10 { virtual void f10(); int m_14; int m_18; Object *m_1C; };
 struct B20 { virtual void f20(); virtual void c01(); virtual void c02(); virtual void c03(); virtual void c04(); virtual void c05(); virtual void c06(); virtual void c07(); virtual void c08(); virtual void c09(); virtual void c10(); virtual void c11(); virtual void c12(); virtual void c13(); virtual void c14(); virtual void c15(); virtual void c16(); virtual void c17(); virtual void c18(); virtual void c19(); virtual void c20(); virtual void c21(); virtual void c22(); virtual void onRemoving(Object *object); };
 struct B24 { virtual void f24(); };
-struct B28 { virtual void f28(); };
+class DamageInfo;
+class DieMuxData { public: bool isDieApplicable(const Object *obj, const DamageInfo *damageInfo) const; };
+struct TunnelContainModuleDataView { char pad[8]; DieMuxData m_dieMuxData; };
+struct B28 { virtual void onDie(const DamageInfo *damageInfo); };
 struct B2C { virtual void f2C(); };
 struct B30 { virtual void f30(); };
 class ContainIface34
@@ -167,6 +170,8 @@ public:
 	virtual void rva0047DCDF(Rva004F553FCb cb, void *user, unsigned int flags);
 	virtual void rva0047DE30();
 	virtual void addToContainList(Object *obj);
+	virtual void onDie(const DamageInfo *damageInfo);
+	void rva0047DF81();
 private:
 	char m_pad9AC[0x9AC];
 	unsigned char m_flag9B0;
@@ -199,8 +204,8 @@ void TunnelContain::rva0047DE30()
 }
 
 // ?addToContainList@TunnelContain@@UAEXPAVObject@@@Z, retail 0x0047DC75,
-// 19 bytes: slot 48 of the contain interface at +0x34 (vtable 0x00847598,
-// whose slot 4 is rva0047DE30 above). Zero Hour's TunnelContain::
+// 19 bytes: slot 40 of the contain interface at +0x34 (vtable 0x008475B8,
+// whose slot 68 is rva0047DCDF above). Zero Hour's TunnelContain::
 // addToContainList: the object joins the owning player's tunnel system
 // (+0x2E8, rowed TunnelTracker::addToContainList 0x004F56E5, reached by a
 // tail jump). BFME 2 keeps no null checks, like rva0047DCDF.
@@ -208,6 +213,20 @@ void TunnelContain::addToContainList(Object *obj)
 {
 	Player *owningPlayer = m_1C->getControllingPlayer();
 	owningPlayer->m_2E8->addToContainList(obj);
+}
+
+// ?onDie@TunnelContain@@UAEXPBVDamageInfo@@@Z, retail 0x0047DFD9, 38 bytes:
+// the only slot of the die interface at +0x28 (vtable 0x008475B4). Zero
+// Hour's TunnelContain::onDie: the module data's DieMuxData (+0x08) must
+// apply to the object, then the unregistering Zero Hour does inline is the
+// rowed rva0047DF81 0x0047DF81 on the whole object.
+void TunnelContain::onDie(const DamageInfo *damageInfo)
+{
+	Object *obj = m_object;
+	const TunnelContainModuleDataView *data = (const TunnelContainModuleDataView *)m_moduleData;
+	if (!data->m_dieMuxData.isDieApplicable(obj, damageInfo))
+		return;
+	rva0047DF81();
 }
 
 // ZH TunnelContain onRemoving guides release/position/show; native base is GarrisonContain.
