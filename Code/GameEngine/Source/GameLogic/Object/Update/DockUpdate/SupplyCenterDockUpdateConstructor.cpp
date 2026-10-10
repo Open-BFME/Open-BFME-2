@@ -73,9 +73,19 @@ void BehaviorModule::behaviorModuleAnchor()
 struct BehaviorModuleInterface
 {
 	virtual void behaviorModuleInterfaceAnchor();
+	virtual void behaviorAnchor();
+	virtual void ifaceAnchor();
 };
 
 void BehaviorModuleInterface::behaviorModuleInterfaceAnchor()
+{
+}
+// ?behaviorAnchor@BehaviorModuleInterface@@UAEXXZ present-unmatched
+void BehaviorModuleInterface::behaviorAnchor()
+{
+}
+// ?ifaceAnchor@BehaviorModuleInterface@@UAEXXZ present-unmatched
+void BehaviorModuleInterface::ifaceAnchor()
 {
 }
 
@@ -83,9 +93,14 @@ void BehaviorModuleInterface::behaviorModuleInterfaceAnchor()
 struct UpgradeMux
 {
 	virtual void upgradeMuxAnchor();
+	virtual void muxAnchor();
 };
 
 void UpgradeMux::upgradeMuxAnchor()
+{
+}
+// ?muxAnchor@UpgradeMux@@UAEXXZ present-unmatched
+void UpgradeMux::muxAnchor()
 {
 }
 
@@ -363,3 +378,338 @@ SupplyCenterDockUpdate::SupplyCenterDockUpdate(Thing *thing, const ModuleData *m
 // each one has the same function in that slot (vftable addresses from matched vptr
 // stores). Bind them to the rows at those functions.
 #pragma comment(linker, "/alternatename:?supplyCenterDockUpdateIface3Anchor@SupplyCenterDockUpdateIface3@@UAEXXZ=?isClearToApproach@DockUpdate@@UBE_NPBVObject@@@Z")
+
+// Further single-definition vftable anchors of the same shape: one struct
+// per class; each out-of-line body carries its own present-unmatched marker
+// directly above it (a marker above the struct does not bind to later
+// definitions); no retail bytes claimed.
+
+struct AudioLoopBase0C
+{
+	virtual void base0CAnchor();
+};
+
+// ?base0CAnchor@AudioLoopBase0C@@UAEXXZ present-unmatched
+void AudioLoopBase0C::base0CAnchor()
+{
+}
+
+struct AudioLoopBase10
+{
+	virtual void base10Anchor();
+};
+
+// ?base10Anchor@AudioLoopBase10@@UAEXXZ present-unmatched
+void AudioLoopBase10::base10Anchor()
+{
+}
+
+struct AudioLoopBase20
+{
+	virtual void base20Anchor();
+};
+
+// ?base20Anchor@AudioLoopBase20@@UAEXXZ present-unmatched
+void AudioLoopBase20::base20Anchor()
+{
+}
+
+struct AudioLoopBase28
+{
+	virtual void base28Anchor();
+};
+
+// ?base28Anchor@AudioLoopBase28@@UAEXXZ present-unmatched
+void AudioLoopBase28::base28Anchor()
+{
+}
+
+struct AutoPickUpUpdateInterface
+{
+	virtual void autoPickUpAnchor();
+};
+
+// ?autoPickUpAnchor@AutoPickUpUpdateInterface@@UAEXXZ present-unmatched
+void AutoPickUpUpdateInterface::autoPickUpAnchor()
+{
+}
+
+struct BehaviorIface
+{
+	virtual void behaviorIfaceAnchor();
+};
+
+// ?behaviorIfaceAnchor@BehaviorIface@@UAEXXZ present-unmatched
+void BehaviorIface::behaviorIfaceAnchor()
+{
+}
+
+struct BehaviorModuleBase
+{
+	virtual void behaviorModuleBaseAnchor();
+};
+
+// ?behaviorModuleBaseAnchor@BehaviorModuleBase@@UAEXXZ present-unmatched
+void BehaviorModuleBase::behaviorModuleBaseAnchor()
+{
+}
+
+struct BehaviorModuleOther
+{
+	virtual void behaviorModuleOtherAnchor();
+};
+
+// ?behaviorModuleOtherAnchor@BehaviorModuleOther@@UAEXXZ present-unmatched
+void BehaviorModuleOther::behaviorModuleOtherAnchor()
+{
+}
+
+struct ClearanceTestingSlowDeathBehaviorIface1
+{
+	virtual void clearanceTestingSlowDeathBehaviorIface1Anchor();
+};
+
+// ?clearanceTestingSlowDeathBehaviorIface1Anchor@ClearanceTestingSlowDeathBehaviorIface1@@UAEXXZ present-unmatched
+void ClearanceTestingSlowDeathBehaviorIface1::clearanceTestingSlowDeathBehaviorIface1Anchor()
+{
+}
+
+struct CreateModuleInterface
+{
+	virtual void createModuleInterfaceAnchor();
+};
+
+// ?createModuleInterfaceAnchor@CreateModuleInterface@@UAEXXZ present-unmatched
+void CreateModuleInterface::createModuleInterfaceAnchor()
+{
+}
+
+struct DeflectSpecialPowerIface1
+{
+	virtual void deflectSpecialPowerIface1Anchor();
+};
+
+// ?deflectSpecialPowerIface1Anchor@DeflectSpecialPowerIface1@@UAEXXZ present-unmatched
+void DeflectSpecialPowerIface1::deflectSpecialPowerIface1Anchor()
+{
+}
+
+struct DeflectSpecialPowerModuleDataBase
+{
+	virtual void moduleDataAnchor();
+};
+
+// ?moduleDataAnchor@DeflectSpecialPowerModuleDataBase@@UAEXXZ present-unmatched
+void DeflectSpecialPowerModuleDataBase::moduleDataAnchor()
+{
+}
+
+struct DemoTrapUpdate
+{
+	virtual void behaviorAnchor();
+	virtual void objectModuleAnchor();
+};
+
+// ?behaviorAnchor@DemoTrapUpdate@@UAEXXZ present-unmatched
+void DemoTrapUpdate::behaviorAnchor()
+{
+}
+
+// ?objectModuleAnchor@DemoTrapUpdate@@UAEXXZ present-unmatched
+void DemoTrapUpdate::objectModuleAnchor()
+{
+}
+
+struct DockUpdate
+{
+	virtual void behaviorAnchor();
+	virtual void dockAnchor();
+	virtual void objectModuleAnchor();
+};
+
+// ?behaviorAnchor@DockUpdate@@UAEXXZ present-unmatched
+void DockUpdate::behaviorAnchor()
+{
+}
+
+// ?dockAnchor@DockUpdate@@UAEXXZ present-unmatched
+void DockUpdate::dockAnchor()
+{
+}
+
+// ?objectModuleAnchor@DockUpdate@@UAEXXZ present-unmatched
+void DockUpdate::objectModuleAnchor()
+{
+}
+
+struct DrawModule
+{
+	virtual void drawModuleAnchor();
+};
+
+// ?drawModuleAnchor@DrawModule@@UAEXXZ present-unmatched
+void DrawModule::drawModuleAnchor()
+{
+}
+
+struct ExperienceLevelCreateIface1
+{
+	virtual void experienceLevelCreateIface1Anchor();
+};
+
+// ?experienceLevelCreateIface1Anchor@ExperienceLevelCreateIface1@@UAEXXZ present-unmatched
+void ExperienceLevelCreateIface1::experienceLevelCreateIface1Anchor()
+{
+}
+
+struct ExperienceLevelCreateIface2
+{
+	virtual void experienceLevelCreateIface2Anchor();
+};
+
+// ?experienceLevelCreateIface2Anchor@ExperienceLevelCreateIface2@@UAEXXZ present-unmatched
+void ExperienceLevelCreateIface2::experienceLevelCreateIface2Anchor()
+{
+}
+
+struct ObjectModule
+{
+	virtual void objectAnchor();
+};
+
+// ?objectAnchor@ObjectModule@@UAEXXZ present-unmatched
+void ObjectModule::objectAnchor()
+{
+}
+
+struct ObjectModuleBase
+{
+	virtual void objectModuleAnchor();
+};
+
+// ?objectModuleAnchor@ObjectModuleBase@@UAEXXZ present-unmatched
+void ObjectModuleBase::objectModuleAnchor()
+{
+}
+
+struct RadarUpdate
+{
+	virtual void behaviorAnchor();
+	virtual void objectModuleAnchor();
+	virtual void updateAnchor();
+};
+
+// ?behaviorAnchor@RadarUpdate@@UAEXXZ present-unmatched
+void RadarUpdate::behaviorAnchor()
+{
+}
+
+// ?objectModuleAnchor@RadarUpdate@@UAEXXZ present-unmatched
+void RadarUpdate::objectModuleAnchor()
+{
+}
+
+// ?updateAnchor@RadarUpdate@@UAEXXZ present-unmatched
+void RadarUpdate::updateAnchor()
+{
+}
+
+struct Rva0056B218B1
+{
+	virtual void b1Anchor();
+};
+
+// ?b1Anchor@Rva0056B218B1@@UAEXXZ present-unmatched
+void Rva0056B218B1::b1Anchor()
+{
+}
+
+struct SiegeAIUpdateIface1
+{
+	virtual void siegeAIUpdateIface1Anchor();
+};
+
+// ?siegeAIUpdateIface1Anchor@SiegeAIUpdateIface1@@UAEXXZ present-unmatched
+void SiegeAIUpdateIface1::siegeAIUpdateIface1Anchor()
+{
+}
+
+struct SpecialPowerModuleInterface
+{
+	virtual void specialPowerModuleInterfaceAnchor();
+};
+
+// ?specialPowerModuleInterfaceAnchor@SpecialPowerModuleInterface@@UAEXXZ present-unmatched
+void SpecialPowerModuleInterface::specialPowerModuleInterfaceAnchor()
+{
+}
+
+struct TransportAIUpdateIface1
+{
+	virtual void transportAIUpdateIface1Anchor();
+};
+
+// ?transportAIUpdateIface1Anchor@TransportAIUpdateIface1@@UAEXXZ present-unmatched
+void TransportAIUpdateIface1::transportAIUpdateIface1Anchor()
+{
+}
+
+struct UpgradeIfaceA
+{
+	virtual void upgradeIfaceAAnchor();
+};
+
+// ?upgradeIfaceAAnchor@UpgradeIfaceA@@UAEXXZ present-unmatched
+void UpgradeIfaceA::upgradeIfaceAAnchor()
+{
+}
+
+struct UpgradeIfaceB
+{
+	virtual void upgradeIfaceBAnchor();
+};
+
+// ?upgradeIfaceBAnchor@UpgradeIfaceB@@UAEXXZ present-unmatched
+void UpgradeIfaceB::upgradeIfaceBAnchor()
+{
+}
+
+struct UpgradeModuleInterface
+{
+	virtual void upgradeModuleInterfaceAnchor();
+};
+
+// ?upgradeModuleInterfaceAnchor@UpgradeModuleInterface@@UAEXXZ present-unmatched
+void UpgradeModuleInterface::upgradeModuleInterfaceAnchor()
+{
+}
+
+struct UpgradeMuxBase
+{
+	virtual void upgradeMuxAnchor();
+};
+
+// ?upgradeMuxAnchor@UpgradeMuxBase@@UAEXXZ present-unmatched
+void UpgradeMuxBase::upgradeMuxAnchor()
+{
+}
+
+struct UpgradeTailBase
+{
+	virtual void upgradeTailAnchor();
+};
+
+// ?upgradeTailAnchor@UpgradeTailBase@@UAEXXZ present-unmatched
+void UpgradeTailBase::upgradeTailAnchor()
+{
+}
+
+struct WeaponModeSpecialPowerUpdateIface1
+{
+	virtual void weaponModeIface1Anchor();
+};
+
+// ?weaponModeIface1Anchor@WeaponModeSpecialPowerUpdateIface1@@UAEXXZ present-unmatched
+void WeaponModeSpecialPowerUpdateIface1::weaponModeIface1Anchor()
+{
+}
