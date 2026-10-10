@@ -12,12 +12,7 @@ struct Rva000E007DPair
 	int m04;
 };
 
-int __stdcall Rva000E007DEqual(const Rva000E007DPair *a, const Rva000E007DPair *b)
-{
-	if (a->m00 != b->m00 || a->m04 != b->m04)
-		return 0;
-	return 1;
-}
+// The exact pair comparator is owned by Rva000E007DEqual.cpp.
 
 // Native E0322..E03DD: STLport4.5.3 resize from BF1 ba7dd _hashtable.c.
 // Nodes link at0; two-word XOR key at4/8 is independently established by
