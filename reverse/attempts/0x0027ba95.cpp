@@ -1,4 +1,6 @@
 // ?calcPhysicsXform@Drawable@@QAE_NAAUPhysicsXformInfo@1@@Z
+// partial score=0.9772349272 date=2026-10-10
+// ?calcPhysicsXform@Drawable@@QAE_NAAUPhysicsXformInfo@1@@Z
 // partial score=0.9772349272349272 date=2026-10-10
 // ?calcPhysicsXform@Drawable@@QAE_NAAUPhysicsXformInfo@1@@Z
 // partial score=0.9247661122994653 date=2026-10-09

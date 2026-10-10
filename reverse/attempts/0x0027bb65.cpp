@@ -1,4 +1,6 @@
 // ?applyPhysicsXform@Drawable@@QAEXPAVMatrix3D@@@Z
+// partial score=0.9952041748 date=2026-10-10
+// ?applyPhysicsXform@Drawable@@QAEXPAVMatrix3D@@@Z
 // partial score=0.9952041748 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG
 // Reference WWMath Matrix3D postMul and assignment; native BED0 proves flag43F and order.

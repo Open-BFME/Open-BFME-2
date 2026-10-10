@@ -1,4 +1,6 @@
 // ?rva00260BBF@SubTitleWindow@@QAEXABV?$StringBase@G@@I@Z
+// partial score=0.9386475126 date=2026-10-10
+// ?rva00260BBF@SubTitleWindow@@QAEXABV?$StringBase@G@@I@Z
 // partial score=0.9386475126363394 date=2026-10-10
 // ?rva00260BBF@SubTitleWindow@@QAEXABV?$StringBase@G@@I@Z
 // cl: /Ireference/shims/bfme2_ascii /O1 /G7 /DNDEBUG /MD /EHsc /arch:SSE /D_STLP_USE_STATIC_LIB /D_CRTIMP=

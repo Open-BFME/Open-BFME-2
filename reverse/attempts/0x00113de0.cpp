@@ -1,4 +1,6 @@
 // ?rva00113DE0@W3DTerrainBackground@@QAEXPAGPAVVector3@@HHH0AAH@Z
+// partial score=0.9994746236 date=2026-10-10
+// ?rva00113DE0@W3DTerrainBackground@@QAEXPAGPAVVector3@@HHH0AAH@Z
 // partial score=0.99 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
 // ?rva00113DE0@W3DTerrainBackground@@QAEXPAGPAVVector3@@HHH0AAH@Z
