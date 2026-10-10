@@ -110,3 +110,36 @@ AptValue *AptLoadVars::sMethod_send(AptValue *value,int nParams)
 struct BfmeKey1279;
 class BfmeLookup1279 {public:void bfmeErase1279(BfmeKey1279 &);};
 EAStringC *Rva0070B4F0GetString(int);
+AptValue *AptLoadVars::sMethod_sendAndLoad(AptValue *value,int nParams)
+{
+ *reinterpret_cast<int *>(reinterpret_cast<char *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD2E0())+0x20)=0;
+ if(nParams<=0||nParams>3)return AptBoolean::Create(false);
+ AptValue *arg=reinterpret_cast<AptValue *>(g_aptDateInterpreter.stack.At(0));
+ LoadVarsScopedString url;
+ arg->toString(url);
+ AptValue *targetValue=0;
+ LoadVarsScopedString target;
+ if(nParams>1)targetValue=reinterpret_cast<AptValue *>(g_aptDateInterpreter.stack.At(1));
+ LoadVarsScopedString method;
+ if(nParams>2) {
+  AptValue *methodValue=reinterpret_cast<AptValue *>(g_aptDateInterpreter.stack.At(2));
+  methodValue->toString(method);
+ }
+ EAStringC properties=value->rva006ddde0();
+ if(!g_bfmeAptSendVariablesAtE1776C) {
+  g_bfmeAptAssertAtE17734("gAptFuncs.pfnSendVariables","C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptMiscObjects.cpp",1196);
+  if(g_bfmeAptBreakOnAssertAtDDC01C)__debugbreak();
+ }
+ g_bfmeAptSendVariablesAtE1776C(url.rva00620090(),target.rva00620090(),method.rva00620090(),properties.rva00620090(),1);
+ AptNativeHash *hash=value->GetNativeHashVirtual();
+ if(!hash)return AptBoolean::Create(false);
+ for(AsciiString *key=hash->rva0070AA40();key;key=reinterpret_cast<AsciiString *>(hash->rva0070AAA0(reinterpret_cast<AptNativeHash::Entry *>(key)))) {
+  EAStringC *str=reinterpret_cast<EAStringC *>(key);
+  if(str->IsEqualTo(Rva0070B4F0GetString(0))||str->IsEqualTo(Rva0070B4F0GetString(0x78)))continue;
+  reinterpret_cast<BfmeLookup1279 *>(hash)->bfmeErase1279(*reinterpret_cast<BfmeKey1279 *>(key));
+ }
+ g_aptDateInterpreter.loadVariables(targetValue,0,0);
+ *reinterpret_cast<int *>(reinterpret_cast<char *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD2E0())+0x20)=1;
+ return AptBoolean::Create(true);
+}
+
