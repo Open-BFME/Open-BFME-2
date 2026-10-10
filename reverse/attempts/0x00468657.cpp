@@ -1,8 +1,10 @@
-// ?rva00468657@Rva00468657@@QAEXPAVObject@@E@Z
+// ?rva00468657@Rva00468657@@QAEXPAVObject@@_N@Z
+// partial score=0.9820600685345697 date=2026-10-10
+// ?rva00468657@Rva00468657@@QAEXPAVObject@@_N@Z
 // partial score=0.983 date=2026-10-10
-// ?rva00468657@Rva00468657@@QAEXPAVObject@@E@Z
+// ?rva00468657@Rva00468657@@QAEXPAVObject@@_N@Z
 // partial score=0.983 date=2026-10-10
-// ?rva00468657@Rva00468657@@QAEXPAVObject@@E@Z
+// ?rva00468657@Rva00468657@@QAEXPAVObject@@_N@Z
 // partial score=0.9 date=2026-10-08
 // cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /arch:SSE /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
 // stlport
@@ -19,7 +21,7 @@
 class Drawable
 {
 public:
-	void rva0027656F(int ownerID, AsciiString bone);
+	void rva0027656F(int ownerID, AsciiString bone);void setDrawableHidden(bool);
 };
 
 class Thing
@@ -41,7 +43,7 @@ class Rva002716Holder
 public:
 	void Rva0027167FBroadcast(int id);
 	void Rva002716D3Broadcast(int id);
-	void rva00271601(unsigned char value);
+	
 };
 
 class Rva004650A0
@@ -50,14 +52,7 @@ public:
 	AsciiString &rva004650A0(const int &key);
 };
 
-struct ContainStatus468657
-{
-	ContainStatus468657(){}
- ContainStatus468657(const ContainStatus468657&o){for(int i=0;i<4;++i)words[i]=o.words[i];}
- unsigned char test(unsigned i)const{return static_cast<unsigned char>(words[i>>5]>>(i&31))&1;}
- unsigned int words[4];
-};
-
+struct ContainStatus468657 {unsigned char test(unsigned i)const{return static_cast<unsigned char>(words[i>>5]>>(i&31))&1;}unsigned int words[4];};
 class Rva00468657
 {
 public:
@@ -75,13 +70,13 @@ public:
 	CONTAIN_SLOT(40) CONTAIN_SLOT(41) CONTAIN_SLOT(42) CONTAIN_SLOT(43)
 #undef CONTAIN_SLOT
 	virtual ContainStatus468657 status(int mode) = 0;
-	void rva00468657(Object *object, unsigned char value);
+	void rva00468657(Object *object, bool value);
 private:
 	char pad04[0x18];
 	_STL::map<int, AsciiString> bones;
 };
 
-void Rva00468657::rva00468657(Object *object, unsigned char value)
+void Rva00468657::rva00468657(Object *object, bool value)
 {
 	if (!object)
 		return;
@@ -109,5 +104,5 @@ void Rva00468657::rva00468657(Object *object, unsigned char value)
 				reinterpret_cast<Rva0055A88BDwordField *>(drawable)->get(),
 				AsciiString("FIREPOINT01"));
 	}
-	reinterpret_cast<Rva002716Holder *>(passenger)->rva00271601(value);
+	passenger->setDrawableHidden(value);
 }
