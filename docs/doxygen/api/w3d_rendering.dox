@@ -1,0 +1,11 @@
+/// \defgroup grp_w3d_rendering W3D rendering
+/// \brief The W3D engine (WW3D2), its math library (WWMath) and the W3D
+///        device layer that implements the game's display.
+///
+/// `WW3D` and `DX8Wrapper` over Direct3D 9; render objects, meshes, HLODs,
+/// animations, materials and BFME 2's FX effect shaders; scenes, cameras and
+/// the 2D renderer; WWMath's vectors, matrices and bounding volumes; and the
+/// device layer: `W3DDisplay`, `W3DView`, terrain, water, shadows and the draw
+/// modules `W3DModuleFactory` registers. \ref sub_w3d_rendering describes the
+/// subsystem, its state and its differences from Zero Hour, with notes for
+/// modders and remasters.

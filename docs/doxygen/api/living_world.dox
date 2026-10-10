@@ -1,0 +1,10 @@
+/// \defgroup grp_living_world Living World
+/// \brief The War of the Ring campaign: campaign logic, regions, armies,
+///        battles and auto-resolve, campaign acts, and the strategic map's
+///        client side and Apt HUD.
+///
+/// Campaign state lives in `LivingWorldLogic` and the stores registered
+/// beside it in `GameEngine::init`. The client manager and the HUD present
+/// it, but the manager also holds settings and state that the logic reads
+/// and saves, so the two sides are coupled. \ref sub_living_world describes
+/// the subsystem, its data and its differences from Zero Hour and BFME 1.

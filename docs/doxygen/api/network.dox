@@ -1,0 +1,10 @@
+/// \defgroup grp_network Network
+/// \brief Lockstep multiplayer, the LAN lobby and the online services.
+///
+/// `NetworkInterface` (`TheNetwork`) and the frame-admission queries;
+/// `ConnectionManager`, `Connection`, `NetPacket` and the `NetCommandMsg`
+/// family that carry player commands; the per-player frame rings;
+/// `Transport` and `UDP` over Winsock; `DisconnectManager`; the LAN lobby
+/// `LANAPI` with `GameInfo` and `GameSlot`; and the GameSpy and FESL
+/// online code. \ref sub_network describes the subsystem, its state and
+/// its differences from Zero Hour.

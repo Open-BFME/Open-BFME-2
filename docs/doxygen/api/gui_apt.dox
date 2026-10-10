@@ -1,0 +1,10 @@
+/// \defgroup grp_gui_apt GUI and Apt UI
+/// \brief The Apt movie player and its game-side screens and HUD, plus the
+///        window system, shell, transitions and control bar kept from
+///        Zero Hour.
+///
+/// Front-end screens and most of the HUD are Apt movies whose script calls
+/// native callbacks registered by name. The window manager, gadgets, shell
+/// and control bar from Zero Hour remain; the shell creates Apt screens
+/// through the window manager's layout call. \ref sub_gui_apt describes the
+/// subsystem, its data and its differences from Zero Hour and BFME 1.
