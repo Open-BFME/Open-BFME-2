@@ -25,9 +25,14 @@ public:
 class Rva00082EF5Second
 {
 public:
-	Rva00082EF5Second() {}
+	Rva00082EF5Second();
 	virtual ~Rva00082EF5Second() {}
 };
+// ??0Rva00082EF5Second@@QAE@XZ @0x0007E056 9B: the default constructor, storing the
+// class's own vtable (VA 0x00BC6EEC) and returning this.
+Rva00082EF5Second::Rva00082EF5Second()
+{
+}
 
 class Rva00082EF5Base1
 {

@@ -67,8 +67,14 @@ public:
 class Rva00419BFA_Cmd
 {
 public:
+	Rva00419BFA_Cmd();
 	virtual ~Rva00419BFA_Cmd() {}
 };
+// ??0Rva00419BFA_Cmd@@QAE@XZ @0x00419B68 9B: the default constructor, storing the
+// class's own vtable (VA 0x00C3ABB8) and returning this.
+Rva00419BFA_Cmd::Rva00419BFA_Cmd()
+{
+}
 
 // ?Rva00419BCDCreate@@YAPAXXZ present-unmatched
 void *__cdecl Rva00419BCDCreate()

@@ -56,8 +56,14 @@ public:
 class Base0C_80FD
 {
 public:
+	Base0C_80FD();
 	virtual ~Base0C_80FD() {}
 };
+// ??0Base0C_80FD@@QAE@XZ @0x0007E126 9B: the default constructor, storing the
+// class's own vtable (VA 0x00BC6F34) and returning this.
+Base0C_80FD::Base0C_80FD()
+{
+}
 class Rva005E80FD : public Rva005F7750, public Base08_80FD, public Base0C_80FD
 {
 public:

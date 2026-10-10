@@ -9,13 +9,18 @@
 class BfmeNetGameMessageArgument
 {
 public:
-	BfmeNetGameMessageArgument() {}
+	BfmeNetGameMessageArgument();
 	virtual ~BfmeNetGameMessageArgument() {}
 
 	BfmeNetGameMessageArgument *m_next;
 	GameMessageArgumentType m_data;
 	GameMessageArgumentDataType m_type;
 };
+// ??0BfmeNetGameMessageArgument@@QAE@XZ @0x0030F53C 9B: the default constructor, storing the
+// class's own vtable (VA 0x00C09844) and returning this.
+BfmeNetGameMessageArgument::BfmeNetGameMessageArgument()
+{
+}
 
 // ??1NetCommandMsg@@MAE@XZ present-unmatched
 inline NetCommandMsg::~NetCommandMsg()

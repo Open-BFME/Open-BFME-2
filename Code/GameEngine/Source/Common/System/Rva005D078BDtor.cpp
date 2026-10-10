@@ -30,8 +30,14 @@ private:
 class Rva005D078BSecond
 {
 public:
+	Rva005D078BSecond();
 	virtual ~Rva005D078BSecond() {}
 };
+// ??0Rva005D078BSecond@@QAE@XZ @0x005CFB81 9B: the default constructor, storing the
+// class's own vtable (VA 0x00C7528C) and returning this.
+Rva005D078BSecond::Rva005D078BSecond()
+{
+}
 class Rva005D078B : public Rva005CF8E3, public Rva005D078BSecond
 {
 public:

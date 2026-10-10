@@ -81,10 +81,16 @@ public:
 class Listener00576C4B
 {
 public:
+	Listener00576C4B();
 	virtual ~Listener00576C4B() {}
 	Inner00576C4B *m_s;
 	char m_pad[8];
 };
+// ??0Listener00576C4B@@QAE@XZ @0x00576674 9B: the default constructor, storing the
+// class's own vtable (VA 0x00C6E788) and returning this.
+Listener00576C4B::Listener00576C4B()
+{
+}
 class Rva00576C4B : public Base0_00576C4B, public Rva005CD1A9, public Listener00576C4B
 {
 public:
