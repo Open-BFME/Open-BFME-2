@@ -33672,3 +33672,4 @@ AIUpdateInterface::doPathfind	0x00269902	1883	blocked	Native269902..26A05D RET4;
 ??H@YA?AURva0050F23E@@ABUAsciiStringPlusStringChar@@PBD@Z	0x0059AFC2	57	landed	add_match verified Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptRowListConstructor.cpp 57B; ICF twin of Rva0059AFC2Copy: the typed concat the row-list ctor 0x005103A3 calls
 ??0Rva005105D7@@QAE@HABVAsciiString@@@Z	0x005103A3	528	landed	add_match verified Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptRowListConstructor.cpp 528B
 ?Rva00512069Register@@YAXXZ	0x00512069	179	landed	add_match verified Code/GameEngine/Source/GameClient/Rva00511F73.cpp 179B
+??0Rva00527827@@QAE@HABVAsciiString@@@Z	0x00527C04	202	landed	add_match verified Code/GameEngine/Source/Common/Bfme/Rva00527827Constructor.cpp 202B

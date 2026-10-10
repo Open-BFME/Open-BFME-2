@@ -74690,3 +74690,4 @@ __ehhandler$??0Rva00527378Payload@@QAE@PAXHABVAsciiString@@00@Z,,0x007969BF,10,C
 ??H@YA?AURva0050F23E@@ABUAsciiStringPlusStringChar@@PBD@Z,,0x0059AFC2,57,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptRowListConstructor.cpp,matched,ICF twin of Rva0059AFC2Copy: the typed concat the row-list ctor 0x005103A3 calls
 ??0Rva005105D7@@QAE@HABVAsciiString@@@Z,,0x005103A3,528,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptRowListConstructor.cpp,matched,
 ?Rva00512069Register@@YAXXZ,,0x00512069,179,Code/GameEngine/Source/GameClient/Rva00511F73.cpp,matched,
+??0Rva00527827@@QAE@HABVAsciiString@@@Z,,0x00527C04,202,Code/GameEngine/Source/Common/Bfme/Rva00527827Constructor.cpp,matched,
