@@ -600,6 +600,7 @@ public:
 	void rva002B9A90(Int regionID, const _STL::vector<Int> &players, UnsignedInt flags);	// 0x002B9A90
 	void rva002B37FF(class LivingWorldBattle *battle);	// 0x002B37FF
 	void PrepareBattleForLoading(class LivingWorldBattle *battle);
+ void rva002B3833(LivingWorldBattle*,struct Rva002B89BBInfo*);
 
 private:
 	void AddDelayedRegionVictory(Rva003F287F *region, Int player, UnsignedInt flags);	// 0x002B9B42
@@ -1846,7 +1847,8 @@ class Rva003F468D;
 class LivingWorldBattle
 {
 public:
-	Int GetTeamNumberForSide(Int side);			// 0x003F458A
+	void rva003F498A(class Rva003F498ACallback*);
+ Int GetTeamNumberForSide(Int side);			// 0x003F458A
 	Int rva003F48FE(Int side, Int army, Int unit);		// 0x003F48FE
 	Int GetRetreatedPlayerCount(Int side);			// 0x003F46A8
 	Int GetRetreatedPlayerID(Int side, Int index);		// 0x003F46C1
@@ -2660,4 +2662,22 @@ LivingWorldArmy *LivingWorldLogic::spawnArmy(Rva004E3184 *spawn,Rva002B6A04Playe
   }
  }
  return army;
+}
+
+// Native2B3833..2B386A whole55B RET8; WB D877A0 constructs
+// callback with payload4 then traverses the battle. Retail BFE004 points
+// to the genuine virtual38B provider2B89BB; no explicit vtable address,
+// alias, pin or guessed semantic callback name. Receiver is unused.
+struct Rva002B89BBArg;
+struct Rva002B89BBInfo;
+class Rva002B89BB {
+public:
+ virtual bool rva002B89BB(Rva002B89BBArg *);
+ Rva002B89BB(Rva002B89BBInfo *value):m_info(value){}
+ ~Rva002B89BB(){}
+ Rva002B89BBInfo *m_info;
+};
+void LivingWorldLogic::rva002B3833(LivingWorldBattle* battle,Rva002B89BBInfo* army){
+ Rva002B89BB callback(army);
+ battle->rva003F498A((Rva003F498ACallback*)&callback);
 }
