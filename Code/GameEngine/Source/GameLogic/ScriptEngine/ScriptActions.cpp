@@ -135,13 +135,21 @@ public:
 	bool rva00339() const { return ((const unsigned char *)this)[0x339] != 0; }
 	int getPlayerType() const { return m_playerType; }
 	void rva002ABA9B();
-	void rva002ACEDF(const class ThingTemplate *tmpl);
 	const AsciiString &getSide() const { return *(const AsciiString *)((const unsigned char *)this + 0x58); }
 	int getPlayerIndex() const { return m_playerIndex; }
 	int getMpStartIndex() const { return *(const int *)((const unsigned char *)this + 0x2E0); }
 	void setUnitsShouldIdleOrResume(bool idle);
 };
 
+// 0x002ACEDF is rowed as Rva002ABFA0::rva002ACEDF (35B Player short-list
+// append from Rva002ABFA0Remove.cpp); this TU calls it through a TU-local
+// view so it resolves to the rowed body instead of the unrowed Player
+// spelling (U on ScriptActions' unit).
+class Rva002ABFA0
+{
+public:
+	void rva002ACEDF(void *p);
+};
 class PlayerList
 {
 public:
@@ -950,7 +958,7 @@ void ScriptActions::rva003C606C(Parameter *playerParam, bool flag)
 		player->rva002ABA9B();
 		for (; tmpl; tmpl = tmpl->m_next) {
 			if (tmpl->isKindOf(7) && tmpl->m_side == player->getSide())
-				player->rva002ACEDF((const ThingTemplate *)tmpl);
+				((Rva002ABFA0 *)player)->rva002ACEDF((void *)tmpl);
 		}
 	}
 }
