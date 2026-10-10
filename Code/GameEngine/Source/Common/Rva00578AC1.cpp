@@ -20,6 +20,10 @@ public:
 class Rva00578A60List
 {
 public:
+	// The Observable list ctor (an empty vector and index -1, 0x00330757);
+	// visible here so that cl knows the button-base ctor writes only its
+	// own subobject (see Rva00578C2E below).
+	Rva00578A60List() : m_begin(0), m_end(0), m_capacity(0), m_index(0xFFFFFFFF) {}
 	void forEach(void (Rva00578A60Listener::*notify)(void *), void *arg);
 private:
 	Rva00578A60Listener **m_begin;
@@ -304,11 +308,17 @@ public:
 	virtual void base0();
 };
 
+// Retail vtable 0x00BE2B78 holds only three __purecall slots: the base's
+// destructor (0x00578C0E) is not virtual. Both its constructor (0x00578C2E)
+// and its destructor are out-of-line copies emitted in this unit's range.
+// The constructor body is visible (noinline): cl then knows it writes only
+// the button subobject and drops the dead PalantirBase0 vptr store from the
+// Palantir constructor exactly as retail does.
 class Rva00578C2E : public Rva004FAC6BBase0
 {
 public:
-	Rva00578C2E() throw();
-	virtual ~Rva00578C2E() {}
+	__declspec(noinline) Rva00578C2E() {}
+	~Rva00578C2E();
 
 	Rva00578A60List m_listeners; // +0x04
 };
@@ -316,13 +326,31 @@ public:
 template <int N> class PalantirButton : public Rva00578C2E
 {
 public:
-	virtual ~PalantirButton() {}
+	~PalantirButton() {}
 };
 
-class __declspec(novtable) PalantirBase0
+// The primary interface: retail vtable 0x00C79760 holds twelve __purecall
+// slots (Palantir's 0x00C6EB08 fills them with 0x005785F6..0x0057864E) and
+// no destructor slot. Its destructor is inline and stores that vtable (the
+// out-of-line copy 0x0057851B is the constructor's state-0 unwind action);
+// its constructor's store (out-of-line copy 0x005F687A) is dead in the
+// Palantir constructor and removed by cl.
+class PalantirBase0
 {
 public:
-	virtual ~PalantirBase0();
+	virtual void slot00() = 0;
+	virtual void slot01() = 0;
+	virtual void slot02() = 0;
+	virtual void slot03() = 0;
+	virtual void slot04() = 0;
+	virtual void slot05() = 0;
+	virtual void slot06() = 0;
+	virtual void slot07() = 0;
+	virtual void slot08() = 0;
+	virtual void slot09() = 0;
+	virtual void slot10() = 0;
+	virtual void slot11() = 0;
+	~PalantirBase0() {}
 };
 
 // Owning holders with their rowed clears as destructors.
@@ -363,7 +391,7 @@ class StrategicHUD::Palantir : public PalantirBase0, public PalantirButton<0>, p
 {
 public:
 	Palantir(int level, const AsciiString &name);
-	virtual ~Palantir();
+	~Palantir();
 	__declspec(noinline) void rva00578AC1(void *arg);
 	__declspec(noinline) void rva00578B4C(void *arg);
 
@@ -628,4 +656,18 @@ void StrategicHUD::Palantir::rva0057864E(bool visible)
 {
  ((Rva005D37F1 *)m_regionUI.m_ptr)->rva005D37F1(visible);
  ((Rva005D3287 *)m_regionStatsTray.m_ptr)->rva005D3287(visible);
+}
+
+// Retail 0x00578C43..0x00578D10 (205 B), not virtual: no vtable of the
+// class (primary 0x00C6EB08 twelve slots, secondaries 0x00C6EAF0 and
+// 0x00C6EAD8 six slots each) holds a deleting destructor. Broadcasts the
+// slot-0 listener call (vcall thunk 0x001FF3A9) over the objectives then
+// the options button lists, then the members and bases unwind: the four
+// owning holders (+0x50..+0x44), the command-map names (0x0052413E), the
+// movie name, the two button bases (vtable 0x00C6EAC0 then the base
+// destructor 0x00578C0E) and the primary interface vtable 0x00C79760.
+StrategicHUD::Palantir::~Palantir()
+{
+	PalantirButton<1>::m_listeners.forEach(&Rva00578A60Listener::notify, static_cast<PalantirButton<1> *>(this));
+	PalantirButton<0>::m_listeners.forEach(&Rva00578A60Listener::notify, static_cast<PalantirButton<0> *>(this));
 }
