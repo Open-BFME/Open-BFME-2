@@ -82,6 +82,7 @@ private:
 class Vector4
 {
 public:
+	Vector4(void) {}	// as in vector4.h: retail ??0Matrix4@@QAE@_N@Z (0x000A682E) builds Row[] through ??_H with it
 	__forceinline void Set(float x, float y, float z, float w) { X = x; Y = y; Z = z; W = w; }
 	float X, Y, Z, W;
 };

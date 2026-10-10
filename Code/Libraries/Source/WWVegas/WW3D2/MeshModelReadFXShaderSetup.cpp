@@ -31,20 +31,28 @@ class FXShaderSetup;
 
 class RefCountClass
 {
+	friend struct BfmeFXShaderRefOps;
 public:
 	RefCountClass() : NumRefs(1) {}
-	void Add_Ref() { NumRefs++; }
-	void Release_Ref()
-	{
-		if (--NumRefs == 0)
-			Delete_This();
-	}
 	virtual void Delete_This();
 
 protected:
 	virtual ~RefCountClass() {}
 
 	int NumRefs;
+};
+
+// TU-local copies of refcount.h's RefCountClass::Add_Ref and Release_Ref, which retail's reader
+// inlines. As members of this view they emitted this /O2 unit's COMDAT copies, which are not the
+// bodies the link keeps (Release_Ref's retail body is 0x005D1A7D), so the unit could not link; the
+// struct keeps the inlined code and emits no copy.
+struct BfmeFXShaderRefOps {
+	static __forceinline void Add_Ref(RefCountClass *ref) { ref->NumRefs++; }
+	static __forceinline void Release_Ref(RefCountClass *ref)
+	{
+		if (--ref->NumRefs == 0)
+			ref->Delete_This();
+	}
 };
 
 class FXShaderSetup : public RefCountClass
@@ -119,12 +127,12 @@ bool MeshModelClass::read_Rva0018AF70(ChunkLoadClass &cload, MeshLoadContextClas
 	do {
 		FXShaderSetup *shader = new FXShaderSetup;
 		if (!shader->Load_W3D(cload)) {
-			shader->Release_Ref();
+			BfmeFXShaderRefOps::Release_Ref(shader);
 			return false;
 		}
-		shader->Add_Ref();
+		BfmeFXShaderRefOps::Add_Ref(shader);
 		context->m_shaderVec.Add(shader);
-		shader->Release_Ref();
+		BfmeFXShaderRefOps::Release_Ref(shader);
 		cload.Close_Chunk();
 	} while (cload.Open_Chunk());
 	return true;

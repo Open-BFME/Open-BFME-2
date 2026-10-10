@@ -49,7 +49,7 @@ class DX8Wrapper
 public:
 	static void Set_DX8_Render_State(D3DRENDERSTATETYPE state, unsigned value);
 	static bool _Is_Triangle_Draw_Enabled(void) { return _EnableTriangleDraw; }
-private:
+protected:	// dx8wrapper.cpp defines ?_EnableTriangleDraw@DX8Wrapper@@1_NA (data_ledger 0x009B5FCD)
 	static bool _EnableTriangleDraw;
 };
 

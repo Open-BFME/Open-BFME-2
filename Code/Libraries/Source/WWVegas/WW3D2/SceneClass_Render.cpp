@@ -54,7 +54,6 @@ public:
 	static void Clear(bool clear_color, bool clear_z, bool clear_stencil,
 		const Vector3 &color, float dest_alpha = 0.0f, float z = 1.0f,
 		unsigned stencil = 0);
-	static unsigned Convert_Color(const Vector3 &color, float alpha);
 };
 
 // BFME2 keeps Set_DX8_ZBias out of line with a float bias (0x0011F1C0, rowed
@@ -72,7 +71,12 @@ public:
 	static void Enable_Texturing(bool b);
 };
 
-__forceinline unsigned DX8Wrapper::Convert_Color(const Vector3 &color, float alpha)
+// TU-local copy of dx8wrapper.h's Convert_Color(const Vector3&,float), which retail's
+// SceneClass::Render inlines through Set_Fog. As a DX8Wrapper member this unit emitted a COMDAT
+// copy of it that is not retail's body (the /O1 copy DX8ConvertColorVector3O1.cpp compiles,
+// 0x0006E1C0), so the unit could not link; the struct keeps the inlined code and no copy.
+struct BfmeSceneColorOps {
+static __forceinline unsigned Convert_Color(const Vector3 &color, float alpha)
 {
 	const float scale = 255.0;
 	unsigned int col = 0;
@@ -126,11 +130,12 @@ not_changed:
 	}
 	return col;
 }
+};
 
 __forceinline void Set_Fog(bool enable, const Vector3 &color, float start, float end)
 {
 	DX8Wrapper::FogEnable = enable;
-	DX8Wrapper::FogColor = DX8Wrapper::Convert_Color(color, 0.0f);
+	DX8Wrapper::FogColor = BfmeSceneColorOps::Convert_Color(color, 0.0f);
 	g_Va00DEDA28 = start;
 	g_Va00DEDA2C = end;
 	ShaderClass::Invalidate();

@@ -56,7 +56,6 @@ public:
 class Matrix3D
 {
 public:
-	Matrix3D( void ) {}
 	__forceinline Matrix3D &operator = ( const Matrix3D &m )
 	{
 		Row[0] = m.Row[0]; Row[1] = m.Row[1]; Row[2] = m.Row[2];
@@ -245,10 +244,9 @@ class Object : public Thing
 
 class Drawable
 {
+	friend struct BfmeDebrisDrawableOps;
 public:
-	Object *getObject( void ) { return m_object; }
 	const Matrix3D *getTransformMatrix( void ) const;
-	Real getInstanceScale( void ) const { return m_instanceScale; }
 	const Coord3D *getPosition( void ) const;
 private:
 	char m_unrecovered00[ 0xFC ];
@@ -289,18 +287,27 @@ static Bool isAnimationComplete(RenderObjClass* r)
 }
 
 //-------------------------------------------------------------------------------------------------
+// TU-local copies of Drawable::getObject and getInstanceScale, which retail's doDrawModule inlines.
+// As members of this view they were emitted as COMDAT copies that differ from the first copies in
+// link order (other views place the fields elsewhere), so the unit could not link; Matrix3D likewise
+// drops its empty user-declared default constructor. The inlined code is unchanged.
+struct BfmeDebrisDrawableOps {
+	static __forceinline Object *getObject( Drawable *d ) { return d->m_object; }
+	static __forceinline Real getInstanceScale( const Drawable *d ) { return d->m_instanceScale; }
+};
+
 void W3DDebrisDraw::doDrawModule(const Matrix3D* transformMtx)
 {
 	if (m_renderObject)
 	{
 
 		Matrix3D scaledTransform;
-		if (getDrawable()->getInstanceScale() != 1.0f)
+		if (BfmeDebrisDrawableOps::getInstanceScale(getDrawable()) != 1.0f)
 		{	//do custom scaling of the W3D model.
 			scaledTransform=*transformMtx;
-			scaledTransform.Scale(getDrawable()->getInstanceScale());
+			scaledTransform.Scale(BfmeDebrisDrawableOps::getInstanceScale(getDrawable()));
 			transformMtx = &scaledTransform;
-			m_renderObject->Set_ObjectScale(getDrawable()->getInstanceScale());
+			m_renderObject->Set_ObjectScale(BfmeDebrisDrawableOps::getInstanceScale(getDrawable()));
 		}
 		m_renderObject->Set_Transform(*transformMtx);
 
@@ -312,7 +319,7 @@ void W3DDebrisDraw::doDrawModule(const Matrix3D* transformMtx)
 		};
 
 		Int oldState = m_state;
-		Object* obj = getDrawable()->getObject();
+		Object* obj = BfmeDebrisDrawableOps::getObject(getDrawable());
 		const Int MIN_FINAL_FRAMES = 3;
 		if (m_state != FINAL && obj != 0 && !obj->isAboveTerrain() && m_frames > MIN_FINAL_FRAMES)
 		{

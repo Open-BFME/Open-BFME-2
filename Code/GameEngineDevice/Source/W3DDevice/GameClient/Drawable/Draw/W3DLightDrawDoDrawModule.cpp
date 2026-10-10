@@ -30,7 +30,9 @@ struct Vector3
 class Matrix3D
 {
 public:
-	Matrix3D() {}
+	// No user-declared default constructor: retail's ??0Matrix3D@@QAE@XZ (0x000423C5) runs the
+	// vector constructor iterator over Vector4 rows, which this flat view cannot reproduce, and
+	// an empty inline one was emitted here as a wrong COMDAT copy. The inlined code is the same.
 	void Set_Translation(const Vector3 &t)
 	{
 		Row[0][3] = t.X;

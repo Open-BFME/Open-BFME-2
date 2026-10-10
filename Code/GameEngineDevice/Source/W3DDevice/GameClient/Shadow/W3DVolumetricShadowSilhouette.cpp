@@ -80,7 +80,7 @@ public:
 protected:
 	PolyNeighbor *GetPolyNeighbor( Int polyIndex );
 	inline __declspec(noinline) void GetPolygonIndex (long dwPolyId, short *psIndexList) const {
- struct TriIndex {short I,J,K;};const TriIndex *polyi=&(*(TriIndex**)((char*)m_polygonArray+0xc))[dwPolyId];
+ struct TriIndex {UnsignedShort I,J,K;};const TriIndex *polyi=&(*(TriIndex**)((char*)m_polygonArray+0xc))[dwPolyId];
  *psIndexList++=m_parentVerts[polyi->I];*psIndexList++=m_parentVerts[polyi->J];*psIndexList++=m_parentVerts[polyi->K];
  }
 
