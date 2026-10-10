@@ -1,4 +1,6 @@
 // ?Rva00304744Populate@@YAHPAVGameWindow@@IABVAsciiString@@@Z
+// partial score=0.9792062414818727 date=2026-10-10
+// ?Rva00304744Populate@@YAHPAVGameWindow@@IABVAsciiString@@@Z
 // partial score=0.994 date=2026-10-10
 // cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS
 // stlport
@@ -65,7 +67,7 @@ int Rva00304744Populate(GameWindow *listbox,unsigned flags,const AsciiString &ma
  _STL::vector<MapMetaData*>::iterator it=first;
  if(it!=maps.end()){do {
   MapMetaData *md=*it;
-  int imageData=-1;int index=-1;
+  int index=-1;const int defaultIndex=index;int imageData=defaultIndex;
   if(numColumns>1 && md->official){
    int numEasy=honors->rva00537190(AsciiString(md->fileName.str()),2);
    int numMedium=honors->rva00537190(AsciiString(md->fileName.str()),3);
