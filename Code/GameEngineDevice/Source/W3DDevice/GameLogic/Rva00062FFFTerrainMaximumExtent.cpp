@@ -43,9 +43,13 @@ public:
     float groundHeight(float x,float y,Coord3D *normal) const;
     float rva00062C23(const Coord3D &pos, const Coord3D &posOther) const;
     void largestBoundaryExtent(Region3D *extent) const;
+    void getExtentIncludingBorder(Region3D *extent) const;
 
 private:
-    char m_pad00[0x30];
+    char m_pad00[0x1c];
+    Int m_mapDX;	// +1C
+    Int m_mapDY;	// +20
+    char m_pad24[0x30 - 0x24];
     BoundaryVector m_boundaries;
     int m_activeBoundary; // native active index +3C
     char m_pad40[0x191c - 0x40];
@@ -185,4 +189,26 @@ float Rva00062FFFTerrainPrefix::groundHeight(float x,float y,Coord3D *normal) co
  if(TheTerrainRenderObject)
   return ((const Rva00062C45HeightMapVtableSlice *)TheTerrainRenderObject)->getHeightMapHeight(x,y,normal);
  return 0.0f;
+}
+
+// Native 0x00062B9C..0x00062C0F, 115B, RET4: the terrain table slot before
+// 0x00062E4F, after largestBoundaryExtent. Zero Hour's
+// W3DTerrainLogic::getExtentIncludingBorder (no render-object test: the map's
+// border cells at WorldHeightMap +0x10, map +0x37C0 of the render object),
+// with BFME 2 also copying the z limits as getExtent does.
+struct WorldHeightMapBorderView { char m_pad00[0x10]; Int m_borderSize; Int getBorderSizeInline() const { return m_borderSize; } };
+struct BaseHeightMapMapView { char m_pad00[0x37c0]; WorldHeightMapBorderView *m_map; WorldHeightMapBorderView *getMap() const { return m_map; } };
+
+void Rva00062FFFTerrainPrefix::getExtentIncludingBorder(Region3D *extent) const
+{
+    extent->lo.x = 0.0f;
+    extent->lo.y = 0.0f;
+
+    Real border = ((const BaseHeightMapMapView *)TheTerrainRenderObject)->getMap()->getBorderSizeInline() * MAP_XY_FACTOR;
+    extent->lo.x -= border;
+    extent->lo.y -= border;
+    extent->hi.x = (m_mapDX * MAP_XY_FACTOR)-border;
+    extent->hi.y = (m_mapDY * MAP_XY_FACTOR)-border;
+    extent->lo.z = m_mapMinZ;
+    extent->hi.z = m_mapMaxZ;
 }
