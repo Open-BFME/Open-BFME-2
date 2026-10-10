@@ -74825,3 +74825,4 @@ _VP6_ReadHuffTokens,,0x001C5310,1661,Code/Libraries/Source/VP6/HuffTokens.cpp,ma
 ?rva000AE234@Rva000AE234@@QAEDHH@Z,,0x000AE234,65,Code/GameEngine/Source/Common/Rva000AE234GridGet.cpp,matched,grid byte get
 ??0LANAPI@@QAE@XZ,,0x00449AB8,193,Code/GameEngine/Source/GameNetwork/LANAPIConstructor.cpp,matched,LANAPI ctor
 ??1UpgradeCenter@@UAE@XZ,,0x0026F445,175,Code/GameEngine/Source/Common/UpgradeCenterDestructor.cpp,matched,UpgradeCenter dtor
+??0Rva003A7736@@QAE@ABV0@@Z,,0x003A7736,64,Code/GameEngine/Source/Common/Rva003A7736CopyCtor.cpp,matched,copy ctor

@@ -1,5 +1,4 @@
 // ??0Rva003A7736@@QAE@ABV0@@Z
-// partial score=0.97 date=2026-09-20
 // cl: /O1 /DNDEBUG /MD /EHsc
 // Retail RVA 0x003A7736, 64 bytes. Standalone excerpt of the V3PolyCopyCtors
 // attempt: vptr + four ints + wholesale 3-dword block + two bytes.
@@ -8,6 +7,8 @@
 // ints vs array-held block (identical output). Array variant also banked here
 // via git history of the TU.
 
+extern "C" void _ReadWriteBarrier(void);
+#pragma intrinsic(_ReadWriteBarrier)
 typedef int Int;
 
 struct Rva003A7736Block
@@ -38,6 +39,7 @@ Rva003A7736::Rva003A7736(const Rva003A7736 &other)
 	m_field08 = other.m_field08;
 	m_field0C = other.m_field0C;
 	m_field10 = other.m_field10;
+	_ReadWriteBarrier();
 	m_block14 = other.m_block14;
 	m_field20 = other.m_field20;
 	m_field21 = other.m_field21;
