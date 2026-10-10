@@ -120,3 +120,20 @@ void Rva0010F557::rva0010F557()
     } else if (g.m_locked != 0)
         ((Rva0010F26E *)&g)->rva0010F26E();
 }
+
+// Native command slots BCFA4C/54/6C/74/94 corroborate these stream operations.
+extern "C" __declspec(dllimport) void __stdcall AIL_close_stream(void *stream);
+extern "C" __declspec(dllimport) int __stdcall AIL_service_stream(void *stream,int fillup);
+class Rva0010F28D { public: void rva0010F28D(); private: char pad[8]; Rva0010F28DInner *m_inner; };
+void Rva0010F28D::rva0010F28D() {
+ RVA0010F28D_LOCK(g);
+ if(m_inner->m_stream) { AIL_close_stream(m_inner->m_stream); *(void * volatile *)&m_inner->m_stream=0; if(g.m_locked) ((Rva0010F26E*)&g)->rva0010F26E(); }
+ else if(g.m_locked) ((Rva0010F26E*)&g)->rva0010F26E();
+}
+class Rva0010F2E5 { public: void rva0010F2E5(); private: char pad[8]; Rva0010F28DInner *m_inner; int m_0C; };
+void Rva0010F2E5::rva0010F2E5() {
+ RVA0010F28D_LOCK(g);
+ void *s=m_inner->m_stream;
+ if(s) { AIL_service_stream(s,m_0C==0); if(g.m_locked) ((Rva0010F26E*)&g)->rva0010F26E(); }
+ else if(g.m_locked) ((Rva0010F26E*)&g)->rva0010F26E();
+}
