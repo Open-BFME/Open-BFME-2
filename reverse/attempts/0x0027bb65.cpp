@@ -1,20 +1,24 @@
 // ?applyPhysicsXform@Drawable@@QAEXPAVMatrix3D@@@Z
-// partial score=0.9952 date=2026-10-10
-// ?applyPhysicsXform@Drawable@@QAEXPAVMatrix3D@@@Z
-// partial score=0.9952041748 date=2026-10-10
-// ?applyPhysicsXform@Drawable@@QAEXPAVMatrix3D@@@Z
-// partial score=0.9952041748 date=2026-10-09
+// partial score=0.9977 date=2026-10-11
 // cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG
+// retail 0x0027BB65..0x0027BED0 (875 bytes) thiscall RET 4; ZH Drawable::applyPhysicsXform order and guards.
+// Translation via WWMath Matrix3D::Translate(const Vector3&) with (float) casts on a Vector3(0,0,m_totalZ)
+// temporary: with all three rows 3-term it reproduces retail's zero-term factoring (Y+X, X+Y, Y+X) and every
+// rotation byte, but leaves row 1's z load after the row-0 W store. Writing row 1 as BFME1's translatePhysicsZ
+// explicit sum (X+Y)*t0 + Z*t2 hoists that z load like retail but flips row 1's sum to [esi+0x14] then
+// [esi+0x10] (retail 0x10 then 0x14): 873/875 bytes, sole residue those two displacement bytes.
+// calcPhysicsXform 0x0027BA95 has no row: landing needs a pin or its row.
 // Reference WWMath Matrix3D postMul and assignment; native BED0 proves flag43F and order.
 #include <math.h>
+class Vector3{public:float X,Y,Z;__forceinline Vector3(float x,float y,float z){X=x;Y=y;Z=z;}__forceinline float&operator[](int i){return (&X)[i];}__forceinline const float&operator[](int i)const{return (&X)[i];}};
 class Vector4{public:float X,Y,Z,W;__forceinline Vector4&operator=(const Vector4&v){X=v.X;Y=v.Y;Z=v.Z;W=v.W;return *this;}
 __forceinline float&operator[](int i){return (&X)[i];}__forceinline const float&operator[](int i)const{return (&X)[i];}};
 class Matrix3D{Vector4 Row[3];public:
-__forceinline void Translate(float x,float y,const float&z)
+__forceinline void Translate(const Vector3 &t)
 {
-	Row[0][3]  += (float)(Row[0][0]*x + Row[0][1]*y + Row[0][2]*z);
-	Row[1][3]  += (float)(*(const volatile float*)&Row[1][0]*x + Row[1][1]*y + Row[1][2]**(const volatile float*)&z);
-	Row[2][3]  += (float)(Row[2][0]*x + Row[2][1]*y + Row[2][2]*z);
+	Row[0][3] += (float)(Row[0][0]*t[0] + Row[0][1]*t[1] + Row[0][2]*t[2]);
+	Row[1][3] += (Row[1][0] + Row[1][1])*t[0] + Row[1][2]*t[2];
+	Row[2][3] += (float)(Row[2][0]*t[0] + Row[2][1]*t[1] + Row[2][2]*t[2]);
 }
 __forceinline void Rotate_X(const float&theta)
 {
@@ -156,7 +160,7 @@ frozen=frozen||((Rva00203B08*)TheScriptEngine)->rva0020424FF()||((Rva00203ACEByt
 if(frozen)return;
 PhysicsXformInfo info;
 if(calcPhysicsXform(info)){
- mtx->Translate(0.0f,0.0f,info.m_totalZ);
+ mtx->Translate(Vector3(0.0f,0.0f,info.m_totalZ));
  mtx->Rotate_Y(info.m_totalPitch);
  mtx->Rotate_X(-info.m_totalRoll);
  mtx->Rotate_Z(info.m_totalYaw);
