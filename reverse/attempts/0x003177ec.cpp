@@ -1,3 +1,5 @@
+// ?winCreateFromScript@GameWindowManager@@UAEPAVGameWindow@@VAsciiString@@PAUWindowLayoutInfo@@@Z
+// partial score=0.998 date=2026-10-10
 // ?winCreateFromScript@GameWindowManager@@UAEPAVGameWindow@@VAsciiString@@PAVRva0031763A@@PAV2@@Z
 // partial score=0.9981282625 date=2026-10-10
 // Bank only: caller bytes exact with scratch parseWindow 00316E8F and
