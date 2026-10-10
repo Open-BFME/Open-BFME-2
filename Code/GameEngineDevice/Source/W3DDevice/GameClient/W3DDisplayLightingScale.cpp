@@ -1,0 +1,47 @@
+// ?rva000443BA@@YAXPBURva000443BARow@@MPAPAURva000443BALight@@@Z
+// cl: /O1 /arch:SSE /G7 /MD
+// Native443BA..4443E RET0 and4443E..4450E RET4; complete132/208-byte lighting family.
+// BF1 donor575ba2b04 ZH W3DDisplay::setTimeOfDay provides scene/color/light semantics.
+// Target independently proves four 36B row reads; selected global row stride6C at3C8/650.
+// Static scene belongs to W3DDisplay; caller receiver name remains address-derived.
+// Snapshot the green scale before ambient writes to preserve native alias-visible lifetime;
+// red/blue retain parameter reads. No volatile/fences or synthetic caller.
+// Genuine same-TU caller is required for native ECX/stack caller-cleanup helper ABI.
+struct Rva000443BAVec {
+ float x,y,z;
+ Rva000443BAVec(float a,float b,float c) : x(a),y(b),z(c) {}
+ Rva000443BAVec(const Rva000443BAVec &v):x(v.x),y(v.y),z(v.z){}
+ Rva000443BAVec operator*(float s)const{return Rva000443BAVec(x*s,y*s,z*s);}
+ Rva000443BAVec&operator*=(float s){x*=s;y*=s;z*=s;return *this;}
+ Rva000443BAVec &operator=(const Rva000443BAVec &v) { x=v.x; y=v.y; z=v.z; return *this; }
+};
+struct Rva000443BALight {
+ char pad[0xd4]; Rva000443BAVec ambient,diffuse,specular;
+ void setAmbient(const Rva000443BAVec &v) { ambient=v; }
+ void setDiffuse(const Rva000443BAVec &v) { diffuse=v; }
+ void setSpecular(const Rva000443BAVec &v) { specular=v; }
+};
+struct Rva000443BARow { float ambient[3],diffuse[3],position[3]; };
+static __declspec(noinline) void rva000443BA(const Rva000443BARow *rows, float scale, Rva000443BALight **lights)
+{
+ for (int i=0;i<4;++i) {
+  if (!lights[i]) continue;
+  float green=scale;
+  lights[i]->setAmbient(Rva000443BAVec(0,0,0));
+  green*=rows[i].diffuse[1];
+  lights[i]->setDiffuse(Rva000443BAVec(rows[i].diffuse[0]*scale,green,rows[i].diffuse[2]*scale));
+  lights[i]->setSpecular(Rva000443BAVec(0,0,0));
+ }
+}
+
+
+class GlobalData {public:char p0[0x134];int timeOfDay;char p138[0x3C8-0x138];Rva000443BARow terrain[4][3];char gap[0x650-0x3C8-4*3*sizeof(Rva000443BARow)];Rva000443BARow objects[4][3];};extern GlobalData*TheWritableGlobalData;
+class RTS3DScene {public:virtual void v0();virtual void v1();virtual void v2();virtual void v3();virtual void v4();virtual void v5();virtual void setAmbient(const Rva000443BAVec&);char pad[0x144-4];Rva000443BAVec color;};
+class W3DDisplay {public:static RTS3DScene*m_3DScene;};
+class Rva0004443E {public:char p0[0x148];Rva000443BALight*lights[4];Rva000443BALight*otherLights[4];void rva0004443E(float);};
+void Rva0004443E::rva0004443E(float scale){
+ const Rva000443BARow*rows=&TheWritableGlobalData->terrain[TheWritableGlobalData->timeOfDay][0];
+ const Rva000443BARow*objects=&TheWritableGlobalData->objects[TheWritableGlobalData->timeOfDay][0];
+ if(W3DDisplay::m_3DScene){W3DDisplay::m_3DScene->setAmbient(Rva000443BAVec(rows->ambient[0]*scale,rows->ambient[1]*scale,rows->ambient[2]*scale));W3DDisplay::m_3DScene->color=Rva000443BAVec(objects->ambient[0]*scale,objects->ambient[1]*scale,objects->ambient[2]*scale);}
+ rva000443BA(rows,scale,lights);rva000443BA(objects,scale,otherLights);
+}
