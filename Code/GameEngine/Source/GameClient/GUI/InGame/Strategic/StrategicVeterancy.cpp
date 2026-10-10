@@ -396,3 +396,11 @@ Rva005ED152::Rva005ED152(LivingWorldLogic *logic) {
  }
  ((Rva005ECD8C *)this)->rva005ECD8C((_STL::vector<S4SortElem8B> *)&units,((Rva002B2B66 *)logic)->rva002B2B66());
 }
+
+// Native005ED198..005ED1CD allocates the 28-byte tactical result. The
+// recovered005ECFEF constructor reads LivingWorldLogic at +98 and +B0;
+// the opaque factory argument is that logic pointer, not a copy source.
+void *__cdecl rva005ED198(const void *logic)
+{
+ return new Rva005ED152((LivingWorldLogic *)logic);
+}

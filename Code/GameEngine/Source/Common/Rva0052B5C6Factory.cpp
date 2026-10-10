@@ -51,22 +51,3 @@ void *__stdcall rva0052B58F(const void *source)
 {
 	return new Rva005C44A3(*(const StringBase<char> *)source);
 }
-
-class Rva005ECFEF
-{
-public:
-	Rva005ECFEF(const Rva005ECFEF &source);
-	virtual ~Rva005ECFEF();
-
-private:
-	char m_fields[24];
-};
-
-// ?rva005ED198@@YAPAXPBX@Z @0x005ED198 53B (cdecl, plain ret)
-// Target evidence: allocates 0x1C bytes, skips construction on null, calls the copy constructor at 0x005ECFEF with the
-// stack argument under an EH frame (same shape as rva0052B5C6 above). Structural inference: another 28B polymorphic
-// copy-source type; its identity and layout remain unknown.
-void *__cdecl rva005ED198(const void *source)
-{
-	return new Rva005ECFEF(*(const Rva005ECFEF *)source);
-}
