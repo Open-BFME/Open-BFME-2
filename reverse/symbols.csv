@@ -15312,8 +15312,6 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?Add_Line@Render2DClass@@QAEXABVVector2@@0MKK@Z,0x00042C80,callee of ?rva00044928@W3DDisplay@@QAEXMMMMMKK@Z
 ?rva002118C2@Rva002141D1@@QAEXXZ,0x002118C2,callee of ?rva002141D1@Rva002141D1@@QAEXXZ
 ?Rva00271CB6@@YAXPAX0M@Z,0x00271CB6,callee of ?rva0027411F@Drawable@@QAEXPAXM@Z
-?Rva00271EAD@@YAXPAX0M@Z,0x00271EAD,callee of ?rva0027411F@Drawable@@QAEXPAXM@Z
-?Rva002720A4@@YAXPAX0M@Z,0x002720A4,callee of ?rva0027411F@Drawable@@QAEXPAXM@Z
 ?rva0028641F@Rva002872BA@@QAEXIPAVRva0027D098@@@Z,0x0028641F,callee of ?rva00283CE7@TerrainLogic@@QAEXI@Z
 ?rva00283CB3@Rva00283CB3@@QAEXPAVRva0027D098@@@Z,0x00283CB3,callee of ?rva00283CE7@TerrainLogic@@QAEXI@Z
 ?rva00288C68@ExperienceLevelStore@@QAEPAVExperienceLevelList@@H@Z,0x00288C68,callee of ?rva00288D88@ExperienceLevelStore@@QAE?AUExperienceLevelHandle@@HH@Z
@@ -17139,3 +17137,5 @@ _VP6_ReadTokens,0x001BC3D0,callee of _VP6_DecodeBlock
 ?rva0010DA71@W3DProjectedShadowManager@@QAEHAAVRenderInfoClass@@@Z,0x0010DA71,callee of ?rva0010DF33@W3DProjectedShadowManager@@QAEHAAVRenderInfoClass@@@Z
 ??1GeometryShape@@QAE@XZ,0x00255D17,GeometryShape dtor (StringBase<char> at +0x1C): the 8B add ecx 0x1C; jmp releaseBuffer tail jump (placeholder row ??1Rva00255D17) that GeometryInfo dtor 0x00050B2A reaches through the shape vector dtor 0x00050A79 and range destroy 0x00050A60 (call per 0x24 element); PathfinderPosGoalManager funclet 0x0079171A jumps there; every emitting unit compiles exactly that body; was 0x002AF1EC; the dtor of the 0x24 record Rva002AF6C5Element (vector<AsciiString> at +0x14 and buffer at +8)
 ?floor@@YAMM@Z,0x0004D649,math.h inline float floor(float) = floorf: same 18B /MD body (fld; fstp qword; call [__imp__floor]) that retail keeps once at 0x0004D649; ICF fold with the _floorf row; fold-proof=Code/GameEngine/Source/GameLogic/Map/TerrainLogicAmbientColorRva0027DA6A.cpp
+?rva00270CE4ColorBands@@YAXMPAH@Z,0x00270CE4,four-band colour lookup called by the region bar painter Rva00271EAD 0x00271EAD (REL32 at 0x00271ED7: cdecl float ratio and Color[4] out); 356-byte native body banked as reverse/attempts/0x00270ce4.cpp under this name
+?rva00270E48ColorBands@@YAXMPAH@Z,0x00270E48,three-band colour lookup called by the region bar painter Rva002720A4 0x002720A4 (REL32 at 0x002720CE: cdecl float ratio and Color[3] out); 356-byte native body banked as reverse/attempts/0x00270e48.cpp under this name
