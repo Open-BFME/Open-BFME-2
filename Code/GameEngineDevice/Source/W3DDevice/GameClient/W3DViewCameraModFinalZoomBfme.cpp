@@ -8,6 +8,8 @@
 // target sampling order and a configurable sample distance at GlobalData +0xDD8.
 // Retail 0x00085677..0x000857CD ends in RET and returns its float in XMM0.
 // Both call sites in the zoom body establish its two-float cdecl ABI.
+// rva0008D925 (reset-camera transition, 447B) dereferences the location through (p?p:p): the same-valued
+// PHI orders the first plane multiply operand loads as retail does.
 // Five getGroundHeight calls use vtable +0x18 with a null normal out pointer.
 // The global bindings and member offsets are read independently from retail.
 
@@ -64,6 +66,23 @@ class CameraLimit
 public:
 	virtual Real getMinimum();
 	virtual Real getMaximum();
+	virtual void slot2();
+	virtual void slot3();
+	virtual void slot4();
+	virtual void slot5();
+	virtual void slot6();
+	virtual void slot7();
+	virtual void slot8();
+	virtual void slot9();
+	virtual void slot10();
+	virtual void slot11();
+	virtual void slot12();
+	virtual void slot13();
+	virtual void slot14();
+	virtual void slot15();
+	virtual void slot16();
+	virtual void slot17();
+	virtual void slot18(void *,void *);
 };
 
 #define BFME_W3D_SLOT(n) virtual void slot##n() = 0;
@@ -82,9 +101,47 @@ struct WaypointXY
 	char padding[4];
 };
 
-// The height-field sampler is rowed as Rva0030E7D0::rva0030E67C (0x0030E67C, Rva0030E67CSample.cpp).
-class Rva0030E7D0 { public: Real rva0030E67C(Real x,Real y); };
+class Rva0030E961 { public: Real rva0030E67C(Real x,Real y); };
 
+class Matrix3D;
+class Rva000857F2 {public:void rva000857F2();};
+#include "../../../../GameEngine/Source/GameClient/Rva000869CF.h"
+class GameClient; extern GameClient *TheGameClient;
+struct Rva0008D925ClientFrame {
+virtual void slot0();
+virtual void slot1();
+virtual void slot2();
+virtual void slot3();
+virtual void slot4();
+virtual void slot5();
+virtual void slot6();
+virtual void slot7();
+virtual void slot8();
+virtual void slot9();
+virtual void slot10();
+virtual void slot11();
+virtual void slot12();
+virtual void slot13();
+virtual void slot14();
+virtual void slot15();
+virtual void slot16();
+virtual void slot17();
+virtual void slot18();
+virtual void slot19();
+virtual void slot20();
+virtual void slot21();
+virtual void slot22();
+virtual void slot23();
+virtual void slot24();
+virtual void slot25();
+virtual void slot26();
+virtual void slot27();
+virtual void slot28();
+virtual void slot29();
+virtual void slot30();
+virtual unsigned slot31();
+};
+class ParabolicEase {public:void rva0030E51F(float,float,float);};
 class W3DView
 {
 public:
@@ -113,13 +170,15 @@ public:
 	virtual void cameraModFinalZoom(Real finalZoom, Real easeIn, Real easeOut);
 
 	void setZoomToDefault();
+	void rva0008D925(const Coord3D *,Int,Real,Real);
 private:
 	void setCameraTransform();
+	void buildCameraTransform(Matrix3D *);
 	char m_padding0004[0x0c - 4];
 	Coord3D m_pos;
 	char m_padding0018[0x3c - 0x18];
 	Real m_zoom, m_heightAboveGround;
-	char m_padding0044[0x1ac - 0x44];
+	char m_padding0044[0x19c - 0x44];Int m_resetFrames,m_resetCurrent;char m_padding01a4[0x1ac-0x1a4];
 	Int m_rcNumFrames;
 	Int m_rcCurFrame;
 	char m_padding01b4[0x1bc - 0x1b4];
@@ -141,7 +200,7 @@ private:
 	char m_padding23f4[0x241c - 0x23f4];
 	Bool m_cameraConstraintValid;
 	char m_padding241d[0x2458 - 0x241d];
-	Rva0030E7D0 m_cameraHeightField;
+	Rva0030E961 m_cameraHeightField;
 	char m_padding2459[0x2474 - 0x2459];
 	Bool m_useHeightField;
 	char m_padding2475[0x24c8 - 0x2475];
@@ -203,4 +262,40 @@ void W3DView::setZoomToDefault()
  m_CameraArrivedAtWaypointOnPathFlag=false;
  m_cameraConstraintValid=false;
  setCameraTransform();
+}
+
+// Reference lead: ZH resetCamera, target native 8D925..8DAE4 RET16.
+// BFME adds the remembered-position guard, camera-limit reset and paired
+// transition transforms. Method name remains address-derived.
+void W3DView::rva0008D925(const Coord3D *location,Int milliseconds,Real easeIn,Real easeOut)
+{
+ char *bytes=(char *)this;
+ if(!location && bytes[0x2504])return;
+ ((Rva000857F2 *)(bytes+0x24f4))->rva000857F2();
+ if(!location){location=&m_pos;bytes[0x2500]=1;}
+ m_cameraLimits.slot17();
+ buildCameraTransform((Matrix3D *)(bytes+0x13c));
+ ((Rva000869CF *)this)->rva000869CF();
+ m_pos=*(location?location:location);
+ Real height=getHeightAroundPos(m_pos.x,m_pos.y);
+ if(m_useHeightField)height=m_cameraHeightField.rva0030E67C(m_pos.x,m_pos.y);
+ Real &oldHeight=*(Real *)(bytes+0x2408);
+ if(height!=oldHeight){oldHeight=height;m_cameraConstraintValid=false;}
+ m_zoom=(m_cameraLimits.getMaximum()+oldHeight)/m_cameraOffsetZ;
+ m_heightAboveGround=m_cameraLimits.getMaximum();
+ m_cameraLimits.slot18(bytes+0x23e8,bytes+0x28);
+ *(Real *)(bytes+0x23e8)*=*(Real *)(bytes+0xa0);
+ *(Real *)(bytes+0x23ec)*=*(Real *)(bytes+0xa0);
+ *(Real *)(bytes+0x6c)=0.87266463f;
+ *(Real *)(bytes+0x70)=1.0f;
+ *(Real *)(bytes+0x30)=0.0f;
+ buildCameraTransform((Matrix3D *)(bytes+0x16c));
+ if(milliseconds>1){
+  m_cameraMovementMode=3;
+  m_resetFrames=milliseconds/g_Va00DE204C;
+  m_resetFrames=m_resetFrames<1?1:m_resetFrames;
+  m_resetCurrent=0;
+  ((ParabolicEase *)(bytes+0x1a4))->rva0030E51F(easeIn,easeOut,(Real)milliseconds);
+  *(unsigned *)(bytes+0x2358)=((Rva0008D925ClientFrame *)TheGameClient)->slot31();
+ }else setCameraTransform();
 }
