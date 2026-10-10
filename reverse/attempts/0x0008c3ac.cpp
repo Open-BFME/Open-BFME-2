@@ -1,6 +1,8 @@
 // ?update@W3DView@@UAEXXZ
 // partial score=0.9784136707374416 date=2026-10-10
 // ?update@W3DView@@UAEXXZ
+// partial score=0.9784136707374416 date=2026-10-10
+// ?update@W3DView@@UAEXXZ
 // partial score=0.8900301634 date=2026-10-09
 // ?update@W3DView@@UAE_NXZ
 // partial score=0.8854845531 date=2026-10-09
@@ -39,8 +41,7 @@ class Rva0030E7D0 {public:float rva0030E67C(float,float);float*data,*finish,*end
 class PolygonTrigger { public: bool rva002E3A39(const Coord3D&); };
 class CameraShakeSystemClass;class Rva00065E21{public:bool rva00065E21();};
 extern CameraShakeSystemClass CameraShakerSystem;
-extern float FollowFactor007446A0;
-extern "C" float __identifier("?FollowFactor007446A0@@3MA") = -1.0f;
+float W3DViewFollowFactor=-1.0f;
 class WW3D { public: static unsigned int Get_Frame_Time() { return SyncTime - PreviousSyncTime; } private: static unsigned int SyncTime, PreviousSyncTime; };
 // retail singleton: TerrainLogic *TheTerrainLogic (mangled ?TheTerrainLogic@@3PAVTerrainLogic@@A),
 // defined in GameLogic/Map/TerrainLogic.cpp. This TU only null-tests it.
@@ -568,7 +569,7 @@ void W3DView::update()
         if(it) reinterpret_cast<Rva0006ED29*>(W3DDisplay::m_3DScene)->rva0006ED29(it);
     }
     int cameraLock=getCameraLock();
-    if(cameraLock==0) FollowFactor007446A0=-1.0f;
+    if(cameraLock==0) W3DViewFollowFactor=-1.0f;
     if(cameraLock!=0) {
         field2354=0;
         slot06c(0);
@@ -578,13 +579,13 @@ void W3DView::update()
         BFMERopeDrawable *drawable=TheGameClient->slot02c(getCameraLockDrawable());
         if(loseLock) {
             slot19c();
-            FollowFactor007446A0=-1.0f;
+            W3DViewFollowFactor=-1.0f;
         } else {
-            if(0.0f>FollowFactor007446A0) FollowFactor007446A0=0.05f;
+            if(0.0f>W3DViewFollowFactor) W3DViewFollowFactor=0.05f;
             else {
 _ReadWriteBarrier();
-                FollowFactor007446A0+=0.05f;
-                if(1.0f<FollowFactor007446A0) FollowFactor007446A0=1.0f;
+                W3DViewFollowFactor+=0.05f;
+                if(1.0f<W3DViewFollowFactor) W3DViewFollowFactor=1.0f;
             }
             Coord3D objpos; objpos.x=cameraLockObj->m_position.x; objpos.y=cameraLockObj->m_position.y; objpos.z=cameraLockObj->m_position.z;
             if(drawable) objpos=*drawable->getPosition();
@@ -605,7 +606,7 @@ _ReadWriteBarrier();
                         float ratio=0.01f*m_lockDist;
                         curpos.x+=ratio*(objpos.x-curpos.x); curpos.y+=ratio*(objpos.y-curpos.y);
                     }
-                } else { curpos.x+=dx*FollowFactor007446A0; curpos.y+=dy*FollowFactor007446A0; }
+                } else { curpos.x+=dx*W3DViewFollowFactor; curpos.y+=dy*W3DViewFollowFactor; }
             }
             if(!(reinterpret_cast<Rva00203B08*>(TheScriptEngine)->rva0020424FF()) &&
                 !reinterpret_cast<Rva00203ACEByteField*>(TheScriptEngine)->get() && !TheGameLogic->isGamePaused())
