@@ -87,27 +87,9 @@ public:
     void OnSelectAward(const char *arg);
     void PopulateAwards();
 };
-void AptCreateAHero::Manager::OnSelectAward(const char *arg)
-{
-    if (!TheRva00222A8BTarget)
-        return;
-    int idx = atoi(arg);
-    BfmePod40 *found = 0;
-    if (idx >= 0)
-    {
-        int v = m_holder->m_obj.rva00406E8F((unsigned int)idx);
-        found = g_00E02F74->rva0040AAD5(v);
-    }
-    if (found)
-    {
-        AsciiString key("Cah:SelectedAwardDesc");
-        ((BfmeAptWindowManager *)TheRva00222A8BTarget)->bfmeSetText(key, TheGameText->fetch(*(const AsciiString *)((char *)found + 0x14), (Bool *)0), false);
-        return;
-    }
-    UnicodeString uw((const wchar_t *)g_00BC26DC);
-    AsciiString key("Cah:SelectedAwardDesc");
-    ((BfmeAptWindowManager *)TheRva00222A8BTarget)->bfmeSetText(key, uw, false);
-}
+// OnSelectAward's row (257B @0x005B5E2D) lives in Rva005B5E2D.cpp; the
+// duplicate definition here LNK2005-collided with it, so only the
+// declaration above remains. Nothing in this TU calls it.
 
 // Retail 005B6052..005B6166; WB 0157E340 names PopulateAwards.
 // Lookup retains its existing opaque return type. Only the independently
