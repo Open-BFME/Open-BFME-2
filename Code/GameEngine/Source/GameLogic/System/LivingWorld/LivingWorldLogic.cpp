@@ -523,6 +523,7 @@ public:
 	void AdjustArmyTargetLocations();
 	void ValidatePlayers();
 	void rva002B693F(void *keys);
+	UnsignedInt rva002B77B2();
 	bool rva002B4B83();
 	Bool EndTurn();
 	Bool AdvanceTurnPhase();
@@ -2291,6 +2292,18 @@ void LivingWorldLogic::rva002B693F(void *keys)
    ((_STL::set<Int> *)keys)->insert(key);
   }
  }
+}
+
+// Native 0x002B77B2, 69 bytes: collects the eligible player keys into a local
+// int set through rva002B693F and returns how many there are. The set's
+// default constructor is retail's ICF-folded 25-byte body at 0x000D3A71 and
+// its destructor the 56-byte tree destructor at 0x000730DE. The member's
+// original spelling is unknown.
+UnsignedInt LivingWorldLogic::rva002B77B2()
+{
+ _STL::set<Int> keys;
+ rva002B693F(&keys);
+ return keys.size();
 }
 
 
