@@ -21,9 +21,16 @@ struct EmitVtableTag;
 class DebugCmdInterface
 {
 public:
+	DebugCmdInterface();
 	DebugCmdInterface(EmitVtableTag *);
 	virtual ~DebugCmdInterface() {}
 };
+
+// ??0DebugCmdInterface@@QAE@XZ @0x000382E0 9B: the default constructor, storing the
+// class's own vtable (VA 0x00BBE7EC) and returning this.
+DebugCmdInterface::DebugCmdInterface()
+{
+}
 
 // ?<DebugCmdInterface::DebugCmdInterface> absent-from-retail
 DebugCmdInterface::DebugCmdInterface(EmitVtableTag *)
@@ -70,9 +77,16 @@ Rva00140C00::~Rva00140C00()
 class StaticSortListClass
 {
 public:
+	StaticSortListClass();
 	StaticSortListClass(EmitVtableTag *);
 	virtual ~StaticSortListClass() {}
 };
+
+// ??0StaticSortListClass@@QAE@XZ @0x00176920 9B: the default constructor, storing the
+// class's own vtable (VA 0x00BD4E24) and returning this.
+StaticSortListClass::StaticSortListClass()
+{
+}
 
 // ?<StaticSortListClass::StaticSortListClass> absent-from-retail
 StaticSortListClass::StaticSortListClass(EmitVtableTag *)

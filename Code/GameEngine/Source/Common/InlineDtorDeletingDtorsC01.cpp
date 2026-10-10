@@ -365,9 +365,16 @@ Rva002BED74::~Rva002BED74()
 class Rva002C1283
 {
 public:
+	Rva002C1283();
 	Rva002C1283(EmitVtableTag *);
 	virtual ~Rva002C1283() {}
 };
+
+// ??0Rva002C1283@@QAE@XZ @0x002C127A 9B: the default constructor, storing the
+// class's own vtable (VA 0x00BFE5B4) and returning this.
+Rva002C1283::Rva002C1283()
+{
+}
 
 // ?<Rva002C1283::Rva002C1283> absent-from-retail
 Rva002C1283::Rva002C1283(EmitVtableTag *)
@@ -407,9 +414,16 @@ Rva002D3556::Rva002D3556(EmitVtableTag *)
 class InputChunk
 {
 public:
+	InputChunk();
 	InputChunk(EmitVtableTag *);
 	virtual ~InputChunk() {}
 };
+
+// ??0InputChunk@@QAE@XZ @0x00306DE0 9B: the default constructor, storing the
+// class's own vtable (VA 0x00C07E84) and returning this.
+InputChunk::InputChunk()
+{
+}
 
 // ?<InputChunk::InputChunk> absent-from-retail
 InputChunk::InputChunk(EmitVtableTag *)
@@ -477,10 +491,17 @@ struct Rva003EE746Region;
 class Rva003EE711
 {
 public:
+	Rva003EE711();
 	Rva003EE711(EmitVtableTag *);
 	virtual ~Rva003EE711() {}
 	virtual Rva003EE746Color color(const Rva003EE746Region *) = 0;
 };
+
+// ??0Rva003EE711@@QAE@XZ @0x003EE708 9B: the default constructor, storing the
+// class's own vtable (VA 0x00C363B8) and returning this.
+Rva003EE711::Rva003EE711()
+{
+}
 
 // ?<Rva003EE711::Rva003EE711> absent-from-retail
 Rva003EE711::Rva003EE711(EmitVtableTag *)
