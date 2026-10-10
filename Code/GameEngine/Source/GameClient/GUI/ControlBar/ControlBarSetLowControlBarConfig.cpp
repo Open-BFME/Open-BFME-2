@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD
+// cl: /O1 /DNDEBUG /MD
 //
 // ?setLowControlBarConfig@ControlBar@@IAEXXZ retail 0x0031B134, 136 bytes.
 // Zero Hour ControlBar::setLowControlBarConfig over the BFME 2 offsets:
@@ -75,6 +75,7 @@ public:
 
 protected:
 	void setLowControlBarConfig(void);
+	void rva0031B0CE(void);
 
 private:
 	unsigned char m_pad00[0x1C];
@@ -95,4 +96,16 @@ void ControlBar::setLowControlBarConfig(void)
 	m_contextParentMaster->winSetPosition(pos.x, pos.y);
 	m_contextParentMaster->winHide(false);
 	rva0031AE13();
+}
+
+// Native 0x0031B0CE..0x0031B134: resets stage, uses a float 0.8 height
+// factor, restores the default position, shows the master and updates images.
+// Target establishes these operations; the original method name is unproven.
+void ControlBar::rva0031B0CE(void)
+{
+ m_currentControlBarStage = CONTROL_BAR_STAGE_DEFAULT;
+ TheTacticalView->setHeight((Int)(.8f * TheDisplay->getHeight()));
+ m_contextParentMaster->winSetPosition(m_defaultControlBarPosition.x, m_defaultControlBarPosition.y);
+ m_contextParentMaster->winHide(false);
+ rva0031AE13();
 }
