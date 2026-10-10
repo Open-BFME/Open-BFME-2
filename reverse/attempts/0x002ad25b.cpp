@@ -1,4 +1,6 @@
 // ?rva002AD25B@Player@@QAEXABVAsciiString@@@Z
+// partial score=0.9453824643375456 date=2026-10-10
+// ?rva002AD25B@Player@@QAEXABVAsciiString@@@Z
 // partial score=0.9338287601626016 date=2026-10-10
 // ?rva002AD25B@Player@@QAEXABVAsciiString@@@Z
 // partial score=0.9181676807455106 date=2026-10-10
@@ -47,9 +49,10 @@ private:
  void *buildList;Dict dict;ScriptList scripts;char tail[0x60-0x54];
 };
 struct TeamsInfoEntry {short next,previous,reserved,free;int generation;Dict dict;};
+class SidesList;extern SidesList*TheSidesList;
 class TeamsInfoRec {
 public:
- int getFirstTeamID() const{return teams[0].next;}
+ int getFirstTeamID() const{return (TheSidesList?&teams:&teams)->front().next;}
  int getNextTeamID(int id) const{return teams[id].next;}
  Dict *getTeamInfo(int id){return &teams[id].dict;}
  void removeTeam(int id);
