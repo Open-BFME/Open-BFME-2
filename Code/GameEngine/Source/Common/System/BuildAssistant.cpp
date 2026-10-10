@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /O1 /EHs /MD /arch:SSE /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_CRTIMP=
+// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /O1 /EHs /MD /arch:SSE /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_CRTIMP= /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
 // stlport
 // BuildAssistant.cpp -- BuildAssistant members recovered from WorldBuilder
 // leads (reverse/wb_name_leads.csv): WB's debug build names the function;
@@ -44,6 +44,7 @@
 #include "ascii_string.h"
 #include "unicode_string.h"
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
+#include "../../../../Libraries/Include/Lib/Coord2D.h"
 #include "../GameLogicObjectLookupView.h"
 #include "../PartitionRangeQueryCallView.h"
 
@@ -229,6 +230,13 @@ enum GeometryType
 	GEOMETRY_BOX
 };
 
+// Whether the geometry is a single box (0x006BE160).
+class BfmeThingTemplateShadowSelector
+{
+public:
+	Bool usePluralShadowName() const;
+};
+
 class GeometryInfo
 {
 public:
@@ -237,6 +245,9 @@ public:
 	virtual ~GeometryInfo();
 	Real getMajorRadius() const { return m_majorRadius; }
 	Real getBoundingCircleRadius() const { return m_boundingCircleRadius; }
+	Real getBoxMajorRadius() const { return m_boxMajorRadius; }
+	Real getBoxMinorRadius() const { return m_boxMinorRadius; }
+	__forceinline Bool isSingleBox() const { return ((const BfmeThingTemplateShadowSelector *)this)->usePluralShadowName(); }
 	Real getMaxHeightAbovePosition() const;
 	void expandFootprint(Real radius);
 	bool bfmeIntersects(const Coord3D &pos, Real angle, const GeometryInfo &other, const Coord3D &otherPos, Real otherAngle) const;
@@ -245,7 +256,10 @@ private:
 	unsigned char m_pad04[0x10 - 0x04];
 	Real m_majorRadius;		// +0x10
 	Real m_boundingCircleRadius;	// +0x14
-	unsigned char m_pad18[0x5C - 0x18];
+	unsigned char m_pad18[0x24 - 0x18];
+	Real m_boxMajorRadius;
+	Real m_boxMinorRadius;
+	unsigned char m_pad2C[0x5C - 0x2C];
 };
 
 class ModuleData;
@@ -1133,32 +1147,15 @@ struct BfmeCopyElementA
 	BfmeCopyElementA *bfmeAssign(BfmeCopyElementA *source);
 };
 
-// Whether the geometry is a single box (0x006BE160).
-class BfmeThingTemplateShadowSelector
-{
-public:
-	Bool usePluralShadowName() const;
-};
 
 Real GetGameLogicRandomValueReal(Real low, Real high, char *file, Int line);
 #define BUILDASSISTANT_FILE "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\Common\\System\\BuildAssistant.cpp"
 
 #define PI 3.14159265359f
 
-class Vector3
-{
-public:
-	Vector3(float x, float y, float z) { X = x; Y = y; Z = z; }
-	__forceinline void Rotate_Z(float angle) { Rotate_Z(sinf(angle), cosf(angle)); }
-	void Rotate_Z(float s_angle, float c_angle)
-	{
-		float tmp_x = X;
-		float tmp_y = Y;
-		X = c_angle * tmp_x - s_angle * tmp_y;
-		Y = s_angle * tmp_x + c_angle * tmp_y;
-	}
-	float X, Y, Z;
-};
+
+#define _OPERATOR_NEW_DEFINED_
+#include "matrix3d.h"
 
 class DrawableList : public _STL::list<Drawable *>
 {
@@ -2216,3 +2213,111 @@ Bool Rva00391D25Filter::allow(Object *obj)
  ai->destroyPath();
  return false;
 }
+
+typedef void (*IterateFootprintFunc)(const Coord3D*,void*);
+
+// Footprint transform arithmetic follows WWMath matrix3d.h at BFME1 575ba2b0.
+// Native radius fields are geometry+24/+28; ZH supplies the function name.
+// The identical arms retain retail's cosine SSA value and SSE scheduling.
+__forceinline void rotateFootprint(Matrix3D &m, float theta)
+{
+	float tmp1, tmp2;
+	float c = cosf(theta);
+	float s = sinf(theta);
+
+	tmp1 = m[0][0];
+	tmp2 = m[0][1];
+	m[0][0] = (float)((c ? c : c) * tmp1 + s * tmp2);
+	m[0][1] = (float)(-s * tmp1 + (c ? c : c) * tmp2);
+
+	tmp1 = m[1][0];
+	tmp2 = m[1][1];
+	m[1][0] = (float)((c ? c : c) * tmp1 + s * tmp2);
+	m[1][1] = (float)(-s * tmp1 + (c ? c : c) * tmp2);
+
+	tmp1 = m[2][0];
+	tmp2 = m[2][1];
+	m[2][0] = (float)((c ? c : c) * tmp1 + s * tmp2);
+	m[2][1] = (float)(-s * tmp1 + (c ? c : c) * tmp2);
+}
+
+void BuildAssistant::iterateFootprint( const ThingTemplate *build,
+																			 Real buildOrientation,
+																			 const Coord3D *worldPos,
+																			 Real sampleResolution,
+																			 IterateFootprintFunc func,
+																			 void *funcUserData )
+{
+
+	// sanity
+	if( build == NULL || worldPos == NULL || func == NULL )
+		return;
+
+	Matrix3D transform;
+	transform.Make_Identity();
+	transform.Adjust_Translation( Vector3( worldPos->x, worldPos->y, worldPos->z ) );
+	rotateFootprint(transform,buildOrientation);
+
+	// get the bounding footprint rectangle for the geometry we're looking at
+	Real halfFootprintHeight,
+			 halfFootprintWidth;
+	if( build->getTemplateGeometryInfo().isSingleBox() )
+	{
+		halfFootprintHeight = build->getTemplateGeometryInfo().getBoxMinorRadius();
+		halfFootprintWidth = build->getTemplateGeometryInfo().getBoxMajorRadius();
+	}
+	else
+	{
+		halfFootprintHeight = build->getTemplateGeometryInfo().getMajorRadius();
+		halfFootprintWidth = build->getTemplateGeometryInfo().getMajorRadius();
+	}
+
+	Real x, y;
+	Vector3 v;
+	for( y = -halfFootprintHeight;
+			 y < halfFootprintHeight + sampleResolution;
+			 y += sampleResolution )
+	{
+
+		// snap it to the actual extent since we can go over by one sample resolution
+		if( y > halfFootprintHeight )
+			y = halfFootprintHeight;
+
+		for( x = -halfFootprintWidth;
+				 x < halfFootprintWidth + sampleResolution;
+				 x += sampleResolution )
+		{
+
+			// snap it to the actual extent since we can go over by one sample resolution
+			if( x > halfFootprintWidth )
+				x = halfFootprintWidth;
+
+			// transform to world
+			v.Set( x, y, TheTerrainLogic->getGroundHeight( x, y ) );
+			transform.Transform_Vector( transform, v, &v );
+
+			// for circular geometries we must actually be within the circle
+			if( !build->getTemplateGeometryInfo().isSingleBox() )
+			{
+				Coord2D vector;
+
+				vector.x = v.X - worldPos->x;
+				vector.y = v.Y - worldPos->y;
+				if( vector.length() > halfFootprintWidth )  // could be height too, radius is all the same for circles
+					continue;  // ignore this point
+
+			}  // end if
+
+			// call the user callback
+			Real z = TheTerrainLogic->getGroundHeight( v.X, v.Y );
+			Coord3D pos;
+			pos.x = v.X;
+			pos.y = v.Y;
+			pos.z = z;
+			func( &pos, funcUserData );
+
+		}  // end for x
+
+	}  // end for y
+
+}  // end iterateFootprint
