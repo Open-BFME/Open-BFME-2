@@ -80,7 +80,7 @@ public:
 	bool rva0020F91D(void *a1, void *a2, void *a3);
 	void *rva0020F9F6(void *a1, void *a2, void *filter);
 	void *rva0020FAEA(float *a1, void *a2);
-	void rva0020FAB4(int a1, int a2);
+	void *rva0020FAB4(int a1, int a2);
 	void rva0020FB8B(Rva0020FB8BNode *arg);
 
 private:
@@ -241,12 +241,14 @@ struct Rva0020FAB4Block
 	char m_data[12];
 };
 
-void Rva0020EE29::rva0020FAB4(int a1, int a2)
+// Caller5C98C0 tests EAX and reads returned item+1A2; the native finder
+// result is forwarded intact. The former void declaration discarded this ABI.
+void *Rva0020EE29::rva0020FAB4(int a1, int a2)
 {
 	Rva0020FAB4Block bBlock;
 	Rva0020FAB4Block aBlock;
 	g_00DFEF18query->v13(a1, &bBlock, &aBlock);
-	rva0020F9F6(&bBlock, &aBlock, (void *)a2);
+	return rva0020F9F6(&bBlock, &aBlock, (void *)a2);
 }
 
 // ?rva0020FB8B@Rva0020EE29@@QAEXPAURva0020FB8BNode@@@Z present-unmatched
