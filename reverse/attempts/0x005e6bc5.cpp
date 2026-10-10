@@ -1,4 +1,6 @@
 // ?ComputeRankProgress@StrategicInGameUI@@YAMPBUHeroDetailsEntry@@@Z
+// partial score=0.995 date=2026-10-10
+// ?ComputeRankProgress@StrategicInGameUI@@YAMPBUHeroDetailsEntry@@@Z
 // partial score=0.995 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
 // ??1Rva005E6D0D@@QAE@XZ retail 0x005E6D0D 103B

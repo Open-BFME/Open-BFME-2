@@ -1,5 +1,3 @@
-// ?invoke@Rva002FE371Forward@@QAEXPAVObject@@@Z
-// partial score=1.0 date=2026-10-09
 // cl: /O1 /arch:SSE /G7
 // BF1 f989 Common/BfmeConv880.cpp is the source expression guide only.
 // Native2FE371/17 calls actual2FE193 using receiverword8 and stackword4,

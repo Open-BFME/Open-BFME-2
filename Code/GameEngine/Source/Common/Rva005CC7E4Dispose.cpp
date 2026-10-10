@@ -1,5 +1,3 @@
-// ?dispose@Rva005CC7E4Mid@@QAEPAVRva005CC803@@I@Z
-// partial score=1.0 date=2026-10-09
 // cl: /O1 /arch:SSE /G7 /DNDEBUG /MD
 // Native 5CC7E4..5CC803: known secondary-vtable slot at874E68,
 // ECX-8 complete-object cleanup5CC803, flags-bit0 invokes delete2FD60.

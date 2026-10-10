@@ -1,5 +1,4 @@
 // ?Rva004118B4@@YAPAXPBD0@Z
-// partial score=0.995 date=2026-10-08
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /MD /D_STLP_USE_STATIC_LIB /EHsc /Ireference/open-bfme-1/inputs/reference/shims/stringinline /O1 /arch:SSE /G7
 // ?Rva004118B4@@YAPAXPBD0@Z @0x004118B4 319B
 // Apt asset creator called by Rva004120B3 with path and parameters: resolves
@@ -15,7 +14,7 @@
 
 const char *__cdecl bfmePathLeafAfterMarker(const char *path);
 bool __cdecl Rva004128F0GetParam(const char *params, const char *key, AsciiString &value);
-int __cdecl Rva004128BBGetLevel(const char *path);
+
 
 class Rva00789900Init
 {
@@ -32,6 +31,7 @@ Rva00789900Init *__cdecl Rva00740A45Create(unsigned char keep);
 namespace AptUtils
 {
 	AsciiString SlashPath2DotPath(const char *path);
+	int __cdecl LevelIndexFromTarget(const char *path);
 }
 
 class Rva000427195
@@ -41,11 +41,17 @@ public:
 };
 extern unsigned int g_00E02FF8;
 
+// The leaf-name key is a full-expression temporary (retail destroys it after the table
+// store and shares its stack slot with the other temporaries); the pointer view keeps it
+// a temporary for the pinned pointer-taking lookup.
+inline const AsciiString *addressOf(const AsciiString &s) { return &s; }
+
 void *Rva004118B4(const char *path, const char *params)
 {
 	const char *leaf = bfmePathLeafAfterMarker(path);
 	AsciiString renderObj;
-	if (Rva004128F0GetParam(params, "_RenderObj", renderObj) == false)
+	bool got = Rva004128F0GetParam(params, "_RenderObj", renderObj);
+	if (!got)
 		return 0;
 	if (renderObj.isEmpty())
 		return 0;
@@ -56,10 +62,8 @@ void *Rva004118B4(const char *path, const char *params)
 	Rva004128F0GetParam(params, "_AnimMode", animMode);
 	Rva00789900Init *obj = Rva00740A45Create(keep);
 	obj->f1();
-	obj->m_04 = Rva004128BBGetLevel(path);
+	obj->m_04 = AptUtils::LevelIndexFromTarget(path);
 	obj->f2(AptUtils::SlashPath2DotPath(path), renderObj, animMode);
-	AsciiString leafStr(leaf);
-	void **slot = (void **)((Rva000427195 *)&g_00E02FF8)->rva004112A0(&leafStr);
-	*slot = obj;
+	*(void **)((Rva000427195 *)&g_00E02FF8)->rva004112A0(addressOf(AsciiString(leaf))) = obj;
 	return obj;
 }

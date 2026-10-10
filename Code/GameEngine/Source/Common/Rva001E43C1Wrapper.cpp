@@ -1,5 +1,3 @@
-// ?rva001E43C1@Rva001E43C1@@QAEX_N@Z
-// partial score=1.0 date=2026-10-09
 // cl: /DNDEBUG /MD /EHsc
 // ?isUsingAirborneLocomotor@Object@@QBE_NXZ @0x0028B81E
 // (36B): Object::isUsingAirborneLocomotor, BFME1 ObjectFields.cpp verbatim

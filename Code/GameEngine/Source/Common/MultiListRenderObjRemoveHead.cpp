@@ -1,5 +1,3 @@
-// ?Remove_Head@?$MultiListClass@VRenderObjClass@@@@QAEPAVRenderObjClass@@XZ
-// partial score=1.0 date=2026-10-09
 // cl: /O1 /G7 /DNDEBUG /MD
 // BF1 f989 multilist.h structural candidate, not a target template identity.
 // Native 6EF7D calls Internal_Remove_List_Head6109A0 then preserves null

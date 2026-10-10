@@ -1,7 +1,11 @@
-// ?method@Rva002B64C7Observer@@QAEXPAUBuildingView@@@Z
-// partial score=0.991666667 date=2026-10-09
 // cl: /O1 /DNDEBUG /MD /EHs /arch:SSE /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
+// ?method@Rva002B64C7Observer@@QAEXPAUBuildingView@@@Z @0x002B64C7, 240B (WB D7E9F0 names
+// OnDestroyingBuilding). Receiver is the secondary +0x10 view of the logic (phase at +0xE4,
+// find on this-0x10): when the phase is 0 and the building has a type and region, the owner
+// player's army list is walked and every summary entry holding the building's key cancels
+// its upgrades. The type is read into a named local so the zero test shares the zero
+// register of the other tests. Address-derived class/helper names.
 #include <vector>
 class ModuleData;
 class Rva004E0632 { public: int rva004E0632() const; };
@@ -21,7 +25,8 @@ class Rva002B64C7Observer { public: void method(BuildingView *building); int get
 void Rva002B64C7Observer::method(BuildingView *building)
 {
  if (getPhase() != 0) return;
- if (building->getType() == 0) return;
+ int type = building->getType();
+ if (type == 0) return;
  RegionView *region=building->region;
  if (!region) return;
  Rva002E2903Player *player=((Rva002BA8F1Logic *)((char *)this-0x10))->find(region->getPlayer(),0);

@@ -1,5 +1,3 @@
-// ?rva001777a0@@YAXPBD0@Z
-// partial score=1.0 date=2026-10-09
 // cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 //
 // ?invoke@Rva00958C80@@QAEJVBfmeBstrVGP@@0JJJJJJPAX@Z at retail 0x00177010

@@ -1,5 +1,3 @@
-// ?parse@Rva004CB572@@QAEXPAVINI@@@Z
-// partial score=1.0 date=2026-10-09
 // cl: /Ireference/shims/bfme2_ascii /O1 /G6 /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // Complete native343B entry parser at RVA004CB572; EH metadata also EXACT.
 // Target FieldParse C5F1F0 and UpgradeSoundSelector consumer stride384 establish
