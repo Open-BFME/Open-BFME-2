@@ -17,8 +17,8 @@ class Player
 	Color m_nightColor; // +0x284, read by getNightIndicatorColor
 
 public:
-	Color getPlayerColor() const { return m_color; }
-	Color getPlayerNightColor() const { return m_nightColor; }
+	__declspec(dllimport) __forceinline Color getPlayerColor() const { return m_color; }
+	__declspec(dllimport) __forceinline Color getPlayerNightColor() const { return m_nightColor; }
 };
 
 class Team
@@ -63,7 +63,7 @@ public:
 	Color getNightIndicatorColor() const;
 	void rva0028D253();
 
-	const Team *getTeam() const { return m_team; }
+	__declspec(dllimport) __forceinline const Team *getTeam() const { return m_team; }
 
 private:
 	unsigned char m_pad00[0x74];
