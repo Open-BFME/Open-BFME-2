@@ -212,7 +212,10 @@ public:
 	static void createGaussianVector(void *kernel, BfmeGaussianParams *params);
 };
 
-extern bool g_bfmeDirtyCU;
+// ?g_bfmeDirtyCU@@3_NA at 0x009FF48C (data_ledger, zero-filled .data):
+// nothing else defines it, so this TU owns the definition; the extern
+// readers (Bfme5TinyTwentySeven.cpp) resolve here.
+bool g_bfmeDirtyCU;
 
 enum CustomScenePassModes
 {

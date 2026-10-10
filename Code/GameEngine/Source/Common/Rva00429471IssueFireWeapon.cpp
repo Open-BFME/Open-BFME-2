@@ -1,5 +1,5 @@
 // cl: /MD
-// ?issueFireWeaponCommand@CommandTranslator@@AAEHPBVCommandButton@@HPAVDrawable@@PBUCoord3D@@@Z @0x00429471 593B: free issueFireWeaponCommand emitting 0x40D/0x40E/0x40F via MessageStreamSubsystem createMessage plus voice response.
+// ?issueFireWeaponCommand@CommandTranslator@@AAEHPBVCommandButton@@HPAVDrawable@@PBUCoord3D@@@Z @0x00429471 593B: free issueFireWeaponCommand emitting 0x40D/0x40E/0x40F via TheMessageStream createMessage plus voice response.
 // Evidence: BFME1 donor CommandTranslator_issueFireWeaponCommand options-7 isValid slot75 then 0x1000-0x20 arms weaponSlot-maxShots appends PickAndPlayInfo drawTarget-weaponSlot-position; BFME2 messages plus1; rowed isValid 0x35B112 appends 0x30F936 0x30F9BB 0x30F979 ctor 0x4D92FE override 0x288609 pinned pickAndPlay 0x4DAAFD; caller 0x42A345.
 
 #include "../../../Libraries/Include/Lib/Coord3D.h"
@@ -38,7 +38,7 @@ public:
 	virtual GameMessage *createMessage(int type);
 };
 
-extern MessageStream *MessageStreamSubsystem;
+extern MessageStream *TheMessageStream; // ledger alias of MessageStreamSubsystem at 0x00A00950
 
 class DrawableList;
 class PickAndPlayInfo;
@@ -157,7 +157,7 @@ int CommandTranslator::issueFireWeaponCommand(const CommandButton *command, int 
 			msgType = GameMessage::MSG_40E;
 			if (commandType == DO_COMMAND)
 			{
-				GameMessage *msg = MessageStreamSubsystem->createMessage(0x40E);
+				GameMessage *msg = TheMessageStream->createMessage(0x40E);
 				msg->appendIntegerArgument(command->m_weapon80);
 				msg->appendLocationArgument(*pos);
 				msg->appendIntegerArgument(command->m_maxShotsA0);
@@ -177,7 +177,7 @@ int CommandTranslator::issueFireWeaponCommand(const CommandButton *command, int 
 			msgType = GameMessage::MSG_40F;
 			if (commandType == DO_COMMAND)
 			{
-				GameMessage *msg = MessageStreamSubsystem->createMessage(0x40F);
+				GameMessage *msg = TheMessageStream->createMessage(0x40F);
 				msg->appendIntegerArgument(command->m_weapon80);
 				ObjectID targetID = (target && target->m_object) ? target->m_object->m_id : OBJECTID_NONE;
 				msg->appendObjectIDArgument(targetID);
@@ -196,7 +196,7 @@ int CommandTranslator::issueFireWeaponCommand(const CommandButton *command, int 
 		msgType = GameMessage::MSG_40E;
 		if (commandType == DO_COMMAND)
 		{
-			GameMessage *msg = MessageStreamSubsystem->createMessage(0x40E);
+			GameMessage *msg = TheMessageStream->createMessage(0x40E);
 			msg->appendIntegerArgument(command->m_weapon80);
 			msg->appendLocationArgument(*pos);
 			msg->appendIntegerArgument(command->m_maxShotsA0);
@@ -216,7 +216,7 @@ int CommandTranslator::issueFireWeaponCommand(const CommandButton *command, int 
 		msgType = GameMessage::MSG_40D;
 		if (commandType == DO_COMMAND)
 		{
-			GameMessage *msg = MessageStreamSubsystem->createMessage(0x40D);
+			GameMessage *msg = TheMessageStream->createMessage(0x40D);
 			const Overridable *finalOverride = command->m_over44->friend_getFinalOverride();
 			msg->appendIntegerArgument(finalOverride->m_id14);
 

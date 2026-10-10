@@ -604,7 +604,7 @@ public:
 
 extern InGameUI* TheInGameUI;
 extern GameClient* TheGameClient;
-extern MessageStream* MessageStreamSubsystem;
+extern MessageStream* TheMessageStream; // ledger alias of MessageStreamSubsystem at 0x00A00950
 extern PlayerList* ThePlayerList;
 extern View* TheTacticalView;
 extern GameLogic* TheGameLogic;
@@ -722,16 +722,16 @@ int CommandTranslator::evaluateForceAttack(Drawable* draw,const Coord3D* pos,Com
     Rva004D92FE info;
     info.m_drawTarget=draw;
     pickAndPlayUnitVoiceResponse((const DrawableList*)allSelected,(GameMessage::Type)0x426,(PickAndPlayInfo*)&info);
-    GameMessage* newMsg=MessageStreamSubsystem->appendMessage((GameMessage::Type)0x426);
+    GameMessage* newMsg=TheMessageStream->appendMessage((GameMessage::Type)0x426);
     newMsg->appendObjectIDArgument(obj->getID());
     newMsg->appendLocationArgument(*pos);
    } else if(type==DO_HINT) {
     retVal=0xa9;
-    MessageStreamSubsystem->appendMessage((GameMessage::Type)0xa9);
+    TheMessageStream->appendMessage((GameMessage::Type)0xa9);
    }
   } else if(result==1 && type==DO_HINT) {
    retVal=0xa8;
-   MessageStreamSubsystem->appendMessage((GameMessage::Type)0xa8);
+   TheMessageStream->appendMessage((GameMessage::Type)0xa8);
   }
  } else if(pos) {
   int result=canAnyForceAttack(allSelected,0,pos);
@@ -741,15 +741,15 @@ int CommandTranslator::evaluateForceAttack(Drawable* draw,const Coord3D* pos,Com
     Rva004D92FE info;
     info.m_position=*pos;
     pickAndPlayUnitVoiceResponse((const DrawableList*)allSelected,(GameMessage::Type)0x427,(PickAndPlayInfo*)&info);
-    GameMessage* newMsg=MessageStreamSubsystem->appendMessage((GameMessage::Type)0x427);
+    GameMessage* newMsg=TheMessageStream->appendMessage((GameMessage::Type)0x427);
     newMsg->appendLocationArgument(*pos);
    } else if(type==DO_HINT) {
     retVal=0xaa;
-    MessageStreamSubsystem->appendMessage((GameMessage::Type)0xaa);
+    TheMessageStream->appendMessage((GameMessage::Type)0xaa);
    }
   } else if(result==1 && type==DO_HINT) {
    retVal=0xa8;
-   MessageStreamSubsystem->appendMessage((GameMessage::Type)0xa8);
+   TheMessageStream->appendMessage((GameMessage::Type)0xa8);
   }
  }
  return retVal;
