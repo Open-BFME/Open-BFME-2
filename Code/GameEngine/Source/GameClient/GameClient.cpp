@@ -147,6 +147,11 @@ TerrainVisual *TheTerrainVisual = 0;
 // That address is in the PE .data zero-fill tail, so retail starts it null.
 GlobalData *TheWritableGlobalData = NULL;
 
+class HotKeyManager;
+// Owned here: created in init() below, deleted in shutdown(); retail .data
+// starts it at 0 (VA 0x00A01E28).
+HotKeyManager *TheHotKeyManager = 0;
+
 //-------------------------------------------------------------------------------------------------
 // ?GameClient::GameClient present-unmatched
 GameClient::GameClient()
