@@ -29,6 +29,7 @@
 // It stores the clip's frame count, reads its frame rate (unused), releases
 // it and succeeds.
 #include <set>
+#include <vector>
 #include "ascii_string.h"
 
 class HTreeClass;
@@ -212,6 +213,7 @@ class W3DScriptedModelDraw : public Rva000BF953Module, public Rva000BF953FrameIn
 public:
 	virtual bool getAnimationFrameCount(const AsciiString &name, int *frames);
 	AsciiString rva000C2E3A(const AsciiString &modelName);
+	void rva000C2CBF(int count, _STL::vector<AsciiString> *originals, _STL::vector<AsciiString> *replacements);
 	// The one-character append retail expands in place (StringBase concat
 	// 0x000369A0 on a stack copy of the character).
 	static __forceinline void appendChar(AsciiString &s, char c)
@@ -444,4 +446,62 @@ void INI::Rva000C2C5FParseBoneRecord(INI *ini, void *instance, void *, const voi
  parseBoneNameKey(ini, instance, &record.key, userData);
  static_cast<Rva000C2C5FOwner *>(instance)->records.push_back(
   reinterpret_cast<const BfmePod24 &>(record));
+}
+
+// Native379B C2CBF..C2E3A; same-valued finish expression keeps native prepass registers.
+// Semantic guide: BF1 f98983a7 TextureSelection007781C0.cpp. Retail379
+// changes the receiver offsets and returns two AsciiString vectors; WB932920
+// additionally proves the equal-length synchronization pass.
+struct Rva000C2CBFTextureEntry {
+ AsciiString name; _STL::vector<AsciiString> choices; int unmodelled10;
+};
+struct Rva000C2CBFData {
+ char at00[0x7C]; _STL::vector<Rva000C2CBFTextureEntry> textures;
+ bool synchronized; char at89[0xB8-0x89]; bool useRelatedSeed;
+};
+struct Rva000C2CBFObject {
+ char at00[0xFC]; char *related; char at100[0x364-0x100]; int seed;
+};
+static inline int clampTexturePick(int value, int low, int high)
+{
+ if (value < low) return low;
+ if (value > high) return high;
+ return value;
+}
+void W3DScriptedModelDraw::rva000C2CBF(int count, _STL::vector<AsciiString> *originals, _STL::vector<AsciiString> *replacements)
+{
+ replacements->clear(); originals->clear();
+ Rva000C2CBFData *data = reinterpret_cast<Rva000C2CBFData *>(m_moduleData);
+ Rva000C2CBFObject *object = reinterpret_cast<Rva000C2CBFObject *>(m_drawable);
+ int seed;
+ if (data->useRelatedSeed) seed = *reinterpret_cast<int *>(object->related + 0x78);
+ else seed = object->seed;
+ int ordinal = 0;
+ bool synchronized = data->synchronized;
+ if (synchronized) {
+  int length = -1;
+  for (_STL::vector<Rva000C2CBFTextureEntry>::const_iterator it = data->textures.begin(); it != data->textures.end(); ++it) {
+   int n = static_cast<int>((synchronized ? it->choices.end() : it->choices.end())-it->choices.begin());
+   if (n != length) {
+    if (length != -1) { synchronized = false; break; }
+    length = n;
+   }
+  }
+ }
+ int pick = 0;
+ bool selected = false;
+ for (_STL::vector<Rva000C2CBFTextureEntry>::const_iterator it = data->textures.begin(); it != data->textures.end(); ++it, ++ordinal) {
+  int upper = clampTexturePick(count - 1, 0, static_cast<int>(it->choices.size()) - 1);
+  if (!it->choices.empty()) {
+   if (!synchronized || !selected) {
+    int value = (seed + seed/3 + seed/5 + ordinal + (seed & 15)*(ordinal+1)) % it->choices.size();
+    pick = clampTexturePick(value, 0, upper);
+    selected = true;
+   }
+   if (it->choices[pick].compareNoCase(it->name) != 0) {
+    replacements->push_back(it->choices[pick]);
+    originals->push_back(it->name);
+   }
+  }
+ }
 }
