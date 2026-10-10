@@ -61,6 +61,7 @@ public:
 class Rva003FD14DBase { public:
  Rva003FD14DBase(int);
  void rva003FC82C(float angle);
+ void rva003FB6C5(const Vector3 &);
  void rva003FCA58();
  virtual void vbfunc();
  AsciiString name;
@@ -261,4 +262,20 @@ bool Rva003FD849::rva003FD849()
  }
  }
  return false;
+}
+
+// Passing the canonical Vector3 by value snapshots the translation before
+// the stores; ordinary inlining produces the native xmm1/xmm2 preload order.
+inline void BfmeSetMatrixPosition(Matrix3D &matrix,Vector3 position) { matrix.Set_Translation(position); }
+// Retail C37C30 slot7 reaches3FB6C5. This nonvirtual address-named
+// member is the callable body view, not a claim to the original declaration.
+void Rva003FD14DBase::rva003FB6C5(const Vector3 &position)
+{
+ BfmeAnimationReceiver *primary=m_primary;
+ if (!primary) return;
+ primary->updatePayload();
+ Matrix3D transform(primary->m_payload);
+ BfmeSetMatrixPosition(transform,position);
+ m_primary->applyPayload(&transform);
+ if(m_secondary) m_secondary->applyPayload(&transform);
 }
