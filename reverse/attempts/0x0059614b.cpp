@@ -1,4 +1,6 @@
 // ?rva0059614B@AIUnitStats@@QAE_NPAX@Z
+// partial score=0.979429789501732 date=2026-10-10
+// ?rva0059614B@AIUnitStats@@QAE_NPAX@Z
 // partial score=0.9280575539 date=2026-10-10
 // cl: /O1 /G7 /arch:SSE /MD
 // ?Register@AIUnitStats@@QAE_NPAX@Z @0x005962F7 111B.
