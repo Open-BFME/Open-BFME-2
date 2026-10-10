@@ -1,6 +1,8 @@
 // ?rva0045108D@StoreObjectsSpecialPower@@UAEXXZ
+// partial score=0.9688265931372548 date=2026-10-10
+// ?rva0045108D@StoreObjectsSpecialPower@@UAEXXZ
 // partial score=0.9645 date=2026-10-05
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE /I.
 #include <string.h>
 
 class Object;
@@ -73,7 +75,6 @@ public:
 	BfmeObject872Header m_18;
 };
 
-#pragma comment(linker, "/alternatename:?getPlayerMask@Rva000421C8@@UAEHXZ=?Get_File_Handle@FileClass@@UAEPAXXZ")
 
 enum ObjectStatusTypes
 {
@@ -82,43 +83,26 @@ enum ObjectStatusTypes
 };
 
 // 0x0023DA79 clears the mask and sets one bit (its first argument unused).
-struct ObjectStatusMask
+class Rva0023DA79
 {
-	ObjectStatusMask *Rva0023DA79(int reserved, ObjectStatusTypes bit);	// 0x0023DA79
-	int m_bits[4];
+public:
+	Rva0023DA79 *rva0023DA79(int reserved, int bit);	// 0x0023DA79
+	unsigned m_bits[4];
 };
 
-struct ObjectStatusMaskNone : public ObjectStatusMask
+struct ObjectStatusMaskNone : public Rva0023DA79
 {
 	ObjectStatusMaskNone() { memset(this, 0, sizeof(*this)); }
 };
 
-struct Coord3D
-{
-	float x;
-	float y;
-	float z;
-};
 
-struct BfmeWideResult
-{
-	Object *next() throw();	// 0x00045623
-	~BfmeWideResult();	// 0x0004AA28
-	void *m_value;
-};
+#include "Code/Libraries/Include/Lib/Coord3D.h"
 
-class PartitionManager
-{
-public:
-	BfmeWideResult iterateObjectsInRange(const Coord3D *pos, float radius, int distCalc,
-		Rva000421C8 *filters, int order);	// 0x00625610
-};
+#include "Code/GameEngine/Source/Common/PartitionRangeQueryCallView.h"
 extern PartitionManager *ThePartitionManager;
 
-enum ObjectID
-{
-	INVALID_ID = 0
-};
+
+#include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
 
 namespace _STL {
 template <class T> class allocator;
@@ -156,11 +140,7 @@ public:
 	ObjectID m_78;		// +0x78
 };
 
-class GameLogic
-{
-public:
-	Object *findObjectByID(ObjectID id);	// 0x00049DC5
-};
+
 extern GameLogic *TheGameLogic;
 
 class Overridable
@@ -200,11 +180,13 @@ public:
 	float m_C8;	// +0xC8 the radius
 };
 
+class Rva0044E633 {public:void*rva0044E633();};
+
 class SpecialAbilityUpdate
 {
 public:
 	virtual void rva0045108D();	// slot 17 (0x0045108D)
-	Rva004CDA49Power *rva0044E633();	// 0x0044E633
+		// 0x0044E633
 protected:
 	const void *m_moduleData;	// +0x04
 	Object *m_object;		// +0x08
@@ -230,13 +212,13 @@ void StoreObjectsSpecialPower::rva0045108D()
 	SpecialAbilityUpdate::rva0045108D();
 	const StoreObjectsSpecialPowerModuleData *data = getStoreObjectsSpecialPowerModuleData();
 	Object *owner = m_object;
-	const void *filter = rva0044E633()->getSpecialPowerTemplate()->getObjectFilter();
+	const void *filter = ((Rva004CDA49Power*)((Rva0044E633*)this)->rva0044E633())->getSpecialPowerTemplate()->getObjectFilter();
 	m_88.clear();
-	ObjectStatusMask bits;
+	Rva0023DA79 bits;
 	BfmeWideResult hits = ThePartitionManager->iterateObjectsInRange(&m_44, data->m_C8, 0,
 		Rva002614DFFilter(owner).link(Rva0026119DFilter().link(Rva002611BFFilter(owner).link(
 			Rva002614ECFilter(filter, owner->getControllingPlayer(), true).link(
-				&Rva002FDF1C(*(BfmeObject872Header *)bits.Rva0023DA79(0, OBJECT_STATUS_RVA004CDA49_38),
+				&Rva002FDF1C(*(BfmeObject872Header *)bits.rva0023DA79(0, OBJECT_STATUS_RVA004CDA49_38),
 					*(BfmeObject872Header *)&ObjectStatusMaskNone()))))), 1);
 	Object *other;
 	while ((other = hits.next()) != 0) {
