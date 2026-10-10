@@ -97,7 +97,10 @@ private:
 	Rva000427195 m_table0C;
 };
 
-extern Rva0022A809Subsystem *TheCrowdResponseStore;
+// ?TheCrowdResponseStore@@3PAVRva0022A809Subsystem@@A (data_ledger RVA
+// 0xA0307C, null .data, unowned): the subsystem pointer, created at runtime
+// by GameEngineInit; defined here, nothing else defines it.
+Rva0022A809Subsystem *TheCrowdResponseStore = 0;
 
 struct INIException
 {
