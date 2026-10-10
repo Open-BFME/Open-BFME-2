@@ -8,6 +8,8 @@
 // BFME1-donor ?getAttackRange@Weapon@@QBEMPBVObject@@@Z (0x002C9BF8) read from
 // its REL32; signature matches the existing pin. Minimal real types.
 
+#include <math.h>
+
 enum ObjectStatusTypes { ObjectStatusType58 = 0x3A };
 class Object
 {
@@ -31,6 +33,15 @@ public:
 	float rva002C9217(void *bonus, float height);
 	float rva002C98E2(void *a);
 	float getAttackRange(Object const *obj, WeaponBonus const &bonus, Coord3D const *pos) const;
+private:
+	char m_pad00[0x14];
+	float m_unmodifiedAttackRange;
+	float m_minimumAttackRange;
+	float m_dzThreshold;
+	float m_dzBase;
+	float m_dzScale;
+	char m_pad28[0x164 - 0x28];
+	float m_absDzLimit;
 };
 
 // ?getAttackRange@BfmeRangedWeaponTemplate@@QBEMPBVObject@@ABVWeaponBonus@@PBUCoord3D@@@Z
@@ -57,4 +68,27 @@ float BfmeRangedWeaponTemplate::rva002C995D(void *source, void *bonus, float hei
             return vision;
     }
     return scale * range;
+}
+
+// Target002C9217..002C92B7 RET8: rowed core002C995D calls this bonus/height
+// adjustment. WB0x00BB02D0 proves the same computation and accesses.
+// BFME1 range-base source supplies purpose only; private field names/layout
+// are structural inferences from these retail accesses. math.h float fabs
+// preserves the native x87 comparison without an explicit rounding spill.
+float BfmeRangedWeaponTemplate::rva002C9217(void *bonus, float dz)
+{
+	float range = static_cast<const float *>(bonus)[2] * m_unmodifiedAttackRange - 2.5f;
+	float negDz = 0.0f - dz;
+	if (negDz >= m_dzThreshold) {
+		float adjust = m_dzThreshold + dz;
+		adjust *= m_dzScale;
+		range = m_dzBase - adjust + range;
+	}
+	if (m_absDzLimit > 0.0f) {
+		if (fabs(dz) > m_absDzLimit)
+			range = 0.0f;
+	}
+	if (0.0f > range)
+		range = 0.0f;
+	return range;
 }
