@@ -1,4 +1,6 @@
 // ?rva00107A50@Rva00107E76Elem@@QAEXPAX@Z
+// partial score=0.9338362881931347 date=2026-10-10
+// ?rva00107A50@Rva00107E76Elem@@QAEXPAX@Z
 // partial score=0.8 date=2026-10-08
 // cl: /DNDEBUG /MD /O1 /G7 /arch:SSE /EHsc /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug
 // Native 0x107A50..0x107B41, RET4. Original method name unknown.
@@ -28,12 +30,7 @@ void Rva00107E76Elem::rva00107A50(void *block)
     unsigned char *face = faces;
     Vector3 *light = static_cast<Vector3 *>(block);
     for (; count > 0; --count, ++triangle) {
-        Vector3 middle = vertices[triangle->j];
-        Vector3 a = middle - vertices[triangle->i];
-        Vector3 b = middle - vertices[triangle->k];
-        float dot = (a.Z*b.Y-a.Y*b.Z)*light->X
-                  + (a.X*b.Z-b.X*a.Z)*light->Y
-                  + (b.X*a.Y-a.X*b.Y)*light->Z;
+const Vector3&middle=vertices[triangle->j];const Vector3&left=vertices[triangle->i];const Vector3&right=vertices[triangle->k];float my=middle.Y,mz=middle.Z,mx=middle.X;float aZ=mz-left.Z;float bZ=mz-right.Z;float aX=mx-left.X;float aY=my-left.Y;float bX=mx-right.X;float bY=my-right.Y;float dot=(aZ*bY-aY*bZ)*light->X+(aX*bZ-bX*aZ)*light->Y+(bX*aY-aX*bY)*light->Z;
         *face++ = static_cast<unsigned char>(static_cast<int>(dot < 0.0f));
     }
 }

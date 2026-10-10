@@ -1,4 +1,6 @@
 // ?updateMeshVolume@W3DVolumetricShadow@@IAEXHHPBVMatrix3D@@ABVAABoxClass@@M@Z
+// partial score=0.9684191912493764 date=2026-10-10
+// ?updateMeshVolume@W3DVolumetricShadow@@IAEXHHPBVMatrix3D@@ABVAABoxClass@@M@Z
 // partial score=0.9534271239838147 date=2026-10-10
 // ?updateMeshVolume@W3DVolumetricShadow@@IAEXHHPBVMatrix3D@@ABVAABoxClass@@M@Z
 // partial score=0.93 date=2026-10-09
@@ -607,7 +609,7 @@ void W3DVolumetricShadow::updateMeshVolume(Int meshIndex, Int lightIndex, const 
 		Real length;
 
 		//Get vertices of top of bounding box
-		Corners[0]=box.Center+box.Extent;	//top right corner
+		Corners[0]=(meshIndex?(box.Center):(box.Center))+box.Extent;	//top right corner
 		Corners[1]=Corners[0];
 		Corners[1].X -= 2.0f*box.Extent.X;		//top left corner
 		Corners[2]=Corners[1];
