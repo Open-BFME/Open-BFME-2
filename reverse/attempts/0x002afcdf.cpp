@@ -1,4 +1,6 @@
 // ?initFromDict@Player@@QAEXPBVDict@@@Z
+// partial score=0.9222326801696995 date=2026-10-10
+// ?initFromDict@Player@@QAEXPBVDict@@@Z
 // partial score=0.9045478972894136 date=2026-10-10
 template<class T> static __forceinline T p4Operand(const T &v) { return *(const volatile T*)&v; }
 // partial score=0.9044606061031877 date=2026-10-10
