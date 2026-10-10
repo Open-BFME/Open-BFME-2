@@ -5,6 +5,14 @@
 // mark TheControlBar+0x28 dirty. No original class or element type is proven.
 // Use the ledger-owned void-pointer erase and ModuleData-pointer append ABI
 // views, without inferring inheritance or an original template instantiation.
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
 #include <vector>
 class ModuleData;
 class ControlBar;

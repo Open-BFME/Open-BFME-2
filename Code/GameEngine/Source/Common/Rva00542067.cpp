@@ -4,6 +4,14 @@
 // in Rva00542225 ctor. Trims vector at +0x10 to one element via rowed
 // rva00541883 then appends default Rva00540FCB as Rva00541021 via rowed
 // push_back. Evidence: rowed callees, pin name, prev/next flags.
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
 #include <vector>
 
 struct Region3D

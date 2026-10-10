@@ -4,6 +4,14 @@
 // Copies 8-byte source range [+0x40,+0x44) second fields into dest vector:
 // dest.erase(begin,end), dest.reserve(count), push_back each [esi+4].
 // Evidence: unlock lane; callees rowed erase 0x0040DC56 reserve 0x0040DC89 push_back 0x003F7B22; callers at 0x002BBF61 0x004FA26F.
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
 #include <vector>
 
 struct Rva0040DC56Element
