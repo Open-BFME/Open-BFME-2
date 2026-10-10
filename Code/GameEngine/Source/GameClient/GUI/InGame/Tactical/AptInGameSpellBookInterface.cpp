@@ -31,7 +31,11 @@ class BfmeThingRV {public:BfmeMemberRV *bfmePickRV();};
 class PlayerList;extern PlayerList *ThePlayerList;
 class Object {public:const AsciiString *rva00290E67() const;};
 class Player {public:Object *rva002AC629();};
-class ControlBar;extern ControlBar *TheControlBar;
+class CommandButton;
+class ControlBar { public: int rva00539A65(void *,int,int); };
+extern ControlBar *TheControlBar;
+extern "C" __declspec(dllimport) int __cdecl atoi(const char *);
+struct SpellAptModeView {char prefix00[0x318];int mode318;};
 class CommandSet;
 class Rva0031D5F8 {public:void *rva0031D5F8(const AsciiString *);};
 // Native52A34D..52A36A is the 29B constructor callback passed by52AD30
@@ -48,6 +52,7 @@ public: class Impl {
  public: void SetButtonState(int slotNum,int state);
  void OnClipLoaded(const char *params);
  void OnClipUnloaded(const char *params);
+ void OnButtonPressed(const char *params);
  void rva0052A53B();
  static AsciiString GetButtonImageTargetName(int slotNum);
  private:
@@ -60,6 +65,20 @@ class Rva0052A470 { public: void rva0052A66A(); };
 // WB13C59E0 names OnClipUnloaded and calls the same established cleanup.
 void AptInGameSpellBookInterface::Impl::OnClipUnloaded(const char *) {
  ((Rva0052A470 *)this)->rva0052A66A();
+}
+// Native52A3AA..52A3F1 is complete71B RET4; WB13C5400 names this
+// callback and independently proves atoi, the24-slot bounds and mode318.
+// Keep the established ControlBar callee spelling. Its pointer/bool/bool
+// call view preserves the two observed Boolean arguments and RET12 ABI.
+void AptInGameSpellBookInterface::Impl::OnButtonPressed(const char *param) {
+ int index=atoi(param);
+ if(index<0 || index>=24)return;
+ const CommandButton *button=(const CommandButton *)m_slots[index].unknown0;
+ if(button) {
+  typedef int (ControlBar::*ProcessCommand)(const CommandButton *,bool,bool);
+  (TheControlBar->*reinterpret_cast<ProcessCommand>(&ControlBar::rva00539A65))
+    (button,((SpellAptModeView *)g_bfmeAptWindowManager)->mode318!=2,false);
+ }
 }
 // WB013C4DD0 and native92B52A414..52A470: cdecl hidden AsciiString return.
 // Format a local then copy it into the returned object before local cleanup.
