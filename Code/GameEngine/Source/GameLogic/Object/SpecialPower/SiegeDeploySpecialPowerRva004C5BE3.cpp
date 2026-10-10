@@ -1,11 +1,10 @@
+// cl: /O1 /Ob2 /arch:SSE /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /G7 /ICode/GameEngine/Include/GameLogic /ICode/GameEngine/Source/Common
 // ?rva004C5BE3@SiegeDeploySpecialPower@@AAEXH@Z
-// partial score=0.99 date=2026-10-09
-// cl: /O1 /Ob2 /arch:SSE /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // WB1264270 is the semantic guide for SiegeDeploySpecialPower::setPhase.
 // Retail4C5BE3 proves primary this, phase38/frame3C/target40 and Object condition offsets.
-#include "../../../../Include/GameLogic/ContainmentListView.h"
-#include "../../../Common/GameLogicObjectLookupView.h"
+#include "ContainmentListView.h"
+#include "GameLogicObjectLookupView.h"
 namespace _STL {
 template<class T,class Traits> static inline bool operator!=(const _List_iterator<T,Traits>&a,const _List_iterator<T,Traits>&b){return a._M_node!=b._M_node;}
 template<> _List_base<Rva0036ADF9Element,allocator<Rva0036ADF9Element> >::~_List_base();
@@ -62,7 +61,7 @@ void SiegeDeploySpecialPower::rva004C5BE3(int next)
   if(obj->conditions.test(61)){obj->conditions.clear(61);obj->rva0028AE6D();}
   {Module *portal=DynamicPortalBehaviour::rva004608E0(obj);if(portal)((Rva00460F90*)portal)->rva00460F90();}
   if(data->evacuate){AIUpdateInterface *ai=obj->ai;if(ai)ai->aiEvacuate(0,(CommandSourceType)2);}
-  if(data->exit){SiegePhaseContain *contain=object->contain;if(contain){ContainmentList list=contain->slot71().rva0036AE51();for(ContainmentList::iterator it=list.begin();it!=list.end();++it){Object *child=(Object*)containmentFirstWord(*it);AIUpdateInterface *ai=child->ai;if(ai){ai->rva0026DE3B(object->ai->getAttitude());Object *owner=object;child->ai->aiExit(owner,(CommandSourceType)2);}}}}
+  if(data->exit){SiegePhaseContain *contain=object->contain;if(contain){ContainmentList list=contain->slot71().rva0036AE51();for(ContainmentList::iterator it=list.begin();it!=list.end();++it){Object *child=(Object*)containmentFirstWord(*it);AIUpdateInterface *ai=child->ai;if(ai){ai->rva0026DE3B((object->ai?object->ai:object->ai)->getAttitude());Object *owner=object;(child->ai?child->ai:child->ai)->aiExit(owner,(CommandSourceType)2);}}}}
   break;
  case 4:
   if(!obj->conditions.test(94)){obj->conditions.set(94);obj->rva0028AE6D();}
