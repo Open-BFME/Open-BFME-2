@@ -1,6 +1,4 @@
-// ?Rva003C2A9FDo@@YGXABVAsciiString@@H@Z
-// partial score=0.98 date=2026-10-10
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /DNDEBUG /MD /EHsc /arch:SSE
+// cl: /I. /Ireference/shims/bfme2_ascii /O1 /G7 /DNDEBUG /MD /EHsc /arch:SSE
 // ?Rva003C2A9FDo@@YGXABVAsciiString@@H@Z @0x003C2A9F 289B: team attacks the nearest
 // object of a KindOf bit among all players (Zero Hour ScriptActions team "attack
 // nearest object type"). The team (rowed ScriptEngine 0x003584E9) gives its centre
@@ -19,15 +17,21 @@ class Object;
 class Player;
 class PlayerList;
 class AIGroup;
-struct Coord3D { float x; float y; float z; float length() const; };
+#include "Code/Libraries/Include/Lib/Coord3D.h"
 
-struct Rva00045411BitSet { unsigned int m_bits[7]; Rva00045411BitSet(int unused, int bit); };
-template<int N> class BitFlags : public Rva00045411BitSet
+extern "C" void *memset(void *dst, int val, unsigned size);
+template<int N> class BitFlags
 {
 public:
-	BitFlags(int unused, int bit) : Rva00045411BitSet(unused, bit) {}
+	unsigned int m_bits[7];
+	BitFlags(int unused, int bit);
 	BitFlags(const BitFlags &other) throw();
 };
+template<int N> __declspec(noinline) BitFlags<N>::BitFlags(int /*unused*/, int bit)
+{
+	memset(this, 0, 0x1C);
+	m_bits[(unsigned)bit >> 5] |= 1u << (bit & 31);
+}
 extern BitFlags<116> KINDOFMASK_NONE;
 
 class Team
