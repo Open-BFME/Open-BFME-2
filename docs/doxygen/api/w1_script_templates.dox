@@ -1,0 +1,315 @@
+/// \defgroup grp_w1_script_templates Script action and condition templates
+/// \ingroup grp_scripting
+/// \brief The built-in catalogue of map-script action and condition types:
+///        internal names, editor menu paths, sentence text and parameter
+///        types.
+///
+/// Every action and condition in a map script is stored as a type number.
+/// `ScriptEngine` keeps one `Template` record per type, one table for
+/// actions and one for conditions, and fills both in code during
+/// ScriptEngine::init. The records tell the rest of the game how many
+/// parameters a type takes and of what kind, which internal name identifies
+/// the type in map files and INI (and, in BFME 1, in Lua), and how the type
+/// reads in editors. The behaviour of each type lives elsewhere: in
+/// `ScriptActions` and `ScriptConditions`, in ScriptEngine::executeActions
+/// and ScriptEngine::evaluateCondition (which handle a few core types
+/// themselves), and, for the wait-type actions of sequential scripts, in
+/// ScriptEngine::evaluateAndProgressAllSequentialScripts.
+/// \ref sub_scripting describes the script engine as a whole.
+
+
+/// \class Template
+/// \ingroup grp_w1_script_templates
+/// \brief Description of one map-script action or condition type.
+///
+/// `ScriptEngine` owns two fixed arrays of these records. A record's index
+/// is the type number that ScriptAction and Condition objects store. The
+/// records are filled once at startup and live as long as the engine; they
+/// are looked up with ScriptEngine::getActionTemplate and
+/// ScriptEngine::getConditionTemplate, which return entry 0 for a type out
+/// of range.
+///
+/// A record holds, by role:
+/// - **Mode mask** (BFME 2 only). ScriptEngine::evaluateCondition treats a
+///   condition as false, ScriptEngine::executeActions skips an action, and
+///   ScriptEngine::evaluateAndProgressAllSequentialScripts skips such an
+///   action in a sequential script, when the template's mask shares no bit
+///   with the engine's current mode. The mode is 2 when a GameLogic test on
+///   the current game mode is true and 1 otherwise; which game modes that
+///   test accepts is not established.
+///   The default mask is 1. The builders set 3 (both modes) on 16 actions
+///   and 5 conditions drawn from the core scripting types (for example
+///   `SET_FLAG`, `SET_COUNTER`, `NO_OP`, `ENABLE_SCRIPT`,
+///   `CONDITION_TRUE`). Other scripting types, such as the timer actions,
+///   keep 1. They set 2 on only six Living World types (five actions and
+///   `LIVING_WORLD_IS_REGION_REF_BOUND`), while other `LIVING_WORLD_`
+///   actions such as `LIVING_WORLD_SPAWN_ARMY_IN_ZONE` keep 1. That
+///   suggests mode 2 belongs to the Living World, but it is an inference,
+///   not confirmed.
+/// - **UI name**: a slash-separated menu path such as
+///   `Scripting_/Flags/Set flag to value.`.
+///   ScriptEngine::initTemplateNameKeys appends the type number in square
+///   brackets. Zero Hour's WorldBuilder files each type in its picker tree by
+///   this path.
+/// - **Second UI name**: an optional second menu path (Zero Hour's
+///   WorldBuilder lists the type under both). The BFME 2 builders leave it
+///   empty.
+/// - **Internal name**, such as `SET_FLAG`, and its cached name key. The
+///   internal name is the identifier that map files (as a name key) and INI
+///   blocks use, and that BFME 1's Lua `ExecuteAction` and
+///   `EvaluateCondition` look up.
+/// - **UI strings**: up to twelve sentence fragments that alternate with the
+///   parameters. Template::getUiStrings returns them, and
+///   ScriptAction::getUiText and Condition::getUiText splice them with the
+///   parameter values into a readable sentence.
+/// - **Parameter count and types**: up to twelve parameter type values.
+///   ScriptAction::setActionType and Condition::setConditionType create one
+///   parameter of each listed type. Template::getParameterType returns the
+///   integer type for an index past the count.
+/// - **Help text**: empty unless INI supplies it.
+///
+/// ScriptEngine's constructor default-constructs every slot of both tables.
+/// The record's default constructor sets the mode mask to 1, the UI name to
+/// `UNUSED/(placeholder)/placeholder` (the same placeholder Zero Hour's
+/// Template constructor uses), both counts to zero and every parameter type
+/// to the integer type. A slot that the builders never fill keeps these
+/// values.
+///
+/// \par Modding
+/// - The internal name is the stable key. From condition chunk version 4 a
+///   map stores each condition's internal name key next to its type number.
+///   Condition::ParseConditionDataChunk keeps the type when the keys agree,
+///   otherwise searches the table for the name. It turns the condition into
+///   `CONDITION_FALSE`, dropping its parameters, when the name is unknown or
+///   the stored parameter count differs from the template's. In BFME 2 that
+///   fallback also catches every condition from a chunk older than version
+///   4, which stores no name key, so such conditions always load as
+///   `CONDITION_FALSE`. Zero Hour applies the name fallback only to version
+///   4 chunks.
+///   WriteActionDataChunk stores the action's internal name the same way.
+///   BFME 2's action reader has not been verified; in Zero Hour and BFME 1
+///   it resolves the name the same way, and an unknown name becomes
+///   `NO_OP`. Renaming an internal name therefore breaks every map that
+///   uses it, and so does changing a condition's parameter count.
+/// - INI can relabel a type but not create one. BFME 2's INI block table has
+///   `ScriptAction` and `ScriptCondition` blocks. Both blocks share one field
+///   table with the fields `InternalName` (used only to find the entry),
+///   `UIName`, `UIName2` and `HelpText`, the same names as Zero Hour. The
+///   handlers search from type 0 for the first entry whose internal name
+///   matches, copy the UI name, second UI name and help text onto it, and
+///   change nothing else. All three are copied, so a field the block omits
+///   resets that text: an omitted `UIName` becomes
+///   `UNUSED/(placeholder)/placeholder`, an omitted `UIName2` or `HelpText`
+///   becomes empty. A block whose `InternalName` matches no entry is
+///   ignored.
+/// - BFME 2 registers the Lua functions `ExecuteAction` and
+///   `EvaluateCondition`. In BFME 1 they find the template by exact,
+///   case-sensitive internal name and require exactly the template's number
+///   of parameters.
+///
+/// \note Zero Hour derives Template from MemoryPoolObject, which has a
+///       virtual destructor, and uses empty subclasses ActionTemplate and
+///       ConditionTemplate for the two tables. BFME 1's record starts with
+///       the UI name. In BFME 2 the record starts with the mode mask, so it
+///       has no virtual table at its start.
+///
+/// \par Provenance
+/// The names Template, ActionTemplate and ConditionTemplate and the field
+/// roles come from the Zero Hour and BFME 1 sources. The BFME 2 ledger
+/// carries them in the rows for Template::getUiStrings,
+/// Template::getParameterType and the two table getters. The mode mask, its
+/// readers, the INI field table and the default constructor's values are
+/// BFME 2 target facts from matched bodies. Calling it a mode mask is an
+/// inference from those readers.
+///
+/// \see ScriptEngine::initActionTemplates,
+///      ScriptEngine::initConditionTemplates,
+///      ScriptEngine::initTemplateNameKeys, Template::getUiStrings,
+///      Template::getParameterType
+
+
+/// \class ScriptEngine
+/// \ingroup grp_w1_script_templates
+/// \brief The map-script engine, `TheScriptEngine`. This group covers only
+///        its action and condition template tables.
+///
+/// The engine object embeds two fixed arrays of Template records: 599
+/// action slots and 202 condition slots. ScriptEngine::init fills them once,
+/// by calling ScriptEngine::initActionTemplates,
+/// ScriptEngine::initConditionTemplates and
+/// ScriptEngine::initTemplateNameKeys in that order, before
+/// ScriptEngine::reset. The tables are embedded in the engine and live as
+/// long as it does. Apart from the start-up builders, the only known writers
+/// are the INI `ScriptAction` and `ScriptCondition` handlers. They find the
+/// entry by internal name and replace its UI name, second UI name and help
+/// text (see Template).
+///
+/// Readers of the tables:
+/// - ScriptEngine::getActionTemplate and ScriptEngine::getConditionTemplate,
+///   which map a type out of range to entry 0;
+/// - ScriptAction::setActionType and Condition::setConditionType, which
+///   create a new action's or condition's parameters from its template;
+/// - Condition::ParseConditionDataChunk and WriteActionDataChunk, which
+///   check or store the internal name in map files;
+/// - ScriptEngine::evaluateCondition, ScriptEngine::executeActions and
+///   ScriptEngine::evaluateAndProgressAllSequentialScripts, which test the
+///   mode mask;
+/// - ScriptAction::getUiText and Condition::getUiText, which build readable
+///   sentences. Script::getUiText calls both;
+///   ScriptEngine::evaluateAndProgressAllSequentialScripts also calls
+///   ScriptAction::getUiText.
+///
+/// \par Modding
+/// Both tables are fixed-size arrays built in code. A new type needs a table
+/// slot and a case in the code that carries it out, so data alone cannot add
+/// one. Four action and seven condition slots are unused. Going beyond them
+/// means enlarging the arrays embedded in ScriptEngine, and the 599/202
+/// bounds are repeated as constants in the table getters,
+/// ScriptEngine::initTemplateNameKeys, the INI relabel searches and the
+/// condition loader. A condition whose internal name the game does not know
+/// loads as `CONDITION_FALSE`; in Zero Hour and BFME 1 such an action loads
+/// as `NO_OP`.
+///
+/// \par Remastering
+/// The tables are plain data with no platform dependency. Map compatibility
+/// rests on the internal names: keeping them keeps maps loading (confirmed
+/// for conditions in BFME 2; for actions in Zero Hour and BFME 1). The type
+/// numbers are tied to the dispatch code and must stay in step with it (see
+/// ScriptEngine::initActionTemplates). The retail BFME 2 WorldBuilder has
+/// its own compiled copy of the action table (its strings match), so the
+/// editor and the game have to change together.
+///
+/// \see Template, \ref sub_scripting
+
+
+/// \fn void ScriptEngine::initActionTemplates()
+/// \ingroup grp_w1_script_templates
+/// \brief Fills the action template table: one record for every map-script
+///        action type.
+///
+/// ScriptEngine::init calls this once during engine start-up, before
+/// ScriptEngine::initConditionTemplates. The result is the complete list of
+/// actions a map script can use. Each type gets its internal name (such as
+/// `SET_FLAG` or `NAMED_ATTACK_AREA`), its menu path, its parameter types and
+/// its sentence fragments. ScriptEngine::initTemplateNameKeys then appends
+/// each type number to the UI name and caches the internal name's key.
+///
+/// \par Implementation
+/// The body is one long run of assignments. It selects a record by type
+/// number and sets its internal name, UI name, parameter count, parameter
+/// types, UI-string count, UI strings and, for some types, the mode mask.
+/// Records are not filled in type order; related types are grouped together
+/// (debug, flags, counters and so on), as in the BFME 1 and Zero Hour
+/// sources. Retail quirks, kept because the matched body reproduces them:
+/// - Four slots are never filled and keep the placeholder name.
+/// - The body also fills two condition records, `UNIT_THREAT_LEVEL` and
+///   `TEAM_THREAT_LEVEL`, between two action records. Their addresses lie
+///   past the end of the action table, inside the condition table, in two
+///   slots that ScriptEngine::initConditionTemplates skips. The original
+///   code most likely indexed the action table out of range (an inference);
+///   Open-BFME-1's reconstruction of BFME 1 writes the same two records
+///   through out-of-range action indices too. They keep the default mode
+///   mask.
+/// - `VICTORY` and `DEFEAT` are written twice. The later write gives them
+///   the `Multiplayer_/` menu path instead of `User_/`; Zero Hour's table
+///   has the same double entry. `CAMERA_FADE_MULTIPLY` is also written
+///   twice.
+/// - Two adjacent slots both carry the internal name
+///   `MAP_REVEAL_IN_TRIGGER` with the same menu path and parameters, but
+///   the second one's sentence says the map is *shrouded*. A search by name
+///   that starts at type 0 (BFME 1's Lua `ExecuteAction`, or the INI
+///   relabel handlers) always finds the first one, so the second cannot be
+///   reached by name.
+/// - `TEAM_ALL_USE_COMMANDBUTTON_ON_NAMED` lists three parameter types but a
+///   count of two, so the third is never used. `CAMERA_BW_MODE_END` has a
+///   count of one and no listed type, as in Zero Hour; the record
+///   constructor zeroed the types, so its parameter is an integer.
+/// - Mask 3 is set on 16 actions, all core scripting types (debug, flags,
+///   counters, enabling and calling scripts, no-op), and mask 2 on five
+///   `LIVING_WORLD_` actions. Every other action keeps 1, including the
+///   timer actions and the other Living World actions.
+///
+/// \par Modding
+/// - The parameter types decide what kind of value each argument holds and
+///   what an editor offers for it. The UI strings only change how the action
+///   reads.
+/// - Do not renumber slots: the type number is the key of the dispatch
+///   switch in ScriptEngine::executeActions (which tests literal type
+///   numbers) and of other hard-coded uses, such as the wait-type tests in
+///   ScriptEngine::evaluateAndProgressAllSequentialScripts; in Zero Hour,
+///   the `ScriptActions` dispatcher also switches on it. WorldBuilder carries
+///   its own copy of the table. Maps store both the number and the internal
+///   name; whether BFME 2's action loader falls back to the name when the
+///   two disagree is not confirmed. The table holds 599 action slots.
+/// - `SET_COUNTER_TO_CLIENT_RANDOM_VALUE` reads the client random generator.
+///   Its own UI text warns that it desyncs multiplayer games. Actions run
+///   inside the deterministic game logic on every machine, so a new action
+///   must change game state identically everywhere.
+///
+/// \par Provenance
+/// The body follows BFME 1, where the same records are filled in the same
+/// statement order inside BFME 1's ScriptEngine::init. Statements absent
+/// from BFME 1 were read from the BFME 2 retail stores. No retail symbol
+/// names this function; `initActionTemplates` is a descriptive name. Zero
+/// Hour fills its smaller table inline in ScriptEngine::init.
+///
+/// \see ScriptEngine::initConditionTemplates,
+///      ScriptEngine::initTemplateNameKeys, ScriptEngine::getActionTemplate,
+///      ScriptAction::setActionType, ScriptEngine::executeActions
+
+
+/// \fn void ScriptEngine::initConditionTemplates()
+/// \ingroup grp_w1_script_templates
+/// \brief Fills the condition template table: one record for every
+///        map-script condition type.
+///
+/// ScriptEngine::init calls this once, after
+/// ScriptEngine::initActionTemplates and before
+/// ScriptEngine::initTemplateNameKeys. It is the condition counterpart of
+/// the action table. Type 0 is `CONDITION_FALSE`, which the map reader
+/// substitutes for a condition it cannot resolve, and type 1 is `COUNTER`.
+///
+/// \par Implementation
+/// The same assignment pattern as the action table: select a record by type
+/// number, then set its internal name, UI name, parameter count and types,
+/// UI strings and, for some types, the mode mask. Retail quirks:
+/// - The builder skips nine slots, the same nine as BFME 1's condition
+///   builder. Two of them hold `UNIT_THREAT_LEVEL` and `TEAM_THREAT_LEVEL`,
+///   which ScriptEngine::initActionTemplates writes (see there); the other
+///   seven are never filled and keep the placeholder name.
+/// - `NAMED_INSIDE_AREA` is written twice. The later menu path ("Unit
+///   inside an area.") and its shorter sentence replace the first ones.
+/// - Mask 3 is set on five conditions (`CONDITION_FALSE`, `COUNTER`,
+///   `COUNTER_COUNTER`, `FLAG`, `CONDITION_TRUE`); the only condition with
+///   mask 2 is `LIVING_WORLD_IS_REGION_REF_BOUND`. All others, including
+///   `TIMER_EXPIRED`, keep 1.
+///
+/// The body also contains a few assignments that the compiler removes. They
+/// stand in for code the retail compile carried, so that the compiler makes
+/// the same inlining choices as retail; they carry no meaning.
+///
+/// \par Modding
+/// - Do not renumber slots: ScriptEngine::evaluateCondition handles
+///   `CONDITION_FALSE`, `CONDITION_TRUE`, `COUNTER`, `FLAG` and
+///   `TIMER_EXPIRED` by fixed type number and passes the rest to
+///   `ScriptConditions`, which in Zero Hour also switches on the number.
+///   WorldBuilder carries its own copy of the table. Map loading itself
+///   re-matches a condition by internal name when its stored number
+///   disagrees (Condition::ParseConditionDataChunk). The table holds 202
+///   condition slots.
+/// - Conditions are evaluated inside the deterministic game logic on every
+///   machine. A condition whose mode mask excludes the current mode counts
+///   as false, so its whole AND-term fails (\ref sub_scripting).
+///
+/// \par Provenance
+/// The donor is BFME 1's separate condition-table function (Open-BFME-1
+/// `game/GameEngine/Source/GameLogic/ScriptEngine/script_conditions.cpp`).
+/// Every BFME 1 statement reappears in BFME 2 in the same order, and BFME 2
+/// adds 18 types and the mode mask, read from the retail stores. No retail
+/// symbol names this function; `initConditionTemplates` is a descriptive
+/// name. Zero Hour fills its condition table inline in ScriptEngine::init.
+///
+/// \see ScriptEngine::initActionTemplates,
+///      ScriptEngine::initTemplateNameKeys,
+///      ScriptEngine::getConditionTemplate, Condition::setConditionType,
+///      Condition::ParseConditionDataChunk, ScriptEngine::evaluateCondition

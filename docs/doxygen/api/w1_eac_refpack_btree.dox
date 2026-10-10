@@ -1,0 +1,614 @@
+/// \defgroup grp_w1_eac_refpack_btree EAC RefPack codec and BTree encoder
+/// \brief EA Canada's RefPack (LZ77) decoder and encoder and its BTree
+///        (byte-pair) encoder, two of the codecs behind CompressionManager.
+///
+/// EA Canada's CODEX library gives every codec the same five C entry
+/// points (about, is, size, decode and encode), declared per codec in a
+/// small header such as refcodex.h or btreecodex.h on top of codex.h. This
+/// group covers the RefPack functions REF_is, REF_size, REF_decode and
+/// REF_encode, and BTREE_encode with its helpers. REF_about and
+/// BTREE_about are declared but have no body in the BFME 2 tree. The BTree
+/// decoder in btreedecode.cpp is not covered here, and the Huffman codec has
+/// its own group, \ref grp_w1_eac_huffman. \ref sub_wwlib_thirdparty
+/// describes the libraries around them.
+///
+/// \par Callers
+/// At the time of writing, CompressionManager is the only named direct
+/// caller found in BFME 2 for REF_decode, REF_encode and BTREE_encode;
+/// REF_is and REF_size have no named caller, and the remaining functions are
+/// called only from inside their own codec files. The search does not see
+/// calls from unnamed code or through function-pointer tables.
+/// CompressionManager::compressData writes an 8-byte header (a four-byte
+/// tag, "EAR" for RefPack or "EAB" for BTree with a trailing NUL, then the
+/// uncompressed length as a native int) and passes the rest of the buffer
+/// to REF_encode or BTREE_encode. CompressionManager::decompressData
+/// recognises the tag through CompressionManager::getCompressionType and
+/// passes the bytes after the header to REF_decode or the BTree decoder.
+/// At the time of writing no named BFME 2 caller of compressData or
+/// decompressData is identified, so which BFME 2 data is stored compressed
+/// is not established. Zero Hour: WorldBuilder saves a map with RefPack
+/// unless the map's settings choose no compression (Zero Hour's
+/// CompressionType enum ends the selectable range, COMPRESSION_MIN to
+/// COMPRESSION_MAX, at COMPRESSION_REFPACK), and CachedFileInputStream
+/// expands compressed chunk files such as maps when it opens them.
+///
+/// \par Differences from Zero Hour
+/// The code is Zero Hour's EAC source, which BFME 1 also carries. BFME 2's
+/// copies differ in build details:
+/// - The encoders call the imported C runtime malloc and free where Zero
+///   Hour writes gimex.h's galloc and gfree (in Zero Hour's gimex.h, macros
+///   for those two functions).
+/// - refdecode.cpp carries its own copy of the gimex.h reader ggetm.
+/// - refencode.cpp defines its own file-local copy of the big-endian byte
+///   writer that Zero Hour takes from gimex.h as the inline gputm, and
+///   REF_encode writes its header through it. In the retail build those
+///   writes are inlined into REF_encode; the ledger also matches a separate
+///   compiled copy of the writer, for which no direct caller has been found.
+///
+/// \par Modding
+/// - Nothing here reads game data definitions, and the formats' limits are
+///   fixed: RefPack copies at most 1,028 bytes from at most 131,072 bytes
+///   back, and the BTree header holds a 24-bit length.
+/// - If BFME 2 data reaches CompressionManager (not yet established), a
+///   RefPack-tagged stream must be in the format REF_decode reads, and
+///   because the decoders check no bounds, a damaged stream can crash
+///   instead of failing cleanly.
+/// - BFME 1's RAMFile::openFromArchive expands BIG archive entries that
+///   start with a 0x15FB header (the signature, then a 4-byte length) using
+///   its own RefPack decoder. REF_is rejects that signature, and REF_decode,
+///   which checks no signature, would misread its header: 0x15FB has bit
+///   0x0100 set and bit 0x8000 clear, so REF_decode skips three bytes and
+///   reads a 3-byte length, while BFME 1 reads a 4-byte length right after
+///   the signature.
+/// - The matched BFME 2 RAMFile::openFromArchive is Zero Hour's version,
+///   which expands nothing. BFME 2's StreamingArchiveFile::openFromArchive
+///   compares an entry's first two bytes with 0x15fb and, on a match,
+///   raises a release-build crash report, 'Streaming from a compressed
+///   archive file is not supported', in CrashDone's fatal mode (see
+///   \ref grp_w1_debug_lib), so the game is expected to exit; it never
+///   decodes the entry. It reads the two
+///   bytes as a native little-endian value, the opposite order to the
+///   big-endian 0x15FB test in BFME 1's RAMFile::openFromArchive. Whether
+///   any other BFME 2 path unpacks archive entries is not established.
+///
+/// \par Remastering
+/// - The codecs are written in a plain C style and compiled as C++, with C
+///   linkage for the public entry points. They make no platform calls: only
+///   malloc, free, memcpy and memset. They read and write multi-byte fields
+///   one byte at a time, so they do not depend on the host byte order. The
+///   length in the CompressionManager header is a native int, which does.
+/// - Neither encoder knows the size of its output buffer, and both can
+///   write more bytes than they were given (see REF_encode and
+///   BTREE_encode).
+
+
+/// \file Compression/EAC/codex.h
+/// \ingroup grp_w1_eac_refpack_btree
+/// \brief Common declarations of EA Canada's CODEX codec library,
+///        version 2.00.
+///
+/// Defines CODEXABOUT, a codec's description of itself (decode, encode and
+/// 32-bit size support flags, version and type names); QFUNCTIONS, a table
+/// of one codec's five entry points; and GCALL, the calling convention every
+/// entry point uses (stdcall under MSVC). The codec headers, such as
+/// refcodex.h and btreecodex.h, declare their functions in this shape. The
+/// header also pulls in gimex.h for its memory helpers.
+
+
+/// \file Compression/EAC/refcodex.h
+/// \ingroup grp_w1_eac_refpack_btree
+/// \brief Public C interface of the RefPack codec: REF_is, REF_size,
+///        REF_decode and REF_encode.
+///
+/// Include codex.h first. Compiled as C++, the last argument of REF_decode
+/// and REF_encode defaults to null.
+///
+/// It also declares REF_about, whose Zero Hour body (refabout.cpp) is not
+/// part of the BFME 2 tree.
+
+
+/// \file Compression/EAC/btreecodex.h
+/// \ingroup grp_w1_eac_refpack_btree
+/// \brief Public C interface of the BTree codec: BTREE_is, BTREE_size and
+///        BTREE_decode (btreedecode.cpp) and BTREE_encode (btreeencode.cpp).
+///
+/// Include codex.h first. Compiled as C++, the last argument of
+/// BTREE_decode and BTREE_encode defaults to null.
+///
+/// It also declares BTREE_about, whose Zero Hour body (btreeabout.cpp) is
+/// not part of the BFME 2 tree.
+
+
+/// \file Compression/EAC/refdecode.cpp
+/// \ingroup grp_w1_eac_refpack_btree
+/// \brief RefPack decoder: REF_is, REF_size and REF_decode.
+///
+/// Zero Hour's refdecode.cpp with one addition: a file-local copy of
+/// ggetm, the helper REF_is and REF_size read header fields with. It
+/// returns 1, 2, 3 or 4 bytes as a big-endian unsigned number, and 0 for any
+/// other count; it checks neither the pointer nor the buffer length.
+///
+/// Zero Hour takes ggetm from gimex.h, EA's graphics import and export
+/// header, as a static inline function. This file defines its own copy so
+/// that the compiled body matches retail, which keeps one out-of-line copy.
+/// huffdecode.cpp defines an identical copy, and the ledger maps both to
+/// that single retail body, which REF_size and HUFF_size call.
+
+
+/// \file Compression/EAC/refencode.cpp
+/// \ingroup grp_w1_eac_refpack_btree
+/// \brief RefPack encoder: REF_encode and its internal helpers refcompress
+///        and matchlen.
+///
+/// The file also holds its own copy of the big-endian byte writer that
+/// REF_encode writes its header with; \ref grp_w1_eac_refpack_btree
+/// describes it under Differences from Zero Hour.
+
+
+/// \file Compression/EAC/btreeencode.cpp
+/// \ingroup grp_w1_eac_refpack_btree
+/// \brief BTree encoder: BTREE_encode and the file-local helpers that pick
+///        byte pairs, rewrite the data and pack the output.
+///
+/// Each encode keeps its state in a BTreeEncodeContext on BTREE_encode's
+/// stack, in BTREE_treepack's local tables and in heap buffers that
+/// BTREE_treepack allocates; the file has no global variables.
+
+
+/// \class BTREEMemStruct
+/// \ingroup grp_w1_eac_refpack_btree
+/// \brief A byte buffer and a length: how the BTree encoder describes its
+///        input and its output.
+///
+/// BTREE_encode builds two on its stack, one for the source and one for the
+/// destination. The input's length is the source size. The output's length
+/// is reset to zero by BTREE_compressfile and advanced by BTREE_writebits
+/// for every byte written, so it ends as the encoded size. Neither buffer is
+/// owned: both belong to BTREE_encode's caller, and nothing records the
+/// output buffer's capacity.
+
+
+/// \class BTreeEncodeContext
+/// \ingroup grp_w1_eac_refpack_btree
+/// \brief Working state of one BTree encode: the bit writer, the pair
+///        tables and the two work buffers.
+///
+/// BTREE_encode keeps one on its stack for a single call and passes it to
+/// BTREE_compressfile, BTREE_treepack, BTREE_joinnodes and BTREE_writebits.
+/// BTREE_treepack frees the work buffers before returning, except after an
+/// allocation failure, when they leak.
+///
+/// Fields, by role:
+/// - Bit writer: workpattern holds bits not yet written and packbits counts
+///   them, masks holds the low-bit masks for 0 to 16 bits, and plen counts
+///   bytes written. BTREE_compressfile initialises them.
+/// - Data: buffer and bufptr bound the data being packed and ulen is its
+///   length. BTREE_treepack copies the caller's input into buf1 first, so
+///   the input is never modified.
+/// - Work buffers: buf1 and buf2, each one and a half times the input plus
+///   16,384 bytes. BTREE_joinnodes copies from one to the other on every
+///   pass, and bufbase and bufend mark the current contents.
+/// - Code tables, indexed by byte value: clueq tells BTREE_joinnodes how to
+///   treat each byte, and right and join, indexed by a pair's first byte,
+///   give its second byte and the code that replaces the pair.
+
+
+/// \fn bool REF_is(const void *compresseddata)
+/// \brief Tells whether a buffer starts with a RefPack stream signature.
+///
+/// Reads the first two bytes big-endian and accepts the four RefPack
+/// signatures 0x10FB, 0x11FB, 0x90FB and 0x91FB (REF_decode explains the
+/// flag bits). Nothing else is checked, so a match does not prove that the
+/// rest of the stream is well formed. CompressionManager recognises RefPack
+/// by its own "EAR" tag and does not call this, and no other named direct
+/// caller has been found so far (see the group's Callers notes).
+///
+/// \param compresseddata Start of the candidate stream. At least two bytes
+///                       must be readable; null is not checked.
+/// \return true for one of the four signatures, false otherwise.
+/// \see REF_size, REF_decode
+
+
+/// \fn int REF_size(const void *compresseddata)
+/// \brief Reads the uncompressed length from a RefPack header without
+///        decoding.
+///
+/// Use it to size the output buffer before REF_decode. Bit 0x8000 of the
+/// signature selects 4-byte size fields instead of 3-byte ones, and when
+/// bit 0x0100 is set an extra size field of the same width comes first and
+/// is skipped (the source's comment calls it ulen; its meaning is not used
+/// here). The fields are read with the file's ggetm helper.
+/// CompressionManager takes the length from its own header instead
+/// (CompressionManager::getUncompressedSize), and no other named direct
+/// caller has been found so far (see the group's Callers notes).
+///
+/// \param compresseddata Start of the stream at its signature. Neither null
+///                       nor the signature is checked.
+/// \return The uncompressed length in bytes, the same value REF_decode
+///         returns.
+/// \see REF_is, REF_decode
+
+
+/// \fn int REF_decode(void *dest, const void *compresseddata, int *compressedsize)
+/// \brief Expands one EA RefPack stream into a caller-supplied buffer.
+///
+/// RefPack is the byte-oriented LZ77 format of EA Canada's codec library.
+/// CompressionManager::decompressData calls this when the 8-byte
+/// CompressionManager header carries the RefPack tag, passing the bytes
+/// after that header. It is the only named direct caller found so far, and
+/// decompressData's own callers are not yet identified (see the group's
+/// Callers notes). Zero Hour: one route is CachedFileInputStream, whose
+/// open function unpacks compressed chunk files such as maps before
+/// DataChunkInput parses them. Use REF_is to recognise a stream and REF_size
+/// to learn how large the output must be.
+///
+/// \par Implementation
+/// The stream starts with a big-endian 16-bit signature, normally 0x10FB,
+/// 0x11FB, 0x90FB or 0x91FB; only two of its bits are read. Bit 0x8000
+/// selects 4-byte size fields instead of 3-byte ones; bit 0x0100 means an
+/// extra size field of the same width comes first and is skipped (the
+/// source's comment calls it ulen; its meaning is not used here). The next
+/// size field is the uncompressed length, which is the return value. The
+/// body is a sequence of commands chosen by the top bits of their first
+/// byte:
+/// - 0xxxxxxx (2 bytes): 0-3 literals, then copy 3-10 bytes from up to
+///   1,024 bytes back.
+/// - 10xxxxxx (3 bytes): 0-3 literals, then copy 4-67 bytes from up to
+///   16,384 bytes back.
+/// - 110xxxxx (4 bytes): 0-3 literals, then copy 5-1,028 bytes from up to
+///   131,072 bytes back.
+/// - 0xE0-0xFB: a run of 4-112 literals, in steps of four.
+/// - 0xFC-0xFF: 0-3 final literals, then the end of the stream.
+///
+/// Back-references are copied one byte at a time, so a reference that
+/// overlaps the bytes being written repeats them, which is how runs are
+/// encoded.
+///
+/// \param dest           Output buffer. It must hold at least REF_size
+///                       bytes; nothing here checks its size.
+/// \param compresseddata Start of the RefPack stream at its signature. A
+///                       null pointer decodes nothing and returns 0.
+/// \param compressedsize Optional. Receives the number of input bytes
+///                       consumed. Its value on entry is ignored.
+/// \return The uncompressed length from the stream header. The function
+///         does not check that the commands produced exactly that many
+///         bytes.
+///
+/// \warning Malformed input can read and write past either buffer. Only
+///          pass streams from trusted data.
+/// \note decompressData passes the remaining input length in
+///       compressedsize, but this function never reads that value as a
+///       limit.
+/// \par Modding
+/// REF_decode does not check the signature: it reads only bits 0x8000 and
+/// 0x0100 and decodes whatever follows as one of the four forms REF_is
+/// accepts, so check a stream with REF_is first. The encoder writes the
+/// 4-byte-size form 0x90FB only for inputs of 16 MiB or more. The 0x15FB
+/// variant that BFME 1's RAMFile::openFromArchive expands (the signature,
+/// then a 4-byte length) is misread here: REF_decode skips three bytes and
+/// takes a 3-byte length from the wrong place. Zero Hour: WorldBuilder
+/// saves a map with RefPack unless the map's settings choose no compression
+/// (the only other choice Zero Hour's enum allows there), and a
+/// RefPack-compressed map reaches the game through this function.
+///
+/// \see REF_is, REF_size, REF_encode, CompressionManager::decompressData
+
+
+/// \fn int REF_encode(void *compresseddata, const void *source, int sourcesize, int *opts)
+/// \brief Compresses a buffer into a RefPack stream.
+///
+/// CompressionManager::compressData calls it for COMPRESSION_REFPACK after
+/// writing its own 8-byte header with the "EAR" tag. That is the only named
+/// direct caller found so far; see the group's Callers notes for
+/// compressData's own callers.
+///
+/// \par Implementation
+/// Writes the signature and length, then hands the input to refcompress.
+/// - Inputs smaller than 16 MiB get signature 0x10FB and a 3-byte length;
+///   inputs of 16 MiB or more get 0x90FB and a 4-byte length.
+/// - The 0x11FB and 0x91FB variants, with the extra leading size field,
+///   are never written.
+/// - refcompress always runs in its thorough mode, with its fixed
+///   131,071-byte window.
+///
+/// \param compresseddata Output buffer. Nothing checks its size; see the
+///                       warning.
+/// \param source         Bytes to compress. Not modified.
+/// \param sourcesize     Number of bytes in source.
+/// \param opts           Ignored. CompressionManager passes null.
+/// \return Bytes written: the 5- or 6-byte header plus the compressed body.
+///
+/// \warning The output can be larger than the input. Data without repeats
+///          costs one command byte per 112 literals, plus the header and the
+///          end command. CompressionManager::getMaxCompressedSize allows only
+///          the input length plus CompressionManager's own 8-byte header,
+///          which is too small for such data.
+/// \warning If refcompress cannot allocate its tables, the return value is
+///          just the header length, which a caller cannot tell from
+///          success.
+/// \see REF_decode, refcompress, CompressionManager::compressData
+
+
+/// \fn int refcompress(unsigned char *from, int len, unsigned char *dest, int maxback, int quick)
+/// \brief Greedy LZ77 match finder that writes the RefPack command stream
+///        for REF_encode.
+///
+/// \par Implementation
+/// - Candidate matches come from a hash of the next three bytes (65,536
+///   buckets) and a 131,072-entry chain linking earlier positions with the
+///   same hash. Both tables are allocated here (768 KiB with a 32-bit int)
+///   and freed before returning.
+/// - At each position the whole chain inside the window is walked; a
+///   candidate is measured with matchlen only if it agrees with the current
+///   position at the current best length, so only candidates that could
+///   beat the best match are measured. The match that saves the most bytes,
+///   after the size of its command, wins. A command costs 2 bytes for an
+///   offset under 1,024 and a length up to 10, 3 bytes for an offset under
+///   16,384 and a length up to 67, and 4 bytes otherwise, so a match must
+///   be at least 3 bytes long within 1,024 bytes, 4 within 16,384 bytes and
+///   5 farther back. The walk ends early only on a 1,028-byte match.
+///   Otherwise every chain entry inside the window is examined, so input
+///   with many repeated short byte sequences (long hash chains whose
+///   matches stay shorter than 1,028 bytes) can be slow to compress.
+/// - A match is used only while at least eight input bytes remain, and is
+///   never longer than the remaining input less four bytes, so the last
+///   four input bytes are always stored as literals.
+/// - Unmatched bytes accumulate. Before each match they go out in literal
+///   commands of up to 112 bytes, whole groups of four; the last 0-3 travel
+///   in the match command, or in the end command at the end of the input.
+/// - The choice is greedy: there is no look-ahead to a better match at the
+///   next position.
+///
+/// \param from    Input bytes.
+/// \param len     Input length in bytes.
+/// \param dest    Output buffer, just after the header REF_encode wrote.
+/// \param maxback Clamped to 131,071 but otherwise unused: the search
+///                window is always 131,071 bytes.
+/// \param quick   Nonzero hashes only the first position of each match,
+///                which is faster but leaves later searches fewer
+///                candidates. REF_encode passes 0.
+/// \return Bytes written to dest, or 0 if a table could not be allocated.
+///
+/// \warning If the second table cannot be allocated, the first one is not
+///          freed.
+/// \see REF_encode, matchlen, REF_decode
+
+
+/// \fn unsigned int matchlen(unsigned char *s, unsigned char *d, unsigned int maxmatch)
+/// \brief Counts the leading bytes two positions have in common, up to a
+///        limit.
+///
+/// \param s        Current input position.
+/// \param d        Earlier candidate position.
+/// \param maxmatch Upper bound on the count. refcompress passes the smaller
+///                 of 1,028 and the remaining input less four bytes.
+/// \return Number of equal leading bytes, at most maxmatch.
+///
+/// \note In the retail build refcompress has this loop inlined. The ledger
+///       also matches a separate compiled copy of matchlen, for which no
+///       direct caller has been found.
+/// \see refcompress
+
+
+/// \fn int BTREE_encode(void *compresseddata, const void *source, int sourcesize, int *opts)
+/// \brief Compresses a buffer with EA's BTree byte-pair coder.
+///
+/// CompressionManager::compressData calls it for COMPRESSION_BTREE after
+/// writing its own 8-byte header with the "EAB" tag. That is the only named
+/// direct caller found so far; see the group's Callers notes for
+/// compressData's own callers.
+/// The matching decoder is BTREE_decode in btreedecode.cpp.
+///
+/// BTree replaces frequent pairs of adjacent bytes with byte values the data
+/// can spare, pass after pass, so that one code can stand for a long string:
+/// each code expands to two bytes, either of which can itself be a code,
+/// which forms a binary tree. There is no window and there are no
+/// back-references. A code costs one escape for every time its byte value
+/// occurs in the input, so the coder gains most when some byte values are
+/// rare or unused, as in text.
+///
+/// \par Stream format
+/// Every field is a whole number of bytes, multi-byte fields big-endian:
+/// - signature 0x46FB and the 3-byte uncompressed length;
+/// - the escape byte (the "clue") and the number of pair codes;
+/// - three bytes per pair code: the code, its first byte and its second
+///   byte;
+/// - the packed data, in which a pair code expands to its two bytes, the
+///   clue followed by a nonzero byte stands for that byte, and any other
+///   byte stands for itself;
+/// - the clue followed by 0, which ends the stream.
+///
+/// \param compresseddata Output buffer. Nothing checks its size; see the
+///                       warning.
+/// \param source         Bytes to compress. Copied first, never modified.
+/// \param sourcesize     Number of bytes in source.
+/// \param opts           Optional. When it is not null and opts[0] is
+///                       nonzero, byte values 0-31 are never paired or used
+///                       as codes, which suits text. CompressionManager
+///                       passes null.
+/// \return Bytes written, including the 5-byte header.
+///
+/// \warning The length field holds 24 bits, so an input of 16 MiB or more
+///          is recorded with a wrong length.
+/// \warning The output can be larger than the input. With nothing to join
+///          it is the input plus 9 bytes, plus one escape for every
+///          occurrence of the clue, which is more than
+///          CompressionManager::getMaxCompressedSize allows. If a work
+///          buffer cannot be allocated, only the header is written and its
+///          length returned, which a caller cannot tell from success.
+/// \see BTREE_compressfile, BTREE_treepack, CompressionManager::compressData
+
+
+/// \fn int BTREE_compressfile(struct BTreeEncodeContext *EC, struct BTREEMemStruct *infile, struct BTREEMemStruct *outfile, int ulen, int zerosuppress)
+/// \brief Sets up the encode context, writes the stream header and runs
+///        BTREE_treepack.
+///
+/// Fixes the tuning BTREE_encode gets: at most 256 joining passes, at most
+/// 32 new pair codes per pass, and BTREE_treepack's default cut-off for
+/// candidate pairs.
+///
+/// When ulen equals the input length, which is always the case from
+/// BTREE_encode, the header is 0x46FB and a 3-byte length. Otherwise it is
+/// 0x47FB, ulen and then the input length, a form the source calls a
+/// composite header; the decoder skips the first length and uses the
+/// second.
+///
+/// \param EC           Context to initialise. Owned by the caller.
+/// \param infile       Input buffer and length.
+/// \param outfile      Output buffer. Its length is reset to 0 and grows
+///                     as bytes are written.
+/// \param ulen         Length recorded in the header; see above.
+/// \param zerosuppress Nonzero keeps byte values 0-31 out of pair coding.
+/// \return Bytes written to outfile.
+/// \see BTREE_encode, BTREE_treepack, BTREE_writebits
+
+
+/// \fn void BTREE_treepack(struct BTreeEncodeContext *EC, struct BTREEMemStruct *dest, unsigned int passes, unsigned int multimax, unsigned int quick, int zerosuppress)
+/// \brief Chooses the pair codes, rewrites the data with them and writes
+///        everything after the stream header.
+///
+/// \par Implementation
+/// 1. Allocates a table of 65,536 16-bit pair counts and the two work
+///    buffers, and copies the input into the first buffer.
+/// 2. Counts each byte value in the input. The least frequent value (on a
+///    tie, the higher one) becomes the clue, the escape byte, and any
+///    occurrences of it in the data are escaped. Byte 0's count is replaced
+///    by a fixed 32,000, so it is picked as the clue or as a code only when
+///    every other candidate occurs more than 32,000 times (ties go to the
+///    higher byte value). The end marker (the
+///    clue followed by 0) is unambiguous only while 0 is neither the clue
+///    nor a code, which this makes unlikely but does not guarantee for very
+///    large inputs.
+///    Bytes seen three times or fewer start out ineligible for pairing.
+/// 3. Each pass counts the adjacent byte pairs (BTREE_clearcount,
+///    BTREE_adjcount) and ranks the most frequent pairs of eligible bytes
+///    (BTREE_findbest). Walking that list, it joins a pair when neither byte
+///    has been used yet in this pass and a free code exists whose cost, three
+///    bytes of tree plus one escape per occurrence of the code in the
+///    original input, is below the pair's count. Free codes are taken least
+///    frequent first. The walk stops at the end of the list, at the first
+///    eligible pair that does not pay for itself or finds no free code, or
+///    after multimax joins.
+/// 4. BTREE_joinnodes then rewrites the data. A byte that has been part of a
+///    pair is never used as a code afterwards. Bytes used in a pass,
+///    including its new codes, become eligible for pairing again in the
+///    next pass, which is how the tree grows.
+///    Passes end when one joins nothing or passes runs out.
+/// 5. Writes the clue, the number of codes, each code's three-byte entry,
+///    the packed data and the end marker through BTREE_writebits, and frees
+///    the buffers.
+///
+/// \param EC           Encode context; BTREE_compressfile has set the input
+///                     and the bit writer.
+/// \param dest         Output buffer, after the header.
+/// \param passes       Maximum number of joining passes.
+/// \param multimax     Maximum number of pairs joined in one pass.
+/// \param quick        Nonzero sets the cut-off ratio BTREE_findbest uses;
+///                     0 means a ratio of 2. BTREE_compressfile passes 0.
+/// \param zerosuppress Nonzero keeps byte values 0-31 from being paired or
+///                     used as codes.
+///
+/// \warning On an allocation failure it returns without writing anything
+///          and without freeing the buffers it already allocated.
+/// \see BTREE_compressfile, BTREE_findbest, BTREE_joinnodes
+
+
+/// \fn unsigned int BTREE_findbest(BTREEWORD *countptr, unsigned char *tryq, unsigned int *bestn, unsigned int *bestval, int ratio)
+/// \brief Ranks the most frequent eligible byte pairs for one joining pass.
+///
+/// Scans the pair counts whose first and second bytes are both eligible and
+/// keeps up to 47 pairs sorted by count, most frequent first, from index 1.
+/// The acceptance threshold starts at four occurrences, then follows the
+/// leading pair's count divided by ratio, or the smallest listed count once
+/// the list is full. Listed pairs that fall below the leader's count divided
+/// by ratio are dropped.
+///
+/// \param countptr The 256 by 256 table of pair counts, indexed by first
+///                 byte times 256 plus second byte.
+/// \param tryq     Eligibility per byte value; only nonzero entries are
+///                 scanned.
+/// \param bestn    [out] Listed pairs, as first byte times 256 plus second
+///                 byte.
+/// \param bestval  [in,out] Their counts. Entry 0 must hold a sentinel larger
+///                 than any count; BTREE_treepack stores the largest
+///                 unsigned value there.
+/// \param ratio    Divisor for the cut-off, 2 by default.
+/// \return One more than the number of pairs listed.
+/// \see BTREE_treepack, BTREE_adjcount
+
+
+/// \fn void BTREE_joinnodes(struct BTreeEncodeContext *EC, unsigned char *cluep, unsigned char *rightp, unsigned char *joinp, unsigned int clue)
+/// \brief Rewrites the data once, replacing this pass's pairs with their
+///        codes and escaping bytes that must not be read as codes.
+///
+/// Copies the current work buffer into the other one, steered by the
+/// per-byte table cluep:
+/// - 0: copy the byte.
+/// - 1: first byte of a pair being joined. If the next byte is its partner
+///   in rightp, write the code from joinp in place of both.
+/// - 2: the clue. Copy it and the byte after it unchanged, keeping an
+///   earlier escape intact.
+/// - 3: a byte that is now a code. Write the clue in front of it.
+///
+/// The clue is also stored just past the end of the data as a sentinel that
+/// stops the copy loop. On return the context's current buffer and end
+/// point at the new contents; the end excludes the sentinel.
+///
+/// \param EC     Encode context holding the two work buffers.
+/// \param cluep  Action per byte value, as listed above.
+/// \param rightp Second byte of the pair for each first byte.
+/// \param joinp  Code replacing the pair for each first byte.
+/// \param clue   The escape byte.
+/// \see BTREE_treepack
+
+
+/// \fn void BTREE_adjcount(unsigned char *s, unsigned char *bend, BTREEWORD *count)
+/// \brief Counts every pair of adjacent bytes in a buffer.
+///
+/// Adds one to count at first byte times 256 plus second byte for each
+/// adjacent pair, in a loop unrolled sixteen times. Rows of ineligible bytes
+/// are counted too, but BTREE_findbest never reads them.
+///
+/// \param s     First byte of the data.
+/// \param bend  One past the last byte.
+/// \param count [in,out] The 256 by 256 table of pair counts.
+///
+/// \note The counts are signed 16-bit values. A pair seen more than 32,767
+///       times in one pass wraps, and BTREE_findbest then ignores or
+///       undercounts it, so very large inputs can pack less well than they
+///       could.
+/// \see BTREE_clearcount, BTREE_findbest
+
+
+/// \fn void BTREE_clearcount(unsigned char *tryq, BTREEWORD *countbuf)
+/// \brief Zeroes the pair-count rows of the eligible bytes before a pass.
+///
+/// For every byte value whose tryq entry is nonzero it sets the entry back
+/// to 1 and clears that byte's row of 256 counts; other rows are left
+/// alone. BTREE_treepack marks the bytes it uses in a pass, including the
+/// new codes, with 2, so resetting the entry to 1 makes them eligible for
+/// pairing again. Each row is cleared as 128 ints,
+/// which assumes an int is twice the size of the 16-bit count.
+///
+/// \param tryq     [in,out] Eligibility per byte value.
+/// \param countbuf [out] The 256 by 256 table of pair counts.
+/// \see BTREE_adjcount, BTREE_treepack
+
+
+/// \fn void BTREE_writebits(struct BTreeEncodeContext *EC, struct BTREEMemStruct *dest, unsigned int bitpattern, unsigned int len)
+/// \brief Appends the low bits of a value to the output, most significant
+///        bit first.
+///
+/// Bits collect in the context until a whole byte is ready; each finished
+/// byte is stored at the output's current length, which advances together
+/// with the context's byte count. Values longer than 16 bits are written as
+/// two calls, high part first. Every field the encoder writes is a whole
+/// number of bytes, so the final 7-bit flush in BTREE_treepack writes
+/// nothing.
+///
+/// \param EC         Encode context; its masks must be set up
+///                   (BTREE_compressfile does that).
+/// \param dest       Output buffer and current length.
+/// \param bitpattern Value whose low len bits are written.
+/// \param len        Number of bits, up to 32.
+/// \see BTREE_compressfile, BTREE_treepack

@@ -1,0 +1,425 @@
+/// \defgroup grp_w2_ini_template_refs Reference, duration and font field parsers
+/// \ingroup grp_ini
+/// \brief INI field parsers that resolve a name to another definition, turn
+///        milliseconds into logic frames, or read a font description.
+///
+/// These are the parse functions behind many FieldParse rows: the
+/// INI statics that look up a weapon, upgrade, FX list, object creation
+/// list, particle system or mapped image by name, the two integer duration
+/// parsers, and GlobalLanguage::parseFontDesc. The INI class page explains
+/// the field parser signature they share and compares how each reference
+/// parser treats a name it cannot find. \ref sub_ini is the subsystem page
+/// for the load as a whole.
+
+/// \class INI
+/// \ingroup grp_w2_ini_template_refs
+/// \brief The game-data reader: reads one INI file a line at a time and
+///        hands each block and field to a parse function.
+///
+/// INI is how almost every definition in the game reaches C++: objects and
+/// their modules, weapons, FX lists, upgrades, particle systems, mapped
+/// images, fonts and many global settings. A block keyword at the start of a
+/// line selects a block parser, and the block parser walks a FieldParse
+/// table that maps each field name to a field parser and a place in the
+/// object being filled. \ref sub_ini is the subsystem page for the load
+/// as a whole.
+///
+/// \par Ownership and lifetime
+/// An INI object holds the state of one load, including the file being
+/// read, the current line and line number, the separator sets, the
+/// block-end and end-of-script tokens, and the first line of the current
+/// block, which error messages quote. Zero Hour keeps that last buffer only
+/// in debug and internal builds; BFME 2's retail reader has it. BFME 2's
+/// reader also has further members whose roles are not yet established.
+/// It is short-lived, normally a local in the function that loads
+/// a file or a directory. Zero Hour declares the copy constructor and the
+/// assignment operator private, so a reader cannot be copied. Everything a
+/// load produces goes into stores that other subsystems own, such as
+/// TheWeaponStore, TheFXListStore and TheUpgradeCenter.
+///
+/// \par Parse functions
+/// Most of the class is static parse functions of two shapes:
+/// - Block parsers take only the reader. They are registered under a block
+///   keyword, and each finds or creates its object and fills it.
+/// - Field parsers take (ini, instance, store, userData). ini is the reader,
+///   positioned just after the field name; instance is the object being
+///   filled; store is the address of the field: instance plus the row's
+///   offset, plus the extra offset of its table when the table was added
+///   to a multi-table parse with one (INI::initFromINIMulti); userData is
+///   that row's extra pointer, for example a list of names. A catch-all
+///   row, which has no field name and ends a table, receives the field name
+///   itself as userData. A field parser reads its own
+///   value tokens, usually with INI::getNextToken, and writes the result
+///   through store.
+///
+/// \par Fields that name another definition
+/// Several field parsers turn a name into a pointer while the field is read:
+/// INI::parseWeaponTemplate, INI::parseUpgradeTemplate, INI::parseFXList,
+/// INI::parseObjectCreationList, INI::parseParticleSystemTemplate and
+/// INI::parseMappedImage. Each stores only the pointer, never the name, so
+/// nothing in them can resolve the name later. What happens to a name that
+/// does not resolve differs between them:
+/// - FXList: the load stops with an error, unless the name is None.
+/// - Weapon, object creation list, upgrade, particle system and mapped
+///   image: the field is set to null and nothing is reported.
+/// - Upgrade and mapped image: when their store does not exist yet, the
+///   field is left as it was.
+///
+/// \par Duration fields
+/// INI::parseDurationUnsignedInt and INI::parseDurationUnsignedShort read
+/// milliseconds and store logic frames, rounded up; INI::parseDurationReal
+/// stores the unrounded frame count. The data therefore states times in
+/// real time while the simulation counts frames (\ref page_frame_loop).
+///
+/// \par Modding
+/// - A referenced definition has to be loaded before the file that
+///   references it, because the lookup happens as the field is read. Which
+///   files load first is decided by the order in which subsystems are
+///   created and by the subsystem legend, SubsystemLegend.ini, which lists
+///   the INI files each subsystem loads; a few files are fixed paths
+///   instead (\ref sub_engine_core).
+/// - Except for FX lists, a misspelt reference is silent: the field ends up
+///   null, as if None had been written. Weapon, FX list, object creation
+///   list and upgrade names go through NameKeyGenerator::nameToKey, which
+///   compares names case-sensitively, so the case must match the
+///   definition too.
+/// - Name tokens are split at spaces, tabs and the equals sign, so a
+///   referenced name cannot contain them.
+/// - Durations are written in milliseconds and take effect in whole logic
+///   frames; see INI::parseDurationUnsignedInt.
+///
+/// \par Remastering
+/// - INI::loadFile sets the floating-point mode with setFPMode before it
+///   parses (single precision, round to nearest), so converted values such
+///   as durations are computed in that mode.
+/// - The parsers store raw pointers into the stores, which therefore must
+///   not move or free a definition while anything still points to it.
+///
+/// \note WWLib's INIClass is a separate, Westwood-style INI reader with its
+///       own sections and entries; it is not this class.
+/// \see INI::parseDurationUnsignedInt, INI::parseWeaponTemplate,
+///      INI::parseFXList, GlobalLanguage::parseFontDesc
+
+/// \fn static void INI::parseDurationUnsignedInt(INI *ini, void *instance, void *store, const void *userData)
+/// \brief Field parser: reads a duration in milliseconds and stores it as a
+///        whole number of logic frames, rounded up.
+///
+/// FieldParse tables use it for integer time fields, so INI data gives
+/// those times in milliseconds while the code that reads the field counts
+/// logic frames.
+///
+/// \par Implementation
+/// The value is the next token, read with INI::getNextToken and converted
+/// with INI::scanUnsignedInt, so a macro name or a math expression that
+/// starts with \# (such as \#ADD) is accepted. Otherwise the number is read
+/// with sscanf's \%u, and the load stops with an INIException only when the
+/// token, after macro expansion, does not begin with a number. Trailing
+/// text after the digits is ignored, so 250ms reads as 250, and a leading
+/// minus sign is accepted and wraps to a very large value. It is
+/// multiplied by the engine's frames-per-millisecond factor and rounded up
+/// with ceil. In the current reconstruction that factor is a
+/// global whose retail value is 0.005, which matches the 5 logic frames per
+/// second described on \ref page_frame_loop; only reads of the global have
+/// been found. Zero Hour computes the same thing with
+/// ConvertDurationFromMsecsToFrames at 30 frames per second.
+///
+/// \param ini      The reader, positioned after the field name.
+/// \param instance The object being filled. Not used.
+/// \param store    [out] The unsigned int field that receives the frame
+///                 count.
+/// \param userData Not used.
+///
+/// \par Modding
+/// At 5 frames per second every duration becomes a multiple of 200
+/// milliseconds: 0 stays 0, 1 to 200 become one frame, 201 to 400 two
+/// frames, and so on. A value of 250 therefore behaves like 400. A negative
+/// value is not rejected: it wraps to a very large unsigned number, which
+/// gives an extremely long duration.
+///
+/// \par Remastering
+/// The frames-per-millisecond factor is a separate value from the logic
+/// rate (see \ref page_frame_loop). A port that changes the logic rate must
+/// change this factor to match, or every INI duration is still converted at
+/// 5 frames per second. Even when both change together, the rounding step
+/// changes, and saves and replays recorded at the old rate no longer match
+/// the simulation.
+/// \see INI::parseDurationUnsignedShort, INI::parseDurationReal,
+///      INI::scanUnsignedInt
+
+/// \fn static void INI::parseDurationUnsignedShort(INI *ini, void *instance, void *store, const void *userData)
+/// \brief Field parser: like INI::parseDurationUnsignedInt, but stores the
+///        frame count in a 16-bit unsigned field.
+///
+/// The conversion is the same: milliseconds read through
+/// INI::scanUnsignedInt, multiplied by the frames-per-millisecond factor and
+/// rounded up. Only the store differs.
+///
+/// \param ini      The reader, positioned after the field name.
+/// \param instance The object being filled. Not used.
+/// \param store    [out] The 16-bit unsigned field that receives the frame
+///                 count.
+/// \param userData Not used.
+///
+/// \warning There is no range check. A frame count above 65,535 keeps only
+///          its low 16 bits, so a very long duration wraps round to a short
+///          one without any error. Zero Hour narrows the value the same way.
+///          BFME 2 also has a byte-sized variant, not yet named, that does
+///          reject more than 255 frames with an error.
+/// \see INI::parseDurationUnsignedInt
+
+/// \fn static void INI::parseWeaponTemplate(INI *ini, void *instance, void *store, const void *userData)
+/// \brief Field parser: looks a weapon name up in TheWeaponStore and stores
+///        the WeaponTemplate pointer, null included.
+///
+/// Used by fields that name a weapon, such as CollideWeapon. The pointer is
+/// resolved once, while the field is read.
+///
+/// \par Implementation
+/// Reads one token with INI::getNextToken and passes it to
+/// WeaponStore::findWeaponTemplate. That returns null for None, compared
+/// without regard to case, and otherwise looks the weapon up by its name
+/// key from NameKeyGenerator::nameToKey. The result is stored even when it
+/// is null. TheWeaponStore must already exist; it is not checked.
+///
+/// \param ini      The reader, positioned after the field name.
+/// \param instance The object being filled. Not used.
+/// \param store    [out] A pointer-to-WeaponTemplate field.
+/// \param userData Not used.
+///
+/// \note Zero Hour only asserts on an unknown weapon in debug builds, so a
+///       Zero Hour release build behaves like BFME 2: an unknown name is not
+///       an error.
+///
+/// \par Modding
+/// A misspelt weapon name, or one whose case differs from the definition,
+/// leaves the field null without any message. The weapon must be defined in
+/// a file that loads before this one.
+/// \see WeaponStore::findWeaponTemplate, INI::parseFXList
+
+/// \fn static void INI::parseUpgradeTemplate(INI *ini, void *instance, void *store, const void *userData)
+/// \brief Field parser: looks an upgrade name up in TheUpgradeCenter and
+///        stores the UpgradeTemplate pointer.
+///
+/// Used by fields that name an upgrade, such as Upgrade.
+///
+/// \par Implementation
+/// Reads one token with INI::getNextToken. When TheUpgradeCenter exists it
+/// calls UpgradeCenter::findUpgrade, which turns the name into a name key
+/// with NameKeyGenerator::nameToKey and looks the key up, and stores the
+/// result, null included. When TheUpgradeCenter does not exist the token is
+/// consumed and the field keeps whatever value it had.
+///
+/// \param ini      The reader, positioned after the field name.
+/// \param instance The object being filled. Not used.
+/// \param store    [out] A pointer-to-UpgradeTemplate field.
+/// \param userData Not used.
+///
+/// \note Zero Hour throws an error when TheUpgradeCenter does not exist yet;
+///       BFME 2, like BFME 1, silently skips the field. UpgradeCenter::findUpgrade
+///       has no special case for None, so None gives null only because no
+///       upgrade has that name.
+///
+/// \par Modding
+/// An unknown upgrade name leaves the field null without any message, and
+/// the case of the name must match the definition.
+/// \see UpgradeCenter::findUpgrade
+
+/// \fn static void INI::parseFXList(INI *ini, void *instance, void *store, const void *userData)
+/// \brief Field parser: looks an FX list name up in TheFXListStore and
+///        stores the FXList pointer; an unknown name stops the load.
+///
+/// Used by fields that name an FX list, such as ToppleFX and FireFlankFX.
+/// It is the only reference parser on this page that treats a missing
+/// definition as an error.
+///
+/// \par Implementation
+/// Reads one token with INI::getNextToken and calls
+/// FXListStore::findFXList, which returns null for None (compared without
+/// regard to case) and otherwise looks the list up by its name key. If the
+/// result is null and the token is not None, it throws an INIException
+/// with the message "iniParseFXList -- FXList %s not found! Either add the
+/// FXList or remove the reference to it." Otherwise the result, null for
+/// None, is stored.
+///
+/// \param ini      The reader, positioned after the field name.
+/// \param instance The object being filled. Not used.
+/// \param store    [out] A pointer-to-FXList field.
+/// \param userData Not used.
+///
+/// \note Zero Hour only asserts in debug builds and stores null. The error
+///       is in BFME 1 as well.
+///
+/// \par Modding
+/// Write None to leave an FX field empty. Any other name must match a
+/// defined FX list exactly, and that list must load before the file that
+/// uses it, or the game stops loading with the error above.
+/// \see FXListStore::findFXList, INI::parseWeaponTemplate
+
+/// \fn static void INI::parseObjectCreationList(INI *ini, void *instance, void *store, const void *userData)
+/// \brief Field parser: looks an object creation list (OCL) name up in
+///        TheObjectCreationListStore and stores the pointer, null included.
+///
+/// Used by fields that name an object creation list, such as CreationList.
+/// ObjectCreationListStore::findObjectCreationList returns null for None
+/// and otherwise looks the list up by its name key; whatever it returns is
+/// stored. This is Zero Hour's parser without its debug-build assertion, so
+/// an unknown name is not an error.
+///
+/// \param ini      The reader, positioned after the field name.
+/// \param instance The object being filled. Not used.
+/// \param store    [out] A pointer-to-ObjectCreationList field.
+/// \param userData Not used.
+///
+/// \par Modding
+/// A misspelt list name leaves the field null without any message, and the
+/// list must be defined in a file that loads earlier.
+/// \see ObjectCreationListStore::findObjectCreationList
+
+/// \fn static void INI::parseParticleSystemTemplate(INI *ini, void *instance, void *store, const void *userData)
+/// \brief Field parser: looks a particle system name up in
+///        TheParticleSystemManager and stores the template pointer, or null.
+///
+/// Used by fields that name a particle system, such as
+/// DisableFXParticleSystem.
+///
+/// \par Implementation
+/// Reads one token with INI::getNextToken and calls
+/// ParticleSystemManager::findTemplate. The template is stored only when
+/// one was found and the token is not None (compared without regard to
+/// case); in every other case the field is set to null. The manager must
+/// already exist; it is not checked.
+///
+/// \param ini      The reader, positioned after the field name.
+/// \param instance The object being filled. Not used.
+/// \param store    [out] A pointer-to-ParticleSystemTemplate field.
+/// \param userData Not used.
+///
+/// \note Zero Hour stores whatever the lookup returns, so there a template
+///       actually named None could be referenced. BFME 2, like BFME 1,
+///       always maps None to null.
+///
+/// \par Modding
+/// An unknown particle system name leaves the field null without any
+/// message.
+/// \see ParticleSystemManager::findTemplate
+
+/// \fn static void INI::parseMappedImage(INI *ini, void *instance, void *store, const void *userData)
+/// \brief Field parser: looks a mapped image name up in
+///        TheMappedImageCollection and stores the Image pointer.
+///
+/// Used by fields that name a UI image, such as ImageName. In Zero Hour a
+/// mapped image is a named rectangle of a texture file, defined in a
+/// MappedImage block (INI::parseMappedImageDefinition).
+///
+/// \par Implementation
+/// Reads one token with INI::getNextToken. When TheMappedImageCollection
+/// exists it stores the result of ImageCollection::findImageByName, null for
+/// an unknown name. When the collection does not exist the token is
+/// consumed and the field is left as it was. A comment in Zero Hour's
+/// source explains why: WorldBuilder parses command buttons for their
+/// information but never uses their images, while in the game and GUIEdit
+/// the collection always exists. The body is Zero Hour's.
+///
+/// \param ini      The reader, positioned after the field name.
+/// \param instance The object being filled. Not used.
+/// \param store    [out] A pointer-to-Image field.
+/// \param userData Not used.
+///
+/// \par Modding
+/// An unknown image name gives a null image without any message. The image
+/// has to be defined in a MappedImage block that loads before the
+/// referencing file.
+/// \see ImageCollection::findImageByName
+
+/// \class GlobalLanguage
+/// \ingroup grp_w2_ini_template_refs
+/// \brief Language-dependent display settings, chiefly the fonts the
+///        interface uses, filled from an INI Language block.
+///
+/// GlobalLanguage is an engine subsystem with a single instance,
+/// TheGlobalLanguageData, which GameEngine::init creates through the
+/// engine's initSubsystem helper. The Language block parser,
+/// INI::parseLanguageDefinition, fills that instance through the class's
+/// field table, and does nothing when the instance does not exist. Zero
+/// Hour and BFME 1 read the block from a Language.ini in the folder of the
+/// installed language; BFME 2's own loading code is not reconstructed yet.
+///
+/// \par What it holds
+/// Zero Hour's fields are the Unicode font name, a list of local font files,
+/// the military caption speed and delay, a hard word wrap flag, a
+/// resolution font adjustment and a FontDesc for each text role, from
+/// CopyrightFont and MessageFont to the credits fonts. Open-BFME-1's table
+/// for BFME 1 adds decimal, thousand and minute-to-second separators, an
+/// audio language, an audio subtitle font and help box fonts, and drops
+/// Zero Hour's MilitaryCaptionDelayMS. BFME 2's field table is not
+/// reconstructed yet, so its exact field list is not established.
+///
+/// \par Users in BFME 2
+/// - InGameUI::init copies several of these font settings into its own
+///   fields.
+/// - W3DDisplayString::notifyTextChanged reads the hard word wrap flag.
+/// - GlobalLanguage::adjustFontSize scales a point size by the screen width
+///   divided by 1024 and rounds down. SuperweaponInfo::setFont is one
+///   caller.
+/// - GlobalLanguage::onGameEngineExit removes the private font resources
+///   registered from local font files and deletes the temporary font copies
+///   (files whose names start with lrf) from a folder under the system temp
+///   path. In Open-BFME-1's reconstruction of BFME 1, the init reads each
+///   local font through the game's file system, so it may come from an
+///   archive, writes it to such a temporary file and registers that file as
+///   a private font. BFME 2's cleanup matches that scheme.
+///
+/// \note Zero Hour's adjustFontSize divides by 800, blends the result with
+///       the resolution font adjustment and keeps it between 1 and 2
+///       times the original size. BFME 2's has no blend and no limits.
+///
+/// \par Modding
+/// Fonts, sizes and boldness are data: change them in the Language block
+/// (see GlobalLanguage::parseFontDesc for the format). The set of font
+/// fields is fixed by the field table in the executable.
+///
+/// \par Remastering
+/// - Font sizes grow linearly with the horizontal resolution, without an
+///   upper limit, and ignore the height and aspect ratio. A 2048-pixel-wide
+///   screen doubles them.
+/// - Local fonts go through Win32 GDI private font calls and temporary
+///   files (BFME 2 removes them with RemoveFontResourceExA), which a port
+///   has to replace.
+/// \see GlobalLanguage::parseFontDesc, INI::parseLanguageDefinition
+
+/// \fn static void GlobalLanguage::parseFontDesc(INI *ini, void *instance, void *store, const void *userData)
+/// \brief Field parser: reads a font description (name, point size and bold
+///        flag) into a FontDesc.
+///
+/// The Language block's font fields use it, and BFME 2 also calls it
+/// directly from a parser, not yet named, that reads a DefaultMessageFont
+/// field into a temporary FontDesc and copies that into its own object.
+/// The body is Zero Hour's.
+///
+/// \par Implementation
+/// Three values are read from the rest of the line, in order and without
+/// labels:
+/// - the name, through INI::getNextQuotedAsciiString: one word, or a
+///   double-quoted string that may contain spaces.
+/// - the point size, through INI::scanInt on the next token.
+/// - the bold flag, through INI::scanBool: Yes or No in any case; anything
+///   else stops the load with an error.
+///
+/// A line that ends early also stops the load, because the size and bold
+/// flag are read with INI::getNextToken, which requires a token. FontDesc's
+/// default constructor, matched in BFME 2, sets Arial Unicode MS, size 12,
+/// not bold.
+///
+/// \param ini      The reader, positioned after the field name.
+/// \param instance The object being filled. Not used.
+/// \param store    [out] The FontDesc to fill.
+/// \param userData Not used.
+///
+/// \par Modding
+/// A font line looks like this (the field name is only an example):
+/// \code
+/// MessageFont = "Arial Unicode MS" 12 No
+/// \endcode
+/// The size is a point size before any scaling; callers that scale it use
+/// GlobalLanguage::adjustFontSize.
+/// \see GlobalLanguage, INI::getNextQuotedAsciiString, INI::scanBool
