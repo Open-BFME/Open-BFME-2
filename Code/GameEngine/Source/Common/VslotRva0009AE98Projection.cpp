@@ -34,7 +34,7 @@ public:
 };
 
 extern Display *TheDisplay;
-void __cdecl Rva00101E1EConvert(float, float, int *, int *, int, int);
+void __cdecl W3DLogicalScreenToPixelScreen(float, float, int *, int *, int, int);
 
 class Rva0009AE98
 {
@@ -63,7 +63,7 @@ bool Rva0009AE98::rva0009AE98(const Vector3 *point, int *screen)
 	CameraClass::ProjectionResType result = m_camera->Project(projected, source);
 	float width = (float)TheDisplay->GetWidth();
 	float height = (float)TheDisplay->GetHeight();
-	Rva00101E1EConvert(projected.X, projected.Y, &screen[0], &screen[1], width, height);
+	W3DLogicalScreenToPixelScreen(projected.X, projected.Y, &screen[0], &screen[1], width, height);
 	if (projected.X > 2.0f)
 		return false;
 	if (projected.Y > 2.0f)

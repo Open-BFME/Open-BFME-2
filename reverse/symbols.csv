@@ -6582,7 +6582,6 @@ name,address,notes
 ?W3DGadgetPushButtonImageDrawOne@@YAXPAVGameWindow@@PAVWinInstanceData@@@Z,0x000A56ED,callee of the lexicon-named W3DGadgetPushButtonImageDraw (0x000A6019) at the site the BFME1 donor calls it; may be an ICF alias
 ?W3DGadgetPushButtonImageDrawThree@@YAXPAVGameWindow@@PAVWinInstanceData@@@Z,0x000A4B7C,callee of the lexicon-named W3DGadgetPushButtonImageDraw (0x000A6019) at the site the BFME1 donor calls it; may be an ICF alias
 ?W3DGadgetStaticTextDraw@@YAXPAVGameWindow@@PAVWinInstanceData@@@Z,0x000A0A52,target 0xA0A52/280 draws static text: retail body calls same static-text color/geometry helpers as BFME1 donor and routes visible label rendering to drawStaticTextText; Ghidra boundary 0xA0A52/280
-?W3DLogicalScreenToPixelScreen@@YAXMMPAH0HH@Z,0x00101E1E,read from the REL32 at 0x00086228 in W3DView::worldToScreenTriReturn; body writes (x+1)*width*0.5 and (1-y)*height*0.5 truncated through the two int pointers as Zero Hour W3DLogicalScreenToPixelScreen (the inverse of PixelScreenToW3DLogicalScreen at 0x00101E6D right after it)
 ?W3DRadarResetLock@@YAXXZ,0x0011F520,callee of ReleaseResources (0x000A6135) at the site its BFME1 donor calls it; may be an ICF alias
 ?W3DRadarResetUnlock@@YAXXZ,0x00120F50,callee of ReleaseResources (0x000A6135) at the site its BFME1 donor calls it; may be an ICF alias
 ?Which_Side@AABTreeBuilderClass@@AAE?AW4OverlapType@1@ABVAAPlaneClass@@H@Z,0x00198C60,address read from the REL32 displacement at a placed body; stlport 4.5.3
