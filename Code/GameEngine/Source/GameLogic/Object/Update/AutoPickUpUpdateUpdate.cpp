@@ -1,14 +1,9 @@
+// cl: /I. /O1 /arch:SSE /G7 /DNDEBUG /MD /GX
 // ?update@AutoPickUpUpdate@@UAE?AW4UpdateSleepTime@@XZ
-// partial score=0.9979581104888564 date=2026-10-10
 #include <new>
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
 template<class T>static __forceinline T w5Operand(const T&v){return *(const volatile T*)&v;}
-// ?update@AutoPickUpUpdate@@UAE?AW4UpdateSleepTime@@XZ
-// partial score=0.9799654434554607 date=2026-10-10
-// ?update@AutoPickUpUpdate@@UAE?AW4UpdateSleepTime@@XZ
-// partial score=0.85 date=2026-10-08
-// cl: /I. /O1 /arch:SSE /G7 /DNDEBUG /MD /GX
 class Object;
 class Player;
 
@@ -92,12 +87,7 @@ public:
 
 #include "Code/Libraries/Include/Lib/Coord3D.h"
 
-class PartitionManager
-{
-public:
-	Object *getClosestObject(const Coord3D *pos, float maxDist, int dc,
-		Rva000421C8 *filters);	// 0x00625360
-};
+#include "Code/GameEngine/Source/Common/PartitionRangeQueryCallView.h"
 extern PartitionManager *ThePartitionManager;
 
 class TerrainLogic
@@ -365,7 +355,7 @@ UpdateSleepTime AutoPickUpUpdate::update()
 		{
 			const Coord3D *point = (const Coord3D *)TheTerrainLogic->rva0027F108(&position,
 				getAutoPickUpUpdateModuleData()->m_scanDistance, true, 1);
-			SpecialPowerModuleInterface *power = m_object->findSpecialPowerModuleInterface(SPECIAL_POWER_39);
+			SpecialPowerModuleInterface *power = (m_object?m_object:m_object)->findSpecialPowerModuleInterface(SPECIAL_POWER_39);
 			if (power && point)
 			{
 				Coord3D target;
