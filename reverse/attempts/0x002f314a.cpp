@@ -1,173 +1,55 @@
 // ?isAttackViewBlockedByObstacle@Pathfinder@@QAE_NPBVObject@@ABUCoord3D@@01@Z
-// partial score=0.6392 date=2026-10-05
-// cl: /O1 /G7 /DNDEBUG /MD /arch:SSE
-// ?isAttackViewBlockedByObstacle@Pathfinder@@QAE_NPBVObject@@ABUCoord3D@@01@Z @0x002F314A 544B
-// Evidence: LINK BONUS 2 files wait for this name; callers isViewBlockedByObstacle 0x002F3B92 and forwarder 0x002F3BAB; donor ZH AIPathfind.cpp isAttackViewBlockedByObstacle plus BFME1 bridge-layer TerrainLogic query; neighbours share /O1 /G7.
-typedef int Int;
-typedef float Real;
-typedef bool Bool;
-
-struct Coord3D
-{
-	float x;
-	float y;
-	float z;
-	float Normalize2D();
-};
-
-enum PathfindLayerEnum
-{
-	LAYER_INVALID = 0,
-	LAYER_GROUND = 1
-};
-
-enum WeaponSlotType
-{
-	WEAPONSLOT_PRIMARY = 0
-};
-
-struct ThingTemplate
-{
-	unsigned char m_pad[0x108];
-	unsigned char m_byte108;
-	unsigned char m_pad109[0x10F - 0x109];
-	unsigned char m_byte10F;
-	unsigned char m_pad110[0x122 - 0x110];
-	unsigned char m_byte122;
-};
-
-class Object
-{
-public:
-	const class Weapon *getCurrentWeapon(WeaponSlotType *slot) const;
-	Int rva0028B511() const;
-private:
-	char m_pad00[4];
-public:
-	ThingTemplate *m_template;
-};
-
-class Weapon
-{
-public:
-	Int rva002CB9BD(const Object *source, const Coord3D *pos, const Object *victim);
-};
-
-struct TAiData
-{
-	unsigned char m_pad[0x67];
-	unsigned char m_attackUsesLineOfSight;
-};
-
-class AI
-{
-public:
-	const TAiData *getAiData() const { return m_aiData; }
-private:
-	char m_pad00[0x18];
-	TAiData *m_aiData;
-};
-extern AI *g_Va009FF0F8;
-
-class TerrainLogic
-{
-public:
-	PathfindLayerEnum getLayerForDestination(Object *obj, const Coord3D *pos);
-};
+// partial score=0.7984680613 date=2026-10-10
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// BF1 575ba2b04 PathfinderIsAttackViewBlockedByObstacle semantic guide.
+// Native2F314A..2F336A RET16; WB D3D500 names attack-view query.
+struct Coord3D {float x,y,z;float Normalize2D();};
+enum PathfindLayerEnum {LAYER_GROUND=1};
+enum WeaponSlotType;
+struct AttackViewTemplate {char padding[0x108];unsigned char flags[0x28];};
+class Weapon;
+class Object {public:void *vtable;AttackViewTemplate *definition;
+ const Weapon *getCurrentWeapon(WeaponSlotType *)const;int rva0028B511()const;};
+class Weapon {public:int isClearGoalFiringLineOfSightTerrain(const Object *,const Coord3D *,const Object *);};
+struct AttackAiData {char pad[0x67];unsigned char useLOS;};
+class AI;extern AI *TheAI;
+struct AttackAIView {char pad[0x18];AttackAiData *data;};
+class TerrainLogic {public:PathfindLayerEnum getLayerForDestination(Object *,const Coord3D *);};
 extern TerrainLogic *TheTerrainLogic;
-
-extern float g_00BC4EB8;
-
-class Rva002E73D4
-{
-public:
-	Rva002E73D4(Int a, Int b, Int c);
-	Int m_00;
-	Int m_04;
-	Int m_08;
-	Int m_0C;
-	Bool m_10;
-	Int m_14;
-	Int m_18;
+class Rva002E73D4 {public:Rva002E73D4(int,int,int);int object,other,cell,skip;bool hitLayer;int count,run;};
+struct Rva002F18D4Info;
+int Rva002E6E6CGet(int);
+class Pathfinder {public:
+ bool isAttackViewBlockedByObstacle(const Object *,const Coord3D &,const Object *,const Coord3D &);
+ void *rva001E3647Pos(int,const Coord3D *);
+ int iterateCellsAlongLine(const Coord3D *,const Coord3D *,PathfindLayerEnum,Rva002F18D4Info *);
 };
-
-struct Rva002F18D4Info
-{
-	Int cellCallback(void *a, void *b, Int x, Int y);
-};
-
-Int __cdecl Rva002E6E6CGet(Int v);
-
-class Pathfinder
-{
-public:
-	Bool isAttackViewBlockedByObstacle(const Object *source, const Coord3D &sourcePos, const Object *victim, const Coord3D &victimPos);
-	void *rva001E3647Pos(Int layer, const Coord3D *pos);
-	Int iterateCellsAlongLine(const Coord3D *start, const Coord3D *end, PathfindLayerEnum layer, Rva002F18D4Info *info);
-};
-
-// ?isAttackViewBlockedByObstacle@Pathfinder@@QAE_NPBVObject@@ABUCoord3D@@01@Z present-unmatched
-Bool Pathfinder::isAttackViewBlockedByObstacle(const Object *source, const Coord3D &sourcePos, const Object *victim, const Coord3D &victimPos)
-{
-	if (!g_Va009FF0F8->getAiData()->m_attackUsesLineOfSight)
-		return false;
-	if (victim == 0)
-		return false;
-	if ((source->m_template->m_byte10F & 8) == 0)
-	{
-		if ((source->m_template->m_byte122 & 0x40) == 0)
-			return false;
-	}
-	Weapon *w = (Weapon *)source->getCurrentWeapon((WeaponSlotType *)0);
-	if ((source->m_template->m_byte108 & 4) != 0)
-		w = 0;
-	if (w != 0)
-	{
-		Bool viewBlocked = !w->rva002CB9BD(source, &sourcePos, victim);
-		if (viewBlocked)
-			return true;
-	}
-	Int attackerLayer = source->rva0028B511();
-	Int layer = victim->rva0028B511();
-	if (attackerLayer != layer)
-	{
-		if ((attackerLayer >= 2 && attackerLayer <= 15) || (layer >= 2 && layer <= 15))
-		{
-			Real z = sourcePos.z;
-			if (victimPos.z > z)
-				z = victimPos.z;
-			Coord3D tmp;
-			tmp.x = sourcePos.x;
-			tmp.y = sourcePos.y;
-			tmp.z = z;
-			PathfindLayerEnum attackerTerrainLayer = TheTerrainLogic->getLayerForDestination((Object *)0, &tmp);
-			tmp.x = victimPos.x;
-			tmp.y = victimPos.y;
-			tmp.z = z;
-			PathfindLayerEnum victimTerrainLayer = TheTerrainLogic->getLayerForDestination((Object *)0, &tmp);
-			if (attackerTerrainLayer == victimTerrainLayer)
-				return true;
-		}
-	}
-	void *cell = rva001E3647Pos(layer, &victimPos);
-	Rva002E73D4 info((Int)source, (Int)victim, (Int)cell);
-	if (!Rva002E6E6CGet(source->rva0028B511()))
-	{
-		info.m_0C = 3;
-		if (layer == LAYER_GROUND)
-			layer = source->rva0028B511();
-	}
-	Coord3D tmp;
-	tmp.x = sourcePos.x - victimPos.x;
-	tmp.y = sourcePos.y - victimPos.y;
-	tmp.z = sourcePos.z - victimPos.z;
-	tmp.Normalize2D();
-	tmp.x *= g_00BC4EB8;
-	tmp.y *= g_00BC4EB8;
-	tmp.z *= g_00BC4EB8;
-	tmp.x += victimPos.x;
-	tmp.y += victimPos.y;
-	tmp.z += victimPos.z;
-	Int ret = iterateCellsAlongLine(&sourcePos, &tmp, (PathfindLayerEnum)layer, (Rva002F18D4Info *)&info);
-	return ret != 0;
+bool Pathfinder::isAttackViewBlockedByObstacle(const Object *attacker,const Coord3D &attackerPos,const Object *victim,const Coord3D &victimPos){
+ if(!((AttackAIView *)TheAI)->data->useLOS)return false;
+ if(victim){
+ if(!(attacker->definition->flags[7]&8)&&!(attacker->definition->flags[26]&0x40))return false;
+ Weapon *w=(Weapon *)attacker->getCurrentWeapon(0);
+ if(attacker->definition->flags[0]&4)w=0;
+ if(w){bool blocked=!(unsigned char)w->isClearGoalFiringLineOfSightTerrain(attacker,&attackerPos,victim);if(blocked)return blocked;}
+ int attackerLayer=attacker->rva0028B511();
+ PathfindLayerEnum layer=(PathfindLayerEnum)victim->rva0028B511();
+ if(attackerLayer!=layer){
+  if((attackerLayer>=2&&attackerLayer<=15)||(layer>=2&&layer<=15)){
+   float z=attackerPos.z;if(victimPos.z>z)z=victimPos.z;
+   Coord3D pos;pos.x=attackerPos.x;pos.y=attackerPos.y;pos.z=z;
+   attackerLayer=TheTerrainLogic->getLayerForDestination(0,&pos);
+   pos=victimPos;pos.z=z;
+   PathfindLayerEnum b=TheTerrainLogic->getLayerForDestination(0,&pos);
+   if(attackerLayer==b)return true;
+  }
+ }
+ Rva002E73D4 info((int)attacker,(int)victim,(int)rva001E3647Pos(layer,&victimPos));
+ if(!(unsigned char)Rva002E6E6CGet(attacker->rva0028B511())){info.skip=3;if(layer==LAYER_GROUND)layer=(PathfindLayerEnum)attacker->rva0028B511();}
+ Coord3D pos;pos.x=attackerPos.x-victimPos.x;pos.y=attackerPos.y-victimPos.y;pos.z=attackerPos.z-victimPos.z;
+ pos.Normalize2D();
+ pos.x*=5.0f;pos.y*=5.0f;pos.z*=5.0f;
+ pos.x=victimPos.x+pos.x;pos.y=victimPos.y+pos.y;pos.z=victimPos.z+pos.z;
+ return iterateCellsAlongLine(&attackerPos,&pos,layer,(Rva002F18D4Info *)&info)!=0;
+}
+ return false;
 }
