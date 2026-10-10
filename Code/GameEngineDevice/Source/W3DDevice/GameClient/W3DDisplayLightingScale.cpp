@@ -19,6 +19,7 @@ struct Rva000443BALight {
  char pad[0xd4]; Rva000443BAVec ambient,diffuse,specular;
  void setAmbient(const Rva000443BAVec &v) { ambient=v; }
  void setDiffuse(const Rva000443BAVec &v) { diffuse=v; }
+ void setDiffuse(float r,float g,float b){diffuse.x=r;diffuse.y=g;diffuse.z=b;}
  void setSpecular(const Rva000443BAVec &v) { specular=v; }
 };
 struct Rva000443BARow { float ambient[3],diffuse[3],position[3]; };
@@ -38,10 +39,13 @@ static __declspec(noinline) void rva000443BA(const Rva000443BARow *rows, float s
 class GlobalData {public:char p0[0x134];int timeOfDay;char p138[0x3C8-0x138];Rva000443BARow terrain[4][3];char gap[0x650-0x3C8-4*3*sizeof(Rva000443BARow)];Rva000443BARow objects[4][3];};extern GlobalData*TheWritableGlobalData;
 class RTS3DScene {public:virtual void v0();virtual void v1();virtual void v2();virtual void v3();virtual void v4();virtual void v5();virtual void setAmbient(const Rva000443BAVec&);char pad[0x144-4];Rva000443BAVec color;};
 class W3DDisplay {public:static RTS3DScene*m_3DScene;};
-class Rva0004443E {public:char p0[0x148];Rva000443BALight*lights[4];Rva000443BALight*otherLights[4];void rva0004443E(float);};
+class Rva0004443E {public:char p0[0x148];Rva000443BALight*lights[4];Rva000443BALight*otherLights[4];void rva0004443E(float);void rva0004450E(int,Rva000443BAVec);void rva00044545(int,Rva000443BAVec);};
 void Rva0004443E::rva0004443E(float scale){
  const Rva000443BARow*rows=&TheWritableGlobalData->terrain[TheWritableGlobalData->timeOfDay][0];
  const Rva000443BARow*objects=&TheWritableGlobalData->objects[TheWritableGlobalData->timeOfDay][0];
  if(W3DDisplay::m_3DScene){W3DDisplay::m_3DScene->setAmbient(Rva000443BAVec(rows->ambient[0]*scale,rows->ambient[1]*scale,rows->ambient[2]*scale));W3DDisplay::m_3DScene->color=Rva000443BAVec(objects->ambient[0]*scale,objects->ambient[1]*scale,objects->ambient[2]*scale);}
  rva000443BA(rows,scale,lights);rva000443BA(objects,scale,otherLights);
 }
+
+void Rva0004443E::rva0004450E(int i,Rva000443BAVec color){Rva000443BALight*light=lights[i];if(light)light->setDiffuse(color);}
+void Rva0004443E::rva00044545(int i,Rva000443BAVec color){Rva000443BALight*light=otherLights[i];if(light)light->setDiffuse(color);}
