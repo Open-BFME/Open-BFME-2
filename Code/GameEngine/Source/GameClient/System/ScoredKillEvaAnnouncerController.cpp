@@ -10,8 +10,10 @@
 // view only to express that scope to the compiler, not to claim the original
 // class hierarchy. novtable suppresses an extra local vptr reset absent from
 // native; the existing constructor/destructor providers own actual vptr work.
-// The registry name is descriptive recovery spelling; native absoluteE03074
-// access establishes its role. Loader zero and COFF pointer extent are4B.
+// Native absoluteE03074 establishes the registry role. Use the existing
+// data_ledger canonical TheScoredKillEvaAnnouncerController symbol and class
+// pointer spelling through an accessed-prefix view. COFF pointer extent4B
+// and loader zero are verified; the next datum is not part of this pointer.
 // stlport
 #include "ascii_string.h"
 #include "Common/INIException.h"
@@ -25,13 +27,14 @@ namespace _STL{template<>void vector<Rva00414BDBElement>::push_back(const Rva004
 class Rva0041430D{public:void rva0041430D(INI*);};
 struct ParserRecord{void *vtable;AsciiString name;char rest[40];};
 struct ParserRegistry{char pad[0x10];_STL::vector<ParserRecord> records;};
-ParserRegistry *g_scoredKillEvaRegistry=0;
+class Rva0022C22CSubsystem;
+Rva0022C22CSubsystem *TheScoredKillEvaAnnouncerController=0;
 class ScoredKillEvaAnnouncerController{public:static void iniParseScoredKillEvaAnnouncerBlock(INI*);};
 void ScoredKillEvaAnnouncerController::iniParseScoredKillEvaAnnouncerBlock(INI *ini){
  AsciiString name(ini->getNextToken());
- for(_STL::vector<ParserRecord>::iterator i=g_scoredKillEvaRegistry->records.begin(),end=g_scoredKillEvaRegistry->records.end();i!=end;++i){
+ for(_STL::vector<ParserRecord>::iterator i=reinterpret_cast<ParserRegistry *>(TheScoredKillEvaAnnouncerController)->records.begin(),end=reinterpret_cast<ParserRegistry *>(TheScoredKillEvaAnnouncerController)->records.end();i!=end;++i){
   if(i->name.compare(name)==0)throw INIException(3,"Duplicate ScoredKillEvaAnnouncer names %s",name.str());
  }
- ((_STL::vector<Rva00414BDBElement>*)&g_scoredKillEvaRegistry->records)->push_back((const Rva00414BDBElement &)Rva004147CF(name));
- ((Rva0041430D*)&g_scoredKillEvaRegistry->records.back())->rva0041430D(ini);
+ ((_STL::vector<Rva00414BDBElement>*)&reinterpret_cast<ParserRegistry *>(TheScoredKillEvaAnnouncerController)->records)->push_back((const Rva00414BDBElement &)Rva004147CF(name));
+ ((Rva0041430D*)&reinterpret_cast<ParserRegistry *>(TheScoredKillEvaAnnouncerController)->records.back())->rva0041430D(ini);
 }
