@@ -23,6 +23,7 @@ enum NameKeyType
 
 class Dict
 {
+    friend struct Rva000ABB82CleanupForward;
 public:
 	enum DataType
 	{
@@ -591,4 +592,13 @@ unsigned int Dict::DictPair::Rva00306B9FNameBits() const
 unsigned int Rva0031312FCombineBits(unsigned int shiftedValue, unsigned int otherValue)
 {
     return (shiftedValue << 8) | otherValue;
+}
+
+// NativeABB82..ABB875B tail JMP31339C to sole Dict::releaseData owner.
+// ECX/stack unchanged no arguments RET0. Original enclosing wrapper type
+// name and lifetime role unknown; only existing Dict receiver ABI reused.
+struct Rva000ABB82CleanupForward { void cleanup(); };
+void Rva000ABB82CleanupForward::cleanup()
+{
+    reinterpret_cast<Dict*>(this)->releaseData();
 }
