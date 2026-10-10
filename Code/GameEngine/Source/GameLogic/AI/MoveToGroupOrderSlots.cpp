@@ -219,7 +219,7 @@ class AIUpdateInterface {public: char prefix[0x20];AICommandInterface commands;}
 class FormationTemplateView {public:char prefix[0x11C];unsigned kindHigh;};
 class Object {public:
  char prefix0[4];FormationTemplateView *info;char gap8[0x258-8];AIUpdateInterface *ai;char gap25C[0x274-0x25C];void *physics;
- void rva0028AD00(int,float,int);void rva0028ACEE(const Coord3D*,int);
+ void rva0028AD00(int,float,int);void rva0028ACEE(int,int);
 };
 class TerrainLogic {public:
 virtual void slot0();
@@ -385,7 +385,7 @@ void MoveToFormationGroupOrder::rva00547E5C(Object *object,const Coord3D *positi
   goal.z=TheTerrainLogic->slot7(position->x,position->y,layer,0,true);
   goal.x=position->x;goal.y=position->y;
   if(object->info->kindHigh&0x04000000)object->rva0028AD00((int)&goal,m_angle,layer);
-  else object->rva0028ACEE(&goal,layer);
+  else object->rva0028ACEE((int)&goal,layer);
  }
  if(m_flag2C)ai->commands.aiAttackMoveToPositionAndFaceDirection(position,0x7fffffff,CMD_FROM_PLAYER,m_angle);
  else ai->commands.aiMoveToPositionAndFaceDirection(position,CMD_FROM_PLAYER,m_angle);

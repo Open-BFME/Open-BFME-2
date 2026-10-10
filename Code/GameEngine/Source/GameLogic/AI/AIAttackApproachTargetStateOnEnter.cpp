@@ -480,7 +480,7 @@ public:
 	void fireCurrentWeapon(const Coord3D *pos);
 	void fireCurrentWeapon(Object *victim, Int goalID);
 	Bool getWorldspaceBestContactPoint(Coord3D *result, const Coord3D *from, const char *boneName, Int a, Int b, Bool c) const;
-	void rva0028ACEE(const Coord3D *pos, Int layer);
+	void rva0028ACEE(int pos, Int layer);
 	Bool GetGoalPosition(Coord3D *pos) const;
 	void *rva0029439D();
 	friend class AIAttackMeleeHordeWaitPathState;
@@ -1650,7 +1650,7 @@ StateReturnType AIAttackMeleeEngageState::onEnter()
 		pos.x = source->getPosition()->x;
 		pos.y = source->getPosition()->y;
 		pos.z = source->getPosition()->z;
-		source->rva0028ACEE(&pos, source->rva0028B511());
+		source->rva0028ACEE((int)&pos, source->rva0028B511());
 		if (source->GetGoalPosition(&pos))
 		{
 			ai->m_finalPosition = pos;
