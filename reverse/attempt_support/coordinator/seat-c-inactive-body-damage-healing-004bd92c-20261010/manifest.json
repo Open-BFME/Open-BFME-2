@@ -1,0 +1,37 @@
+{
+  "id": "seat-c-inactive-body-damage-healing-004bd92c-20261010",
+  "seat": "C",
+  "base_commit": "b5cc668da0c33b6c7481ef1a57f00f71605a9752",
+  "paths": [
+    "Code/GameEngine/Source/GameLogic/Object/Body/InactiveBody.cpp"
+  ],
+  "recoveries": [
+    {
+      "name": "?attemptDamage@InactiveBody@@UAEXPAUDamageInfo@@@Z",
+      "rva": "0x004BD92C",
+      "size": 78,
+      "source": "Code/GameEngine/Source/GameLogic/Object/Body/InactiveBody.cpp",
+      "notes": "Native004BD92C full78B; ctor4BD8BD body table C5ACC8 slot0; WB124F640 names damage; ZH@BF1-575ba2b InactiveBody.cpp semantic donor; target MI bodythis+10 object-8 dieCalled+8 and DamageInfo output70/74/78; existing struct Object::onDie provider; full bytes exact",
+      "replace_rva": null
+    },
+    {
+      "name": "?attemptHealing@InactiveBody@@UAEXPAUDamageInfo@@@Z",
+      "rva": "0x004BD7D4",
+      "size": 41,
+      "source": "Code/GameEngine/Source/GameLogic/Object/Body/InactiveBody.cpp",
+      "notes": "Native004BD7D4 full41B; ctor4BD8BD body table C5ACC8 slot1; WB124F640 names damage; ZH@BF1-575ba2b InactiveBody.cpp semantic donor; target MI bodythis+10 object-8 dieCalled+8 and DamageInfo output70/74/78; existing struct Object::onDie provider; full bytes exact",
+      "replace_rva": null
+    }
+  ],
+  "new_retail_bytes": 119,
+  "proof_command": "python tools/explain_mismatch.py (two selectors in scoped-proof.txt) --source Code/GameEngine/Source/GameLogic/Object/Body/InactiveBody.cpp",
+  "proof_log": "scoped-proof.txt",
+  "claim_owner": "codex-104a-01a12257",
+  "worker_root": "C:\\Users\\franz\\.codex\\worktrees\\recovery-preserved\\openbfme2",
+  "dependencies": [],
+  "claims": [
+    "0x004BD92C",
+    "0x004BD7D4",
+    "file:Code/GameEngine/Source/GameLogic/Object/Body/InactiveBody.cpp"
+  ]
+}
