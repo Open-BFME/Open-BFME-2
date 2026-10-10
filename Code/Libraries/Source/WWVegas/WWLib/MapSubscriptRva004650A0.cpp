@@ -20,6 +20,15 @@
 #include <map>
 #include "ascii_string.h"
 
+// map/set<int> internals otherwise instantiate the less<int>::operator()
+// COMDAT (one byte shape per TU flags); an explicit dllimport+forceinline
+// specialization takes those calls inline so this TU emits no external copy.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+bool less<int>::operator()(const int &a, const int &b) const
+{ return a < b; }
+}
+
 typedef _STL::pair<const int, AsciiString> Rva004650A0Pair;
 typedef _STL::map<int, AsciiString, _STL::less<int>,
 	_STL::allocator<Rva004650A0Pair> > Rva004650A0Map;

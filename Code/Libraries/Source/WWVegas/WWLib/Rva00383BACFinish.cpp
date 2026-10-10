@@ -12,6 +12,15 @@
 #define _M_insert _M_insert_00383BAC
 #include <map>
 
+// map/set<int> internals otherwise instantiate the less<int>::operator()
+// COMDAT (one byte shape per TU flags); an explicit dllimport+forceinline
+// specialization takes those calls inline so this TU emits no external copy.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+bool less<int>::operator()(const int &a, const int &b) const
+{ return a < b; }
+}
+
 typedef _STL::pair<const int, int> IntIntValue;
 typedef _STL::_Rb_tree_node<IntIntValue> IntIntNode;
 typedef _STL::_Rb_tree<int, IntIntValue, _STL::_Select1st<IntIntValue>, _STL::less<int>, _STL::allocator<IntIntValue> > MapIntIntTree;

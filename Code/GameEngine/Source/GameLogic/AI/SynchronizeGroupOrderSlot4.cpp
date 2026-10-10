@@ -3,6 +3,15 @@
 // ?rva00546A78@SynchronizeGroupOrder@@UAEXH@Z @0x00546A78 72B evidence: vslot slot 4 offset 0x10 of vtable 0x0086A314 class of ??1SynchronizeGroupOrder; bool at +0x24 early-out; set<int> at +0x18 built from base int range at +0x4..+0x8 via rowed set<int>::insert 0x000BC15D then key erase via rowed Rva002EE9B7::rva0046EDEF 0x0046EDEF.
 #include <set>
 
+// map/set<int> internals otherwise instantiate the less<int>::operator()
+// COMDAT (one byte shape per TU flags); an explicit dllimport+forceinline
+// specialization takes those calls inline so this TU emits no external copy.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+bool less<int>::operator()(const int &a, const int &b) const
+{ return a < b; }
+}
+
 typedef _STL::set<int> SetInt;
 
 class Xfer

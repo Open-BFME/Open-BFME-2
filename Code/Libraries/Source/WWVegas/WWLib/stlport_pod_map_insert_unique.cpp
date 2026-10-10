@@ -2,6 +2,15 @@
 // stlport
 // ?insert_unique@?$_Rb_tree@HU?$pair@$$CBHUBfmePod8@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBHUBfmePod8@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHUBfmePod8@@@_STL@@@2@@_STL@@_N@2@ABU?$pair@$$CBHUBfmePod8@@@2@@Z 0x00422918 134B evidence: leaf insert_unique via rowed _M_insert 0x00422890 plus _M_decrement; caller 0x00422EAD; siblings Rva00064640Insert same recipe same flags
 #include <map>
+
+// map/set<int> internals otherwise instantiate the less<int>::operator()
+// COMDAT (one byte shape per TU flags); an explicit dllimport+forceinline
+// specialization takes those calls inline so this TU emits no external copy.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+bool less<int>::operator()(const int &a, const int &b) const
+{ return a < b; }
+}
 struct BfmePod8 { int a[2]; };
 typedef _STL::pair<const int, BfmePod8> PodMapValue;
 typedef _STL::_Rb_tree<int, PodMapValue, _STL::_Select1st<PodMapValue>, _STL::less<int>, _STL::allocator<PodMapValue> > PodMapTree;

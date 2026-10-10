@@ -7,6 +7,15 @@
 // Prev Disp8PtrChase getter / next OpaqueScalarDeletingDtor. Honest address name; class and method identity unproven.
 #include <map>
 
+// map/set<int> internals otherwise instantiate the less<int>::operator()
+// COMDAT (one byte shape per TU flags); an explicit dllimport+forceinline
+// specialization takes those calls inline so this TU emits no external copy.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+bool less<int>::operator()(const int &a, const int &b) const
+{ return a < b; }
+}
+
 // Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
 namespace _STL {
 template <class T, class LeftTraits, class RightTraits>
