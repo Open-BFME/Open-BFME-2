@@ -27,8 +27,11 @@
 // player home [ebp+8].  Retail keeps the new object in esi across the
 // inlined vector push_back so the real STLport vector is in the unit.  The
 // message constructor at 0x004FBC4D is called as
-// ??0Rva004FBC4D@@QAE@ABVUnicodeString@@0H@Z (it returns the object) and
+// ??0Rva004FBCBE@@QAE@ABVUnicodeString@@0H@Z (it returns the object) and
 // the 0.6f at 0x007FDF64 is the file-local g_00BFDF64.
+// Constructor4FBC4D now has a whole113-byte provider on the same neutral
+// owner as destructor4FBCBE and12-byte8634E4 vtable. This declaration
+// retains only the caller-observed refcount4 and total28-byte extent.
 
 #include "ascii_string.h"
 #include "unicode_string.h"
@@ -136,13 +139,15 @@ public:
 	bool rva0020EA58(void *region, float *center);
 };
 
-class Rva004FBC4D
+class Rva004FBCBE
 {
 public:
-	Rva004FBC4D(const UnicodeString &title, const UnicodeString &text, int arg);
+	Rva004FBCBE(const UnicodeString &title, const UnicodeString &text, int arg);
 
-	void *m_vtbl;
-	int m_refCount;				// +0x04
+	virtual ~Rva004FBCBE();
+ virtual void slot04();
+ virtual void slot08();
+ int m_refCount;				// +0x04
 	unsigned char m_pad08[0x28 - 0x08];
 };
 
@@ -151,9 +156,9 @@ void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *ref);
 
 struct Rva002B9062Element
 {
-	Rva004FBC4D *m_object;
+	Rva004FBCBE *m_object;
 
-	Rva002B9062Element(Rva004FBC4D *object) : m_object(object)
+	Rva002B9062Element(Rva004FBCBE *object) : m_object(object)
 	{
 		if (object)
 			++object->m_refCount;
@@ -275,6 +280,6 @@ void LivingWorldLogic::rva002BA3F2(const Rva002E0687 *player)
 		text = TheGameText->fetch("LW:EnemyDefeatedText");
 		text.format(&text, player->m_name.str());
 	}
-	Rva002B9062Element message(new Rva004FBC4D(title, text, 0));
+	Rva002B9062Element message(new Rva004FBCBE(title, text, 0));
 	addMessage(message);
 }
