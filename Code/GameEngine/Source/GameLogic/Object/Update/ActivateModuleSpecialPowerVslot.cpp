@@ -15,8 +15,9 @@
 class Debug {public:
  class Format{public:Format(const char*,...);private:char text[512];};
  virtual void s0();virtual void s1();virtual void s2();virtual void s3();virtual void s4();virtual void s5();virtual void s6();virtual void s7();virtual void s8();virtual void s9();virtual void s10();virtual void s11();virtual void s12();virtual void s13();virtual Debug&operator<<(const char*);virtual void s15();virtual void s16();virtual void s17();virtual void s18();virtual bool CrashDone(int);virtual void s20();virtual void s21();virtual void s22();virtual void s23();virtual void SkipNext();virtual void s25();virtual void s26();virtual Debug&CrashBegin(const char*,int,int);
- Debug&operator<<(const Format&f){return*this<<(const char*)&f;}
-};extern Debug*theDebug;void _bfme_debugRecordCallsite(int);
+};
+static __forceinline const char*formatText(const Debug::Format&f){return (const char*)&f;}
+extern Debug*theDebug;void _bfme_debugRecordCallsite(int);
 class UpdateModuleInterface{public:virtual void s0();virtual void s1();virtual void setSleepTime(unsigned);};
 class SpecialPowerModuleInterface{public:virtual void s0();virtual void s1();virtual void s2();virtual void s3();virtual void s4();virtual void s5();virtual void s6();virtual void s7();virtual void s8();virtual void s9();virtual void s10();virtual void s11();virtual void atLocation(const Coord3D*,int);};
 class BehaviorModuleInterface{public:virtual void s0();virtual void s1();virtual void s2();virtual void s3();virtual void s4();virtual void s5();virtual void s6();virtual void s7();virtual SpecialPowerModuleInterface*getSpecialPower();virtual UpdateModuleInterface*getUpdate();};
@@ -37,7 +38,7 @@ void Rva004CDF00::rva004CDDBA(int state)
    const char*name=obj->tmpl->name.str();
    _bfme_debugRecordCallsite(1);theDebug->SkipNext();
    Debug&report=theDebug->CrashBegin(0,0,0);
-   report<<Debug::Format("ERROR: ActivateModuleSpecialPower can not be used on it self! Check the INI for Object %s",name);report.CrashDone(1);
+   report<<formatText(Debug::Format("ERROR: ActivateModuleSpecialPower can not be used on it self! Check the INI for Object %s",name));report.CrashDone(1);
   }else{
    UpdateModuleInterface*update=module->iface.getUpdate();
    if(update){
