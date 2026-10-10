@@ -1,8 +1,23 @@
-// ?Rva00434EFA@@YAXXZ
-// partial score=0.97 date=2026-10-10
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /DNDEBUG /MD /EHs /vmg /vmm
-// Retail 0x00434EFA binds the saved-game prompt's button handling. Its
-// caller at 0x00435160 reaches it when the save prompt is not already open.
+// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /DNDEBUG /MD /EHs /vmg /vmm
+// ?Rva00434EFA@@YAXXZ @0x00434EFA 525B
+//
+// Saved-game prompt binding. Retail 0x00434EFA..0x00435107; its caller at
+// 0x00435160 reaches it when the save prompt is not already open. With the
+// save/load screen (g_Va00E032E0) up it opens the two-button message box
+// (0x00438083 when 0x00437EDC says so, else 0x00437FB3) with the member
+// callbacks AptSaveLoad 0x00433D71 and 0x00434337 bound through the functor
+// holder 0x0057BC63 and sets the screen state +0x27C to 9; otherwise it opens
+// the one-button box 0x00437F61 with the static callback 0x00433D4D wrapped by
+// the refcounted holder 0x0023E8D8. Strings APT:SaveGameProgress and
+// APT:MultiplayerGameSaved come from TheGameText fetch (vtable +0x3C).
+//
+// Frame note: retail homes the static callback pointer temporary in the
+// [ebp-0x14] slot of the if-arm fetch temporary (frame 0x38). cl shares that
+// slot only when it can see that the 0x0023E8D8 holder constructor keeps no
+// pointer to the temporary (it reads the function pointer through it), so that
+// constructor is written below in-class and never inlined with its real body;
+// its emitted COMDAT is retail 0x0023E8D8 exactly (row in Rva0023E8D8Ctor.cpp),
+// as is the visible functor holder COMDAT (retail 0x0057BC63).
 #include "unicode_string.h"
 
 class GameTextInterface
@@ -68,10 +83,24 @@ public:
 	FunctorWrapperHead *m_ptr;
 };
 
+class Rva0023E8D8Impl
+{
+public:
+	virtual ~Rva0023E8D8Impl();
+	int m_ref;
+	void *m_func;
+	Rva0023E8D8Impl(void *p) : m_ref(0) { m_func = *(void **)p; }
+};
 class Rva0023E8D8
 {
 public:
-	Rva0023E8D8(void *callback);
+	__declspec(noinline) Rva0023E8D8(void *p)
+	{
+		Rva0023E8D8Impl *q = new Rva0023E8D8Impl(p);
+		m_ptr = q;
+		if (q)
+			++q->m_ref;
+	}
  Rva0023E8D8(const Rva0023E8D8&r):m_ptr(r.m_ptr){if(m_ptr)++((int*)m_ptr)[1];}
  ~Rva0023E8D8(){if(m_ptr)ReleaseTreeHintRef00217D4C((TargetRef00217D4C*)m_ptr);}
 	void *m_ptr;

@@ -1,7 +1,19 @@
-// cl: /FIzh_ascii.h /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /DBFME_MODULE_NO_MPO /DZH_EMIT_POOL_GLUE /Ireference/shims/bfmerendobj /Ireference/shims/debugvtable /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/bfmeanimobj /Ireference/shims/indexbuffercount /Ireference/shims/bfmecaps /Ireference/shims/bfmehcanim /Ireference/shims/bfmevector /Ireference/shims/bfmemapper /Ireference/shims/meshmatdesclayout /Ireference/shims/bfmeshader /Ireference/shims/bfmecpudetect /Ireference/shims/bfmepool /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWAudio /Ireference/shims/bfmealloc /Ireference/shims/bfmehashtable /Ireference/shims/bfmelist /Ireference/shims/asciistring_downloadmanager /Ireference/shims/stlp_nodealloc /Ireference/shims/asciistring_thin /ICode/GameEngine/Source/Common /Ireference/shims/w3droadbuffer /Ireference/shims/bfmeterraintracks /ICode/Libraries/Include/Lib
-// stlport
-// Ported verbatim from the Generals Zero Hour reference
-// (GameEngine/Source/GameClient/Line2D.cpp); this unit had no counterpart under Code/.
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// Ported from the Generals Zero Hour reference
+// (GameEngine/Source/GameClient/Line2D.cpp); the function bodies are verbatim.
+//
+// BFME 2 spells Coord2D as a class (retail exports
+// ??0LineSegment2D@@QAE@ABVCoord2D@@0@Z and
+// ?ClosestPointOnLineSegment@@YA?AVCoord2D@@ABULineSegment2D@@ABV1@@Z), and
+// the three length() calls in ShortestDistancePointToSegment2D 0x0025F916 go
+// to the Coord2D::length COMDAT 0x00003755 (row in coord2d.cpp). So this unit uses the
+// canonical Coord2D header instead of Zero Hour's struct from Lib/BaseType.h,
+// and its Coord2D signatures carry the class spelling (PAV/PBV) that callers
+// such as the AIGroup formation move 0x00372571 link against. ICoord2D,
+// IRegion2D and Coord3D stay structs (ClipLine2D and the Coord3D overloads keep
+// their PAU/PBU spellings). The few Zero Hour declarations the bodies need
+// (Bool/Int/Real, sqr, the Line2D.h prototypes with their default argument) are
+// restated here instead of pulling in PreRTS.h.
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
@@ -32,10 +44,73 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 // INCLUDES ///////////////////////////////////////////////////////////////////////////////////////
-#include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
+#include "../../../Libraries/Include/Lib/Coord2D.h"
+#include "../../../Libraries/Include/Lib/Coord3D.h"
+#include <math.h>
 
-#include "Lib/BaseType.h"
-#include "GameClient/Line2D.h"
+// Coord2D::length is an inline function in BFME 2 (coord2d.cpp defines it
+// inline; retail keeps one 53-byte COMDAT at 0x00003755, which that unit's row
+// owns). Its body has to be visible here: ShortestDistancePointToSegment2D
+// homes segment, segAB and intersectSegment in one slot ([ebp-8]), which cl
+// only does when it can see that length() keeps no pointer to its object. The
+// copy this unit emits is byte-identical to the retail COMDAT.
+inline float Coord2D::length() const
+{
+	return (float)sqrt(x * x + y * y);
+}
+
+typedef bool Bool;
+typedef int Int;
+typedef float Real;
+
+#ifndef NULL
+#define NULL 0
+#endif
+#ifndef TRUE
+#define TRUE true
+#endif
+#ifndef FALSE
+#define FALSE false
+#endif
+
+template <typename NUM>
+inline NUM sqr(NUM x)
+{
+	return x*x;
+}
+
+struct ICoord2D
+{
+	Int x, y;
+};
+
+struct IRegion2D
+{
+	ICoord2D lo, hi;					// bounds of 2D rectangular region
+};
+
+// GameClient/Line2D.h prototypes
+extern Bool ClipLine2D( ICoord2D *p1, ICoord2D *p2, ICoord2D *c1, ICoord2D *c2,
+												IRegion2D *clipRegion );
+extern Bool IntersectLine2D( const Coord2D *a, const Coord2D *b,
+															const Coord2D *c, const Coord2D *d,
+															Coord2D *intersection = NULL);
+extern Bool PointInsideRect2D( const Coord2D *bl, const Coord2D *tl,
+															 const Coord2D *br, const Coord2D *tr,
+															 const Coord2D *inputPoint);
+extern Bool Coord3DInsideRect2D( const Coord3D *inputPoint, const Coord2D *tl, const Coord2D *br );
+extern void ScaleRect2D( Coord2D *tl, Coord2D *br, Real scaleFactor );
+extern Bool PointInsideRect3D( const Coord3D *bl, const Coord3D *tl,
+															 const Coord3D *br, const Coord3D *tr,
+															 const Coord3D *inputPoint);
+extern Bool PointInsideArea2D( const Coord2D *ptToTest,
+															 const Coord2D *area,
+															 Int numPointsInArea);
+extern Bool PointInsideArea2D( const Coord3D *ptToTest,
+															 const Coord3D *area,
+															 Int numPointsInArea);
+extern void ShortestDistancePointToSegment2D( const Coord2D *a, const Coord2D *b, const Coord2D *pt,
+																						 Real *outDistance, Coord2D *outPosition, Real *outU );
 
 // PRIVATE ////////////////////////////////////////////////////////////////////////////////////////
 #define CLIP_LEFT   0x01

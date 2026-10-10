@@ -176,57 +176,10 @@ private:
 	Coord3D m_pathEnd;					// +0x24
 };
 
-// ZH getMinMaxAndCenter; native 0036D14F..0036D2C5 provides target
-// layouts; use source divisions so MSVC emits retail reciprocal scaling.
-Bool AIGroup::getMinMaxAndCenter(Coord2D *min, Coord2D *max, Coord3D *center)
-{
-	Int count = 0;
-	min->x = 1e10f;
-	max->x = -1e10f;
-	min->y = 1e10f;
-	max->y = -1e10f;
-	center->x = 0.0f;
-	center->y = 0.0f;
-	center->z = 0.0f;
-
-	std::list<Object *>::iterator i;
-	UnsignedInt id = 0;
-	for (i = m_memberList.begin(); i != m_memberList.end(); ++i) {
-		if ((*i)->isDisabledByHeld()) {
-			continue;
-		}
-		AIUpdateInterface *ai = (*i)->getAIUpdateInterface();
-		if (ai) {
-			const Coord3D *objPos = (*i)->getPosition();
-			center->x += objPos->x;
-			center->y += objPos->y;
-			center->z += objPos->z;
-
-			min->x = min->x > objPos->x ? objPos->x : min->x;
-			max->x = max->x < objPos->x ? objPos->x : max->x;
-			min->y = min->y > objPos->y ? objPos->y : min->y;
-			max->y = max->y < objPos->y ? objPos->y : max->y;
-			UnsignedInt curID = (*i)->getFormationID();
-			if (count == 0) {
-				id = curID;
-			} else {
-				if (id == 0) {
-					id = 0;
-				}
-			}
-
-			count++;
-		}
-	}
-
-	center->x /= count;
-	center->y /= count;
-	center->z /= count;
-	Bool isFormation = (id != 0);
-	if (count < 2)
-		isFormation = false;
-	return isFormation;
-}
+// getMinMaxAndCenter (0x0036D14F, declared above) lives in
+// AIGroupRva00372571.cpp: the AIGroup formation move 0x00372571 relies on the
+// compiler seeing its body (retail calls recompute after it without reloading
+// ECX), and computeGroundPath below only calls it.
 
 Bool AIGroup::getCenter(Coord3D *center)
 {

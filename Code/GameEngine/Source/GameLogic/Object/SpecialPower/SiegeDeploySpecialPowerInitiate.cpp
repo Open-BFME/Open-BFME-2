@@ -1,5 +1,3 @@
-// ?initiateIntentToDoSpecialPower@SiegeDeploySpecialPower@@UAEXPBVSpecialPowerTemplate@@PBVObject@@PBUCoord3D@@IPBVWaypoint@@@Z
-// partial score=0.99 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /ICode/Libraries/Include /ICode/GameEngine/Source/Common
 // stlport
 //
@@ -19,6 +17,12 @@
 // stopped (0x004C5E62). Without a dock the AI moves to the target position,
 // pushed by the module data +0x28 along the target's forward vector when that
 // is positive. Wakes the module.
+//
+// Frame note: retail homes computeApproachPoint's hidden return temporary and
+// the no-dock push point in one 12-byte slot ([ebp-0x24]; frame 0x58). cl only
+// shares them when the earlier temporary does not escape through a call that
+// may throw, so computeApproachPoint is declared throw() (it is pinned at
+// 0x004C5877). findModule is Object's protected member (row 0x0028B6D6).
 typedef int Int;
 typedef bool Bool;
 typedef unsigned int UnsignedInt;
@@ -119,8 +123,8 @@ public:
 
 class Object
 {
+	friend class SiegeDeploySpecialPower;
 public:
-	Module *findModule(NameKeyType key) const;
 	ObjectID getID() const { return m_id; }
 	unsigned char m_pad00[0x08];
 	float m_xAxis;
@@ -134,6 +138,8 @@ public:
 	ObjectID m_id;
 	unsigned char m_pad78[0x258 - 0x78];
 	AIUpdateInterface *m_ai;
+protected:
+	Module *findModule(NameKeyType key) const;	// 0x0028B6D6
 };
 
 class UpdateModule
@@ -173,7 +179,7 @@ class SiegeDeploySpecialPower : public UpdateModule, public SpecialPowerUpdateIn
 public:
 	virtual void initiateIntentToDoSpecialPower(const SpecialPowerTemplate *specialPowerTemplate,
 		const Object *targetObj, const Coord3D *targetPos, UnsignedInt commandOptions, const Waypoint *way);
-	Rva004598F2Point computeApproachPoint(Object *target, Rva004598F2Point *dockPosition, bool *docked);
+	Rva004598F2Point computeApproachPoint(Object *target, Rva004598F2Point *dockPosition, bool *docked) throw();	// 0x004C5877
 	void rva004C5E62();
 private:
 	void rva004C5BE3(int state);
