@@ -123,7 +123,7 @@ Bool inList(Int value, Int count, const Int idxList[]);
 class Drawable
 {
 public:
-	const Matrix3D *getInstanceMatrix() const { return &m_instance; }
+	__declspec(dllimport) __forceinline const Matrix3D *getInstanceMatrix() const { return &m_instance; }
 	void setInstanceMatrix(const Matrix3D *instance, Bool preservePrevious);
 
 private:
@@ -208,7 +208,7 @@ public:
 		}
 	}
 
-	BodyModuleInterface *getBodyModule() const { return m_body; }
+	__declspec(dllimport) __forceinline BodyModuleInterface *getBodyModule() const { return m_body; }
 
 private:
 	unsigned char m_pad048[0x10C - 0x48];
