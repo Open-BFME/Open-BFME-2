@@ -13509,7 +13509,6 @@ rva009C7380WeightPairs,0x009B84E0
 ?postInit@AIBaseBuilder@@QAEXXZ,0x00507522,callee pin carried for Rva004EBF93Refresh.cpp: identity from the solo fork Rva00506B74Tactic.cpp row (held back); upstream rows the address as placeholder rva00507522
 ?amIHost@LANGameInfo@@QBE_NXZ,0x004477C7,callee pin carried for the AptLanLobby callers: identity from the solo fork LANGameInfoSlots.cpp row (held back); upstream rows the address as placeholder rva004477C7
 ?rva0050722A@AIBaseBuilder@@QAEXPAUCoord3D@@@Z,0x0050722A,callee pin carried for AISimpleExpansionTactic.cpp: class spelling from the solo fork Rva00506B74Tactic.cpp row (held back); upstream rows the address under placeholder class Rva00506B74
-??0PartitionFilterRejectBuildings@@QAE@PAVObject@@@Z,0x002611F2,callee pin for the given-back PartitionFilterRejectBuildings callers: the fork names the class; upstream rows the ctor under placeholder Rva002611F2 (kept: its eh_baseline entry is keyed by that name)
 ?rva002CB902@Weapon@@QBEDPAVObject@@PAXMH@Z,0x002CB902,const Weapon byte predicate over (object plus aux plus float plus int) called from 0x33FD98; RETAIL REL32 at 0x0033FDC4; byte return avoids caller-side bool normalization; address-named
 ?second@Rva0004378DMember@@QAEXXZ,0x0004353C,opaque member target of tail-pair 0x0004378D at +0x280; identity unproven; address-derived name
 ?second@Rva005E5554Member@@QAEXXZ,0x005F327A,opaque member target of tail-pair 0x005E5554 at this-8; identity unproven; address-derived name

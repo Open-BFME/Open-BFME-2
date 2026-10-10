@@ -32,7 +32,6 @@ name,target_rva,verdict
 ??0FadeAndDieOrnamentUpdateModuleData@@QAE@XZ,0x002555AC,bytes_differ
 ??1RandomSoundSelectorClientBehaviorModuleData@@UAE@XZ,0x002578DE,bytes_differ
 ??0Rva00261058@@QAE@PAVObject@@_N@Z,0x00261058,bytes_differ
-??0Rva002611F2@@QAE@PAVObject@@@Z,0x002611F2,bytes_differ
 ??1Rva002CD4A6@@UAE@XZ,0x002CD4A6,bytes_differ
 ??0Rva002E0A0A@@QAE@ABV0@@Z,0x002E0A0A,bytes_differ
 ??0ObjectModule@@QAE@PAVThing@@PBVModuleData@@@Z,0x00306AA7,bytes_differ

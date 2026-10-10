@@ -1,7 +1,14 @@
 // cl: /O1 /DNDEBUG /MD /EHsc
-// ??0Rva002611F2@@QAE@PAVObject@@@Z, retail 0x002611F2, 84 bytes.
-// Player-gated filter ctor: base clears +4, vtable 0x007F8FF0, +8 obj, +0xC flag set when controlling player +0x5C is 1.
-// Evidence: sibling 0x00261058 same FuncInfo 0xB72D5F same base pattern; two getControllingPlayer calls 0x0028AFA9; neighbours 0x00261176/0x0026157E.
+// Native 2611F2..261246 RET4, 84B; WB E5CA50 names the reject-buildings
+// constructor and its controlling-player check. Native BF8FF0 has exactly
+// three slots: deleting dtor395A19, predicate261B7E, inherited mask36CC7A.
+// The base link at4, object at8 and boolean atC are target accesses.
+// The base destructor resets BC26E0; the native EH cleanup tail-calls that
+// seven-byte body49C38A. Its real virtual layout replaces the old dummy
+// slot and non-polymorphic base. Keep the derived reset outlined, as the
+// native deleting destructor calls it. Original base class name is unproven;
+// the established Rva000421C8 provider is retained. BFME1 575ba2b supplied
+// a semantic cross-check; its offsets and predicate differ from this target.
 class Player
 {
 public:
@@ -13,31 +20,28 @@ class Object
 public:
 	Player *getControllingPlayer() const;
 };
-class Rva002611F2Base
-{
+class Rva000421C8 {
 public:
-	Rva002611F2Base() : m_base4(0) {}
-	~Rva002611F2Base();
-private:
-	int m_base4;
+ Rva000421C8():m_next(0){}
+ virtual ~Rva000421C8(){}
+ virtual bool allow(Object *)=0;
+ virtual int getPlayerMask();
+ Rva000421C8 *m_next;
 };
-class Rva002611F2 : public Rva002611F2Base
-{
+class PartitionFilterRejectBuildings:public Rva000421C8 {
 public:
-	Rva002611F2(Object *obj);
-	virtual void dummy();
+ PartitionFilterRejectBuildings(Object *obj);
+ __declspec(noinline) virtual ~PartitionFilterRejectBuildings();
+ virtual bool rva00261B7E(Object *);
 private:
-	Object *m_obj;
-	bool m_flag;
+ Object *m_obj;
+ bool m_flag;
 };
-Rva002611F2::Rva002611F2(Object *obj) : Rva002611F2Base()
-{
-	m_obj = obj;
-	m_flag = false;
-	if (obj->getControllingPlayer() != 0) {
-		if (m_obj->getControllingPlayer()->m_field5C == 1)
-			m_flag = true;
-	}
+PartitionFilterRejectBuildings::PartitionFilterRejectBuildings(Object *obj) {
+ m_obj=obj;m_flag=false;
+ if(obj->getControllingPlayer()!=0) {
+  if(m_obj->getControllingPlayer()->m_field5C==1)m_flag=true;
+ }
 }
-// ?dummy@Rva002611F2@@UAEXXZ present-unmatched
-void Rva002611F2::dummy() {}
+
+inline PartitionFilterRejectBuildings::~PartitionFilterRejectBuildings(){}
