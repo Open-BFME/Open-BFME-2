@@ -123,3 +123,14 @@ void PartitionManagerImpl::SetTreeDepth(unsigned depth)
     for (PartitionNode *node = head; node; node = node->next)
         ((Gen009F5040 *)this)->linkNode((Gen009F5040Node *)node);
 }
+
+// Native helper ignores receiver and allocates/copies8-byte elements. The
+// application record identity and field types remain unknown; words are ABI
+// carriers. STLport vector allocate/copy supplies the reference structure.
+struct Rva00627960Element { unsigned word0,word1; };
+class Rva00627960Vector {public:Rva00627960Element*allocateCopy(unsigned,const Rva00627960Element*,const Rva00627960Element*);};
+Rva00627960Element*Rva00627960Vector::allocateCopy(unsigned n,const Rva00627960Element*first,const Rva00627960Element*last){
+ Rva00627960Element*result=n?(Rva00627960Element*)_STL::allocator<char>::allocate(n*sizeof(Rva00627960Element),0):0;
+ for(const Rva00627960Element*p=first;p!=last;++p){Rva00627960Element*dest=(Rva00627960Element*)((char*)result+((const char*)p-(const char*)first));if(dest)*dest=*p;}
+ return result;
+}
