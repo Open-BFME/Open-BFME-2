@@ -45880,7 +45880,6 @@ _bfmeVp6ThresholdSelect,,0x001B5AC0,404,Code/GameEngine/Source/Common/Rva009A500
 ??4Rva00564E0D@@QAEAAV0@AAV0@@Z,,0x000898B0,92,Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva00564E0DAssign.cpp,matched,copyassign via rowed getter set releaseBuffer movsd
 ??0Rva00089822@@QAE@ABV0@@Z,,0x00089822,35,Code/GameEngine/Source/GameLogic/Object/Behavior/Rva00089822CopyCtor.cpp,matched,copyctor via rowed set mov head unblocks 0x0008A173
 ?rva00330995@Shadow@@QAEXH@Z,,0x00330995,162,Code/GameEngine/Source/GameClient/Shadow_setOpacity.cpp,matched,Shadow color setter sibling of setOpacity same TU offsets Float-ref
-?rva0029A41A@Rva0029A41A@@QAEXPAVRGBColor@@@Z,,0x0029A41A,28,Code/GameEngine/Source/GameClient/Rva0029A407Clear.cpp,matched,chain lane caller 0x002A4774 rowed callees getAsInt Shadow
 ?rva0029A94F@Rva0029A94F@@QAEXXZ,,0x0029A94F,101,Code/GameEngine/Source/Common/Rva0029A94FClear.cpp,matched,loop over GlobalData count clearing slots via g_00DFF080 and TheGameClient then tail
 ?rva0025FB9B@Rva0025FB9B@@QAEXXZ,,0x0025FB9B,33,Code/GameEngine/Source/GameClient/Rva0025FB9BClear.cpp,matched,conditional clears with copy caller 0x00260BBF
 ?rva0029A469@Rva0029A469@@QAEXM@Z,,0x0029A469,33,Code/GameEngine/Source/GameClient/Rva0029A469.cpp,matched,null-checked Shadow scaled float via g_00BC2900 caller 0x002A4769

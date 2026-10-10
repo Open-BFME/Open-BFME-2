@@ -31,10 +31,12 @@ void *Rva0029A407::rva0029B53C(unsigned int flag)
 	return this;
 }
 
-class RGBColor
+// Match the RGBColor struct ABI used by the rowed getAsInt provider and
+// Drawable color callers. The previous class spelling changed mangled args.
+struct RGBColor
 {
-public:
 	int getAsInt() const;
+	float red, green, blue;
 };
 
 class Shadow
@@ -51,6 +53,7 @@ private:
 	Shadow *m_shadow;
 };
 
+// ?rva0029A41A@Rva0029A41A@@QAEXPAURGBColor@@@Z present-unmatched
 void Rva0029A41A::rva0029A41A(RGBColor *color)
 {
 	Shadow *shadow = m_shadow;
