@@ -26,3 +26,5 @@ typedef _STL::pair<const unsigned,Rva002A147EElement> PreviewTreeValue;
 typedef _STL::_Rb_tree<unsigned,PreviewTreeValue,_STL::_Select1st<PreviewTreeValue>,_STL::less<unsigned>,_STL::allocator<PreviewTreeValue> > PreviewTree;
 
 template void _STL::_Construct<PreviewTreeValue,PreviewTreeValue>(PreviewTreeValue*,const PreviewTreeValue&);
+
+template PreviewTree::_Link_type PreviewTree::_M_create_node(const PreviewTreeValue&);
