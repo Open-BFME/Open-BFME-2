@@ -1,0 +1,45 @@
+{
+  "id": "seat-c-order-display-full-body-repair-0029a72c-20261010",
+  "seat": "C",
+  "base_commit": "b5cc668da0c33b6c7481ef1a57f00f71605a9752",
+  "paths": [
+    "Code/GameEngine/Source/GameClient/InGameUIOrderDisplayMode.cpp",
+    "Code/GameEngine/Source/Common/DispDwordImmSetters.cpp"
+  ],
+  "recoveries": [
+    {
+      "name": "?updateOrderDisplayMode@InGameUI@@QAEXXZ",
+      "rva": "0x0029A72C",
+      "size": 59,
+      "source": "Code/GameEngine/Source/GameClient/InGameUIOrderDisplayMode.cpp",
+      "notes": "Native29A72C..29A767 complete59B; WBDB0210 InGameUI::updateOrderDisplayMode source/assert2849..2865; target local PlayerList+10 Player order750 UI display8B4; all0/1/2 switch cases; invalid retains prior mode and null sets0; existing named PlayerList global; no new pins; exact59 bytes; replaces erroneous interior11B setter claim at29A74A (net48B)",
+      "replace_rva": null
+    }
+  ],
+  "new_retail_bytes": 48,
+  "proof_command": "python tools/explain_mismatch.py \"?updateOrderDisplayMode@InGameUI@@QAEXXZ\" --rva 0x0029A72C --size 59 --source Code/GameEngine/Source/GameClient/InGameUIOrderDisplayMode.cpp",
+  "proof_log": "scoped-proof.txt",
+  "claim_owner": "codex-104a-01a12257",
+  "worker_root": "C:\\Users\\franz\\.codex\\worktrees\\recovery-preserved\\openbfme2",
+  "dependencies": [],
+  "claims": [
+    "0x0029A72C",
+    "file:Code/GameEngine/Source/GameClient/InGameUIOrderDisplayMode.cpp",
+    "file:Code/GameEngine/Source/GameClient/InGameUI.cpp",
+    "0x0029A74A",
+    "file:Code/GameEngine/Source/Common/DispDwordImmSetters.cpp"
+  ],
+  "supersedes": [
+    "seat-c-order-display-mode-0029a72c-20261010"
+  ],
+  "ledger_deltas": [
+    {
+      "name": "?apply@Rva0029A74ADwordImmSetter@@QAEXXZ",
+      "rva": "0x0029A74A",
+      "size": 11,
+      "old_source": "Code/GameEngine/Source/Common/DispDwordImmSetters.cpp",
+      "operation": "remove erroneous interior case-arm row",
+      "reason": "29A74A is switch arm2 inside full59B native29A72C; zero external E8/E9 or absolute VA references; full gd start29A72C and WB named method prove real entry"
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+Applied only the submitted explicit ledger deltas after checking every existing name, RVA, extent and source; verified all affected source units.
