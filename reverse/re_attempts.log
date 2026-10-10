@@ -33891,3 +33891,7 @@ _DeringBlockStrong_C	0x001C1AD0	2030	blocked	vp6 clean-room (spec 001c1ad0): ret
 ??0W3DStatusCircle@@QAE@XZ	0x0008E54F	97	landed	add_match verified Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DStatusCircleConstructor.cpp 97B; W3DStatusCircle ctor BFME2 layout
 ??0RTS2DScene@@QAE@XZ	0x0006F9D6	154	landed	add_match verified Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS2DSceneCtor.cpp 154B; RTS2DScene ctor
 ??0Rva0053FADE@@QAE@XZ	0x0053FAB7	39	landed	add_match verified Code/GameEngine/Source/Common/Rva0053FADEConstructor.cpp 39B; default ctor of copy-ctor class
+??0Rva004CE6BA@@QAE@XZ	0x004CE6BA	42	landed	add_match verified Code/GameEngine/Source/Common/Rva004CE6BAConstructor.cpp 42B; small opaque getter/ctor batch
+?rva000B2361@Rva000B2361@@QAEPAHH@Z	0x000B2361	31	landed	add_match verified Code/GameEngine/Source/Common/Rva000B2361Pick.cpp 31B; small opaque getter batch
+?rva001EAFFE@Rva001EAFFE@@QAEAAVAsciiString@@H@Z	0x001EAFFE	37	landed	add_match verified Code/GameEngine/Source/Common/Rva001EAFFEElementAt.cpp 37B; bounds-checked element at
+?rva00395E53@Rva00395E53@@QAEPAXI@Z	0x00395E53	34	landed	add_match verified Code/GameEngine/Source/Common/Rva00395E53Get.cpp 34B; bounds-checked get
