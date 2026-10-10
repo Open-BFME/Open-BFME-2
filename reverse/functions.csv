@@ -38523,7 +38523,7 @@ _VP6_EncodeValue,,0x001C6D20,125,Code/Libraries/Source/VP6/Huffman.cpp,matched,B
 ?rva00506A0C@Rva00506A0C@@QAE_NPBURva00506A0COther@@@Z,,0x00506A0C,40,Code/GameEngine/Source/Common/Rva00506A0CCheck.cpp,matched,range plus4 to plus8 search plus4 equals plus74
 ??0Rva00506A34@@QAE@PAX@Z,,0x00506A34,30,Code/GameEngine/Source/Common/Rva00506A34Ctor.cpp,matched,voidptr at plus0 plus vector BfmeE16 at plus4 via 0x00211E58
 ?Rva00506C82Find@@YAPAVGameSlot@@PBURva00506C82Arg@@@Z,,0x00506C82,65,Code/GameEngine/Source/Common/Rva00506C82Find.cpp,matched,8 slots m_ip key equals plus50 via getSlot nameToKey
-?rva004EBF4B@Rva004EBF4B@@QAEXPAUCoord3D@@@Z,,0x004EBF4B,72,Code/GameEngine/Source/Common/Rva004EBF4BCopy.cpp,matched,zero temp forward ecxplus4 to 0x00506B74 copy to out
+?rva004EBF4B@Rva004EBF4B@@QAE?AUCoord3D@@XZ,,0x004EBF4B,72,Code/GameEngine/Source/Common/Rva004EBF4BCopy.cpp,matched,zero temp forward ecxplus4 to 0x00506B74 copy to out; native callers and WB return hidden output pointer in EAX; restored by-value ABI with scalar return construction; provider72 and three existing void-view consumers verified; t=12 model=gpt-6.1-sol
 ??1CDownload@@QAE@XZ,,0x006C9730,40,Code/Libraries/Source/WWVegas/WWDownload/CDownloadDtor.cpp,matched,vtable 0x00CE89A0 and m_Ftp 0x5C0 from sibling DownloadFile; ZH Download.h delete m_Ftp unfolded
 ??_GCDownload@@QAEPAXI@Z,,0x005E046F,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-357b.cpp,matched,chain from CDownload dtor 0x006C9730; calls rowed scalar and delete
 ??_GDownloadManager@@UAEPAXI@Z,,0x005E0AF3,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-357b.cpp,matched,slot 5 of 0x00877944; calls rowed scalar 0x005E0994 and delete

@@ -173,7 +173,7 @@ extern GameLogic *TheGameLogic;
 class Rva004EBF4B
 {
 public:
-	void rva004EBF4B(Coord3D *out);
+	Coord3D rva004EBF4B();
 };
 
 struct Rva002A8AB1Record
@@ -259,8 +259,7 @@ void AIStartWoTRBattleTactic::run()
 	if (!record->rva002C7196(StartWoTRBattleTacticHasRun)) {
 		record->rva002C717E(StartWoTRBattleTacticHasRun, 1);
 		Rva005AB125IDs *ids = (Rva005AB125IDs *)(*(Rva005C4AD1LeaField **)g_00DFEEF8->rva002A8F24(m_owner))->get();
-		Coord3D base;
-		((Rva004EBF4B *)record)->rva004EBF4B(&base);
+		Coord3D base = ((Rva004EBF4B *)record)->rva004EBF4B();
 		ObjectID *last = ids->m_end;
 		for (ObjectID *it = ids->m_begin; it != last; ++it) {
 			Object *obj = TheGameLogic->findObjectByID(*it);

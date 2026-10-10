@@ -71,7 +71,7 @@ public:
 class Rva004EBF4B
 {
 public:
-	void rva004EBF4B(Coord3D *out);
+	Coord3D rva004EBF4B();
 };
 
 struct Rva002A8AB1Record;
@@ -163,9 +163,8 @@ bool AIFlankAttackTactic::canRun(void *request)
 				return false;
 		}
 	}
-	Coord3D base;
 	Rva004EBF4B *record = (Rva004EBF4B *)g_00DFEEF8->rva002A8AB1(m_owner);
-	record->rva004EBF4B(&base);
+	Coord3D base = record->rva004EBF4B();
 	base.x -= target->m_0C.x;
 	base.y -= target->m_0C.y;
 	base.z -= target->m_0C.z;

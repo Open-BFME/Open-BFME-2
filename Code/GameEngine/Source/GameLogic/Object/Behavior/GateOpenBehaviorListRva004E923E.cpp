@@ -41,7 +41,7 @@ extern Rva002A8F24 *g_00DFEEF8;
 class Rva004EBF4B
 {
 public:
-	void rva004EBF4B(Coord3D *out);
+	Coord3D rva004EBF4B();
 };
 
 class Rva004989EEAddDwordField
@@ -81,9 +81,8 @@ private:
 
 bool GateOpenBehaviorList::rva004E923E(Object *obj)
 {
-	Coord3D pos;
 	Rva004EBF4B *record = (Rva004EBF4B *)g_00DFEEF8->rva002A8AB1(obj->getControllingPlayer());
-	record->rva004EBF4B(&pos);
+	Coord3D pos = record->rva004EBF4B();
 	void *gate = rva004E9179(&pos, obj->getControllingPlayer());
 	if (gate != 0)
 	{
