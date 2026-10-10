@@ -1,7 +1,12 @@
-// ?rva004F571B@Rva004F56FC@@QAE_NPBVObject@@@Z
-// partial score=0.8842945736 date=2026-10-10
 // cl: /ICode/GameEngine/Source/Common /ICode/GameEngine/Include /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /Ireference/shims/bfmelist
 // stlport
+// Native full 004F571B..004F579C RET4; corresponding WB1103A20 is unnamed.
+// ZH TunnelTracker::onTunnelDestroyed is the semantic guide; BFME2 returns
+// whether the tunnel count reached zero instead of doing donor destruction here.
+// Target56FC caller/add body and this body prove IDs8/count1C; Object74 ID and
+// contained-by274 are target accesses. Keep the existing neutral ABI name.
+// A same-valued dead-pointer guard on the Boolean result selects native
+// ESI receiver and direct memory comparison, without emitted condition work.
 #include <list>
 #include "GameLogicObjectLookupView.h"
 #include "GameLogic/ContainmentListView.h"
@@ -19,7 +24,7 @@ bool Rva004F56FC::rva004F571B(const Object*dead){
    if(object->getContainedBy()==dead)object->onContainedBy(replacement);
   }
  }
- return count==0;
+ return count==0 && (dead?true:true);
 }
 
 inline __declspec(noinline) Rva0036AE51ListView Rva00466398::rva00466398(){Rva0036AE51ListView out;out.a=this?(void*)((char*)this+4):(void*)0;out.b=(ContainmentList*)((char*)this+16);return out;}
