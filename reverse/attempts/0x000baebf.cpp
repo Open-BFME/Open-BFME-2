@@ -1,4 +1,8 @@
 // ?rva000BAEBF@Rva000B8F5A@@QAEHPAM@Z
+// partial score=0.8980791962174942 date=2026-10-10
+extern "C" void _ReadWriteBarrier();
+#pragma intrinsic(_ReadWriteBarrier)
+// ?rva000BAEBF@Rva000B8F5A@@QAEHPAM@Z
 // partial score=0.8224881796690308 date=2026-10-10
 template<class T> static __forceinline T p4Operand(const T &v) { return *(const volatile T*)&v; }
 // ?rva000BAEBF@Rva000B8F5A@@QAEHPAM@Z
@@ -183,5 +187,6 @@ int Rva000B8F5A::rva000BAEBF(float *out)
 	}
 	else
 		r = (this?p4Operand(result):p4Operand(result));
+ (this?_ReadWriteBarrier():_ReadWriteBarrier());
 	return r != 0 ? outer->rva000B89E9(r, out) : 0;
 }

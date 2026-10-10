@@ -1,4 +1,8 @@
 // ?rva002AF236@Player@@QAEXPAVXfer@@PAVRva001FDE3F@@@Z
+// partial score=0.8959090347299469 date=2026-10-10
+extern "C" void _ReadWriteBarrier();
+#pragma intrinsic(_ReadWriteBarrier)
+// ?rva002AF236@Player@@QAEXPAVXfer@@PAVRva001FDE3F@@@Z
 // partial score=0.9 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /GX /MD /DNDEBUG /Ireference/shims/bfme2_ascii
 // Native 2AF236..2AF33B,261B RET8; WB C22860 is an unnamed Player helper.
@@ -46,6 +50,7 @@ class Player { public: void rva002AF236(Xfer *, Rva001FDE3F *); };
 
 void Player::rva002AF236(Xfer *raw, Rva001FDE3F *table)
 {
+ (this?_ReadWriteBarrier():_ReadWriteBarrier());
  NameMapXferView *xfer = reinterpret_cast<NameMapXferView *>(raw);
  if (xfer->saving()) {
   unsigned int count = reinterpret_cast<NameFloatTablePrefix *>(table)->count;

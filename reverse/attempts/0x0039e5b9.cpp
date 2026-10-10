@@ -1,4 +1,8 @@
 // ?rva0039E5B9@Team@@QAEXPAUCoord3D@@@Z
+// partial score=0.960515703287303 date=2026-10-10
+extern "C" void _ReadWriteBarrier();
+#pragma intrinsic(_ReadWriteBarrier)
+// ?rva0039E5B9@Team@@QAEXPAUCoord3D@@@Z
 // partial score=0.97 date=2026-09-27
 // ?rva0039E5B9@Team@@QAEXPAUCoord3D@@@Z
 // partial score=0.97 date=2026-09-27
@@ -49,6 +53,7 @@ void Team::rva0039E5B9(Coord3D *out)
 		++count;
 	}
 	float recip = 1.0f / (float)count;
+ _ReadWriteBarrier();
 	pos.x *= recip;
 	pos.y *= recip;
 	pos.z *= recip;

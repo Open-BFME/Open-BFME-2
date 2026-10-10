@@ -1,4 +1,8 @@
 // ??0Rva004FBC4D@@QAE@ABV?$StringBase@G@@0H@Z
+// partial score=0.9297850821744627 date=2026-10-10
+extern "C" void _ReadWriteBarrier();
+#pragma intrinsic(_ReadWriteBarrier)
+// ??0Rva004FBC4D@@QAE@ABV?$StringBase@G@@0H@Z
 // partial score=0.92 date=2026-10-03
 // ??0Rva004FBC4D@@QAE@ABV?$StringBase@G@@0H@Z
 // partial score=0.92 date=2026-10-03
@@ -42,6 +46,7 @@ inline Rva004FBC4D::~Rva004FBC4D() {}
 Rva004FBC4D::Rva004FBC4D(const StringBase<unsigned short> &a1, const StringBase<unsigned short> &a2, int a3)
     : m08(a1), m0C(a2), m10(a3), m14(-1), m18(0.0f), m1C(0.0f), m20(0.0f)
 {
+ (this?_ReadWriteBarrier():_ReadWriteBarrier());
     m24 = 0;
     m25 = 0;
     m26 = 0;
