@@ -28,10 +28,10 @@ template<> void _STL::vector<const ModuleData *>::push_back(const ModuleData *co
 class GameWindow;
 int GadgetListBoxGetNumEntries(GameWindow *);
 void GadgetListBoxGetSelected(GameWindow *,int *);
-int Rva003253BEGet(GameWindow *,int,int);
+void *GadgetListBoxGetItemData(GameWindow *listbox, int row, int column);
 UnicodeString GadgetListBoxGetText(GameWindow *,int,int);
 int GadgetListBoxAddEntryText(GameWindow *,UnicodeString,int,int,int,bool);
-void Rva00325388Send(GameWindow *,int,int,int);
+void GadgetListBoxSetItemData(GameWindow *listbox, void *data, int row, int column);
 template<> bool StringBase<unsigned short>::isEmpty() const;
 class ChatWindowsInGame {
 public:

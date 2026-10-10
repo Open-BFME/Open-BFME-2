@@ -101,7 +101,7 @@ public:
 class GameLogic
 {
 public:
-	void deselectObject(Object *obj, unsigned int playerMask, int affectClient);
+	void deselectObject(Object *obj, unsigned int playerMask, bool affectClient);
  char m_pad[0x40]; unsigned int m_frame;
 };
 extern GameLogic *TheGameLogic;
@@ -194,7 +194,7 @@ void MonsterDockUpdate::onApproachReached(Object *docker)
 {
 	DockUpdate::onApproachReached(docker);
 	Object *self = m_object;
-	TheGameLogic->deselectObject(docker, 0xfffff, 1);
+	TheGameLogic->deselectObject(docker, 0xfffff, true);
 	self->setStatus(OBJECT_STATUS_03, true);
 	self->setStatus(OBJECT_STATUS_3C, true);
 	docker->setStatus(OBJECT_STATUS_03, true);

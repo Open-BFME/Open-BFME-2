@@ -1,42 +1,39 @@
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 
-// ?rva0039D4D8@Rva0039D4D8@@QAEXPAVRva0039D40F@@@Z @0x0039D4D8 (35B).
-// Conditional remove of the 0x39D40F/0x39D440 pair: when the node is already
-// in the +0x334 head list, unlinks it. Retail shape is head lea plus isInList
-// test plus conditional remove plus pop plus ret 4. Sibling of the 0x0039D4B5
-// maybe-prepend sharing the same head layout and callee pair; callers at
-// 0x0039D504 and 0x003A3604 pass the node. Owner of the head side is unproven
-// so the name keeps the address token.
+// ?removeFrom_TeamInstanceList@TeamPrototype@@QAEXPAVTeam@@@Z @0x0039D4D8 (35B).
+// Zero Hour's MAKE_DLINK_HEAD(Team, TeamInstanceList) removeFrom (GameCommon.h):
+// when the team is in the +0x334 head list, unlinks it. Retail shape is head
+// lea plus isInList test (Team::dlink_isInList_TeamInstanceList 0x0039D40F)
+// plus conditional remove (Team::dlink_removeFrom_TeamInstanceList 0x0039D440)
+// plus pop plus ret 4. WorldBuilder twin 0x00EF1C60 is
+// TeamPrototype::removeFrom_TeamInstanceList; callers are removeAll 0x0039D4FB
+// (0x0039D504) and ~Team 0x003A354F (0x003A3604).
 
-class Rva0039D40F
+typedef bool Bool;
+
+class Team
 {
 public:
-	typedef bool Bool;
-	Bool rva0039D40F(Rva0039D40F **head) const;
+	Bool dlink_isInList_TeamInstanceList(Team *const *pListHead) const;
+	void dlink_removeFrom_TeamInstanceList(Team **pListHead);
 };
 
-class Rva0039D440
+class TeamPrototype
 {
 public:
-	void rva0039D440(Rva0039D440 **head);
-};
-
-class Rva0039D4D8
-{
-public:
-	void rva0039D4D8(Rva0039D40F *obj);
+	void removeFrom_TeamInstanceList(Team *o);
 
 private:
 	char m_pad00[0x334];
-	Rva0039D40F *m_head334; // +0x334
+	Team *m_dlinkhead_TeamInstanceList; // +0x334
 };
 
-void Rva0039D4D8::rva0039D4D8(Rva0039D40F *obj)
+void TeamPrototype::removeFrom_TeamInstanceList(Team *o)
 {
-	Rva0039D40F **head = &m_head334;
-	if( !obj->rva0039D40F(head) )
+	Team **head = &m_dlinkhead_TeamInstanceList;
+	if( !o->dlink_isInList_TeamInstanceList(head) )
 	{
 		return;
 	}
-	((Rva0039D440 *)obj)->rva0039D440((Rva0039D440 **)head);
+	o->dlink_removeFrom_TeamInstanceList(head);
 }

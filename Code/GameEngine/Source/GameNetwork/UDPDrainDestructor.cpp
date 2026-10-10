@@ -7,17 +7,18 @@ extern "C" __declspec(dllimport) int __stdcall recvfrom(
 	SOCKET socket, char *buffer, int length, int flags, void *from, int *fromLength);
 extern "C" __declspec(dllimport) int __stdcall closesocket(SOCKET socket);
 
-// A distinct source identity is required because retail links another UDP destructor body.
-class UDPDrain
+// ??1UDP@@QAE@XZ, retail 0x00594918 (69 B): the UDP socket destructor (shutdown, drain
+// recvfrom, closesocket). Transport slot clear 0x004D5133 deletes its UDP through it (REL32 0x004D5176).
+class UDP
 {
 public:
-	~UDPDrain();
+	~UDP();
 
 private:
 	SOCKET fd;
 };
 
-UDPDrain::~UDPDrain()
+UDP::~UDP()
 {
 	char pending[1024];
 	if (fd != static_cast<SOCKET>(-1)) {

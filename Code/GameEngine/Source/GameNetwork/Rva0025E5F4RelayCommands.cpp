@@ -26,7 +26,6 @@ void Rva0023D201StatusView::rva0023D201(int slot,int state) {
  if(slot<0 || slot>=8)return;
  entries[slot].status=state;entries[slot].quitFrame=frame;
 }
-class Rva00240866SavegameCall {public:void rva00240866(void*,int);};
 extern GameLogic *TheGameLogic;
 class CommandList {public:
  virtual void slot0();virtual void slot1();virtual void slot2();virtual void slot3();virtual void slot4();virtual void slot5();virtual void slot6();virtual void slot7();virtual void slot8();virtual void slot9();virtual void slot10();virtual void slot11();virtual void slot12();virtual void slot13();virtual void append(GameMessage*);
@@ -119,7 +118,7 @@ void Rva0025E4CD::rva0025E5F4() {
    ((Rva0023D201StatusView*)TheGameLogic)->rva0023D201(player,1);break;
   }
   case 11:((NetworkInterface*)this)->rva0025E539((NetWrapperCommandMsg*)command);break;
-  case 30:((Rva00240866SavegameCall*)TheGameLogic)->rva00240866(command,1);break;
+  case 30:TheGameLogic->rva00240866((Rva0023E928*)command,true);break;
   }
  }
  void *allocation=list->destroy(0);operator delete(allocation);

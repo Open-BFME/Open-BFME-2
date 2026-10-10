@@ -2,7 +2,7 @@
 //
 // ?rva003236C4@Rva003236C4@@QAEHH@Z, retail 0x003236C4, 36 bytes.
 // __thiscall int method with 1 int arg reading this+0 as GameWindow*.
-// Calls rowed winGetUserData then rowed Rva003253BEGet just landed.
+// Calls rowed winGetUserData then rowed GadgetListBoxGetItemData just landed.
 // Evidence: chain lane calls 0x003253BE; callers 0x00323D1F 0x0043ED13.
 
 class GameWindow
@@ -11,7 +11,7 @@ public:
 	void *winGetUserData();
 };
 
-int Rva003253BEGet(GameWindow *window, int a, int b);
+void *GadgetListBoxGetItemData(GameWindow *listbox, int row, int column);
 
 struct Rva003236C4Data
 {
@@ -33,5 +33,5 @@ int Rva003236C4::rva003236C4(int a)
 		return 0;
 	Rva003236C4Data *data = (Rva003236C4Data *)m_win->winGetUserData();
 	GameWindow *v = data->m_win;
-	return Rva003253BEGet(v, a, 0);
+	return (int)GadgetListBoxGetItemData(v, a, 0);
 }

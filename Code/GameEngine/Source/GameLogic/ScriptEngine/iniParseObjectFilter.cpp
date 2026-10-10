@@ -23,6 +23,18 @@
 // because this TU builds with /D_CRTIMP=; rename that decl away so the real
 // import decl after the includes is the only _strcmpi the TU sees.
 #define _strcmpi _stlport_hides_strcmpi
+// vector<>::_M_insert_overflow inlines max(size(), n). Retail never calls
+// _STL::max<unsigned> (0x00013740 has no call site), but cl 13.10 still emits
+// the template's COMDAT, and under /O1 /G7 it is not retail's blend body. A
+// file-static unsigned overload takes the call instead: no external max copy
+// (the SubsystemInterface.cpp recipe).
+#include <stl/_algobase.h>
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
 #include <vector>
 #include "ascii_string.h"
 #undef _strcmpi

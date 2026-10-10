@@ -1,10 +1,10 @@
 // cl: /MD
-// ?rva0059534A@Rva0059534A@@QAEXG@Z @0x0059534A 70B evidence: callees UDPDrain dtor 0x00594918 operator delete 0x0002FD60 rowed; 12 callers; prev Disp8Word next Rva0025BFE3Derived
+// ?rva0059534A@Rva0059534A@@QAEXG@Z @0x0059534A 70B evidence: callees UDP dtor 0x00594918 operator delete 0x0002FD60 rowed; 12 callers; prev Disp8Word next Rva0025BFE3Derived
 
-class UDPDrain
+class UDP
 {
 public:
-    ~UDPDrain();
+    ~UDP();
 };
 
 class Rva0059534A
@@ -15,7 +15,7 @@ private:
     char m_pad[0x14];
     struct Slot
     {
-        UDPDrain *ptr;
+        UDP *ptr;
         unsigned short key;
         char m_padKey[2];
     };
@@ -26,7 +26,7 @@ void Rva0059534A::rva0059534A(unsigned short key)
 {
     for (int i = 0; i < 8; ++i) {
         if (m_slots[i].key == key) {
-            UDPDrain *p = m_slots[i].ptr;
+            UDP *p = m_slots[i].ptr;
             if (p != 0) {
                 delete p;
                 m_slots[i].ptr = 0;

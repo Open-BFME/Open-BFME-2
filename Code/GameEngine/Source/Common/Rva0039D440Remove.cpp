@@ -1,38 +1,40 @@
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 
-// ?rva0039D440@Rva0039D440@@QAEXPAPAV1@@Z @0x0039D440 (48B).
-// List-remove: unlinks this from the +0x3C/+0x40 doubly-linked list, updating
-// the head through its slot when this has no prev, then clears both links.
-// Retail shape is next-gated prev store plus prev-gated next store else head
-// store plus two and-zero clears plus ret 4. Sibling of the 0x0039D429 prepend
-// and 0x0039D40F isInList sharing the same link layout; caller at 0x0039D4F2
-// passes a +0x334 list head. Owner unproven so the name keeps the address token.
+// ?dlink_removeFrom_TeamInstanceList@Team@@QAEXPAPAV1@@Z @0x0039D440 (48B).
+// Zero Hour's MAKE_DLINK(Team, TeamInstanceList) unlink (GameCommon.h):
+// unlinks this from the +0x3C/+0x40 doubly-linked list, updating the head
+// through its slot when this has no prev, then clears both links. Retail
+// shape is next-gated prev store plus prev-gated next store else head store
+// plus two and-zero clears plus ret 4.
+// Identity: WorldBuilder twin 0x00EF1D30 is Team::dlink_removeFrom_TeamInstanceList
+// (callgraph); the caller TeamPrototype::removeFrom_TeamInstanceList 0x0039D4D8
+// (0x0039D4F2) passes the +0x334 TeamPrototype head.
 
-class Rva0039D440
+class Team
 {
 public:
-	void rva0039D440(Rva0039D440 **head);
+	void dlink_removeFrom_TeamInstanceList(Team **pListHead);
 
 private:
 	char m_pad00[0x3C];
-	Rva0039D440 *m_prev3C; // +0x3C
-	Rva0039D440 *m_next40; // +0x40
+	Team *m_dlink_TeamInstanceList_prev; // +0x3C
+	Team *m_dlink_TeamInstanceList_next; // +0x40
 };
 
-void Rva0039D440::rva0039D440(Rva0039D440 **head)
+void Team::dlink_removeFrom_TeamInstanceList(Team **pListHead)
 {
-	if( m_next40 )
+	if( m_dlink_TeamInstanceList_next )
 	{
-		m_next40->m_prev3C = m_prev3C;
+		m_dlink_TeamInstanceList_next->m_dlink_TeamInstanceList_prev = m_dlink_TeamInstanceList_prev;
 	}
-	if( m_prev3C )
+	if( m_dlink_TeamInstanceList_prev )
 	{
-		m_prev3C->m_next40 = m_next40;
+		m_dlink_TeamInstanceList_prev->m_dlink_TeamInstanceList_next = m_dlink_TeamInstanceList_next;
 	}
 	else
 	{
-		*head = m_next40;
+		*pListHead = m_dlink_TeamInstanceList_next;
 	}
-	m_prev3C = 0;
-	m_next40 = 0;
+	m_dlink_TeamInstanceList_prev = 0;
+	m_dlink_TeamInstanceList_next = 0;
 }

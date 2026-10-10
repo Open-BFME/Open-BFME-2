@@ -71,9 +71,14 @@ class Rva005E9F3F {
 public: virtual ~Rva005E9F3F();
 private: void *m_04;
 };
+// The ctor row 0x005CF937 spells its five dword arguments (owner, then four
+// opaque values) with these placeholder types; the call below passes the
+// same five values through casts.
+struct Rva005CF937Owner;
+class Rva0057C394;
 class Rva005CFDA6 : public Rva005CF872, public Rva005E9F3F {
 public:
- Rva005CFDA6(StrategicInGameUI::BattleResolver::Impl *,int,int,int,int);
+ Rva005CFDA6(Rva005CF937Owner *,Rva0057C394 *,void *,void *,void *);
  virtual void slot1();
  virtual void slot2();
 };
@@ -130,7 +135,8 @@ void StrategicInGameUI::BattleResolver::Impl::StartUpStateHandler::Update()
     int d=static_cast<Rva0042D6FDPtrChaseField *>(context)->get();
     if(d) {
      Impl *owner=m_owner;
-     Rva005CFDA6 *next=new Rva005CFDA6(owner,a,b,c,d);
+     Rva005CFDA6 *next=new Rva005CFDA6(reinterpret_cast<Rva005CF937Owner *>(owner),
+      reinterpret_cast<Rva0057C394 *>(a),(void *)b,(void *)c,(void *)d);
      owner->m_state.rva00575674(reinterpret_cast<Object *>(next));
      reinterpret_cast<Rva005CFDA6 *>(owner->m_state.m_ptr)->slot1();
     }

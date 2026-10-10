@@ -93,25 +93,15 @@ private:
 	int m_compare;
 };
 
-class Rva0039D40F
-{
-public:
-	bool rva0039D40F(Rva0039D40F **head) const;
-};
-
-class Rva0039D4D8
-{
-public:
-	void rva0039D4D8(Rva0039D40F *team);
-};
-
 class TeamPrototype
 {
+public:
+	void removeFrom_TeamInstanceList(Team *o);
 private:
 	char m_00[8];
 	void *m_owner;					// +0x08
 	char m_0C[0x334 - 0x0C];
-	Rva0039D40F *m_dlinkhead_TeamInstanceList;	// +0x334
+	Team *m_dlinkhead_TeamInstanceList;	// +0x334
 	friend class Team;
 };
 
@@ -174,6 +164,7 @@ class Team : public Snapshot, public Rva0055B0CC
 public:
 	void disband();
 	void rva003A23A5(int id, bool add);
+	bool dlink_isInList_TeamInstanceList(Team *const *pListHead) const;
 protected:
 	virtual ~Team();
 	virtual void loadPostProcess();
@@ -217,8 +208,8 @@ Team::~Team()
 	TeamPrototype *proto = m_proto;
 	if (proto)
 	{
-		if (((Rva0039D40F *)this)->rva0039D40F(&proto->m_dlinkhead_TeamInstanceList))
-			((Rva0039D4D8 *)proto)->rva0039D4D8((Rva0039D40F *)this);
+		if (dlink_isInList_TeamInstanceList(&proto->m_dlinkhead_TeamInstanceList))
+			proto->removeFrom_TeamInstanceList(this);
 	}
 
 	::operator delete(m_teamRelations ? m_teamRelations->deleteInstance(0) : 0);

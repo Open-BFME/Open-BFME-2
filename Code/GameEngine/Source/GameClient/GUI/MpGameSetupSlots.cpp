@@ -210,7 +210,7 @@ UnicodeString GadgetComboBoxGetText(GameWindow *comboBox);
 int GadgetListBoxGetNumEntries(GameWindow *listBox);
 void GadgetListBoxSetSelected(GameWindow *listBox, int index);
 void GadgetListBoxSetSelected(GameWindow *listBox, const int *selectList, int selectCount);
-int Rva003253BEGet(GameWindow *listBox, int row, int column);
+void *GadgetListBoxGetItemData(GameWindow *listbox, int row, int column);
 void GadgetComboBoxSetSelectedPos(GameWindow *comboBox, int index, bool silent);
 
 class MultiplayerColorDefinition
@@ -1186,7 +1186,7 @@ void AptMpGameSetup::ChangePlayerSelection(int index, int state)
 	int count = GadgetListBoxGetNumEntries(listBox);
 	for (int i = 0; i < count; ++i)
 	{
-		if (Rva003253BEGet(listBox, i, 0) == state)
+		if ((int)GadgetListBoxGetItemData(listBox, i, 0) == state)
 		{
 			GadgetComboBoxSetSelectedPos(comboBox, i, false);
 			if (game->v12())
@@ -2427,11 +2427,11 @@ void AptMpGameSetup::UpdatePlayerTemplateDisplay(int slot)
 	int count = GadgetListBoxGetNumEntries(listBox);
 	int selected;
 	GadgetComboBoxGetSelectedPos(comboBox, &selected);
-	if (Rva003253BEGet(listBox, selected, 0) != playerTemplate)
+	if ((int)GadgetListBoxGetItemData(listBox, selected, 0) != playerTemplate)
 	{
 		for (int i = 0; i < count; ++i)
 		{
-			if (Rva003253BEGet(listBox, i, 0) == playerTemplate)
+			if ((int)GadgetListBoxGetItemData(listBox, i, 0) == playerTemplate)
 			{
 				GadgetComboBoxSetSelectedPos(comboBox, i, false);
 				if (local && m_pendingHero == -3)
@@ -2611,7 +2611,7 @@ void Rva0043E8F1Tooltip(GameWindow *window, WinInstanceData *instData, unsigned 
 		return;
 	}
 
-	int imageItemData = Rva003253BEGet(window, row, 1);
+	int imageItemData = (int)GadgetListBoxGetItemData(window, row, 1);
 	UnicodeString tooltip;
 	switch (imageItemData & ~0x8000)
 	{

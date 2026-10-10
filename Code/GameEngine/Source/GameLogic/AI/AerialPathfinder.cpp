@@ -41,6 +41,12 @@ static __forceinline float nativeLength(const Coord3D*p) throw(){return p->lengt
 static __forceinline void nativeNormalize(Coord3D*p) throw(){p->normalize();}
 extern PartitionManager* ThePartitionManager;
 class AerialPathfinder {public:bool rva00375C28(Object*,const Coord3D*,float*,Coord3D*);};
+// ?TheAerialPathfinder@@3PAVAerialPathfinder@@A, zero-filled .data at 0x00A01F10.
+// Owner from the retail layout: zero-filled globals follow their TUs in link
+// order, and 0x00A01F10 comes right after the StealthUpdate statics (code
+// 0x00373CCA..0x00373F59) among the 0x0037xxxx units, next to this class's
+// members (0x00375A73..0x00375ED7), not the Locomotor units at 0x001Exxxx.
+AerialPathfinder *TheAerialPathfinder;
 bool AerialPathfinder::rva00375C28(Object*obj,const Coord3D*pos,float*worstOverlap,Coord3D*push){
  bool clear=true;
  AerialAI* ai=obj->ai;

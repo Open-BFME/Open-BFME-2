@@ -155,7 +155,12 @@ DynamicGameLODInfo::DynamicGameLODInfo(void)
 };
 
 //Keep this in sync with enum in GameLOD.h
-static char *CPUNames[] = 
+// ?CPUNames@@3PAPBDA, retail 0x009B96B8 (XX P3 P4 K7 then NULL). External
+// rather than Zero Hour's static: GameLODManager::init 0x002027EA (split out to
+// GameLODManagerInit.cpp; in retail it sits between parseBenchProfile 0x002026D4
+// and parseLODPreset 0x00202E23, as in Zero Hour's one GameLOD.cpp) reads it
+// for the BenchProfile line.
+const char *CPUNames[] = 
 {
 	"XX","P3", "P4","K7", NULL
 };

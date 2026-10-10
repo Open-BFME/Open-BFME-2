@@ -58,7 +58,7 @@ typedef char CheckMap256[(sizeof(MapMetaData)==256)?1:-1];
 int GadgetListBoxGetColumnWidth(GameWindow *window,int column);
 int GadgetListBoxGetNumColumns(GameWindow *window);
 void GadgetListBoxReset(GameWindow *window);
-void Rva00325388Send(GameWindow *window,int a,int b,int c);
+void GadgetListBoxSetItemData(GameWindow *listbox, void *data, int row, int column);
 int GadgetListBoxAddEntryImage(GameWindow *window,const Image *image,int row,int column,int height,int width,bool overwrite,int color);
 int GadgetListBoxAddEntryText(GameWindow *window,UnicodeString text,int color,int row,int column,bool overwrite);
 class AptMpGameSetup {public:void rva00443538(int flags);
@@ -127,7 +127,7 @@ void AptMpGameSetup::rva00443538(int flags)
   case 0x8004:badge=userHard;break;case 0x8005:badge=userBrutal;break;
   case 0x8006:badge=userMaximum;break;
   }
-  Rva00325388Send(mapList,map->conquest,-1,1);
+  GadgetListBoxSetItemData(mapList,(void *)(map->conquest),-1,1);
   int row=GadgetListBoxAddEntryImage(mapList,badge,-1,0,width,width,true,-1);
   row=GadgetListBoxAddEntryText(mapList,map->bfme_getDisplayName(false),-1,row,numColumns-3,true);
   UnicodeString players;players.format(L"%d",map->numPlayers);

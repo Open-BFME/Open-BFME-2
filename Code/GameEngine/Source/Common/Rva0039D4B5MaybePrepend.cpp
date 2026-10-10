@@ -1,41 +1,38 @@
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
-// ?prependTo_TeamInstanceList@TeamPrototype@@QAEXPAVRva0039D40F@@@Z @0x0039D4B5 (35B).
-// 0x0039D4B5 (35B) chain of the 0x39D40F/0x39D429 pair: when the node is not
-// already in the +0x334 head list, prepends it. Retail shape is head lea
-// plus isInList test plus conditional prepend plus pop plus ret 4. Caller
-// at 0x003A3ADA inserts a fresh node into the +0x334 head of its peer;
-// the +0x3C/+0x40 links prove the node side, owner of the head side is
-// unproven so the name keeps the address token.
+// ?prependTo_TeamInstanceList@TeamPrototype@@QAEXPAVTeam@@@Z @0x0039D4B5 (35B).
+// Zero Hour's MAKE_DLINK_HEAD(Team, TeamInstanceList) prependTo (GameCommon.h):
+// when the team is not already in the +0x334 head list, prepends it. Retail
+// shape is head lea plus isInList test (Team::dlink_isInList_TeamInstanceList
+// 0x0039D40F) plus conditional prepend (Team::dlink_prependTo_TeamInstanceList
+// 0x0039D429) plus pop plus ret 4. WorldBuilder twin 0x00EF3FE0 is
+// TeamPrototype::prependTo_TeamInstanceList; the caller is the Team ctor
+// 0x003A39A7 (call at 0x003A3ADA).
 
-class Rva0039D40F
+typedef bool Bool;
+
+class Team
 {
 public:
-	typedef bool Bool;
-	Bool rva0039D40F(Rva0039D40F **head) const;
-};
-
-class Rva0039D429
-{
-public:
-	void rva0039D429(Rva0039D429 **head);
+	Bool dlink_isInList_TeamInstanceList(Team *const *pListHead) const;
+	void dlink_prependTo_TeamInstanceList(Team **pListHead);
 };
 
 class TeamPrototype
 {
 public:
-	void prependTo_TeamInstanceList(Rva0039D40F *obj);
+	void prependTo_TeamInstanceList(Team *o);
 
 private:
 	char m_pad00[0x334];
-	Rva0039D40F *m_head334; // +0x334
+	Team *m_dlinkhead_TeamInstanceList; // +0x334
 };
 
-void TeamPrototype::prependTo_TeamInstanceList(Rva0039D40F *obj)
+void TeamPrototype::prependTo_TeamInstanceList(Team *o)
 {
-	Rva0039D40F **head = &m_head334;
-	if (obj->rva0039D40F(head)) {
+	Team **head = &m_dlinkhead_TeamInstanceList;
+	if (o->dlink_isInList_TeamInstanceList(head)) {
 		return;
 	}
-	((Rva0039D429 *)obj)->rva0039D429((Rva0039D429 **)head);
+	o->dlink_prependTo_TeamInstanceList(head);
 }

@@ -10,7 +10,7 @@
 class GameWindow;
 
 void GadgetListBoxGetSelected(GameWindow *listBox, int *selected);
-int Rva003253BEGet(GameWindow *listBox, int row, int column);
+void *GadgetListBoxGetItemData(GameWindow *listbox, int row, int column);
 
 class UserPreferences
 {
@@ -86,7 +86,7 @@ void AptOnline::Login::AcceptLocale(const char *unused)
 	GadgetListBoxGetSelected(m_locales, &selected);
 	if (selected >= 0)
 	{
-		m_locale = Rva003253BEGet(m_locales, selected, 0);
+		m_locale = (int)GadgetListBoxGetItemData(m_locales, selected, 0);
 		GameSpyMiscPreferences prefs;
 		prefs.rva005597CB(m_locale);
 		prefs.write();

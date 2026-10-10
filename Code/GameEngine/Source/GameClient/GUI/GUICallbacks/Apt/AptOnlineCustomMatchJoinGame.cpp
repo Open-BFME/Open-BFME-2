@@ -42,7 +42,7 @@ typedef int Int;
 
 class GameWindow;
 void GadgetListBoxGetSelected(GameWindow *listbox, int *selected);
-int Rva003253BEGet(GameWindow *listbox, int row, int column);
+void *GadgetListBoxGetItemData(GameWindow *listbox, int row, int column);
 
 void GSMessageBoxOk(UnicodeString title, UnicodeString message, void (*okFunc)());
 
@@ -216,7 +216,7 @@ bool AptOnlineCustomMatch::rva005A57BA(bool fromInvite)
 			GSMessageBoxOk(TheGameText->fetch("GUI:Error"), TheGameText->fetch("GUI:NoGameSelected"), 0);
 			return false;
 		}
-		id = Rva003253BEGet(m_gameList, selected, 3);
+		id = (int)GadgetListBoxGetItemData(m_gameList, selected, 3);
 	}
 	if (id <= 0)
 	{

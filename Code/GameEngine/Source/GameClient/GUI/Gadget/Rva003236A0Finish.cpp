@@ -2,7 +2,7 @@
 //
 // ?rva003236A0@Rva003236A0@@QAEXHH@Z, retail 0x003236A0, 36 bytes.
 // __thiscall void method with 2 int args reading this+0 as GameWindow*.
-// Calls rowed winGetUserData then rowed Rva00325388Send just landed.
+// Calls rowed winGetUserData then rowed GadgetListBoxSetItemData just landed.
 // Evidence: chain lane calls 0x00325388; callers 0x00323D12 0x00440370.
 
 class GameWindow
@@ -11,7 +11,7 @@ public:
 	void *winGetUserData();
 };
 
-void Rva00325388Send(GameWindow *window, int a, int b, int c);
+void GadgetListBoxSetItemData(GameWindow *listbox, void *data, int row, int column);
 
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
@@ -37,5 +37,5 @@ void Rva003236A0::rva003236A0(int a, int b)
 	Rva003236A0Data *data = (Rva003236A0Data *)m_win->winGetUserData();
 	GameWindow *v = data->m_win;
 	_ReadWriteBarrier();
-	Rva00325388Send(v, b, a, 0);
+	GadgetListBoxSetItemData(v, (void *)b, a, 0);
 }

@@ -25,10 +25,10 @@ template<> void _STL::vector<const ModuleData *>::push_back(const ModuleData *co
 class GameWindow;
 int GadgetListBoxGetNumEntries(GameWindow *);
 void GadgetListBoxGetSelected(GameWindow *,int *);
-int Rva003253BEGet(GameWindow *,int,int);
+void *GadgetListBoxGetItemData(GameWindow *listbox, int row, int column);
 UnicodeString GadgetListBoxGetText(GameWindow *,int,int);
 int GadgetListBoxAddEntryText(GameWindow *,UnicodeString,int,int,int,bool);
-void Rva00325388Send(GameWindow *,int,int,int);
+void GadgetListBoxSetItemData(GameWindow *listbox, void *data, int row, int column);
 template<> bool StringBase<unsigned short>::isEmpty() const;
 class ChatWindowsInGame {
 public:
@@ -53,7 +53,7 @@ int ChatWindowsInGame::rva005AFDC5(int user,const UnicodeString &name,const Unic
 {
     if(!playerList10) return -1;
     int row=GadgetListBoxAddEntryText(playerList10,name,color,-1,2,true);
-    Rva00325388Send(playerList10,user,row,2);
+    GadgetListBoxSetItemData(playerList10,(void *)user,row,2);
     if(!team.isEmpty()) GadgetListBoxAddEntryText(playerList10,team,color,row,3,true);
     return row;
 }
@@ -78,7 +78,7 @@ int ChatWindowsInGame::rva005AFEF7(SelectionIDs *numbers,_STL::vector<AsciiStrin
             if(row<0) break;
             ++count;
             if(numbers) {
-                int id=Rva003253BEGet(playerList10,row,2);
+                int id=(int)GadgetListBoxGetItemData(playerList10,row,2);
                 reinterpret_cast<_STL::vector<const ModuleData *> *>(numbers)->push_back(
                     reinterpret_cast<const ModuleData *const &>(id));
             }

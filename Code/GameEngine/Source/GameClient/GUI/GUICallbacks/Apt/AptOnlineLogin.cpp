@@ -63,7 +63,7 @@ class GameWindow { public: void *winGetUserData(); };
 extern int g_00DB9198;
 AsciiString GetRegistryLanguage();
 int GadgetListBoxAddEntryText(GameWindow *,UnicodeString,int,int,int,bool);
-void Rva00325388Send(GameWindow *,int,int,int);
+void GadgetListBoxSetItemData(GameWindow *listbox, void *data, int row, int column);
 void GadgetListBoxSetSelected(GameWindow *,int);
 void GadgetCheckBoxSetChecked(GameWindow *,bool);
 void GadgetTextEntrySetText(GameWindow *,UnicodeString);
@@ -365,7 +365,7 @@ void AptOnlineLogin::rva0056FEA8()
 	label.format( "WOL:Locale%2.2d", 1 );
 	int row = GadgetListBoxAddEntryText( m_countryList,
 		TheGameText->fetch( label.str() ), g_00DB9198, -1, -1, true );
-	Rva00325388Send( m_countryList, 1, row, 0 );
+	GadgetListBoxSetItemData( m_countryList, (void *)1, row, 0 );
 
 	CountryLocaleMap locales;
 	for( int i = 2; i <= 0x25; ++i )
@@ -385,7 +385,7 @@ void AptOnlineLogin::rva0056FEA8()
 	{
 		row = GadgetListBoxAddEntryText( m_countryList, it->first,
 			g_00DB9198, -1, -1, true );
-		Rva00325388Send( m_countryList, it->second, row, 0 );
+		GadgetListBoxSetItemData( m_countryList, (void *)(it->second), row, 0 );
 		if( language.compareNoCase( it->first ) == 0 )
 			selectedRow = row;
 	}

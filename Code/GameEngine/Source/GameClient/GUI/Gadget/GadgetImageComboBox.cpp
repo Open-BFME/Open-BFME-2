@@ -329,8 +329,8 @@ extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 void GadgetListBoxGetSelected(GameWindow *win, int *sel);
 void GadgetListBoxReset(GameWindow *listbox);
-void Rva00325388Send(GameWindow *window, int a, int b, int c);
-int Rva003253BEGet(GameWindow *window, int a, int b);
+void GadgetListBoxSetItemData(GameWindow *listbox, void *data, int row, int column);
+void *GadgetListBoxGetItemData(GameWindow *listbox, int row, int column);
 struct Rva00323657ListData
 {
 	char m_pad[0x34];
@@ -391,7 +391,7 @@ public:
 			return;
 		GameWindow *listBox = ((ImageComboBoxData *)m_window->winGetUserData())->listBox;
 		_ReadWriteBarrier();
-		Rva00325388Send(listBox, b, a, 0);
+		GadgetListBoxSetItemData(listBox, (void *)b, a, 0);
 	}
 private:
 	GameWindow *m_window;
@@ -404,7 +404,7 @@ public:
 		if (m_window == 0)
 			return 0;
 		GameWindow *listBox = ((ImageComboBoxData *)m_window->winGetUserData())->listBox;
-		return Rva003253BEGet(listBox, a, 0);
+		return (int)GadgetListBoxGetItemData(listBox, a, 0);
 	}
 private:
 	GameWindow *m_window;

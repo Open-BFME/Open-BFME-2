@@ -8,7 +8,7 @@
 // matched names; rest from retail REL32/DIR32.
 class GameWindow;
 void __cdecl GadgetListBoxGetSelected(GameWindow *w, int *sel);
-int __cdecl Rva003253BEGet(GameWindow *w, int a, int b);
+void *GadgetListBoxGetItemData(GameWindow *listbox, int row, int column);
 
 extern unsigned char g_rva005B5C02Flag;
 extern class CreateAHeroManager *TheCreateAHeroManager;
@@ -48,7 +48,7 @@ void Rva005B5C02Box::Run()
 	GadgetListBoxGetSelected(m_8, &r);
 	if (r < 0)
 		return;
-	Rva005B5C02Entry *e = (Rva005B5C02Entry *)Rva003253BEGet(m_8, r, 0);
+	Rva005B5C02Entry *e = (Rva005B5C02Entry *)GadgetListBoxGetItemData(m_8, r, 0);
 	if (e == 0)
 		return;
 	if (e->m_48 != 0 && g_rva005B5C02Flag == 0)

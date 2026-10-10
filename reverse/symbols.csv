@@ -2781,7 +2781,6 @@ name,address,notes
 ??0TreeKey00242F5E@@QAE@ABU0@@Z,0x000CF475,BFME2 mapped-value tree 0x242f5e; directly verified comparator/iterator or insert-node-construct-copy chain; type and ownership limits documented in source.
 ??0TunnelContainModuleData@@QAE@XZ,0x0025797E,ctor call in the byte-true TunnelContain data factory (ModuleFactory registers it under "TunnelContain")
 ??0U4Made005EA530@@QAE@PAVU4Maker005EA530@@@Z,0x003ADD0B,address read from the REL32 displacement at a placed body
-??0UDP@@QAE@XZ,0x005948F5,callee of ?openSpareSocket@FirewallHelperClass@@QAE_NG@Z at retail 0x00595089 read from its REL32 displacement; ICF alias onto ??0Rva005948F5@@QAE@XZ (matched)
 ??0UnicodeString@@QAE@ABVAsciiString@@@Z,0x006CB6D0,Exact retail PE export; full91B ctor zeros destination then reads narrow str and calls exported translate6CB5F0; independently verified before mod-handler pin
 ??0UnicodeStringWN@@QAE@ABV0@@Z,0x00037050,callee of 0Gen_004E9FD0 (0x00415FAB) at the site its BFME1 donor calls it; may be an ICF alias
 ??0UnpauseSpecialPowerUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z,0x004B548C,(Thing*;ModuleData*) ctor called by UnpauseSpecialPowerUpgrade::friend_newModuleInstance (0x00250156); class from the ModuleFactory registration literal
@@ -4966,7 +4965,6 @@ name,address,notes
 ??1TurretAI@@MAE@XZ,0x004D86C1,destructor called by the scalar deleting destructor 0x004D8974 (slot 0 of vtable 0x00C60D78 whose unique slot-2 name getter returns TurretAI); the body re-stores vtable 0x00C60D78
 ??1U2Vb0084B480@@UAE@XZ,0x0001E7D0,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ??1U2Vb0084B5F0@@UAE@XZ,0x0001E940,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
-??1UDP@@QAE@XZ,0x00594918,"UDP socket destructor (rowed as ??1UDPDrain); address read from the retail REL32 at 0x004D5176 in Transport slot clear 0x004D5133, which deletes the slot socket"
 ??1UnicodeString@@QAE@XZ,0x00036E70,"folded body of BFME2's 5-byte ~UnicodeString tail-jump at 0x5B804E (e9 1d ee a7 ff, jmp 0x36E70) which the ledger rows at 0x5B804E; retail call sites that inline the destructor encode this body directly, measured at GadgetCheckBoxSetText +0x37 where the object reloc names ??1UnicodeString@@QAE@XZ and retail's e8 targets 0x36E70 not the thunk; both candidate addresses resolve to this one body so the add is additive"
 ??1UpgradeModuleData@@UAE@XZ,0x00255A42
 ??1UpgradeSoundSelectorClientBehaviorModuleData@@UAE@XZ,0x004CBAEA,dtor called by audited wrapper RVA 0x004CBACE; retail registration UpgradeSoundSelectorClientBehavior -> data factory RVA 0x00252C64 -> ctor RVA 0x004CB9F3; primary vptr store RVA 0x004CB9FF
@@ -5718,7 +5716,6 @@ name,address,notes
 ?GadgetListBoxAddEntryText@@YAHPAVGameWindow@@VUnicodeString@@HHH_N@Z,0x00326BEC,retail cdecl body sends GLM_ADD_ENTRY 0x4011 with LISTBOX_TEXT and destroys its by-value UnicodeString
 ?GadgetListBoxAddMultiSelect@@YAXPAVGameWindow@@@Z,0x00325199,"auto-pin (permute --pins): REL32 call target read from retail in 0x00326e21, whose banked body is byte-exact once this call resolves"
 ?GadgetListBoxGetEntryBasedOnXY@@YAHPAVGameWindow@@HHAAH1@Z,0x00323F6F,Zero Hour GadgetListBox.cpp wrapper: 9B frame thunk (push ebp; mov ebp esp; pop ebp; jmp) to 0x00323E95 whose body computes row from y over the listData heights and column from x over the column widths as getListboxEntryBasedOnCoord does; REL32 read at the MpGameSetup map list tooltip 0x0043E91B (5 cdecl args)
-?GadgetListBoxGetItemData@@YAPAXPAVGameWindow@@HH@Z,0x003253BE,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?GadgetListBoxGetTextAndColor@@YA?AVUnicodeString@@PAVGameWindow@@PAHHH@Z,0x00326FBC,Native37B text wrapper327074 calls184B helper with hidden return pointer plus window/color/row/column; helper checks window/style20 and sends manager request401A at measured slotE8; BFME1 donor supplies same-purpose name
 ?GadgetListBoxInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z,0x00325635,callback table at 0x9BCAD8 identifies GadgetListBoxInput; Ghidra boundary 0x325635/2442B; BFME1/Zero Hour donors guide semantics
 ?GadgetListBoxIsFull@@YA_NPAVGameWindow@@@Z,0x00324822,BFME1 GadgetListBoxIsFull cdecl name; bool guard before SetBottomVisible in listbox insert at 0x326D5
@@ -5727,7 +5724,6 @@ name,address,notes
 ?GadgetListBoxSetBottomVisibleEntry@@YAXPAVGameWindow@@H@Z,0x003253FD,BFME1 SetBottomVisibleEntry cdecl name; tail setter taking the insert index at 0x326E1
 ?GadgetListBoxSetColors@@YAXPAVGameWindow@@HHHHHHHHHHHH@Z,0x003240A6,"called with the combo box list child and all twelve colors at 0x00322656, the GadgetListBoxSetColors call of the Zero Hour GadgetComboBoxSetColors body that places uniquely at 0x00322463"
 ?GadgetListBoxSetFont@@YAXPAVGameWindow@@PAVGameFont@@@Z,0x003243F3,Native font dispatcher313D73 and helper calls establish corresponding target operation/ABI; independently checked field accesses and virtual slot18; clean BFME1 6d943426 supplies names and structural guide
-?GadgetListBoxSetItemData@@YAXPAVGameWindow@@PAXHH@Z,0x00325388,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?GadgetListBoxSetListLength@@YAXPAVGameWindow@@H@Z,0x002C17EB,retail call from GadgetComboBoxSystem at +0x1F0; 66B target passes the length argument through WindowManager message 0x4030; name inferred from the corresponding Zero Hour call
 ?GadgetListBoxSystem@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z,0x00325FBF,callback table at 0x9BC9DC identifies GadgetListBoxSystem; Ghidra boundary 0x325FBF/3071B; BFME1/Zero Hour donors guide semantics
 ?GadgetListBoxUpdateColumnWidths@@YAXPAVGameWindow@@@Z,0x003251F4,retail=Ghidra 246B body scales percentage widths by GameWindow width; caller=GadgetListBoxSetColumnWidths REL32 at 0x003252EA; inference=target-local helper name GadgetListBoxUpdateColumnWidths; donor called j_000272fa
@@ -10011,7 +10007,6 @@ name,address,notes
 ?isPlayerConnected@BFMEConnectionManager@@QAE_NH@Z,0x004CF083,BFME2 local-or-open-connection predicate used by active-player state checks
 ?isPlayerSlotActive@BFMEConnectionManager@@QAEHH@Z,0x004CF0CD,BFME2 active-player-state predicate used by the packet-router stall scan; BFME1 structural analogue
 ?isPrototype@AptValue@@QBE_NXZ,0x006DC630,Native Extends calls checked existing provider; original AptValue header signature; linker alias binds provider
-?isQueueEmpty@Connection@@QAE_NXZ,0x0058B9A9,callee of ?areAllQueuesEmpty@ConnectionManager@@QAE_NXZ at retail 0x004CF3B9 read from its REL32 displacement; ICF alias onto ?get@Rva0058B9A9CmpBoolField@@QBE_NXZ (matched)
 ?isReady@CommandButton@@QBE_NPBVObject@@@Z,0x0035B069,"call-site agreement: matched evaluateSkirmishCommandButtonIsReady 0x003E73E7 calls it on the found CommandButton with the team member, BFME1/ZH donor commandButton->isReady(pObj)"
 ?isRegister@AptValue@@QBE_NXZ,0x006DC1C0,Native stackPushIndirect calls checked existing provider; original AptValue header504032fc6593aab6 signature; linker alias binds provider
 ?isScriptFunction@AptValue@@QBE_NXZ,0x006DC2B0,Native TypeOf7029A0 direct call target; source headers and existing byte-verified provider confirm predicate ABI; alternatename binds provider
@@ -10272,7 +10267,6 @@ name,address,notes
 ?notifyY@Rva003197EEListener@@QAEXPAX@Z,0x005CB265,forwarder same 5B ICF twin call site 0x00319B49 via forEach 0x003197EE
 ?nstrdup@@YAPADPBD@Z,0x00619880,address read from the REL32 displacement at a placed body; stlport 4.5.3
 ?okToPlayRadarEdgeSound@Player@@QAE_NXZ,0x002AA04C,Reference Player radar-edge predicate inferred from native notification callers and matching five-clause chain; bool-interface66B trial exact; linker alias binds rowed address-derived normalized0/1 provider
-?onApproachReached@DockUpdate@@UAEXPAVObject@@@Z,0x00589AB1,"DockUpdateInterface slot 8 in every dock +0x20 vtable (0x00C51AC0/0x00C51C30/0x00C51D18/0x00C53740): finds the docker ID in the approach owners at +0x40 and sets its bit in the vector<bool> at +0x4C, the Zero Hour onApproachReached; also rowed under an address name"
 ?onBusy@Rva007FA2C0@@QAEHPAX@Z,0x00665F20,int-returning FESL busy op called by onAccept (retail +0x144); donor declares int onBusy(void*); BFME1 twin calls the same shape
 ?onBusy@Rva007FA2C0@@QAEXPAX@Z,0x00665F20
 ?onConnectReply@Rva00800780Owner@@QAEXPAVRva007E8810Message@@@Z,0x0066CB90
@@ -10575,7 +10569,6 @@ name,address,notes
 ?removeAllTerrainBibs@BaseHeightMapRenderObjClass@@QAEXXZ,0x001EC3B5
 ?removeAll_TeamBuildQueue@AIPlayer@@IAEXP6AXPAVTeamInQueue@@@Z@Z,0x004F042F,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?removeAll_TeamBuildQueue@AIPlayer@@QAEXP6AXPAVTeamInQueue@@@Z@Z,0x004F042F,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
-?removeAll_TeamInstanceList@TeamPrototype@@QAEXP6AXPAVTeam@@@Z@Z,0x0039D4FB,same body rowed as the address-named drain 0x0039D4FB (42B): ~TeamPrototype 0x003A33CD passes this plus deleteTeamCallback 0x003A33A7 via REL32 at 0x003A33F3 and the drained +0x334 head is the prototype team list also walked by 0x003A2CA5
 ?removeAll_TeamReadyQueue@AIPlayer@@IAEXP6AXPAVTeamInQueue@@@Z@Z,0x004F0499,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?removeAll_TeamReadyQueue@AIPlayer@@QAEXP6AXPAVTeamInQueue@@@Z@Z,0x004F0499,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?removeFromList@NetCommandWrapperList@@IAEXPAVNetCommandWrapperListNode@@@Z,0x0058C1A5,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1

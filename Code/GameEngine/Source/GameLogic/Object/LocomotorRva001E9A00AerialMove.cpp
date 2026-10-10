@@ -88,9 +88,9 @@ class AerialPathfinder
 public:
 	bool rva00375A73(Rva00375A73Context *context, float value, Rva00375A73Coord *output);
 };
-// ?TheAerialPathfinder@@3PAVAerialPathfinder@@A at 0x00A01F10 (data_ledger,
-// zero-filled .data): nothing else defines it, so this TU owns it.
-AerialPathfinder *TheAerialPathfinder;
+// ?TheAerialPathfinder@@3PAVAerialPathfinder@@A at 0x00A01F10 (zero-filled
+// .data) is defined with its class in AerialPathfinder.cpp.
+extern AerialPathfinder *TheAerialPathfinder;
 
 class GeometryInfo
 {

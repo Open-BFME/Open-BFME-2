@@ -124,7 +124,7 @@ extern GameTextInterface *TheGameText;
 extern int g_currentAptOnlineCustomMatch;
 class Rva003FF1C2 { public: bool rva003FF1C2() const; };
 int GadgetListBoxGetEntryBasedOnXY(GameWindow *, int, int, int &, int &);
-int Rva003253BEGet(GameWindow *, int, int);
+void *GadgetListBoxGetItemData(GameWindow *listbox, int row, int column);
 void AptOnlineCustomMatch::GamesListTooltipFunc(GameWindow *window, WinInstanceData *, unsigned int mouse)
 {
  if (!g_currentAptOnlineCustomMatch) return;
@@ -137,7 +137,7 @@ void AptOnlineCustomMatch::GamesListTooltipFunc(GameWindow *window, WinInstanceD
   return;
  }
  StagingRoomMap *rooms = TheGameSpyInfo->getStagingRoomList();
- int key = Rva003253BEGet(window, row, 3);
+ int key = (int)GadgetListBoxGetItemData(window, row, 3);
  StagingRoomMap::iterator it = rooms->find(key);
  if (it == rooms->end()) {
   TheMouse->rva001EEA6D(UnicodeString::TheEmptyString, -1, 0, 1.0f);
@@ -146,15 +146,15 @@ void AptOnlineCustomMatch::GamesListTooltipFunc(GameWindow *window, WinInstanceD
  GameInfo *room = (GameInfo *)it->second;int zero=0;
  switch (column) {
  case 0:
-  if ((column?Rva003253BEGet(window, row, 0):Rva003253BEGet(window, row, 0))!=zero)
+  if ((column?(int)GadgetListBoxGetItemData(window, row, 0):(int)GadgetListBoxGetItemData(window, row, 0))!=zero)
    TheMouse->rva001EEA6D(TheGameText->fetch("TOOLTIP:UserMapIcon"), -1, 0, 1.0f);
   break;
  case 1:
-  if ((column?Rva003253BEGet(window, row, 1):Rva003253BEGet(window, row, 1))!=zero)
+  if ((column?(int)GadgetListBoxGetItemData(window, row, 1):(int)GadgetListBoxGetItemData(window, row, 1))!=zero)
    TheMouse->rva001EEA6D(TheGameText->fetch("TOOLTIP:AdvSetting"), -1, 0, 1.0f);
   break;
  case 2:
-  if ((column?Rva003253BEGet(window, row, 2):Rva003253BEGet(window, row, 2))!=zero)
+  if ((column?(int)GadgetListBoxGetItemData(window, row, 2):(int)GadgetListBoxGetItemData(window, row, 2))!=zero)
    if (((Rva003FF1C2 *)room)->rva003FF1C2())
     TheMouse->rva001EEA6D(TheGameText->fetch("TOOLTIP:MpSaveGame"), -1, 0, 1.0f);
    else
@@ -191,7 +191,7 @@ int GadgetListBoxGetNumColumns(GameWindow*);
 void GadgetListBoxSetColumnWidths(GameWindow*,int,int*);
 int GadgetListBoxAddEntryText(GameWindow*,UnicodeString,int,int,int,bool);
 int GadgetListBoxAddEntryImage(GameWindow*,const Image*,int,int,int,int,bool,int);
-void Rva00325388Send(GameWindow*,int,int,int);
+void GadgetListBoxSetItemData(GameWindow *listbox, void *data, int row, int column);
 void Rva00559FAC(int,void*);
 int Rva00559EDCCompare(int*,int*);
 int Rva005DB335Get(int);
@@ -240,11 +240,11 @@ int AptOnlineCustomMatch::rva0059F496(GameSpyStagingRoom*game)
  GadgetListBoxAddEntryImage(list,lock,row,2,20,20,true,-1);
  GadgetListBoxAddEntryImage(list,settings,row,1,20,20,true,-1);
  GadgetListBoxAddEntryImage(list,userMap,row,0,20,20,true,-1);
- Rva00325388Send(list,lock!=0,row,2);Rva00325388Send(list,settings!=0,row,1);Rva00325388Send(list,userMap!=0,row,0);
+ GadgetListBoxSetItemData(list,(void *)(lock!=0),row,2);GadgetListBoxSetItemData(list,(void *)(settings!=0),row,1);GadgetListBoxSetItemData(list,(void *)(userMap!=0),row,0);
  UnicodeString text;text.format((const unsigned short*)L"%d/%d",game->players(),game->maximumPlayers());
  GadgetListBoxAddEntryText(list,text,color,row,5,true);
  text.format((const unsigned short*)L"%d",game->ping());GadgetListBoxAddEntryText(list,text,color,row,6,true);
  const Image*pingImage=((AptMpGameSetup*)((char*)this+0x70))->rva0043E512(Rva005DB335Get(game->ping()));
- GadgetListBoxAddEntryImage(list,pingImage,row,6,20,20,true,-1);const int gameId=game->id;Rva00325388Send(list,gameId,row,3);
+ GadgetListBoxAddEntryImage(list,pingImage,row,6,20,20,true,-1);const int gameId=game->id;GadgetListBoxSetItemData(list,(void *)gameId,row,3);
  return row;
 }

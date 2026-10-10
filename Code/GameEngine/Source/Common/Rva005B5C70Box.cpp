@@ -8,7 +8,7 @@
 // params are unused padding. Targets from retail REL32/DIR32.
 class GameWindow;
 void __cdecl GadgetListBoxGetSelected(GameWindow *w, int *sel);
-int __cdecl Rva003253BEGet(GameWindow *w, int a, int b);
+void *GadgetListBoxGetItemData(GameWindow *listbox, int row, int column);
 class Rva00222A8BTarget;
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 extern const char g_rva005B5C70Str[];
@@ -49,7 +49,7 @@ void Rva005B5C70Box::Run(int a)
 {
 	int r;
 	GadgetListBoxGetSelected(m_8, &r);
-	Rva005B5C70Entry *e = (Rva005B5C70Entry *)Rva003253BEGet(m_8, r, 0);
+	Rva005B5C70Entry *e = (Rva005B5C70Entry *)GadgetListBoxGetItemData(m_8, r, 0);
 	if (e == 0)
 		return;
 	Rva005B5C70Sub *s = (Rva005B5C70Sub *)m_4;

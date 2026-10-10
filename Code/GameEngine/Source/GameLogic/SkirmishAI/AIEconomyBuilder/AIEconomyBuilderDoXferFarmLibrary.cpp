@@ -1,6 +1,18 @@
 // cl: /O1 /G7 /EHsc /MD /arch:SSE /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // The explicit-specialization declaration of the push_back/other template was dropped so cl sees the STLport body (frame/temps share as in retail).
+// vector<>::_M_insert_overflow inlines max(size(), n). Retail never calls
+// _STL::max<unsigned> (0x00013740 has no call site), but cl 13.10 still emits
+// the template's COMDAT, and under /O1 /G7 it is not retail's blend body. A
+// file-static unsigned overload takes the call instead: no external max copy
+// (the SubsystemInterface.cpp recipe).
+#include <stl/_algobase.h>
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
 #include <vector>
 #include <new>
 class Xfer;

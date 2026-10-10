@@ -5,6 +5,18 @@
 // 2D06CA name lookup on TheThingFactory. The following HordeContain formation
 // builder calls this with its definition4 when vector20C is nonempty. Target
 // offsets and ownership come from retail; no original member name is asserted.
+// vector<>::_M_insert_overflow inlines max(size(), n). Retail never calls
+// _STL::max<unsigned> (0x00013740 has no call site), but cl 13.10 still emits
+// the template's COMDAT, and under /O1 /G7 it is not retail's blend body. A
+// file-static unsigned overload takes the call instead: no external max copy
+// (the SubsystemInterface.cpp recipe).
+#include <stl/_algobase.h>
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
 #include <vector>
 #include "ascii_string.h"
 class ThingTemplate;

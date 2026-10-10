@@ -112,13 +112,13 @@ void NAT::processManglerResponse(unsigned short mangledPort){
 // Target WB14E58F0 and retail5A6DAC..5A6E7A prove the32B allocator,
 // UDP unsigned-IP Bind ABI, localIP1C, one-second retry and slot handoff.
 // Checking result first retains the native EBX result across the timeout.
-class Rva005948F5 {public:char bytes[32];Rva005948F5();};class UDPDrain{public:~UDPDrain();};class UDP{public:int Bind(unsigned,unsigned short);};
+class UDP{public:char bytes[32];UDP();~UDP();int Bind(unsigned,unsigned short);};
 bool NAT::SetUDPSocketForSlot(unsigned short port,unsigned short slot,void* address){
  Rva005A6D47 *base=(Rva005A6D47*)this;NatConnectionView*v=(NatConnectionView*)this;
  if(slot>=8)return false;if(!base->transport)return false;
- Rva005948F5 *socket=new Rva005948F5;if(!socket)return false;
+ UDP *socket=new UDP;if(!socket)return false;
  int result=-1;unsigned start=timeGetTime();while(result!=0){if(timeGetTime()-start>=1000)break;result=((UDP*)socket)->Bind(*(unsigned*)((char*)v+0x1c),port);}
- if(result){((UDPDrain*)socket)->~UDPDrain();operator delete(socket);return false;}
+ if(result){socket->~UDP();operator delete(socket);return false;}
  base->transport->RemoveSocketForSlot(slot);base->transport->setSlotSocket(socket,slot,(int*)address);return true;
 }
 struct BfmeOpaqueOwnedRecord492 {

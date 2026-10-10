@@ -59,13 +59,13 @@ private:
 	char m_data[0x18];
 };
 
-class Rva0039D40F;
+class Team;
 
 class TeamPrototype
 {
 public:
 	const AsciiString &getName() const { return m_name; }
-	void prependTo_TeamInstanceList(Rva0039D40F *team);
+	void prependTo_TeamInstanceList(Team *team);
 private:
 	char m_00[0x10];
 	AsciiString m_name;				// +0x10
@@ -165,7 +165,7 @@ Team::Team(TeamPrototype *proto, int id) :
 
 	if (proto)
 	{
-		proto->prependTo_TeamInstanceList((Rva0039D40F *)this);
+		proto->prependTo_TeamInstanceList(this);
 		if (!proto->m_scriptOnAllClear.isEmpty() ||
 				!proto->m_scriptOnEnemySighted.isEmpty())
 		{

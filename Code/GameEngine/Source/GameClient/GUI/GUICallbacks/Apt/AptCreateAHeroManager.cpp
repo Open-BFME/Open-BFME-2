@@ -25,7 +25,7 @@ void GadgetListBoxReset(GameWindow *);
 void GadgetListBoxSetSelected(GameWindow *,int);
 int GadgetListBoxAddEntryImage(GameWindow *,const Image *,int,int,int,int,bool,int);
 int GadgetListBoxAddEntryText(GameWindow *,UnicodeString,int,int,int,bool);
-void Rva00325388Send(GameWindow *,int,int,int);
+void GadgetListBoxSetItemData(GameWindow *listbox, void *data, int row, int column);
 class Rva005B61B3 {public:int key0,key1;bool rva005B61B3(void *,void *);};
 struct Rva005B61B3Less: Rva005B61B3 {Rva005B61B3Less(int a,int b){key0=a;key1=b;}};
 namespace _STL {template<class I,class C> void sort(I,I,C);}
@@ -61,7 +61,7 @@ void AptCreateAHero::Manager::rva005B6755() {
    unsigned minor=hero->minor,major=hero->major;
    UnicodeString label=TheGameText->fetchLabel(TheCreateAHeroManager->GetSubClassNameTag(major,minor));
    GadgetListBoxAddEntryText(heroWindow,label,-1,i,2,true);
-   Rva00325388Send(heroWindow,(int)hero,i,0);
+   GadgetListBoxSetItemData(heroWindow,(void *)hero,i,0);
    if(selectedName->compare(hero->name)==0)selectedIndex=i;
   }
   GadgetListBoxSetSelected(heroWindow,selectedIndex);

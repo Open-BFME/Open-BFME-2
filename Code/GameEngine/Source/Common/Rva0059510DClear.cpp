@@ -1,14 +1,14 @@
 // cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD
-// ?rva0059510D@Rva0059510D@@QAEXXZ @0x0059510D 54B: clear 8 GameNetwork drain slots at this+0x14. Evidence: rowed UDPDrain dtor 0x00594918 plus operator delete 0x0002FD60; caller 0x0059515C.
-class UDPDrain
+// ?rva0059510D@Rva0059510D@@QAEXXZ @0x0059510D 54B: clear 8 GameNetwork drain slots at this+0x14. Evidence: rowed UDP dtor 0x00594918 plus operator delete 0x0002FD60; caller 0x0059515C.
+class UDP
 {
 public:
-	~UDPDrain();
+	~UDP();
 };
 
 struct Rva0059510DEntry
 {
-	UDPDrain *ptr;
+	UDP *ptr;
 	unsigned short flag;
 	char _pad[2];
 };
@@ -29,7 +29,7 @@ void Rva0059510D::rva0059510D()
 	do {
 		if (e->flag != 0)
 			e->flag = 0;
-		UDPDrain *p = e->ptr;
+		UDP *p = e->ptr;
 		if (p != 0) {
 			delete p;
 			e->ptr = 0;

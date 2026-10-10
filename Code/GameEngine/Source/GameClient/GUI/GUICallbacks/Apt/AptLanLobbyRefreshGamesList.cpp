@@ -36,11 +36,11 @@ class GameWindow
 
 void GadgetListBoxReset(GameWindow *window);
 void GadgetListBoxGetSelected(GameWindow *listbox, int *selected);
-int Rva003253BEGet(GameWindow *listbox, int row, int column);
+void *GadgetListBoxGetItemData(GameWindow *listbox, int row, int column);
 void GadgetListBoxSetColumnWidths(GameWindow *listbox, int count, int *widths);
 int GadgetListBoxAddEntryImage(GameWindow *listbox, const Image *image, int row, int column, int width, int height, bool overwrite, int color);
 int GadgetListBoxAddEntryText(GameWindow *listbox, UnicodeString text, int color, int row, int column, bool overwrite);
-void __cdecl Rva00325388Send(GameWindow *listbox, int data, int row, int column);
+void GadgetListBoxSetItemData(GameWindow *listbox, void *data, int row, int column);
 void GadgetListBoxSetSelected(GameWindow *listbox, int index);
 
 // Rowed 0x003140AB: is the given window this window or one of its children.
@@ -167,7 +167,7 @@ void AptLanLobby::rva004457BC()
 	int selectedGame = 0;
 	GadgetListBoxGetSelected(m_customGamesList, &selected);
 	if (selected != -1)
-		selectedGame = Rva003253BEGet(m_customGamesList, selected, 3);
+		selectedGame = (int)GadgetListBoxGetItemData(m_customGamesList, selected, 3);
 	GadgetListBoxReset(m_customGamesList);
 
 	int widths[6];
@@ -230,10 +230,10 @@ void AptLanLobby::rva004457BC()
 		GadgetListBoxAddEntryText(m_customGamesList, name, color, row, 3, true);
 		GadgetListBoxAddEntryText(m_customGamesList, mapName, color, row, 4, true);
 		GadgetListBoxAddEntryText(m_customGamesList, players, color, row, 5, true);
-		Rva00325388Send(m_customGamesList, (int)game, row, 3);
-		Rva00325388Send(m_customGamesList, icon0 != 0, row, 0);
-		Rva00325388Send(m_customGamesList, icon1 != 0, row, 1);
-		Rva00325388Send(m_customGamesList, icon2 != 0, row, 2);
+		GadgetListBoxSetItemData(m_customGamesList, (void *)game, row, 3);
+		GadgetListBoxSetItemData(m_customGamesList, (void *)(icon0 != 0), row, 0);
+		GadgetListBoxSetItemData(m_customGamesList, (void *)(icon1 != 0), row, 1);
+		GadgetListBoxSetItemData(m_customGamesList, (void *)(icon2 != 0), row, 2);
 		if (selectedGame == (int)game)
 			reselect = row;
 	}

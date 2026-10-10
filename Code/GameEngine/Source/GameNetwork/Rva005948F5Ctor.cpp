@@ -1,9 +1,9 @@
 // cl: /DNDEBUG /MD /EHsc
-// ??0Rva005948F5@@QAE@XZ @0x005948F5 (35B): default ctor for 0x20-byte heap object; caller 0x00595089 news 0x20 then calls; writes +0x00=-1 +0x0C=2 +0x0E=0 +0x10=0 +0x1C=10000 +0x04=0 +0x08=0; no vptr; neighbours ConstZeroGetters and UDPDrainDestructor.
-class Rva005948F5
+// ??0UDP@@QAE@XZ @0x005948F5 (35B): UDP default ctor for 0x20-byte heap object; caller 0x00595089 news 0x20 then calls; writes +0x00=-1 +0x0C=2 +0x0E=0 +0x10=0 +0x1C=10000 +0x04=0 +0x08=0; no vptr; neighbours ConstZeroGetters and UDPDrainDestructor.
+class UDP
 {
 public:
-	Rva005948F5();
+	UDP();
 private:
 	int m_00;
 	int m_04;
@@ -16,7 +16,7 @@ private:
 	int m_18;
 	int m_1C;
 };
-Rva005948F5::Rva005948F5()
+UDP::UDP()
 {
 	m_00 = -1;
 	m_0C = 2;

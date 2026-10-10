@@ -17011,7 +17011,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x009B95F4,168,.data,global,?BfmeLODLevelNames@@3PAPBDA,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_setStaticGameLOD.cpp,provisional,?BfmeLODLevelNames@@3PAPBDA;?g_00DB95F4@@3PAPBDA;?rva00202B6CNames@@3PAPBDA,2,6
 0x009B969C,20,.data,global,?bfmeStaticLODNames@@3PAPBDA,Code/GameEngine/Source/Common/GameLODManagerGetStaticGameLODIndex.cpp,provisional,?bfmeStaticLODNames@@3PAPBDA;_DynamicGameLODNames@Code/GameEngine/Source/Common/GameLOD.cpp,2,3
 0x009B96B0,8,.data,global,?bfmeTabEYC@@3PAPBDA,Code/GameEngine/Source/Common/GameLODManagerGetAudioLODIndex.cpp,provisional,?bfmeTabEYC@@3PAPBDA;?g_00DB96B0@@3PAPBDA,1,2
-0x009B96B8,136,.data,global,?CPUNames@@3PAPBDA,,unowned,?CPUNames@@3PAPBDA;_CPUNames@Code/GameEngine/Source/Common/GameLOD.cpp,1,4
+0x009B96B8,136,.data,global,?CPUNames@@3PAPBDA,Code/GameEngine/Source/Common/GameLOD.cpp,owned,,1,4
 0x009B9740,12,.data,global,?theReallyLowMHzBlockParse@@3UBlockParse@@A,,unowned,,0,2
 0x009B974C,12,.data,global,?theAudioLowMHzBlockParse@@3UBlockParse@@A,,unowned,,0,2
 0x009B9758,12,.data,global,?theBenchProfileBlockParse@@3UBlockParse@@A,,unowned,,0,2
@@ -19224,7 +19224,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A01F04,4,.data,global,?key_ToggleHiddenSpecialAbilityUpdate@?O@??rva00373F59@StealthUpdate@@QAE_NPBUCoord3D@@0@Z@4W4NameKeyType@@A,Code/GameEngine/Source/GameLogic/Object/Update/StealthUpdateLogic.cpp,owned,,1,2
 0x00A01F08,4,.data,global,?g_Va00E01F08@@3IA,Code/GameEngine/Source/Common/GlobalFlagClearers_E01Exx.cpp,provisional,?$S2@?O@??rva00373F59@StealthUpdate@@QAE_NPBUCoord3D@@0@Z@4IA@Code/GameEngine/Source/GameLogic/Object/Update/StealthUpdateLogic.cpp;?g_Va00E01F08@@3IA,2,4
 0x00A01F0C,4,.data,global,_s_rva007AEED9,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
-0x00A01F10,4,.data,global,?TheAerialPathfinder@@3PAVAerialPathfinder@@A,,unowned,?TheAerialPathfinder@@3PAVAerialPathfinder@@A;?g_00E01F10@@3PAVRva00375AF7HeightQuery@@A;?g_00E01F10@@3PAVRva0037609C@@A,0,7
+0x00A01F10,4,.data,global,?TheAerialPathfinder@@3PAVAerialPathfinder@@A,Code/GameEngine/Source/GameLogic/AI/AerialPathfinder.cpp,provisional,?TheAerialPathfinder@@3PAVAerialPathfinder@@A;?g_00E01F10@@3PAVRva00375AF7HeightQuery@@A;?g_00E01F10@@3PAVRva0037609C@@A,1,11
 0x00A01F14,4,.data,global,_s_rva007AEF03,Code/GameEngine/Source/Common/Rva007AD295ZeroInits.cpp,owned,,1,1
 0x00A01F18,4,.data,global,_s_rva007AEF15,Code/GameEngine/Source/Common/Rva007AD295ZeroInits.cpp,owned,,1,1
 0x00A01F1C,4,.data,global,_s_rva007AEF27,Code/GameEngine/Source/Common/Rva007AD295ZeroInits.cpp,owned,,1,1

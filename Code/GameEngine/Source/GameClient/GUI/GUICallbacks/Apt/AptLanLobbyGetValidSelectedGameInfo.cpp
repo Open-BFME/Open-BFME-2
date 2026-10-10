@@ -7,7 +7,7 @@
 // (0x00449969) calls. The int return is this unit's spelling of the
 // LANGameInfo pointer the callers cast it back to.
 // __thiscall int method no args reading this+0x6a8 as GameWindow*.
-// Calls rowed GadgetListBoxGetSelected then rowed Rva003253BEGet then
+// Calls rowed GadgetListBoxGetSelected then rowed GadgetListBoxGetItemData then
 // rowed LANAPI::ValidateGameInfo via global 0x00DFE958. Returns game or 0.
 // Evidence: chain lane calls 0x003253BE; callers 0x00444704 0x0044489F.
 
@@ -18,7 +18,7 @@ public:
 };
 
 void GadgetListBoxGetSelected(GameWindow *listbox, int *selectList);
-int Rva003253BEGet(GameWindow *window, int a, int b);
+void *GadgetListBoxGetItemData(GameWindow *listbox, int row, int column);
 
 class LANGameInfo
 {
@@ -56,7 +56,7 @@ int AptLanLobby::GetValidSelectedGameInfo()
 		return 0;
 	sel = -1;
 	GadgetListBoxGetSelected(m_listboxGames, &sel);
-	int game = Rva003253BEGet(m_listboxGames, sel, 3);
+	int game = (int)GadgetListBoxGetItemData(m_listboxGames, sel, 3);
 	LANGameInfo *info = (LANGameInfo *)game;
 	if (!TheLAN->ValidateGameInfo(info))
 		info = 0;

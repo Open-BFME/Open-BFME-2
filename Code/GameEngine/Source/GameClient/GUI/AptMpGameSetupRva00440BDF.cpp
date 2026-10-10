@@ -213,7 +213,7 @@ UnicodeString GadgetComboBoxGetText(GameWindow *comboBox);
 int GadgetListBoxGetNumEntries(GameWindow *listBox);
 void GadgetListBoxSetSelected(GameWindow *listBox, int index);
 void GadgetListBoxSetSelected(GameWindow *listBox, const int *selectList, int selectCount);
-int Rva003253BEGet(GameWindow *listBox, int row, int column);
+void *GadgetListBoxGetItemData(GameWindow *listbox, int row, int column);
 void GadgetComboBoxSetSelectedPos(GameWindow *comboBox, int index, bool silent);
 
 class MultiplayerColorDefinition

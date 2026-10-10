@@ -107,7 +107,7 @@ void GadgetListBoxSetColumnWidths(GameWindow *listbox, int numColumns, int *widt
 int GadgetListBoxAddEntryText(GameWindow *listbox, UnicodeString text, int color, int row, int column, bool overwrite);
 int GadgetListBoxAddEntryImage(GameWindow *listbox, const Image *image, int row, int column, int height, int width, bool overwrite, int color);
 // GadgetListBoxSetItemData(listbox, data, row, column).
-void Rva00325388Send(GameWindow *listbox, int data, int row, int column);
+void GadgetListBoxSetItemData(GameWindow *listbox, void *data, int row, int column);
 void GadgetListBoxSetTopVisibleEntry(GameWindow *listbox, int top);
 
 extern int g_00DD16C4;
@@ -618,7 +618,7 @@ bool AptScoreScreen::PopulatePersistentUnitsListbox()
 		GadgetListBoxAddEntryText(m_units, text, color, row, 5, true);
 		text.translate(((Rva0051D009 *)this)->rva0051D009(unit->m_9C));
 		GadgetListBoxAddEntryText(m_units, text, color, row, 6, true);
-		Rva00325388Send(m_units, (int)unit, row, 0);
+		GadgetListBoxSetItemData(m_units, (void *)unit, row, 0);
 	}
 	GadgetListBoxSetTopVisibleEntry(m_units, 0);
 	return true;
