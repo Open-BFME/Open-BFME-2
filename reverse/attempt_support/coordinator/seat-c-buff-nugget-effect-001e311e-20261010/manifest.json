@@ -1,0 +1,28 @@
+{
+  "id": "seat-c-buff-nugget-effect-001e311e-20261010",
+  "seat": "C",
+  "base_commit": "91519e490fda7d55539144b184100732ad86323d",
+  "paths": [
+    "Code/GameEngine/Source/GameClient/BuffNuggetFXNugget.cpp"
+  ],
+  "recoveries": [
+    {
+      "name": "?doFXObj@BuffNuggetFXNugget@@UBEXPBVObject@@0@Z",
+      "rva": "0x001E311E",
+      "size": 285,
+      "source": "Code/GameEngine/Source/GameClient/BuffNuggetFXNugget.cpp",
+      "notes": "Native1E311E..1E323B complete285B RET8; WBAD4730 BuffNugget doFXObj; vtable RVA7DD9B4 slot2; existing constructor/FieldParse name and layout retained; target no-buff/kind selection plus complex/simple paths; existing Object/Drawable/factory providers; no new pins; full285 bytes exact",
+      "replace_rva": null
+    }
+  ],
+  "new_retail_bytes": 285,
+  "proof_command": "python tools/explain_mismatch.py \"?doFXObj@BuffNuggetFXNugget@@UBEXPBVObject@@0@Z\" --rva 0x001E311E --size 285 --source Code/GameEngine/Source/GameClient/BuffNuggetFXNugget.cpp",
+  "proof_log": "scoped-proof.txt",
+  "claim_owner": "codex-104a-01a12257",
+  "worker_root": "C:\\Users\\franz\\.codex\\worktrees\\recovery-preserved\\openbfme2",
+  "dependencies": [],
+  "claims": [
+    "0x001E311E",
+    "file:Code/GameEngine/Source/GameClient/BuffNuggetFXNugget.cpp"
+  ]
+}
