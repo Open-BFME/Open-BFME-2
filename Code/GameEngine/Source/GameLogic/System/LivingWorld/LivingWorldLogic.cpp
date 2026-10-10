@@ -71,6 +71,7 @@ class AsciiString;
 class Rva002BA8F1Logic
 {
 public:
+	Rva002E2903Player *rva002B52A8(Int index);
 	Rva002E2903Player *find(Int playerID, UnsignedInt *index);	// 0x002B51F8
 	Rva002E2903Player *find(const AsciiString &name, UnsignedInt *index);	// 0x002B6AEC
 	struct Rva002B488EResult *rva002B488E(Int armyID);	// 0x002B488E, WB LivingWorldLogic::findArmy
@@ -509,6 +510,7 @@ struct LivingWorldCollectorPlayerView
 };
 class Rva00072FE6 { public: void rva00072FE6(); };
 
+struct TurnPhasePairView {void *begin,*end;bool empty()const{return begin==end;}};
 class LivingWorldLogic : public Rva002BA82BBase00, public Rva002BA82BObserver10, public Rva002BA82BRegionObserver
 {
 public:
@@ -516,6 +518,7 @@ public:
 
 	// 0x002B6DC4: the upgrades the region's armory offers the entry.
 	const Rva004E0632 *GetArmoryToUpgradeTroop(ArmySummaryEntry *entry, LivingWorldArmy *army, Rva003F287F *region);
+	void UpdateTurnPhase();
 	void ValidatePlayers();
 	void rva002B693F(void *keys);
 	bool rva002B4B83();
@@ -592,14 +595,14 @@ private:
 	UnsignedInt m_field104;				// +0x104
 	Bool m_field108;				// +0x108
 	Bool m_field109;				// +0x109
-	unsigned char m_pad10A[0x10c - 0x10a];
+	Bool m_native10A; unsigned char m_pad10B;
 	_STL::vector<void *> m_field10C;		// +0x10C
 	_STL::vector<void *> m_armyDestroyList;		// +0x118
 	unsigned char m_pad124[0x130 - 0x124];
 	_STL::map<Int, class RegionAwardDispute *> m_regionAwardDisputes;	// +0x130
 	_STL::multimap<Int, Int> m_spawnedArmies;	// +0x13C, generic army id -> player id
 	_STL::vector<DelayedRegionVictory> m_delayedRegionVictories;	// +0x148 (WB member name)
-	unsigned char m_pad154[0x178 - 0x154];
+	TurnPhasePairView m_pending154; unsigned char m_pad15C[0x178 - 0x15c];
 	Rva002B90B3 m_autoBattleResolver;		// +0x178 (WB member name)
 };
 
@@ -2310,4 +2313,91 @@ void LivingWorldLogic::spawnCity(Rva004E3184 *city)
  LivingWorldArmy *army=::new LivingWorldArmy(++m_field9C,city,0);
  reinterpret_cast<Rva00318D14ByteSlot *>(army)->set(0);
  reinterpret_cast<_STL::vector<LivingWorldArmy *> *>(m_pad124)->push_back(army);
+}
+
+class Rva002B2405 {public:int rva002B2405();};
+class Rva002B4650 {public:int rva002B4650();};
+class Rva0020E72A {public:bool rva0020E72A(void *);};
+class Rva002B4C09 {public:bool rva002B3621();};
+class Rva002B5F8A {public:bool rva002B5F8A();};
+class Rva004FBB25Sub {public:void rva004FBB25(int);};
+class LivingWorldAI {public:void rva004FB7B2();};
+struct TurnPhasePlayerView {
+ char unknown00[0x44]; int kind44;
+ char unknown48[0x2c4-0x48]; int word2C4;
+ char unknown2C8[0x3c4-0x2c8];bool flag3C4;
+};
+struct TurnPhaseRecordView {char unknown00[0x54];int id54;};
+struct TurnPhaseCampaignView {char unknown00[0x4e];bool flag4E;};
+struct TurnPhaseCampaignManagerView {
+ char unknown00[0x10];int index10;TurnPhaseCampaignView **campaigns14;
+};
+struct TurnPhaseGameLogicView {char unknown00[0x11d];bool flag11D;};
+// Native 002BD6B0..002BD90D is a complete605B RET0 body, with a
+// tail call to AdvanceTurnPhase. WB D8F050 names UpdateTurnPhase and
+// independently establishes its player/phase/AI traversal (assert7411..7519).
+// The native extra GameLogic byte11D cancellation and the observed offsets
+// are target facts; opaque prefix views do not assert original field names
+// or complete player, campaign, manager or GameLogic class layouts.
+// Existing unrowed AI phase updater4FBB25 keeps its old address-derived pin;
+// the full-EAX order predicate was repaired separately, with one owner.
+void LivingWorldLogic::UpdateTurnPhase(){
+ bool repeat;
+ do {
+  int count=m_players.size();
+  for(int i=0;i<count;++i){
+   TurnPhasePlayerView *p=(TurnPhasePlayerView *)((Rva002BA8F1Logic *)this)->rva002B52A8(i);
+   if(p->kind44==1 && !((Rva002B2405 *)p)->rva002B2405() && !p->flag3C4){
+    ((Rva004FBB25Sub *)((char *)p+0x4c))->rva004FBB25(m_turnPhase);break;
+   }
+  }
+  repeat=false;
+  if(m_native10A)break;
+  TurnPhaseCampaignManagerView *mgr=(TurnPhaseCampaignManagerView *)TheCampaignManager;
+  bool advance=mgr->campaigns14[mgr->index10]->flag4E;
+  if((unsigned char)((Rva002B4650 *)this)->rva002B4650())advance=true;
+  switch(m_turnPhase){
+   case 1:case 5:
+    if(!((Rva002B4B3D *)this)->rva002B4B3D() && !rva002B4B83())advance=true;
+    break;
+   case 2:
+    if(!m_field108 && !((Rva0020E72A *)m_field0B0)->rva0020E72A(m_localPlayer) &&
+       !m_field109 && !rva002B5CBB((Rva002B4C35Player *)m_localPlayer))advance=true;
+    break;
+   case 3:if(m_field104+1<=m_field100)advance=true;break;
+   case 4:{
+    bool unfinished=false;
+    for(unsigned int i=0;i<m_field10C.size();++i){
+     TurnPhaseRecordView *rec=(TurnPhaseRecordView *)m_field10C[i];
+     int id=rec->id54;
+     TurnPhasePlayerView *p=(TurnPhasePlayerView *)((Rva002BA8F1Logic *)this)->find(id,0);
+     if(p->kind44==0 || !((Rva002B2405 *)p)->rva002B2405()){unfinished=true;break;}
+    }
+    if(!unfinished)advance=true;
+    break;
+   }
+   case 6:repeat=EndTurn();break;
+  }
+  if(!m_pending154.empty() || ((Rva002B4C09 *)this)->rva002B3621())advance=false;
+  if(((TurnPhaseGameLogicView *)TheGameLogic)->flag11D)advance=false;
+  if(advance)((Rva002B5F8A *)this)->rva002B5F8A();
+ }while(repeat);
+ unsigned int i=0;
+ if(i<m_players.size()){
+  LivingWorldPlayer **cursor=&m_players[0];
+  do {
+   TurnPhasePlayerView *p=(TurnPhasePlayerView *)*cursor;
+   if(!p->flag3C4 && !((Rva002B2405 *)p)->rva002B2405())return;
+   ++i;++cursor;
+  }while(i<m_players.size());
+ }
+ for(unsigned int i=0;i<m_players.size();++i){
+  TurnPhasePlayerView *p=(TurnPhasePlayerView *)m_players[i];
+  if(p && !p->flag3C4){
+   if(p->kind44==1)((LivingWorldAI *)((char *)p+0x4c))->rva004FB7B2();
+   p->word2C4=0;
+  }
+ }
+ m_native10A=false;
+ AdvanceTurnPhase();
 }
