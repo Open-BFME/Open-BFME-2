@@ -190,8 +190,17 @@ bool LivingWorldScenario::TeamDefeatCondition::isTeamDefeated(int team)
     return true;
 }
 
+struct FieldParse;
+class INI { public: void initFromINI(void *what, const FieldParse *parseTable); };
+#include "../../../../../../reference/shims/iniexception/Common/INIException.h"
+// The scenario object ParseINI allocates (0xB0 bytes); its constructor keeps
+// the address-derived name of the banked 0x004FD0DA attempt.
+class Rva004FD0DA { public: Rva004FD0DA(); private: char unknown00[0xB0]; };
+extern const FieldParse g_00C63870[];
+
 class LivingWorldScenario::Scenario {
 public:
+    static void ParseINI(INI *ini, ScenarioOwnerView *owner);
     void getDefaultStartSpots(const AsciiString &campaignName, _STL::vector<Rva004FD8B8RegionID> &out);
     void addTeamVictoryCondition(const TeamVictoryCondition *condition);
 private:
@@ -237,4 +246,17 @@ void LivingWorldScenario::Scenario::addTeamVictoryCondition(const TeamVictoryCon
         teamVictoryMap.insert(_STL::multimap<int, int>::value_type(team, (int)condition));
     }
     teamVictories.push_back(condition);
+}
+
+// Native 4FD94E..4FD9CE (128 bytes, cdecl RET), contiguous after
+// getDefaultStartSpots. Its own INIException text names it Scenario::ParseINI:
+// both arguments are required, a fresh 0xB0-byte scenario is filled from the
+// FieldParse table at VA 0x00C63870 and handed to replaceScenario above.
+void LivingWorldScenario::Scenario::ParseINI(INI *ini, ScenarioOwnerView *owner)
+{
+    if (!ini || !owner)
+        throw INIException(3, "Invalid data in Scenario::ParseINI");
+    Rva004FD0DA *scenario = new Rva004FD0DA;
+    ini->initFromINI(scenario, g_00C63870);
+    owner->replaceScenario(reinterpret_cast<ScenarioOwnedObjectView *>(scenario));
 }
