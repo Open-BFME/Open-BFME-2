@@ -74374,3 +74374,4 @@ _LoopFilter,,0x001C1120,1583,Code/Libraries/Source/VP6/LoopFilter.cpp,matched,VP
 ?rva005AE5EE@Rva005AE5EE@@QAEXPBURva005AE5EEQuad@@@Z,,0x005AE5EE,29,Code/GameEngine/Source/Common/Rva005AE5EEQuadMethod.cpp,matched,exact banked stash landed via add_match; honest address-derived identity
 ?placeObjectAtPosition@@YAPAVObject@@HVAsciiString@@PBUCoord3D@@PAVPlayer@@PBX@Z,,0x00240EEF,347,Code/GameEngine/Source/Common/placeObjectAtPosition240EEF.cpp,matched,exact banked stash landed via add_match; honest address-derived identity
 ??0CreateAHeroManager@@QAE@XZ,,0x0021FE49,421,Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp,matched,exact banked stash landed via add_match; honest address-derived identity
+?rva000BE245@Rva000C3886@@QAEXPAXMPAURva000C3886Obj@@0@Z,,0x000BE245,1328,Code/GameEngine/Source/Common/Rva000BE245ValidateCachedBones.cpp,matched,exact banked stash landed via add_match; honest address-derived identity
