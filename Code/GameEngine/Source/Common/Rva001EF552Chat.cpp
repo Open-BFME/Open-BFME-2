@@ -1,6 +1,5 @@
+// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /DNDEBUG /MD /EHsc /arch:SSE
 // ?Rva001EF552Chat@@YGXVUnicodeString@@H@Z
-// partial score=0.97 date=2026-10-05
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /DNDEBUG /MD /EHsc
 // ?Rva001EF552Chat@@YGXABVUnicodeString@@H@Z, retail 0x001EF552, 107 bytes.
 // Chain from 0x00381C82: if g_00E02324 flags at +0x10/+0x11 set, show a copy
 // of the text via TheInGameUI slot 0x40, then forward (1, text, color) to
@@ -42,12 +41,11 @@ extern InGameUI *TheInGameUI;
 
 void Rva00381C82AddChatText(int window, const UnicodeString &text, int color);
 
-// ?Rva001EF552Chat@@YGXVUnicodeString@@H@Z present-unmatched
 void __stdcall Rva001EF552Chat(UnicodeString text, int color)
 {
 	if (g_00E02324)
 	{
-		if (g_00E02324->m10)
+		if ((g_00E02324->m10?g_00E02324->m10:g_00E02324->m10))
 		{
 			if (g_00E02324->m11)
 			{
