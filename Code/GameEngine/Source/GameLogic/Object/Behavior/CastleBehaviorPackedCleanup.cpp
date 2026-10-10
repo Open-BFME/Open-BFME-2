@@ -14,7 +14,7 @@ struct TemplateNameView {char prefix[0x64];AsciiString name;};
 class Team;class Player {public:char prefix[0x4C];AsciiString name;char pad50[0x29C];Team*defaultTeam;};
 enum ObjectStatusTypes {STATUS3=3,STATUS5=5,STATUS83=83};
 struct NativeModelFlags {unsigned words[20];unsigned test(int bit)const{return words[bit>>5]&(1U<<(bit&31));}void set(int bit){words[bit>>5]|=1U<<(bit&31);}void clear(int bit){words[bit>>5]&=~(1U<<(bit&31));}};
-class Object {public:Drawable*getDrawable()const;Player*getControllingPlayer()const;void rva0028AE6D();void rva00298AE4(Team*);void rva0028DCC4();void rva0028D253();void rva0028DA28();void setStatus(ObjectStatusTypes,bool);char prefix[4];TemplateNameView*tmplate;char pad08[0x6C];int id;char pad78[0x94];NativeModelFlags flags;};
+class Object {public:Drawable*getDrawable()const;void rva0028BAC0();Player*getControllingPlayer()const;void rva0028AE6D();void rva00298AE4(Team*);void rva0028DCC4();void rva0028D253();void rva0028DA28();void setStatus(ObjectStatusTypes,bool);char prefix[4];TemplateNameView*tmplate;char pad08[0x6C];int id;char pad78[0x94];NativeModelFlags flags;};
 class Rva003962E7 {public:void rva00396F2C();};
 class Rva0039A270MoveOwner {public:void rva0039A270Move(Object*);};
 class Rva00395CEB {public:void rva0039611E();char storage[8];};
@@ -30,7 +30,6 @@ class CastleBehavior {public:Object*getObject()const{return object;}void rva0039
  _STL::vector<ObjectID>owned50,owned5C,owned68,owned74;char pad80[0x20];Rva00395CEB mapA0;
 };
 class Rva00397E50{public:void rva00397E50();};
-class Rva0028BAC0{public:void rva0028BAC0();};
 enum NameKeyType{NAMEKEY_INVALID=0};
 class NameKeyGenerator{public:NameKeyType nameToKey(const char*);};
 extern NameKeyGenerator*TheNameKeyGenerator;
@@ -54,7 +53,7 @@ void CastleBehavior::rva0039A7D6(){
  *(ObjectID*)((char*)this+0x38)=INVALID_OBJECT_ID;
  Drawable*draw=self->getDrawable();if(draw){AsciiString empty("");draw->rva00272895(&empty);}
  Player*civilian=ThePlayerList->findPlayerWithNameKey(TheNameKeyGenerator->nameToKey("PlyrCivilian"));
- if(civilian &&civilian->defaultTeam){self->rva00298AE4(civilian->defaultTeam);((Rva0028BAC0*)self)->rva0028BAC0();self->rva0028DCC4();self->rva0028D253();}
+ if(civilian &&civilian->defaultTeam){self->rva00298AE4(civilian->defaultTeam);self->rva0028BAC0();self->rva0028DCC4();self->rva0028D253();}
  ((Rva0039A270MoveOwner*)this)->rva0039A270Move(self);
  self->rva0028DA28();TheAI->pathfinder->AddObjectToPathfindMap(self);
  getObject()->getDrawable()->rva00274176(false);

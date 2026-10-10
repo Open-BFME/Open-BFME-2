@@ -31,6 +31,7 @@ public:
 class Object : public Thing
 {
 public:
+	void rva0028BAC0(); // 0x0028BAC0
 	void leaveGroup();
 	void setStatus(ObjectStatusTypes status, bool set);
 };
@@ -66,12 +67,6 @@ public:
 	virtual void rva00451B92();
 };
 
-class Rva0028BAC0
-{
-public:
-	void rva0028BAC0();
-};
-
 template <typename T>
 class StringBase
 {
@@ -96,7 +91,7 @@ private:
 void Rva004ADC88::rva004AD9E0()
 {
 	Object *obj = m_obj;
-	((Rva0028BAC0 *)obj)->rva0028BAC0();
+	obj->rva0028BAC0();
 	obj->leaveGroup();
 	if (obj->getDrawable() != 0)
 		obj->getDrawable()->setDrawableHidden(true);

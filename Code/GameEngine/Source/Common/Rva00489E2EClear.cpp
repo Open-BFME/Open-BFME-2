@@ -17,15 +17,10 @@ enum ObjectID
 
 class Player;
 
-class Rva0028BAC0
-{
-public:
-	void rva0028BAC0();
-};
-
 class Object
 {
 public:
+	void rva0028BAC0(); // 0x0028BAC0
 	Player *getControllingPlayer() const;
 	void rva0028DCC4();
 	void setEffectivelyDead(bool dead);
@@ -78,7 +73,7 @@ void AIUpdateInterface::rva00489DE3()
 	{
 		found->setEffectivelyDead(true);
 		if (found->m_flag454 != 0)
-			((Rva0028BAC0 *)found)->rva0028BAC0();
+			found->rva0028BAC0();
 		found->m_flag4B0 = 1;
 	}
 }

@@ -137,15 +137,11 @@ extern InGameUI *TheInGameUI;
 class Object
 {
 public:
+	void rva0028BAC0(); // 0x0028BAC0
 	Player *getControllingPlayer() const;
 	void setStatus(ObjectStatusTypes bit, bool flag);
 	bool testStatus(ObjectStatusTypes bit) const;
 	void rva0028DCC4();
-};
-class Rva0028BAC0
-{
-public:
-	void rva0028BAC0();
 };
 struct ObjectLayout
 {
@@ -171,7 +167,7 @@ void Rva0047A040Base9E0::rva00588D99(Object *obj)
 	ObjectLayout *o2 = (ObjectLayout *)obj;
 	if (o2->m_454 != 0) {
 		if (!obj->testStatus((ObjectStatusTypes)0x5E))
-			((Rva0028BAC0 *)obj)->rva0028BAC0();
+			obj->rva0028BAC0();
 	}
 }
 

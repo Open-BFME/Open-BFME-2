@@ -290,6 +290,7 @@ public:
 class NetFrameCommandMsg : public NetCommandMsg
 {
 public:
+	NetFrameCommandMsg();	// 0x004CEEC3
 	UnsignedInt get1c() { return m_1c; }
 	UnsignedInt get20() { return m_20; }
 	UnsignedInt get24() { return m_24; }
@@ -587,18 +588,6 @@ public:
 	unsigned short m_1c;
 	unsigned char m_1e;
 	char m_pad1f;
-	unsigned int m_20;
-	unsigned int m_24;
-};
-
-class Rva004CEEC3
-{
-public:
-	Rva004CEEC3();
-private:
-	char m_pad[0x1C];
-public:
-	unsigned int m_1c;
 	unsigned int m_20;
 	unsigned int m_24;
 };
@@ -2661,10 +2650,10 @@ NetCommandMsg *NetPacket::rva0058DC1C(unsigned char *data, int &readOffset)
 // ?rva0058DCEB@NetPacket@@SAPAVNetCommandMsg@@PAEAAH@Z @0x0058DCEB 158B.
 // Static NetCommandMsg factory reading three 4-byte fields from data+offset.
 // Evidence: unlock lane plus sibling 0x0058E047 plus new-0x28 plus
-// Rva004CEEC3 ctor plus triple memcpy-4 direct store to +0x1c +0x20 +0x24.
+// NetFrameCommandMsg ctor 0x004CEEC3 plus triple memcpy-4 direct store to +0x1c +0x20 +0x24.
 NetCommandMsg *NetPacket::rva0058DCEB(unsigned char *data, int &readOffset)
 {
-	Rva004CEEC3 *msg = new Rva004CEEC3();
+	NetFrameCommandMsg *msg = new NetFrameCommandMsg();
 	unsigned int v0 = 0;
 	memcpy(&v0, data + readOffset, 4);
 	readOffset += 4;

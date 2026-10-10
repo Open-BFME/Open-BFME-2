@@ -41,12 +41,10 @@ public:
 	void *get() const;
 };
 
-class Rva002AA245MovzxByteChaseField
+class Player
 {
 public:
-	unsigned int get() const;
-	char m_lead[0x34];
-	void *m_ptr;
+	bool rva002AA245() const; // 0x002AA245
 };
 
 struct FlagBlock
@@ -106,7 +104,7 @@ Object *Rva005EEA20::rva005EEA20(Player *player, bool skipStealth, bool skipVict
 		if (!victim)
 			continue;
 		Player *ctrl = victim->getControllingPlayer();
-		if ((unsigned char)((Rva002AA245MovzxByteChaseField *)ctrl)->get() == 0)
+		if (!ctrl->rva002AA245())
 			continue;
 		if (!skipVictimCheck && (victim->m_pflags->m_flag80 & 0x80))
 			continue;

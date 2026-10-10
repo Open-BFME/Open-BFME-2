@@ -106,12 +106,7 @@ class Player
 
 public:
 	Int getPlayerIndex() const { return m_playerIndex; }
-};
-
-class Rva002AA245MovzxByteChaseField
-{
-public:
-	unsigned int get() const;
+	bool rva002AA245() const; // 0x002AA245
 };
 
 class Object
@@ -231,7 +226,7 @@ void ScoreKeeper::addObjectLost( const Object *o )
 				if (killer)
 				{
 					Player *player = killer->getControllingPlayer();
-					if ((unsigned char)((const Rva002AA245MovzxByteChaseField *)player)->get())
+					if (player->rva002AA245())
 					{
 						Int playerIndex = player ? player->getPlayerIndex() : -1;
 						if (playerIndex >= 0 && playerIndex != m_100)

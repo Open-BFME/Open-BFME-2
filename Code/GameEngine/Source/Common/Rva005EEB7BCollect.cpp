@@ -38,12 +38,10 @@ public:
 	void *get() const;
 };
 
-class Rva002AA245MovzxByteChaseField
+class Player
 {
 public:
-	unsigned int get() const;
-	char m_lead[0x34];
-	void *m_ptr;
+	bool rva002AA245() const; // 0x002AA245
 };
 
 struct Flag108
@@ -113,7 +111,7 @@ void AISpellBookBase::findUnitInCombat(_STL::vector<const ModuleData *, _STL::al
 		if (!victim)
 			continue;
 		Player *ctrl = victim->getControllingPlayer();
-		if ((unsigned char)((Rva002AA245MovzxByteChaseField *)ctrl)->get() == 0)
+		if (!ctrl->rva002AA245())
 			continue;
 		vec->push_back(*(const ModuleData **)&obj);
 	}

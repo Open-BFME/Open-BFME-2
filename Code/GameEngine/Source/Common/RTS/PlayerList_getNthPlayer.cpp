@@ -67,6 +67,7 @@ public:
 	PlayerMaskType getPlayerMask() const { return 1 << m_playerIndex; }
 	Relationship getRelationship(const Team *that) const;
 	Team *getDefaultTeam() const { return m_defaultTeam; }
+	bool rva002AA245() const; // 0x002AA245
 
 	unsigned char m_pad[0x54];
 	Int m_playerIndex; // +0x54
@@ -74,12 +75,6 @@ public:
 	PlayerSub60 m_60; // +0x60
 	unsigned char m_pad80[0x2EC - 0x80];
 	Team *m_defaultTeam; // +0x2EC
-};
-
-class Rva002AA245MovzxByteChaseField
-{
-public:
-	unsigned int get() const;
 };
 
 class Rva002AA22AByteField
@@ -166,7 +161,7 @@ int PlayerList::rva002A7C0B(bool flag)
 		Player *player = getNthPlayer(i);
 		if (!player)
 			continue;
-		if (!(unsigned char)((Rva002AA245MovzxByteChaseField *)player)->get())
+		if (!player->rva002AA245())
 			continue;
 		if (((Rva002AA22AByteField *)player)->get())
 			continue;

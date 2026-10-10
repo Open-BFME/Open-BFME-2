@@ -669,6 +669,7 @@ enum NameKeyType
 class Object : public Thing
 {
 public:
+	void rva0028BAC0(); // 0x0028BAC0
 	ObjectID getID() const { return m_id; }
 	void rva0028AFE7(Object *builder);
 	const GeometryInfo &getGeometryInfo() const { return m_geometryInfo; }
@@ -1345,12 +1346,6 @@ extern AiOrdersManager *TheAiOrdersManager;
 
 bool __cdecl rva004884B7(Object *obj);
 
-class Rva0028BAC0
-{
-public:
-	void rva0028BAC0();
-};
-
 // ZH's DozerActionMoveToActionPosState (rowed ctor 0x0048851B, vtable
 // 0x0084B448).
 class DozerActionMoveToActionPosState : public State
@@ -1377,7 +1372,7 @@ static __declspec(noinline) void Rva00489256Do(Object *obj)
 	Rva00346BC0 mask(0, 0x3c, 3, 0x4f, 0x63);
 	obj->rva0028CDEB(mask, true);
 	if (obj->get454())
-		reinterpret_cast<Rva0028BAC0 *>(obj)->rva0028BAC0();
+		obj->rva0028BAC0();
 }
 
 StateReturnType DozerActionMoveToActionPosState::update()

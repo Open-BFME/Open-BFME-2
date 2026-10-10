@@ -73,6 +73,7 @@ public:
 class Object : public Thing
 {
 public:
+	void rva0028BAC0(); // 0x0028BAC0
 	Bool testStatus(ObjectStatusTypes bit) const;
 	void leaveGroup();
  unsigned getID() const { return id; }
@@ -267,7 +268,6 @@ public:
  virtual bool allow(Object *);
  BfmeFixedStorage0004543D m_accept,m_reject;
 };
-class Rva0028BAC0Host {public:void rva0028BAC0();};
 class Drawable {public:void setDrawableHidden(bool hidden);};
 class Rva0026F0F0 {public:void *rva0026F0F0(const void *);};
 class UpgradeCenter;extern UpgradeCenter *TheUpgradeCenter;
@@ -287,7 +287,7 @@ void ReplaceSelfUpgrade::upgradeImplementation()
  Int count=names.size();if(!count)return;
  Coord3D pos;copyCoord(pos,m_object->getPosition());Real angle=m_object->getOrientation();
  AsciiString name=m_object->name;
- ((Rva0028BAC0Host*)m_object)->rva0028BAC0();
+ m_object->rva0028BAC0();
  m_object->leaveGroup();
  if(m_object->getDrawable())m_object->getDrawable()->setDrawableHidden(true);
  if(TheAI)TheAI->getPathfinder()->RemoveObjectFromPathfindMap(getObject());

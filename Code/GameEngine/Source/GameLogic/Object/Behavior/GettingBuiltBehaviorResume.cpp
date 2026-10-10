@@ -24,10 +24,10 @@ struct PlayerPart { unsigned char pad[0x1bc]; bool alternate; };
 class Team;
 class Player {
 public:
+ bool rva002AA245() const; // 0x002AA245
  unsigned char pad[0x34]; PlayerPart *part;
  unsigned char pad38[0x2ec-0x38]; Team *team;
 };
-class Rva002AA245MovzxByteChaseField { public: unsigned int get() const; };
 struct GettingBuiltConditions { unsigned int words[19]; __forceinline unsigned test(int i) const {return words[i>>5] & (1u<<(i&31));} __forceinline void set(int i) {words[i>>5]|=1u<<(i&31);} __forceinline void clear(int i) {words[i>>5]&=~(1u<<(i&31));} };
 class Object : public Thing {
 public:
@@ -64,7 +64,7 @@ void GettingBuiltBehaviorSecondary::resumeBuildingConstruction(bool instant)
  if (data->builder.isEmpty()) { rva00453652(instant); return; }
  Player *player = object->getControllingPlayer();
  if (!player) return;
- if (!(unsigned char)((Rva002AA245MovzxByteChaseField *)object->getControllingPlayer())->get()) return;
+ if (!object->getControllingPlayer()->rva002AA245()) return;
  const ThingTemplate *tmplate;
  if (data->alternate && object->getControllingPlayer()->part->alternate)
    tmplate = TheThingFactory->findTemplate(data->alternateBuilder);

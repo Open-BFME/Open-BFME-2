@@ -20,11 +20,10 @@ struct FrameStatsVector {
  ScoreFrameStatsView *start,*finish,*end;
 };
 class Rva0039C190 { public: void rva0039D1D0(unsigned int); };
-class Player { public: char opaque[0x94]; int money; };
+class Player { public: bool rva002AA245() const; char opaque[0x94]; int money; };
 class PlayerList { public: Player *getPlayerFromMask(int); };
 extern PlayerList *ThePlayerList;
 class BfmeMemberRV { public: bool bfmeAskRV(); };
-class Rva002AA245MovzxByteChaseField { public: unsigned int get() const; };
 struct Rva002A8AB1Record;
 class Rva002A8F24 { public: Rva002A8AB1Record *rva002A8AB1(void *); void *rva002A8F24(Player*); };
 extern Rva002A8F24 *g_00DFEEF8;
@@ -203,7 +202,7 @@ void ScoreKeeper::updateFrame(int frameNumber)
  Player* owner=ThePlayerList->getPlayerFromMask(1<<field100);
  if(!owner)return;
  if(reinterpret_cast<BfmeMemberRV*>(owner)->bfmeAskRV() &&
-    static_cast<unsigned char>(reinterpret_cast<Rva002AA245MovzxByteChaseField*>(owner)->get()))
+    owner->rva002AA245())
  {
   if(static_cast<unsigned int>(frameNumber)>=stats.size())
    reinterpret_cast<Rva0039C190*>(&stats)->rva0039D1D0(frameNumber+1);

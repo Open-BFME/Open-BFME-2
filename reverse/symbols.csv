@@ -2170,7 +2170,6 @@ name,address,notes
 ??0NetDestroyPlayerCommandMsg@@QAE@XZ,0x004D57AE,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
 ??0NetDisconnectPlayerCommandMsg@@QAE@XZ,0x004D57F1,called by sendDisconnectCommand 0x004D3D5C right after its 0x28-byte allocation; body writes command type 0x1A and clears slot +0x1C and frame +0x24
 ??0NetFileProgressCommandMsg@@QAE@XZ,0x004D598E,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
-??0NetFrameCommandMsg@@QAE@XZ,0x004CEEC3,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ??0Null3DObjClass@@QAE@ABV0@@Z,0x00180EF0,address read from the REL32 displacement at a placed body
 ??0OBBoxClass@@QAE@ABV0@@Z,0x00133990,OBBox copy ctor97 independently matches all emitted ordinary C++ bytes with zero relocations; Matrix3 basis and center/extent copied; exact Camera copy calls this body
 ??0OCLSpecialPower@@QAE@PAVThing@@PBVModuleData@@@Z,0x004C30D8,(Thing*;ModuleData*) ctor called by OCLSpecialPower::friend_newModuleInstance (0x00251B52); class from the ModuleFactory registration literal
@@ -5248,7 +5247,6 @@ name,address,notes
 ??RRva00078F95Cmp@@QBE_NPBURva00078F95Item@@0@Z,0x00078F95,thiscall comparator of the sort<Rva00078F95Item**> family: its 12 call sites are exactly the comparator calls inside that family's rowed bodies (median partition linear inserts heap helpers); 380B body not rowed
 ??RRva000A7AA7Less@@QBE_NABUTreeKey00242F5E@@0@Z,0x000A78A3,twin of rowed stdcall free via lea ecx thiscall call sites plus same unsigned plus rowed AsciiString less
 ??RRva0021B68DCmp@@QBE_NABW4Rva0021B68DKey@@0@Z,0x0021B68D,out-of-line comparator read from the retail REL32 in __unguarded_linear_insert 0x0021BA58; body unrowed
-??RRva002BBC1CCmp@@QBE_NABVRva004F6093Holder@@0@Z,0x002B367C,out-of-line comparator read from the retail REL32 in __unguarded_linear_insert 0x002B453B; rowed under another name (Rva002B367CLess)
 ??RRva002E5678Cmp@@QBE_NABUStringLookUp@@0@Z,0x002E5678,thiscall twin of the rowed stdcall compareStringLookUpLess: the same statement as a const operator() over StringLookUp references compiles byte-identical here (this unused); called by the StringLookUp sort family
 ??RRva002E5C15Comp@@QBE_NPBUStringLookUp@@PBD@Z,0x002E56B3,ICF twin of Rva002E56B3Less stateless comp same 47B via call site 0x002E5C15
 ??RRva002E5C61Comp@@QBE_NPBDPBUStringLookUp@@@Z,0x002E56E2,ICF twin of Rva002E56E2Greater stateless comp same 47B via call site 0x002E5C61
@@ -11134,7 +11132,6 @@ name,address,notes
 ?rva0028AF65@Object@@QBE_NXZ,0x0028AF65,Object ammo-availability gate called by Weapon isAmmoReady; true name unproven; body adds 0x330 then checks dword at +0x24
 ?rva0028B525@Object@@QAEXH@Z,0x0028B525,"Object setter of the word at +0x40C (ledger body Rva0028B525DwordSlot::set); REL32 in AIUpdate loadPostProcess 0x00268717"
 ?rva0028B701@Object@@QAEXM@Z,0x0028B701,"Object member taking a float; REL32 in CurseSpecialPower 0x004CCED3 with module data +0xD0"
-?rva0028BAC0@Rva0028BAC0@@QAEXXZ,0x0028BAC0,callee of ?rva004AD9E0@Rva004ADC88@@QAEXXZ
 ?rva0028BBE1@Object@@QAEXPAV1@@Z,0x0028BBE1,opaque Object member (forwards its argument to the helper at +0x23C when present; sibling of rva0028BBF3); REL32 callee of AIGuardState::onEnter 0x003512D2 with ECX the owner and the guarded object
 ?rva0028BBF3@Object@@QAEXPAV1@@Z,0x0028BBF3,opaque Object member (forwards its argument to the helper at +0x23C when present); REL32 callee of AIGuardState::onExit 0x003513A4 with ECX the state owner and the guarded object as argument
 ?rva0028BC4D@Object@@QAEXXZ,0x0028BC4D,Object method forwarding to its +0x330 WeaponSet (add ecx 0x330 then jmp 0x002C7474) with no argument; called on the machine owner by AIAttackState::onExit 0x0034B889 where Zero Hour releases the temporary weapon lock; name by address
@@ -11185,7 +11182,6 @@ name,address,notes
 ?rva002A9DEC@Rva002A9BF2@@QAEXH@Z,0x002A9DEC,address read from the REL32 displacement at a placed body
 ?rva002A9E25@Player@@QAEXM@Z,0x002A9E25,"Player float setter (+0x314; rowed under the opaque holder Rva002A9E25FloatField): ScavengerSpecialPower::doSpecialPower 0x004C4401 calls it on getControllingPlayer() with module data +0x7C"
 ?rva002A9F35@Rva002A9BF2@@QAEXH@Z,0x002A9F35,address read from the REL32 displacement at a placed body
-?rva002AA245@Player@@QBE_NXZ,0x002AA245,"Player byte getter (the matched null-checked +0x34 -> +0x151 movzx chase): REL32 callee of the AttachUpdate attach helper 0x00491AD0 at 0x00491BBE on the parent's controlling player, al tested; address-named"
 ?rva002AB44A@Rva002AB5C7Player@@QAEXXZ,0x002AB44A,address read from the REL32 displacement at a placed body
 ?rva002AB5C7@Rva002AB5C7Player@@QAEXXZ,0x002AB5C7,address read from the REL32 displacement at a placed body
 ?rva002AC2CF@Rva002AC2CFTarget@@QAEXHHH@Z,0x002AC2CF,"method a vtable-slot forwarder tail-jumps to (ret 0xc); opaque address name"
@@ -13385,7 +13381,6 @@ rva009C7380WeightPairs,0x009B84E0
 ?rva0020E57F@Rva0020E57FManager@@QAEPAXPAX@Z,0x0020E57F,unrowed region-manager battle lookup; retail REL32 in LivingWorldTutorial::SessionTask::getBattleParam 0x003F8437 with ecx=TheLivingWorldLogic+0xB0
 ??1HordeMeleeSwarm@@UAE@XZ,0x00584502,twin of dup row for deleting dtor 0x005844E6 vtable 0x0086FC80 slot0
 ?rva002D76C6@Radar@@QAE_NPAURva002D76C6Owner@@PAPAURva002D76C6Node@@@Z,0x002D76C6,ICF twin of rowed free Remove via thiscall call site 0x002D7714 exact
-?rva0028BAC0@Object@@QAEXXZ,0x0028BAC0,Object member called per member and per holding horde in doTransferTeamToPlayer (0x003C916F / 0x003C918F); WB 0x00CDAFF0 unnamed
 ?rva0037EE4C@Rva0037EE4C@@QAEHPBVThingTemplate@@HH@Z,0x0037EE4C,unrowed per-player production quantity query on Player +0x738 (template plus -1 plus 0); retail REL32s in AIBuildableUnit::build 0x005DAE3F and canMake 0x005DAEBE
 ?Script_objectTypesFromParam@@YAXPAVParameter@@PAVObjectTypes@@@Z,0x00566E6C,"cdecl (script parameter, ObjectTypes*): the matched Rva00566E6CParse body (its Arg00566E6C is a Parameter, string at +0x10); REL32 at 0x003EA419 in ScriptConditions::rva003EA3AB with an ObjectTypesTemp's types"
 ??0AIBasePenetrationTroopsTactic@@QAE@XZ,0x005A9988,AIBasePenetrationTroopsTactic tactic ctor (base ctor with that name); REL32 in its slot-9 create 0x005A9A57

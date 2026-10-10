@@ -49,7 +49,13 @@ extern LuaScriptEngine *TheLuaScriptEngine;
 // Bind to the existing data-ledger owner; keep the retail access view local.
 class Rva002A8F24;
 extern Rva002A8F24 *g_00DFEEF8;
-class Rva0028BAC0Host
+// 0x0028BAC0 is an Object member: Object::~Object and the Object script-status
+// setter call it on this, every other retail caller passes an Object pointer
+// (TunnelTracker post-process, doTransferTeamToPlayer members and hordes), and
+// it unregisters this from the partition, trigger, Lua and AI-player managers.
+// Formerly rowed as Rva0028BAC0Host::rva0028BAC0; the method name stays
+// address-derived.
+class Object
 {
 public:
 	void rva0028BAC0();
@@ -67,8 +73,8 @@ private:
 	int m_4C8;
 	int m_4CC;
 };
-// ?rva0028BAC0@Rva0028BAC0Host@@QAEXXZ
-void Rva0028BAC0Host::rva0028BAC0()
+// ?rva0028BAC0@Object@@QAEXXZ
+void Object::rva0028BAC0()
 {
 	if (m_4C4 != 0)
 		m_4C4->makeDirty();

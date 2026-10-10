@@ -23,13 +23,13 @@ class Drawable;
 class Object
 {
 public:
+    void rva0028BAC0(); // 0x0028BAC0
     Drawable *getDrawable() const;
     void leaveGroup();
 };
-// These two existing matched providers retain their provisional names. The
-// first performs the retail Object manager cascade; the second sets Drawable's
-// hidden byte at +0x43D and refreshes it. No original name is claimed here.
-class Rva0028BAC0Host { public: void rva0028BAC0(); };
+// The existing matched Drawable provider sets Drawable's hidden byte at +0x43D
+// and refreshes it; the Object manager cascade is Object::rva0028BAC0
+// (0x0028BAC0). Neither original name is claimed here.
 class Drawable { public: void setDrawableHidden(bool hidden); };
 class Pathfinder { public: void RemoveObjectFromPathfindMap(Object *); };
 class AI
@@ -82,7 +82,7 @@ void TunnelTracker::loadPostProcess()
             reinterpret_cast<_STL::list<int> *>(&m_containList)->push_back(
                 reinterpret_cast<const int &>(object));
             object->leaveGroup();
-            reinterpret_cast<Rva0028BAC0Host *>(object)->rva0028BAC0();
+            object->rva0028BAC0();
             if (object->getDrawable())
                 object->getDrawable()->setDrawableHidden(true);
             if (TheAI)
