@@ -515,6 +515,7 @@ Code/Libraries/Source/Apt/AptValue/Rva006D9780Finish.cpp,-O2,1,1,region default 
 Code/Libraries/Source/Apt/BfmeThingXSApply.cpp,,1,1,region default loses rows
 Code/Libraries/Source/Apt/DogmaPoolAllocBlock.cpp,-O2,3,1,region default loses rows
 Code/Libraries/Source/Apt/DogmaPoolFreeBlock.cpp,-O2,1,1,region default loses rows
+Code/Libraries/Source/Apt/Rva006E1260AptCihRefresh.cpp,-O2 -G6,1,1,region default loses rows
 Code/Libraries/Source/Apt/Rva006E3230Validate.cpp,-O2,6,2,region default loses rows
 Code/Libraries/Source/Apt/Rva006E4D50.cpp,-O2,1,1,region default loses rows
 Code/Libraries/Source/Apt/Rva006E4FF0Cluster.cpp,-O2,3,1,region default loses rows
@@ -732,6 +733,7 @@ Code/Libraries/Source/assetmanager/Q1ReceiverDrain.cpp,-O2 -G6 -arch:SSE,1,1,reg
 Code/Libraries/Source/assetmanager/Rva0061FFA0.cpp,-O2 -G6,3,1,region default loses rows
 Code/Libraries/Source/assetmanager/Rva0061FFD0Cluster.cpp,,1,1,region default loses rows
 Code/Libraries/Source/assetmanager/assetmanager_impl.cpp,,17,6,region default loses rows
+Code/Libraries/Source/assetmanager/q1_registry_forwards.cpp,-O2 -G6,12,1,region default loses rows
 Code/Libraries/Source/partitionmanager/partitionmanager_impl.cpp,-O2 -G6,2,2,region default loses rows
 Code/Libraries/Source/profile/profile.cpp,,12,1,region default loses rows
 Code/Libraries/Source/profile/profile_highlevel.cpp,,17,2,region default loses rows

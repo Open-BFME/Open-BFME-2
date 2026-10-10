@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD
+// cl: /O2 /G6 /DNDEBUG /MD
 //
 // Null-guarded registry forwarders: when the global
 // Q1 receiver registry at VA 0x00E09C0C is live, forward the argument to
@@ -18,6 +18,9 @@ public:
 	void m009F1A60(int source);
 	void m009F0CC0(int source);
 	void m009F0E50(int value);
+
+	char m_pad00[0x30];
+	int m_30;				// +0x30 counter, see Rva0061EEC0
 };
 
 Q1Receiver0134FAAC *TheQ1Receiver;
@@ -117,3 +120,27 @@ const char *Rva0061F620(unsigned int key)
     return ((AssetRegistry *)TheQ1Receiver)->rva006213B0(key);
 }
 
+// 0x0061EEC0 (24B, thiscall, unrowed until now): when the registry is live,
+// pre-increment its 32-bit counter at +0x30 and store the new value in this
+// object's +0x10. WorldBuilder twin 0x01673FB0 is byte-identical and unnamed;
+// the receiver class and its +0x10 field keep address-derived names. The
+// counter is spelled as a reference lvalue: incrementing the member directly
+// reorders the add/inc (measured), and /G6 schedules the add before the inc.
+class Rva0061EEC0
+{
+public:
+	void rva0061EEC0();
+
+private:
+	char m_pad00[0x10];
+	int m_10;
+};
+
+void Rva0061EEC0::rva0061EEC0()
+{
+	if (TheQ1Receiver)
+	{
+		int &value = TheQ1Receiver->m_30;
+		m_10 = ++value;
+	}
+}
