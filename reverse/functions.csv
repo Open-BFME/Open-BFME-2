@@ -7834,7 +7834,6 @@ _Rva008118C0,,0x0067D7C0,5,Code/Libraries/Source/DirtySock/Y5SmallHelpers.c,matc
 ??_GRva004E32F2@@UAEPAXI@Z,,0x004E37B3,28,Code/GameEngine/Source/Common/Rva004E32F2Dtor.cpp,matched,emitted scalar deleting dtor; dtor call via opaque pin at 0x4E32F2; flag plus pinned operator delete (moved from OpaqueScalarDeletingDtors.cpp whose MI view emitted a wrong dtor COMDAT; this unit emits the vftable and the exact ??_G)
 ??_GRva005C7CBB@@UAEPAXI@Z,,0x005C8075,28,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtors.cpp,matched,emitted scalar deleting dtor; dtor call via opaque pin at 0x5C7CBB; flag plus pinned operator delete
 ??_GRva005CD1A9@@UAEPAXI@Z,,0x005CD1B7,28,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtors.cpp,matched,emitted scalar deleting dtor; dtor call via opaque pin at 0x5CD1A9; flag plus pinned operator delete
-??_GRva005F38CA@@UAEPAXI@Z,,0x005F39BA,28,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtors.cpp,matched,emitted scalar deleting dtor; dtor call via opaque pin at 0x5F38CA; flag plus pinned operator delete
 ??_GRva005FC1E4@@UAEPAXI@Z,,0x005FC1F2,28,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtors.cpp,matched,emitted scalar deleting dtor; dtor call via opaque pin at 0x5FC1E4; flag plus pinned operator delete
 ??_GRva00600084@@UAEPAXI@Z,,0x00600092,28,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtors.cpp,matched,emitted scalar deleting dtor; dtor call via opaque pin at 0x600084; flag plus pinned operator delete
 ??_GRva002CEC0A@@UAEPAXI@Z,,0x002CEC18,28,Code/GameEngine/Source/Common/Rva002CEC0ADtor.cpp,matched,emitted scalar deleting dtor; dtor call via opaque pin at 0x2CEC0A; flag plus pinned operator delete (moved from OpaqueScalarDeletingDtors.cpp whose MI view emitted a wrong dtor COMDAT; this unit emits the vftable and the exact ??_G)
@@ -8920,7 +8919,6 @@ _Rva008118C0,,0x0067D7C0,5,Code/Libraries/Source/DirtySock/Y5SmallHelpers.c,matc
 ?rva0004CBC0@RvaSmartPtr12@@QAEXXZ,,0x0004CBC0,55,Code/GameEngine/Source/GameClient/System/ParticleSystemHandle_dtor.cpp,matched,Intrusive unlink port of BFME1 ListClear idiom; head at plus0x9C-A0; the out-of-line unlink the inline handle dtor 0x002115C5 (cmp [ecx] 0 / je / jmp here) calls; W3DTruckDraw dtor 0x000CDE73 inlines that null test three times around call 0x0004CBC0
 ?lowerBound@VersionBlockParser@@SAPBXPBX0PBQBD0H@Z,,0x00427D0E,83,Code/GameEngine/Source/Common/VersionBlockSearch.cpp,matched,
 ?upperBound@VersionBlockParser@@SAPBXPBX0PBQBD0H@Z,,0x00427D61,83,Code/GameEngine/Source/Common/VersionBlockSearch.cpp,matched,
-??1Rva005F38CA@@UAE@XZ,,0x005F38CA,14,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtors.cpp,matched,opaque dtor explicit clear call on member at +4; helper pin 0x5F35D3
 ?get@Rva00050F68FloatField@@QBEMXZ,,0x00050F68,7,Code/GameEngine/Source/Common/DispFloatFieldGetters.cpp,matched,Disp32 float getter
 ?get@Rva00050F76FloatField@@QBEMXZ,,0x00050F76,7,Code/GameEngine/Source/Common/DispFloatFieldGetters.cpp,matched,Disp32 float getter
 ?set@Rva003BC392Holder@@QAEX_N@Z,,0x003BC392,22,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_Rva003BC392.cpp,matched,Opaque TerrainLogic byte setter with null guard and setne-built bool caller
@@ -61554,7 +61552,6 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ??1Rva005C9659@@UAE@XZ,,0x005C9659,80,Code/GameEngine/Source/Common/Rva005C9659Dtors.cpp,matched,large-object dtor: +0x258 via 0x0056D76B and +0x218 via ~Rva00524BB4 and base ~GameWindow 0x00314A0C
 ??1Rva005FCFEA@@UAE@XZ,,0x005FCFEA,74,Code/GameEngine/Source/Common/Rva005FCFEADtor.cpp,matched,large-object dtor: +0x28 via rowed ~Rva005242D7 and +0x1c via rowed ~Rva0052413E and base ~Rva005FCF0E
 ??0Rva005E12D1@@QAE@PAXABVAsciiString@@0@Z,,0x005E1680,39,Code/GameEngine/Source/Common/Rva005E1627Ctors.cpp,matched,Owner reconciled with dtor005E12D1 and vtableC779B4; frame AsciiString reference owner pointer; base CommandButtonMovieClip ctor005E1627; owner0C then null counted handle10; exact39B
-??0Rva005E54D5@@QAE@HHH@Z,,0x005E54D5,34,Code/GameEngine/Source/Common/Rva005E54D5Ctor.cpp,matched,Derived ctor abc forwards ab0c to base 0x005F3E93 then vtable; address-derived
 ??0Rva005D3628@@QAE@HH@Z,,0x005D3628,66,Code/GameEngine/Source/Common/Rva005D3628Wrapper.cpp,matched,New-wrapper ctor news 0x6C Inner 0x005D3506 ab then stores at +0; address-derived
 ?rva005E0D9C@Rva005E0D9C@@QAEXXZ,,0x005E0D9C,36,Code/GameEngine/Source/Common/Rva005E0D9CFwd.cpp,matched,Checks +0x10 then rowed getter 0x005CB265 via +0x0C then tail-jmps to rowed 0x005CB260; address-derived
 ?rva005E49FD@@YAXHHHH@Z,,0x005E49FD,30,Code/GameEngine/Source/Common/Rva005E49FDFwd.cpp,matched,Cdecl forwarder abcd plus bool tmp-last to pinned 0x005E4817; address-derived

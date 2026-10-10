@@ -595,6 +595,7 @@ private:
 	Rva005F35D3 m_member04;
 };
 
+// ?Rva005F38CA::~Rva005F38CA present-unmatched
 Rva005F38CA::~Rva005F38CA()
 {
 	m_member04.clear();
