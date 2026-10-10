@@ -1,5 +1,3 @@
-// ?rva0028CECF@Object@@QAE_NXZ
-// partial score=0.93 date=2026-10-05
 // cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
 //
 // ?rva0028CECF@Object@@QAE_NXZ @0x0028CECF (104B). Identity: Object predicate
@@ -43,12 +41,11 @@ private:
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 
-// ?rva0028CECF@Object@@QAE_NXZ present-unmatched
 bool Object::rva0028CECF()
 {
 	Object *obj = this;
 	for (;;) {
-		Object *cont = obj->m_contained274;
+		Object *cont = (obj?obj:obj)->m_contained274;
 		if (cont == 0)
 			break;
 		Rva0028CECFTemplate *tmpl = cont->m_template004;
@@ -57,13 +54,13 @@ bool Object::rva0028CECF()
 			break;
 		obj = cont;
 	}
-	Rva002627E8 *holder = obj->m_entry258;
+	Rva002627E8 *holder = (obj?obj:obj)->m_entry258;
 	if (holder == 0)
 		goto ret_false;
-	float f = obj->m_template004->m_f50C;
+	float f = (obj?obj:obj)->m_template004->m_f50C;
 	if (f <= 0.0f)
 		goto ret_true;
-	float f1 = obj->rva0028AC7D();
+	float f1 = (obj?obj:obj)->rva0028AC7D();
 	float f2 = holder->rva002627E8() * f;
 	if (f2 > f1)
 		goto ret_false;

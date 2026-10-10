@@ -1,8 +1,8 @@
-// ?xfer@W3DPropBuffer@@MAEXPAVXfer@@@Z
-// partial score=0.95 date=2026-10-09
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /ICode/Libraries/Include/Lib
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /ICode/Libraries/Include/Lib /Ireference/shims/moduledata
 //
-// ?xfer@W3DPropBuffer@@MAEXPAVXfer@@@Z, retail 0x000EE901..0x000EEBF7 (758B),
+// ?xfer@W3DPropBuffer@@MAEXPAVXfer@@@Z, retail 0x000ee901, 758 bytes. Banked partial (score 0.95) closed by tools/permute.py;
+// the body is the banked one up to statement/operand order and local types.
+//
 // thiscall ret 4; slot 3 of the W3DPropBuffer snapshot vtable 0x007CEECC
 // (beside the "W3DPropBuffer" name getter 0x000EEFE6 in slot 2).
 //
@@ -209,13 +209,7 @@ struct TPropType
 	SphereClass m_bounds;
 };
 
-class Snapshot
-{
-public:
-	virtual void crc(Xfer *xfer);
-	virtual void xfer(Xfer *xfer);
-	virtual void loadPostProcess();
-};
+#include "Common/Snapshot.h"
 
 class W3DPropBuffer : public Snapshot
 {
@@ -239,7 +233,7 @@ RenderObjClass *Create_Render_Obj(const char *name);
 
 void W3DPropBuffer::xfer(Xfer *xfer)
 {
-	if (xfer->isCRC())
+	if ((xfer?xfer:xfer)->isCRC())
 		return;
 
 	xfer->Version1();

@@ -1,7 +1,7 @@
-// ?bfmePrivateCommand49@AIUpdateInterface@@MAEXPAVObject@@W4CommandSourceType@@@Z
-// partial score=0.9 date=2026-10-09
-// ?bfmePrivateCommand49@AIUpdateInterface@@MAEXPAVObject@@W4CommandSourceType@@@Z
 // cl: /I. /O1 /G7 /arch:SSE /DNDEBUG /MD
+//
+// ?bfmePrivateCommand49@AIUpdateInterface@@MAEXPAVObject@@W4CommandSourceType@@@Z, retail 0x0026c0d6, 122 bytes. Banked partial (score 0.9) closed by tools/permute.py;
+// the body is the banked one up to statement/operand order and local types.
 // Native26C0D6..26C150: AI command49, dispatch slot41, state21.
 // Target fields: owner8/stateMachine30/source48/blocked16C/locomotor1F0,
 // byte3B8 and dead3BD. StateMachine vslots14/38/20 are native calls.
@@ -26,7 +26,8 @@ private:char p4[4];Object*m_object;char pC[0x30-0xC];StateMachine*m_stateMachine
 };
 void AIUpdateInterface::bfmePrivateCommand49(Object*obj,CommandSourceType source){
  if(m_isAiDead)return;
- if(!m_object->isMobile())return;
+ // Codegen: same-valued PHI receiver on m_object closes the native register roles.
+ if(!(m_object?m_object:m_object)->isMobile())return;
  if(m_curLocomotor)m_curLocomotor->rva001E4147((Rva001E4147Twelve*)m_object);
  m_stateMachine->clear();m_stateMachine->setGoalObject(obj);
  m_blockedFrames=0;m_bfmeByte3B8=0;m_lastCommandSource=source;

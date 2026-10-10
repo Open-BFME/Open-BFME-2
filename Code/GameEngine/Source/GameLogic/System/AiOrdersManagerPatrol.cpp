@@ -30,6 +30,35 @@ class AiOrdersManager { public:
 };
 // Callsites and rowed queue/contains providers establish this target's
 // patrol reuse route. Existing ArmorTemplate names are only opaque ABI
+// Codegen: the GameLogic receiver as a same-valued PHI closes the native register roles of the member walk.
+void *AiOrdersManager::rva0035538C(const Coord3D &destination,int enabled,const ListHeroPtr *members) {
+    if(!enabled) return 0;
+    enabled=0;
+    typedef ListHeroPtr::_Node Node;
+    Node *head=(Node *)members->_M_node._M_data;
+    for(Node *node=(Node*)head->_M_next;node!=head;node=(Node*)node->_M_next) {
+        unsigned id=(unsigned)node->_M_data;
+        ObjectPatrolView *obj=(ObjectPatrolView*)(TheGameLogic?TheGameLogic:TheGameLogic)->findObjectByID((ObjectID)id);
+        if(obj) {
+            if(Rva00354EB9(&obj->position,&destination)) {
+                ObjectOrderQueue *queue=(ObjectOrderQueue*)((Rva0035516C*)this)->rva0035516C((NameKeyType)id);
+                if(queue && queue->orders.size()) {
+                    Rva00548800 *order=(Rva00548800*)((Rva00355B61*)this)->rva00355155(queue->orders.front());
+                    if(order && order->rva00548800(members)) return order;
+                }
+            }
+            if(!enabled) enabled=obj->id;
+        }
+    }
+    if(enabled) {
+        ObjectOrderQueue *queue=(ObjectOrderQueue*)((Rva0035516C*)this)->rva0035516C((NameKeyType)enabled);
+        if(queue) {
+            const ArmorTemplate *order=queue->checkForPatrol((void*)&destination,members);
+            if(order) return (void*)order;
+        }
+    }
+    return 0;
+}
 // adapters; no armor identity is inferred for the returned order/queue.
 void *AiOrdersManager::rva00355472(const Coord3D &destination,int mode,GroupOrder *members) {
     unsigned *end=members->objects.end();

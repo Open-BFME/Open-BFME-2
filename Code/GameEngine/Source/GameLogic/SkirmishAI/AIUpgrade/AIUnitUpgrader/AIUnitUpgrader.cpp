@@ -26,8 +26,9 @@ class Rva005DAFD7 { public: Rva005DAFD7(); void *vtable; float delay; unsigned i
 class ModuleData;
 int GetGameLogicRandomValue(int,int,char *,int);
 class AIUnitUpgrader {
- char pad[0x14]; _STL::vector<const ModuleData *> upgrading; char tail[0x2c-0x20]; Player *owner;
+ char pad[0x14]; _STL::vector<const ModuleData *> upgrading; _STL::vector<void *> completed; Player *owner;
 public: void Register(Object *, void *);
+ void UnRegister(Object *object);
 };
 void AIUnitUpgrader::Register(Object *object, void *)
 {
@@ -105,3 +106,30 @@ void Rva00599264::update()
  for (i=vec->begin();i!=end;++i) ((Rva005975C0 *)*i)->rva005975C0();
 }
 
+// WB 0x01528330 AIUnitUpgrader::UnRegister (asserts near 107): remove every upgrade record
+// of `object` from the upgrading list (record destroy + delete) and from the completed list
+// (credit the owner's hit tracker 0x0055ADBA first). Native 147B RET4. The upgrading
+// vector keeps the ModuleData pointer spelling of the Register view; its erase goes through the
+// void* element instantiation as update() does.
+// Codegen: the global GameLogic receiver as a same-valued PHI closes the second loop's
+// EDI/EBX role swap.
+void AIUnitUpgrader::UnRegister(Object *object)
+{
+ _STL::vector<const ModuleData *>::iterator i=upgrading.begin();
+ while (i!=upgrading.end()) {
+   UnitUpgradeRecordView *item=(UnitUpgradeRecordView *)*i;
+   if ((TheGameLogic?TheGameLogic:TheGameLogic)->findObjectByID(item->object)==(void *)object) {
+     operator delete(item->destroy(0));
+     i=(const ModuleData **)((_STL::vector<void *> *)&upgrading)->erase((void **)i);
+   } else ++i;
+ }
+ _STL::vector<void *>::iterator j=completed.begin();
+ while (j!=completed.end()) {
+   UnitUpgradeRecordView *item=(UnitUpgradeRecordView *)*j;
+   if ((TheGameLogic?TheGameLogic:TheGameLogic)->findObjectByID(item->object)==(void *)object) {
+     ((Rva00506FE9Hit *)item)->rva0055ADBA(owner);
+     operator delete(item->destroy(0));
+     j=completed.erase(j);
+   } else ++j;
+ }
+}

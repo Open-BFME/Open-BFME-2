@@ -1,7 +1,7 @@
-// ?bfmeAskBIC@BfmeSubBIC@@QAEHXZ
-// partial score=0.93 date=2026-10-05
 // cl: /O1 /EHs-c-
-// ?bfmeAskBIC@BfmeSubBIC@@QAEHXZ @0x00290FC9 183B
+//
+// ?bfmeAskBIC@BfmeSubBIC@@QAEHXZ, retail 0x00290fc9, 183 bytes. Banked partial (score 0.93) closed by tools/permute.py;
+// the body is the banked one up to statement/operand order and local types.
 // Evidence: pin bfmeAskBIC, callers 0x000B329B 0x00468FAC Drawable_rva00275545, rowed getControllingPlayer 0x0028AFA9 rva0028F4BC 0x0028F4BC getRelationship 0x002AD0C6 bfmeAskRV 0x002AA231 getNthPlayer 0x002A7A29 getIndicatorColor 0x0028B026, ThePlayerList 0x009FEEE8.
 class Team;
 enum Relationship
@@ -86,7 +86,6 @@ class BfmeSubBIC : public Object
 public:
 	int bfmeAskBIC();
 };
-// ?bfmeAskBIC@BfmeSubBIC@@QAEHXZ present-unmatched
 int BfmeSubBIC::bfmeAskBIC()
 {
 	Player *local = ThePlayerList->m_local10;
@@ -95,7 +94,8 @@ int BfmeSubBIC::bfmeAskBIC()
 	bool useFallback = true;
 	if (m_inner04->m_113 & 1) {
 		Rva00373EC6 *p = rva0028F4BC();
-		if (p != 0 && p->m_3c != 0 && controller != 0 && local != 0 && controller->getRelationship(local->m_team2EC) != REL_ALLY && ((BfmeMemberRV *)local)->bfmeAskRV() && (candidate = ThePlayerList->getNthPlayer(p->m_38)) != 0) {
+		// Codegen: same-valued PHI receiver on the player list closes the native register roles.
+		if (p != 0 && p->m_3c != 0 && controller != 0 && local != 0 && controller->getRelationship(local->m_team2EC) != REL_ALLY && ((BfmeMemberRV *)local)->bfmeAskRV() && (candidate = (ThePlayerList?ThePlayerList:ThePlayerList)->getNthPlayer(p->m_38)) != 0) {
 			useFallback = false;
 		}
 	}

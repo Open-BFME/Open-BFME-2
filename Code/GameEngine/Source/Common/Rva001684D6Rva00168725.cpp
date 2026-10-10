@@ -1,6 +1,7 @@
-// ?Cast_Ray@Rva001684D6@@UAE_NAAVRayCollisionTestClass@@@Z
-// partial score=0.9756 date=2026-10-10
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2renderobj /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep
+//
+// ?Cast_Ray@Rva001684D6@@UAE_NAAVRayCollisionTestClass@@@Z, retail 0x00168725, 474 bytes. Banked partial (score 0.9756) closed by tools/permute.py;
+// the body is the banked one up to statement/operand order and local types.
 // Reference semantic guide: BFME1 streak.cpp Cast_Ray (575ba2b04).
 // Target segments use point storage C4 and renderer width EC; collision
 // dispatch is virtual slot120 and the complete native boundary is474 bytes.
@@ -14,7 +15,8 @@ bool Rva001684D6::Cast_Ray(RayCollisionTestClass&raytest){
 if((Get_Collision_Type()&raytest.CollisionType)==0)return false;
 bool retval=false;float fraction=1.0F;
 for(unsigned index=1;index<(unsigned)points.Count;++index){Vector3 curr[2];Transform.mulVector3Array(&points.Vector[index-1],curr,2);LineSegClass line_seg(curr[0],curr[1]);Vector3 p0,p1;
-if(raytest.Ray.Find_Intersection(line_seg,&p0,&fraction,&p1,0)){
+int _z = (int)(raytest.Ray.Find_Intersection(line_seg,&p0,&fraction,&p1,0));
+if (_z){
 float dist=(p0-p1).Length();
 if(dist<=Width&&fraction>=0&&fraction<raytest.Result->Fraction){retval=true;break;}}}
 if(retval){raytest.Result->Fraction=fraction;raytest.Result->SurfaceType=13;raytest.CollidedRenderObj=this;}return retval;}

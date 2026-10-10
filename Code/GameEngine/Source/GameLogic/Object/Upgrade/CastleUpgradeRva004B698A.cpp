@@ -1,8 +1,7 @@
-// ?upgradeImplementation@CastleUpgrade@@MAEXXZ
-// partial score=0.95 date=2026-10-09
-// ?upgradeImplementation@CastleUpgrade@@MAEXXZ
-// partial score=0.95 date=2026-10-06
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+//
+// ?upgradeImplementation@CastleUpgrade@@MAEXXZ, retail 0x004b698a, 178 bytes. Banked partial (score 0.95) closed by tools/permute.py;
+// the body is the banked one up to statement/operand order and local types.
 #include "ascii_string.h"
 
 class Thing;
@@ -16,10 +15,7 @@ enum NameKeyType
 	NAMEKEY_INVALID = 0
 };
 
-enum ObjectID
-{
-	INVALID_ID = 0
-};
+#include "../../../Common/GameLogicObjectLookupView.h"
 
 class NameKeyGenerator
 {
@@ -38,12 +34,6 @@ public:
 
 protected:
 	Module *findModule(NameKeyType key) const;
-};
-
-class GameLogic
-{
-public:
-	Object *findObjectByID(ObjectID id);
 };
 
 extern GameLogic *TheGameLogic;
@@ -166,7 +156,7 @@ void CastleUpgrade::upgradeImplementation()
 
 	static const NameKeyType key = TheNameKeyGenerator->nameToKey("CastleMemberBehavior");
 	CastleMemberBehaviorView *member = (CastleMemberBehaviorView *)obj->findModule(key);
-	const UpgradeTemplate *upgrade = TheUpgradeCenter->findUpgrade(data->m_upgradeToGrant);
+	const UpgradeTemplate *upgrade = (TheUpgradeCenter?TheUpgradeCenter:TheUpgradeCenter)->findUpgrade(data->m_upgradeToGrant);
 	if (member)
 	{
 		Object *castle = TheGameLogic->findObjectByID(member->m_castleID);

@@ -1,15 +1,10 @@
-// ?MultiplyInternalFPF@@YAXPAUInternalFPF@@00@Z
-// partial score=0.9968 date=2026-10-09
-// ?MultiplyInternalFPF@@YAXPAUInternalFPF@@00@Z
-// partial score=0.997 date=2026-10-07
-// ?MultiplyInternalFPF@@YAXPAUInternalFPF@@00@Z
 // cl: /GS /MD /GR- /EHsc- -Ireference/shims/nbench -ICode/Libraries/Source/Benchmark
-// Whole emfloat.c with the extra_bits zero test routed through
-// IsMantissaZeroOrdered (0,2,1,3): that fixes the +0x216/+0x220 load pair.
-// Left: +0x15D/+0x161, the j=3 Add16Bits inline puts x->mantissa[3] in ecx
-// and z->mantissa[3] in eax; retail the reverse (c+b vs b+c). Unmoved by
-// call-site b/c swap, helper accum orders, single-expression accum, j index
-// table (worse, 116), for-init carry, /G5 /G7 /Ox no-SSE, C mode.
+// ?MultiplyInternalFPF@@YAXPAUInternalFPF@@00@Z @0x006B9510 725B (BYTEmark emfloat.c static).
+// Whole emfloat.c as in Rva006B9190Finish.cpp: Multiply inlines Add16Bits/Round helpers that must be
+// present. The extra_bits zero test goes through IsMantissaZeroOrdered (index table 0,2,1,3), which
+// fixes the +0x216/+0x220 load pair. Codegen lever: the NaN return's destination written as a
+// same-valued PHI receiver ((dest?dest:dest)->type) closes the last operand-order residue
+// (+0x15D/+0x161 x/z mantissa[3] load roles).
 /*
 ** emfloat.c
 ** Source for emulated floating-point routines.
@@ -242,7 +237,7 @@ static void SetInternalFPFNaN(InternalFPF *dest)
 {
 int i;          /* Index */
 
-dest->type=IFPF_IS_NAN;
+(dest?dest:dest)->type=IFPF_IS_NAN; /* codegen: same-valued PHI receiver keeps the native store/operand order of the NaN return in MultiplyInternalFPF */
 dest->exp=MAX_EXP;
 dest->sign=1;
 dest->mantissa[0]=0x4000;

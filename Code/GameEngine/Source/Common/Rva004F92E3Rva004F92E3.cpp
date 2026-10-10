@@ -1,8 +1,8 @@
-// ?rva004F92E3@Rva004F92E3@@QAEXPAX@Z
-// partial score=0.92 date=2026-10-05
 // cl: /O1 /G7 /EHsc /MD /D_STLP_USE_STATIC_LIB
+//
+// ?rva004F92E3@Rva004F92E3@@QAEXPAX@Z, retail 0x004f92e3, 149 bytes. Banked partial (score 0.92) closed by tools/permute.py;
+// the body is the banked one up to statement/operand order and local types.
 // stlport
-// ?rva004F92E3@Rva004F92E3@@QAEXPAX@Z 0x004F92E3 149B via TreeHintRef copy with EH; evidence callers 0x005ECF02 callees erase 0x000819EC reserve 0x004F830B push_back 0x004F8D92 release 0x0007DEEF
 #include <vector>
 
 struct TargetRef00217D4C
@@ -55,7 +55,6 @@ public:
     void rva004F92E3(void *out);
 };
 
-// ?rva004F92E3@Rva004F92E3@@QAEXPAX@Z present-unmatched
 void Rva004F92E3::rva004F92E3(void *out)
 {
     typedef _STL::vector<TreeHintRef00217D4C> SrcVec;
@@ -67,7 +66,8 @@ void Rva004F92E3::rva004F92E3(void *out)
 
     int n = 2;
     do {
-        DestEraseVec &destErase = *dest;
+        // Codegen: same-valued PHI on the destination pointer closes the native register roles.
+        DestEraseVec &destErase = *(dest?dest:dest);
         SrcVec &srcVec = *src;
         DestPushVec &destPush = *(DestPushVec *)dest;
 
