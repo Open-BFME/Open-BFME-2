@@ -1,12 +1,6 @@
 // ??0LANAPI@@QAE@XZ
-// partial score=0.95 date=2026-10-09
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
-// Retail 0x0044B992, 124 bytes. The body calls the matched LANAPI::reset,
-// deletes the optional Transport at +0x50, destroys host/login/name at
-// +0x1C/+0x18/+0x14, then chains through LANAPIInterface to
-// SubsystemInterface. The target vtable stores and member offsets come from
-// this body; the destructor operation follows BFME1 LANAPI::~LANAPI.
 
 typedef unsigned int UnsignedInt;
 typedef unsigned short UnsignedShort;
@@ -142,13 +136,8 @@ protected:
 	Bool m_unused5D;			// +0x5D
 };
 
-LANAPI::~LANAPI(void)
-{
-	reset();
-	if (m_transport)
-		delete m_transport;
-}
-
+extern "C" void _ReadWriteBarrier(void);
+#pragma intrinsic(_ReadWriteBarrier)
 extern "C" __declspec(dllimport) char * __cdecl getenv( const char *name );
 
 // ??0LANAPI@@QAE@XZ @0x00449AB8 (193B). Zero Hour's constructor with BFME's
@@ -171,6 +160,7 @@ LANAPI::LANAPI(void) : m_lobbyPlayers(0), m_games(0)
 	m_currentGame = 0;
 	m_localAddress.ip = 0;
 	m_localAddress.port = 0;
+	_ReadWriteBarrier();
 	m_broadcastAddress = (UnsignedInt)-1;
 	m_transport = 0;
 	m_unused58 = 0;
