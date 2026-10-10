@@ -105,7 +105,9 @@ struct Gen006E2310Triple
 
 // Retail's global dword at 0x00DE4880 (?g_get_00710fb0@@3HA in the data
 // ledger), holding the BfmeB1137 singleton; the dtor reads it the same way.
-extern int g_get_00710fb0;
+// Retail's global dword (data_ledger RVA 0x9E4880, zero .data, unowned),
+// holding the BfmeB1137 singleton; defined here, nothing else defines it.
+int g_get_00710fb0;
 
 class Gen006E2310 : public Rva009519B
 {

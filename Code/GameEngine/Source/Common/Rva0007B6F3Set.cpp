@@ -5,7 +5,9 @@
 // (0x007EEFD0) keeps the same shape. It clears the shadow-map info of the
 // object at 0x00DF36B4 through its rowed method.
 class FXShaderParameterSourceNamespaceSAS { public: void rva0014F7F2(int value); };
-extern FXShaderParameterSourceNamespaceSAS *g_00DF36B4;
+// Shadow-map info owner (data_ledger RVA 0x9F36B4, null .data, unowned);
+// defined here, nothing else defines it.
+FXShaderParameterSourceNamespaceSAS *g_00DF36B4 = 0;
 
 class Rva0007DA23ResourceManager
 {

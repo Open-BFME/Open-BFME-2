@@ -21,7 +21,9 @@ struct HeapTable
 
 extern HeapTable g_heaps;
 } // namespace MemoryPool
-extern void (__cdecl *g_Va00DE03E8)(unsigned int id, unsigned int size);
+// Heap-add hook (data_ledger RVA 0x9E03E8, null .data, unowned); defined
+// here, nothing else defines it.
+void (__cdecl *g_Va00DE03E8)(unsigned int id, unsigned int size) = 0;
 
 void Rva000308E0AddHeap(unsigned int id, unsigned int size)
 {

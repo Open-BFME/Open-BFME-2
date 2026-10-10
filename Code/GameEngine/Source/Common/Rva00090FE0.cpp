@@ -10,7 +10,9 @@
 
 extern "C" __declspec(dllimport) unsigned long __stdcall timeGetTime(void);
 
-extern unsigned char g_00DE4498;
+// Flag byte (data_ledger RVA 0x9E4498, zero .data, unowned); defined here,
+// nothing else defines it.
+unsigned char g_00DE4498 = 0;
 
 class Rva00090FE0
 {

@@ -22,7 +22,9 @@ public:
     ObjectCreationList m_list2;
 };
 
-extern Rva001021F7 *g_00DEC268;
+// Singleton pointer (data_ledger RVA 0x9EC268, zero .data, unowned);
+// defined here, nothing else defines it.
+Rva001021F7 *g_00DEC268 = 0;
 
 Rva001021F7 *Rva00102215Get()
 {
