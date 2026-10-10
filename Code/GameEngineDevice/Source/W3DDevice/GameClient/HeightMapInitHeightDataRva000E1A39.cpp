@@ -54,3 +54,32 @@ void Rva000E15D1::rva000E14C4(){
  cols=0;rows=0;count=0;
  if(backup){delete[]backup;backup=0;}
 }
+
+// NativeE153A..E15D1 is151B. Target selects terrain FX level using the
+// GameLODManager word1780 and writable GlobalData normal-terrain flag49.
+// Raw initialized integer tableDB5550 is{0,1,2}; only those three indices are
+// reached. The existing shader factory and counted-holder assignment prove
+// the terrain.fx/Default setup and retained holder3938. RefCountPtr layout
+// follows the owned factory, while the native caller independently proves
+// count4/delete-vslot0 and the temporary cleanup. Borrowed setting views
+// preserve the unproved enum/complete-class details. The standard min form
+// b<a?b:a restores native current/constant stack homes and signed branch.
+
+class GlobalData;extern GlobalData*TheWritableGlobalData;
+class GameLODManager;extern GameLODManager*TheGameLODManager;
+struct TerrainNormalFlags{char unknown[0x49];bool normalTerrain;};
+struct TerrainLODState{char unknown[0x1780];int terrainLOD;};
+static int terrainShaderLevels[3]={0,1,2};
+class FXShaderSetup{public:virtual void Delete_This();void Add_Ref(){++refs;}void Release_Ref(){if(--refs==0)Delete_This();}int refs;};
+template<class T>class RefCountPtr{public:RefCountPtr():m_ptr(0){}RefCountPtr(const RefCountPtr&o):m_ptr(o.m_ptr){if(m_ptr)m_ptr->Add_Ref();}~RefCountPtr(){if(m_ptr)m_ptr->Release_Ref();}T*m_ptr;};
+struct Rva0007BB16Record;namespace _STL{template<class T>class allocator;template<class T,class A>class vector;}
+RefCountPtr<FXShaderSetup> Rva00152C47_CreateFXShaderSetup(const char*,const char*,const _STL::vector<Rva0007BB16Record,_STL::allocator<Rva0007BB16Record> >*,int);
+class Rva00072A94{public:Rva00072A94&operator=(const Rva00072A94&);};
+static __forceinline const int& smallerTerrainLevel(const int&a,const int&b){return b<a?b:a;}
+void Rva000E15D1::rva000E153A(){
+ int requested=((TerrainLODState*)TheGameLODManager)->terrainLOD;
+ int level;
+ if(((TerrainNormalFlags*)TheWritableGlobalData)->normalTerrain)level=2;
+ else level=smallerTerrainLevel(requested,1);
+ *((Rva00072A94*)((char*)this+0x3938))=(const Rva00072A94&)Rva00152C47_CreateFXShaderSetup("terrain.fx","Default",0,terrainShaderLevels[level]);
+}
