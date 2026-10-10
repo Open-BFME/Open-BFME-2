@@ -42,3 +42,18 @@ codex-01a1071d-file-recovery before the Code edit. Reconstruction used target
 bytes and named WorldBuilder evidence, not a BFME1 donor. Private trial receipts
 remain under ignored build/reference-pass16/hotkey-91-private/. No C++ progress
 is claimed from private trial outputs.
+
+## Status-query slot1
+
+Retail53DA53..53DA64 is a complete17B body ending in RET4. The same target
+vftable places it in slot1; the existing constructor at53DAD0 installs this
+table and the window pointer at+8. The body calls the actual already-rowed
+GameWindow::winGetStatus at30F45F and returns `(status >>4)&1` in full EAX.
+The original method name and the unused stack word's original source type
+remain unknown. The neutral RVA-owned method and unsigned word describe the
+observed physical ABI without claiming an original API. Reference HIDDEN=0x10
+is a donor semantic lead, not an independently established target name.
+The source declares opaque slots without emitting a vftable or extra bodies.
+The pushed body reservation predates this edit. Normal add_match verified
+both full bodies2/2; ordinary link_check against the fresh census reports
+LINKS91->108 with zero blockers. Neither check required a new callee pin.

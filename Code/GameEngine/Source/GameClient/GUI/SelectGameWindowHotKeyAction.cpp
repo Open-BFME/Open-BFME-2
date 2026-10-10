@@ -1,13 +1,14 @@
 // cl: /O1 /MD
 // WB names SelectGameWindowHotKeyAction::doInvoke in its own source file.
 // Retail53DA75..53DAD0 proves window+8, instance-owner+14 and dispatch+E8.
-// The table at869310 puts this method at slot3. The other three slots and
-// the prefix word remain opaque; this declaration-only view is not instantiated.
+// The table at869310 puts doInvoke at slot3 and the status queries at slots1/2.
+// Slot0 and the prefix word remain opaque; this view is not instantiated.
 class WinInstanceData;
 class GameWindow {
 public:
     WinInstanceData *winGetInstanceData();
     int winGetWindowId();
+    unsigned int winGetStatus();
 };
 struct HotKeyWindowInstanceView {
     unsigned char unknown0[0x14];
@@ -30,7 +31,7 @@ public:
 class SelectGameWindowHotKeyAction {
 public:
     virtual void unknownSlot0();
-    virtual void unknownSlot1();
+    virtual unsigned int rva0053DA53(unsigned int unusedWord);
     virtual void unknownSlot2();
     virtual bool doInvoke(bool flag);
 private:
@@ -46,4 +47,10 @@ bool SelectGameWindowHotKeyAction::doInvoke(bool flag) {
             || !flag)
         return true;
     return false;
+}
+
+// Full EAX result and the unused stack word describe the observed ABI.
+// The original method name and parameter type remain unknown.
+unsigned int SelectGameWindowHotKeyAction::rva0053DA53(unsigned int) {
+    return (window->winGetStatus() >> 4) & 1;
 }
