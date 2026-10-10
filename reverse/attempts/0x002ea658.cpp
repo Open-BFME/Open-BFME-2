@@ -1,4 +1,6 @@
 // ?rva002EA658@Pathfinder@@QAE_NPAVObject@@AAUTCheckMovementInfo@@PBUICoord2D@@@Z
+// partial score=0.9603315203315204 date=2026-10-10
+// ?rva002EA658@Pathfinder@@QAE_NPAVObject@@AAUTCheckMovementInfo@@PBUICoord2D@@@Z
 // partial score=0.918554 date=2026-10-09
 // ?rva002EA658@Pathfinder@@QAE_NPAVObject@@AAUTCheckMovementInfo@@PBUICoord2D@@@Z
 // partial score=0.918554 date=2026-10-09
@@ -292,6 +294,101 @@ private:
 		}
 		return true;
 	}
+	__forceinline Bool checkPairCellUnits(Object *&obj, PathfindCell *cell, TCheckMovementInfo &info, ObjectID *lastID)
+	{
+		if (cell->rvaInfo14())
+			info.m_32 = true;
+
+		for (PathfindCellObjectNode *node = cell->getObjects(); node; node = node->m_next)
+		{
+			Object *unit = node->m_object;
+			if (unit == obj)
+				continue;
+			if (unit->getID() == info.m_18)
+				continue;
+			if (unit->getID() == *lastID)
+				continue;
+			*lastID = unit->getID();
+
+			Bool check = false;
+			Bool isAlly;
+			unsigned occupied=cell->hasObjects();
+			Object *owner=*(Object *volatile *)&obj;
+			if (occupied)
+			{
+				isAlly = owner->getRelationship(unit) == ALLIES;
+				if (isAlly)
+					info.m_31 = true;
+				if (info.m_11)
+					check = true;
+				if (!isAlly && (info.m_14 & 0x10))
+					check = true;
+			}
+			if (unit->IsAtGoalPosition())
+			{
+				isAlly = owner->getRelationship(unit) == ALLIES;
+				check = true;
+			}
+			if (!check)
+				continue;
+
+			if (isAlly && owner->getTemplate()->isKindOf(0x74) && unit->getTemplate()->isKindOf(0x74))
+				continue;
+			if (owner->getTemplate()->isKindOf(0x7D) && unit->getTemplate()->isKindOf(8))
+				continue;
+			if (isAlly && owner->getTemplate()->isKindOf(0xBA) && !unit->getTemplate()->isKindOf(0xBA))
+			{
+				info.m_32 = false;
+				continue;
+			}
+			if (owner->getTemplate()->isKindOf(0xBB))
+			{
+				info.m_32 = false;
+				continue;
+			}
+
+			if (isAlly)
+			{
+				if (!unit->getAI())
+					return false;
+				if (info.m_14 & 2)
+					return false;
+				info.m_2C = 1;
+				if (unit->getTemplate()->isKindOf(0xBA) && !owner->getTemplate()->isKindOf(0xBA))
+					return false;
+				continue;
+			}
+
+			if (owner->canCrushOrSquishNoAlly(unit, 2))
+				continue;
+			if (!(info.m_14 & 0x11))
+				continue;
+			AIUpdateInterface *ai = obj->getAI();
+			if (!ai)
+				return false;
+			Object *goal = ai->m_stateMachine->getGoalObject();
+			if (goal)
+			{
+				if (unit == goal || unit->m_274 == goal)
+					continue;
+				goal = goal->m_274;
+				if (goal && (unit == goal || unit->m_274 == goal))
+					continue;
+			}
+			Object *victim = ai->getCurrentVictim();
+			if (!victim)
+				return false;
+			if (unit == victim || unit->m_274 == victim)
+				continue;
+			victim = victim->m_274;
+			if (!victim)
+				return false;
+			if (unit == victim || unit->m_274 == victim)
+				continue;
+			return false;
+		}
+		return true;
+	}
 };
 
 Bool Pathfinder::rva002EA0BA(Object *obj, PathfindCell *cell, TCheckMovementInfo &info, ObjectID *lastID)
@@ -371,7 +468,8 @@ Bool Pathfinder::rva002EA658(Object *obj, TCheckMovementInfo &info, const ICoord
 			}
 			else
 			{
-				if (!checkCell(obj, cell, info, &lastID))
+				checkCellFlags(obj,cell,info);
+				if (!checkPairCellUnits(obj, cell, info, &lastID))
 					return false;
 			}
 		}
