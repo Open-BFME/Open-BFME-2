@@ -1,5 +1,3 @@
-// ?rva001EC63D@Rva001EC63DNullTarget@@QAEXXZ
-// partial score=0.99 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /EHsc /DNDEBUG /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva001EC63D@Rva001EC63DNullTarget@@QAEXXZ retail 0x001EC63D..0x001EC859 540 B.
@@ -15,7 +13,13 @@
 // its +0x90 objects (0x0037DCE8; status bit 0x10 at +0x438) into a local
 // object list; spawned records move to +0xB4 and are erased (0x001EBCD8).
 // The list goes to the army placer (0x0037F4C0 / 0x0037FE3D / 0x0037F4C9).
-// Offsets and callee names are target evidence; class names are the twin's.
+// Native fields/calls establish layout and behavior. WB AF7270 supplies a
+// LinearCampaign carryover semantic lead; the owner keeps its existing
+// address-derived identity because the original class is not proved.
+// Reuse the verified DB8FEC Object-list policy from ArmySummaryLoad. The
+// generic Object-list cleanup4EC395 differs from pooled cleanup1EB769.
+// A nonemitting barrier in the first receiver expression preserves native
+// argument/receiver-load ordering and saved-register scheduling.
 
 class GameLogic;
 extern GameLogic *TheGameLogic;
@@ -24,10 +28,45 @@ struct Rva001EC63DGameLogic { char pad00[0x98]; bool m_98; };
 class Object;
 struct Rva001EC63DObjectView { char pad000[0x438]; unsigned char m_statusBits; };
 
+extern "C" void _ReadWriteBarrier();
+#pragma intrinsic(_ReadWriteBarrier)
 #include <list>
 #include <vector>
 class Rva001EB984Member { public: void *init(void *context); };
 class Rva001EB769 { public: void rva001EB769() throw(); };
+template<class T>class Rva001EB984PoolAllocator {};
+class FreelistProxyHead {public:void setup(const void*,void*);};
+class FreelistPool {public:void*pop();};
+extern FreelistPool g_freelistPool00DB8FEC;
+// The visible constructor preserves the native unused-allocator argument
+// placement. Its /Oy- COMDAT copy loses to the exact strong /O1 provider
+// in StlportObjectFreelistListBaseCtor.cpp; no alternate body is called.
+namespace _STL {
+template<class T,class A>class _List_base;
+template<>class _List_base<Object*,Rva001EB984PoolAllocator<Object*> > {
+public:
+ _List_base(const Rva001EB984PoolAllocator<Object*>&);
+ __forceinline ~_List_base() throw(){((Rva001EB769*)this)->rva001EB769();}
+ void*head;
+};
+__declspec(noinline) inline _List_base<Object*,Rva001EB984PoolAllocator<Object*> >::_List_base(const Rva001EB984PoolAllocator<Object*>&a)
+{
+ char dummy;((FreelistProxyHead*)this)->setup(&dummy,0);
+ void*n=g_freelistPool00DB8FEC.pop();((void**)n)[0]=n;((void**)n)[1]=n;head=n;
+}
+
+// The existing circular-header policy owns native Object node allocation.
+// Keep stock append visible here: native inlines it through insert37B.
+template<>class list<Object*,Rva001EB984PoolAllocator<Object*> > : public _List_base<Object*,Rva001EB984PoolAllocator<Object*> > {
+public:
+ list(const Rva001EB984PoolAllocator<Object*>&a=Rva001EB984PoolAllocator<Object*>()):_List_base<Object*,Rva001EB984PoolAllocator<Object*> >(a){}
+ __forceinline void push_back(Object*const&v){((list<Object*,allocator<Object*> >*)this)->push_back(v);}
+ bool empty()const{return *(void**)head==head;}
+};
+}
+
+typedef _STL::list<Object*,Rva001EB984PoolAllocator<Object*> > CarryoverObjectList;
+
 
 class Rva003805BB
 {
@@ -120,7 +159,7 @@ public:
 
 void Rva001EC63DNullTarget::rva001EC63D()
 {
-	BfmeAssignRecord36 *mission = m_missions->rva001EB3A6(m_missionIndex);
+	BfmeAssignRecord36 *mission = (_ReadWriteBarrier(),m_missions)->rva001EB3A6(m_missionIndex);
 	if (mission) {
 		m_used.clear();
 		if (ThePlayerList) {
@@ -158,7 +197,7 @@ void Rva001EC63DNullTarget::rva001EC63D()
 				reinterpret_cast<Rva001EC63DGameLogic *>(TheGameLogic)->m_98 = saved;
 				}
 
-				_STL::list<Object *> objects;
+				CarryoverObjectList objects;
 				CarryoverUnit *unit = m_unitsBegin;
 				while (unit != m_unitsEnd) {
 					bool added = false;
