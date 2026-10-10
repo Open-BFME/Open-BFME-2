@@ -67646,7 +67646,7 @@ uw_00767390,,0x00767390,11,Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescDefaul
 ?rva001087FD@Rva00108660ResourceManager@@QAEXXZ,,0x001087FD,69,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowManagerToggleLists.cpp,matched,BFME1 1399ad37 S3GuardedGlobalTriples lead; native globals and callees; three-head detach and boolean walk; closed native extent; original names unknown
 ?rva0009A4A4@@YAXXZ,,0x0009A4A4,46,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowManagerToggleLists.cpp,matched,BFME1 1399ad37 S3GuardedGlobalTriples lead; native globals and callees; three-head detach and boolean walk; closed native extent; original names unknown
 ?rva0009A4D2@@YAXXZ,,0x0009A4D2,46,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowManagerToggleLists.cpp,matched,BFME1 1399ad37 S3GuardedGlobalTriples lead; native globals and callees; three-head detach and boolean walk; closed native extent; original names unknown
-?d_0002dfe2@@YAXXZ,,0x0002DFE2,91,Code/gen_asm/d_0002dfe2.asm,matched,gen-dump;bounds=ghidra-inventory
+?rva0002DFE2@INI@@QAEPBDPBDPA_N@Z,,0x0002DFE2,91,Code/GameEngine/Source/Common/System/INI_getNextToken.cpp,matched,INI::getNextTokenOrNull then preprocessMacro with substituted out-param; throws INIException when null and substituted is null
 ?d_00032050@@YAXXZ,,0x00032050,140,Code/gen_asm/d_0002dfe2.asm,matched,gen-dump;bounds=ghidra-inventory
 ?d_00032160@@YAXXZ,,0x00032160,137,Code/gen_asm/d_0002dfe2.asm,matched,gen-dump;bounds=ghidra-inventory
 ?d_00032ec0@@YAXXZ,,0x00032EC0,151,Code/gen_asm/d_0002dfe2.asm,matched,gen-dump;bounds=ghidra-inventory

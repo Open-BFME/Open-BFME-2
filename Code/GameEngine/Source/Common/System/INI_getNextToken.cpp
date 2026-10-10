@@ -17,6 +17,7 @@ public:
 	const char *getNextToken(const char *seps);
 	const char *getNextTokenOrNull(const char *seps);
 	static const char *preprocessMacro(const char *token);
+	const char *rva0002DFE2(const char *seps, bool *substituted);
 	const char *rva0002E03D(const char *seps, bool *substituted);
 private:
 	char _pad[0x418];
@@ -42,6 +43,24 @@ const char *INI::getNextToken(const char *seps)
 		throw INIException(3, "Expected additional data after '%s'", (seps == 0) ? m_seps : seps);
 	}
 	return token;
+}
+
+// ?rva0002DFE2@INI@@QAEPBDPBDPA_N@Z @0x0002DFE2 91B: INI::getNextTokenOrNull
+// then static preprocessMacro (pinned 0x0002D0A9); throws INIException(3) if null and substituted == 0;
+// if substituted != 0, sets *substituted and returns 0 when token is null.
+const char *INI::rva0002DFE2(const char *seps, bool *substituted)
+{
+	const char *token = getNextTokenOrNull(seps);
+	if (token == 0 && substituted == 0) {
+		throw INIException(3, "Expected additional data after '%s'", seps);
+	}
+	if (token != 0) {
+		const char *expanded = preprocessMacro(token);
+		if (substituted != 0)
+			*substituted = (expanded != token);
+		return expanded;
+	}
+	return 0;
 }
 
 // ?rva0002E03D@INI@@QAEPBDPBDPA_N@Z @0x0002E03D 46B: INI::getNextTokenOrNull
