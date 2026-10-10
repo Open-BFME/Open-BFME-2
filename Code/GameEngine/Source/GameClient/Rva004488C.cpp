@@ -21,9 +21,30 @@ class Rva004488C
 	int m_280;
 	unsigned int m_frame;
 	float m_val;
+	float m_28C;
+	float m_290;
+	float m_294;
+	float m_298;
+	float m_29C;
+	float m_2A0;
 public:
+	void rva0004481A(float a, float b, float c, float d);
 	void f(float v);
 };
+
+void Rva004488C::rva0004481A(float a, float b, float c, float d)
+{
+	m_298 = a;
+	m_2A0 = c;
+	m_29C = b;
+	m_28C = a;
+	m_294 = c;
+	m_290 = b;
+	unsigned int fr = TheRva00DFE77C->slot1F();
+	m_frame = fr;
+	m_280 = 1;
+	m_val = d;
+}
 
 void Rva004488C::f(float v)
 {
@@ -32,3 +53,4 @@ void Rva004488C::f(float v)
 	m_frame = fr;
 	m_val = v;
 }
+

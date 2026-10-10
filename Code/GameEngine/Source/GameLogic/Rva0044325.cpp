@@ -11,13 +11,25 @@ public:
 
 class Rva0044325
 {
-	char m_pad[0xD8];
+	char m_pad[0xD4];
+	float m_fadeLevel;
 	bool m_flag;
 	char m_pad2[3];
 	unsigned int m_time;
 public:
+	bool rva000441F7();
 	void f();
+	void rva00044360(bool enable);
 };
+
+bool Rva0044325::rva000441F7()
+{
+	if (m_flag && m_fadeLevel != 1.0f)
+		return true;
+	if (!m_flag && m_fadeLevel != 0.0f)
+		return true;
+	return false;
+}
 
 void Rva0044325::f()
 {
@@ -26,3 +38,28 @@ void Rva0044325::f()
 	if (TheTacticalView)
 		TheRva00DFEA3C->slot07(m_flag == 0);
 }
+
+void Rva0044325::rva00044360(bool enable)
+{
+	if (enable)
+	{
+		if (!m_flag)
+		{
+			m_flag = true;
+			m_time = timeGetTime();
+			if (TheTacticalView)
+				TheRva00DFEA3C->slot07(false);
+		}
+	}
+	else
+	{
+		if (m_flag)
+		{
+			m_flag = false;
+			m_time = timeGetTime();
+			if (TheTacticalView)
+				TheRva00DFEA3C->slot07(true);
+		}
+	}
+}
+
