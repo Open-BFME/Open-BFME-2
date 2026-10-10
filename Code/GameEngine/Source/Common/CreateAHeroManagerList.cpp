@@ -31,7 +31,9 @@ private:
 
 extern GameLogic *TheGameLogic;
 class GameSpyStagingRoom;
-extern GameSpyStagingRoom *TheGameSpyGame;
+// ?TheGameSpyGame@@3PAVGameSpyStagingRoom@@A at 0x00A02324 (data_ledger,
+// zero-filled .data): nothing else defines it, so this TU owns it.
+GameSpyStagingRoom *TheGameSpyGame;
 
 // Target 0x002192C0..0x00219309, ending RET. Two pinned manager callers
 // establish the thiscall ABI. The receiver is unused; target reads the
