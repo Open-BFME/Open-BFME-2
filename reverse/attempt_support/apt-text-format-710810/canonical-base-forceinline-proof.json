@@ -1,0 +1,203 @@
+{
+  "head": "b5f8a2c5243e4c24afe1750a32643ed2ff0e4ed7",
+  "command": [
+    "C:\\Users\\clemens\\.codex\\worktrees\\reference-clone-seat\\Open-BFME-2\\reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\bin\\cl.exe",
+    "-nologo",
+    "-c",
+    "-O2",
+    "-GR-",
+    "-EHsc-",
+    "-O2",
+    "-arch:SSE",
+    "-DNDEBUG",
+    "-MD",
+    "-EHsc",
+    "-Fobuild/reference975/apt-base-audit/canonical-forceinline.obj",
+    "C:\\Users\\clemens\\.codex\\worktrees\\reference-clone-seat\\Open-BFME-2\\build\\reference975\\apt-base-audit\\canonical-forceinline.cpp"
+  ],
+  "header_sha256": "e28b67b88775b588c13971b88a3d9028b6e5a02f163d2615a6524105235ee36d",
+  "checks": [
+    {
+      "symbol": "??0AptValueWithHash@@QAE@W4AptVirtualFunctionTable_Indices@@H@Z",
+      "rva": "0x6d6360",
+      "size": 86,
+      "target": 86,
+      "diffs": [],
+      "relocations": [
+        [
+          3,
+          6,
+          "__ehhandler$??0AptValueWithHash@@QAE@W4AptVirtualFunctionTable_Indices@@H@Z"
+        ],
+        [
+          9,
+          6,
+          "__except_list"
+        ],
+        [
+          17,
+          6,
+          "__except_list"
+        ],
+        [
+          35,
+          20,
+          "??0AptValueGC@@IAE@W4AptVirtualFunctionTable_Indices@@@Z"
+        ],
+        [
+          57,
+          6,
+          "??_7AptValueWithHash@@6B@"
+        ],
+        [
+          62,
+          20,
+          "??0AptNativeHash@@QAE@H@Z"
+        ],
+        [
+          76,
+          6,
+          "__except_list"
+        ]
+      ]
+    },
+    {
+      "symbol": "??1AptValueWithHash@@MAE@XZ",
+      "rva": "0x6d63c0",
+      "size": 82,
+      "target": 76,
+      "diffs": [
+        29,
+        30,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        45,
+        46,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71
+      ],
+      "relocations": [
+        [
+          3,
+          6,
+          "__ehhandler$??1AptValueWithHash@@MAE@XZ"
+        ],
+        [
+          9,
+          6,
+          "__except_list"
+        ],
+        [
+          17,
+          6,
+          "__except_list"
+        ],
+        [
+          31,
+          6,
+          "??_7AptValueWithHash@@6B@"
+        ],
+        [
+          47,
+          20,
+          "??1AptNativeHash@@QAE@XZ"
+        ],
+        [
+          62,
+          20,
+          "??1AptValueGC@@MAE@XZ"
+        ],
+        [
+          74,
+          6,
+          "__except_list"
+        ]
+      ]
+    },
+    {
+      "symbol": "??0AptObject@@QAE@W4AptVirtualFunctionTable_Indices@@H@Z",
+      "rva": "0x6d6410",
+      "size": 43,
+      "target": 43,
+      "diffs": [],
+      "relocations": [
+        [
+          16,
+          20,
+          "??0AptValueWithHash@@QAE@W4AptVirtualFunctionTable_Indices@@H@Z"
+        ],
+        [
+          33,
+          6,
+          "??_7AptObject@@6B@"
+        ]
+      ]
+    },
+    {
+      "symbol": "??1AptObject@@MAE@XZ",
+      "rva": "0x6d6470",
+      "size": 82,
+      "target": 82,
+      "diffs": [],
+      "relocations": [
+        [
+          3,
+          6,
+          "__ehhandler$??1AptObject@@MAE@XZ"
+        ],
+        [
+          9,
+          6,
+          "__except_list"
+        ],
+        [
+          17,
+          6,
+          "__except_list"
+        ],
+        [
+          31,
+          6,
+          "??_7AptValueWithHash@@6B@"
+        ],
+        [
+          47,
+          20,
+          "??1AptNativeHash@@QAE@XZ"
+        ],
+        [
+          62,
+          20,
+          "??1AptValueGC@@MAE@XZ"
+        ],
+        [
+          74,
+          6,
+          "__except_list"
+        ]
+      ]
+    }
+  ]
+}
