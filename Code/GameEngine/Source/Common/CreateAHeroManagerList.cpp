@@ -25,11 +25,7 @@ private:
 	Rva0040A3F9 m_entries;
 };
 
-Rva0040A3F9 *CreateAHeroManager::rva0021F797()
-{
-	rva0021F47E();
-	return &m_entries;
-}
+// The exact rva0021F797 definition is owned by CreateAHeroManagerHeroList.cpp.
 
 #include "GameLogicObjectLookupView.h"
 
