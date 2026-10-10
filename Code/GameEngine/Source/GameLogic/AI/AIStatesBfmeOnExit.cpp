@@ -141,7 +141,7 @@
 //    +0x3B1 is clear: CritterDesync log line, setAdjustsDestination(true)
 //    (+0x48), +0x50 cleared; then the pinned AIInternalMoveToState::update.
 //  - AICombineState::onEnter, retail 0x0034FCAC (97 bytes): slot 4 of
-//    0x00C12EE8. Returns the pinned state helper 0x0034612C's result when
+//    0x00C12EE8. Returns the named internalUpdate 0x0034612C result when
 //    nonzero; else slot 24 of the rowed Object::rva0028C197 interface when
 //    its bool slot 136 holds, a CritterDesync log line,
 //    setAdjustsDestination(false) and the base onEnter.
@@ -767,7 +767,6 @@ public:
 	virtual void slot13(); virtual void slot14(); virtual void slot15();
 	virtual void slot16();
 	virtual Bool computePath();
-	StateReturnType rva0034612C();
 protected:
 	void setAdjustsDestination(Bool b) { m_adjustDestination = b; }
 	unsigned char m_pad1C[0x20 - 0x1C];
@@ -1470,11 +1469,12 @@ class AICombineState : public AIInternalMoveToState
 {
 public:
 	virtual StateReturnType onEnter();
+	StateReturnType internalUpdate();
 };
 
 StateReturnType AICombineState::onEnter()
 {
-	StateReturnType ret = rva0034612C();
+	StateReturnType ret = internalUpdate();
 	if (ret != STATE_CONTINUE)
 		return ret;
 	Rva0028C197Result *result = (Rva0028C197Result *)getMachineOwner()->rva0028C197();
