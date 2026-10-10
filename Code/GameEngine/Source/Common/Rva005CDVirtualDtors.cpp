@@ -105,9 +105,18 @@ private:
     class Impl *m_impl;
 };
 }
-class Rva005E54AE : public StrategicHUD::ArmyDetailsMovieClip {public:virtual ~Rva005E54AE(){}};
-class Rva005E54F7 : public Rva005E54AE,public Rva005E4F6D {public:virtual ~Rva005E54F7();};
+class Rva005E54AE : public StrategicHUD::ArmyDetailsMovieClip {public:Rva005E54AE(int,const AsciiString &,bool);virtual ~Rva005E54AE(){}};
+class Rva005E54F7 : public Rva005E54AE,public Rva005E4F6D {public:Rva005E54F7(int,const AsciiString &,void *);virtual ~Rva005E54F7();};
 Rva005E54F7::~Rva005E54F7(){}
 struct Rva005CD9C0Link {char prefix[0xc];void *owner;};
 class Rva005CD9C0 : public Rva005E54F7 {public:virtual ~Rva005CD9C0();private:Rva005CD9C0Link *link1C;};
 Rva005CD9C0::~Rva005CD9C0(){if(link1C)link1C->owner=0;}
+
+// Native 5E5590..5E5628 (152B): primary ArmyDetailsMovieClip-derived
+// constructor 5E54D5, shared E4F6D constructor at +8, and the counted
+// virtual base at +1C. The third input's Boolean at +C is read as a byte.
+Rva005E54F7::Rva005E54F7(int level, const AsciiString &name, void *owner)
+    : Rva005E54AE(level, name, *reinterpret_cast<bool *>(static_cast<char *>(owner) + 0xC)),
+      Rva005E4F6D(static_cast<_Rva005E4AE2In *>(owner), reinterpret_cast<int>(this))
+{
+}

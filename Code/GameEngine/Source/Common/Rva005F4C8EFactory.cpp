@@ -93,29 +93,71 @@ Rva005F4C8ERef<Rva005E6ED6Second> Rva005FAAA1::rva005FAB34(int a, int b)
 
 // The same factory over two other counted classes:
 //   ?rva005F4CF8@Rva005F4C52@@... @0x005F4CF8 106B, slot 3 of Rva005F4C52:
-//     a new 0x24-byte Rva005E5590 (0x005E5590, pinned), interface at +0x10;
+//     a new 0x24-byte Rva005E54F7 (constructor 0x005E5590), interface at +0x10;
 //   ?rva005CDF8B@Rva005CDF6C@@... @0x005CDF8B 106B, slot 2 of Rva005CDF6C:
 //     a new 0x30-byte Rva005CDE89 (0x005CDE89, pinned), interface at +0x0C.
-class Rva005E5590First : public virtual Rva005E6ED6Counted
+struct RvaSmallVtableZeroBase { void *m_04; };
+class Rva0007DF07 : public RvaSmallVtableZeroBase
 {
 public:
-	virtual void first0();
-	int m_08;
-	int m_0C;
+    Rva0007DF07();
+    virtual ~Rva0007DF07();
 };
-
+class Rva005CC5E5 : public virtual Rva0007DF07
+{
+public:
+    __declspec(nothrow) Rva005CC5E5();
+    virtual void slot0();
+    virtual ~Rva005CC5E5();
+};
+class Rva005E3AE1 : public virtual Rva0007DF07
+{
+public:
+    Rva005E3AE1();
+    virtual void slot0() = 0;
+    virtual ~Rva005E3AE1();
+};
+struct _Rva005E4AE2In;
+class Rva005E4AE2
+{
+public:
+    Rva005E4AE2(void *, _Rva005E4AE2In *, int);
+private:
+    char storage[0x30];
+};
+class Rva005E4B9D
+{
+public:
+    Rva005E4B9D(Rva005E4AE2 *v);
+    ~Rva005E4B9D();
+    void clear();
+    Rva005E4AE2 *value;
+};
+class Rva005E4F6D : public Rva005CC5E5, public Rva005E3AE1
+{
+public:
+    Rva005E4F6D(_Rva005E4AE2In *, int);
+    virtual ~Rva005E4F6D();
+    virtual void slot0();
+    virtual void slot1();
+private:
+    Rva005E4B9D child;
+};
+class AsciiString;
+namespace StrategicHUD {
+class ArmyDetailsMovieClip {public:
+    ArmyDetailsMovieClip(int,const AsciiString &,int,bool);
+    virtual ~ArmyDetailsMovieClip();
+    virtual void notifyBackButtonClicked();
+    virtual void notifyIconListBackgroundClicked();
+private: class Impl *m_impl;
+}; }
+class Rva005E54AE:public StrategicHUD::ArmyDetailsMovieClip {public:Rva005E54AE(int,const AsciiString &,bool);virtual ~Rva005E54AE();};
+class Rva005E54F7:public Rva005E54AE,public Rva005E4F6D {public:Rva005E54F7(int,const AsciiString &,void*);virtual ~Rva005E54F7();};
 class Rva005E5590Iface : public virtual Rva005E6ED6Counted
 {
 public:
-	virtual void iface0();
-};
-
-class Rva005E5590 : public Rva005E5590First, public Rva005E5590Iface
-{
-public:
-	Rva005E5590(int a, int b, void *owner);
-private:
-	int m_18;
+    virtual void iface0();
 };
 
 class Rva005CDE89First : public virtual Rva005E6ED6Counted
@@ -141,7 +183,10 @@ private:
 
 Rva005F4C8ERef<Rva005E5590Iface> Rva005F4C52::rva005F4CF8(int a, int b)
 {
-	return Rva005F4C8ERef<Rva005E5590Iface>(new Rva005E5590(a, b, &m_08));
+	// The existing return view reaches the same counted base through its
+    // vbptr; the provider's real third interface is Rva005E3AE1 at +10.
+    Rva005E54F7 *panel = new Rva005E54F7(a, *reinterpret_cast<const AsciiString *>(b), &m_08);
+    return Rva005F4C8ERef<Rva005E5590Iface>(reinterpret_cast<Rva005E5590Iface *>(static_cast<Rva005E3AE1 *>(panel)));
 }
 
 class Rva005CDF6C
