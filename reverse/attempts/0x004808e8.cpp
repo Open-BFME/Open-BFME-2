@@ -1,4 +1,6 @@
 // ?AddHordeMember@SlaughterHordeContain@@QAEXPAVObject@@@Z
+// partial score=0.9113924798525276 date=2026-10-10
+// ?AddHordeMember@SlaughterHordeContain@@QAEXPAVObject@@@Z
 // partial score=0.95 date=2026-10-10
 // cl: /O1 /Ob2 /G7 /arch:SSE /MD /EHsc /DNDEBUG /Ireference/shims/bfme2_ascii /ICode/Libraries/Include /ICode/GameEngine/Source/Common
 // stlport
@@ -15,7 +17,7 @@ enum CommandSourceType{CMD_FROM_AI=2};enum ObjectStatusTypes{STATUS_NONE=0};
 enum DamageType{DAMAGE_NONE=0};enum DeathType{DEATH_NONE=0};
 class Object;class Team;class ThingTemplate;class Player;
 class Rva0039B7AD;
-class Rva003B0D7C{public:void rva003B0D7C(unsigned int,Rva0039B7AD*,bool);};
+class Rva003B0D7C{public:void rva003B0D7C(int,Rva0039B7AD*,bool);};
 class ScoreKeeper{public:void addObjectLost(const Object*);};
 class Player{public:int ScaleMoney(int);float getProductionCostChangeBasedOnTemplate(const ThingTemplate*,bool);
  char pad[0x90];Rva003B0D7C money;char pad91[0x280-0x91];int color;
@@ -27,7 +29,7 @@ class BfmeGlob939D{public:char bfmeCall939D();};
 class ExperienceTracker{public:void rva0039B315(float,bool,bool,bool,int);};
 class Rva0039ADF3{public:bool rva0039AE04()const;};
 class Rva0028D796{public:int rva0028D796();};
-class Drawable;
+class Drawable {public:void setDrawableHidden(bool);};
 class Thing{public:Drawable *getDrawable()const;};
 class Rva002716Holder{public:void rva00271601(unsigned char);};
 class AICommandInterface{public:void aiIdle(CommandSourceType);};
@@ -86,7 +88,8 @@ void SlaughterHordeContain::AddHordeMember(Object *member)
      if(((BfmeGlob939D*)TheGameLogic)->bfmeCall939D())money*=TheWritableGlobalData->mults.getMoneyMult(ThePlayerList->rva002A7C0B(false));
      float mult=1.0f;if(me->rva0028C15E(13,&mult,0,1))money*=mult;
      money=(float)player->ScaleMoney(REAL_TO_INT_CEIL(player->getProductionCostChangeBasedOnTemplate(me->getTemplate(),true)*money));
-     wallet->rva003B0D7C(money,(Rva0039B7AD*)&player->score,true);
+     typedef void (Rva003B0D7C::*UnsignedDeposit)(unsigned int,Rva0039B7AD*,bool);
+     (wallet->*reinterpret_cast<UnsignedDeposit>(&Rva003B0D7C::rva003B0D7C))(money,(Rva0039B7AD*)&player->score,true);
    }
    UnicodeString moneyString;moneyString.format(TheGameText->text("GUI:AddCash",0),REAL_TO_INT_CEIL(money));
    Coord3D pos;const Coord3D *src=&member->position;pos.x=src->x;pos.y=src->y;pos.z=src->z;
@@ -98,12 +101,12 @@ void SlaughterHordeContain::AddHordeMember(Object *member)
    ExperienceTracker *tracker=me->tracker;
    if(tracker && ((Rva0039ADF3*)tracker)->rva0039AE04())tracker->rva0039B315((float)REAL_TO_INT_CEIL(money),true,true,true,0);
  }
- Drawable *draw=((Thing*)member)->getDrawable();if(draw && consumeMember)((Rva002716Holder*)draw)->rva00271601(1);
+ Drawable *draw=((Thing*)member)->getDrawable();if(draw && consumeMember)draw->setDrawableHidden(true);
  bool transfer=md->multiplier==0;
  if(transfer){
 rva004804DD(member);bool changed=false;
    if(((Rva004783F4*)this)->rva004783F4()!=member->getTeam()){me->rva0028DA28();changed=true;((SlaughterAddTeam*)((char*)this+0x20))->change(member->getTeam());}
-   if(!((Rva002AA292*)&me->upgrades)->rva002AA292((const int*)&member->upgrades)){me->upgrades._M_do_or(member->upgrades);changed=true;}
+   if(!((Rva002AA292*)&(me?me:me)->upgrades)->rva002AA292((const int*)&member->upgrades)){me->upgrades._M_do_or(member->upgrades);changed=true;}
    if(changed)me->updateUpgradeModules();
  }
  if(member->testStatus((ObjectStatusTypes)38)){
