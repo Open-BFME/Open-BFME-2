@@ -457,3 +457,13 @@ inline void HRawAnimClass::add_bit_channel(BitChannelClass * newchan)
 			break;
 	}
 }
+
+// Native18D2A0..18D335 constructor: use the loader's independently
+// reconciled Name10/Hierarchy30/Key40 layout. Semantic source is the
+// ZH raw constructor plus this image's compressed-animation keying sibling.
+HRawAnimClass::HRawAnimClass() : NumFrames(0),NumNodes(0),FrameRate(0),NodeMotion(0)
+{
+ memset(Name,0,W3D_NAME_LEN);
+ NameKey=TheNameKeyGenerator->nameToKey(Name);
+ memset(HierarchyName,0,W3D_NAME_LEN);
+}

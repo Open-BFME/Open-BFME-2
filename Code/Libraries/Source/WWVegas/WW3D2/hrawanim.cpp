@@ -164,16 +164,8 @@ NodeMotionStruct::~NodeMotionStruct()
  * HISTORY:                                                                                    * 
  *   08/11/1997 GH  : Created.                                                                 * 
  *=============================================================================================*/
-// ??0HRawAnimClass@@QAE@XZ present-unmatched
-HRawAnimClass::HRawAnimClass(void) :
-	NumFrames(0),
-	NumNodes(0),
-	FrameRate(0),
-	NodeMotion(NULL)
-{
-	memset(Name,0,W3D_NAME_LEN);
-	memset(HierarchyName,0,W3D_NAME_LEN);
-}
+// HRawAnimClass constructor: target-layout definition in HRawLoadW3D.cpp.
+
 
 
 /*********************************************************************************************** 
