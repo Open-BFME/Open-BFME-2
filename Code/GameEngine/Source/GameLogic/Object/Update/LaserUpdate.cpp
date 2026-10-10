@@ -209,40 +209,7 @@ void LaserUpdate::updateEndPos()
 //-------------------------------------------------------------------------------------------------
 /** The update callback. */
 //-------------------------------------------------------------------------------------------------
-// ?LaserUpdate::clientUpdate present-unmatched
-void LaserUpdate::clientUpdate( void )
-{
-	updateStartPos();
-	updateEndPos();
 
-	if( m_decaying )
-	{
-		UnsignedInt now = TheGameLogic->getFrame();
-		m_currentWidthScalar = 1.0f - (Real)(now - m_decayStartFrame) / (Real)(m_decayFinishFrame - m_decayStartFrame);
-		m_dirty = true;
-		if( m_currentWidthScalar <= 0.0f )
-		{
-			m_currentWidthScalar = 0.0f;
-
-			//When decay is finished... delete the laser.
-			//TheGameLogic->destroyObject( getObject() );
-			return;
-		}
-	}
-	else if( m_widening )
-	{
-		//We need to resize our laser width based on the growth ratio completed.
-		UnsignedInt now = TheGameLogic->getFrame();
-		m_currentWidthScalar = (Real)(now - m_widenStartFrame) / (Real)(m_widenFinishFrame - m_widenStartFrame);
-		m_dirty = true;
-		if( m_currentWidthScalar >= 1.0f )
-		{
-			m_currentWidthScalar = 1.0f;
-			m_widening = false;
-		}
-	}
-	return;
-}
 
 // ?LaserUpdate::setDecayFrames present-unmatched
 void LaserUpdate::setDecayFrames( UnsignedInt decayFrames )

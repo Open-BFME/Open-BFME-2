@@ -1,9 +1,10 @@
 // ?clientUpdate@LaserUpdate@@UAEXXZ
-// partial score=0.960298 date=2026-10-09
 // ?clientUpdate@LaserUpdate@@UAEXXZ
-// partial score=0.97 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii /I. /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
-// BFME1 LaserUpdateClientUpdate.cpp donor9cbfb551fe20dae985f91f2319d8997287b6a705; ZH widening/decaying spine.
+// BFME1 LaserUpdateClientUpdate.cpp donor 575ba2b04743f190f069805fbdc59936123c45da; ZH widening/decaying spine.
+// Target 0x00363233..0x0036355C: complete 809B thiscall body.
+// Named midpoint sums plus a same-valued endpoint pointer conditional preserve
+// retail SSE operand order; all endpoint updates and handle cleanups are retained.
 // Target measured deltas: GameClient frame31/find16/destroy29; Object geometry+A8.
 // Handle return/assignment use existing BFME2 12-byte call views and conditional cleanup.
 #include "ascii_string.h"
@@ -19,13 +20,12 @@ public:
     char m_unmodelled_000[0xa8];
     const GeometryInfo &getGeometryInfo() const { return *(const GeometryInfo *)((const char *)this+0xa8); }
 };
-class BFMERopeDrawable { public: const Coord3D *getPosition() const; };
 class Drawable {
 public:
     bool rva00272835(int, int);
  __forceinline bool getCurrentWorldspaceClientBonePositions(const char *name, Matrix3D &matrix) const { return const_cast<Drawable *>(this)->rva00272835(reinterpret_cast<int>(name),reinterpret_cast<int>(&matrix)); }
     void setPosition(const Coord3D *);
-    const Coord3D *getPosition() const { return ((const BFMERopeDrawable *)this)->getPosition(); }
+    const Coord3D *getPosition() const;
     char m_unmodelled_000[0xfc];
     Rva00603BB0ObjectView *m_object;
     Rva00603BB0ObjectView *getObject() const { return m_object; }
@@ -48,7 +48,7 @@ struct Rva001F3899Arg { float x,y,z; };
 class Rva001F3899Slot { public: void set(const Rva001F3899Arg &); };
 class ParticleSystem { public: __forceinline void setPosition(const Coord3D *pos) { reinterpret_cast<Rva001F3899Slot *>(this)->set(*reinterpret_cast<const Rva001F3899Arg *>(pos)); } };
 class RvaSmartPtr12 { public: RvaSmartPtr12 &operator=(const RvaSmartPtr12 &) throw(); };
-struct BfmeParticleSystemHandle { ~BfmeParticleSystemHandle() throw(); };
+struct BfmeParticleSystemHandle { ~BfmeParticleSystemHandle() throw(); ParticleSystem *m_system; void *m_previous,*m_next; };
 struct BfmeW3DParticleHandle {
  BfmeW3DParticleHandle():m_system(0),m_previous(0),m_next(0) {}
  __forceinline ~BfmeW3DParticleHandle() throw() { if(m_system) ((BfmeParticleSystemHandle *)this)->~BfmeParticleSystemHandle(); }
@@ -88,7 +88,6 @@ public:
     unsigned m_parentID, m_targetID;
 };
 
-// ?clientUpdate@LaserUpdate@@UAEXXZ present-unmatched
 void LaserUpdate::clientUpdate()
 {
     const LaserUpdateModuleData *data=m_moduleData;
@@ -131,10 +130,7 @@ expired:
                 system=TheParticleSystemManager->findParticleSystemByID(m_targetParticleSystemID);
                 if(system.m_system) system.m_system->setPosition(&m_endPos);
             }
-            Coord3D pos;
-            coordSet(&pos,&m_startPos);
-            coordAdd(&pos,&m_endPos);
-            coordScale(&pos,0.5f);
+            Coord3D pos;coordSet(&pos,&m_startPos);float x=pos.x+m_endPos.x;const Coord3D *end=parent ? &m_endPos : &m_endPos;float y=pos.y+end->y;float z=pos.z+end->z;pos.x=x;pos.y=y;pos.z=z;coordScale(&pos,0.5f);
             getDrawable()->setPosition(&pos);
         }
     }
