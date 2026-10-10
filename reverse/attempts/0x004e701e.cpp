@@ -1,4 +1,6 @@
 // ?UpdateNotice@InGameNotificationBoxMovieClip@@QAEXXZ
+// partial score=0.985 date=2026-10-10
+// ?UpdateNotice@InGameNotificationBoxMovieClip@@QAEXXZ
 // partial score=0.96 date=2026-10-09
 #include "ascii_string.h"
 #include "unicode_string.h"
@@ -29,6 +31,7 @@ class Rva004E6A37 {
 public:
  Rva004E6935 *m_ptr;
  Rva004E6A37(Rva004E6935 *p=0):m_ptr(p) {}
+ __forceinline Rva004E6935 *release() { Rva004E6935 *p=m_ptr; m_ptr=0; return p; }
  Rva004E6A37(Rva004E6A37 &v) { Rva004E6935 *p=v.m_ptr; v.m_ptr=0; m_ptr=p; }
  ~Rva004E6A37();
  Rva004E6A37 &operator=(Rva004E6A37);
@@ -40,25 +43,20 @@ public:
  void clear();
  Rva004E6A37 rva004E6BF6();
 };
-Rva004E6A37 Rva004E6A1D::rva004E6BF6() {
- Rva004E6A37 transfer(m_ptr);
- m_ptr=0;
- return Rva004E6A37(transfer);
-}
-
 class Rva00222A8BTarget {public:
  int invoke(void*,const char*,int,const char*,void*,void*,void*,void*);
 };
 AsciiString Rva002228E8Get(float);
 char **Rva004E678BGet(char**,bool);
-int Rva004E697DCall(Rva00222A8BTarget *target,void *owner,const char *method,
- const float *height,const bool *flag,const char *const *location)
+int Rva004E697DCall(Rva00222A8BTarget*,void*,const char*,const float*,const bool*,const char*const*);
+static __forceinline void consumeNotice(Rva004E6A37 &destination, const Rva004E6A37 &source)
 {
- const AsciiString &number=Rva002228E8Get(*height);
- const char *place=*location;
- char *flagText;
- char *value=*Rva004E678BGet(&flagText,*flag);
- return target->invoke(owner,method,3,number.str(),value,const_cast<char*>(place),0,0);
+ destination=Rva004E6A37(const_cast<Rva004E6A37 &>(source).release());
+}
+static __forceinline void openNotice(Rva00222A8BTarget *target, void *const &owner,
+ const float &height, const bool *option, const char *const *location)
+{
+ Rva004E697DCall(target,owner,"Open",&height,option,location);
 }
 class BfmeAptWindowManager {public:void bfmeSetText(const AsciiString&,const UnicodeString&,bool);};
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
@@ -245,7 +243,7 @@ void InGameNotificationBoxMovieClip::UpdateNotice()
   Rva004E6816Fire(reinterpret_cast<Rva00222A8BTarget*>(g_bfmeAptWindowManager),owner,"SetIconVisibility",&shown);
   iconVisible=shown;
  }
- if(*reinterpret_cast<const unsigned char*>(&shown)){
+ if(*reinterpret_cast<const volatile unsigned char*>(&shown)){
   AsciiString iconKey;
   iconKey.format("_level%u_Icon",owner);
   images.rva00524725(iconKey,notice.get()->icon);
@@ -267,9 +265,7 @@ void InGameNotificationBoxMovieClip::UpdateNotice()
  }
  int w,h;
  surface->getSize(&w,&h);
- float height=(float)h*reinterpret_cast<NotificationAptScales*>(g_bfmeAptWindowManager)->getScale16()[1];
- Rva004E697DCall(reinterpret_cast<Rva00222A8BTarget*>(g_bfmeAptWindowManager),owner,"Open",&height,&notice.get()->openOption,&noticeLocations[notice.get()->location]);
+ openNotice(reinterpret_cast<Rva00222A8BTarget*>(g_bfmeAptWindowManager),owner,(float)h*reinterpret_cast<NotificationAptScales*>(g_bfmeAptWindowManager)->getScale16()[1],&notice.get()->openOption,&noticeLocations[notice.get()->location]);
  state=2;
- const Rva004E6A37 &transfer=notice.rva004E6BF6();
- active=const_cast<Rva004E6A37&>(transfer);
+ consumeNotice(active,notice.rva004E6BF6());
 }
