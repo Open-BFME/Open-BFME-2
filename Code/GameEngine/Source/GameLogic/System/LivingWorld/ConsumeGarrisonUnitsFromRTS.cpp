@@ -63,3 +63,17 @@ int Rva00318FC6::rva00318FC6(int kind,int maxCP){
  }
  return count;
 }
+// Native319028..3190A5 RET0C (hidden owning holder + two integers).
+// WB102BA30 independently proves reverse search and first-entry fallback.
+// ?rva00319028@Rva00319028@@QAE?AUArmySummaryEntryRef@@HH@Z
+ArmySummaryEntryRef Rva00319028::rva00319028(int kind,int maxCP){
+ for(int i=(int)summary.Get()->records.size()-1;i>=0;--i){
+  ThingTemplate*thing=(ThingTemplate*)((Rva0037DCA5*)((Rva0040CB2CIndexedField*)summary.Get())->get(i))->rva0037DC52();
+  if(thing->kind==kind&&((Rva0037DCA5*)((Rva0040CB2CIndexedField*)summary.Get())->get(i))->rva0037DCA5()<=maxCP){
+   int id=((Rva0040CC0EIndexedField*)summary.Get())->get(i);
+   return summary.Get()->GetEntry(id);
+  }
+ }
+ return summary.Get()->GetEntry(((Rva0040CC0EIndexedField*)summary.Get())->get(0));
+}
+
