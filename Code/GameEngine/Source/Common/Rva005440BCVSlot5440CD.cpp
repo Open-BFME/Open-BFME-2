@@ -2,12 +2,12 @@
 // ?rva005440CD@Rva005440BC@@UAEXXZ, retail 0x005440CD, 41 bytes.
 // Virtual slot 15 (offset 0x3C) of vtable 0x008699A0 (VA 0x00C699A0), class of
 // ??1Rva005440BC@@UAE@XZ in Rva004D759CDerived.cpp (base StateMachine). Gets TurretStateMachine
-// goal object, finds BfmeGotBEC via BfmeSubBEC, notifies slot 0x34 with
+// goal object, finds the DockUpdateInterface via Object::getDockUpdateInterface, notifies slot 0x34 with
 // this+0x14, then tail-jumps to StateMachine::halt. Callees getGoalObject
-// 0x004D7726 bfmeFindBEC 0x0028BCB4 halt 0x004D73A4 already rowed.
+// 0x004D7726 getDockUpdateInterface 0x0028BCB4 halt 0x004D73A4 already rowed.
 
 class Object;
-class BfmeGotBEC;
+class DockUpdateInterface;
 
 class TurretStateMachine
 {
@@ -15,13 +15,13 @@ public:
 	Object *getGoalObject();
 };
 
-class BfmeSubBEC
+class Object
 {
 public:
-	BfmeGotBEC *bfmeFindBEC();
+	DockUpdateInterface *getDockUpdateInterface();
 };
 
-class BfmeGotBEC
+class DockUpdateInterface
 {
 public:
 	virtual void v00();
@@ -67,7 +67,7 @@ void Rva005440BC::rva005440CD()
 	if( goal == 0 )
 		goto halt;
 
-	BfmeGotBEC *bec = ((BfmeSubBEC *)goal)->bfmeFindBEC();
+	DockUpdateInterface *bec = goal->getDockUpdateInterface();
 	if( bec == 0 )
 		goto halt;
 

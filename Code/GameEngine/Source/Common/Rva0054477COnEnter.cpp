@@ -1,7 +1,7 @@
 // cl: /MD
 // ?onEnter@Rva00544867@@UAE?AW4StateReturnType@@XZ, retail 0x0054477C, 113 bytes.
 // Virtual slot 4 (offset 0x10, onEnter) of vtable 0x00C69BE8, class of ??0Rva00544867@@QAE@PAVStateMachine@@@Z.
-// Gets TurretStateMachine goal via rowed getGoalObject 0x004D7726, finds BEC via rowed bfmeFindBEC 0x0028BCB4, checks slot 0x4C, regets ExitInterface via rowed getObjectExitInterface 0x0028B445, checks slot 0x20, copies 12B goal position to +0x20, tail-chains to pinned base onEnter 0x0034C146. Evidence: vslot slot 4; ctor TU Rva00544867Ctor; sibling Rva00544884 onEnter tri pattern.
+// Gets TurretStateMachine goal via rowed getGoalObject 0x004D7726, finds BEC via rowed Object::getDockUpdateInterface 0x0028BCB4, checks slot 0x4C, regets ExitInterface via rowed getObjectExitInterface 0x0028B445, checks slot 0x20, copies 12B goal position to +0x20, tail-chains to pinned base onEnter 0x0034C146. Evidence: vslot slot 4; ctor TU Rva00544867Ctor; sibling Rva00544884 onEnter tri pattern.
 enum StateReturnType
 {
 	STATE_CONTINUE = 0,
@@ -17,13 +17,14 @@ struct Coord3D
 };
 
 class Object;
-class BfmeGotBEC;
+class DockUpdateInterface;
 class ExitInterface;
 class StateMachine;
 
 class Object
 {
 public:
+	DockUpdateInterface *getDockUpdateInterface();
 	ExitInterface *getObjectExitInterface() const;
 };
 
@@ -42,13 +43,8 @@ public:
 	Object *getGoalObject();
 };
 
-class BfmeSubBEC
-{
-public:
-	BfmeGotBEC *bfmeFindBEC();
-};
 
-class BfmeGotBEC
+class DockUpdateInterface
 {
 public:
 	virtual void v00();
@@ -132,9 +128,9 @@ public:
 StateReturnType Rva00544867::onEnter()
 {
 	Object *goal = ((TurretStateMachine *)m_machine)->getGoalObject();
-	BfmeGotBEC *bec = 0;
+	DockUpdateInterface *bec = 0;
 	if (goal != 0)
-		bec = ((BfmeSubBEC *)goal)->bfmeFindBEC();
+		bec = goal->getDockUpdateInterface();
 	if (bec == 0)
 		return STATE_FAILURE;
 	if (bec->v19()) {

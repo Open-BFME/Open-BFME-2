@@ -28,18 +28,13 @@ public:
 class StateMachine
 {
 public:
+	StateMachine(Object *owner, UnsignedInt nameKey, Bool flag);
 	virtual ~StateMachine();
 	void defineState(StateID id, State *state, StateID successID, StateID failureID, const StateConditionInfo *conditions = NULL);
 protected:
 	unsigned char m_pad04[0x3C - 0x04];
 };
 // BFME 2's StateMachine constructor (owner, name key, flag), rowed by address.
-class Rva004D759C : public StateMachine
-{
-public:
-	Rva004D759C(Object *owner, UnsignedInt nameKey, Bool flag);
-	virtual ~Rva004D759C();
-};
 // Zero Hour's Coord3D::zero(); an inlined call keeps its stores in source order.
 static __forceinline void zeroCoord3D(Coord3D &c)
 {
@@ -67,7 +62,7 @@ public:
 private:
 	unsigned char m_pad04[0x50 - 0x04];
 };
-class AIGuardRetaliateMachine : public Rva004D759C
+class AIGuardRetaliateMachine : public StateMachine
 {
 public:
 	AIGuardRetaliateMachine(Object *owner);
@@ -79,7 +74,7 @@ private:
 // Zero Hour's checkForAggressor condition (rowed 0x0047A699, an ICF fold).
 Bool rva0047A699(State *thisState, void *userData);
 
-AIGuardRetaliateMachine::AIGuardRetaliateMachine(Object *owner) : Rva004D759C(owner, 0xd5dfa9b7u, false), m_nemesisToAttack(0)
+AIGuardRetaliateMachine::AIGuardRetaliateMachine(Object *owner) : StateMachine(owner, 0xd5dfa9b7u, false), m_nemesisToAttack(0)
 {
 	static const StateConditionInfo attackAggressors[] =
 	{

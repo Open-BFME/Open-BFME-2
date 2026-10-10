@@ -3,7 +3,7 @@
 // Virtual slot 5 (offset 0x14, onExit) of vtable 0x00869BA0, class of ??0Rva0054484A@@QAE@PAVStateMachine@@@Z.
 // Same BEC tricall prologue as sibling update 0x0054452A and onEnter 0x00544480: gets
 // TurretStateMachine goal via rowed getGoalObject 0x004D7726, finds BEC via rowed
-// bfmeFindBEC 0x0028BCB4, then notifies slot 0x28 (v10) with owner when exitType != 1
+// Object::getDockUpdateInterface 0x0028BCB4, then notifies slot 0x28 (v10) with owner when exitType != 1
 // and slot 0x38 (v14) is true, else slot 0x34 (v13) with owner. Always clears
 // machine+0x38 to 0 and chains to rowed AIInternalMoveToState::onExit 0x003473A4.
 // Evidence: vslot slot5; ctor TU Rva0054484ACtor.cpp; prev Rva0054452AFinish.cpp.
@@ -24,7 +24,7 @@ extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 
 class Object;
-class BfmeGotBEC;
+class DockUpdateInterface;
 
 class StateMachine
 {
@@ -42,13 +42,13 @@ public:
 	Object *getGoalObject();
 };
 
-class BfmeSubBEC
+class Object
 {
 public:
-	BfmeGotBEC *bfmeFindBEC();
+	DockUpdateInterface *getDockUpdateInterface();
 };
 
-class BfmeGotBEC
+class DockUpdateInterface
 {
 public:
 	virtual void v00();
@@ -116,7 +116,7 @@ void Rva0054484A::onExit(StateExitType exitType)
 {
 	Object *goal = ((TurretStateMachine *)m_machine)->getGoalObject();
 	if (goal != 0) {
-		BfmeGotBEC *bec = ((BfmeSubBEC *)goal)->bfmeFindBEC();
+		DockUpdateInterface *bec = goal->getDockUpdateInterface();
 		if (bec != 0) {
 			if (exitType != EXIT_OTHER) {
 				_ReadWriteBarrier();

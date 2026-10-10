@@ -32,18 +32,13 @@ public:
 class StateMachine
 {
 public:
+	StateMachine(Object *owner, UnsignedInt nameKey, Bool flag);
 	virtual ~StateMachine();
 	void defineState(StateID id, State *state, StateID successID, StateID failureID, const StateConditionInfo *conditions = NULL);
 protected:
 	unsigned char m_pad04[0x3C - 0x04];
 };
 // BFME 2's StateMachine constructor (owner, name key, flag), rowed by address.
-class Rva004D759C : public StateMachine
-{
-public:
-	Rva004D759C(Object *owner, UnsignedInt nameKey, Bool flag);
-	virtual ~Rva004D759C();
-};
 // Zero Hour's Coord3D::zero(); an inlined call keeps its stores in source order.
 static __forceinline void zeroCoord3D(Coord3D &c)
 {
@@ -142,14 +137,14 @@ public:
 private:
 	unsigned char m_pad04[0x28 - 0x04];
 };
-class Rva00343367 : public Rva004D759C
+class Rva00343367 : public StateMachine
 {
 public:
 	Rva00343367(Object *obj, Rva00343367Attack *att, UnsignedInt nameKey, Bool follow, Bool attackingObject, Bool forceAttacking);
 	virtual ~Rva00343367();
 };
 
-Rva00343367::Rva00343367(Object *obj, Rva00343367Attack *att, UnsignedInt nameKey, Bool follow, Bool attackingObject, Bool forceAttacking) : Rva004D759C(obj, nameKey, false)
+Rva00343367::Rva00343367(Object *obj, Rva00343367Attack *att, UnsignedInt nameKey, Bool follow, Bool attackingObject, Bool forceAttacking) : StateMachine(obj, nameKey, false)
 {
 	const Weapon *weapon;
 	if ((obj->m_template->m_kind116 & 0x80) && (weapon = obj->getCurrentWeapon(NULL)) != NULL && weapon->m_template->get())

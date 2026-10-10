@@ -1,13 +1,13 @@
 // cl: /MD
 // ?onEnter@Rva00544884@@UAE?AW4StateReturnType@@XZ, retail 0x0054467A, 141 bytes.
 // Virtual slot 4 (offset 0x10, onEnter) of vtable 0x00869C30, class of ??0Rva00544884@@QAE@PAVStateMachine@@@Z.
-// Gets TurretStateMachine goal via rowed getGoalObject 0x004D7726, finds BEC via rowed bfmeFindBEC 0x0028BCB4, calls slot 0x1C with owner and goalPosition, loads AI at owner+0x258, checks slot 0x48, regets goal and calls rowed ignoreObstacle 0x00268D88, CritterDesync log via theLogicRandomLogFile and _fprintf when g_00E03745 set, clears adjustsDestination at +0x48, tail-chains to pinned base onEnter 0x0034C146. Evidence: vslot slot 4; ctor TU Rva00544884Ctor; sibling Rva005447EDOnEnter same tri pattern; AIStatesSmallUpdates CritterDesync precedent.
+// Gets TurretStateMachine goal via rowed getGoalObject 0x004D7726, finds BEC via rowed Object::getDockUpdateInterface 0x0028BCB4, calls slot 0x1C with owner and goalPosition, loads AI at owner+0x258, checks slot 0x48, regets goal and calls rowed ignoreObstacle 0x00268D88, CritterDesync log via theLogicRandomLogFile and _fprintf when g_00E03745 set, clears adjustsDestination at +0x48, tail-chains to pinned base onEnter 0x0034C146. Evidence: vslot slot 4; ctor TU Rva00544884Ctor; sibling Rva005447EDOnEnter same tri pattern; AIStatesSmallUpdates CritterDesync precedent.
 // ?update@Rva00544884@@UAE?AW4StateReturnType@@XZ, retail 0x00544707, 56 bytes.
 // Virtual slot 6 (offset 0x18, update) of vtable 0x00869C30, same class.
-// Gets goal via rowed getGoalObject, finds BEC via rowed bfmeFindBEC, calls slot 0x1C with owner and +0x20, tail-chains to pinned base update 0x00347460. Evidence: vslot slot 6; prev onEnter same TU.
+// Gets goal via rowed getGoalObject, finds BEC via rowed Object::getDockUpdateInterface, calls slot 0x1C with owner and +0x20, tail-chains to pinned base update 0x00347460. Evidence: vslot slot 6; prev onEnter same TU.
 // ?onExit@Rva00544884@@UAEXW4StateExitType@@@Z, retail 0x0054473F, 61 bytes.
 // Virtual slot 5 (offset 0x14, onExit) of vtable 0x00869C30, same class.
-// Gets goal via rowed getGoalObject, finds BEC via rowed bfmeFindBEC, notifies slot 0x2C with owner, clears machine+0x38 to 0, chains to rowed base onExit 0x003473A4. Evidence: vslot slot 5; prev update same TU.
+// Gets goal via rowed getGoalObject, finds BEC via rowed Object::getDockUpdateInterface, notifies slot 0x2C with owner, clears machine+0x38 to 0, chains to rowed base onExit 0x003473A4. Evidence: vslot slot 5; prev update same TU.
 enum StateExitType
 {
 	EXIT_NORMAL = 0,
@@ -28,12 +28,13 @@ struct Coord3D
 };
 
 class Object;
-class BfmeGotBEC;
+class DockUpdateInterface;
 class AIUpdateInterface;
 
 class Object
 {
 public:
+	DockUpdateInterface *getDockUpdateInterface();
 	unsigned char m_pad000[0x258];
 	AIUpdateInterface *m_ai; // +0x258
 };
@@ -60,13 +61,8 @@ public:
 	Object *getGoalObject();
 };
 
-class BfmeSubBEC
-{
-public:
-	BfmeGotBEC *bfmeFindBEC();
-};
 
-class BfmeGotBEC
+class DockUpdateInterface
 {
 public:
 	virtual void v00();
@@ -143,9 +139,9 @@ extern "C" int __cdecl fprintf(void *stream, const char *format, ...);
 StateReturnType Rva00544884::onEnter()
 {
 	Object *goal = ((TurretStateMachine *)m_machine)->getGoalObject();
-	BfmeGotBEC *bec = 0;
+	DockUpdateInterface *bec = 0;
 	if (goal != 0)
-		bec = ((BfmeSubBEC *)goal)->bfmeFindBEC();
+		bec = goal->getDockUpdateInterface();
 	if (bec == 0)
 		return STATE_FAILURE;
 	bec->v07(m_machine->getOwner(), &m_goalPosition);
@@ -168,9 +164,9 @@ StateReturnType Rva00544884::onEnter()
 StateReturnType Rva00544884::update()
 {
 	Object *goal = ((TurretStateMachine *)m_machine)->getGoalObject();
-	BfmeGotBEC *bec = 0;
+	DockUpdateInterface *bec = 0;
 	if (goal != 0)
-		bec = ((BfmeSubBEC *)goal)->bfmeFindBEC();
+		bec = goal->getDockUpdateInterface();
 	if (bec == 0)
 		return STATE_FAILURE;
 	bec->v07(m_machine->getOwner(), &m_goalPosition);
@@ -181,7 +177,7 @@ void Rva00544884::onExit(StateExitType exitType)
 {
 	Object *goal = ((TurretStateMachine *)m_machine)->getGoalObject();
 	if (goal != 0) {
-		BfmeGotBEC *bec = ((BfmeSubBEC *)goal)->bfmeFindBEC();
+		DockUpdateInterface *bec = goal->getDockUpdateInterface();
 		if (bec != 0)
 			bec->v11(m_machine->getOwner());
 	}

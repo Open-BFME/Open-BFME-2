@@ -1,5 +1,4 @@
 // cl: /DNDEBUG /MD /EHsc
-// class-gate: allow AsciiString retail forwards the single dword name key as VAsciiString to the rowed base 0x004D79E1 with no copy, as in Rva0034B952Ctor.cpp
 //
 // Zero Hour's AIAttackMoveStateMachine and the three states that own one,
 // from GameEngine/Source/GameLogic/AI/AIStates.cpp (GeneralsMD tree vendored
@@ -38,12 +37,6 @@ typedef int Int;
 typedef unsigned int UnsignedInt;
 typedef UnsignedInt StateID;
 #define NULL 0
-class AsciiString
-{
-public:
-	AsciiString(UnsignedInt nameKey) : m_nameKey(nameKey) {}
-	UnsignedInt m_nameKey;
-};
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 class Object;
 class AttackExitConditionsInterface;
@@ -62,6 +55,7 @@ enum
 class StateMachine
 {
 public:
+	StateMachine(Object *owner, UnsignedInt name, Bool flag);
 	virtual ~StateMachine();
 	virtual void slot01();
 	virtual void slot02();
@@ -78,13 +72,7 @@ protected:
 	unsigned char m_pad18[0x3C - 0x18]; // operator new size 0x3C
 };
 // BFME 2's StateMachine constructor (owner, name, flag), rowed by address.
-class Rva004D759C : public StateMachine
-{
-public:
-	Rva004D759C(Object *owner, AsciiString name, Bool flag);
-	virtual ~Rva004D759C();
-};
-class AIAttackMoveStateMachine : public Rva004D759C
+class AIAttackMoveStateMachine : public StateMachine
 {
 public:
 	AIAttackMoveStateMachine(Object *owner, UnsignedInt nameKey);
@@ -121,7 +109,7 @@ private:
 	unsigned char m_pad20[0x50 - 0x20];
 };
 
-AIAttackMoveStateMachine::AIAttackMoveStateMachine(Object *owner, UnsignedInt nameKey) : Rva004D759C(owner, AsciiString(nameKey), false)
+AIAttackMoveStateMachine::AIAttackMoveStateMachine(Object *owner, UnsignedInt nameKey) : StateMachine(owner, nameKey, false)
 {
 	// order matters: first state is the default state.
 	defineState( AI_IDLE, new Rva0033FE65( this, 1 ), AI_IDLE, AI_IDLE );

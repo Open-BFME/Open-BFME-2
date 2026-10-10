@@ -2,7 +2,7 @@
 // ?update@Rva0054484A@@UAE?AW4StateReturnType@@XZ, retail 0x0054452A, 72 bytes.
 // Virtual slot 6 (offset 0x18, update) of vtable 0x00869BA0, class of ??0Rva0054484A@@QAE@PAVStateMachine@@@Z.
 // Same BEC tricall prologue as the matched onEnter at 0x00544480: gets TurretStateMachine goal
-// via rowed getGoalObject 0x004D7726, finds BEC via rowed bfmeFindBEC 0x0028BCB4, checks slot
+// via rowed getGoalObject 0x004D7726, finds BEC via rowed Object::getDockUpdateInterface 0x0028BCB4, checks slot
 // 0x38 (v14), then calls slot 0x18 (v06) with owner and goalPosition, tail-chains to the base
 // update. All three failure conditions share one exit returning STATE_FAILURE (-2). Evidence:
 // vslot slot6; onEnter TU Rva0054484AOnEnter.cpp; ctor TU Rva0054484ACtor.cpp.
@@ -21,7 +21,7 @@ struct Coord3D
 };
 
 class Object;
-class BfmeGotBEC;
+class DockUpdateInterface;
 
 class StateMachine
 {
@@ -39,13 +39,13 @@ public:
 	Object *getGoalObject();
 };
 
-class BfmeSubBEC
+class Object
 {
 public:
-	BfmeGotBEC *bfmeFindBEC();
+	DockUpdateInterface *getDockUpdateInterface();
 };
 
-class BfmeGotBEC
+class DockUpdateInterface
 {
 public:
 	virtual void v00();
@@ -115,9 +115,9 @@ public:
 StateReturnType Rva0054484A::update()
 {
 	Object *goal = ((TurretStateMachine *)m_machine)->getGoalObject();
-	BfmeGotBEC *bec = 0;
+	DockUpdateInterface *bec = 0;
 	if (goal != 0)
-		bec = ((BfmeSubBEC *)goal)->bfmeFindBEC();
+		bec = goal->getDockUpdateInterface();
 	if (bec == 0)
 		goto fail;
 	if (!bec->v14())

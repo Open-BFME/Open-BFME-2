@@ -1,7 +1,7 @@
 // cl: /MD
 // ?onEnter@Rva0054484A@@UAE?AW4StateReturnType@@XZ, retail 0x00544480, 170 bytes.
 // Virtual slot 4 (offset 0x10, onEnter) of vtable 0x00869BA0, class of ??0Rva0054484A@@QAE@PAVStateMachine@@@Z.
-// Gets TurretStateMachine goal via rowed getGoalObject 0x004D7726, finds BEC via rowed bfmeFindBEC 0x0028BCB4, checks slot 0x38, notifies slot 0x34 with owner, calls slot 0x18 with owner and goalPosition, loads AI at owner+0x258, checks slot 0x48, regets goal and calls rowed ignoreObstacle 0x00268D88, CritterDesync log via theLogicRandomLogFile and fprintf when g_00E03745 set, clears adjustsDestination at +0x48, sets machine+0x38 to 1, tail-chains to pinned base onEnter 0x0034C146. Evidence: vslot slot 4; ctor TU Rva0054484ACtor; sibling Rva005447EDOnEnter tri pattern plus 0x0054467a stash adjustsDestination.
+// Gets TurretStateMachine goal via rowed getGoalObject 0x004D7726, finds BEC via rowed Object::getDockUpdateInterface 0x0028BCB4, checks slot 0x38, notifies slot 0x34 with owner, calls slot 0x18 with owner and goalPosition, loads AI at owner+0x258, checks slot 0x48, regets goal and calls rowed ignoreObstacle 0x00268D88, CritterDesync log via theLogicRandomLogFile and fprintf when g_00E03745 set, clears adjustsDestination at +0x48, sets machine+0x38 to 1, tail-chains to pinned base onEnter 0x0034C146. Evidence: vslot slot 4; ctor TU Rva0054484ACtor; sibling Rva005447EDOnEnter tri pattern plus 0x0054467a stash adjustsDestination.
 enum StateReturnType
 {
 	STATE_CONTINUE = 0,
@@ -17,12 +17,13 @@ struct Coord3D
 };
 
 class Object;
-class BfmeGotBEC;
+class DockUpdateInterface;
 class AIUpdateInterface;
 
 class Object
 {
 public:
+	DockUpdateInterface *getDockUpdateInterface();
 	unsigned char m_pad000[0x258];
 	AIUpdateInterface *m_ai; // +0x258
 };
@@ -49,13 +50,8 @@ public:
 	Object *getGoalObject();
 };
 
-class BfmeSubBEC
-{
-public:
-	BfmeGotBEC *bfmeFindBEC();
-};
 
-class BfmeGotBEC
+class DockUpdateInterface
 {
 public:
 	virtual void v00();
@@ -128,8 +124,8 @@ extern "C" int __cdecl fprintf(void *stream, const char *format, ...);
 StateReturnType Rva0054484A::onEnter()
 {
 	Object *goal = ((TurretStateMachine *)m_machine)->getGoalObject();
-	BfmeGotBEC *bec;
-	if (goal == 0 || (bec = ((BfmeSubBEC *)goal)->bfmeFindBEC()) == 0)
+	DockUpdateInterface *bec;
+	if (goal == 0 || (bec = goal->getDockUpdateInterface()) == 0)
 		return STATE_FAILURE;
 	if (!bec->v14()) {
 		bec->v13(m_machine->getOwner());

@@ -13,15 +13,11 @@ struct StateConditionInfo;
 class StateMachine
 {
 public:
+	StateMachine(Object *owner, unsigned int name, bool flag);
+	virtual ~StateMachine();
 	void defineState(unsigned int id, State *state, unsigned int successID, unsigned int failureID, const StateConditionInfo *conditions);
 };
 
-class Rva004D759C
-{
-public:
-	Rva004D759C(Object *owner, unsigned int name, bool flag);
-	virtual ~Rva004D759C();
-};
 
 class AIAttackState
 {
@@ -52,7 +48,7 @@ private:
 
 extern const void *const g_00C122A0[];
 
-class Rva0034B952 : public Rva004D759C
+class Rva0034B952 : public StateMachine
 {
 public:
 	Rva0034B952(Object *owner, unsigned int name);
@@ -60,7 +56,7 @@ private:unsigned char m_allocatedExtent[0x38];
 };
 
 Rva0034B952::Rva0034B952(Object *owner, unsigned int name)
-	: Rva004D759C(owner, name, false)
+	: StateMachine(owner, name, false)
 {
 	*(const void **)this = g_00C122A0;
 	AIAttackState *s0 = new AIAttackState((StateMachine *)this, false, true, false, (AttackExitConditionsInterface *)0);

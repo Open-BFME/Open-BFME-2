@@ -187,6 +187,7 @@ struct StateConditionInfo
 class StateMachine
 {
 public:
+	StateMachine(Object *owner, UnsignedInt nameKey, Bool flag);
 	virtual ~StateMachine();
 	virtual void slot01(); virtual void slot02(); virtual void slot03();
 	virtual void slot04(); virtual void slot05();
@@ -204,14 +205,8 @@ protected:
 };
 
 // BFME 2's StateMachine constructor (owner, name key, flag), rowed by
-// address as ??0Rva004D759C@@QAE@PAVObject@@VAsciiString@@_N@Z; the key is
+// address as ??0StateMachine@@QAE@PAVObject@@I_N@Z; the key is
 // taken as one dword, as in the dozer machine's TU.
-class Rva004D759C : public StateMachine
-{
-public:
-	Rva004D759C(Object *owner, UnsignedInt nameKey, Bool flag);
-	virtual ~Rva004D759C();
-};
 
 // ZH's ActAsDozerState (rowed ctor 0x004A992A).
 class Rva004A992A : public State
@@ -233,7 +228,7 @@ enum
 	AS_SUPPLY_TRUCK
 };
 
-class WorkerStateMachine : public Rva004D759C
+class WorkerStateMachine : public StateMachine
 {
 public:
 	WorkerStateMachine(Object *owner);
@@ -911,7 +906,7 @@ void WorkerAIUpdate::createMachines()
 	}
 }
 
-WorkerStateMachine::WorkerStateMachine(Object *owner) : Rva004D759C(owner, 0xF80D13C5, false)
+WorkerStateMachine::WorkerStateMachine(Object *owner) : StateMachine(owner, 0xF80D13C5, false)
 {
 	static const StateConditionInfo asDozerConditions[] =
 	{

@@ -1,10 +1,10 @@
 // cl: /MD
 // ?onEnter@Rva0054482D@@UAE?AW4StateReturnType@@XZ, retail 0x00544364, 137 bytes.
 // Virtual slot 4 (offset 0x10, onEnter) of vtable 0x00C69B58, class of ??0Rva0054482D@@QAE@PAVStateMachine@@@Z.
-// Gets TurretStateMachine goal via rowed getGoalObject 0x004D7726, finds BEC via rowed bfmeFindBEC 0x0028BCB4, checks slot 0x38, calls slot 0x34 with owner, checks ai and slot 0x48, regets goal for rowed ignoreObstacle 0x00268D88, calls slot 0x14 with owner and +0x20, sets machine+0x3C to -1, tail-chains to pinned base onEnter 0x0034C146. Evidence: vslot slot 4; ctor TU Rva0054482DCtor; siblings Rva005442CC and Rva00544867 tri pattern.
+// Gets TurretStateMachine goal via rowed getGoalObject 0x004D7726, finds BEC via rowed Object::getDockUpdateInterface 0x0028BCB4, checks slot 0x38, calls slot 0x34 with owner, checks ai and slot 0x48, regets goal for rowed ignoreObstacle 0x00268D88, calls slot 0x14 with owner and +0x20, sets machine+0x3C to -1, tail-chains to pinned base onEnter 0x0034C146. Evidence: vslot slot 4; ctor TU Rva0054482DCtor; siblings Rva005442CC and Rva00544867 tri pattern.
 // ?update@Rva0054482D@@UAE?AW4StateReturnType@@XZ, retail 0x005443ED, 56 bytes.
 // Virtual slot 6 (offset 0x18, update) of vtable 0x00C69B58, same class.
-// Gets goal via rowed getGoalObject, finds BEC via rowed bfmeFindBEC, calls slot 0x14 with owner and +0x20, tail-chains to pinned base update 0x00347460. Evidence: vslot slot 6; prev onEnter same TU.
+// Gets goal via rowed getGoalObject, finds BEC via rowed Object::getDockUpdateInterface, calls slot 0x14 with owner and +0x20, tail-chains to pinned base update 0x00347460. Evidence: vslot slot 6; prev onEnter same TU.
 enum StateReturnType
 {
 	STATE_CONTINUE = 0,
@@ -20,7 +20,7 @@ struct Coord3D
 };
 
 class Object;
-class BfmeGotBEC;
+class DockUpdateInterface;
 class StateMachine;
 
 class AIUpdateInterface
@@ -32,6 +32,7 @@ public:
 class Object
 {
 public:
+	DockUpdateInterface *getDockUpdateInterface();
 	AIUpdateInterface *getAI() { return m_ai; }
 private:
 	unsigned char m_pad00[0x258];
@@ -56,13 +57,8 @@ public:
 	Object *getGoalObject();
 };
 
-class BfmeSubBEC
-{
-public:
-	BfmeGotBEC *bfmeFindBEC();
-};
 
-class BfmeGotBEC
+class DockUpdateInterface
 {
 public:
 	virtual void v00();
@@ -131,9 +127,9 @@ public:
 StateReturnType Rva0054482D::onEnter()
 {
 	Object *goal = ((TurretStateMachine *)m_machine)->getGoalObject();
-	BfmeGotBEC *bec = 0;
+	DockUpdateInterface *bec = 0;
 	if (goal != 0)
-		bec = ((BfmeSubBEC *)goal)->bfmeFindBEC();
+		bec = goal->getDockUpdateInterface();
 	if (bec == 0)
 		return STATE_FAILURE;
 	if (!bec->v14()) {
@@ -155,9 +151,9 @@ StateReturnType Rva0054482D::onEnter()
 StateReturnType Rva0054482D::update()
 {
 	Object *goal = ((TurretStateMachine *)m_machine)->getGoalObject();
-	BfmeGotBEC *bec = 0;
+	DockUpdateInterface *bec = 0;
 	if (goal != 0)
-		bec = ((BfmeSubBEC *)goal)->bfmeFindBEC();
+		bec = goal->getDockUpdateInterface();
 	if (bec == 0)
 		return STATE_FAILURE;
 	bec->v05(m_machine->getOwner(), &m_goalPosition);

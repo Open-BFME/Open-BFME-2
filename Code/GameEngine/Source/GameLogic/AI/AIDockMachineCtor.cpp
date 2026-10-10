@@ -26,18 +26,13 @@ public:
 class StateMachine
 {
 public:
+	StateMachine(Object *owner, UnsignedInt nameKey, Bool flag);
 	virtual ~StateMachine();
 	void defineState(StateID id, State *state, StateID successID, StateID failureID, const StateConditionInfo *conditions = NULL);
 protected:
 	unsigned char m_pad04[0x3C - 0x04];
 };
 // BFME 2's StateMachine constructor (owner, name key, flag), rowed by address.
-class Rva004D759C : public StateMachine
-{
-public:
-	Rva004D759C(Object *owner, UnsignedInt nameKey, Bool flag);
-	virtual ~Rva004D759C();
-};
 // Zero Hour's Coord3D::zero(); an inlined call keeps its stores in source order.
 static __forceinline void zeroCoord3D(Coord3D &c)
 {
@@ -102,7 +97,7 @@ public:
 private:
 	unsigned char m_pad04[0x4C - 0x04];
 };
-class AIDockMachine : public Rva004D759C
+class AIDockMachine : public StateMachine
 {
 public:
 	AIDockMachine(Object *owner);
@@ -112,7 +107,7 @@ public:
 // condition 0x005440F6 (retail .rdata table entry)
 Bool rva005440F6(State *thisState, void *userData);
 
-AIDockMachine::AIDockMachine(Object *owner) : Rva004D759C(owner, 0x2b638eb7u, false)
+AIDockMachine::AIDockMachine(Object *owner) : StateMachine(owner, 0x2b638eb7u, false)
 {
 	static const StateConditionInfo g_condC69C78[] =
 	{

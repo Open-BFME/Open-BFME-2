@@ -1,66 +1,52 @@
-// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc /Ireference/shims/moduledata
 // stlport
 //
-// ??0Rva004D759C@@QAE@PAVObject@@VAsciiString@@_N@Z, retail 0x004D79E1, 120 bytes.
-// Base ctor for the opaque StateMachine family (vtable 0x00C60740, 16 slots).
+// ??0StateMachine@@QAE@PAVObject@@I_N@Z, retail 0x004D79E1, 120 bytes.
+// StateMachine base ctor (vtable 0x00C60740, 16 slots; the dtor
+// ??1StateMachine 0x004D759C and ??_GStateMachine 0x004D7A59 own it).
 // Stores vtable, nulls currentState at +0x04, constructs map<int,void*> at +0x08
 // (rowed 0x0033C432), then owner at +0x14, goalObjectID 0 at +0x20,
 // defaultStateID 999999 at +0x1C, goalPosition 0.0f at +0x24/0x28/0x2C,
 // FLT_MAX range at +0x30, unk34 0 at +0x34, locked/inited false at +0x38/0x39,
 // extra flag at +0x3A. SleepTill at +0x18 left uninitialized (retail hole).
-// Evidence: same vtable as pinned dtor 0x004D759C, 24 callers in 0x00343xxx
-// (base-then-derived-vtable pattern), xfer 0x004D7744 and StateMachineGoal
-// layout (+0x18 sleepTill +0x1C default +0x20 goal +0x24 position +0x30 range).
-// BFME1 donor StateMachine::StateMachine(Object*, AsciiString) verbatim minus
-// debug name (second arg ignored in release, hence middle stack slot untouched)
-// plus BFME2 range/unk34/extra members. Snapshot base gives the EH prolog
-// (unwind calls ??1Snapshot, state 0 before map). Volatile members force the
-// retail store order (goal/default before floats); without it MSVC hoists the
-// movss stores early. No fallback paths.
+// Signature (target evidence): ret 0xC (three dword arguments); the second
+// is never read and never destroyed (no AsciiString destructor call, while
+// BFME 2's AsciiString is a refcounted handle), and the 24 retail callers
+// push it as one dword (forwarded [ebp+0x10] or an immediate key such as
+// 0x3EA7DE5F in DozerPrimaryStateMachine 0x00488DAB). So it is a 32-bit
+// scalar name key, not ZH's AsciiString name; unsigned int as in the 18
+// existing callers' spelling (inference: the exact key typedef is unknown).
+// Evidence: same vtable as the rowed dtor 0x004D759C, 24 callers in
+// 0x00343xxx (base-then-derived-vtable pattern), xfer 0x004D7744 and
+// StateMachineGoal layout (+0x18 sleepTill +0x1C default +0x20 goal +0x24
+// position +0x30 range). BFME1 donor StateMachine::StateMachine(Object*,
+// AsciiString) minus debug name plus BFME2 range/unk34/extra members.
+// Snapshot base gives the EH prolog (unwind calls ??1Snapshot, state 0
+// before map). The virtual surface is StateMachineDtor.cpp's (canonical
+// Snapshot plus the dtor and crc/xfer/loadPostProcess overrides) so both
+// units emit the same ??_7StateMachine/??_GStateMachine. Volatile members
+// force the retail store order (goal/default before floats); without it
+// MSVC hoists the movss stores early. No fallback paths.
 #include <map>
 #include <cfloat>
+#include "Common/Snapshot.h"
 
 class Object;
 
-class AsciiString
-{
-public:
-	void *m_data;
-};
-
 class Xfer;
 
-class Snapshot
+class StateMachine : public Snapshot
 {
 public:
-	Snapshot() {}
-	virtual ~Snapshot() {}
-	virtual void crc(Xfer *xfer) = 0;
-	virtual void loadPostProcess() = 0;
-	virtual void xfer(Xfer *xfer) = 0;
-};
+	StateMachine(Object *owner, unsigned int name, bool flag);
+	virtual ~StateMachine();
 
-class Rva004D759C : public Snapshot
-{
+protected:
+	virtual void crc(Xfer *xfer);
+	virtual void xfer(Xfer *xfer);
+	virtual void loadPostProcess(void);
+
 public:
-	void crc(Xfer *xfer) {}
-	void loadPostProcess() {}
-	void xfer(Xfer *xfer) {}
-	virtual void v04() = 0;
-	virtual void v05() = 0;
-	virtual void v06() = 0;
-	virtual void v07() = 0;
-	virtual void v08() = 0;
-	virtual void v09() = 0;
-	virtual void v10() = 0;
-	virtual void v11() = 0;
-	virtual void v12() = 0;
-	virtual void v13() = 0;
-	virtual void v14() = 0;
-	virtual void v15() = 0;
-	Rva004D759C(Object *owner, AsciiString name, bool flag);
-	virtual ~Rva004D759C();
-
 	void *m_currentState; // +0x04
 	_STL::map<int, void *> m_stateMap; // +0x08
 	Object *volatile m_owner; // +0x14
@@ -77,7 +63,7 @@ public:
 	volatile bool m_extra; // +0x3A
 };
 
-Rva004D759C::Rva004D759C(Object *owner, AsciiString name, bool flag)
+StateMachine::StateMachine(Object *owner, unsigned int name, bool flag)
 	: m_currentState(0), m_stateMap(), m_owner(owner)
 {
 	m_goalObjectID = 0;

@@ -1,5 +1,5 @@
 // cl: /MD /GX
-// ?Rva005EE317@@YGXPAVCoord3D@@@Z @ 0x005EE317 125B
+// ?Rva005EE317@@YGXPAUCoord3D@@@Z @ 0x005EE317 125B
 // Random XY direction in AISPecialPowerTargetAoE.cpp (__FILE__ at 0x00878708
 // line 150-151): GetGameLogicRandomValueReal(-1.0f at 0x007BB9AC, 1.0f) twice
 // z=0 normalize then store to out. Callees rowed: GetGameLogicRandomValueReal
@@ -17,9 +17,13 @@
 // 0x0035B2C3) must accept it, and with +0x1A set no alive object of kind 7
 // may stand within 150 of it (the PartitionFilter chain; /GX for its
 // temporaries).
-class Coord3D
+//
+// Coord3D is spelled struct as in the canonical header and every caller
+// unit (the PBUCoord3D/PAUCoord3D names), but keeps the inline empty ctor and
+// dtor and inline scale/add the corner array needs (retail hands the ctor and
+// dtor to the eh vector iterators), so it stays a TU view of that layout.
+struct Coord3D
 {
-public:
 	Coord3D() {}
 	Coord3D(float ax, float ay, float az) : x(ax), y(ay), z(az) {}
 	~Coord3D() {}

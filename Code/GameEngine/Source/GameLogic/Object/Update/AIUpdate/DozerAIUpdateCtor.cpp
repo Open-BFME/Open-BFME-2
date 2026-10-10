@@ -263,6 +263,7 @@ struct StateConditionInfo
 class StateMachine
 {
 public:
+	StateMachine(Object *owner, UnsignedInt nameKey, Bool flag);
 	virtual ~StateMachine();
 	virtual void slot01(); virtual void slot02(); virtual void slot03();
 	virtual void slot04(); virtual void slot05();
@@ -285,15 +286,9 @@ protected:
 };
 
 // BFME 2's StateMachine constructor (owner, name key, flag), rowed by
-// address as ??0Rva004D759C@@QAE@PAVObject@@VAsciiString@@_N@Z. Every
+// address as ??0StateMachine@@QAE@PAVObject@@I_N@Z. Every
 // caller passes the name as one dword, and only a scalar parameter gives
 // retail's push of the immediate key, so this view takes the key as one.
-class Rva004D759C : public StateMachine
-{
-public:
-	Rva004D759C(Object *owner, UnsignedInt nameKey, Bool flag);
-	virtual ~Rva004D759C();
-};
 
 struct State
 {
@@ -359,7 +354,7 @@ enum
 	DOZER_PRIMARY_GO_HOME
 };
 
-class DozerPrimaryStateMachine : public Rva004D759C
+class DozerPrimaryStateMachine : public StateMachine
 {
 public:
 	DozerPrimaryStateMachine(Object *owner);
@@ -932,7 +927,7 @@ DozerAIUpdate::DozerAIUpdate(Thing *thing, const ModuleData *moduleData)
 	createMachines();
 }
 
-DozerPrimaryStateMachine::DozerPrimaryStateMachine(Object *owner) : Rva004D759C(owner, 0x3EA7DE5F, false)
+DozerPrimaryStateMachine::DozerPrimaryStateMachine(Object *owner) : StateMachine(owner, 0x3EA7DE5F, false)
 {
 	static const StateConditionInfo idleConditions[] =
 	{
@@ -1552,7 +1547,7 @@ enum
 };
 
 // ZH's DozerActionStateMachine.
-class Rva004885DE : public Rva004D759C
+class Rva004885DE : public StateMachine
 {
 public:
 	Rva004885DE(Object *owner, Int task);
@@ -1560,7 +1555,7 @@ protected:
 	Int m_task; // +0x3C
 };
 
-Rva004885DE::Rva004885DE(Object *owner, Int task) : Rva004D759C(owner, 0x253E8923, false)
+Rva004885DE::Rva004885DE(Object *owner, Int task) : StateMachine(owner, 0x253E8923, false)
 {
 	m_task = task;
 

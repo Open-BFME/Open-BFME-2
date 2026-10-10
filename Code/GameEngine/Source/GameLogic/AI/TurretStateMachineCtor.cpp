@@ -34,18 +34,13 @@ struct State;
 class StateMachine
 {
 public:
+	StateMachine(Object *owner, UnsignedInt nameKey, Bool flag);
 	virtual ~StateMachine();
 	void defineState(StateID id, State *state, StateID successID, StateID failureID, const StateConditionInfo *conditions = NULL);
 protected:
 	unsigned char m_pad04[0x3C - 0x04];
 };
 // BFME 2's StateMachine constructor (owner, name key, flag), rowed by address.
-class Rva004D759C : public StateMachine
-{
-public:
-	Rva004D759C(Object *owner, UnsignedInt nameKey, Bool flag);
-	virtual ~Rva004D759C();
-};
 class TurretAIAttackInterface
 {
 public:
@@ -59,7 +54,7 @@ public:
 class TurretAI : public TurretAIBase, public TurretAIAttackInterface
 {
 };
-class TurretStateMachine : public Rva004D759C
+class TurretStateMachine : public StateMachine
 {
 public:
 	TurretStateMachine(TurretAI *tai, Object *obj, UnsignedInt nameKey);
@@ -154,7 +149,7 @@ TurretAIHoldTurretState::TurretAIHoldTurretState(TurretStateMachine *machine) : 
 class Rva00343F8A;
 void rva00343F8A(Rva00343F8A *machine, void *userData);
 
-TurretStateMachine::TurretStateMachine(TurretAI *tai, Object *obj, UnsignedInt nameKey) : Rva004D759C(obj, nameKey, false), m_turretAI(tai)
+TurretStateMachine::TurretStateMachine(TurretAI *tai, Object *obj, UnsignedInt nameKey) : StateMachine(obj, nameKey, false), m_turretAI(tai)
 {
 	static const StateConditionInfo fireConditions[] =
 	{

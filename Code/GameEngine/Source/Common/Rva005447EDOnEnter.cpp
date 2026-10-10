@@ -1,7 +1,7 @@
 // cl: /MD
 // ?onEnter@Rva005447ED@@UAE?AW4StateReturnType@@XZ, retail 0x00544133, 124 bytes.
 // Virtual slot 4 (offset 0x10, onEnter) of vtable 0x00869AB0, class of ??0Rva005447ED@@QAE@PAVStateMachine@@@Z.
-// Gets TurretStateMachine goal object via rowed getGoalObject 0x004D7726, finds BfmeGotBEC via rowed bfmeFindBEC 0x0028BCB4, checks slot 0x38, notifies slot 0x34 with owner, calls slot 0x04 with owner and goalPosition and machine+0x3C, clears obstacle via rowed ignoreObstacle 0x00268D88, tail-chains to pinned base onEnter 0x0034C146. Evidence: vslot slot 4; ctor TU Rva005447EDCtor; prev Rva005440BCVSlot5440CD same call pair.
+// Gets TurretStateMachine goal object via rowed getGoalObject 0x004D7726, finds DockUpdateInterface via rowed Object::getDockUpdateInterface 0x0028BCB4, checks slot 0x38, notifies slot 0x34 with owner, calls slot 0x04 with owner and goalPosition and machine+0x3C, clears obstacle via rowed ignoreObstacle 0x00268D88, tail-chains to pinned base onEnter 0x0034C146. Evidence: vslot slot 4; ctor TU Rva005447EDCtor; prev Rva005440BCVSlot5440CD same call pair.
 enum StateReturnType
 {
 	STATE_CONTINUE = 0
@@ -15,12 +15,13 @@ struct Coord3D
 };
 
 class Object;
-class BfmeGotBEC;
+class DockUpdateInterface;
 class AIUpdateInterface;
 
 class Object
 {
 public:
+	DockUpdateInterface *getDockUpdateInterface();
 	unsigned char m_pad000[0x258];
 	AIUpdateInterface *m_ai; // +0x258
 };
@@ -48,13 +49,8 @@ public:
 	int m_3C; // +0x3C
 };
 
-class BfmeSubBEC
-{
-public:
-	BfmeGotBEC *bfmeFindBEC();
-};
 
-class BfmeGotBEC
+class DockUpdateInterface
 {
 public:
 	virtual void v00();
@@ -119,7 +115,7 @@ StateReturnType Rva005447ED::onEnter()
 	Object *goal = ((TurretStateMachine *)m_machine)->getGoalObject();
 	if (goal == 0)
 		return (StateReturnType)-2;
-	BfmeGotBEC *bec = ((BfmeSubBEC *)goal)->bfmeFindBEC();
+	DockUpdateInterface *bec = goal->getDockUpdateInterface();
 	if (bec == 0)
 		return (StateReturnType)-2;
 	if (!bec->v14()) {

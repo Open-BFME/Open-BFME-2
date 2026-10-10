@@ -3,7 +3,7 @@
 // Name is a scalar hash: factory 34B1E9 pushes an immediate key, with no
 // string construction or destruction. Keep the established host-word view.
 // StateMachine-family ctor (thiscall, four params): base-constructs the rowed
-// Rva004D759C from (owner, name, flag), stores vtable g_00C11C30, then one
+// StateMachine base from (owner, name, flag), stores vtable g_00C11C30, then one
 // new-expression state block into the dead name slot with post-call eax
 // feeding rowed defineState directly (B952-family shape). Too few constants
 // to keep ebx, so the zeros ride as immediates and the dead state reset
@@ -15,15 +15,11 @@ struct StateConditionInfo;
 class StateMachine
 {
 public:
+	StateMachine(Object *owner, unsigned int name, bool flag);
+	virtual ~StateMachine();
 	void defineState(unsigned int id, State *state, unsigned int successID, unsigned int failureID, const StateConditionInfo *conditions);
 };
 
-class Rva004D759C
-{
-public:
-	Rva004D759C(Object *owner, unsigned int name, bool flag);
-	virtual ~Rva004D759C();
-};
 
 class Rva00343042
 {
@@ -36,14 +32,14 @@ private:
 
 extern const void *const g_00C11C30[];
 
-class Rva00343838 : public Rva004D759C
+class Rva00343838 : public StateMachine
 {
 public:
 	Rva00343838(Object *owner, int u, unsigned int name, bool flag);
 };
 
 Rva00343838::Rva00343838(Object *owner, int u, unsigned int name, bool flag)
-	: Rva004D759C(owner, name, flag)
+	: StateMachine(owner, name, flag)
 {
 	(void)u;
 	*(const void **)this = g_00C11C30;

@@ -1,4 +1,4 @@
-class BfmeGotBEC
+class DockUpdateInterface
 {
 public:
 	virtual void bfmeSpareBEC0();
@@ -21,10 +21,10 @@ public:
 	virtual void bfmeSendBEC(int what);
 };
 
-class BfmeSubBEC
+class Object
 {
 public:
-	BfmeGotBEC *bfmeFindBEC();
+	DockUpdateInterface *getDockUpdateInterface();
 };
 
 class BfmeThingBEC
@@ -32,10 +32,10 @@ class BfmeThingBEC
 public:
 	void bfmeGoBEC();
 	unsigned char m_bfmeHead[8];
-	BfmeSubBEC *m_bfmeSub;
+	Object *m_bfmeSub;
 };
 
 void BfmeThingBEC::bfmeGoBEC()
 {
-	m_bfmeSub->bfmeFindBEC()->bfmeSendBEC(1);
+	m_bfmeSub->getDockUpdateInterface()->bfmeSendBEC(1);
 }

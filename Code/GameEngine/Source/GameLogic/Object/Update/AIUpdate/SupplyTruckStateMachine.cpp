@@ -123,6 +123,7 @@ struct StateConditionInfo
 class StateMachine
 {
 public:
+	StateMachine(Object *owner, UnsignedInt nameKey, Bool flag);
 	virtual ~StateMachine();
 	void defineState(StateID id, State *state, StateID successID, StateID failureID, const StateConditionInfo *conditions = 0);
 	Object *getOwner() const { return m_owner; }
@@ -144,14 +145,8 @@ protected:
 };
 
 // BFME 2's StateMachine constructor (owner, name key, flag), rowed by
-// address as ??0Rva004D759C@@QAE@PAVObject@@VAsciiString@@_N@Z; the key is
+// address as ??0StateMachine@@QAE@PAVObject@@I_N@Z; the key is
 // taken as one dword, as in the dozer and worker machines' TUs.
-class Rva004D759C : public StateMachine
-{
-public:
-	Rva004D759C(Object *owner, UnsignedInt nameKey, Bool flag);
-	virtual ~Rva004D759C();
-};
 
 // ZH's SupplyTruckBusyState (rowed ctor 0x004A6BCA).
 class Rva004A6BCA : public State
@@ -198,7 +193,7 @@ public:
 	Rva004A699C(StateMachine *machine);
 };
 
-class SupplyTruckStateMachine : public Rva004D759C
+class SupplyTruckStateMachine : public StateMachine
 {
 public:
 	SupplyTruckStateMachine(Object *owner);
@@ -228,7 +223,7 @@ StateReturnType Rva004A6979::onEnter()
 	return STATE_CONTINUE;
 }
 
-SupplyTruckStateMachine::SupplyTruckStateMachine(Object *owner) : Rva004D759C(owner, 0xF95C8C34, false)
+SupplyTruckStateMachine::SupplyTruckStateMachine(Object *owner) : StateMachine(owner, 0xF95C8C34, false)
 {
 	static const StateConditionInfo busyConditions[] =
 	{

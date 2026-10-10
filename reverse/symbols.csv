@@ -4426,7 +4426,6 @@ name,address,notes
 ??1Rva004BF951@@UAE@XZ,0x004BF951,opaque MI base dtor (SEH); 7 derived MI dtors tail-call it; identity unproven
 ??1Rva004CE36@@UAE@XZ,0x004CE36,opaque SEH dtor (mov-eax-cookie prologue, start inferred from prologue shape); called by scalar-deleting-dtor at 0x4CF47; identity unproven, address-derived name
 ??1Rva004D2344@@QAE@XZ,0x004D2344,destructor called by the unreferenced scalar deleting dtor 0x0025DEE5 (REL32 at +4 of its 28B delete-flag wrapper); identity unproven; address-derived name
-??1Rva004D759C@@UAE@XZ,0x004D759C,opaque MI base dtor (SEH, vptrs incl shared patterns, list walk); 20 derived MI dtors tail-call it; identity unproven
 ??1Rva004D7B93@@UAE@XZ,0x004D7B93,opaque dtor for scalar-deleting-dtor at 0x4D8507 (5B tail-jmp to pinned 0x49B47C fold); identity unproven address-derived pin
 ??1Rva004D960C@@QAE@XZ,0x004D960C,destructor called by the unreferenced scalar deleting dtor 0x004D96E4 (REL32 at +4 of its 28B delete-flag wrapper); identity unproven; address-derived name
 ??1Rva004DCE8E@@QAE@XZ,0x004DCE8E,destructor called by the unreferenced scalar deleting dtor 0x004B0D0C (REL32 at +4 of its 28B delete-flag wrapper); identity unproven; address-derived name
@@ -8032,7 +8031,6 @@ name,address,notes
 ?bfmeFindAEA@BfmeThingAEA@@QAE_NPAUBfmeKeyAEA@@PAX@Z,0x0066ECA0
 ?bfmeFindAWB@BfmeKeyAWB@@QAEPAUBfmeNodeAWB@@XZ,0x005C4ACD
 ?bfmeFindBBA@BfmeSubBBA@@QAEPAUBfmeGotBBA@@XZ,0x005C4ACD
-?bfmeFindBEC@BfmeSubBEC@@QAEPAVBfmeGotBEC@@XZ,0x0028BCB4
 ?bfmeFindBH@BfmeRegistryBH@@QAEPAXVAsciiStringBH@@@Z,0x0029B6EB,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
 ?bfmeFindBHF@BfmeSubBHF@@QAEPAUBfmeGotBHF@@XZ,0x005C4ACD
 ?bfmeFindByteCore@@YAPADPAD0D0@Z,0x00025B80
@@ -9516,7 +9514,6 @@ name,address,notes
 ?getDataOffset@NetWrapperCommandMsg@@QAEIXZ,0x00091A56,callee of copyChunkData (0x0058C047) at the site its BFME1 donor calls it; may be an ICF alias
 ?getDayOfWeek@AptDate@@QAEHHHH@Z,0x006F4290
 ?getDescription@MapMetaData@@QAE?AVUnicodeString@@XZ,0x003009CD,BFME1 MapMetaData::getDescription name; hidden-retptr UnicodeString loader called first by first-line at 0x301546 exactly as BFME1 first-line calls getDescription
-?getDockUpdateInterface@Object@@QAEPAVDockUpdateInterface@@XZ,0x0028BCB4,Object::getDockUpdateInterface called by AIDockState::onEnter at 0x003416B4
 ?getDrawModules@Drawable@@QAEPAPAVDrawModule@@XZ,0x002B224B,ZH Drawable::getDrawModules returning the +0x14C module array; the folded dword getter rowed at this address; called by W3DGhostObject remove/restoreParentObject and by Drawable::setFullyObscuredByShroud's loop source
 ?getDrawable@Object@@QBEPAVDrawable@@XZ,0x005508E2,chain doFXObj 0x001E09D8 calls getDrawable at 0x001E09E5 plus 0x001E09F2 plus 0x001E0A29; boundary 0x005508E2/7 ICF twin of rowed BuildListInfo getter same bytes
 ?getDrawable@Thing@@QBEPAVDrawable@@XZ,0x005508E2,SpawnPointProductionExitUpdate::initializeBonePositions calls this 7-byte this+0x84 getter; body is ICF-folded with the already matched BuildListInfo getter at the same address
@@ -12037,8 +12034,6 @@ name,address,notes
 ?rva005ED859@Rva005ED976@@QAEXHH@Z,0x005ED859,address-derived unit-count delegate; target 8-byte thunk loads this+4 then jumps to rowed NumUnits setter 0x005ED76A; caller 0x005D13E2 passes the row index and Rva002E0D02Get result; original owner name unknown
 ?rva005ED861@Rva005ED976@@QAEXH@Z,0x005ED861,address-derived row-state delegate; Ghidra 8-byte thunk loads this+4 then jumps to rowed state setter 0x005ED7CC; caller 0x005D13E2 passes 0 after the update loop; original owner name unknown
 ?rva005ED986@Rva005ED976@@QAEXHABVUnicodeString@@@Z,0x005ED986,address-derived player-name delegate; caller 0x005D13E2 passes row index and UnicodeString at entry+0x1C; target bytes load this+4 then jump to rowed PlayerName setter 0x005ED937; original owner name unknown
-?rva005EE317@Rva005EE816@@QAEXPAUCoord3D@@@Z,0x005EE317,member view of the rowed ?Rva005EE317@@YGXPAVCoord3D@@@Z (ret 4; ignores ECX): REL32 at 0x005D80B9 in 0x005D7FA6 with ECX the AoE picker and the out direction pushed
-?rva005EE8DD@Rva005EE816@@QAE_NPBUCoord3D@@PAVObject@@@Z,0x005EE8DD,"AoE target picker: accept the point (0x005EE816) and keep it at +0x1C, else (with +0x19) walk outward from it along a random direction (0x005EE317) up to 150 for the first accepted point; REL32 in 0x005D95CF"
 ?rva005EEDB5@Rva005EEDB5Picker@@QAEXPAVObject@@@Z,0x005EEDB5,stores the object +0x74 id (0 for null) into ECX+0x1C (ret 4); REL32 at 0x005D8772/0x005D87F6/0x005D8843 in 0x005D874A; ICF alias of the rowed ?setTargetObject@StickyBombUpdate@@QAEXPAVObject@@@Z
 ?rva005EEDE6@Rva005EEDB5Picker@@QBEPAVObject@@XZ,0x005EEDE6,pushes ECX+0x1C and resolves it through TheGameLogic (0x00449DC5); REL32 at 0x005D87EA/0x005D8803/0x005D8857 in 0x005D874A
 ?rva005EF3F6@Rva005EF3F6@@QAEXXZ,0x005EF3F6,pin for 0x005E1B9A tail; address-derived
@@ -13644,7 +13639,6 @@ rva009C7380WeightPairs,0x009B84E0
 ?drawBackground@ControlBarScheme@@QAEXVCoord2D@@UICoord2D@@@Z,0x0031F96F,ZH ControlBarSchemeManager::drawBackground 0x0031FAC5 (called by W3DCommandBarBackgroundDraw 0x0009FA82): REL32 at 0x0031FAE7; ledger spelling there: ?rva0031F96F@Rva0031F96F@@QAEXMMHH@Z
 ??0Rva0026AFDAMember@@QAE@XZ,0x0026AFDA,member ctors GiantBirdAIUpdate ctor 0x36B717 runs at member position: +0x3F0 (0xC4 member; DeployStyle's +0x3E4 one; rowed dtor 0x26B03D) and +0x4C8 (0x60 member; vtable 0x7C7514)
 ??0Rva00312C95@@QAE@XZ,0x00312C95,member ctors GiantBirdAIUpdate ctor 0x36B717 runs at member position: +0x3F0 (0xC4 member; DeployStyle's +0x3E4 one; rowed dtor 0x26B03D) and +0x4C8 (0x60 member; vtable 0x7C7514)
-??0Rva004D759C@@QAE@PAVObject@@I_N@Z,0x004D79E1,scalar-key spelling of the rowed StateMachine base ctor ??0Rva004D759C@@QAE@PAVObject@@VAsciiString@@_N@Z: callers push the name key as one immediate dword (DozerPrimaryStateMachine 0x488DAB pushes 0x3EA7DE5F) which only a scalar parameter reproduces
 ?rva0050F306@Rva0050F041@@QAEXXZ,0x0050F306,callee of ?rva0050FF1C@Rva0050F041@@QAEXXZ
 ?rva005BD82E@@YAXXZ,0x005BD82E,callee of ?rva00516FA9@@YAXXZ
 ?rva005049C6@Rva00504DF8@@QAEPAXPBX@Z,0x005049C6,callee of ?rva00504E6D@Rva00504DF8@@QAE?AURva00504E6DResult@@PBX@Z

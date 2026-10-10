@@ -1,7 +1,7 @@
 // cl: /DNDEBUG /MD
 // ?onEnter@Rva005442CC@@UAE?AW4StateReturnType@@XZ, retail 0x005442CC, 124 bytes.
 // Gap between 0x0054428B and 0x00544348 of AIDockStates.cpp, same flags.
-// Gets TurretStateMachine goal via rowed getGoalObject 0x004D7726, finds BEC via rowed bfmeFindBEC 0x0028BCB4, checks slot 0x38, calls slot 0x34 with owner, calls slot 8 with owner and +0x20 and machine+0x3C, clears obstacle via rowed ignoreObstacle 0x00268D88, tail-chains to pinned base onEnter 0x0034C146. Evidence: gap TU flags; tri-pattern sibling Rva00544867 onEnter; tail to base onEnter.
+// Gets TurretStateMachine goal via rowed getGoalObject 0x004D7726, finds BEC via rowed Object::getDockUpdateInterface 0x0028BCB4, checks slot 0x38, calls slot 0x34 with owner, calls slot 8 with owner and +0x20 and machine+0x3C, clears obstacle via rowed ignoreObstacle 0x00268D88, tail-chains to pinned base onEnter 0x0034C146. Evidence: gap TU flags; tri-pattern sibling Rva00544867 onEnter; tail to base onEnter.
 enum StateReturnType
 {
 	STATE_CONTINUE = 0,
@@ -17,7 +17,7 @@ struct Coord3D
 };
 
 class Object;
-class BfmeGotBEC;
+class DockUpdateInterface;
 class StateMachine;
 
 class AIUpdateInterface
@@ -29,6 +29,7 @@ public:
 class Object
 {
 public:
+	DockUpdateInterface *getDockUpdateInterface();
 	static __forceinline AIUpdateInterface *getAI(const Object *object) { return object->m_ai; }
 private:
 	unsigned char m_pad00[0x258];
@@ -53,13 +54,8 @@ public:
 	Object *getGoalObject();
 };
 
-class BfmeSubBEC
-{
-public:
-	BfmeGotBEC *bfmeFindBEC();
-};
 
-class BfmeGotBEC
+class DockUpdateInterface
 {
 public:
 	virtual void v00();
@@ -124,7 +120,7 @@ StateReturnType Rva005442CC::onEnter()
 	Object *goal = ((TurretStateMachine *)m_machine)->getGoalObject();
 	if (goal == 0)
 		return STATE_FAILURE;
-	BfmeGotBEC *bec = ((BfmeSubBEC *)goal)->bfmeFindBEC();
+	DockUpdateInterface *bec = goal->getDockUpdateInterface();
 	if (bec == 0)
 		return STATE_FAILURE;
 	if (!bec->v14()) {

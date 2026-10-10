@@ -3,7 +3,7 @@
 // Name is a scalar hash: factory 34B1E9 pushes an immediate key, with no
 // string construction or destruction. Keep the established host-word view.
 // StateMachine-family ctor (thiscall): base-constructs the rowed
-// Rva004D759C from (owner, name, false), stores vtable g_00C11AC0, then
+// StateMachine base from (owner, name, false), stores vtable g_00C11AC0, then
 // defines seven states via the rowed StateMachine::defineState. Each state
 // is a new-expression into a dead param slot ([ebp+0x10], then [ebp+0xC]
 // after the int param dies), null-checked once, with the post-call eax
@@ -17,15 +17,11 @@ struct StateConditionInfo;
 class StateMachine
 {
 public:
+	StateMachine(Object *owner, unsigned int name, bool flag);
+	virtual ~StateMachine();
 	void defineState(unsigned int id, State *state, unsigned int successID, unsigned int failureID, const StateConditionInfo *conditions);
 };
 
-class Rva004D759C
-{
-public:
-	Rva004D759C(Object *owner, unsigned int name, bool flag);
-	virtual ~Rva004D759C();
-};
 
 class Rva00342A96
 {
@@ -92,14 +88,14 @@ private:
 
 extern const void *const g_00C11AC0[];
 
-class Rva0034316A : public Rva004D759C
+class Rva0034316A : public StateMachine
 {
 public:
 	Rva0034316A(Object *owner, int x, unsigned int name);
 };
 
 Rva0034316A::Rva0034316A(Object *owner, int x, unsigned int name)
-	: Rva004D759C(owner, name, false)
+	: StateMachine(owner, name, false)
 {
 	*(const void **)this = g_00C11AC0;
 	Rva00342A96 *s0 = new Rva00342A96((StateMachine *)this);
