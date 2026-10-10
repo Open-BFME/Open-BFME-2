@@ -1,5 +1,5 @@
 // ?createWaypoint@MineshaftPortalBehaviour@@QAEXXZ
-// partial score=0.91 date=2026-10-09
+// partial score=0.93 date=2026-10-10
 // cl: /Ireference/shims/bfme2_ascii /O1 /Oy- /G7 /arch:SSE /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
 //
 // ?rva00372DFA@MineshaftPortalBehaviour@@QAEPAVWaypoint@@PBUCoord3D@@@Z,
@@ -31,33 +31,91 @@ bool less<int>::operator()(const int& a,const int& b) const { return a < b; }
 }
 
 struct Coord3D { float x, y, z; };
-struct Rva0087E650Bounds { Coord3D lo, hi; };
-class GeometryInfo { public: void rva0087E650(Rva0087E650Bounds *bounds); };
+class UnicodeString;
+class PooledString;
+struct XferUnknown11;
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class Coord2D;
+class ICoord2D;
+class Region2D;
+class IRegion2D;
+class RealRange;
+class RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+class Snapshot;
+
+class Xfer
+{
+public:
+	class Version;
+
+	virtual ~Xfer();
+
+	virtual bool IsLoading() const;
+	virtual bool IsStoring() const;
+	virtual bool IsCRC() const;
+	virtual bool IsLightCRC() const;
+
+	virtual void v5() = 0;
+	virtual void v6() = 0;
+	virtual void v7() = 0;
+
+	virtual void SkipBadBlock(Snapshot &snapshot, unsigned int size);
+	virtual Xfer &XferRawBytes(void *data, unsigned int size);
+	virtual Xfer &operator==(bool &value);
+	virtual Xfer &operator==(char &value);
+	virtual Xfer &operator==(unsigned char &value);
+	virtual Xfer &operator==(short &value);
+	virtual Xfer &operator==(unsigned short &value);
+	virtual Xfer &operator==(int &value);
+	virtual Xfer &operator==(unsigned int &value);
+	virtual Xfer &operator==(__int64 &value);
+	virtual Xfer &operator==(float &value);
+	virtual Xfer &operator==(AsciiString &value);
+	virtual Xfer &operator==(UnicodeString &value);
+	virtual Xfer &operator==(PooledString &value);
+	virtual Xfer &operator==(Coord3D &value);
+	virtual Xfer &operator==(ICoord3D &value);
+	virtual Xfer &operator==(Region3D &value);
+	virtual Xfer &operator==(IRegion3D &value);
+	virtual Xfer &operator==(Coord2D &value);
+	virtual Xfer &operator==(ICoord2D &value);
+	virtual Xfer &operator==(Region2D &value);
+	virtual Xfer &operator==(IRegion2D &value);
+	virtual Xfer &operator==(RealRange &value);
+	virtual Xfer &operator==(RGBColor &value);
+	virtual Xfer &operator==(RGBAColorReal &value);
+	virtual Xfer &operator==(RGBAColorInt &value);
+	virtual Xfer &operator==(Snapshot &value);
+	virtual Xfer &operator==(XferUnknown11 &value) = 0;
+	virtual Xfer &operator==(Version &value);
+};
+
+class Xfer::Version
+{
+public:
+	Version(unsigned char current, unsigned char minimum)
+		: m_current(current), m_minimum(minimum) {}
+
+	unsigned char m_current;
+	unsigned char m_minimum;
+};
+
+
 class Player;
 class Object { public: Player *getControllingPlayer() const; };
-struct Vector3 {
-    float x, y, z;
-    Vector3(float a, float b, float c) : x(a), y(b), z(c) {}
-    __forceinline void Rotate_Z(float angle) {
-        float s = (float)sin((double)angle);
-        float c = (float)cos((double)angle);
-        Rotate_Z(s, c);
-    }
-    __forceinline void Rotate_Z(float s, float c) {
-        float oldX = x, oldY = y;
-        y = s * oldX + c * oldY;
-        x = c * oldX - s * oldY;
-    }
-};
+class UpdateModule { public: void xfer(Xfer *xfer); };
+typedef int WaypointID;
+const WaypointID INVALID_WAYPOINT_ID = 0x7FFFFFFF;
+void XferWaypointID(Xfer *xfer, WaypointID *value);
+void XferObjectID(Xfer *xfer, ObjectID *value);
 class TerrainLogic;
 extern TerrainLogic *TheTerrainLogic;
-struct Rva003738F6Terrain {
-    virtual void slot0(); virtual void slot1(); virtual void slot2();
-    virtual void slot3(); virtual void slot4(); virtual void slot5();
-    virtual float groundHeight(float x, float y, void *normal);
-};
-extern float g_Va00DC039C;
 extern void *g_Va00E01EDC;
+
 
 class Waypoint
 {
@@ -66,7 +124,8 @@ public:
 		AsciiString label2, AsciiString label3, bool biDirectional, int bfmeType, AsciiString bfmeName);
 
 	unsigned char m_pad00[4];
-	ObjectID id;
+	int id;
+    __forceinline int getID() const { return id; }
 	unsigned char m_pad08[0x48 - 8];
 	unsigned char m_48;		// +0x48
 	unsigned char m_pad49[0xA8 - 0x49];
@@ -84,31 +143,57 @@ struct MineshaftPortalBehaviourModuleData
 	unsigned char m_119;		// +0x119
 };
 
+struct Rva0087E650Bounds { Coord3D lo, hi; };
+class GeometryInfo { public: void rva0087E650(Rva0087E650Bounds *bounds); };
+struct Vector3 {
+	float x, y, z;
+	Vector3(float a, float b, float c) : x(a), y(b), z(c) {}
+	__forceinline void Rotate_Z(float angle) {
+		float s = (float)sin((double)angle);
+		float c = (float)cos((double)angle);
+		Rotate_Z(s, c);
+	}
+	__forceinline void Rotate_Z(float s_angle, float c_angle) {
+		float tmp_x = x;
+		float tmp_y = y;
+		x = c_angle * tmp_x - s_angle * tmp_y;
+		y = s_angle * tmp_x + c_angle * tmp_y;
+	}
+};
+struct Rva003738F6Terrain {
+	virtual void slot0(); virtual void slot1(); virtual void slot2();
+	virtual void slot3(); virtual void slot4(); virtual void slot5();
+	virtual float groundHeight(float x, float y, void *normal);
+};
+extern float g_Va00DC039C;
+
 struct Rva00372DFAObject
 {
 	unsigned char m_pad00[0x38];
-    float x, y;
-    unsigned char m_pad40[4];
-    float angle;
-    unsigned char m_pad48[0x74 - 0x48];
+	float x, y;			// +0x38, +0x3C
+	unsigned char m_pad40[4];
+	float angle;			// +0x44
+	unsigned char m_pad48[0x74 - 0x48];
 	int m_74;			// +0x74
-    unsigned char m_pad78[0x104 - 0x78];
-    GeometryInfo *geometry;
+	unsigned char m_pad78[0x104 - 0x78];
+	GeometryInfo *geometry;		// +0x104
 };
 
 class MineshaftPortalBehaviour
 {
 public:
 	Waypoint *rva00372DFA(const Coord3D *pos);
-    void createWaypoint();
+	void createWaypoint();
+    virtual void rva00373A0F(Xfer *xfer);
 
 private:
-	void *m_vtbl;
 	const MineshaftPortalBehaviourModuleData *m_moduleData;	// +0x04
 	Rva00372DFAObject *m_object;				// +0x08
-    unsigned char m_pad0C[0x34 - 0x0C];
+    unsigned char m_pad0C[0x28 - 0x0C];
+    std::vector<ObjectID> m_pending;
     Waypoint *m_waypoint;
     bool m_registered;
+    bool m_39;
 };
 
 Waypoint *MineshaftPortalBehaviour::rva00372DFA(const Coord3D *pos)
@@ -165,33 +250,86 @@ void MineshaftPortalNetworkManager::addWaypoint(Waypoint *waypoint, Player *play
         int lookupKey = player->index;
         it = networks.find(lookupKey);
     }
-    ObjectID id = waypoint->id;
+    ObjectID id = (ObjectID)waypoint->id;
     it->second->ids.push_back(id);
     it->second->changed = true;
 }
 
-// Native 003738F6..00373A0F, whole281B. WB F3CD30 names createWaypoint
-// and its Vector3::Rotate_Z expansion. Native supplies receiver offsets,
-// the mutable exit-distance word, and the terrain slot6 call.
+// DoXfer role named by WB F3D290 (MineshaftPortalBehaviour.cpp:231..267).
+// Native373A0F..373B54 RET4: UpdateModule transfer, light-CRC bypass,
+// version1/1; resolve and register the loaded waypoint or save its id;
+// transfer bytes38/39 and pending ObjectIDs at28. Original access and
+// virtual declaration are not asserted by this neutral method label.
+void MineshaftPortalBehaviour::rva00373A0F(Xfer *xfer)
+{
+    ((UpdateModule *)this)->xfer(xfer);
+    if (xfer->IsLightCRC())
+        return;
+    Xfer::Version version(1, 1);
+    *xfer == version;
+    if (xfer->IsLoading()) {
+        WaypointID id;
+        XferWaypointID(xfer, &id);
+        struct TerrainWaypointView {
+            virtual void slot0(); virtual void slot1(); virtual void slot2();
+            virtual void slot3(); virtual void slot4(); virtual void slot5();
+            virtual void slot6(); virtual void slot7(); virtual void slot8();
+            virtual void slot9(); virtual void slot10(); virtual void slot11();
+            virtual void slot12(); virtual void slot13(); virtual void slot14();
+            virtual void slot15(); virtual void slot16(); virtual void slot17();
+            virtual void slot18(); virtual void slot19(); virtual void slot20();
+            virtual void slot21(); virtual void slot22(); virtual void slot23();
+            virtual void slot24(); virtual void slot25(); virtual void slot26();
+            virtual void slot27(); virtual void slot28(); virtual void slot29();
+            virtual void slot30(); virtual void slot31(); virtual void slot32();
+            virtual void slot33(); virtual void slot34();
+            virtual Waypoint *findWaypoint(WaypointID id);
+        };
+        m_waypoint = id == INVALID_WAYPOINT_ID ? 0 : ((TerrainWaypointView *)TheTerrainLogic)->findWaypoint(id);
+        if (m_waypoint)
+            ((MineshaftPortalNetworkManager *)g_Va00E01EDC)->addWaypoint(m_waypoint, ((Object *)m_object)->getControllingPlayer());
+    } else {
+        WaypointID id = m_waypoint ? m_waypoint->getID() : INVALID_WAYPOINT_ID;
+        XferWaypointID(xfer, &id);
+    }
+    *xfer == m_registered;
+    *xfer == m_39;
+    unsigned int count = m_pending.size();
+    *xfer == count;
+    if (xfer->IsStoring()) {
+        std::vector<ObjectID>::const_iterator end = m_pending.end();
+        for (std::vector<ObjectID>::const_iterator it = m_pending.begin(); it != end; ++it) {
+            ObjectID id = *it;
+            XferObjectID(xfer, &id);
+        }
+    } else if (xfer->IsLoading()) {
+        for (unsigned int i = 0; i < count; ++i) {
+            ObjectID id = INVALID_OBJECT_ID;
+            XferObjectID(xfer, &id);
+            m_pending.push_back(id);
+        }
+    }
+}
+
 void MineshaftPortalBehaviour::createWaypoint()
 {
-    if (!m_registered) {
-        float angle = m_object->angle;
-        Rva0087E650Bounds bounds;
-        m_object->geometry->rva0087E650(&bounds);
-        float extent = bounds.lo.x > 0.0f ? bounds.lo.x : bounds.hi.x;
-        Vector3 offset(extent + g_Va00DC039C, 0.0f, 0.0f);
-        offset.Rotate_Z(angle);
-        Coord3D pos;
-        pos.x = offset.x;
-        pos.y = offset.y;
-        pos.z = 0.0f;
-        pos.x += m_object->x;
-        pos.y += m_object->y;
-        pos.z = ((Rva003738F6Terrain *)TheTerrainLogic)->groundHeight(pos.x, pos.y, 0);
-        m_waypoint = rva00372DFA(&pos);
-        ((MineshaftPortalNetworkManager *)g_Va00E01EDC)->addWaypoint(
-            m_waypoint, ((Object *)m_object)->getControllingPlayer());
-        m_registered = true;
-    }
+	if (!m_registered) {
+		float angle = m_object->angle;
+		Rva0087E650Bounds bounds;
+		m_object->geometry->rva0087E650(&bounds);
+		float extent = bounds.lo.x > 0.0f ? bounds.lo.x : bounds.hi.x;
+		Vector3 offset(extent + g_Va00DC039C, 0.0f, 0.0f);
+		offset.Rotate_Z(angle);
+		Coord3D pos;
+		pos.x = offset.x;
+		pos.y = offset.y;
+		pos.z = 0.0f;
+		pos.x += m_object->x;
+		pos.y += m_object->y;
+		pos.z = ((Rva003738F6Terrain *)TheTerrainLogic)->groundHeight(pos.x, pos.y, 0);
+		m_waypoint = rva00372DFA(&pos);
+		((MineshaftPortalNetworkManager *)g_Va00E01EDC)->addWaypoint(
+			m_waypoint, ((Object *)m_object)->getControllingPlayer());
+		m_registered = true;
+	}
 }
