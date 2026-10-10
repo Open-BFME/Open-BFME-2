@@ -27,7 +27,7 @@ class ParticleSystemManager {
 };
 extern ParticleSystemManager *TheParticleSystemManager;
 class Rva0020453CHolderBase {
-public:void release();
+public:void release();void rva00204C68();
 private:unsigned int unknown00;ParticleSystemID id;bool destroyOnReset;
 };
 void Rva0020453CHolderBase::release(){
@@ -39,4 +39,21 @@ void Rva0020453CHolderBase::release(){
   }
  }
  id=INVALID_PARTICLE_SYSTEM_ID;
+}
+
+// ?rva00204C68@Rva0020453CHolderBase@@QAEXXZ @0x00204C68 16B: slot 7 of the
+// holder's vtable 0x007E39F4. It releases this holder's particle (release
+// above), then tail-calls virtual slot 9 (+0x24) of TheParticleSystemManager,
+// read through a slot-only view (the manager's identity for that slot is
+// not established here).
+class Rva00204C68ManagerSlots {
+public:
+#define SLOT(N) virtual void slot##N();
+ SLOT(0) SLOT(1) SLOT(2) SLOT(3) SLOT(4) SLOT(5) SLOT(6) SLOT(7) SLOT(8)
+#undef SLOT
+ virtual void slot9();
+};
+void Rva0020453CHolderBase::rva00204C68(){
+ release();
+ ((Rva00204C68ManagerSlots *)TheParticleSystemManager)->slot9();
 }
