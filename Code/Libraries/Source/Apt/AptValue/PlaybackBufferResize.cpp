@@ -5,9 +5,9 @@
 // facts; original entry/container identities are unresolved. Native extent
 // 6CDD90..6CDDF8 includes the complete return; old97B boundary cut inside
 // the last iterator-field store. Byte104 is RET, followed by8 INT3 bytes.
-class EAStringC {public:EAStringC(const EAStringC &);__forceinline EAStringC() throw(){clear();} bool IsEqualTo(const EAStringC *) const;EAStringC &clear() throw();~EAStringC();EAStringC &operator=(const EAStringC &);void *data;};
-// Default initialization delegates to clear: native owns one16B ICF body
-// for both operations, including the empty-root reference increment.
+class EAStringC {public:EAStringC(const EAStringC &);EAStringC() throw(); bool IsEqualTo(const EAStringC *) const;EAStringC &clear() throw();~EAStringC();EAStringC &operator=(const EAStringC &);void *data;};
+// Default construction uses the existing16B provider, ICF-folded with clear.
+// A TU-local clear forwarder would be the first competing constructor copy.
 struct Rva006CDD50Item {EAStringC name;int value;};
 // Same release range-check expression as target Apt.cpp PlaybackIterator;
 // WB1750B80 is empty even in debug. Keeping it preserves loop shape.

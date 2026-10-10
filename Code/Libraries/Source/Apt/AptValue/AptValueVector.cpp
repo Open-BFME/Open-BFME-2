@@ -77,16 +77,9 @@ public:
 	AptValue **m_data;
 };
 
-// ??0AptValueNameEntry@@QAE@ABVEAStringC@@H@Z, retail 0x006CBFE0 (26B).
-// Named-value entry constructor: shares the name string through the
-// rowed EAStringC copy constructor, then stores the integer value.
-// The array pointer lives in the owning vector, so this body touches
-// only the 8 bytes it owns.
-AptValueNameEntry::AptValueNameEntry(const EAStringC &name, int value) :
-	m_name(name),
-	m_value(value)
-{
-}
+// The native26B named-entry constructor is emitted as a header-inline copy
+// by PlaybackBufferResize.cpp. Its row lives there so this TU keeps only
+// the declaration above instead of a competing strong definition.
 
 // ??0AptValueNameEntry@@QAE@XZ, retail 0x006CC000 (19B). Default entry
 // constructor: the implicit EAStringC default (empty re-root at 0x006D2F90,
