@@ -1,6 +1,6 @@
 // cl: /O1 /DNDEBUG /MD /EHs /arch:SSE /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
-// ?rva002B8573@Rva002B8573@@QAE_NPAVRva003190A5@@@Z @0x002B8573 62B via ref table pattern
+// ?rva002B8573@Rva002B8573@@UAE_NPAVRva003190A5@@@Z @0x002B8573 62B via ref table pattern
 // Evidence: REF table slot 0x007FDFEC plus neighbours plus prev LivingWorldLogic plus query row 0x003190A5 plus push_back pin.
 #include <vector>
 
@@ -24,9 +24,10 @@ struct Rva002B8573Filter
 class Rva002B8573
 {
 public:
-	bool rva002B8573(Rva003190A5 *a);
+	virtual bool rva002B8573(Rva003190A5 *a);
+ ~Rva002B8573() {}
+ Rva002B8573(_STL::vector<Object*> *v, Rva002B8573Filter *f):m_vec04(v),m_flt08(f) {}
 private:
-	char m_pad00[4];
 	_STL::vector<Object *> *m_vec04;
 	Rva002B8573Filter *m_flt08;
 };
@@ -45,14 +46,15 @@ bool Rva002B8573::rva002B8573(Rva003190A5 *a)
 	return true;
 }
 
-// ?rva002B85B1@Rva002B85B1@@QAE_NPAVRva003190A5@@@Z @0x002B85B1 59B via ref table sibling.
+// ?rva002B85B1@Rva002B85B1@@UAE_NPAVRva003190A5@@@Z @0x002B85B1 59B via ref table sibling.
 // Evidence: REF table slot 0x007FDFF0 plus neighbour rva002B8573 plus query plus push_back.
 class Rva002B85B1
 {
 public:
-	bool rva002B85B1(Rva003190A5 *a);
+	virtual bool rva002B85B1(Rva003190A5 *a);
+ ~Rva002B85B1() {}
+ Rva002B85B1(_STL::vector<Object*> *v, int id):m_vec04(v),m_08(id) {}
 private:
-	char m_pad00[4];
 	_STL::vector<Object *> *m_vec04;
 	int m_08;
 };
@@ -68,4 +70,33 @@ bool Rva002B85B1::rva002B85B1(Rva003190A5 *a)
 		return true;
 	m_vec04->push_back(obj);
 	return true;
+}
+
+// Native2B31F2..2B323C74B and2B323C..2B328876B construct the
+// 12-byte callback payloads whose single native vtable entries are2B8573
+// and2B85B1. WB D7ECE0 also constructs a derived callback with pointer4
+// and filter8. These target facts correct the earlier nonvirtual views:
+// the vptr replaces the old four-byte padding; full callback bytes remain
+// unchanged. Output pointer element names remain the existing caller ABI
+// views; application identities and complete class layouts remain open.
+class Rva003F498ACallback;
+class LivingWorldBattle {public: void rva003F498A(Rva003F498ACallback*);};
+class Rva003F468D;
+class Rva0020E6B7RegionManager {public:Rva003F468D *rva0020E6B7();};
+class Rva002B31F2 {
+public: void rva002B31F2(_STL::vector<unsigned int>*);
+char pad[0xb0];Rva0020E6B7RegionManager *manager;
+};
+class Rva0040D701ArmySummary;
+class Rva002BA8F1Logic {
+public:void rva002B323C(_STL::vector<Rva0040D701ArmySummary*>*,int);
+char pad[0xb0];Rva0020E6B7RegionManager *manager;
+};
+void Rva002B31F2::rva002B31F2(_STL::vector<unsigned int>*out) {
+ LivingWorldBattle *battle=(LivingWorldBattle*)manager->rva0020E6B7();
+ if(battle){Rva002B8573 callback((_STL::vector<Object*>*)out,0);battle->rva003F498A((Rva003F498ACallback*)&callback);}
+}
+void Rva002BA8F1Logic::rva002B323C(_STL::vector<Rva0040D701ArmySummary*>*out,int id) {
+ LivingWorldBattle *battle=(LivingWorldBattle*)manager->rva0020E6B7();
+ if(battle){Rva002B85B1 callback((_STL::vector<Object*>*)out,id);battle->rva003F498A((Rva003F498ACallback*)&callback);}
 }
