@@ -74691,3 +74691,5 @@ __ehhandler$??0Rva00527378Payload@@QAE@PAXHABVAsciiString@@00@Z,,0x007969BF,10,C
 ??0Rva005105D7@@QAE@HABVAsciiString@@@Z,,0x005103A3,528,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptRowListConstructor.cpp,matched,
 ?Rva00512069Register@@YAXXZ,,0x00512069,179,Code/GameEngine/Source/GameClient/Rva00511F73.cpp,matched,
 ??0Rva00527827@@QAE@HABVAsciiString@@@Z,,0x00527C04,202,Code/GameEngine/Source/Common/Bfme/Rva00527827Constructor.cpp,matched,
+??0?$vector@IV?$allocator@I@_STL@@@_STL@@QAE@IABIABV?$allocator@I@1@@Z,,0x00511E1C,44,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_uint_fill_ctor.cpp,matched,ICF alias: 4-byte element (callees 0x004F62A4 n*4 and 0x0007E48F); AptMessenger 0x0051215B caller
+??0AptMessenger@@QAE@PAX@Z,,0x0051215B,1159,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerConstructor.cpp,matched,

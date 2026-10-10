@@ -33673,3 +33673,5 @@ AIUpdateInterface::doPathfind	0x00269902	1883	blocked	Native269902..26A05D RET4;
 ??0Rva005105D7@@QAE@HABVAsciiString@@@Z	0x005103A3	528	landed	add_match verified Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptRowListConstructor.cpp 528B
 ?Rva00512069Register@@YAXXZ	0x00512069	179	landed	add_match verified Code/GameEngine/Source/GameClient/Rva00511F73.cpp 179B
 ??0Rva00527827@@QAE@HABVAsciiString@@@Z	0x00527C04	202	landed	add_match verified Code/GameEngine/Source/Common/Bfme/Rva00527827Constructor.cpp 202B
+??0?$vector@IV?$allocator@I@_STL@@@_STL@@QAE@IABIABV?$allocator@I@1@@Z	0x00511E1C	44	landed	add_match verified Code/Libraries/Source/WWVegas/WWLib/stlport_vector_uint_fill_ctor.cpp 44B; ICF alias: 4-byte element (callees 0x004F62A4 n*4 and 0x0007E48F); AptMessenger 0x0051215B caller
+??0AptMessenger@@QAE@PAX@Z	0x0051215B	1159	landed	add_match verified Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerConstructor.cpp 1159B
