@@ -5,6 +5,10 @@
 // Canonical default construction is supplied by retail7850.
 namespace _STL { template <> basic_string<char>::basic_string(); }
 #include <locale>
+// basic_string<char>::reserve is retail's 116-byte body at 0x0000C390, owned by
+// stlport_narrow_string_reserve.cpp; this unit's header copy is not retail's and
+// came before it in link order, so only declare its instantiation here.
+namespace _STL { extern template void basic_string<char, char_traits<char>, allocator<char> >::reserve(size_t); }
 // Use the complete retail scanner at 0x00007C90 rather than a competing
 // generic header implementation.
 namespace _STL {

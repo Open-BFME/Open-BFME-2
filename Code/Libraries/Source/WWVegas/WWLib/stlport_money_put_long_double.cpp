@@ -64,6 +64,10 @@ template <> __forceinline void allocator<unsigned short>::deallocate(unsigned sh
 }
 
 #include <locale>
+// basic_string<char>::reserve is retail's 116-byte body at 0x0000C390, owned by
+// stlport_narrow_string_reserve.cpp; this unit's header copy is not retail's and
+// came before it in link order, so only declare its instantiation here.
+namespace _STL { extern template void basic_string<char, char_traits<char>, allocator<char> >::reserve(size_t); }
 
 // _locale.h forward-declares _Locale_impl as an opaque type and declares
 // ~locale() without a body, so MSVC has to emit a call to it. Retail INLINES

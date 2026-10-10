@@ -41,6 +41,17 @@
 namespace _STL { template <> basic_string<char>::basic_string(); }
 namespace _STL { template<> basic_string<char>::basic_string(const char*, const allocator<char>&); template <> void _STLP_alloc_proxy<char*, char, allocator<char> >::deallocate(char*, size_t); }
 #include <locale>
+// The wide __get_integer<unsigned short/long/unsigned long> instances are rowed at
+// 0x0000AFA0 and its siblings and emitted by stlport_wide_get_integer_{uint16,long,
+// ulong}.cpp; declaring their instantiations keeps this unit's own copies, which
+// came first in link order, out of the link. Declaring them is also what keeps cl inlining
+// istreambuf_iterator<wchar_t>::equal into _M_do_get_integer<wchar_t,G/J/K> once
+// reserve below is declared too.
+namespace _STL {
+extern template bool __get_integer<istreambuf_iterator<wchar_t, char_traits<wchar_t> >, unsigned short>(istreambuf_iterator<wchar_t, char_traits<wchar_t> > &, istreambuf_iterator<wchar_t, char_traits<wchar_t> > &, int, unsigned short &, int, bool, char, const string &, const __false_type &);
+extern template bool __get_integer<istreambuf_iterator<wchar_t, char_traits<wchar_t> >, long>(istreambuf_iterator<wchar_t, char_traits<wchar_t> > &, istreambuf_iterator<wchar_t, char_traits<wchar_t> > &, int, long &, int, bool, char, const string &, const __true_type &);
+extern template bool __get_integer<istreambuf_iterator<wchar_t, char_traits<wchar_t> >, unsigned long>(istreambuf_iterator<wchar_t, char_traits<wchar_t> > &, istreambuf_iterator<wchar_t, char_traits<wchar_t> > &, int, unsigned long &, int, bool, char, const string &, const __false_type &);
+}
 // Use the complete retail scanner at 0x00007C90; the generic header copy
 // has a different iterator/locale implementation in this build.
 namespace _STL {
@@ -346,6 +357,14 @@ _Locale_impl::make_classic_locale()
 }
 
 }
+
+// basic_string<char>::reserve is retail's 116-byte body at 0x0000C390, owned by
+// stlport_narrow_string_reserve.cpp. An explicit instantiation declaration stops
+// this unit emitting its own out-of-line copy, which is not retail's and came
+// first in link order (declared alone, it made cl stop inlining
+// istreambuf_iterator<wchar_t>::equal into the wide integer readers; see the
+// __get_integer declarations above, which avoid that).
+namespace _STL { extern template void basic_string<char, char_traits<char>, allocator<char> >::reserve(size_t); }
 
 // Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
 // each one has the same function in that slot (vftable addresses from matched vptr

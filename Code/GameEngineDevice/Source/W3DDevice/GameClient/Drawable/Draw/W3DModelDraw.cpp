@@ -1158,11 +1158,10 @@ void W3DModelDrawModuleData::validateStuffForTimeAndWeather(const Drawable* draw
 }
 
 //-------------------------------------------------------------------------------------------------
-// ??1W3DModelDrawModuleData@@ present-unmatched
-W3DModelDrawModuleData::~W3DModelDrawModuleData()
-{
-	m_conditionStateMap.clear();
-}
+// W3DModelDrawModuleData's destructor is retail 0x000C8BE0, rowed and emitted by
+// Code/Libraries/Source/WWVegas/WWLib/W3DModelDrawModuleDataDtorRva000C8BE0.cpp. The Zero
+// Hour body that stood here (m_conditionStateMap.clear()) was a second strong definition
+// that is not retail's and was first in link order, so the link kept it over the row.
 
 //-------------------------------------------------------------------------------------------------
 // ?preloadAssets@W3DModelDrawModuleData@@ present-unmatched
