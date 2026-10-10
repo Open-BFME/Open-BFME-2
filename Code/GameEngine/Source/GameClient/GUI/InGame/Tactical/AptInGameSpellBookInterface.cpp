@@ -8,7 +8,15 @@ extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 extern const char *g_00C68508[];
 int __cdecl Rva005252CDInvoke(Rva00222A8BTarget *,void *,const char *,const char *,const int &,const char *const &);
 namespace AptUtils { AsciiString DotPath2SlashPath(const char *); }
-struct DelegateDesc;
+class AptCommandTarget {};
+struct DelegateDesc {
+ template<class T> DelegateDesc(T *o,void(T::*m)(const char*)) : object(o),method(reinterpret_cast<void(AptCommandTarget::*)(const char*)>(m)) {}
+ template<class T> DelegateDesc(T *o,void(T::*m)(int)) : object(o),method(reinterpret_cast<void(AptCommandTarget::*)(const char*)>(m)) {}
+ void *object;void(AptCommandTarget::*method)(const char*);
+};
+struct SpellTimerDesc {void *receiver;int index;};
+class Rva00579E47 {public:Rva00579E47(const DelegateDesc&);private:void *ptr;};
+class Rva0052A786 {public:Rva0052A786 &rva0052A786(const DelegateDesc*);private:void *ptr;};
 struct SpellOverButtonDesc { void *receiver;int slotNum; };
 class Rva0052A7C1 {public:Rva0052A7C1 &rva0052A7C1(const DelegateDesc *);private:void *ptr;};
 class AptOverButtonHandler {public:void *vtable;int refCount;};
@@ -17,6 +25,8 @@ void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
 template<class T> class AptRef {
 public:
  AptRef(const SpellOverButtonDesc *desc) {((Rva0052A7C1 *)this)->rva0052A7C1((const DelegateDesc *)desc);}
+ AptRef(const DelegateDesc*d){((Rva00579E47*)this)->Rva00579E47::Rva00579E47(*d);}
+ AptRef(const SpellTimerDesc*d){((Rva0052A786*)this)->rva0052A786((const DelegateDesc*)d);}
  AptRef(const AptRef &other):ptr(other.ptr){if(ptr)++ptr->refCount;}
  ~AptRef(){if(ptr)ReleaseTreeHintRef00217D4C((TargetRef00217D4C *)ptr);}
 private:T *ptr;
@@ -126,5 +136,47 @@ void AptInGameSpellBookInterface::Impl::rva0052A53B() {
     }
    }
   }
+ }
+}
+
+class AptCommandMap {public:void *vtable;int refCount;};
+class AptTimer {public:void *vtable;int refCount;};
+class AptCommandMapAdder {
+public:AptCommandMapAdder();~AptCommandMapAdder();
+ void AddCommandMap(const AsciiString&,AptRef<AptCommandMap>);
+ __forceinline void bind(const AsciiString&name,DelegateDesc d){AddCommandMap(name,&d);}
+private:int names[3];
+};
+class Rva00524349 {public:~Rva00524349();private:int names[3];};
+class AptTimerAdder : public Rva00524349 {
+public:AptTimerAdder();void AddTimer(const AsciiString&,AptRef<AptTimer>);
+};
+
+// Native52AD30..52AF1C492B; WB13C4EC0 proves the SpellBook Impl
+// constructor, four command bindings and24 indexed timers. Retain the
+// existing payload owner and opaque two-word ABI used by its rowed factory.
+// Registration-list offsets10/1C and their destructor providers are retail
+// facts; the array callback independently establishes the20B slot layout.
+class Rva0052A4B5 {public:void rva0052A65A(int);};
+class Rva0052AD30Payload {
+public:Rva0052AD30Payload(void*,void*);
+private:
+ void *owner,*level;AsciiString clipName;bool initialized;
+ AptCommandMapAdder maps;AptTimerAdder timers;void *player,*commandSet;
+ bool flashFlags[32];Rva0052A34D slots[24];
+};
+Rva0052AD30Payload::Rva0052AD30Payload(void *o,void *l)
+ :owner(o),level(l),initialized(false),player(0),commandSet(0) {
+ AptInGameSpellBookInterface::Impl *self=(AptInGameSpellBookInterface::Impl*)this;
+ maps.bind("OnAptInGameSpellBookLoaded",DelegateDesc(self,&AptInGameSpellBookInterface::Impl::OnClipLoaded));
+ maps.bind("OnAptInGameSpellBookUnloaded",DelegateDesc(self,&AptInGameSpellBookInterface::Impl::OnClipUnloaded));
+ maps.bind("OnAptInGameSpellBookShown",DelegateDesc((Rva0052A4B5*)this,&Rva0052A4B5::rva0052A65A));
+ maps.bind("OnAptInGameSpellBookButtonPressed",DelegateDesc(self,&AptInGameSpellBookInterface::Impl::OnButtonPressed));
+ for(bool *p=flashFlags;p!=flashFlags+32;++p)*p=true;
+ for(int index=0;index<24;++index) {
+  AsciiString name;
+  name.format("InGameSpellBookSpell%dTimer",index+1);
+  SpellTimerDesc desc={this,index};
+  timers.AddTimer(name,&desc);
  }
 }
