@@ -124,7 +124,9 @@ public:
 	Drawable *getDrawable() const;
 	Player *getControllingPlayer() const;
 
-	__forceinline void setModelConditionState(unsigned int bit)
+	// Inlined at its call sites; the out-of-line body is the matched row in
+	// AIInternalMoveToStateOnExit.cpp, so this view must not emit a copy.
+	__declspec(dllimport) __forceinline void setModelConditionState(unsigned int bit)
 	{
 		if (m_conditionBits.testMask(bit) == 0)
 		{
@@ -132,7 +134,7 @@ public:
 			rva0028AE6D();
 		}
 	}
-	__forceinline void clearModelConditionState(unsigned int bit)
+	__declspec(dllimport) __forceinline void clearModelConditionState(unsigned int bit)
 	{
 		if (m_conditionBits.testMask(bit) != 0)
 		{

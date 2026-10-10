@@ -177,7 +177,9 @@ public:
 	ObjectID getID() const { return m_id; }
 	AIUpdateInterface *getAI() { return m_ai; }
 	void *getExperienceTracker() { return m_experienceTracker; }
-	__forceinline void setModelConditionState(unsigned int mc)
+	// Inlined at its call sites; the out-of-line body is the matched row in
+	// AIInternalMoveToStateOnExit.cpp, so this view must not emit a copy.
+	__declspec(dllimport) __forceinline void setModelConditionState(unsigned int mc)
 	{
 		if (m_modelConditionFlags.test(mc) == 0)
 		{

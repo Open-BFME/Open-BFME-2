@@ -29,56 +29,68 @@
 
 void *__cdecl operator new(unsigned int size);
 
-class Rva0051268C
+class Rva0051268C;	// the factory row's return spelling
+
+// The object is a _bfme_AptGameWindow: the pinned constructor 0x000051268C is its row.
+class _bfme_AptGameWindow
 {
 public:
-	Rva0051268C(void *context);
+	_bfme_AptGameWindow(void *context);
 private:
 	char m_pad[0x27C];
 };
 
 Rva0051268C *__stdcall Rva002D1E55Create(void *context)
 {
-	return new Rva0051268C(context);
+	return reinterpret_cast<Rva0051268C *>(new _bfme_AptGameWindow(context));
 }
 
-class Rva00512AC8
+class Rva00512AC8;	// the factory row's return spelling
+
+// The object is a AptCampaignReview: the pinned constructor 0x0000512AC8 is its row.
+class AptCampaignReview
 {
 public:
-	Rva00512AC8(void *context);
+	AptCampaignReview(void *context);
 private:
 	char m_pad[0x27C];
 };
 
 Rva00512AC8 *__stdcall Rva002D1E8FCreate(void *context)
 {
-	return new Rva00512AC8(context);
+	return reinterpret_cast<Rva00512AC8 *>(new AptCampaignReview(context));
 }
 
-class Rva005142B0
+class Rva005142B0;	// the factory row's return spelling
+
+// The object is a AptCreateAHero: the pinned constructor 0x00005142B0 is its row.
+class AptCreateAHero
 {
 public:
-	Rva005142B0(void *context);
+	AptCreateAHero(void *context);
 private:
 	char m_pad[0x438];
 };
 
 Rva005142B0 *__stdcall Rva002D1F03Create(void *context)
 {
-	return new Rva005142B0(context);
+	return reinterpret_cast<Rva005142B0 *>(new AptCreateAHero(context));
 }
 
-class Rva004E8B38
+class Rva004E8B38;	// the factory row's return spelling
+
+// The object is a AptInGameChat: the pinned constructor 0x00004E8B38 is its row.
+class AptInGameChat
 {
 public:
-	Rva004E8B38(void *context);
+	AptInGameChat(void *context);
 private:
 	char m_pad[0x288];
 };
 
 Rva004E8B38 *__stdcall Rva002D1F3DCreate(void *context)
 {
-	return new Rva004E8B38(context);
+	return reinterpret_cast<Rva004E8B38 *>(new AptInGameChat(context));
 }
 
 class AptLanLobby
@@ -94,30 +106,36 @@ AptLanLobby *__stdcall Rva002D1F77Create(void *context)
 	return new AptLanLobby(context);
 }
 
-class Rva00516211
+class Rva00516211;	// the factory row's return spelling
+
+// The object is a AptMainMenu: the pinned constructor 0x0000516211 is its row.
+class AptMainMenu
 {
 public:
-	Rva00516211(void *context);
+	AptMainMenu(void *context);
 private:
 	char m_pad[0x2AC];
 };
 
 Rva00516211 *__stdcall Rva002D1FB1Create(void *context)
 {
-	return new Rva00516211(context);
+	return reinterpret_cast<Rva00516211 *>(new AptMainMenu(context));
 }
 
-class Rva004E4A45
+class Rva004E4A45;	// the factory row's return spelling
+
+// The object is a AptPlayerStatus: the pinned constructor 0x00004E4A45 is its row.
+class AptPlayerStatus
 {
 public:
-	Rva004E4A45(void *context);
+	AptPlayerStatus(void *context);
 private:
 	char m_pad[0x2B4];
 };
 
 Rva004E4A45 *__stdcall Rva002D1FEBCreate(void *context)
 {
-	return new Rva004E4A45(context);
+	return reinterpret_cast<Rva004E4A45 *>(new AptPlayerStatus(context));
 }
 
 class Rva005173F8
@@ -133,43 +151,52 @@ Rva005173F8 *__stdcall Rva002D2025Create(void *context)
 	return new Rva005173F8(context);
 }
 
-class Rva0051A78E
+class Rva0051A78E;	// the factory row's return spelling
+
+// The object is a AptOptions: the pinned constructor 0x000051A78E is its row.
+class AptOptions
 {
 public:
-	Rva0051A78E(void *context);
+	AptOptions(void *context);
 private:
 	char m_pad[0x324];
 };
 
 Rva0051A78E *__stdcall Rva002D205FCreate(void *context)
 {
-	return new Rva0051A78E(context);
+	return reinterpret_cast<Rva0051A78E *>(new AptOptions(context));
 }
 
-class Rva0051BADF
+class Rva0051BADF;	// the factory row's return spelling
+
+// The object is a AptQuitMenu: the pinned constructor 0x000051BADF is its row.
+class AptQuitMenu
 {
 public:
-	Rva0051BADF(void *context);
+	AptQuitMenu(void *context);
 private:
 	char m_pad[0x284];
 };
 
 Rva0051BADF *__stdcall Rva002D2099Create(void *context)
 {
-	return new Rva0051BADF(context);
+	return reinterpret_cast<Rva0051BADF *>(new AptQuitMenu(context));
 }
 
-class Rva0051D1E6
+class Rva0051D1E6;	// the factory row's return spelling
+
+// The object is a AptScoreScreen: the pinned constructor 0x000051D1E6 is its row.
+class AptScoreScreen
 {
 public:
-	Rva0051D1E6(void *context);
+	AptScoreScreen(void *context);
 private:
 	char m_pad[0x2C4];
 };
 
 Rva0051D1E6 *__stdcall Rva002D210DCreate(void *context)
 {
-	return new Rva0051D1E6(context);
+	return reinterpret_cast<Rva0051D1E6 *>(new AptScoreScreen(context));
 }
 
 class Rva005202C8
@@ -216,41 +243,50 @@ AptSkirmish *__stdcall Rva002D21BBCreate(void *context)
 	return new AptSkirmish(context, g_00DD179C);
 }
 
-class Rva00523825
+class Rva00523825;	// the factory row's return spelling
+
+// The object is a AptStrategicPlayerStatus: the pinned constructor 0x0000523825 is its row.
+class AptStrategicPlayerStatus
 {
 public:
-	Rva00523825(void *context);
+	AptStrategicPlayerStatus(void *context);
 private:
 	char m_pad[0x294];
 };
 
 Rva00523825 *__stdcall Rva002D21FBCreate(void *context)
 {
-	return new Rva00523825(context);
+	return reinterpret_cast<Rva00523825 *>(new AptStrategicPlayerStatus(context));
 }
 
-class Rva0043D686
+class Rva0043D686;	// the factory row's return spelling
+
+// The object is a AptSpellStore: the pinned constructor 0x000043D686 is its row.
+class AptSpellStore
 {
 public:
-	Rva0043D686(void *context);
+	AptSpellStore(void *context);
 private:
 	char m_pad[0x35C];
 };
 
 Rva0043D686 *__stdcall Rva0043DA1BCreate(void *context)
 {
-	return new Rva0043D686(context);
+	return reinterpret_cast<Rva0043D686 *>(new AptSpellStore(context));
 }
 
-class Rva00510FDB
+class Rva00510FDB;	// the factory row's return spelling
+
+// The object is a Rva00510D0C: the pinned constructor 0x0000510FDB is its row.
+class Rva00510D0C
 {
 public:
-	Rva00510FDB(void *context);
+	Rva00510D0C(void *context);
 private:
 	char m_pad[0x28C];
 };
 
 Rva00510FDB *__stdcall Rva0051104DCreate(void *context)
 {
-	return new Rva00510FDB(context);
+	return reinterpret_cast<Rva00510FDB *>(new Rva00510D0C(context));
 }

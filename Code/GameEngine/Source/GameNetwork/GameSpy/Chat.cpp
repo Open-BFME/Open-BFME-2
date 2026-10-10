@@ -213,118 +213,13 @@ Bool GameSpyInfo::sendChat( UnicodeString message, Bool isAction, GameWindow *pl
 	return false;
 }
 
-// ?addChat@GameSpyInfo@@ present-unmatched
-void GameSpyInfo::addChat( AsciiString nick, Int profileID, UnicodeString msg, Bool isPublic, Bool isAction, GameWindow *win )
-{
-	PlayerInfoMap::iterator it = getPlayerInfoMap()->find(nick);
-	if (it != getPlayerInfoMap()->end())
-	{
-		addChat( it->second, msg, isPublic, isAction, win );
-	}
-	else
-	{
-	}
-}
-
-// ?addChat@GameSpyInfo@@ present-unmatched
-void GameSpyInfo::addChat( PlayerInfo p, UnicodeString msg, Bool isPublic, Bool isAction, GameWindow *win )
-{
-	Int style;
-	if(isSavedIgnored(p.m_profileID) || isIgnored(p.m_name))
-		return;
-	
-	Bool isOwner = p.m_flags & PEER_FLAG_OP;
-	Bool isBuddy = getBuddyMap()->find(p.m_profileID) != getBuddyMap()->end();
-
-	Bool isMe = p.m_name.compare(TheGameSpyInfo->getLocalName()) == 0;
-
-	if(!isMe)
-	{
-		if(m_disallowAsainText)
-		{
-			const WideChar *buff = msg.str();
-			Int length =  msg.getLength();	
-			for(Int i = 0; i < length; ++i)
-			{
-				if(buff[i] >= 256)
-					return;
-			}
-		}
-		else if(m_disallowNonAsianText)
-		{
-			const WideChar *buff = msg.str();
-			Int length =  msg.getLength();	
-			Bool hasUnicode = FALSE;
-			for(Int i = 0; i < length; ++i)
-			{
-				if(buff[i] >= 256)
-				{
-					hasUnicode = TRUE;
-					break;
-				}
-			}
-			if(!hasUnicode)
-				return;
-		}
-
-		if (!isPublic)
-		{
-			AudioEventRTS privMsgAudio("GUIMessageReceived");
-
-			if( TheAudio )
-			{
-				TheAudio->addAudioEvent( &privMsgAudio );
-			}  // end if
-		}
-	}
-
-
-	if (isBuddy)
-	{
-		style = GSCOLOR_CHAT_BUDDY;
-	}
-	else if (isPublic && isAction)
-	{
-		style = (isOwner)?GSCOLOR_CHAT_OWNER_EMOTE:GSCOLOR_CHAT_EMOTE;
-	}
-	else if (isPublic)
-	{
-		style = (isOwner)?GSCOLOR_CHAT_OWNER:GSCOLOR_CHAT_NORMAL;
-	}
-	else if (isAction)
-	{
-		style = (isOwner)?GSCOLOR_CHAT_PRIVATE_OWNER_EMOTE:GSCOLOR_CHAT_PRIVATE_EMOTE;
-	}
-	else
-	{
-		style = (isOwner)?GSCOLOR_CHAT_PRIVATE_OWNER:GSCOLOR_CHAT_PRIVATE;
-	}
-
-	UnicodeString name;
-	name.translate(p.m_name);
-
-	// filters language
-//  if( TheGlobalData->m_languageFilterPref )
-//  {
-    TheLanguageFilter->filterLine(msg);
-//  }
-
-	UnicodeString fullMsg;
-	if (isAction)
-	{
-		fullMsg.format( L"%ls %ls", name.str(), msg.str() );
-	}
-	else
-	{
-		fullMsg.format( L"[%ls] %ls", name.str(), msg.str() );
-	}
-
-	Int index = addText(fullMsg, GameSpyColor[style], win);
-	if (index >= 0)
-	{
-		GadgetListBoxSetItemData(win, (void *)p.m_profileID, index);
-	}
-}
+// GameSpyInfo::addChat (both overloads) is declared in PeerDefsImplementation.h
+// and not defined here. The Zero Hour bodies took PlayerInfo by value and
+// searched the PlayerInfoMap, so this unit emitted PlayerInfo's copy
+// constructor, destructor and map find COMDATs with the shim's Zero Hour
+// layout (two strings); retail's PlayerInfo destructor 0x001EF50E releases
+// three strings (+8, +4, +0), and the link kept these wrong copies against the
+// rowed map units. The bodies remain in git history.
 
 // ?addText@GameSpyInfo@@ present-unmatched
 Int GameSpyInfo::addText( UnicodeString message, Color c, GameWindow *win )

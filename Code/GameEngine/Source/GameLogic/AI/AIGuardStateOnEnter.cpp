@@ -108,13 +108,20 @@ class Object
 public:
 	AIUpdateInterface *getAI() { return m_ai; }
 	Real getBfme44() const { return m_bfme44; }
-	void rva0028BBE1(Object *target);
 private:
 	unsigned char m_pad00[0x44];
 	Real m_bfme44; // +0x44
 	unsigned char m_pad48[0x258 - 0x48];
 	AIUpdateInterface *m_ai; // +0x258
 };
+// The guard-target setters and the object notification are rowed under
+// their address classes (Rva0033F83DSetter.cpp, Rva0033F852Setter.cpp,
+// Rva0028BBE1.cpp).
+struct Source0033F83D;
+struct Source0033F852;
+class Rva0033F83D { public: void rva0033F83D(const Source0033F83D *src); };
+class Rva0033F852 { public: void rva0033F852(const Source0033F852 *src); };
+class Rva0028BBE1 { public: void rva0028BBE1(void *target); };
 class AIGuardMachine;
 class StateMachine
 {
@@ -137,8 +144,6 @@ class AIGuardMachine : public StateMachine
 {
 public:
 	StateID getDefaultStateID() const { return m_defaultStateID; }
-	void setTargetToGuard(const Object *obj);
-	void setTeamToGuard(const Team *team);
 	void setAreaToGuard(PolygonTrigger *area) { m_areaToGuard = area; }
 	void setTargetPositionToGuard(const Coord3D *pos, Real radius) { m_positionToGuard = *pos; m_bfmeGuardRadius = radius; }
 	void setBfmeAreaCenter(const Coord3D *pos) { m_bfmeAreaCenter = *pos; m_bfmeAreaCenterValid = true; }
@@ -206,12 +211,12 @@ StateReturnType AIGuardState::onEnter()
 		case GUARDTARGET_OBJECT:
 		{
 			Object *target = TheGameLogic->findObjectByID(ai->getGuardObject());
-			m_guardMachine->setTargetToGuard( target );
-			obj->rva0028BBE1(target);
+			((Rva0033F83D *)m_guardMachine)->rva0033F83D( (const Source0033F83D *)target );
+			((Rva0028BBE1 *)obj)->rva0028BBE1(target);
 			break;
 		}
 		case GUARDTARGET_BFME_TEAM:
-			m_guardMachine->setTeamToGuard( TheTeamFactory->findTeamByID(ai->getGuardTeam()) );
+			((Rva0033F852 *)m_guardMachine)->rva0033F852( (const Source0033F852 *)TheTeamFactory->findTeamByID(ai->getGuardTeam()) );
 			break;
 		case GUARDTARGET_AREA:
 			m_guardMachine->setAreaToGuard( ai->getAreaToGuard() );

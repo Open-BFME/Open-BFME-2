@@ -19668,7 +19668,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A02F64,4,.data,global,?s_id@?1??rva00406B39@Rva00406B39@@QAEHXZ@4HA,Code/GameEngine/Source/Common/VslotSmallBodiesW.cpp,owned,,1,2
 0x00A02F68,4,.data,global,?$S1@?1??rva00406B39@Rva00406B39@@QAEHXZ@4IA,Code/GameEngine/Source/Common/VslotSmallBodiesW.cpp,owned,,1,2
 0x00A02F6C,8,.data,global,_s_rva007AFDF4,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
-0x00A02F74,4,.data,global,?g_00E02F74@@3PAVRva0040AAD5@@A,,unowned,?g_00E02F74@@3PAVRva0040AAD5@@A;?g_Va00E02F74@@3PAVRva0040AAD5@@A,0,22
+0x00A02F74,4,.data,global,?g_00E02F74@@3PAVRva0040AAD5@@A,Code/GameEngine/Source/Common/AwardSystemManager.cpp,provisional,?g_00E02F74@@3PAVRva0040AAD5@@A;?g_Va00E02F74@@3PAVRva0040AAD5@@A,1,25
 0x00A02F78,4,.data,global,?g_00E02F78@@3HA,Code/GameEngine/Source/Common/Rva0040AA73Load.cpp,owned,,1,1
 0x00A02F7C,12,.data,global,_s_rva007AFE1E,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A02F88,4,.data,global,?g_Va00E02F88@@3IA,Code/GameEngine/Source/Common/GlobalFlagClearers_E02Fxx.cpp,owned,,1,4

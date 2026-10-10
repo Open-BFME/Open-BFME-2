@@ -35,7 +35,7 @@ public:
 	virtual GameMessage *CreateMessage(int type);
 };
 
-extern MessageStream *MessageStreamSubsystem;
+extern MessageStream *TheMessageStream;	// data ledger owner spelling (MessageStream.cpp)
 
 struct Rva005CF9C9Inner
 {
@@ -49,26 +49,29 @@ struct Rva005CF9C9Mid
 	Rva005CF9C9Inner *m_14;
 };
 
-class Rva00575674Sub
+// The state-slot setter is rowed as ?rva00575674@Rva00575674 (Object * receiver spelling).
+class Object;
+class Rva00575674
 {
 public:
-	void rva00575674(void *state);
+	void rva00575674(Object *state);
 };
 
 // A partial owner view: both callbacks address the state slot at +0x1C.
 struct Rva005D0DBBOwner
 {
 	char _00[0x1C];
-	Rva00575674Sub m_state;
+	Rva00575674 m_state;
 };
 
 // Native constructor boundary 0x005D0AD5..0x005D0B5E: RET8, EAX=this.
 // Both callbacks independently allocate 0x1C bytes and pass owner, method.
 // The original state class name and the rest of its fields are unresolved.
-class Rva005D0AD5
+// Its constructor is rowed as ??0Rva005D0643 (void *, int).
+class Rva005D0643
 {
 public:
-	Rva005D0AD5(Rva005CF9C9Mid *owner, int method);
+	Rva005D0643(void *owner, int method);
 private:
 	char _00[0x1C];
 };
@@ -121,7 +124,7 @@ private:
 
 void StrategicInGameUI::BattleResolver::Impl::PromptStateHandler::SendResolutionMethodMessage(int arg)
 {
-	GameMessage *msg = MessageStreamSubsystem->CreateMessage(0x6a7);
+	GameMessage *msg = TheMessageStream->CreateMessage(0x6a7);
 	msg->appendIntegerArgument(arg);
 	msg->appendIntegerArgument(m_04->m_14->m_30);
 }
@@ -149,18 +152,18 @@ void Rva005D0DBBCallback::rva005D0DBB()
 {
 	reinterpret_cast<StrategicInGameUI::BattleResolver::Impl::PromptStateHandler *>(
 		reinterpret_cast<char *>(this) - 8)->SendResolutionMethodMessage(1);
-	Rva005D0AD5 *state = new Rva005D0AD5(
+	Rva005D0643 *state = new Rva005D0643(
 		*reinterpret_cast<Rva005CF9C9Mid **>(reinterpret_cast<char *>(this) - 4), 1);
-	reinterpret_cast<Rva005D0DBBOwner *>(owner())->m_state.rva00575674(state);
+	reinterpret_cast<Rva005D0DBBOwner *>(owner())->m_state.rva00575674((Object *)state);
 }
 
 void Rva005D0DBBCallback::rva005D0E10()
 {
 	reinterpret_cast<StrategicInGameUI::BattleResolver::Impl::PromptStateHandler *>(
 		reinterpret_cast<char *>(this) - 8)->SendResolutionMethodMessage(3);
-	Rva005D0AD5 *state = new Rva005D0AD5(
+	Rva005D0643 *state = new Rva005D0643(
 		*reinterpret_cast<Rva005CF9C9Mid **>(reinterpret_cast<char *>(this) - 4), 3);
-	reinterpret_cast<Rva005D0DBBOwner *>(owner())->m_state.rva00575674(state);
+	reinterpret_cast<Rva005D0DBBOwner *>(owner())->m_state.rva00575674((Object *)state);
 }
 
 // VA 0x00C752C0 points here. Retail independently supplies message value 2,
@@ -171,5 +174,5 @@ void Rva005D0DBBCallback::rva005D0E65()
 		reinterpret_cast<char *>(this) - 8)->SendResolutionMethodMessage(2);
 	Rva005D0C31 *state = new Rva005D0C31(
 		*reinterpret_cast<Rva005CF9C9Mid **>(reinterpret_cast<char *>(this) - 4));
-	reinterpret_cast<Rva005D0DBBOwner *>(owner())->m_state.rva00575674(state);
+	reinterpret_cast<Rva005D0DBBOwner *>(owner())->m_state.rva00575674((Object *)state);
 }

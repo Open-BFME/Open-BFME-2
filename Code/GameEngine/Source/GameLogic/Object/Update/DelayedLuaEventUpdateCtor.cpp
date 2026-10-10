@@ -87,6 +87,7 @@ class DelayedLuaEventUpdate : public UpdateModule
 {
 public:
 	DelayedLuaEventUpdate(Thing *thing, const ModuleData *moduleData);
+	virtual ~DelayedLuaEventUpdate();	// row 0x004A8D4A (DelayedLuaEventUpdateDtor.cpp)
 
 private:
 	unsigned int m_f20;

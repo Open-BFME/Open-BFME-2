@@ -186,7 +186,9 @@ public:
 	Object *getContainedBy() const { return m_containedBy; }
 	Team *getTeam() const { return m_team; }
 	Bool isEffectivelyDeadBfme() const { return (m_438 & 1) != 0; }
-	__forceinline void setModelConditionState(unsigned int mc)
+	// Inlined at its call sites; the out-of-line body is the matched row in
+	// AIInternalMoveToStateOnExit.cpp, so this view must not emit a copy.
+	__declspec(dllimport) __forceinline void setModelConditionState(unsigned int mc)
 	{
 		if (m_modelConditionFlags.test(mc) == 0)
 		{
@@ -194,7 +196,7 @@ public:
 			rva0028AE6D();
 		}
 	}
-	__forceinline void clearModelConditionState(unsigned int mc)
+	__declspec(dllimport) __forceinline void clearModelConditionState(unsigned int mc)
 	{
 		if (m_modelConditionFlags.test(mc) != 0)
 		{

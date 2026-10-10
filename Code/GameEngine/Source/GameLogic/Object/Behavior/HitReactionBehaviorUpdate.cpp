@@ -110,7 +110,9 @@ public:
 	BodyModuleInterface *getBodyModule() { return m_body; }
 	AIUpdateInterface *getAI() { return m_ai; }
 	bool isEffectivelyDead() const { return (m_privateStatus & 1) != 0; }
-	__forceinline void setModelConditionState(unsigned int mc)
+	// Inlined at its call sites; the out-of-line body is the matched row in
+	// AIInternalMoveToStateOnExit.cpp, so this view must not emit a copy.
+	__declspec(dllimport) __forceinline void setModelConditionState(unsigned int mc)
 	{
 		if (m_modelConditionFlags.test(mc) == 0)
 		{
@@ -118,7 +120,7 @@ public:
 			rva0028AE6D();
 		}
 	}
-	__forceinline void clearModelConditionState(unsigned int mc)
+	__declspec(dllimport) __forceinline void clearModelConditionState(unsigned int mc)
 	{
 		if (m_modelConditionFlags.test(mc) != 0)
 		{

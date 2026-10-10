@@ -120,15 +120,16 @@ struct Rva0057FFB9Owner
 // sets the entry's text (its own address class).
 // Call-only view of the query/send receiver now owned in ChatWindowsInGame.cpp.
 class ChatWindowsInGame { public: void rva005B000C(); };
+// The chat and player-list hand-offs are rowed under their own address
+// classes (Rva005AFC21Store.cpp); the entry is passed as their receiver.
+class Rva005AFC21Class { public: void rva005AFC21(GameWindow *window); };
+class Rva005AFC4CClass { public: void rva005AFC4C(GameWindow *window); };
 class Rva005B000C
 {
 public:
 	virtual void f0();
 	virtual void f1();
 	virtual ~Rva005B000C();
-
-	void rva005AFC21(GameWindow *window);
-	void rva005AFC4C(GameWindow *window);
 
 	unsigned char m_pad04[0x24 - 0x04];
 };
@@ -197,9 +198,9 @@ void AptMpChat::InitGadgets(const char *name, void *argument, GameWindow *window
 		return;
 	m_initialized = false;
 	if (strcmp(name, "Chat") == 0)
-		m_entry->rva005AFC21(window);
+		((Rva005AFC21Class *)m_entry)->rva005AFC21(window);
 	else if (strcmp(name, "ChatPlayers") == 0)
-		m_entry->rva005AFC4C(window);
+		((Rva005AFC4CClass *)m_entry)->rva005AFC4C(window);
 	else if (strcmp(name, "ChatEntry") == 0)
 		((Rva005AFD43 *)m_entry)->rva005AFD43(window, UnicodeString::TheEmptyString);
 	m_initialized = true;

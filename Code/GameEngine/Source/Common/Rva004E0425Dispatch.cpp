@@ -34,6 +34,21 @@ class AIUnitStats
 {
 public:
 	bool Register(void *holder);
+	bool rva0059614B(void *holder);
+};
+
+// Rowed under their own address classes.
+class CreateAHeroData;
+class Rva004DFB7E
+{
+public:
+	bool rva004DFB7E(Object *holder);
+};
+
+class Rva004E02D7Owner
+{
+public:
+	void rva004E02D7(CreateAHeroData *holder);
 };
 
 class Rva004E00BAOwner
@@ -130,14 +145,10 @@ public:
 
 class Rva0059614B
 {
-public:
-	bool rva0059614B(void *holder);
 };
 
 class Rva004E02D7
 {
-public:
-	void rva004E02D7(void *holder);
 };
 
 class Rva004DF9E4
@@ -158,7 +169,6 @@ class AIStatCollector : private Rva004DF9E4
 {
 public:
 	void Register(Object *holder);
-	bool rva004DFB7E(void *holder);
 	void UnRegister(void *holder);
 
 private:
@@ -197,7 +207,7 @@ void AIStatCollector::Register(Object *holder)
 		any = 1;
 		done = (any != 0);
 	}
-	if (any != 0 && !rva004DFB7E(holder))
+	if (any != 0 && !((Rva004DFB7E *)this)->rva004DFB7E((Object *)holder))
 		((Rva004E00BAOwner *)m_10)->rva004E00BA(holder);
 	if (((AIUnitStats *)m_00)->Register(holder) || ((Rva0025C061 *)m_04)->rva005960C1(holder))
 	{
@@ -235,8 +245,8 @@ void AIStatCollector::UnRegister(void *holder)
 		done = (any != 0);
 	}
 	if (any != 0)
-		m_10->rva004E02D7(holder);
-	if (m_00->rva0059614B(holder) || m_04->rva005960E0(holder))
+		((Rva004E02D7Owner *)m_10)->rva004E02D7((CreateAHeroData *)holder);
+	if (((AIUnitStats *)m_00)->rva0059614B(holder) || m_04->rva005960E0(holder))
 	{
 		Rva004DF9E4::rva004DF9E4(holder, 4);
 		done = true;

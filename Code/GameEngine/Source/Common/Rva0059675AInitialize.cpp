@@ -12,9 +12,11 @@ class Display;extern Display *TheDisplay;
 class FadeDisplayCalls {public:
  virtual void p00();virtual void p04();virtual void p08();virtual void p0c();virtual void p10();virtual void p14();virtual void p18();virtual void p1c();virtual void p20();virtual void p24();virtual void p28();virtual void p2c();virtual void p30();virtual void p34();virtual void p38();virtual void p3c();virtual unsigned width();};
 class GameFont;class FontLibrary {public:GameFont*getFont(const AsciiString*,float,bool);};extern FontLibrary*TheFontLibrary;
-class Anim2DTemplate;class Anim2DCollection {public:Anim2DTemplate*findTemplate(const AsciiString&);};extern Anim2DCollection*TheAnim2DCollection;
-struct Rva002D752DNode;class Rva002D752D;
-class Anim2D {public:Anim2D(Rva002D752DNode*,Rva002D752D*);unsigned getCurrentFrameHeight() const;char pad[0x34];};
+class Anim2DTemplate;class Anim2DCollection;extern Anim2DCollection*TheAnim2DCollection;
+// The collection's template lookup is rowed under its address class.
+struct Rva002D752DNode;class Rva002D752D {public:Rva002D752DNode*rva002D752D(const StringBase<char>&);};
+static inline const StringBase<char>&fadeTextBase(const AsciiString&s){return *(const StringBase<char>*)&s;}
+class Anim2D {public:Anim2D(Anim2DTemplate*,Anim2DCollection*);unsigned getCurrentFrameHeight() const;char pad[0x34];};
 extern int g_009BA4E8;
 // Slot 1 of FadeInTextRender's vftable 0x00C70A70 (slot 0 is its deleting
 // destructor), as WB's LoadAssets is slot 1 of its table: virtual.
@@ -28,7 +30,7 @@ void FadeInTextRender::LoadAssets() {
  if(scale!=oldScale){font=0;oldScale=scale;}
  if(!font)font=TheFontLibrary->getFont(&fontName,(float)fontSize*scale,false);
  if(!anim){
-  anim=new Anim2D((Rva002D752DNode*)TheAnim2DCollection->findTemplate(AsciiString("TextElvenClouds")),(Rva002D752D*)TheAnim2DCollection);
+  anim=new Anim2D((Anim2DTemplate*)((Rva002D752D*)TheAnim2DCollection)->rva002D752D(fadeTextBase(AsciiString("TextElvenClouds"))),TheAnim2DCollection);
   starts[1]=0;int end=g_009BA4E8;ends[2]=~0u;
   ends[1]=end;starts[2]=end+1;
   starts[0]=starts[2]+g_009BA4E8/2;ends[0]=~0u;

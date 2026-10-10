@@ -153,7 +153,10 @@ class Rva0040AAD5 {public:
  BfmePod40 *rva0040AAD5(int);
  bool rva0040C0FE(const Rva0040C0C7Element &);
 };
-extern Rva0040AAD5 *g_00E02F74;
+// .data 0x00A02F74, just ahead of this unit's instance pointer 0x00A02F78 below:
+// GameEngine::init 0x0022FBE0 hands its address to initSubsystem with the
+// "TheAwardSystemManager" literal and the object 0x0040BF17 constructs.
+Rva0040AAD5 *g_00E02F74=0;
 class Image;
 class ImageCollection {public:const Image *findImageByName(const AsciiString &);};
 extern ImageCollection *TheMappedImageCollection;

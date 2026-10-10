@@ -1,8 +1,9 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc /Ireference/shims/moduledata
+#include "Common/Snapshot.h"
 
-// Open-BFME5: DelayedLuaEventList::DelayedLuaEventList, retail 0x000EDBB0, 84
-// bytes. The body carried only a machine byte-dump row; reverse/reloc_names.csv
-// holds the name with identity=real.
+// DelayedLuaEventList::DelayedLuaEventList, retail 0x000B6D8B, 65 bytes, and
+// the element constructor ??0Rva00B6971 it hands to the iterator, retail
+// 0x000B694C, 31 bytes.
 //
 // The constructor's whole job is the vtable store at +0 and one call to the EH
 // vector constructor iterator at 0x009F6EE4. Its five arguments spell the
@@ -10,28 +11,33 @@
 // three of them, and each has both a constructor and a destructor -- which is
 // why this is the EH iterator rather than a plain loop.
 
-class BfmeDelayedLuaEvent
+// The element is the class of vftable 0x007C9CD0, whose slot 3 is the
+// ?xfer@EventParameter row 0x003318F7 and slot 2 a getter returning the
+// "EventParameter" literal. Its constructor 0x000B694C (the iterator's first
+// pointer) stores that vftable, zeroes a float at +4 and a byte at +8 and the
+// dwords at +0x0C, +0x10 (the string the dtor releases) and +0x14; its
+// destructor 0x000B6971 (the second pointer) is the row spelled Rva00B6971.
+class Rva00B6971
 {
 public:
-	BfmeDelayedLuaEvent(void);				// ILT 0x0003A1C5
-	~BfmeDelayedLuaEvent(void);				// ILT 0x00041362
+	Rva00B6971(void) : m_f04(0.0f), m_b08(false), m_i0C(0), m_string10(0), m_i14(0)
+	{
+	}
+
+	virtual ~Rva00B6971(void);				// row 0x000B6971
 
 private:
-	char m_bfmeBody[0x18];
+	float m_f04;
+	bool m_b08;
+	int m_i0C;
+	const char *m_string10;
+	int m_i14;
 };
 
-// The frame is an unwind frame with one state, which means something already
-// constructed has to be torn down if the array constructor throws. The vtable
-// store is the only other thing the body does, so the something is an empty
-// base with a destructor: it contributes no layout, which is why the array
-// still starts at +4.
-class BfmeDelayedLuaEventListBase
-{
-public:
-	~BfmeDelayedLuaEventListBase(void);
-};
-
-class DelayedLuaEventList : public BfmeDelayedLuaEventListBase
+// The frame is an unwind frame with one state: if the array constructor
+// throws, the Snapshot base is torn down (the funclet 0x00761537 jumps to
+// ??1Snapshot 0x0049B47C). Snapshot has no data, so the array starts at +4.
+class DelayedLuaEventList : public Snapshot
 {
 public:
 	DelayedLuaEventList(void);
@@ -39,7 +45,7 @@ public:
 	virtual ~DelayedLuaEventList(void);
 
 private:
-	BfmeDelayedLuaEvent m_bfmeEvents[3];			// +0x04
+	Rva00B6971 m_bfmeEvents[3];			// +0x04
 };
 
 // ??0DelayedLuaEventList@@QAE@XZ

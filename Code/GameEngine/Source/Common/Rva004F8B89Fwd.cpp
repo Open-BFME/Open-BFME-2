@@ -35,12 +35,6 @@ public:
 	void rva002C6845();
 };
 
-class Rva002C7008
-{
-public:
-	void rva002C7008(void *arg);
-};
-
 class Rva004E93E8
 {
 public:
@@ -65,10 +59,19 @@ public:
 	void rva002C585A(int count);
 };
 
+class Xfer;
+
 class SkirmishAI
 {
 public:
 	void update();
+	void DoXfer(Xfer *xfer);
+};
+
+class Rva004E94FB
+{
+public:
+	void rva004E9446();
 };
 
 class Rva004E8FF6
@@ -84,7 +87,8 @@ struct Rva00DFEEF8World
 	Rva004E8FF6 *m_obj;
 };
 
-extern Rva00DFEEF8World *g_00DFEEF8;
+class Rva002A8F24;
+extern Rva002A8F24 *g_00DFEEF8;	// the data ledger owner's spelling (Rva005EEA20Find.cpp)
 
 class Rva002C5FBA
 {
@@ -147,7 +151,6 @@ public:
 	void rva004E94FB();
 	void rva004E951C(void *o);
 	void *rva004E955F(int unused, int key);
-	void rva004E9446();
 	void update();
 
 private:
@@ -174,7 +177,7 @@ void AIGameTeam::rva004E951C(void *o)
 	((Rva004E951CObj *)o)->v10(&t);
 	Rva004E94FBHead *head = m_00;
 	for (Rva004E94FBNode *n = head->m_first; n != (Rva004E94FBNode *)head; n = (Rva004E94FBNode *)_STL::_Rb_global<bool>::_M_increment((_STL::_Rb_tree_node_base *)n))
-		((Rva002C7008 *)n->m_14)->rva002C7008(o);
+		((SkirmishAI *)n->m_14)->DoXfer((Xfer *)o);
 }
 
 // ?rva004E955F@AIGameTeam@@QAEPAXHH@Z @0x004E955F 51B.
@@ -213,7 +216,7 @@ void AIGameTeam::update()
 		}
 		if (m_24 != 0)
 		{
-			g_00DFEEF8->m_obj->rva004E8FF6(((Rva004E93E8 *)this)->rva004E93E8());
+			((Rva00DFEEF8World *)g_00DFEEF8)->m_obj->rva004E8FF6(((Rva004E93E8 *)this)->rva004E93E8());
 			Rva004E94FBHead *head = m_00;
 			for (Rva004E94FBNode *m = head->m_first; m != (Rva004E94FBNode *)head; m = (Rva004E94FBNode *)_STL::_Rb_global<bool>::_M_increment((_STL::_Rb_tree_node_base *)m))
 			{
@@ -221,8 +224,8 @@ void AIGameTeam::update()
 				*(void **)((char *)inner + 0x18) = x;
 				((SkirmishAI *)m->m_14)->update();
 			}
-			((AIGameTeam *)this)->rva004E9446();
-			g_00DFEEF8->m_obj->rva004E9040(((Rva004E93E8 *)this)->rva004E93E8());
+			((Rva004E94FB *)this)->rva004E9446();
+			((Rva00DFEEF8World *)g_00DFEEF8)->m_obj->rva004E9040(((Rva004E93E8 *)this)->rva004E93E8());
 		}
 	}
 }
