@@ -1,11 +1,17 @@
 // ??0Rva002CD4A6@@QAE@XZ
-// partial score=0.94 date=2026-10-06
+// Native 002CD169..002CD4A6, 829 bytes including the complete unwind entry.
+// ZH WeaponTemplate constructor supplies semantic defaults; target offsets and
+// ownership follow the independently matched destructor, not donor layout.
 // cl: /O1 /G7 /DNDEBUG /MD /arch:SSE /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /EHs
 // stlport
 // ??0Rva002CD4A6@@QAE@XZ @0x002CD169 829B unlock: vtable 0x00802170 ctor with NoNameWeapon plus 999999 plus PI, caller 0x002CD634 new 0x180, neighbours StlportVectorAssignCoord3D and Rva002CD4A6Dtor
 #include <vector>
 #include <list>
 #include "ascii_string.h"
+class OpaqueRefCounted {public:void Release_Ref();};
+struct Rva002CD169RefSlot { unsigned address; __forceinline Rva002CD169RefSlot(){} __forceinline Rva002CD169RefSlot(const void *p):address((unsigned)p){} __forceinline ~Rva002CD169RefSlot(){if(address)((OpaqueRefCounted*)address)->Release_Ref();} };
+
+
 
 struct BfmeE16 { float x, y, z, w; };
 
@@ -20,6 +26,15 @@ public:
 	};
 };
 
+// The existing Upgrades constructor is a byte-identical two-word initializer
+// (-1, null). This containment view transports that existing call; it does
+// not assert CashHackSpecialPowerModuleData identity for the Weapon member.
+// Ownership of the second word is independently established by the matched
+// Weapon destructor at 002CD4A6 (+D4 and +DC).
+struct Rva002CD169RefWords {
+ CashHackSpecialPowerModuleData::Upgrades words;
+ __forceinline ~Rva002CD169RefWords(){if(words.m_amount)((OpaqueRefCounted*)words.m_amount)->Release_Ref();}
+};
 class BfmeFixedStorage0004543D
 {
 public:
@@ -32,6 +47,7 @@ class Rva003623E5Member
 {
 public:
 	Rva003623E5Member();
+ ~Rva003623E5Member();
 	void initFromStorages(BfmeFixedStorage0004543D first, BfmeFixedStorage0004543D second);
 private:
 	unsigned int m_record;
@@ -95,10 +111,10 @@ private:
 	const void *m_A4[4];
 	const void *m_B4;
 	const void *m_B8[4];
-	const void *m_C8;
+	Rva002CD169RefSlot m_C8;
 	int m_CC;
-	CashHackSpecialPowerModuleData::Upgrades m_D0;
-	CashHackSpecialPowerModuleData::Upgrades m_D8;
+	Rva002CD169RefWords m_D0;
+	Rva002CD169RefWords m_D8;
 	const void *m_E0;
 	int m_E4;
 	int m_E8;
@@ -174,8 +190,6 @@ Rva002CD4A6::Rva002CD4A6()
 	, m_17C(_STL::allocator<int>())
 {
 	m_08 = "NoNameWeapon";
-	m_0C = 0;
-	m_10 = 0;
 	m_14 = 0.0f;
 	m_18 = 0.0f;
 	m_1C = 0.0f;
@@ -186,8 +200,10 @@ Rva002CD4A6::Rva002CD4A6()
 	m_30 = 0.0f;
 	m_34 = 0.0f;
 	m_38 = 0.0f;
+	m_0C = 0;
 	m_3C = false;
 	m_3D = false;
+	m_10 = 0;
 	m_58 = 0x16;
 	m_5C = 0;
 	m_60 = 0x1d;
@@ -195,17 +211,17 @@ Rva002CD4A6::Rva002CD4A6()
 	m_68 = 999999.0f;
 	m_6C = 999999.0f;
 	m_70 = 999999.0f;
+	m_84 = 0.0f;
 	m_74 = false;
 	m_75 = false;
 	m_78 = -1;
 	m_7C = 0;
+	m_88 = -3.14159265f;
+	m_8C = 3.14159265f;
 	m_81 = false;
 	m_80 = false;
 	m_82 = false;
 	m_83 = false;
-	m_84 = 0.0f;
-	m_88 = -3.14159265f;
-	m_8C = 3.14159265f;
 	for (int i = 0; i < 4; ++i)
 	{
 		m_94[i] = 0;
