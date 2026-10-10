@@ -2149,3 +2149,83 @@ int Rva005DAFFEGet(void)
 	return (int)"ExperienceTrackerAutoResolve";
 }
 
+
+// Existing verified getters rehomed after naming their actual providers.
+// Integer return representation retained; provider addresses now relocate.
+class GameWindow; class WinInstanceData; void W3DLeftHUDDraw(GameWindow *, WinInstanceData *);
+class Rva0078D310Host; Rva0078D310Host *__stdcall Rva00104FD5Create(void *);
+class AptLanLobby; AptLanLobby *__stdcall Rva002D1F77Create(void *);
+class Rva004E4A45; Rva004E4A45 *__stdcall Rva002D1FEBCreate(void *);
+class Rva004E8B38; Rva004E8B38 *__stdcall Rva002D1F3DCreate(void *);
+class Rva00512AC8; Rva00512AC8 *__stdcall Rva002D1E8FCreate(void *);
+class Rva005142B0; Rva005142B0 *__stdcall Rva002D1F03Create(void *);
+class Rva00516211; Rva00516211 *__stdcall Rva002D1FB1Create(void *);
+class Rva0051A78E; Rva0051A78E *__stdcall Rva002D205FCreate(void *);
+class Rva005202C8; Rva005202C8 *__stdcall Rva002D2147Create(void *);
+class Rva00523825; Rva00523825 *__stdcall Rva002D21FBCreate(void *);
+
+// ?Rva0008FC9DGet@@YAHXZ @ 0x0008FC9D: verified existing getter.
+int Rva0008FC9DGet(void)
+{
+ return reinterpret_cast<int>(&W3DLeftHUDDraw);
+}
+
+// ?Rva001052F9Get@@YAHXZ @ 0x001052F9: verified existing getter.
+int Rva001052F9Get(void)
+{
+ return reinterpret_cast<int>(&Rva00104FD5Create);
+}
+
+// ?Rva0044643DGet@@YAHXZ @ 0x0044643D: verified existing getter.
+int Rva0044643DGet(void)
+{
+ return reinterpret_cast<int>(&Rva002D1F77Create);
+}
+
+// ?Rva004E4DFFGet@@YAHXZ @ 0x004E4DFF: verified existing getter.
+int Rva004E4DFFGet(void)
+{
+ return reinterpret_cast<int>(&Rva002D1FEBCreate);
+}
+
+// ?Rva004E8D86Get@@YAHXZ @ 0x004E8D86: verified existing getter.
+int Rva004E8D86Get(void)
+{
+ return reinterpret_cast<int>(&Rva002D1F3DCreate);
+}
+
+// ?Rva00512C82Get@@YAHXZ @ 0x00512C82: verified existing getter.
+int Rva00512C82Get(void)
+{
+ return reinterpret_cast<int>(&Rva002D1E8FCreate);
+}
+
+// ?Rva0051482FGet@@YAHXZ @ 0x0051482F: verified existing getter.
+int Rva0051482FGet(void)
+{
+ return reinterpret_cast<int>(&Rva002D1F03Create);
+}
+
+// ?Rva00516D03Get@@YAHXZ @ 0x00516D03: verified existing getter.
+int Rva00516D03Get(void)
+{
+ return reinterpret_cast<int>(&Rva002D1FB1Create);
+}
+
+// ?Rva0051AEE3Get@@YAHXZ @ 0x0051AEE3: verified existing getter.
+int Rva0051AEE3Get(void)
+{
+ return reinterpret_cast<int>(&Rva002D205FCreate);
+}
+
+// ?Rva005206DCGet@@YAHXZ @ 0x005206DC: verified existing getter.
+int Rva005206DCGet(void)
+{
+ return reinterpret_cast<int>(&Rva002D2147Create);
+}
+
+// ?Rva00523D54Get@@YAHXZ @ 0x00523D54: verified existing getter.
+int Rva00523D54Get(void)
+{
+ return reinterpret_cast<int>(&Rva002D21FBCreate);
+}
