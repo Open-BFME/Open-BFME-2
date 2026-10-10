@@ -1,7 +1,9 @@
 // cl: /O1 /G7 /ICode/GameEngine/Source/Common /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /DNDEBUG /MD /EHsc
 //
-// ?Rva00438D58Update@@YGXPAVObject@@@Z, retail 0x00438D58, 197 bytes.
-// Free __stdcall taking Object: Drawable via Thing::getDrawable, gates via
+// ?rva00438D58@Rva00439E0C@@QAEXPAVObject@@@Z, retail 0x00438D58, 197 bytes.
+// Member of the invisibility manager view taking an Object (`this` unread, so
+// the former free __stdcall spelling had identical bytes; 0x0043979D calls it
+// with ECX preserved): Drawable via Thing::getDrawable, gates via
 // Object::rva002933CD plus Object::isLocallyControlled, sound ref via
 // Drawable::rva00374389 returning Rva002390CB, audio event via shared
 // BfmeAudioEventPrefix136 plus setObjectID 0x002D9531 plus addAudioEvent
@@ -75,7 +77,13 @@ static inline void setObjectID(BfmeAudioEventPrefix136 &sound, int id)
 	((Rva002D9531 *)&sound)->rva002D9531(id);
 }
 
-void __stdcall Rva00438D58Update(Object *obj)
+class Rva00439E0C
+{
+public:
+	void rva00438D58(Object *obj);
+};
+
+void Rva00439E0C::rva00438D58(Object *obj)
 {
 	bool zero = false;
 	Drawable *draw = obj->getDrawable();
