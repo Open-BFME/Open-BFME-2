@@ -26,11 +26,13 @@ class Vector3;
 class Rva002BF4F3 {public:bool rva002BF5B0(const Vector3*,Vector3*);};
 class Rva002D3627Host;extern Rva002D3627Host *g_00DFEF18;
 struct Record00538D3B {int unused;float x,y,z;};
+struct Rva00538CEFPair {int a,b;};
 class Rva00538CEF
 {
 public:
 	Rva0020E89C *rva00538CEF();
 	void rva00538D3B(int);
+	bool rva00538D17(Rva00538CEFPair *out);
 private:
 	int *m_start;
 	int *m_finish;
@@ -67,4 +69,15 @@ void Rva00538CEF::rva00538D3B(int flag) {
   ((Rva002BF4F3*)g_00DFEF18)->rva002BF5B0((const Vector3*)&record->x,(Vector3*)&point);
   ((Rva003FDE50*)owner)->rva003FDE50((unsigned int)&point);
  }
+}
+
+// Native538D17..538D3B,36B; WB1434B10 confirms the unsigned16-byte
+// record count and conditional copy of the last record's words4/8.
+// No original coordinate type or member name is asserted by this view.
+bool Rva00538CEF::rva00538D17(Rva00538CEFPair *out){
+ int *span=(int*)this;int *end=m_finish;
+ if((unsigned)((span[1]-span[0])>>4)>0){
+  out->a=end[-3];out->b=end[-2];return true;
+ }
+ return false;
 }
