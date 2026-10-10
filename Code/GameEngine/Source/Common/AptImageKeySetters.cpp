@@ -431,12 +431,16 @@ public:
 	void rva005F6FCC(const Image *image);
 	void SetQuantityString(int quantity);
 	void SetNumTurnsString(int turns);
+	void rva005F753E(int quantity);
+	void rva005F75AE(int turns);
 private:
 	char m_pad00[0x0C];
 	const Image *m_image;		// +0x0C
-	char m_pad10[0x0C];
+	int m_quantity;				// +0x10
+	char m_pad14[0x08];
 	Rva005F6CA8Owner *m_owner;	// +0x1C
 	int m_index;				// +0x20
+	int m_numTurns;				// +0x24
 };
 
 void StrategicHUD::BuildQueueDetailsMovieClip::Impl::QueuedIconSlot::rva005F6FCC(const Image *image)
@@ -532,6 +536,29 @@ void StrategicHUD::BuildQueueDetailsMovieClip::Impl::QueuedIconSlot::SetNumTurns
 	AsciiString key;
 	key.format("APT:_level%u.%s_QueuedIconSlotTurnsRemaining%d", m_owner->m_level, m_owner->m_name.str(), m_index);
 	((BfmeAptWindowManager *)TheRva00222A8BTarget)->bfmeSetText(key, StrategicHUD::FormatNumTurnsString(turns), true);
+}
+
+// @0x005F753E and @0x005F75AE, 27B each: QueuedIconSlot vtable slots that
+// cache the quantity (+0x10) and turns remaining (+0x24) and rewrite the
+// Apt text through the setters above only when the value changes, as the
+// rowed DoSetState 0x005F7559 does for the state. Names stay address-derived
+// (WB names only the string setters and DoSetState).
+void StrategicHUD::BuildQueueDetailsMovieClip::Impl::QueuedIconSlot::rva005F753E(int quantity)
+{
+	if (quantity != m_quantity)
+	{
+		SetQuantityString(quantity);
+		m_quantity = quantity;
+	}
+}
+
+void StrategicHUD::BuildQueueDetailsMovieClip::Impl::QueuedIconSlot::rva005F75AE(int turns)
+{
+	if (turns != m_numTurns)
+	{
+		SetNumTurnsString(turns);
+		m_numTurns = turns;
+	}
 }
 
 // ?Rva005F6C8EFormat@@YA?AVUnicodeString@@HH@Z @0x005F6C8E 26B: forwards the
