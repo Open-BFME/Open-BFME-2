@@ -1,6 +1,10 @@
 // ?rva00177F82@Rva00177860@@QAEXAAVRenderInfoClass@@@Z
+// partial score=0.8996551009461485 date=2026-10-10
+// ?rva00177F82@Rva00177860@@QAEXAAVRenderInfoClass@@@Z
 // partial score=0.8459835826528512 date=2026-10-09
 // cl: /O1 /arch:SSE /G7 /DBFME_WWSTRING_CTOR_BUFFER_RELOAD /DBFME_WWSTRING_NATIVE_CSTR_ASSIGN /Ireference/shims/wwstring_teardown/bfme /Ireference/shims/banked_segline /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/game/Libraries/Source/Compression /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep
+extern "C" void _ReadWriteBarrier(void);
+#pragma intrinsic(_ReadWriteBarrier)
 #define Matrix4x4 Matrix4
 #include "sharebuf.h"
 #include "vector.h"
@@ -206,6 +210,8 @@ void Rva00177860::rva00177F82(RenderInfoClass&)
    const PointGroupTargetFVF &fvf=vertices.FVF_Info();
    unsigned stride=fvf.Get_FVF_Size();
    const Vector3 *volatile input=locations->Get_Array()+current*4;
+_ReadWriteBarrier();
+
    unsigned char *out=vb+fvf.Get_Location_Offset();
    for(unsigned i=0;i<static_cast<unsigned>(delta*4);++i) {((Vector3*)out)->X=input->X;((Vector3*)out)->Y=input->Y;((Vector3*)out)->Z=(input++)->Z;out+=stride;}
    out=vb+fvf.Get_Diffuse_Offset();
