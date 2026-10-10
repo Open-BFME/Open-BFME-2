@@ -32,6 +32,7 @@ class LivingWorldBattle {
 public:
     void rva003F498A(Rva003F498ACallback* cb);
     void *rva003F4D09();
+    void *rva003F4DA9();
     int GetRetreatedPlayerCount(int idx);
     int GetRetreatedPlayerID(int outerIdx, int innerIdx);
     int* rva003F46F2(int outerIdx, int innerIdx);
@@ -67,4 +68,12 @@ void *LivingWorldBattle::rva003F4D09() {
   }
  }
  return 0;
+}
+
+// ?rva003F4DA9@LivingWorldBattle@@QAEPAXXZ @0x003F4DA9 5B, right after
+// rva003F4D09 above: a tail jump into it (result passed through). Its one
+// caller, at 0x002B071E, passes a non-null battle pointer in ecx.
+void *LivingWorldBattle::rva003F4DA9()
+{
+    return rva003F4D09();
 }
