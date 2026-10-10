@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /Ireference/shims/bfme2_ascii
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
 // The byte-proven constructor C0DD8 installs primary table7CA090 and
 // constructs a string at260 followed by two strings at264. Slots54/55
 // point to B5FBE/B5FD5. This is the primary object, without an adjustment.
@@ -6,9 +6,13 @@
 // vtable pairing to B5FD5 contradicts RET8 versus RET0: nativeB5FBE is
 // the indexed setter. The query's original name and return spelling stay
 // unknown; retain an address name and the observed full EAX integer ABI.
-#include "string_base.h"
+#include "ascii_string.h"
 template<> void StringBase<char>::set(const char *);
 template<> bool StringBase<char>::isEmpty() const;
+
+class BridgeInfo;
+class PolygonTrigger;
+class RenderObjClass;
 
 class W3DScriptedModelDraw
 {
@@ -24,6 +28,7 @@ public:
 #undef SLOT
  virtual void SetRampMeshOverload(const char *name, int index);
  virtual int rva000B5FD5();
+ bool getRamp(BridgeInfo *, AsciiString, PolygonTrigger **, RenderObjClass **, bool);
 private:
  char unknown04[0x260 - 4];
  StringBase<char> string260;
@@ -38,4 +43,37 @@ void W3DScriptedModelDraw::SetRampMeshOverload(const char *name, int index)
 int W3DScriptedModelDraw::rva000B5FD5()
 {
  return !string260.isEmpty();
+}
+
+// NativeBBFD6..BC057 RET16. Secondary-table7CC588 slot43 is shared by
+// ScriptedModelDraw/Truck/Tank interfaces; this is complete-object+0C.
+// The recovered getRamp B9EC2 proves the forwarded pointer/output/flag ABI.
+// ConstructorC0DD8 proves the override string at complete-object268. The
+// fallback module-data string at118 is observed here; its original name
+// and this callback's original name remain unresolved.
+struct Rva000BBFD6ModuleDataView
+{
+ char unknown00[0x118];
+ AsciiString string118;
+};
+
+class Rva000BBFD6DrawInterface
+{
+public:
+ bool rva000BBFD6(BridgeInfo *, PolygonTrigger **, RenderObjClass **, bool);
+private:
+ char unknown00[0x25C];
+ AsciiString string25C;
+};
+
+bool Rva000BBFD6DrawInterface::rva000BBFD6(BridgeInfo *info,
+ PolygonTrigger **polygon, RenderObjClass **mesh, bool useObjectTransform)
+{
+ AsciiString name;
+ if (!string25C.isEmpty())
+  name = string25C;
+ else
+  name = (*reinterpret_cast<const Rva000BBFD6ModuleDataView *const *>(reinterpret_cast<const char *>(this) - 8))->string118;
+ return reinterpret_cast<W3DScriptedModelDraw *>(reinterpret_cast<char *>(this) - 0xC)
+  ->getRamp(info, name, polygon, mesh, useObjectTransform);
 }
