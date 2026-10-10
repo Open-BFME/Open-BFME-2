@@ -1,5 +1,3 @@
-// ?rva004F99CC@LivingWorldAutoResolveBattle@@QAE_NXZ
-// partial score=0.80852 date=2026-10-10
 // ?rva004F99CC@LivingWorldAutoResolveBattle@@QAEXPA_N@Z
 // partial score=0.80852 date=2026-10-10
 // cl: /O1 /G7 /arch:SSE /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
