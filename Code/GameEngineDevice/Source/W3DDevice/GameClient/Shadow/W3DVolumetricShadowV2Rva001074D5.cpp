@@ -1,6 +1,5 @@
-// ?rva001074D5@W3DVolumetricShadowV2@@QAEXXZ
-// partial score=0.9601362192091106 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /MD /GR-
+// ?rva001074D5@W3DVolumetricShadowV2@@QAEXXZ @0x001074D5 532B
 
 class W3DShadowManager;
 extern W3DShadowManager *TheW3DShadowManager;
@@ -41,7 +40,7 @@ public:
 	Real m_z;
 };
 
-class W3DGameClientShadowShim
+class W3DShadowManager
 {
 public:
 	Vector3 &getLightPosWorld(int which);
@@ -241,8 +240,8 @@ void W3DVolumetricShadowV2::rva001074D5()
 	Vector3 pos = m_robj->Get_Position();
 	m_lightOffset=pos;
 
-	const Vector3 *light = &((W3DGameClientShadowShim *)TheW3DShadowManager)->getLightPosWorld(0);
-	m_lightOffset-=*light;
+	const Vector3 *light = &((W3DShadowManager *)TheW3DShadowManager)->getLightPosWorld(0);
+	m_lightOffset-=*(light?light:light);
 
 	m_lightOffset.Normalize();
 
