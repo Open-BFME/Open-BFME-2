@@ -1,4 +1,6 @@
 // ?rva000687EF@BaseHeightMapRenderObjClass@@QAEXXZ
+// partial score=0.691852 date=2026-10-10
+// ?rva000687EF@BaseHeightMapRenderObjClass@@QAEXXZ
 // partial score=0.638345 date=2026-10-10
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include
 // Native687EF..68D431364. ZH updateScorches supplies terrain-grid mesh semantics;
@@ -172,15 +174,15 @@ void BaseHeightMapRenderObjClass::rva000687EF(){
   if(((ProjectionGlobal687EF*)TheWritableGlobalData)->enabled61){
    IndexBufferClass::WriteLockClass il(indices37a8,0);unsigned short*curIb=il.indices;
    VertexBufferClass::WriteLockClass vl(vertices37a4,0);ProjectionVertex687EF*curVb=vl.vertices;
-   int borderSize=map37c0->border;int count=tree3850->count;
+   int borderSize=(map37c0?map37c0:map37c0)->border;int count=tree3850->count;
    for(int curTree=0;curTree<count;curTree++){
     Rva000EAFA4Coord3 loc;float radius;Rva000EAFA4Coord2 scale,offset;
     if(tree3850->rva000EAFA4(curTree,&loc,&radius,&scale,&offset)){
      int minX=fast_float2long_round((float)floor((loc.x-radius)*0.1f)),minY=fast_float2long_round((float)floor((loc.y-radius)*0.1f));
      if(minX<-borderSize)minX=-borderSize;if(minY<-borderSize)minY=-borderSize;
      int maxX=fast_float2long_round((float)ceil((loc.x+radius)*0.1f)),maxY=fast_float2long_round((float)ceil((loc.y+radius)*0.1f));maxX++;maxY++;
-     if(maxX>map37c0->width-borderSize)maxX=map37c0->width-borderSize;
-     if(maxY>map37c0->height-borderSize)maxY=map37c0->height-borderSize;
+     if(maxX>(map37c0?map37c0:map37c0)->width-borderSize)maxX=(map37c0?map37c0:map37c0)->width-borderSize;
+     if(maxY>(map37c0?map37c0:map37c0)->height-borderSize)maxY=(map37c0?map37c0:map37c0)->height-borderSize;
      int startVertex=vertices37b0;int i,j;
      for(j=minY;j<maxY;j++){
       float Y=j*10.0f;
