@@ -4646,7 +4646,6 @@ name,address,notes
 ??1Rva005D6FCC@@UAE@XZ,0x005D6FDE,ICF twin of rowed apply at 0x005D6FDE both set [ecx] to vtbl 0x00C75C38 which is Rva005D6FCC vtable; derived dtor 0x00587F69 calls it as base dtor
 ??1Rva005DA7F5@@UAE@XZ,0x005DA7F5,opaque dtor called by the scalar deleting dtor at 0x005DA7D9 (vtable 0x00C76510#1); identity unproven; address-derived name
 ??1Rva005DB221@@UAE@XZ,0x005DB221,opaque dtor called by the scalar deleting dtor at 0x005DB319 (vtable 0x00C766B8#0); identity unproven; address-derived name
-??1Rva005DB681@@UAE@XZ,0x005DB681,opaque dtor called by the scalar deleting dtor at 0x005DB7F2 (vtable 0x00C76798#0); identity unproven; address-derived name
 ??1Rva005DC73C@@UAE@XZ,0x005DC73C,opaque base dtor; 3 derived dtors tail-call it; identity unproven
 ??1StrategicEndGame@GameStats@@UAE@XZ,0x005DCFC9,WB15D5180 named constructor stores C76DD4 whose scalar5DF160 calls full5B inherited destructor5DCFC9 tail-jump to rowed table destructor5DE9E3; rename of prior sole opaque owner; not an alias
 ??1Rva005DDD60@@UAE@XZ,0x003A5817,"callee of ??1Rva005E2D20@@UAE@XZ at retail 0x003ABC21 read from its REL32 displacement; ICF alias onto ??1Rva003AEEB3@@UAE@XZ (matched)"
@@ -17075,3 +17074,4 @@ _D3DXCreateTextureFromFileInMemoryEx@60,0x0062AF7A,Named d3dx9_27.dll PE import 
 ?Rva004129DF@@YAXPBVCoord2D@@0PBD1@Z,0x004129DF,RenderImageDisabled custom-render callback the global registration 0x00412F14 binds by address; same 4-argument shape and TheAptPlayer forward as its rowed siblings Rva00412B94/Rva00412BFF (no Ghidra boundary; code start taken by address)
 ??0?$vector@UBfmeContainerRecord005FDEC7@@V?$allocator@UBfmeContainerRecord005FDEC7@@@_STL@@@_STL@@QAE@I@Z,0x005FE409,size constructor of the 12-byte tab record vector; called by the Rva005FE750 ctor 0x005FE640
 ?rva0021F5F8@CreateAHeroManager@@QAEXXZ,0x0021F5F8,CreateAHeroManager method called by the create-a-hero screen destructor 0x00513BAB; unrowed
+??1Rva005DB681@@UAE@XZ,0x005DB681,opaque dtor called by the scalar deleting dtor at 0x005DB7F2 (vtable 0x00C76798#0); identity unproven; address-derived name
