@@ -3,6 +3,15 @@
 // cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 #include <stl/_algobase.h>
+// Retain the resolved shim operations inline without redundant COMDAT copies.
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{ return a < b ? b : a; }
+template <> __declspec(dllimport) __forceinline
+unsigned short *__copy_ptrs<unsigned short *, unsigned short *>(
+    unsigned short *first, unsigned short *last, unsigned short *result, __true_type)
+{ return static_cast<unsigned short *>(__copy_trivial(first, last, result)); }
+}
 struct Rva0018C41EElement { char bytes[2]; bool operator<(const Rva0018C41EElement&)const; bool operator==(const Rva0018C41EElement&)const; };
 namespace _STL { template <> struct __type_traits<Rva0018C41EElement> : __type_traits_aux<1> {}; }
 #include <vector>
