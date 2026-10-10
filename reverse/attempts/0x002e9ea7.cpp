@@ -1,6 +1,8 @@
 // ?rva002E9EA7@Pathfinder@@QAE_NPAVObject@@HHW4PathfindLayerEnum@@HHPAH@Z
 // partial score=0.8203970778324837 date=2026-10-10
 // ?rva002E9EA7@Pathfinder@@QAE_NPAVObject@@HHW4PathfindLayerEnum@@HHPAH@Z
+// partial score=0.8203970778324837 date=2026-10-10
+// ?rva002E9EA7@Pathfinder@@QAE_NPAVObject@@HHW4PathfindLayerEnum@@HHPAH@Z
 // partial score=0.8 date=2026-10-06
 // cl: /O1 /DNDEBUG /MD
 // Dump lane range 13: ?rva002E9EA7 @0x002E9EA7 531B. Pathfinder
