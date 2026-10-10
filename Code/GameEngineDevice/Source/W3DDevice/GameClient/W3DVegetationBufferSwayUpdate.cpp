@@ -5,7 +5,11 @@
 // The existing shrub frame-update caller passes the same leading sway subobject.
 // Enclosing-class identity remains unproven, so the method and view retain RVA names.
 // Native table offsets and the omitted per-shrub randomization are target facts.
-// A named float wrap period keeps its SSE load outside the final offset loop.
+// Read the const-volatile wrap period once before the final loop. This
+// preserves the native early load and keeps its binding distinct from the
+// compiler-literal rate numerator, which has a different retail address.
+// The rate numerator is a compiler literal at a distinct retail address;
+// only the final wrap loop references the named period.
 // Vegetation sway update, retail 0x000E6406 (398 bytes, ret 4): when the breeze version changed, rebuilds the
 // 100-entry sway offset table and the ten sway types' steps and factors from the breeze (Open-BFME-1 twin:
 // W3DShrubBufferUpdateSway.cpp, 0x0071C0E0, which also re-rolls every shrub's sway type; the BFME2 body does not);
@@ -47,7 +51,7 @@ private:
 	Real m_swayRate;
 };
 
-static const float swayWrapPeriod=100.0f;
+static const volatile float swayWrapPeriod=100.0f;
 void Rva000E6406SwayView::rva000E6406(const BreezeInfo &info)
 {
 	Int i;
@@ -66,7 +70,7 @@ void Rva000E6406SwayView::rva000E6406(const BreezeInfo &info)
 		Real high = 1.0f + delta;
 		Real low = 1.0f - delta;
 		for (i = 0; i < 10; i++) {
-			m_curSwayStep[i] = swayWrapPeriod / ((Real)info.m_breezePeriod * m_swayRate);
+			m_curSwayStep[i] = 100.0f / ((Real)info.m_breezePeriod * m_swayRate);
 			m_curSwayStep[i] *= GetGameClientRandomValueReal(low, high,
 				"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngineDevice\\Source\\W3DDevice\\GameClient\\W3DVegetationBufferBase.cpp", 0x1b5);
 			if (m_curSwayStep[i] < 0.0f)
@@ -78,9 +82,10 @@ void Rva000E6406SwayView::rva000E6406(const BreezeInfo &info)
 		m_curSwayVersion = info.m_breezeVersion;
 	}
 
+const float wrapPeriod=swayWrapPeriod;
 	for (i = 0; i < 10; i++) {
 		m_curSwayOffset[i] += m_curSwayStep[i];
-		if (m_curSwayOffset[i] > swayWrapPeriod)
-			m_curSwayOffset[i] -= swayWrapPeriod;
+		if (m_curSwayOffset[i] > wrapPeriod)
+			m_curSwayOffset[i] -= wrapPeriod;
 	}
 }
