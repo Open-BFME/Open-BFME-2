@@ -25,3 +25,12 @@ AptValue *AptGlobal::objectMemberLookup(AptValue *const,const EAStringC *const n
  if(value&&!reinterpret_cast<BfmeAptValue006DCD20 *>(value)->isUndefined())return value;
  return reinterpret_cast<AptValue *>(reinterpret_cast<Rva0070B380 *>(reinterpret_cast<char *>(gpGlobalGlobalObject)+8)->lookup(*name));
 }
+bool AptGlobal::objectMemberSet(AptValue *const,const EAStringC *const name,AptValue *const value)
+{
+ if(this!=gpGlobalGlobalObject) {
+  g_bfmeAptAssertAtE17734("this == gpGlobalGlobalObject","C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptObject\\AptGlobalObject.cpp",102);
+  if(g_bfmeAptBreakOnAssertAtDDC01C)__debugbreak();
+ }
+ if(!reinterpret_cast<Rva0070A5C0 *>(g_shutdownAtE18360)->rva0070A5C0(reinterpret_cast<int>(name)))mNativeHash.Set(name,value);
+ return true;
+}
