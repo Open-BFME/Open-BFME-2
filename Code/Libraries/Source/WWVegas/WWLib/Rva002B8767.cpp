@@ -4,6 +4,14 @@
 // Evidence: pinned callees Gen_003BEA30 0x002B59AA and push_back 0x004DFCB0;
 // TheLivingWorldManager extern; caller 0x00564F9C unblocks 0x00564EC0;
 // prev 0x002B86AA next 0x002B87E0 same WWLib dir.
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
 #include <vector>
 
 struct BfmePairWI

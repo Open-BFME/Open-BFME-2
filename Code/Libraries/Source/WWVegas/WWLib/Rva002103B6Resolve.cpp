@@ -2,6 +2,14 @@
 // stlport
 // ?CacheRegionIDs@LivingWorldRegionBonusRule@@QAEXPAVRva00210390@@@Z @0x002103B6 119B: clear Science vector at +0x2C, reserve src count at +0x20, resolve each AsciiString via rowed 0x00210390.
 // Evidence: retail erase 0x00532803 on [edi]/[edi+4], reserve 0x002A1410 of (0x24-0x20)>>2, loop lea+push into rowed 0x00210390 with this=[ebp+8], [eax+0x12C] or -1 into push_back 0x002E01C6; caller 0x00210714.
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
 #include <vector>
 
 #include "ascii_string.h"

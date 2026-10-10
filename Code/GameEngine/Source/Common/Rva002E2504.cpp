@@ -3,6 +3,14 @@
 // ?rva002E2504@Rva002E2504@@QAE_NPAVRva00318C32Ret@@PAV?$vector@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@@Z 0x002E2504 116
 // Evidence: pin 0x00318C32 plus rowed reserve 0x002B712E plus rowed push_back
 // 0x004DFCB0; callers 0x002B6536 0x002E2DE0.
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
 #include <vector>
 
 extern "C" void _ReadWriteBarrier(void);

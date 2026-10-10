@@ -2,6 +2,14 @@
 // stlport
 // ?setGeometryName@Rva003BB680Owner@@QAEXAAVAsciiString@@@Z @0x004E3E91 78B: push temp GeometryName then vector.
 // Evidence: pin names class/method; rowed temp ctor 0x4E2382 dtor 0x4E2941 StringBase set 0x366F0 push_back 0x4E3E5A; 1 matched caller shows AAVAsciiString.
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
 #include <set>
 #include <vector>
 

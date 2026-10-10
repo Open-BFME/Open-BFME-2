@@ -7,6 +7,14 @@
 // The pointer append uses the existing ModuleData-pointer implementation;
 // no inheritance or original vector instantiation is inferred from ICF.
 #include "ascii_string.h"
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
 #include <vector>
 class ModuleData;
 class Rva00056F61;

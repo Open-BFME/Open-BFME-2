@@ -7,6 +7,14 @@
 // through the same-this helper at 0x00283114. Ghidra FUN_0068360c is a 54-byte
 // wrapper that clears the +0x584 worker, then forwards the +0x578 vector's
 // entries to 0x002834e6. The class names are address-based.
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
 #include <vector>
 
 struct Rva004DFCB0Element

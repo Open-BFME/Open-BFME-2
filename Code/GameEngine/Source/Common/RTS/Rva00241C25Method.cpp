@@ -4,6 +4,14 @@
 // GameLogic.cpp line 1307: the same Object check, +0x6D/+0x6E guards and
 // find-then-push_back on the +0x164 object list)
 // evidence: unlock caller 0x00291EB1; rowed Object::rva002931BA 0x002931BA plus rowed find 0x0020E873 plus pinned push_back vector<Object*> 0x001F211B; single end-load plus direct begin push pattern
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
 #include <vector>
 #include <algorithm>
 

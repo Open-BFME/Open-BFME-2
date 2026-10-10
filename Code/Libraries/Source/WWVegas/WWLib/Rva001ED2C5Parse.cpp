@@ -6,6 +6,14 @@
 // stlport
 // ?Rva001ED2C5Parse@@YAXPAVINI@@PAXPAV?$vector@UBfmeRecord001ECAF9@@V?$allocator@UBfmeRecord001ECAF9@@@_STL@@@_STL@@@Z @0x001ED2C5 115B. REF via table slot 0x007DF20C neighbour Mission. INI token to record push then parse last. Honest free-function name shape per naming line.
 // TU-local honest-address views; offsets prove operations not type names.
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
 #include <vector>
 
 class INI

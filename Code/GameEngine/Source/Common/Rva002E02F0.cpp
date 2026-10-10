@@ -4,6 +4,14 @@
 // Clear Science vector then refill from hashtable at +0x10 gated by Entry::Check.
 // Evidence: erase 0x00532803 reserve 0x002A1410 begin 0x00427195 Check pin 0x002DFA43
 // push_back 0x002E01C6 inc 0x0041E832; callers 0x002E3548 0x0050302C 0x005E9028; ret 8.
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
 #include <vector>
 #include <hash_map>
 
