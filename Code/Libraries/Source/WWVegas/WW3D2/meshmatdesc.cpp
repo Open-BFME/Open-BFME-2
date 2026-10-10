@@ -209,7 +209,9 @@ ShaderClass MeshMatDescClass::NullShader(0);	// Used to mark no shader data
 
 // MeshMatDescClass::operator = is recovered in MeshMatDescDefaultCtor.cpp.
 
-// ??1MeshMatDescClass@@UAE@XZ present-unmatched
+// ??1MeshMatDescClass@@QAE@XZ, retail 0x0015DC40, 90 bytes: Reset(0,0,0), then the member
+// teardown runs the vector destructor iterator over the eight RefCountPtr<TextureClass>
+// Texture slots at +0x78 (0x0017098D); the meshmatdesclayout view gives them that type.
 MeshMatDescClass::~MeshMatDescClass(void)
 {
 	Reset(0,0,0);
@@ -221,7 +223,7 @@ TextureClass * MeshMatDescClass::Get_Single_Texture(int pass,int stage) const
 	if (Texture[pass][stage]) {
 		Texture[pass][stage]->Add_Ref();
 	}
-	return Texture[pass][stage];
+	return Texture[pass][stage].Peek();
 }
 
 // MeshMatDescClass::Reset is recovered in MeshMatDescReset.cpp.
@@ -238,7 +240,7 @@ void MeshMatDescClass::Set_Single_Material(VertexMaterialClass * vmat,int pass)
 // ?Set_Single_Texture@MeshMatDescClass@@QAEXPAVTextureClass@@HH@Z present-unmatched
 void MeshMatDescClass::Set_Single_Texture(TextureClass * tex,int pass,int stage)
 {
-	REF_PTR_SET(Texture[pass][stage],tex);
+	Texture[pass][stage]=Create_Peek(tex);
 }
 
 void MeshMatDescClass::Set_Single_Shader(ShaderClass shader,int pass)
@@ -299,7 +301,7 @@ TextureClass * MeshMatDescClass::Get_Texture(int pidx,int pass,int stage) const
 	} else if (Texture[pass][stage] != NULL) {
 
 		Texture[pass][stage]->Add_Ref();
-		return Texture[pass][stage];
+		return Texture[pass][stage].Peek();
 
 	}
 	return NULL;
@@ -326,7 +328,7 @@ TextureClass * MeshMatDescClass::Peek_Texture(int pidx,int pass,int stage) const
 	if (TextureArray[pass][stage]) {
 		return TextureArray[pass][stage]->Peek_Element(pidx);
 	}
-	return Texture[pass][stage];
+	return Texture[pass][stage].Peek();
 }
 
 TexBufferClass * MeshMatDescClass::Get_Texture_Array(int pass,int stage,bool create)

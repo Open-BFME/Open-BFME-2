@@ -96,7 +96,3 @@ void MeshMatDescClass::Reset(int polycount, int vertcount, int passcount)
     }
     RendererState = 0;
 }
-
-// Callers elsewhere reach bodies in this unit through other spellings; retail's
-// call sites in their matched rows land on these addresses (same ABI). Bind them.
-#pragma comment(linker, "/alternatename:?bfmeResetBY@BfmeHolderBY@@QAEXHHH@Z=?Reset@MeshMatDescClass@@QAEXHHH@Z")

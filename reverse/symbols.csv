@@ -8362,7 +8362,6 @@ name,address,notes
 ?bfmeReset@BfmeMapObjectExtra@@QAEXXZ,0x00313574,callee of bfmeRelease (0x0032C26D) at the site its BFME1 donor calls it; may be an ICF alias
 ?bfmeReset@Gen009D6E10@@QAEXPAVBfmePeer@@@Z,0x0060B8C6
 ?bfmeReset@Gen_008812D0@@QAEXXZ,0x0069E440
-?bfmeResetBY@BfmeHolderBY@@QAEXHHH@Z,0x0015D140
 ?bfmeResetC0600@Rva006C0600Registry@@QAEXXZ,0x002D2457,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?bfmeResetVJO@BfmeCVJO@@QAEXPAVBfmeXVJO@@@Z,0x0066D830
 ?bfmeResizeERF@BfmeVecERF@@QAEXIUBfmeItemERF@@@Z,0x003F6EA1,callee of ?resize@Rva00427130Vector@@QAEXI@Z at retail 0x003F701F read from its REL32 displacement; body unrowed

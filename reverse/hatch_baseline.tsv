@@ -5402,7 +5402,6 @@ alternatename	Code/Libraries/Source/WWVegas/WW3D2/MaterialRemapMesh.cpp	?Get_Sin
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/MaterialRemapMesh.cpp	?Get_Texture@MeshMatDescClass@@QBE?AVBfmeHandleCX@@HHH@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextCtor.cpp	_vtbl_00BD4688	1
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescInstallUVArray.cpp	?g_007CE338@@3QBQBXB	1
-alternatename	Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescReset.cpp	?bfmeResetBY@BfmeHolderBY@@QAEXHHH@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescTextureHandles.cpp	?bfmeGet@Gen_009299D0@@QBE?AVBfmeHandleCX@@HHH@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescTextureSetters.cpp	?Set_Single_Texture@MeshMatDescClass@@QAEXABVBfmeHandleCX@@HH@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescTextureSetters.cpp	?Set_Texture@MeshMatDescClass@@QAEXHABVBfmeHandleCX@@HH@Z	1
@@ -24968,7 +24967,7 @@ pin	reverse/symbols.csv	0x0015CC90	1
 pin	reverse/symbols.csv	0x0015CD00	1
 pin	reverse/symbols.csv	0x0015CF30	1
 pin	reverse/symbols.csv	0x0015D080	1
-pin	reverse/symbols.csv	0x0015D140	2
+pin	reverse/symbols.csv	0x0015D140	1
 pin	reverse/symbols.csv	0x0015D2A0	1
 pin	reverse/symbols.csv	0x0015D300	1
 pin	reverse/symbols.csv	0x0015D800	1
@@ -41625,7 +41624,6 @@ present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/meshgeometry.cpp	MeshGeome
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/meshgeometry.cpp	MeshGeometryClass::read_vertex_influences	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/meshgeometry.cpp	MeshGeometryClass::read_vertex_normals	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/meshgeometry.cpp	MeshGeometryClass::read_vertices	1
-present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/meshmatdesc.cpp	1MeshMatDescClass@@UAE@XZ	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/meshmatdesc.cpp	1TexBufferClass@@UAE@XZ	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/meshmatdesc.cpp	Get_Element@MatBufferClass@@	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/meshmatdesc.cpp	Get_Element@TexBufferClass@@QAEPAVTextureClass@@H@Z	1

@@ -47,6 +47,7 @@
 #include "sharebuf.h"
 #include "shader.h"
 #include "vertmaterial.h"
+#include "ref_ptr.h"
 
 class MatBufferClass;
 class TexBufferClass;
@@ -214,7 +215,11 @@ protected:
 	VertexMaterialClass::ColorSourceType		DIGSource[MAX_PASSES];
 
 	// default textures, shader, vmat
-	TextureClass *										Texture[MAX_PASSES][MAX_TEX_STAGES];
+	// BFME2 holds the default textures as owning RefCountPtr<TextureClass> slots: ~MeshMatDescClass
+	// (0x0015DC40) tears these eight at +0x78 down with the vector destructor iterator and
+	// RefCountPtr<TextureClass>::~RefCountPtr (0x0017098D); the matched siblings (MeshMatDescReset,
+	// MeshMatDescDefaultCtor, MeshMatDescTextureSetters) read them the same way.
+	RefCountPtr<TextureClass>						Texture[MAX_PASSES][MAX_TEX_STAGES];
 	// Set_Single_Shader at 0x0015A7E0 stores through [ecx+eax*4+0x98].
 	// Reset and construction locate the earlier four bytes at RendererState.
 	ShaderClass											Shader[MAX_PASSES];
@@ -476,7 +481,7 @@ inline VertexMaterialClass * MeshMatDescClass::Peek_Single_Material(int pass) co
 
 inline TextureClass * MeshMatDescClass::Peek_Single_Texture(int pass,int stage) const
 {
-	return Texture[pass][stage];
+	return Texture[pass][stage].Peek();
 }
 
 inline ShaderClass MeshMatDescClass::Get_Single_Shader(int pass) const
