@@ -540,6 +540,7 @@ public:
 	void ValidatePlayers();
 	void rva002B693F(void *keys);
  void rva002B9DC7();
+ void rva002BB15F();
  void RemovePlayer(LivingWorldPlayer*);
 	UnsignedInt rva002B77B2();
 	UnsignedInt rva002B77F7();
@@ -548,6 +549,7 @@ public:
  void rva002B768F();
  Bool rva002B3484(Parent0057605D*);
  Bool rva002B3416(Parent00575EEA*);
+ __forceinline Bool isLocalPlayerTurnStart() const { return m_localPlayer != 0 && m_turnPhase == 0; }
  void rva002B676D();
  void rva002B88EC();
 	Bool rva002B5A5F(Parent00575E4E*);
@@ -2862,4 +2864,134 @@ void LivingWorldLogic::PrepareRetreats(){
   }
   if(remove)m_field10C.erase(m_field10C.begin()+i);
  }
+}
+
+// Native2BB15F..2BB281 RET0 (WB D844A0, unnamed): settle every delayed
+// region victory. A valid region and player first; a plain victory (flag1
+// without2/8) of the local player's own region reports EVA event21 at the
+// region centre lifted to the terrain. Each entry then goes through the
+// ownership helper2B37B4 and the region effects resync; the queue empties
+// through the folded12B range erase, then2B9DC7 and the region manager.
+// The local-player index getter2B2B66 is defined in this unit: retail keeps
+// the region in EDX across its call, which cl does only for a callee it can
+// see. Placeholder views keep the rowed provider spellings.
+struct Rva002B2B66Inner
+{
+	char m_pad[0x14];
+	int m_val;
+};
+class Rva002B2B66
+{
+public:
+	int rva002B2B66();
+private:
+	char m_pad[0x98];
+	Rva002B2B66Inner *m_ptr;
+};
+int Rva002B2B66::rva002B2B66()
+{
+	Rva002B2B66Inner *p = m_ptr;
+	if (p)
+		return p->m_val;
+	return -1;
+}
+struct Coord3D;
+struct Rva002BB15FCoord3D {float x,y,z;};
+class Rva002D3627Host {public: bool rva002BF5B0(const Coord2D *,Coord3D *);};
+class Eva;extern Eva *TheEva;
+class Eva {public: void reportEvaEvent(int,const Coord3D *,int);};
+class LivingWorldRegionEffectsManager {public: void SyncRegion(int);};
+struct LivingWorldManagerEffectsView {char pad000[0x268];LivingWorldRegionEffectsManager *effects;};
+class LivingWorldManager;extern LivingWorldManager *TheLivingWorldManager;
+struct Rva002B37B4P1;struct Rva002B37B4P2;
+class Rva002B37B4 {public: void rva002B37B4(Rva002B37B4P1 *,Rva002B37B4P2 *);};
+struct Gen_p12pod { int a[3]; };
+namespace _STL {
+template <> Gen_p12pod *vector<Gen_p12pod, allocator<Gen_p12pod> >::erase(Gen_p12pod *,Gen_p12pod *);
+}
+void LivingWorldLogic::rva002BB15F()
+{
+	for (UnsignedInt i = 0; i < m_delayedRegionVictories.size(); ++i)
+	{
+		Rva0020E89C *region = ((Rva0020EAF6View *)m_field0B0)->rva0020EAF6(m_delayedRegionVictories[i].regionID);
+		Int player = m_delayedRegionVictories[i].player;
+		if (!region || !player)
+			continue;
+		UnsignedInt flags = m_delayedRegionVictories[i].flags;
+		if ((flags & 1) && !(flags & (2 | 8)) && region->owner == ((Rva002B2B66 *)this)->rva002B2B66())
+		{
+			Coord2D center;
+			m_field0B0->GetRegionCenterPoint(region, &center);
+			Rva002BB15FCoord3D pos;
+			pos.x = center.x;
+			pos.y = center.y;
+			pos.z = 0.0f;
+			g_00DFEF18->rva002BF5B0(&center, (Coord3D *)&pos);
+			TheEva->reportEvaEvent(0x15, (const Coord3D *)&pos, 0);
+		}
+		((Rva002B37B4 *)this)->rva002B37B4((Rva002B37B4P1 *)region, (Rva002B37B4P2 *)player);
+		((LivingWorldManagerEffectsView *)TheLivingWorldManager)->effects->SyncRegion((Int)region);
+	}
+	((_STL::vector<Gen_p12pod> *)&m_delayedRegionVictories)->clear();
+	rva002B9DC7();
+	((Rva0020EE29 *)m_field0B0)->rva0020F483();
+}
+
+// Native2B3416..2B3484 RET4: may the local player build on a region plot
+// now. Needs a local player in turn phase0, the campaign's per-plot veto
+// (slot18) when its rule is active, an empty plot (+0x20) and the plot's
+// region (+0x1C) owned by the local player, then the region build check.
+// Retail keeps the region in EDX across the same-unit getter2B2B66.
+struct Parent00575EEA {char pad00[0x1c];LocalRegionOwner13C *region;Int occupant;};
+class Rva002B3416Veto {public:
+ virtual void slot00();virtual void slot04();virtual void slot08();
+ virtual void slot0C();virtual void slot10();virtual void slot14();
+ virtual Bool allows(Parent00575EEA *plot);
+};
+class CreateAHeroData;
+class Rva003F07E5 {public: bool rva003F07E5(CreateAHeroData *,Int *);};
+Bool LivingWorldLogic::rva002B3416(Parent00575EEA *plot)
+{
+	if (m_localPlayer == 0)
+		return false;
+	else
+	{
+		if (m_turnPhase != 0)
+			return false;
+		if ((unsigned char)((Rva002B254F *)this)->rva002B254F() != 0)
+		{
+			if (!((Rva002B3416Veto *)((Rva003B8BAA *)TheCampaignManager)->rva003B8BAA())->allows(plot))
+				return false;
+		}
+		if (plot->occupant != 0)
+			return false;
+		LocalRegionOwner13C *region = plot->region;
+		if (region->owner != ((Rva002B2B66 *)TheLivingWorldLogic)->rva002B2B66())
+			return false;
+		return ((Rva003F07E5 *)region)->rva003F07E5((CreateAHeroData *)plot, 0) ? true : false;
+	}
+}
+
+// Native2B3484..2B34E5 RET4, the module counterpart of2B3416: a local
+// player in turn phase0, the campaign's per-module veto (slot1C) when its
+// rule is active, and the module's region (+0x24) owned by the local player.
+struct Parent0057605D {char pad00[0x24];LocalRegionOwner13C *region;};
+class Rva002B3484Veto {public:
+ virtual void slot00();virtual void slot04();virtual void slot08();
+ virtual void slot0C();virtual void slot10();virtual void slot14();
+ virtual void slot18();virtual Bool allows(Parent0057605D *module);
+};
+Bool LivingWorldLogic::rva002B3484(Parent0057605D *module)
+{
+	if (!isLocalPlayerTurnStart())
+		return false;
+	if ((unsigned char)((Rva002B254F *)this)->rva002B254F() != 0)
+	{
+		if (!((Rva002B3484Veto *)((Rva003B8BAA *)TheCampaignManager)->rva003B8BAA())->allows(module))
+			return false;
+	}
+	LocalRegionOwner13C *region = module->region;
+	if (region && region->owner == ((Rva002B2B66 *)this)->rva002B2B66())
+		return true;
+	return false;
 }
