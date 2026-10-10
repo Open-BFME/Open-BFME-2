@@ -34,3 +34,20 @@ void Rva0074011F::rva0074011F()
 		m_p1 = 0;
 	}
 }
+
+// ??1Rva0009A200@@QAE@XZ retail 0x001076E9 5 bytes, pinned under this name:
+// the non-virtual destructor its scalar deleting destructor 0x0009A200 calls
+// (also called at 0x0009A510). It releases the holder pair at offset 0, so
+// the body is a tail jump into the release above.
+class Rva0009A200
+{
+public:
+	~Rva0009A200();
+private:
+	Rva0074011F m_00;
+};
+
+Rva0009A200::~Rva0009A200()
+{
+	m_00.rva0074011F();
+}
