@@ -213,6 +213,35 @@ Bool Rva00260F1BFilter::allow(Object *objOther)
 	return (m_flags & (1 << m_player->getRelationship(objOther))) ? true : false;
 }
 
+// ?allow@Rva00261478Filter@@UAE_NPAVObject@@@Z, retail 0x00261478 (36B):
+// garrison-permission filter: the candidate passes when the ActionManager's
+// canPlayerGarrison answer for (+0x08 player, candidate, +0x10 source)
+// equals the +0x0C expectation byte.
+enum CommandSourceType { CMD_FROM_PLAYER = 0 };
+
+class ActionManager
+{
+public:
+	Bool canPlayerGarrison(const Player *player, const Object *obj, CommandSourceType commandSource);
+};
+extern ActionManager *TheActionManager;
+
+class Rva00261478Filter : public Rva000421C8
+{
+public:
+	virtual Bool allow(Object *objOther);
+
+private:
+	const Player *m_player;						// +0x08
+	Bool m_match;								// +0x0C
+	CommandSourceType m_source;					// +0x10
+};
+
+Bool Rva00261478Filter::allow(Object *objOther)
+{
+	return TheActionManager->canPlayerGarrison(m_player, objOther, m_source) == m_match;
+}
+
 int Rva00260F1BFilter::getPlayerMask()
 {
 	if (m_player == 0)

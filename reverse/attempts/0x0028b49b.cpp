@@ -1,5 +1,5 @@
-// ?appendToList@Object@@QAEXPAPAV1@0@Z
-// partial score=0.85 date=2026-10-09
+// ?rva0028B49B@Object@@QAEXPAPAV1@0@Z
+// partial score=0.88 date=2026-10-10
 // cl: /DNDEBUG /MD /EHsc
 
 // ?isInList@Object@@QBE_NPAPAV1@@Z, retail 0x0028B47C (31 bytes).
@@ -51,8 +51,8 @@ class Object
 {
 public:
 	Bool isInList(Object **pListHead) const;
-	void appendToList(Object **pListHead, Object **pListTail);
 	void rva0028B4CE(PathfindLayerEnum layer);
+	void rva0028B49B(Object **ppHead, Object **ppTail);
 
 private:
 	unsigned char m_pre[0x8C];
@@ -68,24 +68,6 @@ Bool Object::isInList(Object **pListHead) const
 {
 	Bool result = m_prev || m_next || *pListHead == this;
 	return result;
-}
-
-// ?appendToList@Object@@QAEXPAPAV1@0@Z, retail 0x0028B49B (51B): BFME's
-// head/tail form of Zero Hour's Object::prependToList. Its only retail caller
-// GameLogic::registerObject (0x00242AE9) passes &GameLogic+0xAC / +0xB0; the
-// new object is linked after the old tail and becomes the head of an empty list.
-void Object::appendToList(Object **pListHead, Object **pListTail)
-{
-	Object *tail = *pListTail;
-	m_next = 0;
-	Object *&prev = m_prev;
-	prev = tail;
-	if (prev)
-		prev->m_next = this;
-
-	if (*pListHead == 0)
-		*pListHead = this;
-	*pListTail = this;
 }
 
 // ?rva0028B4CE@Object@@QAEXW4PathfindLayerEnum@@@Z, retail 0x0028B4CE (67B):
@@ -104,4 +86,20 @@ void Object::rva0028B4CE(PathfindLayerEnum layer)
 		if (m_a4)
 			m_a4->rva004DE2ED();
 	}
+}
+
+// ?rva0028B49B@Object@@QAEXPAPAVObject@@0@Z, retail 0x0028B49B (51B):
+// tail-append to a (head, tail) pair: link after the old tail, take over
+// an empty head, become the tail. Called once, by GameLogic's awake-module
+// friend at 0x00242B19 with (&GameLogic+0xAC, &GameLogic+0xB0).
+void Object::rva0028B49B(Object **ppHead, Object **ppTail)
+{
+	Object *tail = *ppTail;
+	m_next = 0;
+	m_prev = tail;
+	if (tail != 0)
+		tail->m_next = this;
+	if (*ppHead == 0)
+		*ppHead = this;
+	*ppTail = this;
 }
