@@ -22,10 +22,11 @@ static __forceinline const char *GetStr(const AsciiString &s)
 	return t ? t + 8 : "";
 }
 
-int __cdecl Rva00577AE9AptCall(Rva00222A8BTarget *target, void *level, const char *prefix, const char *function, int *pInt, float *pF1, float *pF2, float *pF3, float *pF4)
-{
-	return target->rva00222B19(level, prefix, function, 5, GetStr(Rva00222834Get(*pInt)), (void *)GetStr(Rva002228E8Get(*pF1)), (void *)GetStr(Rva002228E8Get(*pF2)), (void *)GetStr(Rva002228E8Get(*pF3)), (void *)GetStr(Rva002228E8Get(*pF4)));
-}
+int __cdecl Rva00577AE9AptCall(Rva00222A8BTarget *target, void *level, const char *prefix, const char *function, int *pInt, float *pF1, float *pF2, float *pF3, float *pF4);
+
+// The 314B row lives in Rva00577CC5MoveButton.cpp (identical copy); the
+// exclusive definition here is removed to end the LNK2005. This TU keeps the
+// 125B 0x00577C23 row below.
 
 // Retail 0x00577C23 125B, the next body: the same forward with an int and a
 // bool, the bool as "0"/"1" through the rowed 0x004E678B (argc 2). Caller
