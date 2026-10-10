@@ -1,4 +1,4 @@
-// cl: /MD /GX /DNDEBUG /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii /Ireference/shims/bfme2_vector3 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
+// cl: /arch:SSE /ICode/GameEngine/Source/Common /MD /GX /DNDEBUG /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii /Ireference/shims/bfme2_vector3 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
 // stlport
 //
 // The 0x2C-byte elements the skirmish-AI object AIBaseBuilder owns in its +0x0C
@@ -45,6 +45,9 @@ template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, 
 }
 #pragma optimize("", on)
 
+#include <list>
+extern "C" void _ReadWriteBarrier();
+#pragma intrinsic(_ReadWriteBarrier)
 #include <vector>
 #include "ascii_string.h"
 #include "unicode_string.h"
@@ -193,14 +196,18 @@ class GameSlot
 public:
 	char m_pad00[0x10];
 	int m_10;		// +0x10, the slot's start position index
+	char m_pad14[4];
+	int m_18; // player template index
 };
 
 struct Rva00506C82Arg;
 GameSlot *__cdecl Rva00506C82Find(const Rva00506C82Arg *arg);
 
+struct Rva002A8AB1Record;
 class Rva002A8F24
 {
 public:
+	Rva002A8AB1Record *rva002A8AB1(void *owner);
 	char m_pad000[0x864];
 	_STL::vector<int> m_usedStarts;	// +0x864
 };
@@ -211,7 +218,7 @@ class Rva005ADA40Owned
 public:
 	virtual ~Rva005ADA40Owned();
 	virtual void v1(); virtual void v2(); virtual void v3(); virtual void v4();
-	virtual void v5(); virtual void v6(); virtual void v7(); virtual void v8();
+	virtual void v5(); virtual void start(void*,int); virtual void run(int); virtual void v8();
 	virtual void v9(); virtual void v10(); virtual void v11();
 	virtual void xfer(Xfer *xfer, void *owner);	// slot 12
 	virtual Coord3D getOffset() const;		// slot 13
@@ -222,18 +229,90 @@ class Rva00573E7C : public Rva005ADA40Owned
 public:
 	Rva00573E7C();
 	Rva00573E7C(const Rva00573E7C &that);
-	char m_pad04[0x40 - 4];
+	~Rva00573E7C();
+	int m_04;
+	char m_pad08[4];
+	AsciiString m_name;
+	char m_pad10[0x11];
+	bool m_21;
+	char m_pad22[0x1e];
 	Coord3D m_point;	// +0x40
 	float m_angle;		// +0x4C
 	int m_50;		// +0x50, the 1-based item it goes to
 	char m_pad54[0x60 - 0x54];
 };
 
-class Rva00573A00
+#include "GameLogicObjectLookupView.h"
+
+class Object
 {
 public:
-	void rva00573A00(const Coord3D *point);
+	char m_pad00[0x38];
+	Coord3D m_pos;		// +0x38
 };
+
+
+extern GameLogic *TheGameLogic;
+
+class PlayerTemplate
+{
+public:
+	char m_pad00[0x44];
+	AsciiString m_side;	// +0x44
+};
+
+class PlayerTemplateStore
+{
+public:
+	const PlayerTemplate *getNthPlayerTemplate(int which) const;
+};
+extern PlayerTemplateStore *ThePlayerTemplateStore;
+
+class ThingTemplate;
+
+class ThingFactory
+{
+public:
+	const ThingTemplate *findTemplate(const AsciiString &key);
+};
+extern ThingFactory *TheThingFactory;
+
+class Player
+{
+public:
+	bool canBuild(const ThingTemplate *tmpl) const;
+};
+
+class Rva005AD9E6
+{
+public:
+	unsigned int rva005AD9E6();
+private:
+	void *m_head;
+};
+
+struct Rva002A8AB1Target
+{
+	char m_pad00[0x20];
+	int m_20;		// +0x20
+};
+
+struct Rva002A8AB1Record
+{
+	char m_pad000[0x140];
+	Rva005AD9E6 m_140;			// +0x140
+	_STL::list<ObjectID> m_144;		// +0x144
+	char m_pad148[0x160 - 0x148];
+	Rva002A8AB1Target *m_160;		// +0x160
+	char m_pad164[0x16C - 0x164];
+	int m_16C;				// +0x16C
+};
+
+class TerrainLogic { public: virtual void v0();virtual void v1();virtual void v2();virtual void v3();virtual void v4();virtual void v5();virtual float getHeight(float,float,int);};
+extern TerrainLogic *TheTerrainLogic;
+class Rva00573A00 { public: inline __declspec(noinline) void rva00573A00(const Coord3D *p) { m_pos=*p;m_pos.z=TheTerrainLogic->getHeight(m_pos.x,m_pos.y,0); } char pad[0x30];Coord3D m_pos; };
+
+
 
 enum NameKeyType
 {
@@ -305,7 +384,7 @@ public:
 	~AIBase();
 	Rva005AD9C0Hit *rva005AD9C0(void *arg);
 	bool rva005AD964();
-	void rva005ADAB2();
+	void buildFortressIfNeeded();
 	void rva005ADC63();
 	void DoXfer(Xfer *xfer);
 	Rva0041E912Template *rva005ADCBE(int notFirst, const _STL::vector<Rva0041E912Template *> &list);
@@ -362,7 +441,7 @@ void AIBase::rva005ADC63()
 			m_owned = 0;
 		}
 	} else {
-		rva005ADAB2();
+		buildFortressIfNeeded();
 	}
 	for (Rva005DCE08 **it = m_items.begin(); it != m_items.end(); ++it)
 		(*it)->rva005DCCFB();
@@ -494,4 +573,53 @@ void AIBase::parseTemplateIntoPhases(const Coord3D *point, float angle, Rva0041E
 		order->m_angle = angle;
 		m_items[slot - 1]->rva005DCE62(order);
 	}
+}
+
+// WB 0x01534F60 AIBase::buildFortressIfNeeded (AIBase.cpp), native RVA 0x005ADAB2.
+// The held pointer and fence preserve the native load before the branch;
+// visibility of the rowed terrain setter preserves scheduling around zero.
+__forceinline Rva00573E7C*heldOwned(Rva00573E7C*const&p){Rva00573E7C*q=p;_ReadWriteBarrier();return q;}
+void AIBase::buildFortressIfNeeded()
+{
+	GameSlot *slot = Rva00506C82Find((const Rva00506C82Arg *)m_owner);
+	const AsciiString &side = ThePlayerTemplateStore->getNthPlayerTemplate(slot->m_18)->m_side;
+	const ThingTemplate *tmpl = TheThingFactory->findTemplate(side);
+	if (!((Player *)m_owner)->canBuild(tmpl))
+		return;
+	Rva002A8AB1Record *record = g_00DFEEF8->rva002A8AB1(m_owner);
+	int count = record->m_16C;
+	if (count < 1)
+		return;
+	if (record->m_140.rva005AD9E6() <= 0)
+		return;
+	if (m_owned && !((Rva004E9378 *)m_owned)->rva004E9378())
+		return;
+	bool clear = true;
+	_STL::list<ObjectID>::iterator end = record->m_144.end();
+	for (_STL::list<ObjectID>::iterator it = record->m_144.begin(); it != end; ++it) {
+		if (!clear)
+			break;
+		Object *obj = TheGameLogic->findObjectByID(*it);
+		if (obj) {
+			float dx = m_point.x - obj->m_pos.x;
+			float dy = m_point.y - obj->m_pos.y;
+			if (dx * dx + dy * dy <= 350.0f * 350.0f)
+				clear = false;
+		}
+	}
+	if (!clear)
+		return;
+	if (!heldOwned(m_owned)) {
+		m_owned = new Rva00573E7C;
+		m_owned->m_point = m_point;
+		Coord3D zero;
+		zero.zero();
+		((Rva00573A00 *)m_owned)->rva00573A00(&zero);
+		m_owned->m_04 = record->m_160->m_20;
+		m_owned->m_angle = m_angle;
+		m_owned->m_name = side;
+		m_owned->m_21 = true;
+	}
+	m_owned->run(0);
+	m_owned->start(m_owner, 0);
 }
