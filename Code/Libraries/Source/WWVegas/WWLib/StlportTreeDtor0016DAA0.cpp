@@ -27,3 +27,11 @@ typedef _STL::_Rb_tree<int, Rva0016CB50Pair, _STL::_Select1st<Rva0016CB50Pair>, 
 
 template void Rva0016CB50Tree::_M_erase(Rva0016CB50Tree::_Link_type);
 template Rva0016CB50Tree::~_Rb_tree();
+
+// Native0016DE70 standalone5B JMP to owned121B tree teardown0016DAA0.
+// Original wrapper identity and full receiver extent are unknown.
+class Rva0016DE70TreeCleanupForward { public: void cleanup(); };
+void Rva0016DE70TreeCleanupForward::cleanup()
+{
+    reinterpret_cast<Rva0016CB50Tree *>(this)->~Rva0016CB50Tree();
+}

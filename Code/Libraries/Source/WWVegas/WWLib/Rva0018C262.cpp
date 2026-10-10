@@ -25,7 +25,7 @@ struct Rva0018C262HeaderOwner {
 };
 class Rva0018C262 : public Rva0018C262HeaderOwner {
 public:
-	~Rva0018C262();
+	__declspec(noinline) ~Rva0018C262();
 	void rva0018C262(Rva0018C262Node *p);
 	void rva0018C316();
 	Rva0018C262Node *rva0018C28F(const unsigned short *key);
@@ -156,4 +156,12 @@ Rva0018C4A9Result Rva0018C4A9::rva0018C4A9(short *key)
 		return Rva0018C4A9Result(((Rva0018C262 *)this)->rva0018C33F(node, x, y, (const unsigned short *)key, 0), true);
 	}
 	return Rva0018C4A9Result(j, false);
+}
+
+// Native0018C5FB standalone5B JMP to owned56B tree teardown0018C3E6.
+// Original wrapper identity and full receiver extent are unknown.
+class Rva0018C5FBTreeCleanupForward { public: void cleanup(); };
+void Rva0018C5FBTreeCleanupForward::cleanup()
+{
+    reinterpret_cast<Rva0018C262 *>(this)->~Rva0018C262();
 }
