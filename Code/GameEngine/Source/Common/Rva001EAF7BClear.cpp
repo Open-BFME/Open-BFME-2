@@ -27,3 +27,18 @@ bool Rva001EAF7B::rva001EAF7B()
 	}
 	return true;
 }
+
+// ?rva001EAF5E@@YAXPAX0@Z, retail 0x001EAF5E (29 bytes): destroy a contiguous
+// run of 0xAC-byte elements through virtual slot 0 with argument 0.
+class Rva001EAF5EElement
+{
+public:
+	virtual void rva001EAF5ESlot0(int);
+	unsigned char m_pad04[0xAC - 4];
+};
+
+void rva001EAF5E(Rva001EAF5EElement *first, Rva001EAF5EElement *last)
+{
+	for (Rva001EAF5EElement *p = first; p != last; ++p)
+		p->rva001EAF5ESlot0(0);
+}
