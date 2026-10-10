@@ -1,20 +1,13 @@
 // ?rva00460CBA@DynamicPortalBehaviour@@QAEXPAUCoord3D@@@Z
-// partial score=0.9 date=2026-10-05
-// cl: /O1 /DNDEBUG /MD /arch:SSE
-// ?rva00460CBA@DynamicPortalBehaviour@@QAEXPAUCoord3D@@@Z @0x00460CBA 288B: portal offset via transformPoint fabs max scale length and second transform. Evidence: neighbours DynamicPortalBehaviour upgradeRemoval and dtor; callees row transformPoint 0x30A812 fabs 0x629210 length 0x3571; floats g_Va00BBB8D8 1.0 plus BfmeZeroRange; object pos +0x38 moduleData +0x144.
-// ?rva00460CBA@DynamicPortalBehaviour@@QAEXPAUCoord3D@@@Z present-unmatched
+// cl: /O1 /DNDEBUG /MD /arch:SSE /G7 /ICode/Libraries/Include/Lib /I.
+// Native460CBA..460DD8 full288 RET4; WB10ACDD0 and rowed portal data ctor
+// corroborate transform-point purpose and TopAttackPos at data144. Literal
+// 1/0 and double length temporary reproduce native SSE/x87 scheduling;
+// no donor callable name is asserted; observed out-Coord3D ABI is retained.
 #include <math.h>
 
-struct Coord3D
-{
-	float x;
-	float y;
-	float z;
-	float length() const;
-};
+#include "Coord3D.h"
 
-extern float g_Va00BBB8D8;
-extern const float BfmeZeroRange;
 
 class Thing
 {
@@ -29,7 +22,7 @@ public:
 	Coord3D m_pos; // +0x38
 };
 
-class ModuleData
+class DynamicPortalBehaviourModuleData
 {
 public:
 	char pad[0x144];
@@ -42,7 +35,7 @@ public:
 	void rva00460CBA(Coord3D *out);
 private:
 	void *m_vptr; // +0x00
-	const ModuleData *m_moduleData; // +0x04
+	const DynamicPortalBehaviourModuleData *m_moduleData; // +0x04
 	Object *m_object; // +0x08
 };
 
@@ -51,10 +44,10 @@ void DynamicPortalBehaviour::rva00460CBA(Coord3D *out)
 	Coord3D tmp1;
 	Coord3D tmp2;
 	Coord3D tmp3;
-	tmp2.x = g_Va00BBB8D8;
+	tmp2.x = 1.0f;
 	tmp2.y = 0.0f;
 	tmp2.z = 0.0f;
-	const ModuleData *data = m_moduleData;
+	const DynamicPortalBehaviourModuleData *data = m_moduleData;
 	((Thing *)m_object)->transformPoint(&tmp2, &tmp1);
 	Coord3D *pPos = &m_object->m_pos;
 	tmp1.x -= pPos->x;
@@ -62,12 +55,12 @@ void DynamicPortalBehaviour::rva00460CBA(Coord3D *out)
 	tmp1.z -= pPos->z;
 	float fdy = (float)fabs(tmp1.y);
 	float fdx = (float)fabs(tmp1.x);
-	float pick = fdx > fdy ? fdx : fdy;
-	float scale = g_Va00BBB8D8 / pick;
+	const float *pick = fdx > fdy ? &fdx : &fdy;
+	float scale = 1.0f / *pick;
 	tmp1.x = scale * tmp1.x;
 	tmp1.y = scale * tmp1.y;
-	tmp1.z = scale * BfmeZeroRange;
-	float len = tmp1.length();
+	tmp1.z = scale * 0.0f;
+	double len = tmp1.length();
 	tmp2 = data->m_144;
 	tmp2.x *= len;
 	tmp2.y *= len;
