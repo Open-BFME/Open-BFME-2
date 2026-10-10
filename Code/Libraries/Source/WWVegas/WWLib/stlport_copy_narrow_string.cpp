@@ -6,18 +6,15 @@
 // operator= returning assign(__s); the vendored 4.5.3 header instead emits a
 // self-check plus range-assign. The 4.6-style specialization below reconciles
 // the version gap; it inlines into the loop. Caller 0x0007A414 in 0x0007A401.
-// The emitted unsigned max copy must match retail RVA 0x00013740.
-// Define it for speed, then restore this unit's flags for its own bodies.
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
 #include <stl/_algobase.h>
-#pragma optimize("s", off)
-#pragma optimize("t", on)
 namespace _STL {
-template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
 {
     return a < b ? b : a;
 }
 }
-#pragma optimize("", on)
 
 #include <algorithm>
 #include <string>
