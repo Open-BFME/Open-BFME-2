@@ -606,13 +606,18 @@ private:
 	void *m_name;
 };
 
+// Native module-data slot31 copies this float/DWORD pair at offset40.
+// Its original type and field semantics remain unknown.
+struct BfmeBodyDataPair8 { float value; unsigned word; BfmeBodyDataPair8() {} __forceinline BfmeBodyDataPair8(const BfmeBodyDataPair8 &that): value(that.value), word(that.word) {} };
+
 class ActiveBodyModuleData
 {
 public:
 	unsigned char m_pad00[0x30];
 	AsciiString m_damagedAttributeModifier;		// +0x30
 	AsciiString m_reallyDamagedAttributeModifier;	// +0x34
-	unsigned char m_pad38[0x48 - 0x38];
+	unsigned char m_pad38[0x40 - 0x38];
+	BfmeBodyDataPair8 m_pair40;
 	const FXList *m_healingFX;		// +0x48
 	unsigned char m_pad4C[0x51 - 0x4C];
 	Bool m_byte51;				// +0x51
@@ -642,6 +647,8 @@ template <int NUMBITS> class BitFlags
 {
 public:
 	enum { NUMWORDS = (NUMBITS + 31) / 32 };
+	BitFlags() {}
+	__forceinline BitFlags(const BitFlags &that) { memcpy(m_bits, that.m_bits, sizeof(m_bits)); }
 
 	Int count() { return ((Rva0028F528 *)this)->rva0028F528(); }
 	const char *getBitNameIfSet(Int i) { return (const char *)((Rva004BE0C7 *)this)->rva004BE0C7(i); }
@@ -702,14 +709,14 @@ public:
 	virtual void onVeterancyLevelChanged(VeterancyLevel oldLevel, VeterancyLevel newLevel);	// +0x2C
 	virtual void setArmorSetFlag(ArmorSetType ast);		// +0x30
 	virtual void clearArmorSetFlag(ArmorSetType ast);	// +0x34
-	virtual void i14(); virtual void i15();
-	virtual void i16(); virtual void i17(); virtual void i18(); virtual void i19();
-	virtual void i20();
+	virtual ArmorSetFlags rva004BF8F5(); virtual void i15();
+	virtual void i16(); virtual void i17(); virtual ObjectID rva004BF897(); virtual void i19();
+	virtual Bool getBackCrushed() const;
 	virtual void setInitialHealth(Real initialPercent, Bool directional);	// +0x54
 	virtual void setMaxHealth(Real maxHealth, MaxHealthChangeType healthChangeType);	// +0x58
 	virtual void i23();
 	virtual void i24(); virtual void i25(); virtual void i26(); virtual void i27();
-	virtual void i28(); virtual void i29(); virtual void i30(); virtual void i31();
+	virtual void i28(); virtual void i29(); virtual void i30(); virtual BfmeBodyDataPair8 rva004BDC56();
 	virtual void internalChangeHealth(Real delta, DamageInfo *damageInfo);	// +0x80
 	virtual void i33(); virtual void i34(); virtual void i35();
 	virtual void rvaSlot36();				// +0x90
@@ -726,6 +733,10 @@ public:
 	virtual void setDamageState(BodyDamageType newState);
 	virtual void onVeterancyLevelChanged(VeterancyLevel oldLevel, VeterancyLevel newLevel);
 	virtual void internalChangeHealth(Real delta, DamageInfo *damageInfo);
+	virtual ArmorSetFlags rva004BF8F5();
+	virtual ObjectID rva004BF897();
+	virtual Bool getBackCrushed() const;
+	virtual BfmeBodyDataPair8 rva004BDC56();
 	virtual void setArmorSetFlag(ArmorSetType ast);
 	virtual void clearArmorSetFlag(ArmorSetType ast);
 
@@ -1505,6 +1516,16 @@ void ActiveBody::rva004BFCD4(Real amount, DamageInfo *damageInfo)
 		rva004BFB1C(amount, (const Coord3D *)&pos);
 	}
 }
+
+// Native ctor4BF6A1 establishes secondary-this=complete-this+10.
+// These four leaves also have independent WB vtable witnesses. Names of
+// the armor-value copy, consuming attacker read and data-pair copy remain
+// unknown; their address names preserve that uncertainty. EA ZH supplies
+// getBackCrushed's semantic lead, confirmed by established full-objectC5.
+ArmorSetFlags ActiveBody::rva004BF8F5() { return m_curArmorSetFlags; }
+ObjectID ActiveBody::rva004BF897() { if (m_lastDamageCleared) return INVALID_ID; m_lastDamageCleared=true; return m_lastDamageInfo.in.m_sourceID; }
+Bool ActiveBody::getBackCrushed() const { return m_backCrushed; }
+BfmeBodyDataPair8 ActiveBody::rva004BDC56() { return getActiveBodyModuleData()->m_pair40; }
 
 // EA Zero Hour ActiveBody.h supplies the set/clear semantics. Retail BFME2
 // ctor4BF6A1 installs secondary tableC5B5B0 at complete-this+10; slots12/13
