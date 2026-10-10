@@ -98,9 +98,16 @@ Rva00074626::~Rva00074626()
 class FileFactoryClass
 {
 public:
+	FileFactoryClass();
 	FileFactoryClass(EmitVtableTag *);
 	virtual ~FileFactoryClass() {}
 };
+
+// ??0FileFactoryClass@@QAE@XZ @0x0007838A 9B: the default constructor, storing the
+// class's own vtable and returning this.
+FileFactoryClass::FileFactoryClass()
+{
+}
 
 // ?<FileFactoryClass::FileFactoryClass> absent-from-retail
 FileFactoryClass::FileFactoryClass(EmitVtableTag *)
@@ -122,9 +129,16 @@ Rva0007DFF2::Rva0007DFF2(EmitVtableTag *)
 class Rva000906DE
 {
 public:
+	Rva000906DE();
 	Rva000906DE(EmitVtableTag *);
 	virtual ~Rva000906DE();
 };
+
+// ??0Rva000906DE@@QAE@XZ @0x00090778 9B: the default constructor, storing the
+// class's own vtable and returning this.
+Rva000906DE::Rva000906DE()
+{
+}
 
 // ?<Rva000906DE::Rva000906DE> absent-from-retail
 Rva000906DE::Rva000906DE(EmitVtableTag *)
@@ -140,9 +154,16 @@ Rva000906DE::~Rva000906DE()
 class Rva000A8E9C
 {
 public:
+	Rva000A8E9C();
 	Rva000A8E9C(EmitVtableTag *);
 	virtual ~Rva000A8E9C();
 };
+
+// ??0Rva000A8E9C@@QAE@XZ @0x000A9567 9B: the default constructor, storing the
+// class's own vtable and returning this.
+Rva000A8E9C::Rva000A8E9C()
+{
+}
 
 // ?<Rva000A8E9C::Rva000A8E9C> absent-from-retail
 Rva000A8E9C::Rva000A8E9C(EmitVtableTag *)
@@ -158,9 +179,16 @@ Rva000A8E9C::~Rva000A8E9C()
 class Rva000A8EF6
 {
 public:
+	Rva000A8EF6();
 	Rva000A8EF6(EmitVtableTag *);
 	virtual ~Rva000A8EF6();
 };
+
+// ??0Rva000A8EF6@@QAE@XZ @0x000A8EE6 9B: the default constructor, storing the
+// class's own vtable and returning this.
+Rva000A8EF6::Rva000A8EF6()
+{
+}
 
 // ?<Rva000A8EF6::Rva000A8EF6> absent-from-retail
 Rva000A8EF6::Rva000A8EF6(EmitVtableTag *)
@@ -312,9 +340,16 @@ Rva00285635::Rva00285635(EmitVtableTag *)
 class Rva002BED74
 {
 public:
+	Rva002BED74();
 	Rva002BED74(EmitVtableTag *);
 	virtual ~Rva002BED74();
 };
+
+// ??0Rva002BED74@@QAE@XZ @0x002BEDB5 9B: the default constructor, storing the
+// class's own vtable and returning this.
+Rva002BED74::Rva002BED74()
+{
+}
 
 // ?<Rva002BED74::Rva002BED74> absent-from-retail
 Rva002BED74::Rva002BED74(EmitVtableTag *)
@@ -403,9 +438,16 @@ Rva0037F57E::~Rva0037F57E()
 class Rva00381D78
 {
 public:
+	Rva00381D78();
 	Rva00381D78(EmitVtableTag *);
 	virtual ~Rva00381D78();
 };
+
+// ??0Rva00381D78@@QAE@XZ @0x00381D95 9B: the default constructor, storing the
+// class's own vtable and returning this.
+Rva00381D78::Rva00381D78()
+{
+}
 
 // ?<Rva00381D78::Rva00381D78> absent-from-retail
 Rva00381D78::Rva00381D78(EmitVtableTag *)
