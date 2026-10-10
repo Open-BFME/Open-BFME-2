@@ -42,3 +42,7 @@ struct Rva005FD956 {
 };
 void Rva005FD956::rva005FDA0D(int index,const UnicodeString& text)
 {m_p4->SetRegionName(index,text);}
+
+// WB1641DF0 and native FDA15..FDA1D: full8B child-pointer forwarding.
+void Rva005FD956::rva005FDA15(int index,const UnicodeString& text)
+{m_p4->SetArmyName(index,text);}
