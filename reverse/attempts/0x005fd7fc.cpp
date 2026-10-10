@@ -1,4 +1,6 @@
 // ?OnPanelLoaded@Impl@ArmyUnitSwapperMovieClip@StrategicHUD@@QAEXHPBD@Z
+// partial score=0.98 date=2026-10-10
+// ?OnPanelLoaded@Impl@ArmyUnitSwapperMovieClip@StrategicHUD@@QAEXHPBD@Z
 // partial score=0.98 date=2026-10-08
 // cl: /O1 /G7 /arch:SSE /GX /MD /DNDEBUG /Ireference/shims/bfme2_ascii /D_STLP_USE_STATIC_LIB /D_CRTIMP=
 #include "ascii_string.h"
@@ -19,8 +21,7 @@ Rva005F4AD7 Rva005F4AED::rva005F4AED(int level,const AsciiString &leaf) {
  const Rva005F4AD7 panel=createPanel(level,leaf);
  return panel;
 }
-const char *__cdecl Rva00412845AfterLevel(const char *);
-int __cdecl Rva004128BBGetLevel(const char *);
+namespace AptUtils { const char* SkipLevelN(const char*); int LevelIndexFromTarget(const char*); }
 struct Rva002BED91 { Rva005F4AED *m_ptr; Rva005F4AED *operator->() const { return m_ptr; } void clear(); };
 namespace StrategicHUD {
 class ArmyUnitSwapperMovieClip {
@@ -38,8 +39,8 @@ void ArmyUnitSwapperMovieClip::Impl::OnPanelLoaded(int slotIndex,const char *pat
  Slot &slot=slots[slotIndex];
  if(slot.factory.m_ptr && !slot.panel.m_ptr) {
   {
-   AsciiString leaf(Rva00412845AfterLevel(path));
-   slot.panel=slot.factory->rva005F4AED(Rva004128BBGetLevel(path),leaf);
+   AsciiString leaf(AptUtils::SkipLevelN(path));
+   slot.panel=slot.factory->rva005F4AED(AptUtils::LevelIndexFromTarget(path),leaf);
   }
   slot.factory.clear();
  }
