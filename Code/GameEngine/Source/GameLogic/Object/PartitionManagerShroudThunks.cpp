@@ -64,6 +64,13 @@ public:
 };
 
 class CDEProvider;
+class Object;
+class Rva000421C8;
+class Rva00628040Impl
+{
+public:
+ Object *rva00628040(const Coord3D *, float, int, int, Rva000421C8 *);
+};
 
 class ShroudManagerImpl
 {
@@ -90,7 +97,7 @@ public:
 	void rva00625310(int value);
 	void rva00625320(void *ptr);
 	void rva00625330(void *ptr);
-	void rva00625340(int a, int b, int c);
+	Object *rva00625340(const Coord3D *pos, float radius, int distType);
 	// Retail 0x007397A0 forwards to ShroudManagerImpl::setEnabled_Rva0073B460
 	// (single-byte enabled flag at +0x68). Identity unproven, honest address name.
 	void rva007397A0(bool value);
@@ -147,9 +154,13 @@ void PartitionManager::rva00625330(void *ptr)
 	((Gen009F5040 *)m_shroudManager)->bfmeDropYQ((BfmeThingYQ *)ptr);
 }
 
-void PartitionManager::rva00625340(int a, int b, int c)
+// Native BuildAssistant callers392ECB/393433 pass position, radius and mode
+// and consume Object* EAX. The owned four-argument getClosestObject wrapper
+// independently establishes the typed five-word628040 implementation contract.
+// Its already-admitted typed provider is reused; no new pin or ABI adapter.
+Object *PartitionManager::rva00625340(const Coord3D *pos, float radius, int distType)
 {
-	((BfmeP1050 *)m_shroudManager)->bfmeFwd1050(a, b, 0, c, 0);
+ return reinterpret_cast<Rva00628040Impl *>(m_shroudManager)->rva00628040(pos,radius,0,distType,0);
 }
 
 // ?rva007397A0@PartitionManager@@QAEX_N@Z
