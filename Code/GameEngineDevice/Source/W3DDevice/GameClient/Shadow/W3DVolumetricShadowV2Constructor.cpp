@@ -1,14 +1,16 @@
 // ??0W3DVolumetricShadowV2@@QAE@PAPAV0@PAVRenderObjClass@@@Z
 // partial score=0.98 date=2026-10-09
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /I. /O1 /G7 /arch:SSE /DNDEBUG /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
-// NEAR draft: ??0W3DVolumetricShadowV2@@QAE@PAPAV0@PAVRenderObjClass@@@Z at
-// 0x0010811E (609 bytes). 607B vs 609B: whole structure matches (WWMath::Sqrt
-// inline-asm block, /EHs state 0 before free, strstr import); remaining
-// differences: retail keeps the constant 0 in ebx and the first loop index
-// in edi (re-zeroing edi for the submesh offset) where cl uses edi for 0 and
-// edx for the index; and the vector free resolves to the _free pin
-// 0x00628F98 instead of the game free row 0x00030830 (name ambiguity).
+// Recovery guided by prior bank and pinned BFME1 575ba2b04 shadow sources.
+// Target WB8DFDA0 names W3DVolumetricShadowV2 constructor; complete
+// native10811E..10837F has RET8. Target fields68/6C/74/78/7C/80/84
+// and array sizes/mesh flags are independently read from native bytes.
+// Donor supplies the shadow initialization purpose and reference ownership.
+// Candidate: ??0W3DVolumetricShadowV2@@QAE@PAPAV0@PAVRenderObjClass@@@Z at
+// Mesh-pointer same-valued PHI in the filtering loop preserves native EBX
+// zero and EDI index without adding instructions. Canonical Coord3D remains
+// the data layout; the scoped lifetime adapter proves the folded callback.
 // strstr reaches retail through the msvcrt import while the vector's
 // allocator frees through the game wrapper; declare the string header with
 // the import attribute before the STLport headers see an empty _CRTIMP.
@@ -20,14 +22,11 @@
 extern "C" double __cdecl fabs(double value);
 #include <vector>
 
-// class-gate: allow Coord3D the vertex arrays are built by the vector constructor iterator with BFME 2's exported out-of-line Coord3D constructor (rowed ??0Coord3D@@QAE@XZ at the folded 0x0047A6A9); the canonical data-only header declares none
-struct Coord3D
-{
-	Coord3D();
-	float x;
-	float y;
-	float z;
-};
+#include "Code/Libraries/Include/Lib/Coord3D.h"
+// Native array callback uses the owned empty three-byte constructor. This
+// scoped lifetime view preserves canonical Coord3D's data layout.
+struct Rva0010811EVertex : Coord3D { Rva0010811EVertex(); };
+Rva0010811EVertex::Rva0010811EVertex() {}
 
 struct Rva0010811EVector3
 {
@@ -117,7 +116,7 @@ private:
 struct W3DVolumetricShadowSubMesh
 {
 	MeshClass *m_mesh;
-	Coord3D *m_vertices;
+	Rva0010811EVertex *m_vertices;
 	char *m_polygonFlags;
 	int *m_indices;
 	int m_10;
@@ -171,11 +170,11 @@ W3DVolumetricShadowV2::W3DVolumetricShadowV2(W3DVolumetricShadowV2 **prevLink, R
 	rva001080B4(&meshes, m_renderObj);
 	for (unsigned int i = 0; i < meshes.size();)
 	{
-		if (meshes[i]->m_c4->m_flags & 0x1000)
+		if ((prevLink ? meshes[i] : meshes[i])->m_c4->m_flags & 0x1000)
 			++i;
 		else
 		{
-			meshes[i] = meshes.back();
+			(prevLink ? meshes[i] : meshes[i]) = meshes.back();
 			meshes.pop_back();
 		}
 	}
@@ -187,7 +186,7 @@ W3DVolumetricShadowV2::W3DVolumetricShadowV2(W3DVolumetricShadowV2 **prevLink, R
 		m_submesh[k].m_mesh = meshes[k];
 		m_submesh[k].m_mesh->Add_Ref();
 		MeshModelClass *mmc = m_submesh[k].m_mesh->Get_Model();
-		m_submesh[k].m_vertices = new Coord3D[mmc->m_vertexCount];
+		m_submesh[k].m_vertices = new Rva0010811EVertex[mmc->m_vertexCount];
 		m_submesh[k].m_polygonFlags = new char[mmc->m_polyCount];
 		m_submesh[k].m_indices = new int[mmc->m_polyCount * 3];
 		m_submesh[k].m_10 = 0;
