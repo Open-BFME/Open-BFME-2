@@ -1,4 +1,6 @@
 // ?rva00466D50@Rva00466D50@@QAE_NI@Z
+// partial score=0.9604734945959856 date=2026-10-10
+// ?rva00466D50@Rva00466D50@@QAE_NI@Z
 // partial score=0.93 date=2026-09-28
 // ?rva00466D50@Rva00466D50@@QAE_NI@Z
 // partial score=0.93 date=2026-09-28
@@ -92,13 +94,4 @@ private:
 	Inner00466D50 m_20;
 };
 // ?rva00466D50@Rva00466D50@@QAE_NI@Z present-unmatched
-bool Rva00466D50::rva00466D50(unsigned int arg)
-{
-	if (arg == 0)
-		return false;
-	unsigned int b;
-	unsigned int t = m_20.v69(0) + arg;
-	b = m_20.v51();
-	unsigned int c = m_20.v28();
-	return c >= t + b;
-}
+bool Rva00466D50::rva00466D50(unsigned int arg){if(arg==0)return false;unsigned int t=m_20.v69(0);unsigned int b=m_20.v51();unsigned int *pt=&t;*pt+=arg;b+=*pt;unsigned int c=m_20.v28();return c>=b;}
