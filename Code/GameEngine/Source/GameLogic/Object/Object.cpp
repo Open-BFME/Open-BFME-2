@@ -40,7 +40,9 @@ class ThingTemplate
 public:
 	unsigned char m_pad[0x64];
 	const char *m_nameData64;
-	unsigned char m_pad68[0x548 - 0x68];
+	unsigned char m_pad68[0x108 - 0x68];
+	unsigned char m_kindOf108[28];
+	unsigned char m_pad124[0x548 - 0x124];
 	const char *getNameText() const { return m_nameData64 ? m_nameData64 + 8 : ""; }
 	int m_val548;
 	unsigned char m_pad54C[0x5D8 - 0x54C];
@@ -284,6 +286,7 @@ class Weapon
 {
 public:
  WeaponStatus computeStatus(bool *out) const;
+ float getAttackRange(const Object *source) const;
  void cacheStatus(WeaponStatus status) const;
  char m_pad00[4];
  const Rva00296749WeaponTemplate *m_template04;
@@ -380,6 +383,67 @@ public:
 };
 extern BuildAssistant *TheBuildAssistant;
 
+class Rva002C9400ByteField { public: unsigned char get() const; };
+class AdjustVictimSelector;
+
+class AdjustVictimProvider
+{
+public:
+	virtual void slot00(); virtual void slot01(); virtual void slot02(); virtual void slot03();
+	virtual void slot04(); virtual void slot05(); virtual void slot06(); virtual void slot07();
+	virtual void slot08(); virtual void slot09(); virtual void slot10(); virtual void slot11();
+	virtual void slot12(); virtual void slot13(); virtual void slot14(); virtual void slot15();
+	virtual void slot16(); virtual void slot17(); virtual void slot18(); virtual void slot19();
+	virtual void slot20(); virtual void slot21(); virtual void slot22(); virtual void slot23();
+	virtual void slot24(); virtual void slot25(); virtual void slot26(); virtual void slot27();
+	virtual void slot28(); virtual void slot29(); virtual void slot30();
+	virtual AdjustVictimSelector *getSelector() = 0;
+};
+
+static __forceinline AdjustVictimSelector *__fastcall getAdjustVictimSelector(
+	AdjustVictimProvider *provider)
+{
+	return provider->getSelector();
+}
+
+template <int N>
+class AdjustVictimSelectorSlots : public AdjustVictimSelectorSlots<N - 1>
+{
+public:
+	virtual void gap(char (*)[N]) = 0;
+};
+
+template <>
+class AdjustVictimSelectorSlots<0>
+{
+};
+
+class AdjustVictimSelectorPrefix : public AdjustVictimSelectorSlots<18>
+{
+public:
+	virtual Object *select(int reserved, const Coord3D *position, float range,
+		Object *source, int index) = 0;
+};
+
+template <int N, class Base>
+class AdjustVictimSelectorTail : public AdjustVictimSelectorTail<N - 1, Base>
+{
+public:
+	virtual void gap(char (*)[N]) = 0;
+};
+
+template <class Base>
+class AdjustVictimSelectorTail<0, Base> : public Base
+{
+};
+
+class AdjustVictimSelector : public AdjustVictimSelectorTail<95, AdjustVictimSelectorPrefix>
+{
+public:
+	virtual unsigned int getCount(int reserved) = 0;
+};
+
+
 class Object
 {
 public:
@@ -399,6 +463,7 @@ public:
 	void doSpecialPowerAtLocation(const SpecialPowerTemplate *, const Coord3D *, unsigned int, bool);
 	void rva00297149(const CommandButton *, const Coord3D *, int, int);
 	void doCommandButton(const CommandButton *commandButton, int cmdSource, bool flags);
+	Object *adjustVictim(Object *source, bool useWeaponRange, int index);
 	void rva0028DF48(const SpecialPowerTemplate *power, unsigned int options, bool fromScript);
 	const Weapon *getCurrentWeapon(WeaponSlotType *slot) const;
 	void releaseWeaponLock(WeaponLockType lock);
@@ -450,9 +515,13 @@ private:
 	BitFlags<11> m_disabled1C8;		// +0x1C8
 	unsigned char m_pad1CC[0x240 - 0x1CC];
 	FiringTracker *m_firingTracker240;
-	unsigned char m_pad244[0x258 - 0x244];
+	unsigned char m_pad244[0x250 - 0x244];
+	AdjustVictimProvider *m_provider250;
+	unsigned char m_pad254[0x258 - 0x254];
 	Rva00297149AI *m_commandAI258;
-	unsigned char m_pad25C[0x350 - 0x25C];
+	unsigned char m_pad25C[0x274 - 0x25C];
+	Object *m_containedBy274;
+	unsigned char m_pad278[0x350 - 0x278];
 	int m_350;
 	unsigned char m_pad354[0x370 - 0x354];
 	unsigned int m_weaponSetFlags370[4];
@@ -1127,4 +1196,52 @@ void Object::rva00297149(const CommandButton *button, const Coord3D *position, i
    ai->m_commands20.aiAttackPosition(position, 1, (CommandSourceType)source);
   break;
  }
+}
+
+// Native28CCB9..28CDB6 RET12; WB-adjustVictim identifies the parent walk
+// and selectors. Target274 parent and provider250 differ from WB27C/258.
+// The selector helper call PHI preserves native receiver and result roles.
+Object *Object::adjustVictim(Object *source, bool useWeaponRange, int index)
+{
+	Object *target = this;
+	if (source == 0)
+		return 0;
+
+	Object * volatile *parent = &target->m_containedBy274;
+	while (*parent != 0)
+	{
+		if ((*parent)->rva0028C197() == 0)
+			break;
+		target = *parent;
+		parent = &target->m_containedBy274;
+	}
+
+	AdjustVictimProvider *provider = target->m_provider250;
+	if (provider != 0)
+	{
+		AdjustVictimSelector *selector = (this?getAdjustVictimSelector(provider):getAdjustVictimSelector(provider));
+		if (selector != 0)
+		{
+			float range = 0.0f;
+			if (!useWeaponRange)
+				range = 99999.0f;
+			else if ((source->m_template004->m_kindOf108[13] & 0x20) == 0)
+			{
+				const Weapon *weapon = source->getCurrentWeapon(0);
+				if (weapon != 0 && reinterpret_cast<const Rva002C9400ByteField *>(weapon->m_template04)->get() == 0)
+					range = weapon->getAttackRange(source);
+			}
+
+			Object *victim = 0;
+			if (selector->getCount(0) > 0)
+			{
+				victim = selector->select(0, &source->m_pos38, range, source, index);
+				if (victim == 0)
+					victim = selector->select(0, 0, 0.0f, 0, index);
+			}
+			return victim;
+		}
+	}
+
+	return this;
 }
