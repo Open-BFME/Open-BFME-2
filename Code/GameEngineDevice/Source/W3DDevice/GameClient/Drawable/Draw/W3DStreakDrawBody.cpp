@@ -90,6 +90,8 @@ class W3DStreakDraw
 {
 public:
 	void rva000D0091();
+	void rva000D0459(void *a, void *b, void *c);
+	void rva000D0461(void *a);
 
 private:
 	void *m_vtable;
@@ -175,4 +177,19 @@ void W3DStreakDraw::rva000D0091()
 		((Rva00167EF8 *)m_streak)->rva00167EF8((Rva00167EF8Rec &)point);
 		((Rva00167F15FloatField *)m_streak)->set(pointWidth);
 	}
+}
+
+// ?rva000D0459@W3DStreakDraw@@QAEXPAX00@Z @0x000D0459 8B and
+// ?rva000D0461@W3DStreakDraw@@QAEXPAX@Z @0x000D0461 8B, right after the
+// class's scalar deleting destructor: slots 38 (three stack arguments) and 11
+// (one) of the W3DStreakDraw vtable. Both ignore their arguments and rebuild
+// the streak through the body above. Address-named; argument types unknown.
+void W3DStreakDraw::rva000D0459(void *, void *, void *)
+{
+	rva000D0091();
+}
+
+void W3DStreakDraw::rva000D0461(void *)
+{
+	rva000D0091();
 }
