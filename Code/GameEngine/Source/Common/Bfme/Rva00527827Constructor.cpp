@@ -122,7 +122,7 @@ class Rva00527827 : public Rva00527827Base
 public:
 	Rva00527827(int arg, const AsciiString &name);
 	void rva00527827(int a, const float *b, int c, int d);
-	AsciiString rva00527B03();
+	__declspec(noinline) AsciiString rva00527B03();
 private:
 	int m_04;
 	AsciiString m_name; // +0x08
@@ -144,4 +144,28 @@ Rva00527827::Rva00527827(int arg, const AsciiString &name)
 	AsciiString movie = rva00527B03();
 	TheAptPlayer->AddCustomRender(movie + "_Content",
 		AptRef<AptCustomRender>(MakeDelegate(this, &Rva00527827::rva00527827)));
+}
+
+// Native 00527B03..00527B81 is a complete 126-byte hidden-result method.
+// WB13D08B0 corroborates _level%d and the separator/name aggregate.
+// The concat provider's const-char* declaration is used only as its owned
+// pointer ABI carrier: retail receives the address of this eight-byte view.
+// The original source aggregate and class names remain unestablished.
+struct Rva00527B03Arguments {
+    char separator;
+    const AsciiString *name;
+    Rva00527B03Arguments(const char &a,const AsciiString &b):separator(a),name(&b) {}
+};
+AsciiString &Rva0052798FAppend(AsciiString &,const char *);
+static __forceinline void Rva00527B03Append(AsciiString &text,Rva00527B03Arguments value)
+{
+    Rva0052798FAppend(text,reinterpret_cast<const char *>(&value));
+}
+// ?rva00527B03@Rva00527827@@QAE?AVAsciiString@@XZ
+AsciiString Rva00527827::rva00527B03()
+{
+    AsciiString text;
+    text.format("_level%d",m_04);
+    Rva00527B03Append(text,Rva00527B03Arguments('.',m_name));
+    return text;
 }
