@@ -77,7 +77,12 @@ struct DrawGroupInfo
 	Int m_fontSize;																			///< 0x04
 	Bool m_fontIsBold;																	///< 0x08
 };
-extern DrawGroupInfo *TheDrawGroupInfo;
+// VA 0x00E01CD8 (.data, zero-filled in retail): the rowed body loads this pointer
+// with mov eax,[0x00E01CD8] and reads m_fontName / m_fontSize / m_fontIsBold through
+// it. GameClient's init stores a freshly constructed DrawGroupInfo here at run time,
+// so the slot is defined here, in the unit that carries the class, as the zero retail
+// holds.
+DrawGroupInfo *TheDrawGroupInfo = 0;
 
 class GameTextInterface
 {
