@@ -33048,3 +33048,4 @@ _LoopFilter	0x001C1120	1583	landed	vp6-spec 001c1120: the two loop filters do no
 ?rva000BE245@Rva000C3886@@QAEXPAXMPAURva000C3886Obj@@0@Z	0x000BE245	1328	landed	add_match verified Code/GameEngine/Source/Common/rva000BE2450BE245.cpp 1328B; exact banked stash landed via add_match; honest address-derived identity
 ?rva003FE1DB@LivingWorldArmyIcon@@QAEXXZ	0x003FE1DB	52	landed	Coordinator verified explicit existing-row identity/source repair; zero new coverage; handoff=A-army-icon-owner-rehome-281-93a8a8c193
 ?continueMoving@LivingWorldArmyIcon@@QAEXPAVCoord2D@@@Z	0x003FE25D	229	landed	Coordinator verified explicit existing-row identity/source repair; zero new coverage; handoff=A-army-icon-owner-rehome-281-93a8a8c193
+??0Rva0053947D@@QAE@PAXPBVVector3@@@Z	0x00539411	108	landed	Coordinator verified explicit existing-row identity/source repair; zero new coverage; handoff=A-icon-base-class-repair-108-fbe1437085

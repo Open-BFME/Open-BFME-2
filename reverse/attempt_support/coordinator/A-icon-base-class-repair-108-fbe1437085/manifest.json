@@ -1,0 +1,28 @@
+{
+  "id": "A-icon-base-class-repair-108-fbe1437085",
+  "seat": "A",
+  "kind": "exact-existing-ledger-repair",
+  "base_commit": "fbe1437085b359ed046df49af016d736ef1aca24",
+  "paths": [
+    "Code/GameEngine/Source/GameClient/Rva002BFA12.cpp",
+    "Code/GameEngine/Source/Common/Rva0053947DDtor.cpp"
+  ],
+  "recoveries": [
+    {
+      "name": "??0Rva0053947D@@QAE@PAXPBVVector3@@@Z",
+      "rva": "0x00539411",
+      "size": 108,
+      "source": "Code/GameEngine/Source/Common/Rva0053947DDtor.cpp",
+      "notes": "Existing108B base constructor reconciled to its actual87B destructor and C69228 vtable owner; native2C base; Vector3 pointer/copy ABI; no literal vtable or new coverage",
+      "replace_rva": "0x00539411",
+      "new_retail_bytes": 0
+    }
+  ],
+  "proof_command": "py -3 tools/build.py Code/GameEngine/Source/GameClient/Rva002BFA12.cpp Code/GameEngine/Source/Common/Rva0053947DDtor.cpp",
+  "proof_log": "scoped-proof.log",
+  "claim_owner": "codex-549c-root",
+  "dependencies": [],
+  "new_retail_bytes": 0,
+  "ledger_delta": "ledger_delta.patch",
+  "integration_note": "Rehome and rename already matched108B constructor to the existing87B destructor/vtable owner. Five scoped rows remain exact. Code identity exposes PRE-EXISTING three-variant shared-member destructor debt: no new byte/relocation variant, but this is not a claim of link completion. Coordinator must review this caveat. Empty rows.csv is intentional; no new byte credit, pins, baselines, gate changes, or worker commit/push."
+}
