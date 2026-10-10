@@ -5,7 +5,19 @@
 class Rva00222A8BTarget;
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
-extern const char *g_00C68508[];
+// Retail's spell-book button-state table at VA 0x00C68508 (RVA 0x868508): six
+// Apt button-state suffixes, in retail's index order, that SetButtonState passes to
+// the Apt command invoker. Each suffix string is its own .rdata object at retail
+// (VA 0x00C031B8 "_unused", 0x00BE5874 "_disabled", 0x00C684FC "_cantAfford",
+// 0x00C684F4 "_static", 0x00C684E8 "_notReady", 0x00C031D8 "_up"), so the
+// pointer array can hand the linker real targets instead of anonymous literals.
+extern const char BfmeSpellButtonStateUnused[]="_unused";
+extern const char BfmeSpellButtonStateDisabled[]="_disabled";
+extern const char BfmeSpellButtonStateCantAfford[]="_cantAfford";
+extern const char BfmeSpellButtonStateStatic[]="_static";
+extern const char BfmeSpellButtonStateNotReady[]="_notReady";
+extern const char BfmeSpellButtonStateUp[]="_up";
+const char *g_00C68508[]={BfmeSpellButtonStateUnused,BfmeSpellButtonStateDisabled,BfmeSpellButtonStateCantAfford,BfmeSpellButtonStateStatic,BfmeSpellButtonStateNotReady,BfmeSpellButtonStateUp};
 int __cdecl Rva005252CDInvoke(Rva00222A8BTarget *,void *,const char *,const char *,const int &,const char *const &);
 namespace AptUtils { AsciiString DotPath2SlashPath(const char *); }
 class AptCommandTarget {};
