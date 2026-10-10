@@ -86,3 +86,23 @@ struct StatRecord {char prefix[0x54];AsciiString label;};
 int GadgetListBoxGetTopVisibleEntry(GameWindow *);
 void GadgetListBoxSetTopVisibleEntry(GameWindow *,int);
 void GadgetListBoxJustifyEntry(GameWindow *,int,int,int);
+void AptCreateAHero::Manager::rva005B5F2E() {
+ if(otherWindow) {
+  int oldTop=GadgetListBoxGetTopVisibleEntry(otherWindow);
+  GadgetListBoxReset(otherWindow);
+  CreateAHeroData *hero=reinterpret_cast<CreateAHeroData *>((char *)screen+0x27c);
+  for(unsigned i=0;i<(unsigned)reinterpret_cast<Rva00406E53 *>(hero)->rva00406E53();++i) {
+   int key=reinterpret_cast<Rva00406E65 *>(hero)->rva00406E65(i);
+   StatRecord *record=reinterpret_cast<StatRecord *>(reinterpret_cast<Rva0040BAD0 *>(g_00E02F74)->rva0040AAF8(key));
+   if(record) {
+    unsigned count=hero->rva00408109(reinterpret_cast<const NameKeyType *>(record));
+    UnicodeString text;
+    text.format(L"%d",count);
+    int row=GadgetListBoxAddEntryText(otherWindow,TheGameText->fetchLabel(record->label),-1,-1,0,true);
+    GadgetListBoxAddEntryText(otherWindow,text,-1,row,1,true);
+    GadgetListBoxJustifyEntry(otherWindow,row,1,2);
+   }
+  }
+  GadgetListBoxSetTopVisibleEntry(otherWindow,oldTop);
+ }
+}
