@@ -83,13 +83,13 @@ class ThingTemplate : public ThingTemplateHead, public ThingTemplateName
 
 class MapObject;
 
-class MapObjectListHolder
+class BfmeMapObjectListHolder
 {
 public:
 	MapObject *m_head;
 };
 
-extern MapObjectListHolder *BfmeTheMapObjectListHolder;	// retail [0x00E00940]
+extern BfmeMapObjectListHolder *BfmeTheMapObjectListHolder;	// retail [0x00E00940]
 
 class MapObject
 {

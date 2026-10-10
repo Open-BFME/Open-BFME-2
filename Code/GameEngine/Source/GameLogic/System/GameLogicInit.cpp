@@ -1508,13 +1508,17 @@ private:
 	Dict m_properties;
 };
 
-class MapObjectListHolder
+class BfmeMapObjectListHolder
 {
 public:
-	MapObject *m_first;
+	MapObject *m_head;
 };
 
-extern MapObjectListHolder *BfmeTheMapObjectListHolder;
+// The map-object list head all readers share (other TUs spell the class
+// BfmeMapObjectListHolder with m_head at the same +0x00); defined once here,
+// retail zeros at VA 0x00E00940.
+extern BfmeMapObjectListHolder *BfmeTheMapObjectListHolder;
+BfmeMapObjectListHolder *BfmeTheMapObjectListHolder = 0;
 
 // newObjects third argument: a 16-byte bit mask, zeroed when constructed.
 struct CreateMask
@@ -1635,7 +1639,7 @@ void GameLogic::rva00246422(bool dontCreate)
 {
 	_STL::vector<Rva0024622FEntry> created;
 	if (dontCreate) {
-		for (MapObject *pMapObj = BfmeTheMapObjectListHolder->m_first; pMapObj; pMapObj = pMapObj->getNext()) {
+		for (MapObject *pMapObj = BfmeTheMapObjectListHolder->m_head; pMapObj; pMapObj = pMapObj->getNext()) {
 			Rva0134FAA0->slot28();
 			bfmeReleaseQueuedDeviceInterfaces();
 			const ThingTemplate *tt = pMapObj->getThingTemplate();
