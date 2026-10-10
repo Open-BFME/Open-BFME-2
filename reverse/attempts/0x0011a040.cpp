@@ -1,4 +1,6 @@
 // ?Render@Render2DClass@@QAEXXZ
+// partial score=0.8173302107728337 date=2026-10-10
+// ?Render@Render2DClass@@QAEXXZ
 // partial score=0.700700116 date=2026-10-09
 // cl: /O2 /arch:SSE -DBFME_WWSTRING_NATIVE_CSTR_ASSIGN -Ireference/shims/wwstring_teardown/bfme -G7 -Ireference/shims/bfmerendobj -DNDEBUG -MD -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDownload -Ireference/open-bfme-1/game/Libraries/Source/Compression -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug -Ireference/shims/sweep -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDownload -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug -Ireference/open-bfme-1/game/Libraries/Source/Compression -Ireference/shims/sweep
 /* Copyright 2025 Electronic Arts Inc.
@@ -916,11 +918,13 @@ public:
 	static WW3DFormat	getBackBufferFormat( void );
 	static bool Reset_Device(bool reload_assets=true);
 	static const DX8Caps*	Get_Current_Caps() { WWASSERT(CurrentCaps); return CurrentCaps; }
+protected:
 	static bool Registry_Save_Render_Device( const char * sub_key );
 	static bool Registry_Load_Render_Device( const char * sub_key, bool resize_window );
 	static const char* Get_DX8_Render_State_Name(D3DRENDERSTATETYPE state);
 	static const char* Get_DX8_Texture_Stage_State_Name(D3DTEXTURESTAGESTATETYPE state);
 	static unsigned Get_DX8_Render_State(D3DRENDERSTATETYPE state) { return RenderStates[state]; }
+public:
 	static void Get_DX8_Texture_Stage_State_Value_Name(StringClass& name, D3DTEXTURESTAGESTATETYPE state, unsigned value);
 	static void Get_DX8_Render_State_Value_Name(StringClass& name, D3DRENDERSTATETYPE state, unsigned value);
 	static const char* Get_DX8_Texture_Address_Name(unsigned value);
@@ -961,6 +965,7 @@ protected:
 	static bool Set_Device_Resolution(int width=-1,int height=-1,int bits=-1,int windowed=-1, bool resize_window=false);
 	static void Get_Device_Resolution(int & set_w,int & set_h,int & set_bits,bool & set_windowed);
 	static void Get_Render_Target_Resolution(int & set_w,int & set_h,int & set_bits,bool & set_windowed);
+public:
 	static int	Get_Device_Resolution_Width(void) { return ResolutionWidth; }
 	static int	Get_Device_Resolution_Height(void) { return ResolutionHeight; }
 	static bool Registry_Save_Render_Device( const char *sub_key, int device, int width, int height, int depth, bool windowed, int texture_depth);
@@ -1660,19 +1665,19 @@ private:
 void Render2DClass::Render()
 {
  if(!Vertices.Count) return;
- Matrix4x4 view,proj;
+ Matrix4x4 proj,view;
  DX8Wrapper::Get_Transform(D3DTS_VIEW,view);
  DX8Wrapper::Get_Transform(D3DTS_PROJECTION,proj);
  int width,height,bits; bool windowed;
  width=DX8Wrapper::Get_Device_Resolution_Width();
  height=DX8Wrapper::Get_Device_Resolution_Height();
- D3DVIEWPORT8 vp={0}; vp.Width=width;vp.Height=height;vp.MaxZ=1;
+ D3DVIEWPORT8 vp; vp.X=0; vp.Y=0; vp.Width=width;vp.Height=height;vp.MinZ=0;vp.MaxZ=1;
  DX8Wrapper::Set_Viewport(&vp);
  VertexMaterialClass *vm=VertexMaterialClass::Get_Preset(VertexMaterialClass::PRELIT_DIFFUSE);
  DX8Wrapper::Set_Material(vm); REF_PTR_RELEASE(vm);
  DX8Wrapper::Set_World_Identity(); DX8Wrapper::Set_View_Identity();
- Matrix4x4 identity(true);
- DX8Wrapper::Set_Transform(D3DTS_PROJECTION,identity);
+ { Matrix4x4 identity(true);
+ DX8Wrapper::Set_Transform(D3DTS_PROJECTION,identity); }
  DynamicVBAccessClass vb(BUFFER_TYPE_DYNAMIC_DX8,5,Vertices.Count,0);
  DynamicIBAccessClass ib(BUFFER_TYPE_DYNAMIC_DX8,Indices.Count);
  {
