@@ -50,3 +50,16 @@ AptValue *AptMouse::sMethod_addListener(AptValue *,int nParams)
  }
  return gpUndefinedValue;
 }
+AptValue *AptMouse::sMethod_removeListener(AptValue *,int nParams)
+{
+ if(nParams!=1)return AptBoolean::Create(false);
+ AptValue *value=reinterpret_cast<AptValue *>(g_aptDateInterpreter.stack.At(0));
+ if(reinterpret_cast<Rva006DBB60ShrNAndField *>(value)->get()) {
+  AptValueSet<AptValue *> *set=&g_bfmeAptPtrAtE176D0->listenerSet;
+  if(set->has(value)) {
+   reinterpret_cast<Rva006E0DE0 *>(set)->rva006E0DE0(value);
+   return AptBoolean::Create(true);
+  }
+ }
+ return AptBoolean::Create(false);
+}
