@@ -1,0 +1,68 @@
+{
+  "id": "D-resource-bar-2d5188-2d2d63-20261010T003117-callback",
+  "seat": "D",
+  "base_commit": "84b6732eddafed358981ac50eb1b3834d5dec782",
+  "paths": [
+    "Code/GameEngine/Source/GameClient/GUI/Palantir/PalantirResourceBar.cpp"
+  ],
+  "recoveries": [
+    {
+      "name": "?rva002D2D63@Rva002D5188ResourceBar@@QAEXABVCoord2D@@0PAX1@Z",
+      "rva": "0x002D2D63",
+      "size": 79,
+      "source": "Code/GameEngine/Source/GameClient/GUI/Palantir/PalantirResourceBar.cpp",
+      "notes": "Witnessed complete79B2D2D63..2D2DB2 with RET16 preceding next body; absent from Ghidra inventory. Constructor binds this receiver and target under RenderFactionIcon; WB F409A0 independently corroborates image1C and position/size references. Last2 arguments unused and opaque. Draw through existing W3DDisplay4D6B3 with complete float sums color-1 mode2 and named TheDisplay. Original class/method spelling unresolved; all79B exact.",
+      "replace_rva": ""
+    }
+  ],
+  "proof_command": [
+    [
+      "C:\\Users\\franz\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+      "tools/explain_mismatch.py",
+      "??0Rva002D5188ResourceBar@@QAE@XZ",
+      "--rva",
+      "0x002D5188",
+      "--size",
+      "427",
+      "--source",
+      "Code/GameEngine/Source/GameClient/GUI/Palantir/PalantirResourceBar.cpp"
+    ],
+    [
+      "C:\\Users\\franz\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+      "tools/explain_mismatch.py",
+      "?rva002D2D63@Rva002D5188ResourceBar@@QAEXABVCoord2D@@0PAX1@Z",
+      "--rva",
+      "0x002D2D63",
+      "--size",
+      "79",
+      "--source",
+      "Code/GameEngine/Source/GameClient/GUI/Palantir/PalantirResourceBar.cpp"
+    ],
+    [
+      "C:\\Users\\franz\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+      "-c",
+      "import sys;from pathlib import Path;sys.path.insert(0,\"tools\");import build,eh_verify;src='Code/GameEngine/Source/GameClient/GUI/Palantir/PalantirResourceBar.cpp';o=eh_verify.Obj(build.obj_path(Path(src).resolve()));v=eh_verify.verify_row(eh_verify.Image(),o,\"??0Rva002D5188ResourceBar@@QAE@XZ\",0x2d5188);print(\"Constructor EH:\",v);assert v==(\"EXACT\",\"\")"
+    ],
+    [
+      "C:\\Users\\franz\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+      "tools/place_bodies.py",
+      "Code/GameEngine/Source/GameClient/GUI/Palantir/PalantirResourceBar.cpp"
+    ]
+  ],
+  "proof_log": "proof.log",
+  "claim_owner": "codex-01a12257-root",
+  "dependencies": [
+    "D-apt-image-by-name-2239fa-20261010T000410"
+  ],
+  "temporary_ledger": false,
+  "new_retail_bytes": 79,
+  "coordinator_parent": "D-resource-bar-2d5188-2d2d63-20261010T003117",
+  "parent_base_commit": "1933b2b583a21b55aff64cc87770fcce4ac98bde",
+  "parent_payload_hashes": {
+    "evidence.txt": "5e7e0dc301a5d3a25e1d9a5a1d61c9a5f116e8f5f0174e379e76a95bdce75974",
+    "manifest.json": "16f1ff55523eea581f37f912d66d2315546193f6a5ae55ca710962f58f026f08",
+    "proof.log": "0917998aee71b6a0a5db692ec5667e871aee834019e66e8fcd368b33508cb55d",
+    "rows.csv": "a9cfccad9bb4e78c4389e3abfb40843ce20d833c51b9ff2d3e8ac6e8543bad8b",
+    "source.patch": "9ca05e3c3a1409f8383141d2295ea22e55275052c37e507dbd48f1a69d08c359"
+  }
+}
