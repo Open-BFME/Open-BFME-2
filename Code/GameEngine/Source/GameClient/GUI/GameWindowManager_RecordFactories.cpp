@@ -142,3 +142,16 @@ GameWindow *TabWindowManagerView::gogoGadgetStaticText(GadgetCreateView *view,
     }
     return window;
 }
+
+// Native2C19C9..2C19CE5B direct JMP2C1906. Existing push-button factory
+// establishes GameWindow* return and three thiscall stack arguments RET12.
+// Original wrapper name enclosing manager type/lifetime role unknown.
+struct Rva002C19C9ButtonFactoryForward
+{
+    GameWindow *create(GadgetCreateView *view, GameFont *font, bool visual);
+};
+GameWindow *Rva002C19C9ButtonFactoryForward::create(
+    GadgetCreateView *view, GameFont *font, bool visual)
+{
+    return reinterpret_cast<TabWindowManagerView*>(this)->gogoGadgetPushButton(view, font, visual);
+}
