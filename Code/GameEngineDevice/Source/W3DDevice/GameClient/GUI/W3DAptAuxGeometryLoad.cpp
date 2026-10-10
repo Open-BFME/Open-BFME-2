@@ -12,7 +12,7 @@ struct BfmeStringNoCaseLess {bool operator()(const AsciiString&,const AsciiStrin
 typedef _STL::set<AsciiString,BfmeStringNoCaseLess,_STL::allocator<AsciiString> > FilenameList;
 class FileSystem {public:void getFileListInDirectory(const AsciiString&,const AsciiString&,FilenameList&,bool)const;};
 extern FileSystem*TheFileSystem;
-class AptAnimData {public:void rva000AB83B();void createRenderData(const AsciiString&);AsciiString baseDirectory;};
+class AptAnimData {public:void rva000AB83B();AsciiString baseDirectory;private:void createRenderData(const AsciiString&);};
 void AptAnimData::rva000AB83B(){
  FilenameList files;
  AsciiString directory(baseDirectory);
