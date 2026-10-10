@@ -74695,3 +74695,4 @@ __ehhandler$??0Rva00527378Payload@@QAE@PAXHABVAsciiString@@00@Z,,0x007969BF,10,C
 ??0AptMessenger@@QAE@PAX@Z,,0x0051215B,1159,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerConstructor.cpp,matched,
 ??0Rva00510CC3@@QAE@HABVAsciiString@@@Z,,0x00510B72,309,Code/GameEngine/Source/Common/Rva00510CC3Constructor.cpp,matched,
 ??0ButtonShell@Impl@AptRadialMenu@@QAE@PAV12@H@Z,,0x00577FE2,423,Code/GameEngine/Source/GameClient/GUI/InGame/AptRadialMenuButtonShellConstructor.cpp,matched,
+?Rva00412F14Register@@YAXXZ,,0x00412F14,987,Code/GameEngine/Source/GameClient/GUI/AptGlobalCallbackRegistration.cpp,matched,
