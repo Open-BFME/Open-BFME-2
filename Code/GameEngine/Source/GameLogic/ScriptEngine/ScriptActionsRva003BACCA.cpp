@@ -7,8 +7,10 @@
 class AsciiString;
 struct CameraMarker;
 
-extern float g_00BBB9B0;
-extern float g_00BBB9B4;
+// Retail .rdata floats at VA 0x00BBB9B0/0x00BBB9B4 (+/-0.0001f, exact bytes
+// 0x38D1B717/0xB8D1B717): defined here, the sole reader TU.
+float g_00BBB9B0 = 0.0001f;
+float g_00BBB9B4 = -0.0001f;
 
 struct Rva003BACCAPoint
 {
@@ -355,10 +357,16 @@ void __stdcall Rva003BAAE4(const AsciiString &name,
 // drawable centroid algorithm. Target 0x003BAE04/198B and dispatcher 0x003CAFFF
 // independently establish the free ABI, selection byte +0x43C, next +0x104,
 // first-drawable slot 17 and final-move slot 39. Original BFME2 name unresolved.
-class BFMERopeDrawable
+// BFMERopeDrawable does not override getPosition: the 0x002763E6 body is
+// owned by Drawable (rowed under that name from BFMERopeDrawableGetPosition),
+// so this view inherits it instead of declaring a same-named method.
+class Drawable
 {
 public:
     const Coord3D *getPosition() const;
+};
+class BFMERopeDrawable : public Drawable
+{
 };
 struct Rva003BAE04Drawable
 {
