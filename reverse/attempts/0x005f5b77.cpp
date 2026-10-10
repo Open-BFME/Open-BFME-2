@@ -1,3 +1,5 @@
+// ?rva005F5B77@Rva005F5B77@@QAEXXZ
+// partial score=0.87 date=2026-10-10
 // cl: /O1 /G7 /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport
 // Retail 005F56B0..005F5819: an army-member selection check, its message
@@ -162,6 +164,8 @@ static void Rva005F5A5A(LivingWorldArmy *army,Rva005F56B0Selection *selection) {
   }
  }
 }
+class Rva005F5B77 {public:void rva005F5B77();char prefix[0x20];LivingWorldArmy *army;Rva005F56B0Selection *selection; __forceinline bool enabled(){LivingWorldArmy *a=army;Rva005F56B0Selection *b=selection;return (Rva005F59F6(a,b)||Rva005F5968(a,b))?'\1':'\0';}};
+void Rva005F5B77::rva005F5B77(){reinterpret_cast<Rva005E1160Flag*>(reinterpret_cast<char*>(this)+8)->rva005E1160(enabled());}
 struct Rva005F5B0FA;struct Rva005F5B0FB;
 void Rva005F5B0FNotify(Rva005F5B0FA*,Rva005F5B0FB*);
 class Rva005F5BAE {public:void rva005F5BAE();char prefix[0x18];LivingWorldArmy *army;Rva005F56B0Selection *selection;};
