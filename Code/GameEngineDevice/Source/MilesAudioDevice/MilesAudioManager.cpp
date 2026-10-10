@@ -35,27 +35,36 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
 #include <set>
 #include <map>
 #include <vector>
+#include <limits>
 #undef free
 #include "ascii_string.h"
 #include "unicode_string.h"
 #include "../../../Libraries/Include/Lib/Coord3D.h"
 #include "Common/Snapshot.h"
 
+// Version pair xfer (slot 10) reads and rewrites; xfer (0x0005E3E5) seeds
+// 1 and 4 and gates its later fields on the second byte.
+struct XferVersion {
+    unsigned char m_version;
+    unsigned char m_currentVersion;
+};
+
 // Xfer view: slot 1 tells a load from a save; +0x78 and +0x90 xfer an
-// unsigned int and a bool (0x0005B256).
+// unsigned int and a bool (0x0005B256). xfer (0x0005E3E5) also calls
+// slot 3 (+0x0C, CRC pass), 10 (+0x28), 28 (+0x70, float) and 31 (+0x7C, int).
 class Xfer {
 public:
     virtual ~Xfer();
     virtual bool isLoading();
-    virtual void slot02(); virtual void slot03(); virtual void slot04(); virtual void slot05();
+    virtual void slot02(); virtual bool isCRC(); virtual void slot04(); virtual void slot05();
     virtual void slot06(); virtual void slot07(); virtual void slot08(); virtual void slot09();
-    virtual void slot10(); virtual void slot11(); virtual void slot12(); virtual void slot13();
+    virtual void xferVersion(XferVersion *version); virtual void slot11(); virtual void slot12(); virtual void slot13();
     virtual void slot14(); virtual void slot15(); virtual void slot16(); virtual void slot17();
     virtual void slot18(); virtual void slot19(); virtual void slot20(); virtual void slot21();
     virtual void slot22(); virtual void slot23(); virtual void slot24(); virtual void slot25();
-    virtual void slot26(); virtual void slot27(); virtual void slot28(); virtual void slot29();
+    virtual void slot26(); virtual void slot27(); virtual Xfer &xferReal(float *value); virtual void slot29();
     virtual Xfer &xferUnsignedInt(unsigned int *value);
-    virtual void slot31(); virtual void slot32(); virtual void slot33(); virtual void slot34();
+    virtual Xfer &xferInt(int *value); virtual void slot32(); virtual void slot33(); virtual void slot34();
     virtual void slot35();
     virtual Xfer &xferBool(bool *value);
 };
@@ -526,7 +535,15 @@ class Rva002D94DD { public: float rva002D94DD(void) const; };
 // 8-byte record of the manager's +0xB54 vector: 0x55C5D passes +0x00 to
 // Object::isInside(PolygonTrigger *) and keeps the lowest +0x04 level whose
 // trigger holds the event. Names are descriptive.
-class PolygonTrigger { public: bool rva002E3A39(const Coord3D &pos); };
+// +0x44 is the trigger ID xfer saves and loadPostProcess looks up again.
+class PolygonTrigger {
+public:
+    bool rva002E3A39(const Coord3D &pos);
+    int getID(void) const { return m_triggerID; }
+private:
+    char at00[0x44];
+    int m_triggerID;
+};
 class Object { public: bool isInside(PolygonTrigger *trigger); };
 extern GameLogic *TheGameLogic;
 inline float sqr(float value) { return value * value; }
@@ -589,6 +606,10 @@ struct AudioTriggerAreaSave {
     int m_triggerID;
     float m_level;
 };
+// xfer (0x0005E3E5) appends through the no-EH 8-byte push_back 0x00539A2E,
+// which stlport_vector_e8_allocate_copy.cpp instantiates; this /EHsc unit
+// would emit another _M_insert_overflow for it, so it only declares it.
+template<> void _STL::vector<AudioTriggerAreaSave, _STL::allocator<AudioTriggerAreaSave> >::push_back(const AudioTriggerAreaSave &value);
 
 // Event position returned by the rowed 0x0005160F (zeros and false when the
 // event is not positional); playSample3D hands it to prep3DSample.
@@ -966,6 +987,8 @@ public:
         // Distance attenuation of +0x94 (WB 0x77A260, unnamed) from the
         // per-view microphone settings and the camera-to-microphone offset.
         void rva0005213E(const MicrophoneSettings *settings, const Coord3D *delta);
+        // Per-view volume state transfer (rowed 0x0005CE7E).
+        void rva0005CE7E(Xfer *transfer);
 
         int m_myViewFocus;                         // +0x00 (WB assert name)
         float m_volumes[6][2];                     // +0x04
@@ -1087,6 +1110,8 @@ public:
     void createListener();
 protected:
     virtual void loadPostProcess(void);
+public:
+    virtual void xfer(Xfer *transfer);
 private:
     AudioSettings *m_audioSettings;      // +0x10 (Zero Hour name)
     char at14[0x18 - 0x14];
@@ -1095,7 +1120,7 @@ private:
     Coord3D m_cameraPos;                 // +0x30, camera at the last recalculation
     AudioAreaCorner m_corners[5];        // +0x3C, entries 1..4 used by 0x53854
     float m_at8C;                        // +0x8C, distance occlusion scale
-    char at90[0x94 - 0x90];
+    float m_at90;                        // +0x90, zeroed by every xfer
     int m_at94;                          // +0x94, zeroed by 0x61C87
     Rva00051107AudioRequestList m_audioRequests;    // +0x98
     Rva00051107AudioRequestSet m_requestSet;        // +0x9C
@@ -1116,14 +1141,15 @@ private:
     unsigned short m_maxAmbientStreams;  // +0x69C
     char at69E[0x6A4 - 0x69E];
     bool m_at6A4;                        // +0x6A4
-    char at6A5;
+    bool m_at6A5;                        // +0x6A5, marks a view-type change (0x5DAFC, xfer)
     bool m_forceHeadphones;             // +0x6A6, provider speaker override
     bool m_at6A7;                        // +0x6A7, read by 0x52F4C and 0x53AFA
     char at6A8[0x6AA - 0x6A8];
     bool m_at6AA;                        // +0x6AA, retest areas on every call (0x55C5D)
     bool m_at6AB;                        // +0x6AB, set by loadPostProcess
     bool m_at6AC;                        // +0x6AC, cleared by loadPostProcess
-    char at6AD[0x6B4 - 0x6AD];
+    char at6AD[0x6B0 - 0x6AD];
+    int m_at6B0;                         // +0x6B0, zeroed by a loading xfer
     unsigned int m_at6B4[3];             // +0x6B4 per-view-type affect masks
     unsigned int m_at6C0[3];             // +0x6C0
     // Zero Hour's ProviderInfo array; unselectProvider (0x53352) indexes it
@@ -1169,6 +1195,7 @@ private:
     int m_selectedSpeakerType;          // +0xBF0, provider-selection speaker type
     char atBF4[0xBF8 - 0xBF4];
     __int64 m_atBF8;                     // +0xBF8, _time64 of the last device open
+    bool m_atC00;                        // +0xC00, view type 2 is transferred when set (version 3+)
 };
 
 // Rowed under address-derived names at 0x00051038 (pinned) and 0x00050FE3;
@@ -3754,7 +3781,7 @@ void MilesAudioManager::rva0005DAFC(int viewType)
     MilesMutexGuard guard(&m_mutex, 0);
     if (viewType != m_at678) {
         m_at678 = viewType;
-        at6A5 = 1;
+        m_at6A5 = true;
         internalSetReverbRoomType(m_atBE4);
         recalculateMicrophone();
         reinterpret_cast<Rva0005C892 *>(this)->rva0005C892();
@@ -3924,6 +3951,149 @@ void MilesAudioManager::loadPostProcess(void)
     m_savedTriggerAreas.clear();
     ((Rva00053DC5 *)atB6C)->rva00054B9A();
     ((Rva00056DA2 *)atB78)->rva00056DA2();
+}
+
+// Transfer helpers MilesAudioManager::xfer calls, rowed in their own units.
+class AudioReceiver;
+void Rva00050C61Dispatch(AudioReceiver *receiver, void *value);
+void Rva00050C79Dispatch(AudioReceiver *receiver, void *value);
+void Rva00050C91Dispatch(AudioReceiver *receiver, void *value);
+void XferAudioAffect(Xfer *xfer, void *value);
+Xfer *Rva00058DC6Xfer(Xfer *xfer, _STL::set<AsciiString> *value);
+Xfer *xferUnicodeStringVector(Xfer *xfer, _STL::vector<UnicodeString> *vec);
+Xfer *xferAsciiStringVector(Xfer *xfer, _STL::vector<AsciiString> *vec);
+
+// WorldBuilder twin 0x7AA970 (MilesAudioManager::DoXfer). Snapshot slot 3,
+// reached through the +0x0C Snapshot subobject. Version 3 skips view type 2
+// unless m_atC00 is set; version 4 adds the per-view affect masks.
+void MilesAudioManager::xfer(Xfer *transfer)
+{
+    if (transfer->isCRC())
+        return;
+    MilesMutexGuard guard(&m_mutex, 0);
+    if (transfer->isLoading()) {
+        m_at6AC = true;
+        m_at6B0 = 0;
+    }
+    XferVersion version;
+    version.m_version = 1;
+    version.m_currentVersion = 4;
+    transfer->xferVersion(&version);
+    int oldViewType = m_at678;
+    Rva00050C61Dispatch(reinterpret_cast<AudioReceiver *>(transfer), &m_at678);
+    if (oldViewType != m_at678)
+        m_at6A5 = true;
+    Rva00050C79Dispatch(reinterpret_cast<AudioReceiver *>(transfer), &m_at690);
+    transfer->xferBool(&m_at6A7);
+    int viewType;
+    for (viewType = 0; viewType < 3; ++viewType) {
+        if (viewType == 2 && version.m_currentVersion >= 3 && !m_atC00)
+            continue;
+        Rva00050C91Dispatch(reinterpret_cast<AudioReceiver *>(transfer), &m_activeMusicSystem[viewType]);
+        reinterpret_cast<GlobalVolumeData *>(m_volumeData[viewType])->rva0005CE7E(transfer);
+        Rva00058DC6Xfer(transfer, &m_atA14[viewType]);
+        if (version.m_currentVersion >= 4)
+            XferAudioAffect(transfer, &m_at6B4[viewType]);
+    }
+    if (transfer->isLoading()) {
+        m_savedTriggerAreas.clear();
+        int count;
+        transfer->xferInt(&count);
+        while (count) {
+            AudioTriggerAreaSave area;
+            transfer->xferInt(&area.m_triggerID);
+            transfer->xferReal(&area.m_level);
+            m_savedTriggerAreas.push_back(area);
+            --count;
+        }
+        m_at6AA = true;
+    } else {
+        int count = static_cast<int>(m_triggerAreas.size());
+        transfer->xferInt(&count);
+        for (_STL::vector<AudioTriggerArea>::iterator it = m_triggerAreas.begin(); it != m_triggerAreas.end(); ++it) {
+            int triggerID = it->m_trigger->getID();
+            transfer->xferInt(&triggerID);
+            float level = it->m_level;
+            transfer->xferReal(&level);
+        }
+    }
+    transfer->xferInt(&m_atBE4);
+    if (transfer->isLoading())
+        internalSetReverbRoomType(m_atBE4);
+    if (version.m_currentVersion >= 2)
+        transfer->xferUnsignedInt(reinterpret_cast<unsigned int *>(&m_at94));
+    else
+        m_at94 = -1;
+    m_at90 = 0.0f;
+    if (transfer->isLoading()) {
+        m_cameraPos.x = _STL::numeric_limits<float>::quiet_NaN();
+        m_cameraPos.y = _STL::numeric_limits<float>::quiet_NaN();
+        m_cameraPos.z = _STL::numeric_limits<float>::quiet_NaN();
+    }
+    if (transfer->isLoading()) {
+        int count;
+        transfer->xferInt(&count);
+        for (int index = 0; index < count; ++index) {
+            PlayingAudioRef playing;
+            rva0005B256(transfer, playing, reinterpret_cast<int *>(&version));
+            startPendingMusicTracks();
+        }
+        for (viewType = 0; viewType < 3; ++viewType) {
+            if (viewType == 2 && version.m_currentVersion >= 3 && !m_atC00)
+                continue;
+            for (int musicSystem = 0; musicSystem < 2; ++musicSystem) {
+                MusicStack &stack = m_musicStack[viewType][musicSystem];
+                int oldSize = static_cast<int>(stack.size());
+                int stackCount;
+                transfer->xferInt(&stackCount);
+                for (int index = 0; index < stackCount; ++index) {
+                    PlayingAudioRef playing;
+                    rva0005B256(transfer, playing, reinterpret_cast<int *>(&version));
+                    if (playing.get() && static_cast<int>(stack.size()) == oldSize)
+                        reinterpret_cast<Rva00058B90 *>(&stack)->rva00058B90(*reinterpret_cast<Rva0036CA00Str *>(&playing));
+                    oldSize = static_cast<int>(stack.size());
+                }
+            }
+        }
+        for (viewType = 0; viewType < 3; ++viewType) {
+            if (viewType == 2 && version.m_currentVersion >= 3 && !m_atC00)
+                continue;
+            reinterpret_cast<Rva000A8C9B *>(&m_playingMusic[viewType])->clear();
+        }
+        m_pendingFileText.clear();
+        m_unknownFileNames.clear();
+    } else {
+        PlayingAudioList savedStreams;
+        for (PlayingAudioList::iterator it = m_playingStreams.begin(); it != m_playingStreams.end(); ++it) {
+            PlayingAudioRef &playing = *it;
+            if (playing.get() && playing->m_event.get() &&
+                (playing->m_event->getAudioEventInfo()->m_atB0 == 0 || playing->m_event->getAudioEventInfo()->m_atB0 == 1) &&
+                (playing->m_event->m_viewType != 2 || m_atC00) && !playing->m_at44 &&
+                !playing->m_event->at51[0])
+                savedStreams.push_back(playing);
+        }
+        int count = static_cast<int>(savedStreams.size());
+        transfer->xferInt(&count);
+        for (PlayingAudioList::iterator it = savedStreams.begin(); it != savedStreams.end(); ++it) {
+            PlayingAudioRef &playing = *it;
+            rva0005B256(transfer, playing, reinterpret_cast<int *>(&version));
+        }
+        for (viewType = 0; viewType < 3; ++viewType) {
+            if (viewType == 2 && version.m_currentVersion >= 3 && !m_atC00)
+                continue;
+            for (int musicSystem = 0; musicSystem < 2; ++musicSystem) {
+                MusicStack &stack = m_musicStack[viewType][musicSystem];
+                int stackCount = static_cast<int>(stack.size());
+                transfer->xferInt(&stackCount);
+                for (MusicStack::iterator it = stack.begin(); it != stack.end(); ++it) {
+                    PlayingAudioRef playing = *reinterpret_cast<PlayingAudioRef *>(&*it);
+                    rva0005B256(transfer, playing, reinterpret_cast<int *>(&version));
+                }
+            }
+        }
+    }
+    xferUnicodeStringVector(transfer, &m_pendingFileText);
+    xferAsciiStringVector(transfer, &m_unknownFileNames);
 }
 
 // WorldBuilder 0x788390 (MilesAudioManager.cpp asserts 4319..4335): Music

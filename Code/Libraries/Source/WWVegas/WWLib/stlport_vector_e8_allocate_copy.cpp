@@ -28,3 +28,8 @@ template class _STL::vector<BfmeE8, _STL::allocator<BfmeE8 > >;
 struct AudioTriggerArea { int a, b; };
 template void _STL::vector<AudioTriggerArea, _STL::allocator<AudioTriggerArea > >::push_back(const AudioTriggerArea &);
 template void _STL::vector<AudioTriggerArea, _STL::allocator<AudioTriggerArea > >::reserve(size_t);
+
+// Its saved form, filled by MilesAudioManager::xfer (0x0005E3E5), folds onto
+// the same push_back (0x00539A2E).
+struct AudioTriggerAreaSave { int a, b; };
+template void _STL::vector<AudioTriggerAreaSave, _STL::allocator<AudioTriggerAreaSave > >::push_back(const AudioTriggerAreaSave &);
