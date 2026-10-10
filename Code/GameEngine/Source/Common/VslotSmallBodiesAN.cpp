@@ -143,3 +143,11 @@ void Rva006E3490::rva006E3490()
 {
 	m_24.clear(false);
 }
+
+// Native installed-table word transfers. Address-token ABI views preserve
+// observed word bits and cleanup; original owner and semantic types are unknown.
+class Rva0056ACF1 {public: unsigned int rva0056ACF1(int unused); private: char prefix[0x10]; unsigned int word;};
+unsigned int Rva0056ACF1::rva0056ACF1(int unused) {return word;}
+
+class Rva005CC5D3 {public: void rva005CC5D3(unsigned int value); private: char prefix[0xC]; unsigned int *destination;};
+void Rva005CC5D3::rva005CC5D3(unsigned int value) {*destination=value;}
