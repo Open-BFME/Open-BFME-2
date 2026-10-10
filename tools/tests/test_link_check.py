@@ -424,6 +424,11 @@ def test_current_address_audit_uses_proven_bytes_during_edit_and_restore(current
 
 @pytest.fixture
 def preparation(monkeypatch, tmp_path):
+    # Use the actual approved ownership metadata; synthetic source rows are
+    # outside decoder extents, not a mock that disables the production guard.
+    queue = tmp_path / "reverse/vp6_cleanroom/queue.tsv"
+    queue.parent.mkdir(parents=True)
+    queue.write_bytes((C.ROOT / "reverse/vp6_cleanroom/queue.tsv").read_bytes())
     monkeypatch.setattr(C, "ROOT", tmp_path)
     rows, owned, calls = [], {}, []
     clock = {"inputs": "fixed", "tools": "fixed"}
@@ -434,7 +439,8 @@ def preparation(monkeypatch, tmp_path):
         obj = tmp_path / "cache" / (name.replace("/", "_") + ".obj")
         owned[obj] = source
         if function:
-            rows.append({"source": source.relative_to(tmp_path).as_posix(), "name": "f"})
+            rows.append({"source": source.relative_to(tmp_path).as_posix(), "name": "f",
+                         "target_rva": "0x00200000", "target_size": "5"})
         return source, obj
     def compile(rows_arg, sources, **kwargs):
         assert kwargs == {"strict": True}

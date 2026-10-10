@@ -47,6 +47,8 @@ mode until its false-refusal rate is measured on live traffic
 """
 import argparse
 import collections
+import csv
+import io
 import hashlib
 import os
 import pickle
@@ -64,7 +66,12 @@ import link_census  # noqa: E402
 INDEX = link_census.OUT / "link_index.pkl"
 COMMON_SCHEMA = 1
 PREPARE_LIMIT = 32
-DECODER_PATH = re.compile(r"(?i)vp6|vp60|vp62|on2|winamp|libvpshared|ffdshow|mfnode")
+# On2 is a vendor token or a camel-case component, not the suffix of
+# Position2/Completion2. Other known decoder/vendor markers stay broad.
+DECODER_PATH = re.compile(r"(?i)vp6|winamp|libvpshared|ffdshow|mfnode|(?<![a-z0-9])(?:lib)?on2|"
+                          r"(?-i:(?<=[a-z0-9])(?:On2|ON2))")
+DECODER_SPAN = (0x001B5530, 0x001D8E7A)
+DECODER_SPECS = 300
 
 
 def source_bytes(sources=None):
@@ -690,17 +697,63 @@ def check_current_ledger(index, paths, rows, started):
     return 0 if all(clean) else 1
 
 
-def preparation_sources(paths, rows):
+def decoder_policy():
+    """Approved clean-room ownership metadata, never donor/spec source content.
+
+    The README's span includes external helpers. Only the 300 reviewed queue
+    extents establish decoder ownership; path denies still protect vendor source
+    outside those extents. Missing, malformed or moving metadata fails closed.
+    """
+    path = ROOT / "reverse/vp6_cleanroom/queue.tsv"
+    try:
+        if path.is_symlink() or path.resolve() != ROOT.resolve() / "reverse/vp6_cleanroom/queue.tsv":
+            raise ValueError("queue escapes approved metadata path")
+        before = path.stat()
+        content = path.read_bytes()
+        after = path.stat()
+        identity = lambda stat: (stat.st_dev, stat.st_ino, stat.st_size,
+                                 stat.st_mtime_ns, stat.st_ctime_ns)
+        if identity(before) != identity(after):
+            raise ValueError("metadata moved while reading")
+        reader = csv.DictReader(io.StringIO(content.decode("utf-8")), delimiter="\t")
+        if reader.fieldnames != ["rva", "size", "name", "ledger_status", "difficulty", "depends_on"]:
+            raise ValueError("unexpected queue header")
+        ranges = []
+        for row in reader:
+            if None in row or any(row.get(field) is None for field in reader.fieldnames):
+                raise ValueError("malformed queue row")
+            if not re.fullmatch(r"[0-9a-fA-F]{8}", row["rva"]):
+                raise ValueError("invalid queue RVA")
+            low, size = int(row["rva"], 16), int(row["size"])
+            if not row["name"] or size <= 0 or not (DECODER_SPAN[0] <= low < low + size <= DECODER_SPAN[1]):
+                raise ValueError("invalid decoder extent")
+            ranges.append((low, low + size))
+        ranges.sort()
+        if len(ranges) != DECODER_SPECS or any(a[1] > b[0] for a, b in zip(ranges, ranges[1:])):
+            raise ValueError("incomplete or overlapping decoder extents")
+    except (OSError, UnicodeError, ValueError, csv.Error) as error:
+        raise SystemExit(f"link_check: decoder boundary metadata is unavailable or invalid: {error}")
+    return tuple(ranges), (identity(after), hashlib.sha256(content).hexdigest())
+
+
+def preparation_path_preflight(paths):
+    # Check the whole request before resolution or metadata/content reads.
+    for argument in paths:
+        if DECODER_PATH.search(str(argument)):
+            raise SystemExit(f"link_check: protected decoder source cannot be prepared: {argument}")
+
+
+def preparation_sources(paths, rows, policy=None):
     """Explicit, owned, tracked/staged Code units; filter protected paths first.
 
     Neither donors nor decoder sources belong to this maintenance mode. Resolve
     symlinks before ownership/containment checks, without reading source bytes.
     """
+    preparation_path_preflight(paths)
+    policy = decoder_policy() if policy is None else policy
     owned = set(link_census._object_sources(rows).values())
     found = []
     for argument in paths:
-        if DECODER_PATH.search(str(argument)):
-            raise SystemExit(f"link_check: protected decoder source cannot be prepared: {argument}")
         path = Path(argument)
         source = (path if path.is_absolute() else ROOT / path).resolve()
         if DECODER_PATH.search(source.as_posix()):
@@ -718,6 +771,22 @@ def preparation_sources(paths, rows):
     if not found or len(found) > PREPARE_LIMIT:
         raise SystemExit(f"link_check: --prepare-current needs 1..{PREPARE_LIMIT} explicit owned sources; "
                          "never expands to the whole ledger")
+    names = {source.relative_to(ROOT).as_posix() for source in found}
+    for row in rows:
+        if row["source"] not in names:
+            continue
+        try:
+            if not re.fullmatch(r"0x[0-9a-fA-F]{1,8}", str(row["target_rva"])):
+                raise ValueError("invalid row RVA")
+            low, size = int(row["target_rva"], 16), int(row["target_size"])
+            if size <= 0 or low + size > 0x100000000:
+                raise ValueError("invalid row extent")
+        except (KeyError, TypeError, ValueError):
+            raise SystemExit(f"link_check: provider has no valid native extent: {row['source']}")
+        if any(low < high and start < low + size for start, high in policy[0]):
+            raise SystemExit(f"link_check: protected decoder-owned source cannot be prepared: {row['source']}")
+    if decoder_policy() != policy:
+        raise SystemExit("link_check: decoder boundary metadata moved before source preparation")
     # Ordinary build selectors are substrings. Refuse any ambiguous selection
     # before a normal gate can read or compile a different provider.
     names = [source.relative_to(ROOT).as_posix() for source in found]
@@ -759,9 +828,13 @@ def preparation_header_state(sources):
     return commands, link_census.object_stamps(headers)
 
 
-def preparation_state(sources):
+def preparation_state(sources, policy=None):
     """Guard only the explicit safe source content, plus global input state."""
+    current_policy = decoder_policy()
+    if policy is not None and current_policy != policy:
+        raise SystemExit("link_check: decoder boundary metadata moved during preparation")
     state = link_census.census_state([])
+    state["decoder_policy"] = current_policy
     # Metadata only: include new/untracked/staged units without reading any
     # decoder content, and detect edits outside the requested units.
     state["code_inventory"] = link_census.object_stamps(
@@ -781,14 +854,16 @@ def prepare_current(paths):
     Uncacheable inputs remain refused; this writes no fresh-census exception,
     index or status. Normal gates must reuse the same strict-current objects.
     """
+    preparation_path_preflight(paths)
+    policy = decoder_policy()
     rows = link_census.ledger()
-    sources = preparation_sources(paths, rows)
+    sources = preparation_sources(paths, rows, policy)
     names = [source.relative_to(ROOT).as_posix() for source in sources]
     selected = [row for row in rows if row["source"] in names]
     # The same ordinary preflight as build.main, before freezing its inputs.
     build.ensure_case_shims()
     build.ensure_reference_current()
-    state = preparation_state(sources)
+    state = preparation_state(sources, policy)
     print(f"link_check: preparing {len(sources)} explicit safe provider(s), no extra sources")
     outputs = build.compile_rows(selected, sources, strict=True)
     objects = [build.obj_path(source) for source in sources]
@@ -799,7 +874,7 @@ def prepare_current(paths):
         if not link_census.object_current(source, obj, allow_fresh=False):
             raise SystemExit(f"link_check: {source.relative_to(ROOT)} has no strict reusable compiler receipt; "
                              "uncacheable inputs are not prepared by this mode")
-    if preparation_state(sources) != state:
+    if preparation_state(sources, policy) != state:
         raise SystemExit("link_check: preparation inputs moved while compiling; no witnesses accepted")
     stamps = link_census.object_stamps(objects)
     # These are the unmodified ordinary source/body/data/ref gates. Their
@@ -809,7 +884,7 @@ def prepare_current(paths):
     for source, obj in zip(sources, objects):
         if not link_census.object_current(source, obj, allow_fresh=False):
             raise SystemExit(f"link_check: prepared receipt went stale during normal gates: {source}")
-    if preparation_state(sources) != state or link_census.object_stamps(objects) != stamps:
+    if preparation_state(sources, policy) != state or link_census.object_stamps(objects) != stamps:
         raise SystemExit("link_check: preparation inputs or verified objects moved; no witnesses accepted")
     print(f"link_check: {len(sources)} explicit providers byte-verified with strict reusable receipts; "
           "census/index/status unchanged, LINK closure not yet checked")
