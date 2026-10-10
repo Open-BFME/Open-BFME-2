@@ -1,5 +1,7 @@
 // _DiagonalBlur
 // partial score=0.97 date=2026-10-10
+// _DiagonalBlur
+// partial score=0.97 date=2026-10-10
 // cl: /O2 /G6 /DNDEBUG /MD
 // Clean room: reverse/vp6_cleanroom/specs/001c2b80.md plus retail only.
 // No decoder source was consulted.
