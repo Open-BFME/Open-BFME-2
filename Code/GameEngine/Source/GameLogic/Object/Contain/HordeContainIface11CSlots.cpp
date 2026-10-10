@@ -519,6 +519,8 @@ public:
 	unsigned char rva00290FBB() const;
 	int rva0028B511() const;
 	void rva0028AE6D();
+	void rva0029A12B();
+	void rva00298979(Object *source, bool flag);
 	void rva0028CFB2(const int *a, const int *b);
 	void setTransformMatrix(const Matrix3D *mtx);
 	float GetRelativeAngle(const Coord3D *pos) const;
@@ -986,6 +988,7 @@ public:
 	virtual bool rva0046A381(Object *target);
 	virtual void rva0046BD70();
 	virtual void rva0046BE0E();
+	virtual void rva0046BA56(Object *source, int unused);
 	virtual void rva0046C3FE(Player *player);
 	virtual void rva004707DB(Object *obj, float amount);
 	virtual void rva004739B4();
@@ -2053,6 +2056,38 @@ void HordeContain::rva0046BE0E()
 		Object *obj = TheGameLogic->findObjectByID((ObjectID)*k);
 		if (obj && !obj->testStatus((ObjectStatusTypes)0x1C))
 			TheAI->m_pathfinder->RemoveObjectGoalFromPathfindMap(obj);
+	}
+}
+
+// The +0x20 contain interface (vtable 0x00C44EC8) as its slots see it: this
+// is HordeContain+0x20, so the member-ID set (HordeContain +0x170) is at
+// +0x150. A standalone view (never a base): no layout impact elsewhere.
+struct HordeContainIface20View
+{
+	unsigned char m_pad00[0x150];
+	_STL::set<int> m_ids; // +0x150 (HordeContain +0x170)
+};
+// ?rva0046BA56@HordeContain@@UAEXPAVObject@@H@Z @0x0046BA56: a +0x20
+// contain-interface slot (vtable 0x00C44EC8; runtime this at +0x20 like
+// iterateContained): the rowed defect member 0x00298979(source, false) on
+// every contained Object, then on the live Object of every +0x170 key. The
+// second parameter is dead (ret 8 but only [ebp+8] is read). The pair comes
+// from a direct 0x0046247D call on the UpdateModule base (this-0x20), not
+// the slot-70 virtual the +0x11C slots use.
+void HordeContain::rva0046BA56(Object *source, int unused)
+{
+	Rva0046247DPair p;
+	((Rva0046247D *)((char *)this - 0x20))->rva0046247D(p);
+	const _STL::list<Object *> *items = p.m04;
+	const _STL::list<Object *> *pin = (items ? items : items);
+	for (_STL::list<Object *>::const_iterator it = pin->begin(); it != pin->end(); ++it)
+		(*it)->rva00298979(source, false);
+	HordeContainIface20View *self = (HordeContainIface20View *)this;
+	for (_STL::set<int>::iterator k = self->m_ids.begin(); k != self->m_ids.end(); ++k)
+	{
+		Object *obj = TheGameLogic->findObjectByID((ObjectID)*k);
+		if (obj)
+			obj->rva00298979(source, false);
 	}
 }
 
