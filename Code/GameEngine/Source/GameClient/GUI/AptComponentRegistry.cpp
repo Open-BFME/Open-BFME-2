@@ -72,3 +72,13 @@ void Rva004121D1RegisterAptComponents() {
 }
 // ?Rva004121D1Context::Rva004121D1Context present-unmatched (full43B relocation-free ICF twin at22239C; existing ArcInfoStruct owner retained)
 Rva004121D1Context::Rva004121D1Context():word00(0),word04(0),word08(0),word0C(0),word10(0),word14(0),word18(0),word1C(0),word20(0),word24(0),word28(0),word2C(0),word30(0){}
+
+// Native0041267F..0041268910B, reached without arguments by the owned
+// AptMainMenu resolution-reset path: shutdown411B52 then re-register4121D1.
+// Both callees have owned complete bodies; the wrapper's original name is
+// unknown and its existing address-derived pin is retained.
+void Rva00411B52();
+void Rva0041267F() {
+    Rva00411B52();
+    Rva004121D1RegisterAptComponents();
+}
