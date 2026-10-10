@@ -13,9 +13,16 @@ struct EmitVtableTag;
 class Rva00657670
 {
 public:
+	Rva00657670();
 	Rva00657670(EmitVtableTag *);
 	virtual ~Rva00657670() {}
 };
+
+// ??0Rva00657670@@QAE@XZ @0x00656C80 9B: the default constructor, storing the
+// class's own vtable (VA 0x00CE1354) and returning this.
+Rva00657670::Rva00657670()
+{
+}
 
 // ?<Rva00657670::Rva00657670> absent-from-retail
 Rva00657670::Rva00657670(EmitVtableTag *)
@@ -39,9 +46,16 @@ Rva00661380::Rva00661380(EmitVtableTag *)
 class Rva006613E0
 {
 public:
+	Rva006613E0();
 	Rva006613E0(EmitVtableTag *);
 	virtual ~Rva006613E0() {}
 };
+
+// ??0Rva006613E0@@QAE@XZ @0x00661310 9B: the default constructor, storing the
+// class's own vtable (VA 0x00CE2BCC) and returning this.
+Rva006613E0::Rva006613E0()
+{
+}
 
 // ?<Rva006613E0::Rva006613E0> absent-from-retail
 Rva006613E0::Rva006613E0(EmitVtableTag *)
@@ -52,9 +66,16 @@ Rva006613E0::Rva006613E0(EmitVtableTag *)
 class Rva00663530
 {
 public:
+	Rva00663530();
 	Rva00663530(EmitVtableTag *);
 	virtual ~Rva00663530() {}
 };
+
+// ??0Rva00663530@@QAE@XZ @0x00661D60 9B: the default constructor, storing the
+// class's own vtable (VA 0x00CE2DB4) and returning this.
+Rva00663530::Rva00663530()
+{
+}
 
 // ?<Rva00663530::Rva00663530> absent-from-retail
 Rva00663530::Rva00663530(EmitVtableTag *)
@@ -65,9 +86,16 @@ Rva00663530::Rva00663530(EmitVtableTag *)
 class Rva00663550
 {
 public:
+	Rva00663550();
 	Rva00663550(EmitVtableTag *);
 	virtual ~Rva00663550() {}
 };
+
+// ??0Rva00663550@@QAE@XZ @0x00661E80 9B: the default constructor, storing the
+// class's own vtable (VA 0x00CE2E10) and returning this.
+Rva00663550::Rva00663550()
+{
+}
 
 // ?<Rva00663550::Rva00663550> absent-from-retail
 Rva00663550::Rva00663550(EmitVtableTag *)
@@ -78,9 +106,16 @@ Rva00663550::Rva00663550(EmitVtableTag *)
 class Rva00665030
 {
 public:
+	Rva00665030();
 	Rva00665030(EmitVtableTag *);
 	virtual ~Rva00665030() {}
 };
+
+// ??0Rva00665030@@QAE@XZ @0x00664D80 9B: the default constructor, storing the
+// class's own vtable (VA 0x00CE30A8) and returning this.
+Rva00665030::Rva00665030()
+{
+}
 
 // ?<Rva00665030::Rva00665030> absent-from-retail
 Rva00665030::Rva00665030(EmitVtableTag *)
@@ -91,9 +126,16 @@ Rva00665030::Rva00665030(EmitVtableTag *)
 class Rva006655B0
 {
 public:
+	Rva006655B0();
 	Rva006655B0(EmitVtableTag *);
 	virtual ~Rva006655B0() {}
 };
+
+// ??0Rva006655B0@@QAE@XZ @0x006655F0 9B: the default constructor, storing the
+// class's own vtable (VA 0x00CE3168) and returning this.
+Rva006655B0::Rva006655B0()
+{
+}
 
 // ?<Rva006655B0::Rva006655B0> absent-from-retail
 Rva006655B0::Rva006655B0(EmitVtableTag *)
@@ -104,9 +146,16 @@ Rva006655B0::Rva006655B0(EmitVtableTag *)
 class Rva00665C10
 {
 public:
+	Rva00665C10();
 	Rva00665C10(EmitVtableTag *);
 	virtual ~Rva00665C10() {}
 };
+
+// ??0Rva00665C10@@QAE@XZ @0x006656C0 9B: the default constructor, storing the
+// class's own vtable (VA 0x00CE31BC) and returning this.
+Rva00665C10::Rva00665C10()
+{
+}
 
 // ?<Rva00665C10::Rva00665C10> absent-from-retail
 Rva00665C10::Rva00665C10(EmitVtableTag *)
@@ -117,9 +166,16 @@ Rva00665C10::Rva00665C10(EmitVtableTag *)
 class Rva00667260
 {
 public:
+	Rva00667260();
 	Rva00667260(EmitVtableTag *);
 	virtual ~Rva00667260() {}
 };
+
+// ??0Rva00667260@@QAE@XZ @0x00666E90 9B: the default constructor, storing the
+// class's own vtable (VA 0x00CE3410) and returning this.
+Rva00667260::Rva00667260()
+{
+}
 
 // ?<Rva00667260::Rva00667260> absent-from-retail
 Rva00667260::Rva00667260(EmitVtableTag *)
@@ -130,9 +186,16 @@ Rva00667260::Rva00667260(EmitVtableTag *)
 class Rva006680E0
 {
 public:
+	Rva006680E0();
 	Rva006680E0(EmitVtableTag *);
 	virtual ~Rva006680E0() {}
 };
+
+// ??0Rva006680E0@@QAE@XZ @0x00668110 9B: the default constructor, storing the
+// class's own vtable (VA 0x00CE36A0) and returning this.
+Rva006680E0::Rva006680E0()
+{
+}
 
 // ?<Rva006680E0::Rva006680E0> absent-from-retail
 Rva006680E0::Rva006680E0(EmitVtableTag *)
@@ -143,9 +206,16 @@ Rva006680E0::Rva006680E0(EmitVtableTag *)
 class Rva00669510
 {
 public:
+	Rva00669510();
 	Rva00669510(EmitVtableTag *);
 	virtual ~Rva00669510() {}
 };
+
+// ??0Rva00669510@@QAE@XZ @0x00669540 9B: the default constructor, storing the
+// class's own vtable (VA 0x00CE3934) and returning this.
+Rva00669510::Rva00669510()
+{
+}
 
 // ?<Rva00669510::Rva00669510> absent-from-retail
 Rva00669510::Rva00669510(EmitVtableTag *)
@@ -156,9 +226,16 @@ Rva00669510::Rva00669510(EmitVtableTag *)
 class Rva0066D950
 {
 public:
+	Rva0066D950();
 	Rva0066D950(EmitVtableTag *);
 	virtual ~Rva0066D950();
 };
+
+// ??0Rva0066D950@@QAE@XZ @0x0066D530 9B: the default constructor, storing the
+// class's own vtable (VA 0x00CE3B38) and returning this.
+Rva0066D950::Rva0066D950()
+{
+}
 
 // ?<Rva0066D950::Rva0066D950> absent-from-retail
 Rva0066D950::Rva0066D950(EmitVtableTag *)
@@ -175,9 +252,16 @@ Rva0066D950::~Rva0066D950()
 class Rva00672490
 {
 public:
+	Rva00672490();
 	Rva00672490(EmitVtableTag *);
 	virtual ~Rva00672490() {}
 };
+
+// ??0Rva00672490@@QAE@XZ @0x00672320 9B: the default constructor, storing the
+// class's own vtable (VA 0x00CE3F2C) and returning this.
+Rva00672490::Rva00672490()
+{
+}
 
 // ?<Rva00672490::Rva00672490> absent-from-retail
 Rva00672490::Rva00672490(EmitVtableTag *)
