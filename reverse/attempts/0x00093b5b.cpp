@@ -1,4 +1,6 @@
 // ?rva00093B5B@W3DSnowManager@@QAEXXZ
+// partial score=0.9716013071895424 date=2026-10-10
+// ?rva00093B5B@W3DSnowManager@@QAEXXZ
 // partial score=0.972 date=2026-10-09
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
@@ -53,23 +55,3 @@ blend_phase:
  } else { ((Rva00093457 *)this)->rva00093457(); }
 }
 
-void W3DSnowManager::target_00094652() {
- const WeatherSetting *ov=walk(TheWeatherSetting.ptr);
- if(!ov->enabled) return;
- if(phase) {
-  int s=phase;
-  if(s==1 || s==3) --frames;
-  rva00093B5B();
-  int state2=2;
-  if(weatherState==state2) {
-   int s=TheGlobalWeatherSystem->state;
-   if(s!=state2) {
-    phase=3; ov=walk(TheWeatherSetting.ptr);
-    frames=(int)((1.0f-endFraction)*ov->duration); weatherState=s;
-   }
-  }
- } else {
-  int s=TheGlobalWeatherSystem->state;
-  if(s==2 && weatherState!=2) { weatherState=s; ((Rva00093349 *)this)->rva00093349(); }
- }
-}
