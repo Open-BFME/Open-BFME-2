@@ -70,6 +70,14 @@ public:
 	BfmeFixedStorage0004543D m_08;
 };
 
+// ??0Rva0027231F@@QAE@ABVBfmeFixedStorage0004543D@@@Z, retail 0x0027231F,
+// 42 bytes: base clears the +0x04 link, vftable 0x00BFAF94, mask to +0x08
+// through the rowed 0x0004543D copy ctor, ret 4.
+Rva0027231F::Rva0027231F(const BfmeFixedStorage0004543D &mask)
+	: m_08(mask)
+{
+}
+
 // vftable 0x00C004D8: the player's relationship to the object against flags.
 class Rva00261409Filter : public Rva000421C8
 {
