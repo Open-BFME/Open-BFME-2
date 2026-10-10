@@ -116,14 +116,19 @@ class Rva005D3FE4 {public:void rva005D3FE4(float y);};
 class Rva004987FEFloatField {public:float get() const;};
 struct RetObj {char m_pad[4];float m_4;};
 struct GlobalObj {virtual ~GlobalObj() {} virtual void *d1(); virtual void *d2(); virtual void *d3(); virtual void *d4(); virtual void *d5(); virtual void *d6(); virtual void *d7(); virtual void *d8(); virtual void *d9(); virtual void *d10(); virtual void *d11(); virtual void *d12(); virtual void *d13(); virtual void *d14(); virtual RetObj *slot15();};
-// Shared item spacing 0x0057A24A, rowed in StrategicHUDChecklistUIImpl.cpp; the
-// same inline body here lets DoCreateNewItem keep its x87 value across the call.
-class Rva0057A24A {public:inline __declspec(noinline) float rva0057A24A() const;char m_pad[0x20];float m_20;};
-inline float Rva0057A24A::rva0057A24A() const { return (*(GlobalObj **)&g_bfmeAptWindowManager)->slot15()->m_4 * m_20; }
+// Native57A24A..57A260 RET0: shared item spacing, the window manager's slot15
+// scale times +0x20 of g_Va00E06360. It stays a real noinline call; its body
+// being visible here is what keeps the callers' x87 values live across it
+// (rva0057ABD0's spill schedule, DoCreateNewItem's st(1) sum).
+class Rva0057A24A {public:__declspec(noinline) float rva0057A24A() const;private:char m_pad[0x20];float m_20;};
+float Rva0057A24A::rva0057A24A() const { return (*(GlobalObj **)&g_bfmeAptWindowManager)->slot15()->m_4 * m_20; }
 extern unsigned g_Va00E06360;
 namespace AptUtils {const char *SkipLevelN(const char *);int LevelIndexFromTarget(const char *);}
 int __cdecl Rva0052519DFire(void *,void *,const char *,const char *,int *);
-namespace StrategicHUD {struct ChecklistHeightItem {char prefix[0x38];float top;};}
+namespace StrategicHUD {
+struct ChecklistHeightItem {char prefix[0x38];float top;};
+struct ChecklistHeightNode {ChecklistHeightNode *next,*prev;ChecklistHeightItem *item;};
+}
 // The owning item pointer DoCreateNewItem returns (WorldBuilder: newItem.GetPtr()).
 // Native57A3F4..57A40C (24B, returns this): the out-of-line pointer constructor
 // takes a reference; copy and release are inline at their call sites.
@@ -146,6 +151,7 @@ class StrategicHUD::ChecklistUIImpl:public Base1,public Base2,public Base3 {
 public:ChecklistUIImpl(int,const AsciiString&);virtual~ChecklistUIImpl();
  class Item;
  virtual ChecklistItemRef DoCreateNewItem();
+ float rva0057ABD0() const;
  void OnScrollBarLoaded(const char*);void OnScrollBarUnloaded(const char*);void OnOpen(const char*);void OnClosed(const char*);void OnExpandButtonClicked(const char*);
  int level;AsciiString path;int state;AptCommandMapAdder maps;bool open,flag25,flag26;Rva000AD6F4 scrollbar;int word2C;_STL::list<int>items;_STL::list<int>::iterator position;bool flag38;float viewHeight;int turn,phase,word48;bool flag4C;
 };
@@ -178,3 +184,66 @@ StrategicHUD::ChecklistUIImpl::~ChecklistUIImpl()
 	}
 }
 
+class StrategicHUD::ChecklistUIImpl::Item : public ChecklistUIItemView
+{
+public:
+	Item(ChecklistUIImpl *owner, ChecklistIteratorView position, int value, void *level, const AsciiString &path);
+	ChecklistUIImpl *m_owner;
+	ChecklistIteratorView m_listPos;
+	int m_value;
+	void *m_observer;
+	int m_58;
+	bool m_5c;
+};
+typedef char ChecklistItemSize[sizeof(StrategicHUD::ChecklistUIImpl::Item) == 0x60 ? 1 : -1];
+
+// Native57AF2E..57B16D RET4: primary-table slot0 (C6F118) and WB14BCB70
+// StrategicHUD::ChecklistUIImpl::DoCreateNewItem (asserts lines 783..804).
+// Asks the movie for a new item clip through the _NewItem extern handler and
+// the CreateItem call; without one returns an empty reference. Otherwise the
+// item is placed below the last one (top38 plus its clip height, plus the
+// shared spacing 57A24A), its list slot reserved with a null entry, then
+// constructed (0x0057A748) with the next item number and the clip's level and
+// level-relative path; it gets its y and the list is marked changed (flag38).
+ChecklistItemRef StrategicHUD::ChecklistUIImpl::DoCreateNewItem()
+{
+	AsciiString itemPath;
+	bool success = false;
+	{
+		AsciiString name;
+		name.format("_level%u.%s_NewItem", level, path.str());
+		AptSingleExternHandlerAdder handler(name, 0, AptRef<AptExternHandler>(Rva005D4E22(&success, &itemPath)));
+		Rva0052519DFire(TheRva00222A8BTarget, reinterpret_cast<void *>(level), path.str(), "CreateItem", &word2C);
+	}
+	if (!success)
+		return ChecklistItemRef();
+	float y = 0.0f;
+	if (!items.empty())
+	{
+		ChecklistHeightItem *last = reinterpret_cast<ChecklistHeightItem *>(items.back());
+		float top = last->top;
+		y = top + reinterpret_cast<Rva004987FEFloatField *>(reinterpret_cast<char *>(last) + 8)->get();
+	}
+	y += reinterpret_cast<Rva0057A24A *>(&g_Va00E06360)->rva0057A24A();
+	_STL::list<int>::iterator pos = items.insert(items.end(), 0);
+	ChecklistItemRef newItem = new Item(this, reinterpret_cast<const ChecklistIteratorView &>(pos), word2C++,
+		reinterpret_cast<void *>(AptUtils::LevelIndexFromTarget(itemPath.str())),
+		AsciiString(AptUtils::SkipLevelN(itemPath.str())));
+	reinterpret_cast<Rva005D3FE4 *>(reinterpret_cast<char *>(newItem.operator->()) + 8)->rva005D3FE4(y);
+	flag38 = true;
+	return newItem;
+}
+
+// Native57ABD0..57AC0C RET0: unnamed height query. Last item top38 and
+// +8 clip height plus shared spacing; empty list returns shared spacing.
+float StrategicHUD::ChecklistUIImpl::rva0057ABD0() const
+{
+ ChecklistHeightNode *head=reinterpret_cast<ChecklistHeightNode *const &>(items);
+ if(head->next!=head) {
+  ChecklistHeightItem *last=head->prev->item;
+  float top=last->top;
+  return reinterpret_cast<Rva004987FEFloatField*>(reinterpret_cast<char*>(last)+8)->get()
+    + reinterpret_cast<Rva0057A24A*>(&g_Va00E06360)->rva0057A24A() + top;
+ }
+ return reinterpret_cast<Rva0057A24A*>(&g_Va00E06360)->rva0057A24A();
+}
