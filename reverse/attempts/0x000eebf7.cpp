@@ -1,6 +1,10 @@
 // ?addProp@W3DPropBuffer@@QAEXHUCoord3D@@MMABVAsciiString@@_N@Z
+// partial score=0.9897452314259036 date=2026-10-10
+extern "C" void _ReadWriteBarrier();
+#pragma intrinsic(_ReadWriteBarrier)
+// ?addProp@W3DPropBuffer@@QAEXHUCoord3D@@MMABVAsciiString@@_N@Z
 // partial score=0.89 date=2026-10-04
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG
+// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /ICode/Libraries/Include/Lib /MD /EHsc /DNDEBUG
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
@@ -43,15 +47,7 @@ inline float sinf( float x ) { return (float)sin( (double)x ); }
 
 #include "ascii_string.h"
 
-struct Coord3D
-{
-	Real x;
-	Real y;
-	Real z;
-	Coord3D( const Coord3D &c ) { x = c.x; y = c.y; z = c.z; }
-	~Coord3D() {}
-};
-
+#include "Coord3D.h"
 class Vector3
 {
 public:
@@ -90,10 +86,11 @@ public:
 	__forceinline void Rotate_Z( float theta )
 	{
 		float tmp1,tmp2;
-		float c,s;
+		float c; float s;
 
 		c = cosf(theta);
-		s = sinf(theta);
+		_ReadWriteBarrier();
+		double sinValue=sin((double)theta); s=(float)sinValue;
 
 		tmp1 = Row[0][0]; tmp2 = Row[0][1];
 		Row[0][0] = (float)( c*tmp1 + s*tmp2);
@@ -294,33 +291,6 @@ protected:
 // W3DPropBuffer::addPropType
 //=============================================================================
 /** Adds a type of prop (model & texture).  */
-//=============================================================================
-Int W3DPropBuffer::addPropType(const AsciiString &modelName, Bool bfmeFlag)
-{
-	if (m_numPropTypes>=MAX_TYPES) {
-		return 0;
-	}
-
-	m_propTypes[m_numPropTypes].m_robj = Create_Render_Obj(modelName.str());
-	if (m_propTypes[m_numPropTypes].m_robj==0) {
-		return -1;
-	}
-	if (!bfmeFlag) {
-		m_propTypes[m_numPropTypes].m_robj->m_bfmePropFlagBD = false;
-	}
-	m_propTypes[m_numPropTypes].m_robjName = modelName;
-
-	SphereClass bounds = m_propTypes[m_numPropTypes].m_robj->Get_Bounding_Sphere();
-	m_propTypes[m_numPropTypes].m_bounds = bounds;
-	m_numPropTypes++;
-	return m_numPropTypes-1;
-}
-
-//=============================================================================
-// W3DPropBuffer::addProp
-//=============================================================================
-/** Adds a prop.  Name is the W3D model name, supported models are
-ALPHA & ALPHA_SORT shaders, and assumed to be not animated. */
 //=============================================================================
 void W3DPropBuffer::addProp(Int id, Coord3D location, Real angle,Real scale, const AsciiString &modelName, Bool bfmeFlag)
 {
