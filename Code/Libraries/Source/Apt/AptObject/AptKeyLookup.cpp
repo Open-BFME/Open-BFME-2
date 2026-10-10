@@ -88,7 +88,12 @@ AptValue *AptKey::sMethod_isDown(AptValue *,int)
  }
  return AptBoolean::Create(false);
 }
-
+AptValue *AptKey::sMethod_isToggled(AptValue *,int)
+{
+ g_bfmeAptAssertAtE17734("false","C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptMiscObjects.cpp",656);
+ if(g_bfmeAptBreakOnAssertAtDDC01C)__debugbreak();
+ return AptBoolean::Create(false);
+}
 
 class EAStringC {void *data;public:const char *rva00620090()const;unsigned int rva006D3750()const;};
 struct BfmeW1229 {const char *name;int value;};
