@@ -12,6 +12,11 @@
 #include <hash_map>
 #include "../../../Libraries/Include/Lib/Coord3D.h"
 #include <vector>
+// Suppress the TU's non-retail const-begin copy (row 54 family-LK3): the
+// /Od retail copy in stlport_vector_voidptr.cpp serves the link instead.
+namespace _STL {
+template <> vector<void *>::const_iterator _STL::vector<void *>::begin() const;
+}
 #include "ascii_string.h"
 #include "unicode_string.h"
 class Rva001E3624 {public: virtual ~Rva001E3624(); Rva001E3624(const Rva001E3624 &); Rva001E3624():next(0),flag(false),extra(-1){} void *next;bool flag;int extra; };
