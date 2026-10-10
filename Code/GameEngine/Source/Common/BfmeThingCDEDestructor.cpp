@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHs-c- /Ob2
+// cl: /O2 /DNDEBUG /MD /EHs-c- /Ob2
 // ?bfmeDtorCDE@BfmeThingCDE@@QAEXXZ
 //
 // Ported from Open-BFME-1 Code/Libraries/Source/shroudmanager/shroudmanager_data.cpp.
@@ -7,10 +7,48 @@
 // array-delete helper. Its Ghidra body has no source row, so the member call
 // uses an address pin for that helper.
 
+struct RectCOI;
+struct ShroudManagerImpl008FBA40ElementLayout
+{
+ RectCOI *first;
+ unsigned short playerState[20][4];
+ unsigned generation; // +A4 deduplicates rectangle samples
+};
+struct RectCOI
+{
+ ShroudManagerImpl008FBA40ElementLayout *cell;
+ void *owner;
+ RectCOI **previous;
+ RectCOI *next;
+};
+float Cos(float angle);
+float Sin(float angle);
+extern "C" __declspec(dllimport) double __cdecl ceil(double value);
+// Native REAL_TO_INT uses FISTP with the current x87 rounding control;
+// reuse the verified manager conversion helper rather than a truncating C++ cast.
+__forceinline int rectInteger(float value)
+{
+ int result;
+ __asm
+ {
+  fld [value]
+  fistp [result]
+ }
+ return result;
+}
+// Native 73A54A/566 and 73A5CB/5D9 prove this generation word's role.
+// The original identifier is unknown; its four loader-zero bytes are data-rowed.
+unsigned ShroudCoverageVisitGeneration=0;
+
 class ShroudManagerImpl
 {
 public:
  void QueueUndoShroudReveal(int x,int y,int *radii,float rotation,unsigned mask);
+ char opaque00[0x1C];
+ float cellSize,scale;
+private:
+ ShroudManagerImpl008FBA40ElementLayout *elementAtByCoord_Rva0073A1D0(float x,float y)const;
+ friend class BfmeThingCDE;
 };
 class Gen_008F7CD0
 {
@@ -71,6 +109,7 @@ public:
 	bool bfmeCheckABI();
 	void bfmeDtorCDE();
 	void d_008f7990();
+	bool DoRectFill(float x,float y,float halfX,float halfY,float angle);
 	void d_008f7ec0();
 
 	void *m_owner;
@@ -218,4 +257,46 @@ void BfmeThingCDE::d_008f7990()
    *radius=-1;
   }
  }
+}
+
+// BFME1 575ba2b PartitionManager.cpp:1821..1876 supplies rectangle sampling.
+// Full WB17DF950 names DoRectFill; native73A4A0..73A645 proves half-cell
+// increments, ceil conversions, per-call generation deduplication and COI links.
+// The established neutral BfmeThingCDE owner view is retained.
+bool BfmeThingCDE::DoRectFill(float x,float y,float halfX,float halfY,float angle)
+{
+ float c=Cos(angle);
+ float s=Sin(angle);
+ float xdx=c*((ShroudManagerImpl*)m_owner)->cellSize*0.5f;
+ float xdy=s*((ShroudManagerImpl*)m_owner)->cellSize*0.5f;
+ float ydx=s*((ShroudManagerImpl*)m_owner)->cellSize*0.5f;
+ float ydy=-c*((ShroudManagerImpl*)m_owner)->cellSize*0.5f;
+ float scaleX=((ShroudManagerImpl*)m_owner)->scale;
+ int stepsX=rectInteger((float)ceil((double)(scaleX*halfX*4.0f)));
+ float scaleY=((ShroudManagerImpl*)m_owner)->scale;
+ int stepsY=rectInteger((float)ceil((double)(scaleY*halfY*4.0f)));
+ RectCOI *out=(RectCOI*)m_array;
+ ++ShroudCoverageVisitGeneration;
+ float leftX=x-halfX*c-halfY*s;
+ float leftY=y+halfY*c-halfX*s;
+ for(int iy=0;iy<stepsY;++iy,leftX+=ydx,leftY+=ydy)
+ {
+  float sampleX=leftX,sampleY=leftY;
+  for(int ix=0;ix<stepsX;++ix,sampleX+=xdx,sampleY+=xdy)
+  {
+   ShroudManagerImpl008FBA40ElementLayout *cell=((ShroudManagerImpl*)m_owner)->elementAtByCoord_Rva0073A1D0(sampleX,sampleY);
+   if(cell && ShroudCoverageVisitGeneration!=cell->generation)
+   {
+    cell->generation=ShroudCoverageVisitGeneration;
+    out->cell=cell;
+    RectCOI *next=cell->first;
+    out->next=next;
+    if(next)next->previous=&out->next;
+    out->previous=(RectCOI**)cell;
+    cell->first=out;
+    ++out;
+   }
+  }
+ }
+ return true;
 }

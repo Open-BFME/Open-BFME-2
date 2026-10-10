@@ -124,6 +124,7 @@ Code/GameEngine/Source/Common/BfmeResultSourceA.cpp,-O2,3,1,region default loses
 Code/GameEngine/Source/Common/BfmeSearch26C90.cpp,-Od,1,1,region default loses rows
 Code/GameEngine/Source/Common/BfmeSlotPool.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/Common/BfmeSubBZCSet.cpp,,1,1,region default loses rows
+Code/GameEngine/Source/Common/BfmeThingCDEDestructor.cpp,-O2,5,1,region default loses rows
 Code/GameEngine/Source/Common/BfmeThreeHundredEightyFive.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/Common/BfmeThreeHundredFive.cpp,-Od,1,1,region default loses rows
 Code/GameEngine/Source/Common/BfmeThreeHundredSix.cpp,-Od,1,1,region default loses rows
