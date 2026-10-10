@@ -1,5 +1,5 @@
 // cl: /DNDEBUG /MD /GX-
-// ?Rva004384F2Free@@YGXPAVObject@@H@Z @0x004384F2 (58B): Object flag 0x20 at +0x115 gates virtual f68 at +0x250+0x110 taking code struct 1 plus rva0029130C int setup. Evidence: prev 0x004383EB same flags; rowed rva0029130C 0x0029130C; precedent Rva003743CFBehavior f68 code struct 1 shape; ret 8 two stack args; caller 0x00438E89.
+// ?rva004384F2@Rva00439E0C@@QAEXPAVObject@@H@Z @0x004384F2 (58B; respelled from the free stdcall placeholder: its sole caller 0x00438E89 loads ECX with the invisibility manager, so it is a member of that view): Object flag 0x20 at +0x115 gates virtual f68 at +0x250+0x110 taking code struct 1 plus rva0029130C int setup. Evidence: prev 0x004383EB same flags; rowed rva0029130C 0x0029130C; precedent Rva003743CFBehavior f68 code struct 1 shape; ret 8 two stack args; caller 0x00438E89.
 struct Rva003743CFParam
 {
 	int m_00;
@@ -97,7 +97,13 @@ void __cdecl Rva00438166Callback(Object *obj, const int *param)
 	obj->rva0029130C(*param);
 }
 
-void __stdcall Rva004384F2Free(Object *obj, int val)
+class Rva00439E0C
+{
+public:
+	void rva004384F2(Object *obj, int val);
+};
+
+void Rva00439E0C::rva004384F2(Object *obj, int val)
 {
 	obj->rva0029130C(val);
 	const void *flagObj = *(const void *const *)((const char *)obj + 4);

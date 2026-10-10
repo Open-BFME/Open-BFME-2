@@ -81,6 +81,7 @@ class Rva00439E0C
 {
 public:
 	void rva00438D58(Object *obj);
+	void rva00438C6C(Object *obj, void *payload, int duration, bool flag);
 };
 
 void Rva00439E0C::rva00438D58(Object *obj)
@@ -113,7 +114,9 @@ noAudio:
 extern GameLogic *TheGameLogic;
 extern void __stdcall Rva004381C4Iterate(const Object *);
 struct UpdateFrameView { char pad[8]; unsigned frame; };
-void __stdcall Rva00438C6CUpdate(Object *obj, void *payload, int duration, bool flag)
+// Respelled from the free stdcall placeholder Rva00438C6CUpdate: callers 0x00438F28
+// load ECX with the invisibility manager before the call (RET16 unchanged).
+void Rva00439E0C::rva00438C6C(Object *obj, void *payload, int duration, bool flag)
 {
  Rva004381C4Iterate(obj);
  UpdateFrameView *data=(UpdateFrameView*)payload;

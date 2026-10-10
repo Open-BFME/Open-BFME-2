@@ -28,7 +28,7 @@ Rva006CDD50Item *__cdecl Rva006CDE00Copy(Rva006CDD50Iterator,Rva006CDD50Iterator
 // and two8B entries at+0C. Original container name is unresolved.
 class AptValueNameEntry {public:EAStringC name;int value;AptValueNameEntry(const EAStringC&n,int v):name(n),value(v){} __forceinline AptValueNameEntry(){value=0;}};
 AptValueNameEntry *__cdecl Rva006CDBF0Resize(AptValueNameEntry *,int,int);
-class Rva006CE660Vec {public:void rva006CEB10(const EAStringC &);void rva006CE660(int); void insert(AptValueNameEntry *const &,AptValueNameEntry *const &,const Rva006CDD50Iterator &);int count,capacity;AptValueNameEntry *data;AptValueNameEntry inlineItems[2];
+class Rva006CE660Vec {public:void rva006CEB10(const EAStringC &);void rva006D0930(const EAStringC *,int,int,int);void rva006CE660(int); void insert(AptValueNameEntry *const &,AptValueNameEntry *const &,const Rva006CDD50Iterator &);int count,capacity;AptValueNameEntry *data;AptValueNameEntry inlineItems[2];
  Rva006CDD50Iterator begin(){Rva006CDD50Item *p=reinterpret_cast<Rva006CDD50Item *>(data);return Rva006CDD50Iterator(p,p,p+count);}
  Rva006CDD50Iterator end(){return Rva006CDD50Iterator(reinterpret_cast<Rva006CDD50Item *>(data+count),reinterpret_cast<Rva006CDD50Item *>(data),reinterpret_cast<Rva006CDD50Item *>(data+count));}};
 void Rva006CE660Vec::rva006CE660(int want){
@@ -117,4 +117,19 @@ void Rva006CE660Vec::rva006CEB10(const EAStringC &name) {
  Rva006CDD50Iterator position;
  if(found)appendPlaybackItem(*this,AptValueNameEntry(name,3),position);
  else appendPlaybackItem(*this,AptValueNameEntry(name,1),position);
+}
+
+// Native6D0930..6D0A0D RET10: the general form of rva006CEB10. A key
+// already present has its value replaced only when it equals the expected
+// one; an absent key is appended with the initial value. Callers and the
+// original member name are unresolved.
+void Rva006CE660Vec::rva006D0930(const EAStringC *key,int expected,int replacement,int initial) {
+ for(Rva006CDD50Iterator it=begin();it!=end();it++){
+  if(it.position->name.IsEqualTo(key)){
+   if(it.position->value==expected)it.position->value=replacement;
+   return;
+  }
+ }
+ Rva006CDD50Iterator position;
+ appendPlaybackItem(*this,AptValueNameEntry(*key,initial),position);
 }
