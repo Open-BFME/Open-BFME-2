@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE2 /D_STLP_USE_MALLOC /MD /EHsc /Ireference/shims/bfme2_ascii /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /O1 /arch:SSE2 /DBFME_ASCII_DTOR_DECL /D_STLP_USE_MALLOC /MD /EHsc /Ireference/shims/bfme2_ascii /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // Reference shape: ZH PlayerTemplate's automatic member copy, reconciled
 // against target1FE352/957 and PlayerTemplate store/vector476-byte callers.

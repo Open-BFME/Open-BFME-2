@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /G7 /Ireference/shims/bfme2_ascii /Ireference/shims/subsystem_bfme2 /DNDEBUG /DWIN32 /MD /D_STLP_USE_STATIC_LIB /EHsc
+// cl: /O1 /arch:SSE /G7 /DBFME_ASCII_DTOR_DECL /Ireference/shims/bfme2_ascii /Ireference/shims/subsystem_bfme2 /DNDEBUG /DWIN32 /MD /D_STLP_USE_STATIC_LIB /EHsc
 // stlport
 // GameTextManager (vtable 0x00804FA8, 0x44 bytes, created by
 // CreateGameTextInterface 0x002E651F): the string table subsystem.
