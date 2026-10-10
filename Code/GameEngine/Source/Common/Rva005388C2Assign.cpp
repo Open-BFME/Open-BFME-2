@@ -3,6 +3,7 @@
 // Holder copy-assign via rowed vector<BfmePod16> assign then flag and conditional region copy.
 // Evidence: callee 0x00538782 row vector<BfmePod16> assign; prev 0x005388C2 holder copy same layout region+flag; next 0x00538A0B holder load same layout.
 struct BfmePod16 { int a[4]; };
+struct BfmeE8 { float x; float y; };
 struct BfmeFloat4Record00469C61 { float x; float y; float z; float w; };
 class W3DAnimationInfo
 {
@@ -52,6 +53,7 @@ public:
     void rva0053892C(unsigned int count);
  	void rva005389ED(int index, const W3DAnimationInfo &x);
  	void rva00538383(float scale);
+	void rva005382F4(const BfmeE8 &delta);
 private:
 	_STL::vector<BfmePod16, _STL::allocator<BfmePod16> > m_vec;
 	Region2D m_region;
@@ -141,4 +143,30 @@ void QuadStrip2D::rva00538383(float scale)
 	m_region.x_max *= scale;
 	m_region.y_max *= scale;
 	m_1c *= scale;
+}
+
+// ?rva005382F4@QuadStrip2D@@QAEXABUBfmeE8@@@Z @0x005382F4 143B
+// Translates every stored Float4 by (dx dy dx dy), then the region unless m_20 is set.
+// Evidence: same m_vec/m_region/m_20 layout as rva00538383 in this TU; flag shape
+// matches the scale sibling; caller 0x0030BE86 calls here then refreshes through
+// vtable slot 0x28. Region x_min is read inline, y_min through a float reference.
+void QuadStrip2D::rva005382F4(const BfmeE8 &delta)
+{
+	_STL::vector<BfmeFloat4Record00469C61, _STL::allocator<BfmeFloat4Record00469C61> > &floats =
+		*(_STL::vector<BfmeFloat4Record00469C61, _STL::allocator<BfmeFloat4Record00469C61> > *)&m_vec;
+	BfmeFloat4Record00469C61 *start = floats.begin();
+	BfmeFloat4Record00469C61 *finish = floats.end();
+	for (BfmeFloat4Record00469C61 *p = start; p != finish; ++p) {
+		p->x += delta.x;
+		p->y += delta.y;
+		p->z += delta.x;
+		p->w += delta.y;
+	}
+	if (m_20 != 0)
+		return;
+	float &ry0 = m_region.y_min;
+	(m_region.x_min) += delta.x;
+	ry0 += delta.y;
+	m_region.x_max += delta.x;
+	m_region.y_max += delta.y;
 }
