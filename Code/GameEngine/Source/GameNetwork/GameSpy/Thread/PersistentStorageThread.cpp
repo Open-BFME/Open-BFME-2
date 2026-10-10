@@ -292,6 +292,8 @@ public:
 	void setStrategicStats(Rva0038454E stats);
 	void setTournamentStats(Rva00385333 stats);
 	Int getLocale() const { return m_locale; }
+	Int getID() const { return m_id; }
+	void incorporate(const PSPlayerAllStats *stats);
 	void setID(Int id);
 
 private:
@@ -840,8 +842,12 @@ BfmeOpaqueOwnedRecord1432 &BfmeOpaqueOwnedRecord1432::operator=(const BfmeOpaque
 
 // Native queue methods555BD5/555C76 lock mutex04 and query the int-key map90.
 // BFME1 findPlayerStatsByID is the semantic guide; receiver name is unproved.
+typedef _STL::map<int, PSPlayerAllStats> PlayerAllStatsMap;
+template <> PSPlayerAllStats &PlayerAllStatsMap::operator[](const int &);
+
 class Rva00555BD5StatsQueue {
 public:
+    void rva005593AE(PSPlayerAllStats stats);
     Rva003844D7 rva00555BD5(int id);
     Rva0038454E rva00555C76(int id);
     Rva00385333 rva00556730(int id);
@@ -888,6 +894,31 @@ PSPlayerAllStats Rva00555BD5StatsQueue::rva00556674(int id) {
     PSPlayerAllStats empty(0);
     empty.setID(0);
     return empty;
+}
+
+// Native [5593AE,559480): merges a posted stats record into the id map
+// under the lock, incorporating it into an existing entry (0x00552CF9).
+void Rva00555BD5StatsQueue::rva005593AE(PSPlayerAllStats stats) {
+    // Retail's unwind map (FuncInfo 0x0094DD70) numbers three action-less
+    // states 1..3 under the by-value stats (state 0) before the lock's 4:
+    // three sibling temporaries of code the compiler discarded, the dead-block
+    // pattern of CreateAHeroSubClassParse.cpp. Each temporary handed to a
+    // call is the shape that keeps such a state; the code itself is unknown.
+    if (0) {
+        stats = PSPlayerAllStats(0);
+        stats = PSPlayerAllStats(0);
+        stats = PSPlayerAllStats(0);
+    }
+    MutexClass::LockClass lock(m_mutex04);
+    PSPlayerAllStats newStats(0);
+    PlayerAllStatsMap::iterator it = m_playerStats.find(stats.getID());
+    if (it._M_node != m_playerStats.end()._M_node) {
+        newStats = it->second;
+        newStats.incorporate(&stats);
+        m_playerStats[stats.getID()] = newStats;
+    } else {
+        m_playerStats[stats.getID()] = stats;
+    }
 }
 
 // The 0x580-byte response record the stats thread posts through the queue's

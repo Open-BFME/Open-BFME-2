@@ -33844,3 +33844,4 @@ _DeringBlockStrong_C	0x001C1AD0	2030	blocked	vp6 clean-room (spec 001c1ad0): ret
 ?Rva0033F45AGet@@YAHXZ	0x0033F45A	6	landed	Coordinator verified explicit existing-row identity/source repair; zero new coverage; handoff=B-20261010-named-getter-factories-rehome-210
 ?Rva0033F47DGet@@YAHXZ	0x0033F47D	6	landed	Coordinator verified explicit existing-row identity/source repair; zero new coverage; handoff=B-20261010-named-getter-factories-rehome-210
 ?Rva0038169D@@YA_NHABVUnicodeString@@@Z	0x0038169D	494	landed	add_match verified Code/GameEngine/Source/Common/Rva0038169DChatSubmit.cpp 494B
+?rva005593AE@Rva00555BD5StatsQueue@@QAEXVPSPlayerAllStats@@@Z	0x005593AE	210	landed	add_match verified Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PersistentStorageThread.cpp 210B
