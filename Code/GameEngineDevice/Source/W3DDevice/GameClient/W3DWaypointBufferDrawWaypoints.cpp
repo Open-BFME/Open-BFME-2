@@ -1,7 +1,3 @@
-// ?drawWaypoints@W3DWaypointBuffer@@QAEXAAVRenderInfoClass@@@Z
-// partial score=0.98 date=2026-10-09
-// ?drawWaypoints@W3DWaypointBuffer@@QAEXAAVRenderInfoClass@@@Z
-// partial score=0.98 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
 // stlport
 //
@@ -11,8 +7,8 @@
 // W3DWaypointBuffer::drawWaypoints, ported from Open-BFME-1 b03e2952c
 // game/GameEngineDevice/Source/W3DDevice/GameClient/W3DWaypointBufferDrawWaypoints.cpp
 // (BFME 1 retail 0x00746A30; Zero Hour twin W3dWaypointBuffer.cpp, rally-point
-// branch dropped). BFME 2 target facts: the height map render 0x000E2FBD calls
-// it with its RenderInfoClass; TheInGameUI's waypoint flag is +0x8B0 and
+// branch compiled out, see below). BFME 2 target facts: the height map
+// render 0x000E2FBD calls it with its RenderInfoClass; TheInGameUI's waypoint flag is +0x8B0 and
 // getAllSelectedDrawables is slot 73; Object's AI is +0x258 and the template's
 // kind-of mask is tested as a byte (+0x10D bit 7, KINDOF_IGNORED_IN_GUI) with
 // no override walk; the goal-path size and position helpers are the rowed
@@ -308,5 +304,21 @@ void W3DWaypointBuffer::drawWaypoints(RenderInfoClass &rinfo)
 				}
 			}
 		}
+	}
+	else if (0) // retail compiles the rally-point branch out
+	{
+		// Zero Hour's twin draws rally points in this else-branch, opening with
+		// the light environment and RenderInfoClass below. Retail's unwind map
+		// (FuncInfo 0x009069CC) keeps three action-less states chained under no
+		// live object (2 -> -1, 3 -> 2, 4 -> 3) after the waypoint branch's two:
+		// the discarded branch's locals. The third is not in Zero Hour and its
+		// type is unknown; a third RenderInfoClass reproduces only its EH shape.
+		LightEnvironmentClass lightEnv;
+		lightEnv.Reset(Vector3(0,0,0), Vector3(1.0f,1.0f,1.0f));
+		lightEnv.Pre_Render_Update(rinfo.Camera.Get_Transform());
+		RenderInfoClass localRinfo(rinfo.Camera);
+		localRinfo.light_environment=&lightEnv;
+		RenderInfoClass rallyRinfo(rinfo.Camera);
+		m_line->Render( rallyRinfo );
 	}
 }
