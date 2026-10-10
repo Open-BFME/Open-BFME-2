@@ -1,4 +1,4 @@
-// cl: /O1 /GX /DNDEBUG /MD /Ireference/shims/moduledata
+// cl: /O1 /GX /DNDEBUG /MD /Ireference/shims/moduledata /Ireference/shims/subsystem_bfme2 /Ireference/shims/bfme2_ascii
 //
 // Opaque scalar deleting destructors, batch B10: 28-byte wrappers that
 // call the destructor, test bit 0 of the flags, conditionally free through
@@ -36,6 +36,8 @@
 //   0x00444067  0x0052163E  0x00C3DFA8#0, 0x00C67840#0
 //   0x00488D1F  0x00488D3B  0x00C4B510#0
 
+typedef bool Bool;
+#include "subsystem_interface.h"
 #include "Common/Snapshot.h"
 
 namespace _STL
@@ -123,8 +125,9 @@ Rva0041A644::Rva0041A644(EmitVtableTag *)
 
 // Rva0041B790's two tables (data ledger): GameEngineDeletingBase at +0 and Snapshot at +0xC, whose
 // slot 0 is a this-adjusting (sub ecx, 0xC) deleting-destructor thunk.
-class GameEngineDeletingBase { public: virtual ~GameEngineDeletingBase(); private: char m_unmodelled04[8]; };
-class Rva0041B790 : public GameEngineDeletingBase, public Snapshot
+// Both bases are the native 12-byte SubsystemInterface: ctor 1B4E63,
+// dtor 1B4E74 and vtable BD77A0. Use its existing shared declaration.
+class Rva0041B790 : public SubsystemInterface, public Snapshot
 {
 public:
 	Rva0041B790(EmitVtableTag *);
@@ -165,7 +168,10 @@ Rva0041F94A::Rva0041F94A(EmitVtableTag *)
 
 // Rva00426745's two tables (data ledger): SubsystemInterface at +0 and Rva00426745SnapshotBase at +0xC, whose
 // slot 0 is a this-adjusting (sub ecx, 0xC) deleting-destructor thunk.
-class SubsystemInterface { public: virtual ~SubsystemInterface(); private: char m_unmodelled04[8]; };
+// Native base constructor 0x001B4E63 has its measured 17-byte provider in
+// subsystem/SubsystemInterface.cpp. Declare it rather than emitting the
+// implicit constructor for this bounded 12-byte deleting-destructor view.
+
 class Rva00426745SnapshotBase { public: virtual ~Rva00426745SnapshotBase(); };
 class Rva00426745 : public SubsystemInterface, public Rva00426745SnapshotBase
 {
