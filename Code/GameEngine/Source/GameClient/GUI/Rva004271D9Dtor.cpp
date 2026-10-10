@@ -46,3 +46,10 @@ Rva004271D9::~Rva004271D9()
 {
 	((ArmorHashTable004271D9 *)this)->clear();
 }
+
+// Native427212 tail JMP0x4271d9: unchanged thiscall receiver,
+// no stack arguments and RET0. Original wrapper and outer type unknown.
+struct Rva00427212CleanupForward { void cleanup(); };
+void Rva00427212CleanupForward::cleanup() {
+    reinterpret_cast<Rva004271D9 *>(this)->~Rva004271D9();
+}

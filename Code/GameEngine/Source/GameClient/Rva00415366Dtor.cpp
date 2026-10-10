@@ -45,3 +45,10 @@ Rva00415366::~Rva00415366()
 {
 	((Rva000427195 *)this)->rva003A2A41();
 }
+
+// Native41547C tail JMP0x415366: unchanged thiscall receiver,
+// no stack arguments and RET0. Original wrapper and outer type unknown.
+struct Rva0041547CCleanupForward { void cleanup(); };
+void Rva0041547CCleanupForward::cleanup() {
+    reinterpret_cast<Rva00415366 *>(this)->~Rva00415366();
+}
