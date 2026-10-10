@@ -31,7 +31,7 @@ class StringBase
     void releaseBuffer();
 
 public:
-    void set(const StringBase<T> &that);
+    __declspec(noinline) void set(const StringBase<T> &that);
 };
 
 class WideLock
@@ -78,3 +78,14 @@ void StringBase<wchar_t>::set(const StringBase<wchar_t> &that)
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
 #pragma comment(linker, "/alternatename:??4Rva00630D00UStr@@QAEAAV0@ABV0@@Z=?set@?$StringBase@G@@QAEXABV1@@Z")
+
+// Native0040FB15..0040FB1A5B tail-forwards the unchanged receiver and
+// const-reference argument to the owned wide StringBase::set at00037150.
+// Ghidra calls the wrapper set; original outer type and lifetime role unknown.
+// This pointer-only view never constructs or sizes an unknown owner.
+struct Rva0040FB15WideStringCopyForward {
+    void set(const StringBase<wchar_t> &that);
+};
+void Rva0040FB15WideStringCopyForward::set(const StringBase<wchar_t> &that) {
+    reinterpret_cast<StringBase<wchar_t> *>(this)->set(that);
+}
