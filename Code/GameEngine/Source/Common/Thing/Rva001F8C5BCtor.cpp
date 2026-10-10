@@ -8,18 +8,15 @@
 // Evidence: callers 0x001F90B8 and 0x001F9CA1; callees rowed Vector_base
 // 0x00211E58 plus ModuleData reserve 0x002B712E plus push_back 0x004DFCB0;
 // unblocks 0x001F9C73; follows Rva001F8E45 filter shape with slot 1.
-// The emitted unsigned max copy must match retail RVA 0x00013740.
-// Define it for speed, then restore this unit's flags for its own bodies.
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
 #include <stl/_algobase.h>
-#pragma optimize("s", off)
-#pragma optimize("t", on)
 namespace _STL {
-template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
 {
     return a < b ? b : a;
 }
 }
-#pragma optimize("", on)
 
 #include <vector>
 

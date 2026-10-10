@@ -3,18 +3,15 @@
 // ?AddCreateAHeroSpecialPowerUpgrade@Object@@QAEXPAVRva004B555F@@@Z retail 0x002972DE 130B
 // Chain from 0x004B555F; unused name copy plus Science dedup at this+0x4A4 via rowed push_back.
 // Evidence: callers plus rowed 0x004B555F 0x000365F0 0x00036410 0x002E01C6 plus prev 0x00295A0F next 0x00297360.
-// The emitted unsigned max copy must match retail RVA 0x00013740.
-// Define it for speed, then restore this unit's flags for its own bodies.
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
 #include <stl/_algobase.h>
-#pragma optimize("s", off)
-#pragma optimize("t", on)
 namespace _STL {
-template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
 {
     return a < b ? b : a;
 }
 }
-#pragma optimize("", on)
 
 #include "ascii_string.h"
 #include <vector>
