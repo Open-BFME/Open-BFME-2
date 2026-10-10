@@ -1,26 +1,22 @@
-// ?rva003BE6CB@Rva003BE6CB@@QAEXXZ
-// partial score=0.966 date=2026-10-05
-// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /O1 /EHsc /MD /DNDEBUG
+// cl: /I. /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /O1 /G7 /EHsc /MD /DNDEBUG /arch:SSE
 //
 // ?rva003BE6CB@Rva003BE6CB@@QAEXXZ @0x003BE6CB 290B (dump range 18).
 // Defeat-screen emit with an EH frame: clears its +0x0C byte, runs the
 // pinned GameLogic 0x00376D49 member and the rowed 0x001EB0CA holder member
-// when set, runs the pinned 0x003BBAD3 member, bails when the flag is set
-// or when the pointer global or the local player is null, builds two
+// when set, runs the pinned 0x003BBAD3 member, skips the screen when the flag
+// is set or when the pointer global or the local player is null, else builds two
 // AsciiStrings on the stack (rowed StringBase ctor 0x0037BA0,
 // releaseBuffer 0x00036410 cleanup), gates the second on rowed uchar
 // 0x003BA8F3, fires the pointer global's slot 0x17 with (second, evil
 // byte, first, AsciiString::TheEmptyString), optionally fires slot 0x1B
 // when rowed GameLogic_bool 0x00200084 agrees, clears the campaign flag,
 // re-runs the holder member, and finishes through the rowed 0x002036B4
-// apply and the pinned 0x0021A4E6 member.
+// apply and the pinned 0x0021A4E6 member. The clearing of the campaign flag and
+// everything after it runs on every path (the bank's early returns were
+// branches to that tail).
 #include "ascii_string.h"
 
-class GameLogic
-{
-public:
-	void rva00376D49();
-};
+#include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 
 class Rva0023C6A4
@@ -136,19 +132,19 @@ void Rva003BE6CB::rva003BE6CB()
 	if (TheVisualHolder != 0)
 		TheVisualHolder->rva001EB0CA();
 	((Rva003BBAD3 *)this)->rva003BBAD3();
-	if (m_flagC != 0)
-		return;
-	Player *pl = ThePlayerList->m_localPlayer;
-	if (g_00E03138 == 0 || pl == 0)
-		return;
-	{
-		AsciiString s1("Gui_DefeatScreen");
-		AsciiString s2(Rva003BA8F3Get() ? "APT:EndGameOver" : "APT:EndDefeat");
-		Rva003BE6CBP34 *p = pl->m_p34;
-		g_00E03138->slot23(s2, p ? p->m_1bc : (unsigned char)0, s1, AsciiString::TheEmptyString);
+	if (m_flagC == 0) {
+		Player *pl = ThePlayerList->m_localPlayer;
+		if (g_00E03138 != 0 && pl != 0) {
+			{
+				AsciiString s1("Gui_DefeatScreen");
+				AsciiString s2(Rva003BA8F3Get() ? "APT:EndGameOver" : "APT:EndDefeat");
+				Rva003BE6CBP34 *p = pl->m_p34;
+				g_00E03138->slot23(s2, p ? p->m_1bc : (unsigned char)0, s1, AsciiString::TheEmptyString);
+			}
+			if (((Rva0023C6A4 *)TheGameLogic)->rva00200084())
+				g_00E03138->slot27(1);
+		}
 	}
-	if (((Rva0023C6A4 *)TheGameLogic)->rva00200084())
-		g_00E03138->slot27(1);
 	TheCampaignManager->m_flag2D = false;
 	if (TheVisualHolder != 0)
 		TheVisualHolder->rva001EB0CA();
