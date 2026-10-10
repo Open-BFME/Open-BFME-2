@@ -208,6 +208,7 @@ Code/GameEngine/Source/Common/Rva0033A68AWrapper.cpp,-O1,1,1,region default lose
 Code/GameEngine/Source/Common/Rva0037E270Lookup.cpp,-O1,2,1,region default loses rows
 Code/GameEngine/Source/Common/Rva0039BF0BFinish.cpp,-O1,1,1,region default loses rows
 Code/GameEngine/Source/Common/Rva005745D8.cpp,-O1,1,1,region default loses rows
+Code/GameEngine/Source/Common/Rva0059ADD1Check.cpp,-O2 -G7 -arch:SSE,1,1,region default loses rows
 Code/GameEngine/Source/Common/Rva0059E2ABFind.cpp,-O1,1,1,region default loses rows
 Code/GameEngine/Source/Common/Rva005D2B2FMethod.cpp,-O1,1,1,region default loses rows
 Code/GameEngine/Source/Common/Rva006026E0Cluster.cpp,,3,3,region default loses rows

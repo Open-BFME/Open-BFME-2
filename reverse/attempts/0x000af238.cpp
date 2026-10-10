@@ -1,4 +1,6 @@
 // ?parse@WorldHeightMap@@QAEXAAVDataChunkInput@@PAX11@Z
+// partial score=0.82535958 date=2026-10-10
+// ?parse@WorldHeightMap@@QAEXAAVDataChunkInput@@PAX11@Z
 // partial score=0.8 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
@@ -56,7 +58,7 @@ private:
 class Rva000AEF42 : public BfmeParserBindingBaseVE { public: Rva000AEF42(void *owner, BfmeParserRegistryVE *registry, const AsciiString *label); void *m_owner; };
 class Rva000AEEDA : public BfmeParserBindingBaseVE { public: Rva000AEEDA(void *owner, BfmeParserRegistryVE *registry, const AsciiString *label); void *m_owner; };
 class Rva000AEFAA : public BfmeParserBindingBaseVE { public: Rva000AEFAA(void *owner, BfmeParserRegistryVE *registry, const AsciiString *label); void *m_owner; };
-class Rva000AF01A : public BfmeParserBindingBaseVE { public: Rva000AF01A(void *owner, BfmeParserRegistryVE *registry, const AsciiString *label); void *m_owner; Int m_10; };
+class Rva000AF01A : public BfmeParserBindingBaseVE { public: Rva000AF01A(void *owner, BfmeParserRegistryVE *registry, const AsciiString *label); void *m_owner; };
 class Rva000AF082 : public BfmeParserBindingBaseVE { public: Rva000AF082(BfmeParserRegistryVE *registry, const AsciiString *label); };
 class Rva000AF0E4 : public BfmeParserBindingBaseVE { public: Rva000AF0E4(BfmeParserRegistryVE *registry, const AsciiString *label); };
 
