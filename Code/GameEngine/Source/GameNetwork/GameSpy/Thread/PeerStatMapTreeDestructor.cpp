@@ -48,3 +48,12 @@ template<> PeerStatTree::~_Rb_tree() {
     clear();
 }
 }
+
+// Native38A5D1..38A5D6 is a standalone JMP to the owned PlayerStatMap dtor.
+// Original wrapper name and enclosing receiver type remain unknown.
+typedef _STL::PeerStatTree Rva0038A5D1Tree;
+struct Rva0038A5D1PeerStatCleanupForward { void cleanup(); };
+void Rva0038A5D1PeerStatCleanupForward::cleanup()
+{
+    reinterpret_cast<Rva0038A5D1Tree *>(this)->~Rva0038A5D1Tree();
+}
