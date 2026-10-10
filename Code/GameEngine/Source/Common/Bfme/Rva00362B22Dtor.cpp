@@ -35,3 +35,18 @@ Rva00362AB5::~Rva00362AB5()
 {
 	rva00362AB5();
 }
+
+// ??1Rva00362B5ADtor@@QAE@XZ retail 0x00362B5A 5 bytes: the destructor of the
+// global at 0x00E01E7C (its atexit thunk is the rowed 0x007B7CC3), whose only
+// non-trivial member sits at offset 0: a tail jump to ~Rva00362AB5.
+class Rva00362B5ADtor
+{
+public:
+	~Rva00362B5ADtor();
+private:
+	Rva00362AB5 m_00;
+};
+
+Rva00362B5ADtor::~Rva00362B5ADtor()
+{
+}
