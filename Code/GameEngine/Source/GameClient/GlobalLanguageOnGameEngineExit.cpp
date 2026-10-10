@@ -48,6 +48,7 @@ extern "C" __declspec(dllimport) Bool __stdcall DeleteFileA(LPCSTR);
 extern "C" __declspec(dllimport) Bool __stdcall RemoveDirectoryA(LPCSTR);
 
 #include "ascii_string.h"
+extern const char *BfmeFontExtractionDirectory;
 
 struct BfmeStringView
 {
@@ -109,7 +110,7 @@ void GlobalLanguage::onGameEngineExit()
 	char tempPath[MAX_PATH];
 	if (GetTempPathA(MAX_PATH, tempPath)) {
 		AsciiString fontDirectory;
-		fontDirectory.format("%s\\%s", tempPath, *(const char **)0x00DB8F94);
+		fontDirectory.format("%s\\%s", tempPath, BfmeFontExtractionDirectory);
 		AsciiString searchPath;
 		searchPath.format("%s\\lrf*.*", fontDirectory.str());
 		BfmeFindData findData;
