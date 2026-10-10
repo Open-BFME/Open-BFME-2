@@ -41,7 +41,7 @@ void Holder00525D9A::rva00525407(const HeroCall &call) {
  while(i<(unsigned int)(end-begin)) {index++;call(begin[i]);i=index;}
 }
 class HeroSelectData:public Holder00525D9A {
-public:void rva005259B9(Object *);HeroInfoList heroes;BuilderInfoList builders;
+public:__declspec(noinline) void rva005259B9(Object *);HeroInfoList heroes;BuilderInfoList builders;
 };
 void HeroSelectData::rva005259B9(Object *obj) {
  const unsigned int heroBit=0x4000000;ThingTemplate *templ=obj->templ;
@@ -57,4 +57,16 @@ void HeroSelectData::rva005259B9(Object *obj) {
    if(id==it->id){union{HeroNotify method;int fn;} binding={&Rva005259B9Listener::removeBuilder};Rva005258F8(binding.fn,(Pod12Node00525D9A*)it._M_node);builders.erase(it);break;}
   }
  }
+}
+
+// Native525A80..525A87 loads receiver word0 then jumps to removeHero5259B9.
+// Keep the existing pin's raw32-bit argument view; the provider interprets
+// the argument as an Object pointer. Original wrapper name/type unknown.
+struct Rva002D37Sub {
+    HeroSelectData *implementation;
+    void rva00525A80(int objectWord);
+};
+void Rva002D37Sub::rva00525A80(int objectWord)
+{
+    implementation->rva005259B9(reinterpret_cast<Object *>(objectWord));
 }
