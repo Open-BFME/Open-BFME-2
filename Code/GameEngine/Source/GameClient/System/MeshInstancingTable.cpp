@@ -31,3 +31,12 @@ Rva0041FA59::~Rva0041FA59()
 {
     reinterpret_cast<Rva000427195 *>(this)->rva003A2A41();
 }
+
+// Native0x0041FB0E..0x0041FB13 tail JMP to the sole owned destructor
+// at0x0041FA59: unchanged thiscall receiver and stack; no args; RET0.
+// Original wrapper name enclosing class and lifetime role remain unknown.
+struct Rva0041FB0ECleanupForward { void cleanup(); };
+void Rva0041FB0ECleanupForward::cleanup()
+{
+    reinterpret_cast<Rva0041FA59*>(this)->~Rva0041FA59();
+}

@@ -44,3 +44,12 @@ Rva0041F4A7::~Rva0041F4A7()
 {
     reinterpret_cast<Rva001DBCDCTarget *>(this)->rva001DBCDC();
 }
+
+// Native0x0041F4E0..0x0041F4E5 tail JMP to the sole owned destructor
+// at0x0041F4A7: unchanged thiscall receiver and stack; no args; RET0.
+// Original wrapper name enclosing class and lifetime role remain unknown.
+struct Rva0041F4E0CleanupForward { void cleanup(); };
+void Rva0041F4E0CleanupForward::cleanup()
+{
+    reinterpret_cast<Rva0041F4A7*>(this)->~Rva0041F4A7();
+}
