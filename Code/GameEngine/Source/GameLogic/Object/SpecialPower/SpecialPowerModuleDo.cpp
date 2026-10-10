@@ -122,6 +122,8 @@ public:
 	virtual void doSpecialPower(UnsignedInt commandOptions) = 0;
 	virtual void doSpecialPowerAtObject(Object *obj, UnsignedInt commandOptions) = 0;
 	virtual void doSpecialPowerAtLocation(const Coord3D *loc, UnsignedInt commandOptions) = 0;
+	virtual void doSpecialPowerUsingWaypoints(const Coord3D *loc, const Waypoint *way, UnsignedInt commandOptions) = 0;
+	virtual void markSpecialPowerTriggered(const Coord3D *location) = 0;
 };
 
 class SpecialPowerModule : public BehaviorModule, public SpecialPowerModuleInterface
@@ -130,6 +132,8 @@ public:
 	virtual void doSpecialPower(UnsignedInt commandOptions);
 	virtual void doSpecialPowerAtObject(Object *obj, UnsignedInt commandOptions);
 	virtual void doSpecialPowerAtLocation(const Coord3D *loc, UnsignedInt commandOptions);
+	virtual void doSpecialPowerUsingWaypoints(const Coord3D *loc, const Waypoint *way, UnsignedInt commandOptions);
+	virtual void markSpecialPowerTriggered(const Coord3D *location);
 
 	void initiateIntentToDoSpecialPower(const Object *targetObj, const Coord3D *targetPos,
 		UnsignedInt commandOptions, const Waypoint *way);
@@ -178,4 +182,27 @@ void SpecialPowerModule::doSpecialPowerAtLocation(const Coord3D *loc, UnsignedIn
 
 	if (!getSpecialPowerModuleData()->m_updateModuleStartsAttack)
 		triggerSpecialPower(loc);
+}
+
+// The next two interface slots (vftable entries after doSpecialPowerAtLocation):
+//   ?doSpecialPowerUsingWaypoints@...  0x00494A2A  82B, RET 12
+//   ?markSpecialPowerTriggered@...     0x00494591   8B (this adjust, tail jump)
+// Zero Hour's bodies. BFME 2's waypoint entry takes a location too: it is
+// handed on as the target position with the waypoint in the trailing slot
+// (argument roles read from retail's pushes; names inferred), and the trigger
+// stays location-less as in Zero Hour.
+void SpecialPowerModule::doSpecialPowerUsingWaypoints(const Coord3D *loc, const Waypoint *way, UnsignedInt commandOptions)
+{
+	if (!(commandOptions & COMMAND_FIRED_BY_SCRIPT) && (m_pausedCount > 0 || OBJECT_DISABLED_MASK(m_object)->any()))
+		return;
+
+	initiateIntentToDoSpecialPower(NULL, loc, commandOptions, way);
+
+	if (!getSpecialPowerModuleData()->m_updateModuleStartsAttack)
+		triggerSpecialPower(NULL);
+}
+
+void SpecialPowerModule::markSpecialPowerTriggered(const Coord3D *location)
+{
+	triggerSpecialPower(location);
 }
