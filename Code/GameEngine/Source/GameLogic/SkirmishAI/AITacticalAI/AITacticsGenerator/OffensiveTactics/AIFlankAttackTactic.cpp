@@ -101,6 +101,8 @@ class Rva0015334F
 public:
 	void rva005AA2D9(Rva005AA55DRecord *record, const Coord3D *from, const Coord3D *to);
 	void xfer(Xfer *xfer);
+	bool done() const { return m_next == m_points.end()-m_points.begin(); }
+	Coord3D *next() { int n=m_next++; return &(this ? m_points : m_points)[n]; }
 	int m_next;			// +0x00
 	_STL::vector<Coord3D> m_points;	// +0x04
 };
@@ -144,6 +146,7 @@ public:
 	virtual bool canRun(void *request);
 	virtual void xfer(Xfer *xfer);
 	virtual void run();
+	virtual void update();
 private:
 	Rva0015334F *m_route;	// +0x58
 };
@@ -195,4 +198,15 @@ void AIFlankAttackTactic::xfer(Xfer *xfer)
 {
 	AITactic::xfer(xfer);
 	m_route->xfer(xfer);
+}
+
+// Native5AA1EA..5AA23E complete84B; existing vslot7 and route+58 prove
+// this update. The same-valued route expression retains native index scaling
+// before the increment store; no runtime branch or barrier is emitted.
+void AIFlankAttackTactic::update()
+{
+ if (!m_running) return;
+ if (!rva004ED169() && !m_record->m_18) return;
+ if (m_route->done()) { end(true,false); return; }
+ rva004ED342(m_route->next());
 }
