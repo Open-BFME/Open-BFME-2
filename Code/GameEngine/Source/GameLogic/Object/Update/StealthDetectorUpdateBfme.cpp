@@ -145,8 +145,8 @@ class Object{public:bool testStatus(ObjectStatusTypes) const;bool isKindOf(KindO
  int rva0028F4EF();int rva002933CD();Rva00373EC6 *rva0028F4BC();protected:Module *findModule(NameKeyType)const;friend class StealthDetectorUpdate;public:
  Player *getControllingPlayer()const;Relationship getRelationship(const Object*)const;CellShroudStatus getShroudStatusForPlayer(int) const;
  char pad[0x38];Coord3D m_pos;char pad44[0x74-0x44];ObjectID m_id;char pad78[0x250-0x78];ContainModuleInterface *m_contain;
- char pad254[0x274-0x254];Object *m_container;char pad278[0x438-0x278];unsigned m_flags;
- bool isEffectivelyDead()const{return (m_flags&1)!=0;}
+ char pad254[0x274-0x254];Object *m_container;char pad278[0x438-0x278];unsigned char m_privateStatus;unsigned char m_pad439[0x43C-0x439];
+ bool isEffectivelyDead()const{return (m_privateStatus&1)!=0;}
 };
 struct StealthDetectorUpdateModuleData{char pad[8];int m_rate;float m_range;bool initiallyDisabled;OpaqueRefElement4 m_sound,m_loud;const ParticleSystemTemplate *m_beacon,*m_ping,*m_bright,*m_grid;AsciiString m_bone;BfmeFixedStorage0004543D m_require,m_forbid;bool m_garrison,m_transport,m_cancelRing;AsciiString m_upgrade;};
 class DetectorPrimary{public:virtual void primary();const StealthDetectorUpdateModuleData *m_data;Object *m_object;};

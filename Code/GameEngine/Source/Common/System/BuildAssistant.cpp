@@ -627,7 +627,7 @@ class Object : public Thing
 {
 public:
 	__forceinline UnsignedInt isKindOf(KindOfType t) const { return m_template->isKindOf(t); }
-	Bool isEffectivelyDead() const { return m_isEffectivelyDead; }
+	Bool isEffectivelyDead() const { return (m_privateStatus & 1) != 0; }
 	Bool testScriptStatusBit(ObjectScriptStatusBit b) const { return (m_scriptStatus & b) != 0; }
 	AIUpdateInterface *getAI() const { return m_ai; }
 	void *rva0028BD17() const;
@@ -681,7 +681,7 @@ private:
 	Real m_buildCost;			// +0x324
 	unsigned char m_pad328[0x437 - 0x328];
 	unsigned char m_scriptStatus;		// +0x437
-	Bool m_isEffectivelyDead : 1;		// +0x438 bit 0
+	unsigned char m_privateStatus;		// +0x438, bit 0 is effectively-dead (retail mov al + and eax,1)
 	unsigned char m_pad439[0x45C - 0x439];
 	Int m_45C;				// +0x45C
 };

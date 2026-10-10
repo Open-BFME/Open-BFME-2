@@ -106,7 +106,7 @@ public:
  const Matrix3D *getTransformMatrix() const { return reinterpret_cast<const Matrix3D *>(m_pad008); }
  const Coord3D *getPosition() const { return reinterpret_cast<const Coord3D *>(m_pad008 + 0x30); }
  void setProducer(Object *obj);
- bool isEffectivelyDead() const { return m_effectivelyDead; }
+ bool isEffectivelyDead() const { return (m_privateStatus & 1) != 0; }
  Object *container() const { return *reinterpret_cast<Object *const *>(reinterpret_cast<const char *>(this)+0x274); }
  Team *getTeam() const { return *reinterpret_cast<Team *const *>(reinterpret_cast<const char *>(this)+0x304); }
  AIUpdateInterface *getAIUpdateInterface() const { return *reinterpret_cast<AIUpdateInterface *const *>(reinterpret_cast<const char *>(this)+0x258); }
@@ -124,7 +124,7 @@ private:
 	unsigned char m_pad008[0x74 - 0x08];
 	ObjectID m_id; // +0x74
  unsigned char m_pad078[0x438-0x78];
- bool m_effectivelyDead : 1;
+ unsigned char m_privateStatus; // +0x438, bit 0 is effectively-dead
 };
 
 class PlayerList
