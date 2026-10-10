@@ -1,43 +1,28 @@
 // ??0GenericObjectCreationNugget@@QAE@XZ
 // partial score=0.99 date=2026-09-26
-// cl: /O1 /MD /EHsc /arch:SSE /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc /arch:SSE /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //
-// 478/478B 110/110insns. Sole diff: `lea ecx,[esi+0xB4]` hoisted to +0x67
-// (ours) vs +0xBA (retail); the Rva call itself is in-order at +0x15C in
-// BOTH (verified in obj). Refuted: throw()-removal (adds state-4, 482B),
-// implicit-vs-explicit mem-init (same), mem-init list reorder (same).
-// The hoist is pure scheduler gap-filling; needs a scheduling lever that
-// keeps ecx busy across 0x67-0xBA without changing bytes.
-// States 0/1/3, vtable + float-literal are gate relocs. See the full
-// derivation notes in git history of this stash path.
+// Native 0x001F0E32..0x001F1010; existing GenericObjectCreationNugget
+// ctor pin and parseObject allocation identify this constructor.
+// ZH ObjectCreationList.cpp supplies the nugget's purpose and initialized
+// fields. Target ctor and rowed dtor establish the BFME2 offsets and defaults;
+// unsupported scalar semantics retain address-derived names.
+// Vector element evidence: dtor1F31C6 destroys strings at4/114/120 and the
+// three-string animation record at14 (range destroy1F0801). Native scalar
+// stores establish the added flags; memberB4 is the owned bulk-zero ctor42526.
+// Two memory barriers constrain scheduler placement without emitting code:
+// m_unk80 keeps the condition receiver LEA after the scalar stores; m_flag101
+// leaves XORPS after the preceding flag100 store. Complete478 bytes verified.
+// BFME1 donor revision reviewed:575ba2b04743f190f069805fbdc59936123c45da.
 #include <vector>
+extern "C" void _ReadWriteBarrier(void);
+#pragma intrinsic(_ReadWriteBarrier)
 
-struct BfmeE16 { float x, y, z, w; };
 
-template <class T>
-class StringBase
-{
-	friend class AsciiString;
+#include "ascii_string.h"
 
-protected:
-	StringBase() {}
-
-private:
-	StringBase(const StringBase<T> &);
-};
-
-class AsciiString : private StringBase<char>
-{
-public:
-	AsciiString() : m_text(0) {}
-	AsciiString(const AsciiString &other) : StringBase<char>(other) {}
-	~AsciiString();
-
-private:
-	char *m_text;
-};
-
+struct AnimSet { AsciiString initial, flying, final; };
 extern const AsciiString TheEmptyString;
 
 class ObjectCreationNugget
@@ -78,9 +63,9 @@ protected:
 	virtual ~GenericObjectCreationNugget();
 
 private:
-	_STL::vector<BfmeE16> m_names; // +0x04 (dtor TU: AsciiString elements)
+	_STL::vector<AsciiString> m_names; // +0x04
 	AsciiString m_putInContainer; // +0x10
-	_STL::vector<BfmeE16> m_animSets; // +0x14 (dtor TU: AnimSet elements)
+	_STL::vector<AnimSet> m_animSets; // +0x14
 	void *m_fxFinal; // +0x20
 	AsciiString m_particleSysName; // +0x24
 	int m_debrisToGenerate; // +0x28
@@ -138,8 +123,8 @@ private:
 	AsciiString m_unk10C; // +0x10C (inline-empty default: zero store, no call)
 	unsigned char m_pad110; // +0x110
 	unsigned char m_pad111; // +0x111
-	_STL::vector<BfmeE16> m_tailVec114; // +0x114
-	_STL::vector<BfmeE16> m_tailVec120; // +0x120
+	_STL::vector<AsciiString> m_tailVec114; // +0x114
+	_STL::vector<AsciiString> m_tailVec120; // +0x120
 };
 
 // ??0GenericObjectCreationNugget@@QAE@XZ @0x001F0E32
@@ -166,7 +151,7 @@ GenericObjectCreationNugget::GenericObjectCreationNugget()
 	, m_maxHealth(1.0f)
 	, m_fadeFrames(0)
 	, m_poolHandle(0)
-	, m_unk80(0.0f)
+	, m_unk80((_ReadWriteBarrier(),0.0f))
 	, m_unk84(0.0f)
 	, m_unk88(0.0f)
 	, m_unk8C(0)
@@ -192,7 +177,7 @@ GenericObjectCreationNugget::GenericObjectCreationNugget()
 	, m_flagAF(false)
 	, m_unkB0(0)
 	, m_flag100(true)
-	, m_flag101(false)
+	, m_flag101((_ReadWriteBarrier(),false))
 	, m_flag102(false)
 	, m_flag103(false)
 	, m_unk104(0.0f)
