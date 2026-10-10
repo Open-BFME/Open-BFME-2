@@ -53,12 +53,14 @@ struct Holder001F5401
 	float m_value;
 	char m_pad28[4];
 	float m_value2;
+ float m_value3;
 };
 
 class Rva001F553F
 {
 public:
 	float rva001F534C();
+ float rva001F53CE();
 	float rva001F5401();
 	float rva001F5423();
 	float rva001F5445();
@@ -130,4 +132,15 @@ Coord3D *Rva001F553F::rva001F553F(Coord3D *out, unsigned int a, unsigned int b)
 		out->z = 0.0f;
 		return out;
 	}
+}
+
+// Native1F53CE..1F53F0 RET0: same nullable holder1C8 as the two rowed
+// accessors, but reads float30. Original field/method names are unproven.
+float Rva001F553F::rva001F53CE()
+{
+ Holder001F5401 *p=m_1C8;
+ float v;
+ if(p!=0) v=p->m_value3;
+ else v=0.0f;
+ return v;
 }
