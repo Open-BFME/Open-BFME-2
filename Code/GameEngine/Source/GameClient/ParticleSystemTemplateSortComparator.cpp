@@ -84,3 +84,19 @@ private: char unknown[0x38]; Rva00204B6FRecord *items;
 };
 int *Rva00204BA7Owner::elementField8(int index)
 { return &items[index].field8; }
+
+// BFME1 575ba2b04743f190f069805fbdc59936123c45da, WWLib
+// Deque20ByteElement.cpp supplied the STLport copy_backward forwarding lead.
+// Native 0x00204B6A..0x00204B6F is exactly a tail jump to the independently
+// matched 38B __copy_trivial_backward (0x00620840). The preceding matched
+// deleting destructor ends at 0x00204B6A and the next accessor starts at
+// 0x00204B6F. Payload type and original wrapper spelling are not recovered;
+// use only the provider's established three-pointer ABI, without its donor
+// deque element name or any target payload-layout claim.
+namespace _STL {
+    void * __cdecl __copy_trivial_backward(const void *, const void *, void *);
+}
+void * __cdecl rva00204B6ACopyBackward(const void *first, const void *last, void *result)
+{
+    return _STL::__copy_trivial_backward(first, last, result);
+}
