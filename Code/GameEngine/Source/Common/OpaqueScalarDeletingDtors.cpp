@@ -586,28 +586,6 @@ private:
 	int m_pad04;
 };
 
-class Rva005F38CA
-{
-public:
-	virtual ~Rva005F38CA();
-
-private:
-	Rva005F35D3 m_member04;
-};
-
-// ?Rva005F38CA::~Rva005F38CA present-unmatched
-Rva005F38CA::~Rva005F38CA()
-{
-	m_member04.clear();
-}
-
-// Anchor: forces out-of-line emission of the in-class destructor COMDAT,
-// including the scalar deleting destructor.
-void Rva005F38CA_Anchor(Rva005F38CA *p)
-{
-	p->Rva005F38CA::~Rva005F38CA();
-}
-
 class Rva005FC1CA
 {
 public:

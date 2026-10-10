@@ -93,9 +93,20 @@ struct Rva005CDCEELink {char prefix[0x20];void *owner;};
 class Rva005CDCEE : public Rva005E6F9D {public:virtual ~Rva005CDCEE();private:Rva005CDCEELink *link24;};
 Rva005CDCEE::~Rva005CDCEE(){if(link24)link24->owner=0;}
 
-class Rva005F38CA {public:virtual ~Rva005F38CA();private:void *data4;};
-class Rva005E54F7Primary : public Rva005F38CA {public:virtual ~Rva005E54F7Primary(){}};
-class Rva005E54F7 : public Rva005E54F7Primary,public Rva005E4F6D {public:virtual ~Rva005E54F7();};
+class AsciiString;
+namespace StrategicHUD {
+class ArmyDetailsMovieClip {
+public:
+    ArmyDetailsMovieClip(int, const AsciiString &, int, bool);
+    virtual ~ArmyDetailsMovieClip();
+    virtual void notifyBackButtonClicked();
+    virtual void notifyIconListBackgroundClicked();
+private:
+    class Impl *m_impl;
+};
+}
+class Rva005E54AE : public StrategicHUD::ArmyDetailsMovieClip {public:virtual ~Rva005E54AE(){}};
+class Rva005E54F7 : public Rva005E54AE,public Rva005E4F6D {public:virtual ~Rva005E54F7();};
 Rva005E54F7::~Rva005E54F7(){}
 struct Rva005CD9C0Link {char prefix[0xc];void *owner;};
 class Rva005CD9C0 : public Rva005E54F7 {public:virtual ~Rva005CD9C0();private:Rva005CD9C0Link *link1C;};

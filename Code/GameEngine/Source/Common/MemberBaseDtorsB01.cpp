@@ -134,11 +134,18 @@ private:
 	void *m_value;
 };
 
-class Rva005F38CA
-{
+class AsciiString;
+namespace StrategicHUD {
+class ArmyDetailsMovieClip {
 public:
-	virtual ~Rva005F38CA();
+    ArmyDetailsMovieClip(int, const AsciiString &, int, bool);
+    virtual ~ArmyDetailsMovieClip();
+    virtual void notifyBackButtonClicked();
+    virtual void notifyIconListBackgroundClicked();
+private:
+    class Impl *m_impl;
 };
+}
 
 class Rva005F64DB
 {
@@ -444,13 +451,14 @@ Rva005E362F::~Rva005E362F()
 {
 }
 
-class Rva005F64F5 : public Rva005F38CA
+// The named base owns Impl at +4 (constructor 5F3E93 / destructor 5F38CA);
+// its true size is 8. The native 5F64F5 member remains at +8.
+class Rva005F64F5 : public StrategicHUD::ArmyDetailsMovieClip
 {
 public:
 	virtual ~Rva005F64F5();
 
 private:
-	char m_unmodelled_04[0x4];
 	Rva005F64DB m_member;	// +0x8
 };
 

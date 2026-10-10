@@ -12,11 +12,18 @@ public:
 	virtual ~Rva005C7CBB();
 };
 
-class Rva005F38CA
-{
+class AsciiString;
+namespace StrategicHUD {
+class ArmyDetailsMovieClip {
 public:
-	virtual ~Rva005F38CA();
+    ArmyDetailsMovieClip(int, const AsciiString &, int, bool);
+    virtual ~ArmyDetailsMovieClip();
+    virtual void notifyBackButtonClicked();
+    virtual void notifyIconListBackgroundClicked();
+private:
+    class Impl *m_impl;
 };
+}
 
 class Rva006003FC
 {
@@ -35,8 +42,8 @@ Rva005C33D2::~Rva005C33D2()
 {
 }
 
-// ??1Rva005E54AE@@UAE@XZ @0x005E54AE 11B: vtable VA 0xc77d10, then ~Rva005F38CA
-class Rva005E54AE : public Rva005F38CA
+// ??1Rva005E54AE@@UAE@XZ @0x005E54AE 11B: vtable VA 0xc77d10, then ~ArmyDetailsMovieClip
+class Rva005E54AE : public StrategicHUD::ArmyDetailsMovieClip
 {
 public:
 	virtual ~Rva005E54AE();

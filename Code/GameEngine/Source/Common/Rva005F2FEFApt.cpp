@@ -40,7 +40,7 @@ public:
 	// The owner's slots the back-button and icon-list callbacks fire
 	// (vtable +4 / +8; names follow the bound callbacks, inference).
 	ArmyDetailsMovieClip(int level, const AsciiString &name, int layout, bool backButtonVisible);
-	virtual void v0();
+	virtual ~ArmyDetailsMovieClip();
 	virtual void notifyBackButtonClicked();
 	virtual void notifyIconListBackgroundClicked();
 
@@ -307,4 +307,13 @@ void StrategicHUD::ArmyDetailsMovieClip::Impl::OnIconListBackgroundClicked(const
 StrategicHUD::ArmyDetailsMovieClip::ArmyDetailsMovieClip(int level, const AsciiString &name, int layout, bool backButtonVisible)
 	: m_impl(new Impl(this, level, name, layout, backButtonVisible))
 {
+}
+
+// Native 5F3E93 installs C7936C: slot 0 is scalar 5F39BA, which calls
+// complete destructor 5F38CA. Both bodies and the +4 owned Impl agree with
+// the named constructor, independently establishing the class identity.
+class Rva005F35D3 { public: void clear(); };
+StrategicHUD::ArmyDetailsMovieClip::~ArmyDetailsMovieClip()
+{
+    reinterpret_cast<Rva005F35D3 *>(&m_impl)->clear();
 }
