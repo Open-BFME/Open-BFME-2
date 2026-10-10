@@ -40,7 +40,7 @@ const Image *W3DScriptedModelDraw::getButtonImage()
 	if (d != 0)
 	{
 		const AsciiString &a = d->m_a;
-		if (m_name.compareNoCase(a) != 0)
+		if (((const StringBase<char> &)m_name).compareNoCase((const StringBase<char> &)a) != 0)
 		{
 			((StringBase<char> *)&m_name)->set(*(const StringBase<char> *)&a);
 			if (!d->m_b.isEmpty())

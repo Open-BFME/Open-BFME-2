@@ -51,5 +51,5 @@ bool Rva0021B753::operator()(const Rva0021915B &a, const Rva0021915B &b) const
 {
 	if (a.m_byte != b.m_byte)
 		return a.m_byte;
-	return a.m_str.compareNoCase(b.m_str) < 0;
+	return ((const StringBase<char> &)a.m_str).compareNoCase((const StringBase<char> &)b.m_str) < 0;
 }

@@ -45,13 +45,13 @@ bool Rva0021BFD8::rva0021BFD8(const StringBase<char> &arg)
 	AsciiString tmp;
 	Rva000B6AF5Rec rec;
 	tmp.setCopyInline(*Rva000B6AF5Build(&rec, (void **)&arg, m_1c4.getLength()));
-	if (tmp.compareNoCase(m_1c4) == 0)
+	if (((const StringBase<char> &)tmp).compareNoCase((const StringBase<char> &)m_1c4) == 0)
 		goto yes;
 	tmp.setCopyInline(*Rva000B6AF5Build(&rec, (void **)&arg, m_1c8.getLength()));
-	if (tmp.compareNoCase(m_1c8) == 0)
+	if (((const StringBase<char> &)tmp).compareNoCase((const StringBase<char> &)m_1c8) == 0)
 		goto yes;
 	tmp.setCopyInline(*Rva000B6AF5Build(&rec, (void **)&arg, m_1cc.getLength()));
-	if (tmp.compareNoCase(m_1cc) == 0)
+	if (((const StringBase<char> &)tmp).compareNoCase((const StringBase<char> &)m_1cc) == 0)
 		goto yes;
 	return false;
 yes:

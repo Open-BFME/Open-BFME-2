@@ -47,7 +47,7 @@ void *Rva00496D43::rva00496D43(void *out, const AsciiString &key)
 {
 	for (unsigned i = 0; i < (unsigned)(m_end1C - m_begin18); ++i) {
 		_ReadWriteBarrier();
-		if (m_begin18[i]->compareNoCase(key) == 0) {
+		if (((const StringBase<char> &)*m_begin18[i]).compareNoCase((const StringBase<char> &)key) == 0) {
 			__assume(out != 0);
 			new (out) WeaponTemplateSetHead(m_begin18[i]->m_set08);
 			return out;

@@ -40,7 +40,7 @@ int Rva005234A7Get(void)
 // Follows int3 padding. Opaque address-derived name.
 int Rva006C5E87Get(void)
 {
-	return 0x00bbac1c;
+	return (int)"";
 }
 
 // ?Rva006C5E97Get@@YAHXZ @ 0x006c5e97 (6B): returns 0x00bbac1c.
@@ -48,5 +48,5 @@ int Rva006C5E87Get(void)
 // Opaque address-derived name.
 int Rva006C5E97Get(void)
 {
-	return 0x00bbac1c;
+	return (int)"";
 }

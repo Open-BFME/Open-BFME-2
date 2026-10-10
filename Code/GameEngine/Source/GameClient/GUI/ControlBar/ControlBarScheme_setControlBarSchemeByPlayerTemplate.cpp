@@ -152,7 +152,7 @@ void ControlBarSchemeManager::setControlBarSchemeByPlayerTemplate(const PlayerTe
 		ControlBarScheme *scheme = *it;
 		if (!scheme)
 			continue;
-		if (scheme->m_side.compareNoCase(side) == 0)
+		if (((const StringBase<char> &)scheme->m_side).compareNoCase((const StringBase<char> &)side) == 0)
 		{
 			if (!tempScheme || tempScheme->m_ScreenCreationRes.x < scheme->m_ScreenCreationRes.x)
 				tempScheme = scheme;
@@ -198,7 +198,7 @@ void ControlBarSchemeManager::setControlBarSchemeByPlayer(Player *p)
 		ControlBarScheme *scheme = *it;
 		if (!scheme)
 			continue;
-		if (scheme->m_side.compareNoCase(side) == 0)
+		if (((const StringBase<char> &)scheme->m_side).compareNoCase((const StringBase<char> &)side) == 0)
 		{
 			if (!tempScheme || tempScheme->m_ScreenCreationRes.x < scheme->m_ScreenCreationRes.x)
 				tempScheme = scheme;

@@ -22,7 +22,7 @@ private:
 void *Rva0020DB91::rva0020DB91(const AsciiString &arg)
 {
 	for (Rva0020DB91Item **it = m_begin10; it != m_end14; ++it) {
-		if ((*it)->m_str.compareNoCase(arg) == 0)
+		if (((const StringBase<char> &)(*it)->m_str).compareNoCase((const StringBase<char> &)arg) == 0)
 			return *it;
 	}
 	return 0;

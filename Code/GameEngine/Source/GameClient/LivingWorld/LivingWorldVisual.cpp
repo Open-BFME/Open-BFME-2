@@ -250,7 +250,7 @@ RenderObjClass *LivingWorldVisual::createRenderObject(const AsciiString &modelNa
 					AsciiStringVector::const_iterator end = subObjectNames.end();
 					for (; it != end; ++it)
 					{
-						if (subObjName.compareNoCase(*it) == 0
+						if (((const StringBase<char> &)subObjName).compareNoCase((const StringBase<char> &)*it) == 0
 							|| Rva003FCE11Compare(&subObjName, &Rva005F17C6Build(modelName + ".", (int)it)) == 0)
 						{
 							hide = false;

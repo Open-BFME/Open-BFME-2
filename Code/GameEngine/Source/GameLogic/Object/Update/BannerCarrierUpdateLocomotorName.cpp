@@ -14,7 +14,7 @@ class BannerCarrierUpdateModuleData { public:
 };
 AsciiString BannerCarrierUpdateModuleData::rva00496DA3(const AsciiString &name) const {
  for(unsigned i=0;i<entries.size();++i) {
-  if(entries[i]->name.compareNoCase(name)==0) return entries[i]->locomotor;
+  if(((const StringBase<char> &)entries[i]->name).compareNoCase((const StringBase<char> &)name)==0) return entries[i]->locomotor;
  }
  return "";
 }

@@ -112,7 +112,7 @@ const AsciiString &Object::rva00292330(const AsciiString &name)
 	{
 		const SpecialPowerTemplate *power = GetCreateAHeroSpecialPower(i);
 		const SpecialPowerTemplate *finalOverride = (const SpecialPowerTemplate *)power->friend_getFinalOverride();
-		if (name.compareNoCase(finalOverride->m_name10) == 0)
+		if (((const StringBase<char> &)name).compareNoCase((const StringBase<char> &)finalOverride->m_name10) == 0)
 		{
 			BehaviorModule *module = rva0028F2C4(m_createAHeroPowers[i]);
 			if (module != 0)
