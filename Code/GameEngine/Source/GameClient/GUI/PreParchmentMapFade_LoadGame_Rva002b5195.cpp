@@ -61,6 +61,119 @@ int parchmentMapFadeLoadGame(int, bool start)
 	return result;
 }
 
+// ?rva002B50BD@@YAHM_N@Z, retail 0x002B50BD..0x002B513E (129 bytes, cdecl):
+// the living-world sequencer's map-roll step, twin of the main menu's
+// rva0051573A (AptMainMenuCallbacks.cpp) without its +0xAF4 flag and slot 69
+// check. Starting, it resets TheDisplay's 0x002B2466 rectangle to (0, 0, 1, 1)
+// and plays "Map_Roll" through slot 66 with flags 0xC0 (finished at once if
+// that fails); otherwise it is done when slot 71 says yes or TheGlobalData's
+// +0x9AD is set. Not reached by a direct call: the sequencer takes it by
+// address like the 0x002B513E step below.
+class Display
+{
+public:
+	void rva002B2466(float left, float top, float right, float bottom);
+};
+extern Display *TheDisplay;
+
+class MapRollDisplayDispatch
+{
+public:
+	virtual void slot00();
+	virtual void slot01();
+	virtual void slot02();
+	virtual void slot03();
+	virtual void slot04();
+	virtual void slot05();
+	virtual void slot06();
+	virtual void slot07();
+	virtual void slot08();
+	virtual void slot09();
+	virtual void slot0A();
+	virtual void slot0B();
+	virtual void slot0C();
+	virtual void slot0D();
+	virtual void slot0E();
+	virtual void slot0F();
+	virtual void slot10();
+	virtual void slot11();
+	virtual void slot12();
+	virtual void slot13();
+	virtual void slot14();
+	virtual void slot15();
+	virtual void slot16();
+	virtual void slot17();
+	virtual void slot18();
+	virtual void slot19();
+	virtual void slot1A();
+	virtual void slot1B();
+	virtual void slot1C();
+	virtual void slot1D();
+	virtual void slot1E();
+	virtual void slot1F();
+	virtual void slot20();
+	virtual void slot21();
+	virtual void slot22();
+	virtual void slot23();
+	virtual void slot24();
+	virtual void slot25();
+	virtual void slot26();
+	virtual void slot27();
+	virtual void slot28();
+	virtual void slot29();
+	virtual void slot2A();
+	virtual void slot2B();
+	virtual void slot2C();
+	virtual void slot2D();
+	virtual void slot2E();
+	virtual void slot2F();
+	virtual void slot30();
+	virtual void slot31();
+	virtual void slot32();
+	virtual void slot33();
+	virtual void slot34();
+	virtual void slot35();
+	virtual void slot36();
+	virtual void slot37();
+	virtual void slot38();
+	virtual void slot39();
+	virtual void slot3A();
+	virtual void slot3B();
+	virtual void slot3C();
+	virtual void slot3D();
+	virtual void slot3E();
+	virtual void slot3F();
+	virtual void slot40();
+	virtual void slot41();
+	virtual bool playMovie(AsciiString name, int flags, int a, int b);	// slot 66
+	virtual void slot43();
+	virtual void slot44();
+	virtual void slot45();
+	virtual void slot46();
+	virtual bool rva_slot71();											// +0x11C
+};
+
+struct MapRollGlobalData
+{
+	unsigned char m_pad[0x9ad];
+	bool m_9ad;	// +0x9AD
+};
+extern class GlobalData *TheWritableGlobalData;
+
+int rva002B50BD(float, bool start)
+{
+	int result = 1;
+	if (start)
+	{
+		TheDisplay->rva002B2466(0.0f, 0.0f, 1.0f, 1.0f);
+		if (!((MapRollDisplayDispatch *)TheDisplay)->playMovie(AsciiString("Map_Roll"), 0xC0, -1, -1))
+			result = 3;
+	}
+	else if (((MapRollDisplayDispatch *)TheDisplay)->rva_slot71() || ((MapRollGlobalData *)TheWritableGlobalData)->m_9ad)
+		result = 3;
+	return result;
+}
+
 // Native 0x002B513E..0x002B5195: sibling of the adjacent load-game fade callback.
 // Shared callback thunk 0x00211216 forwards float/bool; both are unused here.
 // Target alone proves PopFocus(-1), display slot+110, shell shutdown(true),
