@@ -1,0 +1,33 @@
+{
+  "id": "B-20261010-scripted-model-ramp-000b5fbe-000b5fd5",
+  "paths": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawRampQueries.cpp"
+  ],
+  "recoveries": [
+    {
+      "name": "?SetRampMeshOverload@W3DScriptedModelDraw@@UAEXPBDH@Z",
+      "rva": "0x000B5FBE",
+      "size": 23,
+      "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawRampQueries.cpp",
+      "notes": "WB948160 names SetRampMeshOverload with name/index and array264; independently nativeB5FBE..B5FD523B RET8 implements exactly that indexed string setter. Old vtable pairing to next17B query contradicts its RET0 and was recorded as mis-anchored. Matched constructorC0DD8 proves primary table7CA090 slot54 and two strings264/268. Existing StringBase char set55F5 consumes name; all23B full extent exact and callee binding resolved; no new pins or assembler.",
+      "replace_rva": ""
+    },
+    {
+      "name": "?rva000B5FD5@W3DScriptedModelDraw@@UAEHXZ",
+      "rva": "0x000B5FD5",
+      "size": 17,
+      "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawRampQueries.cpp",
+      "notes": "NativeB5FD5..B5FE617B RET0 tests string260 with existing StringBase char isEmpty1E2F then returns normalized nonempty integer in fullEAX. Matched constructorC0DD8 proves primary table7CA090 slot55 and string260. Original query name and original return type spelling remain unknown; address name and observed integer ABI retained. All17B full extent exact and callee binding resolved; no new pins or assembler.",
+      "replace_rva": ""
+    }
+  ],
+  "proof_command": "python tools/explain_mismatch.py \"?SetRampMeshOverload@W3DScriptedModelDraw@@UAEXPBDH@Z\" --rva 0x000B5FBE --size 23 --source Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawRampQueries.cpp; python tools/explain_mismatch.py \"?rva000B5FD5@W3DScriptedModelDraw@@UAEHXZ\" --rva 0x000B5FD5 --size 17 --source Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawRampQueries.cpp; python build/verify-scripted-model-ramp.py",
+  "proof_log": "proof.log",
+  "dependencies": [],
+  "ledger_delta": "Two new rows in one new source. No local ledger or pin edits.",
+  "provider_notes": "Existing canonical StringBase<char> declarations used directly; preserve external set(const char*) and isEmpty() const bodies. Full primary vslot positions54/55 follow witnessed table7CA090 in already matched constructor1065B atC0DD8. No instance/vtable definition is emitted by this source. Class only exposes proven prefix/strings and uncalled opaque slots. Correct setter boundary is established by native argument count and indexed264 operation plus independently named WB948160 implementation rather than accepting shifted vtable name pairing.",
+  "seat": "B",
+  "base_commit": "dd0ddf5329f1adedfdbb4a30d95e937069d7d1fc",
+  "claim_owner": "codex-01a12257-recovery",
+  "proof_exit_code": 0
+}
