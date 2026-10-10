@@ -1,6 +1,6 @@
 // ?rva00297000@Object@@QAEXPBVCommandButton@@PAV1@HH@Z
-// partial score=0.9 date=2026-10-10
-// cl: /G7 /arch:SSE /MD /EHsc /DNDEBUG
+// partial score=0.93 date=2026-10-10
+// cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG
 // Reference: Object::doSpecialPower and doSpecialPowerAtObject in ZH
 // Object.cpp at pinned donor575ba2b04. Names are carried from that source;
 // target Object identity and template dispatch are independently supported
@@ -87,14 +87,13 @@ void Object::doSpecialPowerAtObject(const SpecialPowerTemplate*t,Object*target,u
 // rva0026C347/rva0026C2D9/aiIdle, nameToKey, BitFlags any/test).
 void Object::rva00297000(const CommandButton *commandButton, Object *obj, int cmdSource, int bfmeArg)
 {
-	if ((bool)bfmeArg)
+	if (*(char *)&bfmeArg)
 	{
 		static NameKeyType autoKey = TheNameKeyGenerator->nameToKey("AutoAbilityBehavior");
 		Module *m = findModule(autoKey);
 		if (disabled.any())
 		{
-			AutoAbilitySlot01View *query = (AutoAbilitySlot01View *)((char *)m + 0x10);
-			if (!query->slot01().test(&disabled))
+			if (!testAllowed(((AutoAbilitySlot01View *)((char *)m + 0x10))->slot01(), &disabled))
 				return;
 		}
 	}
@@ -117,7 +116,7 @@ void Object::rva00297000(const CommandButton *commandButton, Object *obj, int cm
 		if (!t)
 			return;
 		unsigned options = commandButton->getOptions() | 0x40000;
-		if ((bool)bfmeArg)
+		if (*(char *)&bfmeArg)
 			options |= 0x20000000;
 		doSpecialPowerAtObject(t, obj, options, cmdSource == 1);
 		return;
