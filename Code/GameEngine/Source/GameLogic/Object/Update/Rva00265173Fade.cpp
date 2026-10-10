@@ -1,9 +1,7 @@
-// ?rva00265173@Rva00265173@@QAEXXZ
-// partial score=0.99 date=2026-10-04
 // cl: /O1 /DNDEBUG /MD
 // ?rva00265173@Rva00265173@@QAEXXZ @0x00265173 225B
-// Evidence: unlock lane, fade hide/show via rowed getDrawable fadeOut fadeIn Drawable toggles pinned bfmeAskBIC, caller 0x0026E40A, neighbours share flags.
-// ?rva00265173@Rva00265173@@QAEXXZ present-unmatched
+// Evidence (call result kept in a named false-initialised bool: the retail compare is
+// CMP AL,BL against the zero register, not TEST AL,AL): unlock lane, fade hide/show via rowed getDrawable fadeOut fadeIn Drawable toggles pinned bfmeAskBIC, caller 0x0026E40A, neighbours share flags.
 extern int g_Va00DBA4E4;
 
 class Drawable
@@ -75,7 +73,9 @@ void Rva00265173::rva00265173()
 	flag = d->m_43c != 0;
 after_flag:;
 	Rva001E3591 *p = m_140;
-	if (p != 0 && p->rva001E3591() != false)
+	bool r = false;
+	if (p != 0) r = p->rva001E3591();
+	if (r != false)
 	{
 		if (m_3cb)
 			return;
