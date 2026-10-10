@@ -1,4 +1,4 @@
-// cl: /MD
+// cl: /MD /Gy
 // ?Rva006CD460Free@@YAXPAX@Z @0x006CD460 27B evidence array-free via pool freeBlock with stored size at p-4 plus 4
 class Rva006DB270
 {
