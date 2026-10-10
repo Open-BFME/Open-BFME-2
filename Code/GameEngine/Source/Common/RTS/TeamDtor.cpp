@@ -236,3 +236,12 @@ Team::~Team()
 			((SkirmishAI *)rec)->UnRegister(this);
 	}
 }
+
+// Native003A354A..003A354F: direct tail call to sole rowed table dtor
+// 003A2EBD with unchanged receiver and stack; no arguments; RET0.
+// Original wrapper name enclosing type and lifetime role remain unknown.
+struct Rva003A354ATableCleanupForward { void cleanup(); };
+void Rva003A354ATableCleanupForward::cleanup()
+{
+    reinterpret_cast<Rva003A393A*>(this)->~Rva003A393A();
+}
