@@ -74,6 +74,45 @@ private:
 	const LocomotorTemplate *m_template;	// +0x04
 };
 
+// The object's AI (+0x258) as 0x00270B0F uses it: virtual slot 0x168/4
+// gates the banking and slot 0x188/4 returns the record whose +0x53C float
+// drives it. Slot meanings are not recovered; only the offsets are target
+// facts.
+struct Rva00270B0FBankSource
+{
+	char m_pad000[0x53C];
+	Real m_value;						// +0x53C
+};
+
+class Rva00270B0FAIView
+{
+public:
+#define BFME_AI_SLOT(n) virtual void slot##n();
+	BFME_AI_SLOT(00) BFME_AI_SLOT(01) BFME_AI_SLOT(02) BFME_AI_SLOT(03) BFME_AI_SLOT(04)
+	BFME_AI_SLOT(05) BFME_AI_SLOT(06) BFME_AI_SLOT(07) BFME_AI_SLOT(08) BFME_AI_SLOT(09)
+	BFME_AI_SLOT(10) BFME_AI_SLOT(11) BFME_AI_SLOT(12) BFME_AI_SLOT(13) BFME_AI_SLOT(14)
+	BFME_AI_SLOT(15) BFME_AI_SLOT(16) BFME_AI_SLOT(17) BFME_AI_SLOT(18) BFME_AI_SLOT(19)
+	BFME_AI_SLOT(20) BFME_AI_SLOT(21) BFME_AI_SLOT(22) BFME_AI_SLOT(23) BFME_AI_SLOT(24)
+	BFME_AI_SLOT(25) BFME_AI_SLOT(26) BFME_AI_SLOT(27) BFME_AI_SLOT(28) BFME_AI_SLOT(29)
+	BFME_AI_SLOT(30) BFME_AI_SLOT(31) BFME_AI_SLOT(32) BFME_AI_SLOT(33) BFME_AI_SLOT(34)
+	BFME_AI_SLOT(35) BFME_AI_SLOT(36) BFME_AI_SLOT(37) BFME_AI_SLOT(38) BFME_AI_SLOT(39)
+	BFME_AI_SLOT(40) BFME_AI_SLOT(41) BFME_AI_SLOT(42) BFME_AI_SLOT(43) BFME_AI_SLOT(44)
+	BFME_AI_SLOT(45) BFME_AI_SLOT(46) BFME_AI_SLOT(47) BFME_AI_SLOT(48) BFME_AI_SLOT(49)
+	BFME_AI_SLOT(50) BFME_AI_SLOT(51) BFME_AI_SLOT(52) BFME_AI_SLOT(53) BFME_AI_SLOT(54)
+	BFME_AI_SLOT(55) BFME_AI_SLOT(56) BFME_AI_SLOT(57) BFME_AI_SLOT(58) BFME_AI_SLOT(59)
+	BFME_AI_SLOT(60) BFME_AI_SLOT(61) BFME_AI_SLOT(62) BFME_AI_SLOT(63) BFME_AI_SLOT(64)
+	BFME_AI_SLOT(65) BFME_AI_SLOT(66) BFME_AI_SLOT(67) BFME_AI_SLOT(68) BFME_AI_SLOT(69)
+	BFME_AI_SLOT(70) BFME_AI_SLOT(71) BFME_AI_SLOT(72) BFME_AI_SLOT(73) BFME_AI_SLOT(74)
+	BFME_AI_SLOT(75) BFME_AI_SLOT(76) BFME_AI_SLOT(77) BFME_AI_SLOT(78) BFME_AI_SLOT(79)
+	BFME_AI_SLOT(80) BFME_AI_SLOT(81) BFME_AI_SLOT(82) BFME_AI_SLOT(83) BFME_AI_SLOT(84)
+	BFME_AI_SLOT(85) BFME_AI_SLOT(86) BFME_AI_SLOT(87) BFME_AI_SLOT(88) BFME_AI_SLOT(89)
+	virtual bool slot90();				// +0x168
+	BFME_AI_SLOT(91) BFME_AI_SLOT(92) BFME_AI_SLOT(93) BFME_AI_SLOT(94)
+	BFME_AI_SLOT(95) BFME_AI_SLOT(96) BFME_AI_SLOT(97)
+	virtual Rva00270B0FBankSource *slot98();	// +0x188
+#undef BFME_AI_SLOT
+};
+
 class Object
 {
 public:
@@ -100,12 +139,14 @@ public:
 
 protected:
 	void calcPhysicsXformTreads(const Locomotor *locomotor, PhysicsXformInfo &info);
+	void rva00270B0F(const Locomotor *locomotor, PhysicsXformInfo &info);
 
 private:
 	char m_pad000[0xFC];
 	Object *m_object;					// +0xFC
 	char m_pad100[0x13C - 0x100];
 	DrawableLocoInfo *m_locoInfo;		// +0x13C
+	Real m_bankRoll;					// +0x140
 };
 
 void Drawable::calcPhysicsXformTreads(const Locomotor *locomotor, PhysicsXformInfo &info)
@@ -162,4 +203,33 @@ void Drawable::calcPhysicsXformTreads(const Locomotor *locomotor, PhysicsXformIn
 		m_locoInfo->m_accelerationRoll = -ACCEL_PITCH_LIMIT;
 
 	info.m_totalZ = 0.0f;
+}
+
+#ifndef max
+#define max(a,b) (((a) > (b)) ? (a) : (b))
+#endif
+#ifndef min
+#define min(a,b) (((a) < (b)) ? (a) : (b))
+#endif
+
+// Retail 0x00270B0F..0x00270BA8 (153 bytes) thiscall RET 8, right after
+// calcPhysicsXformTreads: the appearance switch of calcPhysicsXform
+// (0x0027BB2B, template +0x74 case 5) calls it with the locomotor (unused)
+// and the info. While the object's AI reports slot 0x168 it eases the roll
+// at +0x140 toward four times the +0x53C value of the AI's slot-0x188
+// record (0.8 old + 0.2 new), clamps it to +-0.8 and writes it to the
+// info's total roll. Native tests the lower bound twice: the windef-style
+// min/max macros evaluate the inner max in both arms of the outer min.
+void Drawable::rva00270B0F(const Locomotor *locomotor, PhysicsXformInfo &info)
+{
+	const Object *obj = m_object;
+	if (obj == 0)
+		return;
+	Rva00270B0FAIView *ai = (Rva00270B0FAIView *)obj->getAI();
+	if (ai == 0 || !ai->slot90())
+		return;
+	Real target = ai->slot98()->m_value * 4.0f;
+	Real roll = m_bankRoll * 0.8f + target * 0.2f;
+	m_bankRoll = min(0.8f, max(-0.8f, roll));
+	info.m_totalRoll = m_bankRoll;
 }
