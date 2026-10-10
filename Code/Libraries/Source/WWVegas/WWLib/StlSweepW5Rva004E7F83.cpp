@@ -3,6 +3,13 @@
 // cl: /O1 /G6 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 #include <map>
+
+// Preserve the native inline comparison and the verified external owner at 0x00626F90.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+bool less<int>::operator()(const int &left, const int &right) const
+{ return left < right; }
+}
 #include <memory>
 
 struct Rva004E7F83Element { unsigned words[1];Rva004E7F83Element& operator=(const Rva004E7F83Element&b){words[0]=b.words[0];return *this;}bool operator<(const Rva004E7F83Element&)const;bool operator==(const Rva004E7F83Element&)const; };

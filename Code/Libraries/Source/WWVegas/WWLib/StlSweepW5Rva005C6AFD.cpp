@@ -4,6 +4,13 @@
 // stlport
 #include <map>
 
+// Preserve the native inline comparison and the verified external owner at 0x00626F90.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+bool less<int>::operator()(const int &left, const int &right) const
+{ return left < right; }
+}
+
 struct Rva005C6AFDElement { char bytes[1]; bool operator<(const Rva005C6AFDElement&)const; bool operator==(const Rva005C6AFDElement&)const; };
 
 // Instantiate the recovered operation and its required template dependencies.
