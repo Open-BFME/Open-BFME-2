@@ -192,6 +192,10 @@ public:
 };
 
 extern OVERRIDE<WeatherSetting> TheWeatherSetting;
+// Owned here: the weather override readers use; retail .data starts it at 0.
+// (TU view and ZH agree the object is one pointer; the ledger's provisional
+// 12B span has no +4/+8 reader behind it.)
+OVERRIDE<WeatherSetting> TheWeatherSetting;
 extern void __cdecl operator delete[](void *);
 
 SnowManager::~SnowManager()
