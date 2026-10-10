@@ -1,5 +1,15 @@
 // ?createEmbeddedPortals@Drawable@@UAEXXZ
 // partial score=0.7 date=2026-10-10
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii /ICode/Libraries/Include
+//
+// ?createEmbeddedPortals@Drawable@@UAEXXZ @0x0027A018 513B
+// Retail 0x0027A018..0x0027A21B. Builds Waypoint portals from the draw
+// template's embedded portal bones: walks the pointer array at this+0x14C,
+// queries each entry's bone set (virtual slots 0xA8/0xB0), constructs a
+// Coord3D[10] scratch vector, reads up to 10 logical bone positions via the
+// rowed Object helper, news a Waypoint per bone (rowed 9-arg ctor, name
+// "#embed", empty labels, extra field from the bone query), registers it
+// with the pathfinder and links neighbours, collecting them into the vector
 // at this+0x36C. Identity: WB Drawable::createEmbeddedPortals
 // (Drawable.cpp:1210, string evidence).
 #include "ascii_string.h"
