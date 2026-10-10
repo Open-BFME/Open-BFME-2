@@ -1,6 +1,5 @@
-// ??1AptPlayerStatus@@UAE@XZ
-// partial score=0.94 date=2026-10-10
 // cl: /O1 /arch:SSE /G7 /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// ??1AptPlayerStatus@@UAE@XZ
 // stlport
 //
 // ??1AptPlayerStatus@@UAE@XZ, retail 0x004E4655..0x004E4745 (240 bytes, EH).
@@ -201,22 +200,8 @@ private:
 extern "C" __declspec(dllimport) int __cdecl sprintf(char *buffer, const char *format, ...);
 
 // The game mode at +0x110 (2 skirmish, 6 the one where the UI's +0x16
-// flag decides whether input is enabled).
-class GameLogic
-{
-public:
-	bool isInMultiplayerGame();
-	// The pinned pause setter (paused, reason, pause music).
-	void rva0023CD9E(bool paused, int reason, bool music);
-	// The pinned multiplayer-or-skirmish predicate.
-	char rva0023C6FD();
-
-	unsigned char m_pad000[0x6D];
-	bool m_6d; // +0x6D
-	unsigned char m_pad06e[0x110 - 0x6E];
-	int m_gameMode; // +0x110
-};
-
+// flag decides whether input is enabled) is GameLogic::m_110.
+#include "../../../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 
 class Rva0023C902
@@ -277,7 +262,7 @@ AptPlayerStatus::~AptPlayerStatus()
 		if (TheInGameUI)
 			TheInGameUI->slot94(false);
 		GameLogic *logic = TheGameLogic;
-		if (logic && !logic->isInMultiplayerGame() && logic->m_gameMode != 6)
+		if (logic && !logic->isInMultiplayerGame() && (logic->m_110?logic->m_110:logic->m_110) != 6)
 			logic->rva0023CD9E(false, 0, true);
 		if (TheShell)
 			TheShell->rva0035BF4C(false);
