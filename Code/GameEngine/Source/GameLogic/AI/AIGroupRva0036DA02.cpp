@@ -99,7 +99,7 @@ class Object
 {
 public:
 	void rva00293105();
-	void rva0028DF48(const SpecialPowerTemplate *, UnsignedInt, bool);
+	void doSpecialPower(const SpecialPowerTemplate *, UnsignedInt, bool);
 	void rva0028AC34(bool on);
 	void doSpecialPowerAtLocation(const SpecialPowerTemplate *specialPowerTemplate, const Coord3D *loc, UnsignedInt commandOptions, bool forceUsable);
 
@@ -247,7 +247,7 @@ bool AIGroup::rva0036D869(UnsignedInt id, UnsignedInt commandOptions, Int unk)
 			continue;
 		if (!TheActionManager->canDoSpecialPower(object, spTemplate, CMD_FROM_PLAYER, commandOptions, true))
 			continue;
-		object->rva0028DF48(spTemplate, commandOptions, false);
+		object->doSpecialPower(spTemplate, commandOptions, false);
 		object->rva0028AC34(false);
 		done = true;
 		if (!all) return true;
@@ -264,7 +264,7 @@ bool AIGroup::rva0036D869(UnsignedInt id, UnsignedInt commandOptions, Int unk)
 		}
 		if (spTemplate != 0) {
 			if (TheActionManager->canDoSpecialPower(best, spTemplate, CMD_FROM_PLAYER, commandOptions, true)) {
-				best->rva0028DF48(spTemplate, commandOptions, false);
+				best->doSpecialPower(spTemplate, commandOptions, false);
 				best->rva0028AC34(false);
 				return true;
 			}

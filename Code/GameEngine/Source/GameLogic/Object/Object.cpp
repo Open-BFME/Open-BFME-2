@@ -464,7 +464,7 @@ public:
 	void rva00297149(const CommandButton *, const Coord3D *, int, int);
 	void doCommandButton(const CommandButton *commandButton, int cmdSource, bool flags);
 	Object *adjustVictim(Object *source, bool useWeaponRange, int index);
-	void rva0028DF48(const SpecialPowerTemplate *power, unsigned int options, bool fromScript);
+	void doSpecialPower(const SpecialPowerTemplate *power, unsigned int options, bool fromScript);
 	const Weapon *getCurrentWeapon(WeaponSlotType *slot) const;
 	void releaseWeaponLock(WeaponLockType lock);
 	void rva0028C20F(int value);
@@ -870,7 +870,7 @@ void Object::doCommandButton(const CommandButton *commandButton, int cmdSource, 
 			unsigned int options = commandButton->m_options1C | 0x40000;
 			if (flags)
 				options |= 0x20000000;
-			rva0028DF48(commandButton->m_power44, options, cmdSource == 1);
+			doSpecialPower(commandButton->m_power44, options, cmdSource == 1);
 		}
 		break;
 

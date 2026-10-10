@@ -100,7 +100,7 @@ public:
 	bool isKindOf(KindOfType t) const;	// 0x0006F039
 	Player *getControllingPlayer() const;	// 0x0028AFA9
 	void rva0028E01F(const SpecialPowerTemplate *spTemplate, Object *target, int options, int source);	// 0x0028E01F
-	void rva0028DF48(const SpecialPowerTemplate *spTemplate, unsigned int options, bool source);	// 0x0028DF48
+	void doSpecialPower(const SpecialPowerTemplate *spTemplate, unsigned int options, bool source);	// 0x0028DF48
 	const Coord3D *getPosition() const { return &m_pos; }
 	bool isEffectivelyDead() const { return (m_privateStatus & 1) != 0; }
 	unsigned char m_pad000[0x38];
@@ -228,7 +228,7 @@ UpdateSleepTime BoredUpdate::update()
 	else
 	{
 		if (TheActionManager->canDoSpecialPower(getObject(), data->m_specialPower, CMD_FROM_AI, 2, true))
-			obj->rva0028DF48(data->m_specialPower, 2, false);
+			obj->doSpecialPower(data->m_specialPower, 2, false);
 	}
 	return UPDATE_SLEEP_NONE;
 }
