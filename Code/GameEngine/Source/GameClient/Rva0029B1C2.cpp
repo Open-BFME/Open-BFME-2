@@ -167,3 +167,7 @@ void Rva002A3DD3::rva002A470F(ThingTemplate *type,const ICoord2D *position,RGBCo
  entry->unknown[1]=position->y;
  entry->pool=pool;
 }
+
+// Native 2A3E5A and 2A4BFC both read this one-byte formation-preview
+// setting. Retail .data starts it at 1; its original identifier is unknown.
+bool BfmeFormationPreviewUseDecals=true;
