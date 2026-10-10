@@ -1,0 +1,28 @@
+{
+  "id": "seat-c-giant-bird-death-update-00461f12-20261010",
+  "seat": "C",
+  "base_commit": "b5cc668da0c33b6c7481ef1a57f00f71605a9752",
+  "paths": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/GiantBirdSlowDeathBehavior.cpp"
+  ],
+  "recoveries": [
+    {
+      "name": "?update@GiantBirdSlowDeathBehavior@@UAE?AW4UpdateSleepTime@@XZ",
+      "rva": "0x00461F12",
+      "size": 34,
+      "source": "Code/GameEngine/Source/GameLogic/Object/Behavior/GiantBirdSlowDeathBehavior.cpp",
+      "notes": "Native461F12..461F34 complete34B; WB1190470 GiantBirdSlowDeathBehavior::update; factory24B599 ctor461E58 update tableC42D98 slot0; bodythis+10 object-8 physics25C/landed5E baseflags3C/needsLanding40; existing SlowDeathBehavior update45DB0B; returns UPDATE_SLEEP_NONE1; full34 bytes exact no pins",
+      "replace_rva": null
+    }
+  ],
+  "new_retail_bytes": 34,
+  "proof_command": "python tools/explain_mismatch.py \"?update@GiantBirdSlowDeathBehavior@@UAE?AW4UpdateSleepTime@@XZ\" --rva 0x00461F12 --size 34 --source Code/GameEngine/Source/GameLogic/Object/Behavior/GiantBirdSlowDeathBehavior.cpp",
+  "proof_log": "scoped-proof.txt",
+  "claim_owner": "codex-104a-01a12257",
+  "worker_root": "C:\\Users\\franz\\.codex\\worktrees\\recovery-preserved\\openbfme2",
+  "dependencies": [],
+  "claims": [
+    "0x00461F12",
+    "file:Code/GameEngine/Source/GameLogic/Object/Behavior/GiantBirdSlowDeathBehavior.cpp"
+  ]
+}
