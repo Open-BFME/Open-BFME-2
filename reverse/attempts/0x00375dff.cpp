@@ -1,10 +1,12 @@
 // ?rva00375DFF@AerialPathfinder@@QAE_NPAVObject@@PAVRva00375A73Context@@MM@Z
+// partial score=0.9777 date=2026-10-10
+// ?rva00375DFF@AerialPathfinder@@QAE_NPAVObject@@PAVRva00375A73Context@@MM@Z
 // partial score=0.97 date=2026-10-09
 // cl: /O1 /arch:SSE /G7 /MD /EHs
 // BFME1 f98983a7d AerialPathfinder_separationPush semantic donor;
 // target 375C28..375DFF/471 establishes layouts and all callees.
-#include "../../Code/Libraries/Include/Lib/Coord3D.h"
-#include "../../Code/GameEngine/Source/Common/PartitionRangeQueryCallView.h"
+#include "../../../Code/Libraries/Include/Lib/Coord3D.h"
+#include "../../../Code/GameEngine/Source/Common/PartitionRangeQueryCallView.h"
 class GeometryInfo { public: char prefix[0x14];float radius; };
 class ThingTemplate {public: char prefix[0x108];unsigned kinds[7];};
 class AerialPartner {public:char prefix[0x4C0];unsigned id;};
@@ -100,7 +102,7 @@ bool AerialPathfinder::rva00375DFF(Object *obj, Rva00375A73Context *context, flo
             where.z = 0.0f;
             if (TheAerialPathfinder->rva00375C28(obj, &pos, &t, &where))
                 hit = true;
-            return above==true&&hit==true ? true:false;
+            bool ok=above==true&&hit==true; return ok==true;
         }
     }
     return true;
