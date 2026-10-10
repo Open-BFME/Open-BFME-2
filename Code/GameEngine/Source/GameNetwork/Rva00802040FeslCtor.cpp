@@ -88,7 +88,7 @@ class Rva00802040OwnerBase
 {
 public:
 	Rva00802040OwnerBase();
-	virtual ~Rva00802040OwnerBase() {}
+	virtual ~Rva00802040OwnerBase();
 	virtual void p01() = 0;
 	virtual void p02() = 0;
 	virtual void p03() = 0;
@@ -103,6 +103,12 @@ public:
 	virtual void p12() = 0;
 	virtual void p13() = 0;
 };
+
+// ??1Rva00802040OwnerBase@@UAE@XZ @0x0066D770 7B: the empty destructor, restoring the vtable
+// (VA 0x00CE3BE8).
+Rva00802040OwnerBase::~Rva00802040OwnerBase()
+{
+}
 // ??0Rva00802040OwnerBase@@QAE@XZ @0x0066D760 9B: the default constructor, storing the
 // class's own vtable (VA 0x00CE3BE8) and returning this.
 Rva00802040OwnerBase::Rva00802040OwnerBase()
