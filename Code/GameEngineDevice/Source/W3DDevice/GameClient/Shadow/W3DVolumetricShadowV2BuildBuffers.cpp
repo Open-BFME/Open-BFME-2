@@ -23,7 +23,13 @@
 **	You should have received a copy of the GNU General Public License
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include "vector3.h"
+#include "wwmath.h"
+class Vector3 {public:float X,Y,Z;__forceinline Vector3(){} __forceinline Vector3(const Vector3&v){X=v.X;Y=v.Y;Z=v.Z;} __forceinline Vector3&operator=(const Vector3&v){X=v.X;Y=v.Y;Z=v.Z;return *this;} __forceinline void Normalize(){float len2=X*X+Y*Y+Z*Z;if(len2!=0.0f){float oolen=WWMath::Inv_Sqrt(len2);X*=oolen;Y*=oolen;Z*=oolen;}}__forceinline Vector3&operator*=(float k){X*=k;Y*=k;Z*=k;return *this;}};
+__forceinline Vector3 operator+(const Vector3&a,const Vector3&b){Vector3 r;r.X=a.X+b.X;r.Y=a.Y+b.Y;r.Z=a.Z+b.Z;return r;}
+
+
+// Scoped vector operations reproduce the donor header behavior and full557
+// bytes while avoiding its divergent unused three-float constructor COMDAT.
 
 struct BfmeShadowTriIndex
 {
