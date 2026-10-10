@@ -21,7 +21,9 @@ extern const void *const g_00BC6F20[];
 class __declspec(novtable) Rva004FBCBEBase
 {
 public:
-	virtual ~Rva004FBCBEBase();
+	Rva004FBCBEBase():m_04(0) {}
+ virtual ~Rva004FBCBEBase();
+ int m_04;
 };
 
 // ??1Rva004FBCBEBase@@UAE@XZ present-unmatched
@@ -30,16 +32,26 @@ inline Rva004FBCBEBase::~Rva004FBCBEBase()
 	*(const void **)this = g_00BC6F20;
 }
 
+// Native ctor4FBC4D..4FBCBE and WB1312F80 prove refcount4,
+// UnicodeStrings8/C, mode10, -1 at14, zero coordinate18/1C/20,
+// and three flags24/25/26. This coordinate constructor groups the
+// float stores exactly as retail; no scheduling intrinsics or asm.
+// Native12-byte vtable8634E4 holds4FBD1E then two sharedB3FD0
+// no-argument empty hooks; their original names remain unknown.
+struct Rva004FBCBECoord {float x,y,z;Rva004FBCBECoord():x(0.0f),y(0.0f),z(0.0f){}};
 class Rva004FBCBE : public Rva004FBCBEBase
 {
 public:
 	virtual ~Rva004FBCBE();
+ virtual void slot04(){}
+ virtual void slot08(){}
+ Rva004FBCBE(const UnicodeString&,const UnicodeString&,int);
 private:
-	char m_04[4];
 	UnicodeString m_08;
 	UnicodeString m_0C;
-	char m_10[0x25 - 0x10];
-	bool m_25;
+	int m_10,m_14;
+ Rva004FBCBECoord m_coord;
+ bool m_24,m_25,m_26;
 };
 
 Rva004FBCBE::~Rva004FBCBE()
@@ -50,3 +62,6 @@ Rva004FBCBE::~Rva004FBCBE()
 		}
 	}
 }
+
+Rva004FBCBE::Rva004FBCBE(const UnicodeString&a,const UnicodeString&b,int mode)
+:m_08(a),m_0C(b),m_10(mode),m_14(-1){m_24=false;m_25=false;m_26=false;}
