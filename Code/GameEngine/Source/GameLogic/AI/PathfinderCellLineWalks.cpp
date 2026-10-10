@@ -110,6 +110,8 @@ public:
 class Rva002E9D09 {public:Int rva002E9D09(Object*,Int,Int);};
 class Rva004DD9E3 {public:Int rva004DD9E3(Int,Int,Int);};
 
+struct Rva002E8145Info { int opaque; int skipX; int skipY; };
+
 class Pathfinder
 {
 public:
@@ -135,6 +137,8 @@ private:
 	PATHFINDER_CELL_LINE_WALK_DECL( Rva002F5925Info )
 	PATHFINDER_CELL_LINE_WALK_DECL( Rva002F4D8BInfo )
 	PATHFINDER_CELL_LINE_WALK_DECL( Rva002F600CInfo )
+	Int rva002E8145(const ICoord2D *startCell, const ICoord2D *destinationCell,
+		PathfindLayerEnum layer, Rva002E8145Info *callbackInfo);
 	Int rva002E8251(const ICoord2D *startCell, const ICoord2D *destinationCell,
 		PathfindLayerEnum layer, Rva002E7ED6Info *callbackInfo);
 
@@ -680,3 +684,77 @@ Int Pathfinder::rva004DDA9A( Int *xPts, Int *yPts, Int numEdges, Int layer, Rva0
 	return 0;
 }
 
+
+// Complete 0x002E8145..0x002E8251 (268 bytes, RET16). The target
+// inlines its excluded-cell callback: callbackInfo+4/+8 holds the skipped
+// coordinates, PathfindCell+0xC supplies occupancy low nibble and blocked bit16.
+// WB D69E60 preserves the explicit byte condition and 1/0 callback result;
+// returning the masked bool directly adds AND AL and a widening return.
+Int Pathfinder::rva002E8145(const ICoord2D *startCell, const ICoord2D *destinationCell, PathfindLayerEnum layer, Rva002E8145Info *callbackInfo)
+{
+	Int delta_x = abs(destinationCell->x - startCell->x);
+	Int delta_y = abs(destinationCell->y - startCell->y);
+
+	Int xinc2, yinc1, xinc1, numpixels, numadd, den;
+	Int yinc2, num;
+	if (delta_x >= delta_y)
+	{
+		numpixels = delta_x + 1;
+		num = 2 * delta_y - delta_x;
+		numadd = delta_y << 1;
+		den = 2 * (delta_y - delta_x);
+		xinc2 = 1;
+		yinc2 = 0;
+		yinc1 = 1;
+		xinc1 = 1;
+	}
+	else
+	{
+		numpixels = delta_y + 1;
+		num = 2 * delta_x - delta_y;
+		numadd = delta_x << 1;
+		den = 2 * (delta_x - delta_y);
+		yinc2 = 1;
+		xinc2 = 0;
+		yinc1 = 1;
+		xinc1 = 1;
+	}
+
+	if (startCell->x > destinationCell->x)
+	{
+		xinc2 = -xinc2;
+		xinc1 = -1;
+	}
+	if (startCell->y > destinationCell->y)
+	{
+		yinc2 = -yinc2;
+		yinc1 = -1;
+	}
+
+	Int x = startCell->x;
+	Int y = startCell->y;
+	for (Int curpixel = 0; curpixel < numpixels; curpixel++)
+	{
+		PathfindCell *currentCell = getCell(layer, x, y);
+		if (currentCell == 0)
+			return 0;
+		bool blocked;
+		if (x == callbackInfo->skipX && y == callbackInfo->skipY) blocked = 0;
+		else if ((currentCell->m_flags & 0xf) != 0 && (currentCell->m_flags & 0xf) != 1) blocked=1;
+		else if((unsigned char)((currentCell->m_flags>>16)&1))blocked=1;else blocked=0;
+		if(blocked) return blocked;
+		if (num < 0)
+		{
+			num += numadd;
+			x += xinc2;
+			y += yinc2;
+		}
+		else
+		{
+			num += den;
+			x += xinc1;
+			y += yinc1;
+		}
+	}
+	return 0;
+}
