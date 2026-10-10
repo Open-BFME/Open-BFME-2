@@ -1064,7 +1064,13 @@ Bool AIUpdateInterface::blockedBy(Object *other)
 	}
 	if (!aiOther) return FALSE; // Ignore it.
 
-	if (getCurLocomotor() && getCurLocomotor()->isMovingBackwards()) {
+	// Retail's AIUpdateInterface::getCurLocomotor is the +0x1F0 body rowed from
+	// SlavedUpdateRepair.cpp (0x0026FF1E); this unit's header copy reads a
+	// different offset, and its object sorts first in link order, so the link
+	// keeps its copy (S on 24 units). These reads go straight at the member
+	// instead of odr-using the ZH inline, whose COMDAT would otherwise
+	// displace the retail copy.
+	if (m_curLocomotor && m_curLocomotor->isMovingBackwards()) {
 		return false; // don't collide.
 	}
 	Bool otherMoving = ( aiOther->m_locomotorGoalType != NONE );
@@ -1152,7 +1158,7 @@ Bool AIUpdateInterface::needToRotate(void)
 	if (isWaitingForPath()) 
 		return TRUE; // new path will probably require rotation.
 
-	if (this->getCurLocomotor() && this->getCurLocomotor()->getWanderWidthFactor()>0.0f) 
+	if (this->m_curLocomotor && this->m_curLocomotor->getWanderWidthFactor()>0.0f) 
 		return FALSE; // wanderers don't need to rotate.
 
 	Real deltaAngle = 0;
@@ -1240,7 +1246,7 @@ Bool AIUpdateInterface::processCollision(PhysicsBehavior *physics, Object *other
 #ifdef MOVE_AROUND 
 				if (m_curLocomotor!=NULL && (other->isKindOf(KINDOF_INFANTRY)==getObject()->isKindOf(KINDOF_INFANTRY))) {
 					Real myMaxSpeed = m_curLocomotor->getMaxSpeedForCondition(getRetailBodyModule(getObject())->getDamageState());
-					Locomotor *hisLoco = aiOther->getCurLocomotor();
+					Locomotor *hisLoco = aiOther->m_curLocomotor;
 					if (hisLoco) {
 						Real hisMaxSpeed = hisLoco->getMaxSpeedForCondition(getRetailBodyModule(other)->getDamageState());
 						if (hisMaxSpeed > 0.05 && hisMaxSpeed < 0.6f*myMaxSpeed)	{
@@ -1472,7 +1478,7 @@ Bool AIUpdateInterface::computePath( PathfindServicesInterface *pathServices, Co
 		// destroy previous path
 		destroyPath();
 		m_path = theNewPath;
-		if (getCurLocomotor() && getCurLocomotor()->isUltraAccurate()) {
+		if (m_curLocomotor && m_curLocomotor->isUltraAccurate()) {
 			// Move exactly to the destination.  Normal ground pathfinding moves to a gridded location.
 			theNewPath->updateLastNode(&originalDestination);
 		}
@@ -1602,9 +1608,9 @@ Bool AIUpdateInterface::computeAttackPath( PathfindServicesInterface *pathServic
 		// has been modified to let it approach the object, so just approach the target position.	jba.
 		Coord3D tmp = *victimPos;
 		destroyPath();
-		if (this->getCurLocomotor()) 
+		if (this->m_curLocomotor) 
 		{
-			getCurLocomotor()->setNoSlowDownAsApproachingDest(TRUE);
+			m_curLocomotor->setNoSlowDownAsApproachingDest(TRUE);
 		}
 		Bool ok = computePath(pathServices, &tmp);
 		if (m_path==NULL) return false;

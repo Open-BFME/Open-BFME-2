@@ -204,6 +204,20 @@ Bool DeliverPayloadAIUpdate::isAllowedToRespondToAiCommands(const AICommandParms
 
 //-------------------------------------------------------------------------------------------------
 // ?update@DeliverPayloadAIUpdate@@ present-unmatched
+// Retail's AIUpdateInterface::getCurLocomotor reads +0x1F0 (rowed 0x0026FF1E
+// from SlavedUpdateRepair.cpp); this unit's header copy reads +0x1B4 (7B body
+// 8B81B4010000C3 measured in this unit's own object), and its object sorts
+// ahead of the first retail copy in link order, so the link keeps its copy
+// (S on 24 units). These reads go straight at the member instead of odr-using
+// the ZH inline, whose COMDAT would otherwise displace the retail copy.
+static Locomotor *bfmeDeliverPayloadLoco(AIUpdateInterface *ai)
+{
+	return *(Locomotor *const *)((const char *)ai + 0x1B4);
+}
+static const Locomotor *bfmeDeliverPayloadLoco(const AIUpdateInterface *ai)
+{
+	return *(const Locomotor *const *)((const char *)ai + 0x1B4);
+}
 UpdateSleepTime DeliverPayloadAIUpdate::update( void )
 {
 	m_deliveryDecal.update();
@@ -222,7 +236,7 @@ UpdateSleepTime DeliverPayloadAIUpdate::update( void )
 			if( currentDistanceSquared <= startDiveDistanceSquared )
 			{
 				m_diveState = DIVESTATE_DIVING;
-				getObject()->getAIUpdateInterface()->getCurLocomotor()->setUsePreciseZPos( true );
+				bfmeDeliverPayloadLoco(getObject()->getAIUpdateInterface())->setUsePreciseZPos( true );
 
 				AudioEventRTS soundDive = *(getObject()->getTemplate()->getPerUnitSound("StartDive"));
 				if( soundDive.getEventName().isNotEmpty() ) 
@@ -240,7 +254,7 @@ UpdateSleepTime DeliverPayloadAIUpdate::update( void )
 			if( currentDistanceSquared <= endDiveDistanceSquared )
 			{
 				m_diveState = DIVESTATE_POSTDIVE;
-				getObject()->getAIUpdateInterface()->getCurLocomotor()->setUsePreciseZPos( false );
+				bfmeDeliverPayloadLoco(getObject()->getAIUpdateInterface())->setUsePreciseZPos( false );
 			}
 
 			if( m_data.m_strafingWeaponSlot != -1 )
@@ -381,7 +395,7 @@ const ThingTemplate* DeliverPayloadAIUpdate::getPutInContainerTemplateViaModuleD
 // ?calcMinTurnRadius@DeliverPayloadAIUpdate@@ present-unmatched
 Real DeliverPayloadAIUpdate::calcMinTurnRadius(Real* timeToTravelThatDist) const
 {
-	const Locomotor* loco = getCurLocomotor();
+	const Locomotor* loco = bfmeDeliverPayloadLoco(this);
 	BodyDamageType bdt = getRetailBodyModule(getObject())->getDamageState();
 	/// @todo srj -- this should probably use min-speed, not max-speed... fix after E3
 	Real maxSpeed = loco->getMaxSpeedForCondition(bdt);				// in dist/frame
@@ -1062,7 +1076,7 @@ StateReturnType ConsiderNewApproachState::onEnter() // Increment local counter o
 	ai->aiMoveToPosition( &reApproachPoint, CMD_FROM_AI );
 
 	// we allow these guys to go to invalid (ie, off-map) positions
-	ai->getCurLocomotor()->setAllowInvalidPosition(true);
+	bfmeDeliverPayloadLoco(ai)->setAllowInvalidPosition(true);
 
 	return STATE_CONTINUE;
 }
@@ -1099,7 +1113,7 @@ void ConsiderNewApproachState::onExit( StateExitType status )
 	}
 
 	// go back to normal.
-	ai->getCurLocomotor()->setAllowInvalidPosition(true);
+	bfmeDeliverPayloadLoco(ai)->setAllowInvalidPosition(true);
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -1237,8 +1251,8 @@ StateReturnType HeadOffMapState::onEnter() // Give move order out of town
 	exitCoord.x += dir->x * HUGE_DIST;
 	exitCoord.y += dir->y * HUGE_DIST;
 
-	ai->getCurLocomotor()->setAllowInvalidPosition(true);
-	ai->getCurLocomotor()->setUltraAccurate(true);	// set ultra-accurate just so AI won't try to adjust our dest
+	bfmeDeliverPayloadLoco(ai)->setAllowInvalidPosition(true);
+	bfmeDeliverPayloadLoco(ai)->setUltraAccurate(true);	// set ultra-accurate just so AI won't try to adjust our dest
 	ai->aiMoveToPosition( &exitCoord, CMD_FROM_AI );
 
 		// once we get into head-off-map state, we're done... don't respond to anything else.
