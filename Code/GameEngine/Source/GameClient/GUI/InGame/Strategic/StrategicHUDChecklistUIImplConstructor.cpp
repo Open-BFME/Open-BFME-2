@@ -68,7 +68,8 @@ __forceinline FunctorBinding MakeBinding(FunctorMethod m,FunctorTarget*o){return
 template<class T> class AptRef:public Rva0057BC63FunctorHolder {public:AptRef(const FunctorBinding&b):Rva0057BC63FunctorHolder(b){}~AptRef(){if(ptr)ReleaseTreeHintRef00217D4C((TargetRef00217D4C*)ptr);}};
 class AptCommandMap;
 class AptCommandMapAdder {public:AptCommandMapAdder();~AptCommandMapAdder();void AddCommandMap(const AsciiString&,AptRef<AptCommandMap>);__forceinline void AddCommandMapDelegate(const AsciiString&n,FunctorBinding b){AddCommandMap(n,b);}private:_STL::vector<AsciiString> names;};
-class Base1 {public:virtual void b1();~Base1(){}};
+class ChecklistItemRef;
+class Base1 {public:virtual ChecklistItemRef DoCreateNewItem();~Base1(){}};
 class Base2 {public:virtual void b2();~Base2(){}};
 class Base3 {public:virtual void b3();~Base3(){}};
 class Rva000AD6F4 {public:void clear();Rva000AD6F4():ptr(0){}~Rva000AD6F4();void*ptr;};
@@ -94,9 +95,57 @@ struct XNode
 	YBase *m_y;
 };
 
+// Checklist item views for DoCreateNewItem; layouts as in the rowed Item
+// constructor 0x0057A748 (StrategicHUDChecklistUIImpl.cpp): reference-counted
+// base +0 (inc 0x005D1A79, Release_Ref 0x005D1A7D), movie clip base +8, 0x60 bytes.
 namespace StrategicHUD {class ChecklistUIImpl;}
+struct ChecklistSelectNode;
+struct ChecklistIteratorView
+{
+	ChecklistSelectNode *node;
+	ChecklistIteratorView(const ChecklistIteratorView &other) : node(other.node) {}
+};
+class Rva005D1A6C {public:virtual ~Rva005D1A6C();int m_04;};
+class Rva005D40A6 {public:virtual ~Rva005D40A6();char m_pad04[0x40 - 0x04];};
+namespace StrategicHUD {
+class ChecklistUIItemView : public Rva005D1A6C, public Rva005D40A6 {};
+}
+class Rva005D1A79DwordCounter {public:void inc();};
+class RefCountClass {public:void Release_Ref();};
+class Rva005D3FE4 {public:void rva005D3FE4(float y);};
+class Rva004987FEFloatField {public:float get() const;};
+struct RetObj {char m_pad[4];float m_4;};
+struct GlobalObj {virtual ~GlobalObj() {} virtual void *d1(); virtual void *d2(); virtual void *d3(); virtual void *d4(); virtual void *d5(); virtual void *d6(); virtual void *d7(); virtual void *d8(); virtual void *d9(); virtual void *d10(); virtual void *d11(); virtual void *d12(); virtual void *d13(); virtual void *d14(); virtual RetObj *slot15();};
+// Shared item spacing 0x0057A24A, rowed in StrategicHUDChecklistUIImpl.cpp; the
+// same inline body here lets DoCreateNewItem keep its x87 value across the call.
+class Rva0057A24A {public:inline __declspec(noinline) float rva0057A24A() const;char m_pad[0x20];float m_20;};
+inline float Rva0057A24A::rva0057A24A() const { return (*(GlobalObj **)&g_bfmeAptWindowManager)->slot15()->m_4 * m_20; }
+extern unsigned g_Va00E06360;
+namespace AptUtils {const char *SkipLevelN(const char *);int LevelIndexFromTarget(const char *);}
+int __cdecl Rva0052519DFire(void *,void *,const char *,const char *,int *);
+namespace StrategicHUD {struct ChecklistHeightItem {char prefix[0x38];float top;};}
+// The owning item pointer DoCreateNewItem returns (WorldBuilder: newItem.GetPtr()).
+// Native57A3F4..57A40C (24B, returns this): the out-of-line pointer constructor
+// takes a reference; copy and release are inline at their call sites.
+class ChecklistItemRef
+{
+public:
+	__forceinline ChecklistItemRef() : m_ptr(0) {}
+	ChecklistItemRef(StrategicHUD::ChecklistUIItemView *p);
+	__forceinline ChecklistItemRef(const ChecklistItemRef &o) : m_ptr(o.m_ptr) {if(m_ptr)reinterpret_cast<Rva005D1A79DwordCounter *>(m_ptr)->inc();}
+	__forceinline ~ChecklistItemRef() {if(m_ptr)reinterpret_cast<RefCountClass *>(m_ptr)->Release_Ref();}
+	StrategicHUD::ChecklistUIItemView *operator->() const {return m_ptr;}
+	StrategicHUD::ChecklistUIItemView *m_ptr;
+};
+ChecklistItemRef::ChecklistItemRef(StrategicHUD::ChecklistUIItemView *p) : m_ptr(p)
+{
+	if (p)
+		reinterpret_cast<Rva005D1A79DwordCounter *>(p)->inc();
+}
 class StrategicHUD::ChecklistUIImpl:public Base1,public Base2,public Base3 {
 public:ChecklistUIImpl(int,const AsciiString&);virtual~ChecklistUIImpl();
+ class Item;
+ virtual ChecklistItemRef DoCreateNewItem();
  void OnScrollBarLoaded(const char*);void OnScrollBarUnloaded(const char*);void OnOpen(const char*);void OnClosed(const char*);void OnExpandButtonClicked(const char*);
  int level;AsciiString path;int state;AptCommandMapAdder maps;bool open,flag25,flag26;Rva000AD6F4 scrollbar;int word2C;_STL::list<int>items;_STL::list<int>::iterator position;bool flag38;float viewHeight;int turn,phase,word48;bool flag4C;
 };
@@ -128,3 +177,4 @@ StrategicHUD::ChecklistUIImpl::~ChecklistUIImpl()
 		} while (nxt != head);
 	}
 }
+
