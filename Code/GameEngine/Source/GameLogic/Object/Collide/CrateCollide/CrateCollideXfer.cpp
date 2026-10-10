@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
 //
 // ?xfer@CrateCollide@@MAEXPAVXfer@@@Z, retail 0x004BC617 64B: slot 3 (offset 0x0C)
 // of vtable 0x0085A618 (class of rowed dtor ??1Rva004BC4FC@@UAE@XZ, the opaque
@@ -27,6 +27,7 @@ class RGBAColorReal;
 class RGBAColorInt;
 class Snapshot;
 class Thing;
+#include "ascii_string.h"
 class ModuleData;
 
 class Xfer
@@ -111,10 +112,14 @@ public:
 	virtual void collideModuleInterfaceAnchor();
 };
 
+class Object;
+struct Coord3D;
+
+// The collide interface at +0x10 (vftable 0x00C5A600): onCollide is slot 0.
 class ModuleInterface
 {
 public:
-	virtual void moduleInterfaceAnchor();
+	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal) = 0;
 };
 
 class CollideModule : public BehaviorModule,
@@ -137,6 +142,8 @@ class CrateCollide : public CollideModule
 public:
 	CrateCollide(Thing *thing, const ModuleData *moduleData);
 
+	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal);
+
 protected:
 	virtual void xfer(Xfer *xfer);
 
@@ -151,5 +158,75 @@ void CrateCollide::xfer(Xfer *xfer)
 	((Rva004CE56D *)this)->xfer(xfer);
 	if (version.m_minimum >= 2) {
 		*xfer == m_everExecuted;
+	}
+}
+
+// ?onCollide@CrateCollide@@UAEXPAVObject@@PBUCoord3D@@1@Z, retail 0x004BC56D
+// 170B (RET 12), slot 0 of the collide interface (this = module +0x10).
+// Zero Hour's CrateCollide::onCollide; BFME 2 records m_everExecuted before
+// the crate is destroyed. isValidToExecute and executeCrateBehavior are the
+// primary-table slots +0x34/+0x30; module data +0x48 execute FX, +0x4C pickup
+// animation name, +0x50/+0x54 its display time and z rise. The animation
+// lookup is the address-named 0x002D752D on TheAnim2DCollection.
+struct CrateCollideModuleData
+{
+	unsigned char m_pad00[0x48];
+	const class FXList *m_executeFX;		// +0x48
+	AsciiString m_pickupAnimation;			// +0x4C
+	float m_pickupAnimDisplayTimeInSeconds;		// +0x50
+	float m_pickupAnimZRise;			// +0x54
+};
+struct CrateCollideModuleFields { void *m_vptr; const CrateCollideModuleData *m_moduleData; Object *m_object; };
+struct CrateCollideSlots
+{
+#define SLOT(N) virtual void slot##N();
+	SLOT(00) SLOT(01) SLOT(02) SLOT(03) SLOT(04) SLOT(05) SLOT(06) SLOT(07) SLOT(08) SLOT(09) SLOT(10) SLOT(11)
+#undef SLOT
+	virtual bool executeCrateBehavior(Object *other);	// +0x30
+	virtual bool isValidToExecute(const Object *other) const;	// +0x34
+};
+class FXList { public: static void doFXObj(const FXList *fx, const Object *primary, const Object *secondary); };
+#include "../../../../Common/GameLogicObjectLookupView.h"
+extern GameLogic *TheGameLogic;
+struct GameLogicDrawIconUIView { unsigned char m_pad00[0x9A]; bool m_drawIconUI; };
+struct Rva002D752DNode;
+class Rva002D752D { public: Rva002D752DNode *rva002D752D(const StringBase<char> &name); };
+class Anim2DCollection;
+extern Anim2DCollection *TheAnim2DCollection;
+class Anim2DTemplate;
+enum WorldAnimationOptions { WORLD_ANIM_FADE_ON_EXPIRE = 1 };
+#include "../../../../../../Libraries/Include/Lib/Coord3D.h"
+struct ObjectPositionView { unsigned char m_pad00[0x38]; Coord3D m_pos; };
+class InGameUI { public: void addWorldAnimation(Anim2DTemplate *anim, const Coord3D *pos, WorldAnimationOptions options, float durationInSeconds, float zRisePerSecond); };
+extern InGameUI *TheInGameUI;
+
+void CrateCollide::onCollide(Object *other, const Coord3D *loc, const Coord3D *normal)
+{
+	const CrateCollideModuleData *modData = reinterpret_cast<CrateCollideModuleFields *>(this)->m_moduleData;
+	CrateCollideSlots *crate = reinterpret_cast<CrateCollideSlots *>(this);
+
+	// If the crate can be picked up, perform the game logic and destroy the crate.
+	if( crate->isValidToExecute( other ) )
+	{
+		if( crate->executeCrateBehavior( other ) )
+		{
+			if( modData->m_executeFX != 0 )
+				FXList::doFXObj( modData->m_executeFX, other, 0 );
+			m_everExecuted = true;
+			TheGameLogic->destroyObject( reinterpret_cast<CrateCollideModuleFields *>(this)->m_object );
+		}
+
+		// play animation in the world at this spot if there is one
+		if( TheAnim2DCollection && modData->m_pickupAnimation.isEmpty() == false &&
+			reinterpret_cast<GameLogicDrawIconUIView *>(TheGameLogic)->m_drawIconUI )
+		{
+			Anim2DTemplate *animTemplate = reinterpret_cast<Anim2DTemplate *>(
+				reinterpret_cast<Rva002D752D *>(TheAnim2DCollection)->rva002D752D( *reinterpret_cast<const StringBase<char> *>(&modData->m_pickupAnimation) ));
+			TheInGameUI->addWorldAnimation( animTemplate,
+				&reinterpret_cast<ObjectPositionView *>(reinterpret_cast<CrateCollideModuleFields *>(this)->m_object)->m_pos,
+				WORLD_ANIM_FADE_ON_EXPIRE,
+				modData->m_pickupAnimDisplayTimeInSeconds,
+				modData->m_pickupAnimZRise );
+		}
 	}
 }
