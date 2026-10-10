@@ -86,3 +86,22 @@ FX_NAMED_TAG(8, TERRAIN_COLLISION, TerrainCollisionModule, ParticleTerrainCollis
 #undef FX_NAMED_TAG
 
 }
+
+// Native560129 and5635C1 call their named singleton then return the receiver.
+// Original outer names, receiver extents and constructor role remain unknown.
+struct Rva00560129SingletonTouch {
+    Rva00560129SingletonTouch *touch();
+};
+Rva00560129SingletonTouch *Rva00560129SingletonTouch::touch()
+{
+    FXParticleSystem::ConcreteModuleClass<FXParticleSystem::StreakDrawModuleTag>::getInstance();
+    return this;
+}
+struct Rva005635C1SingletonTouch {
+    Rva005635C1SingletonTouch *touch();
+};
+Rva005635C1SingletonTouch *Rva005635C1SingletonTouch::touch()
+{
+    FXParticleSystem::ConcreteModuleClass<FXParticleSystem::RenderObjectDrawModuleTag>::getInstance();
+    return this;
+}
