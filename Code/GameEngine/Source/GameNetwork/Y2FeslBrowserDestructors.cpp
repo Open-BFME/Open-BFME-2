@@ -94,11 +94,19 @@ public:
 class Rva00802EC0Base
 {
 public:
+	Rva00802EC0Base();
 	virtual ~Rva00802EC0Base() {}
 
 	int m_field4;
 	int m_field8;
 };
+
+// ??0Rva00802EC0Base@@QAE@XZ @0x0066EEA0 9B: the default constructor, storing the
+// base's own vtable (VA 0x00CE3E20) and leaving the fields to the derived
+// constructor.
+Rva00802EC0Base::Rva00802EC0Base()
+{
+}
 
 class Rva00802EC0Owner : public Rva00802EC0Base
 {
@@ -121,11 +129,19 @@ Rva00802EC0Owner::~Rva00802EC0Owner()
 class Rva00802CA0Base
 {
 public:
+	Rva00802CA0Base();
 	virtual ~Rva00802CA0Base() {}
 
 	int m_field4;
 	int m_field8;
 };
+
+// ??0Rva00802CA0Base@@QAE@XZ @0x0066E9C0 9B: the default constructor, storing the
+// base's own vtable (VA 0x00CE3D50) and leaving the fields to the derived
+// constructor.
+Rva00802CA0Base::Rva00802CA0Base()
+{
+}
 
 class Rva00802CA0Owner : public Rva00802CA0Base
 {
@@ -150,11 +166,19 @@ Rva00802CA0Owner::~Rva00802CA0Owner()
 class Rva00802380Base
 {
 public:
+	Rva00802380Base();
 	virtual ~Rva00802380Base() {}
 
 	int m_field4;
 	int m_field8;
 };
+
+// ??0Rva00802380Base@@QAE@XZ @0x0066E490 9B: the default constructor, storing the
+// base's own vtable (VA 0x00CE3CC8) and leaving the fields to the derived
+// constructor.
+Rva00802380Base::Rva00802380Base()
+{
+}
 
 class Rva00802380Owner : public Rva00802380Base
 {
@@ -179,12 +203,20 @@ Rva00802380Owner::~Rva00802380Owner()
 class Rva00802680Base
 {
 public:
+	Rva00802680Base();
 	virtual ~Rva00802680Base() {}
 
 	int m_field4;
 	int m_field8;
 	int m_fieldC;
 };
+
+// ??0Rva00802680Base@@QAE@XZ @0x0066E500 9B: the default constructor, storing the
+// base's own vtable (VA 0x00CE3CDC) and leaving the fields to the derived
+// constructor.
+Rva00802680Base::Rva00802680Base()
+{
+}
 
 class Rva00802680Owner : public Rva00802680Base
 {
