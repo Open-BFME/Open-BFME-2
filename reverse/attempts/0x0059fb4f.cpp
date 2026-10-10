@@ -1,4 +1,6 @@
 // ?FillBuddyInviteGameInfo@AptOnlineCustomMatch@@QAE_NPAVRva0059EF62@@@Z
+// partial score=0.8863414634146342 date=2026-10-10
+// ?FillBuddyInviteGameInfo@AptOnlineCustomMatch@@QAE_NPAVRva0059EF62@@@Z
 // partial score=0.85 date=2026-10-07
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
@@ -884,17 +886,17 @@ void AptOnlineCustomMatch::rva0059EBFE()
 // fills the buddy invite from the create dialog's password and the room.
 bool AptOnlineCustomMatch::FillBuddyInviteGameInfo(Rva0059EF62 *info)
 {
-	if (!((Rva0059ECAD *)this)->rva0059EF33())
-		return false;
+	unsigned char state=((Rva0059ECAD *)this)->rva0059EF33(); if(!state)return state;
+	unsigned int filled=0;
 	if (!TheGameSpyInfo)
-		return false;
+		return *(bool*)&filled;
 	if (!TheGameSpyInfo->getCurrentStagingRoom()->amIHost())
-		return false;
+		return *(bool*)&filled;
 	GameSpyStagingRoom *room = TheGameSpyInfo->getCurrentStagingRoom();
 	if (!room)
-		return false;
+		return *(bool*)&filled;
 
-	bool filled = false;
+	
 	AsciiString password(GadgetTextEntryGetText(m_createDialog));
 	AsciiString text = ((Rva0059F340AsciiField *)room)->get();
 	if (text.getLength() != 0)
@@ -902,5 +904,5 @@ bool AptOnlineCustomMatch::FillBuddyInviteGameInfo(Rva0059EF62 *info)
 		info->rva0059EF62(m_4a4, room->m_14, password, text, room->m_5c);
 		filled = true;
 	}
-	return filled;
+	return *(bool*)&filled;
 }
