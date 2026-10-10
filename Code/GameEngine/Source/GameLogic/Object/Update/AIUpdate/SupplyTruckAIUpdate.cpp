@@ -443,54 +443,7 @@ TheInGameUI->DEBUG_addFloatingText("entering idle state", getMachineOwner()->get
 //-------------------------------------------------------------------------------------------------
 
 //-------------------------------------------------------------------------------------------------
-// byte-exact reconstruction: Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/SupplyTruckStateMachineConstructorThunk.cpp
-// ??0SupplyTruckStateMachine@@ present-unmatched
-SupplyTruckStateMachine::SupplyTruckStateMachine( Object *owner ) : StateMachine( owner, "SupplyTruckStateMachine" )
-{
-	static const StateConditionInfo busyConditions[] = 
-	{
-		StateConditionInfo(ownerIdle, ST_IDLE, NULL),
-		StateConditionInfo(ownerDocking, ST_DOCKING, NULL),
-		StateConditionInfo(NULL, NULL, NULL)	// keep last
-	};
-
-	static const StateConditionInfo idleConditions[] = 
-	{
-		StateConditionInfo(isForcedIntoBusyState, ST_BUSY, NULL),
-		StateConditionInfo(isForcedIntoWantingState, ST_WANTING, NULL),
-		StateConditionInfo(ownerDocking, ST_DOCKING, NULL),
-		StateConditionInfo(ownerNotDockingOrIdle, ST_BUSY, NULL),
-		StateConditionInfo(NULL, NULL, NULL)	// keep last
-	};
-
-	static const StateConditionInfo wantingConditions[] = 
-	{
-		StateConditionInfo(ownerDocking, ST_DOCKING, NULL),
-		StateConditionInfo(ownerNotDockingOrIdle, ST_BUSY, NULL),
-		StateConditionInfo(NULL, NULL, NULL)	// keep last
-	};
-
-	static const StateConditionInfo regroupingConditions[] = 
-	{
-		StateConditionInfo(ownerPlayerCommanded, ST_BUSY, NULL),
-		StateConditionInfo(NULL, NULL, NULL)	// keep last
-	};
-
-	static const StateConditionInfo dockingConditions[] = 
-	{
-		StateConditionInfo(isForcedIntoBusyState, ST_BUSY, NULL),
-		StateConditionInfo(ownerAvailableForSupplying, ST_WANTING, NULL),
-		StateConditionInfo(ownerNotDockingOrIdle, ST_BUSY, NULL),
-		StateConditionInfo(NULL, NULL, NULL)	// keep last
-	};
-
-	// order matters: first state is the default state.
-	defineState( ST_BUSY,							newInstance(SupplyTruckBusyState)( this ),												ST_BUSY,		ST_BUSY,					busyConditions );
-	defineState( ST_IDLE,							newInstance(SupplyTruckIdleState)( this ),												ST_BUSY,		ST_BUSY,					idleConditions );
-	defineState( ST_WANTING,					newInstance(SupplyTruckWantsToPickUpOrDeliverBoxesState)( this ),	ST_BUSY,		ST_REGROUPING,		wantingConditions );
-	defineState( ST_REGROUPING,				newInstance(RegroupingState)( this ),															ST_WANTING, ST_BUSY,					regroupingConditions );
-	defineState( ST_DOCKING,					newInstance(DockingState)( this ),																ST_BUSY,		ST_BUSY,					dockingConditions );
-}
+// SupplyTruckStateMachine construction is supplied by verified BFME2 SupplyTruckStateMachine.cpp.
 
 //-------------------------------------------------------------------------------------------------
 // ??1SupplyTruckStateMachine@@ present-unmatched
@@ -790,32 +743,7 @@ TheInGameUI->DEBUG_addFloatingText(tmp, owner->getPosition(), GameMakeColor(255,
 }
 
 //-------------------------------------------------------------------------------------------------
-/* static */ Bool SupplyTruckStateMachine::ownerDocking( State *thisState, void* userData )
-{
-	// Three offsets are BFME's: State::m_machine at +0x1c (this tree +0x20),
-	// StateMachine::m_owner at +0x10 (+0x14), and Object::m_ai at +0x204
-	// (+0x19c). The first and last are the same two
-	// AIMoveAndEvacuateState::onExit and TurretAI::loadPostProcess pin.
-	char *machine = *(char **)((char *)thisState + 0x1c);
-	Object *owner = *(Object **)(machine + 0x10);
-	AIUpdateInterface *ai = *(AIUpdateInterface **)((char *)owner + 0x204);
-	if( !ai )
-		return false;
-
-	AIStateType masterState = ai->getAIStateType();
-
-	if (masterState == AI_DOCK)
-	{
-#ifdef DEBUG_SUPPLY_STATE
-AsciiString tmp;
-tmp.format("ownerDocking returns true (%s)",statenames[thisState->getID()]);
-TheInGameUI->DEBUG_addFloatingText(tmp, owner->getPosition(), GameMakeColor(255, 0, 0, 255));
-#endif
-		return true;
-	}
-
-	return false;
-}
+// ownerDocking is supplied by the verified BFME2 SupplyTruckOwnerDocking.cpp.
 
 //-------------------------------------------------------------------------------------------------
 /* static */ Bool SupplyTruckStateMachine::ownerPlayerCommanded( State *thisState, void* userData )
@@ -839,68 +767,11 @@ TheInGameUI->DEBUG_addFloatingText(tmp, owner->getPosition(), GameMakeColor(255,
 }
 
 //-------------------------------------------------------------------------------------------------
-/* static */ Bool SupplyTruckStateMachine::ownerIdle( State *thisState, void* userData )
-{
-	Object *owner = thisState->getMachineOwner();
-	AIUpdateInterface *ai = owner->getAIUpdateInterface();
-	if( !ai )
-		return false;
-
-	if (ai->isIdle())
-	{
-#ifdef DEBUG_SUPPLY_STATE
-AsciiString tmp;
-tmp.format("ownerIdle returns true (%s)",statenames[thisState->getID()]);
-TheInGameUI->DEBUG_addFloatingText(tmp, owner->getPosition(), GameMakeColor(255, 0, 0, 255));
-#endif
-		return true;
-	}
-
-	return false;
-}
+// ownerIdle is supplied by the verified BFME2 SupplyTruckOwnerIdle.cpp.
 
 //-------------------------------------------------------------------------------------------------
-/* static */ Bool SupplyTruckStateMachine::ownerAvailableForSupplying( State *thisState, void* userData )
-{
-	Object *owner = thisState->getMachineOwner();
-	AIUpdateInterface *ai = owner->getAIUpdateInterface();
-	if( !ai )
-		return false;
-	SupplyTruckAIInterface *update = ai->getSupplyTruckAIInterface();
-	if( !update )
-		return false;
-
-	if (update->isAvailableForSupplying() && ai->isIdle())
-	{
-#ifdef DEBUG_SUPPLY_STATE
-AsciiString tmp;
-tmp.format("ownerAvailableForSupplying returns true (%s)",statenames[thisState->getID()]);
-TheInGameUI->DEBUG_addFloatingText(tmp, owner->getPosition(), GameMakeColor(255, 0, 0, 255));
-#endif
-		return true;
-	}
-
-	return false;
-}
+// ownerAvailableForSupplying is supplied by the verified BFME2 SupplyTruckOwnerAvailableForSupplying.cpp.
 
 //-------------------------------------------------------------------------------------------------
-/* static */ Bool SupplyTruckStateMachine::ownerNotDockingOrIdle( State *thisState, void* userData )
-{
-	Object *owner = thisState->getMachineOwner();
-	AIUpdateInterface *ai = owner->getAIUpdateInterface();
-	if( !ai )
-		return false;
-
-	if (!ai->isIdle() && ai->getAIStateType() != AI_DOCK)
-	{
-#ifdef DEBUG_SUPPLY_STATE
-AsciiString tmp;
-tmp.format("ownerNotDockingOrIdle returns true (%s)",statenames[thisState->getID()]);
-TheInGameUI->DEBUG_addFloatingText(tmp, owner->getPosition(), GameMakeColor(255, 0, 0, 255));
-#endif
-		return true;
-	}
-
-	return false;
-}
+// ownerNotDockingOrIdle is supplied by the verified BFME2 SupplyTruckOwnerNotDockingOrIdle.cpp.
 
