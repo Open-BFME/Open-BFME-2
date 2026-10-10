@@ -1,6 +1,8 @@
 // ?UpdateNotice@InGameNotificationBoxMovieClip@@QAEXXZ
 // partial score=0.9957343321965674 date=2026-10-10
 // ?UpdateNotice@InGameNotificationBoxMovieClip@@QAEXXZ
+// partial score=0.9957343321965674 date=2026-10-10
+// ?UpdateNotice@InGameNotificationBoxMovieClip@@QAEXXZ
 // partial score=0.985 date=2026-10-10
 // ?UpdateNotice@InGameNotificationBoxMovieClip@@QAEXXZ
 // partial score=0.96 date=2026-10-09
@@ -8,7 +10,7 @@
 #include "unicode_string.h"
 #include "Common/BfmeAudioEventPrefix136.h"
 #include <math.h>
-// cl: /O1 /G7 /arch:SSE /MD /EHsc /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include
+// cl: /O1 /G7 /arch:SSE /MD /ICode/GameEngine/Source /EHsc /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include
 // Notification-box ownership transfer: native004E6BF6..004E6C34 RET4;
 // WorldBuilder013238A0 returns a consuming holder through a hidden result.
 // Rva004E6A1D clear and Rva004E6A37 destructor/assignment establish the
@@ -286,17 +288,3 @@ void InGameNotificationBoxMovieClip::UpdateNotice()
  consumeNotice(active,notice.rva004E6BF6());
 }
 
-static __forceinline int invokeFormatted(Rva00222A8BTarget *target,void *owner,const char *method,
- const AsciiString &number,const bool *flag,const char *const *location, char **flagText)
-{
- const char *place=*location;
- char *value=*Rva004E678BGet(flagText,*flag);
- return target->invoke(owner,method,3,number.str(),value,const_cast<char*>(place),0,0);
-}
-
-inline __declspec(noinline) int Rva004E697DCall(Rva00222A8BTarget *target,void *owner,const char *method,
- const float *height,const bool *flag,const char *const *location)
-{
- char *flagText;
- return invokeFormatted(target,owner,method,Rva002228E8Get(*height),flag,location,&flagText);
-}
