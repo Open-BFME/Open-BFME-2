@@ -250,3 +250,93 @@ Script::Script(const Script &other)
     for (int i = 0; i < 2; ++i)
         m_actions[i] = other.m_actions[i] ? other.m_actions[i]->duplicate() : 0;
 }
+
+// ZH ScriptList::xfer supplies the recovery semantics and singleton name.
+// Target version2 transfers scripts via the indexed20B set, then groups;
+// unlike ZH it has no final group sink. Singleton identity and the set
+// offsets are established by native3B4716..3B4826.
+// A four-byte version local with individually initialized version bytes
+// preserves native EBP-8/-7; groupCount occupies EBP-4. Padding is neither
+// read nor transferred. Whole body and the existing Script EH family match.
+struct ScriptListXferVersion { unsigned char version, maximum; unsigned short padding; };
+template<int N> class ScriptListXferSlots : public ScriptListXferSlots<N - 1>
+{ public: virtual void gap(char (*)[N]); };
+template<> class ScriptListXferSlots<0> {};
+class Xfer : public ScriptListXferSlots<10>
+{
+public:
+    virtual void transferVersion(ScriptListXferVersion *);
+    virtual void gap11();
+    virtual void transferSnapshot(Snapshot *);
+    virtual void gap13(); virtual void gap14(); virtual void gap15();
+    virtual void gap16(); virtual void gap17(); virtual void gap18();
+    virtual void gap19(); virtual void gap20(); virtual void gap21();
+    virtual void gap22(); virtual void gap23(); virtual void gap24();
+    virtual void gap25(); virtual void gap26(); virtual void gap27();
+    virtual void gap28(); virtual void gap29(); virtual void gap30();
+    virtual void gap31();
+    virtual void transferUnsignedShort(unsigned short *);
+};
+struct ScriptListXferRecord
+{
+    int previous, next;
+    AsciiString name;
+    unsigned char flag;
+    unsigned short references;
+    void *node;
+};
+struct ScriptListXferSet
+{
+    unsigned int *sortedBegin, *sortedEnd, *sortedStorageEnd;
+    ScriptListXferRecord *recordsBegin, *recordsEnd, *recordsStorageEnd;
+    int freeHead, head;
+};
+class ScriptList : public Snapshot
+{
+public:
+    virtual ~ScriptList();
+protected:
+    virtual void loadPostProcess();
+    virtual const char *GetSnapshotName() const;
+    virtual void xfer(Xfer *);
+private:
+    void *groupHead, *scriptHead;
+    ScriptListXferSet groups, scripts;
+};
+static Script *s_mtScript = 0;
+void ScriptList::xfer(Xfer *xfer)
+{
+    unsigned short groupCount;
+    ScriptListXferVersion version;
+    version.version = 1;
+    version.maximum = 2;
+    xfer->transferVersion(&version);
+    unsigned short count = (unsigned short)(scripts.sortedEnd - scripts.sortedBegin);
+    xfer->transferUnsignedShort(&count);
+    for (int index = scripts.head; index != -1;
+         index = scripts.recordsBegin[index].previous) {
+        void *node = scripts.recordsBegin[index].node;
+        xfer->transferSnapshot((Snapshot *)((char *)node + 4));
+        if (--count == 0)
+            break;
+    }
+    if (count > 0) {
+        if (!s_mtScript)
+            s_mtScript = new Script;
+        while (count) {
+            xfer->transferSnapshot(s_mtScript);
+            --count;
+        }
+    }
+    if (version.maximum >= 2) {
+        groupCount = (unsigned short)(groups.sortedEnd - groups.sortedBegin);
+        xfer->transferUnsignedShort(&groupCount);
+        for (int index = groups.head; index != -1;
+             index = groups.recordsBegin[index].previous) {
+            void *node = groups.recordsBegin[index].node;
+            xfer->transferSnapshot((Snapshot *)((char *)node + 4));
+            if (--groupCount == 0)
+                break;
+        }
+    }
+}
