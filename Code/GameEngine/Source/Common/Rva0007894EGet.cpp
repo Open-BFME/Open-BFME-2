@@ -1,8 +1,10 @@
 // cl: /DNDEBUG /MD
 //
-// ?Rva0007894EGet@@YG_NPAVRva0007894EOuter@@@Z @0x0007894E 61B probe v1
-// Free stdcall bool tester: Outer+8 Rva with flags 0x440/0x441 plus rowed
-// rva bool plus Outer vslot 0xC4 int to bool.
+// ?rva0007894E@W3DHordeModelDrawManager@@QAE_NPAVRva0007894EOuter@@@Z @0x0007894E 61B probe v1
+// Native79FBC and7A0F6 pass manager in ECX before this RET4 helper.
+// The receiver is unused by the body; original helper name is unknown.
+// Rename the former free-stdcall owner to preserve the observed member-call
+// ABI. Outer+8 flags440/441 and vslotC4 follow target bytes.
 
 class Rva00270260
 {
@@ -72,7 +74,9 @@ public:
 	Rva00270260 *m_08;
 };
 
-bool __stdcall Rva0007894EGet(Rva0007894EOuter *p)
+class W3DHordeModelDrawManager {public: bool rva0007894E(Rva0007894EOuter *);};
+
+bool W3DHordeModelDrawManager::rva0007894E(Rva0007894EOuter *p)
 {
 	Rva00270260 *s = p->m_08;
 	if (!s->m_441)
