@@ -1,6 +1,8 @@
 // ?rva0039815B@CastleBehavior@@QAEPAVObject@@PAVThingTemplate@@PBUCoord3D@@H@Z
+// partial score=0.8967113665389528 date=2026-10-10
+// ?rva0039815B@CastleBehavior@@QAEPAVObject@@PAVThingTemplate@@PBUCoord3D@@H@Z
 // partial score=0.9 date=2026-10-09
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /ICode/GameEngine/Source/Common
 //
 // ?rva0039815B@CastleBehavior@@QAEPAVObject@@PAVThingTemplate@@PBUCoord3D@@H@Z,
 // retail 0x0039815B..0x00398243 (232 bytes, RET 12): the CastleBehavior
@@ -13,7 +15,7 @@
 // by squared distance (rowed distSq). The pinned static 0x00397FEB then
 // creates it from the +0x38 context and the chosen object's +0x74 ID.
 
-#include "../../../Common/GameLogicObjectLookupView.h"
+#include "GameLogicObjectLookupView.h"
 
 extern GameLogic *TheGameLogic;
 
@@ -110,11 +112,11 @@ Object *CastleBehavior::rva0039815B(ThingTemplate *tmpl, const Coord3D *pos, int
 		switch (mode)
 		{
 		case 0:
-			if (dist > best)
+			if (!(dist <= best))
 				continue;
 			break;
 		case 1:
-			if (best > dist)
+			if (!(best <= dist))
 				continue;
 			break;
 		default:
