@@ -1,0 +1,200 @@
+// ?ResolveBindings@FXShaderParameterSourceNamespaceWW3D@@UAEXPBD0PAVFXShaderParameterBinder@@@Z
+// partial score=0.97 date=2026-10-10
+// cl: /O1 /arch:SSE /EHsc /MD
+// Target identity: WorldBuilder fxshadernamespaceww3d.cpp:102 names
+// FXShaderParameterSourceNamespaceWW3D::SourceNamespace_Fog::ResolveBindings.
+// Retail 0x0018BFCE has the same IsEnabled/Color/RangeStart/RangeEnd strings,
+// the default struct binder 0x00153664, parser 0x001530E9 and AddBinding
+// 0x00153ACA. Callback RVAs come from its own four address stores.
+// The callback handle's inline conversion is shared with the byte-matched
+// water binder; 0x00080221 constructs it from the callback argument's address.
+
+typedef const char *D3DXHANDLE;
+// WWMath Vector4 memberwise copy semantics (BFME 1 874e38488 vector4.h).
+// A trivial struct copy introduces a second temporary and MOVSD copies;
+// retail keeps scalar color lanes and one local under /arch:SSE.
+struct FogVector {
+    FogVector() {}
+    FogVector(const FogVector &v) : x(v.x), y(v.y), z(v.z), w(v.w) {}
+    float x, y, z, w;
+};
+struct ID3DXEffect {
+    virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
+    virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();
+    virtual void v08(); virtual void v09(); virtual void v10(); virtual void v11();
+    virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15();
+    virtual void v16(); virtual void v17(); virtual void v18(); virtual void v19();
+    virtual void v20(); virtual void v21();
+    virtual long __stdcall SetBool(D3DXHANDLE parameter, int value); virtual void v23();
+    virtual void v24(); virtual void v25(); virtual void v26(); virtual void v27();
+    virtual void v28(); virtual void v29();
+    virtual long __stdcall SetFloat(D3DXHANDLE parameter, float value); virtual void v31();
+    virtual void v32(); virtual void v33();
+    virtual long __stdcall SetVector(D3DXHANDLE parameter, const FogVector *value);
+};
+typedef void (*FogCallback)(ID3DXEffect *, D3DXHANDLE);
+
+struct TargetRef00217D4C {
+    virtual void *destroy(unsigned flags);
+    int references;
+};
+void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
+
+class Rva00080221 {
+public:
+    Rva00080221(const int *arg);
+    TargetRef00217D4C *m_ptr;
+};
+
+class __single_inheritance FXShaderParameterSourceNamespaceWW3D;
+typedef void (FXShaderParameterSourceNamespaceWW3D::*BoundFXMethod)(ID3DXEffect *,D3DXHANDLE);
+struct DelegateDesc { void *m_object; BoundFXMethod m_method; };
+// Both target constructors initialize a four-byte callback handle. This
+// prefix view gives the bound constructor its existing owned linker key.
+class Rva00579E47 : public Rva00080221 {
+public:
+ Rva00579E47(const int *arg):Rva00080221(arg){}
+ Rva00579E47(const DelegateDesc &d);
+};
+struct TreeHintRef00217D4C : public Rva00579E47 {
+    TreeHintRef00217D4C(FogCallback callback) : Rva00579E47((const int *)&callback) {}
+    TreeHintRef00217D4C(const DelegateDesc &d):Rva00579E47(d){}
+    ~TreeHintRef00217D4C() {
+        if (m_ptr)
+            ReleaseTreeHintRef00217D4C(m_ptr);
+    }
+};
+
+class FXShaderParameterBinder {
+public:
+    void AddBinding(TreeHintRef00217D4C callback, const char *handle);
+};
+
+class FXShaderParameterSourceNamespace_Struct {
+public:
+    virtual ~FXShaderParameterSourceNamespace_Struct();
+    virtual void ResolveBindings(const char *name, const char *handle, FXShaderParameterBinder *registry);
+};
+
+class FXShaderParameterSourceNamespaceWW3D {
+public:
+    virtual ~FXShaderParameterSourceNamespaceWW3D();
+    virtual void ResolveBindings(const char*,const char*,FXShaderParameterBinder*);
+    void Rva0018BDA0OpacityOverride(ID3DXEffect *effect, D3DXHANDLE handle);
+    class SourceNamespace_Fog : public FXShaderParameterSourceNamespace_Struct {
+    public:
+        virtual void ResolveBindings(const char *name, const char *handle, FXShaderParameterBinder *registry);
+    };
+private:
+    SourceNamespace_Fog m_fog;
+    float m_opacityOverride;
+};
+
+struct Rva001530E9Path {
+    char m_name[0x48];
+    const char *m_rest;
+};
+void __cdecl Rva001530E9Parse(const char *name, void *volatile path);
+extern "C" __declspec(dllimport) int __cdecl _strcmpi(const char *, const char *);
+
+void Rva0018BDB8FogIsEnabled(ID3DXEffect *effect, D3DXHANDLE handle);
+void Rva0018BDCFFogColor(ID3DXEffect *effect, D3DXHANDLE handle);
+void Rva0018BE4CFogRangeStart(ID3DXEffect *effect, D3DXHANDLE handle);
+void Rva0018BE65FogRangeEnd(ID3DXEffect *effect, D3DXHANDLE handle);
+
+// The same globals are written by the rowed fog setup at 0x0006F0BB.
+// DX8Wrapper's donor API names FogEnable/FogColor; the two range aliases
+// retain the existing BFME 2 ledger spelling.
+class DX8Wrapper {
+public:
+    __forceinline static bool Get_Fog_Enable() { return FogEnable; }
+    __forceinline static unsigned long Get_Fog_Color() { return FogColor; }
+    // BFME 1 874e38488 dx8wrapper.h Convert_Color(unsigned), unchanged
+    // channel masks and ordering. Target 18BDCF confirms unsigned blue
+    // conversion remains x87 while the three narrow channels use SSE.
+    __forceinline static FogVector Convert_Color(unsigned color) {
+        FogVector col;
+        col.w = ((color & 0xff000000) >> 24) / 255.0f;
+        col.x = ((color & 0xff0000) >> 16) / 255.0f;
+        col.y = ((color & 0xff00) >> 8) / 255.0f;
+        col.z = (color & 0xff) / 255.0f;
+        return col;
+    }
+protected:
+    static bool FogEnable;
+    static unsigned long FogColor;
+};
+// The existing range-start alias had consumers but no definition. Retail's
+// initial .data value is zero; this provider lets those consumers link.
+float g_Va00DEDA28 = 0.0f;
+extern float g_Va00DEDA2C;
+extern bool ShaderOverbrightEnabled;
+
+// WorldBuilder ResolveBindings names the IsRenderingOverbright and
+// OpacityOverride paths; retail installs these callbacks at 18BD89/18BDA0.
+// The global is the existing ShaderClassApply owner at 9B5F84. The bound
+// callback takes this in ECX, reads float +8 and uses ID3DXEffect slot 30.
+void Rva0018BD89IsRenderingOverbright(ID3DXEffect *effect, D3DXHANDLE handle)
+{
+    effect->SetBool(handle, ShaderOverbrightEnabled);
+}
+
+void FXShaderParameterSourceNamespaceWW3D::Rva0018BDA0OpacityOverride(
+    ID3DXEffect *effect, D3DXHANDLE handle)
+{
+    effect->SetFloat(handle, m_opacityOverride);
+}
+
+void Rva0018BDB8FogIsEnabled(ID3DXEffect *effect, D3DXHANDLE handle)
+{
+    effect->SetBool(handle, DX8Wrapper::Get_Fog_Enable());
+}
+
+// Retail 0x0018BDCF..0x0018BE4C, entire 125-byte callback through RET.
+// ResolveBindings independently installs this function for the Color path.
+void Rva0018BDCFFogColor(ID3DXEffect *effect, D3DXHANDLE handle)
+{
+    const FogVector &col = DX8Wrapper::Convert_Color(DX8Wrapper::Get_Fog_Color());
+    effect->SetVector(handle, &col);
+}
+
+void Rva0018BE4CFogRangeStart(ID3DXEffect *effect, D3DXHANDLE handle)
+{
+    effect->SetFloat(handle, g_Va00DEDA28);
+}
+
+void Rva0018BE65FogRangeEnd(ID3DXEffect *effect, D3DXHANDLE handle)
+{
+    effect->SetFloat(handle, g_Va00DEDA2C);
+}
+
+void FXShaderParameterSourceNamespaceWW3D::SourceNamespace_Fog::ResolveBindings(
+    const char *name, const char *handle, FXShaderParameterBinder *registry)
+{
+    FXShaderParameterSourceNamespace_Struct::ResolveBindings(name, handle, registry);
+    if (name) {
+        Rva001530E9Path path;
+        Rva001530E9Parse(name, &path);
+        if (_strcmpi(path.m_name, "IsEnabled") == 0)
+            registry->AddBinding(Rva0018BDB8FogIsEnabled, handle);
+        else if (_strcmpi(path.m_name, "Color") == 0)
+            registry->AddBinding(Rva0018BDCFFogColor, handle);
+        else if (_strcmpi(path.m_name, "RangeStart") == 0)
+            registry->AddBinding(Rva0018BE4CFogRangeStart, handle);
+        else if (_strcmpi(path.m_name, "RangeEnd") == 0)
+            registry->AddBinding(Rva0018BE65FogRangeEnd, handle);
+    }
+}
+
+void FXShaderParameterSourceNamespaceWW3D::ResolveBindings(const char *name,const char *handle,FXShaderParameterBinder *registry) {
+ Rva001530E9Path path;
+ Rva001530E9Parse(name,&path);
+ if(_strcmpi(path.m_name,"IsRenderingOverbright")==0)
+  registry->AddBinding(Rva0018BD89IsRenderingOverbright,handle);
+ else if(_strcmpi(path.m_name,"OpacityOverride")==0) {
+  DelegateDesc desc={this,&FXShaderParameterSourceNamespaceWW3D::Rva0018BDA0OpacityOverride};
+  registry->AddBinding(desc,handle);
+ } else if(_strcmpi(path.m_name,"Fog")==0) {
+  m_fog.ResolveBindings(path.m_rest,handle,registry);
+ }
+}

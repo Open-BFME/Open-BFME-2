@@ -241,9 +241,18 @@ public:
     void *rva004ED3A2(void *position);
 };
 
+// Target +38/+44 are three-float coordinates. This initialization view
+// models inline construction while retaining canonical Coord3D argument ABI;
+// original coordinate class spelling is not established by byte equality.
+struct AITacticPoint : Coord3D
+{
+    __forceinline AITacticPoint(float a, float b, float c) { x=a; y=b; z=c; }
+};
+
 class AITactic
 {
 public:
+    AITactic(const AsciiString &name, bool flags);
 	virtual void slot00();
 	virtual void slot01();
 	virtual void slot02();
@@ -277,11 +286,11 @@ private:
     unsigned int m_30;
     bool m_34;
     unsigned char m_pad35[3];
-	Coord3D m_38;
-	Coord3D m_44; // +0x44
+	AITacticPoint m_38;
+	AITacticPoint m_44; // +0x44
 	bool m_50;
     bool m_51;
-    unsigned int m_54; // +0x51
+    unsigned int m_54; // +0x54
 };
 
 bool AITactic::initializeTeamTemplate(void *p, int /*dummy*/)
@@ -617,4 +626,15 @@ bool AITactic::sendTeamToAssistAnotherHorde(Team *team)
         }
     }
     return false;
+}
+
+// Native full160B4ED3D1..4ED471 and nine-slot C629E4 identify AITactic.
+// Byte argument+0C is copied directly into the bool transferred at+34;
+// earlier integer pins have the same stack width but do not prove its type.
+// Vectors+4/+14 and named StringBase copy come from the existing member ABI.
+AITactic::AITactic(const AsciiString &name, bool flags)
+    : m_protos(), m_10(false), m_teams(), m_20(0), m_24(0),
+      m_ended(false), m_name(name), m_30(g_00E044AC++), m_34(flags),
+      m_38(0,0,0), m_44(0,0,0), m_50(false), m_51(false), m_54(0)
+{
 }
