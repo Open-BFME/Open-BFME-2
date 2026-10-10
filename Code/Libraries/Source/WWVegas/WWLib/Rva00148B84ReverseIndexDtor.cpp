@@ -21,3 +21,11 @@ typedef _STL::hashtable<ReversePair,int,_STL::hash<int>,_STL::_Select1st<Reverse
 namespace _STL {template<> __declspec(noinline) ReverseTable::~hashtable(){reinterpret_cast<ArmorTable*>(this)->clear();}}
 
 template ReverseTable::~hashtable();
+
+// Native148BBD..148BC2: standalone cleanup JMP to the owned reverse-index dtor.
+// Original wrapper name, enclosing type and lifetime role are unknown.
+struct Rva00148BBDReverseIndexCleanupForward { void cleanup(); };
+void Rva00148BBDReverseIndexCleanupForward::cleanup()
+{
+    reinterpret_cast<ReverseTable *>(this)->~ReverseTable();
+}
