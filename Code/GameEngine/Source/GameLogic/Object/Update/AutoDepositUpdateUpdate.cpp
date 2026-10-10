@@ -154,8 +154,17 @@ public:
 class ExperienceTracker
 {
 public:
-	Bool rva0039AE04() const; // 0x0039AE04
 	void rva0039B315(Real experience, Bool flag1, Bool flag2, Bool flag3, Bool unused); // 0x0039B315
+};
+
+// 0x0039AE04 is rowed as Rva0039ADF3::rva0039AE04 (44B from
+// ExperienceTrackerXfer.cpp); this call goes through a TU-local view so it
+// resolves to the rowed body instead of the unrowed ExperienceTracker
+// spelling (U on this unit).
+class Rva0039ADF3
+{
+public:
+	bool rva0039AE04() const;
 };
 
 class Object
@@ -328,7 +337,7 @@ UpdateSleepTime AutoDepositUpdate::update( void )
 		player->m_money.rva003B0D7C( moneyAmount, &player->m_3BC, true );
 
 		ExperienceTracker *xp = getObject()->getExperienceTracker();
-		if( !getAutoDepositUpdateModuleData()->m_giveNoXP && xp && xp->rva0039AE04() )
+		if( !getAutoDepositUpdateModuleData()->m_giveNoXP && xp && ((Rva0039ADF3 *)xp)->rva0039AE04() )
 			xp->rva0039B315( getAutoDepositUpdateModuleData()->m_depositAmount * multiplier, true, true, true, false );
 
 		if( getAutoDepositUpdateModuleData()->m_depositAmount > 0 )
