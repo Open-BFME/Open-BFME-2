@@ -54,3 +54,10 @@ void bfmeEmitstlport_rb_tree_hint_00221e02_dtor(_STL::HintTree *p)
     p->~_Rb_tree();
 }
 #pragma inline_depth()
+
+// Native221FF5 tail JMP221E02: unchanged ECX and no stack arguments.
+// Existing tree type is reused; original wrapper identity is unknown.
+struct Rva00221FF5TreeCleanupForward { void cleanup(); };
+void Rva00221FF5TreeCleanupForward::cleanup() {
+    reinterpret_cast<_STL::HintTree *>(this)->~_Rb_tree();
+}
