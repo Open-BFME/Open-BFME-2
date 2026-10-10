@@ -1,10 +1,8 @@
 // ?rva000E7734@W3DShrubBuffer@@QAEXPAVThing@@@Z
-// partial score=0.9826478283621141 date=2026-10-10
-// ?rva000E7734@W3DShrubBuffer@@QAEXPAVThing@@@Z
-// partial score=0.99 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /ICode/Libraries/Include
 // W3DShrubBuffer::unitMoved, retail 0x000E7734 (780 bytes, ret 4): when a mobile unit moves, every shrub of the
 // 50 by 50 partition cells under the unit's footprint (radius + 7) that is within that radius is pushed aside.
+// Donor revision 575ba2b04743f190f069805fbdc59936123c45da.
 // Open-BFME-1 twin: W3DShrubBuffer_unitMoved.cpp (0x00721B20). BFME2 layout read from retail: partition table of
 // shorts at +0x5C0, world bounds at +0x1948 (lo x, lo y, hi x, hi y), 2000 shrub records of 0xA0 at +0x1958
 // (type +0x40, drawable +0x58, next in partition +0x74), count +0x4FB58, types of 0x5C at +0x4FB70 with the type
@@ -20,6 +18,9 @@ typedef short Short;
 extern "C" __declspec(dllimport) double floor(double);
 extern "C" __declspec(dllimport) double ceil(double);
 
+// Retail uses FISTP under the ambient x87 rounding mode. MSVC casts use
+// the truncating _ftol2 machinery, so this short round helper is the
+// established x87 code-generation blocker carried from the donor.
 __forceinline long fast_float2long_round(Real f)
 {
 	long i;
@@ -30,8 +31,23 @@ __forceinline long fast_float2long_round(Real f)
 	return i;
 }
 
-#define REAL_TO_INT_FLOOR(x) (fast_float2long_round((Real)floor((double)(x))))
-#define REAL_TO_INT_CEIL(x) (fast_float2long_round((Real)ceil((double)(x))))
+
+// Keep the result temporary in the wrapper: retail pops the first cdecl
+// argument slot before storing the float, then pops the second slot.
+__forceinline long realFloor(Real x)
+{
+	Real f = (Real)floor((double)x);
+	return fast_float2long_round(f);
+}
+
+__forceinline long realCeil(Real x)
+{
+	Real f = (Real)ceil((double)x);
+	return fast_float2long_round(f);
+}
+
+#define REAL_TO_INT_FLOOR(x) realFloor(x)
+#define REAL_TO_INT_CEIL(x) realCeil(x)
 
 class GlobalData;
 struct Rva000E7734GlobalData
