@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /O1 /G7 /arch:SSE /EHsc /MD /D_STLP_USE_STATIC_LIB
+// cl: /DBFME_ASCII_DTOR_DECL /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /O1 /G7 /arch:SSE /EHsc /MD /D_STLP_USE_STATIC_LIB
 // stlport
 // Native5B708..5B96D RET0 /613B; BF1 f98983a7d3bb405f1a4ba94bb6a2a168062a819d
 // MilesAudioManagerRva006AF840::rva006AF840 is the primary clean donor.
