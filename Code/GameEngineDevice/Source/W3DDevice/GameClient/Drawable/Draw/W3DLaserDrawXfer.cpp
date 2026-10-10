@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
 // ?xfer@W3DLaserDraw@@MAEXPAVXfer@@@Z @0x000C92A0 72B
 // Slot 3 (offset 0x0C) of vtable 0x007CB9E0 (class of ??1W3DLaserDraw@@MAE@XZ).
 // Donor: reference/open-bfme-1/Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DLaserDraw.cpp
@@ -26,7 +26,7 @@ class RGBAColorInt;
 class Snapshot;
 class Thing;
 class ModuleData;
-class Object;
+class Drawable;
 
 class Xfer
 {
@@ -95,24 +95,25 @@ public:
 
 class DrawModule;
 
-class ObjectModule
+class DrawableModule
 {
 public:
-	ObjectModule(Thing *thing, const ModuleData *moduleData);
-	virtual ~ObjectModule();
+	DrawableModule(Thing *thing, const ModuleData *moduleData);
+	virtual ~DrawableModule();
 	void xfer(Xfer *xfer);
 
 protected:
 	const ModuleData *m_moduleData;
-	Object *m_object;
+	Drawable *m_drawable;
 };
 
-class DrawModule : public ObjectModule
+class DrawModule : public DrawableModule
 {
 public:
 	DrawModule(Thing *thing, const ModuleData *moduleData);
 
 protected:
+	virtual void loadPostProcess();
 	virtual void xfer(Xfer *xfer);
 };
 
@@ -122,12 +123,14 @@ public:
 	W3DLaserDraw(Thing *thing, const ModuleData *moduleData);
 
 protected:
+	virtual void loadPostProcess();
 	virtual void xfer(Xfer *xfer);
 
 private:
 	char m_pad0C[0x14];
 	float m_textureAspectRatio;
-	char m_pad24[4];
+	bool m_selfDirty;
+	char m_pad25[3];
 	int m_at28;
 	float m_at2C;
 	float m_at30;
@@ -141,4 +144,13 @@ void W3DLaserDraw::xfer(Xfer *xfer)
 	*xfer == m_at30;
 	*xfer == m_at28;
 	*xfer == m_textureAspectRatio;
+}
+
+// ZH W3DLaserDraw.cpp461..469: post-load sets dirty after base hook.
+// Target vtableBCB9E0 slot1, constructor field24 and native C92E8..C92F6
+// independently establish the target identity, offset and protected ABI.
+void W3DLaserDraw::loadPostProcess()
+{
+	DrawModule::loadPostProcess();
+	m_selfDirty = true;
 }
