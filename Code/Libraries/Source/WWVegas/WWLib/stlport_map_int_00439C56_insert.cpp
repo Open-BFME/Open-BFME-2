@@ -4,6 +4,15 @@
 // Evidence: rowed insert_unique 0x00439B30 in StlportIntMapInsertFamily.cpp; caller 0x00439C73 passes hidden+pos+pair with this=map; same 29B shape as 0x005592FB and 0x0021DB74.
 #include <map>
 
+// map/set<int> internals otherwise instantiate the less<int>::operator()
+// COMDAT (one byte shape per TU flags); an explicit dllimport+forceinline
+// specialization takes those calls inline so this TU emits no external copy.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+bool less<int>::operator()(const int &a, const int &b) const
+{ return a < b; }
+}
+
 struct Rva00439AAAMapped { int a; };
 
 typedef _STL::map<int, Rva00439AAAMapped, _STL::less<int>, _STL::allocator<_STL::pair<const int, Rva00439AAAMapped> > > Map00439C56;

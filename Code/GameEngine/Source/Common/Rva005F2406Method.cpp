@@ -5,6 +5,15 @@
 // with forwarder 0x001FF3A9 and this plus the key. Evidence: callees rowed, caller 0x005E4E12.
 #include <set>
 
+// map/set<int> internals otherwise instantiate the less<int>::operator()
+// COMDAT (one byte shape per TU flags); an explicit dllimport+forceinline
+// specialization takes those calls inline so this TU emits no external copy.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+bool less<int>::operator()(const int &a, const int &b) const
+{ return a < b; }
+}
+
 class Rva005F224EListener
 {
 public:

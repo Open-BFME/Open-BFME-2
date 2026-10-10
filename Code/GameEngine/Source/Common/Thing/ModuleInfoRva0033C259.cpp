@@ -3,6 +3,15 @@
 // ?rva0033C259@ModuleInfo@@QBEMH@Z @0x0033C259 47B: map<int int> find at +0x3A0 guarded by flag at +0x3A4 returns float bits of mapped int else BfmeZeroRange.
 // Evidence: calls rowed map _M_find at 0x00388F63; node+0x14 fld (0x18 node via stlport_map_int_int_os); caller 0x00268B64; neighbours ModuleInfo rows.
 #include <map>
+
+// map/set<int> internals otherwise instantiate the less<int>::operator()
+// COMDAT (one byte shape per TU flags); an explicit dllimport+forceinline
+// specialization takes those calls inline so this TU emits no external copy.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+bool less<int>::operator()(const int &a, const int &b) const
+{ return a < b; }
+}
 extern const float BfmeZeroRange;
 class ModuleInfo
 {

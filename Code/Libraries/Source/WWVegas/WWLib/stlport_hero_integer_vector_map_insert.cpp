@@ -4,6 +4,15 @@
 // Hinted map::insert forwarder to rowed hinted _Rb_tree::insert_unique 0x0021D6A9. Same 29B shape as Locomotor map::insert 0x001E9066. Evidence: caller 0x0021E0BB passes hidden+pos+pair with this=map; callee rowed.
 #include <map>
 
+// map/set<int> internals otherwise instantiate the less<int>::operator()
+// COMDAT (one byte shape per TU flags); an explicit dllimport+forceinline
+// specialization takes those calls inline so this TU emits no external copy.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+bool less<int>::operator()(const int &a, const int &b) const
+{ return a < b; }
+}
+
 // Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
 namespace _STL {
 template <class T, class LeftTraits, class RightTraits>

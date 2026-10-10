@@ -5,6 +5,15 @@
 // Evidence: unlock lane, rowed _M_lower_bound 0x00382A92 and rowed _M_decrement 0x000242C0, add eax+0x14 returns mapped value, callers at 0x002BCB4C and 0x004F68E5.
 #include <map>
 
+// map/set<int> internals otherwise instantiate the less<int>::operator()
+// COMDAT (one byte shape per TU flags); an explicit dllimport+forceinline
+// specialization takes those calls inline so this TU emits no external copy.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+bool less<int>::operator()(const int &a, const int &b) const
+{ return a < b; }
+}
+
 // Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
 namespace _STL {
 template <class T, class LeftTraits, class RightTraits>
