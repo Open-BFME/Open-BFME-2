@@ -6,7 +6,7 @@
 // Render_Material_Pass transfer; ZH mesh.cpp has no FX-material implementation.
 // Target access proves mesh Model C4 / BaseVertexOffset300 / Anchor310,
 // model flags18 / counts24,28 / material94 / geometryBC, and transform18.
-// RefPtr is the existing four-byte owning-pointer ABI view (7B724 dtor),
+// Rva00087A93 is the existing four-byte owning-pointer owner (7B724 dtor),
 // not a claim that the donor RefCountPtr template spelling is retail's type.
 // The combined decrement/zero test emits native early-inline/late-outline cleanup.
 // Native Matrix4 construction uses count4/stride16 and folded callback47A6A9.
@@ -108,7 +108,7 @@ public:
 		VIEW_IDENTITY = 1 << 19
 	};
 
-	static __forceinline void Set_Transform(D3DTRANSFORMSTATETYPE transform, const Matrix3D &m)
+	static __forceinline void Set_MeshFX_Transform(D3DTRANSFORMSTATETYPE transform, const Matrix3D &m)
 	{
 		Matrix4 m2(m);
 		switch ((int)transform) {
@@ -131,7 +131,7 @@ public:
 		}
 	}
 
-	static __forceinline void Get_Transform(D3DTRANSFORMSTATETYPE transform, Matrix4 &m)
+	static __forceinline void Get_MeshFX_Transform(D3DTRANSFORMSTATETYPE transform, Matrix4 &m)
 	{
 		D3DMATRIX mat;
 		switch ((int)transform) {
@@ -152,7 +152,7 @@ public:
 		}
 	}
 
-	static __forceinline void Set_World_Identity(void)
+	static __forceinline void Set_MeshFX_World_Identity(void)
 	{
 		if (render_state_changed & (unsigned)WORLD_IDENTITY) return;
 		BFME2World.Make_Identity();
@@ -181,12 +181,12 @@ protected:
 };
 
 namespace FXShader { class RenderingMethod; }
-class RefPtr
+class Rva00087A93
 {
 public:
-	RefPtr(RefCountClass *p) : Referent(p) {}
-	RefPtr(const RefPtr &p) : Referent(p.Referent) { if (Referent) Referent->Add_Ref(); }
-	~RefPtr(void)
+	Rva00087A93(RefCountClass *p) : Referent(p) {}
+	Rva00087A93(const Rva00087A93 &p) : Referent(p.Referent) { if (Referent) Referent->Add_Ref(); }
+	~Rva00087A93(void)
 	{
 		if (Referent && Referent->Dec_Ref()==0) Referent->Delete_This();
 	}
@@ -316,7 +316,7 @@ public:
 	virtual void _bfme_slot_56(void); virtual void _bfme_slot_57(void);
 	virtual HTreeClass *Get_HTree(void) const;	// 58
 
-	const Matrix3D &Get_Transform(void) const { Validate_Transform(); return Transform; }
+	const Matrix3D &Get_MeshFX_Transform(void) const { Validate_Transform(); return Transform; }
 	RenderObjClass *Get_Container(void) const { return Container; }
 
 protected:
@@ -330,7 +330,7 @@ protected:
 class MeshClass : public RenderObjClass
 {
 public:
-	void Render_With_FX_Material(RefPtr method, int count);
+	void Render_With_FX_Material(Rva00087A93 method, int count);
 	MeshClass **Get_Anchor(void) { return Anchor; }
 	MeshModelClass *Peek_Model(void) { return Model; }
 	int Get_Base_Vertex_Offset(void) const { return BaseVertexOffset; }
@@ -343,7 +343,7 @@ private:
 	MeshClass **Anchor;	// +0x310
 };
 
-void MeshClass::Render_With_FX_Material(RefPtr method, int count)
+void MeshClass::Render_With_FX_Material(Rva00087A93 method, int count)
 {
 	if (!Model || !Model->Is_FX_Shader_Material() || !Model->FXShaderGeometryData || !method.IsBound()) {
 		return;
@@ -353,11 +353,11 @@ void MeshClass::Render_With_FX_Material(RefPtr method, int count)
 		if (Get_Anchor() && *Get_Anchor() && *Get_Anchor() != this) {
 			Matrix3D inv;
 			Matrix3D result;
-			(*Get_Anchor())->Get_Transform().Get_Inverse(inv);
-			Matrix3D::Multiply(Get_Transform(), inv, &result);
-			DX8Wrapper::Set_Transform(D3DTS_WORLD, result);
+			(*Get_Anchor())->Get_MeshFX_Transform().Get_Inverse(inv);
+			Matrix3D::Multiply(Get_MeshFX_Transform(), inv, &result);
+			DX8Wrapper::Set_MeshFX_Transform(D3DTS_WORLD, result);
 		} else {
-			DX8Wrapper::Set_World_Identity();
+			DX8Wrapper::Set_MeshFX_World_Identity();
 		}
 		if (!Model->FXShaderGeometryData->Get_Flag0() && Container && Container->Get_HTree()) {
 			reinterpret_cast<Rva0014D3E7 *>(g_00DF36B4)->rva0014D3E7(
@@ -368,7 +368,7 @@ void MeshClass::Render_With_FX_Material(RefPtr method, int count)
 	} else if (count <= 1) {
 		if (Peek_Model()->Get_Flag(MeshModelClass::ALIGNED) || Peek_Model()->Get_Flag(MeshModelClass::ORIENTED)) {
 			Matrix4 view;
-			DX8Wrapper::Get_Transform(D3DTS_VIEW, view);
+			DX8Wrapper::Get_MeshFX_Transform(D3DTS_VIEW, view);
 			Matrix4 inv;
 			view.Get_Inverse(inv);
 			Vector3 mesh_position;
@@ -381,9 +381,9 @@ void MeshClass::Render_With_FX_Material(RefPtr method, int count)
 			}
 			Matrix3D tm;
 			tm.Obj_Look_At(mesh_position, target, 0.0f);
-			DX8Wrapper::Set_Transform(D3DTS_WORLD, tm);
+			DX8Wrapper::Set_MeshFX_Transform(D3DTS_WORLD, tm);
 		} else {
-			DX8Wrapper::Set_Transform(D3DTS_WORLD, Transform);
+			DX8Wrapper::Set_MeshFX_Transform(D3DTS_WORLD, Transform);
 		}
 	}
 
