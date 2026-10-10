@@ -55,6 +55,28 @@ void __cdecl bfmeGoEYE(void *a)
 		n->bfmeRunEYE();
 }
 
+// 0x0030E2EC / 0x0030E2F5 (9B each), retail's next two bodies after
+// bfmeGoEYE: clear / set bit 0x10 of the dword at +0x44, then tail-jump to
+// bfmeRunEYE (0x0030DEAE) on the same this. The pair matches Open-BFME-1's
+// S3FlagForwarders.cpp (Gen_00088B60::bfmeClearForward / bfmeForward) in
+// shape; original class and method names are unknown, so the class is
+// address-named.
+class Rva0030E2ECFlags
+{
+public:
+	void rva0030E2EC();
+
+private:
+	unsigned char m_bfmeHead[0x44];
+	unsigned int m_bfmeFlags;
+};
+
+void Rva0030E2ECFlags::rva0030E2EC()
+{
+	m_bfmeFlags &= ~0x10U;
+	reinterpret_cast<BfmeNodeEYE *>(this)->bfmeRunEYE();
+}
+
 struct BfmeNodeEYF
 {
 	unsigned char m_bfmeHead[4];
