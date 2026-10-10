@@ -99,6 +99,210 @@ void BodyModuleInterface::bodyModuleInterfaceAnchor()
 {
 }
 
+// More single-definition vftable anchors of the same shape: each is
+// declared virtual in its subsystem TU(s) and defined nowhere. Defined once
+// here; no retail bytes claimed.
+// ?clearanceTestingSlowDeathBehaviorIface2Anchor@ClearanceTestingSlowDeathBehaviorIface2@@UAEXXZ present-unmatched
+struct ClearanceTestingSlowDeathBehaviorIface2
+{
+	virtual void clearanceTestingSlowDeathBehaviorIface2Anchor();
+};
+
+void ClearanceTestingSlowDeathBehaviorIface2::clearanceTestingSlowDeathBehaviorIface2Anchor()
+{
+}
+
+// ?clearanceTestingSlowDeathBehaviorIface3Anchor@ClearanceTestingSlowDeathBehaviorIface3@@UAEXXZ present-unmatched
+struct ClearanceTestingSlowDeathBehaviorIface3
+{
+	virtual void clearanceTestingSlowDeathBehaviorIface3Anchor();
+};
+
+void ClearanceTestingSlowDeathBehaviorIface3::clearanceTestingSlowDeathBehaviorIface3Anchor()
+{
+}
+
+// ?clearanceTestingSlowDeathBehaviorIface4Anchor@ClearanceTestingSlowDeathBehaviorIface4@@UAEXXZ present-unmatched
+struct ClearanceTestingSlowDeathBehaviorIface4
+{
+	virtual void clearanceTestingSlowDeathBehaviorIface4Anchor();
+};
+
+void ClearanceTestingSlowDeathBehaviorIface4::clearanceTestingSlowDeathBehaviorIface4Anchor()
+{
+}
+
+// ?clearanceTestingSlowDeathBehaviorIface5Anchor@ClearanceTestingSlowDeathBehaviorIface5@@UAEXXZ present-unmatched
+struct ClearanceTestingSlowDeathBehaviorIface5
+{
+	virtual void clearanceTestingSlowDeathBehaviorIface5Anchor();
+};
+
+void ClearanceTestingSlowDeathBehaviorIface5::clearanceTestingSlowDeathBehaviorIface5Anchor()
+{
+}
+
+// ?collideModuleInterfaceAnchor@InlineCollideModuleInterface@@UAEXXZ present-unmatched
+struct InlineCollideModuleInterface
+{
+	virtual void collideModuleInterfaceAnchor();
+};
+
+void InlineCollideModuleInterface::collideModuleInterfaceAnchor()
+{
+}
+
+// ?damageModuleInterfaceAnchor@InlineDamageModuleInterface@@UAEXXZ present-unmatched
+struct InlineDamageModuleInterface
+{
+	virtual void damageModuleInterfaceAnchor();
+};
+
+void InlineDamageModuleInterface::damageModuleInterfaceAnchor()
+{
+}
+
+// ?deflectSpecialPowerIface2Anchor@DeflectSpecialPowerIface2@@UAEXXZ present-unmatched
+struct DeflectSpecialPowerIface2
+{
+	virtual void deflectSpecialPowerIface2Anchor();
+};
+
+void DeflectSpecialPowerIface2::deflectSpecialPowerIface2Anchor()
+{
+}
+
+// ?deflectSpecialPowerIface3Anchor@DeflectSpecialPowerIface3@@UAEXXZ present-unmatched
+struct DeflectSpecialPowerIface3
+{
+	virtual void deflectSpecialPowerIface3Anchor();
+};
+
+void DeflectSpecialPowerIface3::deflectSpecialPowerIface3Anchor()
+{
+}
+
+// ?deflectSpecialPowerIface4Anchor@DeflectSpecialPowerIface4@@UAEXXZ present-unmatched
+struct DeflectSpecialPowerIface4
+{
+	virtual void deflectSpecialPowerIface4Anchor();
+};
+
+void DeflectSpecialPowerIface4::deflectSpecialPowerIface4Anchor()
+{
+}
+
+// ?deflectSpecialPowerIface5Anchor@DeflectSpecialPowerIface5@@UAEXXZ present-unmatched
+struct DeflectSpecialPowerIface5
+{
+	virtual void deflectSpecialPowerIface5Anchor();
+};
+
+void DeflectSpecialPowerIface5::deflectSpecialPowerIface5Anchor()
+{
+}
+
+// ?siegeAIUpdateIface2Anchor@SiegeAIUpdateIface2@@UAEXXZ present-unmatched
+struct SiegeAIUpdateIface2
+{
+	virtual void siegeAIUpdateIface2Anchor();
+};
+
+void SiegeAIUpdateIface2::siegeAIUpdateIface2Anchor()
+{
+}
+
+// ?siegeAIUpdateIface3Anchor@SiegeAIUpdateIface3@@UAEXXZ present-unmatched
+struct SiegeAIUpdateIface3
+{
+	virtual void siegeAIUpdateIface3Anchor();
+};
+
+void SiegeAIUpdateIface3::siegeAIUpdateIface3Anchor()
+{
+}
+
+// ?siegeAIUpdateIface4Anchor@SiegeAIUpdateIface4@@UAEXXZ present-unmatched
+struct SiegeAIUpdateIface4
+{
+	virtual void siegeAIUpdateIface4Anchor();
+};
+
+void SiegeAIUpdateIface4::siegeAIUpdateIface4Anchor()
+{
+}
+
+// ?specialPowerExtraAnchor@SpecialPowerModuleExtra@@UAEXXZ present-unmatched
+struct SpecialPowerModuleExtra
+{
+	virtual void specialPowerExtraAnchor();
+};
+
+void SpecialPowerModuleExtra::specialPowerExtraAnchor()
+{
+}
+
+// ?transportAIUpdateIface2Anchor@TransportAIUpdateIface2@@UAEXXZ present-unmatched
+struct TransportAIUpdateIface2
+{
+	virtual void transportAIUpdateIface2Anchor();
+};
+
+void TransportAIUpdateIface2::transportAIUpdateIface2Anchor()
+{
+}
+
+// ?transportAIUpdateIface3Anchor@TransportAIUpdateIface3@@UAEXXZ present-unmatched
+struct TransportAIUpdateIface3
+{
+	virtual void transportAIUpdateIface3Anchor();
+};
+
+void TransportAIUpdateIface3::transportAIUpdateIface3Anchor()
+{
+}
+
+// ?transportAIUpdateIface4Anchor@TransportAIUpdateIface4@@UAEXXZ present-unmatched
+struct TransportAIUpdateIface4
+{
+	virtual void transportAIUpdateIface4Anchor();
+};
+
+void TransportAIUpdateIface4::transportAIUpdateIface4Anchor()
+{
+}
+
+// ?weaponModeIface2Anchor@WeaponModeSpecialPowerUpdateIface2@@UAEXXZ present-unmatched
+struct WeaponModeSpecialPowerUpdateIface2
+{
+	virtual void weaponModeIface2Anchor();
+};
+
+void WeaponModeSpecialPowerUpdateIface2::weaponModeIface2Anchor()
+{
+}
+
+// ?weaponModeIface3Anchor@WeaponModeSpecialPowerUpdateIface3@@UAEXXZ present-unmatched
+struct WeaponModeSpecialPowerUpdateIface3
+{
+	virtual void weaponModeIface3Anchor();
+};
+
+void WeaponModeSpecialPowerUpdateIface3::weaponModeIface3Anchor()
+{
+}
+
+// ?weaponModeIface4Anchor@WeaponModeSpecialPowerUpdateIface4@@UAEXXZ present-unmatched
+struct WeaponModeSpecialPowerUpdateIface4
+{
+	virtual void weaponModeIface4Anchor();
+};
+
+void WeaponModeSpecialPowerUpdateIface4::weaponModeIface4Anchor()
+{
+}
+
+
 // The MemoryPoolFactory pool lookup: 80 TUs reach it through the
 // DEFINE_MEMORYPOOL macro (TheMemoryPoolFactory->findMemoryPool), but no TU
 // defines it. Zero Hour's GameMemory.cpp walks the factory's pool list with
