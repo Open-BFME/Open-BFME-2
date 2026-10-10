@@ -49,7 +49,7 @@ class Radar { public: bool radarToWorld(const ICoord2D*,Coord3D*); float getTerr
 struct Rva002DB4DANode;
 struct Rva002DB4DA { Rva002DB4DANode *rva002DB4DA(AsciiString); };
 class TerrainRoadCollection;extern TerrainRoadCollection *TheTerrainRoads;
-struct TerrainRoadType {char pad[0x28];RGBColor radarColor;};
+struct TerrainRoadType {char pad[0x28];RGBColor radarColor; RGBColor getRadarColor(){return radarColor;} };
 class TerrainType { public: AsciiString getTexture() const; };
 struct Bridge { char pad[0x30];float z0;char p34[8];float z1;char p40[8];float z2;char p4c[8];float z3;char p58[8];ObjectID objectID; };
 class RadarBodyView {public:
@@ -259,7 +259,7 @@ void W3DRadar::buildTerrainTexture( TerrainLogic *terrain )
 									TerrainRoadType *bridgeTemplate = (TerrainRoadType*)((Rva002DB4DA*)TheTerrainRoads)->rva002DB4DA(bridgeTName);
 
 									if ( bridgeTemplate )
-										color = bridgeTemplate->radarColor;
+										color = bridgeTemplate->getRadarColor();
 									else
 										{color.red=1.0f;color.green=1.0f;color.blue=1.0f;}
 
