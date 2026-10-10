@@ -311,16 +311,20 @@ Rva0033DDA1::Rva0033DDA1(EmitVtableTag *)
 {
 }
 
-class Rva003516F3
+// 0x00352B25 is ??_GAIStateMachine: slot 0 of vtable 0x00C14CD0, the vtable
+// the rowed AIStateMachine constructor 0x00351C48 installs (slot 2 returns
+// the name string "AIStateMachine"); the destructor it calls, 0x003516F3, is
+// ~AIStateMachine (Rva003516F3Dtor.cpp).
+class AIStateMachine
 {
 public:
-	Rva003516F3(EmitVtableTag *);
+	AIStateMachine(EmitVtableTag *);
 public:
-	virtual ~Rva003516F3();
+	virtual ~AIStateMachine();
 };
 
-// ?<Rva003516F3::Rva003516F3> absent-from-retail
-Rva003516F3::Rva003516F3(EmitVtableTag *)
+// ?<AIStateMachine::AIStateMachine> absent-from-retail
+AIStateMachine::AIStateMachine(EmitVtableTag *)
 {
 }
 

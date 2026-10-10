@@ -183,6 +183,18 @@ EMPTY_DTOR(Squad)
 // Calls only; the definition comes from that unit.
 template<> void DLINK_ITERATOR<Object>::advance();
 
+// BFME 2's Object keeps its behavior list at +0x244 (the matched
+// Object::findModule 0x0028B6D6 walks it there), its contain module at +0x250
+// and its body module at +0x254; this tree's Zero Hour Object.h has +0x18C,
+// +0x190 and +0x194. This unit reads them through these functions instead of
+// the header's inline getters, whose Zero Hour copies would otherwise be the
+// first ones in link order and displace every BFME 2 unit's copy (retail has
+// no out-of-line Object getter: the 7-byte bodies at 0x00313E8C/93/9A are
+// GameWindow text-colour getters).
+static BehaviorModule **getRetailBehaviorModules( const Object *obj ) { return *(BehaviorModule ** const *)((const char *)obj + 0x244); }
+static ContainModuleInterface *getRetailContain( const Object *obj ) { return *(ContainModuleInterface * const *)((const char *)obj + 0x250); }
+static BodyModuleInterface *getRetailBodyModule( const Object *obj ) { return *(BodyModuleInterface * const *)((const char *)obj + 0x254); }
+
 #ifdef _INTERNAL
 // for occasional debugging...
 //#pragma optimize("", off)
@@ -1432,7 +1444,7 @@ static void doFindMostReadySpecialPowerForThing( Object *obj, void *userData )
 				&& !obj->isEffectivelyDead() )
 		{
 			// search the modules for the one with the matching template
-			for( BehaviorModule** m = obj->getBehaviorModules(); *m; ++m )
+			for( BehaviorModule** m = getRetailBehaviorModules(obj); *m; ++m )
 			{
 				SpecialPowerModuleInterface* sp = (*m)->getSpecialPower();
 				if (!sp)
@@ -2159,7 +2171,7 @@ void Player::garrisonAllUnits(CommandSourceType source)
 
 				for (Object *theBuilding = iterBuilding->first(); theBuilding; theBuilding = iterBuilding->next()) 
 				{
-					ContainModuleInterface *contain = theBuilding->getContain();
+					ContainModuleInterface *contain = getRetailContain(theBuilding);
 					if (contain)
 					{
 						PlayerMaskType player = contain->getPlayerWhoEntered();
@@ -2499,7 +2511,7 @@ Bool Player::addScience(ScienceType science)
 				if (!obj)
 					continue;
 
-				for (BehaviorModule** m = obj->getBehaviorModules(); *m; ++m)
+				for (BehaviorModule** m = getRetailBehaviorModules(obj); *m; ++m)
 				{
 					SpecialPowerModuleInterface* sp = (*m)->getSpecialPower();
 					if (!sp)
@@ -3128,7 +3140,7 @@ void Player::friend_applyDifficultyBonusesForObject(Object* obj, Bool apply) con
 		Real healthFactor = TheGlobalData->m_soloPlayerHealthBonusForDifficulty[getPlayerType()][getPlayerDifficulty()];
 		if (healthFactor != 1.0f)
 		{
-			BodyModuleInterface* body = obj->getBodyModule();
+			BodyModuleInterface* body = getRetailBodyModule(obj);
 			if (apply)
 				body->setMaxHealth(body->getMaxHealth() * healthFactor, PRESERVE_RATIO);
 			else 
@@ -3334,7 +3346,7 @@ static void localApplyBattlePlanBonusesToObject( Object *obj, void *userData )
 				//Really important to not apply certain bonuses like health augmentation to projectiles!
 				if( bonus->m_armorScalar != 1.0f )
 				{
-					BodyModuleInterface *body = objectToModify->getBodyModule();
+					BodyModuleInterface *body = getRetailBodyModule(objectToModify);
 					body->applyDamageScalar( bonus->m_armorScalar );
 					CRCDEBUG_LOG(("Applying armor scalar of %g (%8.8X) to object %d (%ls) owned by player %d\n",
 						bonus->m_armorScalar, AS_INT(bonus->m_armorScalar), objectToModify->getID(),

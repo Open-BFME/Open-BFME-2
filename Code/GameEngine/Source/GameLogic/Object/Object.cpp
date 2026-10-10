@@ -2,9 +2,11 @@
 //
 // BFME2 Object module accessors, transferred from the exact BFME1
 // reconstruction (Code/GameEngine/Source/GameLogic/Object/Object.cpp).
-// Retail BFME2 keeps this run of module-cache fields at the same offsets:
-// behaviors at +0x18C, body at +0x194, stealth at +0x198, ai at +0x19C,
-// radar data at +0x1A8.
+// The behaviors and body getters are no longer defined here: retail's
+// 7-byte getters at 0x00313E8C (+0x18C) and 0x00313E9A (+0x194) are
+// GameWindow::winGetEnabledTextColor / winGetDisabledTextColor (every caller
+// is a GameWindow gadget draw callback), and BFME 2's Object keeps its
+// behavior list at +0x244 (the matched Object::findModule 0x0028B6D6).
 
 #include "ascii_string.h"
 #include "unicode_string.h"
@@ -170,8 +172,6 @@ class Object
 public:
 	friend AsciiString DescribeObject(const Object *);
 	ObjectID getID() const { return m_id74; }
-	BehaviorModule **getBehaviorModules() const;
-	BodyModuleInterface *getBodyModule() const;
 	StealthUpdate *getStealth() const;
 	AIUpdateInterface *getAI();
 	RadarObject *friend_getRadarData();
@@ -277,18 +277,6 @@ void Object::friend_adjustPowerForPlayer(bool flag)
 		power->rva004DF207(this);
 	else
 		((Rva004DF231 *)power)->rva004DF231(this);
-}
-
-// ?getBehaviorModules@Object@@QBEPAPAVBehaviorModule@@XZ
-inline BehaviorModule **Object::getBehaviorModules() const
-{
-	return m_behaviors;
-}
-
-// ?getBodyModule@Object@@QBEPAVBodyModuleInterface@@XZ
-inline BodyModuleInterface *Object::getBodyModule() const
-{
-	return m_body;
 }
 
 // ?getStealth@Object@@QBEPAVStealthUpdate@@XZ
@@ -461,8 +449,6 @@ void Object::replaceModelConditionFlagsForHorde(const int *a, bool b)
 // ?_bfmeObjectAccessorInlineAnchor absent-from-retail
 void _bfmeObjectAccessorInlineAnchor(Object *o)
 {
-    o->getBehaviorModules();
-    o->getBodyModule();
     o->getStealth();
     o->getAI();
     o->testStatus((ObjectStatusTypes)0);

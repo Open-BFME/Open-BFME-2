@@ -1,6 +1,6 @@
 // cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc
 //
-// Rva0036792F::Rva0036792F, retail 0x36792f: a BFME 2 state machine constructor. The base
+// Rva00367E26::Rva00367E26, retail 0x36792f: a BFME 2 state machine constructor. The base
 // is the rowed StateMachine constructor 0x004D79E1 with the name key 0x0
 // (its unsigned spelling is pinned); each state comes from plain operator
 // new and its rowed constructor, registered with the IDs and transitions
@@ -128,11 +128,15 @@ public:
 private:
 	unsigned char m_pad3C[0x68 - 0x3C];
 };
-class Rva0036792F : public AIStateMachine
+// The class whose vtable 0x00C17600 this constructor installs: its slot-0
+// deleting dtor 0x00367E0A and dtor 0x00367E26 are rowed under the address
+// name Rva00367E26 (slot 2 is the inherited AIStateMachine name getter, so
+// the real class name is not recovered); one spelling for all its rows.
+class Rva00367E26 : public AIStateMachine
 {
 public:
-	Rva0036792F(Object *owner, UnsignedInt nameKey);
-	virtual ~Rva0036792F();
+	Rva00367E26(Object *owner, UnsignedInt nameKey);
+	virtual ~Rva00367E26();
 
 };
 
@@ -144,7 +148,7 @@ Rva003677BE::Rva003677BE(StateMachine *machine) : GiantBirdNormalFlightState(mac
 	m_24 = 0;
 }
 
-Rva0036792F::Rva0036792F(Object *owner, UnsignedInt nameKey) : AIStateMachine(owner, nameKey)
+Rva00367E26::Rva00367E26(Object *owner, UnsignedInt nameKey) : AIStateMachine(owner, nameKey)
 {
 
 	// order matters: first state is the default state.

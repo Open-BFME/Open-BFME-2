@@ -4232,7 +4232,6 @@ name,address,notes
 ??1Rva0033DDA1E14@@QAE@XZ,0x0046C94B,TU-local element dtor for the 2x0x14 array at +0x3c4; pushed as the ehvec-dtor address in 0x33DDA1; body is a 5B tail-jump to 0x46BF2A
 ??1Rva0033DDA1E4@@QAE@XZ,0x0088BA39,TU-local element dtor for the 5x4 array at +0x7c; pushed as the ehvec-dtor address in 0x33DDA1; body tail-jumps to the 0x36410 string fold
 ??1Rva0033DDA1E8@@QAE@XZ,0x004C9F38,TU-local element dtor for the 0x38x8 array at +0x124; pushed as the ehvec-dtor address in 0x33DDA1
-??1Rva003516F3@@UAE@XZ,0x003516F3,"destructor the scalar deleting destructor 0x00352B25 calls (REL32 at 0x00352B28; vtable 0x00C14CD0#0); opaque address name"
 ??1Rva00355BDA@@UAE@XZ,0x00355BDA,"destructor the scalar deleting destructor 0x00355BBE calls (REL32 at 0x00355BC1; vtable 0x00C14E14#0); opaque address name"
 ??1Rva003561BE@@UAE@XZ,0x003561BE,"destructor the scalar deleting destructor 0x0035686D calls (REL32 at 0x00356870; vtable 0x00C14EBC#0); opaque address name"
 ??1Rva00359290@@UAE@XZ,0x00359290,"destructor the scalar deleting destructor 0x0035978C calls (REL32 at 0x0035978F; vtable 0x00C15398#0); opaque address name"
