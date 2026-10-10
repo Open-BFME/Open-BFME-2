@@ -45,7 +45,7 @@ public:Rva002A8F24();virtual ~Rva002A8F24();virtual void init(){}virtual void re
  ObjectCreationList*owned940;
 };
 
-class Rva004E9657 {public:~Rva004E9657() throw();};
+class Rva004E9657 {public:~Rva004E9657();};
 class Rva004E013B {public:~Rva004E013B() throw();};
 enum ParticleSystemID { INVALID_PARTICLE_SYSTEM_ID=0 };
 // Consume the already owned40B pointer erase without emitting a different
