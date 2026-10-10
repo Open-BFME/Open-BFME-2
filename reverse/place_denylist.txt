@@ -265,3 +265,7 @@ _io_writeto
 # deleting destructor calls a destructor and stores a vftable at +0x3C that do
 # not resolve to the addresses retail uses there.
 ??_GRva00330C50@@UAEPAXI@Z
+
+# Refused 2026-10-11: 1F1609 is the vector<Object*> base destructor (see
+# reverse/deleted_rows.csv); the Coord3D instantiation only matches it masked.
+??1?$_Vector_base@UCoord3D@@V?$allocator@UCoord3D@@@_STL@@@_STL@@QAE@XZ
