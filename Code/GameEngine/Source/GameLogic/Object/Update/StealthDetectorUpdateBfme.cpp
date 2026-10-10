@@ -1,6 +1,5 @@
 // ?update@StealthDetectorUpdate@@UAE?AW4UpdateSleepTime@@XZ
-// partial score=0.9985146422566202 date=2026-10-09
-// cl: /O1 /arch:SSE /MD /GX /DNDEBUG /I. /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
+// cl: /O1 /G7 /arch:SSE /MD /GX /DNDEBUG /I. /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
 // stlport
 // StealthDetectorUpdate native 004A2D93..004A33BE; Zero Hour update is the semantic lead.
 // Native module constructor/name/field table establish ownership; native accesses below supply offsets.
@@ -135,7 +134,6 @@ class Rva0055A88BDwordField;class Rva001F3C20Slot{public:void set(const Rva0055A
 struct Rva001F3C43Arg;class Rva001F3C43Slot{public:void set(const Rva001F3C43Arg*);};
 class Rva002D9C2F{public:OpaqueRefElement4 &rva002D9C2F(const OpaqueRefElement4&);};
 class Rva002D9531{public:void rva002D9531(int);};
-class Rva0036CA00Str{public:OpaqueRefCounted *referent;Rva0036CA00Str():referent(0){}~Rva0036CA00Str(){if(referent)referent->Release_Ref();}};
 template<int N>class Slots:public Slots<N-1>{public:virtual void slot(char(*)[N])=0;};template<>class Slots<0>{};
 class AudioManager:public Slots<25>{public:virtual int addAudioEvent(const BfmeAudioEventPrefix136*);};extern AudioManager *TheAudio;
 class ContainModuleInterface:public Slots<4>{public:virtual bool isGarrisonable();};
@@ -191,7 +189,12 @@ UpdateSleepTime StealthDetectorUpdate::update(){
   const ParticleSystemTemplate *ping=foundSomeone?data->m_bright:data->m_ping;
   if(ping){BfmeParticleSystemHandle sys=TheParticleSystemManager->createParticleSystem(ping,true);if(sys){if(draw)((Rva001F3C20Slot*)sys.m_system)->set((const Rva0055A88BDwordField*)draw);else ((Rva001F3C43Slot*)sys.m_system)->set((const Rva001F3C43Arg*)self);((Rva001F3899Slot*)sys.operator->())->set(*(const Rva001F3899Arg*)&bone);}}
   if(data->m_beacon){BfmeParticleSystemHandle sys=TheParticleSystemManager->createParticleSystem(data->m_beacon,true);if(sys){if(draw)((Rva001F3C20Slot*)sys.m_system)->set((const Rva0055A88BDwordField*)draw);else ((Rva001F3C43Slot*)sys.m_system)->set((const Rva001F3C43Arg*)self);((Rva001F3899Slot*)sys.operator->())->set(*(const Rva001F3899Arg*)&bone);}}
-  BfmeAudioEventPrefix136 sound(*(const OpaqueRefElement4*)&Rva0036CA00Str(),0);if(foundSomeone)((Rva002D9C2F*)&sound)->rva002D9C2F(data->m_loud);else ((Rva002D9C2F*)&sound)->rva002D9C2F(data->m_sound);((Rva002D9531*)&sound)->rva002D9531(self->m_id);TheAudio->addAudioEvent(&sound);
+  // Native temporary cleanup conditionally releases the referent; use the
+  // shared empty reference holder rather than a string-destructor alias.
+  BfmeAudioEventPrefix136 sound(*(const OpaqueRefElement4*)&BfmePoolRef08(),0);if(foundSomeone)((Rva002D9C2F*)&sound)->rva002D9C2F(data->m_loud);else ((Rva002D9C2F*)&sound)->rva002D9C2F(data->m_sound);((Rva002D9531*)&sound)->rva002D9531(self->m_id);TheAudio->addAudioEvent(&sound);
  }
+ // A compiled-out string local reproduces the retail EH state map and
+ // saved secondary receiver home. This source shape is a codegen inference.
+ if (0) { AsciiString unused; }
  return (UpdateSleepTime)data->m_rate;
 }
