@@ -167,7 +167,7 @@ AsciiString Parameter::getUiText() const
 			uiText.format(" %d ", m_int);
 			break;
 		case 8:		// BOOLEAN
-			uiText.concat(m_int ? "TRUE" : "FALSE");
+			uiText += (m_int ? "TRUE" : "FALSE");
 			break;
 		case 1:		// REAL
 			uiText.format("%.2f", m_real);
