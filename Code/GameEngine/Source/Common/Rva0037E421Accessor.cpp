@@ -1,4 +1,4 @@
-// cl: /MD
+// cl: /O1 /MD
 // ?rva0037E421@Rva0037E421@@QAEPAXH@Z @0x0037E421 48B
 // Bounds-checked accessor for the 216-byte (0xD8) element vector at +0x04/+0x08.
 // Returns null when index < 0 or index >= (finish-start)/216 via signed idiv (cdq),
@@ -23,6 +23,7 @@ class Rva0037E421 {
     Vec216 m_vec;
 public:
     void *rva0037E421(int index);
+    void *rva0037E915(int index);
     unsigned char rva0037E7BC(int index);
     void *rva0037E451(int key);
     unsigned char rva0037E7DA(int key);
@@ -223,3 +224,17 @@ float Rva0037E6E8::rva0037E898(int index, int *cost, Object *object) {
  return 0.0f;
 }
 
+
+// Native37E915..37E94A and caller49CCF0. Same measured +4/+8 216B array
+// as this unit's getters; indexed entry uses owned getThingTemplate37E270.
+// A local array base before pointer indexing preserves native ESI divisor
+// and ECX receiver. Direct entries.at(index) emits a different 51B shape.
+void *Rva0037E421::rva0037E915(int index)
+{
+    unsigned int count = VecSize(&m_vec);
+    if ((unsigned int)index < count && index >= 0) {
+        UnitRevivalEntry *base = m_vec.m_start;
+        return (base + index)->getThingTemplate();
+    }
+    return 0;
+}
