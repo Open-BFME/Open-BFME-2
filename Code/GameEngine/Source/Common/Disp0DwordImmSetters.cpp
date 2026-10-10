@@ -507,7 +507,7 @@ void Rva0006C5930DwordImmSetter::apply()
 class Rva000610480DwordImmSetter
 {
 public:
-	void apply();
+	__declspec(noinline) void apply();
 
 	unsigned int m_value;
 };
@@ -611,7 +611,7 @@ void Rva0004EA016DwordImmSetter::apply()
 class Rva0004E84A4DwordImmSetter
 {
 public:
-	void apply();
+	__declspec(noinline) void apply();
 
 	unsigned int m_value;
 };
@@ -688,7 +688,7 @@ void Rva00078274DwordImmSetter::apply()
 class Rva0005CB9F3DwordImmSetter
 {
 public:
-	void apply();
+	__declspec(noinline) void apply();
 
 	unsigned int m_value;
 };
@@ -782,4 +782,40 @@ public:
 void Rva00576456DwordImmSetter::apply()
 {
 	m_value = ((unsigned int)vtbl_00C6E788);
+}
+
+// Native419E38 tail JMP610480; scalar deleting419E1C and retail vtable
+// slots witness destruction. Pointer-only view: complete owner type unknown.
+class __declspec(novtable) Rva00419E38
+{
+public:
+    virtual ~Rva00419E38();
+};
+Rva00419E38::~Rva00419E38()
+{
+    reinterpret_cast<Rva000610480DwordImmSetter *>(this)->apply();
+}
+
+// Native567A69 tail JMP4E84A4; scalar deleting53DAE6 witnesses cleanup.
+// Original complete owner and semantic identity remain unknown.
+class __declspec(novtable) Rva00567A69
+{
+public:
+    virtual ~Rva00567A69();
+};
+Rva00567A69::~Rva00567A69()
+{
+    reinterpret_cast<Rva0004E84A4DwordImmSetter *>(this)->apply();
+}
+
+// Native576FCE tail JMP5CB9F3; scalar deleting5E5A66 witnesses cleanup.
+// Original complete owner and semantic identity remain unknown.
+class __declspec(novtable) Rva00576FCE
+{
+public:
+    virtual ~Rva00576FCE();
+};
+Rva00576FCE::~Rva00576FCE()
+{
+    reinterpret_cast<Rva0005CB9F3DwordImmSetter *>(this)->apply();
 }
