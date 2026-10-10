@@ -17143,3 +17143,4 @@ _VP6_ReadTokens,0x001BC3D0,callee of _VP6_DecodeBlock
 ??_ERva00112291TerrainOwner@@QAEPAXI@Z,0x000E1072,callee of ?rva000E14C4@Rva000E15D1@@QAEXXZ
 ?rva0006D6D9@Rva0006D6D9@@QAEHHHPAVRva000AD9AB@@PAX@Z,0x0006D6D9,callee of ?rva000E1A39@Rva000E15D1@@QAEHHHPAVRva000AD9AB@@PAX@Z
 ??0Rva00112291TerrainOwner@@QAE@XZ,0x00112DBE,callee of ?rva000E1A39@Rva000E15D1@@QAEHHHPAVRva000AD9AB@@PAX@Z
+?rva000687EF@BaseHeightMapRenderObjClass@@QAEXXZ,0x000687EF,callee of the tree/shrub draw step 0x0006B895 when the tree buffer flag at +0x45C5C is set (ECX=this; plain ret); unrowed 2312B body

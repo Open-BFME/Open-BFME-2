@@ -1,4 +1,6 @@
 // ??1W3DScriptedModelDraw@@UAE@XZ
+// partial score=0.995 date=2026-10-10
+// ??1W3DScriptedModelDraw@@UAE@XZ
 // partial score=0.9907873709670453 date=2026-10-10
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata
 // ??0W3DScriptedModelDraw@@QAE@PAVThing@@PBVModuleData@@@Z retail 0x000C0DD8
@@ -29,6 +31,7 @@ class Thing;
 class ModuleData;
 class ObjectCreationList;
 struct Rva00B6CF1 {~Rva00B6CF1();};
+struct BridgeBehaviorListValue12 {char data[12];~BridgeBehaviorListValue12();};
 struct BfmeStringRecord000B757D {unsigned word0,word1;AsciiString text;unsigned word2;unsigned char tail0;__declspec(noinline) ~BfmeStringRecord000B757D();};
 BfmeStringRecord000B757D::~BfmeStringRecord000B757D(){}
 void __cdecl free(void*);
@@ -108,13 +111,14 @@ struct BfmeParticleSystemHandle
 
 class ParticleSystem {public:char pad[0x9C];BfmeParticleSystemHandle*first,*last;};
 inline BfmeParticleSystemHandle::~BfmeParticleSystemHandle(){if(m_previous)((BfmeParticleSystemHandle*)m_previous)->m_next=m_next;else ((ParticleSystem*)m_system)->first=(BfmeParticleSystemHandle*)m_next;if(m_next)((BfmeParticleSystemHandle*)m_next)->m_previous=m_previous;else ((ParticleSystem*)m_system)->last=(BfmeParticleSystemHandle*)m_previous;m_previous=0;m_next=0;}
+class RvaSmartPtr12 { public: void rva0004CBC0() throw(); };
 struct W3DScriptedModelDrawHandle
 {
 	W3DScriptedModelDrawHandle() : m_system(0), m_previous(0), m_next(0) {}
-	~W3DScriptedModelDrawHandle()
+	~W3DScriptedModelDrawHandle() throw()
 	{
 		if (m_system != 0)
-			((BfmeParticleSystemHandle *)this)->~BfmeParticleSystemHandle();
+			((RvaSmartPtr12 *)this)->rva0004CBC0();
 	}
 	void *m_system;
 	void *m_previous;
@@ -306,7 +310,7 @@ private:
 	int m_58;
 	int m_5c;
 	int m_60;
-	_STL::list<BfmeStringRecord000B757D> m_64;
+	_STL::list<BridgeBehaviorListValue12> m_64;
 	Rva000C04D4 m_68;
 	Rva000C04D4 m_74;
 	bool m_80;
@@ -370,18 +374,19 @@ private:
 
 
 class Rva00083CB2 {public:char pad[0x38];int m_38;char pad2[0x1311-0x3C];char m_1311;};
-class Rva00083CD7Host {public:__declspec(noinline) void clear(Rva00083CB2*p){p->m_38=0;p->m_1311=0;}};
+class Rva00083CD7Owner {public:void rva00083CD7(Rva00083CB2*);};
 class TerrainTracksRenderObjClassSystem;extern TerrainTracksRenderObjClassSystem*TheTerrainTracksRenderObjClassSystem;
-#define g_TerrainTracks ((Rva00083CD7Host*)TheTerrainTracksRenderObjClassSystem)
-class Rva000ADF90 {public:void rva000ADF90(const Coord3D*,float,unsigned char);};class GameClientNative {public:char pad[0x37C0];Rva000ADF90*terrain;};
+#define g_TerrainTracks (TheTerrainTracksRenderObjClassSystem)
+struct MaskCirclePoint;class Rva000ADA1AMask {public:void rva000ADF90(const MaskCirclePoint*,float,unsigned char);};class GameClientNative {public:char pad[0x37C0];Rva000ADA1AMask*terrain;};
 class BaseHeightMapRenderObjClass;extern BaseHeightMapRenderObjClass*TheTerrainRenderObject;
 #define g_GameClientNative ((GameClientNative*)TheTerrainRenderObject)
 W3DScriptedModelDraw::~W3DScriptedModelDraw(){
  ((Rva000BC9B1*)this)->rva000BC9B1(false);((Rva000C7699*)this)->rva000C7699();
  m_170.clear();
- if(m_60 && g_TerrainTracks){g_TerrainTracks->clear((Rva00083CB2*)m_60);m_60=0;}
+ if(m_60){Rva00083CD7Owner*tracks=(Rva00083CD7Owner*)g_TerrainTracks;
+ if(tracks){tracks->rva00083CD7((Rva00083CB2*)m_60);m_60=0;}}
  ((Rva000B3C61*)this)->rva000B3C61(0);((Rva000B3C61*)this)->rva000B3C61(1);((Rva000B3C61*)this)->rva000B3C61(2);((Rva000B3348*)this)->rva000B3348(0);
  const ThingTemplate*t=getDrawable()->getTemplate();const float*sizePtr=&t->sinkSize;
- if(*sizePtr>1.0f){const Coord3D*p=getDrawable()->getPosition();float size=*sizePtr;Rva000ADF90*terrain=g_GameClientNative->terrain;terrain->rva000ADF90(p,size,true);}
+ if(*sizePtr>1.0f){const Coord3D*p=getDrawable()->getPosition();float size=*sizePtr;Rva000ADA1AMask*terrain=g_GameClientNative->terrain;terrain->rva000ADF90((const MaskCirclePoint*)p,size,true);}
  m_1d0.clear();
 }
