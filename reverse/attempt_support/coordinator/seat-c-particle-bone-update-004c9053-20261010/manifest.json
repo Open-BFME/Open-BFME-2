@@ -1,0 +1,28 @@
+{
+  "id": "seat-c-particle-bone-update-004c9053-20261010",
+  "seat": "C",
+  "base_commit": "b5cc668da0c33b6c7481ef1a57f00f71605a9752",
+  "paths": [
+    "Code/GameEngine/Source/GameClient/Drawable/Update/AnimatedParticleSysBoneClientUpdate.cpp"
+  ],
+  "recoveries": [
+    {
+      "name": "?clientUpdate@AnimatedParticleSysBoneClientUpdate@@UAEXXZ",
+      "rva": "0x004C9053",
+      "size": 56,
+      "source": "Code/GameEngine/Source/GameClient/Drawable/Update/AnimatedParticleSysBoneClientUpdate.cpp",
+      "notes": "Native4C9053..4C908B complete56B; WB126D0C0 names clientUpdate; ctor32B4C8 and primary vtable C5EA50 slot12 establish target class; ZH@BF1-575ba2b semantic donor; target fields8/C virtualA8/6C with zero argument; existing Drawable getter provider; exact all56 bytes no new pins",
+      "replace_rva": null
+    }
+  ],
+  "new_retail_bytes": 56,
+  "proof_command": "python tools/explain_mismatch.py \"?clientUpdate@AnimatedParticleSysBoneClientUpdate@@UAEXXZ\" --rva 0x004C9053 --size 56 --source Code/GameEngine/Source/GameClient/Drawable/Update/AnimatedParticleSysBoneClientUpdate.cpp",
+  "proof_log": "scoped-proof.txt",
+  "claim_owner": "codex-104a-01a12257",
+  "worker_root": "C:\\Users\\franz\\.codex\\worktrees\\recovery-preserved\\openbfme2",
+  "dependencies": [],
+  "claims": [
+    "0x004C9053",
+    "file:Code/GameEngine/Source/GameClient/Drawable/Update/AnimatedParticleSysBoneClientUpdate.cpp"
+  ]
+}
