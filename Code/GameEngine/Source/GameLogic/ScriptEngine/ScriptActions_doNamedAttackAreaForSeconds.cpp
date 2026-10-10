@@ -46,7 +46,7 @@ public:
 class Object
 {
 public:
-    AIUpdateInterface *getAIUpdateInterface()
+    __declspec(dllimport) __forceinline AIUpdateInterface *getAIUpdateInterface()
     {
         return *(AIUpdateInterface **)((char *)this + 0x258);
     }
