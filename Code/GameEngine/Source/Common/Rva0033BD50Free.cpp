@@ -41,3 +41,10 @@ Rva0033BD50::~Rva0033BD50()
 {
 	((Rva002CF7B5 *)this)->rva002CF7B5();
 }
+
+// Native0033C2B85B tail call to the sole56B nonvirtual holder destructor.
+// Unchanged thiscall receiver and RET0; original wrapper/type unknown.
+struct Rva0033C2B8HolderCleanupForward { void cleanup(); };
+void Rva0033C2B8HolderCleanupForward::cleanup() {
+    reinterpret_cast<Rva0033BD50 *>(this)->~Rva0033BD50();
+}
