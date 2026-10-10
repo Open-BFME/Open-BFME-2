@@ -1,0 +1,40 @@
+{
+  "id": "A-icon-predicate-48-flags-abi-fbe1437085-six-field",
+  "seat": "A",
+  "kind": "exact-recovery-with-existing-ABI-repair",
+  "base_commit": "fbe1437085b359ed046df49af016d736ef1aca24",
+  "paths": [
+    "Code/GameEngine/Source/Common/Rva0056B76D.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldIconPredicate.cpp"
+  ],
+  "recoveries": [
+    {
+      "name": "?rva005C4B26@Rva005C41C9@@QAEEXZ",
+      "rva": "0x005C4B26",
+      "size": 48,
+      "source": "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldIconPredicate.cpp",
+      "notes": "Native48B slot17 helper; full dword virtual argument and flagsB8; reread innerAC after virtual call; paired51B provider full-width ABI repair; original method name remains unknown",
+      "replace_rva": "",
+      "new_retail_bytes": 48
+    },
+    {
+      "name": "?rva0056B76D@Rva0056B76D@@QAE_NI@Z",
+      "rva": "0x0056B76D",
+      "size": 51,
+      "source": "Code/GameEngine/Source/Common/Rva0056B76D.cpp",
+      "notes": "Existing51B flags predicate ABI repair; native caller pushes full dwordB8 and provider tests only low byte; explicit byte local preserves whole native body; no alias and zero new coverage",
+      "replace_rva": "0x0056B76D",
+      "new_retail_bytes": 0
+    }
+  ],
+  "proof_command": "py -3 tools/build.py Code/GameEngine/Source/Common/Rva0056B76D.cpp Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldIconPredicate.cpp",
+  "proof_log": "scoped-proof.log",
+  "claim_owner": "codex-549c-root",
+  "dependencies": [],
+  "new_retail_bytes": 48,
+  "ready_new_recoveries": 1,
+  "ledger_delta": "ledger_delta.patch",
+  "integration_note": "Apply narrow existing51B provider row rename from byte to unsigned-word parameter before admitting new48B caller. Whole existing51B bytes remain exact; explicit byte local preserves target low-byte semantics. No new aliases or pins. Current declaration used only by these two owned sources; old provider pin absent. Scoped two-row/source proof exact with zero data/code identity findings. add_match_batch will retire existing caller bank normally; worker bank restoration after parking is local old-HEAD integrity only. Coordinator owns final integration/hooks/publication.",
+  "supersedes": "A-icon-predicate-48-flags-abi-fbe1437085",
+  "schema_correction": "Coordinator intake requires explicit sixth replace_rva field for every row. Append empty replacement field only; source patch and scoped byte proofs are unchanged."
+}
