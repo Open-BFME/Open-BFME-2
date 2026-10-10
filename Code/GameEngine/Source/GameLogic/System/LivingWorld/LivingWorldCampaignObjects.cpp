@@ -13,6 +13,10 @@
 #include <memory>
 #include <vector>
 #include "ascii_string.h"
+// Keep the real vector destructor provider and its destruction helpers.
+// The ordinary member bodies retain their native inline releaseBuffer calls.
+extern template _STL::vector<AsciiString, _STL::allocator<AsciiString> >::~vector();
+
 #include "unicode_string.h"
 #define BFME_SNAPSHOT_NAME_SLOT
 #include "Common/Snapshot.h"

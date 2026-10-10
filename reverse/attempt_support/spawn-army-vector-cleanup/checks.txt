@@ -1,0 +1,14 @@
+link_check: preparing 2 explicit safe provider(s), no extra sources
+Compile: 1 of 2 TU(s) (deps-cache: 1 current)
+Source claims: OK (2 sources, scoped byte-verified)
+Compile: 0 of 2 TU(s) (deps-cache: 2 current)
+Functions: OK 15/15 matched across 2 source file(s)
+String-ref verify: OK (5 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (1 compiler literals verified)
+Import-ref verify: OK (0 named imports verified)
+link_check: 2 explicit providers byte-verified with strict reusable receipts; census/index/status unchanged, LINK closure not yet checked
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignObjects.cpp: LINKS  LINKED 0 -> 1,545 bytes (census 2026-10-10 11:55 at d68a97b48f; file's own bytes 1,545)
+Code/Libraries/Source/WWVegas/WWLib/StlportAsciiStringVectorDtor.cpp: LINKS  LINKED 63 -> 63 bytes (census 2026-10-10 11:55 at d68a97b48f; file's own bytes 63)
+link_check: 2 of 2 link cleanly; LINKED 63 -> 1,608 bytes (4.1s)
