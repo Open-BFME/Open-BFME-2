@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /DNDEBUG /MD /EHsc
+// cl: /O1 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include
 // ?top@Shell@@QAEPAVWindowLayout@@XZ @ 0x0035BD7E (13B). Donor ZH GeneralsMD Shell.h top plus BFME1 Shell.cpp top; caller Shell push @0x0035C74A calls top then hidden check then runShutdown slot 3; prev Rva0035BD7BGet next GadgetTextEntryValidateCharacter.
 class AsciiString;
 class WindowLayout
@@ -117,45 +117,8 @@ extern GlobalData *TheWritableGlobalData;
 
 class ShellMenuSchemeManager;
 
-template <typename T> struct BfmeStringData
-{
-	int refCount;
-	unsigned short length;
-	unsigned short capacity;
-	T text[1];
-};
-
-template <typename T> class StringBase
-{
-	friend class AsciiString;
-	StringBase(const T *text);
-	StringBase(const StringBase<T> &other);
-	void releaseBuffer();
-	BfmeStringData<T> *m_data;
-public:
-	StringBase() : m_data(0) {}
-	~StringBase() { releaseBuffer(); }
-	void set(const T *text);
-	void set(const StringBase<T> &other);
-};
-
-// Existing public narrow teardown spelling resolves to the verified
-// 133-byte releaseBuffer worker at RVA 0x36410. Wide teardown is unchanged.
-template <> StringBase<char>::~StringBase();
-#pragma comment(linker, "/alternatename:??1?$StringBase@D@@QAE@XZ=?releaseBuffer@?$StringBase@D@@AAEXXZ")
-
-
-class AsciiString : public StringBase<char>
-{
-public:
-	AsciiString() {}
-	AsciiString(const AsciiString &other) : StringBase<char>(other) {}
-	AsciiString(const char *text) : StringBase<char>(text) {}
-	~AsciiString() {}
-	bool isEmpty() const { return m_data == 0 || m_data->length == 0; }
-	int compareNoCase(const AsciiString &s) const throw();
-	AsciiString &operator=(const AsciiString &other) { set(other); return *this; }
-};
+#include "ascii_string.h"
+#include "Common/BfmeAudioEventPrefix136.h"
 
 class GameWindowManager
 {
@@ -215,7 +178,9 @@ private:
 	AnimateWindowManager *m_animateWindowManager; // +0x60
 	ShellMenuSchemeManager *m_schemeManager; // +0x64
 	unsigned int m_musicHandle; // +0x68
-	unsigned int _pad6C; // +0x6C
+	Bool m_wantMusic; // +0x6C
+	Bool m_skipMusicRestart; // +0x6D
+	unsigned char _pad6E[2];
 	WindowLayout *m_saveLoadMenuLayout; // +0x70
 	WindowLayout *m_popupReplayLayout; // +0x74
 protected:
@@ -589,4 +554,77 @@ Bool Shell::isAnimReversed()
 	if (m_animateWindowManager && TheGlobalData->m_animateWindows)
 		return m_animateWindowManager->isReversed();
 	return 1;
+}
+
+// Native35C2B9..35C3C3 RET0: existing Shell header and WB F02610
+// independently establish music handle68 and two byte flags6C/6D.
+// The source selection branches merge one owned239099 call with native LEA order.
+struct ShellMusicMiscAudio
+{
+	unsigned char m_pad00[0x8C];
+	OpaqueRefElement4 m_shellMusic;		// +0x8C
+	OpaqueRefElement4 m_shellMapMusic;	// +0x90
+};
+
+class ShellMusicAudioView
+{
+public:
+#define V(n) virtual void pad##n() = 0;
+	V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7)
+	V(8) V(9) V(10) V(11) V(12) V(13) V(14) V(15)
+	V(16) V(17) V(18) V(19) V(20) V(21) V(22) V(23)
+	V(24)
+	virtual unsigned int addAudioEvent(const BfmeAudioEventPrefix136 *evt) = 0;	// 0x64
+	V(26) V(27) V(28) V(29) V(30) V(31) V(32) V(33) V(34)
+	virtual void removeAudioEvents(int a, int b, int c) = 0;	// 0x8C
+	V(36) V(37) V(38) V(39) V(40) V(41) V(42) V(43) V(44) V(45) V(46) V(47)
+	V(48) V(49) V(50) V(51)
+	virtual Bool isCurrentlyPlaying(unsigned int handle) = 0;	// 0xD0
+	V(53) V(54) V(55) V(56) V(57) V(58) V(59) V(60) V(61) V(62) V(63) V(64)
+	V(65) V(66) V(67) V(68) V(69) V(70) V(71) V(72) V(73) V(74) V(75) V(76) V(77)
+#undef V
+	virtual ShellMusicMiscAudio *getMiscAudio() = 0;	// 0x138
+};
+class AudioManager;extern AudioManager *TheAudio;
+
+struct ShellMusicGlobalData
+{
+	unsigned char m_pad[0xAF0];
+	Bool m_shellMapOn;	// +0xAF0
+};
+
+
+class Rva002D94CE { public: void rva002D94CE(int value); };
+
+struct ShellMusicRef : OpaqueRefElement4
+{
+	ShellMusicRef() { referent = 0; }
+	~ShellMusicRef() { if (referent) referent->Release_Ref(); }
+};
+
+
+void Shell::rva0035C2B9()
+{
+	if (!m_wantMusic || !TheAudio || reinterpret_cast<ShellMusicAudioView*>(TheAudio)->isCurrentlyPlaying(m_musicHandle))
+		return;
+
+	if (m_skipMusicRestart)
+	{
+		m_skipMusicRestart = false;
+		return;
+	}
+
+	ShellMusicMiscAudio *misc = reinterpret_cast<ShellMusicAudioView*>(TheAudio)->getMiscAudio();
+	if (!misc)
+		return;
+
+	ShellMusicRef track;
+	if(TheWritableGlobalData && !reinterpret_cast<ShellMusicGlobalData*>(TheWritableGlobalData)->m_shellMapOn)track.OpaqueRefElement4::operator=(misc->m_shellMusic);else track.OpaqueRefElement4::operator=(misc->m_shellMapMusic);
+	if (track.referent)
+	{
+		reinterpret_cast<ShellMusicAudioView*>(TheAudio)->removeAudioEvents(2, 1, 0);
+		BfmeAudioEventPrefix136 music(track, 0);
+		((Rva002D94CE *)&music)->rva002D94CE(2);
+		m_musicHandle = reinterpret_cast<ShellMusicAudioView*>(TheAudio)->addAudioEvent(&music);
+	}
 }

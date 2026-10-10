@@ -1,4 +1,6 @@
 // ?UpdateNotice@InGameNotificationBoxMovieClip@@QAEXXZ
+// partial score=0.9957343321965674 date=2026-10-10
+// ?UpdateNotice@InGameNotificationBoxMovieClip@@QAEXXZ
 // partial score=0.985 date=2026-10-10
 // ?UpdateNotice@InGameNotificationBoxMovieClip@@QAEXXZ
 // partial score=0.96 date=2026-10-09
@@ -48,7 +50,21 @@ class Rva00222A8BTarget {public:
 };
 AsciiString Rva002228E8Get(float);
 char **Rva004E678BGet(char**,bool);
-int Rva004E697DCall(Rva00222A8BTarget*,void*,const char*,const float*,const bool*,const char*const*);
+static __forceinline int invokeFormatted(Rva00222A8BTarget *target,void *owner,const char *method,
+ const AsciiString &number,const bool *flag,const char *const *location, char **flagText)
+{
+ const char *place=*location;
+ char *value=*Rva004E678BGet(flagText,*flag);
+ return target->invoke(owner,method,3,number.str(),value,const_cast<char*>(place),0,0);
+}
+
+inline __declspec(noinline) int Rva004E697DCall(Rva00222A8BTarget *target,void *owner,const char *method,
+ const float *height,const bool *flag,const char *const *location)
+{
+ char *flagText;
+ return invokeFormatted(target,owner,method,Rva002228E8Get(*height),flag,location,&flagText);
+}
+
 static __forceinline void consumeNotice(Rva004E6A37 &destination, const Rva004E6A37 &source)
 {
  destination=Rva004E6A37(const_cast<Rva004E6A37 &>(source).release());
