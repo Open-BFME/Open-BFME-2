@@ -39,12 +39,16 @@ class TeamsInfoRec {public:char unknown00[12];TeamInfoRecord *records;
  Dict *getTeamInfo(int id){return &records[id].dict;}
 };
 class SidesList {public:char unknown00[0xf44];TeamsInfoRec teams;};
-class Rva00148F5ECache {public:NameKeyType get();private:int value;const char *name;};
+class Rva00148F5ECache {public:NameKeyType get();NameKeyType m_key;const char *m_name;};
 // The first two globals retain the data ledger's provisional const owner
 // spelling; their mutable key and name pointer share the lazy-cache layout.
 class StaticNameKey {private:mutable int value;const char *name;};
 extern const StaticNameKey TheKey_teamName,TheKey_teamOwner;
 extern Rva00148F5ECache TheKey_teamIsSingleton;
+// ?TheKey_teamIsSingleton@@3VRva00148F5ECache@@A (data_ledger RVA 0x9BDA04,
+// unowned): lazy key cache {0,"teamIsSingleton"}; get() resolves via the
+// name text on first use. Defined here; nothing else defines it.
+Rva00148F5ECache TheKey_teamIsSingleton = { NAMEKEY_INVALID, "teamIsSingleton" };
 inline int teamKey(const StaticNameKey &key){return ((Rva00148F5ECache*)&key)->get();}
 inline int teamKey(Rva00148F5ECache &key){return key.get();}
 
