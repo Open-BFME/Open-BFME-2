@@ -41,10 +41,13 @@ public:
 	void getTeamAsAIGroup(AIGroup *group);
 };
 
+class Parameter;
+
 class ScriptEngine
 {
 public:
 	Team *getTeamNamed(AsciiString team, Bool exact);
+	int rva00357B82(Parameter *playerParm);	// 0x00357B82: the parameter's player mask
 };
 extern ScriptEngine *TheScriptEngine;
 
@@ -69,10 +72,24 @@ public:
 
 enum CommandSourceType { CMD_FROM_SCRIPT = 1 };
 
+// The argument block 0x00372571 takes (built inline by its callers).
+struct Rva00372571Params
+{
+	const Coord3D *m_pos;
+	bool m_04;
+	int m_08;
+	int m_0C;
+	int m_10;
+	int m_14;
+	int m_18;
+	bool m_1C;
+};
+
 class AIGroup
 {
 public:
 	void rva00370410(Object *target, int value, CommandSourceType cmdSource);
+	void rva00372571(Rva00372571Params *params, int source);	// 0x00372571
 };
 
 class AI
@@ -118,4 +135,105 @@ void __stdcall Rva003C2A9FDo(const AsciiString &teamName, int kindBit)
 		return;
 	team->getTeamAsAIGroup(group);
 	group->rva00370410(best, 0, CMD_FROM_SCRIPT);
+}
+
+// 0x003C2260 (319B): the move form of 0x003C2A9F -- the team's new group is
+// ordered to the nearest object's position through 0x00372571 (source 1)
+// instead of attacking it.
+void __stdcall Rva003C2260Do(const AsciiString &teamName, int kindBit)
+{
+	Team *team = TheScriptEngine->getTeamNamed(teamName, false);
+	if (team == 0)
+		return;
+	Coord3D center;
+	team->rva0039E5B9(&center);
+	Object *best = 0;
+	float bestDist = 99999.0f;
+	int mask = 0xFFFFF;
+	do {
+		Player *player = ThePlayerList->getEachPlayerFromMask(mask);
+		Object *cand = player->findClosestToPosByKindOf(&center, BitFlags<116>(0, kindBit), KINDOFMASK_NONE);
+		if (cand) {
+			const Coord3D *candPos = cand->getPosition();
+			Coord3D delta;
+			delta.x = candPos->x;
+			delta.y = candPos->y;
+			delta.z = candPos->z;
+			delta.x -= center.x;
+			delta.y -= center.y;
+			delta.z -= center.z;
+			float d = delta.length();
+			if (!best || d < bestDist) {
+				best = cand;
+				bestDist = d;
+			}
+		}
+	} while (mask != 0);
+	if (!best)
+		return;
+	AIGroup *group = TheAI->createGroup();
+	if (!group)
+		return;
+	team->getTeamAsAIGroup(group);
+	Rva00372571Params params;
+	params.m_14 = -1;
+	params.m_pos = best->getPosition();
+	params.m_04 = false;
+	params.m_08 = 0;
+	params.m_0C = 0;
+	params.m_10 = 0;
+	params.m_18 = 0;
+	params.m_1C = false;
+	group->rva00372571(&params, 1);
+}
+
+// 0x003C239F (337B): the player-parameter form of 0x003C2260 -- only the
+// players of the parameter's mask are searched.
+void __stdcall Rva003C239FDo(const AsciiString &teamName, int kindBit, Parameter *playerParm)
+{
+	Team *team = TheScriptEngine->getTeamNamed(teamName, false);
+	if (team == 0)
+		return;
+	Coord3D center;
+	team->rva0039E5B9(&center);
+	Object *best = 0;
+	float bestDist = 99999.0f;
+	int mask = TheScriptEngine->rva00357B82(playerParm);
+	if (mask == 0)
+		return;
+	do {
+		Player *player = ThePlayerList->getEachPlayerFromMask(mask);
+		Object *cand = player->findClosestToPosByKindOf(&center, BitFlags<116>(0, kindBit), KINDOFMASK_NONE);
+		if (cand) {
+			const Coord3D *candPos = cand->getPosition();
+			Coord3D delta;
+			delta.x = candPos->x;
+			delta.y = candPos->y;
+			delta.z = candPos->z;
+			delta.x -= center.x;
+			delta.y -= center.y;
+			delta.z -= center.z;
+			float d = delta.length();
+			if (!best || d < bestDist) {
+				best = cand;
+				bestDist = d;
+			}
+		}
+	} while (mask != 0);
+	if (!best)
+		return;
+	AIGroup *group = TheAI->createGroup();
+	if (!group)
+		return;
+	team->getTeamAsAIGroup(group);
+	Rva00372571Params params;
+	params.m_14 = -1;
+	params.m_pos = best->getPosition();
+	params.m_04 = false;
+	params.m_08 = 0;
+	params.m_0C = 0;
+	params.m_10 = 0;
+	params.m_18 = 0;
+	params.m_1C = false;
+	group->rva00372571(&params, 1);
 }
