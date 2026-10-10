@@ -1,0 +1,49 @@
+{
+  "fixed_bfme2": "b4d70fd69453370b09f8b8902bd79336681734a0",
+  "old_donor": "575ba2b04743f190f069805fbdc59936123c45da",
+  "new_donor": "5e6dfd2721ad72e9d2c08559f074ca375d8c9d51",
+  "source_sha256": "8f00536519e5576ff04ede72926ecb8fd26d68c5d415b4f86531523471f42ae2",
+  "object": "C:\\Users\\clemens\\.codex\\worktrees\\bfme1-reference-freshness\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^network_^game^spy_^thread_^peer^thread.obj",
+  "receipt_version": 1,
+  "dependency_count": 237,
+  "actually_used_changed_donor_dependencies": [
+    "inputs/reference/shims/nat/GameNetwork/GameInfo.h"
+  ],
+  "old_gate": {
+    "exit": 0,
+    "exact": 80,
+    "total": 80,
+    "data_exact": 2
+  },
+  "new_gate": {
+    "exit": 1,
+    "exact": 79,
+    "total": 80,
+    "failed_rva": "0x0038EDD7",
+    "size": 4914,
+    "byte_differences": [
+      [
+        "0x121A",
+        "d1",
+        "ca"
+      ],
+      [
+        "0x121C",
+        "c2",
+        "c1"
+      ]
+    ]
+  },
+  "restored_gate": {
+    "exit": 0,
+    "exact": 80,
+    "total": 80,
+    "data_exact": 2
+  },
+  "evidence": {
+    "old-peer-full-home.txt": "5bd035a1ebdd7a13c305652d5516341d0d229a09b14d1a5187af808f90d525c5",
+    "new-peer-full-home.txt": "8c19e0e7a6e9b013875bf16690e02c637af9b691be1ffe03ad34ff6755e46eac",
+    "new-peer-explain.txt": "2d8b9b198a737b40385cc49bbff5ff4158d8479db64719f3fa8c9bdc4a3cebdb",
+    "restored-peer-full-home.txt": "5bd035a1ebdd7a13c305652d5516341d0d229a09b14d1a5187af808f90d525c5"
+  }
+}
