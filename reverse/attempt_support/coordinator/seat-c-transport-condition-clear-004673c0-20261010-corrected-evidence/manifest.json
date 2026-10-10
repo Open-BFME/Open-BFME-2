@@ -1,0 +1,31 @@
+{
+  "id": "seat-c-transport-condition-clear-004673c0-20261010-corrected-evidence",
+  "seat": "C",
+  "base_commit": "b5cc668da0c33b6c7481ef1a57f00f71605a9752",
+  "paths": [
+    "Code/GameEngine/Source/GameLogic/Object/Contain/TransportContain.cpp"
+  ],
+  "recoveries": [
+    {
+      "name": "?rva004673C0@TransportContain@@UAEXXZ",
+      "rva": "0x004673C0",
+      "size": 76,
+      "source": "Code/GameEngine/Source/GameLogic/Object/Contain/TransportContain.cpp",
+      "notes": "Native4673C0..46740C full76B; ctor468559 secondary tableC44030 slot60 pointsVA8673C0; shared eight transport-family contain tables; WB115C5C0 three clearModelConditionState operations; owner-18 and Object10C bits18/19/20 independently native; unknown method name retained; separate ordinary flag accessors; existing notifier28AE6D; exact all76 no pins",
+      "replace_rva": null
+    }
+  ],
+  "new_retail_bytes": 76,
+  "proof_command": "python tools/explain_mismatch.py \"?rva004673C0@TransportContain@@UAEXXZ\" --rva 0x004673C0 --size 76 --source Code/GameEngine/Source/GameLogic/Object/Contain/TransportContain.cpp",
+  "proof_log": "scoped-proof.txt",
+  "claim_owner": "codex-104a-01a12257",
+  "worker_root": "C:\\Users\\franz\\.codex\\worktrees\\recovery-preserved\\openbfme2",
+  "dependencies": [],
+  "claims": [
+    "0x004673C0",
+    "file:Code/GameEngine/Source/GameLogic/Object/Contain/TransportContain.cpp"
+  ],
+  "supersedes": [
+    "seat-c-transport-condition-clear-004673c0-20261010"
+  ]
+}
