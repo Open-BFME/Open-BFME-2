@@ -1,6 +1,8 @@
 // ??0Rva005E6D0D@@QAE@PAXPAUHeroDetailsInput@@@Z
 // partial score=0.97 date=2026-10-10
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /MD /DNDEBUG /EHsc
+// ??0Rva005E6D0D@@QAE@PAXPAUHeroDetailsInput@@@Z
+// partial score=0.97 date=2026-10-10
+// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /MD /DNDEBUG /EHsc /I.
 // Native005E4300..005E4389 low-byte comparator of selected hero keys;
 // groupB8 signed order with zero priority then the native118B fallback.
 // Its three private bodies are reconstructed from target; original template
@@ -204,7 +206,7 @@ Rva005E6D0D::~Rva005E6D0D()
 
 struct HeroDetailsInput {Rva005CB265 *owner;HeroDetailsContext *details;Rva002B7250 *container;};
 Rva005E6D0D::Rva005E6D0D(void *slot,HeroDetailsInput *input):Rva005E6D0DBase(slot),m_owner(input->owner),m_details(input->details),m_container(input->container),m_pair(0,0) {
- m_pair=StrategicInGameUI::Rva005E6CA1(m_details);
+ HeroDetailsPair &dst=m_pair; dst=StrategicInGameUI::Rva005E6CA1(m_details);
  void *button=m_slot;
  ((Rva005F62EE *)button)->rva005F62EE(StrategicInGameUI::GetButtonImage((const StrategicButtonImageView *)m_pair.entry,m_details->playerID));
  ((Rva005F62EE *)button)->rva005F62F6(Rva005F01D6Get((Rva005F01D6In *)m_pair.entry));
