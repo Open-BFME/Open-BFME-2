@@ -1,4 +1,6 @@
 // ?ProcessOnlineGameResults@StatsReporter@@SAXPAVPlayer@@@Z
+// partial score=0.9992051995093693 date=2026-10-10
+// ?ProcessOnlineGameResults@StatsReporter@@SAXPAVPlayer@@@Z
 // partial score=0.9986520360241784 date=2026-10-09
 // ?ProcessOnlineGameResults@StatsReporter@@SAXPAVPlayer@@@Z
 // partial score=0.995706 date=2026-10-09
@@ -374,3 +376,5 @@ void StatsReporter::ProcessOnlineGameResults(Player*player){
  BfmeOpaqueOwnedRecord1432 req;req.requestType=1;req.m_04=3;req.email=retailStr(TheGameSpyInfo->nickname());req.nick=retailStr(TheGameSpyInfo->cdkey());req.password=retailStr(TheGameSpyInfo->password());req.player=stats;req.addDesync=TheGameLogic->desync;req.addDiscon=noData;req.lastHouse=faction;TheGameSpyPSMessageQueue->addRequest(req);
  TheGameSpyPSMessageQueue->store(stats);BfmeOpaqueOwnedRecord1408 response;response.kind=0;response.player=stats;TheGameSpyPSMessageQueue->addResponse(response);Rva00556FB8(reinterpret_cast<const Gen_uw_00385371&>(stats));TheGameSpyInfo->updated(stats);
 }
+
+template<> inline __declspec(noinline) float&StatsFloatMap::operator[](const unsigned char&k){iterator i=lower_bound(k);if(i==end()||key_comp()(k,(*i).first))i=insert(i,value_type(k,float()));return (*i).second;}
