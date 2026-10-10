@@ -58,6 +58,7 @@ extern "C" __declspec(dllimport) void *__stdcall TlsGetValue(unsigned long index
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(void *section);
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(void *section);
 extern "C" __declspec(dllimport) int __stdcall VirtualFree(void *address, unsigned int size, unsigned int type);
+extern "C" __declspec(dllimport) int __cdecl _snprintf(char *buffer, unsigned int count, const char *format, ...);
 
 class MemoryPoolFactory;
 // placement unverified: no rowed DIR32 site yet; ZH initial value is null.
@@ -121,7 +122,14 @@ public:
 	bool rva00032920(const void *block);			// owns-address test
 	bool rva000329E0(int level);				// ValidateHeap-like
 	int rva000327E0(const void *blockData, unsigned int left, char *dst);
+	// Original address-derived spelling of the callee above, kept so the
+	// landed 0x000327E0 caller (which forwards positionally) still resolves
+	// through the existing 0x00031430 pin with byte-identical codegen.
 	int rva00031430(const void *block, unsigned int left, char *dst);
+	// True (block, dst, left) order proven by the WB debug build; the row
+	// below owns this name and address.
+	int rva00031430(const void *block, char *dst, unsigned int left);
+	unsigned int rva000311E0(const void *src, unsigned int count, char *ascii, unsigned short *wide, unsigned int cap);
 	unsigned int rva00032A20(const void *block);		// GetUsableSize-like
 	unsigned int rva006C1D10(const void *block);		// fast usable-size with tail call to 0x32A20 caller 0x6C36FD
 	void *rva00031680(const void *block);	// intrusive-list search unblocking 0x31BB0 0x31D00 0x32920
@@ -320,6 +328,68 @@ int GeneralAllocator::rva000327E0(const void *blockData, unsigned int left, char
 		LeaveCriticalSection(lock);
 	}
 	return result;
+}
+
+// ?rva00031430@GeneralAllocator@Allocator@EA@@QAEHPBXPADI@Z @0x00031430 320B
+// Block-dump formatter: appends "addr/size/data/attr" lines for one heap
+// block into the caller's buffer, returning bytes appended. The WB debug
+// build of this same body proves the argument order (block, dst, left),
+// the hoisted block+8 data local, the zero-filled 256B text buffer passed
+// to the pinned 0x000311E0 hex formatter as (src,count,ascii,wide=0,
+// cap=0x100) with the "data:" line reading the text from its start, and the
+// if/else "mapped"/"internal" selection whose game.dat release shape is the two
+// ternaries below. Target facts: block+4 masked 0x7FFFFFF8 minus 8 is the
+// size; the same block+4 word carries flag bits 2/4 (attr line); this+0x474
+// is the %c separator reloaded for every _snprintf; thresholds
+// 0x12/0x1E/0x10A/0x18 gate each line. Declaring data before size keeps
+// block in EDX with retail's spill/lea schedule. The 0x000327E0 sibling
+// (same TU) forwards block-8 positionally into this same (block, dst, left)
+// order (its positionally-forwarded call is untouched; the original
+// address-derived overload declaration above keeps it resolving through the
+// existing pin with byte-identical codegen, and its row is unchanged since
+// the rel32 target address is the same).
+int GeneralAllocator::rva00031430(const void *block, char *dst, unsigned int left)
+{
+	char *start = dst;
+	const char *data = (const char *)block + 8;
+	unsigned int size = (*(const unsigned int *)((const char *)block + 4) & 0x7FFFFFF8) - 8;
+	if (left >= 0x12)
+	{
+		int n = _snprintf(dst, left, "addr: 0x%08x%c",
+			data, *(const unsigned char *)((const char *)this + 0x474));
+		dst += n;
+		left -= n;
+	}
+	if (left >= 0x1E)
+	{
+		int n = _snprintf(dst, left, "size: %10u (%8x)%c", size, size,
+			*(const unsigned char *)((const char *)this + 0x474));
+		dst += n;
+		left -= n;
+	}
+	if (left >= 0x10A)
+	{
+		char text[256] = { 0 };
+		rva000311E0(data, size, text, 0, 0x100);
+		int n = _snprintf(dst, left, "data: %s%c", text,
+			*(const unsigned char *)((const char *)this + 0x474));
+		dst += n;
+		left -= n;
+	}
+	unsigned int flags = *(const unsigned int *)((const char *)block + 4);
+	if ((flags & 4) || (flags & 2))
+	{
+		if (left >= 0x18)
+		{
+			const char *mapped = (flags & 2) ? "mapped" : "";
+			const char *which = (flags & 4) ? "internal" : "";
+			int n = _snprintf(dst, left, "attr: %s %s%c", which, mapped,
+				*(const unsigned char *)((const char *)this + 0x474));
+			dst += n;
+			left -= n;
+		}
+	}
+	return dst - start;
 }
 
 // ?rva00032A20@GeneralAllocator@Allocator@EA@@QAEIPBX@Z @0x00032A20 146B
