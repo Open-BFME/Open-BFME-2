@@ -1,6 +1,11 @@
-// ??0Impl@PlaceTerrainResourceClaimantFeedback@@QAE@PAXPAUFeedbackParams@@PAVBFMERopeDrawable@@PAUFeedbackData@@@Z
-// partial score=0.9 date=2026-10-09
 // cl: /O1 /Oy /G7 /arch:SSE /MD /EHsc /Ireference/shims/bfme2_ascii
+// PlaceTerrainResourceClaimantFeedback::Impl constructor (retail 0x004E669A,
+// 171B): stores the four caller arguments, creates the claimant display
+// string through the display-string manager vslot 14, applies the params
+// font/colour, then builds the potential-claim decal (rowed 0x004E65CF).
+// Codegen: retail stores the arguments in declaration order ahead of the
+// ICoord2D(-1,-1) and decal members, so every member is initialised in the
+// mem-init list; assigning m00..m0C in the body moves them behind position.
 #include "ascii_string.h"
 class GameFont;
 class FontLibrary {public: GameFont *getFont(const AsciiString*,float,bool);};
@@ -19,8 +24,7 @@ class PlaceTerrainResourceClaimantFeedback::Impl {
  void *m00; FeedbackParams *m04; BFMERopeDrawable *m08; FeedbackData *m0C; FeedbackDisplayString *m10; ICoord2D position;void *decal;
  public: Impl(void*,FeedbackParams*,BFMERopeDrawable*,FeedbackData*);void createPotentialClaimDecal();
 };
-PlaceTerrainResourceClaimantFeedback::Impl::Impl(void *owner,FeedbackParams *params,BFMERopeDrawable *drawable,FeedbackData *data):m10(0),position(-1,-1) {
- m00=owner;m04=params;m08=drawable;m0C=data;decal=0;
+PlaceTerrainResourceClaimantFeedback::Impl::Impl(void *owner,FeedbackParams *params,BFMERopeDrawable *drawable,FeedbackData *data):m00(owner),m04(params),m08(drawable),m0C(data),m10(0),position(-1,-1),decal(0) {
  m10=((FeedbackManager*)TheDisplayStringManager)->newDisplayString();
  GameFont *font=TheFontLibrary->getFont(&m04->font,(float)m04->size,m04->bold);
  if(font) m10->setFont(font);
