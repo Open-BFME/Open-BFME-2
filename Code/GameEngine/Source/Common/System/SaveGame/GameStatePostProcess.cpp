@@ -64,3 +64,9 @@ void GameState::rva002DC4B8(void*,unsigned sequence)
 }
 void Rva002DC66F(void *unused,GameState *state,unsigned sequence)
 {state->rva002DC4B8(unused,sequence);}
+// Native DD908..DD91A is the matching append callback. Dispatcher DD91A
+// supplies this state as its second captured argument. The callee's RET8,
+// Snapshot name slot, and paired list accesses establish the declaration;
+// its complete130-byte implementation remains banked and unmatched.
+void Rva002DD908(Snapshot *snapshot,GameState *state,unsigned sequence)
+{state->rva002DCF6C(snapshot,sequence);}
