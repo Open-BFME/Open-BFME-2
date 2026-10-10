@@ -1,5 +1,4 @@
 // ??1UpgradeCenter@@UAE@XZ
-// partial score=0.8 date=2026-10-10
 // cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /O1 /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport
 //
@@ -10,6 +9,8 @@
 // deletes and clears a pointer vector at +0x18 that Zero Hour does not
 // have, frees its buffer and runs ~SubsystemInterface. The list link sits
 // at +0x64 of an UpgradeTemplate.
+extern "C" void _ReadWriteBarrier(void);
+#pragma intrinsic(_ReadWriteBarrier)
 #include <stdlib.h>
 void Rva00030830FreeAllocation(void *);
 #define free Rva00030830FreeAllocation
@@ -62,6 +63,9 @@ UpgradeCenter::~UpgradeCenter()
 	}
 	_STL::vector<void *> &vec = *(_STL::vector<void *> *)&m_extra;
 	for (unsigned int i = 0; i < vec.size(); ++i)
+	{
+		_ReadWriteBarrier();
 		::delete (UpgradeTemplate *)(*(void ***)&vec)[i];
+	}
 	vec.erase(vec.begin(), vec.end());
 }
