@@ -1,4 +1,8 @@
 // ?rva002F3392@Pathfinder@@QAE_NPAVPathNode@@0IPAUCoord3D@@11@Z
+// partial score=0.9803031423290204 date=2026-10-10
+extern "C" void _ReadWriteBarrier(void);
+#pragma intrinsic(_ReadWriteBarrier)
+// ?rva002F3392@Pathfinder@@QAE_NPAVPathNode@@0IPAUCoord3D@@11@Z
 // partial score=0.8864 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /ICode/Libraries/Include/Lib
 // Clean BF1 f989 AIPathfind.cpp offset/segment obstacle detour is primary guide.
@@ -57,13 +61,17 @@ bool Pathfinder::rva002F3392(PathNode*curNode,PathNode*nextNode,unsigned int ign
   int ret=iterateCellsAlongLine(&fromPos,&toPos,LAYER_GROUND,&info);
   if(ret!=0&&info.theTallBuilding){
    Object*tallBuilding=info.theTallBuilding;
-   Rva002E7A62Position bldgPos(*tallBuilding->getPosition());
-   Coord2D delta;float radius=tallBuilding->getRadius()+20.0f;
-   delta.x=toPos.x-bldgPos.x;delta.y=toPos.y-bldgPos.y;
+   _ReadWriteBarrier(); Coord3D bldgPos;Coord2D delta;float radius;
+const volatile Coord3D &src=*tallBuilding->getPosition();
+bldgPos.x=src.x;
+radius=((const volatile Object*)tallBuilding)->radius+20.0f;
+bldgPos.y=src.y;
+delta.x=toPos.x-bldgPos.x;
+delta.y=toPos.y-bldgPos.y;
    if(delta.length()<=radius*0.98){
     if(delta.length()<0.1)delta.x=1;
     delta.normalize();
-    float dx=delta.x*radius;float dy=delta.y*radius;
+    float dx=((const volatile Coord2D*)&delta)->x;float dy=((const volatile Coord2D*)&delta)->y;dx*=radius;dy*=radius;
     toPos.x=bldgPos.x+dx;toPos.y=bldgPos.y+dy;
     nextNode->setPosition(&toPos);continue;
    }
@@ -71,7 +79,7 @@ bool Pathfinder::rva002F3392(PathNode*curNode,PathNode*nextNode,unsigned int ign
    if(delta.length()<=radius*0.98){
     if(delta.length()<0.1)delta.x=1;
     delta.normalize();
-    float dx=delta.x*radius;float dy=delta.y*radius;
+    float dx=((const volatile Coord2D*)&delta)->x;float dy=((const volatile Coord2D*)&delta)->y;dx*=radius;dy*=radius;
     fromPos.x=bldgPos.x+dx;fromPos.y=bldgPos.y+dy;
    }
    Rva002E7A62Offset(fromPos,*insertPos2,toPos,tallBuilding,radius);
