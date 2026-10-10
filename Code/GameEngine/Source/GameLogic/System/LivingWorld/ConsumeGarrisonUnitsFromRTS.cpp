@@ -77,3 +77,16 @@ ArmySummaryEntryRef Rva00319028::rva00319028(int kind,int maxCP){
  return summary.Get()->GetEntry(((Rva0040CC0EIndexedField*)summary.Get())->get(0));
 }
 
+// Native31996D..3199D2 RET8, hidden owning result + existing opaque key.
+// Name comparison over the one-word key is observed in retail and WB102B870.
+// ?rva0031996D@AttackOrdersMember@@QAE?AUArmySummaryEntryRef@@ABUHeroEntryKey@@@Z
+ArmySummaryEntryRef AttackOrdersMember::rva0031996D(const HeroEntryKey&key){
+ for(int i=(int)summary.Get()->records.size()-1;i>=0;--i){
+  ArmySummaryEntry*entry=(ArmySummaryEntry*)((Rva0040CB2CIndexedField*)summary.Get())->get(i);
+  if(entry->name.compare(*(const AsciiString*)&key)==0){
+   int id=((Rva0040CC0EIndexedField*)summary.Get())->get(i);
+   return summary.Get()->GetEntry(id);
+  }
+ }
+ return summary.Get()->GetEntry(((Rva0040CC0EIndexedField*)summary.Get())->get(0));
+}
