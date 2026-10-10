@@ -13,6 +13,7 @@
 #include "../../../Libraries/Include/Lib/Coord3D.h"
 class Rva00360D26Member {
 public:
+ Rva00360D26Member();	// 0x003623E5 (row in Rva003623E5MemberCtor.cpp)
  ~Rva00360D26Member();
  int index;
 };

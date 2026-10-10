@@ -1,5 +1,3 @@
-// ?Rva00414C92@@YAPAVXfer@@PAV1@PAURva00414EA1Vector@@@Z
-// partial score=0.99 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /Ireference/shims/moduledata
 // stlport
 // ?Rva00414C92@@YAPAVXfer@@PAV1@PAURva00414EA1Vector@@@Z retail
@@ -16,8 +14,9 @@
 // (ctor 0x0055A998 with a temporary filter 0x003623E5/0x00360D26 and
 // push_back 0x00414BA4) and transfers the new back element. Same pattern as
 // the ScoreKeeper per-frame stats vector xfer 0x0039C4F7.
-// Needs the default constructor of the filter handle declared in
-// ScoredKillTrackerView.h (Rva00360D26Member(); = 0x003623E5).
+// The filter handle default constructor is declared in
+// ScoredKillTrackerView.h (Rva00360D26Member(); row 0x003623E5). Bank by a
+// claude-opus-5-5 helper agent; landed by X1 with that header line.
 typedef unsigned char UnsignedByte;
 typedef unsigned int UnsignedInt;
 typedef bool Bool;
