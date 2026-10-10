@@ -21,10 +21,15 @@ extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 void *__cdecl ji_006291ae(void *dest, int val, unsigned int count);
 #pragma comment(linker, "/alternatename:?ji_006291ae@@YAPAXPAXHI@Z=?ji_006291ae@@YAXXZ")
-extern int g_00DFE368;
-extern int g_00DFE364;
-extern int g_00DFE3E4;
-extern int g_00DFE3E0;
+// The two "invalid index" fallback slots this unit's matched getters hand out,
+// each with its one-time-init guard byte beside it: VA 0x00DFE368 guards the
+// four-byte slot at VA 0x00DFE364 and VA 0x00DFE3E4 the one at VA 0x00DFE3E0
+// (retail's storage is the zero tail of .data, so retail's file holds zeros and
+// each body's memset runs once under its guard). Only this unit references them.
+int g_00DFE368;
+int g_00DFE364;
+int g_00DFE3E4;
+int g_00DFE3E0;
 
 typedef int Int;
 typedef unsigned int UnsignedInt;
