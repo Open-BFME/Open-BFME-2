@@ -1,0 +1,25 @@
+{
+  "id": "B-20261010-model-turret-info-000bbe86",
+  "paths": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawTurretInfo.cpp"
+  ],
+  "recoveries": [
+    {
+      "name": "?validateTurretInfo@ModelSMConditionInfo@@QAEXPBVRva000BBDDF@@@Z",
+      "rva": "0x000BBE86",
+      "size": 197,
+      "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawTurretInfo.cpp",
+      "notes": "WB921FA0 names ModelSMConditionInfo validateTurretInfo at W3DScriptedModelDraw.cpp1357-1370. BF1 donor575ba2b04743 and ZH ModelConditionInfo provide angle/pitch key validation semantics. Target vectorD0/D4 carries24B records; cap1 and validity byteF5 follow WB and nativeBBE86..BBF4B197B RET4. Real STL vector plus signed donor index resolves the prior196B raw-pointer allocation wall. Current accessorB4A9F and const key/index providerBBDDF retain existing signatures; animation-record StringBase prefix from WB. All197B full extent exact and relocation bindings resolved; no new pins or assembler.",
+      "replace_rva": ""
+    }
+  ],
+  "proof_command": "python tools/explain_mismatch.py \"?validateTurretInfo@ModelSMConditionInfo@@QAEXPBVRva000BBDDF@@@Z\" --rva 0x000BBE86 --size 197 --source Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawTurretInfo.cpp; python build/verify-model-turret-info.py",
+  "proof_log": "proof.log",
+  "dependencies": [],
+  "ledger_delta": "One new row in one new source. No local ledger edits or pins. Existing generic caller pin is retained.",
+  "provider_notes": "B4A9F accessor has existing const-char-pointer spelling; preserve it as opaque returned address and explicitly view the returned animation-record prefix as StringBase<char>. WB shows field0 then length8 matching existing StringBase isEmpty provider1E2F. BBDDF const provider takes int key and int* index and returns an opaque bone transform address. No original AnimConditionInfo alias or replacement pin is asserted; arg retains existing provider class type.",
+  "seat": "B",
+  "base_commit": "75740df1edc641aba37050ae805a2f2f61553e7c",
+  "claim_owner": "codex-01a12257-recovery",
+  "proof_exit_code": 0
+}
