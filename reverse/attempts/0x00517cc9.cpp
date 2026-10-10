@@ -1,4 +1,6 @@
 // ?rva00517CC9@Rva00517048@@QAEXABVBuddyInviteGameInfo@@@Z
+// partial score=0.99154 date=2026-10-10
+// ?rva00517CC9@Rva00517048@@QAEXABVBuddyInviteGameInfo@@@Z
 // partial score=0.98 date=2026-10-09
 // cl: /vmg /vmm /O1 /G7 /arch:SSE /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
@@ -13,7 +15,10 @@ void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
 class __multiple_inheritance FunctorTarget;
 typedef void(FunctorTarget::*FunctorMethod)();
 struct FunctorBinding {FunctorBinding(FunctorMethod m,FunctorTarget *t):target(t),method(m){} FunctorTarget *target;unsigned pad;FunctorMethod method;};
-struct Rva0057BC63FunctorHolder {Rva0057BC63FunctorHolder(const FunctorBinding &);Rva0057BC63FunctorHolder(const Rva0057BC63FunctorHolder &o):ptr(o.ptr){if(ptr)++ptr->references;}TargetRef00217D4C *ptr;};
+class FunctorWrapperHead { public: FunctorWrapperHead():m_refCount(0) {} virtual void anchor(); int m_refCount; };
+class Rva0057BC63FunctorWrapper:public FunctorWrapperHead { public: Rva0057BC63FunctorWrapper(const FunctorBinding&binding):m_binding(binding) {} void invoke(); FunctorBinding m_binding; };
+void *__cdecl operator new(unsigned int);
+struct Rva0057BC63FunctorHolder {__declspec(noinline) Rva0057BC63FunctorHolder(const FunctorBinding &binding) { Rva0057BC63FunctorWrapper *p=new Rva0057BC63FunctorWrapper(binding);ptr=(TargetRef00217D4C*)p;if(p)++p->m_refCount; }Rva0057BC63FunctorHolder(const Rva0057BC63FunctorHolder &o):ptr(o.ptr){if(ptr)++ptr->references;}TargetRef00217D4C *ptr;};
 struct Rva004F6986Member : Rva0057BC63FunctorHolder {
  __forceinline Rva004F6986Member(const FunctorBinding &binding):Rva0057BC63FunctorHolder(binding){}
  __forceinline Rva004F6986Member(const Rva004F6986Member &other):Rva0057BC63FunctorHolder(other){}
