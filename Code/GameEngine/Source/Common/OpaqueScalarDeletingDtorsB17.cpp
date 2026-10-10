@@ -9,6 +9,7 @@
 // in reverse/symbols.csv; the dummy tag constructors (no retail counterpart)
 // only make this TU emit each vtable and with it the deleting destructor.
 // Owner identities are not recovered, and these declarations model no layout
+// beyond the thunk-proven secondary base at +0x8 noted at Rva005E12D1 below
 // (docs/reconstruction/deleting-destructor-identity-audit.md).
 //
 //   wrapper     dtor        vtable#slot
@@ -73,7 +74,14 @@ Rva005E80FD::Rva005E80FD(EmitVtableTag *)
 {
 }
 
-class Rva005E8D71
+// The secondary base at +0x8 of the five classes below: slot 0 of each
+// class's ??_7...@@6BRva005E12D1@@@ table is a this-adjusting (sub ecx, 8)
+// deleting-destructor thunk, target evidence for that base and offset.
+class Rva005E12D1 { public: virtual ~Rva005E12D1(); };
+
+// Primary base at +0 (vptr plus one word), named as its ??_7Rva005E8D71@@6BRva005E8D71Base@@@ table.
+class Rva005E8D71Base { public: virtual ~Rva005E8D71Base(); private: char m_unmodelled04[4]; };
+class Rva005E8D71 : public Rva005E8D71Base, public Rva005E12D1
 {
 public:
 	Rva005E8D71(EmitVtableTag *);
@@ -86,7 +94,9 @@ Rva005E8D71::Rva005E8D71(EmitVtableTag *)
 {
 }
 
-class Rva005E91A9
+// Primary base at +0 (vptr plus one word), named as its ??_7Rva005E91A9@@6BRva005E91A9Base@@@ table.
+class Rva005E91A9Base { public: virtual ~Rva005E91A9Base(); private: char m_unmodelled04[4]; };
+class Rva005E91A9 : public Rva005E91A9Base, public Rva005E12D1
 {
 public:
 	Rva005E91A9(EmitVtableTag *);
@@ -229,7 +239,9 @@ Rva005F566A::Rva005F566A(EmitVtableTag *)
 {
 }
 
-class Rva005F5819
+// Primary base at +0 (vptr plus one word), named as its ??_7Rva005F5819@@6BRva005F5819Base0@@@ table.
+class Rva005F5819Base0 { public: virtual ~Rva005F5819Base0(); private: char m_unmodelled04[4]; };
+class Rva005F5819 : public Rva005F5819Base0, public Rva005E12D1
 {
 public:
 	Rva005F5819(EmitVtableTag *);
@@ -242,7 +254,9 @@ Rva005F5819::Rva005F5819(EmitVtableTag *)
 {
 }
 
-class Rva005F5BF2
+// Primary base at +0 (vptr plus one word), named as its ??_7Rva005F5BF2@@6BRva005F5BF2Base0@@@ table.
+class Rva005F5BF2Base0 { public: virtual ~Rva005F5BF2Base0(); private: char m_unmodelled04[4]; };
+class Rva005F5BF2 : public Rva005F5BF2Base0, public Rva005E12D1
 {
 public:
 	Rva005F5BF2(EmitVtableTag *);
@@ -255,7 +269,9 @@ Rva005F5BF2::Rva005F5BF2(EmitVtableTag *)
 {
 }
 
-class Rva005F5EA6
+// Primary base at +0 (vptr plus one word), named as its ??_7Rva005F5EA6@@6BRva005F5EA6Base0@@@ table.
+class Rva005F5EA6Base0 { public: virtual ~Rva005F5EA6Base0(); private: char m_unmodelled04[4]; };
+class Rva005F5EA6 : public Rva005F5EA6Base0, public Rva005E12D1
 {
 public:
 	Rva005F5EA6(EmitVtableTag *);
