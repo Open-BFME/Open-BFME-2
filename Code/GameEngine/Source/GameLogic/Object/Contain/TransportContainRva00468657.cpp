@@ -1,13 +1,8 @@
-// ?rva00468657@Rva00468657@@QAEXPAVObject@@_N@Z
-// partial score=0.9820600685345697 date=2026-10-10
-// ?rva00468657@Rva00468657@@QAEXPAVObject@@_N@Z
-// partial score=0.983 date=2026-10-10
-// ?rva00468657@Rva00468657@@QAEXPAVObject@@_N@Z
-// partial score=0.983 date=2026-10-10
-// ?rva00468657@Rva00468657@@QAEXPAVObject@@_N@Z
-// partial score=0.9 date=2026-10-08
 // cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /arch:SSE /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
 // stlport
+// The map subscript 0x004650A0 is defined in this unit (noinline, the bytes of its own rowed
+// row) because retail's compiler knew it does not keep the address of the key temporary:
+// without the body visible the frame grows by four bytes (0x1c instead of 0x18).
 // Target: 0x00468657..0x00468748 (242 bytes). The receiver is the
 // secondary contain interface: its owner Object is at -0x18, its int-key
 // string map at +0x1C, and slot 0xB0 returns four status words by value.
@@ -15,6 +10,9 @@
 // exact method name nor the status flag's semantic name is established.
 // The mapped four-byte value uses the existing verified AsciiString view.
 
+#define _BFME_RETAIL_TREE_INSERT_LAYOUT
+#undef _STLP_DEFAULT_CONSTRUCTED
+#define _STLP_DEFAULT_CONSTRUCTED(T) T()
 #include <map>
 #include "ascii_string.h"
 
@@ -46,10 +44,24 @@ public:
 	
 };
 
-class Rva004650A0
+typedef _STL::pair<const int, AsciiString> Rva004650A0Pair;
+typedef _STL::map<int, AsciiString, _STL::less<int>, _STL::allocator<Rva004650A0Pair> > Rva004650A0Map;
+class Rva004650A0 : public Rva004650A0Map
 {
 public:
-	AsciiString &rva004650A0(const int &key);
+	typedef Rva004650A0Map::iterator Iterator;
+	typedef Rva004650A0Map::value_type Value;
+	Iterator rva00464984(Iterator hint, const Value &value);
+	__declspec(noinline) AsciiString &rva004650A0(const int &key)
+	{
+		Iterator it = lower_bound(key);
+		if (it == end() || key_comp()(key, (*it).first))
+		{
+			AsciiString empty;
+			it = rva00464984(it, Value(key, empty));
+		}
+		return (*it).second;
+	}
 };
 
 struct ContainStatus468657 {unsigned char test(unsigned i)const{return static_cast<unsigned char>(words[i>>5]>>(i&31))&1;}unsigned int words[4];};
