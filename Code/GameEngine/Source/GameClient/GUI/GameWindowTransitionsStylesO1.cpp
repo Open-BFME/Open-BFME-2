@@ -105,7 +105,7 @@ public:
 //-----------------------------------------------------------------------------
 // DEFINES ////////////////////////////////////////////////////////////////////
 //-----------------------------------------------------------------------------
-void drawTypeText( GameWindow *window, DisplayString *str);
+static void drawTypeText( GameWindow *window, DisplayString *str);
 
 
 void FadeTransition::update( Int frame )
@@ -578,3 +578,70 @@ void TextTypeTransition::init( GameWindow *win )
 	self->m_frameLength = length < self->m_endFrame ? length : self->m_endFrame;
 }
 
+
+// Target display-string virtual slots from native35FB6A. The four-word
+// draw slot takes two observed flags after x/y; colors are a separate slot.
+class BfmeTransitionTextDrawString
+{
+public:
+ virtual void slot00(); virtual void setText(UnicodeString);
+ virtual void slot08(); virtual Int getTextLength();
+ virtual void slot10(); virtual void slot14();
+ virtual void setFont(GameFont *); virtual GameFont *getFont();
+ virtual void setWordWrap(Int); virtual void setWordWrapCentered(Bool);
+ virtual void setColors(Int,Int);
+ virtual void slot2c(); virtual void slot30(); virtual void slot34();
+ virtual void draw(Int,Int,Int,Int);
+ virtual void getSize(Int*,Int*);
+ virtual void slot40(); virtual void slot44(); virtual void slot48(); virtual void slot4c();
+ virtual void setClipRegion(IRegion2D*);
+};
+
+// Reference-first: BF1 f989 and ZH drawTypeText; target364 retains the
+// whole position/clip/wrap/color purpose and the two centered branches.
+static void drawTypeText(GameWindow *window,DisplayString *drawString)
+{
+ TextData *tData=(TextData*)window->winGetUserData();
+ Int textColor=window->winGetEnabledTextColor();
+ Int textDropColor=window->winGetEnabledTextBorderColor();
+ Int textWidth,textHeight,wordWrap;
+ BfmeTransitionTextDrawString *text=(BfmeTransitionTextDrawString*)tData->text;
+ BfmeTransitionTextDrawString *str=(BfmeTransitionTextDrawString*)drawString;
+ ICoord2D origin,size,textPos;
+ IRegion2D clipRegion;
+ if(text==NULL || text->getTextLength()==0) return;
+ GameFont *font=text->getFont();
+ str->setFont(font);
+ window->winGetScreenPosition(&origin.x,&origin.y);
+ window->winGetSize(&size.x,&size.y);
+ wordWrap=size.x-10;
+ text->setWordWrap(wordWrap);
+ str->setWordWrap(wordWrap);
+ if(BitTest(window->winGetStatus(),WIN_STATUS_WRAP_CENTERED)) {
+  str->setWordWrapCentered(TRUE);text->setWordWrapCentered(TRUE);
+ } else {
+  text->setWordWrapCentered(FALSE);str->setWordWrapCentered(FALSE);
+ }
+ text->getSize(&textWidth,&textHeight);
+ clipRegion.lo.x=origin.x;clipRegion.lo.y=origin.y;
+ clipRegion.hi.x=(size.x?size.x:size.x)+origin.x;clipRegion.hi.y=origin.y+size.y;
+ if(tData->centered) {
+  textPos.x=origin.x+(size.x/2)-(textWidth/2);
+  textPos.y=origin.y+(size.y/2)-(textHeight/2);
+ } else {
+  textPos.x=origin.x+7;
+  textPos.y=origin.y+(size.y/2)-(textHeight/2);
+ }
+ str->setClipRegion(&clipRegion);
+ str->setColors(textColor,textDropColor);
+ str->draw(textPos.x,textPos.y,1,1);
+}
+
+void TextTypeTransition::draw()
+{
+ BfmeTextTypeTransitionFields *self=(BfmeTextTypeTransitionFields*)this;
+ if(self->m_drawState>self->m_startFrame && self->m_drawState<self->m_frameLength) {
+  ((BfmeTransitionTextDrawString*)self->m_dStr)->setText(self->m_partialText);
+  drawTypeText(self->m_win,self->m_dStr);
+ }
+}
