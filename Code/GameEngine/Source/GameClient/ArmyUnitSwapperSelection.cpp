@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /O1 /Oi /G7 /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport
 // Retail 005F56B0..005F5819: an army-member selection check, its message
 // emitter and two callers. Neighbour 005F5614's constructor and C7953C
@@ -15,6 +15,7 @@
 // The 8-byte enable forwarder calls the existing bool provider 5E0E99;
 // its existing 5CC30B consumer is rebuilt with the same bool declaration.
 #include <set>
+#include <string.h>
 typedef _STL::set<int> SelectedMemberSet;
 struct Rva005F56B0Selection {char prefix[0x10]; SelectedMemberSet members;};
 class ArmySummaryEntry {public: char prefix[0xb8]; int target; int fieldBC; char padC0[4]; bool fieldC4; __forceinline bool hasUpgrade()const{return fieldBC!=0;}};
@@ -162,6 +163,22 @@ static void Rva005F5A5A(LivingWorldArmy *army,Rva005F56B0Selection *selection) {
   }
  }
 }
+// Native5F5B77..5F5BAE materializes a complete 32-bit 0/1 word before
+// passing its low boolean byte to the existing8B setter. The ordinary bool
+// expression emits50B (AL only); implicit int-to-bool adds a TEST/SETNE.
+// Copying the known-valid 0/1 byte representation preserves that word shape
+// without inactive-union reads. MSVC/x86 bool is one byte (also proved by
+// WB15DF4C0's byte argument load and target setter cached byte41).
+class Rva005F5B77 {
+public:void rva005F5B77();
+ char prefix[0x20];LivingWorldArmy *army;Rva005F56B0Selection *selection;
+ __forceinline int enabled(){LivingWorldArmy*a=army;Rva005F56B0Selection*b=selection;return (Rva005F59F6(a,b)||Rva005F5968(a,b))?1:0;}
+};
+void Rva005F5B77::rva005F5B77(){
+ int word=enabled();bool flag;memcpy(&flag,&word,sizeof flag);
+ reinterpret_cast<Rva005E1160Flag*>(reinterpret_cast<char*>(this)+8)->rva005E1160(flag);
+}
+
 struct Rva005F5B0FA;struct Rva005F5B0FB;
 void Rva005F5B0FNotify(Rva005F5B0FA*,Rva005F5B0FB*);
 class Rva005F5BAE {public:void rva005F5BAE();char prefix[0x18];LivingWorldArmy *army;Rva005F56B0Selection *selection;};
