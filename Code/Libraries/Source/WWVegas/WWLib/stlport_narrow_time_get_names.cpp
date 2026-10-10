@@ -55,7 +55,7 @@ template <class CharT, class Traits>
 class istreambuf_iterator
 {
 public:
-	bool equal(const istreambuf_iterator &other) const
+	__declspec(dllimport) __forceinline bool equal(const istreambuf_iterator &other) const
 	{
 		if (_M_buf != 0)
 			_M_getc();
