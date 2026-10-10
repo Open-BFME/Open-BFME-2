@@ -60,7 +60,6 @@ static const char *findLastBackslashInRangeInclusive(const char *start, const ch
 	}
 	return 0;
 }
-// ?getMapLeafAndDirName@@YA?AVAsciiString@@ABV1@@Z present-unmatched
 static AsciiString getMapLeafAndDirName(const AsciiString &in)
 {
 	const char *start = in.str();

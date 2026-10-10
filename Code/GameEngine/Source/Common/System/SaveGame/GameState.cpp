@@ -784,48 +784,13 @@ static AsciiString removeExtension(const AsciiString& in)
 }
 
 // ------------------------------------------------------------------------------------------------
-const char* PORTABLE_SAVE				= "Save\\";
-const char* PORTABLE_MAPS				= "Maps\\";
-const char* PORTABLE_USER_MAPS	= "UserData\\Maps\\";
-
-// ------------------------------------------------------------------------------------------------
 // GameState::realMapPathToPortableMapPath is defined with its retail-matched body in Code/GameEngine/Source/Common/System/SaveGame/GameStateRealMapPathToPortable.cpp (0x002DC833).
 
-// ------------------------------------------------------------------------------------------------
-// ?portableMapPathToRealMapPath@GameState@@ present-unmatched
-AsciiString GameState::portableMapPathToRealMapPath(const AsciiString& in) const
-{
-	AsciiString prefix;
-	if (((const StringBase<char> *)&in)->startsWithNoCase(PORTABLE_SAVE))
-	{
-		// the save dir ends with "\\"
-		prefix = getSaveDirectory();
-		concatStringBase(prefix, getMapLeafName(in));
-	}
-	else if (((const StringBase<char> *)&in)->startsWithNoCase(PORTABLE_MAPS))
-	{
-		// the map dir DOES NOT end with "\\", must add it
-		prefix = TheMapCache->getMapDir();
-		((StringBase<char> *)&prefix)->concat("\\");
-		concatStringBase(prefix, getMapLeafAndDirName(in));
-	}
-	else if (((const StringBase<char> *)&in)->startsWithNoCase(PORTABLE_USER_MAPS))
-	{
-		// the map dir DOES NOT end with "\\", must add it
-		prefix = TheMapCache->getUserMapDir();
-		((StringBase<char> *)&prefix)->concat("\\");
-		concatStringBase(prefix, getMapLeafAndDirName(in));
-	}
-	else
-	{
-		DEBUG_CRASH(("Map file was not found in any of the expected directories; this is impossible"));
-		//throw INI_INVALID_DATA;
-		// uncaught exceptions crash us. better to just use a bad path.
-		prefix = in;
-	}
-	((StringBase<char> *)&prefix)->toLower();
-	return prefix;
-}
+// GameState::portableMapPathToRealMapPath is defined with its retail-matched
+// body in Code/GameEngine/Source/Common/System/SaveGame/GameStatePortableMapPathToReal.cpp
+// (0x002DC9F7, 421B). The donor-derived duplicate that stood here missed
+// retail's bytes (notably the 4th LivingWorldScripts branch) and lost the
+// link to the rowed copy, so it is deleted rather than kept.
 
 // ------------------------------------------------------------------------------------------------
 /** Does the save game file exist */
