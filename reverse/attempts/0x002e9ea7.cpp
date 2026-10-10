@@ -1,4 +1,6 @@
 // ?rva002E9EA7@Pathfinder@@QAE_NPAVObject@@HHW4PathfindLayerEnum@@HHPAH@Z
+// partial score=0.8203970778324837 date=2026-10-10
+// ?rva002E9EA7@Pathfinder@@QAE_NPAVObject@@HHW4PathfindLayerEnum@@HHPAH@Z
 // partial score=0.8 date=2026-10-06
 // cl: /O1 /DNDEBUG /MD
 // Dump lane range 13: ?rva002E9EA7 @0x002E9EA7 531B. Pathfinder
@@ -53,7 +55,7 @@ class Object
 public:
 	bool rva0028AFBB() const;
 	Relationship getRelationship(const Object *other) const;
-	bool rva0028ADB0() const;
+	bool IsAtGoalPosition() const;
 	char _00[4];
 	ObjectInner *m_04;
 	char _08[0x74 - 8];
@@ -200,7 +202,7 @@ bool Pathfinder::rva002E9EA7(Object *a1, int a2, int a3, PathfindLayerEnum a4, i
 		flag = a5b;
 		dv = a5i;
 	}
-	if (((a1->m_04->m_113 & 4) != 0) && ((a1->m_04->m_109 & 1) != 0) && (a4 != u))
+	if (((((Object *volatile&)a1)->m_04->m_113 & 4) != 0) && ((a1->m_04->m_109 & 1) != 0) && (a4 != u))
 	{
 		dv = u;
 		flag = 0;
@@ -234,7 +236,7 @@ bool Pathfinder::rva002E9EA7(Object *a1, int a2, int a3, PathfindLayerEnum a4, i
 				int tag = cell->m_C;
 				if ((tag & 15) == 5)
 					return false;
-				if ((((tag >> 18) & 1) != 0) && a1->rva0028AFBB())
+				if ((((unsigned char)(tag >> 18) & 1) != 0) && a1->rva0028AFBB())
 					return false;
 				int tag2 = cell->m_C;
 				int k = tag2 & 15;
@@ -248,7 +250,7 @@ bool Pathfinder::rva002E9EA7(Object *a1, int a2, int a3, PathfindLayerEnum a4, i
 				}
 				if (k == 5 || k == 6)
 					return false;
-				if ((((tag2 >> 18) & 1) != 0) && a1->rva0028AFBB())
+				if ((((unsigned char)(tag2 >> 18) & 1) != 0) && a1->rva0028AFBB())
 					return false;
 				void *n1 = cell->m_0;
 				Rva002E9EA7Occ1 *b = n1 ? ((Rva002E9EA7Head1 *)n1)->m_14 : 0;
@@ -259,7 +261,7 @@ bool Pathfinder::rva002E9EA7(Object *a1, int a2, int a3, PathfindLayerEnum a4, i
 					{
 						if (a1->getRelationship(o) == REL_2)
 							(*a6)++;
-						else if (!o->rva0028ADB0())
+						else if (!o->IsAtGoalPosition())
 							return false;
 					}
 					b = b->m_next;
