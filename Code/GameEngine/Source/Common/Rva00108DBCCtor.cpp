@@ -1,7 +1,4 @@
-// ??0Rva00108DBC@@QAE@XZ
-// partial score=0.99 date=2026-10-09
-// cl: /O1 /MD /EHsc /DNDEBUG /G7 /arch:SSE
-// Storage view of native00108D33, not an original-class naming claim.
+// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /arch:SSE /G7
 // Native unwind action76457B calls the existing base destructor10846E.
 class Rva00108475 {
 public:
