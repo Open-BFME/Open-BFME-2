@@ -170,7 +170,12 @@ public:
 		int m_08;
 	};
  // Same12B lock ABI; the native append cleanup uses the owned WriteLock destructor.
- class AppendLockClass : public WriteLockClass { public: AppendLockClass(VertexBufferClass*, unsigned, unsigned, int); };
+ // The dtor is declared, not defined: retail folds ??1AppendLockClass onto
+ // ??1WriteLockClass at 0x00139530 (pin 2998), so this unit emits no copy
+ // of its own. Emitting the implicit derived dtor produced a short thunk
+ // the link kept ahead of the folded body (S ??1AppendLockClass). The
+ // stack lock in AddParticle below calls the same mangled name either way.
+ class AppendLockClass : public WriteLockClass { public: AppendLockClass(VertexBufferClass*, unsigned, unsigned, int); ~AppendLockClass(); };
 
 };
 
