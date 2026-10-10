@@ -76,8 +76,14 @@ public:
 class Base0_00576C4B
 {
 public:
+	Base0_00576C4B();
 	virtual ~Base0_00576C4B() {}
 };
+// ??0Base0_00576C4B@@QAE@XZ @0x001DB0AC 9B: the default constructor, storing the
+// class's own vtable (VA 0x00BDBA74) and returning this.
+Base0_00576C4B::Base0_00576C4B()
+{
+}
 class Listener00576C4B
 {
 public:

@@ -37,8 +37,14 @@ struct Rva005E0B0FHolder14 {
 class Rva0086E330Base
 {
 public:
+	Rva0086E330Base();
 	virtual ~Rva0086E330Base() {}
 };
+// ??0Rva0086E330Base@@QAE@XZ @0x005E1871 9B: the default constructor, storing the
+// class's own vtable (VA 0x00C6E330) and returning this.
+Rva0086E330Base::Rva0086E330Base()
+{
+}
 
 class Rva005E0B0F : public Rva0086E330Base
 {
