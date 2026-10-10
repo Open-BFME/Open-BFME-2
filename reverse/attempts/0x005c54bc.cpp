@@ -1,75 +1,69 @@
 // ?reverseAnimateWindow@ProcessAnimateWindowSlideFromLeft@@UAE_NPAVAnimateWindow@@@Z
-// partial score=0.97 date=2026-10-10
-// cl: /FIzh_ascii.h /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /Oy- /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /DBFME_MODULE_NO_MPO /DZH_EMIT_POOL_GLUE /Ireference/shims/bfmerendobj /Ireference/shims/debugvtable /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/bfmeanimobj /Ireference/shims/indexbuffercount /Ireference/shims/bfmecaps /Ireference/shims/bfmehcanim /Ireference/shims/bfmevector /Ireference/shims/bfmemapper /Ireference/shims/meshmatdesclayout /Ireference/shims/bfmeshader /Ireference/shims/bfmecpudetect /Ireference/shims/bfmepool /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWAudio /Ireference/shims/bfmealloc /Ireference/shims/bfmehashtable /Ireference/shims/bfmelist /Ireference/shims/asciistring_downloadmanager /Ireference/shims/stlp_nodealloc /Ireference/shims/asciistring_thin /ICode/GameEngine/Source/Common /Ireference/shims/w3droadbuffer /Ireference/shims/bfmeterraintracks /ICode/Libraries/Include/Lib /Ireference/shims
-// stlport
-// Shard for SlideFromLeft::reverseAnimateWindow: retail 0x005C54BC is a framed
-// manual-prologue body like the Spiral family; the home TU builds this family
-// under /G7 and emits a different shape so this body lives here under /O1.
-// Home-transcription minus the ZH curPos.x clamp (retail passes startPos.x
-// straight to winSetPosition); slowedX slowedVel temps plus out-of-line getVel
-// plus inline setVel setCurPos like the update side.
-// The compiler-generated vector constructor iterator (??_H) takes the
-// optimization state of the first function that needs it. Retail links one
-// copy, the /O1 body at 0x00001423; this unemitted anchor makes this unit's
-// copy that same body, so it no longer loses to retail's at link time.
-// It can also change how later array constructions here compile; checked to
-// change nothing else in this unit, but if a function added later that builds
-// an array will not match, try it without this block.
-struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
-#pragma optimize("gsy", on)
-static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
-#pragma optimize("", on)
-#include "PreRTS.h"
-#include "GameClient/ProcessAnimateWindow.h"
-#pragma optimize("sy", on)
-#include "GameClient/AnimateWindowManager.h"
-#pragma optimize("", on)
-#include "GameClient/GameWindow.h"
-#include "GameClient/Display.h"
-
-// ?reverseAnimateWindow@ProcessAnimateWindowSlideFromLeft@@UAE_NPAVAnimateWindow@@@Z @0x005C54BC
-Bool ProcessAnimateWindowSlideFromLeft::reverseAnimateWindow( AnimateWindow *animWin )
+// partial score=0.999 date=2026-10-10
+// cl: /O1 /arch:SSE /G6 /Oy- /MD /ICode/Libraries/Include/Lib
+// Reference: BF1 f98983a7d / GeneralsMD ProcessAnimateWindowSlideFromLeft.
+// Target boundary 0x005C54BC..0x005C55A5; offsets and ordering are retail facts.
+// Constructor 0x005C52CE installs vtable 0xC7486C and slot 4 is
+// reverseAnimateWindow, which proves the target virtual method.
+// Existing getVel at 0x005C5046 has an 8-byte hidden output and ret 4.
+struct Coord2D;
+struct RvaLeftVelocity { float x,y; };
+struct ICoord2D { int x,y; };
+class GameWindow { public: int winSetPosition(int,int); };
+class AnimateWindow {
+public:
+ Coord2D getVel();
+ void setVel(RvaLeftVelocity value) { m_velocity=value; }
+ void *vptr; unsigned delay; ICoord2D start,end,current,rest;
+ GameWindow *window; RvaLeftVelocity m_velocity;
+ unsigned startTime,endTime; int animType; bool needsFinish,finished;
+};
+extern "C" __declspec(dllimport) unsigned long __stdcall timeGetTime();
+class ProcessAnimateWindowSlideFromLeft {
+public:
+ virtual ~ProcessAnimateWindowSlideFromLeft();
+ virtual void initAnimateWindow(AnimateWindow*);
+ virtual void initReverseAnimateWindow(AnimateWindow*,unsigned);
+ virtual bool updateAnimateWindow(AnimateWindow*);
+ virtual bool reverseAnimateWindow(AnimateWindow*);
+ virtual void setMaxDuration(unsigned);
+ RvaLeftVelocity maxVel; int slowThreshold; float slowRatio,speedRatio;
+};
+struct RvaLeftReverseVelocity {
+ RvaLeftReverseVelocity() {}
+ RvaLeftReverseVelocity(const RvaLeftReverseVelocity &v):x(v.x),y(v.y) {}
+ float x,y;
+};
+bool ProcessAnimateWindowSlideFromLeft::reverseAnimateWindow(AnimateWindow *a)
 {
-	if(!animWin)
-	{
-		DEBUG_ASSERTCRASH( animWin, ("animWin was passed into updateAnimateWindow as a NULL Pointer... bad bad bad!"));
-		return TRUE;
-	}
-	if(animWin->isFinished())
-		return TRUE;
-	if(timeGetTime() < animWin->getStartTime())
-		return FALSE;
-	GameWindow *win = animWin->getGameWindow();
-	if(!win)
-	{
-		DEBUG_ASSERTCRASH( win, ("animWin contains a NULL Pointer for it's GameWindow... Whatup wit dat?"));
-		return TRUE;
-	}
-	ICoord2D curPos = animWin->getCurPos();
-	ICoord2D startPos = animWin->getStartPos();
-	Coord2D vel = animWin->getVel();
-	curPos.x += (Int)vel.x;
-
-	if(curPos.x < startPos.x)
-	{
-		animWin->setFinished( TRUE );
-		win->winSetPosition(startPos.x, curPos.y);
-		return TRUE;
-	}
-	win->winSetPosition(curPos.x, curPos.y);
-	animWin->setCurPos(curPos);
-
-	ICoord2D endPos = animWin->getEndPos();
-	Real slowedX;
-	if( endPos.x - curPos.x <= m_slowDownThreshold )
-		slowedX = vel.x * m_speedUpRatio;
-	else
-		slowedX = -m_maxVel.x;
-	if( slowedX < -m_maxVel.x)
-		slowedX = -m_maxVel.x;
-	Coord2D slowedVel;
-	slowedVel.x = slowedX;
-	slowedVel.y = vel.y;
-	animWin->setVel(slowedVel);
-	return FALSE;
+ if(!a) return true;
+ if(a->finished) return true;
+ unsigned startTime=a->startTime;
+ if(timeGetTime()<startTime) return false;
+ GameWindow *win=a->window;
+ if(!win) return true;
+ ICoord2D cur=a->current;
+ RvaLeftReverseVelocity vel;
+ ICoord2D start=a->start;
+ typedef void (AnimateWindow::*VelocityOutput)(RvaLeftReverseVelocity*);
+ (a->*reinterpret_cast<VelocityOutput>(&AnimateWindow::getVel))(&vel);
+ cur.x+=(int)vel.x;
+ if(cur.x<start.x) {
+  cur.x=start.x;
+  a->finished=true;
+  win->winSetPosition(cur.x,cur.y);
+  return true;
+ }
+ win->winSetPosition(cur.x,cur.y);
+ a->current=cur;
+ start=a->end;
+ float slowedX;
+ if(start.x-cur.x<=slowThreshold) slowedX=speedRatio*vel.x;
+ else slowedX=-maxVel.x;
+ if(slowedX>-maxVel.x) slowedX=-maxVel.x;
+ RvaLeftVelocity slowedVel;
+ slowedVel.x=slowedX;
+ slowedVel.y=vel.y;
+ a->setVel(slowedVel);
+ return false;
 }
