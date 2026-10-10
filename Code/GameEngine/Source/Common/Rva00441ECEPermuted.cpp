@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /vmg /vmm /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
+// cl: /O1 /G7 /vmg /vmm /DBFME_ASCII_DTOR_DECL /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
 //
 // ??0AptMpGameSetup@@QAE@PAVMpGameSetupOwner@@H@Z, retail 0x00441ece, 780 bytes. Banked partial (score 0.99) closed by tools/permute.py;
 // the body is the banked one up to statement/operand order and local types.
