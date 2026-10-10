@@ -1,4 +1,6 @@
 // ?computeApproachPoint@SiegeDeploySpecialPower@@QAE?AURva004598F2Point@@PAVObject@@PAU2@PA_N@Z
+// partial score=0.9849177878534604 date=2026-10-10
+// ?computeApproachPoint@SiegeDeploySpecialPower@@QAE?AURva004598F2Point@@PAVObject@@PAU2@PA_N@Z
 // partial score=0.99 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHs /D_CRTIMP= /ICode/Libraries/Include /ICode/GameEngine/Source/Common
 //
@@ -65,7 +67,7 @@ public:
 	const Rva004598F2Point *getPosition() const { return &m_position; }
 	ObjectID getID() const { return m_id; }
 	void setStatus(ObjectStatusTypes status, bool set);
-	Module *findModule(NameKeyType key) const;
+	friend class SiegeDeploySpecialPower; protected: Module *findModule(NameKeyType key) const; public:
 	unsigned char m_pad00[0x38];
 	Rva004598F2Point m_position;
 	unsigned char m_pad44[0x74 - 0x44];
@@ -76,7 +78,7 @@ class Pathfinder
 {
 public:
 	bool IsPointOnWall(int pos, bool flag);
-	void AdjustMeleeOffset(Object *self, Object *target, Rva004598F2Point *offset);
+	void AdjustMeleeOffset(Object *self, Object *target, Coord3D *offset);
 };
 
 class AIHead
@@ -144,7 +146,7 @@ Rva004598F2Point SiegeDeploySpecialPower::computeApproachPoint(Object *target, R
 			offset.z *= 0.1f;
 			if (!m_moduleData->m_noAdjust)
 			{
-				TheAI->m_pathfinder->AdjustMeleeOffset(m_object, target, &offset);
+				TheAI->m_pathfinder->AdjustMeleeOffset(m_object, target, (Coord3D*)&offset);
 				position = *targetPosition;
 				position.x += offset.x;
 				position.y += offset.y;
