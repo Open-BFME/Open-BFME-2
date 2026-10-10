@@ -1,4 +1,6 @@
 // ?rva002B676D@LivingWorldLogic@@QAEXXZ
+// partial score=0.985 date=2026-10-10
+// ?rva002B676D@LivingWorldLogic@@QAEXXZ
 // partial score=0.9532692307692308 date=2026-10-10
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
@@ -640,13 +642,14 @@ struct LocalRegionOwner13C {char pad13c[0x13c];Int owner;};
 struct LocalRegionPlots170 {char pad13c[0x13c];Int owner;char pad140[0x170-0x140];_STL::vector<Parent00575EEA*>plots;};
 void LivingWorldLogic::rva002B676D(){
  if(m_localPlayer){
- LocalCampaignRegions2C*campaign=reinterpret_cast<LocalCampaignRegions2C*>(m_field0B0->m_armySet);
+ LocalCampaignRegions2C*campaign=reinterpret_cast<LocalCampaignRegions2C*>((m_field0B0?m_field0B0:m_field0B0)->m_armySet);
  _STL::vector<Rva003F287F*>*regions;if(campaign)regions=&campaign->regions;else regions=0;
  if(regions){
  _STL::vector<const ModuleData*>unusedModules;
  for(unsigned i=0;i<regions->size();++i){
   LocalRegionPlots170*region=reinterpret_cast<LocalRegionPlots170*>((*(m_localPlayer?regions:regions))[i]);
-  if(region->owner==reinterpret_cast<LocalPlayerId14*>(m_localPlayer)->id){
+  Int ownerId=region->owner;
+  if(ownerId==reinterpret_cast<LocalPlayerId14*>(m_localPlayer)->id){
    int count=region->plots.size();
    for(int j=0;j<count;++j){
     Parent00575EEA*entry=region->plots[j];
