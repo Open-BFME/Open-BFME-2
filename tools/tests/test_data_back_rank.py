@@ -545,3 +545,15 @@ def test_an_operand_crossing_the_row_end_gives_no_evidence():
     assert dbr.datum_starts(b"\0" * 20, target, [(0, dbr.DIR32, "_g"), (18, dbr.DIR32, "_g")], 20) is None
     assert dbr.datum_starts(body, target, [(0, dbr.DIR32, "_g"), (16, dbr.DIR32, "_g")], 20) is not None
     assert dbr.datum_starts(body, target, [(0, dbr.DIR32, "_g"), (20, dbr.DIR32, "_g")], 20) is not None  # past the row
+
+
+def test_fold_list_starts_are_signed(tmp_path):
+    """A receipt written before link_cycle's signed-addend fix spelled a negative
+    datum start "0x-FF5DDA08", which stopped the whole report."""
+    path = tmp_path / "data_fold_list.csv"
+    path.write_text("retail_rva,retail_start,export_names,linked,symbols,rule,verdict\n"
+                    "0x00A20D58,0x-FF5DDA08;0x00A20D20,0,,_a;_b,,not read-only\n"
+                    "0x00A20D60,-0x00000010;0x00A20D20,0,,_a,,not read-only\n", encoding="utf-8")
+    folds = dbr.load_fold_list(path)
+    assert folds["starts"][0x00A20D20] == [0x00A20D58, 0x00A20D60]
+    assert folds["starts"][-0xFF5DDA08] == [0x00A20D58] and folds["starts"][-0x10] == [0x00A20D60]

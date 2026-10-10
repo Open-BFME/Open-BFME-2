@@ -300,7 +300,8 @@ def load_fold_list(path):
             address = int(row["retail_rva"], 16)
             exact[address] = (row["rule"], row["verdict"])
             for start in filter(None, row["retail_start"].split(";")):
-                starts[int(start, 16)].add(address)
+                # signed; receipts before the addend fix spelled a negative start "0x-..."
+                starts[int(start.replace("0x-", "-0x"), 16)].add(address)
     return {"exact": exact, "starts": {s: sorted(a) for s, a in starts.items()}}
 
 

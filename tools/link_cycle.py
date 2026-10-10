@@ -1196,12 +1196,24 @@ class Measure:
         (linked start of the datum, its size, offset of lt in it, defining object,
         section, section offset of the datum, linked address of the named symbol).
         A public the referencing object defines counts as its own only when the
-        map says the link selected that object's copy."""
+        map says the link selected that object's copy.
+
+        A DIR32 addend is a signed displacement (MSVC folds `table[i - 1]` into
+        [reg*4 + table-4], stored addend -4); read unsigned it put lt about 4 GB
+        into the section. A displacement before the named symbol stays unresolved
+        (data-unmapped): an indexed read through it reaches the symbol's own datum
+        and a direct one the bytes before it, and judging either alone would credit
+        the other unchecked. Judging both is a follow-up; until then nothing is
+        credited there. (Displacements past the symbol's datum are judged by the
+        datum holding lt, as before.)"""
+        if addend & 0x80000000:
+            addend -= 1 << 32
         local = y is not None and y.sec > 0
         if local and y.cls == EXTERNAL and tn in self.pubobj and self.object_name(o) is not None:
             local = self.pubobj[tn] == self.object_name(o)
         if local:                                    # defined in the referencing object
             sec, P, S = o[0][y.sec - 1], y.value + addend, lt - addend
+            base = y.value
         else:                                        # defined elsewhere: the map names its object
             S, ob = self.pub.get(tn), self.pubobj.get(tn)
             found = self.objs.lookup(ob, tn) if ob else None
@@ -1215,13 +1227,15 @@ class Measure:
             if S is not None and not found and self.communal(tn):
                 # an uninitialized global: a COMMON record sizes it (the linker takes the
                 # largest), and the map names an object that does not define it
-                return S, self.communal(tn), lt - S, o, None, 0, S
+                return None if lt < S else (S, self.communal(tn), lt - S, o, None, 0, S)
             if S is None or not found:
                 return None
             o, ys = found
-            sec, P = o[0][ys.sec - 1], ys.value + (lt - S)
+            sec, P, base = o[0][ys.sec - 1], ys.value + (lt - S), ys.value
+        if P < base:
+            return None
         vals = self.objs.defined(o)[1].get(sec.idx, [])
-        q = max(0, min(P, sec.size - 1))
+        q = min(P, sec.size - 1)
         i = bisect.bisect_right(vals, q) - 1
         v0 = vals[i] if i >= 0 else 0
         v1 = vals[i + 1] if i + 1 < len(vals) else sec.size
@@ -2502,7 +2516,7 @@ def write_data_folds(path, m):
             reach = sorted(m.reach.get(rt, ()))
             keys = sorted({k[1] for _, k in reach if k[0] == "datum"})
             starts = sorted({key[1] for key in keys})
-            w.writerow(["0x%08X" % rt, ";".join("0x%08X" % s for s in starts),
+            w.writerow(["0x%08X" % rt, ";".join(("-0x%08X" if s < 0 else "0x%08X") % abs(s) for s in starts),
                         max([len(m.folds.get(s, ())) for s in starts] or [0]),
                         ";".join("0x%08X:%s" % (lt, k[1][2] if k[0] == "datum" else k[0]) for lt, k in reach),
                         ";".join(sorted({m.dnodes[key]["name"] for key in keys})), rule or "", why])
