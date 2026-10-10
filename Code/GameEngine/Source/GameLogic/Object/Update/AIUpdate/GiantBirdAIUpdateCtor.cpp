@@ -50,6 +50,8 @@ class ObjectModule
 {
 public:
 	virtual ~ObjectModule();
+protected:
+	Object *getObject() const { return m_object; }
 private:
 	const ModuleData *m_moduleData; // +0x04
 	Object *m_object; // +0x08
@@ -79,10 +81,18 @@ private:
 	Int m_reserved1C; // +0x1C
 };
 
+enum CommandSourceType
+{
+	CMD_FROM_PLAYER = 0,
+	CMD_FROM_SCRIPT = 1,
+	CMD_FROM_AI = 2
+};
+
 class AICommandInterface
 {
 public:
 	virtual void aiDoCommand();
+	void aiIdle(CommandSourceType cmdSource);
 };
 
 class AIUpdateInterface24
@@ -134,6 +144,7 @@ class GiantBirdAIUpdate : public AIUpdateInterface
 {
 public:
 	GiantBirdAIUpdate(Thing *thing, const ModuleData *moduleData);
+	virtual void rva0036B6B9();
 protected:
 	virtual ~GiantBirdAIUpdate();
 private:
@@ -205,4 +216,51 @@ GiantBirdAIUpdate::GiantBirdAIUpdate(Thing *thing, const ModuleData *moduleData)
 // the AIUpdateInterface base destructor (pinned 0x0026E836) runs last.
 GiantBirdAIUpdate::~GiantBirdAIUpdate()
 {
+}
+
+// ?rva0036B6B9@GiantBirdAIUpdate@@UAEXXZ, retail 0x0036B6B9, 94 bytes: primary
+// vtable slot 89 (0x00817BE4; AIUpdateInterface's own slot is empty),
+// directly before the constructor. When the bird's controlling player is the
+// one this machine drives (the local player in the game logic's 0x00200084
+// mode, else an AI player 0x002AA245 without the +0x5C flag) and the AI
+// orders manager has no orders for it (0x003552C2), the bird is told to idle
+// as an AI command.
+class Player
+{
+public:
+	Bool isLocalPlayer() const;
+	Bool rva002AA245() const;
+	unsigned char m_pad000[0x5C];
+	Int m_5C;
+};
+struct GiantBirdObjectView { unsigned char m_pad000[0x74]; Int m_id; };
+class Object { public: Player *getControllingPlayer() const; };
+class Rva0023C6A4 { public: Bool rva00200084(); };
+class GameLogic;
+extern GameLogic *TheGameLogic;
+enum NameKeyType { NAMEKEY_INVALID = 0 };
+class Rva00355B61 { public: Bool rva003552C2(NameKeyType key); };
+class AiOrdersManager;
+extern AiOrdersManager *TheAiOrdersManager;
+
+void GiantBirdAIUpdate::rva0036B6B9()
+{
+	Object *obj = getObject();
+	Player *player = obj->getControllingPlayer();
+	if (!player)
+		return;
+	Bool controlled;
+	if (((Rva0023C6A4 *)TheGameLogic)->rva00200084())
+		controlled = player->isLocalPlayer();
+	else
+	{
+		if (player->m_5C != 0)
+			return;
+		controlled = player->rva002AA245();
+	}
+	if (!controlled)
+		return;
+	if (((Rva00355B61 *)TheAiOrdersManager)->rva003552C2((NameKeyType)((GiantBirdObjectView *)obj)->m_id))
+		return;
+	aiIdle(CMD_FROM_AI);
 }
