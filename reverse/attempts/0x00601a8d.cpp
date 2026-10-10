@@ -1,5 +1,5 @@
 // ?rva00601A8D@Rva00601BBCHelper@@QAEXXZ
-// partial score=0.8 date=2026-10-05
+// partial score=0.94 date=2026-10-10
 // cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //
@@ -18,15 +18,16 @@
 
 #include <vector>
 
-void operator delete[](void*);
-
 void Rva006016C9Init() throw();
+
+// ?rva00601C53@@YAXPAXH000@Z @0x00601C53 1027B worker (unrowed): __cdecl 5-param
+// (outer, flag, m_1C, m_28, &m_04); address-derived ABI from the native call; semantic identity remains unknown.
+void __cdecl rva00601C53(void *outer, int flag, void *vec1, void *vec2, void *member);
 
 struct Rva00524415
 {
 	Rva00524415();
 	~Rva00524415();
-	void clear();
 	char m_body[0x18];
 };
 
@@ -34,9 +35,11 @@ class Rva00601BBCHelper
 {
 public:
 	Rva00601BBCHelper();
+	Rva00601BBCHelper(void *outer);
 	virtual ~Rva00601BBCHelper();
 
 	void rva00601A8D();
+	bool rva00602072(void *outer);
 
 private:
 	Rva00524415 m_04;            // +0x04
@@ -54,28 +57,39 @@ Rva00601BBCHelper::~Rva00601BBCHelper()
 	rva00601A8D();
 }
 
-// Banked native601A8D..601AE9 Ghidra92B. Matching caller601C11 proves helper method.
-// Member+4 clear calls newly fullverified28B at601A71; legacy24B class name
-// is an ABI view from a folded constructor and does not identify payload.
-// Arrays+28 deleted through verified2FD80 and zeroed only when nonnull.
-// Both ranges cleared through31BD55 fullverified34B pointer erase.
-// Natural vector<int>::erase independently reproduces complete34B too but
-// resolves another folded address688710; must bind a caller-proven ABI alias.
-// Current O1 body94B keeps begin in EAX and size in ECX at loop test instead
-// of native EAX size and begin reload. O1/G7/Ob2/pointer/reference/do variants
-// and direct byte-pointer delete preserve or worsen this register mismatch.
-void Rva00601BBCHelper::rva00601A8D()
+// ?rva00602072@Rva00601BBCHelper@@QAE_NPAX@Z @0x00602072 31B wrapper: forwards
+// outer/1/m_1C/m_28/&m_04 into worker 0x00601C53, returns true. Retail:
+// 8d4104 push &m_04, 8d4128 push m_28, 83c11c push m_1C, 6a01 push 1,
+// ff742414 push outer, e8 -> 0x00601C53, 83c414, b001, c20400.
+bool Rva00601BBCHelper::rva00602072(void *outer)
 {
-    m_04.clear();
-    _STL::vector<int>& arrays=m_28;
-    for (unsigned i=0;i<arrays.size();++i) {
-        if (arrays[i]) {
-            operator delete[](reinterpret_cast<void*>(arrays[i]));
-            arrays[i]=0;
-        }
-    }
-    arrays.erase(arrays.begin(),arrays.end());
-    _STL::vector<int>& other=m_1C;
-    other.erase(other.begin(),other.end());
+	rva00601C53(outer, 1, &m_1C, &m_28, &m_04);
+	return true;
 }
-#pragma comment(linker, "/alternatename:?clear@Rva00524415@@QAEXXZ=?clear@Rva00601B30@@QAEXXZ")
+
+// ??0Rva00601BBCHelper@@QAE@PAX@Z @0x00602091 95B: same member init
+// as the void ctor (vtable + m_04 + two vectors + once-only init) then tail
+// forwards the incoming outer pointer through the rowed 0x00602072 wrapper.
+// __thiscall 1-arg ret4; wrapper result discarded. EH unwinds members if the
+// worker throws (init itself is throw()).
+Rva00601BBCHelper::Rva00601BBCHelper(void *outer)
+{
+	Rva006016C9Init();
+	rva00602072(outer);
+}
+
+class Rva00601B30 {public:void clear();char storage[0x18];};
+void Rva00601BBCHelper::rva00601A8D(){
+ ((Rva00601B30*)&m_04)->clear();
+ _STL::vector<int>& blocks=m_28;
+ for(unsigned int i=0;i<blocks.size();++i){
+  if(blocks[i]){
+   delete[] (char*)blocks[i];
+   blocks[i]=0;
+  }
+ }
+ _STL::vector<void*>& pointers=(_STL::vector<void*>&)blocks;
+ pointers.erase(pointers.begin(),pointers.end());
+ _STL::vector<void*>& keys=(_STL::vector<void*>&)m_1C;
+ keys.erase(keys.begin(),keys.end());
+}
