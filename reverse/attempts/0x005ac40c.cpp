@@ -1,6 +1,6 @@
 // ?moveDozerAway@AIStructureCreepTactic@@QAEXXZ
-// partial score=0.8 date=2026-10-09
-// cl: /DBFME_ASCII_DTOR_DECL /MD /GX /DNDEBUG /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii
+// partial score=0.8108270785742775 date=2026-10-10
+// cl: /O1 /G7 /arch:SSE /DBFME_ASCII_DTOR_DECL /MD /GX /DNDEBUG /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii
 // stlport
 //
 // The "StructureCreep" skirmish-AI tactic (vtable 0x008722EC; ctor 0x005AB91D
@@ -158,7 +158,7 @@ struct Rva005AB7E5Template
 };
 
 class Player;
-class Team;
+class Team{public:char pad[0x5D];bool m_5D,m_5E;};
 
 struct Coord3D;
 
@@ -171,7 +171,7 @@ class AICommandInterface
 {
 public:
 	void aiIdle(CommandSourceType source);			// 0x001E8A38
-	void aiMoveToPosition(const Coord3D *point, int source);	// move to the point
+	void aiMoveToPosition(const Coord3D *point, CommandSourceType source);	// move to the point
 };
 
 struct Rva005AB7E5AI
@@ -198,7 +198,7 @@ public:
 class Player
 {
 public:
-	char m_pad000[0x2EC];
+	char m_pad000[0x4C];AsciiString m_4C;char m_pad050[0x2EC-0x50];
 	Team *m_defaultTeam;		// +0x2EC
 };
 
@@ -221,15 +221,16 @@ struct Coord3DBase
 
 struct Coord3D : public Coord3DBase
 {
-	~Coord3D() {}
+	Coord3D(float a,float b,float c){x=a;y=b;z=c;}Coord3D(){}Coord3D(const Coord3D&r){x=r.x;y=r.y;z=r.z;}~Coord3D() {}
 };
 
-class Rva004EBF4B
-{
-public:
-	Coord3D rva004EBF4B();
-};
+class AIBaseBuilder{public:char pad[0x28];Coord3D point;bool rva00506B74(Coord3D*);};
+class Rva004EBF4B{public:Coord3D rva004EBF4B();char pad[4];AIBaseBuilder builder;};
+inline __declspec(noinline) Coord3D Rva004EBF4B::rva004EBF4B(){Coord3D tmp;tmp.x=0;tmp.y=0;tmp.z=0;builder.rva00506B74(&tmp);return Coord3D(tmp);}
 
+
+struct Rva005996FFArg;
+class Rva005996FF { public: void rva005996FF(Rva005996FFArg *, bool); };
 class WWMath
 {
 public:
@@ -255,7 +256,7 @@ struct Rva005AC40CVector
 		float len2 = Length2();
 		if (len2 != 0.0f)
 		{
-			float oolen = WWMath::Inv_Sqrt(len2);
+			double oolen = WWMath::Inv_Sqrt(len2);
 			X *= oolen;
 			Y *= oolen;
 			Z *= oolen;
@@ -413,14 +414,15 @@ struct Rva005AC0B5Template
 	unsigned int m_108;	// +0x108
 };
 
-class Rva002D06CA
+class ThingTemplate;
+class ThingFactory
 {
 public:
-	void *rva002D06CA(const AsciiString *key);	// the thing template by name
+	const ThingTemplate *findTemplate(const AsciiString &key);	// the thing template by name
 };
 // Use the ledger-defined factory view at DFF000; avoid a second
 // external spelling of the same factory pointer.
-extern Rva002D06CA *TheThingFactory;
+extern ThingFactory *TheThingFactory;
 
 struct BfmeWideResult
 {
@@ -517,10 +519,15 @@ struct Rva00573A00
 	void rva00573A00(const Coord3D *p);
 };
 
+struct Rva003A2FD4Proto{char pad[0x2CC];int m_2CC;char pad2D0[0x31C-0x2D0];bool m_31C;};
+class TeamPrototype;
+class TeamFactory{public:Rva003A2FD4Proto*initTeamForTacticalAI(const AsciiString&,void*,int,unsigned);Team*createTeamOnPrototype(TeamPrototype*,bool);};
+extern TeamFactory*TheTeamFactory;extern const char*g_00DBC1B8TacticTypeNames[];
 class AITactic
 {
 public:
 	virtual ~AITactic();
+	virtual bool canRun(void *request);
 	virtual void cleanUp();
 	virtual void initializeTeamTemplate();
 	virtual void v4();
@@ -528,7 +535,7 @@ public:
 	virtual void run();
 	virtual void v8();
 	virtual AITactic *create();
-	void end(bool a, bool b);
+	void end(bool a, bool b);void NotifyTeamCreated(Team*);
 };
 
 class AITacticOffensive : public AITactic
@@ -537,7 +544,7 @@ public:
 	virtual ~AITacticOffensive();
 	char m_pad04[0x24 - 4];
 	Player *m_owner;		// +0x24
-	char m_pad28[0x58 - 0x28];
+	char m_pad28[4];AsciiString m_name;unsigned m_id;char m_pad34[0x58-0x34];
 };
 
 class Rva005DCC24 : public AITacticOffensive
@@ -550,6 +557,7 @@ class AIStructureCreepTactic : public Rva005DCC24
 {
 public:
 	virtual ~AIStructureCreepTactic();
+	virtual bool canRun(void *request);
 	virtual void cleanUp();
 	virtual void xfer(Xfer *xfer);
 	bool findBestInterestZone();
@@ -558,7 +566,7 @@ public:
 	bool validateTemplateName(const AsciiString &name);
 	bool isOffensiveBuilding(Object *obj);
 	bool rva005AC294();
-	void moveDozerAway();
+	void moveDozerAway();virtual void run();
 	virtual void update();
 private:
 	ObjectID m_58;		// +0x58
@@ -642,6 +650,21 @@ void AIStructureCreepTactic::cleanUp()
 	}
 }
 
+bool AIStructureCreepTactic::canRun(void *request)
+{
+	if (m_nextRun == (unsigned int)-1 || m_nextRun <= TheGameLogic->getFrame()) {
+		Rva002A8AB1Record *record = g_00DFEEF8->rva002A8AB1(m_owner);
+		if (record->rva002C7196(AIStructureCreep_IsRunning) == 0
+			&& !record->m_160->m_names.empty()
+			&& record->m_140.rva00599870(((Rva004EBF4B *)record)->rva004EBF4B(), 0) != 0) {
+			Rva00596389 *stats = ((Rva005AB7E5Objects *)g_00DFEEF8->rva002A8F24(m_owner))->m_0C;
+			if (stats->rva00596394() >= 700u && findBestInterestZone())
+				return true;
+		}
+	}
+	return false;
+}
+
 bool AIStructureCreepTactic::findBestInterestZone()
 {
 	Rva002C5FE8 *sites = g_00DFEEF8->rva002A8AB1(m_owner)->m_164;
@@ -702,7 +725,7 @@ bool AIStructureCreepTactic::validateTemplateName(const AsciiString &name)
 		}
 	}
 	if (objects.size() < 3) {
-		Rva005AC0B5Template *tmpl = (Rva005AC0B5Template *)TheThingFactory->rva002D06CA(&name);
+		Rva005AC0B5Template *tmpl = (Rva005AC0B5Template *)TheThingFactory->findTemplate(name);
 		if (tmpl->m_108 & 8)
 			return true;
 		if (names.find(name) == names.end())
@@ -710,7 +733,52 @@ bool AIStructureCreepTactic::validateTemplateName(const AsciiString &name)
 	}
 	return false;
 }
-
+// Native5ABAF6..5ABC81/395B; WB151F6F0 names AIStructureCreepTactic::run.
+// Owned getMyZone and tactical-team provider establish the role; member
+// name2C/id30 and owner24 are direct retail accesses. Player name4C is
+// independently read as an AsciiString by the owned factory116B. The local
+// map result and the fresh post-format ID keep native register scheduling.
+void AIStructureCreepTactic::run()
+{
+	Rva002A8AB1Record *record = g_00DFEEF8->rva002A8AB1(m_owner);
+	int running = record->rva002C7196(AIStructureCreep_IsRunning);
+	if (running == 0) {
+		Player *owner = m_owner;
+		Rva005ABEA2Site *site = getMyZone(owner, m_68);
+		if (site != 0) {
+			m_58 = (ObjectID)(int)record->m_140.rva00599870(site->m_pos, 0);
+			Object *obj = TheGameLogic->findObjectByID(m_58);
+			if (obj != 0) {
+				AsciiString teamName;
+				unsigned int id = m_id;
+				teamName.format("%s_%s_%u_%u", g_00DBC1B8TacticTypeNames[0], m_name.str(), id, 0);
+				unsigned tacticId = m_id;
+				Player *player = m_owner;
+				Rva003A2FD4Proto *proto = TheTeamFactory->initTeamForTacticalAI(
+					teamName, &player->m_4C, -1, tacticId);
+				if (proto != 0) {
+					proto->m_31C = false;
+					proto->m_2CC = 4;
+					m_5C = 1;
+					Team *team = TheTeamFactory->createTeamOnPrototype(reinterpret_cast<TeamPrototype *>(proto), false);
+					NotifyTeamCreated(team);
+					obj->setTeam(team);
+					((Rva005996FF *)&record->m_140)->rva005996FF(
+						reinterpret_cast<Rva005996FFArg *>(obj), false);
+					if (!team->m_5D) {
+						team->m_5E = true;
+						team->m_5D = true;
+					}
+					m_64 = (unsigned int)(TheGameLogic->getFrame() + g_00E0641C);
+					record->rva002C717E(AIStructureCreep_IsRunning, 1);
+					m_running = true;
+				}
+			}
+		}
+	}
+	if (!m_running)
+		end(false, false);
+}
 static __forceinline Rva005AC40CVector towards(const Coord3D &to, const Object *from)
 {
 	return Rva005AC40CVector(to.x, to.y, to.z) -
@@ -742,5 +810,5 @@ void AIStructureCreepTactic::moveDozerAway()
 	dir.X *= 500.0f;
 	dir.Y *= 500.0f;
 	dir.Z *= 500.0f;
-	dozer->m_ai->m_commands.aiMoveToPosition(&offsetFrom(dozer, dir), 0);
+	dozer->m_ai->m_commands.aiMoveToPosition(&Coord3D(dozer->m_pos[0]+dir.X,dozer->m_pos[1]+dir.Y,dozer->m_pos[2]+dir.Z), CMD_FROM_PLAYER);
 }
