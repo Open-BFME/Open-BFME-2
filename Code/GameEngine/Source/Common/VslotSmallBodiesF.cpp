@@ -200,3 +200,18 @@ int GetAssociatedMessageType(int stance)
     return 0;
 }
 
+
+// Native vtable-backed bit/word predicates. Address-token views carry only
+// observed data accesses and ABI; original owner and field meanings are unknown.
+struct Rva00261C72Word {char prefix[0x114]; unsigned int word;};
+struct Rva00261C72Arg {char prefix[4]; Rva00261C72Word *entry;};
+class Rva00261C72 {public: unsigned char rva00261C72(Rva00261C72Arg *arg);};
+unsigned char Rva00261C72::rva00261C72(Rva00261C72Arg *arg) {unsigned char result=(unsigned char)(arg->entry->word>>26); result=(unsigned char)~result; result&=1; return result;}
+
+struct Rva00261C58Arg {char prefix[0x1C8]; unsigned int word;};
+class Rva00261C58 {public: int rva00261C58(Rva00261C58Arg *arg); private: char prefix[8]; unsigned char byte;};
+int Rva00261C58::rva00261C58(Rva00261C58Arg *arg) {unsigned char difference=(unsigned char)((arg->word>>5)&1)-byte; return difference ?0:1;}
+
+struct Rva0057A4BAWord {char prefix[0x34]; unsigned int word;};
+class Rva0057A4BA {public: int rva0057A4BA(); private: char prefix[0x48]; Rva0057A4BAWord *entry; unsigned int word;};
+int Rva0057A4BA::rva0057A4BA() {return (entry->word-word) ?0:1;}
