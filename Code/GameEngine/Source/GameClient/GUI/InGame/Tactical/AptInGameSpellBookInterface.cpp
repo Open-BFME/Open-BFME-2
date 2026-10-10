@@ -34,6 +34,15 @@ class Player {public:Object *rva002AC629();};
 class ControlBar;extern ControlBar *TheControlBar;
 class CommandSet;
 class Rva0031D5F8 {public:void *rva0031D5F8(const AsciiString *);};
+// Native52A34D..52A36A is the 29B constructor callback passed by52AD30
+// to the plain array constructor: 24 entries, stride20, starting at+50.
+// The existing52A36A accessor independently reads float+8 and int+C.
+// Original entry spelling and the roles of fields0/C/10 remain unknown.
+struct Rva0052A34D {
+ Rva0052A34D();
+ int unknown0,state; float value8; int unknownC; bool unknown10;
+};
+Rva0052A34D::Rva0052A34D():unknown0(0),state(0),value8(1.0f),unknownC(0),unknown10(false){}
 class AptInGameSpellBookInterface {
 public: class Impl {
  public: void SetButtonState(int slotNum,int state);
@@ -41,7 +50,7 @@ public: class Impl {
  void rva0052A53B();
  static AsciiString GetButtonImageTargetName(int slotNum);
  private:
- struct ButtonSlot { int unknown0;int state;char unknown8[12]; };
+ typedef Rva0052A34D ButtonSlot;
  void *m_owner;void *m_level;AsciiString m_clipName;bool initialized;char unknownD[0x1b];BfmeMemberRV *m_player;CommandSet *m_commandSet;bool flashFlags[32];ButtonSlot m_slots[24];
 };
 };
