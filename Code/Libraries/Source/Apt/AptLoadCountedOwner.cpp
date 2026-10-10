@@ -1,7 +1,6 @@
-// ?rva006D25C0@Rva008951B0Owner@@QAEXVRva006D07E0Key@@PAX11@Z
-// partial score=0.9973653934652553 date=2026-10-10
-// ?rva006D25C0@Rva008951B0Owner@@QAEXVRva006D07E0Key@@PAX11@Z
-// partial score=0.9361999539806718 date=2026-10-09
+// Native006D25C0..006D2850 RET16, full656B. WB AptLoad is a semantic guide.
+// Target counted-owner/list offsets and relocation/state checks come from retail.
+// The list remover is the owned92B 006CFFE0 body, visible for compiler scheduling.
 // cl: /MD /EHsc
 void __debugbreak();
 #pragma intrinsic(__debugbreak)

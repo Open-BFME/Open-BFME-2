@@ -9982,7 +9982,7 @@ name,address,notes
 ?invoke@Rva00352F2FOpaque@@QAEXPBVWaypoint@@HW4CommandSourceType@@@Z,0x00352F2F,BFME2 NAMED_FOLLOW_WAYPOINTS_EXACT body at 0x3C8773 calls target helper with Waypoint* 0x7FFFFFFF and command source 1; opaque helper identity is limited to its target RVA and call ABI
 ?invoke@Rva0038BDEEReceiver@@QAEXPAX@Z,0x0038BDEE,Target direct call from stopHostingAlready at 0x0038D53B; receiver identity opaque
 ?invoke@Rva00498CB1Owner@@QAE_NXZ,0x00498CB1,selectDrawable target0x002A3805; gate-module bool query after Module pointer adjustment -4; native ECX and AL return
-?invoke@Rva00893030Manager@@QAEXVRva00893030Ref@@PAX11@Z,0x006D25C0
+?rva006D25C0@Rva008951B0Owner@@QAEXVRva006D07E0Key@@PAX11@Z,0x006D25C0,Native656B loader owner name reconciled with counted-key caller at6CE080; global manager view retained
 ?isAbleToAttack@Object@@QBE_NXZ,0x00290B73,address read from the REL32 displacement at a placed body
 ?isAbleToBeToppled@ToppleUpdate@@QBE_NXZ,0x004A8125,callee of ?topple@Object@@QAEXPBUCoord3D@@MI@Z at retail 0x0028CF37 read from its REL32 displacement; ICF alias onto ?get@Rva004A8125CmpBoolField@@QBE_NXZ (matched)
 ?isAllowedToRespondToAiCommands@AIUpdateInterface@@UBE_NPBUAICommandParms@@@Z,0x0026734C,callee read from retail REL32 at a given-back caller; byte-verified in the solo fork as Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateCommands.cpp (row not yet given back)
@@ -17120,3 +17120,4 @@ _VP6_ReadTokens,0x001BC3D0,callee of _VP6_DecodeBlock
 ??$_M_find@H@?$_Rb_tree@HU?$pair@$$CBHUNameAmount00396A5C@@@_STL@@U?$_Select1st@U?$pair@$$CBHUNameAmount00396A5C@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUNameAmount00396A5C@@@_STL@@@2@@_STL@@ABEPAU?$_Rb_tree_node@U?$pair@$$CBHUNameAmount00396A5C@@@_STL@@@1@ABH@Z,0x00388F63,fold-proof=Code/GameEngine/Source/GameLogic/Object/Behavior/Rva00396B0DForward.cpp; signed key actual name-and-amount map prefix; complete56B _M_find with no relocations
 ??0Rva00056F61@@QAE@XZ,0x002171F2,"callee of BannerUI::BannerUI 0x00217211 (the +0x0C banner type table's constructor) read from REL32; ICF-shared hash_map constructor body; address-named view of the table class"
 ??0?$Rva00211E58VectorBase@UBfmePod28@@V?$allocator@UBfmePod28@@@_STL@@@_STL@@QAE@ABV?$allocator@UBfmePod28@@@1@@Z,0x00211E58,"callee of BannerUI::BannerUI 0x00217211 (the +0x28 banner vector's allocator constructor) read from REL32; ICF-shared 29B STLport _Vector_base body; address-named base of BannerUI.cpp's vector view"
+?update@Rva006D1D10@@QAEXVRva006D07E0Key@@0@Z,0x006D1D10,Native6D1D10..6D1F77 RET8 accepts two four-byte counted owners from6D2773; releases both via owned6D0280 and pool1c. Neutral identity; provider bank retained.

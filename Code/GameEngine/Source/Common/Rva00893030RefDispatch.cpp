@@ -14,16 +14,16 @@ public:
 
 void bfmeDropVGO(void *value);
 
-class Rva00893030Ref
+class Rva006D07E0Key
 {
 public:
-	Rva00893030Ref(void *value) : m_value(value) {}
-	Rva00893030Ref(const Rva00893030Ref &other) : m_value(other.m_value)
+	Rva006D07E0Key(void *value) : m_value(value) {}
+	Rva006D07E0Key(const Rva006D07E0Key &other) : m_value(other.m_value)
 	{
 		if (m_value)
 			Rva00894D80Accessor::increment((unsigned int *)m_value);
 	}
-	~Rva00893030Ref()
+	~Rva006D07E0Key()
 	{
 		if (m_value && Rva00894D90Accessor::decrement((unsigned int *)m_value) == 0)
 			bfmeDropVGO(m_value);
@@ -32,17 +32,18 @@ public:
 	void *m_value;
 };
 
-class Rva00893030Manager
+class Rva008951B0Owner
 {
 public:
-	void invoke(Rva00893030Ref value, void *first, void *second, void *third);
+	void rva006D25C0(Rva006D07E0Key value, void *first, void *second, void *third);
 };
 
+class Rva00893030Manager;
 extern Rva00893030Manager *g_rva00893030Manager;
 // g_rva00893030Manager: matched references place it at VA 0xe176cc (zero-filled .bss).
 Rva00893030Manager * g_rva00893030Manager;
 
-void Rva00893030(Rva00893030Ref value, void *first, void *second, void *third)
+void Rva00893030(Rva006D07E0Key value, void *first, void *second, void *third)
 {
-	g_rva00893030Manager->invoke(value, first, second, third);
+	((Rva008951B0Owner *)g_rva00893030Manager)->rva006D25C0(value, first, second, third);
 }
