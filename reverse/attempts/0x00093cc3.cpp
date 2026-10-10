@@ -1,4 +1,6 @@
 // ?renderAsQuads@W3DSnowManager@@QAEXAAVRenderInfoClass@@HHHH@Z
+// partial score=0.9759426844089419 date=2026-10-10
+// ?renderAsQuads@W3DSnowManager@@QAEXAAVRenderInfoClass@@HHHH@Z
 // partial score=0.948887652239699 date=2026-10-10
 // ?renderAsQuads@W3DSnowManager@@QAEXAAVRenderInfoClass@@HHHH@Z
 // partial score=0.9427427157488508 date=2026-10-10
@@ -274,16 +276,17 @@ void W3DSnowManager::renderAsQuads(RenderInfoClass &rinfo, int cubeOriginX, int 
 	DX8Wrapper::Set_Transform(256, terrainTm);
 	DX8Wrapper::Set_Index_Buffer(m_indexBuffer, 0);
 
-	int tiles = m_tiles;
+	struct TileRenderState{float windX;float windY;unsigned int color;float height;int stepY;int stepX;};TileRenderState walk;
+int tiles = m_tiles;
 	if (tiles < 1)
 		tiles = 1;
-	int stepX = (cubeDimX - cubeOriginX) / tiles;
-	int stepY = (cubeDimY - cubeOriginY) / tiles;
+	walk.stepX = (cubeDimX - cubeOriginX) / tiles;
+	walk.stepY = (cubeDimY - cubeOriginY) / tiles;
 	int y = cubeOriginY;
 	int cubeOriginXRemainder = cubeOriginX;
-	int endY = cubeOriginY + stepY;
-	int endX = cubeOriginX + stepX;
-	int totalPart = stepY * stepX;
+	int endY = cubeOriginY + walk.stepY;
+	int endX = cubeOriginX + walk.stepX;
+	int totalPart = walk.stepY * walk.stepX;
 	int spacing = (int)m_emitterSpacing;
 	if (spacing < 1)
 		spacing = 1;
@@ -295,11 +298,11 @@ void W3DSnowManager::renderAsQuads(RenderInfoClass &rinfo, int cubeOriginX, int 
 		gray = (int)(((Rva000932E1 *)this)->rva000932E1() * 255.0f);
 	else
 		gray = 255;
-	unsigned int color = gray * 0x10101 + 0xFF000000;
+	walk.color = gray * 0x10101 + 0xFF000000;
 
 	float windScale = m_boxDimensions / m_velocity;
-	float windX = m_windX * windScale;
-	float windY = m_windY * windScale;
+	walk.windX = m_windX * windScale;
+	walk.windY = m_windY * windScale;
 
 	while (totalPart)
 	{
@@ -328,17 +331,17 @@ _ReadWriteBarrier();
 						MODPOW2(y + MAXIMUM_CAMERA_DISTANCE, SNOW_NOISE_Y) * SNOW_NOISE_X;
 					if (noiseOffset > SNOW_NOISE_X * SNOW_NOISE_Y)
 						noiseOffset = 0;
-					float height = m_startingHeights[noiseOffset] + m_heightTraveled;
-					float cycles = floorf(*(volatile const float*)&height / m_boxDimensions);
-					float h0 = m_snowCeiling - (height - m_boxDimensions * cycles);
+					walk.height = m_startingHeights[noiseOffset] + m_heightTraveled;
+					float cycles = floorf(walk.height / m_boxDimensions);
+					float h0 = m_snowCeiling - (walk.height - m_boxDimensions * cycles);
 					snowCenter = Vector3((float)x, (float)y, h0);
 					if (m_amplitude > 0.0f)
 					{
 						snowCenter.X += m_amplitude * WWMath::Fast_Sin(h0 * m_frequencyScaleX + (float)x);
 						snowCenter.Y += m_amplitude * WWMath::Fast_Sin(h0 * m_frequencyScaleY + (float)y);
 					}
-					snowCenter.X = m_originX - cycles * windX + snowCenter.X;
-					snowCenter.Y = m_originY - cycles * windY + snowCenter.Y;
+					snowCenter.X = m_originX - cycles * walk.windX + snowCenter.X;
+					snowCenter.Y = m_originY - cycles * walk.windY + snowCenter.Y;
 					i = 0;
 					do
 					{
@@ -346,7 +349,7 @@ _ReadWriteBarrier();
 						verts->nx = 0;
 						verts->ny = 0;
 						verts->nz = 0;
-						verts->diffuse = color;
+						verts->diffuse = walk.color;
 						verts->u1 = quad_uvs[i].X;
 						verts->v1 = quad_uvs[i].Y;
 						verts->u2 = 0;
@@ -370,7 +373,7 @@ flush_particles:
 				for (int j = 0; j < tiles; j++)
 				{
 					Vector3 pos = terrainTm.Get_Translation();
-					pos += Vector3((float)(j * stepX), (float)(i * stepY), 0.0f);
+					pos += Vector3((float)(j * walk.stepX), (float)(i * walk.stepY), 0.0f);
 					tm.Set_Translation(pos);
 					DX8Wrapper::Set_Transform(256, tm);
 					DX8Wrapper::Draw_Triangles(0, numberInBatch * 2, 0, numberInBatch * 4);
