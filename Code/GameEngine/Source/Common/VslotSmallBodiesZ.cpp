@@ -79,3 +79,23 @@ Int Rva003F468D::rva003F4DAE(Int a)
 {
 	return m_18[a].m_records.size();
 }
+
+// 0x0056a9cf: vtable-backed integer predicate; only the accessed word
+// and the native ABI are known. Original owner and field meaning are unknown.
+class Rva0056A9CF {public: Int rva0056A9CF(Int value); private: char m_prefix[0x10]; Int m_word;};
+Int Rva0056A9CF::rva0056A9CF(Int value) {return m_word == value;}
+
+// 0x005ce7bf: vtable-backed integer predicate; only the accessed word
+// and the native ABI are known. Original owner and field meaning are unknown.
+class Rva005CE7BF {public: Int rva005CE7BF(Int value); private: char m_prefix[0x18]; Int m_word;};
+Int Rva005CE7BF::rva005CE7BF(Int value) {return m_word == value;}
+
+// 0x0046322c: vtable-backed integer predicate; only the accessed word
+// and the native ABI are known. Original owner and field meaning are unknown.
+class Rva0046322C {public: Int rva0046322C(); private: char m_prefix[0x40]; Int m_word;};
+Int Rva0046322C::rva0046322C() {return m_word != 0;}
+
+// 0x00596cbe: vtable-backed integer predicate; only the accessed word
+// and the native ABI are known. Original owner and field meaning are unknown.
+class Rva00596CBE {public: Int rva00596CBE(); private: char m_prefix[0x4C]; Int m_word;};
+Int Rva00596CBE::rva00596CBE() {return m_word == 0;}
