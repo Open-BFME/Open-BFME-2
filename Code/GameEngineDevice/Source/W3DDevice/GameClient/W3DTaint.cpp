@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
+// cl: /Ireference/shims/bfmealloc /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
 // stlport
 // W3DTaint::setTaintLevel: WB 0x0082D3C0 names the function and W3DTaint.cpp
 // assertion 330; game.dat 0x00073CC0..0x000740C2 supplies its full boundary.
@@ -410,7 +410,10 @@ public:
 class ShroudTextureHandle
 {
 public:
-	TextureClass *m_p;
+ ShroudTextureHandle() : m_p(0) {}
+ ~ShroudTextureHandle() { if (m_p) m_p->Release_Ref(); }
+ operator void *() const { return m_p; }
+ TextureClass *m_p;
 };
 
 // Two-reference overload at retail 0x0011E670; the upstream shared
@@ -465,9 +468,21 @@ class Member0C00739C70 {public: void clear();};
 class Rva00073950 {public: void rva00073950(unsigned char,void*);};
 class Rva00073C7A {public: void rva00073C7A();};
 
+// The proven byte-allocator int-tree family used by GSConfig; the ordinary
+// allocator<int> family uses a different pool provider in this executable.
+template<class T> class Rva0054E8DCAllocator : public _STL::allocator<T>
+{
+public:
+ template<class U> struct rebind { typedef Rva0054E8DCAllocator<U> other; };
+ Rva0054E8DCAllocator() throw() {}
+ Rva0054E8DCAllocator(const Rva0054E8DCAllocator &) throw() {}
+ template<class U> Rva0054E8DCAllocator(const Rva0054E8DCAllocator<U> &) throw() {}
+};
+
 class W3DTaint
 {
 public:
+ W3DTaint();
  void rva000738C4(unsigned char alpha);
  bool ReAcquireResources();
  void init(WorldHeightMap *map, float worldCellSizeX, float worldCellSizeY);
@@ -478,12 +493,14 @@ private:
  int m_numMaxVisibleCellsX, m_numMaxVisibleCellsY;
  float m_cellWidth, m_cellHeight;
  unsigned int *m_taintData;
- void *m_dstTexture;
+ ShroudTextureHandle m_dstTexture;
  int m_dstTextureWidth, m_dstTextureHeight;
  int m_taintFilter;
  float m_drawOriginX,m_drawOriginY;
  unsigned char m_drawTaint,m_clearDstTexture,m_borderTaintLevel,m_pad37;
  unsigned char *m_cellLevels, *m_referenceCellLevels;
+ unsigned char m_trackDirtyCells; char m_pad41[3];
+ _STL::set<int, _STL::less<int>, Rva0054E8DCAllocator<int> > m_dirty;
 };
 
 // ?rva000738C4@W3DTaint@@QAEXE@Z
@@ -680,4 +697,18 @@ void W3DTaint::render(CameraClass *cam)
 
 		reinterpret_cast<Member0C00739C70 *>(&surface)->clear();
 	}
+}
+
+// BF1 TaintBufferConstructor donor575ba2b04 supplies the storage purpose;
+// WB82C800 and render82DC70 establish the target owner W3DTaint. Retail
+// 74136..741C0 supplies every store, the alpha byte at GlobalData+C04,
+// handle lifetime at1C and dirty set at44. Original member spellings are donor leads.
+W3DTaint::W3DTaint()
+ : m_numCellsX(0), m_numCellsY(0), m_numMaxVisibleCellsX(0), m_numMaxVisibleCellsY(0),
+ m_cellWidth(10.0f), m_cellHeight(10.0f), m_taintData(0),
+ m_dstTextureWidth(0), m_dstTextureHeight(0), m_taintFilter(4),
+ m_drawOriginX(0.0f), m_drawOriginY(0.0f), m_drawTaint(0), m_clearDstTexture(1),
+ m_borderTaintLevel(TheWritableGlobalData->m_taintAlpha),
+ m_cellLevels(0), m_referenceCellLevels(0), m_trackDirtyCells(1)
+{
 }
