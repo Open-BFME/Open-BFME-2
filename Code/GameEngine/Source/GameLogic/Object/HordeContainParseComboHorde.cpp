@@ -12,6 +12,14 @@
 // which is what lets retail share the 'slot' temporary). Assigning the AsciiString members with
 // operator=(const char *) puts the receiver LEA before the argument push as in retail, and the
 // 'InitiateVoice' branch shares one trailing 'if (token)' test with the key check.
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
 #include <vector>
 extern "C" int __cdecl strcmp(const char *, const char *);
 #include "ascii_string.h"

@@ -7,6 +7,14 @@
 // worker providers. The local4B view names no original application type.
 // Visible noinline dispatch bodies preserve the compiler's knowledge that the
 // empty tag is unused while retaining native out-of-line call boundaries.
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
 #include <vector>
 struct TargetRef00217D4C {virtual void *destroy(unsigned); int references;};
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);

@@ -2,6 +2,14 @@
 // stlport
 #include "../../../../../vendor/stlport/stl/_algobase.h"
 #include "../../../../../vendor/stlport/stl/_uninitialized.h"
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
 #include <vector>
 struct TargetRef00217D4C { virtual void*destroy(unsigned); int references; };
 struct Rva005F8F96 { ~Rva005F8F96(); TargetRef00217D4C *m_00; int m_04; };

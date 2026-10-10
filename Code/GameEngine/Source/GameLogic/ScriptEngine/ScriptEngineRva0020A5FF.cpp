@@ -10,6 +10,14 @@
 // "Reassigning dead object's name '%s' to object (%d) of type '%s'\n" (ZH donor
 // ScriptEngine.cpp:6386), Object+0x88 name Object+0x74 id Object+0x4 template.
 #include "ascii_string.h"
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
 #include <vector>
 
 class Object;

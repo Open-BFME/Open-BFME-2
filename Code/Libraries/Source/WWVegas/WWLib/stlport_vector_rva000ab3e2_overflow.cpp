@@ -7,6 +7,14 @@
 // copy 0x000A9E1C Construct pin 0x000A9DF8 fill 0x000A9E42 free 0x00030830;
 // caller push_back 0x000AB3E2; stride 0x18 via idiv; same 189B shape as Pod24
 // overflow 0x000BCFF9 which shares the 0x18 imul allocate.
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
 #include <vector>
 struct Rva000AB3E2Element
 {

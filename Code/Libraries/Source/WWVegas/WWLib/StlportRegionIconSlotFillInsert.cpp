@@ -12,6 +12,14 @@
 
 #include "../../../../GameEngine/Source/Common/RegionIconSlotReferenceView.h"
 class Rva005EEFD2 {public:Rva005EEFD2 &operator=(const Rva005EEFD2&);private:void *m_ptr;};
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
 #include <vector>
 namespace _STL {
 template<class P,class D>P __copy_backward(P,P,P,const random_access_iterator_tag&,D*);

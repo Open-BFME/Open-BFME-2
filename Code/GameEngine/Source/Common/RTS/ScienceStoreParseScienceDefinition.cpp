@@ -20,6 +20,14 @@
 // destructor 0x001FFE93 and scalar deleting destructor 0x001FFE77 share the
 // vtable 0x00BE25EC this constructor stores); its copy assignment is the
 // rowed ??4Rva001FFEE9 view and is reached through that view.
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
 #include <vector>
 #include "unicode_string.h"
 

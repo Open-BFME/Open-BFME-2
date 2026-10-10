@@ -21,6 +21,14 @@
 // entry without its +0x18D flag is first resolved by name through the
 // pinned EmotionSystem::findNugget 0x004264F4 (the name copied by the
 // ICF-shared AsciiString-at-+0 getter rowed as getTooltipName 0x002E4336).
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
 #include <vector>
 #include "ascii_string.h"
 

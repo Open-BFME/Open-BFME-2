@@ -2,6 +2,14 @@
 // stlport
 // ?rva002B8573@Rva002B8573@@UAE_NPAVRva003190A5@@@Z @0x002B8573 62B via ref table pattern
 // Evidence: REF table slot 0x007FDFEC plus neighbours plus prev LivingWorldLogic plus query row 0x003190A5 plus push_back pin.
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
 #include <vector>
 
 class Object;
