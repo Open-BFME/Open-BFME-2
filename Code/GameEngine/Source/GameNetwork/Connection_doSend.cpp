@@ -52,8 +52,8 @@ class NetCommandRef
 {
 public:
 	~NetCommandRef();
-	NetCommandMsg *getCommand() { return m_msg; }
-	NetCommandRef *getNext() { return m_next; }
+	__declspec(dllimport) __forceinline NetCommandMsg *getCommand() { return m_msg; }
+	__declspec(dllimport) __forceinline NetCommandRef *getNext() { return m_next; }
 	UnsignedInt getTimeLastSent() const { return m_timeLastSent; }
 	void setTimeLastSent(UnsignedInt timeLastSent) { m_timeLastSent = timeLastSent; }
 
