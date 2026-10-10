@@ -1,5 +1,3 @@
-// ?rva006C2270@GeneralAllocatorDebug@@QAEXPAURva006C2270Record@@IIII@Z
-// partial score=1.0 date=2026-10-10
 // cl: /O2 /G6 /Ob1 /MD /DNDEBUG
 // Complete native6C2270..6C2503 RET14: Ghidra653 omits6B epilogue.
 // WB709FD0 confirms fourteen groups of total/length/mode followed by
