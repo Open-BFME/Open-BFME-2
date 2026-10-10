@@ -981,7 +981,8 @@ class Rva0026F0F0
 public:
 	void *rva0026F0F0(const void *key);
 };
-extern Rva0026F0F0 *TheUpgradeCenterLookup;
+class UpgradeCenter;
+extern UpgradeCenter *TheUpgradeCenter;
 
 void ScriptActions::rva003C49AE(Parameter *srcTeamParam, Parameter *dstTeamParam)
 {
@@ -992,7 +993,7 @@ void ScriptActions::rva003C49AE(Parameter *srcTeamParam, Parameter *dstTeamParam
 	Object *giver = srcTeam->rva0039E968(0x33);
 	if (!giver)
 		return;
-	void *upgrade = TheUpgradeCenterLookup->rva0026F0F0((unsigned char *)giver + 0x284);
+	void *upgrade = ((Rva0026F0F0 *)TheUpgradeCenter)->rva0026F0F0((const void *)((char *)giver + 0x284));
 	if (!upgrade)
 		return;
 	if (!dstTeam->rva0039E8FF((int)upgrade))
