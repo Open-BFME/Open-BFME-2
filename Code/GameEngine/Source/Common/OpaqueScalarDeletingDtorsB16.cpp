@@ -25,7 +25,7 @@
 //   0x005D4E06  0x005D4C61  0x00C75AAC#0
 //   0x005DA7D9  0x005DA7F5  0x00C76510#1
 //   0x005DB319  0x005DB221  0x00C766B8#0
-//   0x005DB7F2  0x005DB681  0x00C76798#0
+// AptConnectionScreen owns 0x005DB7F2 in its genuine destructor home.
 //   0x005DF160  0x005DCFC9  0x00C76DD4#0
 //   0x005E1350  0x005E12D1  0x00C779B4#0
 //   0x005E1CDC  0x005E1BD5  0x00C77A60#0
@@ -201,19 +201,6 @@ public:
 
 // ?<Rva005DB221::Rva005DB221> absent-from-retail
 Rva005DB221::Rva005DB221(EmitVtableTag *)
-{
-}
-
-class Rva005DB681
-{
-public:
-	Rva005DB681(EmitVtableTag *);
-public:
-	virtual ~Rva005DB681();
-};
-
-// ?<Rva005DB681::Rva005DB681> absent-from-retail
-Rva005DB681::Rva005DB681(EmitVtableTag *)
 {
 }
 

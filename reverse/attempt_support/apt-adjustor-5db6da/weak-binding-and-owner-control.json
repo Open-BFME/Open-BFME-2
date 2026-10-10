@@ -1,0 +1,218 @@
+{
+  "scope": "Scoped current own objects against witnessed census; no full current-ledger claim",
+  "census": {
+    "date": "2026-10-10 11:55",
+    "commit": "d68a97b48f"
+  },
+  "object_sha256": "29bae1f723dcdfcfef7877b95c094577be6438abc377f933990544add159b9ef",
+  "weak": {
+    "index": 35,
+    "name": "??_EAptConnectionScreen@@UAEPAXI@Z",
+    "section": 0,
+    "storage": 105,
+    "value": 0
+  },
+  "default_index": 34,
+  "default": {
+    "index": 34,
+    "name": "??_GAptConnectionScreen@@UAEPAXI@Z",
+    "section": 0,
+    "storage": 2,
+    "value": 0
+  },
+  "search_characteristic": 2,
+  "overriding_provider_tables": {
+    "strong": [],
+    "comdat": [],
+    "common": [],
+    "alternates": []
+  },
+  "kept_order_primary_providers": [
+    {
+      "object": "^code_^game^engine_^source_^game^client_^g^u^i_^g^u^i^callbacks_^apt_^apt^connection^screen^destructor.obj",
+      "digest": "32d94312b3c3",
+      "verdict": null
+    },
+    {
+      "object": "^code_^game^engine_^source_^game^client_^g^u^i_^g^u^i^callbacks_^apt_^apt^connection^screen^constructor.obj",
+      "digest": "32d94312b3c3",
+      "verdict": null
+    }
+  ],
+  "primary28": {
+    "name": "??_GAptConnectionScreen@@UAEPAXI@Z",
+    "target_rva": 6141938,
+    "target": "568bf1e887fefffff644240801740756e85945a5ff598bc65ec20400",
+    "bytes": "568bf1e887fefffff644240801740756e85945a5ff598bc65ec20400",
+    "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptConnectionScreenDestructor.cpp",
+    "unresolved": [],
+    "relocs": [
+      [
+        4,
+        20,
+        "??1AptConnectionScreen@@UAE@XZ"
+      ],
+      [
+        17,
+        20,
+        "??3@YAXPAX@Z"
+      ]
+    ],
+    "masked": false,
+    "concrete": 28,
+    "note": null,
+    "verified_folds": []
+  },
+  "thunk8_refusal": {
+    "name": "??_EAptConnectionScreen@@WFI@AEPAXI@Z",
+    "target_rva": 6141658,
+    "target": "83e958e910010000",
+    "bytes": "83e958e900000000",
+    "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptConnectionScreenDestructor.cpp",
+    "unresolved": [
+      "??_EAptConnectionScreen@@UAEPAXI@Z"
+    ],
+    "relocs": [
+      [
+        4,
+        20,
+        "??_EAptConnectionScreen@@UAEPAXI@Z"
+      ]
+    ],
+    "masked": false,
+    "concrete": 8,
+    "note": null,
+    "verified_folds": []
+  },
+  "raw_thunk": "83e958e900000000",
+  "physical_default_relink": "83e958e910010000",
+  "before": {
+    "Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB16.cpp": {
+      "object": "^code_^game^engine_^source_^common_^opaque^scalar^deleting^dtors^b16.obj",
+      "linked": false,
+      "unresolved": [
+        "??1Rva005DB681@@UAE@XZ"
+      ],
+      "duplicates": [],
+      "losers": [
+        "??_7Rva005D10F9@@6B@",
+        "??_7Rva005D2EA8@@6B@"
+      ],
+      "addresses": 0,
+      "wrong_selected": []
+    },
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptConnectionScreenDestructor.cpp": {
+      "object": "^code_^game^engine_^source_^game^client_^g^u^i_^g^u^i^callbacks_^apt_^apt^connection^screen^destructor.obj",
+      "linked": false,
+      "unresolved": [
+        "?TheNAT@@3PAUNAT@@A",
+        "?slot00@Rva0059EB41@@UAEXXZ",
+        "?slot01@Rva0059EB41@@UAEXXZ"
+      ],
+      "duplicates": [],
+      "losers": [
+        "??_7Rva0059EB41@@6B@"
+      ],
+      "addresses": 0,
+      "wrong_selected": []
+    }
+  },
+  "after": {
+    "Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB16.cpp": {
+      "unresolved": [],
+      "duplicates": [],
+      "comdat": [
+        [
+          "??_7Rva005D10F9@@6B@",
+          "first",
+          null
+        ],
+        [
+          "??_7Rva005D2EA8@@6B@",
+          "first",
+          null
+        ]
+      ],
+      "addresses": [],
+      "selected": []
+    },
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptConnectionScreenDestructor.cpp": {
+      "unresolved": [
+        "?TheNAT@@3PAUNAT@@A",
+        "?slot00@Rva0059EB41@@UAEXXZ",
+        "?slot01@Rva0059EB41@@UAEXXZ"
+      ],
+      "duplicates": [],
+      "comdat": [
+        [
+          "??_7Rva0059EB41@@6B@",
+          "first",
+          null
+        ]
+      ],
+      "addresses": [],
+      "selected": []
+    }
+  },
+  "local_receipts": {
+    "Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB16.cpp": {
+      "object": "C:\\Users\\clemens\\.codex\\worktrees\\reference-container-seat\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^opaque^scalar^deleting^dtors^b16.obj",
+      "sha256": "b48fdd30e5d83eb88fb40d95ae85157297b44c364c0bf364142e7d3d96fe1c7c",
+      "strict_current": true
+    },
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptConnectionScreenDestructor.cpp": {
+      "object": "C:\\Users\\clemens\\.codex\\worktrees\\reference-container-seat\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^g^u^i_^g^u^i^callbacks_^apt_^apt^connection^screen^destructor.obj",
+      "sha256": "29bae1f723dcdfcfef7877b95c094577be6438abc377f933990544add159b9ef",
+      "strict_current": true
+    }
+  },
+  "overriding_excuses": {
+    "runtime": false,
+    "imported": false,
+    "stubs": false
+  },
+  "census_first_copy_whole_primary_proof": [
+    {
+      "index_position": 19315,
+      "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^g^u^i_^g^u^i^callbacks_^apt_^apt^connection^screen^destructor.obj",
+      "sha256": "e067a1c679ff16cb2a43666234def302f343b066559b5806c8ab9bd9eb2d701b",
+      "raw28": "568bf1e800000000f644240801740756e800000000598bc65ec20400",
+      "relocations": [
+        [
+          4,
+          20,
+          "??1AptConnectionScreen@@UAE@XZ"
+        ],
+        [
+          17,
+          20,
+          "??3@YAXPAX@Z"
+        ]
+      ],
+      "resolved28": "568bf1e887fefffff644240801740756e85945a5ff598bc65ec20400",
+      "exact": true,
+      "currency": "Witnessed at root census; no receipts copied to worker"
+    },
+    {
+      "index_position": 19316,
+      "object": "C:\\Users\\clemens\\Documents\\Experiments\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^game^client_^g^u^i_^g^u^i^callbacks_^apt_^apt^connection^screen^constructor.obj",
+      "sha256": "510335e58f34fd6045a99fea03dcb3ce2d1e34e8f6b41f6de910c93d76ff4f77",
+      "raw28": "568bf1e800000000f644240801740756e800000000598bc65ec20400",
+      "relocations": [
+        [
+          4,
+          20,
+          "??1AptConnectionScreen@@UAE@XZ"
+        ],
+        [
+          17,
+          20,
+          "??3@YAXPAX@Z"
+        ]
+      ],
+      "resolved28": "568bf1e887fefffff644240801740756e85945a5ff598bc65ec20400",
+      "exact": true,
+      "currency": "Witnessed at root census; no receipts copied to worker"
+    }
+  ]
+}
