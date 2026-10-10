@@ -1,4 +1,8 @@
 // ?Rva0008103AAdjust@@YAXPAM@Z
+// partial score=0.9159846301633046 date=2026-10-10
+extern "C" void _ReadWriteBarrier();
+#pragma intrinsic(_ReadWriteBarrier)
+// ?Rva0008103AAdjust@@YAXPAM@Z
 // partial score=0.99 date=2026-10-05
 // cl: /O1 /DNDEBUG /MD /arch:SSE
 // Effect-parameter callbacks bound by the name dispatcher at 0x000806F3. Each
@@ -72,106 +76,10 @@ struct Rva000806F3Owner
 
 extern void *W3DGCData00DE2000;
 
-void Rva00080858Mean(ID3DXEffect *effect, D3DXHANDLE handle)
-{
-	Rva000806F3Vector4 value;
-	value.x = 0.0f;
-	value.y = 0.0f;
-	value.z = 1.0f;
-	value.w = 0.0f;
-	Rva003093F6Bases *bases = W3DGCData00DE2000 ? ((Rva000806F3Owner *)W3DGCData00DE2000)->m_260 : 0;
-	if (bases)
-	{
-		float time = (WW3D::Get_Sync_Time() / 1000.0f) * g_00DBA4E8;
-		bases->rva003093F6();
-		value = bases->rva0030822F(time);
-	}
-	effect->SetVector(handle, &value);
-}
 
-#define RVA000806F3_BASES_PARAM( NAME, GETTER, GROUP )                    \
-	void NAME(ID3DXEffect *effect, D3DXHANDLE handle)                     \
-	{                                                                     \
-		Rva000806F3Vector4 value;                                         \
-		value.x = 0.0f;                                                   \
-		value.y = 0.0f;                                                   \
-		value.z = 0.0f;                                                   \
-		value.w = 0.0f;                                                   \
-		Rva003093F6Bases *bases = W3DGCData00DE2000 ? ((Rva000806F3Owner *)W3DGCData00DE2000)->m_260 : 0; \
-		if (bases)                                                        \
-		{                                                                 \
-			float time = (WW3D::Get_Sync_Time() / 1000.0f) * g_00DBA4E8;     \
-			bases->rva003093F6();                                         \
-			value = bases->GETTER(time, GROUP);                           \
-		}                                                                 \
-		effect->SetVector(handle, &value);                                \
-	}
-
-RVA000806F3_BASES_PARAM( Rva000808F3Bases03X, rva00308325, 0 )
-RVA000806F3_BASES_PARAM( Rva00080988Bases03Y, rva00308417, 0 )
-RVA000806F3_BASES_PARAM( Rva00080A1DBases03Z, rva00308509, 0 )
-RVA000806F3_BASES_PARAM( Rva00080AB2Bases47X, rva00308325, 1 )
-RVA000806F3_BASES_PARAM( Rva00080B47Bases47Y, rva00308417, 1 )
-RVA000806F3_BASES_PARAM( Rva00080BDCBases47Z, rva00308509, 1 )
-RVA000806F3_BASES_PARAM( Rva00080C71Bases811X, rva00308325, 2 )
-RVA000806F3_BASES_PARAM( Rva00080D06Bases811Y, rva00308417, 2 )
-RVA000806F3_BASES_PARAM( Rva00080D9BBases811Z, rva00308509, 2 )
-
-// Second binding, dispatcher 0x00080E30: the same ten parameter names bind
-// the callbacks below, each scaled by the 1.6f at VA 0x00BC7078. "Mean"
-// passes the vector to 0x0008103A (pinned) and "Bases03X" to the rowed
-// Rva000812E1Scale. The other eight (0x00081324..0x00081913, 217B each)
-// expand the scale inline. Retail loads each component and then multiplies
-// by the held scale. Every spelling tried here folds the local into mulss,
-// so those eight are banked, not landed (see reverse/re_attempts.log).
-// The out-of-line Scale body sits between 0x00081242 and 0x00081324, so it
-// was probably defined in this unit after its first caller.
-//
-// ?Rva00080F95Mean2@@YAXPAUID3DXEffect@@PBD@Z      @0x00080F95 165B
-// ?Rva00081242Bases03X2@@YAXPAUID3DXEffect@@PBD@Z  @0x00081242 159B
-
+static __forceinline float SumV(const Rva000806F3Vector4&q){return q.x+q.y+q.z+q.w;}
 extern float g_00BC7078;
 extern float g_Va007C26F0;
-void __cdecl Rva000812E1Scale(float *v);
-void __cdecl Rva0008103AAdjust(float *v);
-
-void Rva00080F95Mean2(ID3DXEffect *effect, D3DXHANDLE handle)
-{
-	Rva000806F3Vector4 value;
-	value.x = 0.0f;
-	value.y = 0.0f;
-	value.z = 1.0f;
-	value.w = 0.0f;
-	Rva003093F6Bases *bases = W3DGCData00DE2000 ? ((Rva000806F3Owner *)W3DGCData00DE2000)->m_260 : 0;
-	if (bases)
-	{
-		float time = (WW3D::Get_Sync_Time() / 1000.0f) * g_00DBA4E8;
-		bases->rva003093F6();
-		value = bases->rva0030822F(time);
-		Rva0008103AAdjust(&value.x);
-	}
-	effect->SetVector(handle, &value);
-}
-
-void Rva00081242Bases03X2(ID3DXEffect *effect, D3DXHANDLE handle)
-{
-	Rva000806F3Vector4 value;
-	value.x = 0.0f;
-	value.y = 0.0f;
-	value.z = 0.0f;
-	value.w = 0.0f;
-	Rva003093F6Bases *bases = W3DGCData00DE2000 ? ((Rva000806F3Owner *)W3DGCData00DE2000)->m_260 : 0;
-	if (bases)
-	{
-		float time = (WW3D::Get_Sync_Time() / 1000.0f) * g_00DBA4E8;
-		bases->rva003093F6();
-		value = bases->rva00308325(time, 0);
-		Rva000812E1Scale(&value.x);
-	}
-	effect->SetVector(handle, &value);
-}
-
-// ?Rva0008103AAdjust@@YAXPAM@Z present-unmatched
 void __cdecl Rva0008103AAdjust(float *v)
 {
 	Rva003093F6Bases *bases = W3DGCData00DE2000 ? ((Rva000806F3Owner *)W3DGCData00DE2000)->m_260 : 0;
@@ -180,24 +88,19 @@ void __cdecl Rva0008103AAdjust(float *v)
 	float time = (WW3D::Get_Sync_Time() / 1000.0f) * g_00DBA4E8;
 	bases->rva003093F6();
 	{
-		Rva000806F3Vector4 q = bases->rva00308325(time, 0);
-		v[0] -= (q.x + q.y + q.z + q.w) * g_Va007C26F0;
+		v[0] -= SumV(bases->rva00308325(time, 0)) * g_Va007C26F0;
 	}
 	{
-		Rva000806F3Vector4 q = bases->rva00308325(time, 1);
-		v[0] -= (q.x + q.y + q.z + q.w) * g_Va007C26F0;
+		v[0] -= SumV(bases->rva00308325(time, 1)) * g_Va007C26F0;
 	}
 	{
-		Rva000806F3Vector4 q = bases->rva00308417(time, 0);
-		v[1] -= (q.x + q.y + q.z + q.w) * g_Va007C26F0;
+		v[1] -= SumV(bases->rva00308417(time, 0)) * g_Va007C26F0;
 	}
 	{
-		Rva000806F3Vector4 q = bases->rva00308417(time, 1);
-		v[1] -= (q.x + q.y + q.z + q.w) * g_Va007C26F0;
+		v[1] -= SumV(bases->rva00308417(time, 1)) * g_Va007C26F0;
 	}
 	{
-		Rva000806F3Vector4 q = bases->rva00308509(time, 0);
-		v[2] -= (q.x + q.y + q.z + q.w) * g_Va007C26F0;
+		v[2] -= SumV(bases->rva00308509(time, 0)) * g_Va007C26F0;
 	}
 	{
 		Rva000806F3Vector4 q = bases->rva00308509(time, 1);
@@ -205,6 +108,7 @@ void __cdecl Rva0008103AAdjust(float *v)
 		float sc = g_00BC7078;
 		float v2 = v[2] - (q.x + q.y + q.z + q.w) * k;
 		v[2] = v2;
+		_ReadWriteBarrier();
 		float v0 = (v[0] - k) * sc;
 		v[0] = v0;
 		v2 = (v2 - k) * sc;
