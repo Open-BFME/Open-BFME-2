@@ -33,12 +33,18 @@ public:
 	IDirect3DSwapChain8Vtbl *lpVtbl;
 };
 
-// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.h
+// upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.h
 class DX8Wrapper
 {
 public:
 	static void Set_Render_Target(IDirect3DSwapChain8 *swap_chain);
 	static void Set_Render_Target(IDirect3DSurface8 *render_target, bool use_default_depth_buffer);
+
+protected:
+	// BFME 2's existing owner is ?IsRenderToTexture@DX8Wrapper@@1_NA,
+	// defined by dx8wrapper.cpp at retail VA 0x00DEDA48. The access level
+	// is part of the data symbol; the BFME 1 donor uses private instead.
+	static bool IsRenderToTexture;
 };
 
 // ?Set_Render_Target@DX8Wrapper@@SAXPAUIDirect3DSwapChain8@@@Z
@@ -63,5 +69,5 @@ void DX8Wrapper::Set_Render_Target(IDirect3DSwapChain8 *swap_chain)
 		render_target = 0;
 	}
 
-	*reinterpret_cast<bool *>(0x00DEDA48) = false; // DX8Wrapper::IsRenderToTexture
+	IsRenderToTexture = false;
 }
