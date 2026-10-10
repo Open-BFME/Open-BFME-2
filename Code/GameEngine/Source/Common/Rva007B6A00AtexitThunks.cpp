@@ -179,7 +179,8 @@ extern unsigned g_Va00DFEDB4;
 extern unsigned g_Va00DFEDC0;
 extern unsigned g_Va00DFEDCC;
 extern unsigned g_Va00DFEDD8;
-extern unsigned g_Va00DFEDFC;
+struct BfmeUiResourceEntryState;
+extern BfmeUiResourceEntryState BfmeUiResourceEntryCollectorState;
 extern unsigned g_Va00DFEE20;
 extern unsigned g_Va00DFF030;
 extern unsigned g_Va00DFF044;
@@ -405,10 +406,10 @@ void __cdecl rva007B787E()
 	p->FXParticleSystem::OutwardEmissionVelocityInfo::~OutwardEmissionVelocityInfo();
 }
 
-// ?rva007B789C@@YAXXZ @ 0x007B789C (10B): ecx=&g_Va00DFEDFC, tail-jump to rowed ??1Rva004E5654@@UAE@XZ (0x004E5654)
+// ?rva007B789C@@YAXXZ @ 0x007B789C (10B): ecx=&BfmeUiResourceEntryCollectorState, tail-jump to rowed ??1Rva004E5654@@UAE@XZ (0x004E5654)
 void __cdecl rva007B789C()
 {
-	Rva004E5654 *p = (Rva004E5654 *)&g_Va00DFEDFC;
+	Rva004E5654 *p = (Rva004E5654 *)&BfmeUiResourceEntryCollectorState;
 	p->Rva004E5654::~Rva004E5654();
 }
 

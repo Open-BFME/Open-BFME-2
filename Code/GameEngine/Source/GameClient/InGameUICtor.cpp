@@ -107,7 +107,8 @@ public:
 private:
 	char m_opaque[0xC];
 };
-extern ResourceEntryCollector g_Va00DFEDFC;
+struct BfmeUiResourceEntryState;
+extern BfmeUiResourceEntryState BfmeUiResourceEntryCollectorState;
 
 class GlobalData
 {
@@ -706,5 +707,5 @@ InGameUI::InGameUI() :
 	if( TheMouse )
 		TheMouse->rva001EEBD5( UnicodeString::TheEmptyString, 0, 0 );
 
-	g_Va00DFEDFC.rva004E551E();
+	((ResourceEntryCollector *)&BfmeUiResourceEntryCollectorState)->rva004E551E();
 }
