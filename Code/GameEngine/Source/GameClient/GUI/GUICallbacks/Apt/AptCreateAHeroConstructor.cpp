@@ -176,10 +176,10 @@ public:
 private:
 	unsigned char m_pad[0x28];
 };
-class Rva005B25E7
+class Rva005B2575
 {
 public:
-	Rva005B25E7(AptCreateAHero *screen);
+	Rva005B2575(AptCreateAHero *screen);
 private:
 	unsigned char m_pad[0x08];
 };
@@ -249,7 +249,7 @@ private:
 	Class *m_pageC; // +0x41C
 	Rva005B4A46 *m_pageA; // +0x420
 	Powers *m_pageP; // +0x424
-	Rva005B25E7 *m_pageB; // +0x428
+	Rva005B2575 *m_pageB; // +0x428
 	bool m_42c; // +0x42C
 	bool m_42d;
 	bool m_42e;
@@ -293,7 +293,7 @@ AptCreateAHero::AptCreateAHero(void *context)
 	m_pageC = new Class((Rva005B3676Owner *)this);
 	m_pageA = new Rva005B4A46((AppearanceOwner *)this);
 	m_pageP = new Powers((Rva005B3676Owner *)this);
-	m_pageB = new Rva005B25E7(this);
+	m_pageB = new Rva005B2575(this);
 #define BIND_COMMAND(handler, label) \
 	{ \
 		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptCreateAHero::handler); \

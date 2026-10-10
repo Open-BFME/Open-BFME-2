@@ -17077,4 +17077,3 @@ _D3DXCreateTextureFromFileInMemoryEx@60,0x0062AF7A,Named d3dx9_27.dll PE import 
 ?rva0057792E@ButtonShell@Impl@AptRadialMenu@@QAEXPBD@Z,0x0057792E,frame-unloaded Apt callback the ButtonShell ctor 0x00577FE2 binds by address (mov eax 0x97792E into its DelegateDesc); 8-byte body call 0x00577914 / ret 4
 ?Rva004129DF@@YAXPBVCoord2D@@0PBD1@Z,0x004129DF,RenderImageDisabled custom-render callback the global registration 0x00412F14 binds by address; same 4-argument shape and TheAptPlayer forward as its rowed siblings Rva00412B94/Rva00412BFF (no Ghidra boundary; code start taken by address)
 ??0?$vector@UBfmeContainerRecord005FDEC7@@V?$allocator@UBfmeContainerRecord005FDEC7@@@_STL@@@_STL@@QAE@I@Z,0x005FE409,size constructor of the 12-byte tab record vector; called by the Rva005FE750 ctor 0x005FE640
-??0Rva005B25E7@@QAE@PAVAptCreateAHero@@@Z,0x005B25E7,AptCreateAHero page constructor (new 0x08 bytes by the 0x005142B0 screen constructor; stores the screen)
