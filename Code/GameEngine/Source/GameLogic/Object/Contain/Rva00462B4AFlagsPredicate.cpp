@@ -1,5 +1,6 @@
 // ?rva00462B4A@Rva00462B4A@@QAE_NXZ
-// partial score=0.93 date=2026-10-06
+// ?rva00462B4A@Rva00462B4A@@QAE_NXZ @0x00462B4A 73B
+// Evidence: Native462B4A..462B93 RET0; table43464 near SlaughterHordeContain and owner at secondary minus18. Virtual slot44 returns16B flags value through hidden pointer then zero argument. Real flags return and inline byte test reproduce native MOV SHR TEST. Parent274 and far interface slot45; purpose and original class unknown; full73 bytes exact no pins.
 // cl: /O1 /DNDEBUG /MD
 // ?rva00462B4A@Rva00462B4A@@QAE_NXZ @0x00462B4A 73B: bool predicate via v_b0 buffer check then parent chain
 // Identity: REF table slots (e.g. 0x00843464) with SlaughterHordeContain neighbours; honest address name.
@@ -13,7 +14,10 @@ struct Buf00462B4A {
 };
 
 struct Ret00462B4A {
-	unsigned m_flags;
+ unsigned m_flags,m_b,m_c,m_d;
+ Ret00462B4A(){}
+ Ret00462B4A(const Ret00462B4A& x):m_flags(x.m_flags),m_b(x.m_b),m_c(x.m_c),m_d(x.m_d){}
+ __forceinline unsigned char test(int i)const {return (unsigned char)(m_flags>>i)&1;}
 };
 
 class Other00462B4A {
@@ -37,16 +41,14 @@ class Rva00462B4A {
 public:
 	SLOT16(s0) SLOT16(s1) SLOT08(s20,s21,s22,s23,s24,s25,s26,s27)
 	virtual void s28(); virtual void s29(); virtual void s2A(); virtual void s2B();
-	virtual Ret00462B4A *v_b0(Buf00462B4A *buf, int zero);
+	virtual Ret00462B4A v_b0(int zero);
 	bool rva00462B4A();
 };
 
 // ?rva00462B4A@Rva00462B4A@@QAE_NXZ
 bool Rva00462B4A::rva00462B4A()
 {
-	Buf00462B4A buf;
-	Ret00462B4A *r = v_b0(&buf, 0);
-	if ((((r->m_flags >> 1) & 1) == 0))
+	if (!v_b0(0).test(1))
 		return false;
 	Parent00462B4A *outer = *(Parent00462B4A **)((char *)this - 0x18);
 	Mid00462B4A *mid = *(Mid00462B4A **)((char *)outer + 0x274);
