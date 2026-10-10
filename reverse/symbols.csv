@@ -6249,7 +6249,6 @@ name,address,notes
 ?Rva004EE20BFillN@@YAPAUElem003AF8C0@@PAU1@IABU1@ABU__false_type@_STL@@@Z,0x004EE20B,hand insert 0x004EE6D0 fill_n helper
 ?Rva004EE9E9@@YAXPAVXfer0051FFF5@@PAX@Z,0x004EE9E9,cdecl out-param helper of range feed 0x0051FFF5 (REL32 at 0x0052004B); Ghidra 245B unrecovered; address name
 ?Rva00500BA6Opaque@@YGPAXABVRva00500500@@@Z,0x00500BA6,opaque-pointer ABI twin of rowed108B node factory; native clone call501071; same92B value at node+10
-?Rva00506CF5@@YA?AUCoord3D@@PAXPAU1@@Z,0x00506CF5,cdecl Coord3D-by-value helper (hidden return then owner and the +0x18 point); REL32 at 0x00507181 in the Rva00506B74 ctor
 ?Rva0050EC24@@YAXXZ,0x0050EC24,unrowed 251B cdecl (Ghidra FUN_0090ec24; plain ret); REL32 read at AptPalantir::OnBttnObjectives 0x002D30E1 (no arguments and no ECX setup); address name
 ?Rva0050ED3@PoolMember@@QAEXXZ,0x0050ED3,opaque pool-member method (refcounted-deleter shape: InterlockedDecrement at +4 then dtor+free); called on +8 member-pointer with null check from vptr-body 0x4E18A2; member type opaque; identity unproven
 ?Rva005117DF@@YAXPBD@Z,0x005117DF,unrowed 23B cdecl (Ghidra FUN_009117df; plain ret; the argument unused) opening or closing the messenger; REL32 read at AptPalantir::OnBttnMessenger 0x002D311C which passes its own argument; address name
@@ -15020,8 +15019,6 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?rva002778E1@@YAXXZ,0x002778E1,global no args from switch 0x2796D9 case 5
 ?rva000B3FA5@WeaponTemplateSetHead@@QAEXHH@Z,0x000B3FA5,thiscall with 2 ints from 0x27930F on stack tmp
 ?rva0027D244@Rva0027D244Host@@QAEXH@Z,0x0027D244,thiscall with int from 0x27F13C on stack buf
-?rva0027DF9D@Rva0027DF9DHost@@QAEXHMPAXHH@Z,0x0027DF9D,thiscall with 5 args from 0x27F13C
-?rva0027E4F3@@YGXHMPAXHH@Z,0x0027E4F3,stdcall with 5 args from 0x27F28E
 ?rva00030830@@YAXPAX@Z,0x00030830,cdecl global with ptr from 0x2860CF
 ?rva002AA5E1@Rva002AA5E1Host@@QAEXPAXHM@Z,0x002AA5E1,thiscall with ptr int float from 0x28B749
 ?rva00333F37@Rva00333F37Host@@QAEXPAX@Z,0x00333F37,thiscall with ptr from 0x28BAC0
@@ -15121,7 +15118,6 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?rva0035AEC2@Rva0031B60DOut@@QAEXXZ,0x0035AEC2,unrowed filler on out-object in condenser 0x0031B60D; callee read from its REL32 displacement; address name
 ?rva00288D88@ExperienceLevelStore@@QAE?AUExperienceLevelHandle@@HH@Z,0x00288D88,callee of ?rva0059B14E@Rva0059B14E@@QAEHH@Z
 ?rva0052D84C@PathfindCell@@QAEXPAVXfer@@@Z,0x0052D84C,callee of ?rva003666FD@PathfindLayer@@QAEXPAVXfer@@@Z
-?rva0027E248@Rva0027E248@@QAEXPAUCoord3D@@MPAVRva0027D30D@@_NH@Z,0x0027E248,callee of ?rva0027F171@BfmeThingCME@@QAEHPAVPolygonTrigger@@@Z
 ?rva0027E79E@Rva0027E79E@@QAEXPAUCoord3D@@MPAVRva0027D35F@@_NH@Z,0x0027E79E,callee of ?rva0027F2B2@BfmeThingCME@@QAEXPAUCoord3D@@ME@Z
 ?rva002E7749@Pathfinder@@QAEHPAXHHHH_N@Z,0x002E7749,callee of ?cellCallback@Rva002E7B29Info@@QAEHPAVPathfindCell@@0HH@Z
 ?rva00214060@LivingWorldManager@@QAEPAVRva003F9FA9@@ABVAsciiString@@@Z,0x00214060,callee of ?Rva003F9EDFParse@@YAXPAVINI@@@Z
@@ -15226,7 +15222,6 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ?rva002431CB@Rva002431CB@@QAEXXZ,0x002431CB,callee of ?update@GameLogic@@UAEXH@Z
 ?rva00290357@Object@@QAEXXZ,0x00290357,callee of ?update@GameLogic@@UAEXH@Z
 ?rva00297612@Object@@QAEXXZ,0x00297612,callee of ?update@GameLogic@@UAEXH@Z
-?rva002F0F07@Pathfinder@@QAEXXZ,0x002F0F07,callee of ?update@GameLogic@@UAEXH@Z
 ?rva0040CA98@Rva0040CA98@@QAEXXZ,0x0040CA98,callee of ?update@GameLogic@@UAEXH@Z
 ?rva00437BB6@StatsCollectorUpdate@@QAEXXZ,0x00437BB6,callee of ?update@GameLogic@@UAEXH@Z
 ?rva00439965@Rva00243177@@QAEXXZ,0x00439965,callee of ?update@GameLogic@@UAEXH@Z
@@ -16808,7 +16803,6 @@ _isalnum,0x00629AF6,msvcr71 isalnum import stub called directly by the URL escap
 ?rva0028E8FD@Object@@QAEXPAUCoord3D@@@Z,0x0028E8FD,Native404B Ghidra Object boundary28E8FD..28EA91 RET4; notifier4CE700 passes its12B coordinate local; WB11E0BA0 same call then Coord3D scale and planar length; output ABI and velocity projection role are target facts; original provider name unproved
 ?update@BezierProjectileBehavior@@UAE?AW4UpdateSleepTime@@XZ,0x0045C226,WB1181E80 names BezierProjectileBehavior update; native MissileUpdate4A7B48 passes its UpdateModuleInterface at owner10 to this entry and returns its sleep result; target Bezier constructor and module-name ownership independently agree
 ?rva005DC586@PortNegotiationSchema@@QAE_NPAV?$vector@URva005A7A96Pair@@V?$allocator@URva005A7A96Pair@@@_STL@@@_STL@@@Z,0x005DC586,callee of ?rva005A8F57@Rva005A6D47@@QAEHXZ
-?rva0008AAD4@W3DView@@AAEXXZ,0x0008AAD4,callee of ?updateCameraMovements@W3DView@@QAE_NXZ
 ?rva00102F83@Rva00102F83Owner@@QAEXPAVRva0010274F@@@Z,0x00102F83,callee of ?buildCameraTransform@W3DView@@AAEXPAVMatrix3D@@@Z
 ?rva0007F0FB@Rva0007F0FBOwner@@QAEXPAVCameraClass@@_N@Z,0x0007F0FB,callee of ?rva0007FD57@Rva0007FD57Owner@@QAE?AURva0008B689Element@@PAVCameraClass@@@Z
 ?processManglerResponse@NAT@@QAEXG@Z,0x005A854C,callee of ?rva005A879B@NAT@@QAEHXZ

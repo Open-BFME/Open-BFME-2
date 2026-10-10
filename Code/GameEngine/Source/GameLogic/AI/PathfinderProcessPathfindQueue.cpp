@@ -1,29 +1,35 @@
-// ?rva002F0F07@Pathfinder@@QAEXXZ
-// partial score=0.984261 date=2026-10-09
-// ?rva002F0F07@Pathfinder@@QAEXXZ
-// partial score=0.984261 date=2026-10-09
 // cl: /ICode/Libraries/Include /ICode/GameEngine/Source/Common /O1 /DNDEBUG /MD /arch:SSE /G7 /EHsc
-// Native2F0F07..2F11A1 void thiscall; existing GameLogic-update callee pin.
-// ZH AIPathfind.cpp processPathfindQueue is the semantic reference. BFME2
-// adds the priority queue and conditional QPF timing/tint. Native bytes prove
-// all accessed offsets and virtual slots; no original target name is asserted.
+// ?rva002F0F07@Pathfinder@@QAEXXZ (existing pin: callee of GameLogic::update)
+// Retail 0x002F0F07..0x002F11A1 (666 bytes), thiscall void. WorldBuilder twin
+// 0x00D30070 is Pathfinder::ProcessPathfindQueue (pathfinder.cpp asserts
+// 341..387); ZH AIPathfind.cpp processPathfindQueue is the semantic reference.
+// Unless the map is not ready it lets the zone manager (pinned 0x00533BEC)
+// rebuild zones, recomputes the logical extent from the terrain extent in
+// 10-unit cells, then drains the priority queue up to half the cell quota
+// (slot +0x234) and the normal queue up to the full quota (slot +0x230)
+// under the "pathfind" profile range, with optional QueryPerformanceCounter
+// timing that tints slow pathers (rowed 0x002EBD99). The quota is
+// GlobalData +0x11E8 cells, times 100 for the first 5 * g_00DBA4E4 frames.
+// The cell indices round through BaseType's REAL_TO_INT_FLOOR spelled with
+// math.h's inline floorf (as the WB twin's floorf/fast_float2long_round
+// parameter stores show); that shape is what places retail's floor-result
+// stores and the quota spill.
 #include "GameLogicObjectLookupView.h"
 #include "Lib/Coord3D.h"
-extern "C" __declspec(dllimport) double __cdecl floor(double);
+#include "../../../../Libraries/Source/profile/profile.h"
+#include <math.h>
 extern "C" __declspec(dllimport) int __stdcall QueryPerformanceFrequency(__int64 *);
 extern "C" __declspec(dllimport) int __stdcall QueryPerformanceCounter(__int64 *);
-// The same established Pathfinder numeric shim: retail rounds using the
-// current x87 control word (FISTP), whereas C++ int casts truncate via ftol.
-static __forceinline int queueCellIndex(float f)
+__forceinline long fast_float2long_round(float f)
 {
- float rounded=(float)floor((double)f);
- int i;
- __asm {
-  fld [rounded]
-  fistp [i]
- }
- return i;
+	long i;
+	__asm {
+		fld [f]
+		fistp [i]
+	}
+	return i;
 }
+#define REAL_TO_INT_FLOOR(x) (fast_float2long_round(floorf(x)))
 struct Region3D {Coord3D lo,hi;};
 struct ICoord2D {int x,y;};
 struct IRegion2D {ICoord2D lo,hi;};
@@ -183,7 +189,6 @@ public:
  virtual void getExtent(Region3D *);
 };
 class GlobalData {public:char pad00[0x11C0];unsigned int limitMs;char pad11C4[0x11E8-0x11C4];int cellsPerFrame;};
-class Profile {public: static void StartRange(const char *);static void StopRange(const char *);};
 class Rva002E713F460 {public:void rva00533BEC(void *,void *,void *);char pad[4];};
 class Rva002E713FOwner {public:void rva0052F294();};
 class Rva002EAC7CPool {public:void *rva002EAC7C();bool empty()const {return head==tail;}void *items[0x200];int head,tail;};
@@ -208,10 +213,10 @@ void Pathfinder::rva002F0F07()
  zones.rva00533BEC(map,layers,&extent);
  Region3D terrainExtent;TheTerrainLogic->getExtent(&terrainExtent);
  IRegion2D bounds;
- bounds.lo.x=queueCellIndex(terrainExtent.lo.x*0.1f);
- bounds.hi.x=queueCellIndex(terrainExtent.hi.x*0.1f);
- bounds.lo.y=queueCellIndex(terrainExtent.lo.y*0.1f);
- bounds.hi.y=queueCellIndex(terrainExtent.hi.y*0.1f);
+ bounds.lo.x=REAL_TO_INT_FLOOR(terrainExtent.lo.x/10.0f);
+ bounds.hi.x=REAL_TO_INT_FLOOR(terrainExtent.hi.x/10.0f);
+ bounds.lo.y=REAL_TO_INT_FLOOR(terrainExtent.lo.y/10.0f);
+ bounds.hi.y=REAL_TO_INT_FLOOR(terrainExtent.hi.y/10.0f);
  --bounds.hi.x;--bounds.hi.y;
  logicalExtent=bounds;
  cumulative=0;word40=0;word44=0;

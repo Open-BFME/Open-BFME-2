@@ -4,10 +4,17 @@
 // and 0x004C3B4B in the ElvenWood sibling) load TheTerrainLogic into ecx
 // and the WorldBuilder twin 0x00C47E30 takes ecx as this: a TerrainLogic
 // member (it passes this through untouched). The first argument is the
-// caller's location pointer. Forwards (pos radius &copy-of-arg 0 0) to the
-// stdcall-spelled 0x0027E4F3.
+// caller's location pointer. Forwards (pos radius &copy-of-arg false 0) to
+// the grid query 0x0027E4F3 on its own this: that body reads ECX as its
+// owner, so it is a member call, not the stdcall it was first spelled as.
 struct Coord3D;
-void __stdcall rva0027E4F3(int a, float b, void *c, int d, int e);
+class Rva0027D347;
+
+class Rva0027E4F3
+{
+public:
+	void rva0027E4F3(Coord3D *center, float radius, Rva0027D347 *out, bool flag, int mode);
+};
 
 class TerrainLogic
 {
@@ -18,5 +25,5 @@ public:
 void TerrainLogic::rva0027F28E(const Coord3D *pos, float radius, int arg)
 {
 	int d = arg;
-	rva0027E4F3((int)pos, radius, &d, 0, 0);
+	((Rva0027E4F3 *)this)->rva0027E4F3((Coord3D *)pos, radius, (Rva0027D347 *)&d, false, 0);
 }

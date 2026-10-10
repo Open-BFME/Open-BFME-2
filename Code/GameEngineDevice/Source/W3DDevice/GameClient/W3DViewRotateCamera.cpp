@@ -41,6 +41,7 @@ class ParabolicEase
 {
 public:
 	void setEaseTimes(Real easeInTime, Real easeOutTime, Real duration);
+	Real operator()(Real param) const;
 private:
 	Real m_in;
 	Real m_out;
@@ -53,6 +54,8 @@ public:
 	virtual void rotateCameraTowardObject(ObjectID id, Int milliseconds, Int holdMilliseconds, Real easeIn, Real easeOut, Real trailing);
 	virtual void rotateCameraTowardPosition(const Coord3D *pLoc, Int milliseconds, Real easeIn, Real easeOut, Bool reverseRotation);
 	void rva0008ADEA(Int unused, ObjectID id, Bool enable, Bool snap);
+private:
+	void rva0008AAD4(void);
 };
 
 // BFME's W3DView rotate state as both bodies address it: m_rcInfo at +0x1AC
@@ -66,7 +69,9 @@ struct BfmeW3DViewRotateFields
 	Coord3D m_pos;
 	unsigned char m_padding0018[0x28 - 0x18];
 	Real m_angle;
-	unsigned char m_padding002C[0x1AC - 0x2C];
+	unsigned char m_padding002C[0x138 - 0x2C];
+	Real m_trackHeight;			// +0x138
+	unsigned char m_padding013C[0x1AC - 0x13C];
 	Int m_numFrames;
 	Int m_curFrame;
 	Int m_startTimeMultiplier;
@@ -83,11 +88,15 @@ struct BfmeW3DViewRotateFields
 			Real endAngle;
 		} m_rcAngle;
 		ObjectID m_targetObjectID;
+		struct
+		{
+			ObjectID id;
+			Coord3D pos;
+		} m_rcTarget;
 	};
-	Real m_padding01D4;
-	Real m_rcTrailing;
 	Bool m_doingRotateCamera;
-	unsigned char m_padding01DD[0x23D4 - 0x1DD];
+	unsigned char m_padding01DD[0x23D0 - 0x1DD];
+	Bool m_freezeTimeForCameraMovement;	// +0x23D0
 	Int m_timeMultiplier;
 	unsigned char m_padding23D8[0x2438 - 0x23D8];
 	Bool m_rotateFlag;
@@ -137,7 +146,7 @@ void W3DView::rotateCameraTowardObject(ObjectID id, Int milliseconds, Int holdMi
 	fields->m_endTimeMultiplier = fields->m_timeMultiplier;
 	fields->m_ease.setEaseTimes(easeIn, easeOut, (Real)milliseconds);
 
-	fields->m_rcTrailing = trailing;
+	fields->m_rcTarget.pos.z = trailing;
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -400,4 +409,100 @@ void W3DView::rva0008ADEA(Int unused, ObjectID id, Bool enable, Bool snap)
 		view->stopFollowing();
 	}
 	TheMouse->rva001EDE9C();
+}
+
+//-------------------------------------------------------------------------------------------------
+// ?rva0008AAD4@W3DView@@AAEXXZ, retail 0x0008AAD4..0x0008AD96 (706B), plain
+// ret. Zero Hour's W3DView::rotateCameraOneFrame with BFME's changes: called
+// by W3DView::updateCameraMovements (0x0008B010) on its own this while
+// m_doingRotateCamera (+0x1DC) is set. With camera movement disabled
+// (TheWritableGlobalData +0x9A4, as the one-frame siblings 0x00086CDA..
+// read it) it only ends the rotation and clears +0x2438. Tracking copies the
+// object's x and y (not z) into the target and interpolates the target z
+// (rotateCameraTowardObject's trailing float) into +0x138. The file-static
+// normAngle takes its argument in EAX and retail keeps ECX live across it,
+// so this body lives in normAngle's unit.
+//-------------------------------------------------------------------------------------------------
+class GlobalData
+{
+public:
+	unsigned char m_padding0000[0x9A4];
+	Bool m_disableCameraMovement;		// +0x9A4
+};
+
+extern GlobalData *TheWritableGlobalData;
+
+void W3DView::rva0008AAD4(void)
+{
+	BfmeW3DViewRotateFields *fields = (BfmeW3DViewRotateFields *)this;
+	Int curFrame = ++fields->m_curFrame;
+	if (TheWritableGlobalData->m_disableCameraMovement) {
+		if (curFrame >= fields->m_numFrames + fields->m_numHoldFrames) {
+			fields->m_doingRotateCamera = false;
+			fields->m_freezeTimeForCameraMovement = false;
+		}
+		fields->m_rotateFlag = false;
+		return;
+	}
+
+	Int numFrames;
+	if (fields->m_trackObject)
+	{
+		if (curFrame <= (numFrames = fields->m_numFrames) + fields->m_numHoldFrames)
+		{
+			const BfmeFollowObject *obj = (const BfmeFollowObject *)TheGameLogic->findObjectByID(fields->m_rcTarget.id);
+			if (obj)
+			{
+				fields->m_rcTarget.pos.x = obj->m_position.x;
+				fields->m_rcTarget.pos.y = obj->m_position.y;
+			}
+			fields->m_trackHeight = ((Real)curFrame) / numFrames * fields->m_rcTarget.pos.z;
+			const Vector2 dir(fields->m_rcTarget.pos.x - fields->m_pos.x,
+				fields->m_rcTarget.pos.y - fields->m_pos.y);
+			const Real dirLength = dir.Length();
+			if (dirLength >= 0.1f)
+			{
+				Real angle = WWMath::Acos(dir.X / dirLength);
+				if (dir.Y < 0.0f) {
+					angle = -angle;
+				}
+				angle -= PI/2;
+				normAngle(angle);
+
+				Int frame = fields->m_curFrame;
+				numFrames = fields->m_numFrames;
+				if (frame <= numFrames)
+				{
+					Real factor = fields->m_ease(((Real)frame) / numFrames);
+					Real angleDiff = angle - fields->m_angle;
+					normAngle(angleDiff);
+					fields->m_angle += angleDiff * factor;
+					normAngle(fields->m_angle);
+					fields->m_timeMultiplier = fields->m_startTimeMultiplier + fast_float2long_round(floor(
+						0.5 + (fields->m_endTimeMultiplier - fields->m_startTimeMultiplier) * factor));
+				}
+				else
+				{
+					fields->m_angle = angle;
+				}
+			}
+		}
+	}
+	else if (curFrame <= (numFrames = fields->m_numFrames))
+	{
+		Real factor = fields->m_ease(((Real)curFrame) / numFrames);
+		fields->m_angle = WWMath::Lerp(fields->m_rcAngle.startAngle, fields->m_rcAngle.endAngle, factor);
+		normAngle(fields->m_angle);
+		fields->m_timeMultiplier = fields->m_startTimeMultiplier + fast_float2long_round(
+			floor(0.5 + (fields->m_endTimeMultiplier - fields->m_startTimeMultiplier) * factor));
+	}
+
+	if (fields->m_curFrame >= fields->m_numFrames + fields->m_numHoldFrames) {
+		fields->m_doingRotateCamera = false;
+		fields->m_freezeTimeForCameraMovement = false;
+		if (!fields->m_trackObject)
+		{
+			fields->m_angle = fields->m_rcAngle.endAngle;
+		}
+	}
 }
