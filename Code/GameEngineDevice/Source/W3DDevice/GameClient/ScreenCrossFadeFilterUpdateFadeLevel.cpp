@@ -79,6 +79,8 @@ enum FilterModes
 	FM_VIEW_CROSSFADE_CIRCLE = 4
 };
 
+enum CustomScenePassModes { SCENE_PASS_ALPHA_MASK = 1 };
+
 struct BfmeDevice;
 
 struct BfmeDeviceVt
@@ -294,6 +296,7 @@ class W3DShaderManager
 {
 public:
 	static IDirect3DTexture8 *endRenderToTexture();
+ static void startRenderToTexture();
 };
 
 
@@ -304,7 +307,7 @@ class ScreenCrossFadeFilter
 public:
 	virtual Int init();
 	virtual Int shutdown();
-	virtual void unusedPreRenderSlot();
+	virtual Bool preRender(Bool &, CustomScenePassModes &);
 	virtual Bool postRender(FilterModes, Coord2D &, Bool &, Coord2D *);
 	virtual Bool setup(FilterModes);
 protected:
@@ -495,4 +498,17 @@ Int ScreenCrossFadeFilter::set(FilterModes mode)
   return true;
  }
  return false;
+}
+
+// Native vtable 7CF204 slot2; complete42B F63FB..F6425.
+Bool ScreenCrossFadeFilter::preRender(Bool &skipRender, CustomScenePassModes &scenePassMode)
+{
+ if (updateFadeLevel()) {
+  W3DShaderManager::startRenderToTexture();
+  scenePassMode=SCENE_PASS_ALPHA_MASK;
+  skipRender=false;
+  m_skipRender=true;
+  return true;
+ }
+ return true;
 }
