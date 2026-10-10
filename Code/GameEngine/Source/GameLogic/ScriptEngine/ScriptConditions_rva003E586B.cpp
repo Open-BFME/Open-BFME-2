@@ -14,7 +14,7 @@
 class Parameter
 {
 public:
-    int getInt() const { return m_int; }
+    __declspec(dllimport) __forceinline int getInt() const { return m_int; }
     unsigned char m_beforeInt[8]; int m_int; float m_real; AsciiString m_string;
     unsigned char m_afterString[8];
 };
@@ -23,7 +23,7 @@ template <int N>
 class BitFlags
 {
 public:
-    BitFlags() { memset(m_bits, 0, sizeof(m_bits)); }
+    __declspec(dllimport) __forceinline BitFlags() { memset(m_bits, 0, sizeof(m_bits)); }
     BitFlags(const BitFlags &other);
     void set(int bit) { m_bits[bit >> 5] |= 1u << (bit & 31); }
 private:

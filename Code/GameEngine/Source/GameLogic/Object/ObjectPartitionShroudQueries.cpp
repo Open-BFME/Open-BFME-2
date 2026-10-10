@@ -37,7 +37,7 @@ enum ObjectPrivateStatusBits
 class ThingTemplate
 {
 public:
-	__forceinline bool isKindOf(KindOfType t) const { return (m_kindOf[t >> 3] & (1 << (t & 7))) != 0; }
+	__declspec(dllimport) __forceinline bool isKindOf(KindOfType t) const { return (m_kindOf[t >> 3] & (1 << (t & 7))) != 0; }
 
 private:
 	unsigned char m_pad000[0x108];
@@ -54,7 +54,7 @@ public:
 class Player
 {
 public:
-	int getPlayerIndex() const { return m_playerIndex; }
+	__declspec(dllimport) __forceinline int getPlayerIndex() const { return m_playerIndex; }
 	Relationship getRelationship(const Team *that) const;
 
 private:
@@ -106,7 +106,7 @@ class Object : public ObjectThingBase, public ObjectShroudClient, public ObjectP
 public:
 	Player *getControllingPlayer() const;
 	const ThingTemplate *getTemplate() const { return m_template; }
-	__forceinline bool isKindOf(KindOfType t) const { return getTemplate()->isKindOf(t); }
+	__declspec(dllimport) __forceinline bool isKindOf(KindOfType t) const { return getTemplate()->isKindOf(t); }
 	bool isUndetectedDefector() const { return (m_privateStatus & UNDETECTED_DEFECTOR) != 0; }
 
 	virtual bool ShroudHideIfFogged(int playerIndex) const;
