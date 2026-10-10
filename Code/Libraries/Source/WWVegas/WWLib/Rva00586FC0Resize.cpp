@@ -47,6 +47,15 @@ struct Rva00586E86Element
 	char bytes[0x54];
 };
 typedef _STL::vector<Rva00586E86Element, _STL::allocator<Rva00586E86Element> > Rva00586FC0EraseVector;
+// Both operations have matched providers; this wrapper calls their native
+// bodies rather than instantiating competing vector/deque helper families.
+namespace _STL {
+template <> void vector<Rva00585B16>::_M_fill_insert(
+    Rva00585B16 *, size_type, const Rva00585B16 &);
+template <> Rva00586E86Element *vector<Rva00586E86Element>::erase(
+    Rva00586E86Element *, Rva00586E86Element *);
+}
+
 
 class Rva00586FC0
 {

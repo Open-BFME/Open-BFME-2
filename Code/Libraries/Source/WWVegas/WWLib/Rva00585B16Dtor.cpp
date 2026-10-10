@@ -16,6 +16,15 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 
 #include <deque>
 struct BfmeE12 { float x, y, z; };
+// Use the separately matched deque construction providers.
+namespace _STL {
+template <> void _Deque_base<BfmeE12, allocator<BfmeE12> >::_M_initialize_map(size_t);
+template <> void _Deque_base<BfmeE12, allocator<BfmeE12> >::_M_create_nodes(BfmeE12 **, BfmeE12 **);
+template <> deque<BfmeE12>::deque(const deque<BfmeE12> &);
+// This unit remains the matched owner of the const end-iterator getter.
+template deque<BfmeE12>::const_iterator deque<BfmeE12>::end() const;
+}
+
 class Rva00585B16
 {
 public:
@@ -37,9 +46,7 @@ private:
 	_STL::deque<BfmeE12, _STL::allocator<BfmeE12 > > m_deque;
 	int m_50;
 };
-Rva00585B16::~Rva00585B16()
-{
-}
+// The complete destructor is emitted by Rva00586EB9FillInsert.cpp.
 Rva00585B16::Rva00585B16()
 	: m_0(0)
 	, m_1C(1)

@@ -40021,7 +40021,7 @@ _Rva00020AC0,,0x00020AC0,39,Code/Libraries/Source/WWVegas/WWLib/Rva0084D890CodeP
 ?Rva004E44C9Check@@YGHHEE@Z,,0x004E44C9,50,Code/GameEngine/Source/Common/Rva004E44C9Check.cpp,matched,chain switch check plus guarded enable
 ??0Rva000BB491@@QAE@ABV0@@Z,,0x000BB491,27,Code/GameEngine/Source/Common/Rva000BB491Copy.cpp,matched,derived copy via rowed base plus tail
 ?rva0007E016@Rva0007E016@@QAEHHH@Z,,0x0007E016,20,Code/GameEngine/Source/Common/Rva0007E016Thunk.cpp,matched,thunk forwarder to vslot1 returning first
-??1Rva00585B16@@QAE@XZ,,0x00585B16,8,Code/Libraries/Source/WWVegas/WWLib/Rva00585B16Dtor.cpp,matched,tail-jmp to rowed deque dtor callers 0x585D24 0x586B9B
+??1Rva00585B16@@QAE@XZ,,0x00585B16,8,Code/Libraries/Source/WWVegas/WWLib/Rva00586EB9FillInsert.cpp,matched,tail-jmp to rowed deque dtor callers 0x585D24 0x586B9B; existing exact inline provider rehomed from Rva00585B16Dtor.cpp to eliminate strong-vs-COMDAT duplicate and preserve consumer member teardown
 ?rva003B2832@Rva003B2832@@QAEHXZ,,0x003B2832,17,Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003B2832Get.cpp,matched,action-template first-dword getter via 0x203926; twin of 0x3B275A
 ??$fill@PAUCoord3D@@U1@@_STL@@YAXPAUCoord3D@@0ABU1@@Z,,0x0007E3B1,40,Code/Libraries/Source/WWVegas/WWLib/Coord3DVectorFillInsert.cpp,matched,Coord3D scalar-word STLport helper; previous address-derived owner renamed and rehomed after independent complete-byte and callee verification; target typed fill insertion82719 and existing Coord3D copy/fill/overflow chain establish identity; not new progress
 ?rva004E2227@Rva004E2227@@QAEXXZ,,0x004E2227,30,Code/Libraries/Source/WWVegas/WWLib/stlport_destroy_004e1fcc.cpp,matched,chain caller 0x004E3973 range destroy plus conditional free
