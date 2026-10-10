@@ -2846,6 +2846,79 @@ struct BfmeApplyOps:DX8Wrapper {
   DX8_RECORD_MATRIX_CHANGE();
   Device()->SetTransform(type,reinterpret_cast<const D3DMATRIX *>(&matrix));number_of_DX8_calls++;
  }
+ // TU-local copy of dx8wrapper.h's Convert_Color(const Vector3&,float) for the rows retail
+ // inlines it into (Clear, Set_Light_Environment). Calling the header member would emit this
+ // /O2 unit's COMDAT copy of it, which comes first in link order and is not retail's body
+ // (that is the /O1 copy DX8ConvertColorVector3O1.cpp compiles, 0x0006E1C0).
+ static __forceinline unsigned int Convert_Color(const Vector3& color,float alpha)
+{
+	const float scale = 255.0;
+	unsigned int col=0;
+
+	// Multiply r, g, b and a components (0.0,...,1.0) by 255 and convert to integer. Or the integer values togerher
+	// such that 32 bit ingeger has AAAAAAAARRRRRRRRGGGGGGGGBBBBBBBB.
+	__asm
+	{
+		sub	esp,20					// space for a, r, g and b float plus fpu rounding mode
+
+		// Store the fpu rounding mode
+
+		fwait
+		fstcw		[esp+16]				// store control word to stack
+		mov		eax,[esp+16]		// load it to eax
+		mov		edi,eax				// take copy
+		and		eax,~(1024|2048)	// mask out certain bits
+		or			eax,(1024|2048)	// or with precision control value "truncate"
+		sub		edi,eax				// did it change?
+		jz			skip					// .. if not, skip
+		mov		[esp],eax			// .. change control word
+		fldcw		[esp]
+skip:
+
+		// Convert the color
+
+		mov	esi,dword ptr color
+		fld	dword ptr[scale]
+
+		fld	dword ptr[esi]			// r
+		fld	dword ptr[esi+4]		// g
+		fld	dword ptr[esi+8]		// b
+		fld	dword ptr[alpha]		// a
+		fld	st(4)
+		fmul	st(4),st
+		fmul	st(3),st
+		fmul	st(2),st
+		fmulp	st(1),st
+		fistp	dword ptr[esp+0]		// a
+		fistp	dword ptr[esp+4]		// b
+		fistp	dword ptr[esp+8]		// g
+		fistp	dword ptr[esp+12]		// r
+		mov	ecx,[esp]				// a
+		mov	eax,[esp+4]				// b
+		mov	edx,[esp+8]				// g
+		mov	ebx,[esp+12]			// r
+		shl	ecx,24					// a << 24
+		shl	ebx,16					// r << 16
+		shl	edx,8						//	g << 8
+		or		eax,ecx					// (a << 24) | b
+		or		eax,ebx					// (a << 24) | (r << 16) | b
+		or		eax,edx					// (a << 24) | (r << 16) | (g << 8) | b
+
+		fstp	st(0)
+
+		// Restore fpu rounding mode
+
+		cmp	edi,0					// did we change the value?
+		je		not_changed			// nope... skip now...
+		fwait
+		fldcw	[esp+16];
+not_changed:
+		add	esp,20
+
+		mov	col,eax
+	}
+	return col;
+}
 };
 
 // D3D9 surface prefix through GetDesc (slot 0x30), in Wine/SDK order, and
@@ -2910,7 +2983,7 @@ void DX8Wrapper::Clear(bool clear_color, bool clear_z_stencil, bool clear_stenci
 	if (clear_stencil && has_stencil) flags |= D3DCLEAR_STENCIL;
 	if (flags)
 	{
-		BfmeApplyOps::Device()->Clear(0, NULL, flags, Convert_Color(color,dest_alpha), z, stencil);
+		BfmeApplyOps::Device()->Clear(0, NULL, flags, BfmeApplyOps::Convert_Color(color,dest_alpha), z, stencil);
 		number_of_DX8_calls++;
 	}
 }
@@ -3003,7 +3076,11 @@ void DX8Wrapper::End_Scene(bool flip_frames)
 	for (int i=0;i<reinterpret_cast<BfmeEnumerationCaps *>(CurrentCaps)->GetMaxTextures();++i) {
 		bfmeEndSceneSetTexture(reinterpret_cast<BfmeEndSceneTextureResource **>(render_state.Textures),i,NULL,render_state_changed,TEXTURE0_CHANGED);
 	}
-	Set_Material(NULL);
+	// Set_Material(NULL), which retail inlines here. Spelled out rather than called: the header
+	// member would emit this /O2 unit's COMDAT copy of it, which comes first in link order and is
+	// not retail's body (that is the /O1 copy HeightMap.cpp compiles, 0x000662B1).
+	REF_PTR_RELEASE(render_state.material);
+	render_state_changed|=MATERIAL_CHANGED;
 	Light_Environment=NULL;
 }
 
@@ -3812,7 +3889,7 @@ void DX8Wrapper::Set_Light_Environment(LightEnvironmentClass* light_env)
 	}
 
 	int light_count = environment->Get_Light_Count();
-	unsigned int color = Convert_Color(environment->Get_Equivalent_Ambient(), 0.0f);
+	unsigned int color = BfmeApplyOps::Convert_Color(environment->Get_Equivalent_Ambient(), 0.0f);
 	if (RenderStates[D3DRS_AMBIENT] != color) {
 		Set_DX8_Render_State(D3DRS_AMBIENT, color);
 	}

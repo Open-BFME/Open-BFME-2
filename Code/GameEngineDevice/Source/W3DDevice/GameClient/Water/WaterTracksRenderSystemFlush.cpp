@@ -50,6 +50,17 @@ public:
 void TestWaterUpdate();
 void BoxSetTexture(unsigned,TextureBaseClass *&);
 void bfmeSetProjectionDepthBias(float);
+// TU-local copy of dx8wrapper.h's Set_Material, which retail's flush inlines. The bfmestages
+// header only declares it: its /O2 COMDAT copy came first in link order and was not retail's
+// body (that is the /O1 copy HeightMap.cpp compiles, 0x000662B1). MATERIAL_CHANGED is
+// DX8Wrapper's private render-state flag (1<<14 in dx8wrapper.h).
+struct BfmeWaterTracksMaterialOps:DX8Wrapper {
+ enum { MATERIAL_CHANGED=1<<14 };
+ static __forceinline void Set_Material(const VertexMaterialClass *material) {
+  REF_PTR_SET(render_state.material,const_cast<VertexMaterialClass *>(material));
+  render_state_changed|=MATERIAL_CHANGED;
+ }
+};
 void WaterTracksRenderSystem::flush(RenderInfoClass &rinfo)
 {
  if(reinterpret_cast<WaterTracksGlobalDataView *>(TheWritableGlobalData)->editor)
@@ -61,7 +72,7 @@ void WaterTracksRenderSystem::flush(RenderInfoClass &rinfo)
  batch=0xffff;
  Matrix3D tm(1);
  DX8Wrapper::Set_Transform(D3DTS_WORLD,tm);
- DX8Wrapper::Set_Material(material);
+ BfmeWaterTracksMaterialOps::Set_Material(material);
  DX8Wrapper::Set_Shader(shader);
  DX8Wrapper::Set_Vertex_Buffer(vertexBuffer);
  bfmeSetProjectionDepthBias(8.0f);

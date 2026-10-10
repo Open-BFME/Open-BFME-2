@@ -379,10 +379,26 @@ void MeshMatDescClass::Make_Color_Array_Unique(int array)
 // MeshMatDescClass::Install_UV_Array: defined in MeshMatDescInstallUVArray.cpp (its row's unit).
 
 
+// TU-local copy of dx8wrapper.h's Convert_Color(unsigned), which retail's Post_Load_Process
+// inlines. Calling the header member would emit this /O2 unit's COMDAT copy of it, which comes
+// first in link order and is not retail's body (that is the /O1 copy DX8ConvertColorVector4O1.cpp
+// compiles, 0x000EDF46); the bfmelight header only declares it.
+struct BfmeMeshMatDescColorOps {
+ static __forceinline Vector4 Convert_Color(unsigned color)
+ {
+	Vector4 col;
+	col[3]=((color&0xff000000)>>24)/255.0f;
+	col[0]=((color&0xff0000)>>16)/255.0f;
+	col[1]=((color&0xff00)>>8)/255.0f;
+	col[2]=((color&0xff)>>0)/255.0f;
+	return col;
+ }
+};
+
 // BFME2 adds a pass skip for the two per-pass buffers at +0xB8 and +0x108 and
 // keeps the lighting flag inverted (retail zero-initialises it and sets it when
-// PassCount != 1). Convert_Color comes from the bfmelight dx8wrapper.h, whose
-// col=0 initialiser retail stores before each inline x87 conversion.
+// PassCount != 1). Convert_Color(const Vector4&) comes from the bfmelight dx8wrapper.h,
+// whose col=0 initialiser retail stores before each inline x87 conversion.
 void MeshMatDescClass::Post_Load_Process(bool lighting_enabled,MeshModelClass * parent)
 {
 	/*
@@ -495,8 +511,8 @@ void MeshMatDescClass::Post_Load_Process(bool lighting_enabled,MeshModelClass * 
 			unsigned * emissive_array = ColorArray[1]->Get_Array();
 
 			for (int vidx=0; vidx<VertexCount; vidx++) {
-				Vector4 diffuse=DX8Wrapper::Convert_Color(diffuse_array[vidx]);
-				Vector4 emissive=DX8Wrapper::Convert_Color(emissive_array[vidx]);
+				Vector4 diffuse=BfmeMeshMatDescColorOps::Convert_Color(diffuse_array[vidx]);
+				Vector4 emissive=BfmeMeshMatDescColorOps::Convert_Color(emissive_array[vidx]);
 				diffuse.X *= emissive.X;
 				diffuse.Y *= emissive.Y;
 				diffuse.Z *= emissive.Z;
@@ -524,7 +540,7 @@ void MeshMatDescClass::Post_Load_Process(bool lighting_enabled,MeshModelClass * 
 
 				// If only diffuse is used apply diffuse to color channel and set diffuse source to color 1
 				if (diffuse_used && !ambient_used && !emissive_used) {
-					Vector4 diffuse=DX8Wrapper::Convert_Color(diffuse_array[vidx]);
+					Vector4 diffuse=BfmeMeshMatDescColorOps::Convert_Color(diffuse_array[vidx]);
 					diffuse.X *= mtl_diffuse.X;
 					diffuse.Y *= mtl_diffuse.Y;
 					diffuse.Z *= mtl_diffuse.Z;
@@ -541,7 +557,7 @@ void MeshMatDescClass::Post_Load_Process(bool lighting_enabled,MeshModelClass * 
 				// ambient are different but is probably the most reasonable thing to do. Why set
 				// diffuse and ambient differently anyway?)
 				if (diffuse_used && ambient_used && !emissive_used) {
-					Vector4 diffuse=DX8Wrapper::Convert_Color(diffuse_array[vidx]);
+					Vector4 diffuse=BfmeMeshMatDescColorOps::Convert_Color(diffuse_array[vidx]);
 					diffuse.X *= mtl_diffuse.X;
 					diffuse.Y *= mtl_diffuse.Y;
 					diffuse.Z *= mtl_diffuse.Z;
@@ -555,7 +571,7 @@ void MeshMatDescClass::Post_Load_Process(bool lighting_enabled,MeshModelClass * 
 
 				// If only ambient is used apply ambient to color channel and set ambient source to color 1
 				if (!diffuse_used && ambient_used && !emissive_used) {
-					Vector4 diffuse=DX8Wrapper::Convert_Color(diffuse_array[vidx]);
+					Vector4 diffuse=BfmeMeshMatDescColorOps::Convert_Color(diffuse_array[vidx]);
 					diffuse.X *= mtl_ambient.X;
 					diffuse.Y *= mtl_ambient.Y;
 					diffuse.Z *= mtl_ambient.Z;
@@ -569,7 +585,7 @@ void MeshMatDescClass::Post_Load_Process(bool lighting_enabled,MeshModelClass * 
 
 				// If only emissive is used apply emissive to color channel, set diffuse source to color 1, and turn off lighting
 				if (!diffuse_used && !ambient_used && emissive_used) {
-					Vector4 diffuse=DX8Wrapper::Convert_Color(diffuse_array[vidx]);
+					Vector4 diffuse=BfmeMeshMatDescColorOps::Convert_Color(diffuse_array[vidx]);
 					diffuse.X *= mtl_emissive.X;
 					diffuse.Y *= mtl_emissive.Y;
 					diffuse.Z *= mtl_emissive.Z;

@@ -469,7 +469,7 @@ public:
 	static unsigned int Convert_Color(const Vector4& color);
 	static unsigned int Convert_Color(const Vector3& color, const float alpha);
 	static void Clamp_Color(Vector4& color);
-	static unsigned int Convert_Color_Clamp(const Vector4& color);
+	static unsigned int Convert_Color_Clamp(Vector4 color);
 
 	static void			  Set_Alpha (const float alpha, unsigned int &color);
 
@@ -1009,75 +1009,9 @@ WWINLINE unsigned int DX8Wrapper::Convert_Color(const Vector4& color)
 //
 // ----------------------------------------------------------------------------
 
-WWINLINE unsigned int DX8Wrapper::Convert_Color(const Vector3& color,float alpha)
-{
-	const float scale = 255.0;
-	unsigned int col=0;
-
-	// Multiply r, g, b and a components (0.0,...,1.0) by 255 and convert to integer. Or the integer values togerher
-	// such that 32 bit ingeger has AAAAAAAARRRRRRRRGGGGGGGGBBBBBBBB.
-	__asm
-	{
-		sub	esp,20					// space for a, r, g and b float plus fpu rounding mode
-
-		// Store the fpu rounding mode
-
-		fwait
-		fstcw		[esp+16]				// store control word to stack
-		mov		eax,[esp+16]		// load it to eax
-		mov		edi,eax				// take copy
-		and		eax,~(1024|2048)	// mask out certain bits
-		or			eax,(1024|2048)	// or with precision control value "truncate"
-		sub		edi,eax				// did it change?
-		jz			skip					// .. if not, skip
-		mov		[esp],eax			// .. change control word
-		fldcw		[esp]
-skip:
-
-		// Convert the color
-
-		mov	esi,dword ptr color
-		fld	dword ptr[scale]
-
-		fld	dword ptr[esi]			// r
-		fld	dword ptr[esi+4]		// g
-		fld	dword ptr[esi+8]		// b
-		fld	dword ptr[alpha]		// a
-		fld	st(4)
-		fmul	st(4),st
-		fmul	st(3),st
-		fmul	st(2),st
-		fmulp	st(1),st
-		fistp	dword ptr[esp+0]		// a
-		fistp	dword ptr[esp+4]		// b
-		fistp	dword ptr[esp+8]		// g
-		fistp	dword ptr[esp+12]		// r
-		mov	ecx,[esp]				// a
-		mov	eax,[esp+4]				// b
-		mov	edx,[esp+8]				// g
-		mov	ebx,[esp+12]			// r
-		shl	ecx,24					// a << 24
-		shl	ebx,16					// r << 16
-		shl	edx,8						//	g << 8
-		or		eax,ecx					// (a << 24) | b
-		or		eax,ebx					// (a << 24) | (r << 16) | b
-		or		eax,edx					// (a << 24) | (r << 16) | (g << 8) | b
-
-		fstp	st(0)
-
-		// Restore fpu rounding mode
-
-		cmp	edi,0					// did we change the value?
-		je		not_changed			// nope... skip now...
-		fwait
-		fldcw	[esp+16];
-not_changed:
-		add	esp,20
-
-		mov	col,eax
-	}
-	return col;
-}
+// BFME 2: DX8Wrapper::Convert_Color(const Vector3&,float) is called out of line here. Its one
+// retail body is the /O1 copy DX8ConvertColorVector3O1.cpp compiles (0x0006E1C0); this
+// header's /O2 COMDAT copy came first in link order and was not retail's body.
 
 // ----------------------------------------------------------------------------
 //
@@ -1085,59 +1019,9 @@ not_changed:
 //
 // ----------------------------------------------------------------------------
 
-WWINLINE void DX8Wrapper::Clamp_Color(Vector4& color)
-{
-	if (!CPUDetectClass::Has_CMOV_Instruction()) {
-		for (int i=0;i<4;++i) {
-			float f=(color[i]<0.0f) ? 0.0f : color[i];
-			color[i]=(f>1.0f) ? 1.0f : f;
-		}
-		return;
-	}
-
-	__asm
-	{
-		mov	esi,dword ptr color
-
-		mov edx,0x3f800000
-
-		mov edi,dword ptr[esi]
-		mov ebx,edi
-		sar edi,31
-		not edi			// mask is now zero if negative value
-		and edi,ebx
-		cmp edi,edx		// if no less than 1.0 set to 1.0
-		cmovnb edi,edx
-		mov dword ptr[esi],edi
-
-		mov edi,dword ptr[esi+4]
-		mov ebx,edi
-		sar edi,31
-		not edi			// mask is now zero if negative value
-		and edi,ebx
-		cmp edi,edx		// if no less than 1.0 set to 1.0
-		cmovnb edi,edx
-		mov dword ptr[esi+4],edi
-
-		mov edi,dword ptr[esi+8]
-		mov ebx,edi
-		sar edi,31
-		not edi			// mask is now zero if negative value
-		and edi,ebx
-		cmp edi,edx		// if no less than 1.0 set to 1.0
-		cmovnb edi,edx
-		mov dword ptr[esi+8],edi
-
-		mov edi,dword ptr[esi+12]
-		mov ebx,edi
-		sar edi,31
-		not edi			// mask is now zero if negative value
-		and edi,ebx
-		cmp edi,edx		// if no less than 1.0 set to 1.0
-		cmovnb edi,edx
-		mov dword ptr[esi+12],edi
-	}
-}
+// BFME 2: DX8Wrapper::Clamp_Color is called out of line here. Its one retail body is the /O1
+// copy DX8WrapperClampColor.cpp compiles (0x0012611E); this header's /O2 COMDAT copy came first
+// in link order and was not retail's body.
 
 // ----------------------------------------------------------------------------
 //
@@ -1150,12 +1034,8 @@ WWINLINE unsigned int DX8Wrapper::Convert_Color(const Vector4& color)
 	return Convert_Color(reinterpret_cast<const Vector3&>(color),color[3]);
 }
 
-WWINLINE unsigned int DX8Wrapper::Convert_Color_Clamp(const Vector4& color)
-{
-	Vector4 clamped_color=color;
-	DX8Wrapper::Clamp_Color(clamped_color);
-	return Convert_Color(reinterpret_cast<const Vector3&>(clamped_color),clamped_color[3]);
-}
+// BFME 2: Convert_Color_Clamp takes the color by value and is out of line (retail 0x0012617C,
+// DX8WrapperConvertColorClamp.cpp, right after Clamp_Color as in BFME 1); it has no body here.
 
 #endif
 
@@ -1185,34 +1065,14 @@ WWINLINE void DX8Wrapper::Set_Texture(unsigned stage,TextureBaseClass* texture)
 	render_state_changed|=(TEXTURE0_CHANGED<<stage);
 }
 
-WWINLINE void DX8Wrapper::Set_Material(const VertexMaterialClass* material)
-{
-/*	if (material && render_state.material &&
-		// !stricmp(material->Get_Name(),render_state.material->Get_Name())) {
-		material->Get_CRC()!=render_state.material->Get_CRC()) {
-		return;
-	}
-*/
-//	if (material==render_state.material) {
-//		return;
-//	}
-	REF_PTR_SET(render_state.material,const_cast<VertexMaterialClass*>(material));
-	render_state_changed|=MATERIAL_CHANGED;
-	SNAPSHOT_SAY(("DX8Wrapper::Set_Material(%s)\n",material ? material->Get_Name() : "NULL"));
-}
+// BFME 2: DX8Wrapper::Set_Material is called out of line here. Its one retail body is the
+// /O1 copy HeightMap.cpp compiles (0x000662B1); this header's /O2 COMDAT copy came first in
+// link order and was not retail's body. The /O2 units whose retail rows inline it
+// (dx8wrapper.cpp End_Scene, WaterTracksRenderSystemFlush::flush) carry a TU-local copy.
 
-WWINLINE void DX8Wrapper::Set_Shader(const ShaderClass& shader)
-{
-	if (!ShaderClass::ShaderDirty && ((unsigned&)shader==(unsigned&)render_state.shader)) {
-		return;
-	}
-	render_state.shader=shader;
-	render_state_changed|=SHADER_CHANGED;
-#ifdef MESH_RENDER_SNAPSHOT_ENABLED
-	StringClass str;
-#endif
-	SNAPSHOT_SAY(("DX8Wrapper::Set_Shader(%s)\n",shader.Get_Description(str)));
-}
+// BFME 2: DX8Wrapper::Set_Shader is called out of line here. Its one retail body is the
+// /O1 copy W3DBibBuffer.cpp compiles (0x000662E5); this header's /O2 COMDAT copy came first in
+// link order and was not retail's body.
 
 WWINLINE void DX8Wrapper::Set_Projection_Transform_With_Z_Bias(const Matrix4x4& matrix, float znear, float zfar)
 {

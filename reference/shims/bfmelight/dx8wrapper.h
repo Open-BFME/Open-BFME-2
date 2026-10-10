@@ -977,16 +977,10 @@ WWINLINE void DX8Wrapper::_Copy_DX8_Rects(
   pDestPointsArray));
 }
 
-WWINLINE Vector4 DX8Wrapper::Convert_Color(unsigned color)
-{
-	Vector4 col;
-	col[3]=((color&0xff000000)>>24)/255.0f;
-	col[0]=((color&0xff0000)>>16)/255.0f;
-	col[1]=((color&0xff00)>>8)/255.0f;
-	col[2]=((color&0xff)>>0)/255.0f;
-//	col=Vector4(1.0f,1.0f,1.0f,1.0f);
-	return col;
-}
+// BFME 2: DX8Wrapper::Convert_Color(unsigned) is called out of line here. Its one retail body
+// is the /O1 copy DX8ConvertColorVector4O1.cpp compiles (0x000EDF46); this header's /O2 COMDAT
+// copy came first in link order and was not retail's body. meshmatdesc.cpp, whose
+// Post_Load_Process inlines it, carries a TU-local copy.
 
 #if 0
 WWINLINE unsigned int DX8Wrapper::Convert_Color(const Vector3& color, const float alpha)
@@ -1024,7 +1018,81 @@ WWINLINE unsigned int DX8Wrapper::Convert_Color(const Vector4& color)
 //
 // ----------------------------------------------------------------------------
 
-WWINLINE unsigned int DX8Wrapper::Convert_Color(const Vector3& color,float alpha)
+// BFME 2: DX8Wrapper::Convert_Color(const Vector3&,float) is called out of line here. Its one
+// retail body is the /O1 copy DX8ConvertColorVector3O1.cpp compiles (0x0006E1C0); this
+// header's /O2 COMDAT copy came first in link order and was not retail's body.
+
+// ----------------------------------------------------------------------------
+//
+// Clamp color vertor to [0...1] range
+//
+// ----------------------------------------------------------------------------
+
+WWINLINE void DX8Wrapper::Clamp_Color(Vector4& color)
+{
+	if (!CPUDetectClass::Has_CMOV_Instruction()) {
+		for (int i=0;i<4;++i) {
+			float f=(color[i]<0.0f) ? 0.0f : color[i];
+			color[i]=(f>1.0f) ? 1.0f : f;
+		}
+		return;
+	}
+
+	__asm
+	{
+		mov	esi,dword ptr color
+
+		mov edx,0x3f800000
+
+		mov edi,dword ptr[esi]
+		mov ebx,edi
+		sar edi,31
+		not edi			// mask is now zero if negative value
+		and edi,ebx
+		cmp edi,edx		// if no less than 1.0 set to 1.0
+		cmovnb edi,edx
+		mov dword ptr[esi],edi
+
+		mov edi,dword ptr[esi+4]
+		mov ebx,edi
+		sar edi,31
+		not edi			// mask is now zero if negative value
+		and edi,ebx
+		cmp edi,edx		// if no less than 1.0 set to 1.0
+		cmovnb edi,edx
+		mov dword ptr[esi+4],edi
+
+		mov edi,dword ptr[esi+8]
+		mov ebx,edi
+		sar edi,31
+		not edi			// mask is now zero if negative value
+		and edi,ebx
+		cmp edi,edx		// if no less than 1.0 set to 1.0
+		cmovnb edi,edx
+		mov dword ptr[esi+8],edi
+
+		mov edi,dword ptr[esi+12]
+		mov ebx,edi
+		sar edi,31
+		not edi			// mask is now zero if negative value
+		and edi,ebx
+		cmp edi,edx		// if no less than 1.0 set to 1.0
+		cmovnb edi,edx
+		mov dword ptr[esi+12],edi
+	}
+}
+
+// ----------------------------------------------------------------------------
+//
+// Convert RGBA color from float vector to 32 bit integer
+//
+// ----------------------------------------------------------------------------
+
+// Convert_Color(const Vector4&) keeps the conversion inline (retail 0x00139290,
+// bfmedynamicvertexbuffer.cpp; meshmatdesc.cpp's copy comes first in link order), so the
+// x87 conversion lives in this internal helper: inlining it does not odr-use the member
+// and so emits no /O2 copy of it.
+static __forceinline unsigned int Bfme_Convert_Color_Inline(const Vector3& color,float alpha)
 {
 	const float scale = 255.0;
 	unsigned int col=0;
@@ -1094,75 +1162,9 @@ not_changed:
 	return col;
 }
 
-// ----------------------------------------------------------------------------
-//
-// Clamp color vertor to [0...1] range
-//
-// ----------------------------------------------------------------------------
-
-WWINLINE void DX8Wrapper::Clamp_Color(Vector4& color)
-{
-	if (!CPUDetectClass::Has_CMOV_Instruction()) {
-		for (int i=0;i<4;++i) {
-			float f=(color[i]<0.0f) ? 0.0f : color[i];
-			color[i]=(f>1.0f) ? 1.0f : f;
-		}
-		return;
-	}
-
-	__asm
-	{
-		mov	esi,dword ptr color
-
-		mov edx,0x3f800000
-
-		mov edi,dword ptr[esi]
-		mov ebx,edi
-		sar edi,31
-		not edi			// mask is now zero if negative value
-		and edi,ebx
-		cmp edi,edx		// if no less than 1.0 set to 1.0
-		cmovnb edi,edx
-		mov dword ptr[esi],edi
-
-		mov edi,dword ptr[esi+4]
-		mov ebx,edi
-		sar edi,31
-		not edi			// mask is now zero if negative value
-		and edi,ebx
-		cmp edi,edx		// if no less than 1.0 set to 1.0
-		cmovnb edi,edx
-		mov dword ptr[esi+4],edi
-
-		mov edi,dword ptr[esi+8]
-		mov ebx,edi
-		sar edi,31
-		not edi			// mask is now zero if negative value
-		and edi,ebx
-		cmp edi,edx		// if no less than 1.0 set to 1.0
-		cmovnb edi,edx
-		mov dword ptr[esi+8],edi
-
-		mov edi,dword ptr[esi+12]
-		mov ebx,edi
-		sar edi,31
-		not edi			// mask is now zero if negative value
-		and edi,ebx
-		cmp edi,edx		// if no less than 1.0 set to 1.0
-		cmovnb edi,edx
-		mov dword ptr[esi+12],edi
-	}
-}
-
-// ----------------------------------------------------------------------------
-//
-// Convert RGBA color from float vector to 32 bit integer
-//
-// ----------------------------------------------------------------------------
-
 WWINLINE unsigned int DX8Wrapper::Convert_Color(const Vector4& color)
 {
-	return Convert_Color(reinterpret_cast<const Vector3&>(color),color[3]);
+	return Bfme_Convert_Color_Inline(reinterpret_cast<const Vector3&>(color),color[3]);
 }
 
 WWINLINE unsigned int DX8Wrapper::Convert_Color_Clamp(const Vector4& color)
