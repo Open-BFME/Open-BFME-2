@@ -1,4 +1,6 @@
 // ?rva000311E0@GeneralAllocator@Allocator@EA@@QAEIPBXIPADPAGI@Z
+// partial score=0.86 date=2026-10-10
+// ?rva000311E0@GeneralAllocator@Allocator@EA@@QAEIPBXIPADPAGI@Z
 // partial score=0.86379 date=2026-10-09
 // BFME 2's memory-pool entry points. `namespace MemoryPool` is retail's own
 // name: every `_`-prefixed function here is exported under it
