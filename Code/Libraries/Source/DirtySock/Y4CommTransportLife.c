@@ -282,6 +282,11 @@ extern struct Rva00816BF0Comm *g_Rva0130B188List;
 extern char g_Rva0130AF38Lock[ 4 ];
 extern int g_Rva0130AD08Count;
 
+// Owned here: the transport-registry lock both TUs pass to Rva007FEA20 and
+// friends. No retail bytes claimed (present-unmatched, unpinned); the data
+// ledger spans 592 zero bytes at the address but every view uses 4.
+char g_Rva0130AF38Lock[ 4 ] = { 0 };
+
 void Rva007FEBD0( void *lock );
 void Rva007FECB0( void *lock );
 

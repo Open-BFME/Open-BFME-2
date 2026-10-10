@@ -35,7 +35,7 @@ extern "C" {
 	int Rva00817B30(unsigned int tick);
 }
 
-extern char g_Rva0130AF38Lock[4];
+extern "C" char g_Rva0130AF38Lock[4];
 extern int g_Rva0130AD08Count;
 
 int Rva007FE780Printf(const char *format, ...);
