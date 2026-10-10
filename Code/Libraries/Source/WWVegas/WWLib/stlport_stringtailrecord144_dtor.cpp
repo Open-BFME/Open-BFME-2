@@ -117,18 +117,8 @@ BfmePoolRef10::BfmePoolRef10(const BfmePoolRef10 &other) : m_target(other.m_targ
     if (m_target)
         InterlockedIncrement((Long *)((char *)m_target + 0x8c));
 }
-// ??4BfmePoolRef10@@QAEAAV0@ABV0@@Z 0x00051971 58B operator= self-check then AddRef source and Release old via pinned 0x50ED3; 13 callers incl 0x5990A/0x2D98C2; same shape as OpaqueRefElement4::operator= at 0x239099
-BfmePoolRef10 &BfmePoolRef10::operator=(const BfmePoolRef10 &other)
-{
-    if (this != &other) {
-        if (other.m_target)
-            InterlockedIncrement((Long *)((char *)other.m_target + 0x8c));
-        if (m_target)
-			m_target->m_ref.Release_Ref();
-        m_target = other.m_target;
-    }
-    return *this;
-}
+// Assignment's verified 0x00051971 provider lives in HostClass005C908B.cpp,
+// whose caller needs the full visible noinline body for VC7.1 alias analysis.
 // ?rva000519BD@BfmePoolRef10@@QAEXXZ 0x000519BD 25B release via pinned 0x50ED3 then and-zero; 7 callers incl 0x53D32/0x599FD/0x2D97C7; address-derived clear on BfmePoolRef10 (dtor already rowed at 0x519AB)
 void BfmePoolRef10::rva000519BD()
 {

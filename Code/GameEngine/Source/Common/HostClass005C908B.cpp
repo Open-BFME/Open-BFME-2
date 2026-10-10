@@ -24,10 +24,22 @@ public:
 	}
 };
 
+typedef long Long;
+extern "C" __declspec(dllimport) Long __stdcall InterlockedIncrement(Long volatile *addend);
+
+// Existing 0x00051971 assignment body from stlport_stringtailrecord144_dtor.cpp.
+// Keep the complete noinline provider visible here: VC7.1 then proves the
+// by-value holder remains unchanged across assignment and retains retail's
+// EDI-held cleanup pointer in method_005C908B. The pointer-only local copy
+// omitted reference counting and competed with the verified provider.
 __declspec(noinline) BfmePoolRef10 &BfmePoolRef10::operator=(const BfmePoolRef10 &rhs)
 {
 	if (this != &rhs)
 	{
+		if (rhs.m_target)
+			InterlockedIncrement((Long *)((char *)rhs.m_target + 0x8c));
+		if (m_target)
+			m_target->m_ref.Release_Ref();
 		m_target = rhs.m_target;
 	}
 	return *this;
