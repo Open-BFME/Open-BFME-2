@@ -183,6 +183,31 @@ EMPTY_DTOR(Squad)
 // Calls only; the definition comes from that unit.
 template<> void DLINK_ITERATOR<Object>::advance();
 
+// Retail's Team::iterate_TeamMemberList is the 49B body at 0x00263864 (rowed
+// from TeamIterateTeamMemberList.cpp): head at Team+0x38 with the -100 end
+// marker. This unit's header copy reads the head at +0x10 and is not retail's,
+// and this unit's object sorts first in link order, so the link keeps its copy
+// (S on 94 units). The member walks below are unmatched, so they go through
+// these TU-local twins with identical ZH semantics instead of odr-using the
+// ZH inline, whose COMDAT would otherwise displace the retail copy.
+typedef Object *(Object::*BfmePlayerNextFunc)() const;
+class BfmePlayerIter
+{
+public:
+	BfmePlayerIter(Object *cur, BfmePlayerNextFunc f) : m_cur(cur), m_f(f) {}
+	void advance() { if (m_cur) m_cur = (m_cur->*m_f)(); }
+	Bool done() const { return m_cur == 0; }
+	Object *cur() const { return m_cur; }
+private:
+	Object *m_cur;
+	BfmePlayerNextFunc m_f;
+};
+static BfmePlayerIter bfmePlayerMembers(const Team *team)
+{
+	Object *head = *(Object *const *)((const char *)team + 0x10);
+	return BfmePlayerIter(head, &Object::dlink_next_TeamMemberList);
+}
+
 // BFME 2's Object keeps its behavior list at +0x244 (the matched
 // Object::findModule 0x0028B6D6 walks it there), its contain module at +0x250
 // and its body module at +0x254; this tree's Zero Hour Object.h has +0x18C,
@@ -1980,7 +2005,7 @@ void Player::setUnitsShouldHunt(Bool unitsShouldHunt, CommandSourceType source)
 				continue;
 			}
 			
-			for (DLINK_ITERATOR<Object> iterObj = team->iterate_TeamMemberList(); !iterObj.done(); iterObj.advance()) {
+			for (BfmePlayerIter iterObj = bfmePlayerMembers(team); !iterObj.done(); iterObj.advance()) {
 				Object *obj = iterObj.cur();
 				if (!obj) {
 					continue;
@@ -2074,7 +2099,7 @@ void Player::setObjectsEnabled(AsciiString templateTypeToAffect, Bool enable)
 				continue;
 			}
 			
-			for (DLINK_ITERATOR<Object> iterObj = team->iterate_TeamMemberList(); !iterObj.done(); iterObj.advance()) {
+			for (BfmePlayerIter iterObj = bfmePlayerMembers(team); !iterObj.done(); iterObj.advance()) {
 				Object *obj = iterObj.cur();
 				if (!obj) {
 					continue;
@@ -2115,7 +2140,7 @@ void Player::transferAssetsFromThat(Player *that)
 				continue;
 			}
 			
-			for (DLINK_ITERATOR<Object> iterObj = team->iterate_TeamMemberList(); !iterObj.done(); iterObj.advance()) 
+			for (BfmePlayerIter iterObj = bfmePlayerMembers(team); !iterObj.done(); iterObj.advance())
 			{
 				Object *obj = iterObj.cur();
 				if (!obj || obj->getTemplate()->isEquivalentTo(beaconTemplate))  // don't transfer NULL objs or beacons
@@ -2158,7 +2183,7 @@ void Player::garrisonAllUnits(CommandSourceType source)
 				continue;
 			}
 			
-			for (DLINK_ITERATOR<Object> iterObj = team->iterate_TeamMemberList(); !iterObj.done(); iterObj.advance()) {
+			for (BfmePlayerIter iterObj = bfmePlayerMembers(team); !iterObj.done(); iterObj.advance()) {
 				Object *obj = iterObj.cur();
 				if (!obj) {
 					continue;
@@ -2203,7 +2228,7 @@ void Player::ungarrisonAllUnits(CommandSourceType source)
 				continue;
 			}
 			
-			for (DLINK_ITERATOR<Object> iterObj = team->iterate_TeamMemberList(); !iterObj.done(); iterObj.advance()) {
+			for (BfmePlayerIter iterObj = bfmePlayerMembers(team); !iterObj.done(); iterObj.advance()) {
 				Object *obj = iterObj.cur();
 				if (!obj) {
 					continue;
@@ -2239,7 +2264,7 @@ void Player::setUnitsShouldIdleOrResume(Bool idle)
 			if (!team)
 				continue;
 			
-			for (DLINK_ITERATOR<Object> iterObj = team->iterate_TeamMemberList(); !iterObj.done(); iterObj.advance()) 
+			for (BfmePlayerIter iterObj = bfmePlayerMembers(team); !iterObj.done(); iterObj.advance())
 			{
 				Object *obj = iterObj.cur();
 				if (!obj)
@@ -2505,7 +2530,7 @@ Bool Player::addScience(ScienceType science)
 			if (!team)
 				continue;
 			
-			for (DLINK_ITERATOR<Object> iterObj = team->iterate_TeamMemberList(); !iterObj.done(); iterObj.advance()) 
+			for (BfmePlayerIter iterObj = bfmePlayerMembers(team); !iterObj.done(); iterObj.advance())
 			{
 				Object *obj = iterObj.cur();
 				if (!obj)
@@ -2903,7 +2928,7 @@ void Player::onUpgradeCompleted( const UpgradeTemplate *upgradeTemplate )
 			{
 				continue;
 			}
-			for (DLINK_ITERATOR<Object> iterObj = team->iterate_TeamMemberList(); !iterObj.done(); iterObj.advance()) 
+			for (BfmePlayerIter iterObj = bfmePlayerMembers(team); !iterObj.done(); iterObj.advance())
 			{
 				Object *obj = iterObj.cur();
 				if( obj == NULL ) 
