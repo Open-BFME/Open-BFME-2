@@ -15,7 +15,6 @@
 // (docs/reconstruction/deleting-destructor-identity-audit.md).
 //
 //   wrapper     dtor        vtable#slot
-//   0x0040E81E  0x0040E499  0x00C394F0#0
 //   0x0041456E  0x00414520  0x00C3A08C#0
 //   0x00415E6E  0x00415CAB  0x00C3A288#0
 //   0x00419E1C  0x00419E38  0x00C3AD60#0, 0x00C6AB40#0
@@ -38,6 +37,10 @@
 
 typedef bool Bool;
 #include "subsystem_interface.h"
+// The former 40E81E placeholder is retired separately: native C394F0
+// belongs to the independently proven ArmySummary class, whose proper
+// home already emits the complete 28-byte deleting wrapper.
+
 #include "Common/Snapshot.h"
 
 namespace _STL
@@ -57,19 +60,6 @@ private:
 }
 
 struct EmitVtableTag;
-
-class Rva0040E499
-{
-public:
-	Rva0040E499(EmitVtableTag *);
-public:
-	virtual ~Rva0040E499();
-};
-
-// ?<Rva0040E499::Rva0040E499> absent-from-retail
-Rva0040E499::Rva0040E499(EmitVtableTag *)
-{
-}
 
 class Rva00414520
 {
