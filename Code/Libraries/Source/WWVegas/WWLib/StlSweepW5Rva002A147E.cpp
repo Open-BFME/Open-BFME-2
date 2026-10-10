@@ -3,6 +3,13 @@
 // cl: /O1 /arch:SSE /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 #include <map>
+
+// Preserve the native inline unsigned comparison and its verified external owner at 0x00758C50.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+bool less<unsigned int>::operator()(const unsigned int &left, const unsigned int &right) const
+{ return left < right; }
+}
 #include <memory>
 #include <string>
 
