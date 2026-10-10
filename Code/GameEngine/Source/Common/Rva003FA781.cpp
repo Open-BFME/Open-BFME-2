@@ -1,4 +1,5 @@
-// cl: /O1 /arch:SSE /G7 /MD /EHsc /Ireference/shims/bfme2_ascii
+// cl: /O1 /arch:SSE /G7 /MD /EHsc /Ireference/shims/bfme2_ascii /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
+// stlport
 // Native 003FA781..003FA7D3 RET4 toggles byte +14 and resets float +18.
 // Turning off also forwards +10 and the resolved template's float +14 to
 // 003FA705 (64B RET8). The matched lookup caller 00210E5B
@@ -6,6 +7,9 @@
 // The original owner/template names and meanings of the floats are open.
 // The folded OVERRIDE getter is used only for its proven pointer-chain ABI.
 #include "ascii_string.h"
+#include <math.h>
+#include <algorithm>
+typedef float Real;
 class LocomotorTemplate;
 class RenderObjClass;
 bool Rva0010E676_SetEmissive(RenderObjClass *, float, float, float);
@@ -18,7 +22,7 @@ public:
  OVERRIDE() : head(0) {}
  const T *head;
 };
-struct Rva003FA781Template { char pad[0x14]; float value; };
+struct Rva003FA781Template { char pad[0x14]; float value; float amplitude; };
 struct Rva00539926Base { unsigned references; Rva00539926Base() : references(0) {} virtual ~Rva00539926Base(); };
 class Rva003FA835 : public Rva00539926Base
 {
@@ -26,9 +30,11 @@ public:
  Rva003FA835(int kind, void *target, unsigned word);
  virtual ~Rva003FA835() {}
  void rva003FA781(int enabled);
+ void rva003FA878();
  void rva003FA7D3(int enabled);
  void rva003FA705(void *target, float value);
 private:
+ const Rva003FA781Template* getTemplate() const {return (const Rva003FA781Template*)m_template.operator->();}
 
  OVERRIDE<LocomotorTemplate> m_template;
  unsigned m_unknown0C;
@@ -104,4 +110,57 @@ Rva003FA835::Rva003FA835(int kind, void *target, unsigned word)
    m_template.head = (const LocomotorTemplate *)g_00DFE1C8->rva002122FD(name); }
  m_unknown1C = -1.0f;
  if (m_target) rva003FA705(m_target, 0.0f);
+}
+
+class Rva002B59FF {public: bool rva002B59FF();};
+class LivingWorldLogic;
+extern LivingWorldLogic* TheLivingWorldLogic;
+
+// Complete359B native3FA878..3FA9DF, called from the owned glow holder.
+// Native access and math establish elapsed18, enable14, alternate-mode20
+// and template floats14/18; original owner/template identities remain open.
+// Separate const elapsed snapshots preserve both actual SSE reloads and
+// the native stack lifetimes before double cos/fabs. The first bank assigned
+// the reload back to elapsed, causing the three later float homes to rotate.
+void Rva003FA835::rva003FA878()
+{
+	void *target = m_target;
+	if (*(void **)((char *)target+8) == 0)
+		return;
+
+	if (m_20 != 0.0f)
+	{
+		if (((Rva002B59FF *)TheLivingWorldLogic)->rva002B59FF())
+		{
+			Real elapsed = m_elapsed + 0.15f;
+			m_elapsed = elapsed;
+			Real base = getTemplate()->value;
+			Real amplitude = getTemplate()->amplitude;
+			const Real copy = *reinterpret_cast<volatile Real *>(&elapsed);
+		Real value = base + fabs(cos(copy)) * amplitude;
+			rva003FA705(m_target, value);
+		}
+		else
+		{
+			m_elapsed = 0.0f;
+			rva003FA705(m_target, getTemplate()->value);
+		}
+	}
+	else if (m_enabled)
+	{
+		m_elapsed += 0.2f;
+		Real elapsed, amplitude, base;
+		elapsed = _STL::min(1.5707964f, m_elapsed);
+		m_elapsed = elapsed;
+		base = getTemplate()->value;
+		amplitude = getTemplate()->amplitude;
+		const Real copy = *reinterpret_cast<volatile Real *>(&elapsed);
+		Real value = base + fabs(cos(copy)) * amplitude;
+		rva003FA705(m_target, value);
+	}
+	else
+	{
+		m_elapsed = 0.0f;
+		rva003FA705(target, getTemplate()->value);
+	}
 }
