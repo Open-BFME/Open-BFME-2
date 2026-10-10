@@ -1,0 +1,36 @@
+{
+  "id": "seat-c-horde-manager-ctor-declared-0007a498-20261010",
+  "seat": "C",
+  "base_commit": "91519e490fda7d55539144b184100732ad86323d",
+  "paths": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DHordeModelDraw.cpp",
+    "reverse/symbols.csv",
+    "reverse/hatch_baseline.tsv"
+  ],
+  "recoveries": [
+    {
+      "name": "??0BfmeHelperYS@@QAE@XZ",
+      "rva": "0x0007A498",
+      "size": 78,
+      "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DHordeModelDraw.cpp",
+      "notes": "Native7A498..7A4E6 RET0 and WB918E10 lifetime;40B manager map00/list0C/vector10/1C; provisional existing helper name retained;78B strict exact and whole recursive constructor fold proofs",
+      "replace_rva": null
+    }
+  ],
+  "new_retail_bytes": 78,
+  "proof_command": "python tools/explain_mismatch.py \"??0BfmeHelperYS@@QAE@XZ\" --rva 0x0007A498 --size 78 --source Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DHordeModelDraw.cpp",
+  "proof_log": "scoped-proof.txt",
+  "claim_owner": "codex-104a-01a12257",
+  "worker_root": "C:\\Users\\franz\\.codex\\worktrees\\recovery-preserved\\openbfme2",
+  "dependencies": [
+    "seat-c-horde-groups-declared-0007a54b-20261010"
+  ],
+  "patch_base": "After applying source.patch from seat-c-horde-groups-declared-0007a54b-20261010",
+  "claims": [
+    "0x0007A498",
+    "file:Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DHordeModelDraw.cpp"
+  ],
+  "supersedes": [
+    "seat-c-horde-manager-ctor-0007a498-20261010"
+  ]
+}

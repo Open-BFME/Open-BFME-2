@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /O1 /G7 /arch:SSE /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // Retail0007A54B..0007A706 RET0: process compatible handle ranges by manager.
 // WB918FA0 (W3DHordeModelDraw.cpp) contains the same manager cleanup/sort,
@@ -16,6 +16,9 @@
 // Standard math.h float overload preserves native stack-pop/x87 scheduling.
 
 #include <map>
+#include <vector>
+#include <list>
+#include <string>
 #include <math.h>
 struct Rva00DFE144Globals
 {
@@ -135,3 +138,42 @@ next:;
  }
  return groups;
 }
+
+// Native7A706..7A75E RET4, WB919920. Existing bfmeAttachYS pin is a
+// provisional BFME1 helper spelling, not an established original method name.
+// Target owns an 8-byte draw/key handle, inserts it into the unsigned-keyed
+// vector map at manager00 and stores the handle at draw2E8. All dependencies
+// are independently rowed: map7A26E, vector4DFCB0, nameToKey148E1A, new2FDA0.
+// Existing attachment source lead retained; no attachment body is claimed here.
+enum NameKeyType { NAMEKEY_INVALID=0 };
+class NameKeyGenerator {public: NameKeyType nameToKey(const char *name);};
+extern NameKeyGenerator *TheNameKeyGenerator;
+typedef _STL::vector<unsigned int> HordeHandleWordVector;
+typedef _STL::map<unsigned int,HordeHandleWordVector> HordeHandleWordMap;
+namespace _STL {
+template <> HordeHandleWordVector &HordeHandleWordMap::operator[](const unsigned int &);
+template <> void HordeHandleWordVector::push_back(const unsigned int &);
+}
+class Gen_00755E70 {
+public:
+ void *vtable;
+ unsigned int moduleKey;
+ char pad[0x2E8-8];
+ W3DHordeModelDrawHandle *handle;
+};
+class BfmeHelperYS {
+public:
+ BfmeHelperYS();
+ void bfmeAttachYS(Gen_00755E70 *owner);
+ HordeHandleWordMap handles;
+ _STL::list<HordeHandleWordVector> groups;
+ HordeHandleWordVector refs,models;
+};
+
+BfmeHelperYS::BfmeHelperYS():handles(),groups(),refs(),models() {}
+
+// Constructor native7A498..7A4E6 RET0:40-byte manager owns map00, opaque08,
+// list of 12-byte slot vectors0C and pointer-word vectors10/1C. Layout is
+// independently supported by rowed teardown7A4E6 and ProcessGroup79FBC.
+// bfme helper name is retained from its existing verified caller pin;
+// original constructor class name is not newly asserted by this recovery.
