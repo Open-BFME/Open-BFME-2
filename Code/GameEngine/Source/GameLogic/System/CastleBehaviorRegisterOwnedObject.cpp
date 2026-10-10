@@ -532,7 +532,8 @@ public:
  virtual bool allow(Object*);
  BfmeFixedStorage0004543D m08,m24;
 };
-extern unsigned char g_00DFEFA4StoragePrototype[28];
+template <int N> class BitFlags;
+extern BitFlags<116> KINDOFMASK_NONE;
 extern PartitionManager* ThePartitionManager;
 class CastleContainListView {
 public:
@@ -617,7 +618,7 @@ void CastleBehavior::teleportStragglersFromWallToGround(bool filter) {
   const Coord3D* pos=&field<Coord3D>(wall,0x38);
   Coord3D out; out.x=pos->x;out.y=pos->y;out.z=pos->z;
   BfmeWideResult result=ThePartitionManager->iterateObjectsInRange(pos,wall->getBoundingCircleRadius(),1,
-   Rva0004584D(*(const BfmeFixedStorage0004543D*)g_00DFEFA4StoragePrototype,BfmeFixedStorage0004543D(0,2)).link(&Rva0026119DFilter()),0);
+   Rva0004584D(*(const BfmeFixedStorage0004543D*)&KINDOFMASK_NONE,BfmeFixedStorage0004543D(0,2)).link(&Rva0026119DFilter()),0);
   options.startAngle=field<Object*>(this,8)->GetRelativeAngle(pos);
   Object* object;
   while((object=result.next())!=0) {
