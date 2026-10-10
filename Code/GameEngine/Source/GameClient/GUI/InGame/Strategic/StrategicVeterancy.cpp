@@ -1,4 +1,5 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD
+// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_CSTD_FUNCTION_IMPORTS /Ireference/shims/bfmealloc
+// stlport
 // StrategicVeterancy.cpp -- StrategicVeterancy members at their WorldBuilder
 // home (reverse/wb_name_leads.csv: WB's debug build names the file and each
 // method); retail supplies the bytes.
@@ -7,17 +8,12 @@
 // which keeps the Apt level at +0x04, the display state at +0x08 (0 hidden,
 // 1 shown, 2 fading in, 3-4 later states) and an enable word at +0x0C.
 
+namespace _STL { void __cdecl free(void *); }
 #include "ascii_string.h"
 #include "unicode_string.h"
 extern "C" __declspec(dllimport) int __cdecl _snprintf(char *, unsigned int, const char *, ...);
 
-namespace _STL {
-template<class T> class allocator {public:allocator(){}};
-template<class T,class A> class _Vector_base {
-public: _Vector_base(const A &);
-private:T *start,*finish,*capacity;
-};
-}
+#include <vector>
 class AptCommandTarget {};
 struct DelegateDesc {
  template<class T> DelegateDesc(T *o,void(T::*m)(const char*)) : object(o),method(reinterpret_cast<void(AptCommandTarget::*)(const char*)>(m)) {}
@@ -269,8 +265,6 @@ StrategicVeterancy::Impl::Impl(StrategicVeterancy *owner, Data *data)
 }
 // ?Rva005FA874::Rva005FA874 present-unmatched
 Rva005FA874::Rva005FA874():ptr(0){}
-// ?Rva005241B0::Rva005241B0 present-unmatched
-Rva005241B0::Rva005241B0():names(_STL::allocator<AsciiString>()){}
 
 // Native 005EC1A4..005EC21D, 121B; WB15EA270 names Show. The +0x0C
 // test is the row count initialized by this unit's owned Impl constructor.
@@ -304,4 +298,101 @@ Bool StrategicVeterancy::Show()
         break;
     }
     return true;
+}
+
+// WB15EABB0 names the native327B TacticalResolve constructor. Keep the
+// existing Rva005ED152 destructor/vtable ledger owner, and its proved base.
+class Rva005ECA91 {
+public: Rva005ECA91();
+protected: virtual ~Rva005ECA91();
+private: unsigned char payload04[24];
+};
+class LivingWorldPendingBattle;
+class LivingWorldRegionManager {
+public: LivingWorldPendingBattle *rva0020E6C0();
+};
+struct Rva002B8573Filter;
+class LivingWorldLogic {
+public:
+ unsigned char prefix00[0x98];
+ Rva002B8573Filter *selected98;
+ unsigned char prefix9C[0xB0-0x9C];
+ LivingWorldRegionManager *regionManagerB0;
+};
+class Object;
+class LivingWorldBattle;
+class Rva002B25EF {
+public: void rva002B25EF(LivingWorldBattle *, _STL::vector<Object *> *, Rva002B8573Filter *);
+};
+struct S4SortElem8B {
+ int m_bfmeFirst, m_bfmeSecond;
+ bool operator<(const S4SortElem8B &) const;
+};
+// The native push is the existing two-word vector<BfmeE8> owner.
+// The score builder uses its independently verified two-word input view.
+struct BfmeE8 { int a,b; };
+namespace _STL { template<> void vector<BfmeE8>::push_back(const BfmeE8 &); }
+class Rva0040CB2CIndexedField {
+public: int get(int index) const;
+};
+// Native40/44 bound the eight-byte entries of WB's ArmySummary. This
+// local view keeps the tactical pointer-container's game-free specialization
+// separate from older containers using the indexed-getter owner as a type.
+class TacticalArmyView {
+public:
+ unsigned char prefix00[0x40];
+ S4SortElem8B *entries40, *end44;
+ int size() const { return end44-entries40; }
+};
+struct TacticalEntryNameView {
+ unsigned int first00;
+ AsciiString name04;
+};
+class ThingTemplate;
+class ThingFactory {
+public: const ThingTemplate *findTemplate(const AsciiString &);
+};
+extern ThingFactory *TheThingFactory;
+class Rva002B2B66 { public: int rva002B2B66(); };
+class Rva005ECD8C {
+public: void rva005ECD8C(_STL::vector<S4SortElem8B> *, int);
+};
+class Rva005ED152 : public Rva005ECA91 {
+public: Rva005ED152(LivingWorldLogic *logic);
+protected: virtual ~Rva005ED152();
+};
+
+// Retail deallocates through the game's C++ free (30830), whose call
+// can unwind. The stock shim's C-runtime free selects the import thunk
+// and removes the observed cleanup-state stores under /EHsc.
+namespace _STL {
+template<> inline void allocator<BfmeE8>::deallocate(pointer p,size_type) const {
+ if(p) _STL::free((void *)p);
+}
+template<> inline void allocator<TacticalArmyView *>::deallocate(pointer p,size_type) const {
+ if(p) _STL::free((void *)p);
+}
+}
+
+Rva005ED152::Rva005ED152(LivingWorldLogic *logic) {
+ _STL::vector<BfmeE8> units;
+ LivingWorldRegionManager *regions=logic->regionManagerB0;
+ if (!regions) return;
+ LivingWorldPendingBattle *battle=regions->rva0020E6C0();
+ if (!battle) return;
+ _STL::vector<TacticalArmyView *> armies;
+ ((Rva002B25EF *)logic)->rva002B25EF((LivingWorldBattle *)battle,(_STL::vector<Object *> *)&armies,logic->selected98);
+ for (_STL::vector<TacticalArmyView *>::iterator it=armies.begin(); it!=armies.end(); ++it) {
+  TacticalArmyView *army=*it;
+  if (!army) continue;
+  int count=army->size();
+  for (int index=0; index<count; ++index) {
+   TacticalEntryNameView *entry=(TacticalEntryNameView *)((Rva0040CB2CIndexedField *)army)->get(index);
+   const ThingTemplate *thing=TheThingFactory->findTemplate(entry->name04);
+   if (!thing) continue;
+   BfmeE8 unit={(int)entry,(int)thing};
+   units.push_back(unit);
+  }
+ }
+ ((Rva005ECD8C *)this)->rva005ECD8C((_STL::vector<S4SortElem8B> *)&units,((Rva002B2B66 *)logic)->rva002B2B66());
 }
