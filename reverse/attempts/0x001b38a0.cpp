@@ -1,4 +1,6 @@
 // ?Render@LineGroupClass@@QAEXAAVRenderInfoClass@@@Z
+// partial score=0.9940517044154656 date=2026-10-10
+// ?Render@LineGroupClass@@QAEXAAVRenderInfoClass@@@Z
 // partial score=0.888839749 date=2026-10-09
 // ?Render@LineGroupClass@@QAEXAAVRenderInfoClass@@@Z
 // partial score=0.8 date=2026-10-07
@@ -1021,7 +1023,7 @@ WWINLINE unsigned int DX8Wrapper::Convert_Color(const Vector4& color)
 WWINLINE unsigned int DX8Wrapper::Convert_Color(const Vector3& color,float alpha)
 {
 	const float scale = 255.0;
-	unsigned int col;
+	unsigned int col=0;
 	__asm
 	{
 		sub	esp,20					 
@@ -1413,106 +1415,7 @@ class BfmeSortingDispatchAt0012FE00 { public: static void Insert(const TargetCen
 
 // LineGroupClass::Set_Line_Size: defined in linegrp_float_setters.cpp (its row's unit).
 
-float LineGroupClass::Get_Line_Size(void)
-{
-	return DefaultLineSize;
-}
-
-void LineGroupClass::Set_Line_Color(const Vector3 &color)
-{
-	DefaultLineColor = color;
-}
-
-Vector3 LineGroupClass::Get_Line_Color(void)
-{
-	return DefaultLineColor;
-}
-
-void LineGroupClass::Set_Tail_Diffuse(const Vector4 &tdiffuse)
-{
-	DefaultTailDiffuse = tdiffuse;
-}
-
-Vector4 LineGroupClass::Get_Tail_Diffuse(void)
-{
-	return DefaultTailDiffuse;
-}
-
-// LineGroupClass::Set_Line_Alpha: defined in linegrp_float_setters.cpp (its row's unit).
-
-float LineGroupClass::Get_Line_Alpha(void)
-{
-	return DefaultLineAlpha;
-}
-
-void LineGroupClass::Set_Line_UCoord(float ucoord)
-{
-	DefaultLineUCoord = ucoord;
-}
-
-float LineGroupClass::Get_Line_UCoord(void)
-{
-	return DefaultLineUCoord;
-}
-
-void LineGroupClass::Set_Flag(FlagsType flag, bool on)
-{
-	if (on) Flags |= 1 << flag; 
-	else 
-		Flags &= ~(1 << flag);
-}
-
-int LineGroupClass::Get_Flag(FlagsType flag)
-{
-	return (Flags >> flag) & 0x1;
-}
-
-// ?Set_Texture@LineGroupClass@@ present-unmatched
-void LineGroupClass::Set_Texture(TextureClass* texture)
-{
-	// TextureBaseClass::Add_Ref lives in ringobj.cpp (row at 0x000424B6);
-	// inline the WORD increment here so this TU calls but never emits it.
-	if (texture) ++*(unsigned short *)((char *)texture + 4);
-	if (Texture) Texture->Release_Ref();
-	Texture = texture;
-}
-
-// ?Get_Texture@LineGroupClass@@ present-unmatched
-TextureClass * LineGroupClass::Get_Texture(void)
-{
-	if (Texture) ++*(unsigned short *)((char *)Texture + 4);
-	return Texture;
-}
-
-// ?Peek_Texture@LineGroupClass@@ present-unmatched
-TextureClass * LineGroupClass::Peek_Texture(void)
-{
-	return Texture;
-}
-
-void LineGroupClass::Set_Shader(const ShaderClass &shader)
-{
-	Shader = shader;
-}
-
-// ?Get_Shader@LineGroupClass@@ present-unmatched
-ShaderClass LineGroupClass::Get_Shader(void)
-{
-	return Shader;
-}
-
-void LineGroupClass::Set_Line_Mode(LineModeType linemode)
-{
-	LineMode = linemode;
-}
-
-// ?Get_Line_Mode@LineGroupClass@@ present-unmatched
-LineGroupClass::LineModeType LineGroupClass::Get_Line_Mode(void)
-{
-	return LineMode;
-}
-
-// ?Render@LineGroupClass@@ present-unmatched
+inline int LineGroupClass::Get_Flag(FlagsType flag){return (Flags >> flag)&1;}
 void	LineGroupClass::Render(RenderInfoClass &rinfo)
 {
 	int i;
@@ -1685,7 +1588,7 @@ void	LineGroupClass::Render(RenderInfoClass &rinfo)
 		float size = DefaultLineSize;
 		Vector4 diffuse(DefaultLineColor.X, DefaultLineColor.Y, DefaultLineColor.Z, DefaultLineAlpha);		
 		float ucoord = DefaultLineUCoord;
-		Vector4 taildiffuse = DefaultTailDiffuse;
+		Vector4 taildiffuse = (this?DefaultTailDiffuse:DefaultTailDiffuse);
 
 		for (i = 0; i < LineCount; i++)
 		{
@@ -1723,7 +1626,7 @@ void	LineGroupClass::Render(RenderInfoClass &rinfo)
 			case PRISM:
 					// start cap
 					for (j = 0; j < 3; j++) {
-						Vector3 loc=start+size*offset[j];
+						Vector3 loc=(i?start:start)+size*offset[j];
 						vb->x			= loc.X;
 						vb->y			= loc.Y;
 						vb->z			= loc.Z;
@@ -1737,7 +1640,7 @@ void	LineGroupClass::Render(RenderInfoClass &rinfo)
 
 					// end cap 
 					for (j=0; j<3; j++) {
-						Vector3 loc=end+size*offset[j];
+						Vector3 loc(end); loc+=size*offset[j];
 						vb->x			= loc.X;
 						vb->y			= loc.Y;
 						vb->z			= loc.Z;
@@ -1765,16 +1668,3 @@ void	LineGroupClass::Render(RenderInfoClass &rinfo)
 	DX8Wrapper::Set_Transform(D3DTS_VIEW, view);
 }
 
-int LineGroupClass::Get_Polygon_Count(void)
-{
-	switch (LineMode) {
-		case TETRAHEDRON:
-			return LineCount * 4;
-			break;
-		case PRISM:
-			return LineCount * 8;
-			break;
-	}
-	WWASSERT(0);
-	return 0;
-}
