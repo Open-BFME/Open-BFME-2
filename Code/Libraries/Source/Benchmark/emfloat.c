@@ -263,12 +263,29 @@ return(!n);
 ** ORs the words in the order 0,2,1,3, which this compiler emits from the
 ** plain loop only as 0,1,2,3. Same result (OR is commutative); the index
 ** table moves the reassociation late enough to keep retail's order.
-** Rva006B9190Finish.cpp does the same for AddSubInternalFPF. */
+** IsMantissaZeroAddSub below does the same for AddSubInternalFPF. */
 static __forceinline int IsMantissaZeroOrdered(u16 *mant)
 {
 int i;
 int n;
 int order[INTERNAL_FPF_PRECISION] = {0,2,1,3};
+
+n=0;
+for(i=0;i<INTERNAL_FPF_PRECISION;i++)
+        n|=mant[order[i]];
+
+return(!n);
+}
+
+/* Not BYTEmark: AddSubInternalFPF's inlined zero test of its result ORs the
+** words in the order 0,2,3,1 (same result; OR is commutative); the plain
+** loop folds them in another order. Formerly kept in Rva006B9190Finish.cpp,
+** whose whole-TU copy duplicated this file's out-of-line rows. */
+static __forceinline int IsMantissaZeroAddSub(u16 *mant)
+{
+int i;
+int n;
+int order[INTERNAL_FPF_PRECISION] = {0,2,3,1};
 
 n=0;
 for(i=0;i<INTERNAL_FPF_PRECISION;i++)
@@ -669,8 +686,9 @@ case NORMAL_NORMAL:
                         z->sign = locy.sign ^ operation;
                         z->exp = locy.exp;
                 }
+        }
 
-                if (locx.sign ^ locy.sign ^ operation)
+        if (locx.sign ^ locy.sign ^ operation)
                 {
                         /*
                         ** Signs are different, subtract mantissas
@@ -700,16 +718,8 @@ case NORMAL_NORMAL:
                                                 z->mantissa[i]);
                                 }
                         }
-                        else
-                        {
-                                /* The assumption made above
-                                ** (i.e. x->mantissa >= y->mantissa)
-                                ** was correct.  Therefore, do nothing.
-                                ** z->sign = x->sign;
-                                */
-                        }
 
-                        if (IsMantissaZero(z->mantissa))
+                        if (IsMantissaZeroAddSub(z->mantissa))
                         {
                                 z->type = IFPF_IS_ZERO;
                                 z->sign = 0; /* positive */
@@ -749,7 +759,6 @@ case NORMAL_NORMAL:
                                         z->type = IFPF_IS_NORMAL;
                         }
                 }
-        }
         break;
 
 case INFINITY_INFINITY:

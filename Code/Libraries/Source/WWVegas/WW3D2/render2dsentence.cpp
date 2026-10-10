@@ -105,13 +105,7 @@ Render2DSentenceClass::Render2DSentenceClass (void) :
 //	~Render2DSentenceClass
 //
 ////////////////////////////////////////////////////////////////////////////////////
-// ??1Render2DSentenceClass@@QAE@XZ present-unmatched
-Render2DSentenceClass::~Render2DSentenceClass (void)
-{
-	REF_PTR_RELEASE (Font);
-	Reset ();
-	return ;
-}
+// BFME 2's body is the row 0x00157C70 in Render2DSentenceDestructorBFME2.cpp; Zero Hour's copy here duplicated it.
 
 
 ////////////////////////////////////////////////////////////////////////////////////
@@ -133,16 +127,7 @@ Render2DSentenceClass::Set_Font (FontCharsClass *font)
 //	Reset_Polys
 //
 ////////////////////////////////////////////////////////////////////////////////////
-void
-// ?Reset_Polys@Render2DSentenceClass@@QAEXXZ present-unmatched
-Render2DSentenceClass::Reset_Polys (void)
-{
-	for (int index = 0; index < Renderers.Count (); index ++) {
-		Renderers[index].Renderer->Reset ();
-	}
-
-	return ;
-}
+// BFME 2's body is the row 0x00154EC0 in Rva00154EC0Cluster.cpp; Zero Hour's copy here duplicated it.
 
 
 ////////////////////////////////////////////////////////////////////////////////////
@@ -150,39 +135,7 @@ Render2DSentenceClass::Reset_Polys (void)
 //	Reset
 //
 ////////////////////////////////////////////////////////////////////////////////////
-void
-// ?Reset@Render2DSentenceClass@@UAEXXZ present-unmatched
-Render2DSentenceClass::Reset (void)
-{
-	//
-	//	Make sure we unlock the current surface (if necessary)
-	//
-	if (LockedPtr != NULL) {
-		CurSurface->Unlock ();
-		LockedPtr = NULL;
-	}
-
-	//
-	//	Release our hold on the current surface
-	//
-	REF_PTR_RELEASE (CurSurface);
-
-	//
-	//	Free each renderer
-	//
-	while (Renderers.Count () > 0) {
-		delete Renderers[0].Renderer;
-		Renderers.Delete(0);
-	}
-
-	Cursor.Set (0, 0);
-	MonoSpaced = false;
-	ParseHotKey = false;
-
-	Release_Pending_Surfaces ();
-	Reset_Sentence_Data ();
-	return ;
-}
+// BFME 2's body is the row 0x00155A20 in Render2DSentenceClass_Reset.cpp; Zero Hour's copy here duplicated it.
 
 
 ////////////////////////////////////////////////////////////////////////////////////
@@ -232,24 +185,9 @@ Render2DSentenceClass::Set_Shader (ShaderClass shader)
 //	Render
 //
 ////////////////////////////////////////////////////////////////////////////////////
-void
-// ?Render@Render2DSentenceClass@@ present-unmatched
-Render2DSentenceClass::Render (void)
-{
-	//
-	//	Build any textures that are pending
-	//
-	Build_Textures ();
-
-	//
-	//	Ask each renderer to draw its contents
-	//
-	for (int i = 0; i < Renderers.Count (); i ++) {
-		Renderers[i].Renderer->Render ();
-	}
-
-	return ;
-}
+// BFME 2's Render2DSentenceClass::Render is the row 0x00155AD0 (Rva00155AD0.cpp, address-derived name;
+// it brackets the renderer loop with two calls Zero Hour lacks); Zero Hour's copy here was a second,
+// non-retail definition of the name.
 
 
 ////////////////////////////////////////////////////////////////////////////////////
@@ -310,22 +248,7 @@ Render2DSentenceClass::Get_Formatted_Text_Extents (const WCHAR *text)
 //	Reset_Sentence_Data
 //
 ////////////////////////////////////////////////////////////////////////////////////
-void
-// ?Reset_Sentence_Data@Render2DSentenceClass@@AAEXXZ present-unmatched
-Render2DSentenceClass::Reset_Sentence_Data (void)
-{
-	//
-	//	Release our hold on each texture used in the sentence
-	//
-	for (int index = 0; index < SentenceData.Count (); index ++) {
-		REF_PTR_RELEASE (SentenceData[index].Surface);
-	}
-
-	if (SentenceData.Count()>0) {
-		SentenceData.Delete_All ();
-	}
-	return ;
-}
+// BFME 2's body is the row 0x00154F10 in Render2DSentenceClass_Reset_Sentence_Data.cpp; Zero Hour's copy here duplicated it.
 
 
 ////////////////////////////////////////////////////////////////////////////////////
@@ -1174,23 +1097,8 @@ Vector2	Render2DSentenceClass::Build_Sentence_Not_Centered (const WCHAR *text, i
 //	Build_Sentence
 //
 ////////////////////////////////////////////////////////////////////////////////////
-void
-// ?Build_Sentence@Render2DSentenceClass@@QAEXPBGPAH1@Z present-unmatched
-Render2DSentenceClass::Build_Sentence (const WCHAR *text, int *hkX, int *hkY)
-{
-	if (text == NULL) {
-		return ;
-	}
-
-
-	if(Centered && (WrapWidth > 0 || wcschr(text,L'\n')))
-		Build_Sentence_Centered(text, hkX, hkY);
-	else
-		Build_Sentence_Not_Centered(text, hkX, hkY);
-	
-	return;
-	
-}
+// BFME 2's Render2DSentenceClass::Build_Sentence is the row 0x00159FC0 (Gen_00942BC0.cpp, BFME 1 donor
+// name; it always takes the not-centered path); Zero Hour's copy here was a second, non-retail definition.
 
 
 ////////////////////////////////////////////////////////////////////////////////////
@@ -1198,26 +1106,7 @@ Render2DSentenceClass::Build_Sentence (const WCHAR *text, int *hkX, int *hkY)
 //	FontCharsClass
 //
 ////////////////////////////////////////////////////////////////////////////////////
-// ??0FontCharsClass@@QAE@XZ present-unmatched
-FontCharsClass::FontCharsClass (void) :
-	OldGDIFont(	NULL ),
-	OldGDIBitmap( NULL ),
-	GDIFont( NULL ),
-	GDIBitmap( NULL ),
-	GDIBitmapBits ( NULL ),
-	MemDC( NULL ),
-	CurrPixelOffset( 0 ),
-	PointSize( 0 ),
-	CharHeight( 0 ),
-	UnicodeCharArray( NULL ),
-	FirstUnicodeChar( 0xFFFF ),
-	LastUnicodeChar( 0 ),
-	IsBold (false)
-{
-	AlternateUnicodeFont = NULL;
-	::memset( ASCIICharArray, 0, sizeof (ASCIICharArray) );
-	return ;
-}
+// BFME 2's body is the row 0x00157950 in FontCharsClassConstructorBFME.cpp; Zero Hour's copy here duplicated it.
 
 
 ////////////////////////////////////////////////////////////////////////////////////
@@ -1463,103 +1352,8 @@ FontCharsClass::Update_Current_Buffer (int char_width)
 //	Create_GDI_Font
 //
 ////////////////////////////////////////////////////////////////////////////////////
-void
 // byte-exact reconstruction: Code/GameEngine/Source/Common/FontCharsClass_Create_GDI_FontMethodThunk.cpp
-// ?Create_GDI_Font@FontCharsClass@@AAEXPBD@Z present-unmatched
-FontCharsClass::Create_GDI_Font (const char *font_name)
-{
-	HDC screen_dc = ::GetDC ((HWND)WW3D::Get_Window());
-
-	const char *fontToUseForGenerals = "Arial";
-	bool doingGenerals = false;
-	if (strcmp(font_name, "Generals")==0) {
-		font_name = fontToUseForGenerals;
-		doingGenerals = true;
-	}
-
-	//
-	//	Calculate the height of the font in logical units
-	//
-	const int dotsPerInch = 96; // always use 96.	jba.
-	int font_height = -MulDiv (PointSize, dotsPerInch, 72);
-
-	int fontWidth = 0; // use font default.
-	if (doingGenerals) {
-		//fontWidth = -font_height*0.35f; //2 pixels tighter.
-		fontWidth = -font_height*0.40f; // one pixel tighter
-	}
-	PixelOverlap = (-font_height)/8;
-
-	// Sanity check in case of perversion. :)
-	if (PixelOverlap<0) PixelOverlap = 0;
-	if (PixelOverlap>4) PixelOverlap = 4;
-	//
-	//	Create the Windows font
-	//
-	DWORD bold		= IsBold ? FW_BOLD : FW_NORMAL;
-	DWORD italic	= 0;
-	GDIFont			= ::CreateFont (font_height, fontWidth, 0, 0, bold, italic,
-								FALSE, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS,
-								CLIP_DEFAULT_PRECIS, ANTIALIASED_QUALITY,
-								VARIABLE_PITCH, font_name);
-	
-	//
-	// Set-up the fields of the BITMAPINFOHEADER
-	//	Note: Top-down DIBs use negative height in Win32.
-	//
-	BITMAPINFOHEADER bitmap_info = { 0 };
-	bitmap_info.biSize				= sizeof (BITMAPINFOHEADER);
-	bitmap_info.biWidth				= PointSize * 2;
-	bitmap_info.biHeight				= -(PointSize * 2);
-	bitmap_info.biPlanes				= 1;
-	bitmap_info.biBitCount			= 24;
-	bitmap_info.biCompression		= BI_RGB;
-	bitmap_info.biSizeImage			= ((PointSize * PointSize * 4) * 3);
-	bitmap_info.biXPelsPerMeter	= 0;
-	bitmap_info.biYPelsPerMeter	= 0;
-	bitmap_info.biClrUsed			= 0;
-	bitmap_info.biClrImportant		= 0;
-
-	//
-	// Create a bitmap that we can access the bits directly of
-	//
-	GDIBitmap	= ::CreateDIBSection (	screen_dc,
-													(const BITMAPINFO *)&bitmap_info,
-													DIB_RGB_COLORS,
-													(void **)&GDIBitmapBits,
-													NULL,
-													0L);
-
-	//
-	//	Create a device context we can select the font and bitmap into
-	//
-	MemDC = ::CreateCompatibleDC (screen_dc);
-
-	//
-	// Release our temporary screen DC
-	//
-	::ReleaseDC ((HWND)WW3D::Get_Window(), screen_dc);
-
-	//
-	//	Now select the BMP and font into the DC
-	//
-	OldGDIBitmap	= (HBITMAP)::SelectObject (MemDC, GDIBitmap);
-	OldGDIFont		= (HFONT)::SelectObject (MemDC, GDIFont);
-	::SetBkColor (MemDC, RGB (0, 0, 0));
-	::SetTextColor (MemDC, RGB (255, 255, 255));
-
-	//
-	//	Lookup the pixel height of the font
-	//
-	TEXTMETRIC text_metric = { 0 };
-	::GetTextMetrics (MemDC, &text_metric);
-	CharHeight = text_metric.tmHeight;	
-	CharAscent = text_metric.tmAscent;
-	CharOverhang = text_metric.tmOverhang;
-	if (doingGenerals) {
-		CharOverhang = 0;
-	}
-}
+// BFME 2's body is the row 0x00154630 in FontCharsClassCreateGDIFont.cpp; Zero Hour's copy here duplicated it.
 
 
 ////////////////////////////////////////////////////////////////////////////////////

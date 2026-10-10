@@ -35882,8 +35882,6 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/dx8caps.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/dx8caps.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/dx8rendererdebugger.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/dx8rendererdebugger.cpp	"gsy",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper_set_light_environment.cpp	"",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper_set_light_environment.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/hanim.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/hanim.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/hanim_vector_hanimcombo_ctor.cpp	"",on	1

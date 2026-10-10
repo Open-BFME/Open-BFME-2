@@ -279,7 +279,7 @@ void DX8TextureCategoryClass::Add_Render_Task(DX8PolygonRendererClass * p_render
 	container->Add_Visible_Texture_Category(this,pass);
 }
 
-void DX8TextureCategoryClass::Add_Polygon_Renderer(DX8PolygonRendererClass* p_renderer,DX8PolygonRendererClass* add_after_this)
+inline void DX8TextureCategoryClass::Add_Polygon_Renderer(DX8PolygonRendererClass* p_renderer,DX8PolygonRendererClass* add_after_this)
 {
 	WWASSERT(p_renderer!=NULL);
 	WWASSERT(!PolygonRendererList.Contains(p_renderer));

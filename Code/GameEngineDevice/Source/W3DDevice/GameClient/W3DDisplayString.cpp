@@ -109,11 +109,9 @@ struct GlobalLanguageDataBFMERetail
 // W3DDisplayString::~W3DDisplayString ========================================
 /** */
 //=============================================================================
-// ??1W3DDisplayString@@MAE@XZ present-unmatched
-W3DDisplayString::~W3DDisplayString( void )
-{
-
-}  // end ~W3DDisplayString
+// BFME 2's destructor is the row 0x00106162 in W3DDisplayStringDtor.cpp, which also emits
+// its unwind funclet uw_0076443a. Zero Hour's copy here duplicated that funclet and emitted a
+// second W3DDisplayString vftable whose DisplayString::getTextLength copy is not retail's.
 
 // W3DDisplayString::textChanged ==============================================
 /** This method automatically gets called from some methods in the display
@@ -134,85 +132,10 @@ W3DDisplayString::~W3DDisplayString( void )
 // W3DDisplayString::draw(x y color dropColor): BFME 2's body is the row 0x00106405 in W3DDisplayStringDraw.cpp;
 // Zero Hour's copy here duplicated it.
 // byte-exact reconstruction: Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringDrawDefault.cpp
-// ?draw@W3DDisplayString@@ present-unmatched
-void W3DDisplayString::draw( Int x, Int y, Color color, Color dropColor, Int xDrop, Int yDrop )
-{
-	Bool needNewPolys = FALSE;
-
-	// sanity
-	if( getTextLength() == 0 )	
-		return;  // nothing to draw
-	
-	// if our font or text has changed we need to build a new sentence
-	if( m_fontChanged || m_textChanged )
-	{
-		if(m_useHotKey)
-		{
-			m_textRenderer.Set_Hot_Key_Parse(TRUE);
-			m_textRenderer.Build_Sentence( getText().str(), &m_hotKeyPos.x, &m_hotKeyPos.y );
-			m_hotkey.translate(TheHotKeyManager->searchHotKey(getText()));
-			if(!m_hotkey.isEmpty())
-				m_textRendererHotKey.Build_Sentence(m_hotkey.str(), NULL, NULL);
-			else
-			{
-				m_useHotKey = FALSE;
-				m_textRendererHotKey.Reset();
-			}
-		}
-		else
-			m_textRenderer.Build_Sentence( getText().str(), NULL, NULL );
-		m_fontChanged = FALSE;
-		m_textChanged = FALSE;
-		needNewPolys = TRUE;
-
-	}  // end if
-
-	//
-	// if our position has changed, or our colors have chagned, or our
-	// text data has changed, we need to redo the texture quads
-	//
-	if( needNewPolys ||
-			x != m_textPos.x || 
-			y != m_textPos.y || 
-			color != m_currTextColor || 
-			dropColor != m_currDropColor )
-	{
-
-		// save the new attributes of the text position and color
-		m_textPos.x = x;
-		m_textPos.y = y;
-		m_currTextColor = color;
-		m_currDropColor = dropColor;
-
-		// reset the quads
-		m_textRenderer.Reset_Polys();
-					
-		// draw the shadow
-		m_textRenderer.Set_Location( Vector2( m_textPos.x + xDrop, m_textPos.y + yDrop) );
-		m_textRenderer.Draw_Sentence( m_currDropColor );
-
-		// draw the text
-		m_textRenderer.Set_Location( Vector2( m_textPos.x, m_textPos.y ) );
-		m_textRenderer.Draw_Sentence( m_currTextColor );
-		
-		if(m_useHotKey)
-		{
-			m_textRendererHotKey.Reset_Polys();
-			m_textRendererHotKey.Set_Location( Vector2( m_textPos.x + m_hotKeyPos.x , m_textPos.y +m_hotKeyPos.y) );
-			m_textRendererHotKey.Draw_Sentence( m_hotKeyColor );
-			m_textRendererHotKey.Render();
-		}
-	
-	}  // end if
-
-	// render the text
-	m_textRenderer.Render();
-
-	// we are for sure using display resources now
-	if( TheGameClient )
-		usingResources( TheGameClient->getFrame() );
-
-}  // end draw
+// Zero Hour's six-argument draw (x y color dropColor xDrop yDrop) has no BFME 2 counterpart: retail's
+// W3DDisplayString vftable 0x00BCF900 carries only draw(int,int) (slot 13, 0x00105E65) and
+// draw(int,int,int,int) (slot 14, 0x00106405). The copy that sat here only pulled HotKeyManager and
+// AsciiString externals into this unit.
 
 // W3DDisplayString::getSize ==================================================
 /** Get the render size width and height of the string in this instance

@@ -13,7 +13,7 @@ public:
 	DisplayString();
 	virtual ~DisplayString();
 	virtual void setText(UnicodeString text);
-	virtual UnicodeString getText();
+	virtual void pad02();  // slot 2 (retail 0x0022C4DF): bound in W3DDisplayStringDtor.cpp
 	virtual int getTextLength();
 	virtual void notifyTextChanged();
 	virtual void reset();

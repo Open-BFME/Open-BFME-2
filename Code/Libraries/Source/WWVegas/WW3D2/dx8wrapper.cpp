@@ -3765,9 +3765,98 @@ void DX8Wrapper::Set_Light(unsigned index,const LightClass &light)
 //! directional lights to produce the lighting.
 /*! 5/27/02 KJM Added shader light environment support
 */
-// BFME 2's DX8Wrapper::Set_Light_Environment is the row 0x00122EA0 in
-// dx8wrapper_set_light_environment.cpp; this unit no longer carries Zero Hour's
-// body, which duplicated that definition (strong in both objects).
+// BFME 2's body (0x00122EA0, inside this unit's range). Its environment
+// carries a one-byte state before the Zero Hour fields, read through the
+// local views below. Set_Light(unsigned,const D3DLIGHT8*) above is inlined
+// for the clearing loop and called for the lit one, as in retail.
+struct Bfme2LightEnvironmentInputView
+{
+	Vector3 Direction;
+	Vector3 Ambient;
+	Vector3 Diffuse;
+	bool DiffuseRejected;
+	bool Point;
+	Vector3 Center;
+	float InnerRadius;
+	float OuterRadius;
+	Vector3 PointAmbient;
+	Vector3 PointDiffuse;
+};
+
+struct Bfme2LightEnvironmentView
+{
+	// The BFME2 environment carries a one-byte state before the donor fields.
+	// The shifted view is kept local so the legacy reference header stays intact.
+	unsigned char State;
+	unsigned char StatePadding[3];
+	int LightCount;
+	Vector3 ObjectCenter;
+	Bfme2LightEnvironmentInputView InputLights[4];
+	Vector3 OutputAmbient;
+	const Vector3 &Get_Equivalent_Ambient() const { return OutputAmbient; }
+	int Get_Light_Count() const { return LightCount; }
+};
+
+void DX8Wrapper::Set_Light_Environment(LightEnvironmentClass* light_env)
+{
+	Bfme2LightEnvironmentView *environment =
+		reinterpret_cast<Bfme2LightEnvironmentView *>(light_env);
+	if (Light_Environment == light_env && light_env && environment->State) {
+		return;
+	}
+
+	Light_Environment = light_env;
+
+	if (!light_env || bfmeSkipFixedFunctionState) {
+		return;
+	}
+
+	int light_count = environment->Get_Light_Count();
+	unsigned int color = Convert_Color(environment->Get_Equivalent_Ambient(), 0.0f);
+	if (RenderStates[D3DRS_AMBIENT] != color) {
+		Set_DX8_Render_State(D3DRS_AMBIENT, color);
+	}
+
+	D3DLIGHT8 light;
+	int l = 0;
+	for (; l < light_count; ++l) {
+		::ZeroMemory(&light, sizeof(D3DLIGHT8));
+
+		light.Type = D3DLIGHT_DIRECTIONAL;
+		(Vector3&)light.Diffuse = environment->InputLights[l].Diffuse;
+		Vector3 dir = -environment->InputLights[l].Direction;
+		light.Direction = (const D3DVECTOR&)dir;
+
+		if (l == 0) {
+			light.Specular.r = light.Specular.g = light.Specular.b = 1.0f;
+		}
+
+		if (environment->InputLights[l].Point) {
+			light.Type = D3DLIGHT_POINT;
+			(Vector3&)light.Diffuse = environment->InputLights[l].PointDiffuse;
+			(Vector3&)light.Ambient = environment->InputLights[l].PointAmbient;
+			light.Position = (const D3DVECTOR&)environment->InputLights[l].Center;
+			light.Range = environment->InputLights[l].OuterRadius;
+
+			double a, b;
+			b = environment->InputLights[l].OuterRadius;
+			a = environment->InputLights[l].InnerRadius;
+			light.Attenuation0 = 1.0f;
+			if (fabs(a - b) < 1e-5) {
+				light.Attenuation1 = 0.0f;
+			} else {
+				light.Attenuation1 = (float)0.1 / a;
+			}
+			light.Attenuation2 = 8.0f / (b * b);
+		}
+
+		Set_Light(l, &light);
+	}
+
+	for (; l < 4; ++l) {
+		Set_Light(l, NULL);
+	}
+}
 
 // ?_Get_DX8_Front_Buffer@DX8Wrapper@@ present-unmatched
 IDirect3DSurface8 * DX8Wrapper::_Get_DX8_Front_Buffer()

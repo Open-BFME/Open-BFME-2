@@ -2006,8 +2006,6 @@ Code/Libraries/Source/WWVegas/WW3D2/DX8CapsRecreate.cpp	wrong-name	?g_d3dInterfa
 Code/Libraries/Source/WWVegas/WW3D2/DX8RenderProceduralMaterialPasses.cpp	wrong-name	?Allocator@?$AutoPoolClass@VMatPassTaskClass@@$0BAA@@@2V?$ObjectPoolClass@VMatPassTaskClass@@$0BAA@@@A	0x009F3690
 Code/Libraries/Source/WWVegas/WW3D2/DX8RigidDelayedMaterialPass.cpp	wrong-name	?MatPassTaskPool@@3VMatPassTaskPoolClass@@A	0x009F3690
 Code/Libraries/Source/WWVegas/WW3D2/DX8RigidMaterialPassAppend.cpp	wrong-name	?MatPassTaskPool@@3VMatPassTaskPoolClass@@A	0x009F3690
-Code/Libraries/Source/WWVegas/WW3D2/DX8TextureCategoryRemovePolygonRenderer.cpp	duplicate-def	?texture_category_delete_list@@3PAUTextureCategoryDeleteList@@A	0x009F363C
-Code/Libraries/Source/WWVegas/WW3D2/DX8TextureCategoryRemovePolygonRenderer.cpp	wrong-name	?texture_category_delete_list@@3PAUTextureCategoryDeleteList@@A	0x009F363C
 Code/Libraries/Source/WWVegas/WW3D2/DX8WebBrowserCreateBrowser.cpp	wrong-name	?Rva00959410Dispatch@@3URva00959410Ptr@@A	0x009F7040
 Code/Libraries/Source/WWVegas/WW3D2/DX8WebBrowserInitialize.cpp	wrong-name	?D3DDevice@DX8Wrapper@@0PAUIDirect3DDevice8@@A	0x009EDA34
 Code/Libraries/Source/WWVegas/WW3D2/DX8WebBrowserInitialize.cpp	wrong-name	?Rva0134B280Browser@@3V?$_com_ptr_t@V?$_com_IIID@UIFEBrowserEngine2@@$1?_GUID_ee883b17_0778_4b18_a12b_e44c0d298412@@3U__s_GUID@@B@@@@A	0x009F7040

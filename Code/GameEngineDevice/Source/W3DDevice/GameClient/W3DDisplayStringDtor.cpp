@@ -21,7 +21,7 @@ public:
 	virtual ~DisplayString();
 	virtual void setText(UnicodeString text);
 	virtual void pad02();
-	virtual void pad03();
+	virtual int getTextLength();
 	virtual void notifyTextChanged();
 	virtual void reset();
 private:
@@ -104,4 +104,5 @@ void W3DDisplayString::reset()
 // Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
 // each one has the same function in that slot (vftable addresses from matched vptr
 // stores). Bind them to the rows at those functions.
+// Slot 3 is DisplayString::getTextLength, the row 0x00106153 (W3DDisplayStringWordWrap.cpp).
 #pragma comment(linker, "/alternatename:?pad02@DisplayString@@UAEXXZ=?rva0022C4DF@Rva0022C4DF@@QBE?AVUnicodeString@@XZ")
