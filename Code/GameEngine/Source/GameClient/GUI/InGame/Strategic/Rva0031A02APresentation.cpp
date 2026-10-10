@@ -1,9 +1,10 @@
 // ?updatePresentation@Rva0031A02A@@QAEXXZ
-// partial score=0.97 date=2026-10-08
-// cl: /O1 /DNDEBUG /MD /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata /ICode/Libraries/Include/Lib /EHsc /Ireference/shims/bfmelist /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /O1 /DNDEBUG /MD /ICode/Libraries/Include /ICode/GameEngine/Include /ICode/GameEngine/Source/Common /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata /ICode/Libraries/Include/Lib /EHsc /Ireference/shims/bfmelist /D_CRTIMP= /D_STLP_USE_STATIC_LIB /G7 /arch:SSE
 // stlport
 #include "ascii_string.h"
 #include "unicode_string.h"
+// Neighbour319E76 names the LivingWorldArmy subsystem; enclosing ABI-view
+// and method names below do not assert the original spelling.
 // Whole 0x0031A02A..0x0031A129 updates an army presentation. Every field
 // offset and helper ABI here comes from this body and the existing matched
 // provider rows. The helper source types are ABI views of the calls; they
@@ -24,11 +25,8 @@ struct TargetRef00217D4C { virtual void *destroy(unsigned); int references; };
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
 struct TreeHintRef00217D4C
 {
-    // ?TreeHintRef00217D4C::TreeHintRef00217D4C absent-from-retail
-    TreeHintRef00217D4C(TargetRef00217D4C *p) : m_ptr(p) { if (m_ptr) ++m_ptr->references; }
-    // ?TreeHintRef00217D4C::TreeHintRef00217D4C absent-from-retail
-    TreeHintRef00217D4C(const TreeHintRef00217D4C &other) : m_ptr(other.m_ptr) { if (m_ptr) ++m_ptr->references; }
-    // ?TreeHintRef00217D4C::~TreeHintRef00217D4C present-unmatched
+    __forceinline TreeHintRef00217D4C(TargetRef00217D4C *p) : m_ptr(p) { if (m_ptr) ++m_ptr->references; }
+    __forceinline TreeHintRef00217D4C(const TreeHintRef00217D4C &other) : m_ptr(other.m_ptr) { if (m_ptr) ++m_ptr->references; }
     __forceinline ~TreeHintRef00217D4C() { if (m_ptr) ReleaseTreeHintRef00217D4C(m_ptr); }
     TargetRef00217D4C *m_ptr;
 };
@@ -102,8 +100,8 @@ void Rva0031A02A::updatePresentation()
     if (!locked)
         line.rva00539141();
     reinterpret_cast<Rva00319AA0 *>(this)->rva00319AA0(&position);
-    Rva0031A02ASummary *currentSummary = summary;
-    currentSummary->owner = owner;
+    Rva0031A02ASummary *currentSummary = *(Rva0031A02ASummary *volatile *)&summary;
+    currentSummary->owner = *(volatile int*)&owner;
     Rva00538E22 *wheel = reinterpret_cast<Rva00538E22 *>(const_cast<TWheelInfo *>(
         reinterpret_cast<const Drawable *>(this)->getWheelInfo()));
     if (wheel)
