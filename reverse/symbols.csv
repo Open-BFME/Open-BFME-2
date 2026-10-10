@@ -17161,3 +17161,4 @@ _D3DXLoadSurfaceFromFileInMemory@36,0x0062AF80,Native separate-alpha loader REL3
 ?rva002B6D18@Rva002B6D18@@QAE_NPAX000@Z,0x002B6D18,Native complete109B RET16 2B6D18..2B6D85 returns bool0/1; actual211B message handler and WB D90640 predicate establish four pointer arguments: armyA integer-rangeA armyB integer-rangeB; same receiver checks2B2C40 movement validation2B6BCF and difference capacity3193EC; no existing owner or alias; neutral view preserves original declaration uncertainty
 ?rva002EAC9F@PathfindRequestRing@@QAEXPAVXfer@@@Z,0x002EAC9F,0x808-byte request ring xfer; called twice by Pathfinder::xfer 0x002F21F9 on +1C1DC/+1C9E4
 ?Rva0031A160Xfer@@YAXPAVXfer@@PAV?$vector@UBfmeVectorRecord00319C84@@V?$allocator@UBfmeVectorRecord00319C84@@@_STL@@@_STL@@@Z,0x0031A160,16-byte record vector xfer called by LivingWorldArmy::xfer 0x0031A6DB unless CRC
+?validateBIL@AptAnimationPoolData@@QAE_NXZ,0x006FA020,callee of ?rva006E6540@AptAnimationPoolData@@QAEXXZ
