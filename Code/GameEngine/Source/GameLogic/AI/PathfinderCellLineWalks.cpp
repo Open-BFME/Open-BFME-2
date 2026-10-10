@@ -99,12 +99,20 @@ PATHFINDER_CELL_LINE_CALLBACK( Rva002F600CInfo )
 	Int iterateCellsAlongLine( const ICoord2D *startCell, const ICoord2D *destinationCell, \
 		PathfindLayerEnum layer, Info *callbackInfo );
 
+class Object;
+
+class Rva002E7E26
+{
+public:
+	Int rva002E7E26( Object *cell, Int cellX, Int cellY );
+};
+
 class Pathfinder
 {
 public:
 	PathfindCell *getCell( PathfindLayerEnum layer, Int cellX, Int cellY );
+	Int rva002E8773( Int *xPts, Int *yPts, Int numEdges, Int layer, Rva002E7E26 *visitor );
 	Int rva002E7749(void *unused, Int cellX, Int cellY, Int layer, Int arg, bool check);
-	Int rva002F9578(const Coord3D *startPos, const Coord3D *destPos, PathfindLayerEnum layer, Rva002F4D8BInfo *info);
 
 private:
 	PATHFINDER_CELL_LINE_WALK_DECL( Rva002E7261Info )
@@ -184,10 +192,11 @@ Rva002E6CD8Owner& Rva002E6CD8Owner::rva002E6CD8(int a0, unsigned char a1, int a2
 
 class Rva002E6CFE
 {
-	int m_00;
-	int m_04;
-	int m_08;
 public:
+	int m_00;	// x in 24.8 fixed point
+	int m_04;	// x step per row
+	int m_08;	// rows left on this edge
+	int m_0C;	// vertex index (used by the convex polygon walk)
 	void rva002E6CFE(int a, int b, int c);
 	bool rva002E6D2F();
 };
@@ -403,12 +412,99 @@ Int Pathfinder::rva002E8251(const ICoord2D *startCell, const ICoord2D *destinati
 	return 0;
 }
 
-// ?rva002F9578@Pathfinder@@QAEHPBUCoord3D@@0W4PathfindLayerEnum@@PAURva002F4D8BInfo@@@Z @0x002F9578 63B.
-// The caller and adjacent Pathfinder helpers establish the class; both world-to-cell
-// conversions and the Rva002F4D8BInfo line-walk overload are rowed.
-Int Pathfinder::rva002F9578(const Coord3D *startPos, const Coord3D *destPos, PathfindLayerEnum layer, Rva002F4D8BInfo *info)
+// ?rva002E8773@Pathfinder@@QAEHPAH0HHPAVRva002E7E26@@@Z @0x002E8773 724B.
+// Pathfinder::ProcessConvexPoly for the 0x002E7E26 visitor: WorldBuilder twin
+// 0xD71F60 (pathfinder.inl, assert "!(numEdges<3)" at line 479) gives the
+// statement order.  Repeated and closing duplicate vertices are dropped and
+// fewer than three edges return -1; the polygon is then scan-converted from
+// its top vertex with a left and a right 24.8 edge walker (Rva002E6CFE, whose
+// fourth word holds the walker's vertex index) and each cell getCell returns
+// goes to the visitor, whose nonzero result ends the walk.  Retail reuses
+// yPts[topIdx] across the edge-setup call, so that call's body (0x002E6CFE)
+// must be visible in this unit.  The edge step (0x002E6D2F) is auto-inlined;
+// the cyclic next/previous vertex indices are macros (the WB twin keeps bare
+// ternary temporaries with no parameter copies) and reproduce the inlined
+// 0x002E6D42 and 0x002E6D54 shapes where calling those functions does not.
+#define nextIndex(i, n) ((i) + 1 == (n) ? 0 : (i) + 1)
+#define prevIndex(i, n) ((i) != 0 ? (i) - 1 : (n) - 1)
+
+Int Pathfinder::rva002E8773( Int *xPts, Int *yPts, Int numEdges, Int layer, Rva002E7E26 *visitor )
 {
-	ICoord2D tmpDest;
-	ICoord2D tmpStart;
-	return iterateCellsAlongLine(Rva002E7875WorldToCell(&tmpStart, true, startPos), Rva002E7875WorldToCell(&tmpDest, true, destPos), layer, info);
+	Int i;
+	Int j = 1;
+	for (i = 1; i < numEdges; i++) {
+		if (xPts[i] != xPts[j - 1] || yPts[i] != yPts[j - 1]) {
+			xPts[j] = xPts[i];
+			yPts[j] = yPts[i];
+			j++;
+		}
+	}
+	numEdges = j;
+	while (numEdges > 2 && xPts[0] == xPts[numEdges - 1] && yPts[0] == yPts[numEdges - 1]) {
+		numEdges--;
+	}
+	if (numEdges < 3) {
+		return -1;
+	}
+
+	Int topIdx = 0;
+	Int maxY = 0;
+	for (i = 1; i < numEdges; i++) {
+		if (yPts[i] < yPts[topIdx] || (yPts[i] == yPts[topIdx] && xPts[i] < xPts[topIdx]))
+			topIdx = i;
+		if (yPts[i] > maxY)
+			maxY = yPts[i];
+	}
+
+	Int y = yPts[topIdx];
+	Rva002E6CFE left;
+	left.m_0C = topIdx;
+	left.rva002E6CFE( xPts[left.m_0C], xPts[prevIndex(left.m_0C, numEdges)],
+		yPts[prevIndex(left.m_0C, numEdges)] - yPts[left.m_0C] );
+	left.m_0C = prevIndex(left.m_0C, numEdges);
+
+	while (yPts[topIdx] == yPts[nextIndex(topIdx, numEdges)])
+		topIdx = nextIndex(topIdx, numEdges);
+	Rva002E6CFE right;
+	right.m_0C = topIdx;
+	right.rva002E6CFE( xPts[right.m_0C], xPts[nextIndex(right.m_0C, numEdges)],
+		yPts[nextIndex(right.m_0C, numEdges)] - yPts[right.m_0C] );
+	right.m_0C = nextIndex(right.m_0C, numEdges);
+
+	while (y <= maxY) {
+		Int x = (left.m_00 + 0x80) / 256;
+		Int xEnd = (right.m_00 + 0x80) / 256;
+		while (x <= xEnd) {
+			PathfindCell *cell = getCell( (PathfindLayerEnum)layer, x, y );
+			x++;
+			if (!cell)
+				continue;
+			Int ret = visitor->rva002E7E26( (Object *)cell, x - 1, y );
+			if (ret)
+				return ret;
+		}
+		y++;
+		if (!left.rva002E6D2F()) {
+			while (left.m_08 == 0) {
+				Int dy = yPts[prevIndex(left.m_0C, numEdges)] - yPts[left.m_0C];
+				if (dy < 0)
+					break;
+				left.rva002E6CFE( xPts[left.m_0C], xPts[prevIndex(left.m_0C, numEdges)], dy );
+				left.m_0C = prevIndex(left.m_0C, numEdges);
+			}
+		}
+		if (!right.rva002E6D2F()) {
+			while (right.m_08 == 0) {
+				Int dy = yPts[nextIndex(right.m_0C, numEdges)] - yPts[right.m_0C];
+				if (dy < 0)
+					break;
+				right.rva002E6CFE( xPts[right.m_0C], xPts[nextIndex(right.m_0C, numEdges)], dy );
+				right.m_0C = nextIndex(right.m_0C, numEdges);
+				if (right.m_08 < 0)
+					return 0;
+			}
+		}
+	}
+	return 0;
 }
+
