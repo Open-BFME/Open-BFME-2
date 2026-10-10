@@ -51,6 +51,8 @@ struct BannerTypeIterator
 };
 class Rva00056F61 {
 public:
+ Rva00056F61();	// 0x002171F2 (pinned): the type table's hash_map constructor
+ ~Rva00056F61();
  BannerTypeIterator find(const AsciiString &name) {return BannerTypeIterator(rva00056F61(&name),this);}
  __declspec(nothrow) Rva0041534BIter rva0041534B(const AsciiString *);
  __declspec(nothrow) void *rva00056F61(const AsciiString *);
@@ -78,16 +80,24 @@ struct BfmePod28
 
 namespace _STL {
 template <class T> class allocator { public: allocator() {} };
-template <class T, class A> class vector {
+// The vector base's allocator constructor is retail's ICF-shared 29-byte body
+// at 0x00211E58 (pinned under this address-named spelling).
+template <class T, class A> class Rva00211E58VectorBase {
+public:
+	Rva00211E58VectorBase(const A &a) throw();
+protected:
+	T *_M_start;
+	T *_M_finish;
+	T *_M_end_of_storage;
+};
+template <class T, class A> class vector : public Rva00211E58VectorBase<T, A> {
 public:
 	typedef T *iterator;
-	iterator begin() { return _M_start; }
-	iterator end() { return _M_finish; }
+	vector(const A &a = A()) : Rva00211E58VectorBase<T, A>(a) {}
+	~vector();
+	iterator begin() { return this->_M_start; }
+	iterator end() { return this->_M_finish; }
 	void push_back(const T &value);	// 0x00216BB9
-private:
-	iterator _M_start;
-	iterator _M_finish;
-	iterator _M_end_of_storage;
 };
 // STLport 4.5.3 for_each (stl/_algo.h). Over the banners with the collector
 // below it is retail 0x00215EF7 (43 bytes; the collector has a constructor,
@@ -119,9 +129,21 @@ public:
 	BfmePod28 *m_slots[2];
 };
 
-class BannerUI
+// The subsystem base (rowed constructor 0x001B4E63 and setName 0x0006F3CC).
+class SubsystemInterface
 {
 public:
+	SubsystemInterface();
+	virtual ~SubsystemInterface();
+	void setName(AsciiString name);
+private:
+	unsigned char m_pad04[0x0C - 0x04];
+};
+
+class BannerUI : public SubsystemInterface
+{
+public:
+	BannerUI();
 	static void ParseBannerTypeInfo(INI *ini);
  void init();
  const AsciiString &GetBannerIconImageName(const AsciiString &key);
@@ -130,13 +152,13 @@ public:
  void OnBannerButton(int slot);
  void rva00216735(const char *path);
 private:
- unsigned char m_pad00[0x0C];
  Rva00056F61 m_types;
  bool m_aptMovieInitialized;	// +0x20, WB's assert names it
  unsigned char m_pad21[3];
  int m_windowIndex;
  _STL::vector<BfmePod28, _STL::allocator<BfmePod28> > m_banners;	// +0x28
- unsigned char m_pad34[4];
+ bool m_34;	// +0x34
+ unsigned char m_pad35[3];
  int m_38;	// +0x38
  float m_bannerXOffsets[2];	// +0x3C, SetBannerSlotXOffset's per-slot offsets
 };
@@ -495,4 +517,95 @@ void BannerUI::OnBannerButton(int slot)
 void BannerUI::rva00216735(const char *path)
 {
 	OnBannerButton(atoi(path));
+}
+
+// BannerUI::BannerUI, retail 0x00217211 (466 bytes; WB 0x00B6CFE0). Names the
+// subsystem, registers the movie's initialized and banner-button Apt commands
+// (0x00579E47 delegate holders) and, per banner slot, the over-button handlers
+// of its three button paths (0x002165B0 wrappers over this and the slot).
+class __single_inheritance AptDelegateTarget;
+typedef void (AptDelegateTarget::*AptDelegateMethod)(void);
+struct DelegateDesc
+{
+	template <class T, class M> DelegateDesc(T *object, M method)
+		: m_object(reinterpret_cast<AptDelegateTarget *>(object))
+		, m_method(reinterpret_cast<AptDelegateMethod>(method))
+	{
+	}
+
+	AptDelegateTarget *m_object;
+	AptDelegateMethod m_method;
+};
+template <class T, class M> __forceinline DelegateDesc MakeDelegate(T *object, M method)
+{
+	DelegateDesc desc(object, method);
+	return desc;
+}
+struct BannerSlotDesc
+{
+	BannerSlotDesc(BannerUI *object, unsigned int slot) : m_object(object), m_slot(slot) {}
+	BannerUI *m_object;
+	unsigned int m_slot;
+};
+class Rva00579E47
+{
+public:
+	Rva00579E47(const DelegateDesc &desc);
+	Rva00579E47(const Rva00579E47 &other);
+	~Rva00579E47();
+	void *m_ptr;
+};
+class Rva002165B0
+{
+public:
+	Rva002165B0 &rva002165B0(const DelegateDesc *desc);
+	void *m_ptr;
+};
+class AptCommandMap;
+class AptOverButtonHandler;
+template <class T> class AptRef;
+template <> class AptRef<AptCommandMap> : public Rva00579E47
+{
+public:
+	AptRef(const DelegateDesc &desc) : Rva00579E47(desc) {}
+};
+template <> class AptRef<AptOverButtonHandler>
+{
+public:
+	__forceinline AptRef(const BannerSlotDesc &desc) { reinterpret_cast<Rva002165B0 *>(this)->rva002165B0(reinterpret_cast<const DelegateDesc *>(&desc)); }
+	AptRef(const AptRef &other);
+	~AptRef();
+	void *m_ptr;
+};
+class AptPlayer
+{
+public:
+	void AddCommandMap(const AsciiString &name, AptRef<AptCommandMap> map);
+	void AddOverButtonHandler(const AsciiString &name, AptRef<AptOverButtonHandler> handler);
+};
+
+BannerUI::BannerUI()
+	: m_aptMovieInitialized(false), m_windowIndex(0), m_34(false), m_38(-1)
+{
+	for (float *offset = m_bannerXOffsets; offset != m_bannerXOffsets + 2; ++offset)
+		*offset = 0.0f;
+	setName(AsciiString("TheBannerUI"));
+	{
+		AsciiString name("AptBannerUI::OnInitialized");
+		reinterpret_cast<AptPlayer *>(g_bfmeAptWindowManager)->AddCommandMap(name, AptRef<AptCommandMap>(MakeDelegate(this, &BannerUI::OnAptMovieInitialized)));
+	}
+	{
+		AsciiString name("AptBannerUI::OnBttnBanner");
+		reinterpret_cast<AptPlayer *>(g_bfmeAptWindowManager)->AddCommandMap(name, AptRef<AptCommandMap>(MakeDelegate(this, &BannerUI::rva00216735)));
+	}
+	for (unsigned int slot = 0; slot < 2; ++slot)
+	{
+		AsciiString path;
+		path.format("BannerUI/~Location%d/Banner/AvailableBttn/", slot);
+		reinterpret_cast<AptPlayer *>(g_bfmeAptWindowManager)->AddOverButtonHandler(path, AptRef<AptOverButtonHandler>(BannerSlotDesc(this, slot)));
+		path.format("BannerUI/~Location%d/Banner/WaitingBttn/", slot);
+		reinterpret_cast<AptPlayer *>(g_bfmeAptWindowManager)->AddOverButtonHandler(path, AptRef<AptOverButtonHandler>(BannerSlotDesc(this, slot)));
+		path.format("BannerUI/~Location%d/Banner/Background", slot);
+		reinterpret_cast<AptPlayer *>(g_bfmeAptWindowManager)->AddOverButtonHandler(path, AptRef<AptOverButtonHandler>(BannerSlotDesc(this, slot)));
+	}
 }
