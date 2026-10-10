@@ -17179,3 +17179,4 @@ _D3DXLoadSurfaceFromFileInMemory@36,0x0062AF80,Native separate-alpha loader REL3
 ??1Rva0030CA8BList@@QAE@XZ,0x0007FAB3,listener-list / buffer storage dtors reached from the unwind funclets of the notifier owner dtors 0x0030CDCA and 0x0030C40A; shared free-first-pointer body
 ??1Rva0030C185List@@QAE@XZ,0x0007FAB3,listener-list / buffer storage dtors reached from the unwind funclets of the notifier owner dtors 0x0030CDCA and 0x0030C40A; shared free-first-pointer body
 ??1Rva0030C40ABuffer@@QAE@XZ,0x0007FAB3,listener-list / buffer storage dtors reached from the unwind funclets of the notifier owner dtors 0x0030CDCA and 0x0030C40A; shared free-first-pointer body
+??1Rva001E6FE5@@QAE@XZ,0x001E6FE5,out-of-line copy of the tree wrapper's inline dtor (tail jump to rowed 0x001E6F27) used by the unwind funclet of 0x001E72B4
