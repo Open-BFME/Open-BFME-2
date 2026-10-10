@@ -87,11 +87,16 @@ public:
 	unsigned int GetBlockSize(const void *block);
 
 	bool VerifyGuardFill(void *block, int alsoBeyond, unsigned char mode);
+	bool VerifyDelayedFreeFill(void *block);
 
-	unsigned char m_unaccessed[0x50b];
+	unsigned char m_unaccessed[0x509];
+	unsigned char m_fillByte;        // +0x509
+	unsigned char m_unaccessed50a;
 	unsigned char m_guardFillByte; // +0x50b
 	unsigned char m_unaccessed50c[8];
 	unsigned int m_guardFlags;     // +0x514
+	unsigned char m_unaccessed518[0x540-0x518];
+	unsigned int m_runKind;        // +0x540
 };
 
 bool GeneralAllocatorDebug::VerifyGuardFill(void *block, int alsoBeyond,
@@ -175,6 +180,81 @@ bool GeneralAllocatorDebug::VerifyGuardFill(void *block, int alsoBeyond,
 					return false;
 				}
 			}
+		}
+	}
+
+	return true;
+}
+// ?VerifyDelayedFreeFill@GeneralAllocatorDebug@@QAE_NPAX@Z @0x006C30C0
+// Native6C30C0..6C315B RET4. Its own failure literal establishes the name.
+// A single shared fallback call avoids the ECX-before-push cross-jumped shape.
+bool GeneralAllocatorDebug::VerifyDelayedFreeFill(void *block)
+{
+	unsigned char *run = (unsigned char *)block + 8;
+	// Separate the run alias from the block header read to preserve retail's prologue.
+	unsigned char *run2 = run;
+	int header = *(int *)((char *)run2 - 4);
+	unsigned int length;
+
+	// Spelled as an explicit sign-bit test rather than as `header >= 0`.
+	// MSVC7 folds `header >= 0` into a `jl` because the value is SIGNED, but
+	// retail branches on the SIGN (`78`, js). Reading the header as unsigned and
+	// testing bit 31 directly keeps the same predicate while letting the
+	// compiler emit the sign branch.
+	if (!(header & (int)0x80000000)) {
+		unsigned int span;
+		// Spelled as a negated test rather than as `header & 2 ? a : b`:
+		// retail jumps OVER the header+4 arm and falls into the masked value
+		// alone, which is the opposite of what the positive spelling lays out.
+		if (!(header & 2))
+			span = ((unsigned int)header & 0x7FFFFFF8u) + 4;
+		else
+			span = (unsigned int)header & 0x7FFFFFF8u;
+
+		unsigned char *word = run + span - 10;
+		unsigned char *bodyStart = word - *(unsigned short *)word;
+		length = (unsigned int)bodyStart;
+		// Likewise a plain pointer compare, not the cast-to-int form: the cast
+		// makes MSVC branch on `jl`, while retail branches on `rb` (72, jb)
+		// because it compares the addresses as unsigned.
+		if (bodyStart >= run) {
+			length -= (unsigned int)run;
+			goto haveLength;
+		}
+	}
+	length = GetBlockSize(run);
+haveLength:
+
+	// Nesting the fill rather than returning early keeps the argument group
+	// from being duplicated into both arms, and leaves the success epilogue at
+	// one site, which is where retail puts it.
+	if (length > 8) {
+		if (length >= 0x100)
+			length = 0x100;
+
+		// Retail mutates the run pointer in place: end = run + length, then the
+		// fill start becomes run + 8 (or run + 12 when the run kind is 3), and
+		// the count is end minus that. Keeping one pointer variable is what
+		// reproduces both the add and the later sub in the same register.
+		//
+		// The count is spelled as a SIGNED pointer difference. That is what puts
+		// retail's `mov ecx,[edi+0x540]` -- the load of the run kind -- after the
+		// `sub eax,esi` and before the argument pushes: with an unsigned count the
+		// whole expression is evaluated first and the compiler sinks the fill byte
+		// and the count ahead of the run-kind test that selects the fill start.
+		unsigned char *end = run + length;
+		run += 8;
+		if (m_runKind == 3)
+			run += 4;
+
+		if (rva00030E20Fill(run, end - run, (unsigned char)m_fillByte) == 0) {
+			// The declaration above takes (block, message) precisely so that this
+			// call pushes the message first: MSVC7 pushes a member's stack
+			// arguments right to left, loads ecx from the allocator immediately
+			// before the call, and emits no add afterward.
+			((Rva006C2D20Sink *)this)->rva006C2FB0(
+				(const char *)block, "GeneralAllocatorDebug::VerifyDelayedFreeFill failure.");
+			return false;
 		}
 	}
 
