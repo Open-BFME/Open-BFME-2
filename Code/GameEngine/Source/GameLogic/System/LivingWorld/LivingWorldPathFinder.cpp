@@ -189,3 +189,44 @@ bool Rva003EF8E1::Pathfind(LivingWorldSearchCallback *cb,int from,_STL::vector<O
  }
  return false;
 }
+
+// Native003F7198..003F71D4 complete60 RET4; WB01058340 confirms the
+// region-key lookup through logic+B0, friend predicate on callback+4, and
+// storing a successful region at+8. Original callback/class names unproven.
+// Native table008370C4 has four slots:003F7257,004FF363,003F7198,003F718D.
+// The constant and goal slots compile whole byte-and-relocation twins of
+// their existing owners; the table and local field views are target evidence.
+// The base prefix arranges zeroing region before the derived vptr; this
+// models native constructor order without asserting original inheritance.
+struct Rva003F7198Node {int key;};
+class Rva0020E89C {public:char pad[0x13c];int owner;};
+class Rva0020EAF6View {public:Rva0020E89C *rva0020EAF6(int);};
+struct Rva003F7198LogicPrefix {char pad[0xb0];Rva0020EAF6View *regions;};
+class __declspec(novtable) Rva003F7177Base {
+public:
+ Rva003F7177Base():region(0){}
+ virtual float distance(int,int)=0;
+ virtual float cost(int,int)=0;
+ virtual void visit(Rva003F7198Node*)=0;
+ virtual bool found(int,int)=0;
+ Rva002E071E *player;
+ void *region;
+};
+class Rva003F7177Callback:public Rva003F7177Base {
+public:
+ Rva003F7177Callback(Rva002E071E*);
+ virtual float distance(int,int);
+ virtual float cost(int,int);
+ virtual void visit(Rva003F7198Node*);
+ virtual bool found(int,int);
+};
+
+float Rva003F7177Callback::distance(int,int){return 0.0f;}
+float Rva003F7177Callback::cost(int,int){return 1.0f;}
+bool Rva003F7177Callback::found(int,int){return region!=0;}
+void Rva003F7177Callback::visit(Rva003F7198Node *node){
+ int key=node->key;
+ Rva0020EAF6View *regions=((Rva003F7198LogicPrefix*)TheLivingWorldLogic)->regions;
+ Rva0020E89C *r=regions->rva0020EAF6(key);
+ if(r && (unsigned char)player->rva002E0BC0(r->owner))region=r;
+}
