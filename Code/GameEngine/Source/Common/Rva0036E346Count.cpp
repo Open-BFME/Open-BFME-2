@@ -1,3 +1,4 @@
+// cl: /O1 /MD /G7 /arch:SSE
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?rva0036E346@Rva0036E346@@QAEHXZ, retail 0x0036E346, 17 bytes.
@@ -6,6 +7,8 @@
 // path via createGroup) and 0x00548A7D (SpecialPower vector sizing) both
 // pass a holder whose +0x04 is the sentinel.
 
+extern "C" void _ReadWriteBarrier();
+#pragma intrinsic(_ReadWriteBarrier)
 struct ListNode
 {
 	ListNode *m_next; // +0x00
@@ -16,18 +19,25 @@ struct ListNode
 class AIHolder
 {
 public:
-	char m_pad[0x3DA];
+	char m_pad[0x1F0];
+ void *m_field1F0;
+ char pad1F4[0x3DA-0x1F4];
 	unsigned char m_flag3DA; // +0x3DA
 };
 
 class Object
 {
 public:
-	char m_pad[0x258];
+	char pad0[4];
+ void *m_template;
+ char pad8[0x1C8-8];
+ unsigned char flag1C8;
+ char pad1C9[0x258-0x1C9];
 	AIHolder *m_ai; // +0x258
 	char m_mid[0x438 - 0x25C]; // +0x25C..+0x437
 	unsigned char m_flag438; // +0x438
 	void *rva0028BD5D(int v) const;
+ void leaveGroup();
 };
 
 class Rva0036E346
@@ -61,6 +71,8 @@ class AIGroup
 public:
 	void rva0036E2E2(bool flag);
 	bool rva0036E0E3();
+ bool rva0036E357();
+ inline int count() const {ListNode*h=m_head,*p=h->m_next;int n=0;while(p!=h){p=p->m_next;++n;}return n;}
 
 private:
 	char m_pad0[4]; // +0x00
@@ -174,4 +186,29 @@ void Rva0036E2A7::rva0036E2A7(SequentialScript *p, int dummy)
 			((ScriptTracker *)((char *)ai + 0x3D0))->setCurScript(p, true, dummy);
 		cur = cur->m_next;
 	} while (cur != m_head);
+}
+
+// Native36E357..36E3C6 RET0. The existing AIGroup list holder and
+// Object::leaveGroup24 establish the receiver and removal operation.
+// Fields1C8/258/1F0 and template108 are native facts; original member
+// spelling and meanings of the tested bits remain unresolved.
+// Nested tests plus a barrier before count select native CL flag and
+// reload the sentinel instead of retaining it through the field tests.
+struct Rva0036E357TemplateView {char pad[0x108];unsigned char flags108;};
+bool AIGroup::rva0036E357() {
+ ListNode *cur=m_head->m_next;
+ while(cur!=m_head) {
+  Object *obj=cur->m_obj;
+  bool reject=false;
+  if(obj->flag1C8&8)reject=true;
+  AIHolder *ai=obj->m_ai;
+  if(!ai)reject=true;else if(!ai->m_field1F0)reject=true;else if(static_cast<Rva0036E357TemplateView*>(obj->m_template)->flags108&4)reject=true;
+  cur=cur->m_next;
+  if(reject) {
+   _ReadWriteBarrier();
+   if(count()==1)return false;
+   obj->leaveGroup();cur=m_head->m_next;
+  }
+ }
+ return true;
 }
