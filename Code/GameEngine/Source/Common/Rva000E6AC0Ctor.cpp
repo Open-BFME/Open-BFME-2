@@ -39,25 +39,40 @@ private:
 };
 
 #include <vector>
+// The +0x34 handle's teardown is an inline reference release (count at +4,
+// Delete_This slot 0); unwind funclets call its out-of-line copy 0x0007B724.
+struct Rva00087A93Target
+{
+    virtual void Delete_This();
+    void Release_Ref() { if (--m_numRefs == 0) Delete_This(); }
+    int m_numRefs;
+};
 class Rva00087A93
 {
 public:
     Rva00087A93() : m_data(0) {}
-    ~Rva00087A93();
+    __forceinline ~Rva00087A93() { if (m_data) m_data->Release_Ref(); }
 private:
-    void *m_data;
+    Rva00087A93Target *m_data;
 };
+class TextureBaseClass { public: void Release_Ref(); };
 class TextureClass;
 template <class T> class RefCountPtr
 {
 public:
     RefCountPtr() : m_ptr(0) {}
-    ~RefCountPtr();
+    ~RefCountPtr() { if (m_ptr) ((TextureBaseClass *)m_ptr)->Release_Ref(); }
 private:
     T *m_ptr;
 };
 
 struct BfmeE16 { float x, y, z, w; };
+// Vector storage goes back through the game free 0x00030830 (EH states are
+// kept between the four frees, so it is not nothrow).
+void Rva00030830FreeAllocation(void *);
+namespace _STL {
+ template<> inline void allocator<BfmeE16>::deallocate(BfmeE16 *p, size_type) const { if (p) Rva00030830FreeAllocation(p); }
+}
 
 struct Coord3D
 {
@@ -70,7 +85,7 @@ class Rva000E6AC0Base
 {
 public:
     Rva000E6AC0Base() {}
-    virtual ~Rva000E6AC0Base();
+    virtual ~Rva000E6AC0Base() {}
 };
 
 struct Global9FE710
@@ -107,6 +122,8 @@ private:
     float m_5bc;
 };
 
+class Rva000EC9C6 { public: void rva000E6B99(); };
+
 // ??0Rva000E6AC0@@QAE@XZ @0x000E6AC0
 Rva000E6AC0::Rva000E6AC0()
     : m_vec0(), m_vec1(), m_vec2(), m_vec3()
@@ -116,6 +133,17 @@ Rva000E6AC0::Rva000E6AC0()
     float f = (g_Va009FE710 != 0) ? (float)g_Va009FE710->m_38 : 1.0f;
     m_540 = -1;
     m_5bc = f;
+}
+
+// ??1Rva000E6AC0@@UAE@XZ @0x000E6C6F (202B): the destructor its deleting
+// dtor 0x000E6D78 calls (pin ??1Rva000E6C6F). After the rowed buffer release
+// 0x000E6B99 the ten EH states unwind in reverse: the two Rva00171024
+// members (0x00170E82), the two texture references (Release_Ref
+// 0x0021ED10), the inline-released +0x34 handle, the four vectors (free) and
+// the base vtable 0x00BBB554.
+Rva000E6AC0::~Rva000E6AC0()
+{
+    reinterpret_cast<Rva000EC9C6 *>(this)->rva000E6B99();
 }
 
 // ?g_Va009FE710@@3PAUGlobal9FE710@@A: the global at this VA is ?TheGameEngine@@3PAVGameEngine@@A; this name is an alias for it.
