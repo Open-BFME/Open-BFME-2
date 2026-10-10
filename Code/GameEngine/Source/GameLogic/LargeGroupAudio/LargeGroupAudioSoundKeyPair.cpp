@@ -30,6 +30,14 @@
 // is the existing 0x003ED94F provider. Automatic member destruction preserves
 // all eight retail EH states, including the throwing allocation free.
 void __cdecl Rva00030830FreeAllocation(void *);
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
 #include <cstdlib>
 #define free Rva00030830FreeAllocation
 #include <set>

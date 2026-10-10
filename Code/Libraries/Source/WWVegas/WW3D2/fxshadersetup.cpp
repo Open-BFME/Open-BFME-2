@@ -22,6 +22,14 @@
 // asset is loaded and returns the D3DX effect. Effect calls are COM stdcall
 // virtuals in d3dx9effect.h's ID3DXEffect order.
 
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
 #include <vector>
 #include "ascii_string.h"
 
