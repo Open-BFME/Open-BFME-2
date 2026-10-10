@@ -1755,7 +1755,8 @@ struct Rva0059E647Factory
 {
 	Rva0059E647Entry *Lookup(Int *token);			// 0x002B931C
 };
-extern Rva0059E647Factory *g_rva0059E647Factory;
+class Rva0022C0CDSubsystem;
+extern Rva0022C0CDSubsystem *TheLivingWorldBuildingTemplateStore;
 
 // LivingWorldLogic::spawnBuilding, retail 0x002B99F8 (141 bytes; WB name,
 // asserts region and buildingTemplate lines 1095..1098). The building goes
@@ -1765,7 +1766,7 @@ void LivingWorldLogic::spawnBuilding(const Rva002B99F8Request *request)
 {
 	Rva002104B6 *regions = (Rva002104B6 *)TheLivingWorldLogic->m_field0B0;
 	LivingWorldRegion *region = (LivingWorldRegion *)regions->rva002104B6((void *)request->m_region);
-	Rva0059E647Entry *buildingTemplate = g_rva0059E647Factory->Lookup((Int *)&request->m_templateToken);
+	Rva0059E647Entry *buildingTemplate = ((Rva0059E647Factory*)TheLivingWorldBuildingTemplateStore)->Lookup((Int *)&request->m_templateToken);
 	Rva002B4C35Player *player = (Rva002B4C35Player *)((Rva002BA8F1Logic *)TheLivingWorldLogic)->find(*(const AsciiString *)request->m_player, 0);
 	void *slot = region->rva003F0588();
 	if (slot == 0)

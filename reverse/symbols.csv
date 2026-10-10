@@ -9401,7 +9401,6 @@ name,address,notes
 ?g_bfmeS1082_7@@3PAVBfmeS1082@@A,0x00A18238
 ?g_bfmeVJA@@3PAXA,0x00A09ED4
 ?g_bfmeVJB@@3PAXA,0x00A09F64
-?g_rva0059E647Factory@@3PAURva0059E647Factory@@A,0x009FF09C,factory pointer used by 0x59E647 token lookup
 ?g_rva0059E647World@@3PAURva0059E647World@@A,0x009FEF10,world pointer used by 0x59E647 (deref +0xB0 for lookup object; self as apply object)
 ?g_rva0059EB6FFlag@@3HA,0x00A02324,flag word gated by 0x59EB6F
 ?g_rva0059EB6FInfo@@3PAURva0059EB6FInfo@@A,0x00A02320,info singleton tested and slot-0xDC-called by 0x59EB6F
