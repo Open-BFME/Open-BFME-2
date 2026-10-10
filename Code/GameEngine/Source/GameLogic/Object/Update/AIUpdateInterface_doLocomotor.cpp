@@ -1,9 +1,3 @@
-// ?doLocomotor@AIUpdateInterface@@MAE?AW4UpdateSleepTime@@XZ
-// partial score=0.9995610601401941 date=2026-10-10
-// ?doLocomotor@AIUpdateInterface@@MAE?AW4UpdateSleepTime@@XZ
-// partial score=0.9992959839307839 date=2026-10-10
-// ?doLocomotor@AIUpdateInterface@@MAE?AW4UpdateSleepTime@@XZ
-// partial score=0.98 date=2026-10-09
 // cl: /DNDEBUG /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /ICode/Libraries/Include /ICode/GameEngine/Source/Common /O1 /G7 /arch:SSE
 // stlport
 //
@@ -40,6 +34,8 @@ typedef int Int;
 typedef unsigned int UnsignedInt;
 
 #define FAST_AS_POSSIBLE 999999.0f
+// Named constant preserves the retail SSE comparison operand order.
+static const float fastSentinel = 999999.0f;
 
 enum UpdateSleepTime
 {
@@ -354,6 +350,7 @@ private:
 
 extern AI *TheAI;
 
+// Existing data-ledger owner defined by ColdGlobalDwordGetters.cpp; initial value 5.
 extern Int g_Va00DBA4E4; // logic frames per second
 
 class MineshaftPortalBehaviour
@@ -547,7 +544,7 @@ UpdateSleepTime AIUpdateInterface::doLocomotor()
 
 					Real speed = m_desiredSpeed;
 					Real myMaxSpeed = m_curLocomotor->rva001E46E1(obj);
-					if (FAST_AS_POSSIBLE == speed || speed > myMaxSpeed)
+					if (speed == fastSentinel || speed > myMaxSpeed)
 						speed = myMaxSpeed;
 					if (blocked && speed > m_curMaxBlockedSpeed)
 					{
