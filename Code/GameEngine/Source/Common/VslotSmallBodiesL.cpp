@@ -180,3 +180,8 @@ Int Rva0055C44F::rva0055C44F()
 		system = Make001FCBD7();
 	return system->m_08;
 }
+
+// Installed table output words. Original owner, base relationship and
+// aggregate/return convention remain unknown. Native word operations only.
+class Rva004647D8 {public:void *rva004647D8(void *output);};
+void *Rva004647D8::rva004647D8(void *output) {unsigned int address=reinterpret_cast<unsigned int>(this);unsigned int *words=static_cast<unsigned int *>(output);words[0]=(address-0x20u)!=0u ? address : 0u;words[1]=address+0x34u;return output;}
