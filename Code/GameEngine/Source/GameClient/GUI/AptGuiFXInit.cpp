@@ -1,5 +1,3 @@
-// ?Rva00380B0CInit@@YAXXZ
-// partial score=0.98 date=2026-10-08
 // Reference lead: Open-BFME-1 9cbfb551fe20dae985f91f2319d8997287b6a705,
 // game/GameEngine/Source/GameClient/GUI/AptGuiFXRegisterCallbacks.cpp.
 // WB F650A0 names AptGuiFX::Init, source AptGuiFX.cpp:74; native boundary
@@ -51,8 +49,17 @@ void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
 class AptRefCounted { public: void *m_vtbl; int m_refCount; };
 class AptCommandMap : public AptRefCounted {};
 class AptCustomRender : public AptRefCounted {};
-class Rva0023E8D8 { public: Rva0023E8D8(void *); private: void *p; };
-class Rva00380AB1 { public: Rva00380AB1(void *); private: void *p; };
+// The two callback-holder constructors (rows 0x0023E8D8 Rva0023E8D8Ctor.cpp
+// and 0x00380AB1 Rva00380AB1Ctor.cpp) are visible inline-never-inlined with
+// their row bodies: retail's compiler knew they only read the function
+// pointer, which shares the pointer temporary and the argument-save slot
+// across the registrations (frame 0x10).
+void *__cdecl operator new(unsigned int);
+class Rva0023E8D8Impl { public: virtual ~Rva0023E8D8Impl(); int m_ref; void *m_func; Rva0023E8D8Impl(void *p) : m_ref(0) { m_func = *(void **)p; } };
+class Rva0023E8D8 { Rva0023E8D8Impl *m_ptr; public: __declspec(noinline) Rva0023E8D8(void *p) { Rva0023E8D8Impl *q = new Rva0023E8D8Impl(p); m_ptr = q; if (q) ++q->m_ref; } };
+class Rva00380AB1Impl { public: virtual ~Rva00380AB1Impl(); int m_ref; void *m_func; Rva00380AB1Impl(void *p) : m_ref(0) { m_func = *(void **)p; } };
+class Rva00380AB1 { Rva00380AB1Impl *m_ptr; public: __declspec(noinline) Rva00380AB1(void *p) { Rva00380AB1Impl *q = new Rva00380AB1Impl(p); m_ptr = q; if (q) ++q->m_ref; } };
+
 template<class T> class AptRef {
 public:
  T *m_ptr;
