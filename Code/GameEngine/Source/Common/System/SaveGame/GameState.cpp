@@ -197,33 +197,7 @@ Bool SaveDate::isNewerThan( SaveDate *other )
 // ------------------------------------------------------------------------------------------------
 /** Find a snapshot block info that matches the token passed in */
 // ------------------------------------------------------------------------------------------------
-// ?findBlockInfoByToken@GameState@@ present-unmatched
-GameState::SnapshotBlock *GameState::findBlockInfoByToken( AsciiString token, SnapshotType which )
-{
-
-	// sanity
-	if( token.isEmpty() )
-		return NULL;
-
-	// search for match our list
-	SnapshotBlock *blockInfo;
-	SnapshotBlockListIterator it;
-	for( it = m_snapshotBlockList[which].begin(); it != m_snapshotBlockList[which].end(); ++it )
-	{
-
-		// get info
-		blockInfo = &(*it);
-
-		// check for match
-		if( blockInfo->blockName == token )
-			return blockInfo;
-
-	}  // end for
-
-	// not found
-	return NULL;
-
-}  // end findLexiconEntryByToken
+// Token lookup is provided by verified GameStateAddSnapshotBlock.cpp.
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -296,32 +270,12 @@ UnicodeString getUnicodeTimeBuffer(SYSTEMTIME timeVal)
 
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
-// ??0GameState@@ present-unmatched
-GameState::GameState( void )
-{
+// Constructor is provided by verified GameStateConstructor.cpp.
 
-	m_availableGames = NULL;
-	m_isInLoadGame = FALSE;
-
-}  // end GameState
 
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
-// ??1GameState@@ present-unmatched
-GameState::~GameState( void )
-{
-
-	// clear our snapshot block list
-	for (Int i=0; i<SNAPSHOT_MAX; ++i)
-	m_snapshotBlockList[i].clear();
-
-	// make certain that the post process list is clean
-	m_snapshotPostProcessList.clear();
-
-	// clear any available game 
-	clearAvailableGames();
-
-}  // end ~GameState
+// Destructor is provided by verified GameStateDtor.cpp.
 
 // ------------------------------------------------------------------------------------------------
 /** Init the game state subsystem */
