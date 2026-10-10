@@ -138,3 +138,122 @@ void Rva0057590E::rva0057590E(int value)
 			(void *)Rva0057590ERef(m_source18->m_field04).second()->get(),
 			(LivingWorldRegion *)value)));
 }
+
+// ?rva005757F9@Rva005757F9@@QAEXPAURva005757F9Value@@@Z retail
+// 0x005757F9..0x0057590C (277 bytes EH RET 4): the same holder test / clear
+// / new / reset shape on the same +0x04 base / +0x18 source / +0x1C word /
+// +0x28 holder layout, with the holder object's slot 8 as the accept test.
+// A value whose +0x18 string is set gets a new 0x24-byte Rva005CDDA4 (rowed
+// ctor 0x005CDD32), an empty one a new 0x10-byte Rva005CDA3D (rowed ctor
+// 0x005CD9FF); both take the base, the word, the three getter values of the
+// source's +0x04 field (rowed 0x005ED28A, 0x00328A83, 0x00574AAC) and the
+// value. Identity of the class and the value remains unresolved.
+template <class T> class StringBase
+{
+public:
+	bool isEmpty() const;
+};
+
+struct Rva005757F9Value
+{
+	unsigned char m_pad00[0x18];
+	StringBase<char> m_name;				// +0x18
+};
+
+class Rva005ED28AAddDwordField
+{
+public:
+	int get() const;
+};
+
+class Rva005CDDA4
+{
+public:
+	Rva005CDDA4(void *owner, int a2, int a3, int a4, int a5, int a6);
+	virtual ~Rva005CDDA4();
+private:
+	unsigned char m_pad04[0x24 - 0x04];
+};
+
+class Rva005CDA3D
+{
+public:
+	Rva005CDA3D(void *owner, int a2, int a3, int a4, int a5, int a6);
+	virtual ~Rva005CDA3D();
+private:
+	unsigned char m_pad04[0x10 - 0x04];
+};
+
+class Rva005757F9Current
+{
+public:
+	virtual void slot0();
+	virtual void slot1();
+	virtual void slot2();
+	virtual void slot3();
+	virtual void restart();					// slot 4
+	virtual void slot5();
+	virtual void slot6();
+	virtual void slot7();
+	virtual bool accepts(Rva005757F9Value *value);	// slot 8
+};
+
+struct Rva005757F9Ref
+{
+	void *m_object;
+	Rva005757F9Ref(void *object) : m_object(object) {}
+	const Rva00328A83PtrChaseField *first() const
+	{
+		return static_cast<const Rva00328A83PtrChaseField *>(m_object);
+	}
+	const Rva00574AACAddDwordField *second() const
+	{
+		return static_cast<const Rva00574AACAddDwordField *>(m_object);
+	}
+	const Rva005ED28AAddDwordField *third() const
+	{
+		return static_cast<const Rva005ED28AAddDwordField *>(m_object);
+	}
+};
+
+struct Rva005757F9Word
+{
+	int m_value;
+	Rva005757F9Word(int value) : m_value(value) {}
+	operator int() const { return m_value; }
+};
+
+class Rva005757F9 : public Rva0057590EBase0, public Rva0057590EBase4
+{
+public:
+	void rva005757F9(Rva005757F9Value *value);
+private:
+	Rva0057590ESource *m_source18;			// +0x18
+	int m_1C;								// +0x1C
+	unsigned char m_pad20[0x28 - 0x20];
+	Rva005757F9Current *m_current28;		// +0x28 owning holder
+};
+
+void Rva005757F9::rva005757F9(Rva005757F9Value *value)
+{
+	Rva00575674 &holder = *reinterpret_cast<Rva00575674 *>(&m_current28);
+	Rva005757F9Current *current = m_current28;
+	if (current && current->accepts(value))
+	{
+		m_current28->restart();
+		return;
+	}
+	reinterpret_cast<Rva000AD6F4 *>(&m_current28)->clear();
+	if (!value->m_name.isEmpty())
+		holder.rva00575674(reinterpret_cast<Object *>(new Rva005CDDA4(static_cast<Rva0057590EBase4 *>(this), m_1C,
+			Rva005757F9Ref(m_source18->m_field04).third()->get(),
+			Rva005757F9Word(Rva005757F9Ref(m_source18->m_field04).first()->get()),
+			Rva005757F9Ref(m_source18->m_field04).second()->get(),
+			(int)value)));
+	else
+		holder.rva00575674(reinterpret_cast<Object *>(new Rva005CDA3D(static_cast<Rva0057590EBase4 *>(this), m_1C,
+			Rva005757F9Ref(m_source18->m_field04).third()->get(),
+			Rva005757F9Word(Rva005757F9Ref(m_source18->m_field04).first()->get()),
+			Rva005757F9Ref(m_source18->m_field04).second()->get(),
+			(int)value)));
+}
