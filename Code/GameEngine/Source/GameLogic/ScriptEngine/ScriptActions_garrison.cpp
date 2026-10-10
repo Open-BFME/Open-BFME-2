@@ -226,6 +226,9 @@ public:
 	bool testStatus(ObjectStatusTypes bit) const;
 	void rva0028FC18();
 	SpecialPowerModuleInterface *findSpecialPowerModuleInterface(SpecialPowerType type) const;	// 0x00290E22
+protected:
+	// Protected as in Zero Hour's Object.h and the 0x0028B6D6 row's spelling.
+	friend void __stdcall Rva003C6A0EDo(class Parameter *, class Parameter *, class Parameter *);
 	Module *findModule(NameKeyType key) const;	// 0x0028B6D6
 
 private:
