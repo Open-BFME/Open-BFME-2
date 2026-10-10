@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHsc /Ireference/shims/bfme2_ascii /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /O1 /MD /EHsc /DBFME_ASCII_DTOR_DECL /Ireference/shims/bfme2_ascii /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // PlayerTemplate store parser1FEFEC copies its override through this provider.
 // Target804B [1FE78E,1FEAB2), existing476-byte vector callers and the parser
