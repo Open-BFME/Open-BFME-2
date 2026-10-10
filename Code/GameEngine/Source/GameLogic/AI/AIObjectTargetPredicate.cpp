@@ -3,6 +3,9 @@
 // Native2FE193..2FE371478B RET; WB D75230 full757B corresponding unnamed static predicate.
 // Donor: BF1 575ba2b Rva0014CA60WeaponTargetPredicate.cpp/712B; its weapon/range/layer/static SiegeDeploy key purpose is the guide.
 // BFME2 independently supplies direct source object/six weapon slots, idle3CC, status68, flags115/113 and angular-range helper28F326.
+// Retail handler B790A9 names FuncInfo D21430: its sole unwind entry at
+// D21428 is {-1,B7909C}. The compiler emits this 13B guard reset beside
+// this parent, sharing its private initialization guard at DFF100.
 enum NameKeyType {NAMEKEY_INVALID=0};
 enum ObjectStatusTypes {OBJECT_STATUS_NONE=0};
 enum WeaponSlotType {WEAPON_FIRST=0};
