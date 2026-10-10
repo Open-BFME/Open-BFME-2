@@ -1,8 +1,5 @@
-// ?headB@Rva00066A9ASub@@QAEXXZ
-// partial score=0.98 date=2026-10-10
-// ?headB@Rva00066A9ASub@@QAEXXZ
-// partial score=0.98 date=2026-10-09
 // cl: /O1 /EHsc /MD
+// ?headB@Rva00066A9ASub@@QAEXXZ, retail 0x0007E89C (114B).
 //
 // Dump range 1. The 0x66A9A host body calls this subobject's headB through the
 // retail global at 0x00DE2000 when non-null. Target bytes for headB establish
@@ -58,6 +55,10 @@ public:
 	{
 		m_texture.operator=(texture);
 	}
+	// The slot is reached through a local reference to the member: with the sret temporary in
+	// flight this makes the receiver LEA precede the PUSH (native order) where a direct member
+	// assignment pushed first.
+	__forceinline RefCountPtr<TextureClass> &headBSlot() { RefCountPtr<TextureClass> &r = m_texture; return r; }
 	void tailA();
 	void tailB();
 
@@ -83,7 +84,7 @@ void Rva00066A9ASub::headB()
 {
 	Rva00066A9ADx8Guard guard;
 	{
-		m_texture = DX8Wrapper::Create_Render_Target(0x200, 0x200, WW3D_FORMAT_UNKNOWN);
+		headBSlot() = DX8Wrapper::Create_Render_Target(0x200, 0x200, WW3D_FORMAT_UNKNOWN);
 	}
 
 	if (m_helper)
