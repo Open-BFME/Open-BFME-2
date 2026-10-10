@@ -1,24 +1,21 @@
-// ?Render_With_FX_Material@MeshClass@@QAEXV?$RefCountPtr@VRenderingMethod@FXShader@@@@H@Z
-// partial score=0.99 date=2026-10-09
 // cl: /O2 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep
-//
-// NEAR draft (not under Code/): ?Render_With_FX_Material@MeshClass@@QAEXV?$RefCountPtr@VRenderingMethod@FXShader@@@@H@Z
-// retail 0x0014A880..0x0014B232 (2482 B), thiscall, ret 8, region /O2 /arch:SSE /G7.
-// Identity: WorldBuilder FXShaderRenderer::PerformRendering (0x00A21E40, twin
-// of retail 0x0017438B) calls MeshClass::Render_With_FX_Material (WB
-// 0x009CAB00, assert mesh.cpp:899 "!Model || !Model->Is_FX_Shader_Material()
-// || !Model->FXShaderGeometryData || !method.IsBound()"); retail callers
-// 0x0017454D / 0x00174612 pass a RefCountPtr<FXShader::RenderingMethod> copy
-// and an instance count. Sibling of the rowed Render_Material_Pass 0x0014C000
-// (same skin Anchor transform and BFME1 matrix headers).
-// Status: every byte matches except the tail: retail destroys the by-value
-// RefCountPtr at the normal exit through the out-of-line 0x0007B724 (lea ecx
-// [esp+0x118] / state -1 / call) while this compile inlines it there (the
-// early-return copy is inline in both). Compiled 2480 B vs 2482 B.
-// If landed: the dtor call needs ??1?$RefCountPtr@VRenderingMethod@FXShader@@@@QAE@XZ
-// at 0x0007B724 (ICF fold; that address carries the rowed ??1Rva00087A93@@QAE@XZ),
-// and the ??_H calls take ??0Vector4@@QAE@XZ (folded empty ctor 0x0047A6A9).
+// MeshClass FX-material render. Retail 14A880/2482; RET8.
+// WorldBuilder 9CAB00 mesh.cpp:899 and FXShaderRenderer caller A21E40
+// establish purpose; target callers17454D/174612 establish owning-pointer/count ABI.
+// Primary guide: BFME1 575ba2b04 matrix headers and the existing 14C000
+// Render_Material_Pass transfer; ZH mesh.cpp has no FX-material implementation.
+// Target access proves mesh Model C4 / BaseVertexOffset300 / Anchor310,
+// model flags18 / counts24,28 / material94 / geometryBC, and transform18.
+// RefPtr is the existing four-byte owning-pointer ABI view (7B724 dtor),
+// not a claim that the donor RefCountPtr template spelling is retail's type.
+// The combined decrement/zero test emits native early-inline/late-outline cleanup.
+// Native Matrix4 construction uses count4/stride16 and folded callback47A6A9.
+// Reuse its existing neutral Row16 provider, adapting the reference vector math
+// spelling locally. The callback bytes do not establish an original row type.
+#define Vector4 Rva0047A6A9Row16
 #include "matrix3d.h"
+#undef Vector4
+typedef Rva0047A6A9Row16 Vector4;
 
 class Matrix4
 {
@@ -177,27 +174,27 @@ class RefCountClass
 public:
 	virtual void Delete_This(void);
 	void Add_Ref(void) { NumRefs++; }
-	void Release_Ref(void) { NumRefs--; if (NumRefs == 0) Delete_This(); }
+	void Release_Ref(void) { NumRefs--; if (NumRefs == 0) Delete_This(); } int Dec_Ref(void) { return --NumRefs; }
 
 protected:
 	int NumRefs;
 };
 
-template <class T>
-class RefCountPtr
+namespace FXShader { class RenderingMethod; }
+class RefPtr
 {
 public:
-	~RefCountPtr(void)
+	RefPtr(RefCountClass *p) : Referent(p) {}
+	RefPtr(const RefPtr &p) : Referent(p.Referent) { if (Referent) Referent->Add_Ref(); }
+	~RefPtr(void)
 	{
-		if (Referent) {
-			Referent->Release_Ref();
-		}
+		if (Referent && Referent->Dec_Ref()==0) Referent->Delete_This();
 	}
 	bool IsBound(void) const { return Referent != 0; }
-	T *operator->(void) const { return Referent; }
+	FXShader::RenderingMethod *operator->(void) const { return reinterpret_cast<FXShader::RenderingMethod*>(Referent); }
 
 private:
-	T *Referent;
+	RefCountClass *Referent;
 };
 
 namespace FXShader {
@@ -333,7 +330,7 @@ protected:
 class MeshClass : public RenderObjClass
 {
 public:
-	void Render_With_FX_Material(RefCountPtr<FXShader::RenderingMethod> method, int count);
+	void Render_With_FX_Material(RefPtr method, int count);
 	MeshClass **Get_Anchor(void) { return Anchor; }
 	MeshModelClass *Peek_Model(void) { return Model; }
 	int Get_Base_Vertex_Offset(void) const { return BaseVertexOffset; }
@@ -346,7 +343,7 @@ private:
 	MeshClass **Anchor;	// +0x310
 };
 
-void MeshClass::Render_With_FX_Material(RefCountPtr<FXShader::RenderingMethod> method, int count)
+void MeshClass::Render_With_FX_Material(RefPtr method, int count)
 {
 	if (!Model || !Model->Is_FX_Shader_Material() || !Model->FXShaderGeometryData || !method.IsBound()) {
 		return;
