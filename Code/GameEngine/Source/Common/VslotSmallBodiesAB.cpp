@@ -119,12 +119,13 @@ struct Rva002B89BBInfo
 };
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
+// Native BFE004 slot0 points to2B89BB; WB D877A0 constructs this
+// stack visitor with payload4. The virtual slot owns the former pad0.
 class Rva002B89BB
 {
 public:
-	bool rva002B89BB(Rva002B89BBArg *arg);
+	virtual bool rva002B89BB(Rva002B89BBArg *arg);
 private:
-	Int m_00;
 	Rva002B89BBInfo *m_04;
 };
 bool Rva002B89BB::rva002B89BB(Rva002B89BBArg *arg)
