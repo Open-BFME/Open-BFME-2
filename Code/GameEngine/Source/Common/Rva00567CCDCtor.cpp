@@ -57,6 +57,8 @@ struct Rva00567CCDMid
 class Rva00567960 : public Rva00567960BaseMid, public Rva005C802B, public Rva00567CCDMid
 {
 public:
+	// The complete destructor is owned by the verified destructor TU.
+	virtual ~Rva00567960();
 	Rva00567960(int a1, const Rva00567CCDInfo *a2);
 private:
 	const CommandButton *m_18;

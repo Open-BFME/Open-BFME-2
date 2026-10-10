@@ -42,6 +42,8 @@ public:
 class Rva0057FE6B : public Rva005248D0
 {
 public:
+	// The complete destructor is owned by the verified destructor TU.
+	virtual ~Rva0057FE6B();
 	Rva0057FE6B(TargetRef00217D4C *a, int b, bool c);
 private:
 	char m_pad0[84];
