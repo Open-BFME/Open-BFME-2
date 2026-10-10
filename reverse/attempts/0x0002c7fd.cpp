@@ -1,4 +1,9 @@
 // ?rva0002C7FD@Rva0002C7FD@@QAEXI@Z
+// partial score=0.99 date=2026-10-10
+// ?rva0002C7FD@Rva0002C7FD@@QAEXI@Z
+// partial score=0.99
+// 214B; no volatile hacks (plain tmp[newBucket]). Only difference: retail loads newBucket ([ebp-0x1c]) into ECX before tmp.start ([ebp-0x28]) into EAX; cl loads the base first (2 lines). 14 operand-order forms of the address (k+p, p[k], k[p], char* arithmetic, begin()+k) are canonicalized to the same code.
+// ?rva0002C7FD@Rva0002C7FD@@QAEXI@Z
 // partial score=0.985981308411215 date=2026-10-10
 // ?rva0002C7FD@Rva0002C7FD@@QAEXI@Z
 // partial score=0.9813 date=2026-10-09
@@ -67,7 +72,7 @@ void Rva0002C7FD::rva0002C7FD(unsigned int hint) {
     while(first) {
      unsigned int newBucket=bucketForKey(first->key,n);
      buckets[scratch.bucket]=first->next;
-     unsigned k=*(volatile unsigned*)&newBucket; void **p=*(void ** volatile*)&tmp; void *&newHead=*(p+k);
+     void *&newHead=tmp[newBucket];
      first->next=static_cast<Rva0002C7FDNodePrefix*>(newHead);
      newHead=first;
      first=static_cast<Rva0002C7FDNodePrefix*>(buckets[scratch.bucket]);
