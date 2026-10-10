@@ -40,6 +40,7 @@ class Rva005E1008
 {
 public:
 	void rva005E1008(float v);
+	void rva005E105E();
 };
 
 class Rva005E1178
@@ -95,4 +96,11 @@ private:
 void Rva005E1168::rva005E1168(int v)
 {
 	m_ptr08->ShowProductionCount(v);
+}
+
+// Native5E118B..5E1193 loads the same subobject word8 then jumps5E105E.
+// Existing fastcall pin uses only ECX; original outer name remains unknown.
+void __fastcall rva005E118B(Rva005F8A7ESub *p)
+{
+    reinterpret_cast<Rva005E1008 *>(p->m_ptr08)->rva005E105E();
 }
