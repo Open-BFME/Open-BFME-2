@@ -1,3 +1,5 @@
+// ?rva002940B9@Object@@QAE_NPBVUpgradeTemplate@@@Z
+// partial score=0.93 date=2026-10-11
 // ?bfmeHas985C@BfmeArg985@@QAEDH@Z
 // partial score=0.93 date=2026-10-06
 // cl: /O1 /G7
