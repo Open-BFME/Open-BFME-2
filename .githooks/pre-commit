@@ -184,22 +184,24 @@ while IFS= read -r path; do
     esac
 done < "$staged_out"
 rm -f "$staged_out"
-# The ACMRT listing omits a deleted ledger and lists only a rename's destination, so
-# deleting or renaming one took the early exit below and check_csv never saw the
-# sources it orphaned (GPT-6.1-Sol, Open-BFME-1 hook port round 1). Ask about each
-# ledger itself, both sides of a rename included.
-for ledger_path in reverse/functions.csv reverse/symbols.csv reverse/data_rows.csv; do
-    ledger_status=0
-    git diff --cached --quiet --no-renames -- "$ledger_path" || ledger_status=$?
-    case "$ledger_status" in
-        0) ;;
-        1) case "$ledger_path" in
-               */data_rows.csv) data_rows_changed=1 ;;
-               *) ledger_changed=1 ;;
-           esac ;;
-        *) fail "checking whether $ledger_path is staged (see above)" ;;
+# Deletions and the old side of renames. The ACMRT listing above never shows them,
+# so deleting or renaming a ledger, a baseline or a flag table took the early exit
+# below and nothing checked it (GPT-6.1-Sol, Open-BFME-1 hook port rounds 1-2). The
+# same flags as above; a deleted Code/ source is check_csv's to refuse while a row
+# names it. (header_dependents --staged already lists deleted headers.)
+deleted_source=0
+capture deleted_out "listing deleted files" git diff --cached --name-only --no-renames --diff-filter=D
+while IFS= read -r path; do
+    case "$path" in
+        reverse/pin_consistency_baseline.csv|reverse/gate_baseline.txt|reverse/eh_baseline.csv) baseline_changed=1 ;;
+        reverse/retail_inventory/flag_regions.csv|reverse/flag_overrides.csv) flags_changed=1 ;;
+        reverse/functions.csv|reverse/symbols.csv|reverse/deleted_rows.csv|reverse/re_attempts.log) ledger_changed=1 ;;
+        reverse/data_rows.csv) data_rows_changed=1 ;;
+        reverse/attempts/*) attempts_changed=1 ;;
+        Code/*) deleted_source=1 ;;
     esac
-done
+done < "$deleted_out"
+rm -f "$deleted_out"
 
 # Placement: game sources live only under Code/ at the official BFME path
 # (plus reference/shims/ for shim headers, reference/CnC_Generals_Zero_Hour/ for
@@ -237,7 +239,7 @@ printf '' | python3 tools/data_check.py --converged --ref : "${converged_base[@]
 
 if [ "${#staged_sources[@]}" -eq 0 ] && [ "$ledger_changed" -eq 0 ] \
    && [ "$wide_change" -eq 0 ] && [ "$flags_changed" -eq 0 ] && [ "$baseline_changed" -eq 0 ] \
-   && [ "$attempts_changed" -eq 0 ] && [ "$data_rows_changed" -eq 0 ]; then
+   && [ "$attempts_changed" -eq 0 ] && [ "$data_rows_changed" -eq 0 ] && [ "$deleted_source" -eq 0 ]; then
     exit 0
 fi
 
@@ -350,6 +352,11 @@ fi
 # to grow it, but a hand-typed line is the same anti-pattern, so the committed
 # file is checked against HEAD as well.
 if [ "$baseline_changed" -ne 0 ]; then
+    # A removed pin line must be a fixed violation, judged as a ledger change is; a
+    # deleted or renamed baseline is missing for both checks, and they refuse.
+    if [ "$ledger_changed" -eq 0 ]; then
+        python3 tools/pin_consistency.py --check || fail "pin consistency (see above)"
+    fi
     python3 tools/pin_consistency.py --assert-shrink-only HEAD \
         || fail "pin_consistency_baseline.csv grew (see above)"
     python3 tools/eh_verify.py --assert-shrink-only HEAD || fail "eh_baseline.csv grew (see above)"

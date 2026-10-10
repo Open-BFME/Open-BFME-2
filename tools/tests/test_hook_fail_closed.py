@@ -460,3 +460,67 @@ def test_pre_commit_checks_the_ledger_when_data_rows_is_deleted_or_renamed(repo,
         git(repo, "mv", "reverse/data_rows.csv", "reverse/data_rows_saved.csv")
     run(repo, "pre-commit")
     assert (repo / "check-csv-ran").exists()
+
+
+PIN_BASELINE = "reverse/pin_consistency_baseline.csv"
+# pin_consistency's answer when its baseline is gone (read_baseline refuses)
+PIN_STUB = """import pathlib, sys
+if not pathlib.Path("reverse/pin_consistency_baseline.csv").exists():
+    print("pin_consistency: baseline is missing", file=sys.stderr)
+    raise SystemExit(1)
+"""
+
+
+def pin_setup(repo):
+    write(repo, "tools/pin_consistency.py", PIN_STUB)
+    write(repo, PIN_BASELINE, "symbol,bodies\n?p@@YAXXZ,1000\n?q@@YAXXZ,2000\n")
+    git(repo, "add", "-A")
+    git(repo, "commit", "-qm", "a pin baseline")
+
+
+@pytest.mark.parametrize("operation", ["delete", "rename"])
+def test_pre_commit_refuses_deleting_or_renaming_the_pin_baseline(repo, operation):
+    """The deleted side set no flag, so the commit took the early exit and a required
+    baseline went missing for every later gate (GPT-6.1-Sol, hook port round 2)."""
+    pin_setup(repo)
+    if operation == "delete":
+        git(repo, "rm", "-q", PIN_BASELINE)
+    else:
+        git(repo, "mv", PIN_BASELINE, PIN_BASELINE.replace(".csv", "_saved.csv"))
+    result = run(repo, "pre-commit")
+    assert result.returncode == 1 and "baseline is missing" in result.stderr
+
+
+def test_pre_commit_passes_a_pin_baseline_shrink(repo):
+    pin_setup(repo)
+    write(repo, PIN_BASELINE, "symbol,bodies\n?p@@YAXXZ,1000\n")
+    git(repo, "add", PIN_BASELINE)
+    result = run(repo, "pre-commit")
+    assert result.returncode == 0, result.stderr
+
+
+FLAG_OVERRIDES = "reverse/flag_overrides.csv"
+# the full gate's answer when an override the unchanged source needs is gone
+FLAG_BUILD = """import json, pathlib, sys
+with open("build-calls.jsonl", "a", encoding="utf-8") as out:
+    out.write(json.dumps(sys.argv[1:]) + "\\n")
+if not pathlib.Path("reverse/flag_overrides.csv").exists():
+    print("byte mismatch: Unit::f lost its /Oy- override", file=sys.stderr)
+    raise SystemExit(1)
+"""
+
+
+@pytest.mark.parametrize("operation", ["delete", "rename"])
+def test_pre_commit_runs_the_full_gate_when_flag_overrides_go(repo, operation):
+    """flags_changed came only from the ACMRT listing: deleting or renaming the
+    overrides skipped the full gate (GPT-6.1-Sol, hook port round 2)."""
+    write(repo, "tools/build.py", FLAG_BUILD)
+    write(repo, FLAG_OVERRIDES, f"source,flags\n{SOURCE},/Oy-\n")
+    git(repo, "add", "-A")
+    git(repo, "commit", "-qm", "an override the unit needs")
+    if operation == "delete":
+        git(repo, "rm", "-q", FLAG_OVERRIDES)
+    else:
+        git(repo, "mv", FLAG_OVERRIDES, FLAG_OVERRIDES.replace(".csv", "_saved.csv"))
+    result = run(repo, "pre-commit")
+    assert result.returncode == 1 and "lost its /Oy- override" in result.stderr
