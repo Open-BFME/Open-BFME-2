@@ -1,6 +1,10 @@
 // ?rva005EEBF6@Rva005EEA20@@QAEXPAURva005EE9CE@@PAVObject@@M@Z
-// partial score=0.98 date=2026-10-09
-// cl: /O1 /G7 /MD /GX /arch:SSE
+// Native5EEBF6..5EED92412B; AoE partition tally and normalization.
+// Object template04 flags108/113 and value providers are established by native
+// accesses and rowed callers. Field and helper views retain their existing
+// spellings; original target function name and full layouts remain unknown.
+// A const template accessor prevents sharing the flag-test address calculation.
+// cl: /O1 /G7 /MD /GX /arch:SSE /ICode/Libraries/Include/Lib
 // ?Rva005EE317@@YGXPAVCoord3D@@@Z @ 0x005EE317 125B
 // Random XY direction in AISPecialPowerTargetAoE.cpp (__FILE__ at 0x00878708
 // line 150-151): GetGameLogicRandomValueReal(-1.0f at 0x007BB9AC, 1.0f) twice
@@ -11,14 +15,8 @@
 // 0x0035B2C3) must accept it, and with +0x1A set no alive object of kind 7
 // may stand within 150 of it (the PartitionFilter chain; /GX for its
 // temporaries).
-class Coord3D
-{
-public:
-	void normalize();
-	float x;
-	float y;
-	float z;
-};
+#include "Coord3D.h"
+#include "../../../Common/PartitionRangeQueryCallView.h"
 
 // BFME2's partition filters (the view AIStructureCreepTactic.cpp documents):
 // a vptr, the +0x04 link to the next filter, then each filter's own members.
@@ -66,13 +64,6 @@ public:
 	virtual bool allow(Object *obj);
 };
 
-struct BfmeWideResult
-{
-	Object *next() throw();	// 0x00045623
-	~BfmeWideResult();	// 0x0004AA28
-	void *m_value;
-};
-
 class Player;
 
 // vftable 0x00C004D8, allow 0x00261409: the player's relationship to the
@@ -89,12 +80,6 @@ public:
 	int m_flags;
 };
 
-class PartitionManager
-{
-public:
-	BfmeWideResult iterateObjectsInRange(const Coord3D *pos, float radius, int distCalc,
-		Rva000421C8 *filters, int order);	// 0x00625610
-};
 extern PartitionManager *ThePartitionManager;
 
 enum Relationship
@@ -289,7 +274,8 @@ public:
 	Relationship getRelationship(const Object *that) const;	// 0x0028D156
 	Object *rva002931F5(bool flag);				// 0x002931F5
 	void *rva0028C197() const;				// 0x0028C197
-	const Coord3D *getPosition() const { return &m_pos; }
+	const Rva005EEBF6Template *getTemplate() const {return m_04;}
+ const Coord3D *getPosition() const { return &m_pos; }
 	char m_pad000[0x04];
 	Rva005EEBF6Template *m_04;	// +0x04
 	char m_pad008[0x38 - 0x08];
@@ -318,9 +304,9 @@ void Rva005EEA20::rva005EEBF6(Rva005EE9CE *tally, Object *source, float radius)
 	BfmeWideResult hits = ThePartitionManager->iterateObjectsInRange(source->getPosition(), radius, 0,
 		Rva0026119DFilter().link(&Rva00261409Filter(source->getControllingPlayer(), true, 6)), 0);
 	for (Object *obj = hits.next(); obj; obj = hits.next()) {
-		if (obj->m_04->m_108 & 0x80)
+		if (obj->getTemplate()->m_108 & 0x80)
 			continue;
-		if (!(obj->m_04->m_low108 & 0x08) && !(obj->m_04->m_113 & 0x04))
+		if (!(obj->getTemplate()->m_low108 & 0x08) && !(obj->getTemplate()->m_113 & 0x04))
 			continue;
 		if (source->getRelationship(obj) == ENEMIES) {
 			tally->m_08++;
