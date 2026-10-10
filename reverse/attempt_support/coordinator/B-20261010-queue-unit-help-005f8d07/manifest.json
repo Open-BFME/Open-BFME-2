@@ -1,0 +1,25 @@
+{
+  "id": "B-20261010-queue-unit-help-005f8d07",
+  "paths": [
+    "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIQueueUnitButton.cpp"
+  ],
+  "recoveries": [
+    {
+      "name": "?CreateHelp@QueueUnitButton@StrategicInGameUI@@UAE?AUTreeHintRef00217D4C@@XZ",
+      "rva": "0x005F8D07",
+      "size": 85,
+      "source": "Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIQueueUnitButton.cpp",
+      "notes": "WB1634790 names QueueUnitButton CreateHelp; primary table879CCC slot8 points to5F8D07. Native5F8D07..5F8D5C85B RET4 returns established counted-help holder through hidden result. Title28 and text2C feed existing12B InGameSimpleHelp ctor5398CD; holder increments refcount4. Original template spelling unknown so existing TreeHintRef00217D4C access view retained. First compile exact all85B and full EH graph; three existing source rows and BuildingNoArt literal still exact. No new pins or assembler.",
+      "replace_rva": ""
+    }
+  ],
+  "proof_command": "python tools/explain_mismatch.py \"?CreateHelp@QueueUnitButton@StrategicInGameUI@@UAE?AUTreeHintRef00217D4C@@XZ\" --rva 0x005F8D07 --size 85 --source Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIQueueUnitButton.cpp; python build/verify-queue-unit-create-help.py",
+  "proof_log": "proof.log",
+  "dependencies": [],
+  "ledger_delta": "One new row in existing queue-button source. No local ledger or pin edits.",
+  "provider_notes": "Existing TreeHintRef00217D4C four-byte counted-handle access view and InGameSimpleHelp constructor declaration reused from matched StandardCommandButtonSettings. No original template spelling asserted. Retail pointer879CEC proves primary slot8 relative to existing OnRightClicked slot4. Known region18 and unit20 preserved; native fields title28 text2C added. No constructor or vtable emitted.",
+  "seat": "B",
+  "base_commit": "dd0ddf5329f1adedfdbb4a30d95e937069d7d1fc",
+  "claim_owner": "codex-01a12257-recovery",
+  "proof_exit_code": 0
+}

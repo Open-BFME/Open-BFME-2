@@ -7,6 +7,37 @@
 // gives its build queue of ids.
 
 #include "ascii_string.h"
+#include "unicode_string.h"
+
+// Existing counted-help ABI: the holder is four bytes and the pointee's
+// reference count is at +4. Original template spelling is not established.
+struct TargetRef00217D4C
+{
+	void *m_vtbl;
+	int m_refCount;
+};
+void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *ref);
+struct TreeHintRef00217D4C
+{
+	TreeHintRef00217D4C(TargetRef00217D4C *ptr) : m_ptr(ptr)
+	{
+		if (m_ptr)
+			++m_ptr->m_refCount;
+	}
+	~TreeHintRef00217D4C()
+	{
+		if (m_ptr)
+			ReleaseTreeHintRef00217D4C(m_ptr);
+	}
+	TargetRef00217D4C *m_ptr;
+};
+class InGameSimpleHelp
+{
+public:
+	InGameSimpleHelp(const UnicodeString &title, const UnicodeString &text);
+private:
+	char m_opaque[12];
+};
 
 class Image;
 class ImageCollection
@@ -101,12 +132,18 @@ public:
 	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
 	// Slot 4 (pointer at 0x00879CDC).
 	virtual void OnRightClicked();
+	virtual void v05(); virtual void v06(); virtual void v07();
+	// Slot 8 (pointer at 0x00879CEC); hidden four-byte result, RET4.
+	virtual TreeHintRef00217D4C CreateHelp();
 
 private:
 	unsigned char m_pad04[0x18 - 0x04];
 	int m_regionID; // +0x18
 	unsigned char m_pad1c[0x20 - 0x1C];
 	int m_unitID; // +0x20
+	unsigned char m_pad24[4];
+	UnicodeString m_helpTitle; // +0x28
+	UnicodeString m_helpText; // +0x2C
 };
 }
 
@@ -131,4 +168,11 @@ void StrategicInGameUI::QueueUnitButton::OnRightClicked()
 		msg->appendIntegerArgument(m_regionID);
 		msg->appendIntegerArgument(m_unitID);
 	}
+}
+
+// WB1634790 names CreateHelp; native5F8D07..5F8D5C builds the existing
+// 12-byte help object from these two stored strings and acquires one reference.
+TreeHintRef00217D4C StrategicInGameUI::QueueUnitButton::CreateHelp()
+{
+	return TreeHintRef00217D4C((TargetRef00217D4C *)new InGameSimpleHelp(m_helpTitle, m_helpText));
 }
