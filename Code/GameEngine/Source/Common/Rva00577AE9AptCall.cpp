@@ -16,7 +16,7 @@ AsciiString Rva002228E8Get(float val);
 AsciiString Rva00222834Get(int val);
 
 
-__forceinline const char *GetStr(const AsciiString &s)
+static __forceinline const char *GetStr(const AsciiString &s)
 {
 	char *t = *(char **)(void *)&s;
 	return t ? t + 8 : "";

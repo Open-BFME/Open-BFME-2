@@ -22,7 +22,7 @@ void Rva005FFF62::Set(int idx, bool flag) {
   e->_1 = flag;
 }
 // 0x005FBAFE sibling.
-void __cdecl rva00977C23(int* a0, int* a1, int a2, void* a3, int a4, int a5);
+int __cdecl Rva00577C23AptCall(Rva00222A8BTarget *, void *, const char *, const char *, int *, bool *);
 struct Rva005FBAFE {
   void* m_00;
   void* m_04;
@@ -37,7 +37,7 @@ void Rva005FBAFE::Set2(int idx) {
   bool b0 = false;
   const char* prefix = m_08.str();
   const char* name = "SetBannerVisibility";
-  rva00977C23((int*)((Rva00222A8BTarget *)g_bfmeAptWindowManager), (int*)m_04, (int)prefix, (void*)name, (int)&idx, (int)&b0);
+  Rva00577C23AptCall((Rva00222A8BTarget *)g_bfmeAptWindowManager, m_04, prefix, name, &idx, &b0);
   e->_4 = 0;
 }
 
@@ -94,4 +94,15 @@ void Rva005FFFC1::Swap(int firstIndex, int secondIndex) {
  int saved = first[2];
  first[2] = second[2];
  second[2] = saved;
+}
+
+// Native600062..60006A loads receiver+4 then tail jumps to the owned
+// 145B RET8 Swap5FFFC1. Two int arguments retain their original stack
+// slots. Only this forwarding view is claimed; outer type/name unknown.
+struct Rva00600062SwapForward {
+    char opaque[4]; Rva005FFFC1 *impl;
+    void forward(int first, int second);
+};
+void Rva00600062SwapForward::forward(int first, int second) {
+    impl->Swap(first,second);
 }
