@@ -1,5 +1,3 @@
-// ?call@Rva006E15C0@@QAEXPAX0H@Z
-// partial score=1.0 date=2026-10-10
 // cl: /O2 /G6 /MD /EHsc
 // ?call@Rva006E15C0@@QAEXPAX0H@Z retail 0x006E15C0..0x006E1C39 (1657 bytes;
 // the ghidra extent of 1636 stops before the shared epilogue) thiscall ret
