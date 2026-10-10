@@ -1,4 +1,5 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /O1 /G7 /DNDEBUG /MD /EHsc
+#include <new>
 //
 // StrategicInGameUI::BattleResolver::Impl (WorldBuilder
 // StrategicInGameUIBattleResolver.cpp). Target facts for
@@ -136,4 +137,55 @@ void StrategicInGameUI::BattleResolver::Impl::StartUpStateHandler::Update()
    }
   }
  }
+}
+
+// Native5D0EB8..5D0F95/221B Update and5D0F95..5D1007/114B callback.
+// C75540slot04 proves true callback entry; queue5D0FA0 missed11B prologue.
+// WB15B8DD0 names ShowStartingAutoResolveBattleMessageStateHandler::Update;
+// WB15B9880 supplies the third-base callback. Target measures owner4,
+// argument8/startC and callback owner this-8/flag this+8 independently.
+// A bool initialized true then assigned from GameInfo's84 predicate keeps
+// native SETE/TEST and dialog-first layout. Owner is reloaded after new.
+// delay is targetA0663C's mutable zero-filled DWORD (sole code xref here).
+// Its class/static spelling is structural; no original data name claimed.
+// C752CCslot04 ties Update to existing Rva005CF9FF ctor/dtor.
+// The callback overrides the existing Rva005D06CB third base atC.
+// Real MI generates native secondary-this owner-8/flag+8 accesses.
+// Code only is credited; existing providers reused, no pins/hatches.
+class Rva005D073A{public:Rva005D073A(void*);virtual ~Rva005D073A();char fields[8];};
+extern "C" __declspec(dllimport) unsigned __stdcall timeGetTime();
+class LivingWorldLogic;extern LivingWorldLogic*TheLivingWorldLogic;
+class Rva002BA8F1Logic{public:int rva002B5256(bool);};
+class GameInfo;extern GameInfo*TheGameInfo;
+struct ResolveGameInfoView{char unknown[0x84];int field84;bool isEmpty()const{return field84==0;}};
+class GameMessage{public:void appendIntegerArgument(int);};
+class MessageStream{public:virtual ~MessageStream();
+ virtual void v01();virtual void v02();virtual void v03();virtual void v04();virtual void v05();virtual void v06();virtual void v07();virtual void v08();virtual void v09();virtual void v10();virtual void v11();virtual void v12();virtual void v13();virtual void v14();virtual void v15();virtual void v16();virtual void v17();virtual GameMessage*CreateMessage(int);};
+extern MessageStream*MessageStreamSubsystem;
+struct Rva005D06CBOwner;
+class Rva005D06CBB2{public:virtual ~Rva005D06CBB2();};
+class Rva005EB753{public:Rva005EB753(void*,void*,void*);virtual ~Rva005EB753();virtual void veterancySlot04();void*member04;};
+class Rva005D06CB:public Rva005CF872,public Rva005D06CBB2,public Rva005EB753{public:Rva005D06CB(Rva005D06CBOwner*,void*,void*);virtual ~Rva005D06CB();virtual void veterancySlot04();bool flag14;};
+struct ResolveBattleIDView{char unknown[0x34];int id;};
+struct ResolvePlanView{char unknown[0xc];Rva0042D6BAPtrChaseField*argument;void*unknown10;ResolveBattleIDView*battle;void*unknown18;Rva00575674 state;};
+class Rva005CF9FF:public Rva005CF872{public:Rva005CF9FF(void*,int,int,bool);virtual ~Rva005CF9FF();virtual void slot1();static unsigned delay;int m_08;unsigned m_0C;bool m_flag;};
+unsigned Rva005CF9FF::delay;
+void Rva005CF9FF::slot1(){
+ if(((Rva002BA8F1Logic*)TheLivingWorldLogic)->rva002B5256(false)>1 && timeGetTime()-m_0C<delay)return;
+ bool showDialog=true;if(TheGameInfo)showDialog=((ResolveGameInfoView*)TheGameInfo)->isEmpty();
+ if(showDialog){
+  int value=((ResolvePlanView*)m_04)->argument->get();
+  Object*next=(Object*)new Rva005D06CB((Rva005D06CBOwner*)m_04,(void*)value,(void*)m_08);
+  ((ResolvePlanView*)m_04)->state.rva00575674(next);
+ }else{
+  GameMessage*message=MessageStreamSubsystem->CreateMessage(0x6be);
+  message->appendIntegerArgument(((ResolvePlanView*)m_04)->battle->id);
+  Object*next=(Object*)new Rva005D073A(m_04);
+  ((ResolvePlanView*)m_04)->state.rva00575674(next);
+ }
+}
+
+void Rva005D06CB::veterancySlot04(){
+ if(flag14)((ResolvePlanView*)m_04)->state.rva00575674((Object*)new Rva005CFEDF(m_04));
+ else ((ResolvePlanView*)m_04)->state.rva00575674((Object*)new Rva005D073A(m_04));
 }
