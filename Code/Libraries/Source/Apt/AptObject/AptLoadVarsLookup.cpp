@@ -162,3 +162,65 @@ AptValue *AptLoadVars::sMethod_load(AptValue *value,int nParams)
  return AptBoolean::Create(true);
 }
 
+AptValue *AptLoadVars::objectMemberLookup(AptValue *const context,const EAStringC *const name)const
+{
+ const R4Word *prop=context?Rva008A44A0(name->rva00620090(),name->rva006D3750()):0;
+ if(prop) {
+  switch(prop->value) {
+case 1:
+   if(!g_rva008B2BD0_0) {
+    g_rva008B2BD0_0=reinterpret_cast<Rva008B2BD0Item *>(new Rva006D6500(reinterpret_cast<int>(&sMethod_load)));
+    reinterpret_cast<BfmeAptValue006DCD20 *>(g_rva008B2BD0_0)->setGCRootCount(1);
+    g_rva008B2BD0_0->unused0();
+   }
+   return reinterpret_cast<AptValue *>(g_rva008B2BD0_0);
+case 2:
+   if(!g_rva008B2BD0_1) {
+    g_rva008B2BD0_1=reinterpret_cast<Rva008B2BD0Item *>(new Rva006D6500(reinterpret_cast<int>(&sMethod_send)));
+    reinterpret_cast<BfmeAptValue006DCD20 *>(g_rva008B2BD0_1)->setGCRootCount(1);
+    g_rva008B2BD0_1->unused0();
+   }
+   return reinterpret_cast<AptValue *>(g_rva008B2BD0_1);
+case 3:
+   if(!g_rva008B2BD0_2) {
+    g_rva008B2BD0_2=reinterpret_cast<Rva008B2BD0Item *>(new Rva006D6500(reinterpret_cast<int>(&sMethod_sendAndLoad)));
+    reinterpret_cast<BfmeAptValue006DCD20 *>(g_rva008B2BD0_2)->setGCRootCount(1);
+    g_rva008B2BD0_2->unused0();
+   }
+   return reinterpret_cast<AptValue *>(g_rva008B2BD0_2);
+case 4:
+   if(!g_rva008B2BD0_3) {
+    g_rva008B2BD0_3=reinterpret_cast<Rva008B2BD0Item *>(new Rva006D6500(reinterpret_cast<int>(&sMethod_getBytesTotal)));
+    reinterpret_cast<BfmeAptValue006DCD20 *>(g_rva008B2BD0_3)->setGCRootCount(1);
+    g_rva008B2BD0_3->unused0();
+   }
+   return reinterpret_cast<AptValue *>(g_rva008B2BD0_3);
+case 5:
+   if(!g_rva008B2BD0_4) {
+    g_rva008B2BD0_4=reinterpret_cast<Rva008B2BD0Item *>(new Rva006D6500(reinterpret_cast<int>(&sMethod_getBytesLoaded)));
+    reinterpret_cast<BfmeAptValue006DCD20 *>(g_rva008B2BD0_4)->setGCRootCount(1);
+    g_rva008B2BD0_4->unused0();
+   }
+   return reinterpret_cast<AptValue *>(g_rva008B2BD0_4);
+case 6:return AptBoolean::Create(*reinterpret_cast<const int *>(reinterpret_cast<const char *>(this)+0x20)!=0);
+case 7:
+   if(!g_rva008B2BD0_5) {
+    g_rva008B2BD0_5=reinterpret_cast<Rva008B2BD0Item *>(new Rva006D6500(reinterpret_cast<int>(&rva006e9730)));
+    reinterpret_cast<BfmeAptValue006DCD20 *>(g_rva008B2BD0_5)->setGCRootCount(1);
+    g_rva008B2BD0_5->unused0();
+   }
+   return reinterpret_cast<AptValue *>(g_rva008B2BD0_5);
+case 8: {
+    AptString *text=AptString::Create();
+    reinterpret_cast<AptValue *>(text)->SetString("application/x-www-form-urlencoded");
+    return reinterpret_cast<AptValue *>(text);
+   }
+  }
+ }
+ if(name->rva006D3510("load")||name->rva006D3510("send")||name->rva006D3510("sendAndLoad")||name->rva006D3510("getBytesTotal")||name->rva006D3510("getBytesLoaded")||name->rva006D3510("loaded")||name->rva006D3510("toString")||name->rva006D3510("contentType")) {
+  Rva006CC110Log(3,"AptLoadVars: Incorrect case for '%s'.\n",name->rva00620090());
+  g_bfmeAptAssertAtE17734("0","C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptMiscObjects.cpp",1063);
+  if(g_bfmeAptBreakOnAssertAtDDC01C)__debugbreak();
+ }
+ return 0;
+}
