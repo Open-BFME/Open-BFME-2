@@ -1,4 +1,8 @@
 // ?doPartialUpdate@W3DTerrainBackground@@QAEXABUIRegion2D@@PAVWorldHeightMap@@_N2@Z
+// partial score=0.823 date=2026-10-10
+extern "C" void _ReadWriteBarrier();
+#pragma intrinsic(_ReadWriteBarrier)
+// ?doPartialUpdate@W3DTerrainBackground@@QAEXABUIRegion2D@@PAVWorldHeightMap@@_N2@Z
 // partial score=0.85 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
 // Native [00115044,00115791),1869B, RET16. W3DTerrainBackground::
@@ -270,6 +274,7 @@ class Rva000ABD19
 {
 public:
 	bool rva000ABD19(int a, int b);
+ bool rva000AF841(int a, int b);
 };
 
 struct TCliffInfo
@@ -306,9 +311,9 @@ public:
 	UnsignedShort getHeight(Int x, Int y) { return ((BoundedShortGrid *)this)->rva00062A58(x, y); }
 	bool isCliffCell(Int x, Int y) { return ((Rva000ABD19 *)this)->rva000ABD19(x, y); }
 	void getTerrainNormal(Int x, Int y, Vector3 *normal) { ((Rva0006653B *)this)->rva0006AA45(x, y, normal); }
-	void rva000AE44B(Int x, Int y, TCliffInfo *info);
+	void rva000AE44B(Int x, Int y, void *info);
 	bool rva000AE37E(Int x, Int y);
-	bool rva000AF841(Int x, Int y);
+	bool getFlip(Int x, Int y) {return ((Rva000ABD19*)this)->rva000AF841(x,y);}
 
 private:
 	Int m_width;
@@ -479,6 +484,7 @@ void W3DTerrainBackground::doPartialUpdate(const IRegion2D &partialRange, WorldH
 			pos.X = (i + 1) * MAP_XY_FACTOR - m_map->getBorderSize() * MAP_XY_FACTOR;
 			pos.Y = j * MAP_XY_FACTOR - m_map->getBorderSize() * MAP_XY_FACTOR;
 			m_map->getTerrainNormal(i + 1, j, &normal);
+			_ReadWriteBarrier();
 			curVb->u1 = info.u1;
 			curVb->v1 = info.v1;
 			curVb->x = pos.X;
@@ -523,7 +529,7 @@ void W3DTerrainBackground::doPartialUpdate(const IRegion2D &partialRange, WorldH
 			m_curNumCliffVertices++;
 
 			*curIb++ = base;
-			if (!m_map->rva000AF841(i, j)) {
+			if (!m_map->getFlip(i, j)) {
 				*curIb++ = base + 3;
 				*curIb++ = base + 2;
 				*curIb++ = base;
