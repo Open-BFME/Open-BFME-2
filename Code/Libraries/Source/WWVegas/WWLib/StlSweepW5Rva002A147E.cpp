@@ -13,7 +13,11 @@ bool less<unsigned int>::operator()(const unsigned int &left, const unsigned int
 #include <memory>
 #include <string>
 
-struct Rva002A147EElement { unsigned words[1];bool operator<(const Rva002A147EElement& b)const{return words[0]<b.words[0];}bool operator==(const Rva002A147EElement& b)const{return words[0]==b.words[0];} };
+// Native 2A3E5A builds a key and a 12-byte formation-preview payload:
+// drawable pointer, decal pointer and assigned byte. Its insertion calls this
+// 59-byte provider; the downstream node creator29E11A allocates 32 bytes.
+// Preserve the opaque element spelling; the original template type is unknown.
+struct Rva002A147EElement { void *drawable; void *decal; bool assigned; };
 
 // Instantiate the recovered operation and its required template dependencies.
 template _STL::_Rb_tree_iterator<_STL::pair<unsigned int const, Rva002A147EElement>, _STL::_Nonconst_traits<_STL::pair<unsigned int const, Rva002A147EElement> > > _STL::_Rb_tree<unsigned int, _STL::pair<unsigned int const, Rva002A147EElement>, _STL::_Select1st<_STL::pair<unsigned int const, Rva002A147EElement> >, _STL::less<unsigned int>, _STL::allocator<_STL::pair<unsigned int const, Rva002A147EElement> > >::insert_equal(_STL::pair<unsigned int const, Rva002A147EElement> const &);
