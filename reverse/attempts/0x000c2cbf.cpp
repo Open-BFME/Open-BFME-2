@@ -1,4 +1,6 @@
 // ?rva000C2CBF@W3DScriptedModelDraw@@QAEXHPAV?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@0@Z
+// partial score=0.99 date=2026-10-10
+// ?rva000C2CBF@W3DScriptedModelDraw@@QAEXHPAV?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@0@Z
 // partial score=0.99 date=2026-10-09
 // cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
 // stlport

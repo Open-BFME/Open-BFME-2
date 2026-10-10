@@ -1,4 +1,6 @@
 // ?rva0005522C@MilesAudioManager@@QAEXABVAsciiString@@@Z
+// partial score=0.95 date=2026-10-10
+// ?rva0005522C@MilesAudioManager@@QAEXABVAsciiString@@@Z
 // partial score=0.95 date=2026-10-09
 // cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /EHsc /MD
 #include "ascii_string.h"

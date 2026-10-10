@@ -1,4 +1,6 @@
 // ?rva000E912A@W3DShrubBuffer@@QAEXPBUCoord3D@@MH@Z
+// partial score=0.85 date=2026-10-10
+// ?rva000E912A@W3DShrubBuffer@@QAEXPBUCoord3D@@MH@Z
 // partial score=0.85 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
 // W3DShrubBuffer::removeTreeAtIndex, retail 0x000E75F5 (195 bytes, ret 4). Open-BFME-1 twin:
