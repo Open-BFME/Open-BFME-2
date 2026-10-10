@@ -4766,7 +4766,6 @@ name,address,notes
 ??1Rva006DE320@@UAE@XZ,0x006DE350,"implicit destructor of the view class whose scalar deleting dtor is 0x006DE320; the REL32 at 0x006DE323 calls the base dtor 0x006DE350 directly: an implicit dtor has no vptr reset, inlines the AptValue.inl:145 base dtor and is identical to it; identity unproven; address-derived name"
 ??1Rva006DE350@@UAE@XZ,0x006DE350,opaque dtor asserting IsDestroyedGC (AptValue.inl:145) with vtable 0xCEAED0; 5 derived dtors tail-call it; exact method unproven
 ??1Rva006DE760@@UAE@XZ,0x006DE6C0,"complete dtor call target of scalar deleting dtor 0x006DE760; body unrowed"
-??1Rva006E6430@@UAE@XZ,0x006E6430,address-derived complete SEH dtor for the 0xB4-byte class whose scalar deleting dtor is at 0x006CC320; identity unproven
 ??1Rva006E9B20@@UAE@XZ,0x006E8F30,"complete dtor call target of scalar deleting dtor 0x006E9B20; body unrowed"
 ??1Rva006E9B50@@UAE@XZ,0x006E96D0,"complete dtor call target of scalar deleting dtor 0x006E9B50; body unrowed"
 ??1Rva006EC170@@UAE@XZ,0x006EB6A0,"complete dtor call target of scalar deleting dtor 0x006EC170; body unrowed"

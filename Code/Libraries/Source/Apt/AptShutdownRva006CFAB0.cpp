@@ -40,8 +40,8 @@ class Rva006CEA60 {public:virtual ~Rva006CEA60();};
 class Rva006CEA60Delete {public:~Rva006CEA60Delete(){((Rva006CEA60 *)this)->Rva006CEA60::~Rva006CEA60();}POOL_DELETE char pad[0x1c];};
 class Rva006CEB10Playback;
 extern Rva006CEB10Playback *g_aptPlaybackCheckpoints;
-class Rva006E6430 {public:virtual ~Rva006E6430();};
-class Rva006E6430Delete {public:~Rva006E6430Delete(){((Rva006E6430 *)this)->Rva006E6430::~Rva006E6430();}POOL_DELETE char pad[0xb4];};
+class Rva006E6060Root {public:~Rva006E6060Root();};
+class Rva006E6430Delete {public:~Rva006E6430Delete(){((Rva006E6060Root *)this)->~Rva006E6060Root();}POOL_DELETE char pad[0xb4];};
 
 void AptValueShutdown(int);
 void rva008B8B80ReleaseAll();
