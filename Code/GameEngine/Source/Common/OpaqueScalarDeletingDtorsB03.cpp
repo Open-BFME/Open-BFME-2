@@ -12,7 +12,7 @@
 // beyond the secondary-base offsets their adjustor thunks prove.
 //
 //   wrapper     dtor        vtable#slot
-//   0x00148DC3  0x00148BC2  0x00BD3568#0
+//   0x00148DC3 was rehomed to the concrete NameKeyGenerator lifetime unit.
 //   0x0014DCAC  0x0014DC9E  0x00BD3898#0
 //   0x00150A5B  0x001505CD  0x00BD3A34#0
 //   0x001684BA  0x001684D6  0x00BD41C8#1
@@ -33,19 +33,6 @@
 //   0x001FE772  0x001FE06A  0x00BE1BE8#0
 
 struct EmitVtableTag;
-
-class Rva00148BC2
-{
-public:
-	Rva00148BC2(EmitVtableTag *);
-public:
-	virtual ~Rva00148BC2();
-};
-
-// ?<Rva00148BC2::Rva00148BC2> absent-from-retail
-Rva00148BC2::Rva00148BC2(EmitVtableTag *)
-{
-}
 
 class Rva0014DC9E
 {

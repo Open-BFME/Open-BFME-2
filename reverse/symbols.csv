@@ -4038,7 +4038,6 @@ name,address,notes
 ??1Rva00142FE0@@UAE@XZ,0x00142FE0,opaque dtor; call target of retail scalar-deleting-dtor at 0xE00A4 (28B flag-test shape); Ghidra function start; identity unproven; address-derived name
 ??1Rva00143F60@@UAE@XZ,0x00143F60,retail REL32 from scalar deleting dtor at 0x00143FF0 and vtable installs 0xBD34FC/0xBD34F0 with array delete idiom
 ??1Rva00145000@@UAE@XZ,0x00145000,opaque SEH base dtor; 11B derived dtor at 0x145610 tail-calls it; identity unproven
-??1Rva00148BC2@@UAE@XZ,0x00148BC2,"destructor the scalar deleting destructor 0x00148DC3 calls (REL32 at 0x00148DC6; vtable 0x00BD3568#0); opaque address name"
 ??1Rva0014A5B0Dtor@@UAE@XZ,0x0014A5B0,address-derived class dtor called by the 30B scalar deleting destructor at 0x0014BB70; address read from that body REL32; class identity unproven so the model is named for the call target
 ??1Rva0014DC9E@@UAE@XZ,0x0014DC9E,"destructor the scalar deleting destructor 0x0014DCAC calls (REL32 at 0x0014DCAF; vtable 0x00BD3898#0); opaque address name"
 ??1Rva001505CD@@UAE@XZ,0x001505CD,"destructor the scalar deleting destructor 0x00150A5B calls (REL32 at 0x00150A5E; vtable 0x00BD3A34#0); opaque address name"
