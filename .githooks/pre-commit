@@ -3,6 +3,11 @@
 # Header and shim changes automatically receive the full gate; pre-push checks
 # the outgoing delta again. Never bypass this hook.
 set -euo pipefail
+# Incremental mode trusts every object it is not told to rebuild (tools/build.py);
+# a gate must judge objects built from what it commits.
+unset BUILD_RECOMPILE_ONLY
+# cl.exe reads options from CL and _CL_: a gate builds with the command the receipt records.
+unset CL _CL_
 
 ROOT="$(git rev-parse --show-toplevel)"
 cd "$ROOT"
@@ -77,7 +82,11 @@ build_chunks() {
 # No two tracked paths may differ only in case — such a pair cannot check out on
 # Windows/macOS (case-insensitive FS), silently dropping a file and breaking those
 # clones. Reflects the staged index, so a colliding add is caught before it lands.
-python3 tools/check_case_collisions.py || fail "case-only path collision (see above)"
+# It also refuses a control path (root, reverse/, tools/, .githooks/, .github/) not in
+# lowercase (Reverse/data_rows.csv, reverse/Gate_Baseline.txt): every gate below reads
+# those by exact spelling and would verify nothing through a case variant.
+python3 tools/check_case_collisions.py \
+    || fail "case-only path collision, or a control path not in lowercase (see above)"
 
 # Owner decision (2026-08-29): this repo keeps NO lessons.md — in Open-BFME-1 it
 # is a plague that keeps growing back. Codegen findings go in the commit message
@@ -164,7 +173,9 @@ while IFS= read -r path; do
         # so the delta byte-verify below would prove nothing. Any such change
         # forces the full gate — this is exactly how a layout-shim experiment
         # could otherwise land a silent regression.
-        *.h|reference/shims/*) wide_change=1 ;;
+        # The suffixes tools/header_dependents.py walks (HEADER_SUFFIXES): a .hpp or
+        # .inl edit reaches its includers exactly as a .h does.
+        *.h|*.hpp|*.hh|*.hxx|*.inl|*.inc|reference/shims/*) wide_change=1 ;;
     esac
 done < "$staged_out"
 rm -f "$staged_out"
@@ -196,6 +207,12 @@ rm -f "$added_out"
 # reverse/data_ledger.csv; fails only when reverse/data_check_baseline.txt grew.
 # It runs before the early exit below, which a baseline-only commit takes.
 python3 tools/data_check.py --staged || fail "data identity: staged data_check_baseline.txt grew (see above)"
+# The converged-address list (step 3b) must parse and may only grow; judged here,
+# before the early exit below, so a commit that edits only the list is judged too.
+converged_base=()
+git rev-parse -q --verify HEAD > /dev/null && converged_base=(--converged-base HEAD)   # none before the first commit
+printf '' | python3 tools/data_check.py --converged --ref : "${converged_base[@]}" --sources-from - \
+    || fail "data identity: reverse/data_converged.csv is unreadable or lost an address (see above)"
 
 if [ "${#staged_sources[@]}" -eq 0 ] && [ "$ledger_changed" -eq 0 ] \
    && [ "$wide_change" -eq 0 ] && [ "$flags_changed" -eq 0 ] && [ "$baseline_changed" -eq 0 ] \
@@ -215,8 +232,14 @@ if [ "$wide_change" -ne 0 ]; then
     # 2 when it cannot bound the change); otherwise the full gate, as before.
     header_deps_out=$(mktemp)
     if python3 tools/header_dependents.py --staged > "$header_deps_out"; then
-        mapfile -t header_deps < "$header_deps_out"
-        rm -f "$header_deps_out"
+        # Only sources owning a matched function or data row: the build refuses a
+        # parked draft (no row) as "no functions match".
+        claimed_out=$(mktemp)
+        tr '\n' '\0' < "$header_deps_out" \
+            | python3 tools/data_check.py --print-claimed --sources-from - > "$claimed_out" \
+            || { rm -f "$header_deps_out" "$claimed_out"; fail "filtering header dependents to claimed sources (see above)"; }
+        mapfile -d '' -t header_deps < "$claimed_out"
+        rm -f "$header_deps_out" "$claimed_out"
         capture staged_out "listing staged files" git diff --cached --name-only --diff-filter=ACMRT
         while IFS= read -r path; do
             case "$path" in
@@ -234,10 +257,15 @@ if [ "$wide_change" -ne 0 ]; then
         done
         echo "pre-commit: header/shim change — scoped gate over ${#header_deps[@]} dependent source(s)" >&2
         build_chunks "scoped header gate (see above)" "${header_deps[@]}"
+        # 3b for the dependents a header reaches (see step 3b below).
+        printf '%s\0' "${header_deps[@]}" | python3 tools/data_check.py --converged --ref : --sources-from - \
+            || fail "data identity: a second name for a converged data address in a header dependent (see above)"
     else
         rm -f "$header_deps_out"
         echo "pre-commit: header/shim change — running FULL gate (header_dependents could not bound it)" >&2
         BUILD_POOL="${BUILD_POOL:-4}" run_build || fail "full gate after header/shim change (see above)"
+        python3 tools/data_check.py --converged --ref : --all \
+            || fail "data identity: a second name for a converged data address (full gate, see above)"
     fi
 fi
 
@@ -245,6 +273,8 @@ fi
 if [ "$flags_changed" -ne 0 ]; then
     echo "pre-commit: flag region/override change — running FULL gate" >&2
     BUILD_POOL="${BUILD_POOL:-4}" run_build || fail "full gate after flag region/override change (see above)"
+    python3 tools/data_check.py --converged --ref : --all \
+        || fail "data identity: a second name for a converged data address (full gate, see above)"
 fi
 
 # The build verifies file contents on disk; refuse if a file being committed
@@ -378,6 +408,16 @@ if [ "${#verify_set[@]}" -ne 0 ]; then
     build_chunks "byte-verify of changed sources (see above)" "${!verify_set[@]}"
     printf '%s\0' "${!verify_set[@]}" | python3 tools/eh_verify.py --sources-from - \
         || fail "exception data differs from retail (see above)"
+fi
+
+# 3b) Data identity at converged addresses, ENFORCED. Each address in
+#     reverse/data_converged.csv was brought down to one name; a second spelling
+#     links as its own datum and fails data-back for every row reaching it
+#     (link_cycle). Judged on the objects step 3 just made current; the list and
+#     the baseline are read from the index (tools/data_check.py --converged).
+if [ "${#verify_set[@]}" -ne 0 ]; then
+    printf '%s\0' "${!verify_set[@]}" | python3 tools/data_check.py --converged --ref : --sources-from - \
+        || fail "data identity: a second name for a converged data address (see above)"
 fi
 
 # 4) Link admission, SHADOW: a new unit's COMDAT copy that would break the link

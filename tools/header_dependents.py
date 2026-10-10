@@ -53,6 +53,7 @@ SCANNED_ROOTS = ("Code/", "reference/")
 FULL_GATE_ROOTS = ("build/toolchains/", "vendor/", "reference/open-bfme-1")
 IGNORED_ROOTS = ("mods/",)
 LEDGER = "reverse/functions.csv"
+DATA_ROWS = "reverse/data_rows.csv"
 DIRECTIVE = re.compile(r"^[ \t]*#[ \t]*(?:include|import)\b[ \t]*(.*)$", re.M)
 MACRO = re.compile(r"[A-Za-z_]\w*")
 FORCED = re.compile(r"[-/]FI[ \t]*\"?([^\s\"]+)")
@@ -239,9 +240,34 @@ def scan(snap):
 
 
 def ledger_sources(snap):
+    """Sources the byte gate verifies, from the snapshot: those of function rows and
+    of data rows (reverse/data_rows.csv) -- a data-only unit owns no function row,
+    yet its initializers are byte-verified like any claimed source, and a header it
+    includes reaches them."""
     spec = ":" if snap is None else f"{snap}:"
-    return {row[4] for row in csv.reader(io.StringIO(git("show", f"{spec}{LEDGER}"), newline=""))
-            if len(row) > 4}
+    out = {row[4] for row in csv.reader(io.StringIO(git("show", f"{spec}{LEDGER}"), newline=""))
+           if len(row) > 4}
+    if listed(snap, DATA_ROWS):       # present: a failed read raises, and the hooks widen
+        out |= {row["source"] for row in csv.DictReader(io.StringIO(git("show", f"{spec}{DATA_ROWS}"), newline=""))
+                if row.get("source")}
+    return out
+
+
+def listed(snap, path):
+    """Whether the snapshot (the index, or commit `snap`) holds `path`, from the
+    listing of its directory rather than its blob: only a clean listing without
+    it proves absence, so an unreadable ledger is never mistaken for a missing
+    one (git() raises). The same name in another case is refused: Windows builds
+    read it as `path` while git's exact lookup would miss it."""
+    # the whole snapshot, not one directory: a variant parent (Reverse/) hides from
+    # a listing of reverse/ exactly as a variant name hides from an exact lookup
+    entries = git("ls-files", "--stage", "-z") if snap is None else git("ls-tree", "-r", "-z", snap)
+    names = {entry.split("\t", 1)[1] for entry in entries.split("\0") if "\t" in entry}
+    if path in names:
+        return True
+    if any(name.lower() == path.lower() for name in names):
+        raise SystemExit(f"header_dependents: {path} is tracked under another case; rename it to {path}")
+    return False
 
 
 def graph(edges):

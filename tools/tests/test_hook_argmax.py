@@ -114,6 +114,9 @@ def make_repo(tmp_path, count):
     git(repo, "config", "core.autocrlf", "false")
     for tool in STUBS:
         write(repo, f"tools/{tool}.py", "raise SystemExit(0)\n")
+    # data_check --converged reads its source list on stdin: drain it, as the tool does,
+    # or the hook's printf takes SIGPIPE and pipefail fails the step.
+    write(repo, "tools/data_check.py", "import sys\nif '-' in sys.argv:\n    sys.stdin.buffer.read()\n")
     write(repo, "tools/delta_sources.py", DELTA)
     write(repo, "tools/build.py", RECORD_BUILD)
     write(repo, "tools/eh_verify.py", RECORD_EH)

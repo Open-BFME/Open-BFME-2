@@ -55,7 +55,7 @@ PROTECTED = (
     # link admission: pre-commit judges a new unit's COMDAT copies through it (shadow until promoted)
     "tools/link_check.py",
     # data identity: the pre-commit check and the ledger it reads
-    "tools/data_check.py", "tools/data_ledger.py", "reverse/data_ledger.csv",
+    "tools/data_check.py", "tools/data_ledger.py", "reverse/data_ledger.csv", "reverse/data_converged.csv",
     # which models may judge, and how they are called (decision record, pillar 5)
     "tools/judges.py", "tools/judges.json",
     # the advisory audit: its panel, canaries and harness
@@ -119,6 +119,7 @@ SHRINK_ONLY = {
     "reverse/dir32_consistency_whitelist.txt": (_grown_lines, None),
     "reverse/unclaimed_sources_whitelist.txt": (_grown_lines, None),
     "reverse/module_registry_baseline.txt": (_grown_lines, None),
+    "reverse/data_check_baseline.txt": (_grown_lines, None),
 }
 
 

@@ -1,0 +1,9 @@
+address,name,evidence
+0x009FE758,?TheWritableGlobalData@@3PAVGlobalData@@A,df6d949728; link_cycle 6241d0694b: no data-back
+0x009FE78C,?TheGameLogic@@3PAVGameLogic@@A,6241d0694b; link_cycle 6241d0694b: no data-back
+0x009FE16C,?TheScriptEngine@@3PAVScriptEngine@@A,6241d0694b; link_cycle 6241d0694b: no data-back
+0x009FEEE8,?ThePlayerList@@3PAVPlayerList@@A,b712e27e33: last two stub spellings (6241d0694b map) renamed
+0x009FEC50,?TheTerrainLogic@@3PAVTerrainLogic@@A,b712e27e33: last two stub spellings (6241d0694b map) renamed
+0x009FF0F8,?TheAI@@3PAVAI@@A,b712e27e33: last stub spellings (6241d0694b map) renamed
+0x009FF000,?TheThingFactory@@3PAVThingFactory@@A,b712e27e33: last two stub spellings (6241d0694b map) renamed
+0x009FE9D8,?TheDisplay@@3PAVDisplay@@A,b712e27e33: last stub spelling (6241d0694b map) renamed

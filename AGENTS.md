@@ -24,7 +24,19 @@ The step-3 gate checks are live in the hooks. They refuse:
   gen-alias twin included; `tools/pin_admission.py --add`). A row or pin that
   later gives a fold-pinned name another address is refused too;
 - `gen-alias` other than as an exact notes token whose masked callee is a
-  byte-and-relocation twin; new `object-symbol=` alias rows.
+  byte-and-relocation twin; new `object-symbol=` alias rows;
+- a second name for a converged data address. Each address in
+  `reverse/data_converged.csv` (TheGameLogic, TheAI, TheWritableGlobalData,
+  ...) has one global; a matched row binding any other symbol there
+  (`g_00DFE78C`, `extern AIView *TheAI`) links as a separate datum and fails
+  link_cycle data-back for every row at that address. Declare the real global
+  (`class AI; extern AI *TheAI;`) and cast to your view where you use it:
+  `((AIView *)TheAI)->m_field`. The list only grows (`tools/data_check.py
+  --converged`, after the byte gate);
+- a control path (the root, `reverse/`, `tools/`, `.githooks/`, `.github/`)
+  not spelled in lowercase: the hooks read those by exact spelling
+  (`tools/check_case_collisions.py`; banked attempts, attempt evidence and
+  class contracts are exempt).
 
 `.c` and `.asm` sources are byte-verified like `.cpp`. Escape hatches
 (pins, `object-symbol=` rows, `/alternatename`, address-named globals,

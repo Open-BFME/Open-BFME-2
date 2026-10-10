@@ -255,3 +255,93 @@ def test_range_sees_the_old_name_of_a_renamed_header(repo, capsys):
     assert run(repo, capsys, "--range", old, head(repo)) == (0, ["Code/A.cpp"])
 
 
+
+
+def test_a_data_only_unit_is_a_dependent(repo, capsys):
+    """A unit owning only data rows (reverse/data_rows.csv) is byte-verified too;
+    a header it includes must select it (GPT-6.1-Sol, converged gate round 4)."""
+    put(repo, "Code/Init.h", "#define INIT 1\n")
+    put(repo, "Code/DataOnly.cpp", '#include "Init.h"\nint g = INIT;\n')
+    put(repo, "Code/Other.cpp", "void o() {}\n")
+    ledger(repo, "Code/Other.cpp")                       # no function row names DataOnly.cpp
+    put(repo, "reverse/data_rows.csv", "name,address,address_kind,size,section,source,status,evidence,model\n"
+        "?g@@3HA,0x009E0000,rva,4,.data,Code/DataOnly.cpp,matched,e,m\n")
+    git(repo, "commit", "-qm", "base")
+    old = head(repo)
+    put(repo, "Code/Init.h", "#define INIT 2\n")
+    assert run(repo, capsys, "--staged") == (0, ["Code/DataOnly.cpp"])
+    git(repo, "commit", "-qm", "header")
+    assert run(repo, capsys, "--range", old, head(repo)) == (0, ["Code/DataOnly.cpp"])
+
+
+def _drop_blob(repo, spec):
+    """Delete the loose object `spec` names: the path stays listed, its blob unreadable."""
+    sha = subprocess.run(["git", "rev-parse", spec], cwd=repo, capture_output=True, text=True,
+                         check=True).stdout.strip()
+    loose = repo / ".git" / "objects" / sha[:2] / sha[2:]
+    loose.chmod(0o644)                                   # git writes objects read-only
+    loose.unlink()
+
+
+@pytest.mark.parametrize("staged", [True, False])
+def test_an_unreadable_data_ledger_is_not_taken_for_a_missing_one(repo, capsys, staged):
+    """A data_rows.csv the snapshot lists but cannot read must fail the selection
+    (the hooks then widen to every source), never select as if it were absent
+    (GPT-6.1-Sol, converged gate round 5). Absence itself is fine (control)."""
+    put(repo, "Code/Init.h", "#define INIT 1\n")
+    put(repo, "Code/DataOnly.cpp", '#include "Init.h"\nint g = INIT;\n')
+    put(repo, "Code/Other.cpp", "void o() {}\n")
+    ledger(repo, "Code/Other.cpp")
+    git(repo, "commit", "-qm", "base, no data ledger")
+    old = head(repo)
+    put(repo, "Code/Init.h", "#define INIT 2\n")
+    assert run(repo, capsys, "--staged") == (0, [])               # control: no data_rows.csv at all
+    put(repo, "reverse/data_rows.csv", "name,address,address_kind,size,section,source,status,evidence,model\n"
+        "?g@@3HA,0x009E0000,rva,4,.data,Code/DataOnly.cpp,matched,e,m\n")
+    if staged:
+        _drop_blob(repo, ":reverse/data_rows.csv")
+        with pytest.raises(SystemExit):
+            H.main(["--staged"])
+    else:
+        git(repo, "commit", "-qm", "header and data ledger")
+        _drop_blob(repo, "HEAD:reverse/data_rows.csv")
+        with pytest.raises(SystemExit):
+            H.main(["--range", old, head(repo)])
+
+
+def test_a_data_ledger_tracked_under_another_case_is_refused(repo, capsys):
+    """Windows builds read reverse/Data_Rows.csv as the data ledger; git's exact
+    lookup would miss it and its units would go unselected (review round 6)."""
+    put(repo, "Code/Init.h", "#define INIT 1\n")
+    put(repo, "Code/DataOnly.cpp", '#include "Init.h"\nint g = INIT;\n')
+    put(repo, "Code/Other.cpp", "void o() {}\n")
+    ledger(repo, "Code/Other.cpp")
+    put(repo, "reverse/Data_Rows.csv", "name,address,address_kind,size,section,source,status,evidence,model\n"
+        "?g@@3HA,0x009E0000,rva,4,.data,Code/DataOnly.cpp,matched,e,m\n")
+    git(repo, "commit", "-qm", "base")
+    put(repo, "Code/Init.h", "#define INIT 2\n")
+    with pytest.raises(SystemExit):
+        H.main(["--staged"])
+
+
+def test_a_data_ledger_under_a_miscased_directory_is_refused(repo, capsys):
+    """Reverse/data_rows.csv: the variant is the parent, which a listing of reverse/
+    never shows (review round 7)."""
+    put(repo, "Code/Init.h", "#define INIT 1\n")
+    put(repo, "Code/DataOnly.cpp", '#include "Init.h"\nint g = INIT;\n')
+    put(repo, "Code/Other.cpp", "void o() {}\n")
+    ledger(repo, "Code/Other.cpp")
+    blob = repo / "blob.tmp"
+    blob.write_text("name,address,address_kind,size,section,source,status,evidence,model\n"
+                    "?g@@3HA,0x009E0000,rva,4,.data,Code/DataOnly.cpp,matched,e,m\n")
+    sha = subprocess.run(["git", "hash-object", "-w", str(blob)], cwd=repo, capture_output=True, text=True,
+                         check=True).stdout.strip()
+    git(repo, "update-index", "--add", "--cacheinfo", f"100644,{sha},Reverse/data_rows.csv")
+    git(repo, "commit", "-qm", "base")
+    old = head(repo)
+    put(repo, "Code/Init.h", "#define INIT 2\n")
+    with pytest.raises(SystemExit):
+        H.main(["--staged"])
+    git(repo, "commit", "-qm", "header")
+    with pytest.raises(SystemExit):
+        H.main(["--range", old, head(repo)])

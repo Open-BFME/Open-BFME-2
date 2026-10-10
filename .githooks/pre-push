@@ -3,6 +3,11 @@
 # every source whose ledger claims changed vs the remote. Bounded by push size
 # — never the full gate.
 set -euo pipefail
+# Incremental mode trusts every object it is not told to rebuild (tools/build.py);
+# a gate must judge objects built from what it pushes.
+unset BUILD_RECOMPILE_ONLY
+# cl.exe reads options from CL and _CL_: a gate builds with the command the receipt records.
+unset CL _CL_
 
 ROOT="$(git rev-parse --show-toplevel)"
 cd "$ROOT"
@@ -83,6 +88,11 @@ while read -r _local_ref local_sha _remote_ref remote_sha; do
     [ "$local_sha" = "$ZERO" ] && continue   # deleting a remote ref
     # The build below reads the working-tree ledgers: they must be the pushed commit's.
     python3 tools/ledger_guard.py --commit "$local_sha" || fail "working-tree ledgers differ from $local_sha (see above)"
+    # Every gate below reads the ledgers by exact spelling: one tracked under
+    # another case (Reverse/data_rows.csv) is served to the build by a
+    # case-insensitive file system while those lookups miss it.
+    python3 tools/check_case_collisions.py --ref "$local_sha" \
+        || fail "case-only path collision, or a control path not in lowercase, in $local_sha (see above)"
 
     python3 tools/check_csv.py --ref "$local_sha" || fail "ledger integrity at $local_sha (see above)"
 
@@ -185,14 +195,51 @@ PY
     mapfile -t flag_delta < "$flag_delta_out"
     rm -f "$flag_delta_out"
 
+    # The build below reads the working tree: bind it to the pushed commit for every
+    # file the push changes and every tracked header or shim, so an edit left on
+    # disk cannot stand in for what is pushed (the converged data check below reads
+    # the same objects). An untracked file is not covered; see tools/data_check.py.
+    capture range_files_out "listing the files the push changes" git diff --name-only -z "$base" "$local_sha"
+    mapfile -d '' -t range_files < "$range_files_out"
+    rm -f "$range_files_out"
+    if [ "${#range_files[@]}" -ne 0 ]; then
+        printf '%s\0' "${range_files[@]}" | xargs -0 git diff --quiet "$local_sha" -- \
+            || fail "the working tree differs from $local_sha in files this push changes: commit or stash first"
+    fi
+    git diff --quiet "$local_sha" -- '*.h' '*.hpp' '*.hh' '*.hxx' '*.inl' '*.inc' reference/shims \
+        || fail "a tracked header or shim differs from $local_sha in the working tree: commit or stash it first"
+
+    # Sources a changed header or shim reaches (tools/header_dependents.py, as
+    # pre-commit's scoped header gate) are byte-verified with the rest, so the
+    # converged data check judges objects whose bytes are retail's. A change the
+    # include graph cannot bound is judged below over every source's current object.
+    header_range=()
+    header_all=0
+    header_range_out=$(mktemp)
+    if python3 tools/header_dependents.py --range "$base" "$local_sha" > "$header_range_out"; then
+        # Only sources owning a matched function or data row: the build refuses a
+        # parked draft (no row) as "no functions match".
+        claimed_out=$(mktemp)
+        tr '\n' '\0' < "$header_range_out" \
+            | python3 tools/data_check.py --print-claimed --sources-from - > "$claimed_out" \
+            || { rm -f "$header_range_out" "$claimed_out"; fail "filtering header dependents to claimed sources (see above)"; }
+        mapfile -d '' -t header_range < "$claimed_out"
+        rm -f "$claimed_out"
+    else
+        header_all=1
+    fi
+    rm -f "$header_range_out"
+
     verify=()
     declare -A seen=()
-    for s in "${delta[@]}" "${edited[@]}" "${name_deps[@]}" "${flag_delta[@]}"; do
+    for s in "${delta[@]}" "${edited[@]}" "${name_deps[@]}" "${flag_delta[@]}" "${header_range[@]}"; do
         [ -z "$s" ] && continue
         [ -n "${seen[$s]:-}" ] && continue
         seen["$s"]=1
         [ -f "$s" ] || fail "outgoing rows reference missing source $s"
-        git diff --quiet HEAD -- "$s" || fail "$s differs from HEAD; commit or stash before pushing"
+        # The pushed commit, not HEAD: a push of an older commit builds what it pushes.
+        git diff --quiet "$local_sha" -- "$s" \
+            || fail "$s differs from the pushed commit $local_sha in the working tree; check it out or stash before pushing"
         verify+=("$s")
     done
     # Verify in chunks: a first push of a branch whose remote ref does not exist
@@ -205,6 +252,19 @@ PY
     if [ "${#verify[@]}" -ne 0 ]; then
         printf '%s\0' "${verify[@]}" | python3 tools/eh_verify.py --sources-from - \
             || fail "exception data differs from retail in outgoing sources (see above)"
+    fi
+    # Data identity at converged addresses, ENFORCED (pre-commit step 3b): every
+    # byte-verified source above, header dependents included, judged on objects
+    # proven current; the list as of the pushed commit, which may only grow.
+    if [ "$header_all" -ne 0 ]; then
+        git diff --quiet "$local_sha" -- Code \
+            || fail "a tracked source differs from the pushed commit $local_sha in the working tree: check it out or stash first"
+        python3 tools/data_check.py --converged --ref "$local_sha" --converged-base "$base" --all \
+            || fail "data identity: a second name for a converged data address (every source, see above)"
+    else
+        printf '%s\0' "${verify[@]}" \
+            | python3 tools/data_check.py --converged --ref "$local_sha" --converged-base "$base" --sources-from - \
+            || fail "data identity: a second name for a converged data address in outgoing sources (see above)"
     fi
     # Replayed commits, SHADOW: an outgoing commit with the author, author date and
     # subject of one already upstream (a possible replay), or whose patch-id or added
