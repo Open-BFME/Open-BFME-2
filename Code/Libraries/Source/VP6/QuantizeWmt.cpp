@@ -8,7 +8,20 @@
 #include <stdlib.h>
 
 extern unsigned char g_Rva01142608[8];
-extern int g_Rva009B7B28[64];
+// g_Rva009B7B28: the VP6 forward-quantisation scan order, read at VA 0x00DB7B28
+// (RVA 0x9B7B28) by both the WMT and the MMX quantiser bodies, which bake the
+// address into their instructions (mov ecx,[eax+0x00DB7B28]). One copy serves
+// both units, so it is defined here and left external in QuantizeMmx.cpp.
+int g_Rva009B7B28[64] = {
+	0, 1, 8, 16, 9, 2, 3, 10,
+	17, 24, 32, 25, 18, 11, 4, 5,
+	12, 19, 26, 33, 40, 48, 41, 34,
+	27, 20, 13, 6, 7, 14, 21, 28,
+	35, 42, 49, 56, 57, 50, 43, 36,
+	29, 22, 15, 23, 30, 37, 44, 51,
+	58, 59, 52, 45, 38, 31, 39, 46,
+	53, 60, 61, 54, 47, 55, 62, 63,
+};
 
 struct Vp6Quantizer
 {
