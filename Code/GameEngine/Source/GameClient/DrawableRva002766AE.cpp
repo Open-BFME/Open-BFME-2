@@ -103,7 +103,8 @@ public:
 };
 
 extern AudioManager *TheAudio;
-extern GameLogicFrame *TheGameLogic;
+class GameLogic;
+extern GameLogic *TheGameLogic;
 
 struct DrawableKeyStamp
 {
@@ -125,7 +126,7 @@ bool Drawable::rva002766AE(const int *key)
 {
 	for (int i = 0; i < 3; ++i) {
 		if (m_records[i].m_key == *key) {
-			unsigned int frame = TheGameLogic->m_frame;
+			unsigned int frame = ((GameLogicFrame *)TheGameLogic)->m_frame;
 			if (TheAudio->slot77()->m_4c + m_records[i].m_stamp >= frame)
 				return true;
 		}

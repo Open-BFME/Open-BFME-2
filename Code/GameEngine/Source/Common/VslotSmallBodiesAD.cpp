@@ -241,7 +241,8 @@ struct Rva00482134Logic
 	char m_pad00[0x170];
 	Rva0035A292 *m_170;
 };
-extern Rva00482134Logic *TheGameLogic;
+class GameLogic;
+extern GameLogic *TheGameLogic;
 struct Rva00482134Data
 {
 	Int m_00;
@@ -259,7 +260,7 @@ private:
 };
 void Rva00482134::rva00482134()
 {
-	TheGameLogic->m_170->rva0035A292(m_08, m_04->m_08);
+	((Rva00482134Logic *)TheGameLogic)->m_170->rva0035A292(m_08, m_04->m_08);
 }
 class Rva00482152Primary
 {
@@ -282,7 +283,7 @@ public:
 };
 void Rva00482152::rva00482152(Int)
 {
-	TheGameLogic->m_170->rva0035A292(m_08, m_04->m_08);
+	((Rva00482134Logic *)TheGameLogic)->m_170->rva0035A292(m_08, m_04->m_08);
 }
 
 // 0x004CDF00 and 0x004CDF1D: the pinned base 0x004502CE with both

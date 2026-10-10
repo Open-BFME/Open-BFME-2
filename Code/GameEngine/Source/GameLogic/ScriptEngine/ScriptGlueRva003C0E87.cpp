@@ -1,9 +1,9 @@
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /GX /arch:SSE
 // ?Rva003C0E87Do@@YGXABVAsciiString@@H@Z @0x003C0E87 130B: lookup unit by value
 // then SupplyWarehouseDockUpdate module int dispatch via cached NameKey.
-// Evidence: rowed lookupUnitByValue 0x358752 via g_Va009FE16C, nameToKey PBD
+// Evidence: rowed lookupUnitByValue 0x358752 via TheScriptEngine (0x9FE16C), nameToKey PBD
 // 0x148E1A via TheNameKeyGenerator, findModule 0x28B6D6, StringBase copy
-// 0x365F0, rowed 0x004A7F78 int member, globals g_Va009FE16C plus statics,
+// 0x365F0, rowed 0x004A7F78 int member, globals TheScriptEngine plus statics,
 // SupplyWarehouseDockUpdate literal at 0xBF507C; caller sibling 0x003C3175
 // ret 0x8 stdcall.
 #include "ascii_string.h"
@@ -42,11 +42,12 @@ class Rva00358752Opaque
 public:
     Object *lookupUnitByValue(AsciiString name);
 };
-extern Rva00358752Opaque *g_Va009FE16C;
+class ScriptEngine;
+extern ScriptEngine *TheScriptEngine;
 
 void __stdcall Rva003C0E87Do(const AsciiString &name, int count)
 {
-    Object *obj = g_Va009FE16C->lookupUnitByValue((AsciiString &)name);
+    Object *obj = ((Rva00358752Opaque *)TheScriptEngine)->lookupUnitByValue((AsciiString &)name);
     if (obj == 0)
         return;
     static NameKeyType supplyKey = TheNameKeyGenerator->nameToKey("SupplyWarehouseDockUpdate");

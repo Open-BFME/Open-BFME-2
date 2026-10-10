@@ -8,7 +8,7 @@
 // their REL32 sites. Evidence: target only; names are address-derived.
 #include "GameLogicObjectLookupView.h"
 
-extern void *g_00DFE78C;
+extern GameLogic *TheGameLogic;
 
 class Rva00DFE1C8Host
 {
@@ -45,7 +45,7 @@ private:
 
 void Rva002C021A::rva002C021A()
 {
-	if (((GameLogic *)g_00DFE78C)->isGamePaused())
+	if (TheGameLogic->isGamePaused())
 		return;
 	if (!m_18)
 		return;

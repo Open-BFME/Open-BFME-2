@@ -360,7 +360,8 @@ struct Rva0051483CLogic
 	char m_pad00[0x110];
 	Int m_110;
 };
-extern Rva0051483CLogic *TheGameLogic;
+class GameLogic;
+extern GameLogic *TheGameLogic;
 class Rva0051483C
 {
 public:
@@ -368,7 +369,7 @@ public:
 };
 bool Rva0051483C::rva0051483C()
 {
-	if (TheGameLogic && (*(Rva0035C194 **)&TheShell) && TheGameLogic->m_110 != 4
+	if (TheGameLogic && (*(Rva0035C194 **)&TheShell) && ((Rva0051483CLogic *)TheGameLogic)->m_110 != 4
 		&& (*(Rva0035C194 **)&TheShell)->rva0035C194(true, false))
 	{
 		(*(Rva00222A8BTarget **)&g_bfmeAptWindowManager)->rva002233A6(1);
@@ -454,7 +455,6 @@ class GameLogic
 public:
 	Object *findObjectByID(ObjectID id);
 };
-extern GameLogic *g_rva00597426Logic;
 struct Rva00597426Arg
 {
 	char m_pad00[0x94];
@@ -477,7 +477,7 @@ Int AIUpgrade::canMake(const Rva00597426Arg *arg)
 {
 	if (arg->m_94 < m_2C)
 		return 2;
-	Object *obj = g_rva00597426Logic->findObjectByID(m_08);
+	Object *obj = TheGameLogic->findObjectByID(m_08);
 	Rva00597426Part *part = (Rva00597426Part *)obj->rva0028BC58(0);
 	if (!part->v17())
 		return obj->rva00294ADD(m_30);

@@ -74,7 +74,8 @@ public:
 	unsigned char get() const;
 };
 
-extern Rva00203B08 *TheScriptEngine;
+class ScriptEngine;
+extern ScriptEngine *TheScriptEngine;
 
 class Rva00270260
 {
@@ -205,7 +206,7 @@ void W3DTankDraw::doDrawModule(const Matrix3D *transformMtx)
 
 	if (TheTacticalView->isTimeFrozen() && !TheTacticalView->isCameraMovementFinished())
 		return;
-	if (TheScriptEngine->rva0020424FF())
+	if (((Rva00203B08 *)TheScriptEngine)->rva0020424FF())
 		return;
 	if (((Rva00203ACEByteField *)TheScriptEngine)->get())
 		return;

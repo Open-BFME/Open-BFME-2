@@ -40,7 +40,8 @@ class Rva002036B4GlobalCopier
 public:
 	void apply();
 };
-extern Rva002036B4GlobalCopier *TheCopier;
+class ScriptEngine;
+extern ScriptEngine *TheScriptEngine;
 
 class Rva0021A54A
 {
@@ -55,7 +56,7 @@ void Rva003BE5C9::rva003C3B4A()
 	TheCampaignManager->m_flag2D = true;
 	if (TheLinearCampaignManager != 0)
 		reinterpret_cast<W3DTerrainVisual *>(TheLinearCampaignManager)->W3DTerrainVisual::removeAllBibs();
-	TheCopier->apply();
+	((Rva002036B4GlobalCopier *)TheScriptEngine)->apply();
 	TheHeroManager->rva0021A54A();
 }
 

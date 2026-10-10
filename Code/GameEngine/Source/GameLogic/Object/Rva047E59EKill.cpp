@@ -18,7 +18,8 @@ public:
 	void kill(DamageType d, DeathType t);
 };
 
-extern void *g_00DFE78C;
+class GameLogic;
+extern GameLogic *TheGameLogic;
 
 class Rva047E59E
 {
@@ -38,7 +39,7 @@ void Rva047E59E::rva047E59E()
 	{
 		char *far = *(char **)((char *)this - 0xC);
 		int total = *(int *)(far + 0x278) + m_130;
-		if ((unsigned int)total <= (unsigned int)*(int *)((char *)g_00DFE78C + 0x40))
+		if ((unsigned int)total <= (unsigned int)*(int *)((char *)TheGameLogic + 0x40))
 		{
 			Object *obj = *(Object **)((char *)this - 8);
 			obj->kill(Rva047E59EDamage8, Rva047E59EDeath6);
