@@ -15,6 +15,7 @@ typedef int Int;
 
 #include <vector>
 #include "FixedStorage128.h"
+#include "../../../../../../reference/shims/bfme2_ascii/string_base.h"
 
 namespace _STL
 {
@@ -121,6 +122,7 @@ public:
 	bool rva002E0B30();
     void RemoveRevivalUnit(int key);
     void GetRevivalUnitData(int key, LivingWorldRevivalUnitDataView *out);
+    int rva002E199E(const void *thing);
 
 private:
 	unsigned char m_pad000[0x180];
@@ -248,4 +250,19 @@ void LivingWorldPlayer::AddArmy(LivingWorldArmy *army)
   (*(PlayerArmyColorSummaryView**)((char*)army+0x78))->day=day;(*(PlayerArmyColorSummaryView**)((char*)army+0x78))->night=night;
  } else {(*(PlayerArmyColorSummaryView**)((char*)army+0x78))->day=0xff000000;(*(PlayerArmyColorSummaryView**)((char*)army+0x78))->night=0xff000000;}
  ((Rva0023CFFCLogic*)TheGameLogic)->rva0023CFFC((Rva0040E6D6Arg*)*(PlayerArmyColorSummaryView**)((char*)army+0x78));
+}
+
+// Native2E199E..2E1A1A, complete124B RET4; WBDE5150 independently
+// searches the same216B revival records and compares record+D4 against
+// the argument+64 through StringBase<char>::compare. Return keyAC on a
+// match, zero otherwise. Original method and argument class names unknown.
+int LivingWorldPlayer::rva002E199E(const void *thing)
+{
+    for (unsigned int i=0; i<m_records.size(); ++i) {
+        const LivingWorldPlayerRecordView &record=m_records[i];
+        const StringBase<char> &name=*(const StringBase<char> *)((const char *)&record+0xD4);
+        const StringBase<char> &wanted=*(const StringBase<char> *)((const char *)thing+0x64);
+        if (name.compare(wanted)==0) return record.key;
+    }
+    return 0;
 }
