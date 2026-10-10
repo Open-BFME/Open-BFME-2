@@ -249,3 +249,24 @@ AptValue *aptMathRound(void *self, int argc)
     value -= 0.5f;
     return AptInteger::Create((int)value);
 }
+
+// Native 6FF500..6FF5C6: callback argument checks; x87 bounds comparisons.
+// The owned AptCIH::rva006E1DD0 body proves the four-float bounds output.
+// No source name or donor identity is inferred from the byte match.
+class AptCIH { public: void rva006E1DD0(void *); };
+struct Rva006FF500Rect { float xMin,yMin,xMax,yMax; };
+AptValue *Rva006FF500(AptValue *self,int nParams)
+{
+    AptValue *undefined=(AptValue*)g_aptUndefinedAtE18078;
+    if(nParams==1) return undefined;
+    if(nParams>1) {
+        float x=g_aptDateInterpreter.stack.At(0)->rva006DD460();
+        float y=g_aptDateInterpreter.stack.At(1)->rva006DD460();
+        if(nParams>2) g_aptDateInterpreter.stack.At(2)->toInteger();
+        Rva006FF500Rect rect;
+        ((AptCIH*)self)->rva006E1DD0(&rect);
+        if(x>=rect.xMin && x<=rect.xMax && y>=rect.yMin && y<=rect.yMax)
+            return AptInteger::Create(1);
+    }
+    return undefined;
+}
