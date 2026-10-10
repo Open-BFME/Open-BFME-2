@@ -17,6 +17,9 @@ struct BfmeSubobject0022CE19 {
     virtual ~BfmeSubobject0022CE19();
     unsigned char m_opaque[0xDE4];
     BfmeSubobject0022CE19(const BfmeSubobject0022CE19 &);
+    // The saved-game value owns strings and nested records. Its matched
+    // assignment provider is 0x002DDC76; never synthesize an opaque-byte copy.
+    BfmeSubobject0022CE19 &operator=(const BfmeSubobject0022CE19 &);
 };
 struct TreeHintOpaque0043671B {
     UnicodeString m_text;
@@ -28,4 +31,9 @@ struct TreeHintOpaque0043671B {
 };
 inline bool operator==(const TreeHintOpaque0043671B &x, const TreeHintOpaque0043671B &y) { return x.m_wordDEC == y.m_wordDEC; }
 inline bool operator<(const TreeHintOpaque0043671B &x, const TreeHintOpaque0043671B &y) { return x.m_wordDEC < y.m_wordDEC; }
+// The exact 0x0043620F insert provider is StlportListInsertFootprints.cpp.
+// Its node-creation call stays out of line; do not emit this TU's inlined copy.
+template <> _STL::list<TreeHintOpaque0043671B>::iterator
+_STL::list<TreeHintOpaque0043671B>::insert(
+    _STL::list<TreeHintOpaque0043671B>::iterator, const TreeHintOpaque0043671B &);
 template class _STL::list<TreeHintOpaque0043671B, _STL::allocator<TreeHintOpaque0043671B> >;
