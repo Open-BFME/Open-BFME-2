@@ -13,7 +13,8 @@
 // in EBX; O1/O2-Os/forceinline/named target unchanged, Ot126.
 #include "Code/Libraries/Include/Lib/Coord3D.h"
 #include "reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
-class Object {public:bool isMobile()const;const Coord3D*getPosition()const{return &position;}private:char prefix[0x38];Coord3D position;};
+// 0x002907A1 (pinned as isMobile) is the row ?rva002907A1@Object@@QAE_NXZ (Rva002907A1Finish.cpp).
+class Object {public:bool rva002907A1();const Coord3D*getPosition()const{return &position;}private:char prefix[0x38];Coord3D position;};
 enum StateID {BFME_AI_ATTACK_MOVE_TO=0x21};
 class StateMachine {
 public:virtual void s0();virtual void s1();virtual void s2();virtual void s3();virtual void s4();virtual void clear();virtual void s6();virtual void s7();virtual void setState(StateID);virtual void s9();virtual void s10();virtual void s11();virtual void s12();virtual void s13();virtual void setGoalObject(const Object*);
@@ -27,7 +28,7 @@ private:char p4[4];Object*m_object;char pC[0x30-0xC];StateMachine*m_stateMachine
 void AIUpdateInterface::bfmePrivateCommand49(Object*obj,CommandSourceType source){
  if(m_isAiDead)return;
  // Codegen: same-valued PHI receiver on m_object closes the native register roles.
- if(!(m_object?m_object:m_object)->isMobile())return;
+ if(!(m_object?m_object:m_object)->rva002907A1())return;
  if(m_curLocomotor)m_curLocomotor->rva001E4147((Rva001E4147Twelve*)m_object);
  m_stateMachine->clear();m_stateMachine->setGoalObject(obj);
  m_blockedFrames=0;m_bfmeByte3B8=0;m_lastCommandSource=source;

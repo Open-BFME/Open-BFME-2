@@ -14950,7 +14950,6 @@ _D3DXCreateEffectFromFileA@32,0x0062AFAA,callee of ?Load@Impl@FXShaderAsset@@QAE
 ??1Rva000C8B83Wrap@@QAE@XZ,0x000C8B83,callee of ??1W3DModelDrawModuleData@@UAE@XZ
 ??1Rva000C8216Wrap@@QAE@XZ,0x000C8216,callee of ??1W3DModelDrawModuleData@@UAE@XZ
 ??1Rva000C7720Vec@@QAE@XZ,0x000C7720,callee of ??1W3DModelDrawModuleData@@UAE@XZ
-?rva0059710E@Rva005970ED@@QAEHH@Z,0x0059710E,callee of ?rva005978ED@Rva005978ED@@QAEPAVRva005970ED@@XZ
 ??0BfmeRecord001ECAF9@@QAE@ABV?$StringBase@D@@@Z,0x001EC311,callee of ?Rva001ED2C5Parse@@YAXPAVINI@@PAXPAV?$vector@UBfmeRecord001ECAF9@@V?$allocator@UBfmeRecord001ECAF9@@@_STL@@@_STL@@@Z
 ??1BfmeRecord001ECAF9@@QAE@XZ,0x001EC349,callee of ?Rva001ED2C5Parse@@YAXPAVINI@@PAXPAV?$vector@UBfmeRecord001ECAF9@@V?$allocator@UBfmeRecord001ECAF9@@@_STL@@@_STL@@@Z
 ?rva001EB329@BfmeRecord001ECAF9@@QAEXPAVINI@@@Z,0x001EB329,callee of ?Rva001ED2C5Parse@@YAXPAVINI@@PAXPAV?$vector@UBfmeRecord001ECAF9@@V?$allocator@UBfmeRecord001ECAF9@@@_STL@@@_STL@@@Z

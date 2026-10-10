@@ -77,10 +77,13 @@ class Rva002E6DC4
 public:
 	bool rva002E6DC4(void *a_raw, void *b_raw);
 };
-class Rva002E6C23
+// 0x002E6C23 is the row ?IsObstaclePresent@PathfindCell@@QBE_NW4ObjectID@@@Z
+// (Rva002E6C23Obstacle.cpp, WB lead PathfindCell::IsObstaclePresent).
+enum ObjectID {};
+class PathfindCell
 {
 public:
-	bool rva002E6C23(int v);
+	bool IsObstaclePresent(ObjectID objID) const;
 };
 class Rva002E9D09
 {
@@ -122,7 +125,7 @@ int Rva002E9D09::rva002E9D09(Object *a1, int a2, int a3)
 	if (tag == 2)
 		return 1;
 	if (tag == 4)
-		return ((Rva002E6C23 *)a1)->rva002E6C23(m_10) == 0;
+		return ((PathfindCell *)a1)->IsObstaclePresent((ObjectID)m_10) == 0;
 	if (tag == 5)
 		return 1;
 	if (tag == 6)

@@ -165,10 +165,45 @@ struct ThreatValueParms
 	UnsignedInt threatOrValue;
 };
 
+// The collision tests below read and adjust only the type, radii and height of
+// each shape. BFME 2 keeps no GeometryInfo copy on its collision path: its
+// filter ctor row 0x0027C2C9 stores the geometry by reference (+0x14) and its
+// allow 0x00261603 hands that reference straight to a GeometryInfo method.
+// Copying the whole Zero Hour GeometryInfo here instantiated Zero Hour's implicit
+// copy constructor under the retail name ??0GeometryInfo@@QAE@ABV0@@Z, and the
+// link kept that 0x3B-byte copy over the matched row 0x000929E8. This record
+// copies the four fields the tests use and answers Zero Hour's accessors
+// (Geometry.cpp: a sphere's extent above and below is its major radius).
+class CollideGeom
+{
+public:
+	CollideGeom(const GeometryInfo& g) :
+		m_type(g.getGeomType()),
+		m_height(g.getMaxHeightAbovePosition()),
+		m_majorRadius(g.getMajorRadius()),
+		m_minorRadius(g.getMinorRadius())
+	{
+	}
+
+	GeometryType getGeomType() const { return m_type; }
+	Real getMajorRadius() const { return m_majorRadius; }
+	Real getMinorRadius() const { return m_minorRadius; }
+	Real getMaxHeightAbovePosition() const { return m_type == GEOMETRY_SPHERE ? m_majorRadius : m_height; }
+	Real getMaxHeightBelowPosition() const { return m_type == GEOMETRY_SPHERE ? m_majorRadius : 0.0f; }
+	void setMajorRadius(Real majorRadius) { m_majorRadius = majorRadius; }
+	void setMinorRadius(Real minorRadius) { m_minorRadius = minorRadius; }
+
+private:
+	GeometryType m_type;
+	Real m_height;
+	Real m_majorRadius;
+	Real m_minorRadius;
+};
+
 struct CollideInfo
 {
 	Coord3D position;
-	GeometryInfo geom;
+	CollideGeom geom;
 	Real angle;
 
 	CollideInfo(const Coord3D* p, const GeometryInfo& g, Real a) : position(*p), geom(g), angle(a) { }
@@ -3732,6 +3767,64 @@ SimpleObjectIterator *PartitionManager::iterateObjectsInRange(
 }
 
 //-----------------------------------------------------------------------------
+// BFME 2's filter of this shape (ctor row 0x0027C2C9, vftable 0x00BFB1B8, allow
+// 0x00261603) keeps the geometry by reference at +0x14. Zero Hour's
+// PartitionFilterWouldCollide (header-declared) copies it into a GeometryInfo
+// member, whose ctor instantiated Zero Hour's implicit GeometryInfo copy under
+// the retail name; the filter is used only here, so this port holds the
+// geometry by reference as BFME 2 does. allow() is Zero Hour's body.
+class PartitionFilterWouldCollideRef : public PartitionFilter
+{
+private:
+	Coord3D m_position;
+	const GeometryInfo& m_geom;
+	Real m_angle;
+  Bool m_desiredCollisionResult;  // collision must match this for allow to return true
+public:
+	PartitionFilterWouldCollideRef(const Coord3D& pos, const GeometryInfo& geom, Real angle, Bool desired) :
+	  m_position(pos),
+		m_geom(geom),
+	  m_angle(angle),
+	  m_desiredCollisionResult(desired)
+	{
+	}
+
+	virtual Bool allow(Object *objOther)
+	{
+		CollideInfo thisInfo(&m_position, m_geom, m_angle);
+		CollideInfo thatInfo(objOther->getPosition(), objOther->getGeometryInfo(), objOther->getOrientation());
+
+	  Bool doesCollide;
+
+		// invariant for all geometries: first do z collision check.
+		if (thisInfo.position.z + thisInfo.geom.getMaxHeightAbovePosition() >= thatInfo.position.z && 
+				thisInfo.position.z <= thatInfo.position.z + thatInfo.geom.getMaxHeightAbovePosition())
+		{
+			GeometryType thisGeom = m_geom.getGeomType();
+			GeometryType thatGeom = objOther->getGeometryInfo().getGeomType();
+
+			//
+			// NOTE: This assumes geometry enumerations that start at GEOMETRY_FIRST AND depends on the
+			// order in which they appear in the enum list
+			//
+			CollideTestProc collideProc = theCollideTestProcs[ (thisGeom - GEOMETRY_FIRST) * GEOMETRY_NUM_TYPES + (thatGeom - GEOMETRY_FIRST) ];
+			CollideLocAndNormal cinfo;
+			doesCollide = (*collideProc)(&thisInfo, &thatInfo, &cinfo);
+		}
+		else
+		{
+			// no z-intersection -> no collision.
+			doesCollide = false;
+		}
+
+	  return doesCollide == m_desiredCollisionResult;
+	}
+#if defined(_DEBUG) || defined(_INTERNAL)
+	virtual const char* debugGetName() { return "PartitionFilterWouldCollide"; }
+#endif
+};
+
+//-----------------------------------------------------------------------------
 // ?iteratePotentialCollisions@PartitionManager@@ present-unmatched
 SimpleObjectIterator* PartitionManager::iteratePotentialCollisions(
 	const Coord3D* pos, 
@@ -3747,7 +3840,7 @@ SimpleObjectIterator* PartitionManager::iteratePotentialCollisions(
 	SimpleObjectIterator *iter = newInstance(SimpleObjectIterator);
 	iterHolder.hold(iter);
 
-	PartitionFilterWouldCollide filter(*pos, geom, angle, true);
+	PartitionFilterWouldCollideRef filter(*pos, geom, angle, true);
 	PartitionFilter *filters[] = { &filter, NULL };
 
 	getClosestObjects(NULL, pos, maxDist, use2D ? FROM_BOUNDINGSPHERE_2D : FROM_BOUNDINGSPHERE_3D, filters, iter, NULL, NULL);
@@ -5301,48 +5394,6 @@ Bool PartitionFilterIsFlying::allow(Object *objOther)
 //-----------------------------------------------------------------------------
 
 //-----------------------------------------------------------------------------
-// ??0PartitionFilterWouldCollide@@ present-unmatched
-PartitionFilterWouldCollide::PartitionFilterWouldCollide(const Coord3D& pos, const GeometryInfo& geom, Real angle, Bool desired) :
-  m_position(pos),
-	m_geom(geom),
-  m_angle(angle),
-  m_desiredCollisionResult(desired)
-{
-}
-
-//-----------------------------------------------------------------------------
-
-// ?allow@PartitionFilterWouldCollide@@ present-unmatched
-Bool PartitionFilterWouldCollide::allow(Object *objOther)
-{
-	CollideInfo thisInfo(&m_position, m_geom, m_angle);
-	CollideInfo thatInfo(objOther->getPosition(), objOther->getGeometryInfo(), objOther->getOrientation());
-
-  Bool doesCollide;
-
-	// invariant for all geometries: first do z collision check.
-	if (thisInfo.position.z + thisInfo.geom.getMaxHeightAbovePosition() >= thatInfo.position.z && 
-			thisInfo.position.z <= thatInfo.position.z + thatInfo.geom.getMaxHeightAbovePosition())
-	{
-		GeometryType thisGeom = m_geom.getGeomType();
-		GeometryType thatGeom = objOther->getGeometryInfo().getGeomType();
-
-		//
-		// NOTE: This assumes geometry enumerations that start at GEOMETRY_FIRST AND depends on the
-		// order in which they appear in the enum list
-		//
-		CollideTestProc collideProc = theCollideTestProcs[ (thisGeom - GEOMETRY_FIRST) * GEOMETRY_NUM_TYPES + (thatGeom - GEOMETRY_FIRST) ];
-		CollideLocAndNormal cinfo;
-		doesCollide = (*collideProc)(&thisInfo, &thatInfo, &cinfo);
-	}
-	else
-	{
-		// no z-intersection -> no collision.
-		doesCollide = false;
-	}
-
-  return doesCollide == m_desiredCollisionResult;
-}
 
 //-----------------------------------------------------------------------------
 //-----------------------------------------------------------------------------

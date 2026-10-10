@@ -48564,7 +48564,7 @@ _rva006D9D70Comparator,,0x006D9D70,203,Code/Libraries/Source/Apt/AptValue/Rva006
 ?rva004B5783@WeaponSetUpgradeSecondary@@QAEXXZ,,0x004B5783,39,Code/GameEngine/Source/GameLogic/Object/Upgrade/WeaponSetUpgradeRva004B5783.cpp,matched,slot 20 vtable 0x00857F68 via sibling 0x004B5765 plus rowed callees
 ?rva0059761B@Rva0059761B@@QAEXPAX@Z,,0x0059761B,47,Code/GameEngine/Source/GameLogic/Object/Die/Rva0059761BXfer.cpp,matched,slot-0x28 two-true local plus slot-0x7c this-plus-0x3c via caller 0x004EC1D9
 ?rva00170B70@Rva00170B19@@QAEPAXABVRva00151DAB@@@Z,,0x00170B70,34,Code/GameEngine/Source/Common/RvaTreeValueEraseFamily.cpp,matched,rb create_node via rowed byte allocator plus pinned _Construct proved by insert 0x00170C87 Rebalance
-?rva0059710E@Rva005970ED@@QAEXH@Z,,0x0059710E,21,Code/GameEngine/Source/Common/Rva005970EDCtor.cpp,matched,m40 equals m38 slot0 of int arg via callers 0x00597902 0x00597943
+?rva0059710E@Rva005970ED@@QAEHH@Z,,0x0059710E,21,Code/GameEngine/Source/Common/Rva005970EDCtor.cpp,matched,returns m40 = m38 slot0(int arg); callers 0x00597902 0x00597943 test the returned eax
 ?rva005975F7@Rva005975F7@@QAEXXZ,,0x005975F7,27,Code/GameEngine/Source/Common/Rva005975F7.cpp,matched,global rva002A8F24 of m14 then rva004DFEC8 of this via callers 0x004EBFA4
 ?rva00170C87@Rva00170B19@@QAEXPAPAXPAURva00170B19Node@@1ABVRva00151DAB@@1@Z,,0x00170C87,136,Code/GameEngine/Source/Common/RvaTreeValueEraseFamily.cpp,matched,rb insert via create_node plus Rebalance proved by caller 0x00170E6B and size inc
 ?rva004B5E06@Rva004B5E06@@QAEXPAVXfer@@@Z,,0x004B5E06,64,Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorXferRva004B5E06.cpp,matched,slot 3 Version 1 2 gating bool plus base UpgradeModule xfer

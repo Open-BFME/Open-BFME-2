@@ -134,7 +134,7 @@ public:
 	Rva005970ED();
 	virtual ~Rva005970ED();
 	__declspec(noinline) void rva00597123();
-	void rva0059710E(int x);
+	int rva0059710E(int x);
 	void rva0059717F(int id);
 	void rva0059728F(Xfer *xfer, void *context);
 private:
@@ -152,9 +152,11 @@ Rva005970ED::Rva005970ED()
 {
 }
 
-void Rva005970ED::rva0059710E(int x)
+// Returns the stored value: its callers (0x00597902 and 0x00597943, in
+// Rva005978ED.cpp, and AIUpgradeScienceBuilderNormalUpgrades.cpp) test eax.
+int Rva005970ED::rva0059710E(int x)
 {
-	m_40 = m_38->f0(x);
+	return m_40 = m_38->f0(x);
 }
 
 // Native 0x597123..0x597147 uses the constructor-established +0x38

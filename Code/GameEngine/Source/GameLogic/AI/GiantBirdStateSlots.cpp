@@ -125,7 +125,7 @@ public:
 	__forceinline bool isDead() const { return (m_status438 & 1) != 0; }
 	const Coord3D *getPosition() const { return &m_position; }
 	void setStatus(ObjectStatusTypes status, Bool set);
-	void rva0028ACEE(const Coord3D *pos, int value);
+	void rva0028ACEE(int pos, int value);	// row ?rva0028ACEE@Object@@QAEXHH@Z (ObjectRvaSmallGetters.cpp); the position travels as int
 	const Rva0028AC4EEntry *rva0028AC4E() const;
 	void rva0028AE6D();
 	__forceinline void clearModelConditionBit(int bit)
@@ -192,7 +192,7 @@ void GiantBirdNormalFlightState::onExit(StateExitType status)
 	Object *owner = getMachineOwner();
 	owner->clearModelConditionBit(103);
 	owner->clearModelConditionBit(72);
-	owner->rva0028ACEE(owner->getPosition(), 1);
+	owner->rva0028ACEE((int)owner->getPosition(), 1);
 	owner->setStatus(OBJECT_STATUS_BFME_5A, false);
 	owner->setStatus(OBJECT_STATUS_BFME_5B, false);
 	if (owner->rva0028AC4E())
@@ -235,7 +235,7 @@ void AIGiantBirdSwoopState::onExit(StateExitType status)
 		ai->rva00369359Slot142(0);
 		ai->setCurrentVictim(0);
 	}
-	owner->rva0028ACEE(owner->getPosition(), 1);
+	owner->rva0028ACEE((int)owner->getPosition(), 1);
 }
 
 // Native table 0xC17418 slot 2 returns "AIGiantBirdFollowThruState";
@@ -303,7 +303,7 @@ void AIGiantBirdFollowThruState::onExit(StateExitType status)
 	object->clearModelConditionBit(103);
 	object->clearModelConditionBit(72);
 	object->clearModelConditionBit(155);
-	object->rva0028ACEE(object->getPosition(), 1);
+	object->rva0028ACEE((int)object->getPosition(), 1);
 	AIUpdateInterface *ai = object->getAI();
 	if (ai)
 	{
