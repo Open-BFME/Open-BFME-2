@@ -17128,3 +17128,10 @@ _VP6_ReadTokens,0x001BC3D0,callee of _VP6_DecodeBlock
 ??RRva00055041AsciiHash@@QBEIABVAsciiString@@@Z,0x00055041,thiscall spelling of the AsciiString hash functor rowed as stdcall ?Rva00055041AsciiHash@@YGIPBVAsciiString@@@Z (same 30 bytes; ret 4 with ecx unused); hashtable::resize 0x00212858 reloads ecx from the saved this before calling it; fold-proof=Code/Libraries/Source/WWVegas/WWLib/Rva00212858Resize.cpp
 ?rva0043966A@Rva00439E0C@@QAEHPAVObject@@PBUCoord3D@@PAURva004393D6@@PAURva004389DBInfo@@@Z,0x0043966A,"callee of the invisibility manager per-object update 0x0043979D read from its REL32 (object position and record to detection result); unrowed native body; member of the 0x00439E0C view per the ECX-preserving call; parameter types inferred from the call"
 ?rva00438E5B@Rva00439E0C@@QAE_NPAVObject@@HPAURva004393D6@@PAURva004389DBInfo@@I@Z,0x00438E5B,"callee of the invisibility manager per-object update 0x0043979D read from its REL32 (detection result record info and duration to bool); unrowed native body; member of the 0x00439E0C view; parameter types inferred from the call"
+??0Rva00074136@@QAE@XZ,0x00074136,callee of ??0BaseHeightMapRenderObjClass@@QAE@XZ
+??0Rva000E0AE2@@QAE@XZ,0x000E0AE2,callee of ??0BaseHeightMapRenderObjClass@@QAE@XZ
+??0Rva000E5A47@@QAE@XZ,0x000E5A47,callee of ??0BaseHeightMapRenderObjClass@@QAE@XZ
+??0Rva000E9C1D@@QAE@XZ,0x000E9C1D,callee of ??0BaseHeightMapRenderObjClass@@QAE@XZ
+??0W3DBibBuffer@@QAE@XZ,0x000D42B3,callee of ??0BaseHeightMapRenderObjClass@@QAE@XZ
+??0W3DShroud@@QAE@XZ,0x00073320,callee of ??0BaseHeightMapRenderObjClass@@QAE@XZ
+??0W3DTreeBuffer@@QAE@XZ,0x000EDE35,callee of ??0BaseHeightMapRenderObjClass@@QAE@XZ
