@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /G7 /arch:SSE /MD /EHsc /D_CRTIMP= /DBFME_ASCII_DTOR_DECL /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/moduledata /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii
+// cl: /O1 /G7 /arch:SSE /MD /EHsc /D_CRTIMP= /DBFME_ASCII_DTOR_DECL /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/moduledata /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii
 // stlport
 // WB108A7E0 ArmySummary::Load semantic and identity evidence; BF1/ZH have
 // no reusable ArmySummary source. Existing BFME2 summary/ref/vector providers
