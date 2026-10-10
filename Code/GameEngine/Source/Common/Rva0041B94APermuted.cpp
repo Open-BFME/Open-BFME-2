@@ -64,3 +64,52 @@ bool ActionManager::Rva0041B94AGet(Object *a, Object *b, int)
 		return false;
 	}
 }
+
+enum CommandSourceType { CMDSRC_TWIN_PLACEHOLDER = 0 };
+
+// ICF twin of Rva0041B94AGet above (identical bytes at 0x0041B94A): the
+// BFMEActionManager spelling called by AIUpdateInterfacePrivateCommands and
+// ActionManagerSpecialPowerChecks. The manager this and the source argument
+// are unused, so the enum/int and const/non-const differences do not reach
+// codegen; the const_casts below compile away.
+class BFMEActionManager
+{
+public:
+	bool rva000C4080(const Object *a, const Object *b, CommandSourceType commandSource);
+};
+
+bool BFMEActionManager::rva000C4080(const Object *a, const Object *b, CommandSourceType)
+{
+	if (a == 0 || b == 0)
+		return false;
+	const Object *aObj = const_cast<Object *>(a)->rva002931F5(false);
+	Object *bObj = const_cast<Object *>(b)->rva002931F5(false);
+	if (aObj == bObj)
+		return false;
+	if (!(aObj != 0 && bObj == 0))
+	{
+		const void *p = bObj->rva0028C197();
+		if (p == 0)
+			return false;
+		if (((Provider28 *)p)->slot28(const_cast<Object *>(a)))
+		{
+			return true;
+			_WriteBarrier();
+		}
+		_ReadWriteBarrier();
+		return false;
+	}
+	else
+	{
+		void *p = const_cast<Object *>(aObj)->rva0028C197();
+		if (p == 0)
+			return false;
+		if (((Provider28 *)p)->slot28(const_cast<Object *>(b)))
+		{
+			return true;
+			_WriteBarrier();
+		}
+		_ReadWriteBarrier();
+		return false;
+	}
+}
