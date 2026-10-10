@@ -34,9 +34,20 @@ extern "C" double __cdecl sqrt(double);
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 class Rva003FE13E {public:float rva003FE13E();};
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
+class Rva002D3627Host;
+extern Rva002D3627Host *g_00DFEF18;
+class Vector3 {public:float X,Y,Z;};
+class Rva002B4C09 {public:bool rva002B4C09();};
+class Rva003FDEAD {public:void rva003FDFFB();};
+class Rva003FDE8C {public:void rva003FDE8C(unsigned char);};
+class Rva002BF4F3 {public:bool rva002BF5B0(const Vector3*,Vector3*);};
+class Rva003FE342Virtual {public:virtual void s0();virtual void s1();virtual void s2();virtual void s3();virtual void s4();virtual void s5(Vector3*);};
 class LivingWorldArmyIcon {
 public:
  void rva003FE1DB();
+ void rva003FE342();
  void continueMoving(Coord2D *out);
 private:
  char unknown0[0x18];Coord2D current;
@@ -81,3 +92,34 @@ void LivingWorldArmyIcon::continueMoving(Coord2D *out)
 		rva003FE1DB();
 }
 
+
+// Native 192B step: while the world logic gate allows it, latch the next
+// queued destination, then advance toward it and report the new position
+// through virtual slot 5. Names are address-derived; the gate, the point
+// helper on 0xDFEF18 and the slot-5 callee are rowed or read from retail.
+void LivingWorldArmyIcon::rva003FE342()
+{
+	if (((Rva002B4C09 *)TheLivingWorldLogic)->rva002B4C09()) {
+		bool was=active;
+		if (!was) {
+			Rva00538E22 *vec=&queue;
+			if (0u<(unsigned)(vec->end-vec->begin)) {
+				Rva00318B5C front=queue.rva00538E43();
+				destination=front.coordinate;
+				active=true;
+				((Rva003FDEAD *)this)->rva003FDFFB();
+				((Rva003FDE8C *)this)->rva003FDE8C(0);
+			}
+		}
+		if (active) {
+			Coord2D step;
+			continueMoving(&step);
+			Vector3 v;
+			v.X=step.x;
+			v.Y=step.y;
+			v.Z=0.0f;
+			((Rva002BF4F3 *)g_00DFEF18)->rva002BF5B0((const Vector3 *)&step,&v);
+			((Rva003FE342Virtual *)this)->s5(&v);
+		}
+	}
+}
