@@ -110,13 +110,17 @@ struct BfmeAssignRecord28;
 namespace _STL { template <> void vector<BfmeAssignRecord28>::push_back(const BfmeAssignRecord28 &); }
 class LookupTablePostEffect;
 class Rva001022F5 { public: LookupTablePostEffect *rva00101FD8Create(const StringBase<char> &); };
-extern const StringBase<char> g_00DEC3B8;
+// Retail's key at VA 0x00DEC3B8 (defined once in Rva00101FD8Create.cpp as an
+// AsciiString: StringBase's default ctor is private, its AsciiString spelling is
+// public and the base subobject is at offset 0, so the address and the rowed
+// factory at 0x00101FD8 are unchanged).
+extern const AsciiString g_00DEC3B8;
 void Rva0010225F::rva0010231F() {
  if (!m_10) {
   m_10=m_00;
   _STL::vector<EvaMessageInfo> &dst=m_14;
   dst=m_04;
-  m_00=reinterpret_cast<Rva00116496 *>(reinterpret_cast<Rva001022F5 *>(this)->rva00101FD8Create(g_00DEC3B8));
+  m_00=reinterpret_cast<Rva00116496 *>(reinterpret_cast<Rva001022F5 *>(this)->rva00101FD8Create(*(const StringBase<char> *)&g_00DEC3B8));
   if (m_00) {
    _STL::vector<EvaMessageInfo> args;
    Rva00111AA7 blend("BlendFactor",0);

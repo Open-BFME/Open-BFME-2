@@ -8,7 +8,11 @@
 // Compatible BF1/ZH post-effect writer source was not available; retained
 // canonical string/chunk output behavior and target-derived neutral names.
 #include "ascii_string.h"
-extern const StringBase<char> g_00DEC3B8;
+// Retail's key at VA 0x00DEC3B8 (defined once in Rva00101FD8Create.cpp as an
+// AsciiString: StringBase's default ctor is private, its AsciiString spelling is
+// public and the base subobject is at offset 0, so the address and the rowed
+// compare at RVA 0x000069D6 are unchanged).
+extern const AsciiString g_00DEC3B8;
 class DataChunkOutput{public:void openDataChunk(char*,unsigned short);void writeByte(unsigned char);void writeReal(float);void writeAsciiString(const AsciiString&);void closeDataChunk();};
 class Rva00101F31NameProvider{public:virtual AsciiString name();};
 class Rva001021F7{public:AsciiString rva00101F31();Rva00101F31NameProvider*active;char rest[28];};
@@ -24,7 +28,7 @@ void __cdecl Rva000AFD85WriteChunk(DataChunkOutput*out){
  if(active){
   AsciiString name=state->rva00101F31();
   out->writeAsciiString(name);
-  if(((StringBase<char>&)name).compare(g_00DEC3B8)==0){
+  if(((StringBase<char>&)name).compare(*(const StringBase<char> *)&g_00DEC3B8)==0){
    Rva00111B5A*parameters=(Rva00111B5A*)((Rva005C4AD1LeaField*)state)->get();
    Rva00111B25Record*blend=parameters->rva00111B5A("BlendFactor");
    float factor=blend?blend->value:1.0f;

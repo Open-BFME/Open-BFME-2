@@ -9,7 +9,11 @@
 
 #include "ascii_string.h"
 
-extern const StringBase<char> g_00DEC3B8;
+// Retail's key at VA 0x00DEC3B8 (defined once in Rva00101FD8Create.cpp as an
+// AsciiString: StringBase's default ctor is private, its AsciiString spelling is
+// public and the base subobject is at offset 0, so the address and the rowed
+// compare at RVA 0x000069D6 are unchanged).
+extern const AsciiString g_00DEC3B8;
 
 class Inner
 {
@@ -28,7 +32,7 @@ public:
 void Rva00102026::rva00102026()
 {
     AsciiString tmp = m_ptr->GetName();
-    if (((StringBase<char> &)tmp).compare(g_00DEC3B8) == 0) {
+    if (((StringBase<char> &)tmp).compare(*(const StringBase<char> *)&g_00DEC3B8) == 0) {
         void *p = m_ptr ? m_ptr->GetBlock(0) : (void *)0;
         ::operator delete(p);
     }
