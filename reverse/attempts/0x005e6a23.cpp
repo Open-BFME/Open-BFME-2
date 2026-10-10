@@ -1,179 +1,144 @@
-// ?Rva005E6A23@StrategicInGameUI@@YA?AUTreeHintRef00217D4C@@PBUHeroDetailsEntry@@@Z
-// partial score=0.97 date=2026-10-09
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
-// ??1Rva005E6D0D@@QAE@XZ retail 0x005E6D0D 103B
-// Non-virtual dtor of a polymorphic class: own vptr C77E4C; under EH state 1
-// the object passes itself to the rowed
-// ?rva002B7250@Rva002B7250@@QAEXPAVCreateAHeroData@@@Z 0x002B7250 on its
-// +0x10 container, then when the held ref at +0x1C is set and the owner at +8
-// reports it through the no-arg virtual getter (pinned twin
-// ?rva005CB265@Rva005CB265@@UAEHXZ 0x005CB265) the owner is cleared through
-// the rowed forwarder 0x005CB260; the ref member's inline dtor releases it
-// via the rowed fastcall ReleaseTreeHintRef00217D4C 0x0007DEEF and the base's
-// inline dtor restores C79544. Same unlock check as Rva005E73B2Check.cpp.
-// Names address-derived.
-
+// ?Rva005E6A23@StrategicInGameUI@@YA?AUTreeHintRef00217D4C@@PBURva005E4300Entry@@@Z
+// partial score=0.97 date=2026-10-10
+// cl: /I. /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /MD /DNDEBUG /EHsc
+// Native005E6B3E..005E6B8F obtains archetype at template+5C4 for the
+// selected entry+18 and sends its Unicode tooltip to the owned Mouse API.
+// Native005E4300..005E4389 low-byte comparator of selected hero keys;
+// groupB8 signed order with zero priority then the native118B fallback.
+// Its three private bodies are reconstructed from target; original template
+// and record class names remain unknown. Public char describes the observed
+// AL zero/one ABI without claiming the original C++ return spelling.
 #include "ascii_string.h"
 #include "unicode_string.h"
-struct TargetRef00217D4C { void *vtable; int count; };
-void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
-struct TreeHintRef00217D4C {
- TreeHintRef00217D4C(TargetRef00217D4C *p=0):m_ptr(p){if(p)++p->count;}
- TreeHintRef00217D4C &operator=(const TreeHintRef00217D4C &);
- ~TreeHintRef00217D4C(){if(m_ptr)ReleaseTreeHintRef00217D4C(m_ptr);}
- TargetRef00217D4C *m_ptr;
-};
-class ThingFactory;
+class ThingTemplate;
+class ThingFactory { public: const ThingTemplate *findTemplate(const AsciiString &); };
 extern ThingFactory *TheThingFactory;
-class Rva002D06CA {public:void *rva002D06CA(const AsciiString *);};
-struct HeroDetailsEntry {int id;AsciiString name;float experience;int rank;};
-struct HeroDetailsTemplate {char beforeText[0x40];UnicodeString description;char beforeTitle[0x58-0x44];UnicodeString title;
- __forceinline const UnicodeString &titleText()const{return title;}
- __forceinline const UnicodeString &descriptionText()const{return description;}
+struct Rva005E4300Entry {
+ int key;
+ AsciiString name;
+ float metric;
+ char pad[0xb8-0xc];
+ int group;
+};
+struct Rva005E3967Template {
+ char beforeDescription[0x40]; UnicodeString description; char toTitle[0x58-0x44]; UnicodeString title; char toMask[0x110-0x5C];unsigned int mask; char toArchetype[0x5C4-0x114];int archetype;__forceinline const UnicodeString&titleText()const{return title;} __forceinline const UnicodeString&descriptionText()const{return description;}
+};
+class Rva0040CB3AIndexedField { public: int get(int) const; };
+struct Rva005E4300Context {
+ char pad0[0x18]; AsciiString selectedName;
+ char pad1[0x78-0x1c]; Rva0040CB3AIndexedField *index;
 };
 namespace StrategicInGameUI {
-static __declspec(noinline) HeroDetailsTemplate *Rva005E3967(const HeroDetailsEntry *entry) {
- return (HeroDetailsTemplate *)((Rva002D06CA *)TheThingFactory)->rva002D06CA(&entry->name);
+static __declspec(noinline) Rva005E3967Template *Rva005E3967(const Rva005E4300Entry *entry)
+{
+ return (Rva005E3967Template *)TheThingFactory->findTemplate(entry->name);
+}
+static __declspec(noinline) bool Rva005E3FE6(const Rva005E4300Entry *a,const Rva005E4300Entry *b,int keyA,int keyB)
+{
+ bool flagA=((Rva005E3967(a)->mask>>26)&1)!=0;
+ bool flagB=((Rva005E3967(b)->mask>>26)&1)!=0;
+ if(flagA!=flagB)return flagA;
+ if(!flagA) {
+  int cmp=a->name.compare(b->name);
+  if(cmp)return cmp<0;
+ }
+ if(a->metric!=b->metric)return a->metric>b->metric;
+ return keyA<keyB;
 }
 }
-struct ExperienceLevelHandle {
- ExperienceLevelHandle() {}
- ExperienceLevelHandle(const ExperienceLevelHandle &r):list(r.list),node(r.node){}
- void *list,*node;
+class Rva005E4300Cmp {
+public:
+ char operator()(int,int) const;
+private: Rva005E4300Context *m_context;
 };
-class ExperienceLevelStore {public:
- ExperienceLevelHandle rva00288D88(int,int);
- bool IsValid(ExperienceLevelHandle) const;
- ExperienceLevelHandle GetNextLevel(ExperienceLevelHandle) const;
- int GetRequiredExperience(ExperienceLevelHandle) const;
+char Rva005E4300Cmp::operator()(int keyA,int keyB) const
+{
+ const Rva005E4300Entry *a=(const Rva005E4300Entry *)m_context->index->get(keyA);
+ if(a->name.compare(m_context->selectedName)==0)return true;
+ int rawB=m_context->index->get(keyB);
+ const AsciiString *selected=&m_context->selectedName;
+ const Rva005E4300Entry *b=(const Rva005E4300Entry *)rawB;
+ if(b->name.compare(*selected)==0)goto no;
+ {int ga=a->group,gb=b->group;
+ if(ga!=gb) {if(ga==0)return true; if(gb==0)goto no; return ga<gb;}
+ return StrategicInGameUI::Rva005E3FE6(a,b,keyA,keyB);}
+ no:return false;
+}
+
+class Rva005E549E {public:void rva005E549E();};
+class Rva005F6022ByteChaseField {public:unsigned char get()const;};
+namespace StrategicInGameUI {UnicodeString GetTooltipText(int);}
+struct RGBColor;class Mouse {public:void rva001EEA6D(UnicodeString,int,const RGBColor*,float);};extern Mouse*TheMouse;
+class Rva005E6B3E {public:void rva005E6B3E();char unknown0[4];void*clip;char unknown8[0x10];Rva005E4300Entry*entry;};
+void Rva005E6B3E::rva005E6B3E(){
+ ((Rva005E549E*)((char*)clip+0xC))->rva005E549E();
+ if(((Rva005F6022ByteChaseField*)clip)->get()){
+  Rva005E3967Template*t=StrategicInGameUI::Rva005E3967(entry);
+  int kind=t->archetype;
+  TheMouse->rva001EEA6D(StrategicInGameUI::GetTooltipText(kind),-1,0,1.0f);
+ }
+}
+
+struct TargetRef00217D4C {void*vtable;int count;};
+void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);
+struct TreeHintRef00217D4C {
+ TreeHintRef00217D4C(TargetRef00217D4C*p=0):m_ptr(p){if(p)++p->count;}
+ ~TreeHintRef00217D4C(){if(m_ptr)ReleaseTreeHintRef00217D4C(m_ptr);}
+ TreeHintRef00217D4C&operator=(const TreeHintRef00217D4C&);
+ TargetRef00217D4C*m_ptr;
 };
-extern ExperienceLevelStore *TheExperienceLevelStore;
+namespace StrategicInGameUI {TreeHintRef00217D4C Rva005E6A23(const Rva005E4300Entry*);}
+class Rva003FE20FBase {public:virtual void slot1(void*);};
+class Rva005E4157 {public:void rva005E4157(int);};
+class Rva005E6AD8 {public:void rva005E6AD8();char pad0[4];void*clip;Rva003FE20FBase*owner;char padC[8];int value;Rva005E4300Entry*entry;TreeHintRef00217D4C held;};
+void Rva005E6AD8::rva005E6AD8(){
+ held=StrategicInGameUI::Rva005E6A23(entry);
+ if(held.m_ptr)owner->Rva003FE20FBase::slot1(&held);
+ ((Rva005E4157*)((char*)clip+0xC))->rva005E4157(value);
+}
+
+// Native5E6CA1..5E6D0D, called by the listener constructor at5E6DFA.
+// The caller consumes count then entry from the hidden return object.
+// Context+78 is a summary whose8B entries begin40/end44; the two existing
+// indexed providers yield its entry pointer and count. Field names describe
+// target accesses; the original pair/context/summary class names are unknown.
+class Rva0040CB2CIndexedField {public:int get(int) const;};
+class Rva0040CC0EIndexedField {public:int get(int) const;};
+struct HeroDetailsArmyEntry {int count;Rva005E4300Entry *entry;};
+struct HeroDetailsArmySummary {char pad[0x40];HeroDetailsArmyEntry *begin,*end;};
+struct HeroDetailsPair {
+ HeroDetailsPair(){}
+ HeroDetailsPair(const HeroDetailsPair &p):count(p.count),entry(p.entry){}
+ HeroDetailsPair(const int &c,Rva005E4300Entry *const &e):count(c),entry(e){}
+ int count;Rva005E4300Entry *entry;
+};
 namespace StrategicInGameUI {
-static __forceinline float GetExperience(const HeroDetailsEntry *entry){return entry->experience;}
-static float ComputeRankProgress(const HeroDetailsEntry *entry) {
- ExperienceLevelHandle current=TheExperienceLevelStore->rva00288D88((int)Rva005E3967(entry),(int)GetExperience(entry));
- if(!TheExperienceLevelStore->IsValid(current))return -1.0f;
- ExperienceLevelHandle next=TheExperienceLevelStore->GetNextLevel(current);
- if(!TheExperienceLevelStore->IsValid(next))return -1.0f;
- int low=TheExperienceLevelStore->GetRequiredExperience(current);
- int high=TheExperienceLevelStore->GetRequiredExperience(next);
- return (entry->experience-low)/(high-low);
+HeroDetailsPair Rva005E6CA1(Rva005E4300Context *context) {
+ HeroDetailsArmySummary *summary=(HeroDetailsArmySummary*)context->index;
+ int count=summary->end-summary->begin;
+ int i=0;
+ Rva005E4300Entry *entry;
+ for(;i<count;++i) {
+  entry=(Rva005E4300Entry *)((Rva0040CB2CIndexedField *)summary)->get(i);
+  if(entry->name==context->selectedName)goto found;
+ }
+ if(i>=count)return HeroDetailsPair(0,0);
+ found:return HeroDetailsPair(((Rva0040CC0EIndexedField *)summary)->get(i),entry);
 }
 }
+
 class Rva0037DCA5 {public:void *rva0037DC52();};
-class Rva005398CD {public:Rva005398CD(const UnicodeString &,const UnicodeString &);private:char storage[12];};
+class InGameSimpleHelp {public:InGameSimpleHelp(const UnicodeString&,const UnicodeString&);virtual ~InGameSimpleHelp();int count;void*impl;};
 namespace StrategicInGameUI {
-TreeHintRef00217D4C Rva005E6A23(const HeroDetailsEntry *entry) {
+TreeHintRef00217D4C Rva005E6A23(const Rva005E4300Entry*entry) {
  const UnicodeString &title=Rva005E3967(entry)->titleText();
  if(!title.isEmpty()) {
-  HeroDetailsTemplate *t=(HeroDetailsTemplate *)((Rva0037DCA5 *)entry)->rva0037DC52();
+  Rva005E3967Template *t=(Rva005E3967Template *)((Rva0037DCA5 *)entry)->rva0037DC52();
   if(t) {
    const UnicodeString &description=t->descriptionText();
-   return TreeHintRef00217D4C((TargetRef00217D4C *)new Rva005398CD(title,description));
+   return TreeHintRef00217D4C((TargetRef00217D4C *)new InGameSimpleHelp(title,description));
   }
  }
  return TreeHintRef00217D4C();
 }
-}
-class Rva0040CB2CIndexedField {public:int get(int) const;};
-class Rva0040CC0EIndexedField {public:int get(int) const;};
-struct HeroDetailsArmyEntry {int count;HeroDetailsEntry *entry;};
-struct HeroDetailsArmySummary {char pad[0x40];HeroDetailsArmyEntry *begin,*end;};
-struct HeroDetailsContext {char pad0[0x18];AsciiString selectedName;char pad1[0x54-0x1C];int playerID;char pad2[0x78-0x58];HeroDetailsArmySummary *summary;};
-struct HeroDetailsPair {HeroDetailsPair(){} HeroDetailsPair(const HeroDetailsPair &p):count(p.count),entry(p.entry){} HeroDetailsPair(const int &c,HeroDetailsEntry *const &e):count(c),entry(e){} int count;HeroDetailsEntry *entry;};
-namespace StrategicInGameUI {
-HeroDetailsPair Rva005E6CA1(HeroDetailsContext *context) {
- HeroDetailsArmySummary *summary=context->summary;
- int count=summary->end-summary->begin;
- int i=0;
- HeroDetailsEntry *entry;
- for(;i<count;++i) {
-  entry=(HeroDetailsEntry *)((Rva0040CB2CIndexedField *)summary)->get(i);
-  if(entry->name==context->selectedName)goto found;
- }
- return HeroDetailsPair(0,0);
- found:return HeroDetailsPair(((Rva0040CC0EIndexedField *)summary)->get(i),entry);
-
-}
-}
-class Image;
-struct StrategicButtonImageView {int unknown;AsciiString templateName;};
-namespace StrategicInGameUI {const Image *GetButtonImage(const StrategicButtonImageView *,int);}
-struct Rva005F01D6In;
-const Image *Rva005F01D6Get(Rva005F01D6In *);
-class Rva005F62EE {public:void rva005F62EE(const Image *);void rva005F62F6(const Image *);};
-class Rva005F64C0 {public:void rva005F64C0(int);void rva005F64C8(float);};
-class Rva005F6306 {public:void rva005F6306();};
-class Rva005F601BByteChaseField {public:unsigned char get() const;};
-class Rva001FF3A9 {public:void rva001FF3A9(const TreeHintRef00217D4C &);};
-struct Rva002BA8F1Listener;
-class Rva005A0B4CList {public:void append(Rva002BA8F1Listener *);};
-struct HeroDetailsInput;
-class CreateAHeroData;
-
-class Rva002B7250
-{
-public:
-	void rva002B7250(CreateAHeroData *data);
-};
-
-class Rva005CB265
-{
-public:
-	virtual int rva005CB265();
-};
-
-class Rva005CB260
-{
-public:
-	void rva005CB260();
-};
-
-class Rva005E6D0DBase
-{
-public:
-    Rva005E6D0DBase(void *slot):m_slot(slot){}
-	~Rva005E6D0DBase() {}
-	virtual void Rva005E6D0DSlot0();
-
-protected:
-    void *m_slot;
-};
-
-class Rva005E6D0D : public Rva005E6D0DBase
-{
-public:
-    Rva005E6D0D(void *,HeroDetailsInput *);
-	~Rva005E6D0D();
-
-private:
-	Rva005CB265 *m_owner; // +0x08
-	HeroDetailsContext *m_details;
-	Rva002B7250 *m_container; // +0x10
-	HeroDetailsPair m_pair;
-    TreeHintRef00217D4C m_held; // +0x1C
-};
-
-Rva005E6D0D::~Rva005E6D0D()
-{
-	m_container->rva002B7250(reinterpret_cast<CreateAHeroData *>(this));
-	int held = (int)m_held.m_ptr;
-	if (held != 0 && m_owner->Rva005CB265::rva005CB265() == held)
-		((Rva005CB260 *)m_owner)->rva005CB260();
-}
-
-struct HeroDetailsInput {Rva005CB265 *owner;HeroDetailsContext *details;Rva002B7250 *container;};
-Rva005E6D0D::Rva005E6D0D(void *slot,HeroDetailsInput *input):Rva005E6D0DBase(slot),m_owner(input->owner),m_details(input->details),m_container(input->container),m_pair(0,0) {
- m_pair=StrategicInGameUI::Rva005E6CA1(m_details);
- ((Rva005F62EE *)m_slot)->rva005F62EE(StrategicInGameUI::GetButtonImage((const StrategicButtonImageView *)m_pair.entry,m_details->playerID));
- ((Rva005F62EE *)m_slot)->rva005F62F6(Rva005F01D6Get((Rva005F01D6In *)m_pair.entry));
- ((Rva005F64C0 *)m_slot)->rva005F64C0(m_pair.entry->rank);
- float progress=StrategicInGameUI::ComputeRankProgress(m_pair.entry);
- if(progress>=0.0f)((Rva005F64C0 *)m_slot)->rva005F64C8(progress);
- else ((Rva005F6306 *)m_slot)->rva005F6306();
- if(((Rva005F601BByteChaseField *)m_slot)->get()) {
-  m_held=StrategicInGameUI::Rva005E6A23(m_pair.entry);
-  if(m_held.m_ptr)((Rva001FF3A9 *)m_owner)->rva001FF3A9(m_held);
- }
- ((Rva005A0B4CList *)m_container)->append((Rva002BA8F1Listener *)this);
 }
