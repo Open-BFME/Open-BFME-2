@@ -3,6 +3,16 @@
 // BFME1 ba7ddda7e8 AerialPathfinder_getNoFlyZoneHeight is the semantic
 // lead. The native boundary and list offsets are independent target facts.
 #include <list>
+
+// _List_iterator comparisons otherwise instantiate the base-class
+// operator!= COMDAT (one byte shape per TU flags); exact-match free
+// overloads take those calls instead so this TU emits no external copy.
+namespace _STL {
+template <class _IterTp, class _LeftTraits, class _RightTraits>
+static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
+                              const _List_iterator<_IterTp, _RightTraits> &b)
+{ return a._M_node != b._M_node; }
+}
 // Native375AF7..375B7A RET8. Circular list head at+10; node payload is
 // PolygonTrigger* at+8 and height at+C. Empty list returns0; containing
 // polygons update the maximum initialized to-9999. Identity remains neutral.

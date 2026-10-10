@@ -12,6 +12,16 @@
 // Donor revision f98983a7d; field widths independently follow native access.
 #include <list>
 #include <algorithm>
+
+// _List_iterator comparisons otherwise instantiate the base-class
+// operator!= COMDAT (one byte shape per TU flags); exact-match free
+// overloads take those calls instead so this TU emits no external copy.
+namespace _STL {
+template <class _IterTp, class _LeftTraits, class _RightTraits>
+static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
+                              const _List_iterator<_IterTp, _RightTraits> &b)
+{ return a._M_node != b._M_node; }
+}
 class RvaSmartPtr12 {public:void *ptr,*prev,*next;};
 class Rva0004CCFF {public:void *destroyDelete(unsigned);void *ptr,*prev,*next;};
 struct Rva001F63C9Node {void *next,*prev;Rva0004CCFF handle;};

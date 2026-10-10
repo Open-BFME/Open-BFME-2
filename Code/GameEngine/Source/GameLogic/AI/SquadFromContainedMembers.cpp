@@ -21,6 +21,16 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #include <vector>
 #include <list>
 #include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
+
+// _List_iterator comparisons otherwise instantiate the base-class
+// operator!= COMDAT (one byte shape per TU flags); exact-match free
+// overloads take those calls instead so this TU emits no external copy.
+namespace _STL {
+template <class _IterTp, class _LeftTraits, class _RightTraits>
+static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
+                              const _List_iterator<_IterTp, _RightTraits> &b)
+{ return a._M_node != b._M_node; }
+}
 class Object;
 template<int N> class SquadMembersSlots : public SquadMembersSlots<N-1>{public:virtual void gap(char(*)[N])=0;};template<>class SquadMembersSlots<0>{};
 class SquadMembersHorde : public SquadMembersSlots<67>{public:virtual void slot67(_STL::list<Object*>*)=0;};

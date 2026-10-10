@@ -10,6 +10,16 @@
 #include <list>
 #include "GameLogicObjectLookupView.h"
 #include "GameLogic/ContainmentListView.h"
+
+// _List_iterator comparisons otherwise instantiate the base-class
+// operator!= COMDAT (one byte shape per TU flags); exact-match free
+// overloads take those calls instead so this TU emits no external copy.
+namespace _STL {
+template <class _IterTp, class _LeftTraits, class _RightTraits>
+static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
+                              const _List_iterator<_IterTp, _RightTraits> &b)
+{ return a._M_node != b._M_node; }
+}
 extern GameLogic *TheGameLogic;
 class Object {public:void onContainedBy(Object*); ObjectID getID()const{return id;} const Object*getContainedBy()const{return contained;}private:char pad[0x74];ObjectID id;char pad78[0x274-0x78];Object *contained;};
 class Rva00466398 {public:Rva0036AE51ListView rva00466398();};

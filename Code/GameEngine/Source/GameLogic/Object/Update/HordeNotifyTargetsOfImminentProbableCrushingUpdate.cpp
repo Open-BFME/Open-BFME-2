@@ -9,6 +9,16 @@
 // Payloads are Object pointers; existing int-list is only a four-byte storage/node-operation view.
 // Provider slot10C, Object position38/3C/40, data rate08 and notifier+10 are target facts.
 #include <list>
+
+// _List_iterator comparisons otherwise instantiate the base-class
+// operator!= COMDAT (one byte shape per TU flags); exact-match free
+// overloads take those calls instead so this TU emits no external copy.
+namespace _STL {
+template <class _IterTp, class _LeftTraits, class _RightTraits>
+static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
+                              const _List_iterator<_IterTp, _RightTraits> &b)
+{ return a._M_node != b._M_node; }
+}
 namespace _STL { template<> _List_base<int,allocator<int> >::~_List_base(); }
 class Rva004CEAB7{public:float x,y,z;__forceinline Rva004CEAB7(const Rva004CEAB7&r){x=r.x;y=r.y;z=r.z;} __forceinline ~Rva004CEAB7(){}};
 
