@@ -34,6 +34,7 @@
 // Author: Mark Wilczynski, August 2002
 ///////////////////////////////////////////////////////////////////////////////
 
+#include "rendobj.h"	// bfmerendobj shim wins RENDOBJ_H: retail ObjectScale@0x48 (ZH has no pre-Transform pad, reads +0x4C)
 #include "Common/Debug.h"
 #include "Common/Player.h"
 #include "Common/PlayerList.h"
