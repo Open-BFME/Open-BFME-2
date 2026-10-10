@@ -43,13 +43,13 @@ void Rva005F83A9::rva005F83A9()
 // WB D27970 supports region-center fetch and then owned55B ground placement.
 // Both physical results are unused here; no pointer-result fact is established.
 #include "RegionCenterPointDispatchView.h"
-class LivingWorldManager;extern LivingWorldManager *TheLivingWorldManager;
-struct ManagerView{char pad[0xB0];Rva0020F27EHost*regions;};
+class LivingWorldLogic;extern LivingWorldLogic *TheLivingWorldLogic;
+struct Rva002BF652LogicView{char pad[0xB0];Rva0020F27EHost*regions;};
 struct RegionView{char pad[0x12C];int id;};
 class Rva002BF652{public:void rva002BF652(void*);};
 void Rva002BF652::rva002BF652(void*value){
  int point[2];
- ((ManagerView*)TheLivingWorldManager)->regions->rva0020F27E(((RegionView*)value)->id,(int)point);
+ ((Rva002BF652LogicView*)TheLivingWorldLogic)->regions->rva0020F27E(((RegionView*)value)->id,(int)point);
  ((Rva002BF6A7*)this)->rva002BF61B((int)point);
 }
 
