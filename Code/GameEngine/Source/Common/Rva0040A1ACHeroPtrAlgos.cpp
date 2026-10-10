@@ -30,6 +30,7 @@ private:
 class Rva0040A187
 {
 public:
+	Rva0040A187(int major, int minor) : m_val0(major), m_val4(minor) {}
 	bool rva0040A187(const void *arg) const;
 	bool operator()(CreateAHeroData *p) const { return rva0040A187(p); }
 private:
@@ -45,3 +46,4 @@ struct Rva0040A1ACRelease
 template Rva0040A1ACRelease _STL::for_each<CreateAHeroData **, Rva0040A1ACRelease>(CreateAHeroData **, CreateAHeroData **, Rva0040A1ACRelease);
 template CreateAHeroData **_STL::__find_if<CreateAHeroData **, Rva0040A16E>(CreateAHeroData **, CreateAHeroData **, Rva0040A16E, const _STL::random_access_iterator_tag &);
 template CreateAHeroData **_STL::__find_if<CreateAHeroData **, Rva0040A187>(CreateAHeroData **, CreateAHeroData **, Rva0040A187, const _STL::random_access_iterator_tag &);
+template CreateAHeroData **_STL::find_if<CreateAHeroData **, Rva0040A187>(CreateAHeroData **, CreateAHeroData **, Rva0040A187);
