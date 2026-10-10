@@ -1,0 +1,11 @@
+# GameInfo setMap canonical find provider
+
+Target facts: retail GameInfo::setMap 0x00400126 calls 0x0002C459 at 0x0040025B, passing receiver ebp+8 and the character 0x5C. The ledger owns the complete 44-byte body at that address as StringBase<char>::find(char) const in string_base.cpp. The canonical AsciiString header already implements its find wrapper by casting to this one-pointer StringBase view.
+
+Change: spell the source call directly through that existing StringBase view. No class declaration, header, pin, alias, compiler setting or body extent changes. This removes the non-retail AsciiString::find COMDAT rather than changing the actual search behavior. The original GameInfo donor purpose and target offsets remain as documented in the existing file.
+
+BF1 linking-repair review at committed dependency 575ba2b04743f190f069805fbdc59936123c45da: 5f05cce4e52a5f69608af60cc2bfa2a8e78d9187 replaces competing AsciiString compare wrappers with their actual StringBase provider in 27 consumers (36/36 exact, 9018 existing bytes link). Its direct-provider principle is applicable; its local compare specialization is inapplicable to this already rowed out-of-line find body. 05d0821c8dfac5259e711d912aa725450be0e269 removes a competing ZH GameInfo::setMap definition; this ownership repair is already inherited here, where only GameInfoSetMap.cpp defines the matched method.
+
+Verification: normal whole-home build 2/2 exact; strict bounded preparation of this consumer and string_base.cpp 39/39 exact with reusable compiler/include-inventory receipts, 7 literals and 23 empty references exact, 3 named imports exact. Placement sweep found zero additional bodies/pins. Before/after link_check on the explicitly refreshed consumer plus actual provider removes both the AsciiString find losing-copy and wrong-selected reports; both units are clean in that preview.
+
+Scope limit: the preview starts from retained census 222bc9bf5b (2026-10-08), replacing the two explicit current objects; it reports 1116 existing consumer bytes newly linking and unchanged provider 1185. This is bounded evidence, not a fresh global census or C++ coverage gain. All two existing consumer rows remain verified; zero supported open bodies in this home. No hatches added.
