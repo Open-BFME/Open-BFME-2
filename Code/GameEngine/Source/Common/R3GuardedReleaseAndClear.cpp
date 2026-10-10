@@ -33,7 +33,9 @@
 // relocations are masked (unique hit on unclaimed .text). Only the placed body
 // is defined here; the donor's other five release bodies are omitted.
 
-extern void (__cdecl *Gen00BBA5DC)( void * );
+// Gen00BBA5DC is the import slot __imp__fclose (data ledger); call the
+// import directly so nothing dangles.
+extern "C" __declspec(dllimport) int __cdecl fclose(void *fp);
 
 class Rva00382AA0
 {
@@ -46,7 +48,7 @@ void Rva00382AA0::release()
 {
 	if ( m_18 )
 	{
-		Gen00BBA5DC( m_18 );
+		fclose( m_18 );
 		m_18 = 0;
 	}
 }
