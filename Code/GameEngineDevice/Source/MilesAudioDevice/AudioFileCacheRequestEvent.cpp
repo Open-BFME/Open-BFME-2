@@ -1,3 +1,5 @@
+extern "C" void _ReadWriteBarrier();
+#pragma intrinsic(_ReadWriteBarrier)
 // ?requestFile@AudioFileCache@@QAE?AVRva00690FF0Handle@@ABVBfmePoolRef10@@H@Z
 // partial score=0.97 date=2026-10-08
 // cl: /O1 /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
@@ -34,9 +36,15 @@ public:
 private: char unknown[0x44]; Rva00690FF0Handle emptyFile;
 };
 Rva00690FF0Handle AudioFileCache::requestFile(const BfmePoolRef10 &event,int priority) {
- if (!event.event) return emptyFile;
- if (event.event->info.isNull()) return emptyFile;
- if (event.event->info->type!=2) return emptyFile;
- return requestFile(event.event->rva002DA867(),priority);
+ AudioEventRTS*ev=event.event;
+ if(!ev) return emptyFile;
+ if (ev->info.isNull()) return emptyFile;
+ _ReadWriteBarrier();if (ev->info->type!=2) return emptyFile;
+ return requestFile(ev->rva002DA867(),priority);
 }
 
+
+// WB8E4D30 and nativeA8241..A82CA RET12 identify this event-reference
+// requestFile overload. Native event08 and infoB0 are independent target
+// facts. Hold the event pointer and fence before reading info.type so MSVC
+// preserves the native null comparison and distinct subsequent load.
