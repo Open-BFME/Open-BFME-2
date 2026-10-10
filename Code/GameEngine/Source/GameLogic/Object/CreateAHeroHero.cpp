@@ -1,4 +1,5 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /EHsc /MD /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /EHsc /MD /arch:SSE /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// stlport
 // CreateAHeroHero.cpp -- CreateAHeroHero members recovered from WorldBuilder
 // leads (reverse/wb_name_leads.csv): WB's debug build names each function and
 // its source file; retail supplies the bytes.
@@ -41,29 +42,8 @@ class CreateAHeroHero;
 
 // Same witnessed STLport bit-vector ABI as the rowed award-reset provider.
 // operator[] returns the eight-byte bit reference by value (native6BE1F).
-namespace _STL
-{
-struct _Bit_reference
-{
-	unsigned int *_M_p, _M_mask;
-	operator bool() const { return (*_M_p & _M_mask) != 0; }
-	_Bit_reference &operator=(bool x)
-	{
-		if (x) *_M_p |= _M_mask;
-		else *_M_p &= ~_M_mask;
-		return *this;
-	}
-};
-template<class T> class allocator {};
-template<class T, class A = allocator<T> > class vector;
-template<> class vector<bool, allocator<bool> >
-{
-public:
-	_Bit_reference operator[](unsigned int);
-private:
-	unsigned int storage[5];
-};
-}
+#include <vector>
+#include <map>
 class Rva0021937DTarget { public: void rva00407E94(); };
 class Rva00406E7D { public: int rva00406E7D(); };
 class Rva00406E8F { public: int rva00406E8F(unsigned int); };
@@ -168,7 +148,9 @@ public:
 
 	unsigned char m_pad00[0x88];
 	AsciiString m_templateName;			// +0x88
-	unsigned char m_pad8C[0x41c - 0x8c];
+	unsigned char m_pad8C[0x264 - 0x8c];
+	class Rva004074B6 *m_experience;		// +0x264
+	unsigned char m_pad268[0x41c - 0x268];
 	AsciiString m_commandSetStringOverride;	// +0x41C
 };
 class Rva004076EE { public: Object *rva004076EE(); };
@@ -179,6 +161,11 @@ public:
 		const AsciiString &experience, const AsciiString &upgrades, const AsciiString &attributes);
 };
 class ExperienceLevelSystem;
+class Rva004074B6 { public: void rva004074B6(const AsciiString &); };
+enum NameKeyType { NAMEKEY_INVALID = 0 };
+class NameKeyGenerator { public: NameKeyType nameToKey(const AsciiString &); };
+extern NameKeyGenerator *TheNameKeyGenerator;
+class Rva0028951F { public: const Overridable *rva0028951F(int); };
 extern ExperienceLevelSystem *TheExperienceLevelSystem;
 
 // WorldBuilder's CAH_MAX_EXP_LEVELS (the SetButtonForLevel assert).
@@ -203,6 +190,7 @@ public:
 	Bool AddCommandButtonLevel(UnsignedInt index, const AsciiString &source,
 		const AsciiString &name, const AsciiString &experience);
 	Bool UpdateCommandSet(UnsignedInt rank);
+	Bool RegisterExperienceLevels();
 
 private:
 	Bool rva004079D5(Int blingKey, CreateAHeroBlingNode **found) const;	// 0x004079D5
@@ -394,4 +382,42 @@ Bool CreateAHeroHero::UpdateCommandSet(UnsignedInt rank)
 		commandSet->rva00409FA0((Int)button, 0x10);
 	TheControlBar->m_commandSetsChanged = true;
 	return true;
+}
+
+Bool CreateAHeroHero::RegisterExperienceLevels()
+{
+ Object *object = ((Rva004076EE *)this)->rva004076EE();
+ if (!object) return false;
+ AsciiString source;
+ source.format("%s_%s", "CreateAHero", m_className.str());
+ object->m_experience->rva004074B6(source);
+ unsigned int index = 0;
+ AsciiString level;
+ level.format("CreateAHeroLevel%d", index+1);
+ const Overridable *info = ((Rva0028951F *)TheExperienceLevelSystem)->rva0028951F(TheNameKeyGenerator->nameToKey(level));
+ _STL::map<unsigned int, bool> completed;
+ do {
+  ++index;
+  level.format("CreateAHeroLevel%d", index);
+  info = ((Rva0028951F *)TheExperienceLevelSystem)->rva0028951F(TheNameKeyGenerator->nameToKey(level));
+  if (info) completed[index] = false;
+ } while(info);
+ index = 0;
+ while (!((const StringBase<char> *)&m_buttons[index].text)->isEmpty()) {
+  AsciiString name;
+  level.format("CreateAHeroLevel%d", index+1);
+  name.format("%s_%s", level.str(), m_className.str());
+  if (AddCommandButtonLevel(index, level, name, source)) completed[index+1] = true;
+  ++index;
+  level.format("CreateAHeroLevel%d", index);
+ }
+ for (_STL::map<unsigned int,bool>::iterator it=completed.begin();it!=completed.end();++it) {
+  if (!it->second) {
+   level.format("CreateAHeroLevel%d", it->first);
+   AsciiString name;
+   name.format("%s_%s", level.str(), m_className.str());
+   ((ExperienceLevelStore *)TheExperienceLevelSystem)->CreateNewExpLevel(level,name,source,AsciiString(),AsciiString());
+  }
+ }
+ return true;
 }
