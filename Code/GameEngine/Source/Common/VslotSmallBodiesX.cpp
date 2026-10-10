@@ -66,3 +66,38 @@ bool HCompressedAnimClass::Has_VisibilityF(Int i) const
 		return m_58[i].m_10 != 0;
 	return m_54[i].m_14 != 0;
 }
+
+// Installed-table indirect getter. Native receiver-relative pointer load
+// and pointed field width are modeled independently. Original complete
+// owner, interface/base relationship and semantic field type remain unknown.
+struct Rva004A7003Field {char prefix[0x80]; unsigned int value;};
+class Rva004A7003 {public: unsigned int rva004A7003();};
+unsigned int Rva004A7003::rva004A7003() {return (*reinterpret_cast<Rva004A7003Field **>(reinterpret_cast<unsigned int>(this)-0x3E0u))->value;}
+
+// Installed-table indirect getter. Native receiver-relative pointer load
+// and pointed field width are modeled independently. Original complete
+// owner, interface/base relationship and semantic field type remain unknown.
+struct Rva004A973BField {char prefix[0x80]; unsigned char value;};
+class Rva004A973B {public: unsigned char rva004A973B();};
+unsigned char Rva004A973B::rva004A973B() {return (*reinterpret_cast<Rva004A973BField **>(reinterpret_cast<unsigned int>(this)-0x3E4u))->value;}
+
+// Installed-table indirect getter. Native receiver-relative pointer load
+// and pointed field width are modeled independently. Original complete
+// owner, interface/base relationship and semantic field type remain unknown.
+struct Rva004A9748Field {char prefix[0x84]; float value;};
+class Rva004A9748 {public: float rva004A9748();};
+float Rva004A9748::rva004A9748() {return (*reinterpret_cast<Rva004A9748Field **>(reinterpret_cast<unsigned int>(this)-0x3E4u))->value;}
+
+// Installed-table indirect getter. Native receiver-relative pointer load
+// and pointed field width are modeled independently. Original complete
+// owner, interface/base relationship and semantic field type remain unknown.
+struct Rva004A9755Field {char prefix[0x88]; unsigned int value;};
+class Rva004A9755 {public: unsigned int rva004A9755();};
+unsigned int Rva004A9755::rva004A9755() {return (*reinterpret_cast<Rva004A9755Field **>(reinterpret_cast<unsigned int>(this)-0x3E4u))->value;}
+
+// Installed-table indirect getter. Native receiver-relative pointer load
+// and pointed field width are modeled independently. Original complete
+// owner, interface/base relationship and semantic field type remain unknown.
+struct Rva004A9762Field {char prefix[0x8C]; unsigned int value;};
+class Rva004A9762 {public: unsigned int rva004A9762();};
+unsigned int Rva004A9762::rva004A9762() {return (*reinterpret_cast<Rva004A9762Field **>(reinterpret_cast<unsigned int>(this)-0x3E4u))->value;}
