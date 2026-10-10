@@ -1,4 +1,6 @@
 // ?Rva00089510CameraPathAngles@@YIXPAVRva0089971@@PAX_NMH@Z
+// partial score=0.9890798226164079 date=2026-10-10
+// ?Rva00089510CameraPathAngles@@YIXPAVRva0089971@@PAX_NMH@Z
 // partial score=0.9417590539541758 date=2026-10-10
 // ?Rva00089510CameraPathAngles@@YIXPAVRva0089971@@PAX_NMH@Z
 // partial score=0.951 date=2026-10-09
@@ -33,6 +35,7 @@ struct BfmePathAnglesFields {
  unsigned char pad00[0x2C]; BfmePathWaypoint20 waypoints[255], extra[4];
  Real angles[255]; unsigned char pad1864[0x2070-0x1864]; Int count;
 };
+static __forceinline Real cameraSqrt(const Real&f){Real local=f;return WWMath::Sqrt(local);}
 void __fastcall Rva00089510CameraPathAngles(Rva0089971 *owner, void *, Bool orient, Real angle, Int firstWaypoint) {
  BfmePathAnglesFields *fields=(BfmePathAnglesFields *)owner;
  Real *cameraAngle=fields->angles;
@@ -44,12 +47,12 @@ void __fastcall Rva00089510CameraPathAngles(Rva0089971 *owner, void *, Bool orie
    Real *next=&fields->waypoints[i+firstWaypoint].position.x;
    direction.X=*current-*next; direction.Y=current[1]-next[1];
    Real pathAngle=direction.Y*direction.Y+direction.X*direction.X;
-   pathAngle=WWMath::Sqrt(pathAngle);
+   pathAngle=cameraSqrt(pathAngle);
    pathAngle=direction.X/pathAngle;
    if(pathAngle < -1.0f) pathAngle=-1.0f;
    else if(pathAngle > 1.0f) pathAngle=1.0f;
    if(direction.Y<0.0f) pathAngle=-WWMath::Acos(pathAngle); else pathAngle=WWMath::Acos(pathAngle);
-   pathAngle-=1.57079637050628662109375f;
+   pathAngle=(firstWaypoint?pathAngle-1.57079637050628662109375f:pathAngle-1.57079637050628662109375f);
    normAngle(pathAngle); *cameraAngle++=pathAngle;
   }
   fields->angles[1]=angle; fields->angles[0]=angle;
