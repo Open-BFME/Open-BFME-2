@@ -1,11 +1,12 @@
 // ?rva002720A4@@YAXPBUIRegion2D@@PBUICoord2D@@M@Z
-// partial score=0.96 date=2026-10-09
+// partial score=0.9972586356858847 date=2026-10-10
+// ?rva002720A4@@YAXPBUIRegion2D@@PBUICoord2D@@M@Z
 // cl: /O1 /DNDEBUG /MD /arch:SSE
 //
 // Drawable region bars, retail 0x00271EAD (four bands) and 0x002720A4 (three
 // bands), 503B each, cdecl. BFME 1's DrawableRegionRenderA.cpp
 // (bfmeRegionRenderA/B, retail 0x00412750 / 0x004129B0) is the donor: fetch
-// the band colours for the fill value (rowed lookups 0x00270CE4 / 0x00270E48,
+// the band colours for the fill value (unrowed native lookups 0x00270CE4 / 0x00270E48,
 // the BFME 2 counterparts of BFME 1's bfmeColorLookup00411270 / 00411400),
 // draw the shadow and border frames and the back fill through TheDisplay slots
 // 56/57, then one one-pixel row per band scaled by the value.
@@ -83,7 +84,7 @@ static __forceinline void drawBarFrame(const IRegion2D *region, const ICoord2D *
 		s_barColorsReady |= 4;
 		s_barBackColor = GameMakeColor(0x00, 0x00, 0x00, 0xff);
 	}
-	TheDisplay->drawOpenRect((Real)(left + offset->x - 3), (Real)(region->lo.y + offset->y - 3), width + 6.0f, 10.0f, 1.0f, s_barShadowColor);
+	TheDisplay->drawOpenRect((Real)(left + offset->x - 3), (Real)(offset->y + region->lo.y - 3), width + 6.0f, 10.0f, 1.0f, s_barShadowColor);
 	TheDisplay->drawOpenRect((Real)(region->lo.x + offset->x - 2), (Real)(region->lo.y + offset->y - 2), width + 4.0f, 8.0f, 1.0f, s_barBorderColor);
 	TheDisplay->drawFillRect((Real)(region->lo.x + offset->x - 1), (Real)(region->lo.y + offset->y - 1), width + 2.0f, 6.0f, s_barBackColor);
 }
@@ -91,29 +92,27 @@ static __forceinline void drawBarFrame(const IRegion2D *region, const ICoord2D *
 void rva00271EAD(const IRegion2D *region, const ICoord2D *offset, Real value)
 {
 	Int i;
-	Int left = region->lo.x;
+	Int left = (region?region:region)->lo.x;
 	Color colors[4];
-	Real width = (Real)(region->hi.x - left);
+	Real width = (Real)((region?region:region)->hi.x - left);
 	rva00270CE4ColorBands(value, colors);
 	drawBarFrame(region, offset, left, width);
-	width *= value;
-	for (i = 0; i < 4; ++i)
+	for (i = 0, width *= value; i < 4; ++i)
 	{
-		TheDisplay->drawFillRect((Real)(region->lo.x + offset->x), (Real)(region->lo.y + offset->y + i), width, 1.0f, colors[i]);
+		TheDisplay->drawFillRect((Real)((region?region:region)->lo.x + offset->x), (Real)((region?region:region)->lo.y + offset->y + i), width, 1.0f, colors[i]);
 	}
 }
 
 void rva002720A4(const IRegion2D *region, const ICoord2D *offset, Real value)
 {
 	Int i;
-	Int left = region->lo.x;
+	Int left = (region?region:region)->lo.x;
 	Color colors[3];
-	Real width = (Real)(region->hi.x - left);
+	Real width = (Real)((region?region:region)->hi.x - left);
 	rva00270E48ColorBands(value, colors);
 	drawBarFrame(region, offset, left, width);
-	width *= value;
-	for (i = 0; i < 3; ++i)
+	for (i = 0, width *= value; i < 3; ++i)
 	{
-		TheDisplay->drawFillRect((Real)(region->lo.x + offset->x), (Real)(region->lo.y + offset->y + i), width, 1.0f, colors[i]);
+		TheDisplay->drawFillRect((Real)((region?region:region)->lo.x + offset->x), (Real)((region?region:region)->lo.y + offset->y + i), width, 1.0f, colors[i]);
 	}
 }
