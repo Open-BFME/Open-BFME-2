@@ -11,7 +11,8 @@ void __fastcall Rva001101D7Draw(void *unused,Rva001101D7 *sink,const V2 &a,const
  if(!sink->Next) return;
  V2 offset; offset.X=a.Y-b.Y; offset.Y=b.X-a.X;
  float len2=offset.X*offset.X+offset.Y*offset.Y;
- if(fabs(len2<=0.0001f)!=0.0) {offset.X=0.0f;offset.Y=0.0f;}
+ double test=fabs(len2<=0.0001f);
+ if(test!=0.0) {offset.X=0.0f;offset.Y=0.0f;}
  else {double k=WWMath::Inv_Sqrt(len2)*width*0.5f;offset.Scale(k);}
  sink->Next->X=a.X-offset.X; sink->Next->Y=a.Y-offset.Y; sink->Next->Z=0.0f; sink->Next->Color=color; ++sink->Next;
  sink->Next->X=a.X+offset.X; sink->Next->Y=a.Y+offset.Y; sink->Next->Z=0.0f; sink->Next->Color=color; ++sink->Next;
