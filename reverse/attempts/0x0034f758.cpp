@@ -1,5 +1,5 @@
 // ?update@AIAttackState@@UAE?AW4StateReturnType@@XZ
-// partial score=0.9185917865846435 date=2026-10-10
+// partial score=0.9971743699001405 date=2026-10-10
 // ?update@AIAttackState@@UAE?AW4StateReturnType@@XZ
 // partial score=0.9 date=2026-10-09
 // cl: /I. /Ireference/shims/bfme2_ascii /DNDEBUG /MD /O1
@@ -23,6 +23,8 @@
 // conditions are bits 1*32+5..7 of the Object+0x10C words; the weapon-lock
 // release is the Object +0x330 forwarder 0x0028BC4D (pinned by address); only
 // turret 0 is reset; the goal reset is the rowed AIUpdateInterface::rva00262B0F.
+extern "C" void _ReadWriteBarrier(void);
+#pragma intrinsic(_ReadWriteBarrier)
 #include "ascii_string.h"
 
 typedef bool Bool;
@@ -349,13 +351,12 @@ StateReturnType AIAttackState::update()
 			source->getAI()->notifyVictimIsDead();
 			if (source->getTemplate()->m_kindOf[0x12] & 0x80)
 				return STATE_SUCCESS;
-			return CONVERT_SLEEP_TO_CONTINUE(
-					reinterpret_cast<StateMachineCallView *>(m_attackMachine)->updateStateMachine());
+			Int result = reinterpret_cast<StateMachineCallView *>(m_attackMachine)->updateStateMachine(); return result > STATE_CONTINUE ? STATE_CONTINUE : (StateReturnType)result;
 		}
 		AIUpdateInterface *ai = source->getAI();
 		Int lastCommandSource = ai->getLastCommandSource();
 		Bool status1C = source->testStatus(OBJECT_STATUS_1C);
-		Bool isEnemy = source->getRelationship(victim) == ENEMIES;
+		Bool isEnemy = source->getRelationship(victim) == ENEMIES; _ReadWriteBarrier();
 		if (!isEnemy && m_49 && (lastCommandSource & 2) && !status1C &&
 			!(victim->getTemplate()->m_kindOf[0xB] & 0x40))
 		{
@@ -410,7 +411,7 @@ StateReturnType AIAttackState::update()
 			sourceAI->rva00262B0F((int)victim);
 			reinterpret_cast<StateMachineCallView *>(getMachine())->setGoalObject(victim);
 		}
-		return onEnter();
+		StateReturnType entered=onEnter(); _ReadWriteBarrier(); return entered;
 	}
 
 	Int stateID = reinterpret_cast<StateMachineCallView *>(m_attackMachine)->getCurrentState()
@@ -434,6 +435,5 @@ StateReturnType AIAttackState::update()
 	if (runState && reinterpret_cast<StateMachineCallView *>(m_attackMachine)->rva0034FB52Slot8(
 		reinterpret_cast<StateMachineCallView *>(m_attackMachine)->m_1cState()) == STATE_FAILURE)
 		return STATE_FAILURE;
-	return CONVERT_SLEEP_TO_CONTINUE(
-		reinterpret_cast<StateMachineCallView *>(m_attackMachine)->updateStateMachine());
+	Int result = reinterpret_cast<StateMachineCallView *>(m_attackMachine)->updateStateMachine(); return result > STATE_CONTINUE ? STATE_CONTINUE : (StateReturnType)result;
 }
