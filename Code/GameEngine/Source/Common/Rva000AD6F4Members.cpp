@@ -92,6 +92,7 @@ class Rva00577914
 {
 public:
 	void rva00577914();
+	void rva0057792E(void *unused);
 private:
 	int m_00;
 	int m_04;
@@ -123,4 +124,12 @@ public:
 // ?<Rva000AD71D::Rva000AD71D> absent-from-retail
 Rva000AD71D::Rva000AD71D(EmitVtableTag *)
 {
+}
+
+// ?rva0057792E@Rva00577914@@QAEXPAX@Z @0x0057792E 8B, directly after
+// rva00577914: a one-argument callback (its address is stored as data) that
+// ignores the argument and runs rva00577914 (call, ret 4). Address-named.
+void Rva00577914::rva0057792E(void *)
+{
+	rva00577914();
 }
