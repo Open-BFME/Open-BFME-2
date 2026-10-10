@@ -3,8 +3,8 @@
 // Fresh target collector at 4EE7ED..4EE8B8, complete203B RET8. The original
 // owner and virtual input methods are unknown; the input get/fill slots and
 // receiver map+7C/type+D4 are independently witnessed in the native body.
-// Existing SpawnArmy ctor/dtor prove the 88-byte temporary. The BF1 575ba2
-// SpawnArmy/ThingTemplate count-map sources guide ownership and count storage;
+// Existing BFME2 SpawnArmy ctor/dtor prove the 88-byte temporary. BF1 575ba2
+// ThingTemplate count-map source guides key ownership and integer count storage;
 // all target call bindings are owned. The key is the actual template returned
 // by the matched 37DC52 ThingFactory lookup, and the mapped word is an integer.
 // Use the established TemplateCountKey ABI view and existing insert_unique
