@@ -21,3 +21,13 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 
 struct Rva00759B40Record {  char bytes[1]; };
 template class _STL::map<int,Rva00759B40Record>;
+
+// Native759D20..759D25 JMP759B40 with INT3 boundary padding. Only
+// unadjusted thiscall tree cleanup is established; original wrapper name
+// and enclosing application type remain unresolved.
+struct Rva00759D20TreeRelease { void release(); };
+void Rva00759D20TreeRelease::release() {
+    typedef _STL::pair<const int,Rva00759B40Record> Value;
+    typedef _STL::_Rb_tree<int,Value,_STL::_Select1st<Value>,_STL::less<int>,_STL::allocator<Value> > Tree;
+    reinterpret_cast<Tree *>(this)->~_Rb_tree();
+}
