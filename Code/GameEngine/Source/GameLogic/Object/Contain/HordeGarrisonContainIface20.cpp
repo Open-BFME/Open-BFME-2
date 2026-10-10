@@ -121,7 +121,7 @@ struct Iface20
 	SLOT08(g16,g17,g18,g19,g20,g21,g22,g23)
 	virtual void g24(); virtual void g25(); virtual void g26();
 	virtual void rva0050B238(Object *obj, bool flag) = 0;
-	virtual void g28(); virtual void g29(); virtual void g30(); virtual void g31();
+	virtual int rvaIface70(); virtual void g29(); virtual void g30(); virtual void g31();
 	virtual void rva00465011(Object *obj) = 0;
 	virtual void g33(); virtual void g34(); virtual void g35();
 	virtual void g36();virtual void g37();virtual bool isValidContainerFor(Object*,bool,bool);
@@ -137,7 +137,7 @@ struct Iface20
  virtual void g66();
  virtual void g67();
  virtual void g68();
- virtual void g69();
+ virtual int rvaIface114(int arg);
  virtual void g70();
  virtual void g71();
  virtual void g72();
@@ -175,6 +175,7 @@ class GarrisonContain
 	, public Iface34
 {
 public: bool rva00478629(Object*,bool,bool);
+ virtual bool isValidContainerFor(Object*,bool,bool);
 };
 
 class Rva00588B8AMember { public:
@@ -228,7 +229,7 @@ void HordeGarrisonContain::rva0050B238(Object *obj, bool flag)
 	rva00588BA8(obj, flag);
 }
 
-struct GarrisonTemplateView {char opaque00[0x111];unsigned char kindBit111;};
+struct GarrisonTemplateView {char opaque00[0x10B];unsigned char kindBit10B;char opaque10C[0x111-0x10C];unsigned char kindBit111;};
 struct GarrisonObjectTemplateView {void *vtable;const GarrisonTemplateView *templ;};
 __declspec(noinline) bool GarrisonContain::rva00478629(Object *obj,bool checkCapacity,bool testPath)
 {
@@ -286,4 +287,22 @@ void HordeGarrisonContain::rva00464830(Object *obj)
   rvaPrimary74(obj);
  }
  rvaPrimary48();
+}
+
+// ?isValidContainerFor@GarrisonContain@@UAE_NPAVObject@@_N1@Z, retail 0x00478699,
+// 95 bytes: GarrisonContain's own slot 38 in its +0x20 table, beside the
+// primary-view admission helper 0x00478629 it extends. Template kind-of bit 8
+// at +0x10B refuses the rider; with a capacity check the interface's slot 0x70
+// count must exceed its slot 0x114 value for argument 0.
+bool GarrisonContain::isValidContainerFor(Object *obj,bool checkCapacity,bool testPath)
+{
+ if(obj && rva00478629(obj,checkCapacity,testPath) &&
+    !(reinterpret_cast<GarrisonObjectTemplateView*>(obj)->templ->kindBit10B & 8)){
+  if(checkCapacity){
+   int count=rvaIface70();
+   return rvaIface114(0)<count;
+  }
+  return true;
+ }
+ return false;
 }
