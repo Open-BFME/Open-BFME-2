@@ -92,7 +92,7 @@ class AptString : public AptValue { public: static AptString *Create(); EAString
 class AptInteger : public AptValue { public: static AptValue *Create(int); int GetInt() const; };
 int Rva006CD220Get();
 bool rva006fc370(AptValue *);
-class AptBoolean { public: static AptValue *Create(bool); };
+class AptBoolean { public: static AptValue *Create(bool); bool GetBool() const; };
 AptValue *Rva008A4EA0MakeFloat(float);
 EAStringC *Rva0070B4F0GetString(int);
 extern EAStringC g_eaStringAtE177D4;
@@ -2647,4 +2647,65 @@ void *AptActionInterpreter::PrepareForExecution(AptActionSetup *setup) {
  }
  debugCallStack.Push(new Rva006FBDB0(setup->name,(int)setup->value,setup->action));
  return AptPushStaticData();
+}
+
+// Native default and truth callbacks registered by AptValueInitialize.
+// The 302-byte truth callback shares the native checked boolean getter and
+// float conversion with AptValue::toBool; no inferred fields are accessed.
+// First-argument spelling at6FF850 preserves the already pinned bank ABI.
+class BfmeAptValue006DCD20 {
+public:
+    BfmeAptValue006DCD20 *rva006DCEA0();
+    float rva006DD460();
+};
+extern BfmeAptValue006DCD20 *g_aptUndefinedAtE18078;
+extern AptActionInterpreter g_aptDateInterpreter;
+void __debugbreak();
+#pragma intrinsic(__debugbreak)
+extern "C" void _ReadWriteBarrier();
+#pragma intrinsic(_ReadWriteBarrier)
+AptValue *rva006ff850(AptActionInterpreter *, int nParams)
+{
+    if (!(nParams <= 1)) {
+        g_bfmeAptAssertAtE17734("nParams <= 1", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptActionInterpreter.cpp", 0x5C1);
+        if (g_bfmeAptBreakOnAssertAtDDC01C) __debugbreak();
+    }
+    if (nParams == 0)
+        return (AptValue *)g_aptUndefinedAtE18078;
+    AptValue *value = g_aptDateInterpreter.stack.At(0);
+    BfmeAptValue006DCD20 *typed = (BfmeAptValue006DCD20 *)value;
+    if (value->isCIH(false) || value->isObject())
+        return AptBoolean::Create(true);
+    if (value != (AptValue *)g_aptUndefinedAtE18078) {
+        if (value->isFloat() || value->isInteger()) {
+            if (value->isBoolean())
+                return AptBoolean::Create(((AptBoolean *)typed->rva006DCEA0())->GetBool());
+            if (value->isFloat() || value->isInteger()) {
+                if (typed->rva006DD460() != 0.0f)
+                    return AptBoolean::Create(true);
+                return AptBoolean::Create(false);
+            }
+            return AptBoolean::Create(false);
+        } else {
+            if (!rva006fc370(value)) {
+                if (typed->rva006DD460() != 0.0f)
+                    return AptBoolean::Create(true);
+                return AptBoolean::Create(false);
+            }
+            return AptBoolean::Create(false);
+        }
+    }
+    return AptBoolean::Create(false);
+}
+
+// Native47B guard-only callback returns the established undefined singleton.
+// The fence retains retail's singleton load after both assertion branches.
+AptValue *callback006FD2D0(AptValue *, int nParams)
+{
+    if (!(nParams <= 3)) {
+        g_bfmeAptAssertAtE17734("nParams <= 3", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptActionInterpreter.cpp", 0x66E);
+        if (g_bfmeAptBreakOnAssertAtDDC01C) __debugbreak();
+    }
+    _ReadWriteBarrier();
+    return (AptValue *)g_aptUndefinedAtE18078;
 }
