@@ -1,7 +1,6 @@
-// ?rva005DAB30@Rva005DAAB6@@QAEHPAVPlayer@@@Z
-// partial score=0.99 date=2026-10-09
 // cl: /O1 /ICode/GameEngine/Source/Common /Ireference/shims/bfme2_ascii /MD
-// ?rva005DABD5@Rva005DAAB6@@UAE_N_N@Z @0x005DABD5 94B evidence: vslot 15 of 008765A8 class Rva005DAAB6 via dtor row; layout from Rva0055AED6Xfer base+derived m_2C/m_30/m_3C; callees rva002D06CA findObjectByID rowed plus global slot14 virtual; globals VA 0xDFF000 0xDFE78C 0xE027B8
+// ?rva005DAB30@Rva005DAAB6@@QAEHPAVPlayer@@@Z
+// ?rva005DAB30@Rva005DAAB6@@QAEHPAVPlayer@@@Z @0x005DAB30 165B: build availability of the production entry named by m_0C (ThingFactory::findTemplate 0x002D06CA) for the player; vslot 16 of vftable 0x008765A8; layout shared with the slot-15 sibling in Rva005DAAB6Slot15.cpp.
 
 extern class ThingFactory *TheThingFactory;
 extern class GameLogic *TheGameLogic;
@@ -14,11 +13,6 @@ class Rva00A027B8 * g_00A027B8;
 
 class Object;
 
-class Rva002D06CA
-{
-public:
-	void *rva002D06CA(const AsciiString *s);
-};
 
 #include "GameLogicObjectLookupView.h"
 
@@ -91,22 +85,9 @@ private:
  class CommandButton *m_command;
 };
 
-bool Rva005DAAB6::rva005DABD5(bool arg)
-{
-	void *p1 = ((Rva002D06CA *)TheThingFactory)->rva002D06CA((const AsciiString *)&m_0C);
-	Object *o2 = TheGameLogic->findObjectByID(m_08);
-	if (p1 == 0 || o2 == 0)
-		return false;
-	float f = m_3C;
-	int r = g_00A027B8->slot14(o2, p1, &m_30, f, arg);
-	if (r == 0)
-		return false;
-	m_24 = *(ObjectID *)((char *)r + 0x74);
-	return true;
-}
-
 enum BuildableStatus { BSTATUS_YES, BSTATUS_IGNORE_PREREQUISITES, BSTATUS_NO, BSTATUS_ONLY_BY_AI };
 class ThingTemplate { public: BuildableStatus getBuildable() const; };
+class ThingFactory { public: const ThingTemplate *findTemplate(const AsciiString &name); };
 class CommandButton { public: const ThingTemplate *rva0035B570() const; };
 class Rva005DAB30Production {
 public: virtual void v0(); virtual void v1(); virtual void v2(); virtual bool busy();
@@ -123,7 +104,7 @@ public: Player *getControllingPlayer() const; void *rva0028BCF4() const;
 };
 int Rva005DAAB6::rva005DAB30(Player *player)
 {
- const ThingTemplate *objectTemplate = (const ThingTemplate *)((Rva002D06CA *)TheThingFactory)->rva002D06CA(&m_0C);
+ const ThingTemplate *objectTemplate = TheThingFactory->findTemplate(m_0C);
  Object *object = TheGameLogic->findObjectByID(m_08);
  if (objectTemplate && object && player->allowedToBuild(objectTemplate)) {
   BuildableStatus status = m_command->rva0035B570()->getBuildable();
