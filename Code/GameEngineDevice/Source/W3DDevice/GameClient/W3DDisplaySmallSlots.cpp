@@ -45,6 +45,32 @@ public:
 };
 extern BfmeTaintManager *TheTaintManager;
 
+// Retail 0x000731F4 (rowed in W3DShroudCtor.cpp) and the render-object notify
+// at 0x000683DC; the 0x3878 member is the terrain's W3DShroud.
+class W3DShroud
+{
+public:
+	void setShroudLevel(Int x, Int y, unsigned char level, Bool textureOnly);
+};
+
+class Rva000683DC
+{
+public:
+	void rva000683DC();
+};
+
+// Alpha bytes +0xBE8/+0xBE9/+0xBEA: clear, fogged and shrouded levels (ZH
+// clearAlpha/fogAlpha/shroudAlpha order, as the caller's 0/1/2 selector shows).
+class GlobalData
+{
+public:
+	char m_padBE8[0xbe8];
+	unsigned char m_clearAlpha;
+	unsigned char m_fogAlpha;
+	unsigned char m_shroudAlpha;
+};
+extern GlobalData *TheWritableGlobalData;
+
 class BaseHeightMapRenderObjClass
 {
 public:
@@ -83,6 +109,7 @@ class W3DDisplay
 {
 public:
 	void rva00044FD5(Bool on);
+	void rva00044FF2(Int x, Int y, Int setting);
 	void rva00045086(Bool on);
 	void rva000450A3(Int a, Int b, Int c);
 	void rva000450CE(Int x, Int y);
@@ -104,6 +131,26 @@ void W3DDisplay::rva00044FD5(Bool on)
 {
 	if (TheTerrainRenderObject && TheTerrainRenderObject->m_3878)
 		TheTerrainRenderObject->m_3878->rva000729CC(on);
+}
+
+// native 44FF2..45086 RET12, W3DDisplay vtable 0x00BC3C80 slot body. ZH W3DDisplay::setShroudLevel
+// is the semantic guide (alpha selected by setting 2/1/else, terrain shroud
+// updated, render object notified); the target adds a taint-cell refresh.
+void W3DDisplay::rva00044FF2(Int x, Int y, Int setting)
+{
+	if (TheTerrainRenderObject && TheTerrainRenderObject->m_3878)
+	{
+		if (setting == 2)
+			((W3DShroud *)TheTerrainRenderObject->m_3878)->setShroudLevel(x, y, TheWritableGlobalData->m_shroudAlpha, false);
+		else if (setting == 1)
+			((W3DShroud *)TheTerrainRenderObject->m_3878)->setShroudLevel(x, y, TheWritableGlobalData->m_fogAlpha, false);
+		else
+			((W3DShroud *)TheTerrainRenderObject->m_3878)->setShroudLevel(x, y, TheWritableGlobalData->m_clearAlpha, false);
+		((Rva000683DC *)TheTerrainRenderObject)->rva000683DC();
+		Rva000729CC *helper = TheTerrainRenderObject->m_387c;
+		if (helper && TheTaintManager)
+			helper->rva00073CC0(x, y, TheTaintManager->rva006C0840(x, y), true);
+	}
 }
 
 // vtable 0x00BC3C80#81

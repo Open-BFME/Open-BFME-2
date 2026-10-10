@@ -14,9 +14,34 @@ class GlobalData
 {
 	unsigned char m_pad00[0xbea];
 public:
-	UnsignedByte m_borderShroudLevel;
+	UnsignedByte m_shroudAlpha;
 };
 extern GlobalData *TheWritableGlobalData;
+
+// Taint hooks reached from setShroudLevel (retail 0x00073CC0 / 0x006C0840 take
+// byte arguments, see W3DDisplaySmallSlots.cpp). TheTaintManager is the
+// converged global at 0x00DFE750; declared as its real type and viewed through
+// BfmeTaintManager at the use site.
+class Rva000729CC
+{
+public:
+	void rva00073CC0(int x, int y, UnsignedByte level, bool textureOnly);
+};
+class BfmeTaintManager
+{
+public:
+	UnsignedByte rva006C0840(int x, int y);
+};
+class TaintManager;
+extern TaintManager *TheTaintManager;
+class BaseHeightMapRenderObjClass
+{
+public:
+	char m_pad00[0x387c];
+	Rva000729CC *m_387c;
+};
+extern BaseHeightMapRenderObjClass *TheTerrainRenderObject;
+unsigned short __cdecl Rva00072D5DShroudPixel(unsigned char level);
 
 template<class T> class Rva0054E8DCAllocator : public _STL::allocator<T>
 {
@@ -76,6 +101,7 @@ class W3DShroud
 {
 public:
 	W3DShroud();
+	void setShroudLevel(int x, int y, UnsignedByte level, bool textureOnly);
 private:
 	int m_numCellsX, m_numCellsY;
 	int m_numMaxVisibleCellsX, m_numMaxVisibleCellsY;
@@ -89,7 +115,7 @@ private:
 	unsigned char *m_finalFogData, *m_currentFogData;
 	Rva00073320Ptr m_method;
 	int m_pad44;
-	unsigned char m_pad48;
+	unsigned char m_trackDirtyCells;
 	_STL::set<int, _STL::less<int>, Rva0054E8DCAllocator<int> > m_dirty;
 };
 
@@ -99,8 +125,42 @@ W3DShroud::W3DShroud()
  m_cellWidth(10.0f), m_cellHeight(10.0f), m_shroudData(0),
  m_dstTextureWidth(0), m_dstTextureHeight(0), m_shroudFilter(4),
  m_drawOriginX(0.0f), m_drawOriginY(0.0f), m_drawFogOfWar(0), m_clearDstTexture(1),
- m_borderShroudLevel(TheWritableGlobalData->m_borderShroudLevel),
+ m_borderShroudLevel(TheWritableGlobalData->m_shroudAlpha),
  m_finalFogData(0), m_currentFogData(0),
- m_method(new Rva00073320Method(this)), m_pad44(0), m_pad48(1)
+ m_method(new Rva00073320Method(this)), m_pad44(0), m_trackDirtyCells(1)
 {
+}
+
+// ?setShroudLevel@W3DShroud@@QAEXHHE_N@Z, retail 0x000731F4 (184B, RET 16).
+// Identity: W3DDisplay slot 0x00044FF2 is ZH's W3DDisplay::setShroudLevel and
+// calls it through getShroud(); Open-BFME-1's W3DShroudBfme.cpp setShroudLevel
+// is the same body (shroud floor, final fog store, dirty-set insert, 4444
+// pixel via 0x00072D5D) and BFME 2 additionally refreshes the taint cell. The
+// taint tail reads the +0x387C helper without a render-object null check and
+// reaches TheTaintManager through its real global's BfmeTaintManager view.
+void W3DShroud::setShroudLevel(int x, int y, UnsignedByte level, bool textureOnly)
+{
+	if (m_shroudData == 0)
+		return;
+
+	if (x < m_numCellsX && y < m_numCellsY)
+	{
+		if (level < TheWritableGlobalData->m_shroudAlpha)
+			level = TheWritableGlobalData->m_shroudAlpha;
+
+		if (!textureOnly)
+		{
+			int cell = x + y * m_numCellsX;
+			m_finalFogData[cell] = level;
+			if (m_trackDirtyCells)
+				m_dirty.insert(cell);
+		}
+
+		m_shroudData[x + y * m_numCellsX] = Rva00072D5DShroudPixel(level);
+
+		Rva000729CC *taintBuffer = TheTerrainRenderObject->m_387c;
+		if (taintBuffer && *reinterpret_cast<BfmeTaintManager **>(&TheTaintManager))
+			taintBuffer->rva00073CC0(x, y,
+				(*reinterpret_cast<BfmeTaintManager **>(&TheTaintManager))->rva006C0840(x, y), true);
+	}
 }
