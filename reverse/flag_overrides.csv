@@ -176,6 +176,7 @@ Code/GameEngine/Source/Common/ParseAlphaNumericBitMask_Thunk.cpp,-Od,1,1,region 
 Code/GameEngine/Source/Common/PartitionSolver.cpp,-G7 -arch:SSE,3,2,region default loses rows
 Code/GameEngine/Source/Common/Q3LazyCachedAccessor.cpp,,8,8,region default loses rows
 Code/GameEngine/Source/Common/R1SmallFieldInitialisers.cpp,,1,1,region default loses rows
+Code/GameEngine/Source/Common/RTS/RelationMapSkipToNext.cpp,-O2,1,1,region default loses rows
 Code/GameEngine/Source/Common/RTS/Rva00739AF0Siblings.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/Common/RTS/Rva00739CA0.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/Common/RTS/Rva0073CE30.cpp,,1,1,region default loses rows
@@ -514,6 +515,7 @@ Code/Libraries/Source/Apt/AptValue/AptValueToBoolBFME2.cpp,-O2,1,1,region defaul
 Code/Libraries/Source/Apt/AptValue/AptValueToNumberBFME2.cpp,-O2,1,1,region default loses rows
 Code/Libraries/Source/Apt/AptValue/PlaybackBufferResize.cpp,-O2,5,2,region default loses rows
 Code/Libraries/Source/Apt/AptValue/Rva006D9780Finish.cpp,-O2,1,1,region default loses rows
+Code/Libraries/Source/Apt/AptValue/Rva006DF470Initialize.cpp,-O2,1,1,region default loses rows
 Code/Libraries/Source/Apt/BfmeThingXSApply.cpp,,1,1,region default loses rows
 Code/Libraries/Source/Apt/DogmaPoolAllocBlock.cpp,-O2,3,1,region default loses rows
 Code/Libraries/Source/Apt/DogmaPoolFreeBlock.cpp,-O2,1,1,region default loses rows
@@ -741,4 +743,3 @@ Code/Libraries/Source/partitionmanager/partitionmanager_impl.cpp,-O2 -G6,2,2,reg
 Code/Libraries/Source/profile/profile.cpp,,12,1,region default loses rows
 Code/Libraries/Source/profile/profile_highlevel.cpp,,17,2,region default loses rows
 Code/stlport/BasicStringNarrowSizeCtor.cpp,-Od,1,1,region default loses rows
-Code/GameEngine/Source/Common/RTS/RelationMapSkipToNext.cpp,-O2,1,1,region default loses rows
