@@ -12,6 +12,8 @@ struct Rva0040DB0EEntry
 {
 	char m_pad00[4];
 	AsciiString m_name;		// +0x04
+ char middle08[0xB0];
+ int flag; //+B8
 };
 
 struct Rva0040DB0ERecord
@@ -29,6 +31,7 @@ public:
 class Rva00319924 {
 public:
  int count(const AsciiString& name);
+ void clearFlags();
  char prefix[0x78];
  Rva0040CB2CIndexedField *registry;
 };
@@ -39,4 +42,15 @@ int Rva00319924::count(const AsciiString&name) {
   if(entry->m_name.compare(name)==0) ++count;
  }
  return count;
+}
+
+// Native31917A..3191B155; caller319202 and the independently rowed
+// counter319924 establish this registry view. Each entry flagB8 is reset.
+// STLport vector size gives the native masked initial extent test; raw
+// byte subtraction in the older bank emitted a different prologue.
+void Rva00319924::clearFlags(){
+ for(int i=0;i<(int)registry->records.size();++i){
+ Rva0040DB0EEntry*entry=(Rva0040DB0EEntry*)registry->get(i);
+ entry->flag=0;
+ }
 }
