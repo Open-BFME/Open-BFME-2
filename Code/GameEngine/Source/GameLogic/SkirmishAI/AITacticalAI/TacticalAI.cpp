@@ -100,6 +100,7 @@ public:
     ~Coord3DBase() {}
     float x,y,z;
 };
+class Object;
 class Player;
 class Team;
 class Rva002C5EF0
@@ -131,6 +132,7 @@ class Rva00506A52 { public: void rva00506AFA(); };
 class TacticalAI
 {
 public:
+    bool checkEnemyForAttackMove(Object *,Object *);
     void DoXfer(Xfer *);
     void updateInterestZones();
     void rva002C6779();
@@ -239,4 +241,74 @@ void TacticalAI::rva002C6779() {
  else request=fallback;
  if(request) generator->rva005069CE((Rva00506909Request*)request,player);
  tail->rva00506AFA();
+}
+
+// Native 2C600A..2C60A9 and the named WB/filter caller establish predicate identity.
+
+class Object
+{
+public:
+	Player *getControllingPlayer() const;
+	char m_pad0[4];
+	void *m_ptr4;
+	char m_pad1[0x6C];
+	int m_74;
+	char m_pad2[0x1E0];
+	class AIUpdateInterface *m_ai258;
+};
+
+struct Rva002A8AB1Record
+{
+public:
+	void *rva002C6ACB();
+};
+
+class Rva002A8F24
+{
+public:
+	Rva002A8AB1Record *rva002A8AB1(void *p);
+};
+
+Rva002A8F24 *g_tacticalAIRegistry; // Descriptive registry view; original global name unknown.
+
+class AIUpdateInterface
+{
+public:
+	Object *getCurrentVictim() const;
+};
+
+struct Rva002C600AFlag
+{
+	char m_pad[0x120];
+	unsigned char m_flag120;
+};
+
+struct Rva002C600AArg1
+{
+	char m_pad[0x74];
+	int m_74;
+};
+
+// Native2C600A..2C60A9: opponent kind120 bit10, registry owner relations,
+// then current victim ID74. Positive guards and one disjunction preserve
+// the target shared return paths; all callees use existing verified owners.
+bool TacticalAI::checkEnemyForAttackMove(Object *a, Object *b)
+{
+    Object *obj = b;
+    Rva002C600AFlag *flag = (Rva002C600AFlag *)obj->m_ptr4;
+    if ((flag->m_flag120 & 0x10) == 0)
+    {
+        const Player *enemyPlayer = obj->getControllingPlayer();
+        Rva002A8AB1Record *rec1 = g_tacticalAIRegistry->rva002A8AB1((void *)enemyPlayer);
+        if (rec1 != 0)
+        {
+            Rva002A8AB1Record *rec2 = g_tacticalAIRegistry->rva002A8AB1(player);
+            return rec1->rva002C6ACB() == player ||
+                rec2->rva002C6ACB() == obj->getControllingPlayer() ||
+                (obj->m_ai258 != 0 && obj->m_ai258->getCurrentVictim() != 0 &&
+                 obj->m_ai258->getCurrentVictim()->m_74 == a->m_74);
+        }
+        return true;
+    }
+    return false;
 }
