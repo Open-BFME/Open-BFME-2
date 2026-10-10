@@ -1,15 +1,17 @@
-// ?aiDoCommand@AIUpdateInterface@@UAEXPBUAICommandParms@@@Z
-// partial score=0.9988968 date=2026-10-09
-// ?aiDoCommand@AIUpdateInterface@@UAEXPBUAICommandParms@@@Z
-// partial score=0.995 date=2026-10-08
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /I.
-// Reference: ZH AIUpdate.cpp::aiDoCommand; donor 9cbfb551fe20dae985f91f2319d8997287b6a705.
-// Identity: DozerAIUpdate::aiDoCommand calls this base; secondary vtable slot0.
+// cl: /O1 /G7 /arch:SSE /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /ICode/Libraries/Include/Lib /DNDEBUG /MD /I.
+//
+// AIUpdateInterface::aiDoCommand, retail 0x002673F6 (2308 bytes): the AI command gate and
+// dispatcher (Zero Hour AIUpdate.cpp aiDoCommand shape with BFME 2 commands). Identity:
+// DozerAIUpdate::aiDoCommand calls this base; secondary vtable slot 0.
+// A command held back (object flag, pending path, or the 0x4A status for a non-AI source)
+// is stored through the rowed 0x00351570 copy; the store is written once per branch
+// because cl otherwise orders 'push esi' before 'add ecx,0x2cc' on the shared tail.
 // BFME2 command IDs, argument locations and handler slots are retail jump-table facts.
 // Unnamed handler slots retain their slot numbers rather than guessed semantics.
 
+#include "Coord3D.h"
+#include "GameLogic/BfmeStoredAICommandView.h"
 #include "reference/open-bfme-1/game/GameEngine/Source/GameLogic/command_source_type.h"
-struct Coord3D { float x,y,z; };
 class Object;
 struct AICommandParms {
  int m_cmd; CommandSourceType m_cmdSource; Coord3D m_pos;
@@ -19,17 +21,17 @@ struct AICommandParms {
 };
 class AIUpdateInterface;
 class Rva001E3591 { public: bool rva001E3591(); };
-struct Rva00351570Src;
-class Rva00351570 { public: void rva00351570(const Rva00351570Src &); char m_data[0xC4]; };
 class Module;
 enum NameKeyType { NAMEKEY_INVALID = 0 };
 class StancesBehavior { public: void rva0045F21C(); };
 NameKeyType Rva0045EE2CGet();
 enum ObjectStatusTypes { STATUS_26=0x26, STATUS_41=0x41, STATUS_46=0x46, STATUS_4A=0x4A };
 class Object {
+ friend class AIUpdateInterface;
+protected:
+ Module *findModule(NameKeyType) const;
 public:
  bool testStatus(ObjectStatusTypes) const;
- Module *findModule(NameKeyType) const;
  void *rva0028C1A9() const;
  void rva00293105();
  char m_unknown00[0x1c9];
@@ -221,7 +223,6 @@ public:
  char m_unknown3C8[4];
  bool m_extra3CC;
 };
-// ?aiDoCommand@AIUpdateInterface@@ present-unmatched
 void AIUpdateInterface::aiDoCommand(const AICommandParms *parms) {
  CommandSourceType cmdSource = parms->m_cmdSource;
  m_extra1A4 = 0;
@@ -230,7 +231,11 @@ void AIUpdateInterface::aiDoCommand(const AICommandParms *parms) {
  bool defer = false;
  if (m_path && m_locomotorGoalType && m_path->rva001E3591()) defer = true;
  Object *obj = m_object;
- if ((obj->m_flags1C9 & 1) || defer || (obj->testStatus(STATUS_4A) && cmdSource != CMD_FROM_AI)) {
+ if ((obj->m_flags1C9 & 1) || defer) {
+  storeCommand(parms);
+  return;
+ }
+ if (obj->testStatus(STATUS_4A) && cmdSource != CMD_FROM_AI) {
   storeCommand(parms);
   return;
  }
