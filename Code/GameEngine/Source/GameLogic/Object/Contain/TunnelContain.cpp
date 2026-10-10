@@ -29,9 +29,20 @@ class Player;
 class Object;
 typedef void (__cdecl *Rva004F553FCb)(void *data, void *user);
 typedef void (__cdecl *ContainIterateFunc)(Object *object, void *user);
+enum UpdateSleepTime
+{
+	UPDATE_SLEEP_NONE = 1,
+	UPDATE_SLEEP_FOREVER = 0x3fffffff
+};
+enum Relationship
+{
+	ENEMIES = 0
+};
 class TunnelTracker
 {
 public:
+	void healObjects(float frames);
+	void updateNemesis(const Object *target);
 	void iterateContained(ContainIterateFunc cb, void *user, bool reverse);
 	void addToContainList(Object *obj);
 	int getContainMax() const;
@@ -58,12 +69,25 @@ private:
     char pad8[0x38-8]; Coord3D position;
 };
 enum DisabledType { DISABLED_HELD = 3 };
+class DamageInfo;
+struct TunnelDamageInfoView { char pad[8]; ObjectID sourceID; };
+class BodyModuleInterface {
+public:
+    virtual void b00(); virtual void b01(); virtual void b02(); virtual void b03(); virtual void b04();
+    virtual void b05(); virtual void b06(); virtual void b07(); virtual void b08(); virtual void b09();
+    virtual void b10(); virtual void b11(); virtual void b12(); virtual void b13(); virtual void b14();
+    virtual const TunnelDamageInfoView *getLastDamageInfo() const;	// +0x3C
+    virtual unsigned int getLastDamageTimestamp() const;		// +0x40
+};
 class Object : public Thing {
 public:
     Player *getControllingPlayer() const;
     bool clearDisabled(DisabledType type);
     void rva0028DCC4();
-    char pad44[0x428-0x44]; unsigned int safeOcclusionFrame;
+    enum Relationship getRelationship(const Object *that) const;
+    BodyModuleInterface *getBodyModule() const { return body; }
+    char pad44[0x254-0x44]; BodyModuleInterface *body;
+    char pad258[0x428-0x258]; unsigned int safeOcclusionFrame;
     char pad42C[0x454-0x42c]; bool flag454;
 };
 extern GameLogic *TheGameLogic;
@@ -75,12 +99,12 @@ public:
 };
 struct B00 { virtual void f00(); virtual void p01(); virtual void p02(); virtual void p03(); virtual void p04(); virtual void p05(); virtual void p06(); virtual void p07(); virtual void p08(); virtual void p09(); virtual void p10(); virtual void p11(); virtual void p12(); virtual void p13(); virtual void p14(); virtual void p15(); virtual void p16(); virtual void p17(); virtual void p18(); virtual void p19(); virtual void p20(); virtual void p21(); virtual void rvaPrimary58(); const ModuleData *m_moduleData; Object *m_object; };
 struct B0C { virtual void f0C(); };
-struct B10 { virtual void f10(); int m_14; int m_18; Object *m_1C; };
+struct B10 { virtual UpdateSleepTime update(); int m_14; int m_18; Object *m_1C; };
 struct B20 { virtual void f20(); virtual void c01(); virtual void c02(); virtual void c03(); virtual void c04(); virtual void c05(); virtual void c06(); virtual void c07(); virtual void c08(); virtual void c09(); virtual void c10(); virtual void c11(); virtual void c12(); virtual void c13(); virtual void c14(); virtual void c15(); virtual void c16(); virtual void c17(); virtual void c18(); virtual void c19(); virtual void c20(); virtual void c21(); virtual void c22(); virtual void onRemoving(Object *object); };
 struct B24 { virtual void f24(); };
 class DamageInfo;
 class DieMuxData { public: bool isDieApplicable(const Object *obj, const DamageInfo *damageInfo) const; };
-struct TunnelContainModuleDataView { char pad[8]; DieMuxData m_dieMuxData; };
+struct TunnelContainModuleDataView { char pad[8]; DieMuxData m_dieMuxData; char pad09[0x98 - 0x09]; bool m_healTunnelSystem; char pad99[0xD4 - 0x99]; float m_framesForFullHeal; };
 struct B28 { virtual void onDie(const DamageInfo *damageInfo); };
 struct B2C { virtual void f2C(); };
 struct B30 { virtual void f30(); };
@@ -168,11 +192,13 @@ class GarrisonContain
 {
 public:
 	virtual void onRemoving(Object *object);
+	virtual UpdateSleepTime update();
 };
 class TunnelContain : public GarrisonContain
 {
 public:
 	virtual void onRemoving(Object *object);
+	virtual UpdateSleepTime update();
 	virtual void rva0047DCDF(Rva004F553FCb cb, void *user, unsigned int flags);
 	virtual void rva0047DE30();
 	virtual void addToContainList(Object *obj);
@@ -283,4 +309,51 @@ void TunnelContain::onRemoving(Object *obj)
         obj->getDrawable()->setDrawableHidden(false);
     }
     rvaPrimary58();
+}
+
+// ?update@TunnelContain@@UAE?AW4UpdateSleepTime@@XZ, retail 0x0047E017, 183 bytes:
+// slot 0 of the update interface at +0x10. Zero Hour's TunnelContain::update
+// over the garrison base update (pinned 0x00479643): heal through the
+// owner's tunnel system (+0x2E8) when the module data asks (+0x98, frames for
+// a full heal +0xD4), and make an enemy that damaged the tunnel within the
+// last second the system's nemesis. BFME 2 sleeps for good without an owner
+// object or tunnel system.
+extern int g_Va00DBA4E4;	// logic frames per second
+UpdateSleepTime TunnelContain::update()
+{
+	// extending functionality to heal the units within the tunnel system
+	GarrisonContain::update();
+	Object *obj = m_object;
+	if (!obj)
+		return UPDATE_SLEEP_FOREVER;
+	const TunnelContainModuleDataView *modData = (const TunnelContainModuleDataView *)m_moduleData;
+	Player *controllingPlayer = obj->getControllingPlayer();
+	if (!controllingPlayer)
+		return UPDATE_SLEEP_NONE;
+	TunnelTracker *tunnelSystem = controllingPlayer->m_2E8;
+	if (!tunnelSystem)
+		return UPDATE_SLEEP_FOREVER;
+	if (modData->m_healTunnelSystem)
+		tunnelSystem->healObjects(modData->m_framesForFullHeal);
+
+	// check for attacked.
+	BodyModuleInterface *body = obj->getBodyModule();
+	if (body)
+	{
+		const TunnelDamageInfoView *info = body->getLastDamageInfo();
+		if (info)
+		{
+			if (body->getLastDamageTimestamp() + g_Va00DBA4E4 > TheGameLogic->getFrame())
+			{
+				// winner.
+				Object *attacker = TheGameLogic->findObjectByID(info->sourceID);
+				if (attacker)
+				{
+					if (obj->getRelationship(attacker) == ENEMIES)
+						tunnelSystem->updateNemesis(attacker);
+				}
+			}
+		}
+	}
+	return UPDATE_SLEEP_NONE;
 }
