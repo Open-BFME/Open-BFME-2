@@ -1,4 +1,6 @@
 // ?Update@Impl@AptInGameSpellBookInterface@@QAEXXZ
+// partial score=0.85 date=2026-10-10
+// ?Update@Impl@AptInGameSpellBookInterface@@QAEXXZ
 // partial score=0.85 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
 // WorldBuilder retains AptInGameSpellBookInterface.cpp and helper identities.
