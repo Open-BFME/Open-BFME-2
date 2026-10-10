@@ -295,6 +295,7 @@ extern BfmeSrcUDC *g_bfmeObjUDC;
 class W3DShaderManager
 {
 public:
+	static Bool canRenderToTexture(void);
 	static IDirect3DTexture8 *endRenderToTexture();
  static IDirect3DTexture8 *getRenderTexture();
  static void startRenderToTexture();
@@ -302,7 +303,12 @@ public:
 
 
 extern unsigned number_of_DX8_calls;
-class ScreenCrossFadeFilter
+class W3DFilterInterface
+{
+public:
+	virtual Int init() = 0;
+};
+class ScreenCrossFadeFilter : public W3DFilterInterface
 {
 public:
 	virtual Int init();
@@ -522,4 +528,46 @@ Bool ScreenCrossFadeFilter::preRender(Bool &skipRender, CustomScenePassModes &sc
   return true;
  }
  return true;
+}
+
+// Zero Hour W3DShaderManager.cpp ScreenCrossFadeFilter::init; native vtable
+// 7CF204 slot0, complete171B F6499..F6544 RET. BFME 2 first requires a
+// display and clears the shared fade frame 0x00DEC000; the fade pattern
+// (the cached texture handle at 0x00DEC008 that shutdown releases) comes
+// from the particle texture loader 0x00132D89; its filter's min/mag (+0C/+10)
+// become 1 and mip mapping 0 (0x0013ED10). Registers W3DFilters[FT_VIEW_CROSSFADE].
+class Display;
+extern Display *TheDisplay;
+class TextureClass {public:void Release_Ref();};
+template<class T> class RefCountPtr {public:RefCountPtr const &operator=(RefCountPtr const &other);T *Ptr;};
+class BFME2ParticleTextureHandle
+{
+public:
+	~BFME2ParticleTextureHandle() {if(Ptr)Ptr->Release_Ref();}
+	TextureClass *Ptr;
+};
+extern BFME2ParticleTextureHandle __cdecl BFME2LoadParticleTexture(const char *,int,int);
+class ShroudFilter {public:void SetMip(int mode);char pad00[0xc];int m_minFilter;int m_magFilter;};
+class ShroudTexture {public:ShroudFilter *getFilter(void);};
+enum FilterTypes {FT_NULL_FILTER=0,FT_VIEW_BW_FILTER,FT_VIEW_MOTION_BLUR_FILTER,FT_VIEW_CROSSFADE,FT_MAX=10};
+extern W3DFilterInterface *W3DFilters[FT_MAX];
+extern ScreenCrossFadeFilter screenCrossFadeFilter;
+
+Int ScreenCrossFadeFilter::init()
+{
+	if (!TheDisplay)
+		return false;
+	g_00DEC000 = 0;
+	if (!W3DShaderManager::canRenderToTexture())
+		return false;
+	reinterpret_cast<RefCountPtr<TextureClass> &>(g_bfmeObjUDC) =
+		reinterpret_cast<const RefCountPtr<TextureClass> &>(BFME2LoadParticleTexture("exmask_g.tga",0,0));
+	if (!g_bfmeObjUDC)
+		return false;
+	ShroudTexture &fadePattern = reinterpret_cast<ShroudTexture &>(g_bfmeObjUDC);
+	fadePattern.getFilter()->m_minFilter = 1;
+	fadePattern.getFilter()->m_magFilter = 1;
+	fadePattern.getFilter()->SetMip(0);
+	W3DFilters[FT_VIEW_CROSSFADE] = &screenCrossFadeFilter;
+	return true;
 }
