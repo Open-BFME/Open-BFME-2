@@ -1,6 +1,8 @@
 // ?onEnter@Rva004A6956@@UAE?AW4StateReturnType@@XZ
+// partial score=0.9465205168330818 date=2026-10-10
+// ?onEnter@Rva004A6956@@UAE?AW4StateReturnType@@XZ
 // partial score=0.96 date=2026-10-07
-// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc
+// cl: /I. /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc
 //
 // Zero Hour's SupplyTruckStateMachine (GeneralsMD GameLogic/Object/Update/
 // AIUpdate/SupplyTruckAIUpdate.cpp): the machine's constructor, the two
@@ -47,12 +49,7 @@ extern "C" void *memset(void *dst, int value, unsigned int count);
 class Object;
 class Player;
 
-struct Coord3D
-{
-	Real x;
-	Real y;
-	Real z;
-};
+#include "Code/Libraries/Include/Lib/Coord3D.h"
 
 enum CommandSourceType
 {
@@ -69,7 +66,8 @@ enum KindOfType
 	KINDOF_SUPPLY_GATHERING_CENTER = 34
 };
 
-// The 0x1C-byte KindOf mask; its copy ctor is the pinned 0x0004543D.
+// Target mask storage is28B. Template116 retains the existing provider ABI
+// spelling and is not evidence for the target bit count. Copy4543D is24B.
 template <int NUMBITS>
 class BitFlags
 {
@@ -153,7 +151,7 @@ class AICommandInterface
 {
 public:
 	virtual void aiDoCommand(const void *parms) = 0;
-	void aiMoveToPosition(const Coord3D *pos, Int cmdSource);
+	void aiMoveToPosition(const Coord3D *pos, CommandSourceType cmdSource);
 };
 
 class AIUpdateInterface : public AIUpdateInterfaceBase, public AICommandInterface
@@ -321,110 +319,6 @@ public:
 	static Bool isForcedIntoWantingState(State *thisState, void *userData);
 	static Bool isForcedIntoBusyState(State *thisState, void *userData);
 };
-
-StateReturnType Rva004A6979::onEnter()
-{
-	Object *owner = getMachineOwner();
-	SupplyTruckAIInterface *update = owner->getAIUpdateInterface()->getSupplyTruckAIInterface();
-	if (!update)
-	{
-		return STATE_FAILURE;
-	}
-
-	// after we dock the first time, we clear this, and then follow our normal state machine path
-	update->setForceWantingState(false);
-
-	return STATE_CONTINUE;
-}
-
-SupplyTruckStateMachine::SupplyTruckStateMachine(Object *owner) : Rva004D759C(owner, 0xF95C8C34, false)
-{
-	static const StateConditionInfo busyConditions[] =
-	{
-		{ ownerIdle, ST_IDLE, 0 },
-		{ ownerDocking, ST_DOCKING, 0 },
-		{ ownerRva004A6D15, ST_RVA004A699C, 0 },
-		{ 0, 0, 0 } // keep last
-	};
-
-	static const StateConditionInfo idleConditions[] =
-	{
-		{ isForcedIntoBusyState, ST_BUSY, 0 },
-		{ isForcedIntoWantingState, ST_WANTING, 0 },
-		{ ownerDocking, ST_DOCKING, 0 },
-		{ ownerRva004A6D15, ST_RVA004A699C, 0 },
-		{ ownerNotDockingOrIdle, ST_BUSY, 0 },
-		{ 0, 0, 0 } // keep last
-	};
-
-	static const StateConditionInfo wantingConditions[] =
-	{
-		{ ownerDocking, ST_DOCKING, 0 },
-		{ ownerRva004A6D15, ST_RVA004A699C, 0 },
-		{ ownerNotDockingOrIdle, ST_BUSY, 0 },
-		{ 0, 0, 0 } // keep last
-	};
-
-	static const StateConditionInfo regroupingConditions[] =
-	{
-		{ ownerIdle, ST_IDLE, 0 },
-		{ ownerDocking, ST_DOCKING, 0 },
-		{ ownerRva004A6D15, ST_RVA004A699C, 0 },
-		{ 0, 0, 0 } // keep last
-	};
-
-	static const StateConditionInfo dockingConditions[] =
-	{
-		{ isForcedIntoBusyState, ST_BUSY, 0 },
-		{ ownerAvailableForSupplying, ST_WANTING, 0 },
-		{ ownerNotDockingOrIdle, ST_BUSY, 0 },
-		{ 0, 0, 0 } // keep last
-	};
-
-	// order matters: first state is the default state.
-	defineState(ST_BUSY, new Rva004A6BCA(this), ST_BUSY, ST_BUSY, busyConditions);
-	defineState(ST_IDLE, new Rva004A6C13(this), ST_BUSY, ST_BUSY, idleConditions);
-	defineState(ST_WANTING, new Rva004A6933(this), ST_BUSY, ST_REGROUPING, wantingConditions);
-	defineState(ST_REGROUPING, new Rva004A6956(this), ST_WANTING, ST_BUSY, regroupingConditions);
-	defineState(ST_DOCKING, new Rva004A6979(this), ST_BUSY, ST_BUSY, dockingConditions);
-	defineState(ST_RVA004A699C, new Rva004A699C(this), ST_BUSY, ST_BUSY, dockingConditions);
-}
-
-Bool SupplyTruckStateMachine::isForcedIntoWantingState(State *thisState, void *userData)
-{
-	Object *owner = thisState->getMachineOwner();
-	AIUpdateInterface *ai = owner->getAIUpdateInterface();
-	if (!ai)
-		return false;
-	SupplyTruckAIInterface *update = ai->getSupplyTruckAIInterface();
-	if (!update)
-		return false;
-
-	if (update->isForcedIntoWantingState())
-	{
-		return true;
-	}
-
-	return false;
-}
-
-Bool SupplyTruckStateMachine::isForcedIntoBusyState(State *thisState, void *userData)
-{
-	Object *owner = thisState->getMachineOwner();
-	AIUpdateInterface *ai = owner->getAIUpdateInterface();
-	if (!ai)
-		return false;
-	SupplyTruckAIInterface *update = ai->getSupplyTruckAIInterface();
-	if (!update)
-		return false;
-
-	if (update->isForcedIntoBusyState())
-	{
-		return true;
-	}
-
-	return false;
-}
 
 StateReturnType Rva004A6956::onEnter()
 {

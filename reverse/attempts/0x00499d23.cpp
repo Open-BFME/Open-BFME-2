@@ -1,6 +1,8 @@
 // ?rva00499D23@OneRingPenaltyUpdate@@AAEXXZ
+// partial score=0.9856523681858802 date=2026-10-10
+// ?rva00499D23@OneRingPenaltyUpdate@@AAEXXZ
 // partial score=0.98 date=2026-10-09
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD
+// cl: /I. /O1 /G7 /arch:SSE /DNDEBUG /MD
 // NEAR draft for Code/GameEngine/Source/GameLogic/Object/Update/OneRingPenaltyUpdateRva00499D23.cpp
 // (relative includes assume that path). Remaining diffs are scheduling only:
 // retail loads start as [esi+0x28] then adds [ebx+0xC] (cl swaps the two
@@ -20,9 +22,11 @@
 // position offset by Cos/Sin of the angle times a radius shrinking from the
 // data's +0x18 to half of it over the window (z from TheTerrainLogic's
 // getGroundHeight vtable +0x18).
-#include "../../../../../Libraries/Include/Lib/Coord3D.h"
-#include "../../../Common/GameLogicObjectLookupView.h"
+#include "Code/Libraries/Include/Lib/Coord3D.h"
+#include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
 
+extern "C" void _ReadWriteBarrier();
+#pragma intrinsic(_ReadWriteBarrier)
 typedef float Real;
 typedef unsigned int UnsignedInt;
 
@@ -162,7 +166,7 @@ void OneRingPenaltyUpdate::rva00499D23()
 		pos.x = obj->getPosition()->x;
 		pos.y = obj->getPosition()->y;
 		m_2C += GetGameLogicRandomValueReal(-1.5707964f, 1.5707964f,
-			"C:\projects\bfme2patch103\bfme2\Code\GameEngine\Source\GameLogic\Object\Update\OneRingPenaltyUpdate.cpp",
+			"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\OneRingPenaltyUpdate.cpp",
 			184);
 		Real radius;
 		if (now - start == 0)
@@ -176,7 +180,7 @@ void OneRingPenaltyUpdate::rva00499D23()
 			radius = startRadius + ratio * (d->m_18 / 2.0f - startRadius);
 		}
 		pos.x += Cos(m_2C) * radius;
-		pos.y += Sin(m_2C) * radius;
+		Real yOffset=Sin(m_2C)*radius; _ReadWriteBarrier(); pos.y+=yOffset;
 		pos.z = TheTerrainLogic->getGroundHeight(pos.x, pos.y, 0);
 		ringer->getAI()->aiMoveToPosition(&pos, CMD_FROM_AI);
 	}
