@@ -1,0 +1,82 @@
+{
+  "id": "seat-c-horde-groups-declared-0007a54b-20261010",
+  "seat": "C",
+  "base_commit": "b5cc668da0c33b6c7481ef1a57f00f71605a9752",
+  "paths": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DHordeModelDraw.cpp",
+    "Code/GameEngine/Source/Common/Rva0007912DGet.cpp",
+    "reverse/symbols.csv",
+    "reverse/hatch_baseline.tsv"
+  ],
+  "recoveries": [
+    {
+      "name": "?rva0007A54B@W3DHordeModelDrawManager@@QAEHXZ",
+      "rva": "0x0007A54B",
+      "size": 443,
+      "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DHordeModelDraw.cpp",
+      "notes": "Native7A54B..7A706 RET0 and WB918FA0 manager grouping loop; handle compatibility helper is inlined; original manager entry name unknown; all443B strict exact with same-TU LOD providers and standard math.h; ProcessGroup namedWB918370",
+      "replace_rva": null
+    }
+  ],
+  "new_retail_bytes": 443,
+  "proof_command": "python tools/explain_mismatch.py <name> --rva <rva> --size <size> --source Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DHordeModelDraw.cpp",
+  "proof_log": "scoped-proof.txt",
+  "claim_owner": "codex-104a-01a12257",
+  "worker_root": "C:\\Users\\franz\\.codex\\worktrees\\recovery-preserved\\openbfme2",
+  "dependencies": [],
+  "ledger_deltas": [
+    {
+      "name": "?Rva0007912DGet@@YAHXZ",
+      "rva": "0x0007912D",
+      "size": 26,
+      "old_source": "Code/GameEngine/Source/Common/Rva0007912DGet.cpp",
+      "new_source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DHordeModelDraw.cpp",
+      "operation": "same-name same-address source rehome only",
+      "notes": "clamped LOD index from globals 0xDFE144 plus 0x1788 via callers 0x79147 plus 0x79157 plus 0x79176"
+    },
+    {
+      "name": "?rva00079147@W3DHordeModelDrawModuleData@@QAE_NXZ",
+      "rva": "0x00079147",
+      "size": 16,
+      "old_source": "Code/GameEngine/Source/Common/Rva0007912DGet.cpp",
+      "new_source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DHordeModelDraw.cpp",
+      "operation": "same-name same-address source rehome only",
+      "notes": "Horde LOD allow via clamped index 0x7912D stride 0x14 plus 0x188"
+    },
+    {
+      "name": "?rva00079157@W3DHordeModelDrawModuleData@@QAEHXZ",
+      "rva": "0x00079157",
+      "size": 16,
+      "old_source": "Code/GameEngine/Source/Common/Rva0007912DGet.cpp",
+      "new_source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DHordeModelDraw.cpp",
+      "operation": "same-name same-address source rehome only",
+      "notes": "Horde LOD maxtex via clamped index 0x7912D stride 0x14 plus 0x18C"
+    },
+    {
+      "name": "?rva00079176@W3DHordeModelDrawModuleData@@QAEMXZ",
+      "rva": "0x00079176",
+      "size": 16,
+      "old_source": "Code/GameEngine/Source/Common/Rva0007912DGet.cpp",
+      "new_source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DHordeModelDraw.cpp",
+      "operation": "same-name same-address source rehome only",
+      "notes": "Horde LOD delta via clamped index 0x7912D stride 0x14 plus 0x194"
+    },
+    {
+      "name": "?rva00079167@W3DHordeModelDrawModuleData@@QAEHXZ",
+      "rva": "0x00079167",
+      "size": 15,
+      "old_source": "Code/GameEngine/Source/Common/Rva0007912DGet.cpp",
+      "new_source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DHordeModelDraw.cpp",
+      "operation": "same-name same-address source rehome only",
+      "notes": "Horde LOD maxanim via clamped index 0x7912D stride 0x14 plus 0x190"
+    }
+  ],
+  "claims": [
+    "0x0007A54B",
+    "file:Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DHordeModelDraw.cpp",
+    "file:Code/GameEngine/Source/Common/Rva0007912DGet.cpp"
+  ],
+  "supersedes": [
+    "seat-c-horde-groups-0007a54b-20261010"
+  ]
+}

@@ -1,0 +1,2 @@
+Applied only the five explicit same-name/same-RVA source rehomes; each is verified in the new home unit.
+Regenerated pin admission receipts with tools/pin_admission.py --add against current inputs; did not replay unrelated worker hatch-register cleanup hunks.
