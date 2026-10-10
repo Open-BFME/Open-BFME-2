@@ -1,4 +1,8 @@
 // ?rva00113399@W3DTerrainBackground@@QAEXPAGPAXHHHH0AAH@Z
+// partial score=0.7464549916629483 date=2026-10-10
+extern "C" void _ReadWriteBarrier();
+#pragma intrinsic(_ReadWriteBarrier)
+// ?rva00113399@W3DTerrainBackground@@QAEXPAGPAXHHHH0AAH@Z
 // partial score=0.86 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
 // Native [00113399,00113C07),2158B, RET32. WorldBuilder places the body in
@@ -100,7 +104,7 @@ void W3DTerrainBackground::rva00113399(UnsignedShort *ib, void *heights, Int xOf
 {
 	Int minX = m_xOrigin + xOffset;
 	Int minY = m_yOrigin + yOffset;
-	Int limitX = m_map->getXExtent() - 1;
+	Int limitX = (*(WorldHeightMap*volatile*)&m_map)->getXExtent() - 1;
 	Int limitY = m_map->getYExtent() - 1;
 	Int maxX = xOffset + width;
 	if (maxX + m_xOrigin > limitX)
@@ -181,6 +185,7 @@ void W3DTerrainBackground::rva00113399(UnsignedShort *ib, void *heights, Int xOf
 				v0.X = (m_xOrigin + prevLeft.x) * MAP_XY_FACTOR - m_map->getBorderSize() * MAP_XY_FACTOR;
 				v0.Y = (m_yOrigin + prevLeft.y) * MAP_XY_FACTOR - m_map->getBorderSize() * MAP_XY_FACTOR;
 				v0.Z = m_map->getHeight(m_xOrigin + prevLeft.x, m_yOrigin + prevLeft.y) * MAP_HEIGHT_SCALE;
+_ReadWriteBarrier();
 				v1.X = (m_xOrigin + right.x) * MAP_XY_FACTOR - m_map->getBorderSize() * MAP_XY_FACTOR;
 				v1.Y = (m_yOrigin + right.y) * MAP_XY_FACTOR - m_map->getBorderSize() * MAP_XY_FACTOR;
 				v1.Z = m_map->getHeight(m_xOrigin + right.x, m_yOrigin + right.y) * MAP_HEIGHT_SCALE;
