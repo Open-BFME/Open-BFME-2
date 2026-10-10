@@ -1,4 +1,6 @@
 // ?Rva00448423@@YA_NPAVLANGameInfo@@PADH@Z
+// partial score=0.9656 date=2026-10-10
+// ?Rva00448423@@YA_NPAVLANGameInfo@@PADH@Z
 // partial score=0.9656 date=2026-10-09
 // ?Rva00448423@@YA_NPAVLANGameInfo@@PADH@Z
 // partial score=0.966 date=2026-10-09
