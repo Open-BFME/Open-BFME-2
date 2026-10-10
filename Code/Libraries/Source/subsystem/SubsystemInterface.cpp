@@ -55,47 +55,8 @@ AsciiString SubsystemInterface::getName(void)
 	return m_name;
 }
 
-// ?loadIniFilesFromLegend@SubsystemInterface@@UAE_NXZ present-unmatched
-// Vtable slot 2, inherited by every subsystem in the game. This is the whole
-// point of SubsystemLegend: a subsystem looks itself up by name and loads the
-// INI files and directories its "LoadSubsystem" block lists. The Bool it returns
-// tells SubsystemInterfaceList::initSubsystem whether the legend supplied
-// anything — if it did, the hard-coded paths GameEngine::init passed are skipped.
-Bool SubsystemInterface::loadIniFilesFromLegend()
-{
-	if (!TheSubsystemLegend)
-		return FALSE;
-
-	// Declared before the lookup, not after: retail's xor bl,bl lands ahead of
-	// the getName call, which only happens if the local is live by then.
-	Bool loadedAny = FALSE;
-
-	SubsystemLegendEntry *entry = TheSubsystemLegend->findEntry(getName());
-	if (!entry)
-		return FALSE;
-
-	INI ini;
-
-	// The xfer goes through a local rather than being written inline as the call
-	// argument. That is what retail's register allocation says: it holds
-	// TheSubsystemList->m_xfer in eax across both loops, which only happens when
-	// the load is its own statement.
-	for (AsciiString *f = entry->m_initFile.begin(); f != entry->m_initFile.end(); ++f)
-	{
-		Xfer *xfer = TheSubsystemList->m_xfer;
-		loadedAny = TRUE;
-		ini.loadFile(*f, INI_LOAD_OVERWRITE, xfer);
-	}
-
-	for (AsciiString *d = entry->m_initPath.begin(); d != entry->m_initPath.end(); ++d)
-	{
-		Xfer *xfer = TheSubsystemList->m_xfer;
-		loadedAny = TRUE;
-		ini.loadDirectory(*d, true, INI_LOAD_OVERWRITE, xfer, 0);
-	}
-
-	return loadedAny;
-}
+// The target-specific legend loader lives in
+// Code/GameEngine/Source/Common/System/SubsystemInterfaceLoadIniFilesFromLegend.cpp.
 
 // ?initSubsystem@SubsystemInterfaceList@@QAEXPAVSubsystemInterface@@PAXPBD22PAVXfer@@VAsciiString@@@Z
 // Name it, init it, then give the legend first refusal: if the subsystem's
