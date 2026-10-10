@@ -8,6 +8,7 @@
 class RectClass
 {
 public:
+	RectClass() {}
 	RectClass(float x, float y, float w, float h) : X(x), Y(y), Width(w), Height(h) {}
 	float X;
 	float Y;
@@ -15,10 +16,48 @@ public:
 	float Height;
 };
 
+class TextureClass;
+template<class T> class RefCountPtr;
+
+class Rva000425CB
+{
+public:
+	virtual void slot0();
+	virtual void slot1();
+	virtual void slot2();
+	virtual void slot3();
+	virtual void slot4();
+	virtual void slot5();
+	virtual bool slot6();
+	virtual void slot7();
+	virtual void slot8();
+	virtual const RefCountPtr<TextureClass> *texture();
+	float rva000425CB();
+	float rva00042605();
+	char m_pad04[0x18 - 4];
+	unsigned int m_textureHeight18;
+};
+
+class Rva000465CEBuffer : public Rva000425CB
+{
+public:
+	char m_pad1C[4];
+	float m_alpha20;
+};
+
+class Rva000456C9
+{
+public:
+	void rva000456C9(const RefCountPtr<TextureClass> *tex);
+};
+
 class Render2DClass
 {
 public:
 	void Set_Coordinate_Range(const RectClass &range);
+	void Add_Quad(const RectClass &screen, const RectClass &uv, unsigned long c0, unsigned long c1, unsigned long c2, unsigned long c3);
+	char m_pad00[0x48];
+	bool m_texturing48;
 };
 
 class Display
@@ -49,6 +88,7 @@ class W3DDisplay : public Display
 public:
 	void rva000433AC(unsigned int width);
 	void rva00043340(unsigned int height);
+	void rva000465CE(Rva000465CEBuffer *buffer, float x0, float y0, float x1, float y1, int color);
 private:
 	char m_pad14[0x164];
 	Render2DClass *m_render2D;
@@ -74,3 +114,28 @@ void W3DDisplay::rva00043340(unsigned int height)
 	RectClass rc(0.0f, 0.0f, w, h);
 	m_render2D->Set_Coordinate_Range(rc);
 }
+
+// ?rva000465CE@W3DDisplay@@QAEXPAVRva000465CEBuffer@@MMMMH@Z, retail 0x000465CE,
+// 235 bytes (vtable 0x00BC3C80 slot 29). Video-buffer quad draw: computes a
+// half-texel UV inset from buffer +0x18, enables texturing on +0x168 Render2D,
+// binds the buffer's texture via 0x000456C9, queries maxU/maxV via 0x000425CB /
+// 0x00042605, scales the input alpha byte by buffer +0x20, and submits Add_Quad.
+void W3DDisplay::rva000465CE(Rva000465CEBuffer *buffer, float x0, float y0, float x1, float y1, int color)
+{
+	float inset = (1.0f / (float)buffer->m_textureHeight18) * 0.5f;
+	m_render2D->m_texturing48 = true;
+	((Rva000456C9 *)m_render2D)->rva000456C9(buffer->texture());
+	float maxV = buffer->rva00042605() - inset;
+	RectClass uv;
+	uv.X = inset;
+	uv.Y = inset;
+	uv.Width = buffer->rva000425CB() - inset;
+	uv.Height = maxV;
+
+	float scale = buffer->m_alpha20;
+	unsigned int &alpha = *(unsigned int *)&buffer;
+	alpha = (color >> 24);
+	color = (color & 0xffffff) | ((unsigned int)((alpha & 0xff) * scale) << 24);
+	m_render2D->Add_Quad(RectClass(x0, y0, x1, y1), uv, color, color, color, color);
+}
+
