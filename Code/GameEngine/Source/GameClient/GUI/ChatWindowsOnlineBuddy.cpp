@@ -53,6 +53,59 @@ public:
     int refreshTime14, lastX18, lastY1C, repeats20;
 };
 
+// ChatWindowsOnline::InsertPlayer, retail 0x005D58E6..0x005D59F0, RET 8.
+// WB 15CD730 names it (ChatWindowsOnline.cpp:91, the same WB source file as
+// the Buddy refresh below). Native helpers establish owner window +0x10, the
+// record's name +4, profile +0x14, rank +0x1C and side +0x28, and both list
+// image columns. The record's original type spelling is unknown, so the
+// accessed prefix keeps an address-owned name. Native widens the name with
+// UnicodeString::translate (0x6CB6A0); the canonical empty Unicode string is
+// the second text argument; the existing raw rank-table datum supplies the
+// rank image. GameSpyInfo slot 90 is didPlayerPreorder.
+class GameSpyInfoInterface;
+extern GameSpyInfoInterface *TheGameSpyInfo;
+class Image;
+class ImageCollection { public: const Image *findImageByName(const AsciiString &); };
+extern ImageCollection *TheMappedImageCollection;
+int GedgetListBoxGetDefaultHeight(GameWindow *);
+int GadgetListBoxAddEntryImage(GameWindow *,const Image *,int,int,int,int,bool,int);
+template<int N> struct Rva005D58E6SlotTag;
+template<int N> class Rva005D58E6Slots : public Rva005D58E6Slots<N-1> {
+public: virtual void unused(Rva005D58E6SlotTag<N> *);
+};
+template<> class Rva005D58E6Slots<0> {};
+class Rva005D58E6SpyView : public Rva005D58E6Slots<90> {
+public: virtual bool didPlayerPreorder(int) const;
+};
+class Rva00559AC1 { public: const Image *rva00559C25(int,int); };
+class Rva00559D0CRankWeights;
+extern Rva00559D0CRankWeights g_00E06000;
+struct Rva005D58E6Player {
+    int unknown0; AsciiString name4; int unknown8,unknownC,unknown10;
+    int profile14; int unknown18; int rank1C; int unknown20,unknown24; int side28;
+};
+class ChatWindowsOnline : public ChatWindowsInGame {
+public: int InsertPlayer(Rva005D58E6Player *,int);
+};
+int ChatWindowsOnline::InsertPlayer(Rva005D58E6Player *player,int color)
+{
+    GameWindow *window=playerList10;
+    if(!window) return 0;
+    bool preorder=reinterpret_cast<Rva005D58E6SpyView *>(TheGameSpyInfo)->didPlayerPreorder(player->profile14);
+    const Image *image=TheMappedImageCollection->findImageByName(AsciiString("Aptfellowship_clup"));
+    UnicodeString text;
+    text.translate(player->name4);
+    if(!preorder) image=0;
+    int height=GedgetListBoxGetDefaultHeight(window);
+    int profile=player->profile14;
+    int row=rva005AFDC5(profile,text,UnicodeString::TheEmptyString,color);
+    GadgetListBoxAddEntryImage(window,image,row,0,height,height,true,-1);
+    int side=player->side28;
+    const Image *rankImage=reinterpret_cast<Rva00559AC1 *>(&g_00E06000)->rva00559C25(side,player->rank1C);
+    GadgetListBoxAddEntryImage(window,rankImage,row,1,height,height,true,-1);
+    return row;
+}
+
 // The base owner is canonical. Retail sorted collector5D6C3C initializes
 // its 8-byte pointer/flag vector before calling the existing sort specialization.
 struct BfmeE8 { void *p; unsigned char flag; char pad[3]; };
