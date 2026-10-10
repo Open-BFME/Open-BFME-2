@@ -1,4 +1,6 @@
 // ?rva001E6532@Rva001E46E1@@QAEMPAVObject@@PBUCoord3D@@M@Z
+// partial score=0.9358291267987644 date=2026-10-10
+// ?rva001E6532@Rva001E46E1@@QAEMPAVObject@@PBUCoord3D@@M@Z
 // partial score=0.9101746199006473 date=2026-10-10
 // ?rva001E6532@Rva001E46E1@@QAEMPAVObject@@PBUCoord3D@@M@Z
 // Native 001E6532..001E6731 RET12; sole caller 001E7ECA at 001E836E
@@ -10,11 +12,11 @@
 // heights and +9C dispatches three states. Object+258 query slot111 and its
 // owned getCurrentWeapon/getStatus calls are target facts; original query name
 // is unknown. Model condition bit122 is directly observed.
-// Actual complete514B versus native511B. Native preload/coordinate construction,
+// Actual complete510B versus native511B. Native preload/coordinate construction,
 // frame1C, reference clamp homes and Boolean flag extraction reproduced.
-// Remaining: shared ECX zero versus TEST/AND, state/zero/SSE scheduling.
-// 1463 bounded permutation trials and visible owned45/41B methods no gain.
-extern "C" void _ReadWriteBarrier();
+// Remaining: state2 range reused in XMM0 rather than native memory DIVSS via EDX.
+// Round8 removing the old fence closes EDX/ESI pointer and switch register roles.
+extern "C" void 
 #pragma intrinsic(_ReadWriteBarrier)
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /ICode/Libraries/Include/Lib
 #include <math.h>
@@ -160,7 +162,7 @@ float Rva001E46E1::rva001E6532(Object*obj,const Coord3D*goal,float surface){
    case 1:{float ratio=distance/data4->range64;float one=1;float dh=height48-min4C;float height=min4C+dh*minRef(ratio,one);
     if(weapon->getStatus()!=WEAPONSTATUS0 || !ai->query111())state9C=2;
     return height;}
-   case 2:{_ReadWriteBarrier();float ratio=(distance/data4->range64)*2;float one=1;float dh=height48-min4C;float height=min4C+dh*minRef(ratio,one);
+   case 2:{float ratio=(distance/data4->range64)*2;float one=1;float dh=height48-min4C;float height=min4C+dh*minRef(ratio,one);
     if(above>=height48)state9C=zero;return height;}
    }
   }else state9C=zero;
