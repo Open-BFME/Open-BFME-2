@@ -17157,3 +17157,4 @@ _D3DXLoadSurfaceFromFileInMemory@36,0x0062AF80,Native separate-alpha loader REL3
 ??$__copy_backward_ptrs@PAURva00587375@@PAU1@@_STL@@YAPAURva00587375@@PAU1@00ABU__false_type@0@@Z,0x005875BF,
 ??$fill@PAURva00587375@@U1@@_STL@@YAXPAURva00587375@@0ABU1@@Z,0x005873BB,
 ??$uninitialized_fill_n@PAURva00587375@@IU1@@_STL@@YAPAURva00587375@@PAU1@IABU1@@Z,0x005875DC,
+?Rva00080A8C@@YAHHHH@Z,0x00080A8C,3B xor-eax ret-4 fragment inside 0x00080A86C bounds; always-0 callee called from rva0040AAF8 at 0x0040AB13 with three pushes; cdecl-shaped call site cleans 12; possibly ICF-folded shared tail; address-derived name with no identity inferred
