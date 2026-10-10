@@ -1,4 +1,4 @@
-// cl: /MD
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??0Rva007C454@@QAE@XZ @0x0007C3CD 43B:
 // Constructor for the Camera-derived class with vptr 0x007C6C58/0x007C6C54
