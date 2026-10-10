@@ -21,3 +21,12 @@ void StrategicHUD::ArmyUnitSwapperMovieClip::Impl::SetRegionName(int index,const
  SetSlotString(index,"RegionName",text);
  slot->cache08.set(text);
 }
+
+void StrategicHUD::ArmyUnitSwapperMovieClip::Impl::SetArmyName(int index,const UnicodeString& text)
+{
+ ArmySwapSlot *slot=&slots[index];
+ if(text.compare(slot->cache0C)==0)return;
+ SetSlotString(index,"ArmyName",text);
+ // Retail compares cache0C but writes cache08; preserve both measured offsets.
+ slot->cache08.set(text);
+}
