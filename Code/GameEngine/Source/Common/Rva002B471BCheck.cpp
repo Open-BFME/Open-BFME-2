@@ -67,3 +67,73 @@ bool Rva002B471B::rva002B471B()
 	}
 	return true;
 }
+
+// Native2B466E..2B471B complete173B RET0; resolverUpdate2BB7D6
+// independently calls this same receiver whose fields are proved above.
+// Reloading record14 for the fallback comparison closes EDI-key/EBX-end
+// allocation while retaining the exact fallback behavior. No original name
+// or complete application type is claimed; no new pin.
+// ?rva002B466E@Rva002B466E@@QAE_NXZ, retail 0x002B466E, 173 bytes.
+// Sibling of the check above (same table walk and records): a record whose key is missing from
+// the pointer array may still pass when the pair table at +0x10..+0x14 holds the key and the
+// owner's counter (+0x0C owner, +0x7C) is below the pair's limit. Evidence: target bytes.
+struct Rva002B466EOwner
+{
+	char m_pad[0x7C];
+	int m_count7C;
+};
+
+struct Rva002B466EPair
+{
+	CreateAHeroData *m_key;
+	int m_limit;
+};
+
+class Rva002B466E
+{
+public:
+	bool rva002B466E();
+private:
+	char m_pad0[4];
+	Rva003F468D *m_table4;
+	char m_pad8[4];
+	Rva002B466EOwner *m_owner0C;
+	Rva002B466EPair *m_pairs10;
+	Rva002B466EPair *m_pairsEnd14;
+	char m_pad18[4];
+	CreateAHeroData **m_first1C;
+	CreateAHeroData **m_last20;
+};
+
+bool Rva002B466E::rva002B466E()
+{
+	int entries = (int)m_table4->m_entries18.size();
+	for (int i = 0; i < entries; ++i)
+	{
+		int records = m_table4->rva003F4DAE(i);
+		for (int j = 0; j < records; ++j)
+		{
+			Rva002B471BRecord *record = (Rva002B471BRecord *)m_table4->rva003F468D(i, j);
+			if (record->m_flag44 == 0)
+			{
+				CreateAHeroData *key = record->m_key14;
+				if (_STL::find(m_first1C, m_last20, key) == m_last20)
+				{
+					Rva002B466EPair *end = m_pairsEnd14;
+					Rva002B466EPair *pair = m_pairs10;
+					for (;;)
+					{
+						if (pair == end)
+							return false;
+						if (pair->m_key == record->m_key14)
+							break;
+						++pair;
+					}
+					if (m_owner0C->m_count7C >= pair->m_limit)
+						return false;
+				}
+			}
+		}
+	}
+	return true;
+}
