@@ -232,3 +232,34 @@ int Rva0019F020Get(void)
 {
 	return 25;
 }
+
+// Established native providers now replace four obsolete entry-address literals.
+// Keep the original opaque getter names and integer return representation.
+class Rva0051268C; Rva0051268C *__stdcall Rva002D1E55Create(void *);
+class Rva005173F8; Rva005173F8 *__stdcall Rva002D2025Create(void *);
+class Rva0051BADF; Rva0051BADF *__stdcall Rva002D2099Create(void *);
+class Rva0051D1E6; Rva0051D1E6 *__stdcall Rva002D210DCreate(void *);
+
+// ?Rva00510D87Get@@YAHXZ @ 0x00510D87: existing verified return representation.
+int Rva00510D87Get(void)
+{
+ return reinterpret_cast<int>(&Rva002D1E55Create);
+}
+
+// ?Rva00517F2BGet@@YAHXZ @ 0x00517F2B: existing verified return representation.
+int Rva00517F2BGet(void)
+{
+ return reinterpret_cast<int>(&Rva002D2025Create);
+}
+
+// ?Rva0051BF27Get@@YAHXZ @ 0x0051BF27: existing verified return representation.
+int Rva0051BF27Get(void)
+{
+ return reinterpret_cast<int>(&Rva002D2099Create);
+}
+
+// ?Rva0051D772Get@@YAHXZ @ 0x0051D772: existing verified return representation.
+int Rva0051D772Get(void)
+{
+ return reinterpret_cast<int>(&Rva002D210DCreate);
+}

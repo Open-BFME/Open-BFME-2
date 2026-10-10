@@ -84,10 +84,7 @@ int Rva00507552Get(void)
 // Follows an SEH leave/ret (0x510D85-86) with a sub/cmp-style function
 // after. 7 .rdata refs, no direct callers, no branch sources.
 // Opaque address-derived name.
-int Rva00510D87Get(void)
-{
-	return 0x006D1E55;
-}
+
 
 // ?Rva00336E72Get@@YAHXZ @ 0x00336E72 (6B): returns 0x00736E78.
 // Follows a byte-identical dead twin at 0x336E6C (whole-image refs 0;
@@ -363,28 +360,19 @@ int Rva00200BBAGet(void)
 // Follows a leave/ret (0x517F29-2A) with a B8-imm/call function after
 // (0x517F31). Carried at 0x866444, no direct callers, no branch
 // sources. Opaque address-derived name.
-int Rva00517F2BGet(void)
-{
-	return 0x006D2025;
-}
+
 
 // ?Rva0051BF27Get@@YAHXZ @ 0x0051BF27 (6B): returns 0x006D2099.
 // Follows a pop/ret (0x51BF25-26) with a lea-style function after.
 // Carried at 0x866C74, no direct callers, no branch sources.
 // Opaque address-derived name.
-int Rva0051BF27Get(void)
-{
-	return 0x006D2099;
-}
+
 
 // ?Rva0051D772Get@@YAHXZ @ 0x0051D772 (6B): returns 0x006D210D.
 // Follows an add-esp/ret (0x51D76F-71) with a frame-style function
 // after. Carried at 0x866FC8, no direct callers, no branch sources.
 // Opaque address-derived name.
-int Rva0051D772Get(void)
-{
-	return 0x006D210D;
-}
+
 
 // ?Rva0056D749Get@@YAHXZ @ 0x0056D749 (6B): returns 0x00810223.
 // Follows a leave/ret (0x56D746-48) with a frame-style function after.
