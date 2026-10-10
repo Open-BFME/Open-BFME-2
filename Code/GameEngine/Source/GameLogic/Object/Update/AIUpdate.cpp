@@ -1155,7 +1155,10 @@ Bool AIUpdateInterface::blockedBy(Object *other)
 Bool AIUpdateInterface::needToRotate(void)
 /* Returns TRUE if we need to rotate to point in our path's direcion.*/
 {
-	if (isWaitingForPath()) 
+	// Same treatment as getCurLocomotor above: read the member instead of
+	// odr-using the ZH inline, whose copy differs from the 8-copy majority
+	// (this unit's object sorts ahead of it in link order; L on 8 units).
+	if (m_waitingForPath) 
 		return TRUE; // new path will probably require rotation.
 
 	if (this->m_curLocomotor && this->m_curLocomotor->getWanderWidthFactor()>0.0f) 
@@ -1218,7 +1221,7 @@ Bool AIUpdateInterface::processCollision(PhysicsBehavior *physics, Object *other
 				}
 			}
 			m_isBlocked = TRUE; // we are blocked.
- 			if (otherMoving && aiOther->isWaitingForPath()) 
+ 			if (otherMoving && aiOther->m_waitingForPath) 
 			{
 				return FALSE; // let them get their path;
 			}

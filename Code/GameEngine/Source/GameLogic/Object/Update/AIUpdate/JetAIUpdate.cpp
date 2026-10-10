@@ -1887,6 +1887,16 @@ void JetAIUpdate::getProducerLocation()
 
 //-------------------------------------------------------------------------------------------------
 // ?update@JetAIUpdate@@ present-unmatched
+// Retail's AIUpdateInterface::isWaitingForPath reads +0x1E9 (7B body
+// 8A81E9010000C3 measured in AIUpdate.cpp's object, which shares this unit's
+// copy); this unit's header copy differs from the 8-copy majority, and both
+// minority objects sort ahead of it in link order (L on 8 units). This read
+// goes straight at the member instead of odr-using the ZH inline, whose
+// COMDAT would otherwise displace the majority copy.
+static Bool bfmeJetWaitingForPath(const AIUpdateInterface *ai)
+{
+	return *(const Bool *)((const char *)ai + 0x1E9);
+}
 UpdateSleepTime JetAIUpdate::update()
 {
 	const JetAIUpdateModuleData* d = getJetAIUpdateModuleData();
@@ -2064,7 +2074,7 @@ UpdateSleepTime JetAIUpdate::update()
 					|| getFlag(LANDING_IN_PROGRESS) 
 					|| getObject()->isSignificantlyAboveTerrain() 
 					|| isMoving() 
-					|| isWaitingForPath() )
+					|| bfmeJetWaitingForPath(this) )
 			{
 				if( !m_enginesOn )
 				{
