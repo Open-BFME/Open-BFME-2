@@ -1,4 +1,6 @@
 // ?doLocomotor@AIUpdateInterface@@MAE?AW4UpdateSleepTime@@XZ
+// partial score=0.9992959839307839 date=2026-10-10
+// ?doLocomotor@AIUpdateInterface@@MAE?AW4UpdateSleepTime@@XZ
 // partial score=0.98 date=2026-10-09
 // cl: /DNDEBUG /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /ICode/Libraries/Include /ICode/GameEngine/Source/Common /O1 /G6 /arch:SSE
 // stlport
@@ -765,3 +767,5 @@ UpdateSleepTime AIUpdateInterface::doLocomotor()
 		return UPDATE_SLEEP_NONE;
 	}
 }
+
+inline __declspec(noinline) float Coord3D::length() const { return (float)sqrt(x*x+y*y+z*z); }
