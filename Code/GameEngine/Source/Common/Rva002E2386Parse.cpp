@@ -2,6 +2,14 @@
 // stlport
 // ?Rva002E2386Parse@@YAXPAVINI@@@Z @0x002E2386 231B. LivingWorldPlayerTemplate block parse.
 // Evidence: BlockParse LivingWorldPlayerTemplate 0x00DBD0A8 parse 0x002E2386; REF slot 0x009BD0B0 neighbours LivingWorldPlayerTemplate NONE HOLD; error literals LivingWorldPlayerTemplateStore Invalid data passed in 0x00804AF0 and No name specified 0x00804ABC via INIException 0x0002F681 plus TI1 0x008FE2FC; getNextToken 0x0002DF97 plus StringBase ctor 0x00037BA0 plus set 0x000366F0 plus releaseBuffer 0x00036410; new 0x40 plus ctor 0x002E0906; FieldParse g_00C04820 via initFromINI 0x0002DE78; store Va00DFF0B0Lookup plus vector push_back 0x004DFCB0.
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
 #include <vector>
 #include "ascii_string.h"
 

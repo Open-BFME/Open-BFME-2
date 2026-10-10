@@ -10,6 +10,14 @@
 // Evidence: pinned name; callers ?init@InGameUI@@UAEXXZ 0x0029E5D0 and
 // ?recreateControlBar@InGameUI@@UAEXXZ 0x0029F890; vtable data 0x0080CC88;
 // donor Zero Hour ControlBar::ControlBar plus BFME1 ControlBarConstructor.
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
 #include <hash_map>
 #include <vector>
 #include "ascii_string.h"

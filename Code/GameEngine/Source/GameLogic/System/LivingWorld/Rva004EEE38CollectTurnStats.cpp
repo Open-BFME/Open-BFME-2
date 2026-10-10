@@ -23,6 +23,14 @@
 //    the rowed 0x003F287F (a local vector; unwind state 1 its dtor) and
 //    the owner's +0x1B8 entries' +0x78 eight-byte +0x40 lists; it is
 //    appended to +0x28 by the rowed 0x004EE9B1.
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
 #include <vector>
 #include "Common/Snapshot.h"
 

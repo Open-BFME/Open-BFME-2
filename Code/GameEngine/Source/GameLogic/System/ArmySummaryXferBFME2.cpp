@@ -27,6 +27,14 @@
 // ObjectFilterCollectionXfer.cpp; ArmySummary members and the +0xAC entry
 // reference count as in ArmySummary.cpp. WorldBuilder 0x0108BB30 has the same
 // transfer order (plus a debug-only player id).
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
 #include <vector>
 #include "ascii_string.h"
 

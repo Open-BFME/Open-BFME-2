@@ -3,6 +3,14 @@
 // Target: 0x002CDD47, 579B; Weapon vtable 0x0080214C slot 3.
 // Field offsets and Xfer virtual slots follow the target body; template lookup
 // signature is corroborated by the matched WeaponStore callee.
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
 #include <vector>
 #include "ascii_string.h"
 

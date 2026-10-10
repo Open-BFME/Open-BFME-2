@@ -15,6 +15,14 @@ struct BfmeStringRecord003B3F78
     BfmeStringRecord003B3F78() : word2(0) {}
     BfmeStringRecord003B3F78(const BfmeStringRecord003B3F78 &other);
 };
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
 #include <vector>
 class Rva003B32E5;
 void rva003B7FE0(Rva003B32E5 *, const Rva003B32E5 *);

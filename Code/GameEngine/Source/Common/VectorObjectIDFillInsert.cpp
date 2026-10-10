@@ -5,6 +5,14 @@
 // 251 bytes.  ObjectID is an enum, so this instantiates separately from the
 // shared four-byte-POD siblings (vector<int>, vector<Object *>, vector<void *>).
 #define _STLP_NO_EXCEPTIONS 1
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
 #include <vector>
 
 enum ObjectID { INVALID_ID = 0 };
