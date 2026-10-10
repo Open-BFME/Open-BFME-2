@@ -56,3 +56,12 @@ StringClass::Free_String (void)
 
 	return ;
 }
+
+// Native1880D0..1880D5 directly reaches the owned StringClass release body.
+// The original enclosing type and virtual-destructor spelling are unproven;
+// this address-derived operation claims only witnessed ECX cleanup forwarding.
+struct Rva001880D0StringCleanupForward { void cleanup(); };
+void Rva001880D0StringCleanupForward::cleanup()
+{
+    reinterpret_cast<StringClass *>(this)->StringClass::~StringClass();
+}
