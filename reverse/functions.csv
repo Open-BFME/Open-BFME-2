@@ -74780,3 +74780,4 @@ _VP6_ReadHuffTokens,,0x001C5310,1661,Code/Libraries/Source/VP6/HuffTokens.cpp,ma
 ?Rva0038169D@@YA_NHABVUnicodeString@@@Z,,0x0038169D,494,Code/GameEngine/Source/Common/Rva0038169DChatSubmit.cpp,matched,
 ?rva005593AE@Rva00555BD5StatsQueue@@QAEXVPSPlayerAllStats@@@Z,,0x005593AE,210,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PersistentStorageThread.cpp,matched,
 ?drawWaypoints@W3DWaypointBuffer@@QAEXAAVRenderInfoClass@@@Z,,0x000DFE31,588,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DWaypointBufferDrawWaypoints.cpp,matched,
+??0W3DAptDisplayString@@QAE@PAURva000AAD88Arg@@@Z,,0x000AA966,837,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptDisplayStringCtor.cpp,matched,

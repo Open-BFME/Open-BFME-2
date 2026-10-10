@@ -1,5 +1,3 @@
-// ??0W3DAptDisplayString@@QAE@PAURva000AAD88Arg@@@Z
-// partial score=0.98 date=2026-10-09
 // cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /EHsc /MD /DNDEBUG
 // ??0W3DAptDisplayString@@QAE@PAURva000AAD88Arg@@@Z retail 0x000AA966
 // 837 bytes. The W3DAptDisplayString constructor: w3dAllocateString
@@ -67,7 +65,7 @@ class DisplayString
 public:
 	virtual void slot00();
 	virtual void slot01();
-	virtual void slot02();
+	virtual UnicodeString getText();			// +0x08 (WB debug block)
 	virtual void slot03();
 	virtual void slot04();
 	virtual void slot05();
@@ -274,5 +272,16 @@ W3DAptDisplayString::W3DAptDisplayString(Rva000AAD88Arg *params)
 		SetText(utext);
 	else
 		g_bfmeAptWindowManager->rva00225299(m_name, utext, (Rva00222CCB *)this);
+	// WorldBuilder twin 0x008AAB50 logs "New Apt String: Orig:... Name:...
+	// Lookup:... Final:..." here under its debug switch; retail compiles the
+	// block out but keeps the EH states of its two strings and the getText
+	// temporary (8 -> 5, 9 -> 8, 10 -> 9, all without action).
+	if (0)
+	{
+		AsciiString original;
+		original.translate(utext);
+		AsciiString final;
+		final.translate(m_displayString->getText());
+	}
 	((Rva000A97A9 *)this)->rva000A97A9(params);
 }
