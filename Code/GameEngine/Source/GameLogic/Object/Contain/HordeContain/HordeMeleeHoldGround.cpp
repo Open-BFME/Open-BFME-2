@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /arch:SSE
 // HordeMeleeHoldGround.cpp -- per-unit attack-state accessors recovered from
 // WorldBuilder leads (reverse/wb_name_leads.csv). WB's debug build names the
 // members and asserts !(index<0||index>=m_AttackInfo.size()); retail keeps
@@ -24,6 +24,9 @@ private:
 	Int *m_endOfStorage;
 };
 
+#include "ascii_string.h"
+class Xfer;
+
 enum { UNIT_ROTATING = 2, UNIT_ARRIVED = 3 };
 
 class HordeMeleeHoldGround
@@ -32,6 +35,7 @@ public:
 	virtual Bool isUnitRotating(Int index) const;
 	virtual void setUnitRotating(Int index);
 	virtual void setUnitArrived(Int index);
+	void rva005837F0(Xfer *xfer);
 
 private:
 	unsigned char m_pad04[4];
@@ -143,4 +147,58 @@ void Rva00583794::rva00583794(Object *object)
 		if (item != 0 && !item->testStatus(RVA_OBJECT_STATUS_1C))
 			item->rva00295F05(0);
 	}
+}
+
+// The native table at 0x86FC50 slot7 and the class-name literal establish
+// this Horde transfer family. Native5837F0..5838B5 checks version1 and
+// serializes the expected name through Xfer slots10 and27. Method name is
+// address-derived. The four-byte version local preserves the observed
+// EBP-14 version / EBP-10 string placement; only its first two bytes are
+// transferred. Plain strings reproduce both native cleanup funclets.
+struct XferVersion
+{
+    unsigned char version;
+    unsigned char current;
+    unsigned char pad[2];
+};
+class Xfer
+{
+public:
+    virtual void slot0(); virtual void slot1(); virtual void slot2();
+    virtual void slot3(); virtual void slot4(); virtual void slot5();
+    virtual void slot6(); virtual void slot7(); virtual void slot8();
+    virtual void slot9();
+    virtual Xfer &xferVersion(XferVersion *version);
+    virtual void slot11(); virtual void slot12(); virtual void slot13();
+    virtual void slot14(); virtual void slot15(); virtual void slot16();
+    virtual void slot17(); virtual void slot18(); virtual void slot19();
+    virtual void slot20(); virtual void slot21(); virtual void slot22();
+    virtual void slot23(); virtual void slot24(); virtual void slot25();
+    virtual void slot26();
+    virtual Xfer &slot27(AsciiString *name);
+};
+class XferException
+{
+public:
+    XferException(int tag, const char *format, ...);
+    XferException(const XferException &other);
+    ~XferException();
+    char *text;
+    int tag;
+};
+static __forceinline const char *TransferHordeVersion(Xfer *xfer, XferVersion &version)
+{
+    version.version = 1;
+    version.current = 1;
+    xfer->xferVersion(&version);
+    return "HordeMeleeHoldGround";
+}
+void HordeMeleeHoldGround::rva005837F0(Xfer *xfer)
+{
+    XferVersion version;
+    AsciiString expected(TransferHordeVersion(xfer, version));
+    AsciiString actual(expected);
+    xfer->slot27(&actual);
+    if (actual.compare(expected) != 0)
+        throw XferException(4, "Xfer data saved by %s is now being loaded by %s", actual.str(), expected.str());
 }
