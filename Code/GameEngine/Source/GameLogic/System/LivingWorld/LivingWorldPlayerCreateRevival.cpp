@@ -116,3 +116,22 @@ void LivingWorldPlayer::rva002E3442(const RevivalSourceView*const *source,const 
  entry.key=key;
  reinterpret_cast<std::vector<Rva002E2D10Record>*>(&entries)->push_back(reinterpret_cast<const Rva002E2D10Record&>(entry));
 }
+
+// Native2E34A9..2E3518 RET8 takes an owning entry handle by reference and
+// mode. WB DE5DF0 supplies the same template lookup/revival construction.
+// Keep the admitted static helper visible: ordinary MSVC optimization selects
+// its witnessed EBX template input, without a handwritten calling convention.
+class Rva0037DCA5 { public: void *rva0037DC52(); };
+struct Rva0040DD3ARef { const RevivalSourceView *value; };
+class Rva002E34A9 { public:
+ void rva002E34A9(const Rva0040DD3ARef &,int);
+ char unknown00[0x1A8]; std::vector<Rva002E2D10Record> entries;
+};
+// ?rva002E34A9@Rva002E34A9@@QAEXABURva0040DD3ARef@@H@Z
+void Rva002E34A9::rva002E34A9(const Rva0040DD3ARef &source,int kind) {
+ const ThingTemplate *thing=(const ThingTemplate*)reinterpret_cast<Rva0037DCA5*>(const_cast<RevivalSourceView*>(source.value))->rva0037DC52();
+ if(thing) {
+  UnitRevivalEntry entry=CreateRevivalEntry(reinterpret_cast<LivingWorldPlayer*>(this),&source.value,thing,kind);
+  entries.push_back(reinterpret_cast<const Rva002E2D10Record&>(entry));
+ }
+}
