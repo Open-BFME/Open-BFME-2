@@ -11,17 +11,10 @@
 typedef float Real;
 typedef bool Bool;
 
-struct Coord3D
-{
-	Real x, y, z;
+#include "../../../../Libraries/Include/Lib/Coord3D.h"
 
-	void zero()
-	{
-		x = 0.0f;
-		y = 0.0f;
-		z = 0.0f;
-	}
-};
+// Retail inlines these three zero stores; the canonical Coord3D::zero is the out-of-line owner.
+static inline void zeroInline(Coord3D &c) { c.x = 0.0f; c.y = 0.0f; c.z = 0.0f; }
 
 enum PathfindLayerEnum
 {
@@ -44,7 +37,7 @@ public:
 Real TerrainLogic::getGroundHeight( Real x, Real y, Coord3D* normal ) const
 {
 	if( normal )
-		normal->zero();
+		zeroInline(*normal);
 
 	return 0;
 
@@ -56,7 +49,7 @@ Real TerrainLogic::getGroundHeight( Real x, Real y, Coord3D* normal ) const
 Real TerrainLogic::getLayerHeight( Real x, Real y, PathfindLayerEnum layer, Coord3D* normal, Bool clip ) const
 {
 	if( normal )
-		normal->zero();
+		zeroInline(*normal);
 
 	return 0;
 

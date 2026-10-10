@@ -12,19 +12,10 @@ typedef int Int;
 typedef unsigned int UnsignedInt;
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include/Lib/BaseType.h
-struct Coord3D
-{
-	Real x;
-	Real y;
-	Real z;
+#include "../../../../Libraries/Include/Lib/Coord3D.h"
 
-	void zero()
-	{
-		x = 0.0f;
-		y = 0.0f;
-		z = 0.0f;
-	}
-};
+// Retail inlines these three zero stores; the canonical Coord3D::zero is the out-of-line owner.
+static inline void zeroInline(Coord3D &c) { c.x = 0.0f; c.y = 0.0f; c.z = 0.0f; }
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include/Lib/BaseType.h
 struct Region3D
@@ -121,8 +112,8 @@ ShroudManagerImpl::ShroudManagerImpl()
 	  enabled(true),
 	  refreshCallback(0)
 {
-	region.lo.zero();
-	region.hi.zero();
+	zeroInline(region.lo);
+	zeroInline(region.hi);
 	_ReallocCells(region, 1.0f);
 }
 

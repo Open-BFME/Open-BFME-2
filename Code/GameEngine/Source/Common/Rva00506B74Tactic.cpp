@@ -33,20 +33,13 @@ template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, 
 #include "ascii_string.h"
 #include "vector3.h"
 
-struct Coord3DBase
-{
-	float x;
-	float y;
-	float z;
-};
-
-struct Coord3D : public Coord3DBase
-{
-	bool equals(const Coord3DBase &that) const;
-	void set(const Coord3DBase *that) { x = that->x; y = that->y; z = that->z; }
-};
+#include "../../../Libraries/Include/Lib/Coord3D.h"
+#include "../../../Libraries/Include/Lib/Coord3DBase.h"
 
 extern Coord3DBase Gen00DD0870;
+
+// Retail inlines this three-float copy; the canonical Coord3D::set is the out-of-line owner.
+static inline void inlineSet(Coord3D &c, const Coord3DBase *that) { c.x = that->x; c.y = that->y; c.z = that->z; }
 
 class Rva005AD9C0Hit
 {
@@ -259,9 +252,9 @@ private:
 AIBaseBuilder::AIBaseBuilder(void *owner)
 	: m_08(owner)
 {
-	m_18.set(&Gen00DD0870);
+	inlineSet(m_18, &Gen00DD0870);
 	m_24 = false;
-	m_28.set(&Gen00DD0870);
+	inlineSet(m_28, &Gen00DD0870);
 	m_28 = Rva00506CF5(m_08, &m_18);
 }
 
@@ -366,10 +359,10 @@ void AIBaseBuilder::DoXfer(Xfer *xfer)
 {
 	Xfer::Version version(1, 2);
 	*xfer == version;
-	*xfer == m_18;
+	*xfer == asBase(m_18);
 	*xfer == m_24;
 	if (version.m_minimum >= 2)
-		*xfer == m_28;
+		*xfer == asBase(m_28);
 	unsigned int count = m_0C.size();
 	*xfer == count;
 	if (xfer->IsLoading()) {

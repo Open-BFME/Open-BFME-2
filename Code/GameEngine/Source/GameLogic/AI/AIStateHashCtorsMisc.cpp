@@ -10,11 +10,10 @@
 // retail stores and ret sizes; names stay address-derived.
 class StateMachine;
 
-struct Coord3D
-{
-	float x, y, z;
-	void zero() { x = 0.0f; y = 0.0f; z = 0.0f; }
-};
+#include "../../../../Libraries/Include/Lib/Coord3D.h"
+
+// Retail inlines these three zero stores; the canonical Coord3D::zero is the out-of-line owner.
+static inline void zeroInline(Coord3D &c) { c.x = 0.0f; c.y = 0.0f; c.z = 0.0f; }
 
 class State
 {
@@ -116,7 +115,7 @@ Rva00367E59::Rva00367E59(StateMachine *machine)
 	: State(machine, 0x539B80B3u)
 	, m_20(0)
 {
-	m_24.zero();
+	zeroInline(m_24);
 }
 
 // Rva004884ED: retail 0x004884ED (40B), hash 0xaa55fe2f, vtable 0xc4b3e0 callers 0x00488627
@@ -218,7 +217,7 @@ Rva00542D25::Rva00542D25(StateMachine *machine)
 	: State(machine, 0x8F11452u)
 	, m_20(0)
 {
-	m_24.zero();
+	zeroInline(m_24);
 }
 
 // Rva00544095: retail 0x00544095 (33B), hash 0xd2719020, vtable 0xc69940 callers 0x00544917

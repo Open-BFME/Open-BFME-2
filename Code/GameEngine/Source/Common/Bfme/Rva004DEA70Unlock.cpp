@@ -12,17 +12,10 @@
 // success tail, inverting je/jne at +0x26 and +0x3A. Splitting the chain makes the
 // failure paths the fall-through and `return m_ptr20` the single shared tail, which
 // is retail byte-for-byte.
-struct Coord3DBase
-{
-	float x;
-	float y;
-	float z;
-};
-class Coord3D : public Coord3DBase
-{
-public:
-	bool equals(const Coord3DBase &that) const;
-};
+#include "../../../../Libraries/Include/Lib/Coord3D.h"
+
+#include "../../../../Libraries/Include/Lib/Coord3DBase.h"
+
 struct Arg1_004DEA70
 {
 	char m_pad[0x74];

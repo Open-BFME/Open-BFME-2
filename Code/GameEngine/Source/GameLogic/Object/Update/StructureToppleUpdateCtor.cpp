@@ -28,19 +28,10 @@ class DamageInfo;
 
 #include "../../../../../Libraries/Include/Lib/Coord2D.h"
 
-struct Coord3D
-{
-	float x;
-	float y;
-	float z;
+#include "../../../../../Libraries/Include/Lib/Coord3D.h"
 
-	void zero()
-	{
-		x = 0.0f;
-		y = 0.0f;
-		z = 0.0f;
-	}
-};
+// Retail inlines these three zero stores; the canonical Coord3D::zero is the out-of-line owner.
+static inline void zeroInline(Coord3D &c) { c.x = 0.0f; c.y = 0.0f; c.z = 0.0f; }
 
 class GeometryInfo
 {
@@ -148,7 +139,7 @@ StructureToppleUpdate::StructureToppleUpdate(Thing *thing, const ModuleData *mod
 	m_accumulatedAngle = 0.001f;
 	m_structuralIntegrity = 0.0f;
 	m_lastCrushedLocation = 0.0f;
-	m_delayBurstLocation.zero();
+	zeroInline(m_delayBurstLocation);
 	m_toppleDirection.x = m_toppleDirection.y = 0;
 	setWakeFrame(const_cast<Object*>(getObject()), (UpdateSleepTime)UPDATE_SLEEP_FOREVER);
 	Object *building = const_cast<Object*>(getObject());

@@ -40,12 +40,13 @@
 
 #include "ascii_string.h"
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
+#include "../../../../Libraries/Include/Lib/Coord3DBase.h"
 
 class AsciiString;
 class UnicodeString;
 class PooledString;
 struct XferUnknown11;
-class Coord3DBase;
+struct Coord3DBase;
 class ICoord3D;
 class Region3D;
 class IRegion3D;
@@ -319,14 +320,6 @@ public:
 	{
 		XFER_EXCEPTION_BFME_2 = 2
 	};
-};
-
-class Coord3DBase
-{
-public:
-	float x;
-	float y;
-	float z;
 };
 
 // Retail ctor 0x000D1AF3 builds the slot array through rowed vector_constructor_iterator

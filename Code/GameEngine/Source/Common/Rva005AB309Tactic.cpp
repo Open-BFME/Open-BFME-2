@@ -42,14 +42,8 @@ int g_00E06414 = g_009BA4E8 / 2;
 // (NONE/HOLD/KILL/SPAWN, ...) are separate tables nothing here references.
 const char *g_009BC1B8[] = { "TARGETLESS", 0 };
 
-struct Coord3DBase
-{
-	float x;
-	float y;
-	float z;
-};
-
 #include "../../../Libraries/Include/Lib/Coord3D.h"
+#include "../../../Libraries/Include/Lib/Coord3DBase.h"
 
 // BFME2's Xfer: operator== overloads, grouped by cl at the first overload
 // slot in reverse declaration order (Rva004E0513Xfer.cpp has the same view).

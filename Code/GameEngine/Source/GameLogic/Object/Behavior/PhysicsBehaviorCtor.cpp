@@ -10,7 +10,7 @@
 // the rowed 0x44DF71.
 //
 // The two float triples at +0x2C and +0x38 are Coord3D::zero() calls, as in
-// the Zero Hour ctor's m_accel.zero()/m_vel.zero(): stores made through the
+// the Zero Hour ctor's zeroInline(m_accel)/zeroInline(m_vel): stores made through the
 // inlined member pointer keep the m_moduleData/m_object loads below them, which
 // is what the earlier attempts' _ReadWriteBarrier tried to force and what put
 // the EH state-1 store back just before the call. Layout honest-address only.
@@ -22,13 +22,10 @@ struct BfmeE16
 	unsigned char m_pad[16];
 };
 
-struct Coord3D
-{
-	float x;
-	float y;
-	float z;
-	void zero() { x = 0.0f; y = 0.0f; z = 0.0f; }
-};
+#include "../../../../../Libraries/Include/Lib/Coord3D.h"
+
+// Retail inlines these three zero stores; the canonical Coord3D::zero is the out-of-line owner.
+static inline void zeroInline(Coord3D &c) { c.x = 0.0f; c.y = 0.0f; c.z = 0.0f; }
 
 enum UpdateSleepTime
 {
@@ -124,8 +121,8 @@ PhysicsBehavior::PhysicsBehavior(Thing *thing, const ModuleData *moduleData) :
 	m_bfme5F = false;
 	m_bfme60 = 0;
 	m_bfme64 = 0;
-	m_bfme2C.zero();
-	m_bfme38.zero();
+	zeroInline(m_bfme2C);
+	zeroInline(m_bfme38);
 	m_bfme5D = reinterpret_cast<const PhysicsBehaviorModuleData *>(m_moduleData)->m_bfme58;
 	setWakeFrame(m_object, UPDATE_SLEEP_FOREVER);
 }

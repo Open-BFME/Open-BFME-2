@@ -18,6 +18,13 @@ struct Coord3D {
     float GetLength2D() const;
     float Normalize();
     float operator*(const struct Coord3DBase &r) const;
+    // Byte-verified owners in coord3d.cpp/region.cpp (0x366B, 0x36AE, 0xDFCB6, 0x36D1, 0x3702).
+    // Coord3DBase arguments need Lib/Coord3DBase.h; it is not defined here (see that header).
+    void zero();
+    void set(float x, float y, float z);
+    void set(const struct Coord3DBase *p);
+    void scale(float s);
+    bool equals(const struct Coord3DBase &that) const;
 };
 
 #endif // CANONICAL_COORD3D_H

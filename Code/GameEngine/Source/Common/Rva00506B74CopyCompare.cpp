@@ -5,17 +5,10 @@
 // guard plus second call 0x0050722A) 0x004EA54C. Prev row 0x00506B2F same
 // /O1 /MD. Honest address-derived name; Coord3D block copy plus rowed equals.
 
-struct Coord3DBase
-{
-	float x;
-	float y;
-	float z;
-};
+#include "../../../Libraries/Include/Lib/Coord3D.h"
 
-struct Coord3D : public Coord3DBase
-{
-	bool equals(const Coord3DBase &that) const;
-};
+// Retail .data at VA 0x00DD0870 stores the three -1.0f components of the
+#include "../../../Libraries/Include/Lib/Coord3DBase.h"
 
 // Retail .data at VA 0x00DD0870 stores the three -1.0f components of the
 // 12-byte Coord3DBase value used by the matched comparison.

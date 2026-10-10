@@ -99,7 +99,47 @@
     "size": 27,
     "source": "Code/Libraries/Source/WWVegas/WWMath/coord3d.cpp",
     "decided_by": "byte-verified owner; native BuildAssistant site filter 391E86 calls this owner on twelve-byte three-float path/delta vectors; WB F9EBC0 independently identifies the corresponding math operation"
-   }
+   },
+  {
+   "declaration": "void zero();",
+   "decided_by": "byte-verified ledger owner (functions.csv matched); declaration only, no layout change; used by units queued in reverse/header_queue.tsv",
+   "name": "?zero@Coord3D@@QAEXXZ",
+   "rva": "0x0000366B",
+   "size": 18,
+   "source": "Code/Libraries/Source/WWVegas/WWMath/coord3d.cpp"
+  },
+  {
+   "declaration": "void set(float x, float y, float z);",
+   "decided_by": "byte-verified ledger owner (functions.csv matched); declaration only, no layout change; used by units queued in reverse/header_queue.tsv",
+   "name": "?set@Coord3D@@QAEXMMM@Z",
+   "rva": "0x000036AE",
+   "size": 35,
+   "source": "Code/Libraries/Source/WWVegas/WWMath/coord3d.cpp"
+  },
+  {
+   "declaration": "void set(const struct Coord3DBase *p);",
+   "decided_by": "byte-verified ledger owner (functions.csv matched); declaration only, no layout change; used by units queued in reverse/header_queue.tsv",
+   "name": "?set@Coord3D@@QAEXPBUCoord3DBase@@@Z",
+   "rva": "0x000DFCB6",
+   "size": 23,
+   "source": "Code/Libraries/Source/WWVegas/WWMath/coord3d.cpp"
+  },
+  {
+   "declaration": "void scale(float s);",
+   "decided_by": "byte-verified ledger owner (functions.csv matched); declaration only, no layout change; used by units queued in reverse/header_queue.tsv",
+   "name": "?scale@Coord3D@@QAEXM@Z",
+   "rva": "0x000036D1",
+   "size": 49,
+   "source": "Code/Libraries/Source/WWVegas/WWMath/region.cpp"
+  },
+  {
+   "declaration": "bool equals(const struct Coord3DBase &that) const;",
+   "decided_by": "byte-verified ledger owner (functions.csv matched); declaration only, no layout change; used by units queued in reverse/header_queue.tsv",
+   "name": "?equals@Coord3D@@QBE_NABUCoord3DBase@@@Z",
+   "rva": "0x00003702",
+   "size": 57,
+   "source": "Code/Libraries/Source/WWVegas/WWMath/coord3d.cpp"
+  }
   ]
  },
  "fields": [
