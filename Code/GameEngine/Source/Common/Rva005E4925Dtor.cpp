@@ -42,9 +42,14 @@ struct Rva005E4AE2Owner
 };
 struct Rva005E4AE2Listener
 {
-	Rva005E4AE2Listener() {}
+	Rva005E4AE2Listener();
 	virtual ~Rva005E4AE2Listener() {}
 };
+// ??0Rva005E4AE2Listener@@QAE@XZ @0x005E399D 9B: the default constructor, storing the
+// class's own vtable (VA 0x00C79544) and returning this.
+Rva005E4AE2Listener::Rva005E4AE2Listener()
+{
+}
 class Rva005E4AE2Base
 {
 public:

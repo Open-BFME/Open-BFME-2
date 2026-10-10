@@ -67,11 +67,17 @@ class OutputStream;
 class OutputChunk
 {
 public:
+	OutputChunk();
 	virtual ~OutputChunk() {}
 	OutputChunk *next;
 	unsigned int id;
 	int filepos;
 };
+// ??0OutputChunk@@QAE@XZ @0x00306C62 9B: the default constructor, storing the
+// class's own vtable (VA 0x00C07E80) and returning this.
+OutputChunk::OutputChunk()
+{
+}
 
 class DataChunkOutput
 {

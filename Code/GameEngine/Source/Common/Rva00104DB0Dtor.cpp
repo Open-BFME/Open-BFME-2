@@ -10,8 +10,14 @@ public:
 class Rva00104DB0Base
 {
 public:
+	Rva00104DB0Base();
 	virtual ~Rva00104DB0Base() {}
 };
+// ??0Rva00104DB0Base@@QAE@XZ @0x00104DA7 9B: the default constructor, storing the
+// class's own vtable (VA 0x00BCF7E8) and returning this.
+Rva00104DB0Base::Rva00104DB0Base()
+{
+}
 
 class Rva00104DB0 : public Rva00104DB0Base
 {

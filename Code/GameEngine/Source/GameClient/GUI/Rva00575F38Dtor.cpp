@@ -72,8 +72,14 @@ public:
 class VBase00C6EE28
 {
 public:
+	VBase00C6EE28();
 	virtual ~VBase00C6EE28() {}
 };
+// ??0VBase00C6EE28@@QAE@XZ @0x002E701A 9B: the default constructor, storing the
+// class's own vtable (VA 0x00C6EE28) and returning this.
+VBase00C6EE28::VBase00C6EE28()
+{
+}
 
 class BfmeCtorVirtualBase001B3A20
 {

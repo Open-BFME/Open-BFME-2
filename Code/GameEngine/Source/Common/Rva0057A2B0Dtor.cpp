@@ -14,10 +14,16 @@ private:
 class Rva0057A2B0B1
 {
 public:
+	Rva0057A2B0B1();
 	virtual ~Rva0057A2B0B1() {}
 private:
 	int m_b1x;
 };
+// ??0Rva0057A2B0B1@@QAE@XZ @0x005F6871 9B: the default constructor, storing the
+// class's own vtable (VA 0x00C42518) and returning this.
+Rva0057A2B0B1::Rva0057A2B0B1()
+{
+}
 
 struct If0057A2B0
 {
