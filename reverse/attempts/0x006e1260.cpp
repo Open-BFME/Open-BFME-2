@@ -1,4 +1,6 @@
 // ?call@Rva006E1260@@QAEXPAX@Z
+// partial score=1.0 date=2026-10-10
+// ?call@Rva006E1260@@QAEXPAX@Z
 // partial score=0.99 date=2026-10-09
 // cl: /O2 /G6 /MD
 // ?call@Rva006E1260@@QAEXPAX@Z, retail 0x006E1260, 722 bytes.
