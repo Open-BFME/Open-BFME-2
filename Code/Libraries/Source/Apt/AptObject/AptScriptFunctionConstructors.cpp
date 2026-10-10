@@ -53,3 +53,45 @@ AptScriptFunctionBase *AptScriptFunction1::Duplicate(AptCIH *cih) {
 AptScriptFunctionBase *AptScriptFunction2::Duplicate(AptCIH *cih) {
   return new AptScriptFunction2(this, cih);
 }
+
+// PC vtable8EE9A0 slot22 (original PDB virtual order: SetArgument), full179B
+// 70A400..70A4B3 RET8. DefineFunction2 parameter records are (register, name)
+// pairs at mpFunction+0C: a register parameter is stored through the static
+// register block (709F70); otherwise the name is defined on the current frame
+// stack's hash, publishing a frame first when there is none (6FBED0).
+class EAStringC
+{
+public:
+    EAStringC(const char *);
+    ~EAStringC();
+private:
+    void *data;
+};
+void Rva00709F70Set(int, AptValue *);
+struct AptDefineFunction2Param { int nRegister; const char *szName; };
+struct AptFrameStackHash : AptValueWithHash
+{
+    static AptNativeHash &Of(AptFrameStack *pFrame) { return static_cast<AptFrameStackHash *>(static_cast<AptValueWithHash *>(pFrame))->mNativeHash; }
+};
+#define DF2_PARAM(i) (static_cast<const AptDefineFunction2Param *>(mpFunction->aszParams)[i])
+void AptScriptFunction2::SetArgument(AptValue *pValue, int nIndex)
+{
+    if (DF2_PARAM(nIndex).nRegister) {
+        Rva00709F70Set(DF2_PARAM(nIndex).nRegister, pValue);
+        return;
+    }
+    if (!spFrameStack)
+        rva006FBED0();
+    EAStringC name(DF2_PARAM(nIndex).szName);
+    AptFrameStackHash::Of(spFrameStack).Set(&name, pValue);
+}
+#undef DF2_PARAM
+// PC vtable8EE938 slot22, full129B 709C10..709C91 RET8: DefineFunction
+// parameters are plain names at mpFunction+08, always defined on the frame hash.
+void AptScriptFunction1::SetArgument(AptValue *pValue, int nIndex)
+{
+    if (!spFrameStack)
+        rva006FBED0();
+    EAStringC name(mpFunction->aszParams[nIndex]);
+    AptFrameStackHash::Of(spFrameStack).Set(&name, pValue);
+}
