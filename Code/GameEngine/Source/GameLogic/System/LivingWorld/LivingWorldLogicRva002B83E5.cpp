@@ -60,6 +60,7 @@ class LivingWorldLogic
 public:
 	void processArmyDestroyList();
 	void rva002B83E5();
+	void rva002B84C8();
 
 	unsigned char m_pad00[0xb0];
 	Rva0020EE29 *m_regions;					// +0xB0
@@ -89,4 +90,12 @@ void LivingWorldLogic::rva002B83E5()
 		updateBuddyStatus(GAMESPY_BUDDY_STATUS_5, 0,
 			WideCharStringToMultiByte(((Rva0022C4DF *)TheGameSpyGame)->rva0022C4DF().str()));
 	((Rva00211570 *)TheLivingWorldManager)->rva00211570();
+}
+
+// 0x002B84C8 (5B), directly after the body it enters: a tail jump into the rowed
+// 0x002B83E5 with its arguments unchanged. No referencing site found in this pass;
+// address-named.
+void LivingWorldLogic::rva002B84C8()
+{
+	rva002B83E5();
 }

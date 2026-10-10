@@ -12,6 +12,7 @@ class Rva003F8090
 public:
 	void rva003F8090();
 	void *rva003F80C3();
+	void *rva003F80E1();
 private:
 	char m_00[0xc];
 	Rva003F7F30 **m_0c;
@@ -99,4 +100,12 @@ void Rva003F8083::rva003F8083()
 	if (p == 0)
 		return;
 	p->rva003F7E90();
+}
+
+// 0x003F80E1 (5B), directly after the body it enters: a tail jump into the rowed
+// 0x003F80C3 with its arguments unchanged. No referencing site found in this pass;
+// address-named.
+void *Rva003F8090::rva003F80E1()
+{
+	return rva003F80C3();
 }

@@ -24,6 +24,7 @@ class Rva003F8101
 {
 public:
 	void *rva003F8101();
+	void *rva003F8127();
 private:
 	char m_pad00[0x0C];
 	Rva003F8101Item **m_begin0C;
@@ -42,4 +43,12 @@ void *Rva003F8101::rva003F8101()
 			return it;
 	}
 	return 0;
+}
+
+// 0x003F8127 (5B), directly after the body it enters: a tail jump into the rowed
+// 0x003F8101 with its arguments unchanged. No referencing site found in this pass;
+// address-named.
+void *Rva003F8101::rva003F8127()
+{
+	return rva003F8101();
 }

@@ -27,6 +27,7 @@ class Rva001EB023 {
 	struct Rva001EB023Elem *m_end;
 public:
 	struct Rva001EB023Elem *rva001EB023(Rva00376A62 &val);
+	struct Rva001EB023Elem *rva001EB059(Rva00376A62 &val);
 	bool rva001EB094(Rva00376A62 &val);
 };
 
@@ -45,4 +46,12 @@ bool Rva001EB023::rva001EB094(Rva00376A62 &val)
 {
 	struct Rva001EB023Elem *last = m_end;
 	return rva001EB023(val) != last;
+}
+
+// 0x001EB059 (5B), directly after the body it enters: a tail jump into the rowed
+// 0x001EB023 with its arguments unchanged. No referencing site found in this pass;
+// address-named.
+struct Rva001EB023Elem *Rva001EB023::rva001EB059(Rva00376A62 &val)
+{
+	return rva001EB023(val);
 }

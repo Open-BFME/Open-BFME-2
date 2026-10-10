@@ -64,6 +64,7 @@ public:
     bool rva003F4538();
     int GetTeamNumberForSide(int idx);
     Rva003F498AOuter *rva003F4634(void *p);
+    Rva003F498AOuter *rva003F4688(void *p);
     void *rva003F4DEE(void *p);
     void *rva003F4FBD(void *p);
     void rva003F4944(Rva003F498ACallback *cb);
@@ -305,4 +306,12 @@ int LivingWorldBattle::rva003F45DF()
             return (int)i;
     }
     return 0;
+}
+
+// 0x003F4688 (5B), directly after the body it enters: a tail jump into the rowed
+// 0x003F4634 with its arguments unchanged. No referencing site found in this pass;
+// address-named.
+Rva003F498AOuter *LivingWorldBattle::rva003F4688(void *p)
+{
+    return rva003F4634(p);
 }
