@@ -6,7 +6,8 @@
 // native functions, each constructor/callback operand and the global sequence.
 // Class identities of the address-named constructors remain unknown. The
 // local layouts expose only their proven allocation extents and AptValue +4.
-// Existing global providers are reused with their exact COFF spellings; the
+// The undefined-value slot uses the shared AptValue pointer owner. Other
+// existing global providers retain their exact COFF spellings; the
 // E18650 provider's one-pointer EAStringC view represents the global object
 // slot, not another string allocation. Color transform32B and counter16B
 // storage are independently sized and initially zero in retail; the 16B
@@ -35,7 +36,7 @@ typedef AptValue*(__cdecl*AptNativeCallback)(AptValue*,int);
 class AptNativeFunction:public AptValue{public:AptNativeFunction(AptNativeCallback);char body[0x24-8];POOL_F4};
 class AptString:public AptValue{public:static AptString *Create();};
 class AptValueVector{public:void ReleaseValues();};extern AptValueVector*g_releaseVectorAtE17710;
-class BfmeAptValue006DCD20;extern BfmeAptValue006DCD20*g_aptUndefinedAtE18078;
+extern AptValue *gpUndefinedValue;
 class AptRenderingContext;extern AptRenderingContext*g_aptRenderingContextAtE180C0;
 struct BfmeM1208{float m_w[6];};extern BfmeM1208 g_aptBoxAtE180C4;
 struct AptColorTransformWords{float m_w[8];};AptColorTransformWords g_aptIdentityColorTransform;
@@ -53,7 +54,7 @@ struct AptActionInterpreter;AptValue *rva006ff850(AptActionInterpreter*,int);
 AptValue *callback006FD2D0(AptValue*,int);
 struct AptActionInterpreter;AptValue *rva006ff5d0(AptActionInterpreter*,int);
 void Rva006DF470Initialize(){
-g_aptUndefinedAtE18078=(BfmeAptValue006DCD20*)new Rva006DE2C0;
+gpUndefinedValue=new Rva006DE2C0;
 g_aptRenderingContextAtE180C0=(AptRenderingContext*)new Rva008D2B10;
 ((AptValue*&)g_Rva01337A20)=new Rva006DE390;
 g_shutdownAtE18070=new Rva006DE480;g_shutdownAtE18070->AddRef();
