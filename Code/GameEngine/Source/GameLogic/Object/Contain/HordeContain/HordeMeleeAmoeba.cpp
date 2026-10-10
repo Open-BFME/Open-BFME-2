@@ -66,10 +66,13 @@ class AmoebaListProvider : public AmoebaSlots<70> { public: virtual void fill(Am
 struct AmoebaHeld { unsigned char pad[0x120]; bool active; };
 class Rva0046ACF6 { public: int rva0046ACF6(int); };
 
+struct ICoord2DBase { int x,y; };
+struct ICoord2D : public ICoord2DBase {};
 struct AmoebaAttackEntry {
+ void rva005872CF(const ICoord2DBase &);
  Coord3D position;
  bool needsPosition; unsigned char pad0D[3];
- int timer; unsigned char pad14[0x34-0x14];
+ int timer; ICoord2D cells[4];
  int groupValue; bool arrived,active; unsigned char pad3A[2];
 };
 struct AmoebaData { unsigned char pad[0x64]; int groupValue; };
@@ -106,4 +109,15 @@ void HordeMeleeAmoeba::startMeleeAttack(Object *victim)
   unit->rva0028CDB6();
   ai->resetAttack();
  }
+}
+
+// Native5872CF..587305 complete54B RET4. Amoeba update5889D7 and
+// WB14718F0 prove this entry view and the four-cell FIFO at14 / count10.
+// Original helper and entry type names remain unknown.
+void AmoebaAttackEntry::rva005872CF(const ICoord2DBase &cell)
+{
+ if(timer==4) {
+  for(int i=1;i<4;++i) cells[i-1]=cells[i];
+ } else ++timer;
+ static_cast<ICoord2DBase &>(cells[timer-1])=cell;
 }
