@@ -7,6 +7,17 @@
 // array-delete helper. Its Ghidra body has no source row, so the member call
 // uses an address pin for that helper.
 
+class ShroudManagerImpl
+{
+public:
+ void QueueUndoShroudReveal(int x,int y,int *radii,float rotation,unsigned mask);
+};
+class Gen_008F7CD0
+{
+public:
+ void rva0073CE90(int x,int y,int radius,int counter,int amount,int mask);
+};
+
 class CDEVirtualBase
 {
 public:
@@ -74,17 +85,16 @@ public:
 	int m_values[20];
 	int m_slots[20];
 	unsigned char m_status[20];
-	int m_bfmeB4;
-	int m_bfmeB8;
-	int m_bfmeBC;
-	int m_bfmeC0;
-	int m_bfmeA[2];
-	unsigned int m_bfmeC[2];
-	unsigned int m_bfmeB[2];
-	unsigned char m_bfmeDC;
+	int m_cellX; // +D8
+	int m_cellY; // +DC
+	int m_revealRadii[3]; // +E0
+	unsigned m_revealMask; // +EC
+	float m_rotation; // +F0
+	int m_changeRadii[3]; // +F4
+	int m_changeMasks[3]; // +100
+	int m_changeAmounts[3]; // +10C
 };
 
-#pragma comment(linker, "/alternatename:?d_008f7990@BfmeThingCDE@@QAEXXZ=?d_008f7990@@YAXXZ")
 #pragma comment(linker, "/alternatename:?ArrayDeleteHelperBodyThunk@@YGXPAXII0@Z=??_M@YGXPAXIHP6EX0@Z@Z")
 
 void __stdcall ArrayDeleteHelperBodyThunk(void *, unsigned, unsigned, void *);
@@ -187,4 +197,25 @@ void BfmeThingCDE::bfmeDtorCDE()
 	if (m_link1 != 0)
 		m_link1->m_0c = m_link0;
 	m_link0->m_00 = m_link1;
+}
+
+// ?d_008f7990@BfmeThingCDE@@QAEXXZ 133B at 0x00739F50.
+// Native 739F50..739FD5 and the complete WorldBuilder undo counterpart
+// establish one queued three-radius reveal and three signed circle changes.
+void BfmeThingCDE::d_008f7990()
+{
+ if(m_revealRadii[0]>=0)
+ {
+  ((ShroudManagerImpl*)m_owner)->QueueUndoShroudReveal(m_cellX,m_cellY,m_revealRadii,m_rotation,m_revealMask);
+  m_revealRadii[0]=-1;
+ }
+ for(unsigned i=0;i<3;++i)
+ {
+  int *radius=&m_changeRadii[i];
+  if(*radius>=0 && (unsigned)m_changeAmounts[i]>0)
+  {
+   ((Gen_008F7CD0*)m_owner)->rva0073CE90(m_cellX,m_cellY,*radius,i,-m_changeAmounts[i],m_changeMasks[i]);
+   *radius=-1;
+  }
+ }
 }
