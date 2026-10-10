@@ -74,7 +74,7 @@ void *__cdecl operator new(unsigned int size);
 class Rva0057BC63FunctorHolder
 {
 public:
-	__declspec(noinline) Rva0057BC63FunctorHolder(const FunctorBinding &binding)
+	Rva0057BC63FunctorHolder(const FunctorBinding &binding)
 	{
 		m_ptr = new Rva0057BC63FunctorWrapper(binding);
 		if (m_ptr != 0)

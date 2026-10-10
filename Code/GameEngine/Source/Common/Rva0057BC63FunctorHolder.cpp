@@ -1,5 +1,7 @@
 // cl: /O1 /MD
-// ??0Rva0057BC63FunctorHolder@@QAE@ABUFunctorBinding@@@Z @0x0057BC63 59B
+// The holder/wrapper/invoker rows (0x0057BC63 59B, 0x005185BA 30B,
+// 0x00514EA0 11B) live in AptOptionsConstructor.cpp; this TU keeps the shared
+// class views and the absent-from-retail anchor definition.
 // Holder FROM_REFERENCE: m_ptr = new Wrapper(binding); if (m_ptr) m_refCount++.
 // Donor: reference/open-bfme-1/Code/GameEngine/Source/Common/FunctorBindWrapperCtors.cpp
 // (BFME_FUNCTOR_HOLDER_FROM_REFERENCE, 24B wrapper, 16B FunctorBinding).
@@ -47,6 +49,9 @@ public:
 // Independently, this wrapper's existing native ctor5185BA installsC6FAA0,
 // whose second slot names514EA0; its four copied binding words establish
 // object+8 and the actual {code,delta} member-pointer words+10/+14.
+// The holder constructor row lives in AptOptionsConstructor.cpp (identical
+// select-any copy); its exclusive definition here is removed so the link
+// keeps the one retail copy. This TU keeps the sole invoker definition.
 void Rva0057BC63FunctorWrapper::invoke() {
     (m_binding.m_target->*m_binding.m_method)();
 }
@@ -57,10 +62,3 @@ public:
 	Rva0057BC63FunctorHolder(const FunctorBinding &binding);
 	Rva0057BC63FunctorWrapper *m_ptr;
 };
-
-Rva0057BC63FunctorHolder::Rva0057BC63FunctorHolder(const FunctorBinding &binding)
-{
-	m_ptr = new Rva0057BC63FunctorWrapper(binding);
-	if (m_ptr != 0)
-		m_ptr->m_refCount++;
-}

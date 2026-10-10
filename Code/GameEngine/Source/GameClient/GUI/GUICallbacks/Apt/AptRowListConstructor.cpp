@@ -120,14 +120,16 @@ public:
 void *__cdecl operator new(unsigned int size);
 
 // The holder constructor (row 0x0057BC63, Rva0057BC63FunctorHolder.cpp) is
-// visible here as an inline, never-inlined definition. Retail's compiler knew
+// defined here inline. Retail's compiler knew
 // it only reads the binding, so the query binding built inside the loop below
 // (WorldBuilder's shape) is hoisted out of it and the loop counter shares the
 // dead name home [ebp+0xC]; declared out of line, cl picks other registers.
+// The inline body is a select-any COMDAT; all copies fold onto the single
+// kept copy (rows live in AptOptionsConstructor.cpp).
 class Rva0057BC63FunctorHolder
 {
 public:
-	__declspec(noinline) Rva0057BC63FunctorHolder(const FunctorBinding &binding)
+	Rva0057BC63FunctorHolder(const FunctorBinding &binding)
 	{
 		m_ptr = new Rva0057BC63FunctorWrapper(binding);
 		if (m_ptr != 0)

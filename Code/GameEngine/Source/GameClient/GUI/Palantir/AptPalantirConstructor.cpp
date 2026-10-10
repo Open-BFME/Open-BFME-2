@@ -51,12 +51,13 @@ public:
 void *__cdecl operator new(unsigned int size);
 
 // The holder constructor (row 0x0057BC63, Rva0057BC63FunctorHolder.cpp) is
-// visible here as an inline, never-inlined definition, as in
-// AptOptionsConstructor.cpp: retail's compiler knew it only reads the binding.
+// defined here inline, as in AptOptionsConstructor.cpp: retail's compiler
+// knew it only reads the binding. The inline body is a select-any COMDAT;
+// all copies fold onto the single kept copy at link time.
 class Rva0057BC63FunctorHolder
 {
 public:
-	__declspec(noinline) Rva0057BC63FunctorHolder(const FunctorBinding &binding)
+	Rva0057BC63FunctorHolder(const FunctorBinding &binding)
 	{
 		m_ptr = new Rva0057BC63FunctorWrapper(binding);
 		if (m_ptr != 0)
