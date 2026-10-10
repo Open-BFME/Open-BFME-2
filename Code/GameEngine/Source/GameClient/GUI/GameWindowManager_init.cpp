@@ -49,3 +49,18 @@ void GameWindowManager::init()
 	TheTransitionHandler->load();
 	TheTransitionHandler->init();
 }
+
+// ?init@Rva008FCA3@@UAEXXZ @0x0008FF0D 5B: slot 1 of the device window
+// manager's vtable 0x007C7C90 (??_7Rva008FCA3, the W3DGameWindowManager of
+// W3DGameWindowManagerGadgets.cpp). Zero Hour's W3DGameWindowManager::init
+// only extends GameWindowManager::init, here a tail jump to 0x002C0A0F.
+class Rva008FCA3 : public GameWindowManager
+{
+public:
+	virtual void init();
+};
+
+void Rva008FCA3::init()
+{
+	GameWindowManager::init();
+}
