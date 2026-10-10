@@ -224,17 +224,42 @@ def clean_coverage_lost(old, new):
     if not changed:
         return []
 
-    def clean_sources(rva, rows_by_rva, naked):
+    import build
+    import pe_imports
+
+    imports = None
+
+    def retail_imports():
+        nonlocal imports
+        if imports is None:
+            imports = pe_imports.read_imports(build.EXE.read_bytes())
+        return imports
+
+    source_text = {}
+
+    def historical_source(rev, path):
+        key = rev, path
+        if key not in source_text:
+            source_text[key] = show(rev, path)
+        return source_text[key]
+
+    def clean_sources(rev, rva, rows_by_rva, naked):
+        # A generated, retail-proven FF25 import placeholder owns linker glue,
+        # not recovered C++. Its real ABI stub may be assembly. Neither a tag
+        # nor another generated C++ family grants this narrow exception.
         return sorted({r["source"] for r in rows_by_rva[rva]
                        if not r["source"].endswith(".asm")
-                       and (r["name"], r["target_rva"]) not in naked})
+                       and (r["name"], r["target_rva"]) not in naked
+                       and not pe_imports.generated_import_scaffold(
+                           r, build.read_target_bytes, retail_imports,
+                           lambda path: historical_source(rev, path))})
 
     old_naked = naked_keys(old, old_rows, {r["source"] for rva in changed for r in old_rows[rva]})
     new_naked = naked_keys(new, new_rows, {r["source"] for rva in changed for r in new_rows[rva]})
     lost = []
     for rva in changed:
-        before = clean_sources(rva, old_rows, old_naked)
-        if before and not clean_sources(rva, new_rows, new_naked):
+        before = clean_sources(old, rva, old_rows, old_naked)
+        if before and not clean_sources(new, rva, new_rows, new_naked):
             lost.append((rva, old_rows[rva][0]["name"], ", ".join(before),
                          ", ".join(sorted({r["source"] for r in new_rows[rva]}))))
     return lost

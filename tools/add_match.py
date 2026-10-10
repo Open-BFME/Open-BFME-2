@@ -40,6 +40,24 @@ DEFAULT_ROOT = Path(__file__).resolve().parents[1]
 MARKER_RE = re.compile(r"^\s*//\s*(\S+)\s+present-unmatched\b")
 
 
+def replacement_scaffold(row, root=None):
+    """A named takeover may retire only anonymous scaffolding.
+
+    Import placeholders also yield, but their path, synthetic name and retail
+    PE identity are proven together; a gen-import note cannot erase real code.
+    """
+    if row["notes"].lstrip().startswith(("gen-dump", "gen-alias")):
+        return True
+    import build
+    import pe_imports
+
+    claim = {**row, "target_rva": row["rva"], "target_size": row["size"]}
+    return pe_imports.generated_import_scaffold(
+        claim, build.read_target_bytes,
+        lambda: pe_imports.read_imports(build.EXE.read_bytes()),
+        lambda path: (Path(root) if root is not None else DEFAULT_ROOT).joinpath(path).read_bytes())
+
+
 def fail(*lines):
     for line in lines:
         print(f"add_match: {line}", file=sys.stderr)
@@ -372,12 +390,14 @@ def main():
             )
         # gen-dump rows pin bytes with no identity; gen-alias rows (dup_*
         # names served by another object's identical body) carry no identity
-        # of their own either. AGENTS.md: a gen-* placeholder yields to a real
+        # of their own either. Verified gen-import rows own linker scaffolding,
+        # not authored C++: their real PE slot/DLL/export are checked below.
+        # AGENTS.md: a gen-* placeholder yields to a real
         # name. Everything else is a real claim and must be retracted on its own.
-        if not at_rva[0]["notes"].lstrip().startswith(("gen-dump", "gen-alias")):
+        if not replacement_scaffold(at_rva[0], root):
             fail(
                 f"--replace-rva 0x{old_rva:08X} is {at_rva[0]['name']} "
-                f"({at_rva[0]['source']}), not a gen-dump or gen-alias scaffold row",
+                f"({at_rva[0]['source']}), not a gen-dump, gen-alias or verified gen-import scaffold row",
                 "only scaffolding may be taken over by name; retract a real claim "
                 "in its own commit so the retraction is reviewable",
             )

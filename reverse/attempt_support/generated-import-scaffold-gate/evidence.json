@@ -1,0 +1,58 @@
+{
+  "fixed_bf2": "63316aef2c7d4376a873d2e685e8f9d390dfabe4",
+  "fixed_bf1": "575ba2b04743f190f069805fbdc59936123c45da",
+  "retail_sha256": "f008b587570bad693981dc7218588c81d192a1e064b0f7f861539c51156a7640",
+  "imports": [
+    {
+      "symbol": "_D3DXMatrixMultiply@12",
+      "thunk_rva": "0x62af26",
+      "extent": 6,
+      "bytes": "ff25b4a9bb00",
+      "iat_va": "0xbba9b4",
+      "dll": "d3dx9_27.dll",
+      "export": "D3DXMatrixMultiply",
+      "coff_iat_name": "__imp__D3DXMatrixMultiply@12",
+      "abi_note": "existing pinned declaration stdcall 12 bytes; retail thunk alone does not prove argument types"
+    },
+    {
+      "symbol": "_D3DXMatrixTranspose@8",
+      "thunk_rva": "0x62af44",
+      "extent": 6,
+      "bytes": "ff25c4a9bb00",
+      "iat_va": "0xbba9c4",
+      "dll": "d3dx9_27.dll",
+      "export": "D3DXMatrixTranspose",
+      "coff_iat_name": "__imp__D3DXMatrixTranspose@8",
+      "abi_note": "existing pinned declaration stdcall 8 bytes; retail thunk alone does not prove argument types"
+    }
+  ],
+  "add_match_before": "command: ['C:\\\\Users\\\\clemens\\\\scoop\\\\apps\\\\python\\\\current\\\\python.exe', 'tools/add_match.py', '_D3DXMatrixMultiply@12', '0x0062AF26', '6', 'Code/masm_dumps/D3DXMatrixImportThunks.asm', '--replace-rva', '0x0062AF26', '--notes', 'Actual d3dx9_27.dll linker FF25 entry through named IAT BBA9B4; compiler machinery only; zero C++ credit']\nexit=1\nadd_match: --replace-rva 0x0062AF26 is ?ji_0062af26@@YAXXZ (Code/gen_small/imports_000.cpp), not a gen-dump or gen-alias scaffold row\nadd_match: only scaffolding may be taken over by name; retract a real claim in its own commit so the retraction is reviewable\n",
+  "rule_b_before": "command: conversion_gate.py dbfd027680fedb034d1c19c27b5fd19f6c0d72b2 fb0366d62a4d089a09e2907baf7d723bc0eab725\nexit=1\nconversion gate: 0x0062AF26 (?ji_0062af26@@YAXXZ) was clean C++ at Code/gen_small/imports_000.cpp, repointed to Code/masm_dumps/D3DXMatrixImportThunks.asm.\nC++ exact never goes backward: retract the row in its own commit if the\nclaim is wrong; never swap a dump under a live claim.\nconversion gate: 0x0062AF44 (?ji_0062af44@@YAXXZ) was clean C++ at Code/gen_small/imports_000.cpp, repointed to Code/masm_dumps/D3DXMatrixImportThunks.asm.\nC++ exact never goes backward: retract the row in its own commit if the\nclaim is wrong; never swap a dump under a live claim.\n",
+  "rule_b_after": {
+    "base": "dbfd027680fedb034d1c19c27b5fd19f6c0d72b2",
+    "tip": "5aea0cb661043b8feccac8529f37395dc80566c7",
+    "command": [
+      "C:\\Users\\clemens\\scoop\\apps\\python\\current\\python.exe",
+      "C:\\Users\\clemens\\.codex\\worktrees\\bfme1-reference-freshness\\Open-BFME-2\\tools\\conversion_gate.py",
+      "dbfd027680fedb034d1c19c27b5fd19f6c0d72b2",
+      "5aea0cb661043b8feccac8529f37395dc80566c7"
+    ],
+    "returncode": 0,
+    "output": "",
+    "assembly_sha256": "7f8924c3e1a57d4cc24e0bb2312c90fbbd360974e925f762ecbadb6c0d35c2d3",
+    "gate_sha256": "353fa91f8d1f1509d88e512b4fa63db963843739be3ff17536a83555f5e52d73",
+    "import_proof_sha256": "21a538fe3c4395b23cefce1f8e6eca4e97ab61a42b7f70b4cf079fcac2d4b54f"
+  },
+  "reviewed_false_reject_commit": "d8dba6f8df23a0f7e17b16a25e8323388d7e18ed",
+  "normal_byte_scope": "No production Code, row, pin or compiler command changed. Normal add_match build and rollback remain required.",
+  "validation": {
+    "command": "python3 -m pytest -q tools/tests/test_pe_imports.py tools/tests/test_conversion_gate_ranges.py tools/tests/test_add_match_import_scaffold.py tools/tests/test_add_match_claim_release.py tools/tests/test_gate_exploits.py tools/tests/test_import_refs.py tools/tests/test_dir32_import_slots.py",
+    "result": "156 passed, 1 inherited open-red-team fixture skipped",
+    "elapsed_seconds": 46.5
+  },
+  "tool_hashes": {
+    "tools/pe_imports.py": "21a538fe3c4395b23cefce1f8e6eca4e97ab61a42b7f70b4cf079fcac2d4b54f",
+    "tools/conversion_gate.py": "353fa91f8d1f1509d88e512b4fa63db963843739be3ff17536a83555f5e52d73",
+    "tools/add_match.py": "cd456c8ec5411620212e956419b2b18a35a39a48a313a3227d67e92e0eec1328"
+  }
+}

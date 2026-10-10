@@ -167,3 +167,105 @@ def test_clean_cpp_repointed_to_dump_remains_refused(repo, monkeypatch):
     tip = commit()
     assert gate.clean_coverage_lost(base, tip)
     assert check_main(monkeypatch, base, tip) == 1
+
+
+@pytest.fixture
+def imports(monkeypatch, tmp_path):
+    import build
+    from test_pe_imports import fixture_pe, scaffold_row, scaffold_source, thunk
+    data, slots = fixture_pe([("d3dx9_27.dll", "D3DXMatrixMultiply")])
+    exe = tmp_path / "fixture.exe"
+    exe.write_bytes(data)
+    monkeypatch.setattr(build, "EXE", exe)
+    monkeypatch.setattr(build, "read_target_bytes", lambda rva, size: thunk(slots[0]))
+    row = scaffold_row(slots[0])
+    def csv_row(row):
+        return ",".join(row.get(key, "") for key in HEADER.strip().split(",")) + "\n"
+    return row, scaffold_source(), csv_row
+
+
+def test_exact_generated_import_may_yield_to_real_abi_assembly(repo, imports, monkeypatch):
+    _, write, commit, _ = repo
+    row, source, csv_row = imports
+    write(row["source"], source)
+    write("reverse/functions.csv", HEADER + csv_row(row))
+    before = commit()
+    write("Code/masm_dumps/Import.asm", ".386\n.model flat\nEND\n")
+    write("reverse/functions.csv", HEADER + csv_row({**row, "name": "_D3DXMatrixMultiply@12",
+          "source": "Code/masm_dumps/Import.asm", "notes": "compiler import glue"}))
+    tip = commit()
+    assert gate.clean_coverage_lost(before, tip) == []
+    assert check_main(monkeypatch, before, tip) == 0
+
+
+@pytest.mark.parametrize("forge", ["authored-path", "actual-name", "body", "wrong-slot"])
+def test_gen_import_tag_cannot_hide_authored_cpp_loss(repo, imports, monkeypatch, forge):
+    _, write, commit, _ = repo
+    row, source, csv_row = imports
+    if forge == "authored-path":
+        row["source"] = "Code/Handwritten.cpp"
+    elif forge == "actual-name":
+        row["name"] = "?actual@@YAXXZ"
+    elif forge == "body":
+        source = source.replace("D3DXMatrixMultiply(); }", "D3DXMatrixMultiply(); side_effect(); }")
+    else:
+        row["notes"] = row["notes"].replace("slot=0x00401480", "slot=0x00401490")
+    write(row["source"], source)
+    write("reverse/functions.csv", HEADER + csv_row(row))
+    before = commit()
+    write("Code/masm_dumps/Import.asm", ".386\n.model flat\nEND\n")
+    write("reverse/functions.csv", HEADER + csv_row({**row, "source": "Code/masm_dumps/Import.asm"}))
+    tip = commit()
+    assert gate.clean_coverage_lost(before, tip)
+    assert check_main(monkeypatch, before, tip) == 1
+
+
+def test_import_proof_reads_old_revision_not_current_worktree(repo, imports, monkeypatch):
+    _, write, commit, _ = repo
+    row, source, csv_row = imports
+    write(row["source"], source.replace("D3DXMatrixMultiply(); }", "D3DXMatrixMultiply(); side_effect(); }"))
+    write("reverse/functions.csv", HEADER + csv_row(row))
+    before = commit()
+    # A now-canonical working-tree body must not erase OLD's authored semantics.
+    write(row["source"], source)
+    write("Code/masm_dumps/Import.asm", ".386\n.model flat\nEND\n")
+    write("reverse/functions.csv", HEADER + csv_row({**row, "source": "Code/masm_dumps/Import.asm"}))
+    tip = commit()
+    assert gate.clean_coverage_lost(before, tip)
+    assert check_main(monkeypatch, before, tip) == 1
+
+
+def test_other_cpp_owner_at_import_address_keeps_rule_b_coverage(repo, imports, monkeypatch):
+    _, write, commit, _ = repo
+    row, source, csv_row = imports
+    write(row["source"], source)
+    authored = {**row, "name": "?actual@@YAXXZ", "source": "Code/Old.cpp", "notes": ""}
+    write("reverse/functions.csv", HEADER + csv_row(row) + csv_row(authored))
+    before = commit()
+    write("Code/masm_dumps/Import.asm", ".386\n.model flat\nEND\n")
+    write("reverse/functions.csv", HEADER + csv_row({**row, "source": "Code/masm_dumps/Import.asm"}))
+    tip = commit()
+    assert gate.clean_coverage_lost(before, tip)
+    assert check_main(monkeypatch, before, tip) == 1
+
+
+def test_rule_b_uses_old_scaffold_blob_even_when_worktree_is_modified(repo, imports, monkeypatch):
+    _, write, commit, _ = repo
+    row, source, csv_row = imports
+    write(row["source"], source)
+    write("reverse/functions.csv", HEADER + csv_row(row))
+    before = commit()
+    write("Code/masm_dumps/Import.asm", ".386\n.model flat\nEND\n")
+    write("reverse/functions.csv", HEADER + csv_row({**row, "source": "Code/masm_dumps/Import.asm"}))
+    tip = commit()
+    write(row["source"], "handwritten body in the worktree\n")
+    assert gate.clean_coverage_lost(before, tip) == []
+    assert check_main(monkeypatch, before, tip) == 0
+
+
+@pytest.mark.parametrize("which", ["old", "new"])
+def test_invalid_revision_is_not_an_import_exemption(repo, imports, which):
+    _, _, _, base = repo
+    with pytest.raises(SystemExit, match="failed"):
+        gate.clean_coverage_lost("not-a-real-ref" if which == "old" else base,
+                                "not-a-real-ref" if which == "new" else base)
