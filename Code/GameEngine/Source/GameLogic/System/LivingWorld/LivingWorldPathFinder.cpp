@@ -53,7 +53,9 @@ unsigned char Rva003EF5FBNode::rva003EF5FB(int owner){
 // Capture node cost before callback (which can mutate it) and hold an adjacency
 // vector reference across iteration; both native scheduling facts are byte-proven.
 struct Rva003EF6D6Entry;struct Rva003EF6D6Span;struct Rva003C4CF0Span;class Rva002C589B;
+struct Rva003EF6A0Entry;struct Rva003EF6A0Span;
 class Rva003EF8E1{public:
+ Rva003EF6A0Entry *rva003EF6A0(Rva003EF6A0Span *,int);
  void rva003EF8E1(Rva003EF5FBNode*,int,bool);
  bool contains(Rva003EF6D6Span*,Rva003EF6D6Entry*);
  void remove(Rva003C4CF0Span*,int);
@@ -80,5 +82,31 @@ void Rva003EF8E1::rva003EF8E1(Rva003EF5FBNode *node,int owner,bool allowOther){
   next->estimate20=metric->v00((const Rva003F71D4Point*)next,(const Rva003F71D4Point*)goal);
   next->total24=next->cost1c+next->estimate20;
   insertSorted((_STL::vector<Rva002C589B*>*)&open,(Rva002C589B*)next);
+ }
+}
+
+// Native003EFC1C complete136 RET8 clears output then emits keys of adjacent
+// reachable nodes after the same251 relaxation. WB01039AE0 proves this order.
+// ScienceType names an existing four-byte vector ABI provider (reserve110,
+// erase32 and push49), not the original target ID typedef. Host inheritance
+// shares our verified prefix view; original source inheritance is unasserted.
+enum ScienceType { SCIENCE_NONE=0 };
+class BfmeSlotVecG { public: void bfmeErase(void **,void **); void **begin,*end,*limit; };
+class Rva003EFC1CHost:public Rva003EF8E1 { public: void rva003EFC1C(int,void*); };
+// ?rva003EFC1C@Rva003EFC1CHost@@QAEXHPAX@Z
+void Rva003EFC1CHost::rva003EFC1C(int from,void *output) {
+ _STL::vector<ScienceType> *out=(_STL::vector<ScienceType>*)output;
+ out->clear();
+ start=(Rva003EF5FBNode*)rva003EF6A0((Rva003EF6A0Span*)this,from);
+ goal=0;
+ _STL::vector<Rva003EF5FBNode*> &openRef=open;
+ ((BfmeSlotVecG*)&openRef)->bfmeErase((void**)openRef.begin(),(void**)openRef.end());
+ BfmeSlotVecG *closedVec=(BfmeSlotVecG*)&closed;
+ closedVec->bfmeErase((void**)closedVec->begin,(void**)closedVec->end);
+ rva003EF8E1(start,-1,true);
+ out->reserve(openRef.size());
+ for(_STL::vector<Rva003EF5FBNode*>::iterator it=openRef.begin();it!=open.end();++it){
+  ScienceType id=(ScienceType)(*it)->key;
+  out->push_back(id);
  }
 }
