@@ -53,10 +53,39 @@ public:
 
 Xfer &xferRandomVariable(Xfer &xfer, GameClientRandomVariable &var);
 
-class Rva003AF9A9
+// The two tables (data ledger): ModuleInfoHeadBase at +0 and the
+// TerrainFireEmissionInfo table at +0x1C, both with xfer in slot 3; slot 3 of
+// the second is the this-adjusting (sub ecx, 0x1C) thunk 0x003AC178.
+class Rva003AF9A9HeadView
 {
 public:
-	char m_pad[0x20];
+	virtual void slot0();
+	virtual void slot1();
+	virtual void slot2();
+protected:
+	virtual void xfer(Xfer *xfer) = 0;
+private:
+	char m_unmodelled04[0x1C - 0x04];
+};
+
+class Rva003AF9A9InfoView
+{
+public:
+	virtual void slot0();
+	virtual void slot1();
+	virtual void slot2();
+protected:
+	virtual void xfer(Xfer *xfer) = 0;
+private:
+	char m_unmodelled20[0x24 - 0x20];
+};
+
+struct EmitVtableTag;
+
+class Rva003AF9A9 : public Rva003AF9A9HeadView, public Rva003AF9A9InfoView
+{
+public:
+	Rva003AF9A9(EmitVtableTag *);
 	GameClientRandomVariable m_var24;
 	GameClientRandomVariable m_var30;
 	GameClientRandomVariable m_var3C;
@@ -73,4 +102,11 @@ void Rva003AF9A9::xfer(Xfer *xfer)
 	xferRandomVariable(*xfer, m_var30);
 	xferRandomVariable(*xfer, m_var3C);
 	xfer->xferReal(&m_real48);
+}
+
+// Tag constructor with no retail counterpart: it only makes this TU emit the
+// class's tables and with them the xfer thunk.
+// ?<Rva003AF9A9::Rva003AF9A9> absent-from-retail
+Rva003AF9A9::Rva003AF9A9(EmitVtableTag *)
+{
 }

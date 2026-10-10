@@ -52,18 +52,44 @@ public:
 	void Version1();
 };
 
-class Rva003AF7FE
+// The two tables (data ledger): ModuleInfoHeadBase at +0 and the
+// LineEmissionVolumeInfo table at +0x1C, both with xfer in slot 3; slot 3 of
+// the second is the this-adjusting (sub ecx, 0x1C) thunk 0x003AC125.
+class Rva003AF7FEHeadView
 {
 public:
+	virtual ~Rva003AF7FEHeadView();
+	virtual void rva0055D616() = 0;
+	virtual void s02();
+protected:
+	virtual void xfer(Xfer *xfer) = 0;
+private:
+	char m_unmodelled04[0x1C - 0x04];
+};
+
+class Rva003AF7FEInfoView
+{
+public:
+	virtual void slot0();
+	virtual void slot1();
+	virtual void slot2();
+protected:
+	virtual void xfer(Xfer *xfer) = 0;
+};
+
+struct EmitVtableTag;
+
+class Rva003AF7FE : public Rva003AF7FEHeadView, public Rva003AF7FEInfoView
+{
+public:
+	Rva003AF7FE(EmitVtableTag *);
 	virtual ~Rva003AF7FE();
 	virtual void rva0055D616();
-	virtual void s02();
 
 protected:
 	virtual void xfer(Xfer *xfer);
 
 private:
-	char m_pad04[0x20 - 4];
 	bool m_flag20;
 	float m_real24;
 	float m_real28;
@@ -91,4 +117,11 @@ void Rva003AF7FE::xfer(Xfer *xfer)
 	xfer->xferReal(&m_real28);
 	xfer->xferReal(&m_real2C);
 	xfer->xferCoord3D(&m_coord30);
+}
+
+// Tag constructor with no retail counterpart: it only makes this TU emit the
+// class's tables and with them the xfer thunk.
+// ?<Rva003AF7FE::Rva003AF7FE> absent-from-retail
+Rva003AF7FE::Rva003AF7FE(EmitVtableTag *)
+{
 }
