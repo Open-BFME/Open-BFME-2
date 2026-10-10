@@ -279,6 +279,9 @@ struct SHADOW_DYNAMIC_VOLUME_VERTEX
 #define SHADOW_INDEX_SIZE	16384
 
 extern IDirect3DVertexBuffer8 *shadowVertexBufferD3D;
+// Owned here: the dynamic shadow-volume vertex buffer; retail .data starts
+// it at 0 (VA 0x009EBCDC).
+IDirect3DVertexBuffer8 *shadowVertexBufferD3D = 0;
 extern IDirect3DIndexBuffer8 *shadowIndexBufferD3D;
 extern Int nShadowVertsInBuf;
 extern Int nShadowStartBatchVertex;
