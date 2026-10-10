@@ -126,6 +126,7 @@ public:
 class GameLogic
 {
 public:
+	void rva0023DA49();
 	void rva0023DA4E();
 	void LivingWorldTacticalBattleComplete();
 	Rva003F468DParticipant *GetLivingWorldTacticalVictor();
@@ -180,6 +181,14 @@ void GameLogic::LivingWorldTacticalBattleComplete()
 		rva00376E92(1, 0);
 		TransitionFromLivingWorldTacticalBattle();
 	}
+}
+
+// ?rva0023DA49@GameLogic@@QAEXXZ
+// Retail 0x0023DA49 (5 bytes), right after LivingWorldTacticalBattleComplete:
+// a tail jump into it, called on TheGameLogic from the unrowed 0x0037AB28 site.
+void GameLogic::rva0023DA49()
+{
+	LivingWorldTacticalBattleComplete();
 }
 
 // ?rva0023DA4E@GameLogic@@QAEXXZ
