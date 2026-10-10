@@ -15,4 +15,5 @@ template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, 
 #pragma optimize("", on)
 
 #include "OwnedRecord900.h"
-template class _STL::vector<BfmeRecordOwner900, _STL::allocator<BfmeRecordOwner900> >;
+template _STL::vector<BfmeRecordOwner900, _STL::allocator<BfmeRecordOwner900> >::~vector();
+template void _STL::vector<BfmeRecordOwner900, _STL::allocator<BfmeRecordOwner900> >::_M_clear();

@@ -7,7 +7,8 @@
 #include "FixedStorage128.h"
 
 class OpaqueRefCounted { public: virtual ~OpaqueRefCounted(); void Release_Ref(); };
-class AsciiString { void *text_ref; public: AsciiString(const AsciiString &); ~AsciiString(); };
+// Use the established one-pointer BFME2 string view and its native member calls.
+#include "../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 class Rva002390CB {
     void *unknown_00;
     OpaqueRefCounted *owner_04;
