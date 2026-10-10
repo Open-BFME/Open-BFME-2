@@ -4,6 +4,7 @@
 extern int g_Va00E032E0;
 void Rva00433D27Enable();
 void Rva00437E9C(int);
+void Rva002B29BDFire();
 
 class Rva00222A8BTarget
 {
@@ -26,6 +27,7 @@ class GameLogic
 {
 public:
 	void rva00376D49();
+	void rva0023D0E3(bool selfDestruct);
 };
 extern GameLogic *TheGameLogic;
 
@@ -85,10 +87,13 @@ class LivingWorldLogic
 {
 public:
 	void ShowEndGameSplashScreen();
+	void rva002B88EC();
 };
 
 class Rva002B8860
 {
+	friend class LivingWorldLogic;
+
 public:
 	void rva002B8860();
 private:
@@ -125,4 +130,26 @@ void Rva002B8860::rva002B8860()
 	Rva00437E9C(1);
 	m_4c.forEach(reinterpret_cast<void (Rva002B6151Listener::*)(void *)>(&Rva005CB260::rva005CB260), this);
 	((LivingWorldLogic *)this)->ShowEndGameSplashScreen();
+}
+
+// ?rva002B88EC@LivingWorldLogic@@QAEXXZ @0x002B88EC 97B, retail's next body
+// after 0x002B8860 on the same object (0x002B8860 itself ends by calling
+// LivingWorldLogic::ShowEndGameSplashScreen on its this): the +0x154 vector
+// erase, +0x160 clear, +0x175 latch and Rva00437E9C(1) of 0x002B8860, then
+// +0x164 = -1, the HideEndGame firer 0x002B29BD (retail loads ECX = this
+// before the call although the 27B callee ignores it), the +0x4C listener
+// walk unless +0x168 is set, and GameLogic's exit tail 0x0023D0E3(false).
+void LivingWorldLogic::rva002B88EC()
+{
+	Rva002B8860 *self = reinterpret_cast<Rva002B8860 *>(this);
+	_STL::vector<TreeHintRef00217D4C, _STL::allocator<TreeHintRef00217D4C> > *p154 = &self->m_154;
+	p154->erase(p154->_M_start, p154->_M_finish);
+	self->m_160.clear();
+	self->m_175 = 1;
+	Rva00437E9C(1);
+	self->m_164 = (void *)-1;
+	reinterpret_cast<void(__fastcall *)(LivingWorldLogic *)>(Rva002B29BDFire)(this);
+	if (!self->m_168)
+		self->m_4c.forEach(reinterpret_cast<void (Rva002B6151Listener::*)(void *)>(&Rva005CB260::rva005CB260), this);
+	TheGameLogic->rva0023D0E3(false);
 }
