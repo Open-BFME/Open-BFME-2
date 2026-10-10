@@ -98,7 +98,7 @@ struct Iface00 { virtual void f00();
  virtual void p15();
  virtual void p16();
  virtual void p17();
- virtual void p18();
+ virtual void rvaPrimary48();
  virtual void p19();
  virtual void p20();
  virtual void p21();
@@ -109,6 +109,8 @@ struct Iface00 { virtual void f00();
  virtual void p26();
  virtual void p27();
  virtual bool rvaPrimary70(Object*);
+ virtual void rvaPrimary74(Object*);
+ virtual void rvaPrimary78(Object*);
  const void *m_moduleData;Object *m_object; };
 struct Iface0C { virtual void f0C(); };
 struct Iface10 { virtual void f10(); unsigned char m_pad[12]; };
@@ -123,7 +125,7 @@ struct Iface20
 	virtual void rva00465011(Object *obj) = 0;
 	virtual void g33(); virtual void g34(); virtual void g35();
 	virtual void g36();virtual void g37();virtual bool isValidContainerFor(Object*,bool,bool);
- virtual void g39(); virtual void g40();virtual void g41();virtual void g42();virtual void g43();
+ virtual void rva00464830(Object *obj) = 0; virtual void g40();virtual void g41();virtual void g42();virtual void g43();
 	SLOT08(g44,g45,g46,g47,g48,g49,g50,g51)
 	SLOT08(g52,g53,g54,g55,g56,g57,g58,g59)
 	virtual void g60();
@@ -175,9 +177,21 @@ class GarrisonContain
 public: bool rva00478629(Object*,bool,bool);
 };
 
+class Rva00588B8AMember { public:
+#define S(n) virtual void s##n();
+ S(00) S(01) S(02) S(03) S(04) S(05) S(06) S(07) S(08) S(09) S(10) S(11) S(12) S(13) S(14) S(15)
+ S(16) S(17) S(18) S(19) S(20) S(21) S(22) S(23) S(24) S(25) S(26) S(27) S(28) S(29) S(30) S(31)
+ S(32) S(33) S(34) S(35) S(36) S(37) S(38) S(39) S(40) S(41) S(42) S(43) S(44) S(45) S(46) S(47)
+ S(48) S(49) S(50) S(51) S(52) S(53) S(54) S(55) S(56) S(57) S(58) S(59) S(60) S(61) S(62) S(63)
+ S(64) S(65) S(66) S(67) S(68) S(69) S(70) S(71) S(72)
+#undef S
+ virtual void slot124();	// +0x124
+};
+
 class Rva0047A040Base9E0
 {
 public:
+ void *rva00588B8A(void *obj);
 	void rva00588BA8(Object *obj, bool flag);
 	void rva00588C4E(void *contain, Object *obj);
 	void rva00588F61(void *contain, Object *owner, Object *obj);
@@ -191,6 +205,7 @@ public:
 	virtual void rva00465011(Object *obj);
 	virtual void rva004632E0(Object *obj);
  virtual bool isValidContainerFor(Object*,bool,bool);
+	virtual void rva00464830(Object *obj);
 private:
 	int m_9E0;
 };
@@ -249,4 +264,26 @@ bool HordeGarrisonContain::isValidContainerFor(Object *obj,bool checkCapacity,bo
  }
  if(obj->testStatus(Status38)==true)return rva00588BF3(this,obj)!=0;
  return rvaPrimary70(obj);
+}
+
+// ?rva00464830@HordeGarrisonContain@@UAEXPAVObject@@@Z, retail 0x00479D6D, 96 bytes.
+// Slot 39 (OpenContain's 0x00464830): a rider that is not already contained
+// joins the horde member the +0x9E0 base finds for it (0x00588B8A, notified
+// through its slot 0x124) and goes to primary slot 0x74; otherwise the base
+// tries to start a member (0x00588BF3): success goes to primary slot 0x78,
+// failure to slot 0x74. Primary slot 0x48 runs last.
+struct HordeRiderStatusView { char opaque00[0x274]; Object *containedBy; };
+void HordeGarrisonContain::rva00464830(Object *obj)
+{
+ if(reinterpret_cast<HordeRiderStatusView*>(obj)->containedBy)return;
+ Rva00588B8AMember *member=(Rva00588B8AMember*)rva00588B8A(obj);
+ if(member){
+  member->slot124();
+  rvaPrimary74(obj);
+ }else if(rva00588BF3(this,obj)){
+  rvaPrimary78(obj);
+ }else{
+  rvaPrimary74(obj);
+ }
+ rvaPrimary48();
 }
