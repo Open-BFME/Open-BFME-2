@@ -111,10 +111,18 @@ private:
 extern TerrainLogic *TheTerrainLogic;
 extern AI *TheAI;
 
+enum PathfindLayerEnum {GROUND_LAYER=1};
+class ICoord3D {public: int x,y,z;};
+class PolygonTrigger {public: void getBounds(int*); bool pointInTrigger(const ICoord3D&);};
+class PathfindZoneManager {public: void MarkDirty(int,int);};
 class Pathfinder
 {
 public:
 	static void classifyMapCell(Int i, Int j, PathfindCell *cell);
+ PathfindCell *getCell(PathfindLayerEnum,int,int);
+ void rva0052E3E6(PolygonTrigger*,bool);
+ char m_prefix[0x460];
+ PathfindZoneManager m_zones;
 };
 
 void Pathfinder::classifyMapCell(Int i, Int j, PathfindCell *cell)
@@ -186,4 +194,28 @@ void Pathfinder::classifyMapCell(Int i, Int j, PathfindCell *cell)
 	height[3] = TheTerrainLogic->getGroundHeight(bottomRightCorner.x, bottomRightCorner.y);
 
 	((Rva0052E0A1 *)cell)->rva0052E0A1(0);
+}
+
+// 0x0052E3E6..0x0052E4C2 (220B). Native/WB 0x12DEEA0 prove a polygon
+// centre test over bounds divided by the established 10-unit cell size.
+// Cell bit18 setter and zone dirty callbacks are existing verified providers.
+// The target function name stays address-derived; the untouched Coord3D z
+// member is not consumed by the independently verified planar test wrapper.
+// getCell's layer enum and the zone manager at +0x460 follow existing rows.
+void Pathfinder::rva0052E3E6(PolygonTrigger *area,bool value)
+{
+ int bounds[4];
+ area->getBounds(bounds);
+ bounds[0]/=10; bounds[1]/=10; bounds[2]/=10; bounds[3]/=10;
+ for(int x=bounds[0];x<=bounds[2];++x) {
+  ICoord3D point;
+  point.x=x*10+5;
+  for(int y=bounds[1];y<=bounds[3];++y) {
+   point.y=y*10+5;
+   if(area->pointInTrigger(point)) {
+    PathfindCell *cell=getCell(GROUND_LAYER,x,y);
+    if(cell && ((Rva0052E05D*)cell)->rva0052E05D(value)) m_zones.MarkDirty(x,y);
+   }
+  }
+ }
 }
