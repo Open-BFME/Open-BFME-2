@@ -1,4 +1,8 @@
-// cl: /Ireference/shims/bfme2_ascii
+// ?rva004FBD3A@Rva004FBC02@@QAEXXZ
+// partial score=0.8900527368612475 date=2026-10-10
+// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /MD /ICode/Libraries/Include/Lib
+#include "unicode_string.h"
+#include "Coord3D.h"
 // ?rva004FBC02@Rva004FBC02@@QAEXPBURva004FBC02Src@@@Z 0x004FBC02 21: copies 12 bytes
 // from arg to +0x18 and sets byte at +0x24 to 1. Evidence: callers 0x002BA331 and
 // 0x002BA7E1 pass a pointer; no other callees.
@@ -10,31 +14,39 @@ struct Rva004FBC02Src
 	int m_8;
 };
 
+class __single_inheritance Rva004FBC02;
+typedef void(Rva004FBC02::*DelegateMethod)(int);
+struct DelegateDesc {void*object;DelegateMethod method;DelegateDesc(DelegateMethod m,void*o):object(o),method(m){}};
+class Rva00579E47 {public:Rva00579E47(){}Rva00579E47(const DelegateDesc&);void*ptr;};
+struct TreeHintRef00217D4C:public Rva00579E47 {
+ TreeHintRef00217D4C(){ptr=0;}
+ TreeHintRef00217D4C(const DelegateDesc&d):Rva00579E47(d){}
+ TreeHintRef00217D4C(const TreeHintRef00217D4C&o):Rva00579E47(o){if(ptr)++((int*)ptr)[1];}
+ ~TreeHintRef00217D4C();
+};
+class Rva0054D2DDTarget {public:void method(int,const UnicodeString&,const UnicodeString&,TreeHintRef00217D4C,TreeHintRef00217D4C);};
+class AptStrategicMessageBox {private:static AptStrategicMessageBox*s_instance;public:static __forceinline AptStrategicMessageBox*get(){return s_instance;}};
+class Eva {public:void reportEvaEvent(int,const Coord3D*,int);};extern Eva*TheEva;
 class Rva004FBC02
 {
-private:
-	char m_pad[0x14];
-	Rva004FBC02Src m_18;
-	unsigned char m_24;
-	bool m_25;
-	bool m_26;
 public:
-	virtual void slot0();
-	virtual void slot1();
-	virtual void slot2();
-	void rva004FBBEB(int response);
-	void rva004FBC02(const Rva004FBC02Src *src);
+ virtual void slot0();virtual void slot1();virtual void slot2();
+ void rva004FBC02(const Rva004FBC02Src*src);
+ void rva004FBBEB(int response);
+ void rva004FBD3A();
+private:
+ char pad04[4];UnicodeString text,title;int mode,event;
+ Rva004FBC02Src m_18;unsigned char m_24;bool shown,accepted;
 };
-
-// Native4FBBEB..4FBC02 RET4; 4FBD3A stores VA8FBBEB as its delegate.
-// Response3 clears25 and sets26 before dispatching owner virtual slot2.
-void Rva004FBC02::rva004FBBEB(int response)
-{
-    if (response == 3) {
-        m_25 = false;
-        m_26 = true;
-        slot2();
-    }
+void Rva004FBC02::rva004FBBEB(int response){if(response==3){shown=false;accepted=true;slot2();}}
+void Rva004FBC02::rva004FBD3A(){
+ Rva0054D2DDTarget*box=(Rva0054D2DDTarget*)AptStrategicMessageBox::get();
+ if(box){
+ DelegateMethod method=&Rva004FBC02::rva004FBBEB;
+ DelegateDesc d(method,this);
+ box->method(mode,text,title,TreeHintRef00217D4C(),TreeHintRef00217D4C(d));
+ shown=true;TheEva->reportEvaEvent(event,m_24?(const Coord3D*)&m_18:0,0);slot1();
+ }
 }
 
 void Rva004FBC02::rva004FBC02(const Rva004FBC02Src *src)
