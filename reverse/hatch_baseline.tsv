@@ -1742,6 +1742,7 @@ address_global	Code/GameEngine/Source/GameLogic/Object/Behavior/SlowDeathBehavio
 address_global	Code/GameEngine/Source/GameLogic/Object/Body/ActiveBodyConstructor.cpp	g_Va00DE0878	2
 address_global	Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/Rva004BCF92.cpp	g_Va00BC2428	2
 address_global	Code/GameEngine/Source/GameLogic/Object/Contain/AODHordeContainCtor.cpp	g_Va00DBA4E4	2
+address_global	Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain/HordeMeleeSwarm.cpp	g_Va00DBA4E4	2	allow=db38f214d6c56d2453a63b934962d0cdd7a76f5f
 address_global	Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainModuleDataCtor.cpp	g_Va00DBA4E4	4
 address_global	Code/GameEngine/Source/GameLogic/Object/CreateAHero.cpp	g_Va00DFE348	2
 address_global	Code/GameEngine/Source/GameLogic/Object/Helper/ObjectDefectionHelper.cpp	g_Va00DBA4E4	2
