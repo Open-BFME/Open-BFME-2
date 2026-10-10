@@ -121,7 +121,10 @@ Rva0041A644::Rva0041A644(EmitVtableTag *)
 {
 }
 
-class Rva0041B790
+// Rva0041B790's two tables (data ledger): GameEngineDeletingBase at +0 and Snapshot at +0xC, whose
+// slot 0 is a this-adjusting (sub ecx, 0xC) deleting-destructor thunk.
+class GameEngineDeletingBase { public: virtual ~GameEngineDeletingBase(); private: char m_unmodelled04[8]; };
+class Rva0041B790 : public GameEngineDeletingBase, public Snapshot
 {
 public:
 	Rva0041B790(EmitVtableTag *);
@@ -160,7 +163,11 @@ Rva0041F94A::Rva0041F94A(EmitVtableTag *)
 {
 }
 
-class Rva00426745
+// Rva00426745's two tables (data ledger): SubsystemInterface at +0 and Rva00426745SnapshotBase at +0xC, whose
+// slot 0 is a this-adjusting (sub ecx, 0xC) deleting-destructor thunk.
+class SubsystemInterface { public: virtual ~SubsystemInterface(); private: char m_unmodelled04[8]; };
+class Rva00426745SnapshotBase { public: virtual ~Rva00426745SnapshotBase(); };
+class Rva00426745 : public SubsystemInterface, public Rva00426745SnapshotBase
 {
 public:
 	Rva00426745(EmitVtableTag *);

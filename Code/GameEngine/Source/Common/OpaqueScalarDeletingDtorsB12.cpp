@@ -85,7 +85,9 @@ AptMainMenu::AptMainMenu(EmitVtableTag *)
 {
 }
 
-class Rva005173F8
+// Rva005173F8's two tables (data ledger): GameWindow at +0 and Rva005248D0 at +0x218, whose
+// slot 0 is a this-adjusting (sub ecx, 0x218) deleting-destructor thunk.
+class Rva005173F8 : public GameWindow, public Rva005248D0
 {
 public:
 	Rva005173F8(EmitVtableTag *);
