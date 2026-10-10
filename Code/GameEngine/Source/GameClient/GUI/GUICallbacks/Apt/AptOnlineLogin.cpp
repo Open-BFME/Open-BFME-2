@@ -7,6 +7,14 @@
 #include "unicode_string.h"
 // stlport
 // Native string cleanup calls the existing STL allocator free, not CRT free.
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
 #include <stdlib.h>
 namespace _STL { void __cdecl free(void *block); }
 #define free _STL::free
