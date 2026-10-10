@@ -143,3 +143,35 @@ void ControlBar::rva00405D77()
 {
     reinterpret_cast<Rva00405AA7 *>(this)->rva00405AA7();
 }
+
+// WB1557CC0 identifies the right-click dispatcher adjacent to the named
+// ParasiticInGameCommandButton::Impl::DoOnRightClicked. Target118B proves
+// activation-bit1C and enable-byte10C in GadgetButtonGetData, with BFME2's
+// offsets taking precedence over WB's 20/110. Original method spelling unknown.
+class Rva00005C792CPtrChaseField { public:int get()const; };
+void *GadgetButtonGetData(GameWindow *);
+void PlaySound(const char *);
+struct Rva005C349DButtonData {
+ char unknown00[0x1C];unsigned flags;
+ char unknown20[0x10C-0x20];bool enabled;
+};
+class Rva005C349D {
+public:void rva005C349D();
+private:char prefix[0x0C];GameWindow *window;
+};
+void Rva005C349D::rva005C349D()
+{
+ int state=reinterpret_cast<const Rva00005C792CPtrChaseField *>(this)->get();
+ if(state==1 || state==3) {
+  Rva005C349DButtonData *data=static_cast<Rva005C349DButtonData *>(GadgetButtonGetData(window));
+  if(!data || !(data->flags&0x80000000)) {
+   PlaySound("Gui_PalantirCommandButtonDisabledClick");
+   return;
+  }
+ }
+ reinterpret_cast<Rva005C3453 *>(this)->rva005C3453();
+ if(state==5) {
+  Rva005C349DButtonData *data=static_cast<Rva005C349DButtonData *>(GadgetButtonGetData(window));
+  PlaySound(data && data->enabled ? "Gui_PalantirCommandButtonClick":"Gui_PalantirCommandButtonDisabledClick");
+ } else if(state==1 || state==3) PlaySound("Gui_PalantirCommandButtonClick");
+}
