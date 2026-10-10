@@ -1229,66 +1229,86 @@ void DozerAIUpdate::removeBridgeScaffolding( Object *bridgeTower )
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
-// ?update@DozerAIUpdate@@UAE?AW4UpdateSleepTime@@XZ present-unmatched
+// BFME 2's Object private status byte (+0x438); bit 0 is effectively-dead.
+struct BfmeDozerPrivateStatus { unsigned char m_unreconstructed_000[ 0x438 ]; unsigned char m_privateStatus; };
+// BFME 2's dozer task interface (module +0x3E4) and state machine pointer
+// (module +0x400) sit 0x1E8 bytes later than this unit's Zero Hour layout,
+// and the slots it calls moved; these views spell the retail offsets.
+class BfmeDozerTaskSlots : public BfmeDozerSlots<7>
+{
+public:
+	virtual ObjectID getTaskTarget( DozerTask task ) = 0;		///< +0x1C
+	virtual void unusedSlot8() = 0;
+	virtual DozerTask getCurrentTask( void ) = 0;			///< +0x24
+	virtual void unusedSlot10() = 0;
+	virtual void unusedSlot11() = 0;
+	virtual void unusedSlot12() = 0;
+	virtual void cancelTask( DozerTask task ) = 0;			///< +0x34
+};
+class BfmeDozerCommandSourceSlots : public BfmeDozerSlots<143>
+{
+public:
+	virtual CommandSourceType getLastCommandSource( void ) = 0;	///< +0x23C
+};
+class BfmeDozerMachineSlots : public BfmeDozerSlots<4>
+{
+public:
+	virtual void updateStateMachine( void ) = 0;			///< +0x10
+};
+struct BfmeDozerUpdateFields
+{
+	unsigned char m_unreconstructed_000[ 0x3e4 ];
+	unsigned char m_taskInterface[ 4 ];				///< +0x3E4, a BfmeDozerTaskSlots
+	unsigned char m_unreconstructed_3e8[ 0x400 - 0x3e8 ];
+	BfmeDozerMachineSlots *m_dozerMachine;			///< +0x400
+};
+#define DOZER_TASKS ((BfmeDozerTaskSlots *)((BfmeDozerUpdateFields *)this)->m_taskInterface)
+#define DOZER_MACHINE (((BfmeDozerUpdateFields *)this)->m_dozerMachine)
+// Retail 0x00489800 (149B), update-interface slot 0 (this = module +0x10):
+// Zero Hour's DozerAIUpdate::update without its idle mine-clearing switch.
 UpdateSleepTime DozerAIUpdate::update( void )
 {
-
-	//
-	// NOTE: Any changes to DozerAIUpdate::* you probably want to reflect and copy into
-	// WorkerAIUPdate:* as well ... sigh
-	//
-
-	//
 	// now that we're really executing we have all the necessary object modules in place to
 	// correctly create a state machine and set the default state
-	//
 	createMachines();
 
-	// set us as being to able to move with super precision off grid locations
- /*
-	if( getCurLocomotor() )	 {
-			getCurLocomotor()->setUltraAccurate( TRUE );
-			getCurLocomotor()->setAllowInvalidPosition(TRUE);
-	}*/
-	
 	// extend the normal AI system
 	UpdateSleepTime result;
 	result = AIUpdateInterface::update();
 
 	// do nothing if we're dead
-	///@todo shouldn't this be at a higher level?
-	if( getObject()->isEffectivelyDead() )
+	if( ((const BfmeDozerPrivateStatus *)getObject())->m_privateStatus & 1 )	// isEffectivelyDead, inline in retail
 		return UPDATE_SLEEP_NONE;
 
+
 	// get and validate our current task
-	DozerTask currentTask = getCurrentTask();
+	DozerTask currentTask = DOZER_TASKS->getCurrentTask();
 	if( currentTask != DOZER_TASK_INVALID )
 	{
-		
-
-		ObjectID taskTarget = getTaskTarget( currentTask );
+		ObjectID taskTarget = DOZER_TASKS->getTaskTarget( currentTask );
 		Object *targetObject = TheGameLogic->findObjectByID( taskTarget );
 		Bool invalidTask = FALSE;
 
 		// validate the task and the target
 		if( currentTask == DOZER_TASK_REPAIR &&
-				TheActionManager->canRepairObject( getObject(), targetObject, getLastCommandSource() ) == FALSE )
+				TheActionManager->canRepairObject( getObject(), targetObject,
+					((BfmeDozerCommandSourceSlots *)this)->getLastCommandSource() ) == FALSE )
 			invalidTask = TRUE;
-		
+
 		// cancel the task if it's now invalid
 		if( invalidTask == TRUE )
-			cancelTask( currentTask );
+			DOZER_TASKS->cancelTask( currentTask );
 
 	}  // end if
-	else
-		getObject()->setWeaponSetFlag(WEAPONSET_MINE_CLEARING_DETAIL);//maybe go clear some mines, if I feel like it
 
 	// run our own state machine
-	m_dozerMachine->updateStateMachine();
+	DOZER_MACHINE->updateStateMachine();
 
 	return UPDATE_SLEEP_NONE;
-		
+
 }  // end update
+#undef DOZER_TASKS
+#undef DOZER_MACHINE
 
 //-------------------------------------------------------------------------------------------------
 /** The entry point of a construct command to the Dozer */
