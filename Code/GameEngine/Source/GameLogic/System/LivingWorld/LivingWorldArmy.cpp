@@ -68,12 +68,13 @@ class Rva002BA8F1Logic { public: Rva002E2903Player *find(int,unsigned int *); };
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 class Rva002E34A9 { public: void rva002E34A9(const Rva0040DD3ARef &,int); };
-class ArmySummary { public: int AddArmyEntry(const Rva004F6093Holder &); Rva0040DD3ARef RemoveEntry(int); };
+class ArmySummary { public: int AddArmyEntry(const Rva004F6093Holder &); Rva0040DD3ARef RemoveEntry(int); Rva0040DD3ARef rva0040E672(int); };
 struct HeroTemplateKindView { char pad00[0x113]; unsigned char kind113; };
 class LivingWorldArmy {
 public:
     void UseArmySummary(Rva00319CED *source);
     void KillSummaryEntry(int index);
+    void rva00319EF9(LivingWorldArmy *source,int key);
     void TakeUnitFromArmy_Internal(LivingWorldArmy *source, const Rva004F6093Holder &entry);
     char pad00[0x20];
     int owner20;
@@ -194,4 +195,12 @@ void LivingWorldArmy::KillSummaryEntry(int index)
         reinterpret_cast<Rva002E34A9 *>(player)->rva002E34A9(entry,1);
     }
     reinterpret_cast<ArmySummary *>(summary78)->RemoveEntry(index);
+}
+
+// Native319EF9..319F4F owns the returned reference through the transfer.
+void LivingWorldArmy::rva00319EF9(LivingWorldArmy *source,int key)
+{
+ LivingWorldArmy *from=(source?source:source);
+ Rva0040DD3ARef entry=reinterpret_cast<ArmySummary *>(from->summary78)->rva0040E672(key);
+ TakeUnitFromArmy_Internal(from,*reinterpret_cast<const Rva004F6093Holder *>(&entry));
 }
