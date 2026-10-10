@@ -11,6 +11,9 @@ class W3DShaderManager {public:static void shutdown();};
 class CameraShakeSystemClass {public:~CameraShakeSystemClass();};
 extern CameraShakeSystemClass CameraShakerSystem;
 class Rva009EB960 {public:virtual ~Rva009EB960();};extern Rva009EB960 *Rva0134FAA0;
+// Owned here: W3DDisplay's destructor below deletes and nulls this global.
+// Retail .data starts it at 0.
+Rva009EB960 *Rva0134FAA0 = 0;
 class W3DFileSystem {public:virtual ~W3DFileSystem();};extern W3DFileSystem *TheW3DFileSystem;
 class DebugDisplayInterface {public:virtual ~DebugDisplayInterface();};
 class Render2DClass {public:~Render2DClass();};
