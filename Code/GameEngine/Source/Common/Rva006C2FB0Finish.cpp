@@ -28,7 +28,7 @@
 class Rva006C2D20Sink
 {
 public:
-	void rva006C2D20(const char *text, const char *tail, unsigned int room);
+	int rva006C2D20(const char *text, const char *tail, unsigned int room);	// returns 0 (xor eax eax at the end of 0x006C2D20)
 	void rva006C2FB0(const char *text, const char *extra);
 };
 
