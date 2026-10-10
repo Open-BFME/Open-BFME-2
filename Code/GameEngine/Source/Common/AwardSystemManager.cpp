@@ -1,4 +1,4 @@
-// cl: /Ob2 /O1 /G7 /arch:SSE /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_CSTD_FUNCTION_IMPORTS /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii
+// cl: /Ob2 /O1 /G7 /arch:SSE /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_CSTD_FUNCTION_IMPORTS /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii /Ireference/shims/subsystem_bfme2 /ICode/Libraries/Source/debug
 // stlport
 // Native40ADDD..40ADFA and40BAAA..40BAD0. Award trigger records
 // occupy16B, and their key-list prefixes are compared by rowed40AD5A.
@@ -6,6 +6,9 @@
 namespace _STL { void __cdecl free(void *); }
 #include <vector>
 #include "ascii_string.h"
+typedef bool Bool;
+#include "subsystem_interface.h"
+#include "debug.h"
 class Rva0040A7D5;
 struct Rva0040ABA5Item;
 const Rva0040ABA5Item *Rva0040AD5AFind(const Rva0040ABA5Item *,const Rva0040ABA5Item *,const Rva0040A7D5 *);
@@ -80,9 +83,36 @@ class INIException {public:
 };
 class Rva0040A7D5 {public:int rva0040A7D5(int) const;};
 namespace _STL {template<class I> void sort(I,I);}
-class AwardSystemManager {public:
+struct Rva0040C0C7Element {char bytes[40];};
+class Rva0040AF66 {char bytes[104];};
+namespace _STL {
+template<> void _Destroy(Rva0040AF66 *);
+template<> void _Destroy(Rva0040AF66 *,Rva0040AF66 *);
+template<> __declspec(noinline) _Vector_base<Rva0040C0C7Element,allocator<Rva0040C0C7Element> >::_Vector_base(const allocator<Rva0040C0C7Element> &a)
+ : _M_start(0),_M_finish(0),_M_end_of_storage(a,0) {}
+template<> __declspec(noinline) _Vector_base<Rva0040AF66,allocator<Rva0040AF66> >::_Vector_base(const allocator<Rva0040AF66> &a)
+ : _M_start(0),_M_finish(0),_M_end_of_storage(a,0) {}
+}
+struct Rva0040BEBA : public _STL::vector<Rva0040C0C7Element> {
+ __forceinline Rva0040BEBA() : _STL::vector<Rva0040C0C7Element>() {}
+ ~Rva0040BEBA();
+};
+struct Rva0040B59F : public _STL::vector<Rva0040AF66> {
+ __forceinline Rva0040B59F() : _STL::vector<Rva0040AF66>() {}
+ ~Rva0040B59F();
+};
+class AwardSystemManager : public SubsystemInterface {public:
+ AwardSystemManager();
+ virtual ~AwardSystemManager();
+ virtual void init();
+ virtual Bool loadIniFilesFromLegend() { return true; }
+ virtual void reset() {}
+ virtual void update() {}
  static void parseTrigger(INI *,void *,void *,const void *);
  static void parseThingStat(INI *,void *,void *,const void *);
+private:
+ Rva0040BEBA awards;
+ Rva0040B59F statistics;
 };
 void AwardSystemManager::parseTrigger(INI *ini,void *instance,void *,const void *)
 {
@@ -168,4 +198,14 @@ void Rva0040C125Parse(INI *ini)
  if(text.isNone() || text.isEmpty())
   throw INIException(3,"No description tag specified while parsing Award.");
  g_00E02F74->rva0040C0FE(reinterpret_cast<const Rva0040C0C7Element &>(award));
+}
+AwardSystemManager *BfmeAwardSystemManagerInstance=0;
+AwardSystemManager::AwardSystemManager()
+{
+ if(BfmeAwardSystemManagerInstance) {
+  Debug::SkipNext(true);
+  theDebug->SkipNext();
+  (theDebug->CrashBegin(0,0,0)<<"Instance of AwardSystemManager already exists!!").CrashDone(true);
+ }
+ BfmeAwardSystemManagerInstance=this;
 }
