@@ -1,5 +1,5 @@
 // ?reverseAnimateWindow@ProcessAnimateWindowSlideFromLeft@@UAE_NPAVAnimateWindow@@@Z
-// partial score=0.999 date=2026-10-10
+// partial score=0.95 date=2026-10-10
 // cl: /O1 /arch:SSE /G6 /Oy- /MD /ICode/Libraries/Include/Lib
 // Reference: BF1 f98983a7d / GeneralsMD ProcessAnimateWindowSlideFromLeft.
 // Target boundary 0x005C54BC..0x005C55A5; offsets and ordering are retail facts.
@@ -60,7 +60,7 @@ bool ProcessAnimateWindowSlideFromLeft::reverseAnimateWindow(AnimateWindow *a)
  float slowedX;
  if(start.x-cur.x<=slowThreshold) slowedX=speedRatio*vel.x;
  else slowedX=-maxVel.x;
- if(slowedX>-maxVel.x) slowedX=-maxVel.x;
+ if(slowedX < -maxVel.x) slowedX=-maxVel.x;
  RvaLeftVelocity slowedVel;
  slowedVel.x=slowedX;
  slowedVel.y=vel.y;
