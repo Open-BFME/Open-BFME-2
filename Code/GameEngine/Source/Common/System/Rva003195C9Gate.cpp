@@ -51,3 +51,19 @@ void Rva003195C9Owner::rva003195C9()
 		}
 	}
 }
+
+// Native318FA1..318FBE,29B; WB102B5E0 independently preserves the
+// nullable getter, unsigned sixteen-byte record count and back lookup.
+// Reuse the existing neutral17B getter twin, rather than asserting the
+// donor's wheel names for this army view. The old integer-return pin
+// retains its ABI: EAX carries the resulting opaque pointer bits.
+struct Rva00318F42View;
+class Rva00318F42 {public:Rva00318F42View *rva00318B83() const;};
+class Rva0020E89C;
+class Rva00538CEF {public:Rva0020E89C *rva00538CEF();};
+int Rva00318FA1MainOwner::rva00318FA1(){
+ Rva00318F42View *v=((Rva00318F42*)this)->rva00318B83();
+ if(v){int *span=(int*)v; if((unsigned)((span[1]-span[0])>>4)>0)
+  return (int)((Rva00538CEF*)v)->rva00538CEF();}
+ return 0;
+}
