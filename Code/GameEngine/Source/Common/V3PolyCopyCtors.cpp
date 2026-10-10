@@ -52,14 +52,26 @@ Rva005EA0D0::Rva005EA0D0(const Rva005EA0D0 &other)
 // ------------------------------------ vptr + one int (retail 0x003AE07D)
 // B2 body-address name: B1 holds two identical one-int classes, so no B1
 // name is justified for this body.
+// Its default constructor is retail 0x003A5773 (17 bytes): the same vtable
+// 0x00C1B568 and a 0.0f store to +4. The vtable's DoXfer (0x003A578A)
+// transfers +4 as a float, so the dword is a Real the copy moves raw.
 class Rva003AE07D
 {
 public:
+	Rva003AE07D();
 	Rva003AE07D(const Rva003AE07D &other);
 	virtual ~Rva003AE07D();
 
-	Int m_field04;
+	union
+	{
+		Int m_field04;
+		float m_real04;
+	};
 };
+
+Rva003AE07D::Rva003AE07D() : m_real04(0.0f)
+{
+}
 
 Rva003AE07D::Rva003AE07D(const Rva003AE07D &other)
 {
