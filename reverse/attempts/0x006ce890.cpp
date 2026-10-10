@@ -1,4 +1,4 @@
-// ?rva006CE660@Rva006CE660Vec@@QAEXH@Z
+// ?insert@Rva006CE660Vec@@QAEXABQAVAptValueNameEntry@@0ABURva006CDD50Iterator@@@Z
 // partial score=1.0 date=2026-10-10
 // cl: /O2 /MD /EHsc
 // Target guide: rowed Rva006CD5A0Copy; native6CE890 passes two
