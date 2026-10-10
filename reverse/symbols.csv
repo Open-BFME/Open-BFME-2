@@ -4480,7 +4480,6 @@ name,address,notes
 ??1Rva00510D0C@@UAE@XZ,0x00510D0C,opaque dtor called by the scalar deleting dtor at 0x00511031 (vtable 0x00C6568C#0); identity unproven; address-derived name
 ??1Rva005125ED@@UAE@XZ,0x005125ED,opaque dtor called by the scalar deleting dtor at 0x0051265C (vtable 0x00C659A0#0); identity unproven; address-derived name
 ??1Rva00512E49@@UAE@XZ,0x00512E49,opaque dtor called by the scalar deleting dtor at 0x0051342D (vtable 0x00C65B6C#0); identity unproven; address-derived name
-??1Rva00513BAB@@UAE@XZ,0x00513BAB,opaque dtor called by the scalar deleting dtor at 0x00513DB4 (vtable 0x00C65D20#0); identity unproven; address-derived name
 ??1Rva00514E6B@@UAE@XZ,0x00514E6B,opaque vptr+jmp dtor (11B: vptr 0xBC93A0, tail-jmp 0x40EDB); called by scalar-deleting-dtor at 0xA883A; identity unproven, address-derived name
 ??1Rva00514EABResourceView@@QAE@XZ,0x005B6EFE,Native514EAB resource290 call-only ABI view; complete rowed provider independently byte verified; destructor reads0/4 and close reads0C/10; original resource name unknown
 ??1Rva005173F8@@UAE@XZ,0x005173F8,opaque dtor called by the scalar deleting dtor at 0x00517582 (vtable 0x00C66428#0); identity unproven; address-derived name
@@ -17075,3 +17074,4 @@ _D3DXCreateTextureFromFileInMemoryEx@60,0x0062AF7A,Named d3dx9_27.dll PE import 
 ?rva0057792E@ButtonShell@Impl@AptRadialMenu@@QAEXPBD@Z,0x0057792E,frame-unloaded Apt callback the ButtonShell ctor 0x00577FE2 binds by address (mov eax 0x97792E into its DelegateDesc); 8-byte body call 0x00577914 / ret 4
 ?Rva004129DF@@YAXPBVCoord2D@@0PBD1@Z,0x004129DF,RenderImageDisabled custom-render callback the global registration 0x00412F14 binds by address; same 4-argument shape and TheAptPlayer forward as its rowed siblings Rva00412B94/Rva00412BFF (no Ghidra boundary; code start taken by address)
 ??0?$vector@UBfmeContainerRecord005FDEC7@@V?$allocator@UBfmeContainerRecord005FDEC7@@@_STL@@@_STL@@QAE@I@Z,0x005FE409,size constructor of the 12-byte tab record vector; called by the Rva005FE750 ctor 0x005FE640
+?rva0021F5F8@CreateAHeroManager@@QAEXXZ,0x0021F5F8,CreateAHeroManager method called by the create-a-hero screen destructor 0x00513BAB; unrowed
