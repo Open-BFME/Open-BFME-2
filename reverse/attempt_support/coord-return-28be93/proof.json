@@ -1,0 +1,753 @@
+{
+  "head": "b70cddebee08b80f32a513564a68815db4bea553",
+  "command": [
+    "C:\\Users\\clemens\\.codex\\worktrees\\reference-clone-seat\\Open-BFME-2\\reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\bin\\cl.exe",
+    "-nologo",
+    "-c",
+    "-O2",
+    "-GR-",
+    "-EHsc-",
+    "-O1",
+    "-G7",
+    "-arch:SSE",
+    "-Oy-",
+    "-DNDEBUG",
+    "-MD",
+    "-FoC:\\Users\\clemens\\.codex\\worktrees\\reference-clone-seat\\Open-BFME-2\\build\\reference975\\coord77\\by-value-copyctor.obj",
+    "C:\\Users\\clemens\\.codex\\worktrees\\reference-clone-seat\\Open-BFME-2\\build\\reference975\\coord77\\by-value-copyctor.cpp"
+  ],
+  "exact": true,
+  "unresolved": [],
+  "size": 77,
+  "body": "558bec83ec1c0f57c08b89400200008365fc0085c9f30f1145f0f30f1145f4f30f1145f8740b8d45e450e868e9ffffeb038d45f0d9008b4d08d9198b50048951048b40088941088bc1c9c20400",
+  "target": "558bec83ec1c0f57c08b89400200008365fc0085c9f30f1145f0f30f1145f4f30f1145f8740b8d45e450e868e9ffffeb038d45f0d9008b4d08d9198b50048951048b40088941088bc1c9c20400",
+  "inputs": {
+    "C:\\Users\\clemens\\.codex\\worktrees\\reference-clone-seat\\Open-BFME-2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Rva0028BE93Coord.cpp": "7b5d8226d84fc5fba7a62d3ed12d29039ffdba7f32fd1692d5d35b18644b3e4e",
+    "C:\\Users\\clemens\\.codex\\worktrees\\reference-clone-seat\\Open-BFME-2\\reverse\\functions.csv": "462b0eface70cd681736d0eac4080f870c3adac206da315fa402c260625bbd31",
+    "C:\\Users\\clemens\\.codex\\worktrees\\reference-clone-seat\\Open-BFME-2\\reverse\\symbols.csv": "0c11d320ec4829fa878cb1dc0898fb36443ada1fe18919c7a327bc34050f3133",
+    "C:\\Users\\clemens\\.codex\\worktrees\\reference-clone-seat\\Open-BFME-2\\reverse\\flag_overrides.csv": "dbf98c36c172e2693b940fcad7952289e4959aa04083902adcc595c684e6997f",
+    "C:\\Users\\clemens\\.codex\\worktrees\\reference-clone-seat\\Open-BFME-2\\tools\\build.py": "f9688c6f004ce27253d8fa115d7ca4dec6ebc2b97234acf59591e621d1101651",
+    "C:\\Users\\clemens\\.codex\\worktrees\\reference-clone-seat\\Open-BFME-2\\tools\\flag_defaults.py": "c0105f4467a62a0fc95e9458802880281138d3c33bf252a42276c3fc11d800d5",
+    "C:\\Users\\clemens\\.codex\\worktrees\\reference-clone-seat\\Open-BFME-2\\Code\\Libraries\\Include\\Lib\\Coord3D.h": "7f442e0e87c2a4e7efd3893d0210a14734c1bf3645c0ec66f5405010faae5f76"
+  },
+  "private_proof_only": true,
+  "bfme1_revision": "575ba2b04743f190f069805fbdc59936123c45da",
+  "native_facts": [
+    "28BE93 complete77 after previous RET8 ending exactly at entry and before next independent prologue28BEE0",
+    "Receiver+240 pointer; null arm zeroes three floats; present arm calls24B provider28A82A",
+    "Hidden result at stack4; whole native writes output0/4/8 and returns output pointer with RET4",
+    "Caller2CD079 pushes stack-local address and Object ECX, calls at2CD07F, then compares result coordinates with Object+38"
+  ],
+  "codegen_inference": "MSVC7.1 nontrivial memberwise copy constructor reproduces exact hidden-return77; this does not establish original constructor spelling or canonical-wide compatibility",
+  "native_context": {
+    "0x28be80": [
+      {
+        "rva": "0x28be80",
+        "bytes": "894002",
+        "mnemonic": "mov",
+        "operands": "dword ptr [eax + 2], eax"
+      },
+      {
+        "rva": "0x28be83",
+        "bytes": "0000",
+        "mnemonic": "add",
+        "operands": "byte ptr [eax], al"
+      },
+      {
+        "rva": "0x28be85",
+        "bytes": "85c9",
+        "mnemonic": "test",
+        "operands": "ecx, ecx"
+      },
+      {
+        "rva": "0x28be87",
+        "bytes": "7405",
+        "mnemonic": "je",
+        "operands": "0x68be8e"
+      },
+      {
+        "rva": "0x28be89",
+        "bytes": "e9e22b2500",
+        "mnemonic": "jmp",
+        "operands": "0x8dea70"
+      },
+      {
+        "rva": "0x28be8e",
+        "bytes": "33c0",
+        "mnemonic": "xor",
+        "operands": "eax, eax"
+      },
+      {
+        "rva": "0x28be90",
+        "bytes": "c20800",
+        "mnemonic": "ret",
+        "operands": "8"
+      },
+      {
+        "rva": "0x28be93",
+        "bytes": "55",
+        "mnemonic": "push",
+        "operands": "ebp"
+      },
+      {
+        "rva": "0x28be94",
+        "bytes": "8bec",
+        "mnemonic": "mov",
+        "operands": "ebp, esp"
+      },
+      {
+        "rva": "0x28be96",
+        "bytes": "83ec1c",
+        "mnemonic": "sub",
+        "operands": "esp, 0x1c"
+      },
+      {
+        "rva": "0x28be99",
+        "bytes": "0f57c0",
+        "mnemonic": "xorps",
+        "operands": "xmm0, xmm0"
+      },
+      {
+        "rva": "0x28be9c",
+        "bytes": "8b8940020000",
+        "mnemonic": "mov",
+        "operands": "ecx, dword ptr [ecx + 0x240]"
+      },
+      {
+        "rva": "0x28bea2",
+        "bytes": "8365fc00",
+        "mnemonic": "and",
+        "operands": "dword ptr [ebp - 4], 0"
+      },
+      {
+        "rva": "0x28bea6",
+        "bytes": "85c9",
+        "mnemonic": "test",
+        "operands": "ecx, ecx"
+      },
+      {
+        "rva": "0x28bea8",
+        "bytes": "f30f1145f0",
+        "mnemonic": "movss",
+        "operands": "dword ptr [ebp - 0x10], xmm0"
+      },
+      {
+        "rva": "0x28bead",
+        "bytes": "f30f1145f4",
+        "mnemonic": "movss",
+        "operands": "dword ptr [ebp - 0xc], xmm0"
+      },
+      {
+        "rva": "0x28beb2",
+        "bytes": "f30f1145f8",
+        "mnemonic": "movss",
+        "operands": "dword ptr [ebp - 8], xmm0"
+      },
+      {
+        "rva": "0x28beb7",
+        "bytes": "740b",
+        "mnemonic": "je",
+        "operands": "0x68bec4"
+      },
+      {
+        "rva": "0x28beb9",
+        "bytes": "8d45e4",
+        "mnemonic": "lea",
+        "operands": "eax, [ebp - 0x1c]"
+      },
+      {
+        "rva": "0x28bebc",
+        "bytes": "50",
+        "mnemonic": "push",
+        "operands": "eax"
+      },
+      {
+        "rva": "0x28bebd",
+        "bytes": "e868e9ffff",
+        "mnemonic": "call",
+        "operands": "0x68a82a"
+      },
+      {
+        "rva": "0x28bec2",
+        "bytes": "eb03",
+        "mnemonic": "jmp",
+        "operands": "0x68bec7"
+      },
+      {
+        "rva": "0x28bec4",
+        "bytes": "8d45f0",
+        "mnemonic": "lea",
+        "operands": "eax, [ebp - 0x10]"
+      },
+      {
+        "rva": "0x28bec7",
+        "bytes": "d900",
+        "mnemonic": "fld",
+        "operands": "dword ptr [eax]"
+      },
+      {
+        "rva": "0x28bec9",
+        "bytes": "8b4d08",
+        "mnemonic": "mov",
+        "operands": "ecx, dword ptr [ebp + 8]"
+      },
+      {
+        "rva": "0x28becc",
+        "bytes": "d919",
+        "mnemonic": "fstp",
+        "operands": "dword ptr [ecx]"
+      },
+      {
+        "rva": "0x28bece",
+        "bytes": "8b5004",
+        "mnemonic": "mov",
+        "operands": "edx, dword ptr [eax + 4]"
+      },
+      {
+        "rva": "0x28bed1",
+        "bytes": "895104",
+        "mnemonic": "mov",
+        "operands": "dword ptr [ecx + 4], edx"
+      },
+      {
+        "rva": "0x28bed4",
+        "bytes": "8b4008",
+        "mnemonic": "mov",
+        "operands": "eax, dword ptr [eax + 8]"
+      },
+      {
+        "rva": "0x28bed7",
+        "bytes": "894108",
+        "mnemonic": "mov",
+        "operands": "dword ptr [ecx + 8], eax"
+      },
+      {
+        "rva": "0x28beda",
+        "bytes": "8bc1",
+        "mnemonic": "mov",
+        "operands": "eax, ecx"
+      },
+      {
+        "rva": "0x28bedc",
+        "bytes": "c9",
+        "mnemonic": "leave",
+        "operands": ""
+      },
+      {
+        "rva": "0x28bedd",
+        "bytes": "c20400",
+        "mnemonic": "ret",
+        "operands": "4"
+      },
+      {
+        "rva": "0x28bee0",
+        "bytes": "55",
+        "mnemonic": "push",
+        "operands": "ebp"
+      },
+      {
+        "rva": "0x28bee1",
+        "bytes": "8bec",
+        "mnemonic": "mov",
+        "operands": "ebp, esp"
+      },
+      {
+        "rva": "0x28bee3",
+        "bytes": "53",
+        "mnemonic": "push",
+        "operands": "ebx"
+      },
+      {
+        "rva": "0x28bee4",
+        "bytes": "8bd9",
+        "mnemonic": "mov",
+        "operands": "ebx, ecx"
+      },
+      {
+        "rva": "0x28bee6",
+        "bytes": "8b8b84000000",
+        "mnemonic": "mov",
+        "operands": "ecx, dword ptr [ebx + 0x84]"
+      },
+      {
+        "rva": "0x28beec",
+        "bytes": "85c9",
+        "mnemonic": "test",
+        "operands": "ecx, ecx"
+      }
+    ],
+    "0x28a82a": [
+      {
+        "rva": "0x28a82a",
+        "bytes": "d94148",
+        "mnemonic": "fld",
+        "operands": "dword ptr [ecx + 0x48]"
+      },
+      {
+        "rva": "0x28a82d",
+        "bytes": "8b442404",
+        "mnemonic": "mov",
+        "operands": "eax, dword ptr [esp + 4]"
+      },
+      {
+        "rva": "0x28a831",
+        "bytes": "d918",
+        "mnemonic": "fstp",
+        "operands": "dword ptr [eax]"
+      },
+      {
+        "rva": "0x28a833",
+        "bytes": "8b514c",
+        "mnemonic": "mov",
+        "operands": "edx, dword ptr [ecx + 0x4c]"
+      },
+      {
+        "rva": "0x28a836",
+        "bytes": "895004",
+        "mnemonic": "mov",
+        "operands": "dword ptr [eax + 4], edx"
+      },
+      {
+        "rva": "0x28a839",
+        "bytes": "8b4950",
+        "mnemonic": "mov",
+        "operands": "ecx, dword ptr [ecx + 0x50]"
+      },
+      {
+        "rva": "0x28a83c",
+        "bytes": "894808",
+        "mnemonic": "mov",
+        "operands": "dword ptr [eax + 8], ecx"
+      },
+      {
+        "rva": "0x28a83f",
+        "bytes": "c20400",
+        "mnemonic": "ret",
+        "operands": "4"
+      },
+      {
+        "rva": "0x28a842",
+        "bytes": "33c0",
+        "mnemonic": "xor",
+        "operands": "eax, eax"
+      },
+      {
+        "rva": "0x28a844",
+        "bytes": "394128",
+        "mnemonic": "cmp",
+        "operands": "dword ptr [ecx + 0x28], eax"
+      },
+      {
+        "rva": "0x28a847",
+        "bytes": "0f95c0",
+        "mnemonic": "setne",
+        "operands": "al"
+      },
+      {
+        "rva": "0x28a84a",
+        "bytes": "c3",
+        "mnemonic": "ret",
+        "operands": ""
+      },
+      {
+        "rva": "0x28a84b",
+        "bytes": "33c0",
+        "mnemonic": "xor",
+        "operands": "eax, eax"
+      }
+    ],
+    "0x2cd060": [
+      {
+        "rva": "0x2cd060",
+        "bytes": "13ff",
+        "mnemonic": "adc",
+        "operands": "edi, edi"
+      },
+      {
+        "rva": "0x2cd062",
+        "bytes": "7510",
+        "mnemonic": "jne",
+        "operands": "0x6cd074"
+      },
+      {
+        "rva": "0x2cd064",
+        "bytes": "8bcb",
+        "mnemonic": "mov",
+        "operands": "ecx, ebx"
+      },
+      {
+        "rva": "0x2cd066",
+        "bytes": "ff750c",
+        "mnemonic": "push",
+        "operands": "dword ptr [ebp + 0xc]"
+      },
+      {
+        "rva": "0x2cd069",
+        "bytes": "e811eefbff",
+        "mnemonic": "call",
+        "operands": "0x68be7f"
+      },
+      {
+        "rva": "0x2cd06e",
+        "bytes": "85c0",
+        "mnemonic": "test",
+        "operands": "eax, eax"
+      },
+      {
+        "rva": "0x2cd070",
+        "bytes": "7eb1",
+        "mnemonic": "jle",
+        "operands": "0x6cd023"
+      },
+      {
+        "rva": "0x2cd072",
+        "bytes": "eb20",
+        "mnemonic": "jmp",
+        "operands": "0x6cd094"
+      },
+      {
+        "rva": "0x2cd074",
+        "bytes": "83f903",
+        "mnemonic": "cmp",
+        "operands": "ecx, 3"
+      },
+      {
+        "rva": "0x2cd077",
+        "bytes": "75aa",
+        "mnemonic": "jne",
+        "operands": "0x6cd023"
+      },
+      {
+        "rva": "0x2cd079",
+        "bytes": "8d45f4",
+        "mnemonic": "lea",
+        "operands": "eax, [ebp - 0xc]"
+      },
+      {
+        "rva": "0x2cd07c",
+        "bytes": "50",
+        "mnemonic": "push",
+        "operands": "eax"
+      },
+      {
+        "rva": "0x2cd07d",
+        "bytes": "8bcb",
+        "mnemonic": "mov",
+        "operands": "ecx, ebx"
+      },
+      {
+        "rva": "0x2cd07f",
+        "bytes": "e80feefbff",
+        "mnemonic": "call",
+        "operands": "0x68be93"
+      },
+      {
+        "rva": "0x2cd084",
+        "bytes": "8d4338",
+        "mnemonic": "lea",
+        "operands": "eax, [ebx + 0x38]"
+      },
+      {
+        "rva": "0x2cd087",
+        "bytes": "50",
+        "mnemonic": "push",
+        "operands": "eax"
+      },
+      {
+        "rva": "0x2cd088",
+        "bytes": "8d4df4",
+        "mnemonic": "lea",
+        "operands": "ecx, [ebp - 0xc]"
+      },
+      {
+        "rva": "0x2cd08b",
+        "bytes": "e87266d3ff",
+        "mnemonic": "call",
+        "operands": "0x403702"
+      },
+      {
+        "rva": "0x2cd090",
+        "bytes": "84c0",
+        "mnemonic": "test",
+        "operands": "al, al"
+      },
+      {
+        "rva": "0x2cd092",
+        "bytes": "748f",
+        "mnemonic": "je",
+        "operands": "0x6cd023"
+      },
+      {
+        "rva": "0x2cd094",
+        "bytes": "33c0",
+        "mnemonic": "xor",
+        "operands": "eax, eax"
+      },
+      {
+        "rva": "0x2cd096",
+        "bytes": "ebbd",
+        "mnemonic": "jmp",
+        "operands": "0x6cd055"
+      },
+      {
+        "rva": "0x2cd098",
+        "bytes": "55",
+        "mnemonic": "push",
+        "operands": "ebp"
+      },
+      {
+        "rva": "0x2cd099",
+        "bytes": "8bec",
+        "mnemonic": "mov",
+        "operands": "ebp, esp"
+      },
+      {
+        "rva": "0x2cd09b",
+        "bytes": "51",
+        "mnemonic": "push",
+        "operands": "ecx"
+      },
+      {
+        "rva": "0x2cd09c",
+        "bytes": "56",
+        "mnemonic": "push",
+        "operands": "esi"
+      },
+      {
+        "rva": "0x2cd09d",
+        "bytes": "57",
+        "mnemonic": "push",
+        "operands": "edi"
+      },
+      {
+        "rva": "0x2cd09e",
+        "bytes": "8b7d08",
+        "mnemonic": "mov",
+        "operands": "edi, dword ptr [ebp + 8]"
+      },
+      {
+        "rva": "0x2cd0a1",
+        "bytes": "8bf1",
+        "mnemonic": "mov",
+        "operands": "esi, ecx"
+      },
+      {
+        "rva": "0x2cd0a3",
+        "bytes": "3bfe",
+        "mnemonic": "cmp",
+        "operands": "edi, esi"
+      },
+      {
+        "rva": "0x2cd0a7",
+        "bytes": "b600",
+        "mnemonic": "mov",
+        "operands": "dh, 0"
+      }
+    ]
+  },
+  "controls": {
+    "head": "b70cddebee08b80f32a513564a68815db4bea553",
+    "results": [
+      {
+        "source": "Code/GameEngine/Source/GameLogic/Object/WeaponGetPreAttackDelay.cpp",
+        "compile_exit": 0,
+        "diagnostic": "dependent-0.cpp\ncl : Command line warning D4025 : overriding '/O2' with '/O1'\ncl : Command line warning D4025 : overriding '/EHs' with '/EHs-'\n",
+        "rows": [
+          {
+            "name": "?getPreAttackDelay@Weapon@@QBEHPBVObject@@0PBUCoord3D@@@Z",
+            "rva": "0x002CCFF0",
+            "exact": true,
+            "unresolved": []
+          }
+        ]
+      },
+      {
+        "source": "Code/GameEngine/Source/GameLogic/AI/PathClosestPoint.cpp",
+        "compile_exit": 0,
+        "diagnostic": "dependent-1.cpp\ncl : Command line warning D4025 : overriding '/O2' with '/O1'\n",
+        "rows": [
+          {
+            "name": "?rva00363930@Path@@QAE_NPBUCoord3D@@_N@Z",
+            "rva": "0x00363930",
+            "exact": true,
+            "unresolved": []
+          }
+        ]
+      },
+      {
+        "source": "Code/GameEngine/Source/GameLogic/Object/WeaponTemplateScatterTargetPos.cpp",
+        "compile_exit": 2,
+        "diagnostic": "dependent-2.cpp\nC:/Users\\clemens\\.codex\\worktrees\\reference-clone-seat\\Open-BFME-2\\Code\\GameEngine\\Source\\GameLogic\\Object\\WeaponTemplateScatterTargetPos.cpp(35) : error C2011: 'Coord3D' : 'struct' type redefinition\n        C:/Users\\clemens\\.codex\\worktrees\\reference-clone-seat\\Open-BFME-2\\build\\reference975\\coord77\\Coord3D-copyctor.h(7) : see declaration of 'Coord3D'\ncl : Command line warning D4025 : overriding '/O2' with '/O1'\n",
+        "rows": []
+      }
+    ]
+  },
+  "aggregate_control": {
+    "head": "b70cddebee08b80f32a513564a68815db4bea553",
+    "results": [
+      {
+        "source": "Code/GameEngine/Source/Common/System/Rva0037FE3D.cpp",
+        "compile_exit": 2,
+        "diagnostic": "aggregate-0.cpp\nC:/Users\\clemens\\.codex\\worktrees\\reference-clone-seat\\Open-BFME-2\\Code\\GameEngine\\Source\\Common\\System\\Rva0037FE3D.cpp(22) : error C2552: 'first' : non-aggregates cannot be initialized with initializer list\n        'Coord3D' : Types with user defined constructors are not aggregate\nC:/Users\\clemens\\.codex\\worktrees\\reference-clone-seat\\Open-BFME-2\\Code\\GameEngine\\Source\\Common\\System\\Rva0037FE3D.cpp(23) : error C2552: 'second' : non-aggregates cannot be initialized with initializer list\n        'Coord3D' : Types with user defined constructors are not aggregate\ncl : Command line warning D4025 : overriding '/O2' with '/O1'\n",
+        "rows": []
+      }
+    ]
+  },
+  "aggregate_users": [
+    {
+      "source": "Code/GameEngine/Source/Common/System/Rva0037FE3D.cpp",
+      "aggregate_initializers": [
+        [
+          22,
+          "Coord3D first={"
+        ],
+        [
+          23,
+          "Coord3D second={"
+        ]
+      ],
+      "sha256": "1ee7b3c420a1aca76f5e54e64e66950d20c62989e5257f924bbc55d2ff111f6c"
+    },
+    {
+      "source": "Code/GameEngine/Source/GameClient/InGameUICreateMouseoverHint.cpp",
+      "aggregate_initializers": [
+        [
+          584,
+          "Coord3D cursorWorld={"
+        ]
+      ],
+      "sha256": "4d944408e9e62fa6e6a6398f1da042e65dc3e56dca140b9d5a03cc0a93b4af10"
+    },
+    {
+      "source": "Code/GameEngine/Source/GameLogic/AI/AIStateMachineXfer.cpp",
+      "aggregate_initializers": [
+        [
+          99,
+          "Coord3D pos={"
+        ]
+      ],
+      "sha256": "6da827d96bf6d7a7b036352e5ff5de33413f14baf6a0a55bca631fcf60af109d"
+    },
+    {
+      "source": "Code/GameEngine/Source/GameLogic/AI/AerialPathfinderHeightPush.cpp",
+      "aggregate_initializers": [
+        [
+          30,
+          "Coord3D sample={"
+        ]
+      ],
+      "sha256": "6c8ba83e072397de9b95e99983644813677cdc41ccf02010752d4fa71635be8a"
+    },
+    {
+      "source": "Code/GameEngine/Source/GameLogic/Object/Made002CC907Ctor.cpp",
+      "aggregate_initializers": [
+        [
+          139,
+          "Coord3D direction={"
+        ]
+      ],
+      "sha256": "dd207b22d4a8ebb1f95c47079029f50319b921acb0aeddb328eeb785ba0698af"
+    },
+    {
+      "source": "Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdate.cpp",
+      "aggregate_initializers": [
+        [
+          50,
+          "Coord3D pos={"
+        ]
+      ],
+      "sha256": "731c3b6ad29767ef9ec2e83d260bdd9d5908a0ebeac0b8301e61cc1f6b6f5eee"
+    },
+    {
+      "source": "Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateTriggerRevival.cpp",
+      "aggregate_initializers": [
+        [
+          199,
+          "Coord3D pos={"
+        ]
+      ],
+      "sha256": "90cd8a74006fc06a709c2617aaead6b9b28f22c27c1ea6908ffdd008915343c9"
+    },
+    {
+      "source": "Code/GameEngine/Source/GameLogic/SkirmishAI/AITeamBuilder/AITeamBuilder.cpp",
+      "aggregate_initializers": [
+        [
+          179,
+          "Coord3D a={"
+        ],
+        [
+          180,
+          "Coord3D b={"
+        ],
+        [
+          181,
+          "Coord3D delta={"
+        ]
+      ],
+      "sha256": "ab581e5cc8d196bb5090a15081278ffc0527aff4c3399825688f81ffdca16454"
+    },
+    {
+      "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E0AE2ObjectRegistration.cpp",
+      "aggregate_initializers": [
+        [
+          54,
+          "Coord3D previous={"
+        ],
+        [
+          55,
+          "Coord3D p={"
+        ],
+        [
+          63,
+          "Coord3D p={"
+        ]
+      ],
+      "sha256": "ac526b01acfe170e1c54b463c477d38af5eeab8950dc6ca2754302d038f04d85"
+    }
+  ],
+  "old_input_gate": {
+    "head": "b70cddebee08b80f32a513564a68815db4bea553",
+    "dependent_sources": 656,
+    "chunks": 3,
+    "seconds": 222,
+    "red_chunks": 0,
+    "tool": "tools/header_adopt_lane.py gate-cost --header Code/Libraries/Include/Lib/Coord3D.h",
+    "original_session": "28483",
+    "exit": 0
+  },
+  "wrapper_trials": {
+    "head": "b70cddebee08b80f32a513564a68815db4bea553",
+    "results": [
+      {
+        "variant": "inline_scalar",
+        "exact": false,
+        "body": "558bec83ec280f57c08b89400200008365f00085c9f30f1145e4f30f1145e8f30f1145ec740b8d45d850e868e9ffffeb038d45e4f30f1000f30f1145f4f30f10400456f30f1145f8f30f104008",
+        "unresolved": []
+      },
+      {
+        "variant": "inline_aggregate",
+        "exact": false,
+        "body": "558bec83ec280f57c08b89400200008365f00085c9f30f1145e4f30f1145e8f30f1145ec740b8d45d850e868e9ffffeb038d45e4f30f1000f30f1145f4f30f10400456f30f1145f8f30f104008",
+        "unresolved": []
+      },
+      {
+        "variant": "convert_scalar",
+        "exact": false,
+        "body": "558bec83ec280f57c08b89400200008365f00085c9f30f1145e4f30f1145e8f30f1145ec740b8d45d850e868e9ffffeb038d45e4f30f1000f30f1145f4f30f10400456f30f1145f8f30f104008",
+        "unresolved": []
+      },
+      {
+        "variant": "convert_aggregate",
+        "exact": false,
+        "body": "558bec83ec280f57c08b89400200008365f00085c9f30f1145e4f30f1145e8f30f1145ec740b8d45d850e868e9ffffeb038d45e4f30f1000f30f1145f4f30f10400456f30f1145f8f30f104008",
+        "unresolved": []
+      },
+      {
+        "variant": "value_fields",
+        "exact": false,
+        "body": "558bec83ec280f57c08b89400200008365f00085c9f30f1145e4f30f1145e8f30f1145ec740b8d45d850e868e9ffffeb038d45e4f30f1000f30f104804f30f1050088b45085657f30f1145f4f3",
+        "unresolved": []
+      }
+    ]
+  }
+}
