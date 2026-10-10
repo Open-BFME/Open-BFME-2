@@ -135,3 +135,55 @@ Rva005202C8::Rva005202C8(void *context)
 	}
 	((Rva00222A8BTarget *)g_bfmeAptWindowManager)->rva002233A6(1);
 }
+
+// ??1Rva005202C8@@UAE@XZ, retail 0x005204EF..0x005205CF (224 bytes, EH):
+// the time line screen's destructor (scalar deleting destructor 0x005206E2,
+// table 0x00C675DC slot 0; pinned there as ??1Rva005204EF). It empties the
+// static list at 0x00E04920 through its rowed range erase, hides the shell
+// for modes 1 and 8, deletes the stats object (rowed destructor 0x005BEA22),
+// runs the unrowed mode-1 reset 0x00521260, clears s_instance, then the
+// members and the base die: +0x2C4, the focus vector, the player vector
+// (rowed 0x0052012B) and _bfme_AptGameWindow.
+void __cdecl Rva00030830GameFree(void *);
+namespace _STL {
+template<> inline _Vector_base<int, allocator<int> >::~_Vector_base() { if (_M_start) Rva00030830GameFree(_M_start); }
+}
+
+class Shell
+{
+public:
+	void rva0035BF4C(bool show);
+};
+extern Shell *TheShell;
+
+struct Rva005334A4Element
+{
+	unsigned char m_data[0x10];
+};
+namespace _STL {
+template<> vector<Rva005334A4Element>::iterator vector<Rva005334A4Element>::erase(iterator first, iterator last);
+}
+extern _STL::vector<Rva005334A4Element> g_Va00E04920;
+
+class Rva005BEA22
+{
+public:
+	~Rva005BEA22();
+};
+
+void Rva00521260Reset();
+
+Rva005202C8::~Rva005202C8()
+{
+	g_Va00E04920.erase(g_Va00E04920.begin(), g_Va00E04920.end());
+	if (m_284 == 1 || m_284 == 8)
+	{
+		if (TheShell)
+			TheShell->rva0035BF4C(false);
+	}
+	delete reinterpret_cast<Rva005BEA22 *>(m_stats);
+	m_stats = 0;
+	if (m_284 == 1)
+		Rva00521260Reset();
+	s_instance = 0;
+}

@@ -17168,3 +17168,4 @@ _D3DXLoadSurfaceFromFileInMemory@36,0x0062AF80,Native separate-alpha loader REL3
 ?rva002E1155@LivingWorldPlayer@@QAE_NPAVRva00319CED@@@Z,0x002E1155,callee of ?canQueueUnit@LivingWorldBuildingNuggetSpawnArmy@@UAE_NW4ObjectID@@@Z
 ??0Rva0073F4F3@@QAE@PAX@Z,0x0073F468,base ctor of the rowed Rva0073F4F3 (dtor 0x0073F4F3): stores the argument at +0; lists/locks at +8..; called by the audio device ctor 0x000A8903
 ??0Rva000A8893Worker@@QAE@PAXH@Z,0x000A8893,16-byte worker ctor (byte copy of rowed Rva0073F708 ctor) new'd by the audio device ctor 0x000A8903 with (this;3)
+?Rva00521260Reset@@YAXXZ,0x00521260,argument-free mode-1 reset called by the AptTimeLine destructor 0x005204EF
