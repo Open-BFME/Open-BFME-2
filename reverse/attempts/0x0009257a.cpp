@@ -1,4 +1,6 @@
 // ?addProp@W3DTerrainVisual@@UAEXPBVThingTemplate@@PBUCoord3D@@MM@Z
+// partial score=0.99 date=2026-10-10
+// ?addProp@W3DTerrainVisual@@UAEXPBVThingTemplate@@PBUCoord3D@@MM@Z
 // partial score=1.0 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii /ICode/Libraries/Include/Lib
 #include <string.h>

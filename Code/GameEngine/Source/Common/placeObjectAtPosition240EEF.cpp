@@ -1,6 +1,3 @@
-// ?placeObjectAtPosition@@YAPAVObject@@HVAsciiString@@PBUCoord3D@@PAVPlayer@@PBX@Z
-// partial score=1.0 date=2026-10-09
-// partial score=0.93 date=2026-10-06
 // cl: /O1 /G7 /DNDEBUG /MD /EHs /arch:SSE /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii
 // stlport
 // Lookup via g_009FF000 Rva002D06CA 0x002D06CA, GlobalData guard +0x1110,
