@@ -40,7 +40,7 @@ public:
     unsigned char pad1[0x108 - 0xBC];
     unsigned *field_108;
 };
-class Rva001735F9 { public: int rva001735F9(MeshModelClass *mesh); };
+class Rva001735F9 { public: void rva001735F9(MeshModelClass *mesh); };
 class Rva00145C30 { public: int rva00145C30(MeshModelClass *mesh); };
 class Rva00199FFB { public: static void rva00199FFB(MeshMatDescClass *, MeshModelClass *); };
 
