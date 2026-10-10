@@ -1,6 +1,8 @@
 // ??0ScoredKillTracker@@QAE@ABV0@@Z
+// partial score=1.0 date=2026-10-10
+// ??0ScoredKillTracker@@QAE@ABV0@@Z
 // partial score=0.97 date=2026-10-09
-// cl: /ICode/Libraries/Include /Ireference/shims/bfme2_ascii /O1 /G7 /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /Ireference/shims/moduledata
+// cl: /ICode/GameEngine/Source/Common /ICode/Libraries/Include /Ireference/shims/bfme2_ascii /O1 /G7 /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /Ireference/shims/moduledata
 // stlport
 // WB14162D0 names ScoredKillTracker::DoXfer and the tracked-kills count.
 // Native55AA68..55AB41/217 proves the scalar offsets and Xfer slots, the
@@ -65,7 +67,7 @@ template<>void list<int>::push_back(const int&);
 }
 
 class ObjectFilter { public: void DoXfer(Xfer *); int m_id; };
-#include "../../Code/GameEngine/Source/Common/ScoredKillTrackerView.h"
+#include "ScoredKillTrackerView.h"
 void ScoredKillTracker::DoXfer(Xfer *xfer) {
     if (xfer->IsCRC()) return;
     TrackerVersion version(1,1);
