@@ -49,7 +49,7 @@ class Object {
 public:
  bool testStatus(ObjectStatusTypes) const;
  int rva0028B511() const;
- void rva0028ACEE(const Coord3D *,int);
+ void rva0028ACEE(int,int);
  unsigned char pad0[4]; void *m_template;
  unsigned char pad8[0x38-8]; Coord3D m_position;
  unsigned char pad44[0x74-0x44]; int m_id;
@@ -102,7 +102,7 @@ void HordeMeleeFormation::startMeleeAttack(Object *victim)
   entry.position=unit->m_position;
   entry.needsPosition=true;
   ((_STL::deque<BfmeE8> *)&entry.path)->clear();
-  unit->rva0028ACEE(&unit->m_position,unit->rva0028B511());
+  unit->rva0028ACEE((int)&unit->m_position,unit->rva0028B511());
   unit->m_ai->resetAttack();
  }
 }
