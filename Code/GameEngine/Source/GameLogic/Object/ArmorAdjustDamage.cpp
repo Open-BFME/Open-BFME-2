@@ -1,5 +1,3 @@
-// ?adjustDamage@Armor@@QBEMPBVDamageInfoInput@@PBVObject@@_N@Z
-// partial score=0.99 date=2026-10-09
 // cl: /O1 /EHsc /MD /arch:SSE /Ireference/shims/bfme2_ascii
 //
 // Armor::adjustDamage, retail 0x001D90A1 (538B, thiscall ret 0xC, x87 return).
@@ -16,15 +14,15 @@
 // when !flag and the damage source answers the 0x0028F44C query. Type 8 stops
 // there; attribute 27 for the damage name (Object 0x0028C149) zeroes the
 // damage; then the armor's own coefficient, and (type != 0) attribute 1 capped
-// at TheGlobalData +0xAE8, each folded as amount *= 1 - (1 - c) * factor.
+// at TheWritableGlobalData +0xAE8, each folded as amount *= 1 - (1 - c) * factor.
 // Offsets, slots and constants come from the native body; the coefficient /
 // attribute meanings are donor-style readings, not proven.
 #include "ascii_string.h"
+#include "../../Common/GameLogicObjectLookupView.h"
 
 typedef float Real;
 typedef bool Bool;
 typedef int Int;
-enum ObjectID { INVALID_ID = 0 };
 enum DamageType { DAMAGE_TYPE_ZERO = 0 };
 
 template <Int NUMBITS> class BitFlags
@@ -91,7 +89,8 @@ public:
 	const ThingTemplate *getTemplate() const { return m_template; }
 	Rva001D90A1Body *getBody() const { return m_body; }
 	Bool rva0028F44C(const Object *other) const;
-	Bool rva0028C149(Int attribute, Real *value, const AsciiString *name);
+	// Existing rowed integer carrier ABI; native passes the local name address.
+	Bool rva0028C149(Int attribute, Real *value, Int name);
 private:
 	unsigned char m_pad00[4];
 	const ThingTemplate *m_template;	// +0x04
@@ -99,11 +98,6 @@ private:
 	Rva001D90A1Body *m_body;		// +0x254
 };
 
-class GameLogic
-{
-public:
-	Object *findObjectByID(ObjectID id);
-};
 extern GameLogic *TheGameLogic;
 
 class GlobalData
@@ -112,7 +106,7 @@ public:
 	unsigned char m_pad[0xAE8];
 	Real m_attributeDamageCap;		// +0xAE8
 };
-extern GlobalData *TheGlobalData;
+extern GlobalData *TheWritableGlobalData;
 
 extern const char *TheDamageNames[];
 
@@ -161,14 +155,18 @@ Real Armor::adjustDamage(const DamageInfoInput *input, const Object *obj, Bool f
 		Bool immune;
 		{
 			AsciiString name(TheDamageNames[type]);
-			immune = const_cast<Object *>(obj)->rva0028C149(27, &unused, &name);
+			immune = const_cast<Object *>(obj)->rva0028C149(27, &unused, reinterpret_cast<Int>(&name));
 		}
 		if (immune)
 			return 0.0f;
 
 		Real coefficient;
 		if (armor)
-			coefficient = armor->getDamageCoefficient(input->m_damageType);
+		{
+			const DamageType currentType = input->m_damageType;
+			coefficient = armor->getDamageCoefficient(currentType);
+		}
+
 		else
 			coefficient = 1.0f;
 		amount *= 1.0f - (1.0f - coefficient) * factor;
@@ -177,9 +175,9 @@ Real Armor::adjustDamage(const DamageInfoInput *input, const Object *obj, Bool f
 			Real attribute = 0.0f;
 			{
 				AsciiString name(TheDamageNames[type]);
-				const_cast<Object *>(obj)->rva0028C149(1, &attribute, &name);
+				const_cast<Object *>(obj)->rva0028C149(1, &attribute, reinterpret_cast<Int>(&name));
 			}
-			amount *= 1.0f - (1.0f - (1.0f - armorMin(TheGlobalData->m_attributeDamageCap, attribute))) * factor;
+			amount *= 1.0f - (1.0f - (1.0f - armorMin(TheWritableGlobalData->m_attributeDamageCap, attribute))) * factor;
 		}
 	}
 	return amount;
