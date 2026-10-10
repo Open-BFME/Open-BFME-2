@@ -22,5 +22,13 @@ struct BfmeVectorRecord00319C84 {
 };
 namespace _STL {
 template <> void _Construct<BfmeVectorRecord00319C84, BfmeVectorRecord00319C84>(BfmeVectorRecord00319C84 *, const BfmeVectorRecord00319C84 &);
+// Declared, not defined: retail routes the range destruction through the
+// pinned worker at 0x00319784 (pin 247), and the rowed _M_clear (0x00565A60)
+// and vector dtor (0x00319B58) bodies both call it as such. Defining the
+// template here inlines the element-dtor loop, whose COMDAT copy loses to
+// retail's dispatch bytes (L+S ??$_Destroy@PAU...). With only the
+// declaration, the instantiation below calls the pinned address and this
+// unit emits no copy of its own. (Single-element _Destroy is unaffected.)
+template <> void _Destroy<BfmeVectorRecord00319C84 *>(BfmeVectorRecord00319C84 *, BfmeVectorRecord00319C84 *);
 }
 template void _STL::vector<BfmeVectorRecord00319C84, _STL::allocator<BfmeVectorRecord00319C84> >::reserve(size_t);
