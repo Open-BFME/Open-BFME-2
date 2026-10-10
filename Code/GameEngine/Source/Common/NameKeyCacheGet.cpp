@@ -39,3 +39,29 @@ NameKeyType Rva00148F5ECache::get()
 	}
 	return m_key;
 }
+
+// ?key@StaticNameKey@@QBE?AW4NameKeyType@@XZ
+// ICF twin of the rowed Rva00148F5ECache::get at 0x00148F5E: Zero Hour's
+// StaticNameKey (NameKeyGenerator.h) carries the same lazy-cache layout
+// (mutable key at +0, name at +4), and retail folds both names onto the one
+// 32B body (pin). Same operations, so the link folds this copy with it.
+class StaticNameKey
+{
+public:
+	StaticNameKey(const char *p) : m_key(NAMEKEY_INVALID), m_name(p) {}
+	NameKeyType key() const;
+
+private:
+	mutable NameKeyType m_key;
+	const char *m_name;
+};
+
+NameKeyType StaticNameKey::key() const
+{
+	if (m_key == NAMEKEY_INVALID)
+	{
+		if (TheNameKeyGenerator != 0)
+			m_key = TheNameKeyGenerator->nameToKey(m_name);
+	}
+	return m_key;
+}
