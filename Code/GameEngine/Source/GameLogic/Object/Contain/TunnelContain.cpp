@@ -30,6 +30,7 @@ class TunnelTracker
 {
 public:
 	void iterateContained(ContainIterateFunc cb, void *user, bool reverse);
+	void addToContainList(Object *obj);
 };
 class Rva004F56FC
 {
@@ -125,7 +126,7 @@ public:
 	virtual void s45();
 	virtual void s46();
 	virtual void s47();
-	virtual void s48();
+	virtual void addToContainList(Object *obj);
 	virtual void s49();
 	virtual void s50();
 	virtual void s51();
@@ -165,6 +166,7 @@ public:
 	virtual void onRemoving(Object *object);
 	virtual void rva0047DCDF(Rva004F553FCb cb, void *user, unsigned int flags);
 	virtual void rva0047DE30();
+	virtual void addToContainList(Object *obj);
 private:
 	char m_pad9AC[0x9AC];
 	unsigned char m_flag9B0;
@@ -194,6 +196,18 @@ void TunnelContain::rva0047DE30()
 		return;
 	mgr->rva004F56FC(m_object);
 	m_flag9B1 = 1;
+}
+
+// ?addToContainList@TunnelContain@@UAEXPAVObject@@@Z, retail 0x0047DC75,
+// 19 bytes: slot 48 of the contain interface at +0x34 (vtable 0x00847598,
+// whose slot 4 is rva0047DE30 above). Zero Hour's TunnelContain::
+// addToContainList: the object joins the owning player's tunnel system
+// (+0x2E8, rowed TunnelTracker::addToContainList 0x004F56E5, reached by a
+// tail jump). BFME 2 keeps no null checks, like rva0047DCDF.
+void TunnelContain::addToContainList(Object *obj)
+{
+	Player *owningPlayer = m_1C->getControllingPlayer();
+	owningPlayer->m_2E8->addToContainList(obj);
 }
 
 // ZH TunnelContain onRemoving guides release/position/show; native base is GarrisonContain.
