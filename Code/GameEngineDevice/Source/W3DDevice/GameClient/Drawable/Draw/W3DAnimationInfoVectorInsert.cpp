@@ -14,6 +14,14 @@
 // constructor and no destructor (a destructor adds a destroy loop retail lacks).
 // The member is instantiated explicitly instead of through the donor's anchor.
 #define _STLP_NO_EXCEPTIONS 1
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
 #include <vector>
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include/W3DDevice/GameClient/Module/W3DModelDraw.h

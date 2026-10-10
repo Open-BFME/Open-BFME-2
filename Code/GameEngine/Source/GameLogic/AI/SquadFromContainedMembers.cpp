@@ -10,6 +10,14 @@
 // ids through a local pointer keeps native LEA then finish load. Whole162B
 // and EH exact. Emitted list-pointer ctor/dtor are byte-and-relocation twins
 // of the owned list<int> bodies4EC36C/4EC395, zero unique-byte credit.
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
 #include <vector>
 #include <list>
 #include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"

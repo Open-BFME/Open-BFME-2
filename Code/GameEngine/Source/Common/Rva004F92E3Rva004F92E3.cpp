@@ -3,6 +3,14 @@
 // ?rva004F92E3@Rva004F92E3@@QAEXPAX@Z, retail 0x004f92e3, 149 bytes. Banked partial (score 0.92) closed by tools/permute.py;
 // the body is the banked one up to statement/operand order and local types.
 // stlport
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
 #include <vector>
 
 struct TargetRef00217D4C

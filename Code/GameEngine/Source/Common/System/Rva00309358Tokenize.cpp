@@ -11,6 +11,14 @@
 // loop head which is why retail reloads the end position from its slot.
 // Original helper name unknown; semantics established by native STL range
 // calls and independently by StandingWaterArea::LoadPCAFile (WB BDE250).
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
 #include <string>
 #include <vector>
 struct BfmeRangePF { char *begin,*end; };

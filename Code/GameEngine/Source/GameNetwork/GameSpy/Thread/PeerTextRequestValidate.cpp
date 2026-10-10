@@ -17,6 +17,14 @@
 //   the TU-local slot view keeps addRequest at proven slot 6 per
 //   PeerThreadRetail.h's interface order. DIR32 global refs are masked by
 //   the gate, as in the sibling TUs.
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
 #include <string>
 #include <vector>
 
