@@ -1,4 +1,6 @@
 // ?transitionLiveMode@W3DCamTransform@@QAEXPAVVector3@@0PAVView@@@Z
+// partial score=0.9831912878787878 date=2026-10-10
+// ?transitionLiveMode@W3DCamTransform@@QAEXPAVVector3@@0PAVView@@@Z
 // partial score=0.9800079477813852 date=2026-10-10
 // ?transitionLiveMode@W3DCamTransform@@QAEXPAVVector3@@0PAVView@@@Z
 // partial score=0.95 date=2026-10-09
@@ -154,7 +156,7 @@ void W3DCamTransform::transitionLiveMode(Vector3 *pos, Vector3 *target, View *vi
 	if (!obj)
 	{
 		zoomT = targetT = 0.0f;
-		zoomSpeed = targetSpeed = 0.0f;
+		zoomSpeed = (this ? targetSpeed = 0.0f : targetSpeed = 0.0f);
 		m_liveState = 0;
 	}
 
