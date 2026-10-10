@@ -80,9 +80,32 @@ struct Vp6HuffTokenInstance
 	int m_acRun[2];
 };
 
-extern const unsigned g_00BD8D40[33];
-extern const int g_00BD8B48[12];
-extern const int g_00BD8B78[65];
+// The three .rdata constant tables the token readers index. Retail bakes their
+// addresses into the reading bodies, so each one is defined here from retail's
+// bytes: the bit mask read by Rva001C4FE0ReadBits at VA 0x00BD8D40, the token
+// minimums at VA 0x00BD8B48 and the AC band map at VA 0x00BD8B78.
+extern const unsigned g_00BD8D40[33] = {
+	0, 1, 3, 7, 15, 31, 63, 127,
+	255, 511, 1023, 2047, 4095, 8191, 16383, 32767,
+	65535, 131071, 262143, 524287, 1048575, 2097151, 4194303, 8388607,
+	16777215, 33554431, 67108863, 134217727, 268435455, 536870911, 1073741823, 2147483647,
+	-1,
+};
+extern const int g_00BD8B48[12] = {
+	0, 1, 2, 3, 4, 5, 7, 11,
+	19, 35, 67, 0,
+};
+extern const int g_00BD8B78[65] = {
+	-1, 0, 1, 1, 1, 2, 2, 2,
+	2, 2, 2, 3, 3, 3, 3, 3,
+	3, 3, 3, 3, 3, 3, 3, 3,
+	3, 3, 3, 3, 3, 3, 3, 3,
+	3, 3, 3, 3, 3, 3, 3, 3,
+	3, 3, 3, 3, 3, 3, 3, 3,
+	3, 3, 3, 3, 3, 3, 3, 3,
+	3, 3, 3, 3, 3, 3, 3, 3,
+	3,
+};
 
 static unsigned Rva001C4FE0ReadBits(Vp6RawBits *state, int bits)
 {
