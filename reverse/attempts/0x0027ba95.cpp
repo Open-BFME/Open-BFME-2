@@ -1,16 +1,16 @@
 // ?calcPhysicsXform@Drawable@@QAE_NAAUPhysicsXformInfo@1@@Z
-// partial score=0.9772349272 date=2026-10-10
-// ?calcPhysicsXform@Drawable@@QAE_NAAUPhysicsXformInfo@1@@Z
-// partial score=0.9772349272349272 date=2026-10-10
-// ?calcPhysicsXform@Drawable@@QAE_NAAUPhysicsXformInfo@1@@Z
-// partial score=0.9247661122994653 date=2026-10-09
-// ?calcPhysicsXform@Drawable@@QAE_NAAUPhysicsXformInfo@1@@Z
-// partial score=0.9 date=2026-10-08
+// partial score=0.9279 date=2026-10-10
 // cl: /O1 /arch:SSE /G7 /DNDEBUG /MD
-// Reference control flow: BFME1 90fffa62857c Drawable::calcPhysicsXform,
-// originally GeneralsMD Drawable.cpp. Target identity: WB ca7380, file
-// Drawable.cpp line 3238; native 27BA95..27BB65. Frame guard, appearances,
-// dispatch targets and offsets below are read from the native body.
+//
+// ?calcPhysicsXform@Drawable@@QAE_NAAUPhysicsXformInfo@1@@Z
+// retail 0x0027BA95..0x0027BB65 (208 bytes) thiscall RET 4.
+//
+// Dispatcher over the locomotor appearance: wheels (cases 1/8), treads
+// (cases 2/3), HugeFourLegs (case 4), rva00270B0F (case 5), rva00272FB6
+// (case 9). Guarded by the object holder (+0xFC/+0x258), its current
+// locomotor (+0x1F0) and the per-frame check against TheGameClient slot 31
+// with the entry stamp at +0xAC. Identity: WB 0x00CA7380, Drawable.cpp;
+// donor BFME1 90fffa62857c Drawable::calcPhysicsXform.
 struct Rva0028AC4EEntry
 {
     char unknown[0xAC];
@@ -81,9 +81,10 @@ private:
 
 bool Drawable::calcPhysicsXform(PhysicsXformInfo &info)
 {
-    bool hasPhysicsXform = false;
+    bool hasPhysicsXform;
     DrawablePhysicsObject *obj = getObject();
     DrawablePhysicsHolder *holder = obj ? obj->getAIUpdateInterface() : 0;
+    hasPhysicsXform = false;
     if (holder)
     {
         DrawablePhysicsLocomotor *locomotor =

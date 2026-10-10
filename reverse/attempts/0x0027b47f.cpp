@@ -1,17 +1,25 @@
 // ?calcPhysicsXformHugeFourLegs@Drawable@@QAEXPBVLocomotor@@AAUPhysicsXformInfo@1@@Z
-// partial score=0.9955684545403807 date=2026-10-09
-// stlport
+// partial score=0.99557 date=2026-10-10
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /ICode/Libraries/Include/Lib
-// Target native27B47F..27BA95 and WBCA8750 identify HugeFourLegs.
-// BF1 f989 / ZH wheel/tread updates guide the shared spring equations;
-// native/WB independently supply foot selection, geometry, and overlap logic.
+// stlport
+//
+// ?calcPhysicsXformHugeFourLegs@Drawable@@QAEXPBVLocomotor@@AAUPhysicsXformInfo@1@@Z
+// retail 0x0027B47F..0x0027BA95 (1558 bytes) thiscall RET 8.
+//
+// HugeFourLegs appearance case of Drawable::calcPhysicsXform (caller
+// 0x0027BB52): spring/damper pitch/roll/overlap update over four foot points
+// (module feet via collectFeet, else geometry corners), terrain heights via
+// TheTerrainLogic slot 7. Identity: WB 0x00CA8750; ZH/BFME1 wheel/tread
+// donors guide the shared equations.
 #include <math.h>
 #include <stl/_alloc.h>
-#include "Coord3D.h"
+// TU-local Coord3D (name and trivial-ABI shape shared with the rowed
+// vector<Coord3D> resize body at 0x000CA2F3; user-declared ctor/copy/dtor so
+// a value temporary stays uninitialized, as retail passes it).
+struct Coord3D { Coord3D() {} Coord3D(const Coord3D &) {} ~Coord3D() {} float x; float y; float z; };
 typedef float Real; typedef int Int;typedef bool Bool;
 struct Region2D{struct Point{float x,y;}lo,hi;};
 class Rva0087E370{public:void method(const Coord3D&,float,Region2D&)const;};
-struct Rva0027B47FPoint:Coord3D{Rva0027B47FPoint(){} Rva0027B47FPoint(const Rva0027B47FPoint&){}~Rva0027B47FPoint(){}};
 void Rva00030830FreeAllocation(void*);
 namespace _STL {
 
@@ -19,25 +27,15 @@ template<class T,class A>class _Vector_base{public:T*_M_start;T*_M_finish;_STLP_
 template<class T,class A=allocator<T> >class vector:public _Vector_base<T,A>{public:
 vector(const A&a=A()):_Vector_base<T,A>(a){}~vector(){}
 unsigned int size()const{return _M_finish-_M_start;}T&operator[](unsigned int n){return _M_start[n];}
+// Out-of-line definition: the rowed vector<Coord3D> resize at 0x000CA2F3.
 void resize(unsigned int n,T value);
 };
-template<> class vector<Coord3D,allocator<Coord3D> > {
-public: Coord3D *erase(Coord3D*,Coord3D*);void rva00ca1ee(Coord3D*,unsigned int,const Coord3D&);
-Coord3D*start;Coord3D*finish;Coord3D*end;
-};
-template<class T,class A> void vector<T,A>::resize(unsigned int n,T value){
-T*start=_M_start;T*finish=_M_finish;unsigned int count=finish-start;
-vector<Coord3D,allocator<Coord3D> >*view=reinterpret_cast<vector<Coord3D,allocator<Coord3D> >*>(this);
-if(n<count)view->erase(reinterpret_cast<Coord3D*>(start+n),reinterpret_cast<Coord3D*>(finish));
-else view->rva00ca1ee(reinterpret_cast<Coord3D*>(_M_finish),n-(unsigned int)(_M_finish-start),value);
-}
 }
 class DrawableLocoInfo{public:virtual ~DrawableLocoInfo(){}DrawableLocoInfo();float m_pitch,m_pitchRate,m_roll,m_rollRate,m_yaw,m_accelerationPitch,m_accelerationPitchRate,m_accelerationRoll,m_accelerationRollRate,m_overlapZVel,m_overlapZ,m_wobble,m_yawModulator,m_pitchModulator;float wheels[7];};
 struct LocomotorTemplate{char pad[0x88];float accelLimit,decelLimit,pitchStiff,rollStiff,pitchDamp,rollDamp;char padA0[0x18];float axial;};
 class Locomotor{public:void*vp;const LocomotorTemplate*data;float getAccelPitchLimit()const{return data->accelLimit;}float getPitchStiffness()const{return data->pitchStiff;}float getRollStiffness()const{return data->rollStiff;}float getPitchDamping()const{return data->pitchDamp;}float getRollDamping()const{return data->rollDamp;}float getUniformAxialDamping()const{return data->axial;}};
 class Object{public:char pad[0x25C];void*physics;Int rva0028B511()const;};
 class TerrainLogic{public:virtual void slot0();virtual void slot1();virtual void slot2();virtual void slot3();virtual void slot4();virtual void slot5();virtual void slot6();virtual float getLayerHeight(float,float,int,Coord3D*,bool);};extern TerrainLogic*TheTerrainLogic;
-class BFMERopeDrawable{public:const Coord3D*getPosition()const;};
 class BfmeFootDraw{public:
 virtual void slot0();
 virtual void slot1();
@@ -86,7 +84,7 @@ virtual void slot43();
 virtual void slot44();
 virtual void slot45();
 virtual void slot46();
-virtual bool collectFeet(_STL::vector<Rva0027B47FPoint>*,int);
+virtual bool collectFeet(_STL::vector<Coord3D>*,int);
 };
 class DrawModule{public:
 virtual void slot0();
@@ -136,6 +134,7 @@ virtual BfmeFootDraw* getDraw();
 float Sin(float);float Cos(float);
 class Drawable{public:struct PhysicsXformInfo{float m_totalPitch,m_totalRoll,m_totalYaw,m_totalZ;};
 void calcPhysicsXformHugeFourLegs(const Locomotor*,PhysicsXformInfo&);
+const Coord3D*getPosition()const;
 char pad00[0x44];float angle;char pad48[0xFC-0x48];Object*m_object;char pad100[0x13C-0x100];DrawableLocoInfo*m_locoInfo;char pad140[0x14C-0x140];DrawModule**modules;
 };
 void Drawable::calcPhysicsXformHugeFourLegs(const Locomotor*locomotor,PhysicsXformInfo&info){
@@ -147,15 +146,15 @@ const Real PITCH_DAMPING=locomotor->getPitchDamping();
 const Real ROLL_DAMPING=locomotor->getRollDamping();
 const Real UNIFORM_AXIAL_DAMPING=locomotor->getUniformAxialDamping();
 const Object*obj=m_object;if(!obj||!obj->physics)return;
-const Coord3D*pos=((const BFMERopeDrawable*)this)->getPosition();
+const Coord3D*pos=getPosition();
 Real direction=angle;
-_STL::vector<Rva0027B47FPoint> points;
+_STL::vector<Coord3D> points;
 union{Region2D bounds;float heights[4];}scratch;
 bool found=false;
 for(DrawModule**mod=modules;!found&&*mod;++mod){BfmeFootDraw*draw=(*mod)->getDraw();if(draw&&draw->collectFeet(&points,0)&&points.size()>=4)found=true;}
 if(!found){const Rva0087E370*geom=(const Rva0087E370*)((const char*)obj+0xA8);Region2D&bounds=scratch.bounds;Coord3D zero;zero.x=0;zero.y=0;zero.z=0;
 geom->method(zero,0.0f,bounds);
-points.resize(4,Rva0027B47FPoint());
+points.resize(4,Coord3D());
 Real s=Sin(direction),c=Cos(direction);
 points[1].x=bounds.hi.x*c-bounds.hi.y*s;points[1].y=bounds.hi.y*c+bounds.hi.x*s;points[1].z=pos->z;
 points[0].x=bounds.lo.x*c-bounds.hi.y*s;points[0].y=bounds.hi.y*c+bounds.lo.x*s;points[0].z=pos->z;

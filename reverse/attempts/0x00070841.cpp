@@ -1,4 +1,6 @@
 // ?flushOccludedObjectsIntoStencil@RTS3DScene@@IAEXAAVRenderInfoClass@@@Z
+// partial score=0.9968 date=2026-10-10
+// ?flushOccludedObjectsIntoStencil@RTS3DScene@@IAEXAAVRenderInfoClass@@@Z
 // partial score=0.99 date=2026-10-10
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
 // ?flushOccludedObjectsIntoStencil@RTS3DScene@@IAEXAAVRenderInfoClass@@@Z  Native 0x00070841..0x00070F80 (1855 bytes)
