@@ -415,3 +415,11 @@ MemoryWriteFile::MemoryWriteFile(const char *name)
 	else
 		setName("<MemoryWriteFile>");
 }
+
+// Native6022CA tail JMP6025CE forwards unchanged thiscall receiver to
+// File's owned destructor. Original wrapper name and outer type unknown.
+struct Rva006022CAFileCleanupForward { void cleanup(); };
+void Rva006022CAFileCleanupForward::cleanup()
+{
+    reinterpret_cast<File *>(this)->File::~File();
+}
