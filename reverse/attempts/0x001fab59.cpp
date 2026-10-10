@@ -1,6 +1,8 @@
 // ?update@Rva001FAB59@@QAE_NH@Z
+// partial score=0.9229118389841187 date=2026-10-10
+// ?update@Rva001FAB59@@QAE_NH@Z
 // partial score=0.8664 date=2026-10-08
-// cl: /O1 /Ob2 /Oy- /MD /arch:SSE /G7 /DNDEBUG /Ireference/shims/bfme2_ascii
+// cl: /O1 /Ob2 /Oy- /MD /I. /ICode/Libraries/Include /ICode/GameEngine/Include /ICode/GameEngine/Source/Common /arch:SSE /G7 /DNDEBUG /Ireference/shims/bfme2_ascii
 #include "ascii_string.h"
 struct Coord3D {float x,y,z; __forceinline void set(float a,float b,float c) {x=a;y=b;z=c;} };
 struct Vector3 {float X,Y,Z; __forceinline Vector3(float a,float b,float c):X(a),Y(b),Z(c){} };
@@ -115,7 +117,8 @@ private:
  bool isLocalIdentity,isIdentity,isForever,isStopped,isDestroyed,isFirstPos,flag1A6,flag1A7,skipParent;
  char gap1A9[3]; Rva001FA7F8 modules;
 };
-bool Rva001FAB59::update(int localPlayerIndex) {
+bool Rva001FAB59::update(int localPlayerIndex) {if(0){throw 0;throw 0;}
+
  profileTime=0.0f;
  __int64 start,frequency,end;
  if(TheGlobalData->profileFX) {QueryPerformanceFrequency(&frequency);QueryPerformanceCounter(&start);}

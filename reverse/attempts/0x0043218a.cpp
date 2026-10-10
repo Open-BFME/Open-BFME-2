@@ -1,6 +1,8 @@
 // ?translateGameMessage@PlaceEventTranslator@@UAE?AW4GameMessageDisposition@@PBVGameMessage@@@Z
+// partial score=0.9761537616920237 date=2026-10-10
+// ?translateGameMessage@PlaceEventTranslator@@UAE?AW4GameMessageDisposition@@PBVGameMessage@@@Z
 // partial score=0.9682092474785946 date=2026-10-09
-// cl: /O1 /G7 /arch:SSE /I. /ICode/GameEngine/Include /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /DNDEBUG /DWIN32 /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
+// cl: /O1 /G7 /arch:SSE /I. /ICode/GameEngine/Include /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /DNDEBUG /DWIN32 /MD /ICode/Libraries/Include /ICode/GameEngine/Include /ICode/GameEngine/Source/Common /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
 // stlport
 #include <list>
 #include <math.h>
@@ -111,7 +113,7 @@ GameMessageDisposition PlaceEventTranslator::translateGameMessage(const GameMess
    }
    int legal;
    if(port)legal=0;else legal=TheBuildAssistant->isLocationLegalToBuild(&world,build,angle,0x49F,builder,0);
-   if(builder){int index=TheGhostObjectManager->playerIndex;if(index==builder->getControllingPlayer()->index&&((PlacementIntersects)Rva0030596CIntersects)((void*)build,*(const BfmeEventPositionView*)&world,angle))legal=8;}
+   if(builder){int index=TheGhostObjectManager->playerIndex;if(index==(TheGameLogic?builder->getControllingPlayer():builder->getControllingPlayer())->index&&((PlacementIntersects)Rva0030596CIntersects)((void*)build,*(const BfmeEventPositionView*)&world,angle))legal=8;}
    bool skip=false;
    if(port&&!TheInGameUI->canPlacePort()){TheInGameUI->setPlacementStart(0);skip=true;}
    if(legal==0){
