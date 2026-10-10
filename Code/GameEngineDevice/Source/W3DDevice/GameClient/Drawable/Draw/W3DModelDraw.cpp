@@ -44,6 +44,15 @@
 #define _BFME_RETAIL_TREE_INSERT_LAYOUT
 
 #include "Common/CRC.h"
+// The exact assignment specialization is provided by StlportAsciiStringVectorAssign.cpp.
+// Keep this consumer on that verified body rather than instantiate the stock copy.
+#include <vector>
+#include "ascii_string.h"
+namespace _STL {
+template <> vector<AsciiString, allocator<AsciiString> > &
+vector<AsciiString, allocator<AsciiString> >::operator=(const vector<AsciiString, allocator<AsciiString> > &);
+}
+
 #include "Common/CRCDebug.h"
 #include "Common/GameState.h"
 #include "Common/GlobalData.h"

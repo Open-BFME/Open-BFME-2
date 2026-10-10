@@ -46,6 +46,15 @@ template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, 
 
 // INCLUDES ///////////////////////////////////////////////////////////////////////////////////////
 #include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
+// The exact assignment specialization is provided by StlportAsciiStringVectorAssign.cpp.
+// Keep this consumer on that verified body rather than instantiate the stock copy.
+#include <vector>
+#include "ascii_string.h"
+namespace _STL {
+template <> vector<AsciiString, allocator<AsciiString> > &
+vector<AsciiString, allocator<AsciiString> >::operator=(const vector<AsciiString, allocator<AsciiString> > &);
+}
+
 #include <map>
 
 // Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
