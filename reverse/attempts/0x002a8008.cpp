@@ -1,4 +1,6 @@
 // ?newGame@PlayerList@@UAEXXZ
+// partial score=1.0 date=2026-10-10
+// ?newGame@PlayerList@@UAEXXZ
 // partial score=0.97 date=2026-10-09
 // cl: /O1 /arch:SSE /G7 /MD /EHsc /DNDEBUG /Ireference/shims/bfme2_ascii
 // PlayerList::newGame, retail 0x002A8008 (766 bytes).
@@ -32,7 +34,7 @@ class BuildListInfo;
 class Dict
 {
 public:
-	AsciiString getAsciiString(NameKeyType key, Bool *exists = 0) const;
+	AsciiString getAsciiString(Int key, Bool *exists = 0) const;
 	Bool getBool(Int key, Bool *exists = 0) const;
 };
 
@@ -45,7 +47,7 @@ public:
 
 private:
 	BuildListInfo *m_pBuildList;	// +0x00
-	Dict m_dict;	// +0x04
+	Dict m_dict; char m_tail[0x60-4-sizeof(Dict)];	// +0x04
 };
 
 class SidesList
@@ -56,7 +58,7 @@ public:
 
 private:
 	char m_pad[0x3C];
-	Int m_numSides;	// +0x3C
+	Int m_numSides; SidesInfo m_sides[1];	// +0x3C
 };
 extern SidesList *TheSidesList;
 
@@ -137,9 +139,11 @@ private:
 	char m_pad04[0x10 - 4];
 	Player *m_local;	// +0x10
 	Int m_playerCount;	// +0x14
-	Player *m_players[16];	// +0x18
+	Player *m_players[20];	// +0x18
 };
 
+__declspec(noinline) SidesInfo *SidesList::getSideInfo(Int i){return(i>=0 && i<m_numSides)?&m_sides[i]:0;}
+__declspec(noinline) Player *PlayerList::getNthPlayer(Int i){if(i<0 || i>=20)return 0;return m_players[i];}
 void PlayerList::newGame()
 {
 	Int i;

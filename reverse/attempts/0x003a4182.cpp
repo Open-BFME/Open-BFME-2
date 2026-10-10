@@ -1,4 +1,6 @@
 // ?initFromSides@TeamFactory@@QAEXPAVSidesList@@@Z
+// partial score=0.9049009758897819 date=2026-10-10
+// ?initFromSides@TeamFactory@@QAEXPAVSidesList@@@Z
 // partial score=0.85 date=2026-10-09
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
 // ?initTeam@TeamFactory@@QAEXABVAsciiString@@0_NPAVDict@@@Z, retail 0x003A404D
@@ -120,7 +122,7 @@ void TeamFactory::initTeam(const AsciiString &name, const AsciiString &owner, bo
 void TeamFactory::initFromSides(SidesList *sides)
 {
  clear();
- for(int id=sides->teams.first();id;id=sides->teams.getNextTeamID(id)) {
+ for(short id=sides->teams.first();id;id=sides->teams.getNextTeamID(id)) {
   if(!sides->teams.isFinal(id))continue;
   Dict *d=sides->teams.getTeamInfo(id);
   AsciiString tname=d->getAsciiString(teamKey(TheKey_teamName));

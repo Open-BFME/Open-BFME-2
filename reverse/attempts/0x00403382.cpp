@@ -1,4 +1,6 @@
 // ?rva00403382@AttributeModifierPoolUpdate@@QAE_NHPAMH@Z
+// partial score=0.9804011259676285 date=2026-10-10
+// ?rva00403382@AttributeModifierPoolUpdate@@QAE_NHPAMH@Z
 // partial score=0.96 date=2026-10-07
 // cl: /O1 /DNDEBUG /MD /arch:SSE /G7
 // AttributeModifierPoolUpdate is established by its rowed factory and vtable.
@@ -109,12 +111,13 @@ bool AttributeModifierPoolUpdate::rva00403448(int attribute, float *multiplier,
 
 // Additive sibling supported by the same donor and Object wrapper 0x28C149.
 // ?rva00403382@AttributeModifierPoolUpdate@@QAE_NHPAMH@Z
+class BonusFound{public: BonusFound():flag(false){}void set(){flag=true;}operator bool()const{return flag;}private:bool flag;};
 bool AttributeModifierPoolUpdate::rva00403382(int attribute, float *bonus,
     int name)
 {
     float value;
     *bonus = 0.0f;
-    bool found = false;
+    BonusFound found;
     if (!TheGameLogic)
         return false;
     unsigned frame = TheGameLogic->frame;
@@ -129,7 +132,7 @@ bool AttributeModifierPoolUpdate::rva00403382(int attribute, float *bonus,
                 reinterpret_cast<const StringBase<char> *>(name)))
             {
                 *bonus += value;
-                found = true;
+                found.set();
             }
         }
     }
