@@ -1,50 +1,48 @@
-// ?rva00494C81@Rva00494C81@@QAEXHHHHH@Z
-// partial score=0.98 date=2026-10-06
-// cl: /O1 /DNDEBUG /MD
-// class-gate: allow AsciiString address-only view for isEmpty.
+// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
 //
 // ?rva00494C81@Rva00494C81@@QAEXHHHHH@Z @0x00494C81 165B ret 0x14.
-// Kind 5 walks the bit words at record+0x24. Otherwise the kind is a
-// weapon-slot lock. Then the record name, wake frame, slot 15, and the
-// +0x240 notify.
+// Sub-object (this = owner + 0x20) callback of the WeaponModeSpecialPower
+// update family: kind 5 walks the 104 flag bits of the record's BitFlags<104>
+// (rowed count 0x0028F6EB) and sets each as an object weapon-set flag, any other
+// kind locks the weapon slot; then the record name is applied as an attribute
+// modifier (rowed 0x0028EA91), the wake frame is set from the record, the
+// owner flag +0x18 is raised, slot 15 is called with 1.0f and the object's
+// FiringTracker cools down (rowed 0x004DEC88). Layout and call evidence from
+// retail bytes; the owner class name is not proven, so the neutral address name
+// stays. The record pointer is re-read through a volatile view after every
+// callee because retail reloads it (the owner stores it at this - 0x1C).
+#include "ascii_string.h"
 
 enum WeaponSlotType
 {
 	SLOT_0 = 0
 };
-
 enum WeaponLockType
 {
 	LOCK_2 = 2
 };
-
 enum WeaponSetType
 {
 	SET_0 = 0
 };
-
 enum UpdateSleepTime
 {
 	SLEEP_0 = 0
 };
 
-class AsciiString
+template <int N> class BitFlags
 {
 public:
-	bool isEmpty() const;
+	int count() const;
+	unsigned int m_words[(N + 31) / 32];
 };
 
-class BitFlags
-{
-public:
-	int rva0028F6EB();
-	unsigned int m_words[8];
-};
+class Rva00494C81;
 
-class Rva004DEC88
+class FiringTracker
 {
-public:
-	void rva004DEC88(int flag);
+	friend class Rva00494C81;
+	void coolDown(bool forceReset);
 };
 
 class Object
@@ -52,13 +50,10 @@ class Object
 public:
 	bool setWeaponLock(WeaponSlotType slot, WeaponLockType lock);
 	void setWeaponSetFlag(WeaponSetType flag);
-	bool rva0028EA91(const AsciiString &name, int value);
-
+	bool addAttributeModifierToPool(const AsciiString &name, int value);
 	char m_pad[0x240];
-	Rva004DEC88 *m_notify;
+	FiringTracker *m_notify;
 };
-
-class Rva00494C81;
 
 class UpdateModule
 {
@@ -72,10 +67,10 @@ class Record
 {
 public:
 	char m_pad[0x18];
-	char m_name[4];
+	AsciiString m_name;
 	int m_field1c;
 	int m_kind;
-	BitFlags m_flags;
+	BitFlags<104> m_flags;
 };
 
 class Sub
@@ -118,21 +113,19 @@ void Rva00494C81::rva00494C81(int, int, int, int, int)
 	Object *obj = *(Object **)((char *)this - 0x18);
 	if (kind != 5) {
 		obj->setWeaponLock((WeaponSlotType)kind, LOCK_2);
-	} else if (rec->m_flags.rva0028F6EB() != 0) {
+	} else if (rec->m_flags.count() != 0) {
 		for (int i = 0; i < 0x68; ++i) {
-			int bit = 1 << (i & 31);
-			Record *cur = *(Record *volatile *)((char *)this - 0x1c);
-			if (cur->m_flags.m_words[(unsigned)i >> 5] & (unsigned)bit)
+			if ((*(Record *volatile *)((char *)this - 0x1c))->m_flags.m_words[(unsigned)i >> 5] & (1u << (i & 31)))
 				obj->setWeaponSetFlag((WeaponSetType)i);
 		}
 	}
 	rec = *(Record *volatile *)((char *)this - 0x1c);
-	AsciiString *name = (AsciiString *)((char *)rec + 0x18);
+	AsciiString *name = &rec->m_name;
 	if (name->isEmpty() == 0)
-		obj->rva0028EA91(*name, rec->m_field1c);
+		obj->addAttributeModifierToPool(*name, rec->m_field1c);
 	rec = *(Record *volatile *)((char *)this - 0x1c);
 	((UpdateModule *)((char *)this - 0x20))->setWakeFrame(obj, (UpdateSleepTime)rec->m_field1c);
 	m_flag18 = 1;
 	m_sub.s15(1.0f);
-	obj->m_notify->rva004DEC88(1);
+	obj->m_notify->coolDown(true);
 }
