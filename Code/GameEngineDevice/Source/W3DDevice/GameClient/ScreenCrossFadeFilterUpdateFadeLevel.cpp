@@ -111,6 +111,9 @@ public:
 	}
 
 
+ static void Set_DX8_Texture_Stage_State(unsigned, unsigned long, unsigned);
+ static void Invalidate_Cached_Render_States();
+
  static __forceinline void Set_Texture(unsigned stage,IDirect3DBaseTexture8 *texture) {
   if(Textures[stage]!=texture) {
    if(Textures[stage])reinterpret_cast<BfmeTextureRef *>(Textures[stage])->vt->release(reinterpret_cast<BfmeTextureRef *>(Textures[stage]));
@@ -328,4 +331,14 @@ Bool ScreenCrossFadeFilter::postRender(FilterModes mode, Coord2D &scrollDelta,
 
 	reset();
 	return true;
+}
+
+// BF1 W3DShaderManager.cpp reset; native table BCF204 slot6 F6425.
+// Full81B ends with the owned cached-state invalidation tail call.
+void ScreenCrossFadeFilter::reset()
+{
+ DX8Wrapper::Set_DX8_Texture_Stage_State(1, 1, 1);
+ DX8Wrapper::Set_DX8_Texture_Stage_State(1, 4, 1);
+ DX8Wrapper::Set_Texture(0, 0);
+ DX8Wrapper::Invalidate_Cached_Render_States();
 }
