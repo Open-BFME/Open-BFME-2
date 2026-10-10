@@ -21,11 +21,13 @@ public:
 	void Release_Ref();
 };
 
-class Rva0036CA00Str
+// Target-only four-byte counted-reference view. The earlier Rva0036CA00Str
+// spelling also names an unrelated StringBase buffer destructor at36410.
+class DrawableReturnedReference
 {
 public:
-	Rva0036CA00Str(const Rva0036CA00Str &other);
-	~Rva0036CA00Str() { if (m_ref) m_ref->Release_Ref(); }
+	DrawableReturnedReference(const DrawableReturnedReference &other);
+	~DrawableReturnedReference() { if (m_ref) m_ref->Release_Ref(); }
 	OpaqueRefCounted *m_ref;
 };
 
@@ -35,7 +37,7 @@ public:
 	Rva002390CB();
 	Rva002390CB(const Rva002390CB &other);
 	int m_0;
-	Rva0036CA00Str m_4;
+	DrawableReturnedReference m_4;
 };
 
 class Rva0027675FIface
