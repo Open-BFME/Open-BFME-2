@@ -6,6 +6,7 @@
 // Its target 0x00545F80 (129B) keeps the end iterator in EDI across lookups;
 // caching end reproduces that lifetime and both bodies byte-match.
 typedef unsigned int UnsignedInt;
+typedef bool Bool;
 typedef float Real;
 #define NULL 0
 
@@ -30,6 +31,10 @@ class AIUpdateInterface
 {
 public:
 	void rva00262B0F(int obj);
+	ObjectID getCrateID() const { return m_crateID; }
+private:
+	unsigned char m_pad00[0x238];
+	ObjectID m_crateID; // +0x238
 };
 struct Coord3D
 {
@@ -72,19 +77,49 @@ private:
 	unsigned char m_pad00[0x2E8];
 	TunnelTracker *m_tunnelSystem; // +0x2E8
 };
+class ExitInterface
+{
+public:
+	virtual bool isExitBusy() const = 0;
+	virtual void slot1() = 0;
+	virtual void slot2() = 0;
+	virtual void slot3() = 0;
+	virtual void slot4() = 0;
+	virtual void exitObjectInAHurry(Object *obj) = 0;	// +0x14
+};
+template <int N> class VSlotsC : public VSlotsC<N - 1>
+{
+public:
+	virtual void gap(char (*)[N]) = 0;
+};
+template <> class VSlotsC<0>
+{
+};
+class ContainModuleInterface : public VSlotsC<29>
+{
+public:
+	virtual ExitInterface *getContainExitInterface() = 0;	// +0x74
+};
 class Object
 {
 public:
 	const Coord3D *getPosition() const { return &m_position; }
 	AIUpdateInterface *getAI() { return m_ai; }
+	AIUpdateInterface *getAIUpdateInterface() { return m_ai; }
 	Player *getControllingPlayer() const;
+	ContainModuleInterface *getContain() const { return m_contain; }
+	Object *getContainedBy() { return m_containedBy; }
 private:
 	unsigned char m_pad00[0x38];
 	Coord3D m_position; // +0x38
 	unsigned char m_pad44[0x74 - 0x44];
 	ObjectID m_id; // +0x74
-	unsigned char m_pad78[0x258 - 0x78];
+	unsigned char m_pad78[0x250 - 0x78];
+	ContainModuleInterface *m_contain; // +0x250
+	unsigned char m_pad254[0x258 - 0x254];
 	AIUpdateInterface *m_ai; // +0x258
+	unsigned char m_pad25C[0x274 - 0x25C];
+	Object *m_containedBy; // +0x274
 };
 class GameLogic
 {
@@ -97,7 +132,8 @@ private:
 };
 struct TAiData
 {
-	unsigned char m_pad00[0x44];
+	unsigned char m_pad00[0x40];
+	UnsignedInt m_guardEnemyScanRate; // +0x40
 	UnsignedInt m_guardEnemyReturnScanRate; // +0x44
 };
 class AI
@@ -145,9 +181,16 @@ public:
 template <> class VSlots<0>
 {
 };
-class StateMachine : public VSlots<14>
+typedef UnsignedInt StateID;
+class StateMachine : public VSlots<8>
 {
 public:
+	virtual StateReturnType setState(StateID newStateID) = 0;	// +0x20
+	virtual void slot09() = 0;
+	virtual void slot10() = 0;
+	virtual void slot11() = 0;
+	virtual void slot12() = 0;
+	virtual void slot13() = 0;
 	virtual void setGoalObject(const Object *obj) = 0;
 	Object *getOwner() const { return m_owner; }
 private:
@@ -200,4 +243,80 @@ StateReturnType AITNGuardReturnState::onEnter( void )
 	getMachineOwner()->getAI()->rva00262B0F((int)bestTunnel);
 
 	return AIEnterState::onEnter();
+}
+
+// AITNGuardIdleState::update, retail 0x0054665B (258 bytes), the slot after
+// onEnter (0x00545CAF) in its table: Zero Hour's AITNGuard.cpp body. The
+// guard machine's inner-target scan is the unrowed 0x005461A2 (pinned from
+// this call); findBestTunnel is this unit's EAX/EBX-passing static.
+enum
+{
+	AI_TN_GUARD_GET_CRATE = 5004
+};
+inline StateReturnType STATE_SLEEP(UnsignedInt frames) { return (StateReturnType)frames; }
+class AITNGuardMachine : public StateMachine
+{
+public:
+	Bool lookForInnerTarget(void);
+	ObjectID getNemesisID() const { return m_nemesisID; }
+private:
+	unsigned char m_pad18[0x48 - 0x18];
+	ObjectID m_nemesisID; // +0x48
+};
+class AITNGuardIdleState : public State
+{
+public:
+	virtual StateReturnType update();
+protected:
+	AITNGuardMachine *getGuardMachine() { return (AITNGuardMachine *)getMachine(); }
+private:
+	unsigned char m_pad1C[0x20 - 0x1C];
+	UnsignedInt m_nextEnemyScanTime; // +0x20
+};
+
+StateReturnType AITNGuardIdleState::update( void )
+{
+	UnsignedInt now = TheGameLogic->getFrame();
+	if (now < m_nextEnemyScanTime)
+		return STATE_SLEEP(m_nextEnemyScanTime - now);
+
+	m_nextEnemyScanTime = now + TheAI->getAiData()->m_guardEnemyScanRate;
+
+	getMachineOwner()->getAI()->rva00262B0F(NULL);	// friend_setGoalObject(NULL)
+
+	Object *owner = getMachineOwner();
+	AIUpdateInterface *ai = owner->getAIUpdateInterface();
+	// Check to see if we have created a crate we need to pick up.
+	if (ai->getCrateID() != INVALID_ID)
+	{
+		getMachine()->setState(AI_TN_GUARD_GET_CRATE);
+		return STATE_SLEEP(m_nextEnemyScanTime - now);
+	}
+
+	// if anyone is in the inner area, return success.
+	if (getGuardMachine()->lookForInnerTarget())
+	{
+		AITNGuardMachine *machine = getGuardMachine();
+		Object *nemesis = TheGameLogic->findObjectByID(machine->getNemesisID());
+		if (nemesis == NULL)
+			return STATE_SLEEP(0);
+		if (machine->getOwner()->getContainedBy()) {
+			Object *bestTunnel = findBestTunnel(owner->getControllingPlayer(), nemesis->getPosition());
+			ExitInterface* goalExitInterface = bestTunnel->getContain() ? bestTunnel->getContain()->getContainExitInterface() : NULL;
+			if( goalExitInterface == NULL )
+				return STATE_FAILURE;
+
+			if( goalExitInterface->isExitBusy() )
+				return STATE_SLEEP(0);// Just wait a sec.
+			goalExitInterface->exitObjectInAHurry(getMachineOwner());
+			return STATE_SLEEP(0);
+		}
+		return STATE_SUCCESS;	// Transitions to AITNGuardInnerState.
+	}
+
+	if (!owner->getContainedBy() && findBestTunnel(owner->getControllingPlayer(), owner->getPosition())) {
+		return STATE_FAILURE;	 // go to AITNGuardReturnState, & enter a tunnel.
+	}
+
+	return STATE_SLEEP(m_nextEnemyScanTime - now);
 }
