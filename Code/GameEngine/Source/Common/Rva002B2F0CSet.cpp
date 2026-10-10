@@ -1,31 +1,18 @@
-// flags: region default (reverse/retail_inventory/flag_regions.csv)
-
-// ?rva002B2F0C@Rva002B2F0C@@QAEAAV1@PAURva002B2F0CTarget@@@Z, RVA 0x002B2F0C, 21 bytes.
-// Intrusive-ref setter: stores the pointer at this+0 then increments the
-// target's refcount at +0xB0 when non-null, returning *this. Evidence: retail
-// mov edx,[esp+4] plus test plus mov eax,ecx plus mov [eax],edx plus je plus
-// inc [edx+0xB0] plus ret 4; returning *this proves the mov eax,ecx (void
-// shape is 19B without it); caller 0x0059B23A in 0x0059B1EC; neighbours are
-// Disp8 small getters with /O1 /G7. Honest-address names: owner Rva002B2F0C,
-// target with 0xB0 pad plus int refcount.
-
-struct Rva002B2F0CTarget
-{
-	unsigned char m_pad[0xB0];
-	int m_refs;
-};
-
-class Rva002B2F0C
-{
-	Rva002B2F0CTarget* m_ptr;
+// cl: /O1 /G7 /DNDEBUG /MD
+// Native2B2F0C..2B2F2121B RET4 is the pointer constructor used by
+// LivingWorldAutoResolveUnit59B1EC after new ArmySummaryEntry. WB14D5A60
+// independently initializes that four-byte owning member and increments
+// its entry reference atB0. Its existing copy constructor4F6093 has the
+// same pointer/count ABI. The original wrapper template name is unknown;
+// preserve established opaque Rva004F6093Holder spelling. Constructor
+// lifetime semantics are required: a method-call shim emits a different
+// parent EH-state/store sequence even when this leaf's bytes agree.
+class ArmySummaryEntry {public: char unknown00[0xB0]; int references;};
+class Rva004F6093Holder {
 public:
-	Rva002B2F0C& rva002B2F0C(Rva002B2F0CTarget* p);
+ Rva004F6093Holder(ArmySummaryEntry *);
+ ArmySummaryEntry *entry;
 };
-
-Rva002B2F0C& Rva002B2F0C::rva002B2F0C(Rva002B2F0CTarget* p)
-{
-	m_ptr = p;
-	if (p)
-		++p->m_refs;
-	return *this;
+Rva004F6093Holder::Rva004F6093Holder(ArmySummaryEntry *p):entry(p) {
+ if(p) ++p->references;
 }
