@@ -1,0 +1,28 @@
+{
+  "id": "seat-c-anim2d-constructor-002d6d63-20261010",
+  "seat": "C",
+  "base_commit": "b5cc668da0c33b6c7481ef1a57f00f71605a9752",
+  "paths": [
+    "Code/GameEngine/Source/GameClient/System/Anim2DConstructor.cpp"
+  ],
+  "recoveries": [
+    {
+      "name": "??0Anim2D@@QAE@PAVAnim2DTemplate@@PAVAnim2DCollection@@@Z",
+      "rva": "0x002D6D63",
+      "size": 159,
+      "source": "Code/GameEngine/Source/GameClient/System/Anim2DConstructor.cpp",
+      "notes": "Native2D6D63..2D6E02 full159 RET8; WB C34010 Anim2D constructor; ZH reference at BF1@575ba2b; canonical Snapshot base and nativeC03358 table; initializes donor members plus cached dimensions2C/30; full EH exact without new pins",
+      "replace_rva": null
+    }
+  ],
+  "new_retail_bytes": 159,
+  "proof_command": "python tools/build.py Code/GameEngine/Source/GameClient/System/Anim2DConstructor.cpp",
+  "proof_log": "scoped-proof.txt",
+  "claim_owner": "codex-104a-01a12257",
+  "worker_root": "C:\\Users\\franz\\.codex\\worktrees\\recovery-preserved\\openbfme2",
+  "dependencies": [],
+  "claims": [
+    "0x002D6D63",
+    "file:Code/GameEngine/Source/GameClient/System/Anim2DConstructor.cpp"
+  ]
+}
