@@ -84,6 +84,67 @@ int g_versionLocalBuildNum;
 extern const char g_versionBlock[];
 int initVersionGlobals();
 
+// ?initVersionGlobals@@YAHXZ, retail 0x00238646 (200 bytes, EH), run once
+// through initializeBuildMetadata's function-local static. With the
+// version block's parser alive, the unrowed 0x00237D3D check (pinned; it
+// walks the command line through GetCommandLineW / CommandLineToArgvW)
+// picks the source: when it fails the major version is 0 and the other three are
+// rand() values seeded from GetTickCount; otherwise the block's "VERSION"
+// value (default "0.0.0.0"), copied into an STLport string, is scanned as
+// "%d.%d.%d.%d". The string needs no unwind state because nothing after its
+// constructor can throw (sscanf is extern "C" under /EHsc). Always 1.
+int Rva00237D3DCheck();
+extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(void);
+extern "C" __declspec(dllimport) void __cdecl srand(unsigned int seed);
+extern "C" __declspec(dllimport) int __cdecl rand(void);
+extern "C" __declspec(dllimport) int __cdecl sscanf(const char *buffer, const char *format, ...);
+
+namespace _STL
+{
+template <class _CharT> class char_traits;
+template <class _Tp> class allocator
+{
+public:
+	allocator() {}
+};
+template <class _CharT, class _Traits, class _Alloc>
+class basic_string
+{
+public:
+	basic_string(const _CharT *s, const _Alloc &a = _Alloc());
+	~basic_string()
+	{
+		if (_M_start)
+			free(_M_start);
+	}
+	const _CharT *c_str() const { return _M_start; }
+private:
+	_CharT *_M_start;
+	_CharT *_M_finish;
+	_CharT *_M_end_of_storage;
+};
+}
+typedef _STL::basic_string<char, _STL::char_traits<char>, _STL::allocator<char> > VersionString;
+
+int initVersionGlobals()
+{
+	VersionBlockParser parser(g_versionBlock);
+	if (!Rva00237D3DCheck())
+	{
+		g_versionMajor = 0;
+		srand(GetTickCount());
+		g_versionMinor = rand();
+		g_versionBuildNum = rand();
+		g_versionLocalBuildNum = rand();
+	}
+	else
+	{
+		VersionString version(parser.lookupVersionValue("VERSION", "0.0.0.0"));
+		sscanf(version.c_str(), "%d.%d.%d.%d", &g_versionMajor, &g_versionMinor, &g_versionBuildNum, &g_versionLocalBuildNum);
+	}
+	return 1;
+}
+
 class Version
 {
 public:
