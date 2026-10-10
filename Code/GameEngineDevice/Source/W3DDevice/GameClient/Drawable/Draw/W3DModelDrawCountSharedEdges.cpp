@@ -1,3 +1,4 @@
+// ?rva000B89E9@Rva000B8F5AOuter@@QAEHHPAM@Z
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /DWIN32 /D_WINDOWS /ICode/Libraries/Include/Lib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas
 //
 // Two bodies of one retail unit (W3DScriptedModelDraw.cpp in BFME2) kept
@@ -32,6 +33,27 @@
 // WorldBuilder's inline two-argument constructor; the elevation call goes
 // through the slot +0x18 member pointer (retail target ??_9@$BBI@AE).
 #include "matrix3d.h"
+// Keep the native per-row sum order. Explicit unary plus in the first
+// product retains MSVC7.1's X-before-Z SSE scheduling without changing it.
+static __forceinline void transformVertex(const Matrix3D &A, const Vector3 &in, Vector3 *out)
+{
+    Vector3 tmp;
+    Vector3 *v;
+    if (out == &in) { tmp = in; v = &tmp; }
+    else { v = (Vector3 *)&in; }
+    out->X = +(+(A[0][0] * v->X)) + (A[0][2] * v->Z);
+    out->X += A[0][1] * v->Y;
+    out->X += A[0][3];
+    out->Y = A[1][1] * v->Y;
+    out->Y += A[1][2] * v->Z;
+    out->Y += A[1][0] * v->X;
+    out->Y += A[1][3];
+    out->Z = A[2][1] * v->Y;
+    out->Z += A[2][2] * v->Z;
+    out->Z += A[2][0] * v->X;
+    out->Z += A[2][3];
+}
+
 
 typedef unsigned short UnsignedShort;
 
@@ -300,6 +322,153 @@ PolygonTrigger *W3DScriptedModelDraw::getPolygon(RenderObjClass *robj, float *he
 					}
 					robj->Release_Ref();
 					return poly;
+				}
+			}
+		}
+	}
+	if (robj)
+		robj->Release_Ref();
+	return 0;
+}
+
+// ?rva000B89E9@Rva000B8F5AOuter@@QAEHHPAM@Z @0x000B89E9 (1393B): the sibling of getPolygon above on
+// another draw module (same fields at +8 drawable and +0x50 render object): same perimeter walk with
+// the render object's transform taken straight from the object's transform matrix (no drawable
+// translation switch, no adjustTransformMtx call). Target evidence: retail body read byte for byte
+// against getPolygon. Owner class and argument spelling are address-derived (robj passed as int).
+class Rva000B8F5AOuter
+{
+public:
+	int rva000B89E9(int robj, float *height);
+
+	char m_pad00[0x08];
+	Drawable *m_drawable;
+	char m_pad0C[0x50 - 0x0C];
+	RenderObjClass *m_renderObject;
+};
+
+int Rva000B8F5AOuter::rva000B89E9(int robjArg, float *height)
+{
+	RenderObjClass *robj = (RenderObjClass *)robjArg;
+	const int MAX_POLY_VERTS = 100;
+	int numEdges = 0;
+	int edgeStart[MAX_POLY_VERTS];
+	int edgeEnd[MAX_POLY_VERTS];
+	edgeStart[0] = 0;
+	edgeEnd[0] = 0;
+
+	Object *obj = m_drawable->getObject();
+	if (!obj)
+	{
+		if (robj)
+			robj->Release_Ref();
+		return 0;
+	}
+
+	Matrix3D mtx(true);
+	mtx = *obj->getTransformMatrix();
+	m_renderObject->Set_Transform(mtx);
+
+	if (robj && robj->Class_ID() == RenderObjClass::CLASSID_MESH)
+	{
+		Matrix3D tm = robj->Get_Transform();
+		MeshModelClass *model = ((MeshClass *)robj)->Peek_Model();
+		int numVerts = model->Get_Vertex_Count();
+		const Vector3 *verts = model->Get_Vertex_Array();
+		int numPolys = model->Get_Polygon_Count();
+		const Rva000B36CEPackedEntry *polys = model->Get_Polygon_Array();
+		if (numVerts < MAX_POLY_VERTS && numPolys < MAX_POLY_VERTS)
+		{
+			int remap[MAX_POLY_VERTS];
+			int i;
+			for (i = 0; i < numVerts; i++)
+				remap[i] = i;
+			for (i = 0; i < numVerts; i++)
+			{
+				for (int j = i + 1; j < numVerts; j++)
+				{
+					if (verts[i] == verts[j])
+						remap[j] = remap[i];
+				}
+			}
+			for (i = 0; i < numPolys; i++)
+			{
+				int a = remap[polys[i].vertex[0]];
+				int b = remap[polys[i].vertex[1]];
+				if (Rva000B36CECountSharedEdges(a, b, polys, numPolys, remap) == 1)
+				{
+					edgeStart[numEdges] = a;
+					edgeEnd[numEdges] = b;
+					numEdges++;
+				}
+				a = remap[polys[i].vertex[1]];
+				b = remap[polys[i].vertex[2]];
+				if (Rva000B36CECountSharedEdges(a, b, polys, numPolys, remap) == 1)
+				{
+					edgeStart[numEdges] = a;
+					edgeEnd[numEdges] = b;
+					numEdges++;
+				}
+				a = remap[polys[i].vertex[2]];
+				b = remap[polys[i].vertex[0]];
+				if (Rva000B36CECountSharedEdges(a, b, polys, numPolys, remap) == 1)
+				{
+					edgeStart[numEdges] = a;
+					edgeEnd[numEdges] = b;
+					numEdges++;
+				}
+			}
+			if (numEdges > 0)
+			{
+				remap[0] = edgeStart[0];
+				edgeStart[0] = -1;
+				remap[1] = edgeEnd[0];
+				edgeEnd[0] = -1;
+				int cur = remap[1];
+				int count = 2;
+				while (count < MAX_POLY_VERTS && cur != remap[0])
+				{
+					bool found = false;
+					for (i = 0; i < numEdges; i++)
+					{
+						if (edgeStart[i] == cur)
+						{
+							cur = edgeEnd[i];
+							edgeEnd[i] = -1;
+							edgeStart[i] = -1;
+							if (cur != remap[0])
+								remap[count++] = cur;
+							found = true;
+						}
+						else if (edgeEnd[i] == cur)
+						{
+							cur = edgeStart[i];
+							edgeEnd[i] = -1;
+							edgeStart[i] = -1;
+							if (cur != remap[0])
+								remap[count++] = cur;
+							found = true;
+						}
+						if (found)
+							break;
+					}
+					if (!found)
+						break;
+				}
+				if (count > 2)
+				{
+					PolygonTrigger *poly = new PolygonTrigger(count + 1);
+					for (i = 0; i < count; i++)
+					{
+						Vector3 pt;
+						transformVertex(tm, verts[remap[i]], &pt);
+						poly->rva005CB260(BfmeE8(pt.X, pt.Y));
+						void (PolygonalArea::*setElevation)(int) = &PolygonalArea::setBoundaryElevationSlot;
+						(poly->*setElevation)((int)pt.Z);
+						*height = pt.Z;
+					}
+					robj->Release_Ref();
+					return (int)poly;
 				}
 			}
 		}
