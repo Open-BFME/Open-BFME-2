@@ -1264,3 +1264,10 @@ extern const FieldParse g_00C61C68[4] = {
     {0x00C618D0, 0x0042E850, 0x00000000, 0x0000000C},
     {0x00000000, 0x00000000, 0x00000000, 0x00000000},
 };
+
+// Retail VA 0x007FD7C0: Side/Unit plus no terminator (string data follows);
+// 32B exact. Named by Rva002A92F2Parse.cpp.
+extern const FieldParse AIDozerAssignmentFields[2] = {
+    {0x00BDC1C8, 0x0042F11E, 0x00000000, 0x00000000},
+    {0x00BFD7B8, 0x0042F11E, 0x00000000, 0x00000004},
+};
