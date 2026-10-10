@@ -1,4 +1,6 @@
 // ?rva004E50C8@Rva004E50C8@@QAEXXZ
+// partial score=0.9761593581268607 date=2026-10-10
+// ?rva004E50C8@Rva004E50C8@@QAEXXZ
 // partial score=0.967997 date=2026-10-10
 // cl: /Ireference/shims/bfmealloc /Ireference/shims/bfmelist /O1 /Op /G7 /arch:SSE /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfme2_ascii /ICode/Libraries/Include/Lib
 // stlport
@@ -26,18 +28,18 @@ void Rva004E50C8::rva004E50C8(){
  Shadow::ShadowTypeInfo info;
  info.m_first="TerrainClaimSegment";info.m_byte25=0;info.m_byte26=1;info.m_type=64;
  for(AngleNode*node=angles->next;node!=angles;node=node->next){
-  float begin=node->first,end=node->last;
+  float begin=node->first;_ReadWriteBarrier();float end=node->last;
   float circumference=radius*6.28318548f;
   float difference=end-begin;
-  float length=difference*0.159154937f*circumference;
+  float length=circumference*(difference*0.159154937f);
   int byAngle=(int)(length/circumference*32.0f);
   int byMaximum=(int)(length/maxLength);
   int count=byAngle<byMaximum?byMaximum:byAngle;_ReadWriteBarrier();
   int byMinimum=(int)(length/minLength);count=count>byMinimum?byMinimum:count;
   float pieceLength=length/(float)count;
   float step=difference/(float)count;
-  end-=step*0.100000001f;
   info.m_floatC=info.m_float10=pieceLength;
+  end-=step*0.100000001f;
   float angle=begin;
   if(angle<end){
    float halfStep=step*0.5f,halfLength=pieceLength*0.5f;
