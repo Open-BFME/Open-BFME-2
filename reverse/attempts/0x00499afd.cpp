@@ -1,15 +1,15 @@
 // ?rva00499AFD@OneRingPenaltyUpdate@@AAEXXZ
-// partial score=0.93 date=2026-10-06
+// partial score=0.95 date=2026-10-10
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /arch:SSE
 //
 // ?rva00499AFD@OneRingPenaltyUpdate@@AAEXXZ, retail 0x00499AFD, 284 bytes.
 // Private helper on the primary this: spawns the module-data special object
-// (ThingTemplate via g_009FF000 from +0x08 name) on the neutral player's
+// (ThingTemplate via TheThingFactory::findTemplate from the +0x08 name) on the neutral player's
 // default team (ThePlayerList +0x18, else Object +0x304 team), zeroes a
 // 16-byte CreateMask via the rowed memset thunk 0x006291AE, news it via
 // rowed ThingFactory::newObject 0x002D0A23, stores its ObjectID +0x74 at
 // +0x24, picks a random direction via rowed GetGameLogicRandomValueReal
-// 0x00234092 (g_00BC7470/g_00BC7468, file OneRingPenaltyUpdate.cpp:0xDA),
+// 0x00234092 (-pi to pi, file OneRingPenaltyUpdate.cpp:0xDA),
 // offsets the holder's +0x38 position by Cos/Sin 0x0002FBC0/0x0002FBB0 scaled
 // by data +0x18, takes ground height via TheTerrainLogic slot 6, sets the new
 // position via rowed Thing::setPosition 0x0030AA80, and stamps the angle at
@@ -43,12 +43,6 @@ struct CreateMask
 	unsigned int words[4];
 };
 
-class Rva002D06CA
-{
-public:
-	void *rva002D06CA(const AsciiString *key);
-};
-extern Rva002D06CA *g_009FF000;
 
 class Thing
 {
@@ -111,17 +105,17 @@ extern TerrainLogic *TheTerrainLogic;
 class ThingFactory
 {
 public:
+	const ThingTemplate *findTemplate(const AsciiString &key);
 	Object *newObject(const ThingTemplate *tmplate, Team *team, const CreateMask *mask, bool flag);
 };
+extern ThingFactory *TheThingFactory;
 
-extern float g_00BC7468;
-extern float g_00BC7470;
+const float PI = 3.14159265359f;
 float GetGameLogicRandomValueReal(float lo, float hi, char *file, int line);
 float Cos(float value);
 float Sin(float value);
 
 void *__cdecl ji_006291ae(void *dest, int val, unsigned int count);
-#pragma comment(linker, "/alternatename:?ji_006291ae@@YAPAXPAXHI@Z=?ji_006291ae@@YAXXZ")
 
 class ModuleData
 {
@@ -182,12 +176,11 @@ private:
 	unsigned int m_30; // +0x30
 };
 
-// ?rva00499AFD@OneRingPenaltyUpdate@@AAEXXZ present-unmatched
 void OneRingPenaltyUpdate::rva00499AFD()
 {
 	const OneRingPenaltyUpdateModuleData *data = (const OneRingPenaltyUpdateModuleData *)m_moduleData;
 	Object *obj = m_object;
-	const ThingTemplate *tmpl = (const ThingTemplate *)g_009FF000->rva002D06CA(&data->m_specialObjectName);
+	const ThingTemplate *tmpl = TheThingFactory->findTemplate(data->m_specialObjectName);
 	if (!tmpl)
 		return;
 	Team *team;
@@ -207,12 +200,12 @@ void OneRingPenaltyUpdate::rva00499AFD()
 	};
 	MaskPos u;
 	ji_006291ae(&u.mask, 0, sizeof(u.mask));
-	Object *newObj = ((ThingFactory *)g_009FF000)->newObject(tmpl, team, &u.mask, false);
+	Object *newObj = TheThingFactory->newObject(tmpl, team, &u.mask, false);
 	if (!newObj)
 		return;
 	m_24 = newObj->m_id74;
 	u.overlay.pos.set(obj->getPosition());
-	Real angle = GetGameLogicRandomValueReal(g_00BC7470, g_00BC7468, "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\OneRingPenaltyUpdate.cpp", 0xDA);
+	Real angle = GetGameLogicRandomValueReal(-PI, PI, "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\OneRingPenaltyUpdate.cpp", 0xDA);
 	u.overlay.pos.x += Cos(angle) * data->m_startingDistanceFromMe;
 	u.overlay.pos.y += Sin(angle) * data->m_startingDistanceFromMe;
 	u.overlay.pos.z = TheTerrainLogic->getGroundHeight(u.overlay.pos.x, u.overlay.pos.y, 0);
