@@ -1,4 +1,6 @@
 // ?findSpecialPowerTemplateByID@SpecialPowerStore@@QAEPBVSpecialPowerTemplate@@I@Z
+// partial score=0.95 date=2026-10-10
+// ?findSpecialPowerTemplateByID@SpecialPowerStore@@QAEPBVSpecialPowerTemplate@@I@Z
 // partial score=0.8 date=2026-10-04
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
 // stlport
@@ -28,7 +30,7 @@ class SpecialPowerTemplate : public Overridable
 {
 public:
 	const AsciiString &getName() const { return getFO()->m_name; }
-	UnsignedInt getID() const { return getFO()->m_id; }
+	UnsignedInt getID() const { return ((const SpecialPowerTemplate *)friend_getFinalOverride())->m_id; }
 private:
 	const SpecialPowerTemplate *getFO() const { return (const SpecialPowerTemplate *)friend_getFinalOverride(); }
 	unsigned char m_pad00[0x10];
@@ -66,10 +68,15 @@ SpecialPowerTemplate* SpecialPowerStore::findSpecialPowerTemplatePrivate( AsciiS
 const SpecialPowerTemplate *SpecialPowerStore::findSpecialPowerTemplateByID( UnsignedInt id )
 {
 
-	// search the template list for matching name
-	for( Int i = 0; i < m_specialPowerTemplates.size(); ++i )
-		if( m_specialPowerTemplates[ i ]->getID() == id )
-			return m_specialPowerTemplates[ i ];
+	// search the template list for matching id;
+	// 71B shape (retail 71B): iterator induction + cached begin + index.
+	// Only delta vs retail 0x3B0FD0 is register assignment
+	// (ours it=edi/i=ebx/first=ebp vs retail it=ebx/i=ebp/begin=edi).
+	_STL::vector<SpecialPowerTemplate *>::iterator it = m_specialPowerTemplates.begin();
+	SpecialPowerTemplate **first = it;
+	for( Int i = 0; i < m_specialPowerTemplates.size(); ++i, ++it )
+		if( (*it)->getID() == id )
+			return first[ i ];
 
 	return NULL;  // not found
 
