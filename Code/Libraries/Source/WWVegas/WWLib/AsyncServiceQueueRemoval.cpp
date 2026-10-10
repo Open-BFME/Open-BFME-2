@@ -66,6 +66,7 @@ class AsyncServiceQueue {
  public:
  TargetListAt0073EEE0::iterator enqueue(Rva0036CA00Str item);
  Rva0036CA00Str rva0073F170(TargetListAt0073EEE0::iterator where);
+ Rva0036CA00Str rva0073F092(unsigned long timeout);
  Rva0036CA00Str rva0073F231(TargetListAt0073EEE0::iterator where,unsigned long timeout);
 
  int active,count; TargetListAt0073EEE0 queued; char mutex[8];Rva0040F9D available;TargetListAt0073EEE0 secondary;Rva0040F9D completed;Rva0040F9D drained;
@@ -99,6 +100,19 @@ Rva0036CA00Str AsyncServiceQueue::rva0073F231(TargetListAt0073EEE0::iterator whe
  if(!wait.rva00041078(timeout,0,0))return Rva0036CA00Str();
  Rva0036CA00Str item(where->helperManagedPointer);
  secondary.erase(where);
+ --count;
+ if(secondary.empty())drained.reset();
+ return item;
+}
+
+// Native222B front wait uses event28/event20 and consumes secondary.front().
+Rva0036CA00Str AsyncServiceQueue::rva0073F092(unsigned long timeout){
+ if(!active)return Rva0036CA00Str();
+ Rva00041118Obj*events[2]={reinterpret_cast<Rva00041118Obj*>(&drained),reinterpret_cast<Rva00041118Obj*>(&completed)};
+ Rva00041078 wait(events,2,1);
+ if(!wait.rva00041078(timeout,0,0))return Rva0036CA00Str();
+ Rva0036CA00Str item(secondary.front().helperManagedPointer);
+ secondary.pop_front();
  --count;
  if(secondary.empty())drained.reset();
  return item;
