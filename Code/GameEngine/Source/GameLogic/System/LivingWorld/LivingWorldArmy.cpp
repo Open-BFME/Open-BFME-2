@@ -4,6 +4,18 @@
 // This is a target field view, not a claim about the complete army/summary layout.
 // Existing address-derived providers retain their ledger spellings.
 #include <vector>
+
+// vector<void*> begin/end otherwise instantiate per-TU COMDATs (one byte
+// shape per TU flags); explicit dllimport+forceinline specializations take
+// those calls inline so this TU emits no external copies.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+void **vector<void*>::begin()
+{ return _M_start; }
+template <> __declspec(dllimport) __forceinline
+void **vector<void*>::end()
+{ return _M_finish; }
+}
 class ThingTemplate { public: int rva0033B479() const; };
 class Rva00319CED { public: void *rva004E23C1(); char pad00[0x4C]; int source4C; };
 struct Rva003F40EFRecord {

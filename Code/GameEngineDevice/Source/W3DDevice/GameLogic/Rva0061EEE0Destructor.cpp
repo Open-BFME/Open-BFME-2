@@ -28,6 +28,18 @@ public:
 
 #include <deque>
 #include <hash_map>
+
+// vector<void*> begin/end otherwise instantiate per-TU COMDATs (one byte
+// shape per TU flags); explicit dllimport+forceinline specializations take
+// those calls inline so this TU emits no external copies.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+void **vector<void*>::begin()
+{ return _M_start; }
+template <> __declspec(dllimport) __forceinline
+void **vector<void*>::end()
+{ return _M_finish; }
+}
 #define _BFME_RETAIL_TREE_INSERT_LAYOUT
 #include <set>
 #include <windows.h>

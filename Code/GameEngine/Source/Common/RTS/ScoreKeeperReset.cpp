@@ -6,6 +6,18 @@
 #include <bitset>
 #include <map>
 #include <vector>
+
+// vector<void*> begin/end otherwise instantiate per-TU COMDATs (one byte
+// shape per TU flags); explicit dllimport+forceinline specializations take
+// those calls inline so this TU emits no external copies.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+void **vector<void*>::begin()
+{ return _M_start; }
+template <> __declspec(dllimport) __forceinline
+void **vector<void*>::end()
+{ return _M_finish; }
+}
 template <int Bits> class ScoreMask {
  _STL::bitset<Bits> bits;
  public:void set(int bit){bits._Unchecked_set(bit);}
