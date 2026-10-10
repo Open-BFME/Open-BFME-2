@@ -9,6 +9,7 @@
 // in reverse/symbols.csv; the dummy tag constructors (no retail counterpart)
 // only make this TU emit each vtable and with it the deleting destructor.
 // Owner identities are not recovered, and these declarations model no layout
+// beyond the thunk-proven secondary bases noted where they are declared
 // (docs/reconstruction/deleting-destructor-identity-audit.md).
 //
 //   wrapper     dtor        vtable#slot
@@ -256,7 +257,14 @@ Rva005CFFB8::Rva005CFFB8(EmitVtableTag *)
 {
 }
 
-class Rva005D06CB
+// Rva005D06CB's three tables (data ledger), placed by its rowed destructor's
+// vptr stores: Rva005D06CBB1 at +0, Rva005D06CBB2 at +0x8, Rva005EB753 at
+// +0xC, whose slot 0 is a this-adjusting (sub ecx, 0xC) deleting-destructor
+// thunk -- target evidence for that base and offset.
+class Rva005D06CBB1 { public: virtual ~Rva005D06CBB1(); private: char m_unmodelled04[4]; };
+class Rva005D06CBB2 { public: virtual void slot0(); };
+class Rva005EB753 { public: virtual ~Rva005EB753(); };
+class Rva005D06CB : public Rva005D06CBB1, public Rva005D06CBB2, public Rva005EB753
 {
 public:
 	Rva005D06CB(EmitVtableTag *);
