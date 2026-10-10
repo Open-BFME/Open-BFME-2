@@ -1,6 +1,8 @@
 // ?rva003449C5@@YA_NPAUCoord3D@@PAVObject@@1@Z
+// partial score=0.9650028477340173 date=2026-10-10
+// ?rva003449C5@@YA_NPAUCoord3D@@PAVObject@@1@Z
 // partial score=0.95 date=2026-10-09
-// cl: /O1 /G7 /EHsc /MD /arch:SSE
+// cl: /O1 /G7 /EHsc /MD /arch:SSE /I.
 //
 // ?rva003449C5@@YA_NPAUCoord3D@@PAVObject@@1@Z retail 0x003449C5..0x00344D60 923B.
 // cdecl melee fallback goal helper (goal; source; victim) called from
@@ -17,40 +19,19 @@
 // plus the source radius (+0xB8) unless the target was approachable. An
 // unadjusted point must be at least 20 units closer than the goal. The point
 // is fitted with adjustToPossibleDestination and written to the goal.
-// BFME 2's Coord3D copy constructor copies float-wise (movss) while
-// assignment is the implicit block copy (movsd).
-// The guarded static key is the usual function-local NameKeyType.
-// NEAR: every instruction matches but the frame: retail scales the
-// 20-unit step in delta's own slot (ebp-0x28; frame 0x34) while this draft
-// needs the separate stepVec (frame 0x40) to get retail's xmm0-constant /
-// xmm1..3-component allocation; scaling delta in place keeps the frame but
-// reverses that allocation (23 lines).
-// The call at 0x00344C1C needs row 0x002E98EA renamed: retail pushes
-// (&pos 1) and tests AL so it is
-// ?isBlockedGateObstacleCell@Pathfinder@@QAE_NPBUCoord3D@@H@Z (WB twin
-// 0x00D42DC0 is Pathfinder::isBlockedGateObstacleCell with movzx al).
+// R6: canonical Coord3D plus scalar-copy derived value wrapper restores native
+// assignment copies without extra conversion temporaries. Whole923B and all
+// existing callee spellings resolve; only firstscale and loop SSE allocation
+// remain. Pointer goal query uses the legacy owned integer ABI spelling of
+// 2E98EA with explicit address conversion and byte-result test; native/WB prove
+// the first input denotes a Coord3D pointer. Future type repair should rename
+// that owner's ABI, rather than add another pin on the same address.
 
-// class-gate: allow Coord3D the canonical data-only header cannot declare BFME 2's user copy constructor (float-wise movss copies here while the assignments stay block movsd) or the inline sub and scale; same three floats
-struct Coord3D
-{
-	float x;
-	float y;
-	float z;
-
-	Coord3D() {}
-	Coord3D(const Coord3D &other)
-	{
-		x = other.x;
-		y = other.y;
-		z = other.z;
-	}
-
-	float length() const;
-	float GetLength() const;
-	void normalize();
-	float Normalize();
-	void sub(const Coord3D *a) { x -= a->x; y -= a->y; z -= a->z; }
-	void scale(float s) { x *= s; y *= s; z *= s; }
+#include "Code/Libraries/Include/Lib/Coord3D.h"
+struct ApproachCoordCopy:Coord3D{
+ __forceinline ApproachCoordCopy(const Coord3D&r){x=r.x;y=r.y;z=r.z;}
+ __forceinline void sub(const Coord3D*p){x-=p->x;y-=p->y;z-=p->z;}
+ __forceinline void scale(float r){x*=r;y*=r;z*=r;}
 };
 
 enum NameKeyType
@@ -113,7 +94,10 @@ public:
 	const ThingTemplate *getTemplate() const { return m_template; }
 	const Coord3D *getPosition() const { return &m_position; }
 	AIUpdateInterface *getAI() { return m_ai; }
-	Module *findModule(NameKeyType key) const;
+	protected:
+ Module *findModule(NameKeyType key) const;
+ friend bool rva003449C5(Coord3D*,Object*,Object*);
+public:
 	const Weapon *getCurrentWeapon(WeaponSlotType *slot) const;
 
 	char m_pad00[4];
@@ -131,7 +115,7 @@ class Pathfinder
 public:
 	bool CanApproachToTarget(Object *obj, const Coord3D *pos, Rva002C9B80Owner *weapon, bool flag);
 	bool QuickDoesPathExist(Object *obj, const Coord3D *from, const Coord3D *to, int flags);
-	bool isBlockedGateObstacleCell(const Coord3D *pos, int layer);
+	int isBlockedGateObstacleCell(int pos, int layer);
 	bool adjustToPossibleDestination(Object *obj, const LocomotorSet &locomotorSet, Coord3D *dest);
 };
 
@@ -169,15 +153,15 @@ bool rva003449C5(Coord3D *goal, Object *source, Object *victim)
 	if (ai == 0)
 		return false;
 
-	Coord3D delta = *goal;
+	ApproachCoordCopy delta = *goal;
 	delta.sub(source->getPosition());
 	delta.z = 0.0f;
 	float goalDist = delta.GetLength();
 
-	Coord3D target = *goal;
+	ApproachCoordCopy target = *goal;
 	if (victim)
 	{
-		target = *victim->getPosition();
+		static_cast<Coord3D&>(target) = *victim->getPosition();
 		if (victim->getTemplate()->isKindOf(93))
 		{
 			static NameKeyType key = TheNameKeyGenerator->nameToKey("SiegeDeploySpecialPower");
@@ -191,19 +175,18 @@ bool rva003449C5(Coord3D *goal, Object *source, Object *victim)
 	if (canApproach && TheAI->pathfinder()->QuickDoesPathExist(source, source->getPosition(), goal, 0))
 		return true;
 
-	Coord3D pos = *goal;
-	delta = *goal;
+	ApproachCoordCopy pos = *goal;
+	static_cast<Coord3D&>(delta) = *goal;
 	delta.sub(source->getPosition());
 	delta.z = 0.0f;
 	int steps = -(int)(-delta.length() / 20.0f) - 1;
 	delta.Normalize();
-	Coord3D stepVec = delta;
-	stepVec.scale(20.0f);
+	delta.scale(20.0f);
 	bool found = false;
 	bool blocked = false;
 	for (int i = 0; i < steps; ++i)
 	{
-		pos.sub(&stepVec);
+		pos.sub(&delta);
 		if (TheAI->pathfinder()->QuickDoesPathExist(source, source->getPosition(), &pos, 0))
 		{
 			found = true;
@@ -211,7 +194,7 @@ bool rva003449C5(Coord3D *goal, Object *source, Object *victim)
 		}
 		if (TheTerrainLogic->getLayerForDestination(source, &pos) > LAYER_GROUND)
 			blocked = true;
-		else if (TheAI->pathfinder()->isBlockedGateObstacleCell(&pos, LAYER_GROUND))
+		else if ((unsigned char)TheAI->pathfinder()->isBlockedGateObstacleCell((int)&pos, LAYER_GROUND))
 			blocked = true;
 	}
 	if (!found)
@@ -227,7 +210,7 @@ bool rva003449C5(Coord3D *goal, Object *source, Object *victim)
 		adjusted = true;
 	}
 
-	delta = *goal;
+	static_cast<Coord3D&>(delta) = *goal;
 	delta.sub(&pos);
 	delta.z = 0.0f;
 	float newDist = delta.GetLength();
