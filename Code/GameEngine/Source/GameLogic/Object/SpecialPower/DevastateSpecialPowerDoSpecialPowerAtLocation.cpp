@@ -1,9 +1,14 @@
 // ?doSpecialPowerAtLocation@DevastateSpecialPower@@UAEXPBUCoord3D@@I@Z
-// partial score=0.996 date=2026-10-09
 // cl: /Ireference/shims/bfme2_ascii /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc
 // Retail 0x004C82E5, 472B: DevastateSpecialPower::doSpecialPowerAtLocation,
 // entered through the SpecialPowerModuleInterface at +0x10 (module data
 // this-0x0C, object this-0x08).
+// Native special-power secondary table C5E430 (ctor4C81E3) independently
+// puts this override in slot12 at complete-object+10. The Money accessed
+// extent is12 bytes from its own188B provider; the following Player gap is
+// adjusted accordingly. The original tracker extent remains unknown.
+// A same-valued target conditional on the selected bounty preserves the
+// native LEA EAX / PUSH EAX at8466/846E without changing the value.
 // Body: the BFME 1 port of the same override (reference/open-bfme-1/game/
 // GameEngine/Source/GameLogic/Object/SpecialPower/
 // DevastateSpecialPowerDoSpecialPowerAtLocation.cpp, retail 0x0025A9D0
@@ -63,7 +68,8 @@ public:
 	Real m_queryScratch;
 };
 
-extern Rva004C82E5Terrain *TheTerrainLogic;
+class TerrainLogic;
+extern TerrainLogic *TheTerrainLogic;
 
 class Rva0039B7AD
 {
@@ -74,7 +80,7 @@ class Rva003B0D7C
 {
 public:
 	void rva003B0D7C( int amount, Rva0039B7AD *score, bool flag );
-	char m_pad[4];
+	char m_pad[12];
 };
 
 class Player
@@ -84,7 +90,7 @@ public:
 	Int rva002A9DAC();
 	char m_pad000[0x90];
 	Rva003B0D7C m_money;
-	char m_pad094[0x3BC - 0x94];
+	char m_pad09C[0x3BC - 0x9C];
 	Rva0039B7AD m_3BC;
 };
 
@@ -102,7 +108,8 @@ public:
 	char bfmeCall939D();
 };
 
-extern BfmeGlob939D *TheGameLogic;
+class GameLogic;
+extern GameLogic *TheGameLogic;
 
 class PlayerList
 {
@@ -125,7 +132,8 @@ public:
 	MultiPlayMults m_multiPlayMults;
 };
 
-extern Rva004C82E5GlobalData *TheWritableGlobalData;
+class GlobalData;
+extern GlobalData *TheWritableGlobalData;
 
 class WeaponStore
 {
@@ -166,7 +174,6 @@ public:
 	virtual void s09();
 	virtual void s10();
 	virtual void s11();
-	virtual void s12();
 	virtual void doSpecialPowerAtLocation( const Coord3D *loc, UnsignedInt commandOptions ) = 0;
 };
 
@@ -216,36 +223,36 @@ void DevastateSpecialPower::doSpecialPowerAtLocation( const Coord3D *target, Uns
 	SpecialPowerModule::doSpecialPowerAtLocation( target, commandOptions );
 
 	const DevastateSpecialPowerModuleData *data = getDevastateSpecialPowerModuleData();
-	TheTerrainLogic->m_queryScratch = 0.1f;
+	reinterpret_cast<Rva004C82E5Terrain *>(TheTerrainLogic)->m_queryScratch = 0.1f;
 	money = 0.0f;
 
 	BfmeX1035 *thing;
-	while( ( thing = TheTerrainLogic->rva0027F108( target, data->m_radius, 0, 2 ) ) != 0 )
+	while( ( thing = reinterpret_cast<Rva004C82E5Terrain *>(TheTerrainLogic)->rva0027F108( target, data->m_radius, 0, 2 ) ) != 0 )
 	{
 		if( thing->m_flag18 == 0 )
-			TheTerrainLogic->rva0028447F( thing, target );
+			reinterpret_cast<Rva004C82E5Terrain *>(TheTerrainLogic)->rva0028447F( thing, target );
 
 		if( data->m_fx )
 			FXList::doFXPos( data->m_fx, (const Coord3D *)thing );
 
-		UnsignedInt amount = (UnsignedInt)TheTerrainLogic->rva0027D378( thing, 99999 );
+		UnsignedInt amount = (UnsignedInt)reinterpret_cast<Rva004C82E5Terrain *>(TheTerrainLogic)->rva0027D378( thing, 99999 );
 		UnsignedInt scale = (UnsignedInt)player->rva002A9DAC();
 		Real reward = (Real)( amount * scale );
 
 		if( reward > 0.0f )
 		{
-			if( TheGameLogic->bfmeCall939D() )
-				reward *= TheWritableGlobalData->m_multiPlayMults.getMoneyMult( ThePlayerList->rva002A7C0B( false ) );
+			if( reinterpret_cast<BfmeGlob939D *>(TheGameLogic)->bfmeCall939D() )
+				reward *= reinterpret_cast<Rva004C82E5GlobalData *>(TheWritableGlobalData)->m_multiPlayMults.getMoneyMult( ThePlayerList->rva002A7C0B( false ) );
 
 			Real bounty = (Real)player->ScaleMoney( (Int)reward );
 			money += data->m_bountyScale * bounty;
 		}
 	}
 
-	TheTerrainLogic->m_queryScratch = 0.0f;
+	reinterpret_cast<Rva004C82E5Terrain *>(TheTerrainLogic)->m_queryScratch = 0.0f;
 
 	typedef void (Rva003B0D7C::*UnsignedDeposit)(UnsignedInt,Rva0039B7AD*,bool);
-	(player->m_money.*reinterpret_cast<UnsignedDeposit>(&Rva003B0D7C::rva003B0D7C))( (UnsignedInt)devastateMin(data->m_bountyCap,money), &player->m_3BC,true);
+	(player->m_money.*reinterpret_cast<UnsignedDeposit>(&Rva003B0D7C::rva003B0D7C))( (UnsignedInt)((target)?devastateMin(data->m_bountyCap,money):devastateMin(data->m_bountyCap,money)), &player->m_3BC,true);
 
 	if( !( (const StringBase<char> &)data->m_weaponName ).isEmpty() )
 	{
