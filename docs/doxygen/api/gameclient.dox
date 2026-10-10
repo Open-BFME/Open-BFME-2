@@ -1,4 +1,9 @@
 /// \defgroup grp_gameclient Game client
-/// \brief Drawables, FX, particles, input and the message stream.
+/// \brief Drawables, FX, particles, input and the message stream: the
+///        per-machine presentation side of the engine.
 ///
-/// \ref sub_gameclient is the subsystem's page.
+/// `GameClient` and its services: `Drawable` and the client modules, FX lists
+/// and particle systems, the announcer, `InGameUI`, the display and camera,
+/// string tables, movies, and the keyboard and mouse with the translators
+/// that turn their input into commands. \ref sub_gameclient describes the
+/// subsystem, its state and its differences from Zero Hour and BFME 1.

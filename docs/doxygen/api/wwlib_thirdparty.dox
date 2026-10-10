@@ -1,4 +1,11 @@
 /// \defgroup grp_wwlib_thirdparty WWLib and third-party libraries
-/// \brief The WWLib foundation and third-party libraries.
+/// \brief Westwood's WWLib and the third-party code linked into `game.dat`
+///        (compression codecs, Lua, STLport, ATL and GDI+, BYTEmark,
+///        Microsoft runtime pieces), plus the clean-room VP6 decoder.
 ///
-/// \ref sub_wwlib_thirdparty is the subsystem's page.
+/// None of this code holds game rules. WWLib supplies files and the file
+/// factories, chunked asset I/O, Westwood INI and registry access, strings,
+/// containers, CRCs, threads and CPU detection. Most third-party code is
+/// reproduced at a recorded upstream release and is documented upstream.
+/// \ref sub_wwlib_thirdparty describes the subsystem, how the rest of the
+/// engine reaches it and its differences from Zero Hour.

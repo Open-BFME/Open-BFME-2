@@ -1,4 +1,12 @@
 /// \defgroup grp_objects_modules Objects and modules
-/// \brief Game objects and their modules.
+/// \brief Game objects and their modules: `Object`, the behavior, update,
+///        body, contain, die, damage, collide, create, special power and
+///        upgrade module families, and the helper modules.
 ///
-/// \ref sub_objects_modules is the subsystem's page.
+/// An `Object` is a thing with a team, status flags and an array of
+/// modules; the modules, configured from the template's INI, carry nearly
+/// all of its behaviour. \ref sub_objects_modules describes the module
+/// families, how objects are created, scheduled, updated, destroyed and
+/// saved, the differences from Zero Hour, and what this means for modding
+/// and remastering. No class pages yet: `Object` and the module base
+/// classes have no canonical headers.
