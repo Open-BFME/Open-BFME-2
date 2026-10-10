@@ -1,4 +1,6 @@
 // ?doSpecialPowerAtLocation@OCLSpecialPower@@UAEXPBUCoord3D@@I@Z
+// partial score=0.798152 date=2026-10-10
+// ?doSpecialPowerAtLocation@OCLSpecialPower@@UAEXPBUCoord3D@@I@Z
 // partial score=0.7981522575551262 date=2026-10-10
 // cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /ICode/Libraries/Include /ICode/GameEngine/Source
 // stlport
