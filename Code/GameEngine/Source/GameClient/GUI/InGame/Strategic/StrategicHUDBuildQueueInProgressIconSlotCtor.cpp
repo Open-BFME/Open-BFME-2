@@ -1,15 +1,14 @@
-// ??0InProgressIconSlot@Impl@BuildQueueDetailsMovieClip@StrategicHUD@@QAE@PAV123@@Z
-// partial score=0.9080120464351823 date=2026-10-10
-// Native C79790/C797F4 contain thirteen ordinary methods; there is no
-// virtual destructor slot. Base destruction is the independently rowed59B
-// body at5F6941; its old virtual mangling/provider view needs reconciliation.
-// Field layout1C/2C and single-inheritance data are target-proven. Return
-// and unused argument types on unowned slot declarations are structural views.
-// Direct returned binding with actual copy-aware Rva579E47 holder removes
-// old20B excess. Remaining whole967B differences are the prefix/key/binding
-// stack-home cycle. No Code/pins/byte credit. Base dtor and image setter
-// QA/UA declarations also need provider/consumer reconciliation before link.
 // cl: /G7 /arch:SSE /ICode/Libraries/Include/Lib /O1 /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
+// InProgressIconSlot constructor (retail 0x005F775E, 967B), slot 7 of the
+// BuildQueueDetails movie clip's in-progress icon slots (C797F4 vtable).
+// Native C79790/C797F4 contain thirteen ordinary methods; there is no
+// virtual destructor slot. Base destruction is the independently rowed 59B
+// body at 5F6941. Field layout 1C/2C and single-inheritance data are
+// target-proven. Return and unused argument types on unowned slot
+// declarations are structural views.
+// Codegen: the retail `prefix` string lives in the dead formal home [ebp+8];
+// cl hands that slot only to block-scoped locals (function-scope locals are
+// laid out before the formal is known dead), so the whole body sits in a block.
 #include "ascii_string.h"
 #include "Coord2D.h"
 struct AsciiStringRef {const AsciiString *m_string;};
@@ -56,7 +55,7 @@ private:Impl*owner;int total,remaining;bool turnsHover;
 };
 #define PROGRESS_BIND(TEXT,METHOD) owner->maps.AddCommandMap(prefix+owner->name+TEXT,AptRef<AptCommandMap>(DelegateDesc((QueuedIconSlot*)this,&QueuedIconSlot::METHOD)))
 StrategicHUD::BuildQueueDetailsMovieClip::Impl::InProgressIconSlot::InProgressIconSlot(Impl *parent):owner(parent),total(0),remaining(0),turnsHover(false) {
- AsciiString prefix;prefix.format("_level%u.",owner->level);
+ {AsciiString prefix;prefix.format("_level%u.",owner->level);
  PROGRESS_BIND("_OnInProgressIconSlotClicked",rva005F6AE8);
  PROGRESS_BIND("_OnInProgressIconSlotRollOver",rva005F6A98);
  PROGRESS_BIND("_OnInProgressIconSlotRollOut",rva005F6A90);
@@ -65,5 +64,5 @@ StrategicHUD::BuildQueueDetailsMovieClip::Impl::InProgressIconSlot::InProgressIc
  PROGRESS_BIND("_OnInProgressIconSlotTypeRollOver",rva005F6AA8);
  PROGRESS_BIND("_OnInProgressIconSlotTypeRollOut",rva005F6AA0);
  owner->renders.AddCustomRender(prefix+owner->name+"_ProgressOverlay",AptRef<AptCustomRender>(DelegateDesc(this,&InProgressIconSlot::rva005F6899)));
- SetQuantityString(quantity);SetProgressString(total,remaining);
+ SetQuantityString(quantity);SetProgressString(total,remaining);}
 }
