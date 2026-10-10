@@ -16,11 +16,28 @@ public:
 class Rva005CBB0A
 {
 public:
-	void rva002BFDE6(int arg, Rva005CBB0AObj *obj);
+	void rva002BFDE6(int arg, void *obj);
 	void rva005CBB0A(int arg, const int *src);
+	void rva002C00E0(int arg, const int *src);
 };
 void Rva005CBB0A::rva005CBB0A(int arg, const int *src)
 {
 	Rva005CBB0AObj obj(src);
+	rva002BFDE6(arg, &obj);
+}
+
+// Twin at 0x002C00E0: byte-identical shape with the 12-byte object's vtable
+// 0x00BFE4F4 instead; the callee takes the object as an opaque pointer.
+class Rva002C00E0Obj
+{
+public:
+	virtual ~Rva002C00E0Obj() {}
+	int m_a;
+	int m_b;
+	Rva002C00E0Obj(const int *src) : m_a(src[0]), m_b(src[1]) {}
+};
+void Rva005CBB0A::rva002C00E0(int arg, const int *src)
+{
+	Rva002C00E0Obj obj(src);
 	rva002BFDE6(arg, &obj);
 }
