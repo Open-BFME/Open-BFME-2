@@ -131,9 +131,9 @@ static Int m_dataSize = 0;				///< size of m_data.
 static UnsignedByte *m_data = 0;	///< array of z(height) values in the height map.
 static Dict worldDict = 0;
 
-static WaypointMap *m_waypoints = 0;
-static Coord3DList	m_supplyPositions;
-static Coord3DList	m_techPositions;
+extern "C" { WaypointMap *m_waypoints = 0; }
+extern "C" { Coord3DList	m_supplyPositions; }
+extern "C" { Coord3DList	m_techPositions; }
 
 static Int m_mapDX = 0;
 static Int m_mapDY = 0;
