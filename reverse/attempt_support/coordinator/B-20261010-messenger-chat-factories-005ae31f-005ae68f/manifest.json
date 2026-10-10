@@ -1,0 +1,33 @@
+{
+  "id": "B-20261010-messenger-chat-factories-005ae31f-005ae68f",
+  "paths": [
+    "Code/GameEngine/Source/GameClient/GUI/AptMessengerCreateChatWindows.cpp"
+  ],
+  "recoveries": [
+    {
+      "name": "?CreateChatWindow@AptMessengerLan@@UAEPAXH@Z",
+      "rva": "0x005AE31F",
+      "size": 96,
+      "source": "Code/GameEngine/Source/GameClient/GUI/AptMessengerCreateChatWindows.cpp",
+      "notes": "WB1514DD0 names AptMessengerLan CreateChatWindow. Retail virtual pointer8726E0 and96B RET4 boundary prove dispatch; selector0/1 choose existing rowed36B object constructors5D50E3 and5D50C4. Two-case switch preserves each branch target and constructor EH-state order. Selector and returned pointer remain opaque because original enum/base-return spelling is unproven. All96B whole extent and EH data exact; all callees resolve; no new pins or assembler.",
+      "replace_rva": ""
+    },
+    {
+      "name": "?CreateChatWindow@AptMessengerOnline@@UAEPAXH@Z",
+      "rva": "0x005AE68F",
+      "size": 96,
+      "source": "Code/GameEngine/Source/GameClient/GUI/AptMessengerCreateChatWindows.cpp",
+      "notes": "WB1515610 names AptMessengerOnline CreateChatWindow. Retail virtual pointer8727A0 and96B RET4 boundary prove dispatch; selector0/1 choose existing rowed36B object constructors5D5802 and5D5828. Two-case switch preserves each branch target and constructor EH-state order. Selector and returned pointer remain opaque because original enum/base-return spelling is unproven. All96B whole extent and EH data exact; all callees resolve; no new pins or assembler.",
+      "replace_rva": ""
+    }
+  ],
+  "proof_command": "python tools/explain_mismatch.py \"?CreateChatWindow@AptMessengerLan@@UAEPAXH@Z\" --rva 0x005AE31F --size 96 --source Code/GameEngine/Source/GameClient/GUI/AptMessengerCreateChatWindows.cpp; python tools/explain_mismatch.py \"?CreateChatWindow@AptMessengerOnline@@UAEPAXH@Z\" --rva 0x005AE68F --size 96 --source Code/GameEngine/Source/GameClient/GUI/AptMessengerCreateChatWindows.cpp; python build/verify-messenger-chat-factories.py",
+  "proof_log": "proof.log",
+  "dependencies": [],
+  "ledger_delta": "No local ledger edits. Two new independent rows in one new source.",
+  "provider_notes": "The four constructors retain their existing provider names and ABI. This source only requires native allocation extent36; storage arrays are opaque allocation views with no claimed member layout. Method selector and return are type-erased machine-word views pending original type evidence. Native tables prove virtual methods. No clean BFME1 or ZH factory donor exists for these BFME2 Apt classes.",
+  "seat": "B",
+  "base_commit": "75740df1edc641aba37050ae805a2f2f61553e7c",
+  "claim_owner": "codex-01a12257-recovery",
+  "proof_exit_code": 0
+}
