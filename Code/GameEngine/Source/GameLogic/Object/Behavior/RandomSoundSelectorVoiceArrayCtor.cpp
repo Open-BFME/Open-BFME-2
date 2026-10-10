@@ -25,6 +25,7 @@ class Rva00254FE4Member
 {
 public:
 	Rva00254FE4Member();
+	~Rva00254FE4Member();
 
 private:
 	VoiceSlot m_slots[56]; // +0x00 (0x1C0 bytes)
@@ -32,5 +33,13 @@ private:
 
 // ??0Rva00254FE4Member@@QAE@XZ @0x254FE4
 Rva00254FE4Member::Rva00254FE4Member()
+{
+}
+
+// ??1Rva00254FE4Member@@QAE@XZ @0x254B72 (16B): the matching teardown, the
+// 56 eight-byte slots destroyed through the rowed ehvec destructor iterator
+// 0x629110 (stdcall push order dtor, count, size, first; the dtor address is
+// the DIR32 the ctor also pushes). No EH frame, plain ret.
+Rva00254FE4Member::~Rva00254FE4Member()
 {
 }
