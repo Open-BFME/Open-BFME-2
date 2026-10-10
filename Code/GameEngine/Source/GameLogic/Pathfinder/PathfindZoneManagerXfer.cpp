@@ -19,6 +19,7 @@ struct Rva005334A4Element {unsigned short first, second;};
 // and native stack layout. The block's vector call retains its transfer chain.
 struct ICoord2D
 {
+ __forceinline void zero() {x=0;y=0;}
 	int x, y;
 };
 struct IRegion2D
@@ -92,10 +93,12 @@ public:
 // union-find release40B at531A93. The wrapper name stays address-qualified.
 // Cleanup helpers530FAE/531A93/5320C1 only deallocate; their verified bodies
 // cannot throw. Explicit nothrow contracts reproduce retail EH state stores.
-class Rva00531FCF : public Rva00531A44 { public: Rva00531FCF(); ~Rva00531FCF() throw() { rva00531A93(); } };
+class Rva00531FCF : public Rva00531A44 { public: Rva00531FCF() { rva00531A44(24000); } ~Rva00531FCF() throw() { rva00531A93(); } };
 class Rva00531E14
 {
 public:
+ Rva00531E14(unsigned short n) {rva00531D08(n);}
+ Rva00531E14 &rva00531D08(unsigned short);
 	~Rva00531E14() { delete [] table; }
  unsigned char rva00531E14(unsigned short);
  unsigned char rva00531DAE(unsigned short);
@@ -107,14 +110,22 @@ class PathfindCell;
 class PathfindLayer {public: char unknown00[0x2C]; unsigned short zone; char unknown2E[0x40-0x2E]; unsigned short getZone()const{return zone;} };
 bool Rva001E3679(int);
 class Rva005335B0 {public: void rva005335B0(unsigned short,unsigned short);};
-class BooleanBitmapSet {public: ~BooleanBitmapSet() throw() { rva00530FAE(); } __declspec(nothrow) void rva00530FAE(); void SetBit(int); unsigned numBitsDiv32; int *bits; unsigned *summary; unsigned cursor,bit;};
+class BooleanBitmapSet {public: BooleanBitmapSet(int); ~BooleanBitmapSet() throw() { rva00530FAE(); } __declspec(nothrow) void rva00530FAE(); void SetBit(int); unsigned numBitsDiv32; int *bits; unsigned *summary; unsigned cursor,bit;};
+// The first 20B bitmap subobject uses a size-preserving derived construction
+// view to reproduce native LEA-before-PUSH ordering at5323C7. This is compiler
+// shape evidence; no claim about an original derived type is made.
+class PathfindInitialBitmapView : public BooleanBitmapSet {
+public: __forceinline PathfindInitialBitmapView(int n):BooleanBitmapSet(n) {}
+};
+typedef char PathfindBitmapViewSize[(sizeof(PathfindInitialBitmapView)==20)?1:-1];
 class Rva00532DF6 {public: bool remove(unsigned short,unsigned short); bool add(unsigned short,unsigned short);};
 class Rva00532330 {public: bool rva00532330(unsigned short*,unsigned short*);};
 
-class Rva00531E74 { public: __declspec(nothrow) void rva005320C1(); ~Rva00531E74() throw() { rva005320C1(); } private: unsigned char storage[0x3E88]; };
+class Rva00531E74 { public: Rva00531E74():count(0) { for(int i=0;i<4001;++i)words[i]=0; } __declspec(nothrow) void rva005320C1(); ~Rva00531E74() throw() { rva005320C1(); } private: unsigned words[4001]; unsigned count; };
 class PathfindZoneManager : public Rva00531E14
 {
 public:
+ PathfindZoneManager();
 	class CellType
 	{
 	public:
@@ -146,7 +157,7 @@ public:
 	char unknown0C[0x1770C - 0xC];
  Rva00531E74 buckets;
  Rva00531FCF unions[8][7], finalUnion;
-	BooleanBitmapSet changed,affected;
+	PathfindInitialBitmapView changed; BooleanBitmapSet affected;
 	bool flag1BA30, flag1BA31;
 	char unknown1BA32[2];
 	void *allocation;
@@ -659,4 +670,13 @@ Rva00534557Record rva0053442A(const int *src) {
  return Rva00534557Record(a,b);
 }
 
-Rva00531FCF::Rva00531FCF() { rva00531A44(24000); }
+
+// WB constructor identity and native532361..53241F prove the24000 capacity,
+// 56 union records, both20B bitmaps, flag bytes1BA30/31 and null owners34/38.
+// BF1 supplies subsystem relationships only; all dimensions and stores are
+// target evidence. The member construction view preserves full layout.
+PathfindZoneManager::PathfindZoneManager()
+ : Rva00531E14(24000),changed(24000),affected(24000),flag1BA30(false),flag1BA31(true),allocation(0),blocks(0)
+{
+ dimensions.zero();
+}
