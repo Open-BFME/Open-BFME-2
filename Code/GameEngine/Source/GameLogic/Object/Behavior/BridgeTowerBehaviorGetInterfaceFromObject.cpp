@@ -58,7 +58,7 @@ class Object
 public:
 	virtual void slot0();
 	bool isBridgeTower() const { return m_template->isBridgeTower(); }
-	BehaviorModule **getBehaviorModules() const { return m_modules244; }
+	__declspec(dllimport) __forceinline BehaviorModule **getBehaviorModules() const { return m_modules244; }
 
 private:
 	const ThingTemplate *m_template;

@@ -49,7 +49,7 @@ class BehaviorModule : public BfmeObjectModule, public BehaviorModuleInterface
 class Object
 {
 public:
-	BehaviorModule **getBehaviorModules() const { return m_modules244; }
+	__declspec(dllimport) __forceinline BehaviorModule **getBehaviorModules() const { return m_modules244; }
 
 	char m_pad[0x244];
 	BehaviorModule **m_modules244;
