@@ -32992,7 +32992,7 @@ _DXTraceA@20,,0x0065459C,476,vendor/dxerr9-aug2005/dxerr9.lib,matched,vendored=d
 ?get@Rva00063318LeaGetter@@QBEPAXXZ,,0x00063318,7,Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp,matched,disp32 lea getter; phase-proven no-branch-to-addr
 ?get@Rva000788B9LeaGetter@@QBEPAXXZ,,0x000788B9,7,Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp,matched,disp32 lea getter; phase-proven no-branch-to-addr
 ?get@Rva000E6EE9LeaGetter@@QBEPAXXZ,,0x000E6EE9,7,Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp,matched,disp32 lea getter; phase-proven no-branch-to-addr
-?get@Rva00174DC0LeaGetter@@QBEPAXXZ,,0x00174DC0,7,Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp,matched,disp32 lea getter; phase-proven no-branch-to-addr
+?Get_Name@BoxRenderObjClass@@UBEPBDXZ,,0x00174DC0,7,Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp,matched,BFME1 boxrobj.cpp Get_Name donor; AA vtable BD4950 and OB BD4B60 slot6 point here; native LEA ECX+C4 returns Name array independently proven by matched Set_Name174DD0 and Box ctor175A40; identity repair of opaque owner; no new RVA
 ?get@Rva0020391FLeaGetter@@QBEPAXXZ,,0x0020391F,7,Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp,matched,disp32 lea getter; phase-proven no-branch-to-addr
 ?get@Rva0021912DLeaGetter@@QBEPAXXZ,,0x0021912D,7,Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp,matched,disp32 lea getter; phase-proven no-branch-to-addr
 ?get@Rva0023C448LeaGetter@@QBEPAXXZ,,0x0023C448,7,Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp,matched,disp32 lea getter; phase-proven no-branch-to-addr

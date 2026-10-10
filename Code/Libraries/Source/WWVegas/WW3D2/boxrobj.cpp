@@ -357,7 +357,6 @@ int BoxRenderObjClass::Get_Num_Polys(void) const
  * HISTORY:                                                                                    *
  *   1/19/00    gth : Created.                                                                 *
  *=============================================================================================*/
-// ?BoxRenderObjClass::Get_Name present-unmatched
 const char * BoxRenderObjClass::Get_Name(void) const
 {
 	return Name;
