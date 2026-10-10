@@ -91,3 +91,105 @@ void LivingWorldAutoResolveBattleBonusTable::iniAppendBonusToTable(INI *ini, voi
 	if (!inserted)
 		throw INIException(3, "Duplicate MinCount entries of %d in Living World auto resolve battle bonus table", entry.minCount);
 }
+
+// Native3F7A52..3F7B0E: combine each selected table entry and the final
+// three scalar factors. The iterator begins through a byte-verified shared
+// hash-table ABI view; the application key and mapped type are unknown.
+// Keep the existing tree lookup visible so its nonescaping key argument
+// permits the native node-table load before the stack-key store.
+#include <hash_map>
+class GameWindow;
+class WindowVideo;
+// Declaration view of the existing native provider's empty hash functor.
+// No WindowVideoManager object is sized or accessed in this unit.
+class WindowVideoManager {
+public: struct hashConstGameWindowPtr {
+ unsigned int operator()(const GameWindow *) const;
+};
+};
+typedef _STL::pair<const GameWindow *const,WindowVideo *> NativeBeginPair;
+typedef _STL::hashtable<NativeBeginPair,const GameWindow *,
+ WindowVideoManager::hashConstGameWindowPtr,_STL::_Select1st<NativeBeginPair>,
+ _STL::equal_to<const GameWindow *>,_STL::allocator<NativeBeginPair> > NativeBeginTable;
+namespace _STL { template<> NativeBeginTable::iterator NativeBeginTable::begin(); }
+
+
+class Rva000411084
+{
+public:
+    void *next();
+};
+struct Rva003F751ANode
+{
+    int opaque00;
+    void *opaque04, *opaque08, *opaque0C;
+    int minCount;
+    float weapon, armor, experience;
+};
+class Rva003F751A
+{
+public:
+    Rva003F751ANode *rva003F751A(const int *key);
+    Rva003F751ANode *header;
+};
+struct BonusHashNodeView
+{
+    void *next;
+    void *name;
+    Rva003F751A *table;
+    int minCount;
+};
+class LivingWorldAutoResolveBattleBonus
+{
+public:
+    void GetFinalBonuses(float *weapon, float *armor, float *experience);
+private:
+    unsigned char opaque00[0x20];
+    float m_weapon, m_armor, m_experience;
+};
+void LivingWorldAutoResolveBattleBonus::GetFinalBonuses(float *weapon, float *armor, float *experience)
+{
+    float one = 1.0f;
+    *weapon = one;
+    *armor = one;
+    *experience = one;
+
+    for (NativeBeginTable::iterator iter = reinterpret_cast<NativeBeginTable *>((char *)this + 8)->begin(); iter != reinterpret_cast<NativeBeginTable *>((char *)this + 8)->end();
+        ((Rva000411084 *)&iter)->next())
+    {
+        BonusHashNodeView *node = (BonusHashNodeView *)iter._M_cur;
+        Rva003F75ECValue key;
+        key.minCount = node->minCount;
+        Rva003F751A *bonuses = node->table;
+        Rva003F751ANode *found = bonuses->rva003F751A(&key.minCount);
+        if (found != bonuses->header)
+        {
+            *weapon *= found->weapon;
+            *armor *= found->armor;
+            *experience *= found->experience;
+        }
+    }
+    *weapon *= m_weapon;
+    *armor *= m_armor;
+    *experience *= m_experience;
+}
+
+inline __declspec(noinline) Rva003F751ANode *Rva003F751A::rva003F751A(const int *key)
+{
+    Rva003F751ANode *res = header;
+    Rva003F751ANode *cur = (Rva003F751ANode *)header->opaque04;
+    if (!cur)
+        return res;
+    int k = *key;
+    do
+    {
+        if (cur->minCount <= k)
+        {
+            res = cur;
+            cur = (Rva003F751ANode *)cur->opaque08;
+        }
+        else
+            cur = (Rva003F751ANode *)cur->opaque0C;
+    } while (cur);
+    return res;
+}
