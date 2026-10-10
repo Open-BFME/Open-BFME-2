@@ -1,7 +1,16 @@
 // ?doCreateReinforcements@ScriptActions@@IAEXABVAsciiString@@0_N@Z
-// partial score=0.85 date=2026-10-10
+// partial score=0.9 date=2026-10-10
 // cl: /Ireference/shims/bfme2_ascii /O1 /G7 /DNDEBUG /MD /EHs /arch:SSE /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // ScriptActions::doCreateReinforcements, retail 0x003C7BBB (1839 bytes).
+// Bank note (X1, 2026-10-10): 1833/1839B. Making the SolutionVec copy
+// constructor and _Vector_base(const A&) visible (inline, never inlined)
+// moved theTeam/transport into the dead [ebp+0xC]/[ebp+0x10] homes and the
+// solution vector to -0x6C like retail (the visible-callee lever of
+// ab181d4413). Remaining: pos/i/j/bool frame order (retail i -0x24, pos
+// -0x20, j -0x14) and register coalescing in the member loops; candidates
+// for more visibility: DLINK_ITERATOR<Object>::advance 0x263526 and
+// Team::iterate_TeamMemberList 0x263864 (address of the iterator),
+// Thing::setPosition / 0x28ACDC (address of pos), push_back 0x539A2E.
 #include "ascii_string.h"
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
@@ -16,10 +25,12 @@ struct BfmeE8 { int a, b; };
 
 namespace _STL {
 template <class T> class allocator { public: allocator() {} };
+void *bfmeAllocX2(unsigned int bytes);
+template <class T> T *bfmeCopyX2(const T *first, const T *last, T *out);
 template <class T, class A = allocator<T> > class _Vector_base
 {
 public:
-	_Vector_base(const A &a);
+	__declspec(noinline) _Vector_base(const A &a) : m_start(0), m_finish(0), m_endOfStorage(0) {}
 	T *m_start;
 	T *m_finish;
 	T *m_endOfStorage;
@@ -28,7 +39,13 @@ template <class T, class A = allocator<T> > class vector : public _Vector_base<T
 {
 public:
 	explicit vector(const A &a = A()) : _Vector_base<T, A>(a) {}
-	vector(const vector &other);
+	__declspec(noinline) vector(const vector &other) : _Vector_base<T, A>(A())
+	{
+		unsigned int n = other.m_finish - other.m_start;
+		this->m_start = (T *)bfmeAllocX2(n * sizeof(T));
+		this->m_finish = bfmeCopyX2(other.m_start, other.m_finish, this->m_start);
+		this->m_endOfStorage = this->m_start + n;
+	}
 	~vector() { if (this->m_start) free(this->m_start); }
 	void push_back(const T &x);
 	unsigned int size() const { return this->m_finish - this->m_start; }
