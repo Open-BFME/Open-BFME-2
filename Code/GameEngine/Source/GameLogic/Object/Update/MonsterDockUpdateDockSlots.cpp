@@ -26,6 +26,9 @@
 // notifier 0x0028AE6D runs only when the bit changed (see
 // MonsterDockUpdateRva004A1610.cpp).
 
+#include "../../../../../Libraries/Include/Lib/Coord3D.h"
+class Matrix3D;
+enum PathfindLayerEnum { LAYER_GROUND=0 };
 class Drawable;
 class Rva0010CConditionBits
 {
@@ -34,6 +37,7 @@ public:
 	{
 		return m_words[bit >> 5] & (1U << (bit & 0x1f));
 	}
+	void clear(int bit) { m_words[bit >> 5] &= ~(1U << (bit & 31)); }
 	void set(int bit)
 	{
 		m_words[bit >> 5] |= 1U << (bit & 0x1f);
@@ -62,11 +66,17 @@ class Thing
 {
 public:
 	Drawable *getDrawable() const;
+ void convertBonePosToWorldPos(const Coord3D *, const Matrix3D *, Coord3D *, Matrix3D *) const;
+ void setPosition(const Coord3D *);
 };
 class Object : public Thing
 {
 public:
 	void rva0028AE6D();
+ void teleportTo(const Coord3D *, bool);
+ int rva0028B511() const;
+ __forceinline void clearCondition(int b) { if(m_conditionBits.test(b)) {m_conditionBits.clear(b);rva0028AE6D();} }
+ __forceinline void replaceCondition(int off,int on) { if(m_conditionBits.test(off) || !m_conditionBits.test(on)) {m_conditionBits.clear(off);m_conditionBits.set(on);rva0028AE6D();} }
 	void setStatus(ObjectStatusTypes status, bool set);
 	void setDisabled(DisabledType type);
 	bool clearDisabled(DisabledType type);
@@ -86,15 +96,17 @@ class Drawable
 {
 public:
 	void rva00272A02(bool on);
+ void setDrawableHidden(bool);
 };
 class GameLogic
 {
 public:
 	void deselectObject(Object *obj, unsigned int playerMask, int affectClient);
+ char m_pad[0x40]; unsigned int m_frame;
 };
 extern GameLogic *TheGameLogic;
 
-class Coord3D;
+
 class ModuleData;
 class BehaviorModule
 {
@@ -166,8 +178,11 @@ public:
 	virtual void onEnterReached(Object *docker);
 	virtual void onExitReached(Object *docker);
 	virtual void setDockOpen(bool open);
+ virtual bool action(Object *, Object *);
 private:
 	bool m_dockOpen; // +0x88
+ bool m_actionStarted; // +0x89
+ unsigned int m_actionEnd; // +0x8C
 };
 
 void MonsterDockUpdate::loadPostProcess()
@@ -209,4 +224,44 @@ void MonsterDockUpdate::onExitReached(Object *docker)
 void MonsterDockUpdate::setDockOpen(bool open)
 {
 	m_dockOpen = open;
+}
+
+// The ZH DockUpdateInterface::action contract and repair/delivery actions are
+// semantic ancestors. The Monster implementation is BFME-specific: native
+// 4A1659..4A17C1, its ctor-installed C51D18 slot12, and xfer of 89/8C prove
+// the wait state. Target bits clear305 and replace82->83 before the wait;
+// completion teleports through the dock bone, resets bits81..84 and unhides.
+class MonsterDockUpdateModuleData { public: char m_pad00[0x14]; unsigned int m_actionFrames; };
+class TerrainLogic { public:
+ virtual void s0();virtual void s1();virtual void s2();virtual void s3();
+ virtual void s4();virtual void s5();virtual void s6();
+ virtual float getLayerHeight(float,float,PathfindLayerEnum,Coord3D*,bool) const;
+};
+extern TerrainLogic *TheTerrainLogic;
+class Rva001E42F2 {public: void rva001E42F2(const int *);};
+extern "C" void *memset(void *,int,unsigned int);
+bool MonsterDockUpdate::action(Object *docker,Object *)
+{
+ if(!docker) return false;
+ if(!m_actionStarted) {
+  m_actionStarted=true;
+  m_actionEnd=((const MonsterDockUpdateModuleData*)m_moduleData)->m_actionFrames+TheGameLogic->m_frame;
+  m_object->clearCondition(305);
+  m_object->replaceCondition(82,83);
+  docker->clearCondition(305);
+  docker->replaceCondition(82,83);
+ } else if(TheGameLogic->m_frame>=m_actionEnd) {
+ Coord3D pos;pos.x=0.0F;pos.z=0.0F;pos.y=0.0F;
+ const Coord3D *bone=reinterpret_cast<const Coord3D *>(reinterpret_cast<const char *>(this)+0x3C);
+ m_object->convertBonePosToWorldPos(bone,0,&pos,0);
+ docker->teleportTo(&pos,true);
+ pos.z=TheTerrainLogic->getLayerHeight(pos.x,pos.z,(PathfindLayerEnum)docker->rva0028B511(),0,true);
+ docker->setPosition(&pos);
+ int flags[19];memset(flags,0,sizeof(flags));flags[81>>5]|=(1U<<17)|(1U<<18)|(1U<<19)|(1U<<20);
+ reinterpret_cast<Rva001E42F2 *>(docker)->rva001E42F2(flags);
+ Drawable *draw=docker->getDrawable();
+ draw->setDrawableHidden(false);
+ return false;
+ }
+ return true;
 }
