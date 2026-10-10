@@ -27,6 +27,8 @@ class PartitionManager
 	char m_pad[0x10];
 	Rva00628770Impl *m_impl;
 public:
+	// Native +0x10 registration facade, already owned at RVA00625320.
+	void rva00625320(void *ptr);
 	static bool findPositionAround(const Coord3D*,const FindPositionOptions*,Coord3D*);
 	// Existing native shroud facade; +0x10 forwarder at RVA007397F0.
 	CellShroudStatus getShroudStatusForPlayer(int playerIndex, const Coord3D *pos) const;
