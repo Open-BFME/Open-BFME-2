@@ -1,4 +1,6 @@
 // ?getCommandList@NetPacket@@QAEPAVNetCommandList@@XZ
+// partial score=0.92 date=2026-10-10
+// ?getCommandList@NetPacket@@QAEPAVNetCommandList@@XZ
 // partial score=0.95395 date=2026-10-09
 // ?getCommandList@NetPacket@@QAEPAVNetCommandList@@XZ
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
@@ -737,6 +739,7 @@ private:
 };
 
 // Setters the readers call through casts of the constructed message.
+class Rva004543C6ByteField { public: unsigned char get() const; };
 class Rva004D59ACWordSlot
 {
 public:
@@ -967,23 +970,22 @@ NetCommandList *NetPacket::getCommandList()
 			if (commandType == 1) {
 				msg = (NetCommandMsg *)new NetAckStage1CommandMsg();
 				NetAckStage1CommandMsg *last = (NetAckStage1CommandMsg *)ncrCommand(lastCommand);
-				((Rva004D59ACWordSlot *)msg)->set(last->getCommandID() + 1);
-				((Rva004D576CByteSlot *)msg)->set(last->getOriginalPlayerID());
-				_ReadWriteBarrier();
+				((Rva004D59ACWordSlot *)msg)->set(((Rva004D5767WordField *)last)->get() + 1);
+				((Rva004D576CByteSlot *)msg)->set(((Rva004543C6ByteField *)last)->get());
 				((NetAckStage1CommandMsg *)msg)->m_20 = last->m_20;
 				((NetAckStage1CommandMsg *)msg)->m_24 = last->m_24;
 			} else if (commandType == 2) {
 				msg = (NetCommandMsg *)new NetAckStage2CommandMsg();
 				NetAckStage2CommandMsg *last = (NetAckStage2CommandMsg *)ncrCommand(lastCommand);
-				((Rva004D59ACWordSlot *)msg)->set(last->getCommandID() + 1);
-				((Rva004D576CByteSlot *)msg)->set(last->getOriginalPlayerID());
+				((Rva004D59ACWordSlot *)msg)->set(((Rva004D5767WordField *)last)->get() + 1);
+				((Rva004D576CByteSlot *)msg)->set(((Rva004543C6ByteField *)last)->get());
 				((NetAckStage2CommandMsg *)msg)->m_20 = last->m_20;
 				((NetAckStage2CommandMsg *)msg)->m_24 = last->m_24;
 			} else if (commandType == 0) {
 				msg = (NetCommandMsg *)new NetAckBothCommandMsg();
 				NetAckBothCommandMsg *last = (NetAckBothCommandMsg *)ncrCommand(lastCommand);
-				((Rva004D59ACWordSlot *)msg)->set(last->getCommandID() + 1);
-				((Rva004D576CByteSlot *)msg)->set(last->getOriginalPlayerID());
+				((Rva004D59ACWordSlot *)msg)->set(((Rva004D5767WordField *)last)->get() + 1);
+				((Rva004D576CByteSlot *)msg)->set(((Rva004543C6ByteField *)last)->get());
 				((NetAckBothCommandMsg *)msg)->m_20 = last->m_20;
 				((NetAckBothCommandMsg *)msg)->m_24 = last->m_24;
 			} else {
