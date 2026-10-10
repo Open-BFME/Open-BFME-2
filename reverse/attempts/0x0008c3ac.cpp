@@ -1,20 +1,20 @@
 // ?update@W3DView@@UAEXXZ
-// partial score=0.8987618204657214 date=2026-10-10
+// partial score=0.9784136707374416 date=2026-10-10
 // ?update@W3DView@@UAEXXZ
 // partial score=0.8900301634 date=2026-10-09
 // ?update@W3DView@@UAE_NXZ
 // partial score=0.8854845531 date=2026-10-09
 // ?update@W3DView@@UAEXXZ
 // partial score=0.8209180045876036 date=2026-10-09
-// cl: /I. /ICode/Libraries/Include/Lib /ICode/GameEngine/Source/Common /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC
+// cl: /ICode/Libraries/Include/Lib /ICode/GameEngine/Source/Common /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC
 // BFME W3DView::update, retail 0x007446A0.
 // Constructor 0x00745B10 installs SubsystemInterface table 0x01121764 at +0xFC. Slot 5 reaches this body through ILT 0x00007F31.
 #include <math.h>
 #include <vector>
 // stlport
-#include "Code/Libraries/Include/Lib/Coord3D.h"
-#include "Code/Libraries/Include/Lib/Coord2D.h"
-#include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
+#include "Coord3D.h"
+#include "Coord2D.h"
+#include "GameLogicObjectLookupView.h"
 struct CameraCoordinates:Coord3D{CameraCoordinates(){}CameraCoordinates(const Coord3D&p){x=p.x;y=p.y;z=p.z;}};
 class RenderObjClass;
 template<class T> class RefMultiListIterator;
@@ -35,7 +35,7 @@ class ScriptEngine;
 class Rva00203B08 {public:bool rva0020424FF();};
 class Rva00203ACEByteField {public:unsigned char get()const;};
 extern ScriptEngine *TheScriptEngine;
-class Rva0030E961 {public:float rva0030E67C(float,float);float*data,*finish,*end;int width,height;float scale;int state;bool ready;};
+class Rva0030E7D0 {public:float rva0030E67C(float,float);float*data,*finish,*end;int width,height;float scale;int state;bool ready;};
 class PolygonTrigger { public: bool rva002E3A39(const Coord3D&); };
 class CameraShakeSystemClass;class Rva00065E21{public:bool rva00065E21();};
 extern CameraShakeSystemClass CameraShakerSystem;
@@ -542,7 +542,7 @@ public:
  char gap240d[28];
  bool m_isCameraSlaved; // +0x2429
  char gap242a[30];
- Rva0030E961 field2448; // +0x2448
+ Rva0030E7D0 field2448; // +0x2448
  char gap2465[68];
  PolygonTrigger * field24ac; // +0x24ac
  bool field24b0; // +0x24b0
@@ -582,19 +582,18 @@ void W3DView::update()
         } else {
             if(0.0f>FollowFactor007446A0) FollowFactor007446A0=0.05f;
             else {
+_ReadWriteBarrier();
                 FollowFactor007446A0+=0.05f;
                 if(1.0f<FollowFactor007446A0) FollowFactor007446A0=1.0f;
             }
             Coord3D objpos; objpos.x=cameraLockObj->m_position.x; objpos.y=cameraLockObj->m_position.y; objpos.z=cameraLockObj->m_position.z;
             if(drawable) objpos=*drawable->getPosition();
             CameraCoordinates curpos(m_pos);
-            float snapThreshSqr=square(TheWritableGlobalData->m_partitionCellSize);
+            float snapThreshSqr=square((cameraLockObj?TheWritableGlobalData:TheWritableGlobalData)->m_partitionCellSize);
             float distx=curpos.x-objpos.x;
             float disty=curpos.y-objpos.y;
             float curDistSqr=disty*disty+distx*distx;
-            if(m_snapImmediate) { curpos.x=objpos.x;
-_ReadWriteBarrier();
- curpos.y=objpos.y; }
+            if(m_snapImmediate) { curpos.x=objpos.x; curpos.y=objpos.y; }
             else {
                 float dx=objpos.x-curpos.x;
                 float dy=objpos.y-curpos.y;
@@ -645,7 +644,7 @@ _ReadWriteBarrier();
                 }
                 m_terrainHeightUnderCamera=height;
             } else m_terrainHeightUnderCamera=getHeightAroundPos(m_pos.x,m_pos.y);
-            m_currentHeightAboveGround=m_cameraOffset.z*m_zoom-m_terrainHeightUnderCamera;
+            m_currentHeightAboveGround=m_zoom*m_cameraOffset.z-m_terrainHeightUnderCamera;
             if(TheTerrainLogic && TheWritableGlobalData && TheInGameUI && m_okToAdjustHeight && !TheGameLogic->isGamePaused()) {
                 float desiredZoom=(m_heightAboveGround+m_terrainHeightUnderCamera)/m_cameraOffset.z;
                 if(didScriptedMovement || (TheGameLogic->m_110==3 && TheWritableGlobalData->field0c0d)) {
@@ -673,7 +672,7 @@ _ReadWriteBarrier();
             if(drawable) pos=drawable->getPosition();
             else {
                 Object *obj=TheGameLogic->findObjectByID((ObjectID)getCameraLock());
-                pos=obj?&obj->m_position:0;
+                if(obj){pos=&obj->m_position;_ReadWriteBarrier();}else{pos=0;_ReadWriteBarrier();}
             }
             if(pos) {
                 float height=field0068>0.0f?field0068:TheWritableGlobalData->field0e58;
