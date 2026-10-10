@@ -1,0 +1,28 @@
+{
+  "id": "seat-c-victory-cache-player-00420017-20261010",
+  "seat": "C",
+  "base_commit": "b5cc668da0c33b6c7481ef1a57f00f71605a9752",
+  "paths": [
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/VictoryConditions.cpp"
+  ],
+  "recoveries": [
+    {
+      "name": "?rva00420017@VictoryConditions@@UAE_NPAVPlayer@@@Z",
+      "rva": "0x00420017",
+      "size": 120,
+      "source": "Code/GameEngine/Source/GameLogic/ScriptEngine/VictoryConditions.cpp",
+      "notes": "Native420017..42008F complete120B RET4; registered VictoryConditions tableC3BA28 slot26 and WB11156D0 cache-one-player flow; GeneralsMD cachePlayerPtrs eligibility guide; member count8C players18/local68; existing neutral Player getter2AA223 and name/template/local providers; unknown helper name retained; full120 exact and old50 sibling exact",
+      "replace_rva": null
+    }
+  ],
+  "new_retail_bytes": 120,
+  "proof_command": "python tools/explain_mismatch.py \"?rva00420017@VictoryConditions@@UAE_NPAVPlayer@@@Z\" --rva 0x00420017 --size 120 --source Code/GameEngine/Source/GameLogic/ScriptEngine/VictoryConditions.cpp",
+  "proof_log": "scoped-proof.txt",
+  "claim_owner": "codex-104a-01a12257",
+  "worker_root": "C:\\Users\\franz\\.codex\\worktrees\\recovery-preserved\\openbfme2",
+  "dependencies": [],
+  "claims": [
+    "0x00420017",
+    "file:Code/GameEngine/Source/GameLogic/ScriptEngine/VictoryConditions.cpp"
+  ]
+}
