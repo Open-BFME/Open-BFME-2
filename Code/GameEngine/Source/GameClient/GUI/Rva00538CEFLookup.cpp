@@ -33,6 +33,7 @@ public:
 	Rva0020E89C *rva00538CEF();
 	void rva00538D3B(int);
 	bool rva00538D17(Rva00538CEFPair *out);
+	void rva00538DC1(const Rva00538CEFPair *values,int word);
 private:
 	int *m_start;
 	int *m_finish;
@@ -80,4 +81,14 @@ bool Rva00538CEF::rva00538D17(Rva00538CEFPair *out){
   out->a=end[-3];out->b=end[-2];return true;
  }
  return false;
+}
+
+// Native538DC1..538DEA,41B; independent WB1434B60 uses the same
+// unsigned16-byte count and copies input words to the last record4/8,
+// then forwards the unchanged context word to the owned position helper.
+void Rva00538CEF::rva00538DC1(const Rva00538CEFPair *values,int word){
+ int *span=(int*)this;int *end=m_finish;
+ if((unsigned)((span[1]-span[0])>>4)>0){
+  end[-3]=values->a;end[-2]=values->b;rva00538D3B(word);
+ }
 }
