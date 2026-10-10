@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
+// cl: /Ireference/shims/subsystem_bfme2 /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
 // stlport
 //
 // ImageCollection::~ImageCollection, BFME2 retail 0x002D9283 (115B), slot 0
@@ -37,20 +37,10 @@ private:
 };
 
 typedef _STL::map<unsigned int, Image *> ImageNameMap;
-// TU-local BFME2 SubsystemInterface (12-byte base, retail-proven).
-#define __SUBSYSTEMINTERFACE_H_
-class SubsystemInterface
-{
-public:
-	SubsystemInterface();
-	virtual ~SubsystemInterface();
-	virtual void init() = 0;
-	virtual void reset() = 0;
-	virtual void update() = 0;
-
-private:
-	unsigned char m_bfmeBasePad[8];
-};
+// BFME2 SubsystemInterface (12-byte base, 14-slot vtable 0x00BD77A0) from the
+// subsystem shim, so this unit emits the retail 14-slot ImageCollection vtable.
+typedef bool Bool;
+#include "subsystem_interface.h"
 
 class ImageCollection : public SubsystemInterface
 {
@@ -58,6 +48,11 @@ public:
 	const Image *findImageByName(const AsciiString &name);
 	void addImage(Image *image);
 	virtual ~ImageCollection();
+	// Retail vtable 0x00C03878 slots 1/9/10 (init/reset/update) are the folded
+	// empty body at 0x000B3FD0, as in Zero Hour's ImageCollection.
+	virtual void init() {}
+	virtual void reset() {}
+	virtual void update() {}
 
 protected:
 	ImageNameMap m_imageMap;

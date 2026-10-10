@@ -822,10 +822,18 @@ class Rva00534641
 public:
 	void rva00534641(void *node);
 	void rva00534693();
-	ImageSubscriptMap *rva00534A2A(const unsigned int &key);
 private:
 	void *m_00Head; // +0x00
 	int m_04Flag; // +0x04
+};
+
+// The map subscript 0x00534A2A is rowed as Rva00534A2A::subscript
+// (Rva00534A2AMapSubscript.cpp): it returns the inner map stored at node+0x14.
+struct TreeStorage534;
+class Rva00534A2A
+{
+public:
+	TreeStorage534 &subscript(const unsigned int &key);
 };
 
 void Rva00534641::rva00534641(void *p)
@@ -888,7 +896,7 @@ void Rva00534AAE::rva00534AAE()
 	for (Rva00534AAENode *node = m_head->m_next; node != m_head; node = node->m_next) {
 		unsigned int innerKey = node->m_innerKey;
 		unsigned int outerKey = node->m_outerKey;
-		m_map.rva00534A2A(outerKey)->operator[](innerKey) = reinterpret_cast<Image *>(index++);
+		reinterpret_cast<ImageSubscriptMap &>(reinterpret_cast<Rva00534A2A *>(&m_map)->subscript(outerKey))[innerKey] = reinterpret_cast<Image *>(index++);
 	}
 	m_needsRebuild = false;
 }

@@ -22,11 +22,28 @@ private:
     void *m_end;
 };
 
-// Base ctor 0x001B4E63 / dtor 0x001B4E74 by their row names ??0/??1SubsystemInterface (SubsystemInterface.cpp).
+// SubsystemInterface with the 14 virtual slots of its retail vtable 0x00BD77A0,
+// spelled as reference/shims/subsystem_bfme2/subsystem_interface.h does (ctor
+// 0x001B4E63 / dtor 0x001B4E74 rowed as ??0/??1SubsystemInterface), so the
+// derived vtable below gets the retail 14-slot shape.
 class SubsystemInterface
 {
 public:
+    SubsystemInterface();
     virtual ~SubsystemInterface();
+    virtual void init() = 0;
+    virtual bool loadIniFilesFromLegend();
+    virtual void postProcessLoad() {}
+    virtual bool vslot04(int) { return false; }
+    virtual bool vslot05() { return false; }
+    virtual int vslot06() { return 0; }
+    virtual void vslot07(int) {}
+    virtual void vslot08() {}
+    virtual void reset() = 0;
+    virtual void update() = 0;
+    virtual bool vslot11(int) { return false; }
+    virtual void vslot12() {}
+    virtual void vslot13(int) {}
 
 private:
     char m_pad04[4];
@@ -37,6 +54,11 @@ class Rva00220CD4 : public SubsystemInterface
 {
 public:
     virtual ~Rva00220CD4();
+    // Retail vtable 0x007E6A84 slots 1/9/10 (init/reset/update) are the folded
+    // empty body at 0x000B3FD0.
+    virtual void init() {}
+    virtual void reset() {}
+    virtual void update() {}
 
 private:
     Rva00360D26Member m_member0C;

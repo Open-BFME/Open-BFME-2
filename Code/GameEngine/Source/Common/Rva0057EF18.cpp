@@ -34,7 +34,7 @@ public:
 	virtual void v00();
 	virtual void ruleChanged(int rule, bool silent);
 	void rva0057EF18();
-	void rva0057ED2B();
+	bool rva0057ED2B();	// row 0x0057ED2B (AptMpGameRulesRefreshWidgets.cpp) returns bool; the tail call ignores it
 private:
 	char m_pad04[0x60 - 0x04];
 	int m_mode;

@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /DNDEBUG /MD
+// cl: /Ireference/shims/subsystem_bfme2 /Ireference/shims/bfme2_ascii /O1 /EHsc /DNDEBUG /MD
 //
 // ImageCollection::ImageCollection, retail 0x002D932B, 55 bytes.
 //
@@ -18,22 +18,10 @@
 //   COMDATs.
 
 // ??_GImageCollection@@UAEPAXI@Z present-unmatched
-class AsciiStringMember
-{
-public:
-	~AsciiStringMember();
-};
-
-class SubsystemInterface
-{
-public:
-	SubsystemInterface() throw();
-	virtual ~SubsystemInterface();
-
-private:
-	char m_pad04[4];
-	AsciiStringMember m_member08;
-};
+// BFME2 SubsystemInterface (14-slot vtable 0x00BD77A0) from the subsystem shim,
+// so this unit emits the retail 14-slot ImageCollection vtable.
+typedef bool Bool;
+#include "subsystem_interface.h"
 
 namespace _STL
 {
@@ -68,6 +56,11 @@ public:
 
 public:
 	virtual ~ImageCollection();
+	// Retail vtable 0x00C03878 slots 1/9/10 (init/reset/update) are the folded
+	// empty body at 0x000B3FD0, as in Zero Hour's ImageCollection.
+	virtual void init() {}
+	virtual void reset() {}
+	virtual void update() {}
 
 private:
 	_STL::map<int, void *, _STL::less<int>, _STL::allocator<_STL::pair<const int, void *> > > m_imageMap;
