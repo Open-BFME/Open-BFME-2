@@ -1,20 +1,5 @@
-// ?setStatus@BattlePlanUpdate@@IAEXW4TransitionStatus@@@Z
-// partial score=0.9237408 date=2026-10-09
-// ?setStatus@BattlePlanUpdate@@IAEXW4TransitionStatus@@@Z
-// partial score=0.98 date=2026-10-09
 // stlport
 // cl: /O1 /G7 /D_STLP_NO_EXCEPTIONS /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /I.
-//
-// BattlePlanUpdate.cpp: BattlePlanUpdate bodies retail links from this TU
-// (tu_map approved). The turret helpers were folded in from split units with
-// these exact flags; one BattlePlanUpdate view carries the offsets each body
-// was verified against: +0x08 object, +0x2C affecting army, +0x30 status.
-// getCommandOption stays split: it reads its plan through the interface
-// subobject (+0x08 of that base), which this view cannot express.
-// onObjectCreated (0x0049797F) stays split for now: it calls
-// Object::setWeaponLock, whose kept definition is not retail's, and folding it
-// would stop this unit linking.
-
 // Status semantic donor: BFME1 BattlePlanUpdateSetStatus.cpp at 9cbfb551.
 // BFME2 1241B native 497FF3 follows ZH transition switches, but stores one
 // playing handle at84 and four banks of ref-counted audio names at44..80.
@@ -217,78 +202,12 @@ private:
  unsigned m_handle84;
 };
 
-// ?enableTurret@BattlePlanUpdate@@IAEX_N@Z, retail 0x0049773F (42B).
-// Ported from the Zero Hour reference
-// (GameLogic/Object/Update/BattlePlanUpdate.cpp): fetch the object's AI,
-// ask it which turret the current weapon uses, and enable or disable that
-// turret. A missing AI or an invalid turret changes nothing.
-void BattlePlanUpdate::enableTurret(bool enable)
-{
-	AIUpdateInterface *ai = getObject()->m_aiDirect;
-	if (ai)
-	{
-		WhichTurretType tur = ai->getWhichTurretForCurWeapon();
-		if (tur != TURRET_INVALID)
-		{
-			ai->setTurretEnabled(tur, enable);
-		}
-	}
-}
-
-// ?recenterTurret@BattlePlanUpdate@@IAEXXZ, retail 0x00497769 (36B).
-// Ported from the Zero Hour reference: fetch the object's AI, ask it which
-// turret the current weapon uses, and recenter that turret. A missing AI or an
-// invalid turret recenters nothing.
-void BattlePlanUpdate::recenterTurret()
-{
-	AIUpdateInterface *ai = ((Rva00497769Host *)getObject())->getAI();
-	if (ai)
-	{
-		WhichTurretType tur = ai->getWhichTurretForCurWeapon();
-		if (tur != TURRET_INVALID)
-		{
-			ai->recenterTurret(tur);
-		}
-	}
-}
-
-// ?isTurretInNaturalPosition@BattlePlanUpdate@@IAE_NXZ, retail 0x0049778D (40B).
-// Ported from the Zero Hour reference: fetch the object's AI, ask it which
-// turret the current weapon uses, and report whether that turret sits in its
-// natural position. A missing AI or an invalid turret reads as not in position.
-bool BattlePlanUpdate::isTurretInNaturalPosition()
-{
-	AIUpdateInterface *ai = getObject()->m_aiDirect;
-	if (ai)
-	{
-		WhichTurretType tur = ai->getWhichTurretForCurWeapon();
-		if (tur != TURRET_INVALID)
-		{
-			return ai->isTurretInNaturalPosition(tur);
-		}
-	}
-	return false;
-}
-
-// ?getActiveBattlePlan@BattlePlanUpdate@@QBE?AW4BattlePlanStatus@@XZ
-// BFME2 BattlePlanUpdate active-plan getter, transferred from the exact
-// BFME1 reconstruction
-// (Code/GameEngine/Source/GameLogic/Object/Update/BattlePlanUpdate.cpp).
-// Retail BFME2 keeps the same fields: the affecting army at +0x2C and the
-// transition status at +0x30; only the active status reads the army.
-BattlePlanStatus BattlePlanUpdate::getActiveBattlePlan() const
-{
-	if (m_status == 2)
-	{
-		return (BattlePlanStatus)m_planAffectingArmy;
-	}
-	return PLANSTATUS_NONE;
-}
-
-// ?setStatus@BattlePlanUpdate@@IAEXW4TransitionStatus@@@Z present-unmatched
+// ?setStatus@BattlePlanUpdate@@IAEXW4TransitionStatus@@@Z
+// Native 497FF3..4984CC is1241B; same-valued data PHI closes EDI owner/ESI object allocation.
+// All transition calls, audio handle stores and search-plan message are retained.
 void BattlePlanUpdate::setStatus(TransitionStatus newStatus)
 {
-    const BattlePlanUpdateModuleData *modData = getBattlePlanUpdateModuleData();
+    const BattlePlanUpdateModuleData *modData = m_status ? getBattlePlanUpdateModuleData() : getBattlePlanUpdateModuleData();
     Object *obj = getObject();
     if (m_status == newStatus)
         return;
