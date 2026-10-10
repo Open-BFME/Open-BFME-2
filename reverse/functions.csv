@@ -75918,3 +75918,4 @@ _floorf,,0x0004D649,18,Code/GameEngine/Source/GameLogic/Map/TerrainLogicAmbientC
 ?rva000B508A@Rva000B508A@@QAEXPBVRadiusDecalTemplate@@@Z,,0x000B508A,239,Code/GameEngine/Source/Common/Rva000B508A.cpp,matched,W3D draw radius-decal slot sibling of 000B3271 over rowed Object helpers
 ?rva00090FE0@Rva00090FE0@@QAEHI@Z,,0x00090FE0,224,Code/GameEngine/Source/Common/Rva00090FE0.cpp,matched,timeGetTime elapsed units scaled by rate over divisor and 1000 with double evaluated min clamp
 ?rva00090F88@Rva00090F88@@QAE_NPAVRva00090F88Item@@@Z,,0x00090F88,88,Code/GameEngine/Source/Common/Rva00090F88.cpp,matched,owner offers item through virtual accept then stores or deletes it
+?Rva0008A2A3Find@@YAPAVRva0008A2A3Item@@PAXI_N@Z,,0x0008A2A3,76,Code/GameEngine/Source/Common/Rva0008A2A3Find.cpp,matched,map walk returning first item whose virtual mask matches any or all bits
