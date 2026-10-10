@@ -1,5 +1,5 @@
-// ?rva002B768F@LivingWorldLogic@@QAEXXZ
-// partial score=0.9570832947280645 date=2026-10-10
+// ?rva002B676D@LivingWorldLogic@@QAEXXZ
+// partial score=0.9532692307692308 date=2026-10-10
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
 // cl: /I. /O1 /DNDEBUG /MD /EHs /arch:SSE /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
@@ -638,21 +638,20 @@ struct LocalCampaignRegions2C {char pad2c[0x2c];_STL::vector<Rva003F287F*>region
 struct LocalPlayerId14 {char pad14[0x14];Int id;};
 struct LocalRegionOwner13C {char pad13c[0x13c];Int owner;};
 struct LocalRegionPlots170 {char pad13c[0x13c];Int owner;char pad140[0x170-0x140];_STL::vector<Parent00575EEA*>plots;};
-void LivingWorldLogic::rva002B768F(){
+void LivingWorldLogic::rva002B676D(){
  if(m_localPlayer){
  LocalCampaignRegions2C*campaign=reinterpret_cast<LocalCampaignRegions2C*>(m_field0B0->m_armySet);
  _STL::vector<Rva003F287F*>*regions;if(campaign)regions=&campaign->regions;else regions=0;
  if(regions){
- _STL::vector<const ModuleData*>modules;
+ _STL::vector<const ModuleData*>unusedModules;
  for(unsigned i=0;i<regions->size();++i){
-  Rva003F287F*region=(*regions)[i];
-  if(reinterpret_cast<LocalRegionOwner13C*>(region)->owner==reinterpret_cast<LocalPlayerId14*>(this?m_localPlayer:m_localPlayer)->id){
-   modules.erase(modules.begin(),modules.end());
-   region->rva003F287F(modules);
-   for(unsigned j=0;j<(unsigned)(modules.end()-modules.begin());++j){
-    Parent0057605D*entry=(Parent0057605D*)modules[j];
-    Bool show=rva002B3484(entry);
-    reinterpret_cast<Rva004E071D*>(entry)->rva004E071D(show);
+  LocalRegionPlots170*region=reinterpret_cast<LocalRegionPlots170*>((*(m_localPlayer?regions:regions))[i]);
+  if(region->owner==reinterpret_cast<LocalPlayerId14*>(m_localPlayer)->id){
+   int count=region->plots.size();
+   for(int j=0;j<count;++j){
+    Parent00575EEA*entry=region->plots[j];
+    Bool show=rva002B3416(entry);
+    reinterpret_cast<Rva004FC275*>(entry)->rva004FC275(show);
    }
   }
  }
