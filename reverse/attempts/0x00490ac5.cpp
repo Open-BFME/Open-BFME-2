@@ -1,6 +1,8 @@
 // ?rva00490AC5@ArrowStormUpdate@@QAEXXZ
 // partial score=0.8831712078770902 date=2026-10-10
 // ?rva00490AC5@ArrowStormUpdate@@QAEXXZ
+// partial score=0.8831712078770902 date=2026-10-10
+// ?rva00490AC5@ArrowStormUpdate@@QAEXXZ
 // partial score=0.8 date=2026-10-04
 // cl: /O1 /DNDEBUG /MD /GX /arch:SSE /I.
 //
@@ -57,28 +59,10 @@ public:
 	bool m_match;
 };
 
-#pragma comment(linker, "/alternatename:?getPlayerMask@Rva000421C8@@UAEHXZ=?Get_File_Handle@FileClass@@UAEPAXXZ")
 
-struct Coord3D
-{
-	float x;
-	float y;
-	float z;
-};
+#include "Code/Libraries/Include/Lib/Coord3D.h"
 
-struct BfmeWideResult
-{
-	Object *next() throw();	// 0x00045623
-	~BfmeWideResult();	// 0x0004AA28
-	void *m_value;
-};
-
-class PartitionManager
-{
-public:
-	BfmeWideResult iterateObjectsInRange(const Coord3D *pos, float radius, int distCalc,
-		Rva000421C8 *filters, int order);	// 0x00625610
-};
+#include "Code/GameEngine/Source/Common/PartitionRangeQueryCallView.h"
 extern PartitionManager *ThePartitionManager;
 
 enum ObjectID
