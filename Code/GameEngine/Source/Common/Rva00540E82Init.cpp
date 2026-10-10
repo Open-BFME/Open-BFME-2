@@ -124,7 +124,8 @@ Rva00540FCB::Rva00540FCB() : m_00(0)
 // 0x0054211B passes (int, Region2D) and stores result stride 0x14.
 struct Region2D
 {
-	Region2D(const Region2D &that);
+	Region2D(const Region2D &that) throw();
+ float lower[2],upper[2];
 };
 
 class Rva00541006
@@ -230,4 +231,58 @@ bool Rva00542225::read(DataChunkInput *file,DataChunkInfo *info) {
   rva00541FCC(key,*(const Region3D*)&value);
  }
  return true;
+}
+
+class Rva0054103E {public:char bytes[20];Rva0054103E(const Rva0054103E&);Rva0054103E&operator=(const Rva0054103E&);};
+namespace _STL {template<>Rva0054103E *vector<Rva0054103E>::insert(Rva0054103E*,const Rva0054103E&);template<>Rva0054103E *vector<Rva0054103E>::erase(Rva0054103E*,Rva0054103E*);template<>void vector<Rva0054103E>::reserve(unsigned);}
+class Rva005418CB {public:bool rva00541641(int);};
+class Rva00540CB2 {public:bool rva00540CB2(DataChunkInput*,DataChunkInfo*);};
+class Rva005422CF:public Rva005414E5List {public:
+__declspec(noinline) void rva005420AD(int,const Region2D&);
+bool read(DataChunkInput*,DataChunkInfo*);
+_STL::vector<Rva0054103E> values;int hint;
+};
+// ?rva005420AD@Rva005422CF@@QAEXHABURegion2D@@@Z
+void Rva005422CF::rva005420AD(int key,const Region2D &region) {
+ if(key<0)return;
+ if(((Rva005418CB*)this)->rva00541641(key)){
+  forEach(&Rva005414E5Listener::beforeChange,this,key);
+  ((Region2D*)((values.begin()+hint)->bytes+4))->Region2D::Region2D(region);
+  forEach(&Rva005414E5Listener::afterChange,this,key);
+ }else{
+  forEach(&Rva005414E5Listener::beforeInsert,this,key);
+  Rva0054103E *begin=values.begin();
+  char entry[20];
+  values.insert(begin+(hint+1),*(const Rva0054103E*)new((void*)entry)Rva00541006(key,region));
+  forEach(&Rva005414E5Listener::afterInsert,this,key);
+ }
+}
+
+
+
+
+// ?read@Rva005422CF@@QAE_NPAVDataChunkInput@@PAUDataChunkInfo@@@Z
+bool Rva005422CF::read(DataChunkInput *file,DataChunkInfo *info){
+ _STL::vector<Rva0054103E> &view=values;
+ view.erase(view.begin(),view.end());
+ int count=file->readInt();view.reserve(count);
+ for(int i=0;i<count;++i){
+  int key=file->readInt();Rva00540E82 value;
+  ((Rva00540CB2*)&value)->rva00540CB2(file,info);
+  rva005420AD(key,*(const Region2D*)&value);
+ }
+ return true;
+}
+
+class Rva0053FB33 {public:
+ virtual void slot0();virtual void slot1();virtual void slot2();virtual void slot3();
+ virtual bool rva0053F915(DataChunkInput*,void*);
+private:char opaque[32];
+};
+class Rva005423BC:public Rva0053FB33 {public:bool read(DataChunkInput*,DataChunkInfo*);private:Rva00542225 camera;Rva005422CF lookAt;};
+// Native5423BC..5423F052B combines the established base reader and
+// two32B camera tracks at24/44. Original parent source name remains unknown.
+// ?read@Rva005423BC@@QAE_NPAVDataChunkInput@@PAUDataChunkInfo@@@Z
+bool Rva005423BC::read(DataChunkInput*file,DataChunkInfo*info){
+ Rva0053FB33::rva0053F915(file,info);camera.read(file,info);lookAt.read(file,info);return true;
 }
