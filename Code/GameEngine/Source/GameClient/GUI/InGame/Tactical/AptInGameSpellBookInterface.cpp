@@ -47,6 +47,7 @@ class AptInGameSpellBookInterface {
 public: class Impl {
  public: void SetButtonState(int slotNum,int state);
  void OnClipLoaded(const char *params);
+ void OnClipUnloaded(const char *params);
  void rva0052A53B();
  static AsciiString GetButtonImageTargetName(int slotNum);
  private:
@@ -54,6 +55,12 @@ public: class Impl {
  void *m_owner;void *m_level;AsciiString m_clipName;bool initialized;char unknownD[0x1b];BfmeMemberRV *m_player;CommandSet *m_commandSet;bool flashFlags[32];ButtonSlot m_slots[24];
 };
 };
+class Rva0052A470 { public: void rva0052A66A(); };
+// Native52A7FC..52A804 is the complete8B RET4 callback bound by52AD30.
+// WB13C59E0 names OnClipUnloaded and calls the same established cleanup.
+void AptInGameSpellBookInterface::Impl::OnClipUnloaded(const char *) {
+ ((Rva0052A470 *)this)->rva0052A66A();
+}
 // WB013C4DD0 and native92B52A414..52A470: cdecl hidden AsciiString return.
 // Format a local then copy it into the returned object before local cleanup.
 AsciiString AptInGameSpellBookInterface::Impl::GetButtonImageTargetName(int slotNum) {
