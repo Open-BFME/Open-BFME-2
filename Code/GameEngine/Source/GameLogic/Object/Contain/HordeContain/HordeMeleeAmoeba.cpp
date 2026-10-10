@@ -79,6 +79,15 @@ struct AmoebaData { unsigned char pad[0x64]; int groupValue; };
 class HordeMeleeAmoeba {
 public:
  virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void startMeleeAttack(Object *);
+ virtual void slot4(); virtual void slot5();
+ virtual void slot6();
+ virtual void slot7();
+ virtual void slot8();
+ virtual void slot9();
+ virtual void slot10();
+ virtual void slot11();
+ virtual void slot12();
+ virtual bool rva0058776E(int,Coord3D *);
  AmoebaHeld *held;
  _STL::vector<AmoebaAttackEntry> attacks;
  bool force; AmoebaData *data;
@@ -120,4 +129,16 @@ void AmoebaAttackEntry::rva005872CF(const ICoord2DBase &cell)
   for(int i=1;i<4;++i) cells[i-1]=cells[i];
  } else ++timer;
  static_cast<ICoord2DBase &>(cells[timer-1])=cell;
+}
+
+// Native58776E..5877AF:65B RET8. Existing constructor table86FF38
+// slot13 and WB1470EA0 prove the index / Coord3D output ABI. Original
+// method name remains unknown; active39 controls whether a position exists.
+bool HordeMeleeAmoeba::rva0058776E(int index,Coord3D *result)
+{
+ if(index>=0 && index<attacks.size() && attacks[index].active) {
+  *result=attacks[index].position;
+  return true;
+ }
+ return false;
 }
