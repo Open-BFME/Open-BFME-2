@@ -233,9 +233,12 @@ class GlobalData
 public:
 	unsigned char m_pad00[0xC];
 	AsciiString m_mapName;              // +0xC
+	unsigned char m_pad10[0xC30-0x10];
+	Int m_playStats;                   // +0xC30 native update437BB6
 };
 
 extern GlobalData *TheWritableGlobalData;
+extern const GlobalData *TheGlobalData;
 extern char g_00DC8AF0[];
 class Rva003006C4 { public: Bool rva003006C4(const AsciiString &directory); };
 extern Rva003006C4 *TheFileSystem;
@@ -245,6 +248,7 @@ class StatsCollector
 public:
 	StatsCollector();
 	void rva00437DF8();
+	void update();
 	void collectUnitCountStats();
 	void collectScoreKeeperStats();
 	void collectMsgStats(const GameMessage *msg);
@@ -657,4 +661,20 @@ void StatsCollector::rva00437DF8()
     createFileName(); writeInitialFileInfo(); collectUnitCountStats(); writeStatInfo();
     ((RvaA22F0FieldReset *)this)->reset(); collectScoreKeeperStats();
     m_lastUpdate=static_cast<GameLogic *>(TheGameLogic)->getFrame();
+}
+
+// ZH StatsCollector::update semantic donor, BF1@575ba2b; native437BB6..437C2D.
+void StatsCollector::update()
+{
+    if(m_lastUpdate + (TheGlobalData->m_playStats * LogicFramesPerSecond) > static_cast<GameLogic *>(TheGameLogic)->getFrame()) return;
+    collectUnitCountStats();
+    if(m_isScrolling)
+    {
+        m_scrollTime += static_cast<GameLogic *>(TheGameLogic)->getFrame() - m_scrollBeginTime;
+        m_scrollBeginTime = static_cast<GameLogic *>(TheGameLogic)->getFrame();
+    }
+    m_timeCount += TheGlobalData->m_playStats;
+    writeStatInfo();
+    ((RvaA22F0FieldReset *)this)->reset(); collectScoreKeeperStats();
+    m_lastUpdate = static_cast<GameLogic *>(TheGameLogic)->getFrame();
 }

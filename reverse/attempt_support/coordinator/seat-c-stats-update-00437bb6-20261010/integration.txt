@@ -1,0 +1,1 @@
+Refreshed only stats-update source patch context: original CRLF patch versus LF source and an existing blank line after the reset declaration. Every added line is copied verbatim from the sealed worker patch; current surrounding code and original payload remain unchanged.

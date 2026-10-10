@@ -1,0 +1,30 @@
+{
+  "id": "seat-c-stats-update-00437bb6-20261010",
+  "seat": "C",
+  "base_commit": "431c820ed1448b6055590a03d06cf23ea5d68a2b",
+  "paths": [
+    "Code/GameEngine/Source/Common/StatsCollector.cpp"
+  ],
+  "recoveries": [
+    {
+      "name": "?update@StatsCollector@@QAEXXZ",
+      "rva": "0x00437BB6",
+      "size": 119,
+      "source": "Code/GameEngine/Source/Common/StatsCollector.cpp",
+      "notes": "GeneralsMD StatsCollector update semantic guide at BF1@575ba2b; native437BB6..437C2D full119; GameLogic caller and WB12896C0 same StatsCollector timer and report flow; GlobalData playStatsC30; all119 exact with same-TU counter provider",
+      "replace_rva": null
+    }
+  ],
+  "new_retail_bytes": 119,
+  "proof_command": "python tools/build.py Code/GameEngine/Source/Common/StatsCollector.cpp",
+  "proof_log": "scoped-proof.txt",
+  "claim_owner": "codex-104a-01a12257",
+  "worker_root": "C:\\Users\\franz\\.codex\\worktrees\\recovery-preserved\\openbfme2",
+  "dependencies": [
+    "seat-c-stats-reset-with-counter-rehome-00437df8-20261010"
+  ],
+  "claims": [
+    "0x00437BB6",
+    "file:Code/GameEngine/Source/Common/StatsCollector.cpp"
+  ]
+}
