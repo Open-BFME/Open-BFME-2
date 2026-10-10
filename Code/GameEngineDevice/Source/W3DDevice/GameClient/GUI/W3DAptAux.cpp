@@ -1,4 +1,5 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /arch:SSE
+// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /O1 /G7 /EHsc /MD /arch:SSE /D_STLP_USE_STATIC_LIB
+// stlport
 // W3DAptAux.cpp -- W3DAptAux members recovered from WorldBuilder leads
 // (reverse/wb_name_leads.csv): WB's debug build names the function and
 // asserts s_renderer ("Umm, no renderer"); retail compiles out the debug
@@ -15,6 +16,9 @@
 #include "unicode_string.h"
 #include <ctype.h>
 #include <stdio.h>
+#undef _CRTIMP
+#define _CRTIMP
+#include <list>
 
 typedef bool Bool;
 typedef float Real;
@@ -44,6 +48,7 @@ extern float g_Va00DEC49C;
 
 class W3DAptAux
 {
+ friend void w3dDrawRenderingUnit(class AptRenderingUnit*,Int);
 	friend void w3dCustomControlRender(const char *name, Int arg1, class AptRenderingUnit *renderingUnit, Int arg3);
 
 public:
@@ -206,4 +211,35 @@ void w3dCustomControlRender(const char *name, Int arg1, AptRenderingUnit *render
 	((Rva00223D8D *)g_bfmeAptWindowManager)->rva00223D8D(name, (int)&topLeft, (int)&bottomRight, arg1, arg3);
 	g_Va00DB5FC8 = savedCallback;
 	W3DAptAux::s_renderer->bfmeEnd982C();
+}
+
+// WB 8A7590 names w3dDrawRenderingUnit at W3DAptAux.cpp lines968..973.
+// Native AA8D1..AA966 proves the 149B cdecl boundary, renderer guard,
+// six-word transform copy, modes -1/0/1 and pointer-valued queue operations.
+// BFME1 Apt flush/rounded-bounds donors supply the established transform and
+// queue views; native data/call relocations independently verify their use.
+// Keep the existing address-neutral cleanup spelling for the unrowed render
+// callee; this recovery does not assert its full body is recovered.
+namespace _STL {
+template list<AptShapeContainer*>::_Node *list<AptShapeContainer*>::_M_create_node(AptShapeContainer*const&);
+}
+class Rva00785FD0Item { public:void cleanup(); };
+struct Rva00785FD0Node;
+extern Rva00785FD0Node *g_rva00785FD0Queue;
+extern char g_rva00785FD0Dirty;
+void w3dDrawRenderingUnit(AptRenderingUnit *renderingUnit,Int mode)
+{
+ if(!W3DAptAux::s_renderer || !renderingUnit) return;
+ AptShapeContainer *const renderShape=renderingUnit->getShapes();
+ AptShapeContainer *shapes=renderShape;
+ if(!renderShape) return;
+ renderShape->m_transform=g_Va00DE6148;
+ // The existing flush names the sentinel pointer; the list header is that
+ // one pointer, and the native queue stores AptShapeContainer pointers.
+ _STL::list<AptShapeContainer*> &queue=*(_STL::list<AptShapeContainer*>*)&g_rva00785FD0Queue;
+ switch(mode) {
+ case 1: queue.insert(queue.end(),shapes);g_rva00785FD0Dirty=1;return;
+ case -1: if(!queue.empty()) {queue.remove(shapes);g_rva00785FD0Dirty=1;return;}
+ case 0: rebuildMask();((Rva00785FD0Item*)renderShape)->cleanup();return;
+ }
 }

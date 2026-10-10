@@ -1966,7 +1966,7 @@ address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTreeDrawModuleDataCtorG7.cpp	g_Va00DBA4E4	2
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptAux.cpp	g_Va00DB5FB0	2
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptAux.cpp	g_Va00DB5FC8	4
-address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptAux.cpp	g_Va00DE6148	2
+address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptAux.cpp	g_Va00DE6148	3	allow=95329dad9a53adfc612a9afb97592a8ceb2776c5
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptAux.cpp	g_Va00DEC49C	2
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00086761CameraMove.cpp	g_Va00DE204C	2
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000932E1Get.cpp	g_Va00BBB8D8	2
@@ -24546,7 +24546,7 @@ pin	reverse/symbols.csv	0x0010F011	1
 pin	reverse/symbols.csv	0x0010F0C4	1
 pin	reverse/symbols.csv	0x0010F149	5
 pin	reverse/symbols.csv	0x0010F70A	1
-pin	reverse/symbols.csv	0x0010F760	1	allow=af7c26be6893ea62106fb525592bda9e8278383a
+pin	reverse/symbols.csv	0x0010F760	1
 pin	reverse/symbols.csv	0x0010F7EE	1
 pin	reverse/symbols.csv	0x0010F83E	1
 pin	reverse/symbols.csv	0x0010F8D0	1
@@ -27537,7 +27537,7 @@ pin	reverse/symbols.csv	0x002EF2A6	1
 pin	reverse/symbols.csv	0x002EF3EE	1
 pin	reverse/symbols.csv	0x002F00E9	1
 pin	reverse/symbols.csv	0x002F0BF4	2
-pin	reverse/symbols.csv	0x002F0C32	2
+pin	reverse/symbols.csv	0x002F0C32	1
 pin	reverse/symbols.csv	0x002F0C55	1
 pin	reverse/symbols.csv	0x002F0DD6	3
 pin	reverse/symbols.csv	0x002F0E5E	1
@@ -30233,7 +30233,7 @@ pin	reverse/symbols.csv	0x0047A724	1
 pin	reverse/symbols.csv	0x0047B3DB	1
 pin	reverse/symbols.csv	0x0047B563	1
 pin	reverse/symbols.csv	0x0047B9F5	1
-pin	reverse/symbols.csv	0x0047BAF7	1
+pin	reverse/symbols.csv	0x0047BAF7	2	allow=ee853f625b12692ea08be8c3452d214fe71fa296
 pin	reverse/symbols.csv	0x0047BBA7	1
 pin	reverse/symbols.csv	0x0047BF43	1
 pin	reverse/symbols.csv	0x0047C21E	1
@@ -31260,7 +31260,6 @@ pin	reverse/symbols.csv	0x00508D2F	1
 pin	reverse/symbols.csv	0x00508E11	1
 pin	reverse/symbols.csv	0x00508EBF	1
 pin	reverse/symbols.csv	0x00508F51	1
-pin	reverse/symbols.csv	0x00508FA8	1
 pin	reverse/symbols.csv	0x00509379	1
 pin	reverse/symbols.csv	0x00509522	1
 pin	reverse/symbols.csv	0x005095AE	1
@@ -32198,7 +32197,7 @@ pin	reverse/symbols.csv	0x0058F5E3	1
 pin	reverse/symbols.csv	0x0058FE15	1
 pin	reverse/symbols.csv	0x00590D19	1
 pin	reverse/symbols.csv	0x00590F13	2
-pin	reverse/symbols.csv	0x005925E2	12
+pin	reverse/symbols.csv	0x005925E2	13	allow=ee853f625b12692ea08be8c3452d214fe71fa296
 pin	reverse/symbols.csv	0x00592607	1
 pin	reverse/symbols.csv	0x005939EE	2
 pin	reverse/symbols.csv	0x00593F15	1
