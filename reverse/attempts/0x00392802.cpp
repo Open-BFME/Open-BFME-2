@@ -1,7 +1,57 @@
 // ?getPortTransform@BuildAssistant@@QAE_NPBUCoord3D@@PBVThingTemplate@@MPAMPAU2@@Z
-// partial score=0.96 date=2026-10-09
-// Bank fragment: insert after checkSampleBuildLocation in current BuildAssistant.cpp.
-// Shared declarations, target layout and original source provenance are in that home TU.
+// partial score=0.9794245907349355 date=2026-10-10
+// cl: /O1 /EHs /MD /arch:SSE /I.
+// Standalone trial view; import getPortTransform and the two visible owned Coord3D
+// helpers into current Common/System/BuildAssistant.cpp for production.
+#include <math.h>
+#include "Code/Libraries/Include/Lib/Coord3D.h"
+typedef float Real;typedef bool Bool;typedef int Int;
+#define FALSE false
+#define TRUE true
+#define NULL 0
+#define PI 3.14159265359f
+class ThingTemplate;
+struct Region3D {Coord3D lo,hi;};
+class BuildAssistant {public:Bool getPortTransform(const Coord3D*,const ThingTemplate*,Real,Real*,Coord3D*);void iterateFootprint(const ThingTemplate*,Real,const Coord3D*,Real,void(*)(const Coord3D*,void*),void*);};
+class TerrainLogic
+{
+public:
+	virtual void t00(); virtual void t01(); virtual void t02(); virtual void t03();
+	virtual void t04(); virtual void t05();
+	virtual Real getGroundHeight(Real x, Real y, Coord3D *normal = 0) const;	// +0x18
+	virtual void t07();
+	virtual void getExtent(Region3D *extent) const;		// +0x20
+	virtual void t09(); virtual void t10(); virtual void t11();
+	virtual void getMaximumPathfindExtent(Region3D *extent) const;	// +0x30
+	virtual void t13(); virtual void t14(); virtual void t15();
+	virtual void t16(); virtual void t17(); virtual void t18();
+	virtual Bool isUnderwater(Real x, Real y, Real *waterZ = NULL, Real *terrainZ = NULL, Int unused = 0);	// +0x4C
+};
+extern TerrainLogic *TheTerrainLogic;
+struct SampleBuildData
+{
+	const ThingTemplate *build;		// +0x00
+	Bool requireWaterOrLand;		// +0x04
+	Region3D mapRegion;			// +0x08
+	Bool terrainRestricted;			// +0x20
+	Real hiZ;				// +0x24
+	Real loZ;				// +0x28
+	Real waterSamples;			// +0x2C
+	Real landSamples;			// +0x30
+	Coord3D waterSum;			// +0x34
+	Coord3D landSum;			// +0x40
+	Int playerIndex;			// +0x4C
+};
+
+inline void addCoord3D( Coord3D *sum, const Coord3D *a )
+{
+	sum->x += a->x;
+	sum->y += a->y;
+	sum->z += a->z;
+}
+
+
+void checkSampleBuildLocation(const Coord3D*,void*);
 #define MAP_XY_FACTOR (10.0f)
 
 // The largest water to land sample ratio (either way) a KINDOF_188 build may
@@ -32,6 +82,9 @@ inline void divideCoord3D( Coord3D *c, Real divisor )
 	c->z *= inv;
 }
 
+
+inline __declspec(noinline) float Coord3D::length()const {return (float)sqrt(x*x+y*y+z*z);}
+inline __declspec(noinline) void Coord3D::normalize(){float len=length();if(len!=0.0f){float s=1.0f/len;x*=s;y*=s;z*=s;}}
 Bool BuildAssistant::getPortTransform( const Coord3D *worldPos, const ThingTemplate *build,
 																			 Real angle, Real *outAngle, Coord3D *outPos )
 {

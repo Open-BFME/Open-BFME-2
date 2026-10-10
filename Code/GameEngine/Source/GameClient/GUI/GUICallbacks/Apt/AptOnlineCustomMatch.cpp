@@ -38,6 +38,7 @@ public:
 class GameInfo
 {
 public:
+	AsciiString getMap() const;
 	GameSlot *getSlot(Int slotNum);			// 0x003FF29F
 };
 
@@ -56,6 +57,8 @@ public:
 	GSI_SLOT(42) GSI_SLOT(43) GSI_SLOT(44) GSI_SLOT(45) GSI_SLOT(46) GSI_SLOT(47)
 	GSI_SLOT(48) GSI_SLOT(49) GSI_SLOT(50) GSI_SLOT(51) GSI_SLOT(52)
 	virtual GameInfo *getCurrentStagingRoom();	// +0xD4
+ GSI_SLOT(54) GSI_SLOT(55) GSI_SLOT(56) GSI_SLOT(57) GSI_SLOT(58)
+ virtual bool flagEC(); virtual bool flagF0();
 };
 
 #undef GSI_SLOT
@@ -66,11 +69,16 @@ class AptOnlineCustomMatch
 {
 public:
 	static void GamesListTooltipFunc(GameWindow *, WinInstanceData *, unsigned int);
+	int rva0059F496(GameSpyStagingRoom *);
 	void MpOwnerGetLocalPlayerName(UnicodeString &name);
 	GameSpyStagingRoom *GetGameToJoin();
 
 private:
-	unsigned char m_pad000[0x4b8];
+	unsigned char m_pad000[0xec];
+ int mode;
+ unsigned char m_pad0f0[0x48c-0xf0];
+ GameWindow *list;
+ unsigned char m_pad490[0x4b8-0x490];
 	Int m_gameToJoinID;				// +0x4B8
 };
 
@@ -173,4 +181,70 @@ void AptOnlineCustomMatch::GamesListTooltipFunc(GameWindow *window, WinInstanceD
   break;
  }
  }
+}
+
+// Native 0059F496..0059F94E populates a seven-column game-list row.
+// WB14F6FF0 and reference games-list code guide purpose; target reads prove
+// all offsets, virtual slots, column widths, flags and labels used below.
+class GameWindow;class Image;class ThingTemplate;
+int GadgetListBoxGetNumColumns(GameWindow*);
+void GadgetListBoxSetColumnWidths(GameWindow*,int,int*);
+int GadgetListBoxAddEntryText(GameWindow*,UnicodeString,int,int,int,bool);
+int GadgetListBoxAddEntryImage(GameWindow*,const Image*,int,int,int,int,bool,int);
+void Rva00325388Send(GameWindow*,int,int,int);
+void Rva00559FAC(int,void*);
+int Rva00559EDCCompare(int*,int*);
+int Rva005DB335Get(int);
+class Version{public:int rva00237E63(const void*,bool);};extern Version*TheVersion;
+class GlobalData;extern GlobalData*TheWritableGlobalData;
+struct ListVersionData{char beforeVersion[0xb04];int version;char beforeBuild[0xb38-0xb08];int build;};
+class GameSpyStagingRoom{public:
+ virtual void v00();virtual void v04();virtual void v08();virtual void v0c();virtual void v10();virtual void v14();virtual void v18();virtual void v1c();
+ virtual int players();virtual int maximumPlayers();
+ virtual void v28();virtual void v2c();virtual void v30();virtual void v34();virtual void v38();virtual void v3c();virtual void v40();virtual void v44();virtual void v48();virtual void v4c();virtual void v50();
+ virtual int ping();virtual UnicodeString title();
+ void cleanUpSlotPointers();
+ char beforeRules[0x60-4];int rules[10];char beforeVersionBlock[0x90-0x88];int versionBlock[12];int version,build;char beforeId[0xfe0-0xc8];int id;char beforeLocked[0xfec-0xfe4];bool locked;
+};
+class MapMetaData{public:UnicodeString bfme_getBaseDisplayName();char beforeOfficial[0x26];bool official;};
+class AptMapPreview{public:MapMetaData*rva0057D922(const AsciiString&);};
+class AptMpGameSetup{public:const Image*rva0043E512(int);};
+class ImageCollection{public:const Image*findImageByName(const AsciiString&);};extern ImageCollection*TheMappedImageCollection;
+static __forceinline bool hasWide(const UnicodeString&name){const unsigned short*p=name.str();int n=name.getLength();for(int i=0;i<n;++i)if(p[i]>=256)return true;return false;}
+int AptOnlineCustomMatch::rva0059F496(GameSpyStagingRoom*game)
+{
+ int widths[7]={4,5,5,36,33,10,7};
+ if(GadgetListBoxGetNumColumns(list)<7)GadgetListBoxSetColumnWidths(list,7,widths);
+ game->cleanUpSlotPointers();
+ bool mismatch=game->version!=((ListVersionData*)TheWritableGlobalData)->version||game->build!=((ListVersionData*)TheWritableGlobalData)->build;
+ int color=TheVersion->rva00237E63(game->versionBlock,mismatch);
+ UnicodeString name=game->title();
+ if(TheGameSpyInfo->flagEC()){if(hasWide(name))return -1;}
+ else if(TheGameSpyInfo->flagF0()){if(!hasWide(name))return -1;}
+ int row=GadgetListBoxAddEntryText(list,name,color,-1,3,true);
+ const Image*lock=0;const Image*userMap=0;
+ switch(mode){
+ case 0:{
+  MapMetaData*meta=((AptMapPreview*)((char*)this+0xd0))->rva0057D922(((GameInfo*)game)->getMap());
+  UnicodeString display=meta->bfme_getBaseDisplayName();GadgetListBoxAddEntryText(list,display,color,row,4,true);
+  if(!meta->official)userMap=TheMappedImageCollection->findImageByName("AptUserMapNotConquered");
+  break;
+ }
+ case 1:
+  {if(((Rva003FF1C2*)game)->rva003FF1C2())lock=TheMappedImageCollection->findImageByName("AptLobbyResumeSavedGame");}
+  break;
+ }
+ if(!lock&&game->locked)lock=TheMappedImageCollection->findImageByName("AptLock");
+ int defaults[10];const int currentMode=mode;Rva00559FAC(currentMode,defaults);
+ const Image*settings=Rva00559EDCCompare(defaults,game->rules)?TheMappedImageCollection->findImageByName("AptLobbyNonDefaultSettings"):0;
+ GadgetListBoxAddEntryImage(list,lock,row,2,20,20,true,-1);
+ GadgetListBoxAddEntryImage(list,settings,row,1,20,20,true,-1);
+ GadgetListBoxAddEntryImage(list,userMap,row,0,20,20,true,-1);
+ Rva00325388Send(list,lock!=0,row,2);Rva00325388Send(list,settings!=0,row,1);Rva00325388Send(list,userMap!=0,row,0);
+ UnicodeString text;text.format((const unsigned short*)L"%d/%d",game->players(),game->maximumPlayers());
+ GadgetListBoxAddEntryText(list,text,color,row,5,true);
+ text.format((const unsigned short*)L"%d",game->ping());GadgetListBoxAddEntryText(list,text,color,row,6,true);
+ const Image*pingImage=((AptMpGameSetup*)((char*)this+0x70))->rva0043E512(Rva005DB335Get(game->ping()));
+ GadgetListBoxAddEntryImage(list,pingImage,row,6,20,20,true,-1);const int gameId=game->id;Rva00325388Send(list,gameId,row,3);
+ return row;
 }
