@@ -1,12 +1,15 @@
-// ??0Rva001DF2D3Element@@QAE@ABU0@@Z
-// partial score=0.99 date=2026-10-07
-// cl: /O1 /arch:SSE /G7 /Ob0 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /O1 /arch:SSE /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 // ??0Rva001DF2D3Element@@QAE@ABU0@@Z @0x001DE878 113B element copy constructor.
 // Target evidence: callers invoke this address for Rva001DF2D3Element; retail copies five words, then the tree at +0x14, vector at +0x20, and three flags at +0x2C.
+// The +0x14 member is a set<>, not a bare _Rb_tree: set's inline copy ctor
+// evaluates the source tree and this before the push (lea eax / lea ecx / push
+// eax) into the rowed tree copy 0x001DDD85, which a bare tree member reorders
+// to lea/push/lea. That needs inlining on (no /Ob0, unlike the vector sweep TU).
 // Donor provenance: tree and vector member copy operations follow the rowed callees; the class name and unconstrained fields remain address-derived from matched callers.
 #define _STLP_NO_EXCEPTIONS 1
 #include <map>
+#include <set>
 #include <vector>
 
 struct BfmeRecord001DD3BC
@@ -35,7 +38,7 @@ private:
 	unsigned int m_word2;
 	unsigned int m_word3;
 	unsigned int m_word4;
-	BfmeRecord001DD3BCSetTree m_records;
+	_STL::set<BfmeRecord001DD3BC> m_records;
 	_STL::vector<ScienceType> m_sciences;
 	bool m_flag0;
 	bool m_flag1;
