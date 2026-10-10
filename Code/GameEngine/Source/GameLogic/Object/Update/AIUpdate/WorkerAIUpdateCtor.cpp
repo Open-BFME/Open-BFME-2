@@ -308,6 +308,7 @@ class AICommandInterface
 public:
 	virtual void aiDoCommand();
 	void aiIdle(CommandSourceType cmdSource);
+	void aiMoveToPosition(const Coord3D *position, CommandSourceType cmdSource);
 };
 
 class AIUpdateInterface24
@@ -341,7 +342,8 @@ enum ModelConditionFlagType
 {
 	MODELCONDITION_AWAITING_CONSTRUCTION = 67,
 	MODELCONDITION_PARTIALLY_CONSTRUCTED = 68,
-	MODELCONDITION_ACTIVELY_BEING_CONSTRUCTED = 69 // +0x114 bit 5
+	MODELCONDITION_ACTIVELY_BEING_CONSTRUCTED = 69, // +0x114 bit 5
+	MODELCONDITION_ACTIVELY_CONSTRUCTING = 73 // native completion +0x115 bit1
 };
 
 // The two model condition mask builders (19 dwords each).
@@ -407,7 +409,8 @@ private:
 
 enum KindOfType
 {
-	KINDOF_BRIDGE = 22
+	KINDOF_BRIDGE = 22,
+	KINDOF_BRIDGE_TOWER = 24 // native completion template+0x10B bit0
 };
 
 class ThingTemplate
@@ -716,9 +719,12 @@ public:
 	virtual void slot10() = 0; virtual void slot11() = 0;
 	virtual void newTask(DozerTask task, Object *target) = 0; // vslot 12
 	virtual void cancelTask(DozerTask task) = 0; // vslot 13
-	virtual void slot14() = 0; virtual void slot15() = 0; virtual void slot16() = 0;
+	virtual void slot14() = 0;
+	virtual void internalCancelTask(DozerTask task) = 0; // vslot 15
+	virtual void internalTaskCompleteOrCancelled(DozerTask task) = 0; // vslot 16
 	virtual void slot17() = 0; virtual void slot18() = 0; virtual void slot19() = 0;
-	virtual void slot20() = 0; virtual void slot21() = 0; virtual void slot22() = 0;
+	virtual void slot20() = 0; virtual void slot21() = 0;
+	virtual void removeBridgeScaffolding(Object *object) = 0; // vslot22
 	virtual void slot23() = 0;
 	virtual void finishBuildingSound() = 0; // vslot 24
 };
@@ -765,6 +771,8 @@ public:
 	virtual void exitingSupplyTruckState();
 	virtual Bool isForcedIntoWantingState() const;
 	virtual void newTask(DozerTask task, Object *target);
+	virtual void internalCancelTask(DozerTask task);
+	virtual void internalTaskCompleteOrCancelled(DozerTask task);
 	virtual Object *construct(const ThingTemplate *what, const Coord3D *pos, Real angle, Player *owningPlayer, Bool isRebuild, Int unused);
 	Bool isSupplyTruckBrainActiveAndBusy();
 protected:
@@ -803,6 +811,50 @@ private:
 	SupplyTruckStateMachine *m_supplyTruckStateMachine; // +0x4C8
 	Int m_4CC; // +0x4CC
 };
+
+// BFME1 donor575ba2b04743 WorkerAIUpdate_internalCancelTask.cpp supplies
+// task clearing, dock invalidation and moving to the current position.
+// WB C9AE30 names the method at WorkerAIUpdate.cpp858. Native4AB050..
+// 4AB09D is77B RET4, entered through DozerAIInterface at+3E4. Existing
+// constructor facts place owner8, task3F0 and dock points40C; the Object
+// view already proves position38 and AI258. No donor offset is retained
+// merely by analogy: this unit's target layout supplies every access.
+void WorkerAIUpdate::internalCancelTask(DozerTask task)
+{
+	internalTaskCompleteOrCancelled(task);
+	m_task[task].m_targetObjectID = INVALID_ID;
+	m_task[task].m_taskOrderFrame = 0;
+	for (Int i = 0; i < DOZER_NUM_DOCK_POINTS; ++i)
+		m_dockPoint[task][i].valid = false;
+	Object *object = getObject();
+	AIUpdateInterface *ai = object->getAIUpdateInterface();
+	if (ai)
+		ai->aiMoveToPosition(object->getPosition(), CMD_FROM_AI);
+}
+
+// BFME1 and ZH supply the build/repair switch and bridge-scaffold removal.
+// WB C9AFE0 names this callback. Native4AAA87..4AAB0B is132B RET4:
+// construction flag73, bridge-tower kind24 and slot22 are independently
+// witnessed. BFME2 additionally clears status97 and the AI flag3BA.
+void WorkerAIUpdate::internalTaskCompleteOrCancelled(DozerTask task)
+{
+	switch(task) {
+	case DOZER_TASK_BUILD:
+		getObject()->clearModelConditionState(MODELCONDITION_ACTIVELY_CONSTRUCTING);
+		break;
+	case DOZER_TASK_REPAIR:
+		getObject()->clearModelConditionState(MODELCONDITION_ACTIVELY_CONSTRUCTING);
+		{
+			Object *object = TheGameLogic->findObjectByID(m_task[task].m_targetObjectID);
+			if(object && object->isKindOf(KINDOF_BRIDGE_TOWER))
+				removeBridgeScaffolding(object);
+		}
+		break;
+	default: break;
+	}
+	getObject()->setStatus(OBJECT_STATUS_97, false);
+	m_3BA = false;
+}
 
 WorkerAIUpdate::WorkerAIUpdate(Thing *thing, const ModuleData *moduleData)
 	: AIUpdateInterface(thing, moduleData)

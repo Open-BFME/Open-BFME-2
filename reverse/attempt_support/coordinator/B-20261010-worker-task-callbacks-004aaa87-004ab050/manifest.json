@@ -1,0 +1,34 @@
+{
+  "id": "B-20261010-worker-task-callbacks-004aaa87-004ab050",
+  "paths": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdateCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdate.cpp"
+  ],
+  "recoveries": [
+    {
+      "name": "?internalCancelTask@WorkerAIUpdate@@UAEXW4DozerTask@@@Z",
+      "rva": "0x004AB050",
+      "size": 77,
+      "source": "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdateCtor.cpp",
+      "notes": "BF1 donor575ba2b04743 and ZH WorkerAIUpdate supply callback semantics. WBC9AE30 identifies cancellation at WorkerAIUpdate.cpp858. Clear task target/order and three dock flags then use rowed AICommandInterface aiMoveToPosition26C26D to stop at owner position38. Existing target constructor unit proves Dozer interface3E4 owner8 task3F0 dock40C ObjectAI258 and position38. All77B whole extent exact with all direct relocation bindings resolved; no new pins or assembler.",
+      "replace_rva": ""
+    },
+    {
+      "name": "?internalTaskCompleteOrCancelled@WorkerAIUpdate@@UAEXW4DozerTask@@@Z",
+      "rva": "0x004AAA87",
+      "size": 132,
+      "source": "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdateCtor.cpp",
+      "notes": "BF1 donor575ba2b04743 and ZH WorkerAIUpdate supply callback semantics. WBC9AFE0 names completion. Build/repair clear constructing flag73; repair finds task target and dispatches bridge-tower kind24 cleanup at slot22. Target additionally clears status97 and AI flag3BA. Existing target constructor unit proves Dozer interface3E4 owner8 task3F0 dock40C ObjectAI258 and position38. All132B whole extent exact with all direct relocation bindings resolved; no new pins or assembler.",
+      "replace_rva": ""
+    }
+  ],
+  "proof_command": "python build/verify-worker-task-callbacks.py",
+  "proof_log": "proof.log",
+  "dependencies": [],
+  "ledger_delta": "Two new rows in existing verified target-layout constructor unit; remove two obsolete present-unmatched donor copies from original source. No local ledger edits.",
+  "provider_notes": "DozerAIInterface slots15/16/22 are named from BF1/ZH plus WB/retail evidence without altering order or layout. AICommandInterface receives only a declaration for its existing rowed move provider. Dozer interface at3E4 gives owner8 relative displacement-3DC naturally through inheritance. Both body extents and providers verified. Existing19 rows across both sources still exact. link_check reports pre-existing constructor-unit provider debt against census2026-10-07; byte recovery is proven but that older census is not a complete current link receipt.",
+  "seat": "B",
+  "base_commit": "75740df1edc641aba37050ae805a2f2f61553e7c",
+  "claim_owner": "codex-01a12257-recovery",
+  "proof_exit_code": 0
+}

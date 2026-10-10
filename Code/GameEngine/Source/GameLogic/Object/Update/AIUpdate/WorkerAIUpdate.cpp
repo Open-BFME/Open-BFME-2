@@ -722,117 +722,13 @@ void WorkerAIUpdate::internalTaskComplete( DozerTask task )
 /** Clear a task from the Dozer for consideration, we can use this when a goal object becomes
 	* invalid/destroyed etc. */
 //-------------------------------------------------------------------------------------------------
-// ?internalCancelTask@WorkerAIUpdate@@UAEXW4DozerTask@@@Z present-unmatched
-void WorkerAIUpdate::internalCancelTask( DozerTask task )
-{
-
-	// sanity
-	DEBUG_ASSERTCRASH( task >= 0 && task < DOZER_NUM_TASKS, ("Illegal dozer task '%d'\n", task) );
-	
-	if(task < 0 || task >= DOZER_NUM_TASKS)
-		return;  //DAMNIT!  You CANNOT assert and then not handle the damn error!  The.  Code.  Must.  Not.  Crash.
-
-	// call the single method that gets called for completing and canceling tasks
-	internalTaskCompleteOrCancelled( task );
-
-	// remove the info for this task
-	m_task[ task ].m_targetObjectID = INVALID_ID;
-	m_task[ task ].m_taskOrderFrame = 0;
-	
-	// remove dock point info for this task
-	for( Int i = 0; i < DOZER_NUM_DOCK_POINTS; i++ )
-		m_dockPoint[ task ][ i ].valid = FALSE;
-	
-	// stop the dozer from moving
-	AIUpdateInterface *ai = getObject()->getAIUpdateInterface();
-	if( !ai )
-	{
-		return;
-	}
-	/// @todo we really need a stop command instead of making it move to it's current location
-	ai->aiMoveToPosition( getObject()->getPosition(), CMD_FROM_AI );
-
-}  
+// WorkerAIUpdate::internalCancelTask is implemented with its target-matched
+// body in WorkerAIUpdateCtor.cpp.
 
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
-// ?internalTaskCompleteOrCancelled@WorkerAIUpdate@@UAEXW4DozerTask@@@Z present-unmatched
-void WorkerAIUpdate::internalTaskCompleteOrCancelled( DozerTask task )
-{
-
-	switch( task )
-	{
-
-		// --------------------------------------------------------------------------------------------
-		case DOZER_TASK_INVALID:	
-		{
-
-			break;  // do nothing, this is really no task 
-
-		}  // end invalid
-		
-		// --------------------------------------------------------------------------------------------
-		case DOZER_TASK_BUILD:
-		{
-
-			// the builder is no longer actively building something
-			getObject()->clearModelConditionState( MODELCONDITION_ACTIVELY_CONSTRUCTING );
-
-			// And the thing we were working on is no longer being actively built
-
-			///@todo This would be correct except that we don't have idle crane animations and it is December.
-//			Object* goalObject = TheGameLogic->findObjectByID(m_task[task].m_targetObjectID);
-//			if (goalObject != NULL)
-//			{
-//				goalObject->clearModelConditionState(MODELCONDITION_ACTIVELY_BEING_CONSTRUCTED);
-//			}
-			break;
-		
-		}  // end build
-
-		// --------------------------------------------------------------------------------------------
-		case DOZER_TASK_REPAIR:
-		{
-			Object *obj = NULL;
-
-			// the builder is no longer actively repairing something
-			getObject()->clearModelConditionState( MODELCONDITION_ACTIVELY_CONSTRUCTING );
-
-			// get object to reapir (if present)
-			obj = TheGameLogic->findObjectByID( m_task[ task ].m_targetObjectID );
-
-			if( obj )
-			{
- 				// when we're done repairing bridges, tell the scaffolding to go away
- 				if( obj->isKindOf( KINDOF_BRIDGE_TOWER ) )
- 					removeBridgeScaffolding( obj );
-
-			}  // end if
-
-			break;
-
-		}  // end repair
-
-		// --------------------------------------------------------------------------------------------
-		case DOZER_TASK_FORTIFY:
-		{
-
-			break;
-
-		}  // end fortify
-
-		// --------------------------------------------------------------------------------------------
-		default:
-		{
-
-			DEBUG_CRASH(( "internalTaskCompleteOrCancelled: Unknown Dozer task '%d'\n", task ));
-			break;
-
-		}  // end default
-
-	}  // end switch( task )
-
-}
+// WorkerAIUpdate::internalTaskCompleteOrCancelled is implemented with its target-matched
+// body in WorkerAIUpdateCtor.cpp.
 
 //-------------------------------------------------------------------------------------------------
 /** If we were building something, kill the active-construction flag on it */
