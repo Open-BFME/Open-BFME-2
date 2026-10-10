@@ -15710,7 +15710,6 @@ ___CxxFrameHandler,0x00629182,callee of __ehhandler$??1Rva005813E@@UAE@XZ
 ?erase@?$_Rb_tree@HHU?$_Identity@H@_STL@@U?$less@H@2@V?$allocator@H@2@@_STL@@QAEIABH@Z,0x0046EDEF,REL32 read at 0x0047280B in HordeContain slot 4 (0x00472790) erasing an ID from the +0x170 set<int> (m_170.erase(id)); the same 73-byte erase(const key &) body gatherUnitBack 0x004725D5 calls on that tree; row there is the address-named Rva002EE9B7 placeholder
 ?rva005E652E@Rva005E56FCOuter@@QAEXPAX@Z,0x005E652E,callee of ?rva005E6765@Rva005E56FC@@QAEXXZ
 ?rva004DFB7E@AIStatCollector@@QAE_NPAX@Z,0x004DFB7E,callee of ?Register@AIStatCollector@@QAEXPAVObject@@@Z
-?rva00508FA8@Rva00508FA8@@QAEXPAXPAVObject@@@Z,0x00508FA8,callee of ?rva0050921D@Rva00508FA8@@QAEXPAX0@Z
 ?rva00100568@?$SimpleDynVecClass@VVector3@@@@QAEXXZ,0x00100568,callee of ?rva001006f8@?$SimpleDynVecClass@VVector3@@@@QBEXABURva001006F8FrustumView@@AAV1@@Z
 ?Rva002D56C3@@YA?AVAsciiString@@ABURva005D2F96Base24@@@Z,0x002D56C3,address-derived cdecl returning AsciiString from a 24-byte concat-node view; target calls push the node address and hidden result buffer; body/call-site support the ABI but not original identity
 ?newTemplate@ParticleSystemManager@@QAEPAVParticleSystemTemplate@@ABVAsciiString@@@Z,0x001FC25A,callee of ?parseParticleSystemDefinition@INI@@SAXPAV1@@Z
