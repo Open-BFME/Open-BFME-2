@@ -1,5 +1,3 @@
-// ?GetObjectsInRange@PartitionManagerImpl@@QAE?AUBfmeWideResult@@PBMMPBURva009F4130Range@@HPAVRva009F2AB0Mask@@H@Z
-// partial score=1.0 date=2026-10-10
 // cl: /O2 /Ob1 /G6 /MD /EHsc /DNDEBUG /D_STLP_USE_STATIC_LIB /D_CRTIMP=
 // stlport
 #include <stdlib.h>
@@ -8,24 +6,23 @@ namespace _STL { void __cdecl free(void *); }
 #include <vector>
 #undef free
 struct Rva009F39F0Payload { void *start, *finish, *end, *cursor; int refs; Rva009F39F0Payload():start(0),finish(0),end(0){} };
-struct Rva009F39F0Result { Rva009F39F0Payload *value; Rva009F39F0Result(); };
-#include "PartitionRangeQueryCallView.h"
-__declspec(noinline) BfmeWideResult::BfmeWideResult() {
-    m_value = new Rva009F39F0Payload;
-    ((Rva009F39F0Payload *)m_value)->refs=1;
-    ((Rva009F39F0Payload *)m_value)->cursor=((Rva009F39F0Payload *)m_value)->start;
-}
-__forceinline BfmeWideResult::BfmeWideResult(const BfmeWideResult &other) : m_value(other.m_value) {
-    ++((Rva009F39F0Payload *)m_value)->refs;
-}
-__forceinline BfmeWideResult::~BfmeWideResult() {
-    --((Rva009F39F0Payload *)m_value)->refs;
-    if (((Rva009F39F0Payload *)m_value)->refs==0) {
-        Rva009F39F0Payload *payload=(Rva009F39F0Payload *)m_value;
-        if (payload->start) _STL::free(payload->start);
-        ::operator delete(payload);
-    }
-}
+// The native four-byte result uses the already-owned neutral constructor.
+// Inline copy/cleanup retain the retail refcount accesses; original type unknown.
+struct Rva009F39F0Result {
+ Rva009F39F0Payload *value;
+ Rva009F39F0Result();
+ __forceinline Rva009F39F0Result(const Rva009F39F0Result &other):value(other.value) {
+  ++((Rva009F39F0Payload *)value)->refs;
+ }
+ __forceinline ~Rva009F39F0Result() {
+  --((Rva009F39F0Payload *)value)->refs;
+  if (((Rva009F39F0Payload *)value)->refs==0) {
+   Rva009F39F0Payload *payload=(Rva009F39F0Payload *)value;
+   if (payload->start) _STL::free(payload->start);
+   ::operator delete(payload);
+  }
+ }
+};
 struct Rva009F4130Range { float x0,y0,z0,x1,y1; };
 struct Rva009F4130NodeList { int count; void *head; };
 class BfmeThingEQ;
@@ -58,13 +55,13 @@ class PartitionManagerImpl {
 public:
     int prefix[6]; _STL::vector<Rva009F4130NodeList> trees[21];
     void *head; float scale; int size;
-    BfmeWideResult GetObjectsInRange(const float *,float,const Rva009F4130Range *,int,Rva009F2AB0Mask *,int);
+    Rva009F39F0Result GetObjectsInRange(const float *,float,const Rva009F4130Range *,int,Rva009F2AB0Mask *,int);
     void _GetObjectsInRange(Rva009F39F0Result *,Rva009F4130NodeList *,unsigned,int,int,int,int,int,int,int,void *,float,const Rva009F4130Range *,Rva009F4130Distance,BfmeThingEQ *);
 };
 // WB1681FF0 and the native 525-byte body; BFME 1's result lifetime is retained.
-BfmeWideResult PartitionManagerImpl::GetObjectsInRange(const float *position,float radius,const Rva009F4130Range *bounds,int distanceType,Rva009F2AB0Mask *filter,int sort)
+Rva009F39F0Result PartitionManagerImpl::GetObjectsInRange(const float *position,float radius,const Rva009F4130Range *bounds,int distanceType,Rva009F2AB0Mask *filter,int sort)
 {
-    BfmeWideResult result;
+    Rva009F39F0Result result;
     if (distanceType!=0 && distanceType!=2 && distanceType!=1 && distanceType!=3 && distanceType!=4) distanceType=0;
     unsigned mask=filter ? filter->getMask()*2+1 : ~0u;
     int xmin,xmax,ymin,ymax;
