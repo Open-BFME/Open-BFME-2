@@ -1,6 +1,4 @@
-// ?initiateIntentToDoSpecialPower@SpecialAbilityUpdate@@UAEXPBVSpecialPowerTemplate@@PBVObject@@PBVCoord3D@@IPBVWaypoint@@@Z
-// partial score=0.9951342015590721 date=2026-10-10
-// ?initiateIntentToDoSpecialPower@SpecialAbilityUpdate@@UAEXPBVSpecialPowerTemplate@@PBVObject@@PBVCoord3D@@IPBVWaypoint@@@Z
+// ?initiateIntentToDoSpecialPower@SpecialAbilityUpdate@@UAEXPBVSpecialPowerTemplate@@PBVObject@@PBUCoord3D@@IPBVWaypoint@@@Z
 // partial score=0.99 date=2026-10-08
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD
 // SpecialAbilityUpdate.cpp: bodies retail links from this TU (tu_map approved),
@@ -10,10 +8,18 @@
 // words at +0x10C and the status-base pointer at +0x04, final-override kind
 // at +0x1C.
 
-enum ObjectID
+struct Coord3D;
+#include "../../../Common/GameLogicObjectLookupView.h"
+#include "../../../../../Libraries/Include/Lib/Coord3D.h"
+
+// Inline zero through a pointer (the canonical Coord3D::zero is an out-of-line owner that retail does not call here).
+static __forceinline void zeroCoord(Coord3D *c)
 {
-	INVALID_OBJECT_ID = 0
-};
+	c->x = 0.0f;
+	c->y = 0.0f;
+	c->z = 0.0f;
+}
+
 enum ModelConditionFlagType
 {
 	MODELCONDITION_INVALID = -1
@@ -166,12 +172,6 @@ public:
 	bool m_b7; // +0xB7
 };
 class ModuleData;
-class Coord3D
-{
-public:
-	float x, y, z;
-	void zero() { x = 0.0f; y = 0.0f; z = 0.0f; }
-};
 class Waypoint;
 class CommandButton;
 class SpecialPowerModuleInterface
@@ -322,12 +322,6 @@ public:
 	int rva0044EF2C();
 };
 
-class GameLogic
-{
-public:
-	Object *findObjectByID(ObjectID id);
-};
-
 extern GameLogic *TheGameLogic;
 
 class Rva0044F633Inner
@@ -372,7 +366,7 @@ void SpecialAbilityUpdate::initiateIntentToDoSpecialPower(const SpecialPowerTemp
 		return;
 
 	m_targetID = INVALID_OBJECT_ID;
-	m_targetPos.zero();
+	zeroCoord(&m_targetPos);
 	m_5C = 0;
 	m_24 = 0;
 	m_2C = 0;
@@ -419,8 +413,12 @@ void SpecialAbilityUpdate::initiateIntentToDoSpecialPower(const SpecialPowerTemp
 	if (ai->slot098())
 		ai->slot098()->disable();
 	ai->m_3ca = true;
-	if (!((ai->slot143() == 2 || g_00DFEEF8->rva002A8AB1(obj->getControllingPlayer()))
-		&& (ai->slot091() || forced)))
+	if (!(ai->slot143() == 2 || g_00DFEEF8->rva002A8AB1(obj->getControllingPlayer())))
+	{
+		ai->rva0026331C();
+		ai->aiIdle(CMD_FROM_AI);
+	}
+	else if (!(ai->slot091() || forced))
 	{
 		ai->rva0026331C();
 		ai->aiIdle(CMD_FROM_AI);
@@ -447,89 +445,4 @@ void SpecialAbilityUpdate::initiateIntentToDoSpecialPower(const SpecialPowerTemp
 	}
 
 	setWakeFrame(getObject(), UPDATE_SLEEP_NONE);
-}
-
-// Retail 0x0044EE07 (121 bytes): SpecialAbilityUpdate::rva0044EE07, the
-// partner of rva0044EE80 below (same module data +0x18/+0x1C pair). Clears the
-// fourteen ability model conditions (0x60 0x5E 0x29 0x76 0x5F 0x84 0x61..0x63
-// 0x249..0x24B 0x6E 0x6F) on the Object through the rowed mask clear 0x001E42F2
-// with the rowed 0x0044E9C7 mask builder, then, for an untimed module-data
-// condition, clears that one through the one-bit mask ctor 0x0028F59A and
-// zeroes +0x84. Called by 0x004500A3 with the module as this.
-void SpecialAbilityUpdate::rva0044EE07()
-{
-	{
-		Rva0044E9C7 mask;
-		((Rva001E42F2 *)getObject())->rva001E42F2((const int *)mask.rva0044E9C7(0,
-			0x60, 0x5e, 0x29, 0x76, 0x5f, 0x84, 0x61, 0x62, 0x63,
-			0x249, 0x24a, 0x24b, 0x6e, 0x6f));
-	}
-	const SpecialAbilityUpdateModuleData *data = (const SpecialAbilityUpdateModuleData *)m_moduleData;
-	if (data->m_18 != MODELCONDITION_INVALID && data->m_1C == 0)
-	{
-		((Rva001E42F2 *)getObject())->rva001E42F2((const int *)&Rva0028F59A(0, data->m_18));
-		m_84 = 0;
-	}
-}
-
-// Retail 0x0044EE80 (74 bytes): SpecialAbilityUpdate::rva0044EE80, a
-// non-virtual helper called with the module as this by the SpecialAbilityUpdate
-// slot-22 base 0x004508B7 and by 0x00451FA2 (SpecialAbilityUpdate block). Name
-// by address. Sets the model condition named by the module data +0x18 on the
-// Object (directly, notifier as a tail jump) or times it through the matched
-// Object::setSpecialModelConditionState 0x0028AEB2 when the +0x1C frames are
-// non-zero. Object condition words at +0x10C, masked-word accessors.
-void SpecialAbilityUpdate::rva0044EE80()
-{
-	Object *object = m_object;
-	const SpecialAbilityUpdateModuleData *data = (const SpecialAbilityUpdateModuleData *)m_moduleData;
-	ModelConditionFlagType mc = data->m_18;
-	if (mc == MODELCONDITION_INVALID)
-		return;
-	if (data->m_1C == 0)
-		object->setModelConditionState(mc);
-	else
-		object->setSpecialModelConditionState(mc, data->m_1C);
-}
-
-// ?rva0044EF2C@Rva0044EF2C@@QAEHXZ @0x0044EF2C 22B
-// Null-checked final-override int forward. Retail is mov eax [ecx+4]
-// mov ecx [eax+0x38] test ecx jne call rowed
-// Overridable::friend_getFinalOverride at 0x00288609 then mov eax [eax+0x1C].
-// Evidence: unlock lane; caller at 0x0028BDBA in 0x0028BD92 which cmps the
-// result; unblocks 0x0028BD92; flags copied from prev TU
-// ModuleDataBuildFieldParseChained.cpp. Owner unproven so the name stays
-// address-derived.
-int Rva0044EF2C::rva0044EF2C()
-{
-	Overridable *o = m_holder04->m_over38;
-	if (o == 0)
-		return 0;
-	const Overridable *f = o->friend_getFinalOverride();
-	return f->m_val1C;
-}
-
-// ?rva0044F633@Rva0044F633@@QAEPAXXZ, retail 0x0044F633, 70 bytes.
-// Leaf __thiscall: reads this+4 (holder) and this+0x40 (ObjectID), resolves
-// the object via TheGameLogic->findObjectByID (rowed 0x00049DC5), then checks
-// the holder's Overridable final override (rowed friend_getFinalOverride
-// 0x00288609) for kind 0x27 and the target's status bytes at +0x108/+0x114.
-// Returns null when all checks pass, else holder+0x74. Evidence: packet
-// disassembly, callee rows, TheGameLogic extern in use, SpecialAbilityUpdate
-// m_40 ObjectID at +0x40 in neighbour SpecialAbilityUpdateXfer.cpp.
-void *Rva0044F633::rva0044F633()
-{
-	Rva0044F633Inner *inner = m_inner4;
-	Object *obj = TheGameLogic->findObjectByID(m_target40);
-	const Overridable *ov = inner->m_override38->friend_getFinalOverride();
-	if (ov->m_val1C == 0x27) {
-		if (obj) {
-			unsigned char *base = obj->m_base4;
-			if ((base[0x108] & 0x40) == 0) {
-				if ((base[0x114] & 8) == 0)
-					return 0;
-			}
-		}
-	}
-	return inner->m_fallback74;
 }
