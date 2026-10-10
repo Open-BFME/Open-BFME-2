@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /Oy-
+// cl: /O1 /DNDEBUG /MD /EHsc /Oy-
 //
 // ?rva0027675F@Drawable@@QAE?AVRva002390CB@@H@Z, retail 0x0027675F (166B):
 // a keyed Drawable lookup returning an Rva002390CB record by value. Key -1
@@ -43,6 +43,7 @@ class Rva0027675FIface
 public:
 	virtual bool lookup(int key, Rva002390CB *out);
 	virtual bool lookupName(const class AsciiString &name, Rva002390CB *out);
+ virtual bool lookupValue(int *out);
 };
 
 class Rva0027675FListener
@@ -60,6 +61,7 @@ class Rva00239435
 public:
 	Rva002390CB rva00239435(int key);
 	Rva002390CB rva0033D3E8(const AsciiString &name);
+ int fallbackValue() const { return *(const int *)((const char *)this+0x560); }
 };
 
 class Drawable
@@ -67,6 +69,7 @@ class Drawable
 public:
 	Rva002390CB rva0027675F(int key);
 	bool rva00276805(int key);
+ int rva00274D6F();
 	Rva002390CB rva00274CD8(const AsciiString &name);
 private:
 	unsigned char m_pad00[4];
@@ -110,4 +113,18 @@ Rva002390CB Drawable::rva00274CD8(const AsciiString &name)
 			return result;
 	}
 	return m_template->rva0033D3E8(name);
+}
+
+// Native274D6F..274DB671 and the adjacent keyed lookups establish the same
+// Drawable listener list154 and slot13 lookup interface. Slot2 returns a
+// boolean and may fill the integer result; the template fallback is at560.
+// Target control flow takes the first successful result. The original method
+// and fallback field names remain unknown. All three existing siblings stay
+// exact with O1, including their reference destruction and hidden results.
+int Drawable::rva00274D6F() {
+ for(Rva0027675FListener **l=m_listeners;l&&*l;++l) {
+  Rva0027675FIface *i=(*l)->getLookup();
+  if(i) { int value; if(i->lookupValue(&value)) return value; }
+ }
+ return m_template->fallbackValue();
 }
