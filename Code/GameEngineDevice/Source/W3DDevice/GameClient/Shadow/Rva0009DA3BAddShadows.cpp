@@ -95,16 +95,22 @@ public:
 	virtual RenderObjClass *createRenderObj(const char *name, int arg); // +0x80
 };
 
+// Native9DB47 accesses only this byte at +4; original target type unknown.
+struct Rva0009DB47ByteTarget { char m_unknown00[4]; unsigned char m_byte04; };
+
 class Rva0009D9BD
 {
 public:
 	void rva0009D9BD();
 	void rva0009DA3B();
+	void rva0009DB47();
 
 private:
 	char m_pad00[0xD4];
 	Rva0009DA3BAssetManager *m_assetManager; // +0xD4
-	char m_padD8[0x1C0 - 0xD8];
+	char m_padD8[0x19C - 0xD8];
+	Rva0009DB47ByteTarget *m_byteTarget19C;
+	char m_pad1A0[0x1C0 - 0x1A0];
 	_STL::vector<Shadow *> m_shadows; // +0x1C0
 };
 
@@ -142,4 +148,14 @@ void Rva0009D9BD::rva0009DA3B()
 				m_shadows.push_back(shadow);
 		}
 	}
+}
+
+// Native9DB47..9DB5A19B: mark byte4 of nullable pointer19C, then
+// rebuild the existing shadow list through sole rowed9DA3B. No arguments,
+// unchanged receiver RET0. Original method/class and byte meaning unknown.
+void Rva0009D9BD::rva0009DB47()
+{
+    if (m_byteTarget19C)
+        m_byteTarget19C->m_byte04 = 1;
+    rva0009DA3B();
 }
