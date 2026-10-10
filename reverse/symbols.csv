@@ -17075,3 +17075,4 @@ _D3DXCreateTextureFromFileInMemoryEx@60,0x0062AF7A,Named d3dx9_27.dll PE import 
 ??0?$vector@UBfmeContainerRecord005FDEC7@@V?$allocator@UBfmeContainerRecord005FDEC7@@@_STL@@@_STL@@QAE@I@Z,0x005FE409,size constructor of the 12-byte tab record vector; called by the Rva005FE750 ctor 0x005FE640
 ?rva0021F5F8@CreateAHeroManager@@QAEXXZ,0x0021F5F8,CreateAHeroManager method called by the create-a-hero screen destructor 0x00513BAB; unrowed
 ??1Rva005DB681@@UAE@XZ,0x005DB681,opaque dtor called by the scalar deleting dtor at 0x005DB7F2 (vtable 0x00C76798#0); identity unproven; address-derived name
+?Rva002A1EF5@@YAHPAVDrawable@@PAX@Z,0x002A1EF5,select-matching drawable callback called twice by InGameUI::selectMatchingAcrossRegion 0x002A3AFA (cdecl Drawable* + user data); banked .997 under this name; unrowed

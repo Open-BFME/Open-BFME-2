@@ -1,6 +1,19 @@
-// ?selectMatchingAcrossRegion@InGameUI@@UAEHPAUIRegion2D@@@Z
-// partial score=0.93 date=2026-10-10
 // cl: /O1 /G7 /MD /EHsc /Ireference/shims/bfme2_ascii /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// InGameUI::selectMatchingAcrossRegion, retail 0x002A3AFA (670 bytes).
+//
+// Target evidence: both InGameUI vftables (0x007C7C18, 0x007FD5A0) hold it
+// right after selectMatchingAcrossScreen (0x0029CEB1) and
+// selectMatchingAcrossMap (0x0029CFC8), Zero Hour's order for this virtual.
+// Zero Hour's selectMatchingAcrossRegion is the semantic guide; BFME 2 also
+// collects the types of the selected units' contained objects (the second
+// template set) and runs the drawable callback 0x002A1EF5 over the region.
+//
+// Codegen note: the _List_base<const Object*> constructor and destructor
+// (rows 0x004EC36C/0x004EC395, ICF-folded with list<int>) are defined here
+// with STLport's bodies, inline but never inlined; retail's compiler knew they
+// do not keep the allocator temporary's address, so it lives in a dead
+// argument home and the frame matches (the visible-callee lever of
+// 0x00512069/0x0051215B).
 // stlport
 #include "unicode_string.h"
 #include "ascii_string.h"
@@ -8,12 +21,20 @@
 #include <set>
 class Object;
 namespace _STL {
-template<> _List_base<const Object*,allocator<const Object*> >::_List_base(const allocator<const Object*>&);
-template<> _List_base<const Object*,allocator<const Object*> >::~_List_base();
+template<> inline __declspec(noinline) _List_base<const Object*,allocator<const Object*> >::_List_base(const allocator<const Object*>& __a) : _M_node(_STLP_CONVERT_ALLOCATOR(__a, _Node), (_Node*)0) {
+    _Node* __n = _M_node.allocate(1);
+    __n->_M_next = __n;
+    __n->_M_prev = __n;
+    _M_node._M_data = __n;
+}
+template<> inline __declspec(noinline) _List_base<const Object*,allocator<const Object*> >::~_List_base() {
+    clear();
+    _M_node.deallocate(_M_node._M_data, 1);
+}
 }
 class Object;
 class Drawable;
-enum ObjectID { INVALID_ID=0 };
+#include "../Common/GameLogicObjectLookupView.h"
 enum ObjectStatusTypes { STATUS_ZERO=0 };
 class ThingTemplate {
 public:
@@ -108,7 +129,6 @@ public:
  char unknown000[0xfc]; Object *object;
  char unknown100[4]; Drawable *next; char unknown108[0x43c-0x108]; bool selected;
 };
-class GameLogic { public: Object *findObjectByID(ObjectID); };
 extern GameLogic *TheGameLogic;
 class GameTextInterface {
 public:
