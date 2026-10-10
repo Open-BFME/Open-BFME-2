@@ -24,3 +24,10 @@ void Rva006CE380::rva006CE380()
         }
     }
 }
+
+// Native6CE560..6CE565, INT3 padding on both sides: forwards the receiver
+// unchanged to the owned list-clear provider6CE380, whose RET0 proves ABI.
+// Original wrapper name and complete receiver type remain unresolved.
+struct Rva006CE560 { void rva006CE560(); };
+void Rva006CE560::rva006CE560()
+{ reinterpret_cast<Rva006CE380*>(this)->rva006CE380(); }
