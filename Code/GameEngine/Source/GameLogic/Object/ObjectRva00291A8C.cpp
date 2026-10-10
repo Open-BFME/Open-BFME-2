@@ -1,9 +1,9 @@
+// cl: /O1 /G7 /arch:SSE /MD /EHsc /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include
 // ?rva00291A8C@Object@@QAEXMMMABVAsciiString@@@Z
-// partial score=0.97 date=2026-10-09
+#include <math.h>
 #define _STLP_NO_EXCEPTIONS 1
 #define _STLP_USE_STATIC_LIB 1
 #include <bitset>
-// cl: /O1 /G7 /arch:SSE /MD /EHsc /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include
 // stlport
 // Regional O1/SSE/G7 preserved; /MD imports the native _isnan dependency.
 // Object script-status and disabled-state helpers at retail 0x00291C9B+.
@@ -864,8 +864,6 @@ void Object::rva002929F9(Object *other)
  reinterpret_cast<Rva001E415F*>(locomotor)->rva001E415F(speed,g_009BA4E4);
 }
 
-extern "C" double __cdecl sin(double);
-extern "C" double __cdecl cos(double);
 #pragma function(sin,cos)
 class PhysicsBehavior {public:void rva00390629(bool);};
 class ObjectCollisionPhysics {
@@ -1038,8 +1036,8 @@ void Object::rva00291A8C(float degrees,float magnitude,float vertical,const Asci
  if(physics->blocked)return;
  if(*reinterpret_cast<const float*>(reinterpret_cast<const char*>(m_template)+0x610)>=100.0f)return;
  degrees*=0.017453292f;
- volatile float x=(float)cos(degrees);
- float y=(float)sin(degrees);
+ volatile float x=cos(degrees);
+ float y=sin(degrees);
  Coord3D force;
  force.z=magnitude*vertical;
  force.x=x*magnitude;
