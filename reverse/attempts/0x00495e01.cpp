@@ -1,4 +1,10 @@
 // ?update@AutoPickUpUpdate@@UAE?AW4UpdateSleepTime@@XZ
+// partial score=0.9979581104888564 date=2026-10-10
+#include <new>
+extern "C" void _ReadWriteBarrier();
+#pragma intrinsic(_ReadWriteBarrier)
+template<class T>static __forceinline T w5Operand(const T&v){return *(const volatile T*)&v;}
+// ?update@AutoPickUpUpdate@@UAE?AW4UpdateSleepTime@@XZ
 // partial score=0.9799654434554607 date=2026-10-10
 // ?update@AutoPickUpUpdate@@UAE?AW4UpdateSleepTime@@XZ
 // partial score=0.85 date=2026-10-08
@@ -20,7 +26,7 @@ public:
 class BfmeFixedStorage0004543D
 {
 public:
-	BfmeFixedStorage0004543D(int unused, int bit);	// 0x00045411
+	BfmeFixedStorage0004543D(int unused, int bit) throw();	// 0x00045411
 	BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &other) throw();
 private:
 	unsigned char m_bytes[28];
@@ -247,7 +253,8 @@ class AutoPickUpUpdate : public UpdateModule, public AutoPickUpUpdateInterface
 {
 public:
 	virtual UpdateSleepTime update();
-	bool rva00495DD4();
+	bool rva00495DD4();__forceinline float getScanRange()const{return getAutoPickUpUpdateModuleData()->m_scanDistance;}
+
 	const AutoPickUpUpdateModuleData *getAutoPickUpUpdateModuleData() const
 	{
 		return (const AutoPickUpUpdateModuleData *)m_moduleData;
@@ -299,7 +306,7 @@ UpdateSleepTime AutoPickUpUpdate::update()
 	if (object->getContainedBy() && object->getContain()->getRemainingAmmo(0) == 0)
 	{
 		Coord3D position = *object->getPosition();
-		BfmeFixedStorage0004543D mask(0, 0x6C);
+		unsigned maskStorage[7];const BfmeFixedStorage0004543D &mask=*new(maskStorage) BfmeFixedStorage0004543D(0,0x6C);
 		Object *found = ThePartitionManager->getClosestObject(&position,
 			getAutoPickUpUpdateModuleData()->m_scanDistance, 0,
 			Rva002614ECFilter(&data->m_pickUpFilter, object->getControllingPlayer(), true).link(
@@ -326,8 +333,7 @@ UpdateSleepTime AutoPickUpUpdate::update()
 			unsigned int offset = 0;
 			do
 			{
-				const AutoPickUpEatObjectEntry *entry = (const AutoPickUpEatObjectEntry *)
-					((const char *)data->m_eatObjectEntries.m_start + offset);
+				const char*base=(const char*)data->m_eatObjectEntries.m_start;unsigned off=w5Operand(offset);const AutoPickUpEatObjectEntry*entry=(const AutoPickUpEatObjectEntry*)(base+off);_ReadWriteBarrier();
 				if (object->getBodyModule()->getHealth() <= entry->m_myHealth)
 				{
 					Object *found = ThePartitionManager->getClosestObject(object->getPosition(),
@@ -371,7 +377,7 @@ UpdateSleepTime AutoPickUpUpdate::update()
 			}
 		}
 		Object *found = ThePartitionManager->getClosestObject(&position,
-			getAutoPickUpUpdateModuleData()->m_scanDistance, 0,
+			getScanRange(), 0,
 			&Rva002614ECFilter(&data->m_pickUpFilter, object->getControllingPlayer(), true));
 		if (found)
 		{
