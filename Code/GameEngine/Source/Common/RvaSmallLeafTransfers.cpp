@@ -694,3 +694,23 @@ private:
 unsigned int Rva004DE536WordPair::copy() {
     return word0 = word4;
 }
+
+// Clean BF1 575ba2b04743f190f069805fbdc59936123c45da BattlePlanUpdate.cpp
+// under O2/SSE/G6 supplies the nonzero-word expression. Its named owner is
+// donor evidence only: target 758CB0..758CBB is an independent INT3-bounded
+// leaf, reads raw receiver word16, and returns full EAX zero/one with RET0.
+// No call/address witness establishes its original class, field meaning,
+// constness, declared return type or full layout. Preserve only the observed
+// receiver ABI, word bits and result in this address-owned consumed prefix.
+class Rva00758CB0
+{
+public:
+    unsigned int nonzero() const;
+private:
+    char m_unmodelled0[0x10];
+    unsigned int m_word10;
+};
+unsigned int Rva00758CB0::nonzero() const
+{
+    return m_word10 != 0;
+}

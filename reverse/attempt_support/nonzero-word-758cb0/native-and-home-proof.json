@@ -1,0 +1,148 @@
+{
+  "rva": "0x758cb0",
+  "extent": 11,
+  "native_bytes": "8b511033c085d20f95c0c3",
+  "native_instructions": [
+    [
+      "0x758ca0",
+      "mov",
+      "eax, dword ptr [ecx + 0xc]"
+    ],
+    [
+      "0x758ca3",
+      "and",
+      "al, 1"
+    ],
+    [
+      "0x758ca5",
+      "dec",
+      "al"
+    ],
+    [
+      "0x758ca7",
+      "neg",
+      "al"
+    ],
+    [
+      "0x758ca9",
+      "sbb",
+      "eax, eax"
+    ],
+    [
+      "0x758cab",
+      "inc",
+      "eax"
+    ],
+    [
+      "0x758cac",
+      "ret",
+      ""
+    ],
+    [
+      "0x758cad",
+      "int3",
+      ""
+    ],
+    [
+      "0x758cae",
+      "int3",
+      ""
+    ],
+    [
+      "0x758caf",
+      "int3",
+      ""
+    ],
+    [
+      "0x758cb0",
+      "mov",
+      "edx, dword ptr [ecx + 0x10]"
+    ],
+    [
+      "0x758cb3",
+      "xor",
+      "eax, eax"
+    ],
+    [
+      "0x758cb5",
+      "test",
+      "edx, edx"
+    ],
+    [
+      "0x758cb7",
+      "setne",
+      "al"
+    ],
+    [
+      "0x758cba",
+      "ret",
+      ""
+    ],
+    [
+      "0x758cbb",
+      "int3",
+      ""
+    ],
+    [
+      "0x758cbc",
+      "int3",
+      ""
+    ],
+    [
+      "0x758cbd",
+      "int3",
+      ""
+    ],
+    [
+      "0x758cbe",
+      "int3",
+      ""
+    ],
+    [
+      "0x758cbf",
+      "int3",
+      ""
+    ],
+    [
+      "0x758cc0",
+      "mov",
+      "eax, dword ptr [esp + 4]"
+    ],
+    [
+      "0x758cc4",
+      "mov",
+      "edx, dword ptr [ecx + 8]"
+    ],
+    [
+      "0x758cc7",
+      "cmp",
+      "edx, dword ptr [eax + 8]"
+    ],
+    [
+      "0x758cca",
+      "jne",
+      "0x758cd9"
+    ],
+    [
+      "0x758ccc",
+      "mov",
+      "ecx, dword ptr [ecx + 0xc]"
+    ]
+  ],
+  "raw_direct_references": [],
+  "raw_absolute_references": [],
+  "physical_contract": "ECX receiver; raw DWORD +0x10; full EAX 0 or 1; no stack arguments; RET0. Unknown original owner, declared return type, field role and full layout.",
+  "symbol": "?nonzero@Rva00758CB0@@QBEIXZ",
+  "source": "Code/GameEngine/Source/Common/RvaSmallLeafTransfers.cpp",
+  "donor_revision": "575ba2b04743f190f069805fbdc59936123c45da",
+  "donor_source": "game/GameEngine/Source/GameLogic/Object/Update/BattlePlanUpdate.cpp",
+  "donor_emitted_name": "?isActive@BattlePlanUpdate@@UBE_NXZ",
+  "donor_profile": "O2/SSE/G6 min5",
+  "source_lead_only": true,
+  "source_scan": "build/reference214/donor-current-575ba-gamelogic-update-all-min5-o2-sse-g6/results.jsonl",
+  "whole_home_rows": 43,
+  "whole_home_cpp_bytes": 524,
+  "link_control": "link_check against witnessed d68a97b48f 2026-10-10 11:55 census: LINKS513->524; 0 blockers; own current object replaces measured source",
+  "incidental_rescan": "place_bodies --min5: 0 bodies, 0 pins",
+  "supported_open_units": 0
+}
