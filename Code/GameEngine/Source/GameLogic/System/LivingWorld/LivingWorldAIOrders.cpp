@@ -45,7 +45,7 @@ class Rva00318F42 {public:bool rva00318F42();};
 class Rva002B4076 {public:void rva002B4076(void*,int,void*);};
 class Rva002B2702 {public:void rva002B2702(void*,void*,int);};
 class LivingWorldAI {public:
- void SubmitOrders();void rva004FB7B2();void ProcessRetreats();
+ void SubmitOrders();void rva004FB7B2();
 private:
  Rva002E0A9FElem *owner;char unknown4[0x68-4];
  _STL::vector<BfmePod8> orders68;
@@ -103,9 +103,10 @@ void LivingWorldAI::rva004FB7B2() {
 // Native4FBB25..4FBC02 complete198B RET4 and independently mapped unnamed
 // WB1319C70/390 establish the owner0/state4 phase dispatcher and its calls.
 // Original dispatcher name remains unknown; retain its existing neutral pin.
-// WB131A0F0 explicitly names ProcessRetreats (assert242..249) at native
-// 4FB600..4FB7B2 complete434B RET0; its declaration is a lead, not recovery.
+// WB131A0F0 names the retreat role at native4FB600..4FB7B2 complete434B.
+// Reuse the independently landed neutral Rva004FB600 provider; no alias pin.
 // Canonical channel global g_Va00E04508 already owns the byte cleared here.
+class Rva004FB600 {public:void rva004FB600();};
 class Rva004FB382 {public:bool rva004FB382();};
 class Rva004FB582Owner {public:void rva004FB582();};
 class Rva004FB27E {public:void rva004FB27E();};
@@ -130,6 +131,6 @@ void Rva004FBB25Sub::rva004FBB25(int phase){
    }
    break;
   case 1:case 2:case 3:case 5:m_owner->submitted2C4=1;break;
-  case 4:((LivingWorldAI *)this)->ProcessRetreats();*(unsigned char *)&g_Va00E04508=0;m_state=0;m_owner->submitted2C4=1;break;
+  case 4:((Rva004FB600 *)this)->rva004FB600();*(unsigned char *)&g_Va00E04508=0;m_state=0;m_owner->submitted2C4=1;break;
  }
 }
