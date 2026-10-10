@@ -1,6 +1,8 @@
 // ?rva004B83D2@BuildableHeroListUpgrade@@IAEXPBVThingTemplate@@@Z
+// partial score=0.88 date=2026-10-10
+// ?rva004B83D2@BuildableHeroListUpgrade@@IAEXPBVThingTemplate@@@Z
 // partial score=0.95 date=2026-10-09
-// cl: /Ireference/shims/bfme2_ascii /O2 /Ireference/shims/moduledata /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /Oy- /arch:SSE /Ireference/shims/moduledata /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //
 // BuildableHeroListUpgrade::upgradeImplementation, retail 0x004B837F (83
@@ -111,33 +113,6 @@ protected:
 	virtual void upgradeImplementation();
 	void rva004B83D2(const ThingTemplate *tmpl);
 };
-void BuildableHeroListUpgrade::upgradeImplementation()
-{
-	Player *player = getObject()->getControllingPlayer();
-	_STL::vector<AsciiString> &names = player->m_34->m_names;
-	for (_STL::vector<AsciiString>::iterator it = names.begin(); it != names.end(); ++it)
-	{
-		const ThingTemplate *tmpl = TheThingFactory->findTemplate(*it);
-		player->m_738.rva0037F32F(tmpl, player);
-	}
-	TheControlBar->m_28 = true;
-	rva004CE4A0();
-}
-void BuildableHeroListUpgrade::upgradeRemovalImplementation()
-{
-	Player *player = getObject()->getControllingPlayer();
-	_STL::vector<AsciiString> &names = player->m_34->m_names;
-	Rva0037F32F *holder = &player->m_738;
-	for (_STL::vector<AsciiString>::iterator it = names.begin(); it != names.end(); ++it)
-	{
-		const ThingTemplate *tmpl = TheThingFactory->findTemplate(*it);
-		rva004B83D2(tmpl);
-		holder->rva0037EEB9(tmpl);
-	}
-	TheControlBar->m_28 = true;
-	rva004CE4A8();
-}
-
 // TeamPrototype and DLINK walks follow the independently matched Player
 // force-emotion and TeamPrototype iterator units. Retail establishes +32C
 // prototype list and +334 team head; Object iterator is the 24-byte ABI of
@@ -214,11 +189,11 @@ public:
 // and slot34(template,0). Original query type and its public methods are
 // unresolved; the module's established class identity and neutral helper
 // name are retained separately from these structural target facts.
-// ?rva004B83D2@BuildableHeroListUpgrade@@IAEXPBVThingTemplate@@@Z present-unmatched
+// Native complete boundary4B83D2..4B8484 RET4
 void BuildableHeroListUpgrade::rva004B83D2(const ThingTemplate *tmpl)
 {
-    Player *player = getObject()->getControllingPlayer();
-    for (_STL::list<TeamPrototype *>::iterator node = player->m_teams.begin(); node != player->m_teams.end(); ++node)
+    const Player *player = getObject()->getControllingPlayer();
+    for (_STL::list<TeamPrototype *>::const_iterator node = player->m_teams.begin(); node != player->m_teams.end(); ++node)
     {
         for (DLINK_ITERATOR<Team> teams = (*node)->iterate_TeamInstanceList(); !teams.done(); teams.advance())
         {
