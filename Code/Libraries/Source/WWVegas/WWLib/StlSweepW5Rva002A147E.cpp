@@ -21,3 +21,8 @@ struct Rva002A147EElement { void *drawable; void *decal; bool assigned; };
 
 // Instantiate the recovered operation and its required template dependencies.
 template _STL::_Rb_tree_iterator<_STL::pair<unsigned int const, Rva002A147EElement>, _STL::_Nonconst_traits<_STL::pair<unsigned int const, Rva002A147EElement> > > _STL::_Rb_tree<unsigned int, _STL::pair<unsigned int const, Rva002A147EElement>, _STL::_Select1st<_STL::pair<unsigned int const, Rva002A147EElement> >, _STL::less<unsigned int>, _STL::allocator<_STL::pair<unsigned int const, Rva002A147EElement> > >::insert_equal(_STL::pair<unsigned int const, Rva002A147EElement> const &);
+
+typedef _STL::pair<const unsigned,Rva002A147EElement> PreviewTreeValue;
+typedef _STL::_Rb_tree<unsigned,PreviewTreeValue,_STL::_Select1st<PreviewTreeValue>,_STL::less<unsigned>,_STL::allocator<PreviewTreeValue> > PreviewTree;
+
+template void _STL::_Construct<PreviewTreeValue,PreviewTreeValue>(PreviewTreeValue*,const PreviewTreeValue&);
