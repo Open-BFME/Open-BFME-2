@@ -116,9 +116,18 @@ extern GameTextInterface *TheGameText;
 class GameLogic
 {
 public:
-	char rva0023C6FD();	// 0x0023C6FD
 };
 extern GameLogic *TheGameLogic;
+
+// The multiplayer-or-skirmish predicate at 0x0023C6FD is rowed as
+// BfmeGlob939D::bfmeCall939D (75B from BfmeConv939Call939D.cpp). This call
+// goes through a TU-local derivation so it resolves to the rowed body
+// instead of the unrowed GameLogic spelling (U on 4 units).
+class BfmeGlob939D : public GameLogic
+{
+public:
+	char bfmeCall939D();
+};
 
 class PlayerList
 {
@@ -287,7 +296,7 @@ void SalvageCrateCollide::doMoney(Object *other)
 	else
 		money = data->m_minMoney;
 	if (money > 0) {
-		if (TheGameLogic->rva0023C6FD()) {
+		if (((BfmeGlob939D *)TheGameLogic)->bfmeCall939D()) {
 			float mult = TheWritableGlobalData->m_multiPlayMults.getMoneyMult(ThePlayerList->rva002A7C0B(false));
 			money = (int)(money * mult);
 		}

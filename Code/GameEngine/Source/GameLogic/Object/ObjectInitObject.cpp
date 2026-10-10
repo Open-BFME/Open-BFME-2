@@ -163,7 +163,6 @@ class GameLogic
 {
 public:
 	void rva0023FABE(Object *obj);
-	char rva0023C6FD();
 	char m_pad000[0x40];
 	UnsignedInt m_frame;
 	char m_pad044[0x6F - 0x44];
@@ -174,6 +173,16 @@ public:
 	UnsignedInt m_frameObjectsChangedTriggerAreas;
 };
 extern GameLogic *TheGameLogic;
+
+// The multiplayer-or-skirmish predicate at 0x0023C6FD is rowed as
+// BfmeGlob939D::bfmeCall939D (75B from BfmeConv939Call939D.cpp). This call
+// goes through a TU-local derivation so it resolves to the rowed body
+// instead of the unrowed GameLogic spelling (U on 4 units).
+class BfmeGlob939D : public GameLogic
+{
+public:
+	char bfmeCall939D();
+};
 
 class Rva002034E9Host
 {
@@ -454,7 +463,7 @@ void Object::initObject()
 
 	reinterpret_cast<Rva00318333 *>(TheGlobalWeatherSystem)->rva00318333(this, false);
 
-	if (TheGameLogic->rva0023C6FD())
+	if (((BfmeGlob939D *)TheGameLogic)->bfmeCall939D())
 	{
 		if (isKindOf(KINDOF_BIT_7) || rva0028D491() || isKindOf(KINDOF_BIT_8) ||
 			isKindOf(KINDOF_BIT_9) || isKindOf(KINDOF_BIT_10) || isKindOf(KINDOF_BIT_11) ||

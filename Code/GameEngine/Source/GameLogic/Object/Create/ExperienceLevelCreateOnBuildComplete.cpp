@@ -31,9 +31,18 @@ private:
 class GameLogic
 {
 public:
-	char rva0023C6FD();
 };
 extern GameLogic *TheGameLogic;
+
+// The multiplayer-or-skirmish predicate at 0x0023C6FD is rowed as
+// BfmeGlob939D::bfmeCall939D (75B from BfmeConv939Call939D.cpp). This call
+// goes through a TU-local derivation so it resolves to the rowed body
+// instead of the unrowed GameLogic spelling (U on 4 units).
+class BfmeGlob939D : public GameLogic
+{
+public:
+	char bfmeCall939D();
+};
 struct ExperienceLevelCreateModuleData
 {
 	unsigned char m_pad00[0x08];
@@ -79,6 +88,6 @@ void ExperienceLevelCreate::rva004B9201()
 }
 void ExperienceLevelCreate::onBuildComplete()
 {
-	if (!getData()->m_0C || TheGameLogic->rva0023C6FD())
+	if (!getData()->m_0C || ((BfmeGlob939D *)TheGameLogic)->bfmeCall939D())
 		rva004B9201();
 }

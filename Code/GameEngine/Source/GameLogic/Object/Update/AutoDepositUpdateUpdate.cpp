@@ -84,11 +84,21 @@ class GameLogic
 {
 public:
 	UnsignedInt getFrame() const { return m_frame; }
-	char rva0023C6FD(); // 0x0023C6FD, true in a multiplayer game
 
 private:
 	char m_unknown00[0x40];
 	UnsignedInt m_frame; // +0x40
+};
+extern GameLogic *TheGameLogic;
+
+// The multiplayer-or-skirmish predicate at 0x0023C6FD is rowed as
+// BfmeGlob939D::bfmeCall939D (75B from BfmeConv939Call939D.cpp). These calls
+// go through a TU-local derivation so they resolve to the rowed body
+// instead of the unrowed GameLogic spelling (U on 4 units).
+class BfmeGlob939D : public GameLogic
+{
+public:
+	char bfmeCall939D();
 };
 extern GameLogic *TheGameLogic;
 
@@ -246,7 +256,7 @@ void AutoDepositUpdate::awardInitialCaptureBonus( Player *player )
 		return;
 
 	Int moneyAmount = getAutoDepositUpdateModuleData()->m_initialCaptureBonus;
-	if( TheGameLogic->rva0023C6FD() )
+	if( ((BfmeGlob939D *)TheGameLogic)->bfmeCall939D() )
 	{
 		Real moneyMult = TheWritableGlobalData->m_multiPlayMults.getMoneyMult( ThePlayerList->rva002A7C0B( false ) );
 		moneyAmount = (Int)( moneyAmount * moneyMult );
@@ -309,7 +319,7 @@ UpdateSleepTime AutoDepositUpdate::update( void )
 			multiplier *= getAutoDepositUpdateModuleData()->m_upgradeBonusPercent;
 
 		UnsignedInt moneyAmount = (UnsignedInt)( getAutoDepositUpdateModuleData()->m_depositAmount * multiplier );
-		if( TheGameLogic->rva0023C6FD() )
+		if( ((BfmeGlob939D *)TheGameLogic)->bfmeCall939D() )
 		{
 			Real moneyMult = TheWritableGlobalData->m_multiPlayMults.getMoneyMult( ThePlayerList->rva002A7C0B( false ) );
 			moneyAmount = (UnsignedInt)( moneyAmount * moneyMult );
