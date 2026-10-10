@@ -9,10 +9,10 @@
 // dtor 0x0024A797, the only entry in retail's unwind map. Base layout as in
 // Rva0024A797Derived.cpp. The same find/unlink/notify/delete sequence
 // recurs at 0x00397E6E and 0x004EB61A.
-class Rva0024A797
+class UpdateModule
 {
 public:
-	virtual ~Rva0024A797();
+	virtual ~UpdateModule();
 private:
 	char m_pad04[8];
 };
@@ -51,7 +51,7 @@ public:
 
 extern Rva0023D661 *g_009FE78C;
 
-class AIGateUpdate : public Rva0024A797, public MiBase1, public AIGateUpdate_B2
+class AIGateUpdate : public UpdateModule, public MiBase1, public AIGateUpdate_B2
 {
 public:
 	virtual ~AIGateUpdate();

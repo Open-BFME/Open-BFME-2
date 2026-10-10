@@ -39,54 +39,6 @@ public:
 	void rva002747F9(int force);
 };
 
-class BFMERopeDrawable
-{
-public:
-	const Coord3D *getPosition() const;
-
-private:
-	char m_unreconstructed_000[0x38];
-	Coord3D m_basePosition;
-	char m_unreconstructed_044[0xfc - 0x44];
-	void *m_object;
-	char m_unreconstructed_100[0x238 - 0x100];
-	Coord3D m_interpolatedPosition;
-	char m_unreconstructed_244[0x40c - 0x244];
-	Coord3D m_position0;
-	Coord3D m_tangent0;
-	Coord3D m_position1;
-	Coord3D m_tangent1;
-	char m_unreconstructed_43c[8];
-	bool m_interpolationReady;
-};
-
-// ?getPosition@BFMERopeDrawable@@QBEPBUCoord3D@@XZ
-const Coord3D *BFMERopeDrawable::getPosition() const
-{
-	if (!m_object)
-		return &m_basePosition;
-
-	BFMERopeDrawable *self = const_cast<BFMERopeDrawable *>(this);
-	if (!m_interpolationReady)
-		reinterpret_cast<Rva002747F9 *>(self)->rva002747F9(0);
-
-	Coord3D interpolated;
-	BfmeVector3 result;
-	D3DXVec3CatmullRom(
-		&result,
-		&m_position0,
-		&m_tangent0,
-		&m_position1,
-		&m_tangent1,
-		TheGameEngine->m_interpolationFactor);
-
-	interpolated.x = result.x;
-	interpolated.y = result.y;
-	interpolated.z = result.z;
-	self->m_interpolatedPosition = interpolated;
-	return &m_interpolatedPosition;
-}
-
 // Retail's call sites in this unit's matched rows land on bodies rowed under
 // other spellings at the same addresses (same ABI). Bind the spellings used here.
 #pragma comment(linker, "/alternatename:_D3DXVec3CatmullRom@24=_rva0062AFC8D3DXVec3CatmullRom@24")
@@ -162,11 +114,12 @@ class Drawable
 private:
     unsigned char m_pad000[8];
     Matrix3D m_baseMatrix;
-    unsigned char m_pad038[0xfc-0x38];
+    Coord3D m_basePosition;			// +0x38 (Thing's cached position)
+    unsigned char m_pad044[0xfc-0x44];
     BfmeCacheObject *m_object;
     unsigned char m_pad100[0x208-0x100];
     mutable Matrix3D m_cachedMatrix;
-    unsigned char m_pad238[0x244-0x238];
+    mutable Coord3D m_interpolatedPosition;	// +0x238
     mutable unsigned int m_lastFrameStamp;
     unsigned char m_pad248[0x3a4-0x248];
     unsigned int m_updateFrame;
@@ -182,7 +135,41 @@ private:
     unsigned char m_rebuildReady;
 public:
     const Matrix3D *getTransformMatrix() const;
+    const Coord3D *getPosition() const;
 };
+
+// ?getPosition@Drawable@@QBEPBUCoord3D@@XZ retail 0x002763E6 (138B), the
+// position twin of getTransformMatrix below (was rowed as
+// BFMERopeDrawable::getPosition). Identity (target): it returns Thing's cached
+// position (+0x38) without an object and otherwise the Catmull-Rom position
+// (+0x40C..+0x438 under the +0x444 ready flag) cached at +0x238, the same
+// interpolation state getTransformMatrix (0x0027628E) reads; its callers pass
+// Drawable pointers (LaserUpdate::initFromDrawables 0x00363853
+// GameClient::iterateDrawablesInRegion).
+const Coord3D *Drawable::getPosition() const
+{
+	if (!m_object)
+		return &m_basePosition;
+
+	if (!m_rebuildReady)
+		reinterpret_cast<Rva002747F9 *>(const_cast<Drawable *>(this))->rva002747F9(0);
+
+	Coord3D interpolated;
+	BfmeVector3 result;
+	D3DXVec3CatmullRom(
+		&result,
+		&m_position0,
+		&m_tangent0,
+		&m_position1,
+		&m_tangent1,
+		TheGameEngine->m_interpolationFactor);
+
+	interpolated.x = result.x;
+	interpolated.y = result.y;
+	interpolated.z = result.z;
+	m_interpolatedPosition = interpolated;
+	return &m_interpolatedPosition;
+}
 
 const Matrix3D *Drawable::getTransformMatrix() const
 {

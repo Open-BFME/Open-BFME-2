@@ -5,7 +5,7 @@
 // body; slot 4 -> 0x004AB897 uses class-name string "LargeGroupAudioUpdate".
 // Body: five compiler vptr restores (+0 +0x0C +0x10 +0x20 +0x24), then the
 // +0x24 base's own inline dtor re-stores its vptr 0x00BFB698, then a tail
-// jmp to the UpdateModule-family dtor 0x0024A797 (Rva0024A797). The +0x20
+// jmp to the UpdateModule-family dtor 0x0024A797 (UpdateModule). The +0x20
 // and +0x24 bases are structural stand-ins (types unrecovered).
 
 // Base view matching Common/Rva0024A797DeletingDtor.cpp.
@@ -39,10 +39,10 @@ private:
 	char m_pad08[12];
 };
 
-class Rva0024A797 : public PrimaryP4AB8DC, public Rva0024A797_B2
+class UpdateModule : public PrimaryP4AB8DC, public Rva0024A797_B2
 {
 public:
-	virtual ~Rva0024A797();
+	virtual ~UpdateModule();
 };
 
 class LargeGroupAudioUpdate_B20
@@ -58,7 +58,7 @@ public:
 	~LargeGroupAudioUpdate_B24() {}
 };
 
-class LargeGroupAudioUpdate : public Rva0024A797, public LargeGroupAudioUpdate_B20,
+class LargeGroupAudioUpdate : public UpdateModule, public LargeGroupAudioUpdate_B20,
 	public LargeGroupAudioUpdate_B24
 {
 public:

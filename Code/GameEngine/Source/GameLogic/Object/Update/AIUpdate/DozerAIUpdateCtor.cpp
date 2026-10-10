@@ -710,7 +710,10 @@ public:
 	Real getConstructionPercent() const { return m_constructionPercent; }
 	void setConstructionPercent(Real percent) { m_constructionPercent = percent; }
 	void setStatus(ObjectStatusTypes status, Bool set);
+protected:
+	friend class DozerActionDoActionState;
 	Module *findModule(NameKeyType key) const;
+public:
 	void rva001E42F2(const int *clear);
 	void setSpecialModelConditionState(ModelConditionFlagType mc, UnsignedInt frames);
 	Bool isLocallyControlled() const;

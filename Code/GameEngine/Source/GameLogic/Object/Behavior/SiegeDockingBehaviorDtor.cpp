@@ -38,14 +38,14 @@ public:
 	virtual void update() = 0;
 };
 
-class Rva0024A797 : public BehaviorModule, public UpdateModuleInterface
+class UpdateModule : public BehaviorModule, public UpdateModuleInterface
 {
 	unsigned m_nextCallFrameAndPhase;
 	int m_indexInLogic;
 	int m_bfmeReserved;
 
 public:
-	virtual ~Rva0024A797();
+	virtual ~UpdateModule();
 };
 
 class SiegeDockingBehaviorSecondaryBase
@@ -69,7 +69,7 @@ struct SiegeDockingVec
 	void *m_end;
 };
 
-class SiegeDockingBehavior : public Rva0024A797, public SiegeDockingBehaviorSecondaryBase
+class SiegeDockingBehavior : public UpdateModule, public SiegeDockingBehaviorSecondaryBase
 {
 public:
 	virtual ~SiegeDockingBehavior();

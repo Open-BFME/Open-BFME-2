@@ -15,10 +15,10 @@
 
 extern "C" void free(void *block) throw(...);
 
-class Rva0024A797
+class UpdateModule
 {
 public:
-	virtual ~Rva0024A797();
+	virtual ~UpdateModule();
 
 private:
 	char m_pad04[8];
@@ -68,7 +68,7 @@ struct EmotionTrackerVecHolder
 	void *m_end;
 };
 
-class EmotionTrackerUpdate : public Rva0024A797, public MiBase1, public Rva0024A797_B2, public EmotionTrackerUpdateSecondaryBase
+class EmotionTrackerUpdate : public UpdateModule, public MiBase1, public Rva0024A797_B2, public EmotionTrackerUpdateSecondaryBase
 {
 public:
 	virtual ~EmotionTrackerUpdate();

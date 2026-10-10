@@ -4361,7 +4361,6 @@ name,address,notes
 ??1Rva00404781@@QAE@XZ,0x000B3FD0,empty dtor folded at shared 1B ret proven by vector ctor dtor push at 0056C266
 ??1Rva0040C39E@@QAE@XZ,0x0040C39E,destructor called by the vtable-referenced scalar deleting dtor 0x0040C5DE (REL32 at +4 of its 28B delete-flag wrapper); identity unproven; address-derived name
 ??1Rva0040CB11Entry@@QAE@XZ,0x004F69C3,alias pin: retail REL32 at 0x0040EDE8 (pop_back in 0x0040ED4F) targets the rowed Rva004F69C3 entry dtor; Rva0040ECCF.cpp emits the identical 19B body for this 8-byte entry view
-??1Rva0040E3EE@@UAE@XZ,0x0040E499,twin of Rva0040E499 dtor same vtable 0x00C394F0 same 0x68 temp in 0x003B93BC ctor 0x40E3EE dtor 0x40E499
 ??1Rva0040E499@@UAE@XZ,0x0040E499,opaque dtor called by the scalar deleting dtor at 0x0040E81E (vtable 0x00C394F0#0); identity unproven; address-derived name
 ??1Rva0040EDB@@UAE@XZ,0x0040EDB,opaque frameless dtor (push esi/mov esi,ecx head); called by scalar-deleting-dtors at 0x41184 + thunk 0x411BC; identity unproven, address-derived name
 ??1Rva0040FB4A@@QAE@XZ,0x0040FB4A,destructor called by the vtable-referenced scalar deleting dtor 0x0040FD1C (REL32 at +4 of its 28B delete-flag wrapper); identity unproven; address-derived name
@@ -4995,7 +4994,6 @@ name,address,notes
 ??1U2Vb0084B5F0@@UAE@XZ,0x0001E940,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ??1UDP@@QAE@XZ,0x00594918,"UDP socket destructor (rowed as ??1UDPDrain); address read from the retail REL32 at 0x004D5176 in Transport slot clear 0x004D5133, which deletes the slot socket"
 ??1UnicodeString@@QAE@XZ,0x00036E70,"folded body of BFME2's 5-byte ~UnicodeString tail-jump at 0x5B804E (e9 1d ee a7 ff, jmp 0x36E70) which the ledger rows at 0x5B804E; retail call sites that inline the destructor encode this body directly, measured at GadgetCheckBoxSetText +0x37 where the object reloc names ??1UnicodeString@@QAE@XZ and retail's e8 targets 0x36E70 not the thunk; both candidate addresses resolve to this one body so the add is additive"
-??1UpdateModule@@UAE@XZ,0x0024A797,tail target of rowed BoredUpdate dtor 0x49669A which reinstalls BoredUpdate vptrs before the tail jump so it is the direct UpdateModule base dtor
 ??1UpgradeModuleData@@UAE@XZ,0x00255A42
 ??1UpgradeSoundSelectorClientBehaviorModuleData@@UAE@XZ,0x004CBAEA,dtor called by audited wrapper RVA 0x004CBACE; retail registration UpgradeSoundSelectorClientBehavior -> data factory RVA 0x00252C64 -> ctor RVA 0x004CB9F3; primary vptr store RVA 0x004CB9FF
 ??1Video@@QAE@XZ,0x00689500,native verified vector cleanup calls 0x00689F52; existing 119B element destructor owns +18 and releases strings +8/+4/+0; shared Video layout
@@ -9321,8 +9319,6 @@ name,address,notes
 ?findInstance@Rva0039F761Owner@@QAEPAVTeam@@PAX@Z,0x0039F761,address read from the retail REL32 at 0x00358611 in getTeamNamed 0x003584E9
 ?findMapping@DataChunkTableOfContents@@AAEPAVMapping@@ABVAsciiString@@@Z,0x00307A2C,callee of ?getID@DataChunkTableOfContents@@QAEIABVAsciiString@@@Z at retail 0x00307A53 read from its REL32 displacement; same body as the matched ?rva00307A2C@Rva00307A2C@@QAEPAXABVAsciiString@@@Z
 ?findMessage@NetCommandList@@QAEPAVNetCommandRef@@PAVNetCommandMsg@@@Z,0x0058B4E2,callee of ?addCommand@FrameData@@QAEPAVNetCommandRef@@PAVNetCommandMsg@@@Z at retail 0x005DA5AE read from its REL32 displacement; body unrowed
-?findModule@Object@@IBEPAVModule@@W4NameKeyType@@@Z,0x0028B6D6,address read from the REL32 displacement at a placed body
-?findModule@Object@@QBEPAVModule@@W4NameKeyType@@@Z,0x0028B6D6,callee of ?helper@Rva002EFB20@@YAXPAX_N@Z at retail 0x003BC2BB read from its REL32 displacement; public-spelling view of the matched protected ?findModule@Object@@IBEPAVModule@@W4NameKeyType@@@Z body at this address
 ?findModuleTemplate@ModuleFactory@@IAEPBVModuleTemplate@1@ABVAsciiString@@W4ModuleType@@@Z,0x0025674F,address read from the REL32 displacement at a placed body
 ?findMultiplayerColorDefinitionByName@MultiplayerSettings@@QAEPAVMultiplayerColorDefinition@@VAsciiString@@@Z,0x00380E34,address read from the REL32 displacement at a placed body
 ?findNonConstCommandButton@ControlBar@@IAEPAVCommandButton@@ABVAsciiString@@@Z,0x0031BE07,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
@@ -9626,7 +9622,6 @@ name,address,notes
 ?getPlayerMask@Rva00261409Filter@@UAEHXZ,0x002613E1,"slot 2 of partition filter vftable 0x00C004D8: the +0x08 player's mask from 0x002A7C70 with the +0x10 flags | 1, inverted unless +0x0C"
 ?getPlayerStructureBounds@AIPlayer@@SAXPAURegion2D@@H@Z,0x004F1B8C,"Zero Hour and BFME1 (0x00163C70 there) AIPlayer static: REL32 at 0x004F2213 in AIPlayer::findSupplyCenter 0x004F21D5 with (the bounds local, the enemy player index +0x54) and cdecl cleanup, where the donor calls getPlayerStructureBounds before halving the bounds into the enemy centre"
 ?getPosition@BFMERopeDrawable@@QBEPBUCoord3D@@XZ,0x002763E6,address read from the REL32 displacement at a placed body
-?getPosition@Drawable@@QBEPBUCoord3D@@XZ,0x002763E6,callee of ?initFromDrawables@LaserUpdate@@QAEXPAXPAVDrawable@@10@Z at retail 0x00363853 read from its REL32 displacement; ICF alias onto the matched ?getPosition@BFMERopeDrawable@@QBEPBUCoord3D@@XZ
 ?getPriority@AttackPriorityInfo@@QBEMPBVObject@@0_N@Z,0x00357CDE,"attack-priority lookup returning a Real (thiscall on the AI +0x70 attack info with the hunter, the target and 1): REL32 at 0x0049569D in CommandButtonHuntUpdate::scanClosestTarget 0x00495489 where Zero Hour calls info->getPriority"
 ?getPristineBonePositions@Drawable@@QBEHPBDHPAUCoord3D@@PAVMatrix3D@@HH@Z,0x0027274D,call destination decoded from initializeBonePositions; bounded 123-byte Drawable method reads this+0x14C and consumes the six observed stack arguments
 ?getPtr@Rva00803620Getter@@QAEPAXPAX0@Z,0x00655990
@@ -10547,7 +10542,6 @@ name,address,notes
 ?randnum@@YAJJ@Z,0x006B8950,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
 ?randomValue@@YAIPAI@Z,0x00233EC3,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?randwc@@YAJJ@Z,0x006B89A0,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
-?reactToTurretChange@Object@@QAEXW4WhichTurretType@@MM@Z,0x0028B141,Zero Hour Object::reactToTurretChange(turret / old rotation / old pitch): TurretAI::friend_turnTowardsAngle 0x004D8990 calls it at 0x004D8B14 when the angle changed with (m_whichTurret +0xC / the original angle / m_pitch +0x1C) all pushed as floats after the id
 ?read@DataChunkTableOfContents@@QAEXAAVChunkInputStream@@@Z,0x003071E9,address read from the REL32 displacement at a placed body
 ?read@Rva001F206ESub@@QAEXPAH@Z,0x001F206E,REL32 callee decoded from target call bytes of read-through 0x004C7330; identity unproven
 ?read@Rva0038630BSub@@QAEXPAH@Z,0x0038630B,REL32 callee decoded from target call bytes of read-through 0x005564EB; identity unproven
@@ -10682,7 +10676,6 @@ name,address,notes
 ?reset@ScriptEngine@@UAEXXZ,0x00209ABE,retail REL32 from ~ScriptEngine 0x20A35F; ScriptEngine vtable 0x7E3D70 slot 9 (the virtual init calls last as reset)
 ?reset@Win32Mouse@@UAEXXZ,0x000419F5,target call from W3DMouse::reset at 0x990CF; Ghidra boundary 17B; body invokes Mouse reset then sets Win32Mouse byte +0x4F9C to 1
 ?resetAccepted@GameInfo@@UAEXXZ,0x003FF9B4,virtual name of the rowed ?resetAccepted@GameInfo@@QAEXXZ (slot 14 of the GameInfo vtable 0x00C187C0); REL32 base call from GameSpyStagingRoom::resetAccepted 0x004FDA65 as in Zero Hour
-?resetAll@SubsystemInterfaceList@@QAEXXZ,0x001B4F6D,GameEngine::init 0x0022E2E4 complete 8808B recovery; target from native REL32 at corresponding exact instruction offset; subsystem constructor roles supported by adjacent registration literal and global; address-named types preserve unresolved original identity; see GameEngineInit.cpp and init evidence
 ?resetHpState@Rva007F5D10HostLookup@@QAEXPAVRva008022A0Owner@@@Z,0x0066D830
 ?resetKeys@Keyboard@@QAEXXZ,0x00232BDD,address read from the REL32 in WndProc's WM_SETFOCUS/WM_KILLFOCUS arms at 0x00001862
 ?resetPlayerTimeouts@DisconnectManager@@IAEXPAVConnectionManager@@@Z,0x004D3D2B,address read from the REL32 displacement at a placed body

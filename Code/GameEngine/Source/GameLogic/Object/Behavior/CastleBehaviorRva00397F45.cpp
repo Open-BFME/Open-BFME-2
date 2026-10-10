@@ -37,11 +37,15 @@ struct ChainValue
 	unsigned char m_flags11A;
 };
 
+void *__cdecl rva00397FEB(void *context, unsigned int id, void *target, int mode);
+
 class Object
 {
+	friend void *__cdecl rva00397FEB(void *context, unsigned int id, void *target, int mode);
+protected:
+	Module *findModule(NameKeyType) const;
 public:
 	Player *getControllingPlayer() const;
-	Module *findModule(NameKeyType) const;
 	void *rva0028BCF4() const;
 	void *m_pad00;
 	ChainValue *m_chain;

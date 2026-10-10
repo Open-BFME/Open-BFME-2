@@ -10,7 +10,7 @@
 // Opaque MI base dtor tail-called by the three rowed 32-byte derived dtors in
 // Rva0058A0F4Derived.cpp. Body: compiler vptr restores (+0 +0x0C +0x10
 // +0x20), inline frees of three POD vector buffers at +0x6C, +0x60, +0x54
-// (0x00030830), then ~Rva0024A797 0x0024A797. Base view as in
+// (0x00030830), then ~UpdateModule 0x0024A797. Base view as in
 // SpecialAbilityUpdateDtor.cpp; element types and owner unrecovered.
 #include <vector>
 
@@ -44,10 +44,10 @@ private:
 	char m_pad08[12];
 };
 
-class Rva0024A797 : public PrimaryP58A0F4, public Rva0024A797_B2
+class UpdateModule : public PrimaryP58A0F4, public Rva0024A797_B2
 {
 public:
-	virtual ~Rva0024A797();
+	virtual ~UpdateModule();
 };
 
 class Rva0058A0F4_B20
@@ -56,7 +56,7 @@ public:
 	virtual void f20();
 };
 
-class DockUpdate : public Rva0024A797, public Rva0058A0F4_B20
+class DockUpdate : public UpdateModule, public Rva0058A0F4_B20
 {
 public:
 	virtual ~DockUpdate();

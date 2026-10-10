@@ -131,6 +131,8 @@ public:
 	const ThingTemplate *getTemplate() const { return m_template; }
 	void *getAIUpdateInterface() const { return m_ai; }
 	const AsciiString *rva00290E67() const;
+protected:
+	friend class ScriptActions;
 	Module *findModule(NameKeyType key) const;	// 0x0028B6D6
 private:
 	unsigned char m_pad070[0x258 - 0x70];

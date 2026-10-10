@@ -37,10 +37,10 @@ private:
 	char m_pad04[12];
 };
 
-class Rva0024A797 : public PrimaryP004978A3, public Rva0024A797_B2004978A3
+class UpdateModule : public PrimaryP004978A3, public Rva0024A797_B2004978A3
 {
 public:
-	virtual ~Rva0024A797();
+	virtual ~UpdateModule();
 };
 
 class __declspec(novtable) SecondBase004978A3
@@ -86,7 +86,7 @@ public:
 
 #define TheGlobalMgr004978A3 (*(GlobalMgr004978A3 **)&TheAudio)
 
-class Rva004978A3 : public Rva0024A797, public SecondBase004978A3
+class Rva004978A3 : public UpdateModule, public SecondBase004978A3
 {
 public:
 	virtual ~Rva004978A3();

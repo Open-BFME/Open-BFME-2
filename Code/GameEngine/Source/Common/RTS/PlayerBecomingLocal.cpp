@@ -31,7 +31,8 @@ struct ThingTemplate {unsigned char pad[0x113];unsigned char kind;};
 class ContainLocalView:public PlayerLocalSlots<20>{public:virtual void recalcApparent()=0;};
 class Rva00373EC6 {public:unsigned char pad[0x38];int playerIndex;unsigned disguise;};
 class Object:public Thing {
-public:bool isKindOf(KindOfType)const;Module *findModule(NameKeyType)const;Rva00373EC6 *rva0028F4BC();int getIndicatorColor()const;int getNightIndicatorColor()const;
+friend class Player;protected:Module *findModule(NameKeyType)const;
+public:bool isKindOf(KindOfType)const;Rva00373EC6 *rva0028F4BC();int getIndicatorColor()const;int getNightIndicatorColor()const;
  unsigned vptr;ThingTemplate *tmplate;unsigned char pad8[0x250-8];ContainLocalView *contain;unsigned char pad254[0x304-0x254];Team *team;
 };
 class PlayerList {public:Player *getNthPlayer(int);};

@@ -9,10 +9,10 @@
 // MI fix: three vptrs are implicit via two empty polymorphic bases, moving and-ebp-4-0 late after load.
 extern "C" void __cdecl free(void *block);
 
-class Rva0024A797
+class UpdateModule
 {
 public:
-	virtual ~Rva0024A797();
+	virtual ~UpdateModule();
 protected:
 	char m_pad[8];
 };
@@ -29,7 +29,7 @@ public:
 	virtual void f2() = 0;
 };
 
-class Rva003908C2 : public Rva0024A797, public MiBase1, public MiBase2
+class Rva003908C2 : public UpdateModule, public MiBase1, public MiBase2
 {
 public:
 	virtual ~Rva003908C2();

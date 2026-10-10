@@ -196,7 +196,10 @@ public:
 	Bool isDisabledByType(DisabledType type) const { return (m_disabledMask & (1U << type)) != 0; }
 	Weapon *getCurrentWeapon(WeaponSlotType *wslot = 0);
 	Bool testStatus(ObjectStatusTypes bit) const;
+protected:
+	friend class AIIdleState;
 	Module *findModule(NameKeyType key) const;
+public:
 	Real getVisionRange() const;
 	int rva0028B511() const;
 	void rva0028ACEE(const Coord3D *pos, int layer);

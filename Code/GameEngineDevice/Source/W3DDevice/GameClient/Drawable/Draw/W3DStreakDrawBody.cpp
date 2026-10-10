@@ -31,16 +31,13 @@ struct Rva00167EF8Rec
 	float z;
 };
 
-class BFMERopeDrawable
-{
-public:
-	const Coord3D *getPosition() const;
-};
 
 class Drawable
 {
 public:
 	float rva00272C9E(int key);
+public:
+	const Coord3D *getPosition() const;
 };
 
 class SidesList
@@ -97,7 +94,7 @@ public:
 private:
 	void *m_vtable;
 	const W3DStreakDrawModuleData *m_moduleData;
-	BFMERopeDrawable *m_drawable;
+	Drawable *m_drawable;
 	void *m_streak;
 };
 

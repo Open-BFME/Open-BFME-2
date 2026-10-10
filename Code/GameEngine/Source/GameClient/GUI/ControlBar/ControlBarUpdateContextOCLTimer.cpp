@@ -39,7 +39,8 @@ public:
 
 class Object
 {
-public:
+	friend class ControlBar;
+protected:
 	Module *findModule(NameKeyType key) const;
 };
 

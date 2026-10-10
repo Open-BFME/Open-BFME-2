@@ -34,7 +34,7 @@ struct BfmePod16 { int a[4]; };
 struct BfmeE16 { float x, y, z, w; };
 
 
-class BFMERopeDrawable
+class Drawable
 {
 public:
 	const Coord3D *getPosition() const;
@@ -93,7 +93,7 @@ class DrawableModule
 protected:
 	virtual ~DrawableModule();
 	void *m_moduleData;
-	BFMERopeDrawable *m_drawable;
+	Drawable *m_drawable;
 };
 
 class DrawModule : public DrawableModule

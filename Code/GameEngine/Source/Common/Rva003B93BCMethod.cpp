@@ -24,11 +24,11 @@ struct BfmePod104
 	int a[26];
 };
 
-class Rva0040E3EE
+class ArmySummary
 {
 public:
-	Rva0040E3EE();
-	virtual ~Rva0040E3EE();
+	ArmySummary();
+	virtual ~ArmySummary();
 private:
 	char m_pad[0x64];
 };
@@ -44,6 +44,6 @@ private:
 
 BfmePod104 *Rva003B93BC::rva003B93BC()
 {
-	m_20.push_back(*(const BfmePod104 *)&Rva0040E3EE());
+	m_20.push_back(*(const BfmePod104 *)&ArmySummary());
 	return &m_20.back();
 }

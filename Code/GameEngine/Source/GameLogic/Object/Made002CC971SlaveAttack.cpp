@@ -65,7 +65,8 @@ public:
 
 class Object
 {
-public:
+	friend class Made002CC971;
+protected:
 	class Module *findModule(NameKeyType key) const;
 public:
 	char m_pad258[0x258];

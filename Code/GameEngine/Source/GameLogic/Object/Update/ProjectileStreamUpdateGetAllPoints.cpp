@@ -35,9 +35,9 @@ public:
 	float X, Y, Z;
 };
 
-// Drawable::getPosition (0x002763E6) is rowed as BFMERopeDrawable::getPosition.
+// Drawable::getPosition (0x002763E6) is rowed as Drawable::getPosition.
 class Drawable;
-class BFMERopeDrawable
+class Drawable
 {
 public:
 	const Coord3D *getPosition() const;
@@ -90,7 +90,7 @@ void ProjectileStreamUpdate::getAllPoints( Vector3 *points, Int *count )
 			Drawable *draw = projectile->getDrawable();
 			if( draw )
 			{
-				const Coord3D *pos = ((const BFMERopeDrawable *)draw)->getPosition();
+				const Coord3D *pos = ((const Drawable *)draw)->getPosition();
 				x = pos->x;
 				y = pos->y;
 				z = pos->z;

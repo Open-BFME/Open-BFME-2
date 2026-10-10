@@ -290,29 +290,29 @@ public:
 // verified XferScienceTypeVector.cpp family, originally transferred from
 // BFME1; retail proves the 104-byte stride, Xfer slots, exception text,
 // constructor 40E3EE, destructor 40E499, reserve 3F5192 and push 3B9369.
-// Rva0040E3EE is the existing constructor owner; its application name is
-// unresolved. The two vector casts reuse the existing reserve/push owners
+// The element is ArmySummary: constructor 0x0040E3EE stores vtable
+// 0x00C394F0 whose slot 0 is the rowed ??1ArmySummary (0x0040E499). The two vector casts reuse the existing reserve/push owners
 // over their proven three-pointer container and 104-byte record layouts.
-class Rva0040E3EE { public: Rva0040E3EE();virtual ~Rva0040E3EE();char pad[100]; };
+class ArmySummary { public: ArmySummary();virtual ~ArmySummary();char pad[100]; };
 struct BfmeAssignRecord104 { int data[26]; };
 struct BfmePod104 { int data[26]; };
 namespace _STL {
  template<> void vector<BfmeAssignRecord104,allocator<BfmeAssignRecord104> >::reserve(unsigned int);
  template<> void vector<BfmePod104,allocator<BfmePod104> >::push_back(const BfmePod104&);
 }
-Xfer *Rva003F5729Xfer(Xfer*xfer, std::vector<Rva0040E3EE>*vec)
+Xfer *Rva003F5729Xfer(Xfer*xfer, std::vector<ArmySummary>*vec)
 {
  XferVersion version;version.m_version=1;version.m_currentVersion=1;
  xfer->xferVersion(version);
  UnsignedInt count=(UnsignedInt)vec->size();
  xfer->xferTypeName("std::vector").xferUnsignedInt(count);
  if(xfer->isSaving()) {
-  Rva0040E3EE*end=vec->end();Rva0040E3EE*cur=vec->begin();
+  ArmySummary*end=vec->end();ArmySummary*cur=vec->begin();
   while(cur!=end){xfer->xferSnapshot(cur);++cur;}
  }else{
   if(!vec->empty())throw XferException(4,"Vector must be empty on load");
   ((_STL::vector<BfmeAssignRecord104>*)vec)->reserve(count);
-  Rva0040E3EE value;
+  ArmySummary value;
   while(count--){
    ((_STL::vector<BfmePod104>*)vec)->push_back(*(BfmePod104*)&value);
    xfer->xferSnapshot(&vec->back());

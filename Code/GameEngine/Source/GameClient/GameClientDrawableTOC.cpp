@@ -204,6 +204,8 @@ public:
 	// The frustum plane (1-4) that last culled this drawable, 0 when it
 	// passed: written by GameClient slot 26 (0x002391AA), read by slot 27.
 	int m_cullPlane;                                                     // +0x35C
+public:
+	const Coord3D *getPosition() const;
 };
 
 // ZH DrawableID.
@@ -1918,7 +1920,6 @@ void GameClient::rva002391AA(const FrustumClass *frustum, float radiusPad, GameC
 // 0x002763E6 spline-interpolates the position between +0x40C and +0x430 and
 // is the getPosition ZH's iterateDrawablesInRegion calls. 0x0027930F is ZH
 // Drawable::setTimeOfDay (MODELCONDITION_NIGHT set for TIME_OF_DAY_NIGHT).
-class BFMERopeDrawable { public: const Coord3D *getPosition() const; };
 class Rva0027930FHost { public: void rva0027930F(int v); };
 
 // Donor: ZH GameClient::iterateDrawablesInRegion and setTimeOfDay, same
@@ -1931,7 +1932,7 @@ void GameClient::iterateDrawablesInRegion(Region3D *region, GameClientFuncPtr us
 	{
 		nextDrawable = draw->getNextDrawable();
 
-		const Coord3D *pos = ((BFMERopeDrawable *)draw)->getPosition();
+		const Coord3D *pos = ((Drawable *)draw)->getPosition();
 		float x = pos->x;
 		float y = pos->y;
 		float z = pos->z;

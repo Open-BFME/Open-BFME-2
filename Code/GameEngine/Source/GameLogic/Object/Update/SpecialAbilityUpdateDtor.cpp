@@ -7,7 +7,7 @@
 // dtors (MissileLauncherBuildingUpdate 0x004CD9C0 and others) call it at the
 // base position. Body: compiler vptr restores (+0 +0x0C +0x10 +0x20), a
 // thiscall (1, 1) to 0x004502CE, destruction of the list<int> at +0x64
-// (0x004EC395), then the base dtor 0x0024A797 (Rva0024A797).
+// (0x004EC395), then the base dtor 0x0024A797 (UpdateModule).
 // Donor-carried: the BFME1 SpecialAbilityUpdateDestructor.cpp body
 // `onExit(true, true)` supplies the callee name; the BFME1 layout (inline
 // UpdateModule, AudioEventRTS member) does not apply here.
@@ -45,10 +45,10 @@ private:
 	char m_pad08[12];
 };
 
-class Rva0024A797 : public PrimaryP451F45, public Rva0024A797_B2
+class UpdateModule : public PrimaryP451F45, public Rva0024A797_B2
 {
 public:
-	virtual ~Rva0024A797();
+	virtual ~UpdateModule();
 };
 
 class SpecialAbilityUpdateInterface
@@ -57,7 +57,7 @@ public:
 	virtual void slot();
 };
 
-class SpecialAbilityUpdate : public Rva0024A797, public SpecialAbilityUpdateInterface
+class SpecialAbilityUpdate : public UpdateModule, public SpecialAbilityUpdateInterface
 {
 public:
 	virtual ~SpecialAbilityUpdate();

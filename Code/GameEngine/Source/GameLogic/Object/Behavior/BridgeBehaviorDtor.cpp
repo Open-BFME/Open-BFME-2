@@ -23,10 +23,10 @@ public:
 
 extern GameLogic *TheGameLogic;
 
-class Rva0024A797
+class UpdateModule
 {
 public:
-	virtual ~Rva0024A797();
+	virtual ~UpdateModule();
 private:
 	char m_pad04[8];
 };
@@ -89,7 +89,7 @@ private:
 	void *m_ptr;
 };
 
-class BridgeBehavior : public Rva0024A797, public MiBase1, public UpdateModuleInterfaceData,
+class BridgeBehavior : public UpdateModule, public MiBase1, public UpdateModuleInterfaceData,
 	public BridgeBehaviorInterface, public DamageModuleInterface, public DieModuleInterface
 {
 public:

@@ -8,7 +8,7 @@
 // position into decal+8 and sets +0x64/opacity. Evidence: rowed Shadow::ShadowTypeInfo
 // ctor 0x00079514 plus StringBase set 0x000366F0 plus dtor 0x000793FA, manager
 // at 0x009EC2D4 slot 8, float 2.0f at 0x007C28F4, pins for SetTexture 0x330995
-// plus BFMERopeDrawable::getPosition 0x2763E6, rowed Shadow::setOpacity
+// plus Drawable::getPosition 0x2763E6, rowed Shadow::setOpacity
 // 0x3308F6, caller 0x004E6739, neighbours in same Bfme dir.
 #include "ascii_string.h"
 #include "unicode_string.h"
@@ -63,7 +63,7 @@ struct Rva004E65CFFloatSrc
  bool m_flag14;
 };
 
-class BFMERopeDrawable
+class Drawable
 {
 public:
 	const Coord3D *getPosition() const;
@@ -137,7 +137,7 @@ class PlaceTerrainResourceClaimantFeedback::Impl
 {
 	void *m_00;
 	Rva004E65CFParams *m_04;
-	BFMERopeDrawable *m_08;
+	Drawable *m_08;
 	Rva004E65CFFloatSrc *m_0C;
 	FeedbackDisplayString *m_10;
 	ICoord2D m_position;

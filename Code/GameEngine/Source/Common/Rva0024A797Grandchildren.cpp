@@ -1,7 +1,7 @@
 // cl: /MD
 //
-// Opaque multiple-inheritance destructors tail-calling Rva0024A797::~
-// Rva0024A797 at 0x0024A797 (pinned opaque MI base dtor: 3 vptrs tail-jump
+// Opaque multiple-inheritance destructors tail-calling UpdateModule::~
+// UpdateModule at 0x0024A797 (pinned opaque MI base dtor: 3 vptrs tail-jump
 // the 0x49B47C fold; identity unproven). The middle is modelled here with
 // its full three-vptr shape (root plus two secondaries) plus 12 bytes of
 // opaque data so the layout reaches +0x20: every body below adds at least
@@ -38,10 +38,10 @@ private:
 	char m_pad08[12];
 };
 
-class Rva0024A797 : public Rva0024A797_Root, public Rva0024A797_Mid, public Rva0024A797_B2
+class UpdateModule : public Rva0024A797_Root, public Rva0024A797_Mid, public Rva0024A797_B2
 {
 public:
-	virtual ~Rva0024A797();
+	virtual ~UpdateModule();
 };
 
 class Rva00452D52_E1
@@ -50,7 +50,7 @@ public:
 	virtual void fe();
 };
 
-class Rva00452D52 : public Rva0024A797, public Rva00452D52_E1
+class Rva00452D52 : public UpdateModule, public Rva00452D52_E1
 {
 public:
 	virtual ~Rva00452D52();
@@ -66,7 +66,7 @@ public:
 	virtual void fe();
 };
 
-class Rva00455050 : public Rva0024A797, public Rva00455050_E1
+class Rva00455050 : public UpdateModule, public Rva00455050_E1
 {
 public:
 	virtual ~Rva00455050();
@@ -82,7 +82,7 @@ public:
 	virtual void fe();
 };
 
-class Rva00458402 : public Rva0024A797, public Rva00458402_E1
+class Rva00458402 : public UpdateModule, public Rva00458402_E1
 {
 public:
 	virtual ~Rva00458402();
@@ -98,7 +98,7 @@ public:
 	virtual void fe();
 };
 
-class Rva00459553 : public Rva0024A797, public Rva00459553_E1
+class Rva00459553 : public UpdateModule, public Rva00459553_E1
 {
 public:
 	virtual ~Rva00459553();
@@ -114,7 +114,7 @@ public:
 	virtual void fe();
 };
 
-class Rva0047FE25 : public Rva0024A797, public Rva0047FE25_E1
+class Rva0047FE25 : public UpdateModule, public Rva0047FE25_E1
 {
 public:
 	virtual ~Rva0047FE25();
@@ -130,7 +130,7 @@ public:
 	virtual void fe();
 };
 
-class Rva0048180C : public Rva0024A797, public Rva0048180C_E1
+class Rva0048180C : public UpdateModule, public Rva0048180C_E1
 {
 public:
 	virtual ~Rva0048180C();
@@ -146,7 +146,7 @@ public:
 	virtual void fe();
 };
 
-class Rva004839D3 : public Rva0024A797, public Rva004839D3_E1
+class Rva004839D3 : public UpdateModule, public Rva004839D3_E1
 {
 public:
 	virtual ~Rva004839D3();
@@ -162,7 +162,7 @@ public:
 	virtual void fe();
 };
 
-class Rva00487F3A : public Rva0024A797, public Rva00487F3A_E1
+class Rva00487F3A : public UpdateModule, public Rva00487F3A_E1
 {
 public:
 	virtual ~Rva00487F3A();
@@ -178,7 +178,7 @@ public:
 	virtual void fe();
 };
 
-class Rva0048FFB4 : public Rva0024A797, public Rva0048FFB4_E1
+class Rva0048FFB4 : public UpdateModule, public Rva0048FFB4_E1
 {
 public:
 	virtual ~Rva0048FFB4();
@@ -194,7 +194,7 @@ public:
 	virtual void fe();
 };
 
-class Rva00499934 : public Rva0024A797, public Rva00499934_E1
+class Rva00499934 : public UpdateModule, public Rva00499934_E1
 {
 public:
 	virtual ~Rva00499934();
@@ -210,7 +210,7 @@ public:
 	virtual void fe();
 };
 
-class Rva0049BFB7 : public Rva0024A797, public Rva0049BFB7_E1
+class Rva0049BFB7 : public UpdateModule, public Rva0049BFB7_E1
 {
 public:
 	virtual ~Rva0049BFB7();
@@ -226,7 +226,7 @@ public:
 	virtual void fe();
 };
 
-class Rva004A1855 : public Rva0024A797, public Rva004A1855_E1
+class Rva004A1855 : public UpdateModule, public Rva004A1855_E1
 {
 public:
 	virtual ~Rva004A1855();
@@ -242,7 +242,7 @@ public:
 	virtual void fe();
 };
 
-class Rva004A4214 : public Rva0024A797, public Rva004A4214_E1
+class Rva004A4214 : public UpdateModule, public Rva004A4214_E1
 {
 public:
 	virtual ~Rva004A4214();
@@ -258,7 +258,7 @@ public:
 	virtual void fe();
 };
 
-class Rva004A4C19 : public Rva0024A797, public Rva004A4C19_E1
+class Rva004A4C19 : public UpdateModule, public Rva004A4C19_E1
 {
 public:
 	virtual ~Rva004A4C19();
@@ -274,7 +274,7 @@ public:
 	virtual void fe();
 };
 
-class Rva004A54A8 : public Rva0024A797, public Rva004A54A8_E1
+class Rva004A54A8 : public UpdateModule, public Rva004A54A8_E1
 {
 public:
 	virtual ~Rva004A54A8();
@@ -290,7 +290,7 @@ public:
 	virtual void fe();
 };
 
-class Rva004A653D : public Rva0024A797, public Rva004A653D_E1
+class Rva004A653D : public UpdateModule, public Rva004A653D_E1
 {
 public:
 	virtual ~Rva004A653D();
@@ -306,7 +306,7 @@ public:
 	virtual void fe();
 };
 
-class Rva004A8091 : public Rva0024A797, public Rva004A8091_E1
+class Rva004A8091 : public UpdateModule, public Rva004A8091_E1
 {
 public:
 	virtual ~Rva004A8091();
@@ -322,7 +322,7 @@ public:
 	virtual void fe();
 };
 
-class Rva004B8732 : public Rva0024A797, public Rva004B8732_E1
+class Rva004B8732 : public UpdateModule, public Rva004B8732_E1
 {
 public:
 	virtual ~Rva004B8732();
@@ -344,7 +344,7 @@ public:
 	virtual void ff();
 };
 
-class Rva0045D39E : public Rva0024A797, public Rva0045D39E_E1, public Rva0045D39E_E2
+class Rva0045D39E : public UpdateModule, public Rva0045D39E_E1, public Rva0045D39E_E2
 {
 public:
 	virtual ~Rva0045D39E();
@@ -366,7 +366,7 @@ public:
 	virtual void ff();
 };
 
-class Rva004AB246 : public Rva0024A797, public Rva004AB246_E1, public Rva004AB246_E2
+class Rva004AB246 : public UpdateModule, public Rva004AB246_E1, public Rva004AB246_E2
 {
 public:
 	virtual ~Rva004AB246();
@@ -391,7 +391,7 @@ public:
 	virtual void ff();
 };
 
-class Rva0045232D : public Rva0024A797, public Rva0045232D_E1, public Rva0045232D_E2
+class Rva0045232D : public UpdateModule, public Rva0045232D_E1, public Rva0045232D_E2
 {
 public:
 	virtual ~Rva0045232D();

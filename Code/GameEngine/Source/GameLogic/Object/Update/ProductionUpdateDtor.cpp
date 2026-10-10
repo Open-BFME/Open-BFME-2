@@ -36,10 +36,10 @@ public:
 	int m_pad2[3];
 };
 
-class Rva0024A797 : public PrimaryP, public Rva0024A797_B2
+class UpdateModule : public PrimaryP, public Rva0024A797_B2
 {
 public:
-	virtual ~Rva0024A797();
+	virtual ~UpdateModule();
 };
 
 class Iface20
@@ -80,7 +80,7 @@ public:
 
 extern AudioManager *TheAudio;
 
-class ProductionUpdate : public Rva0024A797, public Iface20, public Iface24
+class ProductionUpdate : public UpdateModule, public Iface20, public Iface24
 {
 public:
 	virtual ~ProductionUpdate();

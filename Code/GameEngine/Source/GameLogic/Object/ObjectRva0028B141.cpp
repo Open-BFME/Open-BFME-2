@@ -1,5 +1,9 @@
 // cl: /DNDEBUG /MD /EHsc
-// ?rva0028B141@Object@@QAEXW4WhichTurretType@@MH@Z @0x0028B141 82B: Object
+// ?reactToTurretChange@Object@@QAEXW4WhichTurretType@@MM@Z @0x0028B141 82B
+// (was ?rva0028B141@Object@@QAEXW4WhichTurretType@@MH@Z). Zero Hour
+// Object::reactToTurretChange(turret old rotation old pitch): TurretAI
+// turn-towards (0x004D8B14) calls it when the angle changed. The pitch
+// argument is unused here so its Real type follows Zero Hour. Object
 // turret query over AI at +0x258 and face at +0x250. Zeroes two floats,
 // fills them via rowed AIUpdateInterface::getTurretRotAndPitch, compares the
 // first to the float arg, and when different calls slot3 (+0x0C) on +0x250.
@@ -34,18 +38,18 @@ class Object
 	AIUpdateInterface *m_ai258;
 
 public:
-	void rva0028B141(WhichTurretType tur, float thresh, int unused);
+	void reactToTurretChange(WhichTurretType turret, float oldRotation, float oldPitch);
 };
 
-void Object::rva0028B141(WhichTurretType tur, float thresh, int unused)
+void Object::reactToTurretChange(WhichTurretType turret, float oldRotation, float oldPitch)
 {
-	(void)unused;
+	(void)oldPitch;
 	float angle = 0.0f;
 	float pitch = 0.0f;
 	AIUpdateInterface *ai = m_ai258;
 	if (ai != 0)
-		ai->getTurretRotAndPitch(tur, &angle, &pitch);
-	if (angle != thresh)
+		ai->getTurretRotAndPitch(turret, &angle, &pitch);
+	if (angle != oldRotation)
 	{
 		Rva0028B141Face *face = m_face250;
 		if (face != 0)

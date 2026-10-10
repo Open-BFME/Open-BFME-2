@@ -39,14 +39,14 @@ public:
 	virtual void update() = 0;
 };
 
-class Rva0024A797 : public BehaviorModule, public UpdateModuleInterface
+class UpdateModule : public BehaviorModule, public UpdateModuleInterface
 {
 	unsigned m_nextCallFrameAndPhase;
 	int m_indexInLogic;
 	int m_bfmeReserved;
 
 public:
-	virtual ~Rva0024A797();
+	virtual ~UpdateModule();
 };
 
 #include "ascii_string.h"
@@ -57,7 +57,7 @@ struct Rva0045A6D3Arg
 	AsciiString m_10;
 };
 
-class AutoAbilityBehavior : public Rva0024A797
+class AutoAbilityBehavior : public UpdateModule
 {
 public:
 	virtual ~AutoAbilityBehavior();

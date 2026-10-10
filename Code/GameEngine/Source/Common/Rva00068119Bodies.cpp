@@ -32,8 +32,10 @@ struct Coord3D
 	float z;
 };
 
-struct GeometryInfo
+// GeometryInfo is a class: the rowed callee 0x000EF154 spells ABVGeometryInfo.
+class GeometryInfo
 {
+public:
 	unsigned char m_opaque[0x1C];
 };
 

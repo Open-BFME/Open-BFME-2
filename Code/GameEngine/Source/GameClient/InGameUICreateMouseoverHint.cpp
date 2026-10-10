@@ -265,7 +265,10 @@ class Object { public:
  Player* getControllingPlayer() const;
  int getIndicatorColor() const;
  bool isLocallyControlled() const;
+protected:
+ friend class InGameUI;
  Module* findModule(NameKeyType) const;
+public:
  Rva00373EC6* rva0028F4BC();
  void* getDisplayName();
  bool rva0029137E(AsciiString&);

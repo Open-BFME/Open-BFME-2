@@ -70,9 +70,11 @@ private:
 
 class Object
 {
+	friend class ScriptActions;
+protected:
+	Module *findModule(NameKeyType key) const;
 public:
 	Player *getControllingPlayer() const;
-	Module *findModule(NameKeyType key) const;
 	const Coord3D *getPosition() const { return &m_pos; }
 private:
 	unsigned char m_pad[0x38];

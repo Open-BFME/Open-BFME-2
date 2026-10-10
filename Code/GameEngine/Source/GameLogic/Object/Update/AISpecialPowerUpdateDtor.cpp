@@ -36,10 +36,10 @@ class UpdateModuleInterface
 public:
 	virtual void update();
 };
-class Rva0024A797 : public BehaviorModule, public UpdateModuleInterface
+class UpdateModule : public BehaviorModule, public UpdateModuleInterface
 {
 public:
-	virtual ~Rva0024A797();
+	virtual ~UpdateModule();
 protected:
 	unsigned m_nextCallFrameAndPhase;
 	int m_indexInLogic;
@@ -50,7 +50,7 @@ class AISpecialPowerUpdatePointee
 public:
 	virtual void *pointeeSlot0(int x);
 };
-class AISpecialPowerUpdate : public Rva0024A797
+class AISpecialPowerUpdate : public UpdateModule
 {
 public:
 	virtual ~AISpecialPowerUpdate();

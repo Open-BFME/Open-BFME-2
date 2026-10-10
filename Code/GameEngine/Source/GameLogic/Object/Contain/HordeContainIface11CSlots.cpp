@@ -525,7 +525,10 @@ public:
 	bool rva0028C264(int *out, int a2);
 	Player *getControllingPlayer() const;
 	float getVisionRange() const;
+protected:
+	friend class HordeContain;
 	Module *findModule(NameKeyType key) const;
+public:
 	bool addAttributeModifierToPool(const AsciiString &name, int a2);
 	void rva0029041B(Player *player);
 	bool isLocallyControlled() const;

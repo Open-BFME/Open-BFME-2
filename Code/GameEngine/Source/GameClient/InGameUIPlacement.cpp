@@ -39,14 +39,11 @@ public:
 private:
 	char m_unknown00[0x44];
 	float m_cachedAngle;							// +0x44
-};
-
-// The ledger's name for Drawable's interpolated position getter 0x002763E6.
-class BFMERopeDrawable
-{
 public:
 	const Coord3D *getPosition() const;
 };
+
+// The ledger's name for Drawable's interpolated position getter 0x002763E6.
 
 class View
 {
@@ -120,7 +117,7 @@ void InGameUI::getPlacementPoints( ICoord2D *start, ICoord2D *end )
 	{
 		if( m_pendingPlaceType->hasPlacementProjection() && m_placeIcon[ 0 ] )
 		{
-			TheTacticalView->worldToScreen( reinterpret_cast<BFMERopeDrawable *>( m_placeIcon[ 0 ] )->getPosition(), start );
+			TheTacticalView->worldToScreen( reinterpret_cast<Drawable *>( m_placeIcon[ 0 ] )->getPosition(), start );
 		}
 		else
 			*start = m_placeAnchorStart;

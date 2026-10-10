@@ -12,7 +12,7 @@
 // has a source with an FXList at +0xB8, play it through the matched static
 // FXList::doFXPos at the Drawable position with its transform and the source
 // +0x68 speed. The Drawable position getter 0x002763E6 is pinned as
-// BFMERopeDrawable::getPosition, hence the cast of the Object's Drawable.
+// Drawable::getPosition, hence the cast of the Object's Drawable.
 // Condition word array at Object+0x10C with masked-word accessors.
 
 struct Coord3D;
@@ -21,13 +21,10 @@ class Drawable
 {
 public:
 	const Matrix3D *getTransformMatrix() const;
-};
-// 0x002763E6 is pinned under this name; it is called on the Object's Drawable.
-class BFMERopeDrawable
-{
 public:
 	const Coord3D *getPosition() const;
 };
+// 0x002763E6 is pinned under this name; it is called on the Object's Drawable.
 class FXList
 {
 public:
@@ -166,10 +163,10 @@ void WeaponFireSpecialAbilityUpdate::startUnpacking()
 		{
 			float speed = m_88->m_04->m_68;
 			FXList::doFXPos(fx,
-				((const BFMERopeDrawable *)object->getDrawable())->getPosition(),
+				((const Drawable *)object->getDrawable())->getPosition(),
 				object->getDrawable()->getTransformMatrix(),
 				speed,
-				((const BFMERopeDrawable *)object->getDrawable())->getPosition());
+				((const Drawable *)object->getDrawable())->getPosition());
 		}
 	}
 }

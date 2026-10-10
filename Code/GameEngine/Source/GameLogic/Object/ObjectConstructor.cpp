@@ -304,9 +304,9 @@ public:
 
 protected:
 	void setID(ObjectID id);
+	Module *findModule(NameKeyType key) const;
 public:
 	void setTeam(Team *team);
-	Module *findModule(NameKeyType key) const;
 	void *rva0028BD92(int kind);
 	void rva0028DCC4();
 

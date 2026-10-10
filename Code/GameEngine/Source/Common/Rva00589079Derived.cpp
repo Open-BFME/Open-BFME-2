@@ -7,10 +7,13 @@
 // zero. Identity unproven (opaque Rva name); the shape (vptr stores plus a
 // tail-jump into a rowed/pinned MI dtor) is the dtor evidence.
 
-class Rva0024A797
+class Xfer;
+
+class UpdateModule
 {
 public:
-	virtual ~Rva0024A797();
+	virtual ~UpdateModule();
+	void xfer(Xfer *xfer);
 
 private:
 	char m_pad04[8];
@@ -43,7 +46,7 @@ public:
 	virtual void f4();
 };
 
-class Rva00589079 : public Rva0024A797, public Rva00589079_S1, public Rva00589079_S2, public Rva00589079_S3, public Rva00589079_S4
+class Rva00589079 : public UpdateModule, public Rva00589079_S1, public Rva00589079_S2, public Rva00589079_S3, public Rva00589079_S4
 {
 public:
 	virtual ~Rva00589079()
@@ -85,7 +88,7 @@ public:
 	virtual void f4();
 };
 
-class Rva00481F82 : public Rva0024A797, public Rva00481F82_S1, public Rva00481F82_S2, public Rva00481F82_S3, public Rva00481F82_S4
+class Rva00481F82 : public UpdateModule, public Rva00481F82_S1, public Rva00481F82_S2, public Rva00481F82_S3, public Rva00481F82_S4
 {
 public:
 	virtual ~Rva00481F82()
@@ -230,12 +233,6 @@ public:
 	void xfer(Xfer *xfer);
 };
 
-class UpdateModule : public BehaviorModule
-{
-public:
-	UpdateModule(Thing *thing, const ModuleData *moduleData);
-	void xfer(Xfer *xfer);
-};
 
 class Rva00482E96;
 
@@ -252,7 +249,7 @@ public:
 	virtual void xfer(Xfer *xfer);
 };
 
-class Rva00482E96 : public Rva0024A797, public Rva00482E96_S1, public Rva00482E96_S2, public Rva00482E96_S3, public Rva00482E96_S4
+class Rva00482E96 : public UpdateModule, public Rva00482E96_S1, public Rva00482E96_S2, public Rva00482E96_S3, public Rva00482E96_S4
 {
 public:
 	virtual ~Rva00482E96()

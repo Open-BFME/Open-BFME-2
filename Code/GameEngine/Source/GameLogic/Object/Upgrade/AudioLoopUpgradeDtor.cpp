@@ -5,7 +5,7 @@
 // +0x0C 0xC496F8, +0x10 0xC58CB8, +0x20 0xC58C70, +0x28 0xC58C68, DIR32),
 // stops the loop sound through TheAudio (data 0x009FE6E8) at AudioManager
 // slot 0x6c (removeAudioEvent) with the +0x2c handle when present (state 0),
-// then calls the primary base dtor (rowed ??1Rva0024A797@@UAE@XZ at
+// then calls the primary base dtor (rowed ??1UpdateModule@@UAE@XZ at
 // 0x0024A797, state -1). Layout from the rowed ctor 0x004B7CBC (size 0x30
 // via factory, m_x2c/audio handle at +0x2c) and the UpdateModule/STL pad
 // shape of the ALU donor TU. Caller is the slot-0 ??_G at 0x004B7D37.
@@ -49,10 +49,10 @@ public:
 
 extern AudioManager *TheAudio;
 
-class Rva0024A797
+class UpdateModule
 {
 public:
-	virtual ~Rva0024A797();
+	virtual ~UpdateModule();
 
 private:
 	unsigned char m_pad[0xc - 4];
@@ -88,7 +88,7 @@ public:
 	virtual void base28Anchor();
 };
 
-class AudioLoopUpgrade : public Rva0024A797,
+class AudioLoopUpgrade : public UpdateModule,
 	public AudioLoopBase0C,
 	public AudioLoopBase10,
 	public AudioLoopBase20,

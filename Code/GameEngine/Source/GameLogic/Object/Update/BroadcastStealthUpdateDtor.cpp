@@ -10,10 +10,10 @@
 // Retail stores no state between the helper call and the release, so the
 // release is declared non-throwing here. The helper is pinned under an
 // address name from this call (second caller 0x004A35DE).
-class Rva0024A797
+class UpdateModule
 {
 public:
-	virtual ~Rva0024A797();
+	virtual ~UpdateModule();
 private:
 	char m_pad04[8];
 };
@@ -49,7 +49,7 @@ private:
 	void *m_ptr;
 };
 
-class BroadcastStealthUpdate : public Rva0024A797, public MiBase1, public BroadcastStealthUpdate_B2,
+class BroadcastStealthUpdate : public UpdateModule, public MiBase1, public BroadcastStealthUpdate_B2,
 	public BroadcastStealthUpdate_B3
 {
 public:

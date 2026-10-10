@@ -277,7 +277,10 @@ public:
 	const Coord3D *getPosition() const { return &m_position; }
 	ObjectID getID() const { return m_id; }
 	const Weapon *getCurrentWeapon(WeaponSlotType *wslot = 0) const;
+protected:
+	friend class AIGoingIdleState;
 	Module *findModule(NameKeyType key) const;
+public:
 	void setStatus(ObjectStatusTypes status, Bool set);
 	void releaseWeaponLock(WeaponLockType lockType);
 	Bool testStatus(ObjectStatusTypes status) const;

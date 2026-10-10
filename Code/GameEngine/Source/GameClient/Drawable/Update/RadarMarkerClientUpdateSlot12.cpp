@@ -19,7 +19,7 @@
 
 struct Coord3D;
 
-class BFMERopeDrawable
+class Drawable
 {
 public:
 	const Coord3D *getPosition() const;
@@ -82,7 +82,7 @@ public:
 	virtual ~DrawableModule();
 protected:
 	const ModuleData *m_moduleData; // +0x04
-	BFMERopeDrawable *m_drawable; // +0x08
+	Drawable *m_drawable; // +0x08
 };
 
 class ClientUpdateModule : public DrawableModule
@@ -105,7 +105,7 @@ private:
 // ?clientUpdate@RadarMarkerClientUpdate@@UAEXXZ @0x004C9CF7
 void RadarMarkerClientUpdate::clientUpdate()
 {
-	BFMERopeDrawable *draw = m_drawable;
+	Drawable *draw = m_drawable;
 	if (!draw)
 		return;
 	if (m_marker.get() == 0)

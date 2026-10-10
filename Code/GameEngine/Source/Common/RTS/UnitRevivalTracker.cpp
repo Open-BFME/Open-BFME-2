@@ -179,7 +179,11 @@ public:
     Drawable *getDrawable() const;
     bool addAttributeModifierToPool(const AsciiString&,int);
     void rva0028B265() const;
+protected:
+	friend class UnitRevivalEntry;
+	friend class UnitRevivalTracker;
 	Module *findModule(NameKeyType) const;
+public:
 	RevivalExperienceView *getExperience() const { return experience; }
 	unsigned char pad00[4];
 	RevivalTemplateView *thingTemplate;

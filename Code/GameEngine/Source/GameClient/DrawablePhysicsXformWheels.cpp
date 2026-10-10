@@ -128,11 +128,6 @@ public:
 };
 extern TerrainLogic *TheTerrainLogic;
 
-class BFMERopeDrawable
-{
-public:
-	const Coord3D *getPosition() const;
-};
 class Thing
 {
 public:
@@ -166,6 +161,8 @@ private:
 	Object *m_object;			// +0xFC
 	char m_pad100[0x13C - 0x100];
 	DrawableLocoInfo *m_locoInfo;		// +0x13C
+public:
+	const Coord3D *getPosition() const;
 };
 
 void Drawable::calcPhysicsXformWheels(const Locomotor *locomotor, PhysicsXformInfo &info)
@@ -194,7 +191,7 @@ void Drawable::calcPhysicsXformWheels(const Locomotor *locomotor, PhysicsXformIn
 	if (obj->getPhysics() == 0)
 		return;
 
-	const Coord3D *pos = ((const BFMERopeDrawable *)this)->getPosition();
+	const Coord3D *pos = ((const Drawable *)this)->getPosition();
 	const Coord3D *dir = ((const Thing *)this)->getUnitDirectionVector2D();
 	Real groundPitch = 0.0f;
 	Real groundRoll = 0.0f;

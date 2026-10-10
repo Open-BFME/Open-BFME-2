@@ -341,13 +341,13 @@ public:
 	float y_max;
 };
 // Source argument views: +0x441 flag, float getter 0x000788D3 (+0x200), position getter
-// 0x002763E6 (rowed under the address-derived BFMERopeDrawable name).
+// 0x002763E6 (rowed under the address-derived Drawable name).
 class Rva000788D3FloatField
 {
 public:
 	float get() const;
 };
-class BFMERopeDrawable
+class Drawable
 {
 public:
 	const Coord3D *getPosition() const;
@@ -581,7 +581,7 @@ TBuff::TBuff( const TBuffSource *source, Int value )
 	{
 		reinterpret_cast<unsigned char &>( m_bfmeFlag44 ) = source->m_flag441;
 		m_bfmeReal54 = ((const Rva000788D3FloatField *)source)->get();
-		*position = *(const Coord3DBase *)((const BFMERopeDrawable *)source)->getPosition();
+		*position = *(const Coord3DBase *)((const Drawable *)source)->getPosition();
 	}
 	++g_012F801C;
 }

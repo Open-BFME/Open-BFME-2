@@ -40,9 +40,15 @@ class Module
 {
 };
 
+namespace Rva002EFB20
+{
+void __cdecl helper( void *obj, bool flag );
+}
+
 class Object
 {
-public:
+	friend void __cdecl Rva002EFB20::helper( void *obj, bool flag );
+protected:
 	Module *findModule( NameKeyType key ) const;
 };
 

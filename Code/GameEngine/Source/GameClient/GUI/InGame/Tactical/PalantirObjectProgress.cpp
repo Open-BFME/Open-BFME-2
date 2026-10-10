@@ -56,11 +56,16 @@ public:
 };
 
 class Module;
+class Object;
+struct Rva00528CEBResult;
+Rva00528CEBResult rva00528CEB(Object *obj);
 
 class Object
 {
-public:
+	friend Rva00528CEBResult rva00528CEB(Object *obj);
+protected:
 	Module *findModule(NameKeyType key) const;
+public:
 	Bool testStatus(ObjectStatusTypes status) const;
 	ThingTemplate *rva002911B7();
 	ThingTemplate *getTemplate() const { return m_template; }

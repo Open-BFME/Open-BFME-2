@@ -29,7 +29,7 @@ struct Coord3D
 	float z;
 };
 
-class BFMERopeDrawable
+class Drawable
 {
 public:
 	const Coord3D *getPosition() const;
@@ -45,7 +45,7 @@ public:
 
 protected:
 	unsigned char m_pad04[4];
-	BFMERopeDrawable *m_ropeDrawable;
+	Drawable *m_ropeDrawable;
 };
 
 class RadiusDecal

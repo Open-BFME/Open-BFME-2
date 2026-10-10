@@ -18,10 +18,10 @@ class Waypoint { public:
 };
 struct FakePortalDataView { char pad[0x118];bool flag118,flag119; };
 struct FakePortalOwnerView { char pad[0x74];unsigned id; };
-class Rva0024A797
+class UpdateModule
 {
 public:
-	virtual ~Rva0024A797();
+	virtual ~UpdateModule();
 protected:
  const FakePortalDataView *m_data;
  FakePortalOwnerView *m_owner;
@@ -55,7 +55,7 @@ public:
 	virtual void f4();
 };
 
-class FakePathfindPortalBehaviour : public Rva0024A797, public MiBase1, public FakePathfindPortalBehaviour_B2,
+class FakePathfindPortalBehaviour : public UpdateModule, public MiBase1, public FakePathfindPortalBehaviour_B2,
 	public FakePathfindPortalBehaviour_B3, public FakePathfindPortalBehaviour_B4
 {
 public:

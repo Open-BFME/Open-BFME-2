@@ -42,14 +42,14 @@ public:
 	virtual void update() = 0;
 };
 
-class Rva0024A797 : public BehaviorModule, public UpdateModuleInterface
+class UpdateModule : public BehaviorModule, public UpdateModuleInterface
 {
 	unsigned m_nextCallFrameAndPhase;
 	int m_indexInLogic;
 	int m_bfmeReserved;
 
 public:
-	virtual ~Rva0024A797();
+	virtual ~UpdateModule();
 };
 
 class Object;
@@ -107,7 +107,7 @@ public:
 	void Rva00268902() throw();
 };
 
-class BezierProjectileBehavior : public Rva0024A797, public BezierProjectileBehaviorSecondaryBase0, public BezierProjectileBehaviorSecondaryBase1
+class BezierProjectileBehavior : public UpdateModule, public BezierProjectileBehaviorSecondaryBase0, public BezierProjectileBehaviorSecondaryBase1
 {
 public:
 	virtual ~BezierProjectileBehavior();

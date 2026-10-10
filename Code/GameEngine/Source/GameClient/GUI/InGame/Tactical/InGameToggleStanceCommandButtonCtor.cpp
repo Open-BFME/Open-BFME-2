@@ -36,7 +36,7 @@ enum NameKeyType {NK_UNKNOWN=0};
 class NameKeyGenerator {public:NameKeyType nameToKey(const char *);};
 extern NameKeyGenerator *TheNameKeyGenerator;
 class Module;
-class Object {public:Module *findModule(NameKeyType)const;};
+class Object;
 extern GameLogic *TheGameLogic;
 struct Rva002BA8F1Listener;
 struct Rva005A0B4CList {void append(Rva002BA8F1Listener *);};
@@ -70,6 +70,7 @@ class InGameToggleStanceCommandButton {public:class Impl:public Rva0086CE84Obser
  virtual void onStancesBehaviorStanceChanged(StancesBehavior&,int,int);
  private:_STL::list<int>::iterator listPosition;Rva00005C357FPtrChaseField *owner08;StanceMenuFactory *factory0C;GameWindow *window10;CommandButton *button14;StancesBehavior *behavior18;Rva005681CE hotKeys;
 };};
+class Object {friend class InGameToggleStanceCommandButton::Impl;protected:Module *findModule(NameKeyType)const;};
 InGameToggleStanceCommandButton::Impl::Impl(Rva00005C357FPtrChaseField *owner,StanceMenuFactory *factory,GameWindow *window)
  :listPosition(Rva005680F9GetInstances()->insert(Rva005680F9GetInstances()->end(),reinterpret_cast<int>(this))),owner08(owner),factory0C(factory),window10(window),button14(static_cast<CommandButton *>(GadgetButtonGetData(window))),behavior18(0),hotKeys(button14->stances.size())
 {

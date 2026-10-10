@@ -50,6 +50,8 @@ class Drawable
 public:
 	unsigned char m_pad00[0xFC];
 	Object *m_object;
+public:
+	const Coord3D *getPosition() const;
 };
 
 class Rva00270260
@@ -58,11 +60,6 @@ public:
 	Bool rva00270260();
 };
 
-class BFMERopeDrawable
-{
-public:
-	const Coord3D *getPosition() const;
-};
 
 class GameWindow
 {
@@ -158,7 +155,7 @@ Bool CanSelectDrawable(const Drawable *draw, Bool dragSelecting)
 	GameWindow *window = 0;
 	if (TheWindowManager != 0)
 	{
-		const Coord3D *pos = ((BFMERopeDrawable *)draw)->getPosition();
+		const Coord3D *pos = ((Drawable *)draw)->getPosition();
 		ICoord2D screen;
 		TheTacticalView->worldToScreen(pos, &screen);
 		window = TheWindowManager->getWindowUnderCursor(screen.x, screen.y, false);

@@ -4,7 +4,7 @@
 // the listener list at +0x20 broadcasts this object through the rowed forEach
 // 0x0045EF37 with a member-function pointer to the slot-0 forwarder 0x001FF3A9;
 // the list's inline dtor frees its block through the rowed CRT free, then the
-// rowed first-base dtor ??1Rva0024A797@@UAE@XZ 0x0024A797 runs. The two
+// rowed first-base dtor ??1UpdateModule@@UAE@XZ 0x0024A797 runs. The two
 // secondary bases are interface views without destructors (no restores).
 // Same recipe as Rva005C9B76Dtor.cpp; TU-local view of the class.
 
@@ -37,10 +37,10 @@ public:
 	virtual void rva001FF3A9();
 };
 
-class Rva0024A797
+class UpdateModule
 {
 public:
-	virtual ~Rva0024A797();
+	virtual ~UpdateModule();
 private:
 	char m_pad04[8];
 };
@@ -57,7 +57,7 @@ public:
 	virtual void stancesInterfaceB() = 0;
 };
 
-class StancesBehavior : public Rva0024A797, public StancesBehaviorInterfaceA, public StancesBehaviorInterfaceB
+class StancesBehavior : public UpdateModule, public StancesBehaviorInterfaceA, public StancesBehaviorInterfaceB
 {
 public:
 	virtual ~StancesBehavior();

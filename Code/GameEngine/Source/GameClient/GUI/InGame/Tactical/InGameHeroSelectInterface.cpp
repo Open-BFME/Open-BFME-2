@@ -112,7 +112,6 @@ extern View *TheTacticalView;
 // The common Drawable interpolation getter at2763E6 is currently provided
 // under this legacy BFME1 view name. Use that kept definition, as the generic
 // GameClient drawable walker does, rather than a second unresolved spelling.
-class BFMERopeDrawable { public: const Coord3D *getPosition() const; };
 
 struct HeroContainer {char pad00[0x274]; Object *owner;};
 struct HeroButtonInfo
@@ -216,7 +215,7 @@ void InGameHeroSelectInterface::Impl::FlashHeroButton(const AsciiString &templat
 // tests the drawable's position at scale 1.
 Bool InGameHeroSelectInterface::Impl::IsBuilderOnScreen(const Object *builder)
 {
-	return TheTacticalView->isPointOnScreen(reinterpret_cast<const BFMERopeDrawable *>(builder->getDrawable())->getPosition(), 1.0f);
+	return TheTacticalView->isPointOnScreen(reinterpret_cast<const Drawable *>(builder->getDrawable())->getPosition(), 1.0f);
 }
 
 // The verified sort/comparator use a one-word Rva00525119 handle. Retail
@@ -436,7 +435,7 @@ void InGameHeroSelectInterface::Impl::SelectNearestBuilder(bool noCamera)
   message->appendObjectIDArgument(builder->id);
   reinterpret_cast<BuilderUISelectionView *>(TheInGameUI)->selectDrawable(draw);
   if(!noCamera && !IsBuilderOnScreen(builder))
-   TheTacticalView->lookAt(reinterpret_cast<BFMERopeDrawable *>(draw)->getPosition());
+   TheTacticalView->lookAt(reinterpret_cast<Drawable *>(draw)->getPosition());
   entry->used=true;
   builderUsed=true;
   reinterpret_cast<Rva00524FA7 *>(this)->rva00524FA7();

@@ -197,16 +197,12 @@ void Render2DClass::Enable_Additive(bool b)
 	}
 }
 
-// ?Enable_Texturing@Render2DClass@@ present-unmatched
-void Render2DClass::Enable_Texturing(bool b)
-{
-	if (b) {
-		Shader.Set_Texturing( ShaderClass::TEXTURING_ENABLE );
-	}
-	else {
-		Shader.Set_Texturing( ShaderClass::TEXTURING_DISABLE );
-	}
-}
+// Render2DClass::Enable_Texturing: Zero Hour's out-of-line body (Shader
+// Set_Texturing) is not ported. BFME 2 has no out-of-line copy (retail holds
+// no body for it) and inlines it as a byte store: W3DDisplay::drawRectClock
+// (0x00045B45) writes byte +0x48 of the Render2DClass where Zero Hour calls
+// Enable_Texturing(FALSE). A strong copy here would collide with that inline
+// definition (W3DDisplayDrawRectClock.cpp) at link time.
 
 // Screen globals read by the coordinate bias below. The resolution words are
 // unsigned ints (retail converts them with fild plus the 2^32 fixup); the flag

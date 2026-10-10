@@ -607,7 +607,10 @@ class Object : public Thing
 {
 public:
 	bool testStatus(ObjectStatusTypes bit) const;
+protected:
+	friend class StealthUpdate;
 	Module *findModule(NameKeyType key) const;
+public:
 	Player *getControllingPlayer() const;
 	Rva00373EC6 *rva0028F4BC();
 	Object *rva002931F5(bool flag);

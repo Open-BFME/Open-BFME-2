@@ -349,7 +349,10 @@ public:
 	void setSpecialModelConditionState(ModelConditionFlagType type, UnsignedInt frames);
 	void setDisabledUntil(DisabledType type, UnsignedInt frame);
 	void attemptDamage(DamageInfo *damageInfo);
+protected:
+	friend class FlammableUpdate;
 	Module *findModule(NameKeyType key) const;
+public:
 
 	__forceinline void setModelConditionState(ModelConditionFlagType mc)
 	{

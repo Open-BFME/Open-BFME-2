@@ -10,10 +10,10 @@
 // object to 0x004AC5F5 in eax, so it stays unrecovered; it is pinned here
 // under an address name from this call. Base layout follows
 // Rva0024A797Derived.cpp; the +0x20/+0x24 members follow the rowed ctor.
-class Rva0024A797
+class UpdateModule
 {
 public:
-	virtual ~Rva0024A797();
+	virtual ~UpdateModule();
 private:
 	char m_pad04[8];
 };
@@ -30,7 +30,7 @@ public:
 	virtual void f2();
 };
 
-class DestroyEnvironmentUpdate : public Rva0024A797, public MiBase1, public DestroyEnvironmentUpdate_B2
+class DestroyEnvironmentUpdate : public UpdateModule, public MiBase1, public DestroyEnvironmentUpdate_B2
 {
 public:
 	virtual ~DestroyEnvironmentUpdate();

@@ -36,7 +36,7 @@ EXTERN ?apply@Rva004EDFFFDwordImmSetter@@QAEXXZ:PROC
 EXTERN ?apply@Rva00506B28DwordImmSetter@@QAEXXZ:PROC
 EXTERN ??1Rva00574A8A@@UAE@XZ:PROC
 EXTERN ??1EmissionVelocityInfo@FXParticleSystem@@UAE@XZ:PROC
-EXTERN ??1Rva0024A797@@UAE@XZ:PROC
+EXTERN ??1UpdateModule@@UAE@XZ:PROC
 EXTERN ??1Rva005248D0@@UAE@XZ:PROC
 EXTERN ??1?$vector@HV?$allocator@H@_STL@@@_STL@@QAE@XZ:PROC
 EXTERN ??1Gen_uw_0049b47c@@QAE@XZ:PROC
@@ -1922,7 +1922,7 @@ PUBLIC ?rva0078d398@@YAXXZ
     neg ecx
     sbb ecx, ecx
     and ecx, eax
-    jmp ??1Rva0024A797@@UAE@XZ
+    jmp ??1UpdateModule@@UAE@XZ
 ?rva0078d398@@YAXXZ ENDP
 
 ; Unwind@00b8e2ce at RVA 0x0078E2CE; 25-byte state-bit cleanup ends at RET.

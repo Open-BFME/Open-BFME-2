@@ -9,7 +9,7 @@ enum NameKeyType { NAMEKEY_UNKNOWN=0 };
 class NameKeyGenerator {public:NameKeyType nameToKey(const char*);};
 extern NameKeyGenerator *TheNameKeyGenerator;
 class Module;
-class Object {public:Module *findModule(NameKeyType) const;};
+class Object {friend class Rva00291198Host;protected:Module *findModule(NameKeyType) const;};
 class RespawnUpdate {public:void *rva004AF25D();};
 class Rva001EAFC1 {
 public:

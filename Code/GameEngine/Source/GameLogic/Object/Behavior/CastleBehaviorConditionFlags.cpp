@@ -13,7 +13,7 @@ extern GameLogic *TheGameLogic;
 class Drawable {public:void rva00274176(bool);};
 class Thing {public:Drawable *getDrawable() const;};
 class Module;
-class Object:public Thing {public:Module *findModule(NameKeyType)const;void rva0028CFB2(const int*,const int*);};
+class Object:public Thing {friend class Rva003979FB;protected:Module *findModule(NameKeyType)const;public:void rva0028CFB2(const int*,const int*);};
 class Rva00395BCB {public:void rva00395BCB(const void*,const void*);};
 class Rva003979FB {
 public:

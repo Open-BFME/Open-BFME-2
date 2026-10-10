@@ -42,11 +42,12 @@ class BattlePlanBodyInterfaceView { public:
  virtual void slot21();
  virtual void setMaxHealth(Real,MaxHealthChangeType);
 };
-class Object { public:
+class Object { friend class BattlePlanUpdate;
+ protected: Module *findModule(NameKeyType) const;
+ public:
  Player *getControllingPlayer() const;
  Real getVisionRange() const; Real getShroudClearingRange() const;
  void setVisionRange(Real);void setShroudClearingRange(Real);
- Module *findModule(NameKeyType) const;
  char pad[0x254];BattlePlanBodyInterfaceView *m_body;
 };
 class Rva004A2D49 { public: void rva004A2D49(Bool); };

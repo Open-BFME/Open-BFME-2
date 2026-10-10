@@ -27,7 +27,7 @@ class SubsystemInterfaceList
 {
 public:
 	void rva001B4FE9();
- void rva001B4F6D();
+ void resetAll();
 
 private:
 	_STL::vector<SubsystemEntry8> m_primary;
@@ -46,7 +46,10 @@ void SubsystemInterfaceList::rva001B4FE9()
 	v.erase(v.begin(), v.end());
 }
 
-void SubsystemInterfaceList::rva001B4F6D()
+// ?resetAll@SubsystemInterfaceList@@QAEXXZ RVA 0x001B4F6D 30B (was rva001B4F6D).
+// Zero Hour SubsystemInterfaceList::resetAll walks the subsystem list in
+// reverse calling reset; GameEngine::init and GameEngine.cpp call it here.
+void SubsystemInterfaceList::resetAll()
 {
  for(_STL::vector<SubsystemEntry8>::reverse_iterator i=m_primary.rbegin();i!=m_primary.rend();++i)
   i->object->vf9();

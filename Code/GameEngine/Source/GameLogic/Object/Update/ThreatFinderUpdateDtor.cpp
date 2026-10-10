@@ -1,9 +1,9 @@
 // cl: /DNDEBUG /MD /EHsc
 // ??1ThreatFinderUpdate@@UAE@XZ @0x003ECF64 (88B): virtual dtor that
 // restores the primary plus +0x0C/+0x10 vtable slots via the shared
-// Rva0024A797 base view (vptrs at +0 +0x0C +0x10 size 0x20) deletes the +0x20
+// UpdateModule base view (vptrs at +0 +0x0C +0x10 size 0x20) deletes the +0x20
 // heap object through its rowed Rva003ECDB7 dtor plus rowed operator delete
-// then calls the rowed Rva0024A797 base dtor 0x0024A797. Called by the
+// then calls the rowed UpdateModule base dtor 0x0024A797. Called by the
 // matched deleting dtor 0x003ED0A8. Pool key 0x003ECCD6 plus ctor 0x003ECCA2
 // prove the class.
 class Rva003ECDB7Object
@@ -44,13 +44,13 @@ private:
 	char m_pad08[12];
 };
 
-class Rva0024A797 : public PrimaryP451F45, public Rva0024A797_B2
+class UpdateModule : public PrimaryP451F45, public Rva0024A797_B2
 {
 public:
-	virtual ~Rva0024A797();
+	virtual ~UpdateModule();
 };
 
-class ThreatFinderUpdate : public Rva0024A797
+class ThreatFinderUpdate : public UpdateModule
 {
 public:
 	virtual ~ThreatFinderUpdate();

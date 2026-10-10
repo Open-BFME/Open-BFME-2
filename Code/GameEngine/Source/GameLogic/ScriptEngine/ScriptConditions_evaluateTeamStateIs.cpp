@@ -588,7 +588,10 @@ class Object
 {
 public:
 	const Coord3D *getPosition() const { return &m_pos; }
+protected:
+	friend class ScriptConditions;
 	Module *findModule(NameKeyType key) const;
+public:
 	void *rva0028C197() const;
 	const ThingTemplate *getTemplate() const { return m_template; }
 	ObjectID getID() const { return m_id; }

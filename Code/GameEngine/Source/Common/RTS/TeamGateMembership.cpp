@@ -30,7 +30,8 @@ class Module;
 
 class Object
 {
-public:
+	friend class Team;
+protected:
 	Module *findModule(NameKeyType key) const;
 };
 
