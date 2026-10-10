@@ -164,11 +164,6 @@ public:
 	Int m_1C;
 	unsigned char m_20;
 };
-void Rva005E1B41::rva005E1B41(Int)
-{
-	rva005E1AB6(0);
-}
-
 // ?rva005E1AB6@Rva005E1B41Primary@@QAEXH@Z @0x005E1AB6 139B: setter for interface at +0x18 with old release via v00/v04 and new init via v04/v0c plus two Image lookups.
 // Evidence: pin ?rva005E1AB6@Rva005E1B41Primary@@QAEXH@Z; callers 0x005E1B46 rowed rva005E1B41 and 0x005E1B86; rowed 0x005E197E 0x005F031D 0x005F002C and pinned 0x005E1928; vtable slots 0/4/c/14/1c.
 void Rva005E1B41Primary::rva005E1AB6(Int a)

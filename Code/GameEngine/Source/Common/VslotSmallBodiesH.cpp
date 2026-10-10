@@ -58,29 +58,6 @@ void Rva005D9E02::rva005D9E02()
 	m_21 |= 4;
 }
 
-// slot at VA 0x00C77A40: hands +0x08 to vslot 4 of the object the +0x04
-// pointer refers to; the argument is unused.
-class Rva005E18A7Target
-{
-public:
-	virtual void vslot00(); virtual void vslot01(); virtual void vslot02();
-	virtual void vslot03();
-	virtual void vslot04(Int value);
-};
-class Rva005E18A7
-{
-public:
-	void rva005E18A7(Int unused);
-private:
-	char m_pad00[0x04];
-	Rva005E18A7Target **m_04;
-	Int m_08;
-};
-void Rva005E18A7::rva005E18A7(Int unused)
-{
-	(*m_04)->vslot04(m_08);
-}
-
 // slots at VA 0x00C6FC98, 0x00C6FDA8 and 0x00C77B24: sets the +0x14 byte;
 // the argument is unused.
 class Rva005E2171

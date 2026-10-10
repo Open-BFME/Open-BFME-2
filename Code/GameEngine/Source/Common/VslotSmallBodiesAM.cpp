@@ -409,42 +409,6 @@ Int Rva0028F976::rva0028F976()
 	m_object->rva0028DB3C();
 	return 1;
 }
-struct Rva005E189BInfo
-{
-	char m_pad00[0x28];
-	void *m_28;
-};
-class Rva005E197E
-{
-public:
-	virtual void primarySlot();
-	void rva005E197E();
-private:
-	Int m_04_;
-	Int m_08_;
-};
-class Rva005E189BIface
-{
-public:
-	virtual void rva005E189B(Int unused) = 0;
-	virtual void rva005E19B4(Int unused) = 0;
-protected:
-	Rva005E189BInfo *m_info04;
-};
-class Rva005E189B : public Rva005E197E, public Rva005E189BIface
-{
-public:
-	void rva005E189B(Int unused);
-	void rva005E19B4(Int unused);
-};
-void Rva005E189B::rva005E189B(Int)
-{
-	m_info04->m_28 = static_cast<Rva005E197E *>(this);
-}
-void Rva005E189B::rva005E19B4(Int)
-{
-	rva005E197E();
-}
 class Rva0049CE63Primary
 {
 public:

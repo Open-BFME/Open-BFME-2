@@ -32,30 +32,6 @@ void Rva00082E12::rva00082E12(Int)
 {
 	rva00082D6A();
 }
-class Rva005E1928
-{
-public:
-	virtual void primarySlot();
-	void rva005E1928();
-private:
-	Int m_04;
-	Int m_08;
-};
-class Rva005E19BFIface
-{
-public:
-	virtual void rva005E19BF(Int unused) = 0;
-};
-class Rva005E19BF : public Rva005E1928, public Rva005E19BFIface
-{
-public:
-	void rva005E19BF(Int unused);
-};
-void Rva005E19BF::rva005E19BF(Int)
-{
-	rva005E1928();
-}
-
 // 0x005CC24C: the pinned 0x005CC23B of this object.
 // The target writes AL on both branches; keep its return type bool despite
 // the existing void pin. Only the byte at +0x0C is established by this body.
