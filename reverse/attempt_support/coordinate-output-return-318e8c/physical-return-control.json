@@ -1,0 +1,34 @@
+{
+  "name": "?rva00318E8C@Rva00318E8C@@QAEPAURva00318E8COut@@PAU2@@Z",
+  "exact": true,
+  "bytes": "d941208b442404d9188b4924894804c20400",
+  "native": "d941208b442404d9188b4924894804c20400",
+  "unresolved": [],
+  "size": 18,
+  "command": [
+    "C:\\Users\\clemens\\.codex\\worktrees\\code-body-seat-four\\Open-BFME-2\\reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\bin\\cl.exe",
+    "-nologo",
+    "-c",
+    "-O2",
+    "-GR-",
+    "-EHsc-",
+    "-O1",
+    "-arch:SSE",
+    "-G7",
+    "-DNDEBUG",
+    "-MD",
+    "-Fobuild/reference214/campaign-spawn-armies548/output-pointer-return-control.obj",
+    "C:\\Users\\clemens\\.codex\\worktrees\\code-body-seat-four\\Open-BFME-2\\build\\reference214\\campaign-spawn-armies548\\output-pointer-return-control.cpp",
+    "/showIncludes",
+    "-FaC:\\Users\\clemens\\.codex\\worktrees\\code-body-seat-four\\Open-BFME-2\\build\\reference214\\campaign-spawn-armies548\\output-pointer-return-control.cod",
+    "-FdC:\\Users\\clemens\\.codex\\worktrees\\code-body-seat-four\\Open-BFME-2\\build\\reference214\\campaign-spawn-armies548\\output-pointer-return-control.pdb"
+  ],
+  "head": "0886fbddd2df0414e4ca98dfb9e1e0d61b5816a1",
+  "inputs": {
+    "Code\\GameEngine\\Source\\Common\\Rva00318E8CGet.cpp": "6dcfaf7be4f00f76765ceeaeb0d4390db247a04e9b1d4796309a973c4ccb6148",
+    "Code\\Libraries\\Include\\Lib\\Coord2D.h": "ab151581c0663c7c16690e5f804ffbcc0f7cdb9a7633213c3f9b0493854d9a87",
+    "tools\\build.py": "f9688c6f004ce27253d8fa115d7ca4dec6ebc2b97234acf59591e621d1101651",
+    "tools\\flag_defaults.py": "c0105f4467a62a0fc95e9458802880281138d3c33bf252a42276c3fc11d800d5",
+    "baselines\\bfme2\\workshop-vanilla-1.06\\files\\game.dat": "f008b587570bad693981dc7218588c81d192a1e064b0f7f861539c51156a7640"
+  }
+}
