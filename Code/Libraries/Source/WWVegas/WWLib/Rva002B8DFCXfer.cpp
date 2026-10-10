@@ -5,15 +5,12 @@
 // rowed XferLivingWorldPlayerID 0x002034C4 and resolve through the rowed find 0x002B51F8; the saved id is read at +0x14 of each entry.
 // Evidence: retail frame and callees read at the REL32s; skeleton from the rowed rva002B8D06.
 #include <stl/_algobase.h>
-#pragma optimize("s", off)
-#pragma optimize("t", on)
 namespace _STL {
-template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
 {
     return a < b ? b : a;
 }
 }
-#pragma optimize("", on)
 
 #include <vector>
 

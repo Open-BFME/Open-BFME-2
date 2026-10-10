@@ -3,15 +3,12 @@
 // ?resize@BfmePod36Vector@@QAEXIUBfmePod36@@@Z @0x000B06D4 73B. 36-byte vector resize by value.
 // Evidence: 0x24 element size via idiv imul, ret 0x28 by-value shape, calls rowed rva00335C88 erase 0x00335C88 plus Pod36 fill-insert 0x000B0478, neighbours E16 resize 0x000B0693 plus Pod8 resize, unblocks 0x000B0899, caller 0x000B08EC.
 #include <stl/_algobase.h>
-#pragma optimize("s", off)
-#pragma optimize("t", on)
 namespace _STL {
-template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
 {
     return a < b ? b : a;
 }
 }
-#pragma optimize("", on)
 
 #include <vector>
 

@@ -4,15 +4,12 @@
 // recovered 2026-10-05 from packet 0x002B8D06 216B lane=unlock.
 // Evidence: erase via rowed void* 0x0031BD55 then reserve 0x002B712E and push_back 0x004DFCB0 for vector<ModuleData*>; LivingWorldArmyID helper 0x00318D1E; lookup via pin 0x002B488E Rva002BA8F1Logic; Xfer slots 0x28 version {1,1} 0x04 isLoading 0x7C unsigned count per Rva003F2394Xfer donor shape; callers 0x002BB428 0x002BB437 0x003F3EBC 0x003F5D13.
 #include <stl/_algobase.h>
-#pragma optimize("s", off)
-#pragma optimize("t", on)
 namespace _STL {
-template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
 {
     return a < b ? b : a;
 }
 }
-#pragma optimize("", on)
 
 #include <vector>
 
