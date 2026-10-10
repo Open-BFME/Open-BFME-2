@@ -422,6 +422,7 @@ struct Rva0059E647Entry;
 class LivingWorldRegion
 {
 public:
+	void rva003F0FA3(void *army);
 	void GetGarrisonArmyPlacementSpot(Rva003F0F13Elem *out);	// 0x003F0F13
 	void *rva003F0588();					// 0x003F0588, the free building slot
 	void rva003F2A8C(Int playerID);				// 0x003F2A8C, owner change
@@ -519,6 +520,7 @@ public:
 	// 0x002B6DC4: the upgrades the region's armory offers the entry.
 	const Rva004E0632 *GetArmoryToUpgradeTroop(ArmySummaryEntry *entry, LivingWorldArmy *army, Rva003F287F *region);
 	void UpdateTurnPhase();
+	void AdjustArmyTargetLocations();
 	void ValidatePlayers();
 	void rva002B693F(void *keys);
 	bool rva002B4B83();
@@ -2400,4 +2402,46 @@ void LivingWorldLogic::UpdateTurnPhase(){
  }
  m_native10A=false;
  AdvanceTurnPhase();
+}
+
+// Native2B3BCF..2B3D0E,319B; WB D8E590 explicitly names
+// AdjustArmyTargetLocations (assert7099..7110). Both builds first
+// release placement for active army targets and then allocate their new
+// slots before copying the target pair and notifying listeners.
+// Player armies at1B8 and the pair's two-word storage are native facts.
+// Existing neutral callee spellings preserve their unresolved original
+// type identities; ModuleData is the owned allocation provider's wire ABI.
+struct Rva00538CEFPair {int a,b;};
+class Rva00318F42 {public:bool rva00318F42();void rva0031986B(const Rva00538CEFPair*,int);};
+class Rva00318FA1MainOwner {public:int rva00318FA1();};
+struct Rva003F26AAPair {int a,b;};
+class LivingWorldRegionConnection {public:bool rva003F26AA(const ModuleData *,Rva003F26AAPair *);};
+struct ArmyTargetSpan {void **first,**finish;};
+void LivingWorldLogic::AdjustArmyTargetLocations(){
+ int *players=(int*)&m_players;
+ for(unsigned i=0;i<(unsigned)((players[1]-players[0])>>2);++i){
+  ArmyTargetSpan *armies=(ArmyTargetSpan*)((char*)m_players[i]+0x1b8);
+  int *span=(int*)armies;
+  for(unsigned j=0;j<(unsigned)((span[1]-span[0])>>2);++j){
+   void *army=armies->first[j];
+   if(((Rva00318F42*)army)->rva00318F42()){
+    Rva00318C32Ret *region=((Rva00318C79Owner*)army)->rva00318C32();
+    if(region)((LivingWorldRegion*)region)->rva003F0FA3(army);
+   }
+  }
+ }
+ for(unsigned i=0;i<(unsigned)((players[1]-players[0])>>2);++i){
+  ArmyTargetSpan *armies=(ArmyTargetSpan*)((char*)m_players[i]+0x1b8);
+  int *span=(int*)armies;
+  for(unsigned j=0;j<(unsigned)((span[1]-span[0])>>2);++j){
+   void *army=armies->first[j];
+   if(((Rva00318F42*)army)->rva00318F42()){
+    int bits=((Rva00318FA1MainOwner*)army)->rva00318FA1();
+    if(bits){Rva003F26AAPair spot;
+     if(((LivingWorldRegionConnection*)bits)->rva003F26AA((const ModuleData*)army,&spot))
+      ((Rva00318F42*)army)->rva0031986B((const Rva00538CEFPair*)&spot,0);
+    }
+   }
+  }
+ }
 }
