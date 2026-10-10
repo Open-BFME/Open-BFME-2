@@ -12,7 +12,7 @@ extern const void *const g_00C79138[];
 class Rva005F1CE8
 {
 public:
-	virtual ~Rva005F1CE8();
+	__declspec(noinline) virtual ~Rva005F1CE8();
 private:
 	Rva005F1B90 m_04;
 };
@@ -20,4 +20,12 @@ private:
 Rva005F1CE8::~Rva005F1CE8()
 {
 	m_04.rva005F1B90();
+}
+
+// Native005E3585 five-byte JMP to the owned provider; address-derived dtor
+// spelling is the existing deleting-caller pin, original class unknown.
+class Rva005E3585 { public: ~Rva005E3585(); };
+Rva005E3585::~Rva005E3585()
+{
+    reinterpret_cast<Rva005F1CE8 *>(this)->Rva005F1CE8::~Rva005F1CE8();
 }
