@@ -91,3 +91,20 @@ void Rva0030815D::rva0030815D(const AsciiString &s)
 	m_str8C = s;
 	m_flag9C = true;
 }
+
+// ?rva003080C3@Rva003080C3Owner@@QAEPAURva003080AARef@@H@Z @0x003080C3 11B,
+// directly after rva003080AA: forwards to the indexer held at +0x94.
+// Owner and name are address-derived.
+class Rva003080C3Owner
+{
+public:
+	Rva003080AARef *rva003080C3(int i);
+private:
+	char m_pad00[0x94];
+	Rva003080AA *m_indexer94;
+};
+
+Rva003080AARef *Rva003080C3Owner::rva003080C3(int i)
+{
+	return m_indexer94->rva003080AA(i);
+}

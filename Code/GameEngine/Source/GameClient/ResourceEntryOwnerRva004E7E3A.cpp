@@ -119,3 +119,19 @@ void ResourceEntryOwner::rva004E7E3A()
 		}
 	}
 }
+
+// ?rva004E7F22@Rva004E7F22Owner@@QAEXXZ @0x004E7F22 7B, directly after
+// rva004E7E3A: forwards to the ResourceEntryOwner held at +0. Owner and name
+// are address-derived.
+class Rva004E7F22Owner
+{
+public:
+	void rva004E7F22();
+private:
+	ResourceEntryOwner *m_owner00;
+};
+
+void Rva004E7F22Owner::rva004E7F22()
+{
+	m_owner00->rva004E7E3A();
+}

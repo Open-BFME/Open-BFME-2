@@ -129,3 +129,20 @@ void Rva0042CA4B::rva0042CA4B()
 		}
 	}
 }
+
+// ?rva0042CADD@Rva0042CADDOwner@@QAEXXZ @0x0042CADD 7B, directly after
+// rva0042CA4B: forwards to the object held at +0. Its caller at 0x0023911C
+// tail-calls it on a non-null pointer read from +0x1C. Owner and name are
+// address-derived.
+class Rva0042CADDOwner
+{
+public:
+	void rva0042CADD();
+private:
+	Rva0042CA4B *m_target00;
+};
+
+void Rva0042CADDOwner::rva0042CADD()
+{
+	m_target00->rva0042CA4B();
+}
