@@ -1,4 +1,6 @@
 // ?rva0035A61F@TerrainResourceManager@@QAEXPAIHHH@Z
+// partial score=0.95 date=2026-10-10
+// ?rva0035A61F@TerrainResourceManager@@QAEXPAIHHH@Z
 // partial score=0.95 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD
 // ?rva0035A61F@TerrainResourceManager@@QAEXPAIHHH@Z
