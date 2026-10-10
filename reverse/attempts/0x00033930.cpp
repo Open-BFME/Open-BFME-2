@@ -1,7 +1,9 @@
 // ?rva00033930@Rva00034C90@@QAEXXZ
+// partial score=0.9782453222453222 date=2026-10-10
+// ?rva00033930@Rva00034C90@@QAEXXZ
 // partial score=0.96 date=2026-10-07
 // ?wrapper@Rva00034C90@@QAEXXZ
-// cl: /MD
+// cl: /I. /MD
 // ?wrapper@Rva00034C90@@QAEXXZ @0x00034C90 104B address-derived refcount guard
 // wrapper: m_pLock at +0x4E4 points at a CRITICAL_SECTION+refcount lock.
 // EnterCriticalSection (IAT 0xBBA200) runs, the volatile +0x18 refcount is
@@ -10,6 +12,8 @@
 // Rva00030DD0 addref at 0x00030DD0. The two IAT calls are declared
 // dllimport+throw() so cl treats them as nothrow and omits the EH state reset
 // retail does not carry.
+extern "C" void _ReadWriteBarrier(void);
+#pragma intrinsic(_ReadWriteBarrier)
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(void *cs) throw();
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(void *cs) throw();
 
@@ -97,6 +101,8 @@ void Rva00034C90::rva00033930()
 					block->m_head04 = head;
 					unsigned base = head & 0x7ffffff8U;
 					unsigned savedHead = head;
+_ReadWriteBarrier();
+
 					Rva00034C90Block *neighbor = (Rva00034C90Block *)((char *)block + base);
 					head = *(unsigned *)((char *)neighbor + 4) & 0x7ffffff8U;
 					if ((savedHead & 1) == 0)

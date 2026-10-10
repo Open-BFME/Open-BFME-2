@@ -1,13 +1,17 @@
 // ?rva00294C1A@Object@@QAEXTObjectExperienceVictim@@TObjectExperienceFlag@@M@Z
+// partial score=0.9655269320843091 date=2026-10-10
+// ?rva00294C1A@Object@@QAEXTObjectExperienceVictim@@TObjectExperienceFlag@@M@Z
 // partial score=0.9535 date=2026-10-09
 // ?rva00294C1A@Object@@QAEXTObjectExperienceVictim@@TObjectExperienceFlag@@M@Z
 // partial score=0.98 date=2026-10-09
-// cl: /O1 /G7 /arch:SSE /MD
+// cl: /I. /O1 /G7 /arch:SSE /MD
 // Retail Object gap: the existing 0x00294C1A pin and BloodthirstyUpdate
 // caller prove the Object receiver and victim/bool/float ABI. ZH Object.cpp
 // scoreTheKill supplies the experience-grant purpose; BFME2 splits that
 // role into this worker and adds modifier and contained-object routing.
 // Native +0x264 tracker, +0x47C flag, and vslots 48/142 are target facts.
+extern "C" void _ReadWriteBarrier(void);
+#pragma intrinsic(_ReadWriteBarrier)
 class Object;
 union ObjectExperienceVictim { Object *object; float points; };
 union ObjectExperienceFlag { bool flag; float bonus; };
@@ -207,6 +211,8 @@ void Object::rva00294C1A(ObjectExperienceVictim victim,ObjectExperienceFlag flag
   if (pool && pool->rva00403448(6,&flag.bonus,0,1)) points *= flag.bonus;
   ObjectVirtualView *receiver=(ObjectVirtualView*)rva0029439D();
   if (receiver) {
+_ReadWriteBarrier();
+
    scale=points;
    Object *related=rva002931F5(false);
    if (related->getExperienceTracker()) scale=((Rva0039AF9B*)related->getExperienceTracker())->rva0039AF9B(points);

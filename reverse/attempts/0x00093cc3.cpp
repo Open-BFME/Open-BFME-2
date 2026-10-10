@@ -1,6 +1,8 @@
 // ?renderAsQuads@W3DSnowManager@@QAEXAAVRenderInfoClass@@HHHH@Z
+// partial score=0.9427427157488508 date=2026-10-10
+// ?renderAsQuads@W3DSnowManager@@QAEXAAVRenderInfoClass@@HHHH@Z
 // partial score=0.9 date=2026-10-09
-// cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas
+// cl: /I. /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas
 //
 // ?renderAsQuads@W3DSnowManager@@QAEXAAVRenderInfoClass@@HHHH@Z, retail
 // 0x00093CC3 (2403 bytes, RET 0x14 with an EH frame).  Ported from
@@ -31,6 +33,8 @@
 // header (identical result), wind as Vector2/Vector3, decl-order changes.
 // Dead code inside the inlined Set_Transform switch changes the tie-breaks, so
 // keep it exactly as written here.
+extern "C" void _ReadWriteBarrier(void);
+#pragma intrinsic(_ReadWriteBarrier)
 #include "matrix3d.h"
 #include "matrix4.h"
 #include "vector2.h"
@@ -302,6 +306,8 @@ void W3DSnowManager::renderAsQuads(RenderInfoClass &rinfo, int cubeOriginX, int 
 			batchSize = SNOW_BATCH_SIZE;
 
 		int numberInBatch = 0;
+_ReadWriteBarrier();
+
 		DynamicVBAccessClass vb_access(2, 5, batchSize * 4, 0);
 		{
 			DynamicVBAccessClass::WriteLock lock(&vb_access);
