@@ -1,7 +1,7 @@
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?groupChangeStance@AIGroup@@QAEXH@Z, retail 0x0036E269, 62 bytes.
-// Evidence: circular intrusive list head at +0x04 (same ListNode as Rva0036E346Count: next +0 obj +8); iterates objects calling rowed findModule with rowed Stances key 0x0045EE2C then pinned StancesBehavior::rva0045F084 with int arg; caller at 0x00379814.
+// Evidence: circular intrusive list head at +0x04 (same ListNode as Rva0036E346Count: next +0 obj +8); iterates objects calling rowed findModule with rowed Stances key 0x0045EE2C then rowed StancesBehavior::changeStance with int arg; caller at 0x00379814.
 enum NameKeyType
 {
 	NAMEKEY_INVALID = 0
