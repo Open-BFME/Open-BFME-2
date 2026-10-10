@@ -1,7 +1,11 @@
 #!/usr/bin/env python3
 """Regression coverage for audited body ownership, including a new alias spelling."""
+import sys
 import unittest
-import check_csv
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+import check_csv  # noqa: E402
 
 OWNER = (b'target_rva,name,target_size,source,evidence\n'
          b'0x00000100,retained,12,Code/retained.cpp,Target ABI and caller evidence\n')
