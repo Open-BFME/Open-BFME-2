@@ -10,8 +10,9 @@
 // Generic insertion and the independently exact23B listener-list constructor
 // remain visible. They reproduce holder/iterator allocation and remove a dead
 // Snapshot vtable store. BfmeE16 retains the owned opaque16B listener ABI.
-// Xfer proves ScienceType IDs in member4C; native construction calls its typed
-// vector copy. Native assignment instead calls the int-vector assignment body.
+// Query40CC3C independently proves delayed carryover object IDs in member4C.
+// Native construction uses the existing ObjectID vector-copy fold at54878E;
+// native assignment instead calls the int-vector assignment body.
 // The explicit int representation view preserves that existing three-pointer
 // STLport ABI and raw four-byte ID copies; no extra callee pin is introduced.
 #include <vector>
@@ -116,7 +117,6 @@ public: __declspec(noinline) Rva00330757Member(); ~Rva00330757Member();
 private: _STL::vector<BfmeE16> m_items; unsigned int m_index;
 };
 inline Rva00330757Member::Rva00330757Member():m_items(_STL::allocator<BfmeE16>()) {m_index |= -1;}
-enum ScienceType {SCIENCE_INVALID=-1,SCIENCE_FORCE_INT=0x7fffffff};
 class ArmySummary : public Snapshot, public Rva00330757Member
 {
 public:
@@ -141,7 +141,7 @@ private:
 	int m_38;
 	int m_3C;
 	Rva0040E0EB m_entries; // +0x40
-	_STL::vector<ScienceType> m_4C;
+	_STL::vector<ObjectID> m_4C;
 	int m_58;
 	int m_5C;
 	int m_60;

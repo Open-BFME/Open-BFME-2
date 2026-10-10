@@ -86,7 +86,9 @@ enum ScienceType
 void XferLivingWorldArmyID(Xfer *xfer, int *armyID);
 void XferReinforcementState(Xfer *xfer, void *state);
 void XferArmySummaryEntryID(Xfer *xfer, void *entryID);
-Xfer *Rva0040E19DXfer(Xfer *xfer, _STL::vector<ScienceType> *sciences);
+// ScienceType is the already owned helper instantiation ABI; it does not
+// establish payload semantics. Query40CC3C proves delayed carryover object IDs.
+Xfer *Rva0040E19DXfer(Xfer *xfer, _STL::vector<ScienceType> *scalarIds);
 
 struct TargetRef00217D4C { void *vtable; int references; };
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *ref);
@@ -153,7 +155,7 @@ private:
 	int m_38;                                     // +0x38
 	int m_entryID;                                // +0x3C
 	_STL::vector<Rva0040CB11Entry> m_entries;     // +0x40
-	_STL::vector<ScienceType> m_sciences;         // +0x4C
+	_STL::vector<ScienceType> m_delayedCarryoverIds; // +4C: existing helper ABI view; query40CC3C proves delayed Object IDs
 	int m_58;                                     // +0x58
 	unsigned char m_pad5C[0x60 - 0x5C];
 	int m_60;                                     // +0x60
@@ -179,7 +181,7 @@ void ArmySummary::xfer(Xfer *xfer)
 	xfer->xferSlot20(&m_58);
 	XferArmySummaryEntryID(xfer, &m_entryID);
 	if (version.current >= 2)
-		Rva0040E19DXfer(xfer, &m_sciences);
+		Rva0040E19DXfer(xfer, &m_delayedCarryoverIds);
 	if (xfer->IsLoading())
 	{
 		int count;
