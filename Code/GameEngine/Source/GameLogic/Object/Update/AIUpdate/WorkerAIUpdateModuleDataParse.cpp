@@ -12,6 +12,7 @@
 class MultiIniFieldParse;
 struct FieldParse;
 
+extern const int s_workerAiFieldTable[];
 class MultiIniFieldParse
 {
 public:
@@ -34,7 +35,7 @@ public:
 inline void WorkerAIUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
 	TransportAIUpdateModuleData::buildFieldParse(parse);
-	parse.add(reinterpret_cast<const FieldParse *>(0x00BEF620), 0);
+	parse.add(reinterpret_cast<const FieldParse *>(s_workerAiFieldTable), 0);
 }
 
 #pragma inline_depth(0)

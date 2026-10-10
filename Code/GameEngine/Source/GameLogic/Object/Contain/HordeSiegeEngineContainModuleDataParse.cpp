@@ -15,6 +15,7 @@
 class MultiIniFieldParse;
 struct FieldParse;
 
+extern const int s_hordeSiegeEngineFieldTable[];
 class MultiIniFieldParse
 {
 public:
@@ -37,5 +38,5 @@ public:
 void HordeSiegeEngineContainModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
 	HordeTransportContainModuleData::buildFieldParse(parse);
-	parse.add(reinterpret_cast<const FieldParse *>(0x00C47208), 0);
+	parse.add(reinterpret_cast<const FieldParse *>(s_hordeSiegeEngineFieldTable), 0);
 }

@@ -7,6 +7,7 @@
 
 struct FieldParse;
 
+extern const int s_radiusDecalFieldTable[];
 class INI
 {
 public:
@@ -22,5 +23,5 @@ public:
 // ?parseRadiusDecalTemplate@RadiusDecalTemplate@@SAXPAVINI@@PAX1PBX@Z
 void RadiusDecalTemplate::parseRadiusDecalTemplate(INI *ini, void * /*instance*/, void *store, const void * /*userData*/)
 {
-	ini->initFromINI(store, reinterpret_cast<const FieldParse *>(0x00C0DC20));
+	ini->initFromINI(store, reinterpret_cast<const FieldParse *>(s_radiusDecalFieldTable));
 }

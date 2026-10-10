@@ -15,6 +15,8 @@
 
 struct FieldParse;
 
+extern const int s_fireWeaponNuggetFieldTableA[];
+extern const int s_fireWeaponNuggetFieldTableB[];
 class MultiIniFieldParse
 {
 	const void *m_fieldParse[16];
@@ -71,7 +73,7 @@ void Rva0048B97A_InitObject(INI *ini, void *obj, int, int);
 void Rva0048B97A_InitObject(INI *ini, void *obj, int, int)
 {
 	MultiIniFieldParse parse;
-	parse.add(reinterpret_cast<const FieldParse *>(0x00C4C0C0), 0);
+	parse.add(reinterpret_cast<const FieldParse *>(s_fireWeaponNuggetFieldTableA), 0);
 	ini->initFromINIMulti(obj, parse);
 }
 
@@ -84,7 +86,7 @@ void Rva0048B97A_InitObject(INI *ini, void *obj, int, int)
 void Rva0049CBA0_InitObject(INI *ini, void *obj, int, int)
 {
 	MultiIniFieldParse parse;
-	parse.add(reinterpret_cast<const FieldParse *>(0x00C51380), 0);
+	parse.add(reinterpret_cast<const FieldParse *>(s_fireWeaponNuggetFieldTableB), 0);
 	ini->initFromINIMulti(obj, parse);
 }
 

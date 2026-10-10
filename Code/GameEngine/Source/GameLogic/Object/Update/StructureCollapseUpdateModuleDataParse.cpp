@@ -13,6 +13,7 @@
 class MultiIniFieldParse;
 struct FieldParse;
 
+extern const int s_structureCollapseFieldTable[];
 class MultiIniFieldParse
 {
 public:
@@ -30,6 +31,6 @@ public:
 // ?buildFieldParse@StructureCollapseUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z @0x004A4BF7
 void StructureCollapseUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
-	parse.add(reinterpret_cast<const FieldParse *>(0x00C52790), 0);
+	parse.add(reinterpret_cast<const FieldParse *>(s_structureCollapseFieldTable), 0);
 	parse.add(reinterpret_cast<const FieldParse *>(Rva004CE52EGet()), 8);
 }

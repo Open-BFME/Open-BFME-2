@@ -11,6 +11,7 @@
 class MultiIniFieldParse;
 struct FieldParse;
 
+extern const int s_floorDrawFieldTable[];
 class MultiIniFieldParse
 {
 public:
@@ -33,5 +34,5 @@ public:
 void W3DFloorDrawModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
 	W3DPropDrawModuleData::buildFieldParse(parse);
-	parse.add(reinterpret_cast<const FieldParse *>(0x00BCD6B0), 0);
+	parse.add(reinterpret_cast<const FieldParse *>(s_floorDrawFieldTable), 0);
 }

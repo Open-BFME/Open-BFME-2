@@ -21,7 +21,9 @@ public:
 	virtual void slot94(const void *, void *, int);
 };
 
+extern const char s_geometryTypeString[];
+
 void Rva006BD490DispatchRaw(Rva006BD490Receiver *receiver, void *value)
 {
-	receiver->slot94((const void *)0x00CE7AA8, value, 4);
+	receiver->slot94(s_geometryTypeString, value, 4);
 }

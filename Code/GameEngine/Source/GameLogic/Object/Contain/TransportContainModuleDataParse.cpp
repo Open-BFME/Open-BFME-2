@@ -13,6 +13,7 @@
 class MultiIniFieldParse;
 struct FieldParse;
 
+extern const int s_transportContainFieldTable[];
 class MultiIniFieldParse
 {
 public:
@@ -35,5 +36,5 @@ public:
 void TransportContainModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
 	OpenContainModuleData::buildFieldParse(parse);
-	parse.add(reinterpret_cast<const FieldParse *>(0x00C44648), 0);
+	parse.add(reinterpret_cast<const FieldParse *>(s_transportContainFieldTable), 0);
 }

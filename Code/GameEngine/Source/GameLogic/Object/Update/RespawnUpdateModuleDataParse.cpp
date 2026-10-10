@@ -13,6 +13,7 @@
 class MultiIniFieldParse;
 struct FieldParse;
 
+extern const int s_respawnFieldTable[];
 class MultiIniFieldParse
 {
 public:
@@ -28,5 +29,5 @@ public:
 // ?buildFieldParse@RespawnUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z @0x004B0153
 void RespawnUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
-	parse.add(reinterpret_cast<const FieldParse *>(0x00C561D0), 0);
+	parse.add(reinterpret_cast<const FieldParse *>(s_respawnFieldTable), 0);
 }

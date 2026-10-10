@@ -7,6 +7,7 @@
 // Same shape as rowed FX parsers at 0x0055CA78. Owner unproven so
 // honest-address class Rva00415C56.
 struct FieldParse;
+extern const int s_crowdResponseFieldTable[];
 class INI
 {
 public:
@@ -19,5 +20,5 @@ public:
 };
 void CrowdResponseTemplate::parseFromINI(INI *ini)
 {
-	ini->initFromINI(this, (const struct FieldParse *)0x00C3A304);
+	ini->initFromINI(this, (const struct FieldParse *)s_crowdResponseFieldTable);
 }

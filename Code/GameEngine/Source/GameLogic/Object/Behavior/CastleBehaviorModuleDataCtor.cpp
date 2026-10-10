@@ -11,6 +11,8 @@
 class MultiIniFieldParse;
 struct FieldParse;
 
+extern const int s_castleFieldTable1[];
+extern const int s_castleFieldTable2[];
 class MultiIniFieldParse
 {
 public:
@@ -26,6 +28,6 @@ public:
 // ?buildFieldParse@CastleBehaviorModuleData@@SAXAAVMultiIniFieldParse@@@Z @0x0039ABC5
 void CastleBehaviorModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
-	parse.add(reinterpret_cast<const FieldParse *>(0x00BF00A0), 0);
-	parse.add(reinterpret_cast<const FieldParse *>(0x00C1ABA0), 0);
+	parse.add(reinterpret_cast<const FieldParse *>(s_castleFieldTable1), 0);
+	parse.add(reinterpret_cast<const FieldParse *>(s_castleFieldTable2), 0);
 }

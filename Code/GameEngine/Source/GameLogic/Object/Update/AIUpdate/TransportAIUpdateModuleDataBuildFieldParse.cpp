@@ -17,6 +17,12 @@ class MultiIniFieldParse;
 
 struct FieldParse;
 
+extern const int s_transportAiFieldTable[];
+extern const int s_supplyTruckAiFieldTable[];
+extern const int s_deployStyleFieldTable[];
+extern const int s_assaultTransportFieldTable[];
+extern const int s_animalAiFieldTable[];
+extern const int s_wanderAiFieldTable[];
 class MultiIniFieldParse
 {
 public:
@@ -32,7 +38,7 @@ public:
 // ?buildFieldParse@TransportAIUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z
 void TransportAIUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
-	parse.add(reinterpret_cast<const FieldParse *>(0x00BF9378), 0);
+	parse.add(reinterpret_cast<const FieldParse *>(s_transportAiFieldTable), 0);
 }
 
 class SupplyTruckAIUpdateModuleData
@@ -52,7 +58,7 @@ public:
 inline void SupplyTruckAIUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
 	TransportAIUpdateModuleData::buildFieldParse(parse);
-	parse.add(reinterpret_cast<const FieldParse *>(0x00BEF4B0), 0);
+	parse.add(reinterpret_cast<const FieldParse *>(s_supplyTruckAiFieldTable), 0);
 }
 
 class DeployStyleAIUpdateModuleData
@@ -74,7 +80,7 @@ public:
 inline void DeployStyleAIUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
 	TransportAIUpdateModuleData::buildFieldParse(parse);
-	parse.add(reinterpret_cast<const FieldParse *>(0x00BEECB0), 0);
+	parse.add(reinterpret_cast<const FieldParse *>(s_deployStyleFieldTable), 0);
 }
 
 class AssaultTransportAIUpdateModuleData
@@ -94,7 +100,7 @@ public:
 inline void AssaultTransportAIUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
 	TransportAIUpdateModuleData::buildFieldParse(parse);
-	parse.add(reinterpret_cast<const FieldParse *>(0x00BEED74), 0);
+	parse.add(reinterpret_cast<const FieldParse *>(s_assaultTransportFieldTable), 0);
 }
 
 class AnimalAIUpdateModuleData
@@ -112,7 +118,7 @@ public:
 void AnimalAIUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
 	TransportAIUpdateModuleData::buildFieldParse(parse);
-	parse.add(reinterpret_cast<const FieldParse *>(0x00BEEB88), 0);
+	parse.add(reinterpret_cast<const FieldParse *>(s_animalAiFieldTable), 0);
 }
 
 class WanderAIUpdateModuleData
@@ -130,7 +136,7 @@ public:
 void WanderAIUpdateModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
 	TransportAIUpdateModuleData::buildFieldParse(parse);
-	parse.add(reinterpret_cast<const FieldParse *>(0x00BEF580), 0);
+	parse.add(reinterpret_cast<const FieldParse *>(s_wanderAiFieldTable), 0);
 }
 
 #pragma inline_depth(0)

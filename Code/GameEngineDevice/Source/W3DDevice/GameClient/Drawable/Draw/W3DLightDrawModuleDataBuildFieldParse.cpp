@@ -14,6 +14,7 @@ class MultiIniFieldParse;
 
 struct FieldParse;
 
+extern const int s_lightDrawFieldTable[];
 class MultiIniFieldParse
 {
 public:
@@ -28,7 +29,7 @@ public:
 
 void W3DLightDrawModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
-	parse.add(reinterpret_cast<const FieldParse *>(0x00BCD918), 0);
+	parse.add(reinterpret_cast<const FieldParse *>(s_lightDrawFieldTable), 0);
 }
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's

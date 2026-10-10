@@ -15,6 +15,7 @@ class MultiIniFieldParse;
 
 struct FieldParse;
 
+extern const int s_laserDrawFieldTable[];
 class MultiIniFieldParse
 {
 public:
@@ -29,7 +30,7 @@ public:
 
 void W3DLaserDrawModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
-	parse.add(reinterpret_cast<const FieldParse *>(0x00BCB840), 0);
+	parse.add(reinterpret_cast<const FieldParse *>(s_laserDrawFieldTable), 0);
 }
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
