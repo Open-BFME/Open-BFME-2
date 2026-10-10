@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /DNDEBUG /MD /EHsc /O1 /arch:SSE /G7
 // ?GadgetImageComboBoxInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z
 // @0x0032386A 497B (Ghidra boundary, EH frame): the image combo box input
 // callback, slot 0x54 of the input table 0x9BCAD8. Reference semantics:
@@ -18,6 +18,7 @@
 // cases reach "handled" through different labels; which case returns
 // directly is not recoverable (any split of 19 from 20 compiles the same).
 #include "Common/BfmeAudioEventPrefix136.h"
+#include "unicode_string.h"
 
 typedef int Int;
 typedef bool Bool;
@@ -28,6 +29,8 @@ enum WindowMsgHandledType { MSG_IGNORED, MSG_HANDLED };
 
 enum
 {
+	GWM_CREATE = 1,
+	GWM_DESTROY = 2,
 	GWM_LEFT_DOWN = 5,
 	GWM_LEFT_UP = 6,
 	GWM_LEFT_DRAG = 8,
@@ -35,13 +38,34 @@ enum
 	GWM_WHEEL_UP = 19,
 	GWM_WHEEL_DOWN = 20,
 	GWM_CHAR = 21,
-	GWM_SCRIPT_CREATE = 22
+	GWM_SCRIPT_CREATE = 22,
+	GWM_INPUT_FOCUS = 23
 };
 
-enum { GGM_LEFT_DRAG = 0x4000 };
+enum
+{
+	GGM_LEFT_DRAG = 0x4000,
+	GGM_SET_LABEL = 0x4001,
+	GGM_FOCUS_CHANGE = 0x4003,
+	GGM_RESIZED = 0x4004,
+	GGM_CLOSE = 0x4005,
+	GBM_SELECTED = 0x4008,
+	GCM_SELECTED = 0x4014,
+	GCM_ADD_ENTRY = 0x4022,
+	GCM_DEL_ALL = 0x4024,
+	GCM_RESET = 0x4025,
+	GCM_UPDATE_TEXT = 0x4026,
+	GCM_GET_ITEM_DATA = 0x402A,
+	GCM_SET_ITEM_DATA = 0x402B,
+	GCM_GET_SELECTION = 0x402C,
+	GCM_SET_SELECTION = 0x402D
+};
+enum { WIN_STATE_HILITED = 0x02 };
 enum { GWS_PUSH_BUTTON = 0x01, GWS_SCROLL_LISTBOX = 0x20, GWS_MOUSE_TRACK = 0x400 };
 enum { KEY_TAB = 0x0F };
 enum { KEY_STATE_DOWN = 0x02, KEY_STATE_LSHIFT = 0x10 };
+
+extern "C" void *__cdecl memset(void *dst, int value, unsigned int count);
 
 #ifndef NULL
 #define NULL 0
@@ -57,21 +81,42 @@ class GameFont;
 class GameWindow;
 class BfmeKeyLC;
 
+class Image
+{
+public:
+	Int getImageWidth() const { return m_imageSize.x; }
+	Int getImageHeight() const { return m_imageSize.y; }
+
+	unsigned char m_pad00[0x24];
+	ICoord2D m_imageSize;
+};
+
 class WinInstanceData
 {
 public:
 	unsigned int getStyle() { return m_style; }
 	GameFont *getFont() { return m_font; }
+	void setText(UnicodeString text);
 
-	unsigned char m_pad00[0xC];
+	void *m_vtable;
+	Int m_id;
+	UnsignedInt m_state;
 	unsigned int m_style;
-	unsigned char m_pad10[0x184 - 0x10];
+	UnsignedInt m_status;
+	GameWindow *m_owner;
+	const Image *m_enabledImage;
+	unsigned char m_pad1C[0x184 - 0x1C];
 	GameFont *m_font;
 };
 
 class GameWindow
 {
 public:
+	const Image *winGetEnabledImage() { return m_instData.m_enabledImage; }
+
+	Int winGetWindowId();
+	GameWindow *winGetParent();
+	void winSetUserData(void *data);
 	GameWindow *winGetOwner();
 	Bool winIsHidden();
 	Int winHide(Bool hide);
@@ -81,6 +126,9 @@ public:
 	WinInstanceData *winGetInstanceData();
 	void *winGetUserData();
 	UnsignedInt winGetStyle();
+
+	unsigned char m_pad00[0x30];
+	WinInstanceData m_instData;
 };
 
 struct ImageComboBoxData
@@ -88,11 +136,13 @@ struct ImageComboBoxData
 	Int maxListHeight;
 	GameWindow *dropDownButton;
 	GameWindow *listBox;
+	Int m_field0C;
 };
 
 struct ListboxData
 {
-	unsigned char m_pad00[0x0E];
+	short listLength;
+	unsigned char m_pad02[0x0E - 0x02];
 	Bool m_flag0E;
 	unsigned char m_pad0F[0x12 - 0x0F];
 	Bool m_flag12;
@@ -102,7 +152,8 @@ struct ListboxData
 	GameWindow *downButton;
 	GameWindow *slider;
 	Int totalHeight;
-	unsigned char m_pad2C[0x30 - 0x2C];
+	short insertPos;
+	unsigned char m_pad2E[0x30 - 0x2E];
 	Int m_field30;
 	Int selectPos;
 };
@@ -172,8 +223,7 @@ public:
 	Int getModifierFlags() { return m_modifiers; }
 
 	unsigned char m_pad00[0xC];
-	// Retail mouse callers read the modifier word at +0x0c.
-	unsigned short m_modifiers;
+	Int m_modifiers;
 };
 
 extern Keyboard *TheKeyboard;
@@ -190,7 +240,7 @@ public:
 
 void Rva003248F5Show(GameWindow *listBox, bool hide);
 
-void MpGameSetupComboRef::rva00323736(bool hide)
+inline __declspec(noinline) void MpGameSetupComboRef::rva00323736(bool hide)
 {
 	GameWindow *listBox = ((ImageComboBoxData *)m_window->winGetUserData())->listBox;
 	if (!listBox)
@@ -242,6 +292,125 @@ void MpGameSetupComboRef::rva00323736(bool hide)
 }
 
 void Rva006CC9A0(Int a, Int b, Int c);
+
+void GadgetListBoxSetListLength(GameWindow *listbox, Int newLen);
+Int GadgetListBoxAddEntryImage(GameWindow *listbox, const Image *image,
+	Int row, Int column, Int hieght, Int width, Bool overwrite, Int color);
+
+// One-pointer views of the combo window for its list operations. 0x003235B8
+// (BFME1 Rva004B5AA0::m) adds an image entry, growing the list when full; the
+// others are rowed by address elsewhere.
+class Rva003235B8
+{
+public:
+	Int rva003235B8(const Image *image, Int height, Int width, Int color);
+
+	GameWindow *m_window;
+};
+
+inline __declspec(noinline) Int Rva003235B8::rva003235B8(const Image *image, Int height, Int width, Int color)
+{
+	if (!m_window)
+		return -1;
+	GameWindow *listBox = ((ImageComboBoxData *)m_window->winGetUserData())->listBox;
+	ListboxData *listData = (ListboxData *)((ImageComboBoxData *)m_window->winGetUserData())->listBox->winGetUserData();
+	if (listData->insertPos >= listData->listLength)
+		GadgetListBoxSetListLength(listBox, 2 * listData->listLength);
+	return GadgetListBoxAddEntryImage(listBox, image, -1, 0, width, height, true, color);
+}
+
+// The combo wrappers' remaining methods (rows 0x00323642, 0x00323657,
+// 0x00323674, 0x003236A0 and 0x003236C4, each rowed in its own unit) are
+// repeated here with their row bodies, inline and never inlined, like the
+// two defined above. Retail's compiler knew none of them keeps the address of
+// `combo`, so the GGM_SET_LABEL argument temporary's esp save shares combo's
+// dead home [ebp+8]; with opaque callees it moved to [ebp+0xC].
+extern "C" void _ReadWriteBarrier(void);
+#pragma intrinsic(_ReadWriteBarrier)
+void GadgetListBoxGetSelected(GameWindow *win, int *sel);
+void GadgetListBoxReset(GameWindow *listbox);
+void Rva00325388Send(GameWindow *window, int a, int b, int c);
+int Rva003253BEGet(GameWindow *window, int a, int b);
+struct Rva00323657ListData
+{
+	char m_pad[0x34];
+	void *m_34;
+};
+class Rva00323619
+{
+public:
+	__declspec(noinline) void rva00323642()
+	{
+		GameWindow *w = m_window;
+		if (w == 0)
+			return;
+		void *userData = w->winGetUserData();
+		GadgetListBoxReset(*(GameWindow **)((char *)userData + 8));
+	}
+private:
+	GameWindow *m_window;
+};
+class BfmeThing925D
+{
+public:
+	__declspec(noinline) void bfmeGo925D(void *v)
+	{
+		GameWindow *w = m_window;
+		if (w)
+		{
+			GameWindow *listBox = ((ImageComboBoxData *)w->winGetUserData())->listBox;
+			((Rva00323657ListData *)listBox->winGetUserData())->m_34 = v;
+		}
+	}
+private:
+	GameWindow *m_window;
+};
+class Rva00323674
+{
+public:
+	__declspec(noinline) int rva00323674() const
+	{
+		GameWindow *win = m_window;
+		if (win == 0)
+			return -1;
+		int sel = -1;
+		GameWindow *listWin = ((ImageComboBoxData *)win->winGetUserData())->listBox;
+		_ReadWriteBarrier();
+		GadgetListBoxGetSelected(listWin, &sel);
+		return sel;
+	}
+private:
+	GameWindow *m_window;
+};
+class Rva003236A0
+{
+public:
+	__declspec(noinline) void rva003236A0(int a, int b)
+	{
+		if (m_window == 0)
+			return;
+		GameWindow *listBox = ((ImageComboBoxData *)m_window->winGetUserData())->listBox;
+		_ReadWriteBarrier();
+		Rva00325388Send(listBox, b, a, 0);
+	}
+private:
+	GameWindow *m_window;
+};
+class Rva003236C4
+{
+public:
+	__declspec(noinline) int rva003236C4(int a)
+	{
+		if (m_window == 0)
+			return 0;
+		GameWindow *listBox = ((ImageComboBoxData *)m_window->winGetUserData())->listBox;
+		return Rva003253BEGet(listBox, a, 0);
+	}
+private:
+	GameWindow *m_window;
+};
+// 0x003140CF, the owner setter (null means the window itself).
+class Rva003140CF { public: int rva003140CF(int v); };
 
 WindowMsgHandledType GadgetImageComboBoxInput(GameWindow *window, UnsignedInt msg,
 	WindowMsgData mData1, WindowMsgData mData2)
@@ -312,6 +481,139 @@ WindowMsgHandledType GadgetImageComboBoxInput(GameWindow *window, UnsignedInt ms
 
 		case GWM_WHEEL_DOWN:
 			return MSG_HANDLED;
+
+		default:
+			return MSG_IGNORED;
+	}
+
+	return MSG_HANDLED;
+}
+
+// ?GadgetImageComboBoxSystem@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z
+// @0x00323A5B 811B: the image combo box system callback (Open-BFME-1
+// GadgetImageComboBox.cpp GadgetImageComboBoxSystem, the combo box system
+// message handler with the drop-down list in the user data). `combo` is the
+// one-pointer wrapper whose methods the cases call; see the note above the
+// wrapper classes for why their bodies are visible here.
+WindowMsgHandledType GadgetImageComboBoxSystem(GameWindow *window, UnsignedInt msg,
+	WindowMsgData mData1, WindowMsgData mData2)
+{
+	const UnsignedInt message = msg;
+	GameWindow *combo = window;
+	WinInstanceData *instData = window->winGetInstanceData();
+	ImageComboBoxData *comboData = (ImageComboBoxData *)window->winGetUserData();
+
+	switch (message)
+	{
+		case GWM_CREATE:
+		{
+			ImageComboBoxData *created = new ImageComboBoxData;
+			memset(created, 0, sizeof(*created));
+			window->winSetUserData(created);
+			((Rva003140CF *)window)->rva003140CF((int)window->winGetParent());
+			break;
+		}
+
+		case GWM_DESTROY:
+			TheWindowManager->winSetLoneWindow(NULL);
+			if (comboData)
+			{
+				delete comboData;
+				window->winSetUserData(NULL);
+			}
+			break;
+
+		case GWM_INPUT_FOCUS:
+			if (mData1 == 0)
+				instData->m_state &= ~WIN_STATE_HILITED;
+			else
+				instData->m_state |= WIN_STATE_HILITED;
+			TheWindowManager->winSendSystemMsg(window->winGetOwner(),
+				GGM_FOCUS_CHANGE, mData1, window->winGetWindowId());
+			*(Bool *)mData2 = true;
+			break;
+
+		case GGM_LEFT_DRAG:
+			break;
+
+		case GGM_SET_LABEL:
+		{
+			instData->setText(*(UnicodeString *)mData1);
+			break;
+		}
+
+		case GGM_RESIZED:
+		{
+			GameWindow *listBox = ((ImageComboBoxData *)window->winGetUserData())->listBox;
+			if (listBox && listBox->winIsHidden())
+			{
+				listBox->winSetSize(mData1, mData2);
+				GameWindow *button = comboData->dropDownButton;
+				ICoord2D size;
+				const Image *image = button->winGetEnabledImage();
+				if (image)
+				{
+					size.x = image->getImageWidth();
+					size.y = image->getImageHeight();
+					float scale = (float)(Int)mData2 / size.y;
+					size.x = (Int)(size.x * scale);
+					size.y = (Int)(size.y * scale);
+				}
+				button->winSetPosition(mData1 - size.x, 0);
+				comboData->dropDownButton->winSetSize(size.x, size.y);
+			}
+			break;
+		}
+
+		case GGM_CLOSE:
+			if (!((ImageComboBoxData *)window->winGetUserData())->listBox->winIsHidden())
+				((MpGameSetupComboRef *)&combo)->rva00323736(true);
+			break;
+
+		case GBM_SELECTED:
+			if ((GameWindow *)mData1 == comboData->dropDownButton)
+			{
+				if (TheAudio)
+				{
+					BfmeAudioEventPrefix136 buttonClick(TheAudio->getMiscAudio()->guiClickSound, 2);
+					TheAudio->addAudioEvent(&buttonClick);
+				}
+				((MpGameSetupComboRef *)&combo)->rva00323736(!((ImageComboBoxData *)window->winGetUserData())->listBox->winIsHidden());
+			}
+			break;
+
+		case GCM_SET_SELECTION:
+			((BfmeThing925D *)&combo)->bfmeGo925D((void *)mData2);
+			break;
+
+		case GCM_GET_SELECTION:
+			*(Int *)mData2 = ((Rva00323674 *)&combo)->rva00323674();
+			break;
+
+		case GCM_SET_ITEM_DATA:
+			((Rva003236A0 *)&combo)->rva003236A0((int)mData1, (int)mData2);
+			break;
+
+		case GCM_GET_ITEM_DATA:
+			*(Int *)mData2 = ((Rva003236C4 *)&combo)->rva003236C4((int)mData1);
+			// fall through
+
+		case GCM_SELECTED:
+			((MpGameSetupComboRef *)&combo)->rva00323736(true);
+			TheWindowManager->winSendSystemMsg(window->winGetOwner(),
+				GCM_UPDATE_TEXT, (WindowMsgData)window, 0);
+			break;
+
+		case GCM_RESET:
+			((Rva00323619 *)&combo)->rva00323642();
+			break;
+
+		case GCM_DEL_ALL:
+			break;
+
+		case GCM_ADD_ENTRY:
+			return (WindowMsgHandledType)((Rva003235B8 *)&combo)->rva003235B8(
+				(const Image *)mData1, (Int)mData2, -1, -1);
 
 		default:
 			return MSG_IGNORED;
