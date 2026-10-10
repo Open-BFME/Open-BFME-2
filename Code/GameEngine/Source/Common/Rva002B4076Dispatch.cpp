@@ -54,7 +54,6 @@ private:
  char pad[0x7C];
  Rva002B6194List listeners;
 };
-// ?rva002B6D85@Rva002B6D85@@QAEXPAXPAURva002B3E50Range@@01@Z present-unmatched
 void Rva002B6D85::rva002B6D85(void *source,Rva002B3E50Range *first,void *target,Rva002B3E50Range *second) {
  listeners.forEach(&Rva002B2FCBElem::notify,(int)source,(int)first,(int)target,(int)second);
  rva002B3E50(first,(LivingWorldArmy*)source,(LivingWorldArmy*)target);
