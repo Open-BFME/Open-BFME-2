@@ -12,6 +12,15 @@
 
 #include <vector>
 #include <map>
+
+// map/set<int> internals otherwise instantiate the less<int>::operator()
+// COMDAT (one byte shape per TU flags); an explicit dllimport+forceinline
+// specialization takes those calls inline so this TU emits no external copy.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+bool less<int>::operator()(const int &a, const int &b) const
+{ return a < b; }
+}
 struct BfmeE16 {float x,y,z,w;};
 struct Rva004F69D6Record {char bytes[4];~Rva004F69D6Record();};
 struct Rva004F7D7FRecord {char bytes[4];~Rva004F7D7FRecord();};

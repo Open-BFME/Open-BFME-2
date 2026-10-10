@@ -9,6 +9,15 @@
 // Evidence: unlock lane; map<int int> at +0x14 via rowed _M_find 0x00388F63 and operator[] 0x0028932C; callers 0x005B05E8 0x005B07C1 0x005B0EE6 0x005B1B5E; prev-next Rb_tree hint same flags.
 #include <map>
 
+// map/set<int> internals otherwise instantiate the less<int>::operator()
+// COMDAT (one byte shape per TU flags); an explicit dllimport+forceinline
+// specialization takes those calls inline so this TU emits no external copy.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+bool less<int>::operator()(const int &a, const int &b) const
+{ return a < b; }
+}
+
 // Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
 namespace _STL {
 template <class T, class LeftTraits, class RightTraits>

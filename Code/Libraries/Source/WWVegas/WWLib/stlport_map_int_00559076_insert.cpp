@@ -4,6 +4,15 @@
 // Evidence: callee rowed in StlportIntMapInsertFamily.cpp; caller 0x00559376 in 150B unclaimed user; prev BFMENetwork queues cl /O1 /DNDEBUG /MD /GX.
 #include <map>
 
+// map/set<int> internals otherwise instantiate the less<int>::operator()
+// COMDAT (one byte shape per TU flags); an explicit dllimport+forceinline
+// specialization takes those calls inline so this TU emits no external copy.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+bool less<int>::operator()(const int &a, const int &b) const
+{ return a < b; }
+}
+
 struct Rva00559076Mapped { int a; };
 
 typedef _STL::map<int, Rva00559076Mapped, _STL::less<int>, _STL::allocator<_STL::pair<const int, Rva00559076Mapped> > > Map005592FB;

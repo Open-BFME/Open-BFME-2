@@ -22,6 +22,15 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #include <map>
 #include <algorithm>
 
+// map/set<int> internals otherwise instantiate the less<int>::operator()
+// COMDAT (one byte shape per TU flags); an explicit dllimport+forceinline
+// specialization takes those calls inline so this TU emits no external copy.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+bool less<int>::operator()(const int &a, const int &b) const
+{ return a < b; }
+}
+
 // Native2DFCF6 releases trivial index storage with a conditional game free.
 // The generic header leaves cleanup out of line for this instantiation;
 // this specialization keeps the same trivial destruction and allocator

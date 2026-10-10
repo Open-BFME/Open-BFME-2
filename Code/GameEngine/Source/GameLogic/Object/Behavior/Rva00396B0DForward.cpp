@@ -15,6 +15,15 @@
 // the shared EH prolog and both frame homes; the existing forwarder stays exact.
 #include "ascii_string.h"
 #include <map>
+
+// map/set<int> internals otherwise instantiate the less<int>::operator()
+// COMDAT (one byte shape per TU flags); an explicit dllimport+forceinline
+// specialization takes those calls inline so this TU emits no external copy.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+bool less<int>::operator()(const int &a, const int &b) const
+{ return a < b; }
+}
 namespace _STL {
 template <class T, class L, class R>
 static inline bool operator!=(const _Rb_tree_iterator<T, L>& a,
