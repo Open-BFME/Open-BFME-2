@@ -1,5 +1,8 @@
 // ?rva0022D290@GameEngine@@QAEXXZ
-// partial score=0.985 date=2026-10-10
+// partial score=0.986 date=2026-10-10
+// ?rva0022D290@GameEngine@@QAEXXZ  NEAR (helper cv 2026-10-10): improves reverse/attempts/0x0022d290.cpp
+// change: limit numerator 1000.0f/(float)((double)m_maxFPS*LOGIC_SCALE) gives retail fdivr dword [1000.0f] (was qword)
+// remaining: 1387 vs 1388; retail copies elapsed (mov eax ecx) and uses the ternary sbb shape with a separate if test
 // cl: /Ireference/shims/bfme2_ascii /Ireference/shims/sweep /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG
 // BFME1 GameEngine_execute.cpp and ZH GameEngine::execute are primary guides.
 // Native22D290..22D7FC includes startup load, embedded catch handlers and pacing.
@@ -349,7 +352,7 @@ void GameEngine::rva0022D290()
   if((unsigned)SavedClientFrame+6>((EngineClientSlots*)TheGameClient)->getFrame())EngineLimitFrameRate=false;
   if(EngineLimitFrameRate) {
    unsigned now=timeGetTime();
-   int limit=(int)(1000.0f/((double)m_maxFPS*LOGIC_SCALE));
+   int limit=(int)(1000.0f/(float)((double)m_maxFPS*LOGIC_SCALE));
    unsigned elapsed=now-EnginePreviousFrameTime;
    unsigned remaining=((unsigned)limit-elapsed) & ((unsigned)(elapsed>=(unsigned)limit)-1);
    EngineFrameElapsedTime=elapsed;EngineSleepTimeTotal+=remaining;EngineSleepTimeRemaining=remaining;

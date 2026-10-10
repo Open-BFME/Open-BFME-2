@@ -1,12 +1,7 @@
-// ?transitionLiveMode@W3DCamTransform@@QAEXPAVVector3@@0PAVView@@@Z
-// partial score=0.9831912878787878 date=2026-10-10
-// ?transitionLiveMode@W3DCamTransform@@QAEXPAVVector3@@0PAVView@@@Z
-// partial score=0.9800079477813852 date=2026-10-10
-// ?transitionLiveMode@W3DCamTransform@@QAEXPAVVector3@@0PAVView@@@Z
-// partial score=0.95 date=2026-10-09
 // cl: /I. /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /DNDEBUG /MD /ICode/Libraries/Include/Lib
 //
-// ?transitionLiveMode@W3DCamTransform@@QAEXPAVVector3@@0PAVView@@@Z,
+// W3DCamTransform::transitionLiveMode
+// ?transitionLiveMode@W3DCamTransform@@QAEXPAVVector3@@0PAVView@@@Z
 // retail 0x00102B83..0x00102F83 (1024B), thiscall ret 0xC; sole caller is the
 // W3DView camera update near 0x00103A6F, which passes the view as the third
 // argument.
@@ -27,9 +22,11 @@
 // retail), four zero-initialised static timers and four tuning statics
 // (0.5 / 0.05 and 0.4 / 0.03). Callees StringBase::compare(text) 0x000069B1 and
 // GameLogic::findObjectByID 0x00049DC5 (rowed).
+//
+// Shape note: the reset's self-select store of targetT (this ? 0 : 0) is what
+// gives cl retail's register colouring of the cached zoom/target speeds
+// (xmm1/xmm2) and its store order; every plainer spelling swaps the two.
 
-extern "C" void _ReadWriteBarrier(void);
-#pragma intrinsic(_ReadWriteBarrier)
 #include "ascii_string.h"
 #include "Code/Libraries/Include/Lib/Coord3D.h"
 #include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
@@ -155,8 +152,10 @@ void W3DCamTransform::transitionLiveMode(Vector3 *pos, Vector3 *target, View *vi
 	Object *obj = TheGameLogic->findObjectByID(view->m_cameraLock);
 	if (!obj)
 	{
-		zoomT = targetT = 0.0f;
-		zoomSpeed = (this ? targetSpeed = 0.0f : targetSpeed = 0.0f);
+		zoomT = 0.0f;
+		zoomSpeed = 0.0f;
+		targetT = this ? 0.0f : 0.0f;
+		targetSpeed = 0.0f;
 		m_liveState = 0;
 	}
 
@@ -188,13 +187,9 @@ void W3DCamTransform::transitionLiveMode(Vector3 *pos, Vector3 *target, View *vi
 
 		case 2:
 		{
-			Real maxSpeed = zoomMaxSpeed;
-_ReadWriteBarrier();
-
-			Real accel = zoomAccel;
 			zoomT += zoomSpeed;
-			if (zoomSpeed < maxSpeed)
-				zoomSpeed += accel;
+			if (zoomSpeed < zoomMaxSpeed)
+				zoomSpeed += zoomAccel;
 
 			Object *lockObj = TheGameLogic->findObjectByID(view->m_cameraLock);
 			Vector3 objPos;

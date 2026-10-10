@@ -1,16 +1,23 @@
 // ?rva006E6540@AptAnimationPoolData@@QAEXXZ
-// partial score=0.9825904761904762 date=2026-10-10
+// partial score=0.999 date=2026-10-10
 // cl: /O2 /MD /EHs-c-
-// Native6E6540..6E6A2C (1260B incl. cold backedge), RET0: queue+20, 24-byte actions, root queueA0.
-// Bank: raw1258/374ops versus retail1260/375ops; four q/end spill homes,
-// packed-event shift scheduling, Push setup order and validator bindings remain.
-// _AptValidate label comes from the retail assertion; its 3B true body folds at
-//1826C0 under existing codecvt owners, so this declaration is not a verified name pin.
-// Rva006FA020 thiscall receiver is a call-site inference; current owned224B
-// source remains cdecl and must be reconciled before any recovery. Field48 is
-// an accessed interpreter-prefix word, not a proven constant-pool member.
-// The action/function labels and assertions identify AptAnimation dispatch;
-// matched root constructor/dtor and queue members constrain the prefix views.
+// Symbol: ?rva006E6540@AptAnimationPoolData@@QAEXXZ
+// Retail 0x006E6540..0x006E6A2C (1260 bytes incl. the cold back edge Ghidra's
+// 1255-byte boundary omits), RET0. AptAnimationPoolData's queued-action run:
+// for each 24-byte action from the root queue at +0xA0 it runs a sprite's
+// action stream ("AptRun-Actions", type 1) or calls a function with its
+// scope pushed ("AptRun-Functions", type 2), then validates the interpreter
+// stacks (assertions in AptAnimation.cpp), steps back when the queue shrank
+// under it, wraps at the pool end, and finally validates the BIL, ticks new
+// instances and clears the queue.
+// Evidence: retail assertion strings and lines (AptAnimation.cpp 0x3AC 0x3EA
+// 0x3F0 0x3F3 0x3FF; _Apt.h 0x4E0 0x4E1); rowed queue/interpreter callees.
+// Shape notes: the queue-shrink step is p -= oldEnd - q->end (retail divides
+// by -24); key is computed before flags; the negated and plain key pushes are
+// two tail-merged Push calls (gives retail's mov ecx before push and the
+// q/oldEnd spill homes). Must build without /arch:SSE (cl then emits cmov).
+// Callee bindings: validateBIL is the thiscall member at 0x006FA020 (caller
+// sets ECX); _AptValidate is the 3-byte true body ICF-folded at 0x001826C0.
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
 extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char*,const char*,int);
@@ -50,9 +57,8 @@ class Rva006E34D0 {public:char unknown[0x68];AptValue*value68;};
 extern Rva006E34D0*g_bfmeAptPtrAtE176D0;
 struct Rva006E3230Action {int type,flags,event;union{int frame;AptValue*context;};union{const unsigned char**stream;AptValue*function;};union{AptCIH*target;int nArgs;};};
 class AptActionQueueC {public:Rva006E3230Action*pool,*current,*end,*executing;int capacity;void rva006E3230(Rva006E3230Action*);void ClearActions();};
-class Rva006FA020 {public:bool rva006FA020();};
 bool _AptValidate();
-class AptAnimationPoolData {public:char unknown[0xa0];AptActionQueueC*queue;void _tickNewInsts();void rva006E6540();};
+class AptAnimationPoolData {public:char unknown[0xa0];AptActionQueueC*queue;void _tickNewInsts();bool validateBIL();void rva006E6540();};
 void AptAnimationPoolData::rva006E6540(){
  AptActionQueueC*q=queue;q->rva006E3230(q->current);
  Rva006E3230Action*p=q->current;
@@ -81,11 +87,11 @@ void AptAnimationPoolData::rva006E6540(){
     AptActionSetup setup={p->context,p->function,"AptRun-Functions",p->flags};
     void*saved=g_aptDateInterpreter.PrepareForExecution(&setup);
     if(p->event && (p->event&3)==1 && (p->event&0x3fc)==4){
-     unsigned flags=((unsigned)p->event>>10)&0x7f;int key=(int)((unsigned)p->event>>17);
+     int key=(int)((unsigned)p->event>>17);unsigned flags=((unsigned)p->event>>10)&0x7f;
      if(p->nArgs>0 && (flags&7)){
       if(p->nArgs>1)g_aptDateInterpreter.stack.Push((BfmeAptValue006DCD20*)g_bfmeAptPtrAtE176D0->value68);
-      if(flags==4)key=-key;
-      g_aptDateInterpreter.stack.Push((BfmeAptValue006DCD20*)AptInteger::Create(key));
+      if(flags==4)g_aptDateInterpreter.stack.Push((BfmeAptValue006DCD20*)AptInteger::Create(-key));
+      else g_aptDateInterpreter.stack.Push((BfmeAptValue006DCD20*)AptInteger::Create(key));
      }
     }
     g_aptDateInterpreter.callFunction(p->context,p->function,p->nArgs);
@@ -94,10 +100,10 @@ void AptAnimationPoolData::rva006E6540(){
    }else ACHECK(false,0x3ea,"NOT_REACHED");
    if(g_aptDateInterpreter.stack.count>0){g_aptDateInterpreter.stack.rva006FE920();ACHECK(g_aptDateInterpreter.stack.count==0,0x3f0,"gAptActionInterpreter.stack.GetSize() == 0");}
    ACHECK(g_aptDateInterpreter.debugCallCount==0,0x3f3,"gAptActionInterpreter.debugCallStack.GetSize() == 0");
-   if(oldEnd>q->end)p+=oldEnd-q->end;
+   if(oldEnd>q->end)p-=oldEnd-q->end;
    if(++p==q->pool+q->capacity)p=q->pool;
    QCHECK(p>=q->pool,0x4e0,"pCur >= &m_aActionPool[0]");QCHECK(p<q->pool+q->capacity,0x4e1,"pCur < &m_aActionPool[ m_iActionPoolSize ]");
   }while(p!=q->end);
  }
- ACHECK(((Rva006FA020*)this)->rva006FA020(),0x3ff,"validateBIL()");_tickNewInsts();q->ClearActions();
+ ACHECK(validateBIL(),0x3ff,"validateBIL()");_tickNewInsts();q->ClearActions();
 }
