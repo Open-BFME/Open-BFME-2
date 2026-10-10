@@ -28,6 +28,8 @@ struct BfmeE12
 // Reuse the retail 12-byte-POD iterator operation at 0x00585A18.
 typedef _STL::_Deque_iterator<BfmeE12, _STL::_Nonconst_traits<BfmeE12> > BfmeE12CopyIterator;
 namespace _STL {
+// The complete deque assignment has a matched provider in stlport_deque_e12_o1.cpp.
+template <> deque<BfmeE12> &deque<BfmeE12>::operator=(const deque<BfmeE12> &);
 template <> BfmeE12CopyIterator copy_backward<BfmeE12CopyIterator, BfmeE12CopyIterator>(
     BfmeE12CopyIterator, BfmeE12CopyIterator, BfmeE12CopyIterator);
 }
