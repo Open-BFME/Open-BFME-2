@@ -1,6 +1,9 @@
 // cl: /MD /O1 /GX /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS
 // stlport
-// ?Rva00355201Apply@@YGXHPAX0@Z @0x00355201 86B
+// ?rva00355201@AiOrdersManager@@QAEXHPAXPAVGroupOrder@@@Z @0x00355201 86B
+// (formerly rowed as the stdcall ?Rva00355201Apply@@YGXHPAX0@Z: the caller
+// AiOrdersManager::rva00355664 0x00355664 reloads ECX = this before the call, so the
+// callee is an AiOrdersManager member; the body never reads ECX and uses the global).
 // Evidence: chain from 0x005481F9; range at +4/+8 step 4; armor lookup 0x0035516C row; flags from kind 1/2; ObjectID at +0x10
 enum NameKeyType { NAMEKEY_INVALID = 0 };
 enum ObjectID { INVALID_ID = 0 };
@@ -13,7 +16,12 @@ public:
 };
 // Bind the native VA 0x00E01E18 slot to its existing subsystem owner;
 // casts below retain this unit's independently verified local view.
-class AiOrdersManager;
+class GroupOrder;
+class AiOrdersManager
+{
+public:
+	void rva00355201(int kind, void *a2, GroupOrder *a3);
+};
 extern AiOrdersManager *TheAiOrdersManager;
 
 class Rva00548117
@@ -35,7 +43,7 @@ struct Arg200355201
 	ObjectID m_id;
 };
 
-void __stdcall Rva00355201Apply(int kind, void *a2, void *a3)
+void AiOrdersManager::rva00355201(int kind, void *a2, GroupOrder *a3)
 {
 	if (kind == 0)
 		return;

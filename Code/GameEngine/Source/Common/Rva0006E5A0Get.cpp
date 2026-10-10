@@ -13,7 +13,8 @@ public:
 	float Z;
 };
 
-class W3DGameClientShadowShim
+// Row name ?getLightPosWorld@W3DShadowManager@@ (ZH/BFME1 name; W3DProjectedShadow::update calls it with ECX = TheW3DShadowManager).
+class W3DShadowManager
 {
 public:
 	Vector3 &getLightPosWorld(int lightIndex);
@@ -23,7 +24,7 @@ extern class Gen0003AC38 *g_shadowManager;
 
 void __stdcall Rva0006E5A0Get(Vector3 *dest)
 {
-	W3DGameClientShadowShim *shadow = (W3DGameClientShadowShim *)(*(void **)&g_shadowManager);
+	W3DShadowManager *shadow = (W3DShadowManager *)(*(void **)&g_shadowManager);
 	if (!shadow)
 		return;
 	Vector3 &src = shadow->getLightPosWorld(0);

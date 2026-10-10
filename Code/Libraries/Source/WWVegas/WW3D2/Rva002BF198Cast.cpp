@@ -1,5 +1,8 @@
 // cl: /Ireference/shims/bfme2ray /Ireference/shims/bfme2renderobj /DNDEBUG /MD /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep
-// ?Rva002BF198Cast@@YG_NPAVRenderObjClass@@ABVVector3@@1PAV2@H_N@Z @0x002BF198 287B.
+// ?Cast@Rva00DFEF18Host@@QAE_NPAVRenderObjClass@@ABVVector3@@1PAV3@H_N@Z @0x002BF198 287B
+// (formerly rowed as the free stdcall ?Rva002BF198Cast@@YG...: every caller loads ECX
+// first -- 0x0020E354 from the 0x00DFEF18 singleton -- so it is a member; the body
+// never reads ECX).
 // Free stdcall raycast helper: builds a 100000.0f LineSeg from start along dir,
 // tests it against the given RenderObj via Cast_Ray slot 0xF0, and writes the
 // ContactPoint into out via Set or zeroes it. ComputeContactPoint is true.
@@ -27,7 +30,13 @@ private:
 #include "vector3.h"
 #include "castres.h"
 
-bool __stdcall Rva002BF198Cast(RenderObjClass *obj, const Vector3 &start, const Vector3 &dir, Vector3 *out, int collisionType, bool checkHidden)
+class Rva00DFEF18Host
+{
+public:
+	bool Cast(RenderObjClass *obj, const Vector3 &start, const Vector3 &dir, Vector3 *out, int collisionType, bool checkHidden);
+};
+
+bool Rva00DFEF18Host::Cast(RenderObjClass *obj, const Vector3 &start, const Vector3 &dir, Vector3 *out, int collisionType, bool checkHidden)
 {
 	CastResultStruct res;
 	res.ComputeContactPoint = true;

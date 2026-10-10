@@ -5600,7 +5600,6 @@ name,address,notes
 ?CRC_Stringi@@YAKPAD@Z,0x003EC953,copy-#1 1-arg CRC_Stringi with inline toupper; called by in-family wrapper 0x3ECA44; partial banked 0.95
 ?Capture_Bone@HTreeClass@@QAEXH@Z,0x00166980,address read from the REL32 displacement at a byte-verified placed body (0x1A4EC0)
 ?Capture_Update@HTreeClass@@QAEHH@Z,0x001622B0,address read from the retail REL32 at 0x00162B84 (Base_Update) +0x001660D6 (Combo_Update) +5 more update-loop sites; int returned (callers store eax and re-seed the sweep); searches 36B captured-bone records by pivot key and applies the held quaternion/translation (world-space aware)
-?Cast@Rva00DFEF18Host@@QAE_NPAVRenderObjClass@@ABVVector3@@1PAV3@H_N@Z,0x002BF198,"__thiscall alias of the rowed free body ?Rva002BF198Cast@@YG_NPAVRenderObjClass@@ABVVector3@@1PAV2@H_N@Z at the same address; the hidden this is unused (the body never reads ecx) and 0x0020E354 loads it from the 0x00DFEF18 singleton before pushing the six stack args"
 ?Cast_AABox_Recursive@AABTreeClass@@AAE_NPAUCullNodeStruct@1@AAVAABoxCollisionTestClass@@@Z,0x00198730
 ?ChangeBuffer@EAStringC@@AAEXIIIW4CBPushZero@1@I@Z,0x006D4AA0
 ?Change_Polygon_Renderer_Texture@DX8FVFCategoryContainer@@QAEXAAV?$MultiListClass@VDX8PolygonRendererClass@@@@ABV?$RefCountPtr@VTextureClass@@@@1II@Z,0x00146200,955B renderer texture migration; reference dx8renderer.cpp algorithm and unsigned pass/stage signature; retail compares handle referents then traverses pass category list and input polygon list to queue source/destination moves
@@ -9570,7 +9569,6 @@ name,address,notes
 ?getIsQuitting@FrameDataManager@@QAE_NXZ,0x0058B826,BFME2 frame-ring quitting flag accessor used by connection-manager readiness
 ?getLANIPAddress@OptionPreferences@@QAEIXZ,0x002E4F98,Zero Hour getLANIPAddress: body looks up the IPAddress key (literal 0xC04E6C) in the preference map; REL32 at 0x002357A5 in GlobalData::applyOptionPreferences
 ?getLayerForDestination@TerrainLogic@@QAE?AW4PathfindLayerEnum@@PAVObject@@PBUCoord3D@@@Z,0x002802FE,callee of ?isReachableLayer@AnimalAIUpdateDestinationLayer@@QBEEPBUCoord3D@@@Z at retail 0x0047ED56 read from its REL32 displacement; body unrowed
-?getLightPosWorld@W3DShadowManager@@QAEAAVVector3@@H@Z,0x0009A497,read from the REL32s at 0x001094F4 and 0x0010952E in W3DProjectedShadow::update (ECX = TheW3DShadowManager global; light index 0); the 13B body there is matched under the W3DGameClientShadowShim view name
 ?getLine@INIFileTable@@QBEHH@Z,0x006018DC,INI file-table indexed line getter; sole callers are INI getters at 0x2BBDE and 0x2BBED with table-index args
 ?getLineNum@INI@@QBEHXZ,0x0002BBED,BFME1-donor-attested INI line getter; retail forwards via helper; single call site in parseSubtitle throw block
 ?getLocomotorDistanceToGoal@AIUpdateInterface@@QAEMXZ,0x0026435E,ZH getLocomotorDistanceToGoal shape (switch on locomotor goal type +0x1FC then Coord3D::length of goal minus position); REL32 from AIGuardReturnState::update 0x00543E09
@@ -16719,7 +16717,6 @@ _D3DXLoadVolumeFromFileInMemory@36,0x0062AF8C,Native1318F0 in-image JMP IAT veri
 ?rva005652F7@Glo012F1024Item@@QAEXXZ,0x005652F7,callee of ?bfmeEnter@Glo012F1024Item@@QAEXXZ
 ?rva004098BE@CreateAHeroHero@@QAE_NABVAsciiString@@_N@Z,0x004098BE,callee of ?rva0021A428@CreateAHeroManager@@QAEXABVCreateAHeroData@@@Z
 ?rva00355472@AiOrdersManager@@QAEPAXABUCoord3D@@HPAVGroupOrder@@@Z,0x00355472,callee of ?rva00355664@AiOrdersManager@@QAEXABUCoord3D@@HPAVGroupOrder@@@Z
-?rva00355201@AiOrdersManager@@QAEXHPAXPAVGroupOrder@@@Z,0x00355201,callee of ?rva00355664@AiOrdersManager@@QAEXABUCoord3D@@HPAVGroupOrder@@@Z
 ?rva00212183@LivingWorldManager@@QAEXPAX0@Z,0x00212183,callee of ?rva005652F7@Glo012F1024Item@@QAEXXZ
 ??0GameSpyConfig@@QAE@VAsciiString@@@Z,0x0054E8DC,callee of ?create@GameSpyConfigInterface@@SAPAV1@VAsciiString@@@Z
 ?searchHotKey@Rva00E01E28Owner@@QAE?AVAsciiString@@ABVUnicodeString@@@Z,0x00358B9E,REL32 callee of W3DDisplayString 0x0010631E (hot key text lookup on [0x00E01E28] with getText(); Zero Hour HotKeyManager::searchHotKey shape); unrowed
