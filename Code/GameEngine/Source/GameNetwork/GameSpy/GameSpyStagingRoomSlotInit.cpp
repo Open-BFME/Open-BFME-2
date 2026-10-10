@@ -409,7 +409,7 @@ class Rva0059EE7FDwordClearer
 public:
 	void clear();
 };
-extern int g_Va00E063EC;
+extern int g_currentAptOnlineCustomMatch;
 
 void PopBackToLobby(void)
 {
@@ -425,8 +425,8 @@ void PopBackToLobby(void)
 		TheGameSpyInfo->leaveStagingRoom();
 	}
 
-	if (g_Va00E063EC)
-		((Rva0059EE7FDwordClearer *)g_Va00E063EC)->clear();
+	if (g_currentAptOnlineCustomMatch)
+		((Rva0059EE7FDwordClearer *)g_currentAptOnlineCustomMatch)->clear();
 }
 
 class GameTextInterface

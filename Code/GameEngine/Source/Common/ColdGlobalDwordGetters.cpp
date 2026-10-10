@@ -254,16 +254,17 @@ int Rva004B879DGet(void)
 	return g_Va00DBA4E4;
 }
 
-extern int g_Va00E063EC;
-// g_Va00E063EC: matched references place it at VA 0xe063ec (zero-filled .bss).
-int g_Va00E063EC;
+extern int g_currentAptOnlineCustomMatch;
+// Current AptOnlineCustomMatch: its ctor005A5BC7 stores this, and dtor005A0009
+// clears this same value. Preserve the existing 32-bit address storage ABI.
+int g_currentAptOnlineCustomMatch;
 
 // ?Rva004FDA11Get@@YAHXZ @ 0x004fda11 (6B) over 0x00E063EC.
 // Follows a ret-with-pop (prev C2), no .rdata vtable slot, no direct callers,
 // no branch sources. Opaque address-derived name.
 int Rva004FDA11Get(void)
 {
-	return g_Va00E063EC;
+	return g_currentAptOnlineCustomMatch;
 }
 
 extern int g_Va00DFEFD8;

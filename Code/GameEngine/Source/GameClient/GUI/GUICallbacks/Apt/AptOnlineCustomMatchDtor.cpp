@@ -102,7 +102,7 @@ public:
 };
 
 extern Rva005A6D47 *g_Va00E063F8;
-extern int g_Va00E063EC;
+extern int g_currentAptOnlineCustomMatch;
 extern int g_Va00E063F0;
 
 class AptOnlineCustomMatch : public Rva0056DC6B, public Rva004444D2, public Rva0059EB41
@@ -120,8 +120,8 @@ private:
 AptOnlineCustomMatch::~AptOnlineCustomMatch()
 {
 	--g_Va00E063F0;
-	if (g_Va00E063EC == (int)this)
-		g_Va00E063EC = 0;
+	if (g_currentAptOnlineCustomMatch == (int)this)
+		g_currentAptOnlineCustomMatch = 0;
 	if (g_Va00E063F8)
 		g_Va00E063F8->m_2C.rva002B7250((CreateAHeroData *)static_cast<Rva0059EB41 *>(this));
 }

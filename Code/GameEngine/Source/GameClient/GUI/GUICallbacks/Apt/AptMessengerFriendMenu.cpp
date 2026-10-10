@@ -16,7 +16,7 @@
 // name) and looks the player up (rowed 0x005AE7A5), counting hits, online
 // entries and entries whose record status (+0x10) is neither 0 nor 2. Hits
 // enable "remove"; pending entries enable "invite" only offline and when the
-// g_Va00E063EC query (rowed 0x0059EF33) holds; online entries turn the second
+// g_currentAptOnlineCustomMatch query (rowed 0x0059EF33) holds; online entries turn the second
 // entry into an enabled "APT:AcceptFriend" and set +0x2A0. WB twin 0x01515780
 // (unnamed) has the same strings and order. The method name is
 // address-derived; entry/field names are inferred.
@@ -62,7 +62,7 @@ public:
 };
 
 extern int g_Va00E046BC;
-extern int g_Va00E063EC;
+extern int g_currentAptOnlineCustomMatch;
 
 struct AptMenuItem
 {
@@ -120,7 +120,7 @@ void AptMessenger::rva005AEBD3()
 		m_menuItems[0].enabled = true;
 	if (pending)
 	{
-		if (!online && g_Va00E063EC && ((Rva0059ECAD *)g_Va00E063EC)->rva0059EF33())
+		if (!online && g_currentAptOnlineCustomMatch && ((Rva0059ECAD *)g_currentAptOnlineCustomMatch)->rva0059EF33())
 			m_menuItems[1].enabled = true;
 	}
 	else if (online)

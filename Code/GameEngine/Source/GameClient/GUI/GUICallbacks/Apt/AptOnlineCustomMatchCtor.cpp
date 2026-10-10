@@ -130,7 +130,7 @@ public:
 };
 extern GameSpyStagingRoom *TheGameSpyGame;
 
-extern int g_Va00E063EC;
+extern int g_currentAptOnlineCustomMatch;
 extern int g_Va00E063F0;
 
 class __multiple_inheritance FunctorTarget;
@@ -275,7 +275,7 @@ Rva005BA1FDBase::Rva005BA1FDBase(int shell, int profile)
 	  m_4C4(0), m_4C8(0), m_4CC(0), m_4D0("APT:NULL"), m_4D4(0), m_4D8(false), m_4DC(0)
 {
 	++g_Va00E063F0;
-	g_Va00E063EC = (int)this;
+	g_currentAptOnlineCustomMatch = (int)this;
 	reinterpret_cast<AptMpGameSetup *>(&m_setup)->rva004422B4(profile);
 	CM_BIND("AptOnline::CustomMatch::CancelPopUpJoin", &Rva0059ECD2::rva0059ECD2, CustomMatchPopUp)
 	CM_BIND("AptOnline::CustomMatch::CreateGame", &Rva0059ECD2::rva0059EC72, CustomMatchPopUp)

@@ -125,7 +125,7 @@ struct Rva005AE7C6Info {
     Rva005AE7C6Info() : profile(-1), tail(-1) {}
 };
 class Rva0059FB4F {public: bool rva0059FB4F(void *info);};
-extern int g_Va00E063EC;
+extern int g_currentAptOnlineCustomMatch;
 void __cdecl Rva0041647A(void *info);
 
 class AptMessenger
@@ -199,7 +199,7 @@ void AptMessenger::rva005AE886()
 // the remaining scalar meanings are retained as address-derived views.
 void AptMessenger::rva005AE7C6()
 {
-    Rva0059FB4F *query = (Rva0059FB4F *)g_Va00E063EC;
+    Rva0059FB4F *query = (Rva0059FB4F *)g_currentAptOnlineCustomMatch;
     if (query) {
         Rva005AE7C6Info info;
         if (!query->rva0059FB4F(&info))

@@ -113,13 +113,13 @@ public:
  virtual UnicodeString fetch(const char *, bool *exists = 0);
 };
 extern GameTextInterface *TheGameText;
-extern int g_Va00E063EC;
+extern int g_currentAptOnlineCustomMatch;
 class Rva003FF1C2 { public: bool rva003FF1C2() const; };
 int GadgetListBoxGetEntryBasedOnXY(GameWindow *, int, int, int &, int &);
 int Rva003253BEGet(GameWindow *, int, int);
 void AptOnlineCustomMatch::GamesListTooltipFunc(GameWindow *window, WinInstanceData *, unsigned int mouse)
 {
- if (!g_Va00E063EC) return;
+ if (!g_currentAptOnlineCustomMatch) return;
  int row, column;
  int x = mouse & 0xffff;
  int y = mouse >> 16;
