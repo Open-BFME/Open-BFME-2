@@ -130,3 +130,15 @@ void Rva00080637::rva00080664(Int unused, Int id)
 		}
 	}
 }
+
+// Installed-table buffer copies. Native x87 accesses establish the first
+// float; other fields are opaque raw32-bit words. Original owner, field
+// meanings and source-level return convention remain unknown. These views
+// model the observed stack buffer, writes and EAX buffer pointer only.
+struct Rva00596CC7Buffer {float first; unsigned int second,third;};
+class Rva00596CC7 {public: void *rva00596CC7(Rva00596CC7Buffer *output); private: char prefix[0x40]; float first; unsigned int second,third;};
+void *Rva00596CC7::rva00596CC7(Rva00596CC7Buffer *output) {output->first=first; output->second=second; output->third=third; return output;}
+
+struct Rva005C3513Buffer {float first; unsigned int second;};
+class Rva005C3513 {public: void *rva005C3513(Rva005C3513Buffer *output); private: char prefix[0x14]; float first; unsigned int second;};
+void *Rva005C3513::rva005C3513(Rva005C3513Buffer *output) {unsigned int word=second; output->first=first; output->second=word; return output;}
