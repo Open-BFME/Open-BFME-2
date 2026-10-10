@@ -1,7 +1,9 @@
 // ?Update@Impl@InGameHeroSelectInterface@@QAEXXZ
+// partial score=0.9296565077684167 date=2026-10-10
+// ?Update@Impl@InGameHeroSelectInterface@@QAEXXZ
 // partial score=0.97 date=2026-10-09
 // stlport
-// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmelist /Ireference/shims/bfmealloc /D_CRTIMP= /O1 /EHsc /MD /arch:SSE /ICode/GameEngine/Source/Common /ICode/Libraries/Include/Lib /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
+// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmelist /Ireference/shims/bfmealloc /D_CRTIMP= /O1 /G7 /EHsc /MD /arch:SSE /ICode/GameEngine/Source/Common /ICode/Libraries/Include/Lib /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
 // InGameHeroSelectInterface.cpp -- InGameHeroSelectInterface::Impl members
 // recovered from WorldBuilder leads (reverse/wb_name_leads.csv): WB's debug
 // build names the function and asserts a valid hero id and template; retail
@@ -140,7 +142,7 @@ struct HeroButtonNode
 struct HeroButtonList
 {
 	HeroButtonNode *begin() const { return m_header->m_next; }
-	HeroButtonNode *end() const { return m_header; }
+	HeroButtonNode *end() const {const HeroButtonNode*const*p=(const HeroButtonNode*const*)this;return (HeroButtonNode*)*p;}
 
 	HeroButtonNode *m_header;
 };
@@ -483,11 +485,13 @@ void InGameHeroSelectInterface::Impl::BuildLocalBuilderList(_STL::list<Rva005251
 }
 
 // InGameHeroSelectInterface::Impl::Update, retail 0x005264F5..0x00526E8B (2454B), WB 0x013BF0C0.
-// NEAR (banked): 2451B, 0.976 instruction similarity with frame offsets masked.
-// Remaining deltas: frame 0x40 vs retail 0x38 (rankProgress/health and the
-// Apt argument temporaries get their own homes where retail shares slots) and
-// retail's unfolded `add eax,0x10; mov eax,[eax]` for m_data->m_heroButtons.end()
-// in the builder-slot block (3B). Flags: region default adds /G7.
+// Round5: full compiled extent2461 versus native2454; native0x38 frame restored.
+// Progress/rankProgress/health are successive active members of one POD union;
+// no member is read after the next member becomes active. Apt receives value
+// temporaries rather than pointers to persistent result locals. The read through
+// a qualification-compatible list-header representation restores native unfolded
+// list-end address/load sequences. Remaining: three local home choices, integer
+// result allocation and list-cleanup state. Normal fitness0.9296565, all calls resolve.
 void InGameHeroSelectInterface::Impl::Update()
 {
 	_STL::list<Rva00525119> builders;
@@ -592,16 +596,17 @@ void InGameHeroSelectInterface::Impl::Update()
 		if (hero == 0)
 			continue;
 
+		union { Real progress; Int rankProgress; Int health; } scratch;
 		Int rank = 0;
-		Real progress = 0.0f;
-		ComputeObjectRankValues(*hero, rank, progress);
+		scratch.progress = 0.0f;
+		ComputeObjectRankValues(*hero, rank, scratch.progress);
 		Bool levelUp = it->m_data.m_rank > 0 && rank > it->m_data.m_rank;
 		it->m_data.m_rank = rank;
 
 		if (isSelectableHero(hero) && slotIndex < 16)
 		{
 			HeroSlot *slot = &slots[slotIndex];
-			if (slot->node != it)
+			if (it != slot->node)
 			{
 				Rva0052519DFire(g_bfmeAptWindowManager, m_level, name(), "KillButtonEffects", aptArg(slotIndex + 1));
 				slot->node = it;
@@ -630,18 +635,18 @@ void InGameHeroSelectInterface::Impl::Update()
 				slot->rank = rank;
 			}
 
-			Int rankProgress = progress >= 0.0f ? _STL::max(REAL_TO_INT_FLOOR(progress * 100.0f + 0.5f), 1L) : 1;
-			if (rankProgress != slot->rankProgress)
+			scratch.rankProgress = scratch.progress >= 0.0f ? _STL::max(REAL_TO_INT_FLOOR(scratch.progress * 100.0f + 0.5f), 1L) : 1;
+			if (scratch.rankProgress != slot->rankProgress)
 			{
-				Rva00525235Fire(g_bfmeAptWindowManager, m_level, name(), "SetButtonRankProgress", aptArg(slotIndex + 1), &rankProgress);
-				slot->rankProgress = rankProgress;
+				Rva00525235Fire(g_bfmeAptWindowManager, m_level, name(), "SetButtonRankProgress", aptArg(slotIndex + 1), aptArg(+scratch.rankProgress));
+				slot->rankProgress = scratch.rankProgress;
 			}
 
-			Int health = _STL::max(getHeroHealth(hero), 1);
-			if (health != slot->health)
+			scratch.health = _STL::max(getHeroHealth(hero), 1);
+			if (scratch.health != slot->health)
 			{
-				Rva00525235Fire(g_bfmeAptWindowManager, m_level, name(), "SetButtonHealthBar", aptArg(slotIndex + 1), &health);
-				slot->health = health;
+				Rva00525235Fire(g_bfmeAptWindowManager, m_level, name(), "SetButtonHealthBar", aptArg(slotIndex + 1), aptArg(+scratch.health));
+				slot->health = scratch.health;
 			}
 
 			Drawable *draw = hero->getDrawable();
