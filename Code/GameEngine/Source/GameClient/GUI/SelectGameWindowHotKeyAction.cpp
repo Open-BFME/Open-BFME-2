@@ -32,7 +32,7 @@ class SelectGameWindowHotKeyAction {
 public:
     virtual void unknownSlot0();
     virtual unsigned int rva0053DA53(unsigned int unusedWord);
-    virtual void unknownSlot2();
+    virtual unsigned int rva0053DA64(unsigned int unusedWord);
     virtual bool doInvoke(bool flag);
 private:
     unsigned char unknown4[4];
@@ -53,4 +53,7 @@ bool SelectGameWindowHotKeyAction::doInvoke(bool flag) {
 // The original method name and parameter type remain unknown.
 unsigned int SelectGameWindowHotKeyAction::rva0053DA53(unsigned int) {
     return (window->winGetStatus() >> 4) & 1;
+}
+unsigned int SelectGameWindowHotKeyAction::rva0053DA64(unsigned int) {
+    return (window->winGetStatus() >> 3) & 1;
 }

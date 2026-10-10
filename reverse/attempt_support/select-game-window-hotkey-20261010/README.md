@@ -57,3 +57,16 @@ The source declares opaque slots without emitting a vftable or extra bodies.
 The pushed body reservation predates this edit. Normal add_match verified
 both full bodies2/2; ordinary link_check against the fresh census reports
 LINKS91->108 with zero blockers. Neither check required a new callee pin.
+
+## Status-query slot2 and file closure
+
+Retail53DA64..53DA75 independently proves the second full17B RET4 body,
+vftable slot2 and the same window+8/getter30F45F access. Its full EAX result
+is `(status >>3)&1`. The neutral method and unused physical word retain the
+same original-name/type uncertainty; reference ENABLED=0x08 is donor-only.
+Normal add_match verified all three complete bodies3/3. Ordinary link_check
+reports LINKS91->125 with zero blockers. The object's only new defined
+functions are these recovered methods; no opaque method or vftable is emitted.
+Both independent17B siblings are kept as their own verified commits.
+Supported unconverted bodies in this owned home: zero. The already-matched
+constructor and destructor in other homes are not counted as new coverage.
