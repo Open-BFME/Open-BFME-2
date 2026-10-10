@@ -130,9 +130,13 @@ Thing::~Thing()
 
 //=============================================================================
 // ?getTemplate@Thing@@ present-unmatched
+// Retail reads m_template raw: 26 TUs emit mov eax,[ecx+4]; ret, and rowed
+// bodies inline that load. ZH's OVERRIDE conversion would resolve overrides
+// (null-check plus tail-call to getFinalOverride); the non-overloaded
+// pointer keeps this TU's copy byte-identical to retail's.
 inline const ThingTemplate *Thing::getTemplate() const
 {
-	return m_template;
+	return m_template.getNonOverloadedPointer();
 }
 
 //=============================================================================
