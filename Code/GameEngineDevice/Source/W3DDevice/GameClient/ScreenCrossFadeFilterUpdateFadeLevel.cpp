@@ -500,6 +500,17 @@ Int ScreenCrossFadeFilter::set(FilterModes mode)
  return false;
 }
 
+// Native crossfade vtable7CF204 slot1; BF1 W3DShaderManager shutdown.
+// Rehome and name the already exact26B anonymous bfmeGoUDC body.
+Int ScreenCrossFadeFilter::shutdown()
+{
+ if (g_bfmeObjUDC) {
+  reinterpret_cast<TextureBaseClass *>(g_bfmeObjUDC)->Release_Ref();
+  g_bfmeObjUDC=0;
+ }
+ return 1;
+}
+
 // Native vtable 7CF204 slot2; complete42B F63FB..F6425.
 Bool ScreenCrossFadeFilter::preRender(Bool &skipRender, CustomScenePassModes &scenePassMode)
 {
