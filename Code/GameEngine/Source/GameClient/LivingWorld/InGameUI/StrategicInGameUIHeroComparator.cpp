@@ -1,13 +1,16 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /MD /DNDEBUG /EHs-c-
+// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /MD /DNDEBUG /EHsc
+// Native005E6B3E..005E6B8F obtains archetype at template+5C4 for the
+// selected entry+18 and sends its Unicode tooltip to the owned Mouse API.
 // Native005E4300..005E4389 low-byte comparator of selected hero keys;
 // groupB8 signed order with zero priority then the native118B fallback.
 // Its three private bodies are reconstructed from target; original template
 // and record class names remain unknown. Public char describes the observed
 // AL zero/one ABI without claiming the original C++ return spelling.
 #include "ascii_string.h"
-class ThingFactory;
+#include "unicode_string.h"
+class ThingTemplate;
+class ThingFactory { public: const ThingTemplate *findTemplate(const AsciiString &); };
 extern ThingFactory *TheThingFactory;
-class Rva002D06CA { public: void *rva002D06CA(const AsciiString *); };
 struct Rva005E4300Entry {
  int key;
  AsciiString name;
@@ -16,7 +19,7 @@ struct Rva005E4300Entry {
  int group;
 };
 struct Rva005E3967Template {
- char pad[0x110]; unsigned int mask;
+ char pad[0x110]; unsigned int mask; char toArchetype[0x5C4-0x114];int archetype;
 };
 class Rva0040CB3AIndexedField { public: int get(int) const; };
 struct Rva005E4300Context {
@@ -26,7 +29,7 @@ struct Rva005E4300Context {
 namespace StrategicInGameUI {
 static __declspec(noinline) Rva005E3967Template *Rva005E3967(const Rva005E4300Entry *entry)
 {
- return (Rva005E3967Template *)((Rva002D06CA *)TheThingFactory)->rva002D06CA(&entry->name);
+ return (Rva005E3967Template *)TheThingFactory->findTemplate(entry->name);
 }
 static __declspec(noinline) bool Rva005E3FE6(const Rva005E4300Entry *a,const Rva005E4300Entry *b,int keyA,int keyB)
 {
@@ -58,4 +61,18 @@ char Rva005E4300Cmp::operator()(int keyA,int keyB) const
  if(ga!=gb) {if(ga==0)return true; if(gb==0)goto no; return ga<gb;}
  return StrategicInGameUI::Rva005E3FE6(a,b,keyA,keyB);}
  no:return false;
+}
+
+class Rva005E549E {public:void rva005E549E();};
+class Rva005F6022ByteChaseField {public:unsigned char get()const;};
+namespace StrategicInGameUI {UnicodeString GetTooltipText(int);}
+struct RGBColor;class Mouse {public:void rva001EEA6D(UnicodeString,int,const RGBColor*,float);};extern Mouse*TheMouse;
+class Rva005E6B3E {public:void rva005E6B3E();char unknown0[4];void*clip;char unknown8[0x10];Rva005E4300Entry*entry;};
+void Rva005E6B3E::rva005E6B3E(){
+ ((Rva005E549E*)((char*)clip+0xC))->rva005E549E();
+ if(((Rva005F6022ByteChaseField*)clip)->get()){
+  Rva005E3967Template*t=StrategicInGameUI::Rva005E3967(entry);
+  int kind=t->archetype;
+  TheMouse->rva001EEA6D(StrategicInGameUI::GetTooltipText(kind),-1,0,1.0f);
+ }
 }
