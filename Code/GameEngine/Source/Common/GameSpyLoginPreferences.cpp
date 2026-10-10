@@ -122,7 +122,7 @@ typedef _STL::map<AsciiString, _STL::list<AsciiString, _STL::allocator<AsciiStri
 typedef _STL::map<AsciiString, _STL::list<AsciiString, _STL::allocator<AsciiString> > > ClanMap;
 // Reuse the native list-base destructor shared by the existing list providers.
 extern template _STL::_List_base<AsciiString,_STL::allocator<AsciiString> >::~_List_base();
-extern template _STL::_List_base<AsciiString,_STL::allocator<AsciiString> >::_List_base(const _STL::allocator<AsciiString> &);
+
 
 AsciiString AsciiStringToQuotedPrintable(AsciiString original);
 AsciiString QuotedPrintableToAsciiString(AsciiString original);
@@ -161,6 +161,7 @@ public:
 	// Erases one email key from nick/pass/date maps at +0x2c/+0x14/+0x20 (retail 0x005CABF9).
 	void rva005CABF9(AsciiString email);
 	AsciiString rva005C9FC4(void);
+	_STL::list<AsciiString> rva005CA07D();
 	AsciiString rva005CA58E(AsciiString,AsciiString &,AsciiString &,AsciiString &);
 	const _STL::list<AsciiString> &rva005CA201(const AsciiString &);
 	const _STL::list<AsciiString> &rva005CA211(const AsciiString &);
@@ -481,3 +482,27 @@ AsciiString GameSpyLoginPreferences::rva005CA58E(AsciiString email,
     return m_emailDateMap[email];
 }
 
+
+
+// BFME1 34f59164 email-list donor; reviewed against current575ba2b04.
+// Native 5CA07D..5CA16A walks nick-map+2C keys, falls back to MemberName,
+// and returns a copied AsciiString list. The target method name is unknown.
+static __forceinline void emailAppend(_STL::list<AsciiString> &emails,
+    _STL::list<AsciiString>::iterator position, const AsciiString &value)
+{
+    emails.insert(position, value);
+}
+_STL::list<AsciiString> GameSpyLoginPreferences::rva005CA07D()
+{
+    _STL::list<AsciiString> emails;
+    for (NickMap::iterator it = m_emailNickMap.begin(); it != m_emailNickMap.end(); ++it)
+        emails.push_back(it->first);
+    if (emails.size() == 0) {
+        _STL::list<AsciiString>::iterator position;
+        position._M_node = emails.end()._M_node;
+        AsciiString memberName;
+        GetStringFromRegistry("", AsciiString("MemberName"), memberName);
+        emailAppend(emails, position, memberName);
+    }
+    return emails;
+}
