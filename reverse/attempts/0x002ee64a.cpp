@@ -1,3 +1,5 @@
+// ?rva002EE64A@Pathfinder@@QAE_NPAVObject@@PBUCoord3D@@1@Z
+// partial score=0.8180204778 date=2026-10-10
 // ?IsValidObjectMovement@Pathfinder@@QAE_NXZ
 // partial score=0.85 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /ICode/Libraries/Include/Lib
@@ -25,7 +27,7 @@ struct ICoord2D : public ICoord2DBase
 };
 
 ICoord2D *__cdecl Rva002E7875WorldToCell(ICoord2D *out, bool center, const Coord3D *pos);
-bool __cdecl Rva002EBBFBIsOdd(void *obj);
+unsigned char __cdecl Rva002EBBFBIsOdd(void *obj);
 bool __cdecl Rva001E3679(int layer);
 int __cdecl Rva002E6E8AGet(int layer);
 
@@ -67,6 +69,7 @@ public:
 
 enum ObjectID;
 
+class Rva0006E009DwordField {public:int get()const;};
 class AIUpdateInterface
 {
 public:
@@ -123,10 +126,11 @@ Bool Pathfinder::rva002EE64A(Object *obj, const Coord3D *oldPos, const Coord3D *
 		return true;
 
 	PathfindLayerEnum oldLayer, newLayer;
-	PathfindCell *oldC, *newC;
+	PathfindCell *oldC;
+ union {ICoord2D oldCell; struct {int ignored;PathfindCell *newC;};};
 	{
 	Bool center = Rva002EBBFBIsOdd(obj);
-	ICoord2D oldCell, newCell;
+	ICoord2D newCell;
 	Rva002E7875WorldToCell(&oldCell, center, oldPos);
 	Rva002E7875WorldToCell(&newCell, center, newPos);
 	oldLayer = TheTerrainLogic->getLayerForDestination(obj, oldPos);
@@ -175,7 +179,7 @@ Bool Pathfinder::rva002EE64A(Object *obj, const Coord3D *oldPos, const Coord3D *
 	}
 
 	ObjectID saved = m_ignoreObstacleID;
-	m_ignoreObstacleID = ai->getIgnoredObstacleID();
+	m_ignoreObstacleID = (ObjectID)((Rva0006E009DwordField *)ai)->get();
 	const ThingTemplate *tmpl = obj->getTemplate();
 	Int maxLayer = tmpl->m_56c;
 	Bool flag = tmpl->m_634;
