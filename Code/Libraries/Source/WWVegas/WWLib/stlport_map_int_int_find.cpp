@@ -2,6 +2,15 @@
 // stlport
 // ?rva004260DE@Rva004260DE@@QAEPAHH@Z @0x004260DE 31B evidence: map<int int> at +0x0C via rowed _M_find 0x388F63 plus header compare plus second at +0x14 plus callers 0x45EE06 0x45F134
 #include <map>
+
+// map/set<int> internals otherwise instantiate the less<int>::operator()
+// COMDAT (one byte shape per TU flags); an explicit dllimport+forceinline
+// specialization takes those calls inline so this TU emits no external copy.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+bool less<int>::operator()(const int &a, const int &b) const
+{ return a < b; }
+}
 class Rva004260DE
 {
 public:
