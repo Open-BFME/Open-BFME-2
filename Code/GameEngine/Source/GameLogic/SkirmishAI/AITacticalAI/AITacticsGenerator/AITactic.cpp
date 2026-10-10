@@ -249,10 +249,17 @@ struct AITacticPoint : Coord3D
     __forceinline AITacticPoint(float a, float b, float c) { x=a; y=b; z=c; }
 };
 
+// Existing provider takes a four-byte word; native4EDDB9 passes coordinate
+// address. Its original argument type is not asserted by this call view.
+class Rva004ECE93 { public: float rva004ECE93(int argument); };
+
 class AITactic
 {
 public:
     AITactic(const AsciiString &name, bool flags);
+    bool anyTeamMembersInCombat();
+    void rva004EDA60();
+    void rva004EDDAA();
 	virtual void slot00();
 	virtual void slot01();
 	virtual void slot02();
@@ -637,4 +644,15 @@ AITactic::AITactic(const AsciiString &name, bool flags)
       m_ended(false), m_name(name), m_30(g_00E044AC++), m_34(flags),
       m_38(0,0,0), m_44(0,0,0), m_50(false), m_51(false), m_54(0)
 {
+}
+
+// Native4EDDAA..4EDDD3 is a complete41B no-argument method. Existing
+// named combat query4ECF41, coordinate+38 and AITactic tail4EDA60 support
+// the owner; original method name remains unknown. /G7 reproduces FCOMIP.
+void AITactic::rva004EDDAA()
+{
+    if (!anyTeamMembersInCombat() &&
+        reinterpret_cast<Rva004ECE93 *>(this)->rva004ECE93(
+            reinterpret_cast<int>(&m_38)) < 0.0f)
+        rva004EDA60();
 }
