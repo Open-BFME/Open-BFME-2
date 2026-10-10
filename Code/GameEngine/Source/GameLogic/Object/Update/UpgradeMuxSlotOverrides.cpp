@@ -185,3 +185,30 @@ void AudioLoopUpgrade::performUpgradeFX()
 	data()->m_upgradeMuxData.performUpgradeFX(m_object);
 }
 
+
+// ObjectCreationUpgrade (vtable entries 0x00857690/0x0085769C): the same
+// UpgradeMux performUpgradeFX body for slots 12 and 15, compiled with a this
+// whose ModuleData is at +0x0C and Object at +0x10 (ObjectCreationUpgrade.cpp:
+// ModuleData at +0x0C). The UpgradeMuxData block sits at module data +0x10.
+struct ObjectCreationUpgradeModuleData
+{
+	unsigned char m_pad000[0x10];
+	UpgradeMuxData m_upgradeMuxData; // +0x10
+};
+
+class ObjectCreationUpgrade : public UpgradeMux
+{
+protected:
+	virtual void performUpgradeFX();
+private:
+	unsigned char m_pad04[0x0C - 0x04];
+	const ModuleData *m_moduleData; // +0x0C
+	Object *m_object; // +0x10
+	const ObjectCreationUpgradeModuleData *data() const { return (const ObjectCreationUpgradeModuleData *)m_moduleData; }
+};
+
+// ?performUpgradeFX@ObjectCreationUpgrade@@MAEXXZ @0x004B4075
+void ObjectCreationUpgrade::performUpgradeFX()
+{
+	data()->m_upgradeMuxData.performUpgradeFX(m_object);
+}
