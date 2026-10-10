@@ -39,6 +39,20 @@ private:
 	bool m_changed;
 };
 
+void *bfmeGoEMEb(void *name);
+typedef Rva001408C0Target *(__cdecl *FindPrototypeFn)(const char *name);
+
+// ??6AssetList@@QAEAAV0@ABVAsciiString@@@Z
+AssetList &AssetList::operator <<(const AsciiString &name)
+{
+	if (m_prototypes.insert(
+		((FindPrototypeFn)bfmeGoEMEb)(name.str())).second)
+	{
+		m_changed = true;
+	}
+	return *this;
+}
+
 // ??6AssetList@@QAEAAV0@ABV0@@Z
 AssetList &AssetList::operator <<(const AssetList &other)
 {
