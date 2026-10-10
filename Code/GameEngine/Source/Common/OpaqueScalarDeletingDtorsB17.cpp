@@ -135,18 +135,10 @@ Rva005E9F7B::Rva005E9F7B(EmitVtableTag *)
 {
 }
 
-class Rva005EA85A
-{
-public:
-	Rva005EA85A(EmitVtableTag *);
-public:
-	virtual ~Rva005EA85A();
-};
-
-// ?<Rva005EA85A::Rva005EA85A> absent-from-retail
-Rva005EA85A::Rva005EA85A(EmitVtableTag *)
-{
-}
+// Rva005EA85A's stub and deleting-dtor row live in Rva005EA85ACtor.cpp (full
+// 9-virtual view matching retail vftable 0x00C781DC slots 0-7); the duplicate
+// stub here LNK2005-collided with it, so the class view and stub are removed
+// from this TU, leaving a single vftable emitter tree-wide.
 
 class Rva005EB753
 {
