@@ -77,7 +77,17 @@ AptValue *AptKey::sMethod_removeListener(AptValue *,int nParams)
  return AptBoolean::Create(false);
 }
 
-
+AptValue *AptKey::sMethod_isDown(AptValue *,int)
+{
+ AptValue *pValue=reinterpret_cast<AptValue *>(g_aptDateInterpreter.stack.At(0));
+ if((Rva008A5250LastKey&3)==1) {
+  int code=Rva008A5250LastKey>>17;
+  if(code>=32&&code<=126)code=toupper(code);
+  else if(code<20)code=Rva008A5250KeyTable[code];
+  return AptBoolean::Create(code==pValue->toInteger());
+ }
+ return AptBoolean::Create(false);
+}
 
 
 class EAStringC {void *data;public:const char *rva00620090()const;unsigned int rva006D3750()const;};
