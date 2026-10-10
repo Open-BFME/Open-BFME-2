@@ -1,5 +1,11 @@
-// ??0Rva006DE2C0@@QAE@XZ
-// partial score=0.85 date=2026-10-10
+// Native constructors 006DE2C0..006DE320 (96B) and 006DE390..006DE3F3 (99B).
+// The initialized type/flag masks, base registration, 8B allocation size and
+// two vtable stores are target facts, corroborated by initializer 006DF470.
+// Original derived-class identities remain unproven; names retain their RVAs.
+// Native FuncInfo uses an otherwise-unused cleanup to the owned 006D6340 base
+// destructor. The compiled-out throw keeps that base-lifetime EH record in
+// VC7.1 without emitting a throw, state store or additional object member.
+// Base semantics follow the verified Rva006DE480Siblings.cpp family.
 // cl: /DNDEBUG /MD /EHsc
 //
 // ??0Rva006DE2C0@@QAE@XZ @0x006DE2C0 (96B) and ??0Rva006DE390@@QAE@XZ @0x006DE390 (99B):
@@ -26,7 +32,7 @@ public:
 // VA 0x00E17710; defined by AptValueConstructorBFME2.cpp.
 extern AptValueVector *g_releaseVectorAtE17710;
 
-class RvaAptValueBase
+class BfmeAptValue006DCD20
 {
 	void setTypeAt006DBBC0(int type)
 	{
@@ -35,7 +41,7 @@ class RvaAptValueBase
 protected:
 	unsigned int m_flags;
 public:
-	RvaAptValueBase(int type)
+	BfmeAptValue006DCD20(int type)
 	{
 		setTypeAt006DBBC0(type);
 		m_flags = (m_flags & 0xFE000035u) | 0x30u;
@@ -46,25 +52,20 @@ public:
 			g_releaseVectorAtE17710->rva006E6C00(reinterpret_cast<AptValue *>(this));
 		}
 	}
-	virtual ~RvaAptValueBase() {}
+	virtual ~BfmeAptValue006DCD20();
 };
 
-
-struct Rva006DGuard
-{
-	~Rva006DGuard() {}
-};
 
 #define RVA_APT_FLAG_CTOR(NAME, TYPE, KEEP, SET) \
-	class NAME : public RvaAptValueBase \
+	class NAME : public BfmeAptValue006DCD20 \
 	{ \
 	public: \
 		NAME(); \
 		virtual ~NAME() {} \
-		Rva006DGuard m_guard; \
 	}; \
-	NAME::NAME() : RvaAptValueBase(TYPE) \
+	NAME::NAME() : BfmeAptValue006DCD20(TYPE) \
 	{ \
+		if(0){throw 0;} \
 		m_flags = (m_flags & (KEEP)) | (SET); \
 	}
 
