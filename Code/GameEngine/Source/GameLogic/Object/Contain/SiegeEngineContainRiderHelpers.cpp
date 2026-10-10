@@ -1,9 +1,10 @@
-// ?rva0047BDED@OpenContain@@QAEX_N@Z
-// partial score=0.85 date=2026-10-08
-// cl: /MD /DNDEBUG
-// ?rva0047BDED@OpenContain@@QAEX_N@Z @0x0047BDED 54B: drain the contained list, calling
+// cl: /O1 /MD /DNDEBUG /I.
+// stlport
+// ?rva0047BDED@Rva0047BDED@@QAEX_N@Z @0x0047BDED 54B: drain the contained list, calling
 // virtual slot 41 on each non-null node value with the flag, then removeAllContained.
-class OpenContain;
+#include <list>
+class OpenContain {public: virtual void removeAllContained(bool);};
+class Rva0047BDED;
 struct Rva0047BDEDNode
 {
 	Rva0047BDEDNode *m_next;
@@ -17,7 +18,7 @@ public:
 	Rva0047BDEDNode *m_head;
 };
 
-class OpenContain
+class Rva0047BDED
 {
 public:
 	virtual void rva0047BDEDV00();
@@ -62,25 +63,34 @@ public:
 	virtual void rva0047BDEDV39();
 	virtual void rva0047BDEDV40();
 	virtual void rva0047BDEDVirt41(void *value, bool flag);
-	virtual void removeAllContained(bool flag);
+	void rva0047BE23(int unused);
 	void rva0047BDED(bool flag);
 
 private:
 	char m_pad00[0xFC - 4];
-	Rva0047BDEDList *m_fc;
+	_STL::list<void*> m_fc;
 };
 
-// ?rva0047BDED@OpenContain@@QAEX_N@Z @0x0047BDED
-void OpenContain::rva0047BDED(bool flag)
+// Native47BDED..47BE23 and47BE23..47BE4C retain RET4: the latter ignores its
+// word argument. WB11AB070 confirms the first drain and owned base cleanup.
+// Target rider list is the interface receiver's +FC (full owner+11C).
+// ZH OpenContain list iteration guides semantics; distinct slot names/owner
+// remain address-derived. Iterator dereference at dispatch closes native
+// loop shape/registers; a separately cached payload does not.
+void Rva0047BDED::rva0047BDED(bool flag)
 {
-	for (;;)
-	{
-		Rva0047BDEDList *list = m_fc;
-		if ((void *)list->m_head == (void *)list)
-			break;
-		void *value = list->m_head->m_value;
-		if (value != 0)
-			rva0047BDEDVirt41(value, flag);
-	}
-	this->OpenContain::removeAllContained(flag);
+ for(;;) {
+  _STL::list<void*>::iterator it=m_fc.begin();
+  if(it._M_node==m_fc.end()._M_node) break;
+  if(*it) rva0047BDEDVirt41(*it,flag);
+ }
+ reinterpret_cast<OpenContain*>(this)->OpenContain::removeAllContained(flag);
+}
+void Rva0047BDED::rva0047BE23(int unused)
+{
+ for(;;) {
+  _STL::list<void*>::iterator it=m_fc.begin();
+  if(it._M_node==m_fc.end()._M_node) break;
+  if(*it) rva0047BDEDVirt41(*it,false);
+ }
 }
