@@ -9,17 +9,21 @@ class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 typedef int Int;
 
-class Rva0020E57FManager
+// Native getBattleParam forwards the region result as one raw 32-bit key.
+// The existing real lookup owns 20E57F and compares that word with entry+24;
+// the meaning of the key and its original C++ parameter type stay unproven.
+class LivingWorldPendingBattle;
+class LivingWorldRegionManager
 {
 public:
-	void *rva0020E57F(void *region);	// 0x0020E57F
+	LivingWorldPendingBattle *rva0020E57F(unsigned int regionKey);	// 0x0020E57F
 };
 
 class Rva002BA8F1Logic
 {
 public:
 	unsigned char m_pad00[0xb0];
-	Rva0020E57FManager *m_regionManager;	// +0xB0
+	LivingWorldRegionManager *m_regionManager;	// +0xB0
 };
 
 	// TheLivingWorldLogic
@@ -67,8 +71,8 @@ void *LivingWorldTutorial::SessionTask::getBattleParam(Int index)
 	void *region = getRegionParam(index);
 	if (region)
 	{
-		Rva0020E57FManager *manager = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->m_regionManager;
-		return manager->rva0020E57F(region);
+		LivingWorldRegionManager *manager = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->m_regionManager;
+		return manager->rva0020E57F(reinterpret_cast<unsigned int>(region));
 	}
 	return 0;
 }
