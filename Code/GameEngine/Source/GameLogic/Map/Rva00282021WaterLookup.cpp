@@ -1,4 +1,4 @@
-// cl: /O1 /MD /Ireference/shims/bfme2_ascii
+// cl: /O1 /MD /Gy /Ireference/shims/bfme2_ascii
 // Semantic lead: Open-BFME-1 4367fc698990427e26cc1c399989d074d8ee9bbe,
 // game/GameEngine/Source/GameLogic/Map/TerrainLogicNameLookups.cpp,
 // TerrainLogic::getWaterHandleByName. Its linked-list layout is not used here.
