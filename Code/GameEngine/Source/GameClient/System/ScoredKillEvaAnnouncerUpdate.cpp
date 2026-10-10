@@ -13,6 +13,11 @@
 #include "ScoredKillEvaAnnouncerView.h"
 class PlayerList;extern PlayerList *ThePlayerList;
 struct PlayerListUpdateView{char pad[0x10];Player *localPlayer;int playerCount;};
+// Borrow the existing legacy three-word pin declaration solely as a call view.
+// WB Eva.cpp and the full247B report bank establish the original bool-return/
+// EvaEventID/two-position-pointer ABI. This caller ignores the return and uses
+// only a null third word, so its observed stack/receiver contract is unchanged;
+// the retained int spelling is not an assertion that the last argument is a flag.
 class Eva{public:void reportEvaEvent(int,const Coord3D*,int);};extern Eva *TheEva;
 class Rva00414F5EHost{public:void run();};
 struct AnnouncerUpdateView{char pad[8];int event;unsigned threshold;char pad10[12];_STL::vector<ScoredKillTracker> trackers;Player *localPlayer;int seenPlayers;};
