@@ -1,6 +1,6 @@
-// ?RenderVolumeParticle@PointGroupClass@@QAEXAAVRenderInfoClass@@IH@Z
-// partial score=0.97 date=2026-10-10
-// cl: /Ireference/shims/bfmestages /DNDEBUG /MD /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/game/Libraries/Source/Compression /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/inputs/reference/shims/sweep
+// ?RenderVolumeParticle@PointGroupClass@@QAEXAAVRenderInfoClass@@IPAX@Z
+// partial score=0.9663281119614715 date=2026-10-10
+// cl: /O2 /G7 /arch:SSE /Ireference/shims/bfmestages /DNDEBUG /MD /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/game/Libraries/Source/Compression /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/inputs/reference/shims/sweep
 // Provenance: Open-BFME-1 game/Libraries/Source/WWVegas/WW3D2/PointGroupClassRender.cpp at
 // 10af19f44a (BFME1 byte-identical donor, b1 0x00917920, here 0x0017F1B0); include paths
 // repointed at the reference checkout. Render was first left out as differing
@@ -54,17 +54,7 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 template <> bool VectorClass<Vector2>::Resize(int newsize, Vector2 const *array);
 template <> bool VectorClass<Vector4>::Resize(int newsize, Vector4 const *array);
 
-class CameraClass;
-class RenderObjClass
-{
-public:
-	Vector3 Get_Position(void) const;
-};
-class RenderInfoClass
-{
-public:
-	CameraClass &Camera;
-};
+class RenderInfoClass;
 
 extern VectorClass<Vector3> VertexLoc;
 extern VectorClass<Vector4> VertexDiffuse;
@@ -90,7 +80,7 @@ public:
 	int Get_Flag(FlagsType flag) { return (Flags >> flag) & 0x1; }
 
 	void Render(RenderInfoClass &rinfo, int unknown);
-	void RenderVolumeParticle(RenderInfoClass &rinfo, unsigned int depth, int unknown);
+ void RenderVolumeParticle(RenderInfoClass &rinfo, unsigned int depth, void *payload);
 
 	void prepare_shader(void);
 	void rva00917920(Vector3 **point_loc, Vector4 **point_diffuse, float **point_size,
@@ -130,12 +120,12 @@ private:
 	PointModeEnum PointMode;
 	unsigned int Flags;
 
-	static VectorClass<Vector3> compressed_loc;
+	static VectorClass<Vector3> transformed_loc;
+ static VectorClass<Vector3> compressed_loc;
 	static VectorClass<Vector4> compressed_diffuse;
 	static VectorClass<float> compressed_size;
 	static VectorClass<unsigned char> compressed_orient;
 	static VectorClass<unsigned char> compressed_frame;
-	static VectorClass<Vector3> transformed_loc;
 };
 
 // One APT compression step of 0x00917920. The buffer is a reference, so the
@@ -219,75 +209,48 @@ void PointGroupClass::Render(RenderInfoClass &rinfo, int unknown)
 	rva00913AF0(vnum, current_diffuse == NULL);
 }
 
-// NEAR draft for 0x0017F6E0 (1023 bytes):
-// ?RenderVolumeParticle@PointGroupClass@@QAEXAAVRenderInfoClass@@IH@Z
-// Same size and frame as retail; only the reassociation of the view-matrix
-// rows 1 and 2 differs (retail pairs m11*Y+m12*Z then +m10*X; this pairs
-// m10*X+m12*Z then +m11*Y). Must live in this TU after rva00917920 so the
-// five out pointers are not treated as escaping. source_loc is the copy that
-// retail stores back into current_loc's slot (current_loc is reassigned to
-// &transformed_loc[0] each layer, as in ZH). Tested with /O2 /G7 /arch:SSE
-// (the region default).
-
-void PointGroupClass::RenderVolumeParticle(RenderInfoClass &rinfo, unsigned int depth, int unknown)
-{
-	if (depth <= 1 || !Get_Flag(TRANSFORM) || !Get_Flag(BILLBOARD)) {
-		Render(rinfo, unknown);
-		return;
-	}
-
-	if (depth > 16)
-		depth = 16;
-
-	if (PointCount == 0)
-		return;
-
-	prepare_shader();
-
-	Vector3 *current_loc = NULL;
-	Vector4 *current_diffuse = NULL;
-	float *current_size = NULL;
-	unsigned char *current_orient = NULL;
-	unsigned char *current_frame = NULL;
-	rva00917920(&current_loc, &current_diffuse, &current_size, &current_orient, &current_frame);
-
-	Vector3 *source_loc = current_loc;
-	int vnum;
-	rva00914860(PointCount, PointLoc->Get_Count(), &vnum);
-	rva00912880(current_diffuse, PointCount);
-	rva00916CD0(current_frame, PointCount, unknown);
-
-	Matrix4x4 view;
-	DX8Wrapper::Get_Transform(D3DTS_VIEW, view);
-
-	if (transformed_loc.Length() < PointCount) {
-		transformed_loc.Resize(PointCount * 2);
-	}
-
-	for (int t = 0; t < (int)depth; ++t) {
-		float shiftInc = (float)t * 0.1f / (float)depth;
-		Vector3 cameraPosition = ((RenderObjClass &)rinfo.Camera).Get_Position();
-		for (int i = 0; i < PointCount; i++) {
-			Vector3 cameraToPointDelta;
-			Vector3::Subtract(cameraPosition, source_loc[i], &cameraToPointDelta);
-			float len = cameraToPointDelta.Length();
-			float scale = current_size[i] * shiftInc;
-			scale /= len;
-			cameraToPointDelta.X *= scale;
-			cameraToPointDelta.Y *= scale;
-			cameraToPointDelta.Z *= scale;
-			Vector3 temp;
-			temp.X = source_loc[i].X + cameraToPointDelta.X;
-			temp.Y = source_loc[i].Y + cameraToPointDelta.Y;
-			temp.Z = source_loc[i].Z + cameraToPointDelta.Z;
-			Vector4 result;
-			result = view * temp;
-			transformed_loc[i][0] = result[0];
-			transformed_loc[i][1] = result[1];
-			transformed_loc[i][2] = result[2];
-		}
-		current_loc = &transformed_loc[0];
-		rva009148C0(current_loc, current_size, current_orient, PointCount);
-		rva00913AF0(vnum, current_diffuse == NULL);
-	}
+class RenderObjClass { public: Vector3 Get_Position() const; };
+class RenderInfoClass { public: RenderObjClass& Camera; };
+void PointGroupClass::RenderVolumeParticle(RenderInfoClass& rinfo, unsigned int depth, void* payload) {
+ if(depth<=1 || !Get_Flag(TRANSFORM) || !Get_Flag(BILLBOARD)) { Render(rinfo,(int)payload);return; }
+ if(depth>16) depth=16;
+ if(PointCount==0)return;
+ prepare_shader();
+ Vector3* current_loc=NULL;
+ Vector4* current_diffuse=NULL;
+ float* current_size=NULL;
+ unsigned char* current_orient=NULL;
+ unsigned char* current_frame=NULL;
+ rva00917920(&current_loc,&current_diffuse,&current_size,&current_orient,&current_frame);
+ Vector3* original_loc=current_loc;
+ int vnum;
+ rva00914860(PointCount,PointLoc->Get_Count(),&vnum);
+ rva00912880(current_diffuse,PointCount);
+ rva00916CD0(current_frame,PointCount,(int)payload);
+ Matrix4x4 view;
+ DX8Wrapper::Get_Transform(D3DTS_VIEW,view);
+ if(transformed_loc.Length()<PointCount) transformed_loc.Resize(PointCount*2);
+ for(int t=0;t<(int)depth;++t) {
+  float recipDepth=(t*0.1f)/(float)depth;
+  Vector3 cameraPosition=rinfo.Camera.Get_Position();
+ Vector3 cameraToPointDelta;
+  for(int i=0;i<PointCount;i++) {
+   Vector3::Subtract(cameraPosition,original_loc[i],&cameraToPointDelta);
+   float shiftInc=(current_size[i]*recipDepth)/cameraToPointDelta.Length();
+   cameraToPointDelta.X *= shiftInc;
+   cameraToPointDelta.Y *= shiftInc;
+   cameraToPointDelta.Z *= shiftInc;
+   cameraToPointDelta.Y += original_loc[i].Y;
+   cameraToPointDelta.Z += original_loc[i].Z;
+   cameraToPointDelta.X += original_loc[i].X;
+   Vector3 temp=cameraToPointDelta;
+   Vector4 result=view*temp;
+   transformed_loc[i].X=result.X;
+   transformed_loc[i].Y=result.Y;
+   transformed_loc[i].Z=result.Z;
+  }
+  current_loc=&transformed_loc[0];
+  rva009148C0(current_loc,current_size,current_orient,PointCount);
+  rva00913AF0(vnum,current_diffuse==NULL);
+ }
 }
