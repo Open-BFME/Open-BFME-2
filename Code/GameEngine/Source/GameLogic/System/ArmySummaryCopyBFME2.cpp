@@ -1,13 +1,19 @@
 // ??4ArmySummary@@QAEAAV0@ABV0@@Z
 // cl: /O1 /G7 /arch:SSE /MD /DNDEBUG /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata
 // stlport
-// Native40EAED..40EC7C complete399 RET4. ArmySummary assignment is
+// Native40EAED..40EC7C assignment399 RET4 and 40E96D..40EAED copy384 RET4.
+// ArmySummary copying is
 // identified by WB class/vftable relationships and independently owned reset,
 // entry copying, listeners, string assignment and vector providers. Field
 // offsets and reference subobject AC are target facts established in those
 // siblings. Address-named helper views preserve unknown original spellings.
-// The generic STLport push_back remains visible to the compiler; a declaration
-// specialization hid its effects and changed holder and iterator allocation.
+// Generic insertion and the independently exact23B listener-list constructor
+// remain visible. They reproduce holder/iterator allocation and remove a dead
+// Snapshot vtable store. BfmeE16 retains the owned opaque16B listener ABI.
+// Xfer proves ScienceType IDs in member4C; native construction calls its typed
+// vector copy. Native assignment instead calls the int-vector assignment body.
+// The explicit int representation view preserves that existing three-pointer
+// STLport ABI and raw four-byte ID copies; no extra callee pin is introduced.
 #include <vector>
 #include "ascii_string.h"
 class Xfer;
@@ -104,19 +110,13 @@ public:
 	void forEach(void (Rva0040D8D6Listener::*notify)(void *, int), void *arg, int value);
 };
 
-class Rva00330757Member
-{
-public:
-	Rva00330757Member();
-	~Rva00330757Member();
-
-private:
-	void *m_begin;
-	void *m_end;
-	void *m_limit;
-	unsigned int m_index;
+struct BfmeE16 {float x,y,z,w;};
+class Rva00330757Member {
+public: __declspec(noinline) Rva00330757Member(); ~Rva00330757Member();
+private: _STL::vector<BfmeE16> m_items; unsigned int m_index;
 };
-
+inline Rva00330757Member::Rva00330757Member():m_items(_STL::allocator<BfmeE16>()) {m_index |= -1;}
+enum ScienceType {SCIENCE_INVALID=-1,SCIENCE_FORCE_INT=0x7fffffff};
 class ArmySummary : public Snapshot, public Rva00330757Member
 {
 public:
@@ -141,7 +141,7 @@ private:
 	int m_38;
 	int m_3C;
 	Rva0040E0EB m_entries; // +0x40
-	_STL::vector<int> m_4C;
+	_STL::vector<ScienceType> m_4C;
 	int m_58;
 	int m_5C;
 	int m_60;
@@ -178,7 +178,23 @@ ArmySummary &ArmySummary::operator=(const ArmySummary &other)
 			m_entries.push_back(Rva0040CB11Entry(it->m_first, holder));
 			list->forEach(&Rva0040D8D6Listener::notify2, this, it->m_first);
 		}
-		m_4C = other.m_4C;
+		reinterpret_cast<_STL::vector<int> &>(m_4C) = reinterpret_cast<const _STL::vector<int> &>(other.m_4C);
 	}
 	return *this;
+}
+
+ArmySummary::ArmySummary(const ArmySummary &other)
+	: m_14(other.m_14), m_18(other.m_18), m_1C(other.m_1C), m_20(other.m_20),
+	  m_24(other.m_24), m_28(other.m_28), m_2C(other.m_2C), m_30(other.m_30),
+	  m_34(other.m_34), m_38(other.m_38), m_3C(other.m_3C),
+	  m_4C(other.m_4C), m_58(other.m_58), m_5C(other.m_5C), m_60(other.m_60),
+	  m_64(other.m_64)
+{
+	m_entries.reserve(other.m_entries.size());
+	const Rva0040CB11Entry *end = other.m_entries.end();
+	for (const Rva0040CB11Entry *it = other.m_entries.begin(); it != end; ++it)
+	{
+		Rva004F6093Holder holder(new ArmySummaryEntry(*static_cast<ArmySummaryEntry *>(it->m_second.m_ptr)));
+		m_entries.push_back(Rva0040CB11Entry(it->m_first, holder));
+	}
 }
