@@ -25,12 +25,25 @@ public:
 	Bool test() const;
 };
 
+// Retail 0x00073CC0 reads its third and fourth arguments as byte values
+// (level, textureOnly), so the mangled name is the E_N spelling; the byte
+// parameters also fix the caller's ECX load order seen at 0x000450CE.
 class Rva000729CC
 {
 public:
+	char m_pad00[0x10];
+	float m_10;
+	float m_14;
 	void rva000729CC(Bool on);
-	void rva00073CC0(Int a, Int b, Int c, Int d);
+	void rva00073CC0(Int a, Int b, unsigned char c, Bool d);
 };
+
+class BfmeTaintManager
+{
+public:
+	unsigned char rva006C0840(Int x, Int y);
+};
+extern BfmeTaintManager *TheTaintManager;
 
 class BaseHeightMapRenderObjClass
 {
@@ -72,6 +85,7 @@ public:
 	void rva00044FD5(Bool on);
 	void rva00045086(Bool on);
 	void rva000450A3(Int a, Int b, Int c);
+	void rva000450CE(Int x, Int y);
 	Bool rva000466FA();
 	void rva000466B9();
 	void rva00046791();
@@ -104,6 +118,18 @@ void W3DDisplay::rva000450A3(Int a, Int b, Int c)
 {
 	if (TheTerrainRenderObject && TheTerrainRenderObject->m_387c)
 		TheTerrainRenderObject->m_387c->rva00073CC0(a, b, c, 0);
+}
+
+// vtable 0x00BC3C80#82
+void W3DDisplay::rva000450CE(Int x, Int y)
+{
+	if (TheTerrainRenderObject && TheTerrainRenderObject->m_387c && TheTaintManager)
+	{
+		Int cx = (Int)((float)x / TheTerrainRenderObject->m_387c->m_10);
+		Int cy = (Int)((float)y / TheTerrainRenderObject->m_387c->m_14);
+		Rva000729CC *p = TheTerrainRenderObject->m_387c;
+		p->rva00073CC0(cx, cy, TheTaintManager->rva006C0840(cx, cy), true);
+	}
 }
 
 // vtable 0x00BC3C80#27

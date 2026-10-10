@@ -242,7 +242,7 @@ extern BaseHeightMapRenderObjClass *TheTerrainRenderObject;
 class Rva000729CC
 {
 public:
-	void rva00073CC0(int x, int y, int inputLevel, int inputTextureOnly);
+	void rva00073CC0(int x, int y, UnsignedByte level, bool textureOnly);
 
  float getXScale() {return scaleX;} float getYScale() {return scaleY;}
 
@@ -259,11 +259,10 @@ private:
 	_STL::set<int> m_dirty;
 };
 
-// ?rva00073CC0@Rva000729CC@@QAEXHHHH@Z @0x00073CC0
+// ?rva00073CC0@Rva000729CC@@QAEXHHE_N@Z @0x00073CC0
 void Rva000729CC::rva00073CC0(int x, int y,
-	int inputLevel, int inputTextureOnly)
+	UnsignedByte level, bool textureOnly)
 {
- UnsignedByte level=(UnsignedByte)inputLevel; bool textureOnly=(bool)(UnsignedByte)inputTextureOnly;
 	if (m_taintData == 0)
 		return;
 	if (x >= m_numCellsX)

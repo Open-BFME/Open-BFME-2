@@ -21226,7 +21226,7 @@ _ghiResetBuffer,0x006BD2B0,evidence,vendored
 ?rva006C0800@Rva006C0800@@QAEXW4PointModeEnum@PointGroupClass@@@Z,0x006C0800,address,placeholder
 ?rva006C0810@Rva006C0810@@QAEXPBURegion3D@@M@Z,0x006C0810,address,placeholder
 ?rva006C0820@Rva006C0820@@QAEXXZ,0x006C0820,address,placeholder
-?rva006C0840@BfmeTaintManager@@QAEHHH@Z,0x006C0840,address,placeholder
+?rva006C0840@BfmeTaintManager@@QAEEHH@Z,0x006C0840,address,placeholder
 ?rva006C0850@BfmeTaintManager@@QAEHPBUBfmePointFC@@PAH@Z,0x006C0850,address,placeholder
 ?rva006C0860@Gen_008812D0@@QBEHM@Z,0x006C0860,address,placeholder
 ?rva006C0890@Gen_008812D0@@QBEHM@Z,0x006C0890,address,placeholder
