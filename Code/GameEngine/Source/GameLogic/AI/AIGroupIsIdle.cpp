@@ -32,7 +32,7 @@ public:
 class Object
 {
 public:
-	const AIUpdateInterface *getAIUpdateInterface() const { return m_ai; }
+	__declspec(dllimport) __forceinline const AIUpdateInterface *getAIUpdateInterface() const { return m_ai; }
 	Bool isEffectivelyDead() const { return (m_privateStatus & 1) != 0; }
 
 private:
