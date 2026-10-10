@@ -1,4 +1,6 @@
 // ?renderOneObject@RTS3DScene@@IAEXAAVRenderInfoClass@@PAVRenderObjClass@@HH@Z
+// partial score=0.85864696 date=2026-10-10
+// ?renderOneObject@RTS3DScene@@IAEXAAVRenderInfoClass@@PAVRenderObjClass@@HH@Z
 // partial score=0.91 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /DWIN32 /MD /EHsc
 //
@@ -362,7 +364,7 @@ struct DrawableInfo
 	Drawable *m_drawable;												// +0x04
 };
 
-class Rva0062AF7 { public: bool rva0027DA6A(const Vector3 &pos, Vector3 *color); };
+class Rva0062AF7 { public: bool rva0027DA6A(const float *pos, float *color); };
 class TerrainLogic;
 extern TerrainLogic *TheTerrainLogic;
 
@@ -450,7 +452,7 @@ void RTS3DScene::renderOneObject(RenderInfoClass &rinfo, RenderObjClass *robj, I
 	if (TheTerrainLogic)
 	{
 		Vector3 sample;
-		if (reinterpret_cast<Rva0062AF7 *>(TheTerrainLogic)->rva0027DA6A(robj->Get_Position(), &sample))
+		if (reinterpret_cast<Rva0062AF7 *>(TheTerrainLogic)->rva0027DA6A((const float*)&robj->Get_Position(), (float*)&sample))
 		{
 			hasLightmap = TRUE;
 			lightmapColor = sample;
