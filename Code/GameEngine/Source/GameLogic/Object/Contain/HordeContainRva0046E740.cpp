@@ -32,7 +32,7 @@ struct Rva0046E740Countdown {
     __forceinline bool active() const { return value > 0; }
 };
 extern GameLogic *TheGameLogic;
-extern int g_00DBA4E4;
+extern int g_Va00DBA4E4;
 class Rva0046E740 {
 public:
     void rva0046E740(int);
@@ -57,7 +57,7 @@ void Rva0046E740::rva0046E740(int flags)
         return;
     if ((unsigned char)flags == 0) {
         unsigned int frame = TheGameLogic->getFrame();
-        if ((unsigned int)object->rva0028AF76() >= frame - g_00DBA4E4 * 4)
+        if ((unsigned int)object->rva0028AF76() >= frame - g_Va00DBA4E4 * 4)
             return;
     }
     rva0046CF21();

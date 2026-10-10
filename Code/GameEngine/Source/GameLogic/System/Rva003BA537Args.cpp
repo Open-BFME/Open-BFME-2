@@ -18,7 +18,7 @@ public:
 
 class GlobalData;
 extern GlobalData *TheWritableGlobalData;
-extern unsigned char g_00E02D78;
+extern bool BFME2ScriptDebugLiteMode;
 
 struct Rva003BA537Arg
 {
@@ -36,7 +36,7 @@ int __cdecl rva003BA537(Rva003BA537Arg *arg, int argc)
 	}
 	else
 	{
-		g_00E02D78 = 1;
+		BFME2ScriptDebugLiteMode = true;
 	}
 	return 2;
 }

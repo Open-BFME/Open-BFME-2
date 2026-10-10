@@ -48,7 +48,8 @@ class Rva0021A54A
 public:
 	void rva0021A54A();
 };
-extern Rva0021A54A *TheHeroManager;
+class CreateAHeroManager;
+extern CreateAHeroManager *TheCreateAHeroManager;
 
 void Rva003BE5C9::rva003C3B4A()
 {
@@ -57,7 +58,7 @@ void Rva003BE5C9::rva003C3B4A()
 	if (TheLinearCampaignManager != 0)
 		reinterpret_cast<W3DTerrainVisual *>(TheLinearCampaignManager)->W3DTerrainVisual::removeAllBibs();
 	((Rva002036B4GlobalCopier *)TheScriptEngine)->apply();
-	TheHeroManager->rva0021A54A();
+	reinterpret_cast<Rva0021A54A *>(TheCreateAHeroManager)->rva0021A54A();
 }
 
 // Native global DFDC8C is registered as TheLinearCampaignManager by22F3A1.

@@ -55,7 +55,8 @@ public:
 };
 extern AI *TheAI;
 
-extern FireLogicSystem *g_00DFEC68;
+class Rva002872BA;
+extern Rva002872BA *TheTriggerManager;
 
 class Object
 {
@@ -90,6 +91,6 @@ void Object::rva0028AB75(bool flag)
 	}
 	if (m_49C < 0)
 		return;
-	g_00DFEC68->UnregisterObject((Rva00287C21Other *)this);
-	g_00DFEC68->RegisterObject((Rva00287C21Other *)this);
+	reinterpret_cast<FireLogicSystem *>(TheTriggerManager)->UnregisterObject((Rva00287C21Other *)this);
+	reinterpret_cast<FireLogicSystem *>(TheTriggerManager)->RegisterObject((Rva00287C21Other *)this);
 }

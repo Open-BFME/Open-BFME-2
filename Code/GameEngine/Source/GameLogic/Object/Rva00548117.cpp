@@ -40,7 +40,8 @@ class Rva00355B61
 public:
 	const ArmorTemplate *rva00355155(NameKeyType key) const;
 };
-extern class Rva00355B61 *g_00E01E18;
+class Rva00355B61;
+extern class AiOrdersManager *TheAiOrdersManager;
 
 class CreateAHeroData;
 typedef _STL::list<CreateAHeroData *> ListHeroPtr;
@@ -70,11 +71,11 @@ const ArmorTemplate *ObjectOrderQueue::checkForPatrol(void *a1, const ListHeroPt
 	Node *cur = (Node *)((Node *)m_list._M_node._M_data)->_M_next;
 	while (cur != (Node *)m_list._M_node._M_data) {
 		const ArmorTemplate *armor2 = 0;
-		const ArmorTemplate *armor1 = g_00E01E18->rva00355155((NameKeyType)cur->_M_data);
+		const ArmorTemplate *armor1 = reinterpret_cast<Rva00355B61 *>(TheAiOrdersManager)->rva00355155((NameKeyType)cur->_M_data);
 		if (armor1 && armor1->check(a1)) {
 			Node *nxt = (Node *)cur->_M_next;
 			if (nxt != (Node *)m_list._M_node._M_data) {
-				armor2 = g_00E01E18->rva00355155((NameKeyType)nxt->_M_data);
+				armor2 = reinterpret_cast<Rva00355B61 *>(TheAiOrdersManager)->rva00355155((NameKeyType)nxt->_M_data);
 				if (armor2 && ((Rva00548800 *)armor2)->rva00548800(a2))
 					return armor2;
 			}
@@ -92,11 +93,11 @@ const ArmorTemplate *ObjectOrderQueue::checkForPatrol(void *a1, const Rva0054880
 		if ((NameKeyType)cur->_M_data == (NameKeyType)*(const int *)((const char *)a2 + 0x10))
 			return 0;
 		const ArmorTemplate *armor2 = 0;
-		const ArmorTemplate *armor1 = g_00E01E18->rva00355155((NameKeyType)cur->_M_data);
+		const ArmorTemplate *armor1 = reinterpret_cast<Rva00355B61 *>(TheAiOrdersManager)->rva00355155((NameKeyType)cur->_M_data);
 		if (armor1 && armor1->check(a1)) {
 			Node *nxt = (Node *)cur->_M_next;
 			if (nxt != (Node *)m_list._M_node._M_data) {
-				armor2 = g_00E01E18->rva00355155((NameKeyType)nxt->_M_data);
+				armor2 = reinterpret_cast<Rva00355B61 *>(TheAiOrdersManager)->rva00355155((NameKeyType)nxt->_M_data);
 				if (armor2 && ((Rva00548800 *)armor2)->rva00548753(*a2))
 					return armor2;
 			}
@@ -120,7 +121,7 @@ void ObjectOrderQueue::setPatrolStartOrder(ObjectID v, int flags)
 	if (it == lst.end())
 		return;
 	for (; it != lst.end(); ++it) {
-		const ArmorTemplate *armor = g_00E01E18->rva00355155((NameKeyType)*it);
+		const ArmorTemplate *armor = reinterpret_cast<Rva00355B61 *>(TheAiOrdersManager)->rva00355155((NameKeyType)*it);
 		if (!armor)
 			continue;
 		((ArmorTemplate *)armor)->d7(m_00);

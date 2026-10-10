@@ -52,7 +52,7 @@ class Rva004DD73B
 public:
 	void *rva004DD73B();
 };
-extern Rva004DD73B g_00E049D8;
+extern unsigned int g_Va00E049D8;
 
 struct Outer00
 {
@@ -102,7 +102,7 @@ int Rva004DD9E3::rva004DD9E3(int a1, int x, int y)
 			}
 			cell->m_buffer = Rva002E8B7AInit((MixFileInfoBuffer **)&TheMixFileInfoPool, (int)cell, &in);
 		}
-		Node16 *node = (Node16 *)g_00E049D8.rva004DD73B();
+		Node16 *node = (Node16 *)reinterpret_cast<Rva004DD73B &>(g_Va00E049D8).rva004DD73B();
 		node->m_0C = cell;
 		node->m_08 = m_08;
 		node->m_04 = ((Outer00 *)m_00)->m_14;

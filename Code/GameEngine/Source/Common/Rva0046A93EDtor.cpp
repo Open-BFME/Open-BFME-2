@@ -456,9 +456,3 @@ void Rva0046E692CleanupForward::cleanup() {
     reinterpret_cast<Rva0046AB7D *>(this)->~Rva0046AB7D();
 }
 
-// Native21DA13 tail JMP21D5D5; AptSaveLoad replay-list unwind43684C
-// witnesses destruction. Original outer type and complete extent unknown.
-class Rva0021DA13 { public: ~Rva0021DA13(); };
-Rva0021DA13::~Rva0021DA13() {
-    reinterpret_cast<Rva0021C459 *>(this)->~Rva0021C459();
-}

@@ -25,11 +25,11 @@ class Rva002AABEE {public:
  void rva002AABEE();
  char opaque[36];
 };
-class Rva002AF1EC {public:~Rva002AF1EC();};
+struct Rva002AF6C5Element {~Rva002AF6C5Element();};
 struct Rva002B212AOwned {
  Rva002AABEE value;
  __forceinline Rva002B212AOwned(const AsciiString &name,const _STL::vector<unsigned>& values,const _STL::vector<AsciiString>& tags):value(name,1,values,tags) {}
- ~Rva002B212AOwned(){reinterpret_cast<Rva002AF1EC*>(&value)->~Rva002AF1EC();}
+ ~Rva002B212AOwned(){reinterpret_cast<Rva002AF6C5Element*>(&value)->~Rva002AF6C5Element();}
 };
 struct BfmeVectorRecord002AF478 {char opaque[36];};
 namespace _STL {template <> void vector<BfmeVectorRecord002AF478>::push_back(const BfmeVectorRecord002AF478 &);}

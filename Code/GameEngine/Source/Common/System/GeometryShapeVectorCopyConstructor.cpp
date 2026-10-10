@@ -66,3 +66,20 @@ struct GeometryShape
 };
 
 template class _STL::vector<GeometryShape>;
+
+// erase (retail 0x002B0CB0) and its __copy_ptrs forwarder (0x002B0B71) are
+// not GeometryShape's: retail erase destroys the vacated tail element through
+// 0x002AF1EC (vector<AsciiString> at +0x14, buffer at +8, AsciiString at +0)
+// and the __copy loop (0x002AF6C5) assigns through 0x002AF505, where
+// GeometryShape's own dtor is the 0x00255D17 tail jump (GeometryInfo's
+// shape-vector dtor 0x00050A79 reaches it per 0x24 element) and its assign
+// is 0x00063627.  Opaque view of that other 0x24-byte record.
+struct Rva002AF6C5Element
+{
+	~Rva002AF6C5Element();
+	Rva002AF6C5Element &operator=(const Rva002AF6C5Element &other);
+
+	unsigned char m_pad[0x24];
+};
+
+template Rva002AF6C5Element *_STL::vector<Rva002AF6C5Element>::erase(Rva002AF6C5Element *);

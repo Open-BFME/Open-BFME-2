@@ -91,7 +91,8 @@ public:
 		CanEnterType mode, bool passThrough, bool *outFlag);
 };
 
-extern BFMEActionManager *TheActionManager;
+class ActionManager;
+extern ActionManager *TheActionManager;
 
 class GameLogic
 {
@@ -164,7 +165,7 @@ bool GarrisonObjectGroupOrder::rva00546E2E(ObjectID id)
 		Object *container = obj->m_containedBy;
 		if (container && container->getID() == m_targetID)
 			return true;
-		if (!TheActionManager->canEnterObject(obj, target, CMD_FROM_PLAYER, CHECK_CAPACITY, 1, 0))
+		if (!reinterpret_cast<BFMEActionManager *>(TheActionManager)->canEnterObject(obj, target, CMD_FROM_PLAYER, CHECK_CAPACITY, 1, 0))
 			return true;
 		ai->m_commands.rva0036EBB8(target, CMD_FROM_PLAYER);
 	}

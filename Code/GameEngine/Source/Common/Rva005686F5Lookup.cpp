@@ -14,7 +14,8 @@ public:
 	void *rva0020DB91(const AsciiString &arg);
 };
 
-extern Rva0020DB91 *g_00DFE1A8;
+class LargeGroupAudio;
+extern LargeGroupAudio *TheLargeGroupAudio;
 
 class Rva003EE083
 {
@@ -30,9 +31,9 @@ struct Rva005686F5Elem
 
 void *__stdcall rva005686F5(const Rva005686F5Elem *e)
 {
-	if (g_00DFE1A8 == 0)
+	if (TheLargeGroupAudio == 0)
 		return 0;
-	void *item = g_00DFE1A8->rva0020DB91(e->m_00);
+	void *item = reinterpret_cast<Rva0020DB91 *>(TheLargeGroupAudio)->rva0020DB91(e->m_00);
 	if (item == 0)
 		return 0;
 	return ((Rva003EE083 *)item)->rva003EE083(e->m_04);

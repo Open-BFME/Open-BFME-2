@@ -19,3 +19,7 @@ struct Rva002AF6C5Element
 template Rva002AF6C5Element *_STL::__copy<Rva002AF6C5Element *,
 	Rva002AF6C5Element *, int>(Rva002AF6C5Element *, Rva002AF6C5Element *,
 	Rva002AF6C5Element *, const _STL::random_access_iterator_tag &, int *);
+
+// _Destroy for the same record (retail 0x002AF671, 9 bytes): tail jump to its
+// dtor 0x002AF1EC.
+template void _STL::_Destroy<Rva002AF6C5Element>(Rva002AF6C5Element *);

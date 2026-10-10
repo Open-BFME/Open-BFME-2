@@ -9,7 +9,7 @@
 // shl eax,2; mov [ecx+0x16C],eax; ret). Holder and identities
 // unproven: honest address-derived names; the g_00DBA4E8 spelling
 // follows Rva000806F3BasesParams.cpp.
-extern int g_00DBA4E8;
+extern int g_009BA4E8;
 
 class Rva002B296F
 {
@@ -31,7 +31,7 @@ void Rva002B296F::rva002B296F()
 {
 	m_E8 = 0;
 	m_169 = 1;
-	m_16C = g_00DBA4E8 * 4;
+	m_16C = g_009BA4E8 * 4;
 }
 
 // ?rva002B35DF@Rva002B296F@@QAEXXZ @0x002B35DF 24B. Same-class
@@ -41,5 +41,5 @@ void Rva002B296F::rva002B35DF()
 {
 	rva002B296F();
 	m_E8 = 1;
-	m_E4 = g_00DBA4E8;
+	m_E4 = g_009BA4E8;
 }

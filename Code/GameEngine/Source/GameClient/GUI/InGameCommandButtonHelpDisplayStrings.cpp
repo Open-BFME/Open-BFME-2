@@ -30,7 +30,10 @@ virtual void v12();
 virtual void v13();
 virtual void v14();
 virtual ScalePair *v15();};
-extern AptPlayer *TheAptPlayer;
+// The player singleton at 0x009FE4CC (registered as "TheAptPlayer" at
+// 0x0022F1D1) under the data ledger owner's spelling.
+class BfmeAptWindowManager;
+extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 class GameFont;
 class FontLibrary {public: GameFont *getFont(const AsciiString *,float,bool);};
 extern FontLibrary *TheFontLibrary;
@@ -54,7 +57,7 @@ class Rva0029F8B8 {public:
 };
 class InGameUI; extern InGameUI *TheInGameUI;
 __declspec(noinline) static void Rva0056C790(DisplayString *str,const Rva0043FC20 *font) {
- ScalePair *scale=TheAptPlayer->v15();
+ ScalePair *scale=reinterpret_cast<AptPlayer *>(g_bfmeAptWindowManager)->v15();
  float factor;
  if(scale->y>scale->x) factor=scale->x; else factor=scale->y;
  GameFont *f=TheFontLibrary->getFont(&font->m_00,(float)font->m_04*factor,font->m_08);

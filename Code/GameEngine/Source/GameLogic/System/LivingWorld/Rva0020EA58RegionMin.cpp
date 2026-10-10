@@ -112,12 +112,13 @@ class PositionQueryFactory {public:
 virtual PositionQueryObject*create(const char*,int);};
 struct PositionQueryCampaign {char pad[4];PositionQueryFactory*factory;};
 class Rva00DFE1C8Host {public:char pad[0x268];PositionQueryCampaign *campaign;};
-extern Rva00DFE1C8Host*g_00DFE1C8;
+class LivingWorldManager;
+extern LivingWorldManager *TheLivingWorldManager;
 class Rva002B2702B0 {public:bool rva0020EA58(void*key,float*out);};
 bool Rva002B2702B0::rva0020EA58(void*key,float*out){
  Rva0020E47C*region=(Rva0020E47C*)key;
  if(region->custom){*(Rva0020E47CVal*)out=region->rva0020E47C();return true;}
- PositionQueryFactory *factory=g_00DFE1C8->campaign->factory;
+ PositionQueryFactory *factory=reinterpret_cast<Rva00DFE1C8Host*>(TheLivingWorldManager)->campaign->factory;
  const char*name=region->name ? region->name+8 : "";
  PositionQueryObject*object=factory->create(name,0);
  if(!object)return false;

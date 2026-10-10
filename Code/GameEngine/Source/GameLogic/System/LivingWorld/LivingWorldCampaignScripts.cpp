@@ -23,7 +23,8 @@ struct LivingWorldScriptCampaigns
     LivingWorldScriptCampaign **campaigns;
 };
 class LivingWorldCampaignManager;
-extern LivingWorldCampaignManager *TheCampaignManager;
+class Rva00E02D6C;
+extern Rva00E02D6C *TheCampaignManager;
 extern GameLogic *TheGameLogic;
 class GlobalData;
 extern GlobalData *TheWritableGlobalData;

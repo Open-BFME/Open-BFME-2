@@ -6,7 +6,7 @@ public:
 	void *addBuff(void *a, void *b);
 };
 
-extern class BuffLogic *g_00DFF190;
+extern class BuffLogic *TheBuffLogic;
 
 class Rva00419BA5
 {
@@ -59,7 +59,7 @@ bool BuffInstance::MakeNormalBuff(int a, int b, void *c, void *d, int e)
 		m_08 = a;
 		m_0C = b;
 		m_1C = c;
-		m_18 = (DrawObj *)((BuffLogic *)g_00DFF190)->addBuff(c, d);
+		m_18 = (DrawObj *)((BuffLogic *)TheBuffLogic)->addBuff(c, d);
 	}
 	else
 	{
@@ -70,7 +70,7 @@ bool BuffInstance::MakeNormalBuff(int a, int b, void *c, void *d, int e)
 			m_08 = a;
 			m_0C = b;
 			m_1C = c;
-			m_18 = (DrawObj *)((BuffLogic *)g_00DFF190)->addBuff(c, d);
+			m_18 = (DrawObj *)((BuffLogic *)TheBuffLogic)->addBuff(c, d);
 		}
 		else if (m_18->m_08 == 2)
 		{

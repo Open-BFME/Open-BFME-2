@@ -96,14 +96,15 @@ public:
 	virtual bool bfmeAsk54ECI(void);
 };
 
-extern BfmeObjECI *g_bfmeObjECI;
+class LANAPI;
+extern LANAPI *TheLAN;
 
 // ?bfmeGoECI@@YA_NXZ
 // Retail tail-jmps vtable slot 54; the BFME1 class stops at slot 46,
 // so BFME2 grew eight convention virtuals ahead of the ask.
 bool bfmeGoECI(void)
 {
-	BfmeObjECI *obj = g_bfmeObjECI;
+	BfmeObjECI *obj = reinterpret_cast<BfmeObjECI *>(TheLAN);
 	if (!obj)
 		return false;
 	return obj->bfmeAsk54ECI();
@@ -114,7 +115,6 @@ BfmeObjECF * g_bfmeObjECF = 0;
 #pragma comment(linker, "/alternatename:?Rva00959410Dispatch@@3URva00959410Ptr@@A=?g_bfmeObjECF@@3PAUBfmeObjECF@@A")
 #pragma comment(linker, "/alternatename:?g_bfmeObjECF@@3VBfmeObjECFPtr@@A=?g_bfmeObjECF@@3PAUBfmeObjECF@@A")
 // ?g_bfmeObjECI@@3PAVBfmeObjECI@@A: the global at VA 0xdfe958 is ?g_Va009FE958@@3PAUGlobal009FE958@@A.
-#pragma comment(linker, "/alternatename:?g_bfmeObjECI@@3PAVBfmeObjECI@@A=?g_Va009FE958@@3PAUGlobal009FE958@@A")
 
 // Donor: GeneralsMD dx8webbrowser.cpp, DX8WebBrowser::Shutdown, through
 // reference/open-bfme-1 revision 1399ad37d42ea52a63829e417c46a1ba9ed2cd20.

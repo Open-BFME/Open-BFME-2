@@ -116,7 +116,8 @@ public:
 	virtual void slot39(Coord3DBase *p, float a, float b);
 };
 
-extern Rva003FD27EGlobal *g_00DFEF18;
+class Rva002D3627Host;
+extern Rva002D3627Host *g_00DFEF18;
 
 class Rva003FD2C2 : public Rva003FD1C5
 {
@@ -133,6 +134,6 @@ private:
 bool Rva003FD2C2::rva003FD27E()
 {
 	float deg = m_18 * 0.017453292f;
-	g_00DFEF18->slot39(&m_0c, deg, g_00DFEF18->slot25(m_1c));
+	reinterpret_cast<Rva003FD27EGlobal *>(g_00DFEF18)->slot39(&m_0c, deg, reinterpret_cast<Rva003FD27EGlobal *>(g_00DFEF18)->slot25(m_1c));
 	return true;
 }

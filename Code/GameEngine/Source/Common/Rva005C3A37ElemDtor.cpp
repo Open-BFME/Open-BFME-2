@@ -105,7 +105,8 @@ void Rva005C3A37Elem::Add(TreeHintRef00217D4C hint)
 }
 
 class Rva00222A8BTarget;
-extern Rva00222A8BTarget *TheTarget;
+class BfmeAptWindowManager;
+extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 int __cdecl Rva00524EF4AptCall(Rva00222A8BTarget *,void *,const char *,const char *);
 class Rva005C39C4 { public: TreeHintRef00217D4C rva005C39C4(int); };
 class Rva005C3B3EUpdateView { public: virtual void unknown0(); virtual void update(); };
@@ -117,7 +118,7 @@ void Rva005C3A37Elem::rva005C3B3E()
 {
  if(reload) {
   if(active && !pending) {
-   Rva00524EF4AptCall(TheTarget,unknown04,name.str(),"FadeOut");
+   Rva00524EF4AptCall(reinterpret_cast<Rva00222A8BTarget *>(g_bfmeAptWindowManager),unknown04,name.str(),"FadeOut");
    pending=true;
   }
   reload=false;

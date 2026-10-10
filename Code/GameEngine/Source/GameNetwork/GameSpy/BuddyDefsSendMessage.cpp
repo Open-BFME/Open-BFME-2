@@ -30,7 +30,7 @@ class BuddyMessage {public:unsigned timestamp;int sender;AsciiString senderNick;
 struct BfmeStringRecord00415F34 {BuddyMessage message;BfmeStringRecord00415F34(const BfmeStringRecord00415F34 &);};
 void Rva00416589(BfmeStringRecord00415F34);
 void Rva00381C82AddChatText(int,const UnicodeString &,int);
-extern int g_00DB9198;
+extern int GameSpyColor[];
 
 struct BuddyRequest
 {
@@ -124,7 +124,7 @@ bool Rva004166DB(const UnicodeString &text, GameWindow *window)
 	if (begin == recipients->m_end)
 	{
 		UnicodeString message = TheGameText->fetch("GUI:PleaseSelectBuddy");
-		Rva00381C82AddChatText(0, message, (&g_00DB9198)[22]);
+		Rva00381C82AddChatText(0, message, GameSpyColor[22]);
 		if (TheAudio)
 		{
 			AudioEventInfoRef info = TheAudio->findAudioEventInfo(AsciiString("GUIMessageBuddy"));

@@ -28,7 +28,8 @@ struct Rva0023D607Holder
 	char m_00[16];
 	int m_10;
 };
-extern Rva0023D607Holder *g_Rva0023D607Holder;
+class LinearCampaignManager;
+extern LinearCampaignManager *TheLinearCampaignManager;
 class Rva00210C66CmpBoolField
 {
 public:
@@ -47,7 +48,7 @@ int GameState::determineCurrentGameSaveFileMode()
 		return 2;
 	if (((BfmeSelectionState *)sel)->isSelectionLocked())
 		return logic->m_114 != 0 ? 6 : 4;
-	if (g_Rva0023D607Holder->m_10 != 0)
+	if (reinterpret_cast<Rva0023D607Holder *>(TheLinearCampaignManager)->m_10 != 0)
 		return logic->m_110 == 9;
 	if (logic->m_114 == 0)
 		return 3;
@@ -64,7 +65,7 @@ int Rva002DBE62Get()
 		return 2;
 	if (((BfmeSelectionState *)sel)->isSelectionLocked())
 		return logic->m_114 != 0 ? 6 : 4;
-	if (g_Rva0023D607Holder->m_10 != 0)
+	if (reinterpret_cast<Rva0023D607Holder *>(TheLinearCampaignManager)->m_10 != 0)
 		return logic->m_110 == 9;
 	if (logic->m_114 == 0)
 		return 3;

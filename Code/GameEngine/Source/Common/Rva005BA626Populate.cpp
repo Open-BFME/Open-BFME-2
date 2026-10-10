@@ -39,7 +39,7 @@ public:
 };
 extern GameTextInterface *TheGameText;
 
-extern int g_00DB9198;
+extern int GameSpyColor[];
 
 class QuickMatchPreferences
 {
@@ -58,7 +58,7 @@ bool Rva005BA626::rva005BA626()
 {
 	if (*(GameWindow **)((char *)this + 0x84) == 0)
 		return false;
-	int color = g_00DB9198;
+	int color = GameSpyColor[0];
 	GadgetComboBoxReset(*(GameWindow **)((char *)this + 0x84));
 	UnicodeString text;
 	for (int i = 1; i <= 2; ++i)

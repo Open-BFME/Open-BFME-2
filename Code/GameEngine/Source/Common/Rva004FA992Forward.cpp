@@ -13,7 +13,7 @@ public:
 	void forEach(void (Rva004FA953Listener::*notify)(void *, int), void *arg, int value);
 };
 
-extern Rva004FA953List g_00E044F0;
+extern unsigned int g_Va00E044F0;
 
 class Rva004FA992
 {
@@ -28,5 +28,5 @@ private:
 void Rva004FA992::rva004FA992(void (Rva004FA953Listener::*notify)(void *, int), void *arg, int value)
 {
 	m_list.forEach(notify, arg, value);
-	g_00E044F0.forEach(notify, arg, value);
+	reinterpret_cast<Rva004FA953List &>(g_Va00E044F0).forEach(notify, arg, value);
 }

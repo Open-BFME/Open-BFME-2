@@ -19,7 +19,7 @@ private:
 	unsigned int m_index;
 };
 
-extern Rva003F119CList g_00E02E88;
+extern unsigned int g_Va00E02E88;
 
 struct Rva003F1A03
 {
@@ -31,5 +31,5 @@ struct Rva003F1A03
 void Rva003F1A03::rva003F1A03(void (Rva003F119CListener::*notify)(void *, int, int), void *arg, int value, int extra)
 {
 	m_04.forEach(notify, arg, value, extra);
-	g_00E02E88.forEach(notify, arg, value, extra);
+	reinterpret_cast<Rva003F119CList &>(g_Va00E02E88).forEach(notify, arg, value, extra);
 }

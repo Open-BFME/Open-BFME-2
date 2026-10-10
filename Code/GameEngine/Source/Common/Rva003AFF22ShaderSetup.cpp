@@ -39,7 +39,8 @@ public:
 };
 }
 
-extern FXParticleSystem::ParticleSystemManager *TheParticleSystemManager;
+class ParticleSystemManager;
+extern ParticleSystemManager *TheParticleSystemManager;
 
 class Rva003B0401
 {
@@ -52,5 +53,5 @@ public:
 
 RefCountPtr<FXShaderSetup> Rva003B0401::rva003AFF22()
 {
-	return TheParticleSystemManager ? TheParticleSystemManager->GetShaderSetup() : RefCountPtr<FXShaderSetup>();
+	return TheParticleSystemManager ? reinterpret_cast<FXParticleSystem::ParticleSystemManager *>(TheParticleSystemManager)->GetShaderSetup() : RefCountPtr<FXShaderSetup>();
 }

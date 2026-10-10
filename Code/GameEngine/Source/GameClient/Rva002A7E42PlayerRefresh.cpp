@@ -17,7 +17,8 @@ public:
 };
 extern ControlBar *TheControlBar;
 class ClientFrameSubsystem;
-extern ClientFrameSubsystem *TheGameClient;
+class GameClient;
+extern GameClient *TheGameClient;
 void ShowControlBar(bool);
 struct Rva002A7E42Entry;
 struct Rva002A7E42EntryVTable

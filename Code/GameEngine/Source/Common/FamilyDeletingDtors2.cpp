@@ -19,9 +19,9 @@ void famgenDelete(BfmeStringTailRecord156 *p) { delete p; }
 class Path { public: ~Path(); };
 void famgenDelete(Path *p) { delete p; }
 
-// ??_GGeometryShape@@QAEPAXI@Z @0x2af4d1
-class GeometryShape { public: ~GeometryShape(); };
-void famgenDelete(GeometryShape *p) { delete p; }
+// ??_GRva002AF6C5Element@@QAEPAXI@Z @0x2af4d1 (the 0x24-byte record whose dtor is 0x2af1ec)
+struct Rva002AF6C5Element { ~Rva002AF6C5Element(); };
+void famgenDelete(Rva002AF6C5Element *p) { delete p; }
 
 // ??_GBfmeStringHeadRecord148@@QAEPAXI@Z @0x3611d3
 class BfmeStringHeadRecord148 { public: ~BfmeStringHeadRecord148(); };

@@ -9,8 +9,8 @@ class Rva001363CC
 public:
 	void rva001364CE();
 };
-extern _STL::map<unsigned int, void *> g_00DF29B4;
+extern unsigned int g_Va00DF29B4;
 void Rva0013676D()
 {
-	((Rva001363CC *)&g_00DF29B4)->rva001364CE();
+	((Rva001363CC *)&g_Va00DF29B4)->rva001364CE();
 }

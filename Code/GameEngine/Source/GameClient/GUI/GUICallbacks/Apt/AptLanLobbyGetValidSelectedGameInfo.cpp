@@ -38,7 +38,7 @@ protected:
 	bool ValidateGameInfo(LANGameInfo *game);
 };
 
-extern LANAPI *g_00DFE958;
+extern LANAPI *TheLAN;
 
 class AptLanLobby
 {
@@ -58,9 +58,8 @@ int AptLanLobby::GetValidSelectedGameInfo()
 	GadgetListBoxGetSelected(m_listboxGames, &sel);
 	int game = Rva003253BEGet(m_listboxGames, sel, 3);
 	LANGameInfo *info = (LANGameInfo *)game;
-	if (!g_00DFE958->ValidateGameInfo(info))
+	if (!TheLAN->ValidateGameInfo(info))
 		info = 0;
 	return (int)info;
 }
 // ?g_00DFE958@@3PAVLANAPI@@A: the global at VA 0xdfe958 is ?g_Va009FE958@@3PAUGlobal009FE958@@A.
-#pragma comment(linker, "/alternatename:?g_00DFE958@@3PAVLANAPI@@A=?g_Va009FE958@@3PAUGlobal009FE958@@A")

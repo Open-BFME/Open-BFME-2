@@ -45,7 +45,7 @@ private:
 	unsigned char m_43E;
 };
 
-extern int g_00DBA4E8;
+extern int g_009BA4E8;
 float __cdecl GetGameClientRandomValueReal(float lo, float hi, char *file, int line);
 
 void Drawable::rva00275DCE(int a1, float a2, float a3, float a4)
@@ -63,7 +63,7 @@ void Drawable::rva00275DCE(int a1, float a2, float a3, float a4)
 	else
 		c = a4;
 	m_C0 = c;
-	m_D4 = (int)((double)g_00DBA4E8 * (double)a4);
+	m_D4 = (int)((double)g_009BA4E8 * (double)a4);
 	m_D0 = m_B4;
 	m_164 = a1;
 	switch (a1) {

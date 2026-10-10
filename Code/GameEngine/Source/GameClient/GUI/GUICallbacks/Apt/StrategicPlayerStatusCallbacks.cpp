@@ -268,7 +268,8 @@ extern GlobalA04934 *g_Va00A04934;
 struct GlobalA046B4;
 extern GlobalA046B4 *g_Va00A046B4;
 extern int g_Va00E048D0;
-extern int g_Va00E04934;
+struct GlobalA04934;
+extern GlobalA04934 *g_Va00A04934;
 void Rva004E855CClose();
 
 // Rva0052340DEnable.cpp's 0x0052340D.
@@ -377,7 +378,7 @@ void StrategicPlayerStatus::rva005234AD()
 // ?rva00523592 @0x00523592 19B: flag-gated tail call to Rva0052340DEnable or rva005234AD.
 void StrategicPlayerStatus::rva00523592()
 {
-	if (g_Va00E04934)
+	if (g_Va00A04934)
 		Rva0052340DEnable();
 	else
 		rva005234AD();

@@ -88,8 +88,9 @@ public:
 };
 
 extern class GameLogic *TheGameLogic;
-extern MessageStream *MessageStreamSubsystem;
-extern void *g_00E02D6C;
+extern MessageStream *TheMessageStream;
+class Rva00E02D6C;
+extern Rva00E02D6C *TheCampaignManager;
 
 struct Rva00203BE9Mode
 {
@@ -110,11 +111,11 @@ void ScriptEngine::rva00203BE9()
 {
 	if (TheGameLogic->rva002034E9())
 	{
-		if (((Rva00203BE9Mode *)g_00E02D6C)->enabled)
-			MessageStreamSubsystem->appendType(0x7D9);
+		if (((Rva00203BE9Mode *)TheCampaignManager)->enabled)
+			TheMessageStream->appendType(0x7D9);
 		else
-			MessageStreamSubsystem->appendType(0x7ED);
+			TheMessageStream->appendType(0x7ED);
 	}
 	else
-		MessageStreamSubsystem->appendType(0x1D);
+		TheMessageStream->appendType(0x1D);
 }

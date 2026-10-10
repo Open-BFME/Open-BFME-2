@@ -48,7 +48,8 @@ private:
 };
 
 extern Rva00148F5ECache g_00DBDE24;	// "playerName"
-extern Rva00148F5ECache g_00DBD9FC;	// "teamOwner"
+class StaticNameKey;
+extern const StaticNameKey TheKey_teamOwner;	// "teamOwner"
 
 class BfmeThingUBB
 {
@@ -115,7 +116,7 @@ void SidesList::removeSideAndTeams(int index)
 		for (int id = m_teamrec.getFirstTeamID(); id != 0; id = nextID) {
 			nextID = m_teamrec.getNextTeamID(id);
 			Dict *team = m_teamrec.getTeamInfo(id);
-			AsciiString owner = team->getAsciiString(g_00DBD9FC.get(), &exists);
+			AsciiString owner = team->getAsciiString(const_cast<Rva00148F5ECache &>(reinterpret_cast<const Rva00148F5ECache &>(TheKey_teamOwner)).get(), &exists);
 			if (exists && owner.compare(name) == 0)
 				m_teamrec.removeTeam(id);
 		}
