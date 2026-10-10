@@ -1,0 +1,43 @@
+{
+  "id": "D-core-default-heroes-5b566b-20261010T001346",
+  "seat": "D",
+  "base_commit": "5aa53071355c0ea74342f85fe9002928cad6e27e",
+  "paths": [
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHeroClass.cpp"
+  ],
+  "recoveries": [
+    {
+      "name": "?rva005B566B@Rva005B566B@@QAEXXZ",
+      "rva": "0x005B566B",
+      "size": 256,
+      "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHeroClass.cpp",
+      "notes": "Native5B566B..5B576B256B RET0; WB157C640 Class::CreateDefaultHeroes semantic lead. Target manager14C vector32 count and nested subclass count; existing seven-argument factory/colors/vector helper; full strings and ordinary two-string EH lifetimes exact. Existing neutral spellings retained and application pointer type not inferred from folded ModuleData provider. All256B exact O1G7SSE.",
+      "replace_rva": ""
+    }
+  ],
+  "proof_command": [
+    [
+      "C:\\Users\\franz\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+      "tools/explain_mismatch.py",
+      "?rva005B566B@Rva005B566B@@QAEXXZ",
+      "--rva",
+      "0x005B566B",
+      "--size",
+      "256",
+      "--source",
+      "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHeroClass.cpp"
+    ]
+  ],
+  "proof_log": "proof.log",
+  "claim_owner": "codex-01a12257-root",
+  "dependencies": [
+    "D-core-apt-image-2239fa-20261010T001346"
+  ],
+  "temporary_ledger": false,
+  "metadata_packet": "D-default-heroes-5b566b-20261010T000926",
+  "supersedes_recovery_packet": "D-default-heroes-5b566b-20261010T000926",
+  "excluded_metadata_paths": [
+    "reverse/re_attempts.log",
+    "reverse/attempts/0x003b8f20.cpp"
+  ]
+}
