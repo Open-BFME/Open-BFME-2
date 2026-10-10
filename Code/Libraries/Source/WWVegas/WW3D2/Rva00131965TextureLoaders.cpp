@@ -33,7 +33,7 @@ extern "C" long __stdcall D3DXCreateVolumeTextureFromFileInMemoryEx(void*,const 
 extern "C" long __stdcall D3DXCreateCubeTextureFromFileInMemoryEx(void*,const void*,unsigned,unsigned,unsigned,unsigned,int,int,unsigned,unsigned,unsigned,void*,void*,TextureCOM9**);
 class Rva0013107A {
 public:
- bool loadAuxImage();void loadImage();void postLoad(const char *);void loadVolume();void loadCube();void loadVolumeSlices();
+ bool loadAuxImage();void loadImage();void PostLoad(const char *);void loadVolume();void loadCube();void loadVolumeSlices();
 private:
  char head[8];TextureCOM9*m_resource;int m_type;char gap[4];char*m_source;unsigned m_size;char gap1[4];char*m_alpha;unsigned m_alphaSize;unsigned m_width,m_height,m_depth,m_sliceWidth,m_sliceHeight,m_originalDepth;int m_imageMode;unsigned m_mipLevels;int m_preference;int m_format;int m_ready,m_loading;
 };
@@ -99,7 +99,7 @@ struct Texture2DSurfaceView {
  virtual void slot0();virtual void slot1();virtual void slot2();virtual void slot3();virtual void slot4();virtual void slot5();virtual void slot6();virtual void slot7();virtual void slot8();virtual void slot9();virtual void slot10();virtual void slot11();virtual void slot12();virtual void slot13();virtual void slot14();virtual void slot15();virtual void slot16();virtual void slot17();
  virtual long __stdcall GetSurfaceLevel(unsigned,SurfaceResource**);
 };
-// ?postLoad@Rva0013107A@@QAEXPBD@Z
+// ?PostLoad@Rva0013107A@@QAEXPBD@Z
 // Native 0x00131E6E..0x001320B4 (582 bytes); WorldBuilder PostLoad lead.
 // Existing constructor and the three loaders establish the neutral owner.
 // Retail proves image-info field assignments, resource-kind dispatch, _vol
@@ -108,7 +108,7 @@ struct Texture2DSurfaceView {
 // holder/lock providers preserve the native ownership and EH states.
 // The 2D loadImage provider remains unrowed; its complete 726-byte native
 // body and same-receiver calls establish the descriptive callee ABI only.
-void Rva0013107A::postLoad(const char*name) {
+void Rva0013107A::PostLoad(const char*name) {
  if(m_source) {
   m_resource=0;
   TextureImageInfo info;

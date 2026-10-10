@@ -618,10 +618,10 @@ void RadarWindowOverrideSource::rva002D55EF()
 // Palantir::Impl::~Impl, retail 0x002D5380..0x002D54E5 (357 bytes; WB
 // 0x00F43790): unload the palantir movie, destroy the movie playback and
 // the input window, detach the listed observers, then the members in reverse.
-class Rva00224B7DTarget
+class AptPlayer
 {
 public:
-	bool method(int level);
+	bool RemoveLevel(int level);
 };
 
 class Rva00224BC9Owner
@@ -638,7 +638,7 @@ struct AptPalantirListener
 
 AptPalantir::~AptPalantir()
 {
-	reinterpret_cast<Rva00224B7DTarget *>(g_bfmeAptWindowManager)->method(m_level);
+	reinterpret_cast<AptPlayer *>(g_bfmeAptWindowManager)->RemoveLevel(m_level);
 	reinterpret_cast<Rva00224BC9Owner *>(g_bfmeAptWindowManager)->check();
 	::delete m_moviePlayback;
 	m_moviePlayback = 0;

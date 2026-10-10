@@ -376,7 +376,7 @@ void AptSaveLoad::rva00436FF6()
 class Rva00222A8BTarget;
 extern Rva00222A8BTarget *TheRva00222A8BTarget;
 UnicodeString GadgetTextEntryGetText(GameWindow *textEntry);
-GameWindow *Rva00222547Get(GameWindow *window);
+class AptPlayer {public:static int GetLevelIndex(GameWindow *window);};
 int __cdecl Rva002D4531Invoke(Rva00222A8BTarget *,void *,const char *,const int &);
 
 void AptSaveLoad::rva00434A2F()
@@ -388,6 +388,8 @@ void AptSaveLoad::rva00434A2F()
 		hasText = 0;
 	else
 		hasText = 1;
-	Rva002D4531Invoke(TheRva00222A8BTarget, Rva00222547Get((GameWindow *)this),
+	// The retained address-derived invoke wrapper uses a void* ABI view of
+	// this 32-bit level argument; the query itself returns the proven integer.
+	Rva002D4531Invoke(TheRva00222A8BTarget, reinterpret_cast<void *>(AptPlayer::GetLevelIndex((GameWindow *)this)),
 		"SaveButtonEnable", hasText);
 }

@@ -135,7 +135,7 @@ virtual void s48();
 virtual void s4C();
 virtual int load(AsciiString,AsciiString,int,int);
 };
-class Rva002224FE {public:bool rva002224FE(int);};
+class AptPlayer {public:bool ShowLevel(int);};
 class Rva004E67B3 {public:void rva004E67B3(unsigned);};
 class Rva002217EA;
 class Rva004E6A9BBase {public:virtual unsigned char rva00578522()const;virtual void rva004E6B7D(bool);virtual void rva004E725F(const UnicodeString&,const Rva002217EA&,int);virtual void DoClose();~Rva004E6A9BBase(){}};
@@ -158,7 +158,7 @@ InGameNotificationBoxMovieClip::InGameNotificationBoxMovieClip():level(-1),state
  ((AptCommandMapAdder*)&commands)->AddCommandMap(prefix+"_OnCloseButtonClicked",AptRef<AptCommandMap>(DelegateDesc(this,reinterpret_cast<NoticeCommand>(&InGameNotificationBoxMovieClip::rva004E67D0))));
  ((AptExternHandlerAdder*)&externs)->AddExternHandler(prefix+"_MessageWidth",0,AptRef<AptExternHandler>(DelegateDesc(this,reinterpret_cast<NoticeCommand>(&InGameNotificationBoxMovieClip::ExternMessageWidth))));
  ((AptCustomRenderAdder*)&renders)->AddCustomRender(prefix+"_Message",AptRef<AptCustomRender>(DelegateDesc(this,reinterpret_cast<NoticeCommand>(&InGameNotificationBoxMovieClip::RenderMessage))));
- ((Rva002224FE*)g_bfmeAptWindowManager)->rva002224FE(level);
+ ((AptPlayer*)g_bfmeAptWindowManager)->ShowLevel(level);
 }
 void InGameNotificationBoxMovieClip::OnInitialized(unsigned){if(state==0)state=1;}
 void InGameNotificationBoxMovieClip::ExternMessageWidth(int,const char*text,bool){width=(float)atof(text);}

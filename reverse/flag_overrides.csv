@@ -383,7 +383,6 @@ Code/GameEngine/Source/GameNetwork/Rva007F1220BlobWriter.cpp,,1,1,region default
 Code/GameEngine/Source/GameNetwork/Rva007F14B0BlobWriter.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/GameNetwork/Rva007F1800FeslSearch.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/GameNetwork/Rva007F2350StatsCursor.cpp,,3,3,region default loses rows
-Code/GameEngine/Source/GameNetwork/Rva007F27C0RankRequest.cpp,-O2,1,1,region default loses rows
 Code/GameEngine/Source/GameNetwork/Rva007F2FA0RecordRequest.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/GameNetwork/Rva007F3170RecordRequest.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/GameNetwork/Rva007F3C50ClubUpdate.cpp,,1,1,region default loses rows

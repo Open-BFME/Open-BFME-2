@@ -294,7 +294,7 @@ Bool StrategicVeterancy::Show()
         m_impl->m_state = 2;
         break;
     case 0:
-        ((Rva002224FE *)g_bfmeAptWindowManager)->rva002224FE((Int)m_impl->m_level);
+        reinterpret_cast<AptPlayer *>(g_bfmeAptWindowManager)->ShowLevel((Int)m_impl->m_level);
         m_impl->m_state = 1;
         break;
     }

@@ -6,12 +6,12 @@
 // quick-match window list through the direct base-class call 0x00538ADC,
 // clears the screen pointer and lets the out-of-line base dtor 0x00538C5F
 // (the BfmeQuickMatchScreenBase teardown) run last. Identity unproven.
-class Rva00224B7DTarget
+class AptPlayer
 {
 public:
-	bool method(int level);
+	bool RemoveLevel(int level);
 };
-extern Rva00224B7DTarget *TheAptPlayer;
+extern AptPlayer *TheAptPlayer;
 
 class BfmeQuickMatchScreenBase
 {
@@ -42,7 +42,7 @@ private:
 
 Rva0040FB4A::~Rva0040FB4A()
 {
-	TheAptPlayer->method(m_24->m_274);
+	TheAptPlayer->RemoveLevel(m_24->m_274);
 	((BfmeQuickMatchScreenBase *)this)->BfmeQuickMatchScreenBase::rva00538ADC();
 	m_24 = 0;
 }

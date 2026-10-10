@@ -336,8 +336,7 @@ public:
 
 extern GlobalData *TheWritableGlobalData;
 
-class Mouse;
-class Rva001EDD80
+class Mouse
 {
 public:
 	bool rva001EDD80(const Rva001EDD80Pair *a, const Rva001EDD80Pair *b);
@@ -437,9 +436,9 @@ GameMessageDisposition GUICommandTranslator::translateGameMessage(const GameMess
 	case 3:
 	{
 		ICoord2D p = msg->getArgument(0)->pixel;
-		if (((Rva001EDD80 *)TheMouse)->rva001EDD80(&m_04, (const Rva001EDD80Pair *)&p))
+		if (TheMouse->rva001EDD80(&m_04, (const Rva001EDD80Pair *)&p))
 			m_14 = true;
-		if (((Rva001EDD80 *)TheMouse)->rva001EDD80(&m_20, (const Rva001EDD80Pair *)&p))
+		if (TheMouse->rva001EDD80(&m_20, (const Rva001EDD80Pair *)&p))
 			m_30 = true;
 		break;
 	}

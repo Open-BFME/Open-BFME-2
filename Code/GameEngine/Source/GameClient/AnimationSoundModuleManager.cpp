@@ -11,7 +11,7 @@
 // algebra, with z/y/x evaluation order matching retail's scalar SSE.
 #include "Coord3D.h"
 class AnimationSoundClientBehavior {public:
- void rva004CA328();
+ void updateAnimationSounds();
  char prefix[0x14];AnimationSoundClientBehavior *next,*previous;
 };
 struct AnimationSoundClientBehaviorGlobalSetting {float m_minMicrophoneDistanceToDirty;};
@@ -40,6 +40,6 @@ void AnimationSoundModuleManager::rva00433025(){
  if(!dirtyHead)listenerPosition=*((AnimationListenerCalls*)TheAudio)->listener();
  for(AnimationSoundClientBehavior *b=cleanHead;b;){
   AnimationSoundClientBehavior *next=b->next;
-  b->rva004CA328();b=next;
+  b->updateAnimationSounds();b=next;
  }
 }
