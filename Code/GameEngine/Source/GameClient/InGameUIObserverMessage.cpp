@@ -37,10 +37,22 @@ public:
 };
 extern GameTextInterface *TheGameText;
 
+// The notification interface InGameUI implements at +0x10 (vftable 0x7C7A64);
+// the rowed 0x005CC208 is the thunk through its slot 2.
 class InGameNotificationBox
 {
 public:
+    virtual void slot0();
+    virtual void slot1();
+    virtual void rva0029B56E(const UnicodeString &text, const Rva002217EA &data, int timeoutMS);
     void rva005CC208(const UnicodeString &text, const Rva002217EA &data, int timeoutMS);
+};
+class InGameUIPrimaryView
+{
+public:
+    virtual void slot0();
+private:
+    unsigned char m_pad04[0x0C];
 };
 class Rva005CB260;
 class CreateAHeroHero;
@@ -48,18 +60,17 @@ class Object;
 class InGameNotificationBoxMovieClip {
 public: void rva004E6F30(const UnicodeString &, const Rva002217EA &, int, bool, int);
 };
-class InGameUI
+class InGameUI : public InGameUIPrimaryView, public InGameNotificationBox
 {
 public:
     void notifyHeroEarnedAward(CreateAHeroHero *, int);
     void rva0029F954(Object *obj, const char *typeName, const int *label, float seconds);
+    virtual void rva0029B56E(const UnicodeString &text, const Rva002217EA &data, int timeoutMS);
     Rva005CB260 *rva000CF155()
     {
-        return this ? reinterpret_cast<Rva005CB260 *>(m_notificationInterface) : 0;
+        return this ? reinterpret_cast<Rva005CB260 *>(reinterpret_cast<unsigned char *>(this) + 0x10) : 0;
     }
 private:
-    unsigned char m_primary[0x10];
-    unsigned char m_notificationInterface[4];
     unsigned char pad14[0x9cc-0x14];
     InGameNotificationBoxMovieClip *awardMovie;
     unsigned char pad9d0[0x9e8-0x9d0];
@@ -175,4 +186,27 @@ void InGameUI::rva0029F954(Object *obj, const char *typeName, const int *label, 
  data.rva0010670B(getButtonImage(tmpl, obj));
  InGameNotificationBoxMovieClip *movie = awardMovie;
  movie->rva004E6F30(text, data, (int)(seconds * 1000.0f), 0, 0);
+}
+
+// Native 0x0029B56E..0x0029B5CD (95B, RET 12): InGameUI's override of the
+// notification interface slot 2 (this = InGameUI+0x10), the call behind the
+// rowed thunk 0x005CC208. It forwards the text, notification data and
+// timeout to the award movie clip (+0x9CC, 0x004E6F30) with a visibility
+// flag and mode: 2 while the 0x00A04450 state exists without its +0x278
+// byte, else 1 while 0x0043C99A reports its flag, else hidden mode 0.
+struct GlobalA04450;
+extern GlobalA04450 *g_Va00A04450;
+struct GlobalA04450Flag278 { char m_pad[0x278]; unsigned char m_flag; };
+int Rva0043C99AGet(void);
+
+void InGameUI::rva0029B56E(const UnicodeString &text, const Rva002217EA &data, int timeoutMS)
+{
+    bool primary = g_Va00A04450 && !reinterpret_cast<GlobalA04450Flag278 *>(g_Va00A04450)->m_flag;
+    unsigned char secondary = static_cast<unsigned char>(Rva0043C99AGet());
+    int mode = 0;
+    if (primary)
+        mode = 2;
+    else if (secondary)
+        mode = 1;
+    awardMovie->rva004E6F30(text, data, timeoutMS, primary || secondary, mode);
 }
