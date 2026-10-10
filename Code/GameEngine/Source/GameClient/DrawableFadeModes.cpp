@@ -26,17 +26,12 @@ public:
 
 #define TheRva00DFE77C (*(Rva00DFE77CHolder **)&TheGameClient)
 
-class Rva002716Holder
-{
-public:
-	void rva00271601(unsigned char v);
-};
-
 class Drawable
 {
 public:
 	void rva00272D03(unsigned int frames);
 	void rva00272D3D(unsigned int frames);
+	void setDrawableHidden(bool hidden);
 
 private:
 	unsigned char m_pad00[0x128];
@@ -49,7 +44,7 @@ private:
 
 void Drawable::rva00272D03(unsigned int frames)
 {
-	((Rva002716Holder *)this)->rva00271601(0);
+	setDrawableHidden(false);
 	m_timeElapsedFade = 0;
 	m_fadeMode = 4;
 	m_timeToFade = frames;
@@ -58,7 +53,7 @@ void Drawable::rva00272D03(unsigned int frames)
 
 void Drawable::rva00272D3D(unsigned int frames)
 {
-	((Rva002716Holder *)this)->rva00271601(1);
+	setDrawableHidden(true);
 	m_timeElapsedFade = 0;
 	m_fadeMode = 3;
 	m_timeToFade = frames;

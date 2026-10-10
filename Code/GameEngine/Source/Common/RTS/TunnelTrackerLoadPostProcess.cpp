@@ -30,7 +30,7 @@ public:
 // first performs the retail Object manager cascade; the second sets Drawable's
 // hidden byte at +0x43D and refreshes it. No original name is claimed here.
 class Rva0028BAC0Host { public: void rva0028BAC0(); };
-class Rva002716Holder { public: void rva00271601(unsigned char); };
+class Drawable { public: void setDrawableHidden(bool hidden); };
 class Pathfinder { public: void RemoveObjectFromPathfindMap(Object *); };
 class AI
 {
@@ -84,7 +84,7 @@ void TunnelTracker::loadPostProcess()
             object->leaveGroup();
             reinterpret_cast<Rva0028BAC0Host *>(object)->rva0028BAC0();
             if (object->getDrawable())
-                reinterpret_cast<Rva002716Holder *>(object->getDrawable())->rva00271601(1);
+                object->getDrawable()->setDrawableHidden(true);
             if (TheAI)
                 TheAI->m_pathfinder->RemoveObjectFromPathfindMap(object);
         }

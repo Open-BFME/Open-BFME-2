@@ -21,7 +21,7 @@ enum NetCommandType
 
 class MemoryPool;
 
-int DoesCommandRequireACommandID(NetCommandType type);
+bool DoesCommandRequireACommandID(NetCommandType type);
 AsciiString Rva005813D4Get(int type);
 
 
@@ -54,7 +54,7 @@ protected:
 AsciiString NetCommandMsg::rva004D5B4C()
 {
 	AsciiString result;
-	if ((unsigned char)DoesCommandRequireACommandID(m_commandType))
+	if (DoesCommandRequireACommandID(m_commandType))
 	{
 		result.format("<sessionID=%d, frame=%d, player=%d, id=%d>, %s", m_timestamp, m_executionFrame, m_playerID, m_id, GetStr004D5B4C(Rva005813D4Get(m_commandType)));
 	}

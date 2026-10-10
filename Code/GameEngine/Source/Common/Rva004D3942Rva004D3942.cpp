@@ -48,7 +48,7 @@ public:
     void sendLocalCommandDirect(NetCommandMsg *msg, unsigned char mask);
 };
 
-int __cdecl DoesCommandRequireACommandID(NetCommandType type);
+bool DoesCommandRequireACommandID(NetCommandType type);
 
 class Rva004D3942
 {
@@ -68,7 +68,7 @@ void Rva004D3942::rva004D3942(ConnectionManager *mgr)
         return;
     NetDisconnectKeepAliveCommandMsg *msg = new NetDisconnectKeepAliveCommandMsg;
     msg->m_playerID = mgr->getLocalPlayerID();
-    if ((unsigned char)DoesCommandRequireACommandID(msg->m_commandType) == 1)
+    if (DoesCommandRequireACommandID(msg->m_commandType) == 1)
         msg->m_id = GenerateNextCommandID();
     mgr->sendLocalCommandDirect(msg, (unsigned char)~(1u << msg->m_playerID));
     msg->detach();

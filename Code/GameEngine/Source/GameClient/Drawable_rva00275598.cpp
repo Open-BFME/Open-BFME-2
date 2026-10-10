@@ -97,7 +97,7 @@ public:
 template<class T> __forceinline const T& drawableMin(const T&a,const T&b){return a<b?a:b;}
 template<class T> __forceinline const T& drawableMax(const T&a,const T&b){return a<b?b:a;}
 
-class Rva002716Holder { public:void rva00271547();void rva00271601(unsigned char); };
+class Rva002716Holder { public:void rva00271547(); };
 extern int g_009BA4E8;
 float Sin(float);
 // Target reads the stored1/30-second value at VA DBA508; its original
@@ -179,6 +179,7 @@ public:
  void rva0027541E(const RGBColor *,unsigned,unsigned,unsigned);
  void rva0027292F(const Coord3D *,const Coord3D *);
  void fadeIn(unsigned);
+ void setDrawableHidden(bool hidden);
  __forceinline DrawableDrawSlots **getDrawModules(){return draw14C;}
  void setTransformMatrix(const Matrix3D *m){reinterpret_cast<Thing *>(this)->setTransformMatrix(m);}
 
@@ -367,10 +368,10 @@ void Drawable::rva0027566B() {
    float opacity=(float)value;
    explicitB0=opacity;
    if(elapsed12C>=duration130)fade128=0;
-   if(!hidden43D && opacity*255.0f<1.0f)reinterpret_cast<Rva002716Holder *>(this)->rva00271601(1);
-   else if(hidden43D)reinterpret_cast<Rva002716Holder *>(this)->rva00271601(0);
+   if(!hidden43D && opacity*255.0f<1.0f)setDrawableHidden(true);
+   else if(hidden43D)setDrawableHidden(false);
   }else if(duration130==elapsed12C) {
-   reinterpret_cast<Rva002716Holder *>(this)->rva00271601(fade128==4);
+   setDrawableHidden(fade128==4);
    if(fade128==5)fadeIn(then134);
   }
  }

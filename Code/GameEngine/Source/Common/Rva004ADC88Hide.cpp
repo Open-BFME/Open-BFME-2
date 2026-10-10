@@ -17,6 +17,7 @@ class Object;
 class Drawable
 {
 public:
+	void setDrawableHidden(bool hidden);
 	char m_pad[0xB0];
 	float m_scale;
 };
@@ -71,12 +72,6 @@ public:
 	void rva0028BAC0();
 };
 
-class Rva002716Holder
-{
-public:
-	void rva00271601(unsigned char hidden);
-};
-
 template <typename T>
 class StringBase
 {
@@ -104,7 +99,7 @@ void Rva004ADC88::rva004AD9E0()
 	((Rva0028BAC0 *)obj)->rva0028BAC0();
 	obj->leaveGroup();
 	if (obj->getDrawable() != 0)
-		((Rva002716Holder *)obj->getDrawable())->rva00271601(1);
+		obj->getDrawable()->setDrawableHidden(true);
 	if (TheAI != 0)
 		TheAI->m_shim->RemoveObjectFromPathfindMap(obj);
 	TheGameLogic->destroyObject(obj);

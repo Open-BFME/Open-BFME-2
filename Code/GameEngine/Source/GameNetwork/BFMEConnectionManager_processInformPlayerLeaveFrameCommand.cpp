@@ -95,7 +95,7 @@ public:
 
 extern GlobalData *TheWritableGlobalData;
 extern GameLogic *TheGameLogic;
-Int DoesCommandRequireACommandID(NetCommandType type);
+bool DoesCommandRequireACommandID(NetCommandType type);
 UnsignedShort GenerateNextCommandID();
 
 class ConnectionManager
@@ -143,7 +143,7 @@ void BFMEConnectionManager::processInformPlayerLeaveFrameCommand(void *command)
 		request->setExecutionFrame((UnsignedInt)-1);
 		((Rva004D57AE *)request)->setPlayerIndex(TheGameLogic->m_frame + 1);
 		((BFMENetInformPlayerLeaveFrameCommandMsg *)request)->setLeavingPlayerID(leaveFrame);
-		if ((UnsignedByte)DoesCommandRequireACommandID(request->getNetCommandType()))
+		if (DoesCommandRequireACommandID(request->getNetCommandType()))
 			request->setID(GenerateNextCommandID());
 		if (msg->getPlayerID() < 8)
 			reinterpret_cast<ConnectionManager *>(this)->sendLocalCommandDirect(request, (UnsignedByte)1 << msg->getPlayerID());

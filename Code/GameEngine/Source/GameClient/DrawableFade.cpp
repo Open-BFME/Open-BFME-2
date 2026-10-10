@@ -32,12 +32,6 @@ public:
 
 #define TheRva00DFE77C (*(Rva00DFE77CHolder **)&TheGameClient)
 
-class Rva002716Holder
-{
-public:
-	void rva00271601(unsigned char v);
-};
-
 class DrawModule
 {
 public:
@@ -65,6 +59,7 @@ public:
 	void fadeIn(unsigned int frames);
 	void fadeOut(unsigned int frames);
 	void rva00272D77(unsigned int a, unsigned int b);
+	void setDrawableHidden(bool hidden);
 	float rva00272C9E(int key);
 
 private:
@@ -117,7 +112,7 @@ void Drawable::fadeOut(unsigned int frames)
 // toFade a plus field +0x134 b plus start frame via holder slot1F. Caller 0x0045BEA0.
 void Drawable::rva00272D77(unsigned int a, unsigned int b)
 {
-	((Rva002716Holder *)this)->rva00271601(1);
+	setDrawableHidden(true);
 	m_timeElapsedFade = 0;
 	m_timeToFade = a;
 	m_fadeMode = 5;

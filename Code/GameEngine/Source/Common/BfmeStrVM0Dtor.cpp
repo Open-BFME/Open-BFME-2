@@ -306,7 +306,6 @@ public:
 	virtual void v67();
 	virtual void v68();
 	void rva0025D19E();
-	void rva0025D358(StringBase<unsigned short> s, float fC0, float fC4, int iB4, int iB8, int iBC);
 	void rva0025D9E3();
 	void rva00049F94(AsciiString s);
 private:
@@ -340,21 +339,8 @@ BfmeStrVM0::~BfmeStrVM0()
 	((Rva0025C0FF *)this)->rva0025C0FF();
 }
 
-// ?rva0025D358@BfmeStrVM0@@QAEXV?$StringBase@G@@MMHHH@Z, retail 0x0025D358, 112 bytes.
-// Sets the +0xB0 display block: Unicode string via set plus ints at +0xB4/+0xB8/+0xBC
-// and floats at +0xC0/+0xC4; by-value string temp released at the end.
-// Evidence: same +0xB0/+0xD0/+0xF0 layout as the dtor in this TU and ctor 0x0025D489;
-// callees rowed/pinned set 0x00037150 plus releaseBuffer 0x00036E70; caller 0x00356AC1.
-void BfmeStrVM0::rva0025D358(StringBase<unsigned short> s, float fC0, float fC4, int iB4, int iB8, int iBC)
-{
-	StringBase<unsigned short> &dst = m_sB0;
-	dst.set(s);
-	m_iB4 = iB4;
-	m_iB8 = iB8;
-	m_iBC = iBC;
-	m_fC0 = fC0;
-	m_fC4 = fC4;
-}
+// ?rva0025D358 (0x0025D358, the UnicodeString setter of the +0xB0 block) lives in
+// BfmeStrVM0SetText.cpp, which includes the canonical unicode_string.h.
 
 // ?rva0025D9E3@BfmeStrVM0@@QAEXXZ, retail 0x0025D9E3, 116 bytes.
 // Slot-9 virtual of BfmeStrVM0: when +0x114 is clear, zeroes +0xD4/+0xD8, runs

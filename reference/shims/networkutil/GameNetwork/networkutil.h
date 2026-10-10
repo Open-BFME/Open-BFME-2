@@ -32,10 +32,10 @@
 
 UnsignedInt ResolveIP(AsciiString host);
 UnsignedShort GenerateNextCommandID();
-// Returns Int in BFME, not the reference's Bool: retail's body at 0x00682D20
-// clears and sets the whole of eax (33 C0 / B8 01 00 00 00) where a C++ bool
-// return would use al (32 C0 / B0 01).
-Int DoesCommandRequireACommandID(NetCommandType type);
+// Bool, as in the reference: all 40 retail callers of 0x005811B5 read only AL
+// (test al,al / cmp al,1 / mov byte,al); the body's whole-EAX xor/inc tail is
+// what /O1 emits for a returned || chain.
+Bool DoesCommandRequireACommandID(NetCommandType type);
 Bool CommandRequiresAck(NetCommandMsg *msg);
 Bool CommandRequiresDirectSend(NetCommandMsg *msg);
 Bool IsCommandSynchronized(NetCommandType type);

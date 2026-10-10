@@ -65,7 +65,7 @@ public:
 
 extern GameLogic *TheGameLogic;
 
-Int DoesCommandRequireACommandID(NetCommandType type);
+bool DoesCommandRequireACommandID(NetCommandType type);
 UnsignedShort GenerateNextCommandID();
 
 class ConnectionManager
@@ -85,7 +85,7 @@ void ConnectionManager::rva004D0E06(GameMessage *msg)
 	cmd->m_timestamp = TheGameLogic->m_frame;
 	cmd->m_executionFrame = (UnsignedInt)-1;
 	cmd->m_playerID = m_localPlayerID;
-	if ((UnsignedByte)DoesCommandRequireACommandID(cmd->m_commandType))
+	if (DoesCommandRequireACommandID(cmd->m_commandType))
 		cmd->m_id = GenerateNextCommandID();
 	sendLocalCommand(cmd, 0xff);
 	cmd->detach();

@@ -1,9 +1,13 @@
 // cl: /MD
-// ?Rva00548B97Free@@YAXH@Z @0x00548B97 83B. Free cdecl void(int): if index
+// ?GameSpyCloseOverlay@@YAXW4GSOverlayType@@@Z @0x00548B97 83B. Free cdecl void(int): if index
 // 8 and its overlay slot set calls rowed Rva003B3371Call(22), then frees
 // global array 0x00A05F88[index] via virtuals slot3(int) slot8() slot1(int)
 // returning pointer for operator delete plus null. Evidence: rowed free
 // plus 3 virtuals plus delete; 4 callers.
+// Name: the matched ZH GameSpyToggleOverlay body 0x00548F76 calls this address for
+// GameSpyCloseOverlay; the body is BFME 1's GameSpyOverlay_close.cpp (options overlay 8
+// signals SHELL_SCRIPT_HOOK_OPTIONS_CLOSED 0x16 then runShutdown destroyWindows delete).
+// Formerly rowed as the free function Rva00548B97Free(int).
 class Rva00548B97Helper
 {
 public:
@@ -27,7 +31,9 @@ Rva00548B97Helper *G00A05F88[9];
 void __cdecl Rva003B3371Call(int index);
 void operator delete(void *p);
 
-void __cdecl Rva00548B97Free(int index)
+enum GSOverlayType;
+
+void __cdecl GameSpyCloseOverlay(GSOverlayType index)
 {
 	if (index == 8 && G00A05F88[8] != 0)
 		Rva003B3371Call(22);
@@ -45,7 +51,6 @@ void __cdecl Rva00548B97Free(int index)
 // query, cleanup, toggle, update and raise bodies independently identify the
 // same retail table. BFME 1 9cbfb551fe20's GameSpyOverlay_close.cpp also
 // records nine slots and the options slot at base + 32.
-enum GSOverlayType;
 bool GameSpyIsOverlayOpen(GSOverlayType overlay)
 {
 	return G00A05F88[overlay] != 0;

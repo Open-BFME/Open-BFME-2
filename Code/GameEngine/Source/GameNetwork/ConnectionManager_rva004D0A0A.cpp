@@ -55,7 +55,7 @@ public:
 
 extern GameLogic *TheGameLogic;
 
-Int DoesCommandRequireACommandID(NetCommandType type);
+bool DoesCommandRequireACommandID(NetCommandType type);
 UnsignedShort GenerateNextCommandID();
 
 extern "C" __declspec(dllimport) UnsignedInt __stdcall timeGetTime(void);
@@ -83,7 +83,7 @@ void ConnectionManager::rva004D0A0A()
 	((NetDisconnectPlayerCommandMsg *)cmd)->setDisconnectSlot(m_slotByte);
 	cmd->m_timestamp = TheGameLogic->m_frame;
 	cmd->m_executionFrame = (UnsignedInt)-1;
-	if ((UnsignedByte)DoesCommandRequireACommandID(cmd->m_commandType))
+	if (DoesCommandRequireACommandID(cmd->m_commandType))
 		cmd->m_id = GenerateNextCommandID();
 	cmd->m_playerID = m_localPlayerID;
 	sendLocalCommand(cmd, 0xff);

@@ -52,10 +52,10 @@ public:
 	Drawable *getDrawable() const;
 };
 
-class Rva002716Holder
+class Drawable
 {
 public:
-	void rva00271601(unsigned char val);
+	void setDrawableHidden(bool hidden);
 };
 
 class Payload
@@ -283,7 +283,7 @@ UpdateSleepTime HijackerUpdate::update(void)
 			obj->rva0028DCC4();
 
 			if (((Thing *)obj)->getDrawable())
-				((Rva002716Holder *)((Thing *)obj)->getDrawable())->rva00271601(0);
+				((Thing *)obj)->getDrawable()->setDrawableHidden(false);
 
 			obj->setStatus(OBJECT_STATUS_4, false);
 			obj->maskObject(false);

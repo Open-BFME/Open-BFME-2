@@ -21,7 +21,7 @@ public: bool isDieApplicable(const Object*,const DamageInfo*) const;
 };
 class Thing { public: Drawable *getDrawable() const; };
 class Object : public Thing {};
-class Rva002716Holder { public: void rva00271601(unsigned char); };
+class Drawable { public: void setDrawableHidden(bool hidden); };
 extern GameLogic *TheGameLogic;
 struct OpenContainDieData {
  char unknown00[8];
@@ -104,7 +104,7 @@ void OpenContain::onDie(const DamageInfo *damageInfo)
   for (ContainmentList::iterator it=copy.begin();it!=copy.end();++it) {
    Object *object=reinterpret_cast<Object*>(containmentFirstWord(*it));
    if (object) {
-    if (object->getDrawable()) reinterpret_cast<Rva002716Holder*>(object->getDrawable())->rva00271601(1);
+    if (object->getDrawable()) object->getDrawable()->setDrawableHidden(true);
     TheGameLogic->destroyObject(object);
    }
   }

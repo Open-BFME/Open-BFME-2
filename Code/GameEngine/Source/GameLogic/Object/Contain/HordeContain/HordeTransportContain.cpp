@@ -25,9 +25,8 @@ struct Rva0046247DPair {void *a; IntList *objects;};
 class Rva0046247D {public:void rva0046247D(Rva0046247DPair &);};
 class Rva0047A040Base9E0 {public:void *rva00588B8A(void *);};
 class Rva00270260 {public:bool rva00270260();};
-class Rva002716Holder {public:void rva00271601(unsigned char);};
 enum DamageType { DeathDamage=8 }; enum DeathType { NormalDeath=0 };
-class Drawable;
+class Drawable {public:void setDrawableHidden(bool hidden);};
 class Object {public:Drawable *getDrawable() const;void kill(DamageType,DeathType);};
 #define V(n) virtual void s##n()=0;
 class RiderContain {public:
@@ -76,7 +75,7 @@ void HordeTransportContain::rva004779F9()
                 contain->sA8(object);
                 ((RemovalNotice*)((char*)this+0x20))->sA4(object,0);
                 object->kill(DeathDamage,NormalDeath);
-                if(drawable) ((Rva002716Holder*)drawable)->rva00271601(1);
+                if(drawable) drawable->setDrawableHidden(true);
             }
         }
     }

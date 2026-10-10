@@ -3,6 +3,11 @@
 // Holder+0x14c NULL-terminated module array shared with Rva002716Broadcast siblings.
 // ThePlayerList local at +0x10 TheInGameUI slot 0x10C GameMessage 0x3ED.
 // Evidence: caller 0x00271601 sets +0x43d then calls this; callees rowed getControllingPlayer appendObjectIDArgument.
+// ?setDrawableHidden@Drawable@@QAEX_N@Z retail 0x00271601 24 bytes: stores the +0x43D hidden byte when it
+// changes and re-runs 0x00271547. Name from its callers (BezierProjectileBehavior 0x0045C026 at 0x0045C200
+// passes true after a detonation where Zero Hour calls setDrawableHidden) and from Drawable's own fade-mode
+// setters (0x00272D77 0x00272D03 0x00272D3D call it on this); the holder layout is Drawable's
+// (+0xFC Object +0x14C draw modules TheInGameUI slot 0x10C deselectDrawable as in setSelectable 0x00271700).
 
 extern class MessageStream *TheMessageStream;
 
@@ -101,7 +106,6 @@ class Rva002716Holder
 {
 public:
 	void rva00271547();
-	void rva00271601(unsigned char val);
 public:
 	unsigned char m_preFC[0xFC];
 	Object *m_objFC;
@@ -145,10 +149,19 @@ void Rva002716Holder::rva00271547()
 	}
 }
 
-void Rva002716Holder::rva00271601(unsigned char val)
+class Drawable
 {
-	if (val == m_43D)
+public:
+	void setDrawableHidden(bool hidden);
+public:
+	unsigned char m_pre43D[0x43D];
+	bool m_hidden43D;
+};
+
+void Drawable::setDrawableHidden(bool hidden)
+{
+	if (hidden == m_hidden43D)
 		return;
-	m_43D = val;
-	rva00271547();
+	m_hidden43D = hidden;
+	reinterpret_cast<Rva002716Holder *>(this)->rva00271547();
 }

@@ -65,7 +65,7 @@ public:
 
 extern GameLogic *TheGameLogic;
 
-Int DoesCommandRequireACommandID(NetCommandType type);
+bool DoesCommandRequireACommandID(NetCommandType type);
 UnsignedShort GenerateNextCommandID();
 
 extern "C" __declspec(dllimport) UnsignedInt __stdcall timeGetTime(void);
@@ -89,7 +89,7 @@ void ConnectionManager::rva004D00BB(Int arg)
 	((Rva004D57AE *)cmd)->setPlayerIndex(m_localPlayerID);
 	cmd->m_playerID = m_localPlayerID;
 	((BFMENetInformPlayerLeaveFrameCommandMsg *)cmd)->setLeavingPlayerID(arg);
-	if ((UnsignedByte)DoesCommandRequireACommandID(cmd->m_commandType))
+	if (DoesCommandRequireACommandID(cmd->m_commandType))
 		cmd->m_id = GenerateNextCommandID();
 	cmd->m_timestamp = TheGameLogic->getTimestamp();
 	cmd->m_executionFrame = (UnsignedInt)-1;

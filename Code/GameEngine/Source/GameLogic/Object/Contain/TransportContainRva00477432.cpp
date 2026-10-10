@@ -113,10 +113,10 @@ public:
     bool rva00270260();
 };
 
-class Rva002716Holder
+class Drawable
 {
 public:
-    void rva00271601(unsigned char hidden);
+    void setDrawableHidden(bool hidden);
 };
 
 struct TransportRemovalObjectFlags
@@ -146,7 +146,7 @@ void Rva00477432Outer::rva00477365(Object *object)
 
     Drawable *drawable = object->getDrawable();
     if (drawable && reinterpret_cast<Rva00270260 *>(drawable)->rva00270260() == true)
-        reinterpret_cast<Rva002716Holder *>(drawable)->rva00271601(0);
+        drawable->setDrawableHidden(false);
 }
 
 void Rva00477432Outer::rva004770DE(Object *object)

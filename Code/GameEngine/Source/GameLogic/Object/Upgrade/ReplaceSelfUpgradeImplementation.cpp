@@ -268,7 +268,7 @@ public:
  BfmeFixedStorage0004543D m_accept,m_reject;
 };
 class Rva0028BAC0Host {public:void rva0028BAC0();};
-class Rva002716Holder {public:void rva00271601(unsigned char);};
+class Drawable {public:void setDrawableHidden(bool hidden);};
 class Rva0026F0F0 {public:void *rva0026F0F0(const void *);};
 class UpgradeCenter;extern UpgradeCenter *TheUpgradeCenter;
 #include "../../../Common/GameLogicObjectLookupView.h"
@@ -289,7 +289,7 @@ void ReplaceSelfUpgrade::upgradeImplementation()
  AsciiString name=m_object->name;
  ((Rva0028BAC0Host*)m_object)->rva0028BAC0();
  m_object->leaveGroup();
- if(m_object->getDrawable())((Rva002716Holder*)m_object->getDrawable())->rva00271601(1);
+ if(m_object->getDrawable())m_object->getDrawable()->setDrawableHidden(true);
  if(TheAI)TheAI->getPathfinder()->RemoveObjectFromPathfindMap(getObject());
  TheGameLogic->destroyObject(m_object);
  Real totalLength=0;

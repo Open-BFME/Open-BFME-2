@@ -26,10 +26,10 @@ public:
 	bool rva00270260();
 };
 
-class Rva002716Holder
+class Drawable
 {
 public:
-	void rva00271601(unsigned char val);
+	void setDrawableHidden(bool hidden);
 };
 
 class Object
@@ -54,7 +54,7 @@ void Rva00479B3A::rva00479B3A(Object *obj)
 	((GarrisonContain *)((char *)this + 0x20))->GarrisonContain::rva00464D02(obj);
 	Drawable *d = ((Thing *)obj)->getDrawable();
 	if (d && ((Rva00270260 *)d)->rva00270260() == 1)
-		((Rva002716Holder *)d)->rva00271601(0);
+		d->setDrawableHidden(false);
 	if (obj->m_454 == 0)
 		obj->rva0028DCC4();
 }
