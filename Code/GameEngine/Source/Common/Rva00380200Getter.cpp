@@ -102,6 +102,9 @@ public:
 };
 extern class RankInfoStore *TheRankInfoStore;
 
+// Native3805BB uses the three-pointer scalar vector at the established +8 member.
+// This prefix view does not claim the complete ExperienceScalarTable layout.
+struct Rva003805BBMultipliers { float *begin,*end,*capacity; int size()const{return static_cast<int>(end-begin);} };
 class ExperienceScalarTable;
 class Rva00380200
 {
@@ -125,6 +128,7 @@ private:
 	int m_28;
 public:
 	Rva00380200();
+ bool rva003805BB(float delta,bool useMultipliers);
 	void rva0038028B();
 	AsciiString *rva00380200();
 	void rva0038020D();
@@ -249,4 +253,42 @@ Rva00380200::Rva00380200()
   m_scalars=TheExperienceLevelStore->FindExperienceScalarTableByName(name);
  }
  rva0038028B();
+}
+
+// Native003805BB..003806D4 RET8 and WB F642C0 establish the skill-point
+// accumulator. BFME1 Player_addSkillPoints supplied the semantic guide; the
+// target rank/scalar fields and virtual setter come from the measured callers.
+// const float from floor(total) preserves native POP/FSTP/POP scheduling;
+// the explicit double cast made the same body schedule FSTP/POP/POP.
+class GameLogic;
+extern GameLogic *TheGameLogic;
+static __forceinline const float &minimumSciencePoints(const float &cap,const float &candidate)
+{
+ return cap<candidate ? cap : candidate;
+}
+bool Rva00380200::rva003805BB(float delta,bool useMultipliers)
+{
+ delta*=m_10;
+ if(m_28>0 && m_14>=m_28) return false;
+ if(useMultipliers && *reinterpret_cast<const int *>(reinterpret_cast<const char *>(TheGameLogic)+0x114)!=3 && reinterpret_cast<Rva003805BBMultipliers *>(m_scalars)) {
+  int index=m_14-m_18;
+  if(index>=reinterpret_cast<Rva003805BBMultipliers *>(m_scalars)->size()) index=reinterpret_cast<Rva003805BBMultipliers *>(m_scalars)->size()-1;
+  if(index>=0) delta*=reinterpret_cast<Rva003805BBMultipliers *>(m_scalars)->begin[index];
+ }
+ if(delta==0.0f) return false;
+ int capLevel=rva003802DF();
+ int capPoints=reinterpret_cast<Rva002000D7Store *>(TheRankInfoStore)->get(capLevel)->rva00200157(*rva00380200());
+ float candidate=m_0C+delta;
+ float cap=static_cast<float>(capPoints);
+ bool gained=false;
+ float total=minimumSciencePoints(cap,candidate);
+ m_0C=total;
+ const float floored=static_cast<float>(floor(total));
+ int integerPoints=fast_float2long_round(floored);
+ while(integerPoints>=m_20) {
+  bool changed=rva0038037C(m_14+1);
+  gained|=changed;
+  if(!changed) break;
+ }
+ return gained;
 }
