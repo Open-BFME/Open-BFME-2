@@ -21,7 +21,7 @@ struct Rva00383AFF
 	BuddyListNode *m_head;
 
 	void rva00383AFF();
-	~Rva00383AFF();
+	__declspec(noinline) ~Rva00383AFF();
 };
 
 extern "C" void __cdecl free(void *block);
@@ -47,4 +47,13 @@ Rva00383AFF::~Rva00383AFF()
 	rva00383AFF();
 	if (m_head)
 		free(m_head);
+}
+
+// Native0x00384E72..0x00384E77: tail call to the sole rowed destructor
+// at0x00383F3C. Receiver and stack are unchanged; no arguments; RET0.
+// Original wrapper name enclosing class and lifetime role remain unknown.
+struct Rva00384E72CleanupForward { void cleanup(); };
+void Rva00384E72CleanupForward::cleanup()
+{
+    reinterpret_cast<Rva00383AFF*>(this)->~Rva00383AFF();
 }

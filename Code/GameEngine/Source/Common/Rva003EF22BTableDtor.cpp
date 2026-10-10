@@ -7,3 +7,12 @@ void Rva00030830GameFree(void*);
 struct S3RegionBucketStorage {~S3RegionBucketStorage(){if(begin)Rva00030830GameFree(begin);}void**begin;void**end;void**capacity;};
 struct Rva003EF22B {void*unused;S3RegionBucketStorage buckets;unsigned count;~Rva003EF22B();};
 Rva003EF22B::~Rva003EF22B(){((Rva000427195*)this)->rva003A2A41();}
+
+// Native0x003EF323..0x003EF328: tail call to the sole rowed destructor
+// at0x003EF22B. Receiver and stack are unchanged; no arguments; RET0.
+// Original wrapper name enclosing class and lifetime role remain unknown.
+struct Rva003EF323CleanupForward { void cleanup(); };
+void Rva003EF323CleanupForward::cleanup()
+{
+    reinterpret_cast<Rva003EF22B*>(this)->~Rva003EF22B();
+}
