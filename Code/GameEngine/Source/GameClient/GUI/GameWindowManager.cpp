@@ -46,6 +46,115 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 
 #include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
 
+// Retail's DisplayString vtable calls getText at slot 2 (0x8), proven by the
+// rowed getTooltipText at 0x002C1FA0; the Zero Hour donor DisplayString.h
+// derives from MemoryPoolObject, whose extra virtual puts getText at slot 3,
+// so this unit emitted a deviant getTooltipText copy and lost the COMDAT.
+// TU-local view with retail's slot order (same as WinInstanceDataDisplayStrings.cpp).
+// The donor UnicodeString header is pulled explicitly since the blocked header
+// was this unit's carrier for it.
+#include "Common/UnicodeString.h"
+#define __DISPLAYSTRING_H_
+class GameFont;
+class DisplayString
+{
+public:
+	virtual ~DisplayString() {}
+	virtual void setText(UnicodeString text);
+	virtual UnicodeString getText();
+	virtual Int getTextLength();
+	virtual void notifyTextChanged();
+	virtual void reset();
+	virtual void setFont(GameFont *font);
+	virtual GameFont *getFont();
+	virtual void setWordWrap(Int wordWrap) = 0;
+	virtual void setWordWrapCentered(Bool isCentered) = 0;
+};
+
+// The donor WinInstanceData.h inline bodies for the four text accessors expand
+// here to deviant copies (DisplayString slot 3, ZH UnicodeString copy), and
+// the link then keeps this unit's getTooltipText instead of the rowed body at
+// 0x002C1FA0. TU-local class view, verbatim from the donor header except those
+// four stay declared-only so uses reach the rowed out-of-line bodies
+// (getTooltipText 0x002C1FA0, getTooltipTextLength 0x002C027B, getText
+// 0x003148F1, getTextLength 0x000A3DCC). Members are untouched, so layout and
+// the GameWindow.h member-access inlines compile to the same bytes.
+#include "Lib/BaseType.h"
+#include "Common/AsciiString.h"
+#include "GameClient/Color.h"
+class Image;
+class GameWindow;
+class VideoBuffer;
+#define __WININSTANCEDATA_H_
+
+#define WIN_STATE_HILITED 	0x00000002
+#define WIN_STATE_SELECTED	0x00000004
+
+enum
+{
+	MAX_WINDOW_NAME_LEN = 64,
+	MAX_DRAW_DATA = 9,
+	MAX_TEXT_LABEL = 128
+};
+
+struct WinDrawData
+{
+	const Image *image;
+	Color color;
+	Color borderColor;
+};
+
+struct TextDrawData
+{
+	Color color;
+	Color borderColor;
+};
+
+class WinInstanceData
+{
+public:
+	WinInstanceData( void );
+	virtual ~WinInstanceData( void );
+	void init( void );
+	void setTooltipText( UnicodeString tip );
+	void setText( UnicodeString text );
+	UnicodeString getTooltipText( void );
+	UnicodeString getText( void );
+	Int getTextLength( void );
+	Int getTooltipTextLength( void );
+	UnsignedInt getStyle( void ) { return m_style; }
+	UnsignedInt getStatus( void ) { return m_status; }
+	UnsignedInt getState( void ) { return m_state; }
+	GameWindow *getOwner( void ) { return m_owner; }
+	GameFont *getFont( void ) { return m_font; }
+	DisplayString *getTextDisplayString( void ) { return m_text; }
+	DisplayString *getTooltipDisplayString( void ) { return m_tooltip; }
+	void setVideoBuffer( VideoBuffer * videoBuffer );
+
+	Int m_id;
+	Int m_state;
+	UnsignedInt m_style;
+	UnsignedInt m_status;
+	GameWindow *m_owner;
+	WinDrawData m_enabledDrawData[ MAX_DRAW_DATA ];
+	WinDrawData m_disabledDrawData[ MAX_DRAW_DATA ];
+	WinDrawData m_hiliteDrawData[ MAX_DRAW_DATA ];
+	TextDrawData m_enabledText;
+	TextDrawData m_disabledText;
+	TextDrawData m_hiliteText;
+	TextDrawData m_imeCompositeText;
+	ICoord2D m_imageOffset;
+	GameFont *m_font;
+	AsciiString m_textLabelString;
+	AsciiString m_decoratedNameString;
+	AsciiString m_tooltipString;
+	AsciiString m_headerTemplateName;
+	Int m_tooltipDelay;
+	DisplayString *m_text;
+	DisplayString *m_tooltip;
+	VideoBuffer *m_videoBuffer;
+};
+
 #include "Common/Debug.h"
 #include "Common/Language.h"
 #include "GameClient/Display.h"
