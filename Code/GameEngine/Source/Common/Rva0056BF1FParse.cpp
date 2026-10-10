@@ -2,6 +2,14 @@
 // stlport
 // ?Rva0056BF1FParse@@YAXPAVINI@@PAX1PBX@Z @0x0056BF1F 255B. LivingWorldBuildPlotIcon sub-object parse: checks INI type at +8 for map.ini override (2) and reload (5) throwing INIException(8) then getNextToken plus new Rva00402F28Item via AsciiString temp plus MultiIniFieldParse two-table init plus vector push_back. Evidence: chain via just-landed 0x0056BEFB ctor plus sibling 0x0056B668 same 255B shape with ArmyIcon strings plus BlockParse LivingWorldBuildPlotIcon 0x00402E30 plus FieldParse tables 0x00C6D690 and 0x00C6D9D8.
 #include "ascii_string.h"
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
 #include <vector>
 
 class INIException

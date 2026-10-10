@@ -7,6 +7,14 @@
 // The native default/copy/destruction chain ties it to the existing opaque
 // Rva004E2382 owner (ctor4E2382 and dtor4E2941); no set<AsciiString> or
 // vector payload inference is carried from that owner's older views.
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
 #include <vector>
 struct Rva004E3E5AElement {
  unsigned char unknown[32];

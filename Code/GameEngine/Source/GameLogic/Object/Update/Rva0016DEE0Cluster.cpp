@@ -13,6 +13,14 @@
 // Target bytes are identical to 0x006240E0's except the EH handler immediate
 // and the REL32 to _M_initialize_buckets.
 
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
 #include <hash_map>
 
 class Rva0016E3B0

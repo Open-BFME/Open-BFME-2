@@ -1,6 +1,14 @@
 // cl: /Ireference/shims/bfme2_ascii /Oy- /DNDEBUG /MD /EHsc /O1 /arch:SSE /G7
 // stlport
 #include "ascii_string.h"
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
 #include <vector>
 
 // ?Rva0056B668Parse@@YAXPAVINI@@PAX1PBX@Z @0x0056B668 255B

@@ -25,6 +25,14 @@
 // not established; ObjectID is a stand-in that carries existing ledger names
 // for all three callees. Names are address-derived.
 
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
 #include <map>
 #include <vector>
 
