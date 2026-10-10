@@ -1323,7 +1323,19 @@ void AptActionInterpreter::_FunctionAptActionPrevFrame(AptActionInterpreter *con
 
 struct AptContextRootState { unsigned char prefix[0x54]; AptValue *head; };
 struct AptContextRootDisplay { AptContextRootState *state; };
-struct AptIntervalTimer { unsigned int field0; AptValue *callback; unsigned char unaccessed8[24]; void cleanParams(); };
+void __debugbreak();
+#pragma intrinsic(__debugbreak)
+template<class T> struct AptValuePtrStack {
+    int count,capacity; T **items;
+    __forceinline void push(T *value) {
+        if(!(count<capacity)) {
+            g_bfmeAptAssertAtE17734("m_nElements < m_nSize", "c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\_AptValuePtrStack.h", 0x76);
+            if(g_bfmeAptBreakOnAssertAtDDC01C) __debugbreak();
+        }
+        items[count]=value; ++count; value->AddRef();
+    }
+};
+struct AptIntervalTimer { unsigned int field0; AptValue *callback; float interval,countdown; AptValue *context; AptValuePtrStack<AptValue>params; void cleanParams(); };
 class Rva006E34D0 { public: unsigned char prefix[0x30]; AptContextRootDisplay *display; AptIntervalTimer *intervalTimers; int nActiveTimers; unsigned char middle[8]; AptValue *mpDragMC; float a,b,c,d,tx,ty; unsigned char toMouse[0x74-0x60]; int mouseX,mouseY; unsigned char beforeMax[0xa8-0x7c]; int maxIntervalTimers; };
 extern Rva006E34D0 *g_bfmeAptPtrAtE176D0;
 void AptActionInterpreter::_FunctionAptActionStopDragMovie(AptActionInterpreter *const p, LocalContextT *const c)
@@ -2737,4 +2749,51 @@ AptValue *callback006FF400(AptValue *, int)
         }
     }
     return (AptValue*)g_aptUndefinedAtE18078;
+}
+
+// Native1034B interval registration callback6FEFF0..6FF3FA. The paired
+// cleanup body and owned cleanParams independently corroborate32B records.
+// Native strings retain the original sprite/function assertion behavior.
+// Outer nParams check and inner remainder loop are both present in retail.
+#define TIMER_CHECK(ok,text,line) do { if(!(ok)) {g_bfmeAptAssertAtE17734(text,"C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptActionInterpreter.cpp",line);if(g_bfmeAptBreakOnAssertAtDDC01C)__debugbreak();} }while(0)
+AptValue *callback006FEFF0(AptValue *,int nParams)
+{
+    int firstParam=2;
+    TIMER_CHECK(nParams>=2,"nParams >= 2",0x4EF);
+    AptValue *callback=g_aptDateInterpreter.stack.At(0);
+    AptValue *delay=g_aptDateInterpreter.stack.At(1);
+    if(((BfmeAptValue006DCD20*)callback)->isUndefined()) return AptInteger::Create(0);
+    int i;
+    for(i=0;i<g_bfmeAptPtrAtE176D0->maxIntervalTimers;++i) {
+        if(!g_bfmeAptPtrAtE176D0->intervalTimers[i].field0) {
+            ++g_bfmeAptPtrAtE176D0->nActiveTimers;
+            TIMER_CHECK(g_bfmeAptPtrAtE176D0->nActiveTimers<=g_bfmeAptPtrAtE176D0->maxIntervalTimers,"gpPool->nIntervalTimers <= gpPool->GetMaxIntervalTimers()",0x4FD);
+            g_bfmeAptPtrAtE176D0->intervalTimers[i].field0=1;
+            g_bfmeAptPtrAtE176D0->intervalTimers[i].context=(AptValue*)g_aptUndefinedAtE18078;
+            if(!callback->isScriptFunction() && !callback->isNativeFunction()) {
+                TIMER_CHECK(callback->isObject() || callback->c_cih(false)->IsSpriteInst(false) || callback->c_cih(false)->IsAnimationInst(false),"pCBValue->isObject() || pCBValue->c_cih()->isSpriteInst() || pCBValue->c_cih()->isAnimationInst()",0x509);
+                AptValue *context=callback;
+                delay=g_aptDateInterpreter.stack.At(2);
+                callback=callback->findChild(&((AptString*)g_aptDateInterpreter.stack.At(1))->str,0);
+                TIMER_CHECK(callback,"pCBValue",0x512);
+                firstParam=3;
+                TIMER_CHECK(callback->isScriptFunction() && !callback->isNativeFunction(),"pCBValue->isScriptFunction() && !pCBValue->isNativeFunction()",0x51A);
+                g_bfmeAptPtrAtE176D0->intervalTimers[i].context=context;
+            }
+            g_bfmeAptPtrAtE176D0->intervalTimers[i].callback=callback;
+            g_bfmeAptPtrAtE176D0->intervalTimers[i].callback->AddRef();
+            g_bfmeAptPtrAtE176D0->intervalTimers[i].interval=((BfmeAptValue006DCD20*)delay)->rva006DD460();
+            g_bfmeAptPtrAtE176D0->intervalTimers[i].countdown=g_bfmeAptPtrAtE176D0->intervalTimers[i].interval;
+            if(nParams>firstParam) {
+            for(int remaining=nParams-firstParam;remaining>0;--remaining) {
+                AptValue *p=g_aptDateInterpreter.stack.At(firstParam);
+                g_bfmeAptPtrAtE176D0->intervalTimers[i].params.push(p);
+                ++firstParam;
+            }
+            }
+            break;
+        }
+    }
+    TIMER_CHECK(i!=g_bfmeAptPtrAtE176D0->maxIntervalTimers,"i != gpPool->GetMaxIntervalTimers()",0x535);
+    return AptInteger::Create(i);
 }
