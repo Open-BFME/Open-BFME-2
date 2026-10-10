@@ -1,9 +1,3 @@
-// ?rva00363FA4@Path@@QAEXH@Z
-// partial score=0.9979775139752529 date=2026-10-09
-// ?rva00363FA4@Path@@QAEXH@Z
-// partial score=0.9979775 date=2026-10-09
-// ?rva00363FA4@Path@@QAEXH@Z
-// partial score=0.9979775 date=2026-10-09
 // cl: /ICode/Libraries/Include /O1 /DNDEBUG /MD /arch:SSE /G7 /EHsc
 // BF1 clean donor0bef PathOptimizeGround.cpp is semantic guide.
 // Target363FA4..3641AE RET4; caller2EF908 passes pathDiameter.
@@ -97,7 +91,10 @@ void Path::rva00363FA4(Int pathDiameter)
 		Int count = 0;
 		const Int ALLOWED_STEPS = 3;
 		PathNode *next;
-		for (node = anchor->getNext(), next = node->getNext(); next; node = next, next = node->getNext())
+		// The same-valued conditional keeps 'node = next' a distinct value, so the
+		// next load goes through the copy (MOV EBX,[ESI]) as in retail instead of
+		// being propagated to the original (MOV EBX,[EBX]).
+		for (node = anchor->getNext(), next = node->getNext(); next; node = (next ? next : next), next = node->getNext())
 		{
 			count++;
 			if (static_cast<unsigned char>(Rva002E6E6CGet(curLayer)))
