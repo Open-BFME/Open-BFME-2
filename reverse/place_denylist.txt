@@ -260,3 +260,8 @@ _io_writeto
 # Refused 2026-10-10: 75FBB6 is the JMP suffix of the actual EH cleanup
 # at75FBB0 (LEA ECX,[EBP-EC]; JMP899E5), not a standalone5B destructor.
 ??1Rva0010274F@@QAE@XZ
+
+# Refused 2026-10-11: masked hit 2E422C fails the byte gate; the compiled
+# deleting destructor calls a destructor and stores a vftable at +0x3C that do
+# not resolve to the addresses retail uses there.
+??_GRva00330C50@@UAEPAXI@Z
