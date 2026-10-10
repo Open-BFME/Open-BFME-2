@@ -102,3 +102,57 @@ void HordeContain::rva0046BC30()
 		obj->rva0028ACEE(&pos, m_object->GetGoalLayer());
 	}
 }
+
+#if 0
+// Notes 2026-10-10 w5-g3 (variant score ~.90, rotation scheduling only):
+// slot proven 50 by reading vtable 0x00C44C58 (rename iface gap50, override in
+// HordeContain for +0x11C this). Record fields: float *offs =
+// &m_188Begin[idx].m_04 with r0 = offs[0], r4 = offs[1] reproduces the single
+// imul plus folded +4 lea (rec188/begin188 calls add a call; record-address
+// first loses the fold). rva0028ACEE is rowed (int,int), so a landing TU must
+// declare void rva0028ACEE(int,int) and cast the position. Trig homes come
+// free from the asm block; sin/cos CRT calls plus fsincos is the
+// Rva00468E98Rotate idiom, exact. Tried for the rotation: plain, parenthesized,
+// xoff/yoff locals, sine/cosine refs (all land the frame, prologue, calls,
+// homes; only the SSE mul/add schedule differs).
+//
+// Variant body (needs the decls above plus sin/cos externs and float m_04/m_08
+// on Rva00472329Record):
+void HordeContain::rva0046BC30_g3()
+{
+	if (m_2A0 != 0)
+		return;
+	Coord3D goal;
+	if (!m_object->GetGoalPosition(&goal))
+		return;
+	float angle = m_object->GetGoalAngle();
+	Rva0046247DPair p;
+	rva0046D27ASlot70(p);
+	for (_STL::list<Object *>::const_iterator it = p.m04->begin(); it != p.m04->end(); ++it)
+	{
+		Object *obj = *it;
+		if (obj->isEffectivelyDead())
+			continue;
+		int idx = ((Rva0046ACF6 *)(UpdateModule *)this)->rva0046ACF6(obj->getID());
+		float *offs = &m_188Begin[idx].m_04;
+		float r0 = offs[0];
+		float r4 = offs[1];
+		float s = (float)sin(angle);
+		float c = (float)cos(angle);
+		__asm
+		{
+			fld angle
+			fsincos
+			fstp c
+			fstp s
+		}
+		Coord3D pos;
+		float &sine = s;
+		float &cosine = c;
+		pos.x = goal.x + r0 * cosine - r4 * sine;
+		pos.y = goal.y + r4 * cosine + r0 * sine;
+		pos.z = goal.z;
+		obj->rva0028ACEE((int)&pos, m_object->GetGoalLayer());
+	}
+}
+#endif

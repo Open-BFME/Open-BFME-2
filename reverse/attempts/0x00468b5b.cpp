@@ -27,3 +27,28 @@ float HordeContain::rva00468B5B(float value)
 		value = 6.0f;
 	return value;
 }
+
+#if 0
+// Variant 2026-10-10 w5-g3 (score .95, same mirror residue): volatile loads
+// force the reg-form sub (plain b8 local folds m_B8 into subss mem-operand);
+// f-local reproduces the m-store-before-value-store order; two ordered
+// early-outs give the ja/jae pair. Tried and failed to flip the mirror:
+// plain/named-local/volatile-anchor-first/volatile-both orderings (cl always
+// puts the minuend in xmm0 regardless of source order).
+float HordeContain::rva00468B5B_g3(float value)
+{
+	float m = *(volatile float *)&m_2EC;
+	float anchor = *(volatile float *)&m_object->m_B8;
+	float diff = m - anchor;
+	if (0.0f > diff)
+		return value;
+	if (0.0f >= diff)
+		return value;
+	float f = (1.0f - m_2EC * 0.01f) * value;
+	m_2EC = m_2EC * 0.9f;
+	value = f;
+	if (value > 6.0f)
+		value = 6.0f;
+	return value;
+}
+#endif

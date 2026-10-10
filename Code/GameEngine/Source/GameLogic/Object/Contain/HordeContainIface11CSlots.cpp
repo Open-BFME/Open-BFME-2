@@ -365,6 +365,7 @@ class ThingTemplate
 {
 public:
 	bool isEquivalentTo(const ThingTemplate *other) const;
+	int rva000456AC(int bit) const;
 	__forceinline unsigned int isKindOf(int kind) const
 	{
 		return m_kindOf[kind >> 5] & (1U << (kind & 0x1f));
@@ -527,6 +528,10 @@ public:
 	bool rva0028C264(int *out, int a2);
 	Player *getControllingPlayer() const;
 	float getVisionRange() const;
+	bool GetGoalPosition(Coord3D *pos) const;
+	float GetGoalAngle() const;
+	int GetGoalLayer() const;
+	void rva0028ACEE(int a1, int a2);
 protected:
 	friend class HordeContain;
 	Module *findModule(NameKeyType key) const;
@@ -575,7 +580,9 @@ public:
 struct Rva00472329Record
 {
 	int m_key; // +0x00
-	unsigned char m_pad04[0x1C - 0x04];
+	float m_04; // +0x04
+	float m_08; // +0x08
+	unsigned char m_pad0C[0x1C - 0x0C];
 };
 // HordeContain's out-of-line Object tests, defined below ahead of their caller
 // performReform: 0x004693AD matches the Object's ID against +0x264/+0x26C or

@@ -972,3 +972,40 @@ Object *HordeContain::rva0046D2C3(int kind)
 		return TheGameLogic->findObjectByID((ObjectID)*it);
 	return 0;
 }
+
+#if 0
+// Variant 2026-10-10 w5-g3 (score .88): manual void* list walk (init triple
+// load, pinned-sentinel check, post-loop first-from-sentinel all fall out
+// naturally), (unsigned char) kind-test cast for test-al (TeamMemberKindCounts
+// idiom; bool decl breaks linkage, (bool) cast folds), begin/end tree-empty
+// check (empty() compiles to a count compare here). Prerequisites: rename
+// iface gap69 to `virtual Object *rva0046D2C3(int kind) = 0` (slot proven by
+// reading vtable 0x00C44C58: 0x46D27A=68, 0x46D2C3=69, 0x46D372=70) plus the
+// HordeContain override decl. Residue: 3-reg rotation (this/sent/cur land in
+// ebx/edi/esi vs retail edi/esi/ebx); sent-PHI does not redraw it.
+Object *HordeContain::rva0046D2C3_g3(int kind)
+{
+	Rva0046247DPair p;
+	rva0046D27ASlot70(p);
+	void *sent = *(void **)p.m04;
+	void *sentpin = (sent ? sent : sent);
+	for (void *cur = *(void **)sentpin; cur != sentpin; cur = *(void **)cur)
+	{
+		if (!(unsigned char)(*(Object **)((char *)cur + 8))->m_template->rva000456AC(kind))
+			return *(Object **)((char *)cur + 8);
+	}
+	if (*(void **)sentpin != sentpin)
+		return *(Object **)((char *)(*(void **)sentpin) + 8);
+	{
+		for (_STL::set<int>::iterator k = m_170.begin(); k != m_170.end(); ++k)
+		{
+			Object *obj = TheGameLogic->findObjectByID((ObjectID)*k);
+			if (obj && !(unsigned char)obj->m_template->rva000456AC(kind))
+				return obj;
+		}
+		if (m_170.begin() == m_170.end())
+			return 0;
+		return TheGameLogic->findObjectByID((ObjectID)*m_170.begin());
+	}
+}
+#endif
