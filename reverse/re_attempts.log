@@ -34582,3 +34582,5 @@ _CommUdpProcess	0x00683A30	2207	partial	Faithful standalone home-TU graft makes 
 ?rva005F1B51@Rva005F1B51@@QAEXXZ	0x005F1B51	8	landed	add_match verified Code/GameEngine/Source/Common/VslotSmallBodiesW5SN4.cpp 8B; vtable slot forwarder: loads the +4 member pointer and tail-jumps to rowed 0x005F1A2D
 ?rva005F977D@Rva005F977D@@QAEXXZ	0x005F977D	8	landed	add_match verified Code/GameEngine/Source/Common/VslotSmallBodiesW5SN4.cpp 8B; vtable slot forwarder: loads the +4 member pointer and tail-jumps to rowed 0x005F96D4
 ??0Rva002B930B@@QAE@XZ	0x002B930B	12	landed	add_match verified Code/GameEngine/Source/Common/Rva002B930BCtor.cpp 12B; ctor of a class holding only an int-keyed map; calls the rowed map default ctor 0x005011C1 and returns this
+?Rva0013676D@@YAXXZ	0x0013676D	10	landed	add_match verified Code/GameEngine/Source/Common/Rva0013676DClear.cpp 10B; tail-jumps the 0x00DF29B4 map object to the tree clear rowed at 0x001364CE
+?rva0006369E@Rva0006369E@@QAEXH@Z	0x0006369E	10	landed	add_match verified Code/GameEngine/Source/Common/Rva0006369ESet.cpp 10B; setter storing its argument eight bytes below the this-adjusted receiver
