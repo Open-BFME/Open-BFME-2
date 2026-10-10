@@ -39564,7 +39564,6 @@ _Rva00020AC0,,0x00020AC0,39,Code/Libraries/Source/WWVegas/WWLib/Rva0084D890CodeP
 ?rva0036F200@AICommandInterface@@QAEXPAVObject@@W4CommandSourceType@@@Z,,0x0036F200,101,Code/GameEngine/Source/GameLogic/AI/AICommandInterfaceAttackCommands.cpp,matched,same 101B object shape as rva0026C3AC with AICMD 0x14
 ?rva0036F265@AICommandInterface@@QAEXPAVObject@@W4CommandSourceType@@@Z,,0x0036F265,101,Code/GameEngine/Source/GameLogic/AI/AICommandInterfaceAttackCommands.cpp,matched,same 101B object shape as rva0026C3AC with AICMD 0x15
 ?rva0036F2CA@AICommandInterface@@QAEXPAVObject@@W4CommandSourceType@@@Z,,0x0036F2CA,101,Code/GameEngine/Source/GameLogic/AI/AICommandInterfaceAttackCommands.cpp,matched,same 101B object shape as rva0026C3AC with AICMD 0x16
-?Rva0028891FCheck@@YG_NPBQBXPBX@Z,,0x0028891F,33,Code/GameEngine/Source/Common/Rva0028867DCheck.cpp,matched,chain on 0x28867D via same TU ESI call plus guards
 ??0Rva005CB4E6Elem@@QAE@PAVRva005CB8D4@@@Z,,0x005CB4C7,31,Code/GameEngine/Source/Common/Rva005CB4E6ElemCtor.cpp,matched,owner pointer at +0 with zeros plus caller 0x005CB8AC and pinned dtor 0x005CB4E6
 ?rva00204136@Rva00204136@@QAEXPAX@Z,,0x00204136,45,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_nodeFree.cpp,matched,node tree free via _free recurses C then loops 8 caller 0x204984
 ?Rva0032ACEASet@@YAXPAVRva00193660@@PBURva00193660Src@@@Z,,0x0032ACEA,18,Code/GameEngine/Source/Common/Rva00193660SetGuard.cpp,matched,Null-guarded Rva00193660 set wrapper for uninit copy loops
