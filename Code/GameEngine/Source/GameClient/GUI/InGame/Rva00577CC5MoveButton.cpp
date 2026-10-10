@@ -1,13 +1,12 @@
-// ?rva00577CC5@Rva00577CC5@@QAEXHHHH@Z
-// partial score=0.97 date=2026-10-02
-// cl: /O1 /arch:SSE /MD
-// ?rva00577CC5@Rva00577CC5@@QAEXHHHH@Z @0x00577CC5 206B: thiscall move-button if 4 ints differ.
-// Compares 4 int args against +0x18/0x1c/0x20/0x24 and returns when all equal.
-// Else gets x/y scale via TheRva00222A8BTarget vtable slot 0x40 then converts
-// the 4 ints to floats scaled and forwards with label from +0x8 chain or empty
-// plus MoveButton plus int at +0x10 to rowed 0x00577AE9 with argc 2. Evidence:
-// chain packet calls just-landed 0x00577AE9 plus TheRva00222A8BTarget pin plus
-// empty 0x007BAC1C plus MoveButton literal plus SetPos precedent.
+// cl: /O1 /arch:SSE /MD /EHsc /G7 /Ireference/shims/bfme2_ascii
+// Native00577CC5..00577D93 RET16 moves a four-coordinate movie button only
+// when an input differs from the retained18/1C/20/24 values. The MoveButton
+// literal, scale slot40 and matched314B forwarding call establish the role;
+// the original class and method names remain unknown. Nested name records
+// are target access views: outer40 -> middle0 -> inner8 counted text.
+// Keeping the actual314B forwarding body visible as inline/noinline preserves
+// the native delayed f0 store after the name-buffer test. Both bodies verified.
+#include "ascii_string.h"
 class Rva00222A8BTarget
 {
 public:
@@ -28,10 +27,10 @@ public:
 	virtual void d14();
 	virtual void d15();
 	virtual float *getScale();
+ int rva00222B19(void*,const char*,const char*,int,const char*,void*,void*,void*,void*);
 };
 
 extern Rva00222A8BTarget *TheRva00222A8BTarget;
-extern const char g_Rva0107301CEmptyString[];
 
 struct InnerBox
 {
@@ -53,6 +52,22 @@ struct OuterBox
 
 int __cdecl Rva00577AE9AptCall(Rva00222A8BTarget *target, void *level, const char *prefix, const char *function, int *pInt, float *pF1, float *pF2, float *pF3, float *pF4);
 
+AsciiString Rva002228E8Get(float val);
+AsciiString Rva00222834Get(int val);
+
+
+static __forceinline const char *GetStr(const AsciiString &s)
+{
+	char *t = *(char **)(void *)&s;
+	return t ? t + 8 : "";
+}
+
+inline __declspec(noinline) int __cdecl Rva00577AE9AptCall(Rva00222A8BTarget *target, void *level, const char *prefix, const char *function, int *pInt, float *pF1, float *pF2, float *pF3, float *pF4)
+{
+	return target->rva00222B19(level, prefix, function, 5, GetStr(Rva00222834Get(*pInt)), (void *)GetStr(Rva002228E8Get(*pF1)), (void *)GetStr(Rva002228E8Get(*pF2)), (void *)GetStr(Rva002228E8Get(*pF3)), (void *)GetStr(Rva002228E8Get(*pF4)));
+}
+
+
 class Rva00577CC5
 {
 public:
@@ -69,7 +84,7 @@ private:
 	int m_24;
 };
 
-// ?rva00577CC5@Rva00577CC5@@QAEXHHHH@Z present-unmatched
+// ?rva00577CC5@Rva00577CC5@@QAEXHHHH@Z
 void Rva00577CC5::rva00577CC5(int a0, int a1, int a2, int a3)
 {
 	if (a0 != m_18 || a1 != m_1c || a2 != m_20 || a3 != m_24) {
@@ -84,7 +99,7 @@ void Rva00577CC5::rva00577CC5(int a0, int a1, int a2, int a3)
 		if (raw)
 			s = raw + 8;
 		else
-			s = g_Rva0107301CEmptyString;
+			s = "";
 		Rva00577AE9AptCall(TheRva00222A8BTarget, box->m_4, s, "MoveButton", &m_10, &f0, &f1, &f2, &f3);
 		m_18 = a0;
 		m_1c = a1;
