@@ -149,3 +149,40 @@ Rva008291D::~Rva008291D()
 	}
 	reinterpret_cast<Rva00081F03 *>(this)->rva00081F03();
 }
+
+// ??1Rva0081FDD@@UAE@XZ, native 0x00081FDD..0x00082061 (132 bytes), the
+// destructor the rowed ??_GRva0081FDD (0x00082AEC) calls: the same 0x3C
+// primary (vtables 0x00BC70C8 / 0x00BC707C) with a second base at +0x3C
+// (0x00BC709C, reset to 0x00BC6EC0). It leaves the +0x40 owner's +0x30
+// observer list, releases the +0x54 reference inline, then unwinds the four
+// RefCountPtr<TextureClass> at +0x44 (0x0017098D) before the primary.
+struct Rva0081FDDRef
+{
+	virtual void Delete_This();
+	void Release_Ref() { if (--m_numRefs == 0) Delete_This(); }
+	int m_numRefs;
+};
+struct Rva0081FDDHandle
+{
+	__forceinline ~Rva0081FDDHandle() { if (m_ptr) m_ptr->Release_Ref(); }
+	Rva0081FDDRef *m_ptr;
+};
+class Rva0081FDDSecond
+{
+public:
+	virtual ~Rva0081FDDSecond() {}
+};
+class Rva0081FDD : public Rva008291DPrimary, public Rva0081FDDSecond
+{
+public:
+	virtual ~Rva0081FDD();
+private:
+	void *m_owner40;
+	RefCountPtr<TextureClass> m_44[4];
+	Rva0081FDDHandle m_54;
+};
+
+Rva0081FDD::~Rva0081FDD()
+{
+	reinterpret_cast<Rva002B7250 *>(reinterpret_cast<char *>(m_owner40) + 0x30)->rva002B7250(reinterpret_cast<CreateAHeroData *>(static_cast<Rva0081FDDSecond *>(this)));
+}
