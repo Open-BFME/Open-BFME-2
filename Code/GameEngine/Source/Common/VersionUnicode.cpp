@@ -31,7 +31,7 @@ private:
     Header *m_data;
 
 public:
-    char getCharAt(int index) const
+    __declspec(dllimport) __forceinline char getCharAt(int index) const
     {
         return m_data ? m_data->data[index] : 0;
     }
@@ -47,7 +47,7 @@ class AsciiString
 public:
     AsciiString(const AsciiString &that) : m_data(that.m_data) {}
     ~AsciiString() { m_data.releaseBuffer(); }
-    char getCharAt(int index) const { return m_data.getCharAt(index); }
+    __declspec(dllimport) __forceinline char getCharAt(int index) const { return m_data.getCharAt(index); }
 private:
     StringBase<char> m_data;
 };
@@ -59,7 +59,7 @@ public:
     ~UnicodeString() { m_data.releaseBuffer(); }
     void translate(const AsciiString &that);
     void __cdecl format(const wchar_t *format, ...);
-    const wchar_t *str() const { return m_data.str(); }
+    __declspec(dllimport) __forceinline const wchar_t *str() const { return m_data.str(); }
 private:
     StringBase<wchar_t> m_data;
 };
