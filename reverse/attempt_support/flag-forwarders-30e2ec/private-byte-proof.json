@@ -1,0 +1,36 @@
+[
+  {
+    "name": "?rva0030E2EC@Rva0030E2ECFlags@@QAEXXZ",
+    "rva": "0x0030E2EC",
+    "whole_object_size": 9,
+    "exact": true,
+    "unresolved": [],
+    "relocs": [
+      [
+        5,
+        20,
+        "?bfmeRunEYE@BfmeNodeEYE@@QAEXXZ"
+      ]
+    ],
+    "compiled_hex": "836144efe9b9fbffff",
+    "native_hex": "836144efe9b9fbffff",
+    "dependency_only": true
+  },
+  {
+    "name": "?rva0030E2F5@Rva0030E2ECFlags@@QAEXXZ",
+    "rva": "0x0030E2F5",
+    "whole_object_size": 9,
+    "exact": true,
+    "unresolved": [],
+    "relocs": [
+      [
+        5,
+        20,
+        "?bfmeRunEYE@BfmeNodeEYE@@QAEXXZ"
+      ]
+    ],
+    "compiled_hex": "83494410e9b0fbffff",
+    "native_hex": "83494410e9b0fbffff",
+    "dependency_only": true
+  }
+]
