@@ -10,6 +10,7 @@ public:
     float y;
     void normalize();
     float length() const;
+    float toAngle() const;
 };
 
 #endif // CANONICAL_COORD2D_H

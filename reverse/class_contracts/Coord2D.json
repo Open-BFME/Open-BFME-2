@@ -39,6 +39,14 @@
     "size": 53,
     "source": "Code/Libraries/Source/WWVegas/WWMath/coord2d.cpp",
     "decided_by": "byte-verified owner; native Coord2D::normalize at RVA 0x0000378A calls this actual 53-byte method at +0x7 on the same two-float receiver"
+   },
+   {
+    "declaration": "float toAngle() const;",
+    "name": "?toAngle@Coord2D@@QBEMXZ",
+    "rva": "0x00005923",
+    "size": 124,
+    "source": "Code/Libraries/Source/WWVegas/WWMath/coord2d.cpp",
+    "decided_by": "byte-verified124-byte provider reads the eight-byte two-float receiver; native29DB61 at29DBC9 calls it on the local direction returned by29D9F9"
    }
   ]
  },
