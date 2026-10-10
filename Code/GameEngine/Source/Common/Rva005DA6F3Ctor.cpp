@@ -75,10 +75,12 @@ struct Rva005DA6F3Entry
 	Rva005DA6F3Link *m_link;
 };
 
+class Player;
 class Object
 {
 public:
 	const AsciiString *rva00290E67() const;
+ Player *getControllingPlayer() const;
 };
 
 class GameLogic
@@ -122,6 +124,7 @@ class AIUpgradeHeuristicFactoryUnlock : public Rva005DAA36
 {
 public:
 	AIUpgradeHeuristicFactoryUnlock(void *held);
+ int rva005DA67F(int);
 
 private:
 	std::vector<PlayerAITypeEntry> m_modules;
@@ -165,3 +168,25 @@ AIUpgradeHeuristicFactoryUnlock::AIUpgradeHeuristicFactoryUnlock(void *held)
 		}
 	}
 }
+
+class Rva0041F449 { public: StringBase<char>*rva0041F449(const StringBase<char>&); };
+class ArmyMemberDefinition {public:float*rva0041F28C(int);};
+struct Rva002A8AB1Record {char pad[0x160]; Rva0041F449*members;char pad164[8];int mode;};
+class Rva002A8F24 {public:Rva002A8AB1Record*rva002A8AB1(void*);};
+extern Rva002A8F24*TheSkirmishAIManager;
+int AIUpgradeHeuristicFactoryUnlock::rva005DA67F(int unused) {
+ Object*object=TheGameLogic->findObjectByID(((const Rva005DA6F3Object*)m_held)->m_id);
+ Rva002A8AB1Record*owner=TheSkirmishAIManager->rva002A8AB1(object->getControllingPlayer());
+ for(std::vector<PlayerAITypeEntry>::iterator it=m_modules.begin();it!=m_modules.end();++it){
+  StringBase<char>*key=(StringBase<char>*)((char*)*it+0x64);
+  ArmyMemberDefinition*entry=(ArmyMemberDefinition*)owner->members->rva0041F449(*key);
+  if(entry && *entry->rva0041F28C(owner->mode)>0.0f) return 1;
+ }
+ return 0;
+}
+
+// Native5DA67F..5DA6F3 RET4 establishes the unused integer argument and
+// full test loop: held ObjectID+8, owner160 member lookup, owner16C float
+// selection and positive comparison. Constructor5DA6F3 establishes this
+// family and pointer vector at08. Helper names and original record meaning
+// remain opaque; casts preserve their established ABI views.
