@@ -1,8 +1,30 @@
 // ?Rva00089510CameraPathAngles@@YIXPAVRva0089971@@PAX_NMH@Z
+// partial score=0.9417590539541758 date=2026-10-10
+// ?Rva00089510CameraPathAngles@@YIXPAVRva0089971@@PAX_NMH@Z
 // partial score=0.951 date=2026-10-09
-// cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug
+// cl: /O1 /G7 /ICode/Libraries/Include /arch:SSE /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug
 // Bank attaches to the already verified private-EAX normAngle owner.
-#include "../../Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewRotateCamera.cpp"
+#include "Lib/BaseType.h"
+#include "vector2.h"
+#include "wwmath.h"
+#pragma auto_inline(off)
+static void normAngle(float &angle)
+{
+	if (angle < -10*3.14159265359f) {
+		angle = 0;
+	}
+	if (angle > 10*3.14159265359f) {
+		angle = 0;
+	}
+	while (angle < -3.14159265359f) {
+		angle += 2*3.14159265359f;
+	}
+	while (angle > 3.14159265359f) {
+		angle -= 2*3.14159265359f;
+	}
+}
+#pragma auto_inline(on)
+
 // Data-only target path prefix; these are observations, not donor class names.
 // Array owner Rva0089971 has this prefix, established by its ctor8990C/dtor89971.
 class Rva0089971;

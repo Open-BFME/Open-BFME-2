@@ -1,4 +1,6 @@
 // ?Rva006EF920TextFormat@@YAPAVAptValue@@PAV1@H@Z
+// partial score=0.8753125 date=2026-10-10
+// ?Rva006EF920TextFormat@@YAPAVAptValue@@PAV1@H@Z
 // partial score=0.8753125 date=2026-10-09
 // cl: /O2 /DNDEBUG /MD /EHsc
 // Native Apt text-format callback at 006EF6D0..006EF920. Offsets measured
@@ -22,11 +24,11 @@ class Rva006EB4B0 {
  Rva006EB4B0(AptValue*,float,int,int,int,int,int,int,AptValue*,int,int,int,int);
  static void *operator new(unsigned int size){return g_aptPoolAllocator->allocBlock(size);}
 };
-class Rva006ECEC0 {
+class Rva006ECFC0Owner {
 public:
  char unknown00[32];EAStringC font;int size,color,align;
  char unknown30[16];
- Rva006ECEC0(Rva006EB4B0*);
+ Rva006ECFC0Owner(const Rva006EB4B0&);
  static void *operator new(unsigned int size){return g_pChainBlockAllocatorF4->allocBlock(size);}
 };
 struct NativeFrame {int type,unknown04;const char *font;};
@@ -46,7 +48,7 @@ AptValue *Rva006EF920TextFormat(AptValue *context,int argc){
   Rva006EB4B0 *format=new Rva006EB4B0(gpUndefinedValue,-1.0f,-1,-1,-1,-1,0,0,gpUndefinedValue,-1,-1,-1,-1);
   text(context)->format=format;
  }
- Rva006ECEC0 *value=new Rva006ECEC0(text(context)->format);
+ Rva006ECFC0Owner *value=new Rva006ECFC0Owner(*text(context)->format);
  if(value->color==-1)value->color=text(context)->color;
  AptCIH *cih=context->c_cih(false);
  if(!cih->IsCharacterInst())aptAssert("isCharacterInst()","c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\AptCIH.h",0xA5);

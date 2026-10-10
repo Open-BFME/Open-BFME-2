@@ -4417,7 +4417,6 @@ name,address,notes
 ??1Rva00493DEF@@UAE@XZ,0x00493DEF,opaque MI base dtor (SEH, 3 vptrs incl shared 0xBEFCF8 secondary); 20 derived MI dtors tail-call it; identity unproven
 ??1Rva00494A97@@UAE@XZ,0x00494A97,opaque MI dtor (39B: 4+ vptr stores); called by scalar-deleting-dtor at 0x494B9E; identity unproven, address-derived name
 ??1Rva0049B47C@@UAE@XZ,0x0049B47C,opaque fold-point dtor (25 dtors fold here incl FX infos plus Snapshot plus ObjectModule); 5 derived dtors tail-call it; identity unproven
-??1Rva0049FCB@@UAE@XZ,0x0049FCB,opaque SEH dtor (mov-eax-cookie prologue, vptr 0xBC3C80); called by scalar-deleting-dtor at 0x4AA0C; identity unproven, address-derived name
 ??1Rva004A9DF3Element@@QAE@XZ,0x004A9DF3,element dtor thunk for the 2x4B array at ModuleTagString+0x0C; retail ehvec_dtor call at 0x006CE82A passes it; true type not recovered
 ??1Rva004ABE53Dtor@@QAE@XZ,0x004ABE53,dtor stub at 0x004ABE53 (target of thunk 0x007B89C1)
 ??1Rva004ABFD9@@UAE@XZ,0x004ABFD9,opaque dtor called by the scalar deleting dtor at 0x004AC021 (vtable 0x00C549F8#0); identity unproven; address-derived name

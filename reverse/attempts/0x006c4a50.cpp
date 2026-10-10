@@ -1,34 +1,25 @@
 // ??0GeneralAllocatorDebug@@QAE@PAXI_N000@Z
-// partial score=0.95 date=2026-10-09
+// partial score=1.0 date=2026-10-10
 // cl: /O2 /G6 /DNDEBUG /MD /EHsc
-//
-// ??0GeneralAllocatorDebug@@QAE@PAXI_N000@Z, retail 0x006C4A50 (444 bytes).
-// The debug allocator's constructor (class name from the retail failure
-// string of its rowed VerifyGuardFill 0x006C3020). Target evidence:
-//  - forwards its six arguments to the rowed base allocator constructor
-//    0x00033B90 (Rva00033B90Allocator in MemoryPoolInit.cpp; unwind state 0
-//    runs the base destructor 0x00034D00);
-//  - constructs the hash table at +0x684 (unwind state 1 runs the rowed
-//    clear 0x006C21B0 on it): zero words with capacity 0x1000 at +0x690;
-//  - body: debug scalars from +0x510 (0.25f at +0x534 8 at +0x538 and 10000
-//    at +0x53C); the base's five fill bytes +0x508..+0x50C (DD DE CD AB FE);
-//    an empty list at +0x548 (capacity 16 with first and last at its head);
-//    a self pointer at +0x678; the table's allocate/free callbacks
-//    0x006C3D20 and 0x006C2240 with this as context;
-//  - then the base's pinned setup 0x00033700 with (0 0 true 0 0 0) and the
-//    one-time clear of the 0x100-byte block at +0x570.
-// Region flags /O2 /G6 (flag_regions.csv says /arch:SSE but the 0.25f store is an
-// integer immediate which only the x87 build emits).
-//
-// NEAR: 444 of 444 bytes compile; the only difference is scheduling. Retail
-// keeps `push 0; push 0; mov ecx,esi` and the EH state-1 store after the body's
-// field stores (just before the table callbacks), this source hoists those
-// four instructions above the field stores. Tried: mem-initializers (moves
-// the scalars before the table), an intermediate base for the scalars (moves
-// the table block after them), an inline helper, argument sources, /G5 /G7 /Ox.
+// GeneralAllocatorDebug construction and table callbacks. Identity comes
+// from the owned VerifyGuardFill failure string and the debug-allocator
+// destructor's base/member unwind actions. The original bank supplies the
+// structural guide; every field offset and callback ABI is target evidence.
+// Constructor 006C4A50..006C4C0C: reference-bound table keeps state-1 and setup
+// pushes after scalar initialization; reference-bound clear pointer inside
+// the initialization branch preserves LEA before REP STOSD setup.
+// Callback slots are native DIR32 values AC3D20 and AC2240. They use the same
+// 678 self-provider and 510 initialization state as the constructor.
+// No donor names or inferred base member layouts are claimed as target facts.
 
 #include <string.h>
 #pragma intrinsic(memset)
+
+class Rva00033E90 { public: void freeBlock(void *); };
+namespace EA { namespace Allocator {
+class GeneralAllocator { public: void rva000338F0(void *); };
+} }
+class Rva006C39F0Owner { public: void *rva006C3940Alloc(unsigned int); };
 
 class Rva00033B90Allocator
 {
@@ -107,6 +98,7 @@ private:
 GeneralAllocatorDebug::GeneralAllocatorDebug(void *a, unsigned int size, bool b, void *c, void *d, void *e)
 	: Rva00033B90Allocator(a, size, b, c, d, e)
 {
+	Rva006C17B0 &block = m_table;
 	m_debugInitialized = false;
 	m_514[0] = 0;
 	m_514[1] = 0;
@@ -138,15 +130,33 @@ GeneralAllocatorDebug::GeneralAllocatorDebug(void *a, unsigned int size, bool b,
 	m_self = this;
 	m_67C = 0;
 	m_680 = false;
-	m_table.m_allocate = rva006C3D20;
-	m_table.m_free = rva006C2240;
-	m_table.m_context = this;
+	block.m_allocate = rva006C3D20;
+	block.m_free = rva006C2240;
+	block.m_context = this;
 	rva00033700(0, 0, true, 0, 0, 0);
 	if (!m_debugInitialized)
 	{
+		unsigned int *const & buffer = m_debugBlock;
 		m_debugInitialized = true;
-		memset(m_debugBlock, 0, sizeof(m_debugBlock));
+		memset(buffer, 0, sizeof(m_debugBlock));
 		m_670 = 0;
 		m_674 = 0;
 	}
+}
+
+void *__cdecl GeneralAllocatorDebug::rva006C3D20(unsigned int size, void *context)
+{
+    return ((Rva006C39F0Owner *)context)->rva006C3940Alloc(size);
+}
+
+void __cdecl GeneralAllocatorDebug::rva006C2240(void *p, void *context)
+{
+    GeneralAllocatorDebug *allocator = (GeneralAllocatorDebug *)context;
+    if (allocator->m_self == allocator)
+    {
+        if (allocator->m_debugInitialized)
+            ((Rva00033E90 *)allocator)->freeBlock(p);
+    }
+    else
+        ((EA::Allocator::GeneralAllocator *)allocator->m_self)->rva000338F0(p);
 }
