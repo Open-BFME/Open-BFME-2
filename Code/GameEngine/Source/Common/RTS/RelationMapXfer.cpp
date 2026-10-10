@@ -34,6 +34,8 @@
 // The relationship goes through XferRelationship (0x00305C32).
 
 #include <hash_map>
+extern "C" void _ReadWriteBarrier();
+#pragma intrinsic(_ReadWriteBarrier)
 
 class AsciiString;
 class UnicodeString;
@@ -145,8 +147,17 @@ typedef _STL::hash_map< Int, Relationship, _STL::hash<Int>, _STL::equal_to<Int> 
 typedef _STL::hash_map< UnsignedInt, Relationship, _STL::hash<UnsignedInt>, _STL::equal_to<UnsignedInt> > TeamRelationMapType;
 
 // ------------------------------------------------------------------------------------------------
+// Copy helper views use existing ICF-owned hash providers. The lookup's
+// Object spelling is an opaque four-byte ABI carrier, not a relationship type.
+typedef _STL::hashtable<_STL::pair<const int,Relationship>,int,_STL::hash<int>,_STL::_Select1st<_STL::pair<const int,Relationship> >,_STL::equal_to<int>,_STL::allocator<_STL::pair<const int,Relationship> > > PlayerRelationTableView;
+class PlayerRelationHashMap {public: void clear();};
+class Object;
+class ObjectLookupMap {public: Object **findSlot(int *);};
+struct RelationCopyNodeView {void *next; int key; int value;};
 class PlayerRelationMap
 {
+public:
+ PlayerRelationMap *rva002ADE71(const PlayerRelationMap *);
 protected:
 	virtual void v00();
 	virtual void v01();
@@ -288,3 +299,21 @@ void TeamRelationMap::xfer( Xfer *xfer )
 	}  // end else, load
 
 }  // end xfer
+
+// WB C0FEC0 and named Player cloneFrom caller2B07A9 establish the relation
+// map owner and clear/copy behavior. Native2ADE71..2ADEBE reads keys4/value8
+// and uses the existing find-or-insert provider; original method name unknown.
+// The direct hashtable begin view preserves the native hidden-return ordering.
+PlayerRelationMap *PlayerRelationMap::rva002ADE71(const PlayerRelationMap *source) {
+ reinterpret_cast<PlayerRelationHashMap*>(&m_map)->clear();
+ (this?_ReadWriteBarrier():_ReadWriteBarrier());
+ PlayerRelationMapType *sourceMap=const_cast<PlayerRelationMapType*>(&source->m_map);
+ PlayerRelationMapType::iterator it=reinterpret_cast<PlayerRelationTableView*>(const_cast<PlayerRelationMapType*>(&source->m_map))->begin();
+ while(it != sourceMap->end()) {
+  RelationCopyNodeView *node=reinterpret_cast<RelationCopyNodeView*>(it._M_cur);
+  Object **slot=reinterpret_cast<ObjectLookupMap*>(&m_map)->findSlot(&node->key);
+  *reinterpret_cast<int*>(slot)=node->value;
+  ++it;
+ }
+ return this;
+}
