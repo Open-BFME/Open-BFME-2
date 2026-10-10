@@ -1,6 +1,8 @@
 // ?rva0006B3F3@Rva00067878@@QAEXXZ
 // partial score=0.9869571288926128 date=2026-10-10
 // ?rva0006B3F3@Rva00067878@@QAEXXZ
+// partial score=0.9869571288926128 date=2026-10-10
+// ?rva0006B3F3@Rva00067878@@QAEXXZ
 // partial score=0.9869571288926128 date=2026-10-09
 // ?rva0006B3F3@Rva00067878@@QAEXXZ
 // partial score=0.91 date=2026-09-29
@@ -20,7 +22,7 @@ void *__cdecl operator new(Uint s);
 class RefCountClass
 {
 public:
-	virtual void Delete_This() {}
+	virtual void Delete_This();
 	int m_refs;
 };
 
@@ -71,14 +73,7 @@ public:
 	const RefCountPtr &operator=(const RefCountPtr &other);
 };
 
-void bfmeDoBNH(BfmeThingBNH*,void*,int,int);
-template<> RefCountPtr<TextureClass>::RefCountPtr(int kind){bfmeDoBNH((BfmeThingBNH*)this,(void*)"exscorch01.tga",0,0);}
-
-class BfmeScorchTextureHandle:public RefCountPtr<TextureClass>
-{
-public: BfmeScorchTextureHandle(int kind);
-};
-
+class Rva0006B3F3ScorchTexture:public RefCountPtr<TextureClass>{public:Rva0006B3F3ScorchTexture(int);};
 class Rva00067878
 {
 public:
@@ -102,7 +97,7 @@ void Rva00067878::rva0006B3F3()
 		rva00067878();
 	m_vb = new BfmeDynamicNativeVB(0x142, 0x2002, 0, 0);
 	m_ib = new DX8IndexBufferClass(0xC00C, DX8IndexBufferClass::USAGE_DEFAULT);
-	m_tex = RefCountPtr<TextureClass>(3);
+	m_tex = Rva0006B3F3ScorchTexture(3);
 	m_3794 = 0;
 	m_d8 = 0;
 	m_dc = 0;
