@@ -112,15 +112,19 @@ class Rva002860CFHost
 public:
 	void rva002860CF(Rva002860CFIterator it);
 };
+struct Rva00287B2AResult;
 class Rva00286214
 {
 public:
 	Rva00286214Node *rva00286214(const Rva00285672 *key);
+ Rva00287B2AResult rva00286E33(const Rva00285672 *key);
+ __declspec(noinline) Rva00287B2AResult rva00287B2A(const Rva00285672 *key);
 	void erase(Rva002860CFIterator pos) { ((Rva002860CFHost *)this)->rva002860CF(pos); }
 	Rva00286214();	// the map's default ctor 0x00242F01
 	~Rva00286214();	// the tree teardown 0x0028681A
 	Rva00286214Node *m_header;
-	char m_pad04[8];
+	unsigned int m_nodeCount; // native tree count at +4
+ char m_pad08[4];
 };
 
 
@@ -753,4 +757,172 @@ FireLogicSystem::~FireLogicSystem()
 	rva00286CC4();
 	if (--theFireLogicSystemParseRegistration.m_useCount == 0)
 		Rva0020DAE0(&theFireLogicSystemParseRegistration);
+}
+
+// The save-game Xfer (vtable slots in reverse overload order, as
+// DelayedLuaEventListXfer.cpp lays them out): Version at 0x28, ICoord2D at
+// 0x4C, int at 0x7C, unsigned short at 0x80, unsigned char at 0x88 and the
+// named raw transfer at 0x94.
+class AsciiString;
+class UnicodeString;
+class PooledString;
+struct XferUnknown11;
+class Coord3DBase;
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class Coord2D;
+struct ICoord2D
+{
+	Int x;
+	Int y;
+};
+class IRegion2D;
+class RealRange;
+class RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+
+class Xfer
+{
+public:
+	class Version;
+
+	virtual ~Xfer();
+	virtual bool IsLoading() const;
+	virtual bool IsStoring() const;
+	virtual bool IsCRC() const;
+	virtual bool IsLightCRC() const;
+	virtual void v5() = 0;
+	virtual void v6() = 0;
+	virtual void v7() = 0;
+	virtual void SkipBadBlock(Snapshot &snapshot, unsigned int size);
+	virtual Xfer &XferRawBytes(void *data, unsigned int size);
+	virtual Xfer &operator==(bool &value);
+	virtual Xfer &operator==(char &value);
+	virtual Xfer &operator==(unsigned char &value);
+	virtual Xfer &operator==(short &value);
+	virtual Xfer &operator==(unsigned short &value);
+	virtual Xfer &operator==(int &value);
+	virtual Xfer &operator==(unsigned int &value);
+	virtual Xfer &operator==(__int64 &value);
+	virtual Xfer &operator==(float &value);
+	virtual Xfer &operator==(AsciiString &value);
+	virtual Xfer &operator==(UnicodeString &value);
+	virtual Xfer &operator==(PooledString &value);
+	virtual Xfer &operator==(Coord3DBase &value);
+	virtual Xfer &operator==(ICoord3D &value);
+	virtual Xfer &operator==(Region3D &value);
+	virtual Xfer &operator==(IRegion3D &value);
+	virtual Xfer &operator==(Coord2D &value);
+	virtual Xfer &operator==(ICoord2D &value);
+	virtual Xfer &operator==(Region2D &value);
+	virtual Xfer &operator==(IRegion2D &value);
+	virtual Xfer &operator==(RealRange &value);
+	virtual Xfer &operator==(RGBColor &value);
+	virtual Xfer &operator==(RGBAColorReal &value);
+	virtual Xfer &operator==(RGBAColorInt &value);
+	virtual Xfer &operator==(Snapshot &value);
+	virtual Xfer &operator==(XferUnknown11 &value) = 0;
+	virtual Xfer &operator==(Version &value);
+	virtual Xfer &XferEnum(const char *name, void *data, unsigned int size);
+};
+
+class Xfer::Version
+{
+public:
+	Version(unsigned char current, unsigned char minimum)
+		: m_current(current), m_minimum(minimum) {}
+
+	unsigned char m_current;
+	unsigned char m_minimum;
+};
+
+// m_cellsOnFire's insert (0x00287B2A), returning pair<iterator, bool>.
+struct Rva00287B2AResult
+{
+	Rva00286214Node *m_it;
+	bool m_inserted;
+	Rva00287B2AResult(Rva00286214Node *node, bool inserted) : m_it(node),m_inserted(inserted) {}
+};
+
+// Existing35B insert wrapper stays visible/out of line: this closes native
+// xfer frame54 and result slots. Original burning-cell key identity remains
+// unknown beyond the target-proven centre-key interface and layout.
+Rva00287B2AResult Rva00286214::rva00287B2A(const Rva00285672 *key) {
+ Rva00287B2AResult p=rva00286E33(key);
+ return Rva00287B2AResult(p.m_it,p.m_inserted);
+}
+
+static __forceinline const Rva00285672 *fireKey(const Rva00285BEC &key) {return reinterpret_cast<const Rva00285672 *>(&key);}
+
+// ?xfer@FireLogicSystem@@UAEXPAVXfer@@@Z @0x00287C51
+// FireLogicSystem::DoXfer (WorldBuilder lead): the grid size must match, then
+// each cell's fuel status, fuel, burn and packed flammability fields; version
+// 1 rebuilds the burning set from cells with burn, version 2 saves it.
+void FireLogicSystem::xfer(Xfer *xfer)
+{
+	Xfer::Version version(1, 2);
+	*xfer == version;
+	Int rows = m_numRows;
+	Int cols = m_numCols;
+	(*xfer == rows) == cols;
+	if (rows != m_numRows || cols != m_numCols)
+		return;
+	if (version.m_minimum < 2 && xfer->IsLoading())
+		((Rva0028614C *)&m_cellsOnFire)->rva0028662D();
+	*xfer == m_80;
+	for (Int x = 0; x < m_numRows; ++x)
+	{
+		m_cells[x] = &m_storage[m_numCols * x];
+		for (Int y = 0; y < m_numCols; ++y)
+		{
+			Cell *cell = &m_cells[x][y];
+			xfer->XferEnum("CellFireFuelStatus", cell, 4);
+			(*xfer == cell->m_fuel) == cell->m_check;
+			unsigned short flammability = cell->m_flammability;
+			unsigned short field10 = cell->m_field10;
+			unsigned short field18 = cell->m_field18;
+			unsigned char field30 = cell->m_field30;
+			unsigned char field31 = cell->m_field31;
+			((((*xfer == flammability) == field10) == field18) == field30) == field31;
+			cell->m_flammability = flammability;
+			cell->m_field10 = field10;
+			cell->m_field18 = field18;
+			cell->m_field30 = field30;
+			cell->m_field31 = field31;
+			if (version.m_minimum < 2 && cell->m_check > 0 && xfer->IsLoading())
+				((Rva00286214 *)&m_cellsOnFire)->rva00287B2A(fireKey(Rva00285BEC(x * 10 + 5, y * 10 + 5)));
+		}
+	}
+	if (version.m_minimum >= 2)
+	{
+		if (xfer->IsLoading())
+		{
+			((Rva0028614C *)&m_cellsOnFire)->rva0028662D();
+			Int count = 0;
+			*xfer == count;
+			for (Int i = 0; i < count; ++i)
+			{
+				ICoord2D centre;
+				centre.x = 0;
+				centre.y = 0;
+				*xfer == centre;
+				((Rva00286214 *)&m_cellsOnFire)->rva00287B2A(fireKey(Rva00285BEC(centre.x, centre.y)));
+			}
+		}
+		else
+		{
+			Int count = m_cellsOnFire.m_nodeCount;
+			*xfer == count;
+			for (Rva00286214Node *node = m_cellsOnFire.m_header->m_left; node != m_cellsOnFire.m_header;
+				node = (Rva00286214Node *)_STL::_Rb_global<bool>::_M_increment((_STL::_Rb_tree_node_base *)node))
+			{
+				ICoord2D centre;
+				centre.x = node->m_key.x;
+				centre.y = node->m_key.y;
+				*xfer == centre;
+			}
+		}
+	}
 }
