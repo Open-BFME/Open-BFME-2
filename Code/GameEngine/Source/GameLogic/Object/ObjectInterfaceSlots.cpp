@@ -23,6 +23,10 @@ struct Coord3D
 	Coord3D() {}
 	Coord3D(const Coord3D &o) : x(o.x), y(o.y), z(o.z) {}
 	Coord3D(float ax, float ay, float az) : x(ax), y(ay), z(az) {}
+	// BFME 2's Coord3D has an empty destructor (retail 0x000B3FD0, rowed in
+	// WWMath/coord3d.cpp); 0x0028BE93's conditional temporary keeps its
+	// destruction flag (and [ebp-4], 0) because of it.
+	~Coord3D() {}
 	float x;
 	float y;
 	float z;
@@ -46,6 +50,16 @@ private:
 	unsigned char m_pad[0x64];
 	AsciiString m_64; // +0x64
 };
+// The object at Object +0x240. Its rowed 0x0028A82A returns the +0x48
+// position by value: hidden result pointer in, the same pointer back in eax,
+// RET 4. The ledger spells it with an explicit output pointer, which is the
+// same ABI; 0x0028BE93 calls it through the by-value type below.
+class Rva0028AF76Sub
+{
+public:
+	void *rva0028A82A(void *dst) const;
+};
+typedef Coord3D (Rva0028AF76Sub::*Rva0028A82AByValue)() const;
 class ObjectBase
 {
 public:
@@ -79,8 +93,11 @@ public:
 	virtual AsciiString rva00290EE0();
 	virtual Coord3D rva0028C037();
 	virtual Coord3D rva0028C08D();
+	Coord3D rva0028BE93() const;
 private:
 	GeometryInfo m_geometryInfo; // +0xA8
+	unsigned char m_pad104[0x240 - 0x104];
+	Rva0028AF76Sub *m_240; // +0x240
 };
 Coord3D Object::rva0028C037()
 {
@@ -103,4 +120,14 @@ Coord3D Object::rva0028C08D()
 AsciiString Object::rva00290EE0()
 {
 	return getTemplate()->rva00290EE0Name();
+}
+// Retail 0x0028BE93 (77 bytes, non-virtual, RET 4): the +0x240 object's
+// position by value, or a zero position when there is none. The zero value
+// is built before the test, the present arm's by-value result lands in a
+// second stack temporary, and the chosen one is copied member by member into
+// the caller's result. Caller: Weapon::getPreAttackDelay (0x002CD07F).
+Coord3D Object::rva0028BE93() const
+{
+	Coord3D zero(0.0f, 0.0f, 0.0f);
+	return m_240 ? (m_240->*reinterpret_cast<Rva0028A82AByValue>(&Rva0028AF76Sub::rva0028A82A))() : zero;
 }
