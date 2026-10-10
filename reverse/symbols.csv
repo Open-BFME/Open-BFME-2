@@ -17156,3 +17156,12 @@ _VP6_ReadTokens,0x001BC3D0,callee of _VP6_DecodeBlock
 ?Rva0042C9BAFactory@StrategicInGameUI@@YA?AU?$auto_ptr@VRva0042C993Pointee@@@_STL@@HH@Z,0x0042C9BA,cdecl callee of 0x0042CA4B (REL32 at 0x0042CA9B): hidden auto_ptr result plus two ints (caller pops 8 after the hidden pointer); name as in the banked 0x0042C9BA attempt
 ?Rva00237D3DCheck@@YAHXZ,0x00237D3D,no-argument int callee of initVersionGlobals 0x00238646 (REL32 at 0x00238666; test eax): reads the command line via GetCommandLineW / CommandLineToArgvW / LocalFree; nonzero takes the VERSION-string path; address-derived name
 ?rva00520F7D@@YA_NXZ,0x00520F7D,callee of ?rva00376E92@GameLogic@@QAEX_N0@Z
+??_ERva004053C2@@UAEPAXI@Z,0x0040559F,callee of ??_ERva004053C2@@WM@AEPAXI@Z
+??_ERva00420E67@@UAEPAXI@Z,0x00421084,callee of ??_ERva00420E67@@WM@AEPAXI@Z
+??_ERva00427611@@UAEPAXI@Z,0x00427663,callee of ??_ERva00427611@@WM@AEPAXI@Z
+??_ERva0056AC26@@UAEPAXI@Z,0x0056ADD5,callee of ??_ERva0056AC26@@W7AEPAXI@Z
+??_ERva0056B126@@UAEPAXI@Z,0x0056B3D9,callee of ??_ERva0056B126@@W7AEPAXI@Z
+??_ERva005B7FA4@@UAEPAXI@Z,0x005B8032,callee of ??_ERva005B7FA4@@WGA@AEPAXI@Z
+??_ERva005EEF2F@@MAEPAXI@Z,0x005EF165,callee of ??_ERva005EEF2F@@O3AEPAXI@Z
+??_ERva005F8CB0@@UAEPAXI@Z,0x005F8DE7,callee of ??_ERva005F8CB0@@W7AEPAXI@Z
+??_ERva0074104C@@UAEPAXI@Z,0x007410D0,callee of ??_ERva0074104C@@W7AEPAXI@Z
