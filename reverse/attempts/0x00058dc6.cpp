@@ -1,6 +1,12 @@
 // ?Rva00058DC6Xfer@@YAPAVXfer@@PAV1@PAV?$set@VAsciiString@@U?$less@VAsciiString@@@_STL@@V?$allocator@VAsciiString@@@3@@_STL@@@Z
-// partial score=0.98268 date=2026-10-09
+// partial score=0.9913419913419913 date=2026-10-10
 // cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// Current isolated whole231B proof has no unresolved names; exactly two bytes differ.
+// +0x0C allocates14 instead of0C, +0xB9 addresses result home20 instead of18.
+// EHsc/EHs/EHc-/EHc and O2+Os+Ob1/Ob2/G6 preserve this wall; EHa/Og- diverge.
+// Genuine iterator constructors and pair copy/no-destructor ABI are retained.
+// This is a source-level ABI view of real STLport, still awaiting normal integration.
+
 // Native 00058DC6..00058EAD, WB7B49F0: set<AsciiString> transfer.
 // Matched 0005CC28 map serializer and STLport _pair.h are structural guides.
 // Save walks tree nodes; load requires empty set, transfers strings and inserts.
@@ -15,11 +21,11 @@ typedef bool Bool;
 namespace _STL {
 struct _Rb_tree_node_base{int color;_Rb_tree_node_base*parent,*left,*right;};
 template<class T>struct _Const_traits;
-template<class T,class Traits>struct _Rb_tree_iterator{_Rb_tree_node_base*node;};
+template<class T,class Traits>struct _Rb_tree_iterator{_Rb_tree_node_base*node; _Rb_tree_iterator(){} _Rb_tree_iterator(_Rb_tree_node_base*n):node(n){} _Rb_tree_iterator(const _Rb_tree_iterator&o):node(o.node){} };
 template<class T>struct _Rb_global{static _Rb_tree_node_base*_M_increment(_Rb_tree_node_base*);};
 template<class T>struct less;
 template<class T>class allocator;
-template<class A,class B>struct pair{pair():first(A()),second(B()){} pair(const pair&o):first(o.first),second(o.second){} ~pair(){} A first;B second;};
+template<class A,class B>struct pair{pair():first(A()),second(B()){} pair(const pair&o):first(o.first),second(o.second){} A first;B second;};
 template<class K,class C,class Al>class set{public:typedef _Rb_tree_iterator<K,_Const_traits<K> > iterator;pair<iterator,bool>insert(const K&);_Rb_tree_node_base*header;unsigned count;};
 }
 typedef _STL::set<AsciiString,_STL::less<AsciiString>,_STL::allocator<AsciiString> > AsciiStringSet;
