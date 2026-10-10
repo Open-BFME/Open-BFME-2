@@ -1,4 +1,4 @@
-// cl: /MD
+// cl: /MD /EHsc
 // ?rva006FB910@Rva006FB860@@QAEAAXXZ @0x006FB910 70B.
 //
 // A member of the Apt object reached through the global at VA 0x00E176D0, the
@@ -30,7 +30,10 @@ class BfmeAptValue006DCD20
 public:
     virtual void vtableSlot0();
     virtual void vtableSlot1();
-    bool isUndefined() const; // rowed, 0x006DC010
+    bool isUndefined() const;
+    int isCIH(bool) const;
+    BfmeAptValue006DCD20 *rva006DCF60(bool);
+    int rva006E02B0() const; // rowed, 0x006DC010
 };
 
 struct Rva006E3710Node;
@@ -56,7 +59,12 @@ extern AptCIH *__cdecl rva006F99D0(int eventCode, AptCIH *first,
 class Rva006FB860
 {
 public:
-    unsigned char _unread[0x3C];
+    unsigned char _unread[0x18];
+    unsigned short m18, m1a;
+    BfmeAptValue006DCD20 **m1c;
+    unsigned short m20, m22;
+    BfmeAptValue006DCD20 **m24;
+    unsigned char _unread28[0x14];
     int mListCount;                   // +0x3C
     int *aList;                       // +0x40, dword elements
     BfmeAptValue006DCD20 *mValue;     // +0x44, a pointer the body calls through
@@ -74,6 +82,7 @@ public:
     void rva006FA340(); // address-derived call target from this object view
     void rva006FB860(int value, char isFirst);
     void rva006FB120(int x, int y, int packed, int field, char isFirst);
+    void rva006FAB40(BfmeAptValue006DCD20 *, int, int);
     void rva006FB5B0(int x, int y, int packed, int field);
     bool rva006FACA0(int x, int y, void **candidate);
     void Rva006F9EF0();
@@ -250,3 +259,65 @@ void Rva006FB860::rva006FB860(int value, char isFirst)
 }
 
 typedef char PoolCountOffset[(sizeof(Rva006FB860) >= 0x44 + sizeof(BfmeAptValue006DCD20)) ? 1 : -1];
+
+extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *, const char *, int);
+extern int g_bfmeAptBreakOnAssertAtDDC01C;
+void __debugbreak();
+#pragma intrinsic(__debugbreak)
+class EAStringC { public: EAStringC(const char *); ~EAStringC(); unsigned short *m_data; };
+class AptValue;
+class AptInteger { public: static AptValue *Create(int); };
+void rva008AF650Implementation(int,int,int);
+#define APTINPUT_CHECK(c,s,l) if (!(c)) { g_bfmeAptAssertAtE17734(s,"C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptInput.cpp",l); if (g_bfmeAptBreakOnAssertAtDDC01C) __debugbreak(); }
+// Retail FB5B0..FB840 ends in RET16 at FB83D (the queue omitted its three bytes).
+// The 20-byte table at FB840 is also emitted and checked against retail. WB
+// 17993B0/AptInput.cpp lines1032..1084 supplies the listener-dispatch guide;
+// fields18/1A/1C and20/22/24, masks and ABIs are independently read in retail.
+// The original member name is unproven, so retain the address-derived identity.
+void Rva006FB860::rva006FB5B0(int x, int y, int packed, int field)
+{
+    APTINPUT_CHECK(y==0 || y==1 || y==3 || y==4 || y==5,"eState == AptInputState_Pressed || eState == AptInputState_Released || eState == AptInputState_WheelUp || eState == AptInputState_WheelDown || eState == AptInputState_MouseMove",0x408);
+    BfmeAptValue006DCD20 *value=0;
+    int count=0;
+    if (field==1 && ((x==0 && (y==0 || y==1)) || y==4 || y==3)) {
+        count=0;
+        for (int i=0; i<m22; ++i) {
+            if (count==m20) break;
+            if (!m24[i]) continue;
+            value=m24[i];
+            switch(y) {
+            case 0:
+                APTINPUT_CHECK(x==0,"eType == AptInputType_MouseButton0",0x41f);
+                rva006FAB40(value,0x10,packed); break;
+            case 1:
+                APTINPUT_CHECK(x==0,"eType == AptInputType_MouseButton0",0x423);
+                rva006FAB40(value,0x20,packed); break;
+            case 3: case 4:
+                if (static_cast<unsigned char>(value->isCIH(false)) && static_cast<unsigned char>(value->rva006DCF60(false)->rva006E02B0())) {
+                    if (m68==value) {
+                        int delta=x;
+                        if (y==4) delta=-delta;
+                        AptValue *arg=AptInteger::Create(delta);
+                        EAStringC name("scroll");
+                        value->rva006DCF60(false);
+                        rva008AF650Implementation((int)value,(int)&name,(int)arg);
+                    }
+                } else rva006FAB40(value,0x80000,packed);
+                break;
+            default: APTINPUT_CHECK(false,"NOT_REACHED",0x43c); break;
+            }
+            ++count;
+        }
+    } else if (y==0 || y==1) {
+        for (int i=0; i<m1a; ++i) {
+            if (count==m18) break;
+            if (!m1c[i]) continue;
+            value=m1c[i];
+            switch(y) {
+            case 0: rva006FAB40(value,0x40,packed); break;
+            case 1: rva006FAB40(value,0x80,packed); break;
+            }
+            ++count;
+        }
+    }
+}
