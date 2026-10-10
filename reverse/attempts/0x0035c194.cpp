@@ -1,4 +1,8 @@
 // ?showShellMap@Shell@@QAE_N_N0@Z
+// partial score=0.9521140333266414 date=2026-10-10
+extern "C" void _ReadWriteBarrier();
+#pragma intrinsic(_ReadWriteBarrier)
+// ?showShellMap@Shell@@QAE_N_N0@Z
 // partial score=0.85 date=2026-10-09
 // cl: /O1 /arch:SSE /DNDEBUG /MD /EHsc
 // ?top@Shell@@QAEPAVWindowLayout@@XZ @ 0x0035BD7E (13B). Donor ZH GeneralsMD Shell.h top plus BFME1 Shell.cpp top; caller Shell push @0x0035C74A calls top then hidden check then runShutdown slot 3; prev Rva0035BD7BGet next GadgetTextEntryValidateCharacter.
@@ -668,8 +672,7 @@ Bool Shell::showShellMap(Bool useShellMap, Bool restartShellGame)
 	{
 		((W3DDisplay *)TheDisplay)->rva0025D2F6();
 		((Rva0035BD3F *)this)->rva0035BD3F();
-		if (TheGameLogic->m_gameMode == 4 && !restartShellGame)
-			return true;
+		if (TheGameLogic->m_gameMode == 4 && !restartShellGame) {return (_ReadWriteBarrier(),true);}
 		if (TheGameLogic->m_gameMode != 9)
 			TheMessageStream->appendMessage(0x1D);
 		TheShellMapGlobalData->m_pendingFile = TheShellMapGlobalData->m_shellMapName;
