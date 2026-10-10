@@ -2,6 +2,16 @@
 // stlport
 #include <list>
 #include "unicode_string.h"
+
+// _List_iterator comparisons otherwise instantiate the base-class
+// operator!= COMDAT (one byte shape per TU flags); exact-match free
+// overloads take those calls instead so this TU emits no external copy.
+namespace _STL {
+template <class _IterTp, class _LeftTraits, class _RightTraits>
+static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
+                              const _List_iterator<_IterTp, _RightTraits> &b)
+{ return a._M_node != b._M_node; }
+}
 // Native2BB5DD..2BB686 RET4: version1/3 and shared world state2BB2B7,
 // non-CRC24B record-pointer vectorBC, polymorphic vectorsCC/D8, then
 // version>=2 counted-list transfer. Names remain address-derived; offsets,
