@@ -1,12 +1,16 @@
-// ?rva002E9D09@Rva002E9D09@@QAEHPAVObject@@HH@Z
-// partial score=0.99 date=2026-10-06
-// ?rva002E9D09@Rva002E9D09@@QAEHPAVObject@@HH@Z
-// partial score=0.7 date=2026-10-05
 // cl: /O1 /DNDEBUG /MD
-// Dump lane range 13: ?rva002E9D09 @0x002E9D09 414B. Guarded object query:
+// Native query: ?rva002E9D09 @0x002E9D09 414B. Guarded object query:
 // an Rva002E8BCF-gated Rva002E6DC4 check, cell-flag tag/bit dispatch on the
-// target, then a for-walk over the target's node list with relationship,
-// KindOf-bit, counter and retest filters. Identities unproven.
+// cell flags, then a for-walk over the cell-info node list with relationship,
+// KindOf-bit, counter and retest filters. Original query identity is unknown.
+// Existing opaque visitor ABI in symbols.csv uses Object* for the first word;
+// preserve that borrowed signature for rectangle 002EED80 and polygon callers.
+// Actual cell flags +0x0C and cell-info node head +0x14 are independent target
+// facts and use explicit pointer-only views, not an Object layout claim.
+// Object/ThingTemplate accessed offsets follow native414 and current helpers.
+// Bank donor 002E9D09 supplied the complete control flow; explicit else node=0
+// preserves retail's shared XOR EDI/PUSH EDI and final loop test.
+// Native 002E9D09..002E9EA7 RET12 proves all 414 bytes and caller ABI.
 enum Relationship
 {
 	REL_0 = 0,
@@ -38,18 +42,19 @@ class Object
 {
 public:
 	bool rva0028AFBB() const;
-	bool rva0028ADB0() const;
+	bool IsAtGoalPosition() const;
+	bool rva0029493F(Object *other, int test);
 	Object *rva002931F5(bool flag);
 	Relationship getRelationship(const Object *other) const;
-	Object *m_0;
+	char m_pad00[4];
 	ObjectSub4 *m_4;
-	Object *m_8;
-	int m_flagsC;
-	int m_pad10;
-	Rva002E9D09Node *m_node14;
-	char m_pad18[0x5C];
+	char m_pad08[0x74 - 8];
 	int m_74;
 };
+
+struct Rva002E9D09CellInfoView { char m_pad00[0x14]; Rva002E9D09Node *m_nodes14; };
+struct Rva002E9D09CellView { Rva002E9D09CellInfoView *m_info; char m_pad04[8]; unsigned m_flagsC; };
+
 struct Rva002E8BCFSrc
 {
 	char _00[0x10];
@@ -76,11 +81,6 @@ class Rva002E6C23
 {
 public:
 	bool rva002E6C23(int v);
-};
-class Rva0029493F
-{
-public:
-	bool rva0029493F(int a, int b);
 };
 class Rva002E9D09
 {
@@ -109,7 +109,7 @@ int Rva002E9D09::rva002E9D09(Object *a1, int a2, int a3)
 				return 1;
 		}
 	}
-	unsigned flags = (unsigned)a1->m_flagsC;
+	unsigned flags = (unsigned)((Rva002E9D09CellView *)a1)->m_flagsC;
 	if ((flags & 0xF) == 5)
 		return 1;
 	unsigned char b18 = (unsigned char)(flags >> 18);
@@ -118,7 +118,7 @@ int Rva002E9D09::rva002E9D09(Object *a1, int a2, int a3)
 		if (m_holder4->rva0028AFBB())
 			return 1;
 	}
-	int tag = a1->m_flagsC & 0xF;
+	int tag = ((Rva002E9D09CellView *)a1)->m_flagsC & 0xF;
 	if (tag == 2)
 		return 1;
 	if (tag == 4)
@@ -129,15 +129,13 @@ int Rva002E9D09::rva002E9D09(Object *a1, int a2, int a3)
 		return 1;
 	if (m_14 != 0)
 		return 0;
-	Object *a1copy = a1;
-	bool go = false;
-	Rva002E9D09Node *node = 0;
-	Object *res = m_holder4->rva002931F5(go);
-	Object *sub = a1copy->m_0;
-	a1 = res;
-	if (sub != (Object *)node)
-		node = sub->m_node14;
-	for (; node != 0; node = node->m_next)
+Object *a1copy = a1;
+Rva002E9D09Node *node = 0;
+Object *res = m_holder4->rva002931F5(false);
+Rva002E9D09CellInfoView *sub = ((Rva002E9D09CellView *)a1copy)->m_info;
+a1 = res;
+if(sub) node=sub->m_nodes14; else node=0;
+for (;node;node=node->m_next)
 	{
 		if (node->m_obj == m_holder4)
 			continue;
@@ -163,9 +161,9 @@ int Rva002E9D09::rva002E9D09(Object *a1, int a2, int a3)
 		}
 		else
 		{
-			if (!o->rva0028ADB0())
+			if (!o->IsAtGoalPosition())
 				continue;
-			if (((Rva0029493F *)m_holder4)->rva0029493F((int)o, 2))
+			if (m_holder4->rva0029493F(o, 2))
 				continue;
 			if ((m_holder4->m_4->m_117 & 0x20) == 0)
 				return 1;
