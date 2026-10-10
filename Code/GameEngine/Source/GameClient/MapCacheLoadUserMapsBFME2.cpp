@@ -1,5 +1,3 @@
-// ?loadUserMaps@MapCache@@QAE_NXZ
-// partial score=1.0 date=2026-10-10
 // cl: /O1 /G7 /arch:SSE /MD /EHsc /Ireference/shims/bfme2_ascii /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP=
 // stlport
 // BFME1 575ba2b04 MapCacheLoadUserMaps semantic guide. Target30529C..305749
