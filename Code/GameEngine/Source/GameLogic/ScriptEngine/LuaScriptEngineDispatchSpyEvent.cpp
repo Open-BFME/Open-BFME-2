@@ -1,24 +1,17 @@
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 //
-// ?DispatchEvent@LuaScriptEngine@@QAEXPAHPAVObject@@PAX@Z
-// retail 0x00334634..0x00334862 (556 bytes, ret 12).
-// LuaScriptEngine::DispatchEvent: WorldBuilder's LuaScriptEngine.cpp
-// (lines 586..663, va 0x00BFDB50) names it. It looks the event key up in the
-// object's AI event table, finds the Lua global of that name and calls it with
-// the object table and up to three event parameters, then lets the AI run its
-// spies. Facts from retail: lua_State at +0x0C, call depth at +0xD4, the key
-// the single-step flag compares with at +0xDC; the Object's AI at +0x258
-// (event table at AI +0x220) and its flag byte at +0x438 (read through the
-// Object's raw bytes, as the donor does: that is what keeps the AI in ECX).
-// Body shape follows Open-BFME-1's Rva002E5A70LuaEventDispatch.cpp (donor
-// revision 575ba2b04), re-laid onto BFME 2's offsets: this build adds the
-// lua_State test, the string parameter kind, the Lua stack restore on the
-// error path and the processSpies tail.
-// Callee spellings follow their rows or pins: event-name lookup 0x0033280B
-// (Rva0033280B::find) / object-table push 0x00334003 (unrowed, address-named); g_00E01DC0 is the
-// single-step Lua state. Event parameters are 24-byte records (float at +8,
-// bool at +0xC, object id at +0x10, name at +0x14, kind tag at +0x18 with
-// kinds 1 real / 2 bool / 3 object / 4 string, else end).
+// ?DispatchSpyEvent@LuaScriptEngine@@QAEXHPAX00@Z
+// retail 0x00334860..0x00334A38 (472 bytes, ret 16).
+// LuaScriptEngine::DispatchSpyEvent: the sibling of DispatchEvent (0x00334634)
+// that spies on another object's event. Same event-name lookup in the AI's
+// event table (+0x220 of the Object's AI at +0x258), Lua global call with two
+// object tables and up to three typed event parameters, but no lua_State
+// test, no single-step key guard (a set flag bit 0 on the Object, +0x438,
+// makes it return), integer pushes for real and bool parameters, and the
+// Lua stack restored after the call instead of a spy callback. Body shape
+// follows DispatchEvent and Open-BFME-1's Rva002E5A70LuaEventDispatch donor
+// (raw-byte Object access keeps the AI in ECX). Callees: 0x0033280B event
+// table lookup and 0x00334003 object-table push, both pinned address names.
 
 #include "ascii_string.h"
 
@@ -31,8 +24,6 @@ extern "C" void lua_getglobal(lua_State *L, const char *name);
 extern "C" int lua_type(lua_State *L, int index);
 extern "C" void lua_settop(lua_State *L, int index);
 extern "C" void lua_call(lua_State *L, int arguments, int results);
-extern "C" void lua_pushnumber(lua_State *L, double n);
-extern "C" void lua_pushstring(lua_State *L, const char *s);
 
 extern void bfmeGo1039E(BfmeQ1039 *q, int value);
 void __cdecl bfmeLogMsg574(const char *message);
@@ -41,12 +32,6 @@ extern void *g_00E01DC0;	// the Lua state while single-stepping
 
 #include "../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
-
-class AIUpdateInterface
-{
-public:
-	void processSpies(int key, void *argument2, void *argument3);
-};
 
 // The AI's event table (+0x220): key -> Lua function name.
 class Rva0033280B
@@ -74,7 +59,7 @@ struct EventParameters
 class LuaScriptEngine
 {
 public:
-	void DispatchEvent(int *key, Object *object, void *parameters);
+	void DispatchSpyEvent(int key, void *object, void *spy, void *parameters);
 	void rva00334003(lua_State *state, Object *object);
 
 private:
@@ -82,14 +67,10 @@ private:
 	lua_State *m_luaState;				// +0x0C
 	unsigned char m_pad10[0xc4];
 	int m_depth;						// +0xD4
-	unsigned char m_padD8[4];
-	int m_singleStepKey;				// +0xDC
 };
 
-void LuaScriptEngine::DispatchEvent(int *key, Object *object, void *parameters)
+void LuaScriptEngine::DispatchSpyEvent(int key, void *object, void *spy, void *parameters)
 {
-	if (m_luaState == 0)
-		return;
 	if (m_depth > 10)
 		return;
 
@@ -101,45 +82,44 @@ void LuaScriptEngine::DispatchEvent(int *key, Object *object, void *parameters)
 	if (eventSource == 0)
 		return;
 
-	if ((objectBytes[0x438] & 1) != 0) {
-		int guardKey = *key;
-		if (guardKey != m_singleStepKey)
-			return;
-	}
+	if ((objectBytes[0x438] & 1) != 0)
+		return;
 
 	Rva0033280B *table = *(Rva0033280B **)((char *)eventSource + 0x220);
 	if (table == 0)
 		return;
 
-	int k = *key;
 	bool debugStep;
-	AsciiString name(table->find(k, &debugStep));
+	AsciiString name(table->find(key, &debugStep));
 	if (name.isEmpty())
 		return;
 
 	lua_getglobal(m_luaState, name.str());
-	if (lua_type(m_luaState, -1) != 5)
+	if (lua_type(m_luaState, 1) != 5)
 	{
 		AsciiString error;
-		if (lua_type(m_luaState, -1) == 1)
+		if (lua_type(m_luaState, 1) == 1)
 			error = " is not defined.";
 		else
 			error = " is not a lua function.";
-		lua_settop(m_luaState, top);
 		return;
 	}
 
-	rva00334003(m_luaState, object);
-	int count = 1;
+	rva00334003(m_luaState, (Object *)object);
+	rva00334003(m_luaState, (Object *)spy);
+	int count = 2;
 	EventParameters *events = (EventParameters *)parameters;
 	for (int i = 0; i < 3; ++i)
 	{
 		switch (events->m_event[i].m_kind)
 		{
 		case 1:
-			lua_pushnumber(m_luaState, events->m_event[i].m_real);
+		{
+			float real = events->m_event[i].m_real;
+			bfmeGo1039E((BfmeQ1039 *)m_luaState, (int)real);
 			++count;
 			break;
+		}
 		case 2:
 		{
 			bool flag = events->m_event[i].m_boolean;
@@ -149,10 +129,6 @@ void LuaScriptEngine::DispatchEvent(int *key, Object *object, void *parameters)
 		}
 		case 3:
 			rva00334003(m_luaState, TheGameLogic->findObjectByID(events->m_event[i].m_object));
-			++count;
-			break;
-		case 4:
-			lua_pushstring(m_luaState, events->m_event[i].m_string.str());
 			++count;
 			break;
 		default:
@@ -165,6 +141,7 @@ void LuaScriptEngine::DispatchEvent(int *key, Object *object, void *parameters)
 		g_00E01DC0 = m_luaState;
 	++m_depth;
 	lua_call(m_luaState, count, 0);
+	lua_settop(m_luaState, top);
 	--m_depth;
 
 	if (g_00E01DC0 && m_depth == 0)
@@ -172,6 +149,4 @@ void LuaScriptEngine::DispatchEvent(int *key, Object *object, void *parameters)
 		bfmeLogMsg574("Stepping out of LUA function - step disabled.\n");
 		g_00E01DC0 = 0;
 	}
-	int k2 = *key;
-	((AIUpdateInterface *)eventSource)->processSpies(k2, object, parameters);
 }

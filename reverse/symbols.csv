@@ -17093,6 +17093,5 @@ _VP6_ReadTokens,0x001BC3D0,callee of _VP6_DecodeBlock
 ?rva002EA658@Pathfinder@@QAE_NPAVObject@@AAUTCheckMovementInfo@@PBUICoord2D@@@Z,0x002EA658,"auto-pin (permute --pins): REL32 call target read from retail in 0x002f5925, whose banked body is byte-exact once this call resolves"
 ?rva0047D53A@HordeSiegeEngineContain@@QAEXPAVObject@@W4ExitDoorType@@@Z,0x0047D53A,"auto-pin (permute --pins): REL32 call target read from retail in 0x0047d90c, whose banked body is byte-exact once this call resolves"
 ?Rva005E6A23@StrategicInGameUI@@YA?AUTreeHintRef00217D4C@@PBURva005E4300Entry@@@Z,0x005E6A23,callee of ?rva005E6AD8@Rva005E6AD8@@QAEXXZ
-?rva0033280B@Rva0033280B@@QAEABVAsciiString@@HPA_N@Z,0x0033280B,callee of ?DispatchEvent@LuaScriptEngine@@QAEXPAHPAVObject@@PAX@Z
 ?rva00334003@LuaScriptEngine@@QAEXPAUlua_State@@PAVObject@@@Z,0x00334003,callee of ?DispatchEvent@LuaScriptEngine@@QAEXPAHPAVObject@@PAX@Z
 ?rva000910FB@TributePageBaseABI@@QAEHXZ,0x000910FB,callee of ?rva0050F65B@Rva00510D0C@@QAEHXZ

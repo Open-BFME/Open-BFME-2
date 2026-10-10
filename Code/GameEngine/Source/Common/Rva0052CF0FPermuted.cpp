@@ -1,9 +1,9 @@
-// ??0LivingWorldCampaign@@QAE@ABVAsciiString@@@Z
-// partial score=1.0 date=2026-10-10
 // cl: /DBFME_SNAPSHOT_NAME_SLOT /Ireference/shims/moduledata /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /arch:SSE /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+//
+// ??0LivingWorldCampaign@@QAE@ABVAsciiString@@@Z, retail 0x0052cf0f, 156 bytes. Banked partial (score 1.0) closed by tools/permute.py;
+// the body is the banked one up to statement/operand order and local types.
 // stlport
 //
-// ??0LivingWorldCampaign@@QAE@ABVAsciiString@@@Z @0x0052CF0F 156B: ctor stores vtable 0x00868780 copies name zeroes vectors sets ints floats.
 // Evidence: vtable 0x00868780 at +0 (same as dtor 0x0052CFB1 own unit), StringBase copy 0x000365F0 from param, vector_base 0x00211E58 twice, immutable floats2.0/1.0 atC686F4/C686F8, ints 0xb4 0x1d4c 0x9c4, caller 0x0052D0CD in 0x0052D04E.
 #include "ascii_string.h"
 #include <vector>

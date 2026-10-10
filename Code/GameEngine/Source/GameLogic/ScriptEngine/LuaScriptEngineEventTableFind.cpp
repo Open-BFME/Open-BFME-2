@@ -1,11 +1,10 @@
-// ?find@Rva0033280B@@QAEABVAsciiString@@HPA_N@Z
-// partial score=0.8705 date=2026-10-08
 // cl: /Ireference/shims/bfme2_ascii /O1 /D_STLP_USE_STATIC_LIB /MD /EHsc /arch:SSE
 // Donor: BFME1 SortedStrings2E1F80.cpp at34f59164; target171B33280B..3328B6 RET8.
 // Target offsets4 sorted flag; vector8/C/10; key0 value4 flag8 stride12.
 // Five-slot lower-bound repaired and rowed at331987; sort3327C5 is owned.
-// Remaining difference: range loads/register homes at+51; 171B and all callees resolve.
-// Score is equal-offset byte fraction excluding relocations; this is NOT exact verification.
+// The vector's end is captured inside the lower-bound call's argument list
+// (last=entries.end()) so cl evaluates both range loads after the empty
+// comparator temporary is built, as retail does.
 // stlport
 #include "ascii_string.h"
 #include <vector>
@@ -31,9 +30,8 @@ const AsciiString &Rva0033280B::find(int key,bool *flag)
  const int lookupKey=key;
  StringEntry search;
  search.key=lookupKey;
- StringEntry *first=entries.begin();
- StringEntry *last=entries.end();
- StringEntry *found=(StringEntry *)Rva00331987(first,last,&search.key,S4LowerBoundLess(),0);
+ StringEntry *last;
+ StringEntry *found=(StringEntry *)Rva00331987(entries.begin(),(last=entries.end()),&search.key,S4LowerBoundLess(),0);
  if(found!=last && found->key==lookupKey) {
   *flag=found->flag;
   return found->value;
