@@ -1,4 +1,6 @@
 // ?rva002E76D3@@YA_NPAVPathfindCell@@I_N@Z
+// partial score=1.0 date=2026-10-10
+// ?rva002E76D3@@YA_NPAVPathfindCell@@I_N@Z
 // partial score=0.99 date=2026-10-09
 // cl: /DNDEBUG /MD /O1 /arch:SSE /G7
 //
