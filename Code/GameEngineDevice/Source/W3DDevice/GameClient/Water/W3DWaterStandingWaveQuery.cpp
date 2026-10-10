@@ -1,6 +1,4 @@
-// ?rva0008026B@Rva0008026BStandingWaveQuery@@QAEXPAURva0008026BWaveInfo@@@Z
-// partial score=0.97 date=2026-10-09
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /ICode/Libraries/Include/Lib
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /ICode/Libraries/Include
 //
 // ?rva0008026B@Rva0008026BStandingWaveQuery@@QAEXPAURva0008026BWaveInfo@@@Z,
 // retail 0x0008026B..0x00080637 (972B), thiscall ret 4 (`this` unused); sole
@@ -12,7 +10,7 @@
 // AreaSet<StandingWaveArea> at +0x124 of the water object (0x00DE2000), skips
 // areas whose +0xA0 word is zero, and keeps the segment whose midpoint is
 // closest and within half its length plus 50. The record receives the
-// segment's perpendicular (Vector2 rotated by -PI/2 and normalised), the
+// segment's perpendicular (StandingWaveVector2View rotated by -PI/2 and normalised), the
 // 100 height limit, the half length, the midpoint and the ground height.
 //
 // Evidence (target): WorldBuilder twin 0x7405A0 inlines Vector3 operators and
@@ -22,13 +20,19 @@
 // +0xA0 getter 0x0030C94A and WWMath::Inv_Sqrt 0x0004233A. Class, method and
 // record names are descriptive; the original owner is not identified.
 
-#include "Coord2D.h"
-#include "Coord3D.h"
+#include "Lib/Coord2D.h"
+#include "Lib/Coord3D.h"
+
+// Existing neutral cdecl binding at7E394; independently verified29B twin of
+// the ledger-owned STL pair comparator. Visibility preserves caller scheduling.
+extern "C" inline __declspec(noinline) bool __cdecl rva0007E394CursorEqual(const void*a,const void*b){return ((const unsigned*)a)[0]==((const unsigned*)b)[0]&&((const unsigned*)a)[1]==((const unsigned*)b)[1];}
+
 
 typedef int Int;
 typedef bool Bool;
 typedef float Real;
 
+// The native x87 FSQRT/FSIN/FCOS shapes require these scoped math helpers.
 class WWMath
 {
 public:
@@ -65,16 +69,17 @@ public:
 	static Real __fastcall Inv_Sqrt(Real a);
 };
 
-class Vector2
+// TU-scoped math view avoids emitting competing global Vector2 COMDATs.
+class StandingWaveVector2View
 {
 public:
 	Real X;
 	Real Y;
 
-	__forceinline Vector2() {}
-	__forceinline Vector2(const Vector2 &v) { X = v.X; Y = v.Y; }
-	__forceinline Vector2(Real x, Real y) { X = x; Y = y; }
-	__forceinline Vector2 &operator=(const Vector2 &v) { X = v[0]; Y = v[1]; return *this; }
+	__forceinline StandingWaveVector2View() {}
+	__forceinline StandingWaveVector2View(const StandingWaveVector2View &v) { X = v.X; Y = v.Y; }
+	__forceinline StandingWaveVector2View(Real x, Real y) { X = x; Y = y; }
+	__forceinline StandingWaveVector2View &operator=(const StandingWaveVector2View &v) { X = v[0]; Y = v[1]; return *this; }
 	__forceinline Real &operator[](int i) { return (&X)[i]; }
 	__forceinline const Real &operator[](int i) const { return (&X)[i]; }
 
@@ -105,40 +110,40 @@ public:
 	}
 };
 
-__forceinline Vector2 operator-(const Vector2 &a, const Vector2 &b)
+__forceinline StandingWaveVector2View operator-(const StandingWaveVector2View &a, const StandingWaveVector2View &b)
 {
-	return Vector2(a.X - b.X, a.Y - b.Y);
+	return StandingWaveVector2View(a.X - b.X, a.Y - b.Y);
 }
 
-class Vector3
+class StandingWaveVector3View
 {
 public:
 	Real X;
 	Real Y;
 	Real Z;
 
-	__forceinline Vector3() {}
-	__forceinline Vector3(const Vector3 &v) { X = v.X; Y = v.Y; Z = v.Z; }
-	__forceinline Vector3(Real x, Real y, Real z) { X = x; Y = y; Z = z; }
-	__forceinline Vector3 &operator=(const Vector3 &v) { X = v.X; Y = v.Y; Z = v.Z; return *this; }
+	__forceinline StandingWaveVector3View() {}
+	__forceinline StandingWaveVector3View(const StandingWaveVector3View &v) { X = v.X; Y = v.Y; Z = v.Z; }
+	__forceinline StandingWaveVector3View(Real x, Real y, Real z) { X = x; Y = y; Z = z; }
+	__forceinline StandingWaveVector3View &operator=(const StandingWaveVector3View &v) { X = v.X; Y = v.Y; Z = v.Z; return *this; }
 
 	__forceinline Real Length() const { return WWMath::Sqrt(Length2()); }
 	__forceinline Real Length2() const { return X * X + Y * Y + Z * Z; }
 };
 
-__forceinline Vector3 operator*(const Vector3 &a, Real k)
+__forceinline StandingWaveVector3View operator*(const StandingWaveVector3View &a, Real k)
 {
-	return Vector3((a.X * k), (a.Y * k), (a.Z * k));
+	return StandingWaveVector3View((a.X * k), (a.Y * k), (a.Z * k));
 }
 
-__forceinline Vector3 operator+(const Vector3 &a, const Vector3 &b)
+__forceinline StandingWaveVector3View operator+(const StandingWaveVector3View &a, const StandingWaveVector3View &b)
 {
-	return Vector3(a.X + b.X, a.Y + b.Y, a.Z + b.Z);
+	return StandingWaveVector3View(a.X + b.X, a.Y + b.Y, a.Z + b.Z);
 }
 
-__forceinline Vector3 operator-(const Vector3 &a, const Vector3 &b)
+__forceinline StandingWaveVector3View operator-(const StandingWaveVector3View &a, const StandingWaveVector3View &b)
 {
-	return Vector3(a.X - b.X, a.Y - b.Y, a.Z - b.Z);
+	return StandingWaveVector3View(a.X - b.X, a.Y - b.Y, a.Z - b.Z);
 }
 
 #define PAD_VIRTUALS10(p) \
@@ -211,7 +216,7 @@ public:
 		bool operator!=(const const_iterator &it) const { return !(*this == it); }
 		friend bool operator==(const const_iterator &a, const const_iterator &b)
 		{
-			return a.m_set == b.m_set && a.m_index == b.m_index;
+			return rva0007E394CursorEqual(&a,&b);
 		}
 		AreaSet *m_set;
 		Int m_index;
@@ -270,17 +275,17 @@ void Rva0008026BStandingWaveQuery::rva0008026B(Rva0008026BWaveInfo *info)
 	if (heightAbove < 0.0f)
 		heightAbove = 0.0f;
 
-	Vector2 direction(1.0f, 0.0f);
-	Vector3 nearest(100000.0f, 100000.0f, info->z);
+	StandingWaveVector2View direction(1.0f, 0.0f);
+	StandingWaveVector3View nearest(100000.0f, 100000.0f, info->z);
 	Real nearestHalfLength = 0.0f;
 	Real maxHeight = 100.0f;
 	if (heightAbove < maxHeight)
 	{
 		Real nearestDist = 100000.0f;
-		Vector2 segStart(0.0f, 0.0f);
-		Vector2 segEnd(0.0f, 0.0f);
+		StandingWaveVector2View segStart(0.0f, 0.0f);
+		StandingWaveVector2View segEnd(0.0f, 0.0f);
 		AreaSet<StandingWaveArea> *areas = ((Rva0008026BWaterObject *)W3DGCData00DE2000)->getStandingWaves();
-		for (AreaSet<StandingWaveArea>::const_iterator it = areas->begin(); it != areas->end(); it++)
+		for (AreaSet<StandingWaveArea>::const_iterator it = (areas?areas:areas)->begin(); it != areas->end(); it++)
 		{
 			StandingWaveArea *area = it.getPtr();
 			if (!area->isActive())
@@ -292,17 +297,17 @@ void Rva0008026BStandingWaveQuery::rva0008026B(Rva0008026BWaveInfo *info)
 			{
 				const Coord2D *p0 = area->getPolygon().getPoint(i);
 				const Coord2D *p1 = area->getPolygon().getPoint(i + 1);
-				Vector3 a(p0->x, p0->y, info->z);
-				Vector3 b(p1->x, p1->y, info->z);
-				Vector3 mid = (a + b) * 0.5f;
-				Vector3 pos(info->x, info->y, info->z);
+				StandingWaveVector3View a(p0->x, p0->y, info->z);
+				StandingWaveVector3View b(p1->x, p1->y, info->z);
+				StandingWaveVector3View mid = (a + b) * 0.5f;
+				StandingWaveVector3View pos(info->x, info->y, info->z);
 				Real dist = (pos - mid).Length();
 				Real halfLength = 0.5f * (b - a).Length();
 				if (halfLength + 50.0f > dist && dist < nearestDist)
 				{
 					nearestDist = dist;
-					segStart = Vector2(p0->x, p0->y);
-					segEnd = Vector2(p1->x, p1->y);
+					segStart = StandingWaveVector2View(p0->x, p0->y);
+					segEnd = StandingWaveVector2View(p1->x, p1->y);
 					nearest = mid;
 					nearestHalfLength = halfLength;
 				}
