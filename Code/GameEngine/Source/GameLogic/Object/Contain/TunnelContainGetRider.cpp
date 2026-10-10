@@ -1,9 +1,8 @@
-// ?rva0047DEE1@TunnelContain@@UAEPAVRva0047DEE1Rider@@H@Z
-// partial score=0.97 date=2026-10-09
-// ?rva0047DEE1@TunnelContain@@UAEPAVRva0047DEE1Rider@@H@Z
-// partial score=0.97 date=2026-10-09
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /I.
 // stlport
+// The inline/noinline view getter is the already rowed 26-byte provider
+// at 0x00466398 and its complete bytes also match in this TU. Its visible
+// write set restores the target caller register allocation.
 // Retail 0x0047DEE1, 99B: a TunnelContain primary-vtable member (only
 // reference is a vtable entry; the slot's name is not established, hence the
 // address name). It walks the containment list the controlling player's
@@ -12,7 +11,7 @@
 // object's rider interface (contain module Object+0x250, slot 0x7C) whose
 // slot 0x18 test accepts the argument, else null.
 #include <list>
-#include "../../../../Include/GameLogic/ContainmentListView.h"
+#include "Code/GameEngine/Include/GameLogic/ContainmentListView.h"
 namespace _STL {template<> _List_base<Rva0036ADF9Element,allocator<Rva0036ADF9Element> >::~_List_base();}
 
 class Player;
@@ -79,7 +78,7 @@ public:
 class Rva00466398
 {
 public:
-	Rva0036AE51ListView rva00466398();
+	inline __declspec(noinline) Rva0036AE51ListView rva00466398(){Rva0036AE51ListView out;out.a=this?(void*)((char*)this+4):0;out.b=(ContainmentList*)((char*)this+16);return out;}
 };
 
 class Player
