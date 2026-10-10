@@ -312,3 +312,46 @@ struct Dimensions { unsigned h; int w; };
     result=((D3DSurface *)surface)->UnlockRect();
     if(result)Log_DX8_ErrorCode((unsigned)result);
 }
+
+// Native116780..11690C RET4 and WB SurfaceClass::Clear establish this worker.
+// ZH SurfaceClass::Clear guides the ordinary row fill; target alone adds the
+// low-byte black/white flag and DXT1-5 branch. Existing W3DRadar handle name
+// remains a neutral caller view. Target proves one COM pointer at+0,
+// description Format/Width/Height and LockRect/UnlockRect slots13/14.
+// Packed DXT bytes FF FE FF FF 55 55 55 55 are native; the 16-bit opaque
+// temporary plus typed8B copy retain native byte writes and copy allocation.
+class W3DRadarResetSurface { public: void clear(unsigned int); private: void *m_surface; };
+void W3DRadarResetSurface::clear(unsigned int value)
+{
+ if(!m_surface)return;
+ SurfaceClass::SurfaceDescription desc;
+ reinterpret_cast<SurfaceClass *>(this)->Get_Description(desc);
+ unsigned size=Rva008FC4F0_PixelSize(desc)*desc.Width;
+ D3DLockedRect lock;
+ memset(&lock,0,sizeof(lock));
+ HRESULT hr=((D3DSurface *)m_surface)->LockRect(&lock,0,0);
+ if(hr)Log_DX8_ErrorCode(hr);
+ unsigned char *bits=(unsigned char*)lock.pBits;
+ unsigned char white=(unsigned char)value;
+ unsigned fill=white?255:0;
+ if(size==0 && (desc.Format==0x31545844 || desc.Format==0x32545844 || desc.Format==0x33545844 || desc.Format==0x34545844 || desc.Format==0x35545844)) {
+  size=lock.Pitch; desc.Height>>=2;
+  if(white) {
+   unsigned n=size>>3;
+   struct Block {unsigned first,second;};Block packed;unsigned char *block=(unsigned char *)&packed;
+   unsigned short opaque=(unsigned short)fill;opaque|=255;block[0]=opaque;block[1]=254;block[2]=opaque;block[3]=opaque;
+   block[4]=85;block[5]=85;block[6]=85;block[7]=85;
+   for(unsigned i=0;i<desc.Height;++i){
+    unsigned char *row=bits;
+    for(int j=0;j<(int)n;++j){*(Block *)row=packed;row+=8;}
+    bits+=lock.Pitch;
+   }
+   hr=((D3DSurface *)m_surface)->UnlockRect();
+   if(hr)Log_DX8_ErrorCode(hr);
+   return;
+  }
+ }
+ for(unsigned i=0;i<desc.Height;++i){memset(bits,fill,size);bits+=lock.Pitch;}
+ hr=((D3DSurface *)m_surface)->UnlockRect();
+ if(hr)Log_DX8_ErrorCode(hr);
+}
