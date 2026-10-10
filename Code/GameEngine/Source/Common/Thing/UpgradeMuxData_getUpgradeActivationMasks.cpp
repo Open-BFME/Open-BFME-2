@@ -84,9 +84,45 @@ __declspec(noreturn) void __stdcall _CxxThrowException(void *pExc, void *pInfo);
 struct UpgradeMuxThrowInfoAnchor { int a; int b; int c; int d; };
 static const UpgradeMuxThrowInfoAnchor upgradeMuxThrowInfoAnchor = { 0, 0, 0, 0 };
 
+// TU-local views for the activation gate 0x004CB333 (retail-measured offsets).
+class Rva001EAE6FHelper
+{
+public:
+	Rva001EAE6FHelper *clear80();
+
+private:
+	char m_pad[0x80];
+};
+
+class Rva001DFE56
+{
+public:
+	bool rva001DFE56(const void *required, const void *exempt) const;
+};
+
+class Drawable
+{
+public:
+	char m_pad00[0x258];
+	Rva001DFE56 m_tester;
+};
+
+class Thing
+{
+public:
+	Drawable *getDrawable() const;
+};
+
+class Object : public Thing
+{
+public:
+	bool rva0028D9E5(int bit) const;
+};
+
 class UpgradeMuxData
 {
 public:
+	bool rva004CB333(Object *obj);
 	void getUpgradeActivationMasks(UpgradeMaskType &activation,
 		UpgradeMaskType &conflicting) const;
 
@@ -95,6 +131,11 @@ private:
 	mutable UpgradeMaskType m_conflictingMask; // +0x80 (128 bytes)
 	mutable _STL::vector<AsciiString> m_activationUpgradeNames; // +0x100
 	mutable _STL::vector<AsciiString> m_conflictingUpgradeNames; // +0x10C
+	unsigned m_req19[19]; // +0x118 required-mask words checked against the drawable
+	unsigned m_ban19[19]; // +0x164 exempt-mask words
+	char m_pad1B0[0x381 - 0x1B0];
+	unsigned char m_flag381;
+	unsigned char m_flag382;
 };
 
 // ?getUpgradeActivationMasks@UpgradeMuxData@@QBEXAAUUpgradeMaskType@@0@Z
@@ -145,6 +186,46 @@ void UpgradeMuxData::getUpgradeActivationMasks(
 
 	activation = m_activationMask;
 	conflicting = m_conflictingMask;
+}
+
+// ?rva004CB333@UpgradeMuxData@@QAE_NPAVObject@@@Z
+// retail 0x004CB333, 197 bytes: optional drawable 19-dword mask check, then the
+// 1024-bit activation/conflicting test against the Object's upgrade bits.
+// Evidence: rowed getUpgradeActivationMasks 0x004CB189, Thing::getDrawable
+// 0x005508E2, tester 0x001DFE56, clear80 0x001EAE6F x2, Object::rva0028D9E5 x2;
+// flags +0x381/+0x382, masks +0x118/+0x164. The word index is spelled inline in
+// both tests: a shared word local makes cl compute it before the bit mask.
+bool UpgradeMuxData::rva004CB333(Object *obj)
+{
+	if (m_flag381 != 0 || m_flag382 != 0)
+	{
+		Drawable *drawable = obj->getDrawable();
+		if (drawable == 0)
+			return false;
+		if (!drawable->m_tester.rva001DFE56(m_req19, m_ban19))
+			return false;
+	}
+	Rva001EAE6FHelper hAct;
+	Rva001EAE6FHelper hConf;
+	hAct.clear80();
+	hConf.clear80();
+	UpgradeMaskType &activation = (UpgradeMaskType &)hAct;
+	UpgradeMaskType &conflicting = (UpgradeMaskType &)hConf;
+	getUpgradeActivationMasks(activation, conflicting);
+	for (int bit = 0; bit < 0x400; ++bit)
+	{
+		if ((activation.m_words[(unsigned)bit >> 5] & (1u << (bit & 31))) != 0)
+		{
+			if (!obj->rva0028D9E5(bit))
+				return false;
+		}
+		if ((conflicting.m_words[(unsigned)bit >> 5] & (1u << (bit & 31))) != 0)
+		{
+			if (obj->rva0028D9E5(bit))
+				return false;
+		}
+	}
+	return true;
 }
 
 // The (void *, void *) declaration above is a C++ overload, so calls spell
