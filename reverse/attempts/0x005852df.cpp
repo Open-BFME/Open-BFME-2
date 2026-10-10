@@ -1,6 +1,8 @@
 // ?findMeleeAttackPosition@HordeMeleeFormation@@QAE_NPAVObject@@PAUCoord3D@@0PBU3@_NPAH3@Z
+// partial score=0.9693 date=2026-10-10
+// ?findMeleeAttackPosition@HordeMeleeFormation@@QAE_NPAVObject@@PAUCoord3D@@0PBU3@_NPAH3@Z
 // partial score=0.92 date=2026-10-09
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /ICode/Libraries/Include/Lib
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /ICode/Libraries/Include/Lib /ICode/GameEngine/Source/Common
 //
 // ?findMeleeAttackPosition@HordeMeleeFormation@@QAE_NPAVObject@@PAUCoord3D@@0PBU3@_NPAH3@Z,
 // retail 0x005852DF..0x005858F3 (1556B), thiscall ret 0x1C; sole caller
@@ -16,7 +18,7 @@
 // under the spellings used here.
 
 #include "Coord3D.h"
-#include "../../../../Common/GameLogicObjectLookupView.h"
+#include "GameLogicObjectLookupView.h"
 #include <math.h>
 
 typedef int Int;
@@ -71,8 +73,8 @@ private:
 class Pathfinder
 {
 public:
-	Int rva002EC9E1(Object *obj, const Coord3D *pos, Int *ids);
-	Bool Rva002F1BA2(void *obj, void *locomotorSet, PathfindLayerEnum layer, const Coord3D *from, const Coord3D *to);
+	Int GetOverlapGoalUnits(Object *obj, const Coord3D *pos, Int *ids);
+	Int IsHordeMeleeLinePassable(void *obj, void *locomotorSet, PathfindLayerEnum layer, const Coord3D *from, const Coord3D *to);
 	Bool rva002EDFF9(Object *obj, Coord3D *pos);
 };
 
@@ -170,8 +172,8 @@ Bool HordeMeleeFormation::findMeleeAttackPosition(Object *obj, Coord3D *result, 
 	Real bestDist = dist + 100.0f;
 
 	Int overlapIds[16];
-	Bool overlapping = TheAI->pathfinder()->rva002EC9E1(obj, obj->getPosition(), overlapIds) > 0;
-	Bool blocked = !TheAI->pathfinder()->Rva002F1BA2(obj, locomotorSet, layer, &pos, &pos);
+	Bool overlapping = TheAI->pathfinder()->GetOverlapGoalUnits(obj, obj->getPosition(), overlapIds) > 0;
+	Bool blocked = !TheAI->pathfinder()->IsHordeMeleeLinePassable(obj, locomotorSet, layer, &pos, &pos);
 
 	Coord3D lastGood;
 	copyCoord(lastGood, &pos);
@@ -189,7 +191,7 @@ Bool HordeMeleeFormation::findMeleeAttackPosition(Object *obj, Coord3D *result, 
 						copyCoord(cand, &pos);
 						cand.x += (Real)i * 10.0f;
 						cand.y += (Real)j * 10.0f;
-						if (TheAI->pathfinder()->Rva002F1BA2(obj, locomotorSet, layer, &cand, &cand))
+						if (TheAI->pathfinder()->IsHordeMeleeLinePassable(obj, locomotorSet, layer, &cand, &cand))
 						{
 							lastGood = cand;
 							blocked = false;
@@ -222,11 +224,11 @@ Bool HordeMeleeFormation::findMeleeAttackPosition(Object *obj, Coord3D *result, 
 					{
 						candDist = 0.0f;
 						delta.Normalize();
-						delta.x *= 14.0f;
-						delta.y *= 14.0f;
+						Real scaledX = delta.x * 14.0f;
+						Real scaledY = delta.y * 14.0f;
 						delta.z *= 14.0f;
-						ox = -delta.x;
-						oy = -delta.y;
+						ox = 0.0f-scaledX;
+						oy = 0.0f-scaledY;
 					}
 					else
 					{
@@ -256,7 +258,7 @@ Bool HordeMeleeFormation::findMeleeAttackPosition(Object *obj, Coord3D *result, 
 					if (!clear && allowOverlap && weapon)
 					{
 						Int ids[16];
-						if (TheAI->pathfinder()->rva002EC9E1(obj, &cand, ids) == 2 && weapon)
+						if (TheAI->pathfinder()->GetOverlapGoalUnits(obj, &cand, ids) == 2 && weapon)
 						{
 							Object *a = TheGameLogic->findObjectByID((ObjectID)ids[0]);
 							Object *b = TheGameLogic->findObjectByID((ObjectID)ids[1]);
@@ -275,7 +277,7 @@ Bool HordeMeleeFormation::findMeleeAttackPosition(Object *obj, Coord3D *result, 
 						if (blocked)
 							ok = true;
 						else
-							ok = TheAI->pathfinder()->Rva002F1BA2(obj, locomotorSet, layer, &lastGood, &cand);
+							ok = TheAI->pathfinder()->IsHordeMeleeLinePassable(obj, locomotorSet, layer, &lastGood, &cand);
 					}
 					if (ok && candDist < bestDist)
 					{
