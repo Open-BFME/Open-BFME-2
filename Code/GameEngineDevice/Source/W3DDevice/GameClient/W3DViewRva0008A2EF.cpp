@@ -1,6 +1,7 @@
-// ?rva00089C2D@W3DView@@QAEXH_NMM@Z
-// partial score=1.0 date=2026-10-10
 // cl: /O1 /G7 /ICode /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
+//
+// ?rva0008A2EF@W3DView@@QAEXPBUV3@@PBUCameraGoalInfo@@H_NMM@Z, retail 0x0008a2ef, 631 bytes. Banked partial (score 1.0) closed by tools/permute.py;
+// the body is the banked one up to statement/operand order and local types.
 #include "ascii_string.h"
 #include "vector2.h"
 #include "GameEngine/Source/GameClient/Rva000869CF.h"

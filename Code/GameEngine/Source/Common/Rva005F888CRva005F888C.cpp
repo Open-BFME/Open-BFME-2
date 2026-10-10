@@ -1,6 +1,7 @@
-// ?rva005F888C@Rva005F888C@@QAEXABURva005F888CRef@@@Z
-// partial score=0.97 date=2026-10-10
 // cl: /O1 /G7 /MD /DNDEBUG /EHsc
+//
+// ?rva005F888C@Rva005F888C@@QAEXABURva005F888CRef@@@Z, retail 0x005f888c, 66 bytes. Banked partial (score 0.97) closed by tools/permute.py;
+// the body is the banked one up to statement/operand order and local types.
 // stlport
 #include <vector>
 struct Rva005F888CRef {void* pointer;};

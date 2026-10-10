@@ -1,8 +1,7 @@
-// ?newGame@PlayerList@@UAEXXZ
-// partial score=1.0 date=2026-10-10
-// ?newGame@PlayerList@@UAEXXZ
-// partial score=0.97 date=2026-10-09
 // cl: /O1 /arch:SSE /G7 /MD /EHsc /DNDEBUG /Ireference/shims/bfme2_ascii
+//
+// ?newGame@PlayerList@@UAEXXZ, retail 0x002a8008, 766 bytes. Banked partial (score 1.0) closed by tools/permute.py;
+// the body is the banked one up to statement/operand order and local types.
 // PlayerList::newGame, retail 0x002A8008 (766 bytes).
 //
 // Zero Hour's PlayerList::newGame (GameEngine/Source/Common/RTS/
