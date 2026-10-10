@@ -264,10 +264,8 @@ long __cdecl Rva00077D0FLoad(const char *strFilePath, unsigned long *pHandle)
 	return 0;
 }
 
-// Retail's data references in this unit's matched rows land on globals defined
-// under other spellings at the same addresses (addend-corrected DIR32). Bind them.
-
-#pragma comment(linker, "/alternatename:?m_oldRenderSurface@W3DShaderManager@@2PAUIDirect3DSurface8@@A=?g_Va009E1F64@@3IA")
+// m_oldRenderSurface (0x009E1F64) is defined beside canRenderToTexture in
+// Code/GameEngine/Source/Common/Rva000F630CGet.cpp.
 
 
 // Zero Hour W3DShaderManager.cpp's render-to-texture flag (0x00DE1F60): read by

@@ -67,6 +67,14 @@ static BehaviorModule **getRetailBehaviorModules( const Object *obj ) { return *
 static ContainModuleInterface *getRetailContain( const Object *obj ) { return *(ContainModuleInterface * const *)((const char *)obj + 0x250); }
 static BodyModuleInterface *getRetailBodyModule( const Object *obj ) { return *(BodyModuleInterface * const *)((const char *)obj + 0x254); }
 
+// vector<Coord3D>::erase is one shared STLport instantiation in retail
+// (0x002A133B: BezierSegment's clear, vector<Coord3D>::resize 0x000CA2F3 and
+// AIStateMachine's ctor/clear all call it) and it passes its copy tag by
+// reference. This unit's bfmealloc headers would instantiate a by-value-tag
+// copy, the first of that name in link order, so the constructor's
+// m_flightPath.clear() uses the shared instantiation instead of emitting one.
+template <> Coord3D *std::vector<Coord3D>::erase( Coord3D *first, Coord3D *last );
+
 #ifdef _INTERNAL
 // for occasional debugging...
 //#pragma optimize("", off)

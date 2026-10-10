@@ -2,11 +2,13 @@
 //
 // BFME2 Object module accessors, transferred from the exact BFME1
 // reconstruction (Code/GameEngine/Source/GameLogic/Object/Object.cpp).
-// The behaviors and body getters are no longer defined here: retail's
-// 7-byte getters at 0x00313E8C (+0x18C) and 0x00313E9A (+0x194) are
-// GameWindow::winGetEnabledTextColor / winGetDisabledTextColor (every caller
-// is a GameWindow gadget draw callback), and BFME 2's Object keeps its
-// behavior list at +0x244 (the matched Object::findModule 0x0028B6D6).
+// The behaviors, body, stealth and AI getters are no longer defined here:
+// retail's 7-byte getters at 0x00313E8C (+0x18C), 0x00313E9A (+0x194),
+// 0x00313EA1 (+0x198), 0x00313EA8 (+0x1A4) and 0x00313EB6 (+0x19C) are
+// GameWindow text-colour getters (every caller is a GameWindow gadget draw
+// callback), BFME 2's Object keeps its behavior list at +0x244 (the matched
+// Object::findModule 0x0028B6D6) and its AI at +0x258 (every BFME 2 unit's
+// inline getAI), and BFME 2's getStealth is the module search at 0x0028F4BC.
 
 #include "ascii_string.h"
 #include "unicode_string.h"
@@ -383,10 +385,7 @@ class Object
 public:
 	friend AsciiString DescribeObject(const Object *);
 	ObjectID getID() const { return m_id74; }
-	StealthUpdate *getStealth() const;
-	AIUpdateInterface *getAI();
 	RadarObject *friend_getRadarData();
-	void *rva00313EA8() const;
 	Bool testStatus( ObjectStatusTypes bit ) const;
 	Bool isKindOf( KindOfType kind ) const;
 	Player *getControllingPlayer() const;
@@ -510,35 +509,14 @@ void Object::friend_adjustPowerForPlayer(bool flag)
 		((Rva004DF231 *)power)->rva004DF231(this);
 }
 
-// ?getStealth@Object@@QBEPAVStealthUpdate@@XZ
-inline StealthUpdate *Object::getStealth() const
-{
-	return m_stealth;
-}
-
-// ?getAI@Object@@QAEPAVAIUpdateInterface@@XZ
-inline AIUpdateInterface *Object::getAI()
-{
-	return m_ai;
-}
-
 // ?friend_getRadarData@Object@@QAEPAVRadarObject@@XZ
+// Retail 0x00313EAF, ICF-folded with GameWindow::winGetIMECompositeBorderColor
+// (+0x1A8). Unlike its neighbours it has Object callers: AIUpdateInterface::
+// chooseGoodLocomotorFromCurrentSet (0x00264030/0x0026403C, on m_object) and
+// the tail forwarder 0x002630F5 (jmp on m_object).
 RadarObject *Object::friend_getRadarData()
 {
 	return m_radarData;
-}
-
-// ?rva00313EA8@Object@@QBEPAXXZ
-// Retail 0x00313EA8. Unclaimed 7B getter in the Object module run at
-// 0x313E8C..0x313EBD (behaviors/body/stealth/ai/radar all 7B here). Reads
-// [ecx+0x1A4], the slot between m_1A0 and m_radarData. Same-Object evidence:
-// FUN_004A03BF calls it on the same esi as the five proven getters and caches
-// the result alongside radar/ai (0xA0440/0xA044A/0xA0454). Semantic identity
-// (physics vs contain vs disabledMask vs partitionData) unproven, so the name
-// keeps the address token per the opaque convention.
-void *Object::rva00313EA8() const
-{
-	return m_1A4;
 }
 
 // ?testStatus@Object@@QBE_NW4ObjectStatusTypes@@@Z
@@ -680,8 +658,6 @@ void Object::replaceModelConditionFlagsForHorde(const int *a, bool b)
 // ?_bfmeObjectAccessorInlineAnchor absent-from-retail
 void _bfmeObjectAccessorInlineAnchor(Object *o)
 {
-    o->getStealth();
-    o->getAI();
     o->testStatus((ObjectStatusTypes)0);
     o->isKindOf((KindOfType)0);
 }

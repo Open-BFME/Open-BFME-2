@@ -1979,8 +1979,6 @@ address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/ScreenCrossFade
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseCtor.cpp	g_Va009E5DF8	2
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp	g_Va009E5DF8	5
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DRoadBuffer.cpp	g_Va00BBB8D8	2
-address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShaderManager.cpp	g_Va001FDE68	1
-address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShaderManager.cpp	g_Va009E1F64	1
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShaderManagerRequirements.cpp	g_Va001FDE58	2
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewCameraModFinalPitchBfme.cpp	g_Va00DE204C	2
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewCameraModFinalZoomBfme.cpp	g_Va00DE204C	2
@@ -5065,9 +5063,6 @@ alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGetBackBuffer
 alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DPropBuffer.cpp	?crc@GeometryInfo@@MAEXPAVXfer@@@Z	1
 alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DPropBuffer.cpp	?loadPostProcess@GeometryInfo@@MAEXXZ	1
 alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DPropBuffer.cpp	?xfer@GeometryInfo@@MAEXPAVXfer@@@Z	1
-alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShaderManager.cpp	?D3DDevice@DX8Wrapper@@0PAUIDirect3DDevice8@@A	1
-alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShaderManager.cpp	?m_oldRenderSurface@W3DShaderManager@@2PAUIDirect3DSurface8@@A	1
-alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShaderManager.cpp	?m_renderTexture@W3DShaderManager@@2PAUIDirect3DTexture8@@A	1
 alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisual.cpp	?crc@GeometryInfo@@MAEXPAVXfer@@@Z	1
 alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisual.cpp	?loadPostProcess@GeometryInfo@@MAEXXZ	1
 alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisual.cpp	?xfer@GeometryInfo@@MAEXPAVXfer@@@Z	1
@@ -24469,7 +24464,6 @@ pin	reverse/symbols.csv	0x000F3D23	1
 pin	reverse/symbols.csv	0x000F4017	2
 pin	reverse/symbols.csv	0x000F42FF	1
 pin	reverse/symbols.csv	0x000F4AB7	1
-pin	reverse/symbols.csv	0x000F630C	1
 pin	reverse/symbols.csv	0x000F633A	1
 pin	reverse/symbols.csv	0x000F82F5	1
 pin	reverse/symbols.csv	0x000F9BD7	1

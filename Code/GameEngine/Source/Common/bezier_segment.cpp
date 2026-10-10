@@ -44,6 +44,13 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 
 #include "d3dx8math.h"
 
+// vector<Coord3D>::erase is one shared STLport instantiation in retail
+// (0x002A133B: this getSegmentPoints' clear at 0x0055A800, vector<Coord3D>::
+// resize 0x000CA2F3 and AIStateMachine's ctor/clear all call it). These flags
+// would compile a different copy that comes early in link order, so clear()
+// and resize() here use the shared instantiation instead of emitting one.
+template <> Coord3D *std::vector<Coord3D>::erase( Coord3D *first, Coord3D *last );
+
 //-------------------------------------------------------------------------------------------------
 // ?BezierSegment::BezierSegment present-unmatched
 BezierSegment::BezierSegment()
