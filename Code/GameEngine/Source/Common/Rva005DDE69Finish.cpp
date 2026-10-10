@@ -6,7 +6,7 @@
 // Caller 0x005DE1B2. Honest address name. The read/write barrier keeps the
 // compiler from caching m_begin across the idiv, which is the register shape
 // retail uses; it emits no code.
-extern float g_00BBB8DC;
+// The range-max provider in GameStats.cpp uses the same pooled -FLT_MAX.
 extern float g_Va00BBB8E0;
 
 extern "C" void _ReadWriteBarrier(void);
@@ -35,7 +35,7 @@ float Rva005DDE69::rva005DDE69(unsigned idx, unsigned lo, unsigned hi)
 	int count = (m_end - m_begin) / 0x18;
 	_ReadWriteBarrier();
 	if (idx >= (unsigned)count)
-		return g_00BBB8DC;
+		return -3.4028235e+38f;
 	return ((Rva005DDC6B *)(m_begin + idx * 0x18))->rva005DDCA5(lo, hi);
 }
 
