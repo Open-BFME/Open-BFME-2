@@ -118,7 +118,7 @@ void Rva00116E40Set(Int value);
 Bool shutdownRenderDevice();
 void clipCursorToClient();
 void BFME_DX8_Thread_Lock(void);
-void BFME_DX8_Thread_Assert(void);
+bool BFME_DX8_Thread_Assert(void);
 
 class DX8ThreadLock
 {
