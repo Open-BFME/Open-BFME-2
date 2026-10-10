@@ -15,6 +15,7 @@ class Object
 {
 public:
     bool testStatus(ObjectStatusTypes status) const;
+    bool rva0028C149(int attribute,float *value,int argument);
 };
 class AI
 {
@@ -23,6 +24,8 @@ public:
 };
 
 class WeaponBonus;
+class GlobalData;
+extern GlobalData *TheWritableGlobalData;
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
@@ -91,4 +94,26 @@ float BfmeRangedWeaponTemplate::rva002C9217(void *bonus, float dz)
 	if (0.0f > range)
 		range = 0.0f;
 	return range;
+}
+
+// Native2C98E2..2C995D RET4: both range wrappers call this scale.
+// Attribute7 modifies the unit multiplier; GlobalData+1224 applies under
+// status58. The volatile read of the local fixes the native multiplication
+// operand order, without introducing a global or callee alias.
+float BfmeRangedWeaponTemplate::rva002C98E2(void *object)
+
+{
+    Object *obj=static_cast<Object *>(object);
+	float v4 = 1.0f;
+	float v8 = 1.0f;
+	if (obj->rva0028C149(7, &v8, 0)) {
+		v4 = v8 + 1.0f;
+	}
+	float *mult = (float *)((char *)TheWritableGlobalData + 0x1224);
+	if (*mult >= 0.0f) {
+		if (obj->testStatus(ObjectStatusType58)) {
+			v4 = *(volatile float *)&v4 * *mult;
+		}
+	}
+	return v4;
 }
