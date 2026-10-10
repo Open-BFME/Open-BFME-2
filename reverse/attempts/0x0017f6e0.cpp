@@ -1,7 +1,5 @@
 // ?RenderVolumeParticle@PointGroupClass@@QAEXAAVRenderInfoClass@@IH@Z
-// partial score=0.9886798750685455 date=2026-10-10
-// ?RenderVolumeParticle@PointGroupClass@@QAEXAAVRenderInfoClass@@IH@Z
-// partial score=0.97 date=2026-10-10
+// partial score=0.9887 date=2026-10-10
 // cl: /Ireference/shims/bfmestages /DNDEBUG /MD /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/game/Libraries/Source/Compression /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/inputs/reference/shims/sweep
 // Provenance: Open-BFME-1 game/Libraries/Source/WWVegas/WW3D2/PointGroupClassRender.cpp at
 // 10af19f44a (BFME1 byte-identical donor, b1 0x00917920, here 0x0017F1B0); include paths
@@ -221,16 +219,8 @@ void PointGroupClass::Render(RenderInfoClass &rinfo, int unknown)
 	rva00913AF0(vnum, current_diffuse == NULL);
 }
 
-// NEAR draft for 0x0017F6E0 (1023 bytes):
-// ?RenderVolumeParticle@PointGroupClass@@QAEXAAVRenderInfoClass@@IH@Z
-// Same size and frame as retail; only the reassociation of the view-matrix
-// rows 1 and 2 differs (retail pairs m11*Y+m12*Z then +m10*X; this pairs
-// m10*X+m12*Z then +m11*Y). Must live in this TU after rva00917920 so the
-// five out pointers are not treated as escaping. source_loc is the copy that
-// retail stores back into current_loc's slot (current_loc is reassigned to
-// &transformed_loc[0] each layer, as in ZH). Tested with /O2 /G7 /arch:SSE
-// (the region default).
-
+// RenderVolumeParticle at retail 0x0017F6E0 (1023 B): volume-particle layer loop,
+// adapted from the 0x0017F6E0 bank; view*temp association closes rows 1-2 sub-schedule.
 void PointGroupClass::RenderVolumeParticle(RenderInfoClass &rinfo, unsigned int depth, int unknown)
 {
 	if (depth <= 1 || !Get_Flag(TRANSFORM) || !Get_Flag(BILLBOARD)) {

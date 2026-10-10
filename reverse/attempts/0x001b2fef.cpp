@@ -1,5 +1,5 @@
 // ?UnknownSlot3@BFME2Encoding0MotionChannel@@UAEXMPAMPAPAE@Z
-// partial score=0.91 date=2026-10-10
+// partial score=0.9373 date=2026-10-10
 // cl: /O1 /G7 /arch:SSE /EHsc /DNDEBUG /MD
 // UnknownSlot3/4/5 of BFME2Encoding0MotionChannel, retail 0x001B2FEF (362B),
 // 0x001B3159 (442B), 0x001B3313 (376B): vtable 0x007D7648 slots 3..5.
@@ -67,21 +67,21 @@ void BFME2Encoding0MotionChannel::UnknownSlot3(float frame, float *value, unsign
 {
 	int idx = LocalFindIndex((unsigned int)frame, reinterpret_cast<int **>(cursor));
 	int index = idx;
-	if (idx == Count - 1 || (TimeCodes[idx + 1] & 0x8000)) {
-		*value = Samples[index * Components]; return;
+	int last = Count - 1;
+	if (idx == last || (TimeCodes[idx + 1] & 0x8000)) {
+		*value = Samples[last * Components]; return;
 	}
 	float t0 = float(TimeCodes[idx] & ~0x8000), t1 = float(TimeCodes[idx + 1] & ~0x8000);
 	float ratio = (frame - t0) / (t1 - t0);
-	float *samples = Samples + idx * Components;
+	float *samples = Samples + Components * idx;
 	*value = lerpMotion(samples[0], samples[Components], ratio);
 }
 
 void BFME2Encoding0MotionChannel::UnknownSlot4(float frame, Vector3 *value, unsigned char **cursor)
 {
-	int index = LocalFindIndex((unsigned int)frame, reinterpret_cast<int **>(cursor));
-	int idx = index;
-	int last = Count - 1;
-	if (last == idx || (TimeCodes[idx + 1] & 0x8000)) {
+	int idx = LocalFindIndex((unsigned int)frame, reinterpret_cast<int **>(cursor));
+	int index = idx;
+	if (idx == Count - 1 || (TimeCodes[idx + 1] & 0x8000)) {
 		float *samples = Samples + idx * Components;
 		value->X = samples[0]; value->Y = samples[1]; value->Z = samples[2]; return;
 	}
@@ -95,10 +95,9 @@ void BFME2Encoding0MotionChannel::UnknownSlot4(float frame, Vector3 *value, unsi
 
 void BFME2Encoding0MotionChannel::UnknownSlot5(float frame, Quaternion *value, unsigned char **cursor)
 {
-	int index = LocalFindIndex((unsigned int)frame, reinterpret_cast<int **>(cursor));
-	int idx = index;
-	int last = Count - 1;
-	if (last == idx || (TimeCodes[idx + 1] & 0x8000)) {
+	int idx = LocalFindIndex((unsigned int)frame, reinterpret_cast<int **>(cursor));
+	int index = idx;
+	if (idx == Count - 1 || (TimeCodes[idx + 1] & 0x8000)) {
 		float *samples = Samples + idx * Components;
 		value->X = samples[0]; value->Y = samples[1]; value->Z = samples[2]; value->W = samples[3]; return;
 	}
