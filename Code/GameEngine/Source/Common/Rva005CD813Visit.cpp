@@ -20,10 +20,16 @@ public:
 class Rva005CD813Visitor : public Visitor005CCCD0
 {
 public:
-	Rva005CD813Visitor() {}
+	Rva005CD813Visitor();
 	virtual ~Rva005CD813Visitor() {}
 	virtual bool visit(TargetRef00217D4C *p) { return true; }
 };
+// ??0Rva005CD813Visitor@@QAE@XZ @0x005CD7B4 9B: the visitor's default
+// constructor, storing its vtable 0x00C75008; retail keeps this standalone
+// copy (no direct caller) and inlines it into Rva005CD813Visit.
+Rva005CD813Visitor::Rva005CD813Visitor()
+{
+}
 void __cdecl Rva005CD813Visit(void *p)
 {
 	Rva005CD813Visitor v;
