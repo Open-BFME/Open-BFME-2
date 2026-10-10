@@ -512,6 +512,7 @@ Code/Libraries/Source/Apt/AptObject/AptScriptFunctionBodies.cpp,-O2,6,1,region d
 Code/Libraries/Source/Apt/AptRefArrayResize.cpp,-O2,1,1,region default loses rows
 Code/Libraries/Source/Apt/AptValue/AptFloatCreateBFME2.cpp,-O2,1,1,region default loses rows
 Code/Libraries/Source/Apt/AptValue/AptScalarValueConstructors.cpp,-O1,3,1,region default loses rows
+Code/Libraries/Source/Apt/AptValue/AptStringSlice.cpp,-O2,1,1,region default loses rows
 Code/Libraries/Source/Apt/AptValue/AptValueToBoolBFME2.cpp,-O2,1,1,region default loses rows
 Code/Libraries/Source/Apt/AptValue/AptValueToNumberBFME2.cpp,-O2,1,1,region default loses rows
 Code/Libraries/Source/Apt/AptValue/PlaybackBufferResize.cpp,-O2,5,2,region default loses rows

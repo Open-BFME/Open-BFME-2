@@ -1,6 +1,7 @@
-// ?sMethod_slice@AptString@@SAPAVAptValue@@PAV2@H@Z
-// partial score=0.9463722397476341 date=2026-10-10
 // cl: /O2 /MD /EHsc
+// Native 6D7670..6D77AE AptString slice callback: optional start/end integers from the interpreter stack,
+// receiver converted to a string, negative indices wrap by length, result boxed as a new AptString.
+// Original method spelling follows the BFME2 sMethod_ naming used by the AptDate callbacks.
 class EAStringC {
 public:class StringDataC {public:unsigned short ref,size,maxSize,hash;};
 private:StringDataC *data;
