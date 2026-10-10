@@ -1,5 +1,5 @@
 // cl: /DBFME_ASCII_DTOR_DECL /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
-// ?Rva005F632AFormat@@YA?AVUnicodeString@@H@Z retail 0x005F632A 194B
+// ?FormatRankString@StrategicHUD@@YA?AVUnicodeString@@H@Z retail 0x005F632A 194B
 // Evidence: static APT:RankLabel via rowed StringBase ctor 0x37BA0 and atexit; TheGameText slot 0x38 fetch; Unicode format 0x6CB5D0; releaseBuffers 0x36E70; caller 0x005F6407; precedent Rva0052906BUpdate
 #include "ascii_string.h"
 
@@ -28,7 +28,9 @@ public:
 
 extern GameTextInterface *TheGameText;
 
-UnicodeString __cdecl Rva005F632AFormat(int rank)
+namespace StrategicHUD {
+
+UnicodeString __cdecl FormatRankString(int rank)
 {
 	UnicodeString tmp;
 	if (rank >= 0) {
@@ -38,3 +40,5 @@ UnicodeString __cdecl Rva005F632AFormat(int rank)
 	}
 	return tmp;
 }
+
+} // namespace StrategicHUD

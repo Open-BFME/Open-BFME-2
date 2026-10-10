@@ -23,7 +23,7 @@ struct Rva005F6220Team
 
 #include "unicode_string.h"
 
-UnicodeString __cdecl Rva005F632AFormat(int rank);
+namespace StrategicHUD { UnicodeString __cdecl FormatRankString(int rank); }
 
 namespace StrategicHUD {
 class HeroArmyDetailsMovieClip
@@ -68,7 +68,7 @@ void StrategicHUD::HeroArmyDetailsMovieClip::Impl::SetLeaderRankString(const Uni
 void StrategicHUD::HeroArmyDetailsMovieClip::Impl::rva005F63EC(int rank)
 {
 	if (rank != m_rank2C) {
-		SetLeaderRankString(Rva005F632AFormat(rank));
+		SetLeaderRankString(StrategicHUD::FormatRankString(rank));
 		m_rank2C = rank;
 	}
 }

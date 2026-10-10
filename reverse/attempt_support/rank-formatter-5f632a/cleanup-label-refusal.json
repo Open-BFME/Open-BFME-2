@@ -1,0 +1,57 @@
+{
+  "hypothetical_scope_preserving_raw_label_rows": [
+    [
+      "_$E2",
+      "",
+      "0x007B9A23",
+      "10",
+      "Code/GameEngine/Source/Common/Rva005F632AFormat.cpp",
+      "matched",
+      "Actual compiler-local atexit cleanup registered by formatter5F632A"
+    ],
+    [
+      "_$E2",
+      "",
+      "0x007B945A",
+      "10",
+      "Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp",
+      "matched",
+      "Actual compiler-local atexit callback emitted by Rva005680F9GetInstances; registered by retail5680F9; destroys its same static listE062D8 via rowed holder dtor200667; restores retracted manual callback with no alias or separate global"
+    ]
+  ],
+  "check_csv_refusal": [
+    "functions.csv: _$E2 claims two addresses: 0x007B9A23 and 0x007B945A. One is wrong."
+  ],
+  "coff_labels": [
+    {
+      "source": "Code/GameEngine/Source/Common/Rva005F632AFormat.cpp",
+      "rva": "0x007B9A23",
+      "object": "C:\\Users\\clemens\\.codex\\worktrees\\reference-container-seat\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^rva005^f632^a^format.obj",
+      "local_symbols": [
+        {
+          "name": "_$E2",
+          "value": 0,
+          "section": 29,
+          "storage": 3,
+          "aux": 0,
+          "type": 32
+        }
+      ]
+    },
+    {
+      "source": "Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp",
+      "rva": "0x007B945A",
+      "object": "C:\\Users\\clemens\\.codex\\worktrees\\reference-container-seat\\Open-BFME-2\\build\\match\\^code_^game^engine_^source_^common_^vslot^small^bodies^a^j.obj",
+      "local_symbols": [
+        {
+          "name": "_$E2",
+          "value": 0,
+          "section": 257,
+          "storage": 3,
+          "aux": 0,
+          "type": 32
+        }
+      ]
+    }
+  ]
+}

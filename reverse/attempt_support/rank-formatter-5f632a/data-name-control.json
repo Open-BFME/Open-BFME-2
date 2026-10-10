@@ -1,0 +1,60 @@
+{
+  "committed_inventory": [
+    {
+      "address": "0x00A0692C",
+      "size": "4",
+      "section": ".data",
+      "kind": "global",
+      "name": "?s_rankLabel@?4??Rva005F632AFormat@@YA?AVUnicodeString@@H@Z@4VAsciiString@@A",
+      "source": "Code/GameEngine/Source/Common/Rva005F632AFormat.cpp",
+      "status": "owned",
+      "names": "",
+      "defs": "1",
+      "refs": "2"
+    },
+    {
+      "address": "0x00A06930",
+      "size": "8",
+      "section": ".data",
+      "kind": "global",
+      "name": "?g_Va00E06930@@3IA",
+      "source": "Code/GameEngine/Source/Common/GlobalFlagClearers_E06x.cpp",
+      "status": "provisional",
+      "names": "?$S1@?4??Rva005F632AFormat@@YA?AVUnicodeString@@H@Z@4IA@Code/GameEngine/Source/Common/Rva005F632AFormat.cpp;?g_Va00E06930@@3IA",
+      "defs": "2",
+      "refs": "4"
+    }
+  ],
+  "tool_derived_current": [
+    {
+      "address": "0x00A0692C",
+      "size": "4",
+      "section": ".data",
+      "kind": "global",
+      "name": "?s_rankLabel@?4??FormatRankString@StrategicHUD@@YA?AVUnicodeString@@H@Z@4VAsciiString@@A",
+      "source": "Code/GameEngine/Source/Common/Rva005F632AFormat.cpp",
+      "status": "owned",
+      "names": "",
+      "defs": "1",
+      "refs": "2"
+    },
+    {
+      "address": "0x00A06930",
+      "size": "4",
+      "section": ".data",
+      "kind": "global",
+      "name": "?g_Va00E06930@@3IA",
+      "source": "Code/GameEngine/Source/Common/GlobalFlagClearers_E06x.cpp",
+      "status": "provisional",
+      "names": "?$S1@?4??FormatRankString@StrategicHUD@@YA?AVUnicodeString@@H@Z@4IA@Code/GameEngine/Source/Common/Rva005F632AFormat.cpp;?g_Va00E06930@@3IA",
+      "defs": "2",
+      "refs": "4"
+    }
+  ],
+  "scope": "Read-only full data_ledger CLI output; only these two rows retained as evidence. No data ledger or baseline edits.",
+  "full_inventory_delta": {
+    "added": 1103,
+    "removed": 7,
+    "changed": 1566
+  }
+}
