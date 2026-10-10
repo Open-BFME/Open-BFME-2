@@ -14,8 +14,12 @@
 // Named ping-pong intermediate and per-branch blend stores preserve native order;
 // forceinline drawable getter retains pause payload DL and saved vtable EAX.
 #include <math.h>
-__forceinline float Min(const float&a,const float&b){return a<b?a:b;}
-__forceinline float Max(const float&a,const float&b){return a>b?a:b;}
+// File-static float min/max used by the frame-limit clamps below. MSVC emits
+// them out of line (B2B87 min, B2B95 max, 14B each, the only copies in the
+// image, no callers) with its private XMM0 + stack float ABI, beside this
+// unit's other static helper B2E4C. Original names unknown.
+static inline float Rva000B2B87FloatMin(float a,float b){return a<b?a:b;}
+static inline float Rva000B2B95FloatMax(float a,float b){return a>b?a:b;}
 extern int g_bfmeDisplayAnimationSyncClock;
 class WW3D{static unsigned SyncTime,PreviousSyncTime;public:static unsigned Delta(){return SyncTime-PreviousSyncTime;}};
 class AnimationMotion{public:virtual void v0();virtual void v1();virtual void v2();virtual void v3();virtual void v4();virtual int NumFrames();virtual float FrameRate();};
@@ -64,8 +68,8 @@ void W3DScriptedModelDraw::processAnimations(){
    ((Rva000B3C61*)this)->rva000B3CCF(1,2);
    float limit=slots[1].unused;
    float duration;
-   if(limit>0.0f){float last=slots[1].motion->NumFrames()-1.0f;duration=Max(1.0f,Min(limit,last));}
-   else{float last=slots[1].motion->NumFrames()-1.0f;duration=Max(1.0f,Min(5.0f,last));}
+   if(limit>0.0f){float last=slots[1].motion->NumFrames()-1.0f;duration=Rva000B2B95FloatMax(1.0f,Rva000B2B87FloatMin(limit,last));}
+   else{float last=slots[1].motion->NumFrames()-1.0f;duration=Rva000B2B95FloatMax(1.0f,Rva000B2B87FloatMin(5.0f,last));}
    blend=blendTotal=duration;
   }
  }
@@ -87,8 +91,8 @@ void W3DScriptedModelDraw::processAnimations(){
   if(blend<0.0f){((Rva000B3C61*)this)->rva000B3CCF(0,1);if(slots[2].motion){
    ((Rva000B3C61*)this)->rva000B3CCF(1,2);
    float limit=slots[1].unused;
-   if(limit>0.0f){float last=slots[1].motion->NumFrames()-1.0f;blend=blendTotal=Max(1.0f,Min(limit,last));}
-   else{float last=slots[1].motion->NumFrames()-1.0f;blend=blendTotal=Max(1.0f,Min(5.0f,last));}
+   if(limit>0.0f){float last=slots[1].motion->NumFrames()-1.0f;blend=blendTotal=Rva000B2B95FloatMax(1.0f,Rva000B2B87FloatMin(limit,last));}
+   else{float last=slots[1].motion->NumFrames()-1.0f;blend=blendTotal=Rva000B2B95FloatMax(1.0f,Rva000B2B87FloatMin(5.0f,last));}
   }else blend=0.0f;}
  }
  if(!((Rva000B3A68*)this)->rva000B3A68() && Rva000B2E4CComplete(render,&slots[0],transition) && render && state && whichAnimation!=-1){
