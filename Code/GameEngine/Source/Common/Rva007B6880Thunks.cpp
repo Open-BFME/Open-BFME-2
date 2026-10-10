@@ -1549,13 +1549,18 @@ void __cdecl rva007B7A37()
 	p->rva001EAF7B();
 }
 
-extern unsigned g_Va00DBD4B0;
-unsigned int g_Va00DBD4B0;
+// The allocator consumers prove this is the shared int-keyed tree-node pool.
+// All24 initialized target bytes at DBD4B0 agree with the canonical pool view;
+// the original variable identifier is unknown. Replace the old scalar stub.
+#include "../../Include/Common/Rva002E8548Pool.h"
+void *__cdecl Rva0002FFC0Alloc(int size, int context);
+void __cdecl Rva0002FFE0Free(void *block, int context);
+Rva002E8548 g_IntKeyedTreeNodePool = {128,0,0,Rva0002FFC0Alloc,Rva0002FFE0Free,0};
 
-// ?rva007B7A41@@YAXXZ @ 0x007B7A41 (10B). Global Rva001EAF7B thunk: ecx=&g_Va00DBD4B0 then tail-jmp to rowed ?rva001EAF7B@Rva001EAF7B@@QAE_NXZ (0x001EAF7B). No callers. Honest address name.
+// ?rva007B7A41@@YAXXZ @ 0x007B7A41 (10B). Global Rva001EAF7B thunk: ecx=&g_IntKeyedTreeNodePool then tail-jmp to rowed ?rva001EAF7B@Rva001EAF7B@@QAE_NXZ (0x001EAF7B). Observed pool cleanup; original name unknown.
 void __cdecl rva007B7A41()
 {
-	Rva001EAF7B *p = (Rva001EAF7B *)&g_Va00DBD4B0;
+	Rva001EAF7B *p = (Rva001EAF7B *)&g_IntKeyedTreeNodePool;
 	p->rva001EAF7B();
 }
 
