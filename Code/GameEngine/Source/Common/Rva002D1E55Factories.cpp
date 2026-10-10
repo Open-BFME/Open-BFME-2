@@ -198,6 +198,24 @@ Rva005212FC *__stdcall Rva002D2181Create(void *context)
 	return new Rva005212FC(context);
 }
 
+// Retail 0x002D21BB (64 bytes): the skirmish screen's factory takes the same
+// one argument but passes the rowed AptSkirmish constructor (0x00522B0E,
+// ret 8) a second word read from the global at VA 0x00DD179C.
+class AptSkirmish
+{
+public:
+	AptSkirmish(void *context, int mode);
+private:
+	char m_pad[0x6DC];
+};
+
+extern int g_00DD179C;
+
+AptSkirmish *__stdcall Rva002D21BBCreate(void *context)
+{
+	return new AptSkirmish(context, g_00DD179C);
+}
+
 class Rva00523825
 {
 public:
