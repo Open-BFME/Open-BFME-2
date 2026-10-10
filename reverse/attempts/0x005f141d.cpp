@@ -1,42 +1,24 @@
 // ??0Impl@RegionDetailsStructuresMovieClip@StrategicHUD@@QAE@PAV12@HABVAsciiString@@HH@Z
-// partial score=0.9150012470806975 date=2026-10-09
-// ??0Impl@RegionDetailsStructuresMovieClip@StrategicHUD@@QAE@PAV12@HABVAsciiString@@HH@Z
-// partial score=0.7 date=2026-10-06
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
-// BANK NOTE (0x005F141D, 732 B): compiles to 735 B. Logic, calls, strings
-// and EH states match retail; unresolved only for pins still to admit
-// (_Vector_base<Rva005F13E6Element> -> 0x00211E58, IconSlot ctor 0x005F0CC9,
-// the two list ctors -> 0x001F81BF, vector::reserve -> 0x005F122D, and the
-// four bound callbacks 0x005F0570 / 0x005C790D / 0x005F057A / 0x005FC6D6).
-// Two gaps: (1) retail packs locals into the dead parameter homes in a
-// different order (counter [ebp+0xC], prefix [ebp+8], name temps
-// [ebp+0x14], AptRef esp save [ebp+0xC]); this build puts the counter in
-// [ebp+8], prefix [ebp+0xC], temps [ebp+8], esp save [ebp+0x10]: the same
-// param-home packing delta as the 0x005FC064 bank. (2) the loop: retail
-// keeps the new-expression result as an adopting releaser at [ebp+0x10]
-// and an inc'ing, dtor-less element temp at [ebp+0x18] (state 7 set just
-// before push_back); this build also spills the pointer to [ebp-0x14] and
-// sets state 7 one store early.
-//
-// StrategicHUD::RegionDetailsStructuresMovieClip (WorldBuilder
-// StrategicHUDRegionDetailsStructuresMovieClip.cpp names Impl::Impl and
-// Impl::IconSlot::IconSlot).
-// Target facts: the owner's ctor 0x005F16F9 (ret 0x10) installs vtable
-// 0x00878EFC and builds its Impl (new 0x50) with this and its four
-// arguments. The Impl ctor 0x005F141D (ret 0x14) stores owner +0x00, level
-// +0x04, the name copy +0x08 and the last word +0x0C, builds three 12-byte
-// name lists (the folded ctor 0x001F81BF) and an empty vector (+0x34),
-// zeroes +0x40..+0x4D, sends SetIconSlotCount with the count, reserves and
-// fills that many 0x30-byte icon slots (ctor 0x005F0CC9, refcount +0x08,
-// released through its +0x04 base), sets the building name from the
-// UnicodeString at +0x40 (0x005F066C), and binds four
-// "<_level%u.><name>_OnRegionFortress..." command maps (retail strings)
-// with the machinery of the HUD::Impl ctor (Common/Rva0042DB21Method.cpp).
-// The other Impl callbacks are rowed under the address-named view in
-// GameClient/GUI/AptWotrIconSlotCallbacks.cpp. Member names follow the bound
-// callbacks and WorldBuilder's assert text (inference).
+// partial score=0.91 date=2026-10-10
+// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// stlport
+// Whole native5F141D..5F16F9 RET20 constructor attempt; source home remains
+// StrategicHUDRegionDetailsStructuresMovieClip.cpp. Current da391e8d32,
+// verified reference575ba2b04. All REL32 calls resolve using existing providers:
+// new IconSlot5F0CC9, real59B delegate constructor579E47, building-name setter
+// 5F066C, neutral reserve5F122D, and stock STLport default/base constructors.
+// Registration-list types here are a candidate view using existing12B name-list
+// providers; their complete target identity/EH contract still needs admission.
+// explain_mismatch:735B versus732B retail, extra pointer spill in the counted
+// slot loop plus dead-parameter-home packing/EH-state timing differences.
+// Direct pointer-reference and owned-full-expression variants remain735/724B.
+// No new pins, alias rows, assembly, or production source changes. Score0.91 is
+// an approximate near-match confidence, not verified coverage. Native owner0,
+// level4/name8/argC, three12B registries10/1C/28, slots34 and Unicode cache40
+// are reconstructed from stores/calls; remaining member names are inferences.
 #include "ascii_string.h"
 #include "unicode_string.h"
+#include <vector>
 
 struct TargetRef00217D4C;
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *ref); // 0x0007DEEF
@@ -61,24 +43,18 @@ public:
 	int m_refCount;
 };
 
-template <class T> class AptRef
-{
+class Rva00579E47 {
 public:
-	AptRef(const DelegateDesc *desc) { rva00579E47(desc); }
-	AptRef &rva00579E47(const DelegateDesc *desc); // 0x00579E47
-	AptRef(const AptRef &that) : m_ptr(that.m_ptr)
-	{
-		if (m_ptr)
-			m_ptr->m_refCount++;
-	}
-	~AptRef()
-	{
-		if (m_ptr)
-			ReleaseTreeHintRef00217D4C((TargetRef00217D4C *)m_ptr);
-	}
-
+ Rva00579E47(const DelegateDesc &desc);
+ void *m_ptr;
+};
+template <class T> class AptRef {
+public:
+ AptRef(const DelegateDesc *desc) : m_holder(*desc) {}
+ AptRef(const AptRef &that);
+ ~AptRef() { if(m_holder.m_ptr) ReleaseTreeHintRef00217D4C((TargetRef00217D4C *)m_holder.m_ptr); }
 private:
-	T *m_ptr;
+ Rva00579E47 m_holder;
 };
 
 // The 12-byte command-map name list: ctor 0x001F81BF (ICF fold, pinned),
@@ -101,21 +77,21 @@ private:
 
 // The other two 12-byte lists (+0x1C, +0x28): WorldBuilder builds them with
 // two further ctors, all three folded at 0x001F81BF in retail (type unknown).
-class Rva005F141DList1C
+class Rva005241B0
 {
 public:
-	Rva005F141DList1C();
-	~Rva005F141DList1C();
+	Rva005241B0();
+	~Rva005241B0();
 
 private:
 	char m_pad[0xC];
 };
 
-class Rva005F141DList28
+class Rva00524265
 {
 public:
-	Rva005F141DList28();
-	~Rva005F141DList28();
+	Rva00524265();
+	~Rva00524265();
 
 private:
 	char m_pad[0xC];
@@ -175,38 +151,11 @@ int __cdecl Rva0052519DFire(void *target, void *level, const char *prefix, const
 // The building-name setter 0x005F066C (WorldBuilder
 // StrategicHUD::SetBuildingNameString): "APT:_level%u.%s_BuildingName".
 struct Rva005F066COuter;
-void __cdecl Rva005F066CSet(int level, Rva005F066COuter *name, const UnicodeString &text);
+namespace StrategicHUD { void __cdecl SetBuildingNameString(int level, Rva005F066COuter *name, const UnicodeString &text); }
 
 // The STLport vector of icon slot references: base ctor 0x00211E58 (folded,
 // pinned), reserve 0x005F122D and push_back 0x005F13E6 (rowed).
-namespace _STL {
-template <class T> class allocator
-{
-public:
-	allocator() {}
-};
-
-template <class T, class A> class _Vector_base
-{
-public:
-	_Vector_base(const A &a) throw();
-	~_Vector_base();
-
-protected:
-	T *_M_start;
-	T *_M_finish;
-	T *_M_end_of_storage;
-};
-
-template <class T, class A = allocator<T> > class vector : public _Vector_base<T, A>
-{
-public:
-	__forceinline vector() : _Vector_base<T, A>(A()) {}
-	~vector();
-	void reserve(unsigned int n);
-	void push_back(const T &x);
-};
-}
+class Rva005F122DVector {public: void reserve(unsigned int); };
 
 namespace StrategicHUD {
 class RegionDetailsStructuresMovieClip
@@ -262,8 +211,8 @@ private:
 	AsciiString m_name; // +0x08
 	int m_arg; // +0x0C
 	AptCommandMapAdder m_commandMaps; // +0x10
-	Rva005F141DList1C m_list1C; // +0x1C
-	Rva005F141DList28 m_list28; // +0x28
+	Rva005241B0 m_list1C; // +0x1C
+	Rva00524265 m_list28; // +0x28
 	_STL::vector<Rva005F13E6Element> m_iconSlots; // +0x34
 	UnicodeString m_buildingName; // +0x40
 	int m_44; // +0x44
@@ -294,17 +243,19 @@ struct Rva005F141DSlotRef
 	StrategicHUD::RegionDetailsStructuresMovieClip::Impl::IconSlot *m_slot;
 };
 
+namespace _STL { template <> void vector<Rva005F13E6Element,allocator<Rva005F13E6Element> >::push_back(const Rva005F13E6Element &); }
+
 StrategicHUD::RegionDetailsStructuresMovieClip::Impl::Impl(RegionDetailsStructuresMovieClip *owner, int level, const AsciiString &name, int iconSlotCount, int arg)
 	: m_owner(owner), m_level(level), m_name(name), m_arg(arg), m_44(0), m_48(0), m_4c(false), m_4d(false)
 {
 	Rva0052519DFire(g_bfmeAptWindowManager, (void *)m_level, m_name.str(), "SetIconSlotCount", &iconSlotCount);
-	m_iconSlots.reserve(iconSlotCount);
+	reinterpret_cast<Rva005F122DVector *>(&m_iconSlots)->reserve(iconSlotCount);
 	for (int i = 0; i < iconSlotCount; ++i)
 	{
 		Rva005F141DSlotRef slot(new IconSlot(this, i));
 		m_iconSlots.push_back(slot.m_slot);
 	}
-	Rva005F066CSet(m_level, (Rva005F066COuter *)&m_name, m_buildingName);
+	StrategicHUD::SetBuildingNameString(m_level, (Rva005F066COuter *)&m_name, m_buildingName);
 	AsciiString prefix;
 	prefix.format("_level%u.", m_level);
 	m_commandMaps.AddCommandMapDelegate(prefix + m_name + "_OnRegionFortressRollOver", DelegateDesc(this, &Impl::OnRegionFortressRollOver));
