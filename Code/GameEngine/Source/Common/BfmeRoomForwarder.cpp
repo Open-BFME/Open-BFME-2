@@ -20,11 +20,11 @@ private:
 class BfmeOwnZC
 {
 public:
-	void bfmeCallZC( const BfmeRoomZC &name, void *extra );
+	void *bfmeCallZC( const BfmeRoomZC &name, void *extra );
 	void *bfmeRunZC( BfmeRoomZC name, void *extra );
 };
 
-void BfmeOwnZC::bfmeCallZC( const BfmeRoomZC &name, void *extra )
+void *BfmeOwnZC::bfmeCallZC( const BfmeRoomZC &name, void *extra )
 {
-	bfmeRunZC( name, extra );
+	return bfmeRunZC( name, extra );
 }
