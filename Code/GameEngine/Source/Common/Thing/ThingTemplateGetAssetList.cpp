@@ -1,3 +1,4 @@
+// stlport
 // cl: /O1 /Oy- /G7 /arch:SSE /EHsc /MD /Ireference/shims/bfme2_ascii
 // Native284B33C965/WBbcc090 build four ModuleInfo lists, append base90
 // plus retail literal .tga, walk six handles in each368B record, and load
@@ -116,4 +117,48 @@ void Rva0033C965::rva0033C965(int a1, int val)
 		if (hit != 0)
 			((CommandSet *)hit)->rva00409F1B(a1, val);
 	}
+}
+
+// ?GetAssetList@ThingTemplate@@QAEXHH@Z native0x0033CF34..0x0033CFC6 full146B.
+// WorldBuilder callgraph names GetAssetList in ThingTemplate.cpp. Native
+// reads the bool addressed by its second argument and fills/merges one of
+// two cached20B AssetLists at3C4 selected by that bool. HH is an explicit
+// four-byte ABI view, not a claim that these pointer arguments were Int.
+// Native preserves the flag pointer in EBX then reuses its incoming stack
+// slot for the name cursor. Volatile operand PHI and the cursor read keep
+// ADD [EBP+C],4 before MOV EAX,[EBP+C]/CMP EAX,[EDI+4].
+// Existing33C965 bank guides the layout; each native body is verified.
+#include <vector>
+#include <set>
+template<class T> static __forceinline T p4Operand(const T &v) {return *(const volatile T*)&v;}
+struct Rva001408C0Target;
+class AssetList { public:
+ AssetList &operator<<(const AssetList &);
+ bool empty() const {return prototypes.empty();}
+ _STL::set<Rva001408C0Target *,_STL::less<Rva001408C0Target *>,_STL::allocator<Rva001408C0Target *> > prototypes;
+ unsigned pad;bool changed;
+};
+typedef char AssetListNativeStride20[(sizeof(AssetList)==20)?1:-1];
+class ThingTemplate;
+class ThingFactory {public:const ThingTemplate *findTemplate(const AsciiString &);};
+extern ThingFactory *TheThingFactory;
+class ThingTemplate { public:
+ void GetAssetList(int,int);
+ char prefix[0x330];_STL::vector<AsciiString> names;
+ char pad33c[0x3c4-0x33c];AssetList cached[2];
+};
+void ThingTemplate::GetAssetList(int a,volatile int b) {
+ const bool *flag=reinterpret_cast<const bool *>((this?p4Operand(b):p4Operand(b)));
+ int mode=*flag!=0;
+ if(!cached[mode].empty()) { *reinterpret_cast<AssetList *>(a)<<cached[mode];return; }
+ const _STL::vector<AsciiString> &keys=names;
+ if(!keys.empty()) {
+  b=reinterpret_cast<int>(keys.begin());
+  do {
+   Rva0033C965 *source=(Rva0033C965 *)TheThingFactory->findTemplate(*reinterpret_cast<AsciiString *>(b));
+   if(source) source->rva0033C965(reinterpret_cast<int>(&cached[mode]),reinterpret_cast<int>(flag));
+   b+=sizeof(AsciiString);
+  }while(p4Operand(b)!=reinterpret_cast<int>(keys.end()));
+ }else reinterpret_cast<Rva0033C965 *>(this)->rva0033C965(reinterpret_cast<int>(&cached[mode]),reinterpret_cast<int>(flag));
+ *reinterpret_cast<AssetList *>(a)<<cached[mode];
 }
