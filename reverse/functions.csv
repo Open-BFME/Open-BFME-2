@@ -76203,3 +76203,4 @@ _floorf,,0x0004D649,18,Code/GameEngine/Source/GameLogic/Map/TerrainLogicAmbientC
 ?begin@PlaybackRange@@QAE?AVPlaybackIterator@@XZ,,0x006D0240,20,Code/Libraries/Source/Apt/Apt.cpp,matched,place_bodies: the unit's PlaybackRange::begin (iterator at first over first..last) is the only masked match in .text
 ?end@PlaybackRange@@QAE?AVPlaybackIterator@@XZ,,0x006D0260,20,Code/Libraries/Source/Apt/Apt.cpp,matched,place_bodies: the unit's PlaybackRange::end (iterator at last over first..last) is the only masked match in .text
 ?ready@Rva006CEB10Playback@@QAE_NXZ,,0x006CE7A0,44,Code/Libraries/Source/Apt/Apt.cpp,matched,place_bodies: the unit's out-of-line Rva006CEB10Playback::ready (readyFor 4/2 inlined) is the only masked match in .text
+?bfme_skip_line@@YAPADPAD@Z,,0x006B5920,29,Code/Libraries/Source/Benchmark/nbench1.cpp,matched,place_bodies: the unit's bfme_skip_line helper (advances past the end of the current text line) is the only masked match in .text
