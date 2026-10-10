@@ -18,7 +18,6 @@
 //   0x0025361E  0x0047A724  0x00C465F8#0
 //   0x00254418  0x004905B0  0x00C4B6C8#0
 //   0x002563B2  0x002563CE  0x00BF3AC0#0
-//   0x002571DD  0x00256E96  0x00BF3FEC#0
 //   0x0025E51D  0x0025E4CD  0x00BF6040#0
 //   0x0026E81A  0x0026E7EA  0x00BFA3A4#0
 //   0x0026F597  0x0026F445  0x00BFABB8#0
@@ -93,34 +92,6 @@ public:
 
 // ?<Rva002563CE::Rva002563CE> absent-from-retail
 Rva002563CE::Rva002563CE(EmitVtableTag *)
-{
-}
-
-class Rva00256E96Base0
-{
-public:
-	virtual ~Rva00256E96Base0();
-private:
-	char m_unmodelled_04[0xC - 0x04];
-};
-
-// Secondary base at +0xC: the this-adjusting deleting-destructor thunk
-// (sub ecx, 0xC) in its vtable is target evidence for it.
-class Rva00256E96BaseC
-{
-public:
-	virtual ~Rva00256E96BaseC();
-};
-class Rva00256E96 : public Rva00256E96Base0, public Rva00256E96BaseC
-{
-public:
-	Rva00256E96(EmitVtableTag *);
-public:
-	virtual ~Rva00256E96();
-};
-
-// ?<Rva00256E96::Rva00256E96> absent-from-retail
-Rva00256E96::Rva00256E96(EmitVtableTag *)
 {
 }
 
