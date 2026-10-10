@@ -126,10 +126,12 @@ extern Rva006D2A60 *g_pChainBlockAllocatorF4; // VA 0x00E176F4
 // The sentinel/display-list node.  Its out-of-line constructor is the rowed
 // ??0Rva006CBDE0@@QAE@HPAXPAVAptValue@@@Z; the fields below are the ones this
 // cluster touches (prev +0x50, next +0x54, key/GC word +0x58).
+void Rva006F12F0Free(void*,int);
 class Rva006CBDE0 : public AptValue
 {
 public:
 	Rva006CBDE0(int type, void *p1, AptValue *p2);
+	static void operator delete(void*p,unsigned n){Rva006F12F0Free(p,n);}
 
 	static void *operator new(unsigned int size)
 	{
@@ -153,6 +155,7 @@ public:
 
 	void bfmeQuery1279(int nDepth, int name, void **ppPrev, void **ppItem);
 	void rva006F6FB0(int key, AptCIH *pNewItem);
+	void rva006F6ED0(int key,int type,void*pData);
 	void rva006F7030(int key, AptCIH *pNewItem, AptCIH *pPrev, AptCIH *pItemAtDepth);
 	AptCIH *rva006F6D60(AptCIH *pOldItem, AptCIH *pNewItem);
 
@@ -520,6 +523,7 @@ class EAStringC
 {
 public:
 	bool IsEmpty() const;
+	bool IsEqualTo(const EAStringC*)const;
 };
 struct BfmeKey1279
 {
@@ -634,4 +638,83 @@ void BfmeQuery1279::rva006F7030(int key, AptCIH *pNewItem, AptCIH *pPrev,
     }
     AptCIH *node = rva006F6D60(pPrev, pNewItem);
     node->m_key = node->m_key ^ ((node->m_key ^ (unsigned int)key) & 0x1FFFFu);
+}
+
+// Native6F6ED0..6F6FAD221B: allocate/construct a60B CIH, query the
+// old depth entry, set its17-bit key and link it. Existing query297B is
+// visible but noinline, allowing its two nonescaping outputs to reuse dead
+// argument homes exactly. Native unwind7AA020 also proves sized pool
+// cleanup Rva006F12F0Free for this60B new expression. Its inline COMDAT
+// is identical to the provider
+// retained in AptMovieFrameControls.cpp for the other matched consumer.
+struct BfmeQueryNode1279
+{
+	void *m_bfme00;
+	void *m_bfme04;
+	void *m_nameHandle;
+	char m_pad0C[0x54 - 0x0C];
+	BfmeQueryNode1279 *m_next;
+	int m_key;
+};
+
+inline __declspec(noinline) void BfmeQuery1279::bfmeQuery1279(int nDepth, int name, void **ppPrev, void **ppItem)
+{
+	if (ppPrev == 0) {
+		g_bfmeAptAssertAtE17734("ppPrev", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptDisplayList.cpp", 0x17D);
+		if (g_bfmeAptBreakOnAssertAtDDC01C) __debugbreak();
+	}
+	if (ppItem == 0) {
+		g_bfmeAptAssertAtE17734("ppItem", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptDisplayList.cpp", 0x17E);
+		if (g_bfmeAptBreakOnAssertAtDDC01C) __debugbreak();
+	}
+	if (!(nDepth >= 0)) {
+		g_bfmeAptAssertAtE17734("nDepth >= 0", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptDisplayList.cpp", 0x17F);
+		if (g_bfmeAptBreakOnAssertAtDDC01C) __debugbreak();
+	}
+	BfmeQuery1279 *self = this;
+	BfmeQueryNode1279 *node = ((BfmeQueryNode1279*)self->m_root)->m_next;
+	BfmeQueryNode1279 *namePrevious = (BfmeQueryNode1279*)self->m_root;
+
+	if (name != 0 && node != 0) {
+		do {
+			if (((BfmeAptValue006DCD20 *)node)->isUndefined()) {
+				if (((EAStringC *)name)->IsEqualTo((EAStringC *)&node->m_nameHandle)) {
+					*ppItem = node;
+					*ppPrev = namePrevious;
+					return;
+				}
+			}
+			namePrevious = node;
+			node = node->m_next;
+		} while (node != 0);
+	}
+
+	node = ((BfmeQueryNode1279*)self->m_root)->m_next;
+	BfmeQueryNode1279 *keyPrevious = (BfmeQueryNode1279*)self->m_root;
+	while (node != 0 && ((node->m_key << 15) >> 15) < nDepth) {
+		keyPrevious = node;
+		node = node->m_next;
+	}
+	if (node != 0 && ((node->m_key << 15) >> 15) == nDepth)
+		*ppItem = node;
+	else
+		*ppItem = 0;
+	*ppPrev = keyPrevious;
+}
+
+void BfmeQuery1279::rva006F6ED0(int key, int type, void *pData)
+{
+	AptCIH *pOldItem;
+	void *pPrev;
+	Rva006CBDE0 *node = new Rva006CBDE0(type, pData, 0);
+
+	bfmeQuery1279(key, 0, &pPrev, (void **)&pOldItem);
+	if (pOldItem != 0 && !((const BfmeAptValue006DCD20 *)pOldItem)->isUndefined()) {
+		g_bfmeAptAssertAtE17734("pItem == NULL || pItem->isUndefined()", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptDisplayList.cpp", 0x1FB);
+		if (g_bfmeAptBreakOnAssertAtDDC01C)
+			__debugbreak();
+	}
+	node->m_58 = node->m_58 ^ ((node->m_58 ^ (unsigned int)key) & 0x1FFFFu);
+	node->m4C = pData;
+	rva006F6D60((AptCIH *)pPrev, (AptCIH *)node);
 }

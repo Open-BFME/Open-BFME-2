@@ -311,7 +311,7 @@ private:
 };
 
 // ?bfmeQuery1279@BfmeQuery1279@@QAEXHHPAPAXPAPAX@Z
-__declspec(noinline) void BfmeQuery1279::bfmeQuery1279(int nDepth, int name, void **ppPrev, void **ppItem)
+inline __declspec(noinline) void BfmeQuery1279::bfmeQuery1279(int nDepth, int name, void **ppPrev, void **ppItem)
 {
 	if (ppPrev == 0) {
 		g_bfmeAptAssertAtE17734("ppPrev", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptDisplayList.cpp", 0x17D);
