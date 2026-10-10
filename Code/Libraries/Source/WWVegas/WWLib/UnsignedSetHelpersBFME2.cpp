@@ -6,6 +6,14 @@
 // is address-derived; no application identity is claimed. Recursion692F5 and
 // deallocation30830 are target facts. Source guide: STLport4.5.3 and BFME1
 // 575ba2b04 Rva009EC5B0Set/Rva009EC770Set, not their guessed wrapper names.
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
 #include <cstdlib>
 extern void __cdecl Rva00030830FreeAllocation(void *);
 #define free Rva00030830FreeAllocation

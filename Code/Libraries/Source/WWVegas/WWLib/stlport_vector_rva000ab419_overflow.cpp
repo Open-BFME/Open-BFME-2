@@ -7,6 +7,14 @@
 // copy 0x000A9E67 Construct pin 0x000A9E0A fill 0x000A9E8D free 0x00030830;
 // caller push_back 0x000AB446; stride 0x10 via sar 4/shl 4; same shape as sibling
 // overflow 0x000AAF09 for Rva000AB3E2Element (0x18 stride) in neighbouring TU.
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
 #include <vector>
 struct Rva000AB419Element
 {

@@ -6,6 +6,14 @@
 // the native allocator's IMUL12 and the overflow register allocation.
 // Construction38/fill37/allocator28 are complete verified existing bodies.
 // Their existing Coord3D provider labels do not establish this payload type.
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
 #include <vector>
 struct Rva00601A3AElement {unsigned char unknown[12];};
 namespace _STL {template<> void _Construct<Rva00601A3AElement,Rva00601A3AElement>(Rva00601A3AElement*,const Rva00601A3AElement&);}

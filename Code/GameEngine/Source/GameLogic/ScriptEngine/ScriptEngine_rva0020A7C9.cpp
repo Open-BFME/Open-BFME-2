@@ -6,6 +6,14 @@
 // the already-matched vector erase at 0x00207F0D, GameLogic::getFirstObject
 // at 0x0023CAD2, and the rowed string/vector helpers used by the loop.
 #include "ascii_string.h"
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
 #include <vector>
 
 struct FXBoneInfo

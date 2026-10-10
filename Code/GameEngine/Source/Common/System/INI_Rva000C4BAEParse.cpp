@@ -8,6 +8,14 @@
 // string assign; push_back via rowed 0xC46FC into instance+0x70; destroys via
 // pinned dtor 0x79554. Evidence: all callees rowed or pinned; REF TimeOfDayTexture;
 // record ints at +0x24 +0x28 match Bfme 0x2C layout.
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
 #include <vector>
 #include <string>
 

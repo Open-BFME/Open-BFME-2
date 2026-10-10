@@ -2,6 +2,14 @@
 // stlport
 // ?Rva00586231Xfer@@YAPAVXfer@@PAV1@PAV?$deque@UGen_t_00595870_p12cd@@V?$allocator@UGen_t_00595870_p12cd@@@_STL@@@_STL@@@Z @0x00586231 212B: deque xfer std-deque then count then isSaving store-iterate else empty-check load-push_back. Evidence: rowed _M_subtract 0x004218A5 _M_increment 0x00421B1E push_back 0x00586204 _bfmeFormatText 0x0060C36E pin _CxxThrowException 0x00629094; strings std-deque Deque-must-be-empty-on-load; caller 0x00587075; sibling Gen00595870DequePushBackAux same flags.
 #define _STLP_NO_EXCEPTIONS 1
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
 #include <deque>
 #include "ascii_string.h"
 

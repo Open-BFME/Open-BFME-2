@@ -4,6 +4,14 @@
 // Honest Rva copy ctor: BfmeOwnedRecordArray56 at +0 via rowed copy 0x004151A3
 // plus _Rb_tree900 at +0x1C0 via rowed copy 0x0041559E. Declared Array56 dtor
 // reproduces the retail EH state. Flags copied from sibling OwnedRecord900TreeCopy.cpp.
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
 #include <map>
 class AsciiString { void *m_data; public: AsciiString(const AsciiString &o); ~AsciiString(); };
 class Rva002390CB { void *a; void *b; public: __declspec(nothrow) Rva002390CB(const Rva002390CB &o); ~Rva002390CB(); };

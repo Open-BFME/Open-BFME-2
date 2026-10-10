@@ -3,6 +3,14 @@
 // ?updateView@Rva000677CAHost@@QAEX_NHHHH@Z, retail 0x0006dc8e, 195 bytes. Banked partial (score 1.0) closed by tools/permute.py;
 // the body is the banked one up to statement/operand order and local types.
 // stlport
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
 #include <vector>
 struct Rva0006DC8EDimensions {char opaque00[8]; int width; int height;};
 class Rva000677CAHost
