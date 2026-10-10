@@ -5,18 +5,15 @@
 // ??$__copy@PAUBfmeStringRecord00204A30@@PAU1@H@_STL@@YAPAUBfmeStringRecord00204A30@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z retail 0x00204170 50B via assign 0x00203DDA.
 // ??$__copy_ptrs@PAUBfmeStringRecord00204A30@@PAU1@@_STL@@YAPAUBfmeStringRecord00204A30@@PAU1@00U__false_type@0@@Z retail 0x00204A13 29B via __copy 0x00204170.
 // Layout matches the 0x00204A30 copy ctor; callers are vector erase paths 0x00207F40 and 0x00357CA2.
-// The emitted unsigned max copy must match retail RVA 0x00013740.
-// Define it for speed, then restore this unit's flags for its own bodies.
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
 #include <stl/_algobase.h>
-#pragma optimize("s", off)
-#pragma optimize("t", on)
 namespace _STL {
-template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
 {
     return a < b ? b : a;
 }
 }
-#pragma optimize("", on)
 
 class AsciiString { public: AsciiString(const AsciiString &); AsciiString &operator=(const AsciiString &); __forceinline ~AsciiString() { releaseBuffer(); } protected: void releaseBuffer(); private: void *m_data; };
 #include <vector>
