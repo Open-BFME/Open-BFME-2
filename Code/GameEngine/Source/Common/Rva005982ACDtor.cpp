@@ -43,3 +43,11 @@ Rva005982AC::~Rva005982AC()
 {
 	((ArmorHashTable *)this)->clear();
 }
+
+// Native5982E5..5982EA JMP5982AC; unchanged thiscall receiver and RET0.
+// Only forwarding to the owned nonvirtual cleanup is established.
+// Original wrapper name and enclosing application type remain unknown.
+struct Rva005982E5CleanupForward { void cleanup(); };
+void Rva005982E5CleanupForward::cleanup() {
+    reinterpret_cast<Rva005982AC *>(this)->~Rva005982AC();
+}

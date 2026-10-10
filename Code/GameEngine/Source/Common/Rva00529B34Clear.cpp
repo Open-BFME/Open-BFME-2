@@ -13,7 +13,7 @@ void __cdecl operator delete(void *p);
 class Rva00529B34
 {
 public:
-	void rva00529B34();
+	__declspec(noinline) void rva00529B34();
 private:
 	Rva0052936C *m_ptr;
 };
@@ -25,4 +25,11 @@ void Rva00529B34::rva00529B34()
 	if (!p)
 		return;
 	delete p;
+}
+
+// Native529FAB..529FB0 JMP529B34; unchanged thiscall receiver and RET0.
+// Original wrapper name and enclosing type remain unknown.
+struct Rva00529FABClearForward { void clear(); };
+void Rva00529FABClearForward::clear() {
+    reinterpret_cast<Rva00529B34 *>(this)->rva00529B34();
 }
