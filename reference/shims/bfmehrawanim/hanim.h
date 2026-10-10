@@ -71,8 +71,7 @@ public:
 		CLASSID_LASTANIM		= 0x0000FFFF
 	};
 
-	HAnimClass(void)	:
-		EmbeddedSoundBoneIndex (EMBEDDED_SOUND_BONE_INDEX_NOT_SET)	{ }
+	HAnimClass(void) { }
 	// Out of line, not an inline empty body: retail's ~HAnimClass at
 	// 0x00196150 is a real 21-byte function restoring the HashableClass vptr
 	// at +8 and the RefCountClass vptr at +0, and ~HRawAnimClass calls it
@@ -110,13 +109,10 @@ public:
 	virtual bool				Has_Visibility (int pividx)		{ return true; }
 	virtual int					Class_ID(void)	const															{ return CLASSID_UNKNOWNANIM; }
 
-	// Animated sound-triggering support
-	virtual bool				Has_Embedded_Sounds (void) const			{ if (EmbeddedSoundBoneIndex < 0) return false; return true;}
-	virtual void				Set_Embedded_Sound_Bone_Index (int bone)	{ EmbeddedSoundBoneIndex = bone; }
-	virtual int					Get_Embedded_Sound_Bone_Index() {return EmbeddedSoundBoneIndex;}
+	// Target HAnimClass has no data beyond RefCountClass and HashableClass.
+	// Native raw ctor18D2A0 and the reconciled HRawLoadW3D view place Name
+	// at+10; the ZH embedded-sound data/virtuals are absent from this view.
 
-protected:
-	int EmbeddedSoundBoneIndex;
 };
 
 

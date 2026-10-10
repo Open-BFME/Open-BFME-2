@@ -123,6 +123,8 @@ private:
 
 	char							Name[2*W3D_NAME_LEN];
 	char							HierarchyName[W3D_NAME_LEN];
+	// Native ctor18D2A0 / loader18E780 key Name+10 into this +40 field.
+	unsigned int				NameKey;
 
 	int							NumFrames;
 	int							NumNodes;

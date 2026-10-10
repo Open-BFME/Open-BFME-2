@@ -6453,7 +6453,7 @@ _piSetLocalFlags,,0x006A4AD0,617,Code/GameEngine/Source/GameNetwork/GameSpy/peer
 ?Validate_Cached_Bounding_Volumes@RenderObjClass@@IBEXXZ,,0x0013B180,5,Code/Libraries/Source/WWVegas/WW3D2/mesh.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ?Get_Texture_Mapping_Mode@StreakRendererClass@@QBE?AW4TextureMapMode@1@XZ,,0x00742F80,5,Code/Libraries/Source/WWVegas/WW3D2/streakRender.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ?Get_ObjectScale@RenderObjClass@@QBE?BMXZ,,0x00098555,4,Code/Libraries/Source/WWVegas/WW3D2/dx8renderer.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
-?Get_HName@HRawAnimClass@@UBEPBDXZ,,0x002B236A,4,Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?get@Rva002B236AField@@QBEPAXXZ,,0x002B236A,4,Code/GameEngine/Source/Common/Rva002B236AField.cpp,matched,receiver+34 byte-verified; old HRaw Get_HName placement identity refuted by native raw vtable BD5D20 slot4 selecting 0066D7D0 receiver+30
 ?Get_Texture_Name@TextureBaseClass@@QBEABVStringClass@@XZ,,0x005FBE57,4,Code/Libraries/Source/WWVegas/WW3D2/matinfo.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ?_M_input_error@?$basic_filebuf@DV?$char_traits@D@_STL@@@_STL@@AAEHXZ,,0x0001D900,73,Code/stlport/NarrowFilebufInputError.cpp,matched,BFME1 STLport reference source; exact sweep placement
 _piParseFlags,,0x006A4440,98,Code/GameEngine/Source/GameNetwork/GameSpy/peer/peerPlayersRoomFlags.c,matched,bfme1 GameSpy sweep exact placement; verbatim source import
