@@ -21,6 +21,7 @@ public:
 	void rva000AD9AB(int x, int y, bool value);
 	void rva000AD9FE();
 	void rva000ADB89(int x, int y, bool value);
+	void rva000ADB2F(int x, int y, bool value);
 	void rva000ADBE3(int x, int y, bool value);
 	void rva000ADC41(int x, int y, unsigned char value);
 
@@ -30,7 +31,8 @@ private:
 	int m_height;
 	char m_pad10[0x24];
 	int m_pitch;
-	char m_pad38[0x0c];
+	Rva000AD9ABBytes m_plane38;
+	char m_pad40[4];
 	Rva000AD9ABBytes m_bits;
 	char m_pad4C[0x68 - 0x4C];
 	Rva000AD9ABBytes m_plane68;
@@ -152,3 +154,31 @@ void Rva000AD9AB::rva000ADC41(int x, int y, unsigned char value)
 
 	m_plane8C[index] = value;
 }
+
+// Native 000ADB2F: same bounded bit-plane operation at +38/+3C.
+void Rva000AD9AB::rva000ADB2F(int x, int y, bool value)
+{
+	int xx = x;
+	if (xx < 0)
+		return;
+	if (y < 0)
+		return;
+	if (y >= m_height)
+		return;
+	if (xx >= m_width)
+		return;
+
+	int index = m_pitch * y + (xx >> 3);
+	int size = (int)m_plane38.size();
+	if ((unsigned int)index >= (unsigned int)size)
+		return;
+
+	unsigned char cur = m_plane38[index];
+	unsigned char mask = (unsigned char)(1 << (xx & 7));
+	if (value)
+		cur |= mask;
+	else
+		cur &= (unsigned char)~mask;
+	m_plane38[index] = cur;
+}
+
