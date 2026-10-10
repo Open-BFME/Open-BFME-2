@@ -808,6 +808,7 @@ BuildAssistant *TheBuildAssistant = NULL;
 class ThingFactory
 {
 public:
+	const ThingTemplate *findTemplate(const AsciiString &name);
 	Object *newObject(const ThingTemplate *tmplate, Team *team, const CreateMask *statusBits, Bool flag);
 };
 

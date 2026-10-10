@@ -50,10 +50,10 @@ public:
 	AsciiString m_name; // +0x64
 };
 
-class Rva002D06CA
+class ThingFactory
 {
 public:
-	void *rva002D06CA(const AsciiString *s);
+	const ThingTemplate *findTemplate(const AsciiString &s);
 };
 extern class ThingFactory *TheThingFactory;
 
@@ -63,5 +63,5 @@ void Rva003063A9XferThingTemplate(Xfer *xfer, const ThingTemplate **thing)
 	xfer->operator==(tmp);
 	if (!xfer->IsLoading())
 		return;
-	*thing = (const ThingTemplate *)((Rva002D06CA *)TheThingFactory)->rva002D06CA(&tmp);
+	*thing = TheThingFactory->findTemplate(tmp);
 }

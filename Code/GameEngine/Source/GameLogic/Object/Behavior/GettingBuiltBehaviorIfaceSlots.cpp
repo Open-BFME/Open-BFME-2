@@ -459,12 +459,12 @@ float GettingBuiltBehavior::rva0045342F(Object *obj)
 // as that record is a structural inference. The function's owner and meaning
 // remain unresolved, so its name is address-derived.
 class AsciiString;
-class Rva002D06CA
+class ThingFactory
 {
 public:
-	void *rva002D06CA(const AsciiString *key);
+	const ThingTemplate *findTemplate(const AsciiString &key);
 };
-extern Rva002D06CA *TheThingFactory;
+extern ThingFactory *TheThingFactory;
 
 class Rva0020AA00Target
 {
@@ -478,7 +478,7 @@ void __cdecl rva0045346D(const void *arg1, int arg2, int arg3)
 	const GettingBuiltBehaviorModuleData *data = (const GettingBuiltBehaviorModuleData *)arg1;
 	if (!data->m_14.isEmpty())
 	{
-		void *found = TheThingFactory->rva002D06CA((const AsciiString *)&data->m_14);
+		void *found = (void *)TheThingFactory->findTemplate(*((const AsciiString *)&data->m_14));
 		if (found)
 			((Rva0020AA00Target *)found)->notify(arg2, arg3);
 	}

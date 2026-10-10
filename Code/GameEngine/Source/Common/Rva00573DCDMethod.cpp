@@ -13,10 +13,11 @@ enum ObjectID
 class Object;
 class AsciiString;
 
-class Rva002D06CA
+class ThingTemplate;
+class ThingFactory
 {
 public:
-	void *rva002D06CA(const AsciiString *s);
+	const ThingTemplate *findTemplate(const AsciiString &s);
 };
 
 class GameLogic
@@ -54,7 +55,7 @@ private:
 
 float Rva00573B23::rva00573DCD(int arg)
 {
-	void *thing = ((Rva002D06CA *)TheThingFactory)->rva002D06CA(&m_0C);
+	void *thing = (void *)TheThingFactory->findTemplate(m_0C);
 	class Object *obj = TheGameLogic->findObjectByID(m_08);
 	int value = 0;
 	ThingTemplate *tmpl = (ThingTemplate *)thing;

@@ -8,12 +8,13 @@
 // itself establish the action's original owner/name.
 #include "ascii_string.h"
 #include "../../Common/GameLogicObjectLookupView.h"
+class ThingTemplate;
 class ThingFactory;
 extern ThingFactory *TheThingFactory;
-class Rva002D06CA
+class ThingFactory
 {
 public:
- void *rva002D06CA(const AsciiString *name);
+ const ThingTemplate *findTemplate(const AsciiString &name);
 };
 class CommandButton;
 class ControlBar
@@ -31,7 +32,7 @@ public:
 
 void __stdcall Rva003BCB7A(const AsciiString &buttonName, const AsciiString &objectType, int slot)
 {
- void *subject = ((Rva002D06CA *)TheThingFactory)->rva002D06CA(&objectType);
+ void *subject = (void *)TheThingFactory->findTemplate(objectType);
  if (subject == 0) return;
  const CommandButton *button = TheControlBar->findCommandButton(buttonName);
  if (button == 0) return;

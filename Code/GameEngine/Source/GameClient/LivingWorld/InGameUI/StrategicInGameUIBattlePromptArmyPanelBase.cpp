@@ -35,7 +35,8 @@ bool Rva005FED61::rva005FED99(const Rva005FED99Arg *arg)
 // WorldBuilder 016373F0, assertions at ArmyPanelBase.cpp:59/67/70/78,
 // native 005FEE09..005FEE8C. Static linkage lets MSVC pass the region in EDI,
 // as retail does; the ordinary C++ loop counts eligible type-6 buildings.
-class Rva002D06CA { public: void *rva002D06CA(const AsciiString *); };
+class ThingTemplate;
+class ThingFactory { public: const ThingTemplate *findTemplate(const AsciiString &name); };
 extern class ThingFactory *TheThingFactory;
 struct CounterTemplate { char pad[0x5C4]; int index; };
 struct CounterKey { char pad[0xC]; StringBase<char> key; };
@@ -64,7 +65,7 @@ static int rva005FEE09(Rva00318C32Ret *region)
         if (!plot->building || plot->excluded) continue;
         StringBase<char> *key = &plot->building->key->key;
         if (key->isEmpty()) continue;
-        CounterTemplate *value = (CounterTemplate *)((Rva002D06CA *)TheThingFactory)->rva002D06CA((const AsciiString *)key);
+        CounterTemplate *value = (CounterTemplate *)TheThingFactory->findTemplate(*((const AsciiString *)key));
         if (value && value->index == 6) ++count;
     }
     if (region->flag) ++count;

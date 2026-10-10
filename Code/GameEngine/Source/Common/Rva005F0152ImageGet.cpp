@@ -106,10 +106,11 @@ const Image *Rva005F01C7Get(int index)
 	return ((Rva005F0185 *)&Rva00A06858)->rva005F0185(index);
 }
 
-class Rva002D06CA
+class ThingTemplate;
+class ThingFactory
 {
 public:
-	void *rva002D06CA(const AsciiString *key);
+	const ThingTemplate *findTemplate(const AsciiString &key);
 };
 extern class ThingFactory *TheThingFactory;
 
@@ -125,13 +126,13 @@ struct Rva005F01D6In
 	AsciiString m_name;
 };
 
-#define Rva00DFF000 ((Rva002D06CA *)TheThingFactory)
+#define Rva00DFF000 TheThingFactory
 
 const Image *Rva005F01D6Get(Rva005F01D6In *in)
 {
 	AsciiString *name = &in->m_name;
 	if (!name->isEmpty()) {
-		void *found = Rva00DFF000->rva002D06CA(name);
+		void *found = (void *)Rva00DFF000->findTemplate(*name);
 		if (found != 0)
 			return Rva005F01C7Get(((Rva005F01D6Payload *)found)->m_imageIndex);
 	}

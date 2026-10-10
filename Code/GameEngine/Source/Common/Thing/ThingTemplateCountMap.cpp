@@ -74,8 +74,8 @@ struct TemplateCountKey {
 };
 typedef _STL::map<TemplateCountKey, Int> ObjectCountMap;
 
-class Rva002D06CA { public: void *rva002D06CA(const AsciiString *); };
-// ThingFactory.cpp owns the singleton; Rva002D06CA is this unit's lookup view.
+class ThingFactory { public: const ThingTemplate *findTemplate(const AsciiString &name); };
+// ThingFactory.cpp owns the singleton; ThingFactory is this unit's lookup view.
 class ThingFactory;
 extern ThingFactory *TheThingFactory;
 class XferException { public: XferException(int,const char *,...); XferException(const XferException &); ~XferException(); char *text; int tag; };
@@ -110,7 +110,7 @@ void xferThingTemplateCountMap(Xfer *xfer, ObjectCountMap *map)
 		for (UnsignedShort i = 0; i < mapSize; ++i)
 		{
 			xfer->xferAsciiString(&thingTemplateName);
-			thingTemplate.pointer = static_cast<const ThingTemplate *>(reinterpret_cast<Rva002D06CA *>(TheThingFactory)->rva002D06CA(&thingTemplateName));
+			thingTemplate.pointer = static_cast<const ThingTemplate *>((void *)reinterpret_cast<ThingFactory *>(TheThingFactory)->findTemplate(thingTemplateName));
 			if (thingTemplate.pointer == 0)
 			{
 				throw XferException(5,0);

@@ -35,8 +35,9 @@ struct Rva00598052Entry {char unknown00[0x78]; Rva00598052Metadata *metadata;};
 struct Rva00598961Config {char pad00[4]; _STL::vector<AsciiString *> unitNames; char pad10[0x1C-0x10];float field1C;};
 struct Rva002A8AB1Record {char pad00[0x160];Rva00598961Config *config160;};
 class Rva00598007 {public:Rva002A8AB1Record *rva00598007();bool rva0059802E();};
-class Rva002D06CA {public:void *rva002D06CA(const AsciiString*);};
-extern Rva002D06CA *TheThingFactory;
+class ThingTemplate;
+class ThingFactory {public:const ThingTemplate *findTemplate(const AsciiString &name);};
+extern ThingFactory *TheThingFactory;
 struct Rva00598961Template {char pad00[0x113];unsigned char field113;};
 class Rva00506FE9Hit {public:void rva0055ADBA(void*);};
 class Rva00598C3AItem
@@ -217,7 +218,7 @@ void AIUnitBuilder::manageConstructingList()
    break;
   case 1: ++i;break;
   case 2: case 3:
-   Rva00598961Template *thing=(Rva00598961Template*)TheThingFactory->rva002D06CA(&item->name0C);
+   Rva00598961Template *thing=(Rva00598961Template*)TheThingFactory->findTemplate(item->name0C);
    if(thing->field113&4)m_34=false;
    ((Rva00506FE9Hit*)item)->rva0055ADBA(m_30);
    ::delete item;
@@ -245,7 +246,7 @@ Rva00598C3AItem *AIUnitBuilder::createBestUnitToMake()
  if (name != AsciiString::TheEmptyString) {
    unit=new AIBuildableUnit((int)m_30);
    unit->name0C=name;
-   unit->quantity=((BuildableUnitTemplateView *)TheThingFactory->rva002D06CA(&name))->quantity;
+   unit->quantity=((BuildableUnitTemplateView *)TheThingFactory->findTemplate(name))->quantity;
    unit->field04=((Rva00598007 *)this)->rva0059802E() ? 500.0f : ((Rva00598007 *)this)->rva00598007()->config160->field1C;
  }
  return unit;
@@ -305,7 +306,7 @@ void AIUnitBuilder::registerUnitFactory(ObjectID id)
  Rva00598961Config *config=((Rva00598007 *)this)->rva00598007()->config160;
  for (_STL::vector<AsciiString *>::iterator i=config->unitNames.begin();i!=config->unitNames.end();++i) {
    AsciiString name=**i;
-   const ThingTemplate *thing=(const ThingTemplate *)TheThingFactory->rva002D06CA(&name);
+   const ThingTemplate *thing=TheThingFactory->findTemplate(name);
    if (g_00A027B8->slot25(object,thing,-1)) {
      _STL::pair<int,int> item(TheNameKeyGenerator->nameToKey(name),id);
      ((_STL::multimap<int,int> *)&m_objects)->insert(item);
@@ -313,7 +314,7 @@ void AIUnitBuilder::registerUnitFactory(ObjectID id)
  }
  for (_STL::vector<AsciiString>::iterator i=heroNames.begin();i!=heroNames.end();++i) {
    AsciiString name=*i;
-   const ThingTemplate *thing=(const ThingTemplate *)TheThingFactory->rva002D06CA(&name);
+   const ThingTemplate *thing=TheThingFactory->findTemplate(name);
    int count=((Rva0037EE4C *)((char *)m_30+0x738))->rva0037EE4C(thing,-1,0);
    if (g_00A027B8->slot25(object,thing,count)) {
      _STL::pair<int,int> item(TheNameKeyGenerator->nameToKey(name),id);
@@ -407,7 +408,7 @@ AsciiString AIUnitBuilder::decideWhichTemplateToMake()
  for (_STL::vector<AsciiString*>::iterator i=config->unitNames.begin();i!=config->unitNames.end();++i) {
   AsciiString *name=*i;
   if (!Rva00598738(name)) continue;
-  BuildableTemplateQuantityView *thing=(BuildableTemplateQuantityView*)TheThingFactory->rva002D06CA(name);
+  BuildableTemplateQuantityView *thing=(BuildableTemplateQuantityView*)TheThingFactory->findTemplate(*name);
   int count=((Rva004DFBED*)((Rva00598016*)this)->rva00598016())->rva004DFBED(*name);
   for (_STL::list<Rva00598C3AItem*>::iterator j=m_items.begin();j!=m_items.end();++j)
    if (((StringBase<char>*)&(*j)->name0C)->compare(*(StringBase<char>*)name)==0) ++count;

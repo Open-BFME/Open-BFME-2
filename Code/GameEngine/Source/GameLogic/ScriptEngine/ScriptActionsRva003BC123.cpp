@@ -1,7 +1,7 @@
 // cl: /Ireference/shims/bfme2_ascii
 //
 // ?doNamedBuildStructureAtWaypoint@ScriptActions@@IAEXPAVParameter@@ABVAsciiString@@M1@Z @0x003BC123 125B: script action with waypoint and lookup.
-// Evidence: getUnitNamed 0x003588E7 with Parameter then TerrainLogic slot 0x88 getWaypointByName with 4th arg then Rva002D06CA 0x002D06CA with 2nd arg then AIUpdate at Object+0x258 slot 0x1F8 with Player from getControllingPlayer plus float plus coords; globals g_Va009FE16C TheTerrainLogic g_009FF000; ret 16.
+// Evidence: getUnitNamed 0x003588E7 with Parameter then TerrainLogic slot 0x88 getWaypointByName with 4th arg then ThingFactory 0x002D06CA with 2nd arg then AIUpdate at Object+0x258 slot 0x1F8 with Player from getControllingPlayer plus float plus coords; globals g_Va009FE16C TheTerrainLogic g_009FF000; ret 16.
 
 #include "ascii_string.h"
 
@@ -38,10 +38,11 @@ public:
 };
 extern TerrainLogic *TheTerrainLogic;
 
-class Rva002D06CA
+class ThingTemplate;
+class ThingFactory
 {
 public:
-	void *rva002D06CA(const AsciiString *key);
+	const ThingTemplate *findTemplate(const AsciiString &key);
 };
 extern class ThingFactory *TheThingFactory;
 
@@ -100,7 +101,7 @@ void ScriptActions::doNamedBuildStructureAtWaypoint(Parameter *param, const Asci
 {
 	Object *obj = TheScriptEngine->getUnitNamed(param);
 	Waypoint *way = TheTerrainLogic->getWaypointByName(wayName);
-	void *lookup = ((Rva002D06CA *)TheThingFactory)->rva002D06CA(&arg2);
+	void *lookup = (void *)TheThingFactory->findTemplate(arg2);
 	if (!obj || !way || !lookup)
 		return;
 	AIUpdateInterface *ai = obj->getAI();

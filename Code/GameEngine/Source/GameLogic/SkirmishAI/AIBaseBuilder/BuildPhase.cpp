@@ -58,7 +58,7 @@ void Rva005DCE08::rva005DCCFB(){
 class ThingTemplate;
 class ThingFactory;
 extern ThingFactory*TheThingFactory;
-class Rva002D06CA {public:void*rva002D06CA(const AsciiString*);};
+class ThingFactory {public:const ThingTemplate *findTemplate(const AsciiString &name);};
 class BuildAssistant {public:bool rva00391AA1(const ThingTemplate*,const ThingTemplate*);};
 extern BuildAssistant*TheBuildAssistant;
 // Native5DCC86..5DCCFB full117 RET4; BuildPhase vector4/8 and
@@ -73,8 +73,8 @@ Rva005AD9C0Hit*Rva005DCE08::rva005DCC86(void*key) {
  for(Rva00573E7C**it=orders.begin();it!=orders.end();++it) {
   Rva00573E7C*order=*it;
   if(!((Rva004E9378*)order)->rva004E9378()) {
-   const ThingTemplate*first=(const ThingTemplate*)((Rva002D06CA*)TheThingFactory)->rva002D06CA(&order->templateName);
-   const ThingTemplate*second=(const ThingTemplate*)((Rva002D06CA*)TheThingFactory)->rva002D06CA((const AsciiString*)key);
+   const ThingTemplate*first=TheThingFactory->findTemplate(order->templateName);
+   const ThingTemplate*second=TheThingFactory->findTemplate(*((const AsciiString*)key));
    if(first&&second&&TheBuildAssistant->rva00391AA1(first,second))selected=order;
   }
  }

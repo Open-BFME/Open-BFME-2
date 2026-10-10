@@ -114,10 +114,10 @@ class ModuleData;
 class Object;
 class ThingTemplate;
 
-class Rva002D06CA
+class ThingFactory
 {
 public:
-	void *rva002D06CA(const AsciiString *key);
+	const ThingTemplate *findTemplate(const AsciiString &key);
 };
 
 extern class ThingFactory *TheThingFactory;
@@ -258,7 +258,7 @@ void SpawnBehavior::xfer(Xfer *xfer)
 	if (xfer->IsLoading()) {
 		m_spawnTemplate = NULL;
 		if (!tmp.isEmpty()) {
-			m_spawnTemplate = (const ThingTemplate *)((Rva002D06CA *)TheThingFactory)->rva002D06CA(&tmp);
+			m_spawnTemplate = TheThingFactory->findTemplate(tmp);
 			if (m_spawnTemplate == NULL) {
 				bfmeFormatText(&error, 5, 0);
 				_CxxThrowException(&error, (const _s__ThrowInfo *)&g_rva008ffd18ThrowInfo); __assume(0);

@@ -2,17 +2,18 @@
 // ?createPayload@TransportContain@@QAEXXZ, retail 0x004670D6, 214 bytes.
 // Slot 28 (offset 0x70) of TransportContain vtable 0x00844278 and
 // HordeTransportContain vtable 0x00845EB8. Iterates the contain list at
-// [this+4]+0xA4 via rowed Rva002D06CA lookup through g_009FF000 and drives
+// [this+4]+0xA4 via rowed ThingFactory lookup through g_009FF000 and drives
 // the +0xFC secondary slot-0 with the Object at +8 and its +0x250 payload.
 // Donor pattern is TransportContainKillBlockedRiders / ZH TransportContain.
 // FINISH from reverse/attempts/0x004670d6.cpp score 0.97: empty-string
 // je-vs-jne branch layout only; trying non-null-first ternary.
 #include "ascii_string.h"
 
-class Rva002D06CA
+class ThingTemplate;
+class ThingFactory
 {
 public:
-	void *rva002D06CA(const AsciiString *key);
+	const ThingTemplate *findTemplate(const AsciiString &key);
 };
 
 class ThingFactory;
@@ -165,7 +166,7 @@ void TransportContain::createPayload()
 		int count = *(int *)((char *)aname + 4);
 		if (count <= 0)
 			return;
-		void *res = reinterpret_cast<Rva002D06CA *>(TheThingFactory)->rva002D06CA(aname);
+		void *res = (void *)reinterpret_cast<ThingFactory *>(TheThingFactory)->findTemplate(*aname);
 		if (res == 0)
 			return;
 		Object *obj = m_8;

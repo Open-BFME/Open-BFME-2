@@ -15,10 +15,11 @@ class Image
 {
 };
 
-class Rva002D06CA
+class ThingTemplate;
+class ThingFactory
 {
 public:
-	void *rva002D06CA(const AsciiString *key);
+	const ThingTemplate *findTemplate(const AsciiString &key);
 };
 
 extern class ThingFactory *TheThingFactory;
@@ -47,7 +48,7 @@ const Image *StrategicInGameUI::GetButtonImage(void *in)
 {
 	Rva005F02E0Mid *mid = ((Rva005F02E0In *)in)->m_mid;
 	void *found;
-	if (!mid || !(found = ((Rva002D06CA *)TheThingFactory)->rva002D06CA(&mid->m_name)))
+	if (!mid || !(found = (void *)TheThingFactory->findTemplate(mid->m_name)))
 		return 0;
 	ThingTemplate *tmpl = (ThingTemplate *)found;
 	const Image *img = tmpl->getButtonImage();

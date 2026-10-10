@@ -13,11 +13,12 @@
 class Image;
 class ImageCollection {public:const Image *findImageByName(const AsciiString &);};
 extern ImageCollection *TheMappedImageCollection;
+class ThingTemplate;
 class ThingFactory;
 extern ThingFactory *TheThingFactory;
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
-class Rva002D06CA {public:void *rva002D06CA(const AsciiString *);};
+class ThingFactory {public:const ThingTemplate *findTemplate(const AsciiString &name);};
 class ThingTemplate {public:const Image *getButtonImage();const Image *rva0033BA46();};
 class Rva002E2903Player;
 class Rva002BA8F1Logic {public:Rva002E2903Player *find(int,unsigned int *);};
@@ -32,7 +33,7 @@ const Image *GetButtonImage(const StrategicButtonImageView *view,int playerID) {
  const AsciiString &name=view->templateName;
  const Image *image=noArtImage;
  if(!((const StringBase<char> *)&name)->isEmpty()) {
-  ThingTemplate *definition=(ThingTemplate *)((Rva002D06CA *)TheThingFactory)->rva002D06CA(&name);
+  ThingTemplate *definition=(ThingTemplate *)TheThingFactory->findTemplate(name);
   if(definition) {
    image=definition->getButtonImage();
    if(!image) image=definition->rva0033BA46();

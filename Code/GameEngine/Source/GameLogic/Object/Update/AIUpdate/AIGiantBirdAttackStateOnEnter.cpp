@@ -106,16 +106,12 @@ struct CreateMask
 class ThingFactory
 {
 public:
+	const ThingTemplate *findTemplate(const AsciiString &name);
 	Object *newObject(const ThingTemplate *tmplate, Team *team, const CreateMask *mask, Bool b);
 };
 extern ThingFactory *TheThingFactory;
 
 // ThingFactory's template lookup by name (rowed 0x002D06CA).
-class Rva002D06CA
-{
-public:
-	void *rva002D06CA(const AsciiString *key);
-};
 
 class FXList
 {
@@ -528,7 +524,7 @@ StateReturnType AIGiantBirdAttackState::onEnter()
 			if (module != 0)
 				name = module->getModuleData()->getObjectName3C();
 			const ThingTemplate *tmplate =
-				(const ThingTemplate *)((Rva002D06CA *)TheThingFactory)->rva002D06CA(&name);
+				TheThingFactory->findTemplate(name);
 			if (tmplate != 0)
 			{
 				CreateMask mask;

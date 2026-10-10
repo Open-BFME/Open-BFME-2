@@ -624,17 +624,16 @@ public:
 	virtual ProductionEntry *firstProduction() const;	// +0x54
 };
 
-class Rva002D06CA
+class ThingFactory
 {
 public:
-	void *rva002D06CA(const AsciiString *name);
-	const ThingTemplate *findTemplate(const AsciiString &name) { return (const ThingTemplate *)rva002D06CA(&name); }
+	const ThingTemplate *findTemplate(const AsciiString &name);
 	ThingTemplate *firstTemplate() const { return m_firstTemplate; }
 private:
 	char m_pad00[0x0C];
 	ThingTemplate *m_firstTemplate;		// +0x0C
 };
-extern Rva002D06CA *TheThingFactory;
+extern ThingFactory *TheThingFactory;
 
 struct Rva002A8AB1Record
 {
@@ -1085,7 +1084,7 @@ Bool AIPlayer::isPossibleToBuildTeam(TeamPrototype *proto, Bool requireIdleFacto
 	Int cost = 0;
 	for (Int i = 0; i < proto->m_numUnitsInfo; ++i)
 	{
-		const ThingTemplate *thing = (const ThingTemplate *)TheThingFactory->rva002D06CA(&proto->m_unitsInfo[i].unitThingName);
+		const ThingTemplate *thing = TheThingFactory->findTemplate(proto->m_unitsInfo[i].unitThingName);
 		if (thing == NULL)
 			continue;
 		if (findFactory(thing, true, NULL) == NULL)
@@ -1202,7 +1201,7 @@ Bool AIPlayer::rva004F13D8(TeamPrototype *proto)
 	float totalCost = 0.0f;
 	for (Int i = 0; i < proto->m_numUnitsInfo; ++i)
 	{
-		const ThingTemplate *thing = (const ThingTemplate *)TheThingFactory->rva002D06CA(&unitInfo[i].unitThingName);
+		const ThingTemplate *thing = TheThingFactory->findTemplate(unitInfo[i].unitThingName);
 		if (unitInfo[i].maxUnits <= 0)
 			continue;
 

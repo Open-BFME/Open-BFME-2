@@ -42,10 +42,11 @@ public:
 	Player *getControllingPlayer() const;
 };
 
-class Rva002D06CA
+class ThingTemplate;
+class ThingFactory
 {
 public:
-	void *rva002D06CA(const AsciiString *s);
+	const ThingTemplate *findTemplate(const AsciiString &s);
 };
 
 extern class ThingFactory *TheThingFactory;
@@ -95,7 +96,7 @@ void SlaughterHordeContain::rva004804DD(Object *obj)
 
 	Player *ours = m_object->getControllingPlayer();
 	Player *theirs = obj->getControllingPlayer();
-	void *found = ((Rva002D06CA *)TheThingFactory)->rva002D06CA(&m_9E8);
+	void *found = (void *)TheThingFactory->findTemplate(m_9E8);
 	if (ours != theirs && found)
 	{
 		ours->m_3BC.addObjectsLost((unsigned int)found, m_9E4);

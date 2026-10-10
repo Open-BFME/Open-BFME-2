@@ -177,12 +177,12 @@ private:
 };
 
 // TheThingFactory's template lookup by name, named for its address.
-class Rva002D06CA
+class ThingFactory
 {
 public:
-	void *rva002D06CA(const AsciiString *name);
+	const ThingTemplate *findTemplate(const AsciiString &name);
 };
-extern Rva002D06CA *TheThingFactory;
+extern ThingFactory *TheThingFactory;
 
 // The fire logic system at 0x00DFEC68 (the data ledger names the pointer
 // TheTriggerManager) and its registration of a placed template, named for its
@@ -461,7 +461,7 @@ void Rva0027C230::rva0028002F(Xfer *xfer)
 	if (xfer->isLoading())
 	{
 		if (!name.isEmpty())
-			m_template = (const ThingTemplate *)TheThingFactory->rva002D06CA(&name);
+			m_template = TheThingFactory->findTemplate(name);
 		else
 			m_template = NULL;
 	}

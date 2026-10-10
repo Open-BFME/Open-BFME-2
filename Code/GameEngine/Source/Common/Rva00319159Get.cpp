@@ -4,10 +4,11 @@
 // Evidence: unlock lane callers 0x002B3A71 0x00319666; rowed isEmpty StringBase and rowed rva002D06CA via g_009FF000; AsciiString at +0x18
 #include "ascii_string.h"
 #include "unicode_string.h"
-class Rva002D06CA
+class ThingTemplate;
+class ThingFactory
 {
 public:
-	void *rva002D06CA(const AsciiString *key);
+	const ThingTemplate *findTemplate(const AsciiString &key);
 };
 extern class ThingFactory *TheThingFactory;
 class Rva00319159
@@ -24,7 +25,7 @@ void *Rva00319159::rva00319159()
 {
 	if (m_str.isEmpty())
 		return 0;
-	return ((Rva002D06CA *)TheThingFactory)->rva002D06CA(&m_str);
+	return (void *)TheThingFactory->findTemplate(m_str);
 }
 
 UnicodeString Rva00319159::rva0031964D()

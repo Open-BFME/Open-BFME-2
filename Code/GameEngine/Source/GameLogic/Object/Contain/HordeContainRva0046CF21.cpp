@@ -118,15 +118,11 @@ public:
 	int m_45c;	// +0x45C
 };
 
-class Rva002D06CA
-{
-public:
-	void *rva002D06CA(const AsciiString *name);
-};
 
 class ThingFactory
 {
 public:
+	const ThingTemplate *findTemplate(const AsciiString &name);
 	Object *newObject(const ThingTemplate *tmplate, Team *team, const CreateMask *mask, bool deferInit);
 };
 
@@ -220,7 +216,7 @@ void Rva0046E740::rva0046CF21()
 		return;
 
 	const ThingTemplate *unitTemplate =
-		(const ThingTemplate *)((Rva002D06CA *)TheThingFactory)->rva002D06CA(&names[0]);
+		TheThingFactory->findTemplate(names[0]);
 	if (!unitTemplate)
 		return;
 

@@ -27280,8 +27280,7 @@ pin	reverse/symbols.csv	0x002D040C	1
 pin	reverse/symbols.csv	0x002D044B	1
 pin	reverse/symbols.csv	0x002D04A3	1
 pin	reverse/symbols.csv	0x002D0588	1
-pin	reverse/symbols.csv	0x002D06AA	1
-pin	reverse/symbols.csv	0x002D06CA	5
+pin	reverse/symbols.csv	0x002D06CA	4
 pin	reverse/symbols.csv	0x002D08DA	1
 pin	reverse/symbols.csv	0x002D0A23	2
 pin	reverse/symbols.csv	0x002D0B5A	1

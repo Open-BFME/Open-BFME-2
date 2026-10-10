@@ -9,10 +9,11 @@
 // row name, caller 0x0049E41F in 0x0049E3B5.
 #include "ascii_string.h"
 
-class Rva002D06CA
+class ThingTemplate;
+class ThingFactory
 {
 public:
-	void *rva002D06CA(const AsciiString *key);
+	const ThingTemplate *findTemplate(const AsciiString &key);
 };
 
 extern class ThingFactory *TheThingFactory;
@@ -70,7 +71,7 @@ void ProductionUpdate::rva0049E368()
 {
 	for (AsciiString *p = m_vec130.m_start; p != m_vec130.m_finish; ++p)
 	{
-		void *tmpl = ((Rva002D06CA *)TheThingFactory)->rva002D06CA(p);
+		void *tmpl = (void *)TheThingFactory->findTemplate(*p);
 		m_iface20.slot34(tmpl, 1);
 	}
 	_STL::vector<AsciiString, _STL::allocator<AsciiString> > &v = m_vec130;

@@ -56,13 +56,13 @@ extern GameLogic *TheGameLogic;
 
 // Use the verified 2D06CA owner rather than a declaration with no definition.
 // Its target payload is the template consumed by the production interface.
-class Rva002D06CA
+class ThingFactory
 {
 public:
-	void *rva002D06CA(const AsciiString *name);
+	const ThingTemplate *findTemplate(const AsciiString &name);
 };
 
-extern Rva002D06CA *TheThingFactory;
+extern ThingFactory *TheThingFactory;
 
 class Rva00A027B8
 {
@@ -122,7 +122,7 @@ AIBuildableUnit::AIBuildableUnit(Int arg)
 Bool AIBuildableUnit::build(Player *player)
 {
 	Object *factory = TheGameLogic->findObjectByID(m_factoryID);
-	const ThingTemplate *unitType = (const ThingTemplate *)TheThingFactory->rva002D06CA(&m_templateName);
+	const ThingTemplate *unitType = TheThingFactory->findTemplate(m_templateName);
 	if (factory == 0 || unitType == 0)
 		return false;
 	ProductionUpdateInterface *pui = (ProductionUpdateInterface *)factory->rva0028BC58(0);
@@ -141,7 +141,7 @@ CanMakeType AIBuildableUnit::canMake(Player *player)
 		ProductionUpdateInterface *pui = (ProductionUpdateInterface *)factory->rva0028BC58(0);
 		if (pui && pui->queueSize() == 0)
 		{
-			const ThingTemplate *unitType = (const ThingTemplate *)TheThingFactory->rva002D06CA(&m_templateName);
+			const ThingTemplate *unitType = TheThingFactory->findTemplate(m_templateName);
 			Int quantity = player->m_productionQuantities.rva0037EE4C(unitType, -1, 0);
 			return g_00A027B8->canMakeUnit(factory, unitType, quantity);
 		}

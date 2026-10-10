@@ -6,8 +6,9 @@
 // 0x002E1A25 0x0037E3F6 0x0037E7B4 0x0037E93E 0x0037EB8C 0x0037EFB9
 // 0x004067DD. Flags from sibling Rva002D06CAGet without EHsc.
 #include "ascii_string.h"
-class Rva002D06CA { public: void *rva002D06CA(const AsciiString *key); };
-#define TheRva00DFF000 (*(Rva002D06CA **)0x00DFF000)
+class ThingTemplate;
+class ThingFactory { public: const ThingTemplate *findTemplate(const AsciiString &key); };
+#define TheRva00DFF000 (*(ThingFactory **)0x00DFF000)
 struct Rva0037E3D9Def
 {
 	char m_pad00[0x4DC];
@@ -29,10 +30,10 @@ public:
 };
 void *UnitRevivalEntry::getThingTemplate()
 {
-    Rva002D06CA *mgr = TheRva00DFF000;
+    ThingFactory *mgr = TheRva00DFF000;
     if (mgr == 0)
         return 0;
-    return mgr->rva002D06CA((const AsciiString *)((char *)this + 0xd4));
+    return (void *)mgr->findTemplate(*((const AsciiString *)((char *)this + 0xd4)));
 }
 void UnitRevivalEntry::setThingTemplateName(const AsciiString &arg)
 {

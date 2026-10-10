@@ -108,7 +108,7 @@ struct Snapshot003628D3 {
 class ThingTemplate;
 // Callable view of the rowed template lookup; its argument is a string pointer.
 class ThingFactory;
-class Rva002D06CA {public:void *rva002D06CA(const AsciiString*);};
+class ThingFactory {public:const ThingTemplate *findTemplate(const AsciiString &name);};
 extern ThingFactory *TheThingFactory;
 class BuffLogic {public:void *addBuff(void*,void*);};
 extern BuffLogic *TheBuffLogic;
@@ -136,7 +136,7 @@ void BuffTransfer003628D3::transfer(Xfer *xfer) {
  if(xfer->IsLoading()) {
   if(hasTemplate) {
    *xfer == name;
-   field1c=(const ThingTemplate*)((Rva002D06CA*)TheThingFactory)->rva002D06CA(&name);
+   field1c=TheThingFactory->findTemplate(name);
    if(!field1c) throw XferException(4,0);
   } else field1c=0;
  } else if(hasTemplate) {

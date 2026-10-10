@@ -26,10 +26,10 @@ public:
 };
 extern ScriptEngine *TheScriptEngine;
 
-class Rva002D06CA
+class ThingFactory
 {
 public:
-	void *rva002D06CA(const AsciiString *name);
+	const ThingTemplate *findTemplate(const AsciiString &name);
 };
 extern class ThingFactory *TheThingFactory;
 
@@ -41,7 +41,7 @@ void __stdcall Rva003C21E5Do(const AsciiString *str1, int x, const AsciiString *
 	Team *team2 = TheScriptEngine->getTeamNamed(*str3, false);
 	if (team2 == 0)
 		return;
-	void *r1 = ((Rva002D06CA *)TheThingFactory)->rva002D06CA(str2);
+	void *r1 = (void *)TheThingFactory->findTemplate(*str2);
 	ObjectTypes *types = TheScriptEngine->getObjectTypes(*str2);
 	team1->rva003A1626((const ThingTemplate *)r1, (Rva00376A62 *)types, x, team2);
 }

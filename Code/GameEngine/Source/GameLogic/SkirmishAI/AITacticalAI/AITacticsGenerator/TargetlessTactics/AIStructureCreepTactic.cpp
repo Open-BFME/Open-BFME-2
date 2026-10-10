@@ -378,14 +378,15 @@ struct Rva005AC0B5Template
 	unsigned int m_108;	// +0x108
 };
 
-class Rva002D06CA
+class ThingTemplate;
+class ThingFactory
 {
 public:
-	void *rva002D06CA(const AsciiString *key);	// the thing template by name
+	const ThingTemplate *findTemplate(const AsciiString &key);	// the thing template by name
 };
 // Use the ledger-defined factory view at DFF000; avoid a second
 // external spelling of the same factory pointer.
-extern Rva002D06CA *TheThingFactory;
+extern ThingFactory *TheThingFactory;
 
 struct BfmeWideResult
 {
@@ -684,7 +685,7 @@ bool AIStructureCreepTactic::validateTemplateName(const AsciiString &name)
 		}
 	}
 	if (objects.size() < 3) {
-		Rva005AC0B5Template *tmpl = (Rva005AC0B5Template *)TheThingFactory->rva002D06CA(&name);
+		Rva005AC0B5Template *tmpl = (Rva005AC0B5Template *)TheThingFactory->findTemplate(name);
 		if (tmpl->m_108 & 8)
 			return true;
 		if (names.find(name) == names.end())

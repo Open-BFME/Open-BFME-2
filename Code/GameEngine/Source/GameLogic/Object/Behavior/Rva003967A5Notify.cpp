@@ -146,10 +146,11 @@ public:
 	AsciiString getTexture() const;
 };
 
-class Rva002D06CA
+class ThingTemplate;
+class ThingFactory
 {
 public:
-	void *rva002D06CA(const AsciiString *key);
+	const ThingTemplate *findTemplate(const AsciiString &key);
 };
 
 extern class ThingFactory *TheThingFactory;
@@ -199,7 +200,7 @@ void __cdecl rva003967A5(Rva003967A5Owner *owner, int x, int y)
 				while (TheSidesList->rva0032BD25(key, idx, &info)) {
 					++idx;
 					AsciiString hitName(((const TerrainType *)&info)->getTexture());
-					void *tmpl = ((Rva002D06CA *)TheThingFactory)->rva002D06CA(&hitName);
+					void *tmpl = (void *)TheThingFactory->findTemplate(hitName);
 					if (tmpl != 0)
 						((Rva0020AA00Target *)tmpl)->notify(x, y);
 				}
@@ -212,7 +213,7 @@ void __cdecl rva003967A5(Rva003967A5Owner *owner, int x, int y)
 	if (count != 0) {
 		do {
 			NoCaseTreePair4 tmp(owner->m_begin[i]);
-			void *tmpl = ((Rva002D06CA *)TheThingFactory)->rva002D06CA(&tmp.first);
+			void *tmpl = (void *)TheThingFactory->findTemplate(tmp.first);
 			if (tmpl != 0)
 				((Rva0020AA00Target *)tmpl)->notify(x, y);
 		} while (++i < count);

@@ -6,10 +6,11 @@
 // 0x0029111F finds RespawnUpdate module then adds 0x64 for AsciiString.
 #include "ascii_string.h"
 
-class Rva002D06CA
+class ThingTemplate;
+class ThingFactory
 {
 public:
-	void *rva002D06CA(const AsciiString *key);
+	const ThingTemplate *findTemplate(const AsciiString &key);
 };
 
 extern class ThingFactory *TheThingFactory;
@@ -118,7 +119,7 @@ const Image *RespawnUpdate::getDeadImage()
 void *RespawnUpdate::rva004AF25D()
 {
 	if (m_cached == (void *)-1) {
-		void *found = ((Rva002D06CA *)TheThingFactory)->rva002D06CA(&m_moduleData->m_str11C);
+		void *found = (void *)TheThingFactory->findTemplate(m_moduleData->m_str11C);
 		m_cached = found;
 		if (found == 0)
 			m_cached = m_object->m_unk04;

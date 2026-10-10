@@ -247,8 +247,9 @@ __declspec(noinline) static void *rva005E72B4Get(Rva005E72B4Queue *queue,int id)
 
 class Image;
 class Rva00319CED { public: const Image *rva004E24DC(int); UnicodeString rva004E25AF(int); UnicodeString rva004E265F(int); };
-class Rva002D06CA { public: void *rva002D06CA(const AsciiString *); };
-extern Rva002D06CA *TheThingFactory;
+class ThingTemplate;
+class ThingFactory { public: const ThingTemplate *findTemplate(const AsciiString &name); };
+extern ThingFactory *TheThingFactory;
 struct Rva005E7322MidRet { char pad[4]; AsciiString text; };
 class Rva005E7322R { public: Rva005E7322MidRet *mid(int); };
 struct Rva005E76AEContext { char pad[0x18]; int m_id; };
@@ -258,7 +259,7 @@ __declspec(noinline) static void *rva005E7322Get(Rva005E72B4Queue *queue,int id)
  if(!r) return 0;
  AsciiString *name=&((Rva005E7322R *)r)->mid(0)->text;
  if(name->isEmpty()) return 0;
- return TheThingFactory->rva002D06CA(name);
+ return (void *)TheThingFactory->findTemplate(*name);
 }
 __declspec(noinline) static int rva005E7582Get(Rva005E72B4Queue *queue,int index)
 {

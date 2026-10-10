@@ -165,12 +165,12 @@ public:
 
 class ThingTemplate;
 
-class Rva002D06CA
+class ThingFactory
 {
 public:
-	void *rva002D06CA(const AsciiString *key);
+	const ThingTemplate *findTemplate(const AsciiString &key);
 };
-extern Rva002D06CA *TheThingFactory;
+extern ThingFactory *TheThingFactory;
 
 class ThingTemplate
 {
@@ -821,8 +821,8 @@ Object *Team::tryToRecruit(const ThingTemplate *tTemplate, const Coord3D *teamHo
 		if (hd == NULL)
 			continue;
 		if (hd->getNameCount() > 1) {
-			t0 = (const ThingTemplate *)TheThingFactory->rva002D06CA(hd->getName(0));
-			t1 = (const ThingTemplate *)TheThingFactory->rva002D06CA(hd->getName(1));
+			t0 = TheThingFactory->findTemplate(*(hd->getName(0)));
+			t1 = TheThingFactory->findTemplate(*(hd->getName(1)));
 			if (t0 && t1)
 				isHorde = true;
 			else

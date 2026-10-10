@@ -132,9 +132,9 @@ private:
 };
 
 // TheThingFactory->findTemplate, rowed under its address name.
-class Rva002D06CA {
+class ThingFactory {
 public:
-	void *rva002D06CA(const AsciiString *name);
+	const ThingTemplate *findTemplate(const AsciiString &name);
 };
 class ThingFactory;
 extern ThingFactory *TheThingFactory;
@@ -268,7 +268,7 @@ void W3DTreeBuffer::xfer(Xfer *xfer)
 			*xfer == m_treeTypes[i].m_templateName;
 			if (xfer->IsLoading()) {
 				// Rebuild the type's draw data and mesh from the loaded names.
-				const ThingTemplate *tmpl = (const ThingTemplate *)((Rva002D06CA *)TheThingFactory)->rva002D06CA(&m_treeTypes[i].m_templateName);
+				const ThingTemplate *tmpl = TheThingFactory->findTemplate(m_treeTypes[i].m_templateName);
 				if (tmpl) {
 					// A named reference keeps retail's receiver-before-argument order.
 					const ModuleInfo &moduleInfo = tmpl->getModuleInfo2F0();

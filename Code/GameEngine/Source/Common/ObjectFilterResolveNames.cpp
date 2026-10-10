@@ -52,10 +52,11 @@ public:
 	~INIException();
 };
 
-class Rva002D06CA
+class ThingTemplate;
+class ThingFactory
 {
 public:
-	void *rva002D06CA(const AsciiString *key);
+	const ThingTemplate *findTemplate(const AsciiString &key);
 };
 
 extern class ThingFactory *TheThingFactory;
@@ -91,7 +92,7 @@ void ObjectFilter::rva003611EFResolveNames(ObjectFilter *filter)
 			const ModuleData *tmpl;
 			{
 				AsciiString tmp(templateName);
-				tmpl = (const ModuleData *)((Rva002D06CA *)TheThingFactory)->rva002D06CA(&tmp);
+				tmpl = (const ModuleData *)TheThingFactory->findTemplate(tmp);
 			}
 			if (!tmpl)
 			{
@@ -101,7 +102,7 @@ void ObjectFilter::rva003611EFResolveNames(ObjectFilter *filter)
 		}
 		else
 		{
-			const ModuleData *tmpl = (const ModuleData *)((Rva002D06CA *)TheThingFactory)->rva002D06CA(&name);
+			const ModuleData *tmpl = (const ModuleData *)TheThingFactory->findTemplate(name);
 			if (!tmpl)
 			{
 				throw INIException(3, "ObjectFilter::resolveNames() specified +%s but this template doesn't exist! Typo?", name.str());
@@ -122,7 +123,7 @@ void ObjectFilter::rva003611EFResolveNames(ObjectFilter *filter)
 			const ModuleData *tmpl;
 			{
 				AsciiString tmp(templateName);
-				tmpl = (const ModuleData *)((Rva002D06CA *)TheThingFactory)->rva002D06CA(&tmp);
+				tmpl = (const ModuleData *)TheThingFactory->findTemplate(tmp);
 			}
 			if (!tmpl)
 			{
@@ -132,7 +133,7 @@ void ObjectFilter::rva003611EFResolveNames(ObjectFilter *filter)
 		}
 		else
 		{
-			const ModuleData *tmpl = (const ModuleData *)((Rva002D06CA *)TheThingFactory)->rva002D06CA(&name);
+			const ModuleData *tmpl = (const ModuleData *)TheThingFactory->findTemplate(name);
 			if (!tmpl)
 			{
 				throw INIException(3, "ObjectFilter::resolveNames() specified -%s but this template doesn't exist! Typo?", name.str());

@@ -2,7 +2,7 @@
 // ?rva004787B0@GarrisonContain@@QAEXXZ @0x004787B0 160B.
 // Slot 5 (offset 0x14) of GarrisonContain 0x008461F8, HordeGarrisonContain
 // 0x00846570, TunnelContain 0x00847740 and siblings: shared base spawn.
-// Reads count at [this+4]+0xA8 and name at +0xA4 via rowed Rva002D06CA
+// Reads count at [this+4]+0xA8 and name at +0xA4 via rowed ThingFactory
 // through g_009FF000, then creates count Objects via rowed ThingFactory
 // newObject with the controlling player's team at +0x2EC and a zeroed
 // 0x10 CreateMask, driving Object+0x250 slots 0x98/0x9C. Evidence: vtable
@@ -72,11 +72,6 @@ private:
 public:
 	Payload *m_250;
 };
-class Rva002D06CA
-{
-public:
-	void *rva002D06CA(const AsciiString *key);
-};
 extern class ThingFactory *TheThingFactory;
 struct CreateMask
 {
@@ -85,6 +80,7 @@ struct CreateMask
 class ThingFactory
 {
 public:
+	const ThingTemplate *findTemplate(const AsciiString &name);
 	Object *newObject(const ThingTemplate *tmpl, Team *team, const CreateMask *mask, bool flag);
 };
 extern "C" void *__cdecl memset(void *dst, int val, unsigned int size);
@@ -109,7 +105,7 @@ void GarrisonContain::rva004787B0()
 	int count = a->m_count;
 	if (count <= 0)
 		return;
-	void *tmpl = ((Rva002D06CA *)TheThingFactory)->rva002D06CA((const AsciiString *)&a->m_nameOpaque);
+	void *tmpl = (void *)TheThingFactory->findTemplate(*((const AsciiString *)&a->m_nameOpaque));
 	Object *obj = m_8;
 	CreateMask mask;
 	for (int i = 0; i < count; ++i)
@@ -117,7 +113,7 @@ void GarrisonContain::rva004787B0()
 		memset(&mask, 0, 0x10);
 		Player *player = obj->getControllingPlayer();
 		Team *team = player->m_team;
-		Object *created = ((ThingFactory *)TheThingFactory)->newObject((const ThingTemplate *)tmpl, team, &mask, false);
+		Object *created = TheThingFactory->newObject((const ThingTemplate *)tmpl, team, &mask, false);
 		Payload *p = obj->m_250;
 		if (p)
 		{

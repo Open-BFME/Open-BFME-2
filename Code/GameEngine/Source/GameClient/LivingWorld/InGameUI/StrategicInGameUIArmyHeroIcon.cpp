@@ -95,10 +95,11 @@ struct Rva005F42FFTemplate
 	int m_tooltip; // +0x5C4
 };
 
-class Rva002D06CA
+class ThingTemplate;
+class ThingFactory
 {
 public:
-	void *rva002D06CA(const AsciiString *name);
+	const ThingTemplate *findTemplate(const AsciiString &name);
 };
 class ThingFactory;
 extern ThingFactory *TheThingFactory; // findTemplate viewed as the rowed 0x002D06CA
@@ -152,7 +153,7 @@ void StrategicInGameUI::ArmyHeroIcon::DoUpdate()
 	const AsciiString *name = &m_hero->m_templateName;
 	if (((const StringBase<char> *)name)->isEmpty())
 		return;
-	Rva005F42FFTemplate *tmpl = (Rva005F42FFTemplate *)((Rva002D06CA *)TheThingFactory)->rva002D06CA(name);
+	Rva005F42FFTemplate *tmpl = (Rva005F42FFTemplate *)TheThingFactory->findTemplate(*name);
 	if (!tmpl)
 		return;
 	int tooltip = tmpl->m_tooltip;

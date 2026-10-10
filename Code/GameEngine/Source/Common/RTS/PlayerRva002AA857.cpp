@@ -9,7 +9,7 @@
 class ThingTemplate;
 class ThingFactory;
 extern ThingFactory *TheThingFactory;
-class Rva002D06CA { public: void *rva002D06CA(const AsciiString *); };
+class ThingFactory { public: const ThingTemplate *findTemplate(const AsciiString &name); };
 struct PlayerTemplateStringList { AsciiString *begin,*end,*capacity;
  unsigned int size() const {return end-begin;} };
 struct RevivalPlayerTemplateView {
@@ -25,10 +25,10 @@ private:
 const ThingTemplate *Player::rva002AA857(int index)
 {
  if(index<playerTemplate->primary.size())
-  return (const ThingTemplate *)((Rva002D06CA *)TheThingFactory)->rva002D06CA(&playerTemplate->primary[index]);
+  return TheThingFactory->findTemplate(playerTemplate->primary[index]);
  int secondIndex=index-playerTemplate->primary.size();
  if(secondIndex<playerTemplate->secondary.size())
-  return (const ThingTemplate *)((Rva002D06CA *)TheThingFactory)->rva002D06CA(&playerTemplate->secondary[secondIndex]);
+  return TheThingFactory->findTemplate(playerTemplate->secondary[secondIndex]);
  return 0;
 }
 

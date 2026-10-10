@@ -9,10 +9,11 @@
 
 #include "ascii_string.h"
 
-class Rva002D06CA
+class ThingTemplate;
+class ThingFactory
 {
 public:
-	void *rva002D06CA(const AsciiString *key);
+	const ThingTemplate *findTemplate(const AsciiString &key);
 };
 extern class ThingFactory *TheThingFactory;
 
@@ -70,7 +71,7 @@ void INI::Rva0033940F_Parse(INI *ini, void *, void *store, const void *)
 		*(void **)store = 0;
 		return;
 	}
-	void *result = ((Rva002D06CA *)TheThingFactory)->rva002D06CA(&AsciiString(token));
+	void *result = (void *)TheThingFactory->findTemplate(AsciiString(token));
 	if (result == 0 && bfmeRva000387C0()) {
 		_bfme_debugRecordCallsite(1);
 		theDebug->SkipNext();

@@ -249,13 +249,13 @@ private:
 	UnsignedInt m_kindFlags[7]; // +0x108, 218 KindOfType bits
 };
 
-class Rva002D06CA
+class ThingFactory
 {
 public:
-	void *rva002D06CA(const AsciiString *key); // findTemplate
+	const ThingTemplate *findTemplate(const AsciiString &key); // findTemplate
 };
 
-extern Rva002D06CA *TheThingFactory;
+extern ThingFactory *TheThingFactory;
 
 enum UpgradeType
 {
@@ -1161,7 +1161,7 @@ void ProductionUpdate::xfer( Xfer *xfer )
 			{
 				case PRODUCTION_UNIT:
 				case PRODUCTION_HORDE_UNIT:
-					production->m_objectToProduce = (const ThingTemplate *)TheThingFactory->rva002D06CA( &name );
+					production->m_objectToProduce = TheThingFactory->findTemplate(name);
 					production->m_objectToProduce = production->m_objectToProduce ?
 						(const ThingTemplate *)production->m_objectToProduce->getFinalOverride() : NULL;
 					break;

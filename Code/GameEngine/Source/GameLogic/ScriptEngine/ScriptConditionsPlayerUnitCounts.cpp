@@ -181,12 +181,12 @@ enum ObjectStatusTypes
 };
 
 // ThingFactory's template lookup (ledger 0x002D06CA, held under this name).
-class Rva002D06CA
+class ThingFactory
 {
 public:
-	void *rva002D06CA(const AsciiString *name);
+	const ThingTemplate *findTemplate(const AsciiString &name);
 };
-extern Rva002D06CA *TheThingFactory;
+extern ThingFactory *TheThingFactory;
 
 // The module record Object::rva0028C197 returns: a vtable whose slot 59
 // (+0xEC) answers a status flag.

@@ -9,10 +9,11 @@
 #include "ascii_string.h"
 #include "BattlePromptCounterView.h"
 
-class Rva002D06CA
+class ThingTemplate;
+class ThingFactory
 {
 public:
-	void *rva002D06CA(const AsciiString *key);
+	const ThingTemplate *findTemplate(const AsciiString &key);
 };
 
 extern class ThingFactory *TheThingFactory;
@@ -25,7 +26,7 @@ struct Rva005FED61Payload
 
 void Rva005FED61::rva005FED61(const AsciiString *key, int delta)
 {
-	void *raw = ((Rva002D06CA *)TheThingFactory)->rva002D06CA(key);
+	void *raw = (void *)TheThingFactory->findTemplate(*key);
 	if (raw == 0)
 		return;
 	int idx = ((Rva005FED61Payload *)raw)->m_idx5C4;

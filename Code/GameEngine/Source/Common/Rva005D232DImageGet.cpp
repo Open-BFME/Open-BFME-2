@@ -6,9 +6,10 @@
 #include "ascii_string.h"
 
 class Image;
-class Rva002D06CA {
+class ThingTemplate;
+class ThingFactory {
 public:
-    void *rva002D06CA(const AsciiString *s);
+    const ThingTemplate *findTemplate(const AsciiString &s);
 };
 extern class ThingFactory *TheThingFactory;
 
@@ -35,7 +36,7 @@ const Image *StrategicInGameUI::GetSelectionPortrait(Rva005D232DIn *in)
     void *q = in->p28;
     if (q != 0) {
         const AsciiString &s = *(const AsciiString *)((char *)q + 0x0C);
-        void *v = ((Rva002D06CA *)TheThingFactory)->rva002D06CA(&s);
+        void *v = (void *)TheThingFactory->findTemplate(s);
         if (v != 0)
             return ((ThingTemplate *)v)->rva0033BA46();
     }

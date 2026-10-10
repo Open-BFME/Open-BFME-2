@@ -30,9 +30,10 @@ public:
     Rva002E2903Player *find(int, unsigned int *);
 };
 
-class Rva002D06CA {
+class ThingTemplate;
+class ThingFactory {
 public:
-    void *rva002D06CA(const AsciiString *s);
+    const ThingTemplate *findTemplate(const AsciiString &s);
 };
 extern class ThingFactory *TheThingFactory;
 
@@ -66,7 +67,7 @@ const Image *StrategicInGameUI::GetSelectionPortrait(Rva005D2355In *in)
 {
     const AsciiString &s = in->str18;
     if (!((const StringBase<char> *)&s)->isEmpty()) {
-        void *v = ((Rva002D06CA *)TheThingFactory)->rva002D06CA(&s);
+        void *v = (void *)TheThingFactory->findTemplate(s);
         if (v != 0)
             return ((ThingTemplate *)v)->rva0033BA46();
     }
@@ -88,7 +89,7 @@ const Image *StrategicInGameUI::GetButtonImage(Rva005D2355In *in)
 {
     const AsciiString &s = in->str18;
     if (!((const StringBase<char> *)&s)->isEmpty()) {
-        void *v = ((Rva002D06CA *)TheThingFactory)->rva002D06CA(&s);
+        void *v = (void *)TheThingFactory->findTemplate(s);
         if (v != 0)
             return ((ThingTemplate *)v)->getButtonImage();
     }

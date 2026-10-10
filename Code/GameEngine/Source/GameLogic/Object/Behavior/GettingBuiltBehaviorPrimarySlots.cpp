@@ -36,16 +36,16 @@ static inline unsigned int rva004534F5TestB(const ThingTemplate *t)
 	return t->m_118 & 0x10000000;
 }
 
-// ThingFactory::findTemplate (0x002D06CA) is rowed as Rva002D06CA::rva002D06CA.
-class Rva002D06CA
+// ThingFactory::findTemplate (0x002D06CA) is rowed as ThingFactory::rva002D06CA.
+class ThingFactory
 {
 public:
-	void *rva002D06CA(const AsciiString *name);
+	const ThingTemplate *findTemplate(const AsciiString &name);
 };
 class ThingFactory;
 static inline const ThingTemplate *rva004534F5Find(ThingFactory *f, const AsciiString &name)
 {
-	return (const ThingTemplate *)((Rva002D06CA *)f)->rva002D06CA(&name);
+	return ((ThingFactory *)f)->findTemplate(name);
 }
 
 extern ThingFactory *TheThingFactory;

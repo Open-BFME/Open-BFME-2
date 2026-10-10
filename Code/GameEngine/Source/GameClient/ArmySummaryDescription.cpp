@@ -92,7 +92,8 @@ Rva00220B04::~Rva00220B04() {}
 
 #include "unicode_string.h"
 #include "../Common/BattlePromptCounterView.h"
-class Rva002D06CA { public: void *rva002D06CA(const AsciiString *); };
+class ThingTemplate;
+class ThingFactory { public: const ThingTemplate *findTemplate(const AsciiString &name); };
 class ThingFactory;
 extern ThingFactory *TheThingFactory;
 class GameTextInterface;
@@ -165,7 +166,7 @@ static void BuildDescriptionString(UnicodeString *result, Rva00220B04 *items)
     if(!items->m_vec08.empty()) {
         int count=items->m_vec08.size();
         for(int i=0;i<count;++i) {
-            DescriptionTemplateView *thing=(DescriptionTemplateView *)((Rva002D06CA *)TheThingFactory)->rva002D06CA(&items->m_vec08[i]);
+            DescriptionTemplateView *thing=(DescriptionTemplateView *)TheThingFactory->findTemplate(items->m_vec08[i]);
             if(!result->isEmpty()) result->concat((const unsigned short *)L", ");
             result->concat(thing->displayName);
         }

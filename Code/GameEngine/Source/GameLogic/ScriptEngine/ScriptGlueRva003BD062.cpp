@@ -10,10 +10,11 @@
 // through the same this+0x700 list, so it is the add-side twin.
 #include "ascii_string.h"
 
-class Rva002D06CA
+class ThingTemplate;
+class ThingFactory
 {
 public:
-	void *rva002D06CA(const AsciiString *key);
+	const ThingTemplate *findTemplate(const AsciiString &key);
 };
 extern class ThingFactory *TheThingFactory;
 
@@ -41,7 +42,7 @@ public:
 
 void __stdcall Rva003BD062Set(void *p, const AsciiString *templateName, unsigned char flag)
 {
-	void *t = ((Rva002D06CA *)TheThingFactory)->rva002D06CA(templateName);
+	void *t = (void *)TheThingFactory->findTemplate(*templateName);
 	if (t == 0)
 		return;
 	const AsciiString &name = *(const AsciiString *)((const char *)p + 0x10);

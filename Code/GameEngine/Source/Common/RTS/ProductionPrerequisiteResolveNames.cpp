@@ -21,18 +21,19 @@
 
 #include "Common/ProductionPrerequisite.h"
 #include "Common/Player.h"
-#include "Common/ThingFactory.h"
 #include "Common/ThingTemplate.h"
 #include "GameLogic/Object.h"
 #include "GameClient/Drawable.h"
 #include "GameClient/GameText.h"
 
-// The template lookup is the rowed Rva002D06CA::rva002D06CA.
-class Rva002D06CA
+// The template lookup is the rowed ThingFactory::findTemplate (0x002D06CA); BFME 2
+// takes the name only, so this unit declares the factory instead of ZH ThingFactory.h.
+class ThingFactory
 {
 public:
-	void *rva002D06CA(const AsciiString *name);
+	const ThingTemplate *findTemplate(const AsciiString &name);
 };
+extern ThingFactory *TheThingFactory;
 
 class BfmeThingFactory
 {
@@ -51,7 +52,7 @@ void ProductionPrerequisite::resolveNames()
 	for (Int i = 0; i < m_prereqUnits.size(); i++)
 	{
 		m_prereqUnits[i].unit =
-			(const ThingTemplate *)((Rva002D06CA *)TheThingFactory)->rva002D06CA(&m_prereqUnits[i].name);
+			TheThingFactory->findTemplate(m_prereqUnits[i].name);
 		((BFMERetailAsciiString *)&m_prereqUnits[i].name)->releaseBuffer();
 	}
 }

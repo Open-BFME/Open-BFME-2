@@ -29,10 +29,11 @@ protected:
 // 0x00452EDD, 0x00452EF5, 0x00452F0D (interface at +0x20): the template the
 // registry at VA 0x00DFF000 finds for the module data's name at +0x14, +0x18
 // resp. +0x1C, NULL without module data.
-class Rva002D06CA
+class ThingTemplate;
+class ThingFactory
 {
 public:
-	void *rva002D06CA(const AsciiString *name);
+	const ThingTemplate *findTemplate(const AsciiString &name);
 };
 extern class ThingFactory *TheThingFactory;
 struct Rva00452EDDData
@@ -61,21 +62,21 @@ void *Rva00452EDD::rva00452EDD()
 	const Rva00452EDDData *d = (const Rva00452EDDData *)m_moduleData;
 	if (!d)
 		return 0;
-	return ((Rva002D06CA *)TheThingFactory)->rva002D06CA((const AsciiString *)&d->m_14);
+	return (void *)TheThingFactory->findTemplate(*((const AsciiString *)&d->m_14));
 }
 void *Rva00452EDD::rva00452EF5()
 {
 	const Rva00452EDDData *d = (const Rva00452EDDData *)m_moduleData;
 	if (!d)
 		return 0;
-	return ((Rva002D06CA *)TheThingFactory)->rva002D06CA((const AsciiString *)&d->m_18);
+	return (void *)TheThingFactory->findTemplate(*((const AsciiString *)&d->m_18));
 }
 void *Rva00452EDD::rva00452F0D()
 {
 	const Rva00452EDDData *d = (const Rva00452EDDData *)m_moduleData;
 	if (!d)
 		return 0;
-	return ((Rva002D06CA *)TheThingFactory)->rva002D06CA((const AsciiString *)&d->m_1C);
+	return (void *)TheThingFactory->findTemplate(*((const AsciiString *)&d->m_1C));
 }
 
 // 0x0044F09F (interface at +0x20, beside WeaponFireSpecialAbilityUpdate's

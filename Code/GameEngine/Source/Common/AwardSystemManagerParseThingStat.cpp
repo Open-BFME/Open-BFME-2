@@ -90,7 +90,7 @@ class Rva0040AAD5;
 extern Rva0040AAD5 *g_00E02F74;					// the award system
 
 class ThingTemplate;
-class Rva002D06CA { public: void *rva002D06CA(const AsciiString *name); };	// template lookup
+class ThingFactory { public: const ThingTemplate *findTemplate(const AsciiString &name); };	// template lookup
 class ThingFactory;
 extern ThingFactory *TheThingFactory;
 
@@ -130,14 +130,14 @@ void AwardSystemManager::parseThingStat(INI *ini, void *, void *, const void *)
 	for (i = 0; i < stat.getIncludedCount(); ++i)
 	{
 		AsciiString templateName = TheNameKeyGenerator->keyToName((NameKeyType)((const Rva0040A7F1 *)&stat)->rva0040A7F1(i));
-		const ThingTemplate *tmpl = (const ThingTemplate *)((Rva002D06CA *)TheThingFactory)->rva002D06CA(&templateName);
+		const ThingTemplate *tmpl = TheThingFactory->findTemplate(templateName);
 		if (tmpl == 0)
 			throw INIException(3, "The ThingTemplate %s does not exist in AwardSystemManager::parseThingStat.", STR(templateName));
 	}
 	for (i = 0; i < stat.getExcludedCount(); ++i)
 	{
 		AsciiString templateName = TheNameKeyGenerator->keyToName((NameKeyType)((const Rva0040A80F *)&stat)->rva0040A80F(i));
-		const ThingTemplate *tmpl = (const ThingTemplate *)((Rva002D06CA *)TheThingFactory)->rva002D06CA(&templateName);
+		const ThingTemplate *tmpl = TheThingFactory->findTemplate(templateName);
 		if (tmpl == 0)
 			throw INIException(3, "The ThingTemplate %s does not exist in AwardSystemManager::parseThingStat.", STR(templateName));
 	}

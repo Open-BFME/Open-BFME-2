@@ -156,13 +156,9 @@ public:
 	int m_parachuteNameOpaque;
 };
 
-class Rva002D06CA
-{
-public:
-	void *rva002D06CA(const AsciiString *key);
-};
 
-extern Rva002D06CA *g_009FF000;
+class ThingFactory;
+extern ThingFactory *TheThingFactory;
 
 void __cdecl ji_006291ae();
 
@@ -174,6 +170,7 @@ struct CreateMask
 class ThingFactory
 {
 public:
+	const ThingTemplate *findTemplate(const AsciiString &name);
 	Object *newObject(const ThingTemplate *tmplate, Team *team, const CreateMask *mask, bool flag);
 };
 
@@ -299,13 +296,12 @@ UpdateSleepTime HijackerUpdate::update(void)
 
 			if (m_wasTargetAirborne)
 			{
-				const ThingTemplate *putInContainerTmpl = (const ThingTemplate *)g_009FF000->rva002D06CA(
-					reinterpret_cast<const AsciiString *>(&getModuleData()->m_parachuteNameOpaque));
+				const ThingTemplate *putInContainerTmpl = TheThingFactory->findTemplate(*(reinterpret_cast<const AsciiString *>(&getModuleData()->m_parachuteNameOpaque)));
 				if (putInContainerTmpl)
 				{
 					CreateMask mask;
 					((void (__cdecl *)(void *, int, UnsignedInt))&ji_006291ae)(&mask, 0, 0x10);
-					Object *container = ((ThingFactory *)g_009FF000)->newObject(
+					Object *container = TheThingFactory->newObject(
 						putInContainerTmpl, obj->getTeam(), &mask, false);
 					((Thing *)container)->setPosition(&m_ejectPos);
 					if (container->getContain()->v38(obj, 1, 0))

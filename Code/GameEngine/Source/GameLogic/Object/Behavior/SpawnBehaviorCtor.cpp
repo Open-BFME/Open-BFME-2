@@ -17,10 +17,10 @@ class Object;
 class ThingTemplate;
 class AsciiString;
 
-class Rva002D06CA
+class ThingFactory
 {
 public:
-	void *rva002D06CA(const AsciiString *key);
+	const ThingTemplate *findTemplate(const AsciiString &key);
 };
 
 extern class ThingFactory *TheThingFactory;
@@ -141,7 +141,7 @@ SpawnBehavior::SpawnBehavior(Thing *thing, const ModuleData *moduleData)
 {
 	const SpawnBehaviorModuleDataView *md = (const SpawnBehaviorModuleDataView *)m_moduleData;
 	m_templateNameIterator = md->m_spawnTemplateBegin;
-	m_spawnTemplate = (const ThingTemplate *)((Rva002D06CA *)TheThingFactory)->rva002D06CA(m_templateNameIterator);
+	m_spawnTemplate = TheThingFactory->findTemplate(*m_templateNameIterator);
 	m_framesToWait = 0;
 	m_firstBatchCount = 0;
 	if (md->m_isOneShotData)

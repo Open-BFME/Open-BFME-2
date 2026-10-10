@@ -21,7 +21,7 @@ public:
 #undef SLOT
 };
 class Object { public: char pad[0x74]; ObjectID id; char pad78[0x258-0x78]; AIUpdateView *ai; };
-class Rva002D06CA { public: void *rva002D06CA(const AsciiString *); };
+class ThingFactory { public: const ThingTemplate *findTemplate(const AsciiString &name); };
 class ThingFactory;
 extern ThingFactory *TheThingFactory;
 class Rva0055ADD8 { public: int rva0055ADD8(int); };
@@ -44,7 +44,7 @@ public:
 bool AIBuildableStructure::build(Player *player)
 {
  Object *dozer=TheGameLogic->findObjectByID(producer);
- const ThingTemplate *thing=(const ThingTemplate *)((Rva002D06CA *)TheThingFactory)->rva002D06CA(&name);
+ const ThingTemplate *thing=TheThingFactory->findTemplate(name);
  AIUpdateView *ai=dozer->ai;
  Object *created=ai->buildStructure(thing,&position(),rotation(),player,0,0);
  if (created) { produced=created->id; return true; }
@@ -125,11 +125,11 @@ int AIBuildableStructure::canMake(Player *player)
 {
  Object *dozer=TheGameLogic->findObjectByID(producer);
  if (!dozer || !dozer->ai->canUseDozer()) return 8;
- const ThingTemplate *thing=(const ThingTemplate *)((Rva002D06CA *)TheThingFactory)->rva002D06CA(&name);
+ const ThingTemplate *thing=TheThingFactory->findTemplate(name);
  int status=((BuildAssistantCallView *)TheBuildAssistant)->canMakeUnit(dozer,thing,-1);
  if (status==0) {
    if (rva00573B5E()) return 9;
-   const ThingTemplate *siteThing=(const ThingTemplate *)((Rva002D06CA *)TheThingFactory)->rva002D06CA(&name);
+   const ThingTemplate *siteThing=TheThingFactory->findTemplate(name);
    if (((BuildAssistantCallView *)TheBuildAssistant)->checkPosition(&position(),siteThing,rotation(),133,TheGameLogic->findObjectByID(producer),player)) return 10;
  }
  return status;

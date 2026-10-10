@@ -9,7 +9,8 @@ class Object;
 class Rva002A8F24;
 class Rva002A8AB1Record;
 class Rva00327C1B;
-class Rva002D06CA;
+class ThingTemplate;
+class ThingFactory;
 class SuffixObj;
 
 class Object
@@ -36,10 +37,10 @@ public:
 	bool rva00327C1B() const;
 };
 
-class Rva002D06CA
+class ThingFactory
 {
 public:
-	void *rva002D06CA(const AsciiString *s);
+	const ThingTemplate *findTemplate(const AsciiString &s);
 };
 
 class SuffixObj
@@ -104,7 +105,7 @@ void AIDozerManager::buildDozer(Object *obj)
 				goto done;
 docall:
 			void *r = s->v02();
-			void *q = reinterpret_cast<Rva002D06CA *>(TheThingFactory)->rva002D06CA(&m_str);
+			void *q = (void *)reinterpret_cast<ThingFactory *>(TheThingFactory)->findTemplate(m_str);
 			s->v08(q, -1, r, -1, zero, &AsciiString::TheEmptyString, zero);
 		}
 	}

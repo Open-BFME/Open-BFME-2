@@ -30,10 +30,11 @@ private:
 	void *m_data;
 };
 
-class Rva002D06CA
+class ThingTemplate;
+class ThingFactory
 {
 public:
-	void *rva002D06CA(const AsciiString *key);
+	const ThingTemplate *findTemplate(const AsciiString &key);
 };
 
 extern class ThingFactory *TheThingFactory;
@@ -57,18 +58,15 @@ void Rva0030D773::rva0030D773(int val)
 	case 0:
 		{
 			AsciiString tmp("WallHubTemplate");
-			m_thing = ((Rva002D06CA *)TheThingFactory)->rva002D06CA(&tmp);
+			m_thing = (void *)TheThingFactory->findTemplate(tmp);
 		}
 		break;
 	case 1:
 		{
 			AsciiString tmp("ExpansionLocatorTemplate");
-			m_thing = ((Rva002D06CA *)TheThingFactory)->rva002D06CA(&tmp);
+			m_thing = (void *)TheThingFactory->findTemplate(tmp);
 		}
 		break;
 	}
 }
 
-// The global(s) below are defined elsewhere under another name at the same
-// address (the census owner of that DIR32 target); bind this unit's spelling.
-#pragma comment(linker, "/alternatename:?g_00DFF000@@3PAVRva002D06CA@@A=?TheThingFactory@@3PAVRva002D06CA@@A")

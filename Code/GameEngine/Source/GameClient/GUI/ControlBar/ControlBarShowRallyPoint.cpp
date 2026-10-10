@@ -22,15 +22,12 @@ public:
 	void setOrientation(float angle);
 };
 
-class Rva002D06CA
-{
-public:
-	void *rva002D06CA(const AsciiString *name);
-};
 
+class ThingTemplate;
 class ThingFactory
 {
 public:
+	const ThingTemplate *findTemplate(const AsciiString &name);
 	void *newDrawable(void *tmplate, int a, int b);	// 0x002CF21B
 };
 extern ThingFactory *TheThingFactory;
@@ -120,7 +117,7 @@ void ControlBar::showRallyPoint(const Coord3D *loc)
 			const void *ttn;
 			{
 				AsciiString markerName("RallyPointMarker");
-				ttn = (const void *)((Rva002D06CA *)TheThingFactory)->rva002D06CA(&markerName);
+				ttn = (const void *)TheThingFactory->findTemplate(markerName);
 			}
 			marker = (Drawable *)TheThingFactory->newDrawable((void *)ttn, 0, -1);
 			if (marker)

@@ -160,17 +160,13 @@ public:
 class ThingFactory
 {
 public:
+	const ThingTemplate *findTemplate(const AsciiString &name);
 	Object *newObject( const ThingTemplate *tmplate, Team *team, const CreateMask *mask, bool b );
 };
 
 extern ThingFactory *TheThingFactory;
 
 // TheThingFactory's template lookup, address-named as rowed.
-class Rva002D06CA
-{
-public:
-	void *rva002D06CA( const AsciiString *key );
-};
 
 struct SiegeEngineContainModuleData
 {
@@ -205,7 +201,7 @@ void SiegeEngineContain::createPayload()
 	const ThingTemplate *payloadTemplate =
 		((const StringBase<char> &)self->m_payloadTemplateName).isEmpty()
 			? 0
-			: (const ThingTemplate *)((Rva002D06CA *)TheThingFactory)->rva002D06CA( &self->m_payloadTemplateName );
+			: TheThingFactory->findTemplate(self->m_payloadTemplateName);
 
 	Object *owner = getObject();
 	ContainModuleInterface *contain = owner->getContain();

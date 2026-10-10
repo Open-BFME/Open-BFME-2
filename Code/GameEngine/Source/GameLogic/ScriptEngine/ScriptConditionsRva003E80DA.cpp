@@ -15,7 +15,8 @@ class TeamPrototype;
 class Player;
 class TeamFactory;
 class PlayerList;
-class Rva002D06CA;
+class ThingTemplate;
+class ThingFactory;
 class ScriptEngine;
 
 class Rva002046C0Owner
@@ -54,10 +55,10 @@ public:
 	int rva002A7548(int v);
 };
 
-class Rva002D06CA
+class ThingFactory
 {
 public:
-	void *rva002D06CA(const AsciiString *key);
+	const ThingTemplate *findTemplate(const AsciiString &key);
 };
 extern class ThingFactory *TheThingFactory;
 extern float g_Va007C26F0;
@@ -102,7 +103,7 @@ bool ScriptConditions::rva003E80DA(Parameter *p0, Parameter *p1)
 	int total = 0;
 	for (int i = 0; i < proto->m_1D8; ++i) {
 		TeamEntry &e = proto->m_entries[i];
-		void *found = ((Rva002D06CA *)TheThingFactory)->rva002D06CA(&e.m_10);
+		void *found = (void *)TheThingFactory->findTemplate(e.m_10);
 		if (found != 0) {
 			int c = e.m_00 + e.m_04;
 			float f = (float)c * g_Va007C26F0;

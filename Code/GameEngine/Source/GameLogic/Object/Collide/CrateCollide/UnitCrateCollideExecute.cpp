@@ -68,11 +68,6 @@ private:
 	Team *m_defaultTeam;	// +0x2EC
 };
 
-class Rva002D06CA
-{
-public:
-	void *rva002D06CA(const AsciiString *key);	// 0x002D06CA
-};
 extern class ThingFactory *TheThingFactory;
 
 void __cdecl ji_006291ae();
@@ -80,6 +75,7 @@ void __cdecl ji_006291ae();
 class ThingFactory
 {
 public:
+	const ThingTemplate *findTemplate(const AsciiString &name);
 	Object *newObject(const ThingTemplate *tmplate, Team *team, const CreateMask *mask, bool flag);	// 0x002D0A23 pin
 };
 
@@ -225,7 +221,7 @@ protected:
 bool UnitCrateCollide::executeCrateBehavior(Object *other)
 {
 	unsigned int remaining = m_moduleData->m_unitCount;
-	void *tmpl = ((Rva002D06CA *)TheThingFactory)->rva002D06CA(&m_moduleData->m_unitType);
+	void *tmpl = (void *)TheThingFactory->findTemplate(m_moduleData->m_unitType);
 	if (tmpl == 0)
 		return false;
 	for (; remaining > 0; --remaining)
@@ -233,7 +229,7 @@ bool UnitCrateCollide::executeCrateBehavior(Object *other)
 		Team *creationTeam = other->getControllingPlayer()->getDefaultTeam();
 		CreateMask mask;
 		((void (__cdecl *)(void *, int, unsigned int))&ji_006291ae)(&mask, 0, 0x10);
-		Object *newObj = ((ThingFactory *)TheThingFactory)->newObject((const ThingTemplate *)tmpl, creationTeam, &mask, false);
+		Object *newObj = TheThingFactory->newObject((const ThingTemplate *)tmpl, creationTeam, &mask, false);
 		if (newObj != 0)
 		{
 			Coord3D creationPoint;

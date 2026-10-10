@@ -28,10 +28,11 @@ public:
 	int iterateObjects(int (*func)(Object *, void *), void *userData) const;
 };
 
-class Rva002D06CA
+class ThingTemplate;
+class ThingFactory
 {
 public:
-	void *rva002D06CA(const AsciiString *key);
+	const ThingTemplate *findTemplate(const AsciiString &key);
 };
 
 extern class ThingFactory *TheThingFactory;
@@ -86,7 +87,7 @@ Object *SpawnBehavior::rva0045F4D7()
 	{
 		if (last.compare(*it) == 0)
 			continue;
-		helper.m_template = ((Rva002D06CA *)TheThingFactory)->rva002D06CA(it);
+		helper.m_template = (void *)TheThingFactory->findTemplate(*it);
 		player->iterateObjects((int (*)(Object *, void *))callback0045F4D7, &helper);
 		last = *it;
 	}

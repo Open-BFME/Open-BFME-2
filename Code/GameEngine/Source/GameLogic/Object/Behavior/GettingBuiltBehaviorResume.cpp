@@ -45,9 +45,8 @@ public:
  unsigned char pad284[0x438-0x284]; unsigned char privateStatus;
 };
 class ThingTemplate;
-class Rva002D06CA { public: void *rva002D06CA(const AsciiString *); };
 struct CreateMask { unsigned int bits[4]; };
-class ThingFactory { public: Object *newObject(const ThingTemplate *,Team *,const CreateMask *,bool); };
+class ThingFactory { public: const ThingTemplate *findTemplate(const AsciiString &name); Object *newObject(const ThingTemplate *,Team *,const CreateMask *,bool); };
 extern ThingFactory *TheThingFactory;
 struct GettingBuiltBehaviorModuleData {
  unsigned char pad[0x14]; AsciiString builder; AsciiString alternateBuilder; bool alternate;
@@ -68,8 +67,8 @@ void GettingBuiltBehaviorSecondary::resumeBuildingConstruction(bool instant)
  if (!(unsigned char)((Rva002AA245MovzxByteChaseField *)object->getControllingPlayer())->get()) return;
  const ThingTemplate *tmplate;
  if (data->alternate && object->getControllingPlayer()->part->alternate)
-   tmplate = (const ThingTemplate *)((Rva002D06CA *)TheThingFactory)->rva002D06CA(&data->alternateBuilder);
- else tmplate = (const ThingTemplate *)((Rva002D06CA *)TheThingFactory)->rva002D06CA(&data->builder);
+   tmplate = TheThingFactory->findTemplate(data->alternateBuilder);
+ else tmplate = TheThingFactory->findTemplate(data->builder);
  if (!tmplate) return;
  CreateMask mask;
  memset(&mask,0,sizeof(mask));

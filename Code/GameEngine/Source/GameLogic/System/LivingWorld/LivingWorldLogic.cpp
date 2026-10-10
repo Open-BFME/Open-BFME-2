@@ -856,13 +856,14 @@ struct ThingTemplateKindOf
 
 class AsciiString;
 
-class Rva002D06CA
+class ThingTemplate;
+class ThingFactory
 {
 public:
-	void *rva002D06CA(const AsciiString *name);	// 0x002D06CA, TheThingFactory->findTemplate
+	const ThingTemplate *findTemplate(const AsciiString &name);	// 0x002D06CA, TheThingFactory->findTemplate
 };
 
-extern Rva002D06CA *g_00DFF000;
+extern ThingFactory *TheThingFactory;
 
 // The army member's template name (entry +0x04) against the army's own
 // (+0x18), through the rowed StringBase compare 0x000069D6 (pinned view).
@@ -902,7 +903,7 @@ static Bool CanDisbandArmyMember(ArmySummaryEntry *entry)
 	}
 	if (entry->m_disbanded)
 		return 0;
-	const ThingTemplateKindOf *thing = (const ThingTemplateKindOf *)g_00DFF000->rva002D06CA((const AsciiString *)((char *)entry + 4));
+	const ThingTemplateKindOf *thing = (const ThingTemplateKindOf *)TheThingFactory->findTemplate(*((const AsciiString *)((char *)entry + 4)));
 	if (thing == 0)
 		return 0;
 	if (thing->isKindOf(90))

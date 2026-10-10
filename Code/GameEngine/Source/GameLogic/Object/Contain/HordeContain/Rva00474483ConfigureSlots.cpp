@@ -7,9 +7,10 @@
 // offsets and ownership come from retail; no original member name is asserted.
 #include <vector>
 #include "ascii_string.h"
+class ThingTemplate;
 class ThingFactory;
 extern ThingFactory *TheThingFactory;
-class Rva002D06CA { public: void *rva002D06CA(const AsciiString *); };
+class ThingFactory { public: const ThingTemplate *findTemplate(const AsciiString &name); };
 struct Rva00474431Pair { int m_00, m_04; };
 struct Rva00474483Input { AsciiString name; Rva00474431Pair position; };
 struct Rva00474483Definition {
@@ -33,7 +34,7 @@ void Rva00474431::rva00474483(Rva00474483Definition *definition)
  for (unsigned i=0; i<definition->entries.size(); ++i) {
   Rva00474483Entry *entry = new Rva00474483Entry;
   entry->slot = rva00474431(definition->entries[i]->position, 0);
-  entry->target = ((Rva002D06CA *)TheThingFactory)->rva002D06CA(&definition->entries[i]->name);
+  entry->target = (void *)TheThingFactory->findTemplate(definition->entries[i]->name);
   entries.push_back(entry);
  }
 }

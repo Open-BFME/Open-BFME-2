@@ -24,12 +24,6 @@ class GlobalData;
 class AI;
 struct CreateMask;
 
-class Rva002D06CA
-{
-public:
-	void *rva002D06CA(const AsciiString *key);
-};
-
 extern ThingFactory *TheThingFactory;
 
 class GlobalData
@@ -59,6 +53,8 @@ struct CreateMask
 
 class ThingFactory
 {
+public:
+	const ThingTemplate *findTemplate(const AsciiString &name);	// 0x002D06CA
 public:
 	Object *newObject(const ThingTemplate *tmpl, Team *team, const CreateMask *mask, bool flag);
 };
@@ -147,7 +143,7 @@ public:
 
 static Object *placeObjectAtPosition(int slot, AsciiString name, const Coord3D *pos, Player *player, const void *playerTemplate)
 {
-	void *tmplRaw = ((Rva002D06CA*)TheThingFactory)->rva002D06CA(&name);
+	void *tmplRaw = (void *)TheThingFactory->findTemplate(name);
 	if (tmplRaw == 0)
 		return 0;
 	ThingTemplate *tmpl = (ThingTemplate *)tmplRaw;

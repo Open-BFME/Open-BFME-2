@@ -546,10 +546,10 @@ public:
 	unsigned int m_frame; // +0x40
 };
 extern GameLogic *TheGameLogic;
-class Rva002D06CA
+class ThingFactory
 {
 public:
-	void *rva002D06CA(const AsciiString *name);
+	const ThingTemplate *findTemplate(const AsciiString &name);
 };
 extern class ThingFactory *TheThingFactory;
 struct Rva0046247DPair
@@ -1193,14 +1193,14 @@ int HordeContain::rva0046979B()
 // lookup of the module data's +0x1B0 name.
 void *HordeContain::rva004696CD()
 {
-	return ((Rva002D06CA *)TheThingFactory)->rva002D06CA(&fields()->m_1B0);
+	return (void *)TheThingFactory->findTemplate(fields()->m_1B0);
 }
 
 // ?rva004696E5@HordeContain@@UAEXXZ @0x004696E5: slot 24, the same lookup handed
 // to slot 26 when found.
 void HordeContain::rva004696E5()
 {
-	void *thingTemplate = ((Rva002D06CA *)TheThingFactory)->rva002D06CA(&fields()->m_1B0);
+	void *thingTemplate = (void *)TheThingFactory->findTemplate(fields()->m_1B0);
 	if (thingTemplate)
 		rva00472D43(thingTemplate);
 }
@@ -2736,7 +2736,7 @@ bool HordeContain::rva0046CDC9()
 	unsigned int count = objects.size();
 	if (count >= 1)
 	{
-		const ThingTemplate *tmpl = (const ThingTemplate *)((Rva002D06CA *)TheThingFactory)->rva002D06CA(&fields()->m_1B0);
+		const ThingTemplate *tmpl = TheThingFactory->findTemplate(fields()->m_1B0);
 		if (tmpl)
 		{
 			const ModuleInfo *info = &tmpl->m_moduleInfo;
@@ -2770,7 +2770,7 @@ bool HordeContain::rva0046CCEF(const ThingTemplate *want)
 	unsigned int count = objects.size();
 	if (count < 1)
 		return false;
-	const ThingTemplate *tmpl = (const ThingTemplate *)((Rva002D06CA *)TheThingFactory)->rva002D06CA(&fields()->m_1B0);
+	const ThingTemplate *tmpl = TheThingFactory->findTemplate(fields()->m_1B0);
 	if (!tmpl || want != tmpl)
 		return false;
 	const ModuleInfo *info = &tmpl->m_moduleInfo;
@@ -3049,7 +3049,7 @@ void HordeContain::assignSpotToUnit(Object *obj)
 		int index = *it;
 		char *entry = (char *)((Rva00469294 *)m_moduleData)->rva00469294(m_188Begin[index].m_key);
 		if (entry && obj->m_template->isEquivalentTo(
-			(const ThingTemplate *)((Rva002D06CA *)TheThingFactory)->rva002D06CA((const AsciiString *)(entry + 4))))
+			TheThingFactory->findTemplate(*((const AsciiString *)(entry + 4)))))
 		{
 			m_17C[obj->getID()] = index;
 			m_194.erase(it);
@@ -3161,7 +3161,7 @@ bool HordeContain::rva0046970D(Object *obj, int a2, const Rva00469851Names *name
 	short key = obj->m_template->m_5D8;
 	for (const AsciiString *name = names->begin(); name != names->end(); ++name)
 	{
-		const ThingTemplate *tmpl = (const ThingTemplate *)((Rva002D06CA *)TheThingFactory)->rva002D06CA(name);
+		const ThingTemplate *tmpl = TheThingFactory->findTemplate(*name);
 		if (tmpl && tmpl->m_5D8 == key)
 			return true;
 	}
@@ -3291,7 +3291,7 @@ void *HordeContain::rva0046AF12()
 		++it;
 	char *entry = (char *)((Rva00469294 *)m_moduleData)->rva00469294(m_188Begin[*it].m_key);
 	if (entry)
-		return ((Rva002D06CA *)TheThingFactory)->rva002D06CA((const AsciiString *)(entry + 4));
+		return (void *)TheThingFactory->findTemplate(*((const AsciiString *)(entry + 4)));
 	return 0;
 }
 
@@ -3447,7 +3447,7 @@ void HordeContain::performReform()
 			{
 				char *entry = (char *)((Rva00469294 *)m_moduleData)->findEntry(rec188(*it).m_key);
 				if (!entry || members[i]->isEquivalentTemplate(
-					(const ThingTemplate *)((Rva002D06CA *)TheThingFactory)->rva002D06CA((const AsciiString *)(entry + 4))))
+					TheThingFactory->findTemplate(*((const AsciiString *)(entry + 4)))))
 				{
 					Coord3DInit delta(*members[i]->getPosition());
 					delta.sub(positions[*it]);

@@ -127,10 +127,12 @@ private:
 	ListNode *m_17c;
 };
 
-class Rva002D06CA
+class AsciiString;
+class ThingTemplate;
+class ThingFactory
 {
 public:
-	void *rva002D06CA(const void *key);
+	const ThingTemplate *findTemplate(const AsciiString &key);
 };
 
 extern class ThingFactory *TheThingFactory;

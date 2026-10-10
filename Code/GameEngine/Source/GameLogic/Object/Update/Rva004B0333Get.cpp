@@ -7,10 +7,11 @@
 // recipe at +0xD0, caller 0x00291242, neighbours Rva004B031E / SpecialDisguise.
 #include "ascii_string.h"
 
-class Rva002D06CA
+class ThingTemplate;
+class ThingFactory
 {
 public:
-	void *rva002D06CA(const AsciiString *key);
+	const ThingTemplate *findTemplate(const AsciiString &key);
 };
 
 extern class ThingFactory *TheThingFactory;
@@ -33,5 +34,5 @@ private:
 void *Rva004B0333::rva004B0333()
 {
 	AsciiString *key = &m_ptr->m_key;
-	return ((Rva002D06CA *)TheThingFactory)->rva002D06CA(key);
+	return (void *)TheThingFactory->findTemplate(*key);
 }

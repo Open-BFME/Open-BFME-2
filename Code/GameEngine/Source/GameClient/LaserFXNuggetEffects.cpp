@@ -50,17 +50,13 @@ public:
 class ThingFactory
 {
 public:
+	const ThingTemplate *findTemplate(const AsciiString &name);
 	void *newDrawable(void *thingTemplate, int status, int drawableID);
 };
 
 extern ThingFactory *TheThingFactory;
 
 // Native lookup2D06CA uses the existing address-derived owner.
-class Rva002D06CA
-{
-public:
- void *rva002D06CA(const AsciiString *name);
-};
 
 
 
@@ -115,7 +111,7 @@ void LaserFXNugget::doFXObj(const Object *primary, const Object *secondary) cons
 	if (primary)
 	{
 		const ThingTemplate *thingTemplate =
-			(const ThingTemplate *)((Rva002D06CA *)TheThingFactory)->rva002D06CA(&m_laserName);
+			TheThingFactory->findTemplate(m_laserName);
 		Drawable *draw = (Drawable *)TheThingFactory->newDrawable(
 			(void *)thingTemplate, DRAWABLE_STATUS_NONE, -1);
 		if (draw)
@@ -160,7 +156,7 @@ void LaserFXNugget::doFXPos(const Coord3D *primary, const Matrix3D *, float,
 	if (primary)
 	{
 		const ThingTemplate *thingTemplate =
-			(const ThingTemplate *)((Rva002D06CA *)TheThingFactory)->rva002D06CA(&m_laserName);
+			TheThingFactory->findTemplate(m_laserName);
 		Drawable *draw = (Drawable *)TheThingFactory->newDrawable(
 			(void *)thingTemplate, DRAWABLE_STATUS_NONE, -1);
 		if (draw)

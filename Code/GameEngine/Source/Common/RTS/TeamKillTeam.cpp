@@ -244,12 +244,12 @@ private:
 };
 extern PlayerList *ThePlayerList;
 
-class Rva002D06CA
+class ThingFactory
 {
 public:
-	void *rva002D06CA(const AsciiString *key);
+	const ThingTemplate *findTemplate(const AsciiString &key);
 };
-extern Rva002D06CA *TheThingFactory;
+extern ThingFactory *TheThingFactory;
 
 struct BfmeDispatchDelayedLuaEvent
 {
@@ -299,7 +299,7 @@ void Team::killTeam()
 
 	rva003A1C3A(false);
 
-	const ThingTemplate *beaconTemplate = (const ThingTemplate *)TheThingFactory->rva002D06CA(getControllingPlayer()->getPlayerTemplate()->getBeaconTemplate());
+	const ThingTemplate *beaconTemplate = TheThingFactory->findTemplate(*(getControllingPlayer()->getPlayerTemplate()->getBeaconTemplate()));
 
 	for (DLINK_ITERATOR<Object> iter = iterate_TeamMemberList(); !iter.done(); iter.advance()) {
 		Object *obj = iter.cur();

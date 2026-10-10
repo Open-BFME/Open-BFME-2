@@ -18,12 +18,12 @@ public:
 	int rva003A1AA3(const ThingTemplate *tmpl, ObjectTypes *types, int count, float radius);	// 0x003A1AA3
 };
 
-class Rva002D06CA
+class ThingFactory
 {
 public:
-	void *rva002D06CA(const AsciiString *name);
+	const ThingTemplate *findTemplate(const AsciiString &name);
 };
-extern Rva002D06CA *TheThingFactory;
+extern ThingFactory *TheThingFactory;
 
 class AIData
 {
@@ -59,7 +59,7 @@ void ScriptActions::rva003C2166(const AsciiString &teamName, int count, const As
 	Team *team = TheScriptEngine->getTeamNamed(teamName, true);
 	if (team)
 	{
-		const ThingTemplate *tmpl = (const ThingTemplate *)TheThingFactory->rva002D06CA(&thingName);
+		const ThingTemplate *tmpl = TheThingFactory->findTemplate(thingName);
 		ObjectTypes *types = TheScriptEngine->getObjectTypes(thingName);
 		if (team->hasAnyObjects(false))
 			team->rva003A1AA3(tmpl, types, count, TheAI->m_aiData->m_recruitRadius);

@@ -129,7 +129,7 @@ struct TemplateCountKey {
 namespace _STL {template<class T,class L,class R> static inline bool operator!=(const _Rb_tree_iterator<T,L>&a,const _Rb_tree_iterator<T,R>&b){return a._M_node!=b._M_node;}}
 class ThingFactory;
 extern ThingFactory *TheThingFactory;
-class Rva002D06CA {public:void *rva002D06CA(const AsciiString *);};
+class ThingFactory {public:const ThingTemplate *findTemplate(const AsciiString &name);};
 // Native helper called only by the already measured score-map fold. The
 // target resolves overridden templates by name, then adds the source count.
 void rva004EE8B8(ObjectCountMap *destination,ObjectCountMap *source)
@@ -146,7 +146,7 @@ void rva004EE8B8(ObjectCountMap *destination,ObjectCountMap *source)
   if(key) {
    name=((const ScoreMergeTemplateView*)key)->name;
    if(((const ScoreMergeTemplateView*)key)->overridden)
-    resolved=(const ThingTemplate*)((Rva002D06CA*)TheThingFactory)->rva002D06CA(&name);
+    resolved=TheThingFactory->findTemplate(name);
    else resolved=key;
   }
   Value value(TemplateCountKey(resolved),0);

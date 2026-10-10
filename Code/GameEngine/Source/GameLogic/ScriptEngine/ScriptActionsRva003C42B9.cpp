@@ -38,10 +38,10 @@ public:
 	void rva003C42B9(Parameter *param, const AsciiString &a, const AsciiString &b);
 };
 
-class Rva002D06CA
+class ThingFactory
 {
 public:
-	void *rva002D06CA(const AsciiString *s);
+	const ThingTemplate *findTemplate(const AsciiString &s);
 };
 
 extern class ThingFactory *TheThingFactory;
@@ -84,7 +84,7 @@ void ScriptActions::rva003C42B9(Parameter *param, const AsciiString &a, const As
 		tmpl = *(const ThingTemplate *const *)((const char *)obj + 4);
 	}
 	else
-		tmpl = (const ThingTemplate *)((Rva002D06CA *)TheThingFactory)->rva002D06CA(&b);
+		tmpl = TheThingFactory->findTemplate(b);
 	if (tmpl == 0)
 		return;
 	const CommandButton *button = ((ControlBar *)(*(BfmeWorldRV **)&TheControlBar))->findCommandButton(a);

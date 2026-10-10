@@ -12,7 +12,7 @@ class ThingTemplate;
 class ThingFactory;
 extern ThingFactory *TheThingFactory;
 extern unsigned short g_00DBFDC8; // native template-ID cutoff; original name unknown
-class Rva002D06CA { public: void *rva002D06CA(const AsciiString *); };
+class ThingFactory { public: const ThingTemplate *findTemplate(const AsciiString &name); };
 class LocomotorTemplate;
 template<class T> class OVERRIDE { public: const T *operator->() const; };
 class Overridable {
@@ -162,8 +162,7 @@ const ThingTemplate *CommandButton::rva0035B570() const
     if (!ref->operator->()) return 0;
     const ThingTemplate *result;
     if (*(const unsigned short *)((const char *)ref->operator->() + 0x5D8) >= g_00DBFDC8)
-        result = (const ThingTemplate *)((Rva002D06CA *)TheThingFactory)->rva002D06CA(
-            (const AsciiString *)((const char *)ref->operator->() + 0x64));
+        result = TheThingFactory->findTemplate(*((const AsciiString *)((const char *)ref->operator->() + 0x64)));
     else
         result = (const ThingTemplate *)ref->operator->();
     Overridable *next = ((const Overridable *)result)->next;

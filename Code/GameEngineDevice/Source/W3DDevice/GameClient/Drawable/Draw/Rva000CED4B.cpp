@@ -1,7 +1,7 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
 // ?Rva000CED4BUpdate@@YAXPAXPAVAssetList@@H@Z @0x000CED4B 150B: free update accumulating AssetLists and notifying via Rva001E11F8.
-// Evidence: rowed Rva001E11F8 0x001E11F8 and StringBase isEmpty 0x00001E2F plus pinned AssetList operator<< and Rva002D06CA and notify.
+// Evidence: rowed Rva001E11F8 0x001E11F8 and StringBase isEmpty 0x00001E2F plus pinned AssetList operator<< and ThingFactory and notify.
 
 #include "ascii_string.h"
 
@@ -17,10 +17,11 @@ public:
 	AssetList &operator<<(const AsciiString &name);
 };
 
-class Rva002D06CA
+class ThingTemplate;
+class ThingFactory
 {
 public:
-	void *rva002D06CA(const AsciiString *key);
+	const ThingTemplate *findTemplate(const AsciiString &key);
 };
 
 extern class ThingFactory *TheThingFactory;
@@ -58,7 +59,7 @@ void __cdecl Rva000CED4BUpdate(void *p, AssetList *b, int c)
 	if (((StringBase<char> *)&a->m_28)->isEmpty() == false)
 		*b << a->m_28;
 	if (((StringBase<char> *)&a->m_48)->isEmpty() == false) {
-		void *t = ((Rva002D06CA *)TheThingFactory)->rva002D06CA(&a->m_48);
+		void *t = (void *)TheThingFactory->findTemplate(a->m_48);
 		if (t != 0)
 			((Rva0020AA00Target *)t)->notify((int)b, c);
 	}

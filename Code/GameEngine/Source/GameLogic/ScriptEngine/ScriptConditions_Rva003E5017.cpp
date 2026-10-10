@@ -1,7 +1,7 @@
 // cl: /Ireference/shims/bfme2_ascii
 // ?rva003E5017@ScriptConditions@@IAE_NPAVParameter@@00@Z
 // retail 0x003E5017 157B leaf free stdcall bool of 3x Parameter ret 0xc. Evidence:
-// rowed Rva002D06CA::rva002D06CA via g_009FF000 with (Parameter+0x10 AsciiString)
+// rowed ThingFactory::rva002D06CA via g_009FF000 with (Parameter+0x10 AsciiString)
 // plus rowed ScriptEngine::getUnitNamed via g_Va009FE16C plus rowed rva00357B82
 // plus rowed PlayerList::getPlayerFromMask via ThePlayerList plus rowed
 // Object::getControllingPlayer twice plus static CastleBehavior::rva0003955DA
@@ -40,10 +40,11 @@ public:
 };
 extern class ScriptEngine *TheScriptEngine;
 
-class Rva002D06CA
+class ThingTemplate;
+class ThingFactory
 {
 public:
-	void *rva002D06CA(const AsciiString *key);
+	const ThingTemplate *findTemplate(const AsciiString &key);
 };
 extern class ThingFactory *TheThingFactory;
 
@@ -89,7 +90,7 @@ protected:
 
 bool ScriptConditions::rva003E5017(Parameter *a, Parameter *b, Parameter *c)
 {
-	void *payload = ((Rva002D06CA *)TheThingFactory)->rva002D06CA(&c->m_string10);
+	void *payload = (void *)TheThingFactory->findTemplate(c->m_string10);
 	if (!payload)
 		return false;
 	Object *obj = TheScriptEngine->getUnitNamed(b);
