@@ -1,4 +1,6 @@
 // ?parseHordeContainRankInfo@@YAXPAVINI@@PAX1PBX@Z
+// partial score=0.99 date=2026-10-10
+// ?parseHordeContainRankInfo@@YAXPAVINI@@PAX1PBX@Z
 // partial score=0.82 date=2026-10-07
 // cl: /O1 /arch:SSE /G7 /Oy- /DNDEBUG /MD /GX- /Oi- /D_STLP_USE_STATIC_LIB
 // stlport
@@ -90,7 +92,6 @@ void parseHordeContainRankInfo(INI *ini, void *instance, void *store, const void
 	entry.info = info;
 	HordeContainRankInfoVector &rankInfos = *(HordeContainRankInfoVector *)store;
 
-	const char *leaderToken;
 	const char *token = ini->getNextTokenOrNull(ini->getSepsColon());
 	if (token != 0 && strcmp(token, "RankNumber") == 0)
 	{
@@ -123,13 +124,15 @@ void parseHordeContainRankInfo(INI *ini, void *instance, void *store, const void
 				{
 					info->m_hasWeaponConditions = 1;
 					Rva002C8C06Parse(ini, 0, &info->m_grantedWeaponCondition, 0);
-					break;
+					token = 0;
+					continue;
 				}
 				else if (strcmp(token, "RevokedWeaponCondition") == 0)
 				{
 					info->m_hasWeaponConditions = 1;
 					Rva002C8C06Parse(ini, 0, &info->m_revokedWeaponCondition, 0);
-					break;
+					token = 0;
+					continue;
 				}
 				else if (strcmp(token, "Leader") == 0)
 				{
@@ -139,10 +142,10 @@ void parseHordeContainRankInfo(INI *ini, void *instance, void *store, const void
 					if (position.leaderRank != -1)
 						throw INIException(3, "Only one 'Leader' per 'Position'");
 
-					leaderToken = ini->getNextToken();
-					if (leaderToken == 0)
+					token = ini->getNextToken();
+					if (token == 0)
 						throw INIException(3, "Leader rank expected");
-					int rank = atoi(leaderToken);
+					int rank = atoi(token);
 					position.leaderRank = rank;
 
 					HordeContainRankInfoVector::iterator it;
@@ -152,16 +155,16 @@ void parseHordeContainRankInfo(INI *ini, void *instance, void *store, const void
 							break;
 					}
 					if (it == rankInfos.end())
-						throw INIException(3, "No RankInfo for specified leader rank '%s'", leaderToken);
+						throw INIException(3, "No RankInfo for specified leader rank '%s'", token);
 
-					leaderToken = ini->getNextToken();
-					if (leaderToken == 0)
+					token = ini->getNextToken();
+					if (token == 0)
 						throw INIException(3, "Leader index expected");
-					int index = atoi(leaderToken);
+					int index = atoi(token);
 					position.leaderIndex = index;
 					if (index < 0 || index >= it->info->m_positions.size())
 						throw INIException(3, "Invalid leader index '%s' specified, only 0..%i allowed",
-							leaderToken, it->info->m_positions.size() - 1);
+							token, it->info->m_positions.size() - 1);
 				}
 				else
 				{
