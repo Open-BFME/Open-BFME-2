@@ -30,6 +30,7 @@ public:
 	void rva0020517D(Object *obj);
 	void rva00205140(SequentialScript *arg);
 	void rva002051B7(Object *obj);
+	void rva002064CB(class Team *team);
 private:
 	char m_pre[0x10];
 	SequentialScript **m_begin; // +0x10
@@ -89,4 +90,14 @@ void ScriptEngine::rva002051B7(Object *obj)
 		m_1A110 = 0;
 	if (m_1A118 == obj)
 		m_1A118 = 0;
+}
+
+// ?rva002064CB@ScriptEngine@@QAEXPAVTeam@@@Z @0x002064CB 5B, pinned under this
+// name: a tail jump into 0x002051B7 that keeps its Team* argument. Its one
+// caller 0x003C0C3E has BFME 1's doTeamStopSequentialScript shape (getTeamNamed
+// then removeAllSequentialScripts(Team*)), so the argument is a team pointer
+// that 0x002051B7, typed Object* here, only compares against slot +4.
+void ScriptEngine::rva002064CB(Team *team)
+{
+	rva002051B7((Object *)team);
 }
