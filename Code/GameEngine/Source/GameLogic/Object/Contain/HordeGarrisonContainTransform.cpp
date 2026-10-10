@@ -1,19 +1,15 @@
 // ?rva00479C35@HordeGarrisonContain@@QAEXPAUCoord3D@@0@Z
-// partial score=0.9 date=2026-10-04
-// cl: /O1 /DNDEBUG /MD /arch:SSE
+// cl: /O1 /G7 /DNDEBUG /MD /arch:SSE /ICode/Libraries/Include/Lib
 // ?rva00479C35@HordeGarrisonContain@@QAEXPAUCoord3D@@0@Z @0x00479C35 164B
-// Evidence: leaf lane, called from 3 sites in 0x00479E62, prev 0x00479C2A next 0x00479D28,
-// frameless SSE transform via m_object matrix, ret 8 with 2 args.
+// Target479C35..479CD9 RET8, matrix owner8 and alias-safe three-coordinate transform.
+// BF1 donor575ba2b04 WWMath Vector3 constructors/copy and Matrix3D transform guide;
+// canonical Coord3D wrapper uses a genuine Vector3 intermediate, yielding native164B SSE scheduling.
+// Receiver name remains the inherited HordeGarrisonContain identity from its nearby constructor/factory/callers.
 class Object;
 
 #define SLOT08(a,b,c,d,e,f,g,h) virtual void a(); virtual void b(); virtual void c(); virtual void d(); virtual void e(); virtual void f(); virtual void g(); virtual void h();
 
-struct Coord3D
-{
-	float x;
-	float y;
-	float z;
-};
+#include "Coord3D.h"
 
 struct Transform
 {
@@ -99,14 +95,13 @@ public:
 	Transform m_t;
 };
 
-// ?rva00479C35@HordeGarrisonContain@@QAEXPAUCoord3D@@0@Z present-unmatched
-void HordeGarrisonContain::rva00479C35(Coord3D *in, Coord3D *out)
-{
-	float x = in->x;
-	float y = in->y;
-	float z = in->z;
-	Transform *t = &m_object->m_t;
-	out->x = t->m01 * y + t->m02 * z + *(const volatile float *)&t->m00 * x + t->tx;
-	out->y = t->m11 * y + t->m12 * z + *(const volatile float *)&t->m10 * x + t->ty;
-	out->z = t->m21 * y + t->m22 * z + *(const volatile float *)&t->m20 * x + t->tz;
+struct Vector3 {float X,Y,Z;__forceinline Vector3(){} __forceinline Vector3(float x,float y,float z):X(x),Y(y),Z(z){} __forceinline Vector3(const Vector3&v){X=v.X;Y=v.Y;Z=v.Z;} __forceinline Vector3&operator=(const Vector3&v){X=v.X;Y=v.Y;Z=v.Z;return *this;}};
+void HordeGarrisonContain::rva00479C35(Coord3D *in, Coord3D *out){
+ Vector3 input(in->x,in->y,in->z);
+ Transform*t=&m_object->m_t;
+ Vector3 result;
+ result.X=t->m00*input.X+t->m01*input.Y+t->m02*input.Z+t->tx;
+ result.Y=t->m10*input.X+t->m11*input.Y+t->m12*input.Z+t->ty;
+ result.Z=t->m20*input.X+t->m21*input.Y+t->m22*input.Z+t->tz;
+ out->x=result.X;out->y=result.Y;out->z=result.Z;
 }
