@@ -17,3 +17,5 @@ template<> _List_base<Rva004FA1FObserver*,allocator<Rva004FA1FObserver*> >::~_Li
 }
 
 template RadarObserverListBase::~_List_base();
+
+template RadarObserverListBase::_List_base(const _STL::allocator<Rva004FA1FObserver*>&);
