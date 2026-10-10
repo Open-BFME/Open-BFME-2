@@ -1,5 +1,5 @@
 // ?rva00297000@Object@@QAEXPBVCommandButton@@PAV1@HH@Z
-// partial score=0.93 date=2026-10-10
+// partial score=0.94 date=2026-10-10
 // cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG
 // Reference: Object::doSpecialPower and doSpecialPowerAtObject in ZH
 // Object.cpp at pinned donor575ba2b04. Names are carried from that source;
