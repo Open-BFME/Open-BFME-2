@@ -20,6 +20,7 @@ class SubsystemInterface
 public:
 	SubsystemInterface();
 	virtual ~SubsystemInterface();
+	virtual void init();
 
 private:
 	char m_opaque04[0xC - 0x4];
@@ -39,6 +40,7 @@ class InGameUI : public SubsystemInterface, public Snapshot, public InGameUIInte
 public:
 	InGameUI();
 	virtual ~InGameUI();
+	virtual void init();
 
 private:
 	char m_opaque14[0x9F0 - 0x14];
@@ -49,6 +51,7 @@ class Rva0008EF3FProduct : public InGameUI
 public:
 	Rva0008EF3FProduct();
 	virtual ~Rva0008EF3FProduct();
+	virtual void init();
 
 private:
 	enum { MAX_MOVE_HINTS = 25 };
@@ -71,4 +74,13 @@ Rva0008EF3FProduct::Rva0008EF3FProduct()
 
 	m_buildingPlacementAnchor = 0;
 	m_buildingPlacementArrow = 0;
+}
+
+// ?init@Rva0008EF3FProduct@@UAEXXZ @0x0008F0BB 5B: SubsystemInterface slot 1
+// of the product's vtable 0x00BC7A88, extending nothing: a tail jump to the
+// rowed InGameUI::init 0x0029E2DE (Zero Hour's W3DInGameUI::init has the same
+// body; donor inference only).
+void Rva0008EF3FProduct::init()
+{
+	InGameUI::init();
 }
