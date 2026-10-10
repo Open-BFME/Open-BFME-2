@@ -263,7 +263,9 @@ class Rva00559D0CRankWeights{
  char opaque[0x34];
 public:int rva00559DA0(const Rva00553E47StatsCore*,int)const;
 };
-extern Rva00559D0CRankWeights g_00E05FCC,g_00E06000;
+// ?g_00E05FCC@@3VRva00559D0CRankWeights@@A + ?g_00E06000 (data_ledger,
+// 52B zero .data each, both unowned): defined here; nothing else defines them.
+Rva00559D0CRankWeights g_00E05FCC, g_00E06000;
 class Rva005B8DBB{public:unsigned rva005B8DBB(unsigned);};
 // Native 005B8DBB..005B8EBB RET4; WB1583940 callgraph gives three
 // owned snapshot/getter branches. Mode2C and both rank-table receivers are
