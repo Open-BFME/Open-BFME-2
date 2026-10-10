@@ -1,7 +1,12 @@
-// ??0AutoResolve@Data@StrategicVeterancy@@QAE@PAX00@Z
-// partial score=1.0 date=2026-10-10
 // cl: /O1 /G7 /arch:SSE /MD /EHs /EHc- /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_CRTIMP= /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii
 // stlport
+// ??0AutoResolve@Data@StrategicVeterancy@@QAE@PAX00@Z @ 0x005ECE81 (327 B)
+// Auto-resolve veterancy score rows: builds the sorted entry list (army record plus its
+// ThingTemplate, looked up by name) for the local player's selected side from the
+// units-by-side vectors, then hands it to the 0x005ECD8C row builder (class Rva005ECD8C in
+// ScoreRowSort.cpp). The base is the address-named Rva005ECA91 (rowed ctor); the entry vector
+// uses the BfmeE8 push_back instantiation retail folded it onto (0x00539A2E), and the row
+// builder keeps its S4SortElem8B vector spelling, so the list is passed through a cast.
 #include <vector>
 class AsciiString;
 class ThingTemplate;
@@ -22,18 +27,17 @@ struct TreeHintRef00217D4C {
  ~TreeHintRef00217D4C() { if(ptr) ReleaseTreeHintRef00217D4C(ptr); }
 };
 struct S4SortElem8B { void *first; const ThingTemplate *second; };
+struct BfmeE8 { int a, b; };
 class Rva005ECD8C { public: void rva005ECD8C(_STL::vector<S4SortElem8B> *,int); };
 class Rva002B2B66 {public: int rva002B2B66();};
 struct Record52 { char unknown[0x2c]; int selected2C; int player30; };
 struct Records52 { Record52 *first,*last; };
 class Rva004F92E3 { public: void rva004F92E3(void *); };
+class Rva005ECA91 { public: Rva005ECA91(); protected: virtual ~Rva005ECA91(); private: char observed04[24]; };
 class StrategicVeterancy {
 public:
- class Data {
- public: Data(); void rva005ECD8C(_STL::vector<S4SortElem8B> *,int);
- protected: virtual ~Data();
+ class Data : public Rva005ECA91 {
  public: class AutoResolve;
- private: char observed04[24];
  };
 };
 class StrategicVeterancy::Data::AutoResolve : public StrategicVeterancy::Data {
@@ -41,7 +45,7 @@ public: AutoResolve(void *,void *,void *);
 protected: virtual ~AutoResolve();
 };
 StrategicVeterancy::Data::AutoResolve::AutoResolve(void *a,void *b,void *c) {
- _STL::vector<S4SortElem8B> entries;
+ _STL::vector<BfmeE8> entries;
  int selected=0;
  int player=((Rva002B2B66 *)a)->rva002B2B66();
  int index=0;
@@ -59,8 +63,8 @@ StrategicVeterancy::Data::AutoResolve::AutoResolve(void *a,void *b,void *c) {
   void *army=ref.ptr->payload;
   const ThingTemplate *thing=TheThingFactory->findTemplate(*(AsciiString *)((char *)army+4));
   if(!thing) continue;
-  S4SortElem8B entry={army,thing};
+  BfmeE8 entry; entry.a=(int)army; entry.b=(int)thing;
   entries.push_back(entry);
  }
- rva005ECD8C(&entries,((Rva002B2B66 *)a)->rva002B2B66());
+ ((Rva005ECD8C *)this)->rva005ECD8C((_STL::vector<S4SortElem8B> *)&entries,((Rva002B2B66 *)a)->rva002B2B66());
 }
