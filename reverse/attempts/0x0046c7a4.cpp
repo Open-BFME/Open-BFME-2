@@ -274,3 +274,16 @@ Object *HordeContain::rva0046C7A4(bool skipStatus, const Coord3D *pos, float max
 	}
 	return p.m04->front();
 }
+
+#if 0
+// Variant 2026-10-10 w5-g3 (home-TU transplant, ~.80): the Oct-09 body rebuilt
+// in Code/.../HordeContainIface11CSlots.cpp with that TU's views (plain
+// member/iterator phrasing, (ObjectStatusTypes)0x3F casts, rowed rva003430A3
+// free-function decl, Coord3D::length + RandomValueReal decls). Same blocks
+// and calls, pure allocation/frame churn (this pinned not spilled, pos
+// reloaded not pinned, one extra home) plus an x87 fst-vs-fcomip site; the
+// battery6 PHI sweep on the Oct-09 bank tops at .8571 without closing.
+// Gap18 rename (vtable-proven) + HordeContain override decl required.
+// Vtable reads fixing nearby slots: 50->46BC30 51->46BD70 52->46BE0E
+// 63->4738B6 66->46F7FF 68->46D27A 69->46D2C3 70->46D372 99->4708BC.
+#endif
