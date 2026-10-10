@@ -24,6 +24,7 @@ public:
 	void rva000ADB2F(int x, int y, bool value);
 	void rva000ADBE3(int x, int y, bool value);
 	void rva000ADC41(int x, int y, unsigned char value);
+	void rva000ADCE3(int x, int y);
 
 private:
 	char m_pad00[8];
@@ -182,3 +183,27 @@ void Rva000AD9AB::rva000ADB2F(int x, int y, bool value)
 	m_plane38[index] = cur;
 }
 
+
+// Native ADCE3 reads four unsigned 16-bit samples through the existing AX
+// reader. The opaque provider names are retained; no original class name is
+// inferred. The same receiver calls the plane38/3C setter in this owner.
+class BoundedShortGrid { public: short rva00062A58(int x, int y); };
+
+void Rva000AD9AB::rva000ADCE3(int xIndex, int yIndex)
+{
+    BoundedShortGrid *heights = (BoundedShortGrid *)this;
+    float height1 = (unsigned short)heights->rva00062A58(xIndex, yIndex);
+    float minZ = height1;
+    float maxZ = height1;
+    float height2 = (unsigned short)heights->rva00062A58(xIndex + 1, yIndex);
+    if (minZ > height2) minZ = height2;
+    else if (maxZ < height2) maxZ = height2;
+    float height3 = (unsigned short)heights->rva00062A58(xIndex, yIndex + 1);
+    if (minZ > height3) minZ = height3;
+    else if (maxZ < height3) maxZ = height3;
+    float height4 = (unsigned short)heights->rva00062A58(xIndex + 1, yIndex + 1);
+    if (minZ > height4) minZ = height4;
+    else if (maxZ < height4) maxZ = height4;
+    bool isCliff = maxZ - minZ > 250.88f;
+    rva000ADB2F(xIndex, yIndex, isCliff);
+}

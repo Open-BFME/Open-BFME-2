@@ -8672,7 +8672,6 @@ name,address,notes
 ?canonicalFlagName@BFMEScriptEngineFlagLookup@@AAE?AVAsciiString@@ABV2@@Z,0x002046C0,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?cast_aabox_brute_force@MeshGeometryClass@@IAE_NAAVAABoxCollisionTestClass@@@Z,0x0016CD30
 ?cast_ray_brute_force@MeshGeometryClass@@IAE_NAAVRayCollisionTestClass@@@Z,0x0016CE00
-?cell@BfmeGridWM@@QAEXHH@Z,0x000ADCE3,callee of walk (0x000AEBC7) at the site its BFME1 donor calls it; may be an ICF alias
 ?cellCallback@Rva002E6F92Info@@QAEHPAVPathfindCell@@0HH@Z,0x002E6F92,callback read from retail REL32 at 0x002E840D in the cell line walk 0x002E8348 (byte-exact modulo relocs in PathfinderCellLineWalks.cpp): called with (previous cell current cell x y); owner identity unproven
 ?cellCallback@Rva002E7261Info@@QAEHPAVPathfindCell@@0HH@Z,0x002E7261,callback read from retail REL32 at 0x002E810A in the cell line walk 0x002E8045 (byte-exact modulo relocs in PathfinderCellLineWalks.cpp): called with (previous cell current cell x y); owner identity unproven
 ?cellCallback@Rva002E7B29Info@@QAEHPAVPathfindCell@@0HH@Z,0x002E7B29,callback read from retail REL32 at 0x002E850D in the cell line walk 0x002E8448 (byte-exact modulo relocs in PathfinderCellLineWalks.cpp): called with (previous cell current cell x y); owner identity unproven

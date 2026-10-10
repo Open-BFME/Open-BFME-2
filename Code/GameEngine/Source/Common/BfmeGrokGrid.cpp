@@ -2,11 +2,13 @@
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
 
+// The walk calls the actual same-receiver plane owner at native ADCE3.
+class Rva000AD9AB { public: void rva000ADCE3(int x, int y); };
+
 class BfmeGridWM
 {
 public:
 	void walk();
-	void cell(int x, int y);
 	unsigned char rva000AE18D(int x, int y);
 
 private:
@@ -25,7 +27,7 @@ void BfmeGridWM::walk()
 {
 	for (int x = 0; x < m_w - 1; ++x)
 		for (int y = 0; y < m_h - 1; ++y)
-			cell(x, y);
+			((Rva000AD9AB *)this)->rva000ADCE3(x, y);
 }
 
 unsigned char BfmeGridWM::rva000AE18D(int x, int y)

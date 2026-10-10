@@ -1,0 +1,57 @@
+{
+  "size": 235,
+  "exact": true,
+  "unresolved": [],
+  "relocs": [
+    [
+      18,
+      20,
+      "?rva00062A58@BoundedShortGrid@@QAEFHH@Z"
+    ],
+    [
+      52,
+      20,
+      "?rva00062A58@BoundedShortGrid@@QAEFHH@Z"
+    ],
+    [
+      98,
+      20,
+      "?rva00062A58@BoundedShortGrid@@QAEFHH@Z"
+    ],
+    [
+      148,
+      20,
+      "?rva00062A58@BoundedShortGrid@@QAEFHH@Z"
+    ],
+    [
+      202,
+      6,
+      "__real@437ae148"
+    ],
+    [
+      224,
+      20,
+      "?rva000ADB2F@Rva000AD9AB@@QAEXHH_N@Z"
+    ]
+  ],
+  "normal_add_match": "7/7 complete owner rows exact; float literal1 verified",
+  "normal_providers": "5/5 across real caller135, height reader38, byte fill60; unchanged setter90 included in owner",
+  "link_control": [
+    "Compile: 0 of 1 TU(s) (deps-cache: 1 current)",
+    "Compile: 0 of 1 TU(s) (deps-cache: 1 current)",
+    "Compile: 0 of 1 TU(s) (deps-cache: 1 current)",
+    "Compile: 0 of 1 TU(s) (deps-cache: 1 current)",
+    "Compile: 0 of 1 TU(s) (deps-cache: 1 current)",
+    "Code/GameEngine/Source/Common/Rva000AD9ABFinish.cpp: LINKS  LINKED 0 -> 684 bytes (census 2026-10-08 22:05 at 62ab434507; file's own bytes 684)",
+    "Code/GameEngine/Source/Common/BfmeGrokGrid.cpp: LINKS  LINKED 0 -> 135 bytes (census 2026-10-08 22:05 at 62ab434507; file's own bytes 135)",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BoundedShortGridLoad.cpp: LINKS  LINKED 38 -> 38 bytes (census 2026-10-08 22:05 at 62ab434507; file's own bytes 38)",
+    "Code/GameEngine/Source/GameLogic/Object/ByteFillNO1.cpp: LINKS  LINKED 0 -> 60 bytes (census 2026-10-08 22:05 at 62ab434507; file's own bytes 60)",
+    "Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-08 22:05 at 62ab434507; file's own bytes 255)",
+    "link_check: 4 of 5 link cleanly; LINKED 38 -> 917 bytes (4.4s)"
+  ],
+  "native_unowned_at_audit": true,
+  "remaining_supported_open_units": 0,
+  "incidental_placements": "place_bodies --min5 owner/caller: 0 bodies,0 pins",
+  "base": "31b06f1c664087048c46ee1920d557bccd10679c",
+  "donor": "575ba2b04743f190f069805fbdc59936123c45da"
+}
