@@ -5,7 +5,7 @@
 // +0x0C 0x00C565C0, +0x10 0x00C565B0, +0x20 0x00C565AC), destroys the +0xA4
 // member through the rowed ??1Rva002EE9B7 (state 1), frees the +0x90 vector
 // storage through the rowed _free (state 0), then calls the rowed base
-// ??1Rva0024A797 at 0x0024A797 (state -1). Layout from the pinned ctor
+// ??1UpdateModule at 0x0024A797 (state -1). Layout from the pinned ctor
 // 0x004B21B9 (UpdateModule base 0x20, 12-bool + 12-int + 12-int arrays to
 // 0x90, vector at 0x90, ints at 0x9C/0xA0, set/pool at 0xA4, tail to 0xC8)
 // and the BFME1 EmotionTrackerUpdate donor (UpdateModule plus secondary base
@@ -15,28 +15,43 @@
 
 extern "C" void free(void *block) throw(...);
 
-class UpdateModule
+// UpdateModule carries its own three vptrs (+0x00/+0x0C/+0x10), as the
+// pinned ctor 0x004B21B9 and UpdateModule::~UpdateModule 0x0024A797 show, so
+// this unit's vftable names agree with the ctor's: the +0x10
+// UpdateModuleInterface one (0x00C565B0) is
+// ??_7EmotionTrackerUpdate@@6BUpdateModule@@@.
+class ObjectModule
 {
 public:
-	virtual ~UpdateModule();
+	virtual ~ObjectModule();
 
 private:
 	char m_pad04[8];
 };
 
-class MiBase1
+class BehaviorModuleInterface
 {
 public:
-	virtual void f1();
+	virtual void getBody();
 };
 
-class Rva0024A797_B2
+class BehaviorModule : public ObjectModule, public BehaviorModuleInterface
+{
+};
+
+class UpdateModuleInterface
 {
 public:
-	virtual void f2();
+	virtual void update();
+};
+
+class UpdateModule : public BehaviorModule, public UpdateModuleInterface
+{
+public:
+	virtual ~UpdateModule();
 
 private:
-	char m_pad08[12];
+	char m_pad14[12];
 };
 
 class EmotionTrackerUpdateSecondaryBase
@@ -68,7 +83,7 @@ struct EmotionTrackerVecHolder
 	void *m_end;
 };
 
-class EmotionTrackerUpdate : public UpdateModule, public MiBase1, public Rva0024A797_B2, public EmotionTrackerUpdateSecondaryBase
+class EmotionTrackerUpdate : public UpdateModule, public EmotionTrackerUpdateSecondaryBase
 {
 public:
 	virtual ~EmotionTrackerUpdate();

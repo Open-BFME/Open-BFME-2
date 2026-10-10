@@ -8,13 +8,16 @@
 // Target builds base5E67FE at0 and observer at8 (BED658), then installs
 // C75184/C7517C. A nontrivial owned member1C accounts for EH state2 before
 // rowed5E683E forward(region->1C,region); teardown uses rowed5CE21C clear.
+// The +8 observer's own vftable BED658 is not LivingWorldBuildingObserver's
+// C77F44 (the four-slot building listener the LivingWorldLogic ctor/dtor and
+// the sibling ctor 5CE5B3 install), so it keeps a TU-scoped address name.
 class Rva005E67FE { public: Rva005E67FE(void *); virtual ~Rva005E67FE(); void *held; };
 class Rva005E683EMid { public: void fwd(int,int); };
-class LivingWorldBuildingObserver { public: virtual ~LivingWorldBuildingObserver() {} virtual void onBuildingChanged(); };
+class Rva005CE804Observer { public: virtual ~Rva005CE804Observer() {} virtual void onBuildingChanged(); };
 class Rva005CE21C { public: void clear(); };
 class Rva005CE236 { public: Rva005CE236():p(0){} ~Rva005CE236() { ((Rva005CE21C*)this)->clear(); } void *p; };
 struct FwdArg { char pad[0x1c]; int id; };
-class Rva005CE804 : public Rva005E67FE, public LivingWorldBuildingObserver {
+class Rva005CE804 : public Rva005E67FE, public Rva005CE804Observer {
  public: Rva005CE804(void*,int,int,int,int,FwdArg*); virtual ~Rva005CE804(); virtual void onBuildingChanged();
  private: int a; int b; int c; FwdArg *region; Rva005CE236 owned;
 };

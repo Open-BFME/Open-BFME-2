@@ -10,24 +10,38 @@
 // Retail stores no state between the helper call and the release, so the
 // release is declared non-throwing here. The helper is pinned under an
 // address name from this call (second caller 0x004A35DE).
-class UpdateModule
+// UpdateModule carries its own three vptrs (+0x00/+0x0C/+0x10), as the rowed
+// ctor 0x004A342E and UpdateModule::~UpdateModule 0x0024A797 show, so this
+// unit's vftable names agree with the ctor's: the +0x10 UpdateModuleInterface
+// one (0x00C52358) is ??_7BroadcastStealthUpdate@@6BUpdateModule@@@.
+class ObjectModule
 {
 public:
-	virtual ~UpdateModule();
+	virtual ~ObjectModule();
 private:
 	char m_pad04[8];
 };
 
-class MiBase1
+class BehaviorModuleInterface
 {
 public:
-	virtual void f1();
+	virtual void getBody();
 };
 
-class BroadcastStealthUpdate_B2
+class BehaviorModule : public ObjectModule, public BehaviorModuleInterface
+{
+};
+
+class UpdateModuleInterface
 {
 public:
-	virtual void f2();
+	virtual void update();
+};
+
+class UpdateModule : public BehaviorModule, public UpdateModuleInterface
+{
+public:
+	virtual ~UpdateModule();
 private:
 	int m_14;
 	int m_18;
@@ -49,8 +63,7 @@ private:
 	void *m_ptr;
 };
 
-class BroadcastStealthUpdate : public UpdateModule, public MiBase1, public BroadcastStealthUpdate_B2,
-	public BroadcastStealthUpdate_B3
+class BroadcastStealthUpdate : public UpdateModule, public BroadcastStealthUpdate_B3
 {
 public:
 	virtual ~BroadcastStealthUpdate();

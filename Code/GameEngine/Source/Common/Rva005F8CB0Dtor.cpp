@@ -28,7 +28,18 @@ private:
 	char m_pad[0x10];
 };
 
-class Rva005F8CB0Base0
+// The +0 base has a root of its own: the constructor's inline base ctor
+// installs 0x00C7A630 (Rva005F8CB0Base0's vftable, the same one the
+// Rva005F5C77 constructors install) while the destructor's inline base dtors
+// end on 0x00BC6F20 (the widely shared root vftable). Each intermediate vptr
+// store is dead and dropped by cl, so the two bodies name different classes.
+class Rva005F8CB0Root
+{
+public:
+	virtual ~Rva005F8CB0Root() {}
+};
+
+class Rva005F8CB0Base0 : public Rva005F8CB0Root
 {
 public:
 	Rva005F8CB0Base0() : m_04(0) {}

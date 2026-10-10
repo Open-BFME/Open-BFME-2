@@ -613,6 +613,17 @@ Int Rva000FCF54Filter::set(FilterModes mode) {
 // Native 590B RET4 body byte-identical in shape to Rva000FCF54Filter::set above (same fade ladder,
 // preset material, opaque shader, empty texture and depth-state setup); another screen filter of the
 // same family. Owner remains unknown; the class is a neutral address-derived view.
+// Its fade ladder reads the ScreenBWFilter statics at 0x00DEC1A0/A4/A8/AC (the group the matched
+// ScreenBWFilter::init 0x000FB9D4 and ::set 0x000FBC67 use), not this unit's 0x00DEC1B0 group: Zero
+// Hour's ScreenBWFilterDOT3::set likewise steps ScreenBWFilter's fade statics.
+class ScreenBWFilter
+{
+public:
+	static Int m_fadeFrames;
+	static Int m_fadeDirection;
+	static Int m_curFadeFrame;
+	static Real m_curFadeValue;
+};
 class Rva000FC34FFilter
 {
 public:
@@ -627,20 +638,20 @@ protected:
 };
 Int Rva000FC34FFilter::set(FilterModes mode) {
  if (mode > FM_NULL_MODE) {
-  if (g_00DEC1B4 > 0) {
-   Int fade = ++g_00DEC1BC;
-   if (fade < g_00DEC1B8)
-    BfmeScreenTransitionFadeValue = (Real)fade / (Real)g_00DEC1B8;
-   else { BfmeScreenTransitionFadeValue = 1; g_00DEC1BC=0; g_00DEC1B4=0; }
-  } else if (g_00DEC1B4 < 0) {
-   Int fade = ++g_00DEC1BC;
-   if (fade < g_00DEC1B8)
-    BfmeScreenTransitionFadeValue = 1 - (Real)fade / (Real)g_00DEC1B8;
+  if (ScreenBWFilter::m_fadeDirection > 0) {
+   Int fade = ++ScreenBWFilter::m_curFadeFrame;
+   if (fade < ScreenBWFilter::m_fadeFrames)
+    ScreenBWFilter::m_curFadeValue = (Real)fade / (Real)ScreenBWFilter::m_fadeFrames;
+   else { ScreenBWFilter::m_curFadeValue = 1; ScreenBWFilter::m_curFadeFrame=0; ScreenBWFilter::m_fadeDirection=0; }
+  } else if (ScreenBWFilter::m_fadeDirection < 0) {
+   Int fade = ++ScreenBWFilter::m_curFadeFrame;
+   if (fade < ScreenBWFilter::m_fadeFrames)
+    ScreenBWFilter::m_curFadeValue = 1 - (Real)fade / (Real)ScreenBWFilter::m_fadeFrames;
    else {
-    BfmeScreenTransitionFadeValue=0;
+    ScreenBWFilter::m_curFadeValue=0;
     TheTacticalView->setViewFilterMode(FM_NULL_MODE);
     TheTacticalView->setViewFilter(FT_NULL_FILTER);
-    g_00DEC1BC=0; g_00DEC1B4=0;
+    ScreenBWFilter::m_curFadeFrame=0; ScreenBWFilter::m_fadeDirection=0;
    }
   }
   VertexMaterialClass *vmat = VertexMaterialClass::Get_Preset(VertexMaterialClass::PRELIT_DIFFUSE);
@@ -660,55 +671,4 @@ Int Rva000FC34FFilter::set(FilterModes mode) {
  return false;
 }
 
-
-// ?set@Rva000F9989Filter@@MAEHW4FilterModes@@@Z @0x000F9989
-// Native 590B RET4 body byte-identical in shape to Rva000FCF54Filter::set above (same fade ladder,
-// preset material, opaque shader, empty texture and depth-state setup); another screen filter of the
-// same family. Owner remains unknown; the class is a neutral address-derived view.
-class Rva000F9989Filter
-{
-public:
-	virtual int init();
-	virtual int shutdown();
-	virtual bool preRender(bool &, int &);
-	virtual bool postRender(FilterModes, Coord2D &, bool &, Coord2D *);
-	virtual bool setup(FilterModes);
-protected:
-	virtual int set(FilterModes);
-	virtual void reset();
-};
-Int Rva000F9989Filter::set(FilterModes mode) {
- if (mode > FM_NULL_MODE) {
-  if (g_00DEC1B4 > 0) {
-   Int fade = ++g_00DEC1BC;
-   if (fade < g_00DEC1B8)
-    BfmeScreenTransitionFadeValue = (Real)fade / (Real)g_00DEC1B8;
-   else { BfmeScreenTransitionFadeValue = 1; g_00DEC1BC=0; g_00DEC1B4=0; }
-  } else if (g_00DEC1B4 < 0) {
-   Int fade = ++g_00DEC1BC;
-   if (fade < g_00DEC1B8)
-    BfmeScreenTransitionFadeValue = 1 - (Real)fade / (Real)g_00DEC1B8;
-   else {
-    BfmeScreenTransitionFadeValue=0;
-    TheTacticalView->setViewFilterMode(FM_NULL_MODE);
-    TheTacticalView->setViewFilter(FT_NULL_FILTER);
-    g_00DEC1BC=0; g_00DEC1B4=0;
-   }
-  }
-  VertexMaterialClass *vmat = VertexMaterialClass::Get_Preset(VertexMaterialClass::PRELIT_DIFFUSE);
-  if (vmat) ++vmat->NumRefs;
-  if (ScreenMaterial) ScreenMaterial->Release_Ref();
-  ScreenMaterial = vmat;
-  DX8Wrapper::Mark_Material_Changed();
-  REF_PTR_RELEASE(vmat);
-  DX8Wrapper::Set_Dot3_Shader(ShaderClass::_PresetOpaqueShader);
-  { BFME2TextureRef texture; BFME2Set_Texture(0, texture); }
-  DX8Wrapper::Apply_Render_State_Changes();
-  DX8Wrapper::Set_Dot3_Render_State(23,8);
-  DX8Wrapper::Set_Dot3_Render_State(14,0);
-  DX8Wrapper::Apply_Render_State_Changes();
-  return true;
- }
- return false;
-}
 
