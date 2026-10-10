@@ -35,3 +35,19 @@ static inline bool operator!=(const _Rb_tree_iterator<T, L> &a, const _Rb_tree_i
 
 struct Rva00156FA0Record {  char bytes[1]; };
 template class _STL::map<int,Rva00156FA0Record>;
+
+// Existing address pin names this font-map cleanup; original spelling unknown.
+typedef _STL::pair<const int,Rva00156FA0Record> Rva00157380Pair;
+typedef _STL::_Rb_tree<int,Rva00157380Pair,_STL::_Select1st<Rva00157380Pair>,_STL::less<int>,_STL::allocator<Rva00157380Pair> > Rva00157380Tree;
+struct FontCharsMapNode;
+class FontCharDataTree {
+public:
+    ~FontCharDataTree() throw();
+    FontCharsMapNode *m_header;
+    unsigned int m_count;
+    unsigned int m_padding;
+};
+FontCharDataTree::~FontCharDataTree() throw()
+{
+    reinterpret_cast<Rva00157380Tree *>(this)->~Rva00157380Tree();
+}

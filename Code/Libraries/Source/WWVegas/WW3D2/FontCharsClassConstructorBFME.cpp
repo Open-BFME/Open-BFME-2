@@ -58,12 +58,8 @@ public:
 		m_header->m_right = m_header;
 	}
 
-	~FontCharDataTree() throw()
-	{
-		typedef void (__fastcall *Rva0093FA90TreeDestructor)(FontCharDataTree *, void *);
-		// The retail cleanup reads the tree through ECX and ignores EDX.
-		((Rva0093FA90TreeDestructor)0x00D3FA90)(this, 0);
-	}
+	// Owned cleanup body is rowed at157380; avoid the stale donor address.
+	~FontCharDataTree() throw();
 
 	FontCharsMapNode *m_header;
 	unsigned int m_count;
