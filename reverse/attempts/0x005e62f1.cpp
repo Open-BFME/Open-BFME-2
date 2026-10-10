@@ -1,4 +1,6 @@
 // ??0Rva005E62F1@@QAE@PAXHH0PAVRva005CB84A@@0PAVDetailsPanelFactoryFactory@PlanningPhaseArmySelection@StrategicInGameUI@@@Z
+// partial score=0.94 date=2026-10-10
+// ??0Rva005E62F1@@QAE@PAXHH0PAVRva005CB84A@@0PAVDetailsPanelFactoryFactory@PlanningPhaseArmySelection@StrategicInGameUI@@@Z
 // partial score=0.90576 date=2026-10-10
 // cl: /O1 /Oy- /G7 /MD /EHsc /arch:SSE
 // Native5E62F1..5E652E. Address-derived five-slot interface, nonvirtual
@@ -65,9 +67,9 @@ Rva005E62F1::Rva005E62F1(void*p4,int p8,int pC,void*p10,Rva005CB84A*p14,void*p18
   if(detail) {Context c={info,reinterpret_cast<int>(p18),&record,true};detail->factory(&factory->CreatePanelFactory(&c));}
   PanelWidget*entries=reinterpret_cast<PanelWidget*>(reinterpret_cast<Rva0042D69DPtrChaseField*>(a10)->get());
   if(entries) {
-   Rva005E59A5::Payload p1;p1.v[1]=reinterpret_cast<int>(a18);p1.v[0]=info;p1.v[2]=reinterpret_cast<int>(&record);entries->entry(1,&Rva005E5C63Create(&p1));
-   Rva005E59C2::Payload p2;p2.v[1]=reinterpret_cast<int>(a18);p2.v[0]=info;p2.v[2]=reinterpret_cast<int>(&record);entries->entry(2,&Rva005E5C95Create(&p2));
-   Rva005E59DF::Payload p5;p5.v[1]=reinterpret_cast<int>(a18);p5.v[0]=info;p5.v[2]=reinterpret_cast<int>(&record);entries->entry(5,&Rva005E5CC7Create(&p5));
+   {Rva005E59A5::Payload p1;p1.v[1]=reinterpret_cast<int>(a18);p1.v[0]=info;p1.v[2]=reinterpret_cast<int>(&record);entries->entry(1,&Rva005E5C63Create(&p1));}
+   {Rva005E59C2::Payload p2;p2.v[1]=reinterpret_cast<int>(a18);p2.v[0]=info;p2.v[2]=reinterpret_cast<int>(&record);entries->entry(2,&Rva005E5C95Create(&p2));}
+   {Rva005E59DF::Payload p5;p5.v[1]=reinterpret_cast<int>(a18);p5.v[0]=info;p5.v[2]=reinterpret_cast<int>(&record);entries->entry(5,&Rva005E5CC7Create(&p5));}
   }
  }
 }
