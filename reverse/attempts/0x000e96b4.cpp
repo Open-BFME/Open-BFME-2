@@ -1,6 +1,8 @@
 // ?DoXfer@W3DShrubBuffer@@QAEXPAVXfer@@@Z
+// partial score=0.7940174605388512 date=2026-10-10
+// ?DoXfer@W3DShrubBuffer@@QAEXPAVXfer@@@Z
 // partial score=0.8 date=2026-10-09
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
+// cl: /I. /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
 // Banked DoXfer reconstruction; nativeE96B4..E9BAC full1272B RET4.
 // Primary semantic guide: verified BF1 f98983a7 ZH W3DTreeBuffer.cpp xfer.
 // WB898B00 names BFME2 DoXfer and proves version2 type-table extension.
@@ -14,7 +16,7 @@
 #include "matrix3d.h"
 #include "sphere.h"
 
-#include "../../Code/Libraries/Include/Lib/Coord3D.h"
+#include "Code/Libraries/Include/Lib/Coord3D.h"
 
 // Retail's global at 0x012ED5C8 is EA's GlobalData *TheWritableGlobalData, defined
 // once in Common/GlobalData.cpp. Only the field this body reads is described on a
@@ -123,8 +125,7 @@ class Rva000E63DCObj;void __stdcall Rva000E63DCDo(Rva000E63DCObj *);
 void Rva0030612AXfer(Xfer *,float *);
 void Rva003062FEXfer(Xfer *,float *);
 void XferDrawableID(Xfer *,int *);
-class Rva002D06CA {public:void *rva002D06CA(const AsciiString *);};
-class ThingFactory;extern ThingFactory *TheThingFactory;
+class ThingTemplate; class ThingFactory {public:const ThingTemplate*findTemplate(const AsciiString&);};extern ThingFactory *TheThingFactory;
 class ModuleData {public:
  virtual void s00();virtual void s01();virtual void s02();virtual void s03();virtual void s04();virtual void s05();virtual void s06();virtual void s07();
  virtual void s08();virtual void s09();virtual void s10();virtual void s11();virtual void s12();virtual void s13();virtual void s14();virtual void s15();
@@ -173,13 +174,14 @@ private:
 // DoXfer; nativeE96B4..E9BAC adds type-table version2 and shadow version3.
 void W3DShrubBuffer::DoXfer(Xfer *xfer)
 {
+ int i;
  Rva000E63DCDo(reinterpret_cast<Rva000E63DCObj *>(xfer));
  if(xfer->IsLightCRC()||xfer->IsCRC())return;
  ShrubVersion version(1,3);xfer->Version(&version);
  int count=numTrees;xfer->Int(&count);
  if(version.current>=2){
   xfer->Int(&numTypes);
-  for(int i=0;i<numTypes;++i){
+  for(i=0;i<numTypes;++i){
    Rva000E91CEType &t=types[i];
    Rva0030612AXfer(xfer,reinterpret_cast<float *>(&t.offset));
    Rva0030612AXfer(xfer,reinterpret_cast<float *>(&t.bounds));
@@ -189,7 +191,7 @@ void W3DShrubBuffer::DoXfer(Xfer *xfer)
    xfer->String(&t.textureName);xfer->String(&t.modelName);xfer->String(&t.nameC);xfer->Int(&t.field58);xfer->String(&t.templateName);
    if(xfer->IsLoading()){
     t.data=0;
-    void *tmpl=reinterpret_cast<Rva002D06CA *>(TheThingFactory)->rva002D06CA(&t.templateName);
+    void *tmpl=(void*)TheThingFactory->findTemplate(t.templateName);
     if(tmpl){const ModuleData *module=reinterpret_cast<ModuleInfo *>(static_cast<char *>(tmpl)+0x2F0)->getNthData(0);if(module)t.data=module->TreeDrawData();}
     if(!t.data)throw XferException(4,0);
     if(t.mesh){reinterpret_cast<RenderObjClass *>(t.mesh)->Release_Ref();t.mesh=0;}
@@ -199,16 +201,16 @@ void W3DShrubBuffer::DoXfer(Xfer *xfer)
   }
  }
  if(xfer->IsLoading()){
-  numTrees=0;for(int i=0;i<2500;++i)areaPartition[i]=-1;
+  numTrees=0;for(i=0;i<2500;++i)areaPartition[i]=-1;
  }
- for(int i=0;i<count;++i){
+ for(i=0;i<count;++i){
   Rva000E771B buffer;
   memset(&buffer,0,sizeof(buffer));
   Rva000E91CETree &tree=*reinterpret_cast<Rva000E91CETree *>(&buffer);
   AsciiString modelName,modelTexture;
   int treeType=-2;
   if(xfer->IsStoring()){
-   new(&buffer) Rva000E73FC(*reinterpret_cast<const Rva000E73FC *>(&trees[i]));
+   new(&buffer) Rva000E73FC(*reinterpret_cast<const Rva000E73FC *>(&(count?trees:trees)[i]));
    treeType=tree.treeType;
    if(treeType!=-2){modelName=types[treeType].data->modelName;modelTexture=types[treeType].data->nameC;}
   }
@@ -228,7 +230,7 @@ void W3DShrubBuffer::DoXfer(Xfer *xfer)
   if(xfer->IsLoading()&&treeType>=0&&treeType<numTypes){
    Coord3D pos;pos.x=tree.location.X;pos.y=tree.location.Y;pos.z=tree.location.Z;
    AsciiString nameD("");
-   rva000E91CE(tree.drawableID,shrubPosition(tree.location),tree.scale,&tree.transform,0,types[treeType].data,shadow?1:0,textureName,nameD);
+   rva000E91CE(tree.drawableID,pos,tree.scale,&tree.transform,0,types[treeType].data,shadow?1:0,textureName,nameD);
   }
  }
 }
