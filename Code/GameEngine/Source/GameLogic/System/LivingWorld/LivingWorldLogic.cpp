@@ -308,6 +308,7 @@ public:
 class Rva003F287F
 {
 public:
+	void rva003F287F(_STL::vector<const ModuleData *> &out);	// 0x003F287F
 	void rva003F28DB(_STL::vector<const ModuleData *> &out);	// 0x003F28DB
 
 	unsigned char m_pad000[0x12c];
@@ -512,6 +513,11 @@ struct LivingWorldCollectorPlayerView
 };
 class Rva00072FE6 { public: void rva00072FE6(); };
 
+struct Parent0057605D;struct Parent00575EEA;
+class Rva004E071D {public:void rva004E071D(Bool);};
+struct LocalCampaignRegions2C {char pad2c[0x2c];_STL::vector<Rva003F287F*>regions;};
+struct LocalPlayerId14 {char pad14[0x14];Int id;};
+struct LocalRegionOwner13C {char pad13c[0x13c];Int owner;};
 struct TurnPhasePairView {void *begin,*end;bool empty()const{return begin==end;}};
 struct Parent00575E4E;
 class LivingWorldLogic : public Rva002BA82BBase00, public Rva002BA82BObserver10, public Rva002BA82BRegionObserver
@@ -530,6 +536,7 @@ public:
 	void rva002B5AF7();
  void rva002BD9B4();
  void rva002B768F();
+ Bool rva002B3484(Parent0057605D*);
  void rva002B676D();
  void rva002B88EC();
 	Bool rva002B5A5F(Parent00575E4E*);
@@ -2501,6 +2508,32 @@ class Rva002B4D41 {public:void rva002B4D41();};
 class Rva002B8AEA {public:void rva002B8AEA();};
 class Rva003F81FDProxy {public:void rva003F9037();};
 class LWUpdateFPGuard {public:LWUpdateFPGuard(){reinterpret_cast<Rva0004224C*>(this)->rva0004224C();}~LWUpdateFPGuard(){if(TheGameLogic)((LivingWorldFPModeCount*)TheGameLogic)->m_count--;}};
+// LivingWorldLogic::rva002B768F, retail 0x002B768F: for each region of the local player's army set owned by the
+// local player, re-evaluate its module list. The owner id is read into a named local first (retail loads
+// region+0x13C before the local player's id).
+void LivingWorldLogic::rva002B768F(){
+ if(m_localPlayer){
+ LocalCampaignRegions2C*campaign=reinterpret_cast<LocalCampaignRegions2C*>((m_field0B0?m_field0B0:m_field0B0)->m_armySet);
+ _STL::vector<Rva003F287F*>*regions;if(campaign)regions=&campaign->regions;else regions=0;
+ if(regions){
+ _STL::vector<const ModuleData*>modules;
+ for(unsigned i=0;i<regions->size();++i){
+  Rva003F287F*region=(*regions)[i];
+  Int ownerId=reinterpret_cast<LocalRegionOwner13C*>(region)->owner;
+  if(ownerId==reinterpret_cast<LocalPlayerId14*>(this?m_localPlayer:m_localPlayer)->id){
+   modules.erase(modules.begin(),modules.end());
+   region->rva003F287F(modules);
+   for(unsigned j=0;j<(unsigned)(modules.end()-modules.begin());++j){
+    Parent0057605D*entry=(Parent0057605D*)modules[j];
+    Bool show=rva002B3484(entry);
+    reinterpret_cast<Rva004E071D*>(entry)->rva004E071D(show);
+   }
+  }
+ }
+ }
+ }
+}
+
 void LivingWorldLogic::rva002BD9B4(){
  if(!m_padB4[0])return;
  if(TheShell)((LWUpdateShellDispatch*)TheShell)->f28();
