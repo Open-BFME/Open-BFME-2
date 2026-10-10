@@ -49,7 +49,7 @@ private:
 class Object
 {
 public:
-	BehaviorModule **getBehaviorModules() const { return m_behaviors; }
+	__declspec(dllimport) __forceinline BehaviorModule **getBehaviorModules() const { return m_behaviors; }
 private:
 	unsigned char m_pad000[0x244];
 	BehaviorModule **m_behaviors;		// +0x244
