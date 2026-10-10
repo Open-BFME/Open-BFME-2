@@ -1,12 +1,11 @@
 // ?allow@Rva00261D2EFilter@@QAE_NPAVObject@@@Z
-// partial score=0.99 date=2026-10-09
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// cl: /O1  /arch:SSE /DNDEBUG /MD /EHsc /G7 /ICode/Libraries/Include/Lib
 // Retail 00261D2E..00261F35, RET4. WB E5B6B0 is the same collision
 // filter with target-specific bridge-kind and attachment geometry handling.
 // Member offsets and virtual slots below are target facts. No original
 // filter or module names are asserted by this address-derived view.
-#include "../../../../Libraries/Include/Lib/Coord3D.h"
-#include "../../../../Libraries/Include/Lib/Coord2D.h"
+#include "Coord3D.h"
+#include "Coord2D.h"
 
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
@@ -31,8 +30,7 @@ public:
  unsigned char kinds[0x14];
 };
 class ModuleData { public: char data00[0x2C]; Real radius; };
-class Rva000CBA20Point { public: Real x,y,z; };
-class Rva000CBA20 { public: Real distSq(const Rva000CBA20Point*); };
+#include "RTS/XYDistanceCallView.h"
 struct Region2D { Coord2D lo,hi; bool rva000062FD(const Coord2D&,const Coord2D&) const; };
 class Rva0087E370 { public: void method(const Coord3D&,Real,Region2D&) const; };
 template<int N> class FilterSlots : public FilterSlots<N-1> {
@@ -89,7 +87,8 @@ bool Rva00261D2EFilter::allow(Object *other)
  const Coord3D *otherPos=&other->position;
  bool result=geometry->bfmeIntersects(position,angle,other->geometry,*otherPos,other->angle)==desired;
  _ReadWriteBarrier();
- if(result) return result;
+ // Shared result tail preserves retail's memory predicate and return home.
+ if(!result) {
  if((other->thingTemplate->kinds[0x11]&2) && otherTemplate) {
   Real radius=otherTemplate->radius;
   if(((Rva000CBA20*)other)->distSq((const Rva000CBA20Point*)&position)<=radius*radius*0.66f)
@@ -113,6 +112,7 @@ bool Rva00261D2EFilter::allow(Object *other)
     if(bounds.rva000062FD(start,delta)) result=true;
    }
   }
+ }
  }
  return result;
 }
