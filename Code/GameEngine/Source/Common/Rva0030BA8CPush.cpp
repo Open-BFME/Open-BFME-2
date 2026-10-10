@@ -3,18 +3,15 @@
 // ?rva0030BA8C@Rva0030BA8C@@QAEXABUBfmeE8@@@Z, retail 0x0030BA8C, 20 bytes.
 // Holder push via rowed vector E8 push_back 0x00539A2E plus flag at +0x24 set to 1.
 // Evidence: callers 0x0030BAB7 0x003290F7 0x00330AC8; prev clear 0x0030B9CA same flags next Disp8Lea no-flags.
-// The emitted unsigned max copy must match retail RVA 0x00013740.
-// Define it for speed, then restore this unit's flags for its own bodies.
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
 #include <stl/_algobase.h>
-#pragma optimize("s", off)
-#pragma optimize("t", on)
 namespace _STL {
-template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
 {
     return a < b ? b : a;
 }
 }
-#pragma optimize("", on)
 
 #include <vector>
 struct BfmeE8 { int a[2]; };
