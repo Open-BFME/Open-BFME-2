@@ -255,7 +255,7 @@ public:
 class ExperienceLevelSystem;
 class Rva004074B6 { public: void rva004074B6(const AsciiString &); };
 enum NameKeyType { NAMEKEY_INVALID = 0 };
-class NameKeyGenerator { public: NameKeyType nameToKey(const AsciiString &); };
+class NameKeyGenerator { public: NameKeyType nameToKey(const AsciiString &); const AsciiString &keyToName(NameKeyType key); };
 extern NameKeyGenerator *TheNameKeyGenerator;
 class Rva0028951F { public: const Overridable *rva0028951F(int); };
 extern ExperienceLevelSystem *TheExperienceLevelSystem;
@@ -271,6 +271,23 @@ public:
 	Bool rva0040AA27(const CreateAHeroHero *hero) const;	// 0x0040AA27
 };
 
+// The award-count map's mapped word (rowed operator[] 0x002C6F8C spelling).
+struct TreeHintPayload001F8ACB
+{
+	unsigned long value;
+};
+namespace _STL {
+template <> TreeHintPayload001F8ACB &map<AsciiString, TreeHintPayload001F8ACB, less<AsciiString>,
+	allocator<pair<const AsciiString, TreeHintPayload001F8ACB> > >::operator[](const AsciiString &key);
+}
+class Rva00406E53 { public: int rva00406E53(); };
+class Rva00406E65 { public: int rva00406E65(unsigned int); };
+class Rva0040B0D0 { public: bool rva0040B0D0(const void *); };
+class Rva0040BAD0 { public: int rva0040AAF8(int); };
+class GameLogic;
+extern GameLogic *TheGameLogic;
+struct Rva004088F0GameLogicView { unsigned char m_pad00[0x110]; int m_mode; };
+
 class CreateAHeroHero
 {
 public:
@@ -279,6 +296,7 @@ public:
 	Int GetBlingId(Int blingKey, UnsignedInt index) const;
 	Bool SetButtonForLevel(const AsciiString &button, UnsignedInt experienceLevel, UnsignedInt value);
 	void UpdateAwardEarnedFlags();
+	void rva004088F0(const void *thing, Int unused);
 	Bool AddCommandButtonLevel(UnsignedInt index, const AsciiString &source,
 		const AsciiString &name, const AsciiString &experience);
 	Bool UpdateCommandSet(UnsignedInt rank);
@@ -299,7 +317,7 @@ private:
 	UnsignedInt m_state38;
 	unsigned char m_pad3C[0x4C - 0x3C];
 	AsciiString m_className;				// +0x4C
-	unsigned char m_pad50[0x5C - 0x50];
+	_STL::map<AsciiString, TreeHintPayload001F8ACB> m_awardCounts;	// +0x50
 	_STL::vector<bool> m_awardEarnedFlags; // +0x5C
 	Bool m_flag70, m_updateAwards; // +0x70, +0x71
 	unsigned char m_pad72[2];
@@ -337,6 +355,33 @@ void CreateAHeroHero::UpdateAwardEarnedFlags()
 			Rva005200C5Add(this, (ScienceType)key);
 		}
 	}
+}
+
+// Native 4088F0..4089C5 (ret 8, EH). WB 107CBF0 (unnamed, callgraph):
+// outside game mode 3 it walks the award list (0x00406E53 count, 0x00406E65
+// key), asks the award statistic 0x0040AAF8 on the award table at 0x00E02F74
+// whether the thing contributed (0x0040B0D0, WB IsContributor), counts each
+// hit in the +0x50 map under the award's key name, and refreshes the earned
+// flags when anything counted. The name and second argument are unknown.
+void CreateAHeroHero::rva004088F0(const void *thing, Int unused)
+{
+	if (((Rva004088F0GameLogicView *)TheGameLogic)->m_mode == 3)
+		return;
+	Bool counted = false;
+	for (UnsignedInt i = 0; i < (UnsignedInt)((Rva00406E53 *)this)->rva00406E53(); ++i)
+	{
+		Int key = ((Rva00406E65 *)this)->rva00406E65(i);
+		Rva0040B0D0 *statistic = (Rva0040B0D0 *)((Rva0040BAD0 *)g_00E02F74)->rva0040AAF8(key);
+		if (statistic && statistic->rva0040B0D0(thing))
+		{
+			AsciiString name(TheNameKeyGenerator->keyToName((NameKeyType)key));
+			unsigned long count = m_awardCounts[name].value + 1;
+			m_awardCounts[name].value = count;
+			counted = true;
+		}
+	}
+	if (counted)
+		UpdateAwardEarnedFlags();
 }
 
 // CreateAHeroHero::HasEarnedAward, retail 0x00406EA7.
