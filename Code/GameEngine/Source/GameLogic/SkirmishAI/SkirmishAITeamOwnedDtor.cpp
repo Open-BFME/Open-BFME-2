@@ -12,6 +12,18 @@ extern "C" void _ReadWriteBarrier();
 #include <map>
 #include <vector>
 
+// vector<void*> begin/end otherwise instantiate per-TU COMDATs (one byte
+// shape per TU flags); explicit dllimport+forceinline specializations take
+// those calls inline so this TU emits no external copies.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+void **vector<void*>::begin()
+{ return _M_start; }
+template <> __declspec(dllimport) __forceinline
+void **vector<void*>::end()
+{ return _M_finish; }
+}
+
 void Rva00030830GameFree(void*);
 namespace _STL {template<> inline void allocator<void*>::deallocate(void**p,size_t)const{if(p)Rva00030830GameFree(p);}}
 class Rva004E9419 {public:~Rva004E9419();void rva004E94A1();};

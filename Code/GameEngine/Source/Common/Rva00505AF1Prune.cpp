@@ -4,6 +4,18 @@
 // Evidence: 4 voidptr vectors at +0x10 +0x28 +0x40 +0x58 pruned via byte at +0x28 virtual slot0(0) plus rowed delete 0x0002FD60 and rowed erase 0x001FF51F; caller 0x005069B7.
 #include <vector>
 
+// vector<void*> begin/end otherwise instantiate per-TU COMDATs (one byte
+// shape per TU flags); explicit dllimport+forceinline specializations take
+// those calls inline so this TU emits no external copies.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+void **vector<void*>::begin()
+{ return _M_start; }
+template <> __declspec(dllimport) __forceinline
+void **vector<void*>::end()
+{ return _M_finish; }
+}
+
 class Rva00505AF1Elem
 {
 public:
