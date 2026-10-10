@@ -53,7 +53,6 @@ private:
 	Shadow *m_shadow;
 };
 
-// ?rva0029A41A@Rva0029A41A@@QAEXPAURGBColor@@@Z present-unmatched
 void Rva0029A41A::rva0029A41A(RGBColor *color)
 {
 	Shadow *shadow = m_shadow;
