@@ -1,6 +1,10 @@
 // ??0BfmeStrVM0@@QAE@XZ
+// partial score=0.9919880250725045 date=2026-10-10
+extern "C" void _ReadWriteBarrier();
+#pragma intrinsic(_ReadWriteBarrier)
+// ??0BfmeStrVM0@@QAE@XZ
 // partial score=0.925 date=2026-10-09
-// cl: /O1 /arch:SSE /G7 /Oy- /DNDEBUG /MD /GX
+// cl:    /Oy- /DNDEBUG /MD /GX /O1 /G7 /arch:SSE
 // ??1BfmeStrVM0@@UAE@XZ, retail 0x0025D686, 111 bytes.
 // Destructor of BfmeStrVM0: stores vtable 0x7F5DA0 then runs the field-reset
 // helper rva0025D19E and the list-clear rva0025C0FF on the same this, then
@@ -255,7 +259,7 @@ struct DisplayTextF0 {
  int wordF4,wordF8;float fFC,f100,f104,f108;bool flag10c;char gap10d[3];
  int word110;bool m_b114,flag115;char gap116[2];int word118;
  float f11c,m_f120;
- __forceinline DisplayTextF0():wordF4(0),wordF8(0),fFC(0),f100(0),f104(0),f108(0),flag10c(false),word110(0),m_b114(false),flag115(false),word118(0),f11c(1.0f),m_f120(0){}
+ __forceinline DisplayTextF0():wordF4((_ReadWriteBarrier(),0)),wordF8(0),fFC(0),f100(0),f104(0),f108(0),flag10c(false),word110(0),m_b114(false),flag115(false),word118(0),f11c(1.0f),m_f120(0){}
 };
 class BfmeStrVM0 : public GameEngineDeletingBase
 {
