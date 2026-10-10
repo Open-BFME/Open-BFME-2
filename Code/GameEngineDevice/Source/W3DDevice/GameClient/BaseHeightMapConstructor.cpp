@@ -37,9 +37,10 @@ class GlobalData;extern GlobalData*TheWritableGlobalData;
 struct TerrainGlobalView {char data[0xC6A];bool useTaint;};
 class Rva001E35DFView {public:const Rva001E35DFView*getFinalOverride()const{if(next)return next->getFinalOverride();return this;}void*unknown00;Rva001E35DFView*next;bool isOverride;};
 class Rva00DFF488Setting:public Rva001E35DFView {public:char unknown0C[12];int field18,field1C;};
-template<class T>class OVERRIDE {public:operator const T*()const{if(!pointer)return 0;return(const T*)pointer->getFinalOverride();}const T*operator->()const{if(!pointer)return 0;return(const T*)pointer->getFinalOverride();}const T*pointer;};
-extern OVERRIDE<Rva00DFF488Setting>TheRva00DFF488Setting;
-class BaseHeightMapRenderObjClass;extern BaseHeightMapRenderObjClass*TheTerrainRenderObject;extern DX8_CleanupHook*TerrainCleanupHook;
+template<class T>class OVERRIDE {public:__forceinline operator const T*()const{if(!pointer)return 0;return(const T*)pointer->getFinalOverride();}__forceinline const T*operator->()const{if(!pointer)return 0;return(const T*)pointer->getFinalOverride();}const T*pointer;};
+class WaterTransparency;
+extern OVERRIDE<WaterTransparency>TheWaterTransparency;
+class BaseHeightMapRenderObjClass;extern BaseHeightMapRenderObjClass*TheTerrainRenderObject;class DX8Wrapper {public:static void SetCleanupHook(DX8_CleanupHook*h){Cleanup_Hook=h;}private:static DX8_CleanupHook*Cleanup_Hook;};
 double Rva006C5BE0(double,int);
 class BaseHeightMapRenderObjClass:public RenderObjClass,public DX8_CleanupHook,public Snapshot {public:
 BaseHeightMapRenderObjClass();virtual~BaseHeightMapRenderObjClass();
@@ -132,8 +133,9 @@ buffer9=new Rva000D3A17;
 x=0;y=0;count=0;cached=0;unk3798=0;f37a4=0;f37a8=0;f37ac=0;
 buffer10=new W3DShroud;
 if(((const TerrainGlobalView*)TheWritableGlobalData)->useTaint)buffer11=new Rva00074136;else buffer11=0;
-TerrainCleanupHook=this;
+DX8Wrapper::SetCleanupHook(this);
 f3824.set("TSCloudMed.tga");f3830.set("TSNoiseUrb.tga");f3840.set("TSTaintMed.tga");f384c.set("TSElvenMed.tga");
-config1C=TheRva00DFF488Setting->field1C;config18=TheRva00DFF488Setting->field18;
+const OVERRIDE<Rva00DFF488Setting>&settings=(const OVERRIDE<Rva00DFF488Setting>&)TheWaterTransparency;
+config1C=settings->field1C;config18=settings->field18;
 initialized=true;
 }
