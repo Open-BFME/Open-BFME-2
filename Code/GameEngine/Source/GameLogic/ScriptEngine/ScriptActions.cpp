@@ -405,7 +405,7 @@ public:
 	int rva0039DD12(int (*func)(class Object *, void *), void *userData) const;
 	bool hasAnyObjects(bool ignoreBuildings);
 	class Object *rva0039E968(int kindOf);
-	bool rva0039E8FF(const void *upgrade);
+	bool rva0039E8FF(int val);
 	Player *getControllingPlayer() const;
 	void rva003A1AA3(const class ThingTemplate *tmpl, class ObjectTypes *types, int count, float radius);
 };
@@ -987,7 +987,7 @@ void ScriptActions::rva003C49AE(Parameter *srcTeamParam, Parameter *dstTeamParam
 	void *upgrade = TheUpgradeCenterLookup->rva0026F0F0((unsigned char *)giver + 0x284);
 	if (!upgrade)
 		return;
-	if (!dstTeam->rva0039E8FF(upgrade))
+	if (!dstTeam->rva0039E8FF((int)upgrade))
 		return;
 	const SpecialPowerTemplate *power = TheSpecialPowerStore->findSpecialPowerTemplate("SpecialAbilityGiveUpgrade");
 	if (!power)
