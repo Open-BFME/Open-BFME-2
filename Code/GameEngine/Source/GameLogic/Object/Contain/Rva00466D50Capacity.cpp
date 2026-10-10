@@ -1,13 +1,8 @@
-// ?rva00466D50@Rva00466D50@@QAE_NI@Z
-// partial score=0.9604734945959856 date=2026-10-10
-// ?rva00466D50@Rva00466D50@@QAE_NI@Z
-// partial score=0.93 date=2026-09-28
-// ?rva00466D50@Rva00466D50@@QAE_NI@Z
-// partial score=0.93 date=2026-09-28
 // cl: /O1 /DNDEBUG /MD
 // ?rva00466D50@Rva00466D50@@QAE_NI@Z retail 0x00466D50 67B
 // Predicate over member object at +0x20 with 70 virtuals: calls slot 69
-// with 0 then slot 51 then slot 28 compares sum versus arg. Evidence:
+// with 0 then slot 51 then slot 28 compares: true when slot 28 is at least slot69(0) + arg + slot51 (the argument
+// is added to the slot 69 count before the slot 51 result joins; one expression keeps retail order). Evidence:
 // three virtual calls at +0x114 +0xCC +0x70 plus neg/sbb style bool return
 // via sbb eax inc and early xor al for null arg; caller at 0x00468188;
 // neighbours share /O1 /DNDEBUG /MD. Honest Rva name.
@@ -93,5 +88,4 @@ private:
 	char m_pad[32];
 	Inner00466D50 m_20;
 };
-// ?rva00466D50@Rva00466D50@@QAE_NI@Z present-unmatched
-bool Rva00466D50::rva00466D50(unsigned int arg){if(arg==0)return false;unsigned int t=m_20.v69(0);unsigned int b=m_20.v51();unsigned int *pt=&t;*pt+=arg;b+=*pt;unsigned int c=m_20.v28();return c>=b;}
+bool Rva00466D50::rva00466D50(unsigned int arg){if(arg==0)return false;unsigned int b=(m_20.v69(0)+arg)+m_20.v51();unsigned int c=m_20.v28();return c>=b;}
