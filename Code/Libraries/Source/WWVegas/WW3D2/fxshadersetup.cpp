@@ -338,7 +338,7 @@ struct AsciiStringPlusText : AsciiStringRef
 AsciiStringPlusText operator+(const AsciiString &left, const char *right);
 
 // The shader LOD (2 = high), read through the getter 0x0006E16F elsewhere.
-extern int g_Va00DB5FA0;
+extern int LODTextureReduction;
 
 // The technique-name suffix per LOD: low, medium, high, ultra.
 static const char s_lodSuffixes[4][4] = { "_L", "_M", "", "_U" };
@@ -524,7 +524,7 @@ bool FXShaderSetup::InitializeShader(const char *shaderName, const char *techniq
 		return false;
 	ID3DXEffectView *effect = asset.Peek_Effect();
 
-	int lodLimit = g_Va00DB5FA0;
+	int lodLimit = LODTextureReduction;
 	if (lod != 4)
 		lodLimit = lod;
 

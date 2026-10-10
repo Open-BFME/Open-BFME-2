@@ -114,13 +114,13 @@ unsigned char Rva00116F70GetByte(void)
 
 // ?Rva00171650GetByte@@YAEXZ @ 0x00171650 (6B) over 0x00DEC410.
 
-extern unsigned char g_Va00DEC410;
-// g_Va00DEC410: matched references place it at VA 0xdec410 (zero-filled .bss).
-unsigned char g_Va00DEC410;
+extern unsigned char LODMeshCacheSetting;
+// LODMeshCacheSetting: matched references place it at VA 0xdec410 (zero-filled .bss).
+unsigned char LODMeshCacheSetting;
 
 unsigned char Rva00171650GetByte(void)
 {
-	return g_Va00DEC410;
+	return LODMeshCacheSetting;
 }
 
 // ?Rva00171670GetByte@@YAEXZ @ 0x00171670 (6B) over 0x00DEC3DA.

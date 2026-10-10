@@ -51,13 +51,13 @@ int Rva0002BACFGet(void)
 
 // ?Rva0006E16FGet@@YAHXZ @ 0x0006E16F (6B) over 0x00DB5FA0.
 
-extern int g_Va00DB5FA0;
-// g_Va00DB5FA0: matched references place it at VA 0xdb5fa0 (retail .data initial value 2).
-int g_Va00DB5FA0 = 2;
+extern int LODTextureReduction;
+// LODTextureReduction: matched references place it at VA 0xdb5fa0 (retail .data initial value 2).
+int LODTextureReduction = 2;
 
 int Rva0006E16FGet(void)
 {
-	return g_Va00DB5FA0;
+	return LODTextureReduction;
 }
 
 // ?Rva000A8F36Get@@YAHXZ @ 0x000A8F36 (6B) over 0x00DB5FC8.
