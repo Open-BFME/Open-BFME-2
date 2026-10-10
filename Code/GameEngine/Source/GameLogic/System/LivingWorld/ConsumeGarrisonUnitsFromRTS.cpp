@@ -90,3 +90,94 @@ ArmySummaryEntryRef AttackOrdersMember::rva0031996D(const HeroEntryKey&key){
  }
  return summary.Get()->GetEntry(((Rva0040CC0EIndexedField*)summary.Get())->get(0));
 }
+void ConsumeGarrisonUnitsFromRTS(Rva002BC1DAUnit*unit,Rva002BC1DAArmy*army,LivingWorldBattle*battle){
+ int i;
+ int side=battle->rva003F4752(army);
+ int player=battle->rva003F4FAA(side,army);
+ if(unit->summary.Get()->records.size()==0)return;
+ int count=((Rva003F4DCA*)battle)->rva003F4DCA(side,player);
+ for(i=0;i<count;++i){
+  Rva002BC1DAUnit*other=(Rva002BC1DAUnit*)battle->rva003F48FE(side,player,i);
+  if(((const StringBase<char>&)other->name).isEmpty()||!((Rva003190A5*)other)->query())continue;
+  ArmySummary*summary=(ArmySummary*)battle->rva003F4921(side,player,i);
+  for(int j=0;j<(int)summary->records.size();++j){
+   ArmySummaryEntry*entry=(ArmySummaryEntry*)((Rva0040CB2CIndexedField*)summary)->get(j);
+   AsciiString*name=&entry->name;
+   int lost=((Rva0040DB0ERegistry*)summary)->rva0040DB0E(*name)-((Rva00319924*)other)->count(*name);
+   int available=((Rva00319924*)unit)->count(*name);
+   if(lost>0&&available>0){
+    int take=lost>available?available:lost;
+    for(int k=0;k<take;++k){
+     ArmySummaryEntryRef ref=((AttackOrdersMember*)unit)->rva0031996D(*(HeroEntryKey*)name);
+     ((LivingWorldArmy*)other)->rva00319EA3((LivingWorldArmy*)unit,ref.value);
+    }
+   }
+   lost=((Rva0040DB0ERegistry*)summary)->rva0040DB0E(*name)-((Rva00319924*)other)->count(*name);
+   int cp=((Rva0037DCA5*)((Rva0040CB2CIndexedField*)summary)->get(j))->rva0037DCA5();
+   int kind=TheThingFactory->findTemplate(*name)->kind;
+   available=((Rva00318FC6*)unit)->rva00318FC6(kind,cp);
+   if(lost>0&&available>0&&kind!=5){
+    int take=lost>available?available:lost;
+    for(int k=0;k<take;++k){
+     ArmySummaryEntryRef ref=((Rva00319028*)unit)->rva00319028(kind,cp);
+     ((LivingWorldArmy*)other)->rva00319EA3((LivingWorldArmy*)unit,ref.value);
+    }
+   }
+  }
+ }
+ _STL::vector<Rva0040DC56Element> remaining;
+ unit->summary.Get()->GetEntries(remaining);
+ _STL::sort((Rva004F6093Holder*)remaining.begin(),(Rva004F6093Holder*)remaining.end(),Rva002BBC1CCmp());
+ for(i=0;i<count;++i){
+  Rva002BC1DAUnit*other=(Rva002BC1DAUnit*)battle->rva003F48FE(side,player,i);
+  if(((const StringBase<char>&)other->name).isEmpty()||!((Rva003190A5*)other)->query())continue;
+  void*summary=(void*)battle->rva003F4921(side,player,i);
+  int limit=((BfmeY1038*)summary)->bfmeVal1038();
+  int cp=((Rva00318FBE*)other)->rva00318FBE();
+  int max=(int)remaining.size();
+  for(int j=0;j<max&&cp<limit;++j){
+   Rva0040DC56Element*last=remaining.begin()+remaining.size()-1;
+   ThingTemplate*thing=(ThingTemplate*)((Rva0037DCA5*)last->Get())->rva0037DC52();
+   if(((Rva0037DCA5*)last->Get())->rva0037DCA5()+cp>limit||(thing&&(thing->heroFlags&4)))continue;
+   ((LivingWorldArmy*)other)->rva00319EA3((LivingWorldArmy*)unit,last->Get());
+   ((Rva002B6066*)&remaining)->rva002B6066(remaining.begin()+remaining.size()-1);
+   cp+=((Rva0037DCA5*)last->Get())->rva0037DCA5();
+  }
+ }
+ for(i=0;i<count;++i){
+  Rva002BC1DAUnit*other=(Rva002BC1DAUnit*)battle->rva003F48FE(side,player,i);
+  if(!((const StringBase<char>&)other->name).isEmpty())continue;
+  ArmySummary*summary=(ArmySummary*)battle->rva003F4921(side,player,i);
+  for(int j=0;j<(int)summary->records.size();++j){
+   ArmySummaryEntry*entry=(ArmySummaryEntry*)((Rva0040CB2CIndexedField*)summary)->get(j);
+   AsciiString*name=&entry->name;
+   int kind=TheThingFactory->findTemplate(*name)->kind;
+   int cp=((Rva0037DCA5*)entry)->rva0037DCA5();
+   bool found=false;
+   Rva0040DC56Element*it;
+   for(it=remaining.begin();it!=remaining.end();++it){
+    if(it->Get()->name.compare(*name)==0){
+     found=true;
+     ((Rva002B6066*)&remaining)->rva002B6066(it);
+     break;
+    }
+   }
+   if(found)continue;
+   for(it=remaining.begin();it!=remaining.end();++it){
+    if(kind!=5&&kind==((ThingTemplate*)((Rva0037DCA5*)it->value)->rva0037DC52())->kind&&cp>=((Rva0037DCA5*)it->value)->rva0037DCA5()){
+     found=true;
+     ((Rva002B6066*)&remaining)->rva002B6066(it);
+     break;
+    }
+   }
+   if(found)continue;
+   for(it=remaining.begin();it!=remaining.end();++it){
+    if(((ThingTemplate*)((Rva0037DCA5*)it->value)->rva0037DC52())->kind!=5&&cp>=((Rva0037DCA5*)it->value)->rva0037DCA5()){
+     ((Rva002B6066*)&remaining)->rva002B6066(it);
+     break;
+    }
+   }
+  }
+  for(Rva0040DC56Element*it=remaining.begin();it!=remaining.end();++it)((Rva0031979COwner*)unit)->rva0031979C((int)it->value);
+ }
+}
