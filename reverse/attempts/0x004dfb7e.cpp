@@ -1,9 +1,9 @@
 // ?rva004DFB7E@Rva004DFB7E@@QAE_NPAX@Z
-// partial score=0.92 date=2026-10-04
+// partial score=0.95 date=2026-10-10
+// ?rva004DFB7E@Rva004DFB7E@@QAE_NPAX@Z
+// partial score=0.95 date=2026-10-10
 // cl: /Ireference/shims/bfme2_ascii /O1 /G7 /MD /EHsc /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
 // stlport
-//
-// ?rva004DFB7E@Rva004DFB7E@@QAE_NPAX@Z @0x004DFB7E 111B: bool lookup via SkirmishAI record 0x160 vector AsciiString compare; caller 0x004E0235; pin rva002A8AB1 and g_00DFEEF8; sar 2 unsigned jb loop with xor al / mov al 1 tails
 #include "ascii_string.h"
 #include <vector>
 
@@ -48,14 +48,11 @@ private:
 	void *m_28;
 };
 
-// ?rva004DFB7E@Rva004DFB7E@@QAE_NPAX@Z present-unmatched
 bool Rva004DFB7E::rva004DFB7E(void *p)
 {
-	unsigned int i = 0;
 	Rva002A8AB1Record *rec = g_00DFEEF8->rva002A8AB1(m_28);
-	if (rec == 0)
-		return false;
-	for (; i < rec->m_160->m_98.size(); ++i)
+	if (rec != 0)
+	for (register unsigned int i = 0; i < rec->m_160->m_98.size(); ++i)
 	{
 		Rva004DFB7EArg *a = (Rva004DFB7EArg *)p;
 		if (((const StringBase<char> *)&rec->m_160->m_98[i])->compare(*(const StringBase<char> *)&a->m_04->m_64) == 0)

@@ -1,5 +1,5 @@
 // ?GetObjectsInRange@PartitionManagerImpl@@QAE?AUBfmeWideResult@@PBMMPBURva009F4130Range@@HPAVRva009F2AB0Mask@@H@Z
-// partial score=0.995 date=2026-10-09
+// partial score=1.0 date=2026-10-10
 // cl: /O2 /Ob1 /G6 /MD /EHsc /DNDEBUG /D_STLP_USE_STATIC_LIB /D_CRTIMP=
 // stlport
 #include <stdlib.h>
@@ -9,7 +9,7 @@ namespace _STL { void __cdecl free(void *); }
 #undef free
 struct Rva009F39F0Payload { void *start, *finish, *end, *cursor; int refs; Rva009F39F0Payload():start(0),finish(0),end(0){} };
 struct Rva009F39F0Result { Rva009F39F0Payload *value; Rva009F39F0Result(); };
-#include "../Code/GameEngine/Source/Common/PartitionRangeQueryCallView.h"
+#include "PartitionRangeQueryCallView.h"
 __declspec(noinline) BfmeWideResult::BfmeWideResult() {
     m_value = new Rva009F39F0Payload;
     ((Rva009F39F0Payload *)m_value)->refs=1;
@@ -34,7 +34,25 @@ class BfmeHostER { public: unsigned bfmeIndexER(float); };
 class BfmeHostES { public: unsigned bfmeIndexES(float); };
 class BfmeThingVJX { public: void bfmeGoVJX(int); };
 typedef float (__cdecl *Rva009F4130Distance)(void *,void *,float);
-extern Rva009F4130Distance g_partitionDistance[5];
+// The target's mutable five-entry callback table at VA DD7EC0. These
+// declarations retain each provider's rowed ABI; the common pointer view is
+// only the query helper's table consumption, not a new provider signature.
+struct Coord2DBase; class Rva009F4070PositionProvider;
+struct Coord3DBase; class Rva009F40A0PositionProvider;
+struct Coord3D; class Object; class BfmePosEJ; class BfmeObjEJ;
+class Rva009F66F0Provider;
+float Rva009F4070DistanceSquared(const Coord2DBase *, Rva009F4070PositionProvider *);
+float bfmeSignedEJ(const BfmePosEJ *, BfmeObjEJ *);
+float Rva009F40A0DistanceSquared(const Coord3DBase *, Rva009F40A0PositionProvider *);
+float distCalcProc_BoundaryAndBoundary_3D(const Coord3D *, const Object *, int);
+float Rva009F66F0(const Coord3D *, Rva009F66F0Provider *, float);
+Rva009F4130Distance g_partitionDistance[5] = {
+ (Rva009F4130Distance)Rva009F4070DistanceSquared,
+ (Rva009F4130Distance)bfmeSignedEJ,
+ (Rva009F4130Distance)Rva009F40A0DistanceSquared,
+ (Rva009F4130Distance)distCalcProc_BoundaryAndBoundary_3D,
+ (Rva009F4130Distance)Rva009F66F0
+};
 struct PartitionTreeView { Rva009F4130NodeList *begin, *end, *capacity; };
 class PartitionManagerImpl {
 public:
