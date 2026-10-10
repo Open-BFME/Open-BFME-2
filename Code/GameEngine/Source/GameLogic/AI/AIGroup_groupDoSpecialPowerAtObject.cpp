@@ -13,7 +13,7 @@
 // - The member list at +0x04 is the same as the rowed AIGroup bodies
 //   (groupChangeStance 0x0036E269 and others).
 // - The calls are rowed or pinned: findSpecialPowerTemplateByID,
-//   ActionManager::canDoSpecialPowerAtObject, Object::rva0028E01F and
+//   ActionManager::canDoSpecialPowerAtObject, Object::doSpecialPowerAtObject and
 //   rva0028AC34, ExperienceTracker::rva0039AC0C, IsValid and GetLevelRank.
 // - WorldBuilder 0x00EE9F50 is the same function before the retail-only
 //   changes noted below.
@@ -123,7 +123,7 @@ public:
 	AIUpdateInterface *getAI() const { return m_ai; }
 	ExperienceTracker *getExperienceTracker() const { return m_experienceTracker; }
 	Int getID() const { return m_id; }
-	void rva0028E01F(const SpecialPowerTemplate *spTemplate, Object *target, Int commandOptions, Int forced);
+	void doSpecialPowerAtObject(const SpecialPowerTemplate *spTemplate, Object *target, unsigned commandOptions, bool forced);
 	void rva0028AC34(Bool value);
 
 	unsigned char m_pad000[4];
@@ -236,7 +236,7 @@ void AIGroup::groupDoSpecialPowerAtObject(UnsignedInt specialPowerID, Object *ta
 				continue;
 			if (TheActionManager->canDoSpecialPowerAtObject(obj, target, CMD_FROM_PLAYER, spTemplate, commandOptions, checkSourceRequirements))
 			{
-				obj->rva0028E01F(spTemplate, target, commandOptions, 0);
+				obj->doSpecialPowerAtObject(spTemplate, target, commandOptions, 0);
 				obj->rva0028AC34(false);
 			}
 		}
@@ -253,7 +253,7 @@ void AIGroup::groupDoSpecialPowerAtObject(UnsignedInt specialPowerID, Object *ta
 		const SpecialPowerTemplate *spTemplate = TheSpecialPowerStore->findSpecialPowerTemplateByID(specialPowerID);
 		if (spTemplate && TheActionManager->canDoSpecialPowerAtObject(best, target, CMD_FROM_PLAYER, spTemplate, commandOptions, checkSourceRequirements))
 		{
-			best->rva0028E01F(spTemplate, target, commandOptions, 0);
+			best->doSpecialPowerAtObject(spTemplate, target, commandOptions, 0);
 			best->rva0028AC34(false);
 		}
 	}

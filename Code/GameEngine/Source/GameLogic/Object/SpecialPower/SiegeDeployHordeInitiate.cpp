@@ -14,7 +14,7 @@
 //   its contained list (slot 66).
 // - Pick the first member whose template has KindOf bit 93, remove it
 //   (slot 14), deselect it (rowed deselectObject 0xFFFFF true), idle its AI
-//   (rowed aiIdle CMD_FROM_AI) and fire the pinned Object::rva0028E01F
+//   (rowed aiIdle CMD_FROM_AI) and fire the rowed Object::doSpecialPowerAtObject
 //   (template / target / options / 0).
 // - Then for every contained object (slot 126 into a vector<Object*> through
 //   the pinned _Vector_base ctor): idle it, fire it, look up its
@@ -87,7 +87,7 @@ public:
 	ObjectID getID() const { return m_id; }
 	AIUpdateInterface *getAIUpdateInterface() { return m_ai; }
 	void *rva0028C197() const;
-	void rva0028E01F(const SpecialPowerTemplate *spt, Object *target, Int commandOptions, Int extra);
+	void doSpecialPowerAtObject(const SpecialPowerTemplate *spt, Object *target, unsigned commandOptions, bool extra);
 protected:
 	Module *findModule(NameKeyType key) const;
 private:
@@ -214,14 +214,14 @@ void SiegeDeployHordeSpecialPower::initiateIntentToDoSpecialPower(const SpecialP
 		contain->removeFromContain(leader);
 		TheGameLogic->deselectObject(leader, 0xFFFFF, true);
 		leader->getAIUpdateInterface()->aiIdle(CMD_FROM_AI);
-		leader->rva0028E01F(specialPowerTemplate, (Object *)targetObj, commandOptions, 0);
+		leader->doSpecialPowerAtObject(specialPowerTemplate, (Object *)targetObj, commandOptions, 0);
 
 		_STL::vector<Object *> objects;
 		((SiegeDeployHordeContainView *)getObject()->rva0028C197())->getContainedObjects(&objects);
 		for (UnsignedInt i = 0; i < objects.size(); ++i)
 		{
 			objects[i]->getAIUpdateInterface()->aiIdle(CMD_FROM_AI);
-			objects[i]->rva0028E01F(specialPowerTemplate, (Object *)targetObj, commandOptions, 0);
+			objects[i]->doSpecialPowerAtObject(specialPowerTemplate, (Object *)targetObj, commandOptions, 0);
 			static const NameKeyType key = TheNameKeyGenerator->nameToKey("SiegeDeployHordeSpecialPower");
 			SiegeDeployHordeModuleView *module = (SiegeDeployHordeModuleView *)objects[i]->findModule(key);
 			if (module)

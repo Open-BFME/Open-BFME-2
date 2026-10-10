@@ -308,7 +308,7 @@ public:
 	void *rva0028BCF4() const;
 	void *rva0028C197() const;
 	void updateUpgradeModules();
-	void rva0028E01F(const class SpecialPowerTemplate *power, Object *target, int flags, int arg);
+	void doSpecialPowerAtObject(const class SpecialPowerTemplate *power, Object *target, unsigned flags, bool arg);
 	int getIndicatorColor() const;
 	int getNightIndicatorColor() const;
 	void rva0028BAC0();
@@ -992,5 +992,5 @@ void ScriptActions::rva003C49AE(Parameter *srcTeamParam, Parameter *dstTeamParam
 	const SpecialPowerTemplate *power = TheSpecialPowerStore->findSpecialPowerTemplate("SpecialAbilityGiveUpgrade");
 	if (!power)
 		return;
-	giver->rva0028E01F(power, dstTeam->rva0039E8EB(), 0x40000, 0);
+	giver->doSpecialPowerAtObject(power, dstTeam->rva0039E8EB(), 0x40000, 0);
 }
