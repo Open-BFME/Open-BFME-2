@@ -20,6 +20,19 @@
 #pragma optimize("", on)
 #include <algorithm>
 
+// These unchanged pointer-copy tags are already inline in the native sort.
+namespace _STL {
+template<> __declspec(dllimport) __forceinline
+__true_type _BothPtrType<void **, void **>::_Ret()
+{ return __true_type(); }
+template<> __declspec(dllimport) __forceinline
+__true_type _OKToMemCpy<void *, void *>::_Ret()
+{ return __true_type(); }
+template<> __declspec(dllimport) __forceinline
+_OKToMemCpy<void *, void *> _IsOKToMemCpy<void *, void *>(void **, void **)
+{ return _OKToMemCpy<void *, void *>(); }
+}
+
 struct Rva002E0864Cmp
 {
 	bool operator()(void *a, void *b) const { return ((const int *)a)[3] > ((const int *)b)[3]; }

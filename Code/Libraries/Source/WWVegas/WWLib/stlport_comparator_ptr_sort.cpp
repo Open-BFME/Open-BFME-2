@@ -24,6 +24,19 @@
 #pragma optimize("", on)
 #include <algorithm>
 
+// These unchanged pointer-copy tags are already inline in both native sorts.
+namespace _STL {
+template<> __declspec(dllimport) __forceinline
+__true_type _BothPtrType<void **, void **>::_Ret()
+{ return __true_type(); }
+template<> __declspec(dllimport) __forceinline
+__true_type _OKToMemCpy<void *, void *>::_Ret()
+{ return __true_type(); }
+template<> __declspec(dllimport) __forceinline
+_OKToMemCpy<void *, void *> _IsOKToMemCpy<void *, void *>(void **, void **)
+{ return _OKToMemCpy<void *, void *>(); }
+}
+
 class MapMetaData;
 
 class Rva0043FE9A
