@@ -540,6 +540,7 @@ struct Rva002E7261Info;
 class Pathfinder
 {
 public:
+ Bool CheckForAdjust(Object *,const LocomotorSet &,Bool,Int,Int,PathfindLayerEnum,Int,Bool,Coord3D *,const Coord3D *,float,Int *,Int);
  Bool QuickDoesPathExist(Object *,const Coord3D *,const Coord3D *,Int);
  Bool IsValidMovementPositionForObject(const Coord3D *,Int,Int,const Object *);
  Bool rva002F4115(Object *,Int,Int,LocomotorSet *);
@@ -2376,4 +2377,90 @@ if(!overrideSet && !ai) {if(g_00E03745 && g_00DFEFF0)Rva002CECAEAppend((Rva002CE
  }
  if(g_00E03745 && g_00DFEFF0)Rva002CECAEAppend((Rva002CECAETarget *)g_00DFEFF0,"\t\t  Pathfinder::QuickDoesPathExist() Default Exit");
  return rva002F4115(obj,zone1,zone2,(LocomotorSet *)overrideSet);
+}
+
+// Native 0x002F52A7..0x002F57E6, RET52. WB D58CF0 identifies
+// Pathfinder::CheckForAdjust; ZH checkForAdjust is the semantic guide.
+// Retail adds diagnostic logging, layer-footprint and original-Z checks.
+Bool Pathfinder::CheckForAdjust(Object *obj, const LocomotorSet &loco,
+ Bool isHuman, Int cellX, Int cellY, PathfindLayerEnum layer, Int radius,
+ Bool center, Coord3D *dest, const Coord3D *groupDest, float originalZ,
+ Int *options, Int onlyIfLayer)
+{
+ if (g_00E03745 && g_00DFEFF0)
+  fprintf((PathfinderLogFile *)g_00DFEFF0,
+   "\t\t  Pathfinder::CheckForAdjust called with: obj=%s(%d), loco=%s, isHuman=%s, cell=%d,%d, layer=%d, iRadius=%d, center=%s, groupDest=%g,%g,%g, originalZ=%g, onlyIfLayer=%d",
+   ((const AsciiString *)((const char *)obj->m_template+0x64))->str(),obj->getID(),
+   ((const AsciiString *)((const char *)&loco+0x18))->str(),isHuman?"TRUE":"FALSE",
+   cellX,cellY,layer,radius,center?"TRUE":"FALSE",
+   groupDest?groupDest->x:-1.0f,groupDest?groupDest->y:-1.0f,groupDest?groupDest->z:-1.0f,
+   originalZ,onlyIfLayer);
+ PathfindCell *cell=getCell(layer,cellX,cellY);
+ if (!cell) {
+  if(g_00E03745 && g_00DFEFF0) fprintf((PathfinderLogFile *)g_00DFEFF0,"        cellP is NULL, return FALSE.");
+  return false;
+ }
+ if(cell->getType()==2) {
+  if(g_00E03745 && g_00DFEFF0) fprintf((PathfinderLogFile *)g_00DFEFF0,"        cellP is CLIFF, return FALSE.");
+  return false;
+ }
+ if(isHuman) {
+  if(g_00E03745 && g_00DFEFF0) fprintf((PathfinderLogFile *)g_00DFEFF0,"        isHuman is TRUE");
+  if(cellX<m_extentLowX || cellY<m_extentLowY || cellX>m_extentHighX || cellY>m_extentHighY) {
+   if(g_00E03745 && g_00DFEFF0) fprintf((PathfinderLogFile *)g_00DFEFF0,"        cell %d,%d is outside m_logicalExtent lo:%d,%d hi:%d,%d",cellX,cellY,m_extentLowX,m_extentLowY,m_extentHighX,m_extentHighY);
+   return false;
+  }
+ }
+ if(!CheckDestination(obj,cellX,cellY,layer,radius,center,options,false)) {
+  if(g_00E03745 && g_00DFEFF0) fprintf((PathfinderLogFile *)g_00DFEFF0,"        CheckDestination failed, return false");
+  return false;
+ }
+ if(g_00E03745 && g_00DFEFF0) fprintf((PathfinderLogFile *)g_00DFEFF0,"        CheckDestination passed");
+ Coord3D temporary;
+ Coord3D adjustDest=*(Coord3D *)rva002EBC59(&temporary,obj,cellX,cellY,cell->getLayer());
+ if(!obj->m_template->hasKind(12)) {
+  if(g_00E03745 && g_00DFEFF0) fprintf((PathfinderLogFile *)g_00DFEFF0,"        object is not kindof aircraft");
+  if(onlyIfLayer) {
+   if(g_00E03745 && g_00DFEFF0) fprintf((PathfinderLogFile *)g_00DFEFF0,"        onlyIfLayer=%d",onlyIfLayer);
+   Int extraRadius=radius;
+   if(center)extraRadius=radius+1;
+   for(Int i=cellX-radius;i<cellX+extraRadius;++i) {
+    for(Int j=cellY-radius;j<cellY+extraRadius;++j) {
+     PathfindCell *ground=getCell((PathfindLayerEnum)onlyIfLayer,i,j);
+     if(!ground || ground->getLayer()!=onlyIfLayer) {
+      if(g_00E03745) {
+       if(ground) {
+        if(g_00DFEFF0)fprintf((PathfinderLogFile *)g_00DFEFF0,"        ground unit failed iteration: i=%d, j=%d, cell=VALID, cellLayer=%d, onlyIfLayer",i,j,ground->getLayer(),onlyIfLayer);
+       } else {
+        if(g_00DFEFF0)fprintf((PathfinderLogFile *)g_00DFEFF0,"        ground unit failed iteration: i=%d, j=%d, cell=NULL, onlyIfLayer",i,j,onlyIfLayer);
+       }
+      }
+      return false;
+     }
+    }
+   }
+  }
+  if(originalZ>0.0f && fabs(adjustDest.z-originalZ)>50.0f) {
+   if(g_00E03745 && g_00DFEFF0)fprintf((PathfinderLogFile *)g_00DFEFF0,"        MinasTirith check failed, return FALSE: originalZ=%g, adjustDest.z=%g",originalZ,adjustDest.z);
+   return false;
+  }
+  Bool adjustedPathExists=QuickDoesPathExist(obj,(const Coord3D *)obj->position,&adjustDest,0);
+  if(g_00E03745 && g_00DFEFF0)fprintf((PathfinderLogFile *)g_00DFEFF0,"        adjustedPathExists=%s",adjustedPathExists?"TRUE":"FALSE");
+  if(!QuickDoesPathExist(obj,(const Coord3D *)obj->position,dest,0)) {
+   if(g_00E03745 && g_00DFEFF0)fprintf((PathfinderLogFile *)g_00DFEFF0,"        QuickDoesPathExist1 fails. Try adjusted destination");
+   if(QuickDoesPathExist(obj,dest,&adjustDest,0)) {
+    if(g_00E03745 && g_00DFEFF0)fprintf((PathfinderLogFile *)g_00DFEFF0,"        QuickDoesPathExist2 succeeds. adjustedPathExists");
+    adjustedPathExists=true;
+   }
+  } else {
+   if(g_00E03745 && g_00DFEFF0)fprintf((PathfinderLogFile *)g_00DFEFF0,"        QuickDoesPathExist1 succeeds");
+  }
+  if(!adjustedPathExists) {
+   if(g_00E03745 && g_00DFEFF0)fprintf((PathfinderLogFile *)g_00DFEFF0,"        returning false because adjustedPathExists is false");
+   return false;
+  }
+ }
+ if(g_00E03745 && g_00DFEFF0)fprintf((PathfinderLogFile *)g_00DFEFF0,"        dest calculated to be %g,%g,%g and returning true",adjustDest.x,adjustDest.y,adjustDest.z);
+ *dest=adjustDest;
+ return true;
 }
