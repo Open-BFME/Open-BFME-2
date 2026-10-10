@@ -43,6 +43,7 @@ public:
     AIStatCollector(Player *);
     unsigned char nativeStorage[0x38];
 };
+#define BFME_SNAPSHOT_NAME_SLOT
 #include "Common/Snapshot.h"
 typedef int Bool;
 #include "subsystem_interface.h"
@@ -55,6 +56,12 @@ public:
     void findPreSpawnedObjects();
     void *addNewAIForPlayer(Player *);
     void rva002A95F9();
+    virtual ~Rva002A8F24();
+    virtual void init();
+    virtual void reset();
+    virtual void update();
+    virtual void loadPostProcess();
+    virtual const char *GetSnapshotName() const;
     virtual void xfer(Xfer *);
 private:
     unsigned char prefix00[0x860-0x10];
@@ -64,6 +71,7 @@ private:
     _STL::vector<const class ModuleData *> teams914;
     unsigned char builders920[0x14];
     _STL::vector<ObjectID> heroIDs934;
+    class ObjectCreationList *owned940;
 };
 
 void Rva002A8F24::rva002A9365(Object *object)

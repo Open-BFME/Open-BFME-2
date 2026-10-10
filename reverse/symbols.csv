@@ -4170,7 +4170,6 @@ name,address,notes
 ??1Rva00299CE4@@UAE@XZ,0x00299CE4,"destructor the scalar deleting destructor 0x0029A10F calls (REL32 at 0x0029A112; vtable 0x00BFC300#7); opaque address name"
 ??1Rva0029FB3BMember@@QAE@XZ,0x00268902,"ObjectID list destructor (clear 0x0026549E then the node back to the pool): REL32 at 0x00490C7B in ArrowStormUpdate 0x00490AC5 on its local list"
 ??1Rva002A5B30@@UAE@XZ,0x002A5B30,"destructor the scalar deleting destructor 0x002A6A11 calls (REL32 at 0x002A6A14; vtable 0x00BFD410#0); opaque address name"
-??1Rva002A921B@@UAE@XZ,0x002A921B,"destructor the scalar deleting destructor 0x002A93F5 calls (REL32 at 0x002A93F8; vtable 0x00BFDB94#0); opaque address name"
 ??1Rva002A983D@@UAE@XZ,0x002A983D,"destructor the vector deleting destructor 0x002B3105 calls and hands to the eh vector destructor iterator (DIR32 at 0x002B3114); opaque address name"
 ??1Rva002AE5CFRecord@@QAE@XZ,0x001EB63C
 ??1Rva002B0B32Dtor@@QAE@XZ,0x002B0B32,opaque alias: same body as matched STLport vector dtor row; callee of adjustor dtor 0x002B0B8E
@@ -5441,7 +5440,6 @@ name,address,notes
 ??_ERva00286F8F@@UAEPAXI@Z,0x00287C05,"vector deleting destructor name the class's this-adjusting thunks jump to; the linker resolves it to the scalar deleting destructor at this address (weak external)"
 ??_ERva00299CE4@@UAEPAXI@Z,0x0029A10F,"vector deleting destructor name the class's this-adjusting thunks jump to; the linker resolves it to the scalar deleting destructor at this address (weak external)"
 ??_ERva002A5B30@@UAEPAXI@Z,0x002A6A11,"vector deleting destructor name the class's this-adjusting thunks jump to; the linker resolves it to the scalar deleting destructor at this address (weak external)"
-??_ERva002A921B@@UAEPAXI@Z,0x002A93F5,"vector deleting destructor name the class's this-adjusting thunks jump to; the linker resolves it to the scalar deleting destructor at this address (weak external)"
 ??_ERva002B964F@@UAEPAXI@Z,0x002BAEE5,"vector deleting destructor name the class's this-adjusting thunks jump to; the linker resolves it to the scalar deleting destructor at this address (weak external)"
 ??_ERva002D3573@@UAEPAXI@Z,0x002D40D8,weak-external alias MSVC emits for the vector deleting dtor when no new[] exists; resolves to the rowed scalar deleting dtor; retail adjustor thunk 0x002D35BF jumps here
 ??_ERva002DAB18@@UAEPAXI@Z,0x002DABBB,weak-external alias MSVC emits for the vector deleting dtor when no new[] exists; resolves to the rowed scalar deleting dtor; retail adjustor thunk 0x002DAB64 jumps here
@@ -17079,3 +17077,5 @@ _VP6_ReadTokens,0x001BC3D0,callee of _VP6_DecodeBlock
 ??0LivingWorldArmy@@QAE@HPAVRva004E3184@@PAURva002B6A04Player@@@Z,0x0031A372,Independent WB1029DF0 names LivingWorldArmy constructor; native31A372..31A591 complete543B RET12. Caller spawnCity2B86F1 allocates98B and pushes null-player spawn and incremented-ID. Constructor writes id8 to20; consumes spawnC; player10 id14 to54. Pointer argument names are existing provisional target views; constructor body remains unrowed and is an explicit link dependency.
 ?DoXferFarmLibrary@AIEconomyBuilder@@SAXPAVXfer@@@Z,0x004EAA4B,callee of ?xfer@Rva002A8F24@@UAEXPAVXfer@@@Z
 ?createRenderData@AptAnimData@@QAEXABVAsciiString@@@Z,0x000AB485,callee of ?rva000AB83B@AptAnimData@@QAEXXZ
+??_ERva002A921B@@UAEPAXI@Z,0x002A93F5,"vector deleting destructor name the class's this-adjusting thunks jump to; the linker resolves it to the scalar deleting destructor at this address (weak external)"
+?reset@Rva002A921B@@UAEXXZ,0x002A9072,callee of ??1Rva002A921B@@UAE@XZ
