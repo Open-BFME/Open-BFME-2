@@ -1,8 +1,10 @@
 // ?doLocomotor@AIUpdateInterface@@MAE?AW4UpdateSleepTime@@XZ
+// partial score=0.9995610601401941 date=2026-10-10
+// ?doLocomotor@AIUpdateInterface@@MAE?AW4UpdateSleepTime@@XZ
 // partial score=0.9992959839307839 date=2026-10-10
 // ?doLocomotor@AIUpdateInterface@@MAE?AW4UpdateSleepTime@@XZ
 // partial score=0.98 date=2026-10-09
-// cl: /DNDEBUG /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /ICode/Libraries/Include /ICode/GameEngine/Source/Common /O1 /G6 /arch:SSE
+// cl: /DNDEBUG /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /ICode/Libraries/Include /ICode/GameEngine/Source/Common /O1 /G7 /arch:SSE
 // stlport
 //
 // AIUpdateInterface::doLocomotor, retail 0x0026A3A0 (3018 bytes).
@@ -447,10 +449,7 @@ UpdateSleepTime AIUpdateInterface::doLocomotor()
 
 	if (m_curLocomotor)
 	{
-		if (isAiInDeadState() && !m_curLocomotor->getTemplate()->m_locomotorWorksWhenDead)
-		{
-		}
-		else
+		if (!(isAiInDeadState() && !m_curLocomotor->getTemplate()->m_locomotorWorksWhenDead))
 		{
 			switch (m_locomotorGoalType)
 			{
@@ -548,7 +547,7 @@ UpdateSleepTime AIUpdateInterface::doLocomotor()
 
 					Real speed = m_desiredSpeed;
 					Real myMaxSpeed = m_curLocomotor->rva001E46E1(obj);
-					if (speed == FAST_AS_POSSIBLE || speed > myMaxSpeed)
+					if (FAST_AS_POSSIBLE == speed || speed > myMaxSpeed)
 						speed = myMaxSpeed;
 					if (blocked && speed > m_curMaxBlockedSpeed)
 					{
@@ -724,7 +723,7 @@ UpdateSleepTime AIUpdateInterface::doLocomotor()
 						else
 						{
 							Real dist = sqrt(dSqr);
-							if (dist < 1)
+							if (1 > dist)
 								dist = 1;
 							pos.x += 20.0f * dx / (dist * g_Va00DBA4E4);
 							pos.y += 20.0f * dy / (dist * g_Va00DBA4E4);
@@ -737,6 +736,9 @@ UpdateSleepTime AIUpdateInterface::doLocomotor()
 				}
 				break;
 			}
+		}
+		else
+		{
 		}
 
 		if (!blocked && m_blockedFrames > 1)
