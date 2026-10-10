@@ -2,22 +2,17 @@
 // Element spelling/layout is donor inference; opaque records have address-derived identity.
 // cl: /O1 /G7 /EHs /D_BFME_RETAIL_TREE_INSERT_LAYOUT /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
-// The emitted unsigned max copy must match retail RVA 0x00013740.
-// Define it for speed, then restore this unit's flags for its own bodies.
-#include <stl/_algobase.h>
-#pragma optimize("s", off)
-#pragma optimize("t", on)
-namespace _STL {
-static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
-{
-    return a < b ? b : a;
-}
-}
-#pragma optimize("", on)
-
 #include <map>
 
 
 
 struct Rva0026E1A6Record {  char bytes[1]; };
-template class _STL::map<int,Rva0026E1A6Record>;
+typedef _STL::pair<const int,Rva0026E1A6Record> Rva0026E1A6Pair;
+typedef _STL::_Rb_tree<int,Rva0026E1A6Pair,_STL::_Select1st<Rva0026E1A6Pair>,_STL::less<int>,_STL::allocator<Rva0026E1A6Pair> > Rva0026E1A6Tree;
+// Emit only the owned destructor and its dependencies.
+template Rva0026E1A6Tree::~_Rb_tree();
+
+// Native0026E1F75B tail-forwards unchanged ECX to the owned56B tree
+// destructor0026E1A6; original wrapper owner/name/lifetime role unknown.
+struct Rva0026E1F7TreeCleanupForward {void cleanup();};
+void Rva0026E1F7TreeCleanupForward::cleanup() {reinterpret_cast<Rva0026E1A6Tree*>(this)->~Rva0026E1A6Tree();}
