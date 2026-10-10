@@ -1,15 +1,21 @@
 // ?Update@CreateAHeroHero@@QAE_NH@Z
-// partial score=0.88 date=2026-10-08
+// partial score=1.0 date=2026-10-10
+template<class T> static __forceinline T p4Operand(const T &v) { return *(const volatile T*)&v; }
+// ?Update@CreateAHeroHero@@QAE_NH@Z
 // cl: /Ireference/shims/bfme2_ascii /O1 /G7 /EHsc /MD /arch:SSE /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
-// CreateAHeroHero.cpp -- CreateAHeroHero members recovered from WorldBuilder
-// leads (reverse/wb_name_leads.csv): WB's debug build names each function and
-// its source file; retail supplies the bytes.
-//
-// Layout (target evidence): the hero's bling lists live in an STLport map
-// whose header node pointer is at +0x74; each node keeps a vector of bling
-// ids at +0x14/+0x18. The 31-byte lookup at 0x004079D5 (unnamed in WB) finds
-// the node and reports whether it is not the end.
+// CreateAHeroHero::Update, native0x004083FF..0x00408839, full1082B.
+// Identity: WorldBuilder callgraph lead in reverse/wb_name_leads.csv names
+// CreateAHeroHero::Update; existing hero members and native receiver/state
+// accesses corroborate the owner. The two anonymous animation helpers are
+// members by caller MOV ECX,ESI at4086D2/40877A; their bodies ignore ECX.
+// Target facts: state38, animation fields138/13C; runtime
+// globalDFE348 differs from TheCreateAHeroManager atDFE344. Its field labels
+// below describe this body's use, without asserting original declarations.
+// The complete prior bank is the reconstruction lead, not byte proof.
+// Explicit unsigned conversion preserves FILD/FADD2^32; a double cast of
+// the rounded float product keeps native FMUL32 before FIMUL32. Every body,
+// literal and unwind row must pass the normal matcher independently.
 
 typedef int Int;
 typedef unsigned int UnsignedInt;
@@ -17,6 +23,7 @@ typedef bool Bool;
 typedef float Real;
 
 class CreateAHeroHero;
+class Rva002B224BDwordField;
 #include "ascii_string.h"
 Real GetGameClientRandomValueReal(Real lo, Real hi, char *file, Int line);	// 0x00234111
 // Retail's __FILE__ for this unit; the call sites pass their original line.
@@ -50,7 +57,7 @@ struct CreateAHeroBlingNode
 
 class CreateAHeroHero;
 
-// Same witnessed STLport bit-vector ABI as the rowed award-reset provider.
+// The inherited owner view retains the witnessed STLport bit-vector ABI.
 // operator[] returns the eight-byte bit reference by value (native6BE1F).
 #include <vector>
 #include <map>
@@ -175,6 +182,8 @@ public:
 	Bool SetButtonForLevel(const AsciiString &button, UnsignedInt experienceLevel, UnsignedInt value);
 	void UpdateAwardEarnedFlags();
  Bool Update(Int);
+ AsciiString rva004073DC(const Rva002B224BDwordField*);
+ Bool rva00406F51(const Rva002B224BDwordField*,void*,void*);
 	Bool AddCommandButtonLevel(UnsignedInt index, const AsciiString &source,
 		const AsciiString &name, const AsciiString &experience);
 
@@ -199,127 +208,7 @@ private:
  Int animationState, animationState2;
 };
 
-// WB10828C0 identifies this member; native407F05..407FB2 supplies the
-// incremental award loop, state bit9 reset and both notification calls.
-void CreateAHeroHero::UpdateAwardEarnedFlags()
-{
-	if (!m_updateAwards)
-		return;
-	if (m_state38 & 0x200)
-	{
-		m_state38 &= ~0x200;
-		((Rva0021937DTarget *)this)->rva00407E94();
-	}
-	UnsignedInt count = ((Rva00406E7D *)this)->rva00406E7D();
-	for (UnsignedInt i = 0; i < count; ++i)
-	{
-		if (m_awardEarnedFlags[i])
-			continue;
-		Int key = ((Rva00406E8F *)this)->rva00406E8F(i);
-		BfmePod40 *award = g_00E02F74->rva0040AAD5(key);
-		if (award && HasEarnedAward((const CreateAHeroAward *)award))
-		{
-			m_awardEarnedFlags[i] = true;
-			if (TheInGameUI)
-				TheInGameUI->notifyHeroEarnedAward(this, key);
-			Rva005200C5Add(this, (ScienceType)key);
-		}
-	}
-}
-
-// CreateAHeroHero::HasEarnedAward, retail 0x00406EA7.
-Bool CreateAHeroHero::HasEarnedAward(const CreateAHeroAward *award) const
-{
-	if (award == 0)
-		return false;
-	return award->rva0040AA27(this);
-}
-
-// CreateAHeroHero::GetBlingCount, retail 0x004079F4.
-Int CreateAHeroHero::GetBlingCount(Int blingKey) const
-{
-	CreateAHeroBlingNode *node = 0;
-	if (rva004079D5(blingKey, &node) && node != m_blingHeader)
-		return node->m_idsFinish - node->m_idsStart;
-	return 0;
-}
-
-// CreateAHeroHero::GetBlingId, retail 0x00407A29.
-Int CreateAHeroHero::GetBlingId(Int blingKey, UnsignedInt index) const
-{
-	CreateAHeroBlingNode *node = 0;
-	if (rva004079D5(blingKey, &node) && node != m_blingHeader
-		&& index < (UnsignedInt)(node->m_idsFinish - node->m_idsStart))
-		return node->m_idsStart[index];
-	return 0;
-}
-
-// Retail 0x00406DE3 (WorldBuilder pairs it unnamed, CreateAHeroHero.cpp line
-// 160): a client-random percent roll against the manager's chance.
-Bool rva00406DE3RollChance()
-{
-	Real roll = GetGameClientRandomValueReal(0.0f, 100.0f, CREATEAHEROHERO_FILE, 160);
-	return roll <= TheCreateAHeroManager->m_rollChance;
-}
-
-// Retail 0x004071D7, 32 bytes (unnamed in WorldBuilder, called from
-// SetButtonForLevel): the per-level record's constructor.
-BfmeHeroElement005C39DE::BfmeHeroElement005C39DE(const AsciiString &name, unsigned level, unsigned value)
-	: text(name), word4(level), word8(value)
-{
-}
-
-// CreateAHeroHero::SetButtonForLevel, retail 0x0040737F (WorldBuilder,
-// CreateAHeroHero.cpp line 1029; wb-name-unverified).
-Bool CreateAHeroHero::SetButtonForLevel(const AsciiString &button, UnsignedInt experienceLevel, UnsignedInt value)
-{
-	if (experienceLevel < CAH_MAX_EXP_LEVELS)
-	{
-		BfmeHeroElement005C39DE record(button, experienceLevel, value);
-		m_buttons[experienceLevel] = record;
-	}
-	return true;
-}
-
-// WB107E250 supplies the identity; native4078A8..4079D0 supplies this
-// RET16 body and every field offset. CreateNewExpLevel's native28A473
-// RET20 and WB BE9C10 show five string references: the third is pushed into
-// vector<AsciiString>, and the last two go to SplitUpgrades/SplitString.
-Bool CreateAHeroHero::AddCommandButtonLevel(UnsignedInt index, const AsciiString &source,
-	const AsciiString &name, const AsciiString &experience)
-{
-	Object *object = ((Rva004076EE *)this)->rva004076EE();
-	const CommandButton *button = TheControlBar->findCommandButton(m_buttons[index].text);
-	if (!button)
-		return false;
-	if (button->m_command == 0x18 || button->m_command == 0x25)
-	{
-		const SpecialPowerTemplate *power = button->m_power;
-		if (!power)
-			return false;
-		power = (const SpecialPowerTemplate *)power->friend_getFinalOverride();
-		AsciiString upgradeName = object->rva00292330(power->m_name);
-		if (upgradeName.isEmpty())
-			return false;
-		((ExperienceLevelStore *)TheExperienceLevelSystem)->CreateNewExpLevel(
-			source, name, experience, upgradeName, AsciiString());
-		return true;
-	}
-	if (button->m_options & 0x40)
-	{
-		if ((UnsignedInt)(button->m_neededEnd - button->m_neededBegin) != 1)
-			return false;
-		const AsciiString &upgradeName = button->getNeededUpgrade()->getName();
-		if (((const StringBase<char> *)&upgradeName)->isEmpty())
-			return false;
-		((ExperienceLevelStore *)TheExperienceLevelSystem)->CreateNewExpLevel(
-			source, name, experience, upgradeName, AsciiString());
-		return true;
-	}
-	return false;
-}
-
-
+Bool rva00406DE3RollChance();
 class UpgradeCenter { public: const UpgradeTemplate *findUpgrade(const AsciiString &) const; };
 extern UpgradeCenter *TheUpgradeCenter;
 extern int g_Va00DFE348;
@@ -331,10 +220,10 @@ template <> vector<AsciiString,allocator<AsciiString> >::~vector();
 }
 class Drawable { public: void rva00274176(bool); void rva0027248A(int,int); int rva00272709(); int rva0027272B(); };
 class Rva002B224BDwordField;
-AsciiString __stdcall Rva004073DCFind(const Rva002B224BDwordField *);
-Bool __stdcall Rva00406F51Find(const Rva002B224BDwordField *, void *, void *);
 
-// ?Update@CreateAHeroHero@@QAE_NH@Z present-unmatched
+
+
+// ?Update@CreateAHeroHero@@QAE_NH@Z native0x004083FF..0x00408839 full1082B
 Bool CreateAHeroHero::Update(Int flags)
 {
  CreateAHeroManager *manager = (CreateAHeroManager *)g_Va00DFE348;
@@ -355,7 +244,7 @@ Bool CreateAHeroHero::Update(Int flags)
  m_state38 |= flags;
  if (m_state38 & 4) {
   for (_STL::map<int,int>::iterator it=bling.begin();it!=bling.end();it++) {
-   UnsignedInt id = it->second;
+   UnsignedInt id = (TheUpgradeCenter?p4Operand(it->second):p4Operand(it->second));
    Int key = it->first;
    AsciiString upgrade = manager->GetBlingUpgradeName(key,this,id);
    object->rva00293077(TheUpgradeCenter->findUpgrade(upgrade));
@@ -382,7 +271,7 @@ Bool CreateAHeroHero::Update(Int flags)
   m_state38 &= ~3;
   m_state38 |= 0x80;
   if(manager->active) {
-   useShort=useFull=false;
+   useFull=useShort=false;
    Object *object=((Rva004076EE *)this)->rva004076EE();
    if(object) object->setSpecialModelConditionState((ModelConditionFlagType)0x20f,1);
   }
@@ -399,20 +288,20 @@ Bool CreateAHeroHero::Update(Int flags)
   m_state38 &= ~0x200;
   ((Rva0021937DTarget *)this)->rva00407E94();
  }
- AsciiString current = Rva004073DCFind((const Rva002B224BDwordField *)drawable);
+ AsciiString current = rva004073DC((const Rva002B224BDwordField *)drawable);
  if(manager->active) {
   if(((Rva0021BFD8 *)manager)->rva0021BFD8(*(const StringBase<char> *)&current)) return true;
   if(m_state38 & 0x100) m_state38 &= ~0x100;
   else if(rva00406DE3RollChance() && (useShort || useFull)) {
    AsciiString animation("#(MODEL)");
-   UnsignedInt frames=0;
+   Int frames=0;
    Int condition;
-   if(useShort) { animation.concat(manager->shortAnimation); condition=0x224; }
-   else { animation.concat(manager->fullAnimation); condition=0x226; }
-   if(Rva00406F51Find((const Rva002B224BDwordField *)drawable,&animation,&frames)) {
+   if(useShort) { condition=0x224; animation.concat(manager->fullAnimation); }
+   else { animation.concat(manager->shortAnimation); condition=0x226; }
+   if(rva00406F51((const Rva002B224BDwordField *)drawable,&animation,&frames)) {
     frames -= *(UnsignedInt *)((char *)TheCreateAHeroManager+0x1E4);
-    frames=(UnsignedInt)((float)frames * (1.0f/30.0f) * g_Va00DBA4E4);
-    frames = (UnsignedInt)_STL::max(0,(Int)frames);
+    frames=(Int)((double)(float)((float)(UnsignedInt)frames * (1.0f/30.0f)) * g_Va00DBA4E4);
+    frames = _STL::max(0,frames);
     ((Rva004076EE *)this)->rva00407AE6((ModelConditionFlagType)condition,frames);
    }
   }
