@@ -19,7 +19,12 @@ typedef bool Bool;
 
 enum CanMakeType { CANMAKE_OK = 0, CANMAKE_NO_PREREQ, CANMAKE_NO_MONEY, CANMAKE_FACTORY_IS_DISABLED, CANMAKE_QUEUE_FULL };
 
-class ThingTemplate;
+class Player;
+class ThingTemplate { public:
+ unsigned char pad0[0x113];unsigned char flags113;unsigned char pad114[7];unsigned char flags11B;
+ int rva0033A69A(const Player *player,int builder,int value)const;
+ int rva0033AA1F(const Player *player,int builder,int value)const;
+};
 
 class Object
 {
@@ -44,6 +49,8 @@ public:
 	Int rva0037EE4C(const ThingTemplate *unitType, Int a, Int b);	// 0x0037EE4C
 };
 
+class Rva0037E6E8 { public: int rva0037E649(int index,Object *builder); };
+class Rva0037E787 { public: int rva0037E787(void *index,void *builder); };
 class Player
 {
 public:
@@ -104,6 +111,8 @@ public:
 	AIBuildableUnit(Int arg);
 	virtual CanMakeType canMake(Player *player);
 	virtual Bool build(Player *player);
+	Real rva005DAEDF(Player *player);
+	Real rva005DAF59(Player *player);
 
 private:
 	AIBuildableVector m_2C;				// +0x2C
@@ -148,4 +157,29 @@ CanMakeType AIBuildableUnit::canMake(Player *player)
 		return CANMAKE_QUEUE_FULL;
 	}
 	return CANMAKE_FACTORY_IS_DISABLED;
+}
+
+// Native cost/time pair: tracker at Player+738 for flag113 bit2; ordinary
+// template helpers otherwise. Original method names remain unrecovered.
+Real AIBuildableUnit::rva005DAEDF(Player *player) {
+ ThingTemplate *unit=(ThingTemplate*)TheThingFactory->rva002D06CA(&m_templateName);
+ Object *factory=TheGameLogic->findObjectByID(m_factoryID);
+ int cost=0;
+ if(unit->flags113&4) {
+  Rva0037EE4C *tracker=&player->m_productionQuantities;
+  int index=tracker->rva0037EE4C(unit,-1,0);
+  cost=((Rva0037E6E8*)tracker)->rva0037E649(index,factory);
+ } else if(!(unit->flags11B&0x20)) cost=unit->rva0033A69A(player,(int)factory,-1);
+ return (float)cost;
+}
+Real AIBuildableUnit::rva005DAF59(Player *player) {
+ ThingTemplate *unit=(ThingTemplate*)TheThingFactory->rva002D06CA(&m_templateName);
+ Object *factory=TheGameLogic->findObjectByID(m_factoryID);
+ int time;
+ if(unit->flags113&4) {
+  Rva0037EE4C *tracker=&player->m_productionQuantities;
+  int index=tracker->rva0037EE4C(unit,-1,0);
+  time=((Rva0037E787*)tracker)->rva0037E787((void*)index,factory);
+ } else time=unit->rva0033AA1F(player,(int)factory,-1);
+ return (float)time;
 }
