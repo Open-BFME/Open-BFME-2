@@ -1,27 +1,14 @@
-// 0x005B8116
-// partial score=0.97 date=2026-10-09
 // cl: /O1 /Oy- /G7 /arch:SSE /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHs
 //
-// NEAR (0.976 bytes): ?rva005B8116@Rva005B8116@@QAEXPAURva005B8116Stats@@PAH@Z
-// retail 0x005B8116..0x005B878D code plus its 24-entry jump table through
-// 0x005B87ED (row size 1751) thiscall ret 8. The per-side statistics table
-// builder: WorldBuilder twin 0x01582480 (unnamed; calls
-// GameStats::Table::AddStat = rowed 0x005DDE01) and the matched sibling
-// Rva005C1BDEView::call (Rva005C1AE4Points.cpp) have the same 6-side x
-// 37-row switch. Per side it reads two word counts (0x005B808D on maps +4
-// +0x10) and five float counts (0x005B80D0 on maps +0xF4 +0xE8 +0xDC +0x100
-// +0x124 converted unsigned through _ftol2) and a signed total (inlined
-// 0x005B80F2 on map +0x130 with -1 default falling back to the +0x124
-// count) that it adds to *total; rows 0-7 and 14-23 add integer or ratio
-// records to the table at this+0x60 and four summary words (+0x146 +0x14A
-// +0x148 +0x14C) go to row 6.
-// Every instruction matches except the frame slots chosen for the eight
-// counts (11 slots permuted: retail h -0x18 d -0x1C b -0x20 e -0x2C a -0x30
-// c -0x34 g -0x38 f -0x3C) - declaration order type and statement shape
-// variants did not move them.
-// Unit need: retail calls the static 0x005B808D and 0x005B80D0 with the map
-// in ESI (and 0x005B80D0 returns in XMM0) so both rows must move here from
-// Rva005B808DFinish.cpp / Rva005B80D0Finish.cpp.
+// Native 0x005B8116..0x005B87ED, RET8, including the 24-entry jump table.
+// WB01582480, callers and the matched Rva005C1BDEView::call establish the
+// six-side statistics-table builder; original method name remains unknown.
+// Field/map offsets, word/float payloads and 37-row switch come from target
+// bytes. Lookup5B8053 is a fully owned leaf with no call or throw path, so its
+// nothrow contract is target-backed; exposing it closes all eleven stack-home
+// differences without duplicating that provider. Static word/float helpers
+// use the native ESI/XMM0 internal ABI in this actual consuming TU.
+// Prior reconstruction retained from the bank; canonical ASCII/Wide headers.
 #include "ascii_string.h"
 #include "unicode_string.h"
 
@@ -29,7 +16,7 @@ class Rva005B8053
 {
 	void *m_header;
 public:
-	void *rva005B8053(unsigned char const *key);
+	__declspec(nothrow) void *rva005B8053(unsigned char const *key);
 };
 
 static int rva005B808D(unsigned char key, Rva005B8053 *self)

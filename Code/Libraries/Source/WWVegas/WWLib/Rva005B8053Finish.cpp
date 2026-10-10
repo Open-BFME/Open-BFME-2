@@ -1,5 +1,7 @@
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva005B8053@Rva005B8053@@QAEPAXPBE@Z @0x005B8053 58B. Unlock lane tree
+// Leaf has no calls or C++ throw path; its nothrow contract also allows
+// the consuming statistics-builder TU to reproduce its native stack homes.
 // lookup shared by 0x005B808D/0x005B80AF/0x005B80D0/0x005B80F2 plus 0x00559DA0
 // and 0x00553CDE. Evidence: lower_bound walk over byte key at node+0x10 with
 // left at +8 right at +0xC root at header+4, end sentinel is header itself,
@@ -30,10 +32,10 @@ class Rva005B8053
 {
 	Rva005B8053Header *m_header;
 public:
-	void *rva005B8053(unsigned char const *key);
+	__declspec(nothrow) void *rva005B8053(unsigned char const *key);
 };
 
-void *Rva005B8053::rva005B8053(unsigned char const *key)
+__declspec(nothrow) void *Rva005B8053::rva005B8053(unsigned char const *key)
 {
 	Rva005B8053Header *h = m_header;
 	Rva005B8053Node *cur = h->_root;
