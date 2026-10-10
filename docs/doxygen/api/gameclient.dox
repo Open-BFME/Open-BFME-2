@@ -1,0 +1,4 @@
+/// \defgroup grp_gameclient Game client
+/// \brief Drawables, FX, particles, input and the message stream.
+///
+/// \ref sub_gameclient is the subsystem's page.

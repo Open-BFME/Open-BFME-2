@@ -1,0 +1,4 @@
+/// \defgroup grp_rts_model RTS model
+/// \brief Players, teams, things, templates and the module factory.
+///
+/// \ref sub_rts_model is the subsystem's page.

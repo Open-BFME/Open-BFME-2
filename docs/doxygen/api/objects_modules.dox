@@ -1,0 +1,4 @@
+/// \defgroup grp_objects_modules Objects and modules
+/// \brief Game objects and their modules.
+///
+/// \ref sub_objects_modules is the subsystem's page.

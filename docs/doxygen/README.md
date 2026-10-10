@@ -60,6 +60,8 @@ Reserved ids:
 | `page_frame_loop` | the client frame and the logic tick |
 | `page_glossary` | terms |
 | `page_core_frameworks` | base types and math; global data; deterministic random values; messages and command lists; weapons, damage and armor; upgrades, sciences and special powers; command sets and buttons |
+| `page_modding` | what game data controls and what a mod must keep intact |
+| `page_remastering` | platform seams and the assumptions built into the code |
 
 | Slug | Subsystem |
 |---|---|
@@ -83,6 +85,9 @@ Reserved ids:
 
 The main page lists the guide pages with `\subpage`; the architecture page
 lists the subsystem pages.
+A reserved subsystem page that is not written yet is a stub that says so,
+with a matching stub group, so that links to it resolve; writing the page
+replaces both.
 
 ## Writing rules
 

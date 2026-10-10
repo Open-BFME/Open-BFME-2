@@ -1,0 +1,4 @@
+/// \defgroup grp_ini INI
+/// \brief INI and data definition loading.
+///
+/// \ref sub_ini is the subsystem's page.

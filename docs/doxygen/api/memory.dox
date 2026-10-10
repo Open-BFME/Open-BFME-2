@@ -1,0 +1,4 @@
+/// \defgroup grp_memory Memory
+/// \brief Memory pools and allocators.
+///
+/// \ref sub_memory is the subsystem's page.

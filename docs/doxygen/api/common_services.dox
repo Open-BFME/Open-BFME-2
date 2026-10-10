@@ -1,0 +1,4 @@
+/// \defgroup grp_common_services Common services
+/// \brief File system, BIG archives, strings, name keys, debug and profile.
+///
+/// \ref sub_common_services is the subsystem's page.
