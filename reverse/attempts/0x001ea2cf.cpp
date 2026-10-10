@@ -1,11 +1,10 @@
-// ?setLocomotorAndBaseSpeed@LocomotorSet@@QAEXPAVINI@@@Z
-// partial score=0.99 date=2026-10-09
-// NEAR draft (natural WB-shaped body; WB 0x00AF2420 LocomotorSet::setLocomotorAndBaseSpeed).
-// 224B vs 223B: registers and code all match; only the stack packing differs:
-// cl gives the dead INI* home [ebp+8] to the spilled locomotor template and a
-// fresh slot to the set key where retail puts the key at [ebp+8] and packs the
-// template with the 8-byte INIException at [ebp-8]. Strings fixed (tab in both).
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /arch:SSE /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
+// ?rva001EA2CF@Rva001EA2CFLocomotorDefinition@@QAEXPAVINI@@PAVThingTemplate@@@Z
+// partial score=0.8625422133643359 date=2026-10-10
+// ?rva001EA2CF@Rva001EA2CFLocomotorDefinition@@QAEXPAVINI@@PAVThingTemplate@@@Z
+// Native1EA2CF..1EA3AE 223B RET8 proves INI and ThingTemplate arguments.
+// ZH AIUpdate.cpp parseLocomotorSet is structural and semantic guide; target owner name remains unknown.
+// Correct target ABI emits224B/frame12 versus native223B/frame8; current concrete score .86254.
+// cl: /Ireference/shims/iniexception /Ireference/shims/bfme2_ascii /O1 /EHsc /arch:SSE /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
 // stlport
 #include <map>
 #include <vector>
@@ -66,7 +65,7 @@ public: LocomotorTemplate *findLocomotorTemplate(const AsciiString &);
 };
 extern LocomotorStore *TheLocomotorStore;
 extern const char *TheLocomotorSetNames[];
-#include "../../reference/shims/iniexception/Common/INIException.h"
+#include "Common/INIException.h"
 class Rva001EA2CFLocomotorDefinition {
 public: void rva001EA2CF(INI *ini, ThingTemplate *instance);
 private: char unknown00[0x18]; AsciiString name; AsciiString setName; float speed;
