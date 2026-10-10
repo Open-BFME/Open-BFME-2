@@ -170,6 +170,13 @@ typedef long double max_double_type;
 #include <stl/_ostream.h>
 #endif
 
+// Retail's __node_alloc<true, 0>::_M_deallocate is BFME's own build at 0x00027B40,
+// owned by node_alloc_M_deallocateThunk.cpp. Leave the specialization declared so
+// this unit does not emit the stock STLport copy, which link order would keep.
+namespace _STL {
+template <> void __node_alloc<true, 0>::_M_deallocate(void *, size_t);
+}
+
 _STLP_BEGIN_NAMESPACE
 
 // Note that grouping[0] is the number of digits in the *rightmost* group.

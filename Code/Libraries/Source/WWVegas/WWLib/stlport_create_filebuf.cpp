@@ -37,6 +37,13 @@ template <> void basic_ios<char, char_traits<char> >::init(
     basic_streambuf<char, char_traits<char> > *);
 }
 
+// Retail's __node_alloc<true, 0>::_M_deallocate is BFME's own build at 0x00027B40,
+// owned by node_alloc_M_deallocateThunk.cpp. Leave the specialization declared so
+// this unit does not emit the stock STLport copy, which link order would keep.
+namespace _STL {
+template <> void __node_alloc<true, 0>::_M_deallocate(void *, size_t);
+}
+
 
 #ifndef _STLP_USE_NAMESPACES
 # define cin _STLP_cin
