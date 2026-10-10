@@ -36,6 +36,7 @@ class Rva00221088 : public BFME2NativeNetworkBase
 public:
 	Rva00221088();
 	virtual ~Rva00221088();
+	void rva001B5384();
 private:
 	char m_pad0C[4];
 };
@@ -43,4 +44,20 @@ private:
 Rva00221088::Rva00221088()
 {
 	((SubsystemInterface *)this)->setName("StrategicHUD");
+}
+
+// ?rva002210CF@@YAXXZ @0x002210CF 94B, contiguous after the ctor: the
+// StrategicHUD subsystem as a function-local static (guard bit, ctor above,
+// atexit cleanup registered), then a one-time call of its 0x001B5384 setup
+// behind a separate flag. Address-derived names; the global and its cleanup
+// thunk are viewed as g_Va00DFE49C / rva007B76FA elsewhere.
+void rva002210CF()
+{
+	static Rva00221088 s_strategicHud;
+	static bool s_setUp;
+	if (!s_setUp)
+	{
+		s_strategicHud.rva001B5384();
+		s_setUp = true;
+	}
 }
