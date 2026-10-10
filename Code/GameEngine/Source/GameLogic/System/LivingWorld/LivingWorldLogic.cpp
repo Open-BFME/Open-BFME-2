@@ -527,6 +527,7 @@ class Rva004FC275 {public:void rva004FC275(unsigned char);};
 struct LocalRegionPlots170 {char pad13c[0x13c];Int owner;char pad140[0x170-0x140];_STL::vector<Parent00575EEA*>plots;};
 struct TurnPhasePairView {void *begin,*end;bool empty()const{return begin==end;}};
 struct Parent00575E4E;
+class GameMessage;
 class LivingWorldLogic : public Rva002BA82BBase00, public Rva002BA82BObserver10, public Rva002BA82BRegionObserver
 {
 public:
@@ -572,6 +573,7 @@ public:
 	void AutoMarkUnitsForUpgrades();
 	void CalcAttackingDirection(const _STL::vector<Int> &path, Coord2D *direction);
 	Bool CanMoveArmyMember(LivingWorldArmy *army, Int entryID, Int target);
+ void HandleSwapArmyMembersMessage(const GameMessage *msg);
 	Bool rva002B8019(LivingWorldArmy *army, ArmySummaryEntry *entry, Int target);	// 0x002B8019
 	void LetAIResolveRegionAwardDispute(Int regionID, const _STL::vector<Int> &players, UnsignedInt flags);
 	Rva002B8660Army *UseGenericSpawnArmyForPlayer(Int a, Rva002B8660Player *player);
@@ -2995,4 +2997,53 @@ Bool LivingWorldLogic::rva002B3484(Parent0057605D *module)
 	if (region && region->owner == ((Rva002B2B66 *)this)->rva002B2B66())
 		return true;
 	return false;
+}
+
+// Native159B parser2BABAA and211B handler2BAC49, WB D913B0/D911D0.
+// The parser is file-static: retail puts msg in EBX and argument index in
+// ESI. Its genuine message handler supplies this context. Temporary integer
+// lists use the existing four-byte ScienceType providers only as a storage
+// ABI view; army member IDs retain their integer meaning.
+enum ScienceType;
+namespace _STL {
+template <> void vector<ScienceType, allocator<ScienceType> >::reserve(unsigned int);
+template <> void vector<ScienceType, allocator<ScienceType> >::push_back(const ScienceType &);
+template <> ScienceType *vector<ScienceType, allocator<ScienceType> >::erase(ScienceType *,ScienceType *);
+}
+struct ArmyMemberIDVector {
+ int *begin, *end, *capacity;
+ void clear(){ reinterpret_cast<_STL::vector<ScienceType> *>(this)->clear(); }
+ void reserve(unsigned int n){reinterpret_cast<_STL::vector<ScienceType> *>(this)->reserve(n);}
+ void push(const int &n){reinterpret_cast<_STL::vector<ScienceType> *>(this)->push_back(reinterpret_cast<const ScienceType &>(n));}
+};
+static __declspec(noinline) Bool ExtractArmyDataFromSwapArmyMembersMessage(const GameMessage *msg,Int *argIndex,LivingWorldArmy **army,ArmyMemberIDVector *ids)
+{
+ if(!getArmyFromMessage(army,msg,(*argIndex)++))return false;
+ if(!validateMessageArgumentIndex(msg,*argIndex))return false;
+ int count=msg->getArgument((*argIndex)++)->integer;
+ if(count<0 || *argIndex+count>(int)msg->getArgumentCount())return false;
+ ids->clear();
+ ids->reserve(count);
+ while(count>0){
+  int entryID;
+  if(!getArmySummaryEntryIDFromMessage(&entryID,msg,(*argIndex)++,*army))return false;
+  ids->push(entryID);
+  --count;
+ }
+ return true;
+}
+
+class Rva002B6D18 {public:bool rva002B6D18(void*,void*,void*,void*);};
+struct Rva002B3E50Range;
+class Rva002B6D85 {public:void rva002B6D85(void *,Rva002B3E50Range *,void *,Rva002B3E50Range *);};
+void LivingWorldLogic::HandleSwapArmyMembersMessage(const GameMessage *msg){
+ Int argIndex=0;
+ LivingWorldArmy *armyA;
+ _STL::vector<Int> idsA;
+ if(!ExtractArmyDataFromSwapArmyMembersMessage(msg,&argIndex,&armyA,(ArmyMemberIDVector*)&idsA))return;
+ LivingWorldArmy *armyB;
+ _STL::vector<Int> idsB;
+ if(!ExtractArmyDataFromSwapArmyMembersMessage(msg,&argIndex,&armyB,(ArmyMemberIDVector*)&idsB))return;
+ if(((Rva002B6D18*)this)->rva002B6D18(armyA,&idsA,armyB,&idsB))
+  ((Rva002B6D85*)this)->rva002B6D85(armyA,(Rva002B3E50Range*)&idsA,armyB,(Rva002B3E50Range*)&idsB);
 }
