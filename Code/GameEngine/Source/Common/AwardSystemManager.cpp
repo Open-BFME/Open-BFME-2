@@ -55,6 +55,7 @@ struct FieldParse;
 class INI {public:
  void initFromINI(void *,const FieldParse *);
  static void dup_002EF72(INI *,void *,void *,const void *);
+ static void parseAsciiString(INI *,void *,void *,const void *);
 };
 typedef void (*AwardFieldParser)(INI *,void *,void *,const void *);
 struct FieldParse {const char *name;AwardFieldParser parse;const void *userData;unsigned offset;};
@@ -68,6 +69,7 @@ extern const FieldParse BfmeAwardTriggerFields[3]={
 class NameKeyGenerator {public:
  const AsciiString &keyToName(NameKeyType);
  NameKeyType nameToKey(const char *);
+ static void parseStringAsNameKeyType(INI *,void *,void *,const void *);
 };
 extern NameKeyGenerator *TheNameKeyGenerator;
 class INIException {public:
@@ -102,4 +104,68 @@ void AwardSystemManager::parseTrigger(INI *ini,void *instance,void *,const void 
  if(!trigger.threshold)
   throw INIException(3,"No threshold set for tigger in AwardSystemManager::parseTrigger.");
  award->rva0040BAAA(reinterpret_cast<const Rva0040AEE3 *>(&trigger));
+}
+
+// Native ObjectAward block callback40C125. The constructor/destructor
+// providers independently establish the40B record extent and string homes.
+class Rva0040B77E {
+public:
+ ~Rva0040B77E();
+ NameKeyType name;
+ _STL::vector<NameKeyType> upgradeAwards;
+ AsciiString nameTag,descriptionTag,imageName;
+ _STL::vector<Rva0040AECC> triggers;
+};
+class Rva0040B6D4 : public Rva0040B77E {public:Rva0040B6D4();};
+struct BfmePod40 {int words[10];};
+struct Rva0040C0C7Element;
+class Rva0040AAD5 {public:
+ BfmePod40 *rva0040AAD5(int);
+ bool rva0040C0FE(const Rva0040C0C7Element &);
+};
+extern Rva0040AAD5 *g_00E02F74;
+class Image;
+class ImageCollection {public:const Image *findImageByName(const AsciiString &);};
+extern ImageCollection *TheMappedImageCollection;
+extern const char BfmeObjectAwardNameField[]="AwardName";
+extern const char BfmeObjectAwardImageField[]="ImageName";
+extern const char BfmeObjectAwardNameTagField[]="NameTag";
+extern const char BfmeObjectAwardDescriptionField[]="DescriptionTag";
+extern const char BfmeObjectAwardUpgradesField[]="UpgradeAwards";
+extern const char BfmeObjectAwardTriggerField[]="Trigger";
+extern const FieldParse BfmeObjectAwardFields[7]={
+ {BfmeObjectAwardNameField,&NameKeyGenerator::parseStringAsNameKeyType,0,0},
+ {BfmeObjectAwardImageField,&INI::parseAsciiString,0,24},
+ {BfmeObjectAwardNameTagField,&INI::parseAsciiString,0,16},
+ {BfmeObjectAwardDescriptionField,&INI::parseAsciiString,0,20},
+ {BfmeObjectAwardUpgradesField,reinterpret_cast<AwardFieldParser>(&rva00149002),0,4},
+ {BfmeObjectAwardTriggerField,&AwardSystemManager::parseTrigger,0,28},
+ {0,0,0,0}
+};
+void Rva0040C125Parse(INI *ini)
+{
+ Rva0040B6D4 award;
+ ini->initFromINI(&award,BfmeObjectAwardFields);
+ NameKeyType key=award.name;
+ static NameKeyType noneKey=TheNameKeyGenerator->nameToKey("None");
+ static NameKeyType emptyKey=TheNameKeyGenerator->nameToKey("");
+ if(key==NAMEKEY_INVALID || key==noneKey || key==emptyKey)
+  throw INIException(3,"No award name specified while parsing Award.");
+ BfmePod40 *existing=g_00E02F74->rva0040AAD5(key);
+ if(existing) {
+  AsciiString name=TheNameKeyGenerator->keyToName(static_cast<NameKeyType>(existing->words[0]));
+  throw INIException(3,"An Award with the name %s already exists.",reinterpret_cast<const StringBase<char> *>(&name)->str());
+ }
+ AsciiString text=award.imageName;
+ if(text.isNone() || text.isEmpty())
+  throw INIException(3,"No image name specified while parsing Award.");
+ if(!TheMappedImageCollection->findImageByName(award.imageName))
+  reinterpret_cast<StringBase<char> *>(&award.imageName)->set("BuildingNoArt");
+ text.setCopyInline(award.nameTag);
+ if(text.isNone() || text.isEmpty())
+  throw INIException(3,"No name tag specified while parsing Award.");
+ text.setCopyInline(award.descriptionTag);
+ if(text.isNone() || text.isEmpty())
+  throw INIException(3,"No description tag specified while parsing Award.");
+ g_00E02F74->rva0040C0FE(reinterpret_cast<const Rva0040C0C7Element &>(award));
 }
