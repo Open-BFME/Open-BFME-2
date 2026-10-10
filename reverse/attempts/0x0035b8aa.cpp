@@ -1,4 +1,6 @@
 // ??0Rva0035BB4B@@QAE@XZ
+// partial score=0.9945370409679473 date=2026-10-10
+// ??0Rva0035BB4B@@QAE@XZ
 // partial score=0.98 date=2026-10-09
 // cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
@@ -30,7 +32,7 @@ class Rva0035BB4B:public Rva001E3624 {public:
  int weaponSlot,toggle1,toggle2,toggle3;
  _STL::bitset<128>flagsToggle;int maxShots;
  _STL::vector<ScienceType>science;int border;
- _STL::vector<AsciiString>imageNames;int flashCount;AsciiString audioPrefix;
+ _STL::vector<AsciiString>imageNames;int flashCount;RawString audioPrefix;
  _STL::vector<Rva002390CB>audio0,audio1,audio2;
  _STL::vector<unsigned>buttonImages;int audioTail2,audioTail3;
  bool doubleClick,radial,inPalantir,production,production2,clickable,show,requiresContainer;

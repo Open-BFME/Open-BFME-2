@@ -1,4 +1,6 @@
 // ?drawTextEntryText@@YAXPAVGameWindow@@HHHHHH@Z
+// partial score=0.9698002111250066 date=2026-10-10
+// ?drawTextEntryText@@YAXPAVGameWindow@@HHHHHH@Z
 // partial score=0.98 date=2026-10-10
 // cl: /O1 /G7 /arch:SSE /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // NEAR draft for 0x0009FE49 drawTextEntryText (1398B), built from the
@@ -282,6 +284,7 @@ struct CtorCoord : ICoord2D
   * composition at the cursor, the selection inverted over a filled box, the
   * blinking cursor and the rest */
 //=============================================================================
+__forceinline Int getEntryAdvance(const Int& v) { return v; }
 void drawTextEntryText( GameWindow *window, Color textColor, Color textDropColor,
 															 Color compositeColor, Color compositeDropColor,
 															 Int x, Int y )
@@ -360,11 +363,11 @@ void drawTextEntryText( GameWindow *window, Color textColor, Color textDropColor
 	{
 		Int width = text->getWidth( selStart );
 
-		region.hi.x = min( clipRegion.hi.x, x + width );
+		Int nextX=x+width; region.hi.x = min( clipRegion.hi.x, nextX );
 		text->setClipRegion( &region );
 		text->setTextColor( textColor, textDropColor );
 		text->draw( x, y, 1, 1 );
-		x += width;
+		x = nextX;
 		cursorPos += width;
 	}
 
