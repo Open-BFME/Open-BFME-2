@@ -203,7 +203,7 @@ class StrategicHUD::RegionDetailsTerritoryMovieClip::Impl {
 public:Impl(unsigned int level,const AsciiString &name);
  void rva005F1999(int index,int value);
  void rva005F191E(const Image *image);
- void rva005F1A2D();
+ __declspec(noinline) void rva005F1A2D();
 private:unsigned int level;AsciiString name;
  AptCommandMapAdder commands;Rva005242D7 images;
  UnicodeString title,description;const Image *preview;int bonuses[6];int selectedBonus;
@@ -241,4 +241,17 @@ StrategicHUD::RegionDetailsTerritoryMovieClip::Impl::Impl(unsigned int l,const A
   AsciiString key;key.format("APT:_level%u.%s_Bonus%d",level,name.str(),i);
   ((BfmeAptWindowManager*)TheRva00222A8BTarget)->bfmeSetText(key,FormatRegionBonus(i,0),false);
  }
+}
+
+// Native5F1B51 loads pointer+4 and tail-jumps to the owned Impl method.
+// Original wrapper identity and complete outer extent remain unknown.
+struct Rva005F1B51
+{
+    char unknown0[4];
+    StrategicHUD::RegionDetailsTerritoryMovieClip::Impl *implementation;
+    void rva005F1B51();
+};
+void Rva005F1B51::rva005F1B51()
+{
+    implementation->rva005F1A2D();
 }
