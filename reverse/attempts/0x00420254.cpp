@@ -1,5 +1,5 @@
 // ?rva00420254@VictoryConditions@@QAEXABVAsciiString@@_N00@Z
-// partial score=0.9 date=2026-10-10
+// partial score=0.8390705679862306 date=2026-10-10
 // cl: /O1 /Ob2 /G7 /arch:SSE /EHs /MD /Ireference/shims/bfme2_ascii
 // ??1VictoryConditions@@UAE@XZ, retail 0x004201FA, 62 bytes. Derived dtor of
 // VictoryConditions over Rva0041FE0E over SubsystemInterface: installs derived
