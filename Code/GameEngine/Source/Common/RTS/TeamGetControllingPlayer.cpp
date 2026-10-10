@@ -98,6 +98,11 @@
 // spilled the match flag, while retail keeps team, member and flag in
 // edi/esi/bl. The other rows of this TU are unchanged by it.
 #include <vector>
+// Suppress the TU's non-retail const-begin copy (row 54 family-LK3): the
+// /Od retail copy in stlport_vector_voidptr.cpp serves the link instead.
+namespace _STL {
+template <> vector<void *>::const_iterator _STL::vector<void *>::begin() const;
+}
 #include <hash_map>
 #include "ascii_string.h"
 #include "Common/Snapshot.h"
