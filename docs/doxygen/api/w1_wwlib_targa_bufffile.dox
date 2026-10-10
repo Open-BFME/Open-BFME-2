@@ -1,0 +1,596 @@
+/// \defgroup grp_w1_wwlib_targa_bufffile WWLib Targa image I/O and BufferedFileClass
+/// \brief Two small WWLib file utilities: the Targa (.tga) image reader and
+///        writer, and BufferedFileClass, a RawFileClass with a read-ahead
+///        buffer.
+///
+/// Both come from Westwood's WWLib, the foundation library under the W3D
+/// renderer; \ref sub_wwlib_thirdparty describes the library as a whole.
+/// Both sit on WWLib's file abstraction: FileClass objects handed out by the
+/// global file factories _TheFileFactory (reading) and
+/// _TheWritingFileFactory (writing).
+///
+/// - Targa reads and writes Truevision TGA images, including the TGA 2.0
+///   footer and extension area. In retail BFME 2 its only named caller
+///   outside the class is WW3D::Make_Screen_Shot, which writes screenshots
+///   as uncompressed 24-bit TGA files.
+/// - BufferedFileClass is what SimpleFileFactoryClass, the default WWLib
+///   read factory, hands out for a file name. It reads 16 KB at a time and
+///   serves small reads from memory.
+///
+/// Both units are Zero Hour's WWLib sources. The BFME 2 differences are
+/// small and are noted on Targa::YFlip and BufferedFileClass::Read.
+///
+/// \par Modding
+/// - In retail BFME 2 nothing outside the class calls either Targa::Load
+///   overload or Targa::Open. Whatever reads the .tga files a mod ships, it
+///   is not this class, which in the game only writes screenshots.
+/// - BufferedFileClass derives from RawFileClass, which opens a loose file by
+///   name. It does not look inside BIG archives. In the game, archive-aware
+///   access goes through W3DFileSystem, which installs itself as
+///   _TheFileFactory when it is constructed.
+///
+/// \par Remastering
+/// - The file layer is the seam, but only for reads. Reads go through the
+///   virtual FileFactoryClass interface of _TheFileFactory, so replacing that
+///   factory redirects them. Writes do not. _TheWritingFileFactory is a
+///   RawFileFactoryClass pointer whose Get_File is non-virtual, so
+///   File_Open_Write and File_Open_ReadWrite always create a RawFileClass,
+///   which opens with CreateFileW on Windows. Redirecting screenshot output
+///   means changing RawFileFactoryClass or RawFileClass, not swapping the
+///   factory.
+/// - The TGA structures are read and written as raw memory images of
+///   byte-packed structs. That assumes a little-endian host, and also a
+///   4-byte long for the footer and extension fields. A 64-bit build where
+///   long is 8 bytes (LP64, as on Linux and macOS) would misread them.
+/// - TGAHeader declares Width and Height as signed 16-bit fields, so a side
+///   longer than 32767 pixels reads as negative and is not handled. Byte
+///   counts are computed in 32-bit arithmetic, so very large images also
+///   overflow before that limit.
+
+
+/// \file TARGA.CPP
+/// \ingroup grp_w1_wwlib_targa_bufffile
+/// \brief The Targa class: TGA image load, save, flips and RLE coding.
+///
+/// Zero Hour's WWLib TARGA.CPP, compiled with the WWLib file classes: every
+/// file access goes through a FileClass from the global file factories, not
+/// through C runtime handles. The retail bodies confirm it: Targa::Close
+/// returns the file to _TheFileFactory, and the private read helper forwards
+/// to a FileClass virtual. The one BFME 2 change is Targa::YFlip. The file
+/// also defines Targa_Error_Handler, which logs a message for a Targa error
+/// code when debug logging is compiled in. In a release build it only
+/// returns the code. The ledger has no retail row for it, and it is not
+/// covered here.
+
+
+/// \file bufffile.cpp
+/// \ingroup grp_w1_wwlib_targa_bufffile
+/// \brief BufferedFileClass: buffered reads on top of RawFileClass.
+///
+/// Zero Hour's WWLib bufffile.cpp. It defines the static desired buffer size
+/// (16 KB by default) and the out-of-line members: the file-name
+/// constructor, the destructor, Read, Write, Seek, Close and Reset_Buffer.
+/// The default constructor lives in BufferedFileClassConstructor.cpp. The
+/// copy-style constructor and operator= declared in bufffile.h are not
+/// defined in either file. The read buffer is allocated with
+/// scalar operator new and freed with scalar delete, as the retail calls
+/// show. Zero Hour used the array forms.
+
+
+/// \class Targa
+/// \ingroup grp_w1_wwlib_targa_bufffile
+/// \brief Reads and writes Truevision TGA images through WWLib's FileClass
+///        layer.
+///
+/// A Targa object holds one image: the public 18-byte TGAHeader (Header),
+/// an image buffer, an optional palette buffer, the TGA 2.0 extension area,
+/// and at most one open file.
+///
+/// \par Ownership
+/// The image and palette buffers are either owned or borrowed. A flag
+/// records which. Targa::Load(const char *, long, bool) allocates owned
+/// buffers with malloc. Targa::SetImage and Targa::SetPalette install
+/// borrowed buffers. The destructor and both setters free only owned
+/// buffers. GetImage and GetPalette return the current pointers; ownership
+/// stays with the object.
+///
+/// \par Pixel layout after loading
+/// Loading normalises the image so that it is stored bottom row first and
+/// left to right: a file whose descriptor says right-to-left or top-to-bottom
+/// is flipped, and the matching descriptor bit is cleared. Truecolor pixels
+/// are byte-reversed unless the caller asks not to; see Targa::InvertImage.
+/// Targa::Save writes the buffer in the same orientation and leaves it
+/// unchanged.
+///
+/// \par Small public members
+/// These carry no logic of their own:
+/// - IsCompressed reports whether Header.ImageType is greater than 8, which
+///   covers the RLE types.
+/// - GetExtension returns the extension area that Targa::Open read, or null
+///   when the file was not a TGA 2.0 file with an extension area.
+///
+/// \par Private helpers
+/// This documentation is built with EXTRACT_PRIVATE=NO, so the private
+/// members' own blocks are not rendered. In short:
+/// - File_Read, File_Write and File_Seek forward to the open FileClass.
+///   Nothing checks for null.
+/// - Is_File_Open and Clear_File test and reset the file pointer.
+/// - DecodeImage expands TGA run-length packets from the open file into the
+///   image buffer. Its remaining-pixel count is unsigned, so a packet that
+///   runs past the end of the image makes it write past the buffer until
+///   the file runs out.
+/// - EncodeImage writes the image as run-length packets: runs of up to 128
+///   pixels, raw packets of up to 127. For the last pixel it reads one pixel
+///   past the buffer, and when those bytes equal the last pixel the final
+///   run is dropped. Only Save with TGAF_COMPRESS reaches it, and retail
+///   never sets that flag.
+/// - InvertImage reverses the byte order of every 3- or 4-byte pixel,
+///   converting between TGA's blue-green-red order and red-green-blue in
+///   memory. It leaves 8-bit and 16-bit images alone.
+/// - File_Open_Read gets the file from _TheFileFactory. File_Open_Write and
+///   File_Open_ReadWrite get it from _TheWritingFileFactory, through a
+///   non-virtual call that always creates a RawFileClass.
+///
+/// \par Use in BFME 2
+/// WW3D::Make_Screen_Shot fills Header for a 24-bit truecolor image and
+/// installs its pixel buffer with SetImage. It flips the rows with YFlip and
+/// writes the file with Save and TGAF_IMAGE: no compression, no palette, no
+/// extension area. In the retail call graph, the other members are either
+/// called only from inside the class (Open, the 4-argument Load, XFlip,
+/// DecodeImage, EncodeImage, InvertImage) or not called at all (the flags
+/// overload of Load, SetPalette, IsCompressed, GetExtension). Close and the
+/// private File_Read, File_Write, File_Seek, Is_File_Open and Clear_File are
+/// inlined where they are used, so their out-of-line copies have no caller
+/// either. Zero Hour: the texture loader read .tga textures with
+/// Targa::Open and the flags overload of Load.
+///
+/// \par Modding
+/// The class supports color-mapped, truecolor and monochrome images, raw or
+/// RLE (types 1, 2, 3, 9 and 10). It cannot load RLE monochrome (type 11),
+/// although Save can write it. Since BFME 2 itself never loads through this
+/// class, these limits matter only to code or tools that reuse it.
+///
+/// \see BufferedFileClass, \ref grp_w1_wwlib_targa_bufffile
+
+
+/// \fn Targa::Targa(void)
+/// \brief Creates an empty Targa: no file, no buffers, zeroed header and
+///        extension area, read mode.
+///
+/// The buffers start as null and unowned, so a caller can install its own
+/// with Targa::SetImage or Targa::SetPalette before saving or loading.
+/// \see Targa::~Targa
+
+
+/// \fn Targa::~Targa()
+/// \brief Closes any open file and frees the image and palette buffers that
+///        the object allocated.
+///
+/// Buffers installed by Targa::SetImage or Targa::SetPalette are not freed.
+/// They stay the caller's responsibility. WW3D::Make_Screen_Shot relies on
+/// this: it frees its own pixel buffer after the Targa object is gone.
+/// \see Targa::Close
+
+
+/// \fn long Targa::Open(const char *name, long mode)
+/// \brief Opens a TGA file and, for reading, loads its header and leaves the
+///        file positioned at the image data.
+///
+/// Targa::Load and Targa::Save call it. Any file that is already open is
+/// closed first, unless it is open in the same mode.
+///
+/// \par Implementation
+/// - TGA_READMODE: opens through _TheFileFactory, then checks for a TGA 2.0
+///   file. It reads the 26-byte footer at the end of the file; if the footer
+///   has the "TRUEVISION-XFILE" signature and a nonzero extension offset, it
+///   reads the extension area and marks the image as TGA 2.0. It then reads
+///   the 18-byte header from the start of the file and skips the image ID
+///   field. The stream is left at the color map, or at the pixels when
+///   there is no color map.
+/// - TGA_WRITEMODE: opens a file for writing through _TheWritingFileFactory.
+///   Nothing is read or written.
+/// - TGA_RDWRMODE: opens through _TheWritingFileFactory for reading and
+///   writing, reads the header and skips the ID field. It does not look for
+///   the footer.
+/// - Any other mode opens nothing and returns 0.
+/// - On any error the file is closed again.
+///
+/// \param name File name, resolved by the file factory for the mode.
+/// \param mode TGA_READMODE, TGA_WRITEMODE or TGA_RDWRMODE.
+/// \return 0 on success. TGAERR_OPEN if the file could not be opened (for
+///         reading or read/write, also when the factory reports the file
+///         unavailable). TGAERR_READ if a seek or read of the header, footer
+///         or extension area failed.
+///
+/// \note If a file is already open in the requested mode, the function
+///       returns 0 immediately and ignores name. Targa::Load(const char *,
+///       long, bool) depends on this to keep reading the file it has open.
+/// \see Targa::Close, Targa::Load(const char *, char *, char *, bool),
+///      Targa::Save
+
+
+/// \fn void Targa::Close(void)
+/// \brief Closes the open file, if any, and hands it back to the file
+///        factory.
+///
+/// The file always goes back to _TheFileFactory, including files that
+/// Targa::Open got from _TheWritingFileFactory. That is safe because
+/// W3DFileSystem, the game's read factory, and RawFileFactoryClass, the
+/// writing factory, both dispose of a returned file by deleting it.
+/// SimpleFileFactoryClass, the default read factory until W3DFileSystem
+/// replaces it, does too in source; its retail body is not yet pinned.
+/// In the source, Load, Save, Open's error path and the destructor call
+/// it. In retail those calls are inlined, so this out-of-line copy has no
+/// caller.
+/// \see Targa::Open
+
+
+/// \fn long Targa::Load(const char *name, char *palette, char *image, bool invert_image)
+/// \brief Reads a TGA file's palette and pixels into the given buffers.
+///
+/// The worker behind Targa::Load(const char *, long, bool), and in retail
+/// BFME 2 that overload is its only caller. It opens the file for reading
+/// and closes it before returning.
+///
+/// \par Implementation
+/// - Palette: for a color-mapped file, reads the color map into palette,
+///   offset by the first-entry index from the header. When palette is null
+///   or the map is empty, the color map is skipped.
+/// - Pixels (only when image is not null): raw types 1, 2 and 3 are read
+///   directly into image. RLE types 9 and 10 are decoded by
+///   Targa::DecodeImage. Truecolor data (types 2 and 10) is passed to
+///   Targa::InvertImage when invert_image is true. Any other type returns
+///   TGAERR_NOTSUPPORTED.
+/// - Orientation: if the header's X-origin bit is set, Targa::XFlip runs; if
+///   the Y-origin (top) bit is set, Targa::YFlip runs. Each bit is cleared
+///   after its flip, so the buffer and Header both describe a bottom-up,
+///   left-to-right image.
+///
+/// \param name         File name, resolved through _TheFileFactory.
+/// \param palette      Palette buffer, or null to skip the color map. It
+///                     must hold the whole color map, including the entries
+///                     before the first-entry index.
+/// \param image        Pixel buffer of Width * Height * bytes-per-pixel
+///                     bytes, or null to load only the palette.
+/// \param invert_image Reverse the byte order of each truecolor pixel after
+///                     reading; see Targa::InvertImage.
+/// \return 0 on success. TGAERR_OPEN if the file could not be opened or its
+///         header could not be read (Open's own error code is replaced).
+///         TGAERR_READ for a short read. TGAERR_NOTSUPPORTED for an
+///         unsupported image type.
+///
+/// \warning image is used only for the raw image types. RLE decoding,
+///          the inversion and the flips all work on the object's own image
+///          buffer, which Targa::SetImage or the flags overload installs. A
+///          caller that passes a different buffer gets no pixels from an RLE
+///          file and unflipped, uninverted pixels otherwise, while the
+///          object's buffer is written instead (a crash if it has none). The
+///          flags overload always passes the object's own buffer.
+/// \see Targa::Load(const char *, long, bool), Targa::Open
+
+
+/// \fn long Targa::Load(const char *name, long flags, bool invert_image)
+/// \brief Loads a TGA file into buffers that the object allocates, or into
+///        buffers the caller installed beforehand.
+///
+/// The convenient form of loading. It opens the file to read the header,
+/// sizes the buffers from it, and then reads the data with
+/// Targa::Load(const char *, char *, char *, bool) while the file is still
+/// open. No retail BFME 2 code calls it. Zero Hour: the texture loader
+/// called it with TGAF_IMAGE after installing its own palette buffer with
+/// Targa::SetPalette.
+///
+/// \par Implementation
+/// - With TGAF_PAL and a color-mapped file, a palette the object owns is
+///   freed, and a new one of color-map length times entry size is allocated
+///   unless the caller installed one.
+/// - With TGAF_IMAGE, an owned image buffer is freed and a new one of
+///   Width * Height * bytes-per-pixel is allocated unless the caller
+///   installed one. A caller-installed buffer is used as it is; its size
+///   is not checked.
+/// - Both buffers are then passed to the 4-argument Load. A caller-installed
+///   palette is filled even when flags does not include TGAF_PAL.
+///
+/// \param name         File name, resolved through _TheFileFactory.
+/// \param flags        TGAF_IMAGE and/or TGAF_PAL: which buffers to
+///                     allocate.
+/// \param invert_image Passed on; see Targa::InvertImage.
+/// \return 0 on success. TGAERR_OPEN if the file could not be opened,
+///         TGAERR_NOMEM if an allocation failed, otherwise the result of the
+///         4-argument Load.
+///
+/// \warning The allocated palette covers only the color-map length, but the
+///          4-argument Load writes it at an offset of the first-entry index.
+///          A file whose color map does not start at entry 0 therefore
+///          writes past the end of the allocated palette.
+/// \see Targa::SetImage, Targa::SetPalette, Targa::GetExtension
+
+
+/// \fn long Targa::Save(const char *name, long flags, bool addextension)
+/// \brief Writes Header, the palette and the image buffer to a TGA 2.0 file.
+///
+/// The one Targa entry point that retail BFME 2 uses: WW3D::Make_Screen_Shot
+/// calls it with TGAF_IMAGE to write each screenshot. The file is opened
+/// through _TheWritingFileFactory and closed before returning.
+///
+/// \par Implementation
+/// - Header is written with the ID length forced to 0. With TGAF_COMPRESS,
+///   types 1, 2 and 3 are changed to their RLE forms 9, 10 and 11 in Header
+///   itself (the change persists in the object). Types that are already
+///   RLE stay as they are; for any other type compression is dropped.
+/// - With TGAF_PAL, the palette entries from the first-entry index on are
+///   copied to a temporary buffer and written.
+/// - With TGAF_IMAGE, truecolor pixels are byte-reversed by
+///   Targa::InvertImage, written raw or through Targa::EncodeImage, and
+///   byte-reversed back, so the caller's buffer ends unchanged.
+/// - With addextension, an extension area naming "Denzil's Targa Code" 1.00
+///   is written, and the footer points to it.
+/// - A TGA 2.0 footer always ends the file. Without an extension area its
+///   extension offset is 0.
+///
+/// \param name         File name, resolved through _TheWritingFileFactory.
+/// \param flags        TGAF_IMAGE, TGAF_PAL and TGAF_COMPRESS select what is
+///                     written and how.
+/// \param addextension Write the TGA 2.0 extension area.
+/// \return 0 on success, TGAERR_OPEN, TGAERR_WRITE or TGAERR_NOMEM.
+///
+/// \note The result of Targa::EncodeImage is ignored, so a write error or
+///       allocation failure during a compressed save is not reported.
+///       Retail never saves compressed.
+/// \see Targa::Open, Targa::EncodeImage
+
+
+/// \fn void Targa::XFlip(void)
+/// \brief Mirrors the image left to right in place.
+///
+/// Swaps each pixel of every row with its mirror pixel, one byte at a time.
+/// Targa::Load(const char *, char *, char *, bool) calls it for files stored
+/// right to left. It works on the object's image buffer and uses Header for
+/// the size and pixel depth.
+/// \see Targa::YFlip
+
+
+/// \fn void Targa::YFlip(void)
+/// \brief Mirrors the image top to bottom in place.
+///
+/// Swaps row i with row Height - 1 - i for the top half of the image.
+/// Targa::Load(const char *, char *, char *, bool) calls it for files stored
+/// top to bottom. WW3D::Make_Screen_Shot calls it on its top-down
+/// screen copy so that Targa::Save writes the bottom-up rows a TGA file
+/// expects by default.
+///
+/// \note BFME 2 swaps the rows one byte at a time, as BFME 1 does. Zero
+///       Hour: the source keeps that loop only as a comment and swaps each
+///       row pair with an inline-assembly helper instead. Open-BFME-1's copy
+///       uses the byte loop too, matching BFME 1 retail.
+/// \see Targa::XFlip
+
+
+/// \fn char *Targa::SetImage(char *buffer)
+/// \brief Installs a caller-owned image buffer.
+///
+/// Frees the current image buffer if the object owns it. The new buffer is
+/// not owned: the destructor will not free it. WW3D::Make_Screen_Shot uses
+/// it to hand its screen copy to the object before calling Targa::Save.
+///
+/// \param buffer The new image buffer, or null to detach the image.
+/// \return The previous buffer if the caller had installed it, or null if
+///         there was none or the object owned it (an owned buffer has
+///         already been freed).
+/// \see Targa::SetPalette
+
+
+/// \fn char *Targa::SetPalette(char *buffer)
+/// \brief Installs a caller-owned palette buffer.
+///
+/// The palette counterpart of Targa::SetImage, with the same ownership
+/// rules. No retail BFME 2 code calls it.
+///
+/// \param buffer The new palette buffer, or null to detach the palette.
+/// \return The previous caller-installed palette, or null.
+/// \see Targa::SetImage
+
+
+/// \fn long Targa::DecodeImage(void)
+/// \brief Decodes TGA run-length data from the open file into the object's
+///        image buffer.
+///
+/// Called by Targa::Load(const char *, char *, char *, bool) for image
+/// types 9 and 10.
+///
+/// \par Implementation
+/// Each packet starts with a count byte. With the top bit set, the next
+/// pixel is repeated (count & 0x7F) + 1 times; otherwise (count + 1) raw
+/// pixels follow. Packets are read until Width * Height pixels have been
+/// produced.
+///
+/// \return 0 on success, or TGAERR_READ if the file ended early.
+///
+/// \warning The remaining-pixel count is unsigned. A packet that runs past
+///          the end of the image makes the count wrap around, and decoding then
+///          continues until the file runs out, writing past the image
+///          buffer. Only decode trusted files.
+/// \see Targa::EncodeImage
+
+
+/// \fn long Targa::EncodeImage(void)
+/// \brief Writes the object's image buffer to the open file as TGA
+///        run-length packets.
+///
+/// Called by Targa::Save when TGAF_COMPRESS is set. Retail never sets it.
+///
+/// \par Implementation
+/// Compares each pixel with the start of the current packet. Repeats become
+/// run packets of up to 128 pixels; other pixels collect in raw packets of
+/// up to 127 pixels (the format allows 128). A packet buffer for the longest
+/// packet is allocated with malloc for the call.
+///
+/// \return 0 on success, TGAERR_WRITE, or TGAERR_NOMEM if the packet buffer
+///         could not be allocated.
+///
+/// \warning For the last pixel the comparison reads one pixel beyond the
+///          image buffer. If those bytes happen to equal the last pixel, the
+///          final run of equal pixels (at least the last pixel) is never
+///          written and the file comes out short.
+/// \see Targa::DecodeImage, Targa::Save
+
+
+/// \fn void Targa::InvertImage(void)
+/// \brief Reverses the byte order of every pixel in the object's image
+///        buffer, for pixels of 3 or 4 bytes.
+///
+/// TGA stores truecolor pixels in blue, green, red (and alpha) byte order.
+/// After inversion a 24-bit pixel reads red, green, blue in memory, and a
+/// 32-bit pixel alpha, red, green, blue. 8-bit and 16-bit images are left
+/// alone. Loading calls it when invert_image is true; Targa::Save calls it
+/// twice around writing, so the file gets TGA byte order and the caller's
+/// buffer is restored.
+/// \see Targa::Load(const char *, char *, char *, bool), Targa::Save
+
+
+/// \fn bool Targa::File_Open_Read(const char *name)
+/// \brief Gets a file from _TheFileFactory and opens it for reading.
+///
+/// The file object is kept even when opening fails; Targa::Open's error
+/// path then returns it to the factory through Targa::Close.
+///
+/// \param name File name.
+/// \return true if the factory supplied a file, the file reports itself
+///         available, and it opened.
+/// \see Targa::Open
+
+
+/// \fn bool Targa::File_Open_Write(const char *name)
+/// \brief Gets a file from _TheWritingFileFactory and opens it for writing.
+///
+/// The file object is kept even when opening fails; Targa::Open's error
+/// path then returns it to the factory through Targa::Close.
+///
+/// _TheWritingFileFactory is a RawFileFactoryClass, whose Get_File is not
+/// virtual, so the file is always a new RawFileClass. In retail this
+/// helper is inlined into Targa::Open.
+///
+/// \param name File name.
+/// \return true if the factory supplied a file and it opened.
+/// \see Targa::Open, Targa::Save
+
+
+/// \fn bool Targa::File_Open_ReadWrite(const char *name)
+/// \brief Gets a file from _TheWritingFileFactory and opens it for reading
+///        and writing.
+///
+/// As in Targa::File_Open_Write, the factory call is not virtual, so the
+/// file is always a new RawFileClass. The file object is kept even when
+/// opening fails; Targa::Open's error path then returns it to the factory
+/// through Targa::Close.
+///
+/// \param name File name.
+/// \return true if the factory supplied a file, the file reports itself
+///         available, and it opened.
+/// \see Targa::Open
+
+
+/// \class BufferedFileClass
+/// \ingroup grp_w1_wwlib_targa_bufffile
+/// \brief A RawFileClass that reads ahead into a 16 KB buffer, so that many
+///        small reads cost few operating-system reads.
+///
+/// SimpleFileFactoryClass::Get_File creates one for every file it hands
+/// out. file_auto_ptr creates one when its factory returns no file. Both
+/// use the default constructor. In retail, the constructor that takes a
+/// file name has no caller.
+///
+/// \par Buffer state
+/// The read buffer is allocated on the first read that fits in it, and
+/// freed again by Close, by most seeks and by the destructor; see
+/// BufferedFileClass::Reset_Buffer. Its size comes from a class-wide
+/// setting, 16 KB by default, which only derived classes can change. While
+/// data is buffered, the underlying file position is ahead of the logical
+/// position by the number of buffered bytes that have not been consumed.
+///
+/// \par Writing
+/// Only reads are buffered. Write passes straight to RawFileClass::Write.
+/// Its check that no read buffer exists is compiled out of release builds,
+/// so in retail a write after a buffered read lands at the underlying
+/// position, after the read-ahead data, not at the logical one.
+///
+/// \see Targa, \ref grp_w1_wwlib_targa_bufffile
+
+
+/// \fn BufferedFileClass::BufferedFileClass(char const *filename)
+/// \brief Creates a buffered file for the given name, with no buffer yet.
+///
+/// The file name goes to RawFileClass; nothing is opened. No retail BFME 2
+/// code calls this constructor.
+///
+/// \param filename Name of the file, passed to RawFileClass.
+/// \see BufferedFileClass::Read
+
+
+/// \fn BufferedFileClass::~BufferedFileClass(void)
+/// \brief Frees the read buffer; RawFileClass's destructor then closes the
+///        file.
+/// \see BufferedFileClass::Reset_Buffer
+
+
+/// \fn int BufferedFileClass::Read(void *buffer, int size)
+/// \brief Reads up to size bytes, serving them from the read-ahead buffer
+///        where possible.
+///
+/// \par Implementation
+/// - Bytes already buffered are copied out first.
+/// - A remainder larger than the buffer size is read directly with
+///   RawFileClass::Read, bypassing the buffer.
+/// - Otherwise the buffer is allocated if needed (16 KB by default), refilled
+///   with one RawFileClass::Read when it is empty, and the remainder is
+///   copied from it.
+///
+/// \param buffer Destination. It is not checked for null.
+/// \param size   Number of bytes wanted.
+/// \return The number of bytes copied. Less than size means the end of the
+///         file was reached.
+///
+/// \note BFME 2 allocates the buffer with scalar operator new, where Zero
+///       Hour used the array form. Reset_Buffer frees it with the matching
+///       scalar delete.
+/// \see BufferedFileClass::Seek, BufferedFileClass::Reset_Buffer
+
+
+/// \fn int BufferedFileClass::Seek(int pos, int dir)
+/// \brief Moves the file position, consuming buffered data for short
+///        forward seeks.
+///
+/// A forward seek from the current position (SEEK_CUR with pos of 0 or more)
+/// keeps the buffer. As many bytes as are buffered are skipped in memory,
+/// and only the rest is passed to RawFileClass::Seek. Any other seek frees
+/// the buffer and is passed to RawFileClass::Seek unchanged.
+///
+/// \param pos Offset, relative to dir.
+/// \param dir SEEK_SET, SEEK_CUR or SEEK_END.
+/// \return The new logical position. A seek of 0 from SEEK_CUR returns the
+///         current logical position.
+///
+/// \warning A backward seek from the current position (SEEK_CUR with a
+///          negative pos) frees the buffer without first moving the
+///          underlying file back to the logical position. It is then
+///          applied to the underlying position and lands too far forward by
+///          the number of buffered bytes not yet read. SEEK_SET and SEEK_END
+///          are not affected.
+/// \see BufferedFileClass::Read
+
+
+/// \fn void BufferedFileClass::Close(void)
+/// \brief Closes the file through RawFileClass::Close, then frees the read
+///        buffer.
+/// \see BufferedFileClass::Reset_Buffer
+
+
+/// \fn void BufferedFileClass::Reset_Buffer(void)
+/// \brief Frees the read buffer, if there is one, and resets the buffer
+///        state to empty.
+///
+/// Discards any buffered bytes not yet read. It does not move the underlying
+/// file position; see BufferedFileClass::Seek. In the source, Close, Seek
+/// and the destructor call it. In retail all three have it inlined, so the
+/// out-of-line copy has no caller.
+/// \see BufferedFileClass::Close, BufferedFileClass::Seek

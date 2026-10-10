@@ -1,0 +1,587 @@
+/// \defgroup grp_w1_wwlib_pkey_mpmath WWLib public-key crypto and multi-precision maths
+/// \ingroup grp_wwlib_thirdparty
+/// \brief Westwood's RSA-style public-key class PKey, the fixed-size big
+///        integer Int<64> (BigInt) it is built on, and the XMP_ C routines
+///        that do the arithmetic.
+///
+/// Three layers, all general-purpose WWLib code with no game rules in them:
+/// - PKey holds one key (a modulus and an exponent), encrypts and decrypts
+///   whole blocks with it, generates key pairs, and converts its numbers to
+///   and from DER-encoded integers.
+/// - Int, used only as Int<64> (typedef BigInt and bignum), wraps a 2,048-bit
+///   two's-complement number and forwards nearly every operator to an XMP_
+///   routine.
+///   RemainderTable and Generate_Prime, both templates in int.h, find the
+///   primes for key generation.
+/// - mpmath.cpp holds the XMP_ routines. They work on raw arrays of 32-bit
+///   digits and take the digit count as an argument.
+///
+/// BFME 2's pk.cpp and mpmath.cpp are Zero Hour's WWLib files with the same
+/// code. The declaring headers pk.h, int.h and mpmath.h are not in BFME 2's
+/// tree: the units compile against the Open-BFME-1 reference copies.
+///
+/// \par Who uses it
+/// No BFME 2 code is known to use it. A scan of the retail image finds no
+/// call, jump or stored address that targets PKey::Generate, the
+/// DER-decoding PKey constructor, INIClass::Get_PKey, INIClass::Put_PKey,
+/// XMP_Rabin_Miller_Test or XMP_Signed_Div, and tools/callers_of.py reports
+/// no named caller for any of them. Everything else here is reached only
+/// from inside this group or from those two INIClass methods. The one
+/// exception is the startup initializer that zeroes Int<64>'s static
+/// Remainder. The code is linked into the game but appears to be unused. Zero Hour: only
+/// WWLib's own files use PKey: INIClass, and the PKPipe and PKStraw stream
+/// stages. BFME 2's ledger has no PKPipe or PKStraw rows.
+///
+/// \par Modding
+/// - Nothing here is data-driven. No game INI field, map script, Apt movie
+///   or asset reaches PKey, so there is nothing to configure.
+/// - The 2,048-bit ceiling is a compile-time constant (MAX_BIT_PRECISION
+///   in mpmath.h and int.h), and the XMP_ routines size their scratch arrays
+///   from it.
+/// - Nothing in the game calls this code, so changing it cannot affect
+///   lockstep sync, CRC checks, saves or replays. That holds as long as the
+///   scan above is complete.
+/// - INIClass, the only user, is Westwood's own INI reader. It is not the
+///   engine's INI loader for game data (see \ref sub_ini).
+///
+/// \par Remastering
+/// - The maths assumes a 32-bit unsigned long. digit is a typedef for
+///   unsigned long, and the bit masks and shifts assume 32-bit digits. On a
+///   platform where unsigned long is 64 bits (most 64-bit Unix compilers)
+///   the routines would not work unchanged. 64-bit Windows keeps it at 32
+///   bits.
+/// - XMP_Mod_Mult and its helpers read the digit arrays as 16-bit units,
+///   which assumes little-endian byte order.
+/// - XMP_Prepare_Modulus and XMP_Mod_Mult keep their state in file-scope
+///   statics, and Int<64> reports status through static members. None of
+///   it is safe to call from two threads at once.
+/// - PKey::Encrypt is RSA without padding, and primes pass only trial
+///   division and two Fermat bases. A port that needs real security should
+///   use a maintained crypto library instead of this code.
+/// - Since nothing in the game calls it, a port can leave this code out,
+///   with the same caveat about the scan.
+
+/// \file WWVegas/WWLib/int.h
+/// \ingroup grp_w1_wwlib_pkey_mpmath
+/// \brief The Int big-integer template, the BigInt and bignum typedefs
+///        for Int<64>, and the RemainderTable, Gcd and Generate_Prime
+///        templates.
+///
+/// Zero Hour's WWLib INT.H. BFME 2 has no copy in its own tree; its units
+/// compile against the Open-BFME-1 reference copy. Everything here is
+/// inline or a template, so the code lands in whichever unit uses it. The
+/// ledger files the Int<64>, RemainderTable and Generate_Prime copies under
+/// pk.cpp, which also defines Int<64>'s static members (Zero Hour defines
+/// them in int.cpp, a unit BFME 2 does not have).
+
+/// \file WWVegas/WWLib/mpmath.cpp
+/// \ingroup grp_w1_wwlib_pkey_mpmath
+/// \brief The XMP_ multi-precision integer routines and the table of small
+///        primes they use.
+///
+/// Zero Hour's mpmath.cpp with the same code. Apart from XMP_Hybrid_Mul and
+/// the helpers mp_quo_digit, memrev and pfunc, which are declared only in
+/// mpmath.cpp and have C++ linkage, the routines are declared extern "C" in
+/// mpmath.h.
+///
+/// \par Number format
+/// A number is an array of digit (unsigned long, 32 bits), least
+/// significant digit first, in two's complement: the top bit of the last
+/// digit is the sign. The arithmetic routines take the digit count as
+/// their last argument, usually called precision (XMP_Hybrid_Mul counts
+/// 16-bit units instead). Int<64> always passes 64; XMP_Exponent_Mod
+/// works at the modulus's significant length, and XMP_Prepare_Modulus runs
+/// some routines on 2-digit numbers. Add, subtract and shift work in place,
+/// and Int's operators call them that way. Most multiply and divide
+/// routines, and XMP_Exponent_Mod, clear their output before reading their
+/// inputs, so there the output must not overlap an input.
+///
+/// \par What else is here
+/// The remaining routines are small and not documented one by one:
+/// - setup and moves: XMP_Init, XMP_Move;
+/// - bit helpers, inline in mpmath.h with out-of-line copies in retail:
+///   XMP_Set_Bit, XMP_Test_Bit, XMP_Bits_To_Mask, XMP_Bits_To_Digits,
+///   XMP_Digits_To_Bits, XMP_Is_Negative;
+/// - queries: XMP_Count_Bits, XMP_Count_Bytes, XMP_Significance,
+///   XMP_Compare and XMP_Test_Eq_Int;
+/// - add, subtract, increment, negate and shift: XMP_Add, XMP_Add_Int,
+///   XMP_Sub, XMP_Sub_Int, XMP_Inc, XMP_Dec, XMP_Neg, XMP_Abs, XMP_Not,
+///   XMP_Rotate_Left, XMP_Shift_Left_Bits, XMP_Shift_Right_Bits;
+/// - multiply and divide by a 16-bit number: XMP_Unsigned_Mult_Int,
+///   XMP_Signed_Mult_Int, XMP_Unsigned_Div_Int;
+/// - signed full multiply: XMP_Signed_Mult, which handles the signs around
+///   XMP_Unsigned_Mult;
+/// - the double-width product and reduction behind XMP_Mod_Mult:
+///   XMP_Double_Mul, XMP_Hybrid_Mul and the quotient estimator
+///   mp_quo_digit, plus XMP_Mod_Mult_Clear, which wipes the staged modulus;
+/// - byte and text conversion: XMP_Encode, XMP_Encode_Bounded,
+///   XMP_Signed_Decode, XMP_Unsigned_Decode, XMP_DER_Encode, XMP_DER_Decode,
+///   XMP_DER_Length_Encode and XMP_Decode_ASCII;
+/// - random numbers from a Straw: XMP_Randomize, XMP_Randomize_Bounded;
+/// - primality: XMP_Is_Prime, XMP_Is_Small_Prime, XMP_Small_Divisors_Test,
+///   and the 3,511-entry primeTable (every prime up to 32719) that
+///   XMP_Fetch_Prime_Table and XMP_Fetch_Prime_Size expose.
+///
+/// \par Retail quirks
+/// Matched bodies, so retail behaves the same way:
+/// - XMP_Encode treats its digit count as a byte count. For Int<64> it
+///   scans only the low 64 bytes, so DER encoding drops everything above
+///   bit 511. XMP_DER_Decode accepts up to 256 bytes.
+/// - XMP_Is_Prime trusts a number once it passes trial division by every
+///   table prime and one two-round XMP_Fermat_Test (bases 2 and 3). It
+///   never runs XMP_Rabin_Miller_Test.
+/// - XMP_Is_Small_Prime passes bsearch the address of its pointer argument
+///   instead of the number. Only candidates up to 32719 reach that lookup,
+///   so the large numbers PKey works with are not affected.
+/// - XMP_Rabin_Miller_Test, which no retail code calls, is close to a
+///   Fermat test with random bases rather than a Rabin-Miller test. It
+///   copies w - 1 for the exponent before splitting off the power of two,
+///   so each base is raised to w - 1 itself; the values it compares as
+///   w - 1 hold the odd part; and its squaring loop never updates the value
+///   it squares. A round passes when the power is 1 and almost never
+///   otherwise.
+
+/// \class PKey
+/// \ingroup grp_w1_wwlib_pkey_mpmath
+/// \brief One RSA-style key, a modulus and an exponent, that encrypts or
+///        decrypts data in fixed-size blocks.
+///
+/// Keys come in pairs that share a modulus. The fast key's exponent is
+/// always 65537 (PKey::Fast_Exponent), so it can be stored as the modulus
+/// alone. The slow key's exponent is the inverse of 65537 modulo
+/// (p-1)(q-1). Whatever one key encrypts, the other decrypts. PKey::Generate
+/// makes a pair. A key is loaded from DER-encoded integers through the
+/// constructor or PKey::Decode_Modulus and PKey::Decode_Exponent, and saved
+/// with PKey::Encode_Modulus and PKey::Encode_Exponent. INIClass::Put_PKey
+/// and INIClass::Get_PKey keep a key in two sections of a Westwood INI
+/// file, "PublicKey" for the modulus and "PrivateKey" for the exponent. Each
+/// section holds the DER bytes as numbered lines of Base64 text (see
+/// INIClass::Put_UUBlock).
+///
+/// A PKey is a plain value: two Int<64> numbers and the bit precision, with
+/// no heap memory and no destructor work. INIClass::Get_PKey returns one by
+/// value. The block sizes follow from the precision, which is the
+/// modulus's bit count minus one. Only setting the modulus updates it.
+/// The data members are public in the header.
+///
+/// No retail BFME 2 code is known to create or use a PKey. See
+/// \ref grp_w1_wwlib_pkey_mpmath.
+
+/// \fn PKey::PKey(void const *exponent, void const *modulus)
+/// \brief Builds a key from a DER-encoded exponent and a DER-encoded
+///        modulus.
+///
+/// Decodes both numbers with Int::DERDecode, then sets the bit precision
+/// from the modulus. Note the parameter order: the exponent comes first.
+/// \param exponent DER INTEGER for the exponent. Not null.
+/// \param modulus  DER INTEGER for the modulus. Not null.
+/// \note A buffer that is not a DER INTEGER, or holds more than 256 bytes
+///       of number, is ignored and that member stays zero. Nothing reports
+///       it.
+/// \see PKey::Decode_Modulus, PKey::Decode_Exponent
+
+/// \fn static void PKey::Generate(Straw &random, int bits, PKey &fastkey, PKey &slowkey)
+/// \brief Generates a matching fast and slow key pair.
+///
+/// Repeats until a test block survives a round trip:
+/// 1. Draws two primes p and q of bits bits each with Generate_Prime,
+///    reading random bytes from random.
+/// 2. Sets the modulus n = p * q, the fast exponent e = 65537, and the slow
+///    exponent d = Int::Inverse of e modulo (p-1)(q-1).
+/// 3. Stores n and e in fastkey, n and d in slowkey, and gives both the
+///    same bit precision.
+/// 4. Fills one plain block with the C runtime's rand(), encrypts it with
+///    fastkey, decrypts it with slowkey and compares. A match ends the loop.
+///
+/// The source's comments give the reason for the test: the primes are only
+/// probably prime. They also call generating the primes the longest step.
+///
+/// \param random  Source of random bytes for the primes.
+/// \param bits    Size of each prime in bits. The modulus gets about twice
+///                as many.
+/// \param fastkey [out] Receives the modulus and the exponent 65537.
+/// \param slowkey [out] Receives the modulus and the private exponent.
+/// \warning Nothing checks bits. The product must fit in Int<64>'s 2,048
+///          bits, and the test block buffers hold 256 bytes.
+/// \note The test block comes from rand(), the C runtime's shared
+///       generator, so calling this advances that generator.
+/// \see Generate_Prime, Int::Inverse, PKey::Encrypt, PKey::Decrypt
+
+/// \fn int PKey::Encrypt(void const *source, int slen, void *dest) const
+/// \brief Encrypts whole plain blocks with this key.
+///
+/// Each block of PKey::Plain_Block_Size bytes is copied into the low bytes
+/// of a zeroed Int<64>, so the first byte is the least significant. The
+/// number is raised to the key's exponent modulo its modulus with
+/// Int::exp_b_mod_c, and the low PKey::Crypt_Block_Size bytes of the result
+/// are written to dest. Raw RSA: no padding and no chaining.
+///
+/// \param source Plain text.
+/// \param slen   Bytes available at source. A trailing partial block is
+///               ignored and not copied.
+/// \param dest   [out] Receives the cipher blocks. It needs
+///               PKey::Crypt_Block_Size bytes per whole plain block.
+/// \return Bytes written to dest.
+/// \warning A cipher block is one byte longer than a plain block. When the
+///          modulus's bit count is one more than a multiple of 8 (1,025
+///          bits, say), a result can need one bit more than the cipher
+///          block holds, and that top bit is lost. Keys from PKey::Generate
+///          with a prime size that is a multiple of 8 never have such a
+///          modulus.
+/// \see PKey::Decrypt, XMP_Exponent_Mod
+
+/// \fn int PKey::Decrypt(void const *source, int slen, void *dest) const
+/// \brief Decrypts whole cipher blocks with this key.
+///
+/// The mirror of PKey::Encrypt: each PKey::Crypt_Block_Size block is read
+/// as a little-endian number, raised to the exponent modulo the modulus,
+/// and the low PKey::Plain_Block_Size bytes are written to dest. source
+/// and dest may be the same buffer, as in PKey::Generate.
+///
+/// \param source Cipher text.
+/// \param slen   Bytes available at source. A trailing partial block is
+///               ignored.
+/// \param dest   [out] Receives the plain blocks.
+/// \return Bytes written to dest.
+/// \note A block whose value is not below the modulus makes
+///       XMP_Exponent_Mod fail. The output block then holds 1, and only
+///       Int<64>'s static Error records the failure.
+/// \see PKey::Encrypt
+
+/// \fn int PKey::Encode_Modulus(void *buffer) const
+/// \brief Writes the modulus as a DER INTEGER.
+///
+/// INIClass::Put_PKey is the only caller. It saves the result in the
+/// "PublicKey" section.
+/// \param buffer [out] Receives the encoding. Null writes nothing.
+/// \return Bytes written, or 0 for a null buffer.
+/// \warning XMP_Encode keeps only the low 512 bits (see the mpmath.cpp
+///          file notes), so a wider modulus is saved truncated.
+/// \see PKey::Decode_Modulus, PKey::Encode_Exponent
+
+/// \fn int PKey::Encode_Exponent(void *buffer) const
+/// \brief Writes the exponent as a DER INTEGER.
+///
+/// INIClass::Put_PKey is the only caller. It saves the result in the
+/// "PrivateKey" section.
+/// \param buffer [out] Receives the encoding. Null writes nothing.
+/// \return Bytes written, or 0 for a null buffer.
+/// \warning The same 512-bit limit as PKey::Encode_Modulus applies.
+/// \see PKey::Decode_Exponent
+
+/// \fn void PKey::Decode_Modulus(void *buffer)
+/// \brief Loads the modulus from a DER INTEGER and recomputes the block
+///        sizes.
+///
+/// INIClass::Get_PKey is the only caller. It reads the "PublicKey"
+/// section.
+/// \param buffer DER INTEGER. Not null. An invalid encoding leaves the
+///               modulus unchanged but still recomputes the precision.
+/// \see PKey::Encode_Modulus
+
+/// \fn void PKey::Decode_Exponent(void *buffer)
+/// \brief Loads the exponent from a DER INTEGER.
+///
+/// INIClass::Get_PKey is the only caller. For the fast key it DER-encodes
+/// 65537 itself and passes that; for the slow key it reads the
+/// "PrivateKey" section. The block sizes do not change.
+/// \param buffer DER INTEGER. Not null. An invalid encoding leaves the
+///               exponent unchanged.
+/// \see PKey::Encode_Exponent
+
+/// \fn int PKey::Plain_Block_Size(void) const
+/// \brief Bytes of plain text per block: (precision - 1) / 8, rounded
+///        down.
+///
+/// Small enough that every block's value is below the modulus. An inline
+/// member of pk.h; retail also has an out-of-line copy that nothing calls.
+/// \return The plain block size in bytes.
+/// \see PKey::Crypt_Block_Size
+
+/// \fn int PKey::Crypt_Block_Size(void) const
+/// \brief Bytes of cipher text per block: PKey::Plain_Block_Size plus 1.
+///
+/// An inline member of pk.h; retail also has an out-of-line copy that
+/// nothing calls.
+/// \return The cipher block size in bytes.
+/// \see PKey::Encrypt
+
+/// \class Int
+/// \ingroup grp_w1_wwlib_pkey_mpmath
+/// \brief Fixed-size two's-complement big integer of PRECISION 32-bit
+///        digits. BFME 2 uses only Int<64>, a 2,048-bit number (BigInt).
+///
+/// The value is a public array of digits, least significant first, and an
+/// Int converts to a digit pointer, which is how it is passed to the XMP_
+/// routines. Nearly every member is a one-line inline wrapper around an
+/// XMP_ routine at the class's precision: the operators, comparisons, bit
+/// counts, the primality tests, the DER and byte encodings, and the
+/// modular exponent and inverse. int.h and mpmath.h both define the size limit,
+/// MAX_BIT_PRECISION, as 2,048 bits.
+///
+/// Status goes through static members that every BigInt shares:
+/// Error (the return code of the last XMP_ call that sets it), Carry and
+/// Borrow (from the last add or subtract) and Remainder (a scratch number
+/// the division and multiplication operators use). That shared state makes
+/// the class unsafe to use from two threads.
+///
+/// Overflow wraps silently. Multiplication keeps the low 2,048 bits, and
+/// a result with the top bit set reads as negative.
+///
+/// \note BFME 2 defines the static members in pk.cpp; Zero Hour defines
+///       them in int.cpp.
+/// \see PKey, RemainderTable, Generate_Prime
+
+/// \fn Int Int::exp_b_mod_c(const Int &e, const Int &m) const
+/// \brief Returns this number raised to e, modulo m.
+///
+/// Calls XMP_Exponent_Mod and stores its return code in the static
+/// Error. PKey::Encrypt and PKey::Decrypt use it, inlined. The out-of-line
+/// copy in retail has no caller.
+/// \param e The exponent. It and this number must be below m.
+/// \param m The modulus. Not zero.
+/// \return The result. It is 1 when XMP_Exponent_Mod reports an error.
+/// \see XMP_Exponent_Mod
+
+/// \fn Int Int::Inverse(const Int &modulus) const
+/// \brief Returns the multiplicative inverse of this number modulo
+///        modulus.
+///
+/// Calls XMP_Inverse_A_Mod_B. PKey::Generate uses it, inlined, to derive
+/// the private exponent. The out-of-line copy in retail has no caller.
+/// \param modulus The modulus.
+/// \return x with (this * x) mod modulus equal to 1. If no inverse exists,
+///         the value is meaningless; nothing checks.
+/// \see XMP_Inverse_A_Mod_B
+
+/// \class RemainderTable
+/// \ingroup grp_w1_wwlib_pkey_mpmath
+/// \brief A number's remainders modulo each small prime, updated as the
+///        number is stepped, so prime candidates are sieved cheaply.
+///
+/// A struct template from int.h; BFME 2 instantiates it only for Int<64>,
+/// and only Generate_Prime uses it. It holds one 16-bit remainder for each
+/// of the 3,511 primes in mpmath.cpp's table (every prime up to 32719) and
+/// a flag that says whether any remainder is zero, that is, whether the
+/// number has a small prime factor. Each table is about 7 KB, and
+/// Generate_Prime keeps two on the stack.
+///
+/// Computing the table divides the big number once per prime. After that,
+/// RemainderTable::Increment keeps it in step with the number using only
+/// 16-bit additions, which is what makes the search in Generate_Prime fast.
+/// \see Generate_Prime, XMP_Fetch_Prime_Table
+
+/// \fn RemainderTable::RemainderTable(const T &p)
+/// \brief Fills the table with p modulo each small prime.
+///
+/// Uses Int's 16-bit remainder operator, which calls
+/// XMP_Unsigned_Div_Int, once per table prime.
+/// \param p The starting number.
+/// \note The zero-remainder flag starts false and is not computed here.
+///       Only RemainderTable::Increment sets it, so Generate_Prime does not
+///       sieve its first candidate pair and relies on the full primality
+///       test for it.
+/// \see RemainderTable::Increment
+
+/// \fn void RemainderTable::Increment(unsigned short increment)
+/// \brief Adds increment to the tracked number and updates every remainder
+///        and the zero-remainder flag.
+///
+/// Each entry gets increment added and the prime subtracted until it is
+/// back in range. Afterwards the flag is set if any entry is zero.
+/// Generate_Prime calls it with 2 for its q and with 4 for its p.
+/// \param increment Amount added to the number (defaults to 1 in the
+///                  header).
+/// \see RemainderTable::RemainderTable
+
+/// \fn template<class T> T Generate_Prime(Straw &rng, int pbits, T const *)
+/// \brief Finds a random safe prime p = 2q + 1, with q also prime, that is
+///        exactly pbits bits long.
+///
+/// A function template from int.h; retail has only the Int<64> copy, and
+/// PKey::Generate is its only caller. The unnamed pointer argument only
+/// selects T; it is never read.
+///
+/// \par Implementation
+/// - q is drawn from rng in the range 2^(pbits-2) to 2^(pbits-1) - 1 and
+///   forced odd. p is 2q + 1, so it has exactly pbits bits.
+/// - A RemainderTable is built for each. While either table shows a small
+///   factor, or either number fails Int::IsPrime (XMP_Is_Prime), q steps
+///   by 2 and p by 4, and the tables step with them.
+/// - If q passes the top of its range, a new q is drawn.
+///
+/// \param rng   Source of random bytes, read through Int::Randomize and
+///              XMP_Randomize_Bounded.
+/// \param pbits Bit length of the prime returned.
+/// \return The prime p. Primality is probable, not proven: XMP_Is_Prime
+///         uses trial division and Fermat tests to bases 2 and 3.
+/// \see RemainderTable, XMP_Is_Prime, PKey::Generate
+
+/// \fn int XMP_Exponent_Mod(digit *expout, const digit *expin, const digit *exponent_ptr, const digit *modulus, int precision)
+/// \brief Computes expin raised to exponent_ptr, modulo modulus.
+///
+/// The core of RSA here: PKey::Encrypt, PKey::Decrypt (through
+/// Int::exp_b_mod_c), XMP_Fermat_Test and XMP_Rabin_Miller_Test call it.
+///
+/// \par Implementation
+/// Left-to-right binary exponentiation (the source calls it Russian
+/// peasant): after the top exponent bit, each bit squares the running
+/// value and, for a 1 bit, multiplies by expin, both with XMP_Mod_Mult.
+/// The work runs at the modulus's significant digit count rather than
+/// the full precision. XMP_Prepare_Modulus stages the modulus first. At the
+/// end it zeroes its local product and calls XMP_Mod_Mult_Clear, which
+/// zeroes the staged modulus, the reciprocal and shift statics and the low
+/// digits of the double-width staging buffer.
+///
+/// \param expout       [out] The result. Set to 1 first, so an error
+///                     leaves 1 there, and so it must not overlap expin.
+/// \param expin        The base. Must be below modulus.
+/// \param exponent_ptr The exponent. Must be below modulus.
+/// \param modulus      The modulus. Not zero, and at least two significant
+///                     digits long (see XMP_Prepare_Modulus).
+/// \param precision    Digit count of every argument.
+/// \return 0 on success, or: -1 for zero to the power zero, -2 for a zero
+///         modulus, -3 if the base is not below the modulus, -4 if the
+///         exponent is not below the modulus. -5 is reserved for a modulus
+///         XMP_Prepare_Modulus cannot stage, which cannot happen because
+///         that function always returns 0. A zero exponent gives 1.
+/// \see XMP_Mod_Mult, XMP_Prepare_Modulus
+
+/// \fn int XMP_Prepare_Modulus(const digit *n_modulus, int precision)
+/// \brief Stages a modulus for XMP_Mod_Mult.
+///
+/// Called only by XMP_Exponent_Mod. Copies the modulus and its bit and
+/// 16-bit-unit lengths into file-scope statics. It then takes the
+/// modulus's leading 32 bits (its top two significant digits, shifted
+/// down), computes a scaled reciprocal of them with XMP_Reciprocal and
+/// rounds it up. The reciprocal is kept as two 16-bit halves plus a shift
+/// count, which mp_quo_digit uses to estimate each quotient digit.
+/// \param n_modulus The modulus.
+/// \param precision Its digit count.
+/// \return Always 0.
+/// \warning The modulus needs at least two significant digits. With one,
+///          the code reads the word before its copy of the modulus.
+/// \warning The staged values are shared statics, so only one modulus can
+///          be in use at a time, across all threads.
+/// \see XMP_Mod_Mult, XMP_Reciprocal
+
+/// \fn int XMP_Mod_Mult(digit *prod, const digit *multiplicand, const digit *multiplier, int precision)
+/// \brief Multiplies two numbers modulo the modulus staged by
+///        XMP_Prepare_Modulus.
+///
+/// Called only by XMP_Exponent_Mod, for every squaring and multiply step.
+///
+/// \par Implementation
+/// XMP_Double_Mul forms the full double-width product in a static staging
+/// buffer. The product is then reduced by long division in 16-bit units:
+/// mp_quo_digit estimates each quotient unit from the staged reciprocal
+/// (the source calls this Smith's modulo reduction), XMP_Hybrid_Mul
+/// subtracts that multiple of the modulus, and one subtraction of the
+/// modulus corrects an estimate that came out too large, which the source
+/// says is rare. The dividend is kept as its one's complement so that the
+/// subtraction becomes an addition.
+/// The low precision digits that remain are the result.
+///
+/// \param prod         [out] The product modulo the staged modulus.
+/// \param multiplicand Must be below the modulus.
+/// \param multiplier   Must be below the modulus.
+/// \param precision    The significant digit count of the modulus.
+/// \return Always 0.
+/// \see XMP_Prepare_Modulus, XMP_Exponent_Mod
+
+/// \fn int XMP_Reciprocal(digit *quotient, const digit *divisor, int precision)
+/// \brief Computes a scaled reciprocal of divisor by binary long division.
+///
+/// With k the divisor's bit count, it starts from a remainder of 2^(k-1),
+/// runs k shift-and-subtract steps, and writes the quotient bits from bit k
+/// down to bit 1. The result approximates 2^(2k) / divisor. XMP_Prepare_Modulus is the only caller; it passes a
+/// 2-digit divisor and shifts the result right by one.
+/// \param quotient  [out] The scaled reciprocal.
+/// \param divisor   The number to invert. Not zero.
+/// \param precision Digit count of both.
+/// \return 0, or -1 for a zero divisor.
+/// \see XMP_Prepare_Modulus
+
+/// \fn void XMP_Inverse_A_Mod_B(digit *result, digit const *number, digit const *modulus, int precision)
+/// \brief Computes the inverse of number modulo modulus with the extended
+///        Euclidean algorithm.
+///
+/// Int::Inverse calls it, and so does PKey::Generate through an inlined
+/// copy of Int::Inverse. The remainders and coefficients rotate through
+/// three-slot arrays; each step is an XMP_Unsigned_Div and an
+/// XMP_Unsigned_Mult. A negative final coefficient has modulus added.
+/// \param result    [out] The inverse. It is also scratch space during the
+///                  loop, so it must not overlap modulus, which is read
+///                  again at the end.
+/// \param number    The number to invert.
+/// \param modulus   The modulus.
+/// \param precision Digit count of all three.
+/// \warning It does not check that number and modulus are coprime. If they
+///          are not, the result is not an inverse.
+/// \see Int::Inverse
+
+/// \fn int XMP_Unsigned_Div(digit *remainder, digit *quotient, digit const *dividend, digit const *divisor, int precision)
+/// \brief Divides one unsigned number by another, one bit at a time.
+///
+/// Called by XMP_Signed_Div and XMP_Inverse_A_Mod_B. Shift-and-subtract
+/// long division over the dividend's significant bits.
+/// \param remainder [out] Dividend modulo divisor.
+/// \param quotient  [out] Dividend divided by divisor, rounded down.
+/// \param dividend  The number divided.
+/// \param divisor   The number to divide by.
+/// \param precision Digit count of all four.
+/// \return 0, or -1 for a zero divisor, in which case neither output is
+///         written.
+/// \note Both outputs are cleared before the dividend is read, so neither
+///       may overlap an input.
+/// \see XMP_Signed_Div
+
+/// \fn void XMP_Signed_Div(digit *remainder, digit *quotient, digit const *dividend, digit const *divisor, int precision)
+/// \brief Divides two signed numbers.
+///
+/// Copies both operands, takes their absolute values, and calls
+/// XMP_Unsigned_Div. If exactly one operand was negative, the quotient is
+/// negated and, when the remainder is not zero, lowered by one and the
+/// remainder replaced by the divisor's magnitude minus the remainder. The
+/// operands are copied first, so the outputs may overlap them.
+/// \param remainder [out] Never negative.
+/// \param quotient  [out] Rounded down when exactly one operand is
+///                  negative.
+/// \param dividend  The number divided.
+/// \param divisor   The number to divide by.
+/// \param precision Digit count of all four.
+/// \note A zero divisor is not reported, and the outputs are then
+///       meaningless. No retail code calls this function.
+/// \see XMP_Unsigned_Div
+
+/// \fn int XMP_Unsigned_Mult(digit *prod, const digit *multiplicand, const digit *multiplier, int precision)
+/// \brief Multiplies two unsigned numbers by shift and add.
+///
+/// Called by XMP_Signed_Mult, which Int's multiplication operators use,
+/// and by XMP_Inverse_A_Mod_B. For each bit of the multiplier, from the
+/// top, the product is shifted left one bit and the multiplicand added
+/// when the bit is 1.
+/// \param prod         [out] The product, keeping only the low precision
+///                     digits. It is cleared first, so it must not overlap
+///                     the inputs.
+/// \param multiplicand First factor.
+/// \param multiplier   Second factor.
+/// \param precision    Digit count of all three.
+/// \return Always 0. Overflow is not reported.
+/// \see XMP_Mod_Mult
+
+/// \fn bool XMP_Fermat_Test(const digit *candidate_prime, unsigned rounds, int precision)
+/// \brief Fermat primality test with the first rounds small primes as
+///        bases.
+///
+/// For each base a from the prime table (2, 3, 5 and so on) it checks that
+/// a to the power candidate_prime-1, modulo candidate_prime, is 1, using
+/// XMP_Exponent_Mod. The bases are fixed, not random. XMP_Is_Prime is the
+/// only caller and asks for two rounds (bases 2 and 3).
+/// \param candidate_prime The odd number to test, larger than the bases.
+/// \param rounds          Number of bases. Must be below the table size
+///                        (an assert in debug builds).
+/// \param precision       Digit count of the candidate.
+/// \return false if any base proves the number composite, otherwise true
+///         (probably prime).
+/// \see XMP_Exponent_Mod

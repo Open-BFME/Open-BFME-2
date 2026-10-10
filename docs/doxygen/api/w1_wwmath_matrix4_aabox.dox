@@ -1,0 +1,502 @@
+/// \defgroup grp_w1_wwmath_matrix4_aabox WWMath: Matrix4, Vector4, axis-aligned boxes and power-of-two helpers
+/// \brief The 4x4 matrix and four-component vector of the W3D math library,
+///        its two axis-aligned box classes, the collision statistics block
+///        and the power-of-two rounding helpers.
+///
+/// These are small, settled pieces of Westwood's WWMath and WW3D2 libraries,
+/// the math layer under the W3D renderer (\ref sub_w3d_rendering). Every
+/// body documented here is the Zero Hour source unchanged. The one visible
+/// difference is the class name: the BFME 1 headers this project compiles
+/// use original Generals' spelling, Matrix4, where Zero Hour says Matrix4x4.
+/// That spelling is a project convention, and no retail symbol confirms it.
+///
+/// - Matrix4 and Vector4: the full 4x4 matrix used for projection, texture
+///   and shader-parameter transforms, and the four-float type it is built
+///   from.
+/// - AABoxClass and MinMaxAABoxClass: the two forms of axis-aligned bounding
+///   box, centre plus half-size and minimum plus maximum corner.
+/// - CollisionMath::ColmathStatsStruct: per-test counters for the collision
+///   routines, which only debug builds update.
+/// - Find_POT and Find_POT_Log2: round a size up to a power of two.
+///
+/// The declarations come from the BFME 1 headers under
+/// reference/open-bfme-1/game/Libraries/Source/WWVegas/: WWMath/matrix4.h,
+/// vector4.h, aabox.h and colmath.h, and WW3D2/pot.h. Most of each class is
+/// inline in those headers. Some units compile against private copies of
+/// matrix4.h kept as matching shims; the guide describes only the shared
+/// header.
+///
+/// \par Modding
+/// Nothing here reads game data directly: no INI field, map or script
+/// setting reaches these functions. The limits that matter are fixed in
+/// code: the 32-entry cap on ParticleBufferClass's randomiser tables, and the
+/// device's maximum texture size, to which DX8Wrapper::Create_Render_Target
+/// clamps its render targets. Mod content reaches these functions indirectly
+/// in two places. First, a W3D particle emitter's emission rate, burst size,
+/// lifetime and maximum emissions set its particle buffer's size, and
+/// Find_POT of that size, capped at a fixed 32, sizes the buffer's randomiser
+/// tables. Second, an FX shader parameter bound through the Sas Skeleton
+/// names MeshToJointToView or MeshToJointToProjection receives a product
+/// built with Matrix4::Multiply(const Matrix4 &, const Matrix4 &, Matrix4 *).
+/// Zero Hour: W3D material mapper arguments also reach the Matrix4 type,
+/// through the texture mappers' Calculate_Texture_Matrix overrides.
+///
+/// \par Remastering
+/// - Matrix4 uses column vectors with the translation in the fourth column.
+///   Direct3D expects the transpose, and DX8Wrapper::Set_Transform transposes
+///   on the way in (in the dx8wrapper.h this project compiles). A
+///   replacement renderer takes over at those DX8Wrapper transform calls.
+/// - CameraClass::Get_D3D_Projection_Matrix rewrites the camera's projection
+///   so depth maps to Direct3D's 0..1 range instead of -1..1. A backend with
+///   another depth convention would change that function, not Matrix4.
+/// - Every caller of these functions identified so far, directly or through
+///   operator!=, is renderer code: render targets, particle buffers, FX
+///   shader parameters, shadow maps, terrain bounds and the sorting renderer.
+///   No caller on the GameLogic side has been identified, so as far as is
+///   known, changing these functions affects what is drawn, not the lockstep
+///   simulation. Several functions here still have no named caller; re-check
+///   this as more callers are named.
+/// - Retail also contains a 4x4 matrix inverse that calls D3DXMatrixInverse
+///   from D3DX 9; its identity is not yet confirmed. A port without D3DX
+///   needs a replacement for it.
+
+
+/// \file WWMath/matrix4.cpp
+/// \ingroup grp_w1_wwmath_matrix4_aabox
+/// \brief Matrix4 multiplication without temporaries, and Matrix4
+///        equality.
+///
+/// Zero Hour's matrix4.cpp: the three Matrix4::Multiply overloads and
+/// operator==. Zero Hour's operator!= lives in its own file here,
+/// matrix4_notequal.cpp, and calls this operator==. The unit also emits
+/// out-of-line copies of two vector4.h inlines, Vector4::operator/= and
+/// Swap(Vector4 &, Vector4 &), because retail places copies of both at the
+/// head of this unit's code. The anchor function that makes the compiler
+/// emit them exists only in the reconstruction.
+
+
+/// \file WWMath/aabox.cpp
+/// \ingroup grp_w1_wwmath_matrix4_aabox
+/// \brief The out-of-line members of AABoxClass and MinMaxAABoxClass.
+///
+/// Zero Hour's aabox.cpp: AABoxClass::Init_Random, the static
+/// AABoxClass::Transform and MinMaxAABoxClass::Init_Empty. Everything else
+/// in both classes is inline in aabox.h. The Contains functions named in the
+/// file's Westwood header comment are among those inlines.
+
+
+/// \file WWMath/colmath.cpp
+/// \ingroup grp_w1_wwmath_matrix4_aabox
+/// \brief CollisionMath's shared data: the coincidence epsilon and the
+///        statistics block.
+///
+/// Zero Hour's colmath.cpp. It defines CollisionMath::COINCIDENCE_EPSILON
+/// (one millionth) and the single static CollisionMath::Stats instance, and
+/// the two members of CollisionMath::ColmathStatsStruct. The collision tests
+/// themselves are in other units, most of them named colmath*.cpp.
+
+
+/// \file WW3D2/pot.cpp
+/// \ingroup grp_w1_wwmath_matrix4_aabox
+/// \brief Power-of-two rounding: Find_POT and Find_POT_Log2.
+///
+/// Zero Hour's WW3D2 pot.cpp, unchanged. The renderer uses Find_POT where a
+/// texture or table size must be a power of two; Find_POT_Log2 has no known
+/// user.
+
+
+/// \file WWMath/vector4.h
+/// \ingroup grp_w1_wwmath_matrix4_aabox
+/// \brief Vector4 and its inline operators and helpers.
+///
+/// The BFME 1 header this project compiles, identical to Zero Hour's apart
+/// from the copyright line. Every function in it is inline. Besides the
+/// class, it defines free helpers such as Swap(Vector4 &, Vector4 &),
+/// Normalize and Lerp, and the scalar and vector arithmetic operators.
+
+
+/// \class Matrix4
+/// \ingroup grp_w1_wwmath_matrix4_aabox
+/// \brief A general 4x4 float matrix stored as four Vector4 rows: W3D's type
+///        for projection matrices and full Direct3D transforms.
+///
+/// Matrix3D, the engine's everyday transform, is a 3x4 affine matrix whose
+/// implied fourth row is (0, 0, 0, 1). Matrix4 is the full 4x4 form, needed
+/// wherever that last row is not fixed: perspective projections, texture
+/// projection matrices and the matrices the renderer passes to Direct3D. It
+/// is a plain value type of 16 floats with no virtual functions, and
+/// callers copy it freely.
+///
+/// \par Conventions
+/// operator[] returns row i, so m[i][j] is row i, column j. Points are
+/// column vectors: multiplying by a Vector4 takes the dot product of each
+/// row with the vector, and the translation is in column 3, as in Matrix3D.
+/// Matrix4::Multiply(A, B, res) computes A times B, so B is applied to a
+/// point first.
+///
+/// \par Where BFME 2 uses it
+/// Matched retail functions that take or return a Matrix4 include
+/// CameraClass::Get_Projection_Matrix and
+/// CameraClass::Get_D3D_Projection_Matrix; DX8Wrapper::Set_Transform,
+/// DX8Wrapper::Get_Transform and
+/// DX8Wrapper::Set_Projection_Transform_With_Z_Bias; the texture mappers'
+/// Calculate_Texture_Matrix overrides; Build_Matrix4 and Build_Quaternion;
+/// VectorProcessorClass::Transform; and
+/// FXShaderParameterSourceNamespaceSAS::SetShadowMapInfo.
+///
+/// \par Header inlines
+/// Most of the class is inline in matrix4.h: the constructors, Init_Ortho
+/// and Init_Perspective, Transpose, the arithmetic operators and Inverse.
+/// Inverse is a Gauss-Jordan elimination with partial pivoting built on the
+/// Vector4 row operations, so it inherits the Vector4 operator-= quirk
+/// described on the Vector4 page. Whether retail BFME 2 reaches that inline
+/// has not been established.
+///
+/// \par Name
+/// The BFME 1 headers this project compiles call the class Matrix4, the
+/// name original Generals used; Zero Hour renamed it Matrix4x4 (a note in
+/// camera.h records this). matrix4.h
+/// and camera.h add a typedef so the Zero Hour spelling still compiles,
+/// which is why both names appear in the source. Matrix4D (matrix4d.h) is a
+/// separate class.
+///
+/// \see Vector4, Matrix4::Multiply(const Matrix4 &, const Matrix4 &, Matrix4 *)
+
+
+/// \fn void Matrix4::Multiply(const Matrix4 &A, const Matrix4 &B, Matrix4 *set_result)
+/// \brief Multiplies two 4x4 matrices into a caller-supplied result: result
+///        = A times B.
+///
+/// The "without temporaries" form of matrix multiplication: the caller
+/// provides the destination, so no Matrix4 is returned by value. In BFME 2
+/// the FX shader parameter sources for the Sas Skeleton namespace use it:
+/// MeshToJointToView is the view matrix times the world matrix, and
+/// MeshToJointToProjection multiplies the projection matrix by that
+/// product. Both read their inputs back from DX8Wrapper::Get_Transform.
+///
+/// \par Implementation
+/// Each of the 16 result elements is the dot product of a row of A with a
+/// column of B, fully unrolled. Results are written straight into
+/// set_result while A and B are still being read.
+///
+/// \param A          Left operand.
+/// \param B          Right operand; it is applied to a point first.
+/// \param set_result [out] Receives the product. It must not be A or B.
+///
+/// \warning The source asserts that set_result differs from A and from B,
+///          but the build this project reproduces defines NDEBUG, so
+///          nothing checks it. Passing an operand as the result reads
+///          partly overwritten values and gives a wrong product.
+/// \see Matrix4::Multiply(const Matrix3D &, const Matrix4 &, Matrix4 *),
+///      Matrix4::Multiply(const Matrix4 &, const Matrix3D &, Matrix4 *)
+
+
+/// \fn void Matrix4::Multiply(const Matrix3D &A, const Matrix4 &B, Matrix4 *set_result)
+/// \brief Multiplies an affine Matrix3D by a Matrix4: result = A times B,
+///        with A's implied last row (0, 0, 0, 1).
+///
+/// Used to put an ordinary transform in front of a projection without
+/// first widening it to a Matrix4. In BFME 2 the shadow-map code (a routine
+/// still named by its address) builds its world-to-shadow-texture matrix
+/// this way: a Matrix3D that scales and offsets clip coordinates into
+/// texture coordinates, times a camera matrix from a CameraClass method that
+/// is not yet identified. The reconstruction's comment reads that matrix as
+/// the camera's Direct3D projection combined with its view transform; that
+/// is not yet verified. The result goes to
+/// FXShaderParameterSourceNamespaceSAS::SetShadowMapInfo.
+///
+/// \par Implementation
+/// The first three result rows are full row-by-column products. The fourth
+/// row of A is (0, 0, 0, 1), so the fourth result row is a copy of B's
+/// fourth row.
+///
+/// \param A          Affine left operand.
+/// \param B          Right operand.
+/// \param set_result [out] Receives the product. It must not be B; nothing
+///                   checks this in the retail build.
+/// \see Matrix4::Multiply(const Matrix4 &, const Matrix4 &, Matrix4 *)
+
+
+/// \fn void Matrix4::Multiply(const Matrix4 &A, const Matrix3D &B, Matrix4 *set_result)
+/// \brief Multiplies a Matrix4 by an affine Matrix3D: result = A times B,
+///        with B's implied last row (0, 0, 0, 1).
+///
+/// The mirror of the Matrix3D-first overload, for a projection applied
+/// after an ordinary transform. Its BFME 2 callers have not been
+/// identified. Zero Hour: TexProjectClass and the decal system use it to combine a
+/// projection with a world-to-texture transform, and this source tree has
+/// the same calls in code that is not yet matched.
+///
+/// \par Implementation
+/// Columns 0 to 2 of the result use three terms per element, because B's
+/// fourth row is zero there. Column 3 adds A's fourth-column element, which
+/// stands for B's implied 1.
+///
+/// \param A          Left operand.
+/// \param B          Affine right operand; it is applied to a point first.
+/// \param set_result [out] Receives the product. It must not be A; nothing
+///                   checks this in the retail build.
+/// \see Matrix4::Multiply(const Matrix4 &, const Matrix4 &, Matrix4 *)
+
+
+/// \fn int operator==(const Matrix4 &a, const Matrix4 &b)
+/// \brief Reports whether two matrices hold bit-for-bit identical elements.
+///
+/// Declared as a friend of Matrix4. operator!= is defined as its negation,
+/// in its own source file, and is the one caller identified in BFME 2.
+///
+/// \par Implementation
+/// The 16 floats of each matrix are read as 32-bit unsigned integers, the
+/// XOR of each pair is ORed into an accumulator, and the result is 1 when
+/// the accumulator is zero. This compares bit patterns, not values: 0.0 and
+/// -0.0 compare unequal, and two NaNs with the same bits compare equal.
+///
+/// \param a First matrix.
+/// \param b Second matrix.
+/// \return 1 if all 16 elements have identical bit patterns, otherwise 0.
+///
+/// \par Remastering
+/// The comparison relies on float and unsigned int both being 32 bits, which
+/// holds on all mainstream targets, including 64-bit ones. It also reads the
+/// floats through an unsigned int pointer cast, which breaks C++
+/// strict-aliasing rules. A port built with GCC or Clang optimisation should
+/// use memcpy or std::bit_cast, or build with -fno-strict-aliasing.
+
+
+/// \class Vector4
+/// \ingroup grp_w1_wwmath_matrix4_aabox
+/// \brief Four floats, X, Y, Z and W: W3D's type for homogeneous points,
+///        plane equations and colours with alpha.
+///
+/// A plain value type with public members and no virtual functions; all of
+/// it is inline in vector4.h. Matrix4 stores its rows as Vector4. The
+/// header's Matrix4 products with Vector3 and Vector4 return one, and
+/// matched BFME 2 functions use it for homogeneous results
+/// (VectorProcessorClass::Transform), for triangle plane equations
+/// (MeshGeometryClass::Compute_Plane_Equations) and for colours with alpha
+/// (LineGroupClass::Get_Tail_Diffuse, StreakLineClass::Set_Colors).
+///
+/// \warning In vector4.h, as compiled here and as in Zero Hour, operator-=
+///          subtracts X, Y and Z but adds W. The binary operator- is
+///          correct. Code that uses -= on a Vector4, such as the inline
+///          Matrix4::Inverse, inherits this.
+/// \see Matrix4
+
+
+/// \fn Vector4 & Vector4::operator/=(float k)
+/// \brief Divides all four components by k, by multiplying them by 1/k.
+///
+/// An inline in vector4.h. The header's Matrix4::Inverse uses it to scale
+/// each pivot row. Retail holds one out-of-line copy of it at the start of
+/// the matrix4.cpp code, and no retail call reaches that copy.
+/// matrix4.cpp reproduces it.
+///
+/// \par Implementation
+/// One reciprocal, then four multiplies. Because it multiplies by the
+/// reciprocal, the results can differ in the last bit from dividing each
+/// component. A k of zero gives infinities or NaNs; nothing checks it.
+///
+/// \param k Divisor.
+/// \return This vector.
+/// \see Swap(Vector4 &, Vector4 &)
+
+
+/// \fn void Swap(Vector4 &a, Vector4 &b)
+/// \brief Exchanges the contents of two vectors through a temporary copy.
+///
+/// An inline free function in vector4.h. The header's Matrix4::Inverse uses
+/// it to swap the pivot row into place. As with Vector4::operator/=, retail
+/// holds one out-of-line copy at the start of the matrix4.cpp code that no
+/// retail call reaches, and matrix4.cpp reproduces it.
+///
+/// \param a [in,out] First vector.
+/// \param b [in,out] Second vector.
+
+
+/// \class AABoxClass
+/// \ingroup grp_w1_wwmath_matrix4_aabox
+/// \brief Axis-aligned bounding box stored as a centre and a half-size.
+///
+/// Center is the middle of the box and Extent the distance from the centre
+/// to the faces along X, Y and Z, so the box spans Center - Extent to
+/// Center + Extent. It is a plain value type with public members.
+///
+/// This is the box form most of W3D works with. In matched BFME 2 code,
+/// render objects report their bounds as one
+/// (MeshClass::Get_Obj_Space_Bounding_Box, ParticleBufferClass and others),
+/// CullableClass::Set_Cull_Box and GridCullSystemClass take one for culling,
+/// and the CollisionMath Overlap_Test, Intersection_Test and Collide
+/// overloads test boxes against points, line segments, planes, spheres,
+/// triangles, frustums, oriented boxes and other boxes.
+///
+/// To build a box from scattered points, accumulate them in a
+/// MinMaxAABoxClass and convert it, or use the Init and Add_Point members
+/// defined in aabox.h. The member Transform(const Matrix3D &) transforms a box in
+/// place; the static AABoxClass::Transform writes to a separate box.
+///
+/// \see MinMaxAABoxClass
+
+
+/// \fn void AABoxClass::Init_Random(float min_center, float max_center, float min_extent, float max_extent)
+/// \brief Sets the box to a random centre and size.
+///
+/// Each of the three centre coordinates is drawn independently between
+/// min_center and max_center, and each extent between min_extent and
+/// max_extent. The header supplies defaults: centre -1 to 1, extent 0.5 to
+/// 1. No caller has been identified in BFME 2, and Zero Hour has none
+/// either.
+///
+/// \par Implementation
+/// Each value is the minimum plus WWMath::Random_Float times the range.
+/// Random_Float is the C runtime rand() reduced to 4,096 steps between 0
+/// and 1, not the game's deterministic logic random generator.
+///
+/// \param min_center Smallest value for each centre coordinate.
+/// \param max_center Largest value for each centre coordinate.
+/// \param min_extent Smallest half-size on each axis.
+/// \param max_extent Largest half-size on each axis.
+
+
+/// \fn static void AABoxClass::Transform(const Matrix3D &tm, const AABoxClass &in, AABoxClass *out)
+/// \brief Computes the smallest axis-aligned box that encloses a box after
+///        an affine transform.
+///
+/// A rotated box is no longer axis-aligned, so the result is the
+/// axis-aligned box that encloses it. The work is done by
+/// Matrix3D::Transform_Center_Extent_AABox.
+///
+/// \par Implementation
+/// The new centre is tm applied to the old centre. Each new extent
+/// component is the sum, over the three input axes, of the absolute value
+/// of the matrix element times the input extent: the projection of the
+/// rotated box onto that axis.
+///
+/// \param tm  Affine transform to apply.
+/// \param in  Box to transform.
+/// \param out [out] Receives the enclosing box. It must not be in, because
+///            the centre and extent are written while in is still being
+///            read; the member Transform(const Matrix3D &) copies the box
+///            first for that reason.
+/// \see MinMaxAABoxClass
+
+
+/// \class MinMaxAABoxClass
+/// \ingroup grp_w1_wwmath_matrix4_aabox
+/// \brief Axis-aligned bounding box stored as its minimum and maximum
+///        corners, for accumulating points.
+///
+/// MinCorner and MaxCorner are public. Growing this form by a point or a
+/// box is a componentwise minimum and maximum, which is cheaper than
+/// updating a centre and extent, so code builds bounds here and converts
+/// them to an AABoxClass at the end. The other members, Init, Add_Point,
+/// Add_Box, Transform and Translate, are defined in aabox.h.
+///
+/// In BFME 2, W3DTerrainBackground::doTesselatedUpdate follows exactly this
+/// pattern: it calls MinMaxAABoxClass::Init_Empty, adds the world position
+/// of every terrain sample in its patch, and stores the result in its
+/// AABoxClass bounds. Zero Hour: AABTreeCullSystemClass also uses empty
+/// boxes when it evaluates partition splits.
+///
+/// \see AABoxClass
+
+
+/// \fn void MinMaxAABoxClass::Init_Empty(void)
+/// \brief Makes the box empty, so the first point added becomes both
+///        corners.
+///
+/// \par Implementation
+/// MinCorner is set to FLT_MAX on every axis and MaxCorner to -FLT_MAX, an
+/// inverted box that Add_Point, or Add_Box with a non-degenerate box,
+/// replaces (Add_Box skips zero-size boxes).
+///
+/// \warning Converting a box that is still empty to an AABoxClass gives a
+///          meaningless box: a centre of zero and a negative extent (minus
+///          infinity, or -FLT_MAX if the arithmetic is done at higher
+///          precision). Add at least one point first.
+
+
+/// \struct CollisionMath::ColmathStatsStruct
+/// \ingroup grp_w1_wwmath_matrix4_aabox
+/// \brief Counters for the CollisionMath tests: how many of each kind ran
+///        and how many hit.
+///
+/// It holds a total and a total-hit count, then a count and a hit count for
+/// each of ray against triangle, AABox against triangle, AABox against
+/// AABox, OBBox against triangle, OBBox against AABox and OBBox against
+/// OBBox. There is one instance, the static CollisionMath::Stats. Two
+/// inline accessors in colmath.h, Reset_Stats and Get_Current_Stats, clear
+/// it and return it (the same accessors as in Zero Hour).
+///
+/// The collision routines update it through macros in colmath.h that do
+/// something only when WWDEBUG is defined. The build this project
+/// reproduces does not define it, and matched routines such as the line
+/// segment against triangle CollisionMath::Collide contain no counter
+/// updates, so in retail BFME 2 the counters stay zero.
+///
+/// \note Even in a debug build, the ray-against-triangle hit macro names
+///       the total hit count without incrementing it, so ray hits never
+///       reach the total. The same code is in Zero Hour.
+
+
+/// \fn CollisionMath::ColmathStatsStruct::ColmathStatsStruct(void)
+/// \brief Creates the statistics block with every counter at zero.
+///
+/// It calls CollisionMath::ColmathStatsStruct::Reset. The static
+/// CollisionMath::Stats in colmath.cpp is built with it during static
+/// initialisation, before WinMain runs.
+
+
+/// \fn void CollisionMath::ColmathStatsStruct::Reset(void)
+/// \brief Sets all fourteen counters to zero.
+///
+/// The constructor calls it, and colmath.h's inline Reset_Stats accessor
+/// calls it on the single static instance.
+
+
+/// \fn int Find_POT(int val)
+/// \brief Rounds a positive size up to the nearest power of two; a power of
+///        two is returned unchanged.
+///
+/// In BFME 2, DX8Wrapper::Create_Render_Target uses it to make every render
+/// target square: it takes the smaller of the requested width and height
+/// (the width alone when the height is not positive), rounds it up with
+/// Find_POT and clamps it to the device's maximum texture width and height. The ParticleBufferClass Reset functions for colours,
+/// opacity, size, rotation, frames and blur times size their randomiser
+/// tables as Find_POT of the buffer's maximum particle count, capped at a
+/// fixed 32 entries.
+///
+/// \par Implementation
+/// The loop shifts val right one bit at a time, remembering the position of
+/// the highest set bit and how many bits were set. With at most one bit set
+/// it returns 1 shifted by that position; otherwise it returns the next
+/// power of two above the highest bit.
+///
+/// \param val Size to round. It must be positive.
+/// \return The smallest power of two that is at least val. Zero gives 1.
+///
+/// \warning A negative val never terminates: the right shift is signed, so
+///          the value never reaches zero. A val above 2^30 that is not a
+///          power of two overflows to a negative result.
+/// \par Remastering
+/// The square, power-of-two render targets come from the caller, not from
+/// this function. A backend that supports other sizes would change
+/// DX8Wrapper::Create_Render_Target.
+/// \see Find_POT_Log2
+
+
+/// \fn unsigned int Find_POT_Log2(unsigned int val)
+/// \brief Returns the exponent of the power of two that Find_POT would
+///        return: log2 of val, rounded up.
+///
+/// Retail BFME 2 keeps the function, but no caller has been identified, and
+/// nothing in this source tree or in Zero Hour calls it.
+///
+/// \par Implementation
+/// The same bit scan as Find_POT, returning the position instead of the
+/// power. Because val is unsigned, the loop always ends.
+///
+/// \param val Value to measure.
+/// \return The highest set bit's position for a power of two, that plus
+///         one otherwise. Both 0 and 1 give 0, and values above 2^31 that
+///         are not powers of two give 32.
+/// \see Find_POT

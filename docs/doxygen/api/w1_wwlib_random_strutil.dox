@@ -1,0 +1,494 @@
+/// \defgroup grp_w1_wwlib_random_strutil WWLib random numbers and C-string helpers
+/// \ingroup grp_wwlib_thirdparty
+/// \brief Westwood's four small random-number generators, the template
+///        that draws a number in a range from any of them, and five
+///        C-string and integer helpers: strtrim, wcstrim, strtok_r, nstrdup
+///        and the GCD and LCM functions.
+///
+/// All of this is general-purpose WWLib code with no game rules in it. Every
+/// function documented here is a matched ledger row whose body is Zero
+/// Hour's WWLib source. The one change is in nstrdup: its allocation passes
+/// the tag 'str' through the tagged array operator new. Plain new[] reaches
+/// the same game allocator with no tag. BFME 2's tree has no copy of the
+/// declaring headers: its units compile against the Open-BFME-1 reference
+/// copies of random.h, trim.h, strtok_r.h and gcd_lcm.h.
+///
+/// Who uses it in BFME 2, from the matched callers unless noted:
+/// - Random3Class and Random4Class feed W3D presentation code: particle
+///   buffers, randomised texture mappers, the WWMath Vector3Randomizer
+///   shapes, and the jitter on segment lines and streaks. RandomClass and
+///   Random2Class have no named direct caller so far.
+/// - Particle emitters reach Random3Class only indirectly, through their
+///   Vector3Randomizer creation volumes (virtual Get_Vector calls, read from
+///   source rather than from matched callers).
+/// - strtrim and nstrdup serve WWLib's INIClass (Westwood's own INI reader),
+///   and both trim functions serve Read_Line. strtok_r splits GameSpy chat
+///   commands and the lobby game-options string. Greatest_Common_Divisor is
+///   used by the W3D particle emitter.
+///
+/// These generators are not the logic random-number generator. The values
+/// that must agree on every machine in a lockstep game come from
+/// GetGameLogicRandomValue and GetGameLogicRandomValueReal. Those, like the
+/// client and audio variants, draw from randomValue, a separate multi-word
+/// add-with-carry generator, and never from these classes.
+/// \ref sub_wwlib_thirdparty describes the rest of WWLib.
+///
+/// \par Modding
+/// - Nothing here is data-driven. The generators have fixed algorithms. Their
+///   shared instances (in Vector3Randomizer, ParticleBufferClass and
+///   mapper.cpp) are default-constructed and never reassigned in the
+///   reconstructed source, so their seeds are fixed.
+/// - Apart from Random2Class's own constructor, every matched caller of the
+///   generators is W3D or WWMath rendering code. As far as traced, their
+///   values change only what is drawn and are not part of the lockstep or
+///   CRC state. That covers only the direct, named callers found so far:
+///   calls through virtual functions and from unnamed code have not all
+///   been traced.
+/// - Westwood INI text, such as the texture-mapper arguments stored in a W3D
+///   vertex material, is trimmed by strtrim. Characters 1 to 32 (control
+///   characters and space) count as blanks, and bytes from 128 up do not.
+///
+/// \par Remastering
+/// - The generators are portable C++ with no platform calls. Random3Class
+///   does its arithmetic in signed int. It relies on overflow wrapping at
+///   32 bits and on right shifts of negative values sign-extending, which
+///   MSVC provides. A port that wants the same sequences should do that
+///   arithmetic in unsigned 32-bit and emulate the sign-extending shifts.
+/// - strtok_r is compiled only when _UNIX is not defined, because POSIX C
+///   libraries already provide a function with this name.
+
+/// \file WWVegas/WWLib/random.h
+/// \ingroup grp_w1_wwlib_random_strutil
+/// \brief WWLib's random-number header: the four generator classes and the
+///        Pick_Random_Number template.
+///
+/// BFME 2 has no copy of this header. Its units compile against the
+/// Open-BFME-1 reference copy, which is listed here only so that the
+/// declarations can be documented. The reference copy matches Zero Hour's
+/// RANDOM.H apart from comments and Random3Class's constructor. That
+/// constructor is defined inline in the class, and a unit can ask for an
+/// out-of-line call instead, because BFME 1 retail inlines it in some units
+/// and calls it in others. In BFME 2, seglinerenderer.cpp requests the
+/// out-of-line call.
+/// Each class's SIGNIFICANT_BITS value tells Pick_Random_Number how many
+/// low bits of a draw are random: 15 for RandomClass and 32 for the others.
+
+/// \file WWVegas/WWLib/random.cpp
+/// \ingroup grp_w1_wwlib_random_strutil
+/// \brief Bodies of the WWLib random-number classes, plus the four explicit
+///        instantiations of Pick_Random_Number that retail contains.
+///
+/// The class declarations and the Pick_Random_Number template are in WWLib's
+/// random.h, which BFME 2 takes from the Open-BFME-1 reference tree. Each
+/// member operator()(int, int) is a one-line wrapper around its own class's
+/// Pick_Random_Number instantiation. That call is also how those four
+/// look-alike wrappers were told apart in retail.
+/// RandomClass's constructor is not defined here: no out-of-line copy of it
+/// has been found in retail so far.
+
+/// \class RandomClass
+/// \ingroup grp_w1_wwlib_random_strutil
+/// \brief The smallest WWLib generator: a 32-bit linear congruential
+///        generator that returns 15-bit values (0 to 32767).
+///
+/// Reading the object as an int (its operator int) or calling it
+/// draws the next value. Constructing or assigning it from a number sets
+/// the seed. Its whole state is one 32-bit seed, so it is cheap to copy and
+/// to restore. Each step multiplies the seed by 1103515245 and adds 12345,
+/// the constants of the classic C library rand(), and returns bits 10 to 24
+/// of the result.
+///
+/// No named BFME 2 function calls its members directly so far.
+/// Pick_Random_Number for this class has the step compiled in.
+///
+/// \note Zero Hour's notes in random.cpp record that this generator failed
+///       almost all of the DIEHARD statistical tests. Use it only where
+///       quality does not matter.
+/// \see Random2Class, Random3Class, Random4Class, Pick_Random_Number
+
+/// \fn int RandomClass::operator()(void)
+/// \brief Advances the seed one step and returns the next 15-bit value.
+///
+/// The seed becomes seed * 1103515245 + 12345, wrapping at 32 bits. The
+/// return value is that new seed shifted right by 10 bits and masked to the
+/// class's 15 significant bits, so it is never negative.
+/// \return A value from 0 to 32767.
+/// \see RandomClass::operator()(int, int)
+
+/// \fn int RandomClass::operator()(int minval, int maxval)
+/// \brief Returns a value from minval to maxval inclusive. It forwards to
+///        Pick_Random_Number for this class.
+/// \param minval One end of the range (inclusive).
+/// \param maxval The other end of the range (inclusive). The two ends may be
+///               given in either order.
+/// \return A value in the range.
+/// \warning With only 15 significant bits, ranges wider than 32767 are not
+///          covered. See Pick_Random_Number.
+
+/// \class Random2Class
+/// \ingroup grp_w1_wwlib_random_strutil
+/// \brief A fast 32-bit generator that XORs table entries: the R250
+///        shift-register construction over a 250-entry table.
+///
+/// The object holds the table and two read positions 103 entries apart, so
+/// one instance is about 1 KB. Each draw is one XOR and two index
+/// increments, with no multiplication. The constructor fills the table from
+/// a Random3Class seeded with the caller's seed. Reading the object as an int
+/// draws the next value.
+///
+/// No named BFME 2 function calls its members directly so far. Zero Hour's
+/// WWLib uses it inside its CRandom and RandomStringClass helpers.
+///
+/// \note Zero Hour's header warns that the sequence breaks down in about
+///       64 dimensions. Its random.cpp notes say it passed the DIEHARD tests
+///       but repeats with a short period, with a large spike at 300,000
+///       samples in 64 dimensions in the Monte Carlo tests.
+/// \see Random3Class, Pick_Random_Number
+
+/// \fn Random2Class::Random2Class(unsigned seed)
+/// \brief Seeds the 250-entry table from a Random3Class built with the
+///        given seed, and sets the two read positions to 0 and 103.
+///
+/// The table is filled with the first 250 outputs of
+/// Random3Class(seed, 0). Equal seeds therefore always give the same
+/// sequence. The default seed is 0.
+/// \param seed Seed for the Random3Class that fills the table.
+/// \see Random2Class::operator()(void)
+
+/// \fn int Random2Class::operator()(void)
+/// \brief Returns the next 32-bit value: the entry at the first position,
+///        after it has been XORed with the entry 103 places ahead.
+///
+/// The first entry keeps the XOR result, so the table evolves as it is read.
+/// Both positions then advance and wrap at 250. Any 32-bit pattern can come
+/// out, including negative values.
+/// \return The new table entry, any int value.
+
+/// \fn int Random2Class::operator()(int minval, int maxval)
+/// \brief Returns a value from minval to maxval inclusive. It forwards to
+///        Pick_Random_Number for this class.
+/// \param minval One end of the range (inclusive).
+/// \param maxval The other end of the range (inclusive).
+/// \return A value in the range.
+
+/// \class Random3Class
+/// \ingroup grp_w1_wwlib_random_strutil
+/// \brief A counter-based 32-bit generator: each value is a four-round
+///        hash of a fixed seed and a running index.
+///
+/// The state is two ints: the seed, which never changes, and an index that
+/// goes up by one per draw. The n-th value therefore depends only on
+/// (seed, n), so a stream can be restarted or repositioned exactly by
+/// building a new object with the same two numbers. The constructor is
+/// inline in random.h, and both arguments default to 0.
+///
+/// BFME 2 users, from matched callers:
+/// - Vector3Randomizer keeps one shared static Random3Class. The WWMath
+///   randomizer shapes (solid box, solid sphere, hollow sphere and solid
+///   cylinder) draw from it.
+/// - SegLineRendererClass::subdivision_util and
+///   StreakRendererClass::subdivision_util create a local, default-seeded
+///   Random3Class and use it when the line's random offsets are frozen.
+///   The frozen jitter therefore repeats exactly from call to call.
+///   Otherwise they draw from the shared randomizer.
+/// - Random2Class's constructor uses one to fill its table.
+///
+/// \note Zero Hour's notes in random.cpp record 11 failed DIEHARD tests out
+///       of 253 and strong bias from two dimensions up, although the header
+///       describes the output as approaching cryptographic quality.
+/// \see Random2Class, Pick_Random_Number
+
+/// \fn int Random3Class::operator()(void)
+/// \brief Hashes (seed, index) into a 32-bit value and advances the index.
+///
+/// The low word starts as the seed and the high word as the index. Four
+/// rounds then each mix the high word with a constant from the static
+/// Mix1 table: the 16-bit halves are squared, the result is half-swapped
+/// and combined with a constant from Mix2, and the words trade places. The
+/// final high word is returned.
+///
+/// \par Implementation
+/// The round structure and the first four entries of Mix1 and Mix2 match
+/// the "pseudo-DES" hash published in Numerical Recipes (psdes). The
+/// tables hold 20 entries each, but only the first four are read. The
+/// arithmetic is done in signed int, so the right shifts sign-extend
+/// negative values. The output therefore differs from the textbook
+/// unsigned version. Keep that in mind when porting or checking it
+/// against a reference.
+/// \return Any int value.
+
+/// \fn int Random3Class::operator()(int minval, int maxval)
+/// \brief Returns a value from minval to maxval inclusive. It forwards to
+///        Pick_Random_Number for this class.
+/// \param minval One end of the range (inclusive).
+/// \param maxval The other end of the range (inclusive).
+/// \return A value in the range.
+
+/// \class Random4Class
+/// \ingroup grp_w1_wwlib_random_strutil
+/// \brief A Mersenne Twister (MT19937) generator: 624 words of state, 32-bit
+///        output, and a floating-point helper.
+///
+/// This is WWLib's best-quality generator. Its BFME 2 users, from matched
+/// callers:
+/// - ParticleBufferClass keeps a file-static instance. Its Reset_Colors,
+///   Reset_Opacity, Reset_Size, Reset_Rotations, Reset_Frames and
+///   Reset_Blur_Times functions fill the per-buffer tables of random
+///   variation from it.
+/// - mapper.cpp's global instance drives RandomTextureMapperClass through
+///   Random4Class::Get_Float. It sets a random rotation and centre each time
+///   the mapper re-randomises.
+///
+/// Both instances are default-constructed at static-initialisation time, so
+/// they start from the same seed in every run.
+///
+/// \note Zero Hour's notes in random.cpp record that it passed the DIEHARD
+///       tests and the Monte Carlo tests up to 96 dimensions. The header warns
+///       that it is not for cryptography.
+/// \see Random4Class::Get_Float, Pick_Random_Number
+
+/// \fn Random4Class::Random4Class(unsigned int seed)
+/// \brief Fills the 624-word state from one seed, using the original 1998
+///        Mersenne Twister seeding.
+///
+/// The first word is the seed. Each following word is the previous word
+/// times 69069, wrapping at 32 bits. The index is left at 624, so the first
+/// draw regenerates the whole block.
+/// \param seed Starting seed. The default argument in random.h is 4357. A
+///             seed of 0 is replaced by 4375, not 4357, so
+///             Random4Class(0) and Random4Class() give different sequences.
+///
+/// \par Remastering
+/// Swapping in std::mt19937 does not reproduce these sequences. Generation
+/// and tempering are the standard MT19937 steps, but std::mt19937 seeds with
+/// the later recurrence (multiplier 1812433253), not this one.
+/// \see Random4Class::operator()(void)
+
+/// \fn int Random4Class::operator()(void)
+/// \brief Returns the next tempered 32-bit Mersenne Twister output.
+///
+/// When all 624 words have been used, the whole block is regenerated at
+/// once with the standard MT19937 twist. The next word
+/// is then tempered with the standard shifts and masks, and its bits are
+/// returned unchanged as an int.
+/// \return Any int value. The bit pattern is uniformly distributed over 32
+///         bits.
+/// \see Random4Class::Get_Float
+
+/// \fn int Random4Class::operator()(int minval, int maxval)
+/// \brief Returns a value from minval to maxval inclusive. It forwards to
+///        Pick_Random_Number for this class.
+/// \param minval One end of the range (inclusive).
+/// \param maxval The other end of the range (inclusive).
+/// \return A value in the range.
+
+/// \fn float Random4Class::Get_Float()
+/// \brief Returns the next output scaled to the range 0 to 1.
+///
+/// The next 32-bit output is read as unsigned and multiplied by the float
+/// constant 1/(2^32 - 1), which as a float is exactly 2^-32.
+/// RandomTextureMapperClass is the matched caller: it uses the
+/// result for its random rotation angle and texture centre.
+/// \return A float from 0 to 1. A float keeps only 24 significant bits, so
+///         the largest outputs round to exactly 1.0. Do not treat the upper
+///         bound as exclusive.
+
+/// \fn template<class T> int Pick_Random_Number(T &generator, int minval, int maxval)
+/// \brief Draws a value from minval to maxval inclusive from any WWLib
+///        generator, by masking and rejection.
+///
+/// One template, defined in random.h. BFME 2's random.cpp explicitly
+/// instantiates it for RandomClass, Random2Class, Random3Class and
+/// Random4Class. Retail contains all four copies, and the only named caller
+/// of each is its own class's member operator()(int, int). In the RandomClass
+/// and Random2Class copies the generator step is compiled in. The other
+/// two call their generator.
+///
+/// \par Implementation
+/// - If minval equals maxval, that value is returned and the generator is
+///   not advanced. If the ends are reversed, they are swapped.
+/// - The magnitude is maxval - minval. The highest set bit of the magnitude
+///   is searched for, starting from the generator's top significant bit:
+///   bit 14 for RandomClass and bit 31 for the others. A mask with every bit
+///   up to the bit found is built.
+/// - The generator is read and masked until the result is no greater than
+///   the magnitude. The result is then added to minval. Each draw is
+///   accepted with probability above one half, so the loop runs fewer than
+///   two times on average. How many values it consumes varies, so the
+///   generator's position afterwards depends on the ranges requested.
+///
+/// \param generator The generator to read. It is advanced by one or more
+///                  draws, or by none when the range is a single value.
+/// \param minval    One end of the range (inclusive).
+/// \param maxval    The other end of the range (inclusive).
+/// \return A value from min(minval, maxval) to max(minval, maxval).
+///
+/// \warning For RandomClass (15 significant bits), the bit search sees only
+///          the low 15 bits of the magnitude, so a range wider than 32767
+///          is not covered. With minval 0, a maxval of 40000 gives only
+///          0 to 8191, and a maxval of 65536 gives only 0 or 1.
+/// \warning maxval - minval must fit in an int. Wider ranges overflow and
+///          are not handled.
+
+/// \file WWVegas/WWLib/trim.cpp
+/// \ingroup grp_w1_wwlib_random_strutil
+/// \brief strtrim and wcstrim: trim blanks from both ends of a C string in
+///        place.
+///
+/// Zero Hour's trim.cpp, unchanged. The declarations are in WWLib's trim.h.
+
+/// \fn char *strtrim(char *buffer)
+/// \brief Removes leading and trailing blanks from a narrow C string, in
+///        place.
+///
+/// Westwood's INI and line-reading code uses it to clean keys, values and
+/// lines. Matched callers include INIClass::Load(Straw&),
+/// INIClass::Get_String, INIClass::Strip_Comments, INIClass::Get_Point,
+/// INIClass::Get_Rect, INIClass::Get_UUBlock, INIClass::Get_Wide_String,
+/// INIClass::Put_TextBlock and the narrow Read_Line(Straw&, char*, int, bool&).
+///
+/// \par Implementation
+/// Any character whose unsigned value is 1 to 32 counts as a blank. That
+/// covers space, tab, carriage return, line feed and the other control
+/// characters. Leading blanks are skipped, and the rest of the string is
+/// copied down to the start of the buffer with strcpy. Trailing blanks are
+/// then overwritten with terminators, working back from the end.
+///
+/// \par Retail quirk
+/// After the shift, the trailing pass keeps going only while the character
+/// at index k is not a terminator, where k is the number of leading blanks
+/// removed. If the trimmed text is shorter than k and the shifted string is
+/// at least k characters long, the pass clears index k and stops, leaving
+/// k minus the text length trailing blanks. If the shifted string is exactly
+/// k long, nothing is cleared. If it is shorter than k, index k still holds
+/// the old first non-blank character and trimming completes. Examples: two
+/// spaces, "a" and one space give "a" and one space; four spaces, "ab" and
+/// three spaces give "ab" and two spaces; five spaces, "a" and two spaces
+/// give "a" alone. Zero Hour has the same code.
+///
+/// \param buffer The string to trim. It is modified in place. Null is
+///               allowed and is returned unchanged.
+/// \return buffer.
+/// \see wcstrim
+
+/// \fn wchar_t *wcstrim(wchar_t *buffer)
+/// \brief Removes leading and trailing blanks from a wide C string, in place.
+///
+/// The wide-character twin of strtrim, with the same rules, the same use of
+/// wcscpy for the shift, and the same early-stop quirk. A blank is any
+/// character with a code from 1 to 32, so Unicode spaces such as U+00A0
+/// and U+3000 are kept. Its matched caller is the wide
+/// Read_Line(Straw&, wchar_t*, int, bool&).
+/// \param buffer The string to trim, modified in place. Null is allowed.
+/// \return buffer.
+/// \see strtrim
+
+/// \file WWVegas/WWLib/strtok_r.cpp
+/// \ingroup grp_w1_wwlib_random_strutil
+/// \brief strtok_r: a re-entrant string tokenizer for Windows builds.
+///
+/// Zero Hour's strtok_r.cpp, unchanged. The declaration is in WWLib's
+/// strtok_r.h. The body is compiled only when _UNIX is not defined.
+
+/// \fn char *strtok_r(char *strptr, const char *delimiters, char **lasts)
+/// \brief Returns the next token of a string. Unlike strtok, the scan
+///        position is kept in the caller's variable, not in a static.
+///
+/// Because the position lives in *lasts, two tokenizations can be
+/// interleaved, and a function that tokenizes can be called in the middle
+/// of another tokenization. The delimiter set may differ from call to call.
+/// Matched BFME 2 callers:
+/// - ParseAsciiStringToGameInfo reads the lobby game-options string. It
+///   splits the string into key=value pairs at ';', each pair at '=', the
+///   slot list at ':', and each slot's fields at ','.
+/// - The GameSpy peer thread's roomMessageCallback and playerMessageCallback
+///   split chat command messages at spaces.
+///
+/// \par Implementation
+/// Leading delimiters are skipped, so runs of delimiters count as one and an
+/// empty token is never returned: "a,,b" split at ',' gives two tokens, not
+/// three. The delimiter that ends a token is overwritten with a terminator,
+/// and *lasts is moved past it, or to the string's terminator after the last
+/// token.
+///
+/// \param strptr     The string to start tokenizing. It is modified in
+///                   place. Pass null to continue from *lasts.
+/// \param delimiters The characters that separate tokens.
+/// \param lasts      [in,out] The scan position, stored between calls. It
+///                   must not be null. On a continuing call, *lasts must
+///                   point into a string that an earlier call started.
+/// \return The next token, or null when only delimiters or nothing are
+///         left.
+
+/// \file WWVegas/WWLib/nstrdup.cpp
+/// \ingroup grp_w1_wwlib_random_strutil
+/// \brief nstrdup: copies a C string into a block from the engine's own
+///        allocator.
+///
+/// Zero Hour's nstrdup.cpp, with one BFME 2 change: the copy is allocated
+/// through the tagged array operator new, which forwards 'str' as the
+/// allocation tag. Both it and the plain array new go to the game allocator
+/// (memory class 2). Zero Hour: the plain new[] behind W3DNEWARRAY was
+/// itself routed to the game's dynamic memory allocator. As in Zero Hour,
+/// nstrdup has its own source file.
+
+/// \fn char *nstrdup(const char *str)
+/// \brief Returns a newly allocated copy of a C string, or null for a null
+///        input.
+///
+/// This is WWLib's strdup equivalent. The only difference is that the
+/// memory comes from operator new[], so it is released with delete[], not
+/// free. Callers:
+/// - INIClass: both Load overloads and both Save overloads keep a copy of
+///   the file name. Initialize, and Clear when it clears the whole file,
+///   store the placeholder file name &lt;unknown&gt;.
+/// - The W3D NamedPivotMapClass weight table, whose WeightInfoStruct copies
+///   its pivot name on assignment and frees it with delete[].
+///
+/// \par Implementation
+/// strlen + 1 bytes are allocated with the tagged array operator new, which
+/// passes the request to the game allocator with memory class 2 and the
+/// multi-character constant 'str' as the allocation tag. The string is then
+/// copied with strcpy. The allocation result is not checked for null.
+///
+/// \param str The string to copy. Null is allowed.
+/// \return The copy, owned by the caller (release with delete[]), or null
+///         when str is null.
+
+/// \file WWVegas/WWLib/gcd_lcm.cpp
+/// \ingroup grp_w1_wwlib_random_strutil
+/// \brief Greatest common divisor and least common multiple of two unsigned
+///        ints.
+///
+/// Zero Hour's gcd_lcm.cpp, unchanged. The declarations are in WWLib's
+/// gcd_lcm.h.
+
+/// \fn unsigned int Greatest_Common_Divisor(unsigned int a, unsigned int b)
+/// \brief Returns the greatest common divisor of a and b, using Euclid's
+///        algorithm.
+///
+/// The function recurses on (b, a mod b) until b is 0. A
+/// GCD of anything with 0 is the other number, and the GCD of 0 and 0 is 0.
+/// Least_Common_Multiple uses it. So does
+/// ParticleEmitterClass::Create_New_Particles: after a very long frame, it
+/// divides the particle buffer's size by the GCD of that size and the
+/// burst size. That gives the number of bursts in one full cycle, so whole
+/// cycles can be skipped instead of emitted.
+/// \param a First value.
+/// \param b Second value.
+/// \return The greatest common divisor.
+/// \see Least_Common_Multiple
+
+/// \fn unsigned int Least_Common_Multiple(unsigned int a, unsigned int b)
+/// \brief Returns the least common multiple of a and b, computed as
+///        a * b / GCD(a, b).
+///
+/// No named BFME 2 function calls it directly so far.
+/// \param a First value.
+/// \param b Second value.
+/// \return The least common multiple.
+/// \warning The product a * b is formed first and wraps at 32 bits, so the
+///          result is wrong whenever that product exceeds 4,294,967,295,
+///          even when the true LCM fits. If a and b are both 0, it
+///          divides by zero.
+/// \see Greatest_Common_Divisor
