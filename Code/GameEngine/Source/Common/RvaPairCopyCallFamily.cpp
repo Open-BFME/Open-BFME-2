@@ -16,7 +16,6 @@ struct VideoPair
 };
 
 void __stdcall Rva002ADCE1Worker(VideoPair *pair);
-void __stdcall Rva00525407Worker(VideoPair *pair);
 
 // Native 2BFA86 reads ECX for its hashtable bucket and count members.
 // The 30B 2BFCF5 wrapper must preserve this receiver while copying the pair.
@@ -40,8 +39,3 @@ public:
 
 // Rva000427195::rva003A37DC is defined with its retail-matched body in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarVideoMapErase.cpp (0x003A37DC).
 
-void __stdcall Rva005258F8(VideoPair pair)
-{
-	VideoPair tmp = pair;
-	Rva00525407Worker(&tmp);
-}
