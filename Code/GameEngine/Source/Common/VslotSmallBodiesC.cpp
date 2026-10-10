@@ -295,3 +295,10 @@ bool Rva0029C0A9::rva0029C0A9(int value)
 			return true;
 	return false;
 }
+
+// Installed table byte transfer. Native receiver-relative pointer load
+// and pointed byte read are established independently; original owner,
+// base relationship and field meanings are unknown.
+struct Rva00462735Field {char prefix[0x84];unsigned char byte;};
+class Rva00462735 {public:void rva00462735();private:char prefix[0xBE];unsigned char byte;};
+void Rva00462735::rva00462735() {byte=(*reinterpret_cast<Rva00462735Field **>(reinterpret_cast<unsigned int>(this)-0x1Cu))->byte;}
