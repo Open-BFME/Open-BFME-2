@@ -1,4 +1,6 @@
 // ?_FunctionAptActionImplementsOp@AptActionInterpreter@@CAXQAU1@QAULocalContextT@1@@Z
+// partial score=0.9961670519340422 date=2026-10-10
+// ?_FunctionAptActionImplementsOp@AptActionInterpreter@@CAXQAU1@QAULocalContextT@1@@Z
 // partial score=0.9958 date=2026-10-06
 // cl: /O2 /MD /EHsc
 // Active PC interpreter handlers, identified by explicit opcode fields in the
@@ -174,7 +176,7 @@ struct AptActionInterpreter
     bool setVariable(AptValue *, AptValue *, const EAStringC *, AptValue *, int=1, int=1, int=0);
     AptValue *getVariable(AptValue *, AptValue *, const EAStringC *, int=1, int=1, int=0);
     int doFSCommand(const char *,const char *);
-    __forceinline void stackPop(const int n) { return (stack.Pop(n)); }
+    __forceinline void stackPop(const int n) { return (stack.rva006E3AA0(n)); }
     void stackPushIndirect(AptValue *const);
 private:
 #define HANDLER(n) static void _FunctionAptAction##n(AptActionInterpreter *const,LocalContextT *const)
