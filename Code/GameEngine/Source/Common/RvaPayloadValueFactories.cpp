@@ -286,3 +286,14 @@ PanelFactoryResultView StrategicInGameUI::PlanningPhaseArmySelection::DetailsPan
  PanelFactoryResultView result=Clone(context);
  return result;
 }
+
+// Native 005FB29A: counted value return from matched 005FB22B, allocation12.
+class Rva005FB22B { public:
+ Rva005FB22B(const void *arg) throw();
+ virtual ~Rva005FB22B();
+ int m_ref; void *m_data;
+};
+RvaCloneResult<Rva005FB22B> Rva005FB29ACreate(const void *arg) {
+ return RvaCloneResult<Rva005FB22B>(new Rva005FB22B(arg));
+}
+
