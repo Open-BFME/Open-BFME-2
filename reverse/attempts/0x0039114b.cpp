@@ -1,6 +1,11 @@
 // ?update@PhysicsBehavior@@UAE?AW4UpdateSleepTime@@XZ
+// partial score=0.959828141783029 date=2026-10-10
+extern "C" void _ReadWriteBarrier();
+#pragma intrinsic(_ReadWriteBarrier)
+template<class T> static __forceinline T w5Operand(const T&v){return *(const volatile T*)&v;}
+// ?update@PhysicsBehavior@@UAE?AW4UpdateSleepTime@@XZ
 // partial score=0.95 date=2026-10-09
-// cl: /O1 /G7 /arch:SSE /Oy- /Ob2 /MD /EHsc /DNDEBUG
+// cl: /I. /O1 /G7 /arch:SSE /Oy- /Ob2 /MD /EHsc /DNDEBUG
 // stlport
 // BFME1 PhysicsBehaviorRva0029B4E0.cpp at donor9cbfb551 is the semantic
 // source for native completion390FAF. Primary constructor/xfer/callers
@@ -8,7 +13,7 @@
 // Original completion/rebound method names remain unasserted. Model bits
 //72/122/127/62/128 below are native masks; their names are not donor facts.
 #include <vector>
-#include "../../../../../Libraries/Include/Lib/Coord3D.h"
+#include "Code/Libraries/Include/Lib/Coord3D.h"
 
 class PhysicsModelBits {
  unsigned int words[19];
@@ -146,17 +151,16 @@ UpdateSleepTime PhysicsBehavior::update()
  }
  if(index>=points.size()) { rva00390FAF();return rva00390601(); }
  if(changed && obj->getDrawable()) obj->getDrawable()->rva00274176(false);
- const Coord3D &currentRef=points[index];
- const Coord3D *current=&currentRef;
+ int pointIndex=index;const Coord3D*base=*(const Coord3D*const volatile*)&points;const Coord3D*current=base+pointIndex;
  if(d->at41 && !d->at40 && index>0) {
   const Coord3D *previous=current-1;
-  float dz=current->z-previous->z;
-  float dy=current->y-previous->y;
-  float dx=current->x-previous->x;
+  float dz=*(const volatile float*)&current->z-*(const volatile float*)&previous->z;
+float dy=*(const volatile float*)&current->y-*(const volatile float*)&previous->y;
+float dx=*(const volatile float*)&current->x-*(const volatile float*)&previous->x;
   Vector3 direction;
   direction.Set(dx,dy,dz);
   if(bounces>0) direction.Z=TheGlobalData->gravity*d->at4C*100.0f;
-  float length2=direction.X*direction.X+direction.Y*direction.Y+direction.Z*direction.Z;
+  float length2=direction.Y*direction.Y+direction.X*direction.X+direction.Z*direction.Z;
   if(length2!=0.0f) {
    float inv=WWMath::Inv_Sqrt(length2);
    direction.X*=inv;direction.Y*=inv;direction.Z*=inv;
@@ -170,9 +174,7 @@ UpdateSleepTime PhysicsBehavior::update()
  const Coord3D *nextPoint;
  if(index<points.size()-1) nextPoint=&points[index+1];
  else {
-  coordCopy(&next,current);
-  coordScale(&next,2.0f);
-  coordSub(&next,obj->position.x,obj->position.y,obj->position.z);
+  Vector3 a(current->x,current->y,current->z),p(obj->position.x,obj->position.y,obj->position.z);a.X*=2.0f;a.Y*=2.0f;a.Z*=2.0f;a.X-=p.X;a.Y-=p.Y;a.Z-=p.Z;setVector((Vector3*)&next,a.X,a.Y,a.Z);
   nextPoint=&next;
  }
  obj->setNextPosition(nextPoint);

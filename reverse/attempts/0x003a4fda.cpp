@@ -1,14 +1,16 @@
 // ?update@StrafeAreaUpdate@@UAE?AW4UpdateSleepTime@@XZ
+// partial score=0.9054787782177982 date=2026-10-10
+// ?update@StrafeAreaUpdate@@UAE?AW4UpdateSleepTime@@XZ
 // partial score=0.88 date=2026-10-09
-// cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG /Ireference/shims/bfme2_ascii
+// cl: /I. /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG /Ireference/shims/bfme2_ascii
 // Target3A4FDA..3A538E and WB StrafeAreaUpdate.cpp:171/173 prove update.
 // Constructor3A4D23/initializer3A4F21 establish primary layout; update
 // operates on the secondary interface at10 (vtableC1B158 slot0).
 // BFME strafe module has no clean BF1/ZH source counterpart; recovered
 // initializer and WB/native control flow supply the structural guide.
-#include "../../../../../Libraries/Include/Lib/Coord3D.h"
+#include "Code/Libraries/Include/Lib/Coord3D.h"
 #include "ascii_string.h"
-#include "../../../Common/GameLogicObjectLookupView.h"
+#include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 enum CommandSourceType {CMD_FROM_AI=2};
 class AICommandInterface {public:void aiMoveToPosition(const Coord3D *,CommandSourceType);};
@@ -74,6 +76,9 @@ class Object:public Thing {public:
 };
 struct StrafeAreaUpdateModuleData {char pad[8];AsciiString weaponName;float radius,frequency,amplitude,slope,initialPhase;};
 struct StrafeDirection:public Coord3D {
+ __forceinline StrafeDirection scaled(float a) const {return StrafeDirection(x*a,y*a,z*a);}
+ __forceinline StrafeDirection plus(const StrafeDirection &v) const {return StrafeDirection(x+v.x,y+v.y,z+v.z);}
+
  StrafeDirection() {}
  __forceinline StrafeDirection(float a,float b,float c){x=a;y=b;z=c;}
  __forceinline Coord3D *coord(){return this;}
@@ -98,6 +103,22 @@ class WeaponStore {public:const WeaponTemplate *findWeaponTemplate(const AsciiSt
 class TerrainLogic {public:virtual void s0()=0;virtual void s1()=0;virtual void s2()=0;virtual void s3()=0;virtual void s4()=0;virtual void s5()=0;virtual float getGroundHeight(float,float,Coord3D *normal=0)=0;virtual void s7()=0;virtual void s8()=0;virtual void s9()=0;virtual void s10()=0;virtual void s11()=0;virtual void s12()=0;virtual void rvaSlot13(Coord3D *,const Coord3D *)=0;};extern TerrainLogic *TheTerrainLogic;
 extern "C" double sin(double);
 // ?update@StrafeAreaUpdate@@UAE?AW4UpdateSleepTime@@XZ present-unmatched
+#include <math.h>
+inline __declspec(noinline) float Coord3D::length() const
+{
+    return (float)sqrt(x * x + y * y + z * z);
+}
+inline __declspec(noinline) void Coord3D::normalize()
+{
+    float len = length();
+    if (len != 0.0f) {
+        float scale = 1.0f / len;
+        x *= scale;
+        y *= scale;
+        z *= scale;
+    }
+}
+
 UpdateSleepTime StrafeAreaUpdate::update() {
  const StrafeAreaUpdateModuleData *d=data;Object *obj=object;
  AIUpdateInterface *ai=obj->ai;
@@ -122,7 +143,7 @@ UpdateSleepTime StrafeAreaUpdate::update() {
    StrafeDirection perpendicular(direction.y,-direction.x,0.0f);
    phase+=d->frequency;
    float offset=(float)(sin(phase)*d->amplitude);
-   direction.scale(d->slope);firingPosition.add(direction);
+   firingPosition.add(direction.scaled(d->slope));
    perpendicular.scale(offset);firingPosition.add(perpendicular);
    firingPosition.z=TheTerrainLogic->getGroundHeight(firingPosition.x,firingPosition.y);
    TheWeaponStore->createAndFireTempWeapon(weapon,obj,firingPosition.coord());
