@@ -4,6 +4,15 @@
 // stlport
 #include <map>
 
+// map/set<int> internals otherwise instantiate the less<int>::operator()
+// COMDAT (one byte shape per TU flags); an explicit dllimport+forceinline
+// specialization takes those calls inline so this TU emits no external copy.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+bool less<int>::operator()(const int &a, const int &b) const
+{ return a < b; }
+}
+
 struct Rva00464431Element {Rva00464431Element();Rva00464431Element(const Rva00464431Element&);Rva00464431Element&operator=(const Rva00464431Element&);virtual void slot0();virtual void slot1();virtual ~Rva00464431Element();char bytes[4]; bool operator==(const Rva00464431Element&)const;};
 
 // Instantiate the recovered operation and its required template dependencies.
