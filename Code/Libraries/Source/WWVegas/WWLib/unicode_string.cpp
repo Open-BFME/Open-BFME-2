@@ -34,3 +34,12 @@ void _bfmeUnicodeStringInlineAnchor(UnicodeString *string, const wchar_t *text)
     string->UnicodeString::~UnicodeString();
 }
 #pragma inline_depth()
+
+// Whole9B retail387DCF..387DD8: cdecl receiver to owned UnicodeString dtor5B804E.
+// Adjacent owned lower_bound ends387DCF and mapfind begins387DD8; original
+// wrapper/record spelling unknown. BF1575ba2b04 UnicodeStringListCtorNothrow
+// supplies the clean destruction-forward lead, not target template identity.
+void __cdecl rva00387DCFUnicodeDestroy(void *receiver)
+{
+    static_cast<UnicodeString *>(receiver)->~UnicodeString();
+}
