@@ -15,7 +15,7 @@ public:
 class Rva002654E9
 {
 public:
-	void rva002654E9();
+	__declspec(noinline) void rva002654E9();
 private:
 	Object *m_object;
 	int m_status;
@@ -44,4 +44,13 @@ void Rva002654D6::rva002654D6()
 {
 	if (m_object)
 		m_object->setStatus((ObjectStatusTypes)m_status, true);
+}
+
+// Native26893A..26893F5B forwards the unchanged receiver to2654E9.
+// No stack args RET0; stored Object/status false operation is provider-owned.
+// Original wrapper name/enclosing class unknown.
+struct Rva0026893AApplyForward { void apply(); };
+void Rva0026893AApplyForward::apply()
+{
+    reinterpret_cast<Rva002654E9*>(this)->rva002654E9();
 }
