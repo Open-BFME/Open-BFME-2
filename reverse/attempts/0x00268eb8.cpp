@@ -1,4 +1,16 @@
 // ?getNextMoodTarget@AIUpdateInterface@@QAEPAVObject@@_N0@Z
+// partial score=0.97428 date=2026-10-10
+// ?getNextMoodTarget@AIUpdateInterface@@QAEPAVObject@@_N0@Z
+// partial score=0.9742788468129749 date=2026-10-10 seat=w5-g5
+// E2: 'if (!target) return 0' after isAbleToAttack is really 'if (target) { bit-test + closing } return target'
+//   so the null check jumps to the return-target epilogue (mov eax,edi) not return-0; verified je-target flip.
+// OPEN: (a) 0x2000 horde mask: retail holds it in EBX (mov ebx,0x2000 once per region, live across calls
+//   into the closing tests; NULL-target path reloads it); plain UnsignedInt local does not take EBX.
+//   The adjust-path 'jmp gate' + NULL-path 'mov ebx' + 2B size delta all follow from the mask fix.
+//   (b) stack packing swap: {statusbuf16@-0x3c,filter8@-0x38} + delta12@-0x2c (retail, reuses pos@-0x2c slot)
+//   vs {@-0x30,@-0x2c} + delta@-0x3c (ours). Hoisting pos to fn scope blows frame 0x30->0x3c (refuted).
+//   comiss-vs-0xBBAEAC is a masked reloc site (shared 0.0 literal), not a wall.
+// ?getNextMoodTarget@AIUpdateInterface@@QAEPAVObject@@_N0@Z
 // partial score=0.9739277643085864 date=2026-10-10
 // ?getNextMoodTarget@AIUpdateInterface@@QAEPAVObject@@_N0@Z
 // partial score=0.9675795433295147 date=2026-10-09
@@ -562,8 +574,8 @@ found:
 		return 0;
 	if (!obj->isAbleToAttack())
 		return 0;
-	if (!target)
-		return 0;
+	if (target)
+	{
 	if (testBit(*(const UnsignedInt *)((const Rva0028B7AELeaGetter *)obj)->get(), 7))
 	{
 		if (!AI::rva002FE193(obj, target))
@@ -586,5 +598,6 @@ found:
 	if ((obj->getTemplate()->m_kind114 & 0x2000) && target->m_containedBy &&
 		(target->m_containedBy->getTemplate()->m_kind114 & 0x2000))
 		target = target->m_containedBy;
+	}
 	return target;
 }

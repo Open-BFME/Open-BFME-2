@@ -1,4 +1,6 @@
 // ?NotifyPathHasInvalidPortals@AIUpdateInterface@@QAEXXZ
+// partial score=0.9248 date=2026-10-10
+// ?NotifyPathHasInvalidPortals@AIUpdateInterface@@QAEXXZ
 // partial score=0.9248446320271678 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHs /I. /Ireference/shims/bfmealloc /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport
