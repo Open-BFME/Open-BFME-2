@@ -38,3 +38,22 @@ const ModelConditionInfo *Rva0033DCD1::rva0033DCD1(const ModelConditionSetFlags 
 {
 	return m_map.findBestInfo(m_vec, flags);
 }
+// ?findWeaponTemplateSet@ThingTemplate@@QBEPBVWeaponTemplateSet@@ABV?$BitFlags@$0HF@@@@Z
+// @0x0033DCD1 (25B): same wrapper bytes. Retail AIGroup::setWeaponSetFlag
+// 0x0036DE17 calls 0x0033DCD1 where its source calls
+// obj->getTemplate()->findWeaponTemplateSet(flags) (symbols.csv pin +
+// row notes), so the ThingTemplate name belongs at this address. The
+// wrapper only addresses the vector at +0x358 and the matcher at +0x364,
+// so it is spelled over the same member shapes as above.
+class WeaponTemplateSet;
+struct ThingTemplate
+{
+	char m_pad[0x358];
+	_STL::vector<ModelConditionInfo> m_vec;
+	SparseMatchFinder<ModelConditionInfo, ModelConditionSetFlags> m_map;
+	const WeaponTemplateSet *findWeaponTemplateSet(const ModelConditionSetFlags &flags) const;
+};
+const WeaponTemplateSet *ThingTemplate::findWeaponTemplateSet(const ModelConditionSetFlags &flags) const
+{
+	return (const WeaponTemplateSet *)m_map.findBestInfo(m_vec, flags);
+}
