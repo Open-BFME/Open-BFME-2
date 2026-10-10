@@ -2222,9 +2222,6 @@ alternatename	Code/GameEngine/Source/Common/BfmeConv1324.cpp	?g_bfmeVftTVA@@3PAP
 alternatename	Code/GameEngine/Source/Common/BfmeConv1325.cpp	?g_bfmeVftATWA@@3PAPAXA	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv1325.cpp	?g_bfmeVftATWB@@3PAPAXA	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv1325.cpp	?g_bfmeVftBTWA@@3PAPAXA	1
-alternatename	Code/GameEngine/Source/Common/BfmeConv1326.cpp	?bfmeReleaseATXA@@YGXPAX@Z	1
-alternatename	Code/GameEngine/Source/Common/BfmeConv1326.cpp	?bfmeReleaseBTXA@@YGXPAX@Z	1
-alternatename	Code/GameEngine/Source/Common/BfmeConv1326.cpp	?g_bfmeVftTXA@@3PAPAXA	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv1327.cpp	?g_bfmeVftATYA@@3PAPAXA	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv1327.cpp	?g_bfmeVftBTYA@@3PAPAXA	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv1335.cpp	?g_bfmeIidUKA@@3UBfmeGuidUKA@@A	1
@@ -25120,7 +25117,7 @@ pin	reverse/symbols.csv	0x00174BA6	1
 pin	reverse/symbols.csv	0x00174C80	1
 pin	reverse/symbols.csv	0x001758C0	1
 pin	reverse/symbols.csv	0x00175A40	1
-pin	reverse/symbols.csv	0x001767D0	3
+pin	reverse/symbols.csv	0x001767D0	2
 pin	reverse/symbols.csv	0x00176930	1
 pin	reverse/symbols.csv	0x00176CB0	2
 pin	reverse/symbols.csv	0x00176CD0	1

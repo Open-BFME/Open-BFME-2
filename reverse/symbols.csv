@@ -7961,7 +7961,6 @@ name,address,notes
 ?bfmeDtorTWA@BfmeStrTWA@@QAEXXZ,0x00655780
 ?bfmeDtorTWB@BfmeStrTWB@@QAEXXZ,0x00655780
 ?bfmeDtorTWC@BfmeHeadTWC@@QAEXXZ,0x00655780
-?bfmeDtorTXA@BfmeThingTXA@@QAEXXZ,0x001767D0,BFME1 BfmeConv1326 donor call site; BFME1 names this member dtor at the call target
 ?bfmeDtorUD@BfmeThingUD@@QAEXXZ,0x000F0CD4,callee of bfmeKillUD (0x000F1CF7) at the site its BFME1 donor calls it; may be an ICF alias
 ?bfmeEnd1100@BfmeZ1100@@QAEXH@Z,0x001EE5BE,callee of ?rva00565170@@YAHH_N@Z at retail 0x003FEBE7 read from its REL32 displacement; ICF alias of the matched ?_bfme_setEngineVisibility@Mouse@@QAEX_N@Z body at this address
 ?bfmeEnd982C@BfmeHub982@@QAEXXZ,0x00110611,address read from the REL32 displacement at a placed body
