@@ -52,8 +52,8 @@ class Object
 {
 public:
 	Bool isAbleToAttack() const;
-	AIUpdateInterface *getAIUpdateInterface() { return m_ai; }
-	Object *getContainedBy() { return m_containedBy; }
+	__declspec(dllimport) __forceinline AIUpdateInterface *getAIUpdateInterface() { return m_ai; }
+	__declspec(dllimport) __forceinline Object *getContainedBy() { return m_containedBy; }
 
 	char m_pad258[0x258];
 	AIUpdateInterface *m_ai;
