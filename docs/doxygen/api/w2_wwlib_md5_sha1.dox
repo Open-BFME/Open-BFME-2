@@ -1,0 +1,342 @@
+/// \defgroup grp_w2_wwlib_md5_sha1 MD5 and SHA-1 message digests
+/// \ingroup grp_wwlib_thirdparty
+/// \brief Two standard hash functions with the same streaming interface:
+///        the RSA reference MD5, which the reconstruction builds from
+///        WWLib's md5.cpp, and DirtySock's CryptSha1 SHA-1 in cryptsha1.c.
+///
+/// Both modules turn a byte stream of any length into a fixed-size digest:
+/// 16 bytes for MD5 and 20 bytes for SHA-1. Both work the same way. An init
+/// call sets up a context, update calls feed bytes in any number of pieces,
+/// and a final call pads the message, appends its length and writes the
+/// digest. Internally each one buffers input until it has a whole 64-byte
+/// block and then mixes that block into its chaining state with a
+/// compression function. The two modules share no code and come from
+/// different libraries. They are grouped here because they do the same job.
+///
+/// MD5 is RSA Data Security's reference implementation of RFC 1321, as
+/// Zero Hour's WWLib carries it (md5.cpp, md5.h and the RSAREF types header
+/// global.h). It has C++ linkage. BFME 2's copy differs from Zero Hour's in
+/// one place: MD5_memcpy calls memcpy where Zero Hour keeps RSA's byte loop.
+/// The Open-BFME-1 reference copy of md5.cpp is identical to BFME 2's.
+///
+/// SHA-1 is the CryptSha1 module of EA's DirtySDK networking library, with
+/// C linkage. Its bodies are imported unchanged, apart from whitespace, from
+/// the DirtySDK copy bundled with EA's EAWebKit support package, which
+/// identifies itself as DirtySDK 7.5.3. BFME 2's exact DirtySDK release is
+/// not established. The identities rest on the retail bodies, the SHA-1
+/// constants in them and their call graph
+/// (docs/reconstruction/dirtysdk-crypto.md). The context
+/// type CryptSha1T comes from the donor's cryptsha1.h and is declared inside
+/// cryptsha1.c, because BFME 2 has no copy of that header.
+///
+/// Who uses them in BFME 2, from retail call sites:
+/// - The GameSpy SDK. Its md5c.c holds its own copy of the same RSA
+///   functions, plus two helpers: MD5Print, which writes a digest as 32
+///   hexadecimal characters, and MD5Digest, which hashes a buffer in one
+///   call and writes that text to the caller's buffer. In retail, GameSpy
+///   code calls the same MD5Init, MD5Update and MD5Final bodies that are
+///   documented here. Which of the two source files retail actually
+///   compiled them from has not been established. MD5Digest serves
+///   GameSpy's login and authentication code: the chat, peer and presence
+///   (GP) logins and connection handshakes, and the stats SDK's
+///   authentication helpers. GP's file transfer hashes each file while
+///   sending or receiving it and compares the two digests.
+/// - Saving a Living World campaign. When the Living World logic exists,
+///   the save-file information block stores a 16-byte MD5 digest of the
+///   Living World state. The save-information code runs the Living World
+///   logic's save routine an extra time, into a writer that MD5-hashes the
+///   bytes instead of storing them, and copies the 16-byte result into the
+///   information block before that block is written. Nothing from this
+///   hashing pass goes into the file. That writer and the code around it
+///   still have placeholder names, so this is a contract-level
+///   description. Where, or whether, the stored digest is checked has not
+///   been traced.
+/// - DirtySock's ProtoSSL certificate check, for SHA-1. It is the only
+///   traced user of CryptSha1, through a small one-shot helper. The check
+///   hashes the signed part of an X.509 certificate with MD5 or SHA-1, as
+///   the certificate's signature algorithm says, then decrypts the signature
+///   with the issuer's RSA public key and compares the two hashes.
+///   MD5-signed certificates go through a separate MD5 implementation inside
+///   DirtySock, not through WWLib's.
+///
+/// No traced caller is part of the lockstep game logic. The periodic
+/// logic-CRC desync check and the INI CRC carried in LAN join requests use
+/// CRCs, not these hashes; \ref sub_save_load_crc describes them. The
+/// online services these hashes served are covered in \ref sub_network.
+///
+/// \par Modding
+/// - Nothing here is data-driven. No INI field, map script, Lua call or
+///   asset selects or configures these functions.
+/// - As far as traced, changing them does not affect lockstep play,
+///   because no traced caller is in the game logic. It would change the
+///   hashes sent to GameSpy's servers (the login, connection and
+///   challenge-response hashes of the chat, peer, presence and stats code),
+///   the GP file-transfer digests exchanged with other clients, the
+///   presence peer-connection signature check, and the digest written into
+///   Living World saves.
+///
+/// \par Remastering
+/// - Both modules are portable code. They read and write multi-byte values
+///   one byte at a time, so the output does not depend on the host's byte
+///   order, and their only library call is memcpy.
+/// - MD5's 32-bit word type, UINT4, is typedef'd in WWLib's global.h as
+///   unsigned long. On 64-bit Linux and macOS (the LP64 model) that type is
+///   64 bits wide. ROTATE_LEFT then keeps bits above bit 31 and the digests
+///   come out wrong. A port should make UINT4 an exact 32-bit type.
+///   CryptSha1's TU-local uint32_t is unsigned int and has no such problem.
+///   64-bit Windows keeps unsigned long at 32 bits.
+/// - Both hashes are standard, so a library implementation can replace
+///   them. The output must stay bit-exact wherever a digest leaves the
+///   process: in GameSpy file transfer and login, and in Living World saves.
+///   If a port replaces ProtoSSL with a platform TLS library, CryptSha1 has
+///   no other traced user.
+/// - MD5 and SHA-1 are no longer considered secure. Neither should be used
+///   for new authentication or integrity checks.
+
+/// \file WWVegas/WWLib/md5.cpp
+/// \ingroup grp_w2_wwlib_md5_sha1
+/// \brief RSA Data Security's reference MD5 (RFC 1321): the public init,
+///        update and final calls and their static helpers.
+///
+/// The context type MD5_CTX is declared in md5.h. It holds the four 32-bit
+/// chaining words, the message length in bits as two 32-bit words (low
+/// word first, so the length is kept modulo 2 to the 64th), and a 64-byte
+/// block buffer. The types UINT4 and POINTER and the PROTO_LIST macro come
+/// from global.h, RSAREF's portability header. Every multi-byte value is stored
+/// least significant byte first, as RFC 1321 specifies.
+///
+/// The file also defines a static MD5_memset, a byte loop that MD5Final and
+/// MD5Transform use to wipe sensitive data. In retail, MD5Final's wipe is
+/// compiled inline and MD5Transform's has been optimised away.
+///
+/// Retail compiled the small helpers inline into their callers: Encode into
+/// MD5Final, Decode into MD5Transform and the MD5_memcpy copies into
+/// MD5Update. The standalone bodies of Encode, Decode and MD5_memcpy still
+/// exist in retail, but no direct call to them has been traced.
+
+/// \file DirtySock/cryptsha1.c
+/// \ingroup grp_w2_wwlib_md5_sha1
+/// \brief DirtySock's SHA-1 (FIPS 180-1): CryptSha1Init, CryptSha1Update,
+///        CryptSha1Final and two private helpers.
+///
+/// The context, CryptSha1T, has four parts. uCount is the number of bytes
+/// already processed in whole blocks, and uPartialCount the number waiting
+/// in the block buffer. H holds the five 32-bit hash words, and strData is
+/// the 64-byte block buffer. SHA-1 reads and writes words most significant
+/// byte first, unlike MD5.
+///
+/// The unit is compiled as the DirtySock code around it is, without
+/// optimisation and with MSVC's run-time stack checks, because those are
+/// the settings that reproduce the retail bodies.
+
+/// \fn void MD5Init(MD5_CTX *context)
+/// \brief Starts a new MD5 computation. It clears the bit count and loads
+///        the four standard initial chaining values from RFC 1321.
+///
+/// The block buffer is not cleared. MD5Update fills it before anything
+/// reads it. A context must be initialised before its first MD5Update and
+/// again after MD5Final, which wipes it.
+///
+/// Retail callers include both ends of GameSpy's file transfer (the
+/// receiver when a file's begin message arrives, the sender when it opens
+/// each file to send) and the hashing writer that digests Living World
+/// state when a Living World game is saved.
+/// GameSpy's MD5Digest has the same stores compiled inline instead of
+/// calling this function.
+/// \param context [out] The context to set up. Must not be null.
+/// \see MD5Update, MD5Final
+
+/// \fn void MD5Update(MD5_CTX *context, unsigned char *input, unsigned int inputLen)
+/// \brief Feeds inputLen more bytes into a running MD5 computation, and
+///        compresses every 64-byte block that becomes complete.
+///
+/// The number of bytes already waiting in the buffer is the bit count
+/// divided by 8, modulo 64. The bit count is a 64-bit value kept in two
+/// words: the low word wraps and carries into the high word.
+///
+/// \par Implementation
+/// - If the new bytes complete the buffered block, the function fills the
+///   block, compresses it with MD5Transform, and then compresses every
+///   further whole block straight from the caller's memory, without copying.
+/// - Whatever is left over, always less than one block, is copied into the
+///   buffer for the next call or for MD5Final.
+/// - In retail the copies are compiled inline, so the function calls only
+///   MD5Transform.
+///
+/// Callers in retail include MD5Final (for the padding and the length),
+/// GameSpy's MD5Digest, GameSpy's file transfer (for each chunk sent or
+/// received) and the Living World hashing writer.
+/// \param context [in,out] An initialised context.
+/// \param input The bytes to hash. They are not modified, although the
+///        parameter is not const.
+/// \param inputLen The number of bytes. Zero is allowed.
+/// \see MD5Init, MD5Final, MD5Transform
+
+/// \fn void MD5Final(unsigned char digest[16], MD5_CTX *context)
+/// \brief Finishes an MD5 computation. It pads the message, appends the
+///        message length, writes the 16-byte digest and wipes the context.
+///
+/// \par Implementation
+/// - The message length in bits is saved as 8 bytes, least significant
+///   first.
+/// - The padding is a single 0x80 byte followed by zeros, enough to leave
+///   the buffer 8 bytes short of a full block. That is between 1 and 64
+///   bytes. It comes from a static padding table and goes through
+///   MD5Update, followed by the 8 length bytes. The last MD5Update call
+///   compresses the final block.
+/// - The four chaining words are written to digest least significant byte
+///   first. Then the whole context is zeroed, so it cannot be reused until
+///   MD5Init is called again.
+///
+/// Callers in retail include GameSpy's MD5Digest, both ends of GameSpy's
+/// file transfer (the sender attaches the digest to the end-of-file message
+/// and the receiver compares it with its own), and the Living World
+/// hashing writer.
+/// \param digest [out] Receives the 16 raw digest bytes. GameSpy's MD5Print
+///        turns them into the usual 32-character hexadecimal text.
+/// \param context [in,out] The context of the computation. It is zeroed on
+///        return.
+/// \see MD5Init, MD5Update, Encode
+
+/// \fn static void MD5Transform(UINT4 state[4], unsigned char block[64])
+/// \brief The MD5 compression function: mixes one 64-byte block into the
+///        four chaining words.
+///
+/// \par Implementation
+/// - The block is read as 16 words, least significant byte first.
+/// - Four rounds of 16 steps follow, each using one of RFC 1321's auxiliary
+///   functions F, G, H and I. Each step adds the auxiliary function, one
+///   message word and a step constant, rotates left by the step's fixed
+///   amount and adds the following chaining word. The 64 step constants are
+///   RFC 1321's values derived from the sine function.
+/// - The macros FF, GG, HH and II write every step out in full, with no
+///   loops. That is why this is by far the largest function in the group.
+/// - The results are added to the incoming state.
+/// - The source then zeroes its local copy of the message words, as RSA's
+///   code does for anything sensitive. Retail's body has no such wipe: the
+///   optimiser removed it, because nothing reads the array afterwards.
+///
+/// MD5Update is its only caller. In retail, Decode is compiled inline here.
+/// \param state [in,out] The chaining words A, B, C and D.
+/// \param block The 64 input bytes. They are not modified.
+/// \see MD5Update, Decode
+
+/// \fn static void Encode(unsigned char *output, UINT4 *input, unsigned int len)
+/// \brief Writes 32-bit words out as bytes, least significant byte first.
+///
+/// MD5Final uses it for the 8 length bytes and the 16 digest bytes. In
+/// retail it is compiled inline there. The standalone body has no traced
+/// direct caller.
+/// \param output [out] Receives len bytes.
+/// \param input The words to write, len / 4 of them.
+/// \param len The number of output bytes. It must be a multiple of 4; this
+///        is not checked.
+/// \see Decode, MD5Final
+
+/// \fn static void Decode(UINT4 *output, unsigned char *input, unsigned int len)
+/// \brief Reads bytes into 32-bit words, least significant byte first. It is
+///        the inverse of Encode.
+///
+/// MD5Transform uses it to read its 64-byte block as 16 words. In retail it
+/// is compiled inline there. The standalone body has no traced direct
+/// caller.
+/// \param output [out] Receives len / 4 words.
+/// \param input The bytes to read.
+/// \param len The number of input bytes. It must be a multiple of 4; this
+///        is not checked.
+/// \see Encode, MD5Transform
+
+/// \fn static void MD5_memcpy(POINTER output, POINTER input, unsigned int len)
+/// \brief Copies len bytes. It is the RSA code's own stand-in for memcpy.
+///
+/// RSA's original, which Zero Hour keeps, copies one byte at a time. BFME 2
+/// and the Open-BFME-1 reference copy call memcpy instead, following the
+/// note in the original that asks for exactly that. MD5Update uses it. In
+/// retail the copy is compiled inline there, and this standalone body has
+/// no traced direct caller.
+/// \param output [out] The destination.
+/// \param input The source. The two regions must not overlap.
+/// \param len The number of bytes to copy.
+/// \see MD5Update
+
+/// \fn void CryptSha1Init(CryptSha1T *pSha1)
+/// \brief Starts a new SHA-1 computation. It clears both byte counts and
+///        loads the five standard initial hash words.
+///
+/// The block buffer is not cleared. A context must be initialised before
+/// its first CryptSha1Update and again after CryptSha1Final, which leaves
+/// the finished hash words in it.
+/// \param pSha1 [out] The context to set up. Must not be null.
+/// \see CryptSha1Update, CryptSha1Final
+
+/// \fn void CryptSha1Update(CryptSha1T *pSha1, const unsigned char *pInput, uint32_t uInputLen)
+/// \brief Feeds uInputLen more bytes into a running SHA-1 computation, and
+///        compresses every 64-byte block that becomes complete.
+///
+/// \par Implementation
+/// - If part of a block is waiting, the function tops it up first and
+///   compresses it once it is full.
+/// - It then compresses whole blocks straight from the caller's memory.
+/// - Any remainder is buffered.
+/// - uCount grows by 64 for each block compressed. uPartialCount tracks
+///   the buffered bytes.
+///
+/// Its only traced caller is DirtySock's one-shot SHA-1 helper, which the
+/// ProtoSSL certificate check uses.
+/// \param pSha1 [in,out] An initialised context.
+/// \param pInput The bytes to hash. They are not modified.
+/// \param uInputLen The number of bytes. Zero is allowed.
+/// \see CryptSha1Init, CryptSha1Final, _CryptSha1ProcessBlock
+
+/// \fn void CryptSha1Final(CryptSha1T *pSha1, void *pBuffer, uint32_t uLength)
+/// \brief Finishes a SHA-1 computation and copies up to 20 bytes of the
+///        digest to the caller.
+///
+/// \par Implementation
+/// - A 0x80 byte goes after the buffered data. If the buffered data leaves
+///   fewer than 9 bytes of room in the block (one padding byte and an
+///   8-byte length), the function zero-fills and compresses that block and
+///   starts a new block of zeros.
+/// - The message length in bits goes into the last 8 bytes of the block,
+///   most significant byte first, and the block is compressed.
+/// - _CryptSha1CopyHash then writes the result to pBuffer.
+///
+/// \note The length is built from uCount, a 32-bit count of bytes, so the
+///       upper bits of the 64-bit length field are always zero. Messages of
+///       4 GiB or more would hash incorrectly. Unlike MD5Final, this
+///       function does not wipe the context.
+/// \param pSha1 [in,out] The context of the computation.
+/// \param pBuffer [out] Receives the digest bytes.
+/// \param uLength The number of digest bytes wanted. Values above 20 are
+///        clamped to 20. A smaller value gives the leading bytes of the
+///        digest.
+/// \see CryptSha1Init, CryptSha1Update, _CryptSha1CopyHash
+
+/// \fn static void _CryptSha1ProcessBlock(CryptSha1T *pSha1, const unsigned char *M)
+/// \brief The SHA-1 compression function: mixes one 64-byte block into the
+///        five hash words.
+///
+/// \par Implementation
+/// - The block is read as 16 words, most significant byte first.
+/// - It is expanded to an 80-word schedule: each new word is the XOR of
+///   four earlier words, rotated left by one bit.
+/// - Four rounds of 20 steps follow, using the choose, parity, majority and
+///   parity functions with SHA-1's four round constants.
+/// - The results are added to the hash words.
+/// - It keeps its loops (MD5Transform is fully unrolled) and does not zero
+///   its schedule afterwards.
+///
+/// CryptSha1Update and CryptSha1Final call it.
+/// \param pSha1 [in,out] The context whose hash words are updated.
+/// \param M The 64 input bytes. They are not modified.
+/// \see CryptSha1Update, CryptSha1Final
+
+/// \fn static void _CryptSha1CopyHash(CryptSha1T *pSha1, void *pBuffer, uint32_t uLength)
+/// \brief Writes the five hash words out as bytes, most significant byte
+///        first, stopping after uLength bytes or 20, whichever is smaller.
+///
+/// Only CryptSha1Final calls it.
+/// \param pSha1 The context whose hash words are read.
+/// \param pBuffer [out] Receives the bytes.
+/// \param uLength The number of bytes wanted. It is clamped to 20.
+/// \see CryptSha1Final

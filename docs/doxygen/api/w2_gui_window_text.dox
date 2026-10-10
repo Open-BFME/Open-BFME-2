@@ -1,0 +1,504 @@
+/// \defgroup grp_w2_gui_window_text Window text: display strings, instance data and font release
+/// \ingroup grp_gui_apt
+/// \brief How a GUI window holds its text and tooltip, how those strings
+///        are tracked and measured, and how font glyph data is released.
+///
+/// A window's text is not a plain string. Every GameWindow embeds a
+/// WinInstanceData, the block of per-window settings that a .wnd layout or
+/// a gadget factory fills in: id, style, status, owner, the colours and
+/// images for each draw state, the font, the text and tooltip labels and the
+/// tooltip delay. The text and the tooltip themselves are DisplayString
+/// objects that WinInstanceData creates only when a window actually gets
+/// text, through the display string manager (TheDisplayStringManager).
+///
+/// The pieces, and where each one is implemented:
+/// - DisplayString is the device-independent half of a drawable string: a
+///   UnicodeString, a GameFont and the links of the manager's list. Every
+///   text edit (set, append, remove) ends in a notifyTextChanged call,
+///   which the W3D subclass, W3DDisplayString, uses to recompute the
+///   string's extents and to mark its render data for rebuilding.
+///   Measuring and drawing are pure virtual here and live in
+///   W3DDisplayString.
+/// - The display string manager creates, tracks and frees display strings.
+///   W3DDisplayStringManager::newDisplayString allocates a W3DDisplayString,
+///   gives it the default font and adds it to the manager's list with
+///   DisplayStringManager::link. Each W3DDisplayStringManager::update call
+///   walks part of that list and frees the render data of strings that have
+///   not been drawn for a while.
+/// - WinInstanceData owns its window's two display strings and returns them
+///   to the manager in WinInstanceData::init and in its destructor.
+/// - Fonts are GameFont records kept by the font library (TheFontLibrary).
+///   W3DFontLibrary attaches W3D glyph data to each one and releases it in
+///   W3DFontLibrary::releaseFontData when the library deletes its fonts.
+/// - GameWindowManager::winMakeColor packs a colour, and
+///   GameWindowManager::winGetTextSize is the window system's (empty) text
+///   measurement hook.
+///
+/// All five source files carry Zero Hour code. DisplayString.cpp and
+/// DisplayStringManager.cpp were ported directly from the Zero Hour source;
+/// WinInstanceData.cpp, W3DGameFont.cpp and GameWindowGlobal.cpp came
+/// through BFME 1 donors. The BFME 2 differences are noted on each entity:
+/// the changed DisplayString interface, the null guard in
+/// DisplayStringManager::link and the longer display string manager
+/// interface that WinInstanceData calls into.
+///
+/// \par Modding
+/// - Everything here is client-side GUI state; none of these functions
+///   reads or writes game-logic state, so they play no part in lockstep
+///   simulation. Whether BFME 2's multiplayer file checks cover .wnd
+///   layouts or Language.ini has not been verified.
+/// - What data controls: a window's text label, tooltip label, name, font,
+///   text colours, image offset, draw-state images and colours, and tooltip
+///   delay come from its .wnd layout. BFME 2's parsers for those fields
+///   (TEXT, TOOLTIPTEXT, NAME, FONT, TEXTCOLOR, IMAGEOFFSET, the draw data
+///   and TOOLTIPDELAY) are matched and store into WinInstanceData. Zero
+///   Hour: when the layout is loaded, the text label is looked up in the
+///   game's string table and the result becomes the window's text, except
+///   for entry fields, which show the label itself. So wording and
+///   translations are string-table edits, not layout edits.
+/// - The default font of a new display string, and the font used for
+///   characters the chosen font lacks, are language settings: BFME 2 reads
+///   both from the global language data, which in Zero Hour come from the
+///   DefaultDisplayStringFont and UnicodeFontName keys of Language.ini. With
+///   no default font set, new strings use Times New Roman at 12 points;
+///   without language data, the fallback glyph font is Arial Unicode MS.
+///   Both names are hard-coded.
+/// - Hard-coded: each draw state has nine image and colour slots (Zero
+///   Hour's MAX_DRAW_DATA); a text label in a layout must be shorter than
+///   128 characters or the parser rejects it; W3DFontLibrary::loadFontData
+///   refuses fonts larger than 100 points; and WinInstanceData::init sets
+///   the tooltip delay to -1, which Zero Hour's comment calls the default.
+///
+/// \par Remastering
+/// - The text renderer is a seam. DisplayString leaves measuring and drawing
+///   to a subclass, and the manager decides which subclass to create, so a
+///   new renderer supplies its own display string class and manager and
+///   leaves windows and gadgets alone.
+/// - Text is UTF-16: a WideChar is a 16-bit unsigned value, and editing
+///   works one 16-bit unit at a time (DisplayString::appendChar,
+///   DisplayString::removeLastChar). Characters outside the Basic
+///   Multilingual Plane would be split by a backspace.
+/// - Font glyph data is shared, reference-counted W3D data (Zero Hour: held
+///   by the W3D asset manager). Zero Hour's FontCharsClass builds glyphs
+///   from Windows GDI fonts at the requested point size, using a fixed 96
+///   DPI, so the glyph cache itself ignores resolution. Resolution scaling
+///   happens earlier: in BFME 2, callers such as the header template fonts,
+///   the superweapon fonts, in-game UI messages, subtitles and named
+///   timers, and the credits pass their size through
+///   GlobalLanguage::adjustFontSize, which scales it by the horizontal
+///   resolution relative to 1024 (Zero Hour used 800, with a Language.ini
+///   adjustment factor and a clamp). Fonts requested without it, such as
+///   the display string default, do not scale.
+/// - Colours are packed 32-bit values with alpha in the top byte, then red,
+///   green and blue (GameWindowManager::winMakeColor).
+/// - In BFME 2 display strings are allocated with plain operator new rather
+///   than a memory pool, and DisplayString has an ordinary virtual
+///   destructor.
+///
+/// \see \ref sub_gui_apt
+
+
+/// \class DisplayString
+/// \ingroup grp_w2_gui_window_text
+/// \brief A drawable piece of Unicode text: the string, its font, and the
+///        links that put it on the display string manager's list.
+///
+/// DisplayString is the abstract base of the GUI's drawable text. Windows
+/// hold their text and tooltip in one each (see WinInstanceData), and other
+/// client code that draws text keeps its own. This base class stores the
+/// text, the font and two list links; everything that needs a renderer
+/// (word wrap, colours, measuring, drawing, clipping, hot-key highlighting) is
+/// virtual and implemented by the W3D device layer's W3DDisplayString.
+///
+/// \par Ownership and lifetime
+/// Display strings are created and freed by the display string manager,
+/// never directly: W3DDisplayStringManager::newDisplayString allocates one,
+/// sets its default font and links it into the manager's list with
+/// DisplayStringManager::link. Zero Hour's free method unlinks the string,
+/// clears the manager's update checkpoint if it pointed there, and deletes
+/// it; BFME 2's has no matched row yet. The list links belong to the
+/// manager; the string never touches them itself. The font is borrowed
+/// from the font library and is not freed with the string.
+///
+/// \par The change notification
+/// Every member that changes the text (DisplayString::setText,
+/// DisplayString::appendChar, DisplayString::appendString,
+/// DisplayString::removeLastChar) ends by calling notifyTextChanged. The
+/// base version does nothing. W3DDisplayString overrides it to apply the
+/// language's hard word-wrap setting, recompute the text extents, mark the
+/// render data as changed and reset its two sentence renderers (the text
+/// and the hot-key text), so the next draw rebuilds them.
+/// DisplayString::reset clears the text without that notification.
+///
+/// \par Small members
+/// getText returns a copy of the text, getTextLength its length in
+/// characters, setFont and getFont set and return the font. setClipRegion
+/// does nothing in the base class.
+///
+/// \note BFME 2 changes the interface, as the reconstruction reads it from
+/// the retail virtual table. Zero Hour's DisplayString derives from
+/// MemoryPoolObject and is freed through the memory pool; BFME 2's drops
+/// that base, and its first virtual is an ordinary destructor. Zero Hour has
+/// two draws, one taking colours and one taking colours plus drop-shadow
+/// offsets. BFME 2 keeps one four-argument draw that the matched
+/// W3DDisplayString body treats as a position plus drop-shadow offsets,
+/// with the text and shadow colours supplied by three new colour setters
+/// (setColors, setTextColor, setDropColor). It adds a draw that takes only
+/// a position and forwards with zero offsets, which skips the shadow pass.
+/// The parameter names in the reconstruction's DisplayString declaration
+/// still follow Zero Hour's colour form. BFME 2 also adds two setters
+/// taking a pair of floats whose purpose is not yet known, and
+/// DisplayString::appendString.
+
+
+/// \fn DisplayString::DisplayString(void)
+/// \ingroup grp_w2_gui_window_text
+/// \brief Creates an empty display string with no font and no list links.
+///
+/// The text starts empty; the font and both list links are cleared. In the
+/// retail call graph the only caller is the W3DDisplayString constructor,
+/// since the base class is abstract. The manager then sets the font and
+/// links the string.
+///
+/// \see W3DDisplayStringManager::newDisplayString, DisplayStringManager::link
+
+
+/// \fn DisplayString::~DisplayString(void)
+/// \ingroup grp_w2_gui_window_text
+/// \brief Destroys a display string after clearing its text and font.
+///
+/// Calls DisplayString::reset before the text member is destroyed. Because
+/// this runs during destruction, it is the base class reset that runs, not
+/// the W3D override. Retail callers are the W3DDisplayString destructor and
+/// this class's deleting destructor.
+///
+/// The destructor does not unlink the string from the manager's list.
+/// Strings must be freed through the display string manager; in Zero Hour
+/// its free unlinks the string first (BFME 2's free has no matched row
+/// yet). Deleting one directly would leave a dangling pointer in the list
+/// that W3DDisplayStringManager::update walks.
+///
+/// \note Zero Hour declares its destructor through the memory pool glue;
+///       BFME 2 has an ordinary virtual destructor in the first virtual
+///       table slot.
+/// \see DisplayString::reset
+
+
+/// \fn void DisplayString::setText(UnicodeString text)
+/// \ingroup grp_w2_gui_window_text
+/// \brief Replaces the text, notifying the renderer only when it actually
+///        changes.
+///
+/// This is how window text and tooltips are set:
+/// WinInstanceData::setText and WinInstanceData::setTooltipText create the
+/// display string on first use and then call this.
+///
+/// \par Implementation
+/// The new text is compared with the current one first. Only when they
+/// differ is it copied and notifyTextChanged called. Setting the same text
+/// every frame is therefore cheap: the W3D string keeps its extents and its
+/// built sentence instead of recomputing them.
+///
+/// \param text The new text, passed by value. An empty string is allowed.
+///
+/// \see DisplayString::appendString, DisplayString::reset
+
+
+/// \fn void DisplayString::reset(void)
+/// \ingroup grp_w2_gui_window_text
+/// \brief Clears the text and forgets the font, returning the string to
+///        its freshly constructed state.
+///
+/// The text is emptied and the font pointer is set to null. The list links
+/// are left alone, since they belong to the manager. Unlike the text
+/// setters this does not call notifyTextChanged. Retail callers are
+/// W3DDisplayString::reset, which calls it first and then clears its own
+/// render state, and the destructor.
+///
+/// \note A string that is reset has no font. Code that reuses one must set
+///       a font again before measuring or drawing it.
+/// \see DisplayString::~DisplayString
+
+
+/// \fn void DisplayString::appendChar(WideChar c)
+/// \ingroup grp_w2_gui_window_text
+/// \brief Appends one character to the end of the text.
+///
+/// This is the typing path: Zero Hour's text entry gadget appends each
+/// character the player types this way. The text changes unconditionally
+/// and notifyTextChanged is always called.
+///
+/// \param c The UTF-16 code unit to append. No filtering is done here;
+///          character limits and allowed characters are the caller's job.
+///
+/// \note Retail inlines the one-character append of UnicodeString, and the
+///       reconstruction writes it as a one-unit concatenation to match.
+/// \see DisplayString::removeLastChar, DisplayString::appendString
+
+
+/// \fn void DisplayString::appendString(const UnicodeString &text)
+/// \ingroup grp_w2_gui_window_text
+/// \brief Appends a whole string to the end of the text (BFME 2 only).
+///
+/// The string is concatenated onto the current text and notifyTextChanged
+/// is called, exactly as DisplayString::appendChar does for one character.
+/// No retail code calls it directly; it is reached through the virtual
+/// table, and which callers use it is not yet established.
+///
+/// \param text The string to append. It is not modified.
+///
+/// \warning The name is an inference. The function is a BFME 2 addition
+///          with no Zero Hour or BFME 1 counterpart, placed in the virtual
+///          table right after appendChar, and was named from its shape. The
+///          name may change.
+/// \see DisplayString::appendChar, DisplayString::setText
+
+
+/// \fn void DisplayString::removeLastChar(void)
+/// \ingroup grp_w2_gui_window_text
+/// \brief Removes the last character of the text, as a backspace does.
+///
+/// Removes the final UTF-16 code unit and calls notifyTextChanged. Zero
+/// Hour's text entry gadget uses it for backspace.
+///
+/// \note It always notifies, even when the text was already empty, so the
+///       W3D string recomputes its extents either way.
+/// \see DisplayString::appendChar
+
+
+/// \fn void DisplayStringManager::link(DisplayString *string)
+/// \ingroup grp_w2_gui_window_text
+/// \brief Puts a newly created display string at the head of the manager's
+///        list of live strings.
+///
+/// The manager keeps every display string it has handed out on a doubly
+/// linked list. W3DDisplayStringManager::newDisplayString calls this for
+/// each string it creates. The list is how the manager finds strings later:
+/// W3DDisplayStringManager::update walks up to ten strings per call,
+/// starting where the previous call stopped, and frees the render data of
+/// any string not drawn for more than 60 client frames, marking it to be
+/// rebuilt if it is drawn again.
+///
+/// \par Implementation
+/// The string becomes the new head: its next link points at the old head,
+/// and the old head's previous link points back at it. The new string's
+/// previous link is not written; it is expected to be null already, as
+/// DisplayString::DisplayString leaves it.
+///
+/// \param string The string to add. A null pointer is ignored.
+///
+/// \note Zero Hour asserts that the string is non-null and not already
+///       linked. BFME 2 replaces the null assertion with an early return and
+///       does not check the links.
+/// \see W3DDisplayStringManager::newDisplayString
+
+
+/// \fn void W3DFontLibrary::releaseFontData(GameFont *font)
+/// \ingroup grp_w2_gui_window_text
+/// \brief Drops the W3D glyph data attached to a font.
+///
+/// The font library keeps a list of GameFont records (in Zero Hour, one per
+/// name, point size and boldness). When it deletes them all, which its
+/// destructor does in BFME 2, it unlinks each font, calls this virtual to
+/// release the device data, and then frees the record.
+/// W3DFontLibrary::loadFontData is the other half: it gets the font's glyph
+/// data through the glyph-cache lookup (Zero Hour: the W3D asset
+/// manager's Get_FontChars; BFME 2 passes an extra font field to the
+/// lookup whose meaning is not yet established) and also loads the
+/// language's fallback Unicode font at the same size, attaching it to the
+/// main glyph data for characters the main font lacks.
+///
+/// \par Implementation
+/// When the font has glyph data, the fallback font's glyph data is released
+/// first, if there is one, and then the font's own. Both are reference
+/// counted, so this drops only the font's own references; data still held
+/// elsewhere survives. The font's data pointer is then cleared.
+///
+/// \param font The font whose data to release. Must not be null: the null
+///             check guards only the release, and the pointer is then
+///             cleared unconditionally.
+///
+/// \note The original comment in this function says nothing needs to be
+///       done because the asset manager handles fonts; the body does release
+///       references. Both Zero Hour and BFME 2 behave as described here.
+/// \see W3DFontLibrary::loadFontData
+
+
+/// \class WinInstanceData
+/// \ingroup grp_w2_gui_window_text
+/// \brief The per-window settings block: identity, style, state, owner,
+///        per-state colours and images, font, labels, tooltip delay, and the
+///        window's text and tooltip display strings.
+///
+/// Each GameWindow embeds one of these as its instance data. The .wnd
+/// layout parser and the gadget factories fill one in as a template, and
+/// GameWindow::winSetInstanceData copies the template into the window.
+/// Drawing code reads the colours and images for the window's current
+/// state (enabled, disabled or highlighted) from it.
+///
+/// \par Contents
+/// From the Zero Hour declaration, which BFME 2's matched bodies follow:
+/// - window id, state bits, style bits, status bits and the owning window;
+/// - three arrays of image, colour and border colour, one array per draw
+///   state, with nine entries each;
+/// - text and border colours for each state, plus a separate pair for
+///   input-method composition text;
+/// - an image offset and the font;
+/// - four AsciiStrings: the text label and tooltip label from the layout,
+///   the decorated window name from the GUI editor, and the name of a
+///   header template for the font;
+/// - the tooltip delay, the text and tooltip display strings, and a video
+///   buffer pointer.
+///
+/// \par Ownership
+/// The two display strings are owned: they are created on demand through
+/// TheDisplayStringManager by setText and setTooltipText, and returned to
+/// it by WinInstanceData::init and the destructor. The font, the images,
+/// the owner window and the video buffer are borrowed and never freed here.
+/// Zero Hour's comments say the video buffer belongs to the control that
+/// plays the video and cannot be transferred to another window.
+///
+/// \par Copying
+/// Because the display strings are owned, a plain copy would make two
+/// windows share and later double-free them. The class has no hand-written
+/// assignment: it relies on the one the compiler generates, which copies
+/// every field in declaration order, assigns the four AsciiStrings through
+/// their own assignment operator and leaves the object's virtual table
+/// pointer alone. Its one retail user, GameWindow::winSetInstanceData,
+/// repairs the result: it saves the window's own two display strings,
+/// assigns the new data, puts the saved pointers back and clears the copied
+/// video buffer. It then copies the source's text into the window's text
+/// string when the source has non-empty text, and the source's tooltip into
+/// the tooltip string when the source has a non-empty tooltip; otherwise
+/// the window's existing display string keeps its previous text. Applying a
+/// template with no text therefore does not clear a window's label.
+///
+/// \warning Assigning instance data anywhere other than through the
+///          winSetInstanceData pattern copies the display string pointers
+///          as they are, so both objects would free the same strings.
+///
+/// \par Small members
+/// The inline accessors return the style, status, state, owner, font and
+/// display strings, and getText, getTooltipText and their length variants
+/// return empty values when the matching display string has not been
+/// created. setText and setTooltipText create the display string if needed
+/// and set its text.
+///
+/// \note Zero Hour's header warns that every new field must also be handled
+///       in GameWindow::winSetInstanceData.
+
+
+/// \fn WinInstanceData::WinInstanceData(void)
+/// \ingroup grp_w2_gui_window_text
+/// \brief Creates instance data with default values and no display
+///        strings.
+///
+/// Clears the text, tooltip and video buffer pointers and then calls
+/// WinInstanceData::init. The pointers must be cleared first because init
+/// frees any display string it finds. Retail callers are the GameWindow
+/// constructor, for the window's own copy, a constructor of one Apt screen
+/// class whose name is not yet established, and code that builds a local
+/// template and destroys it on return: the slider, text entry and combo box
+/// factories, the list box scroll bar builder and the in-game palantir HUD
+/// setup.
+///
+/// \see WinInstanceData::init
+
+
+/// \fn WinInstanceData::~WinInstanceData(void)
+/// \ingroup grp_w2_gui_window_text
+/// \brief Returns the text and tooltip display strings to the display
+///        string manager.
+///
+/// Each display string that exists is freed through
+/// TheDisplayStringManager; the video buffer pointer is cleared but not
+/// freed. Called when a GameWindow is destroyed, when the local templates
+/// built by the gadget factories go out of scope, and through the class's
+/// deleting destructor.
+///
+/// \note The free goes through BFME 2's longer display string manager
+///       interface; the reconstruction calls it through a local view of
+///       that class. The behaviour is Zero Hour's.
+/// \see WinInstanceData::init
+
+
+/// \fn void WinInstanceData::init(void)
+/// \ingroup grp_w2_gui_window_text
+/// \brief Resets every setting to its default and frees the display
+///        strings.
+///
+/// The constructor calls it, and the gadget factories call it again to
+/// reuse one stack template for several child windows: the combo box
+/// factory, for example, re-initialises the same template before building
+/// its drop-down button, its text entry and its list box.
+///
+/// \par Implementation
+/// - Every image in the three draw-state arrays is cleared and every colour
+///   and border colour set to the undefined colour; the same goes for the
+///   enabled, disabled and highlighted text colours.
+/// - Id, state, style and owner are cleared and the status set to none.
+/// - The text label, tooltip label and decorated name are emptied and the
+///   tooltip delay set to -1.
+/// - The image offset and font are cleared, any existing text and tooltip
+///   display strings are freed and their pointers cleared, and the video
+///   buffer pointer is cleared.
+///
+/// Not touched: the composition text colours and the header template name,
+/// in Zero Hour and in BFME 2 alike. A template reused after init keeps the
+/// header template name of its previous use.
+///
+/// \see WinInstanceData::WinInstanceData
+
+
+/// \fn Color GameWindowManager::winMakeColor(UnsignedByte red, UnsignedByte green, UnsignedByte blue, UnsignedByte alpha)
+/// \ingroup grp_w2_gui_window_text
+/// \brief Packs red, green, blue and alpha bytes into the window system's
+///        Color value.
+///
+/// A virtual hook that lets a game choose its colour representation; this
+/// engine uses GameMakeColor, so the result is alpha in the top byte, then
+/// red, green and blue. It has no direct callers in retail, as expected for
+/// a virtual.
+///
+/// \param red   Red component, 0 to 255.
+/// \param green Green component, 0 to 255.
+/// \param blue  Blue component, 0 to 255.
+/// \param alpha Alpha component, 0 to 255; 255 is opaque.
+/// \return The packed colour.
+///
+/// \par Provenance
+/// The body is Zero Hour's, ported through BFME 1. Its retail identity
+/// rests on the compiled body placing at a single address in retail and on
+/// its position in the window manager's virtual table, next to
+/// winFindImage.
+/// \see GameWindowManager::winGetTextSize
+
+
+/// \fn void GameWindowManager::winGetTextSize(GameFont *font, UnicodeString text, Int *width, Int *height, Int maxWidth)
+/// \ingroup grp_w2_gui_window_text
+/// \brief Placeholder text-measurement hook: always reports a size of zero.
+///
+/// The window system declares this as the way to measure text in a font,
+/// but the body only writes zero through whichever of the two output
+/// pointers is non-null. Zero Hour's own comment marks it as unfinished:
+/// real measurement goes through display strings (getSize and getWidth on
+/// W3DDisplayString). Zero Hour's W3D window border drawing
+/// (W3DGameWindow::winDrawBorder) still calls it to measure an entry
+/// field's label, reserving space beside the field, and so always gets
+/// zero; the text entry gadget's call sits in commented-out IME code. BFME
+/// 2 has no direct named caller.
+///
+/// \param font     Ignored.
+/// \param text     Ignored. Passed by value, so each call copies the string.
+/// \param width    [out] Set to 0 when not null.
+/// \param height   [out] Set to 0 when not null.
+/// \param maxWidth Ignored.
+///
+/// \note Retail BFME 2 keeps this body in the window manager's virtual
+///       table, after winMakeColor and winFindImage, as Zero Hour declares
+///       it. The reconstruction declares it non-virtual, following the BFME 1
+///       header. The declaration may change when the class is reconciled.
+/// \par Remastering
+/// A port that needs real text extents here should measure through a
+/// display string instead of relying on this hook.
+/// \see GameWindowManager::winMakeColor

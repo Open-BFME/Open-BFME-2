@@ -1,0 +1,373 @@
+/// \defgroup grp_w2_string_encoding Quoted-printable and UTF-8 string encoding
+/// \ingroup grp_common_services
+/// \brief The engine's small text-encoding helpers: the underscore-escape
+///        codec that stores arbitrary text in preference and map-cache
+///        files, the UTF-8 decoding behind UnicodeString::translate, and a
+///        reader for NUL-terminated UTF-16 strings in a file.
+///
+/// \par The underscore escape ("quoted-printable")
+/// The four QuotedPrintable functions are not MIME quoted-printable. Every
+/// byte that is not an ASCII letter or digit (as isalnum judges it) becomes
+/// an underscore followed by two upper-case hex digits; letters and digits
+/// pass through unchanged. The encoded text therefore holds only letters,
+/// digits and underscores, so it survives as one token in INI files and in
+/// the key = value preference files, whatever spaces, equals signs, commas or
+/// non-ASCII characters the original held. Examples, worked from the bodies:
+/// - AsciiStringToQuotedPrintable turns "My Map.map" into "My_20Map_2Emap".
+/// - UnicodeStringToQuotedPrintable escapes the raw little-endian UTF-16
+///   bytes, so L"Ab c" becomes "A_00b_00_20_00c_00": every ASCII character
+///   carries a "_00" for its zero high byte.
+/// - A literal underscore is written as "_5F", which is what makes the
+///   escape reversible.
+///
+/// The decoders reverse this. Each of the four functions works in a
+/// function-local static buffer of 1,024 characters and returns a copy, so
+/// the buffer is reused by the next call. Encoders stop adding characters
+/// near the end of that buffer; the decoders check no length at all (see
+/// each function).
+///
+/// \par Who uses it in BFME 2
+/// From matched callers:
+/// - Preference files. SkirmishPreferences encodes the player-name list,
+///   the current user name and per-user keys, and its constructor decodes
+///   the name list. The LAN lobby's user-name setter stores the LAN name
+///   encoded (its ledger name, LanLobbyUserNamePrefs::setUserName, is a
+///   descriptive label carried over from BFME 1; Zero Hour does the same
+///   store through LANPreferences in LanLobbyMenu.cpp).
+///   LadderPreferences::write and LadderPreferences::loadProfile
+///   encode and decode each ladder's address and name.
+///   GameSpyLoginPreferences::write stores each remembered password (after
+///   obfuscate) and date encoded, and GameSpyLoginPreferences::load decodes
+///   them. QuickMatchPreferences::setMapSelected and
+///   QuickMatchPreferences::isMapSelected use the encoded map name as the
+///   key. A mode-keyed preferences class, not yet named (the reconstruction
+///   labels it GameModePreferences descriptively), stores its map, game
+///   name and password settings encoded, and decodes those and its stored
+///   user name when reading them back. Its accessor names are not yet
+///   recovered.
+/// - The map cache. MapCache::writeCacheINI writes each map's name encoded
+///   on its MapCache header line and its display name and description with
+///   the Unicode encoder; INI::parseMapCacheDefinition decodes all three
+///   when the cache is read back.
+///
+/// Zero Hour also sends GameSpy chat text through
+/// UnicodeStringToQuotedPrintable and QuotedPrintableToUnicodeString, and
+/// its LANAPI stores the host player's name encoded beside a remembered
+/// direct-connect address in the LAN preferences. Neither use has been
+/// traced in BFME 2 yet.
+///
+/// \par UTF-8 in UnicodeString
+/// UnicodeString::translate(const char *) decodes UTF-8 through Windows'
+/// MultiByteToWideChar. UnicodeString's constructor from an AsciiString and
+/// UnicodeString::translate(const AsciiString &) both forward to it, so
+/// those UnicodeString members read narrow input as UTF-8. Zero Hour's
+/// UnicodeString::translate instead widened each byte on its own, which is
+/// correct only for 7-bit ASCII. The reverse direction is
+/// AsciiString::translate, which encodes UTF-8. Not every narrow-to-wide
+/// conversion in BFME 2 is UTF-8: the engine also has a separate wrapper
+/// that converts with the system ANSI code page (code page 0; its ledger
+/// name, multiByteToWideChar, is descriptive), and some code uses it to
+/// fill a UnicodeString's buffer directly.
+///
+/// \par Source layout
+/// Zero Hour had one QuotedPrintable.cpp. In BFME 2 retail the four
+/// conversion bodies are built with an exception-handling frame, which the
+/// unit holding the two hex-digit helpers is not, so the reconstruction
+/// moves them out of quoted_printable.cpp into
+/// quoted_printable_encoders.cpp, quoted_printable_ascii.cpp and
+/// quoted_printable_unicode.cpp, all under WWVegas/WWLib and all compiled
+/// with the same settings. The ledger keeps the two hex-digit helpers in
+/// quoted_printable.cpp. Retail holds one out-of-line copy of each helper,
+/// shared by the encoders or by the decoders; each split unit defines its
+/// own file-static copy, which compiles to that same body.
+///
+/// BFME 2's own Code/ tree has no header for these functions. Most calling
+/// units declare the four prototypes locally. Some units include Zero
+/// Hour's Common/QuotedPrintable.h through the reference include path, and
+/// quoted_printable.cpp includes BFME 1's quoted_printable.h, which has the
+/// same four prototypes. UnicodeString::translate(const char *) is in
+/// StringUtf8Translation.cpp, and readUnicodeString in
+/// GameEngine/Source/Common/System/ReadUnicodeString.cpp.
+///
+/// \par Modding
+/// - None of the matched callers of the four quoted-printable functions is
+///   game-logic code. They read and write local preference files and the
+///   map cache, so as far as traced the escape does not touch lockstep, the
+///   logic random-number generator or the CRC checks. Changing the escape
+///   does break reading files written by the original game. In Zero Hour
+///   the escape also travels over the network in chat, where it is part of
+///   the format other clients expect.
+/// - readUnicodeString is a different case. If its caller is the replay
+///   reader, as inferred (see the function), changing how it reads strings
+///   breaks reading existing replay files.
+/// - When editing an encoded value in a preference file or the map cache
+///   by hand, letters and digits can be written as they are and an
+///   underscore must be written "_5F". Escape every other byte the same
+///   way, as the game does, so that the value stays one token. In a field
+///   that the game decodes as Unicode, each character needs both of its
+///   UTF-16 bytes ("A" is "A_00").
+/// - Narrow text passed through UnicodeString::translate (for example LAN
+///   host and login names received from other machines) is decoded as
+///   UTF-8, so non-UTF-8 bytes from a peer may not display as intended.
+///
+/// \par Remastering
+/// - All four quoted-printable functions use fixed static buffers. They
+///   are not reentrant and not thread-safe, and long input is truncated
+///   (encoders) or overruns the buffer (decoders, and in one edge case the
+///   Unicode encoder). A port should size the output from the input.
+/// - The Unicode encoder escapes UTF-16 little-endian bytes. A port whose
+///   wide character is 32 bits wide, or big-endian, must still produce and
+///   read UTF-16LE bytes to stay compatible with existing preference files
+///   and map caches.
+/// - The UTF-8 decoding is a thin call to the Win32 MultiByteToWideChar
+///   with code page 65001 and no flags; that call is the seam to replace.
+///   UnicodeString holds 16-bit code units, so characters outside the
+///   Basic Multilingual Plane become surrogate pairs.
+/// - readUnicodeString reads through the C runtime's fgetwc, whose result
+///   depends on the runtime and on the mode the file was opened in; where
+///   wchar_t is 32 bits wide it decodes by locale. A port should read raw
+///   16-bit little-endian units instead.
+
+/// \file Common/QuotedPrintable.h
+/// \ingroup grp_w2_string_encoding
+/// \brief Zero Hour's declarations of the four quoted-printable functions.
+///
+/// BFME 2's own Code/ tree has no header for these functions. Most calling
+/// units declare the four prototypes locally. Some units include this Zero
+/// Hour copy through the reference include path, and quoted_printable.cpp
+/// includes BFME 1's quoted_printable.h, which has the same four
+/// prototypes. The Zero Hour copy is listed here so that the declarations
+/// can be documented; its prototypes match the BFME 2 definitions.
+
+/// \file quoted_printable_encoders.cpp
+/// \ingroup grp_w2_string_encoding
+/// \brief The two quoted-printable encoders, UnicodeStringToQuotedPrintable
+///        and AsciiStringToQuotedPrintable, with a file-static intToHexDigit.
+///
+/// Bodies adapted from Zero Hour's QuotedPrintable.cpp. Unlike the decoders,
+/// the encoders keep Zero Hour's output cap, and the Unicode encoder keeps
+/// its loop that handles two bytes per pass.
+
+/// \file quoted_printable_ascii.cpp
+/// \ingroup grp_w2_string_encoding
+/// \brief QuotedPrintableToAsciiString, with a file-static hexDigitToInt.
+///
+/// Zero Hour's body without its length counter, which Zero Hour declared
+/// but never advanced. The Unicode decoder lives in
+/// quoted_printable_unicode.cpp and has the same shape.
+
+/// \file ReadUnicodeString.cpp
+/// \ingroup grp_w2_string_encoding
+/// \brief readUnicodeString: reads one NUL-terminated UTF-16 string from a
+///        C runtime FILE.
+///
+/// Ported from Open-BFME-1's ReadUnicodeString.cpp. Retail keeps no symbol
+/// for this function; the name is carried from the BFME 1 donor.
+
+/// \fn AsciiString AsciiStringToQuotedPrintable(AsciiString original)
+/// \brief Escapes a narrow string so that it contains only letters, digits
+///        and underscores.
+///
+/// Callers use it to store a map name, an obfuscated password, a date or an
+/// address as one token in a preference file or the map-cache INI: see the
+/// group description for the callers. QuotedPrintableToAsciiString reverses
+/// it.
+///
+/// \par Implementation
+/// Each byte for which isalnum is true is copied. Every other byte becomes
+/// an underscore and the two upper-case hex digits of the byte, high nibble
+/// first, from intToHexDigit. Output goes to a function-local static buffer
+/// of 1,024 characters, and a new byte is started only while fewer than
+/// 1,021 characters have been written. The longest output is therefore
+/// 1,023 characters, and longer input is cut silently: about 341 characters
+/// if every one needs escaping.
+///
+/// \param original String to encode, taken by value. An empty string gives
+///                 an empty result.
+/// \return The encoded copy.
+///
+/// \note The byte reaches isalnum as a plain char, so bytes from 0x80 up are
+///       passed as negative values, which the C standard leaves undefined.
+///       Which of them are escaped depends on the C runtime and locale.
+///       The escape for such a byte is still correct when it happens: the
+///       high nibble is taken from the unsigned byte.
+/// \see QuotedPrintableToAsciiString, UnicodeStringToQuotedPrintable,
+///      intToHexDigit
+
+/// \fn AsciiString UnicodeStringToQuotedPrintable(UnicodeString original)
+/// \brief Escapes the raw UTF-16 bytes of a wide string into a narrow string
+///        of letters, digits and underscores.
+///
+/// This is how wide text such as player names, ladder names and map display
+/// names is stored in narrow preference files and the map-cache INI:
+/// SkirmishPreferences, the LAN lobby's user-name setter (see the group
+/// description on its name), LadderPreferences::write and
+/// MapCache::writeCacheINI call it.
+/// QuotedPrintableToUnicodeString reverses it.
+///
+/// \par Implementation
+/// The string's characters are read as a byte array in memory order, which
+/// on x86 is little-endian: low byte first. Each byte is copied if isalnum
+/// accepts it and otherwise becomes an underscore and two upper-case hex
+/// digits, as in AsciiStringToQuotedPrintable. The loop handles one whole
+/// character (two bytes) per pass and stops at a character whose two bytes
+/// are both zero. Each character costs two to six output characters; an
+/// ASCII letter or digit costs four ("A_00").
+///
+/// \param original String to encode, taken by value.
+/// \return The encoded copy.
+///
+/// \warning The cap on the 1,024-character static buffer is tested only once
+///          per character, before up to six characters are written. Input
+///          that reaches the cap can write up to three bytes past the end of
+///          the buffer, including the terminator. Zero Hour's loop has the
+///          same shape.
+/// \note BFME 2's body takes the high nibble from the unsigned byte. Zero
+///       Hour's source shifts the signed char, so a byte from 0x80 up gives
+///       a negative nibble, which intToHexDigit turns into a NUL that ends
+///       the encoded string early.
+/// \see QuotedPrintableToUnicodeString, AsciiStringToQuotedPrintable
+
+/// \fn AsciiString QuotedPrintableToAsciiString(AsciiString original)
+/// \brief Decodes a string produced by AsciiStringToQuotedPrintable back to
+///        its original bytes.
+///
+/// Called when preference values and the map cache are read back. Callers
+/// include INI::parseMapCacheDefinition for the map name,
+/// GameSpyLoginPreferences::load for remembered passwords and dates, and
+/// LadderPreferences::loadProfile for ladder addresses; the group
+/// description lists other matched callers.
+///
+/// \par Implementation
+/// Characters other than the underscore are copied. An underscore takes the
+/// next character as a hex digit and, if one more character follows, a
+/// second digit, and the result is one byte. Digits go through
+/// hexDigitToInt, so a character that is not a hex digit counts as zero,
+/// and an underscore at the very end is dropped. Output goes to a
+/// function-local static buffer of 1,024 bytes and is then copied into the
+/// returned string, which ends at the first zero byte: a decoded "_00"
+/// truncates the result.
+///
+/// \param original Encoded string, taken by value. Any text is accepted;
+///                 nothing is rejected as malformed.
+/// \return The decoded string.
+///
+/// \warning No length is checked. Input that decodes to more than 1,023
+///          bytes writes past the static buffer. Output from
+///          AsciiStringToQuotedPrintable is always short enough, but a
+///          hand-edited or corrupted file need not be.
+/// \note Zero Hour's version declares a length counter that it never
+///       advances, so it is unbounded too. BFME 2's compiled body has no
+///       counter at all.
+/// \see AsciiStringToQuotedPrintable, QuotedPrintableToUnicodeString,
+///      hexDigitToInt
+
+/// \fn UnicodeString QuotedPrintableToUnicodeString(AsciiString original)
+/// \brief Decodes a string produced by UnicodeStringToQuotedPrintable back to
+///        a wide string.
+///
+/// Callers include SkirmishPreferences's constructor for the stored
+/// player-name list, INI::parseMapCacheDefinition for map display names and
+/// descriptions, and LadderPreferences::loadProfile for ladder names; the
+/// group description lists other matched callers.
+///
+/// \par Implementation
+/// The escape is undone exactly as in QuotedPrintableToAsciiString, but the
+/// resulting bytes are written into a static buffer of 1,024 UTF-16
+/// characters in memory order, so each pair of bytes forms one
+/// little-endian character. At the end, an even byte count gets a whole
+/// zero character as terminator. For an odd count, only the high byte of
+/// the last character is cleared and no terminator is written, so the
+/// string then ends at the next zero character already in the buffer,
+/// which may be text left by an earlier, longer call. The encoder always
+/// writes whole characters, so this only happens with damaged input.
+///
+/// \param original Encoded string, taken by value.
+/// \return The decoded wide string.
+///
+/// \warning No length is checked. Input that decodes to more than 1,023
+///          characters writes past the static buffer.
+/// \see UnicodeStringToQuotedPrintable, QuotedPrintableToAsciiString,
+///      hexDigitToInt
+
+/// \fn char intToHexDigit(int num)
+/// \brief Returns the upper-case hex digit for a value from 0 to 15.
+///
+/// The encoders' nibble-to-character step.
+/// \param num Value to convert.
+/// \return '0' to '9' or 'A' to 'F'; NUL if num is outside 0 to 15.
+/// \see hexDigitToInt, AsciiStringToQuotedPrintable,
+///      UnicodeStringToQuotedPrintable
+
+/// \fn int hexDigitToInt(char c)
+/// \brief Returns the value of a hex digit, accepting either case.
+///
+/// The decoders' character-to-nibble step.
+/// \param c Character to convert.
+/// \return 0 to 15 for '0' to '9', 'a' to 'f' or 'A' to 'F'. Any other
+///         character gives 0; there is no error value.
+/// \see intToHexDigit, QuotedPrintableToAsciiString,
+///      QuotedPrintableToUnicodeString
+
+/// \fn void UnicodeString::translate(const char *that)
+/// \ingroup grp_w2_string_encoding
+/// \brief Replaces this string's contents with UTF-8 text decoded to UTF-16.
+///
+/// This is UnicodeString's own narrow-to-wide conversion. UnicodeString's
+/// constructor from an AsciiString and UnicodeString::translate(const
+/// AsciiString &) forward to it, and so do GameTextManager::fetchPtr (in
+/// the mode where it returns the label itself instead of a looked-up
+/// string), UserPreferences::load (for the preference file's name) and the
+/// LANAPI message handlers that store a LAN player's host and login names.
+///
+/// \par Implementation
+/// Two calls to a wrapper around MultiByteToWideChar with code page 65001
+/// (UTF-8) and no flags: the first, with no output buffer, returns the
+/// number of UTF-16 characters needed including the terminator; the string
+/// then gets an unshared buffer of that size, without keeping its old
+/// contents, and the second call decodes into it. On success the stored
+/// length is the decoded count without the terminator. A null or empty
+/// input, or a failed conversion, releases the buffer and leaves the
+/// string empty.
+///
+/// \param that NUL-terminated UTF-8 text, or null.
+///
+/// \note Zero Hour has only UnicodeString::translate(const AsciiString &),
+///       which widens each byte separately and so is right only for 7-bit
+///       ASCII. With no flags, Windows does not fail on invalid UTF-8; how
+///       it maps invalid bytes depends on the Windows version.
+/// \see AsciiString::translate, UnicodeString::translate(const AsciiString &)
+
+/// \fn UnicodeString readUnicodeString(_iobuf *file)
+/// \brief Reads one NUL-terminated string of 16-bit characters from a C
+///        runtime file.
+///
+/// _iobuf is the Microsoft C runtime's name for the structure behind FILE.
+/// In BFME 2 the only caller found so far is a small member function, not
+/// yet named, that passes its object's FILE pointer through. That is the
+/// shape of the readUnicodeString member of BFME 1's RecorderClass, which
+/// reads the replay name and version strings of a replay header this way;
+/// the BFME 2 caller's identity is not yet confirmed.
+///
+/// \par Implementation
+/// Characters are read one at a time with fgetwc into a local buffer of
+/// 1,024 characters until a zero character, WEOF (0xFFFF) or the limit.
+/// The zero character is consumed from the file. At most 1,023 characters
+/// are kept; an overlong string is cut there, one character past the cut
+/// has already been read and is dropped, and the file is left inside the
+/// string.
+///
+/// \param file Open file positioned at the start of the string. Not
+///             checked for null.
+/// \return The string read, possibly empty.
+///
+/// \note Only characters after the first are compared with WEOF. The check
+///       on the first character compares with EOF (-1), which a 16-bit
+///       result never equals, so at end of file the function returns a
+///       one-character string holding U+FFFF instead of an empty one.
+/// \note Zero Hour's RecorderClass has its own copy of this reader as a
+///       member. It compares every character with EOF and bounds its loop
+///       at 1,024. With the Microsoft runtime, whose fgetwc returns an
+///       unsigned 16-bit value, it therefore keeps reading at end of file
+///       until that limit, and its last store falls one element past its
+///       buffer. The BFME 1 and BFME 2 body stops at WEOF and at 1,023.
