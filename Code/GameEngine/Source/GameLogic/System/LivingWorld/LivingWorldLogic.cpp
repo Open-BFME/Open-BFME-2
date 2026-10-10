@@ -12,6 +12,7 @@ typedef int Int;
 typedef unsigned int UnsignedInt;
 typedef bool Bool;
 
+#include "../../../Common/GameLogicObjectLookupView.h"
 #include <vector>
 #include <map>
 #include <list>
@@ -527,6 +528,10 @@ public:
 	UnsignedInt rva002B77B2();
 	UnsignedInt rva002B77F7();
 	void rva002B5AF7();
+ void rva002BD9B4();
+ void rva002B768F();
+ void rva002B676D();
+ void rva002B88EC();
 	Bool rva002B5A5F(Parent00575E4E*);
 	bool rva002B4B83();
 	Bool EndTurn();
@@ -2215,6 +2220,7 @@ struct LivingWorldFPModeCount
 class Rva0004224C
 {
 public:
+ Rva0004224C* rva0004224C();
     Rva0004224C()
     {
         if (TheGameLogic)
@@ -2349,7 +2355,7 @@ void LivingWorldLogic::spawnCity(Rva004E3184 *city)
 class Rva002B2405 {public:int rva002B2405();};
 class Rva002B4650 {public:int rva002B4650();};
 class Rva0020E72A {public:bool rva0020E72A(void *);};
-class Rva002B4C09 {public:bool rva002B3621();};
+class Rva002B4C09 {public:bool rva002B3621();void rva002B6875();};
 class Rva002B5F8A {public:bool rva002B5F8A();};
 class Rva004FBB25Sub {public:void rva004FBB25(int);};
 class LivingWorldAI {public:void rva004FB7B2();};
@@ -2492,4 +2498,41 @@ void LivingWorldLogic::rva002B5AF7(){
    reinterpret_cast<Rva00318C05*>(entry)->rva00318C05(show);
   }
  }
+}
+
+// WB LivingWorldLogic::update; native retail field/call sequence is independent evidence.
+class Shell;extern Shell*TheShell;
+class LWUpdateShellDispatch {public: virtual void f00();virtual void f04();virtual void f08();virtual void f0c();virtual void f10();virtual void f14();virtual void f18();virtual void f1c();virtual void f20();virtual void f24();virtual void f28();};
+class LWUpdateCampaignDispatch {public:virtual void f00();virtual void f04();virtual void f08();virtual void f0c();virtual void f10();virtual void f14();virtual void f18();virtual void f1c();virtual void f20();virtual void f24();virtual void f28();virtual void f2c();virtual void f30();virtual Bool f34();};
+class Rva002B4FEB {public:void rva002B4FEB();};
+class Rva002B4D41 {public:void rva002B4D41();};
+class Rva002B8AEA {public:void rva002B8AEA();};
+class Rva003F81FDProxy {public:void rva003F9037();};
+class LWUpdateFPGuard {public:LWUpdateFPGuard(){reinterpret_cast<Rva0004224C*>(this)->rva0004224C();}~LWUpdateFPGuard(){if(TheGameLogic)((LivingWorldFPModeCount*)TheGameLogic)->m_count--;}};
+void LivingWorldLogic::rva002BD9B4(){
+ if(!m_padB4[0])return;
+ if(TheShell)((LWUpdateShellDispatch*)TheShell)->f28();
+ if(TheGameLogic->isGamePaused())return;
+ ((Rva002B4FEB*)this)->rva002B4FEB();
+ if(!m_padB4[1])return;
+ if(!m_field0B0->m_armySet)return;
+ LWUpdateFPGuard guard;
+ Bool run=rva002B77B2()>=2 || rva002B77F7()==1;
+ if(TheGameLogic->m_114==0 && *((Bool*)this+0x168))run=false;
+ if(run){
+  if((unsigned char)((Rva002B254F*)this)->rva002B254F())((Rva003F81FDProxy*)((Rva003B8BAA*)TheCampaignManager)->rva003B8BAA())->rva003F9037();
+  ((Rva002B4C09*)this)->rva002B6875();
+  ((Rva002B4D41*)this)->rva002B4D41();
+  processArmyDestroyList();
+  ((Rva002B8AEA*)this)->rva002B8AEA();
+  rva002B5AF7();rva002B768F();rva002B676D();
+  if(m_turnPhase==2){
+   m_field0B0->UpdateBattleMarkers();
+   if(m_autoBattleResolver.get() && m_autoBattleResolver.get()->Update()==1)((Rva002B9099*)&m_autoBattleResolver)->clear();
+  }
+  UpdateTurnPhase();
+  if((unsigned char)((Rva002B254F*)this)->rva002B254F() && ((LWUpdateCampaignDispatch*)((Rva003B8BAA*)TheCampaignManager)->rva003B8BAA())->f34())rva002B88EC();
+ }
+ ++m_field100;
+ if(*((Bool*)this+0x168) && m_field100>=*((UnsignedInt*)((char*)this+0x164)))rva002B88EC();
 }
