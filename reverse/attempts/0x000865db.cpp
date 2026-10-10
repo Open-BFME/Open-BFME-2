@@ -1,4 +1,6 @@
 // ?cameraModFinalZoom@W3DView@@UAEXMMM@Z
+// partial score=0.98 date=2026-10-10
+// ?cameraModFinalZoom@W3DView@@UAEXMMM@Z
 // partial score=0.98 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
 // Ported from Open-BFME-1 6583b3c1ff21db4a561285717028fdafc780b7db.
