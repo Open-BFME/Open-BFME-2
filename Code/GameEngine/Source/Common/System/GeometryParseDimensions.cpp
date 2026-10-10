@@ -14,6 +14,13 @@ struct GeometryShape {
     int type; float height, majorRadius, minorRadius, x, y, z;
     char *name; bool active; bool usedForHealthBox; char padding[2];
 };
+// Keep the existing STLport size operation inline in these native consumers.
+namespace _STL {
+template<> __declspec(dllimport) __forceinline
+vector<GeometryShape, allocator<GeometryShape> >::size_type
+vector<GeometryShape, allocator<GeometryShape> >::size() const
+{ return size_type(this->_M_finish - this->_M_start); }
+}
 class GeometryInfo {
 public:
     static void parseGeometryMajorRadius(INI *, void *, void *, const void *);
