@@ -10,7 +10,7 @@ class StateMachine;
 class AIUpdateInterface;
 class SupplyTruckAIInterface;
 
-class State
+struct State
 {
 public:
 	char m_pad[0x18];
@@ -163,7 +163,7 @@ public:
 	static bool ownerAvailableForSupplying(State *thisState, void *userData);
 };
 
-// ?ownerAvailableForSupplying@SupplyTruckStateMachine@@SA_NPAVState@@PAX@Z
+// ?ownerAvailableForSupplying@SupplyTruckStateMachine@@SA_NPAUState@@PAX@Z
 bool SupplyTruckStateMachine::ownerAvailableForSupplying(State *thisState, void *userData)
 {
 	StateMachine *machine = thisState->m_machine;

@@ -102,16 +102,17 @@ class AIDockMachine : public StateMachine
 public:
 	AIDockMachine(Object *owner);
 	virtual ~AIDockMachine();
+	// condition 0x005440F6, the only entry of the .rdata table 0x00869C78
+	// (Zero Hour's ableToAdvance: wait-for-clearance -> advance-position)
+	static Bool ableToAdvance(State *thisState, void *userData);
 	int m_approachPosition;	// +0x3C dock approach slot (-1: none)
 };
-// condition 0x005440F6 (retail .rdata table entry)
-Bool rva005440F6(State *thisState, void *userData);
 
 AIDockMachine::AIDockMachine(Object *owner) : StateMachine(owner, 0x2b638eb7u, false)
 {
 	static const StateConditionInfo g_condC69C78[] =
 	{
-		{ (void *)rva005440F6, 2, NULL },
+		{ (void *)ableToAdvance, 2, NULL },
 		{ NULL, 0, NULL }	// keep last
 	};
 

@@ -9,7 +9,7 @@ class Object;
 class StateMachine;
 class AIUpdateInterface;
 
-class State
+struct State
 {
 public:
 	char m_pad[0x18];
@@ -155,7 +155,7 @@ public:
 	static bool ownerNotDockingOrIdle(State *thisState, void *userData);
 };
 
-// ?ownerNotDockingOrIdle@SupplyTruckStateMachine@@SA_NPAVState@@PAX@Z
+// ?ownerNotDockingOrIdle@SupplyTruckStateMachine@@SA_NPAUState@@PAX@Z
 bool SupplyTruckStateMachine::ownerNotDockingOrIdle(State *thisState, void *userData)
 {
 	StateMachine *machine = thisState->m_machine;

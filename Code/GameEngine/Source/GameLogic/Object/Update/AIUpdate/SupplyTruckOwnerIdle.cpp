@@ -1,9 +1,9 @@
 // cl: /DNDEBUG /MD
 //
-// Retail RE: ?ownerIdle@SupplyTruckStateMachine@@SA_NPAVState@@PAX@Z @0x004A6D38 (37B).
+// Retail RE: ?ownerIdle@SupplyTruckStateMachine@@SA_NPAUState@@PAX@Z @0x004A6D38 (37B).
 //
 // BFME2 SupplyTruck state-machine condition, fresh sibling of refuted
-// ?ownerDocking@SupplyTruckStateMachine@@SA_NPAVState@@PAX@Z @0x004A6CF2 (35B).
+// ?ownerDocking@SupplyTruckStateMachine@@SA_NPAUState@@PAX@Z @0x004A6CF2 (35B).
 // This seat pivots per lane: do NOT retry the same 35B EAX-vs-ECX/EDX +
 // unresolved-0x262FC3 shape. New body has independent provider support.
 //
@@ -38,7 +38,7 @@ class Object;
 class StateMachine;
 class AIUpdateInterface;
 
-class State
+struct State
 {
 public:
 	char m_pad[0x18];
@@ -181,7 +181,7 @@ public:
 	static bool ownerIdle(State *thisState, void *userData);
 };
 
-// ?ownerIdle@SupplyTruckStateMachine@@SA_NPAVState@@PAX@Z
+// ?ownerIdle@SupplyTruckStateMachine@@SA_NPAUState@@PAX@Z
 bool SupplyTruckStateMachine::ownerIdle(State *thisState, void *userData)
 {
 	StateMachine *machine = thisState->m_machine;

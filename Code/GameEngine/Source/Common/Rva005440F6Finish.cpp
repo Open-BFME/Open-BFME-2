@@ -1,20 +1,24 @@
-// ?Rva005440F6Get@@YA_NPAVRva00544884State@@@Z
-// partial score=0.98 date=2026-10-04
-// ?Rva005440F6Get@@YA_NPAVRva00544884State@@@Z
-// partial score=0.93 date=2026-10-03
 // cl: /MD
-// ?Rva005440F6Get@@YA_NPAVRva00544884State@@@Z, retail 0x005440F6, 61 bytes.
-// Virtual slot 18 (offset 0x48) of vtable 0x00C69C30, class of ??0Rva00544884@@QAE@PAVStateMachine@@@Z.
-// Gets TurretStateMachine goal via rowed getGoalObject 0x004D7726, finds BEC via rowed Object::getDockUpdateInterface 0x0028BCB4, calls slot 0x10 with owner and machine+0x3C, returns bool. Evidence: vslot slot 18; ctor TU Rva00544884Ctor; prev Rva005440BCVSlot5440CD same call pair; next Rva005447EDOnEnter same machine+owner pattern.
+// ?ableToAdvance@AIDockMachine@@SA_NPAUState@@PAX@Z, retail 0x005440F6, 61 bytes.
+//
+// Target facts: the rowed AIDockMachine ctor 0x005448A1 pushes the .rdata
+// condition table 0x00869C78 for state 1, whose only entry is this function
+// with target state 2 (then the null terminator); vtable 0x008699A0 slot 2
+// returns the name string AIDockMachine. The body takes the state's machine
+// (+0x18), its goal object through the rowed getGoalObject 0x004D7726 (pinned
+// as StateMachine::getGoalObject) and that object's dock interface through
+// the rowed Object::getDockUpdateInterface 0x0028BCB4, then asks interface
+// slot 4 with the machine owner (+0x14) and the machine's +0x3C (the dock
+// approach position the ctor sets to -1).
+// Donor-carried: the name and role are Zero Hour's AIDockMachine::ableToAdvance
+// (AIDock.cpp), the condition of AI_DOCK_WAIT_FOR_CLEARANCE leading to
+// AI_DOCK_ADVANCE_POSITION; interface slot 4 is ZH's isClearToAdvance.
+// The cdecl userData argument is unused, as in Zero Hour.
+
+typedef bool Bool;
 
 class Object;
 class DockUpdateInterface;
-
-class TurretStateMachine
-{
-public:
-	Object *getGoalObject();
-};
 
 class Object
 {
@@ -29,44 +33,45 @@ public:
 	virtual void v01();
 	virtual void v02();
 	virtual void v03();
-	virtual unsigned char v04(Object *owner, int v);
+	virtual unsigned char isClearToAdvance(Object *owner, int position);
 };
 
 class StateMachine
 {
 public:
+	Object *getGoalObject();
 	unsigned char m_pad00[0x14];
 	Object *m_owner; // +0x14
-};
-
-class TurretMachine : public StateMachine
-{
-public:
 	unsigned char m_pad18[0x3C - 0x18];
-	int m_3C; // +0x3C
 };
 
-class Rva00544884State
+class AIDockMachine : public StateMachine
 {
 public:
+	static Bool ableToAdvance(struct State *thisState, void *userData);
+	int m_approachPosition; // +0x3C
+};
+
+struct State
+{
 	unsigned char m_pad00[0x18];
 	StateMachine *m_machine; // +0x18
 };
 
-bool Rva005440F6Get(Rva00544884State *state)
+Bool AIDockMachine::ableToAdvance(State *thisState, void *userData)
 {
-	Object *goal = ((TurretStateMachine *)state->m_machine)->getGoalObject();
-	TurretMachine *machine = (TurretMachine *)state->m_machine;
+	Object *goal = thisState->m_machine->getGoalObject();
+	AIDockMachine *machine = (AIDockMachine *)thisState->m_machine;
 	bool result;
 	if (goal == 0) {
 		result = false;
 	} else {
-		DockUpdateInterface *bec = goal->getDockUpdateInterface();
-		if (bec == 0) {
+		DockUpdateInterface *dock = goal->getDockUpdateInterface();
+		if (dock == 0) {
 			result = false;
 		} else {
-			Object *owner = state->m_machine->m_owner;
-			result = bec->v04(owner, machine->m_3C) != 0;
+			Object *owner = thisState->m_machine->m_owner;
+			result = dock->isClearToAdvance(owner, machine->m_approachPosition) != 0;
 		}
 	}
 	return result;

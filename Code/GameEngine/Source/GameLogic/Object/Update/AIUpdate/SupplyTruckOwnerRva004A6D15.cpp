@@ -1,14 +1,14 @@
 // cl: /DNDEBUG /MD
 //
-// Retail RE: ?ownerRva004A6D15@SupplyTruckStateMachine@@SA_NPAVState@@PAX@Z
+// Retail RE: ?ownerRva004A6D15@SupplyTruckStateMachine@@SA_NPAUState@@PAX@Z
 // @0x004A6D15 (35B).
 //
 // BFME2 SupplyTruck state-machine condition, sibling of landed
-// ?ownerDocking@SupplyTruckStateMachine@@SA_NPAVState@@PAX@Z @0x004A6CF2 (35B),
-// ?ownerIdle@SupplyTruckStateMachine@@SA_NPAVState@@PAX@Z @0x004A6D38 (37B),
-// ?ownerAvailableForSupplying@SupplyTruckStateMachine@@SA_NPAVState@@PAX@Z
+// ?ownerDocking@SupplyTruckStateMachine@@SA_NPAUState@@PAX@Z @0x004A6CF2 (35B),
+// ?ownerIdle@SupplyTruckStateMachine@@SA_NPAUState@@PAX@Z @0x004A6D38 (37B),
+// ?ownerAvailableForSupplying@SupplyTruckStateMachine@@SA_NPAUState@@PAX@Z
 // @0x004A6D5D (68B) and
-// ?ownerNotDockingOrIdle@SupplyTruckStateMachine@@SA_NPAVState@@PAX@Z
+// ?ownerNotDockingOrIdle@SupplyTruckStateMachine@@SA_NPAUState@@PAX@Z
 // @0x004A6DA1 (67B).
 // Pattern reuses the PROVEN landing TU (SupplyTruckOwnerDocking.cpp) VERBATIM:
 // TU-scoped minimal classes at retail offsets + direct member chain + direct
@@ -58,7 +58,7 @@ class Object;
 class StateMachine;
 class AIUpdateInterface;
 
-class State
+struct State
 {
 public:
 	char m_pad[0x18];
@@ -91,7 +91,7 @@ public:
 	static bool ownerRva004A6D15(State *thisState, void *userData);
 };
 
-// ?ownerRva004A6D15@SupplyTruckStateMachine@@SA_NPAVState@@PAX@Z
+// ?ownerRva004A6D15@SupplyTruckStateMachine@@SA_NPAUState@@PAX@Z
 // Address-derived placeholder: returns true iff the owner's AI state ID is
 // retail-observed 0x2F (47). No BFME2 state name is claimed for 47.
 bool SupplyTruckStateMachine::ownerRva004A6D15(State *thisState, void *userData)

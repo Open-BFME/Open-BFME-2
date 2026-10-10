@@ -1,9 +1,9 @@
 // cl: /DNDEBUG /MD
 //
-// Retail RE: ?ownerDocking@SupplyTruckStateMachine@@SA_NPAVState@@PAX@Z @0x004A6CF2 (35B).
+// Retail RE: ?ownerDocking@SupplyTruckStateMachine@@SA_NPAUState@@PAX@Z @0x004A6CF2 (35B).
 //
 // BFME2 SupplyTruck state-machine condition, sibling of landed
-// ?ownerIdle@SupplyTruckStateMachine@@SA_NPAVState@@PAX@Z @0x004A6D38 (37B).
+// ?ownerIdle@SupplyTruckStateMachine@@SA_NPAUState@@PAX@Z @0x004A6D38 (37B).
 // Pattern reuses the PROVEN landing TU (SupplyTruckOwnerIdle.cpp): TU-scoped
 // minimal classes at retail offsets + direct member chain. That TU's 16B
 // prologue (8B442404/8B4018/8B4014/8B8858020000/85C9) is byte-identical to
@@ -44,7 +44,7 @@ class Object;
 class StateMachine;
 class AIUpdateInterface;
 
-class State
+struct State
 {
 public:
 	char m_pad[0x18];
@@ -79,7 +79,7 @@ public:
 	static bool ownerDocking(State *thisState, void *userData);
 };
 
-// ?ownerDocking@SupplyTruckStateMachine@@SA_NPAVState@@PAX@Z
+// ?ownerDocking@SupplyTruckStateMachine@@SA_NPAUState@@PAX@Z
 bool SupplyTruckStateMachine::ownerDocking(State *thisState, void *userData)
 {
 	StateMachine *machine = thisState->m_machine;
