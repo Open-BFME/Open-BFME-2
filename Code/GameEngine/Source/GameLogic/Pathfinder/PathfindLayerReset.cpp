@@ -9,6 +9,9 @@
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 
+extern "C" void _ReadWriteBarrier(void);
+#pragma intrinsic(_ReadWriteBarrier)
+
 void __cdecl operator delete(void *pointer);
 void __cdecl operator delete[](void *pointer);
 
@@ -106,6 +109,7 @@ public:
 class PathfindLayer
 {
 public:
+	bool ConnectsZones(class PathfindZoneManager *, const class LocomotorSet &, int, int);
 	PathfindLayer();
 	void ClassifyWallCells();
 	void rva00366DEC();
@@ -254,4 +258,39 @@ PathfindLayer::PathfindLayer()
  m_startCell.x=-1; m_startCell.y=-1; m_endCell.x=-1; m_endCell.y=-1;
  m_layer=0; m_zone=-1; m_destroyed=false;
  m_bridge=0; m_triggers=0; m_triggerObjectID=-1;
+}
+
+// Native 00366CEA..00366DEC RET16; WB F29DE0 names ConnectsZones.
+// BFME1 clean source supplies the zone-walk semantics. Native accesses prove
+// cells4, dimensions8/C, destroyed30, zone flags10..15, and LocomotorSet10/15.
+// The scheduling fence preserves the native loop-index load before cell-base load.
+enum PathfindLayerEnum{LAYER_INVALID=-1,LAYER_GROUND=1,LAYER_FIRST_BRIDGE=16};
+int Rva002E6E6CGet(int);
+class LocomotorSet{public:char pad0[0x10];int m_surfaces;char pad14;unsigned char m_15;int getValidSurfaces()const{return m_surfaces;}};
+struct PathfindMovementProfile{int m_surfaces;bool m_crusher,m_terrainOnly;char pad6[2];int m_layer;unsigned char m_C;PathfindMovementProfile(int s):m_surfaces(s),m_crusher(false),m_terrainOnly(false),m_layer(-1){} };
+class Rva002E99F9Sub460{public:unsigned short rva0053241F(void *,unsigned short);unsigned short rva00531FD4(void *,unsigned short);};
+class PathfindZoneManager{};
+class Pathfinder{public:PathfindCell *getCell(PathfindLayerEnum,int,int);};
+class AI{public:char pad0[0x10];Pathfinder *m_pathfinder;Pathfinder *pathfinder()const{return m_pathfinder;}};extern AI *TheAI;
+ bool PathfindLayer::ConnectsZones(PathfindZoneManager *zoneManager,const LocomotorSet &locomotorSet,int zone1,int zone2)
+{
+ if(!m_destroyed)return false;
+ bool found1=false,found2=false;
+ for(int i=0;i<m_width;++i){
+  for(int j=0;j<m_height;++j){
+   PathfindCell *cell=&m_layerCells[i][j];
+   int connectLayer=(cell->m_flags>>10)&0x3f;
+   _ReadWriteBarrier(); if((unsigned char)Rva002E6E6CGet(connectLayer)){
+    PathfindCell *groundCell=TheAI->m_pathfinder->getCell(LAYER_GROUND,i+m_xOrigin,j+m_yOrigin);
+    if(groundCell){
+     PathfindMovementProfile profile(locomotorSet.getValidSurfaces());profile.m_C=locomotorSet.m_15;
+     unsigned short zone=((Rva002E99F9Sub460 *)zoneManager)->rva0053241F(&profile,groundCell->m_zone);
+     zone=((Rva002E99F9Sub460 *)zoneManager)->rva00531FD4(&profile,zone);
+     if(zone==zone1)found1=true;
+     if(zone==zone2)found2=true;
+    }
+   }
+  }
+ }
+ return found1&&found2;
 }
