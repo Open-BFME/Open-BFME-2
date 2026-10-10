@@ -246,6 +246,15 @@ public: Rva0086EE20(){} ~Rva0086EE20(){}
 };
 void Rva0086EE20::slot0(int) {}
 void Rva0086EE20::rva005F267E(int,float) {}
+
+// Counted icon-slot reference, returned by value through a hidden pointer
+// (native 5F3652/5F38D8 RET8), so the type is not a POD; destructor declared
+// only. Native 5F3652 stores the slot at +0 and bumps the count at +4.
+struct Rva005F38D8Ref
+{
+	void *m_ptr;
+	~Rva005F38D8Ref();
+};
 class StrategicHUD::ArmyDetailsMovieClip::Impl :public Rva0086EE20
 {
 public:
@@ -279,6 +288,7 @@ public:
  void OnScrollBarUnloaded(const char*);
 	void rva005F2E85();
  void Update();
+ Rva005F38D8Ref rva005F3652(int position);
  virtual void rva005F267E(int,float);
 private:
 	char m_pad04[4];
@@ -513,4 +523,24 @@ void StrategicHUD::ArmyDetailsMovieClip::Impl::rva005F267E(int,float value)
 // Native ctor5F39D6 binds the +1C callback fold at42D5CB.
 void StrategicHUD::ArmyDetailsMovieClip::Impl::OnScrollBarUnloaded(const char*) {
  reinterpret_cast<Rva000AD6F4*>(&m_scrollBar)->clear();
+}
+
+// Native 0x005F38D8 29B RET8: forwards the position argument to the
+// implementation (+4) icon-slot lookup 0x005F3652 and returns its counted
+// reference through the caller's hidden pointer. Same shape as the checklist
+// forwarder Rva005CCFF3::rva005CCFF3 (29B, native 5CCFF3, masked twin 1.0);
+// the receiver's outer class is unidentified, so address-derived, while the
+// +4 implementation is ArmyDetailsMovieClip::Impl (the callee reads its
+// +0x24 icon-slot vector) and the int argument follows from the callee's
+// clamp of [ebp+0xc] against that vector's size.
+class Rva005F38D8
+{
+public:
+	Rva005F38D8Ref rva005F38D8(int position);
+	void *unknown00;
+	StrategicHUD::ArmyDetailsMovieClip::Impl *implementation;
+};
+Rva005F38D8Ref Rva005F38D8::rva005F38D8(int position)
+{
+	return implementation->rva005F3652(position);
 }

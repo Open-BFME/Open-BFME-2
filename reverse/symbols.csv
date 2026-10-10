@@ -17173,3 +17173,4 @@ _VP6_ReadTokens,0x001BC3D0,callee of _VP6_DecodeBlock
 ??_ERva005D06CB@@UAEPAXI@Z,0x005D0A67,callee of ??_ERva005D06CB@@WM@AEPAXI@Z
 ?_horseUpdatePosition@HorseHordeContain@@QAEXPAVObject@@PBUCoord3D@@M@Z,0x0047681F,callee of ?rva00476D77@HorseHordeContain@@QAEXPAVObject@@PBUCoord3D@@M_N@Z
 ?rva00471464@Rva00471464@@QAEXPAVObject@@PBUCoord3D@@M@Z,0x00471464,callee of ?rva00476D77@HorseHordeContain@@QAEXPAVObject@@PBUCoord3D@@M_N@Z
+?rva005F3652@Impl@ArmyDetailsMovieClip@StrategicHUD@@QAE?AURva005F38D8Ref@@H@Z,0x005F3652,callee of ?rva005F38D8@Rva005F38D8@@QAE?AURva005F38D8Ref@@H@Z
