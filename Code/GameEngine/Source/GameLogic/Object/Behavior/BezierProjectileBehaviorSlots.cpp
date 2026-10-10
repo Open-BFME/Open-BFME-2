@@ -280,3 +280,72 @@ void BezierProjectileBehavior::projectileLaunchAtObjectOrPosition(Object *victim
 	obj->setModelConditionBit(4 * 32 + 26);
 	obj->setStatus(OBJECT_STATUS_5, true);
 }
+
+// Clean donor: Open-BFME-1 575ba2b0, BezierProjectileBehaviorModuleDataCtorThunk.cpp.
+// Native45B4F1..45B5E3 is the complete242B constructor; the next17B body is
+// the separately rowed buildFieldParse. BFME2 widens both curve members to
+// the existing28B constructor24C7B3 and adds the fields afterAC. Float widths
+// below follow native MOVSS stores; unexplained fields retain offset names.
+// This is the existing shared table alias used by Aim/Physics module data;
+// this unit adds neither an alias definition nor a guessed virtual contract.
+extern "C" const void *const vtbl_00C4ED70[];
+
+class Rva0024C7B3Member
+{
+public:
+	Rva0024C7B3Member();
+	unsigned char m_data[0x1C];
+};
+
+class BezierProjectileBehaviorModuleData
+{
+public:
+	BezierProjectileBehaviorModuleData();
+private:
+	const void *m_vtable;
+	unsigned int m_unused04;
+	float m_firstHeight, m_secondHeight, m_firstPercentIndent, m_secondPercentIndent;
+	bool m_killInsteadOfDestroy, m_flag19;
+	unsigned int m_effectFrame;
+	float m_value20, m_value24, m_value28, m_value2C, m_value30, m_value34;
+	unsigned int m_value38, m_value3C, m_value40, m_value44;
+	bool m_flag48, m_enabled, m_objectFire;
+	unsigned int m_value4C;
+	Rva0024C7B3Member m_firstCurve, m_secondCurve;
+	unsigned int m_value88;
+	float m_value8C;
+	bool m_flag90;
+	float m_minCurveFraction, m_maxCurveFraction;
+	void *m_effect9C, *m_effectA0, *m_effectA4, *m_effectA8;
+	int m_invalidAC;
+	float m_valueB0;
+	bool m_flagB4;
+	void *m_valueB8;
+	int m_invalidBC;
+	float m_valueC0;
+};
+
+BezierProjectileBehaviorModuleData::BezierProjectileBehaviorModuleData()
+	: m_vtable(vtbl_00C4ED70), m_firstHeight(0), m_secondHeight(0),
+	  m_firstPercentIndent(0), m_secondPercentIndent(0),
+	  m_killInsteadOfDestroy(false), m_flag19(false), m_effectFrame(0),
+	  m_value20(0), m_value24(0), m_value28(0), m_value2C(0), m_value30(0), m_value34(0),
+	  m_value38(0), m_value3C(0), m_value40(0), m_value44(0),
+	  m_flag48(false), m_enabled(true), m_objectFire(false), m_value4C(0)
+{
+	m_value88 = 0;
+	m_value8C = 0.0f;
+	m_flag90 = false;
+	m_minCurveFraction = 0.33f;
+	m_maxCurveFraction = 0.66f;
+	m_effect9C = 0;
+	m_effectA0 = 0;
+	m_effectA4 = 0;
+	m_effectA8 = 0;
+	m_invalidAC = -1;
+	m_valueB0 = 0.0f;
+	m_flagB4 = true;
+	m_valueB8 = 0;
+	m_invalidBC = -1;
+	m_valueC0 = 0.0f;
+}
