@@ -118,3 +118,14 @@ bool HordeMeleeFormation::rva00585017(int index,Coord3D *result)
  }
  return false;
 }
+
+// STLport4.5.3 reverse_iterator equality for this formation's12B path entries.
+// Native00584D14..00584D3F copies both16B iterators and compares current pointers.
+// Formation update005863E5 calls it at0058678D and005867B8; WB1473460
+// independently shows that reverse traversal. Keep the instantiation with
+// its actual FormationAttackEntry deque, sharing the observed element view.
+namespace _STL {
+template bool operator==<deque<BfmeE12>::iterator>(
+ const reverse_iterator<deque<BfmeE12>::iterator> &,
+ const reverse_iterator<deque<BfmeE12>::iterator> &);
+}
