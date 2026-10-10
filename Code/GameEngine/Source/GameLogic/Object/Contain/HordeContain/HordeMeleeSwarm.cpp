@@ -18,8 +18,33 @@ template<int N> class SwarmSlots : public SwarmSlots<N-1> { public: virtual void
 template<> class SwarmSlots<0> {};
 class SwarmRangeQuery : public SwarmSlots<18> { public: virtual Object *query(int,const Coord3D *,float,int,int)=0; };
 class SwarmContainer : public SwarmSlots<31> { public: virtual SwarmRangeQuery *rangeQuery()=0; };
-class SwarmAI : public SwarmSlots<111> { public: virtual bool specialState()=0; };
-class AICommandInterface { public: void rva0026C2D9(Object *,int,CommandSourceType); };
+class SwarmAI : public SwarmSlots<110> { public: virtual bool idleBlocked()=0; virtual bool specialState()=0;
+ virtual void slot112()=0;
+ virtual void slot113()=0;
+ virtual void slot114()=0;
+ virtual void slot115()=0;
+ virtual void slot116()=0;
+ virtual void slot117()=0;
+ virtual void slot118()=0;
+ virtual void slot119()=0;
+ virtual void slot120()=0;
+ virtual void slot121()=0;
+ virtual void slot122()=0;
+ virtual void slot123()=0;
+ virtual void slot124()=0;
+ virtual void slot125()=0;
+ virtual void slot126()=0;
+ virtual void slot127()=0;
+ virtual void slot128()=0;
+ virtual void slot129()=0;
+ virtual void slot130()=0;
+ virtual void slot131()=0;
+ virtual void slot132()=0;
+ virtual void slot133()=0;
+ virtual void slot134()=0;
+ virtual void slot135()=0;
+ virtual void resetAttack()=0; };
+class AICommandInterface { public: void rva0026C2D9(Object *,int,CommandSourceType); void aiIdle(CommandSourceType); };
 class Object {
 public:
  Object *rva002931F5(bool);
@@ -126,4 +151,29 @@ void HordeMeleeSwarm::updateMeleeAttack(Object *victim)
   if(count<1) break;
  }
  force=false;
+}
+
+// Native58453D..584644 is263B RET4 and slot3 of the constructor table.
+// The exact update calls this slot on its read-and-clear restart flag.
+// WB1479FC0 independently confirms the full traversal and idle/reset calls.
+void HordeMeleeSwarm::startMeleeAttack(Object *victim)
+{
+ held->active=true;
+ SwarmRange range;
+ ((SwarmListProvider *)((char *)held+0x20))->fill(&range);
+ for(SwarmNode *node=range.list->head->next;node!=range.list->head;node=node->next) {
+  Object *unit=node->object;
+  if(!unit) continue;
+  SwarmAI *ai=unit->m_ai;
+  if(ai && *(int *)((char *)ai+0x1fc)==4 && *(int *)((char *)ai+0x140)) continue;
+  if(!unit->testStatus(SWARM_STATUS_1C) && ai && !ai->idleBlocked())
+   ((AICommandInterface *)((char *)ai+0x20))->aiIdle(SWARM_COMMAND);
+  int index=((Rva0046ACF6 *)held)->rva0046ACF6(unit->m_id);
+  if(index<0 || index>=attacks.size()) continue;
+  SwarmAttackEntry &entry=attacks[index];
+  entry.position=unit->m_position;
+  entry.needsPosition=true;
+  unit->rva0028ACEE(&unit->m_position,unit->rva0028B511());
+  unit->m_ai->resetAttack();
+ }
 }
