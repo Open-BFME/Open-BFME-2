@@ -1,4 +1,8 @@
 // ?rva00468657@Rva00468657@@QAEXPAVObject@@E@Z
+// partial score=0.983 date=2026-10-10
+// ?rva00468657@Rva00468657@@QAEXPAVObject@@E@Z
+// partial score=0.983 date=2026-10-10
+// ?rva00468657@Rva00468657@@QAEXPAVObject@@E@Z
 // partial score=0.9 date=2026-10-08
 // cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /arch:SSE /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
 // stlport
@@ -24,7 +28,7 @@ public:
 	Drawable *getDrawable() const;
 };
 
-class Object;
+class Object {public:int getID()const{return id;}char pad[0x74];int id;};
 
 class Rva0055A88BDwordField
 {
@@ -48,7 +52,10 @@ public:
 
 struct ContainStatus468657
 {
-	unsigned int words[4];
+	ContainStatus468657(){}
+ ContainStatus468657(const ContainStatus468657&o){for(int i=0;i<4;++i)words[i]=o.words[i];}
+ unsigned char test(unsigned i)const{return static_cast<unsigned char>(words[i>>5]>>(i&31))&1;}
+ unsigned int words[4];
 };
 
 class Rva00468657
@@ -85,18 +92,18 @@ void Rva00468657::rva00468657(Object *object, unsigned char value)
 	Drawable *drawable = owner->getDrawable();
 	if (!drawable)
 		return;
-	if (!static_cast<bool>((status(0).words[1] >> 29) & 1))
+	if (!status(0).test(61))
 	{
 		int id = reinterpret_cast<Rva0055A88BDwordField *>(passenger)->get();
 		if (value)
 			reinterpret_cast<Rva002716Holder *>(drawable)->Rva002716D3Broadcast(id);
 		else
 			reinterpret_cast<Rva002716Holder *>(drawable)->Rva0027167FBroadcast(id);
-		if (bones.find(static_cast<int>(*reinterpret_cast<int *>(reinterpret_cast<char *>(object) + 0x74))) != bones.end())
+		if (bones.find(object->getID()) != bones.end())
 			passenger->rva0027656F(
 				reinterpret_cast<Rva0055A88BDwordField *>(drawable)->get(),
 				reinterpret_cast<Rva004650A0 *>(&bones)->rva004650A0(
-					static_cast<int>(*reinterpret_cast<int *>(reinterpret_cast<char *>(object) + 0x74))));
+					object->getID()));
 		else
 			passenger->rva0027656F(
 				reinterpret_cast<Rva0055A88BDwordField *>(drawable)->get(),

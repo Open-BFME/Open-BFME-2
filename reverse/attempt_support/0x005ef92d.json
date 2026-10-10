@@ -7,5 +7,21 @@
   "verified": "All scoped body/consumer checks plus full74097 body/literal/float/import gate; EH tables exact",
   "blocked": "Full DIR32 consistency fails four foreign fade globals binding DEC068/DEC1A0/DEC1B0; file claimed by codex-01a12257-root",
   "restore": "Apply Code portion of support patch; admit native472+265 with existing tool gates; rehome destructors and uninitialized_fill_n; preserve flags and canonical advanced header. Constructor registry default definitions must remain in separate TU. Reconcile ledger deletions explicitly.",
-  "alias_note": "BattlePrompt constructor TU now owns the same two-string concat61 gen-alias at109CFD. Do not add duplicate symbol/row from this snapshot. All aliases contribute zero unique bytes."
+  "alias_note": "BattlePrompt constructor TU now owns the same two-string concat61 gen-alias at109CFD. Do not add duplicate symbol/row from this snapshot. All aliases contribute zero unique bytes.",
+  "round3_verification": {
+    "base": "4d64effdf2b7613f403284c303dd3322f525fba3",
+    "all_functions": "74380/74380 exact; full74k byte gate green",
+    "blocked_gate": "DIR32 consistency: 7 pre-existing globals/vtable names",
+    "conflicts": [
+      "BroadcastStealthUpdate UpdateModule C52358/C52364",
+      "EmotionTrackerUpdate UpdateModule C565B0/C5667C",
+      "Rva005F8CB0Base0 BC6F20/C7A630",
+      "BfmeScreenTransitionFadeValue DEC068/DEC1A0/DEC1B0",
+      "g_00DEC1B4 DEC06C/DEC1A4/DEC1B4",
+      "g_00DEC1B8 DEC070/DEC1A8/DEC1B8",
+      "g_00DEC1BC DEC074/DEC1AC/DEC1BC"
+    ],
+    "log": "build/n5-r3-737commit.log",
+    "time": "2026-10-10 03:35 CEST"
+  }
 }
