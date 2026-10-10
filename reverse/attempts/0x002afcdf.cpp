@@ -1,6 +1,7 @@
 // ?initFromDict@Player@@QAEXPBVDict@@@Z
 // partial score=0.9045478972894136 date=2026-10-10
 template<class T> static __forceinline T p4Operand(const T &v) { return *(const volatile T*)&v; }
+// partial score=0.9044606061031877 date=2026-10-10
 // ?initFromDict@Player@@QAEXPBVDict@@@Z
 // partial score=0.8977090997624326 date=2026-10-10
 // ?initFromDict@Player@@QAEXPBVDict@@@Z
@@ -149,12 +150,12 @@ bool Rva002ACFC1Equal(int,int);
 struct DifficultyView{char pad[0x1a4c4];int value;};class ScriptEngine;extern ScriptEngine*TheScriptEngine;
 struct Rva004DFC20{void clear();};
 struct RegionManagerView{void*getCurrent();};
-class Rva0020E6B7RegionManager{public:class Rva003F468D*rva0020E6B7();};
-class Rva003F468D{public:char pad[0x24];class LivingWorldRegion*region;class RegionOwner*rva003F4DA9();};
+class Rva0020E6B7RegionManager{public:class LivingWorldBattle*rva0020E6B7();};
+class LivingWorldBattle{public:char pad[0x24];class LivingWorldRegion*region;void*rva003F4D09();};
 class RegionOwner{public:char pad[0x14];int index;};class CreateAHeroData;
 class LivingWorldRegion{public:char pad[0x11c];bool flag;int rva003F0614(CreateAHeroData*)const;};
 struct CampaignView{char pad[0xb0];Rva0020E6B7RegionManager*regions;bool active;};
-void*Rva002B47B1Get();void*Rva002B479FGet();
+class LivingWorldLogic{public:int rva002B47B1();int rva002B479F();};
 inline __declspec(noinline) SidesInfo*SidesList::getSkirmishSideInfo(int i){return i>=0 && i<skirmishCount?&skirmishSides[i]:0;}
 struct CharCompare {char m_unused;};
 int compareRange(const char*,int,const char*,int,CharCompare);
@@ -222,7 +223,7 @@ void Player::initFromDict(const Dict*d){
  if(selection){::delete selection;selection=0;}selection=new Squad;
  text74C=d->getAsciiString(TheKey_playerFactionIcon.get(),&exists);int ri=d->getInt(TheKey_livingWorldPlayerID.get(),&exists);if(exists)unknown3AC=ri;
  if(((LogicModeView*)TheGameLogic)->mode!=3 && ((CampaignView*)TheLivingWorldLogic)->active){
-  Rva003F468D*cur=((CampaignView*)TheLivingWorldLogic)->regions->rva0020E6B7();
-  if(cur){RegionOwner*owner=cur->rva003F4DA9();void*cash;if(owner && owner->index==unknown3AC && (cur->region->rva003F0614((CreateAHeroData*)1)>=1 || cur->region->flag))cash=Rva002B47B1Get();else cash=Rva002B479FGet();money.rva003B0D7C((int)cash,(Rva0039B7AD*)&score,false);}
+  LivingWorldBattle*cur=((CampaignView*)TheLivingWorldLogic)->regions->rva0020E6B7();
+  if(cur){RegionOwner*owner=(RegionOwner*)cur->rva003F4D09();LivingWorldRegion*r;if(owner && unknown3AC==*(volatile int*)&owner->index && ((r=cur->region)->rva003F0614((CreateAHeroData*)1)>=1 || r->flag))money.rva003B0D7C(TheLivingWorldLogic->rva002B47B1(),(Rva0039B7AD*)&score,false);else money.rva003B0D7C(TheLivingWorldLogic->rva002B479F(),(Rva0039B7AD*)&score,false);}
  }
 }
