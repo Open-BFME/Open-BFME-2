@@ -1,5 +1,3 @@
-// ??0Impl@RegionDetailsArmiesMovieClip@StrategicHUD@@QAE@HABVAsciiString@@I@Z
-// partial score=1.0 date=2026-10-10
 // cl: /O1 /G7 /arch:SSE /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport
 // Native5EF92D..5EFB05 RET12: constructor472B of the canonical

@@ -1,5 +1,3 @@
-// ?_M_fill_insert@?$vector@URva005EFD53Element@@V?$allocator@URva005EFD53Element@@@_STL@@@_STL@@QAEXPAURva005EFD53Element@@IABU3@@Z
-// partial score=1.0 date=2026-10-10
 // cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // STLport4.5.3 _vector.c is the source for native5EFC30..5EFD39 (265B).

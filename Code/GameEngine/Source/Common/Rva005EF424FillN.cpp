@@ -23,14 +23,8 @@ ForwardIter __uninitialized_fill_n(ForwardIter first, Size n, const T &x, const 
 	return cur;
 }
 
-template <class ForwardIter, class Size, class T>
-ForwardIter uninitialized_fill_n(ForwardIter first, Size n, const T &x)
-{
-	__false_type tag;
-	return __uninitialized_fill_n(first, n, x, tag);
-}
+
 
 }
 
 template Rva005EFD53Element *_STL::__uninitialized_fill_n(Rva005EFD53Element *, unsigned int, const Rva005EFD53Element &, const _STL::__false_type &);
-template Rva005EFD53Element *_STL::uninitialized_fill_n(Rva005EFD53Element *, unsigned int, const Rva005EFD53Element &);

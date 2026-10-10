@@ -1,4 +1,5 @@
-// cl: /DNDEBUG /MD /Ireference/shims/bfme2_ascii
+// cl: /DNDEBUG /MD /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /D_STLP_USE_STATIC_LIB
+// stlport
 //
 // Apt callbacks of the War of the Ring icon slot widgets, bound as member
 // pointers under "<movie>_On..." names (a movie name plus a fixed suffix)
@@ -91,37 +92,25 @@ void Rva005EEF2F::OnIconSlotRollOver(const char *unused)
 
 // ---- bound by 0x005EF92D
 
-class Rva005EF92D
-{
-public:
-	void OnRollOverCommandPoints(const char *unused);
-	void OnRollOutCommandPoints(const char *unused);
-	void PlayerColor(int query, char *result, bool skip);
-
-private:
-	unsigned char m_pad00[0x08];
-	unsigned int m_color; // +0x08
-	unsigned char m_pad0c[0x3E - 0x0C];
-	bool m_commandPointsRolledOver; // +0x3E
-};
+#include "../../Common/RegionDetailsArmiesClipImplView.h"
 
 // Retail 0x005EEED4, 7 bytes: bound as "<movie>_OnRollOverCommandPoints"
 // (0x005EF9D5).
-void Rva005EF92D::OnRollOverCommandPoints(const char *unused)
+void StrategicHUD::RegionDetailsArmiesMovieClip::Impl::OnRollOverCommandPoints(const char *unused)
 {
-	m_commandPointsRolledOver = true;
+	m_3E = true;
 }
 
 // Retail 0x005EEEDB, 7 bytes: bound as "<movie>_OnRollOutCommandPoints"
 // (0x005EFA34).
-void Rva005EF92D::OnRollOutCommandPoints(const char *unused)
+void StrategicHUD::RegionDetailsArmiesMovieClip::Impl::OnRollOutCommandPoints(const char *unused)
 {
-	m_commandPointsRolledOver = false;
+	m_3E = false;
 }
 
 // Retail 0x005EEEE2, 29 bytes: bound as "<movie>_PlayerColor" (0x005EFA93),
 // an Apt query answering +0x08.
-void Rva005EF92D::PlayerColor(int query, char *result, bool skip)
+void StrategicHUD::RegionDetailsArmiesMovieClip::Impl::PlayerColor(int query, char *result, bool skip)
 {
 	_snprintf(result, 0xFF, "%u", m_color);
 }
