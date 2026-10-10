@@ -44,3 +44,14 @@ void InGamePlanningModeInterface::Impl::Update()
         state = 3;
     }
 }
+
+// Native527F65..527F6C: receiver word0 is forwarded to the owned Impl::Update.
+// The original wrapper name and enclosing class remain unknown.
+struct Rva00527F65PlanningUpdateForward {
+    InGamePlanningModeInterface::Impl *implementation;
+    void update();
+};
+void Rva00527F65PlanningUpdateForward::update()
+{
+    implementation->Update();
+}
