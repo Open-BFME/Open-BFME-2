@@ -1,4 +1,6 @@
 // ?ProcessOnlineGameResults@StatsReporter@@SAXPAVPlayer@@@Z
+// partial score=0.9991 date=2026-10-10
+// ?ProcessOnlineGameResults@StatsReporter@@SAXPAVPlayer@@@Z
 // partial score=0.9992051995093693 date=2026-10-10
 // ?ProcessOnlineGameResults@StatsReporter@@SAXPAVPlayer@@@Z
 // partial score=0.9986520360241784 date=2026-10-09
