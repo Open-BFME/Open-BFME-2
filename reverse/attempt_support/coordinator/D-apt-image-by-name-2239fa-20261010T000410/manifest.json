@@ -1,0 +1,47 @@
+{
+  "id": "D-apt-image-by-name-2239fa-20261010T000410",
+  "seat": "D",
+  "base_commit": "6a316ed7fedd32abd2881efb4be82512356528cd",
+  "paths": [
+    "Code/GameEngine/Source/GameClient/Rva002239B2.cpp",
+    "reverse/re_attempts.log",
+    "reverse/attempts/0x005b6052.cpp"
+  ],
+  "recoveries": [
+    {
+      "name": "?rva002239FA@Rva00222A8BTarget@@QAEXABVAsciiString@@0@Z",
+      "rva": "0x002239FA",
+      "size": 154,
+      "source": "Code/GameEngine/Source/GameClient/Rva002239B2.cpp",
+      "notes": "Independent154B 2239FA..223A94 RET8; adjacent24B setter2239E2 and whole native body identify by-name image lookup with diagnostic mode2 on failure. Existing pin owner retained; shared Debug header plus call-only integer completion view; complete chained string expression preserves native argument order. All154B and two siblings48/24B exact.",
+      "replace_rva": ""
+    }
+  ],
+  "proof_command": [
+    [
+      "C:\\Users\\franz\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+      "tools/explain_mismatch.py",
+      "?rva002239FA@Rva00222A8BTarget@@QAEXABVAsciiString@@0@Z",
+      "--rva",
+      "0x002239FA",
+      "--size",
+      "154",
+      "--source",
+      "Code/GameEngine/Source/GameClient/Rva002239B2.cpp"
+    ],
+    [
+      "C:\\Users\\franz\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+      "tools/explain_mismatch.py",
+      "?rva002239B2@Rva002239B2@@QAEXPBXPAURva001408C0Target@@@Z"
+    ],
+    [
+      "C:\\Users\\franz\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+      "tools/explain_mismatch.py",
+      "?rva002239E2@Rva002239B2@@QAEXABVAsciiString@@PBVImage@@@Z"
+    ]
+  ],
+  "proof_log": "proof.log",
+  "claim_owner": "codex-01a12257-root",
+  "dependencies": [],
+  "temporary_ledger": false
+}
