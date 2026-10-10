@@ -1,8 +1,4 @@
 // ?rva004FB382@Rva004FB382@@QAE_NXZ
-// partial score=0.92 date=2026-10-08
-// ?rva004FB382@Rva004FB382@@QAE_NXZ
-// partial score=0.92 date=2026-10-08
-// cl: /O2 /DNDEBUG /MD
 // cl: /O2 /DNDEBUG /MD
 //
 // ?rva004FB382@Rva004FB382@@QAE_NXZ @0x004FB382 112B: thiscall, no args, bool.
@@ -11,6 +7,9 @@
 // id test (rva002E0BC0) decides; on a miss the player's +0x3C4 flag must be
 // set or the scan fails. Owner-to-player relation and the pointer-diff
 // divisor are structural inferences from the bytes, not named identities.
+
+extern "C" void _ReadWriteBarrier(void);
+#pragma intrinsic(_ReadWriteBarrier)
 
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
@@ -64,6 +63,7 @@ bool Rva004FB382::rva004FB382()
 		for (int i = 0; i < playerCount(); ++i) {
 			Rva002E2903Player *p = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->rva002B52A8(i);
 			int id = p->at14;
+			_ReadWriteBarrier();
 			if ((unsigned char)owner->rva002E0BC0(id) == 0) {
 				p = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->rva002B52A8(i);
 				if (!p->m_3C4)
