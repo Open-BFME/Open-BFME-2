@@ -311,93 +311,12 @@ GameMessage *MessageStream::insertMessage( GameMessage::Type type, GameMessage *
  * Translators share a priority, they are kept in the same order they
  * were attached.
  */
-// ?attachTranslator@MessageStream@@ present-unmatched
-TranslatorID MessageStream::attachTranslator( GameMessageTranslator *translator, 
-																							UnsignedInt priority)
-{
-	MessageStream::TranslatorData *newSS = NEW MessageStream::TranslatorData;
-	MessageStream::TranslatorData *ss;
-
-	newSS->m_translator = translator;
-	newSS->m_priority = priority;
-	newSS->m_id = m_nextTranslatorID++;
-
-	if (m_firstTranslator == NULL)
-	{
-		// first Translator to be attached
-		newSS->m_prev = NULL;
-		newSS->m_next = NULL;
-		m_firstTranslator = newSS;
-		m_lastTranslator = newSS;
-		return newSS->m_id;
-	}
-
-	// seach the Translator list for our priority location
-	for( ss=m_firstTranslator; ss; ss=ss->m_next )
-		if (ss->m_priority > newSS->m_priority)
-			break;
-
-	if (ss)
-	{
-		// insert new Translator just BEFORE this one,
-		// therefore, m_lastTranslator cannot be affected
-		if (ss->m_prev)
-		{
-			ss->m_prev->m_next = newSS;
-			newSS->m_prev = ss->m_prev;
-			newSS->m_next = ss;
-			ss->m_prev = newSS;
-		}
-		else
-		{
-			// insert at head of list
-			newSS->m_prev = NULL;
-			newSS->m_next = m_firstTranslator;
-			m_firstTranslator->m_prev = newSS;
-			m_firstTranslator = newSS;
-		}
-	}
-	else
-	{
-		// append Translator to end of list
-		m_lastTranslator->m_next = newSS;
-		newSS->m_prev = m_lastTranslator;
-		newSS->m_next = NULL;
-		m_lastTranslator = newSS;
-	}
-
-	return newSS->m_id;
-}
+// The exact sorted translator attachment is owned by MessageStreamListCtors.cpp.
 
 /**
  * Remove a previously attached translator.
  */
-// ?removeTranslator@MessageStream@@ present-unmatched
-void MessageStream::removeTranslator( TranslatorID id )
-{
-	MessageStream::TranslatorData *ss;
-
-	for( ss=m_firstTranslator; ss; ss=ss->m_next )
-		if (ss->m_id == id)
-		{
-			// found the translator - remove it
-			if (ss->m_prev)
-				ss->m_prev->m_next = ss->m_next;
-			else
-				m_firstTranslator = ss->m_next;
-
-			if (ss->m_next)
-				ss->m_next->m_prev = ss->m_prev;
-			else
-				m_lastTranslator = ss->m_prev;
-
-			// delete the translator data
-			delete ss;
-
-			break;
-		}
-}
-
+// The exact translator removal is owned by MessageStreamListCtors.cpp.
 
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
