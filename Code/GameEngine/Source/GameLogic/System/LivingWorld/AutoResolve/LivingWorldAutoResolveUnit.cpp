@@ -11,8 +11,8 @@
 // a setter-method shim changes the parent lifetime and register schedule.
 // The inherited ref base is the existing Rva0007DF07 view. Its real virtual
 // destructor emits the same seven-byte reset as the admitted base cleanup.
-// Unit destructor/vtable currently live under neutral Rva0059B072 owners;
-// their reconciliation remains separate linking work, not a link assertion.
+// Unit destructor and sole scalar slot are verified under the same real
+// class in Rva0059B072Dtor.cpp. A whole-tree link remains separate evidence.
 #include "ascii_string.h"
 struct TargetRef00217D4C {virtual void *destroy(unsigned); int references;};
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
@@ -68,6 +68,6 @@ LivingWorldAutoResolveUnit::LivingWorldAutoResolveUnit(const Rva0040DC56Element 
 // Keep the owned21B constructor visible (outlined) so the compiler sees
 // its entry/count writes. It is rehomed from Rva002B2F0CSet.cpp with the
 // same whole body; this is the same real name, not an alias.
-Rva004F6093Holder::Rva004F6093Holder(ArmySummaryEntry *p):entry(p) {
+inline Rva004F6093Holder::Rva004F6093Holder(ArmySummaryEntry *p):entry(p) {
  if(p) ++p->reference.references;
 }
