@@ -1,6 +1,8 @@
 // ?update@AutoPickUpUpdate@@UAE?AW4UpdateSleepTime@@XZ
+// partial score=0.9799654434554607 date=2026-10-10
+// ?update@AutoPickUpUpdate@@UAE?AW4UpdateSleepTime@@XZ
 // partial score=0.85 date=2026-10-08
-// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /GX
+// cl: /I. /O1 /arch:SSE /G7 /DNDEBUG /MD /GX
 class Object;
 class Player;
 
@@ -81,14 +83,8 @@ public:
 	BfmeFixedStorage0004543D m_08;
 };
 
-#pragma comment(linker, "/alternatename:?getPlayerMask@Rva000421C8@@UAEHXZ=?Get_File_Handle@FileClass@@UAEPAXXZ")
 
-struct Coord3D
-{
-	float x;
-	float y;
-	float z;
-};
+#include "Code/Libraries/Include/Lib/Coord3D.h"
 
 class PartitionManager
 {
@@ -105,10 +101,11 @@ public:
 };
 extern TerrainLogic *TheTerrainLogic;
 
-class Rva2225E0Filter
+template<int N>class BitFlags;
+class ObjectFilter
 {
 public:
-	bool rva00361B12(const BfmeFixedStorage0004543D *mask, Player *a, Player *b) const;
+	bool testKindOf(const BitFlags<218> *mask,const Player *a,const Player *b);
 private:
 	int m_index;
 };
@@ -208,7 +205,7 @@ struct AutoPickUpUpdateModuleData
 	void *m_vtable;
 	int m_unused04;
 	int m_scanDelayTime;				// +0x08
-	Rva2225E0Filter m_pickUpFilter;			// +0x0C
+	ObjectFilter m_pickUpFilter;			// +0x0C
 	float m_scanDistance;				// +0x10
 	AutoPickUpEatObjectEntries m_eatObjectEntries;	// +0x14
 	bool m_autoThrowObject;				// +0x20
@@ -358,7 +355,7 @@ UpdateSleepTime AutoPickUpUpdate::update()
 
 	{
 		Coord3D position = *object->getPosition();
-		if (data->m_pickUpFilter.rva00361B12(&BfmeFixedStorage0004543D(0, 0x5E), 0, 0))
+		if (const_cast<ObjectFilter&>(data->m_pickUpFilter).testKindOf((const BitFlags<218>*)&BfmeFixedStorage0004543D(0, 0x5E),0,0))
 		{
 			const Coord3D *point = (const Coord3D *)TheTerrainLogic->rva0027F108(&position,
 				getAutoPickUpUpdateModuleData()->m_scanDistance, true, 1);

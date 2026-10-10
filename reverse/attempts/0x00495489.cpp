@@ -1,10 +1,12 @@
 // ?scanClosestTarget@CommandButtonHuntUpdate@@IAEPAVObject@@XZ
+// partial score=0.9813254042140862 date=2026-10-10
+// ?scanClosestTarget@CommandButtonHuntUpdate@@IAEPAVObject@@XZ
 // partial score=0.9813 date=2026-10-06
 // ?scanClosestTarget@CommandButtonHuntUpdate@@IAEPAVObject@@XZ
 // partial score=0.9768 date=2026-10-05
 // ?scanClosestTarget@CommandButtonHuntUpdate@@IAEPAVObject@@XZ
 // partial score=0.97 date=2026-10-04
-// cl: /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /O1 /DNDEBUG /MD /GX /arch:SSE /I.
 //
 // ?scanClosestTarget@CommandButtonHuntUpdate@@AAEPAVObject@@XZ, retail
 // 0x00495489, 721 bytes. Zero Hour's CommandButtonHuntUpdate::scanClosestTarget
@@ -34,12 +36,7 @@ class ModuleData;
 class Player;
 class Object;
 
-struct Coord3D
-{
-	Real x;
-	Real y;
-	Real z;
-};
+#include "Code/Libraries/Include/Lib/Coord3D.h"
 
 enum Relationship
 {
@@ -130,7 +127,6 @@ public:
 	Rva000421C8 *m_next;
 };
 
-#pragma comment(linker, "/alternatename:?getPlayerMask@Rva000421C8@@UAEHXZ=?Get_File_Handle@FileClass@@UAEPAXXZ")
 
 // vftable 0x00BFAD10, allow 0x0026119D: not effectively dead.
 class Rva0026119DFilter : public Rva000421C8
