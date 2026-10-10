@@ -1,4 +1,8 @@
 // ?populateSpecialPowerShortcut@ControlBar@@IAEXPAVPlayer@@@Z
+// partial score=0.9935448942195569 date=2026-10-10
+extern "C" void _ReadWriteBarrier();
+#pragma intrinsic(_ReadWriteBarrier)
+// ?populateSpecialPowerShortcut@ControlBar@@IAEXPAVPlayer@@@Z
 // partial score=0.994 date=2026-10-09
 // ?populateSpecialPowerShortcut@ControlBar@@IAEXPAVPlayer@@@Z
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_STLP_USE_MALLOC /D_CRTIMP= /D_STLP_NO_CSTD_FUNCTION_IMPORTS /Ireference/shims/bfme2_ascii
@@ -174,9 +178,9 @@ void ControlBar::populateSpecialPowerShortcut(Player *player)
 	}
 
 	PlayerTemplate *playerTemplate=player->getPlayerTemplate();
-	if (playerTemplate->getSpecialPowerShortcutCommandSet().isEmpty())
+	if ((playerTemplate ? playerTemplate : playerTemplate)->getSpecialPowerShortcutCommandSet().isEmpty())
 		return;
-	commandSetName=&playerTemplate->getSpecialPowerShortcutCommandSet();
+	commandSetName=&(playerTemplate ? playerTemplate : playerTemplate)->getSpecialPowerShortcutCommandSet();
 	commandSet = (const CommandSet *)((Rva0031D5F8 *)TheControlBar)->rva0031D5F8(commandSetName);
 	if (!commandSet)
 		return;

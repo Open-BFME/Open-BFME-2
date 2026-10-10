@@ -1,5 +1,7 @@
 // ?HandlePersistentStorageResponses@@YAXXZ
 // partial score=0.99304531085353 date=2026-10-10
+// ?HandlePersistentStorageResponses@@YAXXZ
+// partial score=0.99304531085353 date=2026-10-10
 extern "C" unsigned __cdecl strlen(const char*);
 #pragma intrinsic(strlen)
 // ?HandlePersistentStorageResponses@@YAXXZ
@@ -1698,7 +1700,7 @@ public:
 };
 extern GameTextInterface *TheGameText;
 void GSMessageBoxOk(UnicodeString title, UnicodeString message, void (*okFunc)());
-void Rva00548B97Free(int overlay);
+enum GSOverlayType { GSOverlayZero=0 }; void GameSpyCloseOverlay(GSOverlayType);
 bool SetUnsignedIntInRegistry(Rva00385333String path, Rva00385333String key, unsigned int val);
 void Rva0043DB3DSet(unsigned char flag);
 struct Rva005B9717Block;
@@ -1735,7 +1737,7 @@ void HandlePersistentStorageResponses()
 		case 1:
 			{
 				GSMessageBoxOk(TheGameText->fetch("GUI:Error"), TheGameText->fetch("GUI:PSCannotConnect"), 0);
-				Rva00548B97Free(0);
+				GameSpyCloseOverlay(GSOverlayZero);
 			}
 			break;
 		case 2:

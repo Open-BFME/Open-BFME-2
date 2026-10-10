@@ -1,4 +1,8 @@
 // ?update@Rva002D4748@@QAEXXZ
+// partial score=0.9294631710362048 date=2026-10-10
+extern "C" void _ReadWriteBarrier();
+#pragma intrinsic(_ReadWriteBarrier)
+// ?update@Rva002D4748@@QAEXXZ
 // partial score=0.9042 date=2026-10-10
 // ?update@Rva002D4748@@QAEXXZ
 // Native2D4748..2D4A69 RET0,801B; static resource/cmdpoint/multiplier callback
@@ -98,9 +102,10 @@ void Rva002D4748::update() {
   if(percent!=lastPercent){Rva002D2DD4 *next=allocateMultiplier(lastPercent);
    ((Rva002D3389*)&multAnim)->rva002D3389(next);lastPercent=percent;}
   if(multAnim) {
-   multiplier=multAnim->value;
-   if(multAnim->delay>0){if(--multAnim->delay==0)playCommandPointEffect();}
-   else if(--multAnim->hold<=0){Rva002D2DD4 *old=multAnim;multAnim=0;::operator delete(old);}
+_ReadWriteBarrier();
+   multiplier=(multAnim ? multAnim : multAnim)->value;
+   if((multAnim ? multAnim : multAnim)->delay>0){if(--(multAnim ? multAnim : multAnim)->delay==0)playCommandPointEffect();}
+   else if(--(multAnim ? multAnim : multAnim)->hold<=0){Rva002D2DD4 *old=multAnim;multAnim=0;::operator delete(old);}
   } else multiplier=lastPercent*.01f+1.f;
  }
  if(multiplier!=shownMultiplier){if(Rva003FEF80SetPalantirMultiplier(multiplier))shownMultiplier=multiplier;}
