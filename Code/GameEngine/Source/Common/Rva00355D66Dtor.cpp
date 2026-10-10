@@ -244,7 +244,7 @@ void Rva003563A7::rva00356B16(int)
 	if (((const StringBase<char> *)&m_str)->isEmpty())
 		return;
 	if (TheDisplay)
-		TheDisplayManager->slot72(m_str, 0x800014);
+		TheDisplayManager->slot72(m_str, 8388628); // 0x800014 int flags, not an image address
 	TheDisplayManager->m_10c = true;
 	TheAudio->slot20(2);
 	TheAudio->slot10();

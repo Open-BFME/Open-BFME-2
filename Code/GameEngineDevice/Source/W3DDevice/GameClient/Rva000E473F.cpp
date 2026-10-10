@@ -294,7 +294,7 @@ void W3DFloorBuffer::allocateFloorBuffers()
 	static_cast<Rva00131DFC *>(&m_slot)->rva00131DFC((void *)1, (void *)1, (void *)0x15, (void *)1, 1, 0);
 	if (m_slot.pointer != 0)
 	{
-		m_slot.Get_Surface_Level().DrawPixel(0, 0, 0x7F7FFF);
+		m_slot.Get_Surface_Level().DrawPixel(0, 0, 8355839); // 0x7F7FFF: DrawPixel color, not an image address
 	}
 	m_ready22 = true;
 }

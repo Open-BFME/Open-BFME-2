@@ -158,6 +158,14 @@ extern "C" __declspec(dllimport) void *__stdcall HeapAlloc(void *heap, unsigned 
 extern "C" __declspec(dllimport) int __stdcall HeapFree(void *heap, unsigned long flags, void *memory);
 extern "C" __declspec(dllimport) void __stdcall OutputDebugStringA(const char *text);
 
+// Retail pushes these three .rdata messages as stack immediates (VA
+// 0x00BC66A4/0x00BC66C0/0x00BC66EC, read from game.dat). Defined here under
+// names so the linked image relocates the pushes instead of hard-coding them;
+// push-OFFSET emits the same masked bytes as push-immediate.
+extern "C" const char g_shaderMsgCreateFail[] = "Failed to create shader\n ";
+extern "C" const char g_shaderMsgNoMemory[] = "Failed to allocate memory to load shader\n ";
+extern "C" const char g_shaderMsgNotFound[] = "Could not find file \n";
+
 // Target 0x00077C19: paired file/heap/error flow with the matched loader below;
 // this variant calls device slot 91. Keep its address-derived identity: neither
 // the device interface spelling nor a donor loader name is a target fact.
@@ -171,7 +179,7 @@ long __cdecl Rva00077C19Load(const char *strFilePath, unsigned int *pHandle)
 		if (file == 0) {
 			// The retail shared error call receives each string as an immediate
 			// stack argument. MSVC folds a C++ message phi through EAX instead.
-			__asm { push 0x00BC66EC }
+			__asm { push OFFSET g_shaderMsgNotFound }
 			goto reportFailure;
 		}
 
@@ -184,7 +192,7 @@ long __cdecl Rva00077C19Load(const char *strFilePath, unsigned int *pHandle)
 
 		unsigned long *shader = (unsigned long *)HeapAlloc(GetProcessHeap(), 8, fileSize);
 		if (shader == 0) {
-			__asm { push 0x00BC66C0 }
+			__asm { push OFFSET g_shaderMsgNoMemory }
 			goto reportFailure;
 		}
 
@@ -195,7 +203,7 @@ long __cdecl Rva00077C19Load(const char *strFilePath, unsigned int *pHandle)
 			DX8Wrapper::_Get_D3D_Device8(), shader, (unsigned long *)pHandle);
 		HeapFree(GetProcessHeap(), 0, shader);
 		if (hr < 0) {
-			__asm { push 0x00BC66A4 }
+			__asm { push OFFSET g_shaderMsgCreateFail }
 			goto reportFailure;
 		}
 		}
@@ -223,7 +231,7 @@ long __cdecl Rva00077D0FLoad(const char *strFilePath, unsigned long *pHandle)
 		if (file == 0) {
 			// The retail shared error call receives each string as an immediate
 			// stack argument. MSVC folds a C++ message phi through EAX instead.
-			__asm { push 0x00BC66EC }
+			__asm { push OFFSET g_shaderMsgNotFound }
 			goto reportFailure;
 		}
 
@@ -236,7 +244,7 @@ long __cdecl Rva00077D0FLoad(const char *strFilePath, unsigned long *pHandle)
 
 		unsigned long *shader = (unsigned long *)HeapAlloc(GetProcessHeap(), 8, fileSize);
 		if (shader == 0) {
-			__asm { push 0x00BC66C0 }
+			__asm { push OFFSET g_shaderMsgNoMemory }
 			goto reportFailure;
 		}
 
@@ -247,7 +255,7 @@ long __cdecl Rva00077D0FLoad(const char *strFilePath, unsigned long *pHandle)
 			DX8Wrapper::_Get_D3D_Device8(), shader, pHandle);
 		HeapFree(GetProcessHeap(), 0, shader);
 		if (hr < 0) {
-			__asm { push 0x00BC66A4 }
+			__asm { push OFFSET g_shaderMsgCreateFail }
 			goto reportFailure;
 		}
 		}
