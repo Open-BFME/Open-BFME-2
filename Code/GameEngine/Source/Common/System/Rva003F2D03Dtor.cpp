@@ -1,5 +1,5 @@
 // ??1Rva003F2D03@@QAE@XZ
-// cl: /Ireference/shims/bfme2_ascii /O1 /EHs /arch:SSE /ICode/Libraries/Include/Lib /Ireference/shims/bfmealloc /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
+// cl: /DBFME_ASCII_DTOR_DECL /Ireference/shims/bfme2_ascii /O1 /EHs /arch:SSE /ICode/Libraries/Include/Lib /Ireference/shims/bfmealloc /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
 // stlport
 // ??1Rva003F2D03@@QAE@XZ @0x003F2D03 545B
 // Target bytes show two DeleteRange calls over members at +0xfc/+0x100 and
