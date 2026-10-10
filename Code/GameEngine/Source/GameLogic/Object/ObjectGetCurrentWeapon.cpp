@@ -21,8 +21,22 @@ class Object
 	int m_weaponSetPresent;
 
 public:
+	Weapon *getCurrentWeapon(WeaponSlotType *slot);
 	const Weapon *getCurrentWeapon(WeaponSlotType *slot) const;
 };
+
+// Non-const overload: callers with a mutable Object (e.g. HordeContainIface11CSlots,
+// AIAttackApproachTargetStateOnEnter) reference ?getCurrentWeapon@Object@@QAEPAV...;
+// ZH Object.cpp carries both overloads with the same body, and const-ness does
+// not change codegen, so the bytes are the twin of 0x0028AEBD.
+Weapon *Object::getCurrentWeapon(WeaponSlotType *slot)
+{
+	if (m_weaponSetPresent == 0)
+		return 0;
+	if (slot)
+		*slot = (WeaponSlotType)m_currentWeapon;
+	return m_weapon[m_currentWeapon];
+}
 
 const Weapon *Object::getCurrentWeapon(WeaponSlotType *slot) const
 {
