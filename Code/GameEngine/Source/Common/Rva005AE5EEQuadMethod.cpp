@@ -1,8 +1,5 @@
-// ?rva005AE5EE@Rva005AE5EE@@QAEXPBURva005AE5EEQuad@@@Z
-// partial score=0.99 date=2026-10-10
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD
 //
-// ?rva005AE5EE@Rva005AE5EE@@QAEXPBURva005AE5EEQuad@@@Z
 // Retail 0x005AE5EE..0x005AE60B (29 bytes), __thiscall, ret 4.
 //
 // Copies a four-dword record into the 16-byte slot at this+0x90 through the
