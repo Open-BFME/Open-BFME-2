@@ -41,13 +41,15 @@ class AptActionQueueC
 public:
 	void rva006E3230(Rva006E3230Action *pCur);
 	void ClearActions();
-	AptActionQueueC *rva006E4FF0(int nSize);
+	AptActionQueueC(int nSize);
 };
 
-// AptActionQueueC::rva006E4FF0 @0x006E4FF0 (86B). Allocates the
+// Native6E6060 new-expression allocates20 bytes and invokes this86B ctor.
+// The former return-this initializer body stays exact with the honest ctor ABI.
+// AptActionQueueC ctor @0x006E4FF0 (86B). Allocates the
 // 24-byte-stride action pool for nSize slots, points pool/current/end at it,
 // records the size and resets the queue; asserts nSize != 0 at _Apt.h:0x48C.
-AptActionQueueC *AptActionQueueC::rva006E4FF0(int nSize)
+AptActionQueueC::AptActionQueueC(int nSize)
 {
 	if (nSize == 0)
 	{
@@ -61,7 +63,6 @@ AptActionQueueC *AptActionQueueC::rva006E4FF0(int nSize)
 	m_pEnd = pool;
 	m_pCurrent = pool;
 	ClearActions();
-	return this;
 }
 
 struct Rva006E58D0ConstFile
@@ -108,7 +109,7 @@ void Rva006E58D0::rva006E58D0Body(void *a, void *b, void *c)
 // clears the type, advances with wrap at pool+size and revalidates the cursor
 // with the _Apt.h 0x4E0/0x4E1 asserts, then resets current/end to the pool.
 // Layout/stride/virtual shape shared with Rva006E3230Validate.cpp; slot-1
-// virtual name unproven so honest unused1. Caller 0x006E503A is rva006E4FF0.
+// virtual name unproven so honest unused1. Caller 0x006E503A is this constructor.
 void AptActionQueueC::ClearActions()
 {
 	rva006E3230(m_pCurrent);

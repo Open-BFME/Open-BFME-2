@@ -1,38 +1,11 @@
 // cl: /MD
-//
-// ?init@Rva006E3CF0@@QAEPAV1@XZ @0x006E3CF0 86B
-// Apt-neighbourhood block-init, page of Rva006E3C80.cpp.
-//
-// Zero-initializes the simple members (+0x00..+0x0C and +0x14), sets the mode
-// dword at +0x18 to 6, then allocates a 0x18-byte block from the chain-block
-// allocator at VA 0x00E176E8 through the rowed Rva006DB160::allocBlock
-// (0x006DB160).  A null block raises the shared Apt assert triple
-// (0x00E17734 call target, 0x00DDC01C break flag, int3), exactly the shape
-// Rva006E3C80.cpp uses, and stores the allocated block at +0x1C.
-//
-// The two assert literals pin the class far better than the address does:
-// retail pushes 0x00CEBC8C = "m_aElements != NULL" and 0x00CEAE80 =
-// "c:\projects\bfme2patch103\bfme2\code\libraries\source\apt\_AptValuePtrStack.h"
-// (read at VA-0x400000 in game.dat), so this is an _AptValuePtrStack ctor
-// allocating its element array, not a generic block init.  The ledger symbol
-// stays address-named because the class identity is not independently proven.
-//
-// Flags: /O2 with a `__asm int 3` breakpoint, NOT the __debugbreak intrinsic.
-// Retail materializes the break-flag load into eax and keeps ONE shared
-// epilogue (`cmp eax,edi / je +1 / int3 / pop edi / mov eax,esi / pop esi / ret`),
-// which requires the flag value to survive the materialization AND the return
-// value to stay out of the pre-branch position.  This VC7 cannot express that
-// with the intrinsic: under /O2 the intrinsic splits the epilogue into two
-// copies (`mov eax,esi` hoisted above the `je`, 91 bytes) while /O1 keeps one
-// epilogue but folds the load into `cmp [flag],edi` (85 bytes, every later
-// displacement shifted by one).  `__asm int 3` is an opaque barrier, so under
-// /O2 the load stays materialized and the return value is not hoisted, giving
-// retail's exact 86 bytes.  Same trade-off, same precedent as
-// EAStringCRefCount.cpp (0x006D2F40) and SetSize (0x006D3BC0).
-//
-// The global addresses are absolute DIR32 operands the gate masks; the class
-// and its identity are address-named.
-
+// Native6E6060..6E63C1 constructs a32-byte timer array using ctor6E3CF0
+// and the existing named AptIntervalTimer destructor6E4F60. The destructor's
+// embedded AptValuePtrStack at+14 agrees with count14/capacity18/elements1C.
+// These callback and layout facts identify the former opaque init as a ctor;
+// the complete86-byte body and ABI remain verified under its constructor name.
+// Untouched fields retain opaque names. Inline int3 preserves retail's
+// materialized break-flag load and common epilogue under the existing flags.
 extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *, const char *, int);
 extern int g_bfmeAptBreakOnAssertAtDDC01C;
 
@@ -45,10 +18,10 @@ public:
 
 Rva006DB160 *g_pChainBlockAllocator;
 
-class Rva006E3CF0
+class AptIntervalTimer
 {
 public:
-	Rva006E3CF0 *init();
+	AptIntervalTimer();
 
 private:
 	int m00;
@@ -61,7 +34,7 @@ private:
 	void *m1C;
 };
 
-Rva006E3CF0 *Rva006E3CF0::init()
+AptIntervalTimer::AptIntervalTimer()
 {
 	m00 = 0;
 	m04 = 0;
@@ -80,5 +53,4 @@ Rva006E3CF0 *Rva006E3CF0::init()
 			__asm int 3
 		}
 	}
-	return this;
 }
