@@ -1,12 +1,4 @@
-// ?writeCacheINI@MapCache@@AAEX_N@Z
-// partial score=0.990295 date=2026-10-09
-// ?writeCacheINI@MapCache@@AAEX_N@Z
-// partial score=0.99 date=2026-10-09
-// ?writeCacheINI@MapCache@@AAEX_N@Z
-// partial score=0.99 date=2026-10-09
-// ?writeCacheINI@MapCache@@AAEX_N@Z
-// partial score=0.99 date=2026-10-08
-// cl: /Ireference/shims/bfme2_ascii /O1 /Ob2 /EHsc /MD /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /ICode/Libraries/Include/Lib /Ireference/shims/bfme2_ascii /O1 /Ob2 /EHsc /MD /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // Reference semantics: ZH GeneralsMD GameClient/MapUtil.cpp writeCacheINI.
 // BFME1 reference checkout dae380faa5f6fa536eec8d6ebbe877321d4cb51d.
@@ -20,7 +12,7 @@
 #include <set>
 #include "ascii_string.h"
 #include "unicode_string.h"
-#include "../../../Libraries/Include/Lib/Coord3D.h"
+#include "Coord3D.h"
 struct Region3D { Coord3D lo,hi; };
 typedef _STL::list<Coord3D> Coord3DList;
 class WaypointMap : public _STL::map<AsciiString,Coord3D> { public: int numStartSpots; };
@@ -72,6 +64,7 @@ void MapCache::writeCacheINI(bool userDir)
     fprintf(fp,"; This INI file is auto-generated - do not modify\n");
     fprintf(fp,"; /////////////////////////////////////////////////////////////////////////////\n");
     mapDir.toLower();
+    const char *no = "no"; const char *yes = "yes";
     MapCache::iterator it = begin();
     MapMetaData md;
     while (it != end()) {
@@ -82,9 +75,9 @@ void MapCache::writeCacheINI(bool userDir)
             fprintf(fp,"  fileCRC = %u\n",md.crc);
             fprintf(fp,"  timestampLo = %d\n",md.timestampLo);
             fprintf(fp,"  timestampHi = %d\n",md.timestampHi);
-            fprintf(fp,"  isOfficial = %s\n",md.isOfficial ? "yes" : "no");
-            fprintf(fp,"  isMultiplayer = %s\n",md.isMultiplayer ? "yes" : "no");
-            fprintf(fp,"  isScenarioMP = %s\n",md.isScenarioMP ? "yes" : "no");
+            fprintf(fp,"  isOfficial = %s\n",md.isOfficial ? yes : no);
+            fprintf(fp,"  isMultiplayer = %s\n",md.isMultiplayer ? yes : no);
+            fprintf(fp,"  isScenarioMP = %s\n",md.isScenarioMP ? yes : no);
             fprintf(fp,"  numPlayers = %d\n",md.numPlayers);
             fprintf(fp,"  extentMin = X:%2.2f Y:%2.2f Z:%2.2f\n",md.extent.lo.x,md.extent.lo.y,md.extent.lo.z);
             fprintf(fp,"  extentMax = X:%2.2f Y:%2.2f Z:%2.2f\n",md.extent.hi.x,md.extent.hi.y,md.extent.hi.z);
@@ -114,9 +107,11 @@ void MapCache::writeCacheINI(bool userDir)
                 static PlayerPosition defaults;
                 if (!(unsigned char)bfmeEqualSX(*(const BfmeKeySX *)position,*(const BfmeKeySX *)&defaults)) {
                 fprintf(fp,"  PlayerPosition %d\n",i+1);
-                fprintf(fp,"    Human = %s\n",position->human ? "yes" : "no");
-                fprintf(fp,"    Computer = %s\n",position->computer ? "yes" : "no");
-                fprintf(fp,"    LoadAIScripts = %s\n",position->loadAIScripts ? "yes" : "no");
+                fprintf(fp,"    Human = %s\n",position->human ? "Yes" : "No");
+                // Preserve the native cursor at the computer flag rather than loadAIScripts.
+                // The same-valued conditional preserves the native field1 cursor.
+                fprintf(fp,"    Computer = %s\n",(position->computer ? position->computer : position->computer) ? "Yes" : "No");
+                fprintf(fp,"    LoadAIScripts = %s\n",position->loadAIScripts ? "Yes" : "No");
                 fprintf(fp,"    ForcePlayerTeam = %d\n",position->forceTeam);
                 if (!position->factions.empty()) {
                     fprintf(fp,"    AllowedFactions =");
