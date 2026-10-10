@@ -1,4 +1,6 @@
 // ?rva005ABCFE@AIStructureCreepTactic@@QAE_NPAUCoord3DBase@@ABVAsciiString@@@Z
+// partial score=0.9113186813 date=2026-10-10
+// ?rva005ABCFE@AIStructureCreepTactic@@QAE_NPAUCoord3DBase@@ABVAsciiString@@@Z
 // partial score=0.8964468864468864 date=2026-10-10
 // cl: /O1 /G7 /arch:SSE /DBFME_ASCII_DTOR_DECL /MD /GX /DNDEBUG /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii
 // stlport
@@ -777,8 +779,8 @@ public:
 // WWMath's inline Vector3 operations (Length2, Normalize via Inv_Sqrt).
 struct BfmeVector3
 {
-	BfmeVector3(float x, float y, float z) : X(x), Y(y), Z(z) {}
-	BfmeVector3(const Coord3DBase &c) : X(c.x), Y(c.y), Z(c.z) {}
+	BfmeVector3(float x,float y,float z){Z = z; Y = y; X = x;}
+	BfmeVector3(const Coord3DBase &c){Z = c.z; Y = c.y; X = c.x;}
 	BfmeVector3 operator-(const BfmeVector3 &b) const { return BfmeVector3(X - b.X, Y - b.Y, Z - b.Z); }
 	float Length2() const { return X * X + Y * Y + Z * Z; }
 	__forceinline void Normalize()

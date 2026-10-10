@@ -17,7 +17,7 @@
 #pragma optimize("", on)
 #include <algorithm>
 struct Key004F9185 { int _00[3]; int m_key; };
-struct TargetRef00217D4C { virtual void *destroy(unsigned flags); int references; Key004F9185 *m_08; };
+struct TargetRef00217D4C { virtual void *destroy(unsigned flags); int references; const Key004F9185*key()const{return m_08;} Key004F9185 *m_08; };
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
 struct TreeHintRef00217D4C
 {
@@ -34,7 +34,7 @@ struct ConstTreeHintRef00217D4C
 };
 struct Rva004F9185Cmp
 {
-	__forceinline bool operator()(const ConstTreeHintRef00217D4C &a, const ConstTreeHintRef00217D4C &b) const { int ka = a.m_ptr->m_08->m_key; int kb = b.m_ptr->m_08->m_key; return ka > kb; }
+	__forceinline bool operator()(const ConstTreeHintRef00217D4C &a, const ConstTreeHintRef00217D4C &b) const { int ka = a.m_ptr->key()->m_key; int kb = b.m_ptr->key()->m_key; return ka > kb; }
 };
 // Native4F6590..4F6628,152B. STLport _algo.c unguarded insertion with
 // the established converting-handle comparison and owning-reference ABI.
@@ -52,3 +52,9 @@ template<> void __unguarded_linear_insert<TreeHintRef00217D4C *,TreeHintRef00217
 }
 }
 template void _STL::sort<TreeHintRef00217D4C *, Rva004F9185Cmp>(TreeHintRef00217D4C *, TreeHintRef00217D4C *, Rva004F9185Cmp);
+
+// Native 4F6657..4F66F0 and 4F66F0..4F6789: integer payload bounds,
+// the same two owning comparator temporaries as this sort family.
+// A const key accessor preserves native half-count EDI and right-handle ESI.
+template TreeHintRef00217D4C *_STL::__lower_bound(TreeHintRef00217D4C *,TreeHintRef00217D4C *,const TreeHintRef00217D4C &,Rva004F9185Cmp,int *);
+template TreeHintRef00217D4C *_STL::__upper_bound(TreeHintRef00217D4C *,TreeHintRef00217D4C *,const TreeHintRef00217D4C &,Rva004F9185Cmp,int *);
