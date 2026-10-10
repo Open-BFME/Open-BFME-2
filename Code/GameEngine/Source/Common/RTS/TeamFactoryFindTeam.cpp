@@ -18,7 +18,7 @@ class TeamPrototype
 {
 public:
 	Team *getFirstItemIn_TeamInstanceList() const { return m_firstTeam; }
-	bool getIsSingleton() const { return (m_flags & 1) != 0; }
+	__declspec(dllimport) __forceinline bool getIsSingleton() const { return (m_flags & 1) != 0; }
 
 private:
 	char m_pad00[0x18];

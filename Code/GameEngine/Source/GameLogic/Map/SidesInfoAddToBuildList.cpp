@@ -10,7 +10,7 @@ class BuildListInfo
 {
 public:
 	BuildListInfo *getNext() { return m_next; }
-	void setNextBuildList(BuildListInfo *n) { m_next = n; }
+	__declspec(dllimport) __forceinline void setNextBuildList(BuildListInfo *n) { m_next = n; }
 private:
 	char m_pad[0x2c];
 	BuildListInfo *m_next;
