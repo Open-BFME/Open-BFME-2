@@ -115,7 +115,7 @@ template<> AIObjectKeyNode *AIObjectKeyTree::_M_upper_bound(const NameKeyType &k
 class AIUnitBuilder
 {
 public:
-	void Rva00598A3D();
+	void rebuildArmyPercentages();
 	void manageConstructingList();
 	void build();
 	void Rva00598052();
@@ -162,7 +162,7 @@ void AIUnitBuilder::Rva00598D7A()
 {
 	if (m_2C)
 	{
-		Rva00598A3D();
+		rebuildArmyPercentages();
 		m_2C = false;
 	}
 	manageConstructingList();
@@ -505,3 +505,45 @@ Rva00598C3AItem *AIUnitBuilder::createBestHeroToBuild()
 // Native59858C..598738 RET0; WB152D310 createBestHeroToBuild.
 // Quantity accessor leaves BL for fits; advancing the pending iterator
 // before accumulation retains ECX item/EDX end and the native 14-byte frame.
+
+class GameWindow;class WindowVideo;
+class WindowVideoManager {public:struct hashConstGameWindowPtr;};
+typedef _STL::pair<const GameWindow *const,WindowVideo*> WindowProviderValue;
+typedef _STL::hashtable<WindowProviderValue,const GameWindow*,WindowVideoManager::hashConstGameWindowPtr,_STL::_Select1st<WindowProviderValue>,_STL::equal_to<const GameWindow*>,_STL::allocator<WindowProviderValue> > WindowProvider;
+namespace _STL {
+template<> struct _Ht_iterator<WindowProviderValue,_Nonconst_traits<WindowProviderValue>,const GameWindow*,WindowVideoManager::hashConstGameWindowPtr,_Select1st<WindowProviderValue>,equal_to<const GameWindow*>,allocator<WindowProviderValue> > {
+ void *node; void *table;
+ _Ht_iterator(void *n,void *t):node(n),table(t){}
+ _Ht_iterator &operator++();
+};
+}
+class ArmyMemberDefinition {public:float getInterpolatedPercentageOfArmy(void*);};
+// WB152EA20 identifies rebuildArmyPercentages; native598A3D..598B2A
+// calls the keyed lookup over percentage8 and normalizes by total. The
+// existing window-table iterator providers access only the node/table ABI;
+// no GameWindow or WindowVideo payload identity is inferred here. Its
+// constructor preserves the native hidden-output iterator return convention.
+void AIUnitBuilder::rebuildArmyPercentages()
+{
+ float total=0.0f;
+ _STL::vector<AsciiString*> &names=((Rva00598007*)this)->rva00598007()->config160->unitNames;
+ 
+ for(_STL::vector<AsciiString*>::iterator i=names.begin();i!=names.end();++i) {
+  // Retain the map receiver inside the guarded iteration: the equal-arm
+  // expression reproduces retail's post-guard materialization under VC7.1.
+  Rva005983EE &lookup=*(i!=names.end()?(Rva005983EE*)m_pad18:(Rva005983EE*)m_pad18);
+  AsciiString *name=*i;
+  NameKeyType key=TheNameKeyGenerator->nameToKey(*name);
+  if(Rva005982EA(name,0,true)) {
+   float percentage=((ArmyMemberDefinition*)name)->getInterpolatedPercentageOfArmy(m_30);
+   lookup.lookup(key)=percentage;
+   total+=percentage;
+  } else lookup.lookup(key)=0.0f;
+ }
+ if(total>0.0f) {
+  float scale=100.0f/total;
+  WindowProvider *table=(WindowProvider*)m_pad18;
+  for(WindowProvider::iterator it=table->begin();it.node;++it)
+   ((ArmyPercentageNodeView*)it.node)->percentage*=scale;
+ }
+}
