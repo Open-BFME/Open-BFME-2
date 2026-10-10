@@ -10,7 +10,7 @@ class SpecialPowerTemplate;
 class SpecialPowerModuleInterface;
 struct ThingTemplate {char p00[0x115];unsigned char flag;};
 class BfmeVec3EJ {public:float x,y,z;};
-class Gen_000E5A50 {public:float bfmeDistanceSquared(const BfmeVec3EJ*)const;};
+class Gen_000E5A50 {public:inline __declspec(noinline) float bfmeDistanceSquared(const BfmeVec3EJ*p)const{float dx=x-p->x;float dy=y-p->y;float dz=z-p->z;return dx*dx+dy*dy+dz*dz;}char pad[0x38];float x,y,z;};
 class Object {public:
  void *rva0028C197()const;
  SpecialPowerModuleInterface *getSpecialPowerModule(const SpecialPowerTemplate*)const;
@@ -82,4 +82,38 @@ void HordeDispatchSpecialPower::doSpecialPowerAtLocation(const Coord3D *location
  SpecialPowerModuleInterface *module=(*i)->getSpecialPowerModule(power);
  if(module)module->doSpecialPowerAtLocation(location,options);
  }
+}
+
+// Native4C8B62..4C8C78 RET8, secondary85E828 slot11. The named HordeDispatch
+// constructor and pool key establish identity. Targeted child calls yield
+// candidate IDs through slot20; retail FLD best then FLD candidate, FCOMIP,
+// JBE skip proves the greater-distance selection (unordered also skips).
+// The previous bank reversed this comparison. Exact visible46B distance
+// helper recovers native frame and preserved-register use; original helper
+// neutral name and target-tested layout at +0x38/+0x3C/+0x40 are retained.
+void HordeDispatchSpecialPower::doSpecialPowerAtObject(Object *target,unsigned options){
+ Object *owner=object;
+ if(!owner || !(owner->data->flag&0x20))return;
+ ContainInterface *contain=(ContainInterface*)owner->rva0028C197();
+ if(!contain)return;
+ const SpecialPowerTemplate *power=getTemplate();
+ _STL::list<Object*> list;
+ contain->getContained(list);
+ _STL::list<Object*>::iterator end=list.end();
+ _STL::list<Object*>::iterator i=list.begin();
+ Object *best=target;
+ const BfmeVec3EJ *pos=owner->getPosition();
+ float distance=((Gen_000E5A50*)target)->bfmeDistanceSquared(pos);
+ if(i!=end)do{
+ SpecialPowerModuleInterface *module=(*i)->getSpecialPowerModule(power);
+ if(module){
+ module->doSpecialPowerAtObject(target,options);
+ Object *result=TheGameLogic->findObjectByID(module->lastTarget());
+ if(result){
+ float current=((Gen_000E5A50*)result)->bfmeDistanceSquared(pos);
+ if(current>distance){distance=current;best=result;}
+ }}
+ ++i;
+ }while(i!=list.end());
+ SpecialPowerModule::doSpecialPowerAtObject(best,options);
 }
