@@ -1,4 +1,6 @@
 // ?UpdateUpgradeCreationTriggers@TransportContain@@QAEXXZ
+// partial score=0.96 date=2026-10-10
+// ?UpdateUpgradeCreationTriggers@TransportContain@@QAEXXZ
 // partial score=0.9431961569158218 date=2026-10-10
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /Ireference/shims/bfme2_ascii /ICode/Libraries/Include /ICode/GameEngine/Source
 // Target468045..46824A RET0,517B. WB115D5F0 names TransportContain::UpdateUpgradeCreationTriggers.
@@ -139,7 +141,8 @@ void TransportContain::UpdateUpgradeCreationTriggers()
   unsigned total=record->count;
   for(unsigned j=0;j<total;++j) {
    if(!((Rva00466D50*)this)->rva00466D50((unsigned)tmpl->transportSlots))break;
-   Object*created=TheThingFactory->newObject(tmpl,obj->team,&mask,false);
+   Team*ownerTeam=obj->team;
+   Object*created=TheThingFactory->newObject(tmpl,ownerTeam,&mask,false);
    if(!created)break;
    if(iface.s98(created,false,false)) {
     TransportBodyView*body=obj->body;
