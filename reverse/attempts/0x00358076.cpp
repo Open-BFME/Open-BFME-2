@@ -1,5 +1,5 @@
 // ?rva00358076@ScriptEngine@@QAE_NABVAsciiString@@_N@Z
-// partial score=0.94 date=2026-10-04
+// partial score=0.98 date=2026-10-11
 // cl: /Ireference/shims/bfme2_ascii /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /ICode/GameEngine/Include
 // stlport
 // ?rva00358076@ScriptEngine@@QAE_NABVAsciiString@@_N@Z @0x00358076 280B
@@ -9,6 +9,12 @@
 // Evidence: LINK BONUS name, CRC 0x3ECA13, insert 0x357DF8, Bfme ctor 0x2D97D6, tail dtor 0x2D9A43,
 // Release_Ref 0x50ED3, list erase 0x438539, TheAudio 0x009FE6E8, TheGameLogic 0x009FE78C,
 // layout +0x1A25C from ScriptEngine_dtor, donor ZH isAudioComplete plus BFME1 IsAudioComplete, HEAD START from banked 0x00357F5E 0.93 stash.
+// 2026-10-11: slot 75 returns the handle BY VALUE (AudioRef with a releasing dtor; hidden return slot reuses
+// the name arg at [ebp+8]) - this alone fixes the EH state-0 store after the call, the ev state 1/0 pair and
+// the 280B extent. Only gap left (5 lines at +0x48): retail loads the vtable (mov eax,[ecx]) right after
+// TheAudio and stores the zeroed timer after push edx; ours schedules xor/stores before the vtable load.
+// Tried with no change: timer ctor/aggregate/pair/value-init, zeroing in arg or object comma expr, audio
+// local, /G5 /G6 /GB /G7 /arch:SSE /EHs /Oy- /Os-split; timer at function scope or after call is worse.
 #include <list>
 #include "Common/BfmeAudioEventPrefix136.h"
 #include "ascii_string.h"
@@ -39,6 +45,14 @@ public:
 };
 extern GameLogic *TheGameLogic;
 
+// The audio event handle slot 75 returns by value: a ref-counted pointer
+// released on destruction (the hidden return slot reuses the name argument).
+struct AudioRef
+{
+	OpaqueRefCounted *referent;
+	~AudioRef() { if (referent != 0) referent->Release_Ref(); }
+};
+
 class AudioManagerView
 {
 public:
@@ -57,11 +71,12 @@ public:
 	virtual void slot60(); virtual void slot61(); virtual void slot62(); virtual void slot63(); virtual void slot64();
 	virtual void slot65(); virtual void slot66(); virtual void slot67(); virtual void slot68(); virtual void slot69();
 	virtual void slot70(); virtual void slot71(); virtual void slot72(); virtual void slot73(); virtual void slot74();
-	virtual void lookupRef(OpaqueRefElement4 *out, const AsciiString &name);
+	virtual AudioRef getAudioRef(const AsciiString &name);
 	virtual void slot76(); virtual void slot77(); virtual void slot78(); virtual void slot79();
 	virtual float getLength(const BfmeAudioEventPrefix136 *ev);
 };
-extern AudioManagerView *TheAudio;
+class AudioManager;
+extern AudioManager *TheAudio;
 
 class ScriptEngine
 {
@@ -85,21 +100,18 @@ bool ScriptEngine::rva00358076(const AsciiString &s, bool remove)
 		BfmeSpecialPowerTimer8 timer;
 		timer.m_templateID = 0;
 		timer.m_readyFrame = 0;
-		OpaqueRefElement4 ref;
-		TheAudio->lookupRef(&ref, s);
+		AudioRef ref = ((AudioManagerView *)TheAudio)->getAudioRef(s);
 		if (ref.referent == 0)
 			return true;
 		{
-			BfmeAudioEventPrefix136 ev(ref, 0);
-			float len = TheAudio->getLength(&ev);
+			BfmeAudioEventPrefix136 ev(*(const OpaqueRefElement4 *)&ref, 0);
+			float len = ((AudioManagerView *)TheAudio)->getLength(&ev);
 			int frames = (int)(len / g_00DBA4F0);
 			timer.m_readyFrame = TheGameLogic->m_frame + frames;
 			timer.m_templateID = crc;
 			((Rva00357DF8 *)&lst)->rva00357DF8(timer);
 			it = lst.begin();
 		}
-		if (ref.referent != 0)
-			ref.referent->Release_Ref();
 	}
 	if (TheGameLogic->m_frame >= it->m_readyFrame) {
 		if (remove) {
