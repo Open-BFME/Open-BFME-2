@@ -1,6 +1,7 @@
 // ?rva00459A2A@SiegeDockingBehavior@@UAE_NW4ObjectID@@PAUCoord3D@@@Z
-// partial score=0.95 date=2026-10-09
-// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
+// partial score=0.9556813417190775 date=2026-10-10
+// ?rva00459A2A@SiegeDockingBehavior@@UAE_NW4ObjectID@@PAUCoord3D@@@Z
+// cl: /O1 /ICode/Libraries/Include /ICode/GameEngine/Source /arch:SSE /G7 /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
 // stlport
 // Retail 0x00459A2A, 318B: a SiegeDockingBehavior member entered through the
 // interface at +0x20 (ret 8): find the approach point of the nearest free
@@ -13,8 +14,8 @@
 // whether one was found. Slot name not established: address-derived.
 #define _STLP_NO_EXCEPTIONS 1
 #include <vector>
-#include "../../../../../Libraries/Include/Lib/Coord3D.h"
-#include "../../../Common/GameLogicObjectLookupView.h"
+#include "Lib/Coord3D.h"
+#include "Common/GameLogicObjectLookupView.h"
 
 typedef float Real;
 typedef int Int;
@@ -90,14 +91,23 @@ bool SiegeDockingBehavior::rva00459A2A( ObjectID id, Coord3D *out )
 			if( ( obj->m_template->m_kindOf119 & 8 ) == 0 && entry->m_type != 0 )
 				continue;
 
-			Real ox = entry->m_direction.x * 30.0f;
-			Real oy = entry->m_direction.y * 30.0f;
-			Real oz = entry->m_direction.z * 30.0f;
+			Real scale = 30.0f;
+			Real px = *(volatile const Real *)&entry->m_position.x;
+			Real py = *(volatile const Real *)&entry->m_position.y;
+			Real pz = *(volatile const Real *)&entry->m_position.z;
+			Real dx = *(volatile const Real *)&entry->m_direction.x;
+			Real dy = *(volatile const Real *)&entry->m_direction.y;
+			Real dz = *(volatile const Real *)&entry->m_direction.z;
+			dx *= scale;
+			dy *= scale;
+			dz *= scale;
+			px -= dx;
+			py -= dy;
+			pz -= dz;
 			Coord3D approach;
-			approach.x = entry->m_position.x - ox;
-			approach.y = entry->m_position.y - oy;
-			approach.z = entry->m_position.z - oz;
-
+			approach.x = px;
+			approach.y = py;
+			approach.z = pz;
 			Coord3D delta;
 			delta.x = approach.x - obj->getPosition()->x;
 			delta.y = approach.y - obj->getPosition()->y;
