@@ -21,6 +21,11 @@ public:
 	SubsystemInterface();
 	virtual ~SubsystemInterface();
 	virtual void init();
+#define SLOT(N) virtual void slot##N();
+	SLOT(02) SLOT(03) SLOT(04) SLOT(05) SLOT(06) SLOT(07) SLOT(08)
+#undef SLOT
+	virtual void reset();	// slot 9
+	virtual void update();	// slot 10
 
 private:
 	char m_opaque04[0xC - 0x4];
@@ -41,6 +46,8 @@ public:
 	InGameUI();
 	virtual ~InGameUI();
 	virtual void init();
+	virtual void reset();
+	virtual void update();
 
 private:
 	char m_opaque14[0x9F0 - 0x14];
@@ -52,6 +59,8 @@ public:
 	Rva0008EF3FProduct();
 	virtual ~Rva0008EF3FProduct();
 	virtual void init();
+	virtual void reset();
+	virtual void update();
 
 private:
 	enum { MAX_MOVE_HINTS = 25 };
@@ -83,4 +92,19 @@ Rva0008EF3FProduct::Rva0008EF3FProduct()
 void Rva0008EF3FProduct::init()
 {
 	InGameUI::init();
+}
+
+// ?update@Rva0008EF3FProduct@@UAEXXZ @0x0008F0C0 and
+// ?reset@Rva0008EF3FProduct@@UAEXXZ @0x0008F0C5, 5B each: slots 10 and 9 of
+// the same vtable, tail jumps to the rowed InGameUI::update 0x002A1582 and
+// InGameUI::reset 0x002A5EE6 (Zero Hour's W3DInGameUI::update and ::reset
+// only call the base; donor inference only).
+void Rva0008EF3FProduct::update()
+{
+	InGameUI::update();
+}
+
+void Rva0008EF3FProduct::reset()
+{
+	InGameUI::reset();
 }

@@ -2305,3 +2305,24 @@ int rva0023BDD7(void *, bool allowIntro)
 		result = 7;
 	return result;
 }
+
+// ?update@Rva004C743@@UAEXXZ @0x0004C755 and ?reset@Rva004C743@@UAEXXZ
+// @0x0004C75A, 5B each: slots 10 and 9 of the device game client's vtable
+// (??_7Rva004C743, the W3DGameClient of W3DGameClientFactories.cpp). Both
+// only extend GameClient: tail jumps to update and reset above.
+class Rva004C743 : public GameClient
+{
+public:
+	virtual void reset();
+	virtual void update();
+};
+
+void Rva004C743::update()
+{
+	GameClient::update();
+}
+
+void Rva004C743::reset()
+{
+	GameClient::reset();
+}

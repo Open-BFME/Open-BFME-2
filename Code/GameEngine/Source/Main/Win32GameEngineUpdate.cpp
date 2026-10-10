@@ -26,7 +26,8 @@ class GameEngine
 {
 public:
 	BFME_VSLOT(0) BFME_VSLOT(1) BFME_VSLOT(2) BFME_VSLOT(3) BFME_VSLOT(4)
-	BFME_VSLOT(5) BFME_VSLOT(6) BFME_VSLOT(7) BFME_VSLOT(8) BFME_VSLOT(9)
+	BFME_VSLOT(5) BFME_VSLOT(6) BFME_VSLOT(7) BFME_VSLOT(8)
+	virtual void reset();						///< rowed 0x00229708
 	virtual void update();						///< pinned 0x00225DA9
 	BFME_VSLOT(11) BFME_VSLOT(12) BFME_VSLOT(13) BFME_VSLOT(14) BFME_VSLOT(15)
 	BFME_VSLOT(16) BFME_VSLOT(17) BFME_VSLOT(18) BFME_VSLOT(19) BFME_VSLOT(20)
@@ -39,6 +40,7 @@ public:
 class Win32GameEngine : public GameEngine
 {
 public:
+	virtual void reset();
 	virtual void update();
 };
 
@@ -99,4 +101,12 @@ void Win32GameEngine::update()
 	}
 
 	serviceWindowsOS();
+}
+
+// ?reset@Win32GameEngine@@UAEXXZ @0x00041EBE 5B: slot 9 of vtable
+// 0x00BC2530, right before update above. Zero Hour's Win32GameEngine::reset
+// only extends GameEngine::reset: a tail jump to the rowed 0x00229708.
+void Win32GameEngine::reset()
+{
+	GameEngine::reset();
 }
