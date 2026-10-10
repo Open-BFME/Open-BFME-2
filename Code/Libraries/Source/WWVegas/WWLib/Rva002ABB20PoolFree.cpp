@@ -1,24 +1,25 @@
 // cl: /Ireference/shims/bfmelist /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
-// ?Rva002ABB20Free@@YGXPAPAXPAUPoolNode002ABB20@@@Z 0x002ABB20 36B
-// Unlinks pool node then pushes it to free-list at 0xDA60F0; out gets prev.
-// Evidence: callers 0x002ABFEB 0x004907B9; same free-list as 0x0026549E.
-struct PoolNode002ABB20
-{
-	PoolNode002ABB20* m_prev;
-	PoolNode002ABB20* m_next;
-};
+// Native 002ABB20..002ABB44 RET8; WB11DDC90 pop_front inlines this same
+// pooled-node unlink/free-list operation. Native4907AA carries the hidden
+// iterator result and by-value iterator, matching this unused-this ABI.
+// Replace the former stdcall free-function view with the actual template
+// member binding its callers use. The element name remains address-derived.
+// g_freeList is the existing DA60F0 owner; no new address or alias is admitted.
 
+#include <list>
+struct Rva004907AAElement {unsigned int id;bool operator<(const Rva004907AAElement&)const;bool operator==(const Rva004907AAElement&)const;};
 extern void *g_freeList;
-
-void __stdcall Rva002ABB20Free(void** out, PoolNode002ABB20* n)
+template<> _STL::list<Rva004907AAElement,_STL::allocator<Rva004907AAElement> >::iterator _STL::list<Rva004907AAElement,_STL::allocator<Rva004907AAElement> >::erase(iterator position)
 {
-	PoolNode002ABB20* next = n->m_next;
-	PoolNode002ABB20* prev = n->m_prev;
-	next->m_prev = prev;
-	prev->m_next = next;
-	PoolNode002ABB20* head = (*(PoolNode002ABB20 **)&g_freeList);
-	n->m_prev = head;
-	(*(PoolNode002ABB20 **)&g_freeList) = n;
-	*out = prev;
+ _STL::_List_node_base *n=position._M_node;
+ _STL::_List_node_base *prev=n->_M_prev;
+ _STL::_List_node_base *next=n->_M_next;
+ prev->_M_next=next;
+ next->_M_prev=prev;
+ n->_M_next=(_STL::_List_node_base*)g_freeList;
+ g_freeList=n;
+ return iterator((_STL::_List_node<Rva004907AAElement>*)next);
 }
+
+template _STL::list<Rva004907AAElement,_STL::allocator<Rva004907AAElement> >::iterator _STL::list<Rva004907AAElement,_STL::allocator<Rva004907AAElement> >::erase(iterator);

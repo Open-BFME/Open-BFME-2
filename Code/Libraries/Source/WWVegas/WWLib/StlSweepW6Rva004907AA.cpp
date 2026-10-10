@@ -9,5 +9,9 @@
 
 struct Rva004907AAElement { unsigned int id;bool operator<(const Rva004907AAElement&)const;bool operator==(const Rva004907AAElement&)const; };
 
+// Native uses the owned pooled erase specialization at2ABB20, not generic
+// allocator deallocation. Suppress the generic body and bind the real provider.
+template<> _STL::list<Rva004907AAElement,_STL::allocator<Rva004907AAElement> >::iterator _STL::list<Rva004907AAElement,_STL::allocator<Rva004907AAElement> >::erase(iterator);
+
 // Instantiate the recovered operation and its required template dependencies.
 template void _STL::list<Rva004907AAElement, _STL::allocator<Rva004907AAElement> >::pop_front(void);
