@@ -33,7 +33,7 @@ class W3DRoadBuffer { public: ~W3DRoadBuffer(); };
 class W3DBridgeBuffer { public: ~W3DBridgeBuffer(); };
 class W3DWaypointBuffer { public: ~W3DWaypointBuffer(); };
 class Rva000E03E2 { public: virtual ~Rva000E03E2(); };
-class Rva0007311B { public: virtual ~Rva0007311B(); };
+class Rva0007311B { public: ~Rva0007311B(); };
 class Rva00073BFE { public: virtual ~Rva00073BFE(); };
 
 class RO0 { public: virtual ~RO0(); private: char m_pad[4]; };

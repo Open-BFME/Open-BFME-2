@@ -3970,7 +3970,6 @@ name,address,notes
 ??1Rva00042100@@UAE@XZ,0x00042100,"destructor of the Win32GameEngine slot 31 product (a lone jmp to base dtor 0x00256E96); REL32 in its scalar deleting destructor 0x000420E7"
 ??1Rva00059068Tree@@QAE@XZ,0x00059068,faction-set tree teardown dtor for the Rva007B6880Thunks.cpp thunks (0x007B6B41/0x007B6D1D/0x007B6D27/0x007B6E72/0x007B6E7C); jmp stub to the rowed FactionSetTree dtor 0x000589BE
 ??1Rva00072FE1@@UAE@XZ,0x00072FE1,"destructor the scalar deleting destructor 0x00072FC5 calls (REL32 at 0x00072FC8; vtable 0x00BC6568#1); opaque address name"
-??1Rva0007311B@@UAE@XZ,0x0007311B,opaque SEH dtor (mov-eax-cookie prologue); called by scalar-deleting-dtor at 0x66667; identity unproven, address-derived name
 ??1Rva00073BFE@@UAE@XZ,0x00073BFE,opaque SEH dtor (mov-eax-cookie prologue); called by scalar-deleting-dtor at 0x66683; identity unproven, address-derived name
 ??1Rva0007C632Dtor@@QAE@XZ,0x0007C632,dtor thunk stub at 0x0007C632 to 0x0007C5D5 (target of thunk 0x007B71AA)
 ??1Rva000851F3@@UAE@XZ,0x0008523A,independently verified complete7B base cleanup installs actual BC745C then RET; same covered range no new byte credit

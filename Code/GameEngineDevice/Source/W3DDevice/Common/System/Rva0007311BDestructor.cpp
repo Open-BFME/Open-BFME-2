@@ -1,6 +1,8 @@
 // ??1Rva0007311B@@QAE@XZ
-// partial score=1.0 date=2026-10-10
 // cl: /O1 /MD /EHsc /DNDEBUG /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
+// Native7311B..731AE RET and wrapper66667..66683 establish opaque destructor relationship.
+// Target-owned offsets: arrays18/38/3C; texture1C; flag34; counted ref40; member map4C.
+// Nonvirtual ABI view avoids the unsupported multiple-inheritance/vptr model formerly used only by the wrapper.
 #include "refcount.h"
 class TextureClass {public:void Release_Ref();};
 struct Rva0007311BTexture {TextureClass *ptr;~Rva0007311BTexture(){if(ptr)ptr->Release_Ref();}};
