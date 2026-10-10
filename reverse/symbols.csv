@@ -17077,3 +17077,4 @@ _D3DXCreateTextureFromFileInMemoryEx@60,0x0062AF7A,Named d3dx9_27.dll PE import 
 ?Rva002A1EF5@@YAHPAVDrawable@@PAX@Z,0x002A1EF5,select-matching drawable callback called twice by InGameUI::selectMatchingAcrossRegion 0x002A3AFA (cdecl Drawable* + user data); banked .997 under this name; unrowed
 _VP6_ReadTokens,0x001BC3D0,callee of _VP6_DecodeBlock
 ??0LivingWorldArmy@@QAE@HPAVRva004E3184@@PAURva002B6A04Player@@@Z,0x0031A372,Independent WB1029DF0 names LivingWorldArmy constructor; native31A372..31A591 complete543B RET12. Caller spawnCity2B86F1 allocates98B and pushes null-player spawn and incremented-ID. Constructor writes id8 to20; consumes spawnC; player10 id14 to54. Pointer argument names are existing provisional target views; constructor body remains unrowed and is an explicit link dependency.
+?DoXferFarmLibrary@AIEconomyBuilder@@SAXPAVXfer@@@Z,0x004EAA4B,callee of ?xfer@Rva002A8F24@@UAEXPAVXfer@@@Z

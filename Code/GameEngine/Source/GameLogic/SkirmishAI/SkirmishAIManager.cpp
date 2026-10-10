@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP=
+// cl: /O1 /G7 /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /Ireference/shims/moduledata /Ireference/shims/bfme2_ascii /Ireference/shims/subsystem_bfme2
 // stlport
 // WB E8E070 names SkirmishAIManager::Register. Retail2A9365..2A93F5
 // establishes the controller dispatches and unique hero-ID insertion.
@@ -11,6 +11,7 @@
 #include <map>
 #include <new>
 
+class Xfer;
 class Player;
 class CreateAHeroData;
 enum ObjectID { OBJECTID_INVALID = 0 };
@@ -42,7 +43,10 @@ public:
     AIStatCollector(Player *);
     unsigned char nativeStorage[0x38];
 };
-class Rva002A8F24
+#include "Common/Snapshot.h"
+typedef int Bool;
+#include "subsystem_interface.h"
+class Rva002A8F24 :public SubsystemInterface,public Snapshot
 {
 public:
     Rva002A8AB1Record *rva002A8AB1(void *);
@@ -51,8 +55,9 @@ public:
     void findPreSpawnedObjects();
     void *addNewAIForPlayer(Player *);
     void rva002A95F9();
+    virtual void xfer(Xfer *);
 private:
-    unsigned char prefix00[0x860];
+    unsigned char prefix00[0x860-0x10];
     bool forceAI860;
     unsigned char gap861[0x908-0x861];
     _STL::map<int,int> collectors908;
@@ -151,7 +156,7 @@ class GameLogic;
 extern GameLogic *TheGameLogic;
 class Rva0023C6A4 { public: bool rva00200084(); };
 void Rva004ECE14Clear();
-class AIGameTeam { public: void rva004E94FB(); };
+class AIGameTeam { public: void rva004E94FB();void rva004E951C(void*); };
 // WB E8D0A0 names newMap. Native2A95F9..2A9706 preserves the
 // multiplayer/replay guards and AI/collector split before team startup.
 // addNewAIForPlayer remains a separately banked unconverted dependency.
@@ -175,4 +180,27 @@ void Rva002A8F24::rva002A95F9() {
     for (const ModuleData **it=teams914.begin(); it!=teams914.end(); ++it)
         ((AIGameTeam *)*it)->rva004E94FB();
     findPreSpawnedObjects();
+}
+
+// Native manager snapshot pass; version min1/current2, CRC bail then farm/wall
+// shared libraries, every owned team, and every collector with version pointer.
+struct ManagerVersion { ManagerVersion(unsigned char a,unsigned char b):min(a),current(b){} unsigned char min,current; };
+struct ManagerXferHead {virtual void slot00();virtual void slot04();virtual void slot08();virtual void slot0c();virtual bool slot10() const;};
+template<int N>struct ManagerXferSlots:ManagerXferSlots<N-1>{virtual void gap(char(*)[N]);};
+template<>struct ManagerXferSlots<0>:ManagerXferHead{};
+struct ManagerXferView:ManagerXferSlots<5>{virtual void version(ManagerVersion*);};
+class AIEconomyBuilder {public:static void DoXferFarmLibrary(Xfer*);};
+void Rva004E99F1Xfer(Xfer*);
+class Rva004DFA0E {public:void rva004DFA0E(void*,void*);};
+void Rva002A8F24::xfer(Xfer* xfer) {
+ ManagerXferView*io=reinterpret_cast<ManagerXferView*>(xfer);
+ if(io->slot10())return;
+ ManagerVersion version(1,2);
+ io->version(&version);
+ AIEconomyBuilder::DoXferFarmLibrary(xfer);
+ Rva004E99F1Xfer(xfer);
+ for(const ModuleData**it=teams914.begin();it!=teams914.end();++it)
+  reinterpret_cast<AIGameTeam*>(const_cast<ModuleData*>(*it))->rva004E951C(xfer);
+ for(_STL::map<int,int>::iterator it=collectors908.begin(),end=collectors908.end();it!=end;++it)
+  reinterpret_cast<Rva004DFA0E*>(it->second)->rva004DFA0E(xfer,&version);
 }
