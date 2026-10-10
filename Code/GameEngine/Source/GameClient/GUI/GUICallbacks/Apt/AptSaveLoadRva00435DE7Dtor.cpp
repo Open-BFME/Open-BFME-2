@@ -1,6 +1,4 @@
-// ??1Rva00435DE7@@UAE@XZ
-// partial score=0.95 date=2026-10-06
-// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmelist /Ireference/shims/bfmealloc /O1 /DNDEBUG /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmelist /Ireference/shims/bfmealloc /DNDEBUG /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /O1 /G7 /arch:SSE /I.
 // stlport
 // Target evidence: vptr pair 0x00C3CDC8/0x00C3CDC4 at this/+0x218, AptSaveLoad
 // strings and neighboring callbacks, pending kind at +0x28, and the fields
@@ -8,7 +6,32 @@
 // unclaimed. The two-base/string prefix follows the independently matched
 // BFME2 _bfme_AptGameWindow destructor; BFME1 AptSaveLoad dtor is a semantic
 // and control-flow donor, with target-specific pending and replay branches.
+extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
+
+extern struct Bfme939Helper *g_bfme939Helper;
+
+extern int g_Va00E04910;
+
+extern int g_Va00E0333C;
+
+extern int g_Va00E032E0;
+
+extern class GameWindowManager *TheWindowManager;
+
+extern class Shell *TheShell;
+
+extern class LivingWorldLogic *TheLivingWorldLogic;
+
+extern class GameState *TheGameState;
+
+extern class GameLogic *TheGameLogic;
+
+extern class GameEngine *TheGameEngine;
+
+extern class AudioManager *TheAudio;
+
 #include <list>
+#include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
 #include "ascii_string.h"
 #include "unicode_string.h"
 
@@ -80,23 +103,16 @@ public:
 	virtual void slot28();
 };
 
-class GameLogic
-{
-public:
-	void rva0023CD9E(bool paused, int mode, bool affectInput);
-	void rva00376E92(bool showScore, bool unknown);
-};
-
 class GameState
 {
 public:
 	int rva002DE3C1(TreeHintOpaque0043671B info);
 };
 
-class Bfme939Helper
+class RecorderClass
 {
 public:
-	bool rva0037D1E6(UnicodeString name);
+	bool playbackFile(UnicodeString name);	// 0x0037D1E6
 };
 
 class Shell
@@ -194,20 +210,20 @@ Rva00435DE7::~Rva00435DE7()
 	const char *const *registrations =
 		(const char *const *)0x00DC8A20;
 
-	if (*(void **)0x00DFE4CC != 0)
+	if (*(void **)&g_bfmeAptWindowManager != 0)
 	{
 		showBackground = false;
 		for (int i = 0; i < 3; ++i)
 		{
 			AsciiString name(registrations[i]);
-			((Rva002244CA *)*(void **)0x00DFE4CC)->rva002244CA(&name);
+			((Rva002244CA *)*(void **)&g_bfmeAptWindowManager)->rva002244CA(&name);
 		}
 
 		_bfme_closeAptScreen(AsciiString("AptSaveLoad::InitGadgets"));
 
-		GameLogic *logic = (GameLogic *)*(void **)0x00DFE78C;
+		GameLogic *logic = (GameLogic *)*(void **)&TheGameLogic;
 		int one = 1;
-		*(int *)0x00E032E0 = 0;
+		*(int *)&g_Va00E032E0 = 0;
 		if (logic != 0)
 			logic->rva0023CD9E(m_pausedOnEntry, 2, one);
 
@@ -227,7 +243,7 @@ Rva00435DE7::~Rva00435DE7()
 				break;
 			case 2:
 			{
-				void *pendingWindow = *(void **)0x00E04910;
+				void *pendingWindow = *(void **)&g_Va00E04910;
 				if (pendingWindow != 0)
 					*((unsigned char *)pendingWindow + 0x27D) = 1;
 			}
@@ -240,7 +256,7 @@ Rva00435DE7::~Rva00435DE7()
 
 			if (m_pending->m_subobject.m_kind == 6)
 			{
-				void *owner = *(void **)0x00E0333C;
+				void *owner = *(void **)&g_Va00E0333C;
 				if (owner != 0)
 					*(TreeHintOpaque0043671B **)((char *)owner + 0x2B0) = m_pending;
 			}
@@ -249,32 +265,32 @@ Rva00435DE7::~Rva00435DE7()
 				Rva0051AF0BEnable(2);
 				Rva005210ECEnable(false);
 				Rva00222A8BTarget *aptWindowManager =
-					(Rva00222A8BTarget *)*(void **)0x00DFE4CC;
+					(Rva00222A8BTarget *)*(void **)&g_bfmeAptWindowManager;
 				aptWindowManager->slot28();
 				GameWindowManagerView *windowManager =
-					(GameWindowManagerView *)*(void **)0x00DFEF1C;
+					(GameWindowManagerView *)*(void **)&TheWindowManager;
 				windowManager->slot28();
-				((Shell *)*(void **)0x00E01E48)->hide(one);
+				((Shell *)*(void **)&TheShell)->hide(one);
 
 				if (m_pending->m_subobject.m_kind != 7)
 				{
-					int result = ((GameState *)*(void **)0x00DFF08C)->
+					int result = ((GameState *)*(void **)&TheGameState)->
 							rva002DE3C1(*m_pending);
 					if (result != 0)
 					{
-						((Shell *)*(void **)0x00E01E48)->rva0035C7CF(one);
+						((Shell *)*(void **)&TheShell)->rva0035C7CF(one);
 						m_flag2A4 = false;
 					}
 				}
-			else if (!((Bfme939Helper *)*(void **)0x00E02290)->
-				rva0037D1E6(m_pending->m_text))
+			else if (!((RecorderClass *)*(void **)&g_bfme939Helper)->
+				playbackFile(m_pending->m_text))
 			{
-				((GameLogic *)*(void **)0x00DFE78C)->rva00376E92(
+				((GameLogic *)*(void **)&TheGameLogic)->rva00376E92(
 					false, one);
 				GameEngineView *engine =
-					(GameEngineView *)*(void **)0x00DFE710;
+					(GameEngineView *)*(void **)&TheGameEngine;
 				engine->slot24();
-				((Shell *)*(void **)0x00E01E48)->rva0035C7CF(one);
+				((Shell *)*(void **)&TheShell)->rva0035C7CF(one);
 				}
 			}
 		}
@@ -283,10 +299,10 @@ Rva00435DE7::~Rva00435DE7()
 	{
 		Rva0051AF0BEnable(0);
 		if (m_29C)
-			((Shell *)*(void **)0x00E01E48)->hide(one);
+			((Shell *)*(void **)&TheShell)->hide(one);
 
 		RvaLogicHolder *livingWorld =
-			(RvaLogicHolder *)*(void **)0x00DFEF10;
+			(RvaLogicHolder *)*(void **)&TheLivingWorldLogic;
 		if (m_2A8 == 1 && livingWorld != 0)
 			livingWorld->rva002B2E77(1);
 		else if (m_2A8 == 2 && livingWorld != 0)
@@ -296,16 +312,16 @@ Rva00435DE7::~Rva00435DE7()
 	}
 
 	if (m_flag2A4)
-		((Rva00222A8BTarget *)*(void **)0x00DFE4CC)->
+		((Rva00222A8BTarget *)*(void **)&g_bfmeAptWindowManager)->
 			rva00222F55(showBackground);
 
 	if (m_29D)
 	{
-		Shell *shell = (Shell *)*(void **)0x00E01E48;
+		Shell *shell = (Shell *)*(void **)&TheShell;
 		if (shell == 0 || !shell->rva0035BD5D())
 		{
 			AudioManagerView *audio =
-				(AudioManagerView *)*(void **)0x00DFE6E8;
+				(AudioManagerView *)*(void **)&TheAudio;
 			audio->slot8C(2, one, 0);
 		}
 	}
