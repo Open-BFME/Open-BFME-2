@@ -202,7 +202,6 @@ void NetDisconnectPlayerCommandMsg::setDisconnectSlot(UnsignedByte slot) {
 	m_disconnectSlot = slot;
 }
 
-// ?setDisconnectFrame@NetDisconnectPlayerCommandMsg@@QAEXI@Z present-unmatched
 // BFME 2 keeps the frame at +0x24: retail's body (0x005739F6, the folded 10-byte
 // dword setter its callers reach) is mov eax,[esp+4]; mov [ecx+0x24],eax; ret 4,
 // and the slot setter it pairs with writes +0x1C, so a dword BFME 2 added sits

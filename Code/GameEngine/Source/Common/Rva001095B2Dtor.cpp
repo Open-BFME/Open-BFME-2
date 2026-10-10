@@ -14,19 +14,18 @@ public:
 	virtual void *deleteInstance(int pool);
 };
 
-class W3DProjectedShadow
-{
-public:
-	virtual ~W3DProjectedShadow() {}
-};
+// Base vtable 0x007CEFA0 is BfmeShadowBufferOwnerBase's (slot 0 is the rowed
+// ??_GBfmeShadowBufferOwnerBase 0x000EFAD2); this class, with vtable 0x007CF9F4,
+// is the W3DProjectedShadow that W3DProjectedShadowManager 0x0010C2D5 creates.
+#include "../../../GameEngineDevice/Source/W3DDevice/GameClient/Shadow/BfmeShadowPrefix.h"
 
-class Rva001095B2 : public W3DProjectedShadow
+class Rva001095B2 : public BfmeShadowBufferOwnerBase
 {
 public:
 	virtual ~Rva001095B2();
 
 private:
-	char m_pad04[0x58 - 0x04];
+	// BfmeShadowBufferOwnerBase fills +0x00..+0x57
 	Rva001095B2Owned *m_58; // +0x58
 	Rva001095B2Owned *m_5C; // +0x5C
 };
