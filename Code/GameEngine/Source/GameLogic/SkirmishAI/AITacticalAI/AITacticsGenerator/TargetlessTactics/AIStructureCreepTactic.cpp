@@ -1,4 +1,4 @@
-// cl: /DBFME_ASCII_DTOR_DECL /MD /GX /DNDEBUG /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii
+// cl: /O1 /G7 /arch:SSE /DBFME_ASCII_DTOR_DECL /MD /GX /DNDEBUG /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii
 // stlport
 //
 // The "StructureCreep" skirmish-AI tactic (vtable 0x008722EC; ctor 0x005AB91D
@@ -156,7 +156,7 @@ struct Rva005AB7E5Template
 };
 
 class Player;
-class Team;
+class Team{public:char pad[0x5D];bool m_5D,m_5E;};
 
 struct Coord3D;
 
@@ -196,7 +196,7 @@ public:
 class Player
 {
 public:
-	char m_pad000[0x2EC];
+	char m_pad000[0x4C];AsciiString m_4C;char m_pad050[0x2EC-0x50];
 	Team *m_defaultTeam;		// +0x2EC
 };
 
@@ -228,6 +228,8 @@ public:
 	Coord3D rva004EBF4B();
 };
 
+struct Rva005996FFArg;
+class Rva005996FF { public: void rva005996FF(Rva005996FFArg *, bool); };
 class AIDozerManager
 {
 public:
@@ -483,6 +485,10 @@ struct Rva00573A00
 	void rva00573A00(const Coord3D *p);
 };
 
+struct Rva003A2FD4Proto{char pad[0x2CC];int m_2CC;char pad2D0[0x31C-0x2D0];bool m_31C;};
+class TeamPrototype;
+class TeamFactory{public:Rva003A2FD4Proto*initTeamForTacticalAI(const AsciiString&,void*,int,unsigned);Team*createTeamOnPrototype(TeamPrototype*,bool);};
+extern TeamFactory*TheTeamFactory;extern const char*g_00DBC1B8TacticTypeNames[];
 class AITactic
 {
 public:
@@ -495,7 +501,7 @@ public:
 	virtual void run();
 	virtual void v8();
 	virtual AITactic *create();
-	void end(bool a, bool b);
+	void end(bool a, bool b);void NotifyTeamCreated(Team*);
 };
 
 class AITacticOffensive : public AITactic
@@ -504,7 +510,7 @@ public:
 	virtual ~AITacticOffensive();
 	char m_pad04[0x24 - 4];
 	Player *m_owner;		// +0x24
-	char m_pad28[0x58 - 0x28];
+	char m_pad28[4];AsciiString m_name;unsigned m_id;char m_pad34[0x58-0x34];
 };
 
 class Rva005DCC24 : public AITacticOffensive
@@ -526,7 +532,7 @@ public:
 	bool validateTemplateName(const AsciiString &name);
 	bool isOffensiveBuilding(Object *obj);
 	bool rva005AC294();
-	void moveDozerAway();
+	void moveDozerAway();virtual void run();
 	virtual void update();
 private:
 	ObjectID m_58;		// +0x58
@@ -692,4 +698,50 @@ bool AIStructureCreepTactic::validateTemplateName(const AsciiString &name)
 			return true;
 	}
 	return false;
+}
+// Native5ABAF6..5ABC81/395B; WB151F6F0 names AIStructureCreepTactic::run.
+// Owned getMyZone and tactical-team provider establish the role; member
+// name2C/id30 and owner24 are direct retail accesses. Player name4C is
+// independently read as an AsciiString by the owned factory116B. The local
+// map result and the fresh post-format ID keep native register scheduling.
+void AIStructureCreepTactic::run()
+{
+	Rva002A8AB1Record *record = g_00DFEEF8->rva002A8AB1(m_owner);
+	int running = record->rva002C7196(AIStructureCreep_IsRunning);
+	if (running == 0) {
+		Player *owner = m_owner;
+		Rva005ABEA2Site *site = getMyZone(owner, m_68);
+		if (site != 0) {
+			m_58 = (ObjectID)(int)record->m_140.rva00599870(site->m_pos, 0);
+			Object *obj = TheGameLogic->findObjectByID(m_58);
+			if (obj != 0) {
+				AsciiString teamName;
+				unsigned int id = m_id;
+				teamName.format("%s_%s_%u_%u", g_00DBC1B8TacticTypeNames[0], m_name.str(), id, 0);
+				unsigned tacticId = m_id;
+				Player *player = m_owner;
+				Rva003A2FD4Proto *proto = TheTeamFactory->initTeamForTacticalAI(
+					teamName, &player->m_4C, -1, tacticId);
+				if (proto != 0) {
+					proto->m_31C = false;
+					proto->m_2CC = 4;
+					m_5C = 1;
+					Team *team = TheTeamFactory->createTeamOnPrototype(reinterpret_cast<TeamPrototype *>(proto), false);
+					NotifyTeamCreated(team);
+					obj->setTeam(team);
+					((Rva005996FF *)&record->m_140)->rva005996FF(
+						reinterpret_cast<Rva005996FFArg *>(obj), false);
+					if (!team->m_5D) {
+						team->m_5E = true;
+						team->m_5D = true;
+					}
+					m_64 = (unsigned int)(TheGameLogic->getFrame() + g_00E0641C);
+					record->rva002C717E(AIStructureCreep_IsRunning, 1);
+					m_running = true;
+				}
+			}
+		}
+	}
+	if (!m_running)
+		end(false, false);
 }
