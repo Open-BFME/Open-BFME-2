@@ -759,6 +759,23 @@ void Rva0005D387BDwordImmSetter::apply()
 	m_value = ((unsigned int)vtbl_00C75908);
 }
 
+// 0x005D3882 (9B), right after 0x005D387B: the same store of the abstract
+// table 0x00C75908 (eleven __purecall slots) at this, returning this: the
+// constructor shape of that abstract base, written in this file's style.
+class Rva005D3882AbstractBase
+{
+public:
+	Rva005D3882AbstractBase *rva005D3882();
+
+	unsigned int m_value;
+};
+
+Rva005D3882AbstractBase *Rva005D3882AbstractBase::rva005D3882()
+{
+	m_value = ((unsigned int)vtbl_00C75908);
+	return this;
+}
+
 class Rva0005D10D6DwordImmSetter
 {
 public:
