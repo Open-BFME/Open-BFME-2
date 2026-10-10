@@ -20,10 +20,14 @@
 
 namespace StrategicHUD
 {
+struct ChecklistHeightNode;
 class ChecklistUIImpl
 {
 public:
 	class Item;
+	float rva0057ABD0() const;
+	char prefix[0x30];
+	ChecklistHeightNode *items;
 };
 }
 
@@ -101,4 +105,52 @@ StrategicHUD::ChecklistUIImpl::Item::Item(ChecklistUIImpl *owner, ChecklistItera
 	m_listPos.node->item = this;
 	reinterpret_cast<Rva005D3FBD *>(static_cast<Rva005D40A6 *>(this))->rva005D3FBD(false);
 	reinterpret_cast<Rva0057A382 *>(this)->rva0057A382();
+}
+
+// Native57ABD0..57AC0C RET0: unnamed height query. Last item top38 and
+// +8 clip height plus shared spacing; empty list returns shared spacing.
+// The owned spacing getter remains a real noinline call; visibility closes
+// x87 spill scheduling and its emitted22 bytes independently match57A24A.
+extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
+
+struct RetObj
+{
+	char m_pad[4];
+	float m_4;
+};
+struct GlobalObj
+{
+	virtual ~GlobalObj() {}
+	virtual void *d1(); virtual void *d2(); virtual void *d3(); virtual void *d4();
+	virtual void *d5(); virtual void *d6(); virtual void *d7(); virtual void *d8();
+	virtual void *d9(); virtual void *d10(); virtual void *d11(); virtual void *d12();
+	virtual void *d13(); virtual void *d14();
+	virtual RetObj *slot15();
+};
+#define TheGlobal0057A24A (*(GlobalObj **)&g_bfmeAptWindowManager)
+class Rva0057A24A
+{
+public:
+	__declspec(noinline) float rva0057A24A() const;
+private:
+	char m_pad[0x20];
+	float m_20;
+};
+
+float Rva0057A24A::rva0057A24A() const { return TheGlobal0057A24A->slot15()->m_4 * m_20; }
+
+class Rva004987FEFloatField {public: float get() const;};
+namespace StrategicHUD {
+struct ChecklistHeightItem {char prefix[0x38];float top;};
+struct ChecklistHeightNode {ChecklistHeightNode *next,*prev;ChecklistHeightItem *item;};
+}
+float StrategicHUD::ChecklistUIImpl::rva0057ABD0() const
+{
+ if(items->next!=items) {
+  ChecklistHeightItem *last=items->prev->item;
+  float top=last->top;
+  return reinterpret_cast<Rva004987FEFloatField*>(reinterpret_cast<char*>(last)+8)->get()
+    + reinterpret_cast<Rva0057A24A*>(&g_Va00E06360)->rva0057A24A() + top;
+ }
+ return reinterpret_cast<Rva0057A24A*>(&g_Va00E06360)->rva0057A24A();
 }
