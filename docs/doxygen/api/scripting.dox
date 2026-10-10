@@ -1,0 +1,4 @@
+/// \defgroup grp_scripting Scripting
+/// \brief Map scripts and Lua.
+///
+/// \ref sub_scripting describes the subsystem.

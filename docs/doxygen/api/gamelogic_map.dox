@@ -1,0 +1,8 @@
+/// \defgroup grp_gamelogic_map Game logic and the map
+/// \brief The deterministic simulation root: GameLogic, its phased update,
+///        TerrainLogic and the map data, and the logic-side world systems.
+///
+/// `GameLogic`, `TerrainLogic`, `SidesList`, bridges, waypoints, trigger
+/// areas and water, and the world systems that `GameLogic::update` runs.
+/// \ref sub_gamelogic_map describes the subsystem, its state and its
+/// differences from Zero Hour.

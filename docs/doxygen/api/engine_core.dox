@@ -1,0 +1,7 @@
+/// \defgroup grp_engine_core Engine core
+/// \brief Startup, the main loop and the subsystem framework.
+///
+/// The process entry point, `GameEngine` and `Win32GameEngine`, and the
+/// `SubsystemInterface` registration framework that every engine-wide
+/// service is built on. \ref sub_engine_core describes the subsystem, its
+/// state and its differences from Zero Hour.

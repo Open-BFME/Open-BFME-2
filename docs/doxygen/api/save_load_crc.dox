@@ -1,0 +1,8 @@
+/// \defgroup grp_save_load_crc Save and load, CRC and replay
+/// \brief Snapshot and Xfer serialisation, save files, checksums and replays.
+///
+/// The `Snapshot` base and the `Xfer` visitor that saves, loads and
+/// checksums it; `GameState` and `GameStateMap` for save files;
+/// `GameLogic::getCRC` for the multiplayer checksum; `RecorderClass` for
+/// replays. \ref sub_save_load_crc describes the subsystem, its state and
+/// its differences from Zero Hour.

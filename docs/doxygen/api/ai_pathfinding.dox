@@ -1,0 +1,10 @@
+/// \defgroup grp_ai_pathfinding AI, pathfinding and skirmish AI
+/// \brief Unit AI state machines, groups and group orders, the pathfinder
+///        and aerial pathfinder, and player-level and skirmish AI.
+///
+/// `TheAI` owns the pathfinder and the groups; each unit's AI update module
+/// runs an `AIStateMachine`; `TheSkirmishAIManager` manages the per-player
+/// skirmish AI. \ref sub_ai_pathfinding describes the layers, how they are
+/// created and updated, the differences from Zero Hour, and what this means
+/// for modding and remastering. No class pages yet: the main AI classes have
+/// no canonical headers.
