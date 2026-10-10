@@ -1,4 +1,6 @@
 // ?update@AIFlankAttackTactic@@UAEXXZ
+// partial score=0.94 date=2026-10-10
+// ?update@AIFlankAttackTactic@@UAEXXZ
 // partial score=0.92 date=2026-10-08
 // cl: /O1 /G7 /arch:SSE /MD /GX /DNDEBUG /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii
 // stlport
@@ -22,6 +24,8 @@
 //               is flagged, head for the next route point, or stop (1, 0)
 //               when the route is done
 #include <vector>
+extern "C" void _ReadWriteBarrier();
+#pragma intrinsic(_ReadWriteBarrier)
 #include "ascii_string.h"
 
 struct Coord3DBase
@@ -104,7 +108,7 @@ public:
 	void rva005AA2D9(Rva005AA55DRecord *record, const Coord3D *from, const Coord3D *to);
 	void xfer(Xfer *xfer);
 	bool done() const { return m_next == m_points.end()-m_points.begin(); }
-Coord3D *next() { int n=m_next++; return &m_points[n]; }
+Coord3D *next() { int n=m_next++; _ReadWriteBarrier(); return &m_points[n]; }
 int m_next;			// +0x00
 	_STL::vector<Coord3D> m_points;	// +0x04
 };
