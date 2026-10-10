@@ -21,7 +21,6 @@
 // kind-of mask across both calls), hence the hoisted template local.
 #include <map>
 #include "GameLogicObjectLookupView.h"
-
 // Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
 namespace _STL {
 template <class T, class LeftTraits, class RightTraits>
@@ -114,13 +113,15 @@ class Object
 	char m_pad000[4];
 	const ThingTemplate *m_template;
 	char m_pad008[0x254 - 8];
+	// This owner accesses the proven Object+0x254 field directly; the public
+	// getBodyModule copies use other Object views.
+public:
 	BodyModuleInterface *m_body;
 
 public:
 	const ThingTemplate *getTemplate() const { return m_template; }
 	Bool testStatus(ObjectStatusTypes bit) const;
 	Player *getControllingPlayer() const;
-	BodyModuleInterface *getBodyModule() const { return m_body; }
 };
 
 class Rva2225E0Filter
@@ -216,7 +217,7 @@ void ScoreKeeper::addObjectLost( const Object *o )
 			existingCount = (Int)it->second;
 		((ImageSubscriptMap *)&m_map1d4)->operator[]((unsigned int)o->getTemplate()) = (Image *)(existingCount + 1);
 
-		BodyModuleInterface *body = o->getBodyModule();
+		BodyModuleInterface *body = o->m_body;
 		if (body)
 		{
 			const DamageInfo *info = body->getLastDamageInfo();

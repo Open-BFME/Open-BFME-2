@@ -245,48 +245,7 @@ void ScoreKeeper::addObjectCaptured( const Object *o )
 
 // addObjectDestroyed is recovered with reset in ScoreKeeperReset.cpp.
 
-// ?ScoreKeeper::addObjectLost present-unmatched
-void ScoreKeeper::addObjectLost( const Object *o )
-{
-	if (TheGameLogic->isScoringEnabled() == FALSE) {
-		return;
-	}
-
-	Bool addToCount = FALSE;
-	if(o->getTemplate()->isKindOfMulti(scoringBuildingMask, KINDOFMASK_NONE))
-	{
-		if (!(o->testStatus(OBJECT_STATUS_UNDER_CONSTRUCTION))) {
-			++m_totalBuildingsLost;
-			addToCount = TRUE;
-		}
-	}
-	else if (o->getTemplate()->isKindOfMulti(scoringBuildingDestroyMask, KINDOFMASK_NONE))
-	{
-		if (!(o->testStatus(OBJECT_STATUS_UNDER_CONSTRUCTION))) {
-			++m_totalBuildingsLost;
-			addToCount = TRUE;
-		}
-	}
-	else if(o->getTemplate()->isKindOf(KINDOF_INFANTRY) || o->getTemplate()->isKindOf(KINDOF_VEHICLE))
-	{
-		if (o->getTemplate()->isKindOf(KINDOF_SCORE) || o->getTemplate()->isKindOf(KINDOF_SCORE_DESTROY))
-		{
-			if (!(o->testStatus(OBJECT_STATUS_UNDER_CONSTRUCTION))) {
-				++m_totalUnitsLost;
-				addToCount = TRUE;
-			}
-		}
-	}
-	
-	if(addToCount)
-	{
-		Int existingCount = 0;
-		ObjectCountMapIt it = m_objectsLost.find(o->getTemplate());
-		if (it != m_objectsLost.end())
-			existingCount = it->second;
-		m_objectsLost[o->getTemplate()] = existingCount + 1;
-	}	
-}
+// addObjectLost is recovered in Rva0039D0FBMethod.cpp with the BFME2 layout.
 
 // ?ScoreKeeper::calculateScore present-unmatched
 Int ScoreKeeper::calculateScore( void )
