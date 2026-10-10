@@ -74,21 +74,16 @@ template _STL::map<AsciiString, TreeHintOpaque0043671B,
 // Retail 0x004360B3 looks up the printed saved-game digest in the tree
 // whose address is owned as g_Va00E032EC. Its caller passes MD5 text;
 // the returned node with the tree header and returns the mapped value at +0x14.
-// The insert chain establishes the value type. The key-only worker at
-// 0x001F8437 has an independently evidenced address-derived thiscall
-// signature; this shim makes no claim about its concrete tree class.
+// The insert chain establishes the value type, so the lookup is this map's
+// own find: its key-only _M_find<AsciiString> is the 78-byte worker that
+// /OPT:ICF folded with every other AsciiString-keyed tree at 0x001F8437.
 extern unsigned g_Va00E032EC;
-
-class Rva001F8437
-{
-public:
-    void *rva001F8437(const AsciiString &key) throw();
-};
 
 TreeHintOpaque0043671B *Rva004360B3(AsciiString key)
 {
-    void *node = ((Rva001F8437 *)&g_Va00E032EC)->rva001F8437(key);
-    if (node != *(void **)&g_Va00E032EC)
-        return (TreeHintOpaque0043671B *)((char *)node + 0x14);
+    MapInsert00436e3b &table = *(MapInsert00436e3b *)&g_Va00E032EC;
+    MapInsert00436e3b::iterator found = table.find(key);
+    if (found._M_node != table.end()._M_node)
+        return &(*found).second;
     return 0;
 }

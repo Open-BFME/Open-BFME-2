@@ -190,7 +190,7 @@ inline INILoadType retailLoadType( const INI *ini )
 
 static GlowEffect s_glowEffectSaved;		// 0x12b4ff8
 static GlowEffect s_glowEffectActive;		// 0x12b501c
-static Bool s_glowEffectChanged;			// 0x12f13fc
+Bool g_bfmeDirtyCU;					// 0x12f13fc; shared dirty flag (bfmeReset and the screen-filter preRenders)
 
 void parseGlowEffect( INI *ini )
 {
@@ -199,5 +199,5 @@ void parseGlowEffect( INI *ini )
 	const INILoadType loadType = retailLoadType( ini );
 	if( loadType != INI_LOAD_CREATE_OVERRIDES && loadType != INI_LOAD_BFME_TYPE_4 )
 		s_glowEffectSaved = s_glowEffectActive;
-	s_glowEffectChanged = TRUE;
+	g_bfmeDirtyCU = TRUE;
 }

@@ -237,11 +237,14 @@ public:
     {
         Init(psz, _AtlGetConversionACP());
     }
-    ~CW2AEX();
-
-    __declspec(noinline) void deallocate()
+    // ATL 7.1's destructor (AtlConvFreeMemory inlined). Not instantiated here:
+    // retail's out-of-line copy is the 18-byte free-in-place body at 0x00001D9A
+    // (the unwind funclet for the CW2A local of GetEnvironmentVariableWFake in
+    // cstringt.cpp jumps there), shared with ~CA2WEX<128>.
+    ~CW2AEX() throw()
     {
-        free(m_psz);
+        if (m_psz != m_szBuffer)
+            free(m_psz);
     }
 
 private:
@@ -279,13 +282,6 @@ void CW2AEX<t_nBufferLength>::Init(LPCWSTR psz, UINT nCodePage)
 }
 
 template <int t_nBufferLength>
-CW2AEX<t_nBufferLength>::~CW2AEX()
-{
-    if (m_psz != m_szBuffer)
-        deallocate();
-}
-
-template <int t_nBufferLength>
 void CA2WEX<t_nBufferLength>::Init(LPCSTR psz, UINT nCodePage)
 {
 	if (psz == NULL)
@@ -316,7 +312,6 @@ template CA2WEX<128>::CA2WEX(LPCSTR psz);
 template void CA2WEX<128>::Init(LPCSTR psz, UINT nCodePage);
 template void CW2AEX<128>::Init(LPCWSTR psz, UINT nCodePage);
 template CW2AEX<128>::CW2AEX(LPCWSTR psz);
-template CW2AEX<128>::~CW2AEX();
 
 }
 

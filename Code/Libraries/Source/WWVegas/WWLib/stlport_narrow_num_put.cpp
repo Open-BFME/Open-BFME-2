@@ -18,4 +18,14 @@ void _STLP_alloc_proxy<char*, char, allocator<char> >::deallocate(
 
 #include <locale>
 
+// do_put(bool) and do_put(const void *) are owned by stlport_narrow_num_put_bool.cpp and
+// stlport_narrow_num_put_voidptr.cpp; leave them declared so this unit emits neither (nor their getloc).
+namespace _STL {
+template <> ostreambuf_iterator<char, char_traits<char> >
+num_put<char, ostreambuf_iterator<char, char_traits<char> > >::do_put(
+    ostreambuf_iterator<char, char_traits<char> >, ios_base &, char, bool) const;
+template <> ostreambuf_iterator<char, char_traits<char> >
+num_put<char, ostreambuf_iterator<char, char_traits<char> > >::do_put(
+    ostreambuf_iterator<char, char_traits<char> >, ios_base &, char, const void *) const;
+}
 template class _STL::num_put<char, _STL::ostreambuf_iterator<char, _STL::char_traits<char> > >;

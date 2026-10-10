@@ -19054,7 +19054,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x009FF198,8,.data,global,_s_rva007AE698,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x009FF1A0,744,.data,global,?WaterSettings@@3PAVWaterSetting@@A,Code/GameEngine/Source/GameClient/WaterSettingsArray.cpp,owned,,1,29
 0x009FF488,4,.data,global,?TheWaterTransparency@@3V?$OVERRIDE@VWaterTransparencySetting@@@@A,,unowned,?TheRva00DFF488Setting@@3V?$OVERRIDE@VRva00DFF488Setting@@@@A;?TheWaterTransparency@@3V?$OVERRIDE@VWaterTransparencySetting@@@@A;?g_rva00200BD9Holder@@3PAURva00200BD9Holder@@A,0,10
-0x009FF48C,8,.data,global,?g_bfmeDirtyCU@@3_NA,,unowned,?g_bfmeDirtyCU@@3_NA;_s_glowEffectChanged@Code/GameEngine/Source/GameClient/Drawable_Rva00309fb3.cpp,1,6
+0x009FF48C,8,.data,global,?g_bfmeDirtyCU@@3_NA,Code/GameEngine/Source/GameClient/Drawable_Rva00309fb3.cpp,owned,,1,6
 0x009FF494,20,.data,global,?g_Va00DFF494@@3IA,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,owned,,1,2
 0x009FF4A8,4,.data,global,?g_Rva0030A120Count@@3HA,Code/GameEngine/Source/Common/Rva0030A120Dtor.cpp,owned,,1,2
 0x009FF4AC,8,.data,global,_s_rva007AE774,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
