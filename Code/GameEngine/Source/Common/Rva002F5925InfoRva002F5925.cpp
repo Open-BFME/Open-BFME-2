@@ -1,7 +1,7 @@
-// ?cellCallback@Rva002F5925Info@@QAEHPAVPathfindCell@@0HH@Z
-// partial score=0.997991 date=2026-10-10
-// ?cellCallback@Rva002F5925Info@@QAEHPAVPathfindCell@@0HH@Z
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /ICode/Libraries/Include/Lib /I.
+//
+// ?cellCallback@Rva002F5925Info@@QAEHPAVPathfindCell@@0HH@Z, retail 0x002f5925, 853 bytes. Banked partial (score 0.997991) closed by tools/permute.py;
+// the body is the banked one up to statement/operand order and local types.
 // Native2F5925..2F5C7A full853 RET16; published2F6B22 walk names
 // the callback receiver. BF1 pinned575 ExamineCellsStructCellCallback and
 // ZH examineCellsCallback provide purpose; native proves each target delta.

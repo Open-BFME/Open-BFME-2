@@ -1,6 +1,7 @@
-// ?rva0047D90C@Rva0047D90C@@QAEXPAVObject@@W4ExitDoorType@@@Z
-// partial score=0.9795005807200929 date=2026-10-10
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /Ireference/shims/bfmealloc /I.
+//
+// ?rva0047D90C@Rva0047D90C@@QAEXPAVObject@@W4ExitDoorType@@@Z, retail 0x0047d90c, 252 bytes. Banked partial (score 0.9795005807200929) closed by tools/permute.py;
+// the body is the banked one up to statement/operand order and local types.
 // stlport
 #include "Code/GameEngine/Include/GameLogic/ContainmentListView.h"
 namespace _STL {template<> _List_base<Rva0036ADF9Element,allocator<Rva0036ADF9Element> >::~_List_base();}

@@ -1,6 +1,7 @@
-// ?rva0047D53A@HordeSiegeEngineContain@@QAEXPAVObject@@W4ExitDoorType@@@Z
-// partial score=0.9980584085843616 date=2026-10-10
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /Ireference/shims/bfmealloc /I.
+//
+// ?rva0047D53A@HordeSiegeEngineContain@@QAEXPAVObject@@W4ExitDoorType@@@Z, retail 0x0047d53a, 978 bytes. Banked partial (score 0.9980584085843616) closed by tools/permute.py;
+// the body is the banked one up to statement/operand order and local types.
 // stlport
 #include "Code/Libraries/Include/Lib/Coord3D.h"
 #include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"

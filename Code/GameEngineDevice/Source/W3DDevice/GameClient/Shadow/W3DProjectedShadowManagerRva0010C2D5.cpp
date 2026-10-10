@@ -1,5 +1,3 @@
-// ?rva0010C2D5@W3DProjectedShadowManager@@QAEPAVW3DProjectedShadow@@HPAVRenderObjClass@@PAUShadowTypeInfo@Shadow@@1@Z
-// partial score=0.97 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD
 // ?rva0010C2D5@W3DProjectedShadowManager@@QAEPAVW3DProjectedShadow@@HPAVRenderObjClass@@PAUShadowTypeInfo@Shadow@@1@Z
 // retail 0x0010C2D5..0x0010C578 (675 bytes, ret 0x10, EH frame).
@@ -231,7 +229,7 @@ W3DProjectedShadow *W3DProjectedShadowManager::rva0010C2D5(int id, RenderObjClas
 	W3DProjectedShadow *head = m_decalList;
 	W3DProjectedShadow *previous = 0;
 	W3DProjectedShadow *node;
-	for (node = head; node; previous = node, node = node->m_next)
+	for (node = m_decalList; node; previous = node, node = node->m_next)
 	{
 		W3DShadowTexture *nodeA = node->m_58 ? node->m_58->m_texture : 0;
 		if (nodeA == textureA)

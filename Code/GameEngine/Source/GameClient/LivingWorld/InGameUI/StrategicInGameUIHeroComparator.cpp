@@ -76,3 +76,20 @@ void Rva005E6B3E::rva005E6B3E(){
   TheMouse->rva001EEA6D(StrategicInGameUI::GetTooltipText(kind),-1,0,1.0f);
  }
 }
+
+struct TargetRef00217D4C {void*vtable;int count;};
+void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);
+struct TreeHintRef00217D4C {
+ ~TreeHintRef00217D4C(){if(m_ptr)ReleaseTreeHintRef00217D4C(m_ptr);}
+ TreeHintRef00217D4C&operator=(const TreeHintRef00217D4C&);
+ TargetRef00217D4C*m_ptr;
+};
+namespace StrategicInGameUI {TreeHintRef00217D4C Rva005E6A23(const Rva005E4300Entry*);}
+class Rva003FE20FBase {public:virtual void slot1(void*);};
+class Rva005E4157 {public:void rva005E4157(int);};
+class Rva005E6AD8 {public:void rva005E6AD8();char pad0[4];void*clip;Rva003FE20FBase*owner;char padC[8];int value;Rva005E4300Entry*entry;TreeHintRef00217D4C held;};
+void Rva005E6AD8::rva005E6AD8(){
+ held=StrategicInGameUI::Rva005E6A23(entry);
+ if(held.m_ptr)owner->Rva003FE20FBase::slot1(&held);
+ ((Rva005E4157*)((char*)clip+0xC))->rva005E4157(value);
+}

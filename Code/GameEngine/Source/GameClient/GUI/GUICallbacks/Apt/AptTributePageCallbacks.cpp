@@ -116,12 +116,15 @@ public:
 	virtual void v02();
 	virtual int v03(int message, int key, int state);
 	virtual int v04(int message, int key, int state);
+	virtual void v05();
 };
 
 class Rva00510D0C
 {
 public:
 	void TributeEnabled(int query, char *result, bool skip);
+	// Vtable slot of 0x00C6568C, retail 0x0050F65B: tells every page to close, then base 0x000910FB. Name unknown.
+	int rva0050F65B();
 	void ReturnToGame(const char *unused);
 	// Vtable slot 1, the input handler. Name unknown.
 	int rva0050EBC5(int message, int key, int state);
@@ -306,3 +309,17 @@ void Rva00510D0C::OnPageLoaded(const char *params)
 
 // Retail's strcpy call lands on the import thunk rowed as ji_00629176.
 #pragma comment(linker, "/alternatename:_strcpy=?ji_00629176@@YAXXZ")
+
+class TributePageBaseABI
+{
+public:
+	int rva000910FB();
+};
+
+int Rva00510D0C::rva0050F65B()
+{
+	PageMap::iterator end = m_pages.end();
+	for (PageMap::iterator it = m_pages.begin(); it != end; ++it)
+		reinterpret_cast<Rva00510D0CPage *>(it->second.m_ptr)->v05();
+	return reinterpret_cast<TributePageBaseABI *>(this)->rva000910FB();
+}
