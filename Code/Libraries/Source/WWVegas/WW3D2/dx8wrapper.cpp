@@ -2316,6 +2316,21 @@ void DX8Wrapper::Set_Index_Buffer(const IndexBufferClass* ib,unsigned short inde
 //
 // ----------------------------------------------------------------------------
 
+// Retail's DynamicVBAccessClass is 24 bytes: the donor header is missing the
+// format_index/declaration dwords, so its count/offset/buffer members read 8
+// bytes early. Same proven view as DX8SetDynamicVertexBuffer.cpp (retail ctor
+// 0x13B040 corroborates): read this one call through it.
+struct TargetDynamicVBView {
+	const void *format;
+	unsigned type;
+	unsigned format_index;
+	unsigned declaration;
+	unsigned short vertex_count;
+	unsigned short vertex_offset;
+	VertexBufferClass *buffer;
+};
+typedef char TargetDynamicVBViewMustBe24Bytes[sizeof(TargetDynamicVBView)==0x18?1:-1];
+
 void DX8Wrapper::Set_Vertex_Buffer(const DynamicVBAccessClass& vba_)
 {
 	// Release all streams (only one stream allowed in the legacy pipeline)
@@ -2325,10 +2340,11 @@ void DX8Wrapper::Set_Vertex_Buffer(const DynamicVBAccessClass& vba_)
 
 	if (render_state.vertex_buffers[0]) render_state.vertex_buffers[0]->Release_Engine_Ref();
 	DynamicVBAccessClass& vba=const_cast<DynamicVBAccessClass&>(vba_);
-	render_state.vertex_buffer_types[0]=vba.Get_Type();
-	render_state.vba_offset=vba.VertexBufferOffset;
-	render_state.vba_count=vba.Get_Vertex_Count();
-	REF_PTR_SET(render_state.vertex_buffers[0],vba.VertexBuffer);
+	const TargetDynamicVBView& view=*reinterpret_cast<const TargetDynamicVBView*>(&vba);
+	render_state.vertex_buffer_types[0]=view.type;
+	render_state.vba_offset=view.vertex_offset;
+	render_state.vba_count=view.vertex_count;
+	REF_PTR_SET(render_state.vertex_buffers[0],view.buffer);
 	render_state.vertex_buffers[0]->Add_Engine_Ref();
 	render_state_changed|=VERTEX_BUFFER_CHANGED;
 	render_state_changed|=INDEX_BUFFER_CHANGED;		// vba_offset changes so index buffer needs to be reset as well.
@@ -2464,6 +2480,11 @@ void DX8Wrapper::Draw(
 	SNAPSHOT_SAY(("DX8 - draw\n"));
 
 	Apply_Render_State_Changes();
+
+	// Anchor the rowed DynamicVBAccessClass::Get_Vertex_Count copy: the
+	// DynamicVB Set_Vertex_Buffer overload above reads the 24-byte retail view
+	// directly, so this address-take is the unit's only remaining ODR-use.
+	(void)&DynamicVBAccessClass::Get_Vertex_Count;
 
 	// Debug feature to disable triangle drawing...
 	if (!_Is_Triangle_Draw_Enabled()) return;
