@@ -1,6 +1,5 @@
-// ?Rva002604D0Create@@YAPAVGameSubTitle@@PBVAsciiString@@HABVUnicodeString@@IHHHHH@Z
-// partial score=0.955 date=2026-10-10
 // cl: /O1 /G7 /MD /EHsc /DNDEBUG /Ireference/shims/bfme2_ascii
+// ?Rva002604D0Create@@YAPAVGameSubTitle@@PBVAsciiString@@HABVUnicodeString@@IHHHHH@Z @0x002604D0 135B
 // Native [2604D0,260557), cdecl factory; independently rowed233B GameSubTitle
 // constructor establishes the eight forwarded arguments. Display slot40
 // supplies unsigned width, scaling font points by width/1024. Allocation38
@@ -25,8 +24,9 @@ GameSubTitle *Rva002604D0Create(const AsciiString *fontName,int fontSize,
  const UnicodeString &text,unsigned color,int style,int align,int line,
  int startFrame,int endFrame)
 {
- double scale=static_cast<float>(reinterpret_cast<Rva002604D0DisplayView *>(TheDisplay)->getWidth())*(1.0f/1024.0f);
- float points=fontSize*scale;
+ // One expression: a separate scale local makes cl defer the fimul past the float argument slot
+ // allocation (push ecx; mov ecx; fimul) where retail multiplies first.
+ float points=fontSize*(static_cast<float>(reinterpret_cast<Rva002604D0DisplayView *>(TheDisplay)->getWidth())*(1.0f/1024.0f));
  GameFont *font=TheFontLibrary->getFont(fontName,points,false);
  return new GameSubTitle(font,text,color,style,align,line,startFrame,endFrame);
 }
