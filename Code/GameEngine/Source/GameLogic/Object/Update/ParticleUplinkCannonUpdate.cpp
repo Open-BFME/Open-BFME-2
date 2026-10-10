@@ -46,7 +46,37 @@
 #include "GameClient\ControlBar.h"
 #include "GameClient\GameClient.h"
 #include "GameClient\Drawable.h"
-#include "GameClient\ParticleSys.h"
+// BFME 2 retail ParticleSystem carries m_systemID at +0xA8, not ZH's +0x268:
+// matched TransitionDamageFX::onBodyDamageStateChange @0x004B9F18 inlines
+// mov eax,[eax+0A8h] for getSystemID. The manager/template/ID declarations
+// below are ZH's verbatim (same manglings); only the system data layout is
+// the proven BFME 2 one, so this TU's ?getSystemID COMDAT matches retail and
+// stops displacing the BFME 2 copies that link order otherwise keeps last.
+enum ParticleSystemID
+{
+	INVALID_PARTICLE_SYSTEM_ID = 0
+};
+class ParticleSystemTemplate;
+class Coord3D;
+class Matrix3D;
+class ParticleSystem
+{
+public:
+	ParticleSystemID getSystemID() const { return m_systemID; }
+	void setPosition(const Coord3D *pos);
+	void setLocalTransform(const Matrix3D *matrix);
+private:
+	char m_pad00[0xA8];
+	ParticleSystemID m_systemID; // +0xA8
+};
+class ParticleSystemManager
+{
+public:
+	ParticleSystemTemplate *findTemplate(const AsciiString &name) const;
+	ParticleSystem *createParticleSystem(const ParticleSystemTemplate *sysTemplate, Bool createSlaves = TRUE);
+	void destroyParticleSystemByID(ParticleSystemID id);
+};
+extern ParticleSystemManager *TheParticleSystemManager;
 #include "GameClient\FXList.h"
 
 #include "GameLogic\GameLogic.h"
