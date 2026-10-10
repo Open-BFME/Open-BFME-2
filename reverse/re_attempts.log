@@ -33796,3 +33796,4 @@ _DeringBlockStrong_C	0x001C1AD0	2030	blocked	vp6 clean-room (spec 001c1ad0): ret
 ??1Rva00597BD4@@UAE@XZ	0x00597BD4	132	landed	add_match verified Code/GameEngine/Source/Common/Rva00597BD4Destructor.cpp 132B; AI upgrade science builder wrapper dtor
 ??1Rva005990DF@@UAE@XZ	0x005990DF	114	landed	add_match verified Code/GameEngine/Source/Common/Rva005990DFDestructor.cpp 114B; AI unit upgrader wrapper dtor
 ??1Rva0059E6D3Data@@UAE@XZ	0x0059E5AE	153	landed	add_match verified Code/GameEngine/Source/Common/Rva0059E6D3DataDestructor.cpp 153B; data object dtor; two file pointer ranges released then members
+??1Rva00065288@@UAE@XZ	0x00065288	66	landed	add_match verified Code/GameEngine/Source/Common/Rva00065288Destructor.cpp 66B; W3DModelDraw module data derived dtor; four strings then base

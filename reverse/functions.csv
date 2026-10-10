@@ -74765,3 +74765,4 @@ _VP6_ReadHuffTokens,,0x001C5310,1661,Code/Libraries/Source/VP6/HuffTokens.cpp,ma
 ??1Rva00597BD4@@UAE@XZ,,0x00597BD4,132,Code/GameEngine/Source/Common/Rva00597BD4Destructor.cpp,matched,AI upgrade science builder wrapper dtor
 ??1Rva005990DF@@UAE@XZ,,0x005990DF,114,Code/GameEngine/Source/Common/Rva005990DFDestructor.cpp,matched,AI unit upgrader wrapper dtor
 ??1Rva0059E6D3Data@@UAE@XZ,,0x0059E5AE,153,Code/GameEngine/Source/Common/Rva0059E6D3DataDestructor.cpp,matched,data object dtor; two file pointer ranges released then members
+??1Rva00065288@@UAE@XZ,,0x00065288,66,Code/GameEngine/Source/Common/Rva00065288Destructor.cpp,matched,W3DModelDraw module data derived dtor; four strings then base
