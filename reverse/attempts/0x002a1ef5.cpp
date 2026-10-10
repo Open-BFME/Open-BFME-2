@@ -1,4 +1,6 @@
 // ?Rva002A1EF5@@YAHPAVDrawable@@PAX@Z
+// partial score=0.997 date=2026-10-10
+// ?Rva002A1EF5@@YAHPAVDrawable@@PAX@Z
 // partial score=0.9954 date=2026-10-10
 // cl: /O1 /G7 /MD /EHsc /Ireference/shims/bfme2_ascii /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
@@ -7,8 +9,16 @@
 #include <list>
 class Object;
 namespace _STL {
-template<> _List_base<const Object*,allocator<const Object*> >::_List_base(const allocator<const Object*>&);
-template<> _List_base<const Object*,allocator<const Object*> >::~_List_base();
+template<> inline __declspec(noinline) _List_base<const Object*,allocator<const Object*> >::_List_base(const allocator<const Object*>& __a) : _M_node(_STLP_CONVERT_ALLOCATOR(__a, _Node), (_Node*)0) {
+    _Node* __n = _M_node.allocate(1);
+    __n->_M_next = __n;
+    __n->_M_prev = __n;
+    _M_node._M_data = __n;
+}
+template<> inline __declspec(noinline) _List_base<const Object*,allocator<const Object*> >::~_List_base() {
+    clear();
+    _M_node.deallocate(_M_node._M_data, 1);
+}
 }
 class Object;
 class Drawable;
