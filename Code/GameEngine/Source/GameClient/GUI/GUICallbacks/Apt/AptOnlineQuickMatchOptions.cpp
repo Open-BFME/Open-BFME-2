@@ -261,7 +261,7 @@ class Rva0054D974 {
 public:
   Rva0054D8D8 *rva0054D6C8(int);
 };
-extern Rva0054D974 *G00A05FB0;
+extern Rva0054D974 *TheLadderList;
 class PlayerTemplate {
 public:
   char p[0x18];
@@ -358,7 +358,7 @@ void Rva005BB5F6::rva005BBF15() {
   if (ladderIndex < 0)
     ladderIndex = 0;
   if (ladderIndex) {
-    ladder = G00A05FB0->rva0054D6C8(ladderIndex);
+    ladder = TheLadderList->rva0054D6C8(ladderIndex);
     if (!ladder)
       ladderIndex = 0;
   }

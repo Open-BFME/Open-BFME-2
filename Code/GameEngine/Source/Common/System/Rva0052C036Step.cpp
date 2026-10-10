@@ -7,14 +7,15 @@ public:
 	void rva003EF2FF();
 };
 
-class Rva0021294A
+class LivingWorldManager
 {
 public:
 	char m_pad[0x268];
 	LivingWorldRegionEffectsManager *m_268;
 };
 
-extern Rva0021294A *g_009FE1C8;
+// 0x009FE1C8 under its data-ledger primary name (defined in Rva003FD7CEParse.cpp).
+extern LivingWorldManager *TheLivingWorldManager;
 
 class Rva003F812CObject
 {
@@ -59,7 +60,7 @@ bool Rva0052C036::rva0052C036()
 	++m_8;
 	if (m_8 > m_18) {
 		m_8 = m_18;
-		g_009FE1C8->m_268->rva003EF2FF();
+		TheLivingWorldManager->m_268->rva003EF2FF();
 		return false;
 	}
 	((Glo012F1024Item *)((char *)m_c + m_8 * 0xB8))->bfmeEnter();

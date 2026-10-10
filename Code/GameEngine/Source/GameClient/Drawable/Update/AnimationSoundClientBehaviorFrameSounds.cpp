@@ -34,7 +34,10 @@ struct AnimationSoundTreeNode {int color;AnimationSoundTreeNode*parent,*left,*ri
 class AnimationSoundTree {public:AnimationSoundTreeNode*header;int count;AnimationSoundTreeNode*rva004C9FE0(const void*);};
 namespace _STL {struct _Rb_tree_node_base;template<class T>class _Rb_global {public:static _Rb_tree_node_base*__cdecl _M_increment(_Rb_tree_node_base*);};}
 class DrawModule;
-class Drawable {public:const Coord3D *getPosition() const;DrawModule**getDrawModules();DrawableID getID() const;};
+class Drawable {public:const Coord3D *getPosition() const;DrawModule**getDrawModules();};
+// Drawable::getID is ICF-folded onto the matched dword getter row at 0x0055A88B;
+// call it by that row name (DispDwordFieldGetters.cpp), as ControlBarShowRallyPoint.cpp does.
+class Rva0055A88BDwordField {public:int get() const;};
 struct DrawableFrameSoundView {char pad00[0xfc];void*parent;char pad100[0x158];char conditionFlags[76];char pad2a4[0x1a6];bool active;};
 struct ObjectSoundPositionView {char pad00[0x38];Coord3D position;};
 class Rva001DFE56 {public:bool rva001DFE56(const void*,const void*) const;};
@@ -82,7 +85,7 @@ void AnimationSoundClientBehavior::rva004CA328() {
      it=(AnimationSoundTreeNode*)_STL::_Rb_global<bool>::_M_increment((_STL::_Rb_tree_node_base*)it);
      if(info->frame!=first) {
       if(!info->anyConditions||((Rva001DFE56*)view->conditionFlags)->rva001DFE56(&info->required,&info->excluded)) {
-       BfmeAudioEventPrefix136 event(*(OpaqueRefElement4*)&info->audio,d->getID());
+       BfmeAudioEventPrefix136 event(*(OpaqueRefElement4*)&info->audio,(DrawableID)((const Rva0055A88BDwordField *)d)->get());
        ((AudioFrameSoundCalls*)TheAudio)->add(&event);
       }
      }

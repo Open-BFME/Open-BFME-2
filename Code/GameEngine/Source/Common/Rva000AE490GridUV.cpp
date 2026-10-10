@@ -58,10 +58,11 @@ struct Rva000AE6ADBlendTileInfo
 	int customBlendEdgeClass;
 };
 
-class Rva000AC2F6
+// The helper at 0x000AC2F6, called by its row name (WorldHeightMapGetUVForNdx.cpp).
+class WorldHeightMap
 {
 public:
-	void rva000AC2F6(int ndx, float *minU, float *minV, float *maxU,
+	void getUVForNdx(int ndx, float *minU, float *minV, float *maxU,
 		float *maxV, bool fullTile);
 };
 
@@ -107,7 +108,7 @@ bool Rva000AE490::rva000AE490(int ndx, short tileNdx, float U[4],
 
 	if ((ndx < m_dataSize) && m_tileNdxes)
 	{
-		((Rva000AC2F6 *)this)->rva000AC2F6(tileNdx, &nU, &nV, &xU, &xV,
+		((WorldHeightMap *)this)->getUVForNdx(tileNdx, &nU, &nV, &xU, &xV,
 			fullTile);
 		U[0] = nU;
 		U[1] = xU;

@@ -42,6 +42,6 @@ private:
 void Rva003BB680Owner::setGeometryName(AsciiString &name)
 {
 	Rva004E2382 tmp;
-	tmp.m_00.set(name);
+	tmp.m_00.setCopyInline(name);
 	m_14.push_back(*(Rva004E3E5AElement *)&tmp);
 }

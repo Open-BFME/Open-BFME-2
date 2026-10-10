@@ -210,11 +210,11 @@ Int W3DTreeBuffer::addTreeType(const AsciiString &modelName,
 	m_treeTypes[m_numTreeTypes].m_data = data;
 	m_treeTypes[m_numTreeTypes].m_offset = offset;
 	m_treeTypes[m_numTreeTypes].m_doShadow = (shadowKind == 1);
-	m_treeTypes[m_numTreeTypes].m_textureName.set(textureName);
+	m_treeTypes[m_numTreeTypes].m_textureName.setCopyInline(textureName);
 	m_treeTypes[m_numTreeTypes].m_textureName.concat(".tga");
-	m_treeTypes[m_numTreeTypes].m_modelName.set(modelName);
-	m_treeTypes[m_numTreeTypes].m_nameC.set(nameC);
-	m_treeTypes[m_numTreeTypes].m_nameD.set(nameD);
+	m_treeTypes[m_numTreeTypes].m_modelName.setCopyInline(modelName);
+	m_treeTypes[m_numTreeTypes].m_nameC.setCopyInline(nameC);
+	m_treeTypes[m_numTreeTypes].m_nameD.setCopyInline(nameD);
 	// Retail initializes this per-type sentinel after the string fields.
 	m_treeTypes[m_numTreeTypes].m_field0058 = -2;
 	m_numTreeTypes++;

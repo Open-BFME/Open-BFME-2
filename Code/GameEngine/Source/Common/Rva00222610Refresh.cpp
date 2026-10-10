@@ -60,8 +60,8 @@ void Rva00062908Host::rva00222610()
 // caller 0x002247C2, callees StringBase set rowed, prev/next same Host block.
 void Rva00062908Host::Slot::rva00222647(int c, const AsciiString &s4, const AsciiString &s0, int b8)
 {
-	m_s0.set(s0);
-	m_s4.set(s4);
+	m_s0.setCopyInline(s0);
+	m_s4.setCopyInline(s4);
 	m_c = c;
 	if (m_flags & 2)
 		m_flags &= (unsigned char)~2;

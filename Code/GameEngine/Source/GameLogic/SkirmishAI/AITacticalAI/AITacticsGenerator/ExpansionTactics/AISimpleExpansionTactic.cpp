@@ -212,6 +212,15 @@ public:
 	char m_pad28[0x58 - 0x28];
 };
 
+// The stage-1 step at 0x005AA663 is ICF-folded with the byte-identical
+// AISimpleAttackTactic::run (row in Rva005AA647Tactic.cpp); it is called by that
+// row name with a qualified (non-virtual) call.
+class AISimpleAttackTactic
+{
+public:
+	virtual void run();
+};
+
 class AISimpleExpansionTactic : public AITacticOffensive
 {
 public:
@@ -220,7 +229,6 @@ public:
 	virtual bool initializeTeamTemplate(Rva005AA860Unit *unit, void *unused);
 	virtual void xfer(Xfer *xfer);
 	virtual void update();
-	void rva005AA663();
 	void startCreateNewBase();
 	void startConstruction();
 private:
@@ -294,7 +302,7 @@ void AISimpleExpansionTactic::update()
 		break;
 	case 1:
 		if (m_order->m_status == 1) {
-			rva005AA663();
+			((AISimpleAttackTactic *)this)->AISimpleAttackTactic::run();
 			m_stage = 2;
 		}
 		break;

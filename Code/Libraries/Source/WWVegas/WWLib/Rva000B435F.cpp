@@ -32,7 +32,7 @@ struct Rva000B435F
 Rva000B435F &Rva000B435F::operator=(const Rva000B435F &o)
 {
 	m_a = o.m_a;
-	m_s.set(o.m_s);
+	m_s.setCopyInline(o.m_s);
 	m_b = o.m_b;
 	return *this;
 }

@@ -39,15 +39,16 @@ public:
 	virtual ~Rva0041E4A3Entry();
 };
 
-class GameEngineDeletingBase
+// Base dtor at 0x001B4E74 by its row name ??1SubsystemInterface@@UAE@XZ (SubsystemInterface.cpp).
+class SubsystemInterface
 {
 public:
-	virtual ~GameEngineDeletingBase();
+	virtual ~SubsystemInterface();
 private:
 	char m_pad04[8];
 };
 
-class Rva0041E4A3 : public GameEngineDeletingBase
+class Rva0041E4A3 : public SubsystemInterface
 {
 protected:
 	virtual ~Rva0041E4A3();

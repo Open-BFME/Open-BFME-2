@@ -429,7 +429,7 @@ AsciiString GameModePreferences::rva0044DAA8(const AsciiString &def)
 	PreferenceMap::const_iterator it = find(makeKey("GameName"));
 	if (it == end())
 		return def;
-	ret.set(QuotedPrintableToAsciiString(it->second));
+	ret.setCopyInline(QuotedPrintableToAsciiString(it->second));
 	ret.trim();
 	return ret;
 }
@@ -467,7 +467,7 @@ AsciiString GameModePreferences::rva0044DBA5(void)
 	PreferenceMap::const_iterator it = find(makeKey("Password"));
 	if (it == end())
 		return AsciiString::TheEmptyString;
-	ret.set(QuotedPrintableToAsciiString(it->second));
+	ret.setCopyInline(QuotedPrintableToAsciiString(it->second));
 	ret.trim();
 	return ret;
 }

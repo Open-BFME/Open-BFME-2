@@ -11,10 +11,11 @@
 
 #include "ascii_string.h"
 
-class GameEngineDeletingBase
+// Base dtor at 0x001B4E74 by its row name ??1SubsystemInterface@@UAE@XZ (SubsystemInterface.cpp).
+class SubsystemInterface
 {
 public:
-	virtual ~GameEngineDeletingBase();
+	virtual ~SubsystemInterface();
 
 private:
 	char m_pad04[8];
@@ -44,7 +45,7 @@ public:
 	~MultiplayerSettings();
 
 private:
-	GameEngineDeletingBase m_deletingBase; // +0x00
+	SubsystemInterface m_deletingBase; // +0x00
 	char m_pad0C[0x34 - 0x0C];
 	ColorMapTree m_colorList; // +0x34
 	AsciiString m_observer; // +0x44

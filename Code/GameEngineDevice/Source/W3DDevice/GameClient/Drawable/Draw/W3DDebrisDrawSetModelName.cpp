@@ -94,10 +94,17 @@ public:
 	static RTS3DScene *m_3DScene;
 };
 
+// Drawable::getScale is ICF-folded onto the matched +0x200 float getter row at 0x000788D3
+// (DispFloatFieldGetters.cpp); called here by that row name.
+class Rva000788D3FloatField
+{
+public:
+	float get() const;
+};
+
 class Drawable
 {
 public:
-	const Real getScale() const;
 	void *getDrawableInfo() { return m_drawableInfo; }
 private:
 	unsigned char m_pad00[0x248];
@@ -218,7 +225,7 @@ void W3DDebrisDraw::setModelName(AsciiString name, Color color, ShadowType t)
 			options.m_d3 = 0;
 			options.m_d1 = color | 0xFF000000;
 		}
-		m_renderObject = Rva00137364CreateRenderObj(name.str(), getDrawable()->getScale(), options);
+		m_renderObject = Rva00137364CreateRenderObj(name.str(), ((const Rva000788D3FloatField *)getDrawable())->get(), options);
 		if (m_renderObject)
 		{
 			W3DDisplay::m_3DScene->Add_Render_Object(m_renderObject);

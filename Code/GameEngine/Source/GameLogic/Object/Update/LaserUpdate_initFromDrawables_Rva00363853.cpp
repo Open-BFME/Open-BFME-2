@@ -18,11 +18,18 @@ enum DrawableID
 
 class Object;
 
+// Drawable::getID is ICF-folded onto the matched dword getter row at 0x0055A88B
+// (DispDwordFieldGetters.cpp); called here by that row name.
+class Rva0055A88BDwordField
+{
+public:
+	int get() const;
+};
+
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameClient/Drawable.h
 class Drawable
 {
 public:
-	DrawableID getID() const;
 	const Coord3D *getPosition() const;
 };
 
@@ -47,8 +54,8 @@ void LaserUpdate::initFromDrawables(void *primary, Drawable *parent, Drawable *t
 	{
 		if (target)
 		{
-			m_parentID = parent->getID();
-			m_targetID = target->getID();
+			m_parentID = ((const Rva0055A88BDwordField *)parent)->get();
+			m_targetID = ((const Rva0055A88BDwordField *)target)->get();
 			initLaser((const Object *)primary, parent->getPosition(),
 				target->getPosition(), (int)d);
 		}

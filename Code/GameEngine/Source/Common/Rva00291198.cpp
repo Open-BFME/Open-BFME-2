@@ -74,10 +74,10 @@ void Rva00291198Host::rva002910B7(Rva00291198Dest *destination)
   RespawnUpdate *respawn=reinterpret_cast<RespawnUpdate*>(reinterpret_cast<const Object*>(this)->findModule(respawnKey));
   if (respawn) {
    SnapshotTemplate2910B7 *respawnTemplate=reinterpret_cast<SnapshotTemplate2910B7*>(respawn->rva004AF25D());
-   if (respawnTemplate) destination->templateName.set(respawnTemplate->name);
+   if (respawnTemplate) destination->templateName.setCopyInline(respawnTemplate->name);
   }
  }
- if (destination->templateName.isEmpty()) destination->templateName.set(m_template->name);
+ if (destination->templateName.isEmpty()) destination->templateName.setCopyInline(m_template->name);
  destination->tracker10=tracker->value10;
  destination->tracker24=tracker->value24;
  destination->mask=m_mask;

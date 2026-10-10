@@ -33,8 +33,10 @@ struct Rva002A8AB1Record
     int m_16C;
 };
 
-struct Rva002A8F24
+// class key matches the data ledger primary ?g_00DFEEF8@@3PAVRva002A8F24@@A (Rva005EEA20Find.cpp).
+class Rva002A8F24
 {
+public:
     Rva002A8AB1Record *rva002A8AB1(void *owner);
     void *rva002A8F24(class Player *);
     char pad[0x884];

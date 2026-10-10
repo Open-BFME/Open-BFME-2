@@ -40,15 +40,11 @@ class Player : public Rva002A8AB1Record
 {
 };
 
-class PlayerList
+// 0x002A8AB1 by its row name (Rva002A8AB1.cpp).
+class Rva002A8F24
 {
 public:
-	Player *rva002A8AB1(Rva003A2BD4M08 *key);
-};
-
-class Rva002A8F24 : public PlayerList
-{
-public:
+	Rva002A8AB1Record *rva002A8AB1(void *owner);
 	void *rva002A8F24(Player *player);
 };
 

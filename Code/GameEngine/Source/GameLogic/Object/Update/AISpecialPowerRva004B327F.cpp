@@ -30,13 +30,13 @@ public:
 	unsigned char get() const;
 };
 
-class PlayerList
+struct Rva002A8AB1Record;
+// 0x002A8AB1 by its row name (Rva002A8AB1.cpp).
+class Rva002A8F24
 {
 public:
-	Player *rva002A8AB1(Rva003A2BD4M08 *key);
+	Rva002A8AB1Record *rva002A8AB1(void *owner);
 };
-
-class Rva002A8F24;
 
 extern Rva002A8F24 *g_00DFEEF8;
 
@@ -129,7 +129,7 @@ int Rva004B327F::rva004B327F()
 			m_flag = false;
 			return 1;
 		}
-		if (m_power && ((PlayerList *)g_00DFEEF8)->rva002A8AB1(
+		if (m_power && g_00DFEEF8->rva002A8AB1(
 				(Rva003A2BD4M08 *)object()->getControllingPlayer()))
 		{
 

@@ -148,13 +148,13 @@ void Mouse::drawTooltip()
 			if (TheGlobalLanguageData != 0
 				&& !reinterpret_cast<BfmeLangFontTriple *>(TheGlobalLanguageData)->m_fontName.isEmpty())
 			{
-				font.set(reinterpret_cast<BfmeLangFontTriple *>(TheGlobalLanguageData)->m_fontName);
+				font.setCopyInline(reinterpret_cast<BfmeLangFontTriple *>(TheGlobalLanguageData)->m_fontName);
 				size = reinterpret_cast<BfmeLangFontTriple *>(TheGlobalLanguageData)->m_fontSize;
 				boldSlot.asByte = reinterpret_cast<BfmeLangFontTriple *>(TheGlobalLanguageData)->m_fontIsBold;
 			}
 			else
 			{
-				font.set(m_tooltipFontName);
+				font.setCopyInline(m_tooltipFontName);
 				size = m_tooltipFontSize;
 				boldSlot.asByte = m_tooltipFontIsBold;
 			}

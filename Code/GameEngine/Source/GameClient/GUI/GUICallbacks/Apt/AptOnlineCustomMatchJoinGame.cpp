@@ -84,7 +84,7 @@ public:
 	const LadderInfo *findLadder(const AsciiString &addr, unsigned short port);
 };
 class Rva0054D974;
-extern Rva0054D974 *G00A05FB0;
+extern Rva0054D974 *TheLadderList;
 
 class Rva0059F322AsciiField { public: AsciiString get() const; };
 
@@ -237,7 +237,7 @@ bool AptOnlineCustomMatch::rva005A57BA(bool fromInvite)
 		return false;
 	}
 	bool unknownLadder = room->getLadderPort() &&
-		!((LadderList *)G00A05FB0)->findLadder(((Rva0059F322AsciiField *)room)->get(), room->getLadderPort());
+		!((LadderList *)TheLadderList)->findLadder(((Rva0059F322AsciiField *)room)->get(), room->getLadderPort());
 	if (unknownLadder)
 	{
 		GSMessageBoxOk(TheGameText->fetch("GUI:JoinFailedDefault"), TheGameText->fetch("GUI:JoinFailedUnknownLadder"), 0);

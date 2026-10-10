@@ -1,8 +1,9 @@
 // cl: /DNDEBUG /MD /EHsc
 // ?j_00036124@Glo012F1024Item@@QAEXXZ @0x0056552C 176B BFME1 donor j_00036124 adapted to BFME2 layout Outer at +0x9C and single global g_009FE1C8 with rowed forwarders 0x00210EBF 0x00210ECF 0x00210EE1. Evidence: caller 0x005669A3 bfmeEnter plus donor game/GameEngine/Source/Common/Glo012F1024Entry_bfmeStep.cpp plus retail offsets +0x9C +0xA0 stride 0xC inner stride 8.
 
-class Rva0021294A;
-extern Rva0021294A *g_009FE1C8;
+class LivingWorldManager;
+// 0x009FE1C8 under its data-ledger primary name (defined in Rva003FD7CEParse.cpp).
+extern LivingWorldManager *TheLivingWorldManager;
 
 struct BfmeE8
 {
@@ -55,13 +56,13 @@ void Glo012F1024Item::j_00036124()
 {
 	if (m_outer.bfmeSize() != 0)
 	{
-		((Rva00210EBF *)g_009FE1C8)->rva00210EBF();
+		((Rva00210EBF *)TheLivingWorldManager)->rva00210EBF();
 		for (unsigned int outer = 0; outer < m_outer.bfmeSize(); ++outer)
 		{
 			BfmeElem12 *element = m_outer.m_begin + outer;
 			for (unsigned int inner = 0; inner < (unsigned int)(element->m_end - element->m_begin); ++inner)
-				((Rva00210ECF *)g_009FE1C8)->rva00210ECF(*(element->m_begin + inner));
+				((Rva00210ECF *)TheLivingWorldManager)->rva00210ECF(*(element->m_begin + inner));
 		}
-		((Rva00210EE1 *)g_009FE1C8)->rva00210EE1();
+		((Rva00210EE1 *)TheLivingWorldManager)->rva00210EE1();
 	}
 }

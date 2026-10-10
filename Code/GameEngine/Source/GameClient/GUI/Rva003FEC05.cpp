@@ -39,8 +39,10 @@ public:
 	void disable();
 };
 
-struct Rva003FEC05Host
+// Spelled as the data ledger primary ?g_00DFEF18@@3PAVRva002D3627Host@@A (Rva002D3627Check.cpp).
+class Rva002D3627Host
 {
+public:
 	virtual void f0();
 	virtual void f1();
 	virtual void f2();
@@ -62,7 +64,7 @@ struct Rva003FEC05Host
 	virtual void f18();
 	virtual void slot19(int a, int b);
 };
-extern Rva003FEC05Host *g_00DFEF18;
+extern Rva002D3627Host *g_00DFEF18;
 
 struct RGBColor
 {

@@ -17,15 +17,12 @@ public:
 	Rva002C5FD9 *m_164;
 };
 
-class PlayerList
+struct Rva002A8AB1Record;
+// 0x002A8AB1 by its row name (Rva002A8AB1.cpp).
+class Rva002A8F24
 {
 public:
-	Player *rva002A8AB1(Rva003A2BD4M08 *key);
-};
-
-class Rva002A8F24 : public PlayerList
-{
-public:
+	Rva002A8AB1Record *rva002A8AB1(void *owner);
 	Rva004E9600 *rva002A8B24(void *key);
 };
 
@@ -56,6 +53,6 @@ void *Rva002A8AB1Record::rva002C6ACB()
 {
 	Rva004E9600 *mid = g_00DFEEF8->rva002A8B24(m_15c);
 	void *found = mid->rva004E93E8();
-	Player *p = g_00DFEEF8->rva002A8AB1((Rva003A2BD4M08 *)found);
+	Player *p = (Player *)g_00DFEEF8->rva002A8AB1(found);
 	return p->m_164->rva002C5FD9();
 }

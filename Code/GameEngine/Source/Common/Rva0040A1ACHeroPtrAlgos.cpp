@@ -16,7 +16,9 @@ public:
 	void rva0021929D(CreateAHeroData **data);
 };
 
-extern Rva00219251 *TheHeroManager;
+// 0x009FE344 under its data-ledger primary name (defined in CreateAHero.cpp).
+class CreateAHeroManager;
+extern CreateAHeroManager *TheCreateAHeroManager;
 
 class Rva0040A16E
 {
@@ -40,7 +42,7 @@ private:
 
 struct Rva0040A1ACRelease
 {
-	void operator()(CreateAHeroData *p) const { TheHeroManager->rva0021929D(&p); }
+	void operator()(CreateAHeroData *p) const { ((Rva00219251 *)TheCreateAHeroManager)->rva0021929D(&p); }
 };
 
 template Rva0040A1ACRelease _STL::for_each<CreateAHeroData **, Rva0040A1ACRelease>(CreateAHeroData **, CreateAHeroData **, Rva0040A1ACRelease);

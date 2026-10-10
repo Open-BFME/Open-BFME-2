@@ -14,9 +14,10 @@ class Rva0054D974
 public:
 	Rva0054D8D8 *rva0054D6C8(int id);
 };
-extern Rva0054D974 *G00A05FB0;
-// G00A05FB0: matched references place it at VA 0xe05fb0 (zero-filled .bss).
-Rva0054D974 * G00A05FB0;
+extern Rva0054D974 *TheLadderList;
+// TheLadderList (formerly the address-named G00A05FB0): matched references place it at VA 0xe05fb0 (zero-filled .bss);
+// PeerDefs.cpp creates and deletes it under this name.
+Rva0054D974 * TheLadderList;
 
 class Rva005BA36D
 {
@@ -33,5 +34,5 @@ Rva0054D8D8 *Rva005BA36D::rva005BA36D()
 	GameWindow **pp = &m90;
 	GadgetComboBoxGetSelectedPos(*pp, &sel);
 	void *data = GadgetComboBoxGetItemData(*pp, sel);
-	return G00A05FB0->rva0054D6C8((int)data);
+	return TheLadderList->rva0054D6C8((int)data);
 }

@@ -9,8 +9,9 @@ public:
 	void rva0021291F(const void *key);
 };
 
-class Rva0021294A;
-extern Rva0021294A *g_009FE1C8;
+class LivingWorldManager;
+// 0x009FE1C8 under its data-ledger primary name (defined in Rva003FD7CEParse.cpp).
+extern LivingWorldManager *TheLivingWorldManager;
 
 class Rva003FD3EF : public Snapshot
 {
@@ -28,6 +29,6 @@ bool Rva003FD3EF::rva003FD43B()
 		return true;
 	BfmeAudioEventPrefix136 evt(m_0c, 1);
 	evt.m_b51 = 1;
-	((Rva0021291F *)g_009FE1C8)->rva0021291F(&evt);
+	((Rva0021291F *)TheLivingWorldManager)->rva0021291F(&evt);
 	return true;
 }

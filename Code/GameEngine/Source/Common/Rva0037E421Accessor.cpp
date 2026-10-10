@@ -107,13 +107,12 @@ public:
     void *rva002A9BF2();
 };
 class Rva003A2BD4M08;
-class PlayerList
+struct Rva002A8AB1Record;
+// 0x002A8AB1 by its row name (Rva002A8AB1.cpp).
+class Rva002A8F24
 {
 public:
-    Player *rva002A8AB1(Rva003A2BD4M08 *);
-};
-class Rva002A8F24 : public PlayerList
-{
+    Rva002A8AB1Record *rva002A8AB1(void *owner);
 };
 extern Rva002A8F24 *g_00DFEEF8;
 class Rva0037E6E8 : public Rva0037E421

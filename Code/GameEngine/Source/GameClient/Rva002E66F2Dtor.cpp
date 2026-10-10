@@ -12,10 +12,11 @@ public:
 	~AsciiStringMember();
 };
 
-class GameEngineDeletingBase
+// Base dtor at 0x001B4E74 by its row name ??1SubsystemInterface@@UAE@XZ (SubsystemInterface.cpp).
+class SubsystemInterface
 {
 public:
-	virtual ~GameEngineDeletingBase();
+	virtual ~SubsystemInterface();
 
 private:
 	char m_pad04[4];
@@ -24,7 +25,7 @@ private:
 
 extern const void *const g_00804E90[];
 
-class Rva002E66F2Mid : public GameEngineDeletingBase
+class Rva002E66F2Mid : public SubsystemInterface
 {
 public:
 	virtual ~Rva002E66F2Mid() { *(const void **)this = g_00804E90; }

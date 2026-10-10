@@ -321,17 +321,27 @@ Rva005FCFE5::Rva005FCFE5(unsigned int level)
 // The complete allocation size and three argument reads are target facts
 // from the 866-byte constructor at5FCB47. WB names its implementation class;
 // retain an opaque ABI name while this unit's owner identity remains unknown.
-class Rva005FCB47
+// The constructor is called by its row name ??0Impl@ArmyMemberIconMovieClip@StrategicHUD@@
+// (Rva005FC8FDApt.cpp); this view declares only that constructor and the size.
+class AptMovieClipFrame;
+namespace StrategicHUD {
+class ArmyMemberIconMovieClip
 {
 public:
-    Rva005FCB47(Rva005FCF0E *owner, unsigned int level, const AsciiString &name);
-private:
-    unsigned char m_storage[0x38];
+    class Impl
+    {
+    public:
+        Impl(ArmyMemberIconMovieClip *owner, AptMovieClipFrame *frame, const AsciiString &name);
+    private:
+        unsigned char m_storage[0x38];
+    };
 };
+}
 
 // Target5FCEA9-5FCF0E: base word04 zero; observer storage ctor at+8;
 // vtableC7A1BC; 0x38-byte allocation and implementation ctor; holder at+18.
 Rva005FCF0E::Rva005FCF0E(unsigned int level, const AsciiString &name)
-    : member18(new Rva005FCB47(this, level, name))
+    : member18(new StrategicHUD::ArmyMemberIconMovieClip::Impl((StrategicHUD::ArmyMemberIconMovieClip *)this,
+          (AptMovieClipFrame *)level, name))
 {
 }

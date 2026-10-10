@@ -27,14 +27,15 @@ public:
 	void SyncRegion(int value);
 };
 
-class Rva0021294A
+class LivingWorldManager
 {
 public:
 	char m_pad[0x268];
 	LivingWorldRegionEffectsManager *m_268;
 };
 
-extern Rva0021294A *g_009FE1C8;
+// 0x009FE1C8 under its data-ledger primary name (defined in Rva003FD7CEParse.cpp).
+extern LivingWorldManager *TheLivingWorldManager;
 
 struct Rva003EFDF5Inner
 {
@@ -63,7 +64,7 @@ void Rva003EFDF5Host::rva003EFDF5(void *a)
 	inner->m_2C = v;
 	if (v == 0)
 		(*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->m_B0->rva0020EA22(m_12C);
-	LivingWorldRegionEffectsManager *obj = g_009FE1C8->m_268;
+	LivingWorldRegionEffectsManager *obj = TheLivingWorldManager->m_268;
 	if (obj)
 		obj->SyncRegion((int)this);
 }

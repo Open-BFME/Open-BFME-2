@@ -78,8 +78,8 @@ private:
 
 Rva001DA379 *Rva001DA379::rva001DA379(const Rva001DA379 &other)
 {
-	m_str08.set(other.m_str08);
-	m_str0C.set(other.m_str0C);
+	m_str08.setCopyInline(other.m_str08);
+	m_str0C.setCopyInline(other.m_str0C);
 	m_10 = other.m_10;
 	m_14 = other.m_14;
 	m_18 = other.m_18;
