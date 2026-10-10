@@ -19,7 +19,7 @@ enum GUICommandType
 class CommandButton
 {
 public:
-	GUICommandType getCommandType() const { return m_command; }
+	__declspec(dllimport) __forceinline GUICommandType getCommandType() const { return m_command; }
 private:
 	char m_pad[0x14];
 	GUICommandType m_command; // +0x14
