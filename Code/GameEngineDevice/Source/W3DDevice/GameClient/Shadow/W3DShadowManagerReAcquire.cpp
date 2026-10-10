@@ -13,7 +13,7 @@ class Rva000F1A32 {public:Rva000F1A32();private:char body[12];};
 class Rva005D2575 {
 public:Rva005D2575();private:char body[0x1c];
 };
-class Rva0010C785 {public:Rva0010C785();private:char body[0x274];};
+class Rva00108DBC {public:Rva00108DBC();private:char body[0x274];};
 class Rva0007C50B {public:Rva0007C50B();private:char body[0x2c];};
 class W3DVolumetricShadowManager;
 class W3DProjectedShadowManager;
@@ -114,7 +114,7 @@ W3DShadowManager::W3DShadowManager() {
  // not the historical class spellings, identify each submanager here.
  TheW3DVolumetricShadowManager=(W3DVolumetricShadowManager*)new Rva000F1A32;
  TheW3DProjectedShadowManager=(W3DProjectedShadowManager*)new Rva005D2575;
- Rva0010C785 *projected=new Rva0010C785;
+ Rva00108DBC *projected=new Rva00108DBC;
  Rva00DEC2D8Manager=(Rva00108660ResourceManager*)projected;
  g_00DEC2D4=(AudioManager0029E159*)projected;
  Rva00DE1FF8Manager=(Rva0007DA23ResourceManager*)new Rva0007C50B;

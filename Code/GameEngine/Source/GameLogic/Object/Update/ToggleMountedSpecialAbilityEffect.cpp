@@ -148,7 +148,10 @@ public:
  void setWeaponSetFlag(WeaponSetType);
  void rva0028B79C(int);
  void rva0028B78A(int);
+protected:
  Module *findModule(NameKeyType) const;
+ friend class ToggleMountedSpecialAbilityUpdate;
+public:
  Drawable *getDrawable() const;
  __forceinline void clearCondition214(){ if(flags.test(214)){flags.clear(214);rva0028AE6D();} }
  __forceinline void setCondition214(){ if(!flags.test(214)){flags.set(214);rva0028AE6D();} }
