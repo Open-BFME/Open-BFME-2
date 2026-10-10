@@ -1,29 +1,19 @@
-// ?getFootLocations@W3DQuadrupedDraw@@UAE_NAAV?$vector@UCoord3D@@V?$allocator@UCoord3D@@@_STL@@@_STL@@_N@Z
-// partial score=0.9500764732343678 date=2026-10-10
-// ?getFootLocations@W3DQuadrupedDraw@@UAE_NAAV?$vector@UCoord3D@@V?$allocator@UCoord3D@@@_STL@@@_STL@@_N@Z
-// partial score=0.93 date=2026-10-09
-// cl: /I. /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /DNDEBUG /MD /ICode/Libraries/Include/Lib
-//
-// ?getFootLocations@W3DQuadrupedDraw@@UAE_NAAV?$vector@UCoord3D@@V?$allocator@UCoord3D@@@_STL@@@_STL@@_N@Z,
-// retail 0x000CA352..0x000CA72E (988B), thiscall ret 8; slot 47 of the
-// draw-interface vtable 0x007CBB78 that the rowed W3DQuadrupedDraw ctor
-// 0x000CA0A4 installs at +0x0C (so `this` is that subobject and the module
-// data / drawable are read at -8 / -4).
-//
-// Finds the four foot bones named by the module data (AsciiStrings at
-// +0x188..+0x194; both feet of a pair unnamed fails). In world space each
-// bone comes from the pristine bone query (interface slot 3, with the
-// drawable's condition flags at +0x258) and is moved by the transform the
-// drawable's +0xFC object keeps at +8 (inline Matrix3D multiply); otherwise
-// from the current client bone query (slot 5). A missing foot takes its
-// pair partner's position; a pair with neither found fails.
-//
-// Evidence (target): WorldBuilder twin 0x916F60 is
-// W3DQuadrupedDraw::getFootLocations; callees StringBase::isEmpty 0x00001E2F
-// and vector<Coord3D>::resize 0x000CA33C (rowed).
-
+// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /DNDEBUG /MD /ICode/Libraries/Include/Lib
+// Target boundary: 0x000CA352..0x000CA72E; complete 988 bytes RET 8.
+// WB 0x00916F60 names W3DQuadrupedDraw::getFootLocations; target slot 47
+// and the W3DQuadrupedDraw factory/constructor family independently agree.
+// The rowed constructor installs the draw-interface vptr at +0x0C; this
+// entry reads module data at -8 and drawable at -4 relative to that subobject.
+// The modeled primary prefix therefore has module data +4 and drawable +8.
+// Matrix3D::preMul/mul is the donor semantic guide. The target's inlined
+// products independently establish row storage and the multiplication path.
+// The same-valued worldSpace predicate preserves frame/register allocation.
+// An explicit second-row translation expression and a volatile read of
+// A.Row[2].X in the X column preserve retail SSE operand scheduling without
+// changing expression order. Removing either shape loses the match. The
+// earlier bank donor revision was not recorded; retain that uncertainty.
 #include "ascii_string.h"
-#include "Code/Libraries/Include/Lib/Coord3D.h"
+#include "Coord3D.h"
 
 typedef int Int;
 typedef bool Bool;
@@ -73,7 +63,7 @@ public:
 
 		this->Row[0].X = submul(A.Row[0], tmp1, tmp2, tmp3);
 		this->Row[1].X = submul(A.Row[1], tmp1, tmp2, tmp3);
-		this->Row[2].X = submul(A.Row[2], tmp1, tmp2, tmp3);
+		this->Row[2].X = (*(const volatile Real*)&A.Row[2].X * tmp1 + A.Row[2].Y * tmp2 + A.Row[2].Z * tmp3);
 
 		tmp1 = B.Row[0].Y;
 		tmp2 = B.Row[1].Y;
@@ -96,7 +86,7 @@ public:
 		tmp3 = B.Row[2].W;
 
 		this->Row[0].W = submul(A.Row[0], tmp1, tmp2, tmp3) + A.Row[0].W;
-		this->Row[1].W = submul(A.Row[1], tmp1, tmp2, tmp3) + A.Row[1].W;
+		this->Row[1].W = (A.Row[1].X * tmp1 + A.Row[1].Y * tmp2 + A.Row[1].Z * tmp3) + A.Row[1].W;
 		this->Row[2].W = submul(A.Row[2], tmp1, tmp2, tmp3) + A.Row[2].W;
 	}
 
