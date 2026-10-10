@@ -1,7 +1,8 @@
-// ?setObjectsEnabled@Player@@QAEXABVAsciiString@@_N@Z
-// partial score=0.87605 date=2026-10-09
-// ?setObjectsEnabled@Player@@QAEXABVAsciiString@@_N@Z
-// partial score=0.8 date=2026-10-05
+extern "C" void _ReadWriteBarrier(void);
+#pragma intrinsic(_ReadWriteBarrier)
+// Canonical Snapshot supplies the independently proven base ABI.
+// The Object view exposes only its template pointer; the cursor retains the
+// native provider ABI. The full Object layout remains unresolved.
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD
 // stlport
 // ?setObjectsEnabled@Player@@QAEXABVAsciiString@@_N@Z, RVA 0x002ABD93, size 145.
@@ -21,6 +22,7 @@
 // passes the template name by reference instead of by value.
 #include "ascii_string.h"
 #include <list>
+#include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
 
 typedef bool Bool;
 
@@ -66,50 +68,30 @@ enum ObjectScriptStatusBit
 
 class Object;
 
-class BfmeObjectVirtualTail { public: unsigned char m_vt[4]; };
-
-// Introduces the vbptr at its own +0; lands at +0x68 inside Object.
-class BfmeObjectVbptrCarrier : public virtual BfmeObjectVirtualTail
-{
+// Native iterate_TeamMemberList returns a 24-byte cursor. Only its current
+// pointer is inspected here; the owned advance provider consumes its state.
+template<> class DLINK_ITERATOR<Object> {
 public:
-	unsigned char m_carrier[4];
+ void advance();
+ bool done() const { return m_cur == 0; }
+ Object *cur() const { return m_cur; }
+private:
+ Object *m_cur;
+ unsigned char m_nativeState[20];
 };
-
-class BfmeObjectVtbl { public: virtual void bfmeObjectSlot0(); };
-
-class BfmeObjectDlinkBase
-{
+class Object {
 public:
-	Object *dlink_next_TeamMemberList() const;
-};
-
-class BfmeObjectDlinkPad
-{
-public:
-	const ThingTemplate *m_template;	// +4
-	unsigned char m_pad[0x60];
-};
-
-class Object : public BfmeObjectVtbl, public BfmeObjectDlinkBase,
-	public BfmeObjectDlinkPad, public BfmeObjectVbptrCarrier
-{
-public:
-	const ThingTemplate *getTemplate() const { return m_template; }
-	void setScriptStatus(ObjectScriptStatusBit bit, Bool set);
-
-	unsigned char m_tail[0x40];
+ const ThingTemplate *getTemplate() const { return m_template; }
+ void setScriptStatus(ObjectScriptStatusBit bit, Bool set);
+private:
+ unsigned char m_unknown00[4];
+ const ThingTemplate *m_template;
 };
 
 class MemoryPoolObject
 {
 public:
 	virtual ~MemoryPoolObject();
-};
-
-class Snapshot
-{
-public:
-	virtual void crc(void *xfer) = 0;
 };
 
 class Team : public MemoryPoolObject, public Snapshot
@@ -146,7 +128,7 @@ private:
 
 void Player::setObjectsEnabled(const AsciiString &templateTypeToAffect, Bool enable)
 {
-	for (PlayerTeamList::iterator it = m_playerTeamPrototypes.begin(); it != m_playerTeamPrototypes.end(); ++it)
+	for (PlayerTeamList::iterator it = m_playerTeamPrototypes.begin(); it._M_node != m_playerTeamPrototypes.end()._M_node; ++it)
 	{
 		for (DLINK_ITERATOR<Team> iter = (*it)->iterate_TeamInstanceList(); !iter.done(); iter.advance())
 		{
@@ -156,6 +138,7 @@ void Player::setObjectsEnabled(const AsciiString &templateTypeToAffect, Bool ena
 			Object *obj;
 			for (DLINK_ITERATOR<Object> iter2 = team->iterate_TeamMemberList(); (obj = iter2.cur()) != 0; iter2.advance())
 			{
+				_ReadWriteBarrier();
 				if (obj->getTemplate()->getName() == templateTypeToAffect)
 					obj->setScriptStatus(OBJECT_STATUS_SCRIPT_DISABLED, !enable);
 			}

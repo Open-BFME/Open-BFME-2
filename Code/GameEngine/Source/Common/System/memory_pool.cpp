@@ -677,3 +677,44 @@ int GeneralAllocator::rva00031BF0(const void* block) {
 }
 }
 }
+
+// Export-named native _AddHeap at 000306B0..00030730. The table fields
+// are shared with the existing heap operations above; the +40D flag is
+// set while _Init accepts registrations. A compiler fence preserves retail
+// scheduling when linking the new record into its hash bucket.
+extern "C" void _ReadWriteBarrier(void);
+#pragma intrinsic(_ReadWriteBarrier)
+namespace MemoryPool {
+extern unsigned int g_defaultHeapSize;
+void _AddHeap(unsigned int id, unsigned int size)
+{
+	if (!g_heaps.m_addingHeaps)
+		return;
+	int count = g_heaps.m_count;
+	if (count >= MAX_HEAPS)
+		return;
+	if (id == 0)
+	{
+		g_defaultHeapSize = size;
+		return;
+	}
+	HeapRecord **bucket = &g_heaps.m_buckets[id % HEAP_BUCKETS];
+	for (HeapRecord *record = *bucket; record != 0; record = record->m_next)
+	{
+		if (record->m_id == id)
+		{
+			record->m_size = size;
+			return;
+		}
+	}
+	HeapRecord *record = &g_heaps.m_records[count];
+	record->m_size = size;
+	HeapRecord *head = *bucket;
+	++count;
+	record->m_id = id;
+	g_heaps.m_count = count;
+	_ReadWriteBarrier();
+	record->m_next = head;
+	*bucket = record;
+}
+}
