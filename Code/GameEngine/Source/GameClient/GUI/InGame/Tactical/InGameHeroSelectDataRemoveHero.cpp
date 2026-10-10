@@ -6,6 +6,16 @@
 // Listener walk525407 has receiver pointer range0/4,capacity8 and reentrant indexC.
 // LatchRestore follows ZH Common/LatchRestore.h with independently observed4B index.
 #include <list>
+
+// _List_iterator comparisons otherwise instantiate the base-class
+// operator!= COMDAT (one byte shape per TU flags); exact-match free
+// overloads take those calls instead so this TU emits no external copy.
+namespace _STL {
+template <class _IterTp, class _LeftTraits, class _RightTraits>
+static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
+                              const _List_iterator<_IterTp, _RightTraits> &b)
+{ return a._M_node != b._M_node; }
+}
 class Object;class ThingTemplate;class Image;
 const Image *getButtonImage(ThingTemplate *,Object *);
 class ThingTemplate {public:char pad[0x110];unsigned int kind110;char pad114[5];unsigned char kind119;};

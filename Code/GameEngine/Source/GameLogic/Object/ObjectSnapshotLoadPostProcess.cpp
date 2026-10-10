@@ -17,6 +17,16 @@
 #include <bitset>
 #include "ascii_string.h"
 #include "../../Common/GameLogicObjectLookupView.h"
+
+// _List_iterator comparisons otherwise instantiate the base-class
+// operator!= COMDAT (one byte shape per TU flags); exact-match free
+// overloads take those calls instead so this TU emits no external copy.
+namespace _STL {
+template <class _IterTp, class _LeftTraits, class _RightTraits>
+static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
+                              const _List_iterator<_IterTp, _RightTraits> &b)
+{ return a._M_node != b._M_node; }
+}
 extern GameLogic*TheGameLogic;
 enum ObjectStatusTypes{STATUS_51=51};
 struct LoadTemplate{char pad[0x10f];unsigned char kind10F;char pad110[15];unsigned char kind11F;};

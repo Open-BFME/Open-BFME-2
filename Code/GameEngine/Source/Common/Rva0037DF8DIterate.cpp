@@ -10,6 +10,16 @@
 #include "ascii_string.h"
 #include <list>
 #include <utility>
+
+// _List_iterator comparisons otherwise instantiate the base-class
+// operator!= COMDAT (one byte shape per TU flags); exact-match free
+// overloads take those calls instead so this TU emits no external copy.
+namespace _STL {
+template <class _IterTp, class _LeftTraits, class _RightTraits>
+static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
+                              const _List_iterator<_IterTp, _RightTraits> &b)
+{ return a._M_node != b._M_node; }
+}
 class Rva002206F9Sink { public: virtual int add(void *value); };
 __declspec(noinline) static int IterateTemplates(Rva002206F9Sink *sink,void *type,int count) {
  while(count>0) { if(!sink->add(type))return 0;--count; }
