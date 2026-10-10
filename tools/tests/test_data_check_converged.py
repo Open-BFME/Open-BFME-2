@@ -112,6 +112,197 @@ def test_an_object_swapped_after_its_build_is_not_judged(tmp_path, monkeypatch):
     assert unread == [] and dc.converged_findings(facts, CONVERGED)  # a receipt without the field: judged
 
 
+def multi_row_audit(tmp_path, monkeypatch):
+    """Two real COFF bodies sharing a real ordinary dependency receipt."""
+    monkeypatch.setattr(dc, "ROOT", tmp_path)
+    monkeypatch.setattr(dc.build, "ROOT", tmp_path)
+    (tmp_path / "Code").mkdir()
+    source = tmp_path / "Code" / "A.cpp"
+    source.write_text("// cl: -O1\n")
+    header = tmp_path / "Code" / "header.h"
+    header.write_text("// dependency\n")
+    obj = tmp_path / "a.obj"
+    names = ["?f0@@YAXXZ", "?f1@@YAXXZ"]
+    write_coff(obj, b"\xa1\0\0\0\0\xc3" * 2, [(1, 2), (7, 3)],
+               [(names[0], 0, 1, dl.EXTERNAL, 0x20),
+                (names[1], 6, 1, dl.EXTERNAL, 0x20),
+                (GL, 0, 0, dl.EXTERNAL, 0),
+                ("?alias@@3PAXA", 0, 0, dl.EXTERNAL, 0)])
+    command = ["cl", "-O1"]
+    env = {"INCLUDE": "headers"}
+    monkeypatch.setattr(dc.build, "compiler_command", lambda source, output: (command[:], env.copy()))
+    meta = {"cmd": dc.build._cmd_fingerprint(command, env),
+            "source": dc.build._hash_file(str(source)),
+            "deps": {"Code/header.h": dc.build._hash_file(str(header))},
+            "object": dc.build._hash_file(str(obj))}
+    dc.build._deps_sidecar(obj).write_text(json.dumps(meta))
+    monkeypatch.setattr(dc.build, "row_object", lambda r: obj)
+    monkeypatch.setattr(dc.build, "read_target_bytes",
+                        lambda rva, size: b"\xa1" + struct.pack("<I", VA) + b"\xc3")
+    monkeypatch.setattr(dc.build, "ledger_object_symbol", lambda r: r["name"])
+    monkeypatch.setattr(dc.dl, "retail_sections", lambda: [(".text", 0x1000, 0, 0x100)])
+    rows = [row(name=name) for name in names]
+    rows[1]["target_rva"] = "0x00001010"
+    return rows, source, header, obj, meta, command, env
+
+
+def test_currency_is_shared_only_within_one_audit_and_every_body_is_read(tmp_path, monkeypatch):
+    rows, _source, _header, _obj, _meta, _command, _env = multi_row_audit(tmp_path, monkeypatch)
+    current = dc.build.compile_is_current
+    calls = []
+    monkeypatch.setattr(dc.build, "compile_is_current",
+                        lambda source, output: calls.append((source, output)) or current(source, output))
+    unread = []
+    facts = dc.converged_facts(rows, unread)
+    assert unread == [] and len(calls) == 2 and len(facts) == 2
+    assert dc.converged_findings(facts, CONVERGED) == [
+        ("Code/A.cpp", "wrong-name", "?alias@@3PAXA", f"0x{SLOT:08X}")]
+    dc.converged_facts(rows, [])
+    assert len(calls) == 4                   # no trusted verdict survives the call
+
+
+@pytest.mark.parametrize("changed", ["source", "object", "receipt", "header", "command", "environment",
+                                     "regions", "overrides", "ledger", "tool", "retail"])
+def test_late_input_changes_discard_all_earlier_facts(tmp_path, monkeypatch, changed):
+    rows, source, header, obj, meta, command, env = multi_row_audit(tmp_path, monkeypatch)
+    config_paths = {
+        "regions": tmp_path / "reverse" / "retail_inventory" / "flag_regions.csv",
+        "overrides": tmp_path / "reverse" / "flag_overrides.csv",
+        "ledger": tmp_path / "reverse" / "functions.csv",
+        "tool": tmp_path / "tools" / "flag_defaults.py",
+        "retail": tmp_path / "game.dat",
+    }
+    for path in config_paths.values():
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_bytes(b"original")
+    monkeypatch.setattr(dc.build, "EXE", config_paths["retail"])
+    read = dc.build.read_object_symbol_bytes
+
+    def changed_read(*args, **kwargs):
+        result = read(*args, **kwargs)
+        if args[1] == rows[-1]["name"]:
+            if changed in ("source", "header", "object", "receipt"):
+                path = {"source": source, "header": header, "object": obj,
+                        "receipt": dc.build._deps_sidecar(obj)}[changed]
+                old_stat = path.stat()
+                data = path.read_bytes()
+                path.write_bytes(data[:-1] + bytes([data[-1] ^ 1]))
+                # On Windows even ctime can stay unchanged: uncached content
+                # checks must catch this same-size, restored-mtime write.
+                os.utime(path, ns=(old_stat.st_atime_ns, old_stat.st_mtime_ns))
+                if changed == "object":
+                    import hashlib
+                    fresh = {**meta, "object": hashlib.md5(obj.read_bytes()).hexdigest()}
+                    dc.build._deps_sidecar(obj).write_text(json.dumps(fresh))
+            elif changed == "command":
+                command.append("-DCHANGED")
+            elif changed == "environment":
+                env["INCLUDE"] = "different headers"
+            else:
+                # These files are cached by flag_defaults/retail readers, so
+                # the final ordinary command/currency call can stay green.
+                config_paths[changed].write_bytes(b"modified")
+        return result
+
+    monkeypatch.setattr(dc.build, "read_object_symbol_bytes", changed_read)
+    unread = []
+    assert dc.converged_facts(rows, unread) == []
+    assert [(source, name) for source, name, _why in unread] == [
+        (r["source"], r["name"]) for r in rows]
+
+
+def test_a_late_header_change_invalidates_every_object_using_it(tmp_path, monkeypatch):
+    rows, source, header, obj, meta, _command, _env = multi_row_audit(tmp_path, monkeypatch)
+    second = tmp_path / "b.obj"
+    second.write_bytes(obj.read_bytes())
+    second_source = tmp_path / "Code" / "B.cpp"
+    second_source.write_bytes(source.read_bytes())
+    dc.build._deps_sidecar(second).write_text(json.dumps(meta))
+    rows[1]["source"] = "Code/B.cpp"
+    monkeypatch.setattr(dc.build, "row_object", lambda r: obj if r["source"] == "Code/A.cpp" else second)
+    read = dc.build.read_object_symbol_bytes
+
+    def changed_read(*args, **kwargs):
+        result = read(*args, **kwargs)
+        if args[0] == second:
+            header.write_text("// changed header\n")
+        return result
+
+    monkeypatch.setattr(dc.build, "read_object_symbol_bytes", changed_read)
+    unread = []
+    assert dc.converged_facts(rows, unread) == []
+    assert {source for source, _name, _why in unread} == {"Code/A.cpp", "Code/B.cpp"}
+
+
+def test_two_sources_mapping_to_one_object_do_not_share_currency(tmp_path, monkeypatch):
+    rows, _source, _header, _obj, _meta, _command, _env = multi_row_audit(tmp_path, monkeypatch)
+    rows[1]["source"] = "Code/Missing.cpp"
+    unread = []
+    facts = dc.converged_facts(rows, unread)
+    assert len(facts) == 1
+    assert len(unread) == 1 and unread[0][:2] == ("Code/Missing.cpp", rows[1]["name"])
+
+
+@pytest.mark.parametrize("damage", ["missing", "malformed", "bad-deps", "bad-dep-path"])
+def test_bad_receipts_remain_unjudged_for_every_row(tmp_path, monkeypatch, damage):
+    rows, _source, _header, obj, meta, _command, _env = multi_row_audit(tmp_path, monkeypatch)
+    receipt = dc.build._deps_sidecar(obj)
+    if damage == "missing":
+        receipt.unlink()
+    elif damage == "malformed":
+        receipt.write_text("{broken")
+    else:
+        receipt.write_text(json.dumps({**meta, "deps": [] if damage == "bad-deps" else {"../bad": "hash"}}))
+    unread = []
+    assert dc.converged_facts(rows, unread) == []
+    assert len(unread) == len(rows)
+
+
+def test_an_old_same_stamp_layout_is_not_trusted_with_a_new_receipt(tmp_path, monkeypatch):
+    import hashlib
+    rows, _source, _header, obj, meta, _command, _env = multi_row_audit(tmp_path, monkeypatch)
+    # Warm the exact reader cache, then change a relocation's symbol name
+    # without changing file size or mtime. A fresh receipt alone is insufficient.
+    dc.build.read_object_symbol_bytes(obj, rows[0]["name"], 6)
+    old_stat = obj.stat()
+    old = obj.read_bytes()
+    assert b"?alias@@3PAXA" in old
+    obj.write_bytes(old.replace(b"?alias@@3PAXA", b"?other@@3PAXA"))
+    os.utime(obj, ns=(old_stat.st_atime_ns, old_stat.st_mtime_ns))
+    dc.build._deps_sidecar(obj).write_text(json.dumps({**meta, "object": hashlib.md5(obj.read_bytes()).hexdigest()}))
+    unread = []
+    assert dc.converged_facts(rows, unread) == []
+    assert len(unread) == len(rows)
+    assert all(why == "cached object layout differs from its build receipt" for _s, _n, why in unread)
+
+
+def test_a_reloaded_layout_generation_cannot_hide_a_transient_swap(tmp_path, monkeypatch):
+    rows, _source, _header, obj, _meta, _command, _env = multi_row_audit(tmp_path, monkeypatch)
+    original = obj.read_bytes()
+    old_stat = obj.stat()
+    real_stat = Path.stat
+    # Reproduce Windows' unchanged same-size, restored-mtime file identity on
+    # every host. The uncached disk content returns to its original bytes too.
+    monkeypatch.setattr(Path, "stat", lambda path, *a, **kw:
+                        old_stat if path == obj else real_stat(path, *a, **kw))
+    read = dc.build.read_object_symbol_bytes
+
+    def swapped_read(*args, **kwargs):
+        if args[1] != rows[-1]["name"]:
+            return read(*args, **kwargs)
+        # Interleaved rows can evict the original layout from the bounded LRU.
+        dc.build._object_layout.cache_clear()
+        obj.write_bytes(original.replace(b"?alias@@3PAXA", b"?other@@3PAXA"))
+        result = read(*args, **kwargs)
+        obj.write_bytes(original)
+        return result
+
+    monkeypatch.setattr(dc.build, "read_object_symbol_bytes", swapped_read)
+    unread = []
+    assert dc.converged_facts(rows, unread) == []
+    assert len(unread) == len(rows)
+
+
 def test_rows_of_asm_sources_are_read_and_lib_members_are_not(tmp_path, monkeypatch):
     (tmp_path / "reverse").mkdir()
     (tmp_path / "reverse" / "functions.csv").write_text(

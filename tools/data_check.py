@@ -57,8 +57,10 @@ _CL_). Client-side hooks are advisory against a seat that edits them.
 import argparse
 import collections
 import csv
+import hashlib
 import io
 import json
+import os
 import struct
 import subprocess
 import sys
@@ -241,29 +243,128 @@ def converged_facts(rows, unread):
     `effective` the address the operand reaches. Nothing is exempt by spelling.
     A row is read only from an object build.compile_is_current proves built from
     its source, compile command and headers as they are now; any other row lands
-    in `unread` [(source, row name, why)]."""
+    in `unread` [(source, row name, why)]. Currency is checked once per
+    (source, object) during this call, then checked again before returning.
+    Source, object, receipt and recorded dependency identities must remain
+    unchanged throughout; no verdict is cached between calls."""
+    def stamp(path):
+        try:
+            stat = path.stat()
+            identity = (stat.st_dev, stat.st_ino, stat.st_size, stat.st_mtime_ns, stat.st_ctime_ns)
+            digest = hashlib.md5(path.read_bytes()).hexdigest()
+            after = path.stat()
+            if identity != (after.st_dev, after.st_ino, after.st_size,
+                            after.st_mtime_ns, after.st_ctime_ns):
+                raise OSError(f"{path} changed while read")
+            # Uncached content matters on Windows: ctime is creation time, and
+            # restoring mtime can hide a same-sized write from a stat cache.
+            return identity, digest
+        except OSError:
+            return None
+
+    stamps = {}
+    environment = dict(os.environ)
+    layouts = collections.OrderedDict()
+
+    def layout_digest(obj):
+        stat = obj.stat()
+        data = build._object_layout(str(obj), stat.st_mtime_ns, stat.st_size)[0]
+        identity = id(data)
+        cached = layouts.get(identity)
+        if cached is None:
+            cached = (data, hashlib.md5(data).hexdigest())
+            layouts[identity] = cached
+            if len(layouts) > 256:
+                layouts.popitem(last=False)
+        else:
+            assert cached[0] is data           # retained bytes prevent id reuse
+            layouts.move_to_end(identity)
+        return cached[1]
+    # flag_defaults and retail readers cache these process-wide. Rechecking a
+    # command alone cannot see a changed cached region table or ledger vote.
+    global_inputs = {
+        ROOT / "tools" / name for name in
+        ("build.py", "data_check.py", "data_ledger.py", "flag_defaults.py", "eh_verify.py",
+         "stlport_folds.py", "coffar.py", "gen_case_shims.py")
+    } | {
+        ROOT / "reverse" / "functions.csv",
+        ROOT / "reverse" / "symbols.csv",
+        ROOT / "reverse" / "flag_overrides.csv",
+        ROOT / "reverse" / "retail_inventory" / "flag_regions.csv",
+        build.EXE,
+    }
+    for path in global_inputs:
+        stamps[path] = stamp(path)
     sections = dl.retail_sections()
     text = next((s for s in sections if s[0] == ".text"), None)
 
     def in_text(address):
         return bool(text) and text[1] <= address < text[1] + text[3]
-    out = []
-    for row in rows:
-        obj = build.row_object(row)
+
+    def currency(source, obj, watched=None, proofs=None):
+        def watch(path):
+            path = Path(path)
+            if watched is not None:
+                watched.add(path)
+                if path not in stamps:
+                    stamps[path] = stamp(path)
+                return stamps[path]
+            if proofs is not None:
+                if path not in proofs:
+                    proofs[path] = stamp(path)
+                return proofs[path]
+            return stamp(path)
+
+        watch(source)
+        watch(obj)
+        watch(build._deps_sidecar(obj))
         try:
-            current = obj.exists() and build.compile_is_current(ROOT / row["source"], obj)
             why = "no object" if not obj.exists() else "object not current for its source"
+            if not obj.exists():
+                return False, why
+            meta = json.loads(build._deps_sidecar(obj).read_text())
+            if not isinstance(meta, dict) or not isinstance(meta.get("deps", {}), dict):
+                return False, why
+            recorded = {source: meta["source"]} if "source" in meta else {}
+            for dep in meta.get("deps", {}):
+                if not build.cache_path_is_valid(dep):
+                    return False, why
+                recorded[Path(dep) if os.path.isabs(dep) else ROOT / dep] = meta["deps"][dep]
+            for path, digest in recorded.items():
+                proof = watch(path)
+                if proof is None or proof[1] != digest:
+                    return False, why
+            current = build.compile_is_current(source, obj)
             if current:
                 # the receipt names the object it was written for: a swapped .obj is not it
-                meta = json.loads(build._deps_sidecar(obj).read_text())
-                if "object" in meta and meta["object"] != build._hash_file(str(obj)):
+                proof = watch(obj)
+                if proof is None or ("object" in meta and meta["object"] != proof[1]):
                     current, why = False, "object is not the one its build receipt recorded"
+                if current and watched is not None:
+                    if layout_digest(obj) != proof[1]:
+                        current, why = False, "cached object layout differs from its build receipt"
         except Exception as error:  # noqa: BLE001 -- not proven current is not current
             current, why = False, f"object currency unknown: {error}"
+        return current, why
+
+    objects, out, failed, changed_objects = {}, [], set(), set()
+    for index, row in enumerate(rows):
+        obj = build.row_object(row)
+        key = (row["source"], obj)
+        if key not in objects:
+            watched = set()
+            current, why = currency(ROOT / row["source"], obj, watched)
+            objects[key] = (current, why, watched, [])
+        current, why, _watched, members = objects[key]
+        members.append((index, row["name"]))
         if not current:
             unread.append((row["source"], row["name"], why))
+            failed.add(index)
             continue
         try:
+            if layout_digest(obj) != stamps[obj][1]:
+                changed_objects.add(key)
+                raise ValueError("object layout changed during data audit")
             rva, size = int(row["target_rva"], 16), int(row["target_size"], 0)
             target = build.read_target_bytes(rva, size)
             symbol = build.ledger_object_symbol(row)
@@ -271,8 +372,12 @@ def converged_facts(rows, unread):
                 body, relocs, _note = build.read_funclet(row, symbol, obj, target)
             else:
                 body, relocs = build.read_object_symbol_bytes(obj, symbol, size)
+            if layout_digest(obj) != stamps[obj][1]:
+                changed_objects.add(key)
+                raise ValueError("object layout changed during data audit")
         except (ValueError, OSError, SystemExit) as error:
             unread.append((row["source"], row["name"], f"unreadable: {error}"))
+            failed.add(index)
             continue
         for offset, kind, name in relocs:
             if kind != dl.DIR32 or offset + 4 > min(size, len(body), len(target)):
@@ -281,8 +386,37 @@ def converged_facts(rows, unread):
             base = (effective - struct.unpack_from("<I", body, offset)[0]) & 0xFFFFFFFF
             if in_text(base) and in_text(effective):
                 continue
-            out.append((row["source"], name, base, effective))
-    return out
+            out.append((key, (row["source"], name, base, effective)))
+
+    rejected = set()
+    # A shared header is stamped only once, but every object using it is refused
+    # if it moved. Ordinary currency rechecks also judge the current command and
+    # configuration; a newly valid replacement receipt cannot hide moved files.
+    after = {path: stamp(path) for path in stamps}
+    moved = {path for path, before in stamps.items() if after[path] != before}
+    for key, (current, _why, watched, members) in objects.items():
+        if not current:
+            continue
+        source, obj = key
+        current, why = currency(ROOT / source, obj, proofs=after)
+        if key in changed_objects or watched & moved or global_inputs & moved or dict(os.environ) != environment:
+            current, why = False, "object or build inputs changed during data audit"
+        if not current:
+            rejected.add(key)
+            for index, name in members:
+                if index not in failed:
+                    unread.append((source, name, why))
+    # Final checks themselves read inputs: detect movement during those checks,
+    # too, rather than returning an earlier object's now-stale facts.
+    moved = {path for path, before in stamps.items() if stamp(path) != before}
+    for key, (current, _why, watched, members) in objects.items():
+        if current and key not in rejected and (watched & moved or global_inputs & moved
+                                                or dict(os.environ) != environment):
+            rejected.add(key)
+            for index, name in members:
+                if index not in failed:
+                    unread.append((key[0], name, "object or build inputs changed during data audit"))
+    return [fact for key, fact in out if key not in rejected]
 
 
 def converged_rows_all():
