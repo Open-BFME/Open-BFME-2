@@ -53,6 +53,7 @@ public:
 class Rva003FD14DBase { public:
  Rva003FD14DBase(int);
  void rva003FC82C(float angle);
+ void rva003FCA58();
  virtual void vbfunc();
  AsciiString name;
  BfmeAnimationReceiver *m_primary; // +08
@@ -89,6 +90,29 @@ void Rva003FD14DBase::rva003FC82C(float angle)
 	if (m_primary == 0)
 		return;
 
+	Matrix3 rotation(true);
+	rotation.Rotate_Z(angle);
+	BfmeAnimationReceiver *primary = m_primary;
+	primary->updatePayload();
+	Matrix3D payload(primary->m_payload);
+	payload.Set_Rotation(rotation);
+	payload.Scale(m_primary->Get_ObjectScale());
+	m_primary->applyPayload(&payload);
+	if (m_secondary != 0)
+		m_secondary->applyPayload(&payload);
+}
+
+// Retail vtable C37C30 slot6 reaches this body. The address-named
+// nonvirtual member is a callable body view; original virtual declaration
+// and the incomplete legacy vtable are not claimed as recovered here.
+void Rva003FD14DBase::rva003FCA58()
+{
+	if (m_primary == 0 || !f88)
+		return;
+
+	float angle = f94 + f8C;
+	if (angle < 0.0f) angle += 6.2831855f;
+	else if (angle > 6.2831855f) angle -= 6.2831855f;
 	Matrix3 rotation(true);
 	rotation.Rotate_Z(angle);
 	BfmeAnimationReceiver *primary = m_primary;
