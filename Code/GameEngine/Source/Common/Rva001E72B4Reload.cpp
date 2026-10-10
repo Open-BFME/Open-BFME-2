@@ -1,4 +1,5 @@
-// cl: /DNDEBUG /MD /Ireference/shims/bfme2_ascii
+// cl: /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
+// stlport
 //
 // INI reload slots of the Locomotor store (vftable 0x00BDE970, class
 // Rva001E72B4):
@@ -50,6 +51,11 @@ static bool g_Va00DFDC60;
 // g_Va00DFDC61: VA 0x00DFDC61 (.bss); retail initial byte 00.
 static bool g_Va00DFDC61;
 
+static __forceinline void clearLocomotorRestart()
+{
+	g_Va00DFDC61 = false;
+}
+
 class Rva001E72B4Base
 {
 public:
@@ -67,7 +73,7 @@ public:
 
 bool Rva001E72B4::rva001E51AC(bool *needsRestart)
 {
-	g_Va00DFDC61 = false;
+	clearLocomotorRestart();
 	if (rva001B5384Slot2())
 	{
 		if (TheInGameUI)
@@ -77,7 +83,7 @@ bool Rva001E72B4::rva001E51AC(bool *needsRestart)
 	if (g_Va00DFDC61)
 	{
 		*needsRestart = true;
-		g_Va00DFDC61 = false;
+		clearLocomotorRestart();
 	}
 	return g_Va00DFDC60;
 }
@@ -92,3 +98,75 @@ bool Rva001E72B4::rva001E3934()
 	}
 	return false;
 }
+
+// Native1E8A94..1E8C1B; WB ADD4F0 names LocomotorStore parser.
+// BFME1/ZH supplies parser semantics; target adds INI type5 retirement.
+// Native template154 map+C vector+18 and restart byte are target facts.
+// The vector adapter reuses the verified49B pointer-word ABI at4DFCB0;
+// it preserves LocomotorTemplate pointer bits, without asserting ModuleData identity.
+// The field-table label describes its measured parser role; data contents unclaimed.
+#include "ascii_string.h"
+#include <map>
+#include <vector>
+class ModuleData;
+struct FieldParse;
+class INI { public: const char *getNextToken(const char *); void initFromINI(void *,const FieldParse *); char prefix[8]; int type; };
+class INIException { public: INIException(int,const char*,...); INIException(const INIException &); ~INIException(); char *message; int code; };
+enum NameKeyType { NAMEKEY_INVALID=0 };
+class NameKeyGenerator { public: NameKeyType nameToKey(const char *); };
+extern NameKeyGenerator *TheNameKeyGenerator;
+class Overridable { public: Overridable *friend_getFinalOverride(); };
+class Rva001E3955 { public: Rva001E3955() throw(); char storage[0x154]; };
+class Rva001E520C { public: Rva001E3955 *rva001E520C(Rva001E3955 *); };
+class Rva001E6731 { public: unsigned rva001E71FA(const int &); };
+class LocomotorTemplate { public: void validate(); };
+struct LocomotorParserView { void *vtable; Overridable *next; bool overrideFlag; char pad9[3]; int retired; AsciiString name; __forceinline void setName(const AsciiString &value) { name.set(value); } };
+class LocomotorStore {
+public:
+ LocomotorTemplate *findLocomotorTemplate(int);
+ static void parseLocomotorTemplateDefinition(INI *);
+ char pad[0xC]; _STL::map<int,int> templates; _STL::vector<Rva001E3955 *> retired;
+};
+extern LocomotorStore *TheLocomotorStore;
+
+extern const FieldParse LocomotorTemplateFields;
+void LocomotorStore::parseLocomotorTemplateDefinition(INI *ini) {
+ if(!TheLocomotorStore) throw INIException(3,"TheLocomotorStore==NULL");
+ const char *token=ini->getNextToken(0);
+ Rva001E3955 *loco;
+ {
+ int key=TheNameKeyGenerator->nameToKey(token);
+ LocomotorStore *store=TheLocomotorStore;
+ Rva001E3955 *original=(Rva001E3955 *)store->findLocomotorTemplate(key);
+ loco=original;
+ if(loco) {
+  if(ini->type==2) {
+   LocomotorParserView *v=(LocomotorParserView *)loco;
+   Rva001E3955 *final=v->next ? (Rva001E3955 *)v->next->friend_getFinalOverride() : loco;
+   loco=((Rva001E520C *)store)->rva001E520C(final);
+  } else if(ini->type==5) {
+   ((LocomotorParserView *)loco)->retired=1;
+   Rva001E6731 *map=(Rva001E6731 *)&TheLocomotorStore->templates;
+   map->rva001E71FA(key);
+   reinterpret_cast<_STL::vector<const ModuleData*> *>(&TheLocomotorStore->retired)->push_back(reinterpret_cast<const ModuleData* const&>(original));
+   if(((LocomotorParserView *)loco)->overrideFlag) g_Va00DFDC61=true;
+   loco=new Rva001E3955;
+   ((LocomotorParserView *)loco)->retired=0;
+   TheLocomotorStore->templates[key]=(int)loco;
+  } else return;
+ } else {
+  loco=new Rva001E3955;
+  if(ini->type==2) ((LocomotorParserView *)loco)->overrideFlag=true;
+  TheLocomotorStore->templates[key]=(int)loco;
+ }
+ }
+ if(loco) {
+  { AsciiString name(token); AsciiString *dest=&((LocomotorParserView *)loco)->name; dest->set(name); }
+ // Diagnostic lifetime inferred from native EH; original local spelling unknown.
+ if(0){AsciiString diagnostic;}
+  ini->initFromINI(loco,&LocomotorTemplateFields);
+  ((LocomotorTemplate *)loco)->validate();
+ }
+}
+
+
