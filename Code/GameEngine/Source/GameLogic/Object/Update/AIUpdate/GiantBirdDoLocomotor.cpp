@@ -16,7 +16,7 @@ class Rva002618A2 {public:Rva002618A2*rva002618A2(int,int,int,int);unsigned word
 class BfmeFixedStorage0004543D {public:unsigned char data[28];};
 class Rva000421C8 {public:Rva000421C8():m_next(0){}virtual~Rva000421C8(){}virtual bool allow(Object*)=0;virtual int getPlayerMask(){return -1;}Rva000421C8*m_next;};
 class Rva0004584D:public Rva000421C8 {public:Rva0004584D(const BfmeFixedStorage0004543D&,const BfmeFixedStorage0004543D&);virtual~Rva0004584D(){}virtual bool allow(Object*);BfmeFixedStorage0004543D m_08,m_24;};
-extern const BfmeFixedStorage0004543D g_009FEFA4;
+extern unsigned char g_00DFEFA4StoragePrototype[28];
 #include "PartitionRangeQueryCallView.h"
 extern PartitionManager*ThePartitionManager;
 float GetGameLogicRandomValueReal(float,float,char*,int);float normalizeAngle(float);
@@ -186,7 +186,7 @@ int goal528;float angle52C;float distance530;bool reached534;
 void GiantBirdAIUpdate::rva00368D12(){
  Object*object=object08;float radius=object->radiusB8;Coord3D position;position.x=object->position.x;position.y=object->position.y;position.z=object->position.z;
  Rva002618A2 mask;
- Rva0004584D filter(*(const BfmeFixedStorage0004543D*)mask.rva002618A2(0,7,10,11),g_009FEFA4);
+ Rva0004584D filter(*(const BfmeFixedStorage0004543D*)mask.rva002618A2(0,7,10,11),*(const BfmeFixedStorage0004543D*)g_00DFEFA4StoragePrototype);
  Object*near=ThePartitionManager->getClosestObject(&position,radius*2.0f,0,&filter);
  if(near){
   Coord3D away;away.x=position.x-near->position.x;away.y=position.y-near->position.y;away.z=0;
