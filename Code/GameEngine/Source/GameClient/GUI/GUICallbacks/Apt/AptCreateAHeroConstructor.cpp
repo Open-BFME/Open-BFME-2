@@ -201,7 +201,9 @@ struct GlobalData2
 	unsigned char m_pad9be[0xD45 - 0x9BE];
 	bool m_D45;
 };
-extern GlobalData2 *TheWritableGlobalData;
+class GlobalData;
+extern GlobalData *TheWritableGlobalData;
+#define TheGlobalDataView ((GlobalData2 *)TheWritableGlobalData)
 class CreateAHeroManager
 {
 public:
@@ -273,9 +275,9 @@ public:
 AptCreateAHero::AptCreateAHero(void *context)
 	: _bfme_AptGameWindow(context), m_myHero(this), m_mode(0), m_page(0), m_previousPage(0)
 {
-	m_42c = TheWritableGlobalData->m_9BD;
-	m_42d = TheWritableGlobalData->m_D45;
-	m_42e = TheWritableGlobalData->m_68;
+	m_42c = TheGlobalDataView->m_9BD;
+	m_42d = TheGlobalDataView->m_D45;
+	m_42e = TheGlobalDataView->m_68;
 	m_takePicture = false;
 	m_rotateLeft = false;
 	m_rotateRight = false;
@@ -284,10 +286,10 @@ AptCreateAHero::AptCreateAHero(void *context)
 	m_pictureFrames = 0;
 	memset(&m_pageM, 0, 0x14);
 	TheCreateAHeroManager->m_184 = true;
-	TheWritableGlobalData->m_9BD = false;
-	TheWritableGlobalData->m_9A5 = false;
-	TheWritableGlobalData->m_D45 = true;
-	TheWritableGlobalData->m_68 = false;
+	TheGlobalDataView->m_9BD = false;
+	TheGlobalDataView->m_9A5 = false;
+	TheGlobalDataView->m_D45 = true;
+	TheGlobalDataView->m_68 = false;
 	s_instance = this;
 	m_pageM = new Rva005B6B93(this);
 	m_pageC = new Class((Rva005B3676Owner *)this);

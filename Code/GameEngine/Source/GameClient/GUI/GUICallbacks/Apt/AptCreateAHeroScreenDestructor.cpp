@@ -80,7 +80,9 @@ struct DestructorGlobalData
 	unsigned char m_pad9be[0xD45 - 0x9BE];
 	bool m_D45;
 };
-extern DestructorGlobalData *TheWritableGlobalData;
+class GlobalData;
+extern GlobalData *TheWritableGlobalData;
+#define TheGlobalDataView ((DestructorGlobalData *)TheWritableGlobalData)
 
 class CreateAHeroManager
 {
@@ -124,10 +126,10 @@ Rva00513BAB::~Rva00513BAB()
 			AsciiString name("CreateAHero::DrawMapComponent");
 			((Rva002246B1 *)TheAptPlayer)->rva002246B1(&name);
 		}
-		TheWritableGlobalData->m_68 = m_42e;
-		TheWritableGlobalData->m_9A5 = true;
-		TheWritableGlobalData->m_9BD = m_42c;
-		TheWritableGlobalData->m_D45 = m_42d;
+		TheGlobalDataView->m_68 = m_42e;
+		TheGlobalDataView->m_9A5 = true;
+		TheGlobalDataView->m_9BD = m_42c;
+		TheGlobalDataView->m_D45 = m_42d;
 		g_Va00DFD944 = m_42d;
 		TheCreateAHeroManager->rva0021F5F8();
 		TheCreateAHeroManager->m_184 = false;
