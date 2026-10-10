@@ -1,6 +1,10 @@
 // ?rva001E8C1B@Rva001E8C1B@@QAEXHHMM@Z
+// partial score=0.960424398134932 date=2026-10-10
+// ?rva001E8C1B@Rva001E8C1B@@QAEXHHMM@Z
+// partial score=0.9021734413423984 date=2026-10-10
+// ?rva001E8C1B@Rva001E8C1B@@QAEXHHMM@Z
 // partial score=0.6 date=2026-10-09
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /I.
 //
 // ?rva001E8C1B@Rva001E8C1B@@QAEXHHMM@Z retail 0x001E8C1B..0x001E8F03
 // (744 bytes thiscall ret 0x10; reached from 0x001E7C2B / 0x001E9045). A
@@ -22,16 +26,11 @@
 typedef float Real;
 typedef bool Bool;
 
-// class-gate: allow Coord3D the canonical data-only header cannot declare the out-of-line GetLengthEstimate2D (rowed 0x000037D1) called below; same three floats
-struct Coord3D
-{
-	Real x;
-	Real y;
-	Real z;
+#include "Code/Libraries/Include/Lib/Coord3D.h"
+extern "C" void _ReadWriteBarrier();
+#pragma intrinsic(_ReadWriteBarrier)
 
-	Real GetLengthEstimate2D() const;
-};
-
+struct SteeringCoord:Coord3D { SteeringCoord(){} void copy(const Coord3D&r){x=r.x;y=r.y;z=r.z;} SteeringCoord(const Coord3D&r){copy(r);} void subtract(const Coord3D&r){x-=r.x;y-=r.y;z-=r.z;} };
 extern "C" float __cdecl atan2f(float y, float x);
 extern "C" double __cdecl fabs(double x);
 Real normalizeAngle(Real angle);
@@ -64,12 +63,13 @@ class Object
 {
 public:
 	void rva0028AE6D();
+ bool modelTest(int bit)const{return (m_modelConditions.word & (1 << bit)) != 0;}
 
 	char m_pad000[0x38];
 	Coord3D m_pos; // +0x38
 	Real m_orientation; // +0x44
 	char m_pad048[0x11c - 0x48];
-	unsigned int m_modelConditions; // +0x11C
+	union ModelWord { unsigned int word; volatile unsigned int volatileWord; volatile unsigned char volatileBytes[4]; unsigned char bytes[4]; } m_modelConditions; // +0x11C
 	char m_pad120[0x258 - 0x120];
 	AIUpdateInterface *m_ai; // +0x258
 };
@@ -117,8 +117,8 @@ private:
 	Coord3D m_point; // +0x14
 	char m_pad20[0x40 - 0x20];
 	Real m_turnRate; // +0x40
-	unsigned int m_flags0 : 7; // +0x44
-	unsigned int m_reversing : 1; // +0x44 bit 7
+	unsigned int m_flags; // target word44
+ bool reversing()const{return (m_flags & (1 << 7)) != 0;}
 };
 
 void Rva001E8C1B::rva001E8C1B(int objArg, int goalArg, Real onPathDistToGoal, Real desiredSpeed)
@@ -131,44 +131,43 @@ void Rva001E8C1B::rva001E8C1B(int objArg, int goalArg, Real onPathDistToGoal, Re
 		desiredSpeed = maxSpeed;
 
 	Real angle = obj->m_orientation;
-	Real desiredAngle = atan2f(goalPos->y - obj->m_pos.y, goalPos->x - obj->m_pos.x);
+	SteeringCoord target;
+ Real desiredAngle = atan2f(goalPos->y - obj->m_pos.y, goalPos->x - obj->m_pos.x);
 	Real relAngle = normalizeAngle(desiredAngle - angle);
 
 	Bool reverse = m_template->m_canReverse != 0;
 	if (reverse)
 	{
-		Coord3D delta;
-		delta.x = m_point.x - obj->m_pos.x;
-		delta.y = m_point.y - obj->m_pos.y;
-		delta.z = m_point.z - obj->m_pos.z;
-		if (delta.GetLengthEstimate2D() > m_template->m_reverseDistance && onPathDistToGoal > m_template->m_reversePathDistance)
+		target.copy(m_point);target.subtract(obj->m_pos);
+		Real distance = target.GetLengthEstimate2D();
+		if (distance > m_template->m_reverseDistance && onPathDistToGoal > m_template->m_reversePathDistance)
 			reverse = false;
 	}
 
 	Real turnRate = m_turnRate;
-	if (reverse && fabs(relAngle) > m_template->m_reverseAngle * 3.1415927f)
+	if (reverse && (_ReadWriteBarrier(),fabs(relAngle)) > m_template->m_reverseAngle * 3.1415927f)
 	{
-		if (!(obj->m_modelConditions & 0x10000000))
+		if (!(obj->m_modelConditions.volatileWord & 0x10000000))
 		{
-			obj->m_modelConditions |= 0x10000000;
+			obj->m_modelConditions.volatileWord |= 0x10000000;
 			obj->rva0028AE6D();
 		}
-		m_reversing = 1;
+		m_flags |= 0x80;
 	}
 	else
 	{
-		if (obj->m_modelConditions & 0x10000000)
+		if (obj->m_modelConditions.volatileBytes[3] & 0x10)
 		{
-			obj->m_modelConditions &= ~0x10000000;
+			obj->m_modelConditions.volatileBytes[3] &= ~0x10;
 			obj->rva0028AE6D();
 		}
-		m_reversing = 0;
+		m_flags &= ~0x80;
 	}
 
-	if (m_reversing)
+	if (reversing())
 		desiredAngle = normalizeAngle(desiredAngle - 3.1415927f);
 
-	Coord3D target = obj->m_pos;
+	target.copy(obj->m_pos);
 	target.x += Cos(desiredAngle) * 1000.0f;
 	target.y += Sin(desiredAngle) * 1000.0f;
 	reinterpret_cast<Rva001E685F *>(this)->rva001E685F((int)obj, (int)&target, 0);
@@ -180,18 +179,18 @@ void Rva001E8C1B::rva001E8C1B(int objArg, int goalArg, Real onPathDistToGoal, Re
 
 	if (maxSpeed > 0.0f)
 	{
-		Real angleCoeff = fabs(relAngle) * 1.2732395f;
+		Real angleCoeff = (Real)fabs(relAngle) / (3.1415927f / 4.0f);
 		if (angleCoeff > 1.0f)
 			angleCoeff = 1.0f;
 		Real goalSpeed;
-		if (m_template->m_13C && m_reversing)
+		if (m_template->m_13C && reversing())
 		{
-			if (((obj->m_modelConditions >> 5) & 1) || ((obj->m_modelConditions >> 6) & 1))
+			if (obj->modelTest(5) || obj->modelTest(6))
 				goalSpeed = 0.0f;
 			else
 				goalSpeed = desiredSpeed;
 		}
-		else if (m_reversing)
+		else if (reversing())
 			goalSpeed = desiredSpeed;
 		else
 			goalSpeed = (1.0f - angleCoeff) * desiredSpeed;

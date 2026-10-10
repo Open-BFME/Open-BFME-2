@@ -1,3 +1,5 @@
+// ?exitObjectViaDoor@OpenContain@@UAEXPAVObject@@PAVCoord3D@@@Z
+// partial score=0.858652976664883 date=2026-10-10
 // ?exitObjectViaDoor@OpenContain@@UAEXPAVObject@@W4ExitDoorType@@@Z
 // partial score=0.83 date=2026-10-08
 // cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /ICode/GameEngine/Include /ICode/GameEngine/Source/Common /ICode/Libraries/Include
@@ -36,8 +38,10 @@ public:
     AIUpdateInterface *ai() const { return *reinterpret_cast<AIUpdateInterface *const *>(reinterpret_cast<const char *>(this)+0x258); }
     bool landKind() const { return (*reinterpret_cast<const unsigned char *>(reinterpret_cast<const char *>(*reinterpret_cast<void *const *>(reinterpret_cast<const char *>(this)+4))+0x11F)&0x80)!=0; }
     __forceinline void doorFlags() {
-        unsigned *word=reinterpret_cast<unsigned *>(reinterpret_cast<char *>(this)+0x10C);
-        if ((*word & (1U<<22)) || !(*word & (1U<<21))) { *word &= ~(1U<<22); *word |= 1U<<21; rva0028AE6D(); }
+        union ModelWord{unsigned word;unsigned char bytes[4];};
+        ModelWord *word=reinterpret_cast<ModelWord*>(reinterpret_cast<char*>(this)+0x10C);
+        unsigned flags=word->word;
+        if((flags&(1U<<22)) || !(flags&(1U<<21))){word->bytes[2] &= 0xBF;word->word|=1U<<21;rva0028AE6D();}
     }
 };
 class Pathfinder { public: void AddObjectToPathfindMap(Object *); bool adjustToPossibleDestination(Object *,const LocomotorSet &,Coord3D *); bool getClosestPointOnLand(const Coord3D *,Object *,Coord3D *); };
@@ -71,7 +75,8 @@ void OpenContain::exitObjectViaDoor(Object *exitObj,ExitDoorType)
     int number=data()->exits;
     if (number>0) {
         AsciiString startBone("ExitStart"),endBone("ExitEnd");
-        Coord3D start,end;
+        Coord3D end;AIUpdateInterface *ai;
+        {Coord3D start;
         if (number>1) {
             char suffix[8]; itoa(which(),suffix,10);
             if (which()<10) { startBone.concat('0'); endBone.concat('0'); }
@@ -83,12 +88,13 @@ void OpenContain::exitObjectViaDoor(Object *exitObj,ExitDoorType)
         float angle=me->orientation();
         exitObj->setPosition(&start); exitObj->setOrientation(angle);
         exitObj->rva0028B4CE((PathfindLayerEnum)me->rva0028B511());
-        AIUpdateInterface *ai=exitObj->ai();
+        ai=exitObj->ai();
         TheAI->pathfinder->AddObjectToPathfindMap(exitObj);
         if (ai) {
             ai->ignoreObstacle(exitObj);
             ai->ignoreTime(TheGameLogic->getFrame()+g_00DBA4E4);
             TheAI->pathfinder->adjustToPossibleDestination(exitObj,ai->locomotors(),&end);
+        }
         }
         _STL::vector<Coord3D> path;
         path.push_back(end); path.push_back(end);
@@ -96,23 +102,26 @@ void OpenContain::exitObjectViaDoor(Object *exitObj,ExitDoorType)
         if (ai) { ai->commands()->rva0036EE16(reinterpret_cast<const Rva0035149F *>(&path),me,CMD_FROM_AI); exitObj->rva0028ACDC(&end); }
     } else {
         if (me->landKind()) {
-            Coord3D start; const Coord3D *position=me->position();
+            AIUpdateInterface *ai;Coord3D saved,target;float angle;
+            {Coord3D start; const Coord3D *position=me->position();
             start.x=position->x; start.y=position->y; start.z=position->z;
-            if (TheAI->pathfinder->getClosestPointOnLand(me->position(),me,&start)) {
-                AIUpdateInterface *ai=exitObj->ai();
-                if (ai) {
-                    Coord3D saved; const Coord3D &goal=ai->goal();
+            if (!TheAI->pathfinder->getClosestPointOnLand(me->position(),me,&start))goto afterLand;
+                ai=exitObj->ai();
+                if (!ai)goto afterLand;
+                    const Coord3D &goal=ai->goal();
                     saved.x=goal.x; saved.y=goal.y; saved.z=goal.z;
-                    Coord3D delta={start.x-me->position()->x,start.y-me->position()->y,start.z-me->position()->z};
-                    float angle=(float)Rva000422A0Atan2(delta.y,delta.x);
-                    Coord3D target; const Coord3D &targetSource=me->ai()->position148();
+                    
+                    {Coord3D delta={start.x-me->position()->x,start.y-me->position()->y,start.z-me->position()->z};
+                    angle=(float)Rva000422A0Atan2(delta.y,delta.x); const Coord3D &targetSource=me->ai()->position148();
                     target.x=targetSource.x; target.y=targetSource.y; target.z=targetSource.z;
                     Coord3D displacement={target.x-me->position()->x,target.y-me->position()->y,target.z-me->position()->z};
                     if (displacement.length()<50.0f) {
                         delta.normalize(); target=start;
                         target.x+=delta.x*50.0f; target.y+=delta.y*50.0f; target.z+=delta.z*50.0f;
                     }
+                    }
                     exitObj->setPosition(&start); exitObj->setOrientation(angle);
+            }
                     if (!exitObj->rva002931BA()) {
                         _STL::vector<Coord3D> path;
                         path.push_back(target); path.push_back(target); path.push_back(saved);
@@ -121,8 +130,7 @@ void OpenContain::exitObjectViaDoor(Object *exitObj,ExitDoorType)
                         target=saved;
                     }
                     exitObj->rva0028ACDC(&target);
-                }
-            }
+            afterLand:;
         }
         TheAI->pathfinder->AddObjectToPathfindMap(exitObj);
     }
