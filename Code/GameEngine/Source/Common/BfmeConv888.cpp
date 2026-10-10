@@ -65,6 +65,7 @@ class Rva0030E2ECFlags
 {
 public:
 	void rva0030E2EC();
+	void rva0030E2F5();
 
 private:
 	unsigned char m_bfmeHead[0x44];
@@ -74,6 +75,12 @@ private:
 void Rva0030E2ECFlags::rva0030E2EC()
 {
 	m_bfmeFlags &= ~0x10U;
+	reinterpret_cast<BfmeNodeEYE *>(this)->bfmeRunEYE();
+}
+
+void Rva0030E2ECFlags::rva0030E2F5()
+{
+	m_bfmeFlags |= 0x10U;
 	reinterpret_cast<BfmeNodeEYE *>(this)->bfmeRunEYE();
 }
 
