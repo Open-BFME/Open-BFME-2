@@ -1,6 +1,8 @@
 // ?rva00508120@Made002CC5E1@@AAE_NPAXPAVObject@@PAVDamageInfo@@_NPBUCoord3D@@@Z
+// partial score=0.9889686996647947 date=2026-10-10
+// ?rva00508120@Made002CC5E1@@AAE_NPAXPAVObject@@PAVDamageInfo@@_NPBUCoord3D@@@Z
 // partial score=0.97 date=2026-10-09
-// cl: /O1 /DNDEBUG /MD /arch:SSE /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/bfmelist
+// cl: /O1 /DNDEBUG /MD /I. /ICode/Libraries/Include /ICode/GameEngine/Include /ICode/GameEngine/Source/Common /arch:SSE /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/bfmelist
 // stlport
 // Retail0x005084FC186B; vtable00864048 slot14 owned by matched Made002CC5E1
 // deleting destructor/constructor. Original method name unknown. This scoped
@@ -308,7 +310,7 @@ bool Made002CC5E1::rva00508120(void *weapon, Object *target, DamageInfo *info, b
  info->value1C = value15C;
  info->delay28 = delay;
  info->sourceID08 = view->sourceID08;
- info->playerMask0C = 1 << source->getControllingPlayer()->index54;
+ info->playerMask0C = 1 << (this?source->getControllingPlayer():source->getControllingPlayer())->index54;
  info->value2C = view->template04->value10;
  info->flag25 = view->template04->flag16D;
  return true;
