@@ -5,6 +5,9 @@
 // embedded addresses are game-specific (BFME2 values measured from retail:
 // default acquire 0x00A5CEC0, table 0x00CE1DFC, default release 0x00A5CED0).
 
+void *__cdecl Rva0065CEC0Allocate(unsigned int, int);
+void __cdecl Rva0065CED0Release(void *, int);
+
 extern "C" const void *const vtbl_00CE1DFC[];  // ??_7Rva007F0080Owner@@6B@
 #pragma comment(linker, "/alternatename:_vtbl_00CE1DFC=??_7Rva007F0080Owner@@6B@")
 
@@ -40,14 +43,14 @@ void Rva007F00B0(void *allocate, void *release)
 	{
 		p = (Rva007F00B0Allocator *)::operator new(12);
 		if (p)
-			p->m_allocate = (void *)0x00A5CEC0;
+			p->m_allocate = reinterpret_cast<void *>(&Rva0065CEC0Allocate);
 		else
 			goto clear;
 	}
 
 	p->m_vtable = (void *)((unsigned int)vtbl_00CE1DFC);
 	if (!release)
-		release = (void *)0x00A5CED0;
+		release = reinterpret_cast<void *>(&Rva0065CED0Release);
 	p->m_release = release;
 	(*(Rva007F00B0Allocator **)&g_genAlloc) = p;
 	return;

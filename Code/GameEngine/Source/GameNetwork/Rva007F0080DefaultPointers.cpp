@@ -7,6 +7,9 @@
 // 0x00A5CEC0/0x00A5CED0, also established by matched sibling
 // Rva007F00B0AllocatorInit at 0x0065CF90.
 
+void *__cdecl Rva0065CEC0Allocate(unsigned int, int);
+void __cdecl Rva0065CED0Release(void *, int);
+
 class Rva007F0080Owner
 {
 public:
@@ -19,8 +22,8 @@ private:
 
 Rva007F0080Owner::Rva007F0080Owner(void *first, void *second)
 {
-    m_first = first ? first : reinterpret_cast<void *>(0x00A5CEC0);
-    m_second = second ? second : reinterpret_cast<void *>(0x00A5CED0);
+    m_first = first ? first : reinterpret_cast<void *>(&Rva0065CEC0Allocate);
+    m_second = second ? second : reinterpret_cast<void *>(&Rva0065CED0Release);
 }
 
 // Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
