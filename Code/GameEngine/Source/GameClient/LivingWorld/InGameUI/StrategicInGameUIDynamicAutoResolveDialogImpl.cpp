@@ -301,7 +301,7 @@ class Rva000AD6F4
 {
 public:
 	__forceinline Rva000AD6F4() : m_ptr(0) {}
-	~Rva000AD6F4() { clear(); }
+	~Rva000AD6F4();
 	void clear();
 
 	void *m_ptr;

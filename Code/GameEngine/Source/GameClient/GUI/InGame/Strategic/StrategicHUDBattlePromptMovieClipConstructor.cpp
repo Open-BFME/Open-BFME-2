@@ -127,7 +127,7 @@ template<> vector<Rva005FA1CEElement>::~vector();
 // +2C/+3C owning slots call canonical29B clear0AD6F4; +20/+30
 // vector cleanup5F97D4, +40/+50 page vectors5F9813 are separate states.
 class Rva000AD6F4 {
-public: Rva000AD6F4():ptr(0){} __forceinline ~Rva000AD6F4(){clear();} void clear();
+public: Rva000AD6F4():ptr(0){} ~Rva000AD6F4(); void clear();
 private: void *ptr;
 };
 

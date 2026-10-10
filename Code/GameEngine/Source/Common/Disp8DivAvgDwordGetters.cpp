@@ -72,12 +72,28 @@ struct Rva000AD6F4Base
 class Rva000AD6F4
 {
 public:
+	~Rva000AD6F4();
 	void clear();
 private:
 	Rva000AD6F4Base *m_ptr;
 };
 
 void Rva000AD6F4::clear()
+{
+	Rva000AD6F4Base *p = m_ptr;
+	m_ptr = 0;
+	void *q;
+	if (p)
+		q = p->virt0(0);
+	else
+		q = 0;
+	::operator delete(q);
+}
+
+// ??1Rva000AD6F4@@QAE@XZ: the destructor releases the held pointer exactly as clear()
+// does; retail's linker folded the two identical 29-byte bodies at 0x000AD6F4 (the
+// HUD::Impl dtor 0x0042D92E and 40+ EH unwind entries reference it as the dtor).
+Rva000AD6F4::~Rva000AD6F4()
 {
 	Rva000AD6F4Base *p = m_ptr;
 	m_ptr = 0;

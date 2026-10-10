@@ -853,8 +853,7 @@ class Rva0052413E { public: ~Rva0052413E(); private: char bytes[12]; };
 class Rva000AD6F4 {
 public:
  void clear();
- // ?Rva000AD6F4::~Rva000AD6F4 absent-from-retail
- __forceinline ~Rva000AD6F4() { clear(); }
+ ~Rva000AD6F4();
 private: void *pointer;
 };
 class Rva005F9877 {

@@ -28,7 +28,10 @@ struct Coord3D
 	Coord3D(float ax, float ay, float az) : x(ax), y(ay), z(az) {}
 	~Coord3D() {}
 	void normalize();	// 0x000035B6
-	void scale(float s)
+	// Retail inlines Coord3D::scale at every site here; its one out-of-line body
+	// (0x000036D1, region.cpp) has another unit's codegen, so this TU's inline
+	// copy carries its own name and never offers the link a second scale.
+	void scaleInlined(float s)
 	{
 		x *= s;
 		y *= s;
@@ -197,7 +200,7 @@ unsigned Rva005EE816::rva005EE3B0(Object *source, bool allies)
 	Coord3D corners[4];
 	corners[0] = Coord3D(1.0f, 1.0f, 0.0f);
 	corners[0].normalize();
-	corners[0].scale(radius);
+	corners[0].scaleInlined(radius);
 	corners[1] = Coord3D(-corners[0].x, corners[0].y, 0.0f);
 	corners[2] = Coord3D(-corners[0].x, -corners[0].y, 0.0f);
 	corners[3] = Coord3D(corners[0].x, -corners[0].y, 0.0f);
@@ -230,7 +233,7 @@ unsigned Rva005EE816::rva005EE5D7(Object *source, bool allies, _STL::vector<Obje
 	Coord3D corners[4];
 	corners[0] = Coord3D(1.0f, 1.0f, 0.0f);
 	corners[0].normalize();
-	corners[0].scale(radius);
+	corners[0].scaleInlined(radius);
 	corners[1] = Coord3D(-corners[0].x, corners[0].y, 0.0f);
 	corners[2] = Coord3D(-corners[0].x, -corners[0].y, 0.0f);
 	corners[3] = Coord3D(corners[0].x, -corners[0].y, 0.0f);
@@ -290,7 +293,7 @@ bool Rva005EE816::rva005EE8DD(const Coord3D *pos,Object *source)
         rva005EE317(&direction);
         for(float distance=15.0f;distance<=150.0f&&!result;distance+=15.0f) {
             Coord3D step(direction.x,direction.y,direction.z);
-            step.scale(distance);
+            step.scaleInlined(distance);
             Coord3D candidate(pos->x,pos->y,pos->z);
             candidate.add(&step);
             if(rva005EE816(source,&candidate)) {

@@ -16,7 +16,7 @@ public:
 class Rva000AD6F4
 {
 public:
-	~Rva000AD6F4() { clear(); }
+	~Rva000AD6F4();
 	void clear();
 	__forceinline int getPointer() const { return m_ptr; }
 

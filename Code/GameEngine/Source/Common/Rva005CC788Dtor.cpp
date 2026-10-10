@@ -10,7 +10,7 @@
 // 8B negative-adjust call view in RvaNegativeAdjustFwds is reverified.
 class Rva0007DF07 {public: Rva0007DF07():count(0){} virtual ~Rva0007DF07(){} private:unsigned count;};
 class Rva005CC5E5 : public virtual Rva0007DF07 {public: Rva005CC5E5() throw(); virtual void slot0(); virtual ~Rva005CC5E5(){};};
-class Rva000AD6F4 {public: void clear(); ~Rva000AD6F4(){clear();} private:void *pointer;};
+class Rva000AD6F4 {public: void clear(); ~Rva000AD6F4(); private:void *pointer;};
 struct Rva005CE93EContext;
 class Rva005CC698 : public Rva005CC5E5 {public:Rva005CC698(void*,void*,Rva005CE93EContext*);virtual ~Rva005CC698();private:Rva000AD6F4 payload;};
 Rva005CC698::~Rva005CC698() {}

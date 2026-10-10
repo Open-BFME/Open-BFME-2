@@ -188,7 +188,7 @@ extern PlayerTemplateStore*ThePlayerTemplateStore;
 extern NameKeyGenerator*TheNameKeyGenerator;
 class CreateAHeroManager;
 extern CreateAHeroManager*TheCreateAHeroManager;
-extern const BitFlags<116>g_defaultStorage009FEFA4;
+extern BitFlags<116>KINDOFMASK_NONE; // 0x009FEFA4, defined by ThingIsAnyKindOf.cpp
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
 class StatsReporter {public:static void ProcessStrategicSinglePlayerGame(LivingWorldPlayer*);};
@@ -267,9 +267,9 @@ void StatsReporter::ProcessStrategicSinglePlayerGame(LivingWorldPlayer*player) {
  }else prefs.rva005361B6(side);
  Rva00045411BitSet buildMask(0,7);
  const Rva00045411BitSet&mask=buildMask;
- prefs.rva0053626B(side,prefs.rva005362B2(side)+reinterpret_cast<Rva004EE35D*>(s)->rva004EE35D(mask,reinterpret_cast<const Rva00045411BitSet&>(g_defaultStorage009FEFA4)));
- prefs.rva005362FC(side,prefs.rva00536343(side)+reinterpret_cast<Rva004EE3AB*>(s)->rva004EE3AB(mask,reinterpret_cast<const Rva00045411BitSet&>(g_defaultStorage009FEFA4)));
- prefs.rva0053638D(side,prefs.rva005363D4(side)+reinterpret_cast<Rva004EE3F9*>(s)->rva004EE3F9(mask,reinterpret_cast<const Rva00045411BitSet&>(g_defaultStorage009FEFA4)));
+ prefs.rva0053626B(side,prefs.rva005362B2(side)+reinterpret_cast<Rva004EE35D*>(s)->rva004EE35D(mask,reinterpret_cast<const Rva00045411BitSet&>(KINDOFMASK_NONE)));
+ prefs.rva005362FC(side,prefs.rva00536343(side)+reinterpret_cast<Rva004EE3AB*>(s)->rva004EE3AB(mask,reinterpret_cast<const Rva00045411BitSet&>(KINDOFMASK_NONE)));
+ prefs.rva0053638D(side,prefs.rva005363D4(side)+reinterpret_cast<Rva004EE3F9*>(s)->rva004EE3F9(mask,reinterpret_cast<const Rva00045411BitSet&>(KINDOFMASK_NONE)));
  prefs.rva0053641E(side,prefs.rva00536465(side)+reinterpret_cast<Rva004EE447*>(s)->rva004EE447());
  prefs.rva005364AF(side,prefs.rva005364F6(side)+reinterpret_cast<Rva004EE485*>(s)->rva004EE485());
  prefs.rva00536540(side,prefs.rva00536587(side)+reinterpret_cast<Rva004EE4C3*>(s)->rva004EE4C3());

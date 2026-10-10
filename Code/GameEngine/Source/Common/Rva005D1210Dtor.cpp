@@ -10,7 +10,7 @@ void Rva005EC135Delete(void **slot);
 class Rva000AD6F4
 {
 public:
-	~Rva000AD6F4() { clear(); }
+	~Rva000AD6F4();
 	void clear();
 
 private:

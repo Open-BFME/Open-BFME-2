@@ -239,7 +239,7 @@ class Rva002D38EB
 {
 public:
 	Rva002D38EB() : m_ptr(0) {}
-	~Rva002D38EB() { ((Rva002D38D1 *)this)->clear(); }
+	~Rva002D38EB();
 	void reset(Rva00527CCE *p);
 
 	Rva00527CCE *m_ptr;
@@ -259,7 +259,7 @@ class Rva000AD6F4
 {
 public:
 	Rva000AD6F4() : m_ptr(0) {}
-	~Rva000AD6F4() { clear(); }
+	~Rva000AD6F4();
 	void clear();
 
 	void *m_ptr;

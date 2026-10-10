@@ -58,7 +58,10 @@ struct Coord3D
 	float y;
 	float z;
 	void set(const Coord3D *a) { x = a->x; y = a->y; z = a->z; }
-	void scale(float s) { x *= s; y *= s; z *= s; }
+	// Retail inlines Coord3D::scale here; its one out-of-line body (0x000036D1,
+	// region.cpp) has another unit's codegen, so this TU's inline copy carries
+	// its own name and never offers the link a second scale.
+	void scaleInlined(float s) { x *= s; y *= s; z *= s; }
 	void add(const Coord3D *a) { x += a->x; y += a->y; z += a->z; }
 };
 
@@ -174,7 +177,7 @@ bool Rva005EE816::rva005D7FA6(Object *source)
 				target.set(wp->getLocation());
 				Coord3D dir;
 				rva005EE317(&dir);
-				dir.scale(GetGameLogicRandomValueReal(30.0f, 180.0f, "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\SkirmishAI\\AISpecialPowers\\AISpellBookPowers\\AISpellBookShroudReveal.cpp", 73));
+				dir.scaleInlined(GetGameLogicRandomValueReal(30.0f, 180.0f, "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\SkirmishAI\\AISpecialPowers\\AISpellBookPowers\\AISpellBookShroudReveal.cpp", 73));
 				target.add(&dir);
 				return rva005EE8DD(&target, source);
 			}

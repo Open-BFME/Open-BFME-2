@@ -48,7 +48,7 @@ class Rva000AD6F4
 public:
 	__forceinline Rva000AD6F4() : m_ptr(0) {}
 	void clear();
-	~Rva000AD6F4() { clear(); }
+	~Rva000AD6F4();
 private:
 	void *m_ptr;
 };

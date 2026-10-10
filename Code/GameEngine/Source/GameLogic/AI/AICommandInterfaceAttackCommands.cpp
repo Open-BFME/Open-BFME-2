@@ -231,18 +231,11 @@ void AICommandInterface::aiFacePosition(const Coord3D *pos, Int cmdSource)
 	aiDoCommand(&parms);
 }
 
-// ?aiMoveToPosition@AICommandInterface@@QAEXPBUCoord3D@@W4CommandSourceType@@@Z, retail 0x0026C26D, 108 bytes.
-// Zero Hour's signature: the command source is the CommandSourceType enum, as its
-// callers in the ported AI and update code spell it (formerly rowed with an Int).
-// Same 108B position shape as aiFacePosition in this TU: AICMD 0x00 plus m_pos at +0x08 plus slot-0 aiDoCommand.
-// Class proven by caller at 0x002AF138 via lea ecx,[esi+0x20] (AICommandInterface subobject) with Coord3D plus source 1.
-// Callers at 0x0026D1C0 0x0026D519 0x002AF138 plus 37 more; landing unblocks 37.
-void AICommandInterface::aiMoveToPosition(const Coord3D *pos, CommandSourceType cmdSource)
-{
-	AICommandParms parms((AICommandType)0, cmdSource);
-	parms.m_pos = *pos;
-	aiDoCommand(&parms);
-}
+// AICommandInterface::aiMoveToPosition (retail 0x0026C26D, 108 bytes) is Zero Hour's
+// inline AI.h command, and retail's callers were compiled seeing its body: one
+// unit defining it here out of line (NODUPLICATES) collided with the inline
+// COMDAT copy SlavedUpdateRepair.cpp must emit, whose bytes are retail's. That
+// unit owns the row now; this one only declares it.
 
 // ?aiFaceObject@AICommandInterface@@QAEXPAVObject@@W4CommandSourceType@@@Z, retail 0x003C771D, 101 bytes.
 // BFME1 donor reference/open-bfme-1/Code/GameEngine/Source/GameLogic/AI/AICommandInterfaceFaceCommands.cpp

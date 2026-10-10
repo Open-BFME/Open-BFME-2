@@ -17,7 +17,7 @@ void*__cdecl operator new(unsigned);void*__cdecl rva005ED198(const void*);
 class LivingWorldLogic;extern LivingWorldLogic*TheLivingWorldLogic;
 class Object;
 class Rva00575674{public:void rva00575674(Object*);};
-class Rva000AD6F4{public:Rva000AD6F4():ptr(0){}~Rva000AD6F4(){clear();}void clear();void*ptr;};
+class Rva000AD6F4{public:Rva000AD6F4():ptr(0){}~Rva000AD6F4();void clear();void*ptr;};
 class Rva005D10B0State {public:virtual void slot0();virtual void slot1();};
 struct Rva005D10B0Owner{Rva005D10B0State*state;};
 class Rva005D10D6:public Rva005D1035{public:Rva005D10D6(void*p):Rva005D1035(p){}virtual ~Rva005D10D6();virtual void slot1();};

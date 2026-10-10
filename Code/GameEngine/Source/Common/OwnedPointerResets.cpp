@@ -1540,9 +1540,24 @@ void Rva0042D766::reset(Rva00578C43 *p)
 class Rva002D38EB
 {
 public:
+	~Rva002D38EB();
 	Rva00527CCE *m_ptr;
 	void reset(Rva00527CCE *p);
 };
+
+// ??1Rva002D38EB@@QAE@XZ: the holder's destructor releases the pointee exactly as
+// Rva002D38D1::clear does; retail's linker folded the identical 26-byte bodies at
+// 0x002D38D1 (the HUD::Impl dtor 0x0042D92E destroys its +0x18 member through it).
+Rva002D38EB::~Rva002D38EB()
+{
+	Rva00527CCE *p = m_ptr;
+	m_ptr = 0;
+	if (p)
+	{
+		p->Rva00527CCE::~Rva00527CCE();
+		::operator delete(p);
+	}
+}
 
 void Rva002D38EB::reset(Rva00527CCE *p)
 {
