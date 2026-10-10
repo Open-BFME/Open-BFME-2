@@ -1,12 +1,15 @@
 // ?rva0045A57C@AutoAbilityBehavior@@QAE_NXZ
-// partial score=0.96 date=2026-10-09
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// Native45A57C..45A63F (195B), WB117C610.
+// Readiness predicate, original method name remains unknown. Target mask1C,
+// Object status94/model10C/AI258 and gate bits independently observed.
+// Same-valued data PHI recovers native receiver/mask register allocation.
+// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /DNDEBUG /MD /ICode/Libraries/Include /ICode/GameEngine/Source/Common /EHsc
 // Reference guide: Open-BFME-1 f98983a7d AutoAbilityBehavior_bfmeCanAutoFire.cpp
 // (clean125B predicate). Target0045A57C/WB117C610 adds module-status mask,
 // target model/status gates, tri-state eligibility and button exclusion mask.
 // Fields below come from native accesses; donor semantics do not establish
 // original BFME2 method names.
-#include "../../../../../Libraries/Include/Lib/Coord3D.h"
+#include "Lib/Coord3D.h"
 #include "ascii_string.h"
 namespace _STL { template<unsigned int N> class _Base_bitset {
 public: bool _M_is_any() const; unsigned int words[N];
@@ -45,7 +48,7 @@ struct AutoAbilityData {
  char data10[0x1C-0x10]; _STL::_Base_bitset<4> forbiddenStatus;
  char data2C[0x5F-0x2C]; bool allowSelf;
 };
-class BfmeWideResult { public: Object *next(); };
+class BfmeWideResult;
 class AutoAbilityBehavior {
 public:
  bool rva0045A57C();
@@ -55,7 +58,7 @@ public:
 };
 bool AutoAbilityBehavior::rva0045A57C()
 {
- const _STL::_Base_bitset<4> &mask=data->forbiddenStatus;
+ const _STL::_Base_bitset<4> &mask=(data?data:data)->forbiddenStatus;
  Object *obj=object;
  if(mask._M_is_any() && ((const Rva00331682Holder*)&mask)->test(obj->status)) return false;
  const CommandButton *button=TheControlBar->findCommandButton(command);
@@ -70,30 +73,4 @@ bool AutoAbilityBehavior::rva0045A57C()
  AIUpdateInterface *ai=obj->ai;
  if(ai && ai->active) return false;
  return true;
-}
-Object *AutoAbilityBehavior::rva0045A447(BfmeWideResult *items,const CommandButton *button)
-{
- const AutoAbilityData *modData=data;
- Object *owner=object;
- Object *candidate;
- goto nextCandidate;
- for(;;) {
-  if(!modData->allowSelf && candidate==owner) goto nextCandidate;
-  if(button && button->flag138) {
-   BodyModule *body=candidate->body;
-   if(body && body->slot14()>0.8f) goto nextCandidate;
-  }
-  if(modData->minimumRange>0) {
-   Coord3D delta;
-   float x=owner->position.x, y=owner->position.y, z=owner->position.z;
-   x-=candidate->position.x; y-=candidate->position.y; z-=candidate->position.z;
-   delta.x=x; delta.y=y; delta.z=z;
-   if(delta.length()<modData->minimumRange) goto nextCandidate;
-  }
-  return candidate;
-nextCandidate:
-  candidate=items->next();
-  if(!candidate) break;
- }
- return 0;
 }
