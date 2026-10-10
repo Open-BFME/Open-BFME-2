@@ -1,4 +1,6 @@
 // ?rva00450AE9@SpecialAbilityUpdate@@QAE_NXZ
+// partial score=0.805 date=2026-10-10
+// ?rva00450AE9@SpecialAbilityUpdate@@QAE_NXZ
 // partial score=0.805244 date=2026-10-09
 // cl: /O1 /arch:SSE /DNDEBUG /I. /MD /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
 // stlport

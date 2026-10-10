@@ -1,3 +1,15 @@
+// ?exitObjectViaDoor@OpenContain@@UAEXPAVObject@@W4ExitDoorType@@@Z
+// partial score=0.8 date=2026-10-10
+// ?exitObjectViaDoor@OpenContain@@UAEXPAVObject@@W4ExitDoorType@@@Z
+// partial score=0.80 date=2026-10-10 G5-r2: shapes match retail exactly (x87 fld/fsub/fstp
+// delta interleave, inline mulss/addss 50.0, component-wise inits, no dx50 locals, ai in
+// reg+home like retail); remaining is a UNIFORM one-DWORD home shift (frame 0x54 vs 0x50)
+// across all 12B locals + vector#2 at -0x24 not overlaid on end/delta@-0x38. Tried: theAI
+// removal, position/targetSource struct-copy (kept: -12 diffs), hoist ai/angle (worse 0x5C,
+// reverted), scope flatten (worse 0x78/272, reverted). Retail home map from full disasm:
+// vec/elsestart -0x44, end/delta/vec2 -0x38, target -0x2c, saved -0x50, ifstart/displ -0x5c,
+// angle -0x18, ai -0x1c. Next: find the extra DWORD (all op totals match 86/86) or force
+// vec2 overlay.
 // ?exitObjectViaDoor@OpenContain@@UAEXPAVObject@@PAVCoord3D@@@Z
 // partial score=0.858652976664883 date=2026-10-10
 // ?exitObjectViaDoor@OpenContain@@UAEXPAVObject@@W4ExitDoorType@@@Z
@@ -25,6 +37,9 @@ public:
     void ignoreTime(unsigned frame) { *reinterpret_cast<unsigned *>(reinterpret_cast<char *>(this)+0x178)=frame; }
     AICommandInterface *commands() { return reinterpret_cast<AICommandInterface *>(reinterpret_cast<char *>(this)+0x20); }
     const Coord3D &goal() const { return *reinterpret_cast<const Coord3D *>(reinterpret_cast<const char *>(*reinterpret_cast<void *const *>(reinterpret_cast<const char *>(this)+0x30))+0x24); }
+    __forceinline float goalX() const { return *reinterpret_cast<const float *>(reinterpret_cast<const char *>(*reinterpret_cast<void *const *>(reinterpret_cast<const char *>(this)+0x30))+0x24); }
+    __forceinline float goalY() const { return *reinterpret_cast<const float *>(reinterpret_cast<const char *>(*reinterpret_cast<void *const *>(reinterpret_cast<const char *>(this)+0x30))+0x28); }
+    __forceinline float goalZ() const { return *reinterpret_cast<const float *>(reinterpret_cast<const char *>(*reinterpret_cast<void *const *>(reinterpret_cast<const char *>(this)+0x30))+0x2C); }
     const Coord3D &position148() const { return *reinterpret_cast<const Coord3D *>(reinterpret_cast<const char *>(this)+0x148); }
 };
 class Thing { public: void setPosition(const Coord3D *); void setOrientation(float); };
@@ -65,6 +80,8 @@ public:
     const Coord3D &rally() const { return *reinterpret_cast<const Coord3D *>(reinterpret_cast<const char *>(this)+0xA0); }
 };
 namespace _STL { template<> void vector<Coord3D>::push_back(const Coord3D &); }
+void __cdecl Rva00030830FreeAllocation(void*);
+namespace _STL { template<> __forceinline void allocator<Coord3D>::deallocate(Coord3D *p, unsigned) const { if (p) Rva00030830FreeAllocation(p); } }
 template<> __forceinline void StringBase<char>::concat(char c) { concat(&c,1); }
 void OpenContain::exitObjectViaDoor(Object *exitObj,ExitDoorType)
 {
@@ -103,21 +120,23 @@ void OpenContain::exitObjectViaDoor(Object *exitObj,ExitDoorType)
     } else {
         if (me->landKind()) {
             AIUpdateInterface *ai;Coord3D saved,target;float angle;
-            {Coord3D start; const Coord3D *position=me->position();
-            start.x=position->x; start.y=position->y; start.z=position->z;
+            {Coord3D start; start.x=me->position()->x; start.y=me->position()->y; start.z=me->position()->z;
             if (!TheAI->pathfinder->getClosestPointOnLand(me->position(),me,&start))goto afterLand;
                 ai=exitObj->ai();
                 if (!ai)goto afterLand;
-                    const Coord3D &goal=ai->goal();
-                    saved.x=goal.x; saved.y=goal.y; saved.z=goal.z;
-                    
-                    {Coord3D delta={start.x-me->position()->x,start.y-me->position()->y,start.z-me->position()->z};
-                    angle=(float)Rva000422A0Atan2(delta.y,delta.x); const Coord3D &targetSource=me->ai()->position148();
-                    target.x=targetSource.x; target.y=targetSource.y; target.z=targetSource.z;
-                    Coord3D displacement={target.x-me->position()->x,target.y-me->position()->y,target.z-me->position()->z};
+                    {Coord3D delta,displacement;
+                    delta.x=start.x-me->position()->x;
+                    saved.x=ai->goalX(); saved.y=ai->goalY();
+                    delta.y=start.y-me->position()->y;
+                    saved.z=ai->goalZ();
+                    delta.z=start.z-me->position()->z;
+                    angle=(float)Rva000422A0Atan2(delta.y,delta.x);
+                    target.x=me->ai()->position148().x; displacement.x=target.x-me->position()->x;
+                    target.y=me->ai()->position148().y; displacement.y=target.y-me->position()->y;
+                    target.z=me->ai()->position148().z; displacement.z=target.z-me->position()->z;
                     if (displacement.length()<50.0f) {
                         delta.normalize(); target=start;
-                        target.x+=delta.x*50.0f; target.y+=delta.y*50.0f; target.z+=delta.z*50.0f;
+                        target.x+=50.0f*delta.x; target.y+=50.0f*delta.y; target.z+=50.0f*delta.z;
                     }
                     }
                     exitObj->setPosition(&start); exitObj->setOrientation(angle);
