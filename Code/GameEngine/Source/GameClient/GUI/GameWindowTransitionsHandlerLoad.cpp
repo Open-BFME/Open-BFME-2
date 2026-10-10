@@ -19,7 +19,7 @@ class Xfer;
 enum INILoadType {INI_LOAD_INVALID, INI_LOAD_OVERWRITE};
 class INI {public: INI(); ~INI(); unsigned char loadFile(AsciiString,INILoadType,Xfer*); private: char storage[0x87C];};
 enum NameKeyType {NAMEKEY_INVALID=0,NAMEKEY_MAX=1<<23,FORCE_NAMEKEYTYPE_LONG=0x7fffffff};
-class NameKeyGenerator {public: NameKeyType nameToKey(const char*);};
+class NameKeyGenerator;
 extern NameKeyGenerator* TheNameKeyGenerator;
 class Object;
 struct KeyBucketNode { KeyBucketNode *next; int key; Object *value; };
@@ -31,52 +31,70 @@ struct KeyBucketTable
 	unsigned size() const { return (unsigned)(finish - start); }
 	KeyBucketNode *&at( unsigned n ) { return *( start + n ); }
 };
+// ObjectLookupMap is retail's lookup table for name keys (the find-and-insert
+// walk 0x0041F4E5; its two callees are ledger-known spellings, shared with
+// ObjectLookupMapFindSlot.cpp: KeyToBucketMap::find 0x00148B27 and the blind
+// insertNode worker). Local spellings of those callees made this TU's findSlot
+// copy unreprovable by retail truth, and since this TU links before the home
+// unit the census kept an unproven copy for every referencing unit. The
+// KeyToBucketMap base at +0 keeps the call/protocol identical, with no this
+// adjustment anywhere.
 struct KeyHashInt { unsigned operator()( int x ) const { return (unsigned)x; } };
 struct KeyEqualInt { bool operator()( int a, int b ) const { return a == b; } };
-class ObjectLookupMap
+class NameKeyGenerator
 {
 public:
-	struct Slot { void *node; ObjectLookupMap *map; };
+	NameKeyType nameToKey( const char * );
+	class KeyToBucketMap
+	{
+		friend class ObjectLookupMap;
+	public:
+		struct Slot { void *node; KeyToBucketMap *map; };
+		__declspec(noinline) Slot *find( Slot &out, const int *key )
+		{
+			out.node = _M_find( *key );
+			out.map = this;
+			return &out;
+		}
+	private:
+		struct value_type { int first; void *second; };
+		int *insertNode( const value_type &value );
+		unsigned tableSize() const { return m_table.size(); }
+		KeyBucketNode *&tableAt( unsigned n ) { return m_table.at( n ); }
+		unsigned bkt_num_key( int key ) const { return m_hash( key ) % tableSize(); }
+		__declspec(noinline) void *_M_find( const int &key ) const
+		{
+			unsigned n = bkt_num_key( key );
+			KeyBucketNode *first;
+			for ( first = ( (KeyToBucketMap *)this )->tableAt( n ); first && !m_equals( first->key, key ); first = first->next )
+			{
+			}
+			return first;
+		}
+		KeyHashInt m_hash;
+		KeyEqualInt m_equals;
+		char m_pad2[2];
+		KeyBucketTable m_table;
+		unsigned m_count;
+	};
+};
+class ObjectLookupMap : public NameKeyGenerator::KeyToBucketMap
+{
+public:
 	__declspec(noinline) Object **findSlot( int *key )
 	{
-		Slot out;
+		KeyToBucketMap::Slot out;
 		find( out, key );
 		KeyBucketNode *node = (KeyBucketNode *)out.node;
 		if ( node == 0 )
 		{
 			out.node = (void *)*key;
 			out.map = 0;
-			return (Object **)( insertNode( (const ValueType &)out ) + 1 );
+			return (Object **)( insertNode( (const KeyToBucketMap::value_type &)out ) + 1 );
 		}
 		return &node->value;
 	}
 	Object **slot( const NameKeyType &key ) { return findSlot( reinterpret_cast<int *>( const_cast<NameKeyType *>( &key ) ) ); }
-private:
-	struct ValueType { int first; void *second; };
-	__declspec(noinline) Slot *find( Slot &out, const int *key )
-	{
-		out.node = _M_find( *key );
-		out.map = this;
-		return &out;
-	}
-	__declspec(noinline) void *_M_find( const int &key ) const
-	{
-		unsigned n = bkt_num_key( key );
-		KeyBucketNode *first;
-		for ( first = ( (ObjectLookupMap *)this )->tableAt( n ); first && !m_equals( first->key, key ); first = first->next )
-		{
-		}
-		return first;
-	}
-	int *insertNode( const ValueType &value );
-	unsigned tableSize() const { return m_table.size(); }
-	KeyBucketNode *&tableAt( unsigned n ) { return m_table.at( n ); }
-	unsigned bkt_num_key( int key ) const { return m_hash( key ) % tableSize(); }
-	KeyHashInt m_hash;
-	KeyEqualInt m_equals;
-	char m_pad2[2];
-	KeyBucketTable m_table;
-	unsigned m_count;
 };
 typedef void (__cdecl *Factory)(INI*,void*,void*,const void*);
 struct Gen_00489270;
