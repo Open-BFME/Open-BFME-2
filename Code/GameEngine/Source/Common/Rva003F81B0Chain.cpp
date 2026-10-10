@@ -50,9 +50,12 @@ class Rva003F81FDProxy
 {
 public:
 	__declspec(noinline) Rva003F8101 *rva003F816E();
-	void *rva003F819A();
+	__declspec(noinline) void *rva003F819A();
 	unsigned char rva003F85C6();
-	Rva003F7D86Inner *rva003F81B0();
+	__declspec(noinline) Rva003F7D86Inner *rva003F81B0();
+	Rva003F8101 *rva003F8195();
+	void *rva003F81AB();
+	Rva003F7D86Inner *rva003F81CE();
 	void rva003F9037();
 private:
 	char m_pad00[0x14];
@@ -154,4 +157,24 @@ void Rva003F81FDProxy::rva003F9037()
 	Rva003F8101 *entry = rva003F816E();
 	if (entry != 0)
 		entry->rva003F8FF3();
+}
+
+// Three 5-byte tail jumps, each directly after the body it enters (no
+// referencing site found in this pass; address-named):
+// ?rva003F8195@Rva003F81FDProxy@@QAEPAVRva003F8101@@XZ @0x003F8195 -> 0x003F816E
+// ?rva003F81AB@Rva003F81FDProxy@@QAEPAXXZ @0x003F81AB -> 0x003F819A
+// ?rva003F81CE@Rva003F81FDProxy@@QAEPAVRva003F7D86Inner@@XZ @0x003F81CE -> 0x003F81B0
+Rva003F8101 *Rva003F81FDProxy::rva003F8195()
+{
+	return rva003F816E();
+}
+
+void *Rva003F81FDProxy::rva003F81AB()
+{
+	return rva003F819A();
+}
+
+Rva003F7D86Inner *Rva003F81FDProxy::rva003F81CE()
+{
+	return rva003F81B0();
 }
