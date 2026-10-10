@@ -32,6 +32,8 @@ public:
     void destroy();
 };
 ParticleSystem *Make001FCBD7();
+// 0x0004CBC0 is the handle unlink (row ?rva0004CBC0@RvaSmartPtr12@@QAEXXZ); the dtor is the inline null test around it.
+class RvaSmartPtr12 { public: void rva0004CBC0(); };
 struct BfmeParticleSystemHandle {
     ~BfmeParticleSystemHandle();
     ParticleSystem *volatile m_system;
@@ -62,7 +64,7 @@ void W3DTankTruckDraw::tossEmitters()
         m_dust.get()->set(0);
         m_dust.get()->destroy();
         if (m_dust.m_system) {
-            m_dust.~BfmeParticleSystemHandle();
+            reinterpret_cast<RvaSmartPtr12 *>(&m_dust)->rva0004CBC0();
             m_dust.m_system = 0;
         }
     }
@@ -70,7 +72,7 @@ void W3DTankTruckDraw::tossEmitters()
         m_dirt.get()->set(0);
         m_dirt.get()->destroy();
         if (m_dirt.m_system) {
-            m_dirt.~BfmeParticleSystemHandle();
+            reinterpret_cast<RvaSmartPtr12 *>(&m_dirt)->rva0004CBC0();
             m_dirt.m_system = 0;
         }
     }
@@ -78,7 +80,7 @@ void W3DTankTruckDraw::tossEmitters()
         m_power.get()->set(0);
         m_power.get()->destroy();
         if (m_power.m_system) {
-            m_power.~BfmeParticleSystemHandle();
+            reinterpret_cast<RvaSmartPtr12 *>(&m_power)->rva0004CBC0();
             m_power.m_system = 0;
         }
     }

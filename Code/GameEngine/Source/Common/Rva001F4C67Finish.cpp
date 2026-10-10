@@ -15,6 +15,8 @@ class Rva001F45DFSlot { public: int get() const; char m_lead[0x3c]; Rva001F45DFI
 struct Node001F4882;
 class Rva001F4882 { public: void rva001F4882(Node001F4882 *n); };
 struct Node001F4882 : public Rva001F45DFSlot { char m_p[0x6c-0x40]; Node001F4882 *m_prev; Node001F4882 *m_next; char m_g; unsigned char m_f; };
+// 0x0004CBC0 is the handle unlink (row ?rva0004CBC0@RvaSmartPtr12@@QAEXXZ); the dtor is the inline null test around it.
+class RvaSmartPtr12 { public: void rva0004CBC0() throw(); };
 struct BfmeParticleSystemHandle { ~BfmeParticleSystemHandle() throw(); void *m_system; void *m_prev; void *m_next; };
 class ParticleSystemManager;
 extern ParticleSystemManager *TheParticleSystemManager;
@@ -36,11 +38,11 @@ private:
 };
 struct RawHandle { BfmeParticleSystemPtr m_system; void *m_prev; void *m_next; };
 struct Wrap3c {
-	~Wrap3c() { if (m_h.m_system) ((BfmeParticleSystemHandle *)&m_h)->~BfmeParticleSystemHandle(); }
+	~Wrap3c() { if (m_h.m_system) reinterpret_cast<RvaSmartPtr12 *>(&m_h)->rva0004CBC0(); }
 	RawHandle m_h;
 };
 struct Wrap78 {
-	~Wrap78() { if (m_h.m_system) ((BfmeParticleSystemHandle *)&m_h)->~BfmeParticleSystemHandle(); }
+	~Wrap78() { if (m_h.m_system) reinterpret_cast<RvaSmartPtr12 *>(&m_h)->rva0004CBC0(); }
 	RawHandle m_h;
 };
 struct Base001F4C67 { virtual void bv0() = 0; virtual void bv1() = 0; virtual ~Base001F4C67(); };

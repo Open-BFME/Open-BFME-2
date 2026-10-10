@@ -43,7 +43,7 @@ void RadiusDecalTemplate::rva0033132D(const Coord3D *pos,float angle,const unsig
  if(sizeY==0.0f) return;
  out->clear();out->empty=false;
  Shadow::ShadowTypeInfo descriptor;
- descriptor.first.set(first);descriptor.second.set(second);
+ descriptor.first.setCopyInline(first);descriptor.second.setCopyInline(second);
  descriptor.sizeX=sizeY;descriptor.sizeY=sizeY;
  descriptor.allowUpdates=1;descriptor.worldAlign=1;
  descriptor.style=style;descriptor.offsetX=0.0f;descriptor.offsetY=0.0f;
@@ -65,7 +65,7 @@ void RadiusDecalTemplate::createRadiusDecal(const Coord3D &pos,float radius,cons
  Shadow::ShadowTypeInfo descriptor;
  descriptor.allowUpdates=0;descriptor.worldAlign=1;
  descriptor.style=style;
- descriptor.first.set(first);descriptor.second.set(second);
+ descriptor.first.setCopyInline(first);descriptor.second.setCopyInline(second);
  descriptor.sizeX=radius*2.0f;descriptor.sizeY=radius*2.0f;
  out.decal=g_00DEC2D4->create(&descriptor);
  if(out.decal) {
@@ -88,7 +88,7 @@ void RadiusDecalTemplate::rva0033121F(Coord3D pos,unsigned selected,int color,Ra
  if(sizeY==0.0f) return;
  out->clear();out->empty=false;
  Shadow::ShadowTypeInfo descriptor;
- descriptor.first.set(first);descriptor.second.set(second);
+ descriptor.first.setCopyInline(first);descriptor.second.setCopyInline(second);
  descriptor.allowUpdates=0;descriptor.worldAlign=1;descriptor.style=style;
  float diameter=rva00330D3E(selected);
  descriptor.sizeX=diameter;descriptor.sizeY=diameter;

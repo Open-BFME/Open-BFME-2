@@ -186,10 +186,15 @@ struct AptTextPlusStringPlusString : Rva002226E5TextPlusString
 	AsciiStringRef m_third;
 };
 
-struct AptTextPlusStringPlusStringText : AptTextPlusStringPlusString
+// The materializer 0x005F1D47 is rowed as the conversion of Rva005F1D06
+// (System/Rva00513E03Length.cpp): the text node inherits it from that view.
+struct Rva005F1D06 : AptTextPlusStringPlusString
 {
 	operator AsciiString(); // 0x005F1D47
+};
 
+struct AptTextPlusStringPlusStringText : Rva005F1D06
+{
 	Rva000B3F84Pair m_text;
 };
 

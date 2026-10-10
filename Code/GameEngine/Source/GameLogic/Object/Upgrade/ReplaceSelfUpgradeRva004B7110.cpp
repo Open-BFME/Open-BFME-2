@@ -101,12 +101,11 @@ private:
 	Real m_orientation;				// +0x44
 };
 
-class BfmeThingFactory
+class ThingFactory
 {
 public:
 	const ThingTemplate *findTemplate(const AsciiString &name);
 };
-class ThingFactory;
 extern ThingFactory *TheThingFactory;
 
 class TerrainLogic
@@ -161,6 +160,10 @@ public:
 private:
 	unsigned int m_bits[7];
 };
+
+// The (init, bit1, bit2) ctor 0x0006EE7A is rowed as Rva0006EE7A; a no-member
+// view of the mask type so the temporary is built through that row.
+struct Rva0006EE7A : BfmeFixedStorage0004543D { Rva0006EE7A(Int init, Int bit1, Int bit2); };
 
 // The partition filter base (ctor 0x000421C8, vtable 0x007C26E0).
 class Rva000421C8
@@ -229,6 +232,13 @@ public:
 	virtual Bool rva004CE2B0(Rva00406F9C *mask);	// slot 2
 };
 
+// The base check 0x004CE2B0 is rowed as Rva004CE2B0::rva004CE2B0 (non-virtual spelling).
+class Rva004CE2B0
+{
+public:
+	Bool rva004CE2B0(Rva00406F9C *mask);
+};
+
 class ReplaceSelfUpgrade : public Rva004B7110ModuleBase, public Rva004B7110UpgradeInterface, public UpgradeMux
 {
 public:
@@ -258,7 +268,7 @@ static __forceinline void addCoord(Coord3D &c, const Coord3D *a)
 
 Bool ReplaceSelfUpgrade::rva004CE2B0(Rva00406F9C *mask)
 {
-	if (!UpgradeMux::rva004CE2B0(mask))
+	if (!((Rva004CE2B0 *)((char *)this + 0x10))->rva004CE2B0(mask)) // the UpgradeMux base at +0x10, no null check
 		return false;
 
 	Object *obj = m_object;
@@ -281,7 +291,7 @@ Bool ReplaceSelfUpgrade::rva004CE2B0(Rva00406F9C *mask)
 	Real totalLength = 0.0f;
 	for (Int i = 0; i < count; i++)
 	{
-		const ThingTemplate *tmpl = ((BfmeThingFactory *)TheThingFactory)->findTemplate(names[i]);
+		const ThingTemplate *tmpl = ((ThingFactory *)TheThingFactory)->findTemplate(names[i]);
 		if (!tmpl)
 			return false;
 		totalLength += tmpl->getC8();
@@ -302,7 +312,7 @@ Bool ReplaceSelfUpgrade::rva004CE2B0(Rva00406F9C *mask)
 
 	for (Int j = 0; j < count; j++)
 	{
-		const ThingTemplate *tmpl = ((BfmeThingFactory *)TheThingFactory)->findTemplate(names[j]);
+		const ThingTemplate *tmpl = ((ThingFactory *)TheThingFactory)->findTemplate(names[j]);
 
 		Coord3D step;
 		copyCoord(step, &perp);
@@ -311,7 +321,7 @@ Bool ReplaceSelfUpgrade::rva004CE2B0(Rva00406F9C *mask)
 
 		const GeometryInfo &geom = tmpl->getTemplateGeometryInfo();
 		BfmeWideResult iter = ThePartitionManager->iterateObjectsInRange(&pos, tmpl->getB0() * 3.0f, 3,
-			Rva00261603Filter(pos, geom, angle, true).link(&Rva003959FA(BfmeFixedStorage0004543D(0, 0x96, 0x9C))), 0);
+			Rva00261603Filter(pos, geom, angle, true).link(&Rva003959FA(Rva0006EE7A(0, 0x96, 0x9C))), 0);
 
 		for (Object *other = iter.next(); other; other = iter.next())
 		{

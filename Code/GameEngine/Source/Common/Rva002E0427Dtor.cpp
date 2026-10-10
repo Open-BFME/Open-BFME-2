@@ -4,7 +4,11 @@
 // (Rva0022CC67 dtor 0x0022CF13) and +0x24 (Rva0022366C dtor 0x0022366C) with base
 // 0x001B4E74; global g_00DFF09C cleared. Evidence: chain packet callees all rowed.
 
-extern int g_00DFF09C;
+// TheLivingWorldBuildingTemplateStore (.data 0x009FF09C): the store this dtor
+// clears; its own INI block parser 0x002E048C (next in retail) and the living
+// world consumers read it. Defined here, with the store implementation.
+class Rva0022C0CDSubsystem;
+Rva0022C0CDSubsystem *TheLivingWorldBuildingTemplateStore = 0;
 
 class Rva0022CC67
 {
@@ -43,5 +47,5 @@ private:
 
 Rva002E0427::~Rva002E0427()
 {
-	g_00DFF09C = 0;
+	TheLivingWorldBuildingTemplateStore = 0;
 }

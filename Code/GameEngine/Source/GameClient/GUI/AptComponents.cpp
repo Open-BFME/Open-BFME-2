@@ -143,8 +143,10 @@ Rva004102C8Arg*Rva004115A9Create(const Coord2D*origin,const Coord2D*size,const c
  return info;
 }
 
-class Rva0056D671 {public:Rva0056D671(void*);private:char unmodelled[0x270];};
-void*__stdcall Rva00410223(void*context){return new Rva0056D671(context);}
+// The 0x270 object built at 0x0056D671 is the rowed Rva0056D690 (ctor ??0Rva0056D690 from a LocomotorTemplate).
+class LocomotorTemplate;
+class Rva0056D690 {public:Rva0056D690(const LocomotorTemplate*);private:char unmodelled[0x270];};
+void*__stdcall Rva00410223(void*context){return new Rva0056D690((const LocomotorTemplate*)context);}
 
 // WB10935F0 identifies ComponentGameWindow; native411EC3..4120B3 RET0
 // supplies the complete496B boundary and the same four callback arguments as

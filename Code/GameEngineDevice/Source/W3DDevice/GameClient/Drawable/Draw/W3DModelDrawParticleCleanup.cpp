@@ -28,11 +28,13 @@
 // verified provider rather than defining a second manager function.
 struct ParticleSystem { void destroy(); };
 enum ParticleSystemID { INVALID_PARTICLE_SYSTEM_ID=0 };
+// 0x0004CBC0 is the handle unlink (row ?rva0004CBC0@RvaSmartPtr12@@QAEXXZ); the dtor is the inline null test around it.
+class RvaSmartPtr12 { public: void rva0004CBC0(); };
 struct BfmeParticleSystemHandle { ~BfmeParticleSystemHandle(); ParticleSystem *system; void *previous; void *next; };
 struct BfmeW3DParticleHandle {
  ParticleSystem *system; void *previous; void *next;
  // ?BfmeW3DParticleHandle::~BfmeW3DParticleHandle absent-from-retail
- __forceinline ~BfmeW3DParticleHandle() { if (system) ((BfmeParticleSystemHandle *)this)->~BfmeParticleSystemHandle(); }
+ __forceinline ~BfmeW3DParticleHandle() { if (system) reinterpret_cast<RvaSmartPtr12 *>(this)->rva0004CBC0(); }
 };
 class W3DModelDraw;
 class ParticleSystemManager {

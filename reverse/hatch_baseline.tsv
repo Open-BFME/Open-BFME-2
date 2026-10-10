@@ -3704,7 +3704,6 @@ alternatename	Code/GameEngine/Source/GameClient/System/FXParticleSystem/V3Inline
 alternatename	Code/GameEngine/Source/GameClient/System/FXParticleSystem/V3InlineTemplateDtor.cpp	_vtbl_00C1C780	1
 alternatename	Code/GameEngine/Source/GameClient/System/FXParticleSystem/fx_particle_system.cpp	?construct_from@CylinderEmissionVolumeModuleTemplateSubCopyShim@FXParticleSystem@@QAEXPBX@Z	1
 alternatename	Code/GameEngine/Source/GameClient/System/FXParticleSystem/fx_particle_system.cpp	?construct_from@LineEmissionVolumeModuleTemplateSubCopyShim@FXParticleSystem@@QAEXPBX@Z	1
-alternatename	Code/GameEngine/Source/GameClient/System/ParticleSystemHandle_dtor.cpp	?rva0004CBC0@RvaSmartPtr12@@QAEXXZ	1
 alternatename	Code/GameEngine/Source/GameClient/System/Rva002D6C02Ctor.cpp	_vtbl_00C0331C	1
 alternatename	Code/GameEngine/Source/GameClient/System/SmudgeManagerDtor.cpp	?m_freeSmudgeList@SmudgeSet@@2V?$DLListClass@USmudge@@@@A	1
 alternatename	Code/GameEngine/Source/GameClient/TintDrawableFXNuggetCtor.cpp	_vfn_001DFF5D	1
@@ -23541,7 +23540,6 @@ pin	reverse/symbols.csv	0x0004C97F	1
 pin	reverse/symbols.csv	0x0004CA01	1
 pin	reverse/symbols.csv	0x0004CB7B	21
 pin	reverse/symbols.csv	0x0004CB9A	1
-pin	reverse/symbols.csv	0x0004CBC0	2
 pin	reverse/symbols.csv	0x0004CC19	1
 pin	reverse/symbols.csv	0x0004CC82	1
 pin	reverse/symbols.csv	0x0004CCCD	1
@@ -25885,6 +25883,7 @@ pin	reverse/symbols.csv	0x00210E5B	1
 pin	reverse/symbols.csv	0x00210E9D	1
 pin	reverse/symbols.csv	0x00211396	1
 pin	reverse/symbols.csv	0x00211505	1
+pin	reverse/symbols.csv	0x002115C5	1	allow=f3e92141ef12955454f8a67a03d4b2cc0a63036d
 pin	reverse/symbols.csv	0x002115EC	1
 pin	reverse/symbols.csv	0x002118C2	1
 pin	reverse/symbols.csv	0x00211DFB	2
@@ -26516,8 +26515,8 @@ pin	reverse/symbols.csv	0x0026FFF7	1
 pin	reverse/symbols.csv	0x00270221	1
 pin	reverse/symbols.csv	0x00270234	1
 pin	reverse/symbols.csv	0x00270BD9	1
-pin	reverse/symbols.csv	0x00270CE4	1	allow=ebf1fc7704d1ee5302787d990e4b3d8ceefb8cf4
-pin	reverse/symbols.csv	0x00270E48	1	allow=ebf1fc7704d1ee5302787d990e4b3d8ceefb8cf4
+pin	reverse/symbols.csv	0x00270CE4	1
+pin	reverse/symbols.csv	0x00270E48	1
 pin	reverse/symbols.csv	0x00271779	1
 pin	reverse/symbols.csv	0x00271898	2
 pin	reverse/symbols.csv	0x00271BCC	1

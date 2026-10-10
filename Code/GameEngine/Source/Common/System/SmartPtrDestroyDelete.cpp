@@ -8,6 +8,8 @@
 // return this. Callers at 0x4CD43 0x4CD54 0x1F63DE 0x1F65C5. Same flags as
 // SmartPtrCopyCtor; honest RVA class (identity unproven).
 
+// 0x0004CBC0 is the handle unlink (row ?rva0004CBC0@RvaSmartPtr12@@QAEXXZ); the dtor is the inline null test around it.
+class RvaSmartPtr12 { public: void rva0004CBC0(); };
 struct BfmeParticleSystemHandle
 {
 	~BfmeParticleSystemHandle();
@@ -30,7 +32,7 @@ private:
 void *Rva0004CCFF::destroyDelete(unsigned int flags)
 {
 	if (m_ptr != 0)
-		((BfmeParticleSystemHandle *)this)->~BfmeParticleSystemHandle();
+		reinterpret_cast<RvaSmartPtr12 *>(this)->rva0004CBC0();
 	if (flags & 1)
 		operator delete(this);
 	return this;

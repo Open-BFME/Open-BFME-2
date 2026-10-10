@@ -97,26 +97,8 @@ private:
 	FrameDataManager *m_frameData[8];
 };
 
-bool BFMEConnectionManager::areFrameCommandsComplete(unsigned int frame,
-	bool debugSpewage)
-{
-	FrameDataManager **manager;
-	unsigned int commandCount = 0;
-	manager = m_frameData;
-	int slotsRemaining = 8;
-	do
-	{
-		if (*manager != 0 && !(*manager)->getIsQuitting())
-			commandCount += (*manager)->getCommandCount(frame);
-		++manager;
-	}
-	while (--slotsRemaining != 0);
-
-	unsigned int expected = m_frameData[m_localSlot]->getFrameCommandCount(frame);
-	if (expected != commandCount)
-		return false;
-	return true;
-}
+// areFrameCommandsComplete (0x004CF799) is rowed and defined in
+// ConnectionManagerFrameCommands.cpp; declared here only.
 
 // Evidence: donor BFME1 relayCommand game/GameEngine/Source/GameNetwork/native_connection_timing.cpp (NetCommandRef msg+0 relay+0xC; prepareForRelay slot+8; PLAYERLEAVE 10; IsCommandSynchronized/addNetCommandMsg/sendNetCommandMsg rows); BFME2 repairs: GameLogic m_timestampFrame+0x38 m_frame+0x40 (doSend.cpp) exec frame+1 plus timestamp stamp; GlobalData m_networkRunAheadSlack+0xC18; caller 0x004D320B.
 void BFMEConnectionManager::relayCommand(void *ref)

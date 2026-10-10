@@ -87,6 +87,8 @@ private:
 }
 
 // Pointer-chain handle at +0x1C: unlinked through 0x0004CBC0 when set.
+// 0x0004CBC0 is the handle unlink (row ?rva0004CBC0@RvaSmartPtr12@@QAEXXZ); the dtor is the inline null test around it.
+class RvaSmartPtr12 { public: void rva0004CBC0(); };
 struct BfmeParticleSystemHandle
 {
 	~BfmeParticleSystemHandle();
@@ -101,7 +103,7 @@ struct W3DScriptedModelDrawHandle
 	~W3DScriptedModelDrawHandle()
 	{
 		if (m_system != 0)
-			((BfmeParticleSystemHandle *)this)->~BfmeParticleSystemHandle();
+			reinterpret_cast<RvaSmartPtr12 *>(this)->rva0004CBC0();
 	}
 	void *m_system;
 	void *m_previous;

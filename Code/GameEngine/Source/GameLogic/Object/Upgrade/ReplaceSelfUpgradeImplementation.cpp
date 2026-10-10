@@ -161,6 +161,10 @@ private:
 	unsigned int m_bits[7];
 };
 
+// The (init, bit) ctor 0x00045411 is rowed as Rva00045411BitSet; a no-member
+// view of the mask type so the temporary is built through that row.
+struct Rva00045411BitSet : BfmeFixedStorage0004543D { Rva00045411BitSet(Int init, Int bit); };
+
 // The partition filter base (ctor 0x000421C8, vtable 0x007C26E0).
 class Rva000421C8
 {
@@ -300,7 +304,7 @@ void ReplaceSelfUpgrade::upgradeImplementation()
  for(Int j=0;j<count;++j){
   const ThingTemplate *tmpl=TheThingFactory->findTemplate(names[j]);
   Coord3D step;copyCoord(step,&perp);scaleCoord(step,-tmpl->getC8());addCoord(cur,&step);
-  BfmeWideResult iter=ThePartitionManager->iterateObjectsInRange(&pos,tmpl->getB0()*0.5f,1,Rva00261603Filter(pos,tmpl->getTemplateGeometryInfo(),angle,true).link(&Rva0004584D(BfmeFixedStorage0004543D(0,0xBD),*(const BfmeFixedStorage0004543D *)&KINDOFMASK_NONE)),0);
+  BfmeWideResult iter=ThePartitionManager->iterateObjectsInRange(&pos,tmpl->getB0()*0.5f,1,Rva00261603Filter(pos,tmpl->getTemplateGeometryInfo(),angle,true).link(&Rva0004584D(Rva00045411BitSet(0,0xBD),*(const BfmeFixedStorage0004543D *)&KINDOFMASK_NONE)),0);
   for(Object *other=iter.next();other;other=iter.next())other->kill((DamageType)8,(DeathType)0);
   Object *constructor=m_object;
   Object *created=TheBuildAssistant->buildObjectNow(constructor,tmpl,&cur,angle,constructor->getControllingPlayer());

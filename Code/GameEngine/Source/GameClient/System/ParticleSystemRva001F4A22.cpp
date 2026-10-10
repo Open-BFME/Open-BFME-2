@@ -5,6 +5,8 @@
 // Same handle-dtor row as Rva002115C5 precedent plus the clear store.
 // Evidence: rowed ??1BfmeParticleSystemHandle@@QAE@XZ callee and caller
 // at 0x001FBD17 range; class unproven so honest address name.
+// 0x0004CBC0 is the handle unlink (row ?rva0004CBC0@RvaSmartPtr12@@QAEXXZ); the dtor is the inline null test around it.
+class RvaSmartPtr12 { public: void rva0004CBC0(); };
 struct BfmeParticleSystemHandle
 {
 	~BfmeParticleSystemHandle();
@@ -27,7 +29,7 @@ void Rva001F4A22::rva001F4A22()
 {
 	if (m_handle78.m_system)
 	{
-		m_handle78.~BfmeParticleSystemHandle();
+		reinterpret_cast<RvaSmartPtr12 *>(&m_handle78)->rva0004CBC0();
 		m_handle78.m_system = 0;
 	}
 }

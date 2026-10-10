@@ -45,6 +45,17 @@ unsigned char __cdecl rva00030E20Fill(void *dst, unsigned int count, unsigned ch
 
 // The report sink 0x006C2FB0 is the rowed Rva006C2D20Sink::rva006C2FB0
 // (Rva006C2FB0Finish.cpp); (block, message) map to its two pointer arguments.
+// 0x00032A20 (block usable size) is the rowed EA PPMalloc method
+// GeneralAllocator::rva00032A20 (memory_pool.cpp); this object is that
+// allocator, so the call goes through the row's own spelling.
+namespace EA { namespace Allocator {
+class GeneralAllocator
+{
+public:
+	unsigned int rva00032A20(const void *block);
+};
+}}
+
 class Rva006C2D20Sink
 {
 public:
@@ -83,8 +94,6 @@ public:
 	// order right only by declaring the message last, and then necessarily costs
 	// the trailing add esp,8 that retail does not have.
 	void rva006C2FB0Report(void *block, const char *msg);
-
-	unsigned int GetBlockSize(const void *block);
 
 	bool VerifyGuardFill(void *block, int alsoBeyond, unsigned char mode);
 	bool VerifyDelayedFreeFill(void *block);
@@ -222,7 +231,7 @@ bool GeneralAllocatorDebug::VerifyDelayedFreeFill(void *block)
 			goto haveLength;
 		}
 	}
-	length = GetBlockSize(run);
+	length = reinterpret_cast<EA::Allocator::GeneralAllocator *>(this)->rva00032A20(run);
 haveLength:
 
 	// Nesting the fill rather than returning early keeps the argument group

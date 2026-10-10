@@ -19007,7 +19007,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x009FF088,4,.data,global,?m_idCounter@TerrainRoadCollection@@0IA,Code/GameEngine/Source/GameClient/Terrain/TerrainRoads.cpp,owned,,1,5
 0x009FF08C,8,.data,global,?TheGameState@@3PAVGameState@@A,Code/GameEngine/Source/Common/System/SaveGame/GameState.cpp,owned,,1,51
 0x009FF094,8,.data,global,_s_rva007AE45F,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
-0x009FF09C,4,.data,global,?TheLivingWorldBuildingTemplateStore@@3PAVRva0022C0CDSubsystem@@A,,unowned,?TheLivingWorldBuildingTemplateStore@@3PAVRva0022C0CDSubsystem@@A;?g_00DFF09C@@3HA;?g_rva0059E647Factory@@3PAURva0059E647Factory@@A,0,15
+0x009FF09C,4,.data,global,?TheLivingWorldBuildingTemplateStore@@3PAVRva0022C0CDSubsystem@@A,Code/GameEngine/Source/Common/Rva002E0427Dtor.cpp,provisional,?TheLivingWorldBuildingTemplateStore@@3PAVRva0022C0CDSubsystem@@A;?g_00DFF09C@@3HA;?g_rva0059E647Factory@@3PAURva0059E647Factory@@A,1,16
 0x009FF0A0,4,.data,global,?g_Va00DFF0A0@@3IA,,unowned,,0,1
 0x009FF0A4,4,.data,global,?g_Va00DFF0A4@@3IA,,unowned,,0,1
 0x009FF0A8,8,.data,global,?g_Va00DFF0A8@@3IA,Code/GameEngine/Source/Common/GlobalFlagClearers_DFF0xx.cpp,owned,,1,4

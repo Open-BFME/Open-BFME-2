@@ -16,12 +16,15 @@ struct BfmeParticleSystemHandle
 
 class RvaSmartPtr12
 {
+	public: void rva0004CBC0(); // 0x0004CBC0, the unlink the inline dtor null test calls
+private:
+
 public:
 	RvaSmartPtr12(const RvaSmartPtr12 &that);
 	~RvaSmartPtr12()
 	{
 		if (m_ptr != 0)
-			((BfmeParticleSystemHandle *)this)->~BfmeParticleSystemHandle();
+			reinterpret_cast<RvaSmartPtr12 *>(this)->rva0004CBC0();
 	}
 	void *m_ptr;
 	int m_pad04;

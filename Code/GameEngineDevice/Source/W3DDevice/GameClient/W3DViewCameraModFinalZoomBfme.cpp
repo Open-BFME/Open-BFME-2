@@ -101,7 +101,7 @@ struct WaypointXY
 	char padding[4];
 };
 
-class Rva0030E961 { public: Real rva0030E67C(Real x,Real y); };
+class Rva0030E7D0 { public: Real rva0030E67C(Real x,Real y); };
 
 class Matrix3D;
 class Rva000857F2 {public:void rva000857F2();};
@@ -200,7 +200,7 @@ private:
 	char m_padding23f4[0x241c - 0x23f4];
 	Bool m_cameraConstraintValid;
 	char m_padding241d[0x2458 - 0x241d];
-	Rva0030E961 m_cameraHeightField;
+	Rva0030E7D0 m_cameraHeightField;
 	char m_padding2459[0x2474 - 0x2459];
 	Bool m_useHeightField;
 	char m_padding2475[0x24c8 - 0x2475];

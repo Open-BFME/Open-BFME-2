@@ -45,41 +45,16 @@ struct TreadObjectInfo
 	unsigned char m_rest[0x10];
 };
 
-class ParticleSystem;
-struct BfmeParticleSystemHandle
-{
-	~BfmeParticleSystemHandle();
-	ParticleSystem *m_system;
-	BfmeParticleSystemHandle *m_previous;
-	BfmeParticleSystemHandle *m_next;
-};
-class ParticleSystem
-{
-public:
-	unsigned char m_pad[0x9C];
-	BfmeParticleSystemHandle *m_firstHandle;
-	BfmeParticleSystemHandle *m_lastHandle;
-};
-inline BfmeParticleSystemHandle::~BfmeParticleSystemHandle()
-{
-	if (m_previous)
-		m_previous->m_next = m_next;
-	else
-		m_system->m_firstHandle = m_next;
-	if (m_next)
-		m_next->m_previous = m_previous;
-	else
-		m_system->m_lastHandle = m_previous;
-	m_previous = 0;
-	m_next = 0;
-}
+// 0x0004CBC0 is the handle unlink (row ?rva0004CBC0@RvaSmartPtr12@@QAEXXZ); the
+// handle dtor is the inline null test around it (0x002115C5), spelled out below.
+class RvaSmartPtr12 { public: void rva0004CBC0() throw(); };
 
 struct W3DTankDrawDebrisHandle
 {
 	~W3DTankDrawDebrisHandle()
 	{
 		if (m_ptr0 != 0)
-			((BfmeParticleSystemHandle *)this)->~BfmeParticleSystemHandle();
+			reinterpret_cast<RvaSmartPtr12 *>(this)->rva0004CBC0();
 	}
 	void *m_ptr0;
 	void *m_ptr1;

@@ -23,6 +23,9 @@ struct BfmeParticleSystemHandle
 };
 class RvaSmartPtr12
 {
+	public: void rva0004CBC0(); // 0x0004CBC0, the unlink the inline dtor null test calls
+private:
+
 public:
 	RvaSmartPtr12 &operator=(const RvaSmartPtr12 &that);
 };
@@ -54,7 +57,7 @@ void Rva003FC7FC::rva003FC7FC(void)
 		TheParticleSystemManager->destroyParticleSystemByID(m_id);
 		if (m_handle.m_system != 0)
 		{
-			m_handle.~BfmeParticleSystemHandle();
+			reinterpret_cast<RvaSmartPtr12 *>(&m_handle)->rva0004CBC0();
 			m_handle.m_system = 0;
 		}
 		m_id = INVALID_PARTICLE_SYSTEM_ID;

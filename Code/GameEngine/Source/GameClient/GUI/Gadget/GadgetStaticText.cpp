@@ -182,7 +182,7 @@ WindowMsgHandledType GadgetStaticTextSystem( GameWindow *window, UnsignedInt msg
 		{
 			TextData *tData = (TextData *)window->winGetUserData();
 			if (tData && tData->text)
-				*(UnicodeString*)mData2 = ((BFMEStaticTextDisplayString *)tData->text)->getText();
+				((StringBase<WideChar> *)mData2)->set( *(const StringBase<WideChar> *)&(const UnicodeString &)((BFMEStaticTextDisplayString *)tData->text)->getText() );
 			break;
 
 		}  // end get label

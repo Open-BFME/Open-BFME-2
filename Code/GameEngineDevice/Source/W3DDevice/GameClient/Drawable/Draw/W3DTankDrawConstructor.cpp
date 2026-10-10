@@ -15,6 +15,8 @@ class Thing;
 class ModuleData;
 class RenderObjClass;
 
+// 0x0004CBC0 is the handle unlink (row ?rva0004CBC0@RvaSmartPtr12@@QAEXXZ); the dtor is the inline null test around it.
+class RvaSmartPtr12 { public: void rva0004CBC0(); };
 struct BfmeParticleSystemHandle
 {
 	~BfmeParticleSystemHandle();
@@ -29,7 +31,7 @@ struct W3DTankDrawDebrisHandle
 	~W3DTankDrawDebrisHandle()
 	{
 		if (m_ptr0 != 0)
-			((BfmeParticleSystemHandle *)this)->~BfmeParticleSystemHandle();
+			reinterpret_cast<RvaSmartPtr12 *>(this)->rva0004CBC0();
 	}
 	void *m_ptr0;
 	void *m_ptr1;

@@ -23,6 +23,9 @@ struct BfmeParticleSystemHandle
 
 class RvaSmartPtr12
 {
+	public: void rva0004CBC0(); // 0x0004CBC0, the unlink the inline dtor null test calls
+private:
+
 public:
 	RvaSmartPtr12(void *ptr);
 	RvaSmartPtr12(const RvaSmartPtr12 &that);
@@ -64,7 +67,7 @@ RvaSmartPtr12 &RvaSmartPtr12::operator=(const RvaSmartPtr12 &that)
 	if (this != &that)
 	{
 		if (m_ptr != 0)
-			((BfmeParticleSystemHandle *)this)->~BfmeParticleSystemHandle();
+			reinterpret_cast<RvaSmartPtr12 *>(this)->rva0004CBC0();
 		m_ptr = that.m_ptr;
 		if (m_ptr != 0)
 			attach();

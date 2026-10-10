@@ -8918,7 +8918,7 @@ _Rva008118C0,,0x0067D7C0,5,Code/Libraries/Source/DirtySock/Y5SmallHelpers.c,matc
 ?push_back@?$list@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAEXABVAsciiString@@@Z,,0x001FD868,26,Code/Libraries/Source/WWVegas/WWLib/stlport_list_asciistring_insert.cpp,matched,stlport-4.5.3 /O1; byte-twin of matched list<Object*> push_back modulo the insert REL32; resolves via the same-TU insert row
 ?Rva00116F00@@YA_NXZ,,0x00116F00,11,Code/Libraries/Source/WWVegas/WW3D2/DX8WrapperDeviceQueries.cpp,matched,DX8 any-device bool query
 ?destroy@ParticleSystem@@QAEXXZ,,0x001F462C,50,Code/GameEngine/Source/GameClient/System/ParticleSystem_destroy.cpp,matched,BFME1 ParticleSys destroy port; slave plus0x15C flag plus0x1A4; Make pin for null slave
-??1BfmeParticleSystemHandle@@QAE@XZ,,0x0004CBC0,55,Code/GameEngine/Source/GameClient/System/ParticleSystemHandle_dtor.cpp,matched,Intrusive unlink port of BFME1 ListClear idiom; head at plus0x9C-A0; pin pre-existed
+?rva0004CBC0@RvaSmartPtr12@@QAEXXZ,,0x0004CBC0,55,Code/GameEngine/Source/GameClient/System/ParticleSystemHandle_dtor.cpp,matched,Intrusive unlink port of BFME1 ListClear idiom; head at plus0x9C-A0; the out-of-line unlink the inline handle dtor 0x002115C5 (cmp [ecx] 0 / je / jmp here) calls; W3DTruckDraw dtor 0x000CDE73 inlines that null test three times around call 0x0004CBC0
 ?lowerBound@VersionBlockParser@@SAPBXPBX0PBQBD0H@Z,,0x00427D0E,83,Code/GameEngine/Source/Common/VersionBlockSearch.cpp,matched,
 ?upperBound@VersionBlockParser@@SAPBXPBX0PBQBD0H@Z,,0x00427D61,83,Code/GameEngine/Source/Common/VersionBlockSearch.cpp,matched,
 ??1Rva005F38CA@@UAE@XZ,,0x005F38CA,14,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtors.cpp,matched,opaque dtor explicit clear call on member at +4; helper pin 0x5F35D3

@@ -145,12 +145,15 @@ public:
 
 class RvaSmartPtr12
 {
+	public: void rva0004CBC0() throw(); // 0x0004CBC0, the unlink the inline dtor null test calls
+private:
+
 public:
 	RvaSmartPtr12(const RvaSmartPtr12 &that);
 	__forceinline ~RvaSmartPtr12()
 	{
 		if (m_system)
-			((BfmeParticleSystemHandle *)this)->~BfmeParticleSystemHandle();
+			reinterpret_cast<RvaSmartPtr12 *>(this)->rva0004CBC0();
 	}
 	operator bool() const { return m_system != 0; }
 	ParticleSystem *operator->() const { return m_system ? m_system : Make001FCBD7(); }

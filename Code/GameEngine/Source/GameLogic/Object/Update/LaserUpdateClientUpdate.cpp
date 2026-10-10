@@ -47,11 +47,14 @@ extern GameClient *TheGameClient;
 struct Rva001F3899Arg { float x,y,z; };
 class Rva001F3899Slot { public: void set(const Rva001F3899Arg &); };
 class ParticleSystem { public: __forceinline void setPosition(const Coord3D *pos) { reinterpret_cast<Rva001F3899Slot *>(this)->set(*reinterpret_cast<const Rva001F3899Arg *>(pos)); } };
-class RvaSmartPtr12 { public: RvaSmartPtr12 &operator=(const RvaSmartPtr12 &) throw(); };
+class RvaSmartPtr12 {
+	public: void rva0004CBC0() throw(); // 0x0004CBC0, the unlink the inline dtor null test calls
+private:
+ public: RvaSmartPtr12 &operator=(const RvaSmartPtr12 &) throw(); };
 struct BfmeParticleSystemHandle { ~BfmeParticleSystemHandle() throw(); ParticleSystem *m_system; void *m_previous,*m_next; };
 struct BfmeW3DParticleHandle {
  BfmeW3DParticleHandle():m_system(0),m_previous(0),m_next(0) {}
- __forceinline ~BfmeW3DParticleHandle() throw() { if(m_system) ((BfmeParticleSystemHandle *)this)->~BfmeParticleSystemHandle(); }
+ __forceinline ~BfmeW3DParticleHandle() throw() { if(m_system) reinterpret_cast<RvaSmartPtr12 *>(this)->rva0004CBC0(); }
  BfmeW3DParticleHandle &operator=(const BfmeW3DParticleHandle &other) throw() {
   *((RvaSmartPtr12 *)this)=*((const RvaSmartPtr12 *)&other);return *this;
  }

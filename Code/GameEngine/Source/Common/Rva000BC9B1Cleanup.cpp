@@ -25,6 +25,8 @@ public:
     void destroy();
 };
 
+// 0x0004CBC0 is the handle unlink (row ?rva0004CBC0@RvaSmartPtr12@@QAEXXZ); the dtor is the inline null test around it.
+class RvaSmartPtr12 { public: void rva0004CBC0(); };
 struct BfmeParticleSystemHandle {
     ~BfmeParticleSystemHandle();
     ParticleSystem *m_system;
@@ -36,7 +38,7 @@ struct BfmeW3DParticleHandle {
     ParticleSystem *system;
     void *previous;
     void *next;
-    __forceinline ~BfmeW3DParticleHandle() { if (system) ((BfmeParticleSystemHandle *)this)->~BfmeParticleSystemHandle(); }
+    __forceinline ~BfmeW3DParticleHandle() { if (system) reinterpret_cast<RvaSmartPtr12 *>(this)->rva0004CBC0(); }
 };
 
 struct Rva000BC9B1;
