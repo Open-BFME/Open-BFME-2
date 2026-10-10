@@ -153,7 +153,7 @@ public:
 	virtual void slot01(); virtual void slot02(); virtual void slot03();
 	virtual StateReturnType updateStateMachine();
 	virtual void clear();
-	virtual void slot06(); virtual void slot07();
+	virtual void slot06(); virtual StateReturnType initDefaultState();
 	virtual StateReturnType setState(StateID newStateID);
 	Object *getOwner() const { return m_owner; }
 	Object *getGoalObject();
@@ -266,9 +266,17 @@ private:
 	unsigned char m_pad1C[0x20 - 0x1C];
 	StateMachine *m_huntMachine; // +0x20
 };
+// The back-away sub-machine (rowed constructor 0x003444CE: owner, goal object,
+// machine name key).
+class Rva003444CE : public StateMachine
+{
+public:
+	Rva003444CE(Object *owner, Object *arg, unsigned int nameKey);
+};
 class AIBackAwayAndCowerState : public State
 {
 public:
+	virtual StateReturnType onEnter();
 	virtual void onExit(StateExitType status);
 	virtual StateReturnType update();
 private:
@@ -373,6 +381,20 @@ StateReturnType AIAttackMoveToState::onEnter()
 		m_bfmeGoalPosition60 = machine->m_goalPosition;
 	}
 	return ret;
+}
+
+// AIBackAwayAndCowerState::onEnter, retail 0x00347C38 (107 bytes), slot 4 of
+// 0x00C10EE0: refuses a second entry while its sub-machine exists, otherwise
+// builds it for the owner and the machine's goal object (name key 0xD944B508)
+// and starts it in its default state.
+StateReturnType AIBackAwayAndCowerState::onEnter()
+{
+	if (m_backAwayMachine)
+		return STATE_FAILURE;
+	m_backAwayMachine = new Rva003444CE(getMachineOwner(), getMachine()->getGoalObject(), 0xD944B508);
+	if (m_backAwayMachine == NULL)
+		return STATE_FAILURE;
+	return m_backAwayMachine->initDefaultState();
 }
 
 void AIBackAwayAndCowerState::onExit( StateExitType status )
