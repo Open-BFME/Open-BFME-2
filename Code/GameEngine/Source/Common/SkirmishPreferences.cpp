@@ -507,3 +507,20 @@ void SkirmishPreferences::rva0043BD36(void)
 	}
 	setAsciiString(buildProfileKey("HeroIndexes"), gameInfoValue);
 }
+
+// WB/user-list evidence and retail43C559..43C612; QP donor purpose retained.
+static __forceinline void assignEncodedName(const AsciiString &value, PreferenceMap *prefs,
+ const AsciiString &key)
+{
+ AsciiString &slot = (*prefs)[key]; slot = value;
+}
+void SkirmishPreferences::rebuildUserNamesEntry()
+{
+ _STL::list<UnicodeString>::iterator it = m_userNames.begin();
+ UnicodeString joined;
+ for (; it != m_userNames.end(); ++it) {
+  joined.concat(*it); joined.concat(L",");
+ }
+ assignEncodedName(UnicodeStringToQuotedPrintable(joined),
+ static_cast<PreferenceMap *>(this), AsciiString("UserNames"));
+}
