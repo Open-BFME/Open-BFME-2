@@ -21,3 +21,11 @@ bool GameLogic::rva001DCD1C(void)
 {
     return m_110 == 8 || (m_110 == 9 && m_114 != 3);
 }
+
+// Native2DB9AC loads the existing TheGameLogic pointer and clears byte+6F.
+// The byte's purpose and original operation name remain unknown.
+extern GameLogic *TheGameLogic;
+void Rva002DB9ACClearGameLogicByte()
+{
+    reinterpret_cast<unsigned char *>(TheGameLogic)[0x6F] = 0;
+}
