@@ -277,3 +277,13 @@ unsigned Rva005B8DBB::rva005B8DBB(unsigned key){
  case 2:{Rva0038454E stats=all.rva00389E0F();return g_00E05FCC.rva00559DA0((const Rva00553E47StatsCore*)&stats,(unsigned char)key);}
  }
 }
+
+// Native005B89A1..005B8A40 and WB15832D0; 190B open snapshot provider,
+// six-side extension and total column contracts established by owned siblings.
+void Rva005B8EBB::rva005B89A1(){
+ PSPlayerAllStats all=((Rva005B89A1InfoView*)TheGameSpyInfo)->stats();
+ Rva003844D7 stats=all.rva00389DF1();
+ unsigned total=0;
+ rva005B87ED(&stats,&total);
+ ((GameStats::Persistent*)m_60)->CalculateTotalColumn((float)total);
+}
