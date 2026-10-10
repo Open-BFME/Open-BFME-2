@@ -53,6 +53,15 @@
 //-----------------------------------------------------------------------------
 #include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
 
+// Use the established exact byte-vector insertion specialization; this TU
+// must not instantiate an optimization-specific competing copy of its helpers.
+#include <vector>
+namespace _STL {
+template<> void vector<unsigned char>::_M_fill_insert(unsigned char *, unsigned int, const unsigned char &);
+// Retain this unit's already verified native allocator instantiation (000073E0).
+template unsigned char *allocator<unsigned char>::allocate(unsigned int, const void *) const;
+}
+
 #include "Common/ActionManager.h"
 #include "Common/DiscreteCircle.h"
 #include "Common/GameEngine.h"
