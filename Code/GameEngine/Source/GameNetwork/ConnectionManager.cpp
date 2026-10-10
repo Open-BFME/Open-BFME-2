@@ -1318,6 +1318,10 @@ void ConnectionManager::sendLocalGameMessage(GameMessage *msg, UnsignedInt frame
 
 Int commandsReadyDebugSpewage = 0;
 
+// Owned here: only present in a network game, deleted above; retail .data
+// starts it at 0 (VA 0x00A048D0).
+DisconnectMenu *TheDisconnectMenu = 0;
+
 /**
  * Returns true if all the commands for the given frame are ready to be executed.
  */
