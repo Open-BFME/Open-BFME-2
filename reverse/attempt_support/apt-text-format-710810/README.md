@@ -1,0 +1,11 @@
+The native property methods at RVA 710580 (652 bytes) and 710810 (1108 bytes) are independently complete. Their native addresses appear at slots 7 and 8 of the 60-byte table at RVA 8ECB54, owned by the existing Rva006ECFC0Owner class. Its already verified constructors establish a 64-byte object and 32-byte format state at offset 20. Original class/member spellings remain unknown. WorldBuilder supplies AptTextFormat.cpp and assertion lines 196/393 as semantic/file leads, rather than proving an original name. The current BFME1 575ba2b04743f190f069805fbdc59936123c45da Apt siblings are subsystem guidance; target bytes prove these methods' differing layout and behavior. No decoder source was read.
+
+The whole existing owner source was used for both private trials. Getter emits all 652 bytes and its 15-entry main/4-entry alignment tables; four ordinary scheduling bytes at +116..119 differ (PUSH EAX/LEA ECX order). Existing constructor/destructor controls remain masked exact. The setter first trial emits all 1108 bytes, including its 16-entry table. Normal add_match verified all 6 source rows, every relocation, 21 strings, and extent. Explicit --prepare-current succeeded with strict reusable receipts. These are byte proofs, not recovered progress while linking is blocked.
+
+The current ordinary link_check, witnessed census 2026-10-10 15:55 at f739791d66, refuses the owner with four inherited blockers:
+- unresolved ??1Rva006D6360@@UAE@XZ;
+- duplicate ??0Rva006D6360@@QAE@HH@Z;
+- duplicate ??0Rva006D6470Owner@@QAE@HH@Z;
+- kept ??_GRva006D6470Owner@@UAEPAXI@Z is not retail's definition.
+
+Current official sources retain these private base definitions. The already published 49684ea220de1901e5543c222a84279a19cdac94 constructor cleanup affects AptValueVector.cpp and PlaybackBufferResize.cpp, so is inapplicable to these four base-family blockers. No shared canonical header covers Rva006D6360/Rva006D6470Owner. No alias, new TU/private class copy, pin, visibility change, baseline or verifier workaround was attempted. Provisional setter Source/row/landed log were restored. Both complete source attempts are banked independently. Revisit with a genuine base-family reconciliation; do not count the setter as C++ recovery until whole home links.
