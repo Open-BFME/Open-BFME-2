@@ -1,6 +1,8 @@
 // ?update@BezierProjectileBehavior@@UAE?AW4UpdateSleepTime@@XZ
+// partial score=0.9174216679379457 date=2026-10-10
+// ?update@BezierProjectileBehavior@@UAE?AW4UpdateSleepTime@@XZ
 // partial score=0.85 date=2026-10-09
-// cl: /O1 /Ob2 /G7 /arch:SSE /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
+// cl: /I. /O1 /Ob2 /G7 /arch:SSE /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
 // stlport
 // WorldBuilder 1181E80 names BezierProjectileBehavior::update; native
 // 45C226..45C812. ZH DumbProjectileBehavior::update supplies path retargeting,
@@ -11,9 +13,9 @@
 #include <math.h>
 #include <vector>
 #include <bitset>
-#include "../../../../../Libraries/Include/Lib/Coord3D.h"
-#include "../../../Common/PartitionRangeQueryCallView.h"
-#include "../../../Common/GameLogicObjectLookupView.h"
+#include "Code/Libraries/Include/Lib/Coord3D.h"
+#include "Code/GameEngine/Source/Common/PartitionRangeQueryCallView.h"
+#include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 extern PartitionManager *ThePartitionManager;
 class Vector3;
@@ -119,7 +121,7 @@ UpdateSleepTime BezierProjectileBehavior::update() {
  if(d->orient && !d->tumble) {
   Coord3D previous,next;
   float length=scale*20.0f;
-  if(step>0) previous=path[step-1];else { previous=path[step];previous.z-=length; }
+  if(step>0) previous=path[step-1];else { previous=path[step];previous.z-=*(volatile const float*)&length; }
   if(step<count-1)next=path[step+1];else {next=path[step];next.z-=length;}
   Coord3D delta;delta.x=next.x-previous.x;delta.y=next.y-previous.y;delta.z=next.z-previous.z;
   float sq=delta.x*delta.x+delta.y*delta.y+delta.z*delta.z;

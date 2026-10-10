@@ -1,10 +1,12 @@
 // ?rva00916CD0@PointGroupClass@@QAEXPAEHH@Z
+// partial score=0.9645930348717475 date=2026-10-10
+// ?rva00916CD0@PointGroupClass@@QAEXPAEHH@Z
 // partial score=0.957461887 date=2026-10-09
 // ?rva00916CD0@PointGroupClass@@QAEXPAEHH@Z
 // partial score=0.9575 date=2026-10-06
 // ?rva00916CD0@PointGroupClass@@QAEXPAEHH@Z
 // partial score=0.9574619 date=2026-10-05
-// cl: /arch:SSE /G7 /DNDEBUG /MD /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/game/Libraries/Source/Compression /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep
+// cl: /I. /arch:SSE /G7 /DNDEBUG /MD /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/game/Libraries/Source/Compression /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep
 // Banked partial for retail 0x0017D770 (1583B, UV fill helper called from Render 0x0017F3DE).
 // BFME1 PointGroupClassUVFill.cpp donor under /arch:SSE /G7; this shape (VertexUV read at the top of
 // the point_frame branch and per inner branch in the default-frame path, FrameRowColumnCountLog2
@@ -19,6 +21,8 @@
 // No semantic rectangle class is asserted. Evidence:
 // targets/game/reverse/identity_evidence/00916cd0-pointgroup-uv.md
 
+extern "C" void _ReadWriteBarrier(void);
+#pragma intrinsic(_ReadWriteBarrier)
 #include "sharebuf.h"
 #include "vector.h"
 #include "vector2.h"
@@ -97,7 +101,7 @@ void PointGroupClass::rva00916CD0(unsigned char *point_frame, int active_points,
         vertex_uv += 3;
       }
     } else {
-      Vector2 *uv_ptr = _QuadVertexUVFrameTable[FrameRowColumnCountLog2] + ((DefaultPointFrame & frame_mask) * 4);
+      Vector2 *uv_ptr = _QuadVertexUVFrameTable[FrameRowColumnCountLog2] + ((DefaultPointFrame & frame_mask) * 4); _ReadWriteBarrier();
       Vector2 *vertex_uv = &VertexUV[0];
       if (bounds_address) {
         const float *bounds = (const float *)bounds_address;

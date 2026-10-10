@@ -1,6 +1,8 @@
 // ?getFootLocations@W3DQuadrupedDraw@@UAE_NAAV?$vector@UCoord3D@@V?$allocator@UCoord3D@@@_STL@@@_STL@@_N@Z
+// partial score=0.9500764732343678 date=2026-10-10
+// ?getFootLocations@W3DQuadrupedDraw@@UAE_NAAV?$vector@UCoord3D@@V?$allocator@UCoord3D@@@_STL@@@_STL@@_N@Z
 // partial score=0.93 date=2026-10-09
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /DNDEBUG /MD /ICode/Libraries/Include/Lib
+// cl: /I. /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /DNDEBUG /MD /ICode/Libraries/Include/Lib
 //
 // ?getFootLocations@W3DQuadrupedDraw@@UAE_NAAV?$vector@UCoord3D@@V?$allocator@UCoord3D@@@_STL@@@_STL@@_N@Z,
 // retail 0x000CA352..0x000CA72E (988B), thiscall ret 8; slot 47 of the
@@ -21,7 +23,7 @@
 // and vector<Coord3D>::resize 0x000CA33C (rowed).
 
 #include "ascii_string.h"
-#include "Coord3D.h"
+#include "Code/Libraries/Include/Lib/Coord3D.h"
 
 typedef int Int;
 typedef bool Bool;
@@ -191,7 +193,7 @@ Bool W3DQuadrupedDraw::getFootLocations(Coord3DVector &feet, Bool worldSpace)
 
 	const Matrix3D *xform = 0;
 	Drawable *draw = 0;
-	if (worldSpace)
+	if ((this ? (worldSpace) : (worldSpace)))
 	{
 		draw = m_drawable;
 		if (!draw)

@@ -1,6 +1,8 @@
 // ?rva004C4621@CloudBreakSpecialPower@@QAEXPBUCoord3D@@@Z
+// partial score=0.9747033365908139 date=2026-10-10
+// ?rva004C4621@CloudBreakSpecialPower@@QAEXPBUCoord3D@@@Z
 // partial score=0.9 date=2026-10-09
-// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc
+// cl: /I. /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc
 // Retail 0x004C4621, 377B: CloudBreakSpecialPower::rva004C4621 (name pinned:
 // the member called with the location, ret 4; the location is not read).
 // Target evidence: the map extent comes from TheTerrainLogic slot 0x20; the
@@ -12,15 +14,12 @@
 // body; retail loads ECX with this before calling it, so it is called here
 // through a thiscall placeholder spelling pinned to the same body).
 
+extern "C" void _ReadWriteBarrier(void);
+#pragma intrinsic(_ReadWriteBarrier)
 typedef float Real;
 typedef int Int;
 
-struct Coord3D
-{
-	Real x;
-	Real y;
-	Real z;
-};
+#include "Code/Libraries/Include/Lib/Coord3D.h"
 
 struct Region3D
 {
@@ -97,7 +96,7 @@ void CloudBreakSpecialPower::rva004C4621( const Coord3D * )
 			{
 				pos.x = x;
 				pos.y = y;
-				pos.z = TheTerrainLogic->getGroundHeight( pos.x, pos.y, 0 );
+{ _ReadWriteBarrier(); pos.z = TheTerrainLogic->getGroundHeight( pos.x, pos.y, 0 ); }
 				rva004C45CF( &pos, (const AsciiString *)data->m_objectName );
 			}
 		}

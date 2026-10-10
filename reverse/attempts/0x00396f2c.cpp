@@ -1,6 +1,8 @@
 // ?playEvaEventsForCastlePacking@CastleBehavior@@QAEXXZ
+// partial score=0.8357313211399947 date=2026-10-10
+// ?playEvaEventsForCastlePacking@CastleBehavior@@QAEXXZ
 // partial score=0.75 date=2026-10-08
-// cl: /ICode/GameEngine/Source/Common /O1 /G7 /arch:SSE /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /I. /ICode/GameEngine/Source/Common /O1 /G7 /arch:SSE /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // Source lead: Open-BFME-1 ba7ddda7e8f261163972ddbe23c7e7a12ac5b84f,
 // game/GameEngine/Source/GameLogic/System/CastleBehaviorRegisterOwnedObject.cpp.
@@ -15,7 +17,7 @@
 #include <vector>
 #include <map>
 enum NameKeyType { NAMEKEY_INVALID=0 };
-#include "GameLogicObjectLookupView.h"
+#include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
 enum ObjectStatusTypes { OBJECT_STATUS_5=5, OBJECT_STATUS_79=79 };
 class Player;
 class Module;
@@ -112,7 +114,7 @@ void CastleBehavior::playEvaEventsForCastlePacking() {
  }
  Relationship relationship=localPlayer->getRelationship(team);
  if(relationship==REL_ALLY) {
-  if(!((Rva003962E7*)this)->rva003962E7(controllingPlayer->getPlayerIndex(),TheEva->timeout88)) return;
+  if(!((Rva003962E7*)this)->rva003962E7(controllingPlayer->getPlayerIndex(),(TheEva?TheEva:TheEva)->timeout88)) return;
   int event=module ? moduleEvent(module,0xc) : 10;
   const Coord3D* position=object ? (Coord3D*)((char*)object+0x38) : (Coord3D*)((char*)self+0x38);
  TheEva->reportEvaEvent(event,position,0);

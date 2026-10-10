@@ -1,8 +1,10 @@
 // ?drawTextEntryText@@YAXPAVGameWindow@@HHHHHH@Z
+// partial score=0.9737465417522531 date=2026-10-10
+// ?drawTextEntryText@@YAXPAVGameWindow@@HHHHHH@Z
 // partial score=0.9698002111250066 date=2026-10-10
 // ?drawTextEntryText@@YAXPAVGameWindow@@HHHHHH@Z
 // partial score=0.98 date=2026-10-10
-// cl: /O1 /G7 /arch:SSE /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /I. /O1 /G7 /arch:SSE /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // NEAR draft for 0x0009FE49 drawTextEntryText (1398B), built from the
 // banked reverse/attempts/0x0009fe49.cpp. Changes: non-static (callers in
 // W3DTextEntry.cpp declare it extern), region flags /O1 /G7 /arch:SSE, and
@@ -433,7 +435,7 @@ void drawTextEntryText( GameWindow *window, Color textColor, Color textDropColor
 
 	if( ( window == TheWindowManager->winGetFocus() || ( parent && parent == TheWindowManager->winGetFocus() ) ) && ( timeGetTime() & 0x200 ) )
 		TheWindowManager->winFillRect( textColor, WIN_DRAW_LINE_WIDTH,
-																	 cursorPos, origin.y + 2,
+																	 *(const volatile Int*)&cursorPos, origin.y + 2,
 																	 cursorPos + 3, origin.y + height + 2 );
 	((Rva00478180 *)window)->set( cursorPos + 2 - origin.x, 0 );
 
