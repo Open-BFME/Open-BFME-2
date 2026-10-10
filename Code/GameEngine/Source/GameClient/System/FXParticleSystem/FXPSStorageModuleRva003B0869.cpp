@@ -167,6 +167,9 @@ public:
 		void *Vertices;
 		int m_08;
 	};
+ // Same12B lock ABI; the native append cleanup uses the owned WriteLock destructor.
+ class AppendLockClass : public WriteLockClass { public: AppendLockClass(VertexBufferClass*, unsigned, unsigned, int); };
+
 };
 
 class GameClientRandomVariable
@@ -219,13 +222,14 @@ struct PrereqUnitRec
 	Int slot;
 	Int unused;
 };
-class Rva003B0412
-{
-public:
-	void rva003B0412(const PrereqUnitRec *rec);
-private:
-	unsigned char m_pad[0x10];
-};
+struct Rva003AFD22Node;
+struct Rva003B02F4Entry { Real time; Int slot; Rva003AFD22Node *node; };
+struct Rva003B02F4Greater {};
+typedef _STL::priority_queue<Rva003B02F4Entry, _STL::vector<Rva003B02F4Entry, _STL::allocator<Rva003B02F4Entry> >, Rva003B02F4Greater> ExpiryQueue;
+class Rva003B0412 : public ExpiryQueue { public:void rva003B0412(const PrereqUnitRec*); };
+class ModuleData;
+class Rva003B0433 : public FreeSlotQueue { public:void rva003B0433(const ModuleData*&); };
+
 
 struct Rva003B0869Vertex
 {
@@ -348,4 +352,64 @@ void Rva003B0401::rva003B0869(Int unused, Int count)
 			}
 		}
 	}
+}
+
+// WB FA9D70 names FXParticleSystem::GPUParticleSystemStorageModule::AddParticle.
+// Native3B0578..3B07B8 full576 RET4; C1D9B0 GPUParticle and C1DA10 TerrainFire
+// slot5 both select it. Slot2 C1D9B0 selects the owned GPUParticle name getter.
+// The owned1078B sibling above supplies the time/expiry/quad-writing pattern;
+// native evidence independently gives particle vel10/pos1C/lifetime34/linked74,
+// module vertexBuffer1C/expiry24/freeSlots34, and the random call's line286.
+// Particle and base-storage names stay neutral; PrereqUnitRec is an existing
+//12B ABI carrier, with its third word carrying the particle pointer here.
+// Append's cleanup uses the native shared113B WriteLock destructor. The
+// inheritance below is a layout/lifetime view, not an original hierarchy claim.
+struct Rva003AFD22Node { virtual ~Rva003AFD22Node();char pad04[0x10-4];Rva003AFA0BVector vel;Coord3D pos;char gap28[0x34-0x28];unsigned life34;char gap38[0x74-0x38];bool linked74; };
+// Native common storage API prefix: vptr plus through1B. C1D950 slot5
+// binds the existing58B list-attachment body. The original base name remains
+// unknown; its use as a C++ base is a structural view, not a recovered name.
+class Rva003AFD22 {public:
+ virtual void slot00();virtual void slot01();virtual void slot02();virtual void slot03();virtual void slot04();
+ virtual void AddParticle(Rva003AFD22Node*);
+ virtual void slot06();virtual void slot07();virtual void slot08();virtual void slot09();virtual void rva003B07B8();
+ void rva003AFD22(Rva003AFD22Node*);char prefix[0x1c-4];};
+namespace FXParticleSystem {
+class GPUParticleSystemStorageModule : public Rva003AFD22 {public:virtual void AddParticle(Rva003AFD22Node*);virtual void rva003B07B8();VertexBufferClass*vb1C;int unused20;Rva003B0412 expiry24;Rva003B0433 slots34;};
+void GPUParticleSystemStorageModule::AddParticle(Rva003AFD22Node*p){
+ if(slots34.empty()||p->linked74)return;
+ DX8ThreadLock threadLock;
+ rva003AFD22(p);
+ int slot=slots34.top();slots34.pop();
+ PrereqUnitRec rec;rec.slot=slot;rec.time=(Real)(WW3D::Get_Sync_Time()*g_009BA4E8)/1000.0f+(Real)p->life34;rec.unused=(Int)p;
+ expiry24.rva003B0412(&rec);
+ VertexBufferClass::AppendLockClass lock(vb1C,slot*4,4,0);
+ Rva003B0869Vertex*v=(Rva003B0869Vertex*)lock.Get_Vertex_Array();
+ Real birth=(Real)(WW3D::Get_Sync_Time()*g_009BA4E8)/1000.0f;
+ Real life=(Real)p->life34;
+ Real spin=GetGameClientRandomValueReal(0.0f,15.0f,"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameClient\\System\\FXParticleSystem\\fxpsstoragemodule.cpp",286);
+ writeVertex(v,p->pos,life,p->vel,birth,spin,0.0f);++v;
+ writeVertex(v,p->pos,life,p->vel,birth,spin,1.0f);++v;
+ writeVertex(v,p->pos,life,p->vel,birth,spin,2.0f);++v;
+ writeVertex(v,p->pos,life,p->vel,birth,spin,3.0f);
+}
+}
+
+// Native3B07B8..3B0835 full125 RET0; WB FAA340 unnamed, GPUParticle and
+// TerrainFire storage vtables both select slot10. Expired12B records contain
+// float time plus integer slot plus virtual-dtor particle pointer. ::delete
+// reproduces flag0 virtual destruction followed by the owned global delete.
+// The legacy33B push API spells its four-byte input as ModuleData*: the value
+// here is explicitly an integer-bit carrier, never a dereferenced pointer.
+// Original update name is unknown. The slot-valued pointer PHI delays the
+// slot spill until after the particle null test, as the native body does.
+namespace FXParticleSystem {
+void GPUParticleSystemStorageModule::rva003B07B8(){
+ Real now=(Real)(WW3D::Get_Sync_Time()*g_009BA4E8)/1000.0f;
+ while(!expiry24.empty()){
+  const Rva003B02F4Entry&r=expiry24.top();
+  if(!(now>r.time))break;
+  Rva003AFD22Node*node=(r.slot?r.node:r.node);const ModuleData*word=(const ModuleData*)r.slot;::delete node;
+  expiry24.pop();slots34.rva003B0433(word);
+ }
+}
 }
