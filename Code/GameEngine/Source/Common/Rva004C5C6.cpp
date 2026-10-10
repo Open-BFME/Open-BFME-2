@@ -25,6 +25,14 @@ private:
 	unsigned char m_pad[0x1c];
 };
 
+class HeaderTemplateString;
+class UnicodeString;
+class AsciiString;
+class GameSubTitle;
+HeaderTemplateString bfmeHeaderTemplateRegistryLanguage();
+bool Rva00260557Lookup(const char *name, UnicodeString *out);
+GameSubTitle *Rva002604D0Create(const AsciiString *a1, int a2, const UnicodeString &a3, unsigned int a4, int a5, int a6, int a7, int a8, int a9);
+
 class Rva004C743
 {
 public:
@@ -47,5 +55,7 @@ Rva00090360 *Rva004C743::rva0004C553()
 // ?rva0004C585@Rva004C743@@UAEPAVRva009111B@@XZ @ 0x0004C585 (65B). Virtual factory slot 42 of Rva004C743 vtable 0x007C4738: new 0x1c + ctor 0x00090781 with EH prolog. Evidence: vtable slot 42 offset 0xA8 between slots 41 and 43, callee ??0Rva009111B@@QAE@HHH@Z rowed, operator new ??2@YAPAXI@Z rowed, __EH_prolog.
 Rva009111B *Rva004C743::rva0004C585()
 {
-	return new Rva009111B(0x6604BA, 0x660557, 0x6604D0);
+	// The three arguments are the rowed code addresses 0x002604BA, 0x00260557
+	// and 0x002604D0 (retail pushes their VAs).
+	return new Rva009111B((int)&bfmeHeaderTemplateRegistryLanguage, (int)&Rva00260557Lookup, (int)&Rva002604D0Create);
 }

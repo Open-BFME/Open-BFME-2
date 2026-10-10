@@ -4,8 +4,10 @@
 // Thiscall (this passes in ecx, stack arg in edx): walks the Pod12 node
 // list at this+0x14 for a node whose data key (+8) matches o->m_74. On a
 // miss, appends a {key, 0, g_00BBB9AC} element via the rowed out-of-line
-// list<BfmePod12>::push_back 0x00420DF3 and notifies with the id at
-// 0x9CB260 plus the new tail node through the 0x005258F8-shaped method.
+// list<BfmePod12>::push_back 0x00420DF3 and notifies with the callback
+// 0x005CB260 (the rowed slot-1 forwarder Rva005CB260::rva005CB260, passed as a
+// member-function pointer the callee row 0x005258F8 types as int) plus the new
+// tail node.
 extern const float g_00BBB9AC;
 
 struct BfmePod12
@@ -47,6 +49,20 @@ struct Obj00525D9A
 	int m_74;
 };
 
+class Rva005CB260
+{
+public:
+	virtual void rva005CB260_slot0();
+	virtual void rva005CB260_slot1();
+	void rva005CB260();
+};
+
+union Callback00525D9A
+{
+	void (Rva005CB260::*m_method)();
+	int m_value;
+};
+
 struct Holder00525D9A
 {
 	char m_pad[0x14];
@@ -76,7 +92,9 @@ void Holder00525D9A::Rva00525D9A(Obj00525D9A *o)
 		elem.m_8 = g_00BBB9AC;
 		m_list.push_back(elem);
 		head = m_list.m_head;
-		Rva005258F8(0x9CB260, head->m_prev);
+		Callback00525D9A cb;
+		cb.m_method = &Rva005CB260::rva005CB260;
+		Rva005258F8(cb.m_value, head->m_prev);
 	}
 done:;
 }

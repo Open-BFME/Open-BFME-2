@@ -4868,7 +4868,7 @@ name,address,notes
 ??1Rva00AB15D@@UAE@XZ,0x00AB15D,opaque SEH dtor (mov-eax-cookie prologue); called by scalar-deleting-dtor at 0xAB141; identity unproven, address-derived name
 ??1Rva00B0028@@UAE@XZ,0x00B0028,opaque SEH dtor (mov-eax-cookie prologue); called by scalar-deleting-dtor at 0xB0238; identity unproven, address-derived name
 ??1Rva00B1CE2@@UAE@XZ,0x00B1CE2,opaque SEH dtor (mov-eax-cookie prologue); called by scalar-deleting-dtor at 0xB1ECF; identity unproven, address-derived name
-??1Rva00B6971@@UAE@XZ,0x00B6971,opaque SEH dtor (mov-eax-cookie prologue, same TU as 0xB6DD2 per shared cookie); called by scalar-deleting-dtor at 0xB9866; identity unproven, address-derived name
+??1EventParameter@@UAE@XZ,0x00B6971,"SEH dtor (mov-eax-cookie prologue, same TU as 0xB6DD2 per shared cookie); called by scalar-deleting-dtor at 0xB9866; EventParameter per vftable 0x007C9CD0 (slot 3 xfer@EventParameter 0x003318F7, slot 2 name literal)", same TU as 0xB6DD2 per shared cookie); called by scalar-deleting-dtor at 0xB9866; identity unproven, address-derived name
 ??1Rva00B6CF1@@QAE@XZ,0x000B6CF1,ICF twin of rowed QAE Rva0048130E 53B plus call site in BDCD6 25B destroy
 ??1Rva00B6CF1@@UAE@XZ,0x00B6CF1,opaque SEH dtor (mov-eax-cookie prologue); called by scalar-deleting-dtor at 0xB983A; identity unproven, address-derived name
 ??1Rva00B9AC2@@QAE@XZ,0x000B9AC2,ICF twin of rowed QAE Rva0048130E 53B plus call site in BD28D 25B destroy

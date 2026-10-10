@@ -2811,7 +2811,6 @@ alternatename	Code/GameEngine/Source/Common/Rva00094B08Finish.cpp	?rva00094B08On
 alternatename	Code/GameEngine/Source/Common/Rva0009A2CDDispatch.cpp	?g_00DEC2CC@@3PAV?$StringBase@G@@A	1
 alternatename	Code/GameEngine/Source/Common/Rva000A9211Format.cpp	?TheRva00222A8BTarget@@3PAVRva00222A8BTarget@@A	1
 alternatename	Code/GameEngine/Source/Common/Rva000AAD06Ctor.cpp	?_0@Rva000AAD06@@MAEXXZ	1
-alternatename	Code/GameEngine/Source/Common/Rva000AAD26FamilyDtors.cpp	??1BfmeDelayedLuaEvent@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/Rva000AAD26FamilyDtors.cpp	_vtbl_00BC93DC	1
 alternatename	Code/GameEngine/Source/Common/Rva000AAE3DCtor.cpp	?_0@Rva000AAE3D@@MAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva000B2EB5.cpp	?g_00BBB9AC@@3MB	1
@@ -37714,7 +37713,6 @@ present_unmatched	Code/GameEngine/Source/Common/Rva00068119Bodies.cpp	Rva0007B85
 present_unmatched	Code/GameEngine/Source/Common/Rva00069AF5Falloff.cpp	Rva00069AF5Math::Sqrt	1
 present_unmatched	Code/GameEngine/Source/Common/Rva00069AF5Falloff.cpp	rva000670B8@Rva00069AF5Host@@QAEMMM@Z	1
 present_unmatched	Code/GameEngine/Source/Common/Rva000AAD26FamilyDtors.cpp	Rva000BC93DCBase::~Rva000BC93DCBase	1
-present_unmatched	Code/GameEngine/Source/Common/Rva000AAD26FamilyDtors.cpp	bfmeEmitRva000AAD26FamilyDtors@@YAXPAVRva00AAD26@@PAVRva00AB15D@@PAVRva00B6971@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/Rva000AF917Finish.cpp	GDIFileStream::read	1
 present_unmatched	Code/GameEngine/Source/Common/Rva000AF917Finish.cpp	WorldHeightMap::readTexClass	1
 present_unmatched	Code/GameEngine/Source/Common/Rva000AF917Finish.cpp	makeNrmTextureName@@	1

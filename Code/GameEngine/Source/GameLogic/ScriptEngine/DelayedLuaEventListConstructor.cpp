@@ -2,7 +2,7 @@
 #include "Common/Snapshot.h"
 
 // DelayedLuaEventList::DelayedLuaEventList, retail 0x000B6D8B, 65 bytes, and
-// the element constructor ??0Rva00B6971 it hands to the iterator, retail
+// the element constructor ??0EventParameter it hands to the iterator, retail
 // 0x000B694C, 31 bytes.
 //
 // The constructor's whole job is the vtable store at +0 and one call to the EH
@@ -16,15 +16,15 @@
 // "EventParameter" literal. Its constructor 0x000B694C (the iterator's first
 // pointer) stores that vftable, zeroes a float at +4 and a byte at +8 and the
 // dwords at +0x0C, +0x10 (the string the dtor releases) and +0x14; its
-// destructor 0x000B6971 (the second pointer) is the row spelled Rva00B6971.
-class Rva00B6971
+// destructor 0x000B6971 (the second pointer) is the EventParameter dtor row.
+class EventParameter
 {
 public:
-	Rva00B6971(void) : m_f04(0.0f), m_b08(false), m_i0C(0), m_string10(0), m_i14(0)
+	EventParameter(void) : m_f04(0.0f), m_b08(false), m_i0C(0), m_string10(0), m_i14(0)
 	{
 	}
 
-	virtual ~Rva00B6971(void);				// row 0x000B6971
+	virtual ~EventParameter(void);			// row 0x000B6971
 
 private:
 	float m_f04;
@@ -45,7 +45,7 @@ public:
 	virtual ~DelayedLuaEventList(void);
 
 private:
-	Rva00B6971 m_bfmeEvents[3];			// +0x04
+	EventParameter m_bfmeEvents[3];		// +0x04
 };
 
 // ??0DelayedLuaEventList@@QAE@XZ
