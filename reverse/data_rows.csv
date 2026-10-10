@@ -133,3 +133,4 @@ name,address,address_kind,size,section,source,status,evidence,model
 ?BfmeCpuNameP3@@3QBDB,0x007E32FC,rva,3,.rdata,Code/GameEngine/Source/Common/GameLODManagerInit.cpp,matched,Native 9B96B8 table points to complete NUL-terminated P3 object; descriptive identifier original name unknown,w5-lk5
 ?BfmeCpuNameP4@@3QBDB,0x007E32F8,rva,3,.rdata,Code/GameEngine/Source/Common/GameLODManagerInit.cpp,matched,Native 9B96B8 table points to complete NUL-terminated P4 object; descriptive identifier original name unknown,w5-lk5
 ?BfmeCpuNameK7@@3QBDB,0x007E32F4,rva,3,.rdata,Code/GameEngine/Source/Common/GameLODManagerInit.cpp,matched,Native 9B96B8 table points to complete NUL-terminated K7 object; descriptive identifier original name unknown,w5-lk5
+?g_00E033D0@@3HA,0x00A033D0,rva,4,.data,Code/GameEngine/Source/Common/Rva007ABC6FFrameRateInits.cpp,matched,Written by rva007B07F5 in this TU from g_Va00DBA4E4; retail holds zeros; data ledger 19824 unowned,muse-spark-1.3-contributor
