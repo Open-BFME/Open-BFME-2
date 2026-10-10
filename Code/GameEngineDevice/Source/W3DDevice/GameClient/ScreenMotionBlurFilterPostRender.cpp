@@ -127,7 +127,7 @@ typedef int Int;
 typedef float Real;
 typedef bool Bool;
 
-struct Coord3D;
+#include "../../../../Libraries/Include/Lib/Coord3D.h"
 
 
 
@@ -401,3 +401,8 @@ Bool ScreenMotionBlurFilter::postRender(FilterModes mode, Coord2D &scrollDelta,
 		ZoomToValid = false;
 	return continueEffect;
 }
+
+// Static members (data_ledger RVAs 0x9EC20C/0x9EC1EC, zero .data, unowned);
+// defined here, nothing else defines them.
+Coord3D ScreenMotionBlurFilter::m_zoomToPos = { 0.0f, 0.0f, 0.0f };
+Bool ScreenMotionBlurFilter::m_zoomToValid = false;
