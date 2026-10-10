@@ -1,3 +1,5 @@
+// ?OnLivingWorldAutoResolveBattleCompleted@Impl@DynamicAutoResolveDialog@StrategicInGameUI@@UAEXAAVLivingWorldLogic@@AAVRva003F468D@@AAUDynamicAutoResolveBattlePlayers@@@Z
+// partial score=0.95 date=2026-10-10
 // cl: /Ireference/shims/bfme2_ascii /O1 /G7 /MD /arch:SSE /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
 //
@@ -392,6 +394,7 @@ namespace StrategicInGameUI
 
 			Impl(void *dialog, Rva0057C394 *frame, Rva003F468D *battle, DynamicAutoResolveBattlePlayers *battlePlayers);
 			virtual ~Impl();
+			virtual void OnLivingWorldAutoResolveBattleCompleted(LivingWorldLogic &logic, Rva003F468D &battle, DynamicAutoResolveBattlePlayers &battleManager);
 			void OnClipLoaded(int, const AsciiString &);
 
 			void *m_dialog;					// +0x04
@@ -530,3 +533,31 @@ void DynamicAutoResolveDialog::Impl::WaitForBattleStepStateHandler::Update()
 	}
 }
 
+// WB 0x015E6A60 (lines 1309..1333): when the dialog's battle completes, keep
+// each player's final health and unit count, note whether the first allied
+// player's +0x2C matches the manager's +0x78, and drop the manager.
+void DynamicAutoResolveDialog::Impl::OnLivingWorldAutoResolveBattleCompleted(LivingWorldLogic &logic, Rva003F468D &battle, DynamicAutoResolveBattlePlayers &battleManager)
+{
+	if (&battle == m_battle)
+	{
+		_STL::vector<Real> playerHealths;
+		collectUnitHealths(m_battlePlayers, playerHealths);
+		_STL::vector<Int> playerUnitCounts;
+		collectUnitCounts(m_battlePlayers, playerUnitCounts);
+
+		for (Int side = 0; side < 2; ++side)
+		{
+			_STL::vector<PlayerData> &players = m_playerData[side];
+			_STL::vector<PlayerData>::iterator end = players.end();
+			for (_STL::vector<PlayerData>::iterator it = players.begin(); it != end; ++it)
+			{
+				Real zero = 0.0f;
+				it->m_finalHealth = _STL::max(playerHealths[it->m_battlePlayerID], zero);
+				it->m_finalUnitCount = playerUnitCounts[it->m_battlePlayerID];
+			}
+		}
+
+		m_44 = m_battlePlayers->m_playerData[m_playerData[SIDE_ALLY][0].m_battlePlayerID].m_2C == m_battlePlayers->m_78;
+		m_battlePlayers = 0;
+	}
+}

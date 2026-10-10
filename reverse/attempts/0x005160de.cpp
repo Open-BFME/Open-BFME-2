@@ -1,5 +1,7 @@
 // ?rva005160DE@AptMainMenu@@QAEXPBD@Z
 // partial score=0.99 date=2026-10-10
+// ?rva005160DE@AptMainMenu@@QAEXPBD@Z
+// partial score=0.99 date=2026-10-10
 // cl: /O1 /G7 /arch:SSE /vmg /vmm /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /DNDEBUG /MD /ICode/GameEngine/Source
 //
 // BFME2's main menu screen Apt callbacks, 0x00514A9B onward. The screen's
