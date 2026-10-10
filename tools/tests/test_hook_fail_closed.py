@@ -443,3 +443,20 @@ def test_the_lessons_ban_fires_however_long_the_staged_list(repo, name):
     git(repo, "add", "-A")
     result = run(repo, "pre-commit")
     assert result.returncode == 1 and "lessons.md is banned" in result.stderr and not built(repo)
+
+
+@pytest.mark.parametrize("operation", ["delete", "rename"])
+def test_pre_commit_checks_the_ledger_when_data_rows_is_deleted_or_renamed(repo, operation):
+    """The ACMRT listing omits a deletion and names only a rename's destination, so
+    either took the early exit and check_csv never saw the orphaned data-only unit
+    (GPT-6.1-Sol, Open-BFME-1 hook port round 1)."""
+    data_only_setup(repo)
+    write(repo, "tools/check_csv.py", "open('check-csv-ran', 'w').close()\n")
+    git(repo, "add", "tools/check_csv.py")
+    git(repo, "commit", "-qm", "a recording ledger check")
+    if operation == "delete":
+        git(repo, "rm", "-q", "reverse/data_rows.csv")
+    else:
+        git(repo, "mv", "reverse/data_rows.csv", "reverse/data_rows_saved.csv")
+    run(repo, "pre-commit")
+    assert (repo / "check-csv-ran").exists()

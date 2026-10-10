@@ -184,6 +184,22 @@ while IFS= read -r path; do
     esac
 done < "$staged_out"
 rm -f "$staged_out"
+# The ACMRT listing omits a deleted ledger and lists only a rename's destination, so
+# deleting or renaming one took the early exit below and check_csv never saw the
+# sources it orphaned (GPT-6.1-Sol, Open-BFME-1 hook port round 1). Ask about each
+# ledger itself, both sides of a rename included.
+for ledger_path in reverse/functions.csv reverse/symbols.csv reverse/data_rows.csv; do
+    ledger_status=0
+    git diff --cached --quiet --no-renames -- "$ledger_path" || ledger_status=$?
+    case "$ledger_status" in
+        0) ;;
+        1) case "$ledger_path" in
+               */data_rows.csv) data_rows_changed=1 ;;
+               *) ledger_changed=1 ;;
+           esac ;;
+        *) fail "checking whether $ledger_path is staged (see above)" ;;
+    esac
+done
 
 # Placement: game sources live only under Code/ at the official BFME path
 # (plus reference/shims/ for shim headers, reference/CnC_Generals_Zero_Hour/ for
