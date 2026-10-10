@@ -65,10 +65,13 @@ typedef _STL::_Rb_tree<int, Rva0094CDF0Pair,
 	_STL::_Select1st<Rva0094CDF0Pair>, _STL::less<int>,
 	_STL::allocator<Rva0094CDF0Pair> > Rva0094CDF0Tree;
 
-class Gen_uwm_0094cdf0
+// Retail 0x00170E82: the destructor of Rva00171024, whose rowed constructor
+// 0x00171024 builds the same layout (map at +8, texture handle at +0x18);
+// the Rva000E6AC0 owner destroys its two members through it.
+class Rva00171024
 {
 public:
-	~Gen_uwm_0094cdf0(void);
+	~Rva00171024(void);
 
 private:
 	unsigned char m_prefix[8];
@@ -78,6 +81,6 @@ private:
 	unsigned char m_suffix[7];
 };
 
-Gen_uwm_0094cdf0::~Gen_uwm_0094cdf0(void)
+Rva00171024::~Rva00171024(void)
 {
 }
