@@ -1,5 +1,4 @@
 // ?load@W3DBridge@@QAE_NW4BodyDamageType@@@Z
-// partial score=0.997 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
 // ?load@W3DBridge@@QAE_NW4BodyDamageType@@@Z retail 0x000DE648..0x000DF11E
 // (2774 bytes). Address read from the REL32 in addBridge 0x000DF612. Zero
@@ -87,6 +86,24 @@ public:
 			v = (Vector3 *)&in;
 		}
 		out->X = (A[0][0] * v->X + A[0][1] * v->Y + A[0][2] * v->Z + A[0][3]);
+		out->Y = (A[1][0] * v->X + A[1][1] * v->Y + A[1][2] * v->Z + A[1][3]);
+		out->Z = (A[2][0] * v->X + A[2][1] * v->Y + A[2][2] * v->Z + A[2][3]);
+	}
+	// Retail right-section transform loads A00 before the vertex x value.
+	static __forceinline void Transform_VectorRight(const Matrix3D &A, const Vector3 &in, Vector3 *out)
+	{
+		Vector3 tmp;
+		Vector3 *v;
+		if (out == &in)
+		{
+			tmp = in;
+			v = &tmp;
+		}
+		else
+		{
+			v = (Vector3 *)&in;
+		}
+		out->X = (*(volatile const float *)&A[0][0] * v->X + A[0][1] * v->Y + A[0][2] * v->Z + A[0][3]);
 		out->Y = (A[1][0] * v->X + A[1][1] * v->Y + A[1][2] * v->Z + A[1][3]);
 		out->Z = (A[2][0] * v->X + A[2][1] * v->Y + A[2][2] * v->Z + A[2][3]);
 	}
@@ -413,7 +430,7 @@ bool W3DBridge::load(BodyDamageType curDamageState)
 		for (i = 0; i < numVertex; i++)
 		{
 			Vector3 vert;
-			Matrix3D::Transform_Vector(m_rightMtx, pVert[i], &vert);
+			Matrix3D::Transform_VectorRight(m_rightMtx, pVert[i], &vert);
 			if (m_rightMinX > vert.X) m_rightMinX = vert.X;
 			if (vert.X > m_rightMaxX) m_rightMaxX = vert.X;
 		}
