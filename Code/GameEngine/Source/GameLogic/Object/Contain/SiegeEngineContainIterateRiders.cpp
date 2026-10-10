@@ -1,5 +1,3 @@
-// ?rva0047BE4C@Rva0047BE4C@@QAEXP6AXPAVObject@@PAX@Z1H@Z
-// partial score=0.97 date=2026-10-08
 // cl: /O1 /Oy- /DNDEBUG /MD
 // Native0047BE4C..0047BEC9 RET12: contain-interface iteration of the
 // rider list at receiver+FC. Mask4 selects riders and mask8 selects reverse;
@@ -28,9 +26,12 @@ public:
     char unknown00[0xFC];
     Rva0047BE4CNode *riders;
 };
-void Rva0047BE4C::rva0047BE4C(ContainIterateFunc func, void *userData, int flags)
+void Rva0047BE4C::rva0047BE4C(ContainIterateFunc func, void *userData, volatile int flags)
 {
+    // Native saves the original mask then writes it back into its argument
+    // slot before the memory AND. Volatile preserves those observed writes.
     int originalFlags = flags;
+    flags = originalFlags;
     flags &= 4;
     if (flags && (originalFlags & 8)) {
         Rva0047BE4CNode *current = riders;
