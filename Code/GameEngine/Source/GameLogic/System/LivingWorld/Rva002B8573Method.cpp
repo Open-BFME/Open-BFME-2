@@ -100,3 +100,13 @@ void Rva002BA8F1Logic::rva002B323C(_STL::vector<Rva0040D701ArmySummary*>*out,int
  LivingWorldBattle *battle=(LivingWorldBattle*)manager->rva0020E6B7();
  if(battle){Rva002B85B1 callback((_STL::vector<Object*>*)out,id);battle->rva003F498A((Rva003F498ACallback*)&callback);}
 }
+// Native 2B25EF..2B262D, 62B; WB D7EE00 is unnamed. The receiver
+// is unused; the explicit battle, output and filter arguments have RET12.
+// Preserve the address owner while using the existing proved callback.
+class Rva002B25EF {
+public: void rva002B25EF(LivingWorldBattle *,_STL::vector<Object *> *,Rva002B8573Filter *);
+};
+void Rva002B25EF::rva002B25EF(LivingWorldBattle *battle,_STL::vector<Object *> *out,Rva002B8573Filter *filter) {
+ Rva002B8573 callback(out,filter);
+ battle->rva003F498A((Rva003F498ACallback *)&callback);
+}
