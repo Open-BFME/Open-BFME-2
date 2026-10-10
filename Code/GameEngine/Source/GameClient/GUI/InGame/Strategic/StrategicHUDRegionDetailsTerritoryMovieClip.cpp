@@ -49,10 +49,21 @@ static __declspec(noinline) UnicodeString FormatRegionBonus(int kind,int count) 
  }
  return TheGameText->fetch("STRATEGICHUD:RegionBonusNone",0);
 }
+class Image;
+class Rva00524306 {public:
+ void rva00524306(const StringBase<char>& key);
+ void rva00524725(const AsciiString& key,const Image *image);
+};
+class AptCommandMapAdder {public:AptCommandMapAdder();~AptCommandMapAdder();private:char bytes[12];};
+class Rva005242D7 {public:Rva005242D7();~Rva005242D7();private:char bytes[12];};
 namespace StrategicHUD {class RegionDetailsTerritoryMovieClip {public:class Impl;};}
 class StrategicHUD::RegionDetailsTerritoryMovieClip::Impl {
 public:void rva005F1999(int index,int value);
-private:unsigned int level;AsciiString name;char unknown08[0x24];int bonuses[6];
+ void rva005F191E(const Image *image);
+ void rva005F1A2D();
+private:unsigned int level;AsciiString name;
+ AptCommandMapAdder commands;Rva005242D7 images;
+ UnicodeString title,description;const Image *preview;int bonuses[6];int selectedBonus;
 };
 void StrategicHUD::RegionDetailsTerritoryMovieClip::Impl::rva005F1999(int index,int value) {
  if(value!=bonuses[index]) {
@@ -60,4 +71,14 @@ void StrategicHUD::RegionDetailsTerritoryMovieClip::Impl::rva005F1999(int index,
   ((BfmeAptWindowManager*)TheRva00222A8BTarget)->bfmeSetText(key,FormatRegionBonus(index,value),false);
   bonuses[index]=value;
  }
+}
+
+static __declspec(noinline) UnicodeString RegionBonusTooltip(int kind) {
+ return TheGameText->fetch(LookupRegionBonus(kind)->tooltip,0);
+}
+struct RGBColor;
+class Mouse {public:void rva001EEA6D(UnicodeString text,int delay,const RGBColor *color,float scale);};
+extern Mouse *TheMouse;
+void StrategicHUD::RegionDetailsTerritoryMovieClip::Impl::rva005F1A2D() {
+ if(selectedBonus>=0 && selectedBonus<6)TheMouse->rva001EEA6D(RegionBonusTooltip(selectedBonus),-1,0,1.0f);
 }
