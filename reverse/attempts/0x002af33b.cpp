@@ -1,4 +1,6 @@
 // ?rva002AF33B@Player@@QAEXPAVXfer@@PAVRva002AE4C5@@@Z
+// partial score=0.975902 date=2026-10-10
+// ?rva002AF33B@Player@@QAEXPAVXfer@@PAVRva002AE4C5@@@Z
 // partial score=0.95 date=2026-10-09
 // cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
 //
@@ -137,6 +139,7 @@ public:
 	UnsignedInt m_numElements;	// +0x10
 };
 
+struct CountValue{Int value;UnsignedInt count;};
 class Player
 {
 public:
@@ -147,16 +150,16 @@ void Player::rva002AF33B(Xfer *xfer, Rva002AE4C5 *map)
 {
 	if (xfer->isSaving())
 	{
-		UnsignedInt count = map->m_numElements;
-		xfer->xferUnsignedInt(count);
+		CountValue cv;cv.count=map->m_numElements;
+		xfer->xferUnsignedInt(cv.count);
 		Rva000411084 it = ((WVMap *)map)->begin();
 		Rva002AF33BNode *node;
 		for (; (node = (Rva002AF33BNode *)it.m_current) != 0; it.next())
 		{
 			AsciiString key = node->m_key;
-			Int value = node->m_value;
+			cv.value = node->m_value;
 			xfer->xferAsciiString(key);
-			xfer->xferInt(value);
+			xfer->xferInt(cv.value);
 		}
 	}
 	else
