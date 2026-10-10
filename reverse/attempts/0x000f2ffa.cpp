@@ -1,7 +1,10 @@
 // ?updateMeshVolume@W3DVolumetricShadow@@IAEXHHPBVMatrix3D@@ABVAABoxClass@@M@Z
+// partial score=0.9534271239838147 date=2026-10-10
+// ?updateMeshVolume@W3DVolumetricShadow@@IAEXHHPBVMatrix3D@@ABVAABoxClass@@M@Z
 // partial score=0.93 date=2026-10-09
-// cl: /O1 /G7 /arch:SSE -DNDEBUG -DWIN32 -D_WINDOWS -MD -EHsc -DBFME_VOLUMETRIC_DELETE_LAYOUT -Ireference/open-bfme-1/inputs/reference/shims/volumetricshadow -Ireference/open-bfme-1/inputs/reference/shims/sweep -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad -Ireference/open-bfme-1/game/GameEngineDevice/Source/W3DDevice/GameClient/Shadow
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /DBFME_VOLUMETRIC_DELETE_LAYOUT /Ireference/open-bfme-1/inputs/reference/shims/volumetricshadow /I. /Ireference/open-bfme-1/inputs/reference/shims/sweep /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/GameEngineDevice/Source/W3DDevice/GameClient/Shadow
 // stlport
+#define Region3D DonorRegion3D
 #define Matrix4x4 Matrix4  // BFME renamed it
 // W3DVolumetricShadow::updateMeshVolume @0x000F2FFA.
 // Donor: Open-BFME-1 W3DVolumetricShadow.cpp (updateMeshVolume matched at 0x007BE000);
@@ -18,8 +21,8 @@
 // takes the count at full width; use the BFME declaration of DX8IndexBufferClass
 // rather than the Zero Hour one the include path would otherwise find.
 #define BFME_DYNAMIC_IB_UINT_CTOR_ABI
-#include "../../../../../Libraries/Source/WWVegas/WW3D2/dx8indexbuffer.h"
-#include "../../../../../Libraries/Source/WWVegas/WW3D2/dx8wrapper.h"
+#include "reference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2/dx8indexbuffer.h"
+#include "reference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2/dx8wrapper.h"
 #undef MESH_RENDER_SNAPSHOT_ENABLED
 #include "WW3D2/DX8Wrapper.h"
 #include "WW3D2/HLod.h"
@@ -48,7 +51,8 @@ extern FrustumClass g_Va00DEBD00;
 // Stand-ins for retail's folded/opaque callees (rowed under honest address names).
 class Rva0007671F { public: Rva0007671F(); private: char m_bytes[0x40]; };
 class Rva000F26DC { public: void rva000F074E(int, int); };
-struct Rva0009AC04 { Rva0009AC04(const Rva0009AC04 &); float m_bytes[6]; };
+#undef Region3D
+struct Region3D { Region3D(const Region3D &); float x_min,y_min,z_min,x_max,y_max,z_max; };
 struct SHADOW_STATIC_VOLUME_VERTEX	//vertex structure passed to D3D
 {
 		float x,y,z;
@@ -594,7 +598,7 @@ void W3DVolumetricShadow::updateMeshVolume(Int meshIndex, Int lightIndex, const 
 		//Updating shadow volumes is expensive, so verify that this volume is even visible.
 
 		//Generate bounding box around shadow volume by extruding AABB corners
-		Rva0009AC04 boxCopy(*(const Rva0009AC04 *)&meshBox);
+		Region3D boxCopy(*(const Region3D *)&meshBox);
 		AABoxClass &box = *(AABoxClass *)&boxCopy;	//copy current mesh bounding box (will be smaller than shadow box).
 		SphereClass sphere;			//rough bounding sphere of shadow volume - based on box.
 		Vector3 Corners[8];

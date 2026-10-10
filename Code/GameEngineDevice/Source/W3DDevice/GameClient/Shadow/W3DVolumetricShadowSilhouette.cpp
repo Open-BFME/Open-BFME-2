@@ -1,5 +1,8 @@
 // cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc
 // W3DVolumetricShadow silhouette tools.
+// Native F17CA..F185F149 RET8: visible noinline GetPolygonIndex67 closes
+// EBX=this/EDI=inner index; standalone declaration swapped both registers.
+// Donor ZH/BF1 silhouette semantics; layouts and calls established below.
 //   ?addSilhouetteIndices@W3DVolumetricShadow@@IAEXHFF@Z   @0x000EFDBB  59B
 //   ?addSilhouetteEdge@W3DVolumetricShadow@@IAEXHPAUPolyNeighbor@@0@Z @0x000F1735 149B
 //   ?buildSilhouette@W3DVolumetricShadow@@IAEXHPAVVector3@@@Z @0x000F2D25 422B
@@ -76,7 +79,10 @@ public:
 	void buildPolygonNormals(void);
 protected:
 	PolyNeighbor *GetPolyNeighbor( Int polyIndex );
-	void GetPolygonIndex (long dwPolyId, short *psIndexList) const;
+	inline __declspec(noinline) void GetPolygonIndex (long dwPolyId, short *psIndexList) const {
+ struct TriIndex {short I,J,K;};const TriIndex *polyi=&(*(TriIndex**)((char*)m_polygonArray+0xc))[dwPolyId];
+ *psIndexList++=m_parentVerts[polyi->I];*psIndexList++=m_parentVerts[polyi->J];*psIndexList++=m_parentVerts[polyi->K];
+ }
 
 	void *m_polygonArray;
 	void *m_vertexArray;
@@ -103,7 +109,7 @@ class W3DShadowGeometry
 class W3DVolumetricShadow
 {
 public:
-	// Unrowed; its existing pin carries the public mangling.
+	// Existing public provider mangling retained.
 	void addNeighborlessEdges(Int meshIndex, PolyNeighbor *us );
 protected:
 	void buildSilhouette(Int meshIndex, Vector3 *lightPosWorld);
@@ -230,4 +236,42 @@ void W3DVolumetricShadow::buildSilhouette(Int meshIndex, Vector3 *lightPosObject
 		BitSet( polyNeighbor->status, POLY_PROCESSED );
 	}
 	m_numIndicesPerMesh[meshIndex] = m_numSilhouetteIndices[meshIndex] - meshEdgeStart;
+}
+
+void W3DVolumetricShadow::addNeighborlessEdges(Int meshIndex, PolyNeighbor *us )
+{
+	Short vertexIndexList[ 3 ];
+	Int i, j;
+	Short edgeStart, edgeEnd;
+	Bool addEdge;
+	W3DShadowGeometryMesh *geomMesh = &m_geometry->m_meshList[meshIndex];
+
+	geomMesh->GetPolygonIndex( us->myIndex, vertexIndexList );
+	for( i = 0; i < 3; i++ )
+	{
+		edgeStart = vertexIndexList[ i ];
+		if( i == 2 )
+			edgeEnd = vertexIndexList[ 0 ];
+		else
+			edgeEnd = vertexIndexList[ i + 1 ];
+		addEdge = TRUE;
+		for( j = 0; j < MAX_POLYGON_NEIGHBORS; j++ )
+		{
+			if( us->neighbor[ j ].neighborIndex != NO_NEIGHBOR )
+			{
+				if( (us->neighbor[ j ].neighborEdgeIndex[ 0 ] == edgeStart &&
+						 us->neighbor[ j ].neighborEdgeIndex[ 1 ] == edgeEnd) ||
+						(us->neighbor[ j ].neighborEdgeIndex[ 1 ] == edgeStart &&
+						 us->neighbor[ j ].neighborEdgeIndex[ 0 ] == edgeEnd) )
+				{
+					addEdge = FALSE;
+					break;
+				}
+			}
+		}
+		if( addEdge == TRUE )
+		{
+			addSilhouetteIndices(meshIndex, edgeStart, edgeEnd );
+		}
+	}
 }
