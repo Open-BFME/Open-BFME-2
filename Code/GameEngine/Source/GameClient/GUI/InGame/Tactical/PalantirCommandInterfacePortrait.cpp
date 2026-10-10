@@ -13,7 +13,9 @@
 // portrait (when it has the 0x002911B7 template or its own), else the
 // portrait shared by every selectable drawable, else, for a non-empty
 // selection, the first drawable's controlling player template image
-// (0x001FD23F) or the "MultiPortrait" image. The rest of
+// (0x001FD23F) or the "MultiPortrait" image. Its caller, the interface's
+// refresh 0x00529E3B, lives here too; the rank/timer panel update it calls
+// (0x00529B6E, also a walker user) is pinned and banked. The rest of
 // PalantirCommandInterface.cpp's native range stays in the units that
 // already row it; this one holds the selection-walk family.
 
@@ -120,13 +122,49 @@ public:
 };
 extern ImageCollection *TheMappedImageCollection;
 
+#include "../../../../Common/GameLogicObjectLookupView.h"
+extern GameLogic *TheGameLogic;
+
+// The Apt window manager's portrait image set (0x002239E2) and clear
+// (0x00223A94) under their rowed address-derived spellings.
+class Rva002239B2 { public: void rva002239E2(const AsciiString &name, const Image *image); };
+class Rva00223A94 { public: int rva00223A94(const AsciiString *name); };
+class BfmeAptWindowManager;
+extern BfmeAptWindowManager *g_bfmeAptWindowManager;
+
+class Rva002BED91 { public: void clear(); };
+class Rva00529B6E { public: void rva00529B6E(Object *obj); private: char m_data[0x18]; };
+class Rva0052914B { public: void rva0052914B(Object *obj); private: char m_data[0x10]; };
+
+class Rva0052936C { public: void UpdateButton(int index); };
+
 class PalantirCommandInterface
 {
 public:
 	class Impl
 	{
 	public:
+		void Show();
 		const Image *GetCurrentPortraitImage(Object *obj);
+		void rva00529E3B();
+	private:
+		struct Slot
+		{
+			char m_pad00[0x0C];
+			Rva002BED91 m_callback; // +0x0C
+			int m_state;            // +0x10
+		};
+		void UpdateButton(int index) { ((Rva0052936C *)this)->UpdateButton(index); }
+
+		char m_pad00[0x2C];
+		bool m_2C;                  // +0x2C
+		bool m_shown;               // +0x2D
+		ObjectID m_objectID;        // +0x30
+		char m_pad34[0x38 - 0x34];
+		Rva00529B6E m_rankPanel;    // +0x38 (0x18 bytes)
+		Rva0052914B m_costPanel;    // +0x50 (0x10 bytes)
+		const Image *m_portrait;    // +0x60
+		Slot m_slots[6];            // +0x64
 	};
 };
 
@@ -194,4 +232,43 @@ const Image *PalantirCommandInterface::Impl::GetCurrentPortraitImage(Object *obj
 		}
 	}
 	return image;
+}
+
+// Native 0x00529E3B..0x00529F3D: the interface's per-frame refresh. While
+// shown it resolves the selected object (+0x30), swaps the CommandUI
+// portrait image when it changed, refreshes the six buttons and the rank
+// (0x00529B6E) and cost (0x0052914B) panels; hidden, it clears every
+// button's callback and state.
+void PalantirCommandInterface::Impl::rva00529E3B()
+{
+	if (m_2C && !m_shown)
+		Show();
+	if (m_shown)
+	{
+		Object *obj = 0;
+		if (m_objectID)
+			obj = TheGameLogic->findObjectByID(m_objectID);
+		const Image *image = GetCurrentPortraitImage(obj);
+		if (image != m_portrait)
+		{
+			if (image)
+				((Rva002239B2 *)g_bfmeAptWindowManager)->rva002239E2(AsciiString("CommandUI/Portrait"), image);
+			else if (m_portrait)
+				((Rva00223A94 *)g_bfmeAptWindowManager)->rva00223A94(&AsciiString("CommandUI/Portrait"));
+			m_portrait = image;
+		}
+		for (int i = 0; i < 6; ++i)
+			UpdateButton(i);
+		m_rankPanel.rva00529B6E(obj);
+		if (obj)
+			m_costPanel.rva0052914B(obj);
+	}
+	else
+	{
+		for (int i = 0; i < 6; ++i)
+		{
+			m_slots[i].m_callback.clear();
+			m_slots[i].m_state = 0;
+		}
+	}
 }
