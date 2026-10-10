@@ -7,7 +7,8 @@
 // the original base/handle and queue wrapper names remain provisional.
 // The +1C32-byte native VB / +20vertex count / +2412B expiry queue / +34int
 // min-heap layouts follow ctor and independently owned3B0344 destructor.
-// BfmeE12 and ModuleData-pointer vectors are existing allocator/call ABI views:
+// Expiry elements use the measured time/index/node record. BfmeE12 reserve
+// and ModuleData-pointer vectors are existing allocator/call ABI views:
 // their payloads here are expiry(time,index,node) and integer slot bits, not
 // ModuleData pointees. The input references and vector growth helpers preserve
 // that measured 12B/4B storage. No target claim about original C++ type names.
@@ -16,6 +17,8 @@
 // Showing the owned33B push body (including its real stored comparator) gives
 // the parent native14B frame and EBX receiver; hiding push_back costs4B. /Oy
 // preserves the owned push's frameless33B shape. No new callee pin is used.
+#include <stl/_algobase.h>
+namespace _STL {static inline const unsigned&max(const unsigned&a,const unsigned&b){return a<b?b:a;}}
 #include <vector>
 #include <algorithm>
 #include <functional>
@@ -28,8 +31,11 @@ class DX8ThreadLock{public:DX8ThreadLock(){BFME_DX8_Thread_Lock();}~DX8ThreadLoc
 class ParticleSystem{public:unsigned rva001F3C6B();};ParticleSystem*Make001FCBD7();
 class RvaSmartPtr12{public:ParticleSystem*target;unsigned b,c;ParticleSystem*operator->()const{return target?target:Make001FCBD7();}};
 class Rva003B00D6{public:Rva003B00D6(const RvaSmartPtr12&);virtual ~Rva003B00D6();char data[24];};
-struct BfmeE12{int a[3];};class ModuleData;
-class Rva003B0412{public:__declspec(noinline)Rva003B0412();_STL::vector<BfmeE12>c;char comp;};Rva003B0412::Rva003B0412(){}
+struct BfmeE12{int a[3];};struct Rva003B02F4Entry{float time;int slot;void*node;};
+// Typed empty allocation header29 and proxy11 are independent native twins.
+// This removes the old BfmeE12 base pin that chooses a different kept copy.
+class ModuleData;
+class Rva003B0412{public:__declspec(noinline)Rva003B0412();_STL::vector<Rva003B02F4Entry>c;char comp;};Rva003B0412::Rva003B0412(){}
 class Rva003B0433{public:__declspec(noinline)Rva003B0433();_STL::vector<const ModuleData*>c;_STL::greater<int>comp;__declspec(noinline) void rva003B0433(const ModuleData*&);};Rva003B0433::Rva003B0433(){}
 class BfmeDynamicNativeVB{public:BfmeDynamicNativeVB(unsigned,unsigned short,unsigned,unsigned);char data[32];};
 class VertexBufferClass{public:class WriteLockClass{public:WriteLockClass(VertexBufferClass*,int);~WriteLockClass();void*VertexBuffer;void*Vertices;int extra;void*Get_Vertex_Array(){return Vertices;}};};
@@ -42,7 +48,7 @@ Rva003B0344::Rva003B0344(const RvaSmartPtr12 &src) : Rva003B00D6(src)
     vb = new BfmeDynamicNativeVB(0, (unsigned short)vertices, 0, 40);
     VertexBufferClass::WriteLockClass lock((VertexBufferClass *)vb, 0);
     memset(lock.Get_Vertex_Array(), 0, vertices * 40);
-    expiry.c.reserve(n);
+    reinterpret_cast<_STL::vector<BfmeE12> *>(&expiry.c)->reserve(n);
     slots.c.reserve(n);
     for (unsigned i = 0; i < n; i++)
     {
