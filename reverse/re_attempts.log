@@ -33792,3 +33792,6 @@ _DeringBlockStrong_C	0x001C1AD0	2030	blocked	vp6 clean-room (spec 001c1ad0): ret
 ??1Rva00510D0C@@UAE@XZ	0x00510D0C	123	landed	add_match verified Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTributeScreenDestructor.cpp 123B; tribute screen dtor; singleton clear plus ui menu plus shell hide plus page map plus Apt window base
 ??1W3DFontLibrary@@UAE@XZ	0x0009023C	106	landed	add_match verified Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DFontLibraryDestructor.cpp 106B; W3DFontLibrary dtor
 ??1Rva00576591@@UAE@XZ	0x00576591	64	landed	add_match verified Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/Rva00576591Destructor.cpp 64B; StrategicHUD holder dtor; notifier flag set then base dtor
+??1Rva005CE874@@UAE@XZ	0x005CE874	76	landed	add_match verified Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/Rva005CE874Destructor.cpp 76B; StrategicHUD holder dtor; owned pointer release then interface and holder base
+??1Rva00597BD4@@UAE@XZ	0x00597BD4	132	landed	add_match verified Code/GameEngine/Source/Common/Rva00597BD4Destructor.cpp 132B; AI upgrade science builder wrapper dtor
+??1Rva005990DF@@UAE@XZ	0x005990DF	114	landed	add_match verified Code/GameEngine/Source/Common/Rva005990DFDestructor.cpp 114B; AI unit upgrader wrapper dtor

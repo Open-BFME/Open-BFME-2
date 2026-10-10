@@ -74761,3 +74761,6 @@ _VP6_ReadHuffTokens,,0x001C5310,1661,Code/Libraries/Source/VP6/HuffTokens.cpp,ma
 ??1Rva00510D0C@@UAE@XZ,,0x00510D0C,123,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTributeScreenDestructor.cpp,matched,tribute screen dtor; singleton clear plus ui menu plus shell hide plus page map plus Apt window base
 ??1W3DFontLibrary@@UAE@XZ,,0x0009023C,106,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DFontLibraryDestructor.cpp,matched,W3DFontLibrary dtor
 ??1Rva00576591@@UAE@XZ,,0x00576591,64,Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/Rva00576591Destructor.cpp,matched,StrategicHUD holder dtor; notifier flag set then base dtor
+??1Rva005CE874@@UAE@XZ,,0x005CE874,76,Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/Rva005CE874Destructor.cpp,matched,StrategicHUD holder dtor; owned pointer release then interface and holder base
+??1Rva00597BD4@@UAE@XZ,,0x00597BD4,132,Code/GameEngine/Source/Common/Rva00597BD4Destructor.cpp,matched,AI upgrade science builder wrapper dtor
+??1Rva005990DF@@UAE@XZ,,0x005990DF,114,Code/GameEngine/Source/Common/Rva005990DFDestructor.cpp,matched,AI unit upgrader wrapper dtor
