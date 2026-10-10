@@ -1,5 +1,6 @@
 // cl: -DNDEBUG -DWIN32 -D_WINDOWS /O1 /G7 /arch:SSE -MD -EHsc -Ireference/open-bfme-1/inputs/reference/shims/projectedshadow -Ireference/open-bfme-1/inputs/reference/shims/sweep -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad -Ireference/open-bfme-1/game/GameEngineDevice/Source/W3DDevice/GameClient/Shadow /ICode/Libraries/Include
 #include "always.h"
+typedef unsigned long DWORD;typedef long HRESULT;typedef unsigned int UINT;typedef DWORD D3DRENDERSTATETYPE;
 
 // Native10DF33..10E482 is the full1359-byte four-list shadow render walk.
 // Primary semantic guide: ZH W3DProjectedShadow.cpp renderShadows; clean BFME1
@@ -123,8 +124,11 @@ public:
  virtual int Is_Really_Visible() const;
  Vector3 Get_Position() const;
 };
-struct ShadowTextureView10DF33 { char pad00[0x64]; AABoxClass box64; SphereClass sphere7c; };
-struct ShadowRenderEntry10DF33 { char pad00[4]; bool enabled04; bool invisible05; char pad06[0x2e]; unsigned type34; char pad38[0x30]; ShadowTextureView10DF33 *texture68; int pad6c; RenderObjClass *object70; char pad74[0xa0]; ShadowRenderEntry10DF33 *next114; };
+// Target uses a plain 16B sphere storage view; avoid instantiating the
+// donor public constructor COMDAT, which the code-identity gate rejects.
+struct ShadowSphereView10DF33 {Vector3 Center;float Radius;ShadowSphereView10DF33(){} };
+struct ShadowTextureView10DF33 { char pad00[0x64]; AABoxClass box64; ShadowSphereView10DF33 sphere7c; };
+struct ShadowRenderEntry10DF33 { char pad00[4]; bool enabled04; bool invisible05; char pad06[0x2e]; unsigned type34; char pad38[0x30]; ShadowTextureView10DF33 *texture68; ShadowTextureView10DF33 *texture6c; RenderObjClass *object70; char pad74[0xa0]; ShadowRenderEntry10DF33 *next114; };
 struct ShadowPair10DF33 { char pad00[4]; bool enabled04; bool invisible05; char pad06[0x2e]; unsigned type34; char pad38[0x20]; ShadowRenderEntry10DF33 *shadow58,*shadow5c; RenderObjClass *object60; ShadowPair10DF33 *next64; };
 struct TerrainRect10DF33 { int x0,y0,x1,y1; };
 struct ShadowTerrainDispatch10DF33 {
@@ -276,7 +280,7 @@ extern DX8MeshRendererClass *TheDX8MeshRenderer;
 // The bounds call is reached through the TU-local dispatch view above.
 class BaseHeightMapRenderObjClass;
 extern BaseHeightMapRenderObjClass *TheTerrainRenderObject;
-class WW3D {friend class W3DProjectedShadowManager;static bool IsCurrentlyRenderingShadowMap;public:static void Flush(RenderInfoClass &);};
+class WW3D {friend class W3DProjectedShadowManager;static bool IsCurrentlyRenderingShadowMap;static bool SnapshotActivated;public:static bool Is_Snapshot_Activated(){return SnapshotActivated;}static void Flush(RenderInfoClass &);};
 static int drawStartX, drawStartY, drawEdgeX, drawEdgeY;
 inline void *operator new(size_t,void *p) throw(){return p;}
 inline void operator delete(void *,void *) throw(){}
@@ -288,7 +292,7 @@ class W3DProjectedShadowManager { public:
  ShadowRenderEntry10DF33 *m_shadowList,*m_decalList,*m_simpleDecalList;
  void *m_10;
  ShadowPair10DF33 *m_14;
- void *m_18,*m_1c;
+ void *m_18;ShadowRenderEntry10DF33 *m_1c;
  char pad20[0x254-0x20];int count254;int unused258;int nShadowDecalVertsInBuf;int unused260;int nShadowDecalIndicesInBuf;int tail268[3];
  void flushDecals(ShadowType,class W3DShadowTexture *,W3DShadowTexture *,int);
  void rva0010C841(ShadowRenderEntry10DF33 *,int,int);
@@ -300,7 +304,7 @@ int W3DProjectedShadowManager::rva0010DF33(RenderInfoClass &rinfo)
 {
  ShadowRenderEntry10DF33 *shadow;
  static AABoxClass aaBox;
- static SphereClass sphere;
+ static ShadowSphereView10DF33 sphere;
  int projectionCount=0;
  if(!WW3D::IsCurrentlyRenderingShadowMap && (m_shadowList || m_decalList || m_simpleDecalList || m_1c) && TheTerrainRenderObject) {
  {
@@ -348,7 +352,7 @@ int W3DProjectedShadowManager::rva0010DF33(RenderInfoClass &rinfo)
    }
    sphere=shadow->texture68->sphere7c;
    sphere.Center+=shadow->object70->Get_Position();
-   CollisionMath::OverlapType result=CollisionMath::Overlap_Test(rinfo.Camera.Get_Frustum(),sphere);
+   CollisionMath::OverlapType result=CollisionMath::Overlap_Test(rinfo.Camera.Get_Frustum(),*(const SphereClass *)&sphere);
    if(result==CollisionMath::OVERLAPPED) {
     copyBox(&aaBox,shadow->texture68->box64);
     aaBox.Translate(shadow->object70->Get_Position());
@@ -405,4 +409,98 @@ int W3DProjectedShadowManager::rva0010DF33(RenderInfoClass &rinfo)
  }
  return projectionCount+rva0010DA71(rinfo);
 }return 0;
+}
+
+struct IDirect3DDevice8
+{
+	virtual void slot00(); virtual void slot01(); virtual void slot02(); virtual void slot03();
+	virtual void slot04(); virtual void slot05(); virtual void slot06(); virtual void slot07();
+	virtual void slot08(); virtual void slot09(); virtual void slot10(); virtual void slot11();
+	virtual void slot12(); virtual void slot13(); virtual void slot14(); virtual void slot15();
+	virtual void slot16(); virtual void slot17(); virtual void slot18(); virtual void slot19();
+	virtual void slot20(); virtual void slot21(); virtual void slot22(); virtual void slot23();
+	virtual void slot24(); virtual void slot25(); virtual void slot26(); virtual void slot27();
+	virtual void slot28(); virtual void slot29(); virtual void slot30(); virtual void slot31();
+	virtual void slot32(); virtual void slot33(); virtual void slot34(); virtual void slot35();
+	virtual void slot36(); virtual void slot37(); virtual void slot38(); virtual void slot39();
+	virtual void slot40(); virtual void slot41(); virtual void slot42(); virtual void slot43();
+	virtual void slot44(); virtual void slot45(); virtual void slot46(); virtual void slot47();
+	virtual void slot48(); virtual void slot49(); virtual void slot50(); virtual void slot51();
+	virtual void slot52(); virtual void slot53b(); virtual void slot54(); virtual void slot55();
+	virtual void slot56();
+	virtual HRESULT __stdcall SetRenderState(D3DRENDERSTATETYPE state, DWORD value) = 0;	// +0xE4
+};
+
+class StringClass
+{
+public:
+	StringClass(int initial_len = 0, bool hint_temporary = false);
+	~StringClass() { Free_String(); }
+private:
+	char *m_Buffer;
+private:
+	void Free_String();
+};
+
+extern unsigned number_of_DX8_calls;
+class DX8Wrapper {public:
+static bool Has_Stencil();
+static void Get_DX8_Render_State_Value_Name(StringClass &,D3DRENDERSTATETYPE,unsigned);
+static void Clear(bool,bool,bool,const Vector3 &,float,float,unsigned);
+static __forceinline void Set_DX8_Render_State(D3DRENDERSTATETYPE state,unsigned value) {
+ if(RenderStates[state]==value)return;
+ if(WW3D::Is_Snapshot_Activated()){StringClass name(0,true);Get_DX8_Render_State_Value_Name(name,state,value);}
+ RenderStates[state]=value;D3DDevice->SetRenderState(state,value);++number_of_DX8_calls;++render_state_changes;
+}
+protected:static IDirect3DDevice8 *D3DDevice;static unsigned RenderStates[256];static unsigned render_state_changes;
+};
+class GlobalData;extern GlobalData *TheWritableGlobalData;
+struct ShadowGlobalView10DF33 {char pad9a7[0x9a7];bool flag9a7;};
+// Native10DA71..10DF33 is the complete1218B stencil/decal list pass.
+// Existing verified flushDecals and ZH stencil render-state code guide the
+// composition; native states52/57/58/59/54/53, dual textures68/6C, head1C,
+// flag9A7, pass count and final stencil-only Clear are independent facts.
+// Assign passes in both branches (do not preinitialize): this retains native
+// setup order. The unused RenderInfo argument is retained from its caller.
+int W3DProjectedShadowManager::rva0010DA71(RenderInfoClass &rinfo) {
+ static AABoxClass aaBox;static ShadowSphereView10DF33 sphere;
+ int count=0;
+ if(m_1c && TheTerrainRenderObject) {
+  {TerrainRect10DF33 rect;reinterpret_cast<ShadowTerrainDispatch10DF33 *>(TheTerrainRenderObject)->bounds238(&rect);
+   drawStartX=rect.x0-4;drawStartY=rect.y0-4;drawEdgeX=rect.x1+4;drawEdgeY=rect.y1+4;}
+  if(m_1c) {
+   int passes;
+   if(DX8Wrapper::Has_Stencil())passes=((ShadowGlobalView10DF33 *)TheWritableGlobalData)->flag9a7?1:2;
+   else passes=1;
+   if(DX8Wrapper::Has_Stencil()) {
+    DX8Wrapper::Set_DX8_Render_State(52,1);DX8Wrapper::Set_DX8_Render_State(57,255);
+    DX8Wrapper::Set_DX8_Render_State(58,~0U);DX8Wrapper::Set_DX8_Render_State(59,~0U);
+    DX8Wrapper::Set_DX8_Render_State(54,1);DX8Wrapper::Set_DX8_Render_State(53,1);
+   }
+   for(int pass=0;pass<passes;++pass) {
+    ShadowTextureView10DF33 *lastTexture=0,*lastTexture2=0;unsigned lastType=0;
+    for(ShadowRenderEntry10DF33 *shadow=m_1c;shadow;shadow=shadow->next114) {
+     if(shadow->enabled04&&!shadow->invisible05) {
+      if(!lastTexture)lastTexture=m_1c->texture68;
+      if(!lastTexture2)lastTexture2=m_1c->texture6c;
+      if(!lastType)lastType=m_1c->type34;
+      ShadowTextureView10DF33 *texture=shadow->texture68,*texture2=shadow->texture6c;
+      unsigned type=m_1c->type34;
+      if(texture!=lastTexture||texture2!=lastTexture2||type!=lastType) {
+       flushDecals((ShadowType)lastType,(W3DShadowTexture *)lastTexture,(W3DShadowTexture *)lastTexture2,pass);
+       lastTexture=texture;lastTexture2=texture2;lastType=type;
+      }
+      if(!shadow->object70||shadow->object70->Is_Really_Visible()) {
+       rva0010C841(shadow,passes,pass);if(pass==0)++count;
+      }
+     }
+    }
+    flushDecals((ShadowType)lastType,(W3DShadowTexture *)lastTexture,(W3DShadowTexture *)lastTexture2,pass);
+   }
+   if(DX8Wrapper::Has_Stencil())DX8Wrapper::Set_DX8_Render_State(52,0);
+  }
+  if(DX8Wrapper::Has_Stencil()) {Vector3 zero;zero.Set(0,0,0);DX8Wrapper::Clear(false,false,true,zero,0,1,0);}
+  return count;
+ }
+ return 0;
 }
