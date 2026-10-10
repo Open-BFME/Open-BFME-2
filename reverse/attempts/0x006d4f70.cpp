@@ -1,26 +1,17 @@
 // ??HEAStringC@@QBE?AV0@PBD@Z
-// partial score=0.9956407933 date=2026-10-09
-// ??HEAStringC@@QBE?AV0@PBD@Z
-// partial score=0.9956407933 date=2026-10-09
+// partial score=0.995641 date=2026-10-10
 // cl: /O2 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
-// ??HEAStringC@@QBE?AV0@ABV0@@Z
-// Retail 0x006D46C0..0x006D47EC (300 bytes).
-// EAStringC concatenation returning a new string: an empty receiver returns
-// a copy of the other string and an empty other string returns a copy of the
-// receiver; otherwise a string reserved for the summed size (rowed
-// EAStringC(unsigned) 0x006D45F0) receives both texts with intrinsic memcpy
-// and a terminator and its logical size is set (rowed SetSize 0x006D3BC0)
-// before it is copied out (rowed copy ctor 0x006D2FC0) and released (rowed
-// FreeData 0x006D2EB0 through the inline destructor as in EAStringCMid.cpp).
-// Target fact kept as found: the cached hash word (+6) that is cleared is the
-// receiver's (the saved this pointer is reloaded for it) not the result's.
-// The operator name is a semantic pick from the body (receiver-left
-// concatenation by value; ret 8 = hidden result + other); flags follow the
-// EAStringCMid.cpp sibling.
-extern "C" unsigned int __cdecl strlen(const char*);
-#pragma intrinsic(strlen)
+// BFME 2 target 0x006D4F70..0x006D509D, 301 bytes; complete RET8.
+// The existing EAStringCConcat.cpp 300-byte EAStringC overload is the
+// source guide. WB17747B0 and native direct calls identify this overload
+// as C-string concatenation by value, using Assign6D4BF0 in the empty case.
+// Data is the target eight-byte StringDataC header. The native result copy,
+// cleanup and receiver hash reset are preserved. Only source/destination
+// header load scheduling at the first memcpy remains different.
 extern "C" void *__cdecl memcpy(void *dst, const void *src, unsigned int count);
 #pragma intrinsic(memcpy)
+extern "C" unsigned int __cdecl strlen(const char *);
+#pragma intrinsic(strlen)
 
 class EAStringC
 {
@@ -40,50 +31,31 @@ public:
 
 	EAStringC(const EAStringC &other);
 	EAStringC(unsigned int nSize);
-	EAStringC(const char *text):m_pData(0){Assign(text);}
-	void Assign(const char*);
+	EAStringC(const char *s) : m_pData(0) { Assign(s); }
+	void Assign(const char *);
 	~EAStringC()
 	{
 		FreeData(m_pData);
 	}
 	void SetSize(int size);
-	EAStringC operator+(const EAStringC &other) const;
 	EAStringC operator+(const char *other) const;
 };
 
-EAStringC EAStringC::operator+(const EAStringC &other) const
+EAStringC EAStringC::operator+(const char *other) const
 {
 	unsigned int size = m_pData->m_uSize;
 	if (size == 0)
 		return other;
-	unsigned int otherSize = other.m_pData->m_uSize;
+	unsigned int otherSize = strlen(other);
 	if (otherSize == 0)
 		return *this;
 	unsigned int total = size + otherSize;
 	EAStringC result(total);
-	const char *source = (char *)m_pData + sizeof(StringDataC);
-	char *text = (char *)result.m_pData + sizeof(StringDataC);
-	memcpy(text, source, size);
-	memcpy(text + size, (char *)other.m_pData + sizeof(StringDataC), otherSize);
+	char *text=(char *)(result.m_pData+1);
+	memcpy(text,(char *)(m_pData+1),size);
+	memcpy(text + size, other, otherSize);
 	text[size + otherSize] = 0;
 	result.SetSize(total);
 	m_pData->m_uHash = 0;
 	return result;
-}
-
-EAStringC EAStringC::operator+(const char *other) const
-{
- unsigned int size=m_pData->m_uSize;
- if(size==0)return EAStringC(other);
- unsigned int otherSize=strlen(other);
- if(otherSize==0)return *this;
- unsigned int total=size+otherSize;
- EAStringC result(total);
- char *text=(char*)result.m_pData+8;
- memcpy(text,(char*)m_pData+8,size);
- memcpy(text+size,other,otherSize);
- text[size+otherSize]=0;
- result.SetSize(total);
- m_pData->m_uHash=0;
- return result;
 }

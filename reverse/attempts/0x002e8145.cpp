@@ -1,7 +1,6 @@
 // ?rva002E8145@Pathfinder@@AAEHPBUICoord2D@@0W4PathfindLayerEnum@@PAURva002E8145Info@@@Z
-// partial score=0.9514134397138729 date=2026-10-10
-// ?rva002E8145@Pathfinder@@AAEHPBUICoord2D@@0W4PathfindLayerEnum@@PAURva002E8145Info@@@Z
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /I.
+// partial score=0.966951 date=2026-10-10
+// cl:  /O1 /G7 /DNDEBUG /MD
 //
 // Pathfinder::getCell (retail 0x002E6D62) and fifteen cell-space line walks
 // that iterate the cells between two ICoord2D cells with Bresenham and hand
@@ -37,7 +36,7 @@
 //   0x002F6C22  0x002F4D8B
 //   0x002F6D22  0x002F600C
 
-#include "Code/Libraries/Include/Lib/Coord3D.h"
+#include "../../Code/Libraries/Include/Lib/Coord3D.h"
 
 extern "C" int __cdecl abs( int n );
 
@@ -63,7 +62,6 @@ public:
 	unsigned int m_flags;
 };
 
-struct Rva002E8145Info {int observed0,x,y;};
 class Pathfinder;
 
 class PathfindLayer
@@ -103,11 +101,13 @@ PATHFINDER_CELL_LINE_CALLBACK( Rva002F600CInfo )
 	Int iterateCellsAlongLine( const ICoord2D *startCell, const ICoord2D *destinationCell, \
 		PathfindLayerEnum layer, Info *callbackInfo );
 
+struct Rva002E8145Info { int opaque; int skipX; int skipY; };
 class Pathfinder
 {
 public:
 	PathfindCell *getCell( PathfindLayerEnum layer, Int cellX, Int cellY );
 	Int rva002E7749(void *unused, Int cellX, Int cellY, Int layer, Int arg, bool check);
+	Int rva002F9578(const Coord3D *startPos, const Coord3D *destPos, PathfindLayerEnum layer, Rva002F4D8BInfo *info);
 
 private:
 	PATHFINDER_CELL_LINE_WALK_DECL( Rva002E7261Info )
@@ -125,9 +125,9 @@ private:
 	PATHFINDER_CELL_LINE_WALK_DECL( Rva002F5925Info )
 	PATHFINDER_CELL_LINE_WALK_DECL( Rva002F4D8BInfo )
 	PATHFINDER_CELL_LINE_WALK_DECL( Rva002F600CInfo )
+	Int rva002E8145(const ICoord2D *startCell, const ICoord2D *destinationCell, PathfindLayerEnum layer, Rva002E8145Info *callbackInfo);
 	Int rva002E8251(const ICoord2D *startCell, const ICoord2D *destinationCell,
 		PathfindLayerEnum layer, Rva002E7ED6Info *callbackInfo);
-	Int rva002E8145(const ICoord2D*,const ICoord2D*,PathfindLayerEnum,Rva002E8145Info*);
 
 	char m_beforeMap[0x10];
 	PathfindCell **m_map;
@@ -407,10 +407,16 @@ Int Pathfinder::rva002E8251(const ICoord2D *startCell, const ICoord2D *destinati
 	return 0;
 }
 
+// ?rva002F9578@Pathfinder@@QAEHPBUCoord3D@@0W4PathfindLayerEnum@@PAURva002F4D8BInfo@@@Z @0x002F9578 63B.
+// The caller and adjacent Pathfinder helpers establish the class; both world-to-cell
+// conversions and the Rva002F4D8BInfo line-walk overload are rowed.
+Int Pathfinder::rva002F9578(const Coord3D *startPos, const Coord3D *destPos, PathfindLayerEnum layer, Rva002F4D8BInfo *info)
+{
+	ICoord2D tmpDest;
+	ICoord2D tmpStart;
+	return iterateCellsAlongLine(Rva002E7875WorldToCell(&tmpStart, true, startPos), Rva002E7875WorldToCell(&tmpDest, true, destPos), layer, info);
+}
 
-// Native2E8145..2E8251 complete268 RET16. Same witnessed Bresenham
-// traversal as rowed247B sibling; native independently adds exempt x/y
-// at opaque info4/8 and permits only types0/1 without flag16.
 Int Pathfinder::rva002E8145(const ICoord2D *startCell, const ICoord2D *destinationCell, PathfindLayerEnum layer, Rva002E8145Info *callbackInfo)
 {
 	Int delta_x = abs(destinationCell->x - startCell->x);
@@ -459,11 +465,11 @@ Int Pathfinder::rva002E8145(const ICoord2D *startCell, const ICoord2D *destinati
 		PathfindCell *currentCell = getCell(layer, x, y);
 		if (currentCell == 0)
 			return 0;
-		if(x!=callbackInfo->x || y!=callbackInfo->y){
- int type=currentCell->m_flags&15;
- if(type!=0 && type!=1)return 1;
- if(((unsigned char)(currentCell->m_flags>>16))&1)return 1;
- }
+		bool blocked;
+		if (x == callbackInfo->skipX && y == callbackInfo->skipY) blocked = 0;
+		else if ((currentCell->m_flags & 0xf) != 0 && (currentCell->m_flags & 0xf) != 1) blocked=1;
+		else blocked=((currentCell->m_flags>>16)&1);
+		if(blocked) return blocked;
 		if (num < 0)
 		{
 			num += numadd;
@@ -479,4 +485,3 @@ Int Pathfinder::rva002E8145(const ICoord2D *startCell, const ICoord2D *destinati
 	}
 	return 0;
 }
-
