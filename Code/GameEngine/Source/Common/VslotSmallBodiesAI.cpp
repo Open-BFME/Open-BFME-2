@@ -828,3 +828,32 @@ void Rva0057B9D8::rva0057B9D8()
 	if (m_34)
 		m_34->rva005D4F7D();
 }
+
+// 0x00578616, 0x0057861E, 0x00578626 (8B each), after the +0x4C forwarders
+// above in the same Palantir vtable run: the +0x48 object receives the two
+// ints through the leaf thunks 0x005D3272/79/80 (Rva005D3287Thunk.cpp).
+class Rva005D3272 { public: void rva005D3272(Int a, Int b); };
+class Rva005D3279 { public: void rva005D3279(Int a, Int b); };
+class Rva005D3280 { public: void rva005D3280(Int a, Int b); };
+class Rva00578616
+{
+public:
+	void rva00578616(Int a, Int b);
+	void rva0057861E(Int a, Int b);
+	void rva00578626(Int a, Int b);
+private:
+	char m_pad00[0x48];
+	void *m_48;
+};
+void Rva00578616::rva00578616(Int a, Int b)
+{
+	((Rva005D3272 *)m_48)->rva005D3272(a, b);
+}
+void Rva00578616::rva0057861E(Int a, Int b)
+{
+	((Rva005D3279 *)m_48)->rva005D3279(a, b);
+}
+void Rva00578616::rva00578626(Int a, Int b)
+{
+	((Rva005D3280 *)m_48)->rva005D3280(a, b);
+}
