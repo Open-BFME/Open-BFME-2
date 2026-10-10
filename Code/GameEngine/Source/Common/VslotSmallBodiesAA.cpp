@@ -106,3 +106,29 @@ ParticleSystemTemplate *Rva001E0C77::rva001E0C77(Int a, Int)
 {
 	return TheParticleSystemManager->rva001F9343(*(const AsciiString *)&m_148, a);
 }
+
+// 0x0042c0ae: installed-vtable scalar store. Only the native memory
+// write and stack-word ABI are known; owner and field meaning remain unknown.
+class Rva0042C0AEScalarStore {public: void rva0042C0AE(Int unused); private: char m_prefix[0x28]; Int m_value;};
+void Rva0042C0AEScalarStore::rva0042C0AE(Int unused) {m_value=0;}
+
+// 0x0042c0b5: installed-vtable scalar store. Only the native memory
+// write and stack-word ABI are known; owner and field meaning remain unknown.
+class Rva0042C0B5ScalarStore {public: void rva0042C0B5(Int unused,Int value); private: char m_prefix[0x24]; Int m_value;};
+void Rva0042C0B5ScalarStore::rva0042C0B5(Int unused,Int value) {m_value=value;}
+
+// 0x0056a9ed: installed-vtable scalar store. Only the native memory
+// write and stack-word ABI are known; owner and field meaning remain unknown.
+class Rva0056A9EDScalarStore {public: void rva0056A9ED(Int unused); private: char m_prefix[0x9]; unsigned char m_value;};
+void Rva0056A9EDScalarStore::rva0056A9ED(Int unused) {m_value=0;}
+
+// 0x005cc958: installed-vtable scalar store. Only the native memory
+// write and stack-word ABI are known; owner and field meaning remain unknown.
+class Rva005CC958ByteStore {public: void rva005CC958(Int unused);void rva005CC95F(Int unused); private: char m_prefix[0x23]; unsigned char m_value;};
+void Rva005CC958ByteStore::rva005CC958(Int unused) {m_value=1;}
+void Rva005CC958ByteStore::rva005CC95F(Int unused) {m_value=0;}
+
+// 0x005e39d9: installed-vtable scalar store. Only the native memory
+// write and stack-word ABI are known; owner and field meaning remain unknown.
+class Rva005E39D9ScalarStore {public: void rva005E39D9(Int unused,Int value); private: char m_prefix[0x29]; unsigned char m_value;};
+void Rva005E39D9ScalarStore::rva005E39D9(Int unused,Int value) {m_value=1;}
