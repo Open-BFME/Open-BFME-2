@@ -17173,3 +17173,4 @@ _D3DXLoadSurfaceFromFileInMemory@36,0x0062AF80,Native separate-alpha loader REL3
 ??1Rva00084CEF@@QAE@XZ,0x00084CEF,non-virtual view of the terrain tracks system dtor body deleted by W3DTerrainVisual dtor 0x0009203A
 ??1Rva0009A500@@QAE@XZ,0x0009A500,non-virtual view of the shadow manager dtor body deleted by W3DTerrainVisual dtor 0x0009203A
 ??0Rva00598E85@@QAE@PAX@Z,0x00598E85,callee of ??0AIBuilder@@QAE@PAVPlayer@@@Z
+??0Rva005CB8D4@@QAE@PAX@Z,0x0057431D,callee of ??0Impl@CommonBehavior@StrategicInGameUI@@QAE@PAVRva00574A8A@@II@Z
