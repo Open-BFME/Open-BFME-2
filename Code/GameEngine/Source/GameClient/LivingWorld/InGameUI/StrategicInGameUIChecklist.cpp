@@ -98,6 +98,9 @@ public:
 struct ChecklistItemRef
 {
 	ChecklistItem *m_ptr;
+	// Counted reference: returned by value through a hidden pointer (native
+	// 5CCF47/5CCFF3 RET8), so the type is not a POD; destructor declared only.
+	~ChecklistItemRef();
 };
 
 class Checklist
@@ -118,6 +121,7 @@ public:
 	void AddItem(const ChecklistItemRef &newItem, ChecklistItem::Impl *itemImpl);
  void Update();
  void rva005CCFD1();
+ ChecklistItemRef rva005CCF47(ChecklistItem *item);
 private:
 	ChecklistUIFactory *m_factory;
 	Rva005D1A87UI *m_ui; // native +4
@@ -277,6 +281,21 @@ public:
 void Rva005CD010::rva005CD010()
 {
  implementation->rva005CCFD1();
+}
+
+// Native5CCFF3..5CD010 RET8: forwards the item argument to the
+// implementation (+4) lookup 5CCF47 and returns its counted ChecklistItemRef
+// through the caller's hidden pointer. Address-derived receiver, as 5CCEB6.
+class Rva005CCFF3
+{
+public:
+ StrategicInGameUI::ChecklistItemRef rva005CCFF3(StrategicInGameUI::ChecklistItem *item);
+ void *unknown00;
+ StrategicInGameUI::Checklist::Impl *implementation;
+};
+StrategicInGameUI::ChecklistItemRef Rva005CCFF3::rva005CCFF3(StrategicInGameUI::ChecklistItem *item)
+{
+ return implementation->rva005CCF47(item);
 }
 
 // Whole BF1 f989 AsciiStringListClear.cpp emits list::back under O2/SSE2/G7.
