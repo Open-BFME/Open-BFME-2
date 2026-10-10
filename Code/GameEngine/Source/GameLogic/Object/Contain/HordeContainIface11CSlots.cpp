@@ -3584,3 +3584,19 @@ bool HordeContain::rva004723F2(Object *obj, const AsciiString &name)
   return true;
  return false;
 }
+
+// ?rva00472790@HorseHordeContain@@UAEX_N@Z @0x004766C3 5B: slot 4 of
+// HorseHordeContain's +0x11C interface table 0x00C45838 (slot 2 is the other
+// override there, the shared empty body 0x000B3FD0): it only extends
+// HordeContain's (0x00472790 above), so a tail jump with the same +0x11C
+// subobject this.
+class HorseHordeContain : public HordeContain
+{
+public:
+	virtual void rva00472790(bool reposition);
+};
+
+void HorseHordeContain::rva00472790(bool reposition)
+{
+	HordeContain::rva00472790(reposition);
+}
