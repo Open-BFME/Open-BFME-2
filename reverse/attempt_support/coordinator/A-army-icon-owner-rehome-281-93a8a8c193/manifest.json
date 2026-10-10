@@ -1,0 +1,38 @@
+{
+  "id": "A-army-icon-owner-rehome-281-93a8a8c193",
+  "seat": "A",
+  "kind": "exact-existing-ledger-repair",
+  "base_commit": "93a8a8c1933a2e0441be41dc711801416ae01634",
+  "paths": [
+    "Code/GameEngine/Source/Common/Rva00538E22Ctor.cpp",
+    "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldArmyIcon.cpp"
+  ],
+  "recoveries": [
+    {
+      "name": "?rva003FE1DB@LivingWorldArmyIcon@@QAEXXZ",
+      "rva": "0x003FE1DB",
+      "size": 52,
+      "source": "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldArmyIcon.cpp",
+      "notes": "Existing52B army-icon method rehome; WB1074010 named caller passes unchanged this toWB1074950 queue advance; canonicalCoord2D and published16B return; zero new coverage",
+      "replace_rva": "0x003FE1DB",
+      "new_retail_bytes": 0
+    },
+    {
+      "name": "?continueMoving@LivingWorldArmyIcon@@QAEXPAVCoord2D@@@Z",
+      "rva": "0x003FE25D",
+      "size": 229,
+      "source": "Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldArmyIcon.cpp",
+      "notes": "Existing229B army-icon method rehome; WB1074010 named caller passes unchanged this toWB1074950 queue advance; canonicalCoord2D and published16B return; zero new coverage",
+      "replace_rva": "0x003FE25D",
+      "new_retail_bytes": 0
+    }
+  ],
+  "proof_command": "py -3 tools/build.py Code/GameEngine/Source/Common/Rva00538E22Ctor.cpp Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldArmyIcon.cpp",
+  "proof_log": "scoped-proof.log",
+  "claim_owner": "codex-549c-root",
+  "dependencies": [],
+  "new_retail_bytes": 0,
+  "ledger_delta": "ledger_delta.patch",
+  "supersedes": "A-army-icon-queue-52-fbe1437085",
+  "integration_note": "Explicit existing-row repair after original52B packet was found already published. Rename52B helper to its proven LivingWorldArmyIcon owner; rehome both it and published229B movement to actual LivingWorldArmyIcon.cpp. Two-row ledger patch only; nine source rows scoped exact. Empty rows.csv intentional; 0 new byte credit. Original source proves unchanged provider copy-constructor duplicate and two unowned538D3B bindings; new consumer has no finding. Final normal integration/gates/publication owned by coordinator. Original partial banks are already absent on origin; do not restore them."
+}

@@ -120,7 +120,6 @@ struct Rva00538E22
 	_STL::vector<BfmeE16> m_vec;
 	int m_val;
 	Rva00538E22(int v);
-	bool hasRecords() const { return m_vec.size() > 0; }
 	void rva00538ED1(int value);
 	void rva00538F10(const _STL::vector<BfmeE16> &source, int value);
 	void rva00538D3B(int value);
@@ -203,87 +202,6 @@ void Rva00538E43Result::xfer(Xfer *stream)
 
 Rva00538E43Result::Rva00538E43Result(const Rva00318E4ACoord &point, int value) : position(point), tag(value)
 {
-}
-
-// The caller at 0x3FE1DB holds this queue at+3C and copies the returned
-// coordinate bits into+50/+54; an empty queue clears its byte at+5C.
-class Rva003FE1DBOwner
-{
-public:
- void rva003FE1DB();
-private:
- char m_pad0[0x3C];
- Rva00538E22 m_queue;
- char m_pad4C[4];
- Rva00318E4ACoord m_position;
- char m_pad58[4];
- unsigned char m_active;
-};
-void Rva003FE1DBOwner::rva003FE1DB()
-{
- if (m_queue.hasRecords()) {
-  Rva00318B5C front = m_queue.rva00538E43();
-  memcpy(&m_position, &front.coordinate, sizeof(m_position));
- } else {
-  m_active = 0;
- }
-}
-
-extern "C" double __cdecl sqrt(double);
-class Rva003FE13E
-{
-	float m_pad00[6];
-	float m_18;
-	float m_1C;
-	char m_pad20[0x50 - 0x20];
-	float m_50;
-	float m_54;
-	float m_58;
-
-public:
-	float rva003FE13E();
-};
-
-
-class LivingWorldArmyIcon
-{
-public:
-	void continueMoving(Coord2D *out);
-private:
-	char m_unknown0[0x18];
-	Coord2D current;
-	char m_unknown20[0x30];
-	Coord2D destination;
-};
-
-// Complete native 229B RET4 and WB1074010 establish this movement step.
-// The speed helper and queue advance retain their address-derived names.
-// Ordered current reads preserve retail's loads after displacement construction.
-// The output barrier retains the native x reload; newY stays a local because
-// the native subtraction reuses its value rather than loading out->y again.
-void LivingWorldArmyIcon::continueMoving(Coord2D *out)
-{
-	Coord2D d;
-	d.x = destination.x - current.x;
-	d.y = destination.y - current.y;
-	float squared = d.x * d.x + d.y * d.y;
-	if (squared > 0.001) {
-		float inverse = 1.0f / (float)sqrt(squared);
-		d.x *= inverse;
-		d.y *= inverse;
-	}
-	float step = ((Rva003FE13E *)this)->rva003FE13E();
-	Rva00538E43Pair displacement(step * d.x, step * d.y);
-	out->x = *reinterpret_cast<const volatile float *>(&current.x) + displacement.x;
-	float newY = *reinterpret_cast<const volatile float *>(&current.y) + displacement.y;
-	out->y = newY;
-	_ReadWriteBarrier();
-	d.x = destination.x;
-	d.y = destination.y;
-	d.x -= out->x;
-	d.y -= newY;
-	if (d.length() < 1.0f)
-		((Rva003FE1DBOwner *)this)->rva003FE1DB();
 }
 
 // Retain the independently verified default constructor after the queue pop
