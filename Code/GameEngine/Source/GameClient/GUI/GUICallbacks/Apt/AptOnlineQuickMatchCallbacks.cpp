@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
 //
 // BFME2's online quick match screen Apt callbacks, 0x005BA344 onward, and
 // the login screen's CancelLogin, bound by these names
@@ -13,7 +13,21 @@ void Rva00516E92Enable();
 
 extern "C" int __cdecl strcmp(const char *left, const char *right);
 
-class GameWindow;
+#include "ascii_string.h"
+class GameWindow {public:int winGetSize(int*,int*);};
+class Image;
+class ImageCollection {public:const Image *findImageByName(const AsciiString&);};
+extern ImageCollection *TheMappedImageCollection;
+class MultiplayerColorDefinition {public:char unknown[0x10];int color;};
+class MultiplayerSettings {public:char unknown[0x38];int colorCount;int unknown3c;int cachedColorCount;MultiplayerColorDefinition *getColor(int);};
+extern MultiplayerSettings *TheMultiplayerSettings;
+class QuickMatchPreferences {public:int getColor();};
+class GlobalData {public:char unknown[0x30];int resolutionX;};
+extern GlobalData *TheWritableGlobalData;
+class Rva00323619 {public:void rva00323642();void rva00323619(int);};
+class Rva003235B8 {public:int rva003235B8(const Image*,int,int,int);};
+class Rva003236A0 {public:void rva003236A0(int,int);};
+class BfmeThing925D {public:void bfmeGo925D(void*);};
 void GadgetComboBoxReset(GameWindow *comboBox);
 
 // The window kept at +0x80: rebound through the one-pointer store
@@ -140,4 +154,29 @@ void AptOnline::OnlineQuickMatch::InitGadgets(const char *name, void *argument, 
 void AptOnline::Login::CancelLogin(const char *unused)
 {
 	Rva00516E92Enable();
+}
+
+// The matched named InitGadgets5BA94A binds the Color window then calls
+// 5BA803. Native299B RET0 proves method on the same OnlineQuickMatch object.
+// Each helper's existing one-window storage view independently agrees with
+// the color reference prefix. These are direct provider calls, no PMF alias.
+void AptOnline::OnlineQuickMatch::rva005BA803() {
+ int *count=&TheMultiplayerSettings->cachedColorCount;
+ if(!*count)*count=TheMultiplayerSettings->colorCount;
+ int colors=*count;
+ OnlineQuickMatchWindowRef *combo=&m_color;
+ ((Rva00323619*)combo)->rva00323642();
+ int width,height;combo->m_window->winGetSize(&width,&height);
+ int screenWidth=TheWritableGlobalData->resolutionX;
+ int boxWidth=((width-(screenWidth*32)/1024)*1024)/screenWidth;
+ for(int i=0;i<colors;++i) {
+  MultiplayerColorDefinition *color=TheMultiplayerSettings->getColor(i);
+  if(color) {
+   static const Image *whiteBox=TheMappedImageCollection->findImageByName(AsciiString("AptWhiteBox"));
+   int entry=((Rva003235B8*)combo)->rva003235B8(whiteBox,boxWidth,20,color->color);
+   ((Rva003236A0*)combo)->rva003236A0(entry,i);
+  }
+ }
+ ((Rva00323619*)combo)->rva00323619(colors*30);
+ ((BfmeThing925D*)combo)->bfmeGo925D((void*)((QuickMatchPreferences*)((char*)this+0x64))->getColor());
 }
