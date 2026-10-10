@@ -1,0 +1,24 @@
+[
+  {
+    "label": "key-before-buckets",
+    "compile": 0,
+    "checks": [
+      {
+        "name": "?load@GameWindowTransitionsHandler@@QAEXXZ",
+        "size": 780,
+        "exact": true,
+        "unresolved": []
+      }
+    ],
+    "M_find": {
+      "size": 46,
+      "exact": false,
+      "relocs": []
+    }
+  },
+  {
+    "label": "declaration-only-find",
+    "compile": 2,
+    "checks": []
+  }
+]

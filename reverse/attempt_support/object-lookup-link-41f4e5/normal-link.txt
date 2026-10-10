@@ -1,0 +1,9 @@
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsHandlerLoad.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-10 19:06 at 7bcd61f5c1; file's own bytes 778)
+  unresolved  ?rva0059EB90@@YAXPAVINI@@PAUGen_00489270@@@Z
+  comdat      ?size@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QBEIXZ  (retail: not retail's body)
+  comdat      ?begin@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QBEPBQAXXZ  (retail: not retail's body)
+  selected    ?begin@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QBEPBQAXXZ  (the definition the link keeps is not retail's)
+Code/GameEngine/Source/GameLogic/Object/ObjectLookupMapFindSlot.cpp: LINKS  LINKED 0 -> 149 bytes (census 2026-10-10 19:06 at 7bcd61f5c1; file's own bytes 149)
+link_check: 1 of 2 link cleanly; LINKED 0 -> 149 bytes (3.9s)

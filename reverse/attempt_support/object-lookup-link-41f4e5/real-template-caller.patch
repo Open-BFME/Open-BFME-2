@@ -1,0 +1,118 @@
+--- a/Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsHandlerLoad.cpp
++++ b/Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsHandlerLoad.cpp
+@@ -1,4 +1,5 @@
+-// cl: /Ireference/shims/bfme2_ascii /O1 /MD /GX /DNDEBUG /D_CRTIMP= /G7 /arch:SSE
++// cl: /Ireference/shims/bfmehashtable /Ireference/shims/bfmevector /Ireference/shims/bfme2_ascii /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /O1 /MD /GX /DNDEBUG /D_CRTIMP= /G7 /arch:SSE
++// stlport
+ //
+ // GameWindowTransitionsHandler::load, retail 0x001DC7E1 (780 bytes): registers the
+ // window-transition INI field parsers under their name keys in the handler's lookup
+@@ -8,75 +9,49 @@
+ // The parsers keep their ledger signatures under neutral names and are stored through
+ // casts to the four-argument cdecl field-parser type.
+ //
+-// Frame size: retail's cl saw the whole name-key map walk (ObjectLookupMap::findSlot
+-// 0x0041F4E5 -> KeyToBucketMap::find 0x00148B27 -> _M_find 0x002888D4) and knew none
+-// of them keeps the address of the key temporary. Without that knowledge the key
+-// temporary and the saved ESP of the by-value path argument cannot share a slot
+-// (frame 0x884 instead of 0x880). The three bodies are therefore defined here as
+-// noinline members with the retail bytes; their COMDAT copies stay exact.
++// Retail's visible noinline lookup chain lets the key temporary share the saved
++// argument-stack slot (frame0x880). Use the real int/Object* STLport hashtable
++// lookup: its naturally emitted find27 and _M_find47 have the complete native
++// extents and relocation twins at148B27/2888D4. The real slot-finder COMDAT is
++// also exact63; the old private ObjectLookupMap helpers had different unresolved
++// callees and displaced the verified provider. Original transition-map template
++// spelling is unknown; the caller stores its parser code pointers through the
++// already established erased lookup-slot protocol.
+ #include "ascii_string.h"
+ class Xfer;
+ enum INILoadType {INI_LOAD_INVALID, INI_LOAD_OVERWRITE};
+ class INI {public: INI(); ~INI(); unsigned char loadFile(AsciiString,INILoadType,Xfer*); private: char storage[0x87C];};
+ enum NameKeyType {NAMEKEY_INVALID=0,NAMEKEY_MAX=1<<23,FORCE_NAMEKEYTYPE_LONG=0x7fffffff};
+-class NameKeyGenerator {public: NameKeyType nameToKey(const char*);};
++class NameKeyGenerator;
+ extern NameKeyGenerator* TheNameKeyGenerator;
+ class Object;
+-struct KeyBucketNode { KeyBucketNode *next; int key; Object *value; };
+-struct KeyBucketTable
+-{
+-	KeyBucketNode **start;
+-	KeyBucketNode **finish;
+-	KeyBucketNode **storageEnd;
+-	unsigned size() const { return (unsigned)(finish - start); }
+-	KeyBucketNode *&at( unsigned n ) { return *( start + n ); }
++#include <hash_map>
++typedef _STL::pair<const int, Object *> ObjectLookupPair;
++typedef _STL::hashtable<ObjectLookupPair, int, _STL::hash<int>, _STL::_Select1st<ObjectLookupPair>, _STL::equal_to<int>, _STL::allocator<ObjectLookupPair> > ObjectLookupTable;
++class NameKeyGenerator {
++public:
++ NameKeyType nameToKey(const char *);
++ class KeyToBucketMap {
++  friend class ObjectLookupMap;
++  struct value_type { int first; void *second; };
++  ObjectLookupTable m_table;
++  int *insertNode(const value_type &);
++ };
+ };
+-struct KeyHashInt { unsigned operator()( int x ) const { return (unsigned)x; } };
+-struct KeyEqualInt { bool operator()( int a, int b ) const { return a == b; } };
+-class ObjectLookupMap
+-{
++class ObjectLookupMap {
+ public:
+-	struct Slot { void *node; ObjectLookupMap *map; };
+-	__declspec(noinline) Object **findSlot( int *key )
+-	{
+-		Slot out;
+-		find( out, key );
+-		KeyBucketNode *node = (KeyBucketNode *)out.node;
+-		if ( node == 0 )
+-		{
+-			out.node = (void *)*key;
+-			out.map = 0;
+-			return (Object **)( insertNode( (const ValueType &)out ) + 1 );
+-		}
+-		return &node->value;
+-	}
+-	Object **slot( const NameKeyType &key ) { return findSlot( reinterpret_cast<int *>( const_cast<NameKeyType *>( &key ) ) ); }
++ __declspec(noinline) Object **findSlot(int *key) {
++  ObjectLookupTable::iterator out = m_map.m_table.find(*key);
++  if (out._M_cur == 0) {
++   out._M_cur = (_STL::_Hashtable_node<ObjectLookupPair> *)*key;
++   out._M_ht = 0;
++   return (Object **)(m_map.insertNode((const NameKeyGenerator::KeyToBucketMap::value_type &)out) + 1);
++  }
++  return &out._M_cur->_M_val.second;
++ }
++ Object **slot(const NameKeyType &key) { return findSlot((int *)&key); }
+ private:
+-	struct ValueType { int first; void *second; };
+-	__declspec(noinline) Slot *find( Slot &out, const int *key )
+-	{
+-		out.node = _M_find( *key );
+-		out.map = this;
+-		return &out;
+-	}
+-	__declspec(noinline) void *_M_find( const int &key ) const
+-	{
+-		unsigned n = bkt_num_key( key );
+-		KeyBucketNode *first;
+-		for ( first = ( (ObjectLookupMap *)this )->tableAt( n ); first && !m_equals( first->key, key ); first = first->next )
+-		{
+-		}
+-		return first;
+-	}
+-	int *insertNode( const ValueType &value );
+-	unsigned tableSize() const { return m_table.size(); }
+-	KeyBucketNode *&tableAt( unsigned n ) { return m_table.at( n ); }
+-	unsigned bkt_num_key( int key ) const { return m_hash( key ) % tableSize(); }
+-	KeyHashInt m_hash;
+-	KeyEqualInt m_equals;
+-	char m_pad2[2];
+-	KeyBucketTable m_table;
+-	unsigned m_count;
++ NameKeyGenerator::KeyToBucketMap m_map;
+ };
+ typedef void (__cdecl *Factory)(INI*,void*,void*,const void*);
+ struct Gen_00489270;

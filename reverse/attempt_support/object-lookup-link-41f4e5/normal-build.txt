@@ -1,0 +1,6 @@
+Source claims: OK (2 sources, scoped byte-verified)
+Compile: 1 of 2 TU(s) (deps-cache: 1 current)
+Functions: OK 4/4 matched across 2 source file(s)
+String-ref verify: OK (20 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (0 compiler literals verified)
+Import-ref verify: OK (0 named imports verified)
