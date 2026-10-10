@@ -1,5 +1,7 @@
 // ?rva003B6676@Rva003B573E@@QAEXXZ
 // partial score=0.83 date=2026-10-10
+// ?rva003B6676@Rva003B573E@@QAEXXZ
+// partial score=0.83 date=2026-10-10
 // cl: /O1 /G7 /arch:SSE /Oy- /DNDEBUG /MD /EHsc
 // Native3B6676 walks 20B records from head1C, clearing node cells10 and
 // setting referencesE to1. The rowed node destructor448C and element drain
@@ -45,7 +47,7 @@ void Rva003B573E::rva003B6676()
             Rva003B448C *next = node->next;
             if (node)
             {
-                node->~Rva003B448C();
+                node->Rva003B448C::~Rva003B448C();
                 ::operator delete(node);
             }
             *cell = next;
