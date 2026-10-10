@@ -16,3 +16,23 @@ void AIStateMachine::setGoalWaypoint(const Waypoint *waypoint)
 {
     goalWaypoint = waypoint;
 }
+// ?rva003E3BFB@Pathfinder@@QAEXW4ObjectID@@@Z @0x003E3BFB (10B): the same
+// 10-byte store serves Pathfinder callers with obstacle IDs (retail
+// computeAttackPath 0x00266AA2 calls 0x003E3BFB three times where sources
+// call pathfinder()->rva003E3BFB; doPathfind/DerivedOnExit likewise), so
+// the setter folds here. Defined over a minimal Pathfinder view; the enum
+// keeps the W4ObjectID mangling the callers reference.
+enum ObjectID
+{
+    INVALID_OBJECT_ID = 0
+};
+class Pathfinder {
+    char prefix[0x48];
+    ObjectID ignoredObstacleID;
+public:
+    void rva003E3BFB(ObjectID);
+};
+void Pathfinder::rva003E3BFB(ObjectID id)
+{
+    ignoredObstacleID = id;
+}
