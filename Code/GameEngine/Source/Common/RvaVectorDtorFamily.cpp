@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /GX
+// cl: /DNDEBUG /MD /GX /DBFME_ASCII_DTOR_DECL
 //
 // STLport vector destructors, one per element type, with the shape of the rowed
 // ??1?$vector@UPrereqUnitRec@ProductionPrerequisite@@... at 0x002D040C (63 bytes:
@@ -751,3 +751,46 @@ Rva00577EB2::~Rva00577EB2()
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
 #pragma comment(linker, "/alternatename:??1Rva0039C151Subobject@@QAE@XZ=??1Rva0039C151@@QAE@XZ")
 #pragma comment(linker, "/alternatename:??1Rva004EE501Subobject@@QAE@XZ=??1Rva004EE501@@QAE@XZ")
+
+// Non-template range-destroy provider for vector<BfmeVectorRecord00319C84>.
+// The template-id spelling (??$_Destroy@PAU...) is aliased to this name by
+// the global /alternatename directives this TU's object already carries for
+// the exact pair, so the TUs that declare the range template without
+// defining it (stlport_vector_record_319c84_reserve.cpp,
+// stlport_vector_record_319b58_dtor.cpp) resolve here instead of emitting
+// retail-mismatched COMDAT copies. Each element is destroyed through the
+// rowed member destructors (vector<AsciiString> 0x0002CC70, AsciiString
+// 0x0048BA39, in reverse-declaration order); the template-id keeps no
+// emitted copy and retail's own dispatch worker (0x00319784) stays the byte
+// truth for it. No existing call in this unit can bind either declaration
+// below (all local calls use other element types), so no body in this unit
+// changes.
+// Local AsciiString view replaced by the canonical shared header (class
+// gate): it declares the out-of-line 0x0048BA39 destructor under
+// BFME_ASCII_DTOR_DECL, which this TU's // cl: sets like the STL units do.
+#include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
+namespace _STL {
+template <class T> class allocator {};
+template <class T, class A = allocator<T> > class vector
+{
+public:
+	~vector();
+};
+}
+struct BfmeVectorRecord00319C84
+{
+	AsciiString text;
+	_STL::vector<AsciiString> names;
+};
+namespace _STL {
+void __cdecl _Destroy(BfmeVectorRecord00319C84 *first, BfmeVectorRecord00319C84 *last);
+}
+// ?_Destroy@_STL@@YAXPAUBfmeVectorRecord00319C84@@0@Z absent-from-retail
+void __cdecl _STL::_Destroy(BfmeVectorRecord00319C84 *first, BfmeVectorRecord00319C84 *last)
+{
+	for (; first != last; ++first)
+	{
+		first->names.~vector<AsciiString>();
+		first->text.~AsciiString();
+	}
+}
