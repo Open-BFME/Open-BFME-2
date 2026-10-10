@@ -7,22 +7,30 @@
 void *__cdecl ji_006291ae(void *dest, int val, unsigned int count) throw();
 #pragma comment(linker, "/alternatename:?ji_006291ae@@YAPAXPAXHI@Z=?ji_006291ae@@YAXXZ")
 
-struct EmptyBase0051C0E7 {
-	EmptyBase0051C0E7() {}
-	~EmptyBase0051C0E7();
+struct Rva0051C0E7 {
 	AsciiString m_00;
-};
-
-struct Rva0051C0E7 : public EmptyBase0051C0E7 {
 	int m_04;
 	AsciiString m_08[8];
 	char m_28[8];
 	Rva0051C0E7();
+	~Rva0051C0E7();
 };
 
 Rva0051C0E7::Rva0051C0E7() : m_04(0)
 {
 	ji_006291ae(m_28, 0, 8);
+}
+
+// ??1Rva0051C0E7@@QAE@XZ @0x0051E471..0x0051E4B0, complete 63B.
+// The rowed timeline constructor 0x005202C8 constructs this 48B member at
+// +0x2C4; its destructor 0x005204EF calls this cleanup at the same offset.
+// WB 0x013DAA70 independently shows eight 4B strings at +8 followed by
+// the string at +0. Native array cleanup uses the rowed 48BA39 destructor,
+// and the head releases through 36410. The original record name is unknown;
+// retain the constructor's address-derived owner. Its tail is opaque POD.
+// Ordinary member ownership also removes the old undefined EmptyBase dtor.
+Rva0051C0E7::~Rva0051C0E7()
+{
 }
 
 class PlayerListMid0051C241 {
