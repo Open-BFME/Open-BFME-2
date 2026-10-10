@@ -35,3 +35,9 @@ struct Rva005CEA3DWord {char prefix[0x18]; int word;};
 class Rva005CEA3D {public: bool rva005CEA3D(int value); private: char prefix[8]; Rva005CEA3DWord *entry;};
 bool Rva005CEA3D::rva005CEA3D(int value) {return entry->word == value;}
 
+
+// Native CMP EDX,[EAX+18]: EAX comes from this8 and EDX from the
+// stack word. Original owner and field meanings remain unknown.
+struct Rva005E574AField {char prefix[0x18]; int word;};
+class Rva005E574A {public: bool rva005E574A(int value); private: char prefix[8]; Rva005E574AField *entry;};
+bool Rva005E574A::rva005E574A(int value) {return value!=entry->word;}
