@@ -1,4 +1,8 @@
 // ?callFunction@AptActionInterpreter@@QAEXPAVAptValue@@0H@Z
+// partial score=0.9568449696701077 date=2026-10-10
+extern "C" void _ReadWriteBarrier();
+#pragma intrinsic(_ReadWriteBarrier)
+// ?callFunction@AptActionInterpreter@@QAEXPAVAptValue@@0H@Z
 // partial score=0.949378714 date=2026-10-10
 // ?callFunction@AptActionInterpreter@@QAEXPAVAptValue@@0H@Z
 // partial score=0.926 date=2026-10-06
@@ -19,7 +23,7 @@ struct AptActionInterpreter {
  void callFunction(AptValue *,AptValue *,int);
 };
 void AptActionInterpreter::callFunction(AptValue *context,AptValue *function,int nParams) {
- int before=stack.count-nParams;
+ int before=stack.count-nParams;function=*(AptValue*volatile*)&function;
  if(function && (unsigned char)((BfmeAptValue006DCD20 *)function)->isNativeFunction()) {
   AptConstantPool old=constantPool;
   NativeFunctionView *fn=(NativeFunctionView *)((BfmeAptValue006DCD20 *)function)->rva006DCF20();
