@@ -1033,6 +1033,7 @@ public:
 	virtual void performReform();
 	virtual bool rva00470B21();
 	Coord2D *rva0046A5B1(Coord2D *offset, int index);
+	bool rva004723F2(Object *, const AsciiString &);
 private:
 	__forceinline const _STL::list<Object *> *containedItems()
 	{
@@ -3565,4 +3566,21 @@ Coord2D *HordeContain::rva0046A5B1(Coord2D *offset, int index)
 	Rva0046A5B1Record *rec = (Rva0046A5B1Record *)m_188Begin + index;
 	((AODHordeContain *)this)->rva00468E98((AODOffset2D *)offset, rec->m_offset);
 	return offset;
+}
+
+// Complete native4723F2..472444,82B RET8. Unnamed WB10C0320 independently
+// has the same ID-map/indexed-record/module-entry/string comparison; its
+// caller WB10C03B0 corresponds to native472444 and passes the complete
+// owner obtained from its contain interface at20. The existing HordeContain
+// constructor and assignSpotToUnit prove map17C and record-vector188.
+// The purpose is an observed member-record name filter; original method
+// name remains unknown. All called bodies and layouts are existing owners.
+bool HordeContain::rva004723F2(Object *obj, const AsciiString &name)
+{
+ int id = obj->getID();
+ int index = m_17C[id];
+ char *entry = (char *)((Rva00469294 *)m_moduleData)->rva00469294(m_188Begin[index].m_key);
+ if (entry && ((const AsciiString *)(entry + 4))->compare(name) == 0)
+  return true;
+ return false;
 }
