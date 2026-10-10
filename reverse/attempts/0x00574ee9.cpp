@@ -1,6 +1,8 @@
 // ?rva00574EE9@Rva00574EA2@@QAEXXZ
+// partial score=0.985 date=2026-10-10
+// ?rva00574EE9@Rva00574EA2@@QAEXXZ
 // partial score=0.98 date=2026-10-09
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /ICode/GameEngine/Source/Common
 // NEAR (helper draft for Code/GameEngine/Source/Common/Rva00574EE9Method.cpp):
 // every instruction matches except the frame: retail packs the 8-byte payload
 // at [ebp-0x18] over the byte temp cl uses to push the show(flag) argument
@@ -40,6 +42,10 @@ class Rva002B254F
 {
 public:
 	int rva002B254F();
+};
+class Rva002B256E
+{
+public:
 	void *rva002B256E();
 };
 
@@ -80,9 +86,16 @@ public:
 		Payload(int first, int second) { v[0] = first; v[1] = second; }
 		int v[2];
 	};
+	Rva00574ABB(const Payload *src) throw();
+	virtual ~Rva00574ABB();
+	int m_ref;
+	Payload m_data;
 };
 
-RvaCloneResult<Rva00574ABB> Rva00574BA5Create(const Rva00574ABB::Payload *src);
+inline __declspec(noinline) RvaCloneResult<Rva00574ABB> Rva00574BA5Create(const Rva00574ABB::Payload *src)
+{
+	return RvaCloneResult<Rva00574ABB>(new Rva00574ABB(src));
+}
 
 class Rva00574EE9Panel
 {
@@ -134,7 +147,7 @@ void Rva00574EA2::rva00574EE9()
 		{
 			((Rva005A0B4CList *)(panel + 4))->append(&m_lis10);
 			if (!(unsigned char)((Rva002B254F *)TheLivingWorldLogic)->rva002B254F()
-				|| ((Rva002B256EState *)((Rva002B254F *)TheLivingWorldLogic)->rva002B256E())->m_flag20)
+				|| ((Rva002B256EState *)((Rva002B256E *)TheLivingWorldLogic)->rva002B256E())->m_flag20)
 			{
 				getPanel()->show(true);
 				getPanel()->refresh();
@@ -146,7 +159,7 @@ void Rva00574EA2::rva00574EE9()
 
 	if (TheLivingWorldLogic && (unsigned char)((Rva002B254F *)TheLivingWorldLogic)->rva002B254F())
 	{
-		bool flag = ((Rva002B256EState *)((Rva002B254F *)TheLivingWorldLogic)->rva002B256E())->m_flag20;
+		bool flag = ((Rva002B256EState *)((Rva002B256E *)TheLivingWorldLogic)->rva002B256E())->m_flag20;
 		getPanel()->show(flag);
 		if (flag && !m_flashed7C)
 		{

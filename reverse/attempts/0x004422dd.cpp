@@ -1,6 +1,8 @@
 // ?HostValidateColors@AptMpGameSetup@@QAEXXZ
+// partial score=0.985 date=2026-10-10
+// ?HostValidateColors@AptMpGameSetup@@QAEXXZ
 // partial score=0.96 date=2026-10-08
-// cl: /O1 /G7 /MD /EHsc /DNDEBUG /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP=
+// cl: /O1 /G7 /MD /EHsc /DNDEBUG /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /arch:SSE
 // stlport
 // Near-exact 0x004422DD..0x004424E7 (522B), WB HostValidateColors lead.
 // Native facts: host gate at owner vslot +4, GameInfo pointer via +5C;
@@ -16,6 +18,7 @@
 // Current 522B output has every instruction and call aligned, but reserves
 // 0x2C vs 0x28 bytes and swaps saved-this / loop-index stack slots. Bit reference
 // and map storage are each four bytes too low; no padding/asm/pins were added.
+#define _BFME_RETAIL_TREE_INSERT_LAYOUT
 #include <map>
 #include <vector>
 #include <new>
@@ -30,9 +33,21 @@ class Rva0043EA9C {public:
  _STL::map<int,void*> storage;
  ~Rva0043EA9C();
 };
-class BFME2RespawnRuleTree {public: void *find(const unsigned&) const; void *sentinel;};
 class Image;
-class ImageSubscriptMap {public: Image *&operator[](const unsigned&);};
+typedef _STL::map<unsigned, void *, _STL::less<unsigned>, _STL::allocator<_STL::pair<const unsigned, void *> > > RespawnPtrMap;
+class BFME2RespawnRuleTree {public:
+	__declspec(noinline) void *find(const unsigned &k) const { return (void *)((const RespawnPtrMap *)this)->find(k)._M_node; }
+	void *sentinel;};
+typedef _STL::map<unsigned, Image *, _STL::less<unsigned>, _STL::allocator<_STL::pair<const unsigned, Image *> > > ImageNameMap;
+class ImageSubscriptMap {public:
+	__declspec(noinline) Image *&operator[](const unsigned &key)
+	{
+		ImageNameMap::iterator i = m_map.lower_bound(key);
+		if (i == m_map.end() || m_map.key_comp()(key, (*i).first))
+			i = m_map.insert(i, ImageNameMap::value_type(key, (Image *)0));
+		return (*i).second;
+	}
+	ImageNameMap m_map;};
 class AptMpGameSetup {public: void HostValidateColors();
  char pad00[0x58]; ColorSetupOwner *owner; Rva0043DA65 *game;
  char pad60[0x3c4-0x60]; _STL::vector<bool> allowed;

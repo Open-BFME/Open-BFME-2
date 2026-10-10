@@ -1,4 +1,6 @@
 // ?pickAndPlayUnitVoiceResponse@@YA_NPBVDrawableList@@W4Type@GameMessage@@PAVPickAndPlayInfo@@@Z
+// partial score=0.94 date=2026-10-10
+// ?pickAndPlayUnitVoiceResponse@@YA_NPBVDrawableList@@W4Type@GameMessage@@PAVPickAndPlayInfo@@@Z
 // partial score=0.93 date=2026-10-10
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /ICode/Libraries/Include/Lib
 // PickAndPlayUnitVoiceResponse.cpp (WorldBuilder twin path
@@ -224,6 +226,37 @@ public:
 	void rva004D9FF2();
 };
 
+struct NameKeyBucket
+{
+	NameKeyBucket *next;
+	int key;
+	void *value;
+};
+struct NameKeyBucketTable
+{
+	NameKeyBucket **start;
+	NameKeyBucket **finish;
+	NameKeyBucket **storageEnd;
+	unsigned size() const { return (unsigned)(finish - start); }
+	NameKeyBucket *&at(unsigned n) { return *(start + n); }
+};
+struct NameKeyHashInt
+{
+	unsigned operator()(int x) const { return (unsigned)x; }
+};
+struct NameKeyEqualInt
+{
+	bool operator()(int a, int b) const { return a == b; }
+};
+struct BucketAlloc
+{
+	static void *allocate(unsigned int n, const void *hint);
+};
+namespace _STL
+{
+template <class Element>
+void _Construct(Element *slot, const Element &source);
+}
 class NameKeyGenerator
 {
 public:
@@ -233,17 +266,63 @@ public:
 	public:
 		struct value_type
 		{
-			value_type(Object *o, int i) : first(o), second(i) {}
-			Object *first;
-			int second;
+			value_type(Object *o, int i) : first((int)o), second((void *)i) {}
+			int first;
+			void *second;
 		};
+		typedef NameKeyBucket Bucket;
 		struct insert_result
 		{
-			void *m_cur;
-			void *m_table;
-			bool m_inserted;
+			Bucket *first;
+			KeyToBucketMap *second;
+			bool inserted;
+			insert_result(Bucket *f, KeyToBucketMap *s, bool i)
+				: first(f), second(s), inserted(i)
+			{
+			}
 		};
-		insert_result insert(const value_type &v);
+		__declspec(noinline) insert_result insert(const value_type &value)
+		{
+			resize(m_count + 1);
+			return do_insert(value);
+		}
+	private:
+		NameKeyHashInt m_hash;
+		NameKeyEqualInt m_equals;
+		char pad2[2];
+		NameKeyBucketTable m_table;
+		unsigned m_count;
+		void resize(unsigned);
+		__declspec(noinline) void *allocateNode(const value_type &value)
+		{
+			Bucket *node = (Bucket *)BucketAlloc::allocate(sizeof(Bucket), 0);
+			node->next = 0;
+			_STL::_Construct((value_type *)&node->key, value);
+			return node;
+		}
+		__declspec(noinline) insert_result do_insert(const value_type &value)
+		{
+			const unsigned n = bkt_num(value);
+			Bucket *first = (Bucket *)tableAt(n);
+			for (Bucket *cur = first; cur != 0; cur = cur->next)
+			{
+				if (keysEqual(cur->key, lookupKey(value)))
+				{
+					return insert_result(cur, this, false);
+				}
+			}
+			Bucket *tmp = (Bucket *)allocateNode(value);
+			tmp->next = first;
+			tableAt(n) = tmp;
+			++m_count;
+			return insert_result(tmp, this, true);
+		}
+		static int lookupKey(const value_type &v) { return v.first; }
+		unsigned tableSize() const { return m_table.size(); }
+		Bucket *&tableAt(unsigned n) { return m_table.at(n); }
+		unsigned bkt_num_key(int key) const { return m_hash(key) % tableSize(); }
+		unsigned bkt_num(const value_type &obj) const { return bkt_num_key(lookupKey(obj)); }
+		bool keysEqual(int a, int b) const { return m_equals(a, b); }
 	};
 };
 extern NameKeyGenerator *TheNameKeyGenerator;
@@ -423,6 +502,7 @@ struct Rva002C99FB
 {
 	int m_id;
 	OpaqueRefCounted *m_ref;
+	Rva002C99FB &operator=(const Rva002C99FB &other);
 };
 inline const Rva002C99FB &asStruct(const Rva002390CB &v) { return *(const Rva002C99FB *)&v; }
 
@@ -577,7 +657,18 @@ Rva002226E5TextPlusString operator+(const char *left, const AsciiString &right);
 class Rva004D977D
 {
 public:
-	void rva004D977D(const Rva002C99FB &a, const Rva002C99FB &b);
+	__declspec(noinline) void rva004D977D(const Rva002C99FB &a, const Rva002C99FB &b)
+	{
+		if (m_00.m_ref == 0 && m_00.m_id == -1)
+			m_00 = a;
+		if (m_18 != 0 && m_08.m_ref == 0)
+			m_08 = b;
+	}
+private:
+	Rva002C99FB m_00;
+	Rva002C99FB m_08;
+	char m_pad10[8];
+	int m_18;
 };
 
 class Rva004D9750
@@ -601,6 +692,7 @@ class Drawable
 {
 public:
 	bool rva00276805(int index);
+	Rva002390CB rva00274CD8(const AsciiString &name);
 	Rva002390CB rva0027675F(int index);
 	bool rva002766AE(const int *ref);
 	void rva002766F8(const OpaqueRefElement4 &ref);
@@ -636,11 +728,20 @@ private:
 	int m_18;
 };
 
+class Rva0041541B { public: const Rva002390CB &rva0041541B(const AsciiString &); };
 class Rva004D97B0
 {
 public:
-	void rva004D97B0(int index);
-	void rva004D9874(const AsciiString &name);
+	__declspec(noinline) void rva004D97B0(int index)
+	{
+		if (index != -1)
+			((Rva004D977D *)this)->rva004D977D(asStruct(m_drawable->rva0027675F(index)), asStruct(m_extra == 0 ? Rva002390CB() : m_extra->rva004D9750(index)));
+	}
+	__declspec(noinline) void rva004D9874(const AsciiString &name)
+	{
+		if (!name.isEmpty())
+			((Rva004D977D *)this)->rva004D977D(asStruct(m_drawable->rva00274CD8(name)), asStruct(m_extra == 0 ? (const Rva002390CB &)Rva002390CB() : ((Rva0041541B *)m_extra)->rva0041541B(name)));
+	}
 	bool isFilled() { return ((Rva004D9596 *)this)->rva004D9596(); }
 	bool hasVoice() { return (char)((Rva004D9596 *)this)->rva004D9586() != 0; }
 	void setSounds(const Rva002390CB &a, const Rva002390CB &b) { ((Rva004D977D *)this)->rva004D977D(asStruct(a), asStruct(b)); }
