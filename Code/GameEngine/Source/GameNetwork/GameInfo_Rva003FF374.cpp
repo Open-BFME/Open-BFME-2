@@ -90,12 +90,8 @@ GameInfo *TheGameInfo = NULL;
 
 // GameSlot ----------------------------------------
 
-// byte-exact reconstruction: game/GameEngine/Source/GameNetwork/LANGameSlot_copy.cpp
-// ??0GameSlot@@ present-unmatched
-GameSlot::GameSlot()
-{
-	reset();
-}
+// GameSlot::GameSlot lives in GameSlotCtor.cpp (rowed 0x003FFB4C); no local
+// copy is emitted, so the rowed copy is the sole definition at link time.
 
 // GameSlot::reset is defined with its retail-matched body in Code/GameEngine/Source/GameNetwork/GameSlotCtor.cpp (0x003FF50C).
 
