@@ -107,10 +107,15 @@ public:
 	Int rva002E7E26( Object *cell, Int cellX, Int cellY );
 };
 
+class Rva002E9D09 {public:Int rva002E9D09(Object*,Int,Int);};
+class Rva004DD9E3 {public:Int rva004DD9E3(Int,Int,Int);};
+
 class Pathfinder
 {
 public:
 	PathfindCell *getCell( PathfindLayerEnum layer, Int cellX, Int cellY );
+	Int rva002EB7B4(Int*,Int*,Int,Int,Rva002E9D09*);
+	Int rva004DDA9A(Int*,Int*,Int,Int,Rva004DD9E3*);
 	Int rva002E8773( Int *xPts, Int *yPts, Int numEdges, Int layer, Rva002E7E26 *visitor );
 	Int rva002E7749(void *unused, Int cellX, Int cellY, Int layer, Int arg, bool check);
 
@@ -480,6 +485,173 @@ Int Pathfinder::rva002E8773( Int *xPts, Int *yPts, Int numEdges, Int layer, Rva0
 			if (!cell)
 				continue;
 			Int ret = visitor->rva002E7E26( (Object *)cell, x - 1, y );
+			if (ret)
+				return ret;
+		}
+		y++;
+		if (!left.rva002E6D2F()) {
+			while (left.m_08 == 0) {
+				Int dy = yPts[prevIndex(left.m_0C, numEdges)] - yPts[left.m_0C];
+				if (dy < 0)
+					break;
+				left.rva002E6CFE( xPts[left.m_0C], xPts[prevIndex(left.m_0C, numEdges)], dy );
+				left.m_0C = prevIndex(left.m_0C, numEdges);
+			}
+		}
+		if (!right.rva002E6D2F()) {
+			while (right.m_08 == 0) {
+				Int dy = yPts[nextIndex(right.m_0C, numEdges)] - yPts[right.m_0C];
+				if (dy < 0)
+					break;
+				right.rva002E6CFE( xPts[right.m_0C], xPts[nextIndex(right.m_0C, numEdges)], dy );
+				right.m_0C = nextIndex(right.m_0C, numEdges);
+				if (right.m_08 < 0)
+					return 0;
+			}
+		}
+	}
+	return 0;
+}
+
+
+// Native 002EB7B4..002EBA88 and 004DDA9A..004DDD6E: 724B RET20.
+// WB D70A30/1287DE0 and rowed rectangle callers 002EED80/004DDDA4
+// establish the same ProcessConvexPoly family; visitor identities remain opaque.
+// The second visitor retains its existing integer cell-pointer ABI. Visible
+// edge setup and four-word walker recover both twins of landed 002E8773.
+Int Pathfinder::rva002EB7B4( Int *xPts, Int *yPts, Int numEdges, Int layer, Rva002E9D09 *visitor )
+{
+	Int i;
+	Int j = 1;
+	for (i = 1; i < numEdges; i++) {
+		if (xPts[i] != xPts[j - 1] || yPts[i] != yPts[j - 1]) {
+			xPts[j] = xPts[i];
+			yPts[j] = yPts[i];
+			j++;
+		}
+	}
+	numEdges = j;
+	while (numEdges > 2 && xPts[0] == xPts[numEdges - 1] && yPts[0] == yPts[numEdges - 1]) {
+		numEdges--;
+	}
+	if (numEdges < 3) {
+		return -1;
+	}
+
+	Int topIdx = 0;
+	Int maxY = 0;
+	for (i = 1; i < numEdges; i++) {
+		if (yPts[i] < yPts[topIdx] || (yPts[i] == yPts[topIdx] && xPts[i] < xPts[topIdx]))
+			topIdx = i;
+		if (yPts[i] > maxY)
+			maxY = yPts[i];
+	}
+
+	Int y = yPts[topIdx];
+	Rva002E6CFE left;
+	left.m_0C = topIdx;
+	left.rva002E6CFE( xPts[left.m_0C], xPts[prevIndex(left.m_0C, numEdges)],
+		yPts[prevIndex(left.m_0C, numEdges)] - yPts[left.m_0C] );
+	left.m_0C = prevIndex(left.m_0C, numEdges);
+
+	while (yPts[topIdx] == yPts[nextIndex(topIdx, numEdges)])
+		topIdx = nextIndex(topIdx, numEdges);
+	Rva002E6CFE right;
+	right.m_0C = topIdx;
+	right.rva002E6CFE( xPts[right.m_0C], xPts[nextIndex(right.m_0C, numEdges)],
+		yPts[nextIndex(right.m_0C, numEdges)] - yPts[right.m_0C] );
+	right.m_0C = nextIndex(right.m_0C, numEdges);
+
+	while (y <= maxY) {
+		Int x = (left.m_00 + 0x80) / 256;
+		Int xEnd = (right.m_00 + 0x80) / 256;
+		while (x <= xEnd) {
+			PathfindCell *cell = getCell( (PathfindLayerEnum)layer, x, y );
+			x++;
+			if (!cell)
+				continue;
+			Int ret = visitor->rva002E9D09( (Object *)cell, x - 1, y );
+			if (ret)
+				return ret;
+		}
+		y++;
+		if (!left.rva002E6D2F()) {
+			while (left.m_08 == 0) {
+				Int dy = yPts[prevIndex(left.m_0C, numEdges)] - yPts[left.m_0C];
+				if (dy < 0)
+					break;
+				left.rva002E6CFE( xPts[left.m_0C], xPts[prevIndex(left.m_0C, numEdges)], dy );
+				left.m_0C = prevIndex(left.m_0C, numEdges);
+			}
+		}
+		if (!right.rva002E6D2F()) {
+			while (right.m_08 == 0) {
+				Int dy = yPts[nextIndex(right.m_0C, numEdges)] - yPts[right.m_0C];
+				if (dy < 0)
+					break;
+				right.rva002E6CFE( xPts[right.m_0C], xPts[nextIndex(right.m_0C, numEdges)], dy );
+				right.m_0C = nextIndex(right.m_0C, numEdges);
+				if (right.m_08 < 0)
+					return 0;
+			}
+		}
+	}
+	return 0;
+}
+
+
+Int Pathfinder::rva004DDA9A( Int *xPts, Int *yPts, Int numEdges, Int layer, Rva004DD9E3 *visitor )
+{
+	Int i;
+	Int j = 1;
+	for (i = 1; i < numEdges; i++) {
+		if (xPts[i] != xPts[j - 1] || yPts[i] != yPts[j - 1]) {
+			xPts[j] = xPts[i];
+			yPts[j] = yPts[i];
+			j++;
+		}
+	}
+	numEdges = j;
+	while (numEdges > 2 && xPts[0] == xPts[numEdges - 1] && yPts[0] == yPts[numEdges - 1]) {
+		numEdges--;
+	}
+	if (numEdges < 3) {
+		return -1;
+	}
+
+	Int topIdx = 0;
+	Int maxY = 0;
+	for (i = 1; i < numEdges; i++) {
+		if (yPts[i] < yPts[topIdx] || (yPts[i] == yPts[topIdx] && xPts[i] < xPts[topIdx]))
+			topIdx = i;
+		if (yPts[i] > maxY)
+			maxY = yPts[i];
+	}
+
+	Int y = yPts[topIdx];
+	Rva002E6CFE left;
+	left.m_0C = topIdx;
+	left.rva002E6CFE( xPts[left.m_0C], xPts[prevIndex(left.m_0C, numEdges)],
+		yPts[prevIndex(left.m_0C, numEdges)] - yPts[left.m_0C] );
+	left.m_0C = prevIndex(left.m_0C, numEdges);
+
+	while (yPts[topIdx] == yPts[nextIndex(topIdx, numEdges)])
+		topIdx = nextIndex(topIdx, numEdges);
+	Rva002E6CFE right;
+	right.m_0C = topIdx;
+	right.rva002E6CFE( xPts[right.m_0C], xPts[nextIndex(right.m_0C, numEdges)],
+		yPts[nextIndex(right.m_0C, numEdges)] - yPts[right.m_0C] );
+	right.m_0C = nextIndex(right.m_0C, numEdges);
+
+	while (y <= maxY) {
+		Int x = (left.m_00 + 0x80) / 256;
+		Int xEnd = (right.m_00 + 0x80) / 256;
+		while (x <= xEnd) {
+			PathfindCell *cell = getCell( (PathfindLayerEnum)layer, x, y );
+			x++;
+			if (!cell)
+				continue;
+			Int ret = visitor->rva004DD9E3( (Int)cell, x - 1, y );
 			if (ret)
 				return ret;
 		}
