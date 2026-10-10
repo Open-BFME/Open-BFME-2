@@ -261,9 +261,9 @@ UpdateSleepTime AutoHealBehavior::update( void )
 					{
 						pulseHealObject( obj );
 
-						// Retail's GameLogic::getDrawIconUI is the 4-copy majority body; this
+						// GameLogic::getDrawIconUI is emitted identically by 4 TUs; this
 						// unit's header copy reads +0x5E (4B body 8A415E measured in
-						// this unit's own object) and sorts ahead of it in link order
+						// this unit's own object) and sorts ahead of them in link order
 						// (L on 4 units). This reads the same byte directly instead of
 						// odr-using the ZH inline, whose COMDAT would otherwise
 						// displace the majority copy.
