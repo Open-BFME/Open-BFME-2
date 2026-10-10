@@ -79,12 +79,25 @@ protected:
 
 struct EmitVtableTag;
 
+class TacticalView
+{
+public:
+	virtual void slot00(); virtual void slot01(); virtual void slot02();
+	virtual void slot03(); virtual void slot04(); virtual void slot05();
+	virtual void slot06(); virtual void slot07(); virtual void slot08();
+	virtual void slot09(); virtual void slot10(); virtual void slot11();
+	virtual void slot12(const Coord3D *center, float radius, unsigned int color);
+};
+
+extern TacticalView *TheTacticalView;
+
 class Rva003AF7FE : public Rva003AF7FEHeadView, public Rva003AF7FEInfoView
 {
 public:
 	Rva003AF7FE(EmitVtableTag *);
 	virtual ~Rva003AF7FE();
 	virtual void rva0055D616();
+	void rva0055D6D7(Coord3D pos);
 
 protected:
 	virtual void xfer(Xfer *xfer);
@@ -124,4 +137,17 @@ void Rva003AF7FE::xfer(Xfer *xfer)
 // ?<Rva003AF7FE::Rva003AF7FE> absent-from-retail
 Rva003AF7FE::Rva003AF7FE(EmitVtableTag *)
 {
+}
+
+// Native 0x0055D6D7..0x0055D741 (106 bytes, RET 0xC): slot 4 of the head
+// tables (0x0081C7FC, 0x0081CBF4, 0x0081D0AC), the cylinder volume's debug
+// draw and the byte twin of the sphere's 0x0055D422: two TacticalView
+// slot-12 circles of the +0x24 radius, half the +0x2C height below and above
+// the by-value centre.
+void Rva003AF7FE::rva0055D6D7(Coord3D pos)
+{
+	pos.z -= m_real2C * 0.5f;
+	TheTacticalView->slot12(&pos, m_real24, 0xCCAAFFFF);
+	pos.z += m_real2C;
+	TheTacticalView->slot12(&pos, m_real24, 0xCCAAFFFF);
 }
