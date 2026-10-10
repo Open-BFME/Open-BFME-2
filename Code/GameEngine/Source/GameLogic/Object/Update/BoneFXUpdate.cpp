@@ -73,15 +73,28 @@ const Int MAX_IDX = 32;
 // BoneFXUpdate::BoneFXUpdate: defined in BoneFXUpdateCtor.cpp (its row's unit).
 
 //-------------------------------------------------------------------------------------------------
-// ?onObjectCreated@BoneFXUpdate@@ present-unmatched
+// BFME 2's INI error object (thrown by value; ctor 0x0002F681 takes the error
+// code and a printf-style message).
+class INIException
+{
+public:
+	INIException(int errorCode, const char *format, ...);
+	INIException(const INIException &that);
+	~INIException();
+	char *mFailureMessage;
+	int mErrorCode;
+};
+
+// Retail 0x0048707A (124B): the update module slot after the pool key.
+// Zero Hour's body; BFME 2 throws its INIException(3, message) instead of
+// INI_INVALID_DATA.
 void BoneFXUpdate::onObjectCreated()
 {
 	static NameKeyType key_BoneFXDamage = NAMEKEY("BoneFXDamage");
 	BoneFXDamage* bfxd = (BoneFXDamage*)getObject()->findDamageModule(key_BoneFXDamage);
 	if (bfxd == NULL)
 	{
-		DEBUG_CRASH(("BoneFXUpdate requires BoneFXDamage"));
-		throw INI_INVALID_DATA;
+		throw INIException(3, "BoneFXUpdate requires BoneFXDamage");
 	}
 }
 
