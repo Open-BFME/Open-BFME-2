@@ -1,12 +1,18 @@
-// ?Rva002A1EF5@@YAHPAVDrawable@@PAX@Z
-// partial score=0.997 date=2026-10-10
-// ?Rva002A1EF5@@YAHPAVDrawable@@PAX@Z
-// partial score=0.9954 date=2026-10-10
 // cl: /O1 /G7 /MD /EHsc /Ireference/shims/bfme2_ascii /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
+//
+// ?Rva002A1EF5@@YAHPAVDrawable@@PAX@Z, retail 0x002A1EF5..0x002A2184 (655
+// bytes), the select-matching drawable callback InGameUI::selectMatchingAcrossRegion
+// 0x002A3AFA calls twice (cdecl Drawable*, user data): skip an object whose
+// +0x78 partner has KindOf bit 13 and status 3, accept template-equivalent
+// objects (or, for a bit-13 container, one holding such an object), honour
+// the max-selection warning and select the drawable.
+// Template reads go through Object's inline getTemplate(): that is what puts
+// the guard's template in EDX like retail (a direct m_template read uses ECX).
 #include "unicode_string.h"
 #include "ascii_string.h"
 #include <list>
+#include "../Common/GameLogicObjectLookupView.h"
 class Object;
 namespace _STL {
 template<> inline __declspec(noinline) _List_base<const Object*,allocator<const Object*> >::_List_base(const allocator<const Object*>& __a) : _M_node(_STLP_CONVERT_ALLOCATOR(__a, _Node), (_Node*)0) {
@@ -22,7 +28,6 @@ template<> inline __declspec(noinline) _List_base<const Object*,allocator<const 
 }
 class Object;
 class Drawable;
-enum ObjectID { INVALID_ID=0 };
 enum ObjectStatusTypes { STATUS_ZERO=0 };
 class ThingTemplate {
 public:
@@ -106,6 +111,7 @@ public:
  bool isLocallyControlled() const;
  bool rva00292FAC() const;
  Drawable *getDrawable() const;
+ const ThingTemplate *getTemplate() const { return m_template; }
  void *vptr;
  ThingTemplate *m_template;
  char unknown008[0x78-8]; ObjectID guardID;
@@ -117,7 +123,6 @@ public:
  char unknown000[0xfc]; Object *object;
  char unknown100[0x43c-0x100]; bool selected;
 };
-class GameLogic { public: Object *findObjectByID(ObjectID); };
 extern GameLogic *TheGameLogic;
 class GameTextInterface {
 public:
@@ -257,11 +262,11 @@ int Rva002A1EF5(Drawable *test,void *userData) {
   if(!object)return 2;
   if(object->guardID) {
    Object *guard=TheGameLogic->findObjectByID(object->guardID);
-   if(guard && (guard->m_template->kind114&0x2000) && guard->testStatus((ObjectStatusTypes)3))return 2;
+   if(guard && (guard->getTemplate()->kind114&0x2000) && guard->testStatus((ObjectStatusTypes)3))return 2;
   }
-  bool equivalent=object->m_template->isEquivalentTo(selectedType);
+  bool equivalent=object->getTemplate()->isEquivalentTo(selectedType);
   if(!equivalent) {
-   if(data->includeContained || !(object->m_template->kind114&0x2000) || (selectedType->kind114&0x2000))return 2;
+   if(data->includeContained || !(object->getTemplate()->kind114&0x2000) || (selectedType->kind114&0x2000))return 2;
    SelectionContain *contain=object->contain;
    if(!contain)return 2;
    SelectionContain *contained=contain->slot31();
