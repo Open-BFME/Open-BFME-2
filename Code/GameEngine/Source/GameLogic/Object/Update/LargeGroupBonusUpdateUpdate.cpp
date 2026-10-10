@@ -277,6 +277,7 @@ class LargeGroupBonusUpdate : public UpdateModule, public LargeGroupBonusTrailin
 public:
 	virtual UpdateSleepTime update();
  void notify(int value);
+ void rva004901B5();
 private:
 	const LargeGroupBonusUpdateModuleData *getLargeGroupBonusUpdateModuleData() const
 	{
@@ -356,4 +357,13 @@ void LargeGroupBonusUpdate::notify(int value)
  for (_STL::vector<AsciiString>::const_iterator it = data->m_flagSubObjectNames.begin(); it != data->m_flagSubObjectNames.end(); ++it)
   drawable->rva002724FD(*it, value, 0, 0.0f, 0.0f);
  drawable->rva002723ED();
+}
+
+// ?rva004901B5@LargeGroupBonusUpdate@@QAEXXZ @0x004901B5 8B, right after
+// notify: slot 6 of the Rva0024A797_Root table 0x0084D124 of Rva0048FFB4,
+// whose scalar deleting destructor 0x00490140 sits just before notify. It is
+// notify(0). Address-named.
+void LargeGroupBonusUpdate::rva004901B5()
+{
+ notify(0);
 }
