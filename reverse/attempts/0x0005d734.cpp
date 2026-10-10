@@ -1,7 +1,18 @@
-// ?addOrResumeAudioEvent@MilesAudioManager@@QAEIPAVAudioEventRTS@@HHHH@Z
-// partial score=0.975 date=2026-10-09
+// ?addOrResumeAudioEvent@MilesAudioManager@@QAEIPAVAudioEventRTS@@@Z
+// partial score=0.993 date=2026-10-10
 // cl: /DBFME_ASCII_DTOR_DECL /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /O1 /G7 /arch:SSE /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
+// addOrResumeAudioEvent (0x0005D734 903B) appended to the MilesAudioMultisound.cpp unit.
+// Helper cw 2026-10-10: 906B vs 903B; the only remaining difference is one
+// reload (mov eax,[esi+4]) of the found request node after the reverse search
+// loop, where retail reuses EAX from the loop. Levers that closed the rest:
+// the type-3 test reads the type through getAudioEventInfo()->getAudioType()
+// (retail reloads +0xB0 after the type-5 compare), if (added) {...} return 1;
+// puts the return-1 block before the exit as retail does, the search loop is
+// for (;;) { if (it == rend) goto done; if (match) break; ++it; } (top-tested),
+// the post-processRequest path returns handle inside the loop (so the
+// not-found/not-immediate exits share the ECX-based playing dtor), and a named
+// const AudioEventInfo *info for the type-0 test lets cl reuse ESI.
 #include <vector>
 #include <list>
 #include <map>
@@ -38,6 +49,7 @@ class BfmeStringTailRecord156 {public: AudioEventInfoRef m_eventInfo;unsigned m_
 struct AudioEventInfo { virtual ~AudioEventInfo();virtual int getNameKey()const;char pad04[0xc];float defaultPriority;char pad14[8];float defaultVolume;char pad20[0x20]; int m_lastSubsoundIndex; unsigned m_priority,m_type,m_control;
  char pad50[0x3c]; unsigned m_totalSubsoundWeight; char pad90[0x20];int m_audioType;
  __forceinline bool isTypeFive()const{return m_audioType==5;}
+ int getAudioType()const{return m_audioType;}
 
  const _STL::vector<BfmeStringTailRecord156>&getSubsoundVector()const;
 };
@@ -350,7 +362,7 @@ unsigned MilesAudioManager::addOrResumeAudioEvent(AudioEventRTS *event,int reque
  int view=event->m_viewType;
  if(mutedNames[view].count(reinterpret_cast<AudioInfoNames*>(event->m_info)->getAudioName())>0)return 1;
  if(event->m_info->isTypeFive())return addResumeOrPushMultisound(event,requestType,resumeHandle,1,allocateHandle,append);
- if(event->m_info->m_audioType==3)return rva0005933D(event,allocateHandle);
+ if(event->getAudioEventInfo()->getAudioType()==3)return rva0005933D(event,allocateHandle);
  if(!slot56(event->getSoundClass()))return 1;
  if(event->m_info->m_audioType==1 && (activeViews&(1<<event->m_viewType)))return 1;
  BfmePoolRef10 playing=rva0005286A(event,allocateHandle);
@@ -367,16 +379,19 @@ unsigned MilesAudioManager::addOrResumeAudioEvent(AudioEventRTS *event,int reque
  if(!multisoundTarget(playing)->m_localOverride && !shouldPlayLocally(multisoundTarget(playing)))return 3;
  if(multisoundTarget(playing)->m_info->m_control&0x20)reinterpret_cast<Weapon*>(multisoundTarget(playing))->setLeechRangeActive(true);
  bool added;
- if(event->m_info->m_audioType==0)added=addAudioEventMusic(playing,requestType,append);
+ const AudioEventInfo *info=event->m_info;
+ if(info->m_audioType==0)added=addAudioEventMusic(playing,requestType,append);
  else added=addAudioEventSound(playing,requestType,append);
- if(!added)return 1;
+ if(added) {
  unsigned handle=multisoundTarget(playing)->m_playingHandle;
  if(multisoundTarget(playing)->m_immediate) {
   for(;;) {
    _STL::list<Rva00051107AudioRequest*>::reverse_iterator it=requests.rbegin();
-   for(;it!=requests.rend();++it)
+   for(;;) {
+    if(it==requests.rend())goto done;
     if((*it)->kind==0 && multisoundTarget((*it)->event)==multisoundTarget(playing))break;
-   if(it==requests.rend())break;
+    ++it;
+   }
    bool remove=true;
    if((*it)->file.target) {
     Rva00690FF0Handle file((*it)->file);
@@ -393,9 +408,12 @@ unsigned MilesAudioManager::addOrResumeAudioEvent(AudioEventRTS *event,int reque
     requests.erase(node);
     deleteAudioRequest(request);
    }
-   break;
+   return handle;
   }
  }
+done:
  return handle;
+ }
+ return 1;
 }
 

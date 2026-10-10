@@ -140,7 +140,7 @@ struct AsciiStringPlusText : AsciiStringRef
 	int length() const;
 	int write(char *dst);
 	operator AsciiString();
-	operator StringBase<unsigned short>();
+	operator UnicodeString();
 
 	Rva000B3F84Pair m_right;
 };
@@ -245,10 +245,11 @@ AsciiStringPlusText::operator AsciiString()
 	return tmp;
 }
 
-// ??BAsciiStringPlusText@@QAE?AV?$StringBase@G@@XZ @0x002DD111
-AsciiStringPlusText::operator StringBase<unsigned short>()
+// ??BAsciiStringPlusText@@QAE?AVUnicodeString@@XZ @0x002DD111 (wide conversion;
+// GameState::saveGame 0x002DD38D assigns the result into a UnicodeString)
+AsciiStringPlusText::operator UnicodeString()
 {
-	StringBase<unsigned short> tmp;
+	UnicodeString tmp;
 	Rva002DCD9A *pair = (Rva002DCD9A *)this;
 	pair->rva002dcd9a(tmp.getBufferForRead(length()));
 	return tmp;

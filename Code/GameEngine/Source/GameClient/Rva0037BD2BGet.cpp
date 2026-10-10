@@ -10,13 +10,16 @@
 typedef unsigned short WideChar;
 
 
-bool __stdcall Rva006006A9Get(const char *a1);
-
-class FileSystem { public: bool rva0037BD2B(const UnicodeString &path); };
+class FileSystem
+{
+public:
+	bool rva0037BD2B(const UnicodeString &path);
+	bool rva006006A9(const WideChar *path);	// 0x006006A9, same receiver
+};
 
 bool FileSystem::rva0037BD2B(const UnicodeString &path)
 {
 	void *m = *(void * const *)&path;
 	const void *p = m ? (const void *)((char *)m + 8) : (const void *)L"";
-	return Rva006006A9Get((const char *)p);
+	return rva006006A9((const WideChar *)p);
 }

@@ -1,17 +1,263 @@
-// cl: /MD
-// ?Rva002DBC97Get@@YGPAXH@Z @0x002DBC97 51B
-// Evidence: unlock lane; 8 callers push 1 int and use pointer result; globals g_00DBD03C g_00DBD040 g_00DBD044 g_00DBD048; ret 4 stdcall.
-extern void *g_00DBD03C;
-extern void *g_00DBD040;
-extern void *g_00DBD044;
-extern void *g_00DBD048;
+// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// GameState save path: the save-file suffix getter 0x002DBC97 (51 bytes,
+// was the free stdcall ?Rva002DBC97Get@@YGPAXH@Z) and GameState::saveGame
+// 0x002DD38D..0x002DD7E6 (1113 bytes including both inline catch funclets;
+// Ghidra's 837 stops at the first one). They share this unit because retail
+// saveGame keeps EDX live across the call to 0x002DBC97, which MSVC 7.1 does
+// only for a callee defined earlier in the same unit; the getter is a
+// GameState member (every caller loads TheGameState into ECX, the body
+// ignores it and ret 4 is the same for both conventions; the member
+// spellings were already pinned at this address).
+//
+// Target evidence for saveGame: the GUI:GameSaveComplete,
+// GUI:ErrorSavingGame and GUI:Error labels, the XferSave writer opened on a
+// File from TheFileSystem and handed to xferSaveData (0x002DCE24), and the
+// SaveGameInfo fields it fills at +0x34..+0x58 (date from GetLocalTime).
+// The control flow follows Zero Hour's GameState::saveGame (donor); BFME2
+// adds the File stream, the save mode from 0x002DBE62 and the player and
+// hero names from the game info slots. The flag byte at VA 0x00E02D7B is
+// set only by the command-line handler 0x003B9A9C and read here as
+// XferSave::Open's third argument; its original name is unknown.
+//
+// Frame: counterRef and the empty RAII object at [ebp-0x1C] are
+// function-scope locals (in a nested block the latter shares the early
+// temporaries' slot) and the counter holder's constructor is visible and
+// noinline (out of line it escapes and cannot take the dead desc slot
+// [ebp+0xC] that retail gives it, which also leaves [ebp+0x18] for the
+// catch's title argument). String literals checked against retail
+// 0x00BEDF7C 0x00C03FC4 0x00C03FD8 0x00BE6A5C 0x00BBB5C4.
+#include "ascii_string.h"
+#include "unicode_string.h"
+// Retail expands the header test and str() inline here (str() falling back
+// to the pooled L"" literal at 0x00BBB5C4, not the shim's TheNullChr); the
+// shared header keeps isEmpty out of line, as the m_playerNames call keeps it.
+static __forceinline bool wideIsEmpty(const UnicodeString &text)
+{
+	const unsigned char *data = *(const unsigned char *const *)&text;
+	return data == 0 || *(const unsigned short *)(data + 4) == 0;
+}
+static __forceinline const unsigned short *wideText(const UnicodeString &text)
+{
+	const unsigned char *data = *(const unsigned char *const *)&text;
+	return data ? (const unsigned short *)(data + 8) : (const unsigned short *)L"";
+}
+
+typedef unsigned short WideChar;
+typedef struct _SYSTEMTIME {
+	unsigned short wYear;
+	unsigned short wMonth;
+	unsigned short wDayOfWeek;
+	unsigned short wDay;
+	unsigned short wHour;
+	unsigned short wMinute;
+	unsigned short wSecond;
+	unsigned short wMilliseconds;
+} SYSTEMTIME;
+extern "C" __declspec(dllimport) void __stdcall GetLocalTime(SYSTEMTIME *lpSystemTime);
+
+enum SnapshotType { SNAPSHOT_SAVELOAD = 0 };
+
+class Xfer
+{
+public:
+	virtual ~Xfer();
+};
+
+class XferSave : public Xfer
+{
+public:
+	XferSave();
+	virtual ~XferSave();
+	unsigned char Open(Xfer *stream, int version, bool flag);
+	void close();
+
+private:
+	char m_body[0x3C];
+};
+
+class File
+{
+public:
+	virtual ~File();
+	virtual bool open(const WideChar *filename, int access);
+	virtual void close();
+};
+
+// TheFileSystem (0x00E06A48): rowed 0x00600676 opens a file and 0x006006A9
+// (renamed in the same change from the free Rva006006A9Get) makes the save
+// directory; both are FileSystem members that forward to TheArchiveFileSystem.
+class FileSystem
+{
+public:
+	File *rva00600676(const WideChar *filename, int access, int bufferSize);
+	bool rva006006A9(const WideChar *directory);
+};
+extern FileSystem *TheFileSystem;
+
+class GameTextInterface
+{
+public:
+	virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
+	virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
+	virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11();
+	virtual void v12(); virtual void v13(); virtual void v14();
+	virtual UnicodeString fetch(const char *label, bool *exists = 0);	// slot 15 (+0x3C)
+	virtual void v16();
+	virtual const UnicodeString *fetchPointer(const char *label, bool *exists);	// slot 17 (+0x44)
+};
+extern GameTextInterface *TheGameText;
+
+class InGameUI
+{
+public:
+	virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
+	virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
+	virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11();
+	virtual void v12(); virtual void v13(); virtual void v14();
+	virtual void __cdecl message(UnicodeString format, ...);	// slot 16 (+0x40)
+	virtual void __cdecl message(AsciiString stringManagerLabel, ...);	// slot 15 (+0x3C)
+};
+extern InGameUI *TheInGameUI;
+
+class GameWindow;
+GameWindow *MessageBoxOk(UnicodeString titleString, UnicodeString bodyString, void (*okCallback)(void));
+
+class CreateAHeroData
+{
+public:
+	char m_pad0[8];
+	UnicodeString m_name;	// +0x08
+};
+
+class GameSlot
+{
+public:
+	bool isHuman() const;
+	bool isObserver() const;
+	CreateAHeroData *getHeroData() { return m_hasHero ? &m_hero : 0; }
+
+	char m_pad0[0x30];
+	UnicodeString m_name;	// +0x30
+	char m_pad34[0x2C];
+	bool m_hasHero;	// +0x60
+	CreateAHeroData m_hero;	// +0x64
+};
+
+class GameInfo
+{
+public:
+	virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
+	virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
+	virtual void v8(); virtual void v9(); virtual void v10(); virtual void v11();
+	virtual void v12();
+	virtual int getLocalSlotNum() const;	// slot 13 (+0x34)
+	GameSlot *getSlot(int slotNum);
+};
+extern GameInfo *TheGameInfo;
+extern GameInfo *TheSkirmishGameInfo;
+
+class BfmeDfe6e4
+{
+public:
+	void _M_rva00625699(void);
+	void _M_rva00625476();
+};
+class Rva0023D46F
+{
+public:
+	__declspec(noinline) Rva0023D46F(BfmeDfe6e4 *counter) { m_counter = counter; if (counter) counter->_M_rva00625476(); }
+	~Rva0023D46F(void)
+	{
+		if (m_counter)
+			m_counter->_M_rva00625699();
+	}
+
+private:
+	BfmeDfe6e4 *m_counter;
+};
+class Rva00248558Scope
+{
+public:
+	Rva00248558Scope(void);
+	~Rva00248558Scope(void);
+};
+extern BfmeDfe6e4 *theBfmeDfe6e4;
+
+// 12-byte concat proxy returned by 0x002DBD80 (rowed in Rva002DBD80Make.cpp)
+// and turned into a wide string by 0x002DD111 (RegistryAsciiPath.cpp).
+struct AsciiStringPlusText
+{
+	operator UnicodeString();
+	int m_00;
+	const char *m_ptr;
+	int m_len;
+};
+struct Rva002DBD80Val : AsciiStringPlusText
+{
+};
+Rva002DBD80Val Rva002DBD80Make(int x, const unsigned short *s);
+
+class Rva002DC267
+{
+public:
+	UnicodeString rva002DC267() const;
+};
+class Rva002DC74A
+{
+public:
+	UnicodeString rva002DC74A(const UnicodeString &leaf) const;
+};
+
+// See the header comment: original name unknown.
+extern bool g_00E02D7B;
+
 // Retail's initialized pointer cells target these UTF-16 strings. Reproduce
 // their contents locally; the literal addresses are not asserted to be shared.
 void *g_00DBD03C = (void *)L".BfME2Campaign";
 void *g_00DBD040 = (void *)L".BfME2Skirmish";
 void *g_00DBD044 = (void *)L".BfME2WotR";
 void *g_00DBD048 = (void *)L".BfME2WotRMP";
-void *__stdcall Rva002DBC97Get(int id)
+
+struct SaveDate
+{
+	unsigned short year;
+	unsigned short month;
+	unsigned short day;
+	unsigned short dayOfWeek;
+	unsigned short hour;
+	unsigned short minute;
+	unsigned short second;
+	unsigned short milliseconds;
+};
+
+class GameState
+{
+public:
+	int determineCurrentGameSaveFileMode();
+	UnicodeString rva002DD282(int mode);
+	void *rva002DBC97Get(int mode);
+	void xferSaveData(Xfer *xfer, SnapshotType which);
+	int saveGame(UnicodeString filename, const UnicodeString &desc, int which, bool showMessage, int param5);
+
+private:
+	char m_pad0[0x24];
+	void *m_gameInfoVtbl;	// +0x24
+	AsciiString m_saveGameMapName;	// +0x28
+	AsciiString m_pristineMapName;	// +0x2C
+	AsciiString m_mapLabel;	// +0x30
+	SaveDate m_date;	// +0x34
+	UnicodeString m_description;	// +0x44
+	int m_saveFileType;	// +0x48
+	int m_4C;	// +0x4C
+	AsciiString m_missionMapName;	// +0x50
+	UnicodeString m_heroName;	// +0x54
+	UnicodeString m_playerNames;	// +0x58
+};
+
+// ?rva002DBC97Get@GameState@@QAEPAXH@Z @0x002DBC97 51B: save-file suffix
+// for a save mode (L".BfME2Campaign" default, Skirmish for 2, WotR for 3
+// and 4, WotRMP for 6).
+void *GameState::rva002DBC97Get(int id)
 {
 	void *r = g_00DBD03C;
 	if (id == 2)
@@ -21,4 +267,110 @@ void *__stdcall Rva002DBC97Get(int id)
 	else if (id == 6)
 		r = g_00DBD048;
 	return r;
+}
+
+// ?saveGame@GameState@@QAEHVUnicodeString@@ABV2@H_NH@Z @0x002DD38D 1113B
+int GameState::saveGame(UnicodeString filename, const UnicodeString &desc, int which, bool showMessage, int param5)
+{
+	int mode = determineCurrentGameSaveFileMode();
+	if (mode == 1 && which == 0)
+		which = 4;
+
+	if (wideIsEmpty(filename))
+		filename = Rva002DBD80Make((int)&rva002DD282(mode), (const WideChar *)rva002DBC97Get(mode));
+	if (wideIsEmpty(filename))
+		return 1;
+
+	TheFileSystem->rva006006A9(wideText(((const Rva002DC267 *)this)->rva002DC267()));
+	UnicodeString filepath = ((const Rva002DC74A *)this)->rva002DC74A(filename);
+	File *file = TheFileSystem->rva00600676(wideText(filepath), 0x4A, 0);
+	if (file == 0)
+	{
+		TheInGameUI->message("GUI:Error");
+		return 3;
+	}
+
+	XferSave xferSave;
+	try
+	{
+		xferSave.Open((Xfer *)file, 1, g_00E02D7B);
+	}
+	catch (...)
+	{
+		file->close();
+		TheInGameUI->message("GUI:Error");
+		return 3;
+	}
+
+	m_description = desc;
+	m_saveFileType = mode;
+	m_missionMapName.clear();
+
+	SYSTEMTIME systemTime;
+	GetLocalTime(&systemTime);
+	m_date.year = systemTime.wYear;
+	m_date.month = systemTime.wMonth;
+	m_date.day = systemTime.wDay;
+	m_date.dayOfWeek = systemTime.wDayOfWeek;
+	m_date.hour = systemTime.wHour;
+	m_date.minute = systemTime.wMinute;
+	m_date.second = systemTime.wSecond;
+	m_date.milliseconds = systemTime.wMilliseconds;
+
+	m_mapLabel = m_pristineMapName;
+	m_4C = param5;
+	m_heroName.clear();
+	m_playerNames.clear();
+
+	GameInfo *game = TheSkirmishGameInfo;
+	if (mode == 6)
+		game = TheGameInfo;
+	if (game)
+	{
+		for (int i = 0; i < 8; ++i)
+		{
+			GameSlot *slot = game->getSlot(i);
+			if (slot && slot->isHuman() && !slot->isObserver())
+			{
+				if (!m_playerNames.isEmpty())
+					m_playerNames.concat(L", ");
+				m_playerNames.concat(slot->m_name);
+			}
+		}
+		if (game->getLocalSlotNum() >= 0)
+		{
+			GameSlot *slot = game->getSlot(game->getLocalSlotNum());
+			if (slot)
+			{
+				CreateAHeroData *hero = slot->getHeroData();
+				if (hero)
+					m_heroName = hero->m_name;
+			}
+		}
+	}
+
+		Rva0023D46F counterRef(theBfmeDfe6e4);
+		Rva00248558Scope scope;
+		try
+		{
+			xferSaveData(&xferSave, (SnapshotType)which);
+		}
+		catch (...)
+		{
+			UnicodeString msg;
+			msg.format(TheGameText->fetchPointer("GUI:ErrorSavingGame", 0), wideText(filepath));
+			MessageBoxOk(TheGameText->fetch("GUI:Error"), msg, 0);
+			xferSave.close();
+			file->close();
+			return 3;
+		}
+		xferSave.close();
+		file->close();
+
+		if (showMessage)
+		{
+			UnicodeString msg = TheGameText->fetch("GUI:GameSaveComplete");
+			TheInGameUI->message(msg);
+		}
+	return 0;
 }

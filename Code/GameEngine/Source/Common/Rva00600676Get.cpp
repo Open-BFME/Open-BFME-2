@@ -9,7 +9,7 @@
 // Rva003F7E83Forward.cpp. Evidence: callers push 3 args (e.g. 0x0040980B
 // pushes ebx/[ebp+0x10]/eax, 0x002DD9F6 pushes esi/0x41/eax); ret 0xC;
 // global 0x00A06E5C; sibling FileSystem::openFile takes the same
-// (PBDHH) args. Sibling ?Rva006006A9Get@@YG_NPBD@Z @0x006006A9 20B shares
+// (PBDHH) args. Sibling FileSystem::rva006006A9 @0x006006A9 20B shares
 // the global and forwards to slot 11 (0x2C) with 1 arg returning bool.
 
 class File;
@@ -18,6 +18,7 @@ class FileSystem
 {
 public:
 	File *rva00600676(const unsigned short *a1, int a2, int a3);
+	bool rva006006A9(const unsigned short *a1);
 };
 
 class Rva00600676Target
@@ -49,11 +50,16 @@ File *FileSystem::rva00600676(const unsigned short *a1, int a2, int a3)
 	return r;
 }
 
-bool __stdcall Rva006006A9Get(const char *a1)
+// ?rva006006A9@FileSystem@@QAE_NPBG@Z @0x006006A9 20B (was the free
+// ?Rva006006A9Get@@YG_NPBD@Z). Same FileSystem member ABI as rva00600676:
+// GameState::saveGame (0x002DD45B) loads TheFileSystem into ECX before the
+// call and FileSystem::rva0037BD2B reaches it with ECX still this; both pass
+// a wide string (UnicodeString text or the wide empty literal 0x00BBB5C4).
+bool FileSystem::rva006006A9(const unsigned short *a1)
 {
 	Rva00600676Target *p = G00A06E5C;
 	if (p != 0)
-		return p->v11(a1);
+		return p->v11((const char *)a1);
 	return false;
 }
 // ?Rva00600695Get@@YG_NPBD@Z @0x00600695 20B. Guarded global virtual forward

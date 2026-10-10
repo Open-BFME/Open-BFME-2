@@ -1,5 +1,3 @@
-// ?initObject@Object@@QAEXXZ
-// partial score=0.977 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
 // ?initObject@Object@@QAEXXZ, retail 0x002934E7, 1087 bytes.
 //
@@ -14,6 +12,16 @@
 // Ring player attribute modifier "AttributeMod_WOTR_Player_%d", the weather
 // system hook and the "HandicapPercent%d" modifier. Helper identities that the
 // ledger does not resolve keep address-derived names.
+//
+// Codegen notes: isKindOf goes through the getTemplate() accessor (as in the
+// matched setTriggerAreaFlagsForChangeInPosition unit); inlined directly, cl
+// folds the KINDOF 8..11 tests into one `test byte [t+0x109],0xF` where
+// retail keeps four. The modifier pointer is assigned in an if/else (keeps
+// retail's xor ebx,ebx after the modName dtor), and the handicap goes through
+// a raw temporary before the negation as the WorldBuilder twin 0x00CBD700
+// does (retail's neg eax / mov ecx,eax). Both string literals were checked
+// against retail 0x00BFC0E0 and 0x00BFC0CC.
+// class-gate: allow GameLogic canonical view lacks rva0023FABE (the donor sendObjectCreated slot) and rva0023C6FD and the +0x6F flag and +0x180 trigger-change frame this body reads and writes
 
 #include <string.h>
 #include "ascii_string.h"
@@ -74,10 +82,7 @@ public:
 class ThingTemplate
 {
 public:
-	__forceinline UnsignedInt isKindOf(UnsignedInt bit) const
-	{
-		return m_kindOf[bit >> 5] & (1U << (bit & 0x1f));
-	}
+	__forceinline UnsignedInt isKindOf(Int k) const { return m_kindOf[k >> 5] & (1U << (k & 0x1f)); }
 	char m_pad000[0x108];
 	UnsignedInt m_kindOf[8];
 	char m_pad128[0x600 - 0x128];
@@ -148,7 +153,6 @@ public:
 	Int m_battlePlansB4;
 	char m_pad0B8[0x27C - 0xB8];
 	Int m_handicap;
-	Int getHandicapPercent() const { return -m_handicap; }
 	char m_pad280[0x3AC - 0x280];
 	Int m_3ac;
 	char m_pad3B0[0x3BC - 0x3B0];
@@ -194,14 +198,14 @@ public:
 class EmotionSystem
 {
 public:
-	void rva004265D9(Object *obj);
+	void RegisterScaryObject(Object *obj);
 };
 extern EmotionSystem *TheEmotionSystem;
 
 class CreateAHeroManager
 {
 public:
-	void rva0021B474(Object *obj);
+	void BindHeroToObjectAndUpdate(Object *obj);
 };
 extern CreateAHeroManager *TheCreateAHeroManager;
 
@@ -266,7 +270,7 @@ class AttributeModifierStore
 {
 public:
 	Int rva00214713(Int key);
-	Rva004045B4 *rva002149A5(Int index);
+	void *rva002149A5(Int index);
 };
 extern AttributeModifierStore *TheAttributeModifierStore;
 
@@ -300,8 +304,8 @@ public:
 	void setReceivingDifficultyBonus(Bool receive);
 	Bool addAttributeModifierToPool(const AsciiString &name, Int duration);
 
-	__forceinline UnsignedInt isKindOf(UnsignedInt bit) const { return m_template->isKindOf(bit); }
-	__forceinline Bool isKindOfB(UnsignedInt bit) const { return m_template->isKindOf(bit) != 0; }
+	const ThingTemplate *getTemplate() const { return m_template; }
+	__forceinline UnsignedInt isKindOf(Int k) const { return getTemplate()->isKindOf(k); }
 	Bool getReceivingDifficultyBonus() const { return m_receivingDifficultyBonus; }
 	__forceinline void createExtraWeapon(Int index)
 	{
@@ -399,7 +403,7 @@ void Object::initObject()
 	createExtraWeapon(1);
 
 	if (isKindOf(KINDOF_BIT_144) || isKindOf(KINDOF_BIT_90))
-		TheEmotionSystem->rva004265D9(this);
+		TheEmotionSystem->RegisterScaryObject(this);
 
 	if (isKindOf(KINDOF_BIT_128) && reinterpret_cast<Rva002034E9Host *>(TheGameLogic)->rva002034E9())
 	{
@@ -409,7 +413,7 @@ void Object::initObject()
 	}
 
 	if (isKindOf(KINDOF_BIT_190) && !TheGameLogic->m_6f)
-		TheCreateAHeroManager->rva0021B474(this);
+		TheCreateAHeroManager->BindHeroToObjectAndUpdate(this);
 
 	if (theRadarWindowOverrideSource)
 		reinterpret_cast<Rva002D3726 *>(theRadarWindowOverrideSource)->rva002D3726(
@@ -433,9 +437,11 @@ void Object::initObject()
 			AsciiString modName;
 			modName.format("AttributeMod_WOTR_Player_%d", index);
 			Int modIndex = TheAttributeModifierStore->rva00214713(TheNameKeyGenerator->nameToKey(modName));
-			Rva004045B4 *mod = 0;
+			Rva004045B4 *mod;
 			if (modIndex != -1)
-				mod = TheAttributeModifierStore->rva002149A5(modIndex);
+				mod = (Rva004045B4 *)TheAttributeModifierStore->rva002149A5(modIndex);
+			else
+				mod = 0;
 			if (mod)
 			{
 				mod->rva004045B4(3, wotrPlayer->m_284 * 0.01f + 1.0f, 0);
@@ -454,7 +460,8 @@ void Object::initObject()
 			isKindOf(KINDOF_BIT_9) || isKindOf(KINDOF_BIT_10) || isKindOf(KINDOF_BIT_11) ||
 			isKindOf(KINDOF_BIT_90))
 		{
-			Int handicap = controller->m_handicap * -1;
+			Int raw = controller->m_handicap;
+			Int handicap = -raw;
 			if (handicap > 0 && handicap <= 100 && handicap % 5 == 0)
 			{
 				AsciiString modName;
