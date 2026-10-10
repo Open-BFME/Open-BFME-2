@@ -45,3 +45,12 @@ Rva002BF6D6::~Rva002BF6D6()
 {
 	((ArmorHashTable *)this)->clear();
 }
+
+// Native0x002BF776..0x002BF77B tail JMP to sole rowed nonvirtual dtor
+// at0x002BF6D6. Unadjusted receiver no stack args RET0; original wrapper
+// name enclosing type and lifetime role remain unknown.
+struct Rva002BF776CleanupForward { void cleanup(); };
+void Rva002BF776CleanupForward::cleanup()
+{
+    reinterpret_cast<Rva002BF6D6*>(this)->~Rva002BF6D6();
+}

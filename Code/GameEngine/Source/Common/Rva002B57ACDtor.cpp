@@ -51,3 +51,12 @@ Rva002B57AC::~Rva002B57AC()
 {
 	rva002B57AC();
 }
+
+// Native0x002B7391..0x002B7396 tail JMP to sole rowed nonvirtual dtor
+// at0x002B626E. Unadjusted receiver no stack args RET0; original wrapper
+// name enclosing type and lifetime role remain unknown.
+struct Rva002B7391CleanupForward { void cleanup(); };
+void Rva002B7391CleanupForward::cleanup()
+{
+    reinterpret_cast<Rva002B57AC*>(this)->~Rva002B57AC();
+}
