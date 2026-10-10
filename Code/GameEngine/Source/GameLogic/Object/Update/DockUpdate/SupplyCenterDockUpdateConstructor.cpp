@@ -62,6 +62,50 @@ void BehaviorModule::behaviorModuleAnchor()
 {
 }
 
+// The MemoryPoolFactory pool lookup: 80 TUs reach it through the
+// DEFINE_MEMORYPOOL macro (TheMemoryPoolFactory->findMemoryPool), but no TU
+// defines it. Zero Hour's GameMemory.cpp walks the factory's pool list with
+// strcmp; this TU-local view mirrors ZH's member order (factory head pointer
+// first; pool factory-link, name, then the rest) and implements the same
+// walk. Only the walked fields are touched; BFME2's own factory layout past
+// them is unrecovered. No retail bytes are claimed (present-unmatched).
+int __cdecl strcmp(const char *a, const char *b);
+
+class DynamicMemoryAllocator;
+
+class MemoryPool
+{
+public:
+	MemoryPool *getNextPoolInList() { return m_nextPoolInFactory; }
+	const char *getPoolName() { return m_poolName; }
+
+private:
+	void *m_factory;
+	MemoryPool *m_nextPoolInFactory;
+	const char *m_poolName;
+};
+
+class MemoryPoolFactory
+{
+public:
+	MemoryPool *findMemoryPool(const char *poolName);
+
+private:
+	MemoryPool *m_firstPoolInFactory;
+	DynamicMemoryAllocator *m_firstDmaInFactory;
+};
+
+// ?findMemoryPool@MemoryPoolFactory@@QAEPAVMemoryPool@@PBD@Z present-unmatched
+MemoryPool *MemoryPoolFactory::findMemoryPool(const char *poolName)
+{
+	for (MemoryPool *pool = m_firstPoolInFactory; pool; pool = pool->getNextPoolInList())
+	{
+		if (!strcmp(poolName, pool->getPoolName()))
+			return pool;
+	}
+	return 0;
+}
+
 // ??0SupplyCenterDockUpdate@@QAE@PAVThing@@PBVModuleData@@@Z
 SupplyCenterDockUpdate::SupplyCenterDockUpdate(Thing *thing, const ModuleData *moduleData)
 	: SupplyCenterDockUpdateBase(thing, moduleData)
