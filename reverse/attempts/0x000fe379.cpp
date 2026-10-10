@@ -1,4 +1,6 @@
 // ?init@WaterTracksObj@@QAEXMMAAVVector2@@0PADHPAX@Z
+// partial score=0.9954188440899994 date=2026-10-10
+// ?init@WaterTracksObj@@QAEXMMAAVVector2@@0PADHPAX@Z
 // partial score=0.985 date=2026-10-09
 // cl: /O1 /arch:SSE /G7 /DNDEBUG /DWIN32 /MD /EHsc /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
 // Clean BFME1 9cbfb551fe20 W3DWaterTracks.cpp initializer, guided by ZH.
@@ -11,8 +13,8 @@
 #include <math.h>
 class TextureBaseClass { public: void Release_Ref(); };
 class TextureClass : public TextureBaseClass {};
-template<class T> class RefCountPtr { public: T *m_ptr; const RefCountPtr &operator=(const RefCountPtr &); };
-class BFME2ParticleTextureHandle { public: TextureBaseClass *Ptr; ~BFME2ParticleTextureHandle() { if(Ptr)Ptr->Release_Ref(); } };
+template<class T> class RefCountPtr { public: T *m_ptr; const RefCountPtr &operator=(const RefCountPtr &); ~RefCountPtr(){if(m_ptr)m_ptr->Release_Ref();} };
+class BFME2ParticleTextureHandle : public RefCountPtr<TextureClass> {};
 BFME2ParticleTextureHandle BFME2LoadParticleTexture(const char *,int,int);
 float GetGameClientRandomValueReal(float,float,char *,int);
 class Rva0030C934IntGetter { public: int get()const; };
@@ -27,7 +29,7 @@ struct InitSphere { Vector3 Center; float Radius; void Init(const Vector3 &v,flo
 struct InitBox { Vector3 Center,Extent; };
 class WaterTracksObj {
 public:
- void *vtable; RefCountPtr<TextureClass> texture;
+ void *vtable; BFME2ParticleTextureHandle texture;
  InitSphere sphere; InitBox box;
  int type,x,y; bool bound; Vector2 startPos,waveDir,perpDir,initStart,initEnd;
  int initOffset,fadeMs,totalMs,elapsedMs;
@@ -72,9 +74,9 @@ void WaterTracksObj::init(float width,float length,Vector2 &start,Vector2 &end,c
  timeToStop=-velocity/frontAcc;
  timeToRetreat=sqrt(fabs(2.0f*finalHeight/frontAcc));
  totalMs=timeToBeach+(timeToStop+timeToRetreat);
- backAcc=2.0f*initialHeight/(timeToStop*timeToStop);
+ backAcc=(2.0f*initialHeight)/(timeToStop*timeToStop);
  timeToCompress=settings?reinterpret_cast<Rva0030C900IntGetter*>(settings)->get():waveTypeInfo[type].compressMs;
  timeToCompress*=GetGameClientRandomValueReal(0.5f,1.1f,randomFile,245);
  if(type==5) {timeToRetreat=1000;totalMs=((float(fadeMs)+timeToStop)+timeToBeach)+timeToRetreat;startPos=start;fadeMs=1000;}
- texture=*reinterpret_cast<const RefCountPtr<TextureClass>*>(&BFME2LoadParticleTexture(textureName,0,0));
+ texture=BFME2LoadParticleTexture(textureName,0,0);
 }
