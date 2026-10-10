@@ -1,5 +1,3 @@
-// ??0Rva005105D7@@QAE@HABVAsciiString@@@Z
-// partial score=0.9878787878787878 date=2026-10-10
 // cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
 //
 // Apt callbacks of a list of up to eight row movies (destructor 0x005105D7,
@@ -106,20 +104,40 @@ struct FunctorBinding
 class FunctorWrapperHead
 {
 public:
-	void *m_vtbl;
+	FunctorWrapperHead() : m_refCount(0) {}
+	virtual void anchor();
 	int m_refCount; // +0x04
 };
 
+class Rva0057BC63FunctorWrapper : public FunctorWrapperHead
+{
+public:
+	Rva0057BC63FunctorWrapper(const FunctorBinding &binding) : m_binding(binding) {}
+	void invoke();
+	FunctorBinding m_binding;
+};
+
+void *__cdecl operator new(unsigned int size);
+
+// The holder constructor (row 0x0057BC63, Rva0057BC63FunctorHolder.cpp) is
+// visible here as an inline, never-inlined definition. Retail's compiler knew
+// it only reads the binding, so the query binding built inside the loop below
+// (WorldBuilder's shape) is hoisted out of it and the loop counter shares the
+// dead name home [ebp+0xC]; declared out of line, cl picks other registers.
 class Rva0057BC63FunctorHolder
 {
 public:
-	Rva0057BC63FunctorHolder(const FunctorBinding &binding);
+	__declspec(noinline) Rva0057BC63FunctorHolder(const FunctorBinding &binding)
+	{
+		m_ptr = new Rva0057BC63FunctorWrapper(binding);
+		if (m_ptr != 0)
+			m_ptr->m_refCount++;
+	}
 	Rva0057BC63FunctorHolder(const Rva0057BC63FunctorHolder &other) : m_ptr(other.m_ptr)
 	{
 		if (m_ptr)
 			++m_ptr->m_refCount;
 	}
-
 	FunctorWrapperHead *m_ptr;
 };
 
@@ -338,11 +356,10 @@ Rva005105D7::Rva005105D7(int level, const AsciiString &name)
 	{
 		int i = 0;
 		FunctorMethod method = reinterpret_cast<FunctorMethod>(&Rva005105D7::rva0050E823);
-		FunctorBinding binding = MakeExternBinding(reinterpret_cast<FunctorTarget *>(this),method);
 		AsciiStringPlusString prefix = levelName + m_name;
 		for (; i < 2; ++i)
 		{
-			m_externHandlers.AddExternHandler(prefix + '_' + s_queries[i], i, AptRef<AptExternHandler>(binding));
+			m_externHandlers.AddExternHandler(prefix + '_' + s_queries[i], i, AptRef<AptExternHandler>(MakeExternBinding(reinterpret_cast<FunctorTarget *>(this),method)));
 		}
 	}
 	rva0050EEDC();
