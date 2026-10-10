@@ -1,0 +1,33 @@
+{
+  "cmd": [
+    "C:\\Users\\clemens\\.codex\\worktrees\\reference-container-seat\\Open-BFME-2\\reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\bin\\cl.exe",
+    "-nologo",
+    "-c",
+    "-O2",
+    "-GR-",
+    "-EHsc-",
+    "-O1",
+    "-arch:SSE",
+    "-G7",
+    "-Fobuild/reference214/stance-names-owner/StanceNames-getter.obj",
+    "C:/Users/clemens/.codex/worktrees/reference-container-seat/Open-BFME-2/build/reference214/stance-names-owner/StanceNames-getter.cpp"
+  ],
+  "native": "8b44240485c07c0d83f8067d088b048510c2c300c3b8a40fbd00c3",
+  "compiled": "8b44240485c07c0d83f8067d088b048500000000c3b800000000c3",
+  "compiled_size": 27,
+  "relocations": [
+    {
+      "site": 16,
+      "target": "?TheStanceNames@@3QBQBDB",
+      "kind": 6
+    },
+    {
+      "site": 22,
+      "target": "??_C@_07NBCGADJA@Unknown?$AA@",
+      "kind": 6
+    }
+  ],
+  "equal_outside_relrefs": true,
+  "source_sha256": "7e46f05938eb008398f34ec9f37feb8442773eb5d55d4eace9fb1074dbc91799",
+  "object_sha256": "2a46e681f4665e89419197bbac21f70c6106895a7eff41c5a3750633522e89de"
+}

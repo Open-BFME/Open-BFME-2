@@ -51,3 +51,23 @@ and is removed. All other ledger lines remain byte-for-byte unchanged. Native
 RET4 before 425DC2 and the next 425DDD prologue bound the complete 27-byte body;
 only its internal JL/JGE target 425DD7. This retraction credits -6 C++ bytes.
 No replacement row, pin or alias is introduced by the retraction.
+
+Ordinary add_match subsequently admitted the complete address-owned
+Rva00425DC2StanceName function (27 bytes) with both genuine DIR32 references:
+its single owned table and the complete eight-byte Unknown literal. The required
+signed stack index and full EAX pointer result are observed target facts;
+original method spelling, owner and unused arity remain unknown. No class,
+synthetic caller, inline assembly, replacement pin or alias is introduced.
+Supported strict preparation verified all four provider/consumer objects and
+all 19 rows together, seven data rows, 98 complete literals plus 36 empty refs,
+and three float literals. Incidental placement reports zero additional bodies
+and zero pins. The separate -6/+27 commits yield +21 unique C++ bytes; the new
+proper source has zero supported open bodies. Current whole-universe LINK is
+still pending primary-cache verification and no publication/DONE is asserted.
+
+The shadow data-name audit still uses the old harvested 83C210 entry, whose
+mutable decorated spelling has status unowned and an empty source. It flags
+these read-only declarations even though the new data row supplies the sole
+actual definition. No second data owner existed, no baseline is expanded and
+the enforced converged-data check passes. The FontLibrary allocator identity
+shadow finding is disclosed as unrelated to this unchanged-byte table repair.

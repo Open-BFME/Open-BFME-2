@@ -29,3 +29,13 @@ const char *const TheStanceNames[] = {
     BfmeStanceNameHoldGroundMoving,
     0
 };
+
+// Complete native entry 425DC2 follows RET4; its 27 bytes include fallback DD7.
+// One signed stack index and full pointer result are observed. Original spelling,
+// original owner and any unused parameters remain unknown.
+const char *__cdecl Rva00425DC2StanceName(int index)
+{
+    if (index >= 0 && index < 6)
+        return TheStanceNames[index];
+    return "Unknown";
+}
