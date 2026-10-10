@@ -2,7 +2,7 @@
 // partial score=0.9893906110161907 date=2026-10-10
 // ?adjustCameraMovement@PolygonTrigger@@QAE_NPBUCoord3D@@0PAU2@_N@Z
 // partial score=0.8841387566392382 date=2026-10-09
-// cl: /I. /O1 /G7 /arch:SSE /DNDEBUG /MD
+// cl: /I. /O1 /G7  /arch:SSE /DNDEBUG /MD
 // WB ABA7D0 names PolygonTrigger::adjustCameraMovement; native2E3AA8..2E3D7B
 // RET16 supplies the complete723B camera constraint. BFME2 adds this method
 // beyond the ZH polygon reference. Existing point queries and Line2D intersection
@@ -17,7 +17,7 @@ class PolygonTrigger {public:bool rva002E3A39(const Coord3D&);bool adjustCameraM
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
 inline __declspec(noinline) float Coord2D::length()const{return (float)sqrt(x*x+y*y);}
-inline __declspec(noinline) void Coord2D::normalize(){float len=length();if(len!=0){float inv=1.0f/len;x=inv*x;y*=inv;}}
+inline __declspec(noinline) void Coord2D::normalize(){float len=length();if(len!=0){x/=len;y/=len;}}
 bool PolygonTrigger::adjustCameraMovement(const Coord3D*from,const Coord3D*to,Coord3D*out,bool slide){
  const Coord3D*start=from;Coord2D from2,to2,delta;from2.x=start->x;from2.y=start->y;to2.x=to->x;to2.y=to->y;delta.x=to2.x-from2.x;delta.y=to2.y-from2.y;
  if(rva002E3A39(*to)){*out=*to;return true;}
