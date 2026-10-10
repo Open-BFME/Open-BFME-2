@@ -36,7 +36,7 @@
 class Rva000B3F84Pair
 {
 public:
- Rva000B3F84Pair() {}
+ Rva000B3F84Pair() {} Rva000B3F84Pair *init(const char*);
 	const char *m_ptr;
 	int m_len;
 };
@@ -65,7 +65,7 @@ struct AsciiStringPlusText : AsciiStringRef
 	Rva000B3F84Pair m_right;
 };
 
-inline AsciiStringPlusString operator+(const AsciiString &left, const AsciiString &right)
+static __forceinline AsciiStringPlusString operator+(const AsciiString &left, const AsciiString &right)
 {
 	AsciiStringPlusString result;
 	result.m_string = &left;
@@ -73,7 +73,7 @@ inline AsciiStringPlusString operator+(const AsciiString &left, const AsciiStrin
 	return result;
 }
 
-AsciiStringPlusStringText operator+(const AsciiStringPlusString &left, const char *right);
+inline AsciiStringPlusStringText operator+(const AsciiStringPlusString &left,const char *right){Rva000B3F84Pair text;text.init(right);AsciiStringPlusStringText result;static_cast<AsciiStringPlusString&>(result)=left;result.m_text=text;return result;}
 AsciiStringPlusText operator+(const AsciiString &left, const char *right);
 
 namespace AptUtils
@@ -373,11 +373,12 @@ Rva00527378Payload::Rva00527378Payload(void *owner, int level, const AsciiString
 	prefix.format("_level%d.", m_level);
 	m_commandMaps.AddCommandMap(prefix + m_name + "_OnBttnHeroSelect", AptRef<AptCommandMap>(DelegateDesc(this, reinterpret_cast<DelegateMethod>(&InGameHeroSelectInterface::Impl::OnButtonPressed))));
 	m_commandMaps.AddCommandMap(prefix + m_name + "_OnBttnSelectAllHeroes", AptRef<AptCommandMap>(DelegateDesc(this, reinterpret_cast<DelegateMethod>(&InGameHeroSelectInterface::Impl::rva0052633A))));
-	Rva00524F35 slot;
+	{Rva00524F35 slot;
 	SlotInit init = reinterpret_cast<SlotInit>(&Rva00524F35::rva00524F35);
 	_STL::fill<BfmeStringRecord000B9534 *, BfmeStringRecord000B9534>((BfmeStringRecord000B9534 *)m_slots,
 		(BfmeStringRecord000B9534 *)(m_slots + 16),
 		(const BfmeStringRecord000B9534 &)(slot.*init)(m_data->m_heroButtons.end()));
+	}
 	for (int i = 0; i < 16; ++i)
 	{
 		AsciiString path;
