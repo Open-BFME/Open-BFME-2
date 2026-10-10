@@ -1,5 +1,6 @@
 // ?rva00477305@Rva00477305Owner@@QAEXPAVObject@@@Z
-// partial score=0.93 date=2026-10-08
+// ?rva00477305@Rva00477305Owner@@QAEXPAVObject@@@Z @0x00477305 96B
+// Evidence: Native477305..477365 complete RET4 and neighbours identify HordeContain family; gate receiver+11D callee588D24; status word Object+128 test/or40000 precedes28AE6D notifier. Inline bit-array methods preserve direct memory operands; layout span is target-measured; original status index name unproven. All REL32 providers already landed.
 // cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc
 // Retail 0x00477305, 96 bytes, thiscall with one Object argument (ret 4).
 // Gated by the sub-object at +0x11D; when the argument has weapon-set flag 0x14
@@ -7,6 +8,7 @@
 // slot 0x48 on this and the interface at +0x20 with (argument, false).
 // Callees are rowed or pinned; class names are address-derived.
 enum WeaponSetType { WEAPONSET_RETAIL_14 = 0x14 };
+class Bits {public: unsigned test(unsigned n)const{return words[n>>5]&(1u<<(n&31));} void set(unsigned n){words[n>>5]|=1u<<(n&31);} unsigned words[20];};
 class Object;
 
 class Object
@@ -15,8 +17,8 @@ public:
 	bool rva0029091E(unsigned int flag) const;
 	void setWeaponSetFlag(WeaponSetType set);
 	void rva0028AE6D();
-	char m_pad[0x128];
-	unsigned int m_flags128;	// +0x128
+	char m_pad[0x10C];
+	Bits status;	// +0x128
 };
 
 class Rva0047A040Base9E0
@@ -64,9 +66,9 @@ void Rva00477305Owner::rva00477305(Object *src)
 	if (src->rva0029091E(0x14))
 	{
 		src->setWeaponSetFlag(WEAPONSET_RETAIL_14);
-		if (!(src->m_flags128 & 0x40000))
+		if (!(src->status.test(242)))
 		{
-			src->m_flags128 |= 0x40000;
+			src->status.set(242);
 			src->rva0028AE6D();
 		}
 	}
