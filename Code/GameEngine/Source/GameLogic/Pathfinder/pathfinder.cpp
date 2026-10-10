@@ -10,6 +10,14 @@
 // callee pin is supported by its selected-layer callsite and the GeneralsMD
 // PathfindLayer::setDestroyed(Bool) donor. Target arithmetic gives 64-byte
 // layers at +0x60 and the final manager-like subobject at +0x460.
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
 #include <vector>
 #include <new>
 #include "../../Common/GameLogicObjectLookupView.h"
