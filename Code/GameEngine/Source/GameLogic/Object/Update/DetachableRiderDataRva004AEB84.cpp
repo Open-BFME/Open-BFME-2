@@ -1,8 +1,17 @@
 // ?Rva004AEB84Parse@@YAXPAVINI@@PAX1PBX@Z
-// partial score=0.95 date=2026-10-07
-// cl: /O1 /arch:SSE /G7 /MD /EHsc /Oi-
-// Parser identity inferred from the AnimState, AnimTime, and RiderOCL fields;
-// owner class is unproven. Structure follows the BFME RiderInfo parser.
+// cl: /O1 /arch:SSE /G7 /MD /EHsc /Oi- /DNDEBUG /D_CRTIMP=
+// stlport
+// Native004AEB84..004AEC9A cdecl callback parses AnimState/AnimTime/RiderOCL records.
+// The native vector append uses84-byte elements: 19 dword conditions, a
+// duration at4C and OCL at50. DetachableRider's618-byte update consumes the
+// same84-byte records from its ModuleData+8 vector; its owned buildFieldParse
+// 4AEF05 registers this callback in the C55638 table at offset8. Name remains
+// neutral; WeaponTemplateSet and BitFlags<304> are existing provider ABI
+// spellings, not assertions about the target record's semantic type.
+// Previous bank followed the BFME RiderInfo parser. Target constructor44B
+// Rva0028F59A and existing append55B are independently rowed providers.
+// INIException's8-byte object extent restores nativeA8 stack temporaries;
+// its internal member interpretation remains unknown.
 
 #include <vector>
 #include <string.h>
@@ -26,6 +35,7 @@ public:
 	INIException(int, const char *, ...);
 	INIException(const INIException &);
 	~INIException();
+private: unsigned opaque[2];
 };
 
 template<int N> class BitFlags
@@ -38,12 +48,13 @@ class Rva0028F59A
 {
 public:
 	Rva0028F59A() {}
-	Rva0028F59A(int, int);
+	inline __declspec(noinline) Rva0028F59A(int, int bit) { memset(this,0,0x4c); m_bits[(unsigned)bit>>5] |= 1u << (bit&31); }
 	unsigned int m_bits[19];
 };
 
-struct WeaponTemplateSet
+class WeaponTemplateSet
 {
+public:
 	Rva0028F59A m_flags;
 	UnsignedInt m_animTime;
 	const void *m_ocl;
@@ -58,7 +69,7 @@ void Rva004AEB84Parse(INI *ini, void *instance, void *store, const void *)
 	if (token == 0 || strcmp(token, "AnimState") != 0)
 		throw INIException(3, "AnimState expected");
 
-	int bit = BitFlags<0xBDA>::getSingleBitFromName(ini->getNextToken());
+	int bit = BitFlags<304>::getSingleBitFromName(ini->getNextToken());
 	info.m_flags = Rva0028F59A(0, bit);
 
 	token = ini->getNextToken(ini->getSepsColon());
