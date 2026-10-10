@@ -1,0 +1,28 @@
+{
+  "id": "seat-c-terrain-object-bounds-00069bcc-20261010",
+  "seat": "C",
+  "base_commit": "b5cc668da0c33b6c7481ef1a57f00f71605a9752",
+  "paths": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapBoundingBox.cpp"
+  ],
+  "recoveries": [
+    {
+      "name": "?Get_Obj_Space_Bounding_Box@BaseHeightMapRenderObjClass@@UBEXAAVAABoxClass@@@Z",
+      "rva": "0x00069BCC",
+      "size": 147,
+      "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapBoundingBox.cpp",
+      "notes": "Native69BCC..69C5F complete147B RET4; terrain tableBC5E5C slot25; BF1@575ba2b and GeneralsMD Get_Obj_Space_Bounding_Box guide; WB758A10 same box flow; target map37C0 extents8/C heights37D8/DC; ordinary inline vector/min-max box operations; full147 exact no newpins",
+      "replace_rva": null
+    }
+  ],
+  "new_retail_bytes": 147,
+  "proof_command": "python tools/explain_mismatch.py \"?Get_Obj_Space_Bounding_Box@BaseHeightMapRenderObjClass@@UBEXAAVAABoxClass@@@Z\" --rva 0x00069BCC --size 147 --source Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapBoundingBox.cpp",
+  "proof_log": "scoped-proof.txt",
+  "claim_owner": "codex-104a-01a12257",
+  "worker_root": "C:\\Users\\franz\\.codex\\worktrees\\recovery-preserved\\openbfme2",
+  "dependencies": [],
+  "claims": [
+    "0x00069BCC",
+    "file:Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMapBoundingBox.cpp"
+  ]
+}
