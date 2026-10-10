@@ -37,6 +37,9 @@ class Object;
 
 extern GameLogic *TheGameLogic;
 
+class SpawnBehaviorInterface { public: virtual void v0(); virtual void onSpawnDeath(ObjectID id, void *arg); };
+class Rva002930A9Child { public: virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03(); virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07(); virtual void v08(); virtual void v09(); virtual void v10(); virtual void v11(); virtual void v12(); virtual void slot13(Object *object); };
+class Rva002930A9Holder { public: virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03(); virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07(); virtual void v08(); virtual void v09(); virtual void v10(); virtual void v11(); virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15(); virtual void v16(); virtual void v17(); virtual void v18(); virtual void v19(); virtual void v20(); virtual void v21(); virtual void v22(); virtual void v23(); virtual void v24(); virtual void v25(); virtual void v26(); virtual void v27(); virtual void v28(); virtual void v29(); virtual void v30(); virtual Rva002930A9Child *child(); };
 class Rva002CA9CA { public: bool rva002CAD8B(); };
 class Weapon { public: char pad[4]; Rva002CA9CA *template4; };
 enum WeaponSlotType { SLOT_ZERO=0 };
@@ -49,6 +52,8 @@ public:
 	bool rva0028C4ED() const;
 	ObjectID rva0028C513() const;
 	Bool rva00293926(KindOfType kind);
+	void rva002930A9(void *arg);
+	SpawnBehaviorInterface *getSpawnBehaviorInterface() const;
 	int rva002933CD();
 	void *rva0029439D();
 	Bool isKindOf(KindOfType kind) const;
@@ -58,9 +63,12 @@ public:
 private:
 	unsigned char m_pad00[4];
 	ThingTemplate *m_template;
-	unsigned char m_pad08[0x78 - 0x08];
+	unsigned char m_pad08[0x74 - 0x08];
+	ObjectID m_id74;
 	ObjectID m_producerID;
-	unsigned char m_pad7C[0x274 - 0x7C];
+	unsigned char m_pad7C[0x250 - 0x7C];
+	Rva002930A9Holder *m_holder250;
+	unsigned char m_pad254[0x274 - 0x254];
 	Object *m_containedBy;
 	char pad278[0x330-0x278]; WeaponSet m_weapons;
 };
@@ -137,4 +145,26 @@ bool Object::rva00293408()
         }
     }
     return false;
+}
+
+// ?rva002930A9@Object@@QAEXPAX@Z, retail 0x002930A9, 92 bytes, ret 4.
+// Tells the producing object (producerID +0x78 through the rowed findObjectByID) about this
+// object: through its spawn behavior interface (slot 1 with this object's id at +0x74 and the
+// argument) when it has one, otherwise through the child of the holder at producer +0x250
+// (virtual slot 31, then that child's slot 13 with this object) when both exist.
+// Evidence: target bytes and the rowed callees; the interface and holder names are neutral.
+void Object::rva002930A9(void *arg)
+{
+	Object *producer = TheGameLogic->findObjectByID(m_producerID);
+	if (producer == 0)
+		return;
+	SpawnBehaviorInterface *spawn = producer->getSpawnBehaviorInterface();
+	if (spawn != 0)
+	{
+		spawn->onSpawnDeath(m_id74, arg);
+		return;
+	}
+	Rva002930A9Holder **holder = &producer->m_holder250;
+	if (*holder != 0 && (*holder)->child() != 0)
+		(*holder)->child()->slot13(this);
 }

@@ -75920,3 +75920,4 @@ _floorf,,0x0004D649,18,Code/GameEngine/Source/GameLogic/Map/TerrainLogicAmbientC
 ?rva00090F88@Rva00090F88@@QAE_NPAVRva00090F88Item@@@Z,,0x00090F88,88,Code/GameEngine/Source/Common/Rva00090F88.cpp,matched,owner offers item through virtual accept then stores or deletes it
 ?Rva0008A2A3Find@@YAPAVRva0008A2A3Item@@PAXI_N@Z,,0x0008A2A3,76,Code/GameEngine/Source/Common/Rva0008A2A3Find.cpp,matched,map walk returning first item whose virtual mask matches any or all bits
 ??0Rva003EF77E@@QAE@XZ,,0x003EF77E,97,Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003EF77E.cpp,matched,three empty E16 vectors cleared through shared pointer erase; visible noinline vector base ctor
+?rva002930A9@Object@@QAEXPAX@Z,,0x002930A9,92,Code/GameEngine/Source/GameLogic/Object/ObjectRva002931F5.cpp,matched,producer notification through spawn behavior interface or holder child slot
