@@ -19,18 +19,15 @@
 // push_back (retail 0x0056625E) and the copy ctor (retail 0x0052CAC9) are
 // instantiated here too: they are the only unowned callers of the
 // _M_insert_overflow and __uninitialized_copy bodies this TU places.
-// The emitted unsigned max copy must match retail RVA 0x00013740.
-// Define it for speed, then restore this unit's flags for its own bodies.
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
 #include <stl/_algobase.h>
-#pragma optimize("s", off)
-#pragma optimize("t", on)
 namespace _STL {
-template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
 {
     return a < b ? b : a;
 }
 }
-#pragma optimize("", on)
 
 #define _STLP_NO_EXCEPTIONS 1
 #include <vector>
