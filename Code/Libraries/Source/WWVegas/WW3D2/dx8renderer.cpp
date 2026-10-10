@@ -1600,7 +1600,10 @@ void DX8TextureCategoryClass::Render(void)
 			Vector3 camera_z_vector;
 			
 			TheDX8MeshRenderer.Peek_Camera()->Get_Transform().Get_Z_Vector(&camera_z_vector);
-			mesh->Get_Transform().Get_Translation(&mesh_position);
+			const Matrix3D & mesh_tm = mesh->Get_Transform();
+			mesh_position.X = mesh_tm[0][3];
+			mesh_position.Y = mesh_tm[1][3];
+			mesh_position.Z = mesh_tm[2][3];
 
 			tmp_world.Obj_Look_At(mesh_position,mesh_position + camera_z_vector,0.0f);
 			world_transform = &tmp_world;
@@ -1611,8 +1614,14 @@ void DX8TextureCategoryClass::Render(void)
 			Vector3 mesh_position;
 			Vector3 camera_position;
 
-			TheDX8MeshRenderer.Peek_Camera()->Get_Transform().Get_Translation(&camera_position);
-			mesh->Get_Transform().Get_Translation(&mesh_position);
+			const Matrix3D & camera_tm = TheDX8MeshRenderer.Peek_Camera()->Get_Transform();
+			camera_position.X = camera_tm[0][3];
+			camera_position.Y = camera_tm[1][3];
+			camera_position.Z = camera_tm[2][3];
+			const Matrix3D & mesh_tm = mesh->Get_Transform();
+			mesh_position.X = mesh_tm[0][3];
+			mesh_position.Y = mesh_tm[1][3];
+			mesh_position.Z = mesh_tm[2][3];
 
 			tmp_world.Obj_Look_At(mesh_position,camera_position,0.0f);
 			world_transform = &tmp_world;

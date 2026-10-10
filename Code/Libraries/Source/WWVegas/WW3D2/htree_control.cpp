@@ -6,7 +6,7 @@
 // Complete112-byte RET12 boundary; the sole call is held Build_Quaternion360.
 class Quaternion { public: float X,Y,Z,W; Quaternion &operator=(const Quaternion &q){X=q.X;Y=q.Y;Z=q.Z;W=q.W;return *this;} };
 class Vector3 { public: float X,Y,Z; Vector3(const Vector3 &v):X(v.X),Y(v.Y),Z(v.Z){} Vector3 &operator=(const Vector3 &v){X=v.X;Y=v.Y;Z=v.Z;return *this;} Vector3(float x,float y,float z):X(x),Y(y),Z(z){} };
-class Matrix3D { public: float M[3][4]; void Get_Translation(Vector3 *v) const {v->X=M[0][3];v->Y=M[1][3];v->Z=M[2][3];} };
+class Matrix3D { public: float M[3][4]; };
 Quaternion Build_Quaternion(const Matrix3D &);
 class PivotClass;
 class HTreeClass {
@@ -22,5 +22,7 @@ void HTreeClass::Control_Bone(int boneindex,const Matrix3D &relative_tm,bool wor
  if(bone==End || bone->Index!=boneindex) return;
  bone->WorldSpaceTranslation=world_space_translation;
  bone->Rotation=Build_Quaternion(relative_tm);
- relative_tm.Get_Translation(&bone->Translation);
+ bone->Translation.X=relative_tm.M[0][3];
+ bone->Translation.Y=relative_tm.M[1][3];
+ bone->Translation.Z=relative_tm.M[2][3];
 }

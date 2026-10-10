@@ -458,8 +458,10 @@ static Real computeTrackSpacing(RenderObjClass *renderObj)
 	if ((leftTrack=renderObj->Get_Bone_Index( "TREADFX01" )) != 0 && (rightTrack=renderObj->Get_Bone_Index( "TREADFX02" )) != 0)
 	{	//both bones found, determine distance between them.
 		Vector3 leftPos,rightPos;
-		leftPos=renderObj->Get_Bone_Transform( leftTrack ).Get_Translation();
-		rightPos=renderObj->Get_Bone_Transform( rightTrack ).Get_Translation();
+		const Matrix3D &leftMtx=renderObj->Get_Bone_Transform( leftTrack );
+		leftPos=Vector3(leftMtx[0][3],leftMtx[1][3],leftMtx[2][3]);
+		const Matrix3D &rightMtx=renderObj->Get_Bone_Transform( rightTrack );
+		rightPos=Vector3(rightMtx[0][3],rightMtx[1][3],rightMtx[2][3]);
 		rightPos -= leftPos;	//get distance between centers of tracks
 		trackSpacing = rightPos.Length() + DEFAULT_TRACK_WIDTH;	//add width of each track
 		///@todo: It's assumed that all tank treads have the same width.

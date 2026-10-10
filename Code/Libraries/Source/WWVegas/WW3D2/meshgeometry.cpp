@@ -762,25 +762,26 @@ bool MeshGeometryClass::Cast_World_Space_AABox(AABoxCollisionTestClass & boxtest
 	** that these compares are done
 	*/
 	bool hit = false;
+	Vector3 translation(transform[0][3], transform[1][3], transform[2][3]);
 	
 	if ((transform[0][0] == 1.0f) && (transform[1][1] == 1.0f)) {
 
-		hit = cast_aabox_identity(boxtest,-transform.Get_Translation());
+		hit = cast_aabox_identity(boxtest,-translation);
 	
 	} else if ((transform[0][1] == -1.0f) && (transform[1][0] == 1.0f)) {
 	
 		// this mesh has been rotated 90 degrees about z
-		hit = cast_aabox_z90(boxtest,-transform.Get_Translation());
+		hit = cast_aabox_z90(boxtest,-translation);
 	
 	} else if ((transform[0][0] == -1.0f) && (transform[1][1] == -1.0f)) {
 	
 		// this mesh has been rotated 180
-		hit = cast_aabox_z180(boxtest,-transform.Get_Translation());
+		hit = cast_aabox_z180(boxtest,-translation);
 	
 	} else if ((transform[0][1] == 1.0f) && (transform[1][0] == -1.0f)) {
 	
 		// this mesh has been rotated 270 
-		hit = cast_aabox_z270(boxtest,-transform.Get_Translation());
+		hit = cast_aabox_z270(boxtest,-translation);
 	
 	} else {
 

@@ -4,9 +4,10 @@
 // Target facts: calls ?canRenderToTexture@W3DShaderManager@@SA_NXZ (0x000F630C); tests the bool in al so the false path needs xor; stores this into data 0x009E1F34 then returns 1 else 0.
 // Callers: none; callees: 0x000F630C only. Owner unknown so class is address-derived.
 // Not established: owning class identity beyond this-pointer store; global identity.
-extern unsigned int g_Va00DE1F34;
-// g_Va00DE1F34: matched references place it at VA 0xde1f34 (zero-filled .bss).
-unsigned int g_Va00DE1F34;
+// 0x009E1F34 is slot 2 of W3DFilters[10] (0x009E1F2C, defined in W3DShaderManager.cpp);
+// this is a filter init registering itself (FT_VIEW_MOTION_BLUR_FILTER in Zero Hour).
+class W3DFilterInterface;
+extern W3DFilterInterface *W3DFilters[10];
 class W3DShaderManager
 {
 public:
@@ -22,6 +23,6 @@ int Rva000FD4B3::rva000FD4B3()
 {
 	if (!W3DShaderManager::canRenderToTexture())
 		return 0;
-	g_Va00DE1F34 = (unsigned int)this;
+	W3DFilters[2] = (W3DFilterInterface *)this;
 	return 1;
 }

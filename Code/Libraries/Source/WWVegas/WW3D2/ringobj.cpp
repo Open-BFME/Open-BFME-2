@@ -731,8 +731,6 @@ void RingRenderObjClass::Render(RenderInfoClass & rinfo)
 		// Process texture reductions:
 //		if (RingTexture) RingTexture->Process_Reduction();
 		
-		Matrix3D temp = Transform;
-
 		// Do Time Based Animation
 		animate ();
 
@@ -759,7 +757,10 @@ void RingRenderObjClass::Render(RenderInfoClass & rinfo)
 			Vector3 camera_z_vector;
 			
 			rinfo.Camera.Get_Transform().Get_Z_Vector(&camera_z_vector);
-			Transform.Get_Translation(&obj_position);
+			const Matrix3D & tm = Transform;
+			obj_position.X = tm[0][3];
+			obj_position.Y = tm[1][3];
+			obj_position.Z = tm[2][3];
 
 			Matrix3D temp;
 			temp.Look_At(obj_position, obj_position + camera_z_vector, 0.0f);
@@ -899,8 +900,9 @@ Vector2 RingRenderObjClass::Get_Default_Outer_Scale(void) const
 // ?Special_Render@RingRenderObjClass@@UAEXAAVSpecialRenderInfoClass@@@Z present-unmatched
 void RingRenderObjClass::Special_Render(SpecialRenderInfoClass & rinfo)
 {
+	const Matrix3D & tm = Transform;
 	Matrix3D temp(1);
-	temp.Translate(Transform.Get_Translation());
+	temp.Translate(Vector3(tm[0][3], tm[1][3], tm[2][3]));
 	
 	if (rinfo.RenderType == SpecialRenderInfoClass::RENDER_VIS) {
 		WWASSERT(rinfo.VisRasterizer != NULL);
@@ -965,7 +967,8 @@ void RingRenderObjClass::Set_Position(const Vector3 &v)
 // ?update_cached_box@RingRenderObjClass@@MAEXXZ present-unmatched
 void RingRenderObjClass::update_cached_box(void)
 {
-	CachedBox.Center = Transform.Get_Translation() + ObjSpaceCenter;
+	const Matrix3D & tm = Transform;
+	CachedBox.Center = Vector3(tm[0][3], tm[1][3], tm[2][3]) + ObjSpaceCenter;
 	CachedBox.Extent = ObjSpaceExtent;
 }
 

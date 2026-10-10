@@ -875,7 +875,6 @@ address_global	Code/GameEngine/Source/Common/Rva000F5B43Get.cpp	g_Va00DE1F28	3
 address_global	Code/GameEngine/Source/Common/Rva000F5D1BGet.cpp	g_Va00DE1F8C	2
 address_global	Code/GameEngine/Source/Common/Rva000F630CGet.cpp	g_Va009E1F64	3
 address_global	Code/GameEngine/Source/Common/Rva000F630CGet.cpp	g_Va009E1F6C	3
-address_global	Code/GameEngine/Source/Common/Rva000FD4B3.cpp	g_Va00DE1F34	3
 address_global	Code/GameEngine/Source/Common/Rva0014D722Init.cpp	g_Va00DEDA14	2
 address_global	Code/GameEngine/Source/Common/Rva001DCF82.cpp	g_Va00DBA4E4	4
 address_global	Code/GameEngine/Source/Common/Rva001E3557.cpp	g_Va00BC2428	2
@@ -1973,7 +1972,6 @@ address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000932E1Get.
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000932E1Get.cpp	g_Va00DFE118	2
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00093349.cpp	g_Va00DFE118	2
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00093457Finish.cpp	g_Va00DFE118	2
-address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000FDCD7Get.cpp	g_Va00DE1F50	3
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00105CF6.cpp	g_Va007BB5C4	2
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/ScreenCrossFadeFilterUpdateFadeLevel.cpp	g_Va00BBB8D8	3
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseCtor.cpp	g_Va009E5DF8	2

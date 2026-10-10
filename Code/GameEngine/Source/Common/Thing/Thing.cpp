@@ -265,29 +265,7 @@ Bool Thing::isSignificantlyAboveTerrain() const
 
 
 //-------------------------------------------------------------------------------------------------
-// ?convertBonePosToWorldPos@Thing@@ present-unmatched
-void Thing::convertBonePosToWorldPos(const Coord3D* bonePos, const Matrix3D* boneTransform, Coord3D* worldPos, Matrix3D* worldTransform) const
-{
-	if (worldTransform)
-	{
-#ifdef ALLOW_TEMPORARIES
-		*worldTransform = m_transform * (*boneTransform);
-#else
-		worldTransform->mul(m_transform, *boneTransform);
-#endif
-	}
-	if (worldPos)
-	{
-		Vector3 vector;
-		vector.X = bonePos->x;
-		vector.Y = bonePos->y;
-		vector.Z = bonePos->z;
-		m_transform.Transform_Vector(m_transform, vector, &vector);
-		worldPos->x = vector.X;
-		worldPos->y = vector.Y;
-		worldPos->z = vector.Z;
-	}
-}
+// Thing::convertBonePosToWorldPos is defined with its retail-matched body in Code/GameEngine/Source/Common/Thing/ThingConvertBonePosToWorldPos.cpp (0x0030A528).
 
 // ------------------------------------------------------------------------------------------------
 /** Push the 'in' parameter through our transformation matrix and store in 'out' */

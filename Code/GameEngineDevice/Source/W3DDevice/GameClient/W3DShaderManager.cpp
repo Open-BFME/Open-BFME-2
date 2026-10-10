@@ -285,6 +285,15 @@ IDirect3DTexture8 *W3DShaderManager::m_renderTexture;
 unsigned long W3DShaderManager::m_dwGlowPixelShader;
 unsigned long W3DShaderManager::m_dwGlowVertexShader;
 
+// Zero Hour W3DShaderManager.cpp's filter table, W3DFilters[FT_MAX] (0x009E1F2C, zero-filled).
+// BFME 2 has ten slots: the init at 0x000754CE clears it with push 0Ah / pop ecx /
+// mov edi 0x00DE1F2C / rep stosd, and shutdown (0x0007684A) walks 0x00DE1F2C..0x00DE1F54
+// calling slot 1 of each filter. The filter inits store slots 1 (0x000FB9D4),
+// 2 (0x000FD4B3), 3 (0x000F652D), 4 (0x000FA935), 5 (0x000F9D94), 6 (0x000FC5FF)
+// and 9 (0x000FDCD7).
+class W3DFilterInterface;
+W3DFilterInterface *W3DFilters[10];
+
 // Clean BF1 donor and native texture callers establish the static pointer ABI.
 IDirect3DTexture8 *W3DShaderManager::getRenderTexture()
 {

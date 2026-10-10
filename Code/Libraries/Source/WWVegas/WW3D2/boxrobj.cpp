@@ -815,8 +815,9 @@ int AABoxRenderObjClass::Class_ID(void) const
 // ?AABoxRenderObjClass::Render present-unmatched
 void AABoxRenderObjClass::Render(RenderInfoClass & rinfo)
 {
+	const Matrix3D & tm = Transform;
 	Matrix3D temp(1);
-	temp.Translate(Transform.Get_Translation());
+	temp.Translate(Vector3(tm[0][3], tm[1][3], tm[2][3]));
 	DX8Wrapper::Set_Transform(D3DTS_WORLD,temp);
 	render_box(rinfo,ObjSpaceCenter,ObjSpaceExtent);
 }
@@ -839,8 +840,9 @@ void AABoxRenderObjClass::Special_Render(SpecialRenderInfoClass & rinfo)
 {
 	if (rinfo.RenderType == SpecialRenderInfoClass::RENDER_VIS) {
 		WWASSERT(rinfo.VisRasterizer != NULL);
+		const Matrix3D & tm = Transform;
 		Matrix3D temp(1);
-		temp.Translate(Transform.Get_Translation());
+		temp.Translate(Vector3(tm[0][3], tm[1][3], tm[2][3]));
 		rinfo.VisRasterizer->Set_Model_Transform(temp);
 		vis_render_box(rinfo,ObjSpaceCenter,ObjSpaceExtent);
 	}

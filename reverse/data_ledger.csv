@@ -17930,9 +17930,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x009E1F20,4,.data,global,?g_Va00DE1F20@@3IA,Code/GameEngine/Source/Common/Rva000F5B43Get.cpp,owned,,1,1
 0x009E1F24,4,.data,global,?g_00DE1F24@@3RCRAUShaderSlotObj@@C,,unowned,?g_00DE1F24@@3RCRAUShaderSlotObj@@C;?g_00DE1F24@@3RCRAVRva00075695Item@@C;_W3DShaders@Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShaderManagerShutdown.cpp,1,4
 0x009E1F28,4,.data,global,?g_Va00DE1F28@@3IA,Code/GameEngine/Source/Common/Rva000F5B43Get.cpp,owned,,1,1
-0x009E1F2C,8,.data,global,?W3DFilters@@3PAPAVW3DFilterInterface@@A,,unowned,?W3DFilters@@3PAPAVW3DFilterInterface@@A;?g_00DE1F2C@@3RCRAVRva000756BFItem@@C;?g_00DE1F2C@@3RCRAVRva000756F1Item@@C;?g_00DE1F2C@@3RCRAVRva00075725Item@@C;_W3DFilters@Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShaderManagerShutdown.cpp,1,8
-0x009E1F34,28,.data,global,?g_Va00DE1F34@@3IA,Code/GameEngine/Source/Common/Rva000FD4B3.cpp,owned,,1,1
-0x009E1F50,4,.data,global,?g_Va00DE1F50@@3IA,Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000FDCD7Get.cpp,owned,,1,1
+0x009E1F2C,40,.data,global,?W3DFilters@@3PAPAVW3DFilterInterface@@A,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShaderManager.cpp,provisional,?W3DFilters@@3PAPAVW3DFilterInterface@@A;?g_00DE1F2C@@3RCRAVRva000756BFItem@@C;?g_00DE1F2C@@3RCRAVRva000756F1Item@@C;?g_00DE1F2C@@3RCRAVRva00075725Item@@C;_W3DFilters@Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShaderManagerShutdown.cpp,2,10
 0x009E1F54,4,.data,global,?m_currentShader@W3DShaderManager@@1HA,,unowned,?g_00DE1F54@@3HA;?m_currentShader@W3DShaderManager@@1HA,0,5
 0x009E1F58,4,.data,global,?g_Va001FDE58@@3HA,Code/GameEngine/Source/Common/Rva00075E36Getters.cpp,owned,,1,27
 0x009E1F5C,4,.data,global,?m_currentFilter@W3DShaderManager@@1HA,,unowned,?g_00DE1F5C@@3HA;?m_currentFilter@W3DShaderManager@@1HA,0,3

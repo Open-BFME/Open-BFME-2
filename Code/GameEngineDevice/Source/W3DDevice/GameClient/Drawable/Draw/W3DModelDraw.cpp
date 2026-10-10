@@ -989,7 +989,7 @@ Bool ModelConditionInfo::findPristineBonePos(NameKeyType boneName, Coord3D& pos)
 	const Matrix3D* mtx = findPristineBone(boneName, NULL);
 	if (mtx)
 	{
-		Vector3 v = mtx->Get_Translation();
+		Vector3 v((*mtx)[0][3], (*mtx)[1][3], (*mtx)[2][3]);
 		pos.x = v.X;
 		pos.y = v.Y;
 		pos.z = v.Z;
@@ -1207,7 +1207,8 @@ const Vector3* W3DModelDrawModuleData::getAttachToDrawableBoneOffset(const Drawa
 			Matrix3D boneMtx;
 			if (draw->getPristineBonePositions(m_attachToDrawableBone.str(), 0, NULL, &boneMtx, 1) == 1)
 			{
-				m_attachToDrawableBoneOffset = boneMtx.Get_Translation();
+				const Matrix3D& constBoneMtx = boneMtx;
+				m_attachToDrawableBoneOffset = Vector3(constBoneMtx[0][3], constBoneMtx[1][3], constBoneMtx[2][3]);
 			}
 			else
 			{
@@ -2614,7 +2615,7 @@ void W3DModelDraw::recalcBonesForClientParticleSystems()
 							m_renderObject->Set_Transform(tmp);					// set to identity transform
 
 							const Matrix3D boneTransform = m_renderObject->Get_Bone_Transform(boneIndex);
-							Vector3 vpos = boneTransform.Get_Translation();
+							Vector3 vpos(boneTransform[0][3], boneTransform[1][3], boneTransform[2][3]);
 							rotation = boneTransform.Get_Z_Rotation();
 
 							m_renderObject->Set_Transform(originalTransform);					// restore it
@@ -2697,7 +2698,7 @@ Bool W3DModelDraw::updateBonesForClientParticleSystems()
 			{
     		const Matrix3D boneTransform = m_renderObject->Get_Bone_Transform(boneIndex);// just a little worried about state changes
         
-        Vector3 vpos = boneTransform.Get_Translation();
+        Vector3 vpos(boneTransform[0][3], boneTransform[1][3], boneTransform[2][3]);
 
         Coord3D pos;
 				pos.x = vpos.X;
@@ -3489,7 +3490,8 @@ Int W3DModelDraw::getPristineBonePositionsForConditionState(
 	{
 		for (i = 0; i < posCount; ++i)
 		{
-			Vector3 pos = transforms[i].Get_Translation();
+			const Matrix3D& boneMtx = transforms[i];
+			Vector3 pos(boneMtx[0][3], boneMtx[1][3], boneMtx[2][3]);
 			positions[i].x = pos.X;
 			positions[i].y = pos.Y;
 			positions[i].z = pos.Z;
@@ -3633,7 +3635,8 @@ Int W3DModelDraw::getCurrentBonePositions(
 	{
 		for (i = 0; i < posCount; ++i)
 		{
-			Vector3 pos = transforms[i].Get_Translation();
+			const Matrix3D& boneMtx = transforms[i];
+			Vector3 pos(boneMtx[0][3], boneMtx[1][3], boneMtx[2][3]);
 			positions[i].x = pos.X;
 			positions[i].y = pos.Y;
 			positions[i].z = pos.Z;
