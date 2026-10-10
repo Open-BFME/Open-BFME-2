@@ -1,58 +1,23 @@
-// cl: /Oy- /DNDEBUG /MD /GX
-//
-// ModuleInfo::getNthName, retail 0x001F12DF (64 bytes): bounds-checked
-// indexed copy-out of a module name. A negative index or one past the end
-// yields the empty module name; otherwise the nugget at the index feeds the
-// StringBase copy body at 0x365F0 straight into the hidden return slot (RVO).
-// The inlined count is a byte difference divided by the 20-byte nugget stride
-// (push-14/cdq/pop-ecx idiv); the second bound compares unsigned so the miss
-// jumps with jae while the negative guard keeps its signed jl.
+// cl: /Oy- /DNDEBUG /MD /GX /Ireference/shims/bfme2_ascii
+// Native1F12DF..1F131F64B indexes complete20B module entries and copies a
+// four-byte string into its hidden result. Native callers release that result
+// using the shared StringBase<char> worker, just as AsciiString does.
+// Use the shared string contract rather than a second private StringBase.
+#include "ascii_string.h"
 
-#pragma optimize("sy", on)
-template <typename T>
-class StringBase
-{
-	friend class BFMERetailAsciiString;
-
-public:
-	StringBase() : m_data(0) {}
-	StringBase(const StringBase<T> &that);
-private:
-	T *m_data;
-};
-
-class BFMERetailAsciiString : private StringBase<char>
-{
-public:
-	__forceinline BFMERetailAsciiString(const BFMERetailAsciiString &other) : StringBase<char>(other) {}
-	~BFMERetailAsciiString();
-};
-#pragma optimize("", on)
-
-struct ModuleNugget
-{
-	char m_bytes[20];
-};
-
+struct ModuleNugget { char m_bytes[20]; };
 class ModuleInfo
 {
 public:
-	BFMERetailAsciiString getNthName(int index) const;
-	int getCount() const { return ((char *)m_end - (char *)m_begin) / 20; }
-
-	ModuleNugget *m_begin;
-	ModuleNugget *m_end;
-	ModuleNugget *m_cap;
+    AsciiString getNthName(int index) const;
+    ModuleNugget *m_begin;
+    ModuleNugget *m_end;
+    ModuleNugget *m_cap;
 };
 
-extern BFMERetailAsciiString g_emptyModuleName;
-
-// ?getNthName@ModuleInfo@@QBE?AVBFMERetailAsciiString@@H@Z @0x001F12DF
-BFMERetailAsciiString ModuleInfo::getNthName(int index) const
+AsciiString ModuleInfo::getNthName(int index) const
 {
-	if (index < 0 || (unsigned)index >= (unsigned)getCount())
-		return g_emptyModuleName;
-	return *(const BFMERetailAsciiString *)(m_begin + index);
+    if (index < 0 || (unsigned)index >= (unsigned)(((char *)m_end - (char *)m_begin) / 20))
+        return AsciiString::TheEmptyString;
+    return *(const AsciiString *)(m_begin + index);
 }
-// ?g_emptyModuleName@@3VBFMERetailAsciiString@@A: the global at VA 0xde0878 is ?TheEmptyString@AsciiString@@2V1@B.
-#pragma comment(linker, "/alternatename:?g_emptyModuleName@@3VBFMERetailAsciiString@@A=?TheEmptyString@AsciiString@@2V1@B")

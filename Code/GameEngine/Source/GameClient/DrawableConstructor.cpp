@@ -51,16 +51,12 @@ class Matrix3D;
 enum DrawableStatus { DRAWABLE_STATUS_NONE = 0 };
 enum ModuleType { MODULETYPE_DRAW = 1, MODULETYPE_CLIENT_UPDATE = 2, MODULETYPE_3 = 3 };
 
-class BFMERetailAsciiString : public AsciiString
-{
-};
-
 struct ModuleInfoEntry { unsigned char m_data[0x14]; };
 class ModuleInfo
 {
 public:
 	int getCount() const { return m_end - m_begin; }
-	BFMERetailAsciiString getNthName(int i) const;
+	AsciiString getNthName(int i) const;
 	const ModuleData *getNthData(int i) const;
 	ModuleInfoEntry *m_begin;
 	ModuleInfoEntry *m_end;

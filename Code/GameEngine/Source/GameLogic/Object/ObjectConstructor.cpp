@@ -18,7 +18,7 @@
 // through the prototype getter (receiver before the return slot push).
 // Callees use their ledger spellings: map<int void*> ctor 0x0033C432 with the
 // rowed Rva002913EB clear, bitset<128>::reset 0x0024CA24, protected setID,
-// getNthName returning BFMERetailAsciiString, and GameLogic::rva0023CAD9 /
+// getNthName returning the shared AsciiString, and GameLogic::rva0023CAD9 /
 // registerObject (declared in the canonical GameLogic view).
 
 #include <list>
@@ -55,16 +55,12 @@ public:
 	Overridable *m_nextOverride;				// +0x04
 };
 
-class BFMERetailAsciiString : public AsciiString
-{
-};
-
 struct ModuleInfoEntry { unsigned char m_data[20]; };
 class ModuleInfo
 {
 public:
 	int getCount() const { return m_end - m_begin; }
-	BFMERetailAsciiString getNthName(int i) const;
+	AsciiString getNthName(int i) const;
 	const ModuleData *getNthData(int i) const;
 	ModuleInfoEntry *m_begin;
 	ModuleInfoEntry *m_end;

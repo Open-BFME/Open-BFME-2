@@ -1,4 +1,4 @@
-// cl: /EHs-c-
+// cl: /EHs-c- /Ireference/shims/bfme2_ascii
 
 // Rva00290EFE::getGhostObject, retail 0x00290EFE (189 bytes).
 // BFME2 ghost-object predicate for the subobject at Object+0x64: when global
@@ -15,15 +15,7 @@
 // the 4-byte-string temp teardown resolve through this TU own spellings at
 // 0x001F12DF and 0x00036410; strcmp rides the existing _strcmp pin.
 
-class BFMERetailAsciiString
-{
-public:
-	~BFMERetailAsciiString();
-	const char *str() const { return m_data ? m_data + 8 : ""; }
-
-private:
-	char *m_data;
-};
+#include "ascii_string.h"
 
 struct ModuleNugget
 {
@@ -33,7 +25,7 @@ struct ModuleNugget
 class ModuleInfo
 {
 public:
-	BFMERetailAsciiString getNthName(int i) const;
+	AsciiString getNthName(int i) const;
 	int getCount() const { return ((char *)m_end - (char *)m_begin) / 20; }
 
 	ModuleNugget *m_begin;

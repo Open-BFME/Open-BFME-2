@@ -1,7 +1,9 @@
-// cl: /EHsc
+// cl: /EHsc /Ireference/shims/bfme2_ascii
 // ?rva000B4A9F@Rva000B4A9F@@QAEPBDXZ @0x000B4A9F 22B.
-// Empty-aware char pointer at +0x4C via finish at +0x50.
-// Evidence: unlock plus 10 callers plus empty literal at 0x009E0878; prev Rva000B49F9 plus next Rva000B4AB5 same region flags.
+// Empty-aware four-byte string-handle address at +0x4C via finish at +0x50.
+// Native empty address VA DE0878 is AsciiString::TheEmptyString, not a C-string literal.
+// Native50C9AA passes the result directly to StringBase::set(copy).
+#include "ascii_string.h"
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 class Rva000B4A9F
@@ -21,6 +23,6 @@ const char *Rva000B4A9F::rva000B4A9F()
 	int d = m_finish50 - m_start4C;
 	_ReadWriteBarrier();
 	if ((d & ~3) == 0)
-		return "";
+		return (const char *)&AsciiString::TheEmptyString;
 	return m_start4C;
 }

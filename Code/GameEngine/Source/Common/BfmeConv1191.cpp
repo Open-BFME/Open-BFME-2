@@ -3,7 +3,7 @@
 // Native dump50C69D loads the fprintf IAT at00BBA5C4; use that import
 // instead of an unresolved synthetic global. The ten four-byte handles use
 // BFME2's shared AsciiString: their native destructor calls all target the
-// complete releaseBuffer worker36410. All five home bodies retain exact bytes.
+// complete releaseBuffer worker36410. All home bodies retain exact bytes.
 // Original diagnostic owner names remain address-derived donor views.
 
 #include "ascii_string.h"
@@ -95,4 +95,50 @@ void INIStatsRecord::rva0050C90D()
 {
     bfmeDump1191();
     reset();
+}
+
+// Native string copy-outs use the same shared four-byte AsciiString contract.
+class ModuleInfo
+{
+public:
+    AsciiString getNthName(int index) const;
+};
+
+class Rva0050C807
+{
+public:
+    AsciiString rva0050C807(int index) const;
+};
+
+class Rva000B4A9F
+{
+public:
+    const char *rva000B4A9F();
+};
+
+extern const char *const BfmeThingClassNames[];
+
+class Rva0050CBA2
+{
+public:
+    bool rva0050C91D(Rva0013A820 *record, ModuleInfo *modules,
+                     const void *thing, Rva000B4A9F *draw, int index);
+};
+
+bool Rva0050CBA2::rva0050C91D(Rva0013A820 *record, ModuleInfo *modules,
+                              const void *thing, Rva000B4A9F *draw, int index)
+{
+    record->m_00.setCopyInline(*(const AsciiString *)((const char *)thing + 0x64));
+    record->m_04 = BfmeThingClassNames[*(const signed char *)((const char *)thing + 0x5F6)];
+    record->m_08 = modules->getNthName(index);
+    record->m_0C = ((const Rva0050C807 *)modules)->rva0050C807(index);
+    // This existing helper's pointer names a four-byte string handle: the
+    // native caller passes it to StringBase::set(copy), not set(characters).
+    record->m_10.setCopyInline(*(const AsciiString *)draw->rva000B4A9F());
+    record->m_1C.setCopyInline(*(const AsciiString *)((const char *)draw + 0x58));
+    if (((const StringBase<char> *)&record->m_10)->isEmpty()) {
+        record->reset();
+        return false;
+    }
+    return true;
 }

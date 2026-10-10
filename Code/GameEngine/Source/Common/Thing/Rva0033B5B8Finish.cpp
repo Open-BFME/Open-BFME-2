@@ -9,14 +9,6 @@
 // MSVC keep the hidden-return pointer in ebx across getNthData (a named local
 // is rematerialized as lea and loses the byte).
 #include "../../../../../reference/shims/bfme2_ascii/ascii_string.h"
-// Retail's public ~StringBase<char> is the releaseBuffer body at 0x36410; an
-// inline body here would be emitted as a COMDAT copy every other unit binds to.
-#pragma comment(linker, "/alternatename:??1?$StringBase@D@@QAE@XZ=?releaseBuffer@?$StringBase@D@@AAEXXZ")
-class BFMERetailAsciiString : public StringBase<char>
-{
-public:
-	~BFMERetailAsciiString();
-};
 class ModuleData;
 enum ModuleType
 {
@@ -34,7 +26,7 @@ extern ModuleFactory *TheModuleFactory;
 class ModuleInfo
 {
 public:
-	BFMERetailAsciiString getNthName(int index) const;
+	AsciiString getNthName(int index) const;
 	const ModuleData *getNthData(int index) const;
 	char *m_begin;
 	char *m_end;
