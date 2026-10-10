@@ -1,4 +1,8 @@
 // ?createGadget@@YAPAVGameWindow@@PADPAXPAVGadgetCreateView@@PAV1@@Z
+// partial score=0.865124057 date=2026-10-10
+extern "C" void _ReadWriteBarrier();
+#pragma intrinsic(_ReadWriteBarrier)
+// ?createGadget@@YAPAVGameWindow@@PADPAXPAVGadgetCreateView@@PAV1@@Z
 // partial score=0.8642263912 date=2026-10-09
 // ?createGadget@@YAPAVGameWindow@@PADPAXPAVGadgetCreateView@@PAV1@@Z
 // partial score=0.8206 date=2026-10-05
@@ -255,6 +259,7 @@ GameWindow *createGadget(char *type, void *data, GadgetCreateView *record, GameW
 		cData->m_list->m_dword04 = 0;
 		record->instance->m_style |= 0x8000;
 		window = ((GameWindowManager *)TheWindowManager)->v74ComboBox(record, data, record->instance->m_font, false);
+_ReadWriteBarrier();
 		GameWindow *dropDownButton = GadgetComboBoxGetEditBox(window);
 		copyGadgetDrawData_Rva003157BE(dropDownButton, source ? GadgetComboBoxGetEditBox(source) : 0, hiliteDropDownButtonDrawData, disabledDropDownButtonDrawData, enabledDropDownButtonDrawData);
 		GameWindow *editBox = GadgetComboBoxGetListBox(window);

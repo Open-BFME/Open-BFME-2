@@ -1,4 +1,8 @@
 // ?HandlePersistentStorageResponses@@YAXXZ
+// partial score=0.99304531085353 date=2026-10-10
+extern "C" unsigned __cdecl strlen(const char*);
+#pragma intrinsic(strlen)
+// ?HandlePersistentStorageResponses@@YAXXZ
 // partial score=0.988 date=2026-10-09
 // Full current-home C++ bank; pending body at the end. Existing home definitions are retained.
 // cl: /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/shims/bfmealloc /D_STLP_USE_STATIC_LIB /D_BFME_RETAIL_TREE_INSERT_LAYOUT /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /arch:SSE
@@ -40,19 +44,21 @@ namespace _STL
 {
 template <class CharT> class char_traits;
 template <class CharT> class allocator;
-template <class CharT, class Traits, class Alloc> class basic_string
-{
+template<class CharT,class Alloc>class _String_base {
 public:
-    basic_string();
-    basic_string(const CharT *text, const Alloc &alloc = Alloc());
-    ~basic_string() { if (start) Rva00030830FreeAllocation(start); }
-	basic_string &operator=(const CharT *text);
-    basic_string &assign(const basic_string &);
-    unsigned size() const { return finish - start; }
-private:
-    CharT *start;
-    CharT *finish;
-    CharT *storageEnd;
+ _String_base(const Alloc&):start(0),finish(0),storageEnd(0){}
+ ~_String_base(){if(start)Rva00030830FreeAllocation(start);}
+ CharT*start,*finish,*storageEnd;
+};
+template <class CharT,class Traits,class Alloc>class basic_string:public _String_base<CharT,Alloc> {
+public:
+ basic_string();
+ inline __declspec(noinline) basic_string(const CharT*text,const Alloc&alloc=Alloc()):_String_base<CharT,Alloc>(alloc){_M_range_initialize(text,text+strlen(text));}
+ ~basic_string(){}
+ basic_string&operator=(const CharT*);
+ basic_string&assign(const basic_string&);
+ unsigned size()const{return finish-start;}
+ template<class It>void _M_range_initialize(It,It);
 };
 }
 typedef _STL::basic_string<char, _STL::char_traits<char>, _STL::allocator<char> >

@@ -1,4 +1,8 @@
 // ?doParticles@LightningDrawModule@FXParticleSystem@@UAEHAAVRenderInfoClass@@PAXPAH@Z
+// partial score=0.7872030653 date=2026-10-10
+extern "C" void _ReadWriteBarrier();
+#pragma intrinsic(_ReadWriteBarrier)
+// ?doParticles@LightningDrawModule@FXParticleSystem@@UAEHAAVRenderInfoClass@@PAXPAH@Z
 // partial score=0.7711756993006993 date=2026-10-10
 // cl: /ICode/Libraries/Include/Lib /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ob2
 #include "Coord3D.h"
@@ -221,6 +225,7 @@ int FXParticleSystem::LightningDrawModule::doParticles(RenderInfoClass& rinfo,vo
    axisC.Set(0,0,1);
    axisB.x=axisC.y*axisA.z-axisA.y*axisC.z;
    axisB.y=axisA.x*axisC.z-axisC.x*axisA.z;
+_ReadWriteBarrier();
    axisB.z=axisC.x*axisA.y-axisC.y*axisA.x;
    axisC.x=axisB.z*axisA.y-axisA.z*axisB.y;
    axisC.y=axisA.z*axisB.x-axisB.z*axisA.x;
