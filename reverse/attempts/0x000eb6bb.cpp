@@ -1,10 +1,15 @@
 // ?rva000EB6BB@Rva000EC9C6@@QAEXXZ
-// partial score=0.7427084405558415 date=2026-10-10
+// partial score=0.8116742830418466 date=2026-10-10
+// ?rva000EB6BB@Rva000EC9C6@@QAEXXZ
+// Matrix-bank continuation: local postMul copies BF1 575ba2b04 matrix3d.h arithmetic.
+// Same-valued coefficient PHIs and scoped initialized coefficient volatile reads
+// change compiler scheduling; full emitted extent remains part of the score.
 // cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug
 // BF1 575ba2b04 W3DTreeBufferRva00734270.cpp and ZH loadTreesInVertexAndIndexBuffers
-// provide the update/alpha/locked-buffer semantics. Target EBFD1..EC67F
-// independently supplies vector prefixes, E8 record stride, 2C output stride,
-// composed scale/postMul/offset transform, extra C4 flag and fade flag40.
+// provide the buffer-update/locked-buffer semantics. This native EB6BB..EBFD1
+// body independently supplies E8 tree records, 5C type records, 44B vertices,
+// scale/postMul/offset composition and lock/capacity checks. The sibling updater
+// EBFD1..EC67F is separate evidence; its alpha/fade behavior is not claimed here.
 #include "vector3.h"
 #include "vector2.h"
 #include "matrix3d.h"
@@ -47,6 +52,32 @@ class Rva000EC9C6 {public:void rva000EB6BB();
 };
 typedef char CheckTreeRecord[(sizeof(TreeRecord)==0xE8)?1:-1];
 typedef char CheckTreeType[(sizeof(TreeType)==0x5C)?1:-1];
+static __forceinline void treePost(Matrix3D &a,const Matrix3D &b){float x,y,z,w;
+x = a[0][0] * b[0][0] + a[0][1] * b[1][0] + a[0][2] * b[2][0];
+y = a[0][0] * (&a?b[0][1]:b[0][1]) + a[0][1] * b[1][1] + a[0][2] * b[2][1];
+z = a[0][0] * b[0][2] + (&a?a[0][1]:a[0][1]) * b[1][2] + a[0][2] * b[2][2];
+w = a[0][0] * b[0][3] + a[0][1] * b[1][3] + a[0][2] * b[2][3];
+a[0][0] = x;
+a[0][1] = y;
+a[0][2] = z;
+a[0][3] += w;
+x = a[1][0] * b[0][0] + (&a?a[1][1]:a[1][1]) * b[1][0] + a[1][2] * b[2][0];
+y = a[1][0] * *(const volatile float*)&b[0][1] + a[1][1] * b[1][1] + a[1][2] * (&a?*(const volatile float*)&b[2][1]:*(const volatile float*)&b[2][1]);
+z = a[1][0] * b[0][2] + a[1][1] * b[1][2] + a[1][2] * b[2][2];
+w = a[1][0] * b[0][3] + a[1][1] * b[1][3] + a[1][2] * b[2][3];
+a[1][0] = x;
+a[1][1] = y;
+a[1][2] = z;
+a[1][3] += w;
+x = a[2][0] * b[0][0] + a[2][1] * b[1][0] + a[2][2] * b[2][0];
+y = a[2][0] * b[0][1] + a[2][1] * b[1][1] + a[2][2] * b[2][1];
+z = a[2][0] * b[0][2] + a[2][1] * b[1][2] + a[2][2] * b[2][2];
+w = a[2][0] * b[0][3] + a[2][1] * b[1][3] + a[2][2] * b[2][3];
+a[2][0] = x;
+a[2][1] = y;
+a[2][2] = z;
+a[2][3] += w;
+}
 void Rva000EC9C6::rva000EB6BB(){
  if(!initialized||!index[0]||!vertex[0]||!dirty)return;
  for(int i=0;i<count;++i)trees[i].buffer=-1;
@@ -66,7 +97,7 @@ void Rva000EC9C6::rva000EB6BB(){
    Matrix3D transform;
    if(trees[curTree].state||trees[curTree].flagC4)transform=trees[curTree].world;
    else transform.Set(location);
-   transform.Scale(scale);transform.postMul(trees[curTree].transform);transform.Translate(types[type].offset);
+   transform.Scale(scale);treePost(transform,trees[curTree].transform);transform.Translate(types[type].offset);
    int startVertex=vertexCounts[b];trees[curTree].firstVertex=startVertex;trees[curTree].buffer=b;
    int numVertex=types[type].mesh->Peek_Model()->Get_Vertex_Count();
    Vector3 *pVert=types[type].mesh->Peek_Model()->Get_Vertex_Array();
