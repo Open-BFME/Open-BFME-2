@@ -11,7 +11,8 @@ struct CameraGoalInfo {char u00[8];V3 pos;int u14;int u18;float f1c;float f20;fl
 class Rva00089510 : public Rva000869CF {public:void rva00089510(bool orient,float firstAngle,int offset);};
 class PathVirtual {public: virtual void s0();virtual void s1();virtual void init(int,int,float,float,int,int);};
 class TerrainView {public:virtual void s0();virtual void s1();virtual void s2();virtual void s3();virtual void s4();virtual void s5();virtual float ground(float,float,void*);};
-extern TerrainView *TheTerrainLogic;
+class TerrainLogic;
+extern TerrainLogic *TheTerrainLogic;
 class Rva0030E7D0 {public:float rva0030E67C(float,float);};
 class W3DView {public:
 virtual void s0();
@@ -182,7 +183,7 @@ reinterpret_cast<Rva000869CF*>(path)->rva00086A94(0,0,s64());
 angle[count22f0]=angle[count22f0-1];angle[count22f0+1]=angle[count22f0];
 int i=count22f0-1;if(i>1){float*p=angle+i;int n=i-1;do{--n;float*q=p-1;*p=(*q+*p)*0.5f;p=q;}while(n);}
 struct FinalPos{float x,y,z;FinalPos(const V3&p){x=p.x;y=p.y;z=p.z;}};FinalPos finalPos(wp[count22f0].pos);
-field1eec=field2408;ground1ef0=TheTerrainLogic->ground(finalPos.x,finalPos.y,0);
+field1eec=field2408;ground1ef0=((TerrainView *)TheTerrainLogic)->ground(finalPos.x,finalPos.y,0);
 if(customGround)ground1ef0=reinterpret_cast<Rva0030E7D0*>(sample)->rva0030E67C(finalPos.x,finalPos.y);
 mode2354=count22f0>1;s28(false);*((bool*)this+0x1dc)=false;
 }
