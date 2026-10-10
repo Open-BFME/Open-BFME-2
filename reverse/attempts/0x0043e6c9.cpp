@@ -1,6 +1,8 @@
 // ?rva0043E6C9@Rva0043E0C5@@QAEXPAURva0043E6C9Arg@@@Z
+// partial score=0.9277715003138732 date=2026-10-10
+// ?rva0043E6C9@Rva0043E0C5@@QAEXPAURva0043E6C9Arg@@@Z
 // partial score=0.9 date=2026-10-06
-// cl: /O1 /DNDEBUG /MD
+// cl: /I. /O1 /DNDEBUG /MD
 //
 // ?rva0043E0C5@Rva0043E0C5@@QAE_NH@Z, retail 0x0043E0C5, 109 bytes.
 // Leaf __thiscall (reads ecx, ret 4 = one int arg) on an unproven lobby-UI
@@ -186,7 +188,7 @@ bool Rva0043E0C5::rva0043E132(int index, int value)
 // tag goes to the slot +0x60 answers.
 void Rva0043E0C5::rva0043E6C9(Rva0043E6C9Arg *arg)
 {
-	GameInfo *info = reinterpret_cast<GameInfo *>(m_provider->rva0043DA65());
+	GameInfo *info = reinterpret_cast<GameInfo *>((m_provider?m_provider:m_provider)->rva0043DA65());
 	if (info == 0 || arg == 0)
 		return;
 	int value = arg->m_12c;

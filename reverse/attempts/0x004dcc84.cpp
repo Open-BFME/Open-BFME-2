@@ -1,6 +1,8 @@
 // ?OnActivation@EmotionNugget@@QAEXPAVObject@@H@Z
+// partial score=0.9272977022977023 date=2026-10-10
+// ?OnActivation@EmotionNugget@@QAEXPAVObject@@H@Z
 // partial score=0.9 date=2026-10-09
-// cl: /O1 /G7 /arch:SSE /EHsc /MD /Ireference/shims/bfme2_ascii /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
+// cl: /I. /O1 /G7 /arch:SSE /EHsc /MD /Ireference/shims/bfme2_ascii /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
 // stlport
 // Primary guide: BFME 1 EmotionNugget.cpp at verified pointer 0bef414b5.
 // Target identity: WB EmotionNugget::OnActivation, assertions and 14-callee
@@ -60,7 +62,9 @@ public:
     char pad50[4]; int set54[19], clearA0[19], clearec[19], set138[19];
     unsigned char flag184; char pad185[3]; AsciiString event188;
 };
-class GameLogic { public: unsigned getFrame() const { return frame; } char pad00[0x40]; unsigned frame; };
+
+#include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
+
 extern GameLogic *TheGameLogic;
 enum NameKeyType { INVALID_NAME_KEY = -1 };
 class NameKeyGenerator { public: NameKeyType nameToKey(const AsciiString &); };
@@ -96,25 +100,25 @@ void EmotionNugget::OnActivation(Object *target, int duration)
     }
     unsigned frame = activated30;
     if (duration > 0) until2c = frame + duration;
-    else until2c = entry04->duration0c ? frame + entry04->duration0c : 0;
-    if (entry04->fx30) {
+    else until2c = (entry04?entry04:entry04)->duration0c ? frame + (entry04?entry04:entry04)->duration0c : 0;
+    if ((entry04?entry04:entry04)->fx30) {
         Object *object = object00;
         void *query = object->rva0029439D();
         if (query) object = ((Rva0029439DIface *)query)->v19();
         if (!object) object = object00;
-        FXList::doFXObj(entry04->fx30, object, target);
+        FXList::doFXObj((entry04?entry04:entry04)->fx30, object, target);
     }
     AIUpdateInterface *ai = object00->ai;
     if (ai) {
-        int state = entry04->state4c;
+        int state = (entry04?entry04:entry04)->state4c;
         if (state == 0 || (state > 1 && state <= 5)) {
             // The verified provider is virtual; retail selects it directly.
             ai->AIUpdateInterface::SetEmotionState(state, target);
-            if (entry04->flag184) ai->allow04 = 1;
+            if ((entry04?entry04:entry04)->flag184) ai->allow04 = 1;
         }
         if (object00->rva0029439D())
-            object00->clearAndSetModelConditionFlagsForHorde(entry04->clearec, entry04->set54);
-        else object00->rva0028CFB2(entry04->clearec, entry04->set54);
+            object00->clearAndSetModelConditionFlagsForHorde((entry04?entry04:entry04)->clearec, (entry04?entry04:entry04)->set54);
+        else object00->rva0028CFB2((entry04?entry04:entry04)->clearec, (entry04?entry04:entry04)->set54);
         if (target && target->isSignificantlyAboveTerrain()) {
             Object *object = object00;
             if (!(object->conditionWord124 & 0x100)) {
@@ -122,9 +126,9 @@ void EmotionNugget::OnActivation(Object *target, int duration)
                 object->rva0028AE6D();
             }
         }
-        if (!((const StringBase<char> &)(entry04->get())).isEmpty()) {
+        if (!((const StringBase<char> &)((entry04?entry04:entry04)->get())).isEmpty()) {
             void *event = ((Rva00332E60 *)TheLuaScriptEngine)->rva00333918(
-                TheNameKeyGenerator->nameToKey(entry04->get()));
+                TheNameKeyGenerator->nameToKey((entry04?entry04:entry04)->get()));
             if (event) {
                 BfmeDelayedLuaEventList list;
                 ((LuaDrawableState *)TheLuaScriptEngine)->rva00334634(event, object00, &list);

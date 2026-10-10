@@ -1,6 +1,8 @@
 // ?update@AIAttackState@@UAE?AW4StateReturnType@@XZ
+// partial score=0.9185917865846435 date=2026-10-10
+// ?update@AIAttackState@@UAE?AW4StateReturnType@@XZ
 // partial score=0.9 date=2026-10-09
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
+// cl: /I. /Ireference/shims/bfme2_ascii /DNDEBUG /MD /O1
 // AIAttackState::update, retail 0x0034F758..0x0034FB77 (1055 bytes).
 // Target identity: the 0x00C13B78 vtable name getter returns AIAttackState;
 // its matched onExit is 0x0034B889. Zero Hour GeneralsMD AIStates.cpp

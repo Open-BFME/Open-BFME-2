@@ -1,6 +1,8 @@
 // ?lookForInnerTarget@AITNGuardMachine@@QAE_NXZ
+// partial score=0.9379894668760972 date=2026-10-10
+// ?lookForInnerTarget@AITNGuardMachine@@QAE_NXZ
 // partial score=0.9218 date=2026-10-05
-// cl: /O1 /DNDEBUG /MD /arch:SSE /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
+// cl: /I. /O1 /DNDEBUG /MD /arch:SSE /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
 // stlport
 //
 // AITNGuardMachine::lookForInnerTarget, retail 0x005461A2 (395 bytes), ported
@@ -161,15 +163,10 @@ public:
 	Team *m_team; // +0x304
 };
 
-class GameLogic
-{
-public:
-	Object *findObjectByID(ObjectID id);
-	UnsignedInt getFrame() const { return m_frame; }
-private:
-	unsigned char m_pad00[0x40];
-	UnsignedInt m_frame; // +0x40
-};
+
+#define _GAME_TYPE_H_ 1
+#include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
+
 extern GameLogic *TheGameLogic;
 
 struct TAiData
@@ -247,7 +244,7 @@ Bool AITNGuardMachine::lookForInnerTarget(void)
 					if (body->getLastDamageTimestamp() + TheAI->getAiData()->m_guardEnemyScanRate > TheGameLogic->getFrame()) {
 						// winner.
 						ObjectID attackerID = info->in.m_sourceID;
-						Object *attacker = TheGameLogic->findObjectByID(attackerID);
+						Object *attacker = (TheGameLogic?TheGameLogic:TheGameLogic)->findObjectByID(attackerID);
 
 						if( attacker )
 						{

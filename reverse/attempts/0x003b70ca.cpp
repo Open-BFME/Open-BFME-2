@@ -1,6 +1,8 @@
 // ?cleanup@NestedAt0C@@QAEXXZ
+// partial score=0.9071853910281859 date=2026-10-10
+// ?cleanup@NestedAt0C@@QAEXXZ
 // partial score=0.9 date=2026-10-10
-// cl: /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// cl: /I. /O1 /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport
 //
 // ?cleanup@NestedAt0C@@QAEXXZ @0x003B70CA 116B and ?cleanup@NestedAt2C@@QAEXXZ
@@ -83,7 +85,7 @@ void NestedAt0C::cleanup(void)
 			while (first->m_next)
 			{
 				Rva003B448C *node = first->m_next;
-				Rva003B448C *after = node->m_next;
+				Rva003B448C *after = (node?node:node)->m_next;
 				delete node;
 				first->m_next = after;
 			}
