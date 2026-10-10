@@ -1,9 +1,13 @@
 // ?doSpecialPowerAtObject@CashHackSpecialPower@@UAEXPAVObject@@I@Z
-// partial score=1.0 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /MD /EHsc /Ireference/shims/bfme2_ascii /ICode/Libraries/Include/Lib
 // ZH CashHackSpecialPower.cpp at BF1 f98983a7d is the semantic guide.
 // Target action starts at4C26D0,430B,ret8; special-power receiver is +10.
-// Source-only trial: science selector4C31A8 is folded with the OCL selector.
+// The shared folded selector4C31A8 is owned by the neutral science-word
+// selector in OCLSpecialPowerFindOCL.cpp. Its unsigned result is the amount
+// payload here; OCL interprets the same proven 32-bit slot as an OCL pointer.
+// WB125B700 independently establishes this action's identity and amount use;
+// the ZH donor supplies behavior, while Object/Player/UI offsets below come
+// from target access and the existing matched money/score providers.
 #include "unicode_string.h"
 #include "Coord3D.h"
 enum ScienceType { SCIENCE_INVALID=-1 };
@@ -44,9 +48,10 @@ class SpecialPowerModule:public BehaviorModule,public SpecialPowerModuleInterfac
  virtual void doSpecialPowerAtLocation(const Coord3D*,unsigned);
  virtual bool rva0049466D(const Coord3D*);
 };
+class Rva004C31A8ScienceSelector { public: unsigned select() const; };
 class CashHackSpecialPower:public SpecialPowerModule {public:
  virtual void doSpecialPowerAtObject(Object*,unsigned);
-protected:int findAmountToSteal()const;
+
 };
 class CashHackTextView {public:
  virtual void slot0();
@@ -178,14 +183,6 @@ class CashHackUI {public:
 };
 class InGameUI;extern InGameUI *TheInGameUI;
 static inline const unsigned &minCash(const unsigned &a,const unsigned &b){return a<b?a:b;}
-int CashHackSpecialPower::findAmountToSteal()const
-{
- const CashHackDataView *data=m_data;
- Player *player=m_object->getControllingPlayer();
- if(player)for(const CashHackScienceEntry *entry=data->begin;entry!=data->end;++entry)
-  if(player->hasScience(entry->science))return entry->amount;
- return data->fallback;
-}
 void CashHackSpecialPower::doSpecialPowerAtObject(Object *victim,unsigned options)
 {
  if(m_object->isDisabled())return;
@@ -196,7 +193,7 @@ void CashHackSpecialPower::doSpecialPowerAtObject(Object *victim,unsigned option
  Rva003B0D7C *selfMoney=self->getControllingPlayer()->getMoney();
  if(targetMoney&&selfMoney){
   unsigned cash=targetMoney->countMoney();
-  unsigned desired=findAmountToSteal();
+  unsigned desired=((const Rva004C31A8ScienceSelector*)this)->select();
   cash=minCash(desired,cash);
   if(cash>0){
    targetMoney->rva003B0CB3(cash,victim->getControllingPlayer()->withdrawTracker(),true);
@@ -212,3 +209,7 @@ void CashHackSpecialPower::doSpecialPowerAtObject(Object *victim,unsigned option
   }
  }
 }
+
+// ZH GameClient/Color.h ARGB helper; this TU now owns its existing31B row.
+int GameMakeColor(unsigned char red,unsigned char green,unsigned char blue,unsigned char alpha)
+{ return (((alpha << 8) | red) << 8 | green) << 8 | blue; }

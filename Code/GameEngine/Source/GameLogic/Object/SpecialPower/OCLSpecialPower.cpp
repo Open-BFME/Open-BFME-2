@@ -43,6 +43,9 @@
 #include "GameLogic/TerrainLogic.h"
 #include "GameLogic/Module/OCLSpecialPower.h"
 
+// Shared retail science-word selector; see OCLSpecialPowerFindOCL.cpp.
+class Rva004C31A8ScienceSelector { public: unsigned select() const; };
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // MODULE DATA ////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -147,7 +150,7 @@ void OCLSpecialPower::doSpecialPowerAtLocation( const Coord3D *loc, Real angle, 
 	// call the base class action cause we are *EXTENDING* functionality
 	SpecialPowerModule::doSpecialPowerAtLocation( &targetCoord, angle, commandOptions );
 
-	const ObjectCreationList* ocl = findOCL();
+	const ObjectCreationList* ocl = reinterpret_cast<const ObjectCreationList*>(reinterpret_cast<const Rva004C31A8ScienceSelector*>(this)->select());
 
 	// at what point will the "deliverer" come in
 	Coord3D creationCoord;

@@ -132,77 +132,8 @@ void CashHackSpecialPower::doSpecialPowerAtLocation( const Coord3D *loc, Real an
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
-// ?CashHackSpecialPower::findAmountToSteal present-unmatched
-Int CashHackSpecialPower::findAmountToSteal() const
-{
-	const CashHackSpecialPowerModuleData* d = getCashHackSpecialPowerModuleData();
-	const Player* controller = getObject()->getControllingPlayer();
-	if (controller != NULL)
-	{
-		for (std::vector<CashHackSpecialPowerModuleData::Upgrades>::const_iterator it = d->m_upgrades.begin(); 
-					it != d->m_upgrades.end();
-					++it)
-		{
-			if (controller->hasScience(it->m_science))
-				return it->m_amountToSteal;
-		}
-	}
-	return d->m_defaultAmountToSteal;
-}
-
-// ------------------------------------------------------------------------------------------------
-// ------------------------------------------------------------------------------------------------
-// ?CashHackSpecialPower::doSpecialPowerAtObject present-unmatched
-void CashHackSpecialPower::doSpecialPowerAtObject( Object *victim, UnsignedInt commandOptions )
-{
-	if (getObject()->isDisabled())
-		return;
-
-	// sanity
-	if (!victim)
-		return;
-
-	// call the base class action cause we are *EXTENDING* functionality
-  SpecialPowerModule::doSpecialPowerAtObject( victim, commandOptions );
-
-	// get our module data
-	Object *self = getObject();
-
-	//Steal a thousand cash from the other team!
-	Money *targetMoney = victim->getControllingPlayer()->getMoney();
-	Money *selfMoney = self->getControllingPlayer()->getMoney();
-	if( targetMoney && selfMoney )
-	{
-		UnsignedInt cash = targetMoney->countMoney();
-		UnsignedInt desiredAmount = findAmountToSteal();
-		//Check to see if they have 1000 cash, otherwise, take the remainder!
-		cash = min( desiredAmount, cash );
-		if( cash > 0 )
-		{
-			//Steal the cash
-			targetMoney->withdraw( cash );
-			selfMoney->deposit( cash );
-			self->getControllingPlayer()->getScoreKeeper()->addMoneyEarned( cash );
-
-			//Display cash income floating over the blacklotus
-			UnicodeString moneyString;
-			moneyString.format( TheGameText->fetch( "GUI:AddCash" ), cash );
-			Coord3D pos;
-			pos.zero();
-			pos.add( self->getPosition() );
-			pos.z += 20.0f; //add a little z to make it show up above the unit.
-			TheInGameUI->addFloatingText( moneyString, &pos, GameMakeColor( 0, 255, 0, 255 ) );
-		
-			//Display cash lost floating over the target
-			moneyString.format( TheGameText->fetch( "GUI:LoseCash" ), cash );
-			pos.zero();
-			pos.add( victim->getPosition() );
-			pos.z += 30.0f; //add a little z to make it show up above the unit.
-			TheInGameUI->addFloatingText( moneyString, &pos, GameMakeColor( 255, 0, 0, 255 ) );
-		}
-	}
-
-}  
+// Target action is recovered in CashHackSpecialPowerAction.cpp.
+// Its folded science selector has one neutral owner in OCLSpecialPowerFindOCL.cpp.
 
 // ------------------------------------------------------------------------------------------------
 /** CRC */
