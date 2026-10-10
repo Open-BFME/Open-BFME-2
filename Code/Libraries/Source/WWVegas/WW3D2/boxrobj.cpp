@@ -279,16 +279,8 @@ BoxRenderObjClass::BoxRenderObjClass(void)
  * HISTORY:                                                                                    *
  *   1/19/00    gth : Created.                                                                 *
  *=============================================================================================*/
-BoxRenderObjClass::BoxRenderObjClass(const W3dBoxStruct & def)
-{
-	Set_Name(def.Name);
-	W3dUtilityClass::Convert_Color(def.Color,&Color);
-	W3dUtilityClass::Convert_Vector(def.Center,&ObjSpaceCenter);
-	W3dUtilityClass::Convert_Vector(def.Extent,&ObjSpaceExtent);
-	int col_bits = (def.Attributes & W3D_BOX_ATTRIBUTE_COLLISION_TYPE_MASK) >> W3D_BOX_ATTRIBUTE_COLLISION_TYPE_SHIFT;
-	Set_Collision_Type(col_bits<<1);
-	Opacity = 0.25f;
-}
+// BoxRenderObjClass(const W3dBoxStruct&): BFME 2's body is the row 0x00175A40 in BoxRenderObjClassCtor.cpp;
+// Zero Hour's copy here duplicated it.
 
 
 /***********************************************************************************************
@@ -623,10 +615,8 @@ void BoxRenderObjClass::vis_render_box(SpecialRenderInfoClass & rinfo,const Vect
  * HISTORY:                                                                                    *
  *   1/19/00    gth : Created.                                                                 *
  *=============================================================================================*/
-AABoxRenderObjClass::AABoxRenderObjClass(void)
-{
-	update_cached_box();
-}
+// AABoxRenderObjClass(): BFME 2's body is the row 0x00175BB0 in AABoxRenderObjDefaultCtor.cpp;
+// Zero Hour's copy here duplicated it.
 
 
 /***********************************************************************************************
@@ -641,11 +631,8 @@ AABoxRenderObjClass::AABoxRenderObjClass(void)
  * HISTORY:                                                                                    *
  *   1/19/00    gth : Created.                                                                 *
  *=============================================================================================*/
-AABoxRenderObjClass::AABoxRenderObjClass(const W3dBoxStruct & def) :
-	BoxRenderObjClass(def)
-{
-	update_cached_box();
-}
+// AABoxRenderObjClass(const W3dBoxStruct&): BFME 2's body is the row 0x00175C40 in AABoxRenderObjFromDef.cpp;
+// Zero Hour's copy here duplicated it.
 
 
 /***********************************************************************************************
@@ -678,13 +665,8 @@ AABoxRenderObjClass::AABoxRenderObjClass(const AABoxRenderObjClass & src)
  * HISTORY:                                                                                    *
  *   1/19/00    gth : Created.                                                                 *
  *=============================================================================================*/
-AABoxRenderObjClass::AABoxRenderObjClass(const AABoxClass & box)
-{
-	ObjSpaceCenter.Set(0,0,0);
-	ObjSpaceExtent.Set(box.Extent);
-	Set_Position(box.Center);
-	update_cached_box();
-}
+// AABoxRenderObjClass(const AABoxClass&): BFME 2's body is the row 0x00175CD0 in AABoxRenderObjFromAABox.cpp;
+// Zero Hour's copy here duplicated it.
 
 
 /***********************************************************************************************
@@ -1061,13 +1043,8 @@ OBBoxRenderObjClass::OBBoxRenderObjClass(const OBBoxRenderObjClass & that)
  * HISTORY:                                                                                    *
  *   1/19/00    gth : Created.                                                                 *
  *=============================================================================================*/
-OBBoxRenderObjClass::OBBoxRenderObjClass(const OBBoxClass & box)
-{
-	ObjSpaceCenter.Set(Vector3(0,0,0));
-	ObjSpaceExtent.Set(box.Extent);
-	Set_Transform(Matrix3D(box.Basis,box.Center));
-	update_cached_box(); // cached box should == box!
-}
+// OBBoxRenderObjClass(const OBBoxClass&): BFME 2's body is the row 0x00176000 in OBBoxRenderObjFromOBBox.cpp;
+// Zero Hour's copy here duplicated it.
 
 
 /***********************************************************************************************

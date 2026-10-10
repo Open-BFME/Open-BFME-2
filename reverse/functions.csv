@@ -3633,7 +3633,7 @@ _XMP_Shift_Left_Bits,,0x0061BBD0,308,Code/Libraries/Source/WWVegas/WWLib/mpmath.
 ?Render_FVF_Category_Container_List_Delayed_Passes@@YAXAAV?$MultiListClass@VDX8FVFCategoryContainer@@@@@Z,,0x00145EC0,34,Code/Libraries/Source/WWVegas/WW3D2/dx8renderer.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ??1MatPassTaskClass@@QAE@XZ,,0x001438F0,30,Code/Libraries/Source/WWVegas/WW3D2/dx8renderer.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ??0PolyRenderTaskClass@@QAE@PAVDX8PolygonRendererClass@@PAVMeshClass@@@Z,,0x00143890,29,Code/Libraries/Source/WWVegas/WW3D2/dx8renderer.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
-?Set_Index_Buffer_Index_Offset@DX8Wrapper@@SAXI@Z,,0x00083B81,29,Code/Libraries/Source/WWVegas/WW3D2/dx8renderer.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
+?Set_Index_Buffer_Index_Offset@DX8Wrapper@@SAXI@Z,,0x00083B81,29,Code/Libraries/Source/WWVegas/WW3D2/bfme2_polygon_render.cpp,matched,placed by masked whole-.text search of the compiled body - single hit; re-sourced from dx8renderer.cpp (which now declares BFME 2 Render/Render_Sorted instead of inlining Zero Hour bodies and so no longer emits this inline) to bfme2_polygon_render.cpp whose select-any copy is byte-and-relocation identical (explain_mismatch exact; bfme2_polygon_render_sorted.cpp emits the same copy)
 ?Get_CRC@VertexMaterialClass@@QBEKXZ,,0x001432B0,26,Code/Libraries/Source/WWVegas/WW3D2/dx8renderer.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ?Remove_Current_Object@?$MultiListIterator@VPolyRemover@@@@QAEXXZ,,0x00144810,25,Code/Libraries/Source/WWVegas/WW3D2/dx8renderer.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
 ?Add_Texture@MeshLoadContextClass@@AAEHPAVTextureClass@@@Z,,0x0018A2F0,93,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp,matched,placed by masked whole-.text search of the compiled body - single hit
@@ -5346,7 +5346,7 @@ _Rva008143A0,,0x006802A0,38,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,mat
 ??0?$SimpleDynVecClass@K@@QAE@H@Z,,0x001AC680,56,Code/Libraries/Source/WWVegas/WW3D2/mesh.cpp,matched,
 ??0UVBufferClass@@QAE@ABV0@@Z,,0x0015D0F0,33,Code/Libraries/Source/WWVegas/WW3D2/meshmatdesc.cpp,matched,
 ??4Matrix3@@QAEAAV0@ABV0@@Z,,0x00133460,61,Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp,matched,
-??0Matrix3D@@QAE@ABVMatrix3@@ABVVector3@@@Z,,0x00174C20,26,Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp,matched,
+??0Matrix3D@@QAE@ABVMatrix3@@ABVVector3@@@Z,,0x00174C20,26,Code/Libraries/Source/WWVegas/WW3D2/OBBoxRenderObjFromOBBox.cpp,matched,re-sourced from boxrobj.cpp (which no longer carries Zero Hour duplicates of the box render-object constructors rowed in split-out units; its OBBoxRenderObjClass(const OBBoxClass&) copy was this inline's only user there) to OBBoxRenderObjFromOBBox.cpp whose select-any copy is byte-and-relocation identical (explain_mismatch exact)
 ?Get_Obj_Space_Bounding_Box@AABoxRenderObjClass@@UBEXAAVAABoxClass@@@Z,,0x00175870,60,Code/Libraries/Source/WWVegas/WW3D2/boxrobj.cpp,matched,
 ??4?$DynamicVectorClass@PAVRender2DClass@@@@QAEAAV0@ABV0@@Z,,0x00155990,33,Code/Libraries/Source/WWVegas/WW3D2/render2dsentence.cpp,matched,
 ?Resize@?$DynamicVectorClass@VStringClass@@@@UAE_NHPBVStringClass@@@Z,,0x00122080,47,Code/Libraries/Source/WWVegas/WWLib/mixfile.cpp,matched,
@@ -5551,7 +5551,7 @@ _XMP_Move,,0x0061BE10,19,Code/Libraries/Source/WWVegas/WWLib/mpmath.cpp,matched,
 ?Peek_Texture@MeshLoadContextClass@@AAEPAVTextureClass@@H@Z,,0x001886F0,16,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp,matched,
 ?Clear_Render_List@DX8TextureCategoryClass@@QAEXXZ,,0x001433F0,8,Code/Libraries/Source/WWVegas/WW3D2/dx8renderer.cpp,matched,
 ?Get_Shader@DX8TextureCategoryClass@@QAE?AVShaderClass@@XZ,,0x00143440,12,Code/Libraries/Source/WWVegas/WW3D2/dx8renderer.cpp,matched,
-?Set_Next_Visible_Skin@MeshClass@@QAEXPAV1@@Z,,0x001435A0,13,Code/Libraries/Source/WWVegas/WW3D2/dx8renderer.cpp,matched,
+?Set_Next_Visible_Skin@MeshClass@@QAEXPAV1@@Z,,0x001435A0,13,Code/Libraries/Source/WWVegas/WW3D2/DX8SkinClearVisibleList.cpp,matched,re-sourced from dx8renderer.cpp (which no longer carries Zero Hour's Add_Visible_Skin duplicate of the row 0x00143CB0 in DX8SkinClearVisibleList.cpp; that was this inline's only user there) to DX8SkinClearVisibleList.cpp whose select-any copy is byte-and-relocation identical (explain_mismatch exact)
 ?Set_Base_Vertex_Offset@MeshClass@@QAEXH@Z,,0x001435C0,13,Code/Libraries/Source/WWVegas/WW3D2/dx8renderer.cpp,matched,
 ??1PolyRenderTaskClass@@QAE@XZ,,0x001438B0,14,Code/Libraries/Source/WWVegas/WW3D2/dx8renderer.cpp,matched,
 ??0PolyRemover@@QAE@XZ,,0x00143A10,16,Code/Libraries/Source/WWVegas/WW3D2/dx8renderer.cpp,matched,

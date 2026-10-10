@@ -100,37 +100,8 @@ struct GlobalLanguageDataBFMERetail
 // W3DDisplayString::W3DDisplayString =========================================
 /** */
 //=============================================================================
-// ??0W3DDisplayString@@QAE@XZ present-unmatched
-W3DDisplayString::W3DDisplayString( void )
-{
-	
-	m_textChanged = FALSE;
-	m_textPos.x = 0;
-	m_textPos.y = 0;
-	m_currTextColor = 0;
-	m_bfmeResetFields[2] = 0;
-	m_currDropColor = 0;
-	m_bfmeResetFields[3] = 0;
-	m_bfmeResetFields[0] = 0;
-	m_bfmeResetFields[4] = 0;
-	m_bfmeResetFields[1] = 0;
-	m_bfmeResetFields[5] = 0;
-	m_size.x = 0;
-	m_size.y = 0;
-	m_fontChanged = FALSE;
-	m_clipRegion.lo.x = 0;
-	m_clipRegion.lo.y = 0;
-	m_clipRegion.hi.x = 0;
-	m_clipRegion.hi.y = 0;
-	m_lastResourceFrame = 0;
-	m_useHotKey = FALSE;
-	m_hotKeyPos.x = 0;
-	m_hotKeyPos.y = 0;
-	m_bfmeFlag20C = FALSE;
-	m_hotKeyColor = GameMakeColor(255,255,255,255);
-	m_bfmeFlag1EC = TRUE;
-	
-}  // end W3DDisplayString
+// W3DDisplayString constructor: BFME 2's body is the row 0x00106088 in W3DDisplayStringCtor.cpp;
+// Zero Hour's copy here duplicated it.
 
 // ?reset@W3DDisplayString@@UAEXXZ is a row of W3DDisplayStringDtor.cpp; this unit's copy was
 // a second, non-retail definition of it.
@@ -160,11 +131,8 @@ W3DDisplayString::~W3DDisplayString( void )
 	* texture for rendering */
 //=============================================================================
 // byte-exact reconstruction: Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringDrawDefault.cpp
-// ?draw@W3DDisplayString@@ present-unmatched
-void W3DDisplayString::draw( Int x, Int y, Color color, Color dropColor )
-{
-	draw(x,y, color, dropColor, 1, 1);
-}
+// W3DDisplayString::draw(x y color dropColor): BFME 2's body is the row 0x00106405 in W3DDisplayStringDraw.cpp;
+// Zero Hour's copy here duplicated it.
 // byte-exact reconstruction: Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringDrawDefault.cpp
 // ?draw@W3DDisplayString@@ present-unmatched
 void W3DDisplayString::draw( Int x, Int y, Color color, Color dropColor, Int xDrop, Int yDrop )
@@ -286,32 +254,8 @@ Int W3DDisplayString::getWidth( Int charPos )
 // W3DDisplayString::setFont ==================================================
 /** Set the font for this particular display string */
 //=============================================================================
-// ?setFont@W3DDisplayString@@UAEXPAVGameFont@@@Z present-unmatched
-void W3DDisplayString::setFont( GameFont *font )
-{
-
-	// sanity
-	if( font == NULL )
-		return;
-
-	// if the new font is the same as our existing font do nothing
-	if( m_font == font )
-		return;
-
-	// extending functionality
-	DisplayString::setFont( font );
-
-	// set the font in our renderer
-	m_textRenderer.Set_Font( static_cast<FontCharsClass *>(m_font->fontData) );
-	
-	m_textRendererHotKey.Set_Font( static_cast<FontCharsClass *>(reinterpret_cast<FontLibraryBFMERetail *>(TheFontLibrary)->getFont(&font->nameString, *reinterpret_cast<Real *>(&font->pointSize), TRUE)->fontData) );
-	// recompute extents for text with new font
-	computeExtents();
-
-	// set flag telling us the font has changed since last render
-	m_fontChanged = TRUE;
-
-}  // end setFont
+// W3DDisplayString::setFont: BFME 2's body is the row 0x001066B3 in W3DDisplayStringWordWrap.cpp;
+// Zero Hour's copy here duplicated it.
 
 // W3DDisplayString::setClipRegion ============================================
 /** Set the clipping region for the text */

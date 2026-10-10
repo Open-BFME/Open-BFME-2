@@ -18,7 +18,8 @@ __forceinline bool Fast_Is_Float_Positive(const float &val)
 	return !((*reinterpret_cast<const int *>(&val) & 0x80000000) != 0);
 }
 
-void __cdecl get_far_extent(const Vector3 &normal, const Vector3 &extent, Vector3 *posfarpt)
+// inline as in colmathplane.h: the AABTree/mesh culling units emit their own select-any copies.
+inline void __cdecl get_far_extent(const Vector3 &normal, const Vector3 &extent, Vector3 *posfarpt)
 {
 	if (Fast_Is_Float_Positive(normal.X))
 	{
@@ -38,3 +39,8 @@ void __cdecl get_far_extent(const Vector3 &normal, const Vector3 &extent, Vector
 	else
 		posfarpt->Z = -extent.Z;
 }
+
+// Header inline that other units emit as select-any copies, which a plain
+// definition here collided with. The anchor keeps this unit's copy for its
+// row; it is not retail data.
+void (__cdecl *_bfmeInlineAnchor_ColMathPlaneGetFarExtent)(const Vector3 &, const Vector3 &, Vector3 *) = &get_far_extent;

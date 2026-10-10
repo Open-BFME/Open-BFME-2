@@ -91,7 +91,6 @@ class ShaderClass
 {
 	friend class DX8Wrapper;
 public:
-	static bool Is_Backface_Culling_Inverted() { return bfmeCameraProjectionOverride; }
 	static void Invalidate() { ShaderDirty = true; }
 	UnsignedInt ShaderBits;
 protected:
@@ -257,7 +256,10 @@ void TerrainTracksRenderObjClassSystem::flush(void)
 
 	Real distanceFade;
 
-	if (ShaderClass::Is_Backface_Culling_Inverted())
+	// Retail reads the camera-projection override byte here inline (0x00DEDA05); the
+	// out-of-line ShaderClass::Is_Backface_Culling_Inverted (0x001381F0, shader.cpp)
+	// tests _PolygonCullMode instead, so it is not that function.
+	if (bfmeCameraProjectionOverride)
 		return;	//don't render track marks in reflections.
 
 	if (!m_vertexBuffer || !m_indexBuffer)

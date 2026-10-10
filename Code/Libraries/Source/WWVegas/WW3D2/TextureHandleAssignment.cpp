@@ -25,7 +25,8 @@ public:
     BfmeTextureHandle &operator=(const BfmeTextureHandle &other);
 };
 
-BfmeTextureHandle &BfmeTextureHandle::operator=(const BfmeTextureHandle &other)
+// The member-wise copy assignment is an inline (select-any) member: another unit emits its own copy.
+inline BfmeTextureHandle &BfmeTextureHandle::operator=(const BfmeTextureHandle &other)
 {
     Handle = other.Handle;
     return *this;
@@ -40,3 +41,8 @@ void operator delete[](void *);
 // ?DeleteTextureHandleArray absent-from-retail
 void DeleteTextureHandleArray(RefCountPtr<TextureClass> *p)
 { delete[] p; }
+
+// Inline that another unit emits as a select-any copy, which a plain
+// definition here collided with. The anchor keeps this unit's copy for its
+// row; it is not retail data.
+BfmeTextureHandle &(BfmeTextureHandle::*_bfmeInlineAnchor_TextureHandleAssignment)(const BfmeTextureHandle &) = &BfmeTextureHandle::operator=;

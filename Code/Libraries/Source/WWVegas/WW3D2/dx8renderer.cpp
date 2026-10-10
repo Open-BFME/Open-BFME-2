@@ -53,7 +53,63 @@
 
 #include "dx8renderer.h"
 #include "dx8wrapper.h"
-#include "dx8polygonrenderer.h"
+// Zero Hour's dx8polygonrenderer.h class, with Render and Render_Sorted
+// declared instead of carrying Zero Hour's inline bodies. BFME 2's bodies are
+// different: each opens a render-event scope (BFME2ScopedRenderEvent around a
+// "Rendering mesh"/"Rendering sorted mesh" label) and passes 32-bit draw
+// ranges; retail keeps them out of line at 0x00143630 (bfme2_polygon_render.cpp)
+// and 0x00143770 (bfme2_polygon_render_sorted.cpp), and the texture-category
+// render at 0x00147xxx calls both. This unit only calls them, so it must not
+// emit Zero Hour's copies (the link kept this unit's Render ahead of retail's).
+#include "meshmdl.h"
+#include "dx8list.h"
+#include "sortingrenderer.h"
+#include "mesh.h"
+#define DX8_POLYGON_RENDERER_H
+class DX8PolygonRendererClass;
+class DX8TextureCategoryClass;
+class DX8PolygonRendererClass : public MultiListObjectClass
+{
+	MeshModelClass *				mmc;
+	DX8TextureCategoryClass *	texture_category;
+	unsigned							index_offset;				// absolute index of index 0 for our parent mesh
+	unsigned							vertex_offset;				// absolute index of vertex 0 for our parent mesh
+	unsigned							index_count;				// number of indices
+	unsigned							min_vertex_index;			// relative index of the first vertex our polys reference
+	unsigned							vertex_index_range;		// range to the last vertex our polys reference
+	bool								strip;						// is this a strip?
+	unsigned							pass;					// rendering pass
+
+public:
+	DX8PolygonRendererClass(
+		unsigned index_count,
+		MeshModelClass* mmc_,
+		DX8TextureCategoryClass* tex_cat,
+		unsigned vertex_offset,
+		unsigned index_offset,
+		bool strip,
+		unsigned pass);
+	DX8PolygonRendererClass(const DX8PolygonRendererClass& src,MeshModelClass* mmc_);
+	~DX8PolygonRendererClass();
+
+	void								Render(/*const Matrix3D & tm,*/int base_vertex_offset);
+	void								Render_Sorted(/*const Matrix3D & tm,*/int base_vertex_offset,const SphereClass & bounding_sphere);
+	void								Set_Vertex_Index_Range(unsigned min_vertex_index_,unsigned vertex_index_range_)
+	{
+		min_vertex_index=min_vertex_index_;
+		vertex_index_range=vertex_index_range_;
+	}
+
+	unsigned							Get_Vertex_Offset(void)	{ return vertex_offset; }
+	unsigned							Get_Index_Offset(void)	{ return index_offset; }
+	inline unsigned						Get_Pass(void)	{ return pass; }
+
+	MeshModelClass*				Get_Mesh_Model_Class() { return mmc; }
+	DX8TextureCategoryClass*	Get_Texture_Category() { return texture_category; }
+	void								Set_Texture_Category(DX8TextureCategoryClass* tc) { texture_category=tc; }
+
+	void Log();
+};
 #include "dx8vertexbuffer.h"
 #include "dx8indexbuffer.h"
 #include "dx8fvf.h"
@@ -196,31 +252,8 @@ inline static bool Equal_Material(const VertexMaterialClass* mat1,const VertexMa
 }
 
 
-// ??0DX8TextureCategoryClass@@ present-unmatched
-DX8TextureCategoryClass::DX8TextureCategoryClass(
-	DX8FVFCategoryContainer* container_,
-	TextureClass** texs,
-	ShaderClass shd, 
-	VertexMaterialClass* mat,
-	int pass_)
-	:
-	pass(pass_),
-	shader(shd),
-	render_task_head(NULL),
-	material(mat),
-	container(container_)
-{
-	WWASSERT(pass>=0);
-	WWASSERT(pass<DX8FVFCategoryContainer::MAX_PASSES);
-
-	for (int a=0;a<MeshMatDescClass::MAX_TEX_STAGES;++a) 
-	{
-		textures[a]=NULL;
-		REF_PTR_SET(textures[a],texs[a]);
-	}
-
-	if (material) material->Add_Ref();
-}
+// DX8TextureCategoryClass constructor: BFME 2's body is the row 0x00144A00 in DX8TextureCategoryCtor.cpp;
+// Zero Hour's copy here duplicated it.
 
 // ??1DX8TextureCategoryClass@@ present-unmatched
 DX8TextureCategoryClass::~DX8TextureCategoryClass()
@@ -261,15 +294,8 @@ void DX8TextureCategoryClass::Add_Polygon_Renderer(DX8PolygonRendererClass* p_re
 	p_renderer->Set_Texture_Category(this);
 }
 
-void DX8TextureCategoryClass::Remove_Polygon_Renderer(DX8PolygonRendererClass* p_renderer)
-{
-	PolygonRendererList.Remove(p_renderer);
-	p_renderer->Set_Texture_Category(NULL);
-	if (PolygonRendererList.Peek_Head() == NULL) {
-		container->Remove_Texture_Category(this);
-		texture_category_delete_list.Add_Tail(this);
-	}
-}
+// DX8TextureCategoryClass::Remove_Polygon_Renderer: BFME 2's body is the row 0x001460E0 in DX8TextureCategoryRemovePolygonRenderer.cpp;
+// Zero Hour's copy here duplicated it.
 
 
 // Retail queues via the renderer pointer at 0x00DF363C (+0x34 list),
@@ -294,22 +320,8 @@ void DX8FVFCategoryContainer::Remove_Texture_Category(DX8TextureCategoryClass* t
 		renderer->list.Add_Tail(this);
 }
 
-// ?Add_Visible_Material_Pass@DX8FVFCategoryContainer@@ present-unmatched
-void DX8FVFCategoryContainer::Add_Visible_Material_Pass(MaterialPassClass * pass,MeshClass * mesh)
-{
-	MatPassTaskClass * new_mpr = new MatPassTaskClass(pass,mesh);
-
-	if (visible_matpass_head == NULL) {
-		WWASSERT(visible_matpass_tail == NULL);
-		visible_matpass_head = new_mpr;
-	} else {
-		WWASSERT(visible_matpass_tail != NULL);
-		visible_matpass_tail->Set_Next_Visible(new_mpr);
-	}
-
-	visible_matpass_tail = new_mpr;
-	AnythingToRender=true;
-}
+// DX8FVFCategoryContainer::Add_Visible_Material_Pass: BFME 2's body is the row 0x00144CB0 in DX8RigidDelayedMaterialPass.cpp;
+// Zero Hour's copy here duplicated it.
 
 // ?Render_Procedural_Material_Passes@DX8FVFCategoryContainer@@ present-unmatched
 void DX8FVFCategoryContainer::Render_Procedural_Material_Passes(void)
@@ -612,96 +624,8 @@ void DX8FVFCategoryContainer::Change_Polygon_Renderer_Texture(
 	}
 }
 
-// ?Change_Polygon_Renderer_Material@DX8FVFCategoryContainer@@ present-unmatched
-void DX8FVFCategoryContainer::Change_Polygon_Renderer_Material(
-		DX8PolygonRendererList& polygon_renderer_list,
-		VertexMaterialClass* vmat,
-		VertexMaterialClass* new_vmat,
-		unsigned pass)
-{
-	WWASSERT(pass<passes);
-
-	PolyRemoverList prl;
-
-	bool foundtexture=false;
-
-	if (vmat==new_vmat) return;
-
-	// Find source texture category, then find all polygon renderers who belong to that category
-	// and move them to destination category.
-	TextureCategoryListIterator src_it(&texture_category_list[pass]);
-	while (!src_it.Is_Done()) {
-		DX8TextureCategoryClass* src_tex_category=src_it.Peek_Obj();
-		if (src_tex_category->Peek_Material()==vmat) {			
-			DX8PolygonRendererListIterator poly_it(&polygon_renderer_list);
-			while (!poly_it.Is_Done()) {
-				// If source texture category contains polygon renderer, move to destination category
-				DX8PolygonRendererClass* polygon_renderer=poly_it.Peek_Obj();
-				DX8TextureCategoryClass *prc=polygon_renderer->Get_Texture_Category();
-				if (prc==src_tex_category) {
-					foundtexture=true;
-					DX8TextureCategoryClass* dest_tex_category=Find_Matching_Texture_Category(new_vmat,pass,src_tex_category);
-
-					if (!dest_tex_category) {
-						TextureClass * tmp_textures[MeshMatDescClass::MAX_TEX_STAGES];
-						for (int s=0;s<MeshMatDescClass::MAX_TEX_STAGES;++s) {
-							tmp_textures[s]=src_tex_category->Peek_Texture(s);
-						}						
-
-						DX8TextureCategoryClass * new_tex_category=W3DNEW DX8TextureCategoryClass(
-							this,
-							tmp_textures,
-							src_tex_category->Get_Shader(),
-							const_cast<VertexMaterialClass*>(new_vmat),
-							pass);
-		
-						/*
-						** Add the texture category object into the list, immediately after any existing
-						** texture category object which uses the same texture.  This will result in
-						** the list always having matching texture categories next to each other.
-						*/
-						bool found_similar_category = false;
-						TextureCategoryListIterator tex_it(&texture_category_list[pass]);
-						while (!tex_it.Is_Done()) {
-							// Categorize according to first stage's texture for now
-							if (tex_it.Peek_Obj()->Peek_Texture(0) == tmp_textures[0]) {
-								texture_category_list[pass].Add_After(new_tex_category,tex_it.Peek_Obj());
-								found_similar_category = true;
-								break;
-							}
-							tex_it.Next();
-						}
-
-						if (!found_similar_category) {
-							texture_category_list[pass].Add_Tail(new_tex_category);
-						}
-						dest_tex_category=new_tex_category;
-					}
-					PolyRemover *rem=W3DNEW PolyRemover;
-					rem->src=src_tex_category;
-					rem->dest=dest_tex_category;
-					rem->pr=polygon_renderer;
-					prl.Add(rem);
-				}
-				poly_it.Next();
-			} // while			
-		} // if 
-		else
-			if (foundtexture) break;
-		src_it.Next();
-	} // while
-
-	PolyRemoverListIterator prli(&prl);
-
-	while (!prli.Is_Done())
-	{
-		PolyRemover *rem=prli.Peek_Obj();
-		rem->src->Remove_Polygon_Renderer(rem->pr);
-		rem->dest->Add_Polygon_Renderer(rem->pr);		
-		prli.Remove_Current_Object();
-		delete rem;
-	}
-}
+// DX8FVFCategoryContainer::Change_Polygon_Renderer_Material: BFME 2's body is the row 0x001465C0 in DX8FVFCategoryMigrateBFME2.cpp;
+// Zero Hour's copy here duplicated it.
 
 // ----------------------------------------------------------------------------
 
@@ -1489,48 +1413,13 @@ void DX8SkinFVFCategoryContainer::Render(void)
 	clearVisibleSkinList();
 }
 
-// ?Check_If_Mesh_Fits@DX8SkinFVFCategoryContainer@@ present-unmatched
-bool DX8SkinFVFCategoryContainer::Check_If_Mesh_Fits(MeshModelClass* mmc)
-{
-	if (!index_buffer) return true;	// No IB created - mesh will fit as a new ib will be created when inserting
-	int required_polygons=mmc->Get_Polygon_Count();
-	if (mmc->Get_Gap_Filler()) {
-		required_polygons+=mmc->Get_Gap_Filler()->Get_Polygon_Count();
-	}
+// DX8SkinFVFCategoryContainer::Check_If_Mesh_Fits: BFME 2's body is the row 0x00143C20 in DX8SkinClearVisibleList.cpp;
+// Zero Hour's copy here duplicated it.
 
-	if ((required_polygons*3*mmc->Get_Pass_Count())<=index_buffer->Get_Index_Count()-used_indices) {
-		return true;
-	}
-	return false;
-}
-
-// ?clearVisibleSkinList@DX8SkinFVFCategoryContainer@@ present-unmatched
-void DX8SkinFVFCategoryContainer::clearVisibleSkinList() 
-{
-	while (VisibleSkinHead != NULL)
-	{
-		MeshClass* next = VisibleSkinHead->Peek_Next_Visible_Skin();
-		VisibleSkinHead->Set_Next_Visible_Skin(NULL);
-		VisibleSkinHead = next;
-	}
-	VisibleSkinHead = NULL;
-	VisibleSkinTail = NULL;
-	VisibleVertexCount = 0;
-}
-// ?Add_Visible_Skin@DX8SkinFVFCategoryContainer@@ present-unmatched
-void DX8SkinFVFCategoryContainer::Add_Visible_Skin(MeshClass * mesh) 
-{
-	if (mesh->Peek_Next_Visible_Skin() != NULL || mesh == VisibleSkinTail)
-	{
-		DEBUG_CRASH(("Mesh %s is already a visible skin, and we tried to add it again... please notify Mark W or Steven J immediately!\n",mesh->Get_Name()));
-		return;
-	}
-	if (VisibleSkinHead == NULL)
-		VisibleSkinTail = mesh;
-	mesh->Set_Next_Visible_Skin(VisibleSkinHead);
-	VisibleSkinHead = mesh;
-	VisibleVertexCount += mesh->Peek_Model()->Get_Vertex_Count();
-}
+// DX8SkinFVFCategoryContainer::clearVisibleSkinList: BFME 2's body is the row 0x00143C60 in DX8SkinClearVisibleList.cpp;
+// Zero Hour's copy here duplicated it.
+// DX8SkinFVFCategoryContainer::Add_Visible_Skin: BFME 2's body is the row 0x00143CB0 in DX8SkinClearVisibleList.cpp;
+// Zero Hour's copy here duplicated it.
 
 
 // ----------------------------------------------------------------------------
@@ -1554,13 +1443,8 @@ void DX8SkinFVFCategoryContainer::Reset()
 
 // ----------------------------------------------------------------------------
 
-// ?Add_Mesh@DX8SkinFVFCategoryContainer@@ present-unmatched
-void DX8SkinFVFCategoryContainer::Add_Mesh(MeshModelClass* mmc)
-{
-	Vertex_Split_Table split_table(mmc);
-
-	Generate_Texture_Categories(split_table,0);
-}
+// DX8SkinFVFCategoryContainer::Add_Mesh: BFME 2's body is the row 0x00766460 in 00146EE0;
+// Zero Hour's copy here duplicated it.
 
 // ----------------------------------------------------------------------------
 
@@ -1852,15 +1736,8 @@ void DX8TextureCategoryClass::Render(void)
 }
 
 
-// ??0DX8MeshRendererClass@@ present-unmatched
-DX8MeshRendererClass::DX8MeshRendererClass()
-	:
-	camera(NULL),
-	enable_lighting(true),
-	texture_category_container_list_skin(NULL),
-	visible_decal_meshes(NULL)
-{
-}
+// DX8MeshRendererClass constructor: BFME 2's body is the row 0x00145AA0 in DX8MeshRendererCtor.cpp;
+// Zero Hour's copy here duplicated it.
 
 // Owned by DX8MeshRendererClassDtor.cpp.
 
@@ -1902,22 +1779,8 @@ static void Add_Rigid_Mesh_To_Container(FVFCategoryList* container_list,unsigned
 
 // ----------------------------------------------------------------------------
 
-// ?Unregister_Mesh_Type@DX8MeshRendererClass@@ present-unmatched
-void DX8MeshRendererClass::Unregister_Mesh_Type(MeshModelClass* mmc)
-{
-	while (DX8PolygonRendererClass* n=mmc->PolygonRendererList.Remove_Head()) {
-		delete n;
-	}
-	_RegisteredMeshList.Remove(mmc);
-
-	// Also remove the gap filler!
-	if (mmc->GapFiller) {
-		GapFillerClass* gf=mmc->GapFiller;
-		mmc->GapFiller=NULL;
-		delete gf;
-	}
-
-}
+// DX8MeshRendererClass::Unregister_Mesh_Type: BFME 2's body is the row 0x001445E0 in DX8MeshRendererUnregisterMeshType.cpp;
+// Zero Hour's copy here duplicated it.
 
 
 // ?Register_Mesh_Type@DX8MeshRendererClass@@ present-unmatched

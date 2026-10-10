@@ -82,7 +82,8 @@ struct WaypointXY
 	char padding[4];
 };
 
-class Rva0030E961 { public: Real rva0030E67C(Real x,Real y); };
+// The height-field sampler is rowed as Rva0030E7D0::rva0030E67C (0x0030E67C, Rva0030E67CSample.cpp).
+class Rva0030E7D0 { public: Real rva0030E67C(Real x,Real y); };
 
 class W3DView
 {
@@ -140,7 +141,7 @@ private:
 	char m_padding23f4[0x241c - 0x23f4];
 	Bool m_cameraConstraintValid;
 	char m_padding241d[0x2458 - 0x241d];
-	Rva0030E961 m_cameraHeightField;
+	Rva0030E7D0 m_cameraHeightField;
 	char m_padding2459[0x2474 - 0x2459];
 	Bool m_useHeightField;
 	char m_padding2475[0x24c8 - 0x2475];

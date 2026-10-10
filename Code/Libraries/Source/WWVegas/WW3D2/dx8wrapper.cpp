@@ -266,30 +266,8 @@ void Non_Fatal_Log_DX8_ErrorCode(unsigned res,const char * file,int line)
 
 
 
-// ?Do_Onetime_Device_Dependent_Inits@DX8Wrapper@@ present-unmatched
-void DX8Wrapper::Do_Onetime_Device_Dependent_Inits(void)
-{
-	/*
-	** Set Global render states (some of which depend on caps)
-	*/
-	Compute_Caps(D3DFormat_To_WW3DFormat(DisplayFormat));
-
-   /*
-	** Initalize any other subsystems inside of WW3D
-	*/
-	MissingTexture::_Init();
-	TextureFilterClass::_Init_Filters((TextureFilterClass::TextureFilterMode)WW3D::Get_Texture_Filter());
-	TheDX8MeshRenderer.Init();
-	SHD_INIT;
-	BoxRenderObjClass::Init();
-	VertexMaterialClass::Init();
-	// This needs the VertexMaterialClass to be initted.
-	PointGroupClass::_Init();
-	ShatterSystem::Init();
-	TextureLoader::Init();
-
-	Set_Default_Global_Render_States();
-}
+// DX8Wrapper::Do_Onetime_Device_Dependent_Inits: BFME 2's body is the row 0x001245A0 in
+// DX8Wrapper_Do_Onetime_Device_Dependent_Inits.cpp; Zero Hour's copy here duplicated it.
 
 inline DWORD F2DW(float f) { return *((unsigned*)&f); }
 // Defined further down this same TU; declared here because the call below
@@ -3787,85 +3765,9 @@ void DX8Wrapper::Set_Light(unsigned index,const LightClass &light)
 //! directional lights to produce the lighting.
 /*! 5/27/02 KJM Added shader light environment support
 */
-// ?Set_Light_Environment@DX8Wrapper@@ present-unmatched
-void DX8Wrapper::Set_Light_Environment(LightEnvironmentClass* light_env)
-{
-	// Shader light environment support															*
-//	if (Light_Environment && light_env && (*Light_Environment)==(*light_env)) return;
-
-	Light_Environment=light_env;
-
-	if (light_env) 
-	{
-		int light_count = light_env->Get_Light_Count();
-		unsigned int color=Convert_Color(light_env->Get_Equivalent_Ambient(),0.0f);
-		if (RenderStates[D3DRS_AMBIENT]!=color)
-		{
-			Set_DX8_Render_State(D3DRS_AMBIENT,color);
-//buggy Radeon 9700 driver doesn't apply new ambient unless the material also changes.
-#if 1
-			render_state_changed|=MATERIAL_CHANGED;
-#endif
-		}
-
-		D3DLIGHT8 light;		
-		for (int l=0;l<light_count;++l) {
-			
-			::ZeroMemory(&light, sizeof(D3DLIGHT8));
-			
-			light.Type=D3DLIGHT_DIRECTIONAL;
-			(Vector3&)light.Diffuse=light_env->Get_Light_Diffuse(l);
-			Vector3 dir=-light_env->Get_Light_Direction(l);
-			light.Direction=(const D3DVECTOR&)(dir);
-
-			// (gth) TODO: put specular into LightEnvironment?  Much work to be done on lights :-)'
-			if (l==0) {
-				light.Specular.r = light.Specular.g = light.Specular.b = 1.0f;
-			}
-
-			if (light_env->isPointLight(l)) {
-				light.Type = D3DLIGHT_POINT;
-				(Vector3&)light.Diffuse=light_env->getPointDiffuse(l);
-				(Vector3&)light.Ambient=light_env->getPointAmbient(l);
-				light.Position = (const D3DVECTOR&)light_env->getPointCenter(l);
-				light.Range = light_env->getPointOrad(l);
-				
-				// Inverse linear light 1/(1+D)
-				double a,b;
-				b = light_env->getPointOrad(l);
-				a = light_env->getPointIrad(l);
-
-//(gth) CNC3 Generals code for the attenuation factors is causing the lights to over-brighten
-//I'm changing the Attenuation0 parameter to 1.0 to avoid this problem.				
-#if 0
-				light.Attenuation0=0.01f;
-#else
-				light.Attenuation0=1.0f;
-#endif
-				if (fabs(a-b)<1e-5)
-					// if the attenuation range is too small assume uniform with cutoff
-					light.Attenuation1=0.0f;
-				else
-					// this will cause the light to drop to half intensity at the first far attenuation
-					light.Attenuation1=(float) 0.1/a;
-	
-				light.Attenuation2=8.0f/(b*b);
-			}
-
-			Set_Light(l,&light);
-		}
-
-		for (;l<4;++l) {
-			Set_Light(l,NULL);
-		}
-	}
-/*	else {
-		for (int l=0;l<4;++l) {
-			Set_Light(l,NULL);
-		}
-	}
-*/
-}
+// BFME 2's DX8Wrapper::Set_Light_Environment is the row 0x00122EA0 in
+// dx8wrapper_set_light_environment.cpp; this unit no longer carries Zero Hour's
+// body, which duplicated that definition (strong in both objects).
 
 // ?_Get_DX8_Front_Buffer@DX8Wrapper@@ present-unmatched
 IDirect3DSurface8 * DX8Wrapper::_Get_DX8_Front_Buffer()
@@ -4045,35 +3947,8 @@ void DX8Wrapper::Create_Render_Target
 // Set_Render_Target_With_Z (retail 0x00120850) keeps both surfaces in
 // W3DRadarResetSurface holders in BFME 2: DX8Wrapper_Set_Render_Target_With_Z.cpp.
 
-void
-DX8Wrapper::Set_Render_Target(IDirect3DSwapChain8 *swap_chain)
-{
-	DX8_THREAD_ASSERT();
-	WWASSERT (swap_chain != NULL);
-
-	//
-	//	Get the back buffer for the swap chain
-	//
-	LPDIRECT3DSURFACE8 render_target = NULL;
-	swap_chain->GetBackBuffer (0, D3DBACKBUFFER_TYPE_MONO, &render_target);
-
-	//
-	//	Set this back buffer as the render targer
-	//
-	Set_Render_Target (render_target, true);
-
-	//
-	//	Release our hold on the back buffer
-	//
-	if (render_target != NULL) {
-		render_target->Release ();
-		render_target = NULL;
-	}
-
-	IsRenderToTexture = false;
-
-	return ;
-}
+// DX8Wrapper::Set_Render_Target(IDirect3DSwapChain8*): BFME 2's body is the row 0x00120940 in
+// DX8Wrapper_Set_Render_Target_SwapChain_Thunk.cpp; Zero Hour's copy here duplicated it.
 
 // DX8Wrapper::Set_Render_Target: defined in DX8Wrapper_Set_Render_Target_Surface.cpp (its row's unit).
 //**********************************************************************************************

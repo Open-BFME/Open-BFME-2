@@ -8,11 +8,14 @@
 // bytes at +0x57C/+0x57D. Total 0x580=1408. No EH (single non-POD Sub first).
 // Evidence: callers 0x00557C7F (_Construct) and 0x00558E2C (push_back_aux_v)
 // name it ??0BfmeOpaqueOwnedRecord1408@@QAE@ABU0@@Z; shares +8 Sub with 1432.
-struct Rva005564EBSub
+// The +8 subobject's copy constructor 0x0038630B is rowed as ??0PSPlayerAllStats@@QAE@ABV0@@Z
+// (PersistentStorageThread.cpp); this view calls it by that name.
+class PSPlayerAllStats
 {
+public:
 	char m_body[0x548];
-	Rva005564EBSub(const Rva005564EBSub &o);
-	~Rva005564EBSub();
+	PSPlayerAllStats(const PSPlayerAllStats &o);
+	~PSPlayerAllStats();
 };
 
 struct Tail5
@@ -24,7 +27,7 @@ struct BfmeOpaqueOwnedRecord1408
 {
 	unsigned int m_00;
 	unsigned int m_04;
-	Rva005564EBSub m_08;
+	PSPlayerAllStats m_08;
 	Tail5 m_550;
 	unsigned int m_564;
 	unsigned int m_568;

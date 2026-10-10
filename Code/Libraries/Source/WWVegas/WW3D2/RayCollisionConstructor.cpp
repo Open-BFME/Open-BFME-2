@@ -16,11 +16,31 @@
 **	You should have received a copy of the GNU General Public License
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include "rendobj.h"
-#include "aabox.h"
-#include "coltest.h"
+#include "lineseg.h"
+#include "castres.h"
+class RenderObjClass;
+// TU-private flattened view of bfme2ray/coltest.h's RayCollisionTestClass:
+// the CollisionTestClass base's three members (Result, CollisionType,
+// CollidedRenderObj at +0/+4/+8) lead the class as they do in the base, and the
+// constructor initialises them first, as the inlined base constructor does.
+// Spelling the base here made this unit emit its own /O1 copy of
+// ??0CollisionTestClass@@QAE@PAUCastResultStruct@@H@Z (unreferenced: the ray
+// constructor inlines it) ahead of retail's /O2 row 0x0065D070 in coltest.cpp.
+class RayCollisionTestClass
+{
+public:
+	RayCollisionTestClass(const LineSegClass & ray,CastResultStruct * res,int collision_type,bool check_translucent, bool check_hidden);
+
+	CastResultStruct *			Result;
+	int								CollisionType;
+	RenderObjClass *				CollidedRenderObj;
+	LineSegClass 		Ray;
+	bool CheckTranslucent;
+	bool CheckHidden;
+	bool _bfme_flag42; // Retail primary constructor initializes this extra flag to false.
+};
 inline RayCollisionTestClass::RayCollisionTestClass(const LineSegClass &ray, CastResultStruct *res, int collision_type, bool check_translucent, bool check_hidden) :
-    CollisionTestClass(res, collision_type), Ray(ray),
+    Result(res), CollisionType(collision_type), CollidedRenderObj(NULL), Ray(ray),
     CheckTranslucent(check_translucent), CheckHidden(check_hidden), _bfme_flag42(false)
 {}
 

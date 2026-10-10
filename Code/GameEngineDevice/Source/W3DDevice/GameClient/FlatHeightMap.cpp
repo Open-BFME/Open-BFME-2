@@ -87,8 +87,11 @@ public:
 
 // Callees taking the rendering-method stack as (first element, count) around
 // the passes; their identities are not established.
-void Rva001688FF(const RefCountPtr<FXShader::RenderingMethod> *methods, Int count);
-void Rva00168952(const RefCountPtr<FXShader::RenderingMethod> *methods, Int count);
+// Rendering-method stack walkers (element array, count): rows Rva001688FFShift
+// 0x001688FF and Rva00168952Clear 0x00168952 (RenderingMethodLinkArray.cpp).
+class Rva001688FFElement;
+void Rva001688FFShift(Rva001688FFElement **items, int count);
+void Rva00168952Clear(Rva001688FFElement **items, int count);
 
 class StringClass
 {
@@ -236,7 +239,7 @@ void FlatHeightMapRenderObjClass::renderTerrain(RenderInfoClass&rinfo,int *minX,
  } else {
   g_00DEBC60->setRenderingMode(0);
   rinfo.Push_Rendering_Method(m_method);
-  Rva001688FF(rinfo.Get_Rendering_Method_Stack().begin(),rinfo.Get_Rendering_Method_Stack().size());
+  Rva001688FFShift((Rva001688FFElement **)rinfo.Get_Rendering_Method_Stack().begin(),rinfo.Get_Rendering_Method_Stack().size());
   RefCountPtr<FXShader::RenderingMethod> current=rinfo.Get_Rendering_Method_Stack()[0];
   int passes;
   if(!current->Begin(&passes,0xffff))return;
@@ -246,7 +249,7 @@ void FlatHeightMapRenderObjClass::renderTerrain(RenderInfoClass&rinfo,int *minX,
    current->End_Pass();
   }
   current->End();
-  Rva00168952(rinfo.Get_Rendering_Method_Stack().begin(),rinfo.Get_Rendering_Method_Stack().size());
+  Rva00168952Clear((Rva001688FFElement **)rinfo.Get_Rendering_Method_Stack().begin(),rinfo.Get_Rendering_Method_Stack().size());
   rinfo.Pop_Rendering_Method();
  }
  DX8Wrapper::Set_Light_Environment(0);

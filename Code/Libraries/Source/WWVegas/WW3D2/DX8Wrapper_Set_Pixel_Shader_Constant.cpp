@@ -160,7 +160,8 @@ protected:	// as dx8wrapper.h: the statics mangle as protected members
 };
 
 // ?Set_Pixel_Shader_Constant@DX8Wrapper@@SAXHPBXH@Z
-void DX8Wrapper::Set_Pixel_Shader_Constant(int reg, const void *data, int count)
+// A dx8wrapper.h inline (WWINLINE): the shader-manager units emit the same select-any copy.
+inline void DX8Wrapper::Set_Pixel_Shader_Constant(int reg, const void *data, int count)
 {
 	int memsize = sizeof(Vector4) * count;
 
@@ -172,3 +173,8 @@ void DX8Wrapper::Set_Pixel_Shader_Constant(int reg, const void *data, int count)
 	DX8Wrapper::_Get_D3D_Device8()->SetPixelShaderConstant(reg, data, count);
 	number_of_DX8_calls++;
 }
+
+// Header inline that other units emit as select-any copies, which a plain
+// definition here collided with. The anchor keeps this unit's copy for its
+// row; it is not retail data.
+void (*_bfmeInlineAnchor_DX8Wrapper_Set_Pixel_Shader_Constant)(int, const void *, int) = &DX8Wrapper::Set_Pixel_Shader_Constant;

@@ -80,8 +80,11 @@ public:
 	LightEnvironmentClass *light_environment;	// +0x28
 };
 
-void Rva001688FF(const RefCountPtr<FXShader::RenderingMethod> *methods, Int count);
-void Rva00168952(const RefCountPtr<FXShader::RenderingMethod> *methods, Int count);
+// Rendering-method stack walkers (element array, count): rows Rva001688FFShift
+// 0x001688FF and Rva00168952Clear 0x00168952 (RenderingMethodLinkArray.cpp).
+class Rva001688FFElement;
+void Rva001688FFShift(Rva001688FFElement **items, int count);
+void Rva00168952Clear(Rva001688FFElement **items, int count);
 
 #define PAD_STDCALL10(p) \
 	virtual void __stdcall p##0() = 0; virtual void __stdcall p##1() = 0; virtual void __stdcall p##2() = 0; \
@@ -153,7 +156,7 @@ void Rva000EC9C6::rva000E663B(int arg)
 
 	DX8Wrapper::Set_Light_Environment(rinfo.light_environment);
 	rinfo.Push_Rendering_Method(m_method);
-	Rva001688FF(rinfo.Get_Rendering_Method_Stack().begin(), rinfo.Get_Rendering_Method_Stack().size());
+	Rva001688FFShift((Rva001688FFElement **)rinfo.Get_Rendering_Method_Stack().begin(), rinfo.Get_Rendering_Method_Stack().size());
 
 	RefCountPtr<FXShader::RenderingMethod> current = rinfo.Get_Rendering_Method_Stack()[0];
 	Int passes = 0;
@@ -175,7 +178,7 @@ void Rva000EC9C6::rva000E663B(int arg)
 	current->End();
 	g_009EBC90 = 0;
 
-	Rva00168952(rinfo.Get_Rendering_Method_Stack().begin(), rinfo.Get_Rendering_Method_Stack().size());
+	Rva00168952Clear((Rva001688FFElement **)rinfo.Get_Rendering_Method_Stack().begin(), rinfo.Get_Rendering_Method_Stack().size());
 	rinfo.Pop_Rendering_Method();
 	DX8Wrapper::Set_Vertex_Shader(0);
 	DX8Wrapper::Set_Pixel_Shader(0);

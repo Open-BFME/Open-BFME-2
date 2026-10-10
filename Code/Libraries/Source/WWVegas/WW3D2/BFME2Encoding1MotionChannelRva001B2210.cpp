@@ -32,7 +32,9 @@ public:
 // but they are distinct storage instances; one external global conflates them.
 // This descriptive namespace records the stream table's identity and scope;
 // its original spelling and initializer owner remain unknown.
-namespace BFME2StreamMotionTables { extern float filtertable[256]; }
+// The decode filter table is the data-ledger global ?filtertable@@3PAMA (0x009B6C28,
+// BFME2EncodingFilterTableInit.cpp).
+extern float filtertable[];
 class BFME2StreamMotionChannel : public BFME2MotionChannel {
 public:
     float Scale;
@@ -55,7 +57,7 @@ void BFME2Encoding1MotionChannel::rva001B2210(unsigned int *state,unsigned int f
  while(from<=frame+1){
   if(from>=(unsigned)Count){if(value0)*(ScalarValue*)value0=last;*(ScalarValue*)value1=last;return;}
   unsigned fi0=from&0xF; from&=~0xFu;
-  float filter=BFME2StreamMotionTables::filtertable[*packet]*Scale;
+  float filter=filtertable[*packet]*Scale;
   unsigned char *p=packet+1+(fi0>>1);
   for(unsigned fi=fi0;fi<16;++fi){
    unsigned f=fi + from;

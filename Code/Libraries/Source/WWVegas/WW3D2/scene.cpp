@@ -221,45 +221,8 @@ SceneClass::~SceneClass(void)
  * HISTORY:                                                                                    *
  *   12/10/98   GTH : Created.                                                                 *
  *=============================================================================================*/
-// ?Render@SceneClass@@MAEXAAVRenderInfoClass@@@Z present-unmatched
-void SceneClass::Render(RenderInfoClass & rinfo)
-{
-	// Any stuff that needs to get done before anything else
-	Pre_Render_Processing(rinfo);
-
-	DX8Wrapper::Set_Fog(FogEnabled, FogColor, FogStart, FogEnd);
-
-	if (Get_Extra_Pass_Polygon_Mode()==EXTRA_PASS_DISABLE) {
-		Customized_Render(rinfo);
-	}
-	else {
-		bool old_enable=WW3D::Is_Texturing_Enabled();
-
-		DX8Wrapper::Set_DX8_Render_State (D3DRS_ZBIAS, 0);
-		Customized_Render(rinfo);
-		switch (Get_Extra_Pass_Polygon_Mode()) {
-		case EXTRA_PASS_LINE:
-			WW3D::Enable_Texturing(false);
-			DX8Wrapper::Set_DX8_Render_State(D3DRS_FILLMODE,D3DFILL_WIREFRAME);
-			DX8Wrapper::Set_DX8_Render_State (D3DRS_ZBIAS, 7);
-			Customized_Render(rinfo);
-			break;
-		case EXTRA_PASS_CLEAR_LINE:
-// ?Clear@DX8Wrapper@@ present-unmatched
-			DX8Wrapper::Clear(true, false, Vector3(0.0f,0.0f,0.0f));	// Clear color but not z
-			WW3D::Enable_Texturing(false);
-			DX8Wrapper::Set_DX8_Render_State(D3DRS_FILLMODE,D3DFILL_WIREFRAME);
-			DX8Wrapper::Set_DX8_Render_State (D3DRS_ZBIAS, 7);
-			Customized_Render(rinfo);
-			break;
-		}
-
-		WW3D::Enable_Texturing(old_enable);
-	}
-
-	// Any stuff that needs to get done after anything else
-	Post_Render_Processing(rinfo);
-}
+// SceneClass::Render: BFME 2's body is the row 0x00141170 in SceneClass_Render.cpp;
+// Zero Hour's copy here duplicated it.
 
 /***********************************************************************************************
  * SceneClass::Save -- saves scene settings into a chunk                                       *
@@ -476,28 +439,8 @@ void SimpleSceneClass::Visibility_Check(CameraClass * camera)
  * HISTORY:                                                                                    *
  *   6/13/2001  gth : Created.                                                                 *
  *=============================================================================================*/
-float SimpleSceneClass::Compute_Point_Visibility
-(	
-	RenderInfoClass & rinfo,
-	const Vector3 & point
-)
-{
-	CastResultStruct res;
-	LineSegClass ray(rinfo.Camera.Get_Position(),point);
-	RayCollisionTestClass raytest(ray,&res,COLL_TYPE_PROJECTILE);
-
-	RefRenderObjListIterator it(&RenderList);
-	for (it.First(); !it.Is_Done(); it.Next()) {
-		RenderObjClass * robj = it.Peek_Obj();
-		robj->Cast_Ray(raytest);
-	}
-
-	if (res.Fraction == 1.0f) {
-		return 1.0f;
-	} else {
-		return 0.0f;
-	}
-}
+// SimpleSceneClass::Compute_Point_Visibility: BFME 2's body is the row 0x001418F0 in SceneOwnership.cpp;
+// Zero Hour's copy here duplicated it.
 
 
 /***********************************************************************************************
@@ -659,11 +602,8 @@ void SimpleSceneIterator::Next(void)
 	RobjIterator.Next();
 }
 
-// ?Is_Done@SimpleSceneIterator@@ present-unmatched
-bool SimpleSceneIterator::Is_Done(void)
-{
-	return RobjIterator.Is_Done();
-}
+// SimpleSceneIterator::Is_Done: BFME 2's body is the row 0x00140E90 in scene_Is_Done_SimpleSceneIterator_UAE_NXZ.cpp;
+// Zero Hour's copy here duplicated it.
 
 RenderObjClass * SimpleSceneIterator::Current_Item(void)
 {
