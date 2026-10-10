@@ -1,5 +1,4 @@
 // ?setGameOptions@GameSpyInfo@@UAEXXZ
-// partial score=0.995 date=2026-10-09
 // cl: /O1 /arch:SSE /G7 /GF- /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /EHsc /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_STLP_NO_EXCEPTIONS
 // stlport
 
@@ -7,6 +6,8 @@
 // BFME2 [0x386501,0x386B7B) and vtable C19500 slot55 establish identity.
 // Access offsets and the four request publications below are target evidence;
 // donor field names describe their purpose, rather than proving original names.
+// Target slot55 C19500 and native386501..386B7B verify the complete interface.
+// Inline initStatsAndGetSlot preserves native argument/store scheduling.
 // /GF- is required: pooling empty strings retains EDI through the slot loop.
 // This TU isolates that setting; /GF- regresses two existing PeerDefs bodies.
 
@@ -418,6 +419,7 @@ static __forceinline void appendMapCharacter(AsciiString &dst, char c)
 #define LOCAL_GAME (reinterpret_cast<const GameInfo *>(m_localStagingRoom))
 #pragma function(memcpy)
 // ?setGameOptions@GameSpyInfo@@UAEXXZ @0x00386501 1658B
+static __forceinline GameSpyGameSlot*initStatsAndGetSlot(GameSpyStagingRoom*game,Int i,Int&wins,Int&losses,Int&profileID){(volatile Int&)wins=0;(volatile Int&)losses=0;(volatile Int&)profileID=0;return game->getGameSpySlot(i);}
 void GameSpyInfo::setGameOptions(void)
 {
 	if (!m_isHosting)
@@ -448,8 +450,7 @@ void GameSpyInfo::setGameOptions(void)
 	for (i=0; i<MAX_SLOTS; ++i)
 	{
 		Int wins, losses, profileID;
-		(volatile Int &)wins=0; (volatile Int &)losses=0; (volatile Int &)profileID=0;
-		GameSpyGameSlot *slot = TheGameSpyGame->getGameSpySlot(i);
+		GameSpyGameSlot*slot=initStatsAndGetSlot(TheGameSpyGame,i,wins,losses,profileID);
 		req.gameOptsPlayerNames[i] = "";
 		req.gameOptions.wins[i] = 0;
 		req.gameOptions.losses[i] = 0;
