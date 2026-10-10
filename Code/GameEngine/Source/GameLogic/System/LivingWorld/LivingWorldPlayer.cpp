@@ -38,7 +38,7 @@ struct LivingWorldPlayerRecordView
 	char unknownB0[0xD8 - 0xB0];
 };
 
-class LivingWorldArmy
+struct LivingWorldArmy
 {
 public:
 	unsigned char m_pad00[0x78];
