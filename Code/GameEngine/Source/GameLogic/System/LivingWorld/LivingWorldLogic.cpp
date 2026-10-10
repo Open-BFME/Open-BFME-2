@@ -518,6 +518,8 @@ class Rva004E071D {public:void rva004E071D(Bool);};
 struct LocalCampaignRegions2C {char pad2c[0x2c];_STL::vector<Rva003F287F*>regions;};
 struct LocalPlayerId14 {char pad14[0x14];Int id;};
 struct LocalRegionOwner13C {char pad13c[0x13c];Int owner;};
+class Rva004FC275 {public:void rva004FC275(unsigned char);};
+struct LocalRegionPlots170 {char pad13c[0x13c];Int owner;char pad140[0x170-0x140];_STL::vector<Parent00575EEA*>plots;};
 struct TurnPhasePairView {void *begin,*end;bool empty()const{return begin==end;}};
 struct Parent00575E4E;
 class LivingWorldLogic : public Rva002BA82BBase00, public Rva002BA82BObserver10, public Rva002BA82BRegionObserver
@@ -537,6 +539,7 @@ public:
  void rva002BD9B4();
  void rva002B768F();
  Bool rva002B3484(Parent0057605D*);
+ Bool rva002B3416(Parent00575EEA*);
  void rva002B676D();
  void rva002B88EC();
 	Bool rva002B5A5F(Parent00575E4E*);
@@ -2527,6 +2530,31 @@ void LivingWorldLogic::rva002B768F(){
     Parent0057605D*entry=(Parent0057605D*)modules[j];
     Bool show=rva002B3484(entry);
     reinterpret_cast<Rva004E071D*>(entry)->rva004E071D(show);
+   }
+  }
+ }
+ }
+ }
+}
+
+// LivingWorldLogic::rva002B676D, retail 0x002B676D: sibling of rva002B768F for the plot lists of each region owned by the
+// local player. Region ownership/plot offsets (+0x13C/+0x170) are read from retail; the entry predicate is rowed 0x002B3416.
+// The owner id is read into a named local first; the region vector is reached directly (no receiver PHI on the loop read).
+void LivingWorldLogic::rva002B676D(){
+ if(m_localPlayer){
+ LocalCampaignRegions2C*campaign=reinterpret_cast<LocalCampaignRegions2C*>((m_field0B0?m_field0B0:m_field0B0)->m_armySet);
+ _STL::vector<Rva003F287F*>*regions;if(campaign)regions=&campaign->regions;else regions=0;
+ if(regions){
+ _STL::vector<const ModuleData*>unusedModules;
+ for(unsigned i=0;i<regions->size();++i){
+  LocalRegionPlots170*region=reinterpret_cast<LocalRegionPlots170*>((*regions)[i]);
+  Int ownerId=region->owner;
+  if(ownerId==reinterpret_cast<LocalPlayerId14*>(m_localPlayer)->id){
+   int count=region->plots.size();
+   for(int j=0;j<count;++j){
+    Parent00575EEA*entry=region->plots[j];
+    Bool show=rva002B3416(entry);
+    reinterpret_cast<Rva004FC275*>(entry)->rva004FC275(show);
    }
   }
  }

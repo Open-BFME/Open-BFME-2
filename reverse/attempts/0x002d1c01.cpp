@@ -1,4 +1,6 @@
 // ?parseObjectDefinition@ThingFactory@@SAXPAVINI@@ABVAsciiString@@11@Z
+// partial score=0.9835 date=2026-10-10
+// ?parseObjectDefinition@ThingFactory@@SAXPAVINI@@ABVAsciiString@@11@Z
 // partial score=0.98352 date=2026-10-09
 // ?parseObjectDefinition@ThingFactory@@SAXPAVINI@@ABVAsciiString@@11@Z
 // partial score=0.95 date=2026-10-08
@@ -13,9 +15,9 @@ class INI { public: void initFromINIMulti(void *,const MultiIniFieldParse &); ch
 class ThingTemplate { public: void copyFrom(const ThingTemplate *); void setCopiedFromDefault(); void validate(); char pad[8]; bool isOverride; };
 struct Rva0033E06AArg;
 class Rva0033E06A { public: void rva0033E06A(Rva0033E06AArg *); };
-class Rva002D06CA { public: void *rva002D06CA(const AsciiString *); bool rva002D06AA(const AsciiString *); };
-extern Rva002D06CA *TheThingFactory;
-class ThingFactory { public: ThingTemplate *newOverride(ThingTemplate *); static void parseObjectDefinition(INI *,const AsciiString &,const AsciiString &,const AsciiString &); private: ThingTemplate *newTemplate(const AsciiString &); };
+
+class ThingFactory { public: const ThingTemplate *findTemplate(const AsciiString &); bool rva002D06AA(const AsciiString &); ThingTemplate *newOverride(ThingTemplate *); static void parseObjectDefinition(INI *,const AsciiString &,const AsciiString &,const AsciiString &); private: ThingTemplate *newTemplate(const AsciiString &); };
+extern ThingFactory *TheThingFactory;
 class InGameUI; extern InGameUI *TheInGameUI;
 class ParserUI { public:
 virtual void slot0();
@@ -130,23 +132,23 @@ static __forceinline const char* errorText(const AsciiString&s){
 void ThingFactory::parseObjectDefinition(INI *ini,const AsciiString &name,const AsciiString &reskinFrom,const AsciiString &childOf)
 {
     ThingTemplate *tmplate = 0;
-    if (TheThingFactory->rva002D06AA(&name))
-        tmplate = (ThingTemplate *)TheThingFactory->rva002D06CA(&name);
+    if (TheThingFactory->rva002D06AA(name))
+        tmplate = (ThingTemplate *)TheThingFactory->findTemplate(name);
     if (!tmplate) {
-        tmplate = ((ThingFactory *)TheThingFactory)->newTemplate(name);
+        tmplate = TheThingFactory->newTemplate(name);
         if (ini->loadType==2) tmplate->isOverride = true;
     } else if (ini->loadType==5) {
-        tmplate = ((ThingFactory *)TheThingFactory)->newTemplate(name);
+        tmplate = TheThingFactory->newTemplate(name);
         ((ParserUI *)TheInGameUI)->message(UnicodeString(L"The ThingTemplate, '%S' was reloaded."),name.str());
         BfmeAudioEventPrefix136 event(*(OpaqueRefElement4 *)(((ParserAudio *)TheAudio)->settings()+0xC8),0);
         ((ParserAudio *)TheAudio)->addEvent(&event);
     } else if (ini->loadType==2) {
-        tmplate = ((ThingFactory *)TheThingFactory)->newOverride(tmplate);
+        tmplate = TheThingFactory->newOverride(tmplate);
     }
     MultiIniFieldParse fields;
     Rva0033A8FC::buildFieldParse(fields);
     if (!childOf.isEmpty()) {
-        ThingTemplate *parent = (ThingTemplate *)TheThingFactory->rva002D06CA(&childOf);
+        ThingTemplate *parent = (ThingTemplate *)TheThingFactory->findTemplate(childOf);
         if (parent) {
             tmplate->copyFrom(parent);
             tmplate->setCopiedFromDefault();
@@ -159,7 +161,7 @@ void ThingFactory::parseObjectDefinition(INI *ini,const AsciiString &name,const 
         }
     } else {
         if (!reskinFrom.isEmpty()) {
-            ThingTemplate *reskin=(ThingTemplate *)TheThingFactory->rva002D06CA(&reskinFrom);
+            ThingTemplate *reskin=(ThingTemplate *)TheThingFactory->findTemplate(reskinFrom);
             if (reskin) {
                 tmplate->copyFrom(reskin);
                 tmplate->setCopiedFromDefault();
