@@ -58,8 +58,14 @@ private:
 class ObjectCreationNugget
 {
 public:
+	ObjectCreationNugget();
 	virtual ~ObjectCreationNugget();
 };
+// ??0ObjectCreationNugget@@QAE@XZ @0x001F0102 9B: the default constructor, storing the
+// class's own vtable (VA 0x00BE09D0) and returning this.
+ObjectCreationNugget::ObjectCreationNugget()
+{
+}
 
 class GenericObjectCreationNugget : public ObjectCreationNugget
 {
