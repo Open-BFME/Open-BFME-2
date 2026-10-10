@@ -1,4 +1,6 @@
 // ?getPreferredMap@SkirmishPreferences@@QAE?AVAsciiString@@XZ
+// partial score=0.9952869221 date=2026-10-10
+// ?getPreferredMap@SkirmishPreferences@@QAE?AVAsciiString@@XZ
 // partial score=0.977124183 date=2026-10-10
 // cl: /O1 /G7 /arch:SSE /EHs /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii
 // stlport
@@ -14,6 +16,8 @@ class SkirmishPreferences : public PreferenceMap {
 public:
  virtual ~SkirmishPreferences();
  AsciiString buildProfileKey(const char *);
+ AsciiString formatProfileKey(const AsciiString*,const char*);
+ AsciiString filename; int profileIndex; void *userNames; AsciiString currentUserName;
  AsciiString getPreferredMap();
 };
 AsciiString getDefaultMap(bool);
@@ -34,3 +38,5 @@ AsciiString SkirmishPreferences::getPreferredMap() {
  }
  return ret;
 }
+
+inline __declspec(noinline) AsciiString SkirmishPreferences::buildProfileKey(const char*name){return formatProfileKey(&currentUserName,name);}
