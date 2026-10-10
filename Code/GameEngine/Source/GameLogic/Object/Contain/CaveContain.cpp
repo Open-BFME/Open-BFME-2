@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
 // stlport
 #include <list>
 #include "../../../../Include/GameLogic/ContainmentListView.h"
@@ -106,6 +106,7 @@ public:
 	Bool rva004F550A(ObjectID value);
 	void removeFromContain(ObjectID value, int exposeStealthUnits);
 	Bool rva004F571B(Object *object);
+	void iterateContained(void (*callback)(Object*,void*), void *data, Bool reverse);
 };
 
 class CaveSystem
@@ -211,6 +212,7 @@ public:
 	virtual void onContaining(Object *, Bool);
 	virtual void removeFromContain(Object *obj, Bool exposeStealthUnits);
 	virtual void removeAllContained(Bool exposeStealthUnits);
+	virtual void iterateContained(void (*callback)(Object*,void*), void *data, unsigned int flags);
 	// Implemented for the CaveInterface subobject at complete-object +0xFC.
 	virtual void tryToSetCaveIndex(int newIndex);
 	// Implemented for the one-entry die interface at complete-object +0x28.
@@ -342,4 +344,15 @@ void CaveContain::onDie(const DamageInfo *damageInfo)
 		static_cast<UnsignedInt>(*caveIndex));
 	reinterpret_cast<Gen_003bcb40 *>(TheCaveSystem)->m(*caveIndex);
 	myTracker->rva004F571B(getDieObject());
+}
+
+// Native466486..4664BB full53 RET12. The CaveContain wrapper extends
+// the ZH iteration interface with observed bit flags: bit0 gates traversal
+// and bit3 supplies the tracker reverse argument. Flag names stay unknown.
+void CaveContain::iterateContained(void (*callback)(Object*,void*), void *data, unsigned int flags)
+{
+ if (flags & 1) {
+  TunnelTracker *tracker=TheCaveSystem->getTunnelTrackerForCaveIndex(m_caveIndex);
+  tracker->iterateContained(callback,data,(flags >> 3)&1);
+ }
 }
