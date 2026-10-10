@@ -1,16 +1,15 @@
-// ?rva0052B17F@Rva0052B17F@@QAEXXZ
-// partial score=0.96 date=2026-10-10
 // cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /O1 /G7 /arch:SSE /EHsc /MD /DNDEBUG
-// Native52AF95/52B10F/52B17F audio wrappers: sibling3FDDAC is semantic source guide.
+// Native52AF95/110,52B10F/112,52B17F/112: source guide is the matched
+// 3FDDAC family. Each independent range ends at its RET and has one EH state.
 // Target establishes receiver14 refs10/14/18 owner38 ID18 and rowed tag5
 // ctor2DA651 / destructor2D9A43 then Audio slot64. Original owner unknown.
 #include "Common/BfmeAudioEventPrefix136.h"
 
-// Native 3FDF1B/3FDF8B/3FDFFB call tag4 ctor2DA5D3 and prefix dtor2D9A43.
-// The 0x88-byte aligned storage owns that exact lifetime without a second
-// destructor. Only +14 reference slots18/1C/20 and +38 owner20/54 are asserted.
-// Original helper names remain unknown; existing home-TU /O2 settings close
-// the banked /O1 guard scheduling delta in all three independent bodies.
+// Target tag5 ctor2DA651 and dtor2D9A43 establish the0x88-byte event lifetime.
+// Receiver+14 owns reference slots10/14/18; +38 points to ID at18.
+// Original class and helper names remain uncertain. Same-valued PHIs retain
+// retail CMP[ref+offset] before the late ADD, after the ID push.
+// Opaque constructor declaration: storage below follows its verified0x88-byte provider layout.
 struct Rva002DA651 { Rva002DA651(const OpaqueRefElement4&,int); };
 union EventStorage0052 { int align; unsigned char bytes[0x88]; };
 class OwnerAudioEvent0052 {
@@ -72,28 +71,28 @@ class Rva0052AF95 : private Receiver0052 { public: void rva0052AF95(); };
 class Rva0052B10F : private Receiver0052 { public: void rva0052B10F(); };
 class Rva0052B17F : private Receiver0052 { public: void rva0052B17F(); };
 void Rva0052AF95::rva0052AF95() {
- if(!refs->r10.referent)goto done;
+ if(!(refs?refs:refs)->r10.referent)goto done;
  if(!owner)goto done;
  {
-  OwnerAudioEvent0052 event(refs->r10,owner->id);
+  OwnerAudioEvent0052 event((owner?refs->r10:refs->r10),owner->id);
   ((Rva0052AudioView *)TheAudio)->addAudioEvent(event.get());
  }
  done:((Rva005391A9 *)this)->rva005391A9();
 }
 void Rva0052B10F::rva0052B10F() {
- if(!refs->r14.referent)goto done;
+ if(!(refs?refs:refs)->r14.referent)goto done;
  if(!owner)goto done;
  {
-  OwnerAudioEvent0052 event(refs->r14,owner->id);
+  OwnerAudioEvent0052 event((owner?refs->r14:refs->r14),owner->id);
   ((Rva0052AudioView *)TheAudio)->addAudioEvent(event.get());
  }
  done:((Holder0052B003 *)this)->rva0052B003(1);
 }
 void Rva0052B17F::rva0052B17F() {
- if(!refs->r18.referent)goto done;
+ if(!(refs?refs:refs)->r18.referent)goto done;
  if(!owner)goto done;
  {
-  OwnerAudioEvent0052 event(refs->r18,owner->id);
+  OwnerAudioEvent0052 event((owner?refs->r18:refs->r18),owner->id);
   ((Rva0052AudioView *)TheAudio)->addAudioEvent(event.get());
  }
  done:((Holder0052B003 *)this)->rva0052B003(0);
