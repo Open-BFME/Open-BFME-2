@@ -77,3 +77,28 @@ int Rva005748B2::rva005748B2(int a, int b)
 {
 	return 0;
 }
+
+// Installed-vtable constant result; original owner and parameter semantics
+// remain unknown. RET 12 establishes native stack cleanup only.
+class Rva0041BA5C {public: bool rva0041BA5C(int a0, int a1, int a2);};
+bool Rva0041BA5C::rva0041BA5C(int a0, int a1, int a2) {return false;}
+
+// Installed-vtable constant result; original owner and parameter semantics
+// remain unknown. RET 24 establishes native stack cleanup only.
+class Rva00481279 {public: bool rva00481279(int a0, int a1, int a2, int a3, int a4, int a5);};
+bool Rva00481279::rva00481279(int a0, int a1, int a2, int a3, int a4, int a5) {return false;}
+
+// Installed-vtable constant result; original owner and parameter semantics
+// remain unknown. RET 12 establishes native stack cleanup only.
+class Rva0049A6D7 {public: bool rva0049A6D7(int a0, int a1, int a2);};
+bool Rva0049A6D7::rva0049A6D7(int a0, int a1, int a2) {return true;}
+
+// Installed-vtable constant result; original owner and parameter semantics
+// remain unknown. RET 4 establishes native stack cleanup only.
+class Rva0046480A {public: int rva0046480A(int a0);};
+int Rva0046480A::rva0046480A(int a0) {return -1;}
+
+// Installed-vtable constant result; original owner and parameter semantics
+// remain unknown. RET 0 establishes native stack cleanup only.
+class Rva0058C484 {public: int rva0058C484();};
+int Rva0058C484::rva0058C484() {return 28;}
