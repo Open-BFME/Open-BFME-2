@@ -109,6 +109,8 @@ class Rva002872BA
 public:
 	unsigned char m_pad[0x84];
 	Rva003B0869CellMap m_cells;			// +0x84
+ unsigned char pad8C[4];
+ unsigned count90;
 };
 extern Rva002872BA *TheTriggerManager;
 
@@ -188,10 +190,13 @@ struct Rva003AFA0BVector
 class ParticleSystem
 {
 public:
-	Rva003AFA0BVector rva001F54C5(const Rva003AFA0BVector *pos);
+	unsigned rva001F3C6B();
+ Rva003AFA0BVector rva001F54C5(const Rva003AFA0BVector *pos);
 	const GameClientRandomVariable &getLifetime() const { return *(const GameClientRandomVariable *)m_lifetime; }
 private:
-	unsigned char m_pad00[0x14];
+	unsigned char m_pad00[0xc];
+ int type0C;
+ unsigned char gap10[4];
 	unsigned char m_lifetime[0x14];		// +0x14
 };
 ParticleSystem *Make001FCBD7();
@@ -413,3 +418,9 @@ void GPUParticleSystemStorageModule::rva003B07B8(){
  }
 }
 }
+
+// Native 1F3C6B..1F3C9A RET0; WB B11AF0 leaves the method unnamed.
+// Storage ctor3B0454 invokes this on its particle-system handle. Type8
+// selects the TriggerManager +90 count; the count meaning remains unproven.
+// Reuse the home global owner instead of the old conflicting data aliases.
+unsigned ParticleSystem::rva001F3C6B(){ unsigned result=128; if(type0C==8&&TheTriggerManager){unsigned n=3*TheTriggerManager->count90;if(n>0){if(n>2048)n=2048;result=n;}}return result;}
