@@ -1,4 +1,4 @@
-// cl: /EHsc /D_STLP_NO_EXCEPTIONS /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
+// cl: /EHsc /O1 /D_STLP_NO_EXCEPTIONS /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
 // stlport
 //
 // List-of-vector-uint _M_create_node, retail 0x0007981B (34 bytes). _List_node create for a list of
@@ -9,7 +9,12 @@
 // MALLOC shape from the _M_create_node batch (no allocation-cleanup catch
 // path); the _Construct specialization is declared only so its call resolves
 // through its own row.
+void Rva00030830FreeAllocation(void*);
 #include <list>
+// Native cleanup calls the existing potentially-throwing C++ free provider.
+namespace _STL {
+template<> __forceinline void allocator<unsigned int>::deallocate(unsigned int *p,size_t) const { if(p) ::Rva00030830FreeAllocation((void*)p); }
+}
 #include <vector>
 
 namespace _STL {
@@ -37,3 +42,7 @@ template _STL::_List_node<_STL::vector<unsigned int> > *_STL::list<_STL::vector<
 template _STL::list<_STL::vector<unsigned int>, _STL::allocator<_STL::vector<unsigned int> > >::iterator
 _STL::list<_STL::vector<unsigned int>, _STL::allocator<_STL::vector<unsigned int> > >::insert(
     _STL::list<_STL::vector<unsigned int>, _STL::allocator<_STL::vector<unsigned int> > >::iterator, const _STL::vector<unsigned int> &);
+
+// Default value insert for the same call-proven list/vector family.
+typedef _STL::list<_STL::vector<unsigned int> > VecUIntList;
+template VecUIntList::iterator VecUIntList::insert(VecUIntList::iterator);
