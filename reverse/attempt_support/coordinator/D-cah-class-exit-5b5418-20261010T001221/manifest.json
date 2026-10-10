@@ -1,0 +1,45 @@
+{
+  "id": "D-cah-class-exit-5b5418-20261010T001221",
+  "seat": "D",
+  "base_commit": "5aa53071355c0ea74342f85fe9002928cad6e27e",
+  "paths": [
+    "Code/GameEngine/Source/Common/Rva005B5420Dtor.cpp"
+  ],
+  "recoveries": [
+    {
+      "name": "?rva005B5418@Rva005B5420@@QAEXPBD@Z",
+      "rva": "0x005B5418",
+      "size": 8,
+      "source": "Code/GameEngine/Source/Common/Rva005B5420Dtor.cpp",
+      "notes": "Independent8B5B5418..5B5420 CALL existing34B Rva00513866 and RET4; Class OnMapLoaded5B59FD binds this member target under Class Exit literal. Owner from existing adjacent101B destructor/vtable. Callback receiver and one const-char pointer unused; full8B and existing101B exact. No new aliases or pins.",
+      "replace_rva": ""
+    }
+  ],
+  "proof_command": [
+    [
+      "C:\\Users\\franz\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+      "tools/explain_mismatch.py",
+      "?rva005B5418@Rva005B5420@@QAEXPBD@Z",
+      "--rva",
+      "0x005B5418",
+      "--size",
+      "8",
+      "--source",
+      "Code/GameEngine/Source/Common/Rva005B5420Dtor.cpp"
+    ],
+    [
+      "C:\\Users\\franz\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+      "tools/explain_mismatch.py",
+      "??1Rva005B5420@@UAE@XZ"
+    ],
+    [
+      "C:\\Users\\franz\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+      "tools/build.py",
+      "Code/GameEngine/Source/Common/Rva005B5420Dtor.cpp"
+    ]
+  ],
+  "proof_log": "proof.log",
+  "claim_owner": "codex-01a12257-root",
+  "dependencies": [],
+  "temporary_ledger": false
+}

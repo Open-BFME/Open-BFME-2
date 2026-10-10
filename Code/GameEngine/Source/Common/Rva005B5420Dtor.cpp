@@ -24,6 +24,7 @@ class Rva005B5420 : public Rva005B5420Base
 {
 public:
 	virtual ~Rva005B5420();
+	void rva005B5418(const char *unused);
 private:
 	char m_pad04[0x1C - 4];
 	_STL::map<Int, Rva0040A603Record> m_map1C;
@@ -33,4 +34,13 @@ Rva005B5420::~Rva005B5420()
 {
 	AsciiString s("CahClass::InitGadgets");
 	_bfme_closeAptScreen(s);
+}
+
+void Rva00513866();
+// Native5B5418..5B5420; registered by the Class page as Exit. The
+// callback argument and receiver are unused; the shared close helper is
+// called and the callback pops its one pointer argument.
+void Rva005B5420::rva005B5418(const char *unused)
+{
+    Rva00513866();
 }
