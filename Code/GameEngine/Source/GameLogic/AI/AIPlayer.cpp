@@ -458,7 +458,8 @@ struct Rva00045411BitSet
 	Rva00045411BitSet(int unused, int bit) throw();	// 0x00045411
 	unsigned int m_bits[7];
 };
-extern unsigned char g_00DFEFA4StoragePrototype[28];
+template <int N> class BitFlags;
+extern BitFlags<116> KINDOFMASK_NONE;
 
 // vftable 0x00BC2908, allow 0x002610DE: every kind of the first mask and
 // none of the second (ZH's PartitionFilterAcceptByKindOf).
@@ -897,7 +898,7 @@ Object *AIPlayer::findSupplyCenter(Int minimumCash)
 					Rva0026137EFilter f2(m_player, true);
 					supplyCenter = ThePartitionManager->getClosestObject(&center, radius, 1,
 						Rva0004584D(*(BfmeFixedStorage0004543D *)&Rva00045411BitSet(0, 34),
-							*(BfmeFixedStorage0004543D *)g_00DFEFA4StoragePrototype)
+							*(BfmeFixedStorage0004543D *)&KINDOFMASK_NONE)
 							.link(f2.link(&filterMapStatus)));
 				}
 				if (supplyCenter)
