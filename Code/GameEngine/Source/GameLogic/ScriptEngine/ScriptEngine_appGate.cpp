@@ -64,6 +64,9 @@ latchFail:
 }
 
 extern HMODULE st_DebugDLL;
+// ?st_DebugDLL@@3HA (data_ledger RVA 0x9FE158, null .data, unowned): debug
+// DLL handle, LoadLibrary'd on demand; defined here, nothing else defines it.
+HMODULE st_DebugDLL = 0;
 
 void Rva00203BB1ForceAppContinue()
 {
