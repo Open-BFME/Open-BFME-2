@@ -65,6 +65,9 @@
 // Donor shape (Zero Hour): the DLINK_ITERATOR with the checked advance and
 // the null-team / null-member skips, as in PlayerRva002AD93A.cpp.
 
+extern "C" void _ReadWriteBarrier(void);
+#pragma intrinsic(_ReadWriteBarrier)
+
 typedef bool Bool;
 typedef int Int;
 
@@ -217,6 +220,29 @@ public:
 	virtual Bool answers();
 };
 
+struct ContainedItemsNode
+{
+	ContainedItemsNode *m_next;
+	ContainedItemsNode *m_prev;
+	Object *m_data;
+};
+
+struct ContainedItemsList
+{
+	ContainedItemsNode *m_node;
+};
+
+// Returned by value (hidden pointer) from contain-module vtable slot 0x118;
+// the walk reads only the list pointer at +4.
+class Rva003E8863ContainedItems
+{
+public:
+	const ContainedItemsList *getList() const { return m_list; }
+private:
+	Int m_unknown;
+	const ContainedItemsList *m_list;
+};
+
 class ContainModuleInterface
 {
 public:
@@ -239,6 +265,7 @@ public:
 	virtual void slot60(); virtual void slot61(); virtual void slot62(); virtual void slot63(); virtual void slot64();
 	virtual void slot65(); virtual void slot66(); virtual void slot67(); virtual void slot68();
 	virtual unsigned int getContainCount(Int extra) const; // +0x114
+	virtual Rva003E8863ContainedItems getContainedItems() const; // +0x118
 };
 
 enum ObjectPrivateStatusBits
@@ -349,6 +376,7 @@ protected:
 	Bool rva003E85E0(Parameter *playerParm, Parameter *countParm, Parameter *rankParm);
 	Bool rva003E8AA9(Parameter *playerParm);
 	Bool rva003E86A3(Parameter *playerParm, Parameter *countParm, Parameter *modeParm);
+	Bool rva003E8863(Parameter *playerParm, Parameter *countParm, Parameter *loadedParm, Parameter *transportParm);
 	Bool evaluateSkirmishUnownedFactionUnitComparison(Parameter *pSkirmishPlayerParm, Parameter *pComparisonParm, Parameter *pCountParm);
 	Bool evaluateSkirmishPlayerHasComparisonGarrisoned(Parameter *pSkirmishPlayerParm, Parameter *pComparisonParm, Parameter *pCountParm);
 	Bool evaluateSkirmishPlayerHasComparisonCapturedUnits(Parameter *pSkirmishPlayerParm, Parameter *pComparisonParm, Parameter *pCountParm);
@@ -607,6 +635,60 @@ Bool ScriptConditions::rva003E86A3(Parameter *playerParm, Parameter *countParm, 
 				ExperienceTracker *tracker = obj->getExperienceTracker();
 				if (tracker && tracker->getRank() > tracker->getLevelCap())
 					count++;
+			}
+		}
+	}
+	if (count >= countParm->getInt())
+		return true;
+	return false;
+}
+
+// ?rva003E8863@ScriptConditions@@IAE_NPAVParameter@@000@Z @ 0x003E8863 326B
+// Target evidence: jump-table condition 179 (PLAYER_HAS_NUM_UNITS_LOADED_WITH_OBJECT). Counts the
+// contained items whose template is equivalent to the third Parameter's template inside
+// members whose template is equivalent to the fourth Parameter's template, across the
+// player's team prototypes -> team instances -> members; contained items come from the
+// contain module's vtable slot 0x118 (a by-value list, hidden result pointer). Returns
+// count >= the second Parameter's int. The condition name is the template's; the method keeps
+// an address name.
+// Codegen: _ReadWriteBarrier at the head of the member body keeps the member test's
+// template load ordering native (without it the loop test reloads EAX before ESI).
+Bool ScriptConditions::rva003E8863(Parameter *playerParm, Parameter *countParm, Parameter *loadedParm, Parameter *transportParm)
+{
+	Player *player = ThePlayerList->getPlayerFromMask(TheScriptEngine->rva00357B82(playerParm));
+	if (!player)
+		return false;
+	const ThingTemplate *loadedTemplate = TheThingFactory->findTemplate(*loadedParm->getString());
+	const ThingTemplate *transportTemplate = TheThingFactory->findTemplate(*transportParm->getString());
+	if (!loadedTemplate || !transportTemplate)
+		return false;
+	Int count = 0;
+	PlayerTeamNode *head = player->getPlayerTeams();
+	for (PlayerTeamNode *it = head->m_next; it != player->getPlayerTeams(); it = it->m_next)
+	{
+		for (DLINK_ITERATOR<Team> iter = it->m_value->iterate_TeamInstanceList(); !iter.done(); iter.advance())
+		{
+			Team *team = iter.cur();
+			if (!team)
+				continue;
+			Object *obj;
+			for (DLINK_ITERATOR<Object> iter2 = team->iterate_TeamMemberList(); (obj = iter2.cur()) != 0; iter2.advance())
+			{
+				_ReadWriteBarrier();
+				if (obj->getTemplate()->isEquivalentTo(transportTemplate))
+				{
+					ContainModuleInterface *contain = obj->getContain();
+					if (contain)
+					{
+						Rva003E8863ContainedItems items = contain->getContainedItems();
+						for (ContainedItemsNode *node = items.getList()->m_node->m_next; node != items.getList()->m_node; node = node->m_next)
+						{
+							Object *loaded = node->m_data;
+							if (loaded && loaded->getTemplate()->isEquivalentTo(loadedTemplate))
+								count++;
+						}
+					}
+				}
 			}
 		}
 	}
