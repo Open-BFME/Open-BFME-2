@@ -1,4 +1,8 @@
 // ?Recolor_Prototype@MeshClass@@QAEXABVRva0013101E@@@Z
+// partial score=0.984260574 date=2026-10-10
+extern "C" void _ReadWriteBarrier(void);
+#pragma intrinsic(_ReadWriteBarrier)
+// ?Recolor_Prototype@MeshClass@@QAEXABVRva0013101E@@@Z
 // partial score=0.85 date=2026-10-09
 // cl: /O2 /G7 /arch:SSE /DNDEBUG /MD /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/shims/sweep
 // WB9CC180 identifies MeshClass::Recolor_Prototype. Native14B8C0..14BA3D.
@@ -158,6 +162,8 @@ void MeshClass::Recolor_Prototype(const Rva0013101E &options)
    Vector3 rgb,rgb2;
    rgb.X=(float)*reinterpret_cast<const unsigned short*>(reinterpret_cast<const char*>(&options)+6)*(1.0f/255.0f);
    rgb.Y=(float)(options.color>>8)*(1.0f/255.0f);
+_ReadWriteBarrier();
+
    rgb.Z=(float)options.color*(1.0f/255.0f);
    rgb2.X=rgb.X;rgb2.Y=rgb.Y;rgb2.Z=rgb.Z;
    material->Set_Ambient(rgb2);
