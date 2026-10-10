@@ -1,7 +1,3 @@
-// ?computeApproachPoint@SiegeDeploySpecialPower@@QAE?AURva004598F2Point@@PAVObject@@PAU2@PA_N@Z
-// partial score=0.9849177878534604 date=2026-10-10
-// ?computeApproachPoint@SiegeDeploySpecialPower@@QAE?AURva004598F2Point@@PAVObject@@PAU2@PA_N@Z
-// partial score=0.99 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHs /D_CRTIMP= /ICode/Libraries/Include /ICode/GameEngine/Source/Common
 //
 // ?computeApproachPoint@SiegeDeploySpecialPower@@QAE?AURva004598F2Point@@PAVObject@@PAU2@PA_N@Z,
@@ -19,7 +15,9 @@
 // AdjustMeleeOffset (0x002E8C6E, TheAI->pathfinder at +0x10) and restart from
 // the target position; then normalise, move up to ten 5.0 steps while the
 // point lies on a wall, and add the module data float at +0x2C times the
-// direction.
+// direction. The x product reads direction.x first with the scale assignment
+// on its right so retail keeps scale in xmm3 and multiplies it by the
+// memory x operand (movaps+mulss mem); y/z load into regs first.
 #include "Lib/Coord3D.h"
 #include "GameLogicObjectLookupView.h"
 
@@ -87,7 +85,8 @@ public:
 	unsigned char m_pad00[0x10];
 	Pathfinder *m_pathfinder;
 };
-extern AIHead *TheAI;
+class AI;
+extern AI *TheAI;
 
 struct SiegeDeployModuleDataView
 {
@@ -146,7 +145,7 @@ Rva004598F2Point SiegeDeploySpecialPower::computeApproachPoint(Object *target, R
 			offset.z *= 0.1f;
 			if (!m_moduleData->m_noAdjust)
 			{
-				TheAI->m_pathfinder->AdjustMeleeOffset(m_object, target, (Coord3D*)&offset);
+				((AIHead *)TheAI)->m_pathfinder->AdjustMeleeOffset(m_object, target, (Coord3D*)&offset);
 				position = *targetPosition;
 				position.x += offset.x;
 				position.y += offset.y;
@@ -159,16 +158,16 @@ Rva004598F2Point SiegeDeploySpecialPower::computeApproachPoint(Object *target, R
 			offset.z *= 5.0f;
 			for (int i = 0; i < 10; ++i)
 			{
-				Pathfinder *pathfinder = TheAI->m_pathfinder;
+				Pathfinder *pathfinder = ((AIHead *)TheAI)->m_pathfinder;
 				if (!pathfinder->IsPointOnWall((int)(void *)&position, false))
 					break;
 				position.x += offset.x;
 				position.y += offset.y;
 				position.z += offset.z;
 			}
-			float scale = m_moduleData->m_approachScale;
+			float scale;
 			Rva004598F2Point approach;
-			approach.x = scale * direction.x;
+			approach.x = direction.x * (scale = m_moduleData->m_approachScale);
 			approach.y = direction.y * scale;
 			approach.z = direction.z * scale;
 			position.x += approach.x;
