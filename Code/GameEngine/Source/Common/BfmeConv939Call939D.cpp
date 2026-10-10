@@ -14,6 +14,7 @@ class GameLogic
 public:
 	int m_gameMode;
 	bool isInMultiplayerGame();
+	char rva0023C6FD();
 };
 
 class BfmeGlob939D : public GameLogic
@@ -22,6 +23,8 @@ public:
 	char bfmeCall939D();
 };
 
+// ?rva0023C6FD@GameLogic@@QAEDXZ @0x0023C6FD (75B): the same predicate,
+// called as GameLogic::rva0023C6FD by AptPlayerStatusScreen, ObjectInitObject,
 // Helper behind the 939D gate (global at 0x00E02290): a dword at +0x1C that
 // must read 1, plus a state word at +0xE74 answering 1 for 1/2/5. The get
 // call reuses the rowed disp8 body through a TU-local alias pin (same
@@ -40,6 +43,27 @@ extern Bfme939Helper *g_bfme939Helper;
 Bfme939Helper * g_bfme939Helper;
 
 char BfmeGlob939D::bfmeCall939D()
+{
+	if (isInMultiplayerGame())
+		return 1;
+	if (m_gameMode == 2)
+		return 1;
+	if (g_bfme939Helper != 0 && g_bfme939Helper->get() == 1)
+	{
+		int state = g_bfme939Helper->m_state;
+		if (state == 2)
+			return 1;
+		if (state != 1 && state != 5)
+			return 0;
+		return 1;
+	}
+	return 0;
+}
+// ?rva0023C6FD@GameLogic@@QAEDXZ @0x0023C6FD (75B): the same predicate,
+// called as GameLogic::rva0023C6FD by AptPlayerStatusScreen, ObjectInitObject,
+// AutoDepositUpdateUpdate and others (multiplayer-or-skirmish gate). Same
+// layout prefix and calls as above, so byte-identical (ICF twin).
+char GameLogic::rva0023C6FD()
 {
 	if (isInMultiplayerGame())
 		return 1;
