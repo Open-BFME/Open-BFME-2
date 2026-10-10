@@ -167,30 +167,39 @@ extern Rva006DB270 *g_pChainBlockAllocator;
 class EAStringC {
 public:
  EAStringC(const char *);
+ EAStringC(const EAStringC&);
  ~EAStringC();
  bool IsEqualTo(const EAStringC *) const;
  int rva006D36C0(const EAStringC *) const;
  void *data;
 };
+class Rva006DB160 {public:void*allocBlock(int);};
+void __cdecl Rva006D8680Free(void*,int);
 struct Rva006D0280 {
  ~Rva006D0280();
+ __forceinline Rva006D0280(const EAStringC*name):m_useCount(0),name8(*name),typeC(1),object14(0),buffer18(0){}
+ __forceinline int increaseCount(){return ++m_useCount;}
+ __forceinline int decreaseCount(){return --m_useCount;}
+ __forceinline static void*operator new(unsigned int n){return ((Rva006DB160*)g_pChainBlockAllocator)->allocBlock(n);}
+ __forceinline static void operator delete(void*p,unsigned int n){Rva006D8680Free(p,n);}
  int m_useCount;
  int unknown4;
  EAStringC name8;
  int typeC;
+ int argument10; void*object14;void*buffer18;
 };
 class Rva006D07E0Key {
 public:
  Rva006D07E0Key(Rva006D0280 *p=0):m_object(p) {
-  if(p) ++p->m_useCount;
+  if(p) p->increaseCount();
  }
  Rva006D07E0Key(const Rva006D07E0Key &other) {
   m_object=other.m_object;
-  if(m_object) ++m_object->m_useCount;
+  if(m_object) m_object->increaseCount();
  }
  ~Rva006D07E0Key() {
   Rva006D0280 *p=m_object;
-  if(p && --p->m_useCount==0) {
+  if(p && p->decreaseCount()==0) {
    p->~Rva006D0280();
    g_pChainBlockAllocator->freeBlock(p,0x1c);
   }
@@ -327,11 +336,15 @@ Rva006D1130Iterator __cdecl Rva006D0540Copy(BfmeRefVGO *first,
 // is the signed zero-equality string operation at owner8. Returned
 // counted value supplies the construction slot that the old out-pointer
 // reconstruction had to force with a volatile local.
-struct Rva006D0A30Node { Rva006D0280 *entry; Rva006D0A30Node *next; };
+struct Rva006D0A30Node { Rva006D0280 *entry; Rva006D0A30Node *next;
+ Rva006D0A30Node(Rva006D0280*p):entry(p),next(0){}
+ __forceinline static void*operator new(unsigned int n){return ((Rva006DB160*)g_pChainBlockAllocator)->allocBlock(n);}
+};
 class Rva006D0A30List {
 public:
  Rva006D07E0Key find(const EAStringC *key);
  Rva006D07E0Key findSpecial(const EAStringC *key);
+ Rva006D07E0Key rva006D0B40(const EAStringC&);
  Rva006D0A30Node *head;
 };
 Rva006D07E0Key Rva006D0A30List::find(const EAStringC *key) {
@@ -353,3 +366,26 @@ Rva006D07E0Key Rva006D0A30List::findSpecial(const EAStringC *key) {
   return found;
  return Rva006D07E0Key();
 }
+
+Rva006D07E0Key Rva006D0A30List::rva006D0B40(const EAStringC&name){
+ Rva006D07E0Key found=find(&name);
+ Rva006D0280*p=found.m_object;
+ if(p)return Rva006D07E0Key(p);
+ Rva006D07E0Key key(new Rva006D0280(&name));
+ Rva006D0A30Node*node=new Rva006D0A30Node(key.m_object);
+ node->next=head;
+ head=node;
+ return key;
+}
+class Rva00893030Manager;extern Rva00893030Manager*g_rva00893030Manager;
+Rva006D07E0Key Rva006CE110(const char*name){
+ return ((Rva006D0A30List*)g_rva00893030Manager)->rva006D0B40(EAStringC(name));
+}
+
+
+// New target family6D0B40/6CE110: pooled28B owner count0/name8/typeC1,
+// argument10 remains uninitialized, object14/buffer18 begin null; raw8B
+// list nodes track it. Target shared lookup and allocator providers establish
+// these fields independently of donor names. Returning updated counts through
+// inline helpers gives native register cleanup; all11 existing home rows
+// stay exact. Borrowed string pointer ABI is expressed as a const reference.
