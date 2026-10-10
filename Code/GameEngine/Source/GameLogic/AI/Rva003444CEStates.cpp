@@ -1,17 +1,14 @@
 // cl: /DNDEBUG /MD /EHsc
-// class-gate: allow AsciiString 4-byte trivial view to pass VAsciiString by value to rowed base 0x004D79E1 with no copy-ctor call like the base TU's own view
-// ??0Rva003444CE@@QAE@PAVObject@@PAVObject@@VAsciiString@@@Z @0x003444CE 174B.
+// ??0Rva003444CE@@QAE@PAVObject@@0I@Z @0x003444CE 174B.
 // StateMachine-family ctor (thiscall): base-constructs the rowed
 // StateMachine base from (owner, name, 0), stores vtable g_00C11FE8, runs the rowed
 // StateMachine::rva004D750F hook on the second object param, then two
 // new-expression state blocks into the dead name slot with post-call eax
 // feeding rowed defineState directly (B952-family shape). Zero CSEs into
-// ebx; this stays in esi; 0x270F rides edi.
-class AsciiString
-{
-public:
-	void *m_data;
-};
+// ebx; this stays in esi; 0x270F rides edi. The third argument is the
+// machine's name key, forwarded unchanged into the base's unsigned name slot
+// and never destroyed (the only caller, AIBackAwayAndCowerState::onEnter
+// 0x00347C38, pushes the constant 0xD944B508).
 
 class Object;
 struct State;
@@ -50,11 +47,11 @@ extern const void *const g_00C11FE8[];
 class Rva003444CE : public StateMachine
 {
 public:
-	Rva003444CE(Object *owner, Object *arg, AsciiString name);
+	Rva003444CE(Object *owner, Object *arg, unsigned int nameKey);
 };
 
-Rva003444CE::Rva003444CE(Object *owner, Object *arg, AsciiString name)
-	: StateMachine(owner, *(unsigned int *)&name, false)
+Rva003444CE::Rva003444CE(Object *owner, Object *arg, unsigned int nameKey)
+	: StateMachine(owner, nameKey, false)
 {
 	*(const void **)this = g_00C11FE8;
 	((StateMachine *)this)->rva004D750F(arg);
