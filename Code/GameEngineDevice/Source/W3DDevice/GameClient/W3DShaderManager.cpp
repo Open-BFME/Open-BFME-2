@@ -38,8 +38,11 @@ class W3DShaderManager
 public:
 	static void startRenderToTexture();
 	static IDirect3DTexture8 *endRenderToTexture();
+	static IDirect3DTexture8 *getRenderTexture();
 
+protected:
 	static bool m_renderingToTexture;
+public:
 	static IDirect3DSurface8 *m_oldRenderSurface;
 	static IDirect3DTexture8 *m_renderTexture;
 };
@@ -263,6 +266,15 @@ long __cdecl Rva00077D0FLoad(const char *strFilePath, unsigned long *pHandle)
 
 // Retail's data references in this unit's matched rows land on globals defined
 // under other spellings at the same addresses (addend-corrected DIR32). Bind them.
-#pragma comment(linker, "/alternatename:?D3DDevice@DX8Wrapper@@0PAUIDirect3DDevice8@@A=?D3DDevice@DX8Wrapper@@1PAUIDirect3DDevice8@@A")
+
 #pragma comment(linker, "/alternatename:?m_oldRenderSurface@W3DShaderManager@@2PAUIDirect3DSurface8@@A=?g_Va009E1F64@@3IA")
-#pragma comment(linker, "/alternatename:?m_renderTexture@W3DShaderManager@@2PAUIDirect3DTexture8@@A=?g_Va001FDE68@@3HA")
+
+
+// Existing native pointer storage DE1F68, previously declared as an integer.
+IDirect3DTexture8 *W3DShaderManager::m_renderTexture;
+
+// Clean BF1 donor and native texture callers establish the static pointer ABI.
+IDirect3DTexture8 *W3DShaderManager::getRenderTexture()
+{
+ return m_renderTexture;
+}
