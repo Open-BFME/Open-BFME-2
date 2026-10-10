@@ -82,3 +82,31 @@ AptValue *AptLoadVars::sMethod_getBytesLoaded(AptValue *,int)
  return Rva008A4EA0MakeFloat(byteCount);
 }
 
+AptValue *AptLoadVars::sMethod_send(AptValue *value,int nParams)
+{
+ if(nParams<=0||nParams>3)return AptBoolean::Create(false);
+ AptValue *arg=reinterpret_cast<AptValue *>(g_aptDateInterpreter.stack.At(0));
+ LoadVarsScopedString url;
+ arg->toString(url);
+ LoadVarsScopedString target;
+ if(nParams>1) {
+  AptValue *targetValue=reinterpret_cast<AptValue *>(g_aptDateInterpreter.stack.At(1));
+  targetValue->toString(target);
+ }
+ LoadVarsScopedString method;
+ if(nParams>2) {
+  AptValue *methodValue=reinterpret_cast<AptValue *>(g_aptDateInterpreter.stack.At(2));
+  methodValue->toString(method);
+ }
+ EAStringC properties=value->rva006ddde0();
+ if(!g_bfmeAptSendVariablesAtE1776C) {
+  g_bfmeAptAssertAtE17734("gAptFuncs.pfnSendVariables","C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptMiscObjects.cpp",1164);
+  if(g_bfmeAptBreakOnAssertAtDDC01C)__debugbreak();
+ }
+ g_bfmeAptSendVariablesAtE1776C(url.rva00620090(),target.rva00620090(),method.rva00620090(),properties.rva00620090(),0);
+ return AptBoolean::Create(true);
+}
+
+struct BfmeKey1279;
+class BfmeLookup1279 {public:void bfmeErase1279(BfmeKey1279 &);};
+EAStringC *Rva0070B4F0GetString(int);
