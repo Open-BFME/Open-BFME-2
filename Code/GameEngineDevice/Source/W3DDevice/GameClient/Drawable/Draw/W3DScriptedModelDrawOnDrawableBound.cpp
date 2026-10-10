@@ -1,5 +1,13 @@
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
 // ?onDrawableBoundToObject@W3DScriptedModelDraw@@UAEXXZ retail 0x000C1252
+//
+// ?buildPlayingAnimationStringInfo@W3DScriptedModelDraw@@UAEXHPAVAsciiString@@0@Z
+// retail 0x000C14F5 (252 bytes, ret 12; WB 0x00930400 names it, strings
+// "%s %d/%d frames(%.1fs), AnimMode:%s, BlendTime:%d" and the release
+// notice): slot 12 of the +0x0C interface tables (0x00BCBB78 and siblings).
+// After the rowed animation refresh 0x000C0386 it describes playing slot
+// index (0..2, 0x1C-byte records at +0x110) with Zero Hour's
+// TheAnimModeNames.
 // 504 bytes (pinned placeholder ?bfmeFinishYS@Gen_00755E70@@QAEXXZ).
 // Identity: the six W3DScriptedModelDraw-family vftables hold it in the Module
 // slot after getModuleNameKey (0x000C1201) and the empty onObjectCreated,
@@ -165,10 +173,39 @@ public:
 	Drawable *m_drawable;
 };
 
+class Rva000BFDFE { public: void rva000C0386(); };
+extern const char *TheAnimModeNames[];
+
+// The playing animation's slot views: name (2), frame count (5), total
+// seconds (7).
+class Rva000C14F5Anim
+{
+public:
+	virtual void a0(); virtual void a1();
+	virtual const char *getName();	// slot 2
+	virtual void a3(); virtual void a4();
+	virtual int getNumFrames();	// slot 5
+	virtual void a6();
+	virtual float getTotalTime();	// slot 7
+};
+
+struct Rva000C14F5Playing
+{
+	Rva000C14F5Anim *m_anim;	// +0x00
+	float m_frame;	// +0x04
+	float m_08;
+	float m_blendTime;	// +0x0C
+	int m_mode;	// +0x10
+	unsigned char m_pad14[0x1C - 0x14];
+};
+
 class ObjectDrawInterface
 {
 public:
-	SLOTS16(s0) SLOTS16(s1) virtual void s20(); virtual void s21();
+	SLOTS4(s00) SLOTS4(s01) SLOTS4(s02)
+	virtual void buildPlayingAnimationStringInfo(int index, AsciiString *animInfo, AsciiString *stateInfo);	// slot 12
+	virtual void s031(); virtual void s032(); virtual void s033();
+	SLOTS16(s1) virtual void s20(); virtual void s21();
 	virtual void showSubObject(const AsciiString &name, int unk, int show, float a, float b);	// +0x88
 };
 
@@ -182,6 +219,7 @@ class W3DScriptedModelDraw : public DrawModule, public ObjectDrawInterface, publ
 {
 public:
 	virtual void onDrawableBoundToObject();
+	virtual void buildPlayingAnimationStringInfo(int index, AsciiString *animInfo, AsciiString *stateInfo);
 	const ModelConditionInfo *findBestInfo(const ModelConditionFlags &c) const
 	{
 		return getW3DModelDrawModuleData()->findBestInfo(c);
@@ -196,7 +234,9 @@ public:
 	unsigned char m_pad054[0xbc - 0x54];
 	int m_bc;
 	int m_c0;
-	unsigned char m_pad0c4[0x270 - 0xc4];
+	unsigned char m_pad0c4[0x110 - 0xc4];
+	Rva000C14F5Playing m_playing[3];	// +0x110
+	unsigned char m_pad164[0x270 - 0x164];
 	bool m_emissiveFade;
 	unsigned int m_fadeFrames;
 	unsigned int m_fadeElapsed;
@@ -259,4 +299,25 @@ void W3DScriptedModelDraw::onDrawableBoundToObject()
 		if (player && !player->m_33b)
 			showSubObject(AsciiString("FELLOWSHIPBADGE"), 0, 1, 0.0f, 0.0f);
 	}
+}
+
+void W3DScriptedModelDraw::buildPlayingAnimationStringInfo(int index, AsciiString *animInfo, AsciiString *stateInfo)
+{
+	((Rva000BFDFE *)this)->rva000C0386();
+	if (index < 0 || (unsigned int)index >= 3)
+		return;
+	if (m_playing[index].m_anim == 0)
+		return;
+	if (animInfo)
+	{
+		float totalTime = m_playing[index].m_anim->getTotalTime();
+		int numFrames = m_playing[index].m_anim->getNumFrames();
+		int frame = (int)m_playing[index].m_frame;
+		int blendTime = (int)m_playing[index].m_blendTime;
+		AsciiString mode(TheAnimModeNames[m_playing[index].m_mode]);
+		animInfo->format("%s %d/%d frames(%.1fs), AnimMode:%s, BlendTime:%d", m_playing[index].m_anim->getName(),
+			frame + 1, numFrames, (double)totalTime, mode.str(), blendTime);
+	}
+	if (stateInfo)
+		stateInfo->format("(ModelState and AnimState info not available in release)");
 }
