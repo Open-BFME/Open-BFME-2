@@ -1,4 +1,6 @@
 // ?rva002941EA@Object@@UAEXPAHPAM11@Z
+// partial score=0.962735728739776 date=2026-10-10
+// ?rva002941EA@Object@@UAEXPAHPAM11@Z
 // partial score=0.95 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD
 // NEAR (helper draft, not under Code/): every instruction matches except
@@ -166,31 +168,21 @@ void Object::rva002941EA(int *playerMask, Real *rangeA, Real *rangeB, Real *rang
 		*rangeA = *rangeB = *rangeC = -1.0f;
 		return;
 	}
+	bool valid = false;
 	Player *player = getControllingPlayer();
-	if (player == 0 || getShroudClearingRange() <= 0.0f)
-	{
-		*rangeA = *rangeB = *rangeC = -1.0f;
-		return;
-	}
-	if (testStatus(OBJECT_STATUS_38))
-	{
-		Object *other = rva002931F5(false);
-		if (other && rva00263763(other) < (Real)(20 * 20))
-		{
-			*rangeA = *rangeB = *rangeC = -1.0f;
-			return;
-		}
-	}
+	if (player && !(getShroudClearingRange() <= 0.0f)) {
+	valid = true;
+	if (testStatus(OBJECT_STATUS_38)) { Object*other=rva002931F5(false); if(other && rva00263763(other)<400.0f) valid=false; }
+}
+float fallback;
+if(!valid)fallback=-1.0f;else{
 	if (getTemplate()->isKindOf(KINDOF_87))
 		*playerMask = 0xFFFFF;
-	else
-		*playerMask = ThePlayerList->getPlayersWithRelationship(player->getPlayerIndex(), 3, false)
-			| ((const Rva002AA21CDwordField *)player)->get();
+	else { int allies = ThePlayerList->getPlayersWithRelationship(player->getPlayerIndex(), 3, false); int own = ((const Rva002AA21CDwordField *)player)->get(); *playerMask=own|allies; }
 	if ((m_flags94 & 1) || (m_privateStatus & 1))
 	{
-		*rangeA = *rangeB = *rangeC = 0.1f;
-		return;
-	}
+		fallback=0.1f;
+	} else {
 	*rangeA = *rangeB = *rangeC = getShroudClearingRange();
 	Real scaleB = getTemplate()->m_rangeScaleB;
 	Real scaleC = getTemplate()->m_rangeScaleC;
@@ -206,4 +198,8 @@ void Object::rva002941EA(int *playerMask, Real *rangeA, Real *rangeB, Real *rang
 	}
 	*rangeB *= scaleB;
 	*rangeC *= scaleC;
+	return;
+}
+}
+*rangeA=*rangeB=*rangeC=fallback;
 }
