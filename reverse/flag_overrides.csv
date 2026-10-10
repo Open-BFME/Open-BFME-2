@@ -186,6 +186,7 @@ Code/GameEngine/Source/Common/RTS/ShroudManagerImpl008FBA40CtorDrain.cpp,,4,1,re
 Code/GameEngine/Source/Common/RTS/ShroudManager_setRegion.cpp,-O2,1,1,region default loses rows
 Code/GameEngine/Source/Common/Rva000239D0Cluster.cpp,-Od,4,4,region default loses rows
 Code/GameEngine/Source/Common/Rva00024610Cluster.cpp,-Od,8,8,region default loses rows
+Code/GameEngine/Source/Common/Rva00024AA0Identity.cpp,-Od -G7 -arch:SSE,1,1,region default loses rows
 Code/GameEngine/Source/Common/Rva00027080Cluster.cpp,-Od,1,1,region default loses rows
 Code/GameEngine/Source/Common/Rva00027540Finish.cpp,-Od,1,1,region default loses rows
 Code/GameEngine/Source/Common/Rva00028B90Siblings.cpp,-Od,3,3,region default loses rows
