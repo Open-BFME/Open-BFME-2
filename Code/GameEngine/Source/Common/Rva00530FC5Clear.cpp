@@ -22,7 +22,8 @@ class BooleanBitmapSet
 {
 public:
 	void rva00530FC5();
-	void rva00530FAE();
+	__declspec(noinline) void rva00530FAE();
+	void rva00531235();
 	BooleanBitmapSet(int numBits);
 	bool DoEnum(int *out);
 	void SetBit(int bit);
@@ -123,4 +124,12 @@ void BooleanBitmapSet::SetBit(int bit)
 	m_bits[u >> 5] |= 1 << (u & 31);
 	unsigned int w = u >> 5;
 	m_summaryBits[w >> 5] |= 1u << (w & 31);
+}
+
+// Native 531235..53123A is JMP 530FAE with receiver and stack unchanged.
+// BitmapSet identity comes from the existing independently named methods;
+// this forwarding entry's original spelling and lifetime role are unknown.
+void BooleanBitmapSet::rva00531235()
+{
+    rva00530FAE();
 }
