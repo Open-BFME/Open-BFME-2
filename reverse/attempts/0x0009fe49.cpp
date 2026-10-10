@@ -1,22 +1,22 @@
 // ?drawTextEntryText@@YAXPAVGameWindow@@HHHHHH@Z
-// partial score=0.9737465417522531 date=2026-10-10
-// ?drawTextEntryText@@YAXPAVGameWindow@@HHHHHH@Z
-// partial score=0.9698002111250066 date=2026-10-10
-// ?drawTextEntryText@@YAXPAVGameWindow@@HHHHHH@Z
-// partial score=0.98 date=2026-10-10
+// partial score=0.9832740490862433 date=2026-10-10
 // cl: /I. /O1 /G7 /arch:SSE /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
-// NEAR draft for 0x0009FE49 drawTextEntryText (1398B), built from the
-// banked reverse/attempts/0x0009fe49.cpp. Changes: non-static (callers in
-// W3DTextEntry.cpp declare it extern), region flags /O1 /G7 /arch:SSE, and
-// winSetCursorPosition called through its rowed name ?set@Rva00478180@@QAEHHH@Z
-// (0x00313B0A has no winSetCursorPosition pin). Writing the first block's
-// cursor update as "cursorPos += width" (not "cursorPos = x") flips the
-// register allocation to retail's (param x cached in EDI with write-through
-// and cursorPos memory-only at [ebp-0x10]) without volatile. Residue (1393B vs
-// 1398B): after each "x += width" retail reloads the x+width temp through EAX
-// (first block: mov eax,[tv] / store x / store cursorPos / mov edi,eax;
-// selection block: x stays memory-only through the nested composition draw
-// and is reloaded into EDI at the join) while cl loads it straight into EDI.
+// Banked, NOT byte-matched: drawTextEntryText at RVA 0x0009FE49,
+// complete extent 1398 bytes, ending at the next callback 0x000A03BF.
+// Continued from the bank at BFME2 revision 65ea26e095d5bead63396e2054cb389c4a29ecac.
+// Target call sites and the existing seven-argument pin identify the helper;
+// Zero Hour W3DTextEntry.cpp is a semantic guide, not a byte-identical donor.
+// Existing BFME2 private views below remain reconstruction evidence, not
+// canonical class contracts. See attempt_support/textentry-0009fe49-20261010.
+//
+// The initial cursor store and nested composition x load are deliberately
+// volatile accesses to initialized stack locals. The selection-store barrier
+// emits no instruction. Together these improve compiler scheduling, but the
+// first endpoint reload and selection x register lifetime still differ.
+// Keep outside Code/ until the full byte/identity/class gates pass.
+extern "C" void _WriteBarrier(void);
+#pragma intrinsic(_WriteBarrier)
+
 #include "unicode_string.h"
 
 typedef int Int;
@@ -286,7 +286,6 @@ struct CtorCoord : ICoord2D
   * composition at the cursor, the selection inverted over a filled box, the
   * blinking cursor and the rest */
 //=============================================================================
-__forceinline Int getEntryAdvance(const Int& v) { return v; }
 void drawTextEntryText( GameWindow *window, Color textColor, Color textDropColor,
 															 Color compositeColor, Color compositeDropColor,
 															 Int x, Int y )
@@ -352,7 +351,7 @@ void drawTextEntryText( GameWindow *window, Color textColor, Color textDropColor
 
 	// scroll the text so the first character in view starts the entry
 	x += 2 - text->getWidth( e->scrollPos );
-	cursorPos = x;
+	*(volatile Int*)&cursorPos = x;
 
 	UnsignedInt selectPos = e->selectPos;
 	UnsignedInt charPos = e->charPos;
@@ -365,7 +364,8 @@ void drawTextEntryText( GameWindow *window, Color textColor, Color textDropColor
 	{
 		Int width = text->getWidth( selStart );
 
-		Int nextX=x+width; region.hi.x = min( clipRegion.hi.x, nextX );
+		Int nextX = x + width;
+		region.hi.x = min( clipRegion.hi.x, nextX );
 		text->setClipRegion( &region );
 		text->setTextColor( textColor, textDropColor );
 		text->draw( x, y, 1, 1 );
@@ -411,6 +411,7 @@ void drawTextEntryText( GameWindow *window, Color textColor, Color textDropColor
 		text->setTextColor( 0xFF000000, Rva0009FE01Get( textDropColor ) );
 		text->drawAt( x - text->getWidth( selStart ), y );
 		x += width;
+		_WriteBarrier();
 
 		// the cursor sits at the end of the selection
 		if( selEnd == charPos )
@@ -420,7 +421,7 @@ void drawTextEntryText( GameWindow *window, Color textColor, Color textDropColor
 			{
 				Int compositeWidth = e->constructText->getWidth( compositeCursorPos );
 				e->constructText->setTextColor( compositeColor, compositeDropColor );
-				e->constructText->draw( x, y, 1, 1 );
+				e->constructText->draw( *(const volatile Int*)&x, y, 1, 1 );
 				cursorPos += e->constructText->getWidth( compositeCursorPos );
 				x += e->constructText->getWidth();
 			}
@@ -435,7 +436,7 @@ void drawTextEntryText( GameWindow *window, Color textColor, Color textDropColor
 
 	if( ( window == TheWindowManager->winGetFocus() || ( parent && parent == TheWindowManager->winGetFocus() ) ) && ( timeGetTime() & 0x200 ) )
 		TheWindowManager->winFillRect( textColor, WIN_DRAW_LINE_WIDTH,
-																	 *(const volatile Int*)&cursorPos, origin.y + 2,
+																	 cursorPos, origin.y + 2,
 																	 cursorPos + 3, origin.y + height + 2 );
 	((Rva00478180 *)window)->set( cursorPos + 2 - origin.x, 0 );
 
