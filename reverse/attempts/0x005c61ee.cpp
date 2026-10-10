@@ -1,5 +1,5 @@
 // ?reverseAnimateWindow@ProcessAnimateWindowSlideFromTop@@UAE_NPAVAnimateWindow@@@Z
-// partial score=0.999 date=2026-10-10
+// partial score=0.95 date=2026-10-10
 // cl: /O1 /arch:SSE /G6 /Oy- /MD /ICode/Libraries/Include/Lib
 struct Coord2D;
 struct RvaTopVelocity { float x,y; };
@@ -29,6 +29,7 @@ struct RvaTopReverseVelocity {
  RvaTopReverseVelocity(const RvaTopReverseVelocity &v):x(v.x),y(v.y) {}
  float x,y;
 };
+
 bool ProcessAnimateWindowSlideFromTop::reverseAnimateWindow(AnimateWindow *a)
 {
  if(!a) return true;
@@ -55,7 +56,7 @@ bool ProcessAnimateWindowSlideFromTop::reverseAnimateWindow(AnimateWindow *a)
  float slowedY;
  if(start.y-cur.y<=slowThreshold) slowedY=speedRatio*vel.y;
  else slowedY=-maxVel.y;
- if(slowedY>-maxVel.y) slowedY=-maxVel.y;
+ if(slowedY < -maxVel.y) slowedY=-maxVel.y;
  RvaTopReverseVelocity copied(vel);
  copied.y=slowedY;
  a->setVel(*reinterpret_cast<RvaTopVelocity*>(&copied));
