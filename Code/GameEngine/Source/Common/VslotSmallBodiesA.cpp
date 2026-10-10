@@ -215,3 +215,15 @@ private:
 };
 void Rva0025DC38::rva0025DC38() { if (m_0C) m_0C->m_12134 = true; }
 void Rva0025DC38::rva0025DC47() { if (m_0C) m_0C->m_12134 = false; }
+
+// Independent installed-table and unnamed WB evidence: pointer at receiver-4,
+// raw32-bit words at owner8/C, signed difference divided by88, then unsigned
+// quotient greater than zero. Original owner/container identity is unknown.
+struct Rva004FA66CSpan {unsigned int begin,end;};
+struct Rva004FA66COwner {char prefix[8]; Rva004FA66CSpan span;};
+class Rva004FA66C {public: int rva004FA66C();};
+int Rva004FA66C::rva004FA66C() {
+ Rva004FA66COwner *owner=*reinterpret_cast<Rva004FA66COwner **>(reinterpret_cast<unsigned int>(this)-4u);
+ Rva004FA66CSpan *span=&owner->span;
+ return static_cast<unsigned int>(static_cast<int>(span->end-span->begin)/88)>0;
+}
