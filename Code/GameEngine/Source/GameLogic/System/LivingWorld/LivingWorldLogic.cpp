@@ -545,6 +545,8 @@ public:
 	void AdjustArmyTargetLocations();
 	void ValidatePlayers();
 	void rva002B693F(void *keys);
+ void rva002B9DC7();
+ void RemovePlayer(LivingWorldPlayer*);
 	UnsignedInt rva002B77B2();
 	UnsignedInt rva002B77F7();
 	void rva002B5AF7();
@@ -2695,4 +2697,57 @@ public:
 void LivingWorldLogic::rva002B37FF(LivingWorldBattle* battle){
  Rva002BA392ArmyVisitor callback(battle);
  battle->rva003F498A((Rva003F498ACallback*)&callback);
+}
+
+// Native2B9DC7..2B9FDB, 532B RET0; WB D84DA0 independently confirms
+// the campaign condition loops and RemovePlayer order. Original method
+// spelling and scenario flag meanings remain unknown. The inherited
+// empty allocator view is the already-admitted four-byte integer-vector
+// representation: its push_back uses the native pointer/POD fold rather
+// than the distinct 50-byte default-int specialization at688940.
+// The extra player value copy is present in WB and preserves the target
+// lifetime/register shape; every field below comes from native accesses.
+template<class T> class Rva002444BEAllocator : public _STL::allocator<T> {};
+class Rva004FD448 {public:Bool rva004FD656(Int)const;};
+class LivingWorldScenario {public:class Scenario;};
+class LivingWorldScenario::Scenario {public:Bool rva004FD613(Int)const;};
+class Rva002E1001;
+class Rva004FD37F {public:Bool rva004FD5C7(Rva002E1001*)const;};
+class Rva002B894DHost {public:void rva002B894D(Int);void rva002B8984(Int);};
+class Rva002B8860 {public:void rva002B8860();};
+void LivingWorldLogic::rva002B9DC7(){
+ Bool finish=false, winner=false;
+ void* scenario=((Rva002B7582CampaignManager*)TheCampaignManager)->GetCurrentCampaign()->GetOwnershipSets();
+ if(scenario){
+  _STL::set<Int> keys;
+  rva002B693F(&keys);
+  _STL::set<Int>::iterator it=keys.begin(), end=keys.end();
+  for(it=keys.begin();it!=end;++it){
+   if(((Rva004FD448*)scenario)->rva004FD656(*it)){
+    ((Rva002B894DHost*)this)->rva002B8984(*it);
+    winner=true;finish=true;break;
+   }
+  }
+  _STL::vector<Int,Rva002444BEAllocator<Int> > removeKeys;
+  ((_STL::vector<void*>*)&removeKeys)->erase((void**)removeKeys.begin(),(void**)removeKeys.end());
+  if(!winner){
+   for(it=keys.begin();it!=end;++it){
+    if(((LivingWorldScenario::Scenario*)scenario)->rva004FD613(*it)){
+     finish=true;
+     removeKeys.push_back(*it);
+    }
+   }
+   for(Int i=removeKeys.size()-1;i>=0;--i)((Rva002B894DHost*)this)->rva002B894D(removeKeys[i]);
+  }
+  _STL::vector<LivingWorldPlayer*> removePlayers;
+  ((_STL::vector<void*>*)&removePlayers)->erase((void**)removePlayers.begin(),(void**)removePlayers.end());
+  for(Int i=m_players.size()-1;i>=0;--i){
+   LivingWorldPlayer* player=m_players[i];
+   if(!((LivingWorldCollectorPlayerView*)player)->flag3C4 && ((Rva004FD37F*)scenario)->rva004FD5C7((Rva002E1001*)player)){LivingWorldPlayer* copy=player;removePlayers.push_back(copy);}
+  }
+  for(Int i=removePlayers.size()-1;i>=0;--i)RemovePlayer(removePlayers[i]);
+ }
+ if(m_localPlayer && ((LivingWorldCollectorPlayerView*)m_localPlayer)->flag3C4)finish=true;
+ if((unsigned char)((Rva002B254F*)this)->rva002B254F() && ((LWUpdateCampaignDispatch*)((Rva003B8BAA*)TheCampaignManager)->rva003B8BAA())->f34())finish=true;
+ if(finish || (rva002B77B2()<=1 && rva002B77F7()>1))((Rva002B8860*)this)->rva002B8860();
 }
