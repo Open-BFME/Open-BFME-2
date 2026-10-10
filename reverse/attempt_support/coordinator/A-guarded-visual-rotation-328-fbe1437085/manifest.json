@@ -1,0 +1,27 @@
+{
+  "id": "A-guarded-visual-rotation-328-fbe1437085",
+  "seat": "A",
+  "kind": "exact-recovery",
+  "base_commit": "fbe1437085b359ed046df49af016d736ef1aca24",
+  "paths": [
+    "Code/GameEngine/Source/Common/U4GlobalGuardedNotifies.cpp"
+  ],
+  "recoveries": [
+    {
+      "name": "?hand@U4Target0060C2C0@@QAEXPAX@Z",
+      "rva": "0x003FC149",
+      "size": 328,
+      "source": "Code/GameEngine/Source/Common/U4GlobalGuardedNotifies.cpp",
+      "notes": "Native328B/WB10705B0 matrix rotation target of existing20B wrapper3F935A; established neutral owner/name retained; Matrix3 payload and transform18/ObjectScale48 verified; genuine row-copy and scalar Scale yield full retail bytes",
+      "replace_rva": "",
+      "new_retail_bytes": 328
+    }
+  ],
+  "proof_command": "py -3 tools/build.py Code/GameEngine/Source/Common/U4GlobalGuardedNotifies.cpp",
+  "proof_log": "scoped-proof.log",
+  "claim_owner": "codex-549c-root",
+  "dependencies": [],
+  "new_retail_bytes": 328,
+  "ready_new_recoveries": 1,
+  "integration_note": "New328B recovery under established neutral callee pin/name in existing wrapper unit. Original class/method name remains unknown; target/WB establish exact Matrix3 payload/transform operations. Existing20B wrapper still exact. No new pin, alias, data, shared header, baseline or gate edit. Normal admission retires old bank. Scoped full body/identity/data checks green; six-field row format supplied. Final normal integration/publication belongs to coordinator."
+}
