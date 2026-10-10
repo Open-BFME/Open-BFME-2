@@ -26,7 +26,8 @@ public:
 class Team
 {
 public:
-	inline Bool isInList_TeamMemberList(Object *o) const
+	// Preserve the inlined test; use the verified external out-of-line provider.
+	__declspec(dllimport) __forceinline Bool isInList_TeamMemberList(Object *o) const
 	{
 		return o->dlink_isInList_TeamMemberList(&m_dlinkhead_TeamMemberList.m_head);
 	}

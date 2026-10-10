@@ -62,7 +62,8 @@ protected:
 	virtual void loadPostProcess();
 
 public:
-	bool isInList_TeamMemberList(Object *o) const
+	// Preserve the inlined test; use the verified external out-of-line provider.
+	__declspec(dllimport) __forceinline bool isInList_TeamMemberList(Object *o) const
 	{
 		return o->dlink_isInList_TeamMemberList(&m_dlinkhead_TeamMemberList);
 	}
