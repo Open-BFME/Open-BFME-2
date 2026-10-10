@@ -1,14 +1,5 @@
-// ?rva005020CC@Rva005020CC@@QAEXXZ
-// partial score=0.86 date=2026-10-10
-// NEAR (score ~0.86): ?Rva005020CCBuildRegionDistances@@YAXXZ retail 0x005020CC 447 bytes.
-// Remaining: frame 0x7C vs 0x78 (global insert return temp gets its own slot
-// instead of sharing the inner insert_unique slot -0x24) which shifts every
-// object below -0x24 by 4; getRegions null test emits mov edi/add edi where
-// retail keeps the manager in eax and uses lea edi; inner insert pair stores
-// scheduled before the begin() load. Needs pins ??0Rva0050055D@@QAE@XZ=0x004FFE41
-// and FindShortestPath (log name) =0x003EFA0A. Callback vtable 0x00863B40 has
-// no ledger name. Target file would be
-// Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva005020CCRegionDistances.cpp
+// ?Rva005020CCBuildRegionDistances@@YAXXZ
+// partial score=0.8530952438640274 date=2026-10-10
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
 #include "ascii_string.h"
 enum ObjectID {};
@@ -92,7 +83,7 @@ public:
 	_Rep_type _M_t;
 };
 
-template <class T>
+template <class T,class A=allocator<T> >
 class vector
 {
 public:
@@ -155,25 +146,14 @@ public:
 
 extern unsigned int g_Va00E04544;
 
-class LivingWorldSearchCallback
+class LivingWorldSearchCallback;
+struct Rva003F71D4Point {char prefix[16];float x,y;};
+class __declspec(novtable) Rva003F71D4Metric {public:virtual float v00(const Rva003F71D4Point*,const Rva003F71D4Point*);virtual float v01(const Rva003F71D4Point*,const Rva003F71D4Point*);virtual void v02(const Rva003F71D4Point*);virtual bool v03(int,int);};
+class Rva004FF33DCallback:public Rva003F71D4Metric {public:virtual float v00(const Rva003F71D4Point*,const Rva003F71D4Point*);virtual float v01(const Rva003F71D4Point*,const Rva003F71D4Point*);};
+class Rva003EF8E1
 {
 public:
-	virtual float slot0(int *a, int *b);
-	virtual float slot1(int a, int b);
-};
-
-class Rva005020CCSearchCallback : public LivingWorldSearchCallback
-{
-public:
-	Rva005020CCSearchCallback() {}
-	virtual float slot0(int *a, int *b);
-	virtual float slot1(int a, int b);
-};
-
-class LivingWorldPathFinder
-{
-public:
-	int FindShortestPath(LivingWorldSearchCallback *callback, int a, int from, int to, _STL::vector<ObjectID> *path, int b);
+	int FindShortestPath(LivingWorldSearchCallback *callback, int a, int from, int to, _STL::vector<ObjectID> *path, bool b);
 };
 
 class LivingWorldRegion
@@ -191,7 +171,7 @@ public:
 	char m_pad00[0x2C];
 	_STL::vector<LivingWorldRegion *> m_regions;	// +0x2C
 	char m_pad38[0x4C - 0x38];
-	LivingWorldPathFinder *m_pathFinder;	// +0x4C
+	Rva003EF8E1 *m_pathFinder;	// +0x4C
 };
 
 class LivingWorldCampaign
@@ -211,12 +191,12 @@ public:
 			return &m->m_regions;
 		return 0;
 	}
-	__forceinline LivingWorldPathFinder *getPathFinder()
+	__forceinline Rva003EF8E1 *getPathFinder()
 	{
 		LivingWorldRegionManager *m = m_campaign->m_regionManager;
 		return m ? m->m_pathFinder : 0;
 	}
-	__forceinline int findShortestPath(LivingWorldSearchCallback *callback, int a, int from, int to, _STL::vector<ObjectID> *path, int b)
+	__forceinline int findShortestPath(LivingWorldSearchCallback *callback, int a, int from, int to, _STL::vector<ObjectID> *path, bool b)
 	{
 		return getPathFinder()->FindShortestPath(callback, a, from, to, path, b);
 	}
@@ -237,8 +217,8 @@ void Rva005020CCBuildRegionDistances()
 		if (region->m_1A2) {
 			for (unsigned int j = 0; j < regions->size(); ++j) {
 				LivingWorldRegion *other = (*regions)[j];
-				Rva005020CCSearchCallback callback;
-				int distance = TheLivingWorldLogic->findShortestPath(&callback, -1, region->m_id, other->m_id, 0, 0);
+				Rva004FF33DCallback callback;
+				int distance = TheLivingWorldLogic->findShortestPath((LivingWorldSearchCallback*)&callback, -1, region->m_id, other->m_id, 0, 0);
 				if (distance >= 0) {
 					int otherID = other->m_id;
 					distances.m_byDistance.insert(distances.m_byDistance.begin(), IntIntValue(distance, otherID));
@@ -251,3 +231,6 @@ void Rva005020CCBuildRegionDistances()
 		}
 	}
 }
+
+__declspec(noinline) float Rva004FF33DCallback::v00(const Rva003F71D4Point*a,const Rva003F71D4Point*b){return(*(const int*)a==*(const int*)b)?0.0f:1.0f;}
+__declspec(noinline) float Rva004FF33DCallback::v01(const Rva003F71D4Point*,const Rva003F71D4Point*){return 1.0f;}
