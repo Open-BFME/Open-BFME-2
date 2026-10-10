@@ -20,6 +20,15 @@
 #include <vector>
 #include <math.h>
 #include "../../../Common/PartitionRangeQueryCallView.h"
+
+// map/set<int> internals otherwise instantiate the less<int>::operator()
+// COMDAT (one byte shape per TU flags); an explicit dllimport+forceinline
+// specialization takes those calls inline so this TU emits no external copy.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+bool less<int>::operator()(const int &a, const int &b) const
+{ return a < b; }
+}
 // The +0x258 map's comparator: a per-RVA stand-in for less<unsigned short>,
 // so its instance names (operator[] 0x00470041 and the folded callees it
 // reaches) stay placeholders.
