@@ -1,4 +1,5 @@
-// cl: /Ireference/shims/bfme2_ascii /EHsc /MD
+// stlport
+// cl: /O1 /G7 /arch:SSE /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii /EHsc /MD
 //
 // ??1Rva0052A470@@QAE@XZ @0x0052A470 (69B).
 // Non-virtual dtor: AsciiString at +8 plus Rva0052413E at +0x10 plus
@@ -7,6 +8,9 @@
 // 0x00524349 0x0052413E 0x00036410, callers 0x0052A5EA 0x0052A778.
 // Precedent Rva005D4913Dtor.
 #include "ascii_string.h"
+#include <stl/_algobase.h>
+struct BfmePod20 { int first,second;float scale;int fourth;bool flag; };
+namespace _STL {template<> void fill(BfmePod20*,BfmePod20*,const BfmePod20&);}
 
 class Rva0052413E
 {
@@ -37,6 +41,9 @@ private:
     char m_pad0D[3];
 	Rva0052413E m_10;
 	Rva00524349 m_1C;
+ unsigned first28,second2C;
+ bool flags30[32];
+ BfmePod20 records50[24];
 };
 
 Rva0052A470::~Rva0052A470()
@@ -86,4 +93,19 @@ private:
 void Rva0052A765Owner::rva0052A765()
 {
     m_ptr->rva0052A66A();
+}
+
+class BannerUI { public: void SetBannerSlotXOffset(unsigned,float); };
+extern BannerUI *g_00DFE32C;
+// Native52A4B5..52A53B complete134B: flags30..50 are reset true;
+// twenty-four 20B records50..230 receive {0,0,1,0,false}; scalar28/2C
+// reset and existing banner singleton receives offsets0/1. Original names
+// and record application meaning remain unknown. Canonical existing
+// BfmePod20 fill declaration is a size/assignment view; no new pin.
+void Rva0052A470::rva0052A4B5(){
+ _STL::fill(flags30,flags30+32,true);
+ const BfmePod20 empty={0,0,1.0f,0,false};
+ _STL::fill(records50,records50+24,empty);
+ first28=0;second2C=0;
+ if(g_00DFE32C)for(unsigned i=0;i<2;++i)g_00DFE32C->SetBannerSlotXOffset(i,0.0f);
 }
