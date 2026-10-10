@@ -1,6 +1,8 @@
 // ?rva00490AC5@ArrowStormUpdate@@QAEXXZ
+// partial score=0.8831712078770902 date=2026-10-10
+// ?rva00490AC5@ArrowStormUpdate@@QAEXXZ
 // partial score=0.8 date=2026-10-04
-// cl: /O1 /DNDEBUG /MD /GX /arch:SSE
+// cl: /O1 /DNDEBUG /MD /GX /arch:SSE /I.
 //
 // ArrowStormUpdate's target gathering 0x00490AC5, tail-called by its slot-15
 // override 0x00490D0A after the +0x88 list is reset (ArrowStormUpdateSlots.cpp).
@@ -191,9 +193,9 @@ void ArrowStormUpdate::rva00490AC5()
 	Object *other;
 	while ((other = hits.next()) != 0) {
 		const ThingTemplate *tmpl = other->m_template;
-		if ((tmpl->w[0x114 / 4] & 0x100) || (tmpl->w[0x110 / 4] & 0x02000000)
-				|| (tmpl->b.m_10D & 0x80) || (tmpl->w[0x118 / 4] & 0x400000)
-				|| (tmpl->w[0x10C / 4] & 0x400000) || (tmpl->b.m_118 & 0x40))
+		if (((tmpl ? tmpl : tmpl)->w[0x114 / 4] & 0x100) || ((tmpl ? tmpl : tmpl)->w[0x110 / 4] & 0x02000000)
+				|| ((tmpl ? tmpl : tmpl)->b.m_10D & 0x80) || ((tmpl ? tmpl : tmpl)->w[0x118 / 4] & 0x400000)
+				|| ((tmpl ? tmpl : tmpl)->w[0x10C / 4] & 0x400000) || ((tmpl ? tmpl : tmpl)->b.m_118 & 0x40))
 			continue;
 		ObjectID id = other->getID();
 		m_88.push_back(id);

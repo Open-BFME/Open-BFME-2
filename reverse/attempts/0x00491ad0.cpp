@@ -1,6 +1,10 @@
 // ?rva00491AD0@AttachUpdate@@QAEXXZ
+// partial score=0.931697912511634 date=2026-10-10
+extern "C" void _ReadWriteBarrier();
+#pragma intrinsic(_ReadWriteBarrier)
+// ?rva00491AD0@AttachUpdate@@QAEXXZ
 // partial score=0.85 date=2026-10-04
-// cl: /O1 /MD /GX /arch:SSE
+// cl: /O1 /MD /GX /arch:SSE /I.
 //
 // AttachUpdate (vftable 0x00C4DB20, UpdateModuleInterface view 0x00C4DB14;
 // ctor 0x00491A0F, data AttachUpdateModuleData 0x00491968).
@@ -274,6 +278,7 @@ void AttachUpdate::rva00491AD0()
 			TheEva->rva001DE2DA(data->m_parentOwnerAttachmentEvaEvent, where, 0);
 			m_diedEvaEvent = data->m_parentOwnerDiedEvaEvent;
 		} else if (local->getRelationship(player) == ALLIES) {
+			_ReadWriteBarrier();
 			TheEva->rva001DE2DA(data->m_parentAllyAttachmentEvaEvent, where, 0);
 			m_diedEvaEvent = data->m_parentAllyDiedEvaEvent;
 		} else {

@@ -1,4 +1,8 @@
 // ?getLocomotorDistanceToGoal@AIUpdateInterface@@QAEMXZ
+// partial score=0.9401185770750988 date=2026-10-10
+extern "C" void _ReadWriteBarrier();
+#pragma intrinsic(_ReadWriteBarrier)
+// ?getLocomotorDistanceToGoal@AIUpdateInterface@@QAEMXZ
 // partial score=0.9088476740650654 date=2026-10-09
 // cl: /I. /O1 /G7 /arch:SSE /DNDEBUG /MD /GX-
 #include "Code/Libraries/Include/Lib/Coord3D.h"
@@ -31,7 +35,7 @@ float AIUpdateInterface::getLocomotorDistanceToGoal(){
  switch(goalType){
  case 2:case 4:{
   const Coord3D *dest=&goal;const Coord3D *pos=owner->getPosition();
-  float x=dest->x,y=dest->y,z=dest->z;y-=pos->y;z-=pos->z;x-=pos->x;goalPos.x=x;goalPos.y=y;goalPos.z=z;return goalPos.length();
+  float x=dest->x,y=dest->y,z=dest->z;y-=pos->y;z-=pos->z;_ReadWriteBarrier();x-=pos->x;goalPos.x=x;goalPos.y=y;goalPos.z=z;return goalPos.length();
  }
  case 1:{
   if(!path)return 100.0f;
@@ -45,7 +49,7 @@ float AIUpdateInterface::getLocomotorDistanceToGoal(){
   if(loco->templ->type!=5){
   bool aircraft=getTreatAsAircraftForLocoDistToGoal();float dist;
   Path *current=path;
-  if(aircraft){const Coord3D *pos=owner->getPosition();dist=current->computeFlightDistToGoal(pos,goalPos);}
+  if(aircraft){const Coord3D *pos=(owner ? owner : owner)->getPosition();dist=current->computeFlightDistToGoal(pos,goalPos);}
   else{
    Rva003642DFResult info=current->rva00364521((const Rva0008BB38FloatField*)loco);
    goalPos=info.position;dist=((Rva00363D20*)&info)->rva00363D20();
