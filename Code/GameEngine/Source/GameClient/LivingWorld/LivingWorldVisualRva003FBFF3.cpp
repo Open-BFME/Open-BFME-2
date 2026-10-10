@@ -69,6 +69,78 @@ public:
 #undef V
 	virtual void Validate_Transform() const;							// slot 20
 	virtual void Set_Transform(const LivingWorldVisualTransform &m);	// slot 21
+	virtual void slot22();
+	virtual void slot23();
+	virtual void slot24();
+	virtual void slot25();
+	virtual void slot26();
+	virtual void slot27();
+	virtual void slot28();
+	virtual void slot29();
+	virtual void slot30();
+	virtual void slot31();
+	virtual void slot32();
+	virtual void slot33();
+	virtual void slot34();
+	virtual void slot35();
+	virtual void slot36();
+	virtual void slot37();
+	virtual void slot38();
+	virtual void slot39();
+	virtual void slot40();
+	virtual void slot41();
+	virtual void slot42();
+	virtual void slot43();
+	virtual void slot44();
+	virtual void slot45();
+	virtual void slot46();
+	virtual void slot47();
+	virtual void slot48();
+	virtual void slot49();
+	virtual void slot50();
+	virtual void slot51();
+	virtual void slot52();
+	virtual void slot53();
+	virtual void slot54();
+	virtual void slot55();
+	virtual void slot56();
+	virtual void slot57();
+	virtual void slot58();
+	virtual void slot59();
+	virtual void slot60();
+	virtual void slot61();
+	virtual void slot62();
+	virtual void slot63();
+	virtual void slot64();
+	virtual void slot65();
+	virtual void slot66();
+	virtual void slot67();
+	virtual void slot68();
+	virtual void slot69();
+	virtual void slot70();
+	virtual void slot71();
+	virtual void slot72();
+	virtual void slot73();
+	virtual void slot74();
+	virtual void slot75();
+	virtual void slot76();
+	virtual void slot77();
+	virtual void slot78();
+	virtual void slot79();
+	virtual void slot80();
+	virtual void slot81();
+	virtual void slot82();
+	virtual void slot83();
+	virtual void slot84();
+	virtual void slot85();
+	virtual void slot86();
+	virtual void slot87();
+	virtual void slot88();
+	virtual void slot89();
+	virtual void slot90();
+	virtual void slot91();
+	virtual void slot92();
+	virtual void Set_ObjectScale(float);
 	const LivingWorldVisualTransform &Get_Transform() const { Validate_Transform(); return Transform; }
 	const Real Get_ObjectScale() const { return ObjectScale; }
 private:
@@ -82,11 +154,13 @@ class LivingWorldVisual
 public:
 	virtual void setHouseColor(const int &color);
 	void rva003FBFF3(const Matrix3D &transform);
+	void rva003FC291(float scale);
 private:
 	unsigned char m_pad04[4];
 	RenderObjClass *m_primaryRObj;										// +0x08
 	unsigned char m_pad0C[0x14 - 0x0C];
-	RenderObjClass *m_secondaryRObj;									// +0x14
+	RenderObjClass *m_secondaryRObj;
+	unsigned char unknown18[0x7C-0x18]; Real m_requestedScale;									// +0x14
 };
 
 void LivingWorldVisual::rva003FBFF3(const Matrix3D &transform)
@@ -101,4 +175,25 @@ void LivingWorldVisual::rva003FBFF3(const Matrix3D &transform)
 		if (m_secondaryRObj)
 			m_secondaryRObj->Set_Transform(tm);
 	}
+}
+
+// Native3FC291..3FC3E4 RET4,339B and WB10715C0 copy primary transform,
+// scale its3x3 by requested/object scale and set both render-object scales.
+// Named createRenderObject and this helper receive the SAME unchanged this
+// in native5C4DE0 and WB LivingWorldIconSubObject ctor1566710. This proves
+// LivingWorldVisual ownership; the original method name remains unknown.
+// The const reference materializes the genuine computed float temporary:
+// native stores it at frame-4 and reloads it after the first multiply.
+// TU-local established row/transform views reproduce the donor copy/Scale
+// structure without defining duplicate canonical Matrix3D/Vector4 bodies.
+void LivingWorldVisual::rva003FC291(float scale) {
+ RenderObjClass *p=m_primaryRObj;
+ if(!p)return;
+ m_requestedScale=scale;
+ LivingWorldVisualTransform tm=p->Get_Transform();
+ const Real &extra=scale / m_primaryRObj->Get_ObjectScale();
+ tm.Scale(extra);
+ m_primaryRObj->Set_ObjectScale(scale);
+ m_primaryRObj->Set_Transform(tm);
+ if(m_secondaryRObj){m_secondaryRObj->Set_ObjectScale(scale);m_secondaryRObj->Set_Transform(tm);}
 }
