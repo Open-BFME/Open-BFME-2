@@ -53,6 +53,7 @@ public:
 	virtual void rotateCamera(Real rotations, Int milliseconds, Bool flag, Real easeIn, Real easeOut);
 	virtual void rotateCameraTowardObject(ObjectID id, Int milliseconds, Int holdMilliseconds, Real easeIn, Real easeOut, Real trailing);
 	virtual void rotateCameraTowardPosition(const Coord3D *pLoc, Int milliseconds, Real easeIn, Real easeOut, Bool reverseRotation);
+	virtual void cameraModFreezeAngle(void);
 	void rva0008ADEA(Int unused, ObjectID id, Bool enable, Bool snap);
 private:
 	void rva0008AAD4(void);
@@ -95,7 +96,12 @@ struct BfmeW3DViewRotateFields
 		} m_rcTarget;
 	};
 	Bool m_doingRotateCamera;
-	unsigned char m_padding01DD[0x23D0 - 0x1DD];
+	unsigned char m_padding01DD[0x16E8 - 0x1DD];
+	Real m_mcwpCameraAngle[(0x22F0 - 0x16E8) / 4];	// +0x16E8, m_mcwpInfo.cameraAngle
+	Int m_mcwpNumWaypoints;				// +0x22F0
+	unsigned char m_padding22F4[0x2354 - 0x22F4];
+	Int m_doingMoveCameraOnWaypointPath;		// +0x2354, 1 while moving
+	unsigned char m_padding2358[0x23D0 - 0x2358];
 	Bool m_freezeTimeForCameraMovement;	// +0x23D0
 	Int m_timeMultiplier;
 	unsigned char m_padding23D8[0x2438 - 0x23D8];
@@ -503,6 +509,28 @@ void W3DView::rva0008AAD4(void)
 		if (!fields->m_trackObject)
 		{
 			fields->m_angle = fields->m_rcAngle.endAngle;
+		}
+	}
+}
+
+// W3DView::cameraModFreezeAngle, retail 0x00086702..0x00086761 (95B, RET):
+// the vftable slot between cameraModFinalPitch and cameraModLookToward.
+// Zero Hour's body; BFME 2 keeps the waypoint-move state as an int tested
+// against 1 (+0x2354) and the waypoint camera angles at +0x16E8.
+void W3DView::cameraModFreezeAngle(void)
+{
+	BfmeW3DViewRotateFields *fields = (BfmeW3DViewRotateFields *)this;
+	if (fields->m_doingRotateCamera) {
+		if (fields->m_trackObject) {
+			fields->m_targetObjectID = (ObjectID)0;	// INVALID_ID
+		} else {
+			fields->m_rcAngle.startAngle = fields->m_rcAngle.endAngle = fields->m_angle;
+		}
+	}
+	if (fields->m_doingMoveCameraOnWaypointPath == 1) {
+		Int i;
+		for (i=0; i<fields->m_mcwpNumWaypoints; i++) {
+			fields->m_mcwpCameraAngle[i+1] = fields->m_mcwpCameraAngle[0];
 		}
 	}
 }
