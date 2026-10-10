@@ -37,8 +37,9 @@ struct LivingWorldPlayerRecordView
 	char unknownB0[0xD8 - 0xB0];
 };
 
-struct LivingWorldArmy
+class LivingWorldArmy
 {
+public:
 	unsigned char m_pad00[0x78];
 	Int m_id;				// +0x78
 };
@@ -98,6 +99,14 @@ struct PlayerHeroSummaryView { char unknown00[0x40]; _STL::vector<PlayerHeroPair
 struct PlayerHeroArmyView { char unknown00[0x78]; PlayerHeroSummaryView *summary; };
 struct PlayerHeroTemplateView { char unknown00[0x113]; unsigned char flags; };
 
+// Native AddArmy accesses the army summary through +78 and its two packed
+// colors at24/28. Existing army-id and RGB views are retained separately;
+// their original shared type spellings are not established by these accesses.
+struct PlayerArmyColorSummaryView { char unknown00[0x24]; unsigned day,night; };
+class ModuleData;
+struct Rva0040E6D6Arg;
+class Rva0023CFFCLogic {public:void rva0023CFFC(Rva0040E6D6Arg*);};
+
 class LivingWorldPlayer
 {
 public:
@@ -105,6 +114,7 @@ public:
 
 	void OnUnitDequeued(Rva00319CED *unit);
 	void SetColorIndex(Int color);
+    void AddArmy(LivingWorldArmy *army);
 	void *FindArmyWithHero(void *thing, int key);
 	void **RemoveArmy(void **&iter);
 	bool rva002E12F3(int key);
@@ -222,4 +232,20 @@ void *LivingWorldPlayer::FindArmyWithHero(void *thing, int key)
   }
  }
  return 0;
+}
+
+// WB DE3D70 names AddArmy; native2E246D..2E2504 RET4 establishes
+// registration, the1B8 pointer-vector member and packed-color propagation.
+// The established ModuleData pointer-vector provider is a storage view;
+// it does not establish the original army-vector element spelling.
+void LivingWorldPlayer::AddArmy(LivingWorldArmy *army)
+{
+ if (!army) return;
+ ((_STL::vector<const ModuleData*>*)&m_armyVec)->push_back(*(const ModuleData**)&army);
+ if(m_colorIndex>=0 && m_colorIndex<(army?TheMultiplayerSettings:TheMultiplayerSettings)->getNumColors()) {
+  unsigned day=*(unsigned*)((char*)(army?TheMultiplayerSettings:TheMultiplayerSettings)->getColor(m_colorIndex)+0x10);
+  unsigned night=*(unsigned*)((char*)(army?TheMultiplayerSettings:TheMultiplayerSettings)->getColor(m_colorIndex)+0x20);
+  (*(PlayerArmyColorSummaryView**)((char*)army+0x78))->day=day;(*(PlayerArmyColorSummaryView**)((char*)army+0x78))->night=night;
+ } else {(*(PlayerArmyColorSummaryView**)((char*)army+0x78))->day=0xff000000;(*(PlayerArmyColorSummaryView**)((char*)army+0x78))->night=0xff000000;}
+ ((Rva0023CFFCLogic*)TheGameLogic)->rva0023CFFC((Rva0040E6D6Arg*)*(PlayerArmyColorSummaryView**)((char*)army+0x78));
 }
