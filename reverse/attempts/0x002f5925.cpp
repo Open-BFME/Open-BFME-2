@@ -1,5 +1,5 @@
 // ?cellCallback@Rva002F5925Info@@QAEHPAVPathfindCell@@0HH@Z
-// partial score=0.998 date=2026-10-10
+// partial score=0.997991 date=2026-10-10
 // ?cellCallback@Rva002F5925Info@@QAEHPAVPathfindCell@@0HH@Z
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /ICode/Libraries/Include/Lib /I.
 // Native2F5925..2F5C7A full853 RET16; published2F6B22 walk names
