@@ -17172,3 +17172,4 @@ _D3DXLoadSurfaceFromFileInMemory@36,0x0062AF80,Native separate-alpha loader REL3
 ?lookForInnerTarget@AITNGuardMachine@@QAE_NXZ,0x005461A2,REL32 read at AITNGuardIdleState::update 0x005466C0 with ECX the tunnel guard machine; Zero Hour AITNGuardMachine::lookForInnerTarget role; body unrowed
 ??1Rva00084CEF@@QAE@XZ,0x00084CEF,non-virtual view of the terrain tracks system dtor body deleted by W3DTerrainVisual dtor 0x0009203A
 ??1Rva0009A500@@QAE@XZ,0x0009A500,non-virtual view of the shadow manager dtor body deleted by W3DTerrainVisual dtor 0x0009203A
+??0Rva00598E85@@QAE@PAX@Z,0x00598E85,callee of ??0AIBuilder@@QAE@PAVPlayer@@@Z

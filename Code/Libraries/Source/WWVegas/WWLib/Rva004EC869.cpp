@@ -69,16 +69,53 @@ public:
 	unsigned char m_20;
 };
 
+// ??0AIBuilder@@QAE@PAVPlayer@@@Z retail 0x004EC430 (239 bytes, ret 4): the
+// player at +0 then each sub-builder built from it -- AIBaseBuilder
+// 0x005070E9 (+0x04), 0x00598E85 (+0x38, unrowed, pinned), 0x0059A85C
+// (+0x90), 0x004EAAF3 (+0xB4), 0x004E9B46 (+0xE4), 0x00598F3F (+0xFC), a new
+// 0x40-byte 0x00597693 object (+0x12C), the module-data vector and id list,
+// the dozer manager 0x00599784 (+0x140), a cleared flag (+0x154) and thirty
+// times the frame-rate word at 0x00DBA4E4 (+0x158). Member spellings follow
+// the rowed constructors; their identities are unproven.
+class Player;
+class AIBaseBuilder { public: AIBaseBuilder(void *player); ~AIBaseBuilder(); char m_data[0x34]; };
+class Rva00598E85 { public: Rva00598E85(void *player); ~Rva00598E85(); char m_data[0x58]; };
+class Rva0059A85C { public: Rva0059A85C(void *player); ~Rva0059A85C(); char m_data[0x24]; };
+class Rva004EA3B8 { public: Rva004EA3B8(void *player); ~Rva004EA3B8(); char m_data[0x30]; };
+class Rva004E9B46 { public: Rva004E9B46(int player); ~Rva004E9B46(); char m_data[0x18]; };
+class Rva005990DF { public: Rva005990DF(int player); ~Rva005990DF(); char m_data[0x30]; };
+class Rva00597693 { public: Rva00597693(void *player); char m_data[0x40]; };
+class Rva005997CD { public: Rva005997CD(int player); ~Rva005997CD(); char m_data[0x14]; };
+extern int g_Va00DBA4E4;
+
 class AIBuilder
 {
 public:
+	AIBuilder(Player *player);
 	void notifyDozerDead(Rva005996FFArg *arg);
 	void rva004EC2D4(int value);
 private:
-	char m_pad00[0x130];
-	_STL::vector<const ModuleData *> m_vec;
-	_STL::list<int> m_list;
+	Player *m_player;			// +0x00
+	AIBaseBuilder m_base;			// +0x04
+	Rva00598E85 m_38;
+	Rva0059A85C m_90;
+	Rva004EA3B8 m_B4;
+	Rva004E9B46 m_E4;
+	Rva005990DF m_FC;
+	Rva00597693 *m_12C;
+	_STL::vector<const ModuleData *> m_vec;	// +0x130
+	_STL::list<int> m_list;			// +0x13C
+	Rva005997CD m_dozers;			// +0x140
+	bool m_154;
+	int m_158;
 };
+
+AIBuilder::AIBuilder(Player *player)
+	: m_player(player), m_base(player), m_38(player), m_90(player), m_B4(player),
+	  m_E4((int)player), m_FC((int)player), m_12C(new Rva00597693(player)),
+	  m_dozers((int)player), m_154(false), m_158(g_Va00DBA4E4 * 30)
+{
+}
 
 void AIBuilder::notifyDozerDead(Rva005996FFArg *arg)
 {
