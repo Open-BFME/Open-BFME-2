@@ -1,5 +1,7 @@
 // ?rva00541641@Rva005418CB@@QAE_NH@Z
-// partial score=0.75 date=2026-10-09
+// partial score=0.93 date=2026-10-10
+// ?rva00541641@Rva005418CB@@QAE_NH@Z
+// partial score=0.9 date=2026-10-09
 // cl: /O1 /Oy- /G7 /MD /DNDEBUG
 // ?rva00541641@Rva005418CB@@QAE_NH@Z retail 0x00541641..0x00541709 (200 bytes)
 // NEAR: the fast hint path (0x00541641..0x0054169B) and the empty/lower_bound
@@ -33,9 +35,13 @@ private:
 };
 bool Rva005418CB::rva00541641(int key)
 {
-	if (m_hint1C >= 0 && (unsigned)m_hint1C < m_keys.size() && key >= m_keys[m_hint1C].key &&
-		((unsigned)(m_hint1C + 1) >= m_keys.size() || key < m_keys[m_hint1C + 1].key))
-		return m_keys[m_hint1C].key == key;
+	int h = m_hint1C;
+	if (h >= 0 && (unsigned)h < m_keys.size()) {
+		BfmePod20 *b = m_keys.m_begin;
+		int cur = b[h].key;
+		if (key >= cur && ((unsigned)(h + 1) >= (unsigned)(m_keys.m_end - b) || key < b[h + 1].key))
+			return cur == key;
+	}
 	if (m_keys.empty())
 	{
 		m_hint1C = -1;
@@ -46,6 +52,5 @@ bool Rva005418CB::rva00541641(int key)
 	hint = rva0054150A(b, m_keys.m_end, *reinterpret_cast<const BfmePod20 *>(&key)) - b;
 	if ((unsigned)hint >= (unsigned)(m_keys.m_end - b) || (hint > 0 && b[hint].key != key))
 		--hint;
-	return b[hint].key == key;
+	return b[hint].key == *(volatile int *)&key;
 }
-
