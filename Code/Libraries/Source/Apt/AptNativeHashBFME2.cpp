@@ -79,12 +79,10 @@ private:
     void Expand();
     void HashSet(const EAStringC *const,AptValue *const);
 };
-void AptNativeHash::Set__Proto__(AptValue *const value)
-{
-    if (value) value->AddRef();
-    if (mp__proto__) mp__proto__->Release();
-    mp__proto__ = value;
-}
+// Set__Proto__/SetPrototype rows live in AptValueConstructBuiltInObjects.cpp
+// (identical select-any inline copies); the exclusive definitions here are
+// removed so the link keeps the one retail copy. Retail inlines this pair at
+// every native call site, so no TU calls them externally.
 AptNativeHash::AptNativeHash(int size)
 {
     mnTotalSize = size;
@@ -116,12 +114,6 @@ AptNativeHash::AptNativeHash(int size)
             __asm int 3
         }
     }
-}
-void AptNativeHash::SetPrototype(AptValue *const value)
-{
-    if (value) value->AddRef();
-    if (mpPrototype) mpPrototype->Release();
-    mpPrototype = value;
 }
 void AptNativeHash::Unset__Proto__()
 {
