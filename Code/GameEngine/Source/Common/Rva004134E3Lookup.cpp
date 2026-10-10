@@ -10,6 +10,15 @@
 // pointer at node+0x14. Evidence: unlock lane; caller 0x002BC971; statics
 // 0x00A03044-58; sibling map recipe.
 #include <map>
+
+// map/set<int> internals otherwise instantiate the less<int>::operator()
+// COMDAT (one byte shape per TU flags); an explicit dllimport+forceinline
+// specialization takes those calls inline so this TU emits no external copy.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+bool less<int>::operator()(const int &a, const int &b) const
+{ return a < b; }
+}
 struct Rva004134E3Statics
 {
 	int m_count;

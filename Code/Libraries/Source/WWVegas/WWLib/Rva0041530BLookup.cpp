@@ -4,6 +4,15 @@
 // was ?rva0041530B@Rva0041530B@@QAEPAHH@Z, retail 0x0041530B 64B. Floor lookup over map<int,int> at +8 via rowed lower_bound 0x00382A92 and rowed decrement 0x000242C0. Empty is node_count at +0xC. Caller 0x004DAD40.
 #include <map>
 
+// map/set<int> internals otherwise instantiate the less<int>::operator()
+// COMDAT (one byte shape per TU flags); an explicit dllimport+forceinline
+// specialization takes those calls inline so this TU emits no external copy.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+bool less<int>::operator()(const int &a, const int &b) const
+{ return a < b; }
+}
+
 class CrowdResponseTemplate
 {
 public:
