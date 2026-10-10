@@ -110,14 +110,15 @@ public:
 	ExperienceLevelNode *m_node;
 };
 
-// STLport list: the sentinel node pointer is the only member.
+// STLport list: the sentinel node pointer is the only member. m_node is
+// public so IsValid can compare against the head without an accessor (which
+// would change the emitted compare).
 class ExperienceLevelList
 {
 public:
 	ExperienceLevelIterator begin() const { ExperienceLevelIterator it; it.m_node = m_node->m_next; return it; }
 	ExperienceLevelIterator end() const { ExperienceLevelIterator it; it.m_node = m_node; return it; }
 
-private:
 	ExperienceLevelNode *m_node;
 };
 
@@ -282,6 +283,57 @@ ExperienceLevelHandle ExperienceLevelStore::GetNextLevel(ExperienceLevelHandle l
 			break;
 	} while (!IsValid(levelHandle));
 	return levelHandle;
+}
+
+// TU-local copy of Rva0028867DCheck (retail 0x0028867D, the multiplayer-gated
+// zero-check on bytes at +0x101/+0x102 via TheBfmeGlob): IsValid below needs
+// the static ESI call shape, and a cross-TU reference to another TU's static
+// would not link, so the body lives here too (same pattern as
+// Rva00288940Find.cpp). No row: it claims no retail address.
+extern class GameLogic *TheGameLogic;
+
+class BfmeGlob939D
+{
+public:
+	char bfmeCall939D();
+};
+
+#define TheBfmeGlob (*(BfmeGlob939D **)&TheGameLogic)
+
+struct Rva0028867DData
+{
+	char m_pad[0x101];
+	unsigned char m_b101;
+	unsigned char m_b102;
+};
+
+static bool Rva0028867DCheck(const void *p)
+{
+	const Rva0028867DData *d = (const Rva0028867DData *)p;
+	if (TheBfmeGlob->bfmeCall939D())
+		return d->m_b101 == 0;
+	return d->m_b102 == 0;
+}
+
+// absent-from-retail: keeps the static alive with the ESI argument convention.
+bool Rva0028867DCaller(const void *p)
+{
+	if (p)
+		return Rva0028867DCheck(p);
+	return false;
+}
+
+// ExperienceLevelStore::IsValid, retail 0x0028891F: the handle is valid when
+// its list is set and its iterator is not the list head. this is unused, so
+// the thiscall member compiles to the same bytes as the rowed stdcall
+// Rva0028891FCheck spelling (ret 8 over the two handle dwords).
+bool ExperienceLevelStore::IsValid(ExperienceLevelHandle levelHandle) const
+{
+	if (!levelHandle.m_list)
+		return false;
+	if (levelHandle.m_iter.m_node == levelHandle.m_list->m_node)
+		return false;
+	return Rva0028867DCheck((const char *)levelHandle.m_iter.m_node + 8);
 }
 
 // Retail 0x00288621 (WorldBuilder pairs it unnamed, ExperienceLevelSystem.cpp
