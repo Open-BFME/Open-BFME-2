@@ -22,7 +22,7 @@ class Rva00206667
 {
 public:
 	void rva00206667(Rva00206667Node *node);
-	void rva00206F6B();
+	__declspec(noinline) void rva00206F6B();
 
 private:
 	Rva00206667Head *m_head; // +0x00
@@ -61,4 +61,12 @@ void Rva00206667::rva00206F6B()
 	m_head->m_first = 0;
 	m_head->m_linkC = m_head;
 	m_count = 0;
+}
+
+// Native 0x002076E2..0x002076E7 passes the unchanged receiver to the
+// recovered tree clear at 0x00206F6B. Original outer identity is unknown.
+class Rva002076E2TreeClearForward { public: void cleanup(); };
+void Rva002076E2TreeClearForward::cleanup()
+{
+ reinterpret_cast<Rva00206667 *>(this)->rva00206F6B();
 }

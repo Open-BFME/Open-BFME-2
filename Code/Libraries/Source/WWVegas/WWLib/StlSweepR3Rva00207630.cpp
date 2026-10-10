@@ -2,22 +2,13 @@
 // Element spelling/layout is donor inference; opaque records have address-derived identity.
 // cl: /O1 /G7 /EHs /D_BFME_RETAIL_TREE_INSERT_LAYOUT /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
-// The emitted unsigned max copy must match retail RVA 0x00013740.
-// Define it for speed, then restore this unit's flags for its own bodies.
-#include <stl/_algobase.h>
-#pragma optimize("s", off)
-#pragma optimize("t", on)
-namespace _STL {
-static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
-{
-    return a < b ? b : a;
-}
-}
-#pragma optimize("", on)
-
 #include <map>
 
 
 
 struct Rva00207630Record {  char bytes[1]; };
-template class _STL::map<int,Rva00207630Record>;
+// Emit the recovered destructor without unrelated whole-map members.
+typedef _STL::pair<int const, Rva00207630Record> Rva00207630Pair;
+typedef _STL::_Rb_tree<int, Rva00207630Pair, _STL::_Select1st<Rva00207630Pair>,
+ _STL::less<int>, _STL::allocator<Rva00207630Pair> > Rva00207630Tree;
+template Rva00207630Tree::~_Rb_tree();
