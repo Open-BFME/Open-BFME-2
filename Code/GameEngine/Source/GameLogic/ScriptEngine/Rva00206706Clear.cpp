@@ -25,7 +25,7 @@ class Rva00206706
 {
 public:
 	void rva00206706(Rva00206706Node *node);
-	void rva00206FE6();
+	__declspec(noinline) void rva00206FE6();
 
 private:
 	Rva00206706Head *m_head; // +0x00
@@ -65,3 +65,8 @@ void Rva00206706::rva00206FE6()
 	m_head->m_linkC = m_head;
 	m_count = 0;
 }
+
+// Native207799..20779E forwards unchanged ECX to clear206FE6; outer identity unknown.
+class Rva00207799TreeClearForward { public: void cleanup(); };
+void Rva00207799TreeClearForward::cleanup()
+{ reinterpret_cast<Rva00206706 *>(this)->rva00206FE6(); }

@@ -18,4 +18,13 @@ struct Rva00501776
 typedef _STL::pair<const int, Rva00501776> Erase00502610Value;
 typedef _STL::_Rb_tree<int, Erase00502610Value, _STL::_Select1st<Erase00502610Value>, _STL::less<int>, _STL::allocator<Erase00502610Value> > Erase00502610Tree;
 
+// These members are defined by the verified erase/clear provider.
+extern template void Erase00502610Tree::clear();
+extern template void Erase00502610Tree::_M_erase(Erase00502610Tree::_Link_type);
 template Erase00502610Tree::~_Rb_tree();
+
+// Native5029C5..5029CA forwards unchanged ECX to the owned clear5027B0.
+// Pointer-only outer view; no original application identity inferred.
+class Rva005029C5TreeClearForward { public: void cleanup(); };
+void Rva005029C5TreeClearForward::cleanup()
+{ reinterpret_cast<Erase00502610Tree *>(this)->clear(); }

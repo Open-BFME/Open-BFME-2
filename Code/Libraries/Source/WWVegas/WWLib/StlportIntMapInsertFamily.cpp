@@ -63,6 +63,19 @@ struct Rva00501776 { int a; };
 struct Rva00502BCDMapped { int a; };
 struct Rva00559076Mapped { int a; };
 
+// The player-record tree lifetime and erase bodies have verified providers.
+// This insertion unit must not instantiate alternative copies from its
+// limited record view. The established insertion members remain unchanged.
+typedef _STL::pair<const int, Rva00501776> PlayerRecordTreeValue;
+typedef _STL::_Rb_tree<int, PlayerRecordTreeValue, _STL::_Select1st<PlayerRecordTreeValue>,
+ _STL::less<int>, _STL::allocator<PlayerRecordTreeValue> > PlayerRecordTree;
+namespace _STL {
+template <> PlayerRecordTree::~_Rb_tree();
+template <> void PlayerRecordTree::clear();
+template <> void PlayerRecordTree::_M_erase(PlayerRecordTree::_Link_type);
+}
+
+
 struct Rva004395EC;
 namespace _STL {
 template <> class allocator<char> {
@@ -114,6 +127,12 @@ template class _STL::_Rb_tree<int, _STL::pair<const int, Rva00559076Mapped>, _ST
 struct Rva002F1DA1Mapped { int a; };
 struct Rva00501E3FElement { int a; };
 struct Rva00501656 { int a; };
+// Region-tree destruction is owned by the verified destructor-only unit.
+typedef _STL::pair<const int, Rva00501656> RegionRecordTreeValue;
+typedef _STL::_Rb_tree<int, RegionRecordTreeValue, _STL::_Select1st<RegionRecordTreeValue>,
+ _STL::less<int>, _STL::allocator<RegionRecordTreeValue> > RegionRecordTree;
+namespace _STL { template <> RegionRecordTree::~_Rb_tree(); }
+
 template class _STL::_Rb_tree<int, _STL::pair<const int, Rva002F1DA1Mapped>, _STL::_Select1st<_STL::pair<const int, Rva002F1DA1Mapped> >, _STL::less<int>, _STL::allocator<_STL::pair<const int, Rva002F1DA1Mapped> > >;
 template class _STL::_Rb_tree<int, _STL::pair<const int, Rva00501E3FElement>, _STL::_Select1st<_STL::pair<const int, Rva00501E3FElement> >, _STL::less<int>, _STL::allocator<_STL::pair<const int, Rva00501E3FElement> > >;
 template class _STL::_Rb_tree<int, _STL::pair<const int, Rva00501656>, _STL::_Select1st<_STL::pair<const int, Rva00501656> >, _STL::less<int>, _STL::allocator<_STL::pair<const int, Rva00501656> > >;
