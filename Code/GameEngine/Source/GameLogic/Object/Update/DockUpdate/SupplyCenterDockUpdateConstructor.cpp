@@ -66,6 +66,39 @@ void BehaviorModule::behaviorModuleAnchor()
 {
 }
 
+// Sibling vftable anchors, same story as behaviorModuleAnchor above: declared
+// virtual across their subsystems, defined nowhere. Defined once here so the
+// 29 + 23 + 5 units naming them resolve. No retail bytes claimed.
+// ?behaviorModuleInterfaceAnchor@BehaviorModuleInterface@@UAEXXZ present-unmatched
+struct BehaviorModuleInterface
+{
+	virtual void behaviorModuleInterfaceAnchor();
+};
+
+void BehaviorModuleInterface::behaviorModuleInterfaceAnchor()
+{
+}
+
+// ?upgradeMuxAnchor@UpgradeMux@@UAEXXZ present-unmatched
+struct UpgradeMux
+{
+	virtual void upgradeMuxAnchor();
+};
+
+void UpgradeMux::upgradeMuxAnchor()
+{
+}
+
+// ?bodyModuleInterfaceAnchor@BodyModuleInterface@@UAEXXZ present-unmatched
+struct BodyModuleInterface
+{
+	virtual void bodyModuleInterfaceAnchor();
+};
+
+void BodyModuleInterface::bodyModuleInterfaceAnchor()
+{
+}
+
 // The MemoryPoolFactory pool lookup: 80 TUs reach it through the
 // DEFINE_MEMORYPOOL macro (TheMemoryPoolFactory->findMemoryPool), but no TU
 // defines it. Zero Hour's GameMemory.cpp walks the factory's pool list with
