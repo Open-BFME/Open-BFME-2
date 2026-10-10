@@ -6,6 +6,12 @@
 // Evidence: same family as 0x002B3288 all-of loop, extra cmp [ecx+0x54] vs [edx+0x14] with ref at +0x98, caller 0x002B5EB5 tests al.
 #include <vector>
 
+// The element test 0x00318F42 is rowed as Rva00318F42::rva00318F42.
+class Rva00318F42
+{
+public:
+	bool rva00318F42();
+};
 class Mbr002E0B30
 {
 public:
@@ -38,7 +44,7 @@ bool Rva002B32CE::rva002B32CE()
 	{
 		if (m_items[i]->m_id == m_ref->m_id)
 		{
-			if (!m_items[i]->pred())
+			if (!((Rva00318F42 *)m_items[i])->rva00318F42())
 				return false;
 		}
 	}

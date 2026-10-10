@@ -607,11 +607,14 @@ public:
 	void rva002D9531(int value);
 };
 
-struct BfmeDelayedLuaEventList
+// DelayedLuaEventList: ctor 0x000B6D8B and virtual dtor 0x000B6DD2 (slot 0 of its
+// vftable 0x007C9CF0 is the scalar deleting dtor 0x000B6E0C); the vptr is the +0 word.
+// BfmeDelayedLuaEventList is only the parameter tag of the 0x003360D2 row.
+struct BfmeDelayedLuaEventList;
+struct DelayedLuaEventList
 {
-	BfmeDelayedLuaEventList();
-	~BfmeDelayedLuaEventList();
-	void *m_vtable;
+	DelayedLuaEventList();
+	virtual ~DelayedLuaEventList();
 	char m_events[0x48];
 };
 
@@ -1410,8 +1413,8 @@ void StealthUpdate::changeVisualDisguise()
 			}
 			if (self->getTemplate()->isKindOf(KINDOF_CREATE_A_HERO))
 			{
-				BfmeDelayedLuaEventList eventList;
-				((BfmeObjectEventDispatch *)TheLuaScriptEngine)->rva003360D2(15, self, &eventList);
+				DelayedLuaEventList eventList;
+				((BfmeObjectEventDispatch *)TheLuaScriptEngine)->rva003360D2(15, self, (BfmeDelayedLuaEventList *)&eventList);
 				CreateAHeroData *hero = TheCreateAHeroManager->rva002197A6(self->getID());
 				if (hero)
 					hero->rva004083FF(7);

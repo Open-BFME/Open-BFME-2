@@ -19,11 +19,14 @@ public:
 	Script *duplicate() const;
 };
 
-class ScriptEngine
+// The (scope; name) script lookup 0x003573C4, rowed under its placeholder owner.
+class BfmeRoomZC;
+class Rva003573C4Owner
 {
 public:
-	Script *rva003573C4(const AsciiString &owner, const AsciiString &name, AsciiString *outName);
+	void *rva003573C4(const AsciiString &owner, const BfmeRoomZC &name, void *outName);
 };
+class ScriptEngine;
 
 extern ScriptEngine *TheScriptEngine;
 
@@ -56,7 +59,7 @@ Script *TeamPrototype::getGenericScript(int scriptToRetrieve, AsciiString *outNa
 			AsciiString foundName;
 			if (!m_teamGenericScripts[i].isEmpty())
 			{
-				Script *script = TheScriptEngine->rva003573C4(m_owner, m_teamGenericScripts[i], &foundName);
+				Script *script = (Script *)((Rva003573C4Owner *)TheScriptEngine)->rva003573C4(m_owner, *(const BfmeRoomZC *)&m_teamGenericScripts[i], &foundName);
 				if (script)
 					dup = script->duplicate();
 			}

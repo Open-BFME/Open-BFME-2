@@ -1,5 +1,6 @@
 // cl: /MD /EHsc
-// ??1Rva0025FC61@@MAE@XZ 0x0025FC61 89B: dtor of SubtitleEntry-derived class with vtable 0x007F63F8.
+// ??1GameSubTitle@@UAE@XZ 0x0025FC61 89B: dtor of SubtitleEntry-derived class with vtable 0x007F63F8
+// (GameSubTitle: its ctor row 0x002603D1 stores that vtable, whose slots 1 and 2 are GameSubTitle rows).
 // Evidence: stores vtable at [this], loops over count at +0x30 releasing array at +0x24 via global at 0x009FEAD8 slot 0x3c, then calls base ??1SubtitleEntry@@MAE@XZ at 0x006885A0. Caller 0x0025FF73 is its ??_G deleting dtor.
 template <typename T> class StringBase {
 public:  ~StringBase();
@@ -42,16 +43,16 @@ public:
 
 extern DisplayManager *g_009FEAD8;
 
-class Rva0025FC61 : public SubtitleEntry
+class GameSubTitle : public SubtitleEntry
 {
-protected:
-	virtual ~Rva0025FC61();
+public:
+	virtual ~GameSubTitle();
 private:
 	void *m_items[3];
 	int m_count;
 };
 
-Rva0025FC61::~Rva0025FC61()
+GameSubTitle::~GameSubTitle()
 {
 	for (int i = 0; i < m_count; ++i)
 	{

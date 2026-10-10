@@ -35,6 +35,13 @@ struct IRegion2D
 // slot 0, a deleting dtor in slot 1, then the input handlers, whose
 // defaults are the shared stubs 0x005748B2 (slot 2 and slots 18..25) and
 // 0x005748AD (slots 3..17). Only the slots this unit needs are named.
+// The base translateGameMessage body 0x005CBC95, rowed under its placeholder.
+class Rva005CBC95Call
+{
+public:
+	int rva005CBC95(void *msg);
+};
+
 class UserInputTranslator
 {
 public:
@@ -123,7 +130,7 @@ GameMessageDisposition StrategicInGameUI::PlanningPhaseBehavior::Impl::translate
 		|| m_phaseEnder.Translate(msg) == DESTROY_MESSAGE
 		|| m_statusDisplayer.rva005CD690(msg) == DESTROY_MESSAGE)
 		return DESTROY_MESSAGE;
-	return UserInputTranslator::translateGameMessage(msg);
+	return (GameMessageDisposition)((Rva005CBC95Call *)this)->rva005CBC95((void *)msg);
 }
 
 // StrategicInGameUI::PlanningPhaseBehavior::Impl::OnMouseLeftClick, retail

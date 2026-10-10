@@ -163,10 +163,10 @@ public:
 
 extern SidesList *TheSidesList;
 
-class Rva0020AA00Target
+class ThingTemplate
 {
 public:
-	void notify(int x, int y);
+	void GetAssetList(int x, int y);
 };
 
 struct Rva003967A5Node
@@ -202,7 +202,7 @@ void __cdecl rva003967A5(Rva003967A5Owner *owner, int x, int y)
 					AsciiString hitName(((const TerrainType *)&info)->getTexture());
 					void *tmpl = (void *)TheThingFactory->findTemplate(hitName);
 					if (tmpl != 0)
-						((Rva0020AA00Target *)tmpl)->notify(x, y);
+						((ThingTemplate *)tmpl)->GetAssetList(x, y);
 				}
 			}
 			node = (Rva003967A5Node *)_STL::_Rb_global<bool>::_M_increment(&node->m_link);
@@ -215,7 +215,7 @@ void __cdecl rva003967A5(Rva003967A5Owner *owner, int x, int y)
 			NoCaseTreePair4 tmp(owner->m_begin[i]);
 			void *tmpl = (void *)TheThingFactory->findTemplate(tmp.first);
 			if (tmpl != 0)
-				((Rva0020AA00Target *)tmpl)->notify(x, y);
+				((ThingTemplate *)tmpl)->GetAssetList(x, y);
 		} while (++i < count);
 	}
 }

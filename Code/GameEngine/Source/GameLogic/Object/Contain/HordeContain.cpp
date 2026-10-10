@@ -6,15 +6,15 @@
 // four-byte range beginning at argument 1 +0x218 and ending at +0x21C. Each
 // element address is passed to the rowed ThingFactory::findTemplate through
 // TheThingFactory (VA 0x00DFF000); a non-null result receives arguments 2 and 3
-// at 0x0033CF34. The range element type and the final callee's target identity
-// remain unresolved.
-//
-// The `Rva0020AA00Target::notify` spelling below is carried by the pre-existing
-// 0x0033CF34 donor pin. It supplies the call ABI and symbol binding only; this
-// caller does not establish that class or method's target identity.
+// at 0x0033CF34, the rowed ThingTemplate::GetAssetList. The range element type
+// remains unresolved.
 
 class AsciiString;
-class ThingTemplate;
+class ThingTemplate
+{
+public:
+	void GetAssetList(int value, int context);
+};
 
 class ThingFactory
 {
@@ -25,12 +25,6 @@ public:
 extern ThingFactory *TheThingFactory;
 
 void __cdecl ModuleFactoryHookAt00467564(void *owner, int value, void *context);
-
-class Rva0020AA00Target
-{
-public:
-	void notify(int value, int context);
-};
 
 class ModuleFactoryHookRange
 {
@@ -115,7 +109,7 @@ void __cdecl ModuleFactoryHookAt00467564(void *owner, int value, void *context)
 					&& !(templateBytes[0x109] & 4)
 					&& ai->m_18->m_BB)
 					notifyContext = 1;
-				((Rva0020AA00Target *)thingTemplate)->notify(
+				const_cast<ThingTemplate *>(thingTemplate)->GetAssetList(
 					value, (int)&notifyContext);
 			}
 			entry = entry->m_next;
@@ -137,7 +131,7 @@ void __cdecl ModuleFactoryHookAt00469B9F(void *owner, int value, void *context)
 		const ThingTemplate *thingTemplate =
 			TheThingFactory->findTemplate(*(const AsciiString *)element);
 		if (thingTemplate)
-			((Rva0020AA00Target *)thingTemplate)->notify(value, (int)context);
+			const_cast<ThingTemplate *>(thingTemplate)->GetAssetList(value, (int)context);
 		element += 4;
 	}
 }

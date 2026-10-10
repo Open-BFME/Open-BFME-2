@@ -17,7 +17,8 @@
 //    removeFrom_TeamReadyQueue 0x004F0479 (32 bytes) and
 //    removeAll_TeamReadyQueue 0x004F0499 (39 bytes).
 // dlink_prependTo_TeamBuildQueue is the rowed byte-identical BFME 1 donor
-// body 0x004F035B. Layout (target evidence): TeamInQueue's build-queue links
+// body 0x004F035B, rowed as the placeholder Rva00160530::set and called
+// through that spelling. Layout (target evidence): TeamInQueue's build-queue links
 // (prev, next) at +0x04 / +0x08 and ready-queue links at +0x0C / +0x10;
 // AIPlayer's heads at +0x04 (build) and +0x08 (ready).
 //
@@ -42,6 +43,13 @@ private:
 	GetNextFunc m_getNextFunc;
 };
 
+// The rowed build-queue prepend 0x004F035B (TeamInQueue at its +0 links).
+class Rva00160530
+{
+public:
+	void set(Rva00160530 **pListHead);
+};
+
 class TeamInQueue
 {
 public:
@@ -56,7 +64,6 @@ public:
 		m_dlink_TeamBuildQueue.m_prev = originalNext;
 	}
 	Bool dlink_isInList_TeamBuildQueue(TeamInQueue *const *pListHead) const;
-	void dlink_prependTo_TeamBuildQueue(TeamInQueue **pListHead);
 	void dlink_removeFrom_TeamBuildQueue(TeamInQueue **pListHead);
 
 	Bool dlink_isInList_TeamReadyQueue(TeamInQueue *const *pListHead) const;
@@ -107,7 +114,7 @@ private:
 void AIPlayer::prependTo_TeamBuildQueue(TeamInQueue *o)
 {
 	if (!isInList_TeamBuildQueue(o))
-		o->dlink_prependTo_TeamBuildQueue(&m_dlinkhead_TeamBuildQueue);
+		((Rva00160530 *)o)->set((Rva00160530 **)&m_dlinkhead_TeamBuildQueue);
 }
 
 void AIPlayer::removeFrom_TeamBuildQueue(TeamInQueue *o)

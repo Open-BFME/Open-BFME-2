@@ -214,11 +214,15 @@ public:
 	Pathfinder *m_pathfinder;	// +0x10
 };
 
-struct BfmeDelayedLuaEventList
+// DelayedLuaEventList: ctor 0x000B6D8B and virtual dtor 0x000B6DD2 (slot 0 of its
+// vftable 0x007C9CF0 is the scalar deleting dtor 0x000B6E0C); the vptr is the +0 word.
+// BfmeDelayedLuaEventList is only the parameter tag of the 0x003360D2 row.
+struct BfmeDelayedLuaEventList;
+struct DelayedLuaEventList
 {
-	BfmeDelayedLuaEventList();
-	~BfmeDelayedLuaEventList();
-	char m_data[0x4C];
+	DelayedLuaEventList();
+	virtual ~DelayedLuaEventList();
+	char m_data[0x48];
 };
 
 class LuaScriptEngine;
@@ -420,8 +424,8 @@ void Object::onDie(DamageInfo *damageInfo)
 	rva002930A9((int)damageInfo);
 	makeDirty();
 
-	BfmeDelayedLuaEventList events;
-	((BfmeObjectEventDispatch *)TheLuaScriptEngine)->rva003360D2(1, this, &events);
+	DelayedLuaEventList events;
+	((BfmeObjectEventDispatch *)TheLuaScriptEngine)->rva003360D2(1, this, (BfmeDelayedLuaEventList *)&events);
 
 	if (getTemplate()->isKindOf(144) || getTemplate()->isKindOf(90))
 		((Rva0042638E *)TheEmotionSystem)->rva0042638E((const SearchArg0042638E *)this);

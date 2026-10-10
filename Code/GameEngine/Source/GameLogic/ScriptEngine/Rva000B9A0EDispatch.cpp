@@ -18,11 +18,14 @@ private:
 	int m_14;
 };
 
-struct BfmeDelayedLuaEventList
+// DelayedLuaEventList: ctor 0x000B6D8B and virtual dtor 0x000B6DD2 (slot 0 of its
+// vftable 0x007C9CF0 is the scalar deleting dtor 0x000B6E0C); the vptr is the +0 word.
+// BfmeDelayedLuaEventList is only the parameter tag of the 0x003360D2 row.
+struct BfmeDelayedLuaEventList;
+struct DelayedLuaEventList
 {
-	BfmeDelayedLuaEventList();
-	~BfmeDelayedLuaEventList();
-	void *m_vtable;
+	DelayedLuaEventList();
+	virtual ~DelayedLuaEventList();
 	Rva001BDA20 m_events[3];
 };
 
@@ -65,8 +68,8 @@ void Rva000B9A0E::rva000B9A0E(void *obj, int b, int c)
 			continue;
 		if (b == 0 && p->m_a != c)
 			continue;
-		BfmeDelayedLuaEventList list;
+		DelayedLuaEventList list;
 		list.m_events[0].set(p->m_b);
-		reinterpret_cast<BfmeObjectEventDispatch *>(TheLuaScriptEngine)->rva003360D2(15, obj, &list);
+		reinterpret_cast<BfmeObjectEventDispatch *>(TheLuaScriptEngine)->rva003360D2(15, obj, (BfmeDelayedLuaEventList *)&list);
 	}
 }

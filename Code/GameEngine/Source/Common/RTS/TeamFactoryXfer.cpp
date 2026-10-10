@@ -5,7 +5,8 @@
 // the unique team id, the prototype count checked against the map size
 // (XferException(5, 0) on mismatch), then on save each prototype's id and
 // snapshot over the map (rowed _M_increment 0x00024250), on load
-// findTeamPrototypeByID (0x0039F72C) with the same throw when missing.
+// findTeamPrototypeByID (0x0039F72C, rowed under the placeholder
+// Rva0039FE6COwner::rva0039F72C) with the same throw when missing.
 // Layout (target): the method runs on the Snapshot base at TeamFactory+0x0C,
 // so the prototype map (+0xB0) and its count (+0xB4) read at +0xA4/+0xA8 and
 // m_uniqueTeamID (+0xC0) at +0xB4; prototypes carry their id at +0x0C.
@@ -204,11 +205,15 @@ private:
 
 enum { TEAM_FACTORY_PROTOTYPE_SLOTS = 40 };
 
-class TeamFactory : public SubsystemInterface, public Snapshot
+// The prototype-map find by id 0x0039F72C, rowed under its placeholder owner.
+class Rva0039FE6COwner
 {
 public:
-	TeamPrototype *findTeamPrototypeByID(unsigned int id);
+	TeamPrototype *rva0039F72C(unsigned int id);
+};
 
+class TeamFactory : public SubsystemInterface, public Snapshot
+{
 protected:
 	virtual void crc(Xfer *xfer);
 	virtual void xfer(Xfer *xfer);
@@ -255,7 +260,7 @@ void TeamFactory::xfer(Xfer *xfer)
 		for (unsigned short i = 0; i < prototypeCount; ++i)
 		{
 			*xfer == teamPrototypeID;
-			teamPrototype = findTeamPrototypeByID(teamPrototypeID);
+			teamPrototype = ((Rva0039FE6COwner *)this)->rva0039F72C(teamPrototypeID);
 			if (teamPrototype == 0)
 				throw XferException(5, 0);
 			*xfer == *teamPrototype;

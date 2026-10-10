@@ -21,16 +21,16 @@
 #include "ascii_string.h"
 class LivingWorldManager;
 
-struct Rva00612430Item
+struct Rva002120C2Entry
 {
 	char m_padding[4];
 	void *m_value;
 };
 
-class Rva00612430Owner
+class Rva002120A4
 {
 public:
-	Rva00612430Item *find(const AsciiString &name);
+	Rva002120C2Entry *rva002120C2(const AsciiString &name);
 };
 
 extern LivingWorldManager *TheLivingWorldManager;
@@ -41,7 +41,7 @@ class Rva003F92DA {public:
  int unknown00;AsciiString names[4];void *slots[4];char params[24];};
 void Rva003F92DA::rva003F92BB(void *out,const AsciiString *name)
 {
-	Rva00612430Item *item = reinterpret_cast<Rva00612430Owner *>(TheLivingWorldManager)->find(*name);
+	Rva002120C2Entry *item = reinterpret_cast<Rva002120A4 *>(TheLivingWorldManager)->rva002120C2(*name);
 	if (item != 0)
 		*(void **)out = item->m_value;
 }

@@ -3,7 +3,8 @@
 // Thiscall run-with-guard: a stack Rva002048A2 guard swaps the engine's string
 // slot at +0x1A10C with the argument (restored by its virtual dtor), stores the
 // team at +0x1A110 and its controlling player at +0x1A130 (both restored after),
-// then runs the unrowed thiscall 0x0020C5C7 with the three pointer arguments.
+// then runs ScriptEngine::executeActions 0x0020C5C7 (rowed, protected) with
+// the three pointer arguments.
 // Evidence: target only; names are address-derived.
 #include "ascii_string.h"
 
@@ -23,11 +24,18 @@ public:
 	Player *getControllingPlayer() const;
 };
 
+class ScriptAction;
+class ScriptEngine
+{
+	friend class Rva0020D451Engine;
+protected:
+	void executeActions(ScriptAction *actions, void *a, void *b);
+};
+
 class Rva0020D451Engine
 {
 public:
 	void rva0020D451(const AsciiString &name, void *a, void *b, void *c, Team *team);
-	void rva0020C5C7(void *a, void *b, void *c);
 
 private:
 	char m_pad0000[0x1A10C];
@@ -46,7 +54,7 @@ void Rva0020D451Engine::rva0020D451(const AsciiString &name, void *a, void *b, v
 	m_1A110 = team;
 	if (team)
 		m_1A130 = team->getControllingPlayer();
-	rva0020C5C7(a, b, c);
+	((ScriptEngine *)this)->executeActions((ScriptAction *)a, b, c);
 	m_1A110 = savedTeam;
 	m_1A130 = savedPlayer;
 }

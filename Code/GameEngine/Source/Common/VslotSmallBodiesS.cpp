@@ -9,12 +9,12 @@
 typedef int Int;
 typedef unsigned int UnsignedInt;
 
-// 0x00490628: false while +0x98 is set, else the pinned
-// SpecialAbilityUpdate slot it overrides.
+// 0x00490628: false while +0x98 is set, else the rowed
+// SpecialAbilityUpdate::continuePreparation (slot 16) it overrides.
 class SpecialAbilityUpdate
 {
 public:
-	virtual bool rva0044FC52();
+	virtual bool continuePreparation();
 };
 class Rva00490628 : public SpecialAbilityUpdate
 {
@@ -28,21 +28,23 @@ bool Rva00490628::rva0044FC52()
 {
 	if (m_98)
 		return false;
-	return SpecialAbilityUpdate::rva0044FC52();
+	return SpecialAbilityUpdate::continuePreparation();
 }
 
-// 0x0050B95B: looks up the +0x12C key in the registry at VA 0x00DFF000 and
-// forwards both arguments to the pinned notify of the entry found.
-struct Rva0020AA00Target
-{
-	void notify(Int a, Int b);
-};
-class Rva0020AA00Registry
+// 0x0050B95B: looks up the +0x12C name with the rowed ThingFactory::findTemplate
+// (TheThingFactory, VA 0x00DFF000) and forwards both arguments to the rowed
+// ThingTemplate::GetAssetList of the template found.
+class ThingTemplate
 {
 public:
-	Rva0020AA00Target *lookup(const Int &key);
+	void GetAssetList(Int a, Int b);
 };
-extern class ThingFactory *TheThingFactory;
+class ThingFactory
+{
+public:
+	const ThingTemplate *findTemplate(const AsciiString &name);
+};
+extern ThingFactory *TheThingFactory;
 class Rva0050B95B
 {
 public:
@@ -53,9 +55,9 @@ private:
 };
 void Rva0050B95B::rva0050B95B(Int a, Int b)
 {
-	Rva0020AA00Target *t = (*(Rva0020AA00Registry **)&TheThingFactory)->lookup(m_12C);
+	const ThingTemplate *t = TheThingFactory->findTemplate(*(const AsciiString *)&m_12C);
 	if (t)
-		t->notify(a, b);
+		const_cast<ThingTemplate *>(t)->GetAssetList(a, b);
 }
 
 // 0x0050BDD5: own virtual slot 6 with the argument and the +0x38 member of

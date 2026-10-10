@@ -56,12 +56,7 @@ class FlammableUpdate
 {
 public:
 	void tryToIgnite();
-};
-
-class FlameCleanup00293E50
-{
-public:
-	void apply();
+	void rva0048C8F9();	// the cleanup branch
 };
 
 namespace Rva002EFB20
@@ -80,7 +75,7 @@ void __cdecl helper( void *obj, bool flag )
 		}
 		else
 		{
-			( (FlameCleanup00293E50 *)module )->apply();
+			( (FlammableUpdate *)module )->rva0048C8F9();
 		}
 	}
 }

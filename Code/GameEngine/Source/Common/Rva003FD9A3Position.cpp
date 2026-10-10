@@ -21,7 +21,8 @@ struct Rva003FD9A3Point
 };
 
 class Rva001F3899Slot { public: void set(const Rva001F3899Arg &); };
-class Rva003FB6C5 { public: void rva003FB6C5(const Coord3D *); };
+class Vector3;
+class Rva003FD14DBase { public: void rva003FB6C5(const Vector3 &); };	// 0x003FB6C5
 
 class Rva003FD9A3
 {
@@ -34,7 +35,7 @@ private:
 
 void Rva003FD9A3::rva003FD9A3(const Coord3D &position)
 {
-	((Rva003FB6C5 *)this)->rva003FB6C5(&position);
+	((Rva003FD14DBase *)this)->rva003FB6C5(*(const Vector3 *)&position);
 	if (m_system) {
 		Rva003FD9A3Point point(position);
 		ParticleSystem *system = *(ParticleSystem *volatile *)&m_system;

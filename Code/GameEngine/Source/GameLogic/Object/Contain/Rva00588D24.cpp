@@ -39,10 +39,11 @@ struct BfmeWorldRV
 };
 extern class ControlBar *TheControlBar;
 
+class Rva00588E44Contain;
 class Rva0047A040Base9E0
 {
 public:
-	void *rva00588BF3(void *a, Object *b);
+	Rva00588E44Contain *rva00588BF3(void *a, Object *b);
 	bool rva00588D24(void *a, Object *b);
 	void rva00588D99(Object *obj);
 	void rva00588E20(Object *obj);

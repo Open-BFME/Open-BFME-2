@@ -111,10 +111,16 @@ public:
 	int m_04;
 };
 
+// The member fill 0x00318871 is the rowed BitFlags<15>::xfer.
+template <int NUMBITS> class BitFlags
+{
+public:
+	void xfer(Xfer *xfer);
+};
+
 class Rva003189ADSub4C
 {
 public:
-	void rva00318871(Xfer *xfer);
 	int m_flags;
 };
 
@@ -154,7 +160,7 @@ void Rva003189ADOwner::rva003189AD(Xfer *xfer)
 		xfer->slot30(m_20);
 	}
 	if (version.m_current >= 4)
-		m_4c.rva00318871(xfer);
+		((BitFlags<15> *)&m_4c)->xfer(xfer);
 	else
 	{
 		int *words = (int *)&m_4c;

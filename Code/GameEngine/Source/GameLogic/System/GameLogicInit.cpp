@@ -1317,6 +1317,7 @@ class ThingTemplate
 {
 public:
 	const AsciiString &getName(void) const { return m_name; }
+	void GetAssetList(int a, int b);
 	__forceinline bool isKindOf(KindOfType t) const
 	{
 		unsigned int mask = 1u << (t & 31);
@@ -1463,12 +1464,6 @@ void GameLogic::xferObjectTOC(Xfer *xfer)
 // the loader recorded gets 0x00293E64 with its map object's properties.
 // Shape: the kind argument is a compiler temporary (retail keeps it in the
 // dead parameter slot), so it is passed through a const reference.
-class Rva0020AA00Target
-{
-public:
-	void notify(int a, int b);
-};
-
 struct Rva001408C0Target;
 typedef _STL::set<Rva001408C0Target *, _STL::less<Rva001408C0Target *>,
 	_STL::allocator<Rva001408C0Target *> > Rva001408C0Set;
@@ -1672,7 +1667,7 @@ void GameLogic::rva00246422(bool dontCreate)
 				if (!TheWritableGlobalData->m_1110) {
 					AssetLoadMode mode;
 					AssetList assets;
-					((Rva0020AA00Target *)tt)->notify((int)&assets, (int)&mode);
+					((ThingTemplate *)tt)->GetAssetList((int)&assets, (int)&mode);
 					bfmeMergeReceiverKeys((int)&assets);
 				}
 				Team *team = ThePlayerList->getNeutralPlayer()->getDefaultTeam();
@@ -1691,7 +1686,7 @@ void GameLogic::rva00246422(bool dontCreate)
 				if (!TheWritableGlobalData->m_1110) {
 					AssetLoadMode mode;
 					AssetList assets;
-					((Rva0020AA00Target *)tt)->notify((int)&assets, (int)&mode);
+					((ThingTemplate *)tt)->GetAssetList((int)&assets, (int)&mode);
 					bfmeMergeReceiverKeys((int)&assets);
 				}
 				Team *team = ThePlayerList->getNeutralPlayer()->getDefaultTeam();
@@ -1708,7 +1703,7 @@ void GameLogic::rva00246422(bool dontCreate)
 				if (!TheWritableGlobalData->m_1110) {
 					AssetLoadMode mode;
 					AssetList assets;
-					((Rva0020AA00Target *)tt)->notify((int)&assets, (int)&mode);
+					((ThingTemplate *)tt)->GetAssetList((int)&assets, (int)&mode);
 					bfmeMergeReceiverKeys((int)&assets);
 				}
 				Team *team = ThePlayerList->getNeutralPlayer()->getDefaultTeam();
@@ -1727,7 +1722,7 @@ void GameLogic::rva00246422(bool dontCreate)
 				if (!TheWritableGlobalData->m_1110) {
 					AssetLoadMode mode;
 					AssetList assets;
-					((Rva0020AA00Target *)tt)->notify((int)&assets, (int)&mode);
+					((ThingTemplate *)tt)->GetAssetList((int)&assets, (int)&mode);
 					bfmeMergeReceiverKeys((int)&assets);
 				}
 				Team *team = ThePlayerList->getNeutralPlayer()->getDefaultTeam();

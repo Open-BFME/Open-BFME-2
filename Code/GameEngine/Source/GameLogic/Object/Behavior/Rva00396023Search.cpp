@@ -4,7 +4,8 @@ enum NameKeyType { NAMEKEY_INVALID = 0 };
 class Module { public: virtual ~Module(); };
 struct Coord3D { float x; float y; float z; };
 class PolygonTrigger { public: bool rva002E3A39(const Coord3D &p); };
-class CastleBehavior { public: static NameKeyType rva0003955DA(); PolygonTrigger *rva00395E53(int i); char m_pad[0x80]; void *m_80; void *m_84; };
+class Rva00395E53 { public: void *rva00395E53(unsigned int i); };
+class CastleBehavior { public: static NameKeyType rva0003955DA(); char m_pad[0x80]; void *m_80; void *m_84; };
 class Object { public: char m_pad00[4]; void *m_04; protected: Module *findModule(NameKeyType key) const; };
 struct ObjectHack : public Object { Module *get(NameKeyType k) const { return findModule(k); } };
 struct BoxVec { int a; int b; int c; };
@@ -20,7 +21,7 @@ int __cdecl rva00796023(Object *obj, void *userData)
 	Box *box = (Box *)userData;
 	for (; i < ((((char *)beh->m_84 - (char *)beh->m_80)) >> 2); ++i)
 	{
-		PolygonTrigger *trig = beh->rva00395E53(i);
+		PolygonTrigger *trig = (PolygonTrigger *)((Rva00395E53 *)beh)->rva00395E53(i);
 		if (trig->rva002E3A39(*(const Coord3D *)&box->m_00))
 			return 0;
 		if (box->m_18 != 0)

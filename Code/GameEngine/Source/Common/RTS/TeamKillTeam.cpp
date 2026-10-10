@@ -261,11 +261,14 @@ struct BfmeDispatchDelayedLuaEvent
 	unsigned m_type;
 };
 
-struct BfmeDelayedLuaEventList
+// DelayedLuaEventList: ctor 0x000B6D8B and virtual dtor 0x000B6DD2 (slot 0 of its
+// vftable 0x007C9CF0 is the scalar deleting dtor 0x000B6E0C); the vptr is the +0 word.
+// BfmeDelayedLuaEventList is only the parameter tag of the 0x003360D2 row.
+struct BfmeDelayedLuaEventList;
+struct DelayedLuaEventList
 {
-	BfmeDelayedLuaEventList();
-	~BfmeDelayedLuaEventList();
-	void *m_vtable;
+	DelayedLuaEventList();
+	virtual ~DelayedLuaEventList();
 	BfmeDispatchDelayedLuaEvent m_events[3];
 };
 
@@ -329,13 +332,13 @@ void Team::killTeam()
 	for (objIt = objectsToNeutral.begin(); objIt != objectsToNeutral.end(); ++objIt) {
 		Object *obj = (Object *)(*objIt);
 		obj->setTeam(ThePlayerList->getNeutralPlayer()->getDefaultTeam());
-		BfmeDelayedLuaEventList list;
+		DelayedLuaEventList list;
 		{
 			AsciiString value("neutral");
 			list.m_events[0].m_string = value;
 			list.m_events[0].m_type = 4;
 		}
-		reinterpret_cast<BfmeObjectEventDispatch *>(TheLuaScriptEngine)->rva003360D2(15, obj, &list);
+		reinterpret_cast<BfmeObjectEventDispatch *>(TheLuaScriptEngine)->rva003360D2(15, obj, (BfmeDelayedLuaEventList *)&list);
 		if (obj->m_conditionBits.test(119) != 0) {
 			obj->m_conditionBits.clear(119);
 			obj->rva0028AE6D();

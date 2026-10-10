@@ -27,10 +27,16 @@ public:
 
 extern GameLogic *TheGameLogic;
 
+// The element reset 0x003EDC16, rowed under its own placeholder class.
+class Rva003EDC16
+{
+public:
+	void rva003EDC16();
+};
+
 struct Rva0020DXXXElem
 {
 	void rva003EDC31();
-	void rva003EDC16();
 	void rva003EDE44(int x);
 	void rva003EDF69(int x);
 	void rva003EDFD8(int x);
@@ -87,7 +93,7 @@ void Rva0020DXXX::rva0020D834()
 {
 	void **fin = m_vec10.m_end;
 	for (void **i = m_vec10.m_begin; i != fin; ++i)
-		((Rva0020DXXXElem *)*i)->rva003EDC16();
+		((Rva003EDC16 *)*i)->rva003EDC16();
 	m_3A = 0;
 	GameLogic *g = TheGameLogic;
 	if (g != 0)

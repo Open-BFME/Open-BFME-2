@@ -112,12 +112,12 @@ public:
 extern GlobalData *TheWritableGlobalData;
 
 // The asset announcement GameLogic::init makes for a looked-up template
-// (GameLogicInit.cpp): notify 0x0033CF34 with a fresh asset list and load
-// mode, then merge 0x0061F010.
-class Rva0020AA00Target
+// (GameLogicInit.cpp): ThingTemplate::GetAssetList 0x0033CF34 with a fresh
+// asset list and load mode, then merge 0x0061F010.
+class ThingTemplate
 {
 public:
-	void notify(int a, int b);
+	void GetAssetList(int a, int b);
 };
 
 struct Rva001408C0Target;
@@ -272,7 +272,7 @@ void ScriptActions::rva003C66F1(const AsciiString &buildingType, Parameter *mode
 	if (!TheWritableGlobalData->m_1110) {
 		AssetLoadMode mode;
 		AssetList assets;
-		((Rva0020AA00Target *)tmpl)->notify((int)&assets, (int)&mode);
+		tmpl->GetAssetList((int)&assets, (int)&mode);
 		bfmeMergeReceiverKeys((int)&assets);
 	}
 

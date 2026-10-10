@@ -12,9 +12,8 @@ typedef int Int;
 typedef bool Bool;
 
 #include "ascii_string.h"
-class ThingTemplate;
+class ThingTemplate { public: void GetAssetList(int,int); };
 class CommandButton { public: const ThingTemplate *rva0035B570() const; };
-class Rva0020AA00Target { public: void notify(int,int); };
 
 class GameLogic
 {
@@ -72,6 +71,6 @@ void CommandSet::rva00409F1B(int a, int b)
 		const ThingTemplate *tmpl = cur->rva0035B570();
 		if (tmpl == 0)
 			continue;
-		reinterpret_cast<Rva0020AA00Target *>(const_cast<ThingTemplate *>(tmpl))->notify(a, b);
+		const_cast<ThingTemplate *>(tmpl)->GetAssetList(a, b);
 	}
 }

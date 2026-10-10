@@ -171,7 +171,7 @@ protected:
 	BfmeNetAddress m_hostAddress;			// +0x114, slot 0's address
 };
 
-Bool Rva00300E42( GameInfo *game );
+Bool Rva00300E42Check( GameInfo *game );
 
 class LANGameInfo : public GameInfo
 {
@@ -325,7 +325,7 @@ void LANAPI::RequestHasMap( void )
 		else
 		{
 			mapDisplayName.format( L"%hs", TheGameState->getMapLeafName( m_currentGame->getMap() ).str() );
-			willTransfer = Rva00300E42( m_currentGame );
+			willTransfer = Rva00300E42Check( m_currentGame );
 		}
 		if( willTransfer )
 			text.format( TheGameText->fetch( "GUI:LocalPlayerNoMapWillTransfer", 0 ), mapDisplayName.str() );

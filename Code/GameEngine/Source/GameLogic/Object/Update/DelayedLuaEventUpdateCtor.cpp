@@ -77,10 +77,10 @@ class DelayedLuaEventList
 {
 public:
 	DelayedLuaEventList();
-	~DelayedLuaEventList();
+	virtual ~DelayedLuaEventList();	// 0x000B6DD2
 
 private:
-	unsigned char m_data[0x4C];
+	unsigned char m_data[0x48];
 };
 
 class DelayedLuaEventUpdate : public UpdateModule

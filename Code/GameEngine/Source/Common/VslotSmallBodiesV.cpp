@@ -92,18 +92,21 @@ void TextureAsset::RecolorFactoryDecal::PreLoad()
 	m_impl->rva00131259(m_3C);
 }
 
-// 0x001E30F5: unless +0x14C is set, looks up the +0x154 key in the registry
-// at VA 0x00DFF000 and forwards both arguments to the pinned notify.
-struct Rva0020AA00Target
-{
-	void notify(Int a, Int b);
-};
-class Rva0020AA00Registry
+// 0x001E30F5: unless +0x14C is set, looks up the +0x154 name with the rowed
+// ThingFactory::findTemplate (TheThingFactory, VA 0x00DFF000) and forwards both
+// arguments to the rowed ThingTemplate::GetAssetList of the template found.
+class AsciiString;
+class ThingTemplate
 {
 public:
-	Rva0020AA00Target *lookup(const Int &key);
+	void GetAssetList(Int a, Int b);
 };
-extern class ThingFactory *TheThingFactory;
+class ThingFactory
+{
+public:
+	const ThingTemplate *findTemplate(const AsciiString &name);
+};
+extern ThingFactory *TheThingFactory;
 class Rva001E30F5
 {
 public:
@@ -118,9 +121,9 @@ void Rva001E30F5::rva001E30F5(Int a, Int b)
 {
 	if (!m_14C)
 	{
-		Rva0020AA00Target *t = (*(Rva0020AA00Registry **)&TheThingFactory)->lookup(m_154);
+		const ThingTemplate *t = TheThingFactory->findTemplate(*(const AsciiString *)&m_154);
 		if (t)
-			t->notify(a, b);
+			const_cast<ThingTemplate *>(t)->GetAssetList(a, b);
 	}
 }
 

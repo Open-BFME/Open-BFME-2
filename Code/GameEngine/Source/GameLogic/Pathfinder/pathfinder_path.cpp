@@ -26,7 +26,7 @@ class Path
 {
 public:
 	~Path();
-	bool rva00363930(Coord3D *position, bool stopAtPortal);
+	bool rva00363930(const Coord3D *position, bool stopAtPortal);
 	void rva00365DF0(Rva00263404Product *product);
 private:
 	void *m_unknown00;

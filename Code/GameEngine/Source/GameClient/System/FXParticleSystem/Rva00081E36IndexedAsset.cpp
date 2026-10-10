@@ -51,7 +51,12 @@ class AssetList
 	bool m_changed;
 public:
 	AssetList() : m_treeLayoutPad(0), m_changed(true) {}
-	AssetList &operator<<(const AsciiString &name);
+};
+
+// The insert 0x0006C950, rowed under the AssetList00208F90 spelling.
+struct AssetList00208F90
+{
+	AssetList00208F90 &operator<<(const AsciiString &name);
 };
 
 class BfmeResetTextureRef
@@ -83,7 +88,7 @@ void RenderableStandingWaterArea::onStandingWaterAreaTextureNameChanged(void *, 
 	((RenderableStandingWaterArea *)((char *)this - 0x3C))->createTexture(index);
 
 	AssetList assets;
-	assets << *(const AsciiString *)m_assets->rva0030812E(index);
+	*(AssetList00208F90 *)&assets << *(const AsciiString *)m_assets->rva0030812E(index);
 	bfmeMergeReceiverKeys((int)&assets);
 }
 
@@ -116,7 +121,7 @@ void Rva000820CA::rva000820CA(void *, int index) {
  ((BfmeResetTextureRef *)((char *)this + 8 + index * 4))->clear();
  ((RenderableRiverArea *)((char *)this - 0x3C))->createTexture(index);
  AssetList assets;
- assets << *(const AsciiString *)m_assets->rva0030BBA9(index);
+ *(AssetList00208F90 *)&assets << *(const AsciiString *)m_assets->rva0030BBA9(index);
  bfmeMergeReceiverKeys((int)&assets);
  m_dirty = true;
 }
@@ -131,7 +136,7 @@ void RenderableRiverArea::rva00082061()
 	for (int index = 0; index < 4; ++index)
 	{
 		createTexture(index);
-		assets << *(const AsciiString *)m_assets->rva0030BBA9(index);
+		*(AssetList00208F90 *)&assets << *(const AsciiString *)m_assets->rva0030BBA9(index);
 	}
 	bfmeMergeReceiverKeys((int)&assets);
 }

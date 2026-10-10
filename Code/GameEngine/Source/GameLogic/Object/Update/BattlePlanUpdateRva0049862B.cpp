@@ -46,6 +46,8 @@ private:
 
 extern GameLogic *TheGameLogic;
 
+enum TransitionStatus { TRANSITION_STATUS_0 };
+
 class BattlePlanUpdate
 {
 	friend class Rva0049862B;
@@ -53,9 +55,9 @@ class BattlePlanUpdate
 public:
 	char m_pad[8];
 	Object *m_object;
-	void rva00497FF3(int code);
 
 protected:
+	void setStatus(TransitionStatus status);	// 0x00497FF3
 	void enableTurret(bool enable);
 	void recenterTurret();
 	bool isTurretInNaturalPosition();
@@ -97,13 +99,13 @@ int Rva0049862B::rva0049862B()
 			if (m_pending != 0)
 			{
 				m_current = m_pending;
-				plan()->rva00497FF3(1);
+				plan()->setStatus((TransitionStatus)1);
 			}
 			break;
 		case 1:
 		{
 			BattlePlanUpdate *owner = plan();
-			owner->rva00497FF3(2);
+			owner->setStatus((TransitionStatus)2);
 			if (m_current == 1)
 				owner->enableTurret(true);
 			break;
@@ -120,7 +122,7 @@ int Rva0049862B::rva0049862B()
 						BattlePlanUpdate *owner = plan();
 						if (owner->isTurretInNaturalPosition())
 						{
-							owner->rva00497FF3(3);
+							owner->setStatus((TransitionStatus)3);
 							m_turretHeld = 0;
 							owner->enableTurret(false);
 						}
@@ -133,11 +135,11 @@ int Rva0049862B::rva0049862B()
 					}
 				}
 				else
-					plan()->rva00497FF3(3);
+					plan()->setStatus((TransitionStatus)3);
 			}
 			break;
 		case 3:
-			plan()->rva00497FF3(0);
+			plan()->setStatus((TransitionStatus)0);
 			break;
 		}
 	}

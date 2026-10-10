@@ -30,10 +30,16 @@ public:
 	unsigned char m_flag4B0;
 };
 
+// The Player member 0x002ACECC, rowed under its placeholder class.
+class Rva002ACECC
+{
+public:
+	void rva002ACECC(int id);
+};
+
 class Player
 {
 public:
-	void rva002ACECC(ObjectID id);
 };
 
 class GameLogic
@@ -86,7 +92,7 @@ void AIUpdateInterface::rva00489E2E()
 	{
 		Player *player = m_owner->getControllingPlayer();
 		if (player != 0)
-			player->rva002ACECC(m_id);
+			((Rva002ACECC *)player)->rva002ACECC(m_id);
 	}
 	Object *found = TheGameLogic->findObjectByID(m_id);
 	if (found == 0)

@@ -16,10 +16,10 @@ private:
 	void *m_ptr;
 };
 
-class Gen_uw_0010f149
+class BfmeStringTailRecord156
 {
 public:
-	~Gen_uw_0010f149();
+	~BfmeStringTailRecord156();	// 0x0010F149
 private:
 	void *m_ptr;
 	int m_value;
@@ -49,7 +49,7 @@ private:
 	Rva00360D26Member m_filter1C; // +0x1C
 	AsciiString m_name20; // +0x20
 	char m_pad24[0x30 - 0x24];
-	Gen_uw_0010f149 m_records30[5]; // +0x30
+	BfmeStringTailRecord156 m_records30[5]; // +0x30
 };
 
 Rva00318637::~Rva00318637()

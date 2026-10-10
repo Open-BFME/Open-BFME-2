@@ -3,12 +3,11 @@
 // provide the action/team-asset traversal. Target3B3836 proves action heads
 // 34/38, parameter8/C/string10 and target TeamPrototype template12C with
 // unit names14/stride18/countAC/transport100. These layout facts are native,
-// not copied from BF1. Target helper33CF34 still has only its neutral binding.
+// not copied from BF1. Target helper33CF34 is the rowed ThingTemplate::GetAssetList.
 #include "ascii_string.h"
 class AssetList;
 struct AssetLoadMode;
-class ThingTemplate;
-class Rva0020AA00Target { public: void notify(int assets, int context); };
+class ThingTemplate { public: void GetAssetList(int assets, int context); };
 class ThingFactory
 {
 public:
@@ -80,7 +79,7 @@ private:
 static __forceinline void CollectScriptAsset(const ThingTemplate *thing, AssetList *assets, AssetLoadMode *mode)
 {
     if (thing)
-        ((Rva0020AA00Target *)thing)->notify((int)assets, (int)mode);
+        const_cast<ThingTemplate *>(thing)->GetAssetList((int)assets, (int)mode);
 }
 void Script::rva003B3836(AssetList *assets, AssetLoadMode *mode)
 {

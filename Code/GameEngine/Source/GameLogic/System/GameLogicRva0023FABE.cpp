@@ -33,12 +33,16 @@ public:
 };
 extern ThingFactory *TheThingFactory;
 
-struct BfmeDelayedLuaEventList
+// DelayedLuaEventList: ctor 0x000B6D8B and virtual dtor 0x000B6DD2 (slot 0 of its
+// vftable 0x007C9CF0 is the scalar deleting dtor 0x000B6E0C); the vptr is the +0 word.
+// BfmeDelayedLuaEventList is only the parameter tag of the 0x003360D2 row.
+struct BfmeDelayedLuaEventList;
+struct DelayedLuaEventList
 {
-	BfmeDelayedLuaEventList();
-	~BfmeDelayedLuaEventList();
+	DelayedLuaEventList();
+	virtual ~DelayedLuaEventList();
 
-	unsigned char m_data[0x4C];
+	unsigned char m_data[0x48];
 };
 
 class BfmeObjectEventDispatch
@@ -66,6 +70,6 @@ void GameLogic::rva0023FABE(Object *obj)
 		status = 0x20;
 	Drawable *draw = (Drawable *)TheThingFactory->newDrawable((void *)obj->getTemplate(), status, random);
 	bindObjectAndDrawable(obj, draw);
-	BfmeDelayedLuaEventList events;
-	reinterpret_cast<BfmeObjectEventDispatch *>(TheLuaScriptEngine)->rva003360D2(0xC, obj, &events);
+	DelayedLuaEventList events;
+	reinterpret_cast<BfmeObjectEventDispatch *>(TheLuaScriptEngine)->rva003360D2(0xC, obj, (BfmeDelayedLuaEventList *)&events);
 }

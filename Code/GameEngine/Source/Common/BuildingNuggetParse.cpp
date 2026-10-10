@@ -78,13 +78,13 @@ public:
 };
 
 // The owning holder: its destructor is the folded 0x000AD6F4.
-class Gen_uw_000ad6f4
+class Rva000AD6F4
 {
 public:
-	~Gen_uw_000ad6f4();
+	~Rva000AD6F4();
 	Rva0052B685Pointee *ptr;
 };
-class Rva0052B685Holder : public Gen_uw_000ad6f4
+class Rva0052B685Holder : public Rva000AD6F4
 {
 public:
 	Rva0052B685Holder(Rva0052B685Pointee *p) { ptr = p; }

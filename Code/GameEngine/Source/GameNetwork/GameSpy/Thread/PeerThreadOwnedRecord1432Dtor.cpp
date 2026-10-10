@@ -11,10 +11,10 @@
 // destructors in retail are inline, the unwind funclets call them.
 extern "C" void __cdecl free(void *block);
 
-class Gen_uw_00385371
+class PSPlayerAllStats
 {
 public:
-	~Gen_uw_00385371();		// 0x00385371
+	~PSPlayerAllStats();		// 0x00385371
 	unsigned char m_bytes[0x540];
 };
 
@@ -37,7 +37,7 @@ public:
 	~BfmeOpaqueOwnedRecord1432();
 private:
 	unsigned char m_pad0[8];
-	Gen_uw_00385371 m_x8;			// +0x008
+	PSPlayerAllStats m_x8;			// +0x008
 	unsigned char m_pad548[0x550 - 0x548];
 	BfmeOwnedBuffer12 m_x550;		// +0x550
 	BfmeOwnedBuffer12 m_x55C;		// +0x55C

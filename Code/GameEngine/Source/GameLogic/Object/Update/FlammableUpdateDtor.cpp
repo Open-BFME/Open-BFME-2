@@ -477,11 +477,14 @@ struct BfmeDelayedLuaEvent
 	unsigned char m_data[0x18];
 };
 
-struct BfmeDelayedLuaEventList
+// DelayedLuaEventList: ctor 0x000B6D8B and virtual dtor 0x000B6DD2 (slot 0 of its
+// vftable 0x007C9CF0 is the scalar deleting dtor 0x000B6E0C); the vptr is the +0 word.
+// BfmeDelayedLuaEventList is only the parameter tag of the 0x003360D2 row.
+struct BfmeDelayedLuaEventList;
+struct DelayedLuaEventList
 {
-	BfmeDelayedLuaEventList();
-	~BfmeDelayedLuaEventList();
-	void *m_vtable;
+	DelayedLuaEventList();
+	virtual ~DelayedLuaEventList();
 	BfmeDelayedLuaEvent m_events[3];
 };
 
@@ -685,8 +688,8 @@ void FlammableUpdate::rva0048C8F9()
 	if (data->m_flag36 || data->m_flag38)
 		me->getDrawable()->rva00274176(true);
 
-	BfmeDelayedLuaEventList list;
-	((BfmeObjectEventDispatch *)TheLuaScriptEngine)->rva003360D2(OBJECT_STATUS_BURNED, me, &list);
+	DelayedLuaEventList list;
+	((BfmeObjectEventDispatch *)TheLuaScriptEngine)->rva003360D2(OBJECT_STATUS_BURNED, me, (BfmeDelayedLuaEventList *)&list);
 
 	stopBurningSound();
 	me->setStatus(OBJECT_STATUS_AFLAME, false);
@@ -733,8 +736,8 @@ void FlammableUpdate::tryToIgnite()
 
 		m_status = FS_AFLAME;
 
-		BfmeDelayedLuaEventList list;
-		((BfmeObjectEventDispatch *)TheLuaScriptEngine)->rva003360D2(OBJECT_STATUS_AFLAME, me, &list);
+		DelayedLuaEventList list;
+		((BfmeObjectEventDispatch *)TheLuaScriptEngine)->rva003360D2(OBJECT_STATUS_AFLAME, me, (BfmeDelayedLuaEventList *)&list);
 
 		const FlammableUpdateModuleData *data = getFlammableUpdateModuleData();
 		UnsignedInt now = TheGameLogic->getFrame();

@@ -35,12 +35,6 @@ public:
 
 extern GlobalData *TheWritableGlobalData;
 
-class Rva0020AA00Target
-{
-public:
-	void notify(int a, int b);
-};
-
 void __cdecl bfmeMergeReceiverKeys(int value);
 
 extern "C" void *__cdecl memset(void *,int,unsigned int);
@@ -73,6 +67,7 @@ public:
 	unsigned char m_flags108;
 	char m_pad2[0x4D0 - 0x109];
 	float m_orient4D0;
+	void GetAssetList(int a, int b);
 };
 
 class Team
@@ -150,7 +145,7 @@ static Object *placeObjectAtPosition(int slot, AsciiString name, const Coord3D *
 	if (TheWritableGlobalData->m_1110 == 0) {
 		AssetLoadMode mode;
 		AssetList receivers;
-		((Rva0020AA00Target *)tmpl)->notify((int)&receivers, (int)&mode);
+		tmpl->GetAssetList((int)&receivers, (int)&mode);
 		bfmeMergeReceiverKeys((int)&receivers);
 	}
 	Object *obj;

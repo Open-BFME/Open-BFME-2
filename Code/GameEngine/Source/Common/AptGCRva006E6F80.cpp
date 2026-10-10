@@ -26,7 +26,7 @@ public:
 class AptBoolean { public: static void ClearPool(); };
 class AptInteger { public: static void ClearPool(); };
 class AptFloat { public: static void ClearPool(); };
-class StringPool { public: static void ClearTemporaryPool(); };
+void Rva0070B590Drain();	// 0x0070B590, the temporary string pool drain
 void __cdecl Rva006CC110Log(int,const char *,...);
 extern AptValueVector *g_releaseVectorAtE17710;
 class Rva006D2A60;
@@ -59,5 +59,5 @@ void AptGC::CleanAll()
     AptBoolean::ClearPool();
     AptInteger::ClearPool();
     AptFloat::ClearPool();
-    StringPool::ClearTemporaryPool();
+    Rva0070B590Drain();
 }

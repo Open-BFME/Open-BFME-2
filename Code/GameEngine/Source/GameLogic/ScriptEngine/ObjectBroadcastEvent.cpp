@@ -144,7 +144,7 @@ public:
 };
 extern class GlobalData *TheWritableGlobalData;
 
-typedef unsigned NameKeyType;
+enum NameKeyType { NAMEKEY_INVALID = 0 };
 
 class NameKeyGenerator
 {
@@ -165,21 +165,27 @@ struct BfmeDispatchDelayedLuaEvent
 	unsigned m_type;
 };
 
-struct BfmeDelayedLuaEventList
+// DelayedLuaEventList: ctor 0x000B6D8B and virtual dtor 0x000B6DD2 (slot 0 of its
+// vftable 0x007C9CF0 is the scalar deleting dtor 0x000B6E0C); the vptr is the +0 word.
+struct DelayedLuaEventList
 {
-	BfmeDelayedLuaEventList();	// 0x000B6D8B
-	~BfmeDelayedLuaEventList();	// 0x000B6DD2
-	void *m_vtable;
+	DelayedLuaEventList();	// 0x000B6D8B
+	virtual ~DelayedLuaEventList();	// 0x000B6DD2
 	BfmeDispatchDelayedLuaEvent m_events[3];
 };
 
-// The global at 0x00E01DBC.
-struct LuaDrawableState
+// The global at 0x00E01DBC: the event a key names (0x00333918, rowed as
+// Rva00332E60::rva00333918) and LuaScriptEngine::DispatchEvent (0x00334634).
+class Rva00332E60
 {
-	void *rva00333918(NameKeyType key);	// 0x00333918: the event named by key
-	void rva00334634(void *event, Object *obj, BfmeDelayedLuaEventList *args);	// 0x00334634
+public:
+	void *rva00333918(int key);
 };
-class LuaScriptEngine;
+class LuaScriptEngine
+{
+public:
+	void DispatchEvent(int *event, Object *obj, void *args);
+};
 extern LuaScriptEngine *TheLuaScriptEngine;
 
 int ObjectBroadcastEventToEnemies(lua_State *state)
@@ -191,11 +197,11 @@ int ObjectBroadcastEventToEnemies(lua_State *state)
 	if (!object)
 		return 0;
 
-	BfmeDelayedLuaEventList eventList;
+	DelayedLuaEventList eventList;
 	const char *eventName = lua_tostring(state, 2);
 	if (!eventName)
 		return 0;
-	void *event = reinterpret_cast<LuaDrawableState *>(TheLuaScriptEngine)->rva00333918(TheNameKeyGenerator->nameToKey(eventName));
+	void *event = reinterpret_cast<Rva00332E60 *>(TheLuaScriptEngine)->rva00333918(TheNameKeyGenerator->nameToKey(eventName));
 	if (!event)
 		return 0;
 
@@ -226,7 +232,7 @@ int ObjectBroadcastEventToEnemies(lua_State *state)
 		&enemies, 1);
 	Object *other;
 	while ((other = hits.next()) != 0)
-		reinterpret_cast<LuaDrawableState *>(TheLuaScriptEngine)->rva00334634(event, other, &eventList);
+		TheLuaScriptEngine->DispatchEvent((int *)event, other, &eventList);
 	return 0;
 }
 
@@ -239,11 +245,11 @@ int ObjectBroadcastEventToAllies(lua_State *state)
 	if (!object)
 		return 0;
 
-	BfmeDelayedLuaEventList eventList;
+	DelayedLuaEventList eventList;
 	const char *eventName = lua_tostring(state, 2);
 	if (!eventName)
 		return 0;
-	void *event = reinterpret_cast<LuaDrawableState *>(TheLuaScriptEngine)->rva00333918(TheNameKeyGenerator->nameToKey(eventName));
+	void *event = reinterpret_cast<Rva00332E60 *>(TheLuaScriptEngine)->rva00333918(TheNameKeyGenerator->nameToKey(eventName));
 	if (!event)
 		return 0;
 
@@ -262,7 +268,7 @@ int ObjectBroadcastEventToAllies(lua_State *state)
 		&allies, 1);
 	Object *other;
 	while ((other = hits.next()) != 0)
-		reinterpret_cast<LuaDrawableState *>(TheLuaScriptEngine)->rva00334634(event, other, &eventList);
+		TheLuaScriptEngine->DispatchEvent((int *)event, other, &eventList);
 	return 0;
 }
 
@@ -275,11 +281,11 @@ int ObjectBroadcastEventToCivilians(lua_State *state)
 	if (!object)
 		return 0;
 
-	BfmeDelayedLuaEventList eventList;
+	DelayedLuaEventList eventList;
 	const char *eventName = lua_tostring(state, 2);
 	if (!eventName)
 		return 0;
-	void *event = reinterpret_cast<LuaDrawableState *>(TheLuaScriptEngine)->rva00333918(TheNameKeyGenerator->nameToKey(eventName));
+	void *event = reinterpret_cast<Rva00332E60 *>(TheLuaScriptEngine)->rva00333918(TheNameKeyGenerator->nameToKey(eventName));
 	if (!event)
 		return 0;
 
@@ -300,7 +306,7 @@ int ObjectBroadcastEventToCivilians(lua_State *state)
 		&civilians, 1);
 	Object *other;
 	while ((other = hits.next()) != 0)
-		reinterpret_cast<LuaDrawableState *>(TheLuaScriptEngine)->rva00334634(event, other, &eventList);
+		TheLuaScriptEngine->DispatchEvent((int *)event, other, &eventList);
 	return 0;
 }
 
@@ -313,11 +319,11 @@ int ObjectBroadcastEventToUnits(lua_State *state)
 	if (!object)
 		return 0;
 
-	BfmeDelayedLuaEventList eventList;
+	DelayedLuaEventList eventList;
 	const char *eventName = lua_tostring(state, 2);
 	if (!eventName)
 		return 0;
-	void *event = reinterpret_cast<LuaDrawableState *>(TheLuaScriptEngine)->rva00333918(TheNameKeyGenerator->nameToKey(eventName));
+	void *event = reinterpret_cast<Rva00332E60 *>(TheLuaScriptEngine)->rva00333918(TheNameKeyGenerator->nameToKey(eventName));
 	if (!event)
 		return 0;
 
@@ -336,6 +342,6 @@ int ObjectBroadcastEventToUnits(lua_State *state)
 		&player, 1);
 	Object *other;
 	while ((other = hits.next()) != 0)
-		reinterpret_cast<LuaDrawableState *>(TheLuaScriptEngine)->rva00334634(event, other, &eventList);
+		TheLuaScriptEngine->DispatchEvent((int *)event, other, &eventList);
 	return 0;
 }

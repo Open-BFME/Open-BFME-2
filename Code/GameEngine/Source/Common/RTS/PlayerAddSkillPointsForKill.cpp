@@ -43,7 +43,7 @@ public:
 	void rva0039B683(float delta);
 };
 
-class Rva003805BB
+class Rva00380200
 {
 public:
 	bool rva003805BB(float value, bool b);
@@ -56,7 +56,7 @@ public:
 
 private:
 	unsigned char m_pad000[0x08];
-	Rva003805BB m_skillPoints; // +0x08
+	Rva00380200 m_skillPoints; // +0x08
 	unsigned char m_pad009[0x3BC - 0x09];
 	Rva0039B683 m_accumulator; // +0x3BC
 };

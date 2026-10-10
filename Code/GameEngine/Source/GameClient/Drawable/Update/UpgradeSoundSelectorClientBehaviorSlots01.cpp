@@ -40,9 +40,14 @@ struct Rva002C99FB
 	Rva002C99FB &operator=(const Rva002C99FB &other);
 };
 
-struct Rva004CB51CEntry
+// The entry test 0x004CB333 is rowed as UpgradeMuxData::rva004CB333.
+struct UpgradeMuxData
 {
 	bool rva004CB333(Object *obj);
+};
+
+struct Rva004CB51CEntry
+{
 	Rva002C99FB rva004CB167(int index);
 	Rva002C99FB rva004CB2FB(const AsciiString &name);
 	unsigned char m_pad000[0x384];
@@ -95,7 +100,7 @@ bool UpgradeSoundSelectorClientBehavior::rva004CB3F8(int index, Rva002C99FB *out
 		return false;
 	for (Rva004CB51CEntry *e = d->m_begin, *end = d->m_end; e != end; ++e)
 	{
-		if (e->rva004CB333(obj))
+		if (((UpgradeMuxData *)e)->rva004CB333(obj))
 		{
 			*out = e->rva004CB167(index);
 			if (out->m_second.referent)
@@ -113,7 +118,7 @@ bool UpgradeSoundSelectorClientBehavior::rva004CB48A(const AsciiString &name, Rv
 		return false;
 	for (Rva004CB51CEntry *e = d->m_begin, *end = d->m_end; e != end; ++e)
 	{
-		if (e->rva004CB333(obj))
+		if (((UpgradeMuxData *)e)->rva004CB333(obj))
 		{
 			*out = e->rva004CB2FB(name);
 			if (out->m_second.referent)

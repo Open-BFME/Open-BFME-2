@@ -10,12 +10,18 @@ public:
 	char m_pad[0x34];
 	int m34;
 };
+// The removal 0x002B7DE6 is the LivingWorldLogic::RemovePlayer row (same host object).
+class LivingWorldPlayer;
+class LivingWorldLogic
+{
+public:
+	void RemovePlayer(LivingWorldPlayer *player);
+};
 class Rva002B894DHost
 {
 public:
 	void rva002B894D(int arg);
 	void rva002B8984(int arg);
-	void rva002B7DE6(Rva002B894DElem *e);
 private:
 	char m_pad[0x8C];
 	Rva002B894DElem **m_begin8C;
@@ -28,7 +34,7 @@ void Rva002B894DHost::rva002B894D(int arg)
 	{
 		Rva002B894DElem *e = m_begin8C[i];
 		if (e->m34 == arg)
-			rva002B7DE6(e);
+			((LivingWorldLogic *)this)->RemovePlayer((LivingWorldPlayer *)e);
 	}
 }
 void Rva002B894DHost::rva002B8984(int arg)
@@ -38,6 +44,6 @@ void Rva002B894DHost::rva002B8984(int arg)
 	{
 		Rva002B894DElem *e = m_begin8C[i];
 		if (e->m34 != arg)
-			rva002B7DE6(e);
+			((LivingWorldLogic *)this)->RemovePlayer((LivingWorldPlayer *)e);
 	}
 }

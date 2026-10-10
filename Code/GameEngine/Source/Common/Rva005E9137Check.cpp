@@ -10,6 +10,7 @@ struct Arg54;
 class Rva00318F42
 {
 public:
+	bool rva00318F42();
 	char m_pad[0x20];
 	int m_20;
 };
@@ -37,7 +38,7 @@ unsigned char __cdecl Rva005E9137Check(class Rva00318F42 *a)
 	if (logic->m_0F4 != 0)
 		return 0;
 	if (((class Rva002B280C *)logic)->rva002B280C((struct Arg54 *)a))
-		return ((class Mbr002E0B30 *)a)->pred();
+		return a->rva00318F42();
 	return 0;
 }
 // ?rva005E917A@Rva005E917A@@QAEXXZ @0x005E917A 47B

@@ -18,11 +18,14 @@ struct Rva005F83F4Data
 	int m_data[3];
 };
 
-class Rva002D3627Host
+// The lift 0x002BF5B0 is rowed as Rva002BF4F3::rva002BF5B0 (Vector3 spelling).
+class Vector3;
+class Rva002BF4F3
 {
 public:
-	bool rva002BF5B0(const Coord2D *in, Coord3D *out);
+	bool rva002BF5B0(const Vector3 *in, Vector3 *out);
 };
+class Rva002D3627Host;
 
 class Rva003F07CEOwner
 {
@@ -84,7 +87,7 @@ void Rva005E8EC5::rva005E8EC5()
 	lifted.x = position.x;
 	lifted.y = position.y;
 	lifted.z = 0.0f;
-	m_host00->rva002BF5B0(&position, &lifted);
+	((Rva002BF4F3 *)m_host00)->rva002BF5B0((const Vector3 *)&position, (Vector3 *)&lifted);
 	reinterpret_cast<Rva005F83F4 *>(m_member08)->rva005F83F4(*reinterpret_cast<const Rva005F83F4Data *>(&lifted));
 	reinterpret_cast<Rva005F8427 *>(m_member08)->rva005F8427();
 }

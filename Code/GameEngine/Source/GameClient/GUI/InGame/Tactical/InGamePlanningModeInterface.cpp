@@ -13,8 +13,7 @@ class Rva00222A8BTarget;
 int Rva00524EF4AptCall(Rva00222A8BTarget *, void *, const char *, const char *);
 class Rva001021F7;
 Rva001021F7 *Rva00102215Get();
-class Rva0010231F { public: void rva0010231F(); };
-class Rva0010225F { public: void rva00102284(); };
+class Rva0010225F { public: void rva0010231F(); void rva00102284(); };
 struct PlanningPlayerView { char unknown00[0x750]; int planningMode; };
 struct PlanningPlayerListView { char unknown00[0x10]; PlanningPlayerView *localPlayer; };
 namespace InGamePlanningModeInterface {
@@ -34,7 +33,7 @@ void InGamePlanningModeInterface::Impl::Update()
         if (state != 1 && state != 2) {
             Rva00524EF4AptCall(reinterpret_cast<Rva00222A8BTarget *>(g_bfmeAptWindowManager), level, name.str(), "Open");
             Rva001021F7 *effect = Rva00102215Get();
-            if (effect) reinterpret_cast<Rva0010231F *>(effect)->rva0010231F();
+            if (effect) reinterpret_cast<Rva0010225F *>(effect)->rva0010231F();
             state = 1;
         }
     } else if (state == 1 || state == 2) {

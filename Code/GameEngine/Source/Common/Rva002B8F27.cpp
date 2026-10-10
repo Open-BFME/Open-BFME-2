@@ -34,6 +34,12 @@ public:
 	char m_pad[0x50];
 	int m_54;
 };
+// The entry test 0x00318F42 is rowed as Rva00318F42::rva00318F42.
+class Rva00318F42
+{
+public:
+	bool rva00318F42();
+};
 class Rva002B2B66
 {
 public:
@@ -68,7 +74,7 @@ void Rva002B8F27::rva002B8F27(_STL::vector<const ModuleData *> *out)
 	{
 		Mbr002E0B30 *entry = m_entries[i];
 		const ModuleData *module = entry;
-		if (entry->pred())
+		if (((Rva00318F42 *)entry)->rva00318F42())
 		{
 			entry->rva00319831(0);
 			if (entry->m_54 == TheLivingWorldLogic->rva002B2B66())

@@ -46,7 +46,7 @@ class GameLogic;
 extern GameLogic *TheGameLogic;
 struct RecorderFrameView { char opaque00[0x40]; int frame40; };
 class Rva0037B146 { public: void rva0037B146(); };
-class Rva0037B7F6 { public: void rva0037B7F6(); };
+class RecorderClass { friend class Rva0037B7C7; protected: void appendNextCommand(); };	// 0x0037B7F6
 void Rva0037B7C7::rva0037BC65()
 {
     int frame = reinterpret_cast<const RecorderFrameView *>(TheGameLogic)->frame40;
@@ -54,7 +54,7 @@ void Rva0037B7C7::rva0037BC65()
     if (m_valE78 == -1) return;
     if (m_flagE70) frame = m_valE78;
     while (m_valE78 == frame) {
-        reinterpret_cast<Rva0037B7F6 *>(this)->rva0037B7F6();
+        reinterpret_cast<RecorderClass *>(this)->appendNextCommand();
         rva0037B7C7();
     }
 }

@@ -191,10 +191,12 @@ AsciiString DescribeObject( const Object *object );
 // ?ObjectDescription@LuaScriptEngine@@SAHPAUlua_State@@@Z: WorldBuilder's
 // LuaScriptEngine.cpp:1981 names this Lua callback LuaScriptEngine::ObjectDescription
 // (same lookup, lua_type/lua_pushnil, findObjectByID, DescribeObject sequence).
+class Object;
 class LuaScriptEngine
 {
 public:
 	static int ObjectDescription( lua_State *state );
+	void DispatchEvent( int *event, Object *object, void *eventList );	// 0x00334634
 };
 
 int LuaScriptEngine::ObjectDescription( lua_State *state )
@@ -249,12 +251,13 @@ struct BfmeDelayedLuaEvent
 	unsigned char m_data[0x18];
 };
 
-struct BfmeDelayedLuaEventList
+// DelayedLuaEventList: ctor 0x000B6D8B and virtual dtor 0x000B6DD2 (slot 0 of its
+// vftable 0x007C9CF0 is the scalar deleting dtor 0x000B6E0C); the vptr is the +0 word.
+struct DelayedLuaEventList
 {
-	BfmeDelayedLuaEventList();
-	~BfmeDelayedLuaEventList();
+	DelayedLuaEventList();
+	virtual ~DelayedLuaEventList();
 
-	void *m_vtable;
 	BfmeDelayedLuaEvent m_events[3];
 };
 
@@ -282,13 +285,9 @@ struct BfmeCallJ63
 	void *invoke( void *event );
 };
 
-struct BfmeObjectEventDispatch
-{
-	// The second argument is an Object pointer here.  Retail's dispatcher
-	// consumes its +0x204 module field; the horde sibling supplies the same
-	// slot from its member-pointer list.
-	void invoke( void *event, void *object, BfmeDelayedLuaEventList *eventList );
-};
+// DispatchEvent's second argument is an Object pointer here.  Retail's
+// dispatcher consumes its +0x204 module field; the horde sibling supplies
+// the same slot from its member-pointer list.
 
 // In BFME 1 the binding registration pairs ObjectDispatchEvent with a thunk
 // that jumps directly to this body.  The body uses
@@ -304,7 +303,7 @@ int ObjectDispatchEvent( lua_State *state )
 	if( !object )
 		return 0;
 
-	BfmeDelayedLuaEventList eventList;
+	DelayedLuaEventList eventList;
 	unsigned eventID = Rva00990030Lookup( state, 2 );
 	if( !eventID && lua_type( state, 1 ) != 1 )
 		return 0;
@@ -327,8 +326,8 @@ int ObjectDispatchEvent( lua_State *state )
 			events[1].m_string = value;
 			events[1].m_type = 4;
 		}
-		reinterpret_cast<BfmeObjectEventDispatch *>(TheLuaScriptEngine)->invoke(
-			eventData, object, &eventList);
+		TheLuaScriptEngine->DispatchEvent(
+			(int *)eventData, object, &eventList);
 	}
 
 	return 0;

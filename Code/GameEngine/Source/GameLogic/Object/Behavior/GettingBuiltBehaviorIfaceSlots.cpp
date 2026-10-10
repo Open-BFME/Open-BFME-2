@@ -69,6 +69,7 @@ class ThingTemplate
 {
 public:
 	bool isEquivalentTo(const ThingTemplate *other) const;
+	void GetAssetList(int a2, int a3);
 	int rva0033A69A(Object *obj, int a2, int a3) const;
 };
 
@@ -466,12 +467,6 @@ public:
 };
 extern ThingFactory *TheThingFactory;
 
-class Rva0020AA00Target
-{
-public:
-	void notify(int arg2, int arg3);
-};
-
 // ?rva0045346D@@YAXPBXHH@Z
 void __cdecl rva0045346D(const void *arg1, int arg2, int arg3)
 {
@@ -480,7 +475,7 @@ void __cdecl rva0045346D(const void *arg1, int arg2, int arg3)
 	{
 		void *found = (void *)TheThingFactory->findTemplate(*((const AsciiString *)&data->m_14));
 		if (found)
-			((Rva0020AA00Target *)found)->notify(arg2, arg3);
+			((ThingTemplate *)found)->GetAssetList(arg2, arg3);
 	}
 }
 

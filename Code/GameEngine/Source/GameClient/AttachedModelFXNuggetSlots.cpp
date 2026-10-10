@@ -17,10 +17,11 @@
 struct Coord3D;
 class Matrix3D;
 
-class AssetList
+class AssetList;
+// The insert 0x0006C950, rowed under the AssetList00208F90 spelling.
+struct AssetList00208F90
 {
-public:
-	AssetList &operator<<(const AsciiString &name);
+	AssetList00208F90 &operator<<(const AsciiString &name);
 };
 
 // The rowed Drawable member the model attach goes through.
@@ -71,5 +72,5 @@ void AttachedModelFXNugget::doFXObj(const Object *primary, const Object *) const
 
 void AttachedModelFXNugget::rva001E1709(AssetList &assets, int) const
 {
-	assets << m_modelName;
+	*(AssetList00208F90 *)&assets << m_modelName;
 }

@@ -82,6 +82,12 @@ protected:
 	virtual void setUpgradeExecuted(Bool executed) = 0;
 	virtual void upgradeImplementation() = 0;
 };
+// The base check 0x004CE2B0 is rowed as Rva004CE2B0::rva004CE2B0 (non-virtual spelling).
+class Rva004CE2B0
+{
+public:
+	Bool rva004CE2B0(Rva00406F9C *arg);
+};
 class UpgradeModule : public ObjectModuleBase, public UpgradeModuleInterface, public UpgradeMux
 {
 };
@@ -100,7 +106,7 @@ Bool LevelUpUpgrade::rva004CE2B0(Rva00406F9C *arg)
 {
 	if (m_object->getExperienceTracker()->m_level >= getData()->m_levelCap)
 		return false;
-	return UpgradeMux::rva004CE2B0(arg);
+	return ((Rva004CE2B0 *)((char *)this + 0x10))->rva004CE2B0(arg); // the UpgradeMux base at +0x10
 }
 void LevelUpUpgrade::upgradeImplementation()
 {

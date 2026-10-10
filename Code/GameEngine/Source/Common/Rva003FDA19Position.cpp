@@ -9,7 +9,8 @@
 // Original receiver and field names remain unknown.
 #include "Coord3D.h"
 
-class Rva003FB6C5 { public: void rva003FB6C5(const Coord3D *); };
+class Vector3;
+class Rva003FD14DBase { public: void rva003FB6C5(const Vector3 &); };	// 0x003FB6C5
 struct Rva001F3899Arg { int m_00, m_04, m_08; };
 class Rva001F3899Slot { public: void set(const Rva001F3899Arg &); };
 class ParticleSystem;
@@ -47,7 +48,7 @@ static __forceinline Rva001F3899Slot *ResolveParticle003FDA19(Rva001F3899Slot *t
 
 void Rva003FDA19::rva003FDA19(const Coord3D *position)
 {
-	reinterpret_cast<Rva003FB6C5 *>(this)->rva003FB6C5(position);
+	reinterpret_cast<Rva003FD14DBase *>(this)->rva003FB6C5(*(const Vector3 *)position);
 	if (slot) {
 		Rva003FDA19Sum point = SumPosition003FDA19(&offset, Rva003FDA19Sum(position->x, position->y, position->z));
 		Rva001F3899Slot *target = slot;

@@ -4,7 +4,7 @@
 // Behavior dtor: restores the own vtable group at +0/+0x0C/+0x10
 // (0x00853A5C plus 0x007EFF90 plus 0x00853A50), tears down the
 // DelayedLuaEventList member at +0x24 through the pinned 0xB6DD2 body
-// (Rva00B6DD2 pin), then calls the rowed UpdateModule base dtor at
+// (the DelayedLuaEventList virtual dtor row), then calls the rowed UpdateModule base dtor at
 // 0x0024A797. Empty derived body; the list is the only tracked member
 // giving EH state 0 exactly as retail. Shape follows the landed
 // DynamicShroudClearingRangeUpdateDtor (compiler MI vptr group ahead of
@@ -55,10 +55,10 @@ protected:
 	int m_reserved1C;
 };
 
-class Rva00B6DD2
+class DelayedLuaEventList
 {
 public:
-	virtual ~Rva00B6DD2();
+	virtual ~DelayedLuaEventList();
 
 private:
 	char m_pad[0x48];
@@ -72,7 +72,7 @@ public:
 
 private:
 	unsigned int m_f20;
-	Rva00B6DD2 m_events;
+	DelayedLuaEventList m_events;
 	float m_f70;
 	bool m_f74;
 	bool m_f75;

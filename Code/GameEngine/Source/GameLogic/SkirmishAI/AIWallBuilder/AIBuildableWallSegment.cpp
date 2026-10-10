@@ -50,7 +50,7 @@ public:
     virtual void s09(); virtual void s10(); virtual void s11();
     virtual void s12();
     virtual Coord3D getWorldPosition(); // slot 13, hidden result pointer
-    bool build(Player *player); // WB 0x1506950; retail REL32 0x00573C7C
+    virtual bool build(Player *player); // WB 0x1506950; retail 0x00573C7C, a vtable slot (0x0086E2AC)
 protected:
     char m_unrecovered04[0x24 - 4];
     ObjectID m_producedObjectID;

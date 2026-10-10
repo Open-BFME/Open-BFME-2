@@ -81,11 +81,14 @@ struct BfmeDelayedLuaEvent
 	unsigned char m_data[0x18];
 };
 
-struct BfmeDelayedLuaEventList
+// DelayedLuaEventList: ctor 0x000B6D8B and virtual dtor 0x000B6DD2 (slot 0 of its
+// vftable 0x007C9CF0 is the scalar deleting dtor 0x000B6E0C); the vptr is the +0 word.
+// BfmeDelayedLuaEventList is only the parameter tag of the 0x003360D2 row.
+struct BfmeDelayedLuaEventList;
+struct DelayedLuaEventList
 {
-	BfmeDelayedLuaEventList();
-	~BfmeDelayedLuaEventList();
-	void *m_vtable;
+	DelayedLuaEventList();
+	virtual ~DelayedLuaEventList();
 	BfmeDelayedLuaEvent m_events[3];
 };
 
@@ -259,9 +262,9 @@ void Object::setTriggerAreaFlagsForChangeInPosition()
 			if (m_team)
 				m_team->rva0039D8BA(this);
 			TheGameLogic->updateObjectsChangedTriggerAreas();
-			BfmeDelayedLuaEventList events;
+			DelayedLuaEventList events;
 			((Rva001BDA20 *)&events.m_events[0])->set(m_triggerInfo[i].pTrigger->getTriggerName());
-			((BfmeObjectEventDispatch *)TheLuaScriptEngine)->rva003360D2(5, this, &events);
+			((BfmeObjectEventDispatch *)TheLuaScriptEngine)->rva003360D2(5, this, (BfmeDelayedLuaEventList *)&events);
 			((Rva002E3766Holder *)m_triggerInfo[i].pTrigger)->Rva002E3794Invoke((Int)this);
 		}
 	}
@@ -294,9 +297,9 @@ void Object::setTriggerAreaFlagsForChangeInPosition()
 					m_team->rva0039D8BA(this);
 				TheGameLogic->updateObjectsChangedTriggerAreas();
 				++m_numTriggerAreasActive;
-				BfmeDelayedLuaEventList events;
+				DelayedLuaEventList events;
 				((Rva001BDA20 *)&events.m_events[0])->set(m_triggerInfo[i].pTrigger->getTriggerName());
-				((BfmeObjectEventDispatch *)TheLuaScriptEngine)->rva003360D2(3, this, &events);
+				((BfmeObjectEventDispatch *)TheLuaScriptEngine)->rva003360D2(3, this, (BfmeDelayedLuaEventList *)&events);
 				((Rva002E3766Holder *)pTrig)->Rva002E3777Invoke((Int)this);
 			}
 			else

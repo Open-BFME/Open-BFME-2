@@ -148,7 +148,8 @@ protected:
 	virtual void xfer( Xfer *xfer );
 };
 
-class AIEnterState : public State
+// AIEnterState: its xfer 0x00341930 is rowed under the placeholder Rva00341930.
+class Rva00341930 : public State
 {
 protected:
 	virtual void xfer( Xfer *xfer );
@@ -165,7 +166,7 @@ private:
 };
 
 // ------------------------------------------------------------------------------------------------
-class AITNGuardReturnState : public AIEnterState
+class AITNGuardReturnState : public Rva00341930
 {
 protected:
 	virtual void xfer( Xfer *xfer );
@@ -200,7 +201,7 @@ void AITNGuardInnerState::xfer( Xfer *xfer )
 // ------------------------------------------------------------------------------------------------
 void AITNGuardReturnState::xfer( Xfer *xfer )
 {
-	AIEnterState::xfer(xfer);
+	Rva00341930::xfer(xfer);
 	if( xfer->IsLightCRC() )
 		return;
 	xfer->Version1();

@@ -33,17 +33,25 @@ struct BfmeDelayedLuaEvent
 	unsigned char m_data[0x18];
 };
 
-struct BfmeDelayedLuaEventList
+// The dispatch 0x00334634 is the LuaScriptEngine::DispatchEvent row (this unit runs on the same engine).
+class Object;
+class LuaScriptEngine
 {
-	BfmeDelayedLuaEventList();
-	~BfmeDelayedLuaEventList();
-	void *m_vtable;
+public:
+	void DispatchEvent(int *event, Object *object, void *eventList);
+};
+
+// DelayedLuaEventList: ctor 0x000B6D8B and virtual dtor 0x000B6DD2 (slot 0 of its
+// vftable 0x007C9CF0 is the scalar deleting dtor 0x000B6E0C); the vptr is the +0 word.
+struct DelayedLuaEventList
+{
+	DelayedLuaEventList();
+	virtual ~DelayedLuaEventList();
 	BfmeDelayedLuaEvent m_events[3];
 };
 
 struct BfmeObjectEventDispatch
 {
-	void invoke(void *event, void *object, BfmeDelayedLuaEventList *eventList);
 	void rva00335FE1(const WeaponTemplateSetHead *a, const WeaponTemplateSetHead *b, void *obj);
     void rva0033605B(const BfmeObject872Header *a,const BfmeObject872Header *b,void *obj);
 private:
@@ -61,7 +69,7 @@ void BfmeObjectEventDispatch::rva0033605B(const BfmeObject872Header *a,const Bfm
  for(Rva003317F9 *p=beginC8;p!=endCC;++p) {
   if(!p->rva003317F9(a))continue;
   if(p->rva003317F9(b))continue;
-  BfmeDelayedLuaEventList list;
-  invoke(p,obj,&list);
+  DelayedLuaEventList list;
+  ((LuaScriptEngine *)this)->DispatchEvent((int *)p,(Object *)obj,&list);
  }
 }
