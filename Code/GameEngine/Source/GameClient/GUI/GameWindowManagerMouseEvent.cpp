@@ -1,15 +1,28 @@
 // ?winProcessMouseEvent@GameWindowManager@@UAE?AW4WinInputReturnCode@@W4GameWindowMessage@@PAUICoord2D@@PAX@Z
-// partial score=0.9984743113 date=2026-10-09
-extern "C" void _ReadWriteBarrier();
-#pragma intrinsic(_ReadWriteBarrier)
 // ?winProcessMouseEvent@GameWindowManager@@UAE?AW4WinInputReturnCode@@W4GameWindowMessage@@PAUICoord2D@@PAX@Z
-// partial score=0.9927227074 date=2026-10-08
 // cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG /Ireference/shims/bfme2_ascii
-// Isolated portable trial, from the entire ZH GameWindowManager.cpp reviewed
+// Target adaptation of the entire ZH GameWindowManager.cpp reviewed
 // at BFME1 ba7ddda7e8f261163972ddbe23c7e7a12ac5b84f.
 // Target native 2C1FD5..2C2533 proves the accessed prefixes, child/point-test
 // providers, virtual-call slots, one-pass UI-layer search and grabbed-position case.
 // Unknown layout gaps and virtual slots remain neutral; no complete class ABI asserted.
+/*
+**	Command & Conquer Generals Zero Hour(tm)
+**	Copyright 2025 Electronic Arts Inc.
+**
+**	This program is free software: you can redistribute it and/or modify
+**	it under the terms of the GNU General Public License as published by
+**	the Free Software Foundation, either version 3 of the License, or
+**	(at your option) any later version.
+**
+**	This program is distributed in the hope that it will be useful,
+**	but WITHOUT ANY WARRANTY; without even the implied warranty of
+**	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+**	GNU General Public License for more details.
+**
+**	You should have received a copy of the GNU General Public License
+**	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
 #include "unicode_string.h"
 typedef int Int; typedef unsigned int UnsignedInt; typedef bool Bool;
 #define NULL 0
@@ -276,14 +289,15 @@ WinInputReturnCode GameWindowManager::winProcessMouseEvent( GameWindowMessage ms
 						m_grabWindow->winGetPosition( &newRegion.lo.x, &newRegion.lo.y );
 						m_grabWindow->winGetSize( &grabSize.x, &grabSize.y );
 
-						newRegion.lo.x += dx;
+						(newRegion.lo.x?newRegion.lo.x:newRegion.lo.x) += dx;
 						newRegion.lo.y += dy;
 						if( newRegion.lo.x < 0 )
 							newRegion.lo.x = 0;
 						if( newRegion.lo.y < 0 )
 							newRegion.lo.y = 0;
 						
-						_ReadWriteBarrier();newRegion.hi.x = grabSize.x + newRegion.lo.x;
+						// Same-valued PHI preserves the native LEA operand order.
+						newRegion.hi.x = grabSize.x + (newRegion.lo.x?newRegion.lo.x:newRegion.lo.x);
 						newRegion.hi.y = grabSize.y + newRegion.lo.y;
 						if( newRegion.hi.x > (Int)reinterpret_cast<BfmeMouseDisplayView*>(TheDisplay)->getWidth() )
 							newRegion.hi.x = (Int)reinterpret_cast<BfmeMouseDisplayView*>(TheDisplay)->getWidth();
