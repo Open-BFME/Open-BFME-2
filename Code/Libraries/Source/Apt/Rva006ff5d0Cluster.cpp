@@ -14,7 +14,10 @@ extern int g_bfmeAptBreakOnAssertAtDDC01C;
 void __debugbreak();
 #pragma intrinsic(__debugbreak)
 
-class AptValue;
+class EAStringC { void *data; public: EAStringC(); ~EAStringC(); EAStringC &operator=(const EAStringC &); };
+class AptValue { public: bool isString() const; void toString(EAStringC &) const; };
+class AptString { public: virtual void v0(); int flags; EAStringC string; static AptString *Create(); };
+void rva006FD630(EAStringC *);
 class AptBoolean
 {
 public:
@@ -55,4 +58,25 @@ AptValue *rva006ff5d0(AptActionInterpreter *pInterpreter, int nParams)
     if (nParams == 0)
         return AptBoolean::Create(true);
     return AptBoolean::Create(rva006fc370(g_aptDateInterpreter.stack.At(0)));
+}
+
+// Retail 0x006FF660: string-result argument callback; decoder identity
+// comes from the rowed percent-unescape transform at 0x006FD630.
+// The native callback table/address push in AptValueInitialize owns this
+// entry; stack.At(0) is unconditional even for nParams == 0.
+AptValue *callback006FF660(AptValue *, int nParams)
+{
+    if (!(nParams <= 1)) {
+        g_bfmeAptAssertAtE17734("nParams <= 1", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptActionInterpreter.cpp", 0x58F);
+        if (g_bfmeAptBreakOnAssertAtDDC01C) __debugbreak();
+    }
+    AptString *result = AptString::Create();
+    AptValue *value = g_aptDateInterpreter.stack.At(0);
+    if (value->isString()) {
+        EAStringC temp;
+        value->toString(temp);
+        rva006FD630(&temp);
+        result->string = temp;
+    }
+    return (AptValue *)result;
 }
