@@ -68,6 +68,14 @@ void AptCreateAHero::Manager::rva005B6755() {
   reinterpret_cast<Rva005B5C70Box *>(this)->Run(0);
  }
 }
+void AptCreateAHero::Manager::rva005B6A05() {
+ if(selectedHero) {
+  Rva0040A3F9 *list=TheCreateAHeroManager->rva0021F797();
+  list->rva0040A441(selectedHero);
+  selectedHero=0;
+  rva005B6755();
+ }
+}
 
 class Rva00406E53 {public:int rva00406E53();};
 class Rva00406E65 {public:int rva00406E65(unsigned);};
