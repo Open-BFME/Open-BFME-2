@@ -1,4 +1,5 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /ICode/GameEngine/Source/Common /ICode/Libraries/Include/Lib /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfmelist /D_STLP_USE_MALLOC /D_BFME_RETAIL_TREE_INSERT_LAYOUT /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /ICode/GameEngine/Source/Common /ICode/Libraries/Include/Lib /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include
+// stlport
 //
 // ?rva004389DB@Rva00439E0C@@QAEXPAVObject@@PAURva004389DBInfo@@H@Z, retail
 // 0x004389DB (657 bytes); called from 0x004397F6 and 0x00439F24 with the
@@ -19,6 +20,8 @@
 // in StealthUpdateLogic.cpp, whose views this unit follows.
 #include "GameLogicObjectLookupView.h"
 #include "Coord3D.h"
+#include <list>
+#include <map>
 #include "ascii_string.h"
 #include "unicode_string.h"
 #include "Common/BfmeAudioEventPrefix136.h"
@@ -147,7 +150,9 @@ private:
 
 struct Rva004389DBTemplate
 {
-	char m_pad000[0x5C8];
+	char m_pad000[0x115];
+ unsigned char m_kind115;
+ char m_pad116[0x5C8-0x116];
 	Int m_evaEventDetectedEnemy;	// +0x5C8
 	Int m_evaEventDetectedAlly;	// +0x5CC
 	Int m_evaEventDetectedOwner;	// +0x5D0
@@ -163,7 +168,8 @@ public:
 class Object
 {
 public:
-	Player *getControllingPlayer() const;	// 0x0028AFA9
+	Object *rva002931F5(bool);
+ Player *getControllingPlayer() const;	// 0x0028AFA9
 	Drawable *getDrawable() const;	// 0x005508E2
 	const Rva004389DBTemplate *getTemplate() const { return m_template; }
 	const Coord3D *getPosition() const { return &m_position; }
@@ -247,4 +253,66 @@ void Rva00439E0C::rva004389DB(Object *obj, Rva004389DBInfo *info, Int feedback)
 		Int message = obj->getTemplate()->m_evaEventDetectedAlly;
 		TheEva->reportEvaEvent(message, obj->getPosition(), 0);
 	}
+}
+
+// Native 439CF7..439E0C and WB 127FEA0 identify the record-add operation.
+// The address-derived public owner retains the existing caller pin.
+class Rva002542F3Member {
+public:
+ int rva00438268(const Rva002542F3Member&) const;
+ char m_prefix[0x18]; int m_kind; char m_tail[0xB8-0x1C];
+};
+class Rva004382FC {
+public:
+ Rva004382FC(const Rva002542F3Member&,int);
+ Rva002542F3Member m_nugget;
+ int m_frame,m_duration; unsigned char m_flag;
+};
+struct BfmePod196 { int a[49]; };
+struct Rva004393D6 : public _STL::list<BfmePod196> {
+ int m_04,m_08,m_0c;
+ Rva004393D6(); ~Rva004393D6();
+ Rva004393D6&operator=(const Rva004393D6&);
+};
+typedef _STL::map<int,Rva004393D6,_STL::less<int>,
+ _STL::allocator<_STL::pair<const int,Rva004393D6> > > InvisibilityRecordMap;
+template<> Rva004393D6& InvisibilityRecordMap::operator[](const int&);
+class Rva00388F63Map { public: void *find(int*); };
+// The existing push wrapper only forwards this value address to insert.
+// No value of its old unconstrained element view is constructed here.
+struct Rva004390F7Element;
+template<> void _STL::list<Rva004390F7Element>::push_back(const Rva004390F7Element&);
+struct InvisibilityNode { InvisibilityNode *next,*prev; Rva004382FC value; };
+struct InvisibilityTreeNode {
+ unsigned color; void *parent,*left,*right; int key; Rva004393D6 record;
+};
+class Rva00439CF7 {
+public:
+ void rva00439CF7(Object*,int,const void*);
+ bool rva0043979D(Object*,Rva004393D6*);
+ void *m_vtable; InvisibilityRecordMap m_records;
+};
+void Rva00439CF7::rva00439CF7(Object *object,int duration,const void *data) {
+ if(!object) return;
+ if(!(object->getTemplate()->m_kind115&0x20) && object->rva002931F5(false)) return;
+ const Rva002542F3Member &nugget=*(const Rva002542F3Member*)data;
+ if(nugget.m_kind>=2) return;
+ int id=(int)object->getID();
+ InvisibilityTreeNode *node=(InvisibilityTreeNode*)((Rva00388F63Map*)&m_records)->find(&id);
+ if(node==*(InvisibilityTreeNode**)&m_records) {
+  Rva004393D6 empty;
+  m_records[id]=empty;
+  node=(InvisibilityTreeNode*)((Rva00388F63Map*)&m_records)->find(&id);
+ }
+ Rva004393D6 *record=&node->record;
+ InvisibilityNode *head=*(InvisibilityNode**)record;
+ for(InvisibilityNode *it=head->next;it!=*(InvisibilityNode**)record;it=it->next) {
+  Rva004382FC &entry=it->value;
+  if(entry.m_frame && (unsigned char)entry.m_nugget.rva00438268(nugget)) {
+   entry.m_duration+=duration; return;
+  }
+ }
+ Rva004382FC entry(nugget,duration);
+ ((_STL::list<Rva004390F7Element>*)record)->push_back(*(const Rva004390F7Element*)&entry);
+ rva0043979D(object,record);
 }

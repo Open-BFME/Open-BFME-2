@@ -1,0 +1,44 @@
+{
+  "id": "D-invisibility-add-record-439cf7-20261010T0040",
+  "seat": "D",
+  "base_commit": "d6c166d96dadf402d513be3dd61da60575a724a7",
+  "paths": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/InvisibilityManagerRva004389DB.cpp",
+    "reverse/symbols.csv",
+    "reverse/hatch_baseline.tsv",
+    "reverse/re_attempts.log"
+  ],
+  "recoveries": [
+    {
+      "name": "?rva00439CF7@Rva00439CF7@@QAEXPAVObject@@HPBX@Z",
+      "rva": "0x00439CF7",
+      "size": 277,
+      "source": "Code/GameEngine/Source/GameLogic/Object/Update/InvisibilityManagerRva004389DB.cpp",
+      "notes": "WB127FEA0 InvisibilityManager addRecord; native439CF7..439E0C EH RET12; existing address-derived owner retained. Matched map439C73 unlocks prior blocked record creation. Correct196B nugget record, list append, extend matching live duration; observed neutral helper43979D admitted through pin_admission. Whole277B exact; existing657B feedback remains exact.",
+      "replace_rva": ""
+    }
+  ],
+  "proof_command": [
+    [
+      "C:\\Users\\franz\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+      "tools/explain_mismatch.py",
+      "?rva00439CF7@Rva00439CF7@@QAEXPAVObject@@HPBX@Z",
+      "--rva",
+      "0x00439CF7",
+      "--size",
+      "277",
+      "--source",
+      "Code/GameEngine/Source/GameLogic/Object/Update/InvisibilityManagerRva004389DB.cpp"
+    ],
+    [
+      "C:\\Users\\franz\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+      "tools/explain_mismatch.py",
+      "?rva004389DB@Rva00439E0C@@QAEXPAVObject@@PAURva004389DBInfo@@H@Z"
+    ]
+  ],
+  "proof_log": "proof.log",
+  "claim_owner": "codex-01a12257-root",
+  "dependencies": [],
+  "temporary_ledger": false,
+  "verifier_change_reason": "Admit directly witnessed neutral invisibility-manager helper through pin_admission; tool-generated hatch grant only."
+}
