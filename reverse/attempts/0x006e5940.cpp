@@ -1,6 +1,8 @@
 // ?rva006E5940@Rva006E5940@@QAEXH@Z
+// partial score=0.9509739928607854 date=2026-10-10
+// ?rva006E5940@Rva006E5940@@QAEXH@Z
 // partial score=0.949571647118817 date=2026-10-09
-// cl: /O2 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// cl: /I. /O2 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 extern "C" void Rva006FD040(void*,void*,void*);
 class Rva0070EDC0 {public:void rva0070EDC0(int,void*);};
 class Rva006E3410 {public:int rva006E3410(int);};
@@ -30,7 +32,7 @@ class Rva006E5940 {public:char pad0[12];int count;Object **objects;char pad14[12
 void Rva006E5940::rva006E5940(int delta){
  void **g=&gc;*g=0;
  for(int i=0;i<count;++i)if(O && importIndex(i)==-1){
-  switch(O->kind){case 8:{O->words[0]=INDEX(O->words[0]);O->words[1]=INDEX(O->words[1]);break;}case 4:{Sub4 *p=O->t4.sub;if(p){if(p->p[1])p->p[1]=(char*)INDEX((int)p->p[1]);if(p->p[3])p->p[3]=(char*)INDEX((int)p->p[3]);if(p->p[0])p->p[0]=(char*)INDEX((int)p->p[0]);if(p->p[2])p->p[2]=(char*)INDEX((int)p->p[2]);}SLIDE(O->t4.sub);break;}}
+  switch((O?O:O)->kind){case 8:{O->words[0]=INDEX(O->words[0]);O->words[1]=INDEX(O->words[1]);break;}case 4:{Sub4 *p=O->t4.sub;if(p){if(p->p[1])p->p[1]=(char*)INDEX((int)p->p[1]);if(p->p[3])p->p[3]=(char*)INDEX((int)p->p[3]);if(p->p[0])p->p[0]=(char*)INDEX((int)p->p[0]);if(p->p[2])p->p[2]=(char*)INDEX((int)p->p[2]);}SLIDE(O->t4.sub);break;}}
  }
  for(int i=0;i<count;++i)if(O && importIndex(i)==-1){
   switch(O->kind){

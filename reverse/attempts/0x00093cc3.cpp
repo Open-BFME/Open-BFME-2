@@ -1,4 +1,6 @@
 // ?renderAsQuads@W3DSnowManager@@QAEXAAVRenderInfoClass@@HHHH@Z
+// partial score=0.948887652239699 date=2026-10-10
+// ?renderAsQuads@W3DSnowManager@@QAEXAAVRenderInfoClass@@HHHH@Z
 // partial score=0.9427427157488508 date=2026-10-10
 // ?renderAsQuads@W3DSnowManager@@QAEXAAVRenderInfoClass@@HHHH@Z
 // partial score=0.9 date=2026-10-09
@@ -327,7 +329,7 @@ _ReadWriteBarrier();
 					if (noiseOffset > SNOW_NOISE_X * SNOW_NOISE_Y)
 						noiseOffset = 0;
 					float height = m_startingHeights[noiseOffset] + m_heightTraveled;
-					float cycles = floorf(height / m_boxDimensions);
+					float cycles = floorf(*(volatile const float*)&height / m_boxDimensions);
 					float h0 = m_snowCeiling - (height - m_boxDimensions * cycles);
 					snowCenter = Vector3((float)x, (float)y, h0);
 					if (m_amplitude > 0.0f)
