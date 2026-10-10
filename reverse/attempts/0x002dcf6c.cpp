@@ -1,5 +1,7 @@
 // ?rva002DCF6C@GameState@@QAEXPAVSnapshot@@I@Z
 // partial score=0.983367198838897 date=2026-10-10
+// ?rva002DCF6C@GameState@@QAEXPAVSnapshot@@I@Z
+// partial score=0.983367198838897 date=2026-10-10
 // cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmelist /Ireference/shims/bfmealloc /Ireference/shims/moduledata /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /O1 /G7  /arch:SSE /DNDEBUG /MD /EHsc
 // stlport
 #include <list>
