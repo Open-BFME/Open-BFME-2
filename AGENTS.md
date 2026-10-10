@@ -6,70 +6,64 @@ or commit message reports an edit to `AGENTS.md`.
 
 ## Verifier upgrade (October 2026): live rules
 
-The step-3 gate checks are live in the hooks. They refuse:
+The hooks refuse:
 
 - a commit that edits `tools/` gate code, `.githooks/` or a baseline/whitelist
-  without a `Verifier-Change: <reason>` trailer (commit-msg hook);
-- any added line in `reverse/gate_baseline.txt` (keyed debt; delete a line
-  when you fix its row, never add one);
-- a string literal shorter than retail's, a switch whose jump table maps a
-  case to the wrong target, or compiled bytes past a row's extent that differ
-  from retail (a body longer than its row: raise the extent);
-- a new `symbols.csv` pin that is not an in-image RVA in code, or that puts a
-  second real name on an address that already has one (rename the owner; an
-  ICF-folded template instantiation is admitted only with
-  `fold-proof=<ledger source>` in its notes, when that unit compiles the name
-  to retail's whole body there with every owner row's relocations -- same
-  vtables, globals and strings -- and the name has no address of its own, a
-  gen-alias twin included; `tools/pin_admission.py --add`). A row or pin that
-  later gives a fold-pinned name another address is refused too;
+  without a `Verifier-Change: <reason>` trailer;
+- any added line in `reverse/gate_baseline.txt` (keyed debt: delete a line when
+  you fix its row, never add one);
+- a string literal shorter than retail's, a switch jump table mapping a case to
+  the wrong target, or compiled bytes past a row's extent that differ from
+  retail (a body longer than its row: raise the extent);
+- a new `symbols.csv` pin that is not an in-image code RVA, or that puts a second
+  real name on an address that already has one (rename the owner). An ICF-folded
+  template instantiation is admitted only with `fold-proof=<ledger source>` in
+  its notes, when that unit compiles the name to retail's whole body there with
+  every owner row's relocations and the name has no address of its own, a
+  gen-alias twin included (`tools/pin_admission.py --add`); a later row or pin
+  giving a fold-pinned name another address is refused too;
 - `gen-alias` other than as an exact notes token whose masked callee is a
   byte-and-relocation twin; new `object-symbol=` alias rows;
 - a second name for a converged data address. Each address in
-  `reverse/data_converged.csv` (TheGameLogic, TheAI, TheWritableGlobalData,
-  ...) has one global; a matched row binding any other symbol there
-  (`g_00DFE78C`, `extern AIView *TheAI`) links as a separate datum and fails
-  link_cycle data-back for every row at that address. Declare the real global
-  (`class AI; extern AI *TheAI;`) and cast to your view where you use it:
-  `((AIView *)TheAI)->m_field`. The list only grows (`tools/data_check.py
-  --converged`, after the byte gate);
-- a control path (the root, `reverse/`, `tools/`, `.githooks/`, `.github/`)
-  not spelled in lowercase: the hooks read those by exact spelling
-  (`tools/check_case_collisions.py`; banked attempts, attempt evidence and
-  class contracts are exempt).
+  `reverse/data_converged.csv` (TheGameLogic, TheAI, TheWritableGlobalData, ...)
+  has one global; another symbol bound there (`g_00DFE78C`, `extern AIView *TheAI`)
+  links as a separate datum and fails link_cycle data-back for every row at that
+  address. Declare the real global (`class AI; extern AI *TheAI;`) and cast to
+  your view where you use it: `((AIView *)TheAI)->m_field`. The list only grows
+  (`tools/data_check.py --converged`, after the byte gate);
+- a control path (the root, `reverse/`, `tools/`, `.githooks/`, `.github/`) not
+  spelled in lowercase (`tools/check_case_collisions.py`; banked attempts,
+  attempt evidence and class contracts are exempt).
 
-`.c` and `.asm` sources are byte-verified like `.cpp`. Escape hatches
-(pins, `object-symbol=` rows, `/alternatename`, address-named globals,
-`class-gate: allow`, `present-unmatched`, `#pragma optimize`, `__emit`) are
-counted per file in `reverse/hatch_baseline.tsv` by `tools/hatch_counters.py`;
-it reports in shadow mode now and will refuse growth once enforced. Code
-identity and data checks also run in shadow mode. Pushes stay direct to
-`master`: `tools/publisher.py` only re-verifies pushed work afterwards and
-never blocks a push.
+`.c` and `.asm` sources are byte-verified like `.cpp`. Escape hatches (pins,
+`object-symbol=` rows, `/alternatename`, address-named globals, `class-gate:
+allow`, `present-unmatched`, `#pragma optimize`, `__emit`) are counted per file in
+`reverse/hatch_baseline.tsv` by `tools/hatch_counters.py` (shadow mode now; it
+will refuse growth once enforced). Code identity and data checks also run in
+shadow mode. Pushes go direct to `master`; `tools/publisher.py` only re-verifies
+pushed work afterwards.
 
 **Upgrade lanes.** Spend seats on these alongside matching:
 
-- *False rejects.* If a check refuses work you can show is correct, do not
-  work around it or edit the check in the same commit. Record
+- *False rejects.* If a check refuses work you can show is correct, do not work
+  around it or edit the check in the same commit. Record
   `python3 tools/re_log.py record <symbol> <rva> <size> blocked
   "false-reject <check>: <evidence> t=<min> model=<model>"` and move on.
-  Tooling seats: `rg "false-reject" reverse/re_attempts.log`, reproduce, and
-  fix the check with a regression test and a `Verifier-Change:` trailer.
-  Every case in `tools/tests/test_gate_exploits.py` must still be refused.
-- *Escape-hatch debt.* `reverse/hatch_baseline.tsv` lists ~41k hatches by
-  file. Replacing one with real code or a real name and lowering its count
-  is credited repair work. Prefer files you are already in.
-- *Repairs.* `python3 tools/repair_queue.py repair` serves gate debt, tier C
-  rows and emulator divergences; `repair_queue.py link` serves rows a link
-  cycle did not place. `repair_queue.py dest 0xRVA` names the file a new
-  match belongs in.
+  Tooling seats: `rg "false-reject" reverse/re_attempts.log`, reproduce, and fix
+  the check with a regression test and a `Verifier-Change:` trailer. Every case
+  in `tools/tests/test_gate_exploits.py` must still be refused.
+- *Escape-hatch debt.* Replacing a hatch in `reverse/hatch_baseline.tsv` with real
+  code or a real name and lowering its count is credited repair work. Prefer
+  files you are already in.
+- *Repairs.* `python3 tools/repair_queue.py repair` serves gate debt, tier C rows
+  and emulator divergences; `repair_queue.py link` serves rows a link cycle did
+  not place; `repair_queue.py dest 0xRVA` names the file a new match belongs in.
 - *VP6 clean room.* `reverse/vp6_cleanroom/queue.tsv` serves one spec per VP6
   decoder function. Implement from the spec and retail only; never read any VP6
   decoder source (On2, Winamp, ffdshow, MFNode): it may not be redistributed, and
   this lane is no reference sweep. Rules: `reverse/vp6_cleanroom/README.md`.
-- *Verification runners.* Volunteer machines run `tools/link_cycle.py`, the
-  nightly audit (`tools/audit/run_nightly.cmd`), `tools/boot_smoke.py` and
-  the publisher in shadow mode. Ask a maintainer before starting one.
+- *Verification runners* (`tools/link_cycle.py`, `tools/audit/run_nightly.cmd`,
+  `tools/boot_smoke.py`, the shadow publisher): ask a maintainer before starting one.
 
 Full plan and evidence: `docs/verifier_upgrade_plan.md`.
 
@@ -85,326 +79,270 @@ history, one `git show` away.
 An explicit request or assigned lane overrides the queue:
 
 1. `git pull --rebase origin master`
-2. `python3 tools/check_csv.py` — repair ledger errors before other work
-3. **Run the reference lanes before dump or structural reconstruction.** These
-   queues are separate from the default picker; a zero result in one is not a
-   reason to skip the others.
+2. `python3 tools/check_csv.py` — repair ledger errors before other work.
+3. **Run the reference lanes before dump or structural reconstruction.** They are
+   separate from the default picker; a zero result in one is no reason to skip
+   the others.
 
-   a. Run `python3 tools/bfme1_sweep.py scan` when its image, BFME 1 pointer or
-      BFME 2 ledger changed (otherwise reuse the scan), followed by
-      `python3 tools/bfme1_sweep.py ranked` and
-      `python3 tools/bfme1_sweep.py near`. The ranked queue is for byte-identical
-      BFME 1 sources; `near` supplies source leads for repair.
-
-      **A ranked hit may already be refused.** The queue does not consult
-      `reverse/re_attempts.log`, so re-running it re-offers candidates that a
-      previous seat rejected. Measured twice, a full rescan apart: `ranked`
-      returns exactly one donor file and 17 bytes —
-      `Rva00889...`/`0x0003CCE0` in `Rva0089CompactHelpers.cpp` — which is tier T3
-      because lotrbfme.exe folded it, so the name is a guess on a folded address.
-      It was recorded as refused in the log after the first rescan and `ranked`
-      served it again after the second, with 5,006 control placements confirming
-      the scan itself was healthy. Check the log for the candidate's RVA before
-      treating a hit as available work.
-
+   a. `python3 tools/bfme1_sweep.py scan` when its image, BFME 1 pointer or BFME 2
+      ledger changed (otherwise reuse the scan), then
+      `python3 tools/bfme1_sweep.py ranked` (byte-identical BFME 1 sources) and
+      `python3 tools/bfme1_sweep.py near` (source leads for repair). `ranked` does
+      not read `reverse/re_attempts.log` and re-serves candidates earlier seats
+      refused (`0x0003CCE0` in `Rva0089CompactHelpers.cpp`, a folded T3 guess,
+      was re-served after a rescan): check the log for a candidate's RVA before
+      treating it as work.
    b. Ensure the committed BFME 1 pointer includes `tools/lift_lane.py`, then run
-      `python3 reference/open-bfme-1/tools/lift_lane.py --limit 1000` at the
-      start of the reference pass. This surfaces BFME 1's named lifted bodies
-      with proven boundaries and puts same-name ZH definitions first. Use each
-      ZH-marked name and readable-body path to prioritize the corresponding
-      `GeneralsMD/` source as a lead; a same-name hit does not prove identity,
-      and the lifted bytes themselves are not C++ recovery. If the tool is
-      missing at the committed pointer, treat the BFME 1 freshness check as due
-      regardless of its timestamp and complete the verified pointer update below;
-      never silently skip or mark this lane exhausted.
-
-   c. Run `python3 tools/zh_sweep.py compile` when the object cache is missing
-      or its source, headers, toolchain or flags changed; add `--force` when
-      those inputs changed. Then run `python3 tools/zh_sweep.py match` and
-      `python3 tools/zh_sweep.py packets`. `match` serves exact ZH body
-      placements; `packets` refreshes near misses in the queue consumed by
-      `tools/next_work.py`. Inspect `python3 tools/next_work.py --tier packet`
-      and work viable ZH packets before moving to step 4. Re-run `match` and
-      `packets` after material ledger or dependency changes. Land only through
-      the existing identity and full-byte verification gates.
+      `python3 reference/open-bfme-1/tools/lift_lane.py --limit 1000` at the start
+      of the reference pass. It lists BFME 1's named lifted bodies with proven
+      boundaries, same-name ZH definitions first: use each ZH-marked name and
+      readable-body path to prioritize the matching `GeneralsMD/` source. A
+      same-name hit does not prove identity, and lifted bytes are not C++
+      recovery. If the tool is missing at the committed pointer, the BFME 1
+      freshness check is due regardless of its timestamp: complete the verified
+      pointer update below; never silently skip or mark this lane exhausted.
+   c. `python3 tools/zh_sweep.py compile` when the object cache is missing or its
+      source, headers, toolchain or flags changed (`--force` when those inputs
+      changed), then `python3 tools/zh_sweep.py match` (exact ZH placements) and
+      `python3 tools/zh_sweep.py packets` (near misses for `tools/next_work.py`).
+      Work viable packets
+      from `python3 tools/next_work.py --tier packet` before step 4; re-run
+      `match` and `packets` after material ledger or dependency changes. Land only
+      through the identity and full-byte gates.
 
 4. `python3 tools/list_naked_candidates.py Code` serves a byte-true dump from
-   `Code/gen_asm/`, boundary already proven. Prefer it after the reference
-   lanes above have no worthwhile lead.
+   `Code/gen_asm/`, boundary proven; prefer it once the reference lanes have no
+   worthwhile lead.
+5. `python3 tools/next_work.py` for identity/structural work (it explains its
+   tiers); `--wb` serves bodies by WorldBuilder name lead; proven fixes:
+   `docs/recipes.md`.
+6. `python3 tools/place_bodies.py <sources>` finds, by masked byte search, the
+   other bodies the units the ledger already compiles emit, and reads their call
+   sites for callees. Rescan affected units after an import, repair or
+   shared-dependency fix; land incidental bodies that satisfy the identity,
+   provenance and byte requirements (a placement alone is no recovery); repeat
+   while placements unlock more. Prune what `./build.sh` refuses to a fixpoint and
+   record the refusal in `reverse/place_denylist.txt`.
 
-5. `python3 tools/next_work.py` for identity/structural work; it explains its
-   own tiers.
-   `--wb` serves bodies by WorldBuilder name lead; proven fixes: `docs/recipes.md`.
-6. `python3 tools/place_bodies.py <sources>` mines the units the ledger already
-   compiles. A TU emits far more than the one function it was written to land,
-   and the rest was invisible only because the export table had no address for
-   it; the tool finds those addresses by masked byte search and reads each
-   placed body's call sites for its callees. After an import, repair, or
-   shared-dependency fix, rescan affected source units. Land incidental bodies
-   as well as planned ones when each satisfies the existing identity,
-   provenance, and byte verification requirements. Repeat while new placements
-   unlock further candidates; a placement candidate alone is not a verified
-   recovery. Prune what `./build.sh` refuses to a fixpoint, recording the
-   refusal in `reverse/place_denylist.txt`.
-
-A tier reporting zero candidates exhausts only that search method. In particular,
-an empty byte-match queue does not exhaust reusable reference source. Regenerate with
+A tier reporting zero candidates exhausts only that search method; an empty
+byte-match queue does not exhaust reusable reference source. Regenerate with
 `tools/drift_classify.py`, `tools/anchor_unclaimed.py`, `./build.sh`.
 
 Finish or revert each body or homogeneous trivial batch before the next.
 
-**Claim retail bodies before starting work.** Use
-`python3 tools/claims.py claim 0xRVA` (pass every RVA in a batch). For a single selected candidate,
-`python3 tools/next_work.py --claim` and
+**Claim retail bodies before starting work:** `python3 tools/claims.py claim 0xRVA`
+(every RVA in a batch); `python3 tools/next_work.py --claim` and
 `python3 tools/list_naked_candidates.py Code --claim` claim while selecting and
 retry if another worker won the race. The ranked and BFME 1 donor queues skip
 live claims; after choosing a donor file, claim its target RVAs before editing.
-If a claim is held by another worker, choose other work. An orchestrator should
-set a stable, distinct `BFME_CLAIM_OWNER` for each seat so a seat can renew and
-release only its own claims.
+If another worker holds a claim, choose other work. An orchestrator should set a
+stable, distinct `BFME_CLAIM_OWNER` for each seat.
 
-Claims are shared `refs/claims/0xRVA` on origin, expire after four hours, and
-do not change `master` publication. `python3 tools/claims.py list` shows current
-owners. A verified `add_match` or `add_match_batch` keeps the claim and queues
-the row; after your push, `python3 tools/claims.py release --landed` (the
-pickers' `--claim` also runs it) releases it once origin/master holds the row,
-the same blobs of every file the verified compile read and any
-`reverse/symbols.csv` pins you added. Until then, or when that cannot be shown
-(an untracked or ignored header, say), the claim is kept and expires.
-Run `python3 tools/claims.py release 0xRVA` for a banked, blocked or abandoned body.
-Renew the claim before expiry with `python3 tools/claims.py renew 0xRVA` when
-work lasts longer than four hours: it keeps the claim's lease, so a queued
-landing still releases (re-running `claim` on your own live claim does too).
-`renew` and `release` also act on a claim this checkout took before 2026-10-09
-under the old `<user>@<host>` owner.
-When origin is unreachable, `claims.py claim` claims nothing and exits 2; the
-pickers' `--claim` then warn and serve the body unclaimed, skipping any body
-origin showed another worker holding.
+Claims are `refs/claims/0xRVA` on origin, expire after four hours, and do not
+change `master` publication; `python3 tools/claims.py list` shows owners. A
+verified `add_match` or `add_match_batch` keeps the claim and queues the row; the
+claim is released once origin/master holds the row, the blobs of every file the
+verified compile read and any `reverse/symbols.csv` pins you added. The pickers'
+`--claim` settle such landings, and so does `claims.py claim`, which claims first
+and then settles eligible queued landings except the RVAs that command requested
+(those stay held); `python3 tools/claims.py release --landed` does it on demand
+after a push. A landing that cannot be shown (an untracked or ignored header)
+keeps its claim until it expires. Release a banked, blocked or abandoned body
+with `python3 tools/claims.py release 0xRVA`; renew before expiry with
+`python3 tools/claims.py renew 0xRVA` when work lasts longer than four hours (it
+keeps the lease, so a queued landing still releases; re-running `claim` on your
+own live claim also preserves its lease). `renew` and `release` also act on
+claims this checkout took before 2026-10-09 under the old `<user>@<host>` owner. When origin is
+unreachable, `claims.py claim` claims nothing and exits 2; the pickers then warn
+and serve the body unclaimed, skipping any body origin showed another worker
+holding.
 
 ## Prefer coverage-first reference sweeps
 
-Prefer reference-source sweeps as the first approach whenever compatible reference units are available. Optimize for verified unique-byte gain per unit of effort by batching compatible units, especially within related library families whose dependencies already exist.
+Prefer reference-source sweeps first whenever compatible reference units exist;
+optimize for verified unique bytes per effort by batching compatible units,
+especially library families whose dependencies already exist. Escalate before
+abandoning a reference for dump reconstruction:
 
-Escalate reference-based work before abandoning it for dump reconstruction:
+1. Direct reuse or small evidence-backed repair (constants, declarations,
+   offsets, helper selection, compiler settings) that preserves the verified body
+   and semantics.
+2. Moderate repair of control flow, data access, calls, layouts or compiler
+   shape while identity and relationship stay well supported. Make evidence-backed
+   adaptations; preserve the reference function's established purpose and
+   semantics while reconciling target-specific differences.
+3. Substantial reconstruction from the reference while retail evidence supports
+   identity, ABI, behavior, call relationships and data usage; the reference
+   stays the semantic and structural guide.
+4. Byte-true reconstruction of the `Code/gen_asm/` body as real C++, only once the
+   reference paths are exhausted or no longer applicable.
 
-1. Direct reuse / small repair. First try the reference unit essentially as-is, allowing small evidence-backed changes such as constants, declarations, offsets, helper selection, compiler settings, or other localized differences when they preserve the verified body and semantics.
-2. Moderate repair. If the direct path fails but the function identity and relationship remain well supported, allow moderate evidence-backed adaptation of control flow, data access, calls, layouts, or compiler shape. Preserve the reference function's established purpose and semantics while reconciling target-specific differences.
-3. Substantial reference-based reconstruction. If the reference is still clearly the same underlying function or subsystem, substantial reconstruction from it is allowed when retail evidence supports the identity, ABI, behavior, surrounding call relationships, and data usage. Treat the reference as the primary semantic and structural guide rather than discarding it merely because the target body has diverged significantly.
-4. Byte-true dump reconstruction. Move to reconstructing the served Code/gen_asm/ body as real C++ only after the viable reference-based paths above have been exhausted or the available reference is no longer sufficiently applicable.
-
-Use compiler and configuration variants from successfully matched siblings, with caching and isolated trials to improve throughput. Apply units that pass the existing matching pipeline, preserve provenance and compiler settings, continue through viable independent candidates, and group successful imports with their ledger updates into coherent commits. Move to deeper reconstruction when the sweep no longer offers worthwhile candidates.
-
-Do not spend unbounded effort forcing a weak reference. Once evidence no longer supports the same identity or semantics, or reasonable repair attempts stop yielding useful progress, move on to the byte-true dump path.
-
-Re-run sweeps as new dependencies, identities, compiler configurations, and sibling matches land; previously unproductive reference units may become viable later.
+Use compiler variants from matched siblings, with caching and isolated trials;
+preserve provenance, dependencies and compiler settings; continue through viable
+independent candidates; commit successful imports with their ledger updates
+coherently. Do not force a weak reference: once evidence no longer supports the
+same identity or semantics, or reasonable repairs stop progressing, move on.
+Re-run sweeps as dependencies, identities, compiler configurations and sibling
+matches land.
 
 ## Compile BFME 1 donors beyond byte matches
 
-`bfme1_sweep.py` compares retail bytes; it cannot discover every reusable source
-body. Before treating BFME 1 references as exhausted, compile plausible clean C++
-donor units under BFME 2 settings and search their emitted bodies in `game.dat`,
-even when the original BFME 1 bytes have no match. Prioritize supported identities
-and siblings of successful transfers; exclude dumps and retired or refuted
-candidates unless new evidence addresses the earlier finding.
-
-For a clean BFME 1 C++ donor that `bfme1_sweep.py` cannot match, compile the
-specific TU using BFME 2's toolchain and settings, then search emitted bodies in
-`game.dat` with `tools/place_bodies.py <donor-TU>`. Use matched siblings to choose
-compiler flags. This is a read-only lead search: never claim the external donor
-path as BFME 2 source. Port supported bodies into an allowed `Code/` TU, preserve
-the donor revision, flags and dependencies, and pass the normal byte and identity
-gates. A placement alone proves neither identity nor recovery.
+`bfme1_sweep.py` compares retail bytes and cannot find every reusable body.
+Before treating BFME 1 references as exhausted, compile plausible clean C++ donor
+TUs with BFME 2's toolchain and settings (flags from matched siblings) and search
+their emitted bodies in `game.dat` with `tools/place_bodies.py <donor-TU>`, even
+when the BFME 1 bytes have no match. Prioritize supported identities and siblings
+of successful transfers; exclude dumps and retired or refuted candidates unless
+new evidence addresses the earlier finding. This is a read-only lead search:
+never claim the external donor path as BFME 2 source. Port supported bodies into
+an allowed `Code/` TU, preserving the donor revision, flags and dependencies, and
+pass the normal byte and identity gates. A placement proves neither identity nor
+recovery.
 
 ## Investigate shared deltas first
 
-When multiple failures suggest the same layout, offset, callee, compiler,
-ABI, or wrapper difference, test that shared explanation before retrying
-each body independently. Apply a shared fix only where target evidence
-supports it; similar symptoms alone do not establish a common cause.
-
-Avoid repeating attempts whose current evidence points to the same
-unresolved dependency. Continue with independent candidates, then resweep
-affected units after the dependency is resolved.
+When multiple failures suggest the same layout, offset, callee, compiler, ABI or
+wrapper difference, test that shared explanation before retrying each body.
+Apply a shared fix only where target evidence supports it; similar symptoms alone
+do not establish a common cause. Do not repeat
+attempts blocked on the same unresolved dependency: continue with independent
+candidates and resweep affected units once it is resolved.
 
 ## BFME 1 reference freshness
 
-Use the existing `reference/open-bfme-1` submodule for both building and donor
-discovery. When initializing it, and before BFME 2 work if the last successful
-check is missing or over 24 hours old, fetch official `Open-BFME/Open-BFME-1`
-`master`. Compare commit IDs; preserve dirty or unpublished submodule work.
+Use the `reference/open-bfme-1` submodule for building and donor discovery. On
+initialization, and before BFME 2 work when the last successful check is missing
+or over 24 hours old, fetch official `Open-BFME/Open-BFME-1` `master`, compare
+commit IDs, and preserve dirty or unpublished submodule work.
 
 Complete the current layout migration once: reconcile the old `Code/` and
 `reference/` paths with upstream's `game/` and `inputs/reference/`, including
-source `// cl:` flags and other moved build inputs. Use the existing layout
-resolver where applicable and check the resolved directories and headers. MSVC
-silently ignores missing include directories, so compilation alone does not
-prove the intended headers were used. Verify and commit this repair with the
-updated pointer; repeat path migration only if upstream changes its layout again.
+source `// cl:` flags and other moved inputs, using the existing layout resolver
+where applicable, and check the resolved directories and headers (MSVC silently
+ignores a missing include directory, so compilation alone does not prove the
+intended headers were used). Verify and commit this repair with the updated
+pointer; repeat only if upstream changes its layout again.
 
-For routine submodule updates:
+For a routine update:
 
-1. Record the previous verified pointer and the actual checkout revision. Update
-   the clean checkout to upstream HEAD, preserving enough information to compare
-   the old and new inputs at the same BFME 2 revision.
-2. Run BFME 2's full byte verification with valid dependency caches. Compare
-   failures against the previous verified inputs under the same conditions;
-   repair update regressions and report pre-existing failures separately. Never
-   weaken verification or substitute headers silently to make an update pass.
-3. Refresh the donor byte sweep and compile trials affected by changed source,
-   headers or compiler settings. Record the donor revision with cached results;
-   discard or regenerate results whose inputs no longer agree.
+1. Record the previous verified pointer and the checkout revision; update the
+   clean checkout to upstream HEAD, keeping enough to compare old and new inputs
+   at the same BFME 2 revision.
+2. Run BFME 2's full byte verification with valid dependency caches; compare
+   failures with the previous inputs under the same conditions; repair update
+   regressions and report pre-existing failures separately. Never weaken
+   verification or substitute headers silently.
+3. Refresh donor sweeps and compile trials affected by changed source, headers or
+   settings; record the donor revision with cached results; discard or regenerate
+   results whose inputs no longer agree.
 4. Include the verified submodule pointer and any required repairs in the next
-   commit batch. Advancing the local checkout alone does not update the pointer
-   other contributors receive.
+   commit batch: advancing the local checkout does not update what other
+   contributors receive.
 
-Record a successful check in ignored `build/bfme1-last-check.txt` only after
-verification, or when upstream is already at the verified pointer. Do not repeat
-the fetch per transfer. If an update is blocked, retain the last verified build
-inputs and report the exact blocker and attempted repair; do not mark the update
-successful or suspend future freshness checks indefinitely.
+Record success in ignored `build/bfme1-last-check.txt` only after verification,
+or when upstream is already at the verified pointer. Do not fetch per transfer. If
+an update is blocked, keep the last verified inputs and report the exact blocker
+and attempted repair; do not mark it successful or suspend future freshness
+checks indefinitely.
 
 ## Make matched code link
 
-A matched row whose unit cannot link is half done. `reverse/link_status.csv`
-and `tools/link_census.py` are the measure, under Open-BFME-1's rules: a
-COMDAT copy loses when retail's own bytes prove it wrong (else when it differs
-from the first copy in link order; never by majority, STLport included), and a
-file fails when a name it touches resolves to a kept definition proven not
-retail's (`wrong_selected`). It counts only objects proven current by
-Open-BFME-1's census receipts (include search inventory or a witnessed
-compile) and records nothing if objects, inputs or tools move during the run.
-Each `link_census_history.csv` row names its `rules`; a rule change is
-recorded once, by `tools/census_rebaseline.py`, never by hand. These tools
-steer the work, reading the census's index
-(`build/link_census/link_index.pkl`; copy the daily census's from
-`build/wt_link/`):
+A matched row whose unit cannot link is half done. `reverse/link_status.csv` and
+`tools/link_census.py` measure it under Open-BFME-1's rules: a COMDAT copy loses
+when retail's bytes prove it wrong (else when it differs from the first copy in
+link order; never by majority, STLport included), and a file fails when a name it
+touches resolves to a kept definition proven not retail's (`wrong_selected`). It
+counts only objects proven current by census receipts and records nothing if
+objects, inputs or tools move during the run. Each `link_census_history.csv` row
+names its `rules`; a rule change is recorded once, by `tools/census_rebaseline.py`,
+never by hand. The census index is `build/link_census/link_index.pkl` (copy the daily
+census's from `build/wt_link/`):
 
-- `python3 tools/link_rank.py` ranks blockers by the matched bytes they hold
-  out (sole blockers, blocking names, units within `--near` of linking);
-  `--file SOURCE` lists one unit's. Prefer work that unblocks the most bytes.
-- `python3 tools/link_check.py SOURCE...` (or `--staged`) predicts, in
-  seconds and without link.exe, whether units link after your change.
-  `--refresh` first recompiles objects other commits made stale.
+- `python3 tools/link_rank.py` ranks blockers by the matched bytes they hold out
+  (`--file SOURCE` for one unit, `--near` for units close to linking). Prefer work
+  that unblocks the most bytes.
+- `python3 tools/link_check.py SOURCE...` (or `--staged`) predicts, without
+  link.exe, whether units link after your change; `--refresh` first recompiles
+  objects other commits made stale.
 - `python3 tools/name_globals.py` replaces hard-coded global addresses (the
-  largest blocker class) with the globals the ledger defines there, keeping
-  only rewrites that still byte-match.
-- `python3 tools/rehome_rows.py [--apply]` moves rows from split-out units
-  back to the home unit that already compiles an exact copy, removing the
-  duplicate definition that stops both from linking.
+  largest blocker class) with the ledger's globals, keeping rewrites that still
+  byte-match.
+- `python3 tools/rehome_rows.py [--apply]` moves rows from split-out units back
+  to the home unit that already compiles an exact copy.
 
-**When working on linking as a dedicated task, prefer sweeping BFME 1 linking repairs before rediscovering shared fixes.** During a
-linking pass, compare BFME 2's ranked blockers with linking repairs, canonical
-headers, and dependency reconciliations in `reference/open-bfme-1`. Inspect
-relevant donor commits and their verification evidence. Prioritize repairs to
-shared library and engine families already used by BFME 2.
+In a dedicated linking pass, prefer sweeping BFME 1 linking repairs before
+rediscovering shared fixes: compare BFME 2's ranked blockers with
+`reference/open-bfme-1`'s linking repairs, canonical headers and dependency
+reconciliations, inspect relevant donor commits and their verification
+evidence, and prioritize repairs to shared library and engine families already
+used by BFME 2. Routine linking and small dependency repairs accompanying a
+recovery proceed directly. Track the donor revision reviewed and whether each
+repair is inherited, applicable, blocked or inapplicable; revisit blocked ones
+when their dependencies or donor evidence change, and do not repeat an unchanged
+donor scan. Try the donor repair directly where BFME 2 evidence supports it, then
+adapt it locally; preserve BFME 2 layouts,
+addresses, ABI and behavior; verify affected bodies and check providers and
+consumers together — a BFME 1 linking result is a lead, not BFME 2 proof. After a
+repair succeeds, sweep BFME 2 units with the same supported cause, batch the
+compatible fixes and refresh the blockers; continue with independent candidates
+when a repair needs unrelated investigation.
 
-Routine linking and small dependency repairs accompanying a recovery should
-proceed directly; this donor-sweep preference applies to dedicated linking
-investigations.
-
-Track the donor revision reviewed and whether each relevant repair is already
-inherited, applicable, blocked, or inapplicable. Revisit blocked candidates when
-their dependencies or donor evidence change. Follow the existing
-reference-freshness rules; avoid repeating an unchanged donor scan.
-
-Try the donor repair directly where BFME 2 evidence supports it, then make
-localized target-specific adaptations. Preserve established BFME 2 layouts,
-addresses, ABI and behavior. Verify affected bodies and check providers and
-consumers together; a BFME 1 linking result is a lead, not BFME 2 proof.
-
-Once a repair succeeds, sweep related BFME 2 units that exhibit the same
-supported cause, batch compatible fixes, and refresh the remaining blockers.
-Continue with independent candidates when a repair needs unrelated
-investigation.
-
-**Reconcile classes, not just bodies.** Private per-unit views of one class
-are the root cause of most COMDAT and unresolved blockers.
-`python3 tools/class_views.py` ranks classes by private views or, with
-`--blockers`, by what the census holds against them; `--class X` and
-`--shims X` list the views and competing shim headers to merge. A class
-with a shared header is registered in `reverse/canonical_classes.csv`;
-`tools/class_gate.py` (pre-commit) refuses new private copies of it.
-To give a class a canonical header, run the lane in dependency order
-(`python3 tools/header_adopt_lane.py order`): `tools/class_contract.py` decides
-its ABI from evidence (bytes, retail access, retail vftables, ZH, majority),
+**Reconcile classes, not just bodies.** Private per-unit views of one class cause
+most COMDAT and unresolved blockers. `python3 tools/class_views.py` ranks classes
+by private views (`--blockers`: by what the census holds against them; `--class X`
+and `--shims X` list the views and competing shim headers). A class with a shared
+header is registered in `reverse/canonical_classes.csv`, and `tools/class_gate.py`
+refuses new private copies of it. To give a class a canonical header, follow
+`python3 tools/header_adopt_lane.py order`: `tools/class_contract.py` decides its
+ABI from evidence (bytes, retail access, retail vftables, ZH, majority), and
 `header_adopt_lane.py run --generate --apply` generates the header, gates each
-unit and queues the rest in `reverse/header_queue.tsv`.
-Claim scope-wide work so two seats do not collide:
+unit and queues the rest in `reverse/header_queue.tsv`. Claim scope-wide work:
 `python3 tools/claims.py claim class:NAME` or `file:PATH`.
 
 ## Work the file, not the row
 
-`next_work.py` lists every other queued candidate in the same source file.
-**That file is your unit of work** — drain it first. Measured land rate: 19.5%
-solo, 46.5% with ten or more siblings landed together, because the layout,
-offsets and callee pins from the first body are what the next one needs. A
-shared header edit costs a full gate: edit every dependent body, pay once.
-
-When several files in one subsystem demonstrate the same successful
-reference-transfer pattern, prioritize other candidates in that subsystem.
-Reuse established compiler settings and evidence-backed shared deltas,
-verifying their applicability to each candidate. Folder structure alone
-is not evidence. Return to the broader queue when transfer behavior
-diverges or the remaining candidates require distinct investigation.
+`next_work.py` lists every other queued candidate in the same source file: that
+file is your unit of work; drain it first (land rate 19.5% solo, 46.5% with ten
+or more siblings landed together). A shared header edit costs a full gate: edit
+every dependent body, pay once. When several files in one subsystem show the
+same successful reference-transfer pattern, prioritize that subsystem, reusing
+its compiler settings and evidence-backed deltas after checking each applies
+(folder structure alone is not evidence); return to the broad queue when transfer
+behavior diverges or the remaining candidates require distinct investigation.
 
 ## Batch homogeneous trivial recoveries
 
-Atomic does not mean one function per commit.
-
-When several bodies use the same established recovery pattern and form
-one coherent, reviewable change, recover, ledger, verify, and commit them
-as one batch. Examples include tiny getters/setters, thunks, wrappers,
-and reference transfers differing only by verified RVA or offset.
-
-Similar instruction shapes alone do not establish identity, types,
-calling convention, or layout. Verify each member against its own
-evidence; do not extrapolate correctness from a representative sample.
-
-Prefer `Recover 31 disp8 ptr-chase getters` over 31 separate 7-byte
-commits when all members satisfy these conditions. Keep batches small
-enough to review and diagnose; prefer roughly 5–20 entries per commit
-as a guideline, not a quota or hard limit.
-
-Keep substantive reconstruction or work requiring distinct identity,
-compiler, ABI/layout, or reconstruction reasoning in separate atomic
-commits.
-
-Verify the entire batch before committing. If a member fails, determine
-whether the failure undermines the shared pattern. Continue with the
-remaining members only if their evidence and verification still hold;
-otherwise reassess the batch.
+Atomic does not mean one function per commit. When bodies use one established
+recovery pattern and form one coherent, reviewable change (tiny getters/setters,
+thunks, wrappers, reference transfers differing only by verified RVA or offset),
+recover, ledger, verify and commit them as one batch, roughly 5–20 entries (a
+guideline, not a quota or hard limit). Similar instruction shapes do not
+establish identity, types, calling convention or layout: verify each member
+against its own evidence. Keep substantive reconstruction, or work needing
+distinct identity, compiler, ABI/layout or reconstruction reasoning, in separate
+commits. Verify the whole batch before committing. If a member fails, determine
+whether that undermines the shared pattern; continue with the remaining members
+only if their evidence and verification still hold, otherwise reassess the batch.
 
 ## Convert, verify, commit, push — per body or homogeneous trivial batch
 
-1. Make the smallest source and ledger change for one function or a homogeneous trivial batch under the rule above.
+1. Make the smallest source and ledger change for one function or batch.
 2. `./build.sh <file-or-symbol>`. If a command returns a process or session ID,
-   poll it; never launch a duplicate build.
-
-   **Do not reach past the tools to debug a body.** `tools/build.py` is
-   importable and `build.compile_source(source, output)` looks like the obvious
-   way to see a raw compiler error, but it writes the **shared** object cache at
-   `build/match/<mangled-source-path>.obj`. Every later `explain_mismatch` and
-   `./build.sh` run for that source then silently reuses *your* object instead
-   of building one, and the symptom is not an error — it is a body that stops
-   emitting its symbol at all.
-
-   That cost a wrong conclusion once: a "symbol not found in object" after an
-   edit was read as proof the edit suppressed the function, when it was the
-   cache replaying a hand-built object. The tell is a cached `.obj` whose source
-   path no longer exists; the repair is to delete the `.obj` **and** its
-   `.deps.json`. If you need a raw compile error, read `build.sh`'s own output
-   or the `explain_mismatch` traceback — both go through the tools.
-3. Stage explicit paths only: `git add <specific-paths>`, never `git add .`.
-   Check every new ledger source is tracked.
+   poll it; never launch a duplicate build. Do not compile by hand through
+   `tools/build.py` (`build.compile_source`) to see a raw error: it writes the
+   shared cache `build/match/<mangled-source-path>.obj`, and later `./build.sh`
+   and `explain_mismatch` runs silently reuse your object (the symptom: a body
+   that stops emitting its symbol). The tell is a cached `.obj` whose source path
+   no longer exists; delete that `.obj` **and** its `.deps.json`. Read raw errors
+   from `build.sh` or the `explain_mismatch` traceback.
+3. Stage explicit paths only (`git add <paths>`, never `git add .`); check every
+   new ledger source is tracked.
 4. Commit normally. **Never bypass hooks.**
-5. `git pull --rebase origin master`, `git push`, then pull --rebase again. On
-   rejection, follow the batching and retry rules in #7 before another attempt.
-6. **Never land a pull request with GitHub's merge button.** The byte gates live
-   in `.githooks/` and run on a local commit and a local push; a server-side
-   merge invokes neither, so it publishes ledger rows asserting `matched` that
-   nothing verified. That is the one failure this repo is built to prevent, and
-   it is invisible afterwards because an unverified row reads exactly like a
-   verified one. To land someone else's PR, cherry-pick it instead:
+5. `git pull --rebase origin master`, `git push`, then pull --rebase again; on
+   rejection follow #7 before retrying.
+6. **Never land a pull request with GitHub's merge button**: the byte gates run
+   in local hooks, so a server-side merge publishes `matched` rows nothing
+   verified, invisibly. Cherry-pick instead:
 
    ```sh
    git fetch origin pull/<N>/head:pr<N>
@@ -413,145 +351,48 @@ otherwise reassess the batch.
    git push origin master
    ```
 
-   Then comment on the PR: that it landed, under which SHAs, and that follow-up
-   work should be stacked off `master` rather than the now-stale branch.
-
-7. This step governs when to run #5. Keep each change verified; batch publication under these rules:
-
- Prefer accumulating verified commits until the unpublished batch recovers **500 retail bytes total or more**, then push them together. Keep substantive changes as separate verified commits. This is a preference, not a requirement to invent more work: publish a smaller final batch when the work or session ends, after the cooldown.
-
-Header, vendored-reference and shared-shim edits — and a resolved merge — trigger the full gate in the hook; poll it, don't relaunch, and never filter a gate through a pipeline that hides its exit code.
-
-Additionally, internally note the time of your last successful push and allow at least a 5-minute cooldown until the next push by the same GitHub account to this repository. Share that clock across workers using the account and continue useful work during the cooldown.
+   Then comment on the PR with the landed SHAs, and that follow-up work should
+   stack off `master`.
+7. Publication: prefer accumulating verified commits until the unpublished batch
+   recovers **500 retail bytes** or more, then push together; keep substantive
+   changes as separate commits; publish a smaller final batch when the work or
+   session ends. Header, vendored-reference and shared-shim edits, and resolved
+   merges, trigger the full gate in the hook: poll it, don't relaunch, and never
+   filter a gate through a pipeline that hides its exit code. Internally note the
+   time of your last successful push and allow at least a five-minute cooldown
+   until the next push by the same GitHub account to this repository; share that
+   clock across workers using the account and keep working during the cooldown.
 
 ## Frozen files: check before you plan an edit
 
-`find_declared_unmatched` refuses a source that defines **any** function the
-ledger does not declare. Because a file accumulates definitions as bodies are
-written ahead of their addresses, a file can cross that line and become
-uneditable — and nothing re-checks it, because the gate only ever inspects
-*staged* sources.
-
-Measured 2026-09-29 over all 9,067 ledger sources: **116 files were refused,
-every one of them carrying matched rows**, so none is an exempt parked draft.
-They include the ones with the most remaining work:
-
-```
-InGameUI.cpp            121 undeclared definitions
-Locomotor.cpp            50
-OpenContain.cpp          50
-GameWindowManager.cpp    45
-PhysicsUpdate.cpp        44
-```
-
-**All 116 have since been unfrozen** (verified: zero of the 116 still refused).
-The recipe that did it is worth reusing, because it is self-verifying rather
-than judgement-based:
-
-1. Run `find_declared_unmatched` on each refused file and read the undeclared
-   definitions it names.
-2. For files with few enough that the report still distinguishes them (**ten**
-   worked; the earlier ceiling of three was needlessly cautious), insert
-   `// ?<Class::method> present-unmatched` above each definition.
-3. **Re-run the gate on that file, and revert it entirely if it still
-   refuses.** A marker on the wrong overload — the `MeshClass::Scale` case —
-   cannot then survive.
-
-That loop took 86 files in three passes (ceilings 3, 10 and 25) with 8 reverts,
-and the reversions are the point: the guard, not a hand-set ceiling, is what
-makes the marking safe. The ceiling only decides how many files are *attempted*
--- a file whose declarations cannot all be placed is restored untouched rather
-than half-marked, so raising it risks nothing but time.
-
-**There are two failure modes, and the recipe above only fixes one.** Adding a
-marker fixes a definition that has none. But a file can also be blocked by a
-marker sitting on a definition that IS matched, which the tool reports
-differently:
-
-```
-?getPath@CDDrive@@UAE?AVAsciiString@@XZ is matched in functions.csv from
-this file but still marked present-unmatched (stale annotation - remove the
-marker)
-```
-
-That needs the marker REMOVED, and an add-only sweep makes it worse -- it reads
-the stale line as an undeclared definition, marks an already-matched one, and
-the guard reverts the file. dx8indexbuffer.cpp sat in the remaining list with a
-count of 1 for this reason: it had one problem and the sweep could only
-aggravate it. Check for stale annotations before adding anything.
-
-And a count of undeclared definitions is not a count of work needed.
-CDManager.cpp reported 16 unclaimed definitions and needed nothing added --
-14 already carried markers, and removing 2 stale ones unfroze the file.
-
-A fourth and final cause, found on the last two files: the locator matched
-`Class::method` as a literal, but the source writes `operator =` with spaces.
-Matching with whitespace stripped on both sides, while still requiring `(` or
-`<` next, closed collect.cpp and shattersystem.cpp. Those two had looked
-permanently out of reach at 31 and 24 definitions; both were one whitespace
-bug.
-
-Any edit to a still-frozen file — however small, however correct — fails the
-commit until its undeclared definitions are dealt with. Check membership before
-you plan work in a file:
+`find_declared_unmatched` refuses a staged source that defines **any** function
+the ledger does not declare, and nothing re-checks unstaged files, so a file can
+become uneditable. Check before planning work in one (silent means it commits):
 
 ```sh
-python3 tools/find_declared_unmatched.py <file>   # silent means it will commit
+python3 tools/find_declared_unmatched.py <file>
 ```
 
-Two remedies, and they are not interchangeable:
+Two remedies, not interchangeable:
 
-- **`present-unmatched` / `absent-from-retail` markers**, one per definition.
-  This is a *declaration* that the body is known but unpinned (or that retail
-  dead-stripped it), so it is honest only where that is true. Adding it to hide
-  a real over-claim is exactly the failure the gate exists to catch.
+- **Row the body** — real work, and the reason the file is frozen.
+- **A `present-unmatched` or `absent-from-retail` marker**, one per definition:
+  a declaration that the body is known but unpinned (or that retail dead-stripped
+  it), honest only where true; never use it to hide an over-claim. It must start
+  `// ?` (`// ?<Class::method> present-unmatched`) or it is silently ignored; the
+  label is free, only the trailing word is read. Do not copy a ledger row's
+  trailing comma into it (`// ?<mangled>,` misses).
 
-  **The marker must start with `?` or it is silently ignored.** The tool enters
-  its symbol-splitting path only for lines beginning `// ?`, so a marker written
-  any other way leaves the definition undeclared and the tool reports the *same
-  refusal you started with*, saying nothing about the marker itself:
-
-  ```
-  // GameLogicRandomVariable::setRange present-unmatched    no effect
-  // ?GameLogicRandomVariable::setRange present-unmatched   works
-  ```
-
-  Worth knowing before concluding that markers do not work. The label after `?`
-  is never checked against the ledger -- only the trailing word is -- so a
-  readable name is fine, but keep it honest.
-- **Row the body**, which is real work and the reason the file is frozen.
-
-Note that the second half of the tool's own error message is not actionable
-here: it suggests `reverse/unclaimed_sources_whitelist.txt`. That file exists,
-but it only exempts a source with zero matched rows, and it is a protected
-shrink-only list (`tools/protected_paths.py`) that may not grow. Do not add to
-it — marker the definitions or row them.
-
-An earlier version of this section said flatly: do not script the marking. That
-was too strong, and the sweeps above are the counter-example — but the reason
-behind it is real. The report names each definition as `Class::method` with no
-argument types, so when a file defines two overloads of one method —
-`MeshClass::Scale` is the worked case — nothing in the output says which one is
-undeclared, and a marker placed on the wrong overload is caught only after the
-edit, and loudly:
-
-```
-?Scale@MeshClass@@UAEXMMM@Z is matched in functions.csv from this file but
-still marked present-unmatched (stale annotation — remove the marker)
-```
-
-So the rule is not "never script it" but "never script it without the guard":
-insert, re-run the gate on that file, and revert the whole file if it still
-refuses. With that loop the overload case is handled automatically — it cost two
-reverts across 78 files. Without it, a script puts markers on matched
-definitions and the failure surfaces one file at a time.
-
-A related trap worth knowing, because it presents identically: a marker
-written `// ?<mangled>,` is not the symbol name. The comma is the ledger row's
-separator, copied along with the name, and the tool takes everything after
-`// ?` to end-of-line as the symbol, so it misses and reports a declared,
-matched definition as undeclared. 689 files carried such a marker; 14 of them
-failed on it and were fixed in `24d5a90fb`.
+Read the undeclared definitions the report names. Before adding markers, remove
+stale ones: a marker on a definition that IS matched is reported "still marked
+present-unmatched (stale annotation)", and an add-only pass makes that worse.
+After any marker insertion, manual or scripted, re-run `find_declared_unmatched`
+on that file and revert your whole file attempt if it still refuses (the report
+gives `Class::method` without argument types, so a marker can land on the wrong
+overload). The error message's suggestion of
+`reverse/unclaimed_sources_whitelist.txt` does not apply: that protected list
+(`tools/protected_paths.py`) only exempts sources with zero matched rows and may
+only shrink.
 
 ## Anti-lift policy
 
@@ -559,78 +400,71 @@ Clean C++ is preferred; MASM or inline asm only for a proven codegen blocker
 (compiler machinery, x87 shape, SEH). Lifting a dump into a
 `__declspec(naked)`/`__emit` .cpp is **not** a conversion: it byte-matches by
 construction, scores +0, and deletes the body the next converter needed. The
-naked body must be **gone**, replaced by real C++. `tools/conversion_gate.py`
-enforces this in both hooks, and the push hook scans your whole outgoing range
-— a blocked push may name a historical lift, not yours. Never `--no-verify`.
+naked body must be gone, replaced by real C++. `tools/conversion_gate.py`
+enforces this in both hooks; the push hook scans your whole outgoing range, so a
+blocked push may name a historical lift. Never `--no-verify`.
 
-Ghidra boundaries, xrefs and vtables are identity evidence; decompiled C is
-not byte-match proof. After several failed shapes or ~30 minutes without byte
+Ghidra boundaries, xrefs and vtables are identity evidence; decompiled C is not
+byte-match proof. After several failed shapes or ~30 minutes without byte
 progress take a fresh candidate, never leaving a nonmatching reconstruction in
-`Code/`. Record the verdict:
-`python3 tools/re_log.py record <symbol> <rva> <size> <status> <evidence>`
-(never hand-edit `reverse/re_attempts.log`); cite the real boundary and
-include `t=<minutes>` and your model. Walled only by a missing function? Add
-`blocked-on=0x<rva>`: the queue re-serves you as untried once it lands.
-`add_match` records `landed` itself and lists deferrals citing the body it
-landed — stage the log with your row.
+`Code/`. Record the verdict with
+`python3 tools/re_log.py record <symbol> <rva> <size> <status> <evidence>` (never
+hand-edit `reverse/re_attempts.log`), citing the real boundary, `t=<minutes>` and
+your model. Walled only by a missing function? Add `blocked-on=0x<rva>`: the queue
+re-serves you as untried once it lands. `add_match` records `landed` and lists
+deferrals citing the body it landed — stage the log with your row.
 
-**Close, not exact? Bank the body.**
-`partial '<what is wrong>' --stash <your .cpp> --score <0..1>` keeps the
-candidate servable and starts the next agent from your body, not cold. Both
-flags are required: over 95 rows, a `partial` describing the near miss without
-banking it landed 5.1% against 7.5% for silence. No body, no `partial` —
-record `blocked`.
+**Close, not exact? Bank the body:** `partial '<what is wrong>' --stash <your .cpp>
+--score <0..1>` keeps the candidate servable and starts the next agent from your
+body. Both flags are required (a `partial` without a banked body landed 5.1%
+against 7.5% for silence). No body, no `partial` — record `blocked`.
 
 ## Placement and integrity
 
-- Game source under `Code/`; MASM dumps in `Code/masm_dumps/`; scratch
-  untracked under `build/`. Banked attempts (`reverse/attempts/<rva>.cpp`) are
-  evidence, never progress: nothing compiles them, `add_match` deletes one on
-  landing, `check_csv` flags leftovers.
+- Game source under `Code/`; MASM dumps in `Code/masm_dumps/`; scratch untracked
+  under `build/`. Banked attempts (`reverse/attempts/<rva>.cpp`) are evidence,
+  never progress: nothing compiles them, `add_match` deletes one on landing,
+  `check_csv` flags leftovers.
 - Prefer TU-scoped shims over shared-header edits.
 - Progress = `matched` `reverse/functions.csv` rows backed by real source and
   byte verification. Markers and prose are not.
-- **Landing a `reverse/symbols.csv` pin?** It is an ADDITIVE candidate list:
+- **Landing a `reverse/symbols.csv` pin?** Pins are an additive candidate list:
   the resolver keeps the first pinned address that reproduces retail, so a pin
-  naming the *wrong* function still byte-matches and a green gate proves
-  nothing about it. Run `tools/pin_consistency.py --symbol <name>` before you
-  pin and `--check` after. `reverse/pin_consistency_baseline.csv` is the
-  known-bad backlog and may only shrink — never add a line to get green. A
-  harvested pin is a candidate, not an address: resolve the thunk and check it
-  against the ledger's own body before spending a name on it.
+  naming the wrong function still byte-matches. Run
+  `tools/pin_consistency.py --symbol <name>` before you pin and `--check` after;
+  `reverse/pin_consistency_baseline.csv` may only shrink. A harvested pin is a
+  candidate: resolve the thunk and check it against the ledger's own body before
+  spending a name on it.
 - No fallback paths; they conceal mismatches.
 - Never load `reverse/functions.csv`, `ghidra_functions.csv` or `exports.csv`
   wholesale; use `rg` or narrow filters.
 - Preserve unrelated dirty-tree work; revert only your own attempt.
+- A new file under `tools/` should replace an existing tool or be called by a
+  hook, a picker or another tool; one-off and exploratory scripts stay untracked
+  in `build/`.
 
 ## Preserve donor provenance
 
-In the existing evidence records, distinguish facts established from
-target evidence, facts carried from donor source, and structural
-inferences. Record the basis for identity and layout claims separately
-when their evidence differs.
-
-Exact bytes alone do not establish a donor name or layout as a target
-fact. Preserve uncertainty until independent target evidence resolves it.
+In the evidence records, distinguish facts established from target evidence,
+facts carried from donor source, and structural inferences; record the basis for
+identity and layout claims separately when their evidence differs. Exact bytes
+alone do not establish a donor name or layout as a target fact: preserve the
+uncertainty until independent target evidence resolves it.
 
 ## Generated claims
 
-`gen-*` rows (`Code/gen_small/`, `Code/gen_asm/`) are byte-true placeholders,
-not progress. Recovering a real identity means writing clean C++ at its proper
-`Code/` path and repointing the row:
+`gen-*` rows (`Code/gen_small/`, `Code/gen_asm/`) are byte-true placeholders, not
+progress. Recovering a real identity means writing clean C++ at its proper `Code/`
+path and repointing the row:
 `tools/add_match.py <real-name> <rva> <size> <source> --replace-rva <rva>` for
 `gen_asm` dumps (`--replace-existing` when the name is unchanged). `check_csv`
-rejects a gen-* row sharing a range with a real-name row; the placeholder
-yields.
+rejects a gen-* row sharing a range with a real-name row; the placeholder yields.
 
 **Never edit a file under `Code/gen_asm/`**: repoint the row and leave the
-orphaned `PROC`, which keeps converters conflict-free there.
-`Code/gen_small/uw_gen_*.cpp` is owned end to end by `tools/gen_uw.py land` —
-never hand-edit it, and never infer a funclet's `parent=` from adjacency; a
-guessed parent is invented identity.
-
-After landing a batch, sweep your own rows: one body per address. A duplicate
-range among them is an over-claim, not an ICF alias.
+orphaned `PROC`. `Code/gen_small/uw_gen_*.cpp` is owned end to end by
+`tools/gen_uw.py land` — never hand-edit it, and never infer a funclet's
+`parent=` from adjacency. After landing a batch, sweep your own rows: one body per
+address; a duplicate range among them is an over-claim, not an ICF alias.
 
 ## Vendored third-party claims
 
