@@ -441,3 +441,11 @@ void Rva006CF230Initialize(const Rva00222343 *input) {
 }
 #undef CHECK
 #undef POOL_ALLOC
+
+// ?rva006cc940@@YAXXZ @0x006CC940 5B: tail jump to the matched Apt shutdown
+// tail 0x006CC880; retail calls it from the rowed 0x0022244D.
+void rva006cc880();
+void rva006cc940()
+{
+ rva006cc880();
+}
