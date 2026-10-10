@@ -201,3 +201,32 @@ void StrategicInGameUI::ManualPhaseEnder::Update() {
   }
  }
 }
+
+class Rva005CCBB0 {
+public:
+ void rva005CCBC0();
+ void rva005CCBB0();
+};
+bool __cdecl Rva005CD841Find(void *);
+void __cdecl Rva005CD877Visit(void *);
+void __cdecl Rva005CD813Visit(void *);
+class ManualPhaseEndHook {public:virtual void invoke();};
+struct ManualPhaseEndView {
+ ManualPhaseEndHook *hook;
+ void *hud;
+ Rva005CCBB0 *listeners;
+};
+// Native5CD8A5..5CD8F7 (82B), WB15B64E0 OnEndPhase. The fallback
+// restores ESI and tail-dispatches slot0; it is a complete function boundary.
+// Listener helper names remain the separately verified opaque owners.
+void StrategicInGameUI::ManualPhaseEnder::OnEndPhase()
+{
+ if(TheInGameUI->vslot95())return;
+ ManualPhaseEndView *state=(ManualPhaseEndView*)this;
+ if(state->listeners && Rva005CD841Find(state->listeners)) {
+  state->listeners->rva005CCBC0();
+  state->listeners->rva005CCBB0();
+  Rva005CD877Visit(state->listeners);
+  Rva005CD813Visit(state->listeners);
+ }else state->hook->invoke();
+}
