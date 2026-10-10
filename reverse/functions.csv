@@ -74759,3 +74759,5 @@ _VP6_ReadHuffTokens,,0x001C5310,1661,Code/Libraries/Source/VP6/HuffTokens.cpp,ma
 ??1Rva00513BAB@@UAE@XZ,,0x00513BAB,297,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHeroScreenDestructor.cpp,matched,AptCreateAHero screen dtor; five page deletes plus RemoveCustomRender plus preview flag restore; singleton clear
 ??1AptConnectionScreen@@UAE@XZ,,0x005DB681,89,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptConnectionScreenDestructor.cpp,matched,AptConnectionScreen dtor; listener unregister plus Apt window half teardown
 ??1Rva00510D0C@@UAE@XZ,,0x00510D0C,123,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTributeScreenDestructor.cpp,matched,tribute screen dtor; singleton clear plus ui menu plus shell hide plus page map plus Apt window base
+??1W3DFontLibrary@@UAE@XZ,,0x0009023C,106,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DFontLibraryDestructor.cpp,matched,W3DFontLibrary dtor
+??1Rva00576591@@UAE@XZ,,0x00576591,64,Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/Rva00576591Destructor.cpp,matched,StrategicHUD holder dtor; notifier flag set then base dtor
