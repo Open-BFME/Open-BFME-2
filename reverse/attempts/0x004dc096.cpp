@@ -1,13 +1,11 @@
 // ?rva004DC096@Rva004DC1BF@@QAE_NPAVCoord2D@@@Z
-// partial score=0.9722097413820393 date=2026-10-10
-// ?rva004DC096@Rva004DC1BF@@QAE_NPAVCoord2D@@@Z
-// partial score=0.97 date=2026-10-09
+// partial score=0.9722092722092722 date=2026-10-10
 // cl: /I.  /O1 /arch:SSE /G7 /MD /EHsc /Ireference/shims/moduledata /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
 #include "Common/Snapshot.h"
 #include "vector3.h"
-#include "/mnt/titan_nv3/open-bfme2-agent-fleet/gemini200/writer-005/Code/Libraries/Include/Lib/Coord2D.h"
+#include "../../Code/Libraries/Include/Lib/Coord2D.h"
 class GeometryInfo:public Snapshot {
 public:
  GeometryInfo(const GeometryInfo &);
