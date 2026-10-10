@@ -1,6 +1,8 @@
 // ?validateSides@SidesList@@QAE_NXZ
+// partial score=0.9945519711364812 date=2026-10-10
+// ?validateSides@SidesList@@QAE_NXZ
 // partial score=0.99 date=2026-10-08
-// cl: /Ireference/shims/bfme2_ascii /EHsc /MD
+// cl: /Ireference/shims/bfme2_ascii /EHsc /MD /O1 /G7 /arch:SSE /DNDEBUG
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?validateSides@SidesList@@QAE_NXZ, retail 0x0032E02B, 1097 bytes.
@@ -110,7 +112,7 @@ class TeamsInfoRec
 public:
 	void renameTeam(int id, const AsciiString &owner, const AsciiString &name);	// 0x0032D223
 	int addTeam(const Dict *d);		// 0x0032DA4E
-	void bfmeRelease(int id);		// 0x0032C26D
+	void removeTeam(int id);		// 0x0032C26D
 	TeamsInfo *getTeamInfo(int id) { return &m_entries[id].m_info; }
 	int getNextTeamID(int id) { return m_entries[id].m_next; }
 	bool isFinal(int id) { return m_entries[id].m_overriddenByID == 0; }
@@ -222,7 +224,7 @@ restart:
 		Dict *tdict = m_teamrec.m_entries.raw(i).m_info.getDict();
 		AsciiString tname = tdict->getAsciiString(TheKey_teamName);
 		if (findSideInfo(tname) != 0) {
-			m_teamrec.bfmeRelease(i);
+			m_teamrec.removeTeam(i);
 			modified = true;
 			goto restart;
 		}
