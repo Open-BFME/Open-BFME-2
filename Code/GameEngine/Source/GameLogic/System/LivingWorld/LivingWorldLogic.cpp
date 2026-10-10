@@ -24,7 +24,19 @@ namespace _STL {
 template <> void _List_base<UnicodeString, allocator<UnicodeString> >::clear();
 }
 
-class LivingWorldPlayer { public: bool rva002E0B30(); };
+struct LivingWorldArmy;
+struct LivingWorldRevivalUnitDataView;
+class Rva004E3184;
+class Rva00319CED;
+class Rva002E112A { public: Bool rva002E112A(Rva00319CED *); };
+class LivingWorldPlayer { public:
+ bool rva002E0B30();
+ void AddArmy(LivingWorldArmy *);
+ bool rva002E12F3(int);
+ int rva002E199E(const void *);
+ void GetRevivalUnitData(int, LivingWorldRevivalUnitDataView *);
+ void RemoveRevivalUnit(int);
+};
 class LivingWorldLogic;
 struct LivingWorldBuildingNuggetSpawnArmy;
 
@@ -926,7 +938,8 @@ public:
 class Rva003193EC
 {
 public:
-	bool rva00319413(Rva0037DCA5 *entry);			// 0x00319413
+	bool rva00319413(Rva0037DCA5 *entry);
+    void rva00319904(Rva003193EC *other);			// 0x00319413
 };
 
 
@@ -2588,4 +2601,63 @@ void LivingWorldLogic::rva002BD9B4(){
  }
  ++m_field100;
  if(*((Bool*)this+0x168) && m_field100>=*((UnsignedInt*)((char*)this+0x164)))rva002B88EC();
+}
+
+// Native2B65B7..2B676D, complete438B RET12; WB D80CC0 names
+// LivingWorldLogic::spawnArmy (asserts2130..2237). Native independently
+// proves city rejection, optional command-point gate, army allocation and
+// registration, revival-record transfer, then placement or garrison merge.
+// Pointer types remain the established provisional target views. The
+// constructor31A372 is an existing unprovided link dependency, not a
+// separately recovered body. Direct KindOf bit90 testing preserves retail's
+// byte113 mask; converting through a Boolean helper adds four bytes.
+class Rva00319AA0 {public:void rva00319AA0(const Coord2D *);};
+LivingWorldArmy *LivingWorldLogic::spawnArmy(Rva004E3184 *spawn,Rva002B6A04Player *player,Bool bypass)
+{
+ if(spawn->flagged())return 0;
+ if(!bypass && !((Rva002E112A*)player)->rva002E112A((Rva00319CED*)spawn))return 0;
+ LivingWorldArmy *army=::new LivingWorldArmy(++m_field9C,spawn,player);
+ ((Rva00318D14ByteSlot*)army)->set(1);
+ ((LivingWorldPlayer*)player)->AddArmy(army);
+ Rva002B3325Summary *summary=(Rva002B3325Summary*)army->m_summary;
+ if(summary){
+  int count=summary->m_entries.size();
+  for(int i=0;i<count;++i){
+   Rva0037DCA5 *entry=(Rva0037DCA5*)((Rva0040CB2CIndexedField*)summary)->get(i);
+   const ThingTemplateKindOf *thing=(const ThingTemplateKindOf*)entry->rva0037DC52();
+   if(thing && (thing->m_kindOf[2] & (1u<<26))){
+    int key=*(int*)((char*)spawn+0x4c);
+    if(((LivingWorldPlayer*)player)->rva002E12F3(key)){
+     ((LivingWorldPlayer*)player)->GetRevivalUnitData(*(int*)((char*)spawn+0x4c),(LivingWorldRevivalUnitDataView*)entry);
+     ((LivingWorldPlayer*)player)->RemoveRevivalUnit(*(int*)((char*)spawn+0x4c));
+    }else{
+     key=((LivingWorldPlayer*)player)->rva002E199E(thing);
+     if(key){
+      ((LivingWorldPlayer*)player)->GetRevivalUnitData(key,(LivingWorldRevivalUnitDataView*)entry);
+      ((LivingWorldPlayer*)player)->RemoveRevivalUnit(key);
+      *(int*)((char*)entry+0xc0)=key;
+     }
+    }
+   }
+  }
+ }
+ Rva00318C32Ret *region=((Rva00318C79Owner*)army)->rva00318C32();
+ if(region){
+  if(!((StringBase<char>*)((char*)army+0x18))->isEmpty()){
+   Rva003F26AAPair pos;
+   ((LivingWorldRegionConnection*)region)->rva003F26AA((const ModuleData*)army,&pos);
+   ((Rva00319AA0*)army)->rva00319AA0((const Coord2D*)&pos);
+  }else{
+   LivingWorldArmy *old=(LivingWorldArmy*)rva002B4948(player,(LivingWorldRegion*)region,(Int)army);
+   if(old){
+    ((Rva003193EC*)old)->rva00319904((Rva003193EC*)army);
+    rva002B5B55(army);army=old;
+   }else{
+    Rva003F26AAPair pos;
+    ((LivingWorldRegionConnection*)region)->rva003F26AA((const ModuleData*)army,&pos);
+    ((Rva00319AA0*)army)->rva00319AA0((const Coord2D*)&pos);
+   }
+  }
+ }
+ return army;
 }
