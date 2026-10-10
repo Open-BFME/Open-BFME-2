@@ -98,7 +98,8 @@ public:
 	BfmeFixedStorage0004543D m_08;
 	BfmeFixedStorage0004543D m_24;
 };
-extern unsigned char g_00DFEFA4StoragePrototype[28];
+template <int N> class BitFlags;
+extern BitFlags<116> KINDOFMASK_NONE;
 
 extern PartitionManager *ThePartitionManager;
 
@@ -406,7 +407,7 @@ void Team::updateState()
 
 			Object *pObj = ThePartitionManager->getClosestObject(obj->getPosition(), obj->getVisionRange(), 0,
 				Rva00260EB1Filter(obj, 1, false).link(Rva0026119DFilter().link(Rva002611BFFilter(obj).link(
-				Rva0004584D(*(const BfmeFixedStorage0004543D *)g_00DFEFA4StoragePrototype,
+				Rva0004584D(*(const BfmeFixedStorage0004543D *)&KINDOFMASK_NONE,
 				BfmeFixedStorage0004543D(0, 0x59, 0x86)).link(&Rva00261513Filter(obj, true, -1.0f))))));
 			if (pObj)
 			{
