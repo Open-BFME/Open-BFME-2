@@ -33,6 +33,7 @@ private:
 	void *m_begin;
 	void *m_finish;
 	void *m_capacity;
+	unsigned char flagC, comparator;
 };
 
 Rva00504E6DResult Rva00504DF8::rva00504E6D(const void *value)
@@ -119,4 +120,17 @@ Rva00504E38Owner *Rva00504E38Owner::rva00504E38(const Rva00504DF8Owner *src)
 	if (p)
 		free(p);
 	return this;
+}
+
+// Native5049C6..5049E8 RET4 is the matching lower-bound wrapper. Its
+// value points to a record whose first field is a float, as the owned
+// insertion helper504E6D independently proves. Low-byte argument at0D.
+struct Rva00504830Item;
+Rva00504830Item *__cdecl Rva00504914Forward(Rva00504830Item *,
+    Rva00504830Item *, const float *, unsigned char);
+void *Rva00504DF8::rva005049C6(const void *value)
+{
+    const unsigned char *comp = this ? &comparator : 0;
+    return Rva00504914Forward((Rva00504830Item *)m_begin,
+        (Rva00504830Item *)m_finish, (const float *)value, *comp);
 }
