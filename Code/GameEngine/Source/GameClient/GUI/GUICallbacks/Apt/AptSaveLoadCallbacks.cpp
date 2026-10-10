@@ -68,6 +68,7 @@ public:
 	void Load(const char *unused);
 	void ConfirmationOk(const char *unused);
 	void InitGadgets(const char *name, void *argument, GameWindow *window);
+	void rva00434A2F();
 
 	// Unrowed 0x00434AAE (220 bytes; fills the lists), pinned by address.
 	void SetDefaultFileName();
@@ -368,4 +369,25 @@ void AptSaveLoad::rva00436FF6()
 			m_gameList, m_autoSaveList, m_294 == 3, m_mode);
 
 	return rva00434432();
+}
+
+// Native434A2F..434AAE complete127B. Same screen290 name entry as the
+// owned callbacks; trimmed text presence is forwarded as SaveButtonEnable.
+class Rva00222A8BTarget;
+extern Rva00222A8BTarget *TheRva00222A8BTarget;
+UnicodeString GadgetTextEntryGetText(GameWindow *textEntry);
+GameWindow *Rva00222547Get(GameWindow *window);
+int __cdecl Rva002D4531Invoke(Rva00222A8BTarget *,void *,const char *,const int &);
+
+void AptSaveLoad::rva00434A2F()
+{
+	UnicodeString text = GadgetTextEntryGetText(m_fileName);
+	text.trim();
+	int hasText;
+	if (unicodeIsEmpty(text))
+		hasText = 0;
+	else
+		hasText = 1;
+	Rva002D4531Invoke(TheRva00222A8BTarget, Rva00222547Get((GameWindow *)this),
+		"SaveButtonEnable", hasText);
 }
