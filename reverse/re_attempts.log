@@ -33871,3 +33871,5 @@ _DeringBlockStrong_C	0x001C1AD0	2030	blocked	vp6 clean-room (spec 001c1ad0): ret
 ??0Rva0056B2DD@@QAE@PAVRva0056AC26Owner@@PAUParent0056B2DD@@H@Z	0x0056B599	122	landed	add_match verified Code/GameEngine/Source/Common/Rva0056B2DDConstructor.cpp 122B; parent listener ctor with manager notify
 ??0Rva0056B188@@QAE@PAVRva0056AC26Owner@@HPAURva0056B188Owner@@@Z	0x0056B3F5	107	landed	add_match verified Code/GameEngine/Source/Common/Rva0056B188Constructor.cpp 107B; optional owner listener ctor
 ??0Rva0056B126@@QAE@PAVRva0056AC26Owner@@PAUParent0056B126@@H@Z	0x0056B372	103	landed	add_match verified Code/GameEngine/Source/Common/Rva0056B126Constructor.cpp 103B; parent listener ctor
+??1Rva005CC287@@UAE@XZ	0x005CC287	62	landed	add_match verified Code/GameEngine/Source/Common/Rva005CC287Destructor.cpp 62B; holder listener dtor
+??0Rva005FE7FA@@QAE@HABVAsciiString@@@Z	0x005FE7A7	83	landed	add_match verified Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/Rva005FE7FAConstructor.cpp 83B; local player tabs ctor
