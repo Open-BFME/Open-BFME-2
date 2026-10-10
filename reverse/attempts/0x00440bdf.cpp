@@ -1,4 +1,6 @@
 // ?rva00440BDF@AptMpGameSetup@@QAE_N_N@Z
+// partial score=0.9986708368434474 date=2026-10-10
+// ?rva00440BDF@AptMpGameSetup@@QAE_N_N@Z
 // partial score=0.99 date=2026-10-08
 // cl: /O1 /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
 // stlport

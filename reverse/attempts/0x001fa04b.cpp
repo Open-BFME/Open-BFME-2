@@ -1,4 +1,6 @@
 // ?ParticleSystemDebugDisplay@@YAXPAVDebugDisplayInterface@@PAXPAU_iobuf@@@Z
+// partial score=0.9977301332675221 date=2026-10-10
+// ?ParticleSystemDebugDisplay@@YAXPAVDebugDisplayInterface@@PAXPAU_iobuf@@@Z
 // partial score=0.998025 date=2026-10-09
 // ?ParticleSystemDebugDisplay@@YAXPAVDebugDisplayInterface@@PAXPAU_iobuf@@@Z
 // partial score=0.998025 date=2026-10-09
