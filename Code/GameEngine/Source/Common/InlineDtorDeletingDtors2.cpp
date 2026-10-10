@@ -40,8 +40,14 @@ class Rva00661380
 {
 public:
 	Rva00661380(EmitVtableTag *);
-	virtual ~Rva00661380() {}
+	virtual ~Rva00661380();
 };
+
+// ??1Rva00661380@@UAE@XZ @0x00661370 7B: the empty destructor, restoring the vtable
+// (VA 0x00CE2C04).
+Rva00661380::~Rva00661380()
+{
+}
 
 // ?<Rva00661380::Rva00661380> absent-from-retail
 Rva00661380::Rva00661380(EmitVtableTag *)

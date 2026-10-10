@@ -119,10 +119,16 @@ class Rva003A538E
 {
 public:
 	Rva003A538E(void *p);
-	virtual ~Rva003A538E() {}
+	virtual ~Rva003A538E();
 private:
 	void *m_04;
 };
+
+// ??1Rva003A538E@@UAE@XZ @0x003A53A0 7B: the empty destructor, restoring the vtable
+// (VA 0x00C1B320).
+Rva003A538E::~Rva003A538E()
+{
+}
 
 Rva003A538E::Rva003A538E(void *p) : m_04(p)
 {
@@ -686,12 +692,18 @@ class Rva0054D593
 	friend class Rva0054D5D3;
 public:
 	Rva0054D593(void *a, void *b);
-	virtual ~Rva0054D593() {}
+	virtual ~Rva0054D593();
 private:
 	Rva0054D593 *m_04;
 	void *m_08;
 	void *m_0C;
 };
+
+// ??1Rva0054D593@@UAE@XZ @0x0054D5B0 7B: the empty destructor, restoring the vtable
+// (VA 0x00C6A778).
+Rva0054D593::~Rva0054D593()
+{
+}
 
 Rva0054D593::Rva0054D593(void *a, void *b)
 	: m_04(0), m_08(a), m_0C(b)
