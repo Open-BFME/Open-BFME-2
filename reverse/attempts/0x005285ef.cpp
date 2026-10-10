@@ -1,4 +1,6 @@
 // ?UpdateButtonVisiblity@Impl@AptInGameSideCommandBar@@QAE_NPAVObject@@@Z
+// partial score=0.75 date=2026-10-10
+// ?UpdateButtonVisiblity@Impl@AptInGameSideCommandBar@@QAE_NPAVObject@@@Z
 // partial score=0.75 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
 // WorldBuilder 013C8490 names Impl::OnButtonFrameLoaded; retail
@@ -234,6 +236,7 @@ AptInGameSideCommandBar::Impl::~Impl() {}
 
 bool AptInGameSideCommandBar::Impl::UpdateButtonVisiblity(Object *)
 {
+ if(0){AsciiString unused;}
  int slotNum = 0;
  int showIndex = 0;
  for (int i = 0; i < 32 && slotNum < 15; ++i) {
