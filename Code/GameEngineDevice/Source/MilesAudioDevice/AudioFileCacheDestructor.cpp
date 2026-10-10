@@ -1,6 +1,4 @@
-// ??1AudioFileCache@@QAE@XZ
-// partial score=1.0 date=2026-10-10
-// cl: /O1 /G7 /arch:SSE /MD /EHsc /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
+// cl: /O1 /G7 /arch:SSE /MD /EHsc /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /ICode/GameEngine/Include
 // NativeA7CF3..A7DCE complete219B destructor; WB8E4B30 and ZH
 // AudioFileCache teardown provide identity and semantic source lead.
 // BFME2 closes its worker, releases sentinel44 under guard of mutex50,
@@ -11,23 +9,26 @@
 #include <set>
 #include <vector>
 #include "ascii_string.h"
-class Rva0010EDC2 {public:~Rva0010EDC2();};
+#include "Common/Rva0010EDC2Resource.h"
 struct VideoNode {VideoNode *next;AsciiString name;Rva0010EDC2 *entry;};
-struct VideoPair {
+struct AudioCacheCursor {
  struct{void *first,*second;}s;
- VideoPair(void*a,void*b){s.first=a;s.second=b;}
- VideoPair(const VideoPair &v){s.first=v.s.first;s.second=v.s.second;}
+ AudioCacheCursor(void*a,void*b){s.first=a;s.second=b;}
+ AudioCacheCursor(const AudioCacheCursor &v){s.first=v.s.first;s.second=v.s.second;}
+};
+struct VideoPair { struct {void *first,*second;}s;
+ __forceinline VideoPair(const VideoPair&v) {s.first=v.s.first;s.second=v.s.second;}
 };
 class Rva000427195 {
  void *unused;
  _STL::vector<VideoNode*> buckets;
  unsigned count;
-public:VideoPair rva00427195();void rva003A37DC(VideoPair);
+public:AudioCacheCursor rva00427195();void rva003A37DC(VideoPair);
 };
-VideoPair Rva000427195::rva00427195() {
+AudioCacheCursor Rva000427195::rva00427195() {
  for(unsigned n=0;n<buckets.size();++n)
-  if(buckets[n])return VideoPair(buckets[n],this);
- return VideoPair(0,this);
+  if(buckets[n])return AudioCacheCursor(buckets[n],this);
+ return AudioCacheCursor(0,this);
 }
 class Rva000A7BB5 {
  void *unused;
@@ -60,9 +61,9 @@ AudioFileCache::~AudioFileCache() {
   MilesMutexGuard guard(mutex50,0);
   ((Rva000A8A6C*)&sentinel44)->rva000A8A6C();
   while(count){
-   VideoPair it=((Rva000427195*)this)->rva00427195();
+   AudioCacheCursor it=((Rva000427195*)this)->rva00427195();
    delete ((VideoNode*)it.s.first)->entry;
-   ((Rva000427195*)this)->rva003A37DC(it);
+   ((Rva000427195*)this)->rva003A37DC(reinterpret_cast<const VideoPair&>(it));
   }
  }
 }
