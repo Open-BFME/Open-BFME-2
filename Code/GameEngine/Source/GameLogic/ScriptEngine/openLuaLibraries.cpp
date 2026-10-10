@@ -1,8 +1,8 @@
-// cl: /DNDEBUG /DWIN32 /MD /Ob1
+// cl: /O1 /DNDEBUG /DWIN32 /MD /Ob1
 //
-// One unit for openLuaLibraries and its only caller, as in retail: the
+// One unit for openLuaLibraries and its registration callers, as in retail: the
 // static function takes its lua_State in esi, a convention MSVC uses only
-// for a caller in the same unit. /Ob1 keeps it out of line (retail calls it);
+// for callers in the same unit. /Ob1 keeps it out of line (retail calls it);
 // /O1 gives the caller's zero-in-ebx pushes and memory-operand pushes. Both
 // bodies byte-match under these flags. This replaces the unit's earlier
 // invokeOpenLuaLibraries anchor, which existed only to emit the static body.
@@ -90,6 +90,8 @@ class LuaScriptEngine
 {
 public:
 	void rva00338317RegisterScriptFunctions();
+	void InitializeInternalEvents();
+	void rva00335D5BRegisterDrawableFunctions();
 	void LoadXML(const char *filename, bool reload);
 	void LoadScripts(const char *filename);
 	static int ObjectDescription(lua_State *state);
@@ -97,6 +99,7 @@ public:
 private:
 	char m_pad00[0x0C];
 	lua_State *m_luaState;
+	lua_State *m_drawLuaState; // native+10, distinct from script state+C
 };
 
 void LuaScriptEngine::rva00338317RegisterScriptFunctions()
@@ -191,4 +194,88 @@ void LuaScriptEngine::rva00338317RegisterScriptFunctions()
 	}
 	LoadScripts("Data\\Scripts\\Scripts.lua");
 	LoadXML("Data\\Scripts\\ScriptEvents.xml", false);
+}
+
+int _ALERT(lua_State*);
+int GetFrame(lua_State*);
+int CurDrawableModelcondition(lua_State*);
+int CurDrawableObjectStatus(lua_State*);
+int CurDrawableShowSubObject(lua_State*);
+int CurDrawableHideSubObject(lua_State*);
+int CurDrawableShowSubObjectPermanently(lua_State*);
+int CurDrawableHideSubObjectPermanently(lua_State*);
+int bfmeGoEFFa(void*);
+int bfmeGoEFFb(void*);
+int CurDrawablePrevAnimationState(lua_State*);
+int CurDrawablePrevAnimation(lua_State*);
+int CurDrawableGetCurrentTargetDistance(lua_State*);
+int CurDrawableGetCurrentTargetHeight(lua_State*);
+int CurDrawableGetCurrentTargetBearing(lua_State*);
+int CurDrawablePrevAnimFraction(lua_State*);
+int CurDrawableSetTransitionAnimState(lua_State*);
+int CurDrawableAllowToContinue(lua_State*);
+int CurDrawablePlaySound(lua_State*);
+int CurDrawableIsCurrentTargetKindof(lua_State*);
+int GetClientRandomNumberReal(lua_State*);
+
+// Target335D5B..335FE1 is complete646B, nativeRET0. Its paired script
+// registration at338317 uses state+C; this accesses the distinct state+10,
+// initializes the owned332B7A internal-event table and binds21 callbacks
+// whose bodies are independently owned. The callback names/order and Lua
+// strings are target facts; the old PAX callback spellings are retained
+// through cdecl pointer views, without a second name or new pin.
+// The Lua initialization/registration pattern follows the existing
+// BF1-guided sibling above; original member name remains unknown.
+// Both callers must share this visible static helper for the nativeESI ABI.
+void LuaScriptEngine::rva00335D5BRegisterDrawableFunctions()
+{
+ InitializeInternalEvents();
+ if(m_drawLuaState==0) {
+  lua_State* state=lua_open(256);
+  m_drawLuaState=state;
+  openLuaLibraries(state);
+  lua_pushcclosure(m_drawLuaState,_ALERT,0);
+  lua_setglobal(m_drawLuaState,"_ALERT");
+  lua_pushcclosure(m_drawLuaState,GetFrame,0);
+  lua_setglobal(m_drawLuaState,"GetFrame");
+  lua_pushcclosure(m_drawLuaState,CurDrawableModelcondition,0);
+  lua_setglobal(m_drawLuaState,"CurDrawableModelcondition");
+  lua_pushcclosure(m_drawLuaState,CurDrawableObjectStatus,0);
+  lua_setglobal(m_drawLuaState,"CurDrawableObjectStatus");
+  lua_pushcclosure(m_drawLuaState,CurDrawableShowSubObject,0);
+  lua_setglobal(m_drawLuaState,"CurDrawableShowSubObject");
+  lua_pushcclosure(m_drawLuaState,CurDrawableHideSubObject,0);
+  lua_setglobal(m_drawLuaState,"CurDrawableHideSubObject");
+  lua_pushcclosure(m_drawLuaState,CurDrawableShowSubObjectPermanently,0);
+  lua_setglobal(m_drawLuaState,"CurDrawableShowSubObjectPermanently");
+  lua_pushcclosure(m_drawLuaState,CurDrawableHideSubObjectPermanently,0);
+  lua_setglobal(m_drawLuaState,"CurDrawableHideSubObjectPermanently");
+  lua_pushcclosure(m_drawLuaState,reinterpret_cast<int (*)(lua_State*)>(bfmeGoEFFa),0);
+  lua_setglobal(m_drawLuaState,"CurDrawableHideModule");
+  lua_pushcclosure(m_drawLuaState,reinterpret_cast<int (*)(lua_State*)>(bfmeGoEFFb),0);
+  lua_setglobal(m_drawLuaState,"CurDrawableShowModule");
+  lua_pushcclosure(m_drawLuaState,CurDrawablePrevAnimationState,0);
+  lua_setglobal(m_drawLuaState,"CurDrawablePrevAnimationState");
+  lua_pushcclosure(m_drawLuaState,CurDrawablePrevAnimation,0);
+  lua_setglobal(m_drawLuaState,"CurDrawablePrevAnimation");
+  lua_pushcclosure(m_drawLuaState,CurDrawableGetCurrentTargetDistance,0);
+  lua_setglobal(m_drawLuaState,"CurDrawableGetCurrentTargetDistance");
+  lua_pushcclosure(m_drawLuaState,CurDrawableGetCurrentTargetHeight,0);
+  lua_setglobal(m_drawLuaState,"CurDrawableGetCurrentTargetHeight");
+  lua_pushcclosure(m_drawLuaState,CurDrawableGetCurrentTargetBearing,0);
+  lua_setglobal(m_drawLuaState,"CurDrawableGetCurrentTargetBearing");
+  lua_pushcclosure(m_drawLuaState,CurDrawablePrevAnimFraction,0);
+  lua_setglobal(m_drawLuaState,"CurDrawablePrevAnimFraction");
+  lua_pushcclosure(m_drawLuaState,CurDrawableSetTransitionAnimState,0);
+  lua_setglobal(m_drawLuaState,"CurDrawableSetTransitionAnimState");
+  lua_pushcclosure(m_drawLuaState,CurDrawableAllowToContinue,0);
+  lua_setglobal(m_drawLuaState,"CurDrawableAllowToContinue");
+  lua_pushcclosure(m_drawLuaState,CurDrawablePlaySound,0);
+  lua_setglobal(m_drawLuaState,"CurDrawablePlaySound");
+  lua_pushcclosure(m_drawLuaState,CurDrawableIsCurrentTargetKindof,0);
+  lua_setglobal(m_drawLuaState,"CurDrawableIsCurrentTargetKindof");
+  lua_pushcclosure(m_drawLuaState,GetClientRandomNumberReal,0);
+  lua_setglobal(m_drawLuaState,"GetClientRandomNumberReal");
+  lua_setlinehook(m_drawLuaState,(LuaHook)bfmeHandleDeactivation574);
+ }
 }
