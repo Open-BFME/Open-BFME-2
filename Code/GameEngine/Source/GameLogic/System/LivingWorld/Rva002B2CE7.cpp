@@ -1,6 +1,5 @@
-// ?rva002B2CE7@@YA_NPAVGameMessage@@PAPAVRva0020E89C@@H@Z
-// partial score=0.93 date=2026-10-08
 // cl: /O1 /arch:SSE /G7 /MD
+// ?rva002B2CE7@@YA_NPAVGameMessage@@PAPAVRva0020E89C@@H@Z
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
 union GameMessageArgumentType {int integer;};
@@ -13,7 +12,7 @@ static __declspec(noinline) bool rva002B2CE7(GameMessage*message,Rva0020E89C**ou
  const GameMessageArgumentType *arg=message->getArgument(index);
  int key=((const volatile GameMessageArgumentType*)arg)->integer;
  _ReadWriteBarrier();
- Rva0020E89C*result=g_009FEF10->manager->rva0020EAF6(key);
+ Rva0020E89C*result=(g_009FEF10->manager?g_009FEF10->manager:g_009FEF10->manager)->rva0020EAF6(key);
  *out=result;return result!=0;
 }
 // ?rva002B2CE7Caller absent-from-retail

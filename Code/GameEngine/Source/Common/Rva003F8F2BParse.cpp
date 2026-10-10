@@ -1,6 +1,5 @@
+// cl: /Oy- /DNDEBUG /MD /GX- /G7 /arch:SSE /O1
 // ?Rva003F8F2BParse@@YAXPAVINI@@PAURva003F7C0C@@@Z
-// partial score=0.97 date=2026-10-10
-// cl: /Oy- /DNDEBUG /MD /GX-
 // Seat Z1 (w5-z1) near-exact bank for 0x003F8F2B (104B), twin of the rowed
 // Rva003F2576Parse body in the same unit. Verified difference: retail parks the
 // receiver in ESI and the {null, new-result} pair in EDI, pushing BOTH saved
@@ -58,7 +57,7 @@ void Rva003F8F2BParse(INI *ini, Rva003F7C0C *outer)
 		INIException exc(3, "Invalid data in SessionTask::ParseINI");
 		_CxxThrowException(&exc, (const _s__ThrowInfo *)&rva003F2576ThrowInfoAnchor); __assume(0);
 	}
-	Rva003F8ED6 *p = new Rva003F8ED6(outer->m_04);
+	Rva003F8ED6 *p = new Rva003F8ED6((outer->m_04?outer->m_04:outer->m_04));
 	ini->initFromINI(p, &g_00C373D8);
 	outer->rva003F7C0C(p);
 }

@@ -76011,3 +76011,5 @@ _floorf,,0x0004D649,18,Code/GameEngine/Source/GameLogic/Map/TerrainLogicAmbientC
 ?Rva005E4817Partition@@YAPAHPAH0VRva005E4300Cmp@@H@Z,,0x005E4817,75,Code/Libraries/Source/WWVegas/WWLib/Rva005E4817Partition.cpp,matched,S2 r9 sweep: phiA@17:5 (same-valued PHI keeps retail operand order)
 ?Rva001EF552Chat@@YGXVUnicodeString@@H@Z,,0x001EF552,107,Code/GameEngine/Source/Common/Rva001EF552Chat.cpp,matched,S2 r9 sweep: phiA@49:6 (same-valued PHI keeps retail operand order)
 ?rva004C5BE3@SiegeDeploySpecialPower@@AAEXH@Z,,0x004C5BE3,606,Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeploySpecialPowerRva004C5BE3.cpp,matched,S2 r9 sweep: x (same-valued PHI keeps retail operand order)
+?Rva003F8F2BParse@@YAXPAVINI@@PAURva003F7C0C@@@Z,,0x003F8F2B,104,Code/GameEngine/Source/Common/Rva003F8F2BParse.cpp,matched,S2 r9 sweep: phiA@60:34 (same-valued PHI keeps retail operand order)
+?rva002B2CE7@@YA_NPAVGameMessage@@PAPAVRva0020E89C@@H@Z,,0x002B2CE7,45,Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva002B2CE7.cpp,matched,S2 r9 sweep: phiA@15:20 (same-valued PHI keeps retail operand order)
