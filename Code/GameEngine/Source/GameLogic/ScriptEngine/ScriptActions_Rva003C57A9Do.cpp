@@ -43,7 +43,7 @@ class Object
 {
 public:
 	const AsciiString *rva00290E67() const;
-	void doCommandButton(const CommandButton *button, int source, int extra);
+	void doCommandButton(const CommandButton *button, int source, bool extra);
 	void rva00297149(const CommandButton *button, const Coord3D *pos, int source, int extra);
 };
 

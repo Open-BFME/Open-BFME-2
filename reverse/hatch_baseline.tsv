@@ -3060,8 +3060,6 @@ alternatename	Code/GameEngine/Source/Common/Rva00559B64GetImage.cpp	?g_00DBE9B0@
 alternatename	Code/GameEngine/Source/Common/Rva0055EFE1Ctor.cpp	_vtbl_00C1C780	1
 alternatename	Code/GameEngine/Source/Common/Rva0055EFE1Ctor.cpp	_vtbl_00C1D2C0	1
 alternatename	Code/GameEngine/Source/Common/Rva0055F218Ctor.cpp	?g_00C1D1F4@@3QBQBXB	1
-alternatename	Code/GameEngine/Source/Common/Rva0056913DScan.cpp	??1?$StringBase@D@@QAE@XZ	1
-alternatename	Code/GameEngine/Source/Common/Rva005691DBScan.cpp	??1?$StringBase@D@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/Rva00573B23Dtor.cpp	??1?$StringBase@D@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/Rva0057402FCrowded.cpp	?getPlayerMask@Rva000421C8@@UAEHXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva00579731Dtor.cpp	??0Rva005796FC@@QAE@XZ	1
@@ -6072,8 +6070,6 @@ class_gate_allow	Code/GameEngine/Source/Common/Rva0033FC0ACtor.cpp	AsciiString	1
 class_gate_allow	Code/GameEngine/Source/Common/Rva004A78E1Spawn.cpp	AsciiString	1
 class_gate_allow	Code/GameEngine/Source/Common/Rva004B3AFFNotify.cpp	AsciiString	1
 class_gate_allow	Code/GameEngine/Source/Common/Rva00518769Dtor.cpp	AsciiString	1
-class_gate_allow	Code/GameEngine/Source/Common/Rva0056913DScan.cpp	StringBase	1
-class_gate_allow	Code/GameEngine/Source/Common/Rva005691DBScan.cpp	StringBase	1
 class_gate_allow	Code/GameEngine/Source/Common/Rva0058A5C7.cpp	StringBase	1
 class_gate_allow	Code/GameEngine/Source/Common/Rva005CD31C.cpp	StringBase	1
 class_gate_allow	Code/GameEngine/Source/Common/Rva005CD378.cpp	StringBase	1

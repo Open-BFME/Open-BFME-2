@@ -142,76 +142,11 @@ Color GameSpyColor[GSCOLOR_MAX] =
 	GameMakeColor(255,255,  0,255),	// GSCOLOR_MOTD_HEADING,
 };
 
-// ?sendChat@GameSpyInfo@@ present-unmatched
-Bool GameSpyInfo::sendChat( UnicodeString message, Bool isAction, GameWindow *playerListbox )
-{
-	getCurrentGroupRoom();
-
-	PeerRequest req;
-	req.text = message.str();
-
-	message.trim();
-	// Echo the user's input to the chat window
-	if (!message.isEmpty())
-	{
-		if (!playerListbox)
-		{	// Public message
-			req.message.isAction = isAction;
-			req.peerRequestType = PeerRequest::PEERREQUEST_MESSAGEROOM;
-			TheGameSpyPeerMessageQueue->addRequest(req);
-			return false;
-		}
-
-		// Get the selections (is this a private message?)
-		Int maxSel = GadgetListBoxGetListLength(playerListbox);
-		Int *selections;
-		GadgetListBoxGetSelected(playerListbox, (Int *)&selections);
-
-		if (selections[0] == -1)
-		{	// Public message
-			req.message.isAction = isAction;
-			req.peerRequestType = PeerRequest::PEERREQUEST_MESSAGEROOM;
-			TheGameSpyPeerMessageQueue->addRequest(req);
-			return false;
-		}
-		else
-		{
-			// Private message
-
-			// Construct a list
-			AsciiString names = AsciiString::TheEmptyString;
-			AsciiString tmp = AsciiString::TheEmptyString;
-			AsciiString aStr; // AsciiString buf for translating Unicode entries
-			names.format("%s", TheGameSpyInfo->getLocalName().str());
-			for (int i=0; i<maxSel; i++)
-			{
-				if (selections[i] != -1)
-				{
-					aStr.translate(GadgetListBoxGetText(playerListbox, selections[i], GadgetListBoxGetNumColumns(playerListbox)-1));
-					if (aStr.compareNoCase(TheGameSpyInfo->getLocalName()))
-					{
-						tmp.format(",%s", aStr.str());
-						((StringBase<char> *)&names)->concat(*(const StringBase<char> *)&tmp);
-					}
-				}
-				else
-				{
-					break;
-				}
-			}
-
-			if (!names.isEmpty())
-			{
-				req.nick = names.str();
-				req.message.isAction = isAction;
-				req.peerRequestType = PeerRequest::PEERREQUEST_MESSAGEPLAYER;
-				TheGameSpyPeerMessageQueue->addRequest(req);
-			}
-			return true;
-		}
-	}
-	return false;
-}
+// GameSpyInfo::sendChat is not defined here either. The Zero Hour body built a
+// PeerRequest with the shim's Zero Hour layout, so this unit emitted
+// ??0PeerRequest@@QAE@XZ and ??1PeerRequest@@QAE@XZ COMDATs that are not
+// retail's 492-byte record (ctor 0x001EF661, dtor 0x001EF723) and the link kept
+// them. No other unit references sendChat; the body remains in git history.
 
 // GameSpyInfo::addChat (both overloads) is declared in PeerDefsImplementation.h
 // and not defined here. The Zero Hour bodies took PlayerInfo by value and

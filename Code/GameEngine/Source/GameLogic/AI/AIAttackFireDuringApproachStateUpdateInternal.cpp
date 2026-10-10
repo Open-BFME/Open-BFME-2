@@ -93,7 +93,7 @@ public:
 	virtual void notifyVictimIsDead() = 0;
 	void setCurrentVictim(const Object *victim);
 	void destroyPath();
-	void rva00262B0F(Object *obj);
+	void rva00262B0F(int obj);
 	void *getPath() const { return m_path; }
 private:
 	unsigned char m_pad004[0x140 - 0x04];
@@ -284,7 +284,7 @@ StateReturnType AIAttackFireDuringApproachState::updateInternal()
 				Real radius = source->getRadius();
 				if (source->rva00263763(goal) < radius * radius)
 				{
-					ai->rva00262B0F(victim);
+					ai->rva00262B0F((int)victim);
 					source->rva0028FC8F();
 					source->fireCurrentWeapon(goal, m_victimID);
 				}
@@ -325,7 +325,7 @@ StateReturnType AIAttackFireDuringApproachState::updateInternal()
 		if (code == STATE_SUCCESS && foundVictim)
 		{
 			getMachine()->setGoalObject(foundVictim);
-			ai->rva00262B0F(foundVictim);
+			ai->rva00262B0F((int)foundVictim);
 		}
 		return STATE_SUCCESS;
 	}

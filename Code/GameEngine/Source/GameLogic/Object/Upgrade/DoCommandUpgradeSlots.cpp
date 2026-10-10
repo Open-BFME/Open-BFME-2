@@ -16,7 +16,7 @@ class CommandButton;
 class Object
 {
 public:
-	void doCommandButton(const CommandButton *button, int a2, int a3);
+	void doCommandButton(const CommandButton *button, int a2, bool a3);
 };
 
 class ControlBar

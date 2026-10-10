@@ -1,4 +1,4 @@
-// cl: /MD
+// cl: /MD /Ireference/shims/bfme2_ascii
 //
 // ?removeDuckingTarget@LargeGroupAudioSoundKeyPair@@QAEXPAVBitRange@@PAX@Z @0x0056913D 158B.
 // Twin of 0x005691DB (see Rva005691DBScan.cpp for the recipe): same slot
@@ -6,19 +6,20 @@
 // element scan, plus a rowed 0x00568F04 find-erase of this from the host
 // vector before the scan and a +0xC clear beside the +0x10 clear on match.
 // Honest address-derived names.
-// class-gate: allow StringBase nothrow TU-local codegen view, shim decls throw and emit an EH frame retail lacks
 
-template <typename T>
-class StringBase
+#include "ascii_string.h"
+
+// Retail has no EH frame here (no __EH_prolog, only the [ebp-4] alive flag of
+// the rva00568BE2 temporary): it compiled compare and the temporary's
+// releaseBuffer teardown as non-throwing.
+template <> int StringBase<char>::compare(const StringBase<char> &str) const throw();
+template <> void StringBase<char>::releaseBuffer() throw();
+
+// The element strings compare through StringBase<char>::compare, as retail calls it.
+static inline const StringBase<char> &asBase(const AsciiString &s)
 {
-public:
-	int compare(const StringBase<T> &str) const throw();
-	~StringBase();
-private:
-	void *m_data;
-};
-
-#pragma comment(linker, "/alternatename:??1?$StringBase@D@@QAE@XZ=?releaseBuffer@?$StringBase@D@@AAEXXZ")
+	return *(const StringBase<char> *)&s;
+}
 
 // The ledger row at 0x005C834A is HostClass005C815B::method_005C834A.
 class HostClass005C815B
@@ -41,19 +42,19 @@ public:
 class BitRange
 {
 public:
-	StringBase<char> rva00568BE2() throw();
+	AsciiString rva00568BE2() throw();
 };
 
 struct Rva0056913DKeyRef
 {
 	char m_pad[0x18];
-	StringBase<char> m_key; // +0x18
+	AsciiString m_key; // +0x18
 };
 
 struct Rva0056913DElem
 {
-	StringBase<char> m_a;	// +0x0
-	StringBase<char> m_b;	// +0x4
+	AsciiString m_a;	// +0x0
+	AsciiString m_b;	// +0x4
 	char m_pad08[4];	// +0x8
 	unsigned m_flags;	// +0xC
 	unsigned char m_active; // +0x10
@@ -85,7 +86,7 @@ void LargeGroupAudioSoundKeyPair::removeDuckingTarget(BitRange *host, void *tag)
 	for (Rva0056913DElem *e = m_begin; e != m_end; ++e) {
 		Rva0056913DKeyRef *keyRef = (Rva0056913DKeyRef *)*(void **)((char *)host + 0x3C);
 		bool hit;
-		if (e->m_a.compare(keyRef->m_key) == 0 && e->m_b.compare(host->rva00568BE2()) == 0)
+		if (asBase(e->m_a).compare(asBase(keyRef->m_key)) == 0 && asBase(e->m_b).compare(asBase(host->rva00568BE2())) == 0)
 			hit = true;
 		else
 			hit = false;

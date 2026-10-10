@@ -76,7 +76,7 @@ public:
  int rva0028B38D() const;
  bool testStatus(ObjectStatusTypes) const;
  void setStatus(ObjectStatusTypes,bool);
- Object *adjustVictim(Object*,int,int);
+ Object *adjustVictim(Object*,bool,int);
  Relationship getRelationship(const Object*) const;
  void rva0028AE6D();
  Player *getControllingPlayer() const;

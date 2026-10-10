@@ -31,7 +31,7 @@ struct Coord3D;
 class Object
 {
 public:
-	void doCommandButton(const CommandButton *button, Int a, Int b);
+	void doCommandButton(const CommandButton *button, Int a, bool b);
 	void rva00297149(const CommandButton *button, const Coord3D *pos, Int a, Int b);
 };
 struct Rva005EE2CFPos

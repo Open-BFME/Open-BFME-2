@@ -1638,7 +1638,6 @@ Code/GameEngine/Source/GameLogic/AI/AIDockStates.cpp	?update@AIDockApproachState
 Code/GameEngine/Source/GameLogic/AI/AIDockXfer.cpp	?xfer@AIDockMachine@@MAEXPAVXfer@@@Z	?xfer@StateMachine@@MAEXPAVXfer@@@Z	0x004D7744	unowned
 Code/GameEngine/Source/GameLogic/AI/AIFollowPathStateMethods.cpp	?update@AIFollowPathState@@UAE?AW4StateReturnType@@XZ	?adjustDestination@Pathfinder@@QAE_NPAVObject@@ABVLocomotorSet@@PAUCoord3D@@PBU4@@Z	0x002FCFCF	unowned
 Code/GameEngine/Source/GameLogic/AI/AIFollowPathStateMethods.cpp	?update@AIFollowPathState@@UAE?AW4StateReturnType@@XZ	?update@AIInternalMoveToState@@UAE?AW4StateReturnType@@XZ	0x00347460	unowned
-Code/GameEngine/Source/GameLogic/AI/AIGroupBroadcastOrders.cpp	?groupDoCommandButton@AIGroup@@QAEXPBVCommandButton@@W4CommandSourceType@@@Z	?doCommandButton@Object@@QAEXPBVCommandButton@@HH@Z	0x00296749	unowned
 Code/GameEngine/Source/GameLogic/AI/AIGroupDeleter.cpp	??_GAIGroup@@MAEPAXI@Z	??1AIGroup@@MAE@XZ	0x0036E564	unowned
 Code/GameEngine/Source/GameLogic/AI/AIGroupDoCommandButton.cpp	?groupDoCommandButtonAtObject@AIGroup@@QAEXPBVCommandButton@@PAVObject@@W4CommandSourceType@@@Z	?rva00297000@Object@@QAEXPBVCommandButton@@PAV1@HH@Z	0x00297000	unowned
 Code/GameEngine/Source/GameLogic/AI/AIGroupDoCommandButton.cpp	?groupDoCommandButtonAtPosition@AIGroup@@QAEXPBVCommandButton@@PBUCoord3D@@W4CommandSourceType@@@Z	?rva00297149@Object@@QAEXPBVCommandButton@@PBUCoord3D@@HH@Z	0x00297149	unowned
@@ -1791,7 +1790,6 @@ Code/GameEngine/Source/GameLogic/Object/Behavior/StancesBehaviorUpdate.cpp	?rva0
 Code/GameEngine/Source/GameLogic/Object/Behavior/StancesBehaviorUpdate.cpp	?update@StancesBehavior@@UAE?AW4UpdateSleepTime@@XZ	?rva0045F084@StancesBehavior@@QAEXH@Z	0x0045F084	unowned
 Code/GameEngine/Source/GameLogic/Object/Behavior/TransitionDamageFXDtor.cpp	??1TransitionDamageFX@@MAE@XZ	??1DamageModule@@UAE@XZ	0x004B96CC	wrong
 Code/GameEngine/Source/GameLogic/Object/Behavior/UpgradeSoundSelectorClientBehaviorSlot2.cpp	?rva004CB51C@UpgradeSoundSelectorClientBehavior@@UAE_NPAH@Z	?rva004CB333@Rva004CB51CEntry@@QAE_NPAVObject@@@Z	0x004CB333	unowned
-Code/GameEngine/Source/GameLogic/Object/BfmeK1094ApplyABG.cpp	?bfmeApplyABG@BfmeK1094@@QAEXPAX0@Z	?doCommandButton@Object@@QAEXPBVCommandButton@@HH@Z	0x00296749	unowned
 Code/GameEngine/Source/GameLogic/Object/BfmeObjectReferenceResolve.cpp	?resolve@BfmeObjectReference@@QAEPAVObject@@XZ	?getObjectIdSlot@BfmeObjectReference@@QAEPAUBfmeObjectIdSlot@@XZ	0x0036F710	unowned
 Code/GameEngine/Source/GameLogic/Object/Body/ActiveBodyConstructor.cpp	??0ActiveBody@@QAE@PAVThing@@PBVModuleData@@@Z	??4?$vector@UBfmeE16@@V?$allocator@UBfmeE16@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z	0x004BF4CE	divergent
 Code/GameEngine/Source/GameLogic/Object/Body/FreeLifeBodyApply.cpp	?apply@Rva004C19DCOwner@@QAEXMPAUDamageInfo@@@Z	?hasUpgradeComplete@Player@@QAE_NPBVUpgradeTemplate@@@Z	0x002AB87D	wrong
@@ -2084,8 +2082,6 @@ Code/GameEngine/Source/GameLogic/Object/Update/WeaponModeSpecialPowerUpdateBaseC
 Code/GameEngine/Source/GameLogic/Object/Upgrade/AudioLoopUpgradeCtorModuleFactory.cpp	??0AudioLoopUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z	??0ALU_UpdateModule@@QAE@PAVThing@@PBVModuleData@@@Z	0x00253390	wrong
 Code/GameEngine/Source/GameLogic/Object/Upgrade/BuildableHeroListUpgradeImplementation.cpp	?upgradeImplementation@BuildableHeroListUpgrade@@MAEXXZ	?rva0037F32F@Rva0037F32F@@QAEXPBVThingTemplate@@PAVPlayer@@@Z	0x0037F32F	unowned
 Code/GameEngine/Source/GameLogic/Object/Upgrade/BuildableHeroListUpgradeImplementation.cpp	?upgradeRemovalImplementation@BuildableHeroListUpgrade@@MAEXXZ	?rva004B83D2@BuildableHeroListUpgrade@@IAEXPBVThingTemplate@@@Z	0x004B83D2	unowned
-Code/GameEngine/Source/GameLogic/Object/Upgrade/DoCommandUpgradeSlots.cpp	?rva004B4C7B@DoCommandUpgrade@@UAEXXZ	?doCommandButton@Object@@QAEXPBVCommandButton@@HH@Z	0x00296749	unowned
-Code/GameEngine/Source/GameLogic/Object/Upgrade/DoCommandUpgradeSlots.cpp	?rva004B4CAD@DoCommandUpgrade@@UAEXXZ	?doCommandButton@Object@@QAEXPBVCommandButton@@HH@Z	0x00296749	unowned
 Code/GameEngine/Source/GameLogic/Object/Upgrade/StatusBitsUpgradeIfEldestKindofCtor.cpp	??0StatusBitsUpgradeIfEldestKindof@@QAE@PAVThing@@PBVModuleData@@@Z	?cacheGameLogicFrame@StatusBitsEldestFrame@@QAEXXZ	0x00485975	unowned
 Code/GameEngine/Source/GameLogic/Object/WeaponFireForwarders.cpp	?bfmeFireYC@Weapon@@QAE_NPBVObject@@PBUCoord3D@@0H@Z	?privateFireWeapon@Weapon@@QAE_NPBVObject@@PBUCoord3D@@0H1HHHPAH@Z	0x002CE30A	unowned
 Code/GameEngine/Source/GameLogic/Object/WeaponNuggetParse.cpp	?parseAttributeModifierNugget@@YAXPAVINI@@PAVWeaponTemplate@@@Z	??0Made002CC64B@@QAE@XZ	0x00508BE5	unowned

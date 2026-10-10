@@ -471,7 +471,7 @@ public:
 	Real getOrientation() const { return m_orientation; }
 	Bool rva002943B2(const Player *player);
 	Bool isOutOfAmmo() const;
-	Object *adjustVictim(Object *owner, Int flag, Int extra);
+	Object *adjustVictim(Object *owner, bool useWeaponRange, Int index);
 	void rva0028ACDC(const Coord3D *pos);
 	void setStatus(ObjectStatusTypes bit, Bool set);
 	Bool isKindOf(KindOfType t) const;

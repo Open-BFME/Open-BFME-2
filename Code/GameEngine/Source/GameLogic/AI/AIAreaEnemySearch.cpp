@@ -230,7 +230,7 @@ class Object
 public:
 	bool isAbleToAttack() const;	// 0x00290B73
 	bool testStatus(ObjectStatusTypes bit) const;	// 0x0004E536
-	Object *adjustVictim(Object *owner, int flag, int extra);	// 0x0028CCB9
+	Object *adjustVictim(Object *owner, bool useWeaponRange, int index);	// 0x0028CCB9
 	Real rva00263763(const void *other) const;	// 0x00263763
 
 	const Coord3D *getPosition() const { return &m_pos; }

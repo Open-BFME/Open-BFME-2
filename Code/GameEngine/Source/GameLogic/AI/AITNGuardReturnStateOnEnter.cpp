@@ -29,7 +29,7 @@ class Player;
 class AIUpdateInterface
 {
 public:
-	void rva00262B0F(Object *obj);
+	void rva00262B0F(int obj);
 };
 struct Coord3D
 {
@@ -197,7 +197,7 @@ StateReturnType AITNGuardReturnState::onEnter( void )
 	if (bestTunnel==NULL) return STATE_FAILURE;
 
 	getMachine()->setGoalObject(bestTunnel);
-	getMachineOwner()->getAI()->rva00262B0F(bestTunnel);
+	getMachineOwner()->getAI()->rva00262B0F((int)bestTunnel);
 
 	return AIEnterState::onEnter();
 }

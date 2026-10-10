@@ -1,4 +1,4 @@
-// cl: /MD
+// cl: /MD /Ireference/shims/bfme2_ascii
 //
 // ?removePointersToGridCellsInDuckingTarget@LargeGroupAudioSoundKeyPair@@QAEXPAVBitRange@@PAX@Z @0x005691DB 145B.
 // Clear-on-match scan: notify the 4 slots at +0x2C via pinned 0x005C834A,
@@ -15,26 +15,26 @@
 // paths; a named inner-scope temp lets MSVC prove post-domination and drop
 // the flag (124B). Nested call keeps `push eax` for the compare argument.
 //
-// Codegen view: every callee here is declared throw() because retail has no
-// EH frame (no __EH_prolog, no fs chain), only the plain [ebp-4] alive-flag.
-// The shared header declares these members potentially-throwing, which emits
-// a frame; the nothrow view reproduces the frameless bytes. The dtor stays an
-// external declaration resolved by the alternatename pragma (Rva002DB4DA
-// recipe), and the StringBase-return spelling of rva00568BE2 is alias-pinned
-// to 0x00568BE2 in reverse/symbols.csv.
-// class-gate: allow StringBase nothrow TU-local codegen view, shim decls throw and emit an EH frame retail lacks
+// Codegen: the strings are the shared AsciiString, whose destructor calls
+// releaseBuffer directly, and rva00568BE2 returns one (the row's own spelling,
+// Rva003ED498Count.cpp). Retail has no EH frame (no __EH_prolog, no fs chain),
+// only the plain [ebp-4] alive-flag, so compare and releaseBuffer are declared
+// non-throwing below; the shared header declares them potentially-throwing,
+// which emits a frame.
 
-template <typename T>
-class StringBase
+#include "ascii_string.h"
+
+// Retail has no EH frame here (no __EH_prolog, only the [ebp-4] alive flag of
+// the rva00568BE2 temporary): it compiled compare and the temporary's
+// releaseBuffer teardown as non-throwing.
+template <> int StringBase<char>::compare(const StringBase<char> &str) const throw();
+template <> void StringBase<char>::releaseBuffer() throw();
+
+// The element strings compare through StringBase<char>::compare, as retail calls it.
+static inline const StringBase<char> &asBase(const AsciiString &s)
 {
-public:
-	int compare(const StringBase<T> &str) const throw();
-	~StringBase();
-private:
-	void *m_data;
-};
-
-#pragma comment(linker, "/alternatename:??1?$StringBase@D@@QAE@XZ=?releaseBuffer@?$StringBase@D@@AAEXXZ")
+	return *(const StringBase<char> *)&s;
+}
 
 // The ledger row at 0x005C834A is HostClass005C815B::method_005C834A.
 class HostClass005C815B
@@ -51,19 +51,19 @@ public:
 class BitRange
 {
 public:
-	StringBase<char> rva00568BE2() throw();
+	AsciiString rva00568BE2() throw();
 };
 
 struct Rva005691DBKeyRef
 {
 	char m_pad[0x18];
-	StringBase<char> m_key; // +0x18
+	AsciiString m_key; // +0x18
 };
 
 struct Rva005691DBElem
 {
-	StringBase<char> m_a;	// +0x0
-	StringBase<char> m_b;	// +0x4
+	AsciiString m_a;	// +0x0
+	AsciiString m_b;	// +0x4
 	char m_pad08[4];	// +0x8
 	unsigned m_flags;	// +0xC
 	unsigned char m_active; // +0x10
@@ -94,7 +94,7 @@ void LargeGroupAudioSoundKeyPair::removePointersToGridCellsInDuckingTarget(BitRa
 	for (Rva005691DBElem *e = m_begin; e != m_end; ++e) {
 		Rva005691DBKeyRef *keyRef = (Rva005691DBKeyRef *)*(void **)((char *)host + 0x3C);
 		bool hit;
-		if (e->m_a.compare(keyRef->m_key) == 0 && e->m_b.compare(host->rva00568BE2()) == 0)
+		if (asBase(e->m_a).compare(asBase(keyRef->m_key)) == 0 && asBase(e->m_b).compare(asBase(host->rva00568BE2())) == 0)
 			hit = true;
 		else
 			hit = false;

@@ -65,7 +65,7 @@ class Object
 public:
 	Bool testStatus(ObjectStatusTypes bit) const;
 	const Coord3D *getPosition() const { return &m_pos; }
-	Object *adjustVictim(Object *owner, Int a, Int b);
+	Object *adjustVictim(Object *owner, bool useWeaponRange, Int index);
 
 private:
 	unsigned char m_pad000[0x38];

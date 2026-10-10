@@ -262,7 +262,7 @@ public:
 	Relationship getRelationship(const Object *that) const;	// 0x0028D156
 	Player *getControllingPlayer() const;	// 0x0028AFA9
 	bool rva0028AFBB() const;	// 0x0028AFBB
-	Object *adjustVictim(Object *owner, int flag, int extra);	// 0x0028CCB9
+	Object *adjustVictim(Object *owner, bool useWeaponRange, int index);	// 0x0028CCB9
 
 	const ThingTemplate *getTemplate() const { return m_template; }
 	const Coord3D *getPosition() const { return &m_pos; }

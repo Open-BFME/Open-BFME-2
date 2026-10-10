@@ -43,11 +43,10 @@
 // m_ai is at +0x204 rather than at "0x204 bytes in from wherever this starts".
 //
 // One callee is deliberately spelled two ways. doCommandButton takes its command
-// source as a plain int because `?doCommandButton@Object@@QAEXPBVCommandButton@@
-// HH@Z` is the decorated name the ledger pins on ILT 0x000063CF, while its
-// AtPosition and AtObject siblings take W4CommandSourceType@@. Both spellings are
-// pinned; neither can be respelled to match the other without repointing the
-// call.
+// source as a plain int and its last argument as bool: that is the row at
+// 0x00296749 (`?doCommandButton@Object@@QAEXPBVCommandButton@@H_N@Z`, Object.cpp;
+// this call pushes the constant 0 either way), while its AtPosition and AtObject
+// siblings take W4CommandSourceType@@.
 #define _STLP_NO_EXCEPTIONS 1
 #include <list>
 
@@ -137,7 +136,7 @@ public:
 	virtual void unusedSlot09();
 	virtual Drawable *getDrawable(void) const;		// vtable +0x28
 
-	void doCommandButton(const CommandButton *commandButton, Int commandSource, Int bfmeArg);	// ILT 0x000063CF
+	void doCommandButton(const CommandButton *commandButton, Int commandSource, bool bfmeArg);	// ILT 0x000063CF
 	void doCommandButtonAtPosition(const CommandButton *commandButton, const Coord3D *position, CommandSourceType commandSource, Bool bfmeFlag);	// ILT 0x00026EF4
 	void doCommandButtonAtObject(const CommandButton *commandButton, Object *targetObject, CommandSourceType commandSource, Bool bfmeFlag);	// ILT 0x00033AA0
 	SpecialPowerUpdateInterface *findSpecialPowerWithOverridableDestinationActive(SpecialPowerType spType) const;	// ILT 0x00039766

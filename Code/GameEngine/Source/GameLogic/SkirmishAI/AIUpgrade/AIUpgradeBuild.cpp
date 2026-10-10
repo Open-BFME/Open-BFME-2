@@ -42,7 +42,7 @@ public:
 class Object
 {
 public:
-	void doCommandButton(const CommandButton *commandButton, int cmdSource, int flags);
+	void doCommandButton(const CommandButton *commandButton, int cmdSource, bool flags);
 	void *rva0028BC58(int which);
 };
 

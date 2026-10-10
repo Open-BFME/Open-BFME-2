@@ -249,7 +249,7 @@ public:
 	Bool chooseBestWeaponForTarget(const Object *target, WeaponChoiceCriteria criteria,
 		CommandSourceType cmdSource);
 	const Weapon *getCurrentWeapon(WeaponSlotType *slot = 0) const;
-	Object *adjustVictim(Object *owner, Int a, Int b);
+	Object *adjustVictim(Object *owner, bool useWeaponRange, Int index);
 	Bool getWorldspaceBestContactPoint(Coord3D *pointOut, const Coord3D *callerPos,
 		const char *preferredPoint, Int pref, Int seed, Bool skipCollideTest) const;
 	Bool rva002907A1();
