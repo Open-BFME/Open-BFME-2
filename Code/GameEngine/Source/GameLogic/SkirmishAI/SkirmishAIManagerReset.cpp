@@ -13,9 +13,9 @@
 // and owning twelve-byte list pointer940. Actual member types remain unresolved;
 // provider views retain observed offsets, ownership, and cleanup. EHs/EHc-
 // preserves native states5/3 before releasing the two vector buffers.
-// Replaces the old Rva002A921B dummy view and its deleting wrappers. The
-// Existing lifetime-owner name is retained; physical manager layout agrees with
-// the Rva002A8F24 Register/newMap/xfer view.
+// The established Rva002A8F24 receiver owns the layout. The inherited
+// Rva002A921B reset entry remains as a complete byte-and-relocation twin
+// for existing consumers; its compatibility receiver inherits these fields.
 #include "stlport/stl/_algobase.h"
 #include <vector>
 #include <map>
@@ -35,8 +35,8 @@ class Rva004E9337 {public:void rva004E9337();};
 class ObjectCreationList {public:ObjectCreationList();__forceinline ~ObjectCreationList(){reinterpret_cast<Rva004E9337*>(this)->rva004E9337();}unsigned words[3];};
 class ModuleData;
 enum ObjectID {OBJECTID_INVALID=0};
-class Rva002A921B:public SubsystemInterface,public Snapshot {
-public:Rva002A921B();virtual ~Rva002A921B();virtual void init(){}virtual void reset();virtual void update();virtual void loadPostProcess(){}virtual const char*GetSnapshotName()const{return "SkirmishAIManager";}virtual void xfer(Xfer*);
+class Rva002A8F24:public SubsystemInterface,public Snapshot {
+public:Rva002A8F24();virtual ~Rva002A8F24();virtual void init(){}virtual void reset();virtual void update();virtual void loadPostProcess(){}virtual const char*GetSnapshotName()const{return "SkirmishAIManager";}virtual void xfer(Xfer*);
  Rva002A8D49 data10;
  ManagerCollectorStorage collectors908;
  _STL::vector<const ModuleData*>teams914;
@@ -59,6 +59,27 @@ extern unsigned g_00DFEFC8;
 unsigned BfmeSkirmishAIResetState1;
 extern int Rva00A03D80;
 extern unsigned g_00DFEFC0,g_AITargetThreatFinderSerial;
+void Rva002A8F24::reset(){
+ _STL::vector<void*>& teams=*reinterpret_cast<_STL::vector<void*>*>(&teams914);
+ for(_STL::vector<void*>::iterator i=teams.begin();static_cast<const void*>(i)!=static_cast<const void*>(teams914.end());){
+  delete reinterpret_cast<const Rva004E9657*>(*i);
+  i=teams.erase(i);
+ }
+ reinterpret_cast<RvaVector*>(&teams914)->erase(teams.begin(),teams.end());
+ typedef _STL::map<int,Rva004E013B*> Collectors;
+ Collectors& map=*reinterpret_cast<Collectors*>(&collectors908);
+ for(Collectors::iterator i=map.begin();i!=map.end();++i)delete i->second;
+ reinterpret_cast<Rva002A8B8C*>(&collectors908)->rva002A8BEE();
+ reinterpret_cast<_STL::vector<ParticleSystemID>*>(&heroIDs934)->clear();
+ reinterpret_cast<Rva00601941*>(owned940)->rva00601941();
+ _STL::vector<void*>& cached=*reinterpret_cast<_STL::vector<void*>*>(reinterpret_cast<char*>(this)+0x864);
+ reinterpret_cast<RvaVector*>(&cached)->erase(cached.begin(),cached.end());
+ g_00DFEFC8=0;BfmeSkirmishAIResetState1=0;g_00DFEFC0=0;g_AITargetThreatFinderSerial=0;Rva00A03D80=0;
+}
+
+// Compatibility receiver inherits the established layout without another
+// private field view. Both emitted reset entries are complete relocation twins.
+class Rva002A921B:public Rva002A8F24 {public:virtual void reset();};
 void Rva002A921B::reset(){
  _STL::vector<void*>& teams=*reinterpret_cast<_STL::vector<void*>*>(&teams914);
  for(_STL::vector<void*>::iterator i=teams.begin();static_cast<const void*>(i)!=static_cast<const void*>(teams914.end());){
