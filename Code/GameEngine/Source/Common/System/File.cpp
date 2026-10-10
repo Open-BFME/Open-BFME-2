@@ -70,7 +70,7 @@ protected:
 		m_nameStr.set(name);
 	}
 
-private:
+protected:
 	AsciiString m_nameStr;
 	int m_access;
 	unsigned char m_isOpen;
@@ -252,6 +252,7 @@ private:
 class MemoryWriteFile : public File
 {
 public:
+	MemoryWriteFile(const char *name);
 	virtual int write(const void *buffer, int bytes);
 	virtual int seek(int bytes, seekMode mode);
 
@@ -260,6 +261,7 @@ private:
 	int m_size;
 	int m_pos;
 	int m_capacity;
+	AsciiString m_name;
 };
 
 // Native 0x006021CA..0x00602255 (139B), MemoryWriteFile vftable slot 4.
@@ -401,4 +403,15 @@ char *MemoryReadFile::readEntireAndClose()
 	memcpy(buffer, m_data, m_size);
 	close();
 	return buffer;
+}
+
+MemoryWriteFile::MemoryWriteFile(const char *name)
+	: m_data(0), m_size(0), m_pos(0), m_capacity(0), m_name()
+{
+	m_isOpen = 1;
+	m_access = 0x42;
+	if (name)
+		setName(name);
+	else
+		setName("<MemoryWriteFile>");
 }

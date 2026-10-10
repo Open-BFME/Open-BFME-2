@@ -1,5 +1,4 @@
 // ?rva00601A8D@Rva00601BBCHelper@@QAEXXZ
-// partial score=0.94 date=2026-10-10
 // cl: /O1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //
@@ -16,6 +15,8 @@
 // (a token/lexer table, by its ctype-table init) is not established, so the
 // names stay address-derived; the callees are pinned.
 
+extern "C" void _ReadWriteBarrier(void);
+#pragma intrinsic(_ReadWriteBarrier)
 #include <vector>
 
 void Rva006016C9Init() throw();
@@ -83,7 +84,8 @@ void Rva00601BBCHelper::rva00601A8D(){
  ((Rva00601B30*)&m_04)->clear();
  _STL::vector<int>& blocks=m_28;
  for(unsigned int i=0;i<blocks.size();++i){
-  if(blocks[i]){
+  _ReadWriteBarrier();
+		if(blocks[i]){
    delete[] (char*)blocks[i];
    blocks[i]=0;
   }

@@ -84,6 +84,9 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
 
 #include <vector>
 
+extern "C" void _ReadWriteBarrier(void);
+#pragma intrinsic(_ReadWriteBarrier)
+
 class Object;
 class Team;
 class Player;
@@ -229,6 +232,8 @@ public:
 protected:
 	// Protected as in Zero Hour's Object.h and the 0x0028B6D6 row's spelling.
 	friend void __stdcall Rva003C6A0EDo(class Parameter *, class Parameter *, class Parameter *);
+	friend void __stdcall Rva003C6B7BDo(class Parameter *, class Parameter *, class Parameter *);
+	friend void __stdcall Rva003C6D4FDo(class Parameter *, class Parameter *, class Parameter *);
 	Module *findModule(NameKeyType key) const;	// 0x0028B6D6
 
 private:
@@ -831,3 +836,78 @@ class Rva0026119DFilter : public Rva000421C8
 public:
 	virtual bool allow(Object *obj);
 };
+
+// ?Rva003C6B7BDo@@YGXPAVParameter@@00@Z @0x003C6B7B 468B evidence: the team variant of 0x003C6A0E (WB 0x01002390, unnamed): team by Parameter name (getTeamNamed 0x003584E9, no create), its member list via iterate_TeamMemberList 0x00263864, waypoint (TerrainLogic slot 0x88) location and the radius parameter; objects in range passing the kind-60 filter and the not-dead filter 0x0026119D; for each object with a SiegeDockingBehavior the team members (kind 93, ready special power 0x2d, status 0x40 clear) are walked from the iterator's current position, the first the dock refuses ends that object; caller dispatch next to 0x003CE4A0
+void __stdcall Rva003C6B7BDo(Parameter *teamParm, Parameter *wayParm, Parameter *radiusParm)
+{
+	Team *team = TheScriptEngine->getTeamNamed(teamParm->m_string, false);
+	if (!team)
+		return;
+	DLINK_ITERATOR<Object> members = team->iterate_TeamMemberList();
+	if (members.done())
+		return;
+	Waypoint *way = TheTerrainLogic->getWaypointByName(wayParm->m_string);
+	if (!way)
+		return;
+	Coord3D pos;
+	pos.x = way->getLocation()->x;
+	pos.y = way->getLocation()->y;
+	pos.z = way->getLocation()->z;
+	float radius = radiusParm->m_real;
+	BfmeWideResult iter = ThePartitionManager->iterateObjectsInRange(&pos, radius, 0,
+		Rva0004584D(*(BfmeFixedStorage0004543D *)&Rva00045411BitSet(0, 0x3C),
+			*(BfmeFixedStorage0004543D *)g_00DFEFA4StoragePrototype).link(&Rva0026119DFilter()), 1);
+	for (Object *obj = iter.next(); obj; obj = iter.next()) {
+		static NameKeyType siegeKey = TheNameKeyGenerator->nameToKey("SiegeDockingBehavior");
+		SiegeDockingModule *module = (SiegeDockingModule *)obj->findModule(siegeKey);
+		if (!module)
+			continue;
+		for (; !members.done(); members.advance()) {
+			_ReadWriteBarrier();
+			if (members.cur()->isKindOf(0x5D)) {
+				SpecialPowerModuleInterface *sp = members.cur()->findSpecialPowerModuleInterface((SpecialPowerType)0x2D);
+				if (sp && sp->isReady() && !members.cur()->testStatus((ObjectStatusTypes)0x40)) {
+					if (!module->m_dock.canDock(members.cur()->getID()))
+						break;
+					sp->doSpecialPowerAtObject(obj, 2);
+				}
+			}
+		}
+	}
+}
+
+// ?Rva003C6D4FDo@@YGXPAVParameter@@00@Z @0x003C6D4F 429B evidence: as 0x003C6B7B but the search centre is a second team's position (0x0039DA2A) and only the kind-60 filter applies (WB 0x010026F0, unnamed)
+void __stdcall Rva003C6D4FDo(Parameter *teamParm, Parameter *centerTeamParm, Parameter *radiusParm)
+{
+	Team *team = TheScriptEngine->getTeamNamed(teamParm->m_string, false);
+	if (!team)
+		return;
+	DLINK_ITERATOR<Object> members = team->iterate_TeamMemberList();
+	if (members.done())
+		return;
+	Team *centerTeam = TheScriptEngine->getTeamNamed(centerTeamParm->m_string, false);
+	if (!centerTeam)
+		return;
+	Coord3D pos = centerTeam->rva0039DA2A();
+	float radius = radiusParm->m_real;
+	BfmeWideResult iter = ThePartitionManager->iterateObjectsInRange(&pos, radius, 0,
+		&Rva0004584D(*(BfmeFixedStorage0004543D *)&Rva00045411BitSet(0, 0x3C),
+			*(BfmeFixedStorage0004543D *)g_00DFEFA4StoragePrototype), 1);
+	for (Object *obj = iter.next(); obj; obj = iter.next()) {
+		static NameKeyType siegeKey = TheNameKeyGenerator->nameToKey("SiegeDockingBehavior");
+		SiegeDockingModule *module = (SiegeDockingModule *)obj->findModule(siegeKey);
+		if (!module)
+			continue;
+		for (; !members.done(); members.advance()) {
+			_ReadWriteBarrier();
+			if (members.cur()->isKindOf(0x5D)) {
+				SpecialPowerModuleInterface *sp = members.cur()->findSpecialPowerModuleInterface((SpecialPowerType)0x2D);
+				if (sp && sp->isReady() && !members.cur()->testStatus((ObjectStatusTypes)0x40)) {
+					if (!module->m_dock.canDock(members.cur()->getID()))
+						break;
+					sp->doSpecialPowerAtObject(obj, 2);
+				}
+			}
+		}
+	}
+}

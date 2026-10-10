@@ -1,5 +1,4 @@
 // ?rva00113110@Rva00113110Holder@@QAEXPAX@Z
-// partial score=1.0 date=2026-10-10
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ob2
 //
 // Target facts from retail RVA 0x00113151: the 73-byte interval ends at
@@ -13,6 +12,8 @@
 // target's vptr slot-0 and +4 count accesses. The callback pin records only
 // its call target and stack shape; its body remains unrecovered.
 
+extern "C" void _ReadWriteBarrier(void);
+#pragma intrinsic(_ReadWriteBarrier)
 class Rva00113151Resource
 {
 public:
@@ -45,6 +46,7 @@ private:
 
 void Rva00113110Holder::rva00113110(void *incoming)
 {
+	_ReadWriteBarrier();
 	if (m_resource == 0) {
 		return;
 	}

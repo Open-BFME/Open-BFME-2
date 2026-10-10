@@ -11,7 +11,8 @@
 // +8) and two owned pointers at +0x20 / +0x24: it tells its listeners (the
 // rowed forEach 0x004FC320 with the slot-1 vcall thunk 0x005CB260),
 // unregisters the interface (rowed 0x002B7250) and releases the pointers;
-// the bases then unwind. Class name address-derived; the list is a 4-byte
+// the bases then unwind (declaration order Snapshot, list, interface: MSVC lays
+// the polymorphic interface out at +4 yet constructs it last). Class name address-derived; the list is a 4-byte
 // POD stand-in whose buffer retail frees.
 #include <stdlib.h>
 void Rva00030830FreeAllocation(void *);
@@ -68,7 +69,7 @@ public:
 };
 extern LivingWorldLogic *TheLivingWorldLogic;
 
-class Rva004FC4D1 : public Snapshot, public Gen_uwm_004edfff, public _STL::vector<ObjectID>
+class Rva004FC4D1 : public Snapshot, public _STL::vector<ObjectID>, public Gen_uwm_004edfff
 {
 public:
 	virtual ~Rva004FC4D1();

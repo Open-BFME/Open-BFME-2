@@ -1,11 +1,12 @@
 // ?rva000B595F@Rva000B595F@@QAEXXZ
-// partial score=0.98 date=2026-10-07
 // cl: /MD /Ireference/shims/bfme2_ascii /O1 /arch:SSE /G7
 // ?rva000B595F@Rva000B595F@@QAEXXZ at 0x000B595F, 275 bytes.
 // Retail vtable evidence places this body in several W3D draw hierarchies,
 // without proving one owning class or original method name. The field offsets,
 // GameEngine call, and build-rate call below follow the retail instructions.
 
+extern "C" void _ReadWriteBarrier(void);
+#pragma intrinsic(_ReadWriteBarrier)
 class Rva00225D38Host
 {
 public:
@@ -77,6 +78,7 @@ void Rva000B595F::rva000B595F()
 {
 	unsigned int flags = m_flags;
 	flags >>= 5;
+	_ReadWriteBarrier();
 	if ((flags & 1) != 0 && m_moduleData != 0)
 	{
 		Rva0028B6A2Host *object = m_drawable->m_buildObject;
