@@ -1,6 +1,8 @@
 // ?setConditional@Rva006CE890List@@QAEXPBVEAStringC@@HHH@Z
-// partial score=0.65 date=2026-10-09
-// cl: /MD /EHsc
+// partial score=0.7457013575 date=2026-10-10
+// ?setConditional@Rva006CE890List@@QAEXPBVEAStringC@@HHH@Z
+// partial score=0.7457013575 date=2026-10-10
+// cl: /O2 /G6 /MD /EHsc
 // A counted-handle getter and a doubly-linked unlink.
 //
 // BFME1 byte-identical donor (reference/open-bfme-1
@@ -176,7 +178,7 @@ public:
  void *data;
 };
 struct Rva006D0280 {
- void teardown();
+ ~Rva006D0280();
  int m_useCount;
  int unknown4;
  EAStringC name8;
@@ -194,7 +196,7 @@ public:
  ~Rva006D07E0Key() {
   Rva006D0280 *p=m_object;
   if(p && --p->m_useCount==0) {
-   p->teardown();
+   p->~Rva006D0280();
    g_pChainBlockAllocator->freeBlock(p,0x1c);
   }
  }
@@ -257,7 +259,7 @@ BfmeRefVGO *__cdecl Rva006D0460Copy(BfmeRefVGO *first,
     if(old && --*old==0) {
      Rva006D0280 *p=(Rva006D0280 *)destination->m_bfmeP;
      if(p) {
-      p->teardown();
+      p->~Rva006D0280();
       g_pChainBlockAllocator->freeBlock(p,0x1c);
      }
     }
@@ -285,7 +287,7 @@ BfmeRefVGO *__cdecl Rva006D04D0CopyBackward(Rva006D1130Iterator first,
    if(old && --*old==0) {
     Rva006D0280 *p=(Rva006D0280 *)result->m_bfmeP;
     if(p) {
-     p->teardown();
+     p->~Rva006D0280();
      g_pChainBlockAllocator->freeBlock(p,0x1c);
     }
    }
@@ -312,7 +314,7 @@ Rva006D1130Iterator __cdecl Rva006D0540Copy(BfmeRefVGO *first,
     if(old && --*old==0) {
      Rva006D0280 *p=(Rva006D0280 *)destination.position->m_bfmeP;
      if(p) {
-      p->teardown();
+      p->~Rva006D0280();
       g_pChainBlockAllocator->freeBlock(p,0x1c);
      }
     }
@@ -373,18 +375,4 @@ public:
  int count,capacity;
  Rva006D0930Record *data;
 };
-void Rva006CE890List::setConditional(const EAStringC *key,int expected,int replacement,int initial) {
- Rva006D0930Record *i=data;
- for(;;) {
-  if(i==data+count) break;
-  if(i->key.IsEqualTo(key)) {
-   if(i->value==expected) i->value=replacement;
-   return;
-  }
-  ++i;
- }
- Rva006D0930Record value(*key,initial);
- Rva006D0930Record *first=&value;
- Rva006D0930Record *last=first+1;
- insert(first,last,Rva006D0930Iterator(data+count,data,data+count));
-}
+void Rva006CE890List::setConditional(const EAStringC *key,int expected,int replacement,int initial){Rva006D0930Record*i=data;while(i!=data+count){if(i->key.IsEqualTo(key))goto found;++i;}{Rva006D0930Record value(*key,initial);insert(&value,&value+1,Rva006D0930Iterator(data+count,data,data+count));}return;found:if(i->value==expected)i->value=replacement;}

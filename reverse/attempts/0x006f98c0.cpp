@@ -1,4 +1,4 @@
-// ?rva006F99D0@@YAPAVAptCIH@@HPAV1@0@Z
+// ?rva006F98C0Score@@YAMHHHHH@Z
 // partial score=1.0 date=2026-10-10
 // cl: /O2 /G6 /DNDEBUG /MD
 // Semantic guide reviewed at BFME1 575ba2b04; original transfer f98983a7d game/Libraries/Source/Apt/AptInput.cpp,
