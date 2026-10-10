@@ -1,7 +1,3 @@
-// ?rva0051FCA2@AptTimeLine@@UAEXXZ
-// partial score=0.99 date=2026-10-09
-// ?rva0051FCA2@AptTimeLine@@UAEXXZ
-// partial score=0.99 date=2026-10-09
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /O1 /G6 /arch:SSE
 // stlport
 //
@@ -19,6 +15,13 @@
 // The weak WB CollectAllPlayerData name lead describes a larger body and
 // is not the original name of this final callee. The binding idiom is the matched AptScoreScreen
 // constructor's.
+//
+// Codegen note: WorldBuilder's twin builds each per-player binding inside
+// the loop; retail hoists all three into the call-temporary area
+// (-0x3C/-0x4C/-0x5C). cl does that only when it can see that the functor
+// holder constructor (row 0x0057BC63) merely reads its binding, so that
+// constructor is defined below inline (never inlined), mirroring
+// Rva0057BC63FunctorHolder.cpp; `name` lives to the end of the function.
 
 #include <vector>
 #include "unicode_string.h"
@@ -46,14 +49,36 @@ struct FunctorBinding
 class FunctorWrapperHead
 {
 public:
-	void *m_vtbl;
+	FunctorWrapperHead() : m_refCount(0) {}
+	virtual void anchor();
 	int m_refCount; // +0x04
 };
 
+class Rva0057BC63FunctorWrapper : public FunctorWrapperHead
+{
+public:
+	Rva0057BC63FunctorWrapper(const FunctorBinding &binding) : m_binding(binding) {}
+	void invoke();
+	FunctorBinding m_binding;
+};
+
+void *__cdecl operator new(unsigned int size);
+
+// The holder constructor (row 0x0057BC63, Rva0057BC63FunctorHolder.cpp) is
+// visible here as an inline, never-inlined definition. Retail's compiler knew
+// it only reads the binding: that is what keeps the per-player bindings
+// below hoisted out of the loop across its calls (WorldBuilder's twin builds
+// them inside the loop). Declared out of line, cl re-copies them every
+// iteration and the frame grows by 0x10.
 class Rva0057BC63FunctorHolder
 {
 public:
-	Rva0057BC63FunctorHolder(const FunctorBinding &binding);
+	__declspec(noinline) Rva0057BC63FunctorHolder(const FunctorBinding &binding)
+	{
+		m_ptr = new Rva0057BC63FunctorWrapper(binding);
+		if (m_ptr != 0)
+			m_ptr->m_refCount++;
+	}
 	Rva0057BC63FunctorHolder(const Rva0057BC63FunctorHolder &other) : m_ptr(other.m_ptr)
 	{
 		if (m_ptr)
@@ -227,32 +252,21 @@ void AptTimeLine::rva0051FCA2()
 	}
 	{
 		FunctorMethod method = reinterpret_cast<FunctorMethod>(&AptTimeLine::rva0051E766);
-		int query = 0;
-		FunctorBinding binding = MakeBinding(method, reinterpret_cast<FunctorTarget *>(this));
-		for (; query < 6; ++query)
+		for (int query = 0; query < 6; ++query)
 		{
 			AsciiString name(s_statusQueries[query]);
-			m_externHandlers.AddExternHandler(name, query, AptRef<AptExternHandler>(binding));
+			m_externHandlers.AddExternHandler(name, query, AptRef<AptExternHandler>(MakeBinding(method, reinterpret_cast<FunctorTarget *>(this))));
 		}
 	}
 	AsciiString name;
+	for (int index = 0; index < 8; ++index)
 	{
-		int index = 0;
-		FunctorMethod colorMethod = reinterpret_cast<FunctorMethod>(&AptTimeLine::PlayerColor);
-		FunctorBinding colorBinding = MakeBinding(colorMethod, reinterpret_cast<FunctorTarget *>(this));
-		FunctorMethod factionMethod = reinterpret_cast<FunctorMethod>(&AptTimeLine::PlayerFaction);
-		FunctorBinding factionBinding = MakeBinding(factionMethod, reinterpret_cast<FunctorTarget *>(this));
-		FunctorMethod focusMethod = reinterpret_cast<FunctorMethod>(&AptTimeLine::GraphFocus);
-		FunctorBinding focusBinding = MakeBinding(focusMethod, reinterpret_cast<FunctorTarget *>(this));
-		for (; index < 8; ++index)
-		{
-			name.format("TimeLine:PlayerColor:%d", index);
-			m_externHandlers.AddExternHandler(name, index, AptRef<AptExternHandler>(colorBinding));
-			name.format("TimeLine:PlayerFaction:%d", index);
-			m_externHandlers.AddExternHandler(name, index, AptRef<AptExternHandler>(factionBinding));
-			name.format("TimeLine:GraphFocus:%d", index);
-			m_externHandlers.AddExternHandler(name, index, AptRef<AptExternHandler>(focusBinding));
-		}
+		name.format("TimeLine:PlayerColor:%d", index);
+		m_externHandlers.AddExternHandler(name, index, AptRef<AptExternHandler>(MakeBinding(reinterpret_cast<FunctorMethod>(&AptTimeLine::PlayerColor), reinterpret_cast<FunctorTarget *>(this))));
+		name.format("TimeLine:PlayerFaction:%d", index);
+		m_externHandlers.AddExternHandler(name, index, AptRef<AptExternHandler>(MakeBinding(reinterpret_cast<FunctorMethod>(&AptTimeLine::PlayerFaction), reinterpret_cast<FunctorTarget *>(this))));
+		name.format("TimeLine:GraphFocus:%d", index);
+		m_externHandlers.AddExternHandler(name, index, AptRef<AptExternHandler>(MakeBinding(reinterpret_cast<FunctorMethod>(&AptTimeLine::GraphFocus), reinterpret_cast<FunctorTarget *>(this))));
 	}
 	rva0051FA13();
 }
