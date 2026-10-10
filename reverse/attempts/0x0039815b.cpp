@@ -1,4 +1,6 @@
 // ?rva0039815B@CastleBehavior@@QAEPAVObject@@PAVThingTemplate@@PBUCoord3D@@H@Z
+// partial score=0.9726053639846743 date=2026-10-10
+// ?rva0039815B@CastleBehavior@@QAEPAVObject@@PAVThingTemplate@@PBUCoord3D@@H@Z
 // partial score=0.8967113665389528 date=2026-10-10
 // ?rva0039815B@CastleBehavior@@QAEPAVObject@@PAVThingTemplate@@PBUCoord3D@@H@Z
 // partial score=0.9 date=2026-10-09
@@ -102,7 +104,7 @@ Object *CastleBehavior::rva0039815B(ThingTemplate *tmpl, const Coord3D *pos, int
 		list = &m_owned74;
 	for (ObjectID *it = list->m_begin; it != list->m_end; ++it)
 	{
-		Object *obj = TheGameLogic->findObjectByID(*it);
+		Object *obj = (tmpl?TheGameLogic:TheGameLogic)->findObjectByID(*it);
 		if (!obj || (obj->m_template04->m_flags11A & 0x40))
 			continue;
 		Rva0039815BBusy *busy = (Rva0039815BBusy *)obj->rva0028BCF4();
