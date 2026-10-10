@@ -12,6 +12,14 @@
 // cl: /O1 /Oy- /arch:SSE /G7 /MD /EHs /D_STLP_USE_STATIC_LIB /DNDEBUG
 // stlport
 #define _STLP_NO_EXCEPTIONS 1
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
 #include <vector>
 struct Rva00311431Arg {
  unsigned unknown00,word04,word08;float x,y,z;char pad18[8];Rva00311431Arg *next20;char pad24[0x4c-0x24];int count4c;

@@ -4,6 +4,14 @@
 // Its 49-byte push and 179-byte overflow are full relocation twins of the
 // existing ScienceType instantiations. This is a container fold, not evidence
 // that the two application enums have the same meaning.
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
 #include <vector>
 enum NameKeyType { NAMEKEY_INVALID = 0 };
 template void _STL::vector<NameKeyType>::push_back(const NameKeyType &);

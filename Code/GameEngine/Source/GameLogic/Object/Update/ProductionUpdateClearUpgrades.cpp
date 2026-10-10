@@ -12,6 +12,14 @@
 // uses native ESI object and EDI context under MSVC internal convention.
 // All container methods retain slot names. Native RET8 establishes parent
 // stdcall. All300B and parent EH exact; no new pins/headers/flag overrides.
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
 #include <vector>
 #include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
 class Object;

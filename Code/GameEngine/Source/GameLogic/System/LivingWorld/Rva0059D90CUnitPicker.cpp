@@ -19,6 +19,14 @@
 // vector<BfmeE8>::push_back 0x00539A2E (8-byte {id unit} record as in WB's
 // adjacent locals). Receiver and source identities are unproven; names are
 // address-derived.
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
 #include <vector>
 
 struct BfmeE8;

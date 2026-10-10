@@ -15,6 +15,14 @@
 // The vector members are the folded STLport bodies already rowed for this
 // element (push_back 0x002E2D10, range erase 0x002E2690).
 #include "Common/Snapshot.h"
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
 #include <vector>
 
 class AsciiString;

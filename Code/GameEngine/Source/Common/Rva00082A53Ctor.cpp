@@ -7,6 +7,14 @@
 // +0x24/+0x28/+0x2C, float at +0x30. Word resize at +4 via rowed 0x000824F9
 // and Pod44 reserve at +0x18 via rowed 0x00081A75. Evidence: callees all
 // rowed; caller 0x0008304A; prev/next OpaqueScalarDeletingDtors.
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
 #include <vector>
 
 struct BfmeE12 { float x, y, z; };

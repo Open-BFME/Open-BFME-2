@@ -7,6 +7,14 @@
 // ScoreRowSort.cpp). The base is the address-named Rva005ECA91 (rowed ctor); the entry vector
 // uses the BfmeE8 push_back instantiation retail folded it onto (0x00539A2E), and the row
 // builder keeps its S4SortElem8B vector spelling, so the list is passed through a cast.
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
 #include <vector>
 class AsciiString;
 class ThingTemplate;

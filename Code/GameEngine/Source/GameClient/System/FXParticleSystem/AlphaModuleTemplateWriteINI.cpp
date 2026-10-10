@@ -9,6 +9,14 @@
 // "Alpha<n> = <variable> <frame>", through the rowed pad 0x001F6951 and
 // variable writer 0x001F87D5, then the rowed file write 0x001F458B and
 // footer 0x003AFC6B. Built /O1 like the wind writer.
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
 #include <sstream>
 
 class File {
