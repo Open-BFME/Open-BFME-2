@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /Ireference/shims/bfmelist /Ireference/shims/bfmealloc
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /Ireference/shims/bfmelist /Ireference/shims/bfmealloc /ICode/GameEngine/Source/Common
 // stlport
 // Native598052..5980F3 is161B, RET0; WB152E690 has the same seven calls.
 // The independently rowed AIUnitBuilder598D7A tail-calls this body with
@@ -20,7 +20,7 @@ class Rva003F468D;
 class Rva0020E6B7RegionManager {public: Rva003F468D *rva0020E6B7();};
 class LivingWorldLogic {public: char unknown00[0xB0]; Rva0020E6B7RegionManager *manager;};
 extern LivingWorldLogic *TheLivingWorldLogic;
-#include "../../../Common/GameLogicObjectLookupView.h"
+#include "GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 class LivingWorldBattle {
 public:
@@ -35,7 +35,8 @@ struct Rva00598052Entry {char unknown00[0x78]; Rva00598052Metadata *metadata;};
 struct Rva00598961Config {char pad00[4]; _STL::vector<AsciiString *> unitNames; char pad10[0x1C-0x10];float field1C;};
 struct Rva002A8AB1Record {char pad00[0x160];Rva00598961Config *config160;};
 class Rva00598007 {public:Rva002A8AB1Record *rva00598007();bool rva0059802E();};
-class ThingTemplate;
+class Player;
+class ThingTemplate {public:int rva0033A69A(const Player*,int,int)const;};
 class ThingFactory {public:const ThingTemplate *findTemplate(const AsciiString &name);};
 extern ThingFactory *TheThingFactory;
 struct Rva00598961Template {char pad00[0x113];unsigned char field113;};
@@ -235,7 +236,7 @@ public:
  AIBuildableUnit(int);
  char pad14[0x38-0x14]; int quantity; int productionId; int context;
 };
-struct BuildableUnitTemplateView { char pad[0x618]; int quantity; };
+struct BuildableUnitTemplateView {char pad[0x618];int quantity;int getQuantity()const{return quantity;}};
 // WB 0x0152CFC0 names createBestUnitToMake and assert180.
 // Native REL32 at598B8E returns the AsciiString from399B RET4 hidden-result
 // decideWhichTemplateToMake 5987D2; WB152DCA0 asserts354..399 prove the name.
@@ -261,7 +262,8 @@ class Rva002A8F24 { public: void *rva002A8F24(Player *); };
 extern Rva002A8F24 *g_00DFEEF8;
 // Native51B at4DFBED returns the keyed count at node+8 or0; RET4.
 // WB129B860 reads the same AsciiString reference; identity stays address-named.
-class Rva004DFBED { public: int rva004DFBED(const AsciiString &); };
+struct HeroEconomyStatsView {char pad[0x14];unsigned int available;};
+class Rva004DFBED {public:char pad[0x0c];HeroEconomyStatsView*economy;int rva004DFBED(const AsciiString&);};
 class Rva00598192 { public: int rva00598192(const AsciiString &); };
 int GetGameLogicRandomValue(int,int,char *,int);
 // WB152D170 names getHeroIndex; assertions200..225 and native165B agree.
@@ -387,7 +389,7 @@ typename hashtable<V,K,H,X,E,A>::iterator hashtable<V,K,H,X,E,A>::find(const T &
 }
 struct ArmyPercentageNodeView {void *next;NameKeyType key;float percentage;};
 class Rva00598016 {public:void *rva00598016();};
-class Rva002A7461 {public:int rva002A7461();};
+class Rva002A7461 {public:int rva002A7461();int rva002A7548(int);};
 struct BuildableTemplateQuantityView {char pad[0x618];int quantity;};
 // Retail calls the canonical empty vector-header provider (BfmeE16 at211E58)
 // and the existing ModuleData pointer-vector push provider (4DFCB0).
@@ -455,3 +457,51 @@ float &Rva005983EE::lookup(const NameKeyType &key)
  }
  return ((ArmyPercentageNodeView*)it.node)->percentage;
 }
+
+struct HeroBuildableFieldsView : Rva00598C3AItem {
+ char pad14[0x21-0x14]; bool flag21; char pad22[0x38-0x22];
+ int quantity; AsciiString extraName; int context;
+ int getQuantity() const { return quantity; }
+};
+Rva00598C3AItem *AIUnitBuilder::createBestHeroToBuild()
+{
+ Rva004DFBED *stats=(Rva004DFBED *)g_00DFEEF8->rva002A8F24((Player *)m_30);
+ int used=0;
+ for (_STL::list<Rva00598C3AItem *>::const_iterator i=m_items.begin();i!=m_items.end();) { HeroBuildableFieldsView *item=(HeroBuildableFieldsView*)*i; ++i; used+=item->getQuantity(); }
+ AIBuildableUnit *result=0;
+ int cap=((Rva002A7461 *)((char *)m_30+0x60))->rva002A7548(0)-used;
+ if (!heroNames.empty()) {
+   int index=getHeroIndex();
+   AsciiString *name=&heroNames[index];
+   BuildableUnitTemplateView *thing=(BuildableUnitTemplateView *)TheThingFactory->findTemplate(*name);
+   Object *factory=Rva005982EA(name,0,true);
+   bool fits=thing->getQuantity()<cap;
+   bool existing=stats->rva004DFBED(*name)!=0 || ((Rva00598192 *)this)->rva00598192(*name)!=0;
+   bool found=factory!=0;
+   if (!existing && found) {
+     ThingTemplate *costTemplate=(ThingTemplate *)TheThingFactory->findTemplate(*name);
+     cost48=costTemplate->rva0033A69A((const Player *)m_30,(int)factory,-1);
+     Rva004DFBED *current=(Rva004DFBED *)g_00DFEEF8->rva002A8F24((Player *)m_30);
+     if (current->economy->available>=(unsigned int)cost48 && fits) {
+       result=new AIBuildableUnit((int)m_30);
+       result->name0C=*name;
+       result->field04=-1.0f;
+       ((HeroBuildableFieldsView *)result)->flag21=true;
+       heroIndex=-1;
+       cost48=-1;
+       ((_STL::vector<const ModuleData *> *)&removedHeroes)->push_back((const ModuleData *const &)index);
+     }
+   } else heroIndex=-1;
+   if (result) {
+     ((HeroBuildableFieldsView *)result)->quantity=((BuildableUnitTemplateView *)TheThingFactory->findTemplate(result->name0C))->quantity;
+     ((HeroBuildableFieldsView *)result)->extraName=result->name0C;
+     m_34=true;
+     return result;
+   }
+ }
+ return 0;
+}
+
+// Native59858C..598738 RET0; WB152D310 createBestHeroToBuild.
+// Quantity accessor leaves BL for fits; advancing the pending iterator
+// before accumulation retains ECX item/EDX end and the native 14-byte frame.
