@@ -485,30 +485,8 @@ void MapCache::writeCacheINI( Bool userDir )
 	fclose(fp);
 }
 
-// ?updateCache@MapCache@@ present-unmatched
-void MapCache::updateCache( void )
-{
-	setFPMode();
-
-	TheFileSystem->createDirectory(getUserMapDir());
-
-	if (loadUserMaps())
-	{
-		writeCacheINI( TRUE );
-	}
-	loadStandardMaps();	// we shall overwrite info from matching user maps to prevent munkees from getting rowdy :)
-#if defined(_DEBUG) || defined(_INTERNAL)
-	if (TheLocalFileSystem->doesFileExist(getMapDir().str()))
-	{
-		// only create the map cache file if "Maps" exist
-		Bool wasBuildMapCache = TheGlobalData->m_buildMapCache;
-		TheWritableGlobalData->m_buildMapCache = true;
-		loadUserMaps();
-		TheWritableGlobalData->m_buildMapCache = wasBuildMapCache;
-		writeCacheINI( FALSE );
-	}
-#endif
-}
+// MapCache::updateCache lives in MapCacheUpdateCache.cpp (rowed there);
+// the former duplicate here is removed so the rowed copy links.
 
 // MapCache::clearUnseenMaps is defined with its retail-matched body in Code/GameEngine/Source/GameClient/MapCacheClearUnseenMaps_Rva0030469e.cpp (0x0030469E).
 
