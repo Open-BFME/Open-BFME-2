@@ -1,8 +1,11 @@
-// ?doDrawModule@W3DTruckDraw@@UAEXPBVMatrix3D@@@Z
-// partial score=0.9760234996 date=2026-10-10
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /ICode/Libraries/Include
+// ?doDrawModule@W3DTruckDraw@@UAEXPBVMatrix3D@@@Z, retail 0x000CC80E..0x000CDE57 (5689B).
+// BFME 2 W3DTruckDraw::doDrawModule from Zero Hour W3DTruckDraw.cpp onto the BFME 2 layout.
+// Codegen: the cab rotation is stored once in a local that also feeds Rotate_Z (not
+// re-read through the member), and row 0 of the inlined cab Rotate_Z uses plain temporaries
+// (a volatile second-column read moved the x87/SSE scheduling).
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /ICode/Libraries/Include
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
@@ -100,8 +103,9 @@ class Drawable { public: const TWheelInfo *getWheelInfo() const; char head[0xfc]
 class ParticleSystem { public: void stop(); };
 ParticleSystem *Make00001B18();
 struct Rva00781660Handle { ParticleSystem *system; void *previous, *next; operator bool() const { return system != 0; } ParticleSystem *operator->() const { if (!system) return Make00001B18(); return system; } };
+class GlobalData;
+extern GlobalData *TheWritableGlobalData;
 struct Rva006C9270GlobalData { char head[0x9b0]; bool m_showClientPhysics; };
-extern Rva006C9270GlobalData *TheWritableGlobalData;
 class GameEngine { public: char head[0x38]; int field34; };
 extern GameEngine *TheGameEngine;
 class Rva00203B08 { public: bool rva0020424FF(); };
@@ -272,9 +276,9 @@ static __forceinline void Rva00781660RotateCabZ(Matrix3D &matrix, const float &t
 	float c, s;
 	c = cosf(theta);
 	s = sinf(theta);
-	tmp1 = matrix[0][0];
-	matrix[0][0] = (float)(c * tmp1 + s * (*(volatile float *)&matrix[0][1]));
-	matrix[0][1] = (float)(-s * tmp1 + c * (*(volatile float *)&matrix[0][1]));
+	tmp1 = matrix[0][0]; tmp2 = matrix[0][1];
+	matrix[0][0] = (float)(c * tmp1 + s * tmp2);
+	matrix[0][1] = (float)(-s * tmp1 + c * tmp2);
 	tmp1 = matrix[1][0]; tmp2 = matrix[1][1];
 	matrix[1][0] = (float)(c * tmp1 + s * tmp2);
 	matrix[1][1] = (float)(-s * tmp1 + c * tmp2);
@@ -288,7 +292,7 @@ void W3DTruckDraw::doDrawModule(const Matrix3D* transformMtx)
 
 	((W3DModelDraw *)this)->W3DModelDraw::doDrawModule(transformMtx);
 
-	if (!TheWritableGlobalData->m_showClientPhysics)
+	if (!((Rva006C9270GlobalData *)TheWritableGlobalData)->m_showClientPhysics)
 		return;
 	const W3DTruckDrawModuleData *moduleData = getW3DTruckDrawModuleData();
 	if (moduleData==0) return; // shouldn't ever happen.
@@ -338,8 +342,9 @@ void W3DTruckDraw::doDrawModule(const Matrix3D* transformMtx)
 
 		float deltaAngle = desiredAngle - m_curCabRotation;
 		deltaAngle *= moduleData->m_rotationDampingFactor;
-		m_curCabRotation += deltaAngle;
-		Rva00781660RotateCabZ(cabXfrm,m_curCabRotation);
+		float rot = m_curCabRotation + deltaAngle;
+		m_curCabRotation = rot;
+		Rva00781660RotateCabZ(cabXfrm,rot);
 		getRenderObject()->Capture_Bone( m_cabBone );
 		getRenderObject()->Control_Bone( m_cabBone, cabXfrm );
 		if (m_trailerBone && wheelInfo) {
