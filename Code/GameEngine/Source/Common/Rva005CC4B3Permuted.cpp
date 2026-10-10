@@ -30,5 +30,5 @@ public:Rva005CC677(void *,void *,void *,const PageContext &);virtual ~Rva005CC67
 private:void *owner;
 };
 Rva005CC656::Rva005CC656(void *p,void *a,void *b,const PageContext &c):Rva005E1FBC(a,b,c),owner(p){}
-Rva005CC677::Rva005CC677(void *p,void *a,void *b,const PageContext &c):Rva005E21EB(a,b,c),owner(p){}
+// Exact Rva005CC677 constructor owned by Rva005CC4FBPermuted.cpp.
 
