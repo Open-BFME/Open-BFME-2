@@ -211,6 +211,13 @@ public:
 	virtual Bool slot59();
 };
 
+// Object::testBit 0x0028D891: the opaque bit-test twin owner (the Object itself).
+class Rva0028D891Owner
+{
+public:
+	Bool testBit(Int bit) const;
+};
+
 // Object::rva0028BD92(0x27) returns a record whose +0x20 sub-object answers
 // a flag in vtable slot 2.
 class Rva0028BD92Flag
@@ -291,6 +298,7 @@ public:
 	CellShroudStatus getShroudStatusForPlayer(Int playerIndex) const;
 	ContainModuleInterface *getContain() const { return m_contain; }
 	Bool testStatus(ObjectStatusTypes bit) const;
+	Bool testBit(Int bit) const { return ((const Rva0028D891Owner *)this)->testBit(bit); }
 	void *rva0028C197() const;
 	void *rva0028BD92(Int slot);
 	const ThingTemplate *getTemplate() const { return m_template; }
@@ -377,6 +385,9 @@ protected:
 	Bool rva003E8AA9(Parameter *playerParm);
 	Bool rva003E86A3(Parameter *playerParm, Parameter *countParm, Parameter *modeParm);
 	Bool rva003E8863(Parameter *playerParm, Parameter *countParm, Parameter *loadedParm, Parameter *transportParm);
+	Bool rva003E89A9(Parameter *playerParm, Parameter *templateParm);
+	Bool rva003E8B47(Parameter *playerParm, Parameter *templateParm);
+	Bool rva003E8C24(Parameter *playerParm, Parameter *templateParm);
 	Bool evaluateSkirmishUnownedFactionUnitComparison(Parameter *pSkirmishPlayerParm, Parameter *pComparisonParm, Parameter *pCountParm);
 	Bool evaluateSkirmishPlayerHasComparisonGarrisoned(Parameter *pSkirmishPlayerParm, Parameter *pComparisonParm, Parameter *pCountParm);
 	Bool evaluateSkirmishPlayerHasComparisonCapturedUnits(Parameter *pSkirmishPlayerParm, Parameter *pComparisonParm, Parameter *pCountParm);
@@ -694,5 +705,119 @@ Bool ScriptConditions::rva003E8863(Parameter *playerParm, Parameter *countParm, 
 	}
 	if (count >= countParm->getInt())
 		return true;
+	return false;
+}
+
+// ?rva003E8B47@ScriptConditions@@IAE_NPAVParameter@@0@Z @ 0x003E8B47 221B
+// Target evidence: jump-table index 178 (condition 183) sends here. True when
+// any member of the player's teams is an equivalent of the template named by
+// the second Parameter (ThingFactory::findTemplate 0x002D06CA, rowed
+// ThingTemplate::isEquivalentTo 0x0033BB04) and its Object::rva0028C197
+// module's vtable slot 59 reports false (retail returns true on a zero answer).
+// A missing player or template is false.
+Bool ScriptConditions::rva003E8B47(Parameter *playerParm, Parameter *templateParm)
+{
+	Player *player = ThePlayerList->getPlayerFromMask(TheScriptEngine->rva00357B82(playerParm));
+	if (!player)
+		return false;
+	const ThingTemplate *thingTemplate = TheThingFactory->findTemplate(*templateParm->getString());
+	if (!thingTemplate)
+		return false;
+	PlayerTeamNode *head = player->getPlayerTeams();
+	for (PlayerTeamNode *it = head->m_next; it != player->getPlayerTeams(); it = it->m_next)
+	{
+		for (DLINK_ITERATOR<Team> iter = it->m_value->iterate_TeamInstanceList(); !iter.done(); iter.advance())
+		{
+			Team *team = iter.cur();
+			if (!team)
+				continue;
+			Object *obj;
+			for (DLINK_ITERATOR<Object> iter2 = team->iterate_TeamMemberList(); (obj = iter2.cur()) != 0; iter2.advance())
+			{
+				_ReadWriteBarrier();
+				if (!obj->getTemplate()->isEquivalentTo(thingTemplate))
+					continue;
+				Rva0028C197Module *module = (Rva0028C197Module *)obj->rva0028C197();
+				if (!module)
+					continue;
+				if (!module->slot59())
+					return true;
+			}
+		}
+	}
+	return false;
+}
+
+// ?rva003E8C24@ScriptConditions@@IAE_NPAVParameter@@0@Z @ 0x003E8C24 221B
+// Target evidence: jump-table index 177 (condition 182) sends here; same walk
+// as rva003E8B47, but the equivalent member's Object::rva0028BD92(0x27)
+// record must hold a +0x20 sub-object answering vtable slot 2.
+Bool ScriptConditions::rva003E8C24(Parameter *playerParm, Parameter *templateParm)
+{
+	Player *player = ThePlayerList->getPlayerFromMask(TheScriptEngine->rva00357B82(playerParm));
+	if (!player)
+		return false;
+	const ThingTemplate *thingTemplate = TheThingFactory->findTemplate(*templateParm->getString());
+	if (!thingTemplate)
+		return false;
+	PlayerTeamNode *head = player->getPlayerTeams();
+	for (PlayerTeamNode *it = head->m_next; it != player->getPlayerTeams(); it = it->m_next)
+	{
+		for (DLINK_ITERATOR<Team> iter = it->m_value->iterate_TeamInstanceList(); !iter.done(); iter.advance())
+		{
+			Team *team = iter.cur();
+			if (!team)
+				continue;
+			Object *obj;
+			for (DLINK_ITERATOR<Object> iter2 = team->iterate_TeamMemberList(); (obj = iter2.cur()) != 0; iter2.advance())
+			{
+				_ReadWriteBarrier();
+				if (!obj->getTemplate()->isEquivalentTo(thingTemplate))
+					continue;
+				void *record = obj->rva0028BD92(0x27);
+				if (!record)
+					continue;
+				if (((Rva0028BD92Flag *)((char *)record + 0x20))->answers())
+					return true;
+			}
+		}
+	}
+	return false;
+}
+
+// ?rva003E89A9@ScriptConditions@@IAE_NPAVParameter@@0@Z @ 0x003E89A9 256B
+// Target evidence: jump-table condition for a named-template check. True when
+// any member of the player's teams is an equivalent of the template named by
+// the second Parameter (ThingFactory::findTemplate 0x002D06CA) and one of the
+// opaque bits 0x18, 0x19 or 0x1A (rowed twin 0x0028D891) or Object status 0x51
+// is set. A missing player or template is false. The bit names are unknown.
+Bool ScriptConditions::rva003E89A9(Parameter *playerParm, Parameter *templateParm)
+{
+	Player *player = ThePlayerList->getPlayerFromMask(TheScriptEngine->rva00357B82(playerParm));
+	if (!player)
+		return false;
+	const ThingTemplate *thingTemplate = TheThingFactory->findTemplate(*templateParm->getString());
+	if (!thingTemplate)
+		return false;
+	PlayerTeamNode *head = player->getPlayerTeams();
+	for (PlayerTeamNode *it = head->m_next; it != player->getPlayerTeams(); it = it->m_next)
+	{
+		for (DLINK_ITERATOR<Team> iter = it->m_value->iterate_TeamInstanceList(); !iter.done(); iter.advance())
+		{
+			Team *team = iter.cur();
+			if (!team)
+				continue;
+			Object *obj;
+			for (DLINK_ITERATOR<Object> iter2 = team->iterate_TeamMemberList(); (obj = iter2.cur()) != 0; iter2.advance())
+			{
+				_ReadWriteBarrier();
+				if (obj->getTemplate()->isEquivalentTo(thingTemplate))
+				{
+					if (obj->testBit(0x18) || obj->testBit(0x19) || obj->testBit(0x1a) || obj->testStatus((ObjectStatusTypes)0x51))
+						return true;
+				}
+			}
+		}
+	}
 	return false;
 }
