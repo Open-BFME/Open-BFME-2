@@ -60,23 +60,6 @@ void Rva004CEE7F::rva004CEE7F(Int a, Int b)
 	m_08 = b;
 }
 
-// slot at VA 0x00C63230: steps the +0x08 counter up or down.
-class Rva004F5391
-{
-public:
-	void rva004F5391(Bool up);
-private:
-	char m_pad00[0x08];
-	Int m_08;
-};
-void Rva004F5391::rva004F5391(Bool up)
-{
-	if (up)
-		m_08++;
-	else
-		m_08--;
-}
-
 // slot at VA 0x00C66FDC: sets the +0x27C state to 3 once the +0x284 byte is
 // set, else sets the byte.
 class Rva0051BF2D
