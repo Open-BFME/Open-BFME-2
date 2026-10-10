@@ -1,4 +1,6 @@
 // ?rva006D25C0@Rva008951B0Owner@@QAEXVRva006D07E0Key@@PAX11@Z
+// partial score=0.9973653934652553 date=2026-10-10
+// ?rva006D25C0@Rva008951B0Owner@@QAEXVRva006D07E0Key@@PAX11@Z
 // partial score=0.9361999539806718 date=2026-10-09
 // cl: /MD /EHsc
 void __debugbreak();
@@ -23,6 +25,30 @@ class AptLinker;extern AptLinker*g_bfmeAptLinkerAtE176F8;
 class Rva006E58D0{public:void rva006E58D0Body(void*,void*,void*);};
 struct ConstFile{char pad[0x14];Rva006E58D0*mainCharacter;};
 #define CHECK(c,s,l) if(!(c)){g_bfmeAptAssertAtE17734(s,"C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptLoad.cpp",l);if(g_bfmeAptBreakOnAssertAtDDC01C)__debugbreak();}
+inline __declspec(noinline) void Rva008951B0Owner::rva006CFFE0(const Rva008951B0Handle &h)
+{
+	Rva008951B0Node *target = h.node;
+	Rva008951B0Node *cur = head;
+	if (target == cur) {
+		if (!cur)
+			return;
+		Rva008951B0Node *next = cur->next;
+		g_pChainBlockAllocator->freeBlock(cur, 8);
+		head = next;
+		return;
+	}
+	while (cur) {
+		if (cur->next == target)
+			break;
+		cur = cur->next;
+	}
+	Rva008951B0Node *victim = cur->next;
+	if (victim) {
+		cur->next = victim->next;
+	}
+	g_pChainBlockAllocator->freeBlock(victim, 8);
+}
+
 void Rva008951B0Owner::rva006D25C0(Rva006D07E0Key key,void*data,void*constant,void*buffer){
  if(!data)return;
  for(Rva008951B0Node*node=head;node;node=node->next){
