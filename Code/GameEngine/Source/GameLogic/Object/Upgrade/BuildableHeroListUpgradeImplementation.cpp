@@ -1,4 +1,6 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+extern "C" void _ReadWriteBarrier();
+#pragma intrinsic(_ReadWriteBarrier)
+// cl: /Ireference/shims/bfme2_ascii /O1 /Ireference/shims/moduledata /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //
 // BuildableHeroListUpgrade::upgradeImplementation, retail 0x004B837F (83
@@ -17,9 +19,11 @@
 // does not test whether the upgrade is in effect.
 #include "ascii_string.h"
 #include <vector>
+class TeamPrototype;
 typedef bool Bool;
 class ModuleData;
 class ThingTemplate;
+struct PlayerTeamNode;
 class Player;
 class ThingFactory
 {
@@ -43,13 +47,18 @@ class Player
 public:
 	unsigned char m_pad000[0x34];
 	Rva004B837FList *m_34;			// +0x34
-	unsigned char m_pad038[0x738 - 0x38];
+	unsigned char m_pad038[0x32C - 0x38];
+	PlayerTeamNode *m_teamHead;
+	unsigned char m_pad330[0x738 - 0x330];
 	Rva0037F32F m_738;			// +0x738
 };
 class Object
 {
 public:
 	Player *getControllingPlayer() const;
+    void *rva0028BC58(int arg);
+    int vptr;
+    const ThingTemplate *m_template;
 };
 class ControlBar
 {
@@ -126,4 +135,105 @@ void BuildableHeroListUpgrade::upgradeRemovalImplementation()
 	}
 	TheControlBar->m_28 = true;
 	rva004CE4A8();
+}
+
+// TeamPrototype and DLINK walks follow the independently matched Player
+// force-emotion and TeamPrototype iterator units. Retail establishes +32C
+// prototype list and +334 team head; Object iterator is the 24-byte ABI of
+// the matched iterate/advance providers (its PMF representation is opaque).
+template <class T> class DLINK_ITERATOR
+{
+public:
+    typedef T *(T::*GetNextFunc)() const;
+    DLINK_ITERATOR(T *cur, GetNextFunc next) : m_cur(cur), m_next(next) {}
+    bool done() const { return m_cur == 0; }
+    T *cur() const { return m_cur; }
+    void advance() { if (m_cur) m_cur = (m_cur->*m_next)(); }
+private:
+    T *m_cur;
+    GetNextFunc m_next;
+};
+template <> class DLINK_ITERATOR<Object>
+{
+public:
+    void advance();
+    bool done() const { return m_cur == 0; }
+    Object *cur() const { return m_cur; }
+private:
+    Object *m_cur;
+    unsigned char m_state[20];
+};
+class MemoryPoolObject { public: virtual ~MemoryPoolObject(); };
+#include "Common/Snapshot.h"
+class Team : public MemoryPoolObject, public Snapshot
+{
+public:
+    Team *dlink_next_TeamInstanceList() const;
+    DLINK_ITERATOR<Object> iterate_TeamMemberList() const;
+};
+class TeamPrototype
+{
+public:
+    DLINK_ITERATOR<Team> iterate_TeamInstanceList() const
+    {
+        return DLINK_ITERATOR<Team>(m_head, &Team::dlink_next_TeamInstanceList);
+    }
+private:
+    char pad[0x334];
+    Team *m_head;
+};
+struct PlayerTeamNode
+{
+    PlayerTeamNode *next, *prev;
+    TeamPrototype *value;
+};
+class ThingTemplate
+{
+public:
+    char pad[0x10C];
+    unsigned m_kind[7];
+};
+template <int N> class Rva004B83D2Slots : public Rva004B83D2Slots<N - 1>
+{
+public:
+    virtual void gap(char (*)[N]) = 0;
+};
+template <> class Rva004B83D2Slots<0> {};
+class Rva004B83D2Query : public Rva004B83D2Slots<13>
+{
+public:
+    virtual void remove(const ThingTemplate *tmpl, bool flag) = 0; // slot34
+    virtual void f14() = 0;
+    virtual void f15() = 0;
+    virtual void f16() = 0;
+    virtual unsigned count() const = 0; // slot44
+};
+// Retail 4B83D2..4B8484, called with each template by matched removal.
+// Native condition is template+10C bit31, query(0) then unsigned slot44>0,
+// and slot34(template,0). Original query type and its public methods are
+// unresolved; the module's established class identity and neutral helper
+// name are retained separately from these structural target facts.
+void BuildableHeroListUpgrade::rva004B83D2(const ThingTemplate *tmpl)
+{
+    Player *player = getObject()->getControllingPlayer();
+    for (PlayerTeamNode *node = player->m_teamHead->next; node != player->m_teamHead; node = node->next)
+    {
+        for (DLINK_ITERATOR<Team> teams = node->value->iterate_TeamInstanceList(); !teams.done(); teams.advance())
+        {
+            Team *team = teams.cur();
+            if (!team)
+                continue;
+            for (DLINK_ITERATOR<Object> objects = team->iterate_TeamMemberList(); !objects.done(); objects.advance())
+            {
+                Object *obj = objects.cur();
+                if (obj->m_template->m_kind[0] & 0x80000000u)
+                {
+_ReadWriteBarrier();
+                    Rva004B83D2Query *query = (Rva004B83D2Query *)obj->rva0028BC58(0);
+                    if (query && query->count() > 0)
+                        query->remove(tmpl, false);
+                }
+            }
+        }
+    }
 }
