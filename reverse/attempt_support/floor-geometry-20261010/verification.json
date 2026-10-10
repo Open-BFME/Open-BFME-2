@@ -1,0 +1,105 @@
+{
+  "bfme2_head": "fa3186001a48ce60be15972ed04f86f1136a633a",
+  "dependency_revision": "575ba2b04743f190f069805fbdc59936123c45da",
+  "profile": "/O1 /arch:SSE /G7 /Oy- /EHs-c-",
+  "extent": 660,
+  "equal": 647,
+  "unresolved": [],
+  "remaining_differences": [
+    421,
+    422,
+    423,
+    424,
+    425,
+    460,
+    465,
+    479,
+    484,
+    510,
+    511,
+    515,
+    516
+  ],
+  "prospective_member_map": {
+    "?doLighting@Rva000E4BD5Lighting@@QAEIPBUBfmeLighting36@@PBUCoord3D@@IMI@Z": "0xE4BD5"
+  },
+  "includes": [
+    {
+      "path": "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFloorElementTypes.h",
+      "sha256": "d1a836454df1a1c06a49577adf526d785bceb819108d9b52add1bdab423d7654"
+    },
+    {
+      "path": "reference/shims/bfme2_ascii/ascii_string.h",
+      "sha256": "5f4f7248fd98431f9cc08dcc2e239415c6e1da030e41c81ad86ad485f4adc87e"
+    },
+    {
+      "path": "reference/open-bfme-1/inputs/toolchains/vs2003/Program Files/Microsoft Visual Studio .NET 2003/Vc7/include/string.h",
+      "sha256": "b68e9db97d695655abe65dd36d9fc0f92e5bc304371eb9c8a9d2144e55eb8c37"
+    },
+    {
+      "path": "reference/shims/bfme2_ascii/string_base.h",
+      "sha256": "e038217c4f73097f3e56e911b2692504214ec3a62259a54bc3950e96a4629680"
+    },
+    {
+      "path": "reference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath/matrix3d.h",
+      "sha256": "1ffd9b82f638d8b508a6b556661b11a758801a8d79fef5e9d8de9ea5b9bc3e13"
+    },
+    {
+      "path": "reference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib/always.h",
+      "sha256": "0e2d8d799ae5410314b1fa99afaf3e175044759ceebe9509a0fe64efea2ddcda"
+    },
+    {
+      "path": "reference/open-bfme-1/inputs/toolchains/vs2003/Program Files/Microsoft Visual Studio .NET 2003/Vc7/include/assert.h",
+      "sha256": "68aad6930fe80aec8645b4f06a93e369d641d230711a635b405e4eae30bfb512"
+    },
+    {
+      "path": "reference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib/visualc.h",
+      "sha256": "9112cf71ca289fc4f4510cf6c9f2e9aaa756ed6d98b148290e7d4d94eff24edc"
+    },
+    {
+      "path": "reference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib/bool.h",
+      "sha256": "e27786d701291d26345d1c179d2d6bb33bf3e5286f8364bbde8a2018516131f1"
+    },
+    {
+      "path": "reference/open-bfme-1/inputs/toolchains/vs2003/Program Files/Microsoft Visual Studio .NET 2003/Vc7/include/assert.h",
+      "sha256": "68aad6930fe80aec8645b4f06a93e369d641d230711a635b405e4eae30bfb512"
+    },
+    {
+      "path": "reference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath/vector2.h",
+      "sha256": "4f0c4d5b4e09f9206cf1298d0fb90fd5de814e89379816dbc1490af4a369d727"
+    },
+    {
+      "path": "reference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath/wwmath.h",
+      "sha256": "094a56d7a63110d6590fc41904ea60bb1be52747c73cdc26ba3b2854b8e58418"
+    },
+    {
+      "path": "reference/open-bfme-1/inputs/toolchains/vs2003/Program Files/Microsoft Visual Studio .NET 2003/Vc7/include/math.h",
+      "sha256": "776b7b9c45c5aed0e355109ab7f3435971d833d2228dd4f2b16aad4fe6bf96c8"
+    },
+    {
+      "path": "reference/open-bfme-1/inputs/toolchains/vs2003/Program Files/Microsoft Visual Studio .NET 2003/Vc7/include/float.h",
+      "sha256": "5b6fc758e006653443d8372e45f530072183e145d4031787b2e43cba6ff1d84f"
+    },
+    {
+      "path": "reference/open-bfme-1/inputs/toolchains/vs2003/Program Files/Microsoft Visual Studio .NET 2003/Vc7/include/assert.h",
+      "sha256": "68aad6930fe80aec8645b4f06a93e369d641d230711a635b405e4eae30bfb512"
+    },
+    {
+      "path": "reference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath/vector3.h",
+      "sha256": "099d053e3e7663325a5071ec66f952f2225a880aba96fc38b702c5bbd43acfc8"
+    },
+    {
+      "path": "reference/open-bfme-1/inputs/toolchains/vs2003/Program Files/Microsoft Visual Studio .NET 2003/Vc7/include/assert.h",
+      "sha256": "68aad6930fe80aec8645b4f06a93e369d641d230711a635b405e4eae30bfb512"
+    },
+    {
+      "path": "reference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath/vector4.h",
+      "sha256": "a1c4ebbb6497a3ac49c2ff3fa1472b0985cd25c843720d10daeb79cd5e0a8613"
+    },
+    {
+      "path": "Code/Libraries/Include/Lib/Coord3D.h",
+      "sha256": "7f442e0e87c2a4e7efd3893d0210a14734c1bf3645c0ec66f5405010faae5f76"
+    }
+  ],
+  "bank_sha256": "75b14bb109f29a1a021dce5224769230b8440b3e34157644fd8ba3a91d121cb6"
+}

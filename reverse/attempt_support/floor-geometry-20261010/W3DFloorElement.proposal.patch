@@ -1,0 +1,5 @@
+--- a/Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFloorElement.h
++++ b/Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFloorElement.h
+@@ -10,0 +11,2 @@
++    int rva006F83F0(void *a,int b,void *c,void *p);
++    int rva006F8700(void *a,int b,void *c,void *p);

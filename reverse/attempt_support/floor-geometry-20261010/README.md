@@ -1,0 +1,15 @@
+# Floor geometry reconstruction
+
+Target: 0x000E5406..0x000E569A, complete 660-byte RET16 member body. WB882AE0 names W3DFloor::getModelVertices at W3DFloorBuffer.cpp lines164..446. Existing native 21-byte wrapper E569A tail-jumps to this body; its 95-byte E585F caller supplies embedded matrix50/mesh28 and saves counts in the same A0 floor object. The canonical Gen_uw_000e5033 constructor/load independently establish drawable2C, translation30/34/38, opacity84 and matrix50. Original retail class spelling is kept uncertain rather than renaming the neutral canonical class.
+
+Clean semantic guide: BFME1 verified575ba2b W3DBridgeGetModelVertices.cpp and genuine matrix3d.h. Bridge lighting/normal details differ; target and WB independently supply the floor material reference, UV/color arrays, opacity clamp,15000 limit, translation and fixed normal. No dump body was copied. No Code, ledger or symbol pin changes were made.
+
+The portable bank has the full 660-byte extent,647 bytes equal and no unresolved REL32s in the recorded PRIVATE prospective contract. The13 differing bytes are matrix SSE load operands and the Y-row addition association. Prefix/suffix, branches, five direct helper bindings and all storage offsets agree. No volatile load or optimization pragma is used in the bank.
+
+The PRIVATE member-call map is evidence, not a landed pin: native floor holds receiver in ECX for E4BD5, and WB independently moves this before that call. Current 843-byte Rva000E4BD5Lighting provider is declared static __stdcall. Its ignored receiver lets its own bytes agree under that spelling, but the floor caller needs the observed member contract. Any future repair must rename/reconcile the real owner and all actual callers; never add a second real name or an alias at E4BD5.
+
+W3DFloorElement.proposal.patch saves the canonical-contract proposal adding helper/wrapper declarations. The allowed banked CPP embeds its declaration snapshot for reconstruction evidence. It is not an adopted shared header. To land, claim the canonical class/header plus wrapper and E585F caller scopes, prove all existing providers/consumers, reconcile the existing helper pin (never duplicate it), and pass normal dependent/full/identity/data and current link gates. These integration steps were not attempted because the planned 660-byte body is not exact yet. Existing wrapper and all other Code were preserved unchanged.
+
+Current byte profile: /O1 /arch:SSE /G7 /Oy- /EHs-c-. Direct calls: Drawable272C9E, VertexMaterialGet_Emissive13CC80, UVArrayD1F40, ColorArrayD1FBD, lightingE4BD5, plus actualCRT_ftol2. TheWritableGlobalData is the sole converged DFE758 name. verification.json records the575 dependency inventory and byte differences. Private object/compile logs remain build/seat3/floor660.
+
+Bounded trials tested actual accessor/reference/lifetime shapes and the original matrix helper. Many equivalent forms changed MSVC CSE operand choices; the documented caller-reference+geometry accessor form reached647/660. Stop at this retained near match rather than publishing a nonexact row.
