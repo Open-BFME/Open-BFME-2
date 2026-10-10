@@ -1,33 +1,55 @@
-// ?projectRangesRva00108FBD@@YAXABVVector3@@0MMMMAAVVector2@@1@Z
-// partial score=0.5 date=2026-10-07
-// BFME2 native 0x108FBD..0x109129 (364B), Ghidra FUN_00508fbd.
-// BFME1 donor 1399ad37 compiled /O1 /arch:SSE /G7 emits 359B.
-// Native private ABI ECX/EAX axes EDX/ESI outputs plus four stack floats.
-// /G6 /G5 /O2 variants and scoped storage/copy-shape trials did not match.
-// Native retains pair-return temporaries with integer copies; this reference
-// collapses them into direct SSE stores and differs in scheduling/frame.
-// Neighboring axes323 and extrema71 are already rowed in the scoped helper TU.
-// cl: -O1 -arch:SSE -G7 -Ireference/open-bfme-1/game/GameEngineDevice/Source/W3DDevice/GameClient/Shadow -DNDEBUG -DWIN32 -D_WINDOWS -MD -EHsc -Ireference/open-bfme-1/inputs/reference/shims/sweep -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas
-// File-static helpers of BFME's W3DProjectedShadow.cpp TU (retail
-// 0x007AF710 / 0x007AF940), the eventual home of the projected-shadow
-// family (callers 0x007B23F0 and 0x007B4FE0). MSVC 7.1 gives a file-static
-// function whose address is not taken a private register convention when its
-// caller is in the same TU: 0x007AF710 takes four stack floats and returns a
-// Vector2 through a hidden pointer in ECX; 0x007AF940 takes axisA in ECX,
-// axisB in EAX, xr in EDI, yr in ESI plus four stack floats, and its caller
-// pops the stack. Both conventions come out of the compiler by themselves
-// here (docs/shape_levers.md, "Compiler-private ABI").
-// Types: the callers pass two adjacent 12-byte vectors (Vector3, frame of
-// six 12-byte objects at 0x48) and zero two adjacent 8-byte outputs (Vector2).
-// The names keep the address: no caller, string or Zero Hour twin names them.
-#include "vector2.h"
-#include "vector3.h"
-#include "matrix3d.h"
+// ?projectRangesRva00108FBD@@YAXABVRva00108E7AVector@@0MMMMAAVRva00108E33Pair@@1@Z
+// partial score=0.75314807219032 date=2026-10-10
+// cl: /O1 /arch:SSE /G7 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/inputs/reference/shims/sweep /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas
+// BFME 1 W3DProjectedShadowDecalHelpers.cpp, donor revision
+// 1399ad37d42ea52a63829e417c46a1ba9ed2cd20, compiled with BFME 2 flags above.
+// These file-static algorithms come from ZH queueDecal: flatten/normalise the
+// transform axes, and find the extrema of four projected corner coordinates.
+// Their original private names are unknown, so names retain target addresses.
+// Native axes body 0x108E7A..0x108FBD (323B), Ghidra FUN_00508e7a. Calls at
+// 0x10ACAB / 0x10ACBF / 0x10CB9C pass Matrix3D in ESI and two Vector3 outputs
+// in ECX/EDX. X/Y basis elements are +0/+0x10 and +4/+0x14; output Z is zero.
+// Native extrema body 0x108E33..0x108E7A (71B), immediately after the thunk
+// at 0x108E28. Inputs use XMM1/2/3 and one stack float; hidden Vector2 output
+// is EAX. The projected-range body at 0x108FBD inlines the same extrema logic.
+// A compiler-visible caller preserves both private conventions, as MSVC 7.1
+// derives them from same-unit calls. It is an emission pattern, not a retail
+// caller recovery. All body bytes and compiler float literals are verified.
+#include "wwmath.h"
 
-// Retail 0x007AF7E0 (EXACT here; claimed by another lane, not landed): Zero Hour queueDecal's decal axes from the object
-// transform (x axis flattened and normalised, v = u rotated by -90 degrees;
-// falls back to the y axis, then to (0,-1,0)).
-static void decalAxesRva00108E7A(const Matrix3D &objXform, Vector3 &uVector, Vector3 &vVector)
+// Scoped storage views use the evidenced 12B vector, 8B pair, and 3x4 matrix
+// representations without defining copies of the public math-library methods.
+class Rva00108E7AVector
+{
+public:
+    float X, Y, Z;
+    WWINLINE Rva00108E7AVector() {}
+    WWINLINE Rva00108E7AVector(float x, float y, float z) { X=x; Y=y; Z=z; }
+    WWINLINE Rva00108E7AVector &operator=(const Rva00108E7AVector &v)
+    { X=v.X; Y=v.Y; Z=v.Z; return *this; }
+    WWINLINE Rva00108E7AVector &operator*=(float k)
+    { X=X*k; Y=Y*k; Z=Z*k; return *this; }
+    WWINLINE void Set(float x, float y, float z) { X=x; Y=y; Z=z; }
+    WWINLINE float Length() const { return WWMath::Sqrt(X*X+Y*Y+Z*Z); }
+};
+class Rva00108E33Pair
+{
+public:
+    float X, Y;
+    WWINLINE Rva00108E33Pair(float x, float y) { X=x; Y=y; }
+
+};
+class Rva00108E7AMatrix
+{
+public:
+    float Row[3][4];
+    WWINLINE Rva00108E7AVector Get_X_Vector() const
+    { return Rva00108E7AVector(Row[0][0],Row[1][0],Row[2][0]); }
+    WWINLINE Rva00108E7AVector Get_Y_Vector() const
+    { return Rva00108E7AVector(Row[0][1],Row[1][1],Row[2][1]); }
+};
+
+static void decalAxesRva00108E7A(const Rva00108E7AMatrix &objXform, Rva00108E7AVector &uVector, Rva00108E7AVector &vVector)
 {
 	uVector = objXform.Get_X_Vector();
 	uVector.Z = 0.0f;
@@ -47,7 +69,7 @@ static void decalAxesRva00108E7A(const Matrix3D &objXform, Vector3 &uVector, Vec
 	}
 }
 
-static Vector2 minMax4Rva00108E33(float a, float b, float c, float d)
+static Rva00108E33Pair minMax4Rva00108E33(float a, float b, float c, float d)
 {
 	float lo, hi;
 	if (a < b) {
@@ -68,34 +90,28 @@ static Vector2 minMax4Rva00108E33(float a, float b, float c, float d)
 		if (c > hi)
 			hi = c;
 	}
-	return Vector2(lo, hi);
+	return Rva00108E33Pair(lo, hi);
 }
 
-static void projectRangesRva00108FBD(const Vector3 &axisA, const Vector3 &axisB, float sizeA, float sizeB,
-	float offA, float offB, Vector2 &xr, Vector2 &yr)
+static WWINLINE Rva00108E7AVector operator*(float k,const Rva00108E7AVector&a){return Rva00108E7AVector(a.X*k,a.Y*k,a.Z*k);}
+static WWINLINE Rva00108E7AVector operator+(const Rva00108E7AVector&a,const Rva00108E7AVector&b){return Rva00108E7AVector(a.X+b.X,a.Y+b.Y,a.Z+b.Z);}
+static void projectRangesRva00108FBD(const Rva00108E7AVector &axisA, const Rva00108E7AVector &axisB, float sizeA, float sizeB,
+	float offA, float offB, Rva00108E33Pair &xr, Rva00108E33Pair &yr)
 {
-	Vector3 a0 = -((offA + 0.5f) * sizeA) * axisA;
-	Vector3 a1 = (0.5f - offA) * sizeA * axisA;
-	Vector3 b0 = -((offB + 0.5f) * sizeB) * axisB;
-	Vector3 b1 = (0.5f - offB) * sizeB * axisB;
-	Vector3 c0 = b0 + a0;
-	Vector3 c1 = b0 + a1;
-	Vector3 c2 = b1 + a1;
-	Vector3 c3 = b1 + a0;
+	Rva00108E7AVector a0 = -((offA + 0.5f) * sizeA) * axisA;
+	Rva00108E7AVector a1 = (0.5f - offA) * sizeA * axisA;
+	Rva00108E7AVector b0 = -((offB + 0.5f) * sizeB) * axisB;
+	Rva00108E7AVector b1 = (0.5f - offB) * sizeB * axisB;
+	Rva00108E7AVector c0 = b0 + a0;
+	Rva00108E7AVector c1 = b0 + a1;
+	Rva00108E7AVector c2 = b1 + a1;
+	Rva00108E7AVector c3 = b1 + a0;
 	xr = minMax4Rva00108E33(c0.X, c1.X, c2.X, c3.X);
 	yr = minMax4Rva00108E33(c0.Y, c1.Y, c2.Y, c3.Y);
 }
 
-// ?Rva00108FBDTrialCaller absent-from-retail
-void Rva00108FBDTrialCaller(const Vector3 &a, const Vector3 &b, float s0, float s1, float s2, float s3,
-	Vector2 *out)
-{
-	Matrix3D m(true);
-	Vector3 u, v;
-	decalAxesRva00108E7A(m, u, v);
-	Vector2 xr(0, 0), yr(0, 0);
-	projectRangesRva00108FBD(u, v, s0, s1, s2, s3, xr, yr);
-	projectRangesRva00108FBD(b, a, s1, s0, s3, s2, out[0], out[1]);
-	out[2] = xr;
-	out[3] = yr;
+void trialRanges(const Rva00108E7AMatrix&m,Rva00108E7AVector&a,Rva00108E7AVector&b,float s0,float s1,float s2,float s3,Rva00108E33Pair*out){
+ decalAxesRva00108E7A(m,a,b);
+ projectRangesRva00108FBD(a,b,s0,s1,s2,s3,out[0],out[1]);
+ projectRangesRva00108FBD(b,a,s1,s0,s3,s2,out[2],out[3]);
 }
