@@ -4,6 +4,15 @@
 #include <set>
 #include "ascii_string.h"
 #include "unicode_string.h"
+
+// map/set<int> internals otherwise instantiate the less<int>::operator()
+// COMDAT (one byte shape per TU flags); an explicit dllimport+forceinline
+// specialization takes those calls inline so this TU emits no external copy.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+bool less<int>::operator()(const int &a, const int &b) const
+{ return a < b; }
+}
 class INI;
 struct BfmeObject476 { virtual ~BfmeObject476(); unsigned char opaque[472]; BfmeObject476 &operator=(const BfmeObject476 &); };
 extern template void _STL::vector<BfmeObject476>::push_back(const BfmeObject476 &);
