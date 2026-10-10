@@ -1,4 +1,6 @@
 // ??0QueuedIconSlot@Impl@BuildQueueDetailsMovieClip@StrategicHUD@@QAE@PAV123@H@Z
+// partial score=0.9504 date=2026-10-10
+// ??0QueuedIconSlot@Impl@BuildQueueDetailsMovieClip@StrategicHUD@@QAE@PAV123@H@Z
 // partial score=0.8766598267213863 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
 #include "ascii_string.h"
@@ -34,7 +36,7 @@ public:
 private: Impl *owner;int index,turns;bool turnsHover;
 };
 BuildQueueDetailsMovieClip::Impl::QueuedIconSlot::QueuedIconSlot(Impl*parent,int slot):owner(parent),index(slot),turns(0),turnsHover(false){
- AsciiString prefix;prefix.format("_level%u.",owner->level);
+ {AsciiString prefix;prefix.format("_level%u.",owner->level);
  AsciiString number;number.format("%d",index);
  owner->commands.AddCommandMap(prefix+owner->name+"_OnQueuedIconSlotClicked"+number,AptRef<AptCommandMap>(MakeDelegate(this,&QueuedIconSlot::rva005F6AE8)));
  owner->commands.AddCommandMap(prefix+owner->name+"_OnQueuedIconSlotRollOver"+number,AptRef<AptCommandMap>(MakeDelegate(this,&QueuedIconSlot::rva005F6A98)));
@@ -43,6 +45,6 @@ BuildQueueDetailsMovieClip::Impl::QueuedIconSlot::QueuedIconSlot(Impl*parent,int
  owner->commands.AddCommandMap(prefix+owner->name+"_OnQueuedIconSlotTurnsRemainingRollOut"+number,AptRef<AptCommandMap>(MakeDelegate(this,&QueuedIconSlot::rva005F688B)));
  owner->commands.AddCommandMap(prefix+owner->name+"_OnQueuedIconSlotTypeRollOver"+number,AptRef<AptCommandMap>(MakeDelegate(this,&QueuedIconSlot::rva005F6AA8)));
  owner->commands.AddCommandMap(prefix+owner->name+"_OnQueuedIconSlotTypeRollOut"+number,AptRef<AptCommandMap>(MakeDelegate(this,&QueuedIconSlot::rva005F6AA0)));
- SetQuantityString(quantity);SetNumTurnsString(turns);
+ SetQuantityString(quantity);SetNumTurnsString(turns);}
 }
 }
