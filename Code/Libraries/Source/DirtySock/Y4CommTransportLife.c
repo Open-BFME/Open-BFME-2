@@ -36,7 +36,7 @@ void Rva007FEA20( void *lock );
 void Rva007FEAA0( void *lock );
 
 void Rva00817210Op( void );
-void Rva00817230Op( void );
+void Rva00817230(void);
 void Rva00818D90Op( void );
 void Rva00819300Op( void );
 void Rva008171C0Op( void );
@@ -192,7 +192,7 @@ struct Rva00816BF0Comm *Rva00816BF0( int maxPacket, int recvCount,
 	comm->m_op[  0 ] = (void *)Rva00816BF0;
 	comm->m_op[  1 ] = (void *)Rva00816E70;
 	comm->m_op[  2 ] = (void *)Rva00817210Op;
-	comm->m_op[  3 ] = (void *)Rva00817230Op;
+	comm->m_op[  3 ] = (void *)Rva00817230;
 	comm->m_op[  4 ] = (void *)Rva00818D90Op;
 	comm->m_op[  5 ] = (void *)Rva00817240;
 	comm->m_op[  6 ] = (void *)Rva00819300Op;
