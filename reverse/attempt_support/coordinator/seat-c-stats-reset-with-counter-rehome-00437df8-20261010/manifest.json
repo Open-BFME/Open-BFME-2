@@ -1,0 +1,44 @@
+{
+  "id": "seat-c-stats-reset-with-counter-rehome-00437df8-20261010",
+  "seat": "C",
+  "base_commit": "431c820ed1448b6055590a03d06cf23ea5d68a2b",
+  "paths": [
+    "Code/GameEngine/Source/Common/StatsCollector.cpp",
+    "Code/GameEngine/Source/Common/RvaA22F0FieldReset.cpp"
+  ],
+  "recoveries": [
+    {
+      "name": "?rva00437DF8@StatsCollector@@QAEXXZ",
+      "rva": "0x00437DF8",
+      "size": 122,
+      "source": "Code/GameEngine/Source/Common/StatsCollector.cpp",
+      "notes": "Native437DF8..437E72 full122; WB12892C0 setup sequence plus GeneralsMD reset semantic guide at BF1@575ba2b; original name uncertain; same-TU63B counter provider preserves ECX naturally; fullEH exact without assembly",
+      "replace_rva": null
+    }
+  ],
+  "new_retail_bytes": 122,
+  "proof_command": "python tools/build.py Code/GameEngine/Source/Common/StatsCollector.cpp",
+  "proof_log": "scoped-proof.txt",
+  "claim_owner": "codex-104a-01a12257",
+  "worker_root": "C:\\Users\\franz\\.codex\\worktrees\\recovery-preserved\\openbfme2",
+  "dependencies": [
+    "seat-c-stats-initial-file-info-00437755-20261010"
+  ],
+  "claims": [
+    "0x00437DF8",
+    "0x004376BB",
+    "file:Code/GameEngine/Source/Common/StatsCollector.cpp",
+    "file:Code/GameEngine/Source/Common/RvaA22F0FieldReset.cpp"
+  ],
+  "ledger_deltas": [
+    {
+      "name": "?reset@RvaA22F0FieldReset@@QAEXXZ",
+      "rva": "0x004376BB",
+      "size": 63,
+      "old_source": "Code/GameEngine/Source/Common/RvaA22F0FieldReset.cpp",
+      "new_source": "Code/GameEngine/Source/Common/StatsCollector.cpp",
+      "operation": "same-name same-address source rehome only",
+      "notes": "Existing helper retained by name and whole63B body; rehomed beside its StatsCollector caller so compiler knows its ECX-preserving behavior; native437DF8 call receiver and offsets match StatsCollector counters"
+    }
+  ]
+}
