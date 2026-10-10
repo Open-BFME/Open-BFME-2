@@ -1,4 +1,8 @@
 // ?GadgetListBoxSystem@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z
+// partial score=0.9996494321978944 date=2026-10-10
+extern "C" void _ReadWriteBarrier();
+#pragma intrinsic(_ReadWriteBarrier)
+// ?GadgetListBoxSystem@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z
 // partial score=0.99 date=2026-10-10
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
 // List box hit testing, the Zero Hour GadgetListBox.cpp statics BFME2 keeps:
@@ -1336,7 +1340,7 @@ WindowMsgHandledType GadgetListBoxSystem(GameWindow *window, UnsignedInt msg,
 			else
 				list->displayPos = 0;
 
-			if (list->displayPos + list->displayHeight >= list->totalHeight)
+			if (list->displayPos + (list ? list->displayHeight : list->displayHeight) >= list->totalHeight)
 				list->displayPos = list->totalHeight - list->displayHeight;
 
 			Rva00324AE5Update(window, 0, TRUE);
