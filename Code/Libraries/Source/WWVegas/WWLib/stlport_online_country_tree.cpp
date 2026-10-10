@@ -156,3 +156,11 @@ template CountryTree::iterator CountryTree::_M_insert(_STL::_Rb_tree_node_base *
 template CountryTree::_Link_type CountryTree::_M_create_node(const CountryPair &);
 template int &CountryMap::operator[](const UnicodeString &);
 template CountryTree::_Link_type CountryTree::_M_lower_bound(const UnicodeString &) const;
+
+// Native56FCC2..56FCC7 forwards this unchanged to the owned country-tree dtor.
+// Original wrapper name and enclosing type are unknown.
+struct Rva0056FCC2CountryTreeCleanupForward { void cleanup(); };
+void Rva0056FCC2CountryTreeCleanupForward::cleanup()
+{
+    reinterpret_cast<CountryTree *>(this)->~CountryTree();
+}
