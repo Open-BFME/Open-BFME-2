@@ -1,4 +1,6 @@
 // ?changeToFormation@HordeContain@@UAEXPBVThingTemplate@@@Z
+// partial score=0.8873347025104987 date=2026-10-10
+// ?changeToFormation@HordeContain@@UAEXPBVThingTemplate@@@Z
 // partial score=0.8 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /ICode/GameEngine/Source /DNDEBUG /MD /EHs
 //
@@ -25,7 +27,7 @@
 // The list uses a TU-local _STL view: the pinned ctor 0x001EB984, the pinned
 // find 0x0029B694, and the rowed disposal 0x001EB769 (nothrow).
 #include <string.h>
-#include "Common/GameLogicObjectLookupView.h"
+#include "/mnt/titan_nv3/open-bfme2-agent-fleet/gemini200/writer-005/Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
 
 typedef int Int;
 typedef unsigned int UnsignedInt;
@@ -42,15 +44,16 @@ public:
 extern void *g_freeList001EB130;
 extern GameLogic *TheGameLogic;
 
-namespace _STL
-{
-template <class T> class allocator
+template <class T> class Rva001EB984PoolAllocator
 {
 public:
-	allocator() throw() {}
-	allocator(const allocator &) throw() {}
-	~allocator() throw() {}
+	Rva001EB984PoolAllocator() throw() {}
+	Rva001EB984PoolAllocator(const Rva001EB984PoolAllocator &) throw() {}
+	~Rva001EB984PoolAllocator() throw() {}
 };
+namespace _STL
+{
+
 struct _List_node_base
 {
 	_List_node_base *_M_next;
@@ -101,7 +104,7 @@ template <class InputIter> inline Int distance(const InputIter &first, const Inp
 {
 	return __distance(first, last);
 }
-template <class T, class A = allocator<T> > class list : public _List_base<T, A>
+template <class T, class A = Rva001EB984PoolAllocator<T> > class list : public _List_base<T, A>
 {
 public:
 	typedef _List_iterator<T, _Nonconst_traits<T> > iterator;
@@ -230,7 +233,7 @@ class Object
 public:
 	Drawable *getDrawable() const;
 	void SwapForExchange(Object *other);
-	Module *findModule(NameKeyType key) const;
+	protected:friend class HordeContain; Module *findModule(NameKeyType key) const; public:
 	void clearModelConditionFlagsForHorde(const int *flags);
 	void makeDirty();
 	Team *getTeam() const { return m_team; }
