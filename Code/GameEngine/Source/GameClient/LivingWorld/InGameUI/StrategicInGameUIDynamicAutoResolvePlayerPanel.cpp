@@ -20,6 +20,15 @@
 #include <map>
 #include "ascii_string.h"
 #include "unicode_string.h"
+
+// map/set<int> internals otherwise instantiate the less<int>::operator()
+// COMDAT (one byte shape per TU flags); an explicit dllimport+forceinline
+// specialization takes those calls inline so this TU emits no external copy.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+bool less<int>::operator()(const int &a, const int &b) const
+{ return a < b; }
+}
 class Rva0007DF07 {public:__forceinline Rva0007DF07():zero(0){} virtual ~Rva0007DF07(){} private:void *zero;};
 class Rva005FBBEE {public:Rva005FBBEE(unsigned,const AsciiString&);virtual ~Rva005FBBEE();private:void *impl;};
 class Rva005FBBFC {public:void rva005FBBFC(const UnicodeString&);};

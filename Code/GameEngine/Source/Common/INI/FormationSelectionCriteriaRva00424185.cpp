@@ -16,6 +16,15 @@
 #include <map>
 #include <float.h>
 #include "Common/INIException.h"
+
+// map/set<int> internals otherwise instantiate the less<int>::operator()
+// COMDAT (one byte shape per TU flags); an explicit dllimport+forceinline
+// specialization takes those calls inline so this TU emits no external copy.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+bool less<int>::operator()(const int &a, const int &b) const
+{ return a < b; }
+}
 class INI;
 typedef void (*Parser)(INI*,void*,void*,const void*);
 struct FieldParse {const char* name;Parser parse;const void* data;unsigned offset;};
