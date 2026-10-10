@@ -145,6 +145,18 @@ private:
 class AptCommandMapAdder : public Rva0052413E
 {
 public:
+	// Declared, not defined: the calls resolve to the pins, and this unit
+	// emits no copy of its own. ??0 resolves to 0x001F81BF (ICF-folded
+	// 12-byte vector default ctor); ??1 resolves to 0x0052413E, where
+	// retail folded the derived dtor onto ??1Rva0052413E (rowed, 47B:
+	// clear 0x00523F22 then vector dtor 0x0002CC70). The derived class
+	// adds no data, so the base body is the whole destruction. Emitting
+	// the implicit versions here produced COMDAT copies the link kept
+	// ahead of the ledger owner (S ??1AptCommandMapAdder, L
+	// ??0AptCommandMapAdder); the mangled calls in this unit's own
+	// ctor/dtor are byte-identical either way.
+	AptCommandMapAdder();
+	~AptCommandMapAdder();
 	void AddCommandMap(const AsciiString &name, AptRef<AptCommandMap> map);
 };
 
