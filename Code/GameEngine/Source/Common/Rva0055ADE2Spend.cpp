@@ -1,11 +1,13 @@
 // cl: /MD
 // Retail compares the two floats with fcomi, a P6 instruction MSVC 7.1 emits
 // only under /arch:SSE; /O1 /G6 alone gives fcom/fnstsw.
-// ?doBuild@AIBuildable@@QAEXPAVPlayer@@@Z @0x0055ADE2 147B
-// __thiscall void (Player*): lookup store via g_00DFEEF8 map, amount=(int)(v09-cost),
+// ?doBuild@AIBuildable@@QAE_NPAVPlayer@@@Z @0x0055ADE2 147B
+// __thiscall bool (Player*): lookup store via g_00DFEEF8 map, amount=(int)(v09-cost),
 // gated by +0x21 bool and float compare, spend via rowed 0x005963C8, tail v15.
 // Evidence: chain from 0x005963C8; callees rowed 0x002A8F24 0x00629228;
 // callers 0x004ECCE2; +0x21 bool matches Rva0055B0CC layout; vslots 0x24/0x3c.
+// Native AIBuilder update4ECCE2 tests AL immediately after this call;
+// bool return is a target fact. The final virtual slot15 result is forwarded.
 class Player
 {
 public:
@@ -46,14 +48,14 @@ public:
 	virtual void v12();
 	virtual void v13();
 	virtual void v14();
-	virtual void v15(Player *p);
-	void doBuild(Player *player);
+	virtual bool v15(Player *p);
+	bool doBuild(Player *player);
 private:
 	char m_pad04[0x21 - 4];
 	bool m_flag21;
 };
 
-void AIBuildable::doBuild(Player *player)
+bool AIBuildable::doBuild(Player *player)
 {
 	void *store = g_00DFEEF8->rva002A8F24(player);
 	unsigned int c1 = (unsigned int)player->m_cost94;
@@ -67,5 +69,5 @@ void AIBuildable::doBuild(Player *player)
 			}
 		}
 	}
-	v15(player);
+	return v15(player);
 }
