@@ -47,7 +47,8 @@ public:
 
 extern ScienceStore *TheScienceStore;
 
-extern int g_Va009FE78C;
+class GameLogic;
+extern GameLogic *TheGameLogic;
 
 class Rva0043D3DA
 {
@@ -65,7 +66,7 @@ private:
 void Rva0043D3DA::rva0043D3DA(int unused)
 {
 	(void)unused;
-	if (*(int *)(g_Va009FE78C + 0x110) == 6) {
+	if (*(int *)((char *)TheGameLogic + 0x110) == 6) {
 		if (*(unsigned char *)((reinterpret_cast<int>(TheInGameUI)) + 0x16) == 0)
 			return;
 	}
@@ -84,4 +85,3 @@ void Rva0043D3A8::rva0043D5CB(ScienceType science)
 	m_unk14 += cost;
 }
 // ?g_Va009FE78C@@3HA: the global at VA 0xdfe78c is ?TheGameLogic@@3PAVGameLogic@@A.
-#pragma comment(linker, "/alternatename:?g_Va009FE78C@@3HA=?TheGameLogic@@3PAVGameLogic@@A")

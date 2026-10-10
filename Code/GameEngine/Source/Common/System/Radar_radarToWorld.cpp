@@ -40,7 +40,8 @@ public:
 	virtual float getGroundHeight(float x, float y, Coord3D *normal = NULL);
 };
 
-extern BfmeTerrainHeightView *TheTerrainLogic;
+class TerrainLogic;
+extern TerrainLogic *TheTerrainLogic;
 
 class Radar
 {
@@ -74,7 +75,7 @@ bool Radar::radarToWorld(const ICoord2D *radar, Coord3D *world)
 	world->x = x * m_xSample;
 	world->y = y * m_ySample;
 
-	BfmeTerrainHeightView *terrain = TheTerrainLogic;
+	BfmeTerrainHeightView *terrain = (BfmeTerrainHeightView *)TheTerrainLogic;
 	world->z = terrain->getGroundHeight(world->x, world->y);
 
 	return true;
@@ -100,4 +101,3 @@ bool Radar::worldToRadar(const Coord3D *world, ICoord2D *radar)
 	return true;
 }
 // ?TheTerrainLogic@@3PAVBfmeTerrainHeightView@@A: the global at VA 0xdfec50 is ?TheTerrainLogic@@3PAVTerrainLogic@@A.
-#pragma comment(linker, "/alternatename:?TheTerrainLogic@@3PAVBfmeTerrainHeightView@@A=?TheTerrainLogic@@3PAVTerrainLogic@@A")

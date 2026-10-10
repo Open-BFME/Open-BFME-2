@@ -13,7 +13,8 @@ struct TerrainLogicMirror
 	bool flag1914;
 };
 
-extern TerrainLogicMirror *TheTerrainLogic;
+class TerrainLogic;
+extern TerrainLogic *TheTerrainLogic;
 
 struct Rva003BC392Holder
 {
@@ -25,7 +26,6 @@ void Rva003BC392Holder::set(bool enabled)
 {
 	if (TheTerrainLogic == 0)
 		return;
-	TheTerrainLogic->flag1914 = enabled;
+	((TerrainLogicMirror *)TheTerrainLogic)->flag1914 = enabled;
 }
 // ?TheTerrainLogic@@3PAUTerrainLogicMirror@@A: the global at VA 0xdfec50 is ?TheTerrainLogic@@3PAVTerrainLogic@@A.
-#pragma comment(linker, "/alternatename:?TheTerrainLogic@@3PAUTerrainLogicMirror@@A=?TheTerrainLogic@@3PAVTerrainLogic@@A")

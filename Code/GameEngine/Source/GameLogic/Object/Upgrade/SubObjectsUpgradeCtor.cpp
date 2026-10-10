@@ -30,8 +30,9 @@ extern "C" const void *const vtbl_00C57C40[];  // ??_7Rva004B4CDF@@6BObjectModul
 class Thing;
 class ModuleData;
 
-struct GameLogic
+class GameLogic
 {
+public:
 	void *m_pad[16];
 	void *m_40;
 };
@@ -67,4 +68,3 @@ SubObjectsUpgrade::SubObjectsUpgrade(Thing *thing, const ModuleData *moduleData)
 	m_20 = 0;
 }
 // ?TheGameLogic@@3PAUGameLogic@@A: the global at VA 0xdfe78c is ?TheGameLogic@@3PAVGameLogic@@A.
-#pragma comment(linker, "/alternatename:?TheGameLogic@@3PAUGameLogic@@A=?TheGameLogic@@3PAVGameLogic@@A")

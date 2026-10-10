@@ -106,5 +106,4 @@ bool ScriptConditions::evaluatePlayerHasNumberObjectsWithModelCondition(Paramete
 }
 
 // ?TheScriptEngine@@3PAVScriptEngine@@A: the global at this VA is ?TheScriptEngine@@3PAVScriptEngine@@A; this name is an alias for it.
-#pragma comment(linker, "/alternatename:?TheDebugWindowInterface@@3PAXA=?TheScriptEngine@@3PAVScriptEngine@@A")
 // ?TheScriptEngine@@3PAVScriptEngine@@A: the global at VA 0xdfe16c is ?TheScriptEngine@@3PAVScriptEngine@@A.

@@ -49,7 +49,8 @@ public:
 	void rva0023D661(int val);
 };
 
-extern Rva0023D661 *g_009FE78C;
+class GameLogic;
+extern GameLogic *TheGameLogic;
 
 class AIGateUpdate : public UpdateModule, public MiBase1, public AIGateUpdate_B2
 {
@@ -65,9 +66,8 @@ AIGateUpdate::~AIGateUpdate()
 	Rva002E36D5Node *node = (Rva002E36D5Node *)Rva002E36D5Find(m_24);
 	if (node) {
 		Rva002E3714Unlink(node);
-		g_009FE78C->rva0023D661((int)node);
+		((Rva0023D661 *)TheGameLogic)->rva0023D661((int)node);
 		::delete node;
 	}
 }
 // ?g_009FE78C@@3PAVRva0023D661@@A: the global at VA 0xdfe78c is ?TheGameLogic@@3PAVGameLogic@@A.
-#pragma comment(linker, "/alternatename:?g_009FE78C@@3PAVRva0023D661@@A=?TheGameLogic@@3PAVGameLogic@@A")

@@ -148,7 +148,8 @@ public:
 	virtual void d65(); virtual void d66(); virtual void d67(); virtual void slot68();
 };
 
-extern DisplayManager *TheDisplay;
+class Display;
+extern Display *TheDisplay;
 
 class Rva003563A7 : public Rva00355D66
 {
@@ -161,10 +162,7 @@ private:
 };
 
 // ?TheDisplay@@3PAVDisplayManager@@A: the global at this VA is ?TheDisplay@@3PAVDisplay@@A; this name is an alias for it.
-#pragma comment(linker, "/alternatename:?TheDisplay@@3PAVDisplayManager@@A=?TheDisplay@@3PAVDisplay@@A")
-#pragma comment(linker, "/alternatename:?TheDisplay@@3PAVDisplayInterface@@A=?TheDisplay@@3PAVDisplay@@A")
 // ?TheDisplay@@3PAVDisplayManager@@A: the global at VA 0xdfe9d8 is ?TheDisplay@@3PAVDisplay@@A.
-#pragma comment(linker, "/alternatename:?TheDisplay@@3PAVDisplayManager@@A=?TheDisplay@@3PAVDisplay@@A")
 
 // ?rva00356413@Rva00355F3E@@UAEXH@Z @0x00356413 35B slot 1 of vtable 0x00814E8C
 // Evidence: vslot lane; TheNetwork slot 0x40 with 0 then LoadScreen::update pin 0x00355FF9 with arg

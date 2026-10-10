@@ -74,7 +74,8 @@ protected:
 };
 
 extern ScriptEngine *TheScriptEngine;
-extern TerrainLogicByValue *TheTerrainLogic;
+class TerrainLogic;
+extern TerrainLogic *TheTerrainLogic;
 
 void ScriptActions::doNamedFireWeaponFollowingWaypointPath(const AsciiString &unitName,
     const AsciiString &waypointPathLabel)
@@ -86,7 +87,7 @@ void ScriptActions::doNamedFireWeaponFollowingWaypointPath(const AsciiString &un
     pos.x = unit->m_position.x;
     pos.y = unit->m_position.y;
     pos.z = unit->m_position.z;
-    Waypoint *waypoint = TheTerrainLogic->getClosestWaypointOnPath(&pos, waypointPathLabel);
+    Waypoint *waypoint = ((TerrainLogicByValue *)TheTerrainLogic)->getClosestWaypointOnPath(&pos, waypointPathLabel);
     if (!waypoint)
         return;
     RvaWeaponSlot *slot = unit->rva0028AEEA();

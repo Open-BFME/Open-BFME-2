@@ -34,13 +34,13 @@ struct AIMid
 	AIInner *m_ptr;
 };
 // ?TheAI@@3PAUAIMid@@A: the global at this VA is ?TheAI@@3PAVAI@@A; this name is an alias for it.
-extern AIMid * TheAI;
-#pragma comment(linker, "/alternatename:?TheAI@@3PAUAIMid@@A=?TheAI@@3PAVAI@@A")
+class AI;
+extern AI *TheAI;
 
 float __cdecl Rva00545239Get(void *objPtr)
 {
 	Object *obj = (Object *)objPtr;
-	float val = TheAI->m_ptr->m_rate;
+	float val = ((AIMid *)TheAI)->m_ptr->m_rate;
 	const Weapon *w = obj->getCurrentWeapon((WeaponSlotType *)0);
 	if (w) {
 		const Weapon *w2 = obj->getCurrentWeapon((WeaponSlotType *)0);

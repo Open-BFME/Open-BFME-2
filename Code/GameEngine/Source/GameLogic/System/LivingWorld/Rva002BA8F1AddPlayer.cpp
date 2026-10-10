@@ -41,7 +41,8 @@ struct Rva002000D7Config { char at00[0x34]; int at34; };
 class Rva002000D7Store { public: Rva002000D7Config *get(int); };
 extern Rva002000D7Store *Va00DFE0ECStore;
 struct Va00DFE78CState { char at00[0x114]; int at114; };
-extern Va00DFE78CState *Va00DFE78CStatePointer;
+class GameLogic;
+extern GameLogic *TheGameLogic;
 struct Rva002BA8F1Slot { char at00[0x4c]; int at4C; };
 struct Rva002BA8F1Listener { char opaque[4]; };
 class Rva005A0B4CList { public: void append(Rva002BA8F1Listener *); char opaque[12]; };
@@ -86,7 +87,7 @@ void Rva002BA8F1Logic::addPlayer(Rva002BA8F1Input *input, bool local, int kind, 
     else if (kind == 0) player->state0();
     else player->state1();
     if (second) player->attach(second);
-    if (Va00DFE78CStatePointer->at114 != 3) player->initialize();
+    if (((Va00DFE78CState *)TheGameLogic)->at114 != 3) player->initialize();
     player->listeners.append(this);
 }
 
@@ -95,4 +96,3 @@ Rva002E18C3Lookup *Va00DFF0B0Lookup, * Va00E03140Lookup;
 // ?Va00DFE0ECStore@@3PAVRva002000D7Store@@A: the global at VA 0xdfe0ec is ?TheRankInfoStore@@3PAVRankInfoStore@@A.
 #pragma comment(linker, "/alternatename:?Va00DFE0ECStore@@3PAVRva002000D7Store@@A=?TheRankInfoStore@@3PAVRankInfoStore@@A")
 // ?Va00DFE78CStatePointer@@3PAUVa00DFE78CState@@A: the global at VA 0xdfe78c is ?TheGameLogic@@3PAVGameLogic@@A.
-#pragma comment(linker, "/alternatename:?Va00DFE78CStatePointer@@3PAUVa00DFE78CState@@A=?TheGameLogic@@3PAVGameLogic@@A")

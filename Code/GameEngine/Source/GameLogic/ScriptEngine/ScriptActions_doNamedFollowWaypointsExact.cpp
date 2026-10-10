@@ -67,7 +67,8 @@ protected:
 };
 
 extern ScriptEngine *TheScriptEngine;
-extern TerrainLogicByValue *TheTerrainLogic;
+class TerrainLogic;
+extern TerrainLogic *TheTerrainLogic;
 
 void ScriptActions::doNamedFollowWaypointsExact(const AsciiString &unitName,
     const AsciiString &waypointPathLabel)
@@ -80,7 +81,7 @@ void ScriptActions::doNamedFollowWaypointsExact(const AsciiString &unitName,
     pos.z = unit->m_position.z;
     AIUpdateInterface *ai = unit->m_ai;
     if (!ai) return;
-    Waypoint *waypoint = TheTerrainLogic->getClosestWaypointOnPath(&pos,
+    Waypoint *waypoint = ((TerrainLogicByValue *)TheTerrainLogic)->getClosestWaypointOnPath(&pos,
         waypointPathLabel);
     if (!waypoint) return;
     unit->leaveGroup();

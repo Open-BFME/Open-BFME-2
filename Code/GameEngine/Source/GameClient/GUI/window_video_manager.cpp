@@ -82,7 +82,13 @@ template <> const unsigned int &max<unsigned int>(const unsigned int &, const un
 #include "window_video_manager.h"
 #include "game_window.h"
 #include "video_player.h"
+// display.h (shim bfme_windowvideo) declares TheDisplay as its private DisplayInterface
+// view; spell that declaration aside and bind the one global, ?TheDisplay@@3PAVDisplay@@A.
+#define TheDisplay TheDisplay_displayInterfaceView
 #include "display.h"
+#undef TheDisplay
+class Display;
+extern Display *TheDisplay;
 
 //-----------------------------------------------------------------------------
 // DEFINES ////////////////////////////////////////////////////////////////////
@@ -293,7 +299,7 @@ void WindowVideoManager::playMovie( GameWindow *win, AsciiString movieName, Wind
 	}
 
 	// BFME2: the stream takes ownership of a display-created buffer (vtable +0x38)
-	if ( !videoStream->attach( TheDisplay->createVideoBuffer( false ) ) )
+	if ( !videoStream->attach( ((DisplayInterface *)TheDisplay)->createVideoBuffer( false ) ) )
 	{
 		videoStream->close();
 		return;
@@ -444,7 +450,6 @@ Int WindowVideoManager::getWinState( GameWindow *win )
 // PRIVATE FUNCTIONS //////////////////////////////////////////////////////////
 //-----------------------------------------------------------------------------
 // ?TheDisplay@@3PAVDisplayInterface@@A: the global at VA 0xdfe9d8 is ?TheDisplay@@3PAVDisplay@@A.
-#pragma comment(linker, "/alternatename:?TheDisplay@@3PAVDisplayInterface@@A=?TheDisplay@@3PAVDisplay@@A")
 
 // Callers elsewhere reach this body through a spelling pinned to the same retail
 // address with the same calling convention; bind it here.

@@ -144,8 +144,9 @@ private:
 	Int m_totalBuildingsLost;           // +0xCC
 };
 
-struct GameLogic
+class GameLogic
 {
+public:
 	Object *getFirstObject();
 	UnsignedInt getFrame() const { return m_frame; }
 
@@ -153,7 +154,7 @@ struct GameLogic
 	UnsignedInt m_frame;
 };
 
-extern void *TheGameLogic;
+extern GameLogic *TheGameLogic;
 
 class ThingTemplate
 {
@@ -544,15 +545,7 @@ void StatsCollector::writeStatInfo()
 }
 
 // ?TheGameLogic@@3PAXA: the global at this VA is ?TheGameLogic@@3PAVGameLogic@@A; this name is an alias for it.
-#pragma comment(linker, "/alternatename:?TheGameLogic@@3PAXA=?TheGameLogic@@3PAVGameLogic@@A")
-#pragma comment(linker, "/alternatename:?Va00DFE78CStatePointer@@3PAUVa00DFE78CState@@A=?TheGameLogic@@3PAVGameLogic@@A")
-#pragma comment(linker, "/alternatename:?g_bfmeRva42E8C1Holder@@3PAUBfmeRva42E8C1Limit@@A=?TheGameLogic@@3PAVGameLogic@@A")
-#pragma comment(linker, "/alternatename:?g_009FE78C@@3PAVRva0023D661@@A=?TheGameLogic@@3PAVGameLogic@@A")
-#pragma comment(linker, "/alternatename:?g_009FE78C@@3PAUGameLogic@@A=?TheGameLogic@@3PAVGameLogic@@A")
-#pragma comment(linker, "/alternatename:?g_Va009FE78C@@3HA=?TheGameLogic@@3PAVGameLogic@@A")
-#pragma comment(linker, "/alternatename:?TheGameLogic@@3PAUGameLogic@@A=?TheGameLogic@@3PAVGameLogic@@A")
 // ?TheGameLogic@@3PAXA: the global at VA 0xdfe78c is ?TheGameLogic@@3PAVGameLogic@@A.
-#pragma comment(linker, "/alternatename:?TheGameLogic@@3PAXA=?TheGameLogic@@3PAVGameLogic@@A")
 
 // WB128A190 names writeInitialFileInfo; native437755..437921 is full460B.
 // Reference: GeneralsMD StatsCollector.cpp writeInitialFileInfo via verified

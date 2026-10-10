@@ -190,7 +190,9 @@ public:
 	bool m_10c; // +0x10C
 };
 
-extern DisplayManager *TheDisplay;
+class Display;
+extern Display *TheDisplay;
+#define TheDisplayManager ((DisplayManager *)TheDisplay)
 
 class AudioManager
 {
@@ -219,7 +221,7 @@ private:
 
 Rva003563A7::~Rva003563A7()
 {
-	TheDisplay->slot68();
+	TheDisplayManager->slot68();
 }
 
 // ??0Rva003563A7@@QAE@ABV?$StringBase@D@@@Z @0x00356367 64B: the matching
@@ -242,21 +244,18 @@ void Rva003563A7::rva00356B16(int)
 	if (((const StringBase<char> *)&m_str)->isEmpty())
 		return;
 	if (TheDisplay)
-		TheDisplay->slot72(m_str, 0x800014);
-	TheDisplay->m_10c = true;
+		TheDisplayManager->slot72(m_str, 0x800014);
+	TheDisplayManager->m_10c = true;
 	TheAudio->slot20(2);
 	TheAudio->slot10();
 }
 
 void Rva003563A7::rva00355EE1()
 {
-	TheDisplay->slot68();
+	TheDisplayManager->slot68();
 	m_win = 0;
 	m_pad10 = false;
 }
 
 // ?TheDisplay@@3PAVDisplayManager@@A: the global at this VA is ?TheDisplay@@3PAVDisplay@@A; this name is an alias for it.
-#pragma comment(linker, "/alternatename:?TheDisplay@@3PAVDisplayManager@@A=?TheDisplay@@3PAVDisplay@@A")
-#pragma comment(linker, "/alternatename:?TheDisplay@@3PAVDisplayInterface@@A=?TheDisplay@@3PAVDisplay@@A")
 // ?TheDisplay@@3PAVDisplayManager@@A: the global at VA 0xdfe9d8 is ?TheDisplay@@3PAVDisplay@@A.
-#pragma comment(linker, "/alternatename:?TheDisplay@@3PAVDisplayManager@@A=?TheDisplay@@3PAVDisplay@@A")

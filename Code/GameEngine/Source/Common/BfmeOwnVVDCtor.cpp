@@ -91,7 +91,8 @@ extern BfmeOwnVVD *g_bfmeSingletonVVD;
 BfmeOwnVVD * g_bfmeSingletonVVD;
 
 struct BfmeRva42E8C1Limit { char m_pad[0x40]; unsigned int m_40; };
-extern BfmeRva42E8C1Limit *g_bfmeRva42E8C1Holder;
+class GameLogic;
+extern GameLogic *TheGameLogic;
 extern unsigned int g_bfmeRva42E8C1Add;
 
 // ??0BfmeOwnVVD@@QAE@XZ
@@ -131,9 +132,9 @@ BfmeOwnVVD::~BfmeOwnVVD()
 unsigned char BfmeOwnVVD::Rva0042E8C1()
 {
 	unsigned int &slot = m_150;
-	if (slot > g_bfmeRva42E8C1Holder->m_40)
+	if (slot > ((BfmeRva42E8C1Limit *)TheGameLogic)->m_40)
 		slot = 0;
-	return slot + g_bfmeRva42E8C1Add >= g_bfmeRva42E8C1Holder->m_40;
+	return slot + g_bfmeRva42E8C1Add >= ((BfmeRva42E8C1Limit *)TheGameLogic)->m_40;
 }
 
 // ?rva0042E804@BfmeOwnVVD@@QAEXXZ @0x0042E804 88B evidence: same BfmeOwnVVD layout m_1c m_38 m_39 m_148 callers 0x0042EA56 0x0042ED42 TheInGameUI slot 0xa4 TheTacticalView slot 0x1a4 TheMouse slot 0x4c StatsCollector endScrollTime row
@@ -404,6 +405,5 @@ void BfmeOwnVVD::rva0042E75F(unsigned int arg)
 #pragma comment(linker, "/alternatename:?g_bfmeRva42E8C1Add@@3IA=?g_Va00DBA4E4@@3HA")
 #pragma comment(linker, "/alternatename:?g_009BA4E4@@3HB=?g_Va00DBA4E4@@3HA")
 // ?g_bfmeRva42E8C1Holder@@3PAUBfmeRva42E8C1Limit@@A: the global at VA 0xdfe78c is ?TheGameLogic@@3PAVGameLogic@@A.
-#pragma comment(linker, "/alternatename:?g_bfmeRva42E8C1Holder@@3PAUBfmeRva42E8C1Limit@@A=?TheGameLogic@@3PAVGameLogic@@A")
 // ?g_bfmeRva42E8C1Add@@3IA: the global at VA 0xdba4e4 is ?g_Va00DBA4E4@@3HA.
 #pragma comment(linker, "/alternatename:?g_bfmeRva42E8C1Add@@3IA=?g_Va00DBA4E4@@3HA")

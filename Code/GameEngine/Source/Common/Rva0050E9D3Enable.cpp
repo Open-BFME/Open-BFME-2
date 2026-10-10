@@ -60,12 +60,13 @@ void Rva004E400DEnable(void)
 // parameter is dead (ret 4, never read); __stdcall for the callee cleanup.
 // One caller at 0x004E44EF.
 struct Global9FE78C { char m_pad[0x110]; int m_val; };
-extern Global9FE78C *g_Va009FE78C;
+class GameLogic;
+extern GameLogic *TheGameLogic;
 struct Global9FEDF0 { char m_pad[0x16]; unsigned char m_flag; };
 
 void __stdcall Rva004E40A6Enable(int unused)
 {
-	if (g_Va009FE78C->m_val != 6 || (*(Global9FEDF0 **)&TheInGameUI)->m_flag != 0)
+	if (((Global9FE78C *)TheGameLogic)->m_val != 6 || (*(Global9FEDF0 **)&TheInGameUI)->m_flag != 0)
 		Rva004E400DEnable();
 }
 
@@ -276,12 +277,13 @@ struct Rva0043C933Outer
 	char m_pad[0x10];
 	Rva0043C933Mid *m_mid;
 };
-extern Rva0043C933Outer *g_Va009FEEE8;
+class PlayerList;
+extern PlayerList *ThePlayerList;
 int Rva0043C933Get(void)
 {
-	if (((BfmeGlob939D *)g_Va009FE78C)->bfmeCall939D())
+	if (((BfmeGlob939D *)TheGameLogic)->bfmeCall939D())
 		return 2;
-	Rva0043C933Mid *mid = g_Va009FEEE8->m_mid;
+	Rva0043C933Mid *mid = ((Rva0043C933Outer *)ThePlayerList)->m_mid;
 	if (mid != 0)
 	{
 		Rva0043C933Sub *sub = mid->m_sub;
@@ -323,8 +325,6 @@ int Rva0043C99AGet(void)
 #pragma comment(linker, "/alternatename:?g_Va009FE4CC@@3PAVDummy24@@A=?g_bfmeAptWindowManager@@3PAVBfmeAptWindowManager@@A")
 #pragma comment(linker, "/alternatename:?g_Va009FE4CC@@3PAVRva00224705@@A=?g_bfmeAptWindowManager@@3PAVBfmeAptWindowManager@@A")
 // ?g_Va009FEEE8@@3PAURva0043C933Outer@@A: the global at this VA is ?ThePlayerList@@3PAVPlayerList@@A; this name is an alias for it.
-#pragma comment(linker, "/alternatename:?g_Va009FEEE8@@3PAURva0043C933Outer@@A=?ThePlayerList@@3PAVPlayerList@@A")
-#pragma comment(linker, "/alternatename:?TheShroudKeyBase@@3PAUShroudKeyBase@@A=?ThePlayerList@@3PAVPlayerList@@A")
 // ?g_Va00A03314@@3PAUGlobalA03314@@A: matched references place it at VA 0xe03314; also referenced as ?g_Va00E03314@@3HA.
 GlobalA03314 * g_Va00A03314 = 0;
 #pragma comment(linker, "/alternatename:?g_Va00E03314@@3HA=?g_Va00A03314@@3PAUGlobalA03314@@A")
@@ -337,6 +337,4 @@ GlobalA046B4 * g_Va00A046B4 = 0;
 // ?g_Va009FE4CC@@3PAVRva00222479ByteOneSetter@@A: the global at VA 0xdfe4cc is ?g_bfmeAptWindowManager@@3PAVBfmeAptWindowManager@@A.
 #pragma comment(linker, "/alternatename:?g_Va009FE4CC@@3PAVRva00222479ByteOneSetter@@A=?g_bfmeAptWindowManager@@3PAVBfmeAptWindowManager@@A")
 // ?g_Va009FEEE8@@3PAURva0043C933Outer@@A: the global at VA 0xdfeee8 is ?ThePlayerList@@3PAVPlayerList@@A.
-#pragma comment(linker, "/alternatename:?g_Va009FEEE8@@3PAURva0043C933Outer@@A=?ThePlayerList@@3PAVPlayerList@@A")
 // ?g_Va009FE78C@@3PAUGlobal9FE78C@@A: the global at VA 0xdfe78c is ?TheGameLogic@@3PAVGameLogic@@A.
-#pragma comment(linker, "/alternatename:?g_Va009FE78C@@3PAUGlobal9FE78C@@A=?TheGameLogic@@3PAVGameLogic@@A")

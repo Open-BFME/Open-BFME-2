@@ -63,14 +63,15 @@ protected:
     void doNamedFaceWaypoint(const AsciiString &, const AsciiString &);
 };
 extern ScriptEngine *TheScriptEngine;
-extern TerrainLogicByValue *TheTerrainLogic;
+class TerrainLogic;
+extern TerrainLogic *TheTerrainLogic;
 
 void ScriptActions::doNamedFaceWaypoint(const AsciiString &unitName,
     const AsciiString &waypointName)
 {
     Object *unit = TheScriptEngine->getUnitNamed(unitName);
     if (!unit) return;
-    Waypoint *waypoint = TheTerrainLogic->getWaypointByName(waypointName);
+    Waypoint *waypoint = ((TerrainLogicByValue *)TheTerrainLogic)->getWaypointByName(waypointName);
     if (!waypoint) return;
     AIUpdateInterface *ai = unit->aiUpdate();
     if (!ai) return;

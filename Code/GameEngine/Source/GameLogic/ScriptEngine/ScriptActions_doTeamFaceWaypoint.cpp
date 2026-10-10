@@ -92,14 +92,15 @@ protected:
     void rva003C9BAD(const AsciiString &);
 };
 extern ScriptEngine *TheScriptEngine;
-extern TerrainLogicByValue *TheTerrainLogic;
+class TerrainLogic;
+extern TerrainLogic *TheTerrainLogic;
 
 void ScriptActions::doTeamFaceWaypoint(const AsciiString &teamName,
     const AsciiString &waypointName)
 {
     Team *team = TheScriptEngine->getTeamNamed((AsciiString &)teamName, false);
     if (!team) return;
-    Waypoint *waypoint = TheTerrainLogic->getWaypointByName(waypointName);
+    Waypoint *waypoint = ((TerrainLogicByValue *)TheTerrainLogic)->getWaypointByName(waypointName);
     if (!waypoint) return;
     DLINK_ITERATOR<Object> iter;
     iter = team->iterate_TeamMemberList();
@@ -134,8 +135,4 @@ void ScriptActions::rva003C9BAD(const AsciiString &teamName)
 }
 
 // ?TheTerrainLogic@@3PAVTerrainLogicByValue@@A: the global at this VA is ?TheTerrainLogic@@3PAVTerrainLogic@@A; this name is an alias for it.
-#pragma comment(linker, "/alternatename:?TheTerrainLogic@@3PAVTerrainLogicByValue@@A=?TheTerrainLogic@@3PAVTerrainLogic@@A")
-#pragma comment(linker, "/alternatename:?TheTerrainLogic@@3PAVBfmeTerrainHeightView@@A=?TheTerrainLogic@@3PAVTerrainLogic@@A")
-#pragma comment(linker, "/alternatename:?TheTerrainLogic@@3PAUTerrainLogicMirror@@A=?TheTerrainLogic@@3PAVTerrainLogic@@A")
 // ?TheTerrainLogic@@3PAVTerrainLogicByValue@@A: the global at VA 0xdfec50 is ?TheTerrainLogic@@3PAVTerrainLogic@@A.
-#pragma comment(linker, "/alternatename:?TheTerrainLogic@@3PAVTerrainLogicByValue@@A=?TheTerrainLogic@@3PAVTerrainLogic@@A")

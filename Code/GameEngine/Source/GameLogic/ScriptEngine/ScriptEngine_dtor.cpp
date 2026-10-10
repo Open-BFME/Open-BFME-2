@@ -279,7 +279,8 @@ public:
 };
 
 static Rva0020453CHolder *TheDebugWindowHolder;
-extern void *TheDebugWindowInterface;
+class ScriptEngine;
+extern ScriptEngine *TheScriptEngine;
 
 static HMODULE st_DebugDLL;
 
@@ -328,7 +329,7 @@ private:
 
 ScriptEngine::~ScriptEngine()
 {
-	TheDebugWindowInterface = 0;
+	TheScriptEngine = 0;
 	BfmeDualVtableReleaseDtor().swap(TheFXParticleEditor);
 
 	delete TheDebugWindowHolder;
@@ -347,4 +348,3 @@ ScriptEngine::~ScriptEngine()
 	reset();
 }
 // ?TheDebugWindowInterface@@3PAXA: the global at VA 0xdfe16c is ?TheScriptEngine@@3PAVScriptEngine@@A.
-#pragma comment(linker, "/alternatename:?TheDebugWindowInterface@@3PAXA=?TheScriptEngine@@3PAVScriptEngine@@A")
