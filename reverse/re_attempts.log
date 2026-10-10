@@ -36475,3 +36475,4 @@ Rva00226588Stub	0x00226588	214	blocked	Retail body carries 0xCFCECDCC/0xCECDCCCB
 ?rva005003DF@Rva005003DF@@QBEHHABHPAH@Z	0x005003DF	235	landed	add_match verified Code/GameEngine/Source/GameLogic/Object/Rva005003DF.cpp 235B; S2 r9 sweep: phiA@82:72 (same-valued PHI keeps retail operand order)
 ??1AptPlayerStatus@@UAE@XZ	0x004E4655	240	landed	add_match verified Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptPlayerStatusDtor.cpp 240B; S2 r9 sweep: phiA@279:48 (same-valued PHI keeps retail operand order)
 ?rva00343FB0@@YA_NPAVObject@@@Z	0x00343FB0	173	landed	add_match verified Code/GameEngine/Source/GameLogic/AI/Rva00343FB0.cpp 173B; S2 r9 sweep: phiA@465:69 (same-valued PHI keeps retail operand order)
+?rva004EA1A5@Rva004EA1A5@@QAEXPAX@Z	0x004EA1A5	191	landed	add_match verified Code/GameEngine/Source/Common/Rva004EA1A5.cpp 191B; S2 r9 sweep: phiA@104:38 (same-valued PHI keeps retail operand order)
