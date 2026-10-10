@@ -14,6 +14,18 @@
 // potentially throwing C free calls and the three retail unwind transitions;
 // the local vector reference preserves the address reused at erase.
 #include <vector>
+
+// vector<void*> begin/end otherwise instantiate per-TU COMDATs (one byte
+// shape per TU flags); explicit dllimport+forceinline specializations take
+// those calls inline so this TU emits no external copies.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+void **vector<void*>::begin()
+{ return _M_start; }
+template <> __declspec(dllimport) __forceinline
+void **vector<void*>::end()
+{ return _M_finish; }
+}
 namespace _STL {
 template <> vector<void *, allocator<void *> >::iterator vector<void *, allocator<void *> >::erase(iterator first, iterator last);
 }

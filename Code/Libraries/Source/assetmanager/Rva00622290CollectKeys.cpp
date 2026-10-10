@@ -18,6 +18,18 @@
 #include <set>
 #include <windows.h>
 
+// vector<void*> begin/end otherwise instantiate per-TU COMDATs (one byte
+// shape per TU flags); explicit dllimport+forceinline specializations take
+// those calls inline so this TU emits no external copies.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+void **vector<void*>::begin()
+{ return _M_start; }
+template <> __declspec(dllimport) __forceinline
+void **vector<void*>::end()
+{ return _M_finish; }
+}
+
 struct Rva001408C0Target;
 typedef Rva001408C0Target *Rva001408C0Key;
 typedef _STL::set<Rva001408C0Key> Rva001408C0Set;

@@ -7,6 +7,18 @@
 // ModuleData is the existing byte-proved4-byte vector carrier instantiation;
 // these values are LivingWorldBattle pointers, not ModuleData identities.
 #include <vector>
+
+// vector<void*> begin/end otherwise instantiate per-TU COMDATs (one byte
+// shape per TU flags); explicit dllimport+forceinline specializations take
+// those calls inline so this TU emits no external copies.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+void **vector<void*>::begin()
+{ return _M_start; }
+template <> __declspec(dllimport) __forceinline
+void **vector<void*>::end()
+{ return _M_finish; }
+}
 class ModuleData;
 struct XferVersion {unsigned char version,current;unsigned short padding;};
 class Xfer {public:
