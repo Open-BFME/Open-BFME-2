@@ -8,6 +8,18 @@
 // keep address names. deleteInstance spelling follows Rva001095B2Dtor.cpp (slot 0 with 0).
 #include <vector>
 
+// vector<void*> begin/end otherwise instantiate per-TU COMDATs (one byte
+// shape per TU flags); explicit dllimport+forceinline specializations take
+// those calls inline so this TU emits no external copies.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+void **vector<void*>::begin()
+{ return _M_start; }
+template <> __declspec(dllimport) __forceinline
+void **vector<void*>::end()
+{ return _M_finish; }
+}
+
 class OwnedObject
 {
 public:

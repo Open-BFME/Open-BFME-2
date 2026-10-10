@@ -22,6 +22,18 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #include <vector>
 #include "ascii_string.h"
 
+// vector<void*> begin/end otherwise instantiate per-TU COMDATs (one byte
+// shape per TU flags); explicit dllimport+forceinline specializations take
+// those calls inline so this TU emits no external copies.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+void **vector<void*>::begin()
+{ return _M_start; }
+template <> __declspec(dllimport) __forceinline
+void **vector<void*>::end()
+{ return _M_finish; }
+}
+
 typedef unsigned int UnsignedInt;
 inline UnsignedInt GameMakeColor(int r, int g, int b, int a) { return (a << 24) | (r << 16) | (g << 8) | b; }
 

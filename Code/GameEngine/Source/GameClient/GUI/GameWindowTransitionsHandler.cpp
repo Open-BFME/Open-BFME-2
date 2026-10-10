@@ -28,6 +28,18 @@ template <> const unsigned int &max<unsigned int>(const unsigned int &, const un
 #include <hash_map>
 #include <list>
 
+// vector<void*> begin/end otherwise instantiate per-TU COMDATs (one byte
+// shape per TU flags); explicit dllimport+forceinline specializations take
+// those calls inline so this TU emits no external copies.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+void **vector<void*>::begin()
+{ return _M_start; }
+template <> __declspec(dllimport) __forceinline
+void **vector<void*>::end()
+{ return _M_finish; }
+}
+
 // Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
 namespace _STL {
 template <class T, class LeftTraits, class RightTraits>
