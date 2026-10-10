@@ -44,3 +44,10 @@ The next preview refused 12,831 unrelated providers without current compiler
 witnesses in this worktree. No wider compilation, census, index injection or
 receipt transplant was performed. This data repair is byte-verified, but current
 whole-universe LINK closure remains pending; it is not reported as DONE.
+
+The single false 425DD7 six-byte method row is retired in a separate reviewable
+commit. Its contributor-local ModuleNameGetters4 file contained no other body
+and is removed. All other ledger lines remain byte-for-byte unchanged. Native
+RET4 before 425DC2 and the next 425DDD prologue bound the complete 27-byte body;
+only its internal JL/JGE target 425DD7. This retraction credits -6 C++ bytes.
+No replacement row, pin or alias is introduced by the retraction.
