@@ -1,6 +1,8 @@
 // ?rva005666C5@Rva0056616B@@QAEXXZ
 // partial score=0.182481752 date=2026-10-10
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii /D_CRTIMP= /Ireference/shims/iniexception
+// ?rva005666C5@Rva0056616B@@QAEXXZ
+// partial score=0.182481752 date=2026-10-10
+// cl: /ICode/Libraries/Include/Lib /Ireference/shims/moduledata /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii /D_CRTIMP= /Ireference/shims/iniexception
 // Native 566BF6..566D7B (389B), named act parser 566D83 and its WB
 // twin 1438E40 establish the 184B act record and constructor relationship.
 // Existing destructor 56616B independently supplies the 16 member cleanup
