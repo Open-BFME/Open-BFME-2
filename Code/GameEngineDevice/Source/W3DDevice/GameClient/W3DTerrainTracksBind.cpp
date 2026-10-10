@@ -450,3 +450,19 @@ void Rva00084206Track::addCapEdgeToTrack(float x, float y)
 	haveAnchor = false;
 }
 
+
+// ?rva00092014@Rva00091A80@@QAEXXZ @0x00092014 16B (with its ret): slot 9 of
+// the SnapBase table 0x007C80A0 of Rva00091A80 (the W3D client product its
+// factory 0x0004C5C6 returns). It ignores this: when the terrain-tracks system
+// exists, it re-applies the track detail through setDetail above.
+class Rva00091A80
+{
+public:
+	void rva00092014();
+};
+
+void Rva00091A80::rva00092014()
+{
+	if (TheTerrainTracksRenderObjClassSystem)
+		((Rva00084C05System *)TheTerrainTracksRenderObjClassSystem)->setDetail();
+}
