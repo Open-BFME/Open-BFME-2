@@ -162,7 +162,7 @@ CanMakeType AIBuildableUnit::canMake(Player *player)
 // Native cost/time pair: tracker at Player+738 for flag113 bit2; ordinary
 // template helpers otherwise. Original method names remain unrecovered.
 Real AIBuildableUnit::rva005DAEDF(Player *player) {
- ThingTemplate *unit=(ThingTemplate*)TheThingFactory->rva002D06CA(&m_templateName);
+ ThingTemplate *unit=(ThingTemplate*)TheThingFactory->findTemplate(m_templateName);
  Object *factory=TheGameLogic->findObjectByID(m_factoryID);
  int cost=0;
  if(unit->flags113&4) {
@@ -173,7 +173,7 @@ Real AIBuildableUnit::rva005DAEDF(Player *player) {
  return (float)cost;
 }
 Real AIBuildableUnit::rva005DAF59(Player *player) {
- ThingTemplate *unit=(ThingTemplate*)TheThingFactory->rva002D06CA(&m_templateName);
+ ThingTemplate *unit=(ThingTemplate*)TheThingFactory->findTemplate(m_templateName);
  Object *factory=TheGameLogic->findObjectByID(m_factoryID);
  int time;
  if(unit->flags113&4) {
