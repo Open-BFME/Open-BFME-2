@@ -27,6 +27,7 @@ struct Rva002BFF5ANode { void *next; void *key; Rva002BFF5AEntry *value; };
 class Rva002BFF5A {
 public:
     Rva002BFF5AEntry *rva002BFF5A(int key);
+    void rva002BFF9F();
     void rva002BFFD4(Rva002BFFD4Template *,int kind,unsigned word);
 private:
     char unknown[0xac];
@@ -54,6 +55,7 @@ class Rva003FA835 : public Rva00539926Base
 public:
  Rva003FA835(int kind,void *target,unsigned word);
  virtual ~Rva003FA835() {}
+ void rva003FA878();
  void rva003FA781(int enabled);void rva003FA7D3(int enabled);void rva003FA705(void*,float);
 private:
  OVERRIDE<LocomotorTemplate> m_template;
@@ -79,5 +81,19 @@ void Rva002BFF5A::rva002BFFD4(Rva002BFFD4Template *entry,int kind,unsigned word)
   if(!found.m_node) {
    ((Rva002BED91*)&((Rva002BFC59*)&table)->rva002BFC59(entry->name))->set((TargetRef00217D4C*)new Rva003FA835(kind,entry,word));
   }
+ }
+}
+
+// Complete native53B2BFF9F..2BFFD4 RET0; same tableAC and node payload8
+// as the owned lookup above. The optional value is the36B glow object
+// established by this unit's creation path; its359B tick is now owned.
+void Rva002BFF5A::rva002BFF9F()
+{
+ Rva000411084 it;
+ table.first(&it);
+ while(it.current) {
+  Rva002BFF5ANode* node=static_cast<Rva002BFF5ANode*>(it.current);
+  if(node->value) reinterpret_cast<Rva003FA835*>(node->value)->rva003FA878();
+  it.next();
  }
 }
