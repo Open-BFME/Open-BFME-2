@@ -1,6 +1,6 @@
 // ?evaluatePlayerHasNumberObjectsWithModelCondition@ScriptConditions@@IAE_NPAVParameter@@PAUCondA003E5F73@@PAUCondB003E5F73@@PAUCondC003E5F73@@@Z
 // retail 0x003E5F73, 191 bytes.
-// Evidence: leaf via pin-only rva00357B82 plus rowed getSingleBitFromName plus rowed getEachPlayerFromMask plus rowed Player::rva002ABD1D; g_Va009FE16C plus ThePlayerList plus empty string fallback; accumulate until sum exceeds limit then op switch.
+// Evidence: leaf via pin-only rva00357B82 plus rowed getSingleBitFromName plus rowed getEachPlayerFromMask plus rowed Player::rva002ABD1D; TheScriptEngine plus ThePlayerList plus empty string fallback; accumulate until sum exceeds limit then op switch.
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 
 class Parameter
@@ -105,8 +105,6 @@ bool ScriptConditions::evaluatePlayerHasNumberObjectsWithModelCondition(Paramete
 	return false;
 }
 
-// ?g_Va009FE16C@@3PAVScriptEngine@@A: the global at this VA is ?TheScriptEngine@@3PAVScriptEngine@@A; this name is an alias for it.
-#pragma comment(linker, "/alternatename:?g_Va009FE16C@@3PAVScriptEngine@@A=?TheScriptEngine@@3PAVScriptEngine@@A")
+// ?TheScriptEngine@@3PAVScriptEngine@@A: the global at this VA is ?TheScriptEngine@@3PAVScriptEngine@@A; this name is an alias for it.
 #pragma comment(linker, "/alternatename:?TheDebugWindowInterface@@3PAXA=?TheScriptEngine@@3PAVScriptEngine@@A")
-// ?g_Va009FE16C@@3PAVScriptEngine@@A: the global at VA 0xdfe16c is ?TheScriptEngine@@3PAVScriptEngine@@A.
-#pragma comment(linker, "/alternatename:?g_Va009FE16C@@3PAVScriptEngine@@A=?TheScriptEngine@@3PAVScriptEngine@@A")
+// ?TheScriptEngine@@3PAVScriptEngine@@A: the global at VA 0xdfe16c is ?TheScriptEngine@@3PAVScriptEngine@@A.

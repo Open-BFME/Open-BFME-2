@@ -79,7 +79,7 @@ public:
     AIGroup *createGroup();
     void destroyGroup(AIGroup *grp);
 };
-extern AI *g_Va009FF0F8;
+extern AI *TheAI;
 
 class AIUpdateInterface
 {
@@ -146,10 +146,10 @@ void AITactic::cohereTeams()
     Rva004ECECDNode *begin = m_begin;
     Rva004ECECDNode *end = m_end;
     for (Rva004ECECDNode *it = begin; it != end; ++it) {
-        AIGroup *grp = g_Va009FF0F8->createGroup();
+        AIGroup *grp = TheAI->createGroup();
         Team *t = TheTeamFactory->findTeamByID((unsigned int)it->m_model);
         t->getTeamAsAIGroup(grp);
         grp->rva00372C05();
-        g_Va009FF0F8->destroyGroup(grp);
+        TheAI->destroyGroup(grp);
     }
 }

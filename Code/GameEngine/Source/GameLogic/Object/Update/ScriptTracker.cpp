@@ -78,7 +78,7 @@ public:
 	Bool rva0036E0B6() const;
 };
 
-extern AI *g_Va009FF0F8;
+extern AI *TheAI;
 
 class ScriptTracker
 {
@@ -116,7 +116,7 @@ store:
 // m_ai is AIUpdateInterface (virtual isIdle slot 110 at +0x1b8 plus byte
 // +0x3CA); +8 chain Object+0x304 Team via rowed getTeamAsAIGroup; callees
 // rowed createGroup 0x002FEC4B getTeamAsAIGroup 0x003A0F62 isIdle 0x0036DF4D
-// rva0036E0B6 0x0036E0B6; global g_Va009FF0F8; caller 0x0026E568.
+// rva0036E0B6 0x0036E0B6; global TheAI; caller 0x0026E568.
 void ScriptTracker::update()
 {
 	if (m_0B) {
@@ -128,7 +128,7 @@ void ScriptTracker::update()
 	if (m_0A)
 		return;
 	if (m_09) {
-		AIGroup *grp = g_Va009FF0F8->createGroup();
+		AIGroup *grp = TheAI->createGroup();
 		Team *team = m_ai->m_08->m_team;
 		team->getTeamAsAIGroup(grp);
 		if (!grp->isIdle())

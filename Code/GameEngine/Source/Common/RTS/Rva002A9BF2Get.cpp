@@ -49,7 +49,7 @@ void Rva002A9BF2::rva002A9CCA(int val)
 		w->m_unk1C = val;
 }
 
-// ?rva002A9D02@Rva002A9BF2@@QAEXHPAVObject@@H@Z @0x002A9D02 135B: this+0x2DC GameWindow plus ScriptEngine/AI globals plus Object calls. Evidence: same 0x2DC as Rva002A9BF2 siblings; callees rowed 0x002039B6 0x002E718A 0x002E7178 0x0028D99A 0x0028BD17 0x0028DA67; globals g_Va009FE16C g_Va009FF0F8 g_bfmeWorldRV; callers 0x002411DF 0x00241E17 0x003954B9 0x0048AC99.
+// ?rva002A9D02@Rva002A9BF2@@QAEXHPAVObject@@H@Z @0x002A9D02 135B: this+0x2DC GameWindow plus ScriptEngine/AI globals plus Object calls. Evidence: same 0x2DC as Rva002A9BF2 siblings; callees rowed 0x002039B6 0x002E718A 0x002E7178 0x0028D99A 0x0028BD17 0x0028DA67; globals TheScriptEngine TheAI g_bfmeWorldRV; callers 0x002411DF 0x00241E17 0x003954B9 0x0048AC99.
 class Rva002039B6Host
 {
 public:
@@ -72,8 +72,8 @@ public:
 	Pathfinder *m_shim;
 };
 
-extern AI *g_Va009FF0F8;
-extern ScriptEngine *g_Va009FE16C;
+extern AI *TheAI;
+extern ScriptEngine *TheScriptEngine;
 
 struct BfmeWorldRV
 {
@@ -116,9 +116,9 @@ public:
 
 void Rva002A9BF2::rva002A9D02(int a1, Object *obj, int a3)
 {
-	((Rva002039B6Host *)g_Va009FE16C)->rva002039B6();
-	g_Va009FF0F8->m_shim->RemoveObjectFromPathfindMap(obj);
-	g_Va009FF0F8->m_shim->AddObjectToPathfindMap(obj);
+	((Rva002039B6Host *)TheScriptEngine)->rva002039B6();
+	TheAI->m_shim->RemoveObjectFromPathfindMap(obj);
+	TheAI->m_shim->AddObjectToPathfindMap(obj);
 	obj->friend_adjustPowerForPlayer(true);
 	if (m_window)
 		((GameWindowVirt *)m_window)->v8(a1, obj);

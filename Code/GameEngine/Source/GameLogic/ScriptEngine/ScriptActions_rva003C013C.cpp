@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ?rva003C013C@ScriptActions@@IAEXABVAsciiString@@0@Z @0x003C013C 111B: trigger-area shroud reveal.
-// Evidence: calls rowed StringBase copy 0x000365F0 via by-value AsciiString temp plus rowed getQualifiedTriggerAreaByName 0x0035768D plus pinned PolygonTrigger rect 0x002E3954 plus rowed player-mask 0x00357475 plus rowed shroud siblings 0x00739AF0 0x00739CA0; globals g_Va009FE16C TheShroudManager; ret 8 two AsciiStrings.
+// Evidence: calls rowed StringBase copy 0x000365F0 via by-value AsciiString temp plus rowed getQualifiedTriggerAreaByName 0x0035768D plus pinned PolygonTrigger rect 0x002E3954 plus rowed player-mask 0x00357475 plus rowed shroud siblings 0x00739AF0 0x00739CA0; globals TheScriptEngine TheShroudManager; ret 8 two AsciiStrings.
 #include "ascii_string.h"
 
 struct FloatRect0073CE30
@@ -23,7 +23,7 @@ public:
 	PolygonTrigger *getQualifiedTriggerAreaByName(AsciiString name);
 	int rva00357475(const AsciiString &name, bool *matchedSpecialName);
 };
-extern ScriptEngine *g_Va009FE16C;
+extern ScriptEngine *TheScriptEngine;
 
 class Rva00739AF0
 {
@@ -47,12 +47,12 @@ protected:
 
 void ScriptActions::rva003C013C(const AsciiString &areaName, const AsciiString &playerName)
 {
-	PolygonTrigger *trig = g_Va009FE16C->getQualifiedTriggerAreaByName(areaName);
+	PolygonTrigger *trig = TheScriptEngine->getQualifiedTriggerAreaByName(areaName);
 	if (!trig)
 		return;
 	FloatRect0073CE30 rect;
 	trig->getBounds(&rect);
-	int mask = g_Va009FE16C->rva00357475(playerName, 0);
+	int mask = TheScriptEngine->rva00357475(playerName, 0);
 	PolygonTrigger *trig38 = (PolygonTrigger *)((char *)trig + 0x38);
 	((Rva00739AF0 *)TheShroudManager)->rva00739AF0(&rect, (int)trig38, (unsigned int)mask);
 	((Rva00739CA0 *)TheShroudManager)->rva00739CA0(&rect, (int)trig38, (unsigned int)mask);

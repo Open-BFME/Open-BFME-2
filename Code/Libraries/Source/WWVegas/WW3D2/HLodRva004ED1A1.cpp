@@ -1,7 +1,7 @@
 // cl: /Ireference/shims/bfmevector /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep
 // ?teamAttackObject@AITactic@@QAEXHPAVObject@@@Z @0x004ED1A1 92B
 // HLod attack helper: find node via rowed 0x004ECF05 then create AI group, fill via Team, attack victim, destroy group, clear +0x10.
-// Evidence: chain via 0x004ECF05; callees rowed createGroup 0x002FEC4B getTeamAsAIGroup 0x003A0F62 destroyGroup 0x002FE712 plus pins findTeamByID 0x0039F761 groupAttackObjectPrivate 0x0036FD64; globals g_Va009FF0F8 TheTeamFactory; ret 8 two args.
+// Evidence: chain via 0x004ECF05; callees rowed createGroup 0x002FEC4B getTeamAsAIGroup 0x003A0F62 destroyGroup 0x002FE712 plus pins findTeamByID 0x0039F761 groupAttackObjectPrivate 0x0036FD64; globals TheAI TheTeamFactory; ret 8 two args.
 class Object;
 enum CommandSourceType
 {
@@ -12,7 +12,7 @@ class Team;
 class AI;
 class AITactic;
 class TeamFactory;
-extern AI *g_Va009FF0F8;
+extern AI *TheAI;
 extern TeamFactory *TheTeamFactory;
 class TeamFactory
 {
@@ -83,11 +83,11 @@ void AITactic::teamAttackObject(int id, Object *victim)
 	Rva004ECECDNode *node = rva004ECF05(id);
 	if (node != 0)
 	{
-		AIGroup *group = g_Va009FF0F8->createGroup();
+		AIGroup *group = TheAI->createGroup();
 		Team *team = TheTeamFactory->findTeamByID((unsigned int)node->m_model);
 		team->getTeamAsAIGroup(group);
 		group->groupAttackObjectPrivate(false, victim, 0x7fffffff, (CommandSourceType)0);
-		g_Va009FF0F8->destroyGroup(group);
+		TheAI->destroyGroup(group);
 		node->m_10 = 0;
 	}
 }
@@ -101,18 +101,18 @@ void AITactic::teamAttackMove(int id, const struct Coord3D *p)
 	Rva004ECECDNode *node = rva004ECF05(id);
 	if (node != 0)
 	{
-		AIGroup *group = g_Va009FF0F8->createGroup();
+		AIGroup *group = TheAI->createGroup();
 		Team *team = TheTeamFactory->findTeamByID((unsigned int)node->m_model);
 		team->getTeamAsAIGroup(group);
 		group->groupAttackMoveToPosition(p, 0x7fffffff, (CommandSourceType)0);
-		g_Va009FF0F8->destroyGroup(group);
+		TheAI->destroyGroup(group);
 		node->m_10 = 0;
 	}
 }
 
 // ?teamForceMove@AITactic@@QAEXHPBUCoord3D@@@Z @0x004ED257 150B
 // Guarded move-order helper: if +0x24 difficulty source is null delegate to rowed teamAttackMove, else node via 0x004ECF05 then create AI group, fill via Team, issue group move via 0x00372571 with position block, destroy group, clear +0x10.
-// Evidence: same TU/class as teamAttackObject siblings; callees rowed rva002A9BF2 0x002A9BF2 rva004ECF05 0x004ECF05 createGroup 0x002FEC4B getTeamAsAIGroup 0x003A0F62 destroyGroup 0x002FE712 plus pins teamAttackMove 0x004ED1FD findTeamByID 0x0039F761 rva00372571 0x00372571; globals g_Va009FF0F8 TheTeamFactory; ret 8 two args.
+// Evidence: same TU/class as teamAttackObject siblings; callees rowed rva002A9BF2 0x002A9BF2 rva004ECF05 0x004ECF05 createGroup 0x002FEC4B getTeamAsAIGroup 0x003A0F62 destroyGroup 0x002FE712 plus pins teamAttackMove 0x004ED1FD findTeamByID 0x0039F761 rva00372571 0x00372571; globals TheAI TheTeamFactory; ret 8 two args.
 void AITactic::teamForceMove(int id, const struct Coord3D *p)
 {
 	if (m_24->rva002A9BF2() == 0)
@@ -123,7 +123,7 @@ void AITactic::teamForceMove(int id, const struct Coord3D *p)
 	Rva004ECECDNode *node = rva004ECF05(id);
 	if (node != 0)
 	{
-		AIGroup *group = g_Va009FF0F8->createGroup();
+		AIGroup *group = TheAI->createGroup();
 		Team *team = TheTeamFactory->findTeamByID((unsigned int)node->m_model);
 		team->getTeamAsAIGroup(group);
 		Rva00372571Params params;
@@ -136,7 +136,7 @@ void AITactic::teamForceMove(int id, const struct Coord3D *p)
 		params.m_18 = 0;
 		params.m_1C = false;
 		group->rva00372571(&params, 0);
-		g_Va009FF0F8->destroyGroup(group);
+		TheAI->destroyGroup(group);
 		node->m_10 = 0;
 	}
 }
@@ -161,4 +161,3 @@ void AITactic::rva004ED372(const struct Coord3D *p)
 
 // Retail's data references in this unit's matched rows land on globals defined
 // under other spellings at the same addresses (addend-corrected DIR32). Bind them.
-#pragma comment(linker, "/alternatename:?g_Va009FF0F8@@3PAVAI@@A=?TheAI@@3PAVAI@@A")

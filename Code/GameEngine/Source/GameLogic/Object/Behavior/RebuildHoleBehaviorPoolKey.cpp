@@ -71,7 +71,7 @@ public:
 	Pathfinder *m_pathfinder;				// +0x10
 };
 
-extern AI *g_Va009FF0F8;
+extern AI *TheAI;
 
 class RebuildHoleBehavior
 {
@@ -119,5 +119,5 @@ void RebuildHoleBehavior::newWorkerRespawnProcess(Object *existingWorker)
 	hole->maskObject(false);
 	hole->rva0028CDEB((const Rva00346BC0 &)Rva00391F4E(0, 3, 0x3c), false);
 	hole->setSelectable(true);
-	g_Va009FF0F8->m_pathfinder->AddObjectToPathfindMap(hole);
+	TheAI->m_pathfinder->AddObjectToPathfindMap(hole);
 }

@@ -26,7 +26,7 @@ public:
 	unsigned char m_pad00[0x10];
 	Pathfinder *m_10; // +0x10
 };
-extern AI *g_Va009FF0F8;
+extern AI *TheAI;
 class Object
 {
 public:
@@ -73,7 +73,7 @@ void GateOpenAndCloseBehavior::rva0049924B(bool flag)
 		return;
 	if (flag)
 		rva00498FAA();
-	Pathfinder *shim = g_Va009FF0F8->m_10;
+	Pathfinder *shim = TheAI->m_10;
 	Object *obj = m_object0C;
 	shim->RemoveObjectFromPathfindMapKeepingGateFlags(obj);
 	m_2C = 1;
@@ -85,5 +85,5 @@ void GateOpenAndCloseBehavior::rva0049924B(bool flag)
 	for (BfmeStrF9 *p = data->m_vec38.m_begin; p != data->m_vec38.m_end; ++p)
 		f9->setFlag(*p, 1);
 	obj->rva0028AB75(true);
-	g_Va009FF0F8->m_10->AddObjectToPathfindMap(obj);
+	TheAI->m_10->AddObjectToPathfindMap(obj);
 }

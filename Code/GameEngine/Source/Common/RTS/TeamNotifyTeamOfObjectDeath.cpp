@@ -70,7 +70,7 @@ class ScriptEngine
 public:
 	void rva0020C140(const AsciiString &name, const AsciiString &script, Team *team);
 };
-extern ScriptEngine *g_Va009FE16C;
+extern ScriptEngine *TheScriptEngine;
 
 struct TeamTemplateInfo
 {
@@ -130,5 +130,5 @@ runScripts:
 	if (((const StringBase<char> *)&pInfo->m_scriptOnUnitDestroyed)->isEmpty())
 		return;
 
-	g_Va009FE16C->rva0020C140(getPrototypeName(), pInfo->m_scriptOnUnitDestroyed, this);
+	TheScriptEngine->rva0020C140(getPrototypeName(), pInfo->m_scriptOnUnitDestroyed, this);
 }

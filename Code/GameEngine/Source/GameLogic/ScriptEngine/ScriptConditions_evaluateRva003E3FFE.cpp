@@ -2,7 +2,7 @@
 // ?evaluateBuildingEntered@ScriptConditions@@IAE_NPAVParameter@@0@Z @0x003E3FFE (123B): unit-player ownership check via +0x250 slot 0x144 mask
 // Evidence: neighbours ScriptConditions_evaluateNamedUnit and evaluateIsBuildingEmpty same flags
 // rowed getUnitNamed 0x003588E7 pin rva00357B82 rowed getPlayerFromMask getEachPlayerFromMask
-// globals g_Va009FE16C ThePlayerList caller 0x003EAE3B.
+// globals TheScriptEngine ThePlayerList caller 0x003EAE3B.
 class Parameter;
 class Player;
 class Rva003E3FFEFace
@@ -110,7 +110,7 @@ public:
 	Object *getUnitNamed(Parameter *p);
 	int rva00357B82(Parameter *p);
 };
-extern ScriptEngine *g_Va009FE16C;
+extern ScriptEngine *TheScriptEngine;
 class ScriptConditions
 {
 protected:
@@ -119,7 +119,7 @@ protected:
 
 bool ScriptConditions::evaluateBuildingEntered(Parameter *pPlayerParm, Parameter *pUnitParm)
 {
-	Object *obj = g_Va009FE16C->getUnitNamed(pUnitParm);
+	Object *obj = TheScriptEngine->getUnitNamed(pUnitParm);
 	if (!obj) {
 		return false;
 	}
@@ -135,7 +135,7 @@ bool ScriptConditions::evaluateBuildingEntered(Parameter *pPlayerParm, Parameter
 	if (!owner) {
 		return false;
 	}
-	int mask = g_Va009FE16C->rva00357B82(pPlayerParm);
+	int mask = TheScriptEngine->rva00357B82(pPlayerParm);
 	while (mask) {
 		Player *p = ThePlayerList->getEachPlayerFromMask(mask);
 		if (owner == p) {

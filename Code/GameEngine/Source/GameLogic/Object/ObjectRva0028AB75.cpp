@@ -1,6 +1,6 @@
 // cl: /DNDEBUG /MD
 // ?rva0028AB75@Object@@QAEX_N@Z @0x0028AB75 135B lane=unlock
-// Evidence: rowed makeDirty 0x0073A0F0 init 0x007584C0 rva00625840 0x00625840 rva002710EC 0x002710EC shim 0x002E718A 0x002E7178 twins 0x00287C39 0x00287C21; globals g_Va009FF0F8 and g_00DFEC68; callers 0x00298970 0x004992BB; prev 0x0028AB4E next 0x0028AC34 Object TUs /O1 /DNDEBUG /MD.
+// Evidence: rowed makeDirty 0x0073A0F0 init 0x007584C0 rva00625840 0x00625840 rva002710EC 0x002710EC shim 0x002E718A 0x002E7178 twins 0x00287C39 0x00287C21; globals TheAI and g_00DFEC68; callers 0x00298970 0x004992BB; prev 0x0028AB4E next 0x0028AC34 Object TUs /O1 /DNDEBUG /MD.
 class PartitionData
 {
 public:
@@ -53,7 +53,7 @@ public:
 	unsigned char m_pad00[0x10];
 	Pathfinder *m_pathfinder;
 };
-extern AI *g_Va009FF0F8;
+extern AI *TheAI;
 
 extern FireLogicSystem *g_00DFEC68;
 
@@ -85,8 +85,8 @@ void Object::rva0028AB75(bool flag)
 		q->rva002710EC();
 	if (flag)
 	{
-		g_Va009FF0F8->m_pathfinder->RemoveObjectFromPathfindMap(this);
-		g_Va009FF0F8->m_pathfinder->AddObjectToPathfindMap(this);
+		TheAI->m_pathfinder->RemoveObjectFromPathfindMap(this);
+		TheAI->m_pathfinder->AddObjectToPathfindMap(this);
 	}
 	if (m_49C < 0)
 		return;

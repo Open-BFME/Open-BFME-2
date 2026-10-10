@@ -1,6 +1,6 @@
 // cl: /MD
 // ?Rva0041C9C4Check@@YG_NPAVObject@@PBUCoord3D@@PBVOverridable@@@Z, retail 0x0041C9C4, 52 bytes.
-// Evidence: free stdcall 3 args ret 0xC; a3 via rowed Overridable::friend_getFinalOverride 0x00288609 tests bit6 of +0x18; AI global g_Va009FF0F8 +0x10 Pathfinder pinned QuickDoesPathExist with obj a1 pos+0x38 coord a2 zero.
+// Evidence: free stdcall 3 args ret 0xC; a3 via rowed Overridable::friend_getFinalOverride 0x00288609 tests bit6 of +0x18; AI global TheAI +0x10 Pathfinder pinned QuickDoesPathExist with obj a1 pos+0x38 coord a2 zero.
 struct Coord3D
 {
 	float x;
@@ -35,7 +35,7 @@ public:
 	Pathfinder *m_path10;
 };
 
-extern AI *g_Va009FF0F8;
+extern AI *TheAI;
 
 class Pathfinder
 {
@@ -48,6 +48,6 @@ bool __stdcall Rva0041C9C4Check(Object *obj, const Coord3D *coord, const Overrid
 	const Overridable *final = over->friend_getFinalOverride();
 	if ((((unsigned char)(final->m_18 >> 6)) & 1) == 0)
 		return true;
-	Pathfinder *pf = g_Va009FF0F8->m_path10;
+	Pathfinder *pf = TheAI->m_path10;
 	return pf->QuickDoesPathExist(obj, &obj->m_pos38, coord, 0);
 }
