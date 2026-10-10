@@ -1,44 +1,75 @@
 // ?rva0039E5B9@Team@@QAEXPAUCoord3D@@@Z
-// partial score=0.9 date=2026-10-10
-// cl: /O1 /arch:SSE /DNDEBUG /MD
+// partial score=0.995 date=2026-10-10
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD
 //
-// ?rva0039E5B9@Team@@QAEXPAUCoord3D@@@Z @0x0039E5B9 (167B).
-// Team::rva0039E5B9(Coord3D *pos): writes the average member position (team
-// centre) into *pos. Retail iterates the member DLINK via the rowed
-// iterate_TeamMemberList (0x263864) and DLINK_ITERATOR<Object>::advance
-// (0x263526), sums the three floats at Object+0x38/+0x3c/+0x40 with no call
-// (direct position members), then scales by 1.0f/count. No empty-team guard:
-// retail divides by zero (1.0f/0.0f) when the team has no members.
+// ?rva0039E5B9@Team@@QAEXPAUCoord3D@@@Z @0x0039E5B9 (165B).
+// Team center into a Coord3D: average the member Objects' +0x38 positions
+// through the rowed DLINK iterator (iterate_TeamMemberList 0x00263864,
+// advance 0x00263526), scaled by 1.0/count. Callers: ReturnTheRing
+// 0x005AB5B7 (REL32 at 0x005AB5EC) plus ScriptActions nearest-kindof,
+// Rva00368004Getter, AIGuardMachineGuardPosition and BfmeApplierBH.
+// Views: DLINK_ITERATOR and Team head from TeamIterateTeamMemberList.cpp,
+// Object +0x38 position from TeamUpdateState.cpp.
+// Prior bank (score 0.9) notes: no empty-team guard - retail divides by
+// zero (1.0f/0.0f) when the team has no members; kept here for the record.
 
 struct Coord3D
 {
-	float x;
-	float y;
-	float z;
+	float x, y, z;
 };
 
 class Object;
 
+class BfmeObjectVirtualTail { public: unsigned char m_vt[4]; };
+
+// Introduces the vbptr at its own +0; lands at +0x68 inside Object.
+class BfmeObjectVbptrCarrier : public virtual BfmeObjectVirtualTail
+{
+public:
+	unsigned char m_carrier[4];
+};
+
+class BfmeObjectVtbl { public: virtual void bfmeObjectSlot0(); };
+
+class BfmeObjectDlinkBase
+{
+public:
+	Object *dlink_next_TeamMemberList() const;
+};
+
+class BfmeObjectDlinkPad
+{
+public:
+	unsigned char m_pad04[0x38 - 0x04];
+	Coord3D m_pos;				// +0x38
+	unsigned char m_pad44[0x68 - 0x44];
+};
+
+class Object : public BfmeObjectVtbl, public BfmeObjectDlinkBase,
+	public BfmeObjectDlinkPad, public BfmeObjectVbptrCarrier
+{
+public:
+	unsigned char m_tail[0x40];
+};
+
 template<class OBJCLASS>
 class DLINK_ITERATOR
 {
-private:
-	OBJCLASS *m_cur;
-	unsigned char m_targetAbiState[20];
-
 public:
+	typedef OBJCLASS *(OBJCLASS::*GetNextFunc)() const;
+
+	DLINK_ITERATOR(OBJCLASS *cur, GetNextFunc getNextFunc)
+		: m_cur(cur), m_getNextFunc(getNextFunc)
+	{
+	}
+
 	void advance();
 	bool done() const { return m_cur == 0; }
 	OBJCLASS *cur() const { return m_cur; }
-};
 
-class Object
-{
-public:
-	unsigned char m_pad00[0x38];
-	// +0x38: retail reads three floats here while averaging (no call, so
-	// direct members, not getPosition()).
-	Coord3D m_position;
+private:
+	OBJCLASS *m_cur;
+	GetNextFunc m_getNextFunc;
 };
 
 class Team
@@ -50,19 +81,24 @@ public:
 
 void Team::rva0039E5B9(Coord3D *pos)
 {
-	Coord3D total = { 0.0f, 0.0f, 0.0f };
+	Coord3D sum;
+	sum.x = 0.0f;
+	sum.y = 0.0f;
+	sum.z = 0.0f;
 	int count = 0;
 	DLINK_ITERATOR<Object> iter = iterate_TeamMemberList();
-	for (; !iter.done(); iter.advance()) {
-		Object *obj = iter.cur();
-		total.x += obj->m_position.x;
-		total.y += obj->m_position.y;
-		total.z += obj->m_position.z;
+	Object *member;
+	while ((member = iter.cur()) != 0)
+	{
+		sum.x += member->m_pos.x;
+		sum.y += member->m_pos.y;
+		sum.z += member->m_pos.z;
 		++count;
+		iter.advance();
 	}
-	float invCount = 1.0f / (float)count;
-	total.x *= invCount;
-	total.y *= invCount;
-	total.z *= invCount;
-	*pos = total;
+	float scale = 1.0f / count;
+	sum.x *= scale;
+	sum.y *= scale;
+	sum.z *= scale;
+	*pos = sum;
 }
