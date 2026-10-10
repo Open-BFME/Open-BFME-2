@@ -39,7 +39,7 @@ static __declspec(noinline) void rva000443BA(const Rva000443BARow *rows, float s
 class GlobalData {public:char p0[0x134];int timeOfDay;char p138[0x3C8-0x138];Rva000443BARow terrain[4][3];char gap[0x650-0x3C8-4*3*sizeof(Rva000443BARow)];Rva000443BARow objects[4][3];};extern GlobalData*TheWritableGlobalData;
 class RTS3DScene {public:virtual void v0();virtual void v1();virtual void v2();virtual void v3();virtual void v4();virtual void v5();virtual void setAmbient(const Rva000443BAVec&);char pad[0x144-4];Rva000443BAVec color;};
 class W3DDisplay {public:static RTS3DScene*m_3DScene;};
-class Rva0004443E {public:char p0[0x148];Rva000443BALight*lights[4];Rva000443BALight*otherLights[4];void rva0004443E(float);void rva00044688(const Rva000443BAVec*);void rva0004450E(int,Rva000443BAVec);void rva00044545(int,Rva000443BAVec);};
+class Rva0004443E {public:char p0[0x148];Rva000443BALight*lights[4];Rva000443BALight*otherLights[4];void rva0004443E(float);void rva00044688(const Rva000443BAVec*);void rva0004474C(int);void rva0004450E(int,Rva000443BAVec);void rva00044545(int,Rva000443BAVec);};
 void Rva0004443E::rva0004443E(float scale){
  const Rva000443BARow*rows=&TheWritableGlobalData->terrain[TheWritableGlobalData->timeOfDay][0];
  const Rva000443BARow*objects=&TheWritableGlobalData->objects[TheWritableGlobalData->timeOfDay][0];
@@ -116,4 +116,11 @@ void Rva0004443E::rva00044688(const Rva000443BAVec*direction){
  if(W3DDisplay::m_3DScene){W3DDisplay::m_3DScene->setAmbient(Rva000443BAVec(rows->ambient[0],rows->ambient[1],rows->ambient[2]));W3DDisplay::m_3DScene->color=Rva000443BAVec(objects->ambient[0],objects->ambient[1],objects->ambient[2]);}
  rva0004457C(rows,direction,lights);rva0004457C(objects,direction,otherLights);
  if(TheTerrainRenderObject){TheTerrainRenderObject->rva0006846A(1);if(static_cast<unsigned char>(bfmeRva0011F600()))TheTacticalView->forceRedraw();}
+}
+void Rva0004443E::rva0004474C(int tod){
+ const Rva000443BARow*rows=&TheWritableGlobalData->terrain[tod][0];
+ const Rva000443BARow*objects=&TheWritableGlobalData->objects[tod][0];
+ if(W3DDisplay::m_3DScene){W3DDisplay::m_3DScene->setAmbient(Rva000443BAVec(rows->ambient[0],rows->ambient[1],rows->ambient[2]));W3DDisplay::m_3DScene->color=Rva000443BAVec(objects->ambient[0],objects->ambient[1],objects->ambient[2]);}
+ rva0004457C(rows,0,lights);rva0004457C(objects,0,otherLights);
+ if(TheTerrainRenderObject){TheTerrainRenderObject->rva0006846A(tod);if(static_cast<unsigned char>(bfmeRva0011F600()))TheTacticalView->forceRedraw();}
 }
