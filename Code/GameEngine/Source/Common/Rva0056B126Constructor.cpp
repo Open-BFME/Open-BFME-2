@@ -43,9 +43,14 @@ public:
 class Rva0056B126B2
 {
 public:
-	Rva0056B126B2() {}
+	Rva0056B126B2();
 	virtual ~Rva0056B126B2() {}
 };
+// ??0Rva0056B126B2@@QAE@XZ @0x002B2523 9B: the default constructor, storing the
+// class's own vtable (VA 0x00BFDF68) and returning this.
+Rva0056B126B2::Rva0056B126B2()
+{
+}
 
 class Rva0056B126 : public Rva0056AC26, public Rva0056B126B1, public Rva0056B126B2
 {

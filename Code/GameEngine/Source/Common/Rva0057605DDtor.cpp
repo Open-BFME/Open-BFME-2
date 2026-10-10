@@ -32,11 +32,17 @@ private:
 class Rva0057605DSecond
 {
 public:
+	Rva0057605DSecond();
 	virtual ~Rva0057605DSecond() {}
 
 protected:
 	Rva0057605DOwner *m_owner; // +0x04 in this base, +0x0C overall
 };
+// ??0Rva0057605DSecond@@QAE@XZ @0x002B251A 9B: the default constructor, storing the
+// class's own vtable (VA 0x00C77F44) and returning this.
+Rva0057605DSecond::Rva0057605DSecond()
+{
+}
 
 class Rva0057605D : public Rva0057605DBase, public Rva0057605DSecond
 {

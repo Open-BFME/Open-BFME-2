@@ -88,9 +88,14 @@ public:
 // Existing one-vptr observer-base view: its emitted vtable is retail C3702C.
 class Rva00575E4EBase2 {
 public:
-    Rva00575E4EBase2() {}
+    Rva00575E4EBase2();
     virtual ~Rva00575E4EBase2() {}
 };
+// ??0Rva00575E4EBase2@@QAE@XZ @0x003F4096 9B: the default constructor, storing the
+// class's own vtable (VA 0x00C3702C) and returning this.
+Rva00575E4EBase2::Rva00575E4EBase2()
+{
+}
 class Rva005CEE07 : public Rva005CE8F5, public Rva00575E4EBase2
 {
 public:
