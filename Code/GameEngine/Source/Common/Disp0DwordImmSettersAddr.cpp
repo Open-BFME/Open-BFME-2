@@ -759,6 +759,114 @@ void Rva0005D387BDwordImmSetter::apply()
 	m_value = ((unsigned int)vtbl_00C75908);
 }
 
+// Seven more vptr stores returning this, the 0x005D3882 shape: each writes
+// one of this file's tables at this (the same table the named setter
+// sibling stores) and returns this, the constructor shape of that base.
+// 0x0007E0BD (9B): vtbl_00BC6F04, setter sibling 0x0007DEA8.
+class Rva0007E0BDAbstractBase
+{
+public:
+	Rva0007E0BDAbstractBase *rva0007E0BD();
+
+	unsigned int m_value;
+};
+
+Rva0007E0BDAbstractBase *Rva0007E0BDAbstractBase::rva0007E0BD()
+{
+	m_value = ((unsigned int)vtbl_00BC6F04);
+	return this;
+}
+
+// 0x0007E0D9 (9B): vtbl_00BC6EC0, setter sibling 0x0007DE9A.
+class Rva0007E0D9AbstractBase
+{
+public:
+	Rva0007E0D9AbstractBase *rva0007E0D9();
+
+	unsigned int m_value;
+};
+
+Rva0007E0D9AbstractBase *Rva0007E0D9AbstractBase::rva0007E0D9()
+{
+	m_value = ((unsigned int)vtbl_00BC6EC0);
+	return this;
+}
+
+// 0x00210CE8 (9B): vtbl_00BE5114, setter sibling 0x00210CC5.
+class Rva00210CE8AbstractBase
+{
+public:
+	Rva00210CE8AbstractBase *rva00210CE8();
+
+	unsigned int m_value;
+};
+
+Rva00210CE8AbstractBase *Rva00210CE8AbstractBase::rva00210CE8()
+{
+	m_value = ((unsigned int)vtbl_00BE5114);
+	return this;
+}
+
+// 0x002B252C (9B): vtbl_00BFDF8C, setter sibling 0x002B228D.
+class Rva002B252CAbstractBase
+{
+public:
+	Rva002B252CAbstractBase *rva002B252C();
+
+	unsigned int m_value;
+};
+
+Rva002B252CAbstractBase *Rva002B252CAbstractBase::rva002B252C()
+{
+	m_value = ((unsigned int)vtbl_00BFDF8C);
+	return this;
+}
+
+// 0x005743B7 (9B): vtbl_00C6E344, setter sibling 0x00574265.
+class Rva005743B7AbstractBase
+{
+public:
+	Rva005743B7AbstractBase *rva005743B7();
+
+	unsigned int m_value;
+};
+
+Rva005743B7AbstractBase *Rva005743B7AbstractBase::rva005743B7()
+{
+	m_value = ((unsigned int)vtbl_00C6E344);
+	return this;
+}
+
+// 0x005F3EEA (9B): vtbl_00C79428, setter sibling 0x005F3EE3.
+class Rva005F3EEAAbstractBase
+{
+public:
+	Rva005F3EEAAbstractBase *rva005F3EEA();
+
+	unsigned int m_value;
+};
+
+Rva005F3EEAAbstractBase *Rva005F3EEAAbstractBase::rva005F3EEA()
+{
+	m_value = ((unsigned int)vtbl_00C79428);
+	return this;
+}
+
+// 0x005F687A (9B): vtbl_00C79760, setter sibling 0x0057851B.
+class Rva005F687AAbstractBase
+{
+public:
+	Rva005F687AAbstractBase *rva005F687A();
+
+	unsigned int m_value;
+};
+
+Rva005F687AAbstractBase *Rva005F687AAbstractBase::rva005F687A()
+{
+	m_value = ((unsigned int)vtbl_00C79760);
+	return this;
+}
+
 // 0x005D3882 (9B), right after 0x005D387B: the same store of the abstract
 // table 0x00C75908 (eleven __purecall slots) at this, returning this: the
 // constructor shape of that abstract base, written in this file's style.
