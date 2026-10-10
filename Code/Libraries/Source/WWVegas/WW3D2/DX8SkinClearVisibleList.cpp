@@ -74,11 +74,24 @@ public:
     { return Model; }
 };
 
-class __declspec(novtable) DX8SkinFVFCategoryContainer
+class MaterialPassClass;
+
+// The polymorphic primary base, holding only the vptr here; just the member
+// the delayed-pass override routes into is declared (rowed at 0x00144CB0 in
+// DX8RigidDelayedMaterialPass.cpp).
+class __declspec(novtable) DX8FVFCategoryContainer
+{
+public:
+    virtual ~DX8FVFCategoryContainer();
+    void Add_Visible_Material_Pass(MaterialPassClass *pass, MeshClass *mesh);
+};
+
+class __declspec(novtable) DX8SkinFVFCategoryContainer : public DX8FVFCategoryContainer
 {
 public:
     virtual ~DX8SkinFVFCategoryContainer();
     virtual bool Check_If_Mesh_Fits(MeshModelClass *mmc);
+    virtual void Add_Delayed_Visible_Material_Pass(MaterialPassClass *pass, MeshClass *mesh);
     void Add_Visible_Skin(MeshClass *mesh);
 private:
     void clearVisibleSkinList();
@@ -134,4 +147,13 @@ bool DX8SkinFVFCategoryContainer::Check_If_Mesh_Fits(MeshModelClass* mmc)
         return true;
     }
     return false;
+}
+
+// ?Add_Delayed_Visible_Material_Pass@DX8SkinFVFCategoryContainer@@UAEXPAVMaterialPassClass@@PAVMeshClass@@@Z
+// retail 0x001460B0, 5 bytes: slot 5 of the class's vtable. Zero Hour's
+// dx8renderer.h defines it inline: skins route delayed passes straight into
+// Add_Visible_Material_Pass (a tail jump).
+void DX8SkinFVFCategoryContainer::Add_Delayed_Visible_Material_Pass(MaterialPassClass *pass, MeshClass *mesh)
+{
+    Add_Visible_Material_Pass(pass, mesh);
 }
