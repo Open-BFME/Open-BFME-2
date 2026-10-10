@@ -1,5 +1,5 @@
-// ?rva00344749@@YA_NPAUCoord3D@@PAVObject@@@Z
-// partial score=0.9784546271338725 date=2026-10-10
+// ?computePath@AIAttackApproachTargetState@@MAE_NXZ
+// partial score=0.9977690721649484 date=2026-10-10
 // ?computePath@AIAttackApproachTargetState@@MAE_NXZ
 // cl: /I. /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
 //
