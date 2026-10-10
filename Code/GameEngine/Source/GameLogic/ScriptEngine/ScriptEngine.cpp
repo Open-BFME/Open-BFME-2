@@ -167,9 +167,35 @@ struct BreezeInfo
 };
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/ScriptEngine.h
+
+// stlport
+// Sequential-script receiver layout is read from the complete 43B constructor
+// and 87B assignment owners. Their established neutral names are retained.
+// The vector view reuses the existing pointer-only ModuleData container owner:
+// its complete 49B append reads/writes pointer slots and calls the same growth
+// body as retail here. This projection establishes no ModuleData payload claim.
+// Keeping STLport append visible tells the compiler that its const reference
+// cannot change the local pointer; declaration-only produces 159B with spills.
+#include <vector>
+class ModuleData;
+
+class Rva00336C90 { public: Rva00336C90& operator=(const Rva00336C90&); };
+class Rva003B24C7 { public: void rva003B24C7(bool); };
+struct Rva0020479EQuad { int m_count0, m_index0, m_count1, m_index1; };
+class Rva0020479E {
+public:
+ // The owned constructor only stores fields and its vptr; it cannot throw.
+ Rva0020479E() throw(); virtual ~Rva0020479E();
+ int m_04, m_08, m_0c, m_10;
+ Rva0020479EQuad m_14;
+ unsigned char m_24;
+ Rva0020479E *m_28;
+};
+
 class ScriptEngine
 {
 public:
+ void appendSequentialScript(const Rva0020479E *script);
 	AsciiString getStats( Real *curTimePtr, Real *script1Time, Real *script2Time );
 	bool evaluateConditions(Script *pScript, Team *thisTeam, Player *player);
 	bool evaluateTimer(Condition *condition);
@@ -193,7 +219,9 @@ protected:
 	void adjustTimer(ScriptAction *action, bool millisecondTimer, bool add);
 
 private:
-	unsigned char m_unreconstructed[0x17604];
+	unsigned char m_unreconstructed[0x10];
+ _STL::vector<const ModuleData*> m_sequentialScripts;
+ unsigned char m_unreconstructed1c[0x17604 - 0x1c];
 	BreezeInfo m_breezeInfo;
 	unsigned char m_unreconstructed17620[0x1a110 - 0x17620];
 	Team *m_callingTeam;						// +0x1A110
@@ -379,4 +407,26 @@ void ScriptEngine::updateFades(void)
 		return;
 	}
 	m_fade = FADE_NONE;
+}
+
+// Retail 207557..2075EE, 151B including its post-RET chain append block.
+// WB B3EBB0 names appendSequentialScript; ZH ScriptEngine.cpp:7738 supplies
+// the copy/search/link algorithm. Target adds enable(true) at copied script+10.
+// Native fields: team04, object08, script14, instruction18, next28; vector10.
+void ScriptEngine::appendSequentialScript(const Rva0020479E *script) {
+ Rva0020479E *created=new Rva0020479E;
+ *reinterpret_cast<Rva00336C90*>(created)=*reinterpret_cast<const Rva00336C90*>(script);
+ reinterpret_cast<Rva003B24C7*>(created->m_14.m_count0+0x10)->rva003B24C7(true);
+ created->m_28=0;
+ created->m_14.m_index0=-1;
+ for(_STL::vector<const ModuleData*>::iterator it=m_sequentialScripts.begin();it!=m_sequentialScripts.end();++it) {
+  Rva0020479E *current=reinterpret_cast<Rva0020479E*>(const_cast<ModuleData*>(*it));
+  if(!current) continue;
+  if((script->m_08 && script->m_08==current->m_08) || (script->m_04 && script->m_04==current->m_04)) {
+   while(current->m_28) current=current->m_28;
+   current->m_28=created;
+   return;
+  }
+ }
+ m_sequentialScripts.push_back(reinterpret_cast<const ModuleData* const&>(created));
 }
