@@ -79,6 +79,14 @@ class HordeMeleeSwarm {
 public:
  virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void startMeleeAttack(Object *);
  virtual void slot4(); virtual void updateMeleeAttack(Object *);
+ virtual void slot6();
+ virtual void slot7();
+ virtual void slot8();
+ virtual void slot9();
+ virtual void slot10();
+ virtual void slot11();
+ virtual void slot12();
+ virtual bool rva00583D0A(int,Coord3D *);
  bool findMeleeAttackPosition(Object *,Coord3D *,Object *,const Coord3D *,bool,int *,bool);
  SwarmHeld *held;
  _STL::vector<SwarmAttackEntry> attacks;
@@ -176,4 +184,16 @@ void HordeMeleeSwarm::startMeleeAttack(Object *victim)
   unit->rva0028ACEE(&unit->m_position,unit->rva0028B511());
   unit->m_ai->resetAttack();
  }
+}
+
+// Native583D0A..583D4C is66B RET8; constructor table slot13 and
+// WB147B1F0 establish index / Coord3D output ABI. Original method name
+// is unknown. The adjacent8B method at583D4C is outside this extent.
+bool HordeMeleeSwarm::rva00583D0A(int index,Coord3D *result)
+{
+ if(index>=0 && index<attacks.size() && !attacks[index].needsPosition) {
+  *result=attacks[index].position;
+  return true;
+ }
+ return false;
 }
