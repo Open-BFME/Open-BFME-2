@@ -1,9 +1,8 @@
-// ?Rva006017DAParse@@YAPADPBDPADH@Z
-// partial score=0.9825403185415206 date=2026-10-10
-// ?Rva006017DAParse@@YAPADPBDPADH@Z
-// partial score=0.95 date=2026-10-03
 // cl: /O1 /MD
-// ?Rva006017DAParse@@YAPADPBDPA DH@Z @0x006017DA 149B
+// ?Rva006017DAParse@@YAPADPBDPADH@Z @0x006017DA 149B
+// Codegen finding: declaring `int n = 0;` at the top of the function (before `ch`/`len`) makes n the
+// first-live local, which gives retail's [esi+eax] base/index order for f[n]; declaring it next to its
+// first use gives [eax+esi].
 // INI #include line parser. Evidence: callers 0x00601EE8 in 0x00601C53;
 // strstr IAT 0x00BBA614 and strlen thunk 0x00629170 with table 0x00E06A50.
 
@@ -11,9 +10,10 @@ extern "C" __declspec(dllimport) char *__cdecl strstr(const char *s1, const char
 extern "C" unsigned int __cdecl strlen(const char *s);
 extern int TextFileCharacterClasses[];
 
-// ?Rva006017DAParse@@YAPADPBDPADH@Z present-unmatched
+// ?Rva006017DAParse@@YAPADPBDPADH@Z
 char *__cdecl Rva006017DAParse(const char *src, char *dst, int maxLen)
 {
+	int n = 0;
 	char ch = *src;
 	int len = 0;
 	if (ch == '\r')
@@ -41,7 +41,7 @@ have_line:
 	f += strlen("#include");
 	while (*f == ' ' || *f == '\t' || *f == '"')
 		++f;
-	int n = 0;
+	n = 0;
 	unsigned char c2 = (unsigned char)*f;
 	while (TextFileCharacterClasses[c2] == 0) {
 		if (n >= maxLen)
