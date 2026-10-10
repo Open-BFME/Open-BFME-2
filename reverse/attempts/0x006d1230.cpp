@@ -1,4 +1,6 @@
 // ?rva006D1230@Rva006D1130@@QAEXPAPAVBfmeRefVGO@@0PAURva006D1130Iterator@@@Z
+// partial score=0.9461719071478711 date=2026-10-10
+// ?rva006D1230@Rva006D1130@@QAEXPAPAVBfmeRefVGO@@0PAURva006D1130Iterator@@@Z
 // partial score=0.8345104752588245 date=2026-10-09
 // cl: /O2 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 unsigned __cdecl bfmeDecVGO(unsigned *);
@@ -13,7 +15,7 @@ class Rva006D1130 {public:int count,capacity;Rva006D1130Item *data;Rva006D1130It
 void Rva006D1130::rva006D1230(BfmeRefVGO**first,BfmeRefVGO**last,Rva006D1130Iterator*dest){
  BfmeRefVGO *end=*last;BfmeRefVGO *begin=*first;int added=end-begin;
  if(!added)return;
- int total=count+added;int oldCapacity=capacity;
+ int total=count+added;int oldCapacity=(dest?capacity:capacity);
  if(total<oldCapacity){
   BfmeRefVGO*oldEnd=data+count;
   if(dest->position==oldEnd){
