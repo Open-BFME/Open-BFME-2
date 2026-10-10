@@ -1,19 +1,16 @@
 // ?Rva002E79A8CellToWorld@@YAPAUCoord3D@@PAU1@_NHHH@Z
-// partial score=0.91 date=2026-09-28
+// partial score=0.974624 date=2026-10-10
 // ?Rva002E79A8CellToWorld@@YAPAUCoord3D@@PAU1@_NHHH@Z
-// partial score=0.91 date=2026-09-28
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE
+// partial score=0.974624 date=2026-10-10
+// ?Rva002E79A8CellToWorld@@YAPAUCoord3D@@PAU1@_NHHH@Z
+// partial score=0.974624 date=2026-10-10
+// cl: /O1 /G7 /DNDEBUG /MD /EHsc /arch:SSE
 // ?Rva002E79A8CellToWorld@@YAPAUCoord3D@@PAU1@_NHHH@Z @0x002E79A8 186B
 // Cell-to-world converter beside Pathfinder clamp callers 0x002E7B29 0x002E7BF0 0x002E7ED6.
 // Scale 10.0 at 0xBC2428, half 0.5 at 0xBC26F0, corner at 0xBC7838. Layer 1 (ground)
 // tries TerrainLogic slot 0x4c water check then falls back to slot 0x1c getLayerHeight.
 
-struct Coord3D
-{
-	float x;
-	float y;
-	float z;
-};
+#include "../../Code/Libraries/Include/Lib/Coord3D.h"
 
 class TerrainLogic
 {
@@ -45,24 +42,16 @@ public:
 #define CellHalf (*(const float *)0x00BC26F0)
 #define CellBase (*(const float *)0x00BC7838)
 
-// ?Rva002E79A8CellToWorld@@YAPAUCoord3D@@PAU1@_NHHH@Z present-unmatched
 Coord3D *__cdecl Rva002E79A8CellToWorld(Coord3D *out, bool center, int cellX, int cellY, int layer)
 {
-	float scale = CellScale;
-	float fx = (float)cellX;
-	float off = CellHalf;
-	if (!center)
-		off = CellBase;
-	fx = (fx + off) * scale;
-	float fy = (float)cellY;
-	fy = (fy + off) * scale;
-	float z;
-	if (layer == 1 && TheTerrainLogic->waterCheck(fx, fy, &z, 0, 0)) {
-	} else {
-		z = TheTerrainLogic->getLayerHeight(fx, fy, layer, 0, 1);
-	}
-	out->x = fx;
-	out->y = fy;
-	out->z = z;
-	return out;
+Coord3D position;
+float scale=CellScale;
+float offset=CellHalf;
+if(!center) offset=CellBase;
+position.x=((float)cellX+offset)*scale;
+position.y=((float)cellY+offset)*scale;
+if(layer!=1 || !TheTerrainLogic->waterCheck(position.x,position.y,&position.z,0,0))
+position.z=TheTerrainLogic->getLayerHeight(position.x,position.y,layer,0,1);
+out->x=position.x;out->y=position.y;out->z=position.z;
+return out;
 }
