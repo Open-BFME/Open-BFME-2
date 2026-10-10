@@ -1,10 +1,7 @@
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
 // ?GadgetListBoxSystem@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z
-// partial score=0.9996494321978944 date=2026-10-10
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
-// ?GadgetListBoxSystem@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z
-// partial score=0.99 date=2026-10-10
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
 // List box hit testing, the Zero Hour GadgetListBox.cpp statics BFME2 keeps:
 // getListboxEntryBasedOnCoord @0x00323E95 218B (cdecl; the only body the
 // GadgetListBoxGetEntryBasedOnXY wrapper @0x00323F6F tail-jumps to) maps a
@@ -1367,7 +1364,7 @@ WindowMsgHandledType GadgetListBoxSystem(GameWindow *window, UnsignedInt msg,
 					cells[j].data = NULL;
 				}
 				delete [] (list->listData[i].cell);
-				list->listData[i].cell = NULL;
+				(list?list:list)->listData[i].cell = NULL;
 			}
 
 			delete [] (list->listData);
