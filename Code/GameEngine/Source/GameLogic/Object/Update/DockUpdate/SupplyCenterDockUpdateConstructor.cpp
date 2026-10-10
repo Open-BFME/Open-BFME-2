@@ -53,6 +53,15 @@ public:
 	SupplyCenterDockUpdate(Thing *thing, const ModuleData *moduleData);
 };
 
+// The BehaviorModule vftable anchor: declared virtual in 60 TUs but defined
+// nowhere, so every one of them carries U ?behaviorModuleAnchor. Defined once
+// here (empty: retail inlines or dead-strips it; no retail bytes are claimed,
+// hence present-unmatched rather than a row).
+// ?behaviorModuleAnchor@BehaviorModule@@UAEXXZ present-unmatched
+void BehaviorModule::behaviorModuleAnchor()
+{
+}
+
 // ??0SupplyCenterDockUpdate@@QAE@PAVThing@@PBVModuleData@@@Z
 SupplyCenterDockUpdate::SupplyCenterDockUpdate(Thing *thing, const ModuleData *moduleData)
 	: SupplyCenterDockUpdateBase(thing, moduleData)
