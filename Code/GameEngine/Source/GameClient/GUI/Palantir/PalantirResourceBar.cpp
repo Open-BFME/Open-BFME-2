@@ -62,3 +62,25 @@ void Rva002D5188ResourceBar::rva002D2D63(const Coord2D &position,const Coord2D &
  // trailing argument types remain opaque. Neither coordinate is rounded.
  if(image)reinterpret_cast<W3DDisplay*>(TheDisplay)->rva0004D6B3(image,position.x,position.y,position.x+size.x,position.y+size.y,-1,2);
 }
+Rva002D5188ResourceBar::Rva002D5188ResourceBar():unknown00(0),unknown04(0),flag08(false),resources(-2),commandPoints(-1),unknown14(-1),multiplier(0.0f),image(0) {
+ reinterpret_cast<Rva00222A8BTarget*>(g_bfmeAptWindowManager)->rva002239FA(AsciiString("ResourceBar/ResourceIcon"),AsciiString("Resource_Icon"));
+ {
+  AsciiString name("RenderFactionIcon");
+  AddResourceRender(name,DelegateDesc(reinterpret_cast<ResourceDrawMethod>(&Rva002D5188ResourceBar::rva002D2D63),this));
+ }
+ {
+  AsciiString name("Palantir/ResourceBar/Resources/");
+  AptRef<AptOverButtonHandler>::Resources binding={&resources};
+  reinterpret_cast<AptPlayer*>(g_bfmeAptWindowManager)->AddOverButtonHandler(name,AptRef<AptOverButtonHandler>(binding));
+ }
+ {
+  AsciiString name("Palantir/ResourceBar/ResourceMultiplier/");
+  AptRef<AptOverButtonHandler>::Multiplier binding={&multiplier};
+  reinterpret_cast<AptPlayer*>(g_bfmeAptWindowManager)->AddOverButtonHandler(name,AptRef<AptOverButtonHandler>(binding));
+ }
+ {
+  AsciiString name("Palantir/ResourceBar/CommandPoints/");
+  AptRef<AptOverButtonHandler>::CommandPoints binding={&commandPoints};
+  reinterpret_cast<AptPlayer*>(g_bfmeAptWindowManager)->AddOverButtonHandler(name,AptRef<AptOverButtonHandler>(binding));
+ }
+}
