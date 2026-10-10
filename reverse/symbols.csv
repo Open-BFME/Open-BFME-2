@@ -12406,7 +12406,6 @@ name,address,notes
 ?slot38@TransportContain@@UAE_NPAVObject@@HH@Z,0x00466EDE,slot 38 of the +0x20 contain vtable 0x00C44030 that the TransportContain ctor installs; the HordeContain override 0x00469647 calls it non-virtually (REL32 at 0x00469664) with the +0x20 this (unrowed)
 ?someInsideSomeOutside@Team@@QAE_NPAVPolygonTrigger@@I@Z,0x0039E50D,target at 0x3E5E7D directly invokes Team helper before allInside; BFME1 donor identifies it as someInsideSomeOutside
 ?spin@LockClass@FastCriticalSectionClass@@CIXPAI@Z,0x0006577F,ObjectPoolClass Allocate_Object_Memory spinlock acquire; address read from the REL32 displacement at 0x00610680+0x24 in a masked-recompile probe of ObjectPoolAllocateObjectMemory.cpp
-?spin@LockClass@FastCriticalSectionClass@@CIXPAX@Z,0x006C5EF0,WWLib string-domain spin (void spelling); lock-bts loop with WaitForSingleObject yield on the startup event; called from the LockClass copy-ctor at 0x006C5F40 and the 0x006C61xx string bodies; distinct from the pool-domain unsigned-spelling pin at 0x0006577F
 ?splice@?$list@FV?$allocator@F@_STL@@@_STL@@QAEXU?$_List_iterator@FU?$_Nonconst_traits@F@_STL@@@2@AAV12@0@Z,0x004CEA94,REL32 displacement at the byte-true list<short>::sort call site 0x0052611D; ICF-folded with the int instantiation
 ?splice@?$list@UcrateCreationEntry@@V?$allocator@UcrateCreationEntry@@@_STL@@@_STL@@QAEXU?$_List_iterator@UcrateCreationEntry@@U?$_Nonconst_traits@UcrateCreationEntry@@@_STL@@@2@AAV12@0@Z,0x004CEA94
 ?splice@?$list@VRva00525119@@V?$allocator@VRva00525119@@@_STL@@@_STL@@QAEXU?$_List_iterator@VRva00525119@@U?$_Nonconst_traits@VRva00525119@@@_STL@@@2@AAV12@0@Z,0x4cea94,Independent complete35B typed helper proof from witnessed scratch object; same observed ABI and primitive storage as existing rowed provider; native52611D float-pointer sort call chain; original application element type unknown
@@ -14797,8 +14796,6 @@ rva009C7380WeightPairs,0x009B84E0
 ?_bfme_setAptScreenRef@@YAXABVAsciiString@@V?$AptRef@VAptScreenInitGadgets@@@@@Z,0x00411458,callee of ?rva0044303D@AptMpGameSetup@@QAEXXZ; stores the by-value reference under the name in the screen table 0x00E02FD0 (operator[] 0x0041112B then assign 0x002174A4) and releases it via 0x0007DEEF; BFME1 _bfme_setAptScreenRef analogue
 ?rva0030A8EE@Thing@@QBEXPAUCoord3D@@@Z,0x0030A8EE,callee of ?exitObjectViaDoor@QueueProductionExitUpdate@@UAEXPAVObject@@W4ExitDoorType@@@Z
 ?rva0054C805@Rva0054C88AInner@@QAEXM@Z,0x0054C805,callee of ?rva0054C877@Rva0054C88A@@QAEXM@Z
-??0Rva00323674@@QAE@PAVGameWindow@@@Z,0x0007B719,callee of ?W3DGadgetImageComboBoxDraw@@YAXPAVGameWindow@@PAVWinInstanceData@@@Z
-??1Rva00323674@@QAE@XZ,0x000B3FD0,callee of ?W3DGadgetImageComboBoxDraw@@YAXPAVGameWindow@@PAVWinInstanceData@@@Z
 ?rva005294FC@Rva0052936C@@QAEXH@Z,0x005294FC,callee of ?rva005295D5@Rva0052936C@@QAEXH@Z
 ?rva005C3E81@Rva005C3E81@@QAEXXZ,0x005C3E81,callee of ?rva005295D5@Rva0052936C@@QAEXH@Z
 ?rva00366B77@Rva00366B30@@QAEXXZ,0x00366B77,callee of ?rva0052F294@Rva002E713FOwner@@QAEXXZ

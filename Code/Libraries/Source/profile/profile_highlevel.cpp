@@ -1,11 +1,11 @@
 // cl: /MD /EHsc
 //
 // Zero Hour profile_highlevel.cpp as built into BFME2 (retail
-// 0x006C5C60-0x006C65EF). The lock is WWLib's FastCriticalSectionClass;
-// its spin (0x006C5EF0) and an out-of-line lock constructor (0x006C5F40)
-// are WWLib inline COMDATs that retail emitted from this unit (their rows
-// are still sourced from WWLib/). ProfileId::GetFrameValue (0x006C5EC0) is
-// the header inline that GetValue did not inline.
+// 0x006C5C60-0x006C65EF). The lock is Zero Hour's ProfileFastCS
+// (internal.h): its ThreadSafeSetFlag (0x006C5EF0, inline asm, so never
+// inlined) and the out-of-line Lock constructor (0x006C5F40) are the header
+// inline COMDATs retail emitted from this unit. ProfileId::GetFrameValue
+// (0x006C5EC0) is the header inline that GetValue did not inline.
 
 #include <windows.h>
 #include <string.h>
@@ -14,7 +14,7 @@
 #include "internal.h"
 
 // our own fast critical section
-static FastCriticalSectionClass cs;
+static ProfileFastCS cs;
 
 ProfileId *ProfileId::first;   // .bss 0x00E0C620
 int ProfileId::curFrame;
@@ -86,7 +86,7 @@ const char *ProfileId::AsString(double v) const
 
 	unsigned len = _snprintf(help, sizeof(help), help1, v * mul) + 1;
 
-	FastCriticalSectionClass::LockClass lock(cs);
+	ProfileFastCS::Lock lock(cs);
 	if (stringBufUnused + len > STRING_BUFFER_SIZE)
 		stringBufUnused = 0;
 	char *ret = stringBuf + stringBufUnused;
@@ -98,7 +98,7 @@ const char *ProfileId::AsString(double v) const
 // ?FrameStart@ProfileId@@SAHXZ
 int ProfileId::FrameStart(void)
 {
-	FastCriticalSectionClass::LockClass lock(cs);
+	ProfileFastCS::Lock lock(cs);
 
 	unsigned i;
 	for (i = 0; i < MAX_FRAME_RECORDS; i++)
@@ -124,7 +124,7 @@ void ProfileId::FrameEnd(int which, int mixIndex)
 	if (mixIndex >= curFrame)
 		return;
 
-	FastCriticalSectionClass::LockClass lock(cs);
+	ProfileFastCS::Lock lock(cs);
 
 	frameRecordMask ^= 1 << which;
 	if (mixIndex < 0)
@@ -234,7 +234,7 @@ ProfileHighLevel::Id ProfileHighLevel::AddProfile(const char *name, const char *
 		return id;
 
 	// no, allocate one
-	FastCriticalSectionClass::LockClass lock(cs);
+	ProfileFastCS::Lock lock(cs);
 	id.m_idPtr = new (ProfileAllocMemory(sizeof(ProfileId))) ProfileId(name, descr, unit, precision, exp10);
 	return id;
 }
@@ -242,7 +242,7 @@ ProfileHighLevel::Id ProfileHighLevel::AddProfile(const char *name, const char *
 // ?EnumProfile@ProfileHighLevel@@SA_NIAAVId@1@@Z
 bool ProfileHighLevel::EnumProfile(unsigned index, Id &id)
 {
-	FastCriticalSectionClass::LockClass lock(cs);
+	ProfileFastCS::Lock lock(cs);
 	ProfileId *cur;
 	for (cur = ProfileId::GetFirst(); cur && index--; cur = cur->GetNext())
 		;
@@ -256,7 +256,7 @@ bool ProfileHighLevel::FindProfile(const char *name, Id &id)
 	if (!name)
 		return false;
 
-	FastCriticalSectionClass::LockClass lock(cs);
+	ProfileFastCS::Lock lock(cs);
 	for (ProfileId *cur = ProfileId::GetFirst(); cur; cur = cur->GetNext())
 		if (!strcmp(name, cur->GetName()))
 		{

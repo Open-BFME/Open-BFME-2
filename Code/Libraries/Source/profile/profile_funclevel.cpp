@@ -97,3 +97,8 @@ bool ProfileFuncLevel::EnumThreads(unsigned index, Thread &thread)
 	return false;
 }
 
+// ProfileFastCS's contention-yield event (.data 0x00E0C774, after the two
+// hooks above), created by the startup initializer at 0x007B6720:
+// CreateEventA(NULL, FALSE, FALSE, "") stored to it, as Zero Hour defines it
+// here outside HAS_PROFILE. Read by ThreadSafeSetFlag (0x006C5EF0).
+HANDLE ProfileFastCS::testEvent=::CreateEvent(NULL,FALSE,FALSE,"");
