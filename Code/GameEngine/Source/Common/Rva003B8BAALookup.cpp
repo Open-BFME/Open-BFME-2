@@ -1,4 +1,6 @@
-// cl: /MD
+// cl: /O1 /MD /D_STLP_USE_STATIC_LIB
+// stlport
+#include <vector>
 // ?rva003B8BAA@Rva003B8BAA@@QAEPAXXZ @0x003B8BAA 30B.
 // Guard on the 0x00DFEF10 singleton byte +0xB4, then index/array chase +0x10/+0x14/[+0x20].
 // Evidence: retail mov eax,[0xDFEF10]; cmp [eax+0xB4],0; jne; xor eax,eax; ret; else mov eax,[ecx+0x10];
@@ -60,3 +62,13 @@ void *Rva003B8BAA::rva003B8BF9(int index)
 {
 	return m_array14[index];
 }
+
+// Campaign index lookup 0x003B8BC8..003B8BF9, RET4,49B. Target
+// callers57C621/57D538 pass TheCampaignManager and campaign pointers;
+// existing shared getter family proves its pointer vector at14/18.
+// This neutral view asserts the accessed vector ABI only. The reference
+// campaign index method name is unresolved. Natural STLport size/index
+// calls retain native count reloads and pointer induction; raw pointer
+// rewrites incorrectly hoist the count. No new global or pin needed.
+class Rva00E02D6C {char prefix[0x14]; _STL::vector<void *> elements;public:int rva003B8BC8(void *element);};
+int Rva00E02D6C::rva003B8BC8(void *element) {for(int i=0;i<elements.size();++i) {if(elements[i]==element)return i;}return -1;}
