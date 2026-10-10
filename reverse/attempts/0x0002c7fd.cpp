@@ -1,4 +1,6 @@
 // ?rva0002C7FD@Rva0002C7FD@@QAEXI@Z
+// partial score=0.985981308411215 date=2026-10-10
+// ?rva0002C7FD@Rva0002C7FD@@QAEXI@Z
 // partial score=0.9813 date=2026-10-09
 // ?rva0002C7FD@Rva0002C7FD@@QAEXI@Z
 // partial score=0.92 date=2026-10-09
@@ -65,7 +67,7 @@ void Rva0002C7FD::rva0002C7FD(unsigned int hint) {
     while(first) {
      unsigned int newBucket=bucketForKey(first->key,n);
      buckets[scratch.bucket]=first->next;
-     void *&newHead=*(newBucket+tmp.begin());
+     unsigned k=*(volatile unsigned*)&newBucket; void **p=*(void ** volatile*)&tmp; void *&newHead=*(p+k);
      first->next=static_cast<Rva0002C7FDNodePrefix*>(newHead);
      newHead=first;
      first=static_cast<Rva0002C7FDNodePrefix*>(buckets[scratch.bucket]);
