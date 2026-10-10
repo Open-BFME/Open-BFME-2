@@ -270,10 +270,12 @@ private:
 
 class ShaderClass
 {
+	friend class DX8Wrapper;
 public:
 	static ShaderClass _PresetOpaqueShader;
-	static bool ShaderDirty;
 	unsigned ShaderBits;
+protected:
+	static bool ShaderDirty;	// ?ShaderDirty@ShaderClass@@1_NA (ShaderClassApply.cpp)
 };
 
 struct BFME2TextureResource { void Release_Ref(void); };
@@ -295,15 +297,18 @@ private:
 	static bool SnapshotActivated;
 };
 
+// DX8Wrapper::render_state (dx8wrapper.cpp ?render_state@DX8Wrapper@@1URenderStateStruct@@A):
+// Zero Hour's RenderStateStruct starts with the shader and the material.
+struct RenderStateStruct
+{
+	ShaderClass shader;
+	VertexMaterialClass *material;
+};
+
 class DX8Wrapper
 {
 public:
 	enum ChangedStates { MATERIAL_CHANGED = 1 << 14, SHADER_CHANGED = 1 << 15 };
-	struct RenderStateStruct
-	{
-		ShaderClass shader;
-		VertexMaterialClass *material;
-	};
 
 	static IDirect3DDevice8 *_Get_D3D_Device8(void) { return D3DDevice; }
 	static void Apply_Render_State_Changes(void);

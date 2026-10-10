@@ -9,17 +9,24 @@
 // word and four FISTP conversions; ordinary MSVC7.1 /arch:SSE casts do not
 // express that codegen machinery. No naked body or machine-byte emission.
 class Vector3 { public: float X,Y,Z; };
-class ShaderClass { public: static bool ShaderDirty; static void Invalidate() {ShaderDirty=true;} };
+// ShaderDirty, FogEnable and FogColor are protected statics (ShaderClassApply.cpp
+// ?ShaderDirty@ShaderClass@@1_NA, dx8wrapper.cpp ?FogEnable@DX8Wrapper@@1_NA and
+// ?FogColor@DX8Wrapper@@1KA).
+class ShaderClass { protected: static bool ShaderDirty; public: static void Invalidate() {ShaderDirty=true;} };
+void rva0006F0BB(bool enable, const Vector3 &color, float start, float end);
 class DX8Wrapper {
-public:
+ friend void rva0006F0BB(bool enable, const Vector3 &color, float start, float end);
+protected:
  static bool FogEnable;
- static unsigned FogColor;
+ static unsigned long FogColor;
+public:
  static void Set_DX8_Render_State(unsigned long state,unsigned value);
  static unsigned Convert_Color(const Vector3 &color,float alpha);
 };
 extern float g_Va00DEDA28;
 extern float g_Va00DEDA2C;
 
+// ?DX8Wrapper::Convert_Color absent-from-retail (always inlined into its callers, as Zero Hour's dx8wrapper.h inline)
 __forceinline unsigned DX8Wrapper::Convert_Color(const Vector3 &color, float alpha)
 {
 	const float scale = 255.0;

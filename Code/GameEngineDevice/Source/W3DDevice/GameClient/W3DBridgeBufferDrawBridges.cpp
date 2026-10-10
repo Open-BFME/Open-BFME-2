@@ -105,10 +105,12 @@ private:
 
 class ShaderClass
 {
+	friend class DX8Wrapper;
 public:
 	static ShaderClass _PresetOpaque2DShader;
 	unsigned int ShaderBits;
-	static bool ShaderDirty;
+protected:
+	static bool ShaderDirty;	// ?ShaderDirty@ShaderClass@@1_NA (ShaderClassApply.cpp)
 };
 
 class TextureBaseClass

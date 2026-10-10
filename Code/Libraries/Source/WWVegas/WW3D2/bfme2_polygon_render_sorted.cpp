@@ -16,16 +16,25 @@
  */
 #include <string.h>
 
+// DX8Wrapper::render_state (VA 0x00DEE5D8, dx8wrapper.cpp): Zero Hour's
+// RenderStateStruct (bfmestages/dx8wrapper.h); index_base_offset, the 16-bit
+// cache at 0x00DEE864, is its last field (+0x28C).
+struct RenderStateStruct
+{
+	unsigned char m_pad00[0x28C];
+	unsigned short index_base_offset;
+};
+
 class DX8Wrapper {
 protected:
-	static unsigned short BFME2IndexBase;
+	static RenderStateStruct render_state;
 	static unsigned render_state_changed;
 
 public:
 	static void Set_Index_Buffer_Index_Offset(unsigned offset)
 	{
-		if (BFME2IndexBase == offset) return;
-		BFME2IndexBase = (unsigned short)offset;
+		if (render_state.index_base_offset == offset) return;
+		render_state.index_base_offset = (unsigned short)offset;
 		render_state_changed |= 1 << 17;
 	}
 };

@@ -32,17 +32,23 @@ public:
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/shader.h
 class ShaderClass
 {
+protected:
+	static bool ShaderDirty;	// ?ShaderDirty@ShaderClass@@1_NA (ShaderClassApply.cpp)
 public:
-	static bool ShaderDirty;
 	static void Invalidate() { ShaderDirty = true; }
 };
+
+void Set_Fog(bool enable, const Vector3 &color, float start, float end);
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.h
 class DX8Wrapper
 {
-public:
+	friend void Set_Fog(bool enable, const Vector3 &color, float start, float end);
+protected:
+	// dx8wrapper.cpp ?FogEnable@DX8Wrapper@@1_NA / ?FogColor@DX8Wrapper@@1KA
 	static bool FogEnable;
-	static unsigned FogColor;
+	static unsigned long FogColor;
+public:
 	static void Set_DX8_Render_State(unsigned long state, unsigned value);
 
 	static void Clear(bool clear_color, bool clear_z, bool clear_stencil,
@@ -60,8 +66,8 @@ extern float g_Va00DEDA2C;
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/ww3d.h
 class WW3D
 {
+	static bool IsTexturingEnabled;	// ww3d.cpp ?IsTexturingEnabled@WW3D@@0_NA
 public:
-	static bool IsTexturingEnabled;
 	static bool Is_Texturing_Enabled() { return IsTexturingEnabled; }
 	static void Enable_Texturing(bool b);
 };

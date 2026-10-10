@@ -270,6 +270,10 @@ long __cdecl Rva00077D0FLoad(const char *strFilePath, unsigned long *pHandle)
 #pragma comment(linker, "/alternatename:?m_oldRenderSurface@W3DShaderManager@@2PAUIDirect3DSurface8@@A=?g_Va009E1F64@@3IA")
 
 
+// Zero Hour W3DShaderManager.cpp's render-to-texture flag (0x00DE1F60): read by
+// the smudge manager probes and set by startRenderToTexture.
+bool W3DShaderManager::m_renderingToTexture;
+
 // Existing native pointer storage DE1F68, previously declared as an integer.
 IDirect3DTexture8 *W3DShaderManager::m_renderTexture;
 

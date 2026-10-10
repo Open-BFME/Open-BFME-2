@@ -227,9 +227,11 @@ public:
 
 class ShaderClass
 {
+	friend class DX8Wrapper;
+protected:
+	static bool ShaderDirty;	// ?ShaderDirty@ShaderClass@@1_NA (ShaderClassApply.cpp)
 public:
 	unsigned int ShaderBits;
-	static bool ShaderDirty;
 	static ShaderClass _PresetOpaqueShader;
 
 	ShaderClass(const ShaderClass &other)
@@ -290,6 +292,7 @@ extern unsigned number_of_DX8_calls;
 
 class DX8Wrapper
 {
+protected:
 	static RenderStateStruct render_state;
 	static unsigned render_state_changed;
 	static IDirect3DBaseTexture8 *Textures[8];

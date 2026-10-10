@@ -92,6 +92,7 @@ extern "C" int __stdcall AVIFileReadData(PAVISTREAM stream, unsigned long positi
 void __stdcall bfmeReleaseATXA(void *stream);
 void __stdcall bfmeReleaseBTXA(void *file);
 void *operator new[](unsigned int size);
+void operator delete[](void *place);
 extern "C" long __ftol2(double value);
 
 class BfmeThingTXA
@@ -108,6 +109,17 @@ public:
 	int m_bfmeReserved1;
 	PAVIFILE m_bfmeB;
 	PAVISTREAM m_bfmeA;
+};
+
+// The buffered-frame flush 0x001767D0 is rowed under Zero Hour's class name
+// (FrameGrabClassFlushBufferedFrames.cpp); BfmeThingTXA is that same class
+// (its seven-argument ctor is the FrameGrabClass(filename width height bitdepth
+// framerate buffer_count compressed) the flush unit declares).
+class FrameGrabClass
+{
+	friend class BfmeThingTXA;
+protected:
+	void Rva00958570_Flush_Buffered_Frames();
 };
 
 __forceinline void rva00958200Cleanup(BfmeThingTXA *self, PAVISTREAM stream)
@@ -244,6 +256,22 @@ BfmeThingTXA::BfmeThingTXA(const char *filename, int width, int height, int bitc
 		sprintf(error, "Unable to allocate buffer\n");
 		OutputDebugStringA(error);
 	}
+}
+
+// ?BfmeThingTXA::~BfmeThingTXA absent-from-retail
+// The class's only virtual (vtable 0x00BD4E08 has the single slot 0x005768D0).
+// Retail inlines this body into the scalar deleting destructor 0x001768D0 that
+// this unit's vtable emits (vptr store, flush 0x001767D0, stream and file
+// releases, delete[] of the frame buffer) and dead-strips the standalone copy.
+BfmeThingTXA::~BfmeThingTXA()
+{
+	reinterpret_cast<FrameGrabClass *>(this)->Rva00958570_Flush_Buffered_Frames();
+	if (m_bfmeA)
+		bfmeReleaseATXA(m_bfmeA);
+	if (m_bfmeB)
+		bfmeReleaseBTXA(m_bfmeB);
+	if (m_bfmeBuf)
+		delete[] (unsigned char *)m_bfmeBuf;
 }
 
 // Retail's call sites in this unit's matched rows land on bodies rowed under

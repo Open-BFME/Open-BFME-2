@@ -135,7 +135,16 @@ public:
 	}
 	Real Row[4][4];
 };
-extern Matrix4 BFME2World;
+
+// DX8Wrapper::render_state (VA 0x00DEE5D8, dx8wrapper.cpp): Zero Hour's
+// RenderStateStruct (bfmestages/dx8wrapper.h) -- shader, material,
+// Textures[16], Lights[4] and LightEnable[4] (0x1EC bytes), then world at
+// +0x1EC (0x00DEE7C4).
+struct RenderStateStruct
+{
+	unsigned char m_pad00[0x1EC];
+	Matrix4 world;
+};
 
 class DynamicIBAccessClass
 {
@@ -201,7 +210,7 @@ public:
 
 	static __forceinline void Set_World(const Matrix3D &m)
 	{
-		BFME2World = m;
+		render_state.world = m;
 		render_state_changed |= 0x1;
 		render_state_changed &= ~0x40000;
 	}
@@ -219,6 +228,7 @@ public:
 protected:
 	static IDirect3DDevice8 *D3DDevice;
 	static unsigned int render_state_changed;
+	static RenderStateStruct render_state;
 };
 
 #define SIN_TABLE_SIZE 1024

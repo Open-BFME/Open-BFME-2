@@ -14,8 +14,9 @@
 //     edges (no Is_Really_Visible, no m_edgesToFlush);
 //   * a track's newest edge is fully transparent; the vertex alpha product
 //     converts through x87 and __ftol2 (the shade through cvttss2si);
-//   * the world transform is the identity (written into BFME2World with the
-//     world-changed bit set and the world-identity bit cleared);
+//   * the world transform is the identity (written into
+//     DX8Wrapper::render_state.world, 0x00DEE7C4, with the world-changed bit
+//     set and the world-identity bit cleared);
 //   * the stage-zero texture binds through BFME2Set_Texture 0x0011F4B0.
 // Track object layout (BFME 2): texture +0x2C, active edges +0x30, 100 edges of
 // 0x30 bytes from +0x3C (end points, UVs, alpha +0x2C), bottom index +0x1308,
@@ -84,17 +85,17 @@ public:
 	}
 	Int NumRefs;
 };
-extern VertexMaterialClass *ScreenMaterial;
-
 extern bool bfmeCameraProjectionOverride;
 
 class ShaderClass
 {
+	friend class DX8Wrapper;
 public:
 	static bool Is_Backface_Culling_Inverted() { return bfmeCameraProjectionOverride; }
 	static void Invalidate() { ShaderDirty = true; }
 	UnsignedInt ShaderBits;
-	static bool ShaderDirty;
+protected:
+	static bool ShaderDirty;	// ?ShaderDirty@ShaderClass@@1_NA (ShaderClassApply.cpp)
 };
 
 class VertexBufferClass
@@ -147,11 +148,21 @@ public:
 	}
 	Real Row[4][4];
 };
-extern Matrix4 BFME2World;
 
+// DX8Wrapper::render_state (VA 0x00DEE5D8, defined in dx8wrapper.cpp): Zero
+// Hour's RenderStateStruct (bfmestages/dx8wrapper.h) -- shader, material
+// (0x00DEE5DC), Textures[16], Lights[4] and LightEnable[4], then world at
+// +0x1EC (0x00DEE7C4), view at +0x22C, and index_base_offset at +0x28C
+// (0x00DEE864) after the vertex/index buffer bookkeeping.
 struct RenderStateStruct
 {
 	UnsignedInt shader;
+	VertexMaterialClass *material;
+	unsigned char m_pad08[0x1EC - 0x08];
+	Matrix4 world;
+	Matrix4 view;
+	unsigned char m_pad26C[0x28C - 0x26C];
+	unsigned short index_base_offset;
 };
 
 class DX8Wrapper
@@ -165,9 +176,9 @@ public:
 	{
 		if (material)
 			material->Add_Ref();
-		if (ScreenMaterial)
-			ScreenMaterial->Release_Ref();
-		ScreenMaterial = material;
+		if (render_state.material)
+			render_state.material->Release_Ref();
+		render_state.material = material;
 		render_state_changed |= 0x4000;
 	}
 	static __forceinline void Set_Shader(const ShaderClass &shader)
@@ -180,22 +191,21 @@ public:
 	}
 	static __forceinline void Set_World(const Matrix3D &m)
 	{
-		BFME2World = m;
+		render_state.world = m;
 		render_state_changed |= 0x1;
 		render_state_changed &= ~0x40000;
 	}
 	static __forceinline void Set_Index_Buffer_Index_Offset(Int offset)
 	{
-		if (BFME2IndexBase != offset) {
-			BFME2IndexBase = (unsigned short)offset;
+		if (render_state.index_base_offset != offset) {
+			render_state.index_base_offset = (unsigned short)offset;
 			render_state_changed |= 0x20000;
 		}
 	}
 
-private:
+protected:
 	static unsigned int render_state_changed;
 	static RenderStateStruct render_state;
-	static unsigned short BFME2IndexBase;
 };
 
 struct TrackEdgeInfo

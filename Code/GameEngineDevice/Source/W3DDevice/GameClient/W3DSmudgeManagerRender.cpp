@@ -279,10 +279,12 @@ public:
 
 class ShaderClass
 {
+	friend class DX8Wrapper;
 public:
 	unsigned int ShaderBits;
-	static bool ShaderDirty;
 	static ShaderClass _PresetAlphaShader;
+protected:
+	static bool ShaderDirty;	// ?ShaderDirty@ShaderClass@@1_NA (ShaderClassApply.cpp)
 };
 
 class IndexBufferClass;
@@ -340,16 +342,31 @@ struct BfmeSortingVBAccess
 
 class DynamicVBAccessClass;
 
+// DX8Wrapper::render_state (VA 0x00DEE5D8, dx8wrapper.cpp): Zero Hour's
+// RenderStateStruct (bfmestages/dx8wrapper.h) -- shader, material,
+// Textures[16], Lights[4] and LightEnable[4], then world at +0x1EC
+// (0x00DEE7C4) and view at +0x22C (0x00DEE804).
 struct RenderStateStruct
 {
 	ShaderClass shader;
 	VertexMaterialClass *material;
+	unsigned char m_pad08[0x1EC - 0x08];
+	Matrix4 world;
+	Matrix4 view;
+};
+
+// WW3D::SnapshotActivated (ww3d.cpp, ?SnapshotActivated@WW3D@@0_NA).
+class WW3D
+{
+	friend class DX8Wrapper;
+	static bool SnapshotActivated;
 };
 
 extern unsigned number_of_DX8_calls;
 
 class DX8Wrapper
 {
+protected:
 	static RenderStateStruct render_state;
 	static unsigned render_state_changed;
 	static IDirect3DBaseTexture8 *Textures[8];
@@ -357,8 +374,6 @@ class DX8Wrapper
 	static unsigned texture_changes;
 	static unsigned texture_stage_state_changes;
 	static unsigned TextureStageStates[8][32];
-	static Matrix4 render_state_world;
-	static Matrix4 render_state_view;
 
 public:
 	enum {
@@ -384,12 +399,12 @@ public:
 	{
 		switch (transform) {
 		case 256:
-			render_state_world.Make_Identity();
+			render_state.world.Make_Identity();
 			render_state_changed |= (unsigned)WORLD_CHANGED;
 			render_state_changed &= ~(unsigned)WORLD_IDENTITY;
 			break;
 		case 2:
-			render_state_view.Make_Identity();
+			render_state.view.Make_Identity();
 			render_state_changed |= (unsigned)VIEW_CHANGED;
 			render_state_changed &= ~(unsigned)VIEW_IDENTITY;
 			break;
@@ -399,14 +414,14 @@ public:
 	}
 	static __forceinline void Set_World_Identity(void)
 	{
-		render_state_world.Make_Identity();
+		render_state.world.Make_Identity();
 		render_state_changed |= (unsigned)WORLD_CHANGED;
 		render_state_changed &= ~(unsigned)WORLD_IDENTITY;
 	}
 
 	static __forceinline void Set_View_Identity(void)
 	{
-		render_state_view.Make_Identity();
+		render_state.view.Make_Identity();
 		render_state_changed |= (unsigned)VIEW_CHANGED;
 		render_state_changed &= ~(unsigned)VIEW_IDENTITY;
 	}
@@ -470,8 +485,7 @@ public:
 		++texture_stage_state_changes;
 	}
 
-	static bool SnapshotActivated;
-	static bool Is_Snapshot_Activated(void) { return SnapshotActivated; }
+	static bool Is_Snapshot_Activated(void) { return WW3D::SnapshotActivated; }
 };
 
 class SortingRendererClass

@@ -34,9 +34,41 @@ struct RenderNode {void*Unknown;RenderNode*Next;void*Previous;DX8PolygonRenderer
 struct MeshModelClass {char Prefix[24];unsigned Flags;char Gap[128];MultiListClass<DX8PolygonRendererClass> List;};
 class IndexBufferClass;
 class LightEnvironmentClass;
-class DX8Wrapper { public: static void Set_Light_Environment(LightEnvironmentClass*); static void Set_Index_Buffer(const IndexBufferClass*,unsigned short); };
-extern Matrix4 BFME2World;
-extern unsigned BFME2RenderStateChanged;
+// DX8Wrapper::render_state (VA 0x00DEE5D8, dx8wrapper.cpp): Zero Hour's
+// RenderStateStruct (bfmestages/dx8wrapper.h) -- shader, material,
+// Textures[16], Lights[4] and LightEnable[4], then world at +0x1EC
+// (0x00DEE7C4) and view at +0x22C (0x00DEE804). render_state_changed is
+// VA 0x00DEC4F4.
+struct RenderStateStruct { unsigned char m_pad00[0x1EC]; Matrix4 world,view; };
+// IDirect3DDevice8::SetTransform is vtable slot 37 (d3d8.h).
+struct IDirect3DDevice8;
+struct IDirect3DDevice8Vtbl { void *m_slots[37]; long (__stdcall *SetTransform)(IDirect3DDevice8*,int,const Matrix4*); };
+struct IDirect3DDevice8 { IDirect3DDevice8Vtbl *lpVtbl; };
+extern unsigned number_of_DX8_calls;
+class DX8Wrapper {
+public:
+ static void Set_Light_Environment(LightEnvironmentClass*);
+ static void Set_Index_Buffer(const IndexBufferClass*,unsigned short);
+ // Zero Hour dx8wrapper.h Set_Transform(D3DTRANSFORMSTATETYPE,const Matrix3D&)
+ // and Set_World_Identity, inline here.
+ static __forceinline void Set_Transform(int transform,const Matrix3D&m) {
+  Matrix4 m2(m);
+  switch(transform) {
+  case 256: render_state.world=m2.Transpose();render_state_changed|=1;render_state_changed&=~0x40000;break;
+  case 2: render_state.view=m2.Transpose();render_state_changed|=2;render_state_changed&=~0x80000;break;
+  default:matrix_changes++;m2=m2.Transpose();D3DDevice->lpVtbl->SetTransform(D3DDevice,transform,&m2);number_of_DX8_calls++;break;
+  }
+ }
+ static __forceinline void Set_World_Identity() {
+  if(render_state_changed&0x40000) return;
+  render_state.world.Make_Identity();render_state_changed|=0x40001;
+ }
+protected:
+ static RenderStateStruct render_state;
+ static unsigned render_state_changed;
+ static unsigned matrix_changes;
+ static IDirect3DDevice8 *D3DDevice;
+};
 class MeshClass {
 public:
 virtual void Unknown0() const=0;
@@ -65,20 +97,6 @@ virtual void Unknown19() const=0;
  void Render_Material_Pass(MaterialPassClass*,IndexBufferClass*);
  const Matrix3D&Get_Transform() const {Validate_Transform();return Transform;}
 };
-extern Matrix4 BFME2View;
-void BFME2Set_Device_Transform(int,const Matrix4&);
-static __forceinline void SetTransform(int transform,const Matrix3D&m) {
- Matrix4 m2(m);
- switch(transform) {
- case 256: BFME2World=m2.Transpose();BFME2RenderStateChanged|=1;BFME2RenderStateChanged&=~0x40000;break;
- case 2: BFME2View=m2.Transpose();BFME2RenderStateChanged|=2;BFME2RenderStateChanged&=~0x80000;break;
- default:m2=m2.Transpose();BFME2Set_Device_Transform(transform,m2);break;
- }
-}
-static __forceinline void SetIdentity() {
- if(BFME2RenderStateChanged&0x40000) return;
- BFME2World.Make_Identity();BFME2RenderStateChanged|=0x40001;
-}
 void MeshClass::Render_Material_Pass(MaterialPassClass*pass,IndexBufferClass*ib) {
  float oldOpacity=-1.0f;Vector3 oldEmissive(-1,-1,-1);
  if(LightEnvironment) DX8Wrapper::Set_Light_Environment(LightEnvironment);
@@ -86,9 +104,9 @@ void MeshClass::Render_Material_Pass(MaterialPassClass*pass,IndexBufferClass*ib)
  if(EmissiveOverride!=1.0f) {VertexMaterialClass*mat=pass->Material;if(mat) {mat->Get_Emissive(&oldEmissive);mat->Set_Emissive(EmissiveOverride*oldEmissive);}}
  DX8Wrapper::Set_Index_Buffer(ib,0);
  if(Model->Flags&0x400) {
-  if(Anchor && *Anchor && *Anchor!=this) {Matrix3D inv,result;(*Anchor)->Get_Transform().Get_Inverse(inv);Matrix3D::Multiply(Get_Transform(),inv,&result);SetTransform(256,result);}
-  else SetIdentity();
- } else SetTransform(256,Transform);
+  if(Anchor && *Anchor && *Anchor!=this) {Matrix3D inv,result;(*Anchor)->Get_Transform().Get_Inverse(inv);Matrix3D::Multiply(Get_Transform(),inv,&result);DX8Wrapper::Set_Transform(256,result);}
+  else DX8Wrapper::Set_World_Identity();
+ } else DX8Wrapper::Set_Transform(256,Transform);
  pass->Install_Materials();
  MultiListIterator<DX8PolygonRendererClass> it(&Model->List);
  while(!it.Is_Done()) {if(it.Peek_Obj()->Pass==0) it.Peek_Obj()->Render(BaseVertexOffset);it.Next();}
@@ -96,5 +114,3 @@ void MeshClass::Render_Material_Pass(MaterialPassClass*pass,IndexBufferClass*ib)
  if(oldEmissive.X>=0) pass->Material->Set_Emissive(oldEmissive);
  pass->UnInstall_Materials();
 }
-// ?BFME2RenderStateChanged@@3IA: the global at VA 0xdec4f4 is ?render_state_changed@DX8Wrapper@@1IA.
-#pragma comment(linker, "/alternatename:?BFME2RenderStateChanged@@3IA=?render_state_changed@DX8Wrapper@@1IA")

@@ -217,7 +217,7 @@ static __forceinline void unbindEditorTrack(WaterTracksRenderSystem *system,Wate
 }
 
 class DX8Wrapper { public: static void Invalidate_Cached_Render_States(); };
-class ShaderClass { public: static bool ShaderDirty; };
+class ShaderClass { public: static void Invalidate() { ShaderDirty = true; } protected: static bool ShaderDirty; };
 extern void *ApplicationHWnd;
 static Bool pauseWaves;
 WaterTracksObj *WaterTracksRenderSystem::bindTrack(waveType type)
@@ -483,7 +483,7 @@ void TestWaterUpdate(void)
 			if (sqrt (xdiff * xdiff + ydiff * ydiff) <= waveTypeInfo[currentWaveType].m_finalWidth)
 			{	drawEditorLine(mouseAnchor.x, mouseAnchor.y, screenPoint.x, screenPoint.y,1,0xffccccff);
 				DX8Wrapper::Invalidate_Cached_Render_States();
-				ShaderClass::ShaderDirty=true;
+				ShaderClass::Invalidate();
 			}
 
 			pauseWaves=TRUE;

@@ -100,8 +100,6 @@ public:
 	Vector4 Row[4];
 };
 
-extern Matrix4 BFME2World;
-
 class VertexMaterialClass
 {
 public:
@@ -125,8 +123,10 @@ public:
 	static ShaderClass _PresetAdditiveShader;
 	static ShaderClass _PresetAlphaShader;
 	static ShaderClass _PresetMultiplicativeShader;
-	static bool ShaderDirty;
 	unsigned int ShaderBits;
+protected:
+	friend class DX8Wrapper;
+	static bool ShaderDirty;	// ?ShaderDirty@ShaderClass@@1_NA (ShaderClassApply.cpp)
 };
 
 // The shader presets the stencil passes use, an unnamed ShaderClass table.
@@ -176,6 +176,18 @@ private:
 class VertexBufferClass;
 class IndexBufferClass;
 
+// DX8Wrapper::render_state (VA 0x00DEE5D8, dx8wrapper.cpp): Zero Hour's
+// RenderStateStruct (bfmestages/dx8wrapper.h) -- shader, material,
+// Textures[16], Lights[4] and LightEnable[4], then world at +0x1EC
+// (0x00DEE7C4).
+struct RenderStateStruct
+{
+	ShaderClass shader;
+	VertexMaterialClass *material;
+	unsigned char m_pad08[0x1EC - 0x08];
+	Matrix4 world;
+};
+
 class DX8Wrapper
 {
 public:
@@ -185,12 +197,6 @@ public:
 		SHADER_CHANGED = 1 << 15,
 		WORLD_IDENTITY = 1 << 18
 	};
-	struct RenderStateStruct
-	{
-		ShaderClass shader;
-		VertexMaterialClass *material;
-	};
-
 	static bool Has_Stencil(void);
 	static bool Get_Fog_Enable(void) { return FogEnable; }
 	static void Apply_Render_State_Changes(void);
@@ -236,7 +242,7 @@ public:
 	static __forceinline void Set_World_Identity(void)
 	{
 		if (render_state_changed & (unsigned)WORLD_IDENTITY) return;
-		BFME2World.Make_Identity();
+		render_state.world.Make_Identity();
 		render_state_changed |= (unsigned)WORLD_CHANGED | (unsigned)WORLD_IDENTITY;
 	}
 

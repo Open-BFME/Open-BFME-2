@@ -18,7 +18,16 @@
 #include "matrix4.h"
 #include "d3d8.h"
 
-extern Matrix4 BFME2World;
+// DX8Wrapper::render_state (VA 0x00DEE5D8, dx8wrapper.cpp): Zero Hour's
+// RenderStateStruct (bfmestages/dx8wrapper.h) -- shader, material,
+// Textures[16], Lights[4] and LightEnable[4], then world at +0x1EC
+// (0x00DEE7C4) and view at +0x22C (0x00DEE804).
+struct RenderStateStruct
+{
+	unsigned char m_pad00[0x1EC];
+	Matrix4 world;
+	Matrix4 view;
+};
 extern unsigned number_of_DX8_calls;
 extern int g_00DB5FB0;
 void Rva00118B50();
@@ -36,6 +45,7 @@ public:
 	static void Set_DX8_Render_State(unsigned long state, unsigned value);
 
 protected:
+	static RenderStateStruct render_state;
 	static unsigned render_state_changed;
 	static Matrix4 ProjectionMatrix;
 	static Matrix4 DeviceProjectionMatrix;
@@ -49,14 +59,13 @@ protected:
 		VIEW_IDENTITY = 0x80000
 	};
 
-	static Matrix4 &RenderStateView() { return (&BFME2World)[1]; }
 
 	static __forceinline void Set_Transform(D3DTRANSFORMSTATETYPE transform, const Matrix4 &m)
 	{
 		switch ((int)transform)
 		{
 		case D3DTS_VIEW:
-			RenderStateView() = m.Transpose();
+			render_state.view = m.Transpose();
 			render_state_changed |= (unsigned)VIEW_CHANGED;
 			render_state_changed &= ~(unsigned)VIEW_IDENTITY;
 			break;
