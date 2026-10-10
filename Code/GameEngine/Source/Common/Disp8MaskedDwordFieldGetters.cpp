@@ -40,3 +40,17 @@ public: void decrement();
 private: unsigned int value;
 };
 void Rva001E353FFields::decrement() { if (value != 0) --value; }
+
+// Retail 00144190..0014419E is independently INT3 bracketed after RET144188.
+// Reads receiver word0, tests mask300, and returns full EAX0/1 with RET0.
+// The drift Add_Table name is refuted; no direct callers or address references
+// establish an original owner, field meaning or declared result type. This
+// address-owned view expresses only the accessed word and physical result.
+class Rva00144190MaskedWord {
+public: unsigned int nonzero() const;
+private: unsigned int value;
+};
+unsigned int Rva00144190MaskedWord::nonzero() const
+{
+    return (value & 0x300u) != 0;
+}
