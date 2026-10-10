@@ -97,3 +97,12 @@ bool DieMuxData::isDieApplicable(const Object *obj, const DamageInfo *damageInfo
  }
  return true;
 }
+
+// BFME1/ZH GameCommon.h supplies the semantic bit test; existing target
+// 004CE519/21 independently fixes its enum ABI and shift/Boolean shape.
+// Explicitly emitted here after removing the obsolete donor applicability body.
+enum VeterancyLevel { VETERANCY_REGULAR=0, VETERANCY_VETERAN=1, VETERANCY_ELITE=2, VETERANCY_HEROIC=3 };
+bool getVeterancyLevelFlag(unsigned int flags, VeterancyLevel dt)
+{
+ return (flags & (1UL << (dt - 1))) != 0;
+}

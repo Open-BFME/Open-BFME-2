@@ -69,28 +69,7 @@ const FieldParse* DieMuxData::getFieldParse()
 }
 
 //-------------------------------------------------------------------------------------------------
-// ?isDieApplicable@DieMuxData@@ present-unmatched
-Bool DieMuxData::isDieApplicable(const Object* obj, const DamageInfo *damageInfo) const
-{
-	// wrong death type? punt
-	if (!getDeathTypeFlag(m_deathTypes, damageInfo->in.m_deathType))
-		return false;
-
-	// wrong vet level? punt
-	if (!getVeterancyLevelFlag(m_veterancyLevels, obj->getVeterancyLevel()))
-		return false;
-
-	// all 'exempt' bits must be clear for us to run.
-	if( m_exemptStatus.any() && obj->getStatusBits().testForAny( m_exemptStatus ) )
-		return false;
-
-	// all 'required' bits must be set for us to run.
-	// But only if we have a required status to check
-	if( m_requiredStatus.any()  &&  !obj->getStatusBits().testForAll( m_requiredStatus ) )
-		return false;
-
-	return true;
-}
+// Target-specific applicability is owned by DieMuxDataInit.cpp.
 
 // ------------------------------------------------------------------------------------------------
 /** CRC */
