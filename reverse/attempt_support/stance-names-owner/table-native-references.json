@@ -1,0 +1,90 @@
+[
+  {
+    "section": ".text",
+    "site_va": "0x75b878",
+    "context": [
+      "0075B864 push ebp",
+      "0075B865 mov ebp, esp",
+      "0075B867 push ecx",
+      "0075B868 mov ecx, dword ptr [ebp + 8]",
+      "0075B86B push 0",
+      "0075B86D call 0x42df97",
+      "0075B872 jmp 0x75b8a4",
+      "0075B874 mov ecx, dword ptr [ebp + 8]",
+      "0075B877 push 0xc3c210",
+      "0075B87C push eax",
+      "0075B87D call 0x42bd39",
+      "0075B882 test eax, eax",
+      "0075B884 mov dword ptr [ebp - 4], eax",
+      "0075B887 jl 0x75b89a",
+      "0075B889 cmp eax, 6",
+      "0075B88C jge 0x75b89a",
+      "0075B88E mov ecx, dword ptr [ebp + 0x10]",
+      "0075B891 lea eax, [ebp - 4]",
+      "0075B894 push eax",
+      "0075B895 call 0x6e01c6",
+      "0075B89A mov ecx, dword ptr [ebp + 8]",
+      "0075B89D push 0",
+      "0075B89F call 0x42deed",
+      "0075B8A4 test eax, eax",
+      "0075B8A6 jne 0x75b874",
+      "0075B8A8 leave ",
+      "0075B8A9 ret "
+    ]
+  },
+  {
+    "section": ".text",
+    "site_va": "0x7b521a",
+    "context": [
+      "007B520E test esi, esi",
+      "007B5210 jl 0x7b5225",
+      "007B5212 cmp esi, 6",
+      "007B5215 jge 0x7b5225",
+      "007B5217 push dword ptr [esi*4 + 0xc3c210]",
+      "007B521E push 0xc1f4d0",
+      "007B5223 jmp 0x7b5274",
+      "007B5225 push 0xc1f4c4",
+      "007B522A lea ecx, [ebp - 0x10]",
+      "007B522D call 0x4055f5"
+    ]
+  },
+  {
+    "section": ".text",
+    "site_va": "0x825dd2",
+    "context": [
+      "00825DC6 test eax, eax",
+      "00825DC8 jl 0x825dd7",
+      "00825DCA cmp eax, 6",
+      "00825DCD jge 0x825dd7",
+      "00825DCF mov eax, dword ptr [eax*4 + 0xc3c210]",
+      "00825DD6 ret ",
+      "00825DD7 mov eax, 0xbd0fa4",
+      "00825DDC ret ",
+      "00825DDD push ebp",
+      "00825DDE mov ebp, esp",
+      "00825DE0 sub esp, 0x30",
+      "00825DE3 mov ecx, dword ptr [ebp + 8]",
+      "00825DE6 push esi"
+    ]
+  },
+  {
+    "section": ".text",
+    "site_va": "0x825de8",
+    "context": [
+      "00825DDC ret ",
+      "00825DDD push ebp",
+      "00825DDE mov ebp, esp",
+      "00825DE0 sub esp, 0x30",
+      "00825DE3 mov ecx, dword ptr [ebp + 8]",
+      "00825DE6 push esi",
+      "00825DE7 push 0xc3c210",
+      "00825DEC xor esi, esi",
+      "00825DEE push esi",
+      "00825DEF call 0x42df97",
+      "00825DF4 mov ecx, dword ptr [ebp + 8]",
+      "00825DF7 push eax",
+      "00825DF8 call 0x42bd39",
+      "00825DFD lea ecx, [ebp - 0x30]"
+    ]
+  }
+]

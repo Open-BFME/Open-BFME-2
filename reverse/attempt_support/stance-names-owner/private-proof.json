@@ -1,0 +1,150 @@
+{
+  "compiler_command": [
+    "C:\\Users\\clemens\\.codex\\worktrees\\reference-container-seat\\Open-BFME-2\\reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\bin\\cl.exe",
+    "-nologo",
+    "-c",
+    "-O2",
+    "-GR-",
+    "-EHsc-",
+    "-Fobuild/reference214/stance-names-owner/StanceNames.obj",
+    "C:/Users/clemens/.codex/worktrees/reference-container-seat/Open-BFME-2/build/reference214/stance-names-owner/StanceNames.cpp"
+  ],
+  "source_sha256": "a6a30f442e2829b18d6c9d81d7658d155201440a6d518acffd7ed6d431100ec0",
+  "object_sha256": "ca5d160598527a13fe723cb04cd215bc80338ebc829faad9d5e0e7be3fdbff78",
+  "objects": [
+    {
+      "index": 16,
+      "name": "?TheStanceNames@@3QBQBDB",
+      "value": 80,
+      "section": 3,
+      "type": 0,
+      "storage": 2,
+      "compiled_section": ".rdata",
+      "relocs": [
+        {
+          "site": 0,
+          "target": "?BfmeStanceNameUninitialized@@3QBDB",
+          "kind": 6
+        },
+        {
+          "site": 4,
+          "target": "?BfmeStanceNameBattle@@3QBDB",
+          "kind": 6
+        },
+        {
+          "site": 8,
+          "target": "?BfmeStanceNameAggressive@@3QBDB",
+          "kind": 6
+        },
+        {
+          "site": 12,
+          "target": "?BfmeStanceNameHoldGround@@3QBDB",
+          "kind": 6
+        },
+        {
+          "site": 16,
+          "target": "?BfmeStanceNamePorcupine@@3QBDB",
+          "kind": 6
+        },
+        {
+          "site": 20,
+          "target": "?BfmeStanceNameHoldGroundMoving@@3QBDB",
+          "kind": 6
+        }
+      ],
+      "size": 28,
+      "compiled_hex": "00000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "index": 17,
+      "name": "?BfmeStanceNameHoldGroundMoving@@3QBDB",
+      "value": 60,
+      "section": 3,
+      "type": 0,
+      "storage": 2,
+      "compiled_section": ".rdata",
+      "relocs": [],
+      "va": "0xc3c22c",
+      "size": 17,
+      "native_hex": "486f6c6447726f756e644d6f76696e6700",
+      "compiled_hex": "486f6c6447726f756e644d6f76696e6700",
+      "equal": true
+    },
+    {
+      "index": 18,
+      "name": "?BfmeStanceNamePorcupine@@3QBDB",
+      "value": 48,
+      "section": 3,
+      "type": 0,
+      "storage": 2,
+      "compiled_section": ".rdata",
+      "relocs": [],
+      "va": "0xc3c240",
+      "size": 10,
+      "native_hex": "506f72637570696e6500",
+      "compiled_hex": "506f72637570696e6500",
+      "equal": true
+    },
+    {
+      "index": 19,
+      "name": "?BfmeStanceNameHoldGround@@3QBDB",
+      "value": 36,
+      "section": 3,
+      "type": 0,
+      "storage": 2,
+      "compiled_section": ".rdata",
+      "relocs": [],
+      "va": "0xc3c24c",
+      "size": 11,
+      "native_hex": "486f6c6447726f756e6400",
+      "compiled_hex": "486f6c6447726f756e6400",
+      "equal": true
+    },
+    {
+      "index": 20,
+      "name": "?BfmeStanceNameAggressive@@3QBDB",
+      "value": 24,
+      "section": 3,
+      "type": 0,
+      "storage": 2,
+      "compiled_section": ".rdata",
+      "relocs": [],
+      "va": "0xc1f724",
+      "size": 11,
+      "native_hex": "4167677265737369766500",
+      "compiled_hex": "4167677265737369766500",
+      "equal": true
+    },
+    {
+      "index": 21,
+      "name": "?BfmeStanceNameBattle@@3QBDB",
+      "value": 16,
+      "section": 3,
+      "type": 0,
+      "storage": 2,
+      "compiled_section": ".rdata",
+      "relocs": [],
+      "va": "0xc3c258",
+      "size": 7,
+      "native_hex": "426174746c6500",
+      "compiled_hex": "426174746c6500",
+      "equal": true
+    },
+    {
+      "index": 22,
+      "name": "?BfmeStanceNameUninitialized@@3QBDB",
+      "value": 0,
+      "section": 3,
+      "type": 0,
+      "storage": 2,
+      "compiled_section": ".rdata",
+      "relocs": [],
+      "va": "0xc3c260",
+      "size": 14,
+      "native_hex": "556e696e697469616c697a656400",
+      "compiled_hex": "556e696e697469616c697a656400",
+      "equal": true
+    }
+  ],
+  "table_native_hex": "60c2c30058c2c30024f7c1004cc2c30040c2c3002cc2c30000000000"
+}

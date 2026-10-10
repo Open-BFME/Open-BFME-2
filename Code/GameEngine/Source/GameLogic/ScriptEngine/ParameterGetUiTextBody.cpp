@@ -41,10 +41,10 @@ private:
 	AsciiString m_string;
 };
 
-// Retail's EmotionNames (0x009BA9C8) and TheStanceNames (0x0083C210) are rowed
-// data; the other tables below are the TU's own copies of the retail contents.
+// EmotionNames and the read-only TheStanceNames table have real data owners.
+// The other tables below are this TU's copies of the retail contents.
 extern const char *EmotionNames[];
-extern const char *TheStanceNames[];
+extern const char *const TheStanceNames[];
 
 struct BorderColor
 {

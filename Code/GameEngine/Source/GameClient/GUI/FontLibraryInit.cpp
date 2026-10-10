@@ -180,7 +180,7 @@ struct FieldParse
 	int offset;
 };
 
-extern const char *TheStanceNames[];
+extern const char *const TheStanceNames[];
 
 void __cdecl parseStance(INI *ini, void *data)
 {

@@ -1,0 +1,18 @@
+{
+  "entry_va": "0x825dc2",
+  "size": 27,
+  "previous_bytes": "c20400",
+  "native_bytes": "8b44240485c07c0d83f8067d088b048510c2c300c3b8a40fbd00c3",
+  "instructions": [
+    "00825DC2 mov eax, dword ptr [esp + 4]",
+    "00825DC6 test eax, eax",
+    "00825DC8 jl 0x825dd7",
+    "00825DCA cmp eax, 6",
+    "00825DCD jge 0x825dd7",
+    "00825DCF mov eax, dword ptr [eax*4 + 0xc3c210]",
+    "00825DD6 ret ",
+    "00825DD7 mov eax, 0xbd0fa4",
+    "00825DDC ret "
+  ],
+  "references": []
+}

@@ -49,7 +49,7 @@ public:
 extern const LookupListRec g_00BDD0B4[];
 extern const LookupListRec g_00BDD1D0[];
 extern const char *g_00DCAE84[];
-extern const char *g_00C3C210[];
+extern const char *const TheStanceNames[];
 
 enum StanceType
 {
@@ -100,7 +100,7 @@ void Rva0035B864Parse(INI *ini, void *, void *store, const void *)
 	const char *token = ini->getNextToken();
 	while (token)
 	{
-		StanceType stance = (StanceType)ini->scanIndexList(token, g_00C3C210);
+		StanceType stance = (StanceType)ini->scanIndexList(token, TheStanceNames);
 		if (stance >= 0 && stance < 6)
 			((_STL::vector<StanceType, _STL::allocator<StanceType> > *)store)->push_back(stance);
 		token = ini->getNextTokenOrNull();
