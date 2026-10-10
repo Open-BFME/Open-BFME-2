@@ -302,12 +302,18 @@ void Rva005AFCEC::rva005AFCEC(Int a)
 		reinterpret_cast<ChatWindowsInGame *>(this)->rva005AFCB4(true);
 }
 
-// 0x005B023A: sets +0x150 and runs the pinned 0x004083FF(0).
+// 0x005B023A: sets +0x150 and runs CreateAHeroHero::Update(0) (0x004083FF,
+// CreateAHeroHero.cpp) on itself; the WorldBuilder twin 0x0156DEC0 calls
+// CreateAHeroHero::Update with this.
+class CreateAHeroHero
+{
+public:
+	bool Update(Int flags);
+};
 class Rva005B023A
 {
 public:
 	void rva005B023A();
-	void rva004083FF(Int a);
 private:
 	char m_pad00[0x150];
 	bool m_150;
@@ -315,7 +321,7 @@ private:
 void Rva005B023A::rva005B023A()
 {
 	m_150 = true;
-	rva004083FF(0);
+	reinterpret_cast<CreateAHeroHero *>(this)->Update(0);
 }
 
 // 0x005C392A (one table, two tail jumps): the pinned 0x005C36F3 of the

@@ -1214,7 +1214,6 @@ bool DX8Caps::Is_Valid_Display_Format(int width, int height, WW3DFormat format)
 //
 // ----------------------------------------------------------------------------
 
-// ?Vendor_Specific_Hacks@DX8Caps@@AAEXABU_D3DADAPTER_IDENTIFIER8@@@Z present-unmatched
 // One overlay with everything this file has recovered about BFME's DX8Caps.
 // Every offset is read out of a retail instruction, not derived:
 //
@@ -1289,23 +1288,18 @@ void DX8Caps::Vendor_Specific_Hacks(const D3DADAPTER_IDENTIFIER8& adapter_id)
 
 		retail->supportNPatches = false;	// Driver incorrectly report N-Patch support
 		retail->supportTextureFormat[118] = false;			// DXT1 is broken on NVidia hardware
-		// The 12 bytes still separating this body from retail are all here.
-		// Retail reads fmt[122], then fmt[120] and fmt[119], into registers
-		// BEFORE the two stores above, reloads fmt[121] after them, and folds
-		// with three register ORs plus a re-zeroing `xor bl,bl`; we fold from
-		// memory with `or al,[mem]`. Both compute fmt[119]|[120]|[121]|[122]
-		// and both elide fmt[118], which was just stored false.
-		// REFUTED, do not retry: naming the three loads as const bool
-		// temporaries in retail's order changes NOTHING -- MSVC folds a
-		// single-use temporary straight back into the memory operand. /Oa is
-		// also refuted here and is worse than useless: it breaks 11 of this
-		// unit's 19 matched rows.
-		retail->supportDXTC=
-			retail->supportTextureFormat[118]|
-			retail->supportTextureFormat[119]|
-			retail->supportTextureFormat[120]|
-			retail->supportTextureFormat[121]|
-			retail->supportTextureFormat[122];
+		// Read DXT2..DXT5 into locals after the two stores and fold them with
+		// the first one self-selected: cl then keeps all four in byte registers
+		// (no `or al,[mem]` folding), and its scheduler hoists the DXT5, DXT3
+		// and DXT2 loads above the stores (DXT4 lands in bl, the zero register
+		// the stores use, so it stays below them and bl is re-zeroed after the
+		// fold), which is retail's shape. DXT1 drops out: it was just stored
+		// false. Same self-select lever as Check_Texture_Compression_Support.
+		bool supportDXT2 = retail->supportTextureFormat[119];
+		bool supportDXT3 = retail->supportTextureFormat[120];
+		bool supportDXT4 = retail->supportTextureFormat[121];
+		bool supportDXT5 = retail->supportTextureFormat[122];
+		retail->supportDXTC = (supportDXT5 ? supportDXT5 : supportDXT5) | supportDXT4 | supportDXT3 | supportDXT2;
 
 
 		// BFME2 has NO GeForce2 MX / MX400 resolution clamp here. The reference
