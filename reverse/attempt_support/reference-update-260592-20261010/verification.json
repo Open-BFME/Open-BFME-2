@@ -1,0 +1,35 @@
+{
+  "bfme2_base": "b93b8f8430539f4c1fe5edb8413f36f7b3990362",
+  "source": "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp",
+  "source_blob": "c64eeafa93db9fbb0cba90f9149795ca6b8ddce8",
+  "symbol": "?Thread_Function@PeerThreadClass@@UAEXXZ",
+  "rva": "0x0038EDD7",
+  "extent": 4914,
+  "previous_pointer": "575ba2b04743f190f069805fbdc59936123c45da",
+  "proposed_pointer": "2605929117bb45a079248225d3457ad283f4b26c",
+  "same_source_controls": {
+    "previous": {
+      "functions": "80/80",
+      "data_rows": "2/2",
+      "log": "build/loop-peer-old-pointer-control-staged.log"
+    },
+    "proposed": {
+      "functions": "79/80",
+      "data_rows": "2/2",
+      "log": "build/loop-peer-new-pointer-control.log"
+    }
+  },
+  "proposed_full_gate": {
+    "functions": "76122/76123",
+    "additional_failure": "heartbeat DIR32 inconsistent at 0xdc0760 and 0xe02554; no-op patch cannot run after function failure",
+    "log": "build/loop-script-append-resume21-refresh.log"
+  },
+  "mismatch_offsets": [
+    "0x121A",
+    "0x121C"
+  ],
+  "mismatch": "register encoding of unsigned heartbeat deadline addition and comparison",
+  "scratch_trials": "reversed sum and explicit deadline local retain the same two mismatches; ordinary C++ only",
+  "ownership": "PeerThread file claim held by w5-lk11; production source and pins untouched",
+  "decision": "Retain previous verified inputs per AGENTS.md; preserve proposed update and original verified batch on codex/reference-update-260592-blocked. This evidence adds zero recovered bytes."
+}
