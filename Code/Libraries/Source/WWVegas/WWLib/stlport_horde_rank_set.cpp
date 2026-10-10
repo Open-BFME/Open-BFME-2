@@ -8,6 +8,20 @@
 // pattern in stlport_rb_tree_hint_00242f5e.cpp. No new allocator pin is needed.
 #include <set>
 
+// These operations are native inline in all four matched rank-set bodies.
+// Keep their unused out-of-line copies from competing with existing providers.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+bool less<int>::operator()(const int &left, const int &right) const
+{ return left < right; }
+template <> __declspec(dllimport) __forceinline
+const int &_Identity<int>::operator()(const int &value) const
+{ return value; }
+template <> __declspec(dllimport) __forceinline
+void _Construct<int, int>(int *place, const int &value)
+{ new (static_cast<void *>(place)) int(value); }
+}
+
 typedef _STL::_Rb_tree<int, int, _STL::_Identity<int>, _STL::less<int>, _STL::allocator<int> > RankTree;
 namespace _STL {
 template <> class allocator<char> {
