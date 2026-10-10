@@ -49,15 +49,16 @@ public:
 };
 class Rva002B6D85 {
 public:
- void rva002B6D85(LivingWorldArmy *source,Rva002B3E50Range *first,LivingWorldArmy *target,Rva002B3E50Range *second);
+ void rva002B6D85(void *source,Rva002B3E50Range *first,void *target,Rva002B3E50Range *second);
 private:
  char pad[0x7C];
  Rva002B6194List listeners;
 };
-void Rva002B6D85::rva002B6D85(LivingWorldArmy *source,Rva002B3E50Range *first,LivingWorldArmy *target,Rva002B3E50Range *second) {
+// ?rva002B6D85@Rva002B6D85@@QAEXPAXPAURva002B3E50Range@@01@Z present-unmatched
+void Rva002B6D85::rva002B6D85(void *source,Rva002B3E50Range *first,void *target,Rva002B3E50Range *second) {
  listeners.forEach(&Rva002B2FCBElem::notify,(int)source,(int)first,(int)target,(int)second);
- rva002B3E50(first,source,target);
- rva002B3E50(second,target,source);
+ rva002B3E50(first,(LivingWorldArmy*)source,(LivingWorldArmy*)target);
+ rva002B3E50(second,(LivingWorldArmy*)target,(LivingWorldArmy*)source);
 }
 
 // Neutral pointer ABI bridge for callers whose established army spelling is
