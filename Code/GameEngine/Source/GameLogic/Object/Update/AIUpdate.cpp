@@ -2144,6 +2144,33 @@ Real AIUpdateInterface::getLocomotorDistanceToGoal()
  * Catch up with the rest of the team.
  */
 // ?joinTeam@AIUpdateInterface@@ present-unmatched
+// This TU includes ZH's Common/Team.h, whose DLINK_ITERATOR<Object> (16B,
+// head at Team+0x10) and Team::iterate_TeamMemberList are not BFME2 retail's
+// (matched 32B advance @0x00263526 and 49B iterate @0x00263864 use head +0x38
+// and the +0x68 vbptr walk). joinTeam is unmatched, so it walks through these
+// TU-local twins with identical semantics instead of odr-using the ZH inlines,
+// whose COMDATs would otherwise displace the retail copies link order keeps.
+typedef Object *(Object::*BfmeAIUpdateNextFunc)() const;
+class BfmeAIUpdateIter
+{
+public:
+	BfmeAIUpdateIter(Object *cur, BfmeAIUpdateNextFunc f) : m_cur(cur), m_f(f) {}
+	void advance()
+	{
+		if (m_cur)
+			m_cur = (m_cur->*m_f)();
+	}
+	Bool done() const { return m_cur == 0; }
+	Object *cur() const { return m_cur; }
+private:
+	Object *m_cur;
+	BfmeAIUpdateNextFunc m_f;
+};
+static BfmeAIUpdateIter bfmeAIUpdateMembers(const Team *team)
+{
+	Object *head = *(Object *const *)((const char *)team + 0x10);
+	return BfmeAIUpdateIter(head, &Object::dlink_next_TeamMemberList);
+}
 void AIUpdateInterface::joinTeam( void )
 {
 	// the dead don't listen very well
@@ -2159,7 +2186,7 @@ void AIUpdateInterface::joinTeam( void )
 	Object *obj = getObject();
 	Object *other = NULL;
 	Team *team = obj->getTeam();
-	for (DLINK_ITERATOR<Object> iter = team->iterate_TeamMemberList(); !iter.done(); iter.advance())
+	for (BfmeAIUpdateIter iter = bfmeAIUpdateMembers(team); !iter.done(); iter.advance())
 	{
 		Object *anObj = iter.cur();
 		if (!anObj) 
