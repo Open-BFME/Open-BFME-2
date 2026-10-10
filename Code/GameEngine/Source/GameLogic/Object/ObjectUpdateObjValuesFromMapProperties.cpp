@@ -184,7 +184,7 @@ public:
 class StancesBehavior
 {
 public:
-	void rva0045F084(Int stance);
+	bool changeStance(Int stance);
 };
 NameKeyType Rva0045EE2CGet();
 
@@ -348,7 +348,7 @@ void Object::updateObjValuesFromMapProperties(Dict *properties)
 	{
 		StancesBehavior *stances = reinterpret_cast<StancesBehavior *>(findModule(Rva0045EE2CGet()));
 		if (stances)
-			stances->rva0045F084(valInt);
+			stances->changeStance(valInt);
 	}
 
 	valBool = properties->getBool(TheKey_objectRecruitableAI.get(), &exists);

@@ -25,7 +25,7 @@ class Module;
 class StancesBehavior
 {
 public:
-	void rva0045F084(int stance);
+	bool changeStance(int stance);
 };
 
 class ChangeStanceGroupOrder;
@@ -65,6 +65,6 @@ void ChangeStanceGroupOrder::rva00546BED(ObjectID id)
 	{
 		StancesBehavior *stances = (StancesBehavior *)obj->findModule(Rva0045EE2CGet());
 		if (stances)
-			stances->rva0045F084(m_stance);
+			stances->changeStance(m_stance);
 	}
 }

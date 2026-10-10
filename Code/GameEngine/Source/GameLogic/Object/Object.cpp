@@ -271,7 +271,7 @@ class Rva0039718B { public: bool rva0039718B(Player *player); };
 class Rva00395F57 { public: bool canUnpack(bool flag); };
 class Rva00395686 { public: bool rva00395686(Player *player, ThingTemplate *tt); };
 
-class StancesBehavior { public: void rva0045F084(int stance); };
+class StancesBehavior { public: bool changeStance(int stance); };
 NameKeyType Rva0045EE2CGet();
 
 class Rva0035B164 { public: int rva0035B164(int value); };
@@ -1145,7 +1145,7 @@ void Object::doCommandButton(const CommandButton *commandButton, int cmdSource, 
 						<< *(const StringBase<char> *)&commandButton->m_name10).slot4C(2);
 				}
 			}
-			stances->rva0045F084(stance);
+			stances->changeStance(stance);
 		}
 		break;
 	}

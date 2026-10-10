@@ -23,7 +23,7 @@ protected:
 class StancesBehavior
 {
 public:
-	void rva0045F084(int v);
+	bool changeStance(int v);
 };
 
 struct ListNode
@@ -56,7 +56,7 @@ void AIGroup::groupChangeStance(int v)
 			NameKeyType key = Rva0045EE2CGet();
 			Module *mod = obj->findModule(key);
 			if (mod != 0)
-				((StancesBehavior *)mod)->rva0045F084(v);
+				((StancesBehavior *)mod)->changeStance(v);
 		}
 		cur = cur->m_next;
 	} while (cur != m_head);
