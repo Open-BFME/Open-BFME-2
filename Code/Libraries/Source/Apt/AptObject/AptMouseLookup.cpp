@@ -63,3 +63,22 @@ AptValue *AptMouse::sMethod_removeListener(AptValue *,int nParams)
  }
  return AptBoolean::Create(false);
 }
+AptValue *AptMouse::objectMemberLookup(AptValue *const,const EAStringC *const name)const
+{
+ if(reinterpret_cast<Rva008A4570Owner *>(const_cast<EAStringC *>(name))->nameEquals("addListener")) {
+  if(!g_bfmeC1062) {
+   g_bfmeC1062=reinterpret_cast<BfmeC1062 *>(new Rva006D6500(reinterpret_cast<int>(&sMethod_addListener)));
+   reinterpret_cast<BfmeAptValue006DCD20 *>(g_bfmeC1062)->setGCRootCount(1);
+   g_bfmeC1062->bfmeSlot1062C_0();
+  }
+  return reinterpret_cast<AptValue *>(g_bfmeC1062);
+ } else if(reinterpret_cast<Rva008A4570Owner *>(const_cast<EAStringC *>(name))->nameEquals("removeListener")) {
+  if(!g_bfmeD1062) {
+   g_bfmeD1062=reinterpret_cast<BfmeC1062 *>(new Rva006D6500(reinterpret_cast<int>(&sMethod_removeListener)));
+   reinterpret_cast<BfmeAptValue006DCD20 *>(g_bfmeD1062)->setGCRootCount(1);
+   g_bfmeD1062->bfmeSlot1062C_0();
+  }
+  return reinterpret_cast<AptValue *>(g_bfmeD1062);
+ }
+ return 0;
+}
