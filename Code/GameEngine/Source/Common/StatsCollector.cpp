@@ -175,6 +175,7 @@ public:
 	Money *getMoney() { return &m_money; }
 	ScoreKeeper *getScoreKeeper() { return &m_scoreKeeper; }
 	const AsciiString &getSide() const { return m_side; }
+	__forceinline const char *getSideText() const { const char *text = *(const char *const *)(const void *)&m_side; return text ? text + 8 : ""; }
 
 private:
 	void *m_vtable;
@@ -251,6 +252,7 @@ public:
 private:
 	void createFileName();
 	void writeStatInfo();
+	void writeInitialFileInfo();
 
 	AsciiString m_statsFileName;
 	UnsignedInt m_moneyWithdrawn;
@@ -544,3 +546,49 @@ void StatsCollector::writeStatInfo()
 #pragma comment(linker, "/alternatename:?TheGameLogic@@3PAUGameLogic@@A=?TheGameLogic@@3PAVGameLogic@@A")
 // ?TheGameLogic@@3PAXA: the global at VA 0xdfe78c is ?TheGameLogic@@3PAVGameLogic@@A.
 #pragma comment(linker, "/alternatename:?TheGameLogic@@3PAXA=?TheGameLogic@@3PAVGameLogic@@A")
+
+// WB128A190 names writeInitialFileInfo; native437755..437921 is full460B.
+// Reference: GeneralsMD StatsCollector.cpp writeInitialFileInfo via verified
+// Open-BFME-1@575ba2b. Target replaces narrow fopen with Unicode/_wfopen and
+// expands the header columns; every label below is checked against retail.
+void StatsCollector::writeInitialFileInfo()
+{
+    UnicodeString fileName(m_statsFileName);
+    FILE *f = _wfopen(fileName.str(), L"w");
+    if (!f) return;
+    fprintf(f, "---------------------------------------------------\n");
+    time_t aclock;
+    time(&aclock);
+    struct tm *newTime=localtime(&aclock);
+    fprintf(f, "Date:\t%s", asctime(newTime));
+    fprintf(f, "Map:\t%s\n", TheWritableGlobalData->m_mapName.str());
+    fprintf(f, "Side:\t%s\n", ThePlayerList->m_localPlayer->getSideText());
+    fprintf(f, "---------------------------------------------------\n\n");
+    fprintf(f, "Time*\t");
+    fprintf(f, "Instant_Average_FPS\t");
+    fprintf(f, "Instant_Net_FPS\t");
+    fprintf(f, "Build_Commands\t");
+    fprintf(f, "Move_Commands\t");
+    fprintf(f, "Attack_Commands\t");
+    fprintf(f, "Scroll_Map_Commands\t");
+    fprintf(f, "Scroll_Time_in_Seconds\t");
+    fprintf(f, "Other_Commands_(N/A)\t");
+    fprintf(f, "Player_Money_Amount\t");
+    fprintf(f, "Player_Money_Withdrawn\t");
+    fprintf(f, "Player_Money_Deposited\t");
+    fprintf(f, "Player_Units\t");
+    fprintf(f, "AI_Units\t");
+    fprintf(f, "Allies_Killed\t");
+    fprintf(f, "Enemies_Killed\t");
+    fprintf(f, "Neutrals_Killed\t");
+    fprintf(f, "ScoreKeeper_MoneySpent\t");
+    fprintf(f, "ScoreKeeper_MoneyEarned\t");
+    fprintf(f, "ScoreKeeper_UnitsDestroyed\t");
+    fprintf(f, "ScoreKeeper_UnitsBuilt\t");
+    fprintf(f, "ScoreKeeper_UnitsLost\t");
+    fprintf(f, "ScoreKeeper_BuildingsDestroyed\t");
+    fprintf(f, "ScoreKeeper_BuildingsBuilt\t");
+    fprintf(f, "ScoreKeeper_BuildingsLost\t");
+    fprintf(f, "\n");
+    fclose(f);
+}

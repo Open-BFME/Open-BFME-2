@@ -1,0 +1,28 @@
+{
+  "id": "seat-c-stats-initial-file-info-00437755-20261010",
+  "seat": "C",
+  "base_commit": "431c820ed1448b6055590a03d06cf23ea5d68a2b",
+  "paths": [
+    "Code/GameEngine/Source/Common/StatsCollector.cpp"
+  ],
+  "recoveries": [
+    {
+      "name": "?writeInitialFileInfo@StatsCollector@@AAEXXZ",
+      "rva": "0x00437755",
+      "size": 460,
+      "source": "Code/GameEngine/Source/Common/StatsCollector.cpp",
+      "notes": "WB128A190 writeInitialFileInfo; native437755..437921 full460; GeneralsMD semantic reference at BF1@575ba2b; Unicode filename and expanded labels verified from retail; Player side58 canonical AsciiString buffer8",
+      "replace_rva": null
+    }
+  ],
+  "new_retail_bytes": 460,
+  "proof_command": "python tools/build.py Code/GameEngine/Source/Common/StatsCollector.cpp",
+  "proof_log": "scoped-proof.txt",
+  "claim_owner": "codex-104a-01a12257",
+  "worker_root": "C:\\Users\\franz\\.codex\\worktrees\\recovery-preserved\\openbfme2",
+  "dependencies": [],
+  "claims": [
+    "0x00437755",
+    "file:Code/GameEngine/Source/Common/StatsCollector.cpp"
+  ]
+}
