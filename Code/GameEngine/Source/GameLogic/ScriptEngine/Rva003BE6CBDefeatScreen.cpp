@@ -99,7 +99,8 @@ class Rva002036B4GlobalCopier
 public:
 	void apply();
 };
-extern Rva002036B4GlobalCopier *TheCopier;
+class ScriptEngine;
+extern ScriptEngine *TheScriptEngine;	// the global at 0x00DFE16C; 0x002036B4 is one of its members
 
 class Rva0021A4E6
 {
@@ -148,6 +149,6 @@ void Rva003BE6CB::rva003BE6CB()
 	TheCampaignManager->m_flag2D = false;
 	if (TheVisualHolder != 0)
 		TheVisualHolder->rva001EB0CA();
-	TheCopier->apply();
+	((Rva002036B4GlobalCopier *)TheScriptEngine)->apply();
 	TheHeroManager->rva0021A4E6();
 }
