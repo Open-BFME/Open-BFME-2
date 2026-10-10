@@ -4,6 +4,14 @@
 // BF1 clean donor EmotionSystemObjectIDAdd.cpp at 2f243e26d. Target
 // WB C94690 independently names RegisterScaryObject; native ObjectID74 and
 // scary-object vector24/28/2C. Only that bounded view is claimed here.
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
 #include <vector>
 
 enum ObjectID

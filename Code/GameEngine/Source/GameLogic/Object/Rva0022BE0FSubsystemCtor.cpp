@@ -6,6 +6,14 @@
 // ctor 0x003ED321. Evidence: caller GameEngine::init at 0x0022F9DC
 // (TheThreatFinderManager) plus vtable 0x00C36100 slot 0 plus dtor twin
 // 0x003ED1FC in Rva003ED1FCDtor plus StlSweep map row 0x003ED321.
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
 #include <hash_map>
 
 struct Rva003ED321Element
