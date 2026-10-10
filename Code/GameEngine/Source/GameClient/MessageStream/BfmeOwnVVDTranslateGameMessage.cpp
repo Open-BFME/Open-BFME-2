@@ -217,6 +217,9 @@ extern Mouse *TheMouse;
 extern GlobalData *TheWritableGlobalData;
 extern Shell *TheShell;
 extern bool g_00E03218[4];
+// Owned here: key-pressed flags written below; retail .data starts them at 0
+// (VA 0x00A03218).
+bool g_00E03218[4] = { false, false, false, false };
 
 GameMessageDisposition BfmeOwnVVD::translateGameMessage(const GameMessage *msg)
 {

@@ -132,6 +132,9 @@ extern IMEManager *TheIMEManager;
 
 class BfmeObjELB;
 extern BfmeObjELB *g_bfmeObjELB; // the first login screen
+// Owned here: set once from the first login screen above; retail .data
+// starts it at 0 (VA 0x00A062EC).
+BfmeObjELB *g_bfmeObjELB = 0;
 
 class Rva0056EE5F
 {
