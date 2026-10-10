@@ -280,6 +280,9 @@ public:
 // 0x000A8B23 and 0x000A8AB4 under their own address-derived owners.
 class Rva000A8B23 { public: void rva000A8B23(int loopCount); };
 class Rva000A8AB4 { public: void rva000A8AB4(void); };
+// The +0x0C stream predicate tested by the 0x00055E6C music lookup,
+// rowed at 0x000A8B59 under its own address-derived owner.
+class Rva000A8B59 { public: bool rva000A8B59(int x); };
 // Further +0x0C stream-holder forwarders (PinnedForwarders1830.cpp).
 struct Rva0010FFA2Packet;
 class Rva000A8B4B { public: void rva000A8B4B(int callback); };
@@ -909,6 +912,7 @@ public:
     // Slot 110 (+0x1B8), the first call init() makes.
     virtual void rva000541DB(void);
     bool rva00055FCA(int key, void **result, int flags);
+    bool rva00055E6C(const AsciiString &name, int streamArg, int viewType, int musicSystem);
     bool rva0005623E(int key, void **result, int flags);
     bool rva00054899(ObjectID objectID, int otherID);
     bool rva00056670(ObjectID objectID);
@@ -2155,6 +2159,9 @@ bool MilesAudioManager::rva00055FCA(int handle, void **result, int flags)
     }
     return false;
 }
+
+// Retail 0x00055E6C (350 bytes): banked at 352B (see reverse/attempts/
+// 0x00055e6c.cpp); retry with the class decl and Rva000A8B59 forwarder above.
 
 // Address-derived Manager method. The target passes the lookup output to the
 // manager helper and increments the returned object's +0x80 reference count.
