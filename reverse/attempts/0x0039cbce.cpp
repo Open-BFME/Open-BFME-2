@@ -1,6 +1,8 @@
 // ?rva0039CBCE@Rva0039CBCE@@QAEXPAVObject@@H@Z
+// partial score=0.8458501716665728 date=2026-10-10
+// ?rva0039CBCE@Rva0039CBCE@@QAEXPAVObject@@H@Z
 // partial score=0.72 date=2026-10-09
-// cl: /I. /Ireference/shims/moduledata /O1 /G7 /arch:SSE /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /I. /Ireference/shims/moduledata    /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /O1 /G7 /arch:SSE
 // stlport
 // BFME1 ScoreKeeperReset9cbfb551 donor: scoring masks, counts, map sweep.
 // Native39C5FD..39C7A5 differs with20 players, two further count arrays,

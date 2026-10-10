@@ -1,4 +1,7 @@
 // ?initFromDict@Player@@QAEXPBVDict@@@Z
+// partial score=0.9045478972894136 date=2026-10-10
+template<class T> static __forceinline T p4Operand(const T &v) { return *(const volatile T*)&v; }
+// ?initFromDict@Player@@QAEXPBVDict@@@Z
 // partial score=0.8977090997624326 date=2026-10-10
 // ?initFromDict@Player@@QAEXPBVDict@@@Z
 // ?initFromDict@Player@@QAEXPBVDict@@@Z
@@ -182,7 +185,7 @@ void Player::initFromDict(const Dict*d){
   if(TheSidesList->skirmishCount>0 && ((const StringBase<char>&)d->getAsciiString(TheKey_playerName.get())).compare("ReplayObserver")!=0 && ((const StringBase<char>&)tmplname).compare("FactionObserver")!=0){
    if(d->getType(TheKey_playerAIType.get())!=3){
     AsciiString humanSide("SkirmishHuman");
-    for(int i=0;i<TheSidesList->skirmishCount;++i){
+    for(int i=0;(this?p4Operand(i):p4Operand(i))<TheSidesList->skirmishCount;++i){
      if(TheSidesList->getSkirmishSideInfo(i)->getDict()->getAsciiString(TheKey_playerName.get())==humanSide){{
  ScriptList scripts(*TheSidesList->getSkirmishSideInfo(i)->getScriptList());TheSidesList->getSideInfo(index)->setScriptList(&scripts);
  AsciiString original=TheSidesList->getSkirmishSideInfo(i)->getDict()->getAsciiString(TheKey_playerName.get());

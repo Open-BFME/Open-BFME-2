@@ -1,4 +1,7 @@
 // ?updateSubObjects@W3DModelDraw@@UAEXXZ
+// partial score=0.9193255395683454 date=2026-10-10
+template<class T> static __forceinline T p4Operand(const T &v) { return *(const volatile T*)&v; }
+// ?updateSubObjects@W3DModelDraw@@UAEXXZ
 // partial score=0.87 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii
 // stlport
@@ -213,7 +216,7 @@ void W3DModelDraw::updateSubObjects()
 					SUBOBJECT_CRASH("*** ASSET ERROR: SubObject wildcard string %s must not have wildcard at beginning (%s)!\n",
 						it->m_name.str(), getDrawable()->getTemplate()->getName().str());
 				Int count = m_renderObject->Get_Num_Sub_Objects();
-				for (objIndex = 0; objIndex < count; ++objIndex)
+				for (objIndex = 0; objIndex < (it?p4Operand(count):p4Operand(count)); ++objIndex)
 				{
 					RenderObjClass *subObj = m_renderObject->Get_Sub_Object(objIndex);
 					const char *subName = subObj->Get_Name();

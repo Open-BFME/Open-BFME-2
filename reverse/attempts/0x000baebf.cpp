@@ -1,4 +1,7 @@
 // ?rva000BAEBF@Rva000B8F5A@@QAEHPAM@Z
+// partial score=0.8224881796690308 date=2026-10-10
+template<class T> static __forceinline T p4Operand(const T &v) { return *(const volatile T*)&v; }
+// ?rva000BAEBF@Rva000B8F5A@@QAEHPAM@Z
 // partial score=0.9 date=2026-10-06
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /arch:SSE
 // String-slot cluster around 0x000B82F9. Members carry a flag byte, a raw
@@ -179,6 +182,6 @@ int Rva000B8F5A::rva000BAEBF(float *out)
 		}
 	}
 	else
-		r = result;
+		r = (this?p4Operand(result):p4Operand(result));
 	return r != 0 ? outer->rva000B89E9(r, out) : 0;
 }

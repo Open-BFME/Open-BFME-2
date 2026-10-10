@@ -1,6 +1,8 @@
 // ?setTerrainDecal@W3DModelDraw@@UAEXW4TerrainDecalType@@@Z
+// partial score=0.8066296330024587 date=2026-10-10
+// ?setTerrainDecal@W3DModelDraw@@UAEXW4TerrainDecalType@@@Z
 // partial score=0.7 date=2026-10-04
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /MD /DNDEBUG /EHsc
+// cl: /Ireference/shims/bfme2_ascii    /MD /DNDEBUG /EHsc /O1 /G7 /arch:SSE
 //
 // W3DModelDraw::setTerrainDecalSize (retail 0x000B314B, 32 bytes) and
 // W3DModelDraw::setTerrainDecalOpacity (0x000B316B, 34 bytes), ported from

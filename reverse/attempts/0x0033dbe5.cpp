@@ -1,6 +1,8 @@
 // ?Rva0033DBE5Parse@@YAXPAVINI@@PAX1PBD@Z
+// partial score=0.8914459278095642 date=2026-10-10
+// ?Rva0033DBE5Parse@@YAXPAVINI@@PAX1PBD@Z
 // partial score=0.75 date=2026-10-09
-// cl: /O1 /G7 /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfme2_ascii
+// cl:   /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE
 // stlport
 #include "ascii_string.h"
 #include <set>

@@ -1,4 +1,7 @@
 // ?Rva001DEA96Parse@@YAXPAVINI@@@Z
+// partial score=0.8586070347076638 date=2026-10-10
+template<class T> static __forceinline T p4Operand(const T &v) { return *(const volatile T*)&v; }
+// ?Rva001DEA96Parse@@YAXPAVINI@@@Z
 // partial score=0.93 date=2026-10-03
 // cl: /Ireference/shims/bfme2_ascii /O1 /G7 /DNDEBUG /MD /EHsc
 // ?Rva001DEA96Parse@@YAXPAVINI@@@Z @0x001DEA96 243B evidence: donor BFME1 INIPredefinedEvaEvent.cpp parse plus callers none plus table g_00DFDC30 plus bound 0x16 plus Parse wrapper 0x001DCFC9
@@ -95,7 +98,7 @@ void __cdecl Rva001DEA96Parse(INI *ini)
 		_CxxThrowException(&e, (const _s__ThrowInfo *)&rva001DEA96ThrowInfoAnchor); __assume(0);
 	}
 	int index = *(int *)((char *)found + 8);
-	if (index < 0 || index >= 0x16)
+	if (p4Operand(index) < 0 || index >= 0x16)
 	{
 		char *t = *(char **)&name;
 		const char *s = t ? t + 8 : g_Rva0107301CEmptyString;

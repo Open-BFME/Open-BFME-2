@@ -1,6 +1,8 @@
 // ?onCollide@SquishCollide@@UAEXPAVObject@@PBUCoord3D@@1@Z
+// partial score=0.8258513473497188 date=2026-10-10
+// ?onCollide@SquishCollide@@UAEXPAVObject@@PBUCoord3D@@1@Z
 // partial score=0.75 date=2026-10-09
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// cl:    /DNDEBUG /MD /EHsc /O1 /G7 /arch:SSE
 // Reference: GeneralsMD SquishCollide.cpp at BFME1 donor874e38488;
 // original SquishCollide identity comes from rowed ctor4BB9CF, factory250FE6,
 // name getter4BB962 and the native CollideModuleInterface vtable.

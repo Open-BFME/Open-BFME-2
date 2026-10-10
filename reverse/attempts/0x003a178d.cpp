@@ -1,8 +1,12 @@
 // ?rva003A178D@Team@@QAEHPAVObjectTypes@@HPAV1@@Z
+// partial score=0.9884508740204943 date=2026-10-10
+extern "C" void _ReadWriteBarrier();
+#pragma intrinsic(_ReadWriteBarrier)
+// ?rva003A178D@Team@@QAEHPAVObjectTypes@@HPAV1@@Z
 // partial score=0.97113 date=2026-10-09
 // ?rva003A178D@Team@@QAEHPAVObjectTypes@@HPAV1@@Z
 // partial score=0.97113 date=2026-10-08
-// cl: /O1 /G7 /arch:SSE /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /Ireference/shims/bfmealloc /Ireference/shims/moduledata
+// cl: /I. /O1 /G7 /arch:SSE /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /Ireference/shims/bfmealloc /Ireference/shims/moduledata
 // stlport
 
 // ?getControllingPlayer@Team@@QBEPAVPlayer@@XZ, retail 0x0039D7CF (12 bytes).
@@ -105,8 +109,8 @@
 #include <hash_map>
 #include "ascii_string.h"
 #include "Common/Snapshot.h"
-#include "../../../Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
-#include "../../../Code/Libraries/Include/Lib/Coord3D.h"
+#include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
+#include "Code/Libraries/Include/Lib/Coord3D.h"
 
 typedef bool Bool;
 typedef float Real;
@@ -169,12 +173,12 @@ public:
 
 class ThingTemplate;
 
-class Rva002D06CA
+class ThingFactory
 {
 public:
-	void *rva002D06CA(const AsciiString *key);
+	const ThingTemplate *findTemplate(const AsciiString &key);
 };
-extern Rva002D06CA *TheThingFactory;
+extern ThingFactory *TheThingFactory;
 
 enum KindOfType { KINDOF_HORDE = 109, KINDOF_COMBO_HORDE = 110 };
 class ThingTemplate
@@ -840,8 +844,8 @@ Object *Team::tryToRecruit(const ThingTemplate *tTemplate, const Coord3D *teamHo
 		if (hd == NULL)
 			continue;
 		if (hd->getNameCount() > 1) {
-			t0 = (const ThingTemplate *)TheThingFactory->rva002D06CA(hd->getName(0));
-			t1 = (const ThingTemplate *)TheThingFactory->rva002D06CA(hd->getName(1));
+			t0 = (const ThingTemplate *)TheThingFactory->findTemplate(*(hd->getName(0)));
+			t1 = (const ThingTemplate *)TheThingFactory->findTemplate(*(hd->getName(1)));
 			if (t0 && t1)
 				isHorde = true;
 			else
@@ -1054,13 +1058,14 @@ int Team::rva003A178D(ObjectTypes *types, int maxCount, Team *srcTeam)
 	for (unsigned int i = 0; i < types->getListSize(); ++i)
 	{
 		AsciiString typeName = types->getNthInList(i);
-		const ThingTemplate *thing = (const ThingTemplate *)TheThingFactory->rva002D06CA(&typeName);
+		const ThingTemplate *thing = (const ThingTemplate *)TheThingFactory->findTemplate(*(&typeName));
 		if (thing && thing->isKindOf(KINDOF_COMBO_HORDE))
 		{
 			const ModuleInfo &mi = thing->getBehaviorModuleInfo();
 			int numModules = mi.getCount();
 			for (int j = 0; j < numModules; j++)
 			{
+ (this?_ReadWriteBarrier():_ReadWriteBarrier());
 				const ModuleData *md = mi.getNthData(j);
 				if (md == NULL)
 					continue;
@@ -1069,8 +1074,8 @@ int Team::rva003A178D(ObjectTypes *types, int maxCount, Team *srcTeam)
 					continue;
 				if (hd->getNameCount() > 1)
 				{
-					const ThingTemplate *firstTemplate = (const ThingTemplate *)TheThingFactory->rva002D06CA(hd->getName(0));
-					const ThingTemplate *secondTemplate = (const ThingTemplate *)TheThingFactory->rva002D06CA(hd->getName(1));
+					const ThingTemplate *firstTemplate = (const ThingTemplate *)TheThingFactory->findTemplate(*(hd->getName(0)));
+					const ThingTemplate *secondTemplate = (const ThingTemplate *)TheThingFactory->findTemplate(*(hd->getName(1)));
 					if (firstTemplate && secondTemplate)
 					{
 						Bool recruited;
