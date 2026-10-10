@@ -13,7 +13,7 @@ extern int g_bfmeAptBreakOnAssertAtDDC01C;
 extern void *(__cdecl *g_bfmeAptAllocAtE17728)(unsigned int);
 class BfmeAptValue006DCD20;extern BfmeAptValue006DCD20 *g_aptUndefinedAtE18078;
 class Rva006DB160 {public:void*allocBlock(int);};class Rva006DB270 {public:void freeBlock(void*,int);};extern Rva006DB270*g_pChainBlockAllocator;
-inline void Rva006D8680Free(void*p,int size){((Rva006DB270*)g_pChainBlockAllocator)->freeBlock(p,size);}void*Rva006CD440Alloc(int);void Rva006CD460Free(void*);inline void Rva006E31F0Free(void*p){Rva006CD460Free(p);}
+inline void Rva006D8680Free(void*p,int size){((Rva006DB270*)g_pChainBlockAllocator)->freeBlock(p,size);}void*Rva006CD440Alloc(int);void Rva006CD460Free(void*);static __forceinline void Rva006E31F0Free(void*p){Rva006CD460Free(p);}
 class Rva006E3BF0{public:void rva006E3BF0();};
 class Rva006E4F10 {unsigned short count,capacity;void**array;
 public:Rva006E4F10(int n){capacity=(unsigned short)n;array=(void**)((Rva006DB160*)g_pChainBlockAllocator)->allocBlock(capacity*4);count=0;memset(array,0,capacity*4);}
