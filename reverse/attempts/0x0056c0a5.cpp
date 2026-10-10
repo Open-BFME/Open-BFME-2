@@ -1,4 +1,6 @@
 // ?rva0056C0A5@CellGrid@@QAEIABUCellPoint@@@Z
+// partial score=0.96 date=2026-10-10
+// ?rva0056C0A5@CellGrid@@QAEIABUCellPoint@@@Z
 // partial score=0.96 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /MD /DNDEBUG
 struct CellPoint { float x, y; };

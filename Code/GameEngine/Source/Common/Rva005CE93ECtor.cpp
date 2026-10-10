@@ -1,6 +1,8 @@
 // cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc
 // Native 5CE93E..5CE9B4: primary +0, vbptr +4, base payload +8,
 // derived pointer +C, Rva0007DF07 virtual base +10 and count +14.
+// The native84B base destructor confirms the nonvirtual Rva005CC5E5
+// parent whose57B constructor establishes the same vbptr/count layout.
 // The derived pointer is the third explicit argument's +14 field.
 class Rva0007DF07
 {
@@ -17,11 +19,12 @@ struct Rva005CE93EContext
 	void *source;
 };
 
-class Rva005CC698 : public virtual Rva0007DF07
+class Rva005CC5E5 : public virtual Rva0007DF07 {public:Rva005CC5E5() throw();virtual void slot0();virtual ~Rva005CC5E5(){}};
+
+class Rva005CC698 : public Rva005CC5E5
 {
 public:
 	Rva005CC698(void *, void *, Rva005CE93EContext *);
-	virtual void slot0();
 	virtual ~Rva005CC698();
 private:
 	void *payload;
