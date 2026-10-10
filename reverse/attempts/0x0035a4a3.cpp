@@ -1,11 +1,13 @@
 // ?isCellClaimable@TerrainResourceManager@@QAE_NHHHH_NH@Z
+// partial score=0.94 date=2026-10-10
+// ?isCellClaimable@TerrainResourceManager@@QAE_NHHHH_NH@Z
 // partial score=0.94 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 #include <vector>
-#include "../Code/Libraries/Include/Lib/Coord3D.h"
-#include "../Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
-#include "../Code/GameEngine/Source/Common/PartitionRangeQueryCallView.h"
+#include "../../Code/Libraries/Include/Lib/Coord3D.h"
+#include "../../Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
+#include "../../Code/GameEngine/Source/Common/PartitionRangeQueryCallView.h"
 class Object {public: CellShroudStatus getShroudStatusForPlayer(int) const;};
 extern GameLogic *TheGameLogic;
 extern PartitionManager *TheShroudManager;
