@@ -114,6 +114,15 @@ private:
 
 #define REF_PTR_RELEASE(x)		{ if (x) x->Release_Ref(); x = 0; }
 
+// Zero Hour shader.h's SHADE_CNST field packing (SHIFT_DEPTHCOMPARE 0, DEPTHMASK 3, COLORMASK 4,
+// DSTBLEND 5, FOG 8, PRIGRADIENT 10, SECGRADIENT 13, SRCBLEND 14, TEXTURING 16, ALPHATEST 18,
+// CULLMODE 19, POSTDETAILCOLORFUNC 20, POSTDETAILALPHAFUNC 24). The shader words below are field
+// packings, not image addresses.
+#define BFME_SHADE_CNST(depth_compare, depth_mask, color_mask, src_blend, dst_blend, fog, pri_grad, sec_grad, texture, alpha_test, cullmode, post_det_color, post_det_alpha) \
+	(	(depth_compare) << 0 | (depth_mask) << 3 | (color_mask) << 4 | (dst_blend) << 5 | (fog) << 8 | \
+		(pri_grad) << 10 | (sec_grad) << 13 | (src_blend) << 14 | (texture) << 16 | \
+		(alpha_test) << 18 | (cullmode) << 19 | (post_det_color) << 20 | (post_det_alpha) << 24)
+
 class ShaderClass
 {
 public:
@@ -129,8 +138,14 @@ protected:
 	static bool ShaderDirty;	// ?ShaderDirty@ShaderClass@@1_NA (ShaderClassApply.cpp)
 };
 
-// The shader presets the stencil passes use, an unnamed ShaderClass table.
-extern ShaderClass g_00DB5E98;
+// BFME 2's stencil-pass shaders: this unit's initialised .data at VA 0x00DB5ED8, 0x00DB5EDC and
+// 0x00DB5EE0 (retail words 0x00150023, 0x00155813, 0x005598B3; the 0x00DB5E98 ledger entry spans
+// another unit's shader word and header-static name tables -- NONE/HOLD/KILL/SPAWN,
+// NONE/CATAPULT_ROCK/TREBUCHET_ROCK, NONE/FRONT_DESTROYED.. -- before and after them).
+// Names describe their use in flushDecals (structural, not retail spellings).
+ShaderClass BfmeShadowStencilWriteShader(BFME_SHADE_CNST(3, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1, 0));
+ShaderClass BfmeShadowStencilTestShader(BFME_SHADE_CNST(3, 0, 1, 1, 0, 0, 6, 0, 1, 1, 0, 1, 0));
+ShaderClass BfmeShadowStencilAlphaTestShader(BFME_SHADE_CNST(3, 0, 1, 2, 5, 0, 6, 0, 1, 1, 0, 5, 0));
 
 class TextureBaseClass
 {
@@ -320,18 +335,18 @@ void W3DProjectedShadowManager::flushDecals(ShadowType type, W3DShadowTexture *t
 		{
 			case SHADOW_DECAL:
 				DX8Wrapper::Set_Texture(1, reinterpret_cast<Rva001085B4 *>(texture2)->rva001085B4());
-				DX8Wrapper::Set_Shader(ShaderClass(0x511853));
+				DX8Wrapper::Set_Shader(ShaderClass(BFME_SHADE_CNST(3, 0, 1, 0, 2, 0, 6, 0, 1, 0, 0, 5, 0)));
 				break;
 			case SHADOW_ALPHA_DECAL:
 			case SHADOW_BFME_0400:
 			case SHADOW_BFME_2000:
 				DX8Wrapper::Set_Texture(1, reinterpret_cast<Rva001085B4 *>(texture2)->rva001085B4());
-				DX8Wrapper::Set_Shader(ShaderClass(0x5198B3));
+				DX8Wrapper::Set_Shader(ShaderClass(BFME_SHADE_CNST(3, 0, 1, 2, 5, 0, 6, 0, 1, 0, 0, 5, 0)));
 				break;
 			case SHADOW_ADDITIVE_DECAL:
 			case SHADOW_BFME_0800:
 				DX8Wrapper::Set_Texture(1, reinterpret_cast<Rva001085B4 *>(texture2)->rva001085B4());
-				DX8Wrapper::Set_Shader(ShaderClass(0x515833));
+				DX8Wrapper::Set_Shader(ShaderClass(BFME_SHADE_CNST(3, 0, 1, 1, 1, 0, 6, 0, 1, 0, 0, 5, 0)));
 				break;
 		}
 	}
@@ -363,7 +378,7 @@ void W3DProjectedShadowManager::flushDecals(ShadowType type, W3DShadowTexture *t
 				DX8Wrapper::Set_DX8_Render_State(D3DRS_STENCILFUNC, D3DCMP_NOTEQUAL);
 				DX8Wrapper::Set_DX8_Render_State(D3DRS_STENCILPASS, D3DSTENCILOP_REPLACE);
 				DX8Wrapper::Set_Texture(1, 0);
-				DX8Wrapper::Set_Shader((&g_00DB5E98)[18]);
+				DX8Wrapper::Set_Shader(BfmeShadowStencilAlphaTestShader);
 				DX8Wrapper::Apply_Render_State_Changes();
 				DX8Wrapper::Set_DX8_Render_State(D3DRS_ALPHAFUNC, D3DCMP_GREATEREQUAL);
 				Int alphaRef = (Int)(TheWritableGlobalData->m_9A8 * 255.0f);
@@ -379,7 +394,7 @@ void W3DProjectedShadowManager::flushDecals(ShadowType type, W3DShadowTexture *t
 				DX8Wrapper::Set_DX8_Render_State(D3DRS_STENCILPASS, D3DSTENCILOP_REPLACE);
 				DX8Wrapper::Set_Texture(0, reinterpret_cast<Rva001085B4 *>(texture2)->rva001085B4());
 				DX8Wrapper::Set_Texture(1, 0);
-				DX8Wrapper::Set_Shader((&g_00DB5E98)[16]);
+				DX8Wrapper::Set_Shader(BfmeShadowStencilWriteShader);
 				shaderSet = true;
 			}
 			else if (stencilMode == 1)
@@ -387,13 +402,13 @@ void W3DProjectedShadowManager::flushDecals(ShadowType type, W3DShadowTexture *t
 				DX8Wrapper::Set_DX8_Render_State(D3DRS_STENCILFUNC, D3DCMP_NOTEQUAL);
 				DX8Wrapper::Set_DX8_Render_State(D3DRS_STENCILPASS, D3DSTENCILOP_KEEP);
 				DX8Wrapper::Set_Texture(1, 0);
-				DX8Wrapper::Set_Shader((&g_00DB5E98)[17]);
+				DX8Wrapper::Set_Shader(BfmeShadowStencilTestShader);
 			}
 		}
 		else
 		{
 			DX8Wrapper::Set_Texture(1, 0);
-			DX8Wrapper::Set_Shader((&g_00DB5E98)[17]);
+			DX8Wrapper::Set_Shader(BfmeShadowStencilTestShader);
 		}
 	}
 

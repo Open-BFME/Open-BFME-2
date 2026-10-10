@@ -13,12 +13,17 @@ extern int g_bfmeAptBreakOnAssertAtDDC01C;
 
 class AptCIH;
 class EAStringC;
+class Rva006DBB30SarDwordField
+{
+public:
+    int get() const;
+};
+
 class AptValue
 {
 public:
     AptCIH *c_cih(bool bUndefinedOK);
     bool isCIH(bool bUndefinedOK) const;
-    int getVtblIndex() const;
     bool isUndefined() const;
     float toFloat() const;
     int toInteger() const;
@@ -97,7 +102,9 @@ static __forceinline bool rva006EEIsDefinedMovieClip(AptCIH *cih)
             __asm int 3
     }
     const AptValue *value = (const AptValue *)cih;
-    return value->getVtblIndex() == 0x12 && !value->isUndefined();
+    // AptValue::getVtblIndex (donor identity, pinned at 0x006DBB30) is rowed as
+    // Rva006DBB30SarDwordField::get; call it by the ledger's name.
+    return ((const Rva006DBB30SarDwordField *)value)->get() == 0x12 && !value->isUndefined();
 }
 
 // ?rva006ee3b0@@YAPAVAptValue@@PAV1@@Z @0x006EE3B0, 393B.

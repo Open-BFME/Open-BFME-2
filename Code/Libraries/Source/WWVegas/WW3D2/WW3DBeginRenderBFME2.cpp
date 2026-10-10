@@ -42,10 +42,13 @@ public:
 };
 
 class WW3D;
+struct IDirect3DDevice8;
 class DX8Wrapper
 {
  friend class WW3D;
- protected:
+ // BFME 2's body is the private ?Get_Render_Target_Resolution@DX8Wrapper@@CAXAAH00AA_N@Z
+ // (0x00121860, WW3D_Get_Render_Target_Resolution.cpp); dx8wrapper.cpp's protected copy is Zero Hour's.
+ private:
  static void Get_Render_Target_Resolution(int &,int &,int &,bool &);
 public:
 	static bool Reset_Device(bool force);
@@ -55,7 +58,9 @@ public:
 		float z, UnsignedInt stencil);
 	static void Begin_Scene_Inner(void);
 
-	static void *D3DDevice;
+protected:
+	// dx8wrapper.cpp: ?D3DDevice@DX8Wrapper@@1PAUIDirect3DDevice8@@A.
+	static IDirect3DDevice8 *D3DDevice;
 };
 
 class DynamicVBAccessClass
@@ -83,11 +88,11 @@ public:
 	static void Update_Movie_Capture(void);
 	static bool rva00118170(bool, bool, const Vector3 &, float);
 
+private:
+	// ww3d.cpp defines these private (?IsInitted@WW3D@@0_NA, ...).
 	static bool IsInitted;
 	static bool IsRendering;
 	static bool IsCapturing;
-
-private:
 	static bool PauseRecord;
 	static bool RecordNextFrame;
 };

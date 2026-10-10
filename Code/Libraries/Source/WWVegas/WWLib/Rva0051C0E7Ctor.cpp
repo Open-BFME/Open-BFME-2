@@ -79,7 +79,7 @@ void Rva0051C241Fill(Rva0051C0E7 *obj)
 	PlayerListMid0051C241 *mid = pl->m_10;
 	if (!mid)
 		return;
-	obj->m_00.set(mid->m_58);
+	obj->m_00.setCopyInline(mid->m_58);
 	if (!g_00E031E8)
 		return;
 	obj->m_04 = 0;
@@ -95,7 +95,7 @@ void Rva0051C241Fill(Rva0051C0E7 *obj)
 		unsigned char f = vec->rva004268F6(i);
 		obj->m_28[obj->m_04] = (char)f;
 		void *p = vec->rva004267E9(i);
-		obj->m_08[obj->m_04].set(*(AsciiString *)p);
+		obj->m_08[obj->m_04].setCopyInline(*(AsciiString *)p);
 		obj->m_04++;
 	}
 }

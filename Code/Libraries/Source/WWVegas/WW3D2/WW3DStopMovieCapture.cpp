@@ -6,8 +6,10 @@
 // the target virtual destructor call with flags0, then frees its result.
 class FrameGrabClass { public: virtual ~FrameGrabClass(); };
 class StaticSortListClass { public: virtual ~StaticSortListClass(); };
-class WW3D { public: static bool IsCapturing; static bool IsInitted; static bool Lite;
-    static FrameGrabClass *Movie; static StaticSortListClass *DefaultStaticSortLists;
+// ww3d.cpp defines WW3D's statics private (?IsCapturing@WW3D@@0_NA, ...); spell them so.
+class WW3D { static bool IsCapturing;
+public:
+    static FrameGrabClass *Movie;
     static void Stop_Movie_Capture(); };
 void __cdecl operator delete(void *);
 void WW3D::Stop_Movie_Capture()

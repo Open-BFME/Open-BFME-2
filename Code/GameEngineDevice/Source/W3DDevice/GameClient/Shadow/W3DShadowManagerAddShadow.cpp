@@ -65,7 +65,9 @@ class Rva00108660ResourceManager;
 
 extern W3DVolumetricShadowManager *TheW3DVolumetricShadowManager;
 extern Rva00108660ResourceManager *Rva00DEC2D8Manager;
-extern W3DVolumetricShadowManagerV2 *TheW3DShadowHelperManager;
+// VA 0x00DEC2CC is defined once, as W3DShadowManagerReAcquire.cpp's TheW3DProjectedShadowManager
+// (the data ledger's name there); this unit calls the V2 manager's rva0010837F through it.
+extern W3DProjectedShadowManager *TheW3DProjectedShadowManager;
 
 class GlobalData
 {
@@ -125,8 +127,8 @@ Shadow *W3DShadowManager::addShadow(RenderObjClass *robj, Shadow::ShadowTypeInfo
 			return (Shadow *)((W3DProjectedShadowManager *)Rva00DEC2D8Manager)->addShadow(robj, shadowInfo, draw);
 		break;
 	case 4:
-		if (TheW3DShadowHelperManager)
-			return (Shadow *)TheW3DShadowHelperManager->rva0010837F(robj, shadowInfo, draw);
+		if (TheW3DProjectedShadowManager)
+			return (Shadow *)((W3DVolumetricShadowManagerV2 *)TheW3DProjectedShadowManager)->rva0010837F(robj, shadowInfo, draw);
 		break;
 	default:
 		return 0;

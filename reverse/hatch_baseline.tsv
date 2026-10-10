@@ -5051,8 +5051,6 @@ alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/ScreenFilterRva0
 alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/ScreenFilterRva007D85C0Set.cpp	?ScreenStateChanges@@3IA	1
 alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/ScreenFilterRva007D85C0Set.cpp	?bfmeApplyRenderState@@3UBfmeApplyRenderState@@A	1
 alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/ScreenFilterRva007D85C0Set.cpp	?g_bfmeDoneTDB@@3DA	1
-alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/BfmeVolumetricShadowBufferDraw.cpp	?CurrentCaps@DX8Wrapper@@2PAVDX8Caps@@A	1
-alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/BfmeVolumetricShadowBufferDraw.cpp	?D3DDevice@DX8Wrapper@@2PAUIDirect3DDevice8@@A	1
 alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringDtor.cpp	?pad02@DisplayString@@UAEXXZ	1
 alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFileSystem.cpp	_strcat	1
 alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFileSystem.cpp	_strcpy	1
@@ -5141,7 +5139,6 @@ alternatename	Code/Libraries/Source/Apt/AptDateSetters.cpp	?g_Rva013379BC@@3PAVR
 alternatename	Code/Libraries/Source/Apt/AptDateSetters.cpp	?g_Va00E18078@@3HA	1
 alternatename	Code/Libraries/Source/Apt/AptDateSetters.cpp	?gpUndefinedValue@@3PAVAptValue@@A	2
 alternatename	Code/Libraries/Source/Apt/AptDisplayListRemoveClone.cpp	?findInst@AptDisplayListState@@QAEXHPBVEAStringC@@PAPAVAptCIH@@1@Z	1
-alternatename	Code/Libraries/Source/Apt/AptDisplayListRemoveClone.cpp	?removeObject@AptDisplayList@@QAEXPAVAptCIH@@@Z	1
 alternatename	Code/Libraries/Source/Apt/AptMathClipStack.cpp	?rva006dffa0@@YAXXZ	1
 alternatename	Code/Libraries/Source/Apt/AptMovieFrameControls.cpp	??0AptPseudoCIH_t@@QAE@PAUAptControl@@HHPAUAptCharacter@@@Z	1
 alternatename	Code/Libraries/Source/Apt/AptMovieFrameControls.cpp	??3AptPseudoCIH_t@@SAXPAXI@Z	1

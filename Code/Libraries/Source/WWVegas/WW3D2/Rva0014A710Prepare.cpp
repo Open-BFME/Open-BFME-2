@@ -6,7 +6,10 @@
 // it changes the rounding-control word, beyond ordinary C++ cast codegen.
 struct Vector3 {float X,Y,Z; Vector3(){} Vector3(const Vector3& v):X(v.X),Y(v.Y),Z(v.Z){} };
 class LightEnvironmentClass;
-class DX8Wrapper {public:static void Set_Light_Environment(LightEnvironmentClass*);static bool FogEnable;static unsigned long FogColor;};
+// dx8wrapper.cpp defines FogEnable/FogColor protected (?FogEnable@DX8Wrapper@@1_NA, ?FogColor@DX8Wrapper@@1KA).
+class DX8Wrapper {friend class Rva0014A710;friend void Pack_Ambient_Color(const Vector3&,float);
+public:static void Set_Light_Environment(LightEnvironmentClass*);
+protected:static bool FogEnable;static unsigned long FogColor;};
 extern int g_rva009f36ac,g_rva009f36b0,G00DEDA78;
 struct Rva00174753ReleaseView { virtual void *releaseInstance(unsigned)=0; unsigned unmodelled04; float scalar08; };
 // Target nullable context with one observed scalar at +8; original type unknown.

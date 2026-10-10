@@ -19,11 +19,15 @@ public:
 	unsigned short Refs;
 };
 
-class TextureHolder
+// The texture member's destructor is the rowed RefCountPtr<TextureClass> destructor
+// (0x0017098D); this TU-local view spells that class so the unwind funclet calls it by name.
+class TextureClass;
+template<class T>
+class RefCountPtr
 {
 public:
-	TextureHolder(TextureBaseClass *p) : Ptr(p) {}
-	~TextureHolder();
+	RefCountPtr(TextureBaseClass *p) : Ptr(p) {}
+	~RefCountPtr();
 	TextureBaseClass *Ptr;
 };
 
@@ -59,7 +63,7 @@ public:
 	SegLineRendererClass &operator=(const SegLineRendererClass &that);
 
 private:
-	TextureHolder Texture;			// +0x00
+	RefCountPtr<TextureClass> Texture;	// +0x00
 	ShaderClass Shader;				// +0x04
 	float Width;					// +0x08
 	Vector3 Color;					// +0x0C

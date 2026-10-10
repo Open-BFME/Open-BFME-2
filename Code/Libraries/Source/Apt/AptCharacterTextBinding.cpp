@@ -39,10 +39,17 @@ __declspec(noinline) inline EAStringC::EAStringC()
  data = &g_eaEmptyStringData;
  ++data->m_uRefCount;
 }
+// AptValue::getVtblIndex (donor identity, pinned at 0x006DBB30) is rowed as
+// Rva006DBB30SarDwordField::get; the loops below call it by the ledger's name.
+class Rva006DBB30SarDwordField
+{
+public:
+ int get() const;
+};
+
 class AptValue {
 public:
  bool isUndefined()const;
- int getVtblIndex()const;
  void toString(EAStringC&)const;
  char unknown00[0x48];
  AptValue *parent;
@@ -69,7 +76,7 @@ void Rva006EBFF0::rva006EBE60(AptValue *parent)
 {
  if(variable.IsEmpty())return;
  if(variable.rva00620090()[0]=='$'){text=variable;return;}
- while(parent && !(!parent->isUndefined() && (parent->getVtblIndex()==13||parent->getVtblIndex()==18)) && parent->parent){parent=parent->parent;}
+ while(parent && !(!parent->isUndefined() && (((const Rva006DBB30SarDwordField *)parent)->get()==13||((const Rva006DBB30SarDwordField *)parent)->get()==18)) && parent->parent){parent=parent->parent;}
  AptValue *value=g_aptDateInterpreter.getVariable(parent,0,&variable,1,1,0);
  if(value->isUndefined()){
   AptString *created=AptString::Create();
@@ -83,7 +90,7 @@ void Rva006EBFF0::rva006EBFF0(AptValue *parent)
 {
  if(variable.IsEmpty()||variable.rva00620090()[0]=='$')return;
  EAStringC result;
- while(parent && !(!parent->isUndefined() && (parent->getVtblIndex()==13||parent->getVtblIndex()==18)) && parent->parent){parent=parent->parent;}
+ while(parent && !(!parent->isUndefined() && (((const Rva006DBB30SarDwordField *)parent)->get()==13||((const Rva006DBB30SarDwordField *)parent)->get()==18)) && parent->parent){parent=parent->parent;}
  AptValue *value=g_aptDateInterpreter.getVariable(parent,0,&variable,1,1,0);
  if(!value){g_bfmeAptAssertAtE17734("pValue != NULL","C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptCharacter.cpp",351);if(g_bfmeAptBreakOnAssertAtDDC01C){__asm int 3}}
  if(value->isUndefined()){

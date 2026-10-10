@@ -28,10 +28,12 @@ public:
 	void *m_file;
 	void *m_stream;
 };
+// ww3d.cpp defines WW3D's statics private (?IsCapturing@WW3D@@0_NA, ...); spell them so.
 class WW3D
 {
-public:
+	friend void Rva00118530Start(const char *, float, int, bool);
 	static bool IsCapturing;
+public:
 	static FrameGrabClass *Movie;
 	static void Stop_Movie_Capture();
 private:

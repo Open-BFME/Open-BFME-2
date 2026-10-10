@@ -41,7 +41,7 @@ public:
 private:
 	static bool IsInitted;
 	static bool IsRendering;
-	static unsigned int FrameCount;
+	static int FrameCount;	// ww3d.cpp: ?FrameCount@WW3D@@0HA
 	static bool SnapshotActivated;
 };
 

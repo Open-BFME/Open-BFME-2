@@ -3,7 +3,8 @@
 // at +0x0C through the .data sized-free pointer, then walks the nodes at +0x04
 // freeing each through the .data free pointer. Address-derived names.
 extern void (__cdecl *g_Va00E17730)(void *storage, unsigned int size);
-extern void (__cdecl *g_Va00E1772C)(void *node);
+// VA 0x00E1772C is Apt.cpp's g_aptFreeCallback (gAptFuncs.pfnMemFree).
+extern void (__cdecl *g_aptFreeCallback)(void *node);
 struct Rva006DAFA0Node
 {
 	Rva006DAFA0Node *m_next;
@@ -23,7 +24,7 @@ void Rva006DAFA0Walk::rva006DAFA0(void)
 	Rva006DAFA0Node *node = m_nodes;
 	for (;;) {
 		Rva006DAFA0Node *next = node->m_next;
-		g_Va00E1772C(node);
+		g_aptFreeCallback(node);
 		node = next;
 		if (next == 0)
 			break;

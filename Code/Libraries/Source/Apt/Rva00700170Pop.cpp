@@ -1,9 +1,9 @@
 // cl: /O2 /DNDEBUG /MD /EHsc
 // Native [0x700170,0x7002B9),327B, thiscall with two stack arguments (ret 8): asserts
 // the stack is non-empty, takes the top value, converts a string value through
-// rva006FFD80, pushes the undefined value, then walks the native hash chain and
+// getVariable (0x006FFD80), pushes the undefined value, then walks the native hash chain and
 // copies each unseen string into a new AptString pushed on this stack.
-// Callees match the ledger's exact names; only rva006FFD80 is address-derived.
+// Callees match the ledger's exact names.
 extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *, const char *, int);
 extern int g_bfmeAptBreakOnAssertAtDDC01C;
 extern class BfmeAptValue006DCD20 *g_aptUndefinedAtE18078;
@@ -46,13 +46,18 @@ public:
 	int isString(void) const;
 	BfmeAptValue006DCD20 *checkedString(void);
 };
+class AptValue;
+class AptActionInterpreter
+{
+public:
+	AptValue *getVariable(AptValue *, AptValue *, const EAStringC *, int, int, int);
+};
 class AptBasePtrStack
 {
 public:
 	void rva00700170(void *a1, void *a2);
 	void Push(BfmeAptValue006DCD20 *v);
 	void rva006FE7B0(BfmeAptValue006DCD20 *v);
-	BfmeAptValue006DCD20 *rva006FFD80(void *a, void *b, void *c, int d, int e, int f);
 private:
 	int m_0;
 	char pad04[4];
@@ -68,7 +73,8 @@ void AptBasePtrStack::rva00700170(void *a1, void *a2)
 	BfmeAptValue006DCD20 *v = m_8[m_0 - 1];
 	if ((char)v->isString() != 0) {
 		BfmeAptValue006DCD20 *s = v->checkedString();
-		v = rva006FFD80(a1, a2, (char *)s + 8, 1, 1, 0);
+		// 0x006FFD80 is rowed as AptActionInterpreter::getVariable; retail calls it on this stack.
+		v = (BfmeAptValue006DCD20 *)((AptActionInterpreter *)this)->getVariable((AptValue *)a1, (AptValue *)a2, (const EAStringC *)((char *)s + 8), 1, 1, 0);
 	}
 	if (m_0 <= 0) {
 		g_bfmeAptAssertAtE17734("false && \"[APT] Error, Popping from Stack with 0 elements. Please contact the Apt Team for Support.\"", "c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\_AptBasePtrStack.h", 0xbf);

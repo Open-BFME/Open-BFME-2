@@ -23,8 +23,27 @@ public:
 
 void __cdecl operator delete(void *block);
 
-class ShaderClass;
-extern ShaderClass g_00DB5E98;
+// Zero Hour shader.h's SHADE_CNST field packing (SHIFT_DEPTHCOMPARE 0, DEPTHMASK 3, COLORMASK 4,
+// DSTBLEND 5, FOG 8, PRIGRADIENT 10, SECGRADIENT 13, SRCBLEND 14, TEXTURING 16, ALPHATEST 18,
+// CULLMODE 19, POSTDETAILCOLORFUNC 20, POSTDETAILALPHAFUNC 24).
+#define BFME_SHADE_CNST(depth_compare, depth_mask, color_mask, src_blend, dst_blend, fog, pri_grad, sec_grad, texture, alpha_test, cullmode, post_det_color, post_det_alpha) \
+	(	(depth_compare) << 0 | (depth_mask) << 3 | (color_mask) << 4 | (dst_blend) << 5 | (fog) << 8 | \
+		(pri_grad) << 10 | (sec_grad) << 13 | (src_blend) << 14 | (texture) << 16 | \
+		(alpha_test) << 18 | (cullmode) << 19 | (post_det_color) << 20 | (post_det_alpha) << 24)
+
+class ShaderClass
+{
+public:
+	ShaderClass(unsigned int bits) : ShaderBits(bits) {}
+	unsigned int ShaderBits;
+};
+
+// The shader drawAndRelease reports to Debug_Statistics: this unit's initialised .data word at
+// VA 0x00DB5E98 (retail 0x00101823 = LEQUAL, no depth/colour writes, dst ONE, primary gradient 6,
+// post-detail colour 1). It follows this unit's copies of the header-static name tables
+// (NONE/HOLD/KILL/SPAWN, NONE/CATAPULT_ROCK/TREBUCHET_ROCK, NONE/FRONT_DESTROYED..).
+// Structural name, not a retail spelling.
+ShaderClass BfmeShadowVolumeStatsShader(BFME_SHADE_CNST(3, 0, 0, 0, 1, 0, 6, 0, 0, 0, 0, 1, 0));
 
 namespace Debug_Statistics
 {
@@ -39,10 +58,15 @@ public:
 };
 
 struct IDirect3DDevice8;
+class W3DVolumetricShadowManagerV2;
 class DX8Wrapper
 {
+	friend class W3DVolumetricShadowManagerV2;
 public:
 	static void __cdecl Set_DX8_Render_State(unsigned long state, unsigned int value);
+protected:
+	// dx8wrapper.cpp defines both protected (CurrentCaps@DX8Wrapper@@1PAVDX8Caps@@A and
+	// D3DDevice@DX8Wrapper@@1PAUIDirect3DDevice8@@A).
 	static DX8Caps *CurrentCaps;
 	static IDirect3DDevice8 *D3DDevice;
 };
@@ -81,7 +105,7 @@ void W3DVolumetricShadowManagerV2::drawAndRelease(int frontFace)
 		return;
 	unsigned int polygonCount = (30000 - m_indexCapacity) / 3;
 	int vertexCount = 30000 - m_vertexCapacity;
-	Debug_Statistics::Record_DX8_Polys_And_Vertices(polygonCount * 2, vertexCount * 2, g_00DB5E98);
+	Debug_Statistics::Record_DX8_Polys_And_Vertices(polygonCount * 2, vertexCount * 2, BfmeShadowVolumeStatsShader);
 	IDirect3DDevice8 *device = DX8Wrapper::D3DDevice;
 	if (!(DX8Wrapper::CurrentCaps->m_caps & 0x100)) {
 		if (!frontFace) {
@@ -105,7 +129,3 @@ void W3DVolumetricShadowManagerV2::drawAndRelease(int frontFace)
 	}
 }
 
-// Retail's data references in this unit's matched rows land on globals defined
-// under other spellings at the same addresses (addend-corrected DIR32). Bind them.
-#pragma comment(linker, "/alternatename:?D3DDevice@DX8Wrapper@@2PAUIDirect3DDevice8@@A=?D3DDevice@DX8Wrapper@@1PAUIDirect3DDevice8@@A")
-#pragma comment(linker, "/alternatename:?CurrentCaps@DX8Wrapper@@2PAVDX8Caps@@A=?CurrentCaps@DX8Wrapper@@1PAVDX8Caps@@A")

@@ -9,9 +9,15 @@
 class FrameGrabClass { public: virtual ~FrameGrabClass(); };
 class StaticSortListClass { public: virtual ~StaticSortListClass(); };
 class RvaWW3DDestroySlot0 { public: virtual void *release(int); };
-class WW3D { public: static bool IsCapturing; static bool IsInitted; static bool Lite;
-    static FrameGrabClass *Movie; static StaticSortListClass *DefaultStaticSortLists;
+// ww3d.cpp defines WW3D's statics private (?IsCapturing@WW3D@@0_NA, ...); spell them so.
+// Lite and the default sort list live in WW3D_Init_Bfme.cpp's globals (g_WW3D_Lite at VA
+// 0x00DEC411 and g_WW3D_StaticSortGlobals.defaultList at 0x00DEC3F0), which the init path writes.
+class WW3D { friend bool shutdownRenderDevice(); static bool IsCapturing; static bool IsInitted;
+public:
     static void Stop_Movie_Capture(); };
+extern unsigned char g_WW3D_Lite;
+struct WW3DStaticSortGlobals { StaticSortListClass *defaultList; StaticSortListClass *currentList; };
+extern WW3DStaticSortGlobals g_WW3D_StaticSortGlobals;
 void __cdecl operator delete(void *);
 extern "C" __declspec(dllimport) unsigned int __stdcall timeEndPeriod(unsigned int);
 void BFME_DX8_Thread_Lock();
@@ -23,8 +29,8 @@ bool shutdownRenderDevice()
 {
     if (WW3D::IsCapturing) WW3D::Stop_Movie_Capture();
     timeEndPeriod(1);
-    if (!WW3D::Lite) { BfmeDeviceGuard guard; DX8Wrapper::Shutdown(); }
-    ::delete WW3D::DefaultStaticSortLists;
+    if (!g_WW3D_Lite) { BfmeDeviceGuard guard; DX8Wrapper::Shutdown(); }
+    ::delete g_WW3D_StaticSortGlobals.defaultList;
     WW3D::IsInitted=false;
     return true;
 }

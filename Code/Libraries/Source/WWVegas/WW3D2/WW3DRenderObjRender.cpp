@@ -107,6 +107,8 @@ class WW3D
 public:
 	static bool Render(RenderObjClass &obj, RenderInfoClass &rinfo);
 
+private:
+	// ww3d.cpp defines these private (?IsInitted@WW3D@@0_NA, ...).
 	static bool IsInitted;
 	static bool AreStaticSortListsEnabled;
 	static StaticSortListClass *CurrentStaticSortLists;

@@ -104,9 +104,8 @@ public:
 
 class WW3D
 {
-public:
-	
-
+	friend bool Rva001182A0(void *owner, RenderInfoClass &rinfo);
+	// ww3d.cpp defines these private (?IsInitted@WW3D@@0_NA, ...).
 	static bool IsInitted;
 	static bool AreStaticSortListsEnabled;
 	static StaticSortListClass *CurrentStaticSortLists;
