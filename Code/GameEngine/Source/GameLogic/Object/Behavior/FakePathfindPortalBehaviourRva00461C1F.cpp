@@ -1,8 +1,5 @@
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii /ICode/Libraries/Include/Lib
 // ?rva00461C1F@FakePathfindPortalBehaviour@@QAEXXZ
-// partial score=0.99 date=2026-10-09
-// ?rva00461C1F@FakePathfindPortalBehaviour@@QAEXXZ
-// partial score=0.96 date=2026-10-09
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
 //
 // ??1FakePathfindPortalBehaviour@@UAE@XZ, retail 0x004619F2, 84 bytes
 // (pinned; rowed deleting wrapper 0x00461C03). Stores
@@ -14,7 +11,7 @@
 // fourth and fifth vptrs land at +0x20/+0x24 (base layout as in
 // Rva0024A797Derived.cpp; members after +0x28 follow the rowed ctor).
 #include "ascii_string.h"
-#include "../../../../../Libraries/Include/Lib/Coord3D.h"
+#include "Coord3D.h"
 class Waypoint { public:
  Waypoint(unsigned,AsciiString,const Coord3D*,AsciiString,AsciiString,AsciiString,bool,int,AsciiString);
  virtual ~Waypoint();
@@ -162,8 +159,7 @@ Waypoint *FakePathfindPortalBehaviour::rva00461A46(const Coord3D *point)
  return wp;
 }
 
-extern "C" double __cdecl sin(double);
-extern "C" double __cdecl cos(double);
+#include <math.h>
 class TerrainLogic { public:
  virtual void slot0();virtual void slot1();virtual void slot2();
  virtual void slot3();virtual void slot4();virtual void slot5();
@@ -174,7 +170,6 @@ static float s_fakePortalWaypointMargin=10.0f; // native .data RVA9C972C; descri
 // Native primary entry461C1F..461DB5 is independently decoded and reached
 // from461DB5. Old no-boundary verdict used different bytes; current entry
 // begins PUSH EBP. Geometry provider/BFME1 proves six-float bounds output.
-// ?rva00461C1F@FakePathfindPortalBehaviour@@QAEXXZ present-unmatched
 void FakePathfindPortalBehaviour::rva00461C1F()
 {
  if(m_30) return;
@@ -194,7 +189,7 @@ void FakePathfindPortalBehaviour::rva00461C1F()
  };
  PortalVector offset(radius+s_fakePortalWaypointMargin,0.0f,0.0f);
  float sine;
- offset.rotate((sine=(float)sin(angle),(float)cos(angle)),sine);
+ offset.rotate((sine=sin(angle),cos(angle)),sine);
  struct PortalCoord : Coord3D { PortalCoord(const PortalVector &o) {x=o.x;y=o.y;z=o.z;} };
  PortalCoord point(offset);
  point.x+=m_owner->position.x;
